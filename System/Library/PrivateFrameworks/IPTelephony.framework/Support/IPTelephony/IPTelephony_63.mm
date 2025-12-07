@@ -155,7 +155,7 @@ void non-virtual thunk toanonymous namespace::CallEndEventImpl::~CallEndEventImp
   JUMPOUT(0x1E69235B0);
 }
 
-_BYTE *anonymous namespace::getDropOrSetupFailStatus(_BYTE *result, uint64_t a2, uint64_t a3)
+void *anonymous namespace::getDropOrSetupFailStatus(void *result, uint64_t a2, uint64_t a3)
 {
   if (a2)
   {
@@ -176,8 +176,8 @@ _BYTE *anonymous namespace::getDropOrSetupFailStatus(_BYTE *result, uint64_t a2,
   else
   {
     *result = 0;
-    *(result + 1) = 0;
-    *(result + 2) = 0;
+    result[1] = 0;
+    result[2] = 0;
   }
 
   return result;
@@ -1729,7 +1729,7 @@ LABEL_37:
     __p.__r_.__value_.__s.__data_[0] = 34;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, &__p, 1);
     *(a2 + 17) = 0;
-    ims::CFString::asString(this, 0x8000100, &__p);
+    ims::CFString::asString(&__p, this, 0x8000100);
     (*(*a2 + 32))(a2, &__p);
     v10 = a2[1];
     __b.__r_.__value_.__s.__data_[0] = 34;
@@ -1780,7 +1780,7 @@ LABEL_37:
   {
     theArray = this;
     CFRetain(this);
-    v31 = &unk_1F5EC8AD0;
+    v30 = &unk_1F5EC8AD0;
     v22 = a2[1];
     __p.__r_.__value_.__s.__data_[0] = 91;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, &__p, 1);
@@ -1795,7 +1795,7 @@ LABEL_37:
         for (i = 0; i != Count; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-          ims::CFType::shortLog(ValueAtIndex, a2, (v5 + 4), 1, v26);
+          ims::CFType::shortLog(ValueAtIndex, a2, (v5 + 4), 1);
         }
       }
     }
@@ -1803,16 +1803,16 @@ LABEL_37:
     std::string::basic_string[abi:ne200100](&__b, v5, 32);
     LoggableString::LoggableString(&__p, &__b);
     (*(*a2 + 40))(a2, &__p);
-    v27 = a2[1];
-    v35 = 93;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, &v35, 1);
+    v26 = a2[1];
+    v34 = 93;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, &v34, 1);
     *(a2 + 17) = 0;
     (*(*a2 + 64))(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     goto LABEL_47;
   }
 
-  v28 = CFGetTypeID(this);
-  if (v28 != CFDictionaryGetTypeID())
+  v27 = CFGetTypeID(this);
+  if (v27 != CFDictionaryGetTypeID())
   {
 LABEL_11:
     if (a4)
@@ -1839,20 +1839,20 @@ LABEL_11:
 
   theArray = this;
   CFRetain(this);
-  v31 = &unk_1F5EF3760;
-  v29 = a2[1];
+  v30 = &unk_1F5EF3760;
+  v28 = a2[1];
   __p.__r_.__value_.__s.__data_[0] = 123;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, &__p, 1);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, &__p, 1);
   *(a2 + 17) = 0;
   (*(*a2 + 64))(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
   *(a2 + 17) = 0;
-  ims::CFDictionary::shortLog(&v31, a2, (v5 + 4), 1);
+  ims::CFDictionary::shortLog(&v30, a2, (v5 + 4), 1);
   std::string::basic_string[abi:ne200100](&__b, v5, 32);
   LoggableString::LoggableString(&__p, &__b);
   (*(*a2 + 40))(a2, &__p);
-  v30 = a2[1];
-  v35 = 125;
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, &v35, 1);
+  v29 = a2[1];
+  v34 = 125;
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, &v34, 1);
   *(a2 + 17) = 0;
   (*(*a2 + 64))(a2, std::endl[abi:ne200100]<char,std::char_traits<char>>);
 LABEL_47:
@@ -1867,10 +1867,10 @@ LABEL_47:
     operator delete(__b.__r_.__value_.__l.__data_);
   }
 
-  ims::CFType::~CFType(&v31);
+  ims::CFType::~CFType(&v30);
 }
 
-void sub_1E50DCC8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
+void sub_1E50DCC8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
 {
   if (a17 < 0)
   {
@@ -1913,34 +1913,34 @@ ims::CFNumber *ims::CFNumber::asUint32(ims::CFNumber *this, const void *a2)
 
 void ims::CFDictionary::shortLog(ims::CFDictionary *this, ImsOutStream *a2, ImsOutStream *a3, int a4)
 {
+  v16 = 0;
   v17 = 0;
   v18 = 0;
-  v19 = 0;
+  v13 = 0;
   v14 = 0;
   v15 = 0;
-  v16 = 0;
-  ims::CFDictionary::getKeysAndValues(this, &v17, &v14, 0x8000100);
-  v7 = v17;
-  if (v18 != v17)
+  ims::CFDictionary::getKeysAndValues(this, &v16, &v13, 0x8000100);
+  v7 = v16;
+  if (v17 != v16)
   {
     v8 = 0;
     v9 = 0;
     do
     {
-      v10 = *(v14 + v9);
+      v10 = *(v13 + v9);
       if (a4)
       {
-        std::string::basic_string[abi:ne200100](&v12, a3, 32);
-        LoggableString::LoggableString(&__p, &v12);
+        std::string::basic_string[abi:ne200100](&v11, a3, 32);
+        LoggableString::LoggableString(&__p, &v11);
         (*(*a2 + 40))(a2, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v12.__r_.__value_.__l.__data_);
+          operator delete(v11.__r_.__value_.__l.__data_);
         }
       }
 
@@ -1953,23 +1953,23 @@ void ims::CFDictionary::shortLog(ims::CFDictionary *this, ImsOutStream *a2, ImsO
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      ims::CFType::shortLog(v10, a2, a3, 0, v11);
+      ims::CFType::shortLog(v10, a2, a3, 0);
       ++v9;
-      v7 = v17;
+      v7 = v16;
       v8 += 24;
     }
 
-    while (v9 < 0xAAAAAAAAAAAAAAABLL * ((v18 - v17) >> 3));
+    while (v9 < 0xAAAAAAAAAAAAAAABLL * ((v17 - v16) >> 3));
   }
 
-  if (v14)
+  if (v13)
   {
-    v15 = v14;
-    operator delete(v14);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  v14 = &v17;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+  v13 = &v16;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
 }
 
 void sub_1E50DCF84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char *__p, char *a22, uint64_t a23, char a24)
@@ -1985,9 +1985,9 @@ void sub_1E50DCF84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-ImsOutStream *ims::CFString::log(const __CFString **this, ImsOutStream *a2)
+ImsOutStream *ims::CFString::log(ims::CFString **this, ImsOutStream *a2)
 {
-  ims::CFString::asString(this[1], 0x8000100, &__p);
+  ims::CFString::asString(&__p, this[1], 0x8000100);
   (*(*a2 + 32))(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2215,7 +2215,7 @@ void ims::CFMutableEnum::create(ims::CFMutableEnum *this)
   CFDictionaryAddValue(v4, v5, v6);
 }
 
-void ims::CFMutableEnum::setValue(ims::CFMutableEnum *this@<X0>, const void *a2@<X1>, uint64_t a3@<X8>)
+void ims::CFMutableEnum::setValue(uint64_t *__return_ptr a1@<X8>, ims::CFMutableEnum *this@<X0>, const void *a3@<X1>)
 {
   v6 = *(this + 1);
   if (!v6)
@@ -2229,16 +2229,16 @@ void ims::CFMutableEnum::setValue(ims::CFMutableEnum *this@<X0>, const void *a2@
   {
     v19.length = CFArrayGetCount(v8);
     v19.location = 0;
-    if (CFArrayContainsValue(v8, v19, a2))
+    if (CFArrayContainsValue(v8, v19, a3))
     {
-      CFDictionaryReplaceValue(*(this + 1), qword_1EE2BD108, a2);
-      *(a3 + 24) = 0u;
-      *(a3 + 40) = 0u;
-      *(a3 + 56) = 0u;
-      *(a3 + 72) = 0u;
-      *a3 = &unk_1F5EBDEF8;
-      *(a3 + 8) = &_bambiDomain;
-      *(a3 + 16) = 0;
+      CFDictionaryReplaceValue(*(this + 1), qword_1EE2BD108, a3);
+      *(a1 + 3) = 0u;
+      *(a1 + 5) = 0u;
+      *(a1 + 7) = 0u;
+      *(a1 + 9) = 0u;
+      *a1 = &unk_1F5EBDEF8;
+      a1[1] = &_bambiDomain;
+      *(a1 + 4) = 0;
       return;
     }
 
@@ -2250,7 +2250,7 @@ void ims::CFMutableEnum::setValue(ims::CFMutableEnum *this@<X0>, const void *a2@
     v13 = &_bambiDomain;
     v14 = 0x40000000;
     v11 = ImsResult::operator<<<char [31]>(&v12, "value to be set is not allowed");
-    ImsResult::ImsResult(a3, v11);
+    ImsResult::ImsResult(a1, v11);
   }
 
   else
@@ -2263,15 +2263,15 @@ void ims::CFMutableEnum::setValue(ims::CFMutableEnum *this@<X0>, const void *a2@
     v13 = &_bambiDomain;
     v14 = 0x40000000;
     v10 = ImsResult::operator<<<char [39]>(&v12, "No allowed values in enum to set value");
-    ImsResult::ImsResult(a3, v10);
+    ImsResult::ImsResult(a1, v10);
   }
 
   ImsResult::~ImsResult(&v12);
 }
 
-void sub_1E50DD838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50DD838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
@@ -2329,7 +2329,7 @@ LABEL_10:
   v12[1] = v7;
   CFRetain(v7);
   v12[0] = &unk_1F5EF36B0;
-  ims::CFString::asString(v7, 0x8000100, &v13);
+  ims::CFString::asString(&v13, v7, 0x8000100);
   if (*(a2 + 23) < 0)
   {
     operator delete(*a2);
@@ -2346,9 +2346,9 @@ LABEL_10:
   ims::CFType::~CFType(v12);
 }
 
-void sub_1E50DDA90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E50DDA90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -2373,7 +2373,7 @@ uint64_t ims::CFDictionary::getStringValue(uint64_t a1, char *a2, uint64_t a3)
   v4 = ims::CFDictionary::getValue<ims::CFString>(a1, a2, &v7);
   if (v4)
   {
-    ims::CFString::asString(v8, 0x8000100, &v6);
+    ims::CFString::asString(&v6, v8, 0x8000100);
     if (*(a3 + 23) < 0)
     {
       operator delete(*a3);
@@ -2386,9 +2386,9 @@ uint64_t ims::CFDictionary::getStringValue(uint64_t a1, char *a2, uint64_t a3)
   return v4;
 }
 
-void sub_1E50DDBA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E50DDBA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   ims::CFType::~CFType(va);
   _Unwind_Resume(a1);
 }
@@ -2506,7 +2506,7 @@ uint64_t ims::CFDictionary::keysAsStrings(uint64_t a1, uint64_t *a2, const void 
       goto LABEL_13;
     }
 
-    ims::CFString::asString(v7, a3, &__p);
+    ims::CFString::asString(&__p, v7, a3);
     std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2551,20 +2551,20 @@ void sub_1E50DDF08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<void const*>::resize(void *a1, unint64_t a2)
+void std::vector<void const*>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<void const*>::__append(a1, a2 - v2);
+    std::vector<void const*>::__append(result, a2 - v2);
   }
 }
 
@@ -2601,7 +2601,7 @@ uint64_t ims::CFDictionary::getKeysAndValues(uint64_t a1, uint64_t a2, const voi
       break;
     }
 
-    ims::CFString::asString(v8, a4, &__p);
+    ims::CFString::asString(&__p, v8, a4);
     std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2689,7 +2689,7 @@ void ims::CFArray::asStrings(uint64_t a1@<X0>, void ***a2@<X1>, uint64_t a3@<X8>
       v20 = v11;
       CFRetain(v11);
       v19 = &unk_1F5EF36B0;
-      ims::CFString::asString(v20, 0x8000100, &__p);
+      ims::CFString::asString(&__p, v20, 0x8000100);
       std::vector<std::string>::push_back[abi:ne200100](a2, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -2810,19 +2810,19 @@ LABEL_7:
   }
 }
 
-void sub_1E50DE5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1E50DE5D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   ImsResult::~ImsResult(va);
   _Unwind_Resume(a1);
 }
 
-void ims::CFDictionary::asStringMap(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void ims::CFDictionary::asStringMap(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v6 = (a2 + 8);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a2, *(a2 + 8));
+  v6 = a2 + 1;
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(a2, a2[1]);
   *a2 = v6;
-  *(a2 + 16) = 0;
+  a2[2] = 0;
   *v6 = 0;
   v7 = *(a1 + 8);
   if (v7)
@@ -2906,10 +2906,10 @@ LABEL_19:
         }
 
         v24 = &unk_1F5EF36B0;
-        ims::CFString::asString(v15, 0x8000100, &v26);
-        ims::CFString::asString(v28, 0x8000100, &__p);
+        ims::CFString::asString(&v26, v15, 0x8000100);
+        ims::CFString::asString(&__p, v28, 0x8000100);
         v43 = 0;
-        v16 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a2, &v43, &__p.__r_.__value_.__l.__data_);
+        v16 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a2, &v43, &__p);
         if (!v16)
         {
           operator new();
@@ -2943,7 +2943,7 @@ LABEL_19:
       v30 = &_bambiDomain;
       LODWORD(v31) = 0x40000000;
       v20 = ImsResult::operator<<<char [11]>(&v29, "value for ");
-      ims::CFString::asString(v28, 0x8000100, &v26);
+      ims::CFString::asString(&v26, v28, 0x8000100);
       v21 = ImsResult::operator<<<std::string>(v20, &v26);
       v22 = ImsResult::operator<<<char [16]>(v21, " isn't a string");
       ImsResult::ImsResult(a3, v22);
@@ -2982,7 +2982,7 @@ LABEL_25:
   }
 }
 
-void sub_1E50DEA5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, char a23, uint64_t a24, char a25)
+void sub_1E50DEA5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, char a25)
 {
   ImsResult::~ImsResult(&a25);
   ims::CFType::~CFType(&a23);
@@ -3144,9 +3144,9 @@ void sub_1E50DEE14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-std::string::size_type ims::CFString::getMemorySize(const __CFString **this)
+std::string::size_type ims::CFString::getMemorySize(ims::CFString **this)
 {
-  ims::CFString::asString(this[1], 0x8000100, &v3);
+  ims::CFString::asString(&v3, this[1], 0x8000100);
   size = SHIBYTE(v3.__r_.__value_.__r.__words[2]);
   if ((SHIBYTE(v3.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
   {
@@ -3395,7 +3395,7 @@ LABEL_35:
   }
 }
 
-void sub_1E50DF528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19)
+void sub_1E50DF528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, void *a18, uint64_t a19)
 {
   ims::CFType::~CFType(&a11);
   ims::CFType::~CFType(&a13);
@@ -3447,7 +3447,7 @@ ImsOutStream *ims::CFUUID::log(ims::CFUUID *this, ImsOutStream *a2)
     }
 
     v7 = &unk_1F5EF36B0;
-    ims::CFString::asString(v4, 0x8000100, &__p);
+    ims::CFString::asString(&__p, v4, 0x8000100);
     ims::CFType::~CFType(&v7);
   }
 
@@ -3517,10 +3517,10 @@ void ims::CFBoolean::~CFBoolean(ims::CFBoolean *this)
 
 void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,false>(uint64_t a1, __n128 *a2, uint64_t a3, char a4)
 {
-  v125[2] = *MEMORY[0x1E69E9840];
+  v124[2] = *MEMORY[0x1E69E9840];
   while (2)
   {
-    v7 = &a2[-2].n128_i8[8];
+    v7 = (a2 - 24);
     v8 = a1;
     while (1)
     {
@@ -3537,14 +3537,14 @@ void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(st
             switch(v10)
             {
               case 3:
-                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, a1 + 24, v7);
-                goto LABEL_238;
+                std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), v7);
+                return;
               case 4:
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, a1 + 24, a1 + 48, v7);
-                goto LABEL_238;
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), v7);
+                return;
               case 5:
-                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, a1 + 24, a1 + 48, a1 + 72, v7);
-                goto LABEL_238;
+                std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), v7);
+                return;
             }
           }
 
@@ -3552,39 +3552,39 @@ void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(st
           {
             if (v10 < 2)
             {
-              goto LABEL_238;
+              return;
             }
 
             if (v10 == 2)
             {
-              ims::lowerCase(v7, &v124);
+              ims::lowerCase(v7, &v123);
               ims::lowerCase(a1, &__p);
-              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v52 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               v53 = v52;
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
               if (v53 < 0)
               {
                 v54 = *a1;
-                v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-                *&v124.__r_.__value_.__l.__data_ = v54;
+                v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+                *&v123.__r_.__value_.__l.__data_ = v54;
                 v55 = *v7;
                 *(a1 + 16) = a2[-1].n128_u64[1];
                 *a1 = v55;
-                v56 = *&v124.__r_.__value_.__l.__data_;
-                a2[-1].n128_u64[1] = v124.__r_.__value_.__r.__words[2];
+                v56 = *&v123.__r_.__value_.__l.__data_;
+                a2[-1].n128_u64[1] = v123.__r_.__value_.__r.__words[2];
                 *v7 = v56;
               }
 
-              goto LABEL_238;
+              return;
             }
           }
 
@@ -3602,24 +3602,24 @@ void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(st
                   do
                   {
                     v60 = v57;
-                    ims::lowerCase(v57, &v124);
+                    ims::lowerCase(v57, &v123);
                     ims::lowerCase(v59, &__p);
-                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v61 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v61 < 0)
                     {
                       v62 = *v60;
-                      v122 = *(v60 + 16);
-                      v121 = v62;
+                      v121 = *(v60 + 16);
+                      v120 = v62;
                       *(v60 + 8) = 0;
                       *(v60 + 16) = 0;
                       *v60 = 0;
@@ -3642,17 +3642,17 @@ void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(st
                           goto LABEL_143;
                         }
 
-                        ims::lowerCase(&v121, &v124);
+                        ims::lowerCase(&v120, &v123);
                         ims::lowerCase(a1 + v63 - 24, &__p);
-                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v65 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v63 -= 24;
@@ -3666,8 +3666,8 @@ void std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(st
                       }
 
 LABEL_143:
-                      v67 = v121;
-                      *(v66 + 16) = v122;
+                      v67 = v120;
+                      *(v66 + 16) = v121;
                       *v66 = v67;
                     }
 
@@ -3690,24 +3690,24 @@ LABEL_143:
                 do
                 {
                   v109 = v107;
-                  ims::lowerCase(v107, &v124);
+                  ims::lowerCase(v107, &v123);
                   ims::lowerCase(a1, &__p);
-                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v110 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if (v110 < 0)
                   {
                     v111 = *v109;
-                    v122 = *(v109 + 16);
-                    v121 = v111;
+                    v121 = *(v109 + 16);
+                    v120 = v111;
                     *(v109 + 8) = 0;
                     *(v109 + 16) = 0;
                     *v109 = 0;
@@ -3723,17 +3723,17 @@ LABEL_143:
                       *(v112 + 64) = *(v112 + 40);
                       *(v112 + 47) = 0;
                       *(v112 + 24) = 0;
-                      ims::lowerCase(&v121, &v124);
+                      ims::lowerCase(&v120, &v123);
                       ims::lowerCase(v112, &__p);
-                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      v113 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v112 -= 24;
@@ -3745,8 +3745,8 @@ LABEL_143:
                       operator delete(*(v112 + 48));
                     }
 
-                    v114 = v121;
-                    *(v112 + 64) = v122;
+                    v114 = v120;
+                    *(v112 + 64) = v121;
                     *(v112 + 48) = v114;
                   }
 
@@ -3759,7 +3759,7 @@ LABEL_143:
               }
             }
 
-            goto LABEL_238;
+            return;
           }
 
           if (!a3)
@@ -3777,17 +3777,17 @@ LABEL_143:
                   v72 = a1 + 24 * v71;
                   if (2 * v69 + 2 < v10)
                   {
-                    ims::lowerCase(a1 + 24 * v71, &v124);
+                    ims::lowerCase(a1 + 24 * v71, &v123);
                     ims::lowerCase(v72 + 24, &__p);
-                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v73 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v73 < 0)
@@ -3797,26 +3797,26 @@ LABEL_143:
                     }
                   }
 
-                  ims::lowerCase(v72, &v124);
+                  ims::lowerCase(v72, &v123);
                   v74 = a1 + 24 * v70;
                   ims::lowerCase(v74, &__p);
-                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                  v75 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__p.__r_.__value_.__l.__data_);
                   }
 
-                  if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                  if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                   {
-                    operator delete(v124.__r_.__value_.__l.__data_);
+                    operator delete(v123.__r_.__value_.__l.__data_);
                   }
 
                   if ((v75 & 0x80000000) == 0)
                   {
-                    v118 = v70;
+                    v117 = v70;
                     v76 = *v74;
-                    v122 = *(v74 + 16);
-                    v121 = v76;
+                    v121 = *(v74 + 16);
+                    v120 = v76;
                     *(v74 + 8) = 0;
                     *(v74 + 16) = 0;
                     *v74 = 0;
@@ -3848,17 +3848,17 @@ LABEL_143:
 
                       else
                       {
-                        ims::lowerCase(a1 + 24 * v79, &v124);
+                        ims::lowerCase(a1 + 24 * v79, &v123);
                         ims::lowerCase(v72 + 24, &__p);
-                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        v80 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         if (v80 >= 0)
@@ -3872,17 +3872,17 @@ LABEL_143:
                         }
                       }
 
-                      ims::lowerCase(v72, &v124);
-                      ims::lowerCase(&v121, &__p);
-                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                      ims::lowerCase(v72, &v123);
+                      ims::lowerCase(&v120, &__p);
+                      v81 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                       {
                         operator delete(__p.__r_.__value_.__l.__data_);
                       }
 
-                      if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                      if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                       {
-                        operator delete(v124.__r_.__value_.__l.__data_);
+                        operator delete(v123.__r_.__value_.__l.__data_);
                       }
 
                       v82 = v81;
@@ -3898,10 +3898,10 @@ LABEL_143:
                       }
                     }
 
-                    v83 = v121;
-                    *(v77 + 16) = v122;
+                    v83 = v120;
+                    *(v77 + 16) = v121;
                     *v77 = v83;
-                    v70 = v118;
+                    v70 = v117;
                   }
                 }
 
@@ -3913,11 +3913,11 @@ LABEL_143:
               do
               {
                 v85 = 0;
-                v116 = a2;
-                v117 = *a1;
-                v125[0] = *(a1 + 8);
-                *(v125 + 7) = *(a1 + 15);
-                v119 = *(a1 + 23);
+                v115 = a2;
+                v116 = *a1;
+                v124[0] = *(a1 + 8);
+                *(v124 + 7) = *(a1 + 15);
+                v118 = *(a1 + 23);
                 *(a1 + 8) = 0;
                 *(a1 + 16) = 0;
                 *a1 = 0;
@@ -3932,18 +3932,18 @@ LABEL_143:
                   v90 = v89 + 2;
                   if (v89 + 2 < v84)
                   {
-                    ims::lowerCase(v88 + 24, &v124);
+                    ims::lowerCase(v88 + 24, &v123);
                     v91 = v88 + 48;
                     ims::lowerCase(v91, &__p);
-                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v92 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v92 < 0)
@@ -3967,48 +3967,48 @@ LABEL_143:
 
                 while (v85 <= ((v84 - 2) >> 1));
                 a2 = (a2 - 24);
-                if (v86 == &v116[-2].n128_i8[8])
+                if (v86 == &v115[-2].n128_i8[8])
                 {
-                  *v86 = v117;
-                  v105 = *(v125 + 7);
-                  *(v86 + 8) = v125[0];
+                  *v86 = v116;
+                  v105 = *(v124 + 7);
+                  *(v86 + 8) = v124[0];
                   *(v86 + 15) = v105;
-                  *(v86 + 23) = v119;
+                  *(v86 + 23) = v118;
                 }
 
                 else
                 {
-                  v94 = *(&v116[-2] + 8);
-                  *(v86 + 16) = v116[-1].n128_u64[1];
+                  v94 = *(&v115[-2] + 8);
+                  *(v86 + 16) = v115[-1].n128_u64[1];
                   *v86 = v94;
-                  v116[-2].n128_u64[1] = v117;
-                  v95 = v125[0];
-                  *(v116[-1].n128_u64 + 7) = *(v125 + 7);
-                  v116[-1].n128_u64[0] = v95;
-                  v116[-1].n128_u8[15] = v119;
+                  v115[-2].n128_u64[1] = v116;
+                  v95 = v124[0];
+                  *(v115[-1].n128_u64 + 7) = *(v124 + 7);
+                  v115[-1].n128_u64[0] = v95;
+                  v115[-1].n128_u8[15] = v118;
                   v96 = v86 - a1 + 24;
                   if (v96 >= 25)
                   {
                     v97 = (-2 - 0x5555555555555555 * (v96 >> 3)) >> 1;
                     v98 = a1 + 24 * v97;
-                    ims::lowerCase(v98, &v124);
+                    ims::lowerCase(v98, &v123);
                     ims::lowerCase(v86, &__p);
-                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                    v99 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__p.__r_.__value_.__l.__data_);
                     }
 
-                    if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                    if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                     {
-                      operator delete(v124.__r_.__value_.__l.__data_);
+                      operator delete(v123.__r_.__value_.__l.__data_);
                     }
 
                     if (v99 < 0)
                     {
                       v100 = *v86;
-                      v122 = *(v86 + 16);
-                      v121 = v100;
+                      v121 = *(v86 + 16);
+                      v120 = v100;
                       *(v86 + 8) = 0;
                       *(v86 + 16) = 0;
                       *v86 = 0;
@@ -4032,17 +4032,17 @@ LABEL_143:
 
                         v97 = (v97 - 1) >> 1;
                         v98 = a1 + 24 * v97;
-                        ims::lowerCase(v98, &v124);
-                        ims::lowerCase(&v121, &__p);
-                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+                        ims::lowerCase(v98, &v123);
+                        ims::lowerCase(&v120, &__p);
+                        v103 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
                         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
                         {
                           operator delete(__p.__r_.__value_.__l.__data_);
                         }
 
-                        if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+                        if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
                         {
-                          operator delete(v124.__r_.__value_.__l.__data_);
+                          operator delete(v123.__r_.__value_.__l.__data_);
                         }
 
                         v86 = v101;
@@ -4057,8 +4057,8 @@ LABEL_143:
                         }
                       }
 
-                      v104 = v121;
-                      *(v101 + 16) = v122;
+                      v104 = v120;
+                      *(v101 + 16) = v121;
                       *v101 = v104;
                     }
                   }
@@ -4068,11 +4068,11 @@ LABEL_143:
               while (v84-- > 2);
             }
 
-            goto LABEL_238;
+            return;
           }
 
           v12 = v10 >> 1;
-          v13 = a1 + 24 * (v10 >> 1);
+          v13 = (a1 + 24 * (v10 >> 1));
           if (v9 < 0xC01)
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(v13, a1, v7);
@@ -4081,19 +4081,19 @@ LABEL_143:
           else
           {
             std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, v13, v7);
-            v14 = a1 + 24 * v12 - 24;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1 + 24, v14, &a2[-3]);
+            v14 = (a1 + 24 * v12 - 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>((a1 + 24), v14, a2 - 3);
             v15 = a1 + 24 * v12;
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1 + 48, v15 + 24, &a2[-5].n128_i64[1]);
-            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(v14, v13, v15 + 24);
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>((a1 + 48), (v15 + 24), (a2 - 72));
+            std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(v14, v13, (v15 + 24));
             v16 = *a1;
-            v124.__r_.__value_.__r.__words[2] = *(a1 + 16);
-            *&v124.__r_.__value_.__l.__data_ = v16;
+            v123.__r_.__value_.__r.__words[2] = *(a1 + 16);
+            *&v123.__r_.__value_.__l.__data_ = v16;
             v17 = *v13;
-            *(a1 + 16) = *(v13 + 16);
+            *(a1 + 16) = v13[1].n128_u64[0];
             *a1 = v17;
-            v18 = *&v124.__r_.__value_.__l.__data_;
-            *(v13 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v18 = *&v123.__r_.__value_.__l.__data_;
+            v13[1].n128_u64[0] = v123.__r_.__value_.__r.__words[2];
             *v13 = v18;
           }
 
@@ -4103,17 +4103,17 @@ LABEL_143:
             break;
           }
 
-          ims::lowerCase(a1 - 24, &v124);
+          ims::lowerCase(a1 - 24, &v123);
           ims::lowerCase(a1, &__p);
-          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v19 < 0)
@@ -4122,22 +4122,22 @@ LABEL_143:
           }
 
           v37 = *a1;
-          v122 = *(a1 + 16);
-          v121 = v37;
+          v121 = *(a1 + 16);
+          v120 = v37;
           *(a1 + 8) = 0;
           *(a1 + 16) = 0;
           *a1 = 0;
-          ims::lowerCase(&v121, &v124);
+          ims::lowerCase(&v120, &v123);
           ims::lowerCase(v7, &__p);
-          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          v38 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           if (v38 < 0)
@@ -4145,18 +4145,18 @@ LABEL_143:
             v8 = a1;
             do
             {
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               v8 = (v8 + 24);
               ims::lowerCase(v8, &__p);
-              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v41 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -4174,17 +4174,17 @@ LABEL_143:
                 break;
               }
 
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               ims::lowerCase(v8, &__p);
-              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v40 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
 
               v39 = (v8 + 24);
@@ -4199,18 +4199,18 @@ LABEL_143:
             v42 = a2;
             do
             {
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               v42 -= 24;
               ims::lowerCase(v42, &__p);
-              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v43 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -4220,46 +4220,46 @@ LABEL_143:
           while (v8 < v42)
           {
             v44 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v44;
+            v123.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
+            *&v123.__r_.__value_.__l.__data_ = v44;
             v45 = *v42;
             v8[1].n128_u64[0] = *(v42 + 16);
             *v8 = v45;
-            v46 = *&v124.__r_.__value_.__l.__data_;
-            *(v42 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v46 = *&v123.__r_.__value_.__l.__data_;
+            *(v42 + 16) = *(&v123.__r_.__value_.__l + 2);
             *v42 = v46;
             do
             {
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               v8 = (v8 + 24);
               ims::lowerCase(v8, &__p);
-              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v47 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
             while ((v47 & 0x80000000) == 0);
             do
             {
-              ims::lowerCase(&v121, &v124);
+              ims::lowerCase(&v120, &v123);
               v42 -= 24;
               ims::lowerCase(v42, &__p);
-              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              v48 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -4290,31 +4290,31 @@ LABEL_143:
           }
 
           a4 = 0;
-          v51 = v121;
-          v8[-1].n128_u64[1] = v122;
+          v51 = v120;
+          v8[-1].n128_u64[1] = v121;
           *v49 = v51;
         }
 
         v20 = 0;
         v21 = *a1;
-        v122 = *(a1 + 16);
-        v121 = v21;
+        v121 = *(a1 + 16);
+        v120 = v21;
         *(a1 + 8) = 0;
         *(a1 + 16) = 0;
         *a1 = 0;
         do
         {
-          ims::lowerCase(a1 + v20 + 24, &v124);
-          ims::lowerCase(&v121, &__p);
-          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+          ims::lowerCase(a1 + v20 + 24, &v123);
+          ims::lowerCase(&v120, &__p);
+          v22 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v124.__r_.__value_.__l.__data_);
+            operator delete(v123.__r_.__value_.__l.__data_);
           }
 
           v20 += 24;
@@ -4334,17 +4334,17 @@ LABEL_143:
             }
 
             v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v26 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
@@ -4356,17 +4356,17 @@ LABEL_143:
           do
           {
             v24 -= 24;
-            ims::lowerCase(v24, &v124);
-            ims::lowerCase(&v121, &__p);
-            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+            ims::lowerCase(v24, &v123);
+            ims::lowerCase(&v120, &__p);
+            v25 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
             {
               operator delete(__p.__r_.__value_.__l.__data_);
             }
 
-            if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v124.__r_.__value_.__l.__data_);
+              operator delete(v123.__r_.__value_.__l.__data_);
             }
           }
 
@@ -4380,28 +4380,28 @@ LABEL_143:
           do
           {
             v28 = *v8;
-            v124.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
-            *&v124.__r_.__value_.__l.__data_ = v28;
+            v123.__r_.__value_.__r.__words[2] = v8[1].n128_u64[0];
+            *&v123.__r_.__value_.__l.__data_ = v28;
             v29 = *v27;
             v8[1].n128_u64[0] = *(v27 + 16);
             *v8 = v29;
-            v30 = *&v124.__r_.__value_.__l.__data_;
-            *(v27 + 16) = *(&v124.__r_.__value_.__l + 2);
+            v30 = *&v123.__r_.__value_.__l.__data_;
+            *(v27 + 16) = *(&v123.__r_.__value_.__l + 2);
             *v27 = v30;
             do
             {
               v8 = (v8 + 24);
-              ims::lowerCase(v8, &v124);
-              ims::lowerCase(&v121, &__p);
-              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              ims::lowerCase(v8, &v123);
+              ims::lowerCase(&v120, &__p);
+              v31 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -4409,17 +4409,17 @@ LABEL_143:
             do
             {
               v27 -= 24;
-              ims::lowerCase(v27, &v124);
-              ims::lowerCase(&v121, &__p);
-              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v124, &__p.__r_.__value_.__l.__data_);
+              ims::lowerCase(v27, &v123);
+              ims::lowerCase(&v120, &__p);
+              v32 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v123, &__p);
               if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
               {
                 operator delete(__p.__r_.__value_.__l.__data_);
               }
 
-              if (SHIBYTE(v124.__r_.__value_.__r.__words[2]) < 0)
+              if (SHIBYTE(v123.__r_.__value_.__r.__words[2]) < 0)
               {
-                operator delete(v124.__r_.__value_.__l.__data_);
+                operator delete(v123.__r_.__value_.__l.__data_);
               }
             }
 
@@ -4452,8 +4452,8 @@ LABEL_143:
           v8[-2].n128_u8[8] = 0;
         }
 
-        v35 = v121;
-        v8[-1].n128_u64[1] = v122;
+        v35 = v120;
+        v8[-1].n128_u64[1] = v121;
         *v33 = v35;
         if (v23 >= v24)
         {
@@ -4461,7 +4461,7 @@ LABEL_143:
         }
 
 LABEL_64:
-        std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,false>(a1, &v8[-2].n128_i8[8], a3, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,false>(a1, &v8[-2].n128_u64[1], a3, a4 & 1);
         a4 = 0;
       }
 
@@ -4485,9 +4485,6 @@ LABEL_64:
 
     break;
   }
-
-LABEL_238:
-  v115 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1E50E0940(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
@@ -4505,11 +4502,11 @@ void sub_1E50E0940(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(uint64_t a1, uint64_t a2, uint64_t a3)
+__n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3)
 {
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4524,7 +4521,7 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
   {
     ims::lowerCase(a3, v24);
     ims::lowerCase(a2, &__p);
-    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+    v9 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4542,16 +4539,16 @@ __n128 std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     else if ((v9 & 0x80000000) == 0)
     {
 LABEL_15:
-      v10 = *(a1 + 16);
+      v10 = a1[1].n128_u64[0];
       v11 = *a1;
-      v12 = *(a2 + 16);
+      v12 = a2[1].n128_u64[0];
       *a1 = *a2;
-      *(a1 + 16) = v12;
+      a1[1].n128_u64[0] = v12;
       *a2 = v11;
-      *(a2 + 16) = v10;
+      a2[1].n128_u64[0] = v10;
       ims::lowerCase(a3, v24);
       ims::lowerCase(a2, &__p);
-      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+      v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
@@ -4571,28 +4568,28 @@ LABEL_15:
         return result;
       }
 
-      v18 = *(a2 + 16);
+      v18 = a2[1].n128_u64[0];
       result = *a2;
-      v20 = *(a3 + 16);
+      v20 = a3[1].n128_i64[0];
       *a2 = *a3;
-      *(a2 + 16) = v20;
+      a2[1].n128_u64[0] = v20;
       goto LABEL_30;
     }
 
-    v18 = *(a1 + 16);
+    v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a3 + 16);
+    v19 = a3[1].n128_u64[0];
     *a1 = *a3;
-    *(a1 + 16) = v19;
+    a1[1].n128_u64[0] = v19;
 LABEL_30:
     *a3 = result;
-    *(a3 + 16) = v18;
+    a3[1].n128_u64[0] = v18;
     return result;
   }
 
   ims::lowerCase(a3, v24);
   ims::lowerCase(a2, &__p);
-  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4612,16 +4609,16 @@ LABEL_30:
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_i64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_i64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v24);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4641,13 +4638,13 @@ LABEL_30:
     return result;
   }
 
-  v21 = *(a1 + 16);
+  v21 = a1[1].n128_u64[0];
   result = *a1;
-  v22 = *(a2 + 16);
+  v22 = a2[1].n128_u64[0];
   *a1 = *a2;
-  *(a1 + 16) = v22;
+  a1[1].n128_u64[0] = v22;
   *a2 = result;
-  *(a2 + 16) = v21;
+  a2[1].n128_u64[0] = v21;
   return result;
 }
 
@@ -4661,12 +4658,12 @@ void sub_1E50E0CCC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+__n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4)
 {
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, a2, a3);
   ims::lowerCase(a4, v21);
   ims::lowerCase(a3, &__p);
-  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v8 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4686,16 +4683,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     return result;
   }
 
-  v10 = *(a3 + 16);
+  v10 = a3[1].n128_u64[0];
   v11 = *a3;
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v12;
+  a3[1].n128_u64[0] = v12;
   *a4 = v11;
-  *(a4 + 16) = v10;
+  a4[1].n128_u64[0] = v10;
   ims::lowerCase(a3, v21);
   ims::lowerCase(a2, &__p);
-  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v13 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4715,16 +4712,16 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     return result;
   }
 
-  v14 = *(a2 + 16);
+  v14 = a2[1].n128_u64[0];
   v15 = *a2;
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v16;
+  a2[1].n128_u64[0] = v16;
   *a3 = v15;
-  *(a3 + 16) = v14;
+  a3[1].n128_u64[0] = v14;
   ims::lowerCase(a2, v21);
   ims::lowerCase(a1, &__p);
-  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p.__r_.__value_.__l.__data_);
+  v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v21, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4739,11 +4736,11 @@ __n128 std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
   {
     v18 = a1[1].n128_u64[0];
     result = *a1;
-    v19 = *(a2 + 16);
+    v19 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v19;
     *a2 = result;
-    *(a2 + 16) = v18;
+    a2[1].n128_u64[0] = v18;
   }
 
   return result;
@@ -4759,12 +4756,12 @@ void sub_1E50E0EA0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(__n128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(__n128 *a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5)
 {
   std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, a2, a3, a4);
   ims::lowerCase(a5, v27);
   ims::lowerCase(a4, &__p);
-  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v10 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4784,16 +4781,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     return result;
   }
 
-  v12 = *(a4 + 16);
+  v12 = a4[1].n128_u64[0];
   v13 = *a4;
-  v14 = *(a5 + 16);
+  v14 = a5[1].n128_u64[0];
   *a4 = *a5;
-  *(a4 + 16) = v14;
+  a4[1].n128_u64[0] = v14;
   *a5 = v13;
-  *(a5 + 16) = v12;
+  a5[1].n128_u64[0] = v12;
   ims::lowerCase(a4, v27);
   ims::lowerCase(a3, &__p);
-  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v15 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4813,16 +4810,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     return result;
   }
 
-  v16 = *(a3 + 16);
+  v16 = a3[1].n128_u64[0];
   v17 = *a3;
-  v18 = *(a4 + 16);
+  v18 = a4[1].n128_u64[0];
   *a3 = *a4;
-  *(a3 + 16) = v18;
+  a3[1].n128_u64[0] = v18;
   *a4 = v17;
-  *(a4 + 16) = v16;
+  a4[1].n128_u64[0] = v16;
   ims::lowerCase(a3, v27);
   ims::lowerCase(a2, &__p);
-  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v19 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4842,16 +4839,16 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
     return result;
   }
 
-  v20 = *(a2 + 16);
+  v20 = a2[1].n128_u64[0];
   v21 = *a2;
-  v22 = *(a3 + 16);
+  v22 = a3[1].n128_u64[0];
   *a2 = *a3;
-  *(a2 + 16) = v22;
+  a2[1].n128_u64[0] = v22;
   *a3 = v21;
-  *(a3 + 16) = v20;
+  a3[1].n128_u64[0] = v20;
   ims::lowerCase(a2, v27);
   ims::lowerCase(a1, &__p);
-  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p.__r_.__value_.__l.__data_);
+  v23 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v27, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -4866,11 +4863,11 @@ __n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keys
   {
     v24 = a1[1].n128_u64[0];
     result = *a1;
-    v25 = *(a2 + 16);
+    v25 = a2[1].n128_u64[0];
     *a1 = *a2;
     a1[1].n128_u64[0] = v25;
     *a2 = result;
-    *(a2 + 16) = v24;
+    a2[1].n128_u64[0] = v24;
   }
 
   return result;
@@ -4898,7 +4895,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ims::
         v5 = (a2 - 24);
         ims::lowerCase(&a2[-2].n128_i64[1], &v23);
         ims::lowerCase(a1, &__p);
-        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -4932,20 +4929,20 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,ims::
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), (a2 - 24));
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3], &a2[-2].n128_i64[1]);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), a1 + 3, (a2 - 24));
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3], &a1[4].n128_i64[1], &a2[-2].n128_i64[1]);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), a1 + 3, (a1 + 72), (a2 - 24));
       return 1;
   }
 
 LABEL_15:
-  v10 = &a1[3];
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, &a1[1].n128_i64[1], &a1[3]);
-  v11 = &a1[4].n128_i64[1];
+  v10 = a1 + 3;
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,ims::CFDictionary::keysAsStrings(std::vector<std::string> *,unsigned int)::$_0 &,std::string*,0>(a1, (a1 + 24), a1 + 3);
+  v11 = (a1 + 72);
   if (&a1[4].n128_i8[8] == a2)
   {
     return 1;
@@ -4957,7 +4954,7 @@ LABEL_15:
   {
     ims::lowerCase(v11, &v23);
     ims::lowerCase(v10, &__p);
-    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+    v14 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4971,10 +4968,10 @@ LABEL_15:
     if (v14 < 0)
     {
       v20 = *v11;
-      v21 = *(v11 + 16);
-      *(v11 + 8) = 0;
-      *(v11 + 16) = 0;
-      *v11 = 0;
+      v21 = v11[1].n128_u64[0];
+      v11->n128_u64[1] = 0;
+      v11[1].n128_u64[0] = 0;
+      v11->n128_u64[0] = 0;
       v15 = v12;
       do
       {
@@ -4996,7 +4993,7 @@ LABEL_15:
 
         ims::lowerCase(&v20, &v23);
         ims::lowerCase(&a1[1].n128_i64[1] + v15, &__p);
-        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p.__r_.__value_.__l.__data_);
+        v17 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v23, &__p);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -5011,24 +5008,24 @@ LABEL_15:
       }
 
       while (v17 < 0);
-      v18 = &a1[4].n128_i64[1] + v15;
+      v18 = (a1 + v15 + 72);
       if (a1[5].n128_i8[v15 + 15] < 0)
       {
-        operator delete(*v18);
+        operator delete(v18->n128_u64[0]);
       }
 
 LABEL_34:
       *v18 = v20;
-      *(v18 + 16) = v21;
+      v18[1].n128_u64[0] = v21;
       if (++v13 == 8)
       {
-        return v11 + 24 == a2;
+        return &v11[1].n128_i8[8] == a2;
       }
     }
 
     v10 = v11;
     v12 += 24;
-    v11 += 24;
+    v11 = (v11 + 24);
     if (v11 == a2)
     {
       return 1;
@@ -5295,15 +5292,14 @@ void XcapBsfServerInfo::host(XcapBsfServerInfo *this@<X0>, std::string *a2@<X8>)
 
   else if (*(this + 231))
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 13);
-    a2->__r_.__value_.__r.__words[2] = *(this + 28);
+    *a2 = *(this + 208);
     return;
   }
 
   memset(&v18, 0, sizeof(v18));
   std::string::basic_string[abi:ne200100]<0>(&v18, "bsf.");
   memset(&__p, 0, sizeof(__p));
-  XcapServerInfo::_constructHostSuffix(this, &__p);
+  XcapServerInfo::_constructHostSuffix(&__p, this);
   if (*(this + 264) == 1)
   {
     v6 = XcapServerInfo::k3gppDomain;
@@ -5415,7 +5411,7 @@ void XcapBsfServerInfo::_constructInitialAuthHeader(XcapBsfServerInfo *this, uin
   SipAkaAuthResponse::SipAkaAuthResponse(v10, 0);
   v3 = v11;
   __p[0] = "username";
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v11 + 8), "username");
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v11 + 8), "username", &std::piecewise_construct, __p, &v13);
   std::string::operator=((v4 + 5), (a2 + 104));
   std::string::basic_string[abi:ne200100]<0>(__p, "/");
   std::string::operator=((v3 + 56), __p);
@@ -5425,8 +5421,8 @@ void XcapBsfServerInfo::_constructInitialAuthHeader(XcapBsfServerInfo *this, uin
   }
 
   (*(*a2 + 80))(__p, a2);
-  v12 = "realm";
-  v5 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v3 + 8), "realm");
+  v13 = "realm";
+  v5 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v3 + 8), "realm", &std::piecewise_construct, &v13, &v12);
   std::string::operator=((v5 + 5), __p);
   if (SBYTE7(v8) < 0)
   {
@@ -5434,8 +5430,8 @@ void XcapBsfServerInfo::_constructInitialAuthHeader(XcapBsfServerInfo *this, uin
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "");
-  v12 = "response";
-  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v3 + 8), "response");
+  v13 = "response";
+  v6 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v3 + 8), "response", &std::piecewise_construct, &v13, &v12);
   std::string::operator=((v6 + 5), __p);
   if (SBYTE7(v8) < 0)
   {
@@ -5445,7 +5441,7 @@ void XcapBsfServerInfo::_constructInitialAuthHeader(XcapBsfServerInfo *this, uin
   v9 = 0;
   *__p = 0u;
   v8 = 0u;
-  ImsStringOutStream::ImsStringOutStream(__p);
+  ImsStringOutStream::ImsStringOutStream(__p, 1);
 }
 
 void XcapBsfServerInfo::setDigestCredentials(XcapBsfServerInfo *this, const SipAuthResponse *a2)
@@ -5492,7 +5488,7 @@ LABEL_12:
         v32 = 0;
         v30 = 0u;
         v31 = 0u;
-        ImsStringOutStream::ImsStringOutStream(&v30);
+        ImsStringOutStream::ImsStringOutStream(&v30, 1);
       }
     }
 
@@ -5596,19 +5592,18 @@ void sub_1E50E2F74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char **XcapBsfServerInfo::fetchRand@<X0>(XcapBsfServerInfo *this@<X0>, void *a2@<X8>)
+void **XcapBsfServerInfo::fetchRand@<X0>(void **__return_ptr a1@<X8>, XcapBsfServerInfo *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   result = *(this + 66);
   if (result)
   {
-    v4 = **result;
     if (result)
     {
-      v5 = (*(*result + 3))(result);
-      return std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a2, (v5 + 184), (v5 + 200), 0x10uLL);
+      v4 = (*(*result + 3))(result);
+      return std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(a1, (v4 + 184), (v4 + 200), 0x10uLL);
     }
   }
 
@@ -5627,30 +5622,28 @@ void sub_1E50E31E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char **XcapBsfServerInfo::fetchCk(XcapBsfServerInfo *this)
+void *XcapBsfServerInfo::fetchCk(XcapBsfServerInfo *this)
 {
   result = *(this + 67);
   if (result)
   {
-    v2 = **result;
     if (result)
     {
-      return ((*(*result + 4))(result) + 230);
+      return ((*(*result + 32))(result) + 230);
     }
   }
 
   return result;
 }
 
-char **XcapBsfServerInfo::fetchIk(XcapBsfServerInfo *this)
+void *XcapBsfServerInfo::fetchIk(XcapBsfServerInfo *this)
 {
   result = *(this + 67);
   if (result)
   {
-    v2 = **result;
     if (result)
     {
-      return ((*(*result + 4))(result) + 246);
+      return ((*(*result + 32))(result) + 246);
     }
   }
 
@@ -5677,8 +5670,7 @@ void XcapBsfServerInfo::fetchBTid(XcapBsfServerInfo *this@<X0>, std::string *a2@
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
   }
 }
@@ -5703,18 +5695,17 @@ void XcapBsfServerInfo::fetchKeyLifetime(XcapBsfServerInfo *this@<X0>, std::stri
 
   else
   {
-    a2->__r_.__value_.__r.__words[0] = 0;
-    a2->__r_.__value_.__l.__size_ = 0;
+    *&a2->__r_.__value_.__l.__data_ = 0uLL;
     a2->__r_.__value_.__r.__words[2] = 0;
   }
 }
 
-void XcapBsfServerInfo::handleHttpResponseSuccess(uint64_t a1)
+void XcapBsfServerInfo::handleHttpResponseSuccess(void *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 544);
-  if (v1)
+  v3 = a1[68];
+  if (v3)
   {
-    (*(*v1 + 8))(v1);
+    (*(*v3 + 8))(v3, a2, a3);
   }
 
   operator new();
@@ -5788,28 +5779,28 @@ void XcapBsfServerInfo::handleHttpResponseAuthChallenge(uint64_t a1, uint64_t a2
   if (*(a1 + 528))
   {
     std::string::basic_string[abi:ne200100]<0>(&__p, kXcapLoggingFacility);
-    v41[0] = 0;
-    v44 = 0;
-    v5 = ims::error(&__p, v41);
+    v40[0] = 0;
+    v43 = 0;
+    v5 = ims::error(&__p, v40);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), ": ", 2);
     *(v5 + 17) = 0;
-    (*(*a1 + 16))(v39, a1);
-    (*(*v5 + 32))(v5, v39);
+    (*(*a1 + 16))(v38, a1);
+    (*(*v5 + 32))(v5, v38);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v5 + 8), " server has challenged us twice. Probably didn't like our response to the 1st challenge. Failing request", 104);
     *(v5 + 17) = 0;
     (*(*v5 + 64))(v5, std::endl[abi:ne200100]<char,std::char_traits<char>>);
     *(v5 + 17) = 0;
-    if (v40 < 0)
+    if (v39 < 0)
     {
-      operator delete(v39[0]);
+      operator delete(v38[0]);
     }
 
-    if (v44 == 1 && v43 < 0)
+    if (v43 == 1 && v42 < 0)
     {
-      operator delete(v42);
+      operator delete(v41);
     }
 
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(__p);
     }
@@ -5824,14 +5815,14 @@ void XcapBsfServerInfo::handleHttpResponseAuthChallenge(uint64_t a1, uint64_t a2
         v9 = *(a1 + 56);
         if (v9)
         {
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           __p = &unk_1F5EBDEF8;
-          v31 = &_bambiDomain;
-          v32 = 0x40000000;
+          v30 = &_bambiDomain;
+          v31 = 0x40000000;
+          v33 = 0;
           v34 = 0;
-          v35 = 0;
           XcapSession::operationFailure(v9, &__p);
 LABEL_35:
           ImsResult::~ImsResult(&__p);
@@ -5853,28 +5844,27 @@ LABEL_35:
       *(a1 + 528) = v12;
       if (v12)
       {
-        v13 = **v12;
-        if (v14)
+        if (v13)
         {
-          v15 = v14;
-          v16 = (*(*v14 + 24))(v14);
+          v14 = v13;
+          v15 = (*(*v13 + 24))(v13);
           __p = "username";
-          v17 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v16 + 8), "username");
-          std::string::operator=((v17 + 5), (a1 + 104));
-          v18 = *(a1 + 64);
-          if (v18)
+          v16 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((v15 + 8), "username", &std::piecewise_construct, &__p, v38);
+          std::string::operator=((v16 + 5), (a1 + 104));
+          v17 = *(a1 + 64);
+          if (v17)
           {
-            v19 = std::__shared_weak_count::lock(v18);
-            if (v19)
+            v18 = std::__shared_weak_count::lock(v17);
+            if (v18)
             {
-              v20 = v19;
-              v21 = *(a1 + 56);
-              if (v21)
+              v19 = v18;
+              v20 = *(a1 + 56);
+              if (v20)
               {
-                XcapSession::handleBsfChallenge(v21, v15);
+                XcapSession::handleBsfChallenge(v20, v14);
               }
 
-              std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v19);
             }
           }
 
@@ -5889,54 +5879,54 @@ LABEL_35:
     }
 
     std::string::basic_string[abi:ne200100]<0>(&__p, kXcapLoggingFacility);
-    v26[0] = 0;
-    v29 = 0;
-    v22 = ims::error(&__p, v26);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), ": ", 2);
-    *(v22 + 17) = 0;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), "Cannot create challenge from ", 29);
-    *(v22 + 17) = 0;
-    (*(*a1 + 16))(v39, a1);
-    (*(*v22 + 32))(v22, v39);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v22 + 8), " client. Challenge Header:", 26);
-    *(v22 + 17) = 0;
-    (*(*v22 + 32))(v22, a3);
-    (*(*v22 + 64))(v22, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v22 + 17) = 0;
-    if (v40 < 0)
+    v25[0] = 0;
+    v28 = 0;
+    v21 = ims::error(&__p, v25);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), ": ", 2);
+    *(v21 + 17) = 0;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), "Cannot create challenge from ", 29);
+    *(v21 + 17) = 0;
+    (*(*a1 + 16))(v38, a1);
+    (*(*v21 + 32))(v21, v38);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v21 + 8), " client. Challenge Header:", 26);
+    *(v21 + 17) = 0;
+    (*(*v21 + 32))(v21, a3);
+    (*(*v21 + 64))(v21, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v21 + 17) = 0;
+    if (v39 < 0)
     {
-      operator delete(v39[0]);
+      operator delete(v38[0]);
     }
 
-    if (v29 == 1 && v28 < 0)
+    if (v28 == 1 && v27 < 0)
     {
-      operator delete(v27);
+      operator delete(v26);
     }
 
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(__p);
     }
 
-    v23 = *(a1 + 64);
-    if (v23)
+    v22 = *(a1 + 64);
+    if (v22)
     {
-      v24 = std::__shared_weak_count::lock(v23);
-      if (v24)
+      v23 = std::__shared_weak_count::lock(v22);
+      if (v23)
       {
-        v8 = v24;
-        v25 = *(a1 + 56);
-        if (v25)
+        v8 = v23;
+        v24 = *(a1 + 56);
+        if (v24)
         {
+          v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           __p = &unk_1F5EBDEF8;
-          v31 = &_bambiDomain;
-          v32 = 0x40000000;
+          v30 = &_bambiDomain;
+          v31 = 0x40000000;
+          v33 = 0;
           v34 = 0;
-          v35 = 0;
-          XcapSession::operationFailure(v25, &__p);
+          XcapSession::operationFailure(v24, &__p);
           goto LABEL_35;
         }
 
@@ -5976,8 +5966,7 @@ void XcapBsfServerInfo::httpVersion(XcapBsfServerInfo *this@<X0>, std::string *a
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 25);
-    a2->__r_.__value_.__r.__words[2] = *(this + 52);
+    *a2 = *(this + 400);
   }
 }
 
@@ -6310,82 +6299,82 @@ void std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_v
   }
 }
 
-uint64_t *std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(uint64_t a1, unsigned __int8 *a2)
+uint64_t **std::__tree<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::__map_value_compare<XcapNs::nsType,std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>,std::less<XcapNs::nsType>,true>,std::allocator<std::__value_type<XcapNs::nsType,bambi::XmlTreeNs>>>::__emplace_unique_key_args<XcapNs::nsType,std::piecewise_construct_t const&,std::tuple<XcapNs::nsType const&>,std::tuple<>>(uint64_t **a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = a1[1];
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<XcapNs::nsType>::__emplace_unique_key_args<XcapNs::nsType,XcapNs::nsType const&>(uint64_t a1, unsigned __int8 *a2)
+uint64_t **std::__tree<XcapNs::nsType>::__emplace_unique_key_args<XcapNs::nsType,XcapNs::nsType const&>(uint64_t **a1, unsigned __int8 *a2, _BYTE *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 25);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 25);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6456,32 +6445,32 @@ void sub_1E50E4ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a51);
   }
 
-  ims::AccessNetwork::~AccessNetwork(&a73);
-  if (a68 < 0)
+  ims::AccessNetwork::~AccessNetwork(&a68);
+  if (a65 < 0)
   {
     operator delete(a63);
   }
 
-  if (a72 < 0)
+  if (a67 < 0)
+  {
+    operator delete(a66);
+  }
+
+  ims::AccessNetwork::~AccessNetwork(&a73);
+  if (a70 < 0)
   {
     operator delete(a69);
   }
 
-  ims::AccessNetwork::~AccessNetwork(&a78);
-  if (a75 < 0)
+  if (a72 < 0)
   {
-    operator delete(a74);
+    operator delete(a71);
   }
 
-  if (a77 < 0)
+  while (v74 != &a74)
   {
-    operator delete(a76);
-  }
-
-  while (v79 != &a79)
-  {
-    v79 -= 7;
-    SipWarning::~SipWarning(v79);
+    v74 -= 7;
+    SipWarning::~SipWarning(v74);
   }
 
   _Unwind_Resume(a1);
@@ -6521,7 +6510,7 @@ void SipResponseCodeMap::fromString(uint64_t a1, uint64_t a2)
           ims::chomp(&__str, "\r\n\t ", 3);
           memset(&__p, 0, sizeof(__p));
           std::string::basic_string(&__p, v4, v7 + 1, 0xFFFFFFFFFFFFFFFFLL, &v14);
-          SipResponseCodeMap::addResponseCodesForMethodFromString(a1, &__str.__r_.__value_.__l.__data_, &__p);
+          SipResponseCodeMap::addResponseCodesForMethodFromString(a1, &__str, &__p);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
@@ -6547,7 +6536,7 @@ void sub_1E50E524C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void SipResponseCodeMap::addResponseCodesForMethodFromString(uint64_t a1, void **a2, std::string *a3)
+void SipResponseCodeMap::addResponseCodesForMethodFromString(uint64_t a1, uint64_t ***a2, std::string *a3)
 {
   v22 = 0;
   v23 = 0;
@@ -6580,7 +6569,7 @@ void SipResponseCodeMap::addResponseCodesForMethodFromString(uint64_t a1, void *
         {
 LABEL_43:
           LODWORD(v25.__r_.__value_.__l.__data_) = 60;
-          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(v5 + 56, 0x3Cu);
+          std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>((v5 + 56), 0x3Cu, &v25);
           goto LABEL_47;
         }
       }
@@ -6628,7 +6617,7 @@ LABEL_31:
             v19 = 0x40000000;
 LABEL_46:
             LODWORD(v25.__r_.__value_.__l.__data_) = v19 | v15;
-            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(v5 + 56, v19 | v15);
+            std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>((v5 + 56), v19 | v15, &v25);
             goto LABEL_47;
           }
 
@@ -6711,15 +6700,16 @@ LABEL_47:
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v25);
 }
 
-void sub_1E50E55A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, char a13)
+void sub_1E50E55A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, ...)
 {
-  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](&a13);
+  va_start(va, a12);
+  std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::set<unsigned int>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   a12 = &a9;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a12);
   _Unwind_Resume(a1);
 }
 
-BOOL SipResponseCodeMap::containsResponseCodeForMethod(uint64_t a1, void **a2, unsigned __int16 a3, _BYTE *a4)
+BOOL SipResponseCodeMap::containsResponseCodeForMethod(uint64_t a1, char *a2, unsigned __int16 a3, _BYTE *a4)
 {
   v7 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 8, a2);
   v8 = a1 + 16;
@@ -7099,184 +7089,183 @@ LABEL_32:
 ImsOutStream *SipResponseCodeMap::log(SipResponseCodeMap *this, ImsOutStream *a2)
 {
   v3 = *(this + 1);
-  v24 = this + 16;
+  v23 = this + 16;
   if (v3 != this + 16)
   {
     v4 = 1;
-    v5 = *(MEMORY[0x1E69E54E8] + 24);
-    v25 = v5;
-    v26 = *MEMORY[0x1E69E54E8];
+    v24 = *(MEMORY[0x1E69E54E8] + 24);
+    v25 = *MEMORY[0x1E69E54E8];
     while (1)
     {
       if ((v4 & 1) == 0)
       {
-        v6 = *(a2 + 1);
-        LOBYTE(v29) = 59;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, &v29, 1);
+        v5 = *(a2 + 1);
+        LOBYTE(v28) = 59;
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, &v28, 1);
         *(a2 + 17) = 0;
       }
 
       (*(*a2 + 32))(a2, v3 + 4);
-      v7 = *(a2 + 1);
-      LOBYTE(v29) = 58;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, &v29, 1);
+      v6 = *(a2 + 1);
+      LOBYTE(v28) = 58;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, &v28, 1);
       *(a2 + 17) = 0;
-      v8 = *(v3 + 7);
-      if (v8 != v3 + 64)
+      v7 = *(v3 + 7);
+      if (v7 != v3 + 64)
       {
         break;
       }
 
 LABEL_46:
-      v21 = *(v3 + 1);
-      if (v21)
+      v20 = *(v3 + 1);
+      if (v20)
       {
         do
         {
-          v22 = v21;
-          v21 = *v21;
+          v21 = v20;
+          v20 = *v20;
         }
 
-        while (v21);
+        while (v20);
       }
 
       else
       {
         do
         {
-          v22 = *(v3 + 2);
-          v15 = *v22 == v3;
-          v3 = v22;
+          v21 = *(v3 + 2);
+          v14 = *v21 == v3;
+          v3 = v21;
         }
 
-        while (!v15);
+        while (!v14);
       }
 
       v4 = 0;
-      v3 = v22;
-      if (v22 == v24)
+      v3 = v21;
+      if (v21 == v23)
       {
         return a2;
       }
     }
 
-    v9 = 1;
+    v8 = 1;
     while (1)
     {
-      v10 = *(v8 + 7);
-      if ((v9 & 1) == 0)
+      v9 = *(v7 + 7);
+      if ((v8 & 1) == 0)
       {
+        v10 = *(a2 + 1);
+        LOBYTE(v28) = 44;
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, &v28, 1);
+        *(a2 + 17) = 0;
+      }
+
+      if ((v9 & 0x80000000) != 0)
+      {
+        v9 &= 0x7FFFFFFFu;
         v11 = *(a2 + 1);
-        LOBYTE(v29) = 44;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v29, 1);
+        LOBYTE(v28) = 45;
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, &v28, 1);
         *(a2 + 17) = 0;
       }
 
-      if ((v10 & 0x80000000) != 0)
-      {
-        v10 &= 0x7FFFFFFFu;
-        v12 = *(a2 + 1);
-        LOBYTE(v29) = 45;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v29, 1);
-        *(a2 + 17) = 0;
-      }
-
-      if (v10 == 60)
+      if (v9 == 60)
       {
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "ETIMEDOUT", 9);
       }
 
       else
       {
-        if (v10 >> 30)
+        if (v9 >> 30)
         {
-          if ((v10 & 0x3FFFFFFF) != 0)
+          if ((v9 & 0x3FFFFFFF) != 0)
           {
-            if ((v10 & 0x3FFFFFFF) >= 0xA)
+            if ((v9 & 0x3FFFFFFF) >= 0xA)
             {
-              v16 = "???";
+              v15 = "???";
               goto LABEL_27;
             }
 
-            v37 = 0;
-            memset(v36, 0, sizeof(v36));
+            v36 = 0;
+            memset(v35, 0, sizeof(v35));
+            v33 = 0u;
             v34 = 0u;
-            v35 = 0u;
             *__src = 0u;
             *__p = 0u;
-            v30 = 0u;
-            v31 = 0u;
             v29 = 0u;
-            std::ostringstream::basic_ostringstream[abi:ne200100](&v29);
-            v17 = MEMORY[0x1E6923350](&v29, v10 & 0x3FFFFFFF);
-            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, "xx", 2);
-            if ((BYTE8(v35) & 0x10) != 0)
+            v30 = 0u;
+            v28 = 0u;
+            std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
+            v16 = MEMORY[0x1E6923350](&v28, v9 & 0x3FFFFFFF);
+            std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "xx", 2);
+            if ((BYTE8(v34) & 0x10) != 0)
             {
-              v19 = v35;
-              if (v35 < __src[1])
+              v18 = v34;
+              if (v34 < __src[1])
               {
-                *&v35 = __src[1];
-                v19 = __src[1];
+                *&v34 = __src[1];
+                v18 = __src[1];
               }
 
-              v20 = __src[0];
+              v19 = __src[0];
             }
 
             else
             {
-              if ((BYTE8(v35) & 8) == 0)
+              if ((BYTE8(v34) & 8) == 0)
               {
-                v18 = 0;
-                v28 = 0;
+                v17 = 0;
+                v27 = 0;
                 goto LABEL_41;
               }
 
-              v20 = *(&v30 + 1);
-              v19 = *(&v31 + 1);
+              v19 = *(&v29 + 1);
+              v18 = *(&v30 + 1);
             }
 
-            v18 = v19 - v20;
-            if ((v19 - v20) >= 0x7FFFFFFFFFFFFFF8)
+            v17 = v18 - v19;
+            if ((v18 - v19) >= 0x7FFFFFFFFFFFFFF8)
             {
               std::string::__throw_length_error[abi:ne200100]();
             }
 
-            if (v18 >= 0x17)
+            if (v17 >= 0x17)
             {
               operator new();
             }
 
-            v28 = v19 - v20;
-            if (v18)
+            v27 = v18 - v19;
+            if (v17)
             {
-              memmove(&__dst, v20, v18);
+              memmove(&__dst, v19, v17);
             }
 
 LABEL_41:
-            *(&__dst + v18) = 0;
-            *&v29 = v26;
-            *(&v29 + *(v26 - 24)) = v25;
-            *(&v29 + 1) = MEMORY[0x1E69E5548] + 16;
-            if (SHIBYTE(v34) < 0)
+            *(&__dst + v17) = 0;
+            *&v28 = v25;
+            *(&v28 + *(v25 - 24)) = v24;
+            *(&v28 + 1) = MEMORY[0x1E69E5548] + 16;
+            if (SHIBYTE(v33) < 0)
             {
               operator delete(__p[1]);
             }
 
-            *(&v29 + 1) = MEMORY[0x1E69E5538] + 16;
-            std::locale::~locale(&v30);
+            *(&v28 + 1) = MEMORY[0x1E69E5538] + 16;
+            std::locale::~locale(&v29);
             std::ostream::~ostream();
-            MEMORY[0x1E6923510](v36);
+            MEMORY[0x1E6923510](v35);
           }
 
           else
           {
-            v16 = "*";
+            v15 = "*";
 LABEL_27:
-            std::string::basic_string[abi:ne200100]<0>(&__dst, v16);
+            std::string::basic_string[abi:ne200100]<0>(&__dst, v15);
           }
 
           (*(*a2 + 32))(a2, &__dst);
-          if (v28 < 0)
+          if (v27 < 0)
           {
             operator delete(__dst);
           }
@@ -7284,38 +7273,38 @@ LABEL_27:
           goto LABEL_16;
         }
 
-        MEMORY[0x1E6923350](*(a2 + 1), v10);
+        MEMORY[0x1E6923350](*(a2 + 1), v9);
       }
 
       *(a2 + 17) = 0;
 LABEL_16:
-      v13 = *(v8 + 1);
-      if (v13)
+      v12 = *(v7 + 1);
+      if (v12)
       {
         do
         {
-          v14 = v13;
-          v13 = *v13;
+          v13 = v12;
+          v12 = *v12;
         }
 
-        while (v13);
+        while (v12);
       }
 
       else
       {
         do
         {
-          v14 = *(v8 + 2);
-          v15 = *v14 == v8;
-          v8 = v14;
+          v13 = *(v7 + 2);
+          v14 = *v13 == v7;
+          v7 = v13;
         }
 
-        while (!v15);
+        while (!v14);
       }
 
-      v9 = 0;
-      v8 = v14;
-      if (v14 == v3 + 64)
+      v8 = 0;
+      v7 = v13;
+      if (v13 == v3 + 64)
       {
         goto LABEL_46;
       }
@@ -7325,10 +7314,10 @@ LABEL_16:
   return a2;
 }
 
-void sub_1E50E5ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_1E50E5ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *__p, uint64_t a6, int a7, __int16 a8, char a9, char a10, char a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  va_start(va, a24);
-  std::ostringstream::~ostringstream(&a11, MEMORY[0x1E69E54E8]);
+  va_start(va, a30);
+  std::ostringstream::~ostringstream(&a17, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
   _Unwind_Resume(a1);
 }
@@ -7395,10 +7384,10 @@ void SipResponseCodeMap::~SipResponseCodeMap(SipResponseCodeMap *this)
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(uint64_t result, unsigned int a2)
+uint64_t *std::__tree<unsigned int>::__emplace_unique_key_args<unsigned int,unsigned int>(uint64_t *result, unsigned int a2, _DWORD *a3)
 {
-  v2 = *(result + 8);
-  if (!v2)
+  v3 = result[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -7408,41 +7397,41 @@ LABEL_7:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 28);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_7;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
       return result;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
   }
 }
 
-void IpAddress::loggableName(IpAddress *this)
+void IpAddress::loggableName()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E50E61F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
+void sub_1E50E61F4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18)
 {
   if (a15 < 0)
   {
@@ -7453,39 +7442,39 @@ void sub_1E50E61F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   {
     if (a17)
     {
-      (*(*a17 + 8))(a17);
+      (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void IpAddress::asString()
+void IpAddress::asString(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
+  v4 = 0;
+  memset(v3, 0, sizeof(v3));
+  ImsStringOutStream::ImsStringOutStream(v3, 1);
 }
 
-void sub_1E50E6378(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_1E50E6378(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   if (a15 == 1)
   {
     if (a14)
     {
-      (*(*a14 + 8))(a14);
+      (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void IpAddress::asString(void *a1@<X8>)
+void IpAddress::asString(uint64_t *__return_ptr a1@<X8>, IpAddress *this@<X0>, uint64_t a3@<X1>)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  IpAddress::asString();
+  IpAddress::asString(this, a1, a3);
 }
 
 void sub_1E50E6414(_Unwind_Exception *exception_object)
@@ -7773,83 +7762,76 @@ void sub_1E50E680C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL IpAddress::isAddress(std::string *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 0;
   v4 = 0;
+  if (IpAddress::parseIPv4Address(a1, &v3))
+  {
+    return 1;
+  }
+
+  v3 = 0;
+  v4 = 0;
+  v6 = 0;
   v5 = 0;
-  if (IpAddress::parseIPv4Address(a1, &v4))
-  {
-    result = 1;
-  }
-
-  else
-  {
-    v4 = 0;
-    v5 = 0;
-    v7 = 0;
-    v6 = 0;
-    result = IpAddress::parseIPv6Address(a1, &v4, 0);
-  }
-
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return IpAddress::parseIPv6Address(a1, &v3, 0);
 }
 
 BOOL IpAddress::createAddress@<W0>(std::string *a1@<X0>, void *a2@<X8>)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = 0;
-  v10[1] = 0;
-  memset(v8, 0, sizeof(v8));
-  v9 = 0;
-  if (IpAddress::parseIPv4Address(a1, v10))
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = 0;
+  v9[1] = 0;
+  memset(v7, 0, sizeof(v7));
+  v8 = 0;
+  if (IpAddress::parseIPv4Address(a1, v9))
   {
     std::allocate_shared[abi:ne200100]<Ip4Address,std::allocator<Ip4Address>,sockaddr_in &,0>();
   }
 
-  v6 = 1;
-  result = IpAddress::parseIPv6Address(a1, v8, &v6);
+  v5 = 1;
+  result = IpAddress::parseIPv6Address(a1, v7, &v5);
   if (result)
   {
-    v7 = 0uLL;
+    v6 = 0uLL;
     std::allocate_shared[abi:ne200100]<Ip6Address,std::allocator<Ip6Address>,sockaddr_in6 &,0>();
   }
 
   *a2 = 0;
   a2[1] = 0;
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t IpAddress::createAddress@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+uint64_t *IpAddress::createAddress@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v4 = *(this + 1);
-  if (v4 == 30)
+  v3 = *(this + 1);
+  if (v3 == 30)
   {
     std::allocate_shared[abi:ne200100]<Ip6Address,std::allocator<Ip6Address>,sockaddr_in6 &,0>();
   }
 
-  if (v4 == 2)
+  if (v3 == 2)
   {
     std::allocate_shared[abi:ne200100]<Ip4Address,std::allocator<Ip4Address>,sockaddr_in &,0>();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
   return this;
 }
 
 void IpAddress::addressTypeMaskToString(IpAddress *this)
 {
-  v1 = this;
-  memset(v3, 0, sizeof(v3));
+  v2 = this;
+  memset(v4, 0, sizeof(v4));
   if (this)
   {
-    std::vector<std::string>::push_back[abi:ne200100](v3, &IpAddress::kAddressTypeIPv4);
+    std::vector<std::string>::push_back[abi:ne200100](v4, &IpAddress::kAddressTypeIPv4);
   }
 
-  if ((v1 & 2) != 0)
+  if ((v2 & 2) != 0)
   {
-    std::vector<std::string>::push_back[abi:ne200100](v3, &IpAddress::kAddressTypeIPv6);
+    std::vector<std::string>::push_back[abi:ne200100](v4, &IpAddress::kAddressTypeIPv6);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, ",");
@@ -7895,60 +7877,46 @@ BOOL IpAddress::equalsWithDefaultPort(uint64_t a1, uint64_t a2, unsigned __int16
   return result;
 }
 
-void IpAddress::logStr(IpAddress *this)
+void IpAddress::logStr()
 {
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
+  v3 = 0;
+  memset(v2, 0, sizeof(v2));
+  ImsStringOutStream::ImsStringOutStream(v2, 1);
 }
 
-void sub_1E50E6CAC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E50E6CAC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void asString(const IpAddress *a1)
-{
-  v2 = 0;
-  memset(v1, 0, sizeof(v1));
-  ImsStringOutStream::ImsStringOutStream(v1);
-}
-
-void sub_1E50E6DEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E50E6DEC(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void asString()
-{
-  v1 = 0;
-  memset(v0, 0, sizeof(v0));
-  ImsStringOutStream::ImsStringOutStream(v0);
-}
-
-void sub_1E50E6F24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1E50E6F24(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
 {
   if (a11 == 1)
   {
     if (a10)
     {
-      (*(*a10 + 8))(a10);
+      (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7983,33 +7951,31 @@ uint64_t Ip4Address::clear(uint64_t this)
 
 uint64_t Ip4Address::equals(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *a2;
   if (!*a2)
   {
     return 0;
   }
 
-  v7 = **v4;
-  if (!v8)
+  if (!v6)
   {
     return 0;
   }
 
-  v9 = *(a2 + 8);
-  v12 = v8;
-  v13 = v9;
-  if (v9)
+  v7 = *(a2 + 8);
+  v10 = v6;
+  v11 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v10 = (*(*a1 + 232))(a1, &v12, a3);
-  if (v13)
+  v8 = (*(*a1 + 232))(a1, &v10, a3);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  return v10;
+  return v8;
 }
 
 void sub_1E50E7140(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8022,7 +7988,7 @@ void sub_1E50E7140(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL Ip4Address::isPrivate(Ip4Address *this)
+uint64_t Ip4Address::isPrivate(Ip4Address *this)
 {
   v1 = *(this + 8);
   v2 = v1 & 0xFFF00000;
@@ -8068,88 +8034,86 @@ BOOL Ip6Address::fromString(BOOL *a1, std::string *a2)
 
 ImsOutStream *Ip6Address::toStream(Ip6Address *this, ImsOutStream *a2, char a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
-  memset(&v19, 0, sizeof(v19));
+  v25 = *MEMORY[0x1E69E9840];
+  memset(&v16, 0, sizeof(v16));
   if ((*(this + 56) & 1) != 0 || IpAddress::_alwaysCompressIPv6Addresses == 1)
   {
-    *v20 = 0u;
-    memset(v21, 0, 30);
-    v6 = inet_ntop(30, this + 36, v20, 0x2Eu);
+    *v17 = 0u;
+    memset(v18, 0, 30);
+    v6 = inet_ntop(30, this + 36, v17, 0x2Eu);
     if (!v6)
     {
       goto LABEL_29;
     }
 
-    std::string::__assign_external(&v19, v6);
+    std::string::__assign_external(&v16, v6);
   }
 
   else
   {
-    v27 = 0;
-    v25 = 0u;
-    memset(v26, 0, sizeof(v26));
-    v24 = 0u;
+    v24 = 0;
     v22 = 0u;
+    memset(v23, 0, sizeof(v23));
+    v21 = 0u;
+    v19 = 0u;
     *__p = 0u;
-    memset(v21, 0, sizeof(v21));
-    *v20 = 0u;
-    std::ostringstream::basic_ostringstream[abi:ne200100](v20);
+    memset(v18, 0, sizeof(v18));
+    *v17 = 0u;
+    std::ostringstream::basic_ostringstream[abi:ne200100](v17);
     for (i = 0; ; i += 2)
     {
-      *(&v21[1].__locale_ + *(v20[0] - 3)) = 2;
-      v18.__r_.__value_.__s.__data_[0] = 48;
-      v8 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, &v18);
+      *(&v18[1].__locale_ + *(v17[0] - 3)) = 2;
+      v15.__r_.__value_.__s.__data_[0] = 48;
+      v8 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v17, &v15);
       *(v8 + *(*v8 - 24) + 8) = *(v8 + *(*v8 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v9 = *(this + i + 36);
       MEMORY[0x1E6923390]();
-      *(&v21[1].__locale_ + *(v20[0] - 3)) = 2;
-      v18.__r_.__value_.__s.__data_[0] = 48;
-      v10 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v20, &v18);
-      *(v10 + *(*v10 - 24) + 8) = *(v10 + *(*v10 - 24) + 8) & 0xFFFFFFB5 | 8;
-      v11 = *(this + i + 37);
+      *(&v18[1].__locale_ + *(v17[0] - 3)) = 2;
+      v15.__r_.__value_.__s.__data_[0] = 48;
+      v9 = std::operator<<[abi:ne200100]<std::char_traits<char>>(v17, &v15);
+      *(v9 + *(*v9 - 24) + 8) = *(v9 + *(*v9 - 24) + 8) & 0xFFFFFFB5 | 8;
       MEMORY[0x1E6923390]();
       if (i > 0xD)
       {
         break;
       }
 
-      v18.__r_.__value_.__s.__data_[0] = 58;
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, &v18, 1);
+      v15.__r_.__value_.__s.__data_[0] = 58;
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, &v15, 1);
     }
 
-    std::ostringstream::str[abi:ne200100](v20, &v18);
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    std::ostringstream::str[abi:ne200100](v17, &v15);
+    if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__r_.__value_.__l.__data_);
+      operator delete(v16.__r_.__value_.__l.__data_);
     }
 
-    v19 = v18;
-    v20[0] = *MEMORY[0x1E69E54E8];
-    *(v20 + *(v20[0] - 3)) = *(MEMORY[0x1E69E54E8] + 24);
-    v20[1] = (MEMORY[0x1E69E5548] + 16);
-    if (SHIBYTE(v24) < 0)
+    v16 = v15;
+    v17[0] = *MEMORY[0x1E69E54E8];
+    *(v17 + *(v17[0] - 3)) = *(MEMORY[0x1E69E54E8] + 24);
+    v17[1] = (MEMORY[0x1E69E5548] + 16);
+    if (SHIBYTE(v21) < 0)
     {
       operator delete(__p[1]);
     }
 
-    v20[1] = (MEMORY[0x1E69E5538] + 16);
-    std::locale::~locale(v21);
+    v17[1] = (MEMORY[0x1E69E5538] + 16);
+    std::locale::~locale(v18);
     std::ostream::~ostream();
-    MEMORY[0x1E6923510](v26);
+    MEMORY[0x1E6923510](v23);
   }
 
   if (*(a2 + 18) == 1)
   {
-    std::string::__assign_external(&v19, IpAddress::kAnonymousIPv6);
+    std::string::__assign_external(&v16, IpAddress::kAnonymousIPv6);
   }
 
-  memset(v21, 0, sizeof(v21));
-  *v20 = 0u;
-  std::string::basic_string[abi:ne200100]<0>(&v18, "xx:xx:xx:xx");
-  PIIString::PIIString(v20, &v19, &v18);
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+  memset(v18, 0, sizeof(v18));
+  *v17 = 0u;
+  std::string::basic_string[abi:ne200100]<0>(&v15, "xx:xx:xx:xx");
+  PIIString::PIIString(v17, &v16, &v15);
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v18.__r_.__value_.__l.__data_);
+    operator delete(v15.__r_.__value_.__l.__data_);
     if ((a3 & 1) == 0)
     {
       goto LABEL_21;
@@ -8163,65 +8127,64 @@ ImsOutStream *Ip6Address::toStream(Ip6Address *this, ImsOutStream *a2, char a3)
 
   if (*(this + 15))
   {
-    v12 = *(a2 + 1);
-    v18.__r_.__value_.__s.__data_[0] = 91;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v18, 1);
+    v10 = *(a2 + 1);
+    v15.__r_.__value_.__s.__data_[0] = 91;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, &v15, 1);
     *(a2 + 17) = 0;
-    v13 = a2 + 17;
-    (*(*a2 + 48))(a2, v20);
+    v11 = a2 + 17;
+    (*(*a2 + 48))(a2, v17);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(a2 + 1), "]:", 2);
     *(a2 + 17) = 0;
     MEMORY[0x1E6923390](*(a2 + 1), bswap32(*(this + 15)) >> 16);
 LABEL_24:
-    *v13 = 0;
+    *v11 = 0;
     goto LABEL_25;
   }
 
 LABEL_21:
   if ((a3 & 2) != 0)
   {
-    v14 = *(a2 + 1);
-    v18.__r_.__value_.__s.__data_[0] = 91;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, &v18, 1);
+    v12 = *(a2 + 1);
+    v15.__r_.__value_.__s.__data_[0] = 91;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, &v15, 1);
     *(a2 + 17) = 0;
-    v13 = a2 + 17;
-    (*(*a2 + 48))(a2, v20);
-    v15 = *(a2 + 1);
-    v18.__r_.__value_.__s.__data_[0] = 93;
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, &v18, 1);
+    v11 = a2 + 17;
+    (*(*a2 + 48))(a2, v17);
+    v13 = *(a2 + 1);
+    v15.__r_.__value_.__s.__data_[0] = 93;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, &v15, 1);
     goto LABEL_24;
   }
 
-  (*(*a2 + 48))(a2, v20);
+  (*(*a2 + 48))(a2, v17);
 LABEL_25:
-  if (SHIBYTE(v21[3].__locale_) < 0)
+  if (SHIBYTE(v18[3].__locale_) < 0)
   {
-    operator delete(v21[1].__locale_);
+    operator delete(v18[1].__locale_);
   }
 
-  if (SHIBYTE(v21[0].__locale_) < 0)
+  if (SHIBYTE(v18[0].__locale_) < 0)
   {
-    operator delete(v20[0]);
+    operator delete(v17[0]);
   }
 
 LABEL_29:
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v19.__r_.__value_.__l.__data_);
+    operator delete(v16.__r_.__value_.__l.__data_);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return a2;
 }
 
-void sub_1E50E77D0(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+void sub_1E50E77D0(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, __int16 a6, char a7, char a8, void *__p, void *a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  va_start(va, a29);
-  std::ostringstream::~ostringstream(&a16, MEMORY[0x1E69E54E8]);
+  va_start(va, a33);
+  std::ostringstream::~ostringstream(&a20, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
-  if (a14 < 0)
+  if (SHIBYTE(a18) < 0)
   {
-    operator delete(__p);
+    operator delete(a16);
   }
 
   _Unwind_Resume(a1);
@@ -8239,33 +8202,31 @@ uint64_t Ip6Address::clear(uint64_t this)
 
 uint64_t Ip6Address::equals(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *a2;
   if (!*a2)
   {
     return 0;
   }
 
-  v7 = **v4;
-  if (!v8)
+  if (!v6)
   {
     return 0;
   }
 
-  v9 = *(a2 + 8);
-  v12 = v8;
-  v13 = v9;
-  if (v9)
+  v7 = *(a2 + 8);
+  v10 = v6;
+  v11 = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v10 = (*(*a1 + 232))(a1, &v12, a3);
-  if (v13)
+  v8 = (*(*a1 + 232))(a1, &v10, a3);
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  return v10;
+  return v8;
 }
 
 void sub_1E50E7978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8387,7 +8348,7 @@ void ImsPowerAssertion::~ImsPowerAssertion(void **this)
 
 void PowerAssertionLock::~PowerAssertionLock(PowerAssertionLock **this)
 {
-  v2 = this + 1;
+  v2 = (this + 1);
   v3 = *this;
   if (*this != (this + 1))
   {
@@ -8536,7 +8497,7 @@ void std::__shared_ptr_emplace<ImsPowerAssertion>::~__shared_ptr_emplace(std::__
   JUMPOUT(0x1E69235B0);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__erase_unique<std::string>(uint64_t **a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::shared_ptr<AssertionCounter>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::shared_ptr<AssertionCounter>>>>::__erase_unique<std::string>(uint64_t **a1, char *a2)
 {
   v3 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1, a2);
   if (a1 + 1 == v3)
@@ -8551,12 +8512,12 @@ uint64_t std::__tree<std::__value_type<std::string,std::shared_ptr<AssertionCoun
   return 1;
 }
 
-void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void ImsFileManager::moveFile(const std::string *a1@<X0>, const std::string::value_type *a2@<X1>, uint64_t a3@<X8>)
 {
   memset(&__dst, 0, sizeof(__dst));
   LOBYTE(v36) = 0;
   v6 = [MEMORY[0x1E696AC08] defaultManager];
-  if (*(a2 + 23) >= 0)
+  if (a2[23] >= 0)
   {
     v7 = a2;
   }
@@ -8571,9 +8532,9 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
 
   if ((v9 & v36 & 1) == 0)
   {
-    if (*(a2 + 23) < 0)
+    if (a2[23] < 0)
     {
-      std::string::__init_copy_ctor_external(&__dst, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(&__dst, *a2, *(a2 + 1));
     }
 
     else
@@ -8594,7 +8555,7 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   v38 = 0u;
   v36 = 0u;
   std::ostringstream::basic_ostringstream[abi:ne200100](&v36);
-  v10 = *(a2 + 23);
+  v10 = a2[23];
   if (v10 >= 0)
   {
     v11 = a2;
@@ -8612,7 +8573,7 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
 
   else
   {
-    v12 = *(a2 + 8);
+    v12 = *(a2 + 1);
   }
 
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v11, v12);
@@ -8629,16 +8590,16 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
 
   if ((v13 & 0x80u) != 0)
   {
-    v13 = *(a2 + 8);
+    v13 = *(a2 + 1);
   }
 
-  if (*(v14 + v13 - 1) != 47)
+  if (v14[v13 - 1] != 47)
   {
     v35.__r_.__value_.__s.__data_[0] = 47;
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, &v35, 1);
   }
 
-  v15 = *(a1 + 23);
+  v15 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
   if (v15 >= 0)
   {
     v16 = a1;
@@ -8646,25 +8607,25 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
 
   else
   {
-    v16 = *a1;
+    v16 = a1->__r_.__value_.__r.__words[0];
   }
 
   if (v15 >= 0)
   {
-    v17 = *(a1 + 23);
+    size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v17 = *(a1 + 8);
+    size = a1->__r_.__value_.__l.__size_;
   }
 
-  if (v17)
+  if (size)
   {
-    v18 = v17;
+    v18 = size;
     while (v18)
     {
-      v19 = *(v16 + v18-- - 1);
+      v19 = v16->__r_.__value_.__s.__data_[--v18];
       if (v19 == 47)
       {
         if (v18 == -1)
@@ -8672,7 +8633,7 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
           break;
         }
 
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v16, v17);
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v16, size);
         goto LABEL_40;
       }
     }
@@ -8691,15 +8652,15 @@ void ImsFileManager::moveFile(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
 
   if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
+    v21 = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v35.__r_.__value_.__l.__size_;
+    v21 = v35.__r_.__value_.__l.__size_;
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v20, size);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v20, v21);
   if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v35.__r_.__value_.__l.__data_);
@@ -8761,14 +8722,14 @@ LABEL_54:
   std::ostream::~ostream();
   MEMORY[0x1E6923510](v43);
 LABEL_57:
-  if (*(a1 + 23) >= 0)
+  if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     v25 = a1;
   }
 
   else
   {
-    v25 = *a1;
+    v25 = a1->__r_.__value_.__r.__words[0];
   }
 
   v26 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
@@ -8812,30 +8773,23 @@ LABEL_57:
   }
 }
 
-void sub_1E50E8A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, int a6, __int16 a7, char a8, char a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
+void sub_1E50E8A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, int a6, __int16 a7, char a8, char a9, void *__p, void *a11, int a12, __int16 a13, char a14, char a15, char a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
-  va_start(va, a29);
-  if (a15 < 0)
+  va_start(va, a33);
+  if (SHIBYTE(a19) < 0)
   {
-    operator delete(__p);
+    operator delete(a17);
   }
 
-  std::ostringstream::~ostringstream(&a16, MEMORY[0x1E69E54E8]);
+  std::ostringstream::~ostringstream(&a20, MEMORY[0x1E69E54E8]);
   MEMORY[0x1E6923510](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ImsNotificationCenter::addObserverForNotification@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void *ImsNotificationCenter::addObserverForNotification@<X0>(void *result@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  if (result)
+  if (result || (v4 = *MEMORY[0x1E695DA60]) == 0 || (v6 = [MEMORY[0x1E696AD88] defaultCenter], v36[0] = MEMORY[0x1E69E9820], v36[1] = 3221225472, v36[2] = ___ZN21ImsNotificationCenter26addObserverForNotificationE15ImsNotificationU13block_pointerFvvE_block_invoke, v36[3] = &unk_1E876C990, v36[4] = a2, (result = objc_msgSend(v6, "addObserverForName:object:queue:usingBlock:", v4, 0, 0, v36)) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v4 = *MEMORY[0x1E695DA60];
-  if (!*MEMORY[0x1E695DA60] || (v6 = [MEMORY[0x1E696AD88] defaultCenter], v36[0] = MEMORY[0x1E69E9820], v36[1] = 3221225472, v36[2] = ___ZN21ImsNotificationCenter26addObserverForNotificationE15ImsNotificationU13block_pointerFvvE_block_invoke, v36[3] = &unk_1E876C990, v36[4] = a2, (result = objc_msgSend(v6, "addObserverForName:object:queue:usingBlock:", v4, 0, 0, v36)) == 0))
-  {
-LABEL_7:
     a3->__r_.__value_.__r.__words[0] = 0;
     a3->__r_.__value_.__l.__size_ = 0;
     a3->__r_.__value_.__r.__words[2] = 0;
@@ -8920,7 +8874,7 @@ LABEL_18:
   (*(*v12 + 40))(v12, &v16);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v12 + 8), " for ", 5);
   *(v12 + 17) = 0;
-  ims::CFString::asString(v26, 0x8000100, &v14);
+  ims::CFString::asString(&v14, v26, 0x8000100);
   LoggableString::LoggableString(&__p, &v14);
   (*(*v12 + 40))(v12, &__p);
   (*(*v12 + 64))(v12, std::endl[abi:ne200100]<char,std::char_traits<char>>);
@@ -8974,7 +8928,7 @@ LABEL_18:
   return MEMORY[0x1E6923510](v34);
 }
 
-void sub_1E50E9018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, char a44, uint64_t a45, char a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62)
+void sub_1E50E9018(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, char a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62)
 {
   if (a15 < 0)
   {
@@ -9143,7 +9097,7 @@ void IMSTimerManager::~IMSTimerManager(IMSTimerManager *this)
   JUMPOUT(0x1E69235B0);
 }
 
-void IMSTimerManager::timerFired(uint64_t a1, void **a2)
+void IMSTimerManager::timerFired(uint64_t a1, char *a2)
 {
   v12 = 0;
   ImsLock::set(&v12, (a1 + 8), v13);
@@ -9197,39 +9151,39 @@ void std::__tree<std::__value_type<std::string,IMSTimerManager::TimerData>,std::
   }
 }
 
-void QMIRTPStackController::QMIRTPStackController(uint64_t a1, uint64_t *a2, int a3, uint64_t a4, void *a5)
+void QMIRTPStackController::QMIRTPStackController(uint64_t a1, uint64_t *a2, int a3, uint64_t a4, void *a5, __int128 *a6)
 {
-  v8 = a2[1];
-  v15 = *a2;
-  v16 = v8;
-  if (v8)
-  {
-    atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v9 = a5[1];
-  v13 = *a5;
-  v14 = v9;
+  v9 = a2[1];
+  v16 = *a2;
+  v17 = v9;
   if (v9)
   {
-    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v10 = a5[1];
+  v14 = *a5;
+  v15 = v10;
+  if (v10)
+  {
+    atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "rtp.qmistackcontroller");
-  RTPStackController::RTPStackController(a1, &v15, a3, &v13, __p);
-  if (v12 < 0)
+  RTPStackController::RTPStackController(a1, &v16, a3, &v14, __p);
+  if (v13 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v14)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  if (v16)
+  if (v17)
   {
-    std::__shared_weak_count::__release_weak(v16);
+    std::__shared_weak_count::__release_weak(v17);
   }
 
   *a1 = &unk_1F5EF4030;
@@ -9249,11 +9203,11 @@ void QMIRTPStackController::QMIRTPStackController(uint64_t a1, uint64_t *a2, int
   *(a1 + 192) = a1 + 200;
   *(a1 + 208) = 0;
   SipTimerContainer::SipTimerContainer((a1 + 216));
-  v10 = *(*a5 + 312);
-  __p[0] = v10;
-  if (v10)
+  v11 = *(*a5 + 312);
+  __p[0] = v11;
+  if (v11)
   {
-    dispatch_retain(v10);
+    dispatch_retain(v11);
   }
 
   operator new();
@@ -9276,10 +9230,10 @@ void sub_1E50E9AAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QMIRTPStackController::~QMIRTPStackController(int8x8_t *this)
+void QMIRTPStackController::~QMIRTPStackController(QMIRTPStackController *this)
 {
   *this = &unk_1F5EF4030;
-  this[12] = &unk_1F5EF40C8;
+  *(this + 12) = &unk_1F5EF40C8;
   v2 = std::string::basic_string[abi:ne200100]<0>(v11, "rtp.qmistackcontroller");
   v7[0] = 0;
   v10 = 0;
@@ -9298,27 +9252,27 @@ void QMIRTPStackController::~QMIRTPStackController(int8x8_t *this)
     operator delete(v11[0]);
   }
 
-  SipTimerContainer::cancelTimer(this + 27, "UninitializeAllTimer");
-  v4 = this[48];
+  SipTimerContainer::cancelTimer((this + 216), "UninitializeAllTimer");
+  v4 = *(this + 48);
   v6[0] = 0;
   v6[1] = 0;
   QMIRTPCommandDriver::setStackController(v4, v6);
-  if (this[52].i8[7] < 0)
+  if (*(this + 423) < 0)
   {
-    operator delete(*&this[50]);
+    operator delete(*(this + 50));
   }
 
-  v5 = this[49];
+  v5 = *(this + 49);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
-  SipTimerContainer::~SipTimerContainer(&this[27]);
-  std::__tree<unsigned int>::destroy(&this[24], *&this[25]);
-  std::__tree<std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>,std::__map_value_compare<SDPType,std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>,std::less<SDPType>,true>,std::allocator<std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>>>::destroy(*&this[22]);
-  std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::destroy(*&this[19]);
-  v11[0] = &this[15];
+  SipTimerContainer::~SipTimerContainer((this + 216));
+  std::__tree<unsigned int>::destroy(this + 192, *(this + 25));
+  std::__tree<std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>,std::__map_value_compare<SDPType,std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>,std::less<SDPType>,true>,std::allocator<std::__value_type<SDPType,BOOL (*)(SDPParser::SDPParserContext const&,std::string &,std::istringstream &)>>>::destroy(*(this + 22));
+  std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::destroy(*(this + 19));
+  v11[0] = (this + 120);
   std::vector<std::weak_ptr<BambiConferenceParticipant>>::__destroy_vector::operator()[abi:ne200100](v11);
   RTPStackController::~RTPStackController(this);
 }
@@ -9380,51 +9334,45 @@ void sub_1E50E9E34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void non-virtual thunk toQMIRTPStackController::~QMIRTPStackController(int8x8_t *this)
+void non-virtual thunk toQMIRTPStackController::~QMIRTPStackController(QMIRTPStackController *this)
 {
-  QMIRTPStackController::~QMIRTPStackController(this - 12);
+  QMIRTPStackController::~QMIRTPStackController((this - 96));
 }
 
 {
-  QMIRTPStackController::~QMIRTPStackController(this - 12);
+  QMIRTPStackController::~QMIRTPStackController((this - 96));
 
   JUMPOUT(0x1E69235B0);
 }
 
-void QMIRTPStackController::createRTPSession(uint64_t a1@<X0>, uint64_t *a2@<X3>, void **a3@<X5>, void *a4@<X8>)
+void QMIRTPStackController::createRTPSession(void *a1@<X0>, uint64_t *a4@<X3>, char *a6@<X5>, void *a8@<X8>)
 {
-  if (a1 + 152 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 144, a3))
+  if (a1 + 19 != std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 18), a6) && !*std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>((a1 + 18), &v21, a6))
   {
-    v8 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1 + 144, &v19, a3);
-    if (!v8)
-    {
-      std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
-    }
-
-    v9 = *(v8 + 56);
+    std::__throw_out_of_range[abi:ne200100]("map::at:  key not found");
   }
 
-  v10 = a2[1];
-  if (v10)
+  v12 = a4[1];
+  if (v12)
   {
-    v11 = std::__shared_weak_count::lock(v10);
-    if (v11)
+    v13 = std::__shared_weak_count::lock(v12);
+    if (v13)
     {
-      v12 = *a2;
-      if (v12)
+      v14 = *a4;
+      if (v14)
       {
-        v13 = *(v12 + 128);
-        if (v13)
+        v15 = *(v14 + 128);
+        if (v15)
         {
-          v13 = std::__shared_weak_count::lock(v13);
-          if (v13)
+          v15 = std::__shared_weak_count::lock(v15);
+          if (v15)
           {
-            v13 = *(v12 + 120);
+            v15 = *(v14 + 120);
           }
         }
 
-        SipStack::prefs(v13);
-        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v19, (a1 + 8));
+        SipStack::prefs(v15);
+        std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v21, a1 + 1);
         operator new();
       }
     }
@@ -9432,32 +9380,32 @@ void QMIRTPStackController::createRTPSession(uint64_t a1@<X0>, uint64_t *a2@<X3>
 
   else
   {
-    v11 = 0;
+    v13 = 0;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v19, "rtp.qmistackcontroller");
-  v15[0] = 0;
-  v18 = 0;
-  v14 = ims::error(&v19, v15);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), "SDPSession expired in QMIRTPStackController::createRTPSession", 61);
-  *(v14 + 17) = 0;
-  (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-  *(v14 + 17) = 0;
-  if (v18 == 1 && v17 < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v21, "rtp.qmistackcontroller");
+  v17[0] = 0;
+  v20 = 0;
+  v16 = ims::error(&v21, v17);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v16 + 8), "SDPSession expired in QMIRTPStackController::createRTPSession", 61);
+  *(v16 + 17) = 0;
+  (*(*v16 + 64))(v16, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v16 + 17) = 0;
+  if (v20 == 1 && v19 < 0)
   {
     operator delete(__p);
   }
 
-  if (v20 < 0)
+  if (v22 < 0)
   {
-    operator delete(v19);
+    operator delete(v21);
   }
 
-  *a4 = 0;
-  a4[1] = 0;
-  if (v11)
+  *a8 = 0;
+  a8[1] = 0;
+  if (v13)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 }
 
@@ -9491,7 +9439,7 @@ void sub_1E50EA344(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void QMIRTPStackController::getSessionByQMIid(QMIRTPStackController *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void QMIRTPStackController::getSessionByQMIid(uint64_t *__return_ptr a1@<X8>, QMIRTPStackController *this@<X0>, uint64_t a3@<X1>)
 {
   std::string::basic_string[abi:ne200100]<0>(v23, "rtp.qmistackcontroller");
   v19[0] = 0;
@@ -9514,7 +9462,7 @@ void QMIRTPStackController::getSessionByQMIid(QMIRTPStackController *this@<X0>, 
   *(v7 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), " [qmiSessionId=", 15);
   *(v7 + 17) = 0;
-  MEMORY[0x1E6923340](*(v7 + 8), a2);
+  MEMORY[0x1E6923340](*(v7 + 8), a3);
   *(v7 + 17) = 0;
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v7 + 8), "]", 1);
   *(v7 + 17) = 0;
@@ -9535,9 +9483,9 @@ void QMIRTPStackController::getSessionByQMIid(QMIRTPStackController *this@<X0>, 
   {
     while (1)
     {
-      v12 = v11 - 1;
-      *a3 = 0;
-      a3[1] = 0;
+      v12 = (v11 - 1);
+      *a1 = 0;
+      a1[1] = 0;
       v13 = *(v11 - 1);
       if (!v13)
       {
@@ -9545,20 +9493,20 @@ void QMIRTPStackController::getSessionByQMIid(QMIRTPStackController *this@<X0>, 
       }
 
       v14 = std::__shared_weak_count::lock(v13);
-      a3[1] = v14;
+      a1[1] = v14;
       if (!v14)
       {
         goto LABEL_14;
       }
 
       v15 = *v12;
-      *a3 = *v12;
+      *a1 = *v12;
       if (!v15)
       {
         goto LABEL_14;
       }
 
-      if (*(v15 + 362) == a2)
+      if (*(v15 + 362) == a3)
       {
         return;
       }
@@ -9595,8 +9543,8 @@ LABEL_14:
   }
 
 LABEL_21:
-  *a3 = 0;
-  a3[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
 }
 
 void sub_1E50EA66C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -9614,60 +9562,51 @@ void sub_1E50EA66C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t QMIRTPStackController::getProfileByStackId(uint64_t a1, void **a2)
+uint64_t QMIRTPStackController::getProfileByStackId(uint64_t a1, char *a2)
 {
   v3 = a1 + 152;
   v4 = *(a1 + 152);
-  if (!v4)
+  if (v4)
   {
-    goto LABEL_9;
-  }
-
-  v5 = a1 + 152;
-  do
-  {
-    v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v4 + 32), a2);
-    if ((v6 & 0x80u) == 0)
+    v5 = a1 + 152;
+    do
     {
-      v5 = v4;
+      v6 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v4 + 32), a2);
+      if ((v6 & 0x80u) == 0)
+      {
+        v5 = v4;
+      }
+
+      v4 = *(v4 + ((v6 >> 4) & 8));
     }
 
-    v4 = *(v4 + ((v6 >> 4) & 8));
-  }
-
-  while (v4);
-  if (v5 == v3 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v5 + 32)) & 0x80) != 0)
-  {
-LABEL_9:
-    std::string::basic_string[abi:ne200100]<0>(v14, "rtp.qmistackcontroller");
-    v10[0] = 0;
-    v13 = 0;
-    v9 = ims::error(v14, v10);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v9 + 8), "No profile for stackId ", 23);
-    *(v9 + 17) = 0;
-    (*(*v9 + 32))(v9, a2);
-    (*(*v9 + 64))(v9, std::endl[abi:ne200100]<char,std::char_traits<char>>);
-    *(v9 + 17) = 0;
-    if (v13 == 1 && v12 < 0)
+    while (v4);
+    if (v5 != v3 && (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, (v5 + 32)) & 0x80) == 0)
     {
-      operator delete(__p);
+      return *(v5 + 56);
     }
-
-    if (v15 < 0)
-    {
-      operator delete(v14[0]);
-    }
-
-    return 0;
   }
 
-  else
+  std::string::basic_string[abi:ne200100]<0>(v13, "rtp.qmistackcontroller");
+  v9[0] = 0;
+  v12 = 0;
+  v8 = ims::error(v13, v9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), "No profile for stackId ", 23);
+  *(v8 + 17) = 0;
+  (*(*v8 + 32))(v8, a2);
+  (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+  *(v8 + 17) = 0;
+  if (v12 == 1 && v11 < 0)
   {
-    result = *(v5 + 56);
-    v8 = *(v5 + 64) | 0x100000000;
+    operator delete(__p);
   }
 
-  return result;
+  if (v14 < 0)
+  {
+    operator delete(v13[0]);
+  }
+
+  return 0;
 }
 
 void sub_1E50EA810(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -9685,13 +9624,13 @@ void sub_1E50EA810(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QMIRTPStackController::setVoiceSystemIdForInstance(QMIRTPStackController *this, unsigned int a2, uint64_t a3)
+void QMIRTPStackController::setVoiceSystemIdForInstance(uint64_t **this, unsigned int a2, uint64_t a3)
 {
   v16 = a2;
   v14[0] = &v16;
-  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 192, &v16) + 8) = a3;
-  v5 = *(this + 18);
-  if (v5 != (this + 152))
+  *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(this + 24, &v16, &std::piecewise_construct, v14) + 8) = a3;
+  v5 = this[18];
+  if (v5 != (this + 19))
   {
     do
     {
@@ -9707,7 +9646,7 @@ void QMIRTPStackController::setVoiceSystemIdForInstance(QMIRTPStackController *t
         *(v6 + 17) = 0;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " for ", 5);
         *(v6 + 17) = 0;
-        (*(*v6 + 32))(v6, v5 + 32);
+        (*(*v6 + 32))(v6, v5 + 4);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v6 + 8), " with instance ", 15);
         *(v6 + 17) = 0;
         MEMORY[0x1E6923350](*(v6 + 8), v16);
@@ -9727,7 +9666,7 @@ void QMIRTPStackController::setVoiceSystemIdForInstance(QMIRTPStackController *t
         *(v5 + 15) = a3;
       }
 
-      v7 = *(v5 + 1);
+      v7 = v5[1];
       if (v7)
       {
         do
@@ -9743,7 +9682,7 @@ void QMIRTPStackController::setVoiceSystemIdForInstance(QMIRTPStackController *t
       {
         do
         {
-          v8 = *(v5 + 2);
+          v8 = v5[2];
           v9 = *v8 == v5;
           v5 = v8;
         }
@@ -9754,7 +9693,7 @@ void QMIRTPStackController::setVoiceSystemIdForInstance(QMIRTPStackController *t
       v5 = v8;
     }
 
-    while (v8 != (this + 152));
+    while (v8 != this + 19);
   }
 }
 
@@ -9773,10 +9712,10 @@ void sub_1E50EAA48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
+void QMIRTPStackController::initialize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = a1[48];
-  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&block, a1 + 1);
+  v6 = *(a1 + 384);
+  std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&block, (a1 + 8));
   v7 = v46;
   v44[0] = block;
   v44[1] = v46;
@@ -9800,8 +9739,8 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
   }
 
   v43 = v8;
-  v9 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>((a1 + 18), a2);
-  if (a1 + 19 != v9 && *(v9 + 56) == a3)
+  v9 = std::__tree<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::list<SipLazuliManager::OutgoingMsrp>>>>::find<std::string>(a1 + 144, a2);
+  if (a1 + 152 != v9 && *(v9 + 56) == a3)
   {
     v10 = std::string::basic_string[abi:ne200100]<0>(&block, "rtp.qmistackcontroller");
     v39[0] = 0;
@@ -9828,15 +9767,15 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
   }
 
   block = a2;
-  *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 18), a2) + 56) = a3;
+  *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 144), a2, &block) + 56) = a3;
   v12 = v43;
   block = a2;
-  *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 18), a2) + 64) = v12;
-  v13 = a1[25];
+  *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 144), a2, &block) + 64) = v12;
+  v13 = *(a1 + 200);
   v14 = v43;
   if (v13)
   {
-    v15 = a1 + 25;
+    v15 = a1 + 200;
     do
     {
       v16 = *(v13 + 28);
@@ -9851,23 +9790,23 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
     }
 
     while (v13);
-    if (v15 != a1 + 25 && v43 >= *(v15 + 7))
+    if (v15 != a1 + 200 && v43 >= *(v15 + 28))
     {
       block = &v43;
-      v19 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 24), &v43) + 8);
+      v19 = *(std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 192), &v43, &std::piecewise_construct, &block) + 8);
       block = a2;
-      *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 18), a2) + 60) = v19;
+      *(std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 144), a2, &block) + 60) = v19;
       v14 = v43;
     }
   }
 
-  v20 = a1[22];
+  v20 = *(a1 + 176);
   if (!v20)
   {
     goto LABEL_34;
   }
 
-  v21 = a1 + 22;
+  v21 = a1 + 176;
   do
   {
     v22 = *(v20 + 28);
@@ -9882,13 +9821,13 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
   }
 
   while (v20);
-  if (v21 == a1 + 22 || v14 < *(v21 + 7))
+  if (v21 == a1 + 176 || v14 < *(v21 + 28))
   {
     goto LABEL_34;
   }
 
   block = &v43;
-  v24 = *(std::__tree<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 21), v14) + 8);
+  v24 = *(std::__tree<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 168), v14, &block) + 8);
   if (v24 == 2)
   {
     memset(&v38, 0, sizeof(v38));
@@ -9920,8 +9859,8 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
     v37 = a3;
     v52 = 0;
     v53 = 0;
-    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v52, a1 + 1);
-    v30 = a1[3];
+    std::shared_ptr<RTPSharedPointerBase>::shared_ptr[abi:ne200100]<RTPSharedPointerBase,0>(&v52, (a1 + 8));
+    v30 = *(a1 + 24);
     block = MEMORY[0x1E69E9820];
     v46 = 1174405120;
     v47 = ___ZNK3ctu20SharedSynchronizableI18RTPStackControllerE15execute_wrappedEU13block_pointerFvvE_block_invoke_1;
@@ -9964,10 +9903,10 @@ void QMIRTPStackController::initialize(void *a1, uint64_t a2, uint64_t a3)
       v14 = v43;
 LABEL_34:
       block = &v43;
-      *(std::__tree<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 21), v14) + 8) = 1;
-      v25 = a1[48];
+      *(std::__tree<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,RTPStackController::RTPStackControllerState>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>((a1 + 168), v14, &block) + 8) = 1;
+      v25 = *(a1 + 384);
       block = a2;
-      v26 = std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 18), a2);
+      v26 = std::__tree<std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::__map_value_compare<std::string,std::__value_type<std::string,QMIRTPStackController::ProfileData>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,QMIRTPStackController::ProfileData>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 144), a2, &block);
       QMIRTPCommandDriver::initializeDriverForInstance(v25, *(v26 + 64));
       return;
     }

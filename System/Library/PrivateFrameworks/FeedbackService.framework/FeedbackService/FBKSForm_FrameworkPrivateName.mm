@@ -39,7 +39,7 @@
   v4 = sub_1B014CA8C();
   v6 = v5;
 
-  v7 = _s15FeedbackService8FBKSFormC8fromJSON4dataACSg10Foundation4DataV_tFZ_0();
+  v7 = _s15FeedbackService8FBKSFormC8fromJSON4dataACSg10Foundation4DataV_tFZ_0(v4, v6);
   sub_1B00D2024(v4, v6);
 
   return v7;
@@ -48,36 +48,32 @@
 - (id)asFBAURLSchemeWithIsSurvey:(BOOL)survey
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB6C3B50, &qword_1B014F330);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v16 - v7;
+  v7 = &v15 - v6;
   selfCopy = self;
-  FBKSForm.asFBAURLScheme(isSurvey:)(survey, v8);
+  FBKSForm.asFBAURLScheme(isSurvey:)(survey, v7);
 
-  v10 = sub_1B014CA4C();
-  v11 = *(v10 - 8);
-  v12 = (*(v11 + 48))(v8, 1, v10);
-  v13 = 0;
-  if (v12 != 1)
+  v9 = sub_1B014CA4C();
+  v10 = *(v9 - 8);
+  v11 = (*(v10 + 48))(v7, 1, v9);
+  v12 = 0;
+  if (v11 != 1)
   {
-    v14 = sub_1B014C9FC();
-    (*(v11 + 8))(v8, v10);
-    v13 = v14;
+    v13 = sub_1B014C9FC();
+    (*(v10 + 8))(v7, v9);
+    v12 = v13;
   }
 
-  return v13;
+  return v12;
 }
 
 - (NSString)identifier
 {
-  v2 = (self + OBJC_IVAR___FBKSForm_FrameworkPrivateName_identifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_1B014CC0C();
+  v2 = sub_1B014CC0C();
 
-  return v5;
+  return v2;
 }
 
 - (void)setIdentifier:(id)identifier
@@ -86,7 +82,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___FBKSForm_FrameworkPrivateName_identifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -115,15 +110,14 @@
   *(self + OBJC_IVAR___FBKSForm_FrameworkPrivateName_authenticationMethod) = 3;
   v9 = sub_1B0122BE8(v8);
   swift_beginAccess();
-  v10 = *(self + v7);
   *(self + v7) = v9;
 
-  v11 = (self + OBJC_IVAR___FBKSForm_FrameworkPrivateName_identifier);
-  *v11 = v4;
-  v11[1] = v6;
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for FBKSForm();
-  return [(FBKSForm_FrameworkPrivateName *)&v13 init];
+  v10 = (self + OBJC_IVAR___FBKSForm_FrameworkPrivateName_identifier);
+  *v10 = v4;
+  v10[1] = v6;
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for FBKSForm();
+  return [(FBKSForm_FrameworkPrivateName *)&v12 init];
 }
 
 - (void)prefillWithQuestion:(id)question answer:(id)answer

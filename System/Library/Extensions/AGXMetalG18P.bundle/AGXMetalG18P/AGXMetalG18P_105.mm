@@ -1076,7 +1076,7 @@ uint64_t AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL30
   v162 = v22;
   v147 = v23;
   v24 = v12;
-  v184[96] = *MEMORY[0x29EDCA608];
+  v185 = *MEMORY[0x29EDCA608];
   AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::getStride<(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::View)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Units)0,(AGX::Texture<(AGXTextureMemoryLayout)4,AGX::HAL300::Encoders,AGX::HAL300::Classes>::Op)0>(v12, 0);
   v25 = v14 >> 2;
   v146 = v14 + a10 - 1;
@@ -1478,7 +1478,7 @@ LABEL_77:
           v71 = 8 * v67;
 LABEL_78:
           v76 = (v162 + v71);
-          v77 = v164 + ((v46 - v16) << 7);
+          v77 = (v164 + ((v46 - v16) << 7));
           v78 = (v161 + v59);
           if (v167)
           {
@@ -1487,11 +1487,11 @@ LABEL_78:
               v83 = __dst;
 LABEL_85:
               v84 = *(*(result + 208) + 52);
-              v85 = &v83[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v83, v76, v77, a11, 2u, 2u, v84)];
-              v86 = v85 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v85, v76 + 1, v77 + 256, a11, 2u, 2u, v84);
-              v87 = v77 + 2 * a11;
-              v88 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v86, v76 + 2, v87, a11, 2u, 2u, v84);
-              AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v86 + v88, v76 + 3, v87 + 256, a11, 2u, 2u, v84);
+              v85 = &v83[AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v83, v76, v77, a11, 2, 2, v84)];
+              v86 = v85 + AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v85, v76 + 1, v77 + 16, a11, 2, 2, v84);
+              v87 = (v77 + 2 * a11);
+              v88 = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v86, v76 + 2, v87, a11, 2, 2, v84);
+              AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v86 + v88, v76 + 3, v87 + 16, a11, 2, 2, v84);
               goto LABEL_86;
             }
 
@@ -1545,7 +1545,7 @@ LABEL_85:
             {
               v95 = 0;
               v96 = v175 << 7;
-              v97 = &v181[512 * v174 + v96];
+              v97 = &v181[32 * v174].i8[v96];
               v98 = v172;
               v99 = v173;
               v100 = v177 << 7;
@@ -1560,10 +1560,10 @@ LABEL_85:
               }
 
               v102 = !v101;
-              v104 = v97 < v172 + v173 * (v176 - 1) + v100 && v172 < &__dst[512 * v176 + 1536 + 512 * v174 + v100 + v96];
+              v104 = v97 < &v172->i8[v173 * (v176 - 1) + v100] && v172 < &__dst[512 * v176 + 1536 + 512 * v174 + v100 + v96];
               v105 = v102 | (v173 < 0) | v104;
-              v106 = &v181[512 * v174 + 16 + v96];
-              v107 = (v172 + 16);
+              v106 = &v181[32 * v174 + 1].i8[v96];
+              v107 = v172 + 1;
               do
               {
                 v108 = v107;
@@ -1574,7 +1574,7 @@ LABEL_85:
                   v111 = 0;
                   do
                   {
-                    v97[v111] = *(v98 + v111);
+                    v97[v111] = v98->i8[v111];
                     ++v111;
                   }
 
@@ -1586,9 +1586,9 @@ LABEL_85:
                   do
                   {
                     v112 = *v108;
-                    *(v109 - 1) = *(v108 - 1);
+                    *(v109 - 1) = v108[-1];
                     *v109 = v112;
-                    v109 += 2;
+                    v109 += 32;
                     v108 += 2;
                     v110 -= 32;
                   }
@@ -1600,7 +1600,7 @@ LABEL_85:
                 v106 += 512;
                 v107 = (v107 + v99);
                 v97 += 512;
-                v98 += v99;
+                v98 = (v98 + v99);
               }
 
               while (v95 != v94);
@@ -1662,7 +1662,7 @@ LABEL_85:
 
               else
               {
-                v122 = v115 - 2;
+                v122 = v120;
               }
 
               v114 += AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v114, v113 + 1, v182, 512, v122, v121, v117);
@@ -1721,7 +1721,7 @@ LABEL_140:
 
                 else
                 {
-                  v127 = v115 - 2;
+                  v127 = v120;
                 }
 
                 AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)20,8u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)3,(AGXTextureFootprint)3>::compressSubblock(v114, v113 + 3, v184, 512, v127, v126, v117);
@@ -6159,7 +6159,7 @@ LABEL_103:
           v80 = 8 * v76;
 LABEL_104:
           v81 = (a4 + v80);
-          v82 = v236 + 8 * (v47 - a7);
+          v82 = (v236 + 8 * (v47 - a7));
           v242 = (a2 + v68);
           if (v243)
           {
@@ -6238,7 +6238,7 @@ LABEL_111:
 
           else if (v87 == 3)
           {
-            v89 = vld1q_dup_f32(v83->f32);
+            v89 = vld1q_dup_f32(v83->i32);
             v256 = v89;
             v257 = v89;
             v264 = v89;
@@ -6270,7 +6270,7 @@ LABEL_111:
             v281 = 0u;
           }
 
-          v98 = v83 + v88;
+          v98 = v83->i64 + v88;
           v99 = v81[1];
           if (v99 == 127)
           {
@@ -6702,16 +6702,16 @@ LABEL_111:
             }
 
             v189 = !v188;
-            v191 = v184 < v247 + v248 * (v172 - 1) + 8 * v252 && v247 < &__dst[128 * v172 + 896 + 128 * v249 + 8 * v252 + v183];
+            v191 = v184 < &v247->i8[8 * v252 + v248 * (v172 - 1)] && v247 < &__dst[128 * v172 + 896 + 128 * v249 + 8 * v252 + v183];
             v192 = v187 & 0x1FFFFFFE0;
             v193 = v189 | (v248 < 0) | v191;
-            v194 = &v257 + 128 * v249 + v183;
-            v195 = (v247 + 16);
+            v194 = (&v257 + 128 * v249 + v183);
+            v195 = v247 + 1;
             v196 = v184;
             v197 = v247;
             do
             {
-              v198 = (v185 + v182 * v186);
+              v198 = &v185->i8[v182 * v186];
               v199 = &v184[128 * v182];
               if (v193)
               {
@@ -6725,7 +6725,7 @@ LABEL_111:
                   v204 = 0;
 LABEL_197:
                   v209 = -8 * v181 + v204;
-                  v210 = (v197 + v204);
+                  v210 = (v197->i64 + v204);
                   v211 = &v196[v204];
                   do
                   {
@@ -6745,7 +6745,7 @@ LABEL_197:
                 do
                 {
                   v208 = *v205;
-                  *(v206 - 1) = *(v205 - 1);
+                  v206[-1] = v205[-1];
                   *v206 = v208;
                   v206 += 2;
                   v205 += 2;
@@ -6779,9 +6779,9 @@ LABEL_197:
               while (v187 > v201++);
 LABEL_185:
               ++v182;
-              v194 += 128;
+              v194 += 8;
               v195 = (v195 + v186);
-              v197 += v186;
+              v197 = (v197 + v186);
               v196 += 128;
             }
 
@@ -8286,7 +8286,7 @@ LABEL_77:
 LABEL_78:
           v69 = (a4 + v63);
           v70 = a7;
-          v71 = v224 + 8 * (v38 - a7);
+          v71 = (v224 + 8 * (v38 - a7));
           v72 = (a2 + v51);
           __src = (a2 + v51);
           if (v231)
@@ -8352,7 +8352,7 @@ LABEL_85:
 
             else if (v74 == 3)
             {
-              v76 = vld1q_dup_f32(v72->f32);
+              v76 = vld1q_dup_f32(v72->i32);
               v244 = v76;
               v245 = v76;
               v252 = v76;
@@ -8382,7 +8382,7 @@ LABEL_85:
               v269 = 0u;
             }
 
-            v84 = v72 + v75;
+            v84 = v72->i64 + v75;
             v85 = v69[1];
             if (v85 == 127)
             {
@@ -8787,16 +8787,16 @@ LABEL_147:
                 }
 
                 v169 = !v168;
-                v171 = v164 < v235 + v236 * (v152 - 1) + 8 * v240 && v235 < &__dst[128 * v152 + 896 + 128 * v237 + 8 * v240 + v163];
+                v171 = v164 < &v235->i8[8 * v240 + v236 * (v152 - 1)] && v235 < &__dst[128 * v152 + 896 + 128 * v237 + 8 * v240 + v163];
                 v172 = v167 & 0x1FFFFFFE0;
                 v173 = v169 | (v236 < 0) | v171;
-                v174 = &v245 + 128 * v237 + v163;
-                v175 = (v235 + 16);
+                v174 = (&v245 + 128 * v237 + v163);
+                v175 = v235 + 1;
                 v176 = v164;
                 v177 = v235;
                 while (2)
                 {
-                  v178 = (v165 + v162 * v166);
+                  v178 = &v165->i8[v162 * v166];
                   v179 = &v164[128 * v162];
                   if (v173)
                   {
@@ -8812,9 +8812,9 @@ LABEL_164:
                     while (v167 > v181++);
 LABEL_161:
                     ++v162;
-                    v174 += 128;
+                    v174 += 8;
                     v175 = (v175 + v166);
-                    v177 += v166;
+                    v177 = (v177 + v166);
                     v176 += 128;
                     if (v162 == v152)
                     {
@@ -8835,7 +8835,7 @@ LABEL_161:
                   do
                   {
                     v188 = *v185;
-                    *(v186 - 1) = *(v185 - 1);
+                    v186[-1] = v185[-1];
                     *v186 = v188;
                     v186 += 2;
                     v185 += 2;
@@ -8864,7 +8864,7 @@ LABEL_161:
                 }
 
                 v189 = -8 * v161 + v184;
-                v190 = (v177 + v184);
+                v190 = (v177->i64 + v184);
                 v191 = &v176[v184];
                 do
                 {

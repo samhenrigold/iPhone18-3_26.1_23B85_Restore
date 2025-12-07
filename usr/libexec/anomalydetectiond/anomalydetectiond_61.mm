@@ -693,9 +693,9 @@ LABEL_71:
   return *&v36 ^ *&v37 ^ *&v35 ^ v34 ^ *&v33 ^ *&v32 ^ v31 ^ v7 ^ v8 ^ v9 ^ v10 ^ v11 ^ v14 ^ v15 ^ v16 ^ v17 ^ v18 ^ v19 ^ v20 ^ v21 ^ v22 ^ v23 ^ v24 ^ v25 ^ v26 ^ v29;
 }
 
-uint64_t CMMsl::StepCountEntry::makeAccelerometerPace(uint64_t this)
+void *CMMsl::StepCountEntry::makeAccelerometerPace(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -703,9 +703,9 @@ uint64_t CMMsl::StepCountEntry::makeAccelerometerPace(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::StepCountEntry::makeMovementStats(uint64_t this)
+void *CMMsl::StepCountEntry::makeMovementStats(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -967,7 +967,7 @@ double CMMsl::StepCountEntryAddition::StepCountEntryAddition(uint64_t a1, uint64
   return result;
 }
 
-CMMsl *CMMsl::StepCountEntryAddition::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::StepCountEntryAddition::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -1857,18 +1857,18 @@ void CMMsl::StepDistanceFusionResult::~StepDistanceFusionResult(CMMsl::StepDista
   operator delete();
 }
 
-uint64_t CMMsl::StepDistanceFusionResult::StepDistanceFusionResult(uint64_t this, const CMMsl::StepDistanceFusionResult *a2)
+CMMsl::StepDistanceFusionResult *CMMsl::StepDistanceFusionResult::StepDistanceFusionResult(CMMsl::StepDistanceFusionResult *this, const CMMsl::StepCountEntry **a2)
 {
   *this = off_1004222B8;
-  *(this + 8) = 0;
-  *(this + 100) = 0;
-  *(this + 16) = 0;
-  if (*(a2 + 2))
+  *(this + 1) = 0;
+  *(this + 25) = 0;
+  *(this + 2) = 0;
+  if (a2[2])
   {
     operator new();
   }
 
-  if (*(a2 + 1))
+  if (a2[1])
   {
     operator new();
   }
@@ -1876,9 +1876,9 @@ uint64_t CMMsl::StepDistanceFusionResult::StepDistanceFusionResult(uint64_t this
   v2 = *(a2 + 50);
   if (v2)
   {
-    v4 = *(a2 + 3);
-    *(this + 100) |= 1u;
-    *(this + 24) = v4;
+    v4 = a2[3];
+    *(this + 50) |= 1u;
+    *(this + 3) = v4;
     v2 = *(a2 + 50);
     if ((v2 & 2) == 0)
     {
@@ -1897,9 +1897,9 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v5 = *(a2 + 4);
-  *(this + 100) |= 2u;
-  *(this + 32) = v5;
+  v5 = a2[4];
+  *(this + 50) |= 2u;
+  *(this + 4) = v5;
   v2 = *(a2 + 50);
   if ((v2 & 0x80) == 0)
   {
@@ -1913,9 +1913,9 @@ LABEL_8:
   }
 
 LABEL_20:
-  v6 = *(a2 + 10);
-  *(this + 100) |= 0x80u;
-  *(this + 80) = v6;
+  v6 = a2[10];
+  *(this + 50) |= 0x80u;
+  *(this + 10) = v6;
   v2 = *(a2 + 50);
   if ((v2 & 0x20) == 0)
   {
@@ -1929,9 +1929,9 @@ LABEL_9:
   }
 
 LABEL_21:
-  v7 = *(a2 + 8);
-  *(this + 100) |= 0x20u;
-  *(this + 64) = v7;
+  v7 = a2[8];
+  *(this + 50) |= 0x20u;
+  *(this + 8) = v7;
   v2 = *(a2 + 50);
   if ((v2 & 0x40) == 0)
   {
@@ -1945,9 +1945,9 @@ LABEL_10:
   }
 
 LABEL_22:
-  v8 = *(a2 + 9);
-  *(this + 100) |= 0x40u;
-  *(this + 72) = v8;
+  v8 = a2[9];
+  *(this + 50) |= 0x40u;
+  *(this + 9) = v8;
   v2 = *(a2 + 50);
   if ((v2 & 4) == 0)
   {
@@ -1961,9 +1961,9 @@ LABEL_11:
   }
 
 LABEL_23:
-  v9 = *(a2 + 5);
-  *(this + 100) |= 4u;
-  *(this + 40) = v9;
+  v9 = a2[5];
+  *(this + 50) |= 4u;
+  *(this + 5) = v9;
   v2 = *(a2 + 50);
   if ((v2 & 8) == 0)
   {
@@ -1977,9 +1977,9 @@ LABEL_12:
   }
 
 LABEL_24:
-  v10 = *(a2 + 6);
-  *(this + 100) |= 8u;
-  *(this + 48) = v10;
+  v10 = a2[6];
+  *(this + 50) |= 8u;
+  *(this + 6) = v10;
   v2 = *(a2 + 50);
   if ((v2 & 0x10) == 0)
   {
@@ -1993,9 +1993,9 @@ LABEL_13:
   }
 
 LABEL_25:
-  v11 = *(a2 + 7);
-  *(this + 100) |= 0x10u;
-  *(this + 56) = v11;
+  v11 = a2[7];
+  *(this + 50) |= 0x10u;
+  *(this + 7) = v11;
   v2 = *(a2 + 50);
   if ((v2 & 0x400) == 0)
   {
@@ -2010,7 +2010,7 @@ LABEL_14:
 
 LABEL_26:
   v12 = *(a2 + 96);
-  *(this + 100) |= 0x400u;
+  *(this + 50) |= 0x400u;
   *(this + 96) = v12;
   v2 = *(a2 + 50);
   if ((v2 & 0x200) == 0)
@@ -2026,8 +2026,8 @@ LABEL_15:
 
 LABEL_27:
   v13 = *(a2 + 23);
-  *(this + 100) |= 0x200u;
-  *(this + 92) = v13;
+  *(this + 50) |= 0x200u;
+  *(this + 23) = v13;
   if ((*(a2 + 50) & 0x100) == 0)
   {
     return this;
@@ -2035,12 +2035,12 @@ LABEL_27:
 
 LABEL_16:
   v3 = *(a2 + 22);
-  *(this + 100) |= 0x100u;
-  *(this + 88) = v3;
+  *(this + 50) |= 0x100u;
+  *(this + 22) = v3;
   return this;
 }
 
-CMMsl *CMMsl::StepDistanceFusionResult::operator=(CMMsl *a1, const CMMsl::StepDistanceFusionResult *a2)
+CMMsl *CMMsl::StepDistanceFusionResult::operator=(CMMsl *a1, const CMMsl::StepCountEntry **a2)
 {
   if (a1 != a2)
   {
@@ -2139,7 +2139,7 @@ uint64_t CMMsl::StepDistanceFusionResult::StepDistanceFusionResult(uint64_t a1, 
   return a1;
 }
 
-CMMsl *CMMsl::StepDistanceFusionResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::StepDistanceFusionResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3083,9 +3083,9 @@ LABEL_31:
   return v4 ^ v3 ^ *&v6 ^ *&v7 ^ *&v8 ^ *&v9 ^ *&v10 ^ *&v11 ^ *&v12 ^ *&v13 ^ v14 ^ v15 ^ v16;
 }
 
-uint64_t CMMsl::StepDistanceFusionResult::makeFused(uint64_t this)
+void *CMMsl::StepDistanceFusionResult::makeFused(void *this)
 {
-  if (!*(this + 16))
+  if (!this[2])
   {
     operator new();
   }
@@ -3093,9 +3093,9 @@ uint64_t CMMsl::StepDistanceFusionResult::makeFused(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::StepDistanceFusionResult::makeAddition(uint64_t this)
+void *CMMsl::StepDistanceFusionResult::makeAddition(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -3357,7 +3357,7 @@ double CMMsl::StepLikelihoodFeatures::StepLikelihoodFeatures(uint64_t a1, uint64
   return result;
 }
 
-CMMsl *CMMsl::StepLikelihoodFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::StepLikelihoodFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4157,11 +4157,11 @@ void CMMsl::StreamingHeartRateData::~StreamingHeartRateData(CMMsl::StreamingHear
   operator delete();
 }
 
-void *CMMsl::StreamingHeartRateData::StreamingHeartRateData(void *this, const CMMsl::StreamingHeartRateData *a2)
+CMMsl::StreamingHeartRateData *CMMsl::StreamingHeartRateData::StreamingHeartRateData(CMMsl::StreamingHeartRateData *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_100422328;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -4169,13 +4169,13 @@ void *CMMsl::StreamingHeartRateData::StreamingHeartRateData(void *this, const CM
   return this;
 }
 
-const CMMsl::StreamingHeartRateData *CMMsl::StreamingHeartRateData::operator=(const CMMsl::StreamingHeartRateData *a1, const CMMsl::StreamingHeartRateData *a2)
+uint64_t CMMsl::StreamingHeartRateData::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::StreamingHeartRateData::StreamingHeartRateData(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::StreamingHeartRateData::~StreamingHeartRateData(&v5);
   }
@@ -4390,9 +4390,9 @@ CMMsl::OnsetHeartRateData *CMMsl::StreamingHeartRateData::hash_value(CMMsl::Stre
   return result;
 }
 
-uint64_t CMMsl::StreamingHeartRateData::makeSuper(uint64_t this)
+void *CMMsl::StreamingHeartRateData::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4419,11 +4419,11 @@ void CMMsl::StreamingHeartRateDataWatch::~StreamingHeartRateDataWatch(CMMsl::Str
   operator delete();
 }
 
-void *CMMsl::StreamingHeartRateDataWatch::StreamingHeartRateDataWatch(void *this, const CMMsl::StreamingHeartRateDataWatch *a2)
+CMMsl::StreamingHeartRateDataWatch *CMMsl::StreamingHeartRateDataWatch::StreamingHeartRateDataWatch(CMMsl::StreamingHeartRateDataWatch *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_100422360;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -4431,13 +4431,13 @@ void *CMMsl::StreamingHeartRateDataWatch::StreamingHeartRateDataWatch(void *this
   return this;
 }
 
-const CMMsl::StreamingHeartRateDataWatch *CMMsl::StreamingHeartRateDataWatch::operator=(const CMMsl::StreamingHeartRateDataWatch *a1, const CMMsl::StreamingHeartRateDataWatch *a2)
+uint64_t CMMsl::StreamingHeartRateDataWatch::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::StreamingHeartRateDataWatch::StreamingHeartRateDataWatch(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::StreamingHeartRateDataWatch::~StreamingHeartRateDataWatch(&v5);
   }
@@ -4652,9 +4652,9 @@ CMMsl::OnsetHeartRateData *CMMsl::StreamingHeartRateDataWatch::hash_value(CMMsl:
   return result;
 }
 
-uint64_t CMMsl::StreamingHeartRateDataWatch::makeSuper(uint64_t this)
+void *CMMsl::StreamingHeartRateDataWatch::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4681,11 +4681,11 @@ void CMMsl::StreamingHighFrequencyHeartRateData::~StreamingHighFrequencyHeartRat
   operator delete();
 }
 
-void *CMMsl::StreamingHighFrequencyHeartRateData::StreamingHighFrequencyHeartRateData(void *this, const CMMsl::StreamingHighFrequencyHeartRateData *a2)
+CMMsl::StreamingHighFrequencyHeartRateData *CMMsl::StreamingHighFrequencyHeartRateData::StreamingHighFrequencyHeartRateData(CMMsl::StreamingHighFrequencyHeartRateData *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_100422398;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -4693,13 +4693,13 @@ void *CMMsl::StreamingHighFrequencyHeartRateData::StreamingHighFrequencyHeartRat
   return this;
 }
 
-const CMMsl::StreamingHighFrequencyHeartRateData *CMMsl::StreamingHighFrequencyHeartRateData::operator=(const CMMsl::StreamingHighFrequencyHeartRateData *a1, const CMMsl::StreamingHighFrequencyHeartRateData *a2)
+uint64_t CMMsl::StreamingHighFrequencyHeartRateData::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::StreamingHighFrequencyHeartRateData::StreamingHighFrequencyHeartRateData(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::StreamingHighFrequencyHeartRateData::~StreamingHighFrequencyHeartRateData(&v5);
   }
@@ -4914,9 +4914,9 @@ CMMsl::OnsetHeartRateData *CMMsl::StreamingHighFrequencyHeartRateData::hash_valu
   return result;
 }
 
-uint64_t CMMsl::StreamingHighFrequencyHeartRateData::makeSuper(uint64_t this)
+void *CMMsl::StreamingHighFrequencyHeartRateData::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -4943,11 +4943,11 @@ void CMMsl::StreamingHighFrequencyHeartRateDataWatch::~StreamingHighFrequencyHea
   operator delete();
 }
 
-void *CMMsl::StreamingHighFrequencyHeartRateDataWatch::StreamingHighFrequencyHeartRateDataWatch(void *this, const CMMsl::StreamingHighFrequencyHeartRateDataWatch *a2)
+CMMsl::StreamingHighFrequencyHeartRateDataWatch *CMMsl::StreamingHighFrequencyHeartRateDataWatch::StreamingHighFrequencyHeartRateDataWatch(CMMsl::StreamingHighFrequencyHeartRateDataWatch *this, const CMMsl::OnsetHeartRateData **a2)
 {
   *this = off_1004223D0;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -4955,13 +4955,13 @@ void *CMMsl::StreamingHighFrequencyHeartRateDataWatch::StreamingHighFrequencyHea
   return this;
 }
 
-const CMMsl::StreamingHighFrequencyHeartRateDataWatch *CMMsl::StreamingHighFrequencyHeartRateDataWatch::operator=(const CMMsl::StreamingHighFrequencyHeartRateDataWatch *a1, const CMMsl::StreamingHighFrequencyHeartRateDataWatch *a2)
+uint64_t CMMsl::StreamingHighFrequencyHeartRateDataWatch::operator=(uint64_t a1, const CMMsl::OnsetHeartRateData **a2)
 {
   if (a1 != a2)
   {
     CMMsl::StreamingHighFrequencyHeartRateDataWatch::StreamingHighFrequencyHeartRateDataWatch(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::StreamingHighFrequencyHeartRateDataWatch::~StreamingHighFrequencyHeartRateDataWatch(&v5);
   }
@@ -5176,9 +5176,9 @@ CMMsl::OnsetHeartRateData *CMMsl::StreamingHighFrequencyHeartRateDataWatch::hash
   return result;
 }
 
-uint64_t CMMsl::StreamingHighFrequencyHeartRateDataWatch::makeSuper(uint64_t this)
+void *CMMsl::StreamingHighFrequencyHeartRateDataWatch::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -6197,7 +6197,7 @@ double CMMsl::StrideCalEntry::StrideCalEntry(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::StrideCalEntry::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::StrideCalEntry::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7509,7 +7509,7 @@ float CMMsl::SubStats::SubStats(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::SubStats::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SubStats::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9549,7 +9549,7 @@ float CMMsl::TNB::TNB(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::TNB::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::TNB::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

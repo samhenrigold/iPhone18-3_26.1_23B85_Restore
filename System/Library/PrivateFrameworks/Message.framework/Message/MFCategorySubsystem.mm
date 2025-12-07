@@ -84,16 +84,14 @@ void __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason__
 
 uint64_t __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_3(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E699B528] log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_3_cold_1(v5, [*(a1 + 32) categorizedMessages], objc_msgSend(*(a1 + 32), "totalMessagesToCategorize"), v2);
+    __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_3_cold_1(v4, [*(a1 + 32) categorizedMessages], objc_msgSend(*(a1 + 32), "totalMessagesToCategorize"), v2);
   }
 
-  result = [*(a1 + 40) reportTaskWorkloadProgress:objc_msgSend(*(a1 + 32) completed:"totalMessagesToCategorize") category:objc_msgSend(*(a1 + 32) subCategory:"categorizedMessages") error:{30, @"Message Categorization", 0}];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) reportTaskWorkloadProgress:objc_msgSend(*(a1 + 32) completed:"totalMessagesToCategorize") category:objc_msgSend(*(a1 + 32) subCategory:"categorizedMessages") error:{30, @"Message Categorization", 0}];
 }
 
 void __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_36(id *a1, void *a2)
@@ -196,20 +194,18 @@ void __57__MFCategorySubsystem_iOS_registerBusinessesGroupingTask__block_invoke(
 
 uint64_t __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E699B528] log];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134218240;
-    v10 = a2;
-    v11 = 2048;
-    v12 = a3;
-    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Businesses Connect grouping progress: %ld/%ld", &v9, 0x16u);
+    v8 = 134218240;
+    v9 = a2;
+    v10 = 2048;
+    v11 = a3;
+    _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Businesses Connect grouping progress: %ld/%ld", &v8, 0x16u);
   }
 
-  result = [*(a1 + 32) reportTaskWorkloadProgress:a3 completed:a2 category:30 subCategory:@"Business Connect Grouping" error:0];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) reportTaskWorkloadProgress:a3 completed:a2 category:30 subCategory:@"Business Connect Grouping" error:0];
 }
 
 void __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke_51(uint64_t a1, void *a2)
@@ -259,7 +255,7 @@ void __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___bloc
 
 void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_cancelable___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (WeakRetained)
@@ -272,7 +268,7 @@ void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_canc
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v14 = v7;
+        v13 = v7;
         _os_log_impl(&dword_1B0389000, v8, OS_LOG_TYPE_INFO, "Queuing block to cancel migration for task: %{public}@", buf, 0xCu);
       }
 
@@ -280,21 +276,19 @@ void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_canc
       block[1] = 3221225472;
       block[2] = __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_cancelable___block_invoke_54;
       block[3] = &unk_1E7AA52A0;
-      objc_copyWeak(&v11, (a1 + 32));
-      objc_copyWeak(v12, (a1 + 40));
-      v12[1] = a2;
+      objc_copyWeak(&v10, (a1 + 32));
+      objc_copyWeak(v11, (a1 + 40));
+      v11[1] = a2;
       dispatch_async(v6, block);
-      objc_destroyWeak(v12);
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(v11);
+      objc_destroyWeak(&v10);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_cancelable___block_invoke_54(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -311,9 +305,9 @@ void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_canc
           v6 = [MEMORY[0x1E699B528] log];
           if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = 138543362;
-            v15 = v3;
-            _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Task expired because of runtime limitation: %{public}@", &v14, 0xCu);
+            v13 = 138543362;
+            v14 = v3;
+            _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_DEFAULT, "Task expired because of runtime limitation: %{public}@", &v13, 0xCu);
           }
 
           v7 = [WeakRetained migrationTask];
@@ -328,10 +322,10 @@ void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_canc
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *(a1 + 48);
-        v14 = 138543618;
-        v15 = v3;
-        v16 = 2048;
-        v17 = v12;
+        v13 = 138543618;
+        v14 = v3;
+        v15 = 2048;
+        v16 = v12;
         v9 = "Previous task expired: %{public}@, reason: %lu";
         v10 = v8;
         v11 = 22;
@@ -344,19 +338,17 @@ void __79__MFCategorySubsystem_iOS__setMigrationTaskWithSystemTask_migrator_canc
       v8 = [MEMORY[0x1E699B528] log];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
+        LOWORD(v13) = 0;
         v9 = "Previous task expired";
         v10 = v8;
         v11 = 2;
 LABEL_13:
-        _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
+        _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
       }
     }
 
 LABEL_15:
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_3_cold_1(uint8_t *buf, uint64_t a2, uint64_t a3, os_log_t log)
@@ -370,20 +362,18 @@ void __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason__
 
 void __71__MFCategorySubsystem_iOS__startCategoryMigrationWithBGTask_andReason___block_invoke_36_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Mail Categorization completed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Mail Categorization completed with error: %@", &v2, 0xCu);
 }
 
 void __66__MFCategorySubsystem_iOS_startBusinessConnectGroupingWithBGTask___block_invoke_51_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Completed Businesses Connect grouping with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Completed Businesses Connect grouping with error: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -154,16 +154,16 @@ void sub_9E80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a
   _Unwind_Resume(exception_object);
 }
 
-id DebugHierarchyRequestsOSLog()
+id DebugHierarchyRequestsOSLog(uint64_t a1)
 {
   if (DebugHierarchyRequestsOSLog___dvt_lazy_init_predicate != -1)
   {
     DebugHierarchyRequestsOSLog_cold_1();
   }
 
-  v1 = DebugHierarchyRequestsOSLog___dvt_lazy_init_variable;
+  v2 = DebugHierarchyRequestsOSLog___dvt_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 id DebugHierarchyResponseDataForException(void *a1, void *a2, void *a3)
@@ -263,16 +263,16 @@ uint64_t DebugHierarchyBitMaskComparison(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-id DebugHierarchyJSONProcessingOSLog()
+id DebugHierarchyJSONProcessingOSLog(uint64_t a1)
 {
   if (DebugHierarchyJSONProcessingOSLog___dvt_lazy_init_predicate != -1)
   {
     DebugHierarchyJSONProcessingOSLog_cold_1();
   }
 
-  v1 = DebugHierarchyJSONProcessingOSLog___dvt_lazy_init_variable;
+  v2 = DebugHierarchyJSONProcessingOSLog___dvt_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 objc_class *DebugHierarchyRequestActionClassForDictionary(void *a1)
@@ -323,21 +323,21 @@ void sub_E8D8(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-id DebugHierarchyGzipOSLog()
+id DebugHierarchyGzipOSLog(uint64_t a1)
 {
   if (DebugHierarchyGzipOSLog___dvt_lazy_init_predicate != -1)
   {
     DebugHierarchyGzipOSLog_cold_1();
   }
 
-  v1 = DebugHierarchyGzipOSLog___dvt_lazy_init_variable;
+  v2 = DebugHierarchyGzipOSLog___dvt_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
-void sub_1171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1171C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -355,16 +355,16 @@ void _DBGViewHierarchyInitialize()
   [v0 registerForDarwinNotifications];
 }
 
-id DebugHierarchyRequestsOSLog_0()
+id DebugHierarchyRequestsOSLog_0(uint64_t a1)
 {
   if (DebugHierarchyRequestsOSLog___dvt_lazy_init_predicate_0 != -1)
   {
     DebugHierarchyRequestsOSLog_cold_1_0();
   }
 
-  v1 = DebugHierarchyRequestsOSLog___dvt_lazy_init_variable_0;
+  v2 = DebugHierarchyRequestsOSLog___dvt_lazy_init_variable_0;
 
-  return v1;
+  return v2;
 }
 
 id _DBGStructureOfDictionaryDescriptionWithFormat(void *a1)
@@ -443,68 +443,69 @@ LABEL_7:
   return v3;
 }
 
-void DBGClearCachedFormatSpecifiers()
+void DBGClearCachedFormatSpecifiers(uint64_t a1)
 {
-  v0 = DBGCachedFormatSpecifiers();
-  [v0 removeAllObjects];
+  v1 = DBGCachedFormatSpecifiers(a1);
+  [v1 removeAllObjects];
 }
 
-id DBGCachedFormatSpecifiers()
+id DBGCachedFormatSpecifiers(uint64_t a1)
 {
   if (DBGCachedFormatSpecifiers_onceToken != -1)
   {
     DBGCachedFormatSpecifiers_cold_1();
   }
 
-  v1 = DBGCachedFormatSpecifiers_dict;
+  v2 = DBGCachedFormatSpecifiers_dict;
 
-  return v1;
+  return v2;
 }
 
 id DBGSpecifiersFromFormatString(void *a1)
 {
   v1 = a1;
+  v2 = v1;
   if (!v1)
   {
-    v4 = 0;
+    v5 = 0;
     goto LABEL_8;
   }
 
-  v2 = DBGCachedFormatSpecifiers();
-  v3 = [v2 objectForKeyedSubscript:v1];
+  v3 = DBGCachedFormatSpecifiers(v1);
+  v4 = [v3 objectForKeyedSubscript:v2];
 
-  if (!v3)
+  if (!v4)
   {
-    v5 = [NSScanner scannerWithString:v1];
-    [v5 setCharactersToBeSkipped:0];
-    v6 = [NSMutableArray arrayWithCapacity:8];
-    v7 = [NSCharacterSet characterSetWithCharactersInString:@", "];
-    v23 = [NSCharacterSet characterSetWithCharactersInString:@", "];
-    v22 = [NSCharacterSet characterSetWithCharactersInString:@""];
-    if ([v5 isAtEnd])
+    v6 = [NSScanner scannerWithString:v2];
+    [v6 setCharactersToBeSkipped:0];
+    v7 = [NSMutableArray arrayWithCapacity:8];
+    v8 = [NSCharacterSet characterSetWithCharactersInString:@", "];
+    v24 = [NSCharacterSet characterSetWithCharactersInString:@", "];
+    v23 = [NSCharacterSet characterSetWithCharactersInString:@""];
+    if ([v6 isAtEnd])
     {
 LABEL_6:
-      v4 = [v6 copy];
-      v8 = DBGCachedFormatSpecifiers();
-      [v8 setObject:v4 forKeyedSubscript:v1];
+      v5 = [v7 copy];
+      v9 = DBGCachedFormatSpecifiers(v5);
+      [v9 setObject:v5 forKeyedSubscript:v2];
 
-      v3 = 0;
+      v4 = 0;
       goto LABEL_7;
     }
 
     while (1)
     {
-      v10 = +[NSCharacterSet whitespaceCharacterSet];
-      v26 = 0;
-      [v5 scanUpToCharactersFromSet:v10 intoString:&v26];
-      v11 = v26;
+      v11 = +[NSCharacterSet whitespaceCharacterSet];
+      v27 = 0;
+      [v6 scanUpToCharactersFromSet:v11 intoString:&v27];
+      v12 = v27;
 
-      v12 = +[NSCharacterSet whitespaceCharacterSet];
-      v13 = [v11 stringByTrimmingCharactersInSet:v12];
+      v13 = +[NSCharacterSet whitespaceCharacterSet];
+      v14 = [v12 stringByTrimmingCharactersInSet:v13];
 
-      if ([v13 length] < 2)
+      if ([v14 length] < 2)
       {
-        if ([v5 isAtEnd])
+        if ([v6 isAtEnd])
         {
           goto LABEL_15;
         }
@@ -512,49 +513,49 @@ LABEL_6:
 
       else
       {
-        v14 = [v13 substringFromIndex:{objc_msgSend(v13, "length") - 1}];
-        if ([v14 isEqualToString:{@", "}])
+        v15 = [v14 substringFromIndex:{objc_msgSend(v14, "length") - 1}];
+        if ([v15 isEqualToString:{@", "}])
         {
 
 LABEL_15:
-          [v13 stringByTrimmingCharactersInSet:v7];
-          v13 = v15 = v13;
+          [v14 stringByTrimmingCharactersInSet:v8];
+          v14 = v16 = v14;
           goto LABEL_16;
         }
 
-        v19 = [v5 isAtEnd];
+        v20 = [v6 isAtEnd];
 
-        if (v19)
+        if (v20)
         {
           goto LABEL_15;
         }
       }
 
-      v25 = 0;
-      [v5 scanUpToCharactersFromSet:v23 intoString:&v25];
-      v15 = v25;
-      v20 = 0;
-      if (([v5 isAtEnd] & 1) == 0)
+      v26 = 0;
+      [v6 scanUpToCharactersFromSet:v24 intoString:&v26];
+      v16 = v26;
+      v21 = 0;
+      if (([v6 isAtEnd] & 1) == 0)
       {
-        v20 = [v1 substringWithRange:{objc_msgSend(v5, "scanLocation"), 1}];
+        v21 = [v2 substringWithRange:{objc_msgSend(v6, "scanLocation"), 1}];
       }
 
-      if ([v20 isEqualToString:@""])
+      if ([v21 isEqualToString:@""])
       {
-        [v5 setScanLocation:{objc_msgSend(v5, "scanLocation") + 1}];
-        v24 = 0;
-        [v5 scanUpToCharactersFromSet:v22 intoString:&v24];
-        v16 = v24;
+        [v6 setScanLocation:{objc_msgSend(v6, "scanLocation") + 1}];
+        v25 = 0;
+        [v6 scanUpToCharactersFromSet:v23 intoString:&v25];
+        v17 = v25;
         goto LABEL_29;
       }
 
-      if ([v15 length])
+      if ([v16 length])
       {
-        v21 = +[NSCharacterSet whitespaceCharacterSet];
-        v16 = [v15 stringByTrimmingCharactersInSet:v21];
+        v22 = +[NSCharacterSet whitespaceCharacterSet];
+        v17 = [v16 stringByTrimmingCharactersInSet:v22];
 
 LABEL_29:
-        if (v16)
+        if (v17)
         {
           goto LABEL_18;
         }
@@ -564,30 +565,30 @@ LABEL_29:
 
 LABEL_16:
 LABEL_17:
-      v16 = +[NSNull null];
+      v17 = +[NSNull null];
 LABEL_18:
-      v17 = [DebugHierarchyFormatSpecifier specifierWithFormat:v13 label:v16];
-      [v6 addObject:v17];
+      v18 = [DebugHierarchyFormatSpecifier specifierWithFormat:v14 label:v17];
+      [v7 addObject:v18];
 
-      if (([v5 isAtEnd] & 1) == 0)
+      if (([v6 isAtEnd] & 1) == 0)
       {
-        v18 = +[NSCharacterSet alphanumericCharacterSet];
-        [v5 scanUpToCharactersFromSet:v18 intoString:0];
+        v19 = +[NSCharacterSet alphanumericCharacterSet];
+        [v6 scanUpToCharactersFromSet:v19 intoString:0];
       }
 
-      if ([v5 isAtEnd])
+      if ([v6 isAtEnd])
       {
         goto LABEL_6;
       }
     }
   }
 
-  v4 = v3;
+  v5 = v4;
 LABEL_7:
 
 LABEL_8:
 
-  return v4;
+  return v5;
 }
 
 id DBGEncodeDictionaryAsJSONCompatibleDictionary(void *a1, void *a2)

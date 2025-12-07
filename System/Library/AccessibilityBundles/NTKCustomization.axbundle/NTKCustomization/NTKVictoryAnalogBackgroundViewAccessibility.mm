@@ -77,8 +77,8 @@
 - (void)_axLabelLogoButton:(id)button
 {
   buttonCopy = button;
-  v5 = accessibilityLocalizedString(@"victory.watchkit.app", v4);
-  [buttonCopy setAccessibilityLabel:v5];
+  v4 = accessibilityLocalizedString(@"victory.watchkit.app");
+  [buttonCopy setAccessibilityLabel:v4];
 }
 
 - (void)_axHandleNumberLabels:(id)labels

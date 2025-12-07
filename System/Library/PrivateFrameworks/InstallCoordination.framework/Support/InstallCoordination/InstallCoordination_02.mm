@@ -1,3 +1,12 @@
+void sub_1000851A0(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v5 = a2;
+  v6 = [v4 xpcConnection];
+  [v5 _remote_conveyPriorityReplacingExisting:v3 forConnection:v6 withCompletion:*(a1 + 40)];
+}
+
 void sub_1000853B8(uint64_t a1)
 {
   v2 = [*(a1 + 32) interestedCoordinatorUUIDs];
@@ -686,10 +695,11 @@ void sub_10008E87C(uint64_t a1, void *a2)
   }
 }
 
-void sub_10008EAB8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10008EAB8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x2Au);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x2Au);
 }
 
 uint64_t sub_10008EB04@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -708,10 +718,11 @@ id sub_10008EB20()
   return [v0 creatorIdentifier];
 }
 
-void sub_10008EB4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10008EB4C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x34u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x34u);
 }
 
 id sub_10008EB6C(void *a1)
@@ -741,58 +752,57 @@ id sub_10008EB6C(void *a1)
   return v3;
 }
 
-uint64_t sub_10008EBE8(void *a1)
+uint64_t sub_10008EBE8(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v3 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = sub_10008EC4C(v1);
+    v4 = sub_10008EC4C(v3, a2);
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
-uint64_t sub_10008EC4C(void *a1)
+uint64_t sub_10008EC4C(void *a1, uint64_t a2)
 {
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v2)
+  v2 = a1;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v10;
+    v4 = v3;
+    v5 = *v10;
     while (2)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
 
-        v5 = v5 + 1;
+        ++v6;
       }
 
-      while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-      if (v3)
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v4)
       {
         continue;
       }
@@ -807,21 +817,21 @@ LABEL_11:
   return v7;
 }
 
-uint64_t sub_10008ED58(void *a1)
+uint64_t sub_10008ED58(void *a1, uint64_t a2)
 {
-  v1 = a1;
+  v3 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = sub_10008EC4C(v1);
+    v4 = sub_10008EC4C(v3, a2);
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t sub_10008EDBC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -850,43 +860,40 @@ uint64_t sub_10008EDBC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return v10;
 }
 
-void sub_10008EED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10008EED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10008EEF8(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v12 = a3;
-  v6 = a1[5];
-  if (objc_opt_isKindOfClass() & 1) != 0 && (v7 = a1[6], (objc_opt_isKindOfClass()))
+  v8 = a3;
+  if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_isKindOfClass())
   {
-    v8 = a1[6];
-    if (v8 == a1[7])
+    v6 = a1[6];
+    if (v6 == a1[7])
     {
-      v10 = sub_10008EDBC(v12, a1[8], a1[9], 0, 0);
+      v7 = sub_10008EDBC(v8, a1[8], a1[9], 0, 0);
     }
 
-    else if (v8 == a1[10])
+    else if (v6 == a1[10])
     {
-      v11 = a1[8];
-      v10 = sub_10008EBE8(v12);
+      v7 = sub_10008EBE8(v8, a1[8]);
     }
 
     else
     {
-      if (v8 != a1[11])
+      if (v6 != a1[11])
       {
         goto LABEL_11;
       }
 
-      v9 = a1[8];
-      v10 = sub_10008ED58(v12);
+      v7 = sub_10008ED58(v8, a1[8]);
     }
 
-    *(*(a1[4] + 8) + 24) = v10;
+    *(*(a1[4] + 8) + 24) = v7;
   }
 
   else
@@ -922,19 +929,19 @@ id sub_10008F068(void *a1, id a2)
   return a2;
 }
 
-id sub_10008F0C0(void *a1)
+id sub_10008F0C0(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  if (v1)
+  v3 = a1;
+  if (v3)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if (sub_10008EBE8(v1))
+      if (sub_10008EBE8(v3, a2))
       {
-        v2 = v1;
+        v4 = v3;
 LABEL_7:
-        v3 = v2;
+        v5 = v4;
         goto LABEL_12;
       }
     }
@@ -943,23 +950,23 @@ LABEL_7:
     {
       if (objc_opt_isKindOfClass())
       {
-        v6 = v1;
-        v2 = [NSArray arrayWithObjects:&v6 count:1];
+        v8 = v3;
+        v4 = [NSArray arrayWithObjects:&v8 count:1];
         goto LABEL_7;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v4 = [v1 allObjects];
-        if (sub_10008EBE8(v4))
+        v6 = [v3 allObjects];
+        if (sub_10008EBE8(v6, a2))
         {
-          v3 = v4;
+          v5 = v6;
         }
 
         else
         {
-          v3 = 0;
+          v5 = 0;
         }
 
         goto LABEL_12;
@@ -967,60 +974,60 @@ LABEL_7:
     }
   }
 
-  v3 = 0;
+  v5 = 0;
 LABEL_12:
 
-  return v3;
+  return v5;
 }
 
-id sub_10008F1F8(void *a1)
+id sub_10008F1F8(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = v1;
-  if (v1)
+  v2 = a1;
+  v3 = v2;
+  if (v2)
   {
-    v3 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v1 count]);
-    v12 = 0u;
+    v4 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [v2 count]);
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v5)
+    v16 = 0u;
+    v5 = v3;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v13;
+      v7 = v6;
+      v8 = *v14;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           if (objc_opt_isKindOfClass())
           {
-            [v3 addObject:{v9, v12}];
+            [v4 addObject:{v10, v13}];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
-    v10 = [v3 copy];
+    v11 = [v4 copy];
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 id sub_10008F36C(void *a1, uint64_t a2, uint64_t a3)
@@ -1081,7 +1088,6 @@ void sub_10008F460(uint64_t a1, void *a2, void *a3)
 
 uint64_t sub_10008F5AC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_100121E80 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -1132,9 +1138,9 @@ void sub_10008F740(uint64_t a1)
   }
 }
 
-void sub_10008FC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008FC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1155,9 +1161,9 @@ void sub_10008FCAC(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10008FE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008FE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1285,9 +1291,9 @@ uint64_t sub_100090A94(uint64_t a1, void *a2, void *a3)
   return 1;
 }
 
-void sub_100090C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100090C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1389,11 +1395,11 @@ id sub_100090FEC(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
-void sub_100091190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100091190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1433,15 +1439,43 @@ void sub_100092840(void *a1)
   [v2 promise:a1[4] canceledWithReason:a1[5] client:a1[6]];
 }
 
+void sub_100092B8C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2)
+  {
+    if (a2 == 2)
+    {
+      v11 = objc_begin_catch(a1);
+      v12 = sub_1000031B0(off_100121958);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 136315394;
+        *(&buf + 4) = "[IXSDataPromise saveState]";
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v11;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%s: Failed to encode object: %@", &buf, 0x16u);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x100092B58);
+    }
+
+    objc_begin_catch(a1);
+    objc_exception_rethrow();
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_1000933E8(uint64_t a1)
 {
   v2 = +[IXSAppInstallObserverManager sharedInstance];
   [v2 promiseDidCompleteSuccessfully:*(a1 + 32)];
 }
 
-void sub_100093FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100093FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1453,9 +1487,9 @@ id sub_100093FCC(uint64_t a1)
   return result;
 }
 
-void sub_1000941B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000941B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1467,9 +1501,9 @@ id sub_1000941CC(uint64_t a1)
   return result;
 }
 
-void sub_100094364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100094364(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1496,9 +1530,9 @@ void sub_100094394(uint64_t a1)
   }
 }
 
-void sub_100094560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1518,14 +1552,14 @@ void sub_100094578(void *a1)
   }
 }
 
-void sub_100094870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1550,14 +1584,14 @@ id sub_1000948A4(uint64_t a1)
   return result;
 }
 
-void sub_100094A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100094A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1575,11 +1609,11 @@ id sub_100094AB4(uint64_t a1)
   return result;
 }
 
-void sub_100094CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_100094CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
+  _Block_object_dispose((v20 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1687,7 +1721,7 @@ LABEL_19:
     v13 = sub_1000031B0(off_100121958);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1000A86F8();
+      sub_1000A86F8(a1, FilteredInfoPlist);
     }
 
     v14 = objc_opt_class();
@@ -1808,16 +1842,16 @@ LABEL_19:
   return v14;
 }
 
-void sub_1000955E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000955E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2032,15 +2066,17 @@ void sub_1000972D0(uint64_t a1, NSObject *a2)
 void sub_10009735C(void *a1)
 {
   [a1 count];
+  v7 = 136315650;
   sub_100002F04();
-  sub_100002F18(&_mh_execute_header, v1, v2, "%s: Attempted to present error for code %lu for %lu identities, but no apps with those bundle IDs are installed.", v3, v4, v5, v6, 2u);
+  sub_100002F18(&_mh_execute_header, v1, v2, "%s: Attempted to present error for code %lu for %lu identities, but no apps with those bundle IDs are installed.", v3, v4, v5, v6, v7);
 }
 
 void sub_1000973EC(void *a1)
 {
   v1 = [a1 objectAtIndexedSubscript:0];
+  v8 = 136315650;
   sub_100002F04();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Attempted to present error for code %lu for identity %@ but no app with that bundle ID is installed.", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Attempted to present error for code %lu for identity %@ but no app with that bundle ID is installed.", v4, v5, v6, v7, v8);
 }
 
 void sub_100097498(os_log_t log)
@@ -2059,7 +2095,7 @@ void sub_10009751C(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: Invalid parameter(s) : %@", &v1, 0x16u);
 }
 
-void sub_1000975AC(uint64_t *a1, _OWORD *a2)
+void sub_1000975AC(void *a1, _OWORD *a2)
 {
   v4 = *__error();
   *a1 = 0;
@@ -2068,10 +2104,22 @@ void sub_1000975AC(uint64_t *a1, _OWORD *a2)
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
-  strerror(v4);
-  _os_log_send_and_compose_impl();
-  v5 = *a1;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  v7[0] = 67109378;
+  v7[1] = v4;
+  v8 = 2080;
+  v9 = strerror(v4);
+  LODWORD(v6) = 18;
+  _os_log_send_and_compose_impl(v5, a1, a2, 80, &_mh_execute_header, &_os_log_default, 16, "Failed to set temporary directory suffix: error = %d (%s)", v7, v6);
   _os_crash_msg();
   __break(1u);
 }
@@ -2083,11 +2131,32 @@ void sub_10009767C()
   _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: Cleaning up orphaned staged updates: %@", v1, 0x16u);
 }
 
+void sub_1000976FC()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get tracked staged updates from installd: %@", v2, v3, v4, v5, v6);
+}
+
 void sub_100097770()
 {
   v2 = 136315650;
   sub_100005674();
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Failed to serialize state : %@ (Error : %@)", v2);
+}
+
+void sub_1000977EC()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Too much data to include in state dump : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100097860()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to find all existing promise staging directories: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000978D4()
@@ -2143,6 +2212,41 @@ void sub_100097B70(uint64_t *a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: Failed to revert application with identity %@ : %@", &v4, 0x20u);
 }
 
+void sub_100097C0C()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The post processing installation phase proportion cannot be negative. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100097C84()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The installing installation phase proportion cannot be negative. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100097CFC()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The loading installation phase proportion cannot be negative. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100097D74()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The installing phase is required and thus cannot be 0 percent of the total progress. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_100097DEC()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The loading phase is required and thus cannot be 0 percent of the total progress. : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_100097E64(uint64_t a1, NSObject *a2)
 {
   v2 = 136315394;
@@ -2152,7 +2256,7 @@ void sub_100097E64(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s: Cannot display deletion alert for unsupported default app type %lu", &v2, 0x16u);
 }
 
-void sub_100097EF0(uint64_t *a1, _OWORD *a2)
+void sub_100097EF0(void *a1, _OWORD *a2)
 {
   v4 = *__error();
   *a1 = 0;
@@ -2162,14 +2266,13 @@ void sub_100097EF0(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   sub_1000096D4();
-  strerror(v4);
-  sub_1000096AC();
-  v5 = *a1;
+  v10 = strerror(v4);
+  sub_1000096AC(v10, v5, v6, v7, &_mh_execute_header, v8, v9, "getpwnam_r failed for user '%s' : %s");
   _os_crash_msg();
   __break(1u);
 }
 
-void sub_100097FA8(uint64_t *a1, _OWORD *a2)
+void sub_100097FA8(void *a1, _OWORD *a2)
 {
   v4 = *__error();
   *a1 = 0;
@@ -2179,9 +2282,8 @@ void sub_100097FA8(uint64_t *a1, _OWORD *a2)
   a2[2] = 0u;
   *a2 = 0u;
   sub_1000096D4();
-  strerror(v4);
-  sub_1000096AC();
-  v5 = *a1;
+  v10 = strerror(v4);
+  sub_1000096AC(v10, v5, v6, v7, &_mh_execute_header, v8, v9, "Failed to get home dir path size: %s");
   _os_crash_msg();
   __break(1u);
 }
@@ -2191,8 +2293,8 @@ void sub_10009804C(void *a1, _OWORD *a2)
   sub_10000966C(a1, a2);
   sub_1000096D4();
   sub_100009690();
-  sub_100009648();
-  sub_1000096EC();
+  v8 = sub_100009648(v2, v3, v4, v5, &_mh_execute_header, v6, v7, "Failed to get removability directory: %@");
+  sub_1000096EC(v8);
   __break(1u);
 }
 
@@ -2201,8 +2303,8 @@ void sub_1000980B8(void *a1, _OWORD *a2)
   sub_10000966C(a1, a2);
   sub_1000096D4();
   sub_100009690();
-  sub_100009648();
-  sub_1000096EC();
+  v8 = sub_100009648(v2, v3, v4, v5, &_mh_execute_header, v6, v7, "Failed to fetch data directory: %@");
+  sub_1000096EC(v8);
   __break(1u);
 }
 
@@ -2211,8 +2313,8 @@ void sub_100098124(void *a1, _OWORD *a2)
   sub_10000966C(a1, a2);
   sub_1000096D4();
   sub_100009690();
-  sub_100009648();
-  sub_1000096EC();
+  v8 = sub_100009648(v2, v3, v4, v5, &_mh_execute_header, v6, v7, "Failed to fetch system container URL: %@");
+  sub_1000096EC(v8);
   __break(1u);
 }
 
@@ -2233,8 +2335,8 @@ void sub_10009822C(void *a1, _OWORD *a2)
   sub_10000966C(a1, a2);
   sub_1000096D4();
   sub_100009690();
-  sub_100009648();
-  sub_1000096EC();
+  v8 = sub_100009648(v2, v3, v4, v5, &_mh_execute_header, v6, v7, "Failed to get data directory: %@");
+  sub_1000096EC(v8);
   __break(1u);
 }
 
@@ -2281,13 +2383,13 @@ void sub_1000984E8(os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "%s: UserManagement returned nil for the current thread's persona", &v1, 0xCu);
 }
 
-void sub_10009856C()
+void sub_10009856C(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_10000D594();
   sub_10000D5A4();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_10009860C(uint64_t a1, void *a2)
@@ -2370,11 +2472,26 @@ void sub_100098AD8(void *a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%s: Client provided invalid persona for %@ : %@", v8, 0x20u);
 }
 
+void sub_100098BA4()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Client process has a value other than true for the entitlement com.apple.usermanagerd.persona.fetch. : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_100098C20(void **a1)
 {
   v1 = *a1;
+  v8 = 136315394;
   sub_10000D594();
-  sub_1000056A8(&_mh_execute_header, v2, v3, "%s: SecTaskCopyValueForEntitlement returned NULL when attempting to fetch the value for the entitlement com.apple.usermanagerd.persona.fetch in the current process. : %@", v4, v5, v6, v7, 2u);
+  sub_1000056A8(&_mh_execute_header, v2, v3, "%s: SecTaskCopyValueForEntitlement returned NULL when attempting to fetch the value for the entitlement com.apple.usermanagerd.persona.fetch in the current process. : %@", v4, v5, v6, v7, v8);
+}
+
+void sub_100098CA8()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: SecTaskCreateFromSelf returned NULL when attempting to fetch UM entitlement : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_100098D24(uint64_t a1, NSObject *a2)
@@ -2428,9 +2545,14 @@ void sub_100098F48(uint64_t a1, NSObject *a2)
 void sub_100098FD4(void *a1)
 {
   v2 = [a1 activeIdentities];
-  [v2 count];
-  [a1 width];
-  sub_100013A14(&_mh_execute_header, v3, v4, "%s: %lu operations already active and %lu allowed; not dequeueing more work.", v5, v6, v7, v8, 2u);
+  v3 = [v2 count];
+  v4 = [a1 width];
+  *v11 = 136315650;
+  *&v11[4] = "[IXSLimitedConcurrencyQueue _onQueue_deQueueIfNeeded]";
+  *&v11[12] = 2048;
+  *&v11[14] = v3;
+  *&v11[22] = 2048;
+  sub_100013A14(&_mh_execute_header, v5, v6, "%s: %lu operations already active and %lu allowed; not dequeueing more work.", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], v4);
 }
 
 void sub_100099094()
@@ -2449,8 +2571,13 @@ void sub_100099110()
 
 void sub_10009918C(uint64_t a1, void *a2)
 {
-  v8 = [a2 descString];
-  sub_100013A14(&_mh_execute_header, v2, v3, "%s: Running work for %@: %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 descString];
+  *v10 = 136315650;
+  *&v10[4] = "[IXSLimitedConcurrencyQueue _onQueue_deQueueIfNeeded]";
+  *&v10[12] = 2112;
+  *&v10[14] = a1;
+  *&v10[22] = 2112;
+  sub_100013A14(&_mh_execute_header, v4, v5, "%s: Running work for %@: %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16], v3);
 }
 
 void sub_100099240()
@@ -2470,8 +2597,13 @@ void sub_1000992C0()
 void sub_100099440(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v8 = [*(a1 + 40) descString];
-  sub_100013A14(&_mh_execute_header, v2, v3, "%s: Finished work for %@: %@", v4, v5, v6, v7, 2u);
+  v2 = [*(a1 + 40) descString];
+  *v9 = 136315650;
+  *&v9[4] = "[IXSLimitedConcurrencyQueue _onQueue_deQueueIfNeeded]_block_invoke_2";
+  *&v9[12] = 2112;
+  *&v9[14] = v1;
+  *&v9[22] = 2112;
+  sub_100013A14(&_mh_execute_header, v3, v4, "%s: Finished work for %@: %@", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16], v2);
 }
 
 void sub_1000994F0()
@@ -2504,11 +2636,11 @@ void sub_100099664()
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Failed to send LSApplicationNotificationTypeUninstallDidFail notification for %@ : %@", v2);
 }
 
-uint64_t sub_1000996D8()
+void sub_1000996D8()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return sub_1000996FC(v0);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  sub_1000996FC(v1, v2);
 }
 
 void sub_1000996FC(uint64_t a1, NSObject *a2)
@@ -2604,6 +2736,13 @@ void sub_100099C54()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_100099D00()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: App deletion service location %@ is not a directory", v2, v3, v4, v5, v6);
+}
+
 void sub_100099D74()
 {
   v1[0] = 136315394;
@@ -2618,12 +2757,11 @@ void sub_100099DF4()
   _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "%s: Called xpc_add_bundle (direct) with %@", v1, 0x16u);
 }
 
-void sub_100099F14(uint64_t a1)
+void sub_100099F14()
 {
-  v1 = *(a1 + 56);
   sub_10001CF38();
   sub_10001CF50();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_100099F98()
@@ -2639,6 +2777,34 @@ void sub_10009A018()
   sub_10000D594();
   sub_10001CF50();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_10009A130()
+{
+  v6 = 136315394;
+  sub_10001CFB4();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to load expected classes from ScreenTimeCore.framework: STManagementState : %p", v2, v3, v4, v5, v6);
+}
+
+void sub_10009A1B0()
+{
+  v6 = 136315394;
+  sub_10001CF94();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to open ScreenTimeCore framework: %s", v2, v3, v4, v5, v6);
+}
+
+void sub_10009A2B8()
+{
+  v6 = 136315394;
+  sub_10001CFB4();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to load expected classes from WebBookmarks.framework: WBWebFilterSettings : %p", v2, v3, v4, v5, v6);
+}
+
+void sub_10009A338()
+{
+  v6 = 136315394;
+  sub_10001CF94();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to open WebBookmarks framework: %s", v2, v3, v4, v5, v6);
 }
 
 void sub_10009A3AC()
@@ -2681,28 +2847,28 @@ void sub_10009A5D8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10009A65C(uint64_t a1)
+void sub_10009A65C()
 {
-  sub_10001CFA8(a1, __stack_chk_guard);
+  sub_10001CFA8(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_10009A6DC(uint64_t a1)
+void sub_10009A6DC()
 {
-  sub_10001CFA8(a1, __stack_chk_guard);
+  sub_10001CFA8(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF50();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_10009A75C(uint64_t a1)
+void sub_10009A75C()
 {
-  sub_10001CFA8(a1, __stack_chk_guard);
+  sub_10001CFA8(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF50();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10009A7DC()
@@ -2721,12 +2887,12 @@ void sub_10009A85C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_10009A8DC(uint64_t a1)
+void sub_10009A8DC()
 {
-  sub_10001CFA8(a1, __stack_chk_guard);
+  sub_10001CFA8(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_10009A95C()
@@ -2788,6 +2954,20 @@ void sub_10009AC4C()
   *v2 = 136315906;
   sub_10002B4EC(v3, v4, v2);
   sub_10002B5A0(&_mh_execute_header, "%s: %@: Failed to locate icon resources promise with UUID %@ : %@", v5, v6);
+}
+
+void sub_10009ACA0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: %@: Found icon resources promise but not info plist icon content promise : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009AD14()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: %@: Found info plist icon content promise but not icon resources promise : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009AD88()
@@ -2980,6 +3160,86 @@ void sub_10009B984(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
+void sub_10009BA2C(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315650;
+  *&v8[4] = "[IXSPlaceholder _materialize]_block_invoke_2";
+  *&v8[12] = 2048;
+  *&v8[14] = a1;
+  *&v8[22] = 2112;
+  sub_10002B584(&_mh_execute_header, a2, a3, "%s: Placeholder type of %lu in list of app extension placeholders is not supported : %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], 0);
+}
+
+void sub_10009BAB8()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client attempted to set metadata promise that was not complete: %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BB2C()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Metadata promise %@ did not contain a decodeable MIStoreMetadata instance. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BBA0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find metadata promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BC14()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find sinf promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BC88()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find icon promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BCFC()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find Info.plist icon content promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BD70()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find icon resources promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BDE4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find localization dictionary promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BE58()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find entitlements promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009BECC()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find loctable promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009BF40()
 {
   v2 = 136315906;
@@ -2994,6 +3254,48 @@ void sub_10009BFB8()
   sub_10002B52C();
   sub_10002B5FC();
   sub_10002B5CC(&_mh_execute_header, v0, v1, "%s: App extension placeholders array has multiple %@ placeholders with the same bundle directory name of %@ : %@", v2);
+}
+
+void sub_10009C030()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: App extension placeholders array has multiple placeholders with the same bundle ID of %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009C0A4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find placeholder promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009C118(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[IXSAppInstallObserverManager init]";
+  sub_10003038C(&_mh_execute_header, a1, a3, "%s: Client to observer service name map was not a dictionary; discarding.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10009C190(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[IXSAppInstallObserverManager init]";
+  sub_10003038C(&_mh_execute_header, a1, a3, "%s: Client to observer service name map contained invalid object types; discarding.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10009C208(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[IXSAppInstallObserverManager init]";
+  sub_10003038C(&_mh_execute_header, a1, a3, "%s: Service responds to map was not a dictionary; discarding.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10009C280(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[IXSAppInstallObserverManager init]";
+  sub_10003038C(&_mh_execute_header, a1, a3, "%s: Service responds to map contained invalid object types; discarding.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10009C2F8()
@@ -3046,23 +3348,26 @@ void sub_10009C5A8(uint64_t a1, NSObject *a2)
 void sub_10009C638()
 {
   sub_1000303A8();
-  v1 = v0;
-  v2 = sub_10002C2F0(*(v0 + 40));
-  v3 = *(v1 + 32);
+  v1 = sub_10002C2F0(*(v0 + 40));
   sub_100030368();
   sub_10002B5BC();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
 }
 
 void sub_10009C6E4()
 {
   sub_1000303A8();
-  v1 = v0;
-  v2 = sub_10002C2F0(*(v0 + 40));
-  v3 = *(v1 + 32);
+  v1 = sub_10002C2F0(*(v0 + 40));
   sub_100030368();
   sub_10002B5BC();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
+}
+
+void sub_10009C790()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to set mode on promise staging directory : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009C804()
@@ -3076,19 +3381,35 @@ void sub_10009C804()
   _os_log_error_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%s: Failed to resolve promise staging URL from location %@: %@ : %@", v3, 0x2Au);
 }
 
+void sub_10009C898()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to create promise staging root directory : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009C90C(void *a1)
 {
   v1 = [a1 stagedPath];
   v2 = [v1 path];
+  v9 = 136315650;
   sub_100005674();
-  sub_100002F18(&_mh_execute_header, v3, v4, "%s: The item that this promise is representing does not exist at staged path %@. : %@", v5, v6, v7, v8, 2u);
+  sub_100002F18(&_mh_execute_header, v3, v4, "%s: The item that this promise is representing does not exist at staged path %@. : %@", v5, v6, v7, v8, v9);
+}
+
+void sub_10009C9BC()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: The staged path property was not set set. : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009CA38(void *a1)
 {
   v1 = [a1 path];
+  v8 = 136315650;
   sub_100005674();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to provide access to %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to provide access to %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void sub_10009CADC(id *a1, id *a2, NSObject *a3)
@@ -3223,12 +3544,96 @@ void sub_10009D2A8(void *a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "%s: Could not write dictionary promise dictionary to disk at %@ : %@", &v7, 0x20u);
 }
 
+void sub_10009D374()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get removability directory URL: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D3E8()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get removability directory URL: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D45C()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get removability directory URL: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D4D0()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get data directory URL: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D544()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to create removability data from dictionary: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D5B8()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to create removability data from dictionary: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D62C()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to create dictionary from deserialized removability data: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D6A0()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability data: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D714()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to extract change clock from deserialized removability plist: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D788()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to extract removability entries from deserialized removability plist: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009D7FC()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Received non dictionary object for change clock in deserialized removability plist: %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009D870()
 {
   sub_10000D594();
   sub_100038DE0();
   sub_10001CF50();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+void sub_10009D8F8()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Received non dictionary object for removability entries in deserialized removability plist: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009D96C()
@@ -3263,6 +3668,20 @@ void sub_10009DAF4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_10009DB7C()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Deserialized removability plist is missing key %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009DC00()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to fetch removability metadata from %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009DC74()
 {
   sub_10000D594();
@@ -3284,6 +3703,13 @@ void sub_10009DD90()
   sub_100005674();
   sub_100038DF0();
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Received non dictionary object for requested keys %@ : %@", v2);
+}
+
+void sub_10009DE88()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability plist: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009DEFC(void *a1, uint64_t a2, NSObject *a3)
@@ -3319,6 +3745,20 @@ void sub_10009E0D4()
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability metadata for identity %@, version %lu", v2);
 }
 
+void sub_10009E150()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability entry: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10009E1C4()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get removability dictionary for entry: %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009E238()
 {
   v2 = 136315650;
@@ -3327,12 +3767,26 @@ void sub_10009E238()
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Deserialized key for removability entry is not string %@ : %@", v2);
 }
 
+void sub_10009E2B0()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability entry: %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009E324()
 {
   v2 = 136315650;
   sub_100005674();
   sub_100038DF0();
   sub_100005688(&_mh_execute_header, v0, v1, "%s: Deserialized key for removability entry is not string %@ : %@", v2);
+}
+
+void sub_10009E39C()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to deserialize removability entry: %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009E410()
@@ -3356,6 +3810,13 @@ void sub_10009E518(os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%s: Client attempted to create IXUserPresentableError with invalid code (kIXUserPresentableUnknownError)", &v1, 0xCu);
 }
 
+void sub_10009E5B0()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get list of preferred app marketplaces : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009E628(uint64_t a1, NSObject *a2)
 {
   v2 = 136315650;
@@ -3365,6 +3826,13 @@ void sub_10009E628(uint64_t a1, NSObject *a2)
   v6 = 2112;
   v7 = 0;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s: Found invalid LS category for default app type %lu : %@", &v2, 0x20u);
+}
+
+void sub_10009E6C0()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Found unknown default app type : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_10009E73C(os_log_t log)
@@ -3384,12 +3852,20 @@ void sub_10009E7C0()
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s: Failed to find default app categories applicable to bundleID %@ : %@", v4, 0x20u);
 }
 
+void sub_10009E850()
+{
+  v6 = 136315394;
+  sub_10000D594();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Failed to get list of preferred app marketplaces : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_10009E8C8()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_10002B52C();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to deserialize serialized data at %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to deserialize serialized data at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void sub_10009E964()
@@ -3404,46 +3880,59 @@ void sub_10009E9EC()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_10002B52C();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to read pending work sentinel file from %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to read pending work sentinel file from %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void sub_10009EA88()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_10002B52C();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to write pending work sentinel file to %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to write pending work sentinel file to %@ : %@", v4, v5, v6, v7, v8);
+}
+
+void sub_10009EB24(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "[IXSPendingOperationsTracker _onQueue_writePendingWork]";
+  *&v8[12] = 2112;
+  *&v8[14] = a1;
+  sub_1000056A8(&_mh_execute_header, a2, a3, "%s: Failed to serialize pending work: %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
 }
 
 void sub_10009EBA4()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_10002B52C();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove pending work sentinel file at %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove pending work sentinel file at %@ : %@", v4, v5, v6, v7, v8);
 }
 
-void sub_10009EC40(uint64_t *a1)
+void sub_10009EC40()
 {
-  v1 = *a1;
+  v6 = 136315394;
   sub_10003D8B4();
-  sub_1000056A8(&_mh_execute_header, v2, v3, "%s: Attempting to begin pending operation for identity %@ but operation was already pending.", v4, v5, v6, v7, 2u);
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Attempting to begin pending operation for identity %@ but operation was already pending.", v2, v3, v4, v5, v6);
 }
 
-void sub_10009ECB8(uint64_t *a1)
+void sub_10009ECB8()
 {
-  v1 = *a1;
+  v6 = 136315394;
   sub_10003D8B4();
-  sub_1000056A8(&_mh_execute_header, v2, v3, "%s: Attempting to end pending operation for identity %@ but operation wasn't already pending.", v4, v5, v6, v7, 2u);
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Attempting to end pending operation for identity %@ but operation wasn't already pending.", v2, v3, v4, v5, v6);
 }
 
 void sub_10009ED30()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_10002B52C();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove pending state at %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove pending state at %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void sub_10009EDCC(uint64_t a1, uint64_t a2, NSObject *a3)
@@ -3486,61 +3975,61 @@ void sub_10009EF34(void *a1, uint64_t a2, NSObject *a3)
 void sub_10009EFF4()
 {
   sub_100044154();
-  v1 = *__error();
-  v2 = __error();
-  v19 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   sub_100044120();
-  v11 = sub_1000405FC(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = sub_1000405FC(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   sub_100044108();
-  sub_100044134(&_mh_execute_header, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v18, v19, v20);
+  sub_100044134(&_mh_execute_header, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 void sub_10009F0B4()
 {
   sub_100044154();
-  v1 = *__error();
-  v2 = __error();
-  v19 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   sub_100044120();
-  v11 = sub_1000405FC(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = sub_1000405FC(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   sub_100044108();
-  sub_100044134(&_mh_execute_header, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v18, v19, v20);
+  sub_100044134(&_mh_execute_header, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 void sub_10009F174()
 {
   sub_100044154();
-  v1 = *__error();
-  v2 = __error();
-  v19 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   sub_100044120();
-  v11 = sub_1000405FC(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = sub_1000405FC(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   sub_100044108();
-  sub_100044134(&_mh_execute_header, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v18, v19, v20);
+  sub_100044134(&_mh_execute_header, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 void sub_10009F234()
 {
   sub_100044154();
-  v1 = *__error();
-  v2 = __error();
-  v19 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   sub_100044120();
-  v11 = sub_1000405FC(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = sub_1000405FC(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   sub_100044108();
-  sub_100044134(&_mh_execute_header, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v18, v19, v20);
+  sub_100044134(&_mh_execute_header, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 void sub_10009F2F4()
 {
   sub_100044154();
-  v1 = *__error();
-  v2 = __error();
-  v19 = strerror(*v2);
+  __error();
+  v1 = __error();
+  v18 = strerror(*v1);
   sub_100044120();
-  v11 = sub_1000405FC(v3, v4, v5, v6, v7, v8, v9, v10, v0);
+  v10 = sub_1000405FC(v2, v3, v4, v5, v6, v7, v8, v9, v0);
   sub_100044108();
-  sub_100044134(&_mh_execute_header, v12, v13, "%s: Failed to remove ACL : %@", v14, v15, v16, v17, v18, v19, v20);
+  sub_100044134(&_mh_execute_header, v11, v12, "%s: Failed to remove ACL : %@", v13, v14, v15, v16, v17, v18);
 }
 
 void sub_10009F3B4(void *a1)
@@ -3549,7 +4038,7 @@ void sub_10009F3B4(void *a1)
   v3 = __error();
   v4 = strerror(*v3);
   v14 = sub_1000405FC("[IXFileManager _removeACLAtPath:isDir:error:]", 235, a1, v2, 0, 0, @"acl_init() failed: %s", v5, v4);
-  sub_100044134(&_mh_execute_header, v6, v7, "%s: Failed to remove ACL : %@", v8, v9, v10, v11, v12, v13, 2u);
+  sub_100044134(&_mh_execute_header, v6, v7, "%s: Failed to remove ACL : %@", v8, v9, v10, v11, v12, v13);
 }
 
 void sub_10009F494(uint64_t a1, NSObject *a2)
@@ -3603,13 +4092,12 @@ void sub_10009F7DC(void *a1)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x30u);
 }
 
-void sub_10009F8C0(void *a1, int *a2)
+void sub_10009F8C0(void *a1)
 {
-  v4 = [a1 typeDescription];
-  v10 = [a1 bundleIdentifier];
-  v11 = *a2;
+  v2 = [a1 typeDescription];
+  v8 = [a1 bundleIdentifier];
   sub_10002B5BC();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x30u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x30u);
 }
 
 void sub_10009F9A8()
@@ -3815,13 +4303,12 @@ void sub_1000A06E0(void *a1)
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_1000A077C(uint64_t *a1)
+void sub_1000A077C()
 {
-  sub_10006E898(a1, __stack_chk_guard);
-  v2 = *(v1 + 40);
+  sub_10006E898(__stack_chk_guard);
   sub_10006E820();
   sub_10001CF5C();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_1000A07FC(os_log_t log)
@@ -3829,6 +4316,13 @@ void sub_1000A07FC(os_log_t log)
   v1 = 136315138;
   v2 = "[IXSCoordinatedAppInstall _eligibleToScheduleUpdate]";
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: Update scheduling is not supported", &v1, 0xCu);
+}
+
+void sub_1000A0880()
+{
+  v6 = 136315394;
+  sub_100005674();
+  sub_10006E8A4(&_mh_execute_header, v0, v1, "%s: Failed to schedule update activity: %@. Executing it right away.", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A08F4()
@@ -3888,11 +4382,25 @@ void sub_1000A0D00(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void sub_1000A0D98(uint64_t *a1)
+void sub_1000A0D98()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
   sub_10001CF50();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_1000A0E20()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: LSApplicationRecord for %@ did not contain a bundleContainerURL during demotion : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A0E94()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Cannot demote app with identity %@ because it is a placeholder : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A0F08()
@@ -3900,6 +4408,41 @@ void sub_1000A0F08()
   sub_10002B52C();
   sub_10001CF5C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+void sub_1000A0F88()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Placeholder promise was not complete when we went to install it for %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A0FFC()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Canceling placeholder installation for %@ because IXGizmoInstallingAppInstallCoordinator failed to find gizmo pairing ID. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A1070()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Canceling placeholder installation for %@ because IXGizmoInstallingAppInstallCoordinator is not supported on this device. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A10E4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Placeholder promise was nil when we went to install it for %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A1158()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Placeholder was nil when we went to install it for %@ : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A11CC(void *a1)
@@ -3954,12 +4497,40 @@ void sub_1000A14AC()
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void sub_1000A16AC(uint64_t *a1)
+void sub_1000A1550()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Canceling installation for %@ because IXGizmoInstallingAppInstallCoordinator failed to find gizmo pairing ID. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A15C4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Canceling installation for %@ because IXGizmoInstallingAppInstallCoordinator is not supported on this device. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A1638()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: App asset was nil when we went to install it for %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A16AC()
+{
+  sub_10006E898(__stack_chk_guard);
   sub_10006E820();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+void sub_1000A1728()
+{
+  v6 = 136315650;
+  sub_10006E854();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Expected to have not yet begun app install or waiting/pending assertion acquisition but state was %lu : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A17A8(void *a1, uint64_t a2, _DWORD *a3)
@@ -3971,20 +4542,27 @@ void sub_1000A17A8(void *a1, uint64_t a2, _DWORD *a3)
   _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "%s: Ignoring attempt to set a placeholder promise with bundle ID %@ on coordinator with different bundle ID %@ : %@", v6, 0x2Au);
 }
 
-void sub_1000A1818(uint64_t *a1)
+void sub_1000A1818()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
   sub_10006E820();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void sub_1000A1908(uint64_t *a1)
+void sub_1000A1894()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  v6 = 136315394;
+  sub_100005674();
+  sub_10006E8A4(&_mh_execute_header, v0, v1, "%s: Failed to create a LS record: %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A1908()
+{
+  sub_10006E898(__stack_chk_guard);
   sub_10006E820();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_1000A1984()
@@ -3996,11 +4574,10 @@ void sub_1000A1984()
 
 void sub_1000A1A08(uint64_t a1, unint64_t *a2, NSObject *a3)
 {
-  v4 = *(a1 + 32);
-  v5 = sub_100063234(*a2);
-  v6[0] = 136315650;
+  v4 = sub_100063234(*a2);
+  v5[0] = 136315650;
   sub_10006E804();
-  _os_log_fault_impl(&_mh_execute_header, a3, OS_LOG_TYPE_FAULT, "%s: Attempting to fetch progress for %@ during a phase that does not support progress: %@", v6, 0x20u);
+  _os_log_fault_impl(&_mh_execute_header, a3, OS_LOG_TYPE_FAULT, "%s: Attempting to fetch progress for %@ during a phase that does not support progress: %@", v5, 0x20u);
 }
 
 void sub_1000A1AB8()
@@ -4027,6 +4604,13 @@ void sub_1000A1C10(void *a1)
   sub_100005674();
   sub_10002B574();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
+}
+
+void sub_1000A1CC4()
+{
+  v6 = 136315394;
+  sub_10006E854();
+  sub_10006E8A4(&_mh_execute_header, v0, v1, "%s: Found no promises with total bytes set; faking for %llu promises", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A1D38(uint64_t a1)
@@ -4069,11 +4653,11 @@ void sub_1000A1FA0(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_1000A2038(uint64_t *a1)
+void sub_1000A2038()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
   sub_10006E8D4();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x20u);
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_1000A20CC()
@@ -4086,11 +4670,32 @@ void sub_1000A20CC()
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
 }
 
+void sub_1000A2180()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate placeholder data promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A21F4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate app asset data promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A2268()
 {
   sub_10002B52C();
   sub_10001CF5C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
+}
+
+void sub_1000A22F0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client attempted to set install options promise that was not complete: %@ : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A2364(void *a1, _DWORD *a2)
@@ -4109,6 +4714,13 @@ void sub_1000A23CC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_1000A244C()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate install options promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A24C0(unint64_t a1)
 {
   v2 = IXStringForCoordinatorImportance(4uLL);
@@ -4125,6 +4737,34 @@ void sub_1000A24C0(unint64_t a1)
   sub_10006E83C();
   sub_10006E868();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
+}
+
+void sub_1000A25C8()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find ODR promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A263C()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate user data promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A26B0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate preparation promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2724()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Failed to locate device security promise with UUID %@ : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A2798(void *a1)
@@ -4161,6 +4801,104 @@ void sub_1000A286C(void *a1)
   sub_10006E83C();
   sub_10006E868();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
+}
+
+void sub_1000A2944()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A29B8()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2A2C()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find essential asset promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2AA0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2B14()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2B88()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2BFC()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2C70()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2CE4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2D58()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Could not find data import promise with UUID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2DCC()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2E40()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2EB4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not support post processing. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A2F28()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator %@ does not have post processing enabled. : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A2F9C(unint64_t a1)
@@ -4226,13 +4964,6 @@ void sub_1000A33B8()
   v3 = v0;
   v4 = 0;
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%s: Failed to create container query for %@ : %@", v2, 0x20u);
-}
-
-void sub_1000A3440(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
 }
 
 void sub_1000A34DC(uint64_t a1, uint64_t *a2, os_log_t log)
@@ -4301,6 +5032,29 @@ void sub_1000A3804(os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "%s: Failed to load expected classes from Photos.framework: PHPhotoLibrary : %p, PHAsset : %p", &v1, 0x20u);
 }
 
+void sub_1000A38A8()
+{
+  v6 = 136315394;
+  sub_10001CF94();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to open Photos framework: %s", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A391C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "+[IXSRemoteDeletionPromptManager sharedInstance]_block_invoke";
+  *&v8[12] = 2048;
+  *&v8[14] = qword_100121E48;
+  sub_10001CF6C(&_mh_execute_header, a1, a3, "%s: Failed to load expected classes from IMCore.framework: CloudKitHooks : %p", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
+void sub_1000A39A8()
+{
+  v6 = 136315394;
+  sub_10001CF94();
+  sub_10001CF6C(&_mh_execute_header, v0, v1, "%s: Failed to open IMCore framework: %s", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A3B9C()
 {
   sub_10000D594();
@@ -4327,9 +5081,10 @@ void sub_1000A3DA0(void *a1)
   v2 = [a1 name];
   v3 = [a1 bundleName];
   v4 = IXStringForClientID([a1 creatorIdentifier]);
+  v11 = 136316162;
   sub_10000D594();
   sub_10008EB38();
-  sub_10008EB4C(&_mh_execute_header, v5, v6, "%s: Failed to create placeholder data promise with name: %@ bundleName: %@ client: %@ : %@", v7, v8, v9, v10, 2u);
+  sub_10008EB4C(&_mh_execute_header, v5, v6, "%s: Failed to create placeholder data promise with name: %@ bundleName: %@ client: %@ : %@", v7, v8, v9, v10, v11);
 }
 
 void sub_1000A3E88(void *a1)
@@ -4338,9 +5093,10 @@ void sub_1000A3E88(void *a1)
   v3 = [a1 transferPath];
   v4 = [v3 path];
   v5 = IXStringForClientID([a1 creatorIdentifier]);
+  v12 = 136316162;
   sub_10000D594();
   sub_10008EB38();
-  sub_10008EB4C(&_mh_execute_header, v6, v7, "%s: Failed to create promised transfer to path data promise with name: %@ path: %@ client: %@ : %@", v8, v9, v10, v11, 2u);
+  sub_10008EB4C(&_mh_execute_header, v6, v7, "%s: Failed to create promised transfer to path data promise with name: %@ path: %@ client: %@ : %@", v8, v9, v10, v11, v12);
 }
 
 void sub_1000A3F80()
@@ -4421,11 +5177,28 @@ void sub_1000A43D4(unsigned __int8 a1, uint64_t a2, _DWORD *a3)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
 }
 
+void sub_1000A4470(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315650;
+  *&v8[4] = "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]";
+  *&v8[12] = 2048;
+  *&v8[14] = a1;
+  *&v8[22] = 2112;
+  sub_10002B584(&_mh_execute_header, a2, a3, "%s: Installation domain in seed was not a known value: %lu : %@", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16], 0);
+}
+
 void sub_1000A44FC()
 {
   sub_10000D594();
   sub_10001CF50();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_1000A4580()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Bundle identifier %@ contains /, which is not allowed : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A45F4(void *a1, _DWORD *a2)
@@ -4440,6 +5213,20 @@ void sub_1000A4654(void *a1, _DWORD *a2)
   *a2 = 136315650;
   sub_10008EB04(a1, a2, "[IXSClientConnection _remote_createAppInstallCoordinatorWithSeed:createIfNotExisting:requireMatchingIntent:scopeRequirement:completion:]");
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%s: Expected a non-nil identity from client: %@ : %@", v4, 0x20u);
+}
+
+void sub_1000A46B4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator did not exist for bundle ID %@ : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A4728()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Coordinator did not exist for bundle ID %@ : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A479C()
@@ -4551,6 +5338,48 @@ void sub_1000A4F24()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_1000A4FA4()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ is missing OSModule operation entitlement. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A5018()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ has passed non-nil options. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A508C()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ is missing OS Module operation entitlement. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A5100()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ has passed non-nil options. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A5174()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ is missing OSModule operation entitlement. : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A51E8()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Client %@ has passed non-nil options. : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A525C(void *a1)
 {
   v1 = [a1 clientName];
@@ -4596,6 +5425,13 @@ void sub_1000A552C(void *a1)
   sub_10008EAF4();
   sub_10002B5BC();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x2Au);
+}
+
+void sub_1000A55D0()
+{
+  v6 = 136315650;
+  sub_10002B510();
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: [IXSAppRemovabilityManager setRemovability:] for %@ returned NO but did not set an error. : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A5644(void *a1)
@@ -4681,34 +5517,36 @@ void sub_1000A5BE4(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x34u);
 }
 
-void sub_1000A5CA8(uint64_t *a1)
+void sub_1000A5CA8()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void sub_1000A5D30(uint64_t *a1)
+void sub_1000A5D30()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
+  v6 = 136315650;
   sub_10001CF38();
-  sub_10002B584(&_mh_execute_header, v1, v2, "%s: Updating SINF for %@ returned NO but did not set an error. : %@", v3, v4, v5, v6, 2u);
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Updating SINF for %@ returned NO but did not set an error. : %@", v2, v3, v4, v5, v6);
 }
 
-void sub_1000A5DA8(uint64_t *a1)
+void sub_1000A5DA8()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
   sub_10001CF38();
   sub_10001CF5C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void sub_1000A5E30(uint64_t *a1)
+void sub_1000A5E30()
 {
-  sub_10006E898(a1, __stack_chk_guard);
+  sub_10006E898(__stack_chk_guard);
+  v6 = 136315650;
   sub_10001CF38();
-  sub_10002B584(&_mh_execute_header, v1, v2, "%s: Updating iTunesMetadata for %@ returned NO but did not set an error. : %@", v3, v4, v5, v6, 2u);
+  sub_10002B584(&_mh_execute_header, v0, v1, "%s: Updating iTunesMetadata for %@ returned NO but did not set an error. : %@", v2, v3, v4, v5, v6);
 }
 
 void sub_1000A5EA8()
@@ -4726,8 +5564,9 @@ void sub_1000A5F4C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A5FE4()
@@ -4736,8 +5575,9 @@ void sub_1000A5FE4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A607C()
@@ -4746,8 +5586,9 @@ void sub_1000A607C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6114()
@@ -4756,8 +5597,9 @@ void sub_1000A6114()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A61AC()
@@ -4766,8 +5608,9 @@ void sub_1000A61AC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6244()
@@ -4776,8 +5619,9 @@ void sub_1000A6244()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A62DC()
@@ -4786,8 +5630,9 @@ void sub_1000A62DC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6374()
@@ -4796,8 +5641,9 @@ void sub_1000A6374()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A640C()
@@ -4806,8 +5652,9 @@ void sub_1000A640C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A64A4()
@@ -4816,8 +5663,9 @@ void sub_1000A64A4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A653C()
@@ -4826,8 +5674,9 @@ void sub_1000A653C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A65D4()
@@ -4836,8 +5685,9 @@ void sub_1000A65D4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A666C()
@@ -4846,8 +5696,9 @@ void sub_1000A666C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6704()
@@ -4856,8 +5707,9 @@ void sub_1000A6704()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A679C()
@@ -4866,8 +5718,9 @@ void sub_1000A679C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6834()
@@ -4876,8 +5729,9 @@ void sub_1000A6834()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A68CC()
@@ -4886,8 +5740,9 @@ void sub_1000A68CC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6964()
@@ -4896,8 +5751,9 @@ void sub_1000A6964()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A69FC()
@@ -4906,8 +5762,9 @@ void sub_1000A69FC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6A94()
@@ -4916,8 +5773,9 @@ void sub_1000A6A94()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6B2C()
@@ -4926,8 +5784,9 @@ void sub_1000A6B2C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6BC4()
@@ -4936,8 +5795,9 @@ void sub_1000A6BC4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6C5C()
@@ -4946,8 +5806,9 @@ void sub_1000A6C5C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6CF4()
@@ -4956,8 +5817,9 @@ void sub_1000A6CF4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6D8C()
@@ -4966,8 +5828,9 @@ void sub_1000A6D8C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6E24()
@@ -4976,8 +5839,9 @@ void sub_1000A6E24()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6EBC()
@@ -4986,8 +5850,9 @@ void sub_1000A6EBC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6F54()
@@ -4996,8 +5861,9 @@ void sub_1000A6F54()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A6FEC()
@@ -5006,8 +5872,9 @@ void sub_1000A6FEC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7084()
@@ -5016,8 +5883,9 @@ void sub_1000A7084()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A711C()
@@ -5026,8 +5894,9 @@ void sub_1000A711C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A71B4()
@@ -5036,8 +5905,9 @@ void sub_1000A71B4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A724C()
@@ -5046,8 +5916,9 @@ void sub_1000A724C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A72E4()
@@ -5056,8 +5927,9 @@ void sub_1000A72E4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A737C()
@@ -5066,8 +5938,9 @@ void sub_1000A737C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7414()
@@ -5076,8 +5949,9 @@ void sub_1000A7414()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A74AC()
@@ -5086,8 +5960,9 @@ void sub_1000A74AC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7544()
@@ -5096,8 +5971,9 @@ void sub_1000A7544()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A75DC()
@@ -5106,8 +5982,9 @@ void sub_1000A75DC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7674()
@@ -5116,8 +5993,9 @@ void sub_1000A7674()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A770C()
@@ -5126,8 +6004,9 @@ void sub_1000A770C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A77A4()
@@ -5136,8 +6015,9 @@ void sub_1000A77A4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A783C()
@@ -5146,8 +6026,9 @@ void sub_1000A783C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A78D4()
@@ -5156,8 +6037,9 @@ void sub_1000A78D4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A796C()
@@ -5166,8 +6048,9 @@ void sub_1000A796C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7A04()
@@ -5176,8 +6059,9 @@ void sub_1000A7A04()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7A9C()
@@ -5186,8 +6070,9 @@ void sub_1000A7A9C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7B34()
@@ -5196,8 +6081,9 @@ void sub_1000A7B34()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7BCC(void *a1)
@@ -5214,8 +6100,9 @@ void sub_1000A7C64()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7CFC()
@@ -5224,8 +6111,9 @@ void sub_1000A7CFC()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7D94()
@@ -5234,8 +6122,9 @@ void sub_1000A7D94()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7E2C()
@@ -5244,8 +6133,9 @@ void sub_1000A7E2C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7EC4()
@@ -5254,8 +6144,9 @@ void sub_1000A7EC4()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7F5C()
@@ -5264,8 +6155,9 @@ void sub_1000A7F5C()
   [sub_10006E880(v1 __stack_chk_guard)];
   objc_claimAutoreleasedReturnValue();
   sub_10008EAD8();
+  v8 = 136315906;
   sub_10008EA6C();
-  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, 2u);
+  sub_10008EAB8(&_mh_execute_header, v2, v3, "%s: Client %@ attempted operation %s on coordinator UUID %@ without being registered as interested", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A7FF4()
@@ -5293,18 +6185,20 @@ void sub_1000A821C()
 {
   sub_1000303A8();
   v1 = [v0 path];
+  v8 = 136315650;
   sub_100005674();
   sub_1000912C4();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove legacy removability plist at URL path %@. Error: %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to remove legacy removability plist at URL path %@. Error: %@", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A82B8()
 {
   sub_1000303A8();
   v1 = [v0 removabilityURL];
+  v8 = 136315650;
   sub_100005674();
   sub_1000912C4();
-  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to write app removability data to URL %@ : %@", v4, v5, v6, v7, 2u);
+  sub_100002F18(&_mh_execute_header, v2, v3, "%s: Failed to write app removability data to URL %@ : %@", v4, v5, v6, v7, v8);
 }
 
 void sub_1000A8354()
@@ -5321,6 +6215,20 @@ void sub_1000A83D4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_1000A8458()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Client passed to [IXSDataPromise cancelForReason:client:] was IXClientNone (0) : %@", v2, v3, v4, v5, v6);
+}
+
+void sub_1000A84D0()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Reason passed to [IXSDataPromise cancelForReason:client:] was nil : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A8548(uint64_t a1, NSObject *a2)
 {
   v2 = *(*a1 + 40);
@@ -5333,6 +6241,13 @@ void sub_1000A8548(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "%s: Attempt made to reset a canceled promise (promise canceled with error %@) : %@", &v3, 0x20u);
 }
 
+void sub_1000A85E4()
+{
+  v6 = 136315394;
+  sub_100008088();
+  sub_1000056A8(&_mh_execute_header, v0, v1, "%s: Attempt made to reset a completed promise : %@", v2, v3, v4, v5, v6);
+}
+
 void sub_1000A865C(void *a1)
 {
   v1 = [a1 path];
@@ -5341,12 +6256,12 @@ void sub_1000A865C(void *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-void sub_1000A86F8()
+void sub_1000A86F8(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v8 = NSStringFromClass(v2);
   sub_10002B5BC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x2Au);
 }
 
 void sub_1000A87C0()

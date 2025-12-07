@@ -3206,24 +3206,25 @@ uint64_t __63__TabCollectionViewManager__indexToInsertPlaceholderAtTabItem___blo
   currentTabs = [WeakRetained currentTabs];
   v13 = [currentTabs count];
 
-  if ([(TabCollectionViewManager *)self isPlaceholderItemValid:itemCopy]&& (placeholderItemIndex = self->_placeholderItemIndex, placeholderItemIndex <= v13))
+  v14 = [(TabCollectionViewManager *)self isPlaceholderItemValid:itemCopy];
+  if (v14 && (placeholderItemIndex = self->_placeholderItemIndex, placeholderItemIndex <= v13))
   {
-    v16 = [WeakRetained dropTabsAtIndex:placeholderItemIndex pinned:-[TabCollectionItem isPinned](self->_placeholderItem dropSession:"isPinned") dragItems:{sessionCopy, itemsCopy}];
+    v18 = [WeakRetained dropTabsAtIndex:placeholderItemIndex pinned:-[TabCollectionItem isPinned](self->_placeholderItem dropSession:"isPinned") dragItems:{sessionCopy, itemsCopy}];
     [(TabCollectionViewManager *)self removePlaceholderItem:itemCopy];
   }
 
   else
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXTabView();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = WBS_LOG_CHANNEL_PREFIXTabView(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [TabCollectionViewManager replacePlaceholderItem:v13 withTabsForDropSession:v15 dragItems:?];
+      [TabCollectionViewManager replacePlaceholderItem:v13 withTabsForDropSession:v17 dragItems:?];
     }
 
-    v16 = MEMORY[0x277CBEBF8];
+    v18 = MEMORY[0x277CBEBF8];
   }
 
-  return v16;
+  return v18;
 }
 
 - (id)dragItemForTab:(id)tab tabItem:(id)item

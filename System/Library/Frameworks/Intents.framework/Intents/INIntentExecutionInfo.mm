@@ -14,7 +14,7 @@
 
 - (id)_uiExtensionsWithError:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   uiExtensions = self->_uiExtensions;
   if (uiExtensions)
   {
@@ -28,8 +28,8 @@
     if (v7)
     {
       v8 = v7;
-      v18[0] = v7;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = v7;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       v10 = self->_uiExtensions;
       self->_uiExtensions = v9;
 
@@ -57,14 +57,13 @@ LABEL_8:
 
   v15 = 0;
 LABEL_9:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)_extensionsWithError:(id *)error
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   extensions = self->_extensions;
   if (extensions)
   {
@@ -78,8 +77,8 @@ LABEL_9:
     if (v7)
     {
       v8 = v7;
-      v18[0] = v7;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+      v17[0] = v7;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
       v10 = self->_extensions;
       self->_extensions = v9;
 
@@ -107,21 +106,20 @@ LABEL_8:
 
   v15 = 0;
 LABEL_9:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)_matchingAttributesForExtensionPoint:(id)point error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   pointCopy = point;
   v7 = objc_opt_new();
   [v7 setObject:pointCopy forKeyedSubscript:*MEMORY[0x1E696A2F8]];
 
   intentClassName = [(INIntentExecutionInfo *)self intentClassName];
-  v22[0] = intentClassName;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = intentClassName;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   [v7 setObject:v9 forKeyedSubscript:@"IntentsSupported"];
 
   containingAppBundleURL = [(INExecutionInfo *)self containingAppBundleURL];
@@ -148,78 +146,69 @@ LABEL_9:
   {
     v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot match extensions for %@ because it does not have a bundle URL", v12, 0];
     v15 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A278];
-    v21 = v14;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A278];
+    v20 = v14;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     *error = [v15 errorWithDomain:@"IntentsErrorDomain" code:2005 userInfo:v16];
 
     error = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (BOOL)canRunOnLocalDevice
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   _applicationRecord = [(INExecutionInfo *)self _applicationRecord];
   applicationState = [_applicationRecord applicationState];
   isInstalled = [applicationState isInstalled];
 
-  if (!isInstalled)
+  if (isInstalled)
   {
-    goto LABEL_4;
-  }
+    _appInfo = [(INExecutionInfo *)self _appInfo];
+    supportedActions = [_appInfo supportedActions];
+    intentClassName = [(INIntentExecutionInfo *)self intentClassName];
+    v9 = [supportedActions containsObject:intentClassName];
 
-  _appInfo = [(INExecutionInfo *)self _appInfo];
-  supportedActions = [_appInfo supportedActions];
-  intentClassName = [(INIntentExecutionInfo *)self intentClassName];
-  v9 = [supportedActions containsObject:intentClassName];
-
-  if (v9)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-LABEL_4:
-    v17 = 0;
-    v11 = [(INIntentExecutionInfo *)self _extensionsWithError:&v17];
-    v12 = v17;
-    v13 = [v11 count];
-    v10 = v13 != 0;
-    if (!v13)
+    if (v9)
     {
-      if (v12)
+      return 1;
+    }
+  }
+
+  v16 = 0;
+  v11 = [(INIntentExecutionInfo *)self _extensionsWithError:&v16];
+  v12 = v16;
+  v13 = [v11 count];
+  v10 = v13 != 0;
+  if (!v13)
+  {
+    if (v12)
+    {
+      v14 = INSiriLogContextIntents;
+      if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
-        v14 = INSiriLogContextIntents;
-        if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          v19 = "[INIntentExecutionInfo canRunOnLocalDevice]";
-          v20 = 2114;
-          selfCopy = self;
-          v22 = 2114;
-          v23 = v12;
-          _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Failed to match extensions for execution info %{public}@: %{public}@", buf, 0x20u);
-        }
+        *buf = 136315650;
+        v18 = "[INIntentExecutionInfo canRunOnLocalDevice]";
+        v19 = 2114;
+        selfCopy = self;
+        v21 = 2114;
+        v22 = v12;
+        _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Failed to match extensions for execution info %{public}@: %{public}@", buf, 0x20u);
       }
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (BOOL)hasCustomUIExtension
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v3 = [(INIntentExecutionInfo *)self _uiExtensionsWithError:&v9];
-  v4 = v9;
+  v15 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v3 = [(INIntentExecutionInfo *)self _uiExtensionsWithError:&v8];
+  v4 = v8;
   v5 = [v3 count];
   if (!v5 && !v3)
   {
@@ -227,16 +216,15 @@ LABEL_4:
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v11 = "[INIntentExecutionInfo hasCustomUIExtension]";
-      v12 = 2114;
+      v10 = "[INIntentExecutionInfo hasCustomUIExtension]";
+      v11 = 2114;
       selfCopy = self;
-      v14 = 2114;
-      v15 = v4;
+      v13 = 2114;
+      v14 = v4;
       _os_log_error_impl(&dword_18E991000, v6, OS_LOG_TYPE_ERROR, "%s Failed to match UI extensions for execution info %{public}@: %{public}@", buf, 0x20u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 

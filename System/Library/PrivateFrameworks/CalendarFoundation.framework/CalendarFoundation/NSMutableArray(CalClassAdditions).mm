@@ -8,46 +8,45 @@
 
 - (void)removeAllObjectsWithClass:()CalClassAdditions
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v10 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
+  v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
+  v6 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v5 = v4;
-    v6 = *v11;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      v7 = 0;
+      v9 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (objc_opt_isKindOfClass())
         {
-          [v2 addObject:{v8, v10}];
+          [v4 addObject:{v10, v11}];
         }
 
-        ++v7;
+        ++v9;
       }
 
-      while (v5 != v7);
-      v5 = [selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v7 != v9);
+      v7 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
 
-  [selfCopy removeObjectsInArray:v2];
-  v9 = *MEMORY[0x1E69E9840];
+  [selfCopy removeObjectsInArray:v4];
 }
 
 + (CFMutableArrayRef)nonRetainingArray

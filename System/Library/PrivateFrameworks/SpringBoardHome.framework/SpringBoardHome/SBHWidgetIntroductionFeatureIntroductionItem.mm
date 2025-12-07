@@ -64,11 +64,11 @@
   defaultWidgetsIconsRestoringRecord = [(SBHWidgetIntroductionFeatureIntroductionItem *)self defaultWidgetsIconsRestoringRecord];
   [defaultWidgetsIconsRestoringRecord removeAllObjects];
 
-  v12 = SBLogWidgetDiscoverabilityMigration();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = SBLogWidgetDiscoverabilityMigration(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "Clear onboarding widgets record", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "Clear onboarding widgets record", v14, 2u);
   }
 }
 
@@ -126,20 +126,30 @@ void __93__SBHWidgetIntroductionFeatureIntroductionItem_defaultWidgetsIconsResto
 
 - (BOOL)deviceTypeSupportModalWidgetIntroduction
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   currentDevice = [MEMORY[0x1E69DC938] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
 
-  v4 = (userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) != 1 && SBHScreenTypeForCurrentDevice() != 0;
-  v5 = SBLogWidgetDiscoverabilityMigration();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v7 = 134217984;
-    v8 = v4;
-    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_DEFAULT, "Device type support onboarding = %ld", &v7, 0xCu);
+    v6 = 0;
   }
 
-  return v4;
+  else
+  {
+    v4 = SBHScreenTypeForCurrentDevice(v4, v5);
+    v6 = v4 != 0;
+  }
+
+  v7 = SBLogWidgetDiscoverabilityMigration(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = 134217984;
+    v10 = v6;
+    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Device type support onboarding = %ld", &v9, 0xCu);
+  }
+
+  return v6;
 }
 
 - (void)immediateDownloadSpringBoardHomeTrialSettingsWhenNeeded
@@ -162,7 +172,7 @@ void __93__SBHWidgetIntroductionFeatureIntroductionItem_defaultWidgetsIconsResto
 
 - (BOOL)widgetDiscoverabilityServerSideEnabled
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   trialClientManager = [(SBHWidgetIntroductionFeatureIntroductionItem *)self trialClientManager];
 
   if (trialClientManager)
@@ -176,12 +186,12 @@ void __93__SBHWidgetIntroductionFeatureIntroductionItem_defaultWidgetsIconsResto
     widgetDiscoverabilityGoSwitchEnabled = 0;
   }
 
-  v6 = SBLogWidgetDiscoverabilityMigration();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = SBLogWidgetDiscoverabilityMigration(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = widgetDiscoverabilityGoSwitchEnabled;
-    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_DEFAULT, "Onboarding server side enabled = %ld", &v8, 0xCu);
+    v9 = 134217984;
+    v10 = widgetDiscoverabilityGoSwitchEnabled;
+    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_DEFAULT, "Onboarding server side enabled = %ld", &v9, 0xCu);
   }
 
   return widgetDiscoverabilityGoSwitchEnabled;
@@ -190,7 +200,7 @@ void __93__SBHWidgetIntroductionFeatureIntroductionItem_defaultWidgetsIconsResto
 - (id)prewarmModalWidgetIntroductionWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = SBLogWidgetDiscoverabilityMigration();
+  v5 = SBLogWidgetDiscoverabilityMigration(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v16 = 0;
@@ -236,22 +246,22 @@ void __93__SBHWidgetIntroductionFeatureIntroductionItem_defaultWidgetsIconsResto
       [modalIntroductionViewController appendDismissCompletion:dismissCompletionCopy];
     }
 
-    v11 = SBLogWidgetDiscoverabilityMigration();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogWidgetDiscoverabilityMigration(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Present modal widget discoverabilit introduction", buf, 2u);
+      _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "Present modal widget discoverabilit introduction", buf, 2u);
     }
 
     rootViewController = [iconManager rootViewController];
     modalIntroductionViewController2 = [(SBHWidgetIntroductionFeatureIntroductionItem *)self modalIntroductionViewController];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __143__SBHWidgetIntroductionFeatureIntroductionItem_animateModalWidgetDiscoverabilityIntroductionWhenNeededWithPresentCompletion_dismissCompletion___block_invoke;
-    v14[3] = &unk_1E8088D68;
-    v14[4] = self;
-    v15 = completionCopy;
-    [rootViewController presentViewController:modalIntroductionViewController2 animated:0 completion:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __143__SBHWidgetIntroductionFeatureIntroductionItem_animateModalWidgetDiscoverabilityIntroductionWhenNeededWithPresentCompletion_dismissCompletion___block_invoke;
+    v15[3] = &unk_1E8088D68;
+    v15[4] = self;
+    v16 = completionCopy;
+    [rootViewController presentViewController:modalIntroductionViewController2 animated:0 completion:v15];
   }
 
   else
@@ -314,7 +324,7 @@ void __92__SBHWidgetIntroductionFeatureIntroductionItem_prewarmModalWidgetIntrod
 
 - (BOOL)shouldSetupFeatureIntroductionAtLocations:(unint64_t)locations
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ((locations & 2) == 0)
   {
     return 0;
@@ -325,6 +335,7 @@ void __92__SBHWidgetIntroductionFeatureIntroductionItem_prewarmModalWidgetIntrod
 
   overrideShouldAddDefaultWidgetsToHomeScreenWhenNeeded = [(SBHWidgetIntroductionFeatureIntroductionItem *)self overrideShouldAddDefaultWidgetsToHomeScreenWhenNeeded];
   widgetDiscoverabilityIsRunning = [(SBHWidgetIntroductionFeatureIntroductionItem *)self widgetDiscoverabilityIsRunning];
+  v8 = widgetDiscoverabilityIsRunning;
   if (shouldAddDefaultWidgetsToHomeScreen)
   {
     currentDevice = [MEMORY[0x1E69DC938] currentDevice];
@@ -333,16 +344,16 @@ void __92__SBHWidgetIntroductionFeatureIntroductionItem_prewarmModalWidgetIntrod
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) != 1 && !overrideShouldAddDefaultWidgetsToHomeScreenWhenNeeded)
     {
 LABEL_4:
-      v10 = SBLogWidgetDiscoverabilityMigration();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = SBLogWidgetDiscoverabilityMigration(widgetDiscoverabilityIsRunning);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v12[0] = 67109632;
-        v12[1] = shouldAddDefaultWidgetsToHomeScreen;
-        v13 = 1024;
-        v14 = 0;
-        v15 = 1024;
-        v16 = widgetDiscoverabilityIsRunning;
-        _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Should setup feature introduction userDefault = %d, testingOverride = %d, isRunning = %d.", v12, 0x14u);
+        v13[0] = 67109632;
+        v13[1] = shouldAddDefaultWidgetsToHomeScreen;
+        v14 = 1024;
+        v15 = 0;
+        v16 = 1024;
+        v17 = v8;
+        _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Should setup feature introduction userDefault = %d, testingOverride = %d, isRunning = %d.", v13, 0x14u);
       }
 
       return 0;
@@ -354,7 +365,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  return !widgetDiscoverabilityIsRunning;
+  return v8 ^ 1;
 }
 
 - (void)setupFeatureIntroductionAtLocations:(unint64_t)locations

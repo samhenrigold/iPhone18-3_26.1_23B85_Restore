@@ -99,18 +99,10 @@ uint64_t __71___PFTOffMainThreadScheduler_afterDelay_performBlock_qualityOfServi
 void __43___PFTOffMainThreadScheduler_performBlock___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3_0();
-  v12 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CCACC8] isMainThread];
   OUTLINED_FUNCTION_0_0();
-  if (!v2)
-  {
-    v1 = 16;
-  }
-
-  v3 = *(v0 + v1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_25ED8F000, v4, v5, "Work was requested to be performed off the main thread, but scheduler %{public}@ is performing on the main thread", v6, v7, v8, v9, v11);
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_25ED8F000, v0, v1, "Work was requested to be performed off the main thread, but scheduler %{public}@ is performing on the main thread", v2, v3, v4, v5);
 }
 
 @end

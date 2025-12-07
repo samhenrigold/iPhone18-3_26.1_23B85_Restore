@@ -1,9 +1,9 @@
 @interface SXBlueprintAnalyzerCursor
 - (SXBlueprintAnalyzerCursor)init;
 - (double)highestMaxY;
+- (id)addPathComponent:(id *)result;
 - (id)path;
-- (uint64_t)addPathComponent:(uint64_t)result;
-- (uint64_t)removePathComponent:(uint64_t)result;
+- (id)removePathComponent:(id *)result;
 - (uint64_t)setHighestMaxY:(uint64_t)result;
 @end
 
@@ -24,21 +24,21 @@
   return v2;
 }
 
-- (uint64_t)addPathComponent:(uint64_t)result
+- (id)addPathComponent:(id *)result
 {
   if (result)
   {
-    return [*(result + 24) addObject:a2];
+    return [result[3] addObject:a2];
   }
 
   return result;
 }
 
-- (uint64_t)removePathComponent:(uint64_t)result
+- (id)removePathComponent:(id *)result
 {
   if (result)
   {
-    return [*(result + 24) removeObject:a2];
+    return [result[3] removeObject:a2];
   }
 
   return result;

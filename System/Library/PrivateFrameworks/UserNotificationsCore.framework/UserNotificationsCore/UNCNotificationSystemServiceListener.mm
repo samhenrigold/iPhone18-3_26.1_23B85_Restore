@@ -144,18 +144,15 @@ void __82__UNCNotificationSystemServiceListener_listener_didReceiveConnection_wi
 
 void __82__UNCNotificationSystemServiceListener_listener_didReceiveConnection_withContext___block_invoke_cold_1(void *a1, void *a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v6 = [a2 bundleID];
-  v7 = *(a3 + 40);
-  v10 = 138543618;
-  v11 = v6;
-  v12 = 2114;
-  v13 = objc_opt_class();
-  v8 = v13;
-  _os_log_error_impl(&dword_1DA7A9000, v5, OS_LOG_TYPE_ERROR, "Entitlement is missing. %{public}@ could not connect to %{public}@.", &v10, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v5 = [a2 bundleID];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = objc_opt_class();
+  v6 = v10;
+  _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Entitlement is missing. %{public}@ could not connect to %{public}@.", &v7, 0x16u);
 }
 
 @end

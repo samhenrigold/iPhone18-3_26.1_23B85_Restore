@@ -84,10 +84,16 @@
 + (id)keyPathForWiredConnectionQuality;
 + (id)keyPathForWorkoutDataDictionary;
 + (id)keyPathForWorkoutStatus;
++ (id)predicateForAudioOutputStatus:(BOOL)status;
 + (id)predicateForBatteryLevel:(id)level;
++ (id)predicateForBluetoothConnectedAndUserIsWearing:(BOOL)wearing;
++ (id)predicateForBluetoothConnectionStatus:(BOOL)status;
 + (id)predicateForCellConnectionAvailability:(BOOL)availability;
 + (id)predicateForCircularLocationRegion:(id)region state:(int64_t)state;
++ (id)predicateForDoNotDisturbStatus:(BOOL)status;
++ (id)predicateForInUseStatus:(BOOL)status;
 + (id)predicateForMDCSDevicesWithDeviceTypes:(unint64_t)types;
++ (id)predicateForPluginStatus:(BOOL)status;
 + (id)predicateForSystemTime:(id)time;
 + (id)predicateForSystemTime:(id)time gracePeriod:(double)period;
 + (id)predicateForSystemTimeInInterval:(id)interval;
@@ -637,6 +643,16 @@
   return v3;
 }
 
++ (id)predicateForInUseStatus:(BOOL)status
+{
+  statusCopy = status;
+  keyPathForInUseStatus = [self keyPathForInUseStatus];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v6 = [_CDContextualPredicate predicateForKeyPath:keyPathForInUseStatus withFormat:@"self.%@.value == %@", keyPathForInUseStatus, v5];
+
+  return v6;
+}
+
 + (id)keyPathForDisplayOnBeforeFirstUnlockOfTheDayStatus
 {
   if (keyPathForDisplayOnBeforeFirstUnlockOfTheDayStatus_onceToken != -1)
@@ -707,6 +723,16 @@
   v3 = keyPathForDoNotDisturbStatus_doNotDisturbStatus;
 
   return v3;
+}
+
++ (id)predicateForDoNotDisturbStatus:(BOOL)status
+{
+  statusCopy = status;
+  keyPathForDoNotDisturbStatus = [self keyPathForDoNotDisturbStatus];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v6 = [_CDContextualPredicate predicateForKeyPath:keyPathForDoNotDisturbStatus withFormat:@"self.%@.value == %@", keyPathForDoNotDisturbStatus, v5];
+
+  return v6;
 }
 
 + (id)keyPathForAirplaneModeStatus
@@ -898,6 +924,16 @@
   return levelCopy;
 }
 
++ (id)predicateForPluginStatus:(BOOL)status
+{
+  statusCopy = status;
+  keyPathForPluginStatus = [self keyPathForPluginStatus];
+  v5 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v6 = [_CDContextualPredicate predicateForKeyPath:keyPathForPluginStatus withFormat:@"self.%@.value == %@", keyPathForPluginStatus, v5];
+
+  return v6;
+}
+
 + (id)keyPathForNearbyLOIIdentifiers
 {
   if (keyPathForNearbyLOIIdentifiers_onceToken != -1)
@@ -1048,6 +1084,20 @@
   return v3;
 }
 
++ (id)predicateForAudioOutputStatus:(BOOL)status
+{
+  statusCopy = status;
+  v4 = +[_CDContextQueries keyPathForAudioOutputDataDictionary];
+  v5 = MEMORY[0x1E696AE18];
+  v6 = +[_CDContextQueries audioOutputStatusKey];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v8 = [v5 predicateWithFormat:@"self.%@.value.%@ == %@", v4, v6, v7];
+
+  v9 = [_CDContextualPredicate predicateForKeyPath:v4 withPredicate:v8];
+
+  return v9;
+}
+
 + (id)keyPathForWorkoutDataDictionary
 {
   if (keyPathForWorkoutDataDictionary_onceToken != -1)
@@ -1094,6 +1144,35 @@
   v3 = keyPathForBluetoothDataDictionary_bluetoothData;
 
   return v3;
+}
+
++ (id)predicateForBluetoothConnectionStatus:(BOOL)status
+{
+  statusCopy = status;
+  v4 = +[_CDContextQueries keyPathForBluetoothDataDictionary];
+  v5 = MEMORY[0x1E696AE18];
+  v6 = +[_CDContextQueries bluetoothConnectionStatusKey];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:statusCopy];
+  v8 = [v5 predicateWithFormat:@"self.%@.value.%@ == %@", v4, v6, v7];
+
+  v9 = [_CDContextualPredicate predicateForKeyPath:v4 withPredicate:v8];
+
+  return v9;
+}
+
++ (id)predicateForBluetoothConnectedAndUserIsWearing:(BOOL)wearing
+{
+  wearingCopy = wearing;
+  v4 = +[_CDContextQueries keyPathForBluetoothDataDictionary];
+  v5 = MEMORY[0x1E696AE18];
+  v6 = +[_CDContextQueries bluetoothConnectionStatusKey];
+  v7 = +[_CDContextQueries bluetoothIsUserWearingKey];
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:wearingCopy];
+  v9 = [v5 predicateWithFormat:@"self.%@.value.%@ == %@ AND self.%@.value.%@ == %@", v4, v6, MEMORY[0x1E695E118], v4, v7, v8];
+
+  v10 = [_CDContextualPredicate predicateForKeyPath:v4 withPredicate:v9];
+
+  return v10;
 }
 
 + (id)keyPathForNFCTagIdentifiers

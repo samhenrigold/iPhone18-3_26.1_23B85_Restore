@@ -104,11 +104,11 @@ LABEL_7:
 LABEL_8:
 }
 
-uint64_t __61__HUDoorbellChimeDevicesViewController_switchCell_didTurnOn___block_invoke(uint64_t result, uint64_t a2)
+id *__61__HUDoorbellChimeDevicesViewController_switchCell_didTurnOn___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) setOn:(*(result + 40) & 1) == 0 animated:1];
+    return [result[4] setOn:(result[5] & 1) == 0 animated:1];
   }
 
   return result;

@@ -28,23 +28,17 @@
 - (void)saveOutOfOfficeData:(id)data;
 - (void)setAccountIntegerProperty:(id)property withSpecifier:(id)specifier;
 - (void)updateOutOfOfficeSpecifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ASSettingsDataclassConfigurationViewController
 
 - (Class)accountInfoControllerClass
 {
-  isHotmailAccount = [objc_opt_class() isHotmailAccount];
-  v3 = off_30300;
-  if (!isHotmailAccount)
-  {
-    v3 = off_302F0;
-  }
+  [objc_opt_class() isHotmailAccount];
+  v2 = objc_opt_class();
 
-  v4 = *v3;
-  v5 = objc_opt_class();
-
-  return v5;
+  return v2;
 }
 
 - (id)accountDescriptionForFirstTimeSetup
@@ -1332,6 +1326,32 @@ LABEL_15:
   [(ASSettingsDataclassConfigurationViewController *)self removeSpecifierID:v4 animated:1];
 
   [(ASSettingsDataclassConfigurationViewController *)self reloadSpecifiers];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = ASSettingsDataclassConfigurationViewController;
+  [(ESSettingsDataclassConfigurationViewController *)&v9 viewWillAppear:appear];
+  if (([objc_opt_class() isHotmailAccount] & 1) == 0)
+  {
+    isOofSupported = [(ASSettingsDataclassConfigurationViewController *)self isOofSupported];
+    bOOLValue = [isOofSupported BOOLValue];
+
+    if (bOOLValue)
+    {
+      serverOutOfOfficeInformation = [(ASSettingsDataclassConfigurationViewController *)self serverOutOfOfficeInformation];
+
+      if (!serverOutOfOfficeInformation)
+      {
+        outOfOfficeSpecifier = [(ASSettingsDataclassConfigurationViewController *)self outOfOfficeSpecifier];
+        [outOfOfficeSpecifier setProperty:&__kCFBooleanFalse forKey:PSEnabledKey];
+
+        outOfOfficeSpecifier2 = [(ASSettingsDataclassConfigurationViewController *)self outOfOfficeSpecifier];
+        [(ASSettingsDataclassConfigurationViewController *)self reloadSpecifier:outOfOfficeSpecifier2];
+      }
+    }
+  }
 }
 
 - (void)OAuthAccount:(id)account authorizationURI:(id)i error:(id)error

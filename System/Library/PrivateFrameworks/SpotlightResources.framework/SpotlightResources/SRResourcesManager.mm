@@ -76,8 +76,8 @@ uint64_t __44__SRResourcesManager_sharedResourcesManager__block_invoke()
     +[SRResourcesManager fetchParameterList];
   }
 
-  [self fetchUserDefaults];
-  if (SRIsAppleInternalInstall())
+  fetchUserDefaults = [self fetchUserDefaults];
+  if (SRIsAppleInternalInstall(fetchUserDefaults, v4))
   {
 
     [self fetchOverrideList];
@@ -86,7 +86,7 @@ uint64_t __44__SRResourcesManager_sharedResourcesManager__block_invoke()
 
 void __40__SRResourcesManager_fetchParameterList__block_invoke()
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&sTrialParameterListLock);
   v0 = [MEMORY[0x1E695DF90] dictionary];
   v1 = sTrialParameterList;
@@ -95,51 +95,51 @@ void __40__SRResourcesManager_fetchParameterList__block_invoke()
   v2 = +[SRDefaultsManager sharedDefaultsManager];
   v3 = [v2 currentNamespaceDescription];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v3;
-  v18 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  if (v17)
   {
-    v17 = *v26;
+    v16 = *v25;
     do
     {
       v4 = 0;
       do
       {
-        if (*v26 != v17)
+        if (*v25 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = v4;
-        v5 = *(*(&v25 + 1) + 8 * v4);
+        v19 = v4;
+        v5 = *(*(&v24 + 1) + 8 * v4);
         v6 = [MEMORY[0x1E695DF90] dictionary];
         [sTrialParameterList setObject:v6 forKeyedSubscript:v5];
 
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v7 = [obj objectForKeyedSubscript:v5];
-        v8 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v22;
+          v10 = *v21;
           do
           {
             v11 = 0;
             do
             {
-              if (*v22 != v10)
+              if (*v21 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v21 + 1) + 8 * v11);
+              v12 = *(*(&v20 + 1) + 8 * v11);
               v13 = [[SRTrialParameter alloc] initWithParameter:v12];
               v14 = [sTrialParameterList objectForKeyedSubscript:v5];
               v15 = [v12 name];
@@ -149,24 +149,23 @@ void __40__SRResourcesManager_fetchParameterList__block_invoke()
             }
 
             while (v9 != v11);
-            v9 = [v7 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v9);
         }
 
-        v4 = v20 + 1;
+        v4 = v19 + 1;
       }
 
-      while (v20 + 1 != v18);
-      v18 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      while (v19 + 1 != v17);
+      v17 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
   os_unfair_lock_unlock(&sTrialParameterListLock);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchUserDefaults
@@ -189,57 +188,57 @@ void __40__SRResourcesManager_fetchParameterList__block_invoke()
 
 void __39__SRResourcesManager_fetchUserDefaults__block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&sUserDefaultsParameterListLock);
   v2 = [MEMORY[0x1E695DF90] dictionary];
   v3 = sUserDefaultsParameterList;
   sUserDefaultsParameterList = v2;
 
-  v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
+  v43 = 0u;
   v40 = 0u;
-  v4 = [&unk_1F2427B48 countByEnumeratingWithState:&v39 objects:v46 count:16];
+  v41 = 0u;
+  v4 = [&unk_1F2427B48 countByEnumeratingWithState:&v40 objects:v47 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v40;
+    v6 = *v41;
     do
     {
       v7 = 0;
       do
       {
-        if (*v40 != v6)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(&unk_1F2427B48);
         }
 
-        v8 = *(*(&v39 + 1) + 8 * v7);
+        v8 = *(*(&v40 + 1) + 8 * v7);
         v9 = +[SRDefaultsManager sharedDefaultsManager];
         v10 = [v9 parametersOfNamespaceWithName:v8];
 
         if (v10)
         {
-          v11 = [&unk_1F2427B70 objectForKeyedSubscript:v8];
-          v12 = [*(a1 + 32) objectForKey:v11];
-          if (v12)
+          v12 = [&unk_1F2427B70 objectForKeyedSubscript:v8];
+          v13 = [*(a1 + 32) objectForKey:v12];
+          if (v13)
           {
-            v13 = [v10 allValues];
-            v14 = [v13 firstObject];
+            v14 = [v10 allValues];
+            v15 = [v14 firstObject];
 
-            v15 = [*(a1 + 40) defaultParameterWithType:objc_msgSend(v14 value:"type") name:{v12, v8}];
-            [sUserDefaultsParameterList setObject:v15 forKeyedSubscript:v8];
+            v16 = [*(a1 + 40) defaultParameterWithType:objc_msgSend(v15 value:"type") name:{v13, v8}];
+            [sUserDefaultsParameterList setObject:v16 forKeyedSubscript:v8];
           }
         }
 
         else
         {
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+          v12 = SRLogCategoryTrial(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v45 = v8;
-            _os_log_debug_impl(&dword_1AE58E000, v11, OS_LOG_TYPE_DEBUG, "User default is not set for parameter %@", buf, 0xCu);
+            v46 = v8;
+            _os_log_debug_impl(&dword_1AE58E000, v12, OS_LOG_TYPE_DEBUG, "User default is not set for parameter %@", buf, 0xCu);
           }
         }
 
@@ -247,87 +246,86 @@ void __39__SRResourcesManager_fetchUserDefaults__block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [&unk_1F2427B48 countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v5 = [&unk_1F2427B48 countByEnumeratingWithState:&v40 objects:v47 count:16];
     }
 
     while (v5);
   }
 
-  v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v16 = [&unk_1F2427B70 countByEnumeratingWithState:&v35 objects:v43 count:16];
-  if (v16)
+  v37 = 0u;
+  v17 = [&unk_1F2427B70 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  if (v17)
   {
-    v18 = v16;
-    v19 = *v36;
-    *&v17 = 138412290;
-    v33 = v17;
-    v20 = &unk_1F2427B70;
+    v19 = v17;
+    v20 = *v37;
+    *&v18 = 138412290;
+    v34 = v18;
+    v21 = &unk_1F2427B70;
     do
     {
-      v21 = 0;
-      v34 = v18;
+      v22 = 0;
+      v35 = v19;
       do
       {
-        if (*v36 != v19)
+        if (*v37 != v20)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v21);
         }
 
-        v22 = *(*(&v35 + 1) + 8 * v21);
-        v23 = +[SRDefaultsManager sharedDefaultsManager];
-        v24 = [v23 parametersOfNamespaceWithName:v22];
+        v23 = *(*(&v36 + 1) + 8 * v22);
+        v24 = +[SRDefaultsManager sharedDefaultsManager];
+        v25 = [v24 parametersOfNamespaceWithName:v23];
 
-        if (v24)
+        if (v25)
         {
-          v25 = [v20 objectForKeyedSubscript:v22];
-          v26 = [*(a1 + 32) objectForKey:v25];
-          if (v26)
+          v27 = [v21 objectForKeyedSubscript:v23];
+          v28 = [*(a1 + 32) objectForKey:v27];
+          if (v28)
           {
-            v27 = [v24 allValues];
-            [v27 firstObject];
-            v28 = v19;
-            v30 = v29 = v20;
+            v29 = [v25 allValues];
+            [v29 firstObject];
+            v30 = v20;
+            v32 = v31 = v21;
 
-            v31 = [*(a1 + 40) defaultParameterWithType:objc_msgSend(v30 value:"type") name:{v26, v22}];
-            [sUserDefaultsParameterList setObject:v31 forKeyedSubscript:v22];
+            v33 = [*(a1 + 40) defaultParameterWithType:objc_msgSend(v32 value:"type") name:{v28, v23}];
+            [sUserDefaultsParameterList setObject:v33 forKeyedSubscript:v23];
 
-            v20 = v29;
-            v19 = v28;
-            v18 = v34;
+            v21 = v31;
+            v20 = v30;
+            v19 = v35;
           }
         }
 
         else
         {
-          v25 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+          v27 = SRLogCategoryTrial(v26);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            *buf = v33;
-            v45 = v22;
-            _os_log_debug_impl(&dword_1AE58E000, v25, OS_LOG_TYPE_DEBUG, "User default is not set for parameter %@", buf, 0xCu);
+            *buf = v34;
+            v46 = v23;
+            _os_log_debug_impl(&dword_1AE58E000, v27, OS_LOG_TYPE_DEBUG, "User default is not set for parameter %@", buf, 0xCu);
           }
         }
 
-        ++v21;
+        ++v22;
       }
 
-      while (v18 != v21);
-      v18 = [v20 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      while (v19 != v22);
+      v19 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
   os_unfair_lock_unlock(&sUserDefaultsParameterListLock);
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchOverrideList
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = NSHomeDirectory();
   v4 = [v2 initWithFormat:@"%@/Library/Spotlight/overrides.plist", v3];
@@ -352,151 +350,150 @@ void __39__SRResourcesManager_fetchUserDefaults__block_invoke(uint64_t a1)
 
         if (sUsingOverrides == 1)
         {
-          v11 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = SRLogCategoryTrial(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1AE58E000, v11, OS_LOG_TYPE_DEFAULT, "Using overrides.plist", buf, 2u);
+            _os_log_impl(&dword_1AE58E000, v12, OS_LOG_TYPE_DEFAULT, "Using overrides.plist", buf, 2u);
           }
 
           dictionary = [MEMORY[0x1E695DF90] dictionary];
-          v54 = 0u;
           v55 = 0u;
           v56 = 0u;
           v57 = 0u;
-          v45 = [&unk_1F2427BC0 countByEnumeratingWithState:&v54 objects:v63 count:16];
-          if (v45)
+          v58 = 0u;
+          v46 = [&unk_1F2427BC0 countByEnumeratingWithState:&v55 objects:v64 count:16];
+          if (v46)
           {
-            v43 = *v55;
+            v44 = *v56;
             do
             {
-              v12 = 0;
+              v13 = 0;
               do
               {
-                if (*v55 != v43)
+                if (*v56 != v44)
                 {
                   objc_enumerationMutation(&unk_1F2427BC0);
                 }
 
-                v46 = v12;
-                v13 = *(*(&v54 + 1) + 8 * v12);
+                v47 = v13;
+                v14 = *(*(&v55 + 1) + 8 * v13);
                 dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-                v50 = 0u;
                 v51 = 0u;
                 v52 = 0u;
                 v53 = 0u;
-                v49 = v13;
-                obj = [v8 objectForKeyedSubscript:v13];
-                v14 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
-                if (v14)
+                v54 = 0u;
+                v50 = v14;
+                obj = [v8 objectForKeyedSubscript:v14];
+                v15 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
+                if (v15)
                 {
-                  v15 = v14;
-                  v16 = *v51;
+                  v16 = v15;
+                  v17 = *v52;
                   do
                   {
-                    for (i = 0; i != v15; ++i)
+                    for (i = 0; i != v16; ++i)
                     {
-                      if (*v51 != v16)
+                      if (*v52 != v17)
                       {
                         objc_enumerationMutation(obj);
                       }
 
-                      v18 = *(*(&v50 + 1) + 8 * i);
-                      if (([v18 isEqualToString:@"SampleOverrideParameter"] & 1) == 0)
+                      v19 = *(*(&v51 + 1) + 8 * i);
+                      if (([v19 isEqualToString:@"SampleOverrideParameter"] & 1) == 0)
                       {
-                        v19 = [v8 objectForKeyedSubscript:v49];
-                        v20 = [v19 objectForKeyedSubscript:v18];
-                        v21 = [v20 objectForKeyedSubscript:@"Type"];
+                        v20 = [v8 objectForKeyedSubscript:v50];
+                        v21 = [v20 objectForKeyedSubscript:v19];
+                        v22 = [v21 objectForKeyedSubscript:@"Type"];
 
-                        if (v21)
+                        if (v22)
                         {
-                          if (![v21 isEqualToString:@"Boolean"])
+                          if (![v22 isEqualToString:@"Boolean"])
                           {
-                            if ([v21 isEqualToString:@"Long"])
+                            if ([v22 isEqualToString:@"Long"])
                             {
-                              v27 = [v8 objectForKeyedSubscript:v49];
-                              v28 = [v27 objectForKeyedSubscript:v18];
-                              v24 = [v28 objectForKeyedSubscript:@"Value"];
+                              v29 = [v8 objectForKeyedSubscript:v50];
+                              v30 = [v29 objectForKeyedSubscript:v19];
+                              v26 = [v30 objectForKeyedSubscript:@"Value"];
 
-                              if (!v24)
+                              if (!v26)
                               {
                                 goto LABEL_35;
                               }
 
-                              v25 = +[SRParameter parameterWithLong:name:](SRParameter, "parameterWithLong:name:", [v24 longValue], v18);
+                              v27 = +[SRParameter parameterWithLong:name:](SRParameter, "parameterWithLong:name:", [v26 longValue], v19);
                             }
 
-                            else if ([v21 isEqualToString:@"Double"])
+                            else if ([v22 isEqualToString:@"Double"])
                             {
-                              v29 = [v8 objectForKeyedSubscript:v49];
-                              v30 = [v29 objectForKeyedSubscript:v18];
-                              v24 = [v30 objectForKeyedSubscript:@"Value"];
+                              v31 = [v8 objectForKeyedSubscript:v50];
+                              v32 = [v31 objectForKeyedSubscript:v19];
+                              v26 = [v32 objectForKeyedSubscript:@"Value"];
 
-                              if (!v24)
+                              if (!v26)
                               {
                                 goto LABEL_35;
                               }
 
-                              [v24 doubleValue];
-                              v25 = [SRParameter parameterWithDouble:v18 name:?];
+                              [v26 doubleValue];
+                              v27 = [SRParameter parameterWithDouble:v19 name:?];
                             }
 
                             else
                             {
-                              if (([v21 isEqualToString:@"String"] & 1) == 0 && !objc_msgSend(v21, "isEqualToString:", @"File"))
+                              if (([v22 isEqualToString:@"String"] & 1) == 0 && !objc_msgSend(v22, "isEqualToString:", @"File"))
                               {
                                 goto LABEL_42;
                               }
 
-                              v31 = [v8 objectForKeyedSubscript:v49];
-                              v32 = [v31 objectForKeyedSubscript:v18];
-                              v24 = [v32 objectForKeyedSubscript:@"Value"];
+                              v33 = [v8 objectForKeyedSubscript:v50];
+                              v34 = [v33 objectForKeyedSubscript:v19];
+                              v26 = [v34 objectForKeyedSubscript:@"Value"];
 
-                              if (!v24)
+                              if (!v26)
                               {
                                 goto LABEL_35;
                               }
 
-                              v25 = [SRParameter parameterWithString:v24 name:v18];
+                              v27 = [SRParameter parameterWithString:v26 name:v19];
                             }
 
 LABEL_34:
-                            v26 = v25;
+                            v28 = v27;
                             goto LABEL_36;
                           }
 
-                          v22 = [v8 objectForKeyedSubscript:v49];
-                          v23 = [v22 objectForKeyedSubscript:v18];
-                          v24 = [v23 objectForKeyedSubscript:@"Value"];
+                          v24 = [v8 objectForKeyedSubscript:v50];
+                          v25 = [v24 objectForKeyedSubscript:v19];
+                          v26 = [v25 objectForKeyedSubscript:@"Value"];
 
-                          if (v24)
+                          if (v26)
                           {
-                            v25 = +[SRParameter parameterWithBoolean:name:](SRParameter, "parameterWithBoolean:name:", [v24 BOOLValue], v18);
+                            v27 = +[SRParameter parameterWithBoolean:name:](SRParameter, "parameterWithBoolean:name:", [v26 BOOLValue], v19);
                             goto LABEL_34;
                           }
 
 LABEL_35:
-                          v26 = 0;
+                          v28 = 0;
 LABEL_36:
 
-                          if (v26)
+                          if (v28)
                           {
-                            [dictionary2 setObject:v26 forKeyedSubscript:v18];
-                            v33 = SRLogCategoryLifeCycle();
-                            v34 = v33;
-                            v35 = fetchOverrideList_index;
-                            v36 = ++fetchOverrideList_index;
-                            if (v35 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+                            v35 = SRLogCategoryLifeCycle([dictionary2 setObject:v28 forKeyedSubscript:v19]);
+                            v36 = v35;
+                            v37 = fetchOverrideList_index;
+                            v38 = ++fetchOverrideList_index;
+                            if (v37 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
                             {
-                              [v26 typeString];
-                              v38 = v37 = v8;
+                              [v28 typeString];
+                              v40 = v39 = v8;
                               *buf = 138412546;
-                              v59 = v18;
-                              v60 = 2112;
-                              v61 = v38;
-                              _os_signpost_emit_with_name_impl(&dword_1AE58E000, v34, OS_SIGNPOST_EVENT, v36, "SRResourcesFactorOverride", "Overriding factor %@ of type %@", buf, 0x16u);
+                              v60 = v19;
+                              v61 = 2112;
+                              v62 = v40;
+                              _os_signpost_emit_with_name_impl(&dword_1AE58E000, v36, OS_SIGNPOST_EVENT, v38, "SRResourcesFactorOverride", "Overriding factor %@ of type %@", buf, 0x16u);
 
-                              v8 = v37;
+                              v8 = v39;
                             }
 
                             goto LABEL_41;
@@ -505,12 +502,12 @@ LABEL_36:
 
                         else
                         {
-                          v26 = SRLogCategoryTrial();
-                          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+                          v28 = SRLogCategoryTrial(v23);
+                          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138412290;
-                            v59 = v18;
-                            _os_log_error_impl(&dword_1AE58E000, v26, OS_LOG_TYPE_ERROR, "Overrides.plist has no type for parameter %@, skipping", buf, 0xCu);
+                            v60 = v19;
+                            _os_log_error_impl(&dword_1AE58E000, v28, OS_LOG_TYPE_ERROR, "Overrides.plist has no type for parameter %@, skipping", buf, 0xCu);
                           }
 
 LABEL_41:
@@ -522,43 +519,41 @@ LABEL_42:
                       }
                     }
 
-                    v15 = [obj countByEnumeratingWithState:&v50 objects:v62 count:16];
+                    v16 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
                   }
 
-                  while (v15);
+                  while (v16);
                 }
 
-                v39 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary2];
-                [dictionary setObject:v39 forKeyedSubscript:v49];
+                v41 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary2];
+                [dictionary setObject:v41 forKeyedSubscript:v50];
 
-                v12 = v46 + 1;
+                v13 = v47 + 1;
               }
 
-              while (v46 + 1 != v45);
-              v45 = [&unk_1F2427BC0 countByEnumeratingWithState:&v54 objects:v63 count:16];
+              while (v47 + 1 != v46);
+              v46 = [&unk_1F2427BC0 countByEnumeratingWithState:&v55 objects:v64 count:16];
             }
 
-            while (v45);
+            while (v46);
           }
 
-          v40 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
-          v41 = sOverrideList;
-          sOverrideList = v40;
+          v42 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:dictionary];
+          v43 = sOverrideList;
+          sOverrideList = v42;
         }
       }
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = a4;
-  v9 = SRLogCategoryTrial();
+  v9 = SRLogCategoryTrial(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -567,42 +562,43 @@ void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke(uint64_t a1, v
   }
 
   v10 = [v8 getLevelForFactor:@"ExpConfig"];
+  v11 = v10;
   if (!v10)
   {
-    v19 = 0;
+    v21 = 0;
     goto LABEL_22;
   }
 
-  v11 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = SRLogCategoryTrial(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_1();
   }
 
-  v12 = [v10 stringValue];
-  v13 = v6;
-  v14 = MEMORY[0x1E696ACB0];
-  v15 = [v12 dataUsingEncoding:4];
+  v13 = [v11 stringValue];
+  v14 = v6;
+  v15 = MEMORY[0x1E696ACB0];
+  v16 = [v13 dataUsingEncoding:4];
   *buf = 0;
-  v16 = [v14 JSONObjectWithData:v15 options:0 error:buf];
-  v17 = *buf;
+  v17 = [v15 JSONObjectWithData:v16 options:0 error:buf];
+  v18 = *buf;
 
-  if (!v17)
+  if (!v18)
   {
-    v19 = [MEMORY[0x1E695DF90] dictionary];
-    if ([v13 isEqualToString:@"Spotlight"] && (objc_msgSend(v16, "objectForKeyedSubscript:", @"spotlightConfigParams"), v20 = objc_claimAutoreleasedReturnValue(), v20, v20))
+    v21 = [MEMORY[0x1E695DF90] dictionary];
+    if ([v14 isEqualToString:@"Spotlight"] && (objc_msgSend(v17, "objectForKeyedSubscript:", @"spotlightConfigParams"), v22 = objc_claimAutoreleasedReturnValue(), v22, v22))
     {
-      v21 = @"spotlightConfigParams";
+      v23 = @"spotlightConfigParams";
     }
 
     else
     {
-      if (![v13 isEqualToString:@"Mail"] || (objc_msgSend(v16, "objectForKeyedSubscript:", @"mailConfigParams"), v22 = objc_claimAutoreleasedReturnValue(), v22, !v22))
+      if (![v14 isEqualToString:@"Mail"] || (objc_msgSend(v17, "objectForKeyedSubscript:", @"mailConfigParams"), v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
       {
-        [v19 setObject:v16 forKeyedSubscript:v13];
+        v26 = [v21 setObject:v17 forKeyedSubscript:v14];
 LABEL_19:
-        v18 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = SRLogCategoryTrial(v26);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_3();
         }
@@ -610,69 +606,68 @@ LABEL_19:
         goto LABEL_21;
       }
 
-      v21 = @"mailConfigParams";
+      v23 = @"mailConfigParams";
     }
 
-    v23 = [v16 objectForKeyedSubscript:v21];
-    [v19 setObject:v23 forKeyedSubscript:v13];
+    v25 = [v17 objectForKeyedSubscript:v23];
+    [v21 setObject:v25 forKeyedSubscript:v14];
 
     goto LABEL_19;
   }
 
-  v18 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = SRLogCategoryTrial(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_2();
   }
 
-  v19 = 0;
+  v21 = 0;
 LABEL_21:
 
 LABEL_22:
-  v24 = [v8 getLevelForFactor:@"factors"];
-  if (v24)
+  v27 = [v8 getLevelForFactor:@"factors"];
+  v28 = v27;
+  if (v27)
   {
-    v25 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v29 = SRLogCategoryTrial(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_4();
     }
 
-    v26 = [v24 fileValue];
-    v27 = [v26 path];
+    v30 = [v28 fileValue];
+    v31 = [v30 path];
 
-    v28 = +[SRDefaultsManager sharedDefaultsManager];
-    [v28 loadFactorsAtPath:v27 namespaceId:v7];
+    v32 = +[SRDefaultsManager sharedDefaultsManager];
+    [v32 loadFactorsAtPath:v31 namespaceId:v7];
   }
 
   os_unfair_lock_lock(&sTrialParameterListLock);
-  v29 = [sTrialParameterList objectForKeyedSubscript:v7];
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447;
-  v36[3] = &unk_1E7A2B038;
-  v30 = v7;
-  v37 = v30;
-  v31 = v8;
-  v38 = v31;
-  v32 = v19;
-  v39 = v32;
-  [v29 enumerateKeysAndObjectsUsingBlock:v36];
+  v33 = [sTrialParameterList objectForKeyedSubscript:v7];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447;
+  v40[3] = &unk_1E7A2B038;
+  v34 = v7;
+  v41 = v34;
+  v35 = v8;
+  v42 = v35;
+  v36 = v21;
+  v43 = v36;
+  [v33 enumerateKeysAndObjectsUsingBlock:v40];
 
   os_unfair_lock_unlock(&sTrialParameterListLock);
-  [v31 setWasLoadedSinceLaunch:1];
-  v33 = +[SRDefaultsManager sharedDefaultsManager];
-  [v33 didUpdateTrialNamespace:v30];
+  [v35 setWasLoadedSinceLaunch:1];
+  v37 = +[SRDefaultsManager sharedDefaultsManager];
+  [v37 didUpdateTrialNamespace:v34];
 
-  v34 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v39 = SRLogCategoryTrial(v38);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *&buf[4] = v30;
-    _os_log_impl(&dword_1AE58E000, v34, OS_LOG_TYPE_DEFAULT, "Trial update handler completed for namespace %@", buf, 0xCu);
+    *&buf[4] = v34;
+    _os_log_impl(&dword_1AE58E000, v39, OS_LOG_TYPE_DEFAULT, "Trial update handler completed for namespace %@", buf, 0xCu);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)parsecEnabled
@@ -705,49 +700,51 @@ void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447(uint64_t a
 {
   v5 = a2;
   v6 = a3;
-  v7 = SRLogCategoryTrial();
+  v7 = SRLogCategoryTrial(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_1(v5, a1);
+    __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_1();
   }
 
   v8 = [v6 parameter];
   [v6 setHasValueFromTrial:0];
   v9 = [*(a1 + 40) getLevelForFactor:v5];
+  v10 = v9;
   if (v9)
   {
-    v10 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = SRLogCategoryTrial(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_2();
     }
 
-    v11 = [v8 type];
-    if (v11 <= 1)
+    v12 = [v8 type];
+    if (v12 <= 1)
     {
-      if (!v11)
+      if (!v12)
       {
-        [v8 updateWithBoolean:{objc_msgSend(v9, "BOOLeanValue")}];
+        [v8 updateWithBoolean:{objc_msgSend(v10, "BOOLeanValue")}];
         goto LABEL_23;
       }
 
-      if (v11 != 1)
+      if (v12 != 1)
       {
 LABEL_60:
-        v46 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v56 = SRLogCategoryTrial(v12);
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_5(v8, v46);
+          __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_5(v8, v56);
         }
 
         goto LABEL_25;
       }
 
-      [v8 updateWithLong:{objc_msgSend(v9, "longValue")}];
-      if ([v5 isEqualToString:@"MaxSectionsBelowSuggestions"])
+      [v8 updateWithLong:{objc_msgSend(v10, "longValue")}];
+      v15 = [v5 isEqualToString:@"MaxSectionsBelowSuggestions"];
+      if (v15)
       {
-        v14 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = SRLogCategoryTrial(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           goto LABEL_18;
         }
@@ -758,20 +755,20 @@ LABEL_60:
 
     else
     {
-      if (v11 != 2)
+      if (v12 != 2)
       {
-        if (v11 == 3)
+        if (v12 == 3)
         {
-          v12 = [v9 stringValue];
-          [v8 updateWithString:v12];
+          v13 = [v10 stringValue];
+          [v8 updateWithString:v13];
           goto LABEL_21;
         }
 
-        if (v11 == 4)
+        if (v12 == 4)
         {
-          v12 = [v9 fileValue];
-          v13 = [v12 path];
-          [v8 updateWithFilePath:v13];
+          v13 = [v10 fileValue];
+          v14 = [v13 path];
+          [v8 updateWithFilePath:v14];
 
 LABEL_21:
           goto LABEL_23;
@@ -780,12 +777,13 @@ LABEL_21:
         goto LABEL_60;
       }
 
-      [v9 doubleValue];
+      [v10 doubleValue];
       [v8 updateWithDouble:?];
-      if ([v5 isEqualToString:@"LocalSuggestionThreshold"])
+      v17 = [v5 isEqualToString:@"LocalSuggestionThreshold"];
+      if (v17)
       {
-        v14 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v16 = SRLogCategoryTrial(v17);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
 LABEL_18:
           __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_3();
@@ -793,123 +791,125 @@ LABEL_18:
 
 LABEL_19:
 
-        v15 = v6;
-        v16 = 0;
+        v18 = v6;
+        v19 = 0;
 LABEL_24:
-        [v15 setHasValueFromTrial:v16];
+        [v18 setHasValueFromTrial:v19];
         goto LABEL_25;
       }
     }
 
 LABEL_23:
-    v17 = +[SRDefaultsManager sharedDefaultsManager];
-    [v17 updateParameter:v5 inNamespace:*(a1 + 32) withValue:v8];
+    v20 = +[SRDefaultsManager sharedDefaultsManager];
+    [v20 updateParameter:v5 inNamespace:*(a1 + 32) withValue:v8];
 
-    v15 = v6;
-    v16 = 1;
+    v18 = v6;
+    v19 = 1;
     goto LABEL_24;
   }
 
 LABEL_25:
-  v18 = [v8 irisName];
-  v19 = v18;
-  if (v18)
+  v21 = [v8 irisName];
+  v22 = v21;
+  if (v21)
   {
-    v20 = v18;
+    v23 = v21;
   }
 
   else
   {
-    v20 = v5;
+    v23 = v5;
   }
 
-  v21 = v20;
+  v24 = v23;
 
-  v22 = SRLogCategoryTrial();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  v26 = SRLogCategoryTrial(v25);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_6();
   }
 
-  v23 = MEMORY[0x1E696AEC0];
-  v24 = [v21 substringToIndex:1];
-  v25 = [v24 lowercaseString];
-  v26 = [v21 substringFromIndex:1];
-  v49 = [v23 stringWithFormat:@"%@%@", v25, v26];
+  v27 = MEMORY[0x1E696AEC0];
+  v28 = [v24 substringToIndex:1];
+  v29 = [v28 lowercaseString];
+  v30 = [v24 substringFromIndex:1];
+  v59 = [v27 stringWithFormat:@"%@%@", v29, v30];
 
-  v27 = *(a1 + 48);
-  if (v27)
+  v31 = *(a1 + 48);
+  if (v31)
   {
-    v28 = [*(a1 + 40) client];
-    v29 = [v27 objectForKeyedSubscript:v28];
-    if (v29)
+    v32 = [*(a1 + 40) client];
+    v33 = [v31 objectForKeyedSubscript:v32];
+    if (v33)
     {
-      v30 = *(a1 + 48);
+      v34 = *(a1 + 48);
       [*(a1 + 40) client];
-      v48 = a1;
-      v31 = v21;
-      v32 = v8;
-      v33 = v5;
-      v34 = v9;
-      v36 = v35 = v6;
-      v37 = [v30 objectForKeyedSubscript:v36];
-      v27 = [v37 objectForKeyedSubscript:v49];
+      v58 = a1;
+      v35 = v24;
+      v36 = v8;
+      v37 = v5;
+      v38 = v10;
+      v40 = v39 = v6;
+      v41 = [v34 objectForKeyedSubscript:v40];
+      v31 = [v41 objectForKeyedSubscript:v59];
 
-      v6 = v35;
-      v9 = v34;
-      v5 = v33;
-      v8 = v32;
-      v21 = v31;
-      a1 = v48;
+      v6 = v39;
+      v10 = v38;
+      v5 = v37;
+      v8 = v36;
+      v24 = v35;
+      a1 = v58;
     }
 
     else
     {
-      v27 = 0;
+      v31 = 0;
     }
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v38 = [v27 copy];
-    if ([v38 count])
+    v43 = [v31 copy];
+    if ([v43 count])
     {
-      v39 = [v38 componentsJoinedByString:{@", "}];
+      v44 = [v43 componentsJoinedByString:{@", "}];
     }
 
     else
     {
-      v39 = 0;
+      v44 = 0;
     }
 
-    v27 = v39;
+    v31 = v44;
   }
 
-  if (v27)
+  if (v31)
   {
-    v40 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+    v45 = SRLogCategoryTrial(isKindOfClass);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_7();
     }
 
-    v41 = [v8 type];
-    if (v41 <= 1)
+    v46 = [v8 type];
+    if (v46 <= 1)
     {
-      if (v41)
+      if (v46)
       {
-        if (v41 == 1)
+        if (v46 == 1)
         {
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v48 = objc_opt_isKindOfClass();
+          if (v48)
           {
-            [v8 updateWithLong:{objc_msgSend(v27, "longValue")}];
+            [v8 updateWithLong:{objc_msgSend(v31, "longValue")}];
             goto LABEL_59;
           }
 
-          v47 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v57 = SRLogCategoryTrial(v48);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_74;
           }
@@ -918,24 +918,25 @@ LABEL_25:
         }
 
 LABEL_63:
-        v47 = SRLogCategoryTrial();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v57 = SRLogCategoryTrial(v46);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_13(v8, v49, v47);
+          __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_13(v8, v59, v57);
         }
 
         goto LABEL_75;
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v51 = objc_opt_isKindOfClass();
+      if (v51)
       {
-        [v8 updateWithBoolean:{objc_msgSend(v27, "BOOLValue")}];
+        [v8 updateWithBoolean:{objc_msgSend(v31, "BOOLValue")}];
         goto LABEL_59;
       }
 
-      v47 = SRLogCategoryTrial();
-      if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v57 = SRLogCategoryTrial(v51);
+      if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_75;
       }
@@ -943,19 +944,20 @@ LABEL_63:
 
     else
     {
-      switch(v41)
+      switch(v46)
       {
         case 2:
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v49 = objc_opt_isKindOfClass();
+          if (v49)
           {
-            [v27 doubleValue];
+            [v31 doubleValue];
             [v8 updateWithDouble:?];
             goto LABEL_59;
           }
 
-          v47 = SRLogCategoryTrial();
-          if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v57 = SRLogCategoryTrial(v49);
+          if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_75;
           }
@@ -963,14 +965,15 @@ LABEL_63:
           break;
         case 3:
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v50 = objc_opt_isKindOfClass();
+          if (v50)
           {
-            [v8 updateWithString:v27];
+            [v8 updateWithString:v31];
             goto LABEL_59;
           }
 
-          v47 = SRLogCategoryTrial();
-          if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v57 = SRLogCategoryTrial(v50);
+          if (!os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_75;
           }
@@ -978,25 +981,26 @@ LABEL_63:
           break;
         case 4:
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v47 = objc_opt_isKindOfClass();
+          if (v47)
           {
-            [v8 updateWithFilePath:v27];
+            [v8 updateWithFilePath:v31];
 LABEL_59:
             +[SRDefaultsManager sharedDefaultsManager];
-            v42 = v5;
-            v43 = v9;
-            v45 = v44 = v6;
-            [v45 updateParameter:v42 inNamespace:*(a1 + 32) withValue:v8];
+            v52 = v5;
+            v53 = v10;
+            v55 = v54 = v6;
+            [v55 updateParameter:v52 inNamespace:*(a1 + 32) withValue:v8];
 
-            v6 = v44;
-            v9 = v43;
-            v5 = v42;
+            v6 = v54;
+            v10 = v53;
+            v5 = v52;
             [v6 setHasValueFromTrial:1];
             goto LABEL_76;
           }
 
-          v47 = SRLogCategoryTrial();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+          v57 = SRLogCategoryTrial(v47);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
             break;
           }
@@ -1215,20 +1219,24 @@ LABEL_19:
     v4 = 3;
   }
 
-  else if ([stringCopy isEqualToString:@"File"])
-  {
-    v4 = 4;
-  }
-
   else
   {
-    v5 = SRLogCategoryTrial();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = [stringCopy isEqualToString:@"File"];
+    if (v5)
     {
-      +[SRResourcesManager parameterTypeFromString:];
+      v4 = 4;
     }
 
-    v4 = -1;
+    else
+    {
+      v6 = SRLogCategoryTrial(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        +[SRResourcesManager parameterTypeFromString:];
+      }
+
+      v4 = -1;
+    }
   }
 
   return v4;
@@ -1243,7 +1251,7 @@ LABEL_19:
 
 + (void)dumpParameterList:(id)list
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   listCopy = list;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -1255,36 +1263,36 @@ LABEL_19:
       _os_log_impl(&dword_1AE58E000, v5, OS_LOG_TYPE_DEFAULT, "entry is a dictionary:", buf, 2u);
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     allKeys = [listCopy allKeys];
-    v7 = [allKeys countByEnumeratingWithState:&v29 objects:v38 count:16];
+    v7 = [allKeys countByEnumeratingWithState:&v28 objects:v37 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v30;
+      v10 = *v29;
       *&v8 = 138412290;
-      v24 = v8;
+      v23 = v8;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v30 != v10)
+          if (*v29 != v10)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v12 = *(*(&v29 + 1) + 8 * i);
-          v13 = [listCopy objectForKey:{v12, v24}];
+          v12 = *(*(&v28 + 1) + 8 * i);
+          v13 = [listCopy objectForKey:{v12, v23}];
           if (v13)
           {
             v14 = SRLogCategoryGeneral();
             if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v24;
-              v34 = v12;
+              *buf = v23;
+              v33 = v12;
               _os_log_impl(&dword_1AE58E000, v14, OS_LOG_TYPE_DEFAULT, "dumping entry [%@]:", buf, 0xCu);
             }
 
@@ -1292,7 +1300,7 @@ LABEL_19:
           }
         }
 
-        v9 = [allKeys countByEnumeratingWithState:&v29 objects:v38 count:16];
+        v9 = [allKeys countByEnumeratingWithState:&v28 objects:v37 count:16];
       }
 
       while (v9);
@@ -1311,29 +1319,29 @@ LABEL_19:
         _os_log_impl(&dword_1AE58E000, v15, OS_LOG_TYPE_DEFAULT, "entry is an array:", buf, 2u);
       }
 
-      v27 = 0u;
-      v28 = 0u;
-      v25 = 0u;
       v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
       allKeys = listCopy;
-      v16 = [allKeys countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v16 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v26;
+        v18 = *v25;
         do
         {
           for (j = 0; j != v17; ++j)
           {
-            if (*v26 != v18)
+            if (*v25 != v18)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            [self dumpParameterList:*(*(&v25 + 1) + 8 * j)];
+            [self dumpParameterList:*(*(&v24 + 1) + 8 * j)];
           }
 
-          v17 = [allKeys countByEnumeratingWithState:&v25 objects:v37 count:16];
+          v17 = [allKeys countByEnumeratingWithState:&v24 objects:v36 count:16];
         }
 
         while (v17);
@@ -1351,7 +1359,7 @@ LABEL_19:
         if (v21)
         {
           *buf = 138412290;
-          v34 = listCopy;
+          v33 = listCopy;
           _os_log_impl(&dword_1AE58E000, allKeys, OS_LOG_TYPE_DEFAULT, "entry is a parameter = (%@)", buf, 0xCu);
         }
       }
@@ -1359,28 +1367,27 @@ LABEL_19:
       else if (v21)
       {
         *buf = 138412546;
-        v34 = objc_opt_class();
-        v35 = 2112;
-        v36 = listCopy;
-        v22 = v34;
+        v33 = objc_opt_class();
+        v34 = 2112;
+        v35 = listCopy;
+        v22 = v33;
         _os_log_impl(&dword_1AE58E000, allKeys, OS_LOG_TYPE_DEFAULT, "entry has type %@ and is (%@)", buf, 0x16u);
       }
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)resourcesForClient:(id)client locale:(id)locale options:(id)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   localeCopy = locale;
   optionsCopy = options;
   v11 = optionsCopy;
   if (optionsCopy)
   {
-    v12 = [optionsCopy objectForKeyedSubscript:@"SRResourcesOwner"];
+    optionsCopy = [optionsCopy objectForKeyedSubscript:@"SRResourcesOwner"];
+    v12 = optionsCopy;
   }
 
   else
@@ -1388,7 +1395,7 @@ LABEL_19:
     v12 = 0;
   }
 
-  v13 = SRLogCategoryLifeCycle();
+  v13 = SRLogCategoryLifeCycle(optionsCopy);
   v14 = v13;
   v15 = resourcesForClient_locale_options__index;
   v16 = ++resourcesForClient_locale_options__index;
@@ -1421,13 +1428,13 @@ LABEL_8:
 
   uTF8String3 = "unknown";
 LABEL_11:
-  v23 = 136315650;
-  v24 = uTF8String;
-  v25 = 2080;
-  v26 = uTF8String2;
-  v27 = 2080;
-  v28 = uTF8String3;
-  _os_signpost_emit_with_name_impl(&dword_1AE58E000, v14, OS_SIGNPOST_EVENT, v16, "SRResourcesCreate", "client=%s, locale=%s, caller=%s", &v23, 0x20u);
+  v22 = 136315650;
+  v23 = uTF8String;
+  v24 = 2080;
+  v25 = uTF8String2;
+  v26 = 2080;
+  v27 = uTF8String3;
+  _os_signpost_emit_with_name_impl(&dword_1AE58E000, v14, OS_SIGNPOST_EVENT, v16, "SRResourcesCreate", "client=%s, locale=%s, caller=%s", &v22, 0x20u);
   if (localeCopy)
   {
   }
@@ -1435,7 +1442,6 @@ LABEL_11:
 LABEL_13:
 
   v20 = [[SRResources alloc] initWithClient:clientCopy locale:localeCopy options:v11];
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -1594,142 +1600,140 @@ LABEL_20:
 
 - (void)loadAllParametersForClient:(id)client locales:(id)locales options:(id)options
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   localesCopy = locales;
   v9 = [options objectForKey:@"forceLoad"];
   bOOLValue = [v9 BOOLValue];
 
   v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
   v11 = localesCopy;
-  v12 = [v11 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v57 objects:v63 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v57;
+    v14 = *v58;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v57 != v14)
+        if (*v58 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        localeIdentifier = [*(*(&v56 + 1) + 8 * i) localeIdentifier];
+        localeIdentifier = [*(*(&v57 + 1) + 8 * i) localeIdentifier];
         v17 = normalizedLocaleForIdentifier(localeIdentifier);
         v18 = languageCodeForLocale(v17);
         [v10 addObject:v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v57 objects:v63 count:16];
     }
 
     while (v13);
   }
 
-  v19 = 0x1E7A2A000uLL;
-  v43 = v11;
-  if (SRIsRunningInServer() & 1) != 0 || (+[SRDefaultsManager sharedDefaultsManager](SRDefaultsManager, "sharedDefaultsManager"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 hasTestAssets], v20, (v21))
+  v21 = 0x1E7A2A000uLL;
+  v44 = v11;
+  if (SRIsRunningInServer(v19, v20) & 1) != 0 || (+[SRDefaultsManager sharedDefaultsManager](SRDefaultsManager, "sharedDefaultsManager"), v22 = objc_claimAutoreleasedReturnValue(), v23 = [v22 hasTestAssets], v22, (v23))
   {
-    v22 = +[SRDefaultsManager sharedDefaultsManager];
-    v23 = [v22 loadAssetsForLanguage:@"root" reload:0 force:bOOLValue];
+    v24 = +[SRDefaultsManager sharedDefaultsManager];
+    v25 = [v24 loadAssetsForLanguage:@"root" reload:0 force:bOOLValue];
 
-    v52 = 0u;
     v53 = 0u;
-    v50 = 0u;
+    v54 = 0u;
     v51 = 0u;
-    v24 = v10;
-    v25 = [v24 countByEnumeratingWithState:&v50 objects:v61 count:16];
-    if (v25)
+    v52 = 0u;
+    v26 = v10;
+    v27 = [v26 countByEnumeratingWithState:&v51 objects:v62 count:16];
+    if (v27)
     {
-      v26 = v25;
-      v27 = *v51;
+      v28 = v27;
+      v29 = *v52;
       do
       {
-        for (j = 0; j != v26; ++j)
+        for (j = 0; j != v28; ++j)
         {
-          if (*v51 != v27)
+          if (*v52 != v29)
           {
-            objc_enumerationMutation(v24);
+            objc_enumerationMutation(v26);
           }
 
-          v29 = *(*(&v50 + 1) + 8 * j);
-          if (([v29 isEqualToString:@"root"] & 1) == 0)
+          v31 = *(*(&v51 + 1) + 8 * j);
+          if (([v31 isEqualToString:@"root"] & 1) == 0)
           {
-            [*(v19 + 2856) sharedDefaultsManager];
-            v31 = v30 = v19;
-            v32 = [v31 loadAssetsForLanguage:v29 reload:0 force:bOOLValue];
+            [*(v21 + 2856) sharedDefaultsManager];
+            v33 = v32 = v21;
+            v34 = [v33 loadAssetsForLanguage:v31 reload:0 force:bOOLValue];
 
-            v19 = v30;
+            v21 = v32;
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v50 objects:v61 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v51 objects:v62 count:16];
       }
 
-      while (v26);
+      while (v28);
     }
   }
 
   else
   {
     [v10 addObject:@"root"];
-    v33 = +[SRDefaultsManager sharedDefaultsManager];
+    v35 = +[SRDefaultsManager sharedDefaultsManager];
     allObjects = [v10 allObjects];
-    v54[0] = MEMORY[0x1E69E9820];
-    v54[1] = 3221225472;
-    v54[2] = __65__SRResourcesManager_loadAllParametersForClient_locales_options___block_invoke;
-    v54[3] = &unk_1E7A2B088;
-    v55 = v10;
-    [v33 refreshCacheForLanguages:allObjects force:bOOLValue completion:v54];
+    v55[0] = MEMORY[0x1E69E9820];
+    v55[1] = 3221225472;
+    v55[2] = __65__SRResourcesManager_loadAllParametersForClient_locales_options___block_invoke;
+    v55[3] = &unk_1E7A2B088;
+    v56 = v10;
+    [v35 refreshCacheForLanguages:allObjects force:bOOLValue completion:v55];
 
-    v24 = v55;
+    v26 = v56;
   }
 
-  sharedDefaultsManager = [*(v19 + 2856) sharedDefaultsManager];
-  v36 = [sharedDefaultsManager currentNamespacesForClient:clientCopy];
+  sharedDefaultsManager = [*(v21 + 2856) sharedDefaultsManager];
+  v38 = [sharedDefaultsManager currentNamespacesForClient:clientCopy];
 
-  v48 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v37 = v36;
-  v38 = [v37 countByEnumeratingWithState:&v46 objects:v60 count:16];
-  if (v38)
+  v48 = 0u;
+  v39 = v38;
+  v40 = [v39 countByEnumeratingWithState:&v47 objects:v61 count:16];
+  if (v40)
   {
-    v39 = v38;
-    v40 = *v47;
+    v41 = v40;
+    v42 = *v48;
     do
     {
-      for (k = 0; k != v39; ++k)
+      for (k = 0; k != v41; ++k)
       {
-        if (*v47 != v40)
+        if (*v48 != v42)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v39);
         }
 
-        [(SRResourcesManager *)self loadDataSource:*(*(&v46 + 1) + 8 * k) force:0];
+        [(SRResourcesManager *)self loadDataSource:*(*(&v47 + 1) + 8 * k) force:0];
       }
 
-      v39 = [v37 countByEnumeratingWithState:&v46 objects:v60 count:16];
+      v41 = [v39 countByEnumeratingWithState:&v47 objects:v61 count:16];
     }
 
-    while (v39);
+    while (v41);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SRLogCategoryAssets();
+  v4 = SRLogCategoryAssets(v3);
   v5 = v4;
   if (v3)
   {
@@ -1742,17 +1746,15 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1AE58E000, v5, OS_LOG_TYPE_DEFAULT, "Refreshed cache for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1AE58E000, v5, OS_LOG_TYPE_DEFAULT, "Refreshed cache for %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadAllParametersForClient:(id)client locale:(id)locale options:(id)options
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   v8 = MEMORY[0x1E695DEC8];
   optionsCopy = options;
@@ -1760,8 +1762,7 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
   clientCopy = client;
   v12 = [v8 arrayWithObjects:&localeCopy count:1];
 
-  [(SRResourcesManager *)self loadAllParametersForClient:clientCopy locales:v12 options:optionsCopy, localeCopy, v15];
-  v13 = *MEMORY[0x1E69E9840];
+  [(SRResourcesManager *)self loadAllParametersForClient:clientCopy locales:v12 options:optionsCopy, localeCopy, v14];
 }
 
 - (void)loadAllParametersForClient:(id)client
@@ -1774,73 +1775,71 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
 
 - (void)loadAllParameters
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v3 = [&unk_1F2427BC0 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [&unk_1F2427BC0 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(&unk_1F2427BC0);
         }
 
-        [(SRResourcesManager *)self loadAllParametersForClient:*(*(&v8 + 1) + 8 * v6++)];
+        [(SRResourcesManager *)self loadAllParametersForClient:*(*(&v7 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [&unk_1F2427BC0 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [&unk_1F2427BC0 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllParametersForLanguages:(id)languages
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   languagesCopy = languages;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = languagesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = normalizedLocaleForIdentifier(*(*(&v15 + 1) + 8 * v10));
+        v11 = normalizedLocaleForIdentifier(*(*(&v14 + 1) + 8 * v10));
         v12 = languageCodeForLocale(v11);
-        [v5 addObject:{v12, v15}];
+        [v5 addObject:{v12, v14}];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
@@ -1851,7 +1850,6 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
   [v13 requestAssetsForLanguages:v5 removeExisting:1 force:0];
 
   [(SRResourcesManager *)self loadAllParameters];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allLoadedAssets
@@ -1887,7 +1885,7 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
 
 - (BOOL)overrideFactor:(id)factor client:(id)client type:(id)type value:(id)value
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   clientCopy = client;
   typeCopy = type;
   valueCopy = value;
@@ -1902,9 +1900,9 @@ void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block
   {
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
     v19 = sOverridesPath;
-    v36 = *MEMORY[0x1E696A3A0];
-    v37[0] = *MEMORY[0x1E696A388];
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v35 = *MEMORY[0x1E696A3A0];
+    v36[0] = *MEMORY[0x1E696A388];
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     [defaultManager2 createFileAtPath:v19 contents:0 attributes:v20];
   }
 
@@ -1950,11 +1948,11 @@ LABEL_13:
   }
 
 LABEL_14:
-  v34[0] = @"Type";
-  v34[1] = @"Value";
-  v35[0] = typeCopy;
-  v35[1] = v27;
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v33[0] = @"Type";
+  v33[1] = @"Value";
+  v34[0] = typeCopy;
+  v34[1] = v27;
+  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
   v30 = [v22 objectForKeyedSubscript:clientCopy];
   [v30 setObject:v29 forKeyedSubscript:factorCopy];
 
@@ -1962,19 +1960,19 @@ LABEL_14:
   [v22 setObject:v31 forKeyedSubscript:@"UsingOverrides"];
 
   LOBYTE(v31) = [v22 writeToURL:v15 error:0];
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
 - (void)handleAssetsCommand:(id)command
 {
-  v5 = 0;
-  [SRXPCListener handleMessage:command error:&v5];
-  v3 = v5;
+  v6 = 0;
+  [SRXPCListener handleMessage:command error:&v6];
+  v3 = v6;
+  v4 = v3;
   if (v3)
   {
-    v4 = SRLogCategoryAssets();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SRLogCategoryAssets(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [SRResourcesManager handleAssetsCommand:];
     }
@@ -1990,132 +1988,32 @@ LABEL_14:
   return v2;
 }
 
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Loading IRIS exp config for namespace %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Error parsing exp config json: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_1AE58E000, v0, v1, "Got %@ exp config %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Loading monofactor for namespace %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 32);
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3_0(&dword_1AE58E000, v3, v4, "Updating parameter %@ for namespace %@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Parameter %@ has Trial level", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_1AE58E000, v0, v1, "Ignoring Trial value for %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_5(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [a1 type];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1AE58E000, a2, OS_LOG_TYPE_ERROR, "loadDataSource: invalid SRParameter type %ld", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_6()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_1AE58E000, v0, v1, "Parameter %@ has name %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_7()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3_0(&dword_1AE58E000, v0, v1, "Parameter %@ has exp config (%@)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Error updating exp config %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AE58E000, a2, OS_LOG_TYPE_ERROR, "loadDataSource: invalid SRParameter type %ld", v3, 0xCu);
 }
 
 void __43__SRResourcesManager_setTrialUpdateHandler__block_invoke_447_cold_13(void *a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [a1 type];
   OUTLINED_FUNCTION_0_0();
-  v7 = a2;
-  _os_log_error_impl(&dword_1AE58E000, a3, OS_LOG_TYPE_ERROR, "loadDataSource: invalid SRParameter type %ld for exp config %@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)parameterTypeFromString:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Invalid parameter type string %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = a2;
+  _os_log_error_impl(&dword_1AE58E000, a3, OS_LOG_TYPE_ERROR, "loadDataSource: invalid SRParameter type %ld for exp config %@", v5, 0x16u);
 }
 
 void __65__SRResourcesManager_loadAllParametersForClient_locales_options___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_1AE58E000, log, OS_LOG_TYPE_ERROR, "Error refreshing cache for languages %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleAssetsCommand:.cold.1()
-{
   v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_1AE58E000, v0, v1, "Error handling message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_1AE58E000, log, OS_LOG_TYPE_ERROR, "Error refreshing cache for languages %@: %@", &v4, 0x16u);
 }
 
 @end

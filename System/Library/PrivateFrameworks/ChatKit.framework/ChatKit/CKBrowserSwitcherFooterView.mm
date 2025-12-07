@@ -436,7 +436,7 @@
 
 - (double)contentHeight
 {
-  if (CKIsRunningInCameraAppsClient())
+  if (CKIsRunningInCameraAppsClient(self, a2))
   {
 
     [(CKBrowserSwitcherFooterView *)self contentHeightForCameraApps];
@@ -683,7 +683,7 @@ uint64_t __76__CKBrowserSwitcherFooterView_adjustMagnificationAtPoint_minifyImme
   return [v7 performBatchUpdates:0 completion:0];
 }
 
-uint64_t __76__CKBrowserSwitcherFooterView_adjustMagnificationAtPoint_minifyImmediately___block_invoke_2(uint64_t a1)
+void *__76__CKBrowserSwitcherFooterView_adjustMagnificationAtPoint_minifyImmediately___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 408) finishLayoutModeTransition];
   *(*(a1 + 32) + 481) = 0;
@@ -1040,12 +1040,12 @@ LABEL_12:
 - (BOOL)collectionView:(id)view canMoveItemAtIndexPath:(id)path
 {
   pathCopy = path;
-  if (CKIsRunningInCameraAppsClient())
+  if (CKIsRunningInCameraAppsClient(pathCopy, v6))
   {
     goto LABEL_13;
   }
 
-  v6 = ![pathCopy section] && objc_msgSend(pathCopy, "item") == 0;
+  v7 = ![pathCopy section] && objc_msgSend(pathCopy, "item") == 0;
   if ([pathCopy section] || objc_msgSend(pathCopy, "item") != 1)
   {
     isAppStoreEnabled = 0;
@@ -1053,37 +1053,37 @@ LABEL_12:
 
   else
   {
-    v7 = +[CKBalloonPluginManager sharedInstance];
-    isAppStoreEnabled = [v7 isAppStoreEnabled];
+    v8 = +[CKBalloonPluginManager sharedInstance];
+    isAppStoreEnabled = [v8 isAppStoreEnabled];
   }
 
   if ([pathCopy section] == 1)
   {
     item = [pathCopy item];
-    v10 = item != [(UICollectionView *)self->_appStripCollectionView numberOfItemsInSection:1]- 1;
+    v11 = item != [(UICollectionView *)self->_appStripCollectionView numberOfItemsInSection:1]- 1;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v15 = 0;
+  v16 = 0;
   dataSource = [(CKBrowserSwitcherFooterView *)self dataSource];
-  v12 = [dataSource switcherView:self modelAtIndexPath:pathCopy type:&v15];
+  v13 = [dataSource switcherView:self modelAtIndexPath:pathCopy type:&v16];
 
-  if ((v6 | isAppStoreEnabled))
+  if ((v7 | isAppStoreEnabled))
   {
 LABEL_13:
-    v13 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v13 = v15 == 1 && v10;
+    v14 = v16 == 1 && v11;
   }
 
-  return v13;
+  return v14;
 }
 
 - (void)collectionView:(id)view moveItemAtIndexPath:(id)path toIndexPath:(id)indexPath

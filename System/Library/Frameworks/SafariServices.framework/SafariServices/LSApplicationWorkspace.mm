@@ -49,7 +49,7 @@ void __113__LSApplicationWorkspace_SafariServicesExtras___sf_tryOpeningURLInDefa
   [v9 start];
 }
 
-uint64_t __113__LSApplicationWorkspace_SafariServicesExtras___sf_tryOpeningURLInDefaultApp_isContentManaged_completionHandler___block_invoke_3(uint64_t a1)
+void *__113__LSApplicationWorkspace_SafariServicesExtras___sf_tryOpeningURLInDefaultApp_isContentManaged_completionHandler___block_invoke_3(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (*(a1 + 48) == 1)

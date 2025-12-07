@@ -79,11 +79,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:4294048773 commandID:6 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v16)
   {
     sub_2393C5AAC(v15);
-    sub_2393C5ADC(v15, *(v16 + 1), *(v16 + 3));
+    sub_2393C5ADC(v15, *(v16 + 8), *(v16 + 24));
     v8 = sub_2393C6FD0(v15, 256);
     if (!v8)
     {
@@ -144,8 +144,8 @@ LABEL_6:
 
   if (*(struct + 1) == 1)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithBool:*sub_238DE36D8(struct + 1)];
-    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setWasNull:v6];
+    v7 = [MEMORY[0x277CCABB0] numberWithBool:{LOBYTE(sub_238DE36D8(struct + 1, v6)->super.isa)}];
+    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setWasNull:v7];
   }
 
   else
@@ -155,8 +155,8 @@ LABEL_6:
 
   if (*(struct + 3) == 1)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 3)];
-    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setValue:v7];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 3, v8)->super.isa)}];
+    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setValue:v9];
   }
 
   else
@@ -164,19 +164,19 @@ LABEL_6:
     [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setValue:0];
   }
 
-  v9 = *(struct + 5);
-  v8 = struct + 5;
-  if (v9 == 1 && (sub_238DE36D8(v8)[1] & 1) != 0)
+  v12 = *(struct + 5);
+  v11 = struct + 5;
+  if (v12 == 1 && (BYTE1(sub_238DE36D8(v11, v10)->super.isa) & 1) != 0)
   {
-    v10 = MEMORY[0x277CCABB0];
-    v11 = sub_238DE36D8(v8);
-    if ((v11[1] & 1) == 0)
+    v14 = MEMORY[0x277CCABB0];
+    v15 = sub_238DE36D8(v11, v13);
+    if ((v15[1] & 1) == 0)
     {
       sub_238EA195C();
     }
 
-    v12 = [v10 numberWithUnsignedChar:*v11];
-    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setOriginalValue:v12];
+    v16 = [v14 numberWithUnsignedChar:*v15];
+    [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setOriginalValue:v16];
   }
 
   else
@@ -184,11 +184,11 @@ LABEL_6:
     [(MTRUnitTestingClusterTestNullableOptionalResponseParams *)self setOriginalValue:0];
   }
 
-  v13 = 0;
-  v14 = 0;
-  result.mFile = v14;
-  result.mError = v13;
-  result.mLine = HIDWORD(v13);
+  v17 = 0;
+  v18 = 0;
+  result.mFile = v18;
+  result.mError = v17;
+  result.mLine = HIDWORD(v17);
   return result;
 }
 

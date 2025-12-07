@@ -149,7 +149,7 @@ void __41__NTKComplicationViewController_loadView__block_invoke(uint64_t a1, voi
   [_effectiveMetrics size];
   [(NTKComplicationDisplayWrapperView *)self->_wrapperView setBounds:v3, v4, v6, v7];
 
-  [(NTKComplicationViewController *)self _contentTransform];
+  objc_msgSend__contentTransform(self);
   wrapperView = self->_wrapperView;
   v12[0] = v12[3];
   v12[1] = v12[4];

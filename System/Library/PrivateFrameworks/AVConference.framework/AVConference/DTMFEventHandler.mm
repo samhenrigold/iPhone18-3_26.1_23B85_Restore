@@ -183,28 +183,28 @@ LABEL_20:
 
 - (void)sendingDTMFEventWithTimeStamp:(unsigned int)stamp interval:(unsigned int)interval RTPHandle:(tagHANDLE *)handle
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v27 = -1431655766;
-  v28 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 1;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v32 = *MEMORY[0x1E69E9840];
+  v30 = -1431655766;
+  v31 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 1;
   v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   dtmfQueue = self->dtmfQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle___block_invoke;
   block[3] = &unk_1E85F9068;
   block[4] = self;
-  block[5] = &v23;
+  block[5] = &v26;
   stampCopy = stamp;
-  block[6] = &v19;
+  block[6] = &v22;
   dispatch_sync(dtmfQueue, block);
-  if (*(v24 + 24) == 1)
+  if (*(v27 + 24) == 1)
   {
     if (self->currentEventNeedsEndBlock)
     {
@@ -227,15 +227,17 @@ LABEL_20:
       v10 = v12;
     }
 
-    if ([(DTMFEventHandler *)self constructDTMFEventPacketWithEvent:self->currentEvent volume:self->currentVolume durationCounter:self->currentDurationCounter dataBuffer:&v28 isEnd:v10]== 1)
+    v13 = [(DTMFEventHandler *)self constructDTMFEventPacketWithEvent:self->currentEvent volume:self->currentVolume durationCounter:self->currentDurationCounter dataBuffer:&v31 isEnd:v10];
+    if (v13 == 1)
     {
       ++self->currentEventRetransmitFinalPacketCount;
     }
 
-    v13 = *(v20 + 24);
+    v15 = *(v23 + 24);
     currentStartTimestamp = self->currentStartTimestamp;
-    v15 = micro();
-    RTPSendRTP(handle, 117, v13, currentStartTimestamp, &v28, 4u, &v27, 0, v15, interval, 0, 0, 0, 0, 0, 0);
+    v17 = micro(v13, v14);
+    LOBYTE(v19) = 0;
+    RTPSendRTP(handle, 117, v15, currentStartTimestamp, &v31, 4, v17, &v30, 0, interval, v19, 0, 0, 0, 0);
     currentEventRetransmitFinalPacketCount = self->currentEventRetransmitFinalPacketCount;
     if (v10)
     {
@@ -258,28 +260,28 @@ LABEL_20:
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle___block_invoke(uint64_t result)
+void *__69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle___block_invoke(void *result)
 {
   v1 = result;
   v36 = *MEMORY[0x1E69E9840];
-  v2 = *(result + 32);
+  v2 = result[4];
   if (!*(v2 + 24))
   {
     v4 = [*(v2 + 16) objectAtIndexedSubscript:0];
     if ([v4 objectForKeyedSubscript:@"event"])
     {
       v5 = 1;
-      *(*(v1 + 32) + 24) = 1;
-      *(*(v1 + 32) + 28) = 1;
-      *(*(v1 + 32) + 32) = 0;
-      *(*(v1 + 32) + 40) = [objc_msgSend(v4 objectForKeyedSubscript:{@"event", "unsignedIntegerValue"}];
-      *(*(v1 + 32) + 41) = [objc_msgSend(v4 objectForKeyedSubscript:{@"volume", "unsignedIntegerValue"}];
-      *(*(v1 + 32) + 44) = [objc_msgSend(v4 objectForKeyedSubscript:{@"startTimestamp", "unsignedIntegerValue"}];
-      *(*(v1 + 32) + 64) = *(v1 + 56) - *(*(v1 + 32) + 44);
+      *(v1[4] + 24) = 1;
+      *(v1[4] + 28) = 1;
+      *(v1[4] + 32) = 0;
+      *(v1[4] + 40) = [objc_msgSend(v4 objectForKeyedSubscript:{@"event", "unsignedIntegerValue"}];
+      *(v1[4] + 41) = [objc_msgSend(v4 objectForKeyedSubscript:{@"volume", "unsignedIntegerValue"}];
+      *(v1[4] + 44) = [objc_msgSend(v4 objectForKeyedSubscript:{@"startTimestamp", "unsignedIntegerValue"}];
+      *(v1[4] + 64) = *(v1 + 14) - *(v1[4] + 44);
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
         v6 = VRTraceErrorLogLevelToCSTR();
@@ -289,10 +291,10 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
         {
           if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
-            v9 = *(v1 + 32);
+            v9 = v1[4];
             v10 = *(v9 + 64);
             v11 = *(v9 + 40);
-            v12 = *(v1 + 56);
+            v12 = *(v1 + 14);
             LODWORD(v9) = *(v9 + 44);
             v22 = 136316674;
             v23 = v6;
@@ -314,10 +316,10 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
 
         else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v18 = *(v1 + 32);
+          v18 = v1[4];
           v19 = *(v18 + 64);
           v20 = *(v18 + 40);
-          v21 = *(v1 + 56);
+          v21 = *(v1 + 14);
           LODWORD(v18) = *(v18 + 44);
           v22 = 136316674;
           v23 = v6;
@@ -337,10 +339,10 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
         }
       }
 
-      *(*(v1 + 32) + 44) += *(*(v1 + 32) + 64);
-      *(*(v1 + 32) + 48) = 1;
-      *(*(v1 + 32) + 56) = 0;
-      v15 = 48;
+      *(v1[4] + 44) += *(v1[4] + 64);
+      *(v1[4] + 48) = 1;
+      *(v1[4] + 56) = 0;
+      v15 = 6;
     }
 
     else
@@ -362,11 +364,11 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
       }
 
       v5 = 0;
-      v15 = 40;
+      v15 = 5;
     }
 
-    *(*(*(v1 + v15) + 8) + 24) = v5;
-    return [*(*(v1 + 32) + 16) removeObjectAtIndex:0];
+    *(*(v1[v15] + 8) + 24) = v5;
+    return [*(v1[4] + 16) removeObjectAtIndex:0];
   }
 
   if (*(v2 + 28) == 1)
@@ -374,12 +376,12 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
     result = [*(v2 + 16) count];
     if (result)
     {
-      v3 = [*(*(v1 + 32) + 16) objectAtIndexedSubscript:0];
+      v3 = [*(v1[4] + 16) objectAtIndexedSubscript:0];
       if ([v3 objectForKeyedSubscript:@"endTimestamp"] && objc_msgSend(v3, "objectForKeyedSubscript:", @"pauseCompleteTimestamp"))
       {
-        *(*(v1 + 32) + 52) = *(*(v1 + 32) + 64) + [objc_msgSend(v3 objectForKeyedSubscript:{@"endTimestamp", "unsignedIntegerValue"}];
-        *(*(v1 + 32) + 56) = *(*(v1 + 32) + 64) + [objc_msgSend(v3 objectForKeyedSubscript:{@"pauseCompleteTimestamp", "unsignedIntegerValue"}];
-        *(*(v1 + 32) + 28) = 0;
+        *(v1[4] + 52) = *(v1[4] + 64) + [objc_msgSend(v3 objectForKeyedSubscript:{@"endTimestamp", "unsignedIntegerValue"}];
+        *(v1[4] + 56) = *(v1[4] + 64) + [objc_msgSend(v3 objectForKeyedSubscript:{@"pauseCompleteTimestamp", "unsignedIntegerValue"}];
+        *(v1[4] + 28) = 0;
       }
 
       else
@@ -400,10 +402,10 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
           }
         }
 
-        *(*(*(v1 + 40) + 8) + 24) = 0;
+        *(*(v1[5] + 8) + 24) = 0;
       }
 
-      return [*(*(v1 + 32) + 16) removeObjectAtIndex:0];
+      return [*(v1[4] + 16) removeObjectAtIndex:0];
     }
   }
 
@@ -445,7 +447,7 @@ uint64_t __69__DTMFEventHandler_sendingDTMFEventWithTimeStamp_interval_RTPHandle
   return v4;
 }
 
-uint64_t __52__DTMFEventHandler_shouldTransmitDTMFWithTimestamp___block_invoke(uint64_t a1)
+void *__52__DTMFEventHandler_shouldTransmitDTMFWithTimestamp___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result && (result = [objc_msgSend(*(*(a1 + 32) + 16) objectAtIndexedSubscript:{0), "objectForKey:", @"startTimestamp"}]) != 0)

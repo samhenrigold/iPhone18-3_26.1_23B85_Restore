@@ -207,8 +207,8 @@ void GuardMalloc_destroyZone(vm_address_t a1)
       {
         do
         {
-          GuardMalloc_freeInternal(a1, *v5, v5[1]);
-          v5 = v5[2];
+          GuardMalloc_freeInternal(a1, *v5, *(v5 + 8));
+          v5 = *(v5 + 16);
         }
 
         while (v5);
@@ -367,7 +367,7 @@ uint64_t GuardMalloc_check(uint64_t a1)
       {
         do
         {
-          if (GuardMalloc_validateHeader(a1, *v6, v6[1]))
+          if (GuardMalloc_validateHeader(a1, *v6, *(v6 + 8), "GuardMalloc_check"))
           {
             v3 = v3;
           }
@@ -377,7 +377,7 @@ uint64_t GuardMalloc_check(uint64_t a1)
             v3 = 0;
           }
 
-          v6 = v6[2];
+          v6 = *(v6 + 16);
         }
 
         while (v6);
@@ -639,14 +639,14 @@ malloc_zone_t *GMmalloc_create_zone()
 
 void GMmalloc_set_zone_name(malloc_zone_t *zone, char *__s)
 {
-  if (__s && (introspect = zone->introspect) != 0 && (v5 = zone->introspect, introspect == GuardMalloc_introspect) && (v6 = strlen(__s), (v7 = malloc_type_zone_malloc(zone, v6 + 13, 0x4CFED19CuLL)) != 0))
+  if (__s && (introspect = zone->introspect) != 0 && introspect == GuardMalloc_introspect && (v5 = strlen(__s), (v6 = malloc_type_zone_malloc(zone, v5 + 13, 0x4CFED19CuLL)) != 0))
   {
-    v8 = v7;
-    strlcpy(v7, "GuardMalloc-", v6 + 13);
-    strlcat(v8, __s, v6 + 13);
-    malloc_set_zone_name(zone, v8);
+    v7 = v6;
+    strlcpy(v6, "GuardMalloc-", v5 + 13);
+    strlcat(v7, __s, v5 + 13);
+    malloc_set_zone_name(zone, v7);
 
-    malloc_zone_free(zone, v8);
+    malloc_zone_free(zone, v7);
   }
 
   else
@@ -679,7 +679,7 @@ uint64_t GMmalloc_make_purgeable(const void *a1)
 {
   if (!malloc_zone_from_ptr(a1))
   {
-    malloc_printf_for_ABORT();
+    malloc_printf_for_ABORT("called malloc_make_purgeable() with pointer %p that was not in any registered malloc zone\n", a1);
     abort();
   }
 
@@ -691,7 +691,7 @@ uint64_t GMmalloc_make_nonpurgeable(const void *a1)
 {
   if (!malloc_zone_from_ptr(a1))
   {
-    malloc_printf_for_ABORT();
+    malloc_printf_for_ABORT("called malloc_make_nonpurgeable() with pointer %p that was not in any registered malloc zone\n", a1);
     abort();
   }
 
@@ -723,7 +723,7 @@ void GMfree(void *a1)
     v2 = malloc_zone_from_ptr(a1);
     if (!v2)
     {
-      malloc_printf_for_ABORT();
+      malloc_printf_for_ABORT("attempted %s of pointer %p that was not claimed by any registered malloc zone\n", "free", a1);
       abort();
     }
 
@@ -736,7 +736,7 @@ void *GMrealloc(void *a1, size_t a2)
   GMmalloc_default_zone();
   if (a1 && !malloc_zone_from_ptr(a1))
   {
-    malloc_printf_for_ABORT();
+    malloc_printf_for_ABORT("attempted %s of pointer %p that was not claimed by any registered malloc zone\n", "realloc", a1);
     abort();
   }
 
@@ -849,18 +849,19 @@ uint64_t amIBeingDebugged()
 
 void malloc_printf(const char *format, ...)
 {
+  va_start(va, format);
   os_unfair_lock_lock(&mallocPrintfLock);
-  malloc_printf_va(gmallocPrintfBuffer);
+  malloc_printf_va(gmallocPrintfBuffer, 5, format, va);
   os_unfair_lock_unlock(&mallocPrintfLock);
 }
 
-uint64_t malloc_printf_va(uint64_t result)
+uint64_t malloc_printf_va(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v1 = result;
-    v2 = _simple_string();
-    *v2 = 0;
+    v4 = result;
+    v5 = _simple_string();
+    *v5 = 0;
     _simple_sresize();
     if (!amIBeingDebugged())
     {
@@ -871,34 +872,30 @@ uint64_t malloc_printf_va(uint64_t result)
         _simple_asl_log();
       }
 
-      *v2 = 0;
+      *v5 = 0;
       _simple_sresize();
     }
 
-    v3 = getprogname();
-    if (v3)
-    {
-      *v3;
-    }
-
+    getprogname();
     getpid();
     _simple_sprintf();
     result = _simple_vsprintf();
     if (!result)
     {
-      v4 = gmallocLogFile;
+      v6 = gmallocLogFile;
 
-      return __simple_put(v1, v4);
+      return __simple_put(v4, v6);
     }
   }
 
   return result;
 }
 
-void malloc_printf_for_ABORT()
+void malloc_printf_for_ABORT(const char *a1, ...)
 {
+  va_start(va, a1);
   os_unfair_lock_lock(&mallocPrintfLock);
-  malloc_printf_va(gmallocPrintfBufferForAbort);
+  malloc_printf_va(gmallocPrintfBufferForAbort, 3, a1, va);
   qword_10098 = _simple_string();
   os_unfair_lock_unlock(&mallocPrintfLock);
 }
@@ -1151,19 +1148,35 @@ uint64_t vm_disable_address_reuse()
   return v0;
 }
 
-uint64_t GuardMalloc_validateHeader(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t GuardMalloc_validateHeader(uint64_t a1, char *a2, uint64_t a3, const char *a4)
 {
   if ((checkHeader & 1) == 0 && !*(a1 + 16388))
   {
-    v3 = (a2 - 8);
+    v4 = a2 - 8;
     if (protectBefore)
     {
-      v3 = (a2 + a3);
+      v4 = &a2[a3];
     }
 
-    if (*v3 != 0xDEADBEEFDEADBEEFLL)
+    if (*v4 != 0xDEADBEEFDEADBEEFLL)
     {
-      malloc_printf_for_ABORT();
+      if (protectBefore)
+      {
+        v6 = "overrun";
+      }
+
+      else
+      {
+        v6 = "underrun";
+      }
+
+      v7 = "without";
+      if (!protectBefore)
+      {
+        v7 = "with";
+      }
+
+      malloc_printf_for_ABORT("%s: header for block %p-%p has been trashed by a buffer %s. Header magic value at %p is 0x%016lx, not 0x%016lx.  Try running %s MALLOC_PROTECT_BEFORE to catch this error immediately as it happens.\n", a4, a2, &a2[a3], v6, v4, *v4, 0xDEADBEEFDEADBEEFLL, v7);
       abort();
     }
   }
@@ -1171,9 +1184,9 @@ uint64_t GuardMalloc_validateHeader(uint64_t a1, uint64_t a2, uint64_t a3)
   return 1;
 }
 
-void GuardMalloc_freeInternal(uint64_t a1, uint64_t a2, uint64_t a3)
+void GuardMalloc_freeInternal(uint64_t a1, char *a2, uint64_t a3)
 {
-  GuardMalloc_validateHeader(a1, a2, a3);
+  GuardMalloc_validateHeader(a1, a2, a3, "free");
   if (protectBefore)
   {
     if (enable_address_reuse)
@@ -1186,14 +1199,14 @@ void GuardMalloc_freeInternal(uint64_t a1, uint64_t a2, uint64_t a3)
       v5 = vm_page_size;
     }
 
-    v6 = a2 - v5;
+    v6 = &a2[-v5];
     v7 = -vm_page_size;
   }
 
   else
   {
     v7 = -vm_page_size;
-    v6 = (a2 - 8) & -vm_page_size;
+    v6 = ((a2 - 8) & -vm_page_size);
     if (enable_address_reuse)
     {
       v5 = 0;
@@ -1318,21 +1331,21 @@ void *GuardMalloc_calloc(uint64_t a1, unint64_t a2, unint64_t a3)
   return 0;
 }
 
-void GuardMalloc_free(uint64_t a1, unint64_t a2)
+void GuardMalloc_free(uint64_t a1, char *a2)
 {
   if (a2)
   {
     v4 = GuardMalloc_noteFree(a1, a2);
     if (!v4)
     {
-      GuardMalloc_free_cold_1(a1);
+      GuardMalloc_free_cold_1(a1, a2);
     }
 
     GuardMalloc_freeInternal(a1, a2, v4);
   }
 }
 
-unint64_t GuardMalloc_realloc(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t GuardMalloc_realloc(uint64_t a1, char *a2, unint64_t a3)
 {
   v4 = a2;
   if (a2 && !a3)
@@ -1346,11 +1359,11 @@ unint64_t GuardMalloc_realloc(uint64_t a1, unint64_t a2, unint64_t a3)
     v6 = GuardMalloc_nodeSize(a1, a2);
     if (!v6)
     {
-      GuardMalloc_realloc_cold_1(a1);
+      GuardMalloc_realloc_cold_1(a1, v4);
     }
 
     v7 = v6;
-    GuardMalloc_validateHeader(a1, v4, v6);
+    GuardMalloc_validateHeader(a1, v4, v6, "realloc");
     if (v7 == a3)
     {
       return v4;
@@ -1408,7 +1421,7 @@ uint64_t GuardMalloc_batch_malloc(uint64_t a1, unint64_t a2, uint64_t a3, unsign
   return v7;
 }
 
-void GuardMalloc_batch_free(uint64_t a1, unint64_t *a2, int a3)
+void GuardMalloc_batch_free(uint64_t a1, char **a2, int a3)
 {
   if (a3)
   {
@@ -1424,7 +1437,7 @@ void GuardMalloc_batch_free(uint64_t a1, unint64_t *a2, int a3)
   }
 }
 
-unint64_t GuardMalloc_memalign(uint64_t a1, unint64_t a2, unint64_t a3)
+unint64_t GuardMalloc_memalign(uint64_t a1, vm_size_t a2, unint64_t a3)
 {
   v3 = a2;
   if (!allocationStrategy)
@@ -1519,7 +1532,7 @@ unint64_t GuardMalloc_mallocInternal(uint64_t a1, unint64_t a2, vm_size_t a3)
     guardmalloc_currently_allocated_memory += v9;
     if (maximum_allowed_vm_size && v10 > maximum_allowed_vm_size)
     {
-      malloc_printf_for_ABORT();
+      malloc_printf_for_ABORT("Attempting to allocate %lu to represent %lu bytes, which would bring VM size to %lu. That exceeds the %lu VM maximum set via MALLOC_MAXIMUM_VM env var.\n", v9, v8, v10, maximum_allowed_vm_size);
       if ((permitInsaneRequests & 1) == 0)
       {
         breakIfDebugging();
@@ -1533,9 +1546,9 @@ unint64_t GuardMalloc_mallocInternal(uint64_t a1, unint64_t a2, vm_size_t a3)
     v12 = getVMRegionTag_large_threshold;
     if (!getVMRegionTag_large_threshold)
     {
-      v48 = 8;
+      v49 = 8;
       address = 0;
-      v13 = sysctlbyname("hw.memsize", &address, &v48, 0, 0);
+      v13 = sysctlbyname("hw.memsize", &address, &v49, 0, 0);
       v14 = (address & 0xFFFFFFFFC0000000) != 0 && v13 == 0;
       v12 = 15360;
       if (v14)
@@ -1547,6 +1560,7 @@ unint64_t GuardMalloc_mallocInternal(uint64_t a1, unint64_t a2, vm_size_t a3)
     }
 
     v47 = v8 + 8;
+    v48 = v8;
     if (v12 >= v8)
     {
       v15 = 0x2000000;
@@ -1689,10 +1703,11 @@ unint64_t GuardMalloc_mallocInternal(uint64_t a1, unint64_t a2, vm_size_t a3)
       v9 -= a3;
       if (v30)
       {
+        v48 -= a3;
 LABEL_53:
         guardmalloc_currently_allocated_memory -= v9;
         os_unfair_lock_unlock(&addrLock);
-        ABORTING_DUE_TO_OUT_OF_MEMORY();
+        ABORTING_DUE_TO_OUT_OF_MEMORY(v9, v48);
       }
 
       v32 = v47 - a3;
@@ -1754,21 +1769,31 @@ LABEL_84:
     return v11;
   }
 
-  malloc_printf_for_ABORT();
+  malloc_printf_for_ABORT("Attempting to allocate %lu bytes, with alignment %lu, which causes arithmetic overflow, so allocation fails and NULL will be returned\n", v4, a3);
   breakIfDebugging();
   return 0;
 }
 
-void GuardMalloc_free_cold_1(uint64_t a1)
+void GuardMalloc_free_cold_1(uint64_t a1, const void *a2)
 {
-  *(a1 + 72);
-  malloc_printf_for_ABORT();
+  v2 = *(a1 + 72);
+  if (!v2)
+  {
+    v2 = "unnamed zone";
+  }
+
+  malloc_printf_for_ABORT("Tried to free pointer %p in zone %s which is not currently a pointer to a malloc buffer.\n", a2, v2);
   abort();
 }
 
-void GuardMalloc_realloc_cold_1(uint64_t a1)
+void GuardMalloc_realloc_cold_1(uint64_t a1, const void *a2)
 {
-  *(a1 + 72);
-  malloc_printf_for_ABORT();
+  v2 = *(a1 + 72);
+  if (!v2)
+  {
+    v2 = "unnamed zone";
+  }
+
+  malloc_printf_for_ABORT("Tried to realloc pointer %p in zone %s which is not currently a pointer to a malloc buffer.\n", a2, v2);
   abort();
 }

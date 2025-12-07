@@ -3,9 +3,16 @@
 - (double)preferredIntervalAtIndex:(unint64_t)index;
 - (float)extendedSupportedRateAtIndex:(unint64_t)index;
 - (float)supportedRateAtIndex:(unint64_t)index;
+- (id)commandAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)currentQueueEndActionAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)disabledReasonAsString:(int)string;
+- (id)repeatModeAsString:(int)string;
+- (id)shuffleModeAsString:(int)string;
+- (id)sleepTimerStopModeAsString:(int)string;
+- (id)supportedQueueEndActionsAsString:(int)string;
 - (int)StringAsCommand:(id)command;
 - (int)StringAsCurrentQueueEndAction:(id)action;
 - (int)StringAsDisabledReason:(id)reason;
@@ -101,335 +108,612 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)commandAsString:(int)string
+{
+  v4 = @"Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_198;
+    case 1:
+      v4 = @"Play";
+
+      break;
+    case 2:
+      v4 = @"Pause";
+
+      break;
+    case 3:
+      v4 = @"TogglePlayPause";
+
+      break;
+    case 4:
+      v4 = @"Stop";
+
+      break;
+    case 5:
+      v4 = @"NextTrack";
+
+      break;
+    case 6:
+      v4 = @"PreviousTrack";
+
+      break;
+    case 7:
+      v4 = @"AdvanceShuffleMode";
+
+      break;
+    case 8:
+      v4 = @"AdvanceRepeatMode";
+
+      break;
+    case 9:
+      v4 = @"BeginFastForward";
+
+      break;
+    case 10:
+      v4 = @"EndFastForward";
+
+      break;
+    case 11:
+      v4 = @"BeginRewind";
+
+      break;
+    case 12:
+      v4 = @"EndRewind";
+
+      break;
+    case 13:
+      v4 = @"Rewind15Seconds";
+
+      break;
+    case 14:
+      v4 = @"FastForward15Seconds";
+
+      break;
+    case 15:
+      v4 = @"Rewind30Seconds";
+
+      break;
+    case 16:
+      v4 = @"FastForward30Seconds";
+
+      break;
+    case 18:
+      v4 = @"SkipForward";
+
+      break;
+    case 19:
+      v4 = @"SkipBackward";
+
+      break;
+    case 20:
+      v4 = @"ChangePlaybackRate";
+
+      break;
+    case 21:
+      v4 = @"RateTrack";
+
+      break;
+    case 22:
+      v4 = @"LikeTrack";
+
+      break;
+    case 23:
+      v4 = @"DislikeTrack";
+
+      break;
+    case 24:
+      v4 = @"BookmarkTrack";
+
+      break;
+    case 25:
+      v4 = @"NextChapter";
+
+      break;
+    case 26:
+      v4 = @"PreviousChapter";
+
+      break;
+    case 27:
+      v4 = @"NextAlbum";
+
+      break;
+    case 28:
+      v4 = @"PreviousAlbum";
+
+      break;
+    case 29:
+      v4 = @"NextPlaylist";
+
+      break;
+    case 30:
+      v4 = @"PreviousPlaylist";
+
+      break;
+    case 31:
+      v4 = @"BanTrack";
+
+      break;
+    case 32:
+      v4 = @"AddTrackToWishList";
+
+      break;
+    case 33:
+      v4 = @"RemoveTrackFromWishList";
+
+      break;
+    case 34:
+      v4 = @"NextInContext";
+
+      break;
+    case 35:
+      v4 = @"PreviousInContext";
+
+      break;
+    case 41:
+      v4 = @"ResetPlaybackTimeout";
+
+      break;
+    case 45:
+      v4 = @"SeekToPlaybackPosition";
+
+      break;
+    case 46:
+      v4 = @"ChangeRepeatMode";
+
+      break;
+    case 47:
+      v4 = @"ChangeShuffleMode";
+
+      break;
+    case 48:
+      v4 = @"SetPlaybackQueue";
+
+      break;
+    case 49:
+      v4 = @"AddNowPlayingItemToLibrary";
+
+      break;
+    case 50:
+      v4 = @"CreateRadioStation";
+
+      break;
+    case 51:
+      v4 = @"AddItemToLibrary";
+
+      break;
+    case 52:
+      v4 = @"InsertIntoPlaybackQueue";
+
+      break;
+    case 53:
+      v4 = @"EnableLanguageOption";
+
+      break;
+    case 54:
+      v4 = @"DisableLanguageOption";
+
+      break;
+    case 55:
+      v4 = @"ReorderPlaybackQueue";
+
+      break;
+    case 56:
+      v4 = @"RemoveFromPlaybackQueue";
+
+      break;
+    case 57:
+      v4 = @"PlayItemInPlaybackQueue";
+
+      break;
+    case 58:
+      v4 = @"PrepareForSetQueue";
+
+      break;
+    case 59:
+      v4 = @"SetPlaybackSession";
+
+      break;
+    case 60:
+      v4 = @"PreloadPlaybackSession";
+
+      break;
+    case 61:
+      v4 = @"SetPriorityForPlaybackSession";
+
+      break;
+    case 62:
+      v4 = @"DiscardPlaybackSession";
+
+      break;
+    case 63:
+      v4 = @"Reshuffle";
+
+      break;
+    case 64:
+      v4 = @"LeaveSharedPlaybackSession";
+
+      break;
+    case 65:
+      v4 = @"PostEventNotice";
+
+      break;
+    case 124:
+      v4 = @"SetSleepTimer";
+
+      break;
+    case 135:
+      v4 = @"ChangeQueueEndAction";
+
+      break;
+    case 142:
+      v4 = @"VocalsControl";
+
+      break;
+    case 143:
+      v4 = @"PrepareVocalsControl";
+
+      break;
+    case 144:
+      v4 = @"ClearUpNextQueue";
+
+      break;
+    case 145:
+      v4 = @"PerformDialogAction";
+
+      break;
+    case 146:
+      v4 = @"DelegateAccount";
+
+      break;
+    case 147:
+      v4 = @"EnhanceDialogue";
+
+      break;
+    case 149:
+      v4 = @"ToggleTransitions";
+
+      break;
+    default:
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_198:
+
+      break;
+  }
+
+  return v4;
+}
+
 - (int)StringAsCommand:(id)command
 {
   commandCopy = command;
-  if ([commandCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 0;
   }
 
-  else if ([commandCopy isEqualToString:@"Play"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 1;
   }
 
-  else if ([commandCopy isEqualToString:@"Pause"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 2;
   }
 
-  else if ([commandCopy isEqualToString:@"TogglePlayPause"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 3;
   }
 
-  else if ([commandCopy isEqualToString:@"Stop"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 4;
   }
 
-  else if ([commandCopy isEqualToString:@"NextTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 5;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 6;
   }
 
-  else if ([commandCopy isEqualToString:@"AdvanceShuffleMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 7;
   }
 
-  else if ([commandCopy isEqualToString:@"AdvanceRepeatMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 8;
   }
 
-  else if ([commandCopy isEqualToString:@"BeginFastForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 9;
   }
 
-  else if ([commandCopy isEqualToString:@"EndFastForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 10;
   }
 
-  else if ([commandCopy isEqualToString:@"BeginRewind"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 11;
   }
 
-  else if ([commandCopy isEqualToString:@"EndRewind"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 12;
   }
 
-  else if ([commandCopy isEqualToString:@"Rewind15Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 13;
   }
 
-  else if ([commandCopy isEqualToString:@"FastForward15Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 14;
   }
 
-  else if ([commandCopy isEqualToString:@"Rewind30Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 15;
   }
 
-  else if ([commandCopy isEqualToString:@"FastForward30Seconds"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 16;
   }
 
-  else if ([commandCopy isEqualToString:@"SkipForward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 18;
   }
 
-  else if ([commandCopy isEqualToString:@"SkipBackward"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 19;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangePlaybackRate"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 20;
   }
 
-  else if ([commandCopy isEqualToString:@"RateTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 21;
   }
 
-  else if ([commandCopy isEqualToString:@"LikeTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 22;
   }
 
-  else if ([commandCopy isEqualToString:@"DislikeTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 23;
   }
 
-  else if ([commandCopy isEqualToString:@"BookmarkTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 24;
   }
 
-  else if ([commandCopy isEqualToString:@"SeekToPlaybackPosition"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 45;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeRepeatMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 46;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeShuffleMode"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 47;
   }
 
-  else if ([commandCopy isEqualToString:@"EnableLanguageOption"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 53;
   }
 
-  else if ([commandCopy isEqualToString:@"DisableLanguageOption"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 54;
   }
 
-  else if ([commandCopy isEqualToString:@"NextChapter"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 25;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousChapter"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 26;
   }
 
-  else if ([commandCopy isEqualToString:@"NextAlbum"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 27;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousAlbum"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 28;
   }
 
-  else if ([commandCopy isEqualToString:@"NextPlaylist"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 29;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousPlaylist"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 30;
   }
 
-  else if ([commandCopy isEqualToString:@"BanTrack"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 31;
   }
 
-  else if ([commandCopy isEqualToString:@"AddTrackToWishList"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 32;
   }
 
-  else if ([commandCopy isEqualToString:@"RemoveTrackFromWishList"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 33;
   }
 
-  else if ([commandCopy isEqualToString:@"NextInContext"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 34;
   }
 
-  else if ([commandCopy isEqualToString:@"PreviousInContext"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 35;
   }
 
-  else if ([commandCopy isEqualToString:@"ResetPlaybackTimeout"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 41;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 48;
   }
 
-  else if ([commandCopy isEqualToString:@"AddNowPlayingItemToLibrary"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 49;
   }
 
-  else if ([commandCopy isEqualToString:@"CreateRadioStation"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 50;
   }
 
-  else if ([commandCopy isEqualToString:@"AddItemToLibrary"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 51;
   }
 
-  else if ([commandCopy isEqualToString:@"InsertIntoPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 52;
   }
 
-  else if ([commandCopy isEqualToString:@"ReorderPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 55;
   }
 
-  else if ([commandCopy isEqualToString:@"RemoveFromPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 56;
   }
 
-  else if ([commandCopy isEqualToString:@"PlayItemInPlaybackQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 57;
   }
 
-  else if ([commandCopy isEqualToString:@"PrepareForSetQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 58;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 59;
   }
 
-  else if ([commandCopy isEqualToString:@"PreloadPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 60;
   }
 
-  else if ([commandCopy isEqualToString:@"SetPriorityForPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 61;
   }
 
-  else if ([commandCopy isEqualToString:@"DiscardPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 62;
   }
 
-  else if ([commandCopy isEqualToString:@"Reshuffle"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 63;
   }
 
-  else if ([commandCopy isEqualToString:@"LeaveSharedPlaybackSession"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 64;
   }
 
-  else if ([commandCopy isEqualToString:@"PostEventNotice"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 65;
   }
 
-  else if ([commandCopy isEqualToString:@"SetSleepTimer"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 124;
   }
 
-  else if ([commandCopy isEqualToString:@"ChangeQueueEndAction"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 135;
   }
 
-  else if ([commandCopy isEqualToString:@"VocalsControl"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 142;
   }
 
-  else if ([commandCopy isEqualToString:@"PrepareVocalsControl"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 143;
   }
 
-  else if ([commandCopy isEqualToString:@"ClearUpNextQueue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 144;
   }
 
-  else if ([commandCopy isEqualToString:@"PerformDialogAction"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 145;
   }
 
-  else if ([commandCopy isEqualToString:@"DelegateAccount"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 146;
   }
 
-  else if ([commandCopy isEqualToString:@"EnhanceDialogue"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 147;
   }
 
-  else if ([commandCopy isEqualToString:@"ToggleTransitions"])
+  else if (objc_msgSend_isEqualToString_(commandCopy))
   {
     v4 = 149;
   }
@@ -562,25 +846,40 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)repeatModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0AA8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRepeatMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"None"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"One"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"All"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -621,25 +920,40 @@
   self->_has = (*&self->_has & 0xFFFFEFFF | v3);
 }
 
+- (id)shuffleModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0AC8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsShuffleMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"Off"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"Albums"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"Songs"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -871,25 +1185,40 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)currentQueueEndActionAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0AE8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCurrentQueueEndAction:(id)action
 {
   actionCopy = action;
-  if ([actionCopy isEqualToString:@"Clear"])
+  if (objc_msgSend_isEqualToString_(actionCopy))
   {
     v4 = 0;
   }
 
-  else if ([actionCopy isEqualToString:@"None"])
+  else if (objc_msgSend_isEqualToString_(actionCopy))
   {
     v4 = 1;
   }
 
-  else if ([actionCopy isEqualToString:@"Reset"])
+  else if (objc_msgSend_isEqualToString_(actionCopy))
   {
     v4 = 2;
   }
 
-  else if ([actionCopy isEqualToString:@"AutoPlay"])
+  else if (objc_msgSend_isEqualToString_(actionCopy))
   {
     v4 = 3;
   }
@@ -918,25 +1247,40 @@
   return p_supportedQueueEndActions->list[index];
 }
 
+- (id)supportedQueueEndActionsAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0AE8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSupportedQueueEndActions:(id)actions
 {
   actionsCopy = actions;
-  if ([actionsCopy isEqualToString:@"Clear"])
+  if (objc_msgSend_isEqualToString_(actionsCopy))
   {
     v4 = 0;
   }
 
-  else if ([actionsCopy isEqualToString:@"None"])
+  else if (objc_msgSend_isEqualToString_(actionsCopy))
   {
     v4 = 1;
   }
 
-  else if ([actionsCopy isEqualToString:@"Reset"])
+  else if (objc_msgSend_isEqualToString_(actionsCopy))
   {
     v4 = 2;
   }
 
-  else if ([actionsCopy isEqualToString:@"AutoPlay"])
+  else if (objc_msgSend_isEqualToString_(actionsCopy))
   {
     v4 = 3;
   }
@@ -977,25 +1321,40 @@
   self->_has = (*&self->_has & 0xFFFFFFDF | v3);
 }
 
+- (id)disabledReasonAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0B08[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDisabledReason:(id)reason
 {
   reasonCopy = reason;
-  if ([reasonCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 0;
   }
 
-  else if ([reasonCopy isEqualToString:@"AdPlayback"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 1;
   }
 
-  else if ([reasonCopy isEqualToString:@"SkipLimitReached"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 2;
   }
 
-  else if ([reasonCopy isEqualToString:@"InvalidAdRanges"])
+  else if (objc_msgSend_isEqualToString_(reasonCopy))
   {
     v4 = 3;
   }
@@ -1144,25 +1503,40 @@
   self->_has = (*&self->_has & 0xFFFF7FFF | v3);
 }
 
+- (id)sleepTimerStopModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A0B28[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSleepTimerStopMode:(id)mode
 {
   modeCopy = mode;
-  if ([modeCopy isEqualToString:@"Off"])
+  if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 0;
   }
 
-  else if ([modeCopy isEqualToString:@"Time"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 1;
   }
 
-  else if ([modeCopy isEqualToString:@"ChapterEnd"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 2;
   }
 
-  else if ([modeCopy isEqualToString:@"ItemEnd"])
+  else if (objc_msgSend_isEqualToString_(modeCopy))
   {
     v4 = 3;
   }
@@ -1235,7 +1609,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if ((*&has & 8) != 0)
@@ -1559,8 +1933,8 @@ LABEL_85:
   }
 
 LABEL_167:
-  v72 = [MEMORY[0x1E696AD98] numberWithInt:self->_presentationStyle];
-  [dictionary setObject:v72 forKey:@"presentationStyle"];
+  v71 = [MEMORY[0x1E696AD98] numberWithInt:self->_presentationStyle];
+  [dictionary setObject:v71 forKey:@"presentationStyle"];
 
   v16 = self->_has;
   if ((*&v16 & 0x4000) == 0)
@@ -1575,8 +1949,8 @@ LABEL_86:
   }
 
 LABEL_168:
-  v73 = [MEMORY[0x1E696AD98] numberWithInt:self->_skipInterval];
-  [dictionary setObject:v73 forKey:@"skipInterval"];
+  v72 = [MEMORY[0x1E696AD98] numberWithInt:self->_skipInterval];
+  [dictionary setObject:v72 forKey:@"skipInterval"];
 
   v16 = self->_has;
   if ((*&v16 & 0x100) == 0)
@@ -1591,8 +1965,8 @@ LABEL_87:
   }
 
 LABEL_169:
-  v74 = [MEMORY[0x1E696AD98] numberWithInt:self->_numAvailableSkips];
-  [dictionary setObject:v74 forKey:@"numAvailableSkips"];
+  v73 = [MEMORY[0x1E696AD98] numberWithInt:self->_numAvailableSkips];
+  [dictionary setObject:v73 forKey:@"numAvailableSkips"];
 
   v16 = self->_has;
   if ((*&v16 & 0x2000) == 0)
@@ -1607,8 +1981,8 @@ LABEL_88:
   }
 
 LABEL_170:
-  v75 = [MEMORY[0x1E696AD98] numberWithInt:self->_skipFrequency];
-  [dictionary setObject:v75 forKey:@"skipFrequency"];
+  v74 = [MEMORY[0x1E696AD98] numberWithInt:self->_skipFrequency];
+  [dictionary setObject:v74 forKey:@"skipFrequency"];
 
   if ((*&self->_has & 4) != 0)
   {
@@ -1730,30 +2104,30 @@ LABEL_90:
   if ([(NSMutableArray *)self->_supportedPlaybackSessionIdentifiers count])
   {
     v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_supportedPlaybackSessionIdentifiers, "count")}];
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
     v43 = self->_supportedPlaybackSessionIdentifiers;
-    v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v76 objects:v80 count:16];
+    v44 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v75 objects:v79 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v77;
+      v46 = *v76;
       do
       {
         for (i = 0; i != v45; ++i)
         {
-          if (*v77 != v46)
+          if (*v76 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          dictionaryRepresentation = [*(*(&v76 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v75 + 1) + 8 * i) dictionaryRepresentation];
           [v42 addObject:dictionaryRepresentation];
         }
 
-        v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v76 objects:v80 count:16];
+        v45 = [(NSMutableArray *)v43 countByEnumeratingWithState:&v75 objects:v79 count:16];
       }
 
       while (v45);
@@ -1772,8 +2146,8 @@ LABEL_90:
   v51 = self->_has;
   if ((*&v51 & 0x1000000) != 0)
   {
-    v64 = [MEMORY[0x1E696AD98] numberWithBool:self->_vocalsControlActive];
-    [dictionary setObject:v64 forKey:@"vocalsControlActive"];
+    v63 = [MEMORY[0x1E696AD98] numberWithBool:self->_vocalsControlActive];
+    [dictionary setObject:v63 forKey:@"vocalsControlActive"];
 
     v51 = self->_has;
     if ((*&v51 & 0x40000) == 0)
@@ -1794,8 +2168,8 @@ LABEL_139:
   }
 
   *&v41 = self->_vocalsControlLevel;
-  v65 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-  [dictionary setObject:v65 forKey:@"vocalsControlLevel"];
+  v64 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+  [dictionary setObject:v64 forKey:@"vocalsControlLevel"];
 
   v51 = self->_has;
   if ((*&v51 & 0x80000) == 0)
@@ -1811,8 +2185,8 @@ LABEL_140:
 
 LABEL_159:
   *&v41 = self->_vocalsControlMaxLevel;
-  v66 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-  [dictionary setObject:v66 forKey:@"vocalsControlMaxLevel"];
+  v65 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+  [dictionary setObject:v65 forKey:@"vocalsControlMaxLevel"];
 
   v51 = self->_has;
   if ((*&v51 & 0x100000) == 0)
@@ -1828,8 +2202,8 @@ LABEL_141:
 
 LABEL_160:
   *&v41 = self->_vocalsControlMinLevel;
-  v67 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
-  [dictionary setObject:v67 forKey:@"vocalsControlMinLevel"];
+  v66 = [MEMORY[0x1E696AD98] numberWithFloat:v41];
+  [dictionary setObject:v66 forKey:@"vocalsControlMinLevel"];
 
   v51 = self->_has;
   if ((*&v51 & 0x2000000) == 0)
@@ -1844,8 +2218,8 @@ LABEL_142:
   }
 
 LABEL_161:
-  v68 = [MEMORY[0x1E696AD98] numberWithBool:self->_vocalsControlContinuous];
-  [dictionary setObject:v68 forKey:@"vocalsControlContinuous"];
+  v67 = [MEMORY[0x1E696AD98] numberWithBool:self->_vocalsControlContinuous];
+  [dictionary setObject:v67 forKey:@"vocalsControlContinuous"];
 
   v51 = self->_has;
   if ((*&v51 & 2) == 0)
@@ -1860,8 +2234,8 @@ LABEL_143:
   }
 
 LABEL_162:
-  v69 = [MEMORY[0x1E696AD98] numberWithDouble:self->_sleepTimerTime];
-  [dictionary setObject:v69 forKey:@"sleepTimerTime"];
+  v68 = [MEMORY[0x1E696AD98] numberWithDouble:self->_sleepTimerTime];
+  [dictionary setObject:v68 forKey:@"sleepTimerTime"];
 
   v51 = self->_has;
   if ((*&v51 & 0x8000) == 0)
@@ -1879,15 +2253,15 @@ LABEL_163:
   sleepTimerStopMode = self->_sleepTimerStopMode;
   if (sleepTimerStopMode >= 4)
   {
-    v71 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", self->_sleepTimerStopMode];
+    v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", self->_sleepTimerStopMode];
   }
 
   else
   {
-    v71 = off_1E76A0B28[sleepTimerStopMode];
+    v70 = off_1E76A0B28[sleepTimerStopMode];
   }
 
-  [dictionary setObject:v71 forKey:@"sleepTimerStopMode"];
+  [dictionary setObject:v70 forKey:@"sleepTimerStopMode"];
 
   if (*&self->_has)
   {
@@ -1934,18 +2308,16 @@ LABEL_146:
 
   v61 = dictionary;
 
-  v62 = *MEMORY[0x1E69E9840];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if ((*&has & 8) != 0)
   {
-    command = self->_command;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((*&has & 0x400000) == 0)
@@ -1965,27 +2337,24 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  enabled = self->_enabled;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x200000) != 0)
   {
 LABEL_4:
-    active = self->_active;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_5:
   if (self->_preferredIntervals.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_preferredIntervals.list[v7];
       PBDataWriterWriteDoubleField();
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < self->_preferredIntervals.count);
+    while (v6 < self->_preferredIntervals.count);
   }
 
   if (self->_localizedTitle)
@@ -1993,31 +2362,28 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((*&v9 & 0x80) != 0)
+  v7 = self->_has;
+  if ((*&v7 & 0x80) != 0)
   {
-    minimumRating = self->_minimumRating;
     PBDataWriterWriteFloatField();
-    v9 = self->_has;
+    v7 = self->_has;
   }
 
-  if ((*&v9 & 0x40) != 0)
+  if ((*&v7 & 0x40) != 0)
   {
-    maximumRating = self->_maximumRating;
     PBDataWriterWriteFloatField();
   }
 
   if (self->_supportedRates.count)
   {
-    v12 = 0;
+    v8 = 0;
     do
     {
-      v13 = self->_supportedRates.list[v12];
       PBDataWriterWriteFloatField();
-      ++v12;
+      ++v8;
     }
 
-    while (v12 < self->_supportedRates.count);
+    while (v8 < self->_supportedRates.count);
   }
 
   if (self->_localizedShortTitle)
@@ -2025,16 +2391,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v14 = self->_has;
-  if ((*&v14 & 0x800) != 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x800) != 0)
   {
-    repeatMode = self->_repeatMode;
     PBDataWriterWriteInt32Field();
-    v14 = self->_has;
-    if ((*&v14 & 0x1000) == 0)
+    v9 = self->_has;
+    if ((*&v9 & 0x1000) == 0)
     {
 LABEL_21:
-      if ((*&v14 & 0x400) == 0)
+      if ((*&v9 & 0x400) == 0)
       {
         goto LABEL_22;
       }
@@ -2043,18 +2408,17 @@ LABEL_21:
     }
   }
 
-  else if ((*&v14 & 0x1000) == 0)
+  else if ((*&v9 & 0x1000) == 0)
   {
     goto LABEL_21;
   }
 
-  shuffleMode = self->_shuffleMode;
   PBDataWriterWriteInt32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x400) == 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x400) == 0)
   {
 LABEL_22:
-    if ((*&v14 & 0x4000) == 0)
+    if ((*&v9 & 0x4000) == 0)
     {
       goto LABEL_23;
     }
@@ -2063,13 +2427,12 @@ LABEL_22:
   }
 
 LABEL_104:
-  presentationStyle = self->_presentationStyle;
   PBDataWriterWriteInt32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x4000) == 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x4000) == 0)
   {
 LABEL_23:
-    if ((*&v14 & 0x100) == 0)
+    if ((*&v9 & 0x100) == 0)
     {
       goto LABEL_24;
     }
@@ -2078,13 +2441,12 @@ LABEL_23:
   }
 
 LABEL_105:
-  skipInterval = self->_skipInterval;
   PBDataWriterWriteInt32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x100) == 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x100) == 0)
   {
 LABEL_24:
-    if ((*&v14 & 0x2000) == 0)
+    if ((*&v9 & 0x2000) == 0)
     {
       goto LABEL_25;
     }
@@ -2093,13 +2455,12 @@ LABEL_24:
   }
 
 LABEL_106:
-  numAvailableSkips = self->_numAvailableSkips;
   PBDataWriterWriteInt32Field();
-  v14 = self->_has;
-  if ((*&v14 & 0x2000) == 0)
+  v9 = self->_has;
+  if ((*&v9 & 0x2000) == 0)
   {
 LABEL_25:
-    if ((*&v14 & 4) == 0)
+    if ((*&v9 & 4) == 0)
     {
       goto LABEL_27;
     }
@@ -2108,141 +2469,141 @@ LABEL_25:
   }
 
 LABEL_107:
-  skipFrequency = self->_skipFrequency;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_26:
-    canScrub = self->_canScrub;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_27:
   if (self->_supportedPlaybackQueueTypes.count)
   {
+    v10 = 0;
+    do
+    {
+      PBDataWriterWriteInt32Field();
+      ++v10;
+    }
+
+    while (v10 < self->_supportedPlaybackQueueTypes.count);
+  }
+
+  v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v11 = self->_supportedCustomQueueIdentifiers;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v48 objects:v55 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v49;
+    do
+    {
+      v15 = 0;
+      do
+      {
+        if (*v49 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        PBDataWriterWriteStringField();
+        ++v15;
+      }
+
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v48 objects:v55 count:16];
+    }
+
+    while (v13);
+  }
+
+  if (self->_supportedInsertionPositions.count)
+  {
     v16 = 0;
     do
     {
-      v17 = self->_supportedPlaybackQueueTypes.list[v16];
       PBDataWriterWriteInt32Field();
       ++v16;
     }
 
-    while (v16 < self->_supportedPlaybackQueueTypes.count);
+    while (v16 < self->_supportedInsertionPositions.count);
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v18 = self->_supportedCustomQueueIdentifiers;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v85 objects:v92 count:16];
+  v17 = self->_has;
+  if ((*&v17 & 0x20000) != 0)
+  {
+    PBDataWriterWriteInt32Field();
+    v17 = self->_has;
+  }
+
+  if ((*&v17 & 0x200) != 0)
+  {
+    PBDataWriterWriteFloatField();
+  }
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v18 = self->_supportedPlaybackSessionTypes;
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v44 objects:v54 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v86;
+    v21 = *v45;
     do
     {
-      for (i = 0; i != v20; ++i)
+      v22 = 0;
+      do
       {
-        if (*v86 != v21)
+        if (*v45 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v85 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v22;
       }
 
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v85 objects:v92 count:16];
+      while (v20 != v22);
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v44 objects:v54 count:16];
     }
 
     while (v20);
   }
 
-  if (self->_supportedInsertionPositions.count)
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v23 = self->_currentPlaybackSessionTypes;
+  v24 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v53 count:16];
+  if (v24)
   {
-    v24 = 0;
+    v25 = v24;
+    v26 = *v41;
     do
     {
-      v25 = self->_supportedInsertionPositions.list[v24];
-      PBDataWriterWriteInt32Field();
-      ++v24;
-    }
-
-    while (v24 < self->_supportedInsertionPositions.count);
-  }
-
-  v26 = self->_has;
-  if ((*&v26 & 0x20000) != 0)
-  {
-    upNextItemCount = self->_upNextItemCount;
-    PBDataWriterWriteInt32Field();
-    v26 = self->_has;
-  }
-
-  if ((*&v26 & 0x200) != 0)
-  {
-    preferredPlaybackRate = self->_preferredPlaybackRate;
-    PBDataWriterWriteFloatField();
-  }
-
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v29 = self->_supportedPlaybackSessionTypes;
-  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v81 objects:v91 count:16];
-  if (v30)
-  {
-    v31 = v30;
-    v32 = *v82;
-    do
-    {
-      for (j = 0; j != v31; ++j)
+      v27 = 0;
+      do
       {
-        if (*v82 != v32)
+        if (*v41 != v26)
         {
-          objc_enumerationMutation(v29);
+          objc_enumerationMutation(v23);
         }
 
-        v34 = *(*(&v81 + 1) + 8 * j);
         PBDataWriterWriteStringField();
+        ++v27;
       }
 
-      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v81 objects:v91 count:16];
+      while (v25 != v27);
+      v25 = [(NSMutableArray *)v23 countByEnumeratingWithState:&v40 objects:v53 count:16];
     }
 
-    while (v31);
-  }
-
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v35 = self->_currentPlaybackSessionTypes;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v77 objects:v90 count:16];
-  if (v36)
-  {
-    v37 = v36;
-    v38 = *v78;
-    do
-    {
-      for (k = 0; k != v37; ++k)
-      {
-        if (*v78 != v38)
-        {
-          objc_enumerationMutation(v35);
-        }
-
-        v40 = *(*(&v77 + 1) + 8 * k);
-        PBDataWriterWriteStringField();
-      }
-
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v77 objects:v90 count:16];
-    }
-
-    while (v37);
+    while (v25);
   }
 
   if (self->_playbackSessionIdentifier)
@@ -2252,56 +2613,55 @@ LABEL_27:
 
   if ((*&self->_has & 0x10) != 0)
   {
-    currentQueueEndAction = self->_currentQueueEndAction;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_supportedQueueEndActions.count)
   {
-    v42 = 0;
+    v28 = 0;
     do
     {
-      v43 = self->_supportedQueueEndActions.list[v42];
       PBDataWriterWriteInt32Field();
-      ++v42;
+      ++v28;
     }
 
-    while (v42 < self->_supportedQueueEndActions.count);
+    while (v28 < self->_supportedQueueEndActions.count);
   }
 
   if ((*&self->_has & 0x20) != 0)
   {
-    disabledReason = self->_disabledReason;
     PBDataWriterWriteInt32Field();
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v45 = self->_supportedPlaybackSessionIdentifiers;
-  v46 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v73 objects:v89 count:16];
-  if (v46)
+  v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v29 = self->_supportedPlaybackSessionIdentifiers;
+  v30 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v52 count:16];
+  if (v30)
   {
-    v47 = v46;
-    v48 = *v74;
+    v31 = v30;
+    v32 = *v37;
     do
     {
-      for (m = 0; m != v47; ++m)
+      v33 = 0;
+      do
       {
-        if (*v74 != v48)
+        if (*v37 != v32)
         {
-          objc_enumerationMutation(v45);
+          objc_enumerationMutation(v29);
         }
 
-        v50 = *(*(&v73 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
+        ++v33;
       }
 
-      v47 = [(NSMutableArray *)v45 countByEnumeratingWithState:&v73 objects:v89 count:16];
+      while (v31 != v33);
+      v31 = [(NSMutableArray *)v29 countByEnumeratingWithState:&v36 objects:v52 count:16];
     }
 
-    while (v47);
+    while (v31);
   }
 
   if (self->_proactiveCommandOptions)
@@ -2309,16 +2669,15 @@ LABEL_27:
     PBDataWriterWriteSubmessage();
   }
 
-  v51 = self->_has;
-  if ((*&v51 & 0x1000000) != 0)
+  v34 = self->_has;
+  if ((*&v34 & 0x1000000) != 0)
   {
-    vocalsControlActive = self->_vocalsControlActive;
     PBDataWriterWriteBOOLField();
-    v51 = self->_has;
-    if ((*&v51 & 0x40000) == 0)
+    v34 = self->_has;
+    if ((*&v34 & 0x40000) == 0)
     {
 LABEL_78:
-      if ((*&v51 & 0x80000) == 0)
+      if ((*&v34 & 0x80000) == 0)
       {
         goto LABEL_79;
       }
@@ -2327,18 +2686,17 @@ LABEL_78:
     }
   }
 
-  else if ((*&v51 & 0x40000) == 0)
+  else if ((*&v34 & 0x40000) == 0)
   {
     goto LABEL_78;
   }
 
-  vocalsControlLevel = self->_vocalsControlLevel;
   PBDataWriterWriteFloatField();
-  v51 = self->_has;
-  if ((*&v51 & 0x80000) == 0)
+  v34 = self->_has;
+  if ((*&v34 & 0x80000) == 0)
   {
 LABEL_79:
-    if ((*&v51 & 0x100000) == 0)
+    if ((*&v34 & 0x100000) == 0)
     {
       goto LABEL_80;
     }
@@ -2347,13 +2705,12 @@ LABEL_79:
   }
 
 LABEL_111:
-  vocalsControlMaxLevel = self->_vocalsControlMaxLevel;
   PBDataWriterWriteFloatField();
-  v51 = self->_has;
-  if ((*&v51 & 0x100000) == 0)
+  v34 = self->_has;
+  if ((*&v34 & 0x100000) == 0)
   {
 LABEL_80:
-    if ((*&v51 & 0x2000000) == 0)
+    if ((*&v34 & 0x2000000) == 0)
     {
       goto LABEL_81;
     }
@@ -2362,13 +2719,12 @@ LABEL_80:
   }
 
 LABEL_112:
-  vocalsControlMinLevel = self->_vocalsControlMinLevel;
   PBDataWriterWriteFloatField();
-  v51 = self->_has;
-  if ((*&v51 & 0x2000000) == 0)
+  v34 = self->_has;
+  if ((*&v34 & 0x2000000) == 0)
   {
 LABEL_81:
-    if ((*&v51 & 2) == 0)
+    if ((*&v34 & 2) == 0)
     {
       goto LABEL_82;
     }
@@ -2377,13 +2733,12 @@ LABEL_81:
   }
 
 LABEL_113:
-  vocalsControlContinuous = self->_vocalsControlContinuous;
   PBDataWriterWriteBOOLField();
-  v51 = self->_has;
-  if ((*&v51 & 2) == 0)
+  v34 = self->_has;
+  if ((*&v34 & 2) == 0)
   {
 LABEL_82:
-    if ((*&v51 & 0x8000) == 0)
+    if ((*&v34 & 0x8000) == 0)
     {
       goto LABEL_83;
     }
@@ -2392,13 +2747,12 @@ LABEL_82:
   }
 
 LABEL_114:
-  sleepTimerTime = self->_sleepTimerTime;
   PBDataWriterWriteDoubleField();
-  v51 = self->_has;
-  if ((*&v51 & 0x8000) == 0)
+  v34 = self->_has;
+  if ((*&v34 & 0x8000) == 0)
   {
 LABEL_83:
-    if ((*&v51 & 1) == 0)
+    if ((*&v34 & 1) == 0)
     {
       goto LABEL_85;
     }
@@ -2407,12 +2761,10 @@ LABEL_83:
   }
 
 LABEL_115:
-  sleepTimerStopMode = self->_sleepTimerStopMode;
   PBDataWriterWriteInt32Field();
   if (*&self->_has)
   {
 LABEL_84:
-    sleepTimerFireDate = self->_sleepTimerFireDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -2429,7 +2781,6 @@ LABEL_85:
 
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    supportsReferencePosition = self->_supportsReferencePosition;
     PBDataWriterWriteBOOLField();
   }
 
@@ -2440,24 +2791,20 @@ LABEL_85:
 
   if (self->_extendedSupportedRates.count)
   {
-    v54 = 0;
+    v35 = 0;
     do
     {
-      v55 = self->_extendedSupportedRates.list[v54];
       PBDataWriterWriteFloatField();
-      ++v54;
+      ++v35;
     }
 
-    while (v54 < self->_extendedSupportedRates.count);
+    while (v35 < self->_extendedSupportedRates.count);
   }
 
   if (*(&self->_has + 2))
   {
-    transitionStyle = self->_transitionStyle;
     PBDataWriterWriteInt32Field();
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -2941,7 +3288,7 @@ LABEL_78:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v73 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -3095,34 +3442,34 @@ LABEL_16:
 
 LABEL_17:
   PBRepeatedInt32Copy();
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v14 = self->_supportedCustomQueueIdentifiers;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v65 objects:v72 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v64 objects:v71 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v66;
+    v17 = *v65;
     do
     {
       v18 = 0;
       do
       {
-        if (*v66 != v17)
+        if (*v65 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v65 + 1) + 8 * v18) copyWithZone:zone];
+        v19 = [*(*(&v64 + 1) + 8 * v18) copyWithZone:zone];
         [v6 addSupportedCustomQueueIdentifier:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v65 objects:v72 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v64 objects:v71 count:16];
     }
 
     while (v16);
@@ -3143,67 +3490,67 @@ LABEL_17:
     *(v6 + 356) |= 0x200u;
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v21 = self->_supportedPlaybackSessionTypes;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v61 objects:v71 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v60 objects:v70 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v62;
+    v24 = *v61;
     do
     {
       v25 = 0;
       do
       {
-        if (*v62 != v24)
+        if (*v61 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [*(*(&v61 + 1) + 8 * v25) copyWithZone:zone];
+        v26 = [*(*(&v60 + 1) + 8 * v25) copyWithZone:zone];
         [v6 addSupportedPlaybackSessionTypes:v26];
 
         ++v25;
       }
 
       while (v23 != v25);
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v61 objects:v71 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v60 objects:v70 count:16];
     }
 
     while (v23);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v27 = self->_currentPlaybackSessionTypes;
-  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v57 objects:v70 count:16];
+  v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v56 objects:v69 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v58;
+    v30 = *v57;
     do
     {
       v31 = 0;
       do
       {
-        if (*v58 != v30)
+        if (*v57 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = [*(*(&v57 + 1) + 8 * v31) copyWithZone:zone];
+        v32 = [*(*(&v56 + 1) + 8 * v31) copyWithZone:zone];
         [v6 addCurrentPlaybackSessionTypes:v32];
 
         ++v31;
       }
 
       while (v29 != v31);
-      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v57 objects:v70 count:16];
+      v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v56 objects:v69 count:16];
     }
 
     while (v29);
@@ -3226,34 +3573,34 @@ LABEL_17:
     *(v6 + 356) |= 0x20u;
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v35 = self->_supportedPlaybackSessionIdentifiers;
-  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v69 count:16];
+  v36 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v68 count:16];
   if (v36)
   {
     v37 = v36;
-    v38 = *v54;
+    v38 = *v53;
     do
     {
       v39 = 0;
       do
       {
-        if (*v54 != v38)
+        if (*v53 != v38)
         {
           objc_enumerationMutation(v35);
         }
 
-        v40 = [*(*(&v53 + 1) + 8 * v39) copyWithZone:{zone, v53}];
+        v40 = [*(*(&v52 + 1) + 8 * v39) copyWithZone:{zone, v52}];
         [v6 addSupportedPlaybackSessionIdentifiers:v40];
 
         ++v39;
       }
 
       while (v37 != v39);
-      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v53 objects:v69 count:16];
+      v37 = [(NSMutableArray *)v35 countByEnumeratingWithState:&v52 objects:v68 count:16];
     }
 
     while (v37);
@@ -3371,7 +3718,7 @@ LABEL_61:
   }
 
 LABEL_62:
-  v44 = [(_MRDictionaryProtobuf *)self->_dialogOptions copyWithZone:zone, v53];
+  v44 = [(_MRDictionaryProtobuf *)self->_dialogOptions copyWithZone:zone, v52];
   v45 = *(v6 + 192);
   *(v6 + 192) = v44;
 
@@ -3398,7 +3745,6 @@ LABEL_62:
 
   v50 = v6;
 
-  v51 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
@@ -3432,7 +3778,6 @@ LABEL_62:
       goto LABEL_175;
     }
 
-    v10 = *(equalCopy + 349);
     if (self->_enabled)
     {
       if ((*(equalCopy + 349) & 1) == 0)
@@ -3459,7 +3804,6 @@ LABEL_62:
       goto LABEL_175;
     }
 
-    v11 = *(equalCopy + 348);
     if (self->_active)
     {
       if ((*(equalCopy + 348) & 1) == 0)
@@ -3535,95 +3879,95 @@ LABEL_62:
     }
   }
 
-  v13 = self->_has;
-  v14 = *(equalCopy + 89);
-  if ((*&v13 & 0x800) != 0)
+  v11 = self->_has;
+  v12 = *(equalCopy + 89);
+  if ((*&v11 & 0x800) != 0)
   {
-    if ((v14 & 0x800) == 0 || self->_repeatMode != *(equalCopy + 70))
+    if ((v12 & 0x800) == 0 || self->_repeatMode != *(equalCopy + 70))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x800) != 0)
+  else if ((v12 & 0x800) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 0x1000) != 0)
+  if ((*&v11 & 0x1000) != 0)
   {
-    if ((v14 & 0x1000) == 0 || self->_shuffleMode != *(equalCopy + 71))
+    if ((v12 & 0x1000) == 0 || self->_shuffleMode != *(equalCopy + 71))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x1000) != 0)
+  else if ((v12 & 0x1000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 0x400) != 0)
+  if ((*&v11 & 0x400) != 0)
   {
-    if ((v14 & 0x400) == 0 || self->_presentationStyle != *(equalCopy + 67))
+    if ((v12 & 0x400) == 0 || self->_presentationStyle != *(equalCopy + 67))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x400) != 0)
+  else if ((v12 & 0x400) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 0x4000) != 0)
+  if ((*&v11 & 0x4000) != 0)
   {
-    if ((v14 & 0x4000) == 0 || self->_skipInterval != *(equalCopy + 73))
+    if ((v12 & 0x4000) == 0 || self->_skipInterval != *(equalCopy + 73))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x4000) != 0)
+  else if ((v12 & 0x4000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 0x100) != 0)
+  if ((*&v11 & 0x100) != 0)
   {
-    if ((v14 & 0x100) == 0 || self->_numAvailableSkips != *(equalCopy + 60))
+    if ((v12 & 0x100) == 0 || self->_numAvailableSkips != *(equalCopy + 60))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x100) != 0)
+  else if ((v12 & 0x100) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 0x2000) != 0)
+  if ((*&v11 & 0x2000) != 0)
   {
-    if ((v14 & 0x2000) == 0 || self->_skipFrequency != *(equalCopy + 72))
+    if ((v12 & 0x2000) == 0 || self->_skipFrequency != *(equalCopy + 72))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 0x2000) != 0)
+  else if ((v12 & 0x2000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v13 & 4) != 0)
+  if ((*&v11 & 4) != 0)
   {
-    if ((v14 & 4) == 0 || self->_canScrub != *(equalCopy + 42))
+    if ((v12 & 4) == 0 || self->_canScrub != *(equalCopy + 42))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v14 & 4) != 0)
+  else if ((v12 & 4) != 0)
   {
     goto LABEL_175;
   }
@@ -3647,30 +3991,30 @@ LABEL_62:
     goto LABEL_175;
   }
 
-  v16 = self->_has;
-  v17 = *(equalCopy + 89);
-  if ((*&v16 & 0x20000) != 0)
+  v14 = self->_has;
+  v15 = *(equalCopy + 89);
+  if ((*&v14 & 0x20000) != 0)
   {
-    if ((v17 & 0x20000) == 0 || self->_upNextItemCount != *(equalCopy + 83))
+    if ((v15 & 0x20000) == 0 || self->_upNextItemCount != *(equalCopy + 83))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v17 & 0x20000) != 0)
+  else if ((v15 & 0x20000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v16 & 0x200) != 0)
+  if ((*&v14 & 0x200) != 0)
   {
-    if ((v17 & 0x200) == 0 || self->_preferredPlaybackRate != *(equalCopy + 66))
+    if ((v15 & 0x200) == 0 || self->_preferredPlaybackRate != *(equalCopy + 66))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v17 & 0x200) != 0)
+  else if ((v15 & 0x200) != 0)
   {
     goto LABEL_175;
   }
@@ -3699,16 +4043,16 @@ LABEL_62:
     }
   }
 
-  v21 = *(equalCopy + 89);
+  v19 = *(equalCopy + 89);
   if ((*&self->_has & 0x10) != 0)
   {
-    if ((v21 & 0x10) == 0 || self->_currentQueueEndAction != *(equalCopy + 46))
+    if ((v19 & 0x10) == 0 || self->_currentQueueEndAction != *(equalCopy + 46))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v21 & 0x10) != 0)
+  else if ((v19 & 0x10) != 0)
   {
     goto LABEL_175;
   }
@@ -3716,20 +4060,20 @@ LABEL_62:
   if (!PBRepeatedInt32IsEqual())
   {
 LABEL_175:
-    v35 = 0;
+    v30 = 0;
     goto LABEL_176;
   }
 
-  v22 = *(equalCopy + 89);
+  v20 = *(equalCopy + 89);
   if ((*&self->_has & 0x20) != 0)
   {
-    if ((v22 & 0x20) == 0 || self->_disabledReason != *(equalCopy + 50))
+    if ((v20 & 0x20) == 0 || self->_disabledReason != *(equalCopy + 50))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v22 & 0x20) != 0)
+  else if ((v20 & 0x20) != 0)
   {
     goto LABEL_175;
   }
@@ -3749,16 +4093,15 @@ LABEL_175:
     }
   }
 
-  v25 = self->_has;
-  v26 = *(equalCopy + 89);
-  if ((*&v25 & 0x1000000) != 0)
+  v23 = self->_has;
+  v24 = *(equalCopy + 89);
+  if ((*&v23 & 0x1000000) != 0)
   {
-    if ((v26 & 0x1000000) == 0)
+    if ((v24 & 0x1000000) == 0)
     {
       goto LABEL_175;
     }
 
-    v27 = *(equalCopy + 351);
     if (self->_vocalsControlActive)
     {
       if ((*(equalCopy + 351) & 1) == 0)
@@ -3773,58 +4116,57 @@ LABEL_175:
     }
   }
 
-  else if ((v26 & 0x1000000) != 0)
+  else if ((v24 & 0x1000000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 0x40000) != 0)
+  if ((*&v23 & 0x40000) != 0)
   {
-    if ((v26 & 0x40000) == 0 || self->_vocalsControlLevel != *(equalCopy + 84))
+    if ((v24 & 0x40000) == 0 || self->_vocalsControlLevel != *(equalCopy + 84))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v26 & 0x40000) != 0)
+  else if ((v24 & 0x40000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 0x80000) != 0)
+  if ((*&v23 & 0x80000) != 0)
   {
-    if ((v26 & 0x80000) == 0 || self->_vocalsControlMaxLevel != *(equalCopy + 85))
+    if ((v24 & 0x80000) == 0 || self->_vocalsControlMaxLevel != *(equalCopy + 85))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v26 & 0x80000) != 0)
+  else if ((v24 & 0x80000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 0x100000) != 0)
+  if ((*&v23 & 0x100000) != 0)
   {
-    if ((v26 & 0x100000) == 0 || self->_vocalsControlMinLevel != *(equalCopy + 86))
+    if ((v24 & 0x100000) == 0 || self->_vocalsControlMinLevel != *(equalCopy + 86))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v26 & 0x100000) != 0)
+  else if ((v24 & 0x100000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 0x2000000) != 0)
+  if ((*&v23 & 0x2000000) != 0)
   {
-    if ((v26 & 0x2000000) == 0)
+    if ((v24 & 0x2000000) == 0)
     {
       goto LABEL_175;
     }
 
-    v28 = *(equalCopy + 352);
     if (self->_vocalsControlContinuous)
     {
       if ((*(equalCopy + 352) & 1) == 0)
@@ -3839,46 +4181,46 @@ LABEL_175:
     }
   }
 
-  else if ((v26 & 0x2000000) != 0)
+  else if ((v24 & 0x2000000) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 2) != 0)
+  if ((*&v23 & 2) != 0)
   {
-    if ((v26 & 2) == 0 || self->_sleepTimerTime != *(equalCopy + 20))
+    if ((v24 & 2) == 0 || self->_sleepTimerTime != *(equalCopy + 20))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v26 & 2) != 0)
+  else if ((v24 & 2) != 0)
   {
     goto LABEL_175;
   }
 
-  if ((*&v25 & 0x8000) != 0)
+  if ((*&v23 & 0x8000) != 0)
   {
-    if ((v26 & 0x8000) == 0 || self->_sleepTimerStopMode != *(equalCopy + 74))
+    if ((v24 & 0x8000) == 0 || self->_sleepTimerStopMode != *(equalCopy + 74))
     {
       goto LABEL_175;
     }
   }
 
-  else if ((v26 & 0x8000) != 0)
+  else if ((v24 & 0x8000) != 0)
   {
     goto LABEL_175;
   }
 
-  if (*&v25)
+  if (*&v23)
   {
-    if ((v26 & 1) == 0 || self->_sleepTimerFireDate != *(equalCopy + 19))
+    if ((v24 & 1) == 0 || self->_sleepTimerFireDate != *(equalCopy + 19))
     {
       goto LABEL_175;
     }
   }
 
-  else if (v26)
+  else if (v24)
   {
     goto LABEL_175;
   }
@@ -3898,12 +4240,11 @@ LABEL_175:
     }
   }
 
-  v31 = *(equalCopy + 89);
+  v27 = *(equalCopy + 89);
   if ((*(&self->_has + 2) & 0x80) != 0)
   {
-    if ((v31 & 0x800000) != 0)
+    if ((v27 & 0x800000) != 0)
     {
-      v32 = *(equalCopy + 350);
       if (self->_supportsReferencePosition)
       {
         if ((*(equalCopy + 350) & 1) == 0)
@@ -3923,7 +4264,7 @@ LABEL_175:
     goto LABEL_175;
   }
 
-  if ((v31 & 0x800000) != 0)
+  if ((v27 & 0x800000) != 0)
   {
     goto LABEL_175;
   }
@@ -3935,25 +4276,25 @@ LABEL_167:
     goto LABEL_175;
   }
 
-  v34 = *(equalCopy + 89);
+  v29 = *(equalCopy + 89);
   if (*(&self->_has + 2))
   {
-    if ((v34 & 0x10000) == 0 || self->_transitionStyle != *(equalCopy + 82))
+    if ((v29 & 0x10000) == 0 || self->_transitionStyle != *(equalCopy + 82))
     {
       goto LABEL_175;
     }
 
-    v35 = 1;
+    v30 = 1;
   }
 
   else
   {
-    v35 = (v34 & 0x10000) == 0;
+    v30 = (v29 & 0x10000) == 0;
   }
 
 LABEL_176:
 
-  return v35;
+  return v30;
 }
 
 - (unint64_t)hash
@@ -4480,7 +4821,7 @@ LABEL_90:
 
 - (void)mergeFrom:(id)from
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 89);
@@ -4665,29 +5006,29 @@ LABEL_27:
     }
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v18 = *(v5 + 38);
-  v19 = [v18 countByEnumeratingWithState:&v68 objects:v75 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v67 objects:v74 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v69;
+    v21 = *v68;
     do
     {
       for (m = 0; m != v20; ++m)
       {
-        if (*v69 != v21)
+        if (*v68 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        [(_MRCommandInfoProtobuf *)self addSupportedCustomQueueIdentifier:*(*(&v68 + 1) + 8 * m)];
+        [(_MRCommandInfoProtobuf *)self addSupportedCustomQueueIdentifier:*(*(&v67 + 1) + 8 * m)];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v68 objects:v75 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v67 objects:v74 count:16];
     }
 
     while (v20);
@@ -4717,57 +5058,57 @@ LABEL_27:
     *&self->_has |= 0x200u;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v27 = *(v5 + 40);
-  v28 = [v27 countByEnumeratingWithState:&v64 objects:v74 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v63 objects:v73 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v65;
+    v30 = *v64;
     do
     {
       for (ii = 0; ii != v29; ++ii)
       {
-        if (*v65 != v30)
+        if (*v64 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        [(_MRCommandInfoProtobuf *)self addSupportedPlaybackSessionTypes:*(*(&v64 + 1) + 8 * ii)];
+        [(_MRCommandInfoProtobuf *)self addSupportedPlaybackSessionTypes:*(*(&v63 + 1) + 8 * ii)];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v64 objects:v74 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v63 objects:v73 count:16];
     }
 
     while (v29);
   }
 
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   v32 = *(v5 + 22);
-  v33 = [v32 countByEnumeratingWithState:&v60 objects:v73 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v59 objects:v72 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v61;
+    v35 = *v60;
     do
     {
       for (jj = 0; jj != v34; ++jj)
       {
-        if (*v61 != v35)
+        if (*v60 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        [(_MRCommandInfoProtobuf *)self addCurrentPlaybackSessionTypes:*(*(&v60 + 1) + 8 * jj)];
+        [(_MRCommandInfoProtobuf *)self addCurrentPlaybackSessionTypes:*(*(&v59 + 1) + 8 * jj)];
       }
 
-      v34 = [v32 countByEnumeratingWithState:&v60 objects:v73 count:16];
+      v34 = [v32 countByEnumeratingWithState:&v59 objects:v72 count:16];
     }
 
     while (v34);
@@ -4800,29 +5141,29 @@ LABEL_27:
     *&self->_has |= 0x20u;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v40 = *(v5 + 39);
-  v41 = [v40 countByEnumeratingWithState:&v56 objects:v72 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v55 objects:v71 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v57;
+    v43 = *v56;
     do
     {
       for (mm = 0; mm != v42; ++mm)
       {
-        if (*v57 != v43)
+        if (*v56 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        [(_MRCommandInfoProtobuf *)self addSupportedPlaybackSessionIdentifiers:*(*(&v56 + 1) + 8 * mm), v56];
+        [(_MRCommandInfoProtobuf *)self addSupportedPlaybackSessionIdentifiers:*(*(&v55 + 1) + 8 * mm), v55];
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v56 objects:v72 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v55 objects:v71 count:16];
     }
 
     while (v42);
@@ -5008,8 +5349,6 @@ LABEL_98:
     self->_transitionStyle = *(v5 + 82);
     *&self->_has |= 0x10000u;
   }
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 @end

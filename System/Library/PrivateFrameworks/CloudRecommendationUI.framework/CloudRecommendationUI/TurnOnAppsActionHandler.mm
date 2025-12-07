@@ -11,7 +11,7 @@
   managerCopy = manager;
   selfCopy = self;
   errorCopy = error;
-  sub_243A75130(error, "TurnOnApps flow completed with error %s");
+  sub_243A75130(error, "TurnOnApps flow completed with error %s", v9);
 }
 
 - (void)remoteUIFlowManager:(id)manager didDismissWithError:(id)error
@@ -19,7 +19,7 @@
   managerCopy = manager;
   selfCopy = self;
   errorCopy = error;
-  sub_243A75130(error, "TurnOnApps flow cancelled with error %s");
+  sub_243A75130(error, "TurnOnApps flow cancelled with error %s", v8);
 }
 
 - (_TtC21CloudRecommendationUI23TurnOnAppsActionHandler)init

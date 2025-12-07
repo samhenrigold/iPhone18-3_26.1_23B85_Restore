@@ -576,7 +576,7 @@ LABEL_15:
 LABEL_22:
 }
 
-uint64_t __78__PKApplyExplanationViewController_handleNextViewController_displayableError___block_invoke(uint64_t a1, char a2)
+void *__78__PKApplyExplanationViewController_handleNextViewController_displayableError___block_invoke(uint64_t a1, char a2)
 {
   result = [*(a1 + 32) showNavigationBarSpinner:0];
   if ((a2 & 1) == 0)

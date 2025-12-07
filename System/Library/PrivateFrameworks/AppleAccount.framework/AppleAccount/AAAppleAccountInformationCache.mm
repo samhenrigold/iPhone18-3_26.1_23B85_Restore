@@ -19,20 +19,21 @@
 
 - (AAAppleAccountInformationCache)init
 {
-  v6.receiver = self;
-  v6.super_class = AAAppleAccountInformationCache;
-  v2 = [(AAAppleAccountInformationCache *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = AAAppleAccountInformationCache;
+  v2 = [(AAAppleAccountInformationCache *)&v7 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = _AALogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _AALogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "Initialized AppleAccount information.", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "Initialized AppleAccount information.", v6, 2u);
     }
   }
 
-  return v2;
+  return v3;
 }
 
 - (int64_t)_fetchPrimaryAccountSignInState
@@ -100,12 +101,12 @@
 
   if (shieldSignInOrCreateFlows)
   {
-    v7 = _AALogSystem();
-    v8 = 2;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _AALogSystem(v7);
+    v9 = 2;
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [AAAppleAccountInformationCache updateAccountInfoForProtoAccount:];
-      v8 = 2;
+      v9 = 2;
     }
   }
 
@@ -114,26 +115,26 @@
     ageAttestationStateProvider2 = [(AAAppleAccountInformationCache *)self ageAttestationStateProvider];
     shieldSignInOrCreateFlowsForTeen = [ageAttestationStateProvider2 shieldSignInOrCreateFlowsForTeen];
 
-    v7 = _AALogSystem();
-    v11 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+    v8 = _AALogSystem(v12);
+    v13 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
     if (shieldSignInOrCreateFlowsForTeen)
     {
-      if (v11)
+      if (v13)
       {
         [AAAppleAccountInformationCache updateAccountInfoForProtoAccount:];
       }
 
-      v8 = 4;
+      v9 = 4;
     }
 
     else
     {
-      if (v11)
+      if (v13)
       {
         [AAAppleAccountInformationCache updateAccountInfoForProtoAccount:];
       }
 
-      v8 = 3;
+      v9 = 3;
     }
   }
 
@@ -143,7 +144,7 @@
     [(AAAppleAccountInformationCache *)self setFullName:proto_givenName];
   }
 
-  [(AAAppleAccountInformationCache *)self _setSignedInState:v8];
+  [(AAAppleAccountInformationCache *)self _setSignedInState:v9];
   CFPreferencesSynchronize(@"com.apple.appleaccount.informationcache", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
 }
 
@@ -164,22 +165,24 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v5)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _AALogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v7, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Primary AppleAccount detected. Verifying correct sign in state.", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Primary AppleAccount detected. Verifying correct sign in state.", buf, 2u);
     }
 
-    if ([*(a1 + 32) _fetchPrimaryAccountSignInState] != 1)
+    v9 = [*(a1 + 32) _fetchPrimaryAccountSignInState];
+    if (v9 != 1)
     {
-      v8 = _AALogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = _AALogSystem(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Sign in state is incorrect. Updating sign in state.", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_1B6F6A000, v10, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Sign in state is incorrect. Updating sign in state.", v12, 2u);
       }
 
       [*(a1 + 32) updateAccountInformationCacheForAppleAccount:v5];
@@ -191,10 +194,10 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
     [*(a1 + 32) resetAccountInfoToSignedOutState];
   }
 
-  v9 = *(a1 + 40);
-  if (v9)
+  v11 = *(a1 + 40);
+  if (v11)
   {
-    (*(v9 + 16))();
+    (*(v11 + 16))();
   }
 }
 
@@ -214,9 +217,9 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
   CFPreferencesSetAppValue(@"AAAccountFullName", 0, @"com.apple.appleaccount");
   CFPreferencesSetAppValue(@"AAIsAccountSignedIn", 0, @"com.apple.appleaccount");
   CFPreferencesSetAppValue(@"AAProfilePictureCacheURL", 0, @"com.apple.appleaccount");
-  CFPreferencesSynchronize(@"com.apple.appleaccount", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-  v2 = _AALogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v2 = CFPreferencesSynchronize(@"com.apple.appleaccount", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+  v3 = _AALogSystem(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [AAAppleAccountInformationCache clearNonSecureAAPrefsDomain];
   }
@@ -229,12 +232,12 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
   CFPreferencesSetAppValue(@"AAIsAccountSignedIn", *MEMORY[0x1E695E4C0], @"com.apple.appleaccount.informationcache");
   [(AAAppleAccountInformationCache *)self _setSignedInState:0];
   [(AAAppleAccountInformationCache *)self _deleteProfilePictureCache];
-  CFPreferencesSynchronize(@"com.apple.appleaccount.informationcache", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
-  v3 = _AALogSystem();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v3 = CFPreferencesSynchronize(@"com.apple.appleaccount.informationcache", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E898]);
+  v4 = _AALogSystem(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1B6F6A000, v3, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Reset to signed out state.", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B6F6A000, v4, OS_LOG_TYPE_DEFAULT, "AAAppleAccountInformationCache - Reset to signed out state.", v5, 2u);
   }
 }
 
@@ -268,13 +271,11 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
 
 - (void)_deleteProfilePictureCache
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   localizedDescription = [self localizedDescription];
-  v5 = 138412290;
-  v6 = localizedDescription;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Profile picture cache could not be deleted. Error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = localizedDescription;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Profile picture cache could not be deleted. Error: %@", &v4, 0xCu);
 }
 
 - (id)_getProfilePictureCacheURL
@@ -294,13 +295,14 @@ void __94__AAAppleAccountInformationCache_updateAccountInfoForRemovedProtoAccoun
 
   v3 = v2;
   v4 = CFGetTypeID(v2);
-  if (v4 != CFNumberGetTypeID())
+  TypeID = CFNumberGetTypeID();
+  if (v4 != TypeID)
   {
     return 1;
   }
 
-  v5 = _AALogSystem();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = _AALogSystem(TypeID);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [AAAppleAccountInformationCache _needsMigration];
   }

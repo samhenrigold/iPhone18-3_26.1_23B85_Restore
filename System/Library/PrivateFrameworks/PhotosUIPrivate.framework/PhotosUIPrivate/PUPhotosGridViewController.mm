@@ -2826,7 +2826,7 @@ void __68__PUPhotosGridViewController__configureAddPlaceholderCell_animated___bl
         v23 = _badgeManager;
         if (_badgeManager)
         {
-          [_badgeManager badgeInfoForAsset:assetCopy inCollection:collectionCopy options:0];
+          objc_msgSend_badgeInfoForAsset_inCollection_options_(_badgeManager);
           v24 = *&v30[0];
         }
 
@@ -3298,27 +3298,27 @@ LABEL_19:
   [(PUPhotosGridViewController *)self setContentViewInSyncWithModel:1];
 }
 
-uint64_t __77__PUPhotosGridViewController_updateInterfaceForIncrementalDataSourceChanges___block_invoke(uint64_t result)
+id *__77__PUPhotosGridViewController_updateInterfaceForIncrementalDataSourceChanges___block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(result + 40) deleteSections:?];
+    result = [result[5] deleteSections:?];
   }
 
-  if (*(v1 + 48))
+  if (v1[6])
   {
-    result = [*(v1 + 40) insertSections:?];
+    result = [v1[5] insertSections:?];
   }
 
-  if (*(v1 + 56))
+  if (v1[7])
   {
-    result = [*(v1 + 40) deleteItemsAtIndexPaths:?];
+    result = [v1[5] deleteItemsAtIndexPaths:?];
   }
 
-  if (*(v1 + 64))
+  if (v1[8])
   {
-    v2 = *(v1 + 40);
+    v2 = v1[5];
 
     return [v2 insertItemsAtIndexPaths:?];
   }
@@ -5214,7 +5214,7 @@ void __51__PUPhotosGridViewController__removeButtonPressed___block_invoke_2(uint
             objc_enumerationMutation(v5);
           }
 
-          v10 = [v3 indexPathForAssetReference:{*(*(&v13 + 1) + 8 * v9), v13}];
+          v10 = objc_msgSend_indexPathForAssetReference_(v3, v13);
           if (v10)
           {
             [v4 addObject:v10];
@@ -5700,7 +5700,7 @@ void __71__PUPhotosGridViewController__performHideActivityWithSelectionManager__
           objc_enumerationMutation(v5);
         }
 
-        v10 = [v3 indexPathForAssetReference:{*(*(&v11 + 1) + 8 * v9), v11}];
+        v10 = objc_msgSend_indexPathForAssetReference_(v3, v11);
         if (v10)
         {
           [v4 addObject:v10];
@@ -6393,7 +6393,7 @@ void __98__PUPhotosGridViewController__selectionManagerWithSharableAssetsInFetch
   return v5;
 }
 
-uint64_t __63__PUPhotosGridViewController__sharableAssetsTypeInFetchResult___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__63__PUPhotosGridViewController__sharableAssetsTypeInFetchResult___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) _canShareAsset:a2];
   if (result)
@@ -6757,10 +6757,10 @@ void __36__PUPhotosGridViewController_paste___block_invoke(uint64_t a1)
 
         if (!representedElementKind)
         {
-          indexPath = [v15 indexPath];
-          if (indexPath)
+          v17 = objc_msgSend_indexPath(v15);
+          if (v17)
           {
-            [array addObject:indexPath];
+            [array addObject:v17];
           }
         }
       }
@@ -8526,16 +8526,15 @@ void __66__PUPhotosGridViewController__removeSelectedAssetsWithCompletion___bloc
     if (v12 && v12 < [selectedAssets count])
     {
       v13 = PULocalizedString(@"SHARE_BUTTON_TITLE_COUNT");
-      v65 = v12;
-      v14 = PULocalizedStringWithValidatedFormat(v13, @"%ld");
+      v20 = PULocalizedStringWithValidatedFormat(v13, @"%ld", v14, v15, v16, v17, v18, v19, v12);
     }
 
     else
     {
-      v14 = PULocalizedString(@"SHARE_BUTTON_TITLE");
+      v20 = PULocalizedString(@"SHARE_BUTTON_TITLE");
     }
 
-    [(UIBarButtonItem *)self->_shareToolbarButton setTitle:v14, v65];
+    [(UIBarButtonItem *)self->_shareToolbarButton setTitle:v20];
     [(UIBarButtonItem *)self->_shareToolbarButton setEnabled:v12 != 0];
     [array addObject:self->_shareToolbarButton];
   }
@@ -8543,74 +8542,74 @@ void __66__PUPhotosGridViewController__removeSelectedAssetsWithCompletion___bloc
   isTrashBinViewController = [(PUPhotosGridViewController *)self isTrashBinViewController];
   canDeleteContent = [(PUPhotosGridViewController *)self canDeleteContent];
   _canRemoveContent = [(PUPhotosGridViewController *)self _canRemoveContent];
-  v18 = _canRemoveContent;
+  v24 = _canRemoveContent;
   if (!canDeleteContent && !_canRemoveContent)
   {
-    v67 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
+    v72 = 0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
     goto LABEL_35;
   }
 
-  v66 = v6;
+  v71 = v6;
   if (isTrashBinViewController)
   {
     if (!self->_restoreToolbarButton)
     {
-      v22 = objc_alloc(MEMORY[0x1E69DC708]);
-      v23 = PULocalizedString(@"RESTORE_BUTTON_TITLE");
-      v24 = [v22 initWithTitle:v23 style:0 target:self action:sel__removeButtonPressed_];
+      v28 = objc_alloc(MEMORY[0x1E69DC708]);
+      v29 = PULocalizedString(@"RESTORE_BUTTON_TITLE");
+      v30 = [v28 initWithTitle:v29 style:0 target:self action:sel__removeButtonPressed_];
       restoreToolbarButton = self->_restoreToolbarButton;
-      self->_restoreToolbarButton = v24;
+      self->_restoreToolbarButton = v30;
     }
 
     removeToolbarButton = self->_removeToolbarButton;
     if (!removeToolbarButton)
     {
-      v27 = objc_alloc(MEMORY[0x1E69DC708]);
-      v28 = PULocalizedString(@"DELETE_BUTTON_TITLE");
-      v29 = [v27 initWithTitle:v28 style:0 target:self action:sel__removeButtonPressed_];
-      v30 = self->_removeToolbarButton;
-      self->_removeToolbarButton = v29;
+      v33 = objc_alloc(MEMORY[0x1E69DC708]);
+      v34 = PULocalizedString(@"DELETE_BUTTON_TITLE");
+      v35 = [v33 initWithTitle:v34 style:0 target:self action:sel__removeButtonPressed_];
+      v36 = self->_removeToolbarButton;
+      self->_removeToolbarButton = v35;
 
       removeToolbarButton = self->_removeToolbarButton;
     }
 
     if (v6)
     {
-      v31 = @"DELETE_BUTTON_TITLE";
+      v37 = @"DELETE_BUTTON_TITLE";
     }
 
     else
     {
-      v31 = @"DELETE_ALL_BUTTON_TITLE";
+      v37 = @"DELETE_ALL_BUTTON_TITLE";
     }
 
     if (v6)
     {
-      v32 = @"RESTORE_BUTTON_TITLE";
+      v38 = @"RESTORE_BUTTON_TITLE";
     }
 
     else
     {
-      v32 = @"RESTORE_ALL_BUTTON_TITLE";
+      v38 = @"RESTORE_ALL_BUTTON_TITLE";
     }
 
-    v33 = PULocalizedString(v31);
-    [(UIBarButtonItem *)removeToolbarButton setTitle:v33];
+    v39 = PULocalizedString(v37);
+    [(UIBarButtonItem *)removeToolbarButton setTitle:v39];
 
-    v34 = self->_restoreToolbarButton;
-    v35 = PULocalizedString(v32);
-    [(UIBarButtonItem *)v34 setTitle:v35];
+    v40 = self->_restoreToolbarButton;
+    v41 = PULocalizedString(v38);
+    [(UIBarButtonItem *)v40 setTitle:v41];
     goto LABEL_26;
   }
 
   if (!self->_removeToolbarButton)
   {
-    v36 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:16 target:self action:sel__removeButtonPressed_];
-    v35 = self->_removeToolbarButton;
-    self->_removeToolbarButton = v36;
+    v42 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:16 target:self action:sel__removeButtonPressed_];
+    v41 = self->_removeToolbarButton;
+    self->_removeToolbarButton = v42;
 LABEL_26:
   }
 
@@ -8618,45 +8617,45 @@ LABEL_26:
   selectedAssets2 = [photoSelectionManager2 selectedAssets];
   allObjects = [selectedAssets2 allObjects];
 
-  v6 = [(PUPhotosGridViewController *)self _assetsAllowingRemove:v18 orDelete:canDeleteContent fromAssets:allObjects];
-  v40 = [v6 count];
-  v41 = self->_removeToolbarButton;
-  v42 = v40 != 0;
-  if (v40)
+  v6 = [(PUPhotosGridViewController *)self _assetsAllowingRemove:v24 orDelete:canDeleteContent fromAssets:allObjects];
+  v46 = [v6 count];
+  v47 = self->_removeToolbarButton;
+  v48 = v46 != 0;
+  if (v46)
   {
-    v43 = &OBJC_IVAR___PUPhotosAlbumViewController__album;
+    v49 = &OBJC_IVAR___PUPhotosAlbumViewController__album;
   }
 
   else
   {
-    v43 = &OBJC_IVAR___PUPhotosAlbumViewController__album;
+    v49 = &OBJC_IVAR___PUPhotosAlbumViewController__album;
     if (isTrashBinViewController)
     {
-      v42 = [(PUPhotosGridViewController *)self isEmpty]^ 1;
+      v48 = [(PUPhotosGridViewController *)self isEmpty]^ 1;
     }
   }
 
-  [(UIBarButtonItem *)v41 setEnabled:v42];
+  [(UIBarButtonItem *)v47 setEnabled:v48];
   if (spacingCopy)
   {
-    v67 = 0;
-    v20 = 0;
+    v72 = 0;
+    v26 = 0;
   }
 
   else
   {
-    v44 = +[PUInterfaceManager currentTheme];
-    [v44 photoCollectionToolbarTextTitleSpacerWidth];
-    v46 = v45;
+    v50 = +[PUInterfaceManager currentTheme];
+    [v50 photoCollectionToolbarTextTitleSpacerWidth];
+    v52 = v51;
 
-    v20 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v46];
-    v67 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v46];
+    v26 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v52];
+    v72 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v52];
   }
 
-  v21 = self->_removeToolbarButton;
-  v19 = *(&self->super.super.super.super.isa + v43[108]);
+  v27 = self->_removeToolbarButton;
+  v25 = *(&self->super.super.super.super.isa + v49[108]);
 
-  LOBYTE(v6) = v66;
+  LOBYTE(v6) = v71;
 LABEL_35:
   if (![(PUPhotosGridViewController *)self _canAddContent])
   {
@@ -8669,109 +8668,109 @@ LABEL_35:
   if (v6 & 1 | !wantsAddContentInToolbar)
   {
 LABEL_42:
-    v53 = 0;
-    v52 = 0;
+    v59 = 0;
+    v58 = 0;
     goto LABEL_45;
   }
 
   addToolbarButton = self->_addToolbarButton;
   if (!addToolbarButton)
   {
-    v49 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:0 style:0 target:self action:sel__addButtonPressed_];
-    v50 = self->_addToolbarButton;
-    self->_addToolbarButton = v49;
+    v55 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:0 style:0 target:self action:sel__addButtonPressed_];
+    v56 = self->_addToolbarButton;
+    self->_addToolbarButton = v55;
 
     addToolbarButton = self->_addToolbarButton;
   }
 
-  v51 = PULocalizedString(@"ADD_FROM_ALBUM_BUTTON_TITLE");
-  [(UIBarButtonItem *)addToolbarButton setTitle:v51];
+  v57 = PULocalizedString(@"ADD_FROM_ALBUM_BUTTON_TITLE");
+  [(UIBarButtonItem *)addToolbarButton setTitle:v57];
 
   [(UIBarButtonItem *)self->_addToolbarButton setEnabled:1];
   if (spacingCopy)
   {
-    v52 = 0;
+    v58 = 0;
   }
 
   else
   {
-    v54 = +[PUInterfaceManager currentTheme];
-    [v54 photoCollectionToolbarIconToTextSpacerWidth];
-    v56 = v55;
+    v60 = +[PUInterfaceManager currentTheme];
+    [v60 photoCollectionToolbarIconToTextSpacerWidth];
+    v62 = v61;
 
-    v52 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v56];
+    v58 = [(PUPhotosGridViewController *)self _barButtonSpacerWithWidth:v62];
   }
 
-  v53 = self->_addToolbarButton;
+  v59 = self->_addToolbarButton;
 LABEL_45:
   gridSpec = [(PUPhotosGridViewController *)self gridSpec];
   shouldPlaceDeleteInCenterToolbarPosition = [gridSpec shouldPlaceDeleteInCenterToolbarPosition];
 
   if (shouldPlaceDeleteInCenterToolbarPosition)
   {
-    if (v20)
+    if (v26)
     {
-      [array addObject:v20];
+      [array addObject:v26];
     }
 
-    if (v21)
+    if (v27)
     {
-      [array addObject:v21];
+      [array addObject:v27];
     }
 
-    if (v67)
+    if (v72)
     {
-      [array addObject:v67];
+      [array addObject:v72];
     }
 
-    if (v19)
+    if (v25)
     {
-      [array addObject:v19];
+      [array addObject:v25];
     }
 
-    if (v52)
+    if (v58)
     {
-      [array addObject:v52];
+      [array addObject:v58];
     }
 
-    v59 = v53;
-    if (!v53)
+    v65 = v59;
+    if (!v59)
     {
       goto LABEL_70;
     }
 
 LABEL_69:
-    [array addObject:v59];
+    [array addObject:v65];
     goto LABEL_70;
   }
 
-  if (v52)
+  if (v58)
   {
-    [array addObject:v52];
+    [array addObject:v58];
   }
 
-  if (v53)
+  if (v59)
   {
-    [array addObject:v53];
+    [array addObject:v59];
   }
 
-  if (v20)
+  if (v26)
   {
-    [array addObject:v20];
+    [array addObject:v26];
   }
 
-  if (v21)
+  if (v27)
   {
-    [array addObject:v21];
+    [array addObject:v27];
   }
 
-  if (v67)
+  if (v72)
   {
-    [array addObject:v67];
+    [array addObject:v72];
   }
 
-  v59 = v19;
-  if (v19)
+  v65 = v25;
+  if (v25)
   {
     goto LABEL_69;
   }
@@ -8779,23 +8778,23 @@ LABEL_69:
 LABEL_70:
   if (spacingCopy)
   {
-    v60 = [array count];
-    if (v60)
+    v66 = [array count];
+    if (v66)
     {
-      v61 = v60 - 1;
-      if (v60 != 1)
+      v67 = v66 - 1;
+      if (v66 != 1)
       {
-        v62 = 1;
+        v68 = 1;
         do
         {
-          v63 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
-          [array insertObject:v63 atIndex:v62];
+          v69 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:5 target:0 action:0];
+          [array insertObject:v69 atIndex:v68];
 
-          v62 += 2;
-          --v61;
+          v68 += 2;
+          --v67;
         }
 
-        while (v61);
+        while (v67);
       }
     }
   }
@@ -9658,7 +9657,7 @@ LABEL_14:
   isCurrentCollectionViewDataSource = [(PUPhotosGridViewController *)self isCurrentCollectionViewDataSource];
   if (coordinatorCopy)
   {
-    [coordinatorCopy targetTransform];
+    objc_msgSend_targetTransform(coordinatorCopy);
   }
 
   else
@@ -9790,7 +9789,7 @@ void __81__PUPhotosGridViewController_viewWillTransitionToSize_withTransitionCoo
   }
 }
 
-uint64_t __81__PUPhotosGridViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
+void *__81__PUPhotosGridViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) px_isVisible];
   if (result && *(a1 + 40) == 1)

@@ -60,7 +60,7 @@
 
 - (id)_getSessionDemultiplexerForId:(id)id maximumRequestCount:(int64_t)count
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v11 = objc_msgSend_sessionDemultiplexerForIdentifier(self, v7, v8, v9, v10);
   v15 = objc_msgSend_objectForKeyedSubscript_(v11, v12, idCopy, v13, v14);
@@ -87,9 +87,9 @@
       v49 = APLogForCategory();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
-        v75 = 134217984;
-        v76 = 50;
-        _os_log_impl(&dword_260F10000, v49, OS_LOG_TYPE_INFO, "Reached cap %lu of demultiplexer sessions.", &v75, 0xCu);
+        v74 = 134217984;
+        v75 = 50;
+        _os_log_impl(&dword_260F10000, v49, OS_LOG_TYPE_INFO, "Reached cap %lu of demultiplexer sessions.", &v74, 0xCu);
       }
     }
 
@@ -102,16 +102,14 @@
     {
       v63 = objc_msgSend_sessionDemultiplexerForIdentifier(self, v59, v60, v61, v62);
       v68 = objc_msgSend_count(v63, v64, v65, v66, v67);
-      v75 = 134217984;
-      v76 = v68;
-      _os_log_impl(&dword_260F10000, v58, OS_LOG_TYPE_DEBUG, "Current demultiplexers count is %lu.", &v75, 0xCu);
+      v74 = 134217984;
+      v75 = v68;
+      _os_log_impl(&dword_260F10000, v58, OS_LOG_TYPE_DEBUG, "Current demultiplexers count is %lu.", &v74, 0xCu);
     }
 
     objc_msgSend__unregisterOldSessionIfRequired(self, v69, v70, v71, v72);
     v20 = v34;
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -131,20 +129,20 @@
 
 - (void)_unregisterSessionDemultiplexerWithIdentifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v9 = objc_msgSend_sessionDemultiplexerForIdentifier(self, v5, v6, v7, v8);
   v13 = objc_msgSend_objectForKeyedSubscript_(v9, v10, identifierCopy, v11, v12);
 
   if (v13)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_260F114C0;
-    v19[3] = &unk_279AC8B80;
-    v19[4] = self;
-    v20 = identifierCopy;
-    objc_msgSend_invalidateAndCancelSessionWithCompletionHandler_(v13, v14, v19, v15, v16);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = sub_260F114C0;
+    v18[3] = &unk_279AC8B80;
+    v18[4] = self;
+    v19 = identifierCopy;
+    objc_msgSend_invalidateAndCancelSessionWithCompletionHandler_(v13, v14, v18, v15, v16);
   }
 
   else
@@ -153,12 +151,10 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v22 = identifierCopy;
+      v21 = identifierCopy;
       _os_log_impl(&dword_260F10000, v17, OS_LOG_TYPE_INFO, "Demultiplexer session '%{public}@' was not found in a list of active sessions. Can't invalidate session.", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterSessionDemultiplexerWithIdentifier:(id)identifier

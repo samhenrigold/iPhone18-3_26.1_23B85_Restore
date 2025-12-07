@@ -11,18 +11,20 @@
 
 - (void)entityManagerDidChange
 {
-  v2.receiver = self;
-  v2.super_class = type metadata accessor for PhotosDynamicHeaderLayout();
-  v2.receiver;
-  [(PXPhotosDynamicHeaderLayout *)&v2 entityManagerDidChange];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for PhotosDynamicHeaderLayout(self, a2);
+  v2 = v6.receiver;
+  [(PXPhotosDynamicHeaderLayout *)&v6 entityManagerDidChange];
+  v5 = 1;
+  v3 = OBJC_IVAR___PXPhotosDynamicHeaderLayout_postUpdateFlags;
   swift_beginAccess();
-  sub_1A41FCE94();
-  PXGLayout.invalidate<A>(updateFlags:with:)();
+  v4 = sub_1A41FCE94();
+  PXGLayout.invalidate<A>(updateFlags:with:)(v2 + v3, &v5, &type metadata for PhotosDynamicHeaderLayout.PostInvalidatableEntities, v4);
 }
 
 - (Class)viewClassForSpriteAtIndex:(unsigned int)index inLayout:(id)layout
 {
-  result = sub_1A41FE778(index);
+  result = sub_1A41FE778(*&index, a2);
   if (result)
   {
 
@@ -48,10 +50,10 @@
   MEMORY[0x1EEE9AC00](v2);
   v5 = v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9[1] = MEMORY[0x1E69E7CC0];
-  sub_1A41FF3A0(&qword_1EB12AF50, MEMORY[0x1E6969B50]);
+  sub_1A41FF3A0(&qword_1EB12AF50, MEMORY[0x1E6969B50], MEMORY[0x1E6969B90]);
   v6 = MEMORY[0x1E69E6530];
   sub_1A41FFB64(0, &qword_1EB126E90, MEMORY[0x1E69E6530], MEMORY[0x1E69E62F8]);
-  sub_1A41FEB14(&qword_1EB126E80, &qword_1EB126E90, v6);
+  sub_1A41FEB14(&qword_1EB126E80, &qword_1EB126E90, v6, MEMORY[0x1E69E6328]);
   sub_1A524E224();
   v7 = sub_1A5241414();
   (*(v3 + 8))(v5, v2);

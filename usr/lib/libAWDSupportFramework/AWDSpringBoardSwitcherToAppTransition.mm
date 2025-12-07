@@ -92,7 +92,6 @@
 {
   if ((*&self->_has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -104,14 +103,12 @@
   has = self->_has;
   if (has)
   {
-    absoluteDistanceInList = self->_absoluteDistanceInList;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isGoingToHomeScreen = self->_isGoingToHomeScreen;
 
     PBDataWriterWriteBOOLField();
   }
@@ -179,7 +176,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 36);
     if ((has & 2) != 0)
     {
       if ((*(equal + 36) & 2) == 0 || self->_timestamp != *(equal + 2))

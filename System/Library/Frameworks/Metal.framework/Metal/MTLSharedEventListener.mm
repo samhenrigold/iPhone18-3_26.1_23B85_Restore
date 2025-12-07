@@ -39,7 +39,7 @@
   return sharedListener_sharedInstance;
 }
 
-uint64_t __40__MTLSharedEventListener_sharedListener__block_invoke()
+MTLSharedEventListener *__40__MTLSharedEventListener_sharedListener__block_invoke()
 {
   result = objc_opt_new();
   sharedListener_sharedInstance = result;

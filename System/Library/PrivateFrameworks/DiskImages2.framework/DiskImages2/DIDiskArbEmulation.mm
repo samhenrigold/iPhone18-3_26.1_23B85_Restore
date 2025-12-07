@@ -8,112 +8,134 @@
 
 - (BOOL)ejectWithBSDName:(id)name error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = *__error();
-  if (DIForwardLogs())
+  v7 = DIForwardLogs();
+  if (v7)
   {
-    v7 = getDIOSLog();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v25 = 45;
-    v26 = 2080;
-    v27 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
-    v28 = 2112;
-    v29 = nameCopy;
-    v8 = _os_log_send_and_compose_impl();
-
-    if (v8)
+    v30 = 0;
+    v9 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
-      free(v8);
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    *buf = 68158210;
+    v32 = 45;
+    v33 = 2080;
+    v34 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
+    v35 = 2112;
+    v36 = nameCopy;
+    v11 = _os_log_send_and_compose_impl(v10, &v30, 0, 0, &dword_248DE0000, v9, 0, "%.*s: Ejecting %@", buf, 28);
+
+    if (v11)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
+      free(v11);
     }
   }
 
   else
   {
-    v9 = getDIOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158210;
-      v25 = 45;
-      v26 = 2080;
-      v27 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
-      v28 = 2112;
-      v29 = nameCopy;
-      _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Ejecting %@", buf, 0x1Cu);
+      v32 = 45;
+      v33 = 2080;
+      v34 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
+      v35 = 2112;
+      v36 = nameCopy;
+      _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Ejecting %@", buf, 0x1Cu);
     }
   }
 
   *__error() = v6;
   nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"/dev/%@", nameCopy];
-  v11 = open([nameCopy fileSystemRepresentation], 0);
-  if (v11 < 0)
+  v14 = open([nameCopy fileSystemRepresentation], 0);
+  if (v14 < 0)
   {
-    v16 = *__error();
-    v15 = @"Failed to eject - cannot open device";
-    goto LABEL_11;
+    v19 = *__error();
+    v18 = @"Failed to eject - cannot open device";
+    goto LABEL_14;
   }
 
-  v12 = v11;
-  v13 = ioctl(v11, 0x20006415uLL, 0);
-  v14 = *__error();
-  close(v12);
-  if (v13)
+  v15 = v14;
+  v16 = ioctl(v14, 0x20006415uLL, 0);
+  v17 = *__error();
+  close(v15);
+  if (v16)
   {
-    v15 = @"Failed to eject";
-    v16 = v14;
-LABEL_11:
-    v17 = [DIError failWithPOSIXCode:v16 verboseInfo:v15 error:error];
-    goto LABEL_19;
+    v18 = @"Failed to eject";
+    v19 = v17;
+LABEL_14:
+    v20 = [DIError failWithPOSIXCode:v19 verboseInfo:v18 error:error];
+    goto LABEL_25;
   }
 
-  v18 = *__error();
-  if (DIForwardLogs())
+  v21 = *__error();
+  v22 = DIForwardLogs();
+  if (v22)
   {
-    v19 = getDIOSLog();
-    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v25 = 45;
-    v26 = 2080;
-    v27 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
-    v28 = 2112;
-    v29 = nameCopy;
-    v20 = _os_log_send_and_compose_impl();
-
-    if (v20)
+    v30 = 0;
+    v24 = getDIOSLog(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
-      free(v20);
+      v25 = 3;
+    }
+
+    else
+    {
+      v25 = 2;
+    }
+
+    *buf = 68158210;
+    v32 = 45;
+    v33 = 2080;
+    v34 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
+    v35 = 2112;
+    v36 = nameCopy;
+    LODWORD(v29) = 28;
+    v26 = _os_log_send_and_compose_impl(v25, &v30, 0, 0, &dword_248DE0000, v24, 0, "%.*s: %@ ejected successfully", buf, v29);
+
+    if (v26)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+      free(v26);
     }
   }
 
   else
   {
-    v21 = getDIOSLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v27 = getDIOSLog(v22, v23);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158210;
-      v25 = 45;
-      v26 = 2080;
-      v27 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
-      v28 = 2112;
-      v29 = nameCopy;
-      _os_log_impl(&dword_248DE0000, v21, OS_LOG_TYPE_DEFAULT, "%.*s: %@ ejected successfully", buf, 0x1Cu);
+      v32 = 45;
+      v33 = 2080;
+      v34 = "[DIDiskArbEmulation ejectWithBSDName:error:]";
+      v35 = 2112;
+      v36 = nameCopy;
+      _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEFAULT, "%.*s: %@ ejected successfully", buf, 0x1Cu);
     }
   }
 
-  *__error() = v18;
-  v17 = 1;
-LABEL_19:
+  *__error() = v21;
+  v20 = 1;
+LABEL_25:
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v20;
 }
 
 - (BOOL)mountWithDeviceName:(id)name args:(id)args filesystem:(id)filesystem mountURL:(id)l error:(id *)error
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   argsCopy = args;
   filesystemCopy = filesystem;
   lCopy = l;
@@ -126,65 +148,74 @@ LABEL_19:
     [array addObject:v16];
   }
 
-  v22[0] = @"-t";
-  v22[1] = filesystemCopy;
-  v22[2] = name;
+  v21[0] = @"-t";
+  v21[1] = filesystemCopy;
+  v21[2] = name;
   path = [lCopy path];
-  v22[3] = path;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v21[3] = path;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
   [array addObjectsFromArray:v18];
 
   v19 = [DIHelpers executeWithPath:@"/sbin/mount" arguments:array error:error];
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)unmountWithMountPoint:(id)point error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   v6 = *__error();
-  if (DIForwardLogs())
+  v7 = DIForwardLogs();
+  if (v7)
   {
-    v7 = getDIOSLog();
-    os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158211;
-    v16 = 50;
-    v17 = 2080;
-    v18 = "[DIDiskArbEmulation unmountWithMountPoint:error:]";
-    v19 = 2113;
-    v20 = pointCopy;
-    v8 = _os_log_send_and_compose_impl();
-
-    if (v8)
+    v16 = 0;
+    v9 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
-      free(v8);
+      v10 = 3;
+    }
+
+    else
+    {
+      v10 = 2;
+    }
+
+    *buf = 68158211;
+    v19 = 50;
+    v20 = 2080;
+    v21 = "[DIDiskArbEmulation unmountWithMountPoint:error:]";
+    v22 = 2113;
+    v23 = pointCopy;
+    v11 = _os_log_send_and_compose_impl(v10, &v16, 0, 0, &dword_248DE0000, v9, 0, "%.*s: Unmounting %{private}@", buf, 28);
+
+    if (v11)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
+      free(v11);
     }
   }
 
   else
   {
-    v9 = getDIOSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = getDIOSLog(v7, v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158211;
-      v16 = 50;
-      v17 = 2080;
-      v18 = "[DIDiskArbEmulation unmountWithMountPoint:error:]";
-      v19 = 2113;
-      v20 = pointCopy;
-      _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_DEFAULT, "%.*s: Unmounting %{private}@", buf, 0x1Cu);
+      v19 = 50;
+      v20 = 2080;
+      v21 = "[DIDiskArbEmulation unmountWithMountPoint:error:]";
+      v22 = 2113;
+      v23 = pointCopy;
+      _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Unmounting %{private}@", buf, 0x1Cu);
     }
   }
 
   *__error() = v6;
-  v14 = pointCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v11 = [DIHelpers executeWithPath:@"/sbin/umount" arguments:v10 error:error];
+  v17 = pointCopy;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v14 = [DIHelpers executeWithPath:@"/sbin/umount" arguments:v13 error:error];
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v14;
 }
 
 @end

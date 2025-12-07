@@ -11,7 +11,7 @@ uint64_t AGX::BVHDescriptor::isFastIntersection(AGX::BVHDescriptor *this)
     }
   }
 
-  if (v1[2840])
+  if (v1[355])
   {
     return 1;
   }
@@ -60,7 +60,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
         }
       }
 
-      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v14, v21, v11, v12, v12);
+      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v14, v21, v12, v12, v11);
       v10 = v21;
     }
 
@@ -90,10 +90,11 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   }
 }
 
-uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(uint64_t a1, int a2, void *a3, void *a4, unint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, char a10)
+id **AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(id ***a1, int a2, void *a3, void *a4, void *a5, uint64_t a6, void *a7, uint64_t a8, void *a9, char a10)
 {
-  v15 = *(a1 + 272);
-  v14 = *(a1 + 280);
+  v11 = a4;
+  v15 = a1[34];
+  v14 = a1[35];
   {
     v60 = a7;
     v61 = a5;
@@ -138,8 +139,8 @@ uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classe
       goto LABEL_16;
     }
 
-    v20 = 0x8F9C18F9C18F9C19 * ((v14 - v15) >> 3);
-    v70 = a4;
+    v20 = 0x8F9C18F9C18F9C19 * (v14 - v15);
+    v70 = v11;
     if (a2 > 2)
     {
       if (v20 >= 1)
@@ -147,7 +148,7 @@ uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classe
         v68 = a8;
         v40 = v20 & 0x7FFFFFFF;
         v41 = v40 - 1;
-        v42 = (*(a1 + 272) + 328 * (v40 - 1));
+        v42 = &a1[34][41 * v40 - 41];
         if (v42[40].i8[0])
         {
           v24 = 1;
@@ -176,35 +177,35 @@ LABEL_16:
           v92 = 0u;
           v93 = 0u;
           v94 = 1065353216;
-          v25 = *(a1 + 280);
-          if (v25 >= *(a1 + 288))
+          v25 = a1[35];
+          if (v25 >= a1[36])
           {
-            v26 = std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>((a1 + 272), &v74);
+            v26 = std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>(a1 + 34, &v74);
           }
 
           else
           {
-            v26 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v25, &v74) + 328;
+            v26 = (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v25, &v74) + 328);
           }
 
-          *(a1 + 280) = v26;
+          a1[35] = v26;
           AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::~DeferredBatch(&v74);
-          v27 = *(a1 + 272);
-          v28 = (-1047552999 * ((*(a1 + 280) - v27) >> 3) - 1);
-          v29 = (v27 + 328 * v28);
+          v27 = a1[34];
+          v28 = (-1047552999 * ((a1[35] - v27) >> 3) - 1);
+          v29 = &v27[41 * v28];
           v29[40].i8[0] = v24 ^ 1;
           if ((v24 & 1) == 0)
           {
-            return *(a1 + 272) + 328 * v28;
+            return &a1[34][41 * v28];
           }
 
 LABEL_20:
           if (v73 > 2)
           {
             AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertRead(v29, [objc_msgSend(a3 "buffer")], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size"));
-            v34 = [objc_msgSend(a4 "buffer")];
-            v35 = [a4 bufferOffset];
-            v36 = [a4 size];
+            v34 = [objc_msgSend(v11 "buffer")];
+            v35 = [v11 bufferOffset];
+            v36 = [v11 size];
             v37 = v29;
             v38 = v34;
             v39 = v35;
@@ -214,25 +215,25 @@ LABEL_20:
           {
             if (!v73)
             {
-              AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v29, [objc_msgSend(a4 "buffer")], objc_msgSend(a4, "bufferOffset"), objc_msgSend(a4, "size"));
+              AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v29, [objc_msgSend(v11 "buffer")], objc_msgSend(v11, "bufferOffset"), objc_msgSend(v11, "size"));
               AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v29, v71, v72, a8);
               if (!v19)
               {
-                return *(a1 + 272) + 328 * v28;
+                return &a1[34][41 * v28];
               }
 
 LABEL_41:
               AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertReads(v29, v19);
-              return *(a1 + 272) + 328 * v28;
+              return &a1[34][41 * v28];
             }
 
             if (v73 == 1)
             {
               AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertRead(v29, [objc_msgSend(a3 "buffer")], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size"));
-              AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v29, [objc_msgSend(a4 "buffer")], objc_msgSend(a4, "bufferOffset"), objc_msgSend(a4, "size"));
+              AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v29, [objc_msgSend(v11 "buffer")], objc_msgSend(v11, "bufferOffset"), objc_msgSend(v11, "size"));
               if (!v19)
               {
-                return *(a1 + 272) + 328 * v28;
+                return &a1[34][41 * v28];
               }
 
               goto LABEL_41;
@@ -246,18 +247,18 @@ LABEL_41:
           }
 
           AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertWrite(v37, v38, v39, v36);
-          return *(a1 + 272) + 328 * v28;
+          return &a1[34][41 * v28];
         }
 
         v69 = a9;
         v53 = 328 * v40 - 336;
         v23 = -1;
-        while ((AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v42, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) & 1) == 0)
+        while (!AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v42, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
         {
           v54 = [objc_msgSend(v70 "buffer")];
           v55 = [v70 bufferOffset];
           v56 = [v70 size];
-          if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v42, v54, v55, v56) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v42, v54, v55, v56))
+          if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v42, v54, v55, v56) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v42, v54, v55, v56))
           {
             break;
           }
@@ -271,8 +272,8 @@ LABEL_77:
 
           --v40;
           --v41;
-          v57 = *(a1 + 272);
-          v42 = (v57 + 328 * v41);
+          v57 = a1[34];
+          v42 = &v57[41 * v41];
           LOBYTE(v57) = *(v57 + v53);
           v53 -= 328;
           v23 = v40;
@@ -288,17 +289,17 @@ LABEL_74:
         {
 LABEL_78:
           LODWORD(v28) = v23;
-          v29 = (*(a1 + 272) + 328 * v23);
+          v29 = &a1[34][41 * v23];
           v29[40].i8[0] = 0;
           v19 = v69;
-          a4 = v70;
+          v11 = v70;
           a8 = v68;
           goto LABEL_20;
         }
 
         v24 = 1;
         v19 = v69;
-        a4 = v70;
+        v11 = v70;
         goto LABEL_76;
       }
     }
@@ -312,17 +313,17 @@ LABEL_78:
           v68 = a8;
           v69 = a9;
           v21 = v20 & 0x7FFFFFFF;
-          v22 = 328 * ((v20 & 0x7FFFFFFF) - 1);
+          v22 = 41 * ((v20 & 0x7FFFFFFF) - 1);
           v23 = -1;
           while (1)
           {
-            v30 = (*(a1 + 272) + v22);
+            v30 = &a1[34][v22];
             if (v30[40].i8[0])
             {
               goto LABEL_74;
             }
 
-            if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, [objc_msgSend(a3 "buffer")], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
+            if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")))
             {
               goto LABEL_74;
             }
@@ -330,13 +331,13 @@ LABEL_78:
             v31 = [objc_msgSend(v70 "buffer")];
             v32 = [v70 bufferOffset];
             v33 = [v70 size];
-            if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v30, v31, v32, v33) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, v31, v32, v33) & 1) != 0 || a9 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BVHCommandType,AGXG18PFamilyRayTracingAccelerationStructure *,AGXG18PFamilyRayTracingAccelerationStructure *,MTL4BufferRange,unsigned long,unsigned long,NSArray<objc_object  {objcproto24MTLAccelerationStructure}*> *,BOOL)::trackInstanceHazards & 1) != 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, a9))
+            if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v30, v31, v32, v33) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, v31, v32, v33) || a9 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BVHCommandType,AGXG18PFamilyRayTracingAccelerationStructure *,AGXG18PFamilyRayTracingAccelerationStructure *,MTL4BufferRange,unsigned long,unsigned long,NSArray<objc_object  {objcproto24MTLAccelerationStructure}*> *,BOOL)::trackInstanceHazards & 1) != 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v30, a9) & 1) != 0)
             {
               goto LABEL_74;
             }
 
             --v21;
-            v22 -= 328;
+            v22 -= 41;
             v23 = v21;
             if (v21 <= 0)
             {
@@ -350,14 +351,14 @@ LABEL_78:
       {
         v50 = v20 & 0x7FFFFFFF;
         v51 = v50 - 1;
-        v52 = (*(a1 + 272) + 328 * (v50 - 1));
+        v52 = &a1[34][41 * v50 - 41];
         if ((v52[40].i8[0] & 1) == 0)
         {
           v68 = a8;
           v69 = a9;
           v58 = 328 * v50 - 336;
           v23 = -1;
-          while ((AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v52, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) & 1) == 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v52, v71, v72, v68) & 1) == 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v52, v71, v72, v68) & 1) == 0)
+          while (!AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v52, [objc_msgSend(a3 buffer], objc_msgSend(a3, "bufferOffset"), objc_msgSend(a3, "size")) && !AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v52, v71, v72, v68) && !AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v52, v71, v72, v68))
           {
             if (v50 < 2)
             {
@@ -366,8 +367,8 @@ LABEL_78:
 
             --v50;
             --v51;
-            v59 = *(a1 + 272);
-            v52 = (v59 + 328 * v51);
+            v59 = a1[34];
+            v52 = &v59[41 * v51];
             LOBYTE(v59) = *(v59 + v58);
             v58 -= 328;
             v23 = v50;
@@ -388,26 +389,26 @@ LABEL_78:
       v68 = a8;
       v69 = a9;
       v44 = v20 & 0x7FFFFFFF;
-      v45 = 328 * ((v20 & 0x7FFFFFFF) - 1);
+      v45 = 41 * ((v20 & 0x7FFFFFFF) - 1);
       v23 = -1;
       while (1)
       {
-        v46 = (*(a1 + 272) + v45);
+        v46 = &a1[34][v45];
         if (v46[40].i8[0])
         {
           goto LABEL_74;
         }
 
-        v47 = [objc_msgSend(v70 "buffer")];
+        v47 = [objc_msgSend(v70 buffer];
         v48 = [v70 bufferOffset];
         v49 = [v70 size];
-        if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v46, v47, v48, v49) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, v47, v48, v49) & 1) != 0 || (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, v71, v72, a8) & 1) != 0 || a9 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BVHCommandType,AGXG18PFamilyRayTracingAccelerationStructure *,AGXG18PFamilyRayTracingAccelerationStructure *,MTL4BufferRange,unsigned long,unsigned long,NSArray<objc_object  {objcproto24MTLAccelerationStructure}*> *,BOOL)::trackInstanceHazards & 1) != 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, a9))
+        if (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(v46, v47, v48, v49) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, v47, v48, v49) || AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, v71, v72, a8) || a9 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::BVHCommandType,AGXG18PFamilyRayTracingAccelerationStructure *,AGXG18PFamilyRayTracingAccelerationStructure *,MTL4BufferRange,unsigned long,unsigned long,NSArray<objc_object  {objcproto24MTLAccelerationStructure}*> *,BOOL)::trackInstanceHazards & 1) != 0 && (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(v46, a9) & 1) != 0)
         {
           goto LABEL_74;
         }
 
         --v44;
-        v45 -= 328;
+        v45 -= 41;
         v23 = v44;
         if (v44 <= 0)
         {
@@ -420,8 +421,8 @@ LABEL_78:
     goto LABEL_16;
   }
 
-  v17 = *(a1 + 272);
-  v16 = *(a1 + 280);
+  v17 = a1[34];
+  v16 = a1[35];
   if (v17 == v16)
   {
     v95 = 0;
@@ -446,27 +447,27 @@ LABEL_78:
     v92 = 0u;
     v93 = 0u;
     v94 = 1065353216;
-    if (v17 >= *(a1 + 288))
+    if (v17 >= a1[36])
     {
-      v18 = std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>((a1 + 272), &v74);
+      v18 = std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>(a1 + 34, &v74);
     }
 
     else
     {
-      v18 = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v16, &v74) + 328;
+      v18 = (AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v16, &v74) + 328);
     }
 
-    *(a1 + 280) = v18;
+    a1[35] = v18;
     AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::~DeferredBatch(&v74);
-    return *(a1 + 272);
+    return a1[34];
   }
 
   return v17;
 }
 
-void sub_29CE7357C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29CE7357C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::~DeferredBatch(va);
   _Unwind_Resume(a1);
 }
@@ -684,7 +685,7 @@ uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classe
   return result;
 }
 
-uint64_t std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>(void ***a1, uint64_t a2)
+void **std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>>::__emplace_back_slow_path<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch>(id ***a1, uint64_t a2)
 {
   v2 = 0x8F9C18F9C18F9C19 * (a1[1] - *a1);
   v3 = v2 + 1;
@@ -720,10 +721,10 @@ uint64_t std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HA
 
   v6 = 8 * (a1[1] - *a1);
   AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::DeferredBatch(v6, a2);
-  v7 = 328 * v2 + 328;
+  v7 = (328 * v2 + 328);
   v8 = *a1;
   v9 = a1[1];
-  v10 = v6 + *a1 - v9;
+  v10 = (v6 + *a1 - v9);
   if (v9 != *a1)
   {
     v11 = *a1;
@@ -757,7 +758,7 @@ uint64_t std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HA
   return v7;
 }
 
-uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
+BOOL AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingRead(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1[31];
   if (!*&v4)
@@ -875,7 +876,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
+BOOL AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::containsOverlappingWrite(int8x8_t *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = a1[36];
   if (!*&v4)
@@ -1237,7 +1238,7 @@ void sub_29CE7403C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertReads(int8x8_t *a1, void *a2)
+void *AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::insertReads(int8x8_t *a1, void *a2)
 {
   v24 = *MEMORY[0x29EDCA608];
   memset(v21, 0, sizeof(v21));
@@ -1482,57 +1483,57 @@ void sub_29CE74400(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>>(void *result, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>>(float *a1, unint64_t a2, uint64_t a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_22;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_22:
     operator new();
   }
 
-  if (v3.u32[0] < 2uLL)
+  if (v4.u32[0] < 2uLL)
   {
     while (1)
     {
-      v7 = v6[1];
-      if (v7 == a2)
+      v8 = v7[1];
+      if (v8 == a2)
       {
-        if (v6[2] == a2)
+        if (v7[2] == a2)
         {
-          return result;
+          return;
         }
       }
 
-      else if ((v7 & (*&v2 - 1)) != v4)
+      else if ((v8 & (*&v3 - 1)) != v5)
       {
         goto LABEL_22;
       }
 
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         goto LABEL_22;
       }
@@ -1541,41 +1542,39 @@ LABEL_22:
 
   while (1)
   {
-    v8 = v6[1];
-    if (v8 == a2)
+    v9 = v7[1];
+    if (v9 == a2)
     {
       break;
     }
 
-    if (v8 >= *&v2)
+    if (v9 >= *&v3)
     {
-      v8 %= *&v2;
+      v9 %= *&v3;
     }
 
-    if (v8 != v4)
+    if (v9 != v5)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_22;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
-
-  return result;
 }
 
-void sub_29CE74880(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29CE74880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<unsigned long long,std::vector<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess,std::allocator<AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::DeferredBatch::BufferAccess>>>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
@@ -2043,7 +2042,7 @@ LABEL_113:
         }
       }
 
-      v124 = v123[34];
+      v124 = *(v123 + 34);
       if (!v124)
       {
         v124 = v119;
@@ -2454,7 +2453,7 @@ LABEL_69:
   *(v80 + 2060) |= 4u;
   v81 = *(v80 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(v80, v79);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v80, 0x16u, v184, v183);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v80, 22, v184, v183);
   if (*(v80 + 2292) == 1)
   {
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(v80, 22, 0, 0);
@@ -2600,7 +2599,7 @@ LABEL_94:
   *(v106 + 2060) |= 4u;
   v107 = *(v106 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(v106, v105);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v106, 0x16u, v184, v183);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v106, 22, v184, v183);
   if (*(v106 + 2292) == 1)
   {
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(v106, 22, 0, 0);
@@ -2892,7 +2891,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   }
 }
 
-BOOL AGX::BVHDescriptor::satisfiesPLOCLimits(AGX::BVHDescriptor *this)
+uint64_t AGX::BVHDescriptor::satisfiesPLOCLimits(AGX::BVHDescriptor *this)
 {
   v1 = *(this + 18);
   if (v1 - 8 <= 0xFFFFFFFD)
@@ -2919,7 +2918,7 @@ BOOL AGX::BVHDescriptor::satisfiesPLOCLimits(AGX::BVHDescriptor *this)
         }
       }
 
-      return v7 & (v8[2872] ^ 1);
+      return v7 & (*(v8 + 2872) ^ 1u);
     }
 
     return 1;
@@ -2937,7 +2936,7 @@ BOOL AGX::BVHDescriptor::satisfiesPLOCLimits(AGX::BVHDescriptor *this)
   }
 
   v9 = 0;
-  if ((*(this + 15) & 1) == 0 && (v10[2888] & 1) == 0)
+  if ((*(this + 15) & 1) == 0 && (v10[361] & 1) == 0)
   {
     if (*(this + 2) > 2u)
     {
@@ -2955,7 +2954,7 @@ BOOL AGX::BVHDescriptor::satisfiesPLOCLimits(AGX::BVHDescriptor *this)
       }
     }
 
-    if ((v11[2840] & 1) != 0 || (*(this + 28) & 0x10) != 0)
+    if ((v11[355] & 1) != 0 || (*(this + 28) & 0x10) != 0)
     {
       return *(this + 2) > 2u;
     }
@@ -3550,7 +3549,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   *(v13 + 2060) |= 4u;
   v14 = *(v13 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(v13, Pipeline);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v13, 0x16u, qword_29D2F5330, qword_29D2F5330);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v13, 22, qword_29D2F5330, qword_29D2F5330);
   if (*(v13 + 2292) == 1)
   {
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(v13, 22, 0, 0);
@@ -3640,7 +3639,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   *(v32 + 2060) |= 4u;
   v33 = *(v32 + 2336);
   AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::setPipelineCommon(v32, v31);
-  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v32, 0x16u, qword_29D2F5330, qword_29D2F5330);
+  AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::executeKernelThreadsInternal(v32, 22, qword_29D2F5330, qword_29D2F5330);
   if (*(v32 + 2292) == 1)
   {
     AGX::ComputeContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding,AGX::HAL300::EncoderComputeServiceClasses>::encodeBarrier(v32, 22, 0, 0);
@@ -3806,74 +3805,74 @@ LABEL_12:
   return 0;
 }
 
-AGX::BVHDescriptor *AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::newBVHDescriptor(AGX::BVHDescriptor *a1, void *a2, MTLAccelerationStructureDescriptor *a3)
+AGX::BVHDescriptor *AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::newBVHDescriptor(AGX::BVHDescriptor *a1, void *a2, MTLAccelerationStructureDescriptor *a3, uint64_t a4, uint64_t a5, BOOL a6, BOOL a7)
 {
-  v3 = a3;
-  v4 = a2;
-  v5 = &unk_2A179F000;
+  v7 = a3;
+  v8 = a2;
+  v9 = &unk_2A179F000;
   {
-    v20 = a1;
-    v18 = a3;
-    v5 = &unk_2A179F000;
-    v4 = a2;
-    v3 = v18;
-    v12 = v11;
-    a1 = v20;
-    if (v12)
+    v24 = a1;
+    v22 = a3;
+    v9 = &unk_2A179F000;
+    v8 = a2;
+    v7 = v22;
+    v16 = v15;
+    a1 = v24;
+    if (v16)
     {
       AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getSelectedRiaBvhGen(void)::riaBvhGenOverride = 0;
-      v5 = &unk_2A179F000;
-      a1 = v20;
-      v4 = a2;
-      v3 = v18;
+      v9 = &unk_2A179F000;
+      a1 = v24;
+      v8 = a2;
+      v7 = v22;
     }
   }
 
-  v6 = v5[884];
+  v10 = v9[884];
   {
-    v21 = a1;
-    v19 = v3;
-    v17 = v4;
-    v15 = v6;
-    v6 = v15;
-    v4 = v17;
-    v3 = v19;
-    v14 = v13;
-    a1 = v21;
-    if (v14)
+    v25 = a1;
+    v23 = v7;
+    v21 = v8;
+    v19 = v10;
+    v10 = v19;
+    v8 = v21;
+    v7 = v23;
+    v18 = v17;
+    a1 = v25;
+    if (v18)
     {
       AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBuilderAlgorithm(void)::riaBvhGen = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getSelectedRiaBvhGen();
-      v6 = v15;
-      a1 = v21;
-      v4 = v17;
-      v3 = v19;
+      v10 = v19;
+      a1 = v25;
+      v8 = v21;
+      v7 = v23;
     }
   }
 
-  if (v6 <= 0)
+  if (v10 <= 0)
   {
-    v8 = 3;
+    v12 = 3;
   }
 
   else
   {
-    v8 = v6;
+    v12 = v10;
   }
 
-  if (v7[248] == 5)
+  if (*(v11 + 248) == 5)
   {
-    v9 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v9 = -1;
+    v13 = -1;
   }
 
-  return AGX::BVHDescriptor::BVHDescriptor(a1, v8, v9, v4, v3);
+  return AGX::BVHDescriptor::BVHDescriptor(a1, v12, v13, v8, v7);
 }
 
-void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::newResourceBuffer(uint64_t *a1, uint64_t a2, uint64_t a3, MTLAccelerationStructureDescriptor *a4, uint64_t *a5)
+void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::newResourceBuffer(unint64_t *a1, uint64_t a2, unint64_t a3, MTLAccelerationStructureDescriptor *a4, unint64_t *a5)
 {
   v8 = a2;
   v10 = *(a3 + 40);
@@ -4132,7 +4131,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
                   }
 
                   while (v276 != v273);
-                  AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v278, v277, v273, v272, 1, 1);
+                  AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v278, v277, v273, 1, 1, v272);
                   v17 = v315;
                   v270 = v317;
                 }
@@ -4201,7 +4200,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
         v288 = *v17;
         if (*v17 && *(v288 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
         {
-          AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v288 + 312));
+          AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v288 + 312), *(v287 + 1912), 1);
         }
 
         if (v45 != 1)
@@ -4211,7 +4210,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
           {
             if (*(v289 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
             {
-              AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v289 + 312));
+              AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v289 + 312), *(v287 + 1912), 1);
             }
           }
         }
@@ -4311,7 +4310,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
         v299 = *v17;
         if (*v17 && *(v299 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
         {
-          AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v299 + 312));
+          AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v299 + 312), *(v298 + 1912), 1);
         }
 
         if (v46 != 1)
@@ -4319,7 +4318,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
           v300 = v17[1];
           if (v300 && *(v300 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
           {
-            AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v300 + 312));
+            AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v300 + 312), *(v298 + 1912), 1);
           }
 
           if (v46 != 2)
@@ -4327,7 +4326,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
             v301 = v17[2];
             if (v301 && *(v301 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
             {
-              AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v301 + 312));
+              AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v301 + 312), *(v298 + 1912), 1);
             }
 
             if (v46 != 3)
@@ -4337,7 +4336,7 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
               {
                 if (*(v302 + *MEMORY[0x29EDC5638] + 16) >> 61 == 3)
                 {
-                  AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v302 + 312));
+                  AGX::UserIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::bindResources(*(v302 + 312), *(v298 + 1912), 1);
                 }
               }
             }
@@ -4349,13 +4348,13 @@ void AGX::BVHDescriptor::setResourceBufferContentsImplMTL3(AGX::BVHDescriptor *t
         v292 = v46;
       }
 
-      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v290, v291, v292, v286, 1, 1);
+      AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v290, v291, v292, 1, 1, v286);
       goto LABEL_378;
     }
 
     if (v10 == 4)
     {
-      v34 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+      v34 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
       v309 = v34;
       if (v9 <= 1)
       {
@@ -4570,7 +4569,7 @@ LABEL_314:
       goto LABEL_383;
     }
 
-    v18 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+    v18 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
     v306 = v18;
     if (v9 <= 1)
     {
@@ -4816,7 +4815,7 @@ LABEL_234:
           v266 = v315;
           v267 = v171;
 LABEL_383:
-          AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v265, v266, v267, v105, 1, 1);
+          AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v265, v266, v267, 1, 1, v105);
           LODWORD(v6) = v304;
         }
 
@@ -4889,7 +4888,7 @@ LABEL_384:
   {
     if (v10 != 2)
     {
-      v23 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+      v23 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
       v309 = v23;
       if (v9 <= 1)
       {
@@ -5154,7 +5153,7 @@ LABEL_384:
       goto LABEL_314;
     }
 
-    v39 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+    v39 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
     v317 = v39;
     if (v9 <= 1)
     {
@@ -5375,7 +5374,7 @@ LABEL_146:
 
   if (!v10)
   {
-    v30 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+    v30 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
     v31 = v30;
     v32 = *(v8 + 10);
     if (v318)
@@ -5570,7 +5569,7 @@ LABEL_72:
 
             while (v71 != v48);
 LABEL_313:
-            AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v72, v17, v48, v67, 1, 1);
+            AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourcesCommon(v72, v17, v48, 1, 1, v67);
             LODWORD(v6) = v304;
           }
 
@@ -5587,7 +5586,7 @@ LABEL_379:
     }
   }
 
-  v11 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors];
+  v11 = [(MTLAccelerationStructureDescriptor *)a2 geometryDescriptors:a3];
   v12 = v11;
   if (v9 <= 1)
   {
@@ -5740,7 +5739,7 @@ LABEL_379:
   }
 }
 
-uint64_t AGX::BVHDescriptor::setResourceBufferContentsImplMTL4(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
+unint64_t AGX::BVHDescriptor::setResourceBufferContentsImplMTL4(unint64_t result, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!*(result + 40))
   {
@@ -8543,7 +8542,16 @@ LABEL_534:
     v232 = &AGX::BVHDescriptor::BVHDescriptor(unsigned int,unsigned int,unsigned int,MTLAccelerationStructureDescriptor *,BOOL,BOOL)::smallTriangleLeafLimit;
   }
 
-  v233 = *(this + 8) <= *v232 && v229;
+  if (*(this + 8) <= *v232)
+  {
+    v233 = v229;
+  }
+
+  else
+  {
+    v233 = 0;
+  }
+
   {
     AGX::BVHDescriptor::BVHDescriptor(unsigned int,unsigned int,unsigned int,MTLAccelerationStructureDescriptor *,BOOL,BOOL)::useBinnedSah = 1;
   }
@@ -9305,7 +9313,7 @@ LABEL_757:
   return this;
 }
 
-void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeWriteCompactedSize(uint64_t a1, void *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::encodeWriteCompactedSize(uint64_t a1, void *a2, char *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v21 = 0;
   v22 = 0;
@@ -9318,7 +9326,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
   v16 = [a2 size];
   *v13 = v15;
   *(v13 + 8) = v16;
-  v17 = a3 + a5;
+  v17 = &a3[a5];
   *(v13 + 16) = v17;
   if (a6 == 85)
   {
@@ -9365,7 +9373,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
 
   if (*(a1 + 49) == 1)
   {
-    if (v17 + a6 == 33)
+    if (&v17[a6] == 33)
     {
       v19 = 4;
     }
@@ -9377,7 +9385,7 @@ void AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AG
 
     BatchForCommand = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncoding>::getBatchForCommand(a1, 2, a2, 0, a3, a4, v17, v19, 0, 0);
     v21 = v12;
-    std::vector<unsigned long long>::push_back[abi:nn200100](BatchForCommand + 216, &v21);
+    std::vector<unsigned long long>::push_back[abi:nn200100]((BatchForCommand + 27), &v21);
   }
 
   else
@@ -9469,7 +9477,7 @@ unint64_t AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Class
     }
   }
 
-  if ((v13[2792] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (*(this + 28) & 1) == 0)
+  if ((v13[349] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (*(this + 28) & 1) == 0)
   {
     v14 = getCoarseCurveTestMode(AGX::BVHDescriptor const&)::evCoarseCurveTestMode;
   }
@@ -9880,7 +9888,7 @@ LABEL_108:
           }
         }
 
-        if ((v13[2792] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (*(this + 28) & 1) == 0)
+        if ((v13[349] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (*(this + 28) & 1) == 0)
         {
           if (*(this + 12) <= 1u)
           {
@@ -10024,7 +10032,7 @@ LABEL_133:
 
   v47 = v15 + (v25 << 7);
   v48 = v44 | (v46 >> 1);
-  if (v13[2792])
+  if (v13[349])
   {
     v49 = 0;
     v50 = &unk_2A179F000;
@@ -10236,7 +10244,7 @@ LABEL_175:
     }
   }
 
-  if (v69[2792] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (*(this + 28)))
+  if (v69[349] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (*(this + 28)))
   {
     v82 = *(this + 4);
     if (v82 == 1)

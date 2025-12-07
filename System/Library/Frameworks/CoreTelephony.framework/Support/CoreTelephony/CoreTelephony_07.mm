@@ -1,3 +1,768 @@
+void rest::read_rest_value(std::vector<std::string> *this, xpc_object_t *a2, const object *a3)
+{
+  v4 = *a2;
+  v16 = v4;
+  v5 = MEMORY[0x277D86468];
+  if (v4 && MEMORY[0x2383CC760](v4) == v5)
+  {
+    xpc_retain(v4);
+  }
+
+  else
+  {
+    v4 = xpc_null_create();
+    v16 = v4;
+  }
+
+  if (MEMORY[0x2383CC760](v4) == v5)
+  {
+    __p = &v16;
+    v13 = "Input";
+    xpc::dict::object_proxy::operator xpc::object(&__p, &v17);
+    if (MEMORY[0x2383CC760](v17) == MEMORY[0x277D86458])
+    {
+      length = xpc_data_get_length(v17);
+      begin = this->__begin_;
+      end = this->__end_;
+      v11 = end - this->__begin_;
+      if (length <= v11)
+      {
+        if (length < v11)
+        {
+          end = (begin + length);
+          this->__end_ = (begin + length);
+        }
+      }
+
+      else
+      {
+        std::vector<unsigned char>::__append(this, length - v11);
+        begin = this->__begin_;
+        end = this->__end_;
+      }
+
+      ctu::rest::detail::read_raw_binary_value(begin, (end - begin), &v17, v7);
+    }
+
+    xpc_release(v17);
+    __p = &v16;
+    v13 = "CodecPaths";
+    xpc::dict::object_proxy::operator xpc::object(&__p, &v17);
+    ctu::rest::read_rest_value<std::string>(&this[1], &v17);
+    xpc_release(v17);
+    v4 = v16;
+  }
+
+  else
+  {
+    v6 = this->__begin_;
+    if (this->__begin_)
+    {
+      this->__end_ = v6;
+      operator delete(v6);
+      this->__begin_ = 0;
+      this->__end_ = 0;
+      this->__end_cap_.__value_ = 0;
+    }
+
+    this->__begin_ = 0;
+    this->__end_ = 0;
+    this->__end_cap_.__value_ = 0;
+    v13 = 0;
+    v14 = 0;
+    __p = 0;
+    std::vector<std::string>::__vdeallocate(this + 1);
+    this[1].__begin_ = 0;
+    this[1].__end_ = 0;
+    this[1].__end_cap_.__value_ = 0;
+    memset(v15, 0, sizeof(v15));
+    v17 = v15;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v17);
+    if (__p)
+    {
+      v13 = __p;
+      operator delete(__p);
+    }
+  }
+
+  xpc_release(v4);
+}
+
+{
+  v43 = *a2;
+  v4 = MEMORY[0x277D86468];
+  if (v43 && MEMORY[0x2383CC760](v43) == v4)
+  {
+    xpc_retain(v43);
+  }
+
+  else
+  {
+    v43 = xpc_null_create();
+  }
+
+  if (MEMORY[0x2383CC760]() == v4)
+  {
+    v27[0] = &v43;
+    v27[1] = "Identifier";
+    xpc::dict::object_proxy::operator xpc::object(v27, &object);
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v33[0] = 0;
+    xpc::dyn_cast_or_default();
+    if (SBYTE7(v33[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(this->__end_cap_.__value_) < 0)
+    {
+      operator delete(this->__begin_);
+    }
+
+    *&this->__begin_ = v44;
+    this->__end_cap_.__value_ = v45;
+    xpc_release(object);
+    v27[0] = &v43;
+    v27[1] = "Title";
+    xpc::dict::object_proxy::operator xpc::object(v27, &object);
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v33[0] = 0;
+    xpc::dyn_cast_or_default();
+    if (SBYTE7(v33[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(this[1].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[1].__begin_);
+    }
+
+    *&this[1].__begin_ = v44;
+    this[1].__end_cap_.__value_ = v45;
+    xpc_release(object);
+    v27[0] = &v43;
+    v27[1] = "DepartureAirportCode";
+    xpc::dict::object_proxy::operator xpc::object(v27, &object);
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v33[0] = 0;
+    xpc::dyn_cast_or_default();
+    if (SBYTE7(v33[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(this[2].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[2].__begin_);
+    }
+
+    *&this[2].__begin_ = v44;
+    this[2].__end_cap_.__value_ = v45;
+    xpc_release(object);
+    v27[0] = &v43;
+    v27[1] = "ArrivalAirportCode";
+    xpc::dict::object_proxy::operator xpc::object(v27, &object);
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v33[0] = 0;
+    xpc::dyn_cast_or_default();
+    if (SBYTE7(v33[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(this[4].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[4].__begin_);
+    }
+
+    *&this[4].__begin_ = v44;
+    this[4].__end_cap_.__value_ = v45;
+    xpc_release(object);
+    __p[0] = &v43;
+    __p[1] = "DepartureAirportLat";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v6, 0.0);
+    this[6].__begin_ = v7;
+    xpc_release(v44);
+    __p[0] = &v43;
+    __p[1] = "DepartureAirportLong";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v8, 0.0);
+    this[6].__end_ = v9;
+    xpc_release(v44);
+    __p[0] = &v43;
+    __p[1] = "DepartureTime";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v10, 0.0);
+    this[6].__end_cap_.__value_ = v11;
+    xpc_release(v44);
+    __p[0] = &v43;
+    __p[1] = "ArrivalAirportLat";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v12, 0.0);
+    this[7].__begin_ = v13;
+    xpc_release(v44);
+    __p[0] = &v43;
+    __p[1] = "ArrivalAirportLong";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v14, 0.0);
+    this[7].__end_ = v15;
+    xpc_release(v44);
+    __p[0] = &v43;
+    __p[1] = "ArrivalTime";
+    xpc::dict::object_proxy::operator xpc::object(__p, &v44);
+    xpc::dyn_cast_or_default(&v44, v16, 0.0);
+    this[7].__end_cap_.__value_ = v17;
+    xpc_release(v44);
+    v27[0] = &v43;
+    v27[1] = "ExtractionSource";
+    xpc::dict::object_proxy::operator xpc::object(v27, &object);
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v33[0] = 0;
+    xpc::dyn_cast_or_default();
+    if (SBYTE7(v33[0]) < 0)
+    {
+      operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(this[9].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[9].__begin_);
+    }
+
+    *&this[9].__begin_ = v44;
+    this[9].__end_cap_.__value_ = v45;
+    xpc_release(object);
+    v31 = 0;
+    xpc::dict::object_proxy::operator xpc::array(&v31, v43, "PassengerNames");
+    std::vector<std::string>::clear[abi:ne200100](&this[8]);
+    object = 0;
+    v30 = 0;
+    v18 = v31;
+    __p[0] = v31;
+    if (v31)
+    {
+      xpc_retain(v31);
+    }
+
+    else
+    {
+      __p[0] = xpc_null_create();
+    }
+
+    xpc::array::iterator::iterator(&object, __p, 0);
+    xpc_release(__p[0]);
+    v19 = MEMORY[0x277D86440];
+    while (1)
+    {
+      *&v44 = v18;
+      if (v18)
+      {
+        xpc_retain(v18);
+      }
+
+      else
+      {
+        *&v44 = xpc_null_create();
+      }
+
+      v20 = MEMORY[0x2383CC760](v18) == v19 ? xpc_array_get_count(v18) : 0;
+      xpc::array::iterator::iterator(__p, &v44, v20);
+      xpc_release(v44);
+      v21 = object;
+      v22 = v30;
+      v23 = __p[0];
+      v24 = __p[1];
+      xpc_release(__p[0]);
+      if (v22 == v24 && v21 == v23)
+      {
+        break;
+      }
+
+      v27[0] = 0;
+      v27[1] = 0;
+      v28 = 0;
+      v25[0] = &object;
+      v25[1] = v30;
+      xpc::array::object_proxy::operator xpc::object(v25, &v26);
+      __p[0] = 0;
+      __p[1] = 0;
+      *&v33[0] = 0;
+      xpc::dyn_cast_or_default();
+      if (SBYTE7(v33[0]) < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      if (SHIBYTE(v28) < 0)
+      {
+        operator delete(v27[0]);
+      }
+
+      *v27 = v44;
+      v28 = v45;
+      xpc_release(v26);
+      std::vector<std::string>::push_back[abi:ne200100](&this[8], v27);
+      if (SHIBYTE(v28) < 0)
+      {
+        operator delete(v27[0]);
+      }
+
+      ++v30;
+    }
+
+    xpc_release(object);
+    xpc_release(v18);
+  }
+
+  else
+  {
+    memset(v42, 0, sizeof(v42));
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    memset(v37, 0, sizeof(v37));
+    v36 = 0u;
+    memset(v35, 0, sizeof(v35));
+    v34 = 0u;
+    *__p = 0u;
+    memset(v33, 0, sizeof(v33));
+    if (SHIBYTE(this->__end_cap_.__value_) < 0)
+    {
+      operator delete(this->__begin_);
+    }
+
+    this->__begin_ = 0;
+    this->__end_ = 0;
+    this->__end_cap_.__value_ = 0;
+    BYTE7(v33[0]) = 0;
+    LOBYTE(__p[0]) = 0;
+    if (SHIBYTE(this[1].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[1].__begin_);
+    }
+
+    *&this[1].__begin_ = *(v33 + 8);
+    this[1].__end_cap_.__value_ = *(&v33[1] + 1);
+    HIBYTE(v33[1]) = 0;
+    BYTE8(v33[0]) = 0;
+    if (SHIBYTE(this[2].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[2].__begin_);
+    }
+
+    *&this[2].__begin_ = v34;
+    this[2].__end_cap_.__value_ = v35[0];
+    HIBYTE(v35[0]) = 0;
+    LOBYTE(v34) = 0;
+    if (SHIBYTE(this[3].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[3].__begin_);
+    }
+
+    *&this[3].__begin_ = *&v35[1];
+    this[3].__end_cap_.__value_ = v35[3];
+    HIBYTE(v35[3]) = 0;
+    LOBYTE(v35[1]) = 0;
+    if (SHIBYTE(this[4].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[4].__begin_);
+    }
+
+    *&this[4].__begin_ = v36;
+    this[4].__end_cap_.__value_ = v37[0];
+    HIBYTE(v37[0]) = 0;
+    LOBYTE(v36) = 0;
+    if (SHIBYTE(this[5].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[5].__begin_);
+    }
+
+    *&this[5].__begin_ = *&v37[1];
+    this[5].__end_cap_.__value_ = v37[3];
+    HIBYTE(v37[3]) = 0;
+    LOBYTE(v37[1]) = 0;
+    v5 = v39;
+    *&this[6].__begin_ = v38;
+    *&this[6].__end_cap_.__value_ = v5;
+    *&this[7].__end_ = v40;
+    std::vector<std::string>::__vdeallocate(this + 8);
+    this[8].__begin_ = 0;
+    this[8].__end_ = 0;
+    this[8].__end_cap_.__value_ = 0;
+    v42[0] = 0;
+    v41 = 0uLL;
+    if (SHIBYTE(this[9].__end_cap_.__value_) < 0)
+    {
+      operator delete(this[9].__begin_);
+    }
+
+    *&this[9].__begin_ = *&v42[1];
+    this[9].__end_cap_.__value_ = v42[3];
+    HIBYTE(v42[3]) = 0;
+    LOBYTE(v42[1]) = 0;
+    rest::FlightInfo::~FlightInfo(__p);
+  }
+
+  xpc_release(v43);
+}
+
+{
+  v4 = *a2;
+  v9 = v4;
+  v5 = MEMORY[0x277D86468];
+  if (v4 && MEMORY[0x2383CC760](v4) == v5)
+  {
+    xpc_retain(v4);
+  }
+
+  else
+  {
+    v4 = xpc_null_create();
+    v9 = v4;
+  }
+
+  if (MEMORY[0x2383CC760](v4) == v5)
+  {
+    v6 = &v9;
+    v7 = "ContactKeys";
+    xpc::dict::object_proxy::operator xpc::object(&v6, &object);
+    ctu::rest::read_rest_value<std::string>(this, &object);
+    xpc_release(object);
+    v4 = v9;
+  }
+
+  else
+  {
+    std::vector<std::string>::__vdeallocate(this);
+    this->__begin_ = 0;
+    this->__end_ = 0;
+    this->__end_cap_.__value_ = 0;
+    v7 = 0;
+    v8 = 0;
+    v6 = 0;
+    object = &v6;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&object);
+  }
+
+  xpc_release(v4);
+}
+
+{
+  v4 = *a2;
+  v9 = v4;
+  v5 = MEMORY[0x277D86468];
+  if (v4 && MEMORY[0x2383CC760](v4) == v5)
+  {
+    xpc_retain(v4);
+  }
+
+  else
+  {
+    v4 = xpc_null_create();
+    v9 = v4;
+  }
+
+  if (MEMORY[0x2383CC760](v4) == v5)
+  {
+    v6 = &v9;
+    v7 = "MyCardNames";
+    xpc::dict::object_proxy::operator xpc::object(&v6, &object);
+    ctu::rest::read_rest_value<std::string>(this, &object);
+    xpc_release(object);
+    v4 = v9;
+  }
+
+  else
+  {
+    std::vector<std::string>::__vdeallocate(this);
+    this->__begin_ = 0;
+    this->__end_ = 0;
+    this->__end_cap_.__value_ = 0;
+    v7 = 0;
+    v8 = 0;
+    v6 = 0;
+    object = &v6;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&object);
+  }
+
+  xpc_release(v4);
+}
+
+void sub_237440970(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, xpc_object_t object)
+{
+  xpc_release(*(v15 - 40));
+  xpc_release(object);
+  _Unwind_Resume(a1);
+}
+
+void rest::write_rest_value(const void **this@<X0>, xpc_object_t *a2@<X8>)
+{
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  if (v4)
+  {
+    v14 = v4;
+  }
+
+  else
+  {
+    v5 = xpc_null_create();
+    v14 = v5;
+    if (!v5)
+    {
+      v6 = xpc_null_create();
+      v5 = 0;
+      goto LABEL_8;
+    }
+  }
+
+  if (MEMORY[0x2383CC760](v5) == MEMORY[0x277D86468])
+  {
+    xpc_retain(v5);
+    goto LABEL_9;
+  }
+
+  v6 = xpc_null_create();
+LABEL_8:
+  v14 = v6;
+LABEL_9:
+  xpc_release(v5);
+  v12 = xpc_data_create(*this, this[1] - *this);
+  if (!v12)
+  {
+    v12 = xpc_null_create();
+  }
+
+  v10 = &v14;
+  v11 = "Input";
+  xpc::dict::object_proxy::operator=(&v10, &v12, &object);
+  xpc_release(object);
+  object = 0;
+  xpc_release(v12);
+  v12 = 0;
+  ctu::rest::write_rest_value<std::string>(this + 3, &v8);
+  v10 = &v14;
+  v11 = "CodecPaths";
+  xpc::dict::object_proxy::operator=(&v10, &v8, &v9);
+  xpc_release(v9);
+  v9 = 0;
+  xpc_release(v8);
+  v8 = 0;
+  v7 = v14;
+  *a2 = v14;
+  if (v7)
+  {
+    xpc_retain(v7);
+  }
+
+  else
+  {
+    *a2 = xpc_null_create();
+  }
+
+  xpc_release(v14);
+}
+
+{
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  if (v4)
+  {
+    v14 = v4;
+  }
+
+  else
+  {
+    v5 = xpc_null_create();
+    v14 = v5;
+    if (!v5)
+    {
+      v6 = xpc_null_create();
+      v5 = 0;
+      goto LABEL_8;
+    }
+  }
+
+  if (MEMORY[0x2383CC760](v5) == MEMORY[0x277D86468])
+  {
+    xpc_retain(v5);
+    goto LABEL_9;
+  }
+
+  v6 = xpc_null_create();
+LABEL_8:
+  v14 = v6;
+LABEL_9:
+  xpc_release(v5);
+  rest::write_rest_value(this, &v12);
+  v10 = &v14;
+  v11 = "CodecInfo";
+  xpc::dict::object_proxy::operator=(&v10, &v12, &object);
+  xpc_release(object);
+  object = 0;
+  xpc_release(v12);
+  v12 = 0;
+  v8 = xpc_data_create(this[4], this[5] - this[4]);
+  if (!v8)
+  {
+    v8 = xpc_null_create();
+  }
+
+  v10 = &v14;
+  v11 = "CompressedInput";
+  xpc::dict::object_proxy::operator=(&v10, &v8, &v9);
+  xpc_release(v9);
+  v9 = 0;
+  xpc_release(v8);
+  v8 = 0;
+  v7 = v14;
+  *a2 = v14;
+  if (v7)
+  {
+    xpc_retain(v7);
+  }
+
+  else
+  {
+    *a2 = xpc_null_create();
+  }
+
+  xpc_release(v14);
+}
+
+{
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  if (v4)
+  {
+    v14 = v4;
+  }
+
+  else
+  {
+    v5 = xpc_null_create();
+    v14 = v5;
+    if (!v5)
+    {
+      v6 = xpc_null_create();
+      v5 = 0;
+      goto LABEL_8;
+    }
+  }
+
+  if (MEMORY[0x2383CC760](v5) == MEMORY[0x277D86468])
+  {
+    xpc_retain(v5);
+    goto LABEL_9;
+  }
+
+  v6 = xpc_null_create();
+LABEL_8:
+  v14 = v6;
+LABEL_9:
+  xpc_release(v5);
+  rest::write_rest_value(this, &v12);
+  v10 = &v14;
+  v11 = "CodecInfo";
+  xpc::dict::object_proxy::operator=(&v10, &v12, &object);
+  xpc_release(object);
+  object = 0;
+  xpc_release(v12);
+  v12 = 0;
+  v8 = xpc_data_create(this[4], this[5] - this[4]);
+  if (!v8)
+  {
+    v8 = xpc_null_create();
+  }
+
+  v10 = &v14;
+  v11 = "OriginalInput";
+  xpc::dict::object_proxy::operator=(&v10, &v8, &v9);
+  xpc_release(v9);
+  v9 = 0;
+  xpc_release(v8);
+  v8 = 0;
+  v7 = v14;
+  *a2 = v14;
+  if (v7)
+  {
+    xpc_retain(v7);
+  }
+
+  else
+  {
+    *a2 = xpc_null_create();
+  }
+
+  xpc_release(v14);
+}
+
+double rest::CompressTextResult::CompressTextResult(rest::CompressTextResult *this)
+{
+  *this = 0;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  return result;
+}
+
+{
+  *this = 0;
+  result = 0.0;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 40) = 0u;
+  return result;
+}
+
+__n128 rest::CompressTextResult::CompressTextResult(uint64_t a1, uint64_t a2, __n128 *a3)
+{
+  *a1 = *a2;
+  v3 = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 8) = v3;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  *(a2 + 8) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  result = *a3;
+  *(a1 + 32) = *a3;
+  *(a1 + 48) = a3[1].n128_u64[0];
+  *a3 = 0uLL;
+  a3[1].n128_u64[0] = 0;
+  return result;
+}
+
+{
+  *a1 = *a2;
+  v3 = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 8) = v3;
+  *(a2 + 16) = 0;
+  *(a2 + 24) = 0;
+  *(a2 + 8) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  result = *a3;
+  *(a1 + 32) = *a3;
+  *(a1 + 48) = a3[1].n128_u64[0];
+  *a3 = 0uLL;
+  a3[1].n128_u64[0] = 0;
+  return result;
+}
+
 BOOL rest::CompressTextResult::isValid(rest::CompressTextResult *this)
 {
   if ((*(this + 31) & 0x8000000000000000) != 0)
@@ -19,141 +784,6 @@ BOOL rest::CompressTextResult::isValid(rest::CompressTextResult *this)
   }
 
   return 0;
-}
-
-void rest::write_rest_value(const void **this@<X0>, xpc_object_t *a2@<X8>)
-{
-  v5 = xpc_dictionary_create(0, 0, 0);
-  v6 = v5;
-  if (v5)
-  {
-    v15 = v5;
-  }
-
-  else
-  {
-    v6 = xpc_null_create();
-    v15 = v6;
-    if (!v6)
-    {
-      v7 = xpc_null_create();
-      v6 = 0;
-      goto LABEL_8;
-    }
-  }
-
-  if (MEMORY[0x2383CC760](v6) == MEMORY[0x277D86468])
-  {
-    xpc_retain(v6);
-    goto LABEL_9;
-  }
-
-  v7 = xpc_null_create();
-LABEL_8:
-  v15 = v7;
-LABEL_9:
-  xpc_release(v6);
-  rest::write_rest_value(this, &v13);
-  v11 = &v15;
-  v12 = "CodecInfo";
-  xpc::dict::object_proxy::operator=(&v11, &v13, &object);
-  xpc_release(object);
-  object = 0;
-  xpc_release(v13);
-  v13 = 0;
-  v9 = xpc_data_create(this[4], this[5] - this[4]);
-  if (!v9)
-  {
-    v9 = xpc_null_create();
-  }
-
-  v11 = &v15;
-  v12 = "CompressedInput";
-  xpc::dict::object_proxy::operator=(&v11, &v9, &v10);
-  xpc_release(v10);
-  v10 = 0;
-  xpc_release(v9);
-  v9 = 0;
-  v8 = v15;
-  *a2 = v15;
-  if (v8)
-  {
-    xpc_retain(v8);
-  }
-
-  else
-  {
-    *a2 = xpc_null_create();
-  }
-
-  xpc_release(v15);
-}
-
-{
-  v5 = xpc_dictionary_create(0, 0, 0);
-  v6 = v5;
-  if (v5)
-  {
-    v15 = v5;
-  }
-
-  else
-  {
-    v6 = xpc_null_create();
-    v15 = v6;
-    if (!v6)
-    {
-      v7 = xpc_null_create();
-      v6 = 0;
-      goto LABEL_8;
-    }
-  }
-
-  if (MEMORY[0x2383CC760](v6) == MEMORY[0x277D86468])
-  {
-    xpc_retain(v6);
-    goto LABEL_9;
-  }
-
-  v7 = xpc_null_create();
-LABEL_8:
-  v15 = v7;
-LABEL_9:
-  xpc_release(v6);
-  rest::write_rest_value(this, &v13);
-  v11 = &v15;
-  v12 = "CodecInfo";
-  xpc::dict::object_proxy::operator=(&v11, &v13, &object);
-  xpc_release(object);
-  object = 0;
-  xpc_release(v13);
-  v13 = 0;
-  v9 = xpc_data_create(this[4], this[5] - this[4]);
-  if (!v9)
-  {
-    v9 = xpc_null_create();
-  }
-
-  v11 = &v15;
-  v12 = "OriginalInput";
-  xpc::dict::object_proxy::operator=(&v11, &v9, &v10);
-  xpc_release(v10);
-  v10 = 0;
-  xpc_release(v9);
-  v9 = 0;
-  v8 = v15;
-  *a2 = v15;
-  if (v8)
-  {
-    xpc_retain(v8);
-  }
-
-  else
-  {
-    *a2 = xpc_null_create();
-  }
-
-  xpc_release(v15);
 }
 
 double rest::DecompressTextArg::DecompressTextArg(rest::DecompressTextArg *this)
@@ -265,8 +895,7 @@ __n128 rest::DecompressTextResult::DecompressTextResult(uint64_t a1, uint64_t a2
   result = *a3;
   *(a1 + 32) = *a3;
   *(a1 + 48) = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   a3[1].n128_u64[0] = 0;
   return result;
 }
@@ -285,8 +914,7 @@ __n128 rest::DecompressTextResult::DecompressTextResult(uint64_t a1, uint64_t a2
   result = *a3;
   *(a1 + 32) = *a3;
   *(a1 + 48) = a3[1].n128_u64[0];
-  a3->n128_u64[0] = 0;
-  a3->n128_u64[1] = 0;
+  *a3 = 0uLL;
   a3[1].n128_u64[0] = 0;
   return result;
 }
@@ -331,7 +959,7 @@ uint64_t rest::GetCompressionCodecIdsArgs::GetCompressionCodecIdsArgs(uint64_t t
   return this;
 }
 
-uint64_t rest::GetCompressionCodecIdsArgs::GetCompressionCodecIdsArgs(uint64_t a1, uint64_t *a2, char a3)
+uint64_t rest::GetCompressionCodecIdsArgs::GetCompressionCodecIdsArgs(uint64_t a1, __int128 **a2, char a3)
 {
   *a1 = 0;
   *(a1 + 8) = 0;
@@ -358,8 +986,7 @@ __n128 rest::GetCompressionCodecIdsArgs::GetCompressionCodecIdsArgs(uint64_t a1,
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   *(a1 + 24) = a3;
   return result;
@@ -372,19 +999,18 @@ __n128 rest::GetCompressionCodecIdsArgs::GetCompressionCodecIdsArgs(uint64_t a1,
   result = *a2;
   *a1 = *a2;
   *(a1 + 16) = a2[1].n128_u64[0];
-  a2->n128_u64[0] = 0;
-  a2->n128_u64[1] = 0;
+  *a2 = 0uLL;
   a2[1].n128_u64[0] = 0;
   *(a1 + 24) = a3;
   return result;
 }
 
-uint64_t rest::operator==(uint64_t a1, uint64_t a2)
+uint64_t rest::operator==(const void ***a1, const void ***a2)
 {
   v4 = *a1;
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   v6 = *a2;
-  if ((v5 - *a1) == (*(a2 + 8) - *a2))
+  if (v5 - *a1 == a2[1] - *a2)
   {
     if (v4 == v5)
     {
@@ -1166,7 +1792,7 @@ void *rest::MegadomeEventsQueryResult::MegadomeEventsQueryResult(void *this)
   return this;
 }
 
-void *rest::MegadomeEventsQueryResult::MegadomeEventsQueryResult(void *a1, uint64_t *a2)
+uint64_t *rest::MegadomeEventsQueryResult::MegadomeEventsQueryResult(uint64_t *a1, uint64_t *a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1195,93 +1821,93 @@ void sub_237444248(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void rest::write_rest_value(rest **this@<X0>, xpc_object_t *a2@<X8>)
 {
-  v5 = xpc_dictionary_create(0, 0, 0);
-  v6 = v5;
-  if (v5)
+  v4 = xpc_dictionary_create(0, 0, 0);
+  v5 = v4;
+  if (v4)
   {
-    v17 = v5;
+    v16 = v4;
   }
 
   else
   {
-    v6 = xpc_null_create();
-    v17 = v6;
-    if (!v6)
+    v5 = xpc_null_create();
+    v16 = v5;
+    if (!v5)
     {
-      v7 = xpc_null_create();
-      v6 = 0;
+      v6 = xpc_null_create();
+      v5 = 0;
       goto LABEL_8;
     }
   }
 
-  if (MEMORY[0x2383CC760](v6) != MEMORY[0x277D86468])
+  if (MEMORY[0x2383CC760](v5) != MEMORY[0x277D86468])
   {
-    v7 = xpc_null_create();
+    v6 = xpc_null_create();
 LABEL_8:
-    v17 = v7;
+    v16 = v6;
     goto LABEL_9;
   }
 
-  xpc_retain(v6);
+  xpc_retain(v5);
 LABEL_9:
-  xpc_release(v6);
-  v8 = xpc_array_create(0, 0);
-  if (v8 || (v8 = xpc_null_create()) != 0)
+  xpc_release(v5);
+  v7 = xpc_array_create(0, 0);
+  if (v7 || (v7 = xpc_null_create()) != 0)
   {
-    if (MEMORY[0x2383CC760](v8) == MEMORY[0x277D86440])
+    if (MEMORY[0x2383CC760](v7) == MEMORY[0x277D86440])
     {
-      xpc_retain(v8);
-      v9 = v8;
+      xpc_retain(v7);
+      v8 = v7;
     }
 
     else
     {
-      v9 = xpc_null_create();
+      v8 = xpc_null_create();
     }
   }
 
   else
   {
-    v9 = xpc_null_create();
-    v8 = 0;
+    v8 = xpc_null_create();
+    v7 = 0;
   }
 
-  xpc_release(v8);
-  v10 = *this;
-  v11 = this[1];
-  while (v10 != v11)
+  xpc_release(v7);
+  v9 = *this;
+  v10 = this[1];
+  while (v9 != v10)
   {
-    rest::write_rest_value(v10, value);
-    v12 = value[0];
-    xpc_array_append_value(v9, value[0]);
-    xpc_release(v12);
-    v10 = (v10 + 240);
+    rest::write_rest_value(v9, value);
+    v11 = value[0];
+    xpc_array_append_value(v8, value[0]);
+    xpc_release(v11);
+    v9 = (v9 + 240);
   }
 
-  v15 = v9;
-  if (v9)
+  v14 = v8;
+  if (v8)
   {
-    xpc_retain(v9);
+    xpc_retain(v8);
   }
 
   else
   {
-    v15 = xpc_null_create();
+    v14 = xpc_null_create();
   }
 
-  xpc_release(v9);
-  value[0] = &v17;
+  xpc_release(v8);
+  value[0] = &v16;
   value[1] = "FlightInfo";
-  xpc::dict::object_proxy::operator=(value, &v15, &object);
+  xpc::dict::object_proxy::operator=(value, &v14, &object);
   xpc_release(object);
   object = 0;
-  xpc_release(v15);
-  v15 = 0;
-  v13 = v17;
-  *a2 = v17;
-  if (v13)
+  xpc_release(v14);
+  v14 = 0;
+  v12 = v16;
+  *a2 = v16;
+  if (v12)
   {
-    xpc_retain(v13);
+    xpc_retain(v12);
   }
 
   else
@@ -1289,7 +1915,7 @@ LABEL_9:
     *a2 = xpc_null_create();
   }
 
-  xpc_release(v17);
+  xpc_release(v16);
 }
 
 void sub_237444504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t object)
@@ -1314,7 +1940,7 @@ void *rest::GetContactsSettingsArg::GetContactsSettingsArg(void *this)
   return this;
 }
 
-void *rest::GetContactsSettingsArg::GetContactsSettingsArg(void *a1, uint64_t *a2)
+uint64_t *rest::GetContactsSettingsArg::GetContactsSettingsArg(uint64_t *a1, __int128 **a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1353,7 +1979,7 @@ void *rest::GetContactsSettingsResult::GetContactsSettingsResult(void *this)
   return this;
 }
 
-void *rest::GetContactsSettingsResult::GetContactsSettingsResult(void *a1, uint64_t *a2)
+uint64_t *rest::GetContactsSettingsResult::GetContactsSettingsResult(uint64_t *a1, __int128 **a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1549,22 +2175,22 @@ void std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std:
   }
 }
 
-void std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std::__unordered_map_hasher<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::hash<LASDDatabaseType>,std::equal_to<LASDDatabaseType>,true>,std::__unordered_map_equal<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::equal_to<LASDDatabaseType>,std::hash<LASDDatabaseType>,true>,std::allocator<std::__hash_value_type<LASDDatabaseType,std::string>>>::clear(uint64_t a1)
+void std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std::__unordered_map_hasher<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::hash<LASDDatabaseType>,std::equal_to<LASDDatabaseType>,true>,std::__unordered_map_equal<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::equal_to<LASDDatabaseType>,std::hash<LASDDatabaseType>,true>,std::allocator<std::__hash_value_type<LASDDatabaseType,std::string>>>::clear(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std::__unordered_map_hasher<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::hash<LASDDatabaseType>,std::equal_to<LASDDatabaseType>,true>,std::__unordered_map_equal<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::equal_to<LASDDatabaseType>,std::hash<LASDDatabaseType>,true>,std::allocator<std::__hash_value_type<LASDDatabaseType,std::string>>>::__deallocate_node(*(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std::__unordered_map_hasher<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::hash<LASDDatabaseType>,std::equal_to<LASDDatabaseType>,true>,std::__unordered_map_equal<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::equal_to<LASDDatabaseType>,std::hash<LASDDatabaseType>,true>,std::allocator<std::__hash_value_type<LASDDatabaseType,std::string>>>::__deallocate_node(*(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -1653,7 +2279,7 @@ __n128 std::__optional_storage_base<rest::CellularPlanBlacklistAdditionalPropert
   return result;
 }
 
-void std::vector<rest::CellularPlanBlacklistParams>::__vdeallocate(void **a1)
+void std::vector<rest::CellularPlanBlacklistParams>::__vdeallocate(void ***a1)
 {
   v1 = *a1;
   if (*a1)
@@ -1804,7 +2430,7 @@ void std::__tree<std::__value_type<std::string,rest::ICCIDPolicy>,std::__map_val
   }
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1814,7 +2440,7 @@ uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,s
   return result;
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1951,7 +2577,7 @@ void std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string 
   *(a1 + 8) = v3 + 24;
 }
 
-void std::vector<rest::FlightInfo>::__init_with_size[abi:ne200100]<rest::FlightInfo*,rest::FlightInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<rest::FlightInfo>::__init_with_size[abi:ne200100]<rest::FlightInfo*,rest::FlightInfo*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1964,9 +2590,9 @@ void std::vector<rest::FlightInfo>::__init_with_size[abi:ne200100]<rest::FlightI
   }
 }
 
-void sub_237446760(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237446760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<rest::FlightInfo>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2053,16 +2679,16 @@ void sub_237446A1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unordered_map<LASDDatabaseType,std::string>::unordered_map(uint64_t a1, uint64_t a2)
+uint64_t *std::unordered_map<LASDDatabaseType,std::string>::unordered_map(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = *(a2 + 32);
   std::__hash_table<std::__hash_value_type<LASDDatabaseType,std::string>,std::__unordered_map_hasher<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::hash<LASDDatabaseType>,std::equal_to<LASDDatabaseType>,true>,std::__unordered_map_equal<LASDDatabaseType,std::__hash_value_type<LASDDatabaseType,std::string>,std::equal_to<LASDDatabaseType>,std::hash<LASDDatabaseType>,true>,std::allocator<std::__hash_value_type<LASDDatabaseType,std::string>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
     v5 = *(i + 4);
-    v6 = *(a1 + 8);
+    v6 = a1[1];
     if (!*&v6)
     {
       goto LABEL_19;
@@ -2404,19 +3030,19 @@ void sub_2374472B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string,std::string>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v4 = 0;
-  v2 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = 0;
+  v3 = *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -2427,7 +3053,7 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -2445,8 +3071,8 @@ void *std::__tree<std::__value_type<std::string,std::string>,std::__map_value_co
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -2481,17 +3107,15 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::str
 
 uint64_t AttachApnModuleInterface::pushAttachAPNSettings(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v5, a2);
-  (*(*a1 + 72))(a1, 1, 0, v5);
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v5);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v4, a2);
+  (*(*a1 + 72))(a1, 1, 0, v4);
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_2374475F4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374475F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2670,8 +3294,7 @@ std::string *subscriber::asString@<X0>(std::string *result@<X0>, std::string *a2
 {
   v2 = result->__r_.__value_.__r.__words[0];
   size = result->__r_.__value_.__l.__size_;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
+  *&a2->__r_.__value_.__r.__words[1] = 0uLL;
   a2->__r_.__value_.__r.__words[0] = 0;
   if (v2 != size)
   {
@@ -2761,9 +3384,9 @@ const void **subscriber::generateUuidStrFromSlotId@<X0>(int a1@<W0>, CFStringRef
   return ctu::SharedRef<__CFUUID const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFUUID const>::~SharedRef(&v5);
 }
 
-void sub_237447BA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237447BA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFUUID const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFUUID const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -2799,9 +3422,9 @@ unint64_t subscriber::getSlotIdFromUuidStr(CFStringRef theString, const __CFStri
   return v2;
 }
 
-void sub_237447C30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_237447C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFUUID const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFUUID const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -2823,7 +3446,7 @@ void *subscriber::operator<<(void *a1, unsigned int a2)
   return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, v3, v4);
 }
 
-uint64_t subscriber::asString@<X0>(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t subscriber::asString@<X0>(_DWORD *a1@<X0>, void *a2@<X8>)
 {
   v22 = 0;
   v20 = 0u;
@@ -2888,7 +3511,7 @@ uint64_t subscriber::asString@<X0>(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x2383CBE70](v21);
 }
 
-uint64_t subscriber::asShortString@<X0>(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t subscriber::asShortString@<X0>(_DWORD *a1@<X0>, void *a2@<X8>)
 {
   v20 = 0;
   v18 = 0u;
@@ -3194,7 +3817,7 @@ uint64_t subscriber::SimCardInfo::SimCardInfo(uint64_t result, int a2, int a3, i
   return result;
 }
 
-uint64_t subscriber::SimCardInfo::SimCardInfo(uint64_t a1, int a2, int a3, int a4, int a5, uint64_t *a6)
+uint64_t subscriber::SimCardInfo::SimCardInfo(uint64_t a1, int a2, int a3, int a4, int a5, const void **a6)
 {
   *a1 = a2;
   *(a1 + 4) = a3;
@@ -3203,7 +3826,7 @@ uint64_t subscriber::SimCardInfo::SimCardInfo(uint64_t a1, int a2, int a3, int a
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 16) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 16, *a6, a6[1], a6[1] - *a6);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 16), *a6, a6[1], a6[1] - *a6);
   return a1;
 }
 
@@ -3215,7 +3838,7 @@ uint64_t subscriber::SimCardInfo::SimCardInfo(uint64_t a1, int a2, int a3, int a
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 16) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a1 + 16, *a6, a6[1], a6[1] - *a6);
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>((a1 + 16), *a6, a6[1], a6[1] - *a6);
   return a1;
 }
 
@@ -3757,7 +4380,7 @@ const void **ctu::SharedRef<__CFUUID const,ctu::cf::cfretain_functor,ctu::cf::cf
   return a1;
 }
 
-uint64_t std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(uint64_t *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -3814,14 +4437,12 @@ void *ctu::cf::CFSharedRef<void const>::CFSharedRef(void *a1, CFTypeRef cf)
 
 const void **persistentCopyValue@<X0>(uint64_t a1@<X0>, const void *a2@<X3>, void *a3@<X8>)
 {
-  v8 = 0;
-  v5 = *MEMORY[0x277CBF040];
-  v6 = *MEMORY[0x277CBF010];
-  (*(**a1 + 40))(&v8);
-  if (v8)
+  v6 = 0;
+  (*(**a1 + 40))(&v6);
+  if (v6)
   {
-    *a3 = v8;
-    v8 = 0;
+    *a3 = v6;
+    v6 = 0;
   }
 
   else if (a2)
@@ -3834,7 +4455,7 @@ const void **persistentCopyValue@<X0>(uint64_t a1@<X0>, const void *a2@<X3>, voi
     *a3 = 0;
   }
 
-  return ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v8);
+  return ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v6);
 }
 
 uint64_t persistentSaveValue(CFStringRef applicationID, CFStringRef key, CFPropertyListRef value)
@@ -4380,10 +5001,10 @@ uint64_t getSmsTypeBundleReference(int a1)
 
 uint64_t getBroadcastLanguageFromLocale(const char *__s2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  __dst[64] = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&_MergedGlobals_1, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_1))
   {
-    memcpy(__dst, &off_278A30148, sizeof(__dst));
+    memcpy(__dst, &off_278A30148, 0x200uLL);
     std::map<char const*,BroadcastLanguage,getBroadcastLanguageFromLocale(char const*)::cmp_str,std::allocator<std::pair<char const* const,BroadcastLanguage>>>::map[abi:ne200100](__dst, 32);
     __cxa_atexit(std::map<char const*,BroadcastLanguage,getBroadcastLanguageFromLocale(char const*)::cmp_str,std::allocator<std::pair<char const* const,BroadcastLanguage>>>::~map[abi:ne200100], &qword_280CE8358, &dword_2373EA000);
     __cxa_guard_release(&_MergedGlobals_1);
@@ -4392,7 +5013,7 @@ uint64_t getBroadcastLanguageFromLocale(const char *__s2)
   v2 = qword_280CE8360;
   if (!qword_280CE8360)
   {
-    goto LABEL_9;
+    return 15;
   }
 
   v3 = &qword_280CE8360;
@@ -4410,20 +5031,16 @@ uint64_t getBroadcastLanguageFromLocale(const char *__s2)
   while (v2);
   if (v3 == &qword_280CE8360 || strcmp(__s2, v3[4]) < 0)
   {
-LABEL_9:
-    result = 15;
+    return 15;
   }
 
   else
   {
-    result = *(v3 + 10);
+    return *(v3 + 10);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-uint64_t std::map<char const*,BroadcastLanguage,getBroadcastLanguageFromLocale(char const*)::cmp_str,std::allocator<std::pair<char const* const,BroadcastLanguage>>>::map[abi:ne200100](uint64_t result, uint64_t a2)
+uint64_t *std::map<char const*,BroadcastLanguage,getBroadcastLanguageFromLocale(char const*)::cmp_str,std::allocator<std::pair<char const* const,BroadcastLanguage>>>::map[abi:ne200100](uint64_t *result, uint64_t a2)
 {
   qword_280CE8368 = 0;
   qword_280CE8360 = 0;
@@ -4438,10 +5055,10 @@ uint64_t std::map<char const*,BroadcastLanguage,getBroadcastLanguageFromLocale(c
         operator new();
       }
 
-      v2 += 16;
+      v2 += 2;
     }
 
-    while (v2 != result + 16 * a2);
+    while (v2 != &result[2 * a2]);
   }
 
   return result;
@@ -4889,8 +5506,7 @@ void CSIPhoneNumber::getFormatted(CSIPhoneNumber *this@<X0>, std::string *a2@<X8
     v8 = "(nnn) nnn-nnnn";
   }
 
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   while (1)
   {
@@ -5184,8 +5800,7 @@ void CSIPhoneNumber::getBaseNumber(CSIPhoneNumber *this@<X0>, std::string *a2@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -5198,8 +5813,7 @@ void CSIPhoneNumber::getDtmfString(CSIPhoneNumber *this@<X0>, std::string *a2@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 104);
-    a2->__r_.__value_.__r.__words[2] = *(this + 15);
+    *a2 = *(this + 104);
   }
 }
 
@@ -5239,8 +5853,7 @@ void CSIPhoneNumber::getEmergencyCategoryURN(CSIPhoneNumber *this@<X0>, std::str
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 4);
-    a2->__r_.__value_.__r.__words[2] = *(this + 10);
+    *a2 = *(this + 64);
   }
 }
 
@@ -5777,14 +6390,14 @@ LABEL_55:
   return !v39;
 }
 
-void copyURLForPath(CFURLRef *a1@<X8>)
+void copyURLForPath(CFURLRef *a2@<X8>)
 {
   v7 = 0uLL;
   v8 = 0;
   ctu::cf::assign();
   v6 = 0;
   *__p = 0uLL;
-  *a1 = 0;
+  *a2 = 0;
   if (v6 >= 0)
   {
     v3 = __p;
@@ -5805,7 +6418,7 @@ void copyURLForPath(CFURLRef *a1@<X8>)
     v4 = __p[1];
   }
 
-  *a1 = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x277CBECE8], v3, v4, 1u);
+  *a2 = CFURLCreateFromFileSystemRepresentation(*MEMORY[0x277CBECE8], v3, v4, 1u);
   if (SHIBYTE(v6) < 0)
   {
     operator delete(__p[0]);
@@ -5823,6 +6436,182 @@ void sub_23744BDA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 }
 
 const void **copyURLForPath@<X0>(uint64_t a1@<X0>, CFURLRef *a2@<X8>)
+{
+  if (*(a1 + 23) < 0)
+  {
+    std::string::__init_copy_ctor_external(&__p, *a1, *(a1 + 8));
+  }
+
+  else
+  {
+    __p = *a1;
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v8, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v8 = __p;
+  }
+
+  v7 = 0;
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  {
+    std::string::__init_copy_ctor_external(&v9, v8.__r_.__value_.__l.__data_, v8.__r_.__value_.__l.__size_);
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  v10 = 0;
+  if (ctu::cf::convert_copy())
+  {
+    v3 = v7;
+    v7 = v10;
+    v11 = v3;
+    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v11);
+  }
+
+  if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v9.__r_.__value_.__l.__data_);
+  }
+
+  v6 = v7;
+  v7 = 0;
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v7);
+  if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v8.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  copyURLForPath(a2);
+  return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v6);
+}
+
+void sub_23744BF10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, int a17, const void *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+{
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&a18);
+  if (a24 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a14 < 0)
+  {
+    operator delete(a9);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+const __CFURL *copyURLAsString@<X0>(const __CFURL *result@<X0>, CFStringRef *a2@<X8>)
+{
+  *a2 = 0;
+  if (result)
+  {
+    v3 = CFURLCopyAbsoluteURL(result);
+    v4 = v3;
+    if (v3)
+    {
+      *a2 = CFURLCopyFileSystemPath(v3, kCFURLPOSIXPathStyle);
+      v5 = 0;
+      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v5);
+    }
+
+    return ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&v4);
+  }
+
+  return result;
+}
+
+void sub_23744BFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&a9);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v9);
+  _Unwind_Resume(a1);
+}
+
+const __CFURL *copyBundleIdentifier@<X0>(const __CFURL *bundleURL@<X0>, CFStringRef *a2@<X8>)
+{
+  *a2 = 0;
+  if (bundleURL)
+  {
+    v3 = CFBundleCreate(*MEMORY[0x277CBECE8], bundleURL);
+    v6 = v3;
+    if (v3)
+    {
+      Identifier = CFBundleGetIdentifier(v3);
+      v5 = Identifier;
+      if (Identifier)
+      {
+        CFRetain(Identifier);
+      }
+
+      *a2 = v5;
+      v7 = 0;
+      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v7);
+    }
+
+    return ctu::SharedRef<__CFBundle,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFBundle>::~SharedRef(&v6);
+  }
+
+  return bundleURL;
+}
+
+void sub_23744C078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  ctu::SharedRef<__CFBundle,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFBundle>::~SharedRef(&a9);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v9);
+  _Unwind_Resume(a1);
+}
+
+const __CFString *copyBundleIdentifier@<X0>(const __CFString *result@<X0>, const void **a2@<X8>)
+{
+  *a2 = 0;
+  if (result)
+  {
+    bundleURL = 0;
+    copyURLForPath(&bundleURL);
+    if (bundleURL)
+    {
+      copyBundleIdentifier(bundleURL, &v3);
+      if (&v3 != a2)
+      {
+        v5 = *a2;
+        *a2 = v3;
+        v3 = 0;
+        ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v5);
+      }
+
+      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v3);
+    }
+
+    return ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&bundleURL);
+  }
+
+  return result;
+}
+
+void sub_23744C120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(va);
+  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v5);
+  _Unwind_Resume(a1);
+}
+
+const void **copyBundleIdentifier@<X0>(uint64_t a1@<X0>, const void **a2@<X8>)
 {
   if (*(a1 + 23) < 0)
   {
@@ -5856,12 +6645,11 @@ const void **copyURLForPath@<X0>(uint64_t a1@<X0>, CFURLRef *a2@<X8>)
   }
 
   v11 = 0;
-  v3 = *MEMORY[0x277CBECE8];
   if (ctu::cf::convert_copy())
   {
-    v4 = v8;
+    v3 = v8;
     v8 = v11;
-    v12 = v4;
+    v12 = v3;
     ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v12);
   }
 
@@ -5870,6 +6658,7 @@ const void **copyURLForPath@<X0>(uint64_t a1@<X0>, CFURLRef *a2@<X8>)
     operator delete(v10.__r_.__value_.__l.__data_);
   }
 
+  v4 = v8;
   v7 = v8;
   v8 = 0;
   ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v8);
@@ -5883,186 +6672,8 @@ const void **copyURLForPath@<X0>(uint64_t a1@<X0>, CFURLRef *a2@<X8>)
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  copyURLForPath(a2);
+  copyBundleIdentifier(v4, a2);
   return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v7);
-}
-
-void sub_23744BF10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, int a17, const void *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
-{
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&a18);
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a14 < 0)
-  {
-    operator delete(a9);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-const void **copyURLAsString@<X0>(const void **result@<X0>, CFStringRef *a2@<X8>)
-{
-  *a2 = 0;
-  if (result)
-  {
-    v3 = CFURLCopyAbsoluteURL(result);
-    v4 = v3;
-    if (v3)
-    {
-      *a2 = CFURLCopyFileSystemPath(v3, kCFURLPOSIXPathStyle);
-      v5 = 0;
-      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v5);
-    }
-
-    return ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&v4);
-  }
-
-  return result;
-}
-
-void sub_23744BFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
-{
-  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&a9);
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v9);
-  _Unwind_Resume(a1);
-}
-
-const void **copyBundleIdentifier@<X0>(const void **bundleURL@<X0>, CFStringRef *a2@<X8>)
-{
-  *a2 = 0;
-  if (bundleURL)
-  {
-    v3 = CFBundleCreate(*MEMORY[0x277CBECE8], bundleURL);
-    v6 = v3;
-    if (v3)
-    {
-      Identifier = CFBundleGetIdentifier(v3);
-      v5 = Identifier;
-      if (Identifier)
-      {
-        CFRetain(Identifier);
-      }
-
-      *a2 = v5;
-      v7 = 0;
-      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v7);
-    }
-
-    return ctu::SharedRef<__CFBundle,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFBundle>::~SharedRef(&v6);
-  }
-
-  return bundleURL;
-}
-
-void sub_23744C078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
-{
-  ctu::SharedRef<__CFBundle,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFBundle>::~SharedRef(&a9);
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v9);
-  _Unwind_Resume(a1);
-}
-
-const void **copyBundleIdentifier@<X0>(const void **result@<X0>, const void **a2@<X8>)
-{
-  *a2 = 0;
-  if (result)
-  {
-    bundleURL = 0;
-    copyURLForPath(&bundleURL);
-    if (bundleURL)
-    {
-      copyBundleIdentifier(bundleURL, &v3);
-      if (&v3 != a2)
-      {
-        v5 = *a2;
-        *a2 = v3;
-        v3 = 0;
-        ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v5);
-      }
-
-      ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v3);
-    }
-
-    return ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(&bundleURL);
-  }
-
-  return result;
-}
-
-void sub_23744C120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  ctu::SharedRef<__CFURL const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFURL const>::~SharedRef(va);
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(v3);
-  _Unwind_Resume(a1);
-}
-
-const void **copyBundleIdentifier@<X0>(uint64_t a1@<X0>, const void **a2@<X8>)
-{
-  if (*(a1 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__p, *a1, *(a1 + 8));
-  }
-
-  else
-  {
-    __p = *a1;
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v10, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v10 = __p;
-  }
-
-  v9 = 0;
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v11, v10.__r_.__value_.__l.__data_, v10.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v11 = v10;
-  }
-
-  v12 = 0;
-  v3 = *MEMORY[0x277CBECE8];
-  if (ctu::cf::convert_copy())
-  {
-    v4 = v9;
-    v9 = v12;
-    v13 = v4;
-    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v13);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
-  }
-
-  v5 = v9;
-  v8 = v9;
-  v9 = 0;
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v9);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v10.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  copyBundleIdentifier(v5, a2);
-  return ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v8);
 }
 
 void sub_23744C27C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, int a17, const void *a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
@@ -6519,7 +7130,7 @@ uint64_t *write_rest_value@<X0>(unsigned int *a1@<X0>, const char *a2@<X2>, uint
     v4 = off_278A306A0[v3];
   }
 
-  return ctu::rest::detail::write_enum_string_value(a3, v3, v4, a2);
+  return ctu::rest::detail::write_enum_string_value(a3, v3, a2, v4);
 }
 
 void UMTSProvisioningInfo::UMTSProvisioningInfo(UMTSProvisioningInfo *this)
@@ -6631,30 +7242,28 @@ void UMTSProvisioningInfo::dumpState(UMTSProvisioningInfo *this, os_log_t *a2)
   {
     if (*this)
     {
-      v5 = "true";
+      v6 = "true";
     }
 
     else
     {
-      v5 = "false";
+      v6 = "false";
     }
 
     v7 = 136315138;
-    v8 = v5;
+    v8 = v6;
     _os_log_impl(&dword_2373EA000, v4, OS_LOG_TYPE_DEFAULT, "#I fImsiOverride = %s", &v7, 0xCu);
   }
 
   if (*(this + 176) == 1)
   {
-    UMTSProvisioningSlotInfo::dumpState((this + 8), a2);
+    UMTSProvisioningSlotInfo::dumpState((this + 8), a2, v5);
   }
 
   if (*(this + 352) == 1)
   {
-    UMTSProvisioningSlotInfo::dumpState((this + 184), a2);
+    UMTSProvisioningSlotInfo::dumpState((this + 184), a2, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ES10TapeLoadBoundProfilePackage::ES10TapeLoadBoundProfilePackage(uint64_t a1, __n128 *a2)
@@ -6791,14 +7400,14 @@ LABEL_17:
       goto LABEL_24;
     }
 
-    v14 = (a1 + 3);
+    v14 = a1 + 3;
   }
 
   else
   {
     std::vector<unsigned char>::__append(a2, &v10[-v13]);
     v8 = *a1;
-    v14 = (a1 + 3);
+    v14 = a1 + 3;
     v7 = *(a1 + 6);
     v12 = *a2;
   }
@@ -7466,7 +8075,7 @@ uint64_t kCTDataConnectionTypeFromString(CFStringRef theString1)
 
 uint64_t BasebandSettingsInterface::copySupportedAndActiveBands(uint64_t a1, uint64_t *a2)
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v3 = *a2;
   v2 = a2[1];
   if (v2)
@@ -7474,19 +8083,17 @@ uint64_t BasebandSettingsInterface::copySupportedAndActiveBands(uint64_t a1, uin
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6[0] = &unk_284A6AB20;
-  v6[1] = v3;
-  v6[2] = v2;
-  v6[3] = v6;
-  (*(*a1 + 128))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[0] = &unk_284A6AB20;
+  v5[1] = v3;
+  v5[2] = v2;
+  v5[3] = v5;
+  (*(*a1 + 128))(a1, 1, v5);
+  return std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_23744E9D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23744E9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7550,7 +8157,7 @@ void std::__function::__func<BasebandSettingsInterface::copySupportedAndActiveBa
   operator delete(__p);
 }
 
-const void **std::__function::__func<BasebandSettingsInterface::copySupportedAndActiveBands(xpc::auto_reply)::$_0,std::allocator<BasebandSettingsInterface::copySupportedAndActiveBands(xpc::auto_reply)::$_0>,void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>::operator()(uint64_t a1, const void **a2)
+const void **std::__function::__func<BasebandSettingsInterface::copySupportedAndActiveBands(xpc::auto_reply)::$_0,std::allocator<BasebandSettingsInterface::copySupportedAndActiveBands(xpc::auto_reply)::$_0>,void ()(ctu::cf::CFSharedRef<__CFDictionary const>)>::operator()(uint64_t a1, ctu **a2)
 {
   v5 = *a2;
   v3 = v5;
@@ -7565,9 +8172,9 @@ const void **std::__function::__func<BasebandSettingsInterface::copySupportedAnd
   return ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v5);
 }
 
-void sub_23744EC14(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23744EC14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(va);
   _Unwind_Resume(a1);
 }
@@ -7651,7 +8258,7 @@ void sub_23744EDB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CTWakingTimerInterface::createOneShotWakingTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   global_queue = dispatch_get_global_queue(0, 0);
   v11 = global_queue;
   if (global_queue)
@@ -7663,19 +8270,19 @@ uint64_t CTWakingTimerInterface::createOneShotWakingTimer(uint64_t a1, uint64_t 
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN22CTWakingTimerInterface24createOneShotWakingTimerENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEENS0_8functionIFvvEEE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_5;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, a5);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v19, a5);
   v12 = _Block_copy(aBlock);
   *__p = *a2;
-  v18 = *(a2 + 16);
+  v17 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v15 = v12;
+  v14 = v12;
   object = v11;
-  (*(*a1 + 80))(a1, __p, a3, a4, 0, &object, &v15);
-  if (v15)
+  (*(*a1 + 80))(a1, __p, a3, a4, 0, &object, &v14);
+  if (v14)
   {
-    _Block_release(v15);
+    _Block_release(v14);
   }
 
   if (object)
@@ -7683,14 +8290,12 @@ uint64_t CTWakingTimerInterface::createOneShotWakingTimer(uint64_t a1, uint64_t 
     dispatch_release(object);
   }
 
-  if (SHIBYTE(v18) < 0)
+  if (SHIBYTE(v17) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
 }
 
 void sub_23744EF6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, dispatch_object_t object, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -7767,7 +8372,7 @@ void sub_23744F0CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CTWakingTimerInterface::createPeriodicWakingTimer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   global_queue = dispatch_get_global_queue(0, 0);
   v11 = global_queue;
   if (global_queue)
@@ -7779,19 +8384,19 @@ uint64_t CTWakingTimerInterface::createPeriodicWakingTimer(uint64_t a1, uint64_t
   aBlock[1] = 1174405120;
   aBlock[2] = ___ZN22CTWakingTimerInterface25createPeriodicWakingTimerENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEENS0_5tupleIJN3ctu8TimeTypeENS0_6chrono8durationIxNS0_5ratioILl1ELl1000000EEEEEEEENS0_8functionIFvvEEE_block_invoke;
   aBlock[3] = &__block_descriptor_tmp_3;
-  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v20, a5);
+  std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](v19, a5);
   v12 = _Block_copy(aBlock);
   *__p = *a2;
-  v18 = *(a2 + 16);
+  v17 = *(a2 + 16);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *a2 = 0;
-  v15 = v12;
+  v14 = v12;
   object = v11;
-  (*(*a1 + 88))(a1, __p, a3, a4, 0, &object, &v15);
-  if (v15)
+  (*(*a1 + 88))(a1, __p, a3, a4, 0, &object, &v14);
+  if (v14)
   {
-    _Block_release(v15);
+    _Block_release(v14);
   }
 
   if (object)
@@ -7799,14 +8404,12 @@ uint64_t CTWakingTimerInterface::createPeriodicWakingTimer(uint64_t a1, uint64_t
     dispatch_release(object);
   }
 
-  if (SHIBYTE(v18) < 0)
+  if (SHIBYTE(v17) < 0)
   {
     operator delete(__p[0]);
   }
 
-  result = std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v20);
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v19);
 }
 
 void sub_23744F288(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *aBlock, dispatch_object_t object, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16)
@@ -7856,472 +8459,6 @@ void sub_2374509D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   xpc_release(v12);
   xpc_release(object);
   _Unwind_Resume(a1);
-}
-
-void rest::read_rest_value(char **a1, xpc_object_t *a2)
-{
-  v3 = *a2;
-  v52 = v3;
-  v4 = MEMORY[0x277D86468];
-  if (v3 && MEMORY[0x2383CC760](v3) == v4)
-  {
-    xpc_retain(v3);
-  }
-
-  else
-  {
-    v3 = xpc_null_create();
-    v52 = v3;
-  }
-
-  if (MEMORY[0x2383CC760](v3) == v4)
-  {
-    v50[0] = &v52;
-    v50[1] = "carrier-identifiers";
-    xpc::dict::object_proxy::operator xpc::object(v50, &v51);
-    v8 = v51;
-    v9 = MEMORY[0x277D86440];
-    if (v51 && MEMORY[0x2383CC760](v51) == v9)
-    {
-      xpc_retain(v8);
-    }
-
-    else
-    {
-      v8 = xpc_null_create();
-    }
-
-    v11 = *a1;
-    for (i = a1[1]; i != v11; std::allocator_traits<std::allocator<rest::CarrierIdentifier>>::destroy[abi:ne200100]<rest::CarrierIdentifier,void,0>(i))
-    {
-      i -= 144;
-    }
-
-    a1[1] = v11;
-    if (MEMORY[0x2383CC760](v8) == v9)
-    {
-      v64 = v8;
-      if (v8)
-      {
-        xpc_retain(v8);
-      }
-
-      else
-      {
-        v64 = xpc_null_create();
-      }
-
-      xpc::array::iterator::iterator(&v56, &v64, 0);
-      xpc_release(v64);
-      v64 = v8;
-      if (v8)
-      {
-        xpc_retain(v8);
-      }
-
-      else
-      {
-        v64 = xpc_null_create();
-      }
-
-      if (MEMORY[0x2383CC760](v8) == v9)
-      {
-        count = xpc_array_get_count(v8);
-      }
-
-      else
-      {
-        count = 0;
-      }
-
-      xpc::array::iterator::iterator(v55, &v64, count);
-      xpc_release(v64);
-      for (j = v57; j != v55[1] || v56 != v55[0]; j = ++v57)
-      {
-        v54[0] = &v56;
-        v54[1] = j;
-        v15 = a1[1];
-        v14 = a1[2];
-        if (v15 >= v14)
-        {
-          v17 = *a1;
-          v18 = v15 - *a1;
-          v19 = 0x8E38E38E38E38E39 * (v18 >> 4) + 1;
-          if (v19 > 0x1C71C71C71C71C7)
-          {
-            std::vector<DataConnectionType>::__throw_length_error[abi:ne200100]();
-          }
-
-          v20 = 0x8E38E38E38E38E39 * ((v14 - v17) >> 4);
-          if (2 * v20 > v19)
-          {
-            v19 = 2 * v20;
-          }
-
-          if (v20 >= 0xE38E38E38E38E3)
-          {
-            v21 = 0x1C71C71C71C71C7;
-          }
-
-          else
-          {
-            v21 = v19;
-          }
-
-          if (v21)
-          {
-            if (v21 <= 0x1C71C71C71C71C7)
-            {
-              operator new();
-            }
-
-            std::__throw_bad_array_new_length[abi:ne200100]();
-          }
-
-          v22 = (16 * (v18 >> 4));
-          v22[7] = 0u;
-          v22[8] = 0u;
-          v22[5] = 0u;
-          v22[6] = 0u;
-          v22[3] = 0u;
-          v22[4] = 0u;
-          v22[1] = 0u;
-          v22[2] = 0u;
-          *v22 = 0u;
-          v23 = v22 - v18;
-          if (v17 != v15)
-          {
-            v24 = v17;
-            v25 = v23;
-            do
-            {
-              v26 = *v24;
-              *(v25 + 2) = *(v24 + 2);
-              *v25 = v26;
-              *(v24 + 1) = 0;
-              *(v24 + 2) = 0;
-              *v24 = 0;
-              v27 = *(v24 + 24);
-              *(v25 + 5) = *(v24 + 5);
-              *(v25 + 24) = v27;
-              *(v24 + 4) = 0;
-              *(v24 + 5) = 0;
-              *(v24 + 3) = 0;
-              v28 = *(v24 + 3);
-              *(v25 + 8) = *(v24 + 8);
-              *(v25 + 3) = v28;
-              *(v24 + 7) = 0;
-              *(v24 + 8) = 0;
-              *(v24 + 6) = 0;
-              v29 = *(v24 + 72);
-              *(v25 + 11) = *(v24 + 11);
-              *(v25 + 72) = v29;
-              *(v24 + 9) = 0;
-              *(v24 + 10) = 0;
-              *(v24 + 11) = 0;
-              v30 = *(v24 + 6);
-              *(v25 + 14) = *(v24 + 14);
-              *(v25 + 6) = v30;
-              *(v24 + 12) = 0;
-              *(v24 + 13) = 0;
-              *(v24 + 14) = 0;
-              v31 = *(v24 + 120);
-              *(v25 + 17) = *(v24 + 17);
-              *(v25 + 120) = v31;
-              *(v24 + 15) = 0;
-              *(v24 + 16) = 0;
-              *(v24 + 17) = 0;
-              v24 += 144;
-              v25 += 144;
-            }
-
-            while (v24 != v15);
-            do
-            {
-              std::allocator_traits<std::allocator<rest::CarrierIdentifier>>::destroy[abi:ne200100]<rest::CarrierIdentifier,void,0>(v17);
-              v17 += 144;
-            }
-
-            while (v17 != v15);
-            v17 = *a1;
-          }
-
-          v16 = (v22 + 9);
-          *a1 = v23;
-          a1[1] = v16;
-          a1[2] = 0;
-          if (v17)
-          {
-            operator delete(v17);
-          }
-        }
-
-        else
-        {
-          *(v15 + 7) = 0u;
-          *(v15 + 8) = 0u;
-          *(v15 + 5) = 0u;
-          *(v15 + 6) = 0u;
-          *(v15 + 3) = 0u;
-          *(v15 + 4) = 0u;
-          *(v15 + 1) = 0u;
-          *(v15 + 2) = 0u;
-          v16 = v15 + 144;
-          *v15 = 0u;
-        }
-
-        a1[1] = v16;
-        xpc::array::object_proxy::operator xpc::object(v54, &v53);
-        v32 = v53;
-        v61 = v53;
-        if (v53 && MEMORY[0x2383CC760](v53) == v4)
-        {
-          xpc_retain(v32);
-        }
-
-        else
-        {
-          v61 = xpc_null_create();
-        }
-
-        v33 = (v16 - 144);
-        if (MEMORY[0x2383CC760]() == v4)
-        {
-          v58 = &v61;
-          v59 = "iccid";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          if (*(v16 - 121) < 0)
-          {
-            operator delete(*v33);
-          }
-
-          v39 = v62;
-          *(v16 - 16) = v63;
-          *v33 = v39;
-          xpc_release(object);
-          v58 = &v61;
-          v59 = "mcc";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          v40 = (v16 - 120);
-          if (*(v16 - 97) < 0)
-          {
-            operator delete(*v40);
-          }
-
-          v41 = v62;
-          *(v16 - 13) = v63;
-          *v40 = v41;
-          xpc_release(object);
-          v58 = &v61;
-          v59 = "mnc";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          v42 = (v16 - 96);
-          if (*(v16 - 73) < 0)
-          {
-            operator delete(*v42);
-          }
-
-          v43 = v62;
-          *(v16 - 10) = v63;
-          *v42 = v43;
-          xpc_release(object);
-          v58 = &v61;
-          v59 = "gid1";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          v44 = (v16 - 72);
-          if (*(v16 - 49) < 0)
-          {
-            operator delete(*v44);
-          }
-
-          v45 = v62;
-          *(v16 - 7) = v63;
-          *v44 = v45;
-          xpc_release(object);
-          v58 = &v61;
-          v59 = "gid2";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          v46 = (v16 - 48);
-          if (*(v16 - 25) < 0)
-          {
-            operator delete(*v46);
-          }
-
-          v47 = v62;
-          *(v16 - 4) = v63;
-          *v46 = v47;
-          xpc_release(object);
-          v58 = &v61;
-          v59 = "imsi";
-          xpc::dict::object_proxy::operator xpc::object(&v58, &object);
-          v64 = 0;
-          v65 = 0;
-          v66 = 0;
-          xpc::dyn_cast_or_default();
-          if (SHIBYTE(v66) < 0)
-          {
-            operator delete(v64);
-          }
-
-          v48 = (v16 - 24);
-          if (*(v16 - 1) < 0)
-          {
-            operator delete(*v48);
-          }
-
-          v49 = v62;
-          *(v16 - 1) = v63;
-          *v48 = v49;
-          xpc_release(object);
-        }
-
-        else
-        {
-          if (*(v16 - 121) < 0)
-          {
-            operator delete(*v33);
-          }
-
-          v34 = (v16 - 120);
-          *v33 = 0;
-          *(v16 - 17) = 0;
-          *(v16 - 16) = 0;
-          if (*(v16 - 97) < 0)
-          {
-            operator delete(*v34);
-          }
-
-          v35 = (v16 - 96);
-          *v34 = 0;
-          *(v16 - 14) = 0;
-          *(v16 - 13) = 0;
-          if (*(v16 - 73) < 0)
-          {
-            operator delete(*v35);
-          }
-
-          v36 = (v16 - 72);
-          *v35 = 0;
-          *(v16 - 11) = 0;
-          *(v16 - 10) = 0;
-          if (*(v16 - 49) < 0)
-          {
-            operator delete(*v36);
-          }
-
-          v37 = (v16 - 48);
-          *v36 = 0;
-          *(v16 - 8) = 0;
-          *(v16 - 7) = 0;
-          if (*(v16 - 25) < 0)
-          {
-            operator delete(*v37);
-          }
-
-          v38 = (v16 - 24);
-          *v37 = 0;
-          *(v16 - 5) = 0;
-          *(v16 - 4) = 0;
-          if (*(v16 - 1) < 0)
-          {
-            operator delete(*v38);
-          }
-
-          *v38 = 0;
-          *(v16 - 2) = 0;
-          *(v16 - 1) = 0;
-        }
-
-        xpc_release(v61);
-        xpc_release(v53);
-      }
-
-      xpc_release(v55[0]);
-      xpc_release(v56);
-    }
-
-    xpc_release(v8);
-    xpc_release(v51);
-    v3 = v52;
-  }
-
-  else
-  {
-    v5 = *a1;
-    if (*a1)
-    {
-      v6 = a1[1];
-      v7 = *a1;
-      if (v6 != v5)
-      {
-        do
-        {
-          v6 -= 144;
-          std::allocator_traits<std::allocator<rest::CarrierIdentifier>>::destroy[abi:ne200100]<rest::CarrierIdentifier,void,0>(v6);
-        }
-
-        while (v6 != v5);
-        v7 = *a1;
-      }
-
-      a1[1] = v5;
-      operator delete(v7);
-      *a1 = 0;
-      a1[1] = 0;
-      a1[2] = 0;
-    }
-
-    *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-  }
-
-  xpc_release(v3);
 }
 
 void sub_237451244(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, xpc_object_t a10, uint64_t a11, uint64_t a12, xpc_object_t a13, xpc_object_t a14, xpc_object_t a15, uint64_t a16, uint64_t a17, xpc_object_t a18, uint64_t a19, xpc_object_t object, uint64_t a21, uint64_t a22, uint64_t a23, xpc_object_t a24, xpc_object_t a25)
@@ -8403,10 +8540,10 @@ void DaemonFactory::~DaemonFactory(DaemonFactory *this)
   }
 }
 
-void AutoStartTimer::create(void *a1@<X8>)
+void AutoStartTimer::create(std::__shared_weak_count_vtbl **a6@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
+  *a6 = 0;
+  a6[1] = 0;
   operator new();
 }
 
@@ -8856,10 +8993,10 @@ void sub_2374533E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double rest::PairedDeviceInfoList::getActiveDevice@<D0>(rest::PairedDeviceInfoList *this@<X0>, uint64_t a2@<X8>)
+double rest::PairedDeviceInfoList::getActiveDevice@<D0>(const rest::NanoRegistryDeviceInfo **this@<X0>, uint64_t a2@<X8>)
 {
   v2 = *this;
-  v3 = *(this + 1);
+  v3 = this[1];
   if (*this != v3)
   {
     v4 = *this;
@@ -8877,7 +9014,7 @@ double rest::PairedDeviceInfoList::getActiveDevice@<D0>(rest::PairedDeviceInfoLi
         goto LABEL_8;
       }
 
-      v4 += 216;
+      v4 = (v4 + 216);
     }
 
     while (v4 != v3);
@@ -8944,21 +9081,21 @@ BOOL rest::PairedDeviceInfoList::isAnyDeviceInState(void *a1, int a2)
   return result;
 }
 
-void rest::PairedDeviceInfoList::getDeviceNameForCsn(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void rest::PairedDeviceInfoList::getDeviceNameForCsn(uint64_t a1@<X8>, const rest::NanoRegistryDeviceInfo **a2@<X0>, uint64_t a3@<X1>)
 {
   v5 = 0u;
   memset(v4, 0, sizeof(v4));
-  rest::PairedDeviceInfoList::getDeviceForCsn(a1, a2, v4);
+  rest::PairedDeviceInfoList::getDeviceForCsn(a2, a3, v4);
   if (BYTE8(v5) != 1)
   {
-    *(a3 + 23) = 0;
-    *a3 = 0;
+    *(a1 + 23) = 0;
+    *a1 = 0;
     return;
   }
 
   if (SHIBYTE(v4[7]) < 0)
   {
-    std::string::__init_copy_ctor_external(a3, *(&v4[6] + 1), *&v4[7]);
+    std::string::__init_copy_ctor_external(a1, *(&v4[6] + 1), *&v4[7]);
     if ((BYTE8(v5) & 1) == 0)
     {
       return;
@@ -8967,8 +9104,8 @@ void rest::PairedDeviceInfoList::getDeviceNameForCsn(uint64_t *a1@<X0>, uint64_t
 
   else
   {
-    *a3 = *(&v4[6] + 8);
-    *(a3 + 16) = *(&v4[7] + 1);
+    *a1 = *(&v4[6] + 8);
+    *(a1 + 16) = *(&v4[7] + 1);
   }
 
   rest::NanoRegistryDeviceInfo::~NanoRegistryDeviceInfo(v4);
@@ -8984,7 +9121,7 @@ void sub_2374535F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void rest::PairedDeviceInfoList::getDeviceForCsn(uint64_t *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void rest::PairedDeviceInfoList::getDeviceForCsn(const rest::NanoRegistryDeviceInfo **a1@<X0>, uint64_t a2@<X1>, rest::NanoRegistryDeviceInfo *a3@<X8>)
 {
   v6 = *a1;
   v5 = a1[1];
@@ -9034,11 +9171,11 @@ LABEL_22:
     v10 = v6 + 32;
     while (1)
     {
-      v11 = *(v10 + 23);
+      v11 = v10[23];
       v12 = v11;
       if ((v11 & 0x80u) != 0)
       {
-        v11 = *(v10 + 8);
+        v11 = *(v10 + 1);
       }
 
       if (v11 == size)
@@ -9050,7 +9187,7 @@ LABEL_22:
         }
       }
 
-      v14 = v10 + 184;
+      v14 = (v10 + 184);
       v10 += 216;
       if (v14 == v5)
       {
@@ -9058,7 +9195,7 @@ LABEL_22:
       }
     }
 
-    v5 = v10 - 32;
+    v5 = (v10 - 32);
     if (v7 < 0)
     {
 LABEL_23:
@@ -9078,7 +9215,7 @@ LABEL_23:
     v15 = 1;
   }
 
-  a3[216] = v15;
+  *(a3 + 216) = v15;
 }
 
 uint64_t rest::PairedDeviceInfoList::hasDeviceWithIdentifier(uint64_t *a1, uint64_t a2)
@@ -9641,7 +9778,7 @@ void sub_237454148(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NetworkListOperator::getCompositeName@<X0>(NetworkListOperator *this@<X0>, _BYTE *a2@<X8>)
+uint64_t NetworkListOperator::getCompositeName@<X0>(NetworkListOperator *this@<X0>, void *a2@<X8>)
 {
   v19 = 0;
   memset(v18, 0, sizeof(v18));
@@ -9735,201 +9872,4 @@ LABEL_20:
   std::locale::~locale(v14);
   std::ostream::~ostream();
   return MEMORY[0x2383CBE70](v18);
-}
-
-void sub_237454390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::ostringstream::~ostringstream(&a16);
-  _Unwind_Resume(a1);
-}
-
-void NetworkListOperator::getLocalizedCompositeName(NetworkListOperator *this@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = *a2;
-  if (!*a2)
-  {
-
-    NetworkListOperator::getCompositeName(this, a4);
-    return;
-  }
-
-  Registry::throwIfNotInitialized(*a2);
-  v8 = *(v6 + 24);
-  v9 = off_284A710A8;
-  if ((off_284A710A8 & 0x8000000000000000) != 0)
-  {
-    v10 = (off_284A710A8 & 0x7FFFFFFFFFFFFFFFLL);
-    v11 = 5381;
-    do
-    {
-      v9 = v11;
-      v12 = *v10++;
-      v11 = (33 * v11) ^ v12;
-    }
-
-    while (v12);
-  }
-
-  std::mutex::lock(v8 + 3);
-  v24[0] = v9;
-  v13 = std::__hash_table<std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::shared_ptr<void>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::shared_ptr<void>>>>::find<unsigned long>(&v8[4].__m_.__sig, v24);
-  if (v13)
-  {
-    v15 = v13[3];
-    v14 = v13[4];
-    if (v14)
-    {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::mutex::unlock(v8 + 3);
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-      v16 = 0;
-      if (!v15)
-      {
-        goto LABEL_8;
-      }
-
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  std::mutex::unlock(v8 + 3);
-  v14 = 0;
-  v16 = 1;
-  if (!v15)
-  {
-LABEL_8:
-    NetworkListOperator::getCompositeName(this, a4);
-    if (v16)
-    {
-      return;
-    }
-
-    goto LABEL_9;
-  }
-
-LABEL_16:
-  theDict = 0;
-  (*(*v15 + 80))(v24, v15, a3, 5, @"InterCarrierRoamingDisplayNames", 0, 0);
-  ctu::cf::CFSharedRef<__CFDictionary const>::CFSharedRef<void const,void>(&theDict, v24);
-  ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(v24);
-  if (!theDict)
-  {
-    NetworkListOperator::getCompositeName(this, a4);
-    goto LABEL_41;
-  }
-
-  MCCAndMNC::MCCAndMNC(v24, this + 32, this + 64);
-  MCCAndMNC::getStringValue(v24, &v29);
-  v17 = SHIBYTE(v29.__r_.__value_.__r.__words[2]);
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v33, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v33 = v29;
-  }
-
-  v32 = 0;
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v34, v33.__r_.__value_.__l.__data_, v33.__r_.__value_.__l.__size_);
-  }
-
-  else
-  {
-    v34 = v33;
-  }
-
-  v35 = 0;
-  v18 = *MEMORY[0x277CBECE8];
-  if (ctu::cf::convert_copy())
-  {
-    v19 = v32;
-    v32 = v35;
-    v36 = v19;
-    ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v36);
-  }
-
-  if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v34.__r_.__value_.__l.__data_);
-  }
-
-  v20 = v32;
-  v30 = v32;
-  v32 = 0;
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v32);
-  if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v33.__r_.__value_.__l.__data_);
-    if ((v17 & 0x80000000) == 0)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  else if ((v17 & 0x80000000) == 0)
-  {
-    goto LABEL_30;
-  }
-
-  operator delete(v29.__r_.__value_.__l.__data_);
-LABEL_30:
-  if (v28 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (v26 < 0)
-  {
-    operator delete(v24[1]);
-  }
-
-  v34.__r_.__value_.__r.__words[0] = 0;
-  Value = CFDictionaryGetValue(theDict, v20);
-  v22 = Value;
-  if (!Value || (v23 = CFGetTypeID(Value), v23 != CFStringGetTypeID()))
-  {
-    v34.__r_.__value_.__r.__words[0] = 0;
-    goto LABEL_39;
-  }
-
-  v34.__r_.__value_.__r.__words[0] = v22;
-  CFRetain(v22);
-  if (!v34.__r_.__value_.__r.__words[0])
-  {
-LABEL_39:
-    NetworkListOperator::getCompositeName(this, a4);
-    goto LABEL_40;
-  }
-
-  v24[0] = 0;
-  v24[1] = 0;
-  v25 = 0;
-  ctu::cf::assign();
-  *a4 = *v24;
-  *(a4 + 16) = v25;
-LABEL_40:
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v34.__r_.__value_.__l.__data_);
-  ctu::SharedRef<__CFString const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFString const>::~SharedRef(&v30);
-LABEL_41:
-  ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&theDict);
-  if ((v16 & 1) == 0)
-  {
-LABEL_9:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
-  }
 }

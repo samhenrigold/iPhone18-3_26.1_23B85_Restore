@@ -35,7 +35,7 @@
 void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_invoke_cold_1();
@@ -46,9 +46,9 @@ void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_inv
 
 void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_invoke_17(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   v7 = v6;
   if (v5)
   {
@@ -62,9 +62,9 @@ void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_inv
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134217984;
-      v10 = a2;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Web access status - %lu", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = a2;
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Web access status - %lu", &v8, 0xCu);
     }
 
     v7 = +[CDPWebAccessNotificationHandler sharedInstance];
@@ -72,7 +72,6 @@ void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_inv
   }
 
   (*(*(a1 + 32) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)webAccessStatus:(id *)status
@@ -122,7 +121,7 @@ void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_inv
 void __47__CDPWebAccessStateController_webAccessStatus___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_invoke_cold_1();
@@ -140,8 +139,8 @@ void __47__CDPWebAccessStateController_webAccessStatus___block_invoke_20(uint64_
   if (v6)
   {
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __47__CDPWebAccessStateController_webAccessStatus___block_invoke_20_cold_1();
     }
@@ -149,20 +148,19 @@ void __47__CDPWebAccessStateController_webAccessStatus___block_invoke_20(uint64_
 
   else
   {
-    v8 = _CDPLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 134217984;
       v11 = a2;
-      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Web access status - %lu", &v10, 0xCu);
+      _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "Web access status - %lu", &v10, 0xCu);
     }
 
-    v7 = +[CDPWebAccessNotificationHandler sharedInstance];
-    [v7 startObservingWebAccessStateChangeNotification];
+    v8 = +[CDPWebAccessNotificationHandler sharedInstance];
+    [v8 startObservingWebAccessStateChangeNotification];
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWebAccessStatus:(unint64_t)status completion:(id)completion
@@ -194,7 +192,7 @@ void __47__CDPWebAccessStateController_webAccessStatus___block_invoke_20(uint64_
 void __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_invoke_cold_1();
@@ -206,7 +204,7 @@ void __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_
 void __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_invoke_21(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(v3);
   v5 = v4;
   if (v3)
   {
@@ -225,31 +223,13 @@ void __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_
   (*(*(a1 + 32) + 16))();
 }
 
-void __61__CDPWebAccessStateController_webAccessStatusWithCompletion___block_invoke_17_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __47__CDPWebAccessStateController_webAccessStatus___block_invoke_20_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __64__CDPWebAccessStateController_updateWebAccessStatus_completion___block_invoke_21_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 description];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to update web access status with error %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to update web access status with error %@", &v4, 0xCu);
 }
 
 @end

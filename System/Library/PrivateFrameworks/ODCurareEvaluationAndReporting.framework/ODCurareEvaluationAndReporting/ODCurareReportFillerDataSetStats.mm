@@ -220,27 +220,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_22;
-  }
-
-  featureName = self->_featureName;
-  if (featureName | equalCopy[1])
-  {
-    if (![(NSString *)featureName isEqual:?])
-    {
-      goto LABEL_22;
-    }
-  }
-
-  featureValueMin = self->_featureValueMin;
-  if (featureValueMin | equalCopy[4] && ![(NSString *)featureValueMin isEqual:?])
-  {
-    goto LABEL_22;
-  }
-
-  if (((featureValueMax = self->_featureValueMax, !(featureValueMax | equalCopy[2])) || [(NSString *)featureValueMax isEqual:?]) && ((featureValueMean = self->_featureValueMean, !(featureValueMean | equalCopy[3])) || [(NSString *)featureValueMean isEqual:?]) && ((featureValueStd = self->_featureValueStd, !(featureValueStd | equalCopy[10])) || [(NSString *)featureValueStd isEqual:?]) && ((featureValuePercentile10 = self->_featureValuePercentile10, !(featureValuePercentile10 | equalCopy[5])) || [(NSString *)featureValuePercentile10 isEqual:?]) && ((featureValuePercentile25 = self->_featureValuePercentile25, !(featureValuePercentile25 | equalCopy[6])) || [(NSString *)featureValuePercentile25 isEqual:?]) && ((featureValuePercentile50 = self->_featureValuePercentile50, !(featureValuePercentile50 | equalCopy[7])) || [(NSString *)featureValuePercentile50 isEqual:?]) && ((featureValuePercentile75 = self->_featureValuePercentile75, !(featureValuePercentile75 | equalCopy[8])) || [(NSString *)featureValuePercentile75 isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((featureName = self->_featureName, !(featureName | equalCopy[1])) || -[NSString isEqual:](featureName, "isEqual:")) && ((featureValueMin = self->_featureValueMin, !(featureValueMin | equalCopy[4])) || -[NSString isEqual:](featureValueMin, "isEqual:")) && ((featureValueMax = self->_featureValueMax, !(featureValueMax | equalCopy[2])) || -[NSString isEqual:](featureValueMax, "isEqual:")) && ((featureValueMean = self->_featureValueMean, !(featureValueMean | equalCopy[3])) || -[NSString isEqual:](featureValueMean, "isEqual:")) && ((featureValueStd = self->_featureValueStd, !(featureValueStd | equalCopy[10])) || -[NSString isEqual:](featureValueStd, "isEqual:")) && ((featureValuePercentile10 = self->_featureValuePercentile10, !(featureValuePercentile10 | equalCopy[5])) || -[NSString isEqual:](featureValuePercentile10, "isEqual:")) && ((featureValuePercentile25 = self->_featureValuePercentile25, !(featureValuePercentile25 | equalCopy[6])) || -[NSString isEqual:](featureValuePercentile25, "isEqual:")) && ((featureValuePercentile50 = self->_featureValuePercentile50, !(featureValuePercentile50 | equalCopy[7])) || -[NSString isEqual:](featureValuePercentile50, "isEqual:")) && ((featureValuePercentile75 = self->_featureValuePercentile75, !(featureValuePercentile75 | equalCopy[8])) || -[NSString isEqual:](featureValuePercentile75, "isEqual:")))
   {
     featureValuePercentile90 = self->_featureValuePercentile90;
     if (featureValuePercentile90 | equalCopy[9])
@@ -256,7 +236,6 @@
 
   else
   {
-LABEL_22:
     v15 = 0;
   }
 

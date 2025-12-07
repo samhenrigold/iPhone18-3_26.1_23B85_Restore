@@ -1,45 +1,63 @@
 @interface _ATXAppPredictor
 + (id)_arrayFromSet:(id)set upToSize:(unint64_t)size;
++ (id)getParseTreeForConsumerSubType:(unsigned __int8)type;
 + (id)inputScoresForPredictionItem:(const ATXPredictionItem *)item;
++ (id)pruneItemsToRankForConsumerSubType:(unsigned __int8)type itemsToRank:(id)rank datastore:(id)datastore;
 + (id)recreateSharedInstanceWithCurrentABGroup;
 + (id)sharedInstance;
 + (void)updateConfidenceForItem:(ATXPredictionItem *)item subscores:(id)subscores;
 - (ATXCDNDownloaderTriggerManager)cdnDownloaderTriggerManager;
 - (BOOL)_initAppLaunchAndInstallMonitors;
 - (BOOL)_initDependencies;
+- (BOOL)predictAndWriteCacheFileWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger path:(id)path cacheFileDescriptors:(id)self0 featureCache:(id)self1;
+- (BOOL)scoreActionsWithFeaturesUsingCoreML:(void *)l consumerSubType:(unsigned __int8)type scoreLogger:(id)logger;
 - (BOOL)scoreAppsWithFeaturesUsingCoreML:(void *)l scoreLogger:(id)logger;
+- (BOOL)writeCacheFileWithSerializedChunks:(id)chunks path:(id)path cacheFileDescriptors:(id)descriptors consumerSubType:(unsigned __int8)type;
+- (double)_predictionScoreAndUpdateConfidenceForItem:(ATXPredictionItem *)item interpreter:(id)interpreter consumerSubType:(unsigned __int8)type scoreLogger:(id)logger intentType:(id)intentType;
+- (double)finalScoreForSubscores:(id)subscores consumerSubType:(unsigned __int8)type;
+- (double)predictionScoreAndUpdateConfidenceForItem:(ATXPredictionItem *)item consumerSubType:(unsigned __int8)type;
+- (double)scoreActionWithFeaturesUsingCoreML:(ATXPredictionItem *)l consumerSubType:(unsigned __int8)type;
 - (double)scoreAppWithFeaturesUsingCoreML:(ATXPredictionItem *)l;
-- (float)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(void *)rank consumerSubType:intent:scoreLogger:context:featureCache:;
 - (id)_allDayZeroApps;
 - (id)_appPredictionsSeedAppsGivenSBAppList:(id)list consumerSubType:(unsigned __int8)type minimumDesiredApps:(unint64_t)apps;
+- (id)_appsToPredictWithConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers allSBApps:(id)apps appPredictionBlacklist:(id)blacklist digitalHealthBlacklist:(id)healthBlacklist;
+- (id)actionModelNameForActionSubType:(unsigned __int8)type;
 - (id)appInstallMonitor;
 - (id)appIntentMonitor;
 - (id)appLaunchMonitor;
 - (id)getABGroups;
 - (id)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type;
 - (id)initInternal;
+- (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger;
 - (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 context:(id)self1 datastore:(id)self2 featureCache:(id)self3;
 - (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 context:(id)self1 featureCache:(id)self2;
 - (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 datastore:(id)self1;
+- (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 featureCache:(id)self1;
 - (id)recentInstallCache;
 - (unordered_map<NSString)_createMapOfKeyToItemForPredictionItems:()ATXNSStringHash;
 - (vector<ATXPredictionItem,)_evalFeaturesForActions:(_ATXAppPredictor *)self scoreLogger:(SEL)logger context:(id)context featureCache:(id)cache;
 - (vector<ATXPredictionItem,)_evalFeaturesForAppForAllIntents:(_ATXAppPredictor *)self scoreLogger:(SEL)logger context:(id)context;
 - (vector<ATXPredictionItem,)_evalFeaturesForAppIntents:(_ATXAppPredictor *)self scoreLogger:(SEL)logger context:(id)context;
+- (vector<ATXPredictionItem,)_getPredictionForItems:(_ATXAppPredictor *)self clipBundleIdsToRank:(SEL)rank consumerSubType:(id)type intent:(id)intent scoreLogger:(unsigned __int8)logger context:(id)context featureCache:(id)cache;
 - (void)_addZeroDayAppIntentKeysToBundleIdTable:(id)table;
 - (void)_copyValidScoreInputsFromPredictionItem:(const ATXPredictionItem *)item toPredictionItem:(ATXPredictionItem *)predictionItem;
-- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(void *)rank consumerSubType:(uint64_t)type intent:scoreLogger:context:featureCache:;
+- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(id *)rank consumerSubType:(int64_t)type intent:scoreLogger:context:featureCache:;
+- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(id *)rank consumerSubType:intent:scoreLogger:context:featureCache:;
 - (void)_getPredictionForItems:(void *)items clipBundleIdsToRank:(void *)rank consumerSubType:(void *)type intent:(uint64_t)intent scoreLogger:(uint64_t)logger context:(id *)context featureCache:(uint64_t)cache;
 - (void)_initFeaturizers;
 - (void)_updateFromAsset;
 - (void)_updateFromZeroDayAsset;
 - (void)_updateFromZeroDayIntentAsset;
+- (void)coolDownModelForConsumerSubtype:(unsigned __int8)subtype;
 - (void)dealloc;
 - (void)initInternal;
 - (void)iterZeroDayAppIntentKeysWithBlock:(id)block;
+- (void)logCacheAgeAtRefreshForNonBlendingCachesWithCachePath:(id)path consumerSubType:(unsigned __int8)type;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
+- (void)prewarmModelForConsumerSubtype:(unsigned __int8)subtype;
 - (void)receiveFeedbackForConsumerType:(unint64_t)type consumerSubType:(unsigned __int8)subType atxResponse:(id)response engagementType:(unint64_t)engagementType engagedBundleId:(id)id bundleIdsShown:(id)shown explicitlyRejectedBundleIds:(id)ids context:(id)self0;
 - (void)resetRecentInstallCache;
+- (void)setupScoreLogger:(id)logger forConsumerSubType:(unsigned __int8)type;
 - (void)trainWithTask:(id)task;
 @end
 
@@ -122,6 +140,48 @@
   }
 
   return allObjects;
+}
+
+- (id)_appsToPredictWithConsumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers allSBApps:(id)apps appPredictionBlacklist:(id)blacklist digitalHealthBlacklist:(id)healthBlacklist
+{
+  typeCopy = type;
+  identifiersCopy = identifiers;
+  appsCopy = apps;
+  blacklistCopy = blacklist;
+  healthBlacklistCopy = healthBlacklist;
+  if ([identifiersCopy count])
+  {
+    if (identifiersCopy)
+    {
+      v17 = identifiersCopy;
+    }
+
+    else
+    {
+      v17 = MEMORY[0x277CBEBF8];
+    }
+
+    v18 = [MEMORY[0x277CBEB58] setWithArray:v17];
+  }
+
+  else
+  {
+    v18 = [(_ATXAppPredictor *)self _appPredictionsSeedAppsGivenSBAppList:appsCopy consumerSubType:typeCopy minimumDesiredApps:40];
+  }
+
+  v19 = v18;
+  v20 = [MEMORY[0x277CEBCF0] consumerTypeForSubType:typeCopy];
+  if (v20 <= 0xF && ((1 << v20) & 0xC006) != 0 && blacklistCopy)
+  {
+    [v19 minusSet:blacklistCopy];
+  }
+
+  if (healthBlacklistCopy)
+  {
+    [v19 minusSet:healthBlacklistCopy];
+  }
+
+  return v19;
 }
 
 - (vector<ATXPredictionItem,)_evalFeaturesForAppForAllIntents:(_ATXAppPredictor *)self scoreLogger:(SEL)logger context:(id)context
@@ -684,9 +744,9 @@
   v8 = *(a4 + 1);
   while (v9 != v8)
   {
-    v10[0] = *v9;
-    v10[1] = v9;
-    std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},ATXPredictionItem const*>>(retstr, v10);
+    *&v10 = *v9;
+    *(&v10 + 1) = v9;
+    std::__hash_table<std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,ATXNSStringHash,ATXNSStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>,ATXNSStringEqual,ATXNSStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},ATXPredictionItem const*>>>::__emplace_unique_key_args<NSString * {__strong},std::pair<NSString * {__strong},ATXPredictionItem const*>>(retstr, &v10, &v10);
 
     v9 += 417;
   }
@@ -718,7 +778,7 @@
   appFeaturizer = self->_appFeaturizer;
   if (appFeaturizer)
   {
-    [(ATXAppFeaturizer *)appFeaturizer evaluateFeaturesForApps:v43 clipBundleIdsToRank:0 consumerSubType:4 intent:0 scoreLogger:cacheCopy context:v14 featureCache:v41];
+    objc_msgSend_evaluateFeaturesForApps_clipBundleIdsToRank_consumerSubType_intent_scoreLogger_context_featureCache_(appFeaturizer, v41);
   }
 
   else
@@ -729,7 +789,7 @@
   context = v16;
   v38 = contextCopy;
   v42 = v14;
-  [(_ATXAppPredictor *)self _createMapOfKeyToItemForPredictionItems:v46];
+  objc_msgSend__createMapOfKeyToItemForPredictionItems_(self);
   v39 = v15;
   if (v15 >= 1)
   {
@@ -769,9 +829,9 @@
   std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](v45);
   objc_autoreleasePoolPop(context);
   v25 = objc_autoreleasePoolPush();
-  [(_ATXAppPredictor *)self _evalFeaturesForAppForAllIntents:v43 scoreLogger:cacheCopy context:v42];
+  objc_msgSend__evalFeaturesForAppForAllIntents_scoreLogger_context_(self);
   contexta = v25;
-  [(_ATXAppPredictor *)self _createMapOfKeyToItemForPredictionItems:v46];
+  objc_msgSend__createMapOfKeyToItemForPredictionItems_(self);
   if (v39 >= 1)
   {
     v26 = 0;
@@ -817,63 +877,187 @@
 {
   loggerCopy = logger;
   v6 = objc_autoreleasePoolPush();
-  v17 = 0;
-  v7 = [[ATXMLInferenceRunner alloc] initModelWithName:@"ATXAppPredictionMLModel" error:&v17];
-  v8 = v17;
+  v19 = 0;
+  v7 = [[ATXMLInferenceRunner alloc] initModelWithName:@"ATXAppPredictionMLModel" error:&v19];
+  v8 = v19;
+  v9 = v8;
   if (v7)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke;
-    v15[3] = &unk_2785A0028;
-    v16 = loggerCopy;
-    v14 = v8;
-    v9 = [v7 runInferenceOnItems:l resultBlock:v15 error:&v14];
-    v10 = v14;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __65___ATXAppPredictor_scoreAppsWithFeaturesUsingCoreML_scoreLogger___block_invoke;
+    v17[3] = &unk_2785A0028;
+    v18 = loggerCopy;
+    v16 = v9;
+    v10 = [v7 runInferenceOnItems:l resultBlock:v17 error:&v16];
+    v11 = v16;
 
-    if ((v9 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v11 = __atxlog_handle_app_prediction();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_app_prediction(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
       }
     }
 
-    v12 = v16;
+    v14 = v18;
   }
 
   else
   {
-    v12 = __atxlog_handle_app_prediction();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_app_prediction(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
     }
 
-    v9 = 0;
-    v10 = v8;
+    v10 = 0;
+    v11 = v9;
   }
 
   objc_autoreleasePoolPop(v6);
-  return v9;
+  return v10;
+}
+
+- (id)actionModelNameForActionSubType:(unsigned __int8)type
+{
+  v8 = *MEMORY[0x277D85DE8];
+  if (type == 21)
+  {
+    return @"ATXActionValuationMLModel";
+  }
+
+  typeCopy = type;
+  if (type == 24)
+  {
+    return @"ATXIntentPredictionMLModel";
+  }
+
+  if (type == 25)
+  {
+    return @"ATXSlotResolutionMLModel";
+  }
+
+  v5 = __atxlog_handle_action_prediction(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  {
+    v6 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+    [(_ATXAppPredictor *)v6 actionModelNameForActionSubType:v7, v5];
+  }
+
+  return @"not-a-model";
+}
+
+- (void)prewarmModelForConsumerSubtype:(unsigned __int8)subtype
+{
+  subtypeCopy = subtype;
+  inferenceRunnerForConsumerSubtype = self->_inferenceRunnerForConsumerSubtype;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:?];
+  v7 = [(NSMutableDictionary *)inferenceRunnerForConsumerSubtype objectForKeyedSubscript:v6];
+
+  if (!v7)
+  {
+    v8 = [(_ATXAppPredictor *)self actionModelNameForActionSubType:subtypeCopy];
+    v15 = 0;
+    v9 = [[ATXMLInferenceRunner alloc] initModelWithName:v8 error:&v15];
+    v10 = v15;
+    v11 = self->_inferenceRunnerForConsumerSubtype;
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:subtypeCopy];
+    [(NSMutableDictionary *)v11 setObject:v9 forKeyedSubscript:v12];
+
+    if (v10)
+    {
+      v14 = __atxlog_handle_action_prediction(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        [_ATXAppPredictor prewarmModelForConsumerSubtype:];
+      }
+    }
+  }
+}
+
+- (void)coolDownModelForConsumerSubtype:(unsigned __int8)subtype
+{
+  inferenceRunnerForConsumerSubtype = self->_inferenceRunnerForConsumerSubtype;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:subtype];
+  [(NSMutableDictionary *)inferenceRunnerForConsumerSubtype removeObjectForKey:?];
+}
+
+- (BOOL)scoreActionsWithFeaturesUsingCoreML:(void *)l consumerSubType:(unsigned __int8)type scoreLogger:(id)logger
+{
+  typeCopy = type;
+  loggerCopy = logger;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [(_ATXAppPredictor *)self actionModelNameForActionSubType:typeCopy];
+  inferenceRunnerForConsumerSubtype = self->_inferenceRunnerForConsumerSubtype;
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+  v13 = [(NSMutableDictionary *)inferenceRunnerForConsumerSubtype objectForKeyedSubscript:v12];
+  if (v13)
+  {
+
+    v14 = 0;
+LABEL_5:
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __84___ATXAppPredictor_scoreActionsWithFeaturesUsingCoreML_consumerSubType_scoreLogger___block_invoke;
+    v22[3] = &unk_2785A0050;
+    v23 = v10;
+    v24 = loggerCopy;
+    v21 = v14;
+    v17 = [v13 runInferenceOnItems:l resultBlock:v22 error:&v21];
+    v15 = v21;
+
+    if ((v17 & 1) == 0)
+    {
+      v19 = __atxlog_handle_action_prediction(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      {
+        [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
+      }
+    }
+
+    goto LABEL_10;
+  }
+
+  v25 = 0;
+  v13 = [[ATXMLInferenceRunner alloc] initModelWithName:v10 error:&v25];
+  v15 = v25;
+
+  if (v13)
+  {
+    v14 = v15;
+    goto LABEL_5;
+  }
+
+  v13 = __atxlog_handle_action_prediction(v16);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    [_ATXAppPredictor prewarmModelForConsumerSubtype:];
+  }
+
+  v17 = 0;
+LABEL_10:
+
+  objc_autoreleasePoolPop(v9);
+  return v17;
 }
 
 - (double)scoreAppWithFeaturesUsingCoreML:(ATXPredictionItem *)l
 {
   v4 = objc_autoreleasePoolPush();
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
+  v20 = 0xC0DE9A4000000000;
   v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0xC0DE9A4000000000;
-  v15 = 0;
-  v5 = [[ATXMLInferenceRunner alloc] initModelWithName:@"ATXAppPredictionMLModel" error:&v15];
-  v6 = v15;
+  v5 = [[ATXMLInferenceRunner alloc] initModelWithName:@"ATXAppPredictionMLModel" error:&v16];
+  v6 = v16;
   v7 = v6;
   if (!v5)
   {
-    v10 = __atxlog_handle_app_prediction();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_app_prediction(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
     }
@@ -881,19 +1065,19 @@
     goto LABEL_8;
   }
 
-  v13 = v6;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __52___ATXAppPredictor_scoreAppWithFeaturesUsingCoreML___block_invoke;
-  v14[3] = &unk_2785A0078;
-  v14[4] = &v16;
-  v8 = [v5 runInferenceOnItem:l resultBlock:v14 error:&v13];
-  v9 = v13;
+  v14 = v6;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __52___ATXAppPredictor_scoreAppWithFeaturesUsingCoreML___block_invoke;
+  v15[3] = &unk_2785A0078;
+  v15[4] = &v17;
+  v8 = [v5 runInferenceOnItem:l resultBlock:v15 error:&v14];
+  v9 = v14;
 
   if ((v8 & 1) == 0)
   {
-    v10 = __atxlog_handle_app_prediction();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_app_prediction(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
     }
@@ -904,11 +1088,288 @@ LABEL_8:
     v9 = v7;
   }
 
-  v11 = v17[3];
+  v12 = v18[3];
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v17, 8);
   objc_autoreleasePoolPop(v4);
-  return v11;
+  return v12;
+}
+
+- (double)scoreActionWithFeaturesUsingCoreML:(ATXPredictionItem *)l consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v7 = objc_autoreleasePoolPush();
+  v8 = [(_ATXAppPredictor *)self actionModelNameForActionSubType:typeCopy];
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0xC0DE9A4000000000;
+  v23 = 0;
+  v9 = [[ATXMLInferenceRunner alloc] initModelWithName:v8 error:&v23];
+  v10 = v23;
+  v11 = v10;
+  if (v9)
+  {
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __71___ATXAppPredictor_scoreActionWithFeaturesUsingCoreML_consumerSubType___block_invoke;
+    v20[3] = &unk_2785A00A0;
+    v21 = v8;
+    v22 = &v24;
+    v19 = v11;
+    v12 = [v9 runInferenceOnItem:l resultBlock:v20 error:&v19];
+    v13 = v19;
+
+    if ((v12 & 1) == 0)
+    {
+      v15 = __atxlog_handle_action_prediction(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        [_ATXAppPredictor scoreAppsWithFeaturesUsingCoreML:scoreLogger:];
+      }
+    }
+
+    v16 = v25[3];
+
+    v11 = v13;
+  }
+
+  else
+  {
+    v17 = __atxlog_handle_action_prediction(v10);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [_ATXAppPredictor prewarmModelForConsumerSubtype:];
+    }
+
+    v16 = v25[3];
+  }
+
+  _Block_object_dispose(&v24, 8);
+  objc_autoreleasePoolPop(v7);
+  return v16;
+}
+
+- (vector<ATXPredictionItem,)_getPredictionForItems:(_ATXAppPredictor *)self clipBundleIdsToRank:(SEL)rank consumerSubType:(id)type intent:(id)intent scoreLogger:(unsigned __int8)logger context:(id)context featureCache:(id)cache
+{
+  loggerCopy = logger;
+  v67 = *MEMORY[0x277D85DE8];
+  typeCopy = type;
+  intentCopy = intent;
+  contextCopy = context;
+  cacheCopy = cache;
+  v46 = a9;
+  v47 = a10;
+  dispatch_assert_queue_V2(self->_queue);
+  v20 = __atxlog_handle_default(v19);
+  v21 = typeCopy;
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  {
+    v22 = NSStringFromSelector(rank);
+    [_ATXAppPredictor _getPredictionForItems:v22 clipBundleIdsToRank:buf consumerSubType:v20 intent:? scoreLogger:? context:? featureCache:?];
+  }
+
+  sel_getName(rank);
+  v48 = os_transaction_create();
+  [(_ATXAppPredictor *)self setupScoreLogger:cacheCopy forConsumerSubType:loggerCopy];
+  _className = [contextCopy _className];
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x4812000000;
+  v61 = __Block_byref_object_copy__89;
+  v62 = __Block_byref_object_dispose__89;
+  v63 = &unk_226931DDF;
+  memset(v64, 0, sizeof(v64));
+  if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:loggerCopy] == 8)
+  {
+    objc_msgSend__evalFeaturesForActions_scoreLogger_context_featureCache_(self);
+    v23 = v59;
+    std::vector<ATXPredictionItem>::__vdeallocate(v59 + 6);
+    *(v23 + 3) = v56;
+    v23[8] = v57;
+    v57 = 0;
+    v56 = 0uLL;
+    v65 = &v56;
+  }
+
+  else
+  {
+    appFeaturizer = self->_appFeaturizer;
+    if (appFeaturizer)
+    {
+      objc_msgSend_evaluateFeaturesForApps_clipBundleIdsToRank_consumerSubType_intent_scoreLogger_context_featureCache_(appFeaturizer, v47);
+    }
+
+    else
+    {
+      v56 = 0uLL;
+      v57 = 0;
+    }
+
+    v25 = v59;
+    std::vector<ATXPredictionItem>::__vdeallocate(v59 + 6);
+    *(v25 + 3) = v56;
+    v25[8] = v57;
+    v57 = 0;
+    v56 = 0uLL;
+    v65 = &v56;
+  }
+
+  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v65);
+  if ([MEMORY[0x277CEBC58] isSpotlightPlusEnabled])
+  {
+    if ([(_ATXAppPredictor *)self isActionModelConsumerSubType:loggerCopy])
+    {
+      [(_ATXAppPredictor *)self scoreActionsWithFeaturesUsingCoreML:v59 + 6 consumerSubType:loggerCopy scoreLogger:cacheCopy];
+    }
+
+    else
+    {
+      [(_ATXAppPredictor *)self scoreAppsWithFeaturesUsingCoreML:v59 + 6 scoreLogger:cacheCopy];
+    }
+  }
+
+  else
+  {
+    v26 = +[ATXScoreInterpreterCache sharedInstance];
+    v27 = [v26 scoreInterpreterForConsumerSubType:loggerCopy];
+
+    v28 = dispatch_queue_attr_make_with_autorelease_frequency(MEMORY[0x277D85CD8], DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v29 = dispatch_queue_create("prediction-scoring", v28);
+
+    v30 = [typeCopy count];
+    v31 = [intentCopy count];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __119___ATXAppPredictor__getPredictionForItems_clipBundleIdsToRank_consumerSubType_intent_scoreLogger_context_featureCache___block_invoke;
+    block[3] = &unk_2785A00C8;
+    v54 = &v58;
+    block[4] = self;
+    v51 = v27;
+    v55 = loggerCopy;
+    v52 = cacheCopy;
+    v53 = _className;
+    v32 = v27;
+    dispatch_apply(v31 + v30, v29, block);
+  }
+
+  v34 = v59[6];
+  v33 = v59[7];
+  if (v33 - v34 < 1)
+  {
+    v40 = 0;
+    v36 = 0;
+  }
+
+  else
+  {
+    v35 = MEMORY[0x277D826F0];
+    v36 = 0x13A524387AC82261 * ((v33 - v34) >> 3);
+    while (1)
+    {
+      v37 = operator new(3336 * v36, v35);
+      if (v37)
+      {
+        break;
+      }
+
+      v38 = v36 >> 1;
+      v39 = v36 > 1;
+      v36 >>= 1;
+      if (!v39)
+      {
+        v40 = 0;
+        v36 = v38;
+        goto LABEL_21;
+      }
+    }
+
+    v40 = v37;
+LABEL_21:
+    v21 = typeCopy;
+  }
+
+  std::__stable_sort<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v34, v33, 0x13A524387AC82261 * ((v33 - v34) >> 3), v40, v36);
+  if (v40)
+  {
+    operator delete(v40);
+  }
+
+  v41 = v59;
+  retstr->__end_ = 0;
+  retstr->__cap_ = 0;
+  retstr->__begin_ = 0;
+  std::vector<ATXPredictionItem>::__init_with_size[abi:ne200100]<ATXPredictionItem*,ATXPredictionItem*>(retstr, v41[6], v41[7], 0x13A524387AC82261 * (v41[7] - v41[6]));
+  _Block_object_dispose(&v58, 8);
+  *&v56 = v64;
+  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v56);
+
+  return result;
+}
+
+- (void)setupScoreLogger:(id)logger forConsumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  loggerCopy = logger;
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [(NSArray *)self->_abGroupIdentifiers objectAtIndexedSubscript:typeCopy];
+  v8 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+  v9 = [v6 stringWithFormat:@"%@[%@]", v7, v8];
+
+  [loggerCopy setPredictionClass:v9];
+  [loggerCopy setConsumerSubType:typeCopy];
+}
+
+- (double)_predictionScoreAndUpdateConfidenceForItem:(ATXPredictionItem *)item interpreter:(id)interpreter consumerSubType:(unsigned __int8)type scoreLogger:(id)logger intentType:(id)intentType
+{
+  typeCopy = type;
+  interpreterCopy = interpreter;
+  loggerCopy = logger;
+  intentTypeCopy = intentType;
+  isSpotlightPlusEnabled = [MEMORY[0x277CEBC58] isSpotlightPlusEnabled];
+  if (isSpotlightPlusEnabled)
+  {
+    v17 = __atxlog_handle_default(isSpotlightPlusEnabled);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    {
+      [_ATXAppPredictor _predictionScoreAndUpdateConfidenceForItem:interpreter:consumerSubType:scoreLogger:intentType:];
+    }
+
+    if ([(_ATXAppPredictor *)self isActionModelConsumerSubType:typeCopy])
+    {
+      [(_ATXAppPredictor *)self scoreActionWithFeaturesUsingCoreML:item consumerSubType:typeCopy];
+    }
+
+    else
+    {
+      [(_ATXAppPredictor *)self scoreAppWithFeaturesUsingCoreML:item];
+    }
+
+    v22 = v18;
+  }
+
+  else
+  {
+    v19 = [objc_opt_class() inputScoresForPredictionItem:item];
+    if (!interpreterCopy)
+    {
+      currentHandler = [MEMORY[0x277CCA890] currentHandler];
+      v25 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"_ATXAppPredictor.mm" lineNumber:970 description:{@"No interpreter defined for ATXConsumerSubType of '%@'", v25}];
+    }
+
+    v20 = [interpreterCopy evaluateWithInputScoreDict:v19 intentType:intentTypeCopy];
+    [(_ATXAppPredictor *)self finalScoreForSubscores:v20 consumerSubType:typeCopy];
+    v22 = v21;
+    if (loggerCopy)
+    {
+      [loggerCopy logInputDict:v19 subscores:v20 forBundleId:item->key];
+    }
+
+    [objc_opt_class() updateConfidenceForItem:item subscores:v20];
+  }
+
+  return v22;
 }
 
 + (id)inputScoresForPredictionItem:(const ATXPredictionItem *)item
@@ -926,6 +1387,17 @@ LABEL_8:
   return v5;
 }
 
+- (double)finalScoreForSubscores:(id)subscores consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  subscoresCopy = subscores;
+  v7 = [(ATXCurrentABGroupDetails *)self->_currentABGroupDetails finalSubScoreForConsumerSubType:typeCopy];
+  [subscoresCopy scoreForKey:v7 found:0];
+  v9 = v8;
+
+  return v9;
+}
+
 + (void)updateConfidenceForItem:(ATXPredictionItem *)item subscores:(id)subscores
 {
   subscoresCopy = subscores;
@@ -937,9 +1409,9 @@ LABEL_8:
 
 - (id)initInternal
 {
-  v25.receiver = self;
-  v25.super_class = _ATXAppPredictor;
-  v2 = [(_ATXAppPredictor *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = _ATXAppPredictor;
+  v2 = [(_ATXAppPredictor *)&v24 init];
   if (v2)
   {
     v3 = objc_opt_class();
@@ -958,13 +1430,13 @@ LABEL_8:
     v2->_inferenceRunnerForConsumerSubtype = v9;
 
     v11 = MEMORY[0x277D42598];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __32___ATXAppPredictor_initInternal__block_invoke;
-    v23[3] = &unk_27859AED0;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __32___ATXAppPredictor_initInternal__block_invoke;
+    v22[3] = &unk_27859AED0;
     v12 = v2;
-    v24 = v12;
-    [v11 runBlockWhenDeviceIsClassCUnlocked:v23];
+    v23 = v12;
+    [v11 runBlockWhenDeviceIsClassCUnlocked:v22];
     if ([MEMORY[0x277D42590] isInternalBuild])
     {
       v13 = objc_alloc(MEMORY[0x277CBEBD0]);
@@ -983,9 +1455,8 @@ LABEL_8:
     actionPredictionBlacklist = v12->_actionPredictionBlacklist;
     v12->_actionPredictionBlacklist = v18;
 
-    v20 = +[ATXLockscreenBlacklist sharedInstance];
-    v21 = __atxlog_handle_default();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v20 = __atxlog_handle_default(+[ATXLockscreenBlacklist sharedInstance]);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [_ATXAppPredictor initInternal];
     }
@@ -996,19 +1467,16 @@ LABEL_8:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  [(_ATXAppPredictor *)self _updateFromAsset];
-  v8 = __atxlog_handle_app_prediction();
+  v8 = __atxlog_handle_app_prediction([(_ATXAppPredictor *)self _updateFromAsset]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    v11 = 138412290;
-    v12 = v9;
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "Updating assets because AppPrediction A/B group override detected: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v9;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_INFO, "Updating assets because AppPrediction A/B group override detected: %@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateFromAsset
@@ -1034,10 +1502,9 @@ LABEL_8:
 
 - (void)_updateFromZeroDayAsset
 {
-  OUTLINED_FUNCTION_8_2(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (void)_addZeroDayAppIntentKeysToBundleIdTable:(id)table
@@ -1054,38 +1521,38 @@ LABEL_8:
 
 - (void)iterZeroDayAppIntentKeysWithBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v15 = 0;
+  v14 = 0;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = [(NSDictionary *)self->_dayZeroIntentParameters objectForKeyedSubscript:@"dayZero", 0];
   v6 = [v5 objectForKeyedSubscript:@"dayZeroAppIntents"];
 
-  v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v12 != v8)
+      if (*v11 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * v9), &v15);
-      if (v15)
+      blockCopy[2](blockCopy, *(*(&v10 + 1) + 8 * v9), &v14);
+      if (v14)
       {
         break;
       }
 
       if (v7 == ++v9)
       {
-        v7 = [v6 countByEnumeratingWithState:&v11 objects:v16 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v10 objects:v15 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1095,16 +1562,13 @@ LABEL_3:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateFromZeroDayIntentAsset
 {
-  OUTLINED_FUNCTION_8_2(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_8_2(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 - (BOOL)_initAppLaunchAndInstallMonitors
@@ -1115,7 +1579,8 @@ LABEL_3:
     return 1;
   }
 
-  if (![MEMORY[0x277D42598] isClassCLocked])
+  isClassCLocked = [MEMORY[0x277D42598] isClassCLocked];
+  if (!isClassCLocked)
   {
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -1127,8 +1592,8 @@ LABEL_3:
     return 1;
   }
 
-  v4 = __atxlog_handle_app_prediction();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = __atxlog_handle_app_prediction(isClassCLocked);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [_ATXAppPredictor _initAppLaunchAndInstallMonitors];
   }
@@ -1144,7 +1609,8 @@ LABEL_3:
     return 1;
   }
 
-  if (![MEMORY[0x277D42598] isClassCLocked])
+  isClassCLocked = [MEMORY[0x277D42598] isClassCLocked];
+  if (!isClassCLocked)
   {
     queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
@@ -1156,8 +1622,8 @@ LABEL_3:
     return 1;
   }
 
-  v4 = __atxlog_handle_app_prediction();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = __atxlog_handle_app_prediction(isClassCLocked);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     [_ATXAppPredictor _initDependencies];
   }
@@ -1170,27 +1636,26 @@ LABEL_3:
   v3 = [ATXAppFeaturizer alloc];
   dayZeroParameters = self->_dayZeroParameters;
   dayZeroIntentParameters = self->_dayZeroIntentParameters;
-  v25 = +[_ATXFeedback sharedInstance];
-  v24 = +[_ATXAppLaunchHistogramManager sharedInstance];
+  v24 = +[_ATXFeedback sharedInstance];
+  v23 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v6 = +[_ATXAppLaunchSequenceManager sharedInstance];
   appInstallMonitor = self->_appInstallMonitor;
   mediaApps = self->_mediaApps;
   appLaunchLocation = self->_appLaunchLocation;
   appDailyDose = self->_appDailyDose;
-  v23 = v6;
-  v22 = +[ATXGlobalAppScorePredictor sharedInstance];
-  v20 = appLaunchLocation;
-  v21 = objc_opt_new();
-  v18 = dayZeroParameters;
-  v19 = dayZeroIntentParameters;
+  v22 = v6;
+  v21 = +[ATXGlobalAppScorePredictor sharedInstance];
+  v19 = appLaunchLocation;
+  v20 = objc_opt_new();
+  v17 = dayZeroParameters;
+  v18 = dayZeroIntentParameters;
   appInfoManager = self->_appInfoManager;
   mmPredictionMonitor = self->_mmPredictionMonitor;
   server = [(ATXCDNDownloaderTriggerManager *)self->_cdnDownloaderTriggerManager server];
   v14 = +[_ATXAppIconState sharedInstance];
-  microLocation = self->_microLocation;
-  v16 = [(ATXAppFeaturizer *)v3 initWithDayZeroParameters:v18 dayZeroIntentParameters:v19 feedback:v25 appLaunchHistogramManager:v24 appLaunchSequenceManager:v23 appLaunchLocation:v20 appInstallMontior:appInstallMonitor mediaApplications:mediaApps appDailyDose:appDailyDose globalAppScorePredictor:v22 globalSmartSuppression:v21 appInfoManager:appInfoManager magicalMomentsUpdateMonitor:mmPredictionMonitor heroAppPredictions:server appIconState:v14 appLaunchMicroLocation:microLocation notificationManager:self->_notificationManager];
+  v15 = [(ATXAppFeaturizer *)v3 initWithDayZeroParameters:v17 dayZeroIntentParameters:v18 feedback:v24 appLaunchHistogramManager:v23 appLaunchSequenceManager:v22 appLaunchLocation:v19 appInstallMontior:appInstallMonitor mediaApplications:mediaApps appDailyDose:appDailyDose globalAppScorePredictor:v21 globalSmartSuppression:v20 appInfoManager:appInfoManager magicalMomentsUpdateMonitor:mmPredictionMonitor heroAppPredictions:server appIconState:v14 appLaunchMicroLocation:self->_microLocation notificationManager:self->_notificationManager];
   appFeaturizer = self->_appFeaturizer;
-  self->_appFeaturizer = v16;
+  self->_appFeaturizer = v15;
 }
 
 - (void)dealloc
@@ -1206,6 +1671,18 @@ LABEL_3:
   v3.receiver = self;
   v3.super_class = _ATXAppPredictor;
   [(_ATXAppPredictor *)&v3 dealloc];
+}
+
+- (double)predictionScoreAndUpdateConfidenceForItem:(ATXPredictionItem *)item consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v7 = +[ATXScoreInterpreterCache sharedInstance];
+  v8 = [v7 scoreInterpreterForConsumerSubType:typeCopy];
+
+  [(_ATXAppPredictor *)self _predictionScoreAndUpdateConfidenceForItem:item interpreter:v8 consumerSubType:typeCopy scoreLogger:0 intentType:0];
+  v10 = v9;
+
+  return v10;
 }
 
 + (id)recreateSharedInstanceWithCurrentABGroup
@@ -1307,6 +1784,173 @@ LABEL_3:
   return appInstallMonitor;
 }
 
+- (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger
+{
+  typeCopy = type;
+  intentCopy = intent;
+  identifiersCopy = identifiers;
+  actiontypesCopy = actiontypes;
+  loggerCopy = logger;
+  v18 = objc_opt_new();
+  v19 = [(_ATXAppPredictor *)self predictWithLimit:limit consumerSubType:typeCopy intent:intentCopy candidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy scoreLogger:loggerCopy predictionItemsToKeep:0 predictedItemsOutParameter:0 featureCache:v18];
+
+  return v19;
+}
+
+- (BOOL)predictAndWriteCacheFileWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger path:(id)path cacheFileDescriptors:(id)self0 featureCache:(id)self1
+{
+  typeCopy = type;
+  intentCopy = intent;
+  identifiersCopy = identifiers;
+  actiontypesCopy = actiontypes;
+  loggerCopy = logger;
+  pathCopy = path;
+  descriptorsCopy = descriptors;
+  cacheCopy = cache;
+  v28 = intentCopy;
+  v23 = [ATXAppBlendingUpdater clientModelIdForConsumerSubType:typeCopy];
+  memset(v29, 0, sizeof(v29));
+  v24 = [(_ATXAppPredictor *)self predictWithLimit:limit consumerSubType:typeCopy intent:intentCopy candidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy scoreLogger:loggerCopy predictionItemsToKeep:0 predictedItemsOutParameter:v29 featureCache:cacheCopy];
+  if (!v23)
+  {
+    [(_ATXAppPredictor *)self logCacheAgeAtRefreshForNonBlendingCachesWithCachePath:pathCopy consumerSubType:typeCopy];
+  }
+
+  v25 = [(_ATXAppPredictor *)self writeCacheFileWithSerializedChunks:v24 path:pathCopy cacheFileDescriptors:descriptorsCopy consumerSubType:typeCopy];
+
+  v30 = v29;
+  std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](&v30);
+
+  return v25;
+}
+
+- (void)logCacheAgeAtRefreshForNonBlendingCachesWithCachePath:(id)path consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v21 = *MEMORY[0x277D85DE8];
+  pathCopy = path;
+  [ATXFileUtil cacheAgeForCache:pathCopy withCurrentTime:CFAbsoluteTimeGetCurrent()];
+  v7 = v6;
+  v8 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+  v9 = objc_opt_new();
+  [v9 setCacheName:v8];
+  mEMORY[0x277D41DA8] = [MEMORY[0x277D41DA8] sharedInstance];
+  [mEMORY[0x277D41DA8] trackDistributionForMessage:v9 value:v7];
+
+  v12 = __atxlog_handle_metrics(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  {
+    v13 = objc_opt_class();
+    v14 = NSStringFromClass(v13);
+    v15 = 138412802;
+    v16 = v14;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2048;
+    v20 = v7;
+    _os_log_debug_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMCacheAgeAtCacheRefreshTracker with cacheName: %@ and cacheAge: %f", &v15, 0x20u);
+  }
+}
+
+- (BOOL)writeCacheFileWithSerializedChunks:(id)chunks path:(id)path cacheFileDescriptors:(id)descriptors consumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v34 = *MEMORY[0x277D85DE8];
+  chunksCopy = chunks;
+  pathCopy = path;
+  descriptorsCopy = descriptors;
+  v12 = descriptorsCopy;
+  if (chunksCopy)
+  {
+    v13 = [descriptorsCopy objectForKeyedSubscript:pathCopy];
+    v14 = v13;
+    if (v13)
+    {
+      intValue = [v13 intValue];
+      if ((intValue & 0x80000000) != 0)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v17 = open_dprotected_np([pathCopy UTF8String], 1537, 3, 0, 420);
+      if ((v17 & 0x80000000) != 0)
+      {
+        v23 = __atxlog_handle_default(v17);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        {
+          v25 = *__error();
+          v26 = __error();
+          v27 = strerror(*v26);
+          *buf = 138412802;
+          v29 = pathCopy;
+          v30 = 1024;
+          v31 = v25;
+          v32 = 2080;
+          v33 = v27;
+          _os_log_error_impl(&dword_2263AA000, v23, OS_LOG_TYPE_ERROR, "Error opening %@: [%i] %s", buf, 0x1Cu);
+        }
+
+        goto LABEL_14;
+      }
+
+      v18 = [MEMORY[0x277CCABB0] numberWithInt:v17];
+      [v12 setObject:v18 forKeyedSubscript:pathCopy];
+    }
+
+    chunkArray = [chunksCopy chunkArray];
+    v20 = ATXCacheFileWriteChunks();
+
+    if (v20)
+    {
+      v21 = __atxlog_handle_default(intValue);
+      v16 = 1;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      {
+        v22 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:typeCopy];
+        *buf = 138412290;
+        v29 = v22;
+        _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_INFO, "Updated ATXCache for subtype: %@", buf, 0xCu);
+      }
+
+      goto LABEL_17;
+    }
+
+LABEL_14:
+    v21 = __atxlog_handle_default(intValue);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      [_ATXAppPredictor writeCacheFileWithSerializedChunks:path:cacheFileDescriptors:consumerSubType:];
+    }
+
+    v16 = 0;
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  v16 = 0;
+LABEL_18:
+
+  return v16;
+}
+
+- (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 featureCache:(id)self1
+{
+  typeCopy = type;
+  intentCopy = intent;
+  identifiersCopy = identifiers;
+  actiontypesCopy = actiontypes;
+  loggerCopy = logger;
+  cacheCopy = cache;
+  predictionContextForCurrentContext = [(ATXPredictionContextBuilder *)self->_predictionContextBuilder predictionContextForCurrentContext];
+  v23 = [(_ATXAppPredictor *)self predictWithLimit:limit consumerSubType:typeCopy intent:intentCopy candidateBundleIdentifiers:identifiersCopy candidateActiontypes:actiontypesCopy scoreLogger:loggerCopy predictionItemsToKeep:0 predictedItemsOutParameter:parameter context:predictionContextForCurrentContext featureCache:cacheCopy];
+
+  return v23;
+}
+
 - (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 context:(id)self1 featureCache:(id)self2
 {
   typeCopy = type;
@@ -1340,7 +1984,7 @@ LABEL_3:
 - (id)predictWithLimit:(unint64_t)limit consumerSubType:(unsigned __int8)type intent:(id)intent candidateBundleIdentifiers:(id)identifiers candidateActiontypes:(id)actiontypes scoreLogger:(id)logger predictionItemsToKeep:(void *)keep predictedItemsOutParameter:(void *)self0 context:(id)self1 datastore:(id)self2 featureCache:(id)self3
 {
   typeCopy = type;
-  v75 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   identifiersCopy = identifiers;
   actiontypesCopy = actiontypes;
@@ -1348,7 +1992,7 @@ LABEL_3:
   contextCopy = context;
   datastoreCopy = datastore;
   cacheCopy = cache;
-  memset(v65, 0, sizeof(v65));
+  memset(v67, 0, sizeof(v67));
   if (parameter)
   {
     parameterCopy = parameter;
@@ -1356,7 +2000,7 @@ LABEL_3:
 
   else
   {
-    parameterCopy = v65;
+    parameterCopy = v67;
   }
 
   appLaunchMonitor = [(_ATXAppPredictor *)self appLaunchMonitor];
@@ -1367,71 +2011,72 @@ LABEL_3:
     appIdentifiers = [MEMORY[0x277CEB378] appIdentifiers];
     allObjects = [appIdentifiers allObjects];
 
-    if ([identifiersCopy count] || objc_msgSend(allObjects, "count"))
+    v26 = [identifiersCopy count];
+    if (v26 || (v26 = [allObjects count]) != 0)
     {
-      v42 = cacheCopy;
-      v26 = __atxlog_handle_default();
-      v27 = os_signpost_id_generate(v26);
+      v44 = cacheCopy;
+      v27 = __atxlog_handle_default(v26);
+      v28 = os_signpost_id_generate(v27);
 
-      v28 = __atxlog_handle_default();
-      v29 = v28;
-      v30 = v27 - 1;
-      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      v30 = __atxlog_handle_default(v29);
+      v31 = v30;
+      v32 = v28 - 1;
+      if (v28 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
       {
         ClassName = object_getClassName(intentCopy);
         *buf = 67240450;
         *&buf[4] = typeCopy;
-        LOWORD(v71) = 2082;
-        *(&v71 + 2) = ClassName;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v27, "Predict", "Subtype=%{public,signpost.telemetry:number1}u Intent=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0x12u);
+        LOWORD(v73) = 2082;
+        *(&v73 + 2) = ClassName;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v31, OS_SIGNPOST_INTERVAL_BEGIN, v28, "Predict", "Subtype=%{public,signpost.telemetry:number1}u Intent=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", buf, 0x12u);
       }
 
-      spid = v27;
+      spid = v28;
       disabledBundleIds = [(ATXAppPredictionBlacklist *)self->_appPredictionBlacklist disabledBundleIds];
       *buf = 0;
-      *&v71 = buf;
-      *(&v71 + 1) = 0x3032000000;
-      v72 = __Block_byref_object_copy__177;
-      v73 = __Block_byref_object_dispose__178;
-      v74 = 0;
+      *&v73 = buf;
+      *(&v73 + 1) = 0x3032000000;
+      v74 = __Block_byref_object_copy__177;
+      v75 = __Block_byref_object_dispose__178;
+      v76 = 0;
       queue = self->_queue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __200___ATXAppPredictor_predictWithLimit_consumerSubType_intent_candidateBundleIdentifiers_candidateActiontypes_scoreLogger_predictionItemsToKeep_predictedItemsOutParameter_context_datastore_featureCache___block_invoke;
       block[3] = &unk_2785A0190;
       block[4] = self;
-      v64 = typeCopy;
-      v34 = intentCopy;
-      v50 = v34;
-      v51 = identifiersCopy;
-      v52 = allObjects;
-      v35 = disabledBundleIds;
-      v53 = v35;
-      v54 = actiontypesCopy;
-      v55 = datastoreCopy;
-      v60 = parameterCopy;
-      v56 = loggerCopy;
-      v57 = contextCopy;
-      cacheCopy = v42;
+      v66 = typeCopy;
+      v36 = intentCopy;
+      v52 = v36;
+      v53 = identifiersCopy;
+      v54 = allObjects;
+      v37 = disabledBundleIds;
+      v55 = v37;
+      v56 = actiontypesCopy;
+      v57 = datastoreCopy;
+      v62 = parameterCopy;
+      v58 = loggerCopy;
+      v59 = contextCopy;
+      cacheCopy = v44;
       limitCopy = limit;
       keepCopy = keep;
-      v58 = v42;
-      v59 = buf;
-      v63 = a2;
+      v60 = v44;
+      v61 = buf;
+      v65 = a2;
       dispatch_sync(queue, block);
-      v36 = __atxlog_handle_default();
-      v37 = v36;
-      if (v30 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+      v39 = __atxlog_handle_default(v38);
+      v40 = v39;
+      if (v32 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
       {
-        v38 = object_getClassName(v34);
-        *v66 = 67240450;
-        v67 = typeCopy;
-        v68 = 2082;
-        v69 = v38;
-        _os_signpost_emit_with_name_impl(&dword_2263AA000, v37, OS_SIGNPOST_INTERVAL_END, spid, "Predict", "Subtype=%{public,signpost.telemetry:number1}u Intent=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", v66, 0x12u);
+        v41 = object_getClassName(v36);
+        *v68 = 67240450;
+        v69 = typeCopy;
+        v70 = 2082;
+        v71 = v41;
+        _os_signpost_emit_with_name_impl(&dword_2263AA000, v40, OS_SIGNPOST_INTERVAL_END, spid, "Predict", "Subtype=%{public,signpost.telemetry:number1}u Intent=%{public,signpost.telemetry:string1}s  enableTelemetry=YES ", v68, 0x12u);
       }
 
-      v24 = *(v71 + 40);
+      v24 = *(v73 + 40);
       _Block_object_dispose(buf, 8);
     }
 
@@ -1441,12 +2086,104 @@ LABEL_3:
     }
   }
 
-  *buf = v65;
+  *buf = v67;
   std::vector<ATXPredictionItem>::__destroy_vector::operator()[abi:ne200100](buf);
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v24;
+}
+
++ (id)pruneItemsToRankForConsumerSubType:(unsigned __int8)type itemsToRank:(id)rank datastore:(id)datastore
+{
+  typeCopy = type;
+  v31 = *MEMORY[0x277D85DE8];
+  rankCopy = rank;
+  datastoreCopy = datastore;
+  v22 = rankCopy;
+  if ([MEMORY[0x277CEBCF0] consumerTypeForSubType:typeCopy] == 8)
+  {
+    v23 = objc_opt_new();
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v9 = rankCopy;
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    if (v10)
+    {
+      v11 = *v25;
+      do
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          if (*v25 != v11)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v13 = *(*(&v24 + 1) + 8 * i);
+          v14 = [_ATXActionUtils getBundleIdFromActionKey:v13];
+          v15 = [_ATXActionUtils getActionTypeFromActionKey:v13];
+          v16 = v15;
+          if (v14)
+          {
+            v17 = v15 == 0;
+          }
+
+          else
+          {
+            v17 = 1;
+          }
+
+          if (!v17)
+          {
+            v18 = [datastoreCopy actionExistsForBundleId:v14 actionType:v15];
+            if (v18)
+            {
+              [v23 addObject:v13];
+            }
+
+            else
+            {
+              v19 = __atxlog_handle_default(v18);
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              {
+                *buf = 138412290;
+                v29 = v13;
+                _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "No actions found in _ATXDataStore for %@. Skipping this actionKey.", buf, 0xCu);
+              }
+            }
+          }
+        }
+
+        v10 = [v9 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      }
+
+      while (v10);
+    }
+
+    v20 = [v23 copy];
+  }
+
+  else
+  {
+    v20 = rankCopy;
+  }
+
+  return v20;
+}
+
++ (id)getParseTreeForConsumerSubType:(unsigned __int8)type
+{
+  typeCopy = type;
+  mEMORY[0x277CEB3A0] = [MEMORY[0x277CEB3A0] sharedInstanceWithMobileAssets];
+  v5 = [mEMORY[0x277CEB3A0] getAssetFileAndSubscoreForConsumerSubType:typeCopy];
+  first = [v5 first];
+
+  v7 = MEMORY[0x277CEB3C0];
+  abGroupOverride = [MEMORY[0x277CEB2B8] abGroupOverride];
+  v9 = [v7 dictionaryForResource:first ofType:@"plist" specifiedABGroup:abGroupOverride];
+
+  return v9;
 }
 
 - (id)getPredictionModelDetailsForConsumerSubType:(unsigned __int8)type
@@ -1554,31 +2291,32 @@ LABEL_10:
 - (void)trainWithTask:(id)task
 {
   taskCopy = task;
-  if ([taskCopy didDefer])
+  didDefer = [taskCopy didDefer];
+  if (didDefer)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(didDefer);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "App prediction training immediately deferred", buf, 2u);
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "App prediction training immediately deferred", buf, 2u);
     }
   }
 
   else
   {
     [taskCopy setProgressUnits:5];
-    v6 = MEMORY[0x277D42598];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __34___ATXAppPredictor_trainWithTask___block_invoke;
-    v7[3] = &unk_2785A0168;
-    v7[4] = self;
-    v8 = taskCopy;
-    [v6 runBlockWhenDeviceIsClassCUnlocked:v7];
+    v7 = MEMORY[0x277D42598];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __34___ATXAppPredictor_trainWithTask___block_invoke;
+    v8[3] = &unk_2785A0168;
+    v8[4] = self;
+    v9 = taskCopy;
+    [v7 runBlockWhenDeviceIsClassCUnlocked:v8];
   }
 }
 
-- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(void *)rank consumerSubType:(uint64_t)type intent:scoreLogger:context:featureCache:
+- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(id *)rank consumerSubType:(int64_t)type intent:scoreLogger:context:featureCache:
 {
   v32 = a2;
   selfCopy = self;
@@ -1705,24 +2443,24 @@ LABEL_27:
   }
 }
 
-- (float)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(void *)rank consumerSubType:intent:scoreLogger:context:featureCache:
+- (void)_getPredictionForItems:(unint64_t)items clipBundleIdsToRank:(id *)rank consumerSubType:intent:scoreLogger:context:featureCache:
 {
   if (!items)
   {
-    return result;
+    return;
   }
 
   rankCopy = rank;
-  v7 = result;
+  selfCopy = self;
   if (items == 2)
   {
     v11 = (a2 - 834);
-    if (result[832] >= *(a2 - 2))
+    if (self[832] >= *(a2 - 2))
     {
-      v29 = *result;
-      *result = 0;
+      v29 = *self;
+      *self = 0;
       *rank = v29;
-      memcpy(rank + 1, result + 2, 0xCFEuLL);
+      memcpy(rank + 1, self + 2, 0xCFEuLL);
       v30 = *v11;
       *v11 = 0;
       rankCopy[417] = v30;
@@ -1735,23 +2473,24 @@ LABEL_27:
     *v11 = 0;
     *rank = v12;
     memcpy(rank + 1, a2 - 832, 0xCFEuLL);
-    v13 = *v7;
-    *v7 = 0;
-    v9 = v7 + 2;
+    v13 = *selfCopy;
+    *selfCopy = 0;
+    v9 = (selfCopy + 8);
     rankCopy[417] = v13;
     v10 = rankCopy + 418;
 LABEL_7:
     v14 = v9;
 LABEL_23:
 
-    return memcpy(v10, v14, 0xCFEuLL);
+    memcpy(v10, v14, 0xCFEuLL);
+    return;
   }
 
   if (items == 1)
   {
-    v8 = *result;
-    *result = 0;
-    v9 = result + 2;
+    v8 = *self;
+    *self = 0;
+    v9 = self + 2;
     *rank = v8;
     v10 = rank + 1;
     goto LABEL_7;
@@ -1760,19 +2499,19 @@ LABEL_23:
   if (items > 8)
   {
     v31 = 3336 * (items >> 1);
-    v32 = &result[v31 / 4];
-    std::__stable_sort<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(result, &result[v31 / 4], items >> 1, rank, items >> 1);
-    result = std::__stable_sort<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(&v7[v31 / 4], a2, items - (items >> 1), &rankCopy[v31 / 8], items - (items >> 1));
-    v33 = &v7[v31 / 4];
+    v32 = &self[v31 / 4];
+    std::__stable_sort<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(self, &self[v31 / 4], items >> 1, rank, items >> 1);
+    std::__stable_sort<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v31 + selfCopy, a2, items - (items >> 1), &rankCopy[v31 / 8], items - (items >> 1));
+    v33 = v31 + selfCopy;
     while (v33 != a2)
     {
-      if (v7[832] >= v33[832])
+      if (*(selfCopy + 3328) >= *(v33 + 3328))
       {
-        v35 = *v7;
-        *v7 = 0;
+        v35 = *selfCopy;
+        *selfCopy = 0;
         *rankCopy = v35;
-        result = memcpy(rankCopy + 1, v7 + 2, 0xCFEuLL);
-        v7 += 834;
+        memcpy(rankCopy + 1, (selfCopy + 8), 0xCFEuLL);
+        selfCopy += 3336;
       }
 
       else
@@ -1780,58 +2519,58 @@ LABEL_23:
         v34 = *v33;
         *v33 = 0;
         *rankCopy = v34;
-        result = memcpy(rankCopy + 1, v33 + 2, 0xCFEuLL);
-        v33 += 834;
+        memcpy(rankCopy + 1, (v33 + 8), 0xCFEuLL);
+        v33 += 3336;
       }
 
       rankCopy += 417;
-      if (v7 == v32)
+      if (selfCopy == v32)
       {
         if (v33 != a2)
         {
           v36 = 0;
           do
           {
-            v37 = &v33[v36 / 4];
-            v38 = *&v33[v36 / 4];
-            *&v33[v36 / 4] = 0;
+            v37 = v33 + v36;
+            v38 = *(v33 + v36);
+            *(v33 + v36) = 0;
             rankCopy[v36 / 8] = v38;
-            result = memcpy(&rankCopy[v36 / 8 + 1], &v33[v36 / 4 + 2], 0xCFEuLL);
+            memcpy(&rankCopy[v36 / 8 + 1], (v33 + v36 + 8), 0xCFEuLL);
             v36 += 3336;
           }
 
-          while (v37 + 834 != a2);
+          while ((v37 + 3336) != a2);
         }
 
-        return result;
+        return;
       }
     }
 
-    if (v7 != v32)
+    if (selfCopy != v32)
     {
       v39 = 0;
       do
       {
-        v40 = &v7[v39 / 4];
-        v41 = *&v7[v39 / 4];
-        *&v7[v39 / 4] = 0;
+        v40 = selfCopy + v39;
+        v41 = *(selfCopy + v39);
+        *(selfCopy + v39) = 0;
         rankCopy[v39 / 8] = v41;
-        result = memcpy(&rankCopy[v39 / 8 + 1], &v7[v39 / 4 + 2], 0xCFEuLL);
+        memcpy(&rankCopy[v39 / 8 + 1], (selfCopy + v39 + 8), 0xCFEuLL);
         v39 += 3336;
       }
 
-      while (v40 + 834 != v32);
+      while ((v40 + 3336) != v32);
     }
   }
 
-  else if (result != a2)
+  else if (self != a2)
   {
-    v15 = *result;
-    *result = 0;
+    v15 = *self;
+    *self = 0;
     *rank = v15;
-    result = memcpy(rank + 1, result + 2, 0xCFEuLL);
-    v16 = v7 + 834;
-    if (v7 + 834 != a2)
+    memcpy(rank + 1, self + 2, 0xCFEuLL);
+    v16 = (selfCopy + 3336);
+    if ((selfCopy + 3336) != a2)
     {
       v17 = 0;
       v18 = rankCopy;
@@ -1839,7 +2578,7 @@ LABEL_23:
       {
         v19 = v16;
         v20 = v18 + 418;
-        if (*(v18 + 832) >= v7[1666])
+        if (*(v18 + 832) >= *(selfCopy + 6664))
         {
           v28 = *v16;
           *v19 = 0;
@@ -1859,7 +2598,7 @@ LABEL_23:
             while (1)
             {
               v22 = (rankCopy + v23);
-              if (*(rankCopy + v23 - 8) >= v7[1666])
+              if (*(rankCopy + v23 - 8) >= *(selfCopy + 6664))
               {
                 break;
               }
@@ -1886,18 +2625,16 @@ LABEL_23:
           v20 = v22 + 1;
         }
 
-        result = memcpy(v20, v7 + 836, 0xCFEuLL);
+        memcpy(v20, (selfCopy + 3344), 0xCFEuLL);
         v16 = v19 + 417;
         v17 += 3336;
         v18 += 417;
-        v7 = v19;
+        selfCopy = v19;
       }
 
       while (v19 + 417 != a2);
     }
   }
-
-  return result;
 }
 
 - (void)_getPredictionForItems:(void *)items clipBundleIdsToRank:(void *)rank consumerSubType:(void *)type intent:(uint64_t)intent scoreLogger:(uint64_t)logger context:(id *)context featureCache:(uint64_t)cache
@@ -2040,7 +2777,7 @@ LABEL_23:
         v40 = -(v23 + v14);
         v41 = v17;
         cacheCopy3 = cache;
-        std::__inplace_merge<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v29, typeCopy, type, v40, v36, context);
+        std::__inplace_merge<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v29, typeCopy, type, v40, v36, context, cache);
         typeCopy = rankCopy2;
         v36 = v41;
         intent = v39;
@@ -2051,7 +2788,7 @@ LABEL_23:
       {
         typeCopy3 = type;
         cacheCopy3 = cache;
-        std::__inplace_merge<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v15, rankCopy2, v29, v23, v17, context);
+        std::__inplace_merge<std::_ClassicAlgPolicy,[_ATXAppPredictor _getPredictionForItems:clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:]::$_0 &,std::__wrap_iter<ATXPredictionItem *>>(v15, rankCopy2, v29, v23, v17, context, cache);
         type = typeCopy3;
         itemsCopy = v29;
         v15 = v29;
@@ -2258,20 +2995,16 @@ LABEL_74:
 
 - (void)scoreAppsWithFeaturesUsingCoreML:scoreLogger:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scoreAppsWithFeaturesUsingCoreML:scoreLogger:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_13();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)actionModelNameForActionSubType:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -2279,14 +3012,6 @@ LABEL_74:
   *buf = 138412290;
   *(buf + 4) = a1;
   _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Incorrect ConsumerSubType for Action Prediction (%@) using CoreML!", buf, 0xCu);
-}
-
-- (void)prewarmModelForConsumerSubtype:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_2_6(&dword_2263AA000, v0, v1, "Failed to create inference runner using model %@ : %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getPredictionForItems:(os_log_t)log clipBundleIdsToRank:consumerSubType:intent:scoreLogger:context:featureCache:.cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -2305,11 +3030,9 @@ LABEL_74:
 
 - (void)writeCacheFileWithSerializedChunks:path:cacheFileDescriptors:consumerSubType:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

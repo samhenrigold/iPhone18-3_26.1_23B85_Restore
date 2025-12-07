@@ -19,14 +19,15 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension15TitleHeaderView_accessoryAction);
   if (v3)
   {
-    v8[3] = sub_100016C60(0, &qword_100928A80);
-    v8[0] = view;
+    v6 = *&self->eyebrowText[OBJC_IVAR____TtC22SubscribePageExtension15TitleHeaderView_accessoryAction];
+    v9[3] = sub_100016C60(0, &qword_100928A80, UIControl_ptr);
+    v9[0] = view;
     viewCopy = view;
     selfCopy = self;
-    sub_10001B5AC(v3);
-    v3(v8);
-    sub_1000164A8(v3);
-    sub_10000C8CC(v8, &unk_100923520);
+    sub_10001B5AC(v3, v6);
+    v3(v9);
+    sub_1000164A8(v3, v6);
+    sub_10000C8CC(v9, &unk_100923520, &qword_1007A5A70);
   }
 }
 

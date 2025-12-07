@@ -14,34 +14,34 @@
 
 - (SSMultiSIMResultViewController)initWithPlanInfos:(id)infos
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   obj = infos;
   infosCopy = infos;
   v4 = [infosCopy count];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v5 = infosCopy;
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
     v10 = 0;
-    v11 = *v37;
+    v11 = *v36;
     do
     {
       v12 = 0;
       do
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        status = [*(*(&v36 + 1) + 8 * v12) status];
+        status = [*(*(&v35 + 1) + 8 * v12) status];
         if (status == 4 || status == 14 || status == 10004 || status == 10003)
         {
           ++v10;
@@ -61,7 +61,7 @@
       }
 
       while (v7 != v12);
-      v17 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v17 = [v5 countByEnumeratingWithState:&v35 objects:v39 count:16];
       v7 = v17;
     }
 
@@ -141,16 +141,15 @@
 
   v27 = [v21 localizedStringForKey:v23 value:&stru_28753DF48 table:{@"Localizable", obj}];
 
-  v35.receiver = selfCopy2;
-  v35.super_class = SSMultiSIMResultViewController;
-  v28 = [(OBTableWelcomeController *)&v35 initWithTitle:v20 detailText:v27 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
+  v34.receiver = selfCopy2;
+  v34.super_class = SSMultiSIMResultViewController;
+  v28 = [(OBTableWelcomeController *)&v34 initWithTitle:v20 detailText:v27 symbolName:@"antenna.radiowaves.left.and.right" adoptTableViewScrollView:1];
   v29 = v28;
   if (v28)
   {
     objc_storeStrong(&v28->_infos, obja);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -230,12 +229,13 @@
   }
 
   v11 = [pathCopy row];
-  if (v11 < [(NSArray *)self->_infos count])
+  v12 = [(NSArray *)self->_infos count];
+  if (v11 < v12)
   {
-    v12 = [(NSArray *)self->_infos objectAtIndexedSubscript:v11];
+    v13 = [(NSArray *)self->_infos objectAtIndexedSubscript:v11];
     defaultContentConfiguration = [v10 defaultContentConfiguration];
-    displayPlan = [v12 displayPlan];
-    if (+[TSUtilities isPhone](TSUtilities, "isPhone") && ([displayPlan phoneNumber], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "length"), v15, v16))
+    displayPlan = [v13 displayPlan];
+    if (+[TSUtilities isPhone](TSUtilities, "isPhone") && ([displayPlan phoneNumber], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "length"), v16, v17))
     {
       phoneNumber = [displayPlan phoneNumber];
       formattedPhoneNumber = [phoneNumber formattedPhoneNumber];
@@ -244,9 +244,9 @@
     else
     {
       carrierName = [displayPlan carrierName];
-      v22 = [carrierName length];
+      v23 = [carrierName length];
 
-      if (v22)
+      if (v23)
       {
         phoneNumber = [displayPlan carrierName];
         [defaultContentConfiguration setText:phoneNumber];
@@ -257,27 +257,27 @@
       formattedPhoneNumber = [phoneNumber localizedStringForKey:@"NEW_CELLULAR_PLAN_NO_CARRIER_TITLE" value:&stru_28753DF48 table:@"Localizable"];
     }
 
-    v23 = formattedPhoneNumber;
+    v24 = formattedPhoneNumber;
     [defaultContentConfiguration setText:formattedPhoneNumber];
 
 LABEL_14:
-    status = [v12 status];
+    status = [v13 status];
     if (isSuccessState(status))
     {
-      planItem = [v12 planItem];
-      if (planItem && (v26 = planItem, [v12 planItem], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isSelected"), v27, v26, (v28 & 1) != 0))
+      planItem = [v13 planItem];
+      if (planItem && (v27 = planItem, [v13 planItem], v28 = objc_claimAutoreleasedReturnValue(), v29 = objc_msgSend(v28, "isSelected"), v28, v27, (v29 & 1) != 0))
       {
-        v29 = @"READY";
+        v30 = @"READY";
       }
 
       else
       {
-        v29 = @"AVAILABLE";
+        v30 = @"AVAILABLE";
       }
 
-      v36 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v37 = [v36 localizedStringForKey:v29 value:&stru_28753DF48 table:@"Localizable"];
-      [defaultContentConfiguration setSecondaryText:v37];
+      v37 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v38 = [v37 localizedStringForKey:v30 value:&stru_28753DF48 table:@"Localizable"];
+      [defaultContentConfiguration setSecondaryText:v38];
 
       [v10 setSelectionStyle:0];
       goto LABEL_34;
@@ -285,9 +285,9 @@ LABEL_14:
 
     if (status != 5)
     {
-      v38 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v39 = [v38 localizedStringForKey:@"MULTISIM_RESULT_PENDING" value:&stru_28753DF48 table:@"Localizable"];
-      [defaultContentConfiguration setSecondaryText:v39];
+      v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v40 = [v39 localizedStringForKey:@"MULTISIM_RESULT_PENDING" value:&stru_28753DF48 table:@"Localizable"];
+      [defaultContentConfiguration setSecondaryText:v40];
 
       [v10 setAccessoryType:1];
 LABEL_34:
@@ -295,64 +295,64 @@ LABEL_34:
       secondaryTextProperties = [defaultContentConfiguration secondaryTextProperties];
       [secondaryTextProperties setColor:lightGrayColor];
 
-      v59 = MEMORY[0x277D755B8];
-      imageName = [v12 imageName];
-      v61 = [v59 systemImageNamed:imageName];
-      [defaultContentConfiguration setImage:v61];
+      v60 = MEMORY[0x277D755B8];
+      imageName = [v13 imageName];
+      v62 = [v60 systemImageNamed:imageName];
+      [defaultContentConfiguration setImage:v62];
 
       [v10 setContentConfiguration:defaultContentConfiguration];
       contentView = [v10 contentView];
       [contentView setLayoutMargins:{10.0, 0.0, 10.0, 0.0}];
 
-      v20 = v10;
+      v21 = v10;
       goto LABEL_35;
     }
 
-    installError = [v12 installError];
-    v31 = [TSUtilities getErrorDescription:installError];
-    [defaultContentConfiguration setSecondaryText:v31];
+    installError = [v13 installError];
+    v32 = [TSUtilities getErrorDescription:installError];
+    [defaultContentConfiguration setSecondaryText:v32];
 
     secondaryText = [defaultContentConfiguration secondaryText];
-    v33 = [secondaryText length];
+    v34 = [secondaryText length];
 
-    if (v33)
+    if (v34)
     {
 LABEL_30:
-      v64 = [MEMORY[0x277D755B8] systemImageNamed:@"chevron.forward"];
-      v42 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v64];
+      v65 = [MEMORY[0x277D755B8] systemImageNamed:@"chevron.forward"];
+      v43 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v65];
       systemLightGrayColor = [MEMORY[0x277D75348] systemLightGrayColor];
-      [v42 setTintColor:systemLightGrayColor];
+      [v43 setTintColor:systemLightGrayColor];
 
-      v44 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle.fill"];
-      v45 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v44];
+      v45 = [MEMORY[0x277D755B8] systemImageNamed:@"exclamationmark.triangle.fill"];
+      v46 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v45];
       systemYellowColor = [MEMORY[0x277D75348] systemYellowColor];
-      [v45 setTintColor:systemYellowColor];
+      [v46 setTintColor:systemYellowColor];
 
-      [v42 bounds];
-      v48 = v47;
-      [v45 bounds];
-      v50 = v48 + v49 + 2.0;
-      [v42 bounds];
-      v52 = v51;
-      [v45 bounds];
-      if (v52 <= v53)
+      [v43 bounds];
+      v49 = v48;
+      [v46 bounds];
+      v51 = v49 + v50 + 2.0;
+      [v43 bounds];
+      v53 = v52;
+      [v46 bounds];
+      if (v53 <= v54)
       {
-        v54 = v45;
+        v55 = v46;
       }
 
       else
       {
-        v54 = v42;
+        v55 = v43;
       }
 
-      [v54 bounds];
-      v56 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{0.0, 0.0, v50, v55}];
-      [v56 setSpacing:2.0];
-      [v56 addArrangedSubview:v45];
-      [v56 addArrangedSubview:v42];
-      [v56 setAxis:0];
-      [v56 setAlignment:3];
-      [v10 setAccessoryView:v56];
+      [v55 bounds];
+      v57 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{0.0, 0.0, v51, v56}];
+      [v57 setSpacing:2.0];
+      [v57 addArrangedSubview:v46];
+      [v57 addArrangedSubview:v43];
+      [v57 setAxis:0];
+      [v57 setAlignment:3];
+      [v10 setAccessoryView:v57];
 
       goto LABEL_34;
     }
@@ -365,11 +365,11 @@ LABEL_30:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v35 = @"TRANSFER_FAILED";
+          v36 = @"TRANSFER_FAILED";
 LABEL_29:
-          v40 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-          v41 = [v40 localizedStringForKey:v35 value:&stru_28753DF48 table:@"Localizable"];
-          [defaultContentConfiguration setSecondaryText:v41];
+          v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+          v42 = [v41 localizedStringForKey:v36 value:&stru_28753DF48 table:@"Localizable"];
+          [defaultContentConfiguration setSecondaryText:v42];
 
           goto LABEL_30;
         }
@@ -381,20 +381,20 @@ LABEL_29:
       plan = 0;
     }
 
-    v35 = @"SETUP_FAILED";
+    v36 = @"SETUP_FAILED";
     goto LABEL_29;
   }
 
-  v19 = _TSLogDomain();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = _TSLogDomain(v12);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [SSMultiSIMResultViewController tableView:cellForRowAtIndexPath:];
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_35:
 
-  return v20;
+  return v21;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -402,10 +402,11 @@ LABEL_35:
   viewCopy = view;
   pathCopy = path;
   v8 = [pathCopy row];
-  if (v8 >= [(NSArray *)self->_infos count])
+  v9 = [(NSArray *)self->_infos count];
+  if (v8 >= v9)
   {
-    v13 = _TSLogDomain();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _TSLogDomain(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [SSMultiSIMResultViewController tableView:didSelectRowAtIndexPath:];
     }
@@ -413,20 +414,20 @@ LABEL_35:
 
   else
   {
-    v9 = [(NSArray *)self->_infos objectAtIndexedSubscript:v8];
-    status = [v9 status];
+    v10 = [(NSArray *)self->_infos objectAtIndexedSubscript:v8];
+    status = [v10 status];
     [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
     if (status != 4 && status != 14)
     {
       if (status == 5)
       {
-        installError = [v9 installError];
-        [(SSMultiSIMResultViewController *)self pushToDetailViewControllerWithError:installError forPlan:v9];
+        installError = [v10 installError];
+        [(SSMultiSIMResultViewController *)self pushToDetailViewControllerWithError:installError forPlan:v10];
       }
 
       else if (status != 10004 && status != 10003)
       {
-        [(SSMultiSIMResultViewController *)self pushTimeoutFailureViewControllerWithStatus:status forPlan:v9];
+        [(SSMultiSIMResultViewController *)self pushTimeoutFailureViewControllerWithStatus:status forPlan:v10];
       }
     }
   }
@@ -436,40 +437,41 @@ LABEL_35:
 {
   errorCopy = error;
   planCopy = plan;
+  v8 = planCopy;
   if (!errorCopy)
   {
-    v8 = _TSLogDomain();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _TSLogDomain(planCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [SSMultiSIMResultViewController pushToDetailViewControllerWithError:planCopy forPlan:v8];
+      [SSMultiSIMResultViewController pushToDetailViewControllerWithError:v8 forPlan:v9];
     }
   }
 
-  websheetUrl = [planCopy websheetUrl];
-  v10 = [websheetUrl length];
+  websheetUrl = [v8 websheetUrl];
+  v11 = [websheetUrl length];
 
-  if (v10)
+  if (v11)
   {
-    v11 = [[TSWebsheetViewController alloc] initForRemotePlan:0 carrierName:0 skipUIDismissal:0];
-    v12 = MEMORY[0x277CBEBC0];
-    websheetUrl2 = [planCopy websheetUrl];
-    v14 = [v12 URLWithString:websheetUrl2];
-    postdata = [planCopy postdata];
-    carrierName = [TSURLRequestFactory requestWithType:3 URL:v14 postdata:postdata];
+    v12 = [[TSWebsheetViewController alloc] initForRemotePlan:0 carrierName:0 skipUIDismissal:0];
+    v13 = MEMORY[0x277CBEBC0];
+    websheetUrl2 = [v8 websheetUrl];
+    v15 = [v13 URLWithString:websheetUrl2];
+    postdata = [v8 postdata];
+    carrierName = [TSURLRequestFactory requestWithType:3 URL:v15 postdata:postdata];
 
-    [(TSMidOperationFailureViewController *)v11 loadRequest:carrierName completion:0];
+    [(TSMidOperationFailureViewController *)v12 loadRequest:carrierName completion:0];
   }
 
   else
   {
-    v17 = [TSMidOperationFailureViewController alloc];
-    carrierName = [planCopy carrierName];
-    carrierErrorCode = [planCopy carrierErrorCode];
-    v11 = [(TSMidOperationFailureViewController *)v17 initWithPlanItemError:errorCopy updatePlanItem:0 withBackButton:1 forCarrier:carrierName withCarrierErrorCode:carrierErrorCode isEmbeddedInResultView:1];
+    v18 = [TSMidOperationFailureViewController alloc];
+    carrierName = [v8 carrierName];
+    carrierErrorCode = [v8 carrierErrorCode];
+    v12 = [(TSMidOperationFailureViewController *)v18 initWithPlanItemError:errorCopy updatePlanItem:0 withBackButton:1 forCarrier:carrierName withCarrierErrorCode:carrierErrorCode isEmbeddedInResultView:1];
   }
 
   navigationController = [(SSMultiSIMResultViewController *)self navigationController];
-  [navigationController pushViewController:v11 animated:1];
+  [navigationController pushViewController:v12 animated:1];
 }
 
 - (void)pushTimeoutFailureViewControllerWithStatus:(unint64_t)status forPlan:(id)plan
@@ -491,26 +493,24 @@ LABEL_35:
   v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   v10 = [(TSCellularSetupTimeoutFailureViewController *)v8 initWithTimeoutReason:v7 isEmbeddedInResultView:1 plans:v9];
 
-  v11 = _TSLogDomain();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _TSLogDomain(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = objc_opt_class();
+    v13 = objc_opt_class();
     identifier = [planCopy identifier];
     v16 = 138413058;
-    v17 = v12;
+    v17 = v13;
     v18 = 2112;
     v19 = identifier;
     v20 = 2080;
     v21 = SSPlanTransferStatusAsString(status);
     v22 = 2080;
     v23 = "[SSMultiSIMResultViewController pushTimeoutFailureViewControllerWithStatus:forPlan:]";
-    _os_log_impl(&dword_262AA8000, v11, OS_LOG_TYPE_DEFAULT, "push %@ for %@ with status : %s @%s", &v16, 0x2Au);
+    _os_log_impl(&dword_262AA8000, v12, OS_LOG_TYPE_DEFAULT, "push %@ for %@ with status : %s @%s", &v16, 0x2Au);
   }
 
   navigationController = [(SSMultiSIMResultViewController *)self navigationController];
   [navigationController pushViewController:v10 animated:1];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueButtonTapped
@@ -538,31 +538,27 @@ LABEL_35:
 
 - (void)tableView:cellForRowAtIndexPath:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[SSMultiSIMResultViewController tableView:cellForRowAtIndexPath:]";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Invalid indexPath: %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[SSMultiSIMResultViewController tableView:cellForRowAtIndexPath:]";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Invalid indexPath: %@ @%s", v1, 0x16u);
 }
 
 - (void)tableView:didSelectRowAtIndexPath:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[SSMultiSIMResultViewController tableView:didSelectRowAtIndexPath:]";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Invalid indexPath: %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[SSMultiSIMResultViewController tableView:didSelectRowAtIndexPath:]";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]Invalid indexPath: %@ @%s", v1, 0x16u);
 }
 
 - (void)pushToDetailViewControllerWithError:(void *)a1 forPlan:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
   OUTLINED_FUNCTION_0();
-  v6 = "[SSMultiSIMResultViewController pushToDetailViewControllerWithError:forPlan:]";
-  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]no error for %@, showing generic error message. @%s", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = "[SSMultiSIMResultViewController pushToDetailViewControllerWithError:forPlan:]";
+  _os_log_error_impl(&dword_262AA8000, a2, OS_LOG_TYPE_ERROR, "[E]no error for %@, showing generic error message. @%s", v4, 0x16u);
 }
 
 @end

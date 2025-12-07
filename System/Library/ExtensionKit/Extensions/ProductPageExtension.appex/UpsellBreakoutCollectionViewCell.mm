@@ -32,7 +32,7 @@
 - (void)layoutSubviews
 {
   v13.receiver = self;
-  v13.super_class = type metadata accessor for UpsellBreakoutCollectionViewCell();
+  v13.super_class = type metadata accessor for UpsellBreakoutCollectionViewCell(0);
   v2 = v13.receiver;
   [(UpsellBreakoutCollectionViewCell *)&v13 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC20ProductPageExtension32UpsellBreakoutCollectionViewCell_upsellBreakoutView];
@@ -50,7 +50,7 @@
 - (void)prepareForReuse
 {
   v2.receiver = self;
-  v2.super_class = type metadata accessor for UpsellBreakoutCollectionViewCell();
+  v2.super_class = type metadata accessor for UpsellBreakoutCollectionViewCell(0);
   [(UpsellBreakoutCollectionViewCell *)&v2 prepareForReuse];
 }
 

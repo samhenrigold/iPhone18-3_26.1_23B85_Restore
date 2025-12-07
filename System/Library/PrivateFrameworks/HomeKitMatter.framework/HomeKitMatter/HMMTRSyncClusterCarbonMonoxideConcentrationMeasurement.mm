@@ -22,17 +22,16 @@
 
 uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v27_6881;
-  logCategory__hmf_once_v27_6881 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27_6881;
+  logCategory__hmf_once_v27_6881 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)updatedValuePluginPeakMeasuredValueForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -66,12 +65,12 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
   v16 = HMFGetOSLogHandle();
-  v64 = v13;
+  v63 = v13;
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     HMFGetLogIdentifier();
-    v60 = handlerCopy;
-    v17 = v62 = reportCopy;
+    v59 = handlerCopy;
+    v17 = v61 = reportCopy;
     endpoint = [v10 endpoint];
     cluster = [v10 cluster];
     attribute = [v10 attribute];
@@ -80,22 +79,22 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
     v22 = selfCopy;
     v24 = v23 = v14;
     *buf = 138544386;
-    v66 = v17;
-    v67 = 2112;
-    v68 = endpoint;
-    v69 = 2112;
-    v70 = cluster;
-    v71 = 2112;
-    v72 = attribute;
-    v73 = 2112;
-    v74 = v24;
+    v65 = v17;
+    v66 = 2112;
+    v67 = endpoint;
+    v68 = 2112;
+    v69 = cluster;
+    v70 = 2112;
+    v71 = attribute;
+    v72 = 2112;
+    v73 = v24;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
     v14 = v23;
     selfCopy = v22;
 
-    handlerCopy = v60;
-    reportCopy = v62;
+    handlerCopy = v59;
+    reportCopy = v61;
   }
 
   else
@@ -129,11 +128,11 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
       if (v31)
       {
         v32 = v31;
-        v61 = handlerCopy;
-        v63 = v10;
+        v60 = handlerCopy;
+        v62 = v10;
         v33 = objc_alloc_init(MEMORY[0x277CD54D8]);
-        v59 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)selfCopy readAttributeMeasurementUnitWithParams:v33];
-        v34 = [v59 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
+        v58 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)selfCopy readAttributeMeasurementUnitWithParams:v33];
+        v34 = [v58 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -155,18 +154,18 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
         {
           if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            v47 = HMFGetLogIdentifier();
+            v46 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v66 = v47;
+            v65 = v46;
             _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Measurement Unit attribute. Cannot handle Peak Measured Value attribute.", buf, 0xCu);
           }
 
           objc_autoreleasePoolPop(v37);
-          v48 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-          handlerCopy = v61;
-          (v61)[2](v61, 0, v48);
+          v47 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+          handlerCopy = v60;
+          (v60)[2](v60, 0, v47);
 
-          v45 = v64;
+          v45 = v63;
           goto LABEL_39;
         }
 
@@ -174,11 +173,11 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v66 = v41;
-          v67 = 2112;
-          v68 = v32;
-          v69 = 2112;
-          v70 = v36;
+          v65 = v41;
+          v66 = 2112;
+          v67 = v32;
+          v68 = 2112;
+          v69 = v36;
           _os_log_impl(&dword_22AEAE000, v40, OS_LOG_TYPE_INFO, "%{public}@Handling Measured value = %@, Measurement Unit = %@", buf, 0x20u);
         }
 
@@ -186,47 +185,47 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
         integerValue = [v36 integerValue];
         if (integerValue == 2)
         {
-          v52 = MEMORY[0x277CCABB0];
+          v51 = MEMORY[0x277CCABB0];
           [v32 floatValue];
-          v51 = [v52 numberWithDouble:v53 * 0.000001];
-          handlerCopy = v61;
+          v50 = [v51 numberWithDouble:v52 * 0.000001];
+          handlerCopy = v60;
         }
 
         else
         {
-          handlerCopy = v61;
+          handlerCopy = v60;
           if (integerValue == 1)
           {
-            v49 = MEMORY[0x277CCABB0];
+            v48 = MEMORY[0x277CCABB0];
             [v32 floatValue];
-            v44 = [v49 numberWithDouble:v50 * 0.001];
+            v44 = [v48 numberWithDouble:v49 * 0.001];
           }
 
           else
           {
             if (integerValue)
             {
-              v58 = v33;
-              v54 = objc_autoreleasePoolPush();
-              v55 = v38;
-              v56 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              v57 = v33;
+              v53 = objc_autoreleasePoolPush();
+              v54 = v38;
+              v55 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
               {
-                v57 = HMFGetLogIdentifier();
+                v56 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v66 = v57;
-                v67 = 2112;
-                v68 = v32;
-                v69 = 2112;
-                v70 = v36;
-                _os_log_impl(&dword_22AEAE000, v56, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
+                v65 = v56;
+                v66 = 2112;
+                v67 = v32;
+                v68 = 2112;
+                v69 = v36;
+                _os_log_impl(&dword_22AEAE000, v55, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
               }
 
-              objc_autoreleasePoolPop(v54);
-              handlerCopy = v61;
-              v45 = v64;
-              (v61)[2](v61, &unk_283EE8400, v64);
-              v33 = v58;
+              objc_autoreleasePoolPop(v53);
+              handlerCopy = v60;
+              v45 = v63;
+              (v60)[2](v60, &unk_283EE8400, v63);
+              v33 = v57;
               goto LABEL_39;
             }
 
@@ -235,14 +234,14 @@ uint64_t __69__HMMTRSyncClusterCarbonMonoxideConcentrationMeasurement_logCategor
             v44 = [v43 numberWithFloat:?];
           }
 
-          v51 = v44;
+          v50 = v44;
         }
 
-        v45 = v64;
-        (handlerCopy)[2](handlerCopy, v51, v64);
+        v45 = v63;
+        (handlerCopy)[2](handlerCopy, v50, v63);
 
 LABEL_39:
-        v10 = v63;
+        v10 = v62;
         goto LABEL_28;
       }
     }
@@ -252,16 +251,14 @@ LABEL_39:
   {
   }
 
-  v45 = v64;
-  (handlerCopy)[2](handlerCopy, 0, v64);
+  v45 = v63;
+  (handlerCopy)[2](handlerCopy, 0, v63);
 LABEL_28:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginPeakMeasuredValueWithParams:(id)params
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)self readAttributeMeasurementUnitWithParams:v5];
@@ -282,7 +279,7 @@ LABEL_28:
 
   if (v10)
   {
-    v52 = v6;
+    v51 = v6;
     v11 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)self readAttributePeakMeasuredValueWithParams:v5];
     v12 = [v11 objectForKeyedSubscript:v7];
     objc_opt_class();
@@ -304,19 +301,19 @@ LABEL_28:
     v18 = v17;
     if (v14)
     {
-      v50 = paramsCopy;
+      v49 = paramsCopy;
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v62 = v19;
-        v63 = 2112;
-        v64 = v14;
-        v65 = 2112;
-        v66 = v10;
+        v61 = v19;
+        v62 = 2112;
+        v63 = v14;
+        v64 = 2112;
+        v65 = v10;
         _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_INFO, "%{public}@Read Measured value = %@, Measurement Unit = %@", buf, 0x20u);
 
-        paramsCopy = v50;
+        paramsCopy = v49;
       }
 
       objc_autoreleasePoolPop(v15);
@@ -325,35 +322,35 @@ LABEL_28:
       {
         v38 = *MEMORY[0x277CD5188];
         v39 = *MEMORY[0x277CD5150];
-        v55[1] = v7;
-        v56[0] = v39;
-        v55[0] = v38;
+        v54[1] = v7;
+        v55[0] = v39;
+        v54[0] = v38;
         v40 = MEMORY[0x277CCABB0];
         [v14 floatValue];
         v42 = [v40 numberWithDouble:v41 * 0.000001];
-        v56[1] = v42;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+        v55[1] = v42;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
 
-        paramsCopy = v50;
+        paramsCopy = v49;
       }
 
       else
       {
-        v6 = v52;
+        v6 = v51;
         if (integerValue == 1)
         {
           v34 = *MEMORY[0x277CD5188];
           v35 = *MEMORY[0x277CD5150];
-          v57[1] = v7;
-          v58[0] = v35;
-          v57[0] = v34;
+          v56[1] = v7;
+          v57[0] = v35;
+          v56[0] = v34;
           v36 = MEMORY[0x277CCABB0];
           [v14 floatValue];
           v24 = [v36 numberWithDouble:v37 * 0.001];
-          v58[1] = v24;
+          v57[1] = v24;
           v25 = MEMORY[0x277CBEAC0];
-          v26 = v58;
-          v27 = v57;
+          v26 = v57;
+          v27 = v56;
           goto LABEL_22;
         }
 
@@ -361,20 +358,20 @@ LABEL_28:
         {
           v21 = *MEMORY[0x277CD5188];
           v22 = *MEMORY[0x277CD5150];
-          v59[1] = v7;
-          v60[0] = v22;
-          v59[0] = v21;
+          v58[1] = v7;
+          v59[0] = v22;
+          v58[0] = v21;
           v23 = MEMORY[0x277CCABB0];
           [v14 floatValue];
           v24 = [v23 numberWithFloat:?];
-          v60[1] = v24;
+          v59[1] = v24;
           v25 = MEMORY[0x277CBEAC0];
-          v26 = v60;
-          v27 = v59;
+          v26 = v59;
+          v27 = v58;
 LABEL_22:
-          v32 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:{2, v50}];
+          v32 = [v25 dictionaryWithObjects:v26 forKeys:v27 count:{2, v49}];
 
-          paramsCopy = v51;
+          paramsCopy = v50;
 LABEL_28:
 
           goto LABEL_29;
@@ -387,23 +384,23 @@ LABEL_28:
         {
           v46 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v62 = v46;
-          v63 = 2112;
-          v64 = v14;
-          v65 = 2112;
-          v66 = v10;
+          v61 = v46;
+          v62 = 2112;
+          v63 = v14;
+          v64 = 2112;
+          v65 = v10;
           _os_log_impl(&dword_22AEAE000, v45, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
 
-          paramsCopy = v50;
+          paramsCopy = v49;
         }
 
         objc_autoreleasePoolPop(v43);
         v47 = *MEMORY[0x277CD5150];
-        v53[0] = *MEMORY[0x277CD5188];
-        v53[1] = v7;
-        v54[0] = v47;
-        v54[1] = &unk_283EE8400;
-        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:v53 count:2];
+        v52[0] = *MEMORY[0x277CD5188];
+        v52[1] = v7;
+        v53[0] = v47;
+        v53[1] = &unk_283EE8400;
+        v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:v52 count:2];
       }
     }
 
@@ -413,7 +410,7 @@ LABEL_28:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v62 = v33;
+        v61 = v33;
         _os_log_impl(&dword_22AEAE000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Peak Measurement Value attribute", buf, 0xCu);
       }
 
@@ -421,7 +418,7 @@ LABEL_28:
       v32 = 0;
     }
 
-    v6 = v52;
+    v6 = v51;
     goto LABEL_28;
   }
 
@@ -432,7 +429,7 @@ LABEL_28:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v62 = v31;
+    v61 = v31;
     _os_log_impl(&dword_22AEAE000, v30, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Measurement Unit attribute", buf, 0xCu);
   }
 
@@ -440,14 +437,12 @@ LABEL_28:
   v32 = 0;
 LABEL_29:
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v32;
 }
 
 - (void)updatedValuePluginMeasuredValueForAttributeReport:(id)report responseHandler:(id)handler
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   handlerCopy = handler;
   v8 = [reportCopy objectForKeyedSubscript:*MEMORY[0x277CD50B8]];
@@ -481,12 +476,12 @@ LABEL_29:
   v14 = objc_autoreleasePoolPush();
   selfCopy = self;
   v16 = HMFGetOSLogHandle();
-  v67 = v13;
+  v66 = v13;
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     HMFGetLogIdentifier();
-    v63 = handlerCopy;
-    v17 = v65 = reportCopy;
+    v62 = handlerCopy;
+    v17 = v64 = reportCopy;
     endpoint = [v10 endpoint];
     cluster = [v10 cluster];
     attribute = [v10 attribute];
@@ -495,22 +490,22 @@ LABEL_29:
     v22 = selfCopy;
     v24 = v23 = v14;
     *buf = 138544386;
-    v69 = v17;
-    v70 = 2112;
-    v71 = endpoint;
-    v72 = 2112;
-    v73 = cluster;
-    v74 = 2112;
-    v75 = attribute;
-    v76 = 2112;
-    v77 = v24;
+    v68 = v17;
+    v69 = 2112;
+    v70 = endpoint;
+    v71 = 2112;
+    v72 = cluster;
+    v73 = 2112;
+    v74 = attribute;
+    v75 = 2112;
+    v76 = v24;
     _os_log_impl(&dword_22AEAE000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Handling Attribute report endpoint:%@ cluster:%@ attribute:%@ value:%@", buf, 0x34u);
 
     v14 = v23;
     selfCopy = v22;
 
-    handlerCopy = v63;
-    reportCopy = v65;
+    handlerCopy = v62;
+    reportCopy = v64;
   }
 
   else
@@ -544,8 +539,8 @@ LABEL_29:
       if (v31)
       {
         v32 = v31;
-        v64 = handlerCopy;
-        v66 = v10;
+        v63 = handlerCopy;
+        v65 = v10;
         v33 = objc_alloc_init(MEMORY[0x277CD54D8]);
         v34 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)selfCopy readAttributeMeasurementUnitWithParams:v33];
         v35 = [v34 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
@@ -568,75 +563,75 @@ LABEL_29:
           switch(integerValue)
           {
             case 2:
-              v52 = MEMORY[0x277CCABB0];
+              v51 = MEMORY[0x277CCABB0];
               [v32 floatValue];
-              v54 = v56;
-              v55 = 0.000001;
+              v53 = v55;
+              v54 = 0.000001;
               break;
             case 1:
-              v52 = MEMORY[0x277CCABB0];
+              v51 = MEMORY[0x277CCABB0];
               [v32 floatValue];
-              v54 = v53;
-              v55 = 0.001;
+              v53 = v52;
+              v54 = 0.001;
               break;
             case 0:
               v39 = MEMORY[0x277CCABB0];
               [v32 floatValue];
               v40 = [v39 numberWithFloat:?];
 LABEL_35:
-              v57 = v40;
-              v45 = v67;
-              v64[2](v64, v40, v67);
+              v56 = v40;
+              v45 = v66;
+              v63[2](v63, v40, v66);
 
 LABEL_40:
-              handlerCopy = v64;
-              v10 = v66;
+              handlerCopy = v63;
+              v10 = v65;
               goto LABEL_28;
             default:
-              v62 = v33;
-              v58 = objc_autoreleasePoolPush();
-              v59 = selfCopy;
-              v60 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+              v61 = v33;
+              v57 = objc_autoreleasePoolPush();
+              v58 = selfCopy;
+              v59 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
               {
-                v61 = HMFGetLogIdentifier();
+                v60 = HMFGetLogIdentifier();
                 *buf = 138543874;
-                v69 = v61;
-                v70 = 2112;
-                v71 = v32;
-                v72 = 2112;
-                v73 = v37;
-                _os_log_impl(&dword_22AEAE000, v60, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
+                v68 = v60;
+                v69 = 2112;
+                v70 = v32;
+                v71 = 2112;
+                v72 = v37;
+                _os_log_impl(&dword_22AEAE000, v59, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
               }
 
-              objc_autoreleasePoolPop(v58);
-              v45 = v67;
-              v64[2](v64, &unk_283EE8400, v67);
+              objc_autoreleasePoolPop(v57);
+              v45 = v66;
+              v63[2](v63, &unk_283EE8400, v66);
 LABEL_39:
-              v33 = v62;
+              v33 = v61;
               goto LABEL_40;
           }
 
-          v40 = [v52 numberWithDouble:v54 * v55];
+          v40 = [v51 numberWithDouble:v53 * v54];
           goto LABEL_35;
         }
 
-        v62 = v33;
-        v47 = objc_autoreleasePoolPush();
-        v48 = selfCopy;
-        v49 = HMFGetOSLogHandle();
-        v45 = v67;
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+        v61 = v33;
+        v46 = objc_autoreleasePoolPush();
+        v47 = selfCopy;
+        v48 = HMFGetOSLogHandle();
+        v45 = v66;
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
         {
-          v50 = HMFGetLogIdentifier();
+          v49 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v69 = v50;
-          _os_log_impl(&dword_22AEAE000, v49, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Measurement Unit attribute. Cannot handle Measured Value attribute.", buf, 0xCu);
+          v68 = v49;
+          _os_log_impl(&dword_22AEAE000, v48, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Measurement Unit attribute. Cannot handle Measured Value attribute.", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v47);
-        v51 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
-        v64[2](v64, 0, v51);
+        objc_autoreleasePoolPop(v46);
+        v50 = [MEMORY[0x277CCA9B8] hapErrorWithCode:11];
+        v63[2](v63, 0, v50);
 
         goto LABEL_39;
       }
@@ -654,21 +649,19 @@ LABEL_39:
   {
     v44 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v69 = v44;
+    v68 = v44;
     _os_log_impl(&dword_22AEAE000, v43, OS_LOG_TYPE_ERROR, "%{public}@Error: nil received for Measured Value attribute, returning 0.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v41);
-  v45 = v67;
-  handlerCopy[2](handlerCopy, &unk_283EE8400, v67);
+  v45 = v66;
+  handlerCopy[2](handlerCopy, &unk_283EE8400, v66);
 LABEL_28:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (id)readAttributePluginMeasuredValueWithParams:(id)params
 {
-  v68[2] = *MEMORY[0x277D85DE8];
+  v67[2] = *MEMORY[0x277D85DE8];
   paramsCopy = params;
   v5 = objc_alloc_init(MEMORY[0x277CD54D8]);
   v6 = [(MTRClusterCarbonMonoxideConcentrationMeasurement *)self readAttributeMeasurementUnitWithParams:v5];
@@ -697,9 +690,9 @@ LABEL_28:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v56 = v15;
-      v57 = 2112;
-      v58 = v10;
+      v55 = v15;
+      v56 = 2112;
+      v57 = v10;
       _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Read Measurement Unit value = %@", buf, 0x16u);
     }
 
@@ -727,43 +720,43 @@ LABEL_28:
         case 2:
           v41 = *MEMORY[0x277CD5188];
           v42 = *MEMORY[0x277CD5150];
-          v61[1] = v7;
-          v62[0] = v42;
-          v61[0] = v41;
+          v60[1] = v7;
+          v61[0] = v42;
+          v60[0] = v41;
           v43 = MEMORY[0x277CCABB0];
           [v19 floatValue];
           v23 = [v43 numberWithDouble:v44 * 0.000001];
-          v62[1] = v23;
+          v61[1] = v23;
           v24 = MEMORY[0x277CBEAC0];
-          v25 = v62;
-          v26 = v61;
+          v25 = v61;
+          v26 = v60;
           goto LABEL_23;
         case 1:
           v37 = *MEMORY[0x277CD5188];
           v38 = *MEMORY[0x277CD5150];
-          v63[1] = v7;
-          v64[0] = v38;
-          v63[0] = v37;
+          v62[1] = v7;
+          v63[0] = v38;
+          v62[0] = v37;
           v39 = MEMORY[0x277CCABB0];
           [v19 floatValue];
           v23 = [v39 numberWithDouble:v40 * 0.001];
-          v64[1] = v23;
+          v63[1] = v23;
           v24 = MEMORY[0x277CBEAC0];
-          v25 = v64;
-          v26 = v63;
+          v25 = v63;
+          v26 = v62;
           goto LABEL_23;
         case 0:
           v21 = *MEMORY[0x277CD5188];
-          v66[0] = *MEMORY[0x277CD5150];
-          v65[0] = v21;
-          v65[1] = v7;
+          v65[0] = *MEMORY[0x277CD5150];
+          v64[0] = v21;
+          v64[1] = v7;
           v22 = MEMORY[0x277CCABB0];
           [v19 floatValue];
           v23 = [v22 numberWithFloat:?];
-          v66[1] = v23;
+          v65[1] = v23;
           v24 = MEMORY[0x277CBEAC0];
-          v25 = v66;
-          v26 = v65;
+          v25 = v65;
+          v26 = v64;
 LABEL_23:
           v28 = [v24 dictionaryWithObjects:v25 forKeys:v26 count:2];
 
@@ -771,7 +764,7 @@ LABEL_28:
           goto LABEL_29;
       }
 
-      v52 = paramsCopy;
+      v51 = paramsCopy;
       v45 = objc_autoreleasePoolPush();
       v46 = selfCopy;
       v47 = HMFGetOSLogHandle();
@@ -779,28 +772,28 @@ LABEL_28:
       {
         v48 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v56 = v48;
-        v57 = 2112;
-        v58 = v19;
-        v59 = 2112;
-        v60 = v10;
+        v55 = v48;
+        v56 = 2112;
+        v57 = v19;
+        v58 = 2112;
+        v59 = v10;
         _os_log_impl(&dword_22AEAE000, v47, OS_LOG_TYPE_ERROR, "%{public}@Cannot convert %@ measured value read from %@ measurement unit to PPM.", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v45);
       v49 = *MEMORY[0x277CD5150];
-      v53[0] = *MEMORY[0x277CD5188];
-      v53[1] = v7;
-      v54[0] = v49;
-      v54[1] = &unk_283EE8400;
+      v52[0] = *MEMORY[0x277CD5188];
+      v52[1] = v7;
+      v53[0] = v49;
+      v53[1] = &unk_283EE8400;
       v34 = MEMORY[0x277CBEAC0];
-      v35 = v54;
-      v36 = v53;
+      v35 = v53;
+      v36 = v52;
     }
 
     else
     {
-      v52 = paramsCopy;
+      v51 = paramsCopy;
       v29 = objc_autoreleasePoolPush();
       v30 = selfCopy;
       v31 = HMFGetOSLogHandle();
@@ -808,23 +801,23 @@ LABEL_28:
       {
         v32 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v32;
+        v55 = v32;
         _os_log_impl(&dword_22AEAE000, v31, OS_LOG_TYPE_INFO, "%{public}@Error: nil read for Measurement Value attribute, returning 0", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v29);
       v33 = *MEMORY[0x277CD5150];
-      v67[0] = *MEMORY[0x277CD5188];
-      v67[1] = v7;
-      v68[0] = v33;
-      v68[1] = &unk_283EE8400;
+      v66[0] = *MEMORY[0x277CD5188];
+      v66[1] = v7;
+      v67[0] = v33;
+      v67[1] = &unk_283EE8400;
       v34 = MEMORY[0x277CBEAC0];
-      v35 = v68;
-      v36 = v67;
+      v35 = v67;
+      v36 = v66;
     }
 
     v28 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:2];
-    paramsCopy = v52;
+    paramsCopy = v51;
     goto LABEL_28;
   }
 
@@ -832,15 +825,13 @@ LABEL_28:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v56 = v27;
+    v55 = v27;
     _os_log_impl(&dword_22AEAE000, v14, OS_LOG_TYPE_ERROR, "%{public}@Error: nil read for Measurement Unit attribute", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
   v28 = 0;
 LABEL_29:
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

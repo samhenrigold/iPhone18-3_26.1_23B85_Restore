@@ -48,16 +48,16 @@ uint64_t NTKDefaultPaletteColorForDeviceCollection(void *a1, uint64_t a2)
   return v7;
 }
 
-id NTKPaletteColorsForGreenfieldColorMapping()
+id NTKPaletteColorsForGreenfieldColorMapping(uint64_t a1)
 {
   if (qword_23340 != -1)
   {
     sub_FC5C();
   }
 
-  v1 = qword_23338;
+  v2 = qword_23338;
 
-  return v1;
+  return v2;
 }
 
 void sub_FD0(id a1)
@@ -1097,7 +1097,7 @@ id sub_9708(uint64_t a1, void *a2)
   return v7;
 }
 
-id sub_97C8(uint64_t a1, void *a2)
+NSMutableArray *sub_97C8(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = [NSMutableArray arrayWithObjects:&off_1D9B0, &off_1D9C8, &off_1D9E0, &off_1D9F8, &off_1DA10, &off_1DA28, &off_1DA40, 0];

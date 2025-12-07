@@ -16,7 +16,7 @@
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   icon = [(INShortcutOverview *)self icon];
   if (icon)
@@ -42,26 +42,26 @@
     }
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   steps = [(INShortcutOverview *)self steps];
-  v15 = [steps countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v15 = [steps countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(steps);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
+        v19 = *(*(&v24 + 1) + 8 * i);
         _identifier3 = [v19 _identifier];
         v21 = [cacheCopy cacheableObjectForIdentifier:_identifier3];
 
@@ -79,13 +79,11 @@
         }
       }
 
-      v16 = [steps countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v16 = [steps countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v16);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
@@ -124,8 +122,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v23[5] = *MEMORY[0x1E69E9840];
-  v18 = @"name";
+  v22[5] = *MEMORY[0x1E69E9840];
+  v17 = @"name";
   name = self->_name;
   null = name;
   if (!name)
@@ -133,9 +131,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16 = null;
-  v23[0] = null;
-  v19 = @"voiceCommand";
+  v15 = null;
+  v22[0] = null;
+  v18 = @"voiceCommand";
   voiceCommand = self->_voiceCommand;
   null2 = voiceCommand;
   if (!voiceCommand)
@@ -143,8 +141,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[1] = null2;
-  v20 = @"icon";
+  v22[1] = null2;
+  v19 = @"icon";
   icon = self->_icon;
   null3 = icon;
   if (!icon)
@@ -152,8 +150,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v21 = @"descriptiveText";
+  v22[2] = null3;
+  v20 = @"descriptiveText";
   descriptiveText = self->_descriptiveText;
   null4 = descriptiveText;
   if (!descriptiveText)
@@ -161,8 +159,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22 = @"steps";
+  v22[3] = null4;
+  v21 = @"steps";
   steps = self->_steps;
   null5 = steps;
   if (!steps)
@@ -170,8 +168,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v18 count:{5, v16}];
+  v22[4] = null5;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v17 count:{5, v15}];
   if (steps)
   {
     if (descriptiveText)
@@ -229,7 +227,6 @@ LABEL_15:
 LABEL_23:
 
 LABEL_16:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -284,21 +281,20 @@ LABEL_16:
 
 - (INShortcutOverview)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"voiceCommand"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"icon"];
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"descriptiveText"];
   v9 = MEMORY[0x1E695DFD8];
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[0] = objc_opt_class();
+  v15[1] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v11 = [v9 setWithArray:v10];
   v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"steps"];
 
   v13 = [(INShortcutOverview *)self initWithName:v5 voiceCommand:v6 icon:v7 descriptiveText:v8 steps:v12];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

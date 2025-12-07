@@ -113,12 +113,12 @@ LABEL_13:
 LABEL_14:
 }
 
-void sub_1000014E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000014E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
-  objc_destroyWeak((v16 + 48));
+  va_start(va, a23);
+  objc_destroyWeak((v23 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v17 - 136));
+  objc_destroyWeak((v24 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -313,11 +313,11 @@ void sub_100001B18(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_100001E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -618,7 +618,7 @@ void sub_100003C50(uint64_t a1, void *a2, void *a3)
     v6 = VSErrorLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10000B57C(a1);
+      sub_10000B57C();
     }
 
     v7 = VSPublicError();
@@ -657,7 +657,7 @@ void sub_100004100(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      sub_10000B738(a1);
+      sub_10000B738();
     }
 
     v8 = 0;
@@ -667,7 +667,7 @@ void sub_100004100(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      sub_10000B6D0(a1);
+      sub_10000B6D0();
     }
 
     v8 = VSPublicError();
@@ -694,7 +694,7 @@ void sub_10000443C(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      sub_10000B814(a1);
+      sub_10000B814();
     }
 
     v8 = 0;
@@ -704,7 +704,7 @@ void sub_10000443C(uint64_t a1, int a2, void *a3)
   {
     if (v7)
     {
-      sub_10000B7AC(a1);
+      sub_10000B7AC();
     }
 
     v8 = VSPublicError();
@@ -759,7 +759,7 @@ void sub_100004724(uint64_t a1, void *a2, void *a3)
     v11 = VSErrorLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10000B888(a1);
+      sub_10000B888();
     }
 
     v12 = VSPublicError();
@@ -1013,11 +1013,10 @@ uint64_t sub_1000053DC(uint64_t a1)
   v2 = VSDefaultLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Legacy API - Found no active subscriptions.", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Legacy API - Found no active subscriptions.", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -1219,9 +1218,9 @@ void sub_1000061FC(uint64_t a1)
   _Block_object_dispose(&v14, 8);
 }
 
-void sub_100006430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100006430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2037,13 +2036,6 @@ void sub_10000A86C(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t sub_10000A8A8@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
 void start()
 {
   v0 = objc_autoreleasePoolPush();
@@ -2249,11 +2241,11 @@ void sub_10000B540()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10000B57C(uint64_t a1)
+void sub_10000B57C()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A830();
-  sub_10000A86C(&_mh_execute_header, v1, v2, "Failed to authorize auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
+  sub_10000A86C(&_mh_execute_header, v0, v1, "Failed to authorize auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
 }
 
 void sub_10000B5E4()
@@ -2270,39 +2262,39 @@ void sub_10000B660()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10000B6D0(uint64_t a1)
+void sub_10000B6D0()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A830();
-  sub_10000A86C(&_mh_execute_header, v1, v2, "Failed to update auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
+  sub_10000A86C(&_mh_execute_header, v0, v1, "Failed to update auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
 }
 
-void sub_10000B738(uint64_t a1)
+void sub_10000B738()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A848();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10000B7AC(uint64_t a1)
+void sub_10000B7AC()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A830();
-  sub_10000A86C(&_mh_execute_header, v1, v2, "Failed to delete auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
+  sub_10000A86C(&_mh_execute_header, v0, v1, "Failed to delete auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
 }
 
-void sub_10000B814(uint64_t a1)
+void sub_10000B814()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A848();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10000B888(uint64_t a1)
+void sub_10000B888()
 {
-  sub_10000A8A8(a1, __stack_chk_guard);
+  sub_10000A8A8(__stack_chk_guard);
   sub_10000A830();
-  sub_10000A86C(&_mh_execute_header, v1, v2, "Failed to fetch auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
+  sub_10000A86C(&_mh_execute_header, v0, v1, "Failed to fetch auto sign in token. {bundleIdentifier=%{public}@, error=%@}");
 }
 
 void sub_10000B8F0()

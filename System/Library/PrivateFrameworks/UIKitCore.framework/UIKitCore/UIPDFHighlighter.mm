@@ -207,11 +207,11 @@
   [(UIPDFHighlighter *)self inset];
   if (for)
   {
-    [for rectangleAtIndex:index scale:1.0 inset:-v11];
+    objc_msgSend_rectangleAtIndex_scale_inset_(for, 1.0, -v11);
     v42 = 0u;
     memset(&v41, 0, sizeof(v41));
     [(UIPDFHighlighter *)self inset];
-    [for rectangleAtIndex:index scale:1.0 inset:-(v12 + -1.0)];
+    objc_msgSend_rectangleAtIndex_scale_inset_(for, 1.0, -(v12 + -1.0));
   }
 
   else
@@ -266,7 +266,7 @@
   v51 = CGRectIntegral(v50);
   [(UIPDFHighlightLayer *)v13 setBounds:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v51.size.width, v51.size.height];
   [(UIPDFHighlightLayer *)v13 setPosition:MidX, MidY];
-  -[UIPDFHighlightLayer setShadowColor:](v13, "setShadowColor:", [+[UIColor blackColor](UIColor CGColor]);
+  -[UIPDFHighlightLayer setShadowColor:](v13, "setShadowColor:", [objc_msgSend_blackColor(UIColor) CGColor]);
   [(UIPDFHighlightLayer *)v13 setShadowOffset:4.0, -4.0];
   LODWORD(v26) = 1061997773;
   [(UIPDFHighlightLayer *)v13 setShadowOpacity:v26];

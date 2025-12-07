@@ -98,7 +98,7 @@
 
 - (id)parseXML:(id)l
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:lCopy encoding:4];
   whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
@@ -106,34 +106,36 @@
 
   if (![v7 length])
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(0, v8);
+    if (isInternalInstall)
     {
-      v8 = _RUILoggingFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "Treating empty document as valid", buf, 2u);
+        _os_log_impl(&dword_21B93D000, v10, OS_LOG_TYPE_DEFAULT, "Treating empty document as valid", buf, 2u);
       }
     }
 
-    v9 = [@"<xmlui action=push/>" dataUsingEncoding:4];
+    v11 = [@"<xmlui action=push/>" dataUsingEncoding:4];
 
-    lCopy = v9;
+    lCopy = v11;
   }
 
-  v10 = objc_alloc_init(RUIXMLSanitizer);
-  v22 = 0;
-  v11 = [(RUIXMLSanitizer *)v10 sanitizedXMLElementWithData:lCopy error:&v22];
-  v12 = v22;
-  v21 = 0;
-  v13 = [(RUIXMLSanitizer *)v10 logStringWithXMLString:v5 error:&v21];
-  v14 = v21;
-  if (v14)
+  v12 = objc_alloc_init(RUIXMLSanitizer);
+  v27 = 0;
+  v13 = [(RUIXMLSanitizer *)v12 sanitizedXMLElementWithData:lCopy error:&v27];
+  v14 = v27;
+  v26 = 0;
+  v15 = [(RUIXMLSanitizer *)v12 logStringWithXMLString:v5 error:&v26];
+  v16 = v26;
+  v18 = v16;
+  if (v16)
   {
-    v15 = _RUILoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = _RUILoggingFacility(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [(RUIParser *)v14 parseXML:v15];
+      [(RUIParser *)v18 parseXML:v19];
     }
 
 LABEL_10:
@@ -141,40 +143,41 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (_isInternalInstall())
+  v25 = _isInternalInstall(0, v17);
+  if (v25)
   {
-    v15 = _RUILoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v19 = _RUILoggingFacility(v25);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v13;
-      _os_log_impl(&dword_21B93D000, v15, OS_LOG_TYPE_DEFAULT, "RUIParser processing document:\n%@", buf, 0xCu);
+      v29 = v15;
+      _os_log_impl(&dword_21B93D000, v19, OS_LOG_TYPE_DEFAULT, "RUIParser processing document:\n%@", buf, 0xCu);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  if (v12)
+  if (v14)
   {
     error = self->_error;
     p_error = &self->_error;
-    v16 = error;
+    v20 = error;
     if (error)
     {
-      v19 = v16;
+      v23 = v20;
     }
 
     else
     {
-      v19 = v12;
+      v23 = v14;
     }
 
-    objc_storeStrong(p_error, v19);
+    objc_storeStrong(p_error, v23);
     *(p_error - 24) = 0;
   }
 
-  return v11;
+  return v13;
 }
 
 - (id)objectModelParser:(id)parser createPageWithName:(id)name attributes:(id)attributes

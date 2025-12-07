@@ -56,7 +56,7 @@
   return v3;
 }
 
-uint64_t __40__MPStoreItemMetadataResponse_isExpired__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
+void *__40__MPStoreItemMetadataResponse_isExpired__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
   result = [a3 isExpired];
   if (result)

@@ -272,13 +272,13 @@ LABEL_15:
           if ([v7 isSupportedWithInt:v9])
           {
             DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt = OrgApacheLuceneUtilPackedPackedInts_getDecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt_(v7, v3, v9, v10, v11, v12, v13, v14);
-            v16 = sub_1000408F8(DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt);
+            v17 = sub_1000408F8(DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt, v16);
             if (!DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt)
             {
               goto LABEL_15;
             }
 
-            v2 = JavaLangMath_maxWithInt_withInt_(v2, [DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt byteValueCount] * v16);
+            v2 = JavaLangMath_maxWithInt_withInt_(v2, [DecoderWithOrgApacheLuceneUtilPackedPackedInts_FormatEnum_withInt_withInt byteValueCount] * v17);
           }
 
           v9 = (v9 + 1);

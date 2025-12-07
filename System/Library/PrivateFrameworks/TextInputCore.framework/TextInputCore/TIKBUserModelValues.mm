@@ -5,6 +5,10 @@
 - (id)calcFloatingKeyboardUsageFromUserModel:(id)model;
 - (id)calcTypingSpeedFromUserModel:(id)model;
 - (id)computeValueFromExpression:(id)expression precondition:(id)precondition defaultValue:(id)value bindings:(id)bindings bucketThresholds:(id)thresholds bucketValues:(id)values;
+- (id)computeValueWithDescriptor:(id)descriptor userModel:(id)model forNumberOfDays:(int)days;
+- (id)computeValuesByWordLengthWithDescriptor:(id)descriptor userModel:(id)model forNumberOfDays:(int)days;
+- (id)metricValue:(id)value userModel:(id)model forNumberOfDays:(int)days;
+- (id)metricValuesByWordLength:(id)length userModel:(id)model forNumberOfDays:(int)days;
 - (id)settingValueFromName:(id)name;
 - (void)persistForDate:(id)date;
 @end
@@ -142,7 +146,7 @@
 
 - (id)calcFloatingKeyboardUsageFromUserModel:(id)model
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   kbContext = [(TIKBUserModelValues *)self kbContext];
   userInterfaceIdiom = [kbContext userInterfaceIdiom];
@@ -162,27 +166,27 @@
       [v13 doubleValue];
       v15 = v14;
 
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
+      v74 = 0u;
+      v71 = 0u;
+      v72 = 0u;
       obj = [modelCopy contexts];
-      v16 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+      v16 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
       v17 = 0.0;
       if (v16)
       {
         v18 = v16;
-        v19 = *v73;
+        v19 = *v72;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v73 != v19)
+            if (*v72 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v72 + 1) + 8 * i);
+            v21 = *(*(&v71 + 1) + 8 * i);
             if ([v21 userInterfaceIdiom] == 1)
             {
               v22 = [modelCopy valuesFromContext:v21];
@@ -216,7 +220,7 @@
             }
           }
 
-          v18 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+          v18 = [obj countByEnumeratingWithState:&v71 objects:v75 count:16];
         }
 
         while (v18);
@@ -278,8 +282,6 @@
   {
     v65 = *MEMORY[0x277D6FD80];
   }
-
-  v69 = *MEMORY[0x277D85DE8];
 
   return v65;
 }
@@ -345,16 +347,293 @@
   return v8;
 }
 
+- (id)computeValuesByWordLengthWithDescriptor:(id)descriptor userModel:(id)model forNumberOfDays:(int)days
+{
+  v5 = *&days;
+  v81 = *MEMORY[0x277D85DE8];
+  descriptorCopy = descriptor;
+  modelCopy = model;
+  v10 = objc_opt_new();
+  calculationExpression = [descriptorCopy calculationExpression];
+
+  v58 = modelCopy;
+  if (calculationExpression)
+  {
+    v64 = v10;
+    selfCopy = self;
+    v12 = objc_opt_new();
+    v70 = 0u;
+    v71 = 0u;
+    v72 = 0u;
+    v73 = 0u;
+    calculationDependencies = [descriptorCopy calculationDependencies];
+    v14 = [calculationDependencies countByEnumeratingWithState:&v70 objects:v79 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v71;
+      do
+      {
+        for (i = 0; i != v15; ++i)
+        {
+          if (*v71 != v16)
+          {
+            objc_enumerationMutation(calculationDependencies);
+          }
+
+          v18 = *(*(&v70 + 1) + 8 * i);
+          v19 = [(TIKBUserModelValues *)selfCopy metricValuesByWordLength:v18 userModel:modelCopy forNumberOfDays:v5, v58];
+          [v12 setObject:v19 forKey:v18];
+        }
+
+        v15 = [calculationDependencies countByEnumeratingWithState:&v70 objects:v79 count:16];
+      }
+
+      while (v15);
+    }
+
+    v20 = MEMORY[0x277CCA9C0];
+    calculationExpression2 = [descriptorCopy calculationExpression];
+    v22 = [v20 expressionWithFormat:calculationExpression2];
+
+    calculationPrecondition = [descriptorCopy calculationPrecondition];
+    v63 = v22;
+    if (calculationPrecondition)
+    {
+      v24 = MEMORY[0x277CCAC30];
+      calculationPrecondition2 = [descriptorCopy calculationPrecondition];
+      v62 = [v24 predicateWithFormat:calculationPrecondition2];
+    }
+
+    else
+    {
+      v62 = 0;
+    }
+
+    calculationDefaultValue = [descriptorCopy calculationDefaultValue];
+    v60 = *MEMORY[0x277D6FDA8];
+    if (*MEMORY[0x277D6FDA8])
+    {
+      v42 = 0;
+      v59 = descriptorCopy;
+      do
+      {
+        v43 = objc_opt_new();
+        v66 = 0u;
+        v67 = 0u;
+        v68 = 0u;
+        v69 = 0u;
+        calculationDependencies2 = [descriptorCopy calculationDependencies];
+        v45 = [calculationDependencies2 countByEnumeratingWithState:&v66 objects:v78 count:16];
+        if (v45)
+        {
+          v46 = v45;
+          v47 = *v67;
+          do
+          {
+            for (j = 0; j != v46; ++j)
+            {
+              if (*v67 != v47)
+              {
+                objc_enumerationMutation(calculationDependencies2);
+              }
+
+              v49 = *(*(&v66 + 1) + 8 * j);
+              v50 = [v12 objectForKey:{v49, v58}];
+              v51 = [v50 objectAtIndexedSubscript:v42];
+              [v43 setObject:v51 forKey:v49];
+            }
+
+            v46 = [calculationDependencies2 countByEnumeratingWithState:&v66 objects:v78 count:16];
+          }
+
+          while (v46);
+        }
+
+        v52 = [MEMORY[0x277CCABB0] numberWithInt:v42];
+        [v43 setObject:v52 forKey:@"index"];
+
+        descriptorCopy = v59;
+        bucketThresholds = [v59 bucketThresholds];
+        bucketValues = [v59 bucketValues];
+        v55 = [(TIKBUserModelValues *)selfCopy computeValueFromExpression:v63 precondition:v62 defaultValue:calculationDefaultValue bindings:v43 bucketThresholds:bucketThresholds bucketValues:bucketValues];
+
+        [v64 addObject:v55];
+        ++v42;
+      }
+
+      while (v42 != v60);
+    }
+
+    v40 = descriptorCopy;
+
+    v41 = v58;
+    v30 = v63;
+    v10 = v64;
+  }
+
+  else
+  {
+    metricName = [descriptorCopy metricName];
+    loadedDate = [modelCopy loadedDate];
+    v28 = [(TIUserModelValues *)self countsFromTransientCounterWithName:metricName forNumberOfDays:v5 fromLoadedDate:loadedDate];
+    v29 = [(TIKBUserModelValues *)self bucketCountsByWordLength:v28];
+
+    v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v30 = v29;
+    v31 = [v30 countByEnumeratingWithState:&v74 objects:v80 count:16];
+    if (v31)
+    {
+      v32 = v31;
+      v33 = *v75;
+      selfCopy2 = self;
+      do
+      {
+        for (k = 0; k != v32; ++k)
+        {
+          if (*v75 != v33)
+          {
+            objc_enumerationMutation(v30);
+          }
+
+          v36 = *(*(&v74 + 1) + 8 * k);
+          bucketThresholds2 = [descriptorCopy bucketThresholds];
+          bucketValues2 = [descriptorCopy bucketValues];
+          v39 = [(TIKBUserModelValues *)selfCopy2 computeValueFromCount:v36 bucketThresholds:bucketThresholds2 bucketValues:bucketValues2];
+
+          [v10 addObject:v39];
+        }
+
+        v32 = [v30 countByEnumeratingWithState:&v74 objects:v80 count:16];
+      }
+
+      while (v32);
+    }
+
+    v40 = descriptorCopy;
+    v12 = v30;
+    v41 = v58;
+  }
+
+  v56 = [v10 copy];
+
+  return v56;
+}
+
+- (id)computeValueWithDescriptor:(id)descriptor userModel:(id)model forNumberOfDays:(int)days
+{
+  v5 = *&days;
+  v42 = *MEMORY[0x277D85DE8];
+  descriptorCopy = descriptor;
+  modelCopy = model;
+  calculationExpression = [descriptorCopy calculationExpression];
+
+  if (calculationExpression)
+  {
+    v11 = MEMORY[0x277CCA9C0];
+    calculationExpression2 = [descriptorCopy calculationExpression];
+    v35 = [v11 expressionWithFormat:calculationExpression2];
+
+    calculationPrecondition = [descriptorCopy calculationPrecondition];
+    if (calculationPrecondition)
+    {
+      v14 = MEMORY[0x277CCAC30];
+      calculationPrecondition2 = [descriptorCopy calculationPrecondition];
+      v34 = [v14 predicateWithFormat:calculationPrecondition2];
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+
+    calculationDefaultValue = [descriptorCopy calculationDefaultValue];
+    v22 = objc_opt_new();
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v36 = descriptorCopy;
+    calculationDependencies = [descriptorCopy calculationDependencies];
+    v24 = [calculationDependencies countByEnumeratingWithState:&v37 objects:v41 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      v26 = *v38;
+      do
+      {
+        for (i = 0; i != v25; ++i)
+        {
+          if (*v38 != v26)
+          {
+            objc_enumerationMutation(calculationDependencies);
+          }
+
+          v28 = *(*(&v37 + 1) + 8 * i);
+          v29 = [(TIKBUserModelValues *)self metricValue:v28 userModel:modelCopy forNumberOfDays:v5, calculationDefaultValue];
+          [v22 setObject:v29 forKey:v28];
+        }
+
+        v25 = [calculationDependencies countByEnumeratingWithState:&v37 objects:v41 count:16];
+      }
+
+      while (v25);
+    }
+
+    descriptorCopy = v36;
+    bucketThresholds = [v36 bucketThresholds];
+    bucketValues = [v36 bucketValues];
+    v21 = [(TIKBUserModelValues *)self computeValueFromExpression:v35 precondition:v34 defaultValue:calculationDefaultValue bindings:v22 bucketThresholds:bucketThresholds bucketValues:bucketValues];
+  }
+
+  else
+  {
+    metricName = [descriptorCopy metricName];
+    loadedDate = [modelCopy loadedDate];
+    v18 = [(TIUserModelValues *)self aggregatedCountFromTransientCounterWithName:metricName forNumberOfDays:v5 fromLoadedDate:loadedDate];
+
+    bucketThresholds2 = [descriptorCopy bucketThresholds];
+    bucketValues2 = [descriptorCopy bucketValues];
+    v21 = [(TIKBUserModelValues *)self computeValueFromCount:v18 bucketThresholds:bucketThresholds2 bucketValues:bucketValues2];
+  }
+
+  return v21;
+}
+
+- (id)metricValuesByWordLength:(id)length userModel:(id)model forNumberOfDays:(int)days
+{
+  v5 = *&days;
+  modelCopy = model;
+  lengthCopy = length;
+  metricDescriptorRegistry = [modelCopy metricDescriptorRegistry];
+  v11 = [metricDescriptorRegistry metricDescriptorWithName:lengthCopy];
+
+  if (v11 && [v11 isMemberOfClass:objc_opt_class()])
+  {
+    v12 = [(TIKBUserModelValues *)self computeValuesByWordLengthWithDescriptor:v11 userModel:modelCopy forNumberOfDays:v5];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (void)persistForDate:(id)date
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = TIKBUserModelValues;
-  [(TIUserModelValues *)&v17 persistForDate:date];
+  v19 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = TIKBUserModelValues;
+  [(TIUserModelValues *)&v16 persistForDate:date];
   v4 = IXADefaultLogFacility();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v15 = MEMORY[0x277CCACA8];
+    v14 = MEMORY[0x277CCACA8];
     inputMode = [(TIUserModelValues *)self inputMode];
     v5 = [(NSMutableDictionary *)self->_stringValues objectForKey:kFeatureStringKeyboardLanguage];
     v6 = [(NSMutableDictionary *)self->_stringValues objectForKey:kFeatureStringKeyboardRegion];
@@ -364,19 +643,17 @@
     v10 = [(NSMutableDictionary *)self->_stringValues objectForKey:kFeatureStringKeyboardLayout];
     v11 = [(NSMutableDictionary *)self->_stringValues objectForKey:kFeatureStringKeyboardType];
     v12 = [(NSMutableDictionary *)self->_stringValues objectForKey:kFeatureStringKeyboardConfiguration];
-    v13 = [v15 stringWithFormat:@"%s TIKBUserModelValues persisted: %@ %@_%@-%@ %@_%@ %@ %@ %@", "-[TIKBUserModelValues persistForDate:]", inputMode, v5, v6, v7, v8, v9, v10, v11, v12];
+    v13 = [v14 stringWithFormat:@"%s TIKBUserModelValues persisted: %@ %@_%@-%@ %@_%@ %@ %@ %@", "-[TIKBUserModelValues persistForDate:]", inputMode, v5, v6, v7, v8, v9, v10, v11, v12];
     *buf = 138412290;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_22CA55000, v4, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)settingValueFromName:(id)name
 {
   nameCopy = name;
-  if ([nameCopy isEqualToString:kSettingValueAutocorrectionEnabled])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     calcAutocorrectionEnabled = [(TIKBUserModelValues *)self calcAutocorrectionEnabled];
   }
@@ -393,17 +670,109 @@
   return v6;
 }
 
+- (id)metricValue:(id)value userModel:(id)model forNumberOfDays:(int)days
+{
+  v5 = *&days;
+  valueCopy = value;
+  modelCopy = model;
+  if (objc_msgSend_isEqualToString_(valueCopy))
+  {
+    v10 = [(TIKBUserModelValues *)self calcFloatingKeyboardUsageFromUserModel:modelCopy];
+LABEL_5:
+    v11 = v10;
+    goto LABEL_28;
+  }
+
+  if (objc_msgSend_isEqualToString_(valueCopy))
+  {
+    v10 = [(TIKBUserModelValues *)self calcTypingSpeedFromUserModel:modelCopy];
+    goto LABEL_5;
+  }
+
+  metricDescriptorRegistry = [modelCopy metricDescriptorRegistry];
+  v13 = [metricDescriptorRegistry metricDescriptorWithName:valueCopy];
+
+  if (!v13)
+  {
+    goto LABEL_26;
+  }
+
+  if ([v13 isMemberOfClass:objc_opt_class()])
+  {
+    contextFieldName = v13;
+    configString = [contextFieldName configString];
+
+    if (configString)
+    {
+      configString2 = [contextFieldName configString];
+      v17 = [(TIKBUserModelValues *)self settingValueFromName:configString2];
+
+      objc_opt_class();
+      if ((objc_opt_isKindOfClass() & 1) == 0 || ![v17 BOOLValue])
+      {
+        v11 = *MEMORY[0x277D6FD70];
+
+LABEL_25:
+        goto LABEL_27;
+      }
+    }
+
+    if ([contextFieldName discoveryThreshold] >= 1 && (objc_msgSend(contextFieldName, "discoveryCounter"), v18 = objc_claimAutoreleasedReturnValue(), v18, v18) && (-[TIUserModelValues durableCounters](self, "durableCounters"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(contextFieldName, "discoveryCounter"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "objectForKey:", v20), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "count"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "intValue"), v22, v21, v20, v19, objc_msgSend(contextFieldName, "discoveryThreshold") > v23))
+    {
+      v24 = *MEMORY[0x277D6FD78];
+    }
+
+    else
+    {
+      v24 = [(TIKBUserModelValues *)self computeValueWithDescriptor:contextFieldName userModel:modelCopy forNumberOfDays:*MEMORY[0x277D6FD28]];
+    }
+
+LABEL_24:
+    v11 = v24;
+    goto LABEL_25;
+  }
+
+  if (![v13 isMemberOfClass:objc_opt_class()])
+  {
+    if ([v13 isMemberOfClass:objc_opt_class()])
+    {
+      stringValues = self->_stringValues;
+      contextFieldName = [v13 contextFieldName];
+      v24 = [(NSMutableDictionary *)stringValues objectForKey:contextFieldName];
+      goto LABEL_24;
+    }
+
+    if ([v13 isMemberOfClass:objc_opt_class()])
+    {
+      contextFieldName = [v13 settingName];
+      v24 = [(TIKBUserModelValues *)self settingValueFromName:contextFieldName];
+      goto LABEL_24;
+    }
+
+LABEL_26:
+    v11 = 0;
+    goto LABEL_27;
+  }
+
+  v11 = [(TIKBUserModelValues *)self computeValueWithDescriptor:v13 userModel:modelCopy forNumberOfDays:v5];
+LABEL_27:
+
+LABEL_28:
+
+  return v11;
+}
+
 - (TIKBUserModelValues)initWithInputMode:(id)mode context:(id)context userModelDataStore:(id)store durableCounters:(id)counters settingsDictionary:(id)dictionary
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   modeCopy = mode;
   contextCopy = context;
-  v51.receiver = self;
-  v51.super_class = TIKBUserModelValues;
-  v14 = [(TIUserModelValues *)&v51 initWithInputMode:modeCopy context:contextCopy userModelDataStore:store durableCounters:counters settingsDictionary:dictionary];
+  v50.receiver = self;
+  v50.super_class = TIKBUserModelValues;
+  v14 = [(TIUserModelValues *)&v50 initWithInputMode:modeCopy context:contextCopy userModelDataStore:store durableCounters:counters settingsDictionary:dictionary];
   if (v14)
   {
-    v50 = modeCopy;
+    v49 = modeCopy;
     v15 = contextCopy;
     v16 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:8];
     stringValues = v14->_stringValues;
@@ -451,28 +820,27 @@
     v36 = IXADefaultLogFacility();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v47 = MEMORY[0x277CCACA8];
-      v49 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardLanguage];
+      v46 = MEMORY[0x277CCACA8];
+      v48 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardLanguage];
       v37 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardRegion];
       v38 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardVariant];
       [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardSecondaryLanguage];
-      v39 = v48 = contextCopy;
+      v39 = v47 = contextCopy;
       v40 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardSecondaryRegion];
-      v46 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardLayout];
+      v45 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardLayout];
       v41 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardType];
       v42 = [(NSMutableDictionary *)v14->_stringValues objectForKey:kFeatureStringKeyboardConfiguration];
-      v43 = [v47 stringWithFormat:@"%s TIKBUserModelValues created: %@ %@_%@-%@ %@_%@ %@ %@ %@", "-[TIKBUserModelValues initWithInputMode:context:userModelDataStore:durableCounters:settingsDictionary:]", v50, v49, v37, v38, v39, v40, v46, v41, v42];
+      v43 = [v46 stringWithFormat:@"%s TIKBUserModelValues created: %@ %@_%@-%@ %@_%@ %@ %@ %@", "-[TIKBUserModelValues initWithInputMode:context:userModelDataStore:durableCounters:settingsDictionary:]", v49, v48, v37, v38, v39, v40, v45, v41, v42];
       *buf = 138412290;
-      v53 = v43;
+      v52 = v43;
       _os_log_impl(&dword_22CA55000, v36, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
 
-      contextCopy = v48;
+      contextCopy = v47;
     }
 
-    modeCopy = v50;
+    modeCopy = v49;
   }
 
-  v44 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

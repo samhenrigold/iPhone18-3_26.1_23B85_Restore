@@ -51,21 +51,26 @@
 
   if (isRestrictedToLandscapeEnrollment)
   {
-    if ([(BKUIPearlMovieLoopView *)self landscape])
+    landscape = [(BKUIPearlMovieLoopView *)self landscape];
+    if (landscape)
     {
       return;
     }
   }
 
-  else if ([(BKUIPearlMovieLoopView *)self portrait])
+  else
   {
-    return;
+    landscape = [(BKUIPearlMovieLoopView *)self portrait];
+    if (landscape)
+    {
+      return;
+    }
   }
 
-  v5 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v6 = _BKUILoggingFacility(landscape);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    [(BKUIPearlMovieLoopView *)v5 addAnimatedSelfPotraitIfNeeded];
+    [(BKUIPearlMovieLoopView *)v6 addAnimatedSelfPotraitIfNeeded];
   }
 
   [(BKUIPearlMovieLoopView *)self addSubview:self->_imageView];
@@ -124,18 +129,18 @@
   if (!selfPortraite)
   {
     player = [(BKUIPearlMovieLoopView *)self player];
-    CMTimeMake(&v12, 0, 1);
+    CMTimeMake(&v13, 0, 1);
     assets = [(BKUIPearlMovieLoopView *)self assets];
-    v11 = 0;
-    v6 = [player bkui_snapshotImageAt:&v12 asset:assets error:&v11];
-    v7 = v11;
+    v12 = 0;
+    v6 = [player bkui_snapshotImageAt:&v13 asset:assets error:&v12];
+    v7 = v12;
     v8 = self->_selfPortraite;
     self->_selfPortraite = v6;
 
     if (v7)
     {
-      v10 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+      v11 = _BKUILoggingFacility(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
         [(BKUIPearlMovieLoopView *)v7 selfPortrait];
       }
@@ -151,15 +156,13 @@
 
 - (void)selfPortrait
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   localizedDescription = [self localizedDescription];
-  v6 = 138412546;
-  v7 = localizedDescription;
-  v8 = 2048;
+  v5 = 138412546;
+  v6 = localizedDescription;
+  v7 = 2048;
   code = [self code];
-  _os_log_fault_impl(&dword_241B0A000, a2, OS_LOG_TYPE_FAULT, "error could not grab image clip of the av clip description:/n%@ code: %li", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_241B0A000, a2, OS_LOG_TYPE_FAULT, "error could not grab image clip of the av clip description:/n%@ code: %li", &v5, 0x16u);
 }
 
 @end

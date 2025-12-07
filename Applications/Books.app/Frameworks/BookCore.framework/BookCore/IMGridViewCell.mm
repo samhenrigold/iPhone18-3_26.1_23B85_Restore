@@ -124,7 +124,7 @@
   if (!badgeView)
   {
     v4 = [UIImageView alloc];
-    v5 = IMCommonCoreBundle();
+    v5 = IMCommonCoreBundle(v4);
     traitCollection = [(IMGridViewCell *)self traitCollection];
     v7 = [UIImage imageNamed:@"TVBadge" inBundle:v5 compatibleWithTraitCollection:traitCollection];
     v8 = [v7 stretchableImageWithLeftCapWidth:15 topCapHeight:0];
@@ -185,7 +185,7 @@
   if ([numberCopy intValue])
   {
     v4 = [NSString alloc];
-    v5 = IMCommonCoreBundle();
+    v5 = IMCommonCoreBundle(v4);
     v6 = [v5 localizedStringForKey:@"%@" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
     numberCopy = [v4 initWithFormat:v6, numberCopy];
   }
@@ -922,7 +922,7 @@
   v17 = 0u;
   v18 = 0u;
   v16 = 0u;
-  [(IMGridViewCell *)self transform];
+  objc_msgSend_transform(self, a2);
   if ((*(self + 132) & 1) == 0)
   {
     v8 = *&CGAffineTransformIdentity.c;
@@ -1020,7 +1020,7 @@
   selectedBadgeView = self->_selectedBadgeView;
   if (!selectedBadgeView)
   {
-    v4 = IMCommonCoreBundle();
+    v4 = IMCommonCoreBundle(0);
     traitCollection = [(IMGridViewCell *)self traitCollection];
     v6 = [UIImage imageNamed:@"blue_circle_checkmark" inBundle:v4 compatibleWithTraitCollection:traitCollection];
 

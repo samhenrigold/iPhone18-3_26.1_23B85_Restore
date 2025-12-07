@@ -48,34 +48,7 @@
   else
   {
     v5 = objc_opt_class();
-    if (v5 != objc_opt_class())
-    {
-      goto LABEL_7;
-    }
-
-    bundleID = self->_bundleID;
-    bundleID = [(ASDBetaAppVersion *)equalCopy bundleID];
-    LODWORD(bundleID) = [(NSString *)bundleID isEqualToString:bundleID];
-
-    if (!bundleID)
-    {
-      goto LABEL_7;
-    }
-
-    bundleVersion = self->_bundleVersion;
-    bundleVersion = [(ASDBetaAppVersion *)equalCopy bundleVersion];
-    LODWORD(bundleVersion) = [(NSString *)bundleVersion isEqualToString:bundleVersion];
-
-    if (!bundleVersion)
-    {
-      goto LABEL_7;
-    }
-
-    shortVersion = self->_shortVersion;
-    shortVersion = [(ASDBetaAppVersion *)equalCopy shortVersion];
-    LODWORD(shortVersion) = [(NSString *)shortVersion isEqual:shortVersion];
-
-    if (shortVersion)
+    if (v5 == objc_opt_class() && (bundleID = self->_bundleID, [(ASDBetaAppVersion *)equalCopy bundleID], v7 = objc_claimAutoreleasedReturnValue(), LODWORD(bundleID) = [(NSString *)bundleID isEqualToString:v7], v7, bundleID) && (bundleVersion = self->_bundleVersion, [(ASDBetaAppVersion *)equalCopy bundleVersion], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(bundleVersion) = [(NSString *)bundleVersion isEqualToString:v9], v9, bundleVersion) && (shortVersion = self->_shortVersion, [(ASDBetaAppVersion *)equalCopy shortVersion], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(shortVersion) = [(NSString *)shortVersion isEqual:v11], v11, shortVersion))
     {
       platform = self->_platform;
       v13 = platform == [(ASDBetaAppVersion *)equalCopy platform];
@@ -83,7 +56,6 @@
 
     else
     {
-LABEL_7:
       v13 = 0;
     }
   }

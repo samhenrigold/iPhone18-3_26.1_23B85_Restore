@@ -1177,7 +1177,7 @@ uint64_t HgcWhiteBalanceRAW::GetDOD(HgcWhiteBalanceRAW *this, HGRenderer *a2, in
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v7 = HGRectMake4i(-1, -1, 1, 1);
   HGRectGrow(v6, v5, v7);
   return 0x8000000080000000;
 }
@@ -1192,7 +1192,7 @@ uint64_t HgcWhiteBalanceRAW::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect
   Input = HGRenderer::GetInput(a2, this, a3);
   DOD = HGRenderer::GetDOD(a2, Input);
   v9 = v8;
-  v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v10 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(DOD, v9, v10);
 }
 
@@ -1703,7 +1703,7 @@ uint64_t HgcRasterizerTexture::GetDOD(HgcRasterizerTexture *this, HGRenderer *a2
   v6 = *&a4.var0;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     v6 = HGRectGrow(v6, v5, v8);
     v5 = v9;
   }
@@ -1736,7 +1736,7 @@ uint64_t HgcRasterizerTexture::GetROI(HgcRasterizerTexture *this, HGRenderer *a2
     HGTransform::~HGTransform(v17);
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v15 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v15 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(v4, v14, v15);
     }
   }
@@ -2861,7 +2861,7 @@ uint64_t HgcBlur_cs9s_rect::GetDOD(HgcBlur_cs9s_rect *this, HGRenderer *a2, int 
   v6 = *&a4.var2;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v7 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v6, v7);
   }
 
@@ -2883,7 +2883,7 @@ uint64_t HgcBlur_cs9s_rect::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect 
     return DOD;
   }
 
-  v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v11 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(DOD, v10, v11);
 }
 
@@ -3069,7 +3069,7 @@ uint64_t HgcColorGamma_chroma_upsample_f1::Bind(HgcColorGamma_chroma_upsample_f1
   return 0;
 }
 
-uint64_t HgcColorGamma_chroma_upsample_f1::RenderTile(HGNode *this, int8x8_t *a2)
+uint64_t HgcColorGamma_chroma_upsample_f1::RenderTile(HGNode *this, int32x2_t *a2)
 {
   v4 = a2[1].i32[0];
   v69 = *a2;
@@ -3418,7 +3418,7 @@ uint64_t HgcTextureWrapClampToEdge::RenderTile(HgcTextureWrapClampToEdge *this, 
       v18 = 0;
       v19 = (*&v15 + 32);
       v20 = 16 * v16;
-      v21 = (*&v15 + 64);
+      v21 = *&v15 + 64;
       v22.i64[0] = 0x3F0000003F000000;
       v22.i64[1] = 0x3F0000003F000000;
       v23 = v11;
@@ -3494,7 +3494,7 @@ uint64_t HgcTextureWrapClampToEdge::RenderTile(HgcTextureWrapClampToEdge *this, 
         v23 = vaddq_f32(v23, xmmword_2603429C0);
         ++v18;
         v19 = (v19 + v20);
-        v21 = (v21 + v20);
+        v21 += v20;
       }
 
       while (v18 != v5);
@@ -5088,7 +5088,7 @@ uint64_t HgcColorGamma_v216_yxzx_expand::RenderTile(HgcColorGamma_v216_yxzx_expa
     v9.i32[1] = 1.0;
     v9.i64[1] = 0;
     v10 = a2[2];
-    v11 = v10 + 2;
+    v11 = (*&v10 + 32);
     v12 = 16 * a2[3].i32[0];
     __asm { FMOV            V16.4S, #4.0 }
 
@@ -5108,7 +5108,7 @@ LABEL_3:
       v8 = veorq_s8(v8, v9);
       ++v4;
       v11 = (v11 + v12);
-      v10 = (v10 + v12);
+      *&v10 += v12;
       if (v4 == v3)
       {
         return 0;
@@ -5191,7 +5191,7 @@ LABEL_10:
       v57 = *(this + 51);
       *v55.i8 = vqtbl1_s8(v56, *v57);
       v55.i64[1] = __PAIR64__(1.0, vqtbl1_s8(v56, *&vextq_s8(*v57, *v57, 8uLL)).u32[0]);
-      v10[v19] = vbslq_s8(*(v57 + 32), vbslq_s8(vcgtq_f32(v8, *(v57 + 16)), vextq_s8(v56, v56, 0xCuLL), v55), v55);
+      *(*&v10 + 16 * v19) = vbslq_s8(*(v57 + 32), vbslq_s8(vcgtq_f32(v8, *(v57 + 16)), vextq_s8(v56, v56, 0xCuLL), v55), v55);
       v8 = veorq_s8(v8, xmmword_2603429B0);
       __asm { FMOV            V19.4S, #1.0 }
 
@@ -5213,7 +5213,7 @@ uint64_t HgcColorGamma_v216_yxzx_expand::GetDOD(HgcColorGamma_v216_yxzx_expand *
   {
     v5 = *&a4.var2;
     v6 = *&a4.var0;
-    v7 = HGRectMake4i(0, 0, 1u, 0);
+    v7 = HGRectMake4i(0, 0, 1, 0);
     v8 = HGRectGrow(v6, v5, v7);
     v9 = HGRectFloat(v8);
     v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -5233,7 +5233,7 @@ uint64_t HgcColorGamma_v216_yxzx_expand::GetROI(HgcColorGamma_v216_yxzx_expand *
     v9 = HGRectScale(v5, v6, v7, v8, 0.5);
     v14 = HGRectIntegral(v10, v9, v11, v12, v13);
     v16 = v15;
-    v17 = HGRectMake4i(0xFFFFFFFF, 0, 0, 0);
+    v17 = HGRectMake4i(-1, 0, 0, 0);
     v18 = HGRectGrow(v14, v16, v17);
     return HGRectUnion(0, 0, v18, v19);
   }
@@ -5875,7 +5875,7 @@ uint64_t HgcBlur_g4u2_rect::GetDOD(HgcBlur_g4u2_rect *this, HGRenderer *a2, int 
   v6 = *&a4.var2;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v7 = HGRectMake4i(-1, -1, 1, 1);
     HGRectGrow(v5, v6, v7);
   }
 
@@ -5897,7 +5897,7 @@ uint64_t HgcBlur_g4u2_rect::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect 
     return DOD;
   }
 
-  v11 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+  v11 = HGRectMake4i(-1, -1, 1, 1);
   return HGRectGrow(DOD, v10, v11);
 }
 
@@ -6300,7 +6300,7 @@ uint64_t HgcApply3DLUTTetrahedral_basekernel::GetDOD(HgcApply3DLUTTetrahedral_ba
   return *&a4.var0;
 }
 
-uint64_t HgcApply3DLUTTetrahedral_basekernel::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcApply3DLUTTetrahedral_basekernel::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   if (a3 == 2 || a3 == 1)
   {
@@ -6882,7 +6882,7 @@ uint64_t HgcApply3DLUTTrilinear_basekernel::GetDOD(HgcApply3DLUTTrilinear_baseke
   return *&a4.var0;
 }
 
-uint64_t HgcApply3DLUTTrilinear_basekernel::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcApply3DLUTTrilinear_basekernel::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   if (a3 == 2 || a3 == 1)
   {
@@ -7209,7 +7209,7 @@ uint64_t HgcApply3DLUTTrilinearUniform_basekernel::GetDOD(HgcApply3DLUTTrilinear
   return *&a4.var0;
 }
 
-uint64_t HgcApply3DLUTTrilinearUniform_basekernel::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcApply3DLUTTrilinearUniform_basekernel::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   if (a3 == 1)
   {
@@ -7629,7 +7629,7 @@ uint64_t HgcApply3DLUTTrilinearFast_basekernel::GetDOD(HgcApply3DLUTTrilinearFas
   return *&a4.var0;
 }
 
-uint64_t HgcApply3DLUTTrilinearFast_basekernel::GetROI(HGNode *this, HGRenderer *a2, unsigned int a3, HGRect a4)
+uint64_t HgcApply3DLUTTrilinearFast_basekernel::GetROI(HGNode *this, HGRenderer *a2, signed int a3, HGRect a4)
 {
   if (a3 == 1)
   {
@@ -7964,7 +7964,7 @@ uint64_t HgcColorGamma_2vuy_yxzx_expand::GetDOD(HgcColorGamma_2vuy_yxzx_expand *
   {
     v5 = *&a4.var2;
     v6 = *&a4.var0;
-    v7 = HGRectMake4i(0xFFFFFFFF, 0, a3, 0);
+    v7 = HGRectMake4i(-1, 0, a3, 0);
     v8 = HGRectGrow(v6, v5, v7);
     v9 = HGRectFloat(v8);
     v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -7984,7 +7984,7 @@ uint64_t HgcColorGamma_2vuy_yxzx_expand::GetROI(HgcColorGamma_2vuy_yxzx_expand *
     v9 = HGRectScale(v5, v6, v7, v8, 0.5);
     v14 = HGRectIntegral(v10, v9, v11, v12, v13);
     v16 = v15;
-    v17 = HGRectMake4i(0, 0, 1u, 0);
+    v17 = HGRectMake4i(0, 0, 1, 0);
     v18 = HGRectGrow(v14, v16, v17);
     return HGRectUnion(0, 0, v18, v19);
   }
@@ -9486,7 +9486,7 @@ uint64_t HgcColorGamma_2vuy_xyxz_expand::GetDOD(HgcColorGamma_2vuy_xyxz_expand *
   {
     v5 = *&a4.var2;
     v6 = *&a4.var0;
-    v7 = HGRectMake4i(0xFFFFFFFF, 0, a3, 0);
+    v7 = HGRectMake4i(-1, 0, a3, 0);
     v8 = HGRectGrow(v6, v5, v7);
     v9 = HGRectFloat(v8);
     v13 = HGRectScale(v9, v10, v11, v12, 2.0);
@@ -9506,7 +9506,7 @@ uint64_t HgcColorGamma_2vuy_xyxz_expand::GetROI(HgcColorGamma_2vuy_xyxz_expand *
     v9 = HGRectScale(v5, v6, v7, v8, 0.5);
     v14 = HGRectIntegral(v10, v9, v11, v12, v13);
     v16 = v15;
-    v17 = HGRectMake4i(0, 0, 1u, 0);
+    v17 = HGRectMake4i(0, 0, 1, 0);
     v18 = HGRectGrow(v14, v16, v17);
     return HGRectUnion(0, 0, v18, v19);
   }

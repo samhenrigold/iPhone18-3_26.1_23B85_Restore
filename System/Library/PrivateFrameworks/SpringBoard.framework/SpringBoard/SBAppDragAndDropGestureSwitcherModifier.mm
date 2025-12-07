@@ -130,12 +130,12 @@
   return v5;
 }
 
-void __62__SBAppDragAndDropGestureSwitcherModifier_handleGestureEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __62__SBAppDragAndDropGestureSwitcherModifier_handleGestureEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleResizeProgressEvent:(id)event
@@ -163,7 +163,7 @@ void __62__SBAppDragAndDropGestureSwitcherModifier_handleGestureEvent___block_in
   v11[4] = &v13;
   [(SBAppDragAndDropGestureSwitcherModifier *)self _recomputeBlurStateWithCompletion:v11];
   v6 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v7 = SBAppendSwitcherModifierResponse(v6, v14[5]);
+  v7 = SBAppendSwitcherModifierResponse();
   v8 = v14[5];
   v14[5] = v7;
 
@@ -173,12 +173,12 @@ void __62__SBAppDragAndDropGestureSwitcherModifier_handleGestureEvent___block_in
   return v9;
 }
 
-void __69__SBAppDragAndDropGestureSwitcherModifier_handleResizeProgressEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __69__SBAppDragAndDropGestureSwitcherModifier_handleResizeProgressEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleBlurProgressEvent:(id)event
@@ -201,7 +201,7 @@ void __69__SBAppDragAndDropGestureSwitcherModifier_handleResizeProgressEvent___b
   v10[4] = &v12;
   [(SBAppDragAndDropGestureSwitcherModifier *)self _recomputeBlurStateWithCompletion:v10];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v6 = SBAppendSwitcherModifierResponse(v5, v13[5]);
+  v6 = SBAppendSwitcherModifierResponse();
   v7 = v13[5];
   v13[5] = v6;
 
@@ -211,12 +211,12 @@ void __69__SBAppDragAndDropGestureSwitcherModifier_handleResizeProgressEvent___b
   return v8;
 }
 
-void __67__SBAppDragAndDropGestureSwitcherModifier_handleBlurProgressEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __67__SBAppDragAndDropGestureSwitcherModifier_handleBlurProgressEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleSceneReadyEvent:(id)event
@@ -237,7 +237,7 @@ void __67__SBAppDragAndDropGestureSwitcherModifier_handleBlurProgressEvent___blo
   v10[4] = &v12;
   [(SBAppDragAndDropGestureSwitcherModifier *)self _recomputeBlurStateWithCompletion:v10];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v6 = SBAppendSwitcherModifierResponse(v5, v13[5]);
+  v6 = SBAppendSwitcherModifierResponse();
   v7 = v13[5];
   v13[5] = v6;
 
@@ -247,12 +247,12 @@ void __67__SBAppDragAndDropGestureSwitcherModifier_handleBlurProgressEvent___blo
   return v8;
 }
 
-void __65__SBAppDragAndDropGestureSwitcherModifier_handleSceneReadyEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __65__SBAppDragAndDropGestureSwitcherModifier_handleSceneReadyEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (id)handleTransitionEvent:(id)event
@@ -303,12 +303,12 @@ void __65__SBAppDragAndDropGestureSwitcherModifier_handleSceneReadyEvent___block
   return v14;
 }
 
-void __65__SBAppDragAndDropGestureSwitcherModifier_handleTransitionEvent___block_invoke(uint64_t a1, uint64_t a2)
+void __65__SBAppDragAndDropGestureSwitcherModifier_handleTransitionEvent___block_invoke(uint64_t a1)
 {
-  v3 = SBAppendSwitcherModifierResponse(a2, *(*(*(a1 + 32) + 8) + 40));
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = SBAppendSwitcherModifierResponse();
+  v3 = *(*(a1 + 32) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 }
 
 - (CGRect)frameForIndex:(unint64_t)index
@@ -716,9 +716,9 @@ LABEL_37:
   return result;
 }
 
-uint64_t __85__SBAppDragAndDropGestureSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__85__SBAppDragAndDropGestureSwitcherModifier_frameForLayoutRole_inAppLayout_withBounds___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  result = [*(*(a1 + 32) + 168) containsItem:?];
+  result = [*(*(a1 + 32) + 168) containsItem:a3];
   if ((result & 1) == 0)
   {
     *(*(*(a1 + 40) + 8) + 24) = a2;
@@ -931,7 +931,7 @@ LABEL_7:
   if (self->_gestureEnded && isBlurred && !v9)
   {
     v10 = objc_alloc_init(SBUpdateDragPlatterBlurSwitcherEventResponse);
-    v11 = SBAppendSwitcherModifierResponse(v10, 0);
+    v11 = SBAppendSwitcherModifierResponse();
     if (completionCopy)
     {
       completionCopy[2](completionCopy, v11);

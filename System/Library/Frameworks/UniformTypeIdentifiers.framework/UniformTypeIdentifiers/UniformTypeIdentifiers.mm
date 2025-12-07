@@ -1,6 +1,6 @@
 __objc2_class **__UTFindCoreTypesConstantWithIdentifier(__CFString *a1, unint64_t a2)
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
     v8 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -12,14 +12,12 @@ __objc2_class **__UTFindCoreTypesConstantWithIdentifier(__CFString *a1, unint64_
       goto LABEL_3;
     }
 
-LABEL_11:
-    v4 = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   if ((a2 & 0x8000000000000000) != 0)
   {
-    goto LABEL_11;
+    return 0;
   }
 
 LABEL_3:
@@ -30,23 +28,21 @@ LABEL_3:
       dispatch_once(&qword_1ED40DC30, &__block_literal_global_3);
     }
 
-    v12[2] = a1;
-    v12[3] = 0;
-    v12[0] = _UTCoreType;
-    v7 = [qword_1ED40DC28 indexOfObject:v12];
+    v11[2] = a1;
+    v11[3] = 0;
+    v11[0] = _UTCoreType;
+    v7 = [qword_1ED40DC28 indexOfObject:v11];
     if (v7 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v4 = 0;
+      return 0;
     }
 
     else
     {
-      v4 = &UniformTypeIdentifiers::CoreTypes::constants + 4 * v7;
+      return &UniformTypeIdentifiers::CoreTypes::constants + 4 * v7;
     }
   }
 
-LABEL_12:
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -119,23 +115,23 @@ unint64_t _UTIdentifierGetHashCode(void *a1)
   v3 = v2 + 1;
   if (v2 == -1)
   {
-    v10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:1206:34)]"}];
-    [v10 handleFailureInFunction:v11 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
+    v9 = [MEMORY[0x1E696AAA8] currentHandler];
+    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:1206:34)]"}];
+    [v9 handleFailureInFunction:v10 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
   }
 
   else if (v3 > 0x400)
   {
-    LOBYTE(v12) = 0;
-    std::vector<char>::vector[abi:ne200100](__p, v3);
+    LOBYTE(v11) = 0;
+    std::vector<char>::vector[abi:ne200100](__p, v3, &v11);
   }
 
   bzero(__p, 0x400uLL);
-  v12 = 0;
-  if ([v1 getBytes:__p maxLength:v3 usedLength:&v12 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v1, "length"), 0}])
+  v11 = 0;
+  if ([v1 getBytes:__p maxLength:v3 usedLength:&v11 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v1, "length"), 0}])
   {
-    v4 = v12;
-    if (v12)
+    v4 = v11;
+    if (v11)
     {
       v5 = __p;
       do
@@ -146,7 +142,7 @@ unint64_t _UTIdentifierGetHashCode(void *a1)
       }
 
       while (v4);
-      v6 = v12;
+      v6 = v11;
     }
 
     else
@@ -162,85 +158,78 @@ unint64_t _UTIdentifierGetHashCode(void *a1)
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 BOOL _UTIdentifiersAreEqual(__CFString *theString, __CFString *a2)
 {
-  v22[128] = *MEMORY[0x1E69E9840];
+  v21[128] = *MEMORY[0x1E69E9840];
   if (theString == a2)
   {
-    v3 = 1;
+    return 1;
   }
 
-  else
+  v3 = 0;
+  if (theString && a2)
   {
-    v3 = 0;
-    if (theString && a2)
+    CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
+    v6 = CFStringGetCStringPtr(a2, 0x8000100u);
+    if (CStringPtr && (v7 = v6) != 0)
     {
-      CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
-      v6 = CFStringGetCStringPtr(a2, 0x8000100u);
-      if (CStringPtr && (v7 = v6) != 0)
+      v8 = CStringPtr;
+    }
+
+    else
+    {
+      v10 = [(__CFString *)theString maximumLengthOfBytesUsingEncoding:4];
+      v11 = [(__CFString *)a2 maximumLengthOfBytesUsingEncoding:4]+ 1;
+      v12 = __CFADD__(v10, 1);
+      v13 = v10 + 1;
+      if (v12)
       {
-        v8 = CStringPtr;
+        v14 = [MEMORY[0x1E696AAA8] currentHandler];
+        v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:871:37)]"}];
+        [v14 handleFailureInFunction:v15 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
+      }
+
+      else if (v13 > 0x400)
+      {
+        LOBYTE(v21[0]) = 0;
+        std::vector<char>::vector[abi:ne200100](&v20, v13, v21);
+      }
+
+      bzero(&v20, 0x400uLL);
+      if (v11)
+      {
+        if (v11 > 0x400)
+        {
+          LOBYTE(v19) = 0;
+          std::vector<char>::vector[abi:ne200100](v21, v11, &v19);
+        }
       }
 
       else
       {
-        v11 = [(__CFString *)theString maximumLengthOfBytesUsingEncoding:4];
-        v12 = [(__CFString *)a2 maximumLengthOfBytesUsingEncoding:4]+ 1;
-        v13 = __CFADD__(v11, 1);
-        v14 = v11 + 1;
-        if (v13)
-        {
-          v15 = [MEMORY[0x1E696AAA8] currentHandler];
-          v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:871:37)]"}];
-          [v15 handleFailureInFunction:v16 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
-        }
-
-        else if (v14 > 0x400)
-        {
-          LOBYTE(v22[0]) = 0;
-          std::vector<char>::vector[abi:ne200100](&v21, v14);
-        }
-
-        bzero(&v21, 0x400uLL);
-        if (v12)
-        {
-          if (v12 > 0x400)
-          {
-            LOBYTE(v20) = 0;
-            std::vector<char>::vector[abi:ne200100](v22, v12);
-          }
-        }
-
-        else
-        {
-          v17 = [MEMORY[0x1E696AAA8] currentHandler];
-          v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:871:91)]"}];
-          [v17 handleFailureInFunction:v18 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
-        }
-
-        bzero(v22, 0x400uLL);
-        v19 = 0;
-        v20 = 0;
-        if (![(__CFString *)theString getBytes:&v21 maxLength:v14 usedLength:&v20 encoding:4 options:0 range:0 remainingRange:[(__CFString *)theString length], 0]|| ![(__CFString *)a2 getBytes:v22 maxLength:v12 usedLength:&v19 encoding:4 options:0 range:0 remainingRange:[(__CFString *)a2 length], 0]|| v20 != v19)
-        {
-          v3 = 0;
-          goto LABEL_9;
-        }
-
-        v8 = &v21;
-        v7 = v22;
+        v16 = [MEMORY[0x1E696AAA8] currentHandler];
+        v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:871:91)]"}];
+        [v16 handleFailureInFunction:v17 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
       }
 
-      v3 = strcasecmp(v8, v7) == 0;
+      bzero(v21, 0x400uLL);
+      v18 = 0;
+      v19 = 0;
+      if (![(__CFString *)theString getBytes:&v20 maxLength:v13 usedLength:&v19 encoding:4 options:0 range:0 remainingRange:[(__CFString *)theString length], 0]|| ![(__CFString *)a2 getBytes:v21 maxLength:v11 usedLength:&v18 encoding:4 options:0 range:0 remainingRange:[(__CFString *)a2 length], 0]|| v19 != v18)
+      {
+        return 0;
+      }
+
+      v8 = &v20;
+      v7 = v21;
     }
+
+    return strcasecmp(v8, v7) == 0;
   }
 
-LABEL_9:
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -715,37 +704,37 @@ LABEL_24:
 
 void UniformTypeIdentifiers::RuntimeIssues::enumerateTypeIdentifiersInDeclarationsArray(void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (_NSIsNSArray() && [a1 count])
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = a1;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
-      v6 = *v14;
+      v6 = *v13;
       v7 = *MEMORY[0x1E69637F0];
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v14 != v6)
+          if (*v13 != v6)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           if (_NSIsNSDictionary())
           {
             v10 = [v9 objectForKeyedSubscript:v7];
             if (_NSIsNSString())
             {
-              v12 = 0;
-              (*(a2 + 16))(a2, v10, &v12);
-              if (v12)
+              v11 = 0;
+              (*(a2 + 16))(a2, v10, &v11);
+              if (v11)
               {
 
                 goto LABEL_16;
@@ -754,7 +743,7 @@ void UniformTypeIdentifiers::RuntimeIssues::enumerateTypeIdentifiersInDeclaratio
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v5)
         {
           continue;
@@ -766,8 +755,6 @@ void UniformTypeIdentifiers::RuntimeIssues::enumerateTypeIdentifiersInDeclaratio
 
 LABEL_16:
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 BOOL ___ZN22UniformTypeIdentifiers13RuntimeIssuesL27checkListsForTypeIdentifierEP8NSStringP7NSArrayIP12NSDictionaryIS2_P11objc_objectEESA__block_invoke(uint64_t a1, __CFString *a2, _BYTE *a3)
@@ -834,19 +821,17 @@ BOOL _UTCoreTypesConstantSetTypeRecordIfNil(uint64_t a1, void *a2)
   return v5 == 0;
 }
 
-uint64_t ___ZN22UniformTypeIdentifiers14TaggedPointersL26registerTaggedPointerClassEv_block_invoke()
+void ___ZN22UniformTypeIdentifiers14TaggedPointersL26registerTaggedPointerClassEv_block_invoke()
 {
   if (*MEMORY[0x1E69E5908])
   {
     objc_lookUpClass("_UTTaggedType");
-    result = _objc_registerTaggedPointerClass();
+    _objc_registerTaggedPointerClass();
     _MergedGlobals_0 = 1;
   }
-
-  return result;
 }
 
-id UniformTypeIdentifiers::Type::getExportedType(__CFString *this, NSString *a2, UTType *a3, NSBundle *a4)
+id UniformTypeIdentifiers::Type::getExportedType(const __CFString *this, NSString *a2, UTType *a3, NSBundle *a4)
 {
   v6 = __UTFindCoreTypesConstantWithIdentifier(this, 0x7FFFFFFFFFFFFFFFuLL);
   if (!v6)
@@ -915,10 +900,10 @@ BOOL UniformTypeIdentifiers::RuntimeIssues::isBinaryTheCaller(UniformTypeIdentif
   return result;
 }
 
-void sub_1AC1B1418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1AC1B1418(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = _UTRuntimeConstantType;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -929,13 +914,13 @@ uint64_t ___ZN22UniformTypeIdentifiers9ModelCodeL20getModelCodeOverrideEPU8__str
   return result;
 }
 
-id UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(UniformTypeIdentifiers::ModelCode *a1, UniformTypeIdentifiers::ModelCode *a2, char a3)
+UniformTypeIdentifiers::ModelCode *UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(UniformTypeIdentifiers::ModelCode *a1, UniformTypeIdentifiers::ModelCode *a2, char a3)
 {
   v5 = a1;
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   if ((a3 & 2) != 0)
   {
-    if (!a1 || (v31[0] = a1, [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1], a1 = objc_claimAutoreleasedReturnValue(), (v7 = a1) == 0))
+    if (!a1 || (v30[0] = a1, [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1], a1 = objc_claimAutoreleasedReturnValue(), (v7 = a1) == 0))
     {
       a1 = UniformTypeIdentifiers::ModelCode::getCurrentDeviceModelCodes(a1);
       v7 = a1;
@@ -956,18 +941,18 @@ LABEL_26:
         v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
         if (v16)
         {
-          v20 = v5;
+          v19 = v5;
           if (!v5)
           {
-            v20 = UniformTypeIdentifiers::ModelCode::getCurrentDeviceModelCodes(v16);
+            v19 = UniformTypeIdentifiers::ModelCode::getCurrentDeviceModelCodes(v16);
           }
 
           *buf = 138412802;
-          *&buf[4] = v20;
-          v26 = 2114;
-          v27 = qword_1ED40DBB8;
-          v28 = 2048;
-          v29 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
+          *&buf[4] = v19;
+          v25 = 2114;
+          v26 = qword_1ED40DBB8;
+          v27 = 2048;
+          v28 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
           _os_log_debug_impl(&dword_1AC1AE000, v15, OS_LOG_TYPE_DEBUG, "Current device model code %@ is unknown: falling back to device class %{public}@ / %lli", buf, 0x20u);
           if (!v5)
           {
@@ -1081,25 +1066,25 @@ LABEL_53:
       }
     }
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v10 = v7;
-    v11 = [(UniformTypeIdentifiers::ModelCode *)v10 countByEnumeratingWithState:&v21 objects:v30 count:16];
+    v11 = [(UniformTypeIdentifiers::ModelCode *)v10 countByEnumeratingWithState:&v20 objects:v29 count:16];
     if (v11)
     {
-      v12 = *v22;
+      v12 = *v21;
 LABEL_12:
       v13 = 0;
       while (1)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v6 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColorWithoutResolvingCurrentDevice(*(*(&v21 + 1) + 8 * v13), buf);
+        v6 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColorWithoutResolvingCurrentDevice(*(*(&v20 + 1) + 8 * v13), buf);
         if (v6)
         {
           break;
@@ -1107,7 +1092,7 @@ LABEL_12:
 
         if (v11 == ++v13)
         {
-          v11 = [(UniformTypeIdentifiers::ModelCode *)v10 countByEnumeratingWithState:&v21 objects:v30 count:16];
+          v11 = [(UniformTypeIdentifiers::ModelCode *)v10 countByEnumeratingWithState:&v20 objects:v29 count:16];
           if (v11)
           {
             goto LABEL_12;
@@ -1162,7 +1147,6 @@ LABEL_35:
 LABEL_55:
   v6 = *v14;
 LABEL_56:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1259,17 +1243,17 @@ void ___ZN22UniformTypeIdentifiers9ModelCodeL32getHardwareColorForCurrentDeviceE
 
 id UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColorWithoutResolvingCurrentDevice(void *a1, UniformTypeIdentifiers::ModelCode *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     if (*(a2 + 8) == 1)
     {
-      v17 = UniformTypeIdentifiers::ModelCode::getHardwareColorSuffix(a2, a2);
+      v16 = UniformTypeIdentifiers::ModelCode::getHardwareColorSuffix(a2, a2);
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
     v4 = [a1 mutableCopy];
@@ -1277,7 +1261,7 @@ id UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColor
     {
       while ([v4 length])
       {
-        if (v17)
+        if (v16)
         {
           v5 = [v4 stringByAppendingString:?];
           if (!v5)
@@ -1291,39 +1275,39 @@ id UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColor
           v5 = v4;
         }
 
-        v18 = v5;
-        v19 = [UTType typeWithTag:"typeWithTag:tagClass:conformingToType:" tagClass:? conformingToType:?];
-        if (v19 && ([v19 isDeclared] & 1) != 0)
+        v17 = v5;
+        v18 = [UTType typeWithTag:"typeWithTag:tagClass:conformingToType:" tagClass:? conformingToType:?];
+        if (v18 && ([v18 isDeclared] & 1) != 0)
         {
-          v3 = v19;
+          v3 = v18;
         }
 
         else if (*(a2 + 8) == 1)
         {
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
           v23 = 0u;
+          v24 = 0u;
+          v21 = 0u;
+          v22 = 0u;
           obj = [UTType typesWithTag:v4 tagClass:@"com.apple.device-model-code" conformingToType:&off_1ED40D980];
-          v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v6)
           {
-            v7 = *v23;
+            v7 = *v22;
 LABEL_18:
             v8 = 0;
             while (1)
             {
-              if (*v23 != v7)
+              if (*v22 != v7)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v9 = *(*(&v22 + 1) + 8 * v8);
+              v9 = *(*(&v21 + 1) + 8 * v8);
               if (v9)
               {
-                if ([*(*(&v22 + 1) + 8 * v8) isDeclared])
+                if ([*(*(&v21 + 1) + 8 * v8) isDeclared])
                 {
-                  v10 = [v9 _getEnclosureColors:v21 count:16];
+                  v10 = [v9 _getEnclosureColors:v20 count:16];
                   if (v10)
                   {
                     v11 = 0;
@@ -1334,7 +1318,7 @@ LABEL_18:
                         std::__throw_bad_optional_access[abi:ne200100]();
                       }
 
-                      if (_UTHardwareColorsAreEqual(v21[v11], *a2))
+                      if (_UTHardwareColorsAreEqual(v20[v11], *a2))
                       {
                         v3 = v9;
                       }
@@ -1358,7 +1342,7 @@ LABEL_18:
 
               if (++v8 == v6)
               {
-                v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+                v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
                 if (v6)
                 {
                   goto LABEL_18;
@@ -1394,17 +1378,17 @@ LABEL_38:
 
     if (*(a2 + 8) == 1)
     {
-      v26[0] = 0;
-      v26[8] = 0;
-      v12 = v17;
-      v3 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColorWithoutResolvingCurrentDevice(v16, v26);
+      v25[0] = 0;
+      v25[8] = 0;
+      v12 = v16;
+      v3 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCodeAndHardwareColorWithoutResolvingCurrentDevice(v15, v25);
     }
 
     else
     {
       v3 = 0;
 LABEL_43:
-      v12 = v17;
+      v12 = v16;
     }
   }
 
@@ -1412,8 +1396,6 @@ LABEL_43:
   {
     v3 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1460,10 +1442,10 @@ BOOL _UTHardwareColorsAreEqual(unint64_t a1, uint64_t a2)
 
 void _UTPrintModelCodesForCurrentDevice(UniformTypeIdentifiers::ModelCode *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = UniformTypeIdentifiers::ModelCode::getCurrentDeviceModelCodes(a1);
   HardwareColorForCurrentDevice = UniformTypeIdentifiers::ModelCode::getHardwareColorForCurrentDevice(v2);
-  v17 = v3;
+  v16 = v3;
   if (v3)
   {
     v4 = UniformTypeIdentifiers::ModelCode::getHardwareColorSuffix(&HardwareColorForCurrentDevice, v3);
@@ -1480,36 +1462,34 @@ void _UTPrintModelCodesForCurrentDevice(UniformTypeIdentifiers::ModelCode *a1)
 
   v4 = &stru_1F20ECC30;
 LABEL_6:
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v5 = v2;
-  v6 = [(UniformTypeIdentifiers::ModelCode *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v6 = [(UniformTypeIdentifiers::ModelCode *)v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = [*(*(&v12 + 1) + 8 * i) UTF8String];
+        v9 = [*(*(&v11 + 1) + 8 * i) UTF8String];
         v10 = v4;
         fprintf(a1, "%s%s\n", v9, [(__CFString *)v4 UTF8String]);
       }
 
-      v6 = [(UniformTypeIdentifiers::ModelCode *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v6 = [(UniformTypeIdentifiers::ModelCode *)v5 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _UTHardwareColorGetCurrentEnclosureColor(UniformTypeIdentifiers::ModelCode *a1)
@@ -1557,7 +1537,7 @@ id UniformTypeIdentifiers::ModelCode::log(UniformTypeIdentifiers::ModelCode *thi
 
 void ___ZN22UniformTypeIdentifiers9ModelCodeL26getDeviceTypeWithModelCodeEP8NSStringRKNSt3__18optionalI15UTHardwareColorEENS0_7OptionsE_block_invoke_75(UniformTypeIdentifiers::ModelCode *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = qword_1ED40DBB8;
   v2 = UniformTypeIdentifiers::ModelCode::log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_ERROR);
@@ -1565,29 +1545,27 @@ void ___ZN22UniformTypeIdentifiers9ModelCodeL26getDeviceTypeWithModelCodeEP8NSSt
   {
     if (v3)
     {
-      v8 = 138543618;
-      v9 = qword_1ED40DBB8;
-      v10 = 2048;
-      v11 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
+      v7 = 138543618;
+      v8 = qword_1ED40DBB8;
+      v9 = 2048;
+      v10 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
       v4 = "Unknown device class %{public}@ / %lli -- please send a bug report to UniformTypeIdentifiers to add support.";
       v5 = v2;
       v6 = 22;
 LABEL_7:
-      _os_log_error_impl(&dword_1AC1AE000, v5, OS_LOG_TYPE_ERROR, v4, &v8, v6);
+      _os_log_error_impl(&dword_1AC1AE000, v5, OS_LOG_TYPE_ERROR, v4, &v7, v6);
     }
   }
 
   else if (v3)
   {
-    v8 = 134217984;
-    v9 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
+    v7 = 134217984;
+    v8 = UniformTypeIdentifiers::ModelCode::getDeviceTypeWithModelCode(NSString *,std::optional<UTHardwareColor> const&,UniformTypeIdentifiers::ModelCode::Options)::deviceClass;
     v4 = "Unknown device class %lli -- please send a bug report to UniformTypeIdentifiers to add support.";
     v5 = v2;
     v6 = 12;
     goto LABEL_7;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN22UniformTypeIdentifiers9ModelCodeL3logEv_block_invoke()
@@ -1625,7 +1603,7 @@ void ___ZN22UniformTypeIdentifiers9AccessoryL3logEv_block_invoke()
   _MergedGlobals_1 = v0;
 }
 
-void sub_1AC1B4420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, void *__p, uint64_t a34)
+void sub_1AC1B4420(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, void *__p, uint64_t a34)
 {
   if (__p)
   {
@@ -1656,7 +1634,7 @@ void sub_1AC1B4EB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void UniformTypeIdentifiers::Type::detachTypeRecordsInTypes<NSMutableSet<UTType *> * {__strong}>(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (qword_1ED40DC18 != -1)
   {
@@ -1670,26 +1648,26 @@ void UniformTypeIdentifiers::Type::detachTypeRecordsInTypes<NSMutableSet<UTType 
     {
       if (v2 > 0x80)
       {
-        v16[0] = 0;
-        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v2);
+        v15[0] = 0;
+        std::vector<UTTypeRecord *>::vector[abi:ne200100](__p, v2, v15);
       }
 
-      bzero(v16, 0x400uLL);
+      bzero(v15, 0x400uLL);
       *__p = 0u;
+      v12 = 0u;
       v13 = 0u;
       v14 = 0u;
-      v15 = 0u;
       v3 = v1;
-      v4 = [v3 countByEnumeratingWithState:__p objects:&v17 count:16];
+      v4 = [v3 countByEnumeratingWithState:__p objects:&v16 count:16];
       if (v4)
       {
         v5 = 0;
-        v6 = *v13;
+        v6 = *v12;
         do
         {
           for (i = 0; i != v4; ++i)
           {
-            if (*v13 != v6)
+            if (*v12 != v6)
             {
               objc_enumerationMutation(v3);
             }
@@ -1701,19 +1679,19 @@ void UniformTypeIdentifiers::Type::detachTypeRecordsInTypes<NSMutableSet<UTType 
               v10 = [v9 _typeRecord];
               if (v10)
               {
-                v16[v5++] = v10;
+                v15[v5++] = v10;
               }
             }
           }
 
-          v4 = [v3 countByEnumeratingWithState:__p objects:&v17 count:16];
+          v4 = [v3 countByEnumeratingWithState:__p objects:&v16 count:16];
         }
 
         while (v4);
 
         if (v5)
         {
-          _UTDetachTypeRecords(v16, v5);
+          _UTDetachTypeRecords(v15, v5);
         }
       }
 
@@ -1722,8 +1700,6 @@ void UniformTypeIdentifiers::Type::detachTypeRecordsInTypes<NSMutableSet<UTType 
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1AC1B5438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -1754,23 +1730,23 @@ id _UTIdentifierGetCanonicalRepresentation(void *a1)
   v3 = v2 + 1;
   if (v2 == -1)
   {
-    v9 = [MEMORY[0x1E696AAA8] currentHandler];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:1206:34)]"}];
-    [v9 handleFailureInFunction:v10 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
+    v8 = [MEMORY[0x1E696AAA8] currentHandler];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{"void withFastBuffer(NSUInteger, const FunctionType &) [ElementType = char, ArraySize = 1024UL, FunctionType = (lambda at /Library/Caches/com.apple.xbs/Sources/UniformTypeIdentifiers/Framework/UTType.mm:1206:34)]"}];
+    [v8 handleFailureInFunction:v9 file:@"UTType.mm" lineNumber:1190 description:{@"Invalid parameter not satisfying: %@", @"count > 0"}];
   }
 
   else if (v3 > 0x400)
   {
-    LOBYTE(v11) = 0;
-    std::vector<char>::vector[abi:ne200100](__p, v3);
+    LOBYTE(v10) = 0;
+    std::vector<char>::vector[abi:ne200100](__p, v3, &v10);
   }
 
   bzero(__p, 0x400uLL);
-  v11 = 0;
-  if ([v1 getBytes:__p maxLength:v3 usedLength:&v11 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v1, "length"), 0}])
+  v10 = 0;
+  if ([v1 getBytes:__p maxLength:v3 usedLength:&v10 encoding:4 options:0 range:0 remainingRange:{objc_msgSend(v1, "length"), 0}])
   {
-    v4 = v11;
-    if (v11)
+    v4 = v10;
+    if (v10)
     {
       v5 = __p;
       do
@@ -1781,7 +1757,7 @@ id _UTIdentifierGetCanonicalRepresentation(void *a1)
       }
 
       while (v4);
-      v4 = v11;
+      v4 = v10;
     }
 
     v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:__p length:v4 encoding:4];
@@ -1791,8 +1767,6 @@ id _UTIdentifierGetCanonicalRepresentation(void *a1)
   {
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1804,7 +1778,7 @@ void sub_1AC1B77E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::vector<UTTypeRecord *>::vector[abi:ne200100](void *a1, unint64_t a2)
+void std::vector<UTTypeRecord *>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t *a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1848,7 +1822,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-void std::vector<char>::vector[abi:ne200100](void *a1, uint64_t a2)
+void std::vector<char>::vector[abi:ne200100](void *a1, size_t a2, unsigned __int8 *a3)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -1897,7 +1871,7 @@ id UniformTypeIdentifiers::CoreTypes::log(UniformTypeIdentifiers::CoreTypes *thi
 
 void __UNIFORM_TYPE_IDENTIFIERS_FAILED_TO_REALIZE_A_COMPILE_TIME_CONSTANT_TYPE_OBJECT__(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = a1[2];
   isKindOfClass = objc_opt_isKindOfClass();
   if (isKindOfClass)
@@ -1906,9 +1880,9 @@ void __UNIFORM_TYPE_IDENTIFIERS_FAILED_TO_REALIZE_A_COMPILE_TIME_CONSTANT_TYPE_O
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218242;
-      v14 = a1;
-      v15 = 2114;
-      v16 = v2;
+      v13 = a1;
+      v14 = 2114;
+      v15 = v2;
       _os_log_error_impl(&dword_1AC1AE000, v4, OS_LOG_TYPE_ERROR, "Failed to realize static UTType instance %p for identifier %{public}@. Please file a bug. The type should be present in Core Types.", buf, 0x16u);
     }
   }
@@ -1927,13 +1901,13 @@ void __UNIFORM_TYPE_IDENTIFIERS_FAILED_TO_REALIZE_A_COMPILE_TIME_CONSTANT_TYPE_O
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218754;
-        v14 = a1;
-        v15 = 2114;
-        v16 = v2;
-        v17 = 2112;
-        v18 = v9;
-        v19 = 2114;
-        v20 = v8;
+        v13 = a1;
+        v14 = 2114;
+        v15 = v2;
+        v16 = 2112;
+        v17 = v9;
+        v18 = 2114;
+        v19 = v8;
         _os_log_error_impl(&dword_1AC1AE000, v10, OS_LOG_TYPE_ERROR, "Failed to realize static UTType instance %p for identifier %{public}@. The type was defined in the binary %@/%{public}@. If that is an Apple binary, please file a bug.", buf, 0x2Au);
       }
     }
@@ -1944,15 +1918,13 @@ void __UNIFORM_TYPE_IDENTIFIERS_FAILED_TO_REALIZE_A_COMPILE_TIME_CONSTANT_TYPE_O
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
-        v14 = a1;
-        v15 = 2114;
-        v16 = v2;
+        v13 = a1;
+        v14 = 2114;
+        v15 = v2;
         _os_log_error_impl(&dword_1AC1AE000, v7, OS_LOG_TYPE_ERROR, "Failed to realize static UTType instance %p for identifier %{public}@. The faulting component was unknown at runtime.", buf, 0x16u);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN22UniformTypeIdentifiers9CoreTypesL3logEv_block_invoke()
@@ -1978,33 +1950,33 @@ id _typeIdentifierFromUTType(void *a1)
 
 id _utTypesFromTypeIdentifiers(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v1, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v16;
+    v7 = *v15;
     v8 = MEMORY[0x1E69E9C10];
     *&v5 = 138543362;
-    v14 = v5;
+    v13 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [UTType _typeWithIdentifier:v10 allowUndeclared:1, v14, v15];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [UTType _typeWithIdentifier:v10 allowUndeclared:1, v13, v14];
         if (v11)
         {
           [v2 addObject:v11];
@@ -2012,19 +1984,17 @@ id _utTypesFromTypeIdentifiers(void *a1)
 
         else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          *buf = v14;
-          v20 = v10;
+          *buf = v13;
+          v19 = v10;
           _os_log_error_impl(&dword_1AC1AE000, v8, OS_LOG_TYPE_ERROR, "NSItemProvider contains an invalid type identifier “%{public}@” which will be ignored.", buf, 0xCu);
         }
       }
 
-      v6 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -2043,7 +2013,7 @@ void _UTSetRuntimeIssueCatcher(uint64_t a1)
 
 void __UNIFORM_TYPE_IDENTIFIER_WAS_NOT_DECLARED_IN_INFO_PLIST_OF_BUNDLE__(uint64_t a1, int a2, void *a3, int a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = v7;
   if (!v7)
@@ -2068,7 +2038,7 @@ void __UNIFORM_TYPE_IDENTIFIER_WAS_NOT_DECLARED_IN_INFO_PLIST_OF_BUNDLE__(uint64
         v11 = "imported";
       }
 
-      v12 = [(UniformTypeIdentifiers::RuntimeIssues *)v8 bundleURL];
+      v12 = [v8 bundleURL];
       v13 = [v12 lastPathComponent];
       v14 = v13;
       if (a2)
@@ -2081,15 +2051,15 @@ void __UNIFORM_TYPE_IDENTIFIER_WAS_NOT_DECLARED_IN_INFO_PLIST_OF_BUNDLE__(uint64
         v15 = "exported";
       }
 
-      v20 = 138544130;
-      v21 = a1;
-      v22 = 2082;
-      v23 = v11;
-      v24 = 2114;
-      v25 = v13;
-      v26 = 2082;
-      v27 = v15;
-      _os_log_fault_impl(&dword_1AC1AE000, v9, OS_LOG_TYPE_FAULT, "Type %{public}@ was expected to be %{public}s in the Info.plist of %{public}@, but it was %{public}s instead.", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = a1;
+      v21 = 2082;
+      v22 = v11;
+      v23 = 2114;
+      v24 = v13;
+      v25 = 2082;
+      v26 = v15;
+      _os_log_fault_impl(&dword_1AC1AE000, v9, OS_LOG_TYPE_FAULT, "Type %{public}@ was expected to be %{public}s in the Info.plist of %{public}@, but it was %{public}s instead.", &v19, 0x2Au);
     }
   }
 
@@ -2097,26 +2067,24 @@ void __UNIFORM_TYPE_IDENTIFIER_WAS_NOT_DECLARED_IN_INFO_PLIST_OF_BUNDLE__(uint64
   {
     if (a2)
     {
-      v17 = "exported";
+      v16 = "exported";
     }
 
     else
     {
-      v17 = "imported";
+      v16 = "imported";
     }
 
-    v18 = [(UniformTypeIdentifiers::RuntimeIssues *)v8 bundleURL];
-    v19 = [v18 lastPathComponent];
-    v20 = 138543874;
-    v21 = a1;
-    v22 = 2082;
-    v23 = v17;
-    v24 = 2114;
-    v25 = v19;
-    _os_log_fault_impl(&dword_1AC1AE000, v9, OS_LOG_TYPE_FAULT, "Type %{public}@ was expected to be declared and %{public}s in the Info.plist of %{public}@, but it was not found.", &v20, 0x20u);
+    v17 = [v8 bundleURL];
+    v18 = [v17 lastPathComponent];
+    v19 = 138543874;
+    v20 = a1;
+    v21 = 2082;
+    v22 = v16;
+    v23 = 2114;
+    v24 = v18;
+    _os_log_fault_impl(&dword_1AC1AE000, v9, OS_LOG_TYPE_FAULT, "Type %{public}@ was expected to be declared and %{public}s in the Info.plist of %{public}@, but it was not found.", &v19, 0x20u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 id UniformTypeIdentifiers::RuntimeIssues::runtimeIssueLog(UniformTypeIdentifiers::RuntimeIssues *this)

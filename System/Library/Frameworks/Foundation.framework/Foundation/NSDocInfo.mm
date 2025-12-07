@@ -56,8 +56,8 @@ LABEL_11:
   if (fileType)
   {
     v10 = fileType;
-    *(&self->mode + 1) = *(&self->mode + 1) & 0xFFFE | [fileType isEqualToString:@"NSFileTypeDirectory"];
-    if ([v10 isEqualToString:@"NSFileTypeSymbolicLink"])
+    *(&self->mode + 1) = *(&self->mode + 1) & 0xFFFE | objc_msgSend_isEqualToString_(fileType);
+    if (objc_msgSend_isEqualToString_(v10))
     {
       v11 = 4;
     }

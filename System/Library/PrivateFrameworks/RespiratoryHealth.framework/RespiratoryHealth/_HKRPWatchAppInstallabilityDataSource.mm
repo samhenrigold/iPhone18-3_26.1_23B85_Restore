@@ -81,17 +81,15 @@
 
 - (void)isDeviceSupported
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = v5;
   v7 = NSStringFromSelector(a2);
-  v9 = 138543618;
-  v10 = v5;
-  v11 = 2114;
-  v12 = v7;
-  _os_log_error_impl(&dword_262078000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ is unsupported on this platform", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v5;
+  v10 = 2114;
+  v11 = v7;
+  _os_log_error_impl(&dword_262078000, a3, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ is unsupported on this platform", &v8, 0x16u);
 }
 
 @end

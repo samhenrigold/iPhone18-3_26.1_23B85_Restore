@@ -182,7 +182,7 @@ LABEL_8:
 
 - (id)sr_dictionaryRepresentation
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   temperatures = [(SRWristTemperatureSession *)self temperatures];
   while (1)
@@ -199,7 +199,7 @@ LABEL_8:
   }
 
   objc_autoreleasePoolPop(v5);
-  v17[0] = @"startDate";
+  v16[0] = @"startDate";
   [(NSDate *)[(SRWristTemperatureSession *)self startDate] timeIntervalSinceReferenceDate];
   v8 = v7;
   v9 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -213,8 +213,8 @@ LABEL_8:
     v10 = v9;
   }
 
-  v18[0] = v10;
-  v17[1] = @"duration";
+  v17[0] = v10;
+  v16[1] = @"duration";
   [(SRWristTemperatureSession *)self duration];
   v12 = v11;
   v13 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -228,14 +228,12 @@ LABEL_8:
     v14 = v13;
   }
 
-  v18[1] = v14;
-  v17[2] = @"version";
-  v17[3] = @"temperatures";
-  v18[2] = [(SRWristTemperatureSession *)self version];
-  v18[3] = array;
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:4];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v17[1] = v14;
+  v16[2] = @"version";
+  v16[3] = @"temperatures";
+  v17[2] = [(SRWristTemperatureSession *)self version];
+  v17[3] = array;
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
 }
 
 - (BOOL)isEqual:(id)equal

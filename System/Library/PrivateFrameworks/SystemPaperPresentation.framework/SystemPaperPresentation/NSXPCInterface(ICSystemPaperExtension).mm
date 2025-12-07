@@ -12,9 +12,9 @@
     +[NSXPCInterface(ICSystemPaperExtension) ic_extensionInterface];
   }
 
-  v1 = ic_extensionInterface_extensionInterface;
+  v2 = ic_extensionInterface_extensionInterface;
 
-  return v1;
+  return v2;
 }
 
 + (id)ic_hostInterface
@@ -24,9 +24,9 @@
     +[NSXPCInterface(ICSystemPaperExtension) ic_hostInterface];
   }
 
-  v1 = ic_hostInterface_hostInterface;
+  v2 = ic_hostInterface_hostInterface;
 
-  return v1;
+  return v2;
 }
 
 @end

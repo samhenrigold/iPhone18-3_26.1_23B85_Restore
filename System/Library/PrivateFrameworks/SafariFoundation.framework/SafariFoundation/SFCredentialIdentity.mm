@@ -253,28 +253,8 @@ LABEL_8:
   else if (-[SFCredentialIdentity type](self, "type") == 2 || [barCopy type] != 2)
   {
     serviceIdentifierType = self->_serviceIdentifierType;
-    if (serviceIdentifierType == [barCopy serviceIdentifierType])
+    if (serviceIdentifierType == [barCopy serviceIdentifierType] && (-[SFCredentialIdentity _domainWithoutWWWDot](self, "_domainWithoutWWWDot"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(barCopy, "_domainWithoutWWWDot"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "safari_isCaseInsensitiveEqualToString:", v8), v8, v7, (v9 & 1) != 0) || ((-[SFCredentialIdentity _domainWithoutWWWDot](self, "_domainWithoutWWWDot"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "safari_countOfString:", @"."), v10, objc_msgSend(barCopy, "_domainWithoutWWWDot"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "safari_countOfString:", @"."), v12, v11 < v13) ? (v5 = -1) : (v5 = 1), v11 == v13))
     {
-      _domainWithoutWWWDot = [(SFCredentialIdentity *)self _domainWithoutWWWDot];
-      _domainWithoutWWWDot2 = [barCopy _domainWithoutWWWDot];
-      v9 = [_domainWithoutWWWDot safari_isCaseInsensitiveEqualToString:_domainWithoutWWWDot2];
-
-      if (v9)
-      {
-        goto LABEL_12;
-      }
-    }
-
-    _domainWithoutWWWDot3 = [(SFCredentialIdentity *)self _domainWithoutWWWDot];
-    v11 = [_domainWithoutWWWDot3 safari_countOfString:@"."];
-
-    _domainWithoutWWWDot4 = [barCopy _domainWithoutWWWDot];
-    v13 = [_domainWithoutWWWDot4 safari_countOfString:@"."];
-
-    v5 = v11 < v13 ? -1 : 1;
-    if (v11 == v13)
-    {
-LABEL_12:
       rank = [barCopy rank];
       rank = self->_rank;
       v16 = rank == rank;

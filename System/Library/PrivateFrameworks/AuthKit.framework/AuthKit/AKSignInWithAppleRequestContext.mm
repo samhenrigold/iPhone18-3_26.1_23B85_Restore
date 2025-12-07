@@ -34,57 +34,55 @@
 
 - (AKSignInWithAppleRequestContext)initWithCoder:(id)coder
 {
-  v27 = &selfCopy;
+  v25 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v29.receiver = v3;
-  v29.super_class = AKSignInWithAppleRequestContext;
-  v28 = [(AKSignInWithAppleRequestContext *)&v29 init];
-  selfCopy = v28;
-  objc_storeStrong(&selfCopy, v28);
-  if (v28)
+  v27.receiver = v3;
+  v27.super_class = AKSignInWithAppleRequestContext;
+  v26 = [(AKSignInWithAppleRequestContext *)&v27 init];
+  selfCopy = v26;
+  objc_storeStrong(&selfCopy, v26);
+  if (v26)
   {
-    v19 = location[0];
-    v22 = 0x1E696A000uLL;
+    v17 = location[0];
+    v20 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"altDSID"];
     altDSID = selfCopy->_altDSID;
     selfCopy->_altDSID = v4;
     MEMORY[0x1E69E5920](altDSID);
-    v20 = location[0];
+    v18 = location[0];
     v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"signInWithAppleAccount"];
     signInWithAppleAccount = selfCopy->_signInWithAppleAccount;
     selfCopy->_signInWithAppleAccount = v6;
     MEMORY[0x1E69E5920](signInWithAppleAccount);
-    v21 = location[0];
-    v8 = *(v22 + 3776);
-    v9 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"currentGroupID"];
+    v19 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"currentGroupID"];
     currentGroupID = selfCopy->_currentGroupID;
-    selfCopy->_currentGroupID = v9;
+    selfCopy->_currentGroupID = v8;
     MEMORY[0x1E69E5920](currentGroupID);
-    v11 = [location[0] decodeBoolForKey:@"_simulateAccountSharingResponse"];
-    selfCopy->__simulateAccountSharingResponse = v11;
-    v25 = location[0];
-    v24 = MEMORY[0x1E695DFD8];
-    v23 = objc_opt_class();
-    v12 = *(v22 + 3776);
-    v26 = [v24 setWithObjects:{v23, objc_opt_class(), 0}];
-    v13 = [v25 decodeObjectOfClasses:? forKey:?];
+    v10 = [location[0] decodeBoolForKey:@"_simulateAccountSharingResponse"];
+    selfCopy->__simulateAccountSharingResponse = v10;
+    v23 = location[0];
+    v22 = MEMORY[0x1E695DFD8];
+    v21 = objc_opt_class();
+    v24 = [v22 setWithObjects:{v21, objc_opt_class(), 0}];
+    v11 = [v23 decodeObjectOfClasses:? forKey:?];
     groups = selfCopy->__groups;
-    selfCopy->__groups = v13;
+    selfCopy->__groups = v11;
     MEMORY[0x1E69E5920](groups);
-    MEMORY[0x1E69E5920](v26);
+    MEMORY[0x1E69E5920](v24);
   }
 
-  v16 = &selfCopy;
-  v18 = MEMORY[0x1E69E5928](selfCopy);
+  v14 = &selfCopy;
+  v16 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v16, obj);
-  return v18;
+  objc_storeStrong(v14, obj);
+  return v16;
 }
 
 - (void)encodeWithCoder:(id)coder

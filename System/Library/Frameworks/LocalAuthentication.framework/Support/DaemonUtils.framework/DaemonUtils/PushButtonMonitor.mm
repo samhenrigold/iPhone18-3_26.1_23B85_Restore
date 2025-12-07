@@ -81,7 +81,7 @@ uint64_t __35__PushButtonMonitor_sharedInstance__block_invoke()
   v12 = __Block_byref_object_copy_;
   v13 = __Block_byref_object_dispose_;
   v14 = 0;
-  v3 = LA_LOG_1();
+  v3 = LA_LOG_1(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -103,17 +103,17 @@ uint64_t __35__PushButtonMonitor_sharedInstance__block_invoke()
 
 void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = LA_LOG_1();
+  v4 = LA_LOG_1(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = v3;
-      _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor acquired PreArmSuppression assertion: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v3;
+      _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor acquired PreArmSuppression assertion: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -125,8 +125,6 @@ void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2
   v6 = *(*(a1 + 32) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_consumeDoubleTapWithReason:(id)reason includingAX:(BOOL)x
@@ -134,15 +132,16 @@ void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2
   xCopy = x;
   v12 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
+  v7 = reasonCopy;
   self->_lastDoubleTap = 0;
   if (self->_doubleTapDetected)
   {
-    v7 = LA_LOG_1();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LA_LOG_1(reasonCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138543362;
-      v11 = reasonCopy;
-      _os_log_impl(&dword_238B7F000, v7, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has consumed existing double press, because %{public}@", &v10, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_238B7F000, v8, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has consumed existing double press, because %{public}@", &v10, 0xCu);
     }
 
     self->_doubleTapDetected = 0;
@@ -150,18 +149,16 @@ void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2
 
   if (xCopy && self->_axDoubleTapDetected)
   {
-    v8 = LA_LOG_1();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LA_LOG_1(reasonCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138543362;
-      v11 = reasonCopy;
-      _os_log_impl(&dword_238B7F000, v8, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has consumed existing ax double press, because %{public}@", &v10, 0xCu);
+      v11 = v7;
+      _os_log_impl(&dword_238B7F000, v9, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has consumed existing ax double press, because %{public}@", &v10, 0xCu);
     }
 
     self->_axDoubleTapDetected = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleDoubleTapExpiration
@@ -183,27 +180,27 @@ void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2
     v7 = v8;
   }
 
-  v9 = LA_LOG_1();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = LA_LOG_1(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     delegate3 = [(PushButtonMonitor *)self delegate];
-    v11 = [delegate3 description];
-    v12 = v11;
-    v13 = @"default";
-    if (v11)
+    v12 = [delegate3 description];
+    v13 = v12;
+    v14 = @"default";
+    if (v12)
     {
-      v13 = v11;
+      v14 = v12;
     }
 
     *buf = 134218242;
     v21 = v7;
     v22 = 2114;
-    v23 = v13;
-    _os_log_impl(&dword_238B7F000, v9, OS_LOG_TYPE_INFO, "PushButtonMonitor will consume this double press after %0.1f seconds as required by %{public}@", buf, 0x16u);
+    v23 = v14;
+    _os_log_impl(&dword_238B7F000, v10, OS_LOG_TYPE_INFO, "PushButtonMonitor will consume this double press after %0.1f seconds as required by %{public}@", buf, 0x16u);
   }
 
-  v14 = +[DaemonUtils sharedInstance];
-  serverQueue = [v14 serverQueue];
+  v15 = +[DaemonUtils sharedInstance];
+  serverQueue = [v15 serverQueue];
   v17[0] = MEMORY[0x277D85DD0];
   v17[1] = 3221225472;
   v17[2] = __49__PushButtonMonitor__scheduleDoubleTapExpiration__block_invoke;
@@ -215,7 +212,6 @@ void __36__PushButtonMonitor_prearmAssertion__block_invoke(uint64_t a1, void *a2
 
   objc_destroyWeak(v18);
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PushButtonMonitor__scheduleDoubleTapExpiration__block_invoke(uint64_t a1)
@@ -238,18 +234,18 @@ void __49__PushButtonMonitor__scheduleDoubleTapExpiration__block_invoke(uint64_t
 
 - (void)doubleTappedAt:(id)at
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [at timeIntervalSinceNow];
   v5 = dispatch_time(0, (v4 * 1000000000.0));
   if (v5 > self->_lastDoubleTap)
   {
     v6 = v5;
-    v7 = LA_LOG_1();
+    v7 = LA_LOG_1(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
-      v11 = v6;
-      _os_log_impl(&dword_238B7F000, v7, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor recognized a new double press at %llu", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = v6;
+      _os_log_impl(&dword_238B7F000, v7, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor recognized a new double press at %llu", &v9, 0xCu);
     }
 
     self->_doubleTapDetected = 1;
@@ -259,32 +255,31 @@ void __49__PushButtonMonitor__scheduleDoubleTapExpiration__block_invoke(uint64_t
     delegate = [(PushButtonMonitor *)self delegate];
     [delegate monitor:self doubleTapDetected:self->_doubleTapDetected];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)adviseDoubleTap
 {
-  if (![(PushButtonMonitor *)self doubleTapDetected])
+  doubleTapDetected = [(PushButtonMonitor *)self doubleTapDetected];
+  if ((doubleTapDetected & 1) == 0)
   {
-    v3 = LA_LOG_1();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = LA_LOG_1(doubleTapDetected);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_238B7F000, v3, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has been informed about previous double press", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_238B7F000, v4, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor has been informed about previous double press", v6, 2u);
     }
 
     self->_doubleTapDetected = 1;
-    v4 = dispatch_time(0, 0);
+    v5 = dispatch_time(0, 0);
     self->_lastTap = 0;
-    self->_lastDoubleTap = v4;
+    self->_lastDoubleTap = v5;
     [(PushButtonMonitor *)self _scheduleDoubleTapExpiration];
   }
 }
 
 - (void)axApplePayConfirmation
 {
-  v3 = LA_LOG_1();
+  v3 = LA_LOG_1(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -352,15 +347,15 @@ void __43__PushButtonMonitor_axApplePayConfirmation__block_invoke(uint64_t a1)
 
 - (void)stop
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_powerButtonObserver)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __25__PushButtonMonitor_stop__block_invoke;
-    v5[3] = &unk_278A61588;
-    v5[4] = self;
-    [DaemonUtils dispatchSyncOnMain:v5];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __25__PushButtonMonitor_stop__block_invoke;
+    v4[3] = &unk_278A61588;
+    v4[4] = self;
+    self = [DaemonUtils dispatchSyncOnMain:v4];
     v2 = "has";
   }
 
@@ -369,15 +364,13 @@ void __43__PushButtonMonitor_axApplePayConfirmation__block_invoke(uint64_t a1)
     v2 = "was already";
   }
 
-  v3 = LA_LOG_1();
+  v3 = LA_LOG_1(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v7 = v2;
+    v6 = v2;
     _os_log_impl(&dword_238B7F000, v3, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor %{public}s stopped", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __25__PushButtonMonitor_stop__block_invoke(uint64_t a1)
@@ -404,36 +397,35 @@ void __25__PushButtonMonitor_stop__block_invoke(uint64_t a1)
 
 uint64_t __51__PushButtonMonitor__restartWithReactivationDelay___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = LA_LOG_1();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = LA_LOG_1(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v6 = 134217984;
-    v7 = v3;
-    _os_log_impl(&dword_238B7F000, v2, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor is restarting after %.0f seconds", &v6, 0xCu);
+    v5 = 134217984;
+    v6 = v3;
+    _os_log_impl(&dword_238B7F000, v2, OS_LOG_TYPE_DEFAULT, "PushButtonMonitor is restarting after %.0f seconds", &v5, 0xCu);
   }
 
-  result = [*(a1 + 32) start];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) start];
 }
 
 - (BOOL)startWithError:(id *)error
 {
+  selfCopy = self;
   v16 = *MEMORY[0x277D85DE8];
-  if (self->_powerButtonObserver || !+[DaemonUtils deviceHasTouchIDAndSecureDoublePress])
+  if (self->_powerButtonObserver || (self = +[DaemonUtils deviceHasTouchIDAndSecureDoublePress], !self))
   {
-    v5 = LA_LOG_1();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = LA_LOG_1(self);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    powerButtonObserver = self->_powerButtonObserver;
+    powerButtonObserver = selfCopy->_powerButtonObserver;
     *buf = 138412290;
     v15 = powerButtonObserver;
-    v7 = "PushButtonMonitor is already running with SB button observer: %@";
+    v8 = "PushButtonMonitor is already running with SB button observer: %@";
     goto LABEL_8;
   }
 
@@ -441,11 +433,11 @@ uint64_t __51__PushButtonMonitor__restartWithReactivationDelay___block_invoke(ui
   v13[1] = 3221225472;
   v13[2] = __36__PushButtonMonitor_startWithError___block_invoke;
   v13[3] = &unk_278A61588;
-  v13[4] = self;
-  [DaemonUtils dispatchSyncOnMain:v13];
-  if (!self->_powerButtonObserver)
+  v13[4] = selfCopy;
+  v5 = [DaemonUtils dispatchSyncOnMain:v13];
+  if (!selfCopy->_powerButtonObserver)
   {
-    v9 = [MEMORY[0x277CD47F0] internalErrorWithMessage:@"Failed to register SB button observer."];
+    v10 = [MEMORY[0x277CD47F0] internalErrorWithMessage:@"Failed to register SB button observer."];
     if (!error)
     {
       goto LABEL_11;
@@ -454,48 +446,44 @@ uint64_t __51__PushButtonMonitor__restartWithReactivationDelay___block_invoke(ui
     goto LABEL_10;
   }
 
-  v5 = LA_LOG_1();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = LA_LOG_1(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = self->_powerButtonObserver;
+    v7 = selfCopy->_powerButtonObserver;
     *buf = 138412290;
-    v15 = v6;
-    v7 = "PushButtonMonitor was activated with SB button observer: %@";
+    v15 = v7;
+    v8 = "PushButtonMonitor was activated with SB button observer: %@";
 LABEL_8:
-    _os_log_impl(&dword_238B7F000, v5, OS_LOG_TYPE_DEFAULT, v7, buf, 0xCu);
+    _os_log_impl(&dword_238B7F000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
   }
 
 LABEL_9:
 
-  v9 = 0;
+  v10 = 0;
   if (error)
   {
 LABEL_10:
-    v9 = v9;
-    *error = v9;
+    v10 = v10;
+    *error = v10;
   }
 
 LABEL_11:
-  v10 = v9 == 0;
+  v11 = v10 == 0;
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 uint64_t __36__PushButtonMonitor_startWithError___block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 40) beginConsumingPressesForButtonKind:2 eventConsumer:*(a1 + 32) priority:0];
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 48);
-  *(v3 + 48) = v2;
+  *(*(a1 + 32) + 48) = [*(*(a1 + 32) + 40) beginConsumingPressesForButtonKind:2 eventConsumer:*(a1 + 32) priority:0];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)consumeDoublePressUpForButtonKind:(int64_t)kind
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = LA_LOG_1();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = LA_LOG_1(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -513,8 +501,6 @@ uint64_t __36__PushButtonMonitor_startWithError___block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_async(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PushButtonMonitor_consumeDoublePressUpForButtonKind___block_invoke(uint64_t a1)

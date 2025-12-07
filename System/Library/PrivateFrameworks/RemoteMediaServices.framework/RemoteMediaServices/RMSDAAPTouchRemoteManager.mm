@@ -39,18 +39,19 @@
 {
   v13 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
+  v5 = handlerCopy;
   if (!self->_portSecret)
   {
     do
     {
-      v5 = arc4random();
-      self->_portSecret = v5;
+      handlerCopy = arc4random();
+      self->_portSecret = handlerCopy;
     }
 
-    while (!v5);
+    while (!handlerCopy);
   }
 
-  v6 = RMSLogger();
+  v6 = RMSLogger(handlerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     portSecret = self->_portSecret;
@@ -65,7 +66,7 @@
   v9[2] = __66__RMSDAAPTouchRemoteManager_initiateControlWithCompletionHandler___block_invoke;
   v9[3] = &unk_279B092B0;
   objc_copyWeak(&v11, &buf);
-  v8 = handlerCopy;
+  v8 = v5;
   v10 = v8;
   [(RMSDAAPTouchRemoteManager *)self _requestPromptUpdate:v9];
 
@@ -95,7 +96,7 @@ uint64_t __66__RMSDAAPTouchRemoteManager_initiateControlWithCompletionHandler___
   if (self->_shouldWriteTimestampsForPPT)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    v10 = RMSLogger();
+    v10 = RMSLogger(date);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -134,8 +135,7 @@ void __68__RMSDAAPTouchRemoteManager_sendTouchMoveWithDirection_repeatCount___bl
   v6 = *MEMORY[0x277D85DE8];
   v1 = [sendTouchMoveWithDirection_repeatCount__timestampFormatter stringFromDate:*(a1 + 32)];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"/tmp/NanoRemotePPT-%@", v1];
-  [v1 writeToFile:v2 atomically:0 encoding:4 error:0];
-  v3 = RMSLogger();
+  v3 = RMSLogger([v1 writeToFile:v2 atomically:0 encoding:4 error:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -243,7 +243,7 @@ void __68__RMSDAAPTouchRemoteManager_sendTouchMoveWithDirection_repeatCount___bl
 
 void __50__RMSDAAPTouchRemoteManager__requestPromptUpdate___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a2 == 1)
   {
     v3 = [RMSDAAPParser objectWithData:?];
@@ -251,25 +251,25 @@ void __50__RMSDAAPTouchRemoteManager__requestPromptUpdate___block_invoke(uint64_
     *(*(a1 + 32) + 24) = [v4 integerValue];
 
     v5 = [v3 objectForKeyedSubscript:@"items"];
-    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v18 objects:buf count:16];
+    v22 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:buf count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v19;
+      v8 = *v20;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v19 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v18 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           v11 = [v10 objectForKeyedSubscript:@"name"];
           if ([v11 isEqualToString:@"kKeybMsgKey_MessageType"])
           {
@@ -281,7 +281,7 @@ void __50__RMSDAAPTouchRemoteManager__requestPromptUpdate___block_invoke(uint64_
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v18 objects:buf count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:buf count:16];
         if (v7)
         {
           continue;
@@ -294,24 +294,24 @@ void __50__RMSDAAPTouchRemoteManager__requestPromptUpdate___block_invoke(uint64_
     v12 = 0;
 LABEL_15:
 
-    v16 = RMSLogger();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = RMSLogger(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = v5;
-      _os_log_impl(&dword_261E98000, v16, OS_LOG_TYPE_DEFAULT, "Control prompt items: %@", buf, 0xCu);
+      v24 = v5;
+      _os_log_impl(&dword_261E98000, v17, OS_LOG_TYPE_DEFAULT, "Control prompt items: %@", buf, 0xCu);
     }
 
-    v17 = *(a1 + 32);
+    v18 = *(a1 + 32);
     if (v12)
     {
-      [v17 _parsePortInfoItems:v5];
+      [v18 _parsePortInfoItems:v5];
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      [v17 _requestPortInfo];
+      [v18 _requestPortInfo];
       [*(a1 + 32) _requestPromptUpdate:*(a1 + 40)];
     }
   }
@@ -340,14 +340,15 @@ LABEL_15:
     v6 = *v18;
     do
     {
-      for (i = 0; i != v5; ++i)
+      v7 = 0;
+      do
       {
         if (*v18 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v17 + 1) + 8 * v7);
         v9 = [v8 objectForKeyedSubscript:{@"name", p_encryptionKey}];
         v10 = [v8 objectForKeyedSubscript:@"value"];
         p_port = &self->_port;
@@ -355,15 +356,19 @@ LABEL_15:
         {
           *p_port = self->_portSecret ^ [v10 intValue];
         }
+
+        ++v7;
       }
 
-      v5 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
+      while (v5 != v7);
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = v4;
     }
 
-    while (v5);
+    while (v4);
   }
 
-  v12 = RMSLogger();
+  v12 = RMSLogger(v4);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     port = self->_port;

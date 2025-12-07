@@ -1126,28 +1126,28 @@ LABEL_28:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5);
 }
 
 - (void)relativeSendTimeWithTimestamp:timestampRate:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5);
 }
 
 - (void)relativeReceiveTimeWithTimestamp:timestampRate:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5);
 }
 
 - (void)relativeReceiveTimeWithTimestamp:timestampRate:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_11(&dword_1DB56E000, v0, v1, "VCRC [%s] %s:%d Time counter wrapped around", v2, v3, v4, v5);
 }
 
 @end

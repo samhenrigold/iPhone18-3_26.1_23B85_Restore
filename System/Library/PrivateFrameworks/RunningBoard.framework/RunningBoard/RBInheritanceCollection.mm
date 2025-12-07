@@ -21,36 +21,36 @@
 
 - (id)_initWithInheritances:(id)inheritances
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   inheritancesCopy = inheritances;
   v5 = [(RBInheritanceCollection *)self init];
   v6 = v5;
   if (v5)
   {
-    v27 = v5;
+    v26 = v5;
     v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v26 = inheritancesCopy;
+    v25 = inheritancesCopy;
     v9 = inheritancesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
           environment = [v14 environment];
           if (environment)
           {
@@ -68,29 +68,28 @@
           [v8 addObject:endowmentNamespace];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v11);
     }
 
     v18 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:v7 copyItems:1];
-    v6 = v27;
-    inheritancesByEnvironment = v27->_inheritancesByEnvironment;
-    v27->_inheritancesByEnvironment = v18;
+    v6 = v26;
+    inheritancesByEnvironment = v26->_inheritancesByEnvironment;
+    v26->_inheritancesByEnvironment = v18;
 
     v20 = [v8 copy];
-    namespaces = v27->_namespaces;
-    v27->_namespaces = v20;
+    namespaces = v26->_namespaces;
+    v26->_namespaces = v20;
 
     v22 = [v9 copy];
-    inheritances = v27->_inheritances;
-    v27->_inheritances = v22;
+    inheritances = v26->_inheritances;
+    v26->_inheritances = v22;
 
-    inheritancesCopy = v26;
+    inheritancesCopy = v25;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

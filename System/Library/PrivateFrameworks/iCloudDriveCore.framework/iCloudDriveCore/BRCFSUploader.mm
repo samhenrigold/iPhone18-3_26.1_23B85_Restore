@@ -19,6 +19,7 @@
 - (int64_t)_rescheduleUploadJobsPendingState:(int)state;
 - (unint64_t)_minBatchSize;
 - (unint64_t)_thumbnailOperationsMax;
+- (void)_cancelJobs:(id)jobs state:(int)state uploadError:(id)error;
 - (void)_cancelJobsMatching:(id)matching;
 - (void)_clearUploadErrorForDocument:(id)document;
 - (void)_close;
@@ -60,7 +61,10 @@
 - (void)screenLockChanged:(BOOL)changed;
 - (void)setIsDefaultOwnerOutOfQuota:(BOOL)quota forceSignalContainers:(BOOL)containers;
 - (void)setQuotaAvailableForDefaultOwner:(unint64_t)owner;
+- (void)setState:(int)state forItem:(id)item;
+- (void)setState:(int)state forItem:(id)item uploadError:(id)error;
 - (void)setState:(int)state forJobID:(id)d zone:(id)zone;
+- (void)setState:(int)state forUploadJobID:(id)d zone:(id)zone uploadError:(id)error;
 - (void)suspend;
 - (void)transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority completionBlock:(id)block;
 - (void)uploadItem:(id)item;
@@ -89,9 +93,9 @@
 {
   sessionCopy = session;
   v5 = [BRCUserDefaults defaultsForMangledID:0];
-  v50.receiver = self;
-  v50.super_class = BRCFSUploader;
-  v6 = [(BRCFSSchedulerBase *)&v50 initWithSession:sessionCopy name:@"Uploader" tableName:@"client_uploads"];
+  v47.receiver = self;
+  v47.super_class = BRCFSUploader;
+  v6 = [(BRCFSSchedulerBase *)&v47 initWithSession:sessionCopy name:@"Uploader" tableName:@"client_uploads"];
   if (v6)
   {
     v7 = objc_alloc_init(BRCThumbnailGenerationManager);
@@ -99,101 +103,98 @@
     v6->_thumbnailGenerationManager = v7;
 
     [v5 quotaFetchPacerDelay];
-    schedulerWorkloop = v6->super.super._schedulerWorkloop;
-    v10 = br_pacer_create();
+    v9 = br_pacer_create();
     quotaPacer = v6->_quotaPacer;
-    v6->_quotaPacer = v10;
+    v6->_quotaPacer = v9;
 
-    v12 = brc_task_tracker_create("upload-thumbnail-tracker");
+    v11 = brc_task_tracker_create("upload-thumbnail-tracker");
     thumbnailTracker = v6->_thumbnailTracker;
-    v6->_thumbnailTracker = v12;
+    v6->_thumbnailTracker = v11;
 
     objc_initWeak(&location, v6);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke;
-    v47[3] = &unk_2784FF400;
-    objc_copyWeak(&v48, &location);
-    [(BRCThumbnailGenerationManager *)v6->_thumbnailGenerationManager setHasThumbnailAvailableSlot:v47];
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_3;
-    v45[3] = &unk_2784FF400;
-    objc_copyWeak(&v46, &location);
-    [(BRCThumbnailGenerationManager *)v6->_thumbnailGenerationManager setReachedThumbnailMaximumCapacity:v45];
-    v14 = v6->_quotaPacer;
-    v43[1] = MEMORY[0x277D85DD0];
-    v43[2] = 3221225472;
-    v43[3] = __40__BRCFSUploader_initWithAccountSession___block_invoke_4;
-    v43[4] = &unk_2784FF400;
-    objc_copyWeak(&v44, &location);
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke;
+    v44[3] = &unk_2784FF400;
+    objc_copyWeak(&v45, &location);
+    [(BRCThumbnailGenerationManager *)v6->_thumbnailGenerationManager setHasThumbnailAvailableSlot:v44];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_3;
+    v42[3] = &unk_2784FF400;
+    objc_copyWeak(&v43, &location);
+    [(BRCThumbnailGenerationManager *)v6->_thumbnailGenerationManager setReachedThumbnailMaximumCapacity:v42];
+    v40[1] = MEMORY[0x277D85DD0];
+    v40[2] = 3221225472;
+    v40[3] = __40__BRCFSUploader_initWithAccountSession___block_invoke_4;
+    v40[4] = &unk_2784FF400;
+    objc_copyWeak(&v41, &location);
     br_pacer_set_event_handler();
     clientDB = [sessionCopy clientDB];
     serialQueue = [clientDB serialQueue];
-    v17 = br_pacer_create();
+    v15 = br_pacer_create();
     globalQuotaStateUpdatePacer = v6->_globalQuotaStateUpdatePacer;
-    v6->_globalQuotaStateUpdatePacer = v17;
+    v6->_globalQuotaStateUpdatePacer = v15;
 
-    v19 = v6->_globalQuotaStateUpdatePacer;
-    v42[1] = MEMORY[0x277D85DD0];
-    v42[2] = 3221225472;
-    v42[3] = __40__BRCFSUploader_initWithAccountSession___block_invoke_5;
-    v42[4] = &unk_2784FF400;
-    objc_copyWeak(v43, &location);
+    v39[1] = MEMORY[0x277D85DD0];
+    v39[2] = 3221225472;
+    v39[3] = __40__BRCFSUploader_initWithAccountSession___block_invoke_5;
+    v39[4] = &unk_2784FF400;
+    objc_copyWeak(v40, &location);
     br_pacer_set_event_handler();
     personaIdentifier = [sessionCopy personaIdentifier];
-    v21 = BRPersonaSpecificName();
+    v18 = BRPersonaSpecificName();
 
-    v22 = dispatch_workloop_create([v21 UTF8String]);
-    v23 = [[BRCFairScheduler alloc] initWithWorkloop:v22 name:v21];
+    v19 = dispatch_workloop_create([v18 UTF8String]);
+    v20 = [[BRCFairScheduler alloc] initWithWorkloop:v19 name:v18];
     fairScheduler = v6->_fairScheduler;
-    v6->_fairScheduler = v23;
+    v6->_fairScheduler = v20;
 
-    v25 = [[BRCDeadlineScheduler alloc] initWithName:@"com.apple.bird.uploader" fairScheduler:v6->_fairScheduler];
+    v22 = [[BRCDeadlineScheduler alloc] initWithName:@"com.apple.bird.uploader" fairScheduler:v6->_fairScheduler];
     uploadsDeadlineScheduler = v6->_uploadsDeadlineScheduler;
-    v6->_uploadsDeadlineScheduler = v25;
+    v6->_uploadsDeadlineScheduler = v22;
 
     [(BRCDeadlineScheduler *)v6->_uploadsDeadlineScheduler setCoalescingLeeway:10000000];
-    v27 = [BRCDeadlineSource alloc];
+    v24 = [BRCDeadlineSource alloc];
     defaultScheduler = [(BRCAccountSession *)v6->super.super._session defaultScheduler];
-    v29 = [(BRCDeadlineSource *)v27 initWithScheduler:defaultScheduler name:@"uploader-retry"];
+    v26 = [(BRCDeadlineSource *)v24 initWithScheduler:defaultScheduler name:@"uploader-retry"];
     retryQueueSource = v6->_retryQueueSource;
-    v6->_retryQueueSource = v29;
+    v6->_retryQueueSource = v26;
 
     [(BRCDeadlineSource *)v6->_retryQueueSource setWorkloop:v6->super.super._schedulerWorkloop];
-    v31 = v6->_retryQueueSource;
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_6;
-    v41[3] = &unk_2784FF400;
-    objc_copyWeak(v42, &location);
-    [(BRCDeadlineSource *)v31 setEventHandler:v41];
-    v32 = +[BRCUploadConstraintChecker defaultChecker];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_22;
-    v39[3] = &unk_2784FF400;
-    objc_copyWeak(&v40, &location);
+    v28 = v6->_retryQueueSource;
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_6;
+    v38[3] = &unk_2784FF400;
+    objc_copyWeak(v39, &location);
+    [(BRCDeadlineSource *)v28 setEventHandler:v38];
+    v29 = +[BRCUploadConstraintChecker defaultChecker];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_22;
+    v36[3] = &unk_2784FF400;
+    objc_copyWeak(&v37, &location);
     personaIdentifier2 = [(BRCAccountSession *)v6->super.super._session personaIdentifier];
-    [v32 addRescheduleSuspendedJobsBlock:v39 forPersonaID:personaIdentifier2];
+    [v29 addRescheduleSuspendedJobsBlock:v36 forPersonaID:personaIdentifier2];
 
-    v34 = +[BRCUploadConstraintChecker defaultChecker];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_2_23;
-    v37[3] = &unk_2785055F0;
-    objc_copyWeak(&v38, &location);
+    v31 = +[BRCUploadConstraintChecker defaultChecker];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __40__BRCFSUploader_initWithAccountSession___block_invoke_2_23;
+    v34[3] = &unk_2785055F0;
+    objc_copyWeak(&v35, &location);
     personaIdentifier3 = [(BRCAccountSession *)v6->super.super._session personaIdentifier];
-    [v34 addNoSpaceExecutionBlock:v37 forPersonaID:personaIdentifier3];
+    [v31 addNoSpaceExecutionBlock:v34 forPersonaID:personaIdentifier3];
 
-    objc_destroyWeak(&v38);
-    objc_destroyWeak(&v40);
-    objc_destroyWeak(v42);
+    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v37);
+    objc_destroyWeak(v39);
 
-    objc_destroyWeak(v43);
-    objc_destroyWeak(&v44);
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(v40);
+    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v43);
+    objc_destroyWeak(&v45);
     objc_destroyWeak(&location);
   }
 
@@ -241,7 +242,7 @@ void __40__BRCFSUploader_initWithAccountSession___block_invoke_6(uint64_t a1)
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __40__BRCFSUploader_initWithAccountSession___block_invoke_6_cold_1(v6);
+    __40__BRCFSUploader_initWithAccountSession___block_invoke_6_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -281,55 +282,52 @@ void __40__BRCFSUploader_initWithAccountSession___block_invoke_2_23(uint64_t a1,
 
 - (void)resume
 {
-  quotaPacer = self->_quotaPacer;
   br_pacer_resume();
   clientState = [(BRCAccountSession *)self->super.super._session clientState];
-  v5 = [clientState objectForKeyedSubscript:@"availableQuota"];
+  v4 = [clientState objectForKeyedSubscript:@"availableQuota"];
 
-  if (!v5)
+  if (!v4)
   {
-    v6 = self->_quotaPacer;
     br_pacer_signal();
   }
 
-  globalQuotaStateUpdatePacer = self->_globalQuotaStateUpdatePacer;
   br_pacer_resume();
   [(BRCDeadlineSource *)self->_retryQueueSource signal];
-  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   session = self->super.super._session;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __23__BRCFSUploader_resume__block_invoke;
-  v23[3] = &unk_278505618;
-  v10 = v8;
-  v24 = v10;
-  [(BRCAccountSession *)session enumerateServerZones:v23];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __23__BRCFSUploader_resume__block_invoke;
+  v20[3] = &unk_278505618;
+  v7 = v5;
+  v21 = v7;
+  [(BRCAccountSession *)session enumerateServerZones:v20];
   globalProgress = [(BRCAccountSession *)self->super.super._session globalProgress];
-  [globalProgress resumeProgressForZones:v10];
+  [globalProgress resumeProgressForZones:v7];
 
   [(BRCDeadlineScheduler *)self->_uploadsDeadlineScheduler resume];
   [(BRCDeadlineSource *)self->_retryQueueSource resume];
   [(BRCFairScheduler *)self->_fairScheduler resume];
-  v12 = [BRCUploadCKRecordProvider alloc];
+  v9 = [BRCUploadCKRecordProvider alloc];
   stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
-  v14 = MEMORY[0x277CCABB0];
+  v11 = MEMORY[0x277CCABB0];
   volume = [(BRCAccountSession *)self->super.super._session volume];
-  v16 = [v14 numberWithInt:{objc_msgSend(volume, "deviceID")}];
-  v17 = [(BRCUploadCKRecordProvider *)v12 initWithStageRegistry:stageRegistry deviceID:v16];
+  v13 = [v11 numberWithInt:{objc_msgSend(volume, "deviceID")}];
+  v14 = [(BRCUploadCKRecordProvider *)v9 initWithStageRegistry:stageRegistry deviceID:v13];
   uploadCKRecordProvider = self->_uploadCKRecordProvider;
-  self->_uploadCKRecordProvider = v17;
+  self->_uploadCKRecordProvider = v14;
 
-  v22.receiver = self;
-  v22.super_class = BRCFSUploader;
-  [(BRCFSSchedulerBase *)&v22 resume];
-  v19 = +[BRCSystemResourcesManager manager];
-  [v19 addScreenLockObserver:self];
+  v19.receiver = self;
+  v19.super_class = BRCFSUploader;
+  [(BRCFSSchedulerBase *)&v19 resume];
+  v16 = +[BRCSystemResourcesManager manager];
+  [v16 addScreenLockObserver:self];
 
-  v20 = +[BRCSystemResourcesManager manager];
-  [v20 addReachabilityObserver:self];
+  v17 = +[BRCSystemResourcesManager manager];
+  [v17 addReachabilityObserver:self];
 
-  v21 = +[BRCAccountHandler currentiCloudAccount];
-  LOBYTE(stageRegistry) = [v21 br_needsToVerifyTerms];
+  v18 = +[BRCAccountHandler currentiCloudAccount];
+  LOBYTE(stageRegistry) = [v18 br_needsToVerifyTerms];
 
   if ((stageRegistry & 1) == 0)
   {
@@ -360,14 +358,13 @@ uint64_t __23__BRCFSUploader_resume__block_invoke(uint64_t a1, void *a2)
 {
   [(BRCDeadlineScheduler *)self->_uploadsDeadlineScheduler close];
   [(BRCFairScheduler *)self->_fairScheduler close];
-  quotaPacer = self->_quotaPacer;
   br_pacer_cancel();
   uploadCKRecordProvider = self->_uploadCKRecordProvider;
   self->_uploadCKRecordProvider = 0;
 
-  v5.receiver = self;
-  v5.super_class = BRCFSUploader;
-  [(BRCFSSchedulerBase *)&v5 close];
+  v4.receiver = self;
+  v4.super_class = BRCFSUploader;
+  [(BRCFSSchedulerBase *)&v4 close];
 }
 
 - (void)_close
@@ -422,6 +419,25 @@ void __44__BRCFSUploader_descriptionForItem_context___block_invoke(uint64_t a1, 
       [v11 appendFormat:@" upload_error:%@", v9];
     }
   }
+}
+
+- (void)setState:(int)state forItem:(id)item
+{
+  v4 = *&state;
+  itemCopy = item;
+  v6 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [itemCopy dbRowID]);
+  serverZone = [itemCopy serverZone];
+  [(BRCFSUploader *)self setState:v4 forUploadJobID:v6 zone:serverZone];
+}
+
+- (void)setState:(int)state forItem:(id)item uploadError:(id)error
+{
+  v6 = *&state;
+  itemCopy = item;
+  errorCopy = error;
+  v9 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [itemCopy dbRowID]);
+  serverZone = [itemCopy serverZone];
+  [(BRCFSUploader *)self setState:v6 forUploadJobID:v9 zone:serverZone uploadError:errorCopy];
 }
 
 - (int)getStateOfDocumentItem:(id)item
@@ -500,7 +516,7 @@ LABEL_13:
 
 - (void)_updateJobID:(id)d setStageID:(id)iD operationID:(id)operationID
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   operationIDCopy = operationID;
@@ -509,19 +525,17 @@ LABEL_13:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v17 = dCopy;
-    v18 = 2112;
-    v19 = iDCopy;
-    v20 = 2112;
-    v21 = v11;
+    v16 = dCopy;
+    v17 = 2112;
+    v18 = iDCopy;
+    v19 = 2112;
+    v20 = v11;
     _os_log_debug_impl(&dword_223E7A000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: upload stage set to: %@%@", buf, 0x20u);
   }
 
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   matchingJobsWhereSQLClause = [dCopy matchingJobsWhereSQLClause];
   [clientDB execute:{@"UPDATE client_uploads SET transfer_stage = %@, transfer_operation = %@ WHERE %@", iDCopy, operationIDCopy, matchingJobsWhereSQLClause}];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_documentItemForJobID:(id)d stageID:(id)iD
@@ -592,6 +606,164 @@ LABEL_13:
   [clientDB execute:{@"UPDATE client_uploads SET   throttle_state = 1, transfer_operation = %@ WHERE %@", iDCopy, matchingJobsWhereSQLClause}];
 }
 
+- (void)_cancelJobs:(id)jobs state:(int)state uploadError:(id)error
+{
+  v34 = *&state;
+  v51 = *MEMORY[0x277D85DE8];
+  jobsCopy = jobs;
+  errorCopy = error;
+  if ([jobsCopy next])
+  {
+    do
+    {
+      context = objc_autoreleasePoolPush();
+      v7 = [jobsCopy numberAtIndex:0];
+      v38 = [jobsCopy stringAtIndex:1];
+      v37 = [jobsCopy uuidAtIndex:2];
+      v8 = [jobsCopy stringAtIndex:3];
+      v9 = [jobsCopy numberAtIndex:4];
+      v10 = [jobsCopy intAtIndex:5];
+      v11 = [jobsCopy numberAtIndex:6];
+      v36 = [(BRCAccountSession *)self->super.super._session appLibraryByRowID:v9];
+      v12 = [(BRCAccountSession *)self->super.super._session serverZoneByRowID:v11];
+      memset(v40, 0, sizeof(v40));
+      __brc_create_section(0, "[BRCFSUploader _cancelJobs:state:uploadError:]", 422, 0, v40);
+      v13 = brc_bread_crumbs();
+      v14 = brc_default_log();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        v32 = v40[0];
+        v31 = BRCPrettyPrintEnum();
+        v30 = BRCPrettyPrintEnum();
+        *buf = 134219010;
+        v42 = v32;
+        v43 = 2112;
+        v44 = v7;
+        v45 = 2080;
+        v46 = v31;
+        v47 = 2080;
+        v48 = v30;
+        v49 = 2112;
+        v50 = v13;
+        _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: %s -> %s [cancel-job]%@", buf, 0x34u);
+      }
+
+      if (v10 == 32)
+      {
+        if (v34 == 32)
+        {
+          goto LABEL_12;
+        }
+
+        ownerName = [v12 ownerName];
+        [(BRCFSUploader *)self scheduleQuotaStateUpdateForOwner:ownerName];
+      }
+
+      else
+      {
+        if (v10 != 1)
+        {
+          goto LABEL_12;
+        }
+
+        v15 = brc_bread_crumbs();
+        v16 = brc_default_log();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412546;
+          v42 = v7;
+          v43 = 2112;
+          v44 = v15;
+          _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: Cancelling upload%@", buf, 0x16u);
+        }
+
+        itemFetcher = [(BRCAccountSession *)self->super.super._session itemFetcher];
+        v18 = [itemFetcher itemByRowID:{objc_msgSend(v7, "unsignedIntegerValue")}];
+        ownerName = [v18 asDocument];
+
+        globalProgress = [(BRCAccountSession *)self->super.super._session globalProgress];
+        [globalProgress updateUploadThrottleForDocument:ownerName toState:v34];
+      }
+
+LABEL_12:
+      if ([v38 isEqualToString:@"_prepare"])
+      {
+        thumbnailGenerationManager = [(BRCFSUploader *)self thumbnailGenerationManager];
+        v22 = [thumbnailGenerationManager operationForThumbnailID:v7];
+
+        if (v22)
+        {
+          [v22 cancel];
+          uploadStream = brc_bread_crumbs();
+          v24 = brc_default_log();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 138412802;
+            v42 = v7;
+            v43 = 2112;
+            v44 = v22;
+            v45 = 2112;
+            v46 = uploadStream;
+            _os_log_debug_impl(&dword_223E7A000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: cancelled thumbnail upload: %@%@", buf, 0x20u);
+          }
+
+LABEL_19:
+        }
+
+        goto LABEL_21;
+      }
+
+      if (v37)
+      {
+        v22 = [BRCSyncContext transferContextForServerZone:v12 appLibrary:v36];
+        uploadStream = [v22 uploadStream];
+        [uploadStream cancelTransferID:v7 operationID:v37];
+        goto LABEL_19;
+      }
+
+LABEL_21:
+      if (v8)
+      {
+        v25 = brc_bread_crumbs();
+        v26 = brc_default_log();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412802;
+          v42 = v7;
+          v43 = 2112;
+          v44 = v8;
+          v45 = 2112;
+          v46 = v25;
+          _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: Cleaning up upload stage: %@%@", buf, 0x20u);
+        }
+
+        stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
+        [stageRegistry cleanupStagedUploadWithID:v8];
+      }
+
+      if (errorCopy)
+      {
+        [MEMORY[0x277D82C08] formatInjection:{@", upload_error = %@ ", errorCopy}];
+      }
+
+      else
+      {
+        [MEMORY[0x277D82C18] rawInjection:"" length:0];
+      }
+      v28 = ;
+      v29 = [jobsCopy db];
+      [v29 execute:{@"UPDATE client_uploads SET  throttle_state = %d, transfer_queue = '_prepare', transfer_record = NULL, transfer_stage = NULL, transfer_operation = NULL%@ WHERE throttle_id = %@", v34, v28, v7}];
+
+      __brc_leave_section(v40);
+      objc_autoreleasePoolPop(context);
+    }
+
+    while (([jobsCopy next] & 1) != 0);
+  }
+
+  [jobsCopy close];
+}
+
 - (void)_cancelJobsMatching:(id)matching
 {
   session = self->super.super._session;
@@ -628,34 +800,32 @@ LABEL_13:
 
 - (void)cancelAndCleanupItemUpload:(id)upload
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
-  memset(v10, 0, sizeof(v10));
-  __brc_create_section(0, "[BRCFSUploader cancelAndCleanupItemUpload:]", 491, 0, v10);
+  memset(v9, 0, sizeof(v9));
+  __brc_create_section(0, "[BRCFSUploader cancelAndCleanupItemUpload:]", 491, 0, v9);
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = v10[0];
+    v7 = v9[0];
     jobsDescription = [uploadCopy jobsDescription];
     *buf = 134218498;
-    v12 = v8;
-    v13 = 2112;
-    v14 = jobsDescription;
-    v15 = 2112;
-    v16 = v5;
+    v11 = v7;
+    v12 = 2112;
+    v13 = jobsDescription;
+    v14 = 2112;
+    v15 = v5;
     _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: cancel and cleanup item upload%@", buf, 0x20u);
   }
 
   [(BRCFSUploader *)self _cancelJobsMatching:uploadCopy];
-  __brc_leave_section(v10);
-
-  v7 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v9);
 }
 
 - (int64_t)_rescheduleUploadJobsPendingState:(int)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ((state - 35) >= 4)
   {
     v5 = brc_bread_crumbs();
@@ -678,20 +848,20 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  memset(v16, 0, sizeof(v16));
-  __brc_create_section(0, "[BRCFSUploader _rescheduleUploadJobsPendingState:]", 524, 0, v16);
+  memset(v15, 0, sizeof(v15));
+  __brc_create_section(0, "[BRCFSUploader _rescheduleUploadJobsPendingState:]", 524, 0, v15);
   v7 = brc_bread_crumbs();
   v8 = brc_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v16[0];
-    v15 = BRCPrettyPrintEnum();
+    v13 = v15[0];
+    v14 = BRCPrettyPrintEnum();
     *buf = 134218498;
-    v18 = v14;
-    v19 = 2080;
-    v20 = v15;
-    v21 = 2112;
-    v22 = v7;
+    v17 = v13;
+    v18 = 2080;
+    v19 = v14;
+    v20 = 2112;
+    v21 = v7;
     _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx re-uploading failed items for %s%@", buf, 0x20u);
   }
 
@@ -709,10 +879,9 @@ LABEL_12:
   }
 
   changes = [clientDB changes];
-  __brc_leave_section(v16);
+  __brc_leave_section(v15);
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
   return changes;
 }
 
@@ -749,17 +918,88 @@ void __46__BRCFSUploader_rescheduleJobsPendingCellular__block_invoke(uint64_t a1
 
 - (void)setState:(int)state forJobID:(id)d zone:(id)zone
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_fault_impl(&dword_223E7A000, v6, OS_LOG_TYPE_FAULT, "[CRIT] API MISUSE: should call setState:forUploadJobID:zone:%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_fault_impl(&dword_223E7A000, v6, OS_LOG_TYPE_FAULT, "[CRIT] API MISUSE: should call setState:forUploadJobID:zone:%@", &v7, 0xCu);
+  }
+}
+
+- (void)setState:(int)state forUploadJobID:(id)d zone:(id)zone uploadError:(id)error
+{
+  v8 = *&state;
+  v37 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  zoneCopy = zone;
+  errorCopy = error;
+  memset(v28, 0, sizeof(v28));
+  __brc_create_section(0, "[BRCFSUploader setState:forUploadJobID:zone:uploadError:]", 593, 0, v28);
+  v13 = brc_bread_crumbs();
+  v14 = brc_default_log();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  {
+    v25 = v28[0];
+    v26 = BRCPrettyPrintEnum();
+    *buf = 134218754;
+    v30 = v25;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 2080;
+    v34 = v26;
+    v35 = 2112;
+    v36 = v13;
+    _os_log_debug_impl(&dword_223E7A000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: setting state to %s%@", buf, 0x2Au);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  if (v8 == 1)
+  {
+    clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke;
+    v27[3] = &unk_2784FF870;
+    v27[4] = self;
+    v16 = MEMORY[0x22AA4A310](v27);
+    matchingJobsWhereSQLClause = [dCopy matchingJobsWhereSQLClause];
+    [clientDB execute:{@"UPDATE client_uploads SET  throttle_state = call_block(%@, next_retry_stamp, app_library_rowid, zone_rowid), transfer_queue = %@ WHERE %@", v16, @"_prepare", matchingJobsWhereSQLClause}];
+  }
+
+  else if (v8 == 31)
+  {
+    if (errorCopy)
+    {
+      [MEMORY[0x277D82C08] formatInjection:{@"upload_error = %@, ", errorCopy}];
+    }
+
+    else
+    {
+      [MEMORY[0x277D82C18] rawInjection:"" length:0];
+    }
+    v22 = ;
+    clientDB2 = [(BRCAccountSession *)self->super.super._session clientDB];
+    matchingJobsWhereSQLClause2 = [dCopy matchingJobsWhereSQLClause];
+    [clientDB2 execute:{@"UPDATE client_uploads    SET throttle_state = %d, %@ transfer_operation = NULL  WHERE %@", 31, v22, matchingJobsWhereSQLClause2}];
+  }
+
+  else
+  {
+    clientDB3 = [(BRCAccountSession *)self->super.super._session clientDB];
+    matchingJobsWhereSQLClause3 = [dCopy matchingJobsWhereSQLClause];
+    v20 = [clientDB3 fetch:{@"SELECT throttle_id, transfer_queue, transfer_operation, transfer_stage, app_library_rowid, throttle_state, zone_rowid   FROM client_uploads  WHERE %@", matchingJobsWhereSQLClause3}];
+    [(BRCFSUploader *)self _cancelJobs:v20 state:v8 uploadError:errorCopy];
+
+    if (v8 == 32)
+    {
+      ownerName = [zoneCopy ownerName];
+      [(BRCFSUploader *)self ownerDidReceiveOutOfQuotaError:ownerName];
+    }
+  }
+
+  __brc_leave_section(v28);
 }
 
 void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, sqlite3_value **a4)
@@ -786,22 +1026,22 @@ void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke
 
 - (void)uploadItem:(id)item
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  memset(v47, 0, sizeof(v47));
-  __brc_create_section(0, "[BRCFSUploader uploadItem:]", 636, 0, v47);
+  memset(v46, 0, sizeof(v46));
+  __brc_create_section(0, "[BRCFSUploader uploadItem:]", 636, 0, v46);
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v30 = v47[0];
+    v29 = v46[0];
     jobsDescription = [itemCopy jobsDescription];
     *buf = 134218498;
-    v49 = v30;
-    v50 = 2112;
-    v51 = jobsDescription;
-    v52 = 2112;
-    v53 = v4;
+    v48 = v29;
+    v49 = 2112;
+    v50 = jobsDescription;
+    v51 = 2112;
+    v52 = v4;
     _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: uploading%@", buf, 0x20u);
   }
 
@@ -820,9 +1060,9 @@ void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke
       itemID = [itemCopy itemID];
       debugItemIDString = [itemID debugItemIDString];
       *buf = 138412546;
-      v49 = debugItemIDString;
-      v50 = 2112;
-      v51 = v8;
+      v48 = debugItemIDString;
+      v49 = 2112;
+      v50 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Screen no longer locked. Try upload item: %@%@", buf, 0x16u);
     }
   }
@@ -831,31 +1071,31 @@ void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke
   {
     if ([uploadError brc_isCloudKitOutOfQuota])
     {
-      v38 = 0;
+      v37 = 0;
       v7 = 32;
     }
 
     else if ([uploadError brc_isCloudKitErrorDataProtectionClass])
     {
-      v38 = 0;
+      v37 = 0;
       v7 = 35;
     }
 
     else if ([uploadError brc_isCloudKitErrorNoNetwork] & 1) != 0 || (objc_msgSend(uploadError, "brc_isNetworkUnreachableError"))
     {
-      v38 = 0;
+      v37 = 0;
       v7 = 36;
     }
 
-    else if ([uploadError brc_isCloudKitErrorRequiresVerifyTerms] && (+[BRCAccountHandler currentiCloudAccount](BRCAccountHandler, "currentiCloudAccount"), v32 = objc_claimAutoreleasedReturnValue(), v33 = objc_msgSend(v32, "br_needsToVerifyTerms"), v32, (v33 & 1) != 0))
+    else if ([uploadError brc_isCloudKitErrorRequiresVerifyTerms] && (+[BRCAccountHandler currentiCloudAccount](BRCAccountHandler, "currentiCloudAccount"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "br_needsToVerifyTerms"), v31, (v32 & 1) != 0))
     {
-      v38 = 0;
+      v37 = 0;
       v7 = 37;
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
       if ([uploadError brc_isNetworkUnreachableDueToCellularError])
       {
         v7 = 38;
@@ -876,14 +1116,14 @@ void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke
   if (v11)
   {
     uploadError = 0;
-    v38 = 0;
+    v37 = 0;
     v7 = 31;
   }
 
   else
   {
     uploadError = [(BRCFSUploader *)self _buildItemTooLargeErrorIfNeeded:itemCopy syncContext:syncContextUsedForTransfers];
-    v38 = uploadError == 0;
+    v37 = uploadError == 0;
     if (uploadError)
     {
       v7 = 34;
@@ -896,15 +1136,15 @@ void __58__BRCFSUploader_setState_forUploadJobID_zone_uploadError___block_invoke
   }
 
 LABEL_21:
-  v39 = v7;
+  v38 = v7;
   currentVersion2 = [itemCopy currentVersion];
   [currentVersion2 setUploadError:uploadError];
 
   v13 = itemCopy;
-  v42 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v13 dbRowID]);
+  v41 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v13 dbRowID]);
 
   uploadThrottle = [syncContextUsedForTransfers uploadThrottle];
-  v40 = [MEMORY[0x277D82C18] rawInjection:"app_library_rowid length:{transfer_queue, transfer_size, transfer_record, transfer_stage, transfer_operation, upload_priority, zone_rowid", 131}];
+  v39 = [MEMORY[0x277D82C18] rawInjection:"app_library_rowid length:{transfer_queue, transfer_size, transfer_record, transfer_stage, transfer_operation, upload_priority, zone_rowid", 131}];
   v14 = MEMORY[0x277D82C08];
   dbRowID = [appLibrary dbRowID];
   currentVersion3 = [v13 currentVersion];
@@ -918,35 +1158,35 @@ LABEL_21:
   serverZone2 = [v13 serverZone];
   dbRowID3 = [serverZone2 dbRowID];
   v26 = [v23 formatInjection:{@"zone_rowid = %@", dbRowID3}];
-  v36 = [(BRCFSSchedulerBase *)self insertOrUpdateJobID:v42 throttle:uploadThrottle withState:v39 insertedSQLColumn:v40 insertedSQLValues:v22 updatedSQLValues:v26 error:0];
-  v37 = v27;
+  v35 = [(BRCFSSchedulerBase *)self insertOrUpdateJobID:v41 throttle:uploadThrottle withState:v38 insertedSQLColumn:v39 insertedSQLValues:v22 updatedSQLValues:v26 error:0];
+  v36 = v27;
 
-  if (v38)
+  if (v37)
   {
-    [(BRCFSSchedulerBase *)self signalWithDeadline:v37];
+    [(BRCFSSchedulerBase *)self signalWithDeadline:v36];
   }
 
-  else if (v36 == 1)
+  else if (v35 == 1)
   {
     globalProgress = [(BRCAccountSession *)self->super.super._session globalProgress];
-    [globalProgress updateUploadThrottleForDocument:v13 toState:v39];
+    [globalProgress updateUploadThrottleForDocument:v13 toState:v38];
   }
 
-  __brc_leave_section(v47);
-  v29 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v46);
 }
 
 - (void)_scheduleRetries
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Uploader: no more jobs to retry%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *buf = 134218242;
+  *(buf + 4) = a4;
+  *(buf + 6) = 2112;
+  *(buf + 14) = self;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader: next job to retry in %.3fs%@", buf, 0x16u);
 }
 
 void __33__BRCFSUploader__scheduleRetries__block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = *(*(a1 + 32) + 8);
   v8 = [MEMORY[0x277CCABB0] newFromSqliteValue:*(a4 + 8)];
   v9 = [v7 appLibraryByRowID:v8];
@@ -961,26 +1201,24 @@ void __33__BRCFSUploader__scheduleRetries__block_invoke(uint64_t a1, sqlite3_con
   v16 = brc_default_log();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v19 = sqlite3_value_int64(*a4);
-    v20 = 134218498;
-    v21 = v19;
-    v22 = 2112;
-    v23 = v14;
-    v24 = 2112;
-    v25 = v15;
-    _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%lld]: job has been put back in queue %@%@", &v20, 0x20u);
+    v18 = sqlite3_value_int64(*a4);
+    v19 = 134218498;
+    v20 = v18;
+    v21 = 2112;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v15;
+    _os_log_debug_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%lld]: job has been put back in queue %@%@", &v19, 0x20u);
   }
 
   sqlite3_result_text(a2, [v14 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
   v17 = [v13 uploadStream];
   [v17 signalWithDeadline:sqlite3_value_int64(*(a4 + 16))];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFirstSchedulingAfterStartupInDB:(id)b
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bCopy = b;
   [bCopy execute:@"UPDATE client_uploads SET transfer_operation = NULL WHERE (transfer_operation >= '')"];
   if ([bCopy changes])
@@ -1014,11 +1252,11 @@ void __33__BRCFSUploader__scheduleRetries__block_invoke(uint64_t a1, sqlite3_con
         v17 = brc_default_log();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
         {
-          v21 = [v7 stringAtIndex:2];
+          v20 = [v7 stringAtIndex:2];
           *buf = 138412546;
-          v23 = v21;
-          v24 = 2112;
-          v25 = v16;
+          v22 = v20;
+          v23 = 2112;
+          v24 = v16;
           _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] Kicking uploads for %@%@", buf, 0x16u);
         }
 
@@ -1034,8 +1272,6 @@ void __33__BRCFSUploader__scheduleRetries__block_invoke(uint64_t a1, sqlite3_con
   }
 
   [(BRCFSUploader *)self setIsDefaultOwnerOutOfQuota:[(BRCFSUploader *)self hasItemsOverQuotaForOwner:*MEMORY[0x277CBBF28]] forceSignalContainers:1];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)schedule
@@ -1126,14 +1362,14 @@ LABEL_17:
 
 - (BOOL)_updatePackageRecord:(id)record item:(id)item stageID:(id)d error:(id *)error
 {
-  v138 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   itemCopy = item;
   dCopy = d;
   stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
   v13 = [stageRegistry createURLForUploadWithStageID:dCopy name:@"brpackage"];
-  v116 = [stageRegistry createURLForUploadWithStageID:dCopy name:@"ckpackage"];
-  v118 = [recordCopy getAndUpdateBoundaryKeyForItem:itemCopy];
+  v115 = [stageRegistry createURLForUploadWithStageID:dCopy name:@"ckpackage"];
+  v117 = [recordCopy getAndUpdateBoundaryKeyForItem:itemCopy];
   v14 = brc_bread_crumbs();
   v15 = brc_default_log();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
@@ -1145,57 +1381,57 @@ LABEL_17:
   clientZone = [itemCopy clientZone];
   v18 = [(BRCPackageManifestWriter *)v16 initWithZone:clientZone stageID:dCopy url:v13];
 
-  v119 = v18;
+  v118 = v18;
   error = [(BRCPackageManifestWriter *)v18 error];
 
   if (!error)
   {
-    v114 = objc_alloc_init(BRFieldPkgItem);
-    v128 = 0;
-    v25 = [MEMORY[0x277CBC538] br_packageWithBoundaryKey:v118 error:&v128];
-    v26 = v128;
+    v113 = objc_alloc_init(BRFieldPkgItem);
+    v127 = 0;
+    v25 = [MEMORY[0x277CBC538] br_packageWithBoundaryKey:v117 error:&v127];
+    v26 = v127;
     v27 = v26;
-    v109 = v25;
+    v108 = v25;
     if (v25)
     {
-      v127 = v26;
-      v28 = [v25 anchorAtURL:v116 error:&v127];
-      v117 = v127;
+      v126 = v26;
+      v28 = [v25 anchorAtURL:v115 error:&v126];
+      v116 = v126;
 
       if (v28)
       {
-        v104 = v13;
+        v103 = v13;
         v29 = MEMORY[0x277CCABB0];
         volume = [(BRCAccountSession *)self->super.super._session volume];
-        v107 = [v29 numberWithInt:{objc_msgSend(volume, "deviceID")}];
+        v106 = [v29 numberWithInt:{objc_msgSend(volume, "deviceID")}];
 
-        v31 = [[BRCLazyPackage alloc] initWithRegistry:stageRegistry stageID:dCopy name:@"ckpackage-xattrs" boundaryKey:v118];
-        v105 = itemCopy;
+        v31 = [[BRCLazyPackage alloc] initWithRegistry:stageRegistry stageID:dCopy name:@"ckpackage-xattrs" boundaryKey:v117];
+        v104 = itemCopy;
         [BRCPackageItem packageItemsForItem:itemCopy order:1];
+        v122 = 0u;
         v123 = 0u;
         v124 = 0u;
-        v125 = 0u;
-        obj = v126 = 0u;
-        v103 = recordCopy;
-        v115 = v31;
-        v111 = [obj countByEnumeratingWithState:&v123 objects:v129 count:16];
-        if (v111)
+        obj = v125 = 0u;
+        v102 = recordCopy;
+        v114 = v31;
+        v110 = [obj countByEnumeratingWithState:&v122 objects:v128 count:16];
+        if (v110)
         {
           v32 = 0;
-          v110 = *v124;
-          v24 = v114;
-          v102 = dCopy;
-          v106 = stageRegistry;
+          v109 = *v123;
+          v24 = v113;
+          v101 = dCopy;
+          v105 = stageRegistry;
           while (2)
           {
-            for (i = 0; i != v111; ++i)
+            for (i = 0; i != v110; ++i)
             {
-              if (*v124 != v110)
+              if (*v123 != v109)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v34 = *(*(&v123 + 1) + 8 * i);
+              v34 = *(*(&v122 + 1) + 8 * i);
               v35 = objc_autoreleasePoolPush();
               if ([v34 isFile])
               {
@@ -1203,17 +1439,17 @@ LABEL_17:
                 v37 = brc_default_log();
                 if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
                 {
-                  dbRowID = [v105 dbRowID];
-                  longValue = [v107 longValue];
+                  dbRowID = [v104 dbRowID];
+                  longValue = [v106 longValue];
                   fileID = [v34 fileID];
                   *buf = 134218754;
-                  v131 = dbRowID;
-                  v132 = 2048;
-                  v133 = longValue;
-                  v134 = 2048;
-                  v135 = fileID;
-                  v136 = 2112;
-                  v137 = v36;
+                  v130 = dbRowID;
+                  v131 = 2048;
+                  v132 = longValue;
+                  v133 = 2048;
+                  v134 = fileID;
+                  v135 = 2112;
+                  v136 = v36;
                   _os_log_debug_impl(&dword_223E7A000, v37, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%lld]: adding package item with deviceID 0x%lx fileID %lu%@", buf, 0x2Au);
                 }
 
@@ -1221,7 +1457,7 @@ LABEL_17:
                 v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v34, "fileID")}];
                 generationID = [v34 generationID];
                 fsGenerationID = [generationID fsGenerationID];
-                v42 = [v38 initWithDeviceID:v107 fileID:v39 generationID:fsGenerationID];
+                v42 = [v38 initWithDeviceID:v106 fileID:v39 generationID:fsGenerationID];
 
                 [v42 setPackageIndex:v32];
                 pathInPackage = [v34 pathInPackage];
@@ -1229,27 +1465,27 @@ LABEL_17:
                 br_pathExtension = [lastPathComponent br_pathExtension];
                 [v42 setItemTypeHint:br_pathExtension];
 
-                error3 = [v109 addItem:v42];
+                error3 = [v108 addItem:v42];
 
                 if (error3)
                 {
                   v73 = v35;
                   v78 = brc_bread_crumbs();
                   v79 = brc_default_log();
-                  v24 = v114;
+                  v24 = v113;
                   if (os_log_type_enabled(v79, 0x90u))
                   {
                     [BRCFSUploader _updatePackageRecord:item:stageID:error:];
                   }
 
-                  v117 = v78;
+                  v116 = v78;
 
                   goto LABEL_58;
                 }
 
-                v117 = 0;
+                v116 = 0;
                 ++v32;
-                v24 = v114;
+                v24 = v113;
               }
 
               else
@@ -1263,64 +1499,64 @@ LABEL_17:
 
               if (xattrSignature)
               {
-                v112 = v35;
+                v111 = v35;
                 xattrSignature2 = [v34 xattrSignature];
                 v49 = [stageRegistry urlForXattrSignature:xattrSignature2];
 
-                v122 = 0;
-                LOBYTE(xattrSignature2) = [v49 checkResourceIsReachableAndReturnError:&v122];
-                v50 = v122;
+                v121 = 0;
+                LOBYTE(xattrSignature2) = [v49 checkResourceIsReachableAndReturnError:&v121];
+                v50 = v121;
                 if (xattrSignature2)
                 {
                   v51 = [objc_alloc(MEMORY[0x277CBC540]) initWithFileURL:v49];
-                  itemCount = [(BRCLazyPackage *)v115 itemCount];
+                  itemCount = [(BRCLazyPackage *)v114 itemCount];
                   [v42 setPackageIndex:itemCount];
                   v53 = brc_bread_crumbs();
                   v54 = brc_default_log();
                   if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
                   {
-                    dbRowID2 = [v105 dbRowID];
+                    dbRowID2 = [v104 dbRowID];
                     pathInPackage2 = [v34 pathInPackage];
                     *buf = 134218754;
-                    v131 = dbRowID2;
-                    v132 = 2112;
-                    v133 = v49;
-                    v134 = 2112;
-                    v135 = pathInPackage2;
-                    v136 = 2112;
-                    v137 = v53;
+                    v130 = dbRowID2;
+                    v131 = 2112;
+                    v132 = v49;
+                    v133 = 2112;
+                    v134 = pathInPackage2;
+                    v135 = 2112;
+                    v136 = v53;
                     _os_log_debug_impl(&dword_223E7A000, v54, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%lld]: adding xattr package item with URL %@ for %@%@", buf, 0x2Au);
                   }
 
-                  v121 = v50;
-                  v55 = [(BRCLazyPackage *)v115 addItem:v51 error:&v121];
-                  v56 = v121;
+                  v120 = v50;
+                  v55 = [(BRCLazyPackage *)v114 addItem:v51 error:&v120];
+                  v56 = v120;
 
                   if (v55)
                   {
                     v57 = itemCount;
-                    v24 = v114;
-                    [(BRFieldPkgItem *)v114 setXattrIndex:v57];
+                    v24 = v113;
+                    [(BRFieldPkgItem *)v113 setXattrIndex:v57];
                     v50 = v56;
-                    stageRegistry = v106;
+                    stageRegistry = v105;
                   }
 
                   else
                   {
                     v59 = brc_bread_crumbs();
                     v60 = brc_default_log();
-                    stageRegistry = v106;
+                    stageRegistry = v105;
                     if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412546;
-                      v131 = v56;
-                      v132 = 2112;
-                      v133 = v59;
+                      v130 = v56;
+                      v131 = 2112;
+                      v132 = v59;
                       _os_log_impl(&dword_223E7A000, v60, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to add xattrs to xattrs package: %@%@", buf, 0x16u);
                     }
 
                     v50 = v56;
-                    v24 = v114;
+                    v24 = v113;
                   }
                 }
 
@@ -1332,61 +1568,61 @@ LABEL_17:
                   {
                     xattrSignature3 = [v34 xattrSignature];
                     *buf = 138412802;
-                    v131 = xattrSignature3;
-                    v132 = 2112;
-                    v133 = v50;
-                    v134 = 2112;
-                    v135 = v51;
+                    v130 = xattrSignature3;
+                    v131 = 2112;
+                    v132 = v50;
+                    v133 = 2112;
+                    v134 = v51;
                     _os_log_fault_impl(&dword_223E7A000, v58, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: We're missing a package xattr for signature %@ - %@%@", buf, 0x20u);
 
-                    v24 = v114;
+                    v24 = v113;
                   }
                 }
 
-                v35 = v112;
+                v35 = v111;
               }
 
-              if (![(BRCPackageManifestWriter *)v119 addItem:v24])
+              if (![(BRCPackageManifestWriter *)v118 addItem:v24])
               {
                 v73 = v35;
                 v74 = brc_bread_crumbs();
                 v75 = brc_default_log();
                 if (os_log_type_enabled(v75, 0x90u))
                 {
-                  path = [v104 path];
-                  error2 = [(BRCPackageManifestWriter *)v119 error];
+                  path = [v103 path];
+                  error2 = [(BRCPackageManifestWriter *)v118 error];
                   *buf = 138412802;
-                  v131 = path;
-                  v132 = 2112;
-                  v133 = error2;
-                  v134 = 2112;
-                  v135 = v74;
+                  v130 = path;
+                  v131 = 2112;
+                  v132 = error2;
+                  v133 = 2112;
+                  v134 = v74;
                   _os_log_error_impl(&dword_223E7A000, v75, 0x90u, "[ERROR] failed to create manifest at %@: %@%@", buf, 0x20u);
 
-                  v24 = v114;
+                  v24 = v113;
                 }
 
-                error3 = [(BRCPackageManifestWriter *)v119 error];
+                error3 = [(BRCPackageManifestWriter *)v118 error];
 LABEL_58:
-                recordCopy = v103;
-                dCopy = v102;
+                recordCopy = v102;
+                dCopy = v101;
 
                 objc_autoreleasePoolPop(v73);
-                v117 = error3;
-                v31 = v115;
+                v116 = error3;
+                v31 = v114;
                 goto LABEL_59;
               }
 
               [v24 clear];
 
               objc_autoreleasePoolPop(v35);
-              v31 = v115;
+              v31 = v114;
             }
 
-            recordCopy = v103;
-            dCopy = v102;
-            v111 = [obj countByEnumeratingWithState:&v123 objects:v129 count:16];
-            if (v111)
+            recordCopy = v102;
+            dCopy = v101;
+            v110 = [obj countByEnumeratingWithState:&v122 objects:v128 count:16];
+            if (v110)
             {
               continue;
             }
@@ -1397,31 +1633,31 @@ LABEL_58:
 
         else
         {
-          v24 = v114;
+          v24 = v113;
         }
 
 LABEL_59:
 
-        if (v117)
+        if (v116)
         {
           v80 = brc_bread_crumbs();
           v81 = brc_default_log();
-          itemCopy = v105;
+          itemCopy = v104;
           if (os_log_type_enabled(v81, 0x90u))
           {
             *buf = 138412802;
-            v131 = v109;
-            v132 = 2112;
-            v133 = v117;
-            v134 = 2112;
-            v135 = v80;
+            v130 = v108;
+            v131 = 2112;
+            v132 = v116;
+            v133 = 2112;
+            v134 = v80;
             _os_log_error_impl(&dword_223E7A000, v81, 0x90u, "[ERROR] Fail to performTransactionBlock for package [%@] with error [%@]%@", buf, 0x20u);
           }
 
           errorCopy2 = error;
           if (error)
           {
-            error5 = v117;
+            error5 = v116;
 LABEL_75:
             v23 = 0;
             v94 = errorCopy2;
@@ -1430,17 +1666,17 @@ LABEL_75:
 LABEL_76:
 
 LABEL_78:
-            v68 = v117;
-            v69 = v107;
-            v13 = v104;
+            v68 = v116;
+            v69 = v106;
+            v13 = v103;
             goto LABEL_79;
           }
         }
 
         else
         {
-          itemCopy = v105;
-          if ([(BRCPackageManifestWriter *)v119 done])
+          itemCopy = v104;
+          if ([(BRCPackageManifestWriter *)v118 done])
           {
             v84 = v31;
             v85 = stageRegistry;
@@ -1451,25 +1687,25 @@ LABEL_78:
               [recordCopy setObject:package forKeyedSubscript:@"pkgXattrs"];
             }
 
-            v88 = [MEMORY[0x277CBC190] br_assetWithFileURL:v104 boundaryKey:v118];
-            [recordCopy setObject:v109 forKeyedSubscript:@"pkgContent"];
+            v88 = [MEMORY[0x277CBC190] br_assetWithFileURL:v103 boundaryKey:v117];
+            [recordCopy setObject:v108 forKeyedSubscript:@"pkgContent"];
             [recordCopy setObject:v88 forKeyedSubscript:@"pkgManifest"];
-            session = [v105 session];
-            v120 = 0;
-            v23 = [recordCopy validateEnhancedDrivePrivacyFieldsWithSession:session error:&v120];
-            v90 = v120;
-            v91 = v120;
+            session = [v104 session];
+            v119 = 0;
+            v23 = [recordCopy validateEnhancedDrivePrivacyFieldsWithSession:session error:&v119];
+            v90 = v119;
+            v91 = v119;
 
             if (error && (v23 & 1) == 0)
             {
               objc_storeStrong(error, v90);
             }
 
-            recordCopy = v103;
+            recordCopy = v102;
             dCopy = v86;
             stageRegistry = v85;
-            v24 = v114;
-            v31 = v115;
+            v24 = v113;
+            v31 = v114;
             goto LABEL_76;
           }
 
@@ -1477,23 +1713,23 @@ LABEL_78:
           v93 = brc_default_log();
           if (os_log_type_enabled(v93, 0x90u))
           {
-            path2 = [v104 path];
-            error4 = [(BRCPackageManifestWriter *)v119 error];
+            path2 = [v103 path];
+            error4 = [(BRCPackageManifestWriter *)v118 error];
             *buf = 138412802;
-            v131 = path2;
-            v132 = 2112;
-            v133 = error4;
-            v134 = 2112;
-            v135 = v92;
+            v130 = path2;
+            v131 = 2112;
+            v132 = error4;
+            v133 = 2112;
+            v134 = v92;
             _os_log_error_impl(&dword_223E7A000, v93, 0x90u, "[ERROR] failed to create manifest at %@: %@%@", buf, 0x20u);
 
-            v24 = v114;
+            v24 = v113;
           }
 
           errorCopy2 = error;
           if (error)
           {
-            error5 = [(BRCPackageManifestWriter *)v119 error];
+            error5 = [(BRCPackageManifestWriter *)v118 error];
             goto LABEL_75;
           }
         }
@@ -1506,21 +1742,21 @@ LABEL_78:
       v71 = brc_default_log();
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
       {
-        path3 = [v116 path];
+        path3 = [v115 path];
         *buf = 138413058;
-        v131 = v109;
-        v132 = 2112;
-        v133 = path3;
-        v134 = 2112;
-        v135 = v117;
-        v136 = 2112;
-        v137 = v70;
+        v130 = v108;
+        v131 = 2112;
+        v132 = path3;
+        v133 = 2112;
+        v134 = v116;
+        v135 = 2112;
+        v136 = v70;
         _os_log_impl(&dword_223E7A000, v71, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to anchor package %@ at %@: %@%@", buf, 0x2Au);
       }
 
       if (error)
       {
-        v68 = v117;
+        v68 = v116;
         v23 = 0;
         v69 = *error;
         *error = v68;
@@ -1528,7 +1764,7 @@ LABEL_78:
       }
 
       v23 = 0;
-      v27 = v117;
+      v27 = v116;
     }
 
     else
@@ -1547,7 +1783,7 @@ LABEL_78:
         v69 = *error;
         *error = v68;
 LABEL_47:
-        v24 = v114;
+        v24 = v113;
 LABEL_79:
 
         v27 = v68;
@@ -1557,7 +1793,7 @@ LABEL_79:
       v23 = 0;
     }
 
-    v24 = v114;
+    v24 = v113;
 LABEL_80:
 
     goto LABEL_81;
@@ -1568,19 +1804,19 @@ LABEL_80:
   if (os_log_type_enabled(v21, 0x90u))
   {
     path4 = [v13 path];
-    error6 = [(BRCPackageManifestWriter *)v119 error];
+    error6 = [(BRCPackageManifestWriter *)v118 error];
     *buf = 138412802;
-    v131 = path4;
-    v132 = 2112;
-    v133 = error6;
-    v134 = 2112;
-    v135 = v20;
+    v130 = path4;
+    v131 = 2112;
+    v132 = error6;
+    v133 = 2112;
+    v134 = v20;
     _os_log_error_impl(&dword_223E7A000, v21, 0x90u, "[ERROR] failed to create manifest at %@: %@%@", buf, 0x20u);
   }
 
   if (error)
   {
-    error7 = [(BRCPackageManifestWriter *)v119 error];
+    error7 = [(BRCPackageManifestWriter *)v118 error];
     v23 = 0;
     v24 = *error;
     *error = error7;
@@ -1592,13 +1828,12 @@ LABEL_81:
   v23 = 0;
 LABEL_82:
 
-  v95 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (void)_updateRecordInDB:(id)b item:(id)item syncContext:(id)context transferSize:(unint64_t)size stageID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   bCopy = b;
   itemCopy = item;
   contextCopy = context;
@@ -1609,25 +1844,23 @@ LABEL_82:
   {
     *buf = 134218498;
     dbRowID = [itemCopy dbRowID];
-    v27 = 2112;
-    v28 = bCopy;
-    v29 = 2112;
-    v30 = v16;
+    v26 = 2112;
+    v27 = bCopy;
+    v28 = 2112;
+    v29 = v16;
     _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%lld]: assets only record generated: %@%@", buf, 0x20u);
   }
 
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID___block_invoke;
-  v23[3] = &unk_2784FF870;
-  v24 = contextCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID___block_invoke;
+  v22[3] = &unk_2784FF870;
+  v23 = contextCopy;
   v19 = contextCopy;
-  v20 = MEMORY[0x22AA4A310](v23);
+  v20 = MEMORY[0x22AA4A310](v22);
   contextIdentifier = [v19 contextIdentifier];
   [clientDB execute:{@"UPDATE client_uploads SET  transfer_queue = call_block(%@, next_retry_stamp, %@), transfer_record = %@, transfer_operation = NULL, transfer_stage = %@, transfer_size = %lld WHERE throttle_id = %lld", v20, contextIdentifier, bCopy, dCopy, size, objc_msgSend(itemCopy, "dbRowID")}];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, sqlite3_value **a4)
@@ -1642,16 +1875,16 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
 
 - (void)_updateRecord:(id)record item:(id)item syncContext:(id)context targetThumbnailURL:(id)l stageID:(id)d
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   itemCopy = item;
   contextCopy = context;
   lCopy = l;
   dCopy = d;
   currentVersion = [itemCopy currentVersion];
-  v73 = [currentVersion size];
+  v72 = [currentVersion size];
   location = 0;
-  v75 = [recordCopy getAndUpdateBoundaryKeyForItem:itemCopy];
+  v74 = [recordCopy getAndUpdateBoundaryKeyForItem:itemCopy];
   if ([itemCopy isFinderBookmark])
   {
     v17 = [itemCopy shouldUseEnhancedDrivePrivacyWhenNeedsPreserving:0];
@@ -1664,7 +1897,7 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
 
   if ([itemCopy isDocumentBeingCopiedToNewZone] && (objc_msgSend(itemCopy, "currentVersion"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "contentSignature"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "brc_signatureIsValid"), v19, v18, v20))
   {
-    [(BRCFSUploader *)self _updateRecordInDB:recordCopy item:itemCopy syncContext:contextCopy transferSize:v73 stageID:dCopy];
+    [(BRCFSUploader *)self _updateRecordInDB:recordCopy item:itemCopy syncContext:contextCopy transferSize:v72 stageID:dCopy];
   }
 
   else
@@ -1673,8 +1906,8 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
 
     if (fileIDForUpload)
     {
-      v71 = contextCopy;
-      v72 = lCopy;
+      v70 = contextCopy;
+      v71 = lCopy;
       if ([currentVersion isPackage])
       {
         if ([itemCopy isFinderBookmark])
@@ -1696,18 +1929,18 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
           fileIDForUpload2 = [itemCopy fileIDForUpload];
           itemID = [itemCopy itemID];
           *buf = 134218754;
-          v82 = deviceID;
-          v83 = 2112;
-          v84 = fileIDForUpload2;
-          v85 = 2112;
-          v86 = itemID;
-          v87 = 2112;
-          v88 = v25;
+          v81 = deviceID;
+          v82 = 2112;
+          v83 = fileIDForUpload2;
+          v84 = 2112;
+          v85 = itemID;
+          v86 = 2112;
+          v87 = v25;
           _os_log_debug_impl(&dword_223E7A000, v26, OS_LOG_TYPE_DEBUG, "[DEBUG] Adding CKAsset with deviceID 0x%lx fileID %@ to the record for item %@%@", buf, 0x2Au);
         }
 
         fileIDForUpload3 = [itemCopy fileIDForUpload];
-        v70 = currentVersion;
+        v69 = currentVersion;
         if (v17)
         {
           brc_generateSaltingKey = [MEMORY[0x277CBEA90] brc_generateSaltingKey];
@@ -1715,7 +1948,7 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
 
         else
         {
-          brc_generateSaltingKey = v75;
+          brc_generateSaltingKey = v74;
         }
 
         v29 = MEMORY[0x277CBC190];
@@ -1724,7 +1957,7 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         v32 = [v30 numberWithInt:{objc_msgSend(volume2, "deviceID")}];
         generationIDForUpload = [itemCopy generationIDForUpload];
         fsGenerationID = [generationIDForUpload fsGenerationID];
-        v75 = brc_generateSaltingKey;
+        v74 = brc_generateSaltingKey;
         v35 = [v29 br_assetWithDeviceID:v32 fileID:fileIDForUpload3 generationID:fsGenerationID boundaryKey:brc_generateSaltingKey];
 
         isFinderBookmark = [itemCopy isFinderBookmark];
@@ -1741,20 +1974,20 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         [v35 setItemTypeHint:br_pathExtension];
 
         v22 = 1;
-        currentVersion = v70;
+        currentVersion = v69;
       }
 
-      if (v72 && [itemCopy shouldTransferThumbnail])
+      if (v71 && [itemCopy shouldTransferThumbnail])
       {
-        v79 = 0;
+        v78 = 0;
         v41 = *MEMORY[0x277CBE838];
         obj = 0;
-        v42 = [v72 getResourceValue:&v79 forKey:v41 error:&obj];
-        v43 = v79;
+        v42 = [v71 getResourceValue:&v78 forKey:v41 error:&obj];
+        v43 = v78;
         objc_storeStrong(&location, obj);
         if (v42)
         {
-          v44 = [MEMORY[0x277CBC190] br_assetWithFileURL:v72 boundaryKey:v75];
+          v44 = [MEMORY[0x277CBC190] br_assetWithFileURL:v71 boundaryKey:v74];
           [recordCopy setObject:v44 forKeyedSubscript:@"thumb1024"];
           v45 = brc_bread_crumbs();
           v46 = brc_default_log();
@@ -1763,7 +1996,7 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
             [BRCFSUploader _updateRecord:item:syncContext:targetThumbnailURL:stageID:];
           }
 
-          v73 += [v43 unsignedLongLongValue];
+          v72 += [v43 unsignedLongLongValue];
         }
 
         else
@@ -1772,13 +2005,13 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
           v47 = brc_default_log();
           if (os_log_type_enabled(v47, 0x90u))
           {
-            path = [v72 path];
+            path = [v71 path];
             *buf = 138412802;
-            v82 = path;
-            v83 = 2112;
-            v84 = location;
-            v85 = 2112;
-            v86 = v44;
+            v81 = path;
+            v82 = 2112;
+            v83 = location;
+            v84 = 2112;
+            v85 = v44;
             _os_log_error_impl(&dword_223E7A000, v47, 0x90u, "[ERROR] Unable to get thumbnail size at '%@' to upload stage: %@%@", buf, 0x20u);
           }
         }
@@ -1791,14 +2024,14 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         xattrStager = [session xattrStager];
         v51 = [xattrStager urlForXattrSignature:xattrSignature];
 
-        v77 = location;
-        LODWORD(session) = [v51 checkResourceIsReachableAndReturnError:&v77];
-        objc_storeStrong(&location, v77);
+        v76 = location;
+        LODWORD(session) = [v51 checkResourceIsReachableAndReturnError:&v76];
+        objc_storeStrong(&location, v76);
         if (session)
         {
-          v52 = [MEMORY[0x277CBC190] br_assetWithFileURL:v51 boundaryKey:v75];
+          v52 = [MEMORY[0x277CBC190] br_assetWithFileURL:v51 boundaryKey:v74];
           [recordCopy setObject:v52 forKeyedSubscript:@"xattr"];
-          if (v75)
+          if (v74)
           {
             v53 = xattrSignature;
           }
@@ -1811,7 +2044,7 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
           encryptedValues = [recordCopy encryptedValues];
           [encryptedValues setObject:v53 forKeyedSubscript:@"xattrSignature"];
 
-          v73 += [v52 size];
+          v72 += [v52 size];
         }
 
         else
@@ -1825,10 +2058,10 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         }
       }
 
-      if (v22 && ([itemCopy session], v56 = objc_claimAutoreleasedReturnValue(), v76 = location, v57 = objc_msgSend(recordCopy, "validateEnhancedDrivePrivacyFieldsWithSession:error:", v56, &v76), objc_storeStrong(&location, v76), v56, (v57 & 1) != 0))
+      if (v22 && ([itemCopy session], v56 = objc_claimAutoreleasedReturnValue(), v75 = location, v57 = objc_msgSend(recordCopy, "validateEnhancedDrivePrivacyFieldsWithSession:error:", v56, &v75), objc_storeStrong(&location, v75), v56, (v57 & 1) != 0))
       {
-        contextCopy = v71;
-        [(BRCFSUploader *)self _updateRecordInDB:recordCopy item:itemCopy syncContext:v71 transferSize:v73 stageID:dCopy];
+        contextCopy = v70;
+        [(BRCFSUploader *)self _updateRecordInDB:recordCopy item:itemCopy syncContext:v70 transferSize:v72 stageID:dCopy];
       }
 
       else
@@ -1839,11 +2072,11 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         {
           itemID2 = [itemCopy itemID];
           *buf = 138412802;
-          v82 = itemID2;
-          v83 = 2112;
-          v84 = location;
-          v85 = 2112;
-          v86 = v58;
+          v81 = itemID2;
+          v82 = 2112;
+          v83 = location;
+          v84 = 2112;
+          v85 = v58;
           _os_log_debug_impl(&dword_223E7A000, v59, OS_LOG_TYPE_DEBUG, "[DEBUG] Creation of record for %@ failed: %@%@", buf, 0x20u);
         }
 
@@ -1858,10 +2091,10 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
         [currentVersion2 setUploadError:v61];
 
         [itemCopy saveToDB];
-        contextCopy = v71;
+        contextCopy = v70;
       }
 
-      lCopy = v72;
+      lCopy = v71;
     }
 
     else
@@ -1877,13 +2110,11 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
       [itemCopy saveToDB];
     }
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRecord:(id)record jobID:(id)d syncContext:(id)context targetThumbnailURL:(id)l stageID:(id)iD
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   dCopy = d;
   contextCopy = context;
@@ -1892,54 +2123,52 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
   v17 = [(BRCFSUploader *)self _documentItemForJobID:dCopy stageID:iDCopy];
   if (v17)
   {
-    memset(v23, 0, sizeof(v23));
-    __brc_create_section(0, "[BRCFSUploader _updateRecord:jobID:syncContext:targetThumbnailURL:stageID:]", 1092, 0, v23);
+    memset(v22, 0, sizeof(v22));
+    __brc_create_section(0, "[BRCFSUploader _updateRecord:jobID:syncContext:targetThumbnailURL:stageID:]", 1092, 0, v22);
     v18 = brc_bread_crumbs();
     v19 = brc_default_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v22 = v23[0];
+      v21 = v22[0];
       itemID = [v17 itemID];
       *buf = 134218754;
-      v25 = v22;
-      v26 = 2112;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = itemID;
-      v30 = 2112;
-      v31 = v18;
+      v24 = v21;
+      v25 = 2112;
+      v26 = dCopy;
+      v27 = 2112;
+      v28 = itemID;
+      v29 = 2112;
+      v30 = v18;
       _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: Done generating thumbnail, building record for %@%@", buf, 0x2Au);
     }
 
     [(BRCFSUploader *)self _updateRecord:recordCopy item:v17 syncContext:contextCopy targetThumbnailURL:lCopy stageID:iDCopy];
-    __brc_leave_section(v23);
+    __brc_leave_section(v22);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_computeRecordForJobID:(id)d item:(id)item syncContext:(id)context
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dCopy = d;
   itemCopy = item;
   contextCopy = context;
-  memset(v49, 0, sizeof(v49));
-  __brc_create_section(0, "[BRCFSUploader _computeRecordForJobID:item:syncContext:]", 1105, 0, v49);
+  memset(v48, 0, sizeof(v48));
+  __brc_create_section(0, "[BRCFSUploader _computeRecordForJobID:item:syncContext:]", 1105, 0, v48);
   v9 = brc_bread_crumbs();
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v34 = v49[0];
+    v33 = v48[0];
     itemID = [itemCopy itemID];
     *buf = 134218754;
-    v52 = v34;
-    v53 = 2112;
-    v54 = dCopy;
-    v55 = 2112;
-    v56 = itemID;
-    v57 = 2112;
-    v58 = v9;
+    v51 = v33;
+    v52 = 2112;
+    v53 = dCopy;
+    v54 = 2112;
+    v55 = itemID;
+    v56 = 2112;
+    v57 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: Preparing record for upload of %@%@", buf, 0x2Au);
   }
 
@@ -1955,32 +2184,32 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
   if ([itemCopy shouldTransferThumbnail])
   {
     v18 = objc_alloc(MEMORY[0x277CCAD78]);
-    v50[0] = 0;
-    v50[1] = 0;
-    v41 = [v18 initWithUUIDBytes:v50];
+    v49[0] = 0;
+    v49[1] = 0;
+    v40 = [v18 initWithUUIDBytes:v49];
     v19 = MEMORY[0x277CCACA8];
     volume = [(BRCAccountSession *)self->super.super._session volume];
     deviceID = [volume deviceID];
     fileIDForUpload = [itemCopy fileIDForUpload];
-    v40 = [v19 br_pathWithDeviceID:deviceID fileID:{objc_msgSend(fileIDForUpload, "unsignedLongLongValue")}];
+    v39 = [v19 br_pathWithDeviceID:deviceID fileID:{objc_msgSend(fileIDForUpload, "unsignedLongLongValue")}];
 
-    v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:v40];
-    [(BRCFSUploader *)self _updateJobID:dCopy setStageID:v14 operationID:v41];
+    v23 = [MEMORY[0x277CBEBC0] fileURLWithPath:v39];
+    [(BRCFSUploader *)self _updateJobID:dCopy setStageID:v14 operationID:v40];
     stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
     v25 = [stageRegistry createURLForThumbnailUploadWithStageID:v14];
 
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke;
-    v44[3] = &unk_278505690;
-    v44[4] = self;
-    v45 = v17;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke;
+    v43[3] = &unk_278505690;
+    v43[4] = self;
+    v44 = v17;
     v26 = dCopy;
-    v46 = v26;
+    v45 = v26;
     v27 = contextCopy;
-    v47 = v27;
-    v48 = v14;
-    v28 = MEMORY[0x22AA4A310](v44);
+    v46 = v27;
+    v47 = v14;
+    v28 = MEMORY[0x22AA4A310](v43);
     thumbnailGenerationManager = [(BRCFSUploader *)self thumbnailGenerationManager];
     v30 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v26, "itemDBRowID")}];
     [thumbnailGenerationManager addThumbnailGenerationJobAtURL:v23 targetURL:v25 thumbnailID:v30 syncContext:v27 completionHandler:v28];
@@ -1994,38 +2223,37 @@ void __73__BRCFSUploader__updateRecordInDB_item_syncContext_transferSize_stageID
     {
       isInDocumentScope = [itemCopy isInDocumentScope];
       shouldHaveThumbnail = [itemCopy shouldHaveThumbnail];
-      v38 = "no";
+      v37 = "no";
       *buf = 138413058;
-      v52 = dCopy;
+      v51 = dCopy;
       if (isInDocumentScope)
-      {
-        v39 = "yes";
-      }
-
-      else
-      {
-        v39 = "no";
-      }
-
-      v53 = 2080;
-      v54 = v39;
-      if (shouldHaveThumbnail)
       {
         v38 = "yes";
       }
 
-      v55 = 2080;
-      v56 = v38;
-      v57 = 2112;
-      v58 = v31;
+      else
+      {
+        v38 = "no";
+      }
+
+      v52 = 2080;
+      v53 = v38;
+      if (shouldHaveThumbnail)
+      {
+        v37 = "yes";
+      }
+
+      v54 = 2080;
+      v55 = v37;
+      v56 = 2112;
+      v57 = v31;
       _os_log_debug_impl(&dword_223E7A000, v32, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: skipping thumbnail (inDocumentScope:%s shouldHaveThumbnail:%s shouldTransferThumbnail:no)%@", buf, 0x2Au);
     }
 
     [(BRCFSUploader *)self _updateRecord:v17 item:itemCopy syncContext:contextCopy targetThumbnailURL:0 stageID:v14];
   }
 
-  __brc_leave_section(v49);
-  v33 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v48);
 }
 
 void __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke(uint64_t a1, void *a2)
@@ -2061,7 +2289,7 @@ void __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke_
 
 - (id)_duplicatePackage:(id)package stageID:(id)d stageName:(id)name error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   v12 = [MEMORY[0x277CBC538] br_packageWithPackage:package error:error];
@@ -2092,15 +2320,15 @@ void __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke_
         v21 = @"unknown";
       }
 
-      v24 = 138413058;
-      v25 = v12;
-      v26 = 2112;
-      v27 = path;
-      v28 = 2112;
-      v29 = v21;
-      v30 = 2112;
-      v31 = v16;
-      _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] can't anchor the package %@ at %@: %@%@", &v24, 0x2Au);
+      v23 = 138413058;
+      v24 = v12;
+      v25 = 2112;
+      v26 = path;
+      v27 = 2112;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v16;
+      _os_log_impl(&dword_223E7A000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] can't anchor the package %@ at %@: %@%@", &v23, 0x2Au);
     }
   }
 
@@ -2120,65 +2348,63 @@ void __57__BRCFSUploader__computeRecordForJobID_item_syncContext___block_invoke_
         v17 = @"unknown";
       }
 
-      v24 = 138412802;
-      v25 = 0;
-      v26 = 2112;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v14;
-      _os_log_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] can't duplicate the package %@: %@%@", &v24, 0x20u);
+      v23 = 138412802;
+      v24 = 0;
+      v25 = 2112;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v14;
+      _os_log_impl(&dword_223E7A000, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] can't duplicate the package %@: %@%@", &v23, 0x20u);
     }
   }
 
   v15 = 0;
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)_finishPackageUploadWithRecord:(id)record item:(id)item stageID:(id)d packageChecksummer:(id)checksummer error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   itemCopy = item;
   dCopy = d;
   checksummerCopy = checksummer;
   v13 = objc_alloc_init(BRFieldPkgItem);
-  v51 = recordCopy;
-  v54 = [recordCopy objectForKeyedSubscript:?];
+  v50 = recordCopy;
+  v53 = [recordCopy objectForKeyedSubscript:?];
   dbFacade = [itemCopy dbFacade];
-  v53 = [dbFacade getAssetRanksForFileItemsInPackage:itemCopy];
-  v50 = itemCopy;
+  v52 = [dbFacade getAssetRanksForFileItemsInPackage:itemCopy];
+  v49 = itemCopy;
   [BRCPackageItem packageItemsForItem:itemCopy order:2];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
-  obj = v61 = 0u;
-  v14 = [obj countByEnumeratingWithState:&v58 objects:v74 count:16];
+  obj = v60 = 0u;
+  v14 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
   if (v14)
   {
     v15 = v14;
     v16 = 0;
-    v17 = *v59;
+    v17 = *v58;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v59 != v17)
+        if (*v58 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v58 + 1) + 8 * i);
+        v19 = *(*(&v57 + 1) + 8 * i);
         v20 = objc_autoreleasePoolPush();
         if ([v19 isFile])
         {
-          v21 = [v53 countOfIndexesInRange:{0, objc_msgSend(v19, "assetRank")}];
-          v57 = v16;
-          v22 = [v54 itemAtIndex:v21 error:&v57];
-          v23 = v57;
+          v21 = [v52 countOfIndexesInRange:{0, objc_msgSend(v19, "assetRank")}];
+          v56 = v16;
+          v22 = [v53 itemAtIndex:v21 error:&v56];
+          v23 = v56;
 
           if (!v22)
           {
@@ -2188,18 +2414,18 @@ LABEL_16:
             {
               assetRank = [v19 assetRank];
               *buf = 134218498;
-              v63 = assetRank;
-              v64 = 2112;
-              v65 = v23;
-              v66 = 2112;
+              v62 = assetRank;
+              v63 = 2112;
+              v64 = v23;
+              v65 = 2112;
               v27 = v38;
-              v67 = v38;
+              v66 = v38;
               _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] Couldn't get CKPackageItem for index %lld with error %@%@", buf, 0x20u);
               goto LABEL_22;
             }
 
-            v30 = v50;
-            v29 = v51;
+            v30 = v49;
+            v29 = v50;
             v31 = dCopy;
             v27 = v38;
 LABEL_30:
@@ -2213,20 +2439,20 @@ LABEL_30:
               v40 = brc_default_log();
               if (os_log_type_enabled(v40, 0x90u))
               {
-                v45 = "(passed to caller)";
+                v44 = "(passed to caller)";
                 *buf = 136315906;
-                v63 = "[BRCFSUploader _finishPackageUploadWithRecord:item:stageID:packageChecksummer:error:]";
-                v64 = 2080;
+                v62 = "[BRCFSUploader _finishPackageUploadWithRecord:item:stageID:packageChecksummer:error:]";
+                v63 = 2080;
                 if (!error)
                 {
-                  v45 = "(ignored by caller)";
+                  v44 = "(ignored by caller)";
                 }
 
-                v65 = v45;
-                v66 = 2112;
-                v67 = v36;
-                v68 = 2112;
-                v69 = v39;
+                v64 = v44;
+                v65 = 2112;
+                v66 = v36;
+                v67 = 2112;
+                v68 = v39;
                 _os_log_error_impl(&dword_223E7A000, v40, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
               }
             }
@@ -2251,7 +2477,7 @@ LABEL_30:
 
           if (!signature)
           {
-            [BRCFSUploader _finishPackageUploadWithRecord:&v73 item:? stageID:? packageChecksummer:? error:?];
+            [BRCFSUploader _finishPackageUploadWithRecord:v71 item:&v72 stageID:? packageChecksummer:? error:?];
           }
 
           signature2 = [v22 signature];
@@ -2266,12 +2492,12 @@ LABEL_30:
         [(BRFieldPkgItem *)v13 updateWithPkgItem:v19];
         if ([(BRFieldPkgItem *)v13 type]== 2 && ![(BRFieldPkgItem *)v13 hasSignature])
         {
-          [BRCFSUploader _finishPackageUploadWithRecord:&v71 item:? stageID:? packageChecksummer:? error:?];
+          [BRCFSUploader _finishPackageUploadWithRecord:v69 item:&v70 stageID:? packageChecksummer:? error:?];
         }
 
-        v56 = v23;
-        v26 = [checksummerCopy addItem:v13 error:&v56];
-        v16 = v56;
+        v55 = v23;
+        v26 = [checksummerCopy addItem:v13 error:&v55];
+        v16 = v55;
 
         if ((v26 & 1) == 0)
         {
@@ -2280,18 +2506,18 @@ LABEL_30:
           if (os_log_type_enabled(v28, 0x90u))
           {
             *buf = 138412802;
-            v63 = v13;
-            v64 = 2112;
-            v65 = v16;
-            v66 = 2112;
-            v67 = v27;
+            v62 = v13;
+            v63 = 2112;
+            v64 = v16;
+            v65 = 2112;
+            v66 = v27;
             _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] Couldn't add %@ to checksummer - error %@%@", buf, 0x20u);
           }
 
           v23 = v16;
 LABEL_22:
-          v30 = v50;
-          v29 = v51;
+          v30 = v49;
+          v29 = v50;
           v31 = dCopy;
           goto LABEL_30;
         }
@@ -2300,7 +2526,7 @@ LABEL_22:
         objc_autoreleasePoolPop(v20);
       }
 
-      v15 = [obj countByEnumeratingWithState:&v58 objects:v74 count:16];
+      v15 = [obj countByEnumeratingWithState:&v57 objects:v73 count:16];
       if (v15)
       {
         continue;
@@ -2317,37 +2543,37 @@ LABEL_22:
 
   [checksummerCopy done];
   signature3 = [checksummerCopy signature];
-  v29 = v51;
-  [v51 setObject:signature3 forKeyedSubscript:@"pkgSignature"];
+  v29 = v50;
+  [v50 setObject:signature3 forKeyedSubscript:@"pkgSignature"];
 
   v31 = dCopy;
-  v33 = [(BRCFSUploader *)self _duplicatePackage:v54 stageID:dCopy stageName:@"ckpackage" error:error];
+  v33 = [(BRCFSUploader *)self _duplicatePackage:v53 stageID:dCopy stageName:@"ckpackage" error:error];
 
   if (!v33)
   {
     v37 = 0;
-    v30 = v50;
+    v30 = v49;
     v42 = dbFacade;
     goto LABEL_39;
   }
 
-  [v51 setObject:v33 forKeyedSubscript:@"pkgContent"];
-  v34 = [v51 objectForKeyedSubscript:@"pkgXattrs"];
+  [v50 setObject:v33 forKeyedSubscript:@"pkgContent"];
+  v34 = [v50 objectForKeyedSubscript:@"pkgXattrs"];
   if (v34)
   {
     v35 = v34;
     v36 = [(BRCFSUploader *)self _duplicatePackage:v34 stageID:dCopy stageName:@"ckpackage-xattrs" error:error];
 
-    v30 = v50;
+    v30 = v49;
     if (v36)
     {
-      [v51 setObject:v36 forKeyedSubscript:@"pkgXattrs"];
+      [v50 setObject:v36 forKeyedSubscript:@"pkgXattrs"];
       v37 = 1;
-      v54 = v33;
+      v53 = v33;
 LABEL_37:
       v42 = dbFacade;
 
-      v33 = v54;
+      v33 = v53;
       goto LABEL_38;
     }
 
@@ -2357,14 +2583,13 @@ LABEL_37:
   else
   {
     v37 = 1;
-    v30 = v50;
+    v30 = v49;
   }
 
   v42 = dbFacade;
 LABEL_38:
 
 LABEL_39:
-  v43 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -2386,68 +2611,66 @@ LABEL_39:
 
 - (BOOL)_shouldReingestAfterUploadErrorWithItem:(id)item record:(id)record
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   recordCopy = record;
   v8 = MEMORY[0x277CCABB0];
   volume = [(BRCAccountSession *)self->super.super._session volume];
-  v57 = [v8 numberWithInt:{objc_msgSend(volume, "deviceID")}];
+  v54 = [v8 numberWithInt:{objc_msgSend(volume, "deviceID")}];
 
-  v64 = 0u;
-  v65 = 0u;
+  v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   allKeys = [recordCopy allKeys];
-  v55 = [allKeys countByEnumeratingWithState:&v62 objects:v73 count:16];
-  if (v55)
+  v52 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+  if (v52)
   {
-    v11 = *v63;
-    v12 = 0x277CBC000uLL;
-    v50 = itemCopy;
+    v11 = *v60;
+    v47 = itemCopy;
     selfCopy = self;
     while (2)
     {
-      v13 = 0;
-      v14 = v55;
+      v12 = 0;
+      v13 = v52;
       do
       {
-        if (*v63 != v11)
+        if (*v60 != v11)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v15 = *(*(&v62 + 1) + 8 * v13);
-        v16 = [recordCopy objectForKeyedSubscript:v15];
-        v17 = *(v12 + 400);
+        v14 = *(*(&v59 + 1) + 8 * v12);
+        v15 = [recordCopy objectForKeyedSubscript:v14];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          deviceID = [v16 deviceID];
+          deviceID = [v15 deviceID];
           if (deviceID)
           {
-            v19 = deviceID;
-            v20 = [deviceID br_isEqualToNumber:v57];
+            v17 = deviceID;
+            v18 = [deviceID br_isEqualToNumber:v54];
 
-            if ((v20 & 1) == 0)
+            if ((v18 & 1) == 0)
             {
 LABEL_33:
-              v42 = brc_bread_crumbs();
-              v43 = brc_default_log();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+              v40 = brc_bread_crumbs();
+              v41 = brc_default_log();
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412802;
-                v67 = v15;
-                v68 = 2112;
-                itemCopy = v50;
-                v69 = v50;
-                v70 = 2112;
-                v71 = v42;
-                _os_log_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEFAULT, "[WARNING] CKAsset of key %@ for %@ is pointing to the wrong device ID%@", buf, 0x20u);
+                v64 = v14;
+                v65 = 2112;
+                itemCopy = v47;
+                v66 = v47;
+                v67 = 2112;
+                v68 = v40;
+                _os_log_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEFAULT, "[WARNING] CKAsset of key %@ for %@ is pointing to the wrong device ID%@", buf, 0x20u);
               }
 
               else
               {
-                itemCopy = v50;
+                itemCopy = v47;
               }
 
 LABEL_38:
@@ -2462,85 +2685,84 @@ LABEL_38:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v51 = v15;
-            v60 = 0u;
-            v61 = 0u;
+            v48 = v14;
+            v57 = 0u;
             v58 = 0u;
-            v59 = 0u;
-            obj = [v16 itemEnumerator];
-            v21 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
-            if (v21)
+            v55 = 0u;
+            v56 = 0u;
+            obj = [v15 itemEnumerator];
+            v19 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
+            if (v19)
             {
-              v22 = v21;
-              v23 = *v59;
-              v52 = recordCopy;
-              v53 = v16;
-              v54 = allKeys;
-              v49 = v11;
+              v20 = v19;
+              v21 = *v56;
+              v49 = recordCopy;
+              v50 = v15;
+              v51 = allKeys;
+              v46 = v11;
               while (2)
               {
-                for (i = 0; i != v22; ++i)
+                for (i = 0; i != v20; ++i)
                 {
-                  if (*v59 != v23)
+                  if (*v56 != v21)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  v25 = *(*(&v58 + 1) + 8 * i);
-                  deviceID2 = [v25 deviceID];
-                  v27 = deviceID2;
-                  if (deviceID2 && ([deviceID2 br_isEqualToNumber:v57] & 1) == 0)
+                  v23 = *(*(&v55 + 1) + 8 * i);
+                  deviceID2 = [v23 deviceID];
+                  v25 = deviceID2;
+                  if (deviceID2 && ([deviceID2 br_isEqualToNumber:v54] & 1) == 0)
                   {
 
-                    recordCopy = v52;
-                    v16 = v53;
-                    allKeys = v54;
-                    v15 = v51;
+                    recordCopy = v49;
+                    v15 = v50;
+                    allKeys = v51;
+                    v14 = v48;
                     goto LABEL_33;
                   }
 
                   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-                  fileURL = [v25 fileURL];
+                  fileURL = [v23 fileURL];
                   path = [fileURL path];
-                  v31 = [defaultManager fileExistsAtPath:path];
+                  v29 = [defaultManager fileExistsAtPath:path];
 
-                  if ((v31 & 1) == 0)
+                  if ((v29 & 1) == 0)
                   {
-                    v40 = brc_bread_crumbs();
-                    v41 = brc_default_log();
-                    allKeys = v54;
-                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
+                    v38 = brc_bread_crumbs();
+                    v39 = brc_default_log();
+                    allKeys = v51;
+                    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
                     {
                       [BRCFSUploader _shouldReingestAfterUploadErrorWithItem:record:];
                     }
 
-                    v42 = brc_bread_crumbs();
-                    v43 = brc_default_log();
-                    itemCopy = v50;
-                    v16 = v53;
-                    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                    v40 = brc_bread_crumbs();
+                    v41 = brc_default_log();
+                    itemCopy = v47;
+                    v15 = v50;
+                    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138412802;
-                      v67 = v51;
-                      v68 = 2112;
-                      v69 = v50;
-                      v70 = 2112;
-                      v71 = v42;
-                      _os_log_impl(&dword_223E7A000, v43, OS_LOG_TYPE_DEFAULT, "[WARNING] found a missing file in the package. key %@ item %@%@", buf, 0x20u);
+                      v64 = v48;
+                      v65 = 2112;
+                      v66 = v47;
+                      v67 = 2112;
+                      v68 = v40;
+                      _os_log_impl(&dword_223E7A000, v41, OS_LOG_TYPE_DEFAULT, "[WARNING] found a missing file in the package. key %@ item %@%@", buf, 0x20u);
                     }
 
-                    recordCopy = v52;
+                    recordCopy = v49;
                     goto LABEL_38;
                   }
                 }
 
-                v22 = [obj countByEnumeratingWithState:&v58 objects:v72 count:16];
-                recordCopy = v52;
-                v16 = v53;
-                allKeys = v54;
-                v11 = v49;
-                v12 = 0x277CBC000;
-                if (v22)
+                v20 = [obj countByEnumeratingWithState:&v55 objects:v69 count:16];
+                recordCopy = v49;
+                v15 = v50;
+                allKeys = v51;
+                v11 = v46;
+                if (v20)
                 {
                   continue;
                 }
@@ -2549,18 +2771,18 @@ LABEL_38:
               }
             }
 
-            v14 = v55;
+            v13 = v52;
           }
         }
 
-        ++v13;
+        ++v12;
       }
 
-      while (v13 != v14);
-      itemCopy = v50;
+      while (v12 != v13);
+      itemCopy = v47;
       self = selfCopy;
-      v55 = [allKeys countByEnumeratingWithState:&v62 objects:v73 count:16];
-      if (v55)
+      v52 = [allKeys countByEnumeratingWithState:&v59 objects:v70 count:16];
+      if (v52)
       {
         continue;
       }
@@ -2572,24 +2794,24 @@ LABEL_38:
   *buf = 0;
   stageRegistry = [(BRCAccountSession *)self->super.super._session stageRegistry];
   fileIDForUpload = [itemCopy fileIDForUpload];
-  v34 = [stageRegistry existsInUploadOrLiveItemsStage:objc_msgSend(fileIDForUpload generationID:{"longLongValue"), buf}];
+  v32 = [stageRegistry existsInUploadOrLiveItemsStage:objc_msgSend(fileIDForUpload generationID:{"longLongValue"), buf}];
 
-  if (v34)
+  if (v32)
   {
-    v35 = *buf;
+    v33 = *buf;
     generationIDForUpload = [itemCopy generationIDForUpload];
     fsGenerationID = [generationIDForUpload fsGenerationID];
     unsignedIntValue = [fsGenerationID unsignedIntValue];
 
-    if (v35 == unsignedIntValue)
+    if (v33 == unsignedIntValue)
     {
-      v39 = 0;
+      v37 = 0;
       goto LABEL_43;
     }
 
-    v44 = brc_bread_crumbs();
-    v45 = brc_default_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v42 = brc_bread_crumbs();
+    v43 = brc_default_log();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
       [BRCFSUploader _shouldReingestAfterUploadErrorWithItem:record:];
     }
@@ -2597,20 +2819,19 @@ LABEL_38:
 
   else
   {
-    v44 = brc_bread_crumbs();
-    v45 = brc_default_log();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v42 = brc_bread_crumbs();
+    v43 = brc_default_log();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
       [BRCFSUploader _shouldReingestAfterUploadErrorWithItem:record:];
     }
   }
 
 LABEL_42:
-  v39 = 1;
+  v37 = 1;
 LABEL_43:
 
-  v46 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v37;
 }
 
 - (BOOL)_retryUploadForError:(id)error jobID:(id)d recomputeRecord:(BOOL)record syncContext:(id)context
@@ -2658,7 +2879,7 @@ void __72__BRCFSUploader__retryUploadForError_jobID_recomputeRecord_syncContext_
 
 - (void)_sendItemNotFoundStatsTelemetryForFileID:(id)d
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CC6490];
   dCopy = d;
   v6 = [v4 alloc];
@@ -2666,16 +2887,14 @@ void __72__BRCFSUploader__retryUploadForError_jobID_recomputeRecord_syncContext_
 
   v8 = [v6 initWithFileID:unsignedLongLongValue];
   session = self->super.super._session;
-  v13[0] = v8;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke;
-  v12[3] = &unk_2785056B8;
-  v12[4] = self;
-  [(BRCAccountSession *)session sendFileStatsTelemetryWithDescriptors:v10 perItemSendTelemetryBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = v8;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke;
+  v11[3] = &unk_2785056B8;
+  v11[4] = self;
+  [(BRCAccountSession *)session sendFileStatsTelemetryWithDescriptors:v10 perItemSendTelemetryBlock:v11];
 }
 
 void __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke(uint64_t a1, void *a2)
@@ -2689,22 +2908,22 @@ void __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke
 
 - (void)_finishedUploadingItem:(id)item record:(id)record jobID:(id)d stageID:(id)iD syncContext:(id)context hasPerformedServerSideAssetCopy:(BOOL)copy error:(id)error
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   recordCopy = record;
   dCopy = d;
   iDCopy = iD;
   contextCopy = context;
   errorCopy = error;
-  v87 = itemCopy;
+  v86 = itemCopy;
   clientZone = [itemCopy clientZone];
-  memset(v93, 0, sizeof(v93));
-  __brc_create_section(0, "[BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:]", 1364, 0, v93);
+  memset(v92, 0, sizeof(v92));
+  __brc_create_section(0, "[BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:]", 1364, 0, v92);
   v16 = brc_bread_crumbs();
   v17 = brc_default_log();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v37 = v93[0];
+    v37 = v92[0];
     digestDescription = [itemCopy digestDescription];
     v39 = digestDescription;
     v40 = @"success";
@@ -2714,15 +2933,15 @@ void __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke
       v40 = errorCopy;
     }
 
-    v95 = v37;
-    v96 = 2112;
-    v97 = dCopy;
-    v98 = 2112;
-    v99 = digestDescription;
-    v100 = 2112;
-    v101 = v40;
-    v102 = 2112;
-    v103 = v16;
+    v94 = v37;
+    v95 = 2112;
+    v96 = dCopy;
+    v97 = 2112;
+    v98 = digestDescription;
+    v99 = 2112;
+    v100 = v40;
+    v101 = 2112;
+    v102 = v16;
     _os_log_debug_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%@]: done with %@ (%@)%@", buf, 0x34u);
   }
 
@@ -2743,17 +2962,17 @@ void __58__BRCFSUploader__sendItemNotFoundStatsTelemetryForFileID___block_invoke
   if (!v19)
   {
     v20 = objc_opt_new();
-    v92 = 0;
-    v21 = [(BRCFSUploader *)self _finishPackageUploadWithRecord:recordCopy item:itemCopy stageID:iDCopy packageChecksummer:v20 error:&v92];
-    errorCopy = v92;
+    v91 = 0;
+    v21 = [(BRCFSUploader *)self _finishPackageUploadWithRecord:recordCopy item:itemCopy stageID:iDCopy packageChecksummer:v20 error:&v91];
+    errorCopy = v91;
 
     if (!v21)
     {
       if (!errorCopy)
       {
-        v77 = brc_bread_crumbs();
-        v78 = brc_default_log();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_FAULT))
+        v76 = brc_bread_crumbs();
+        v77 = brc_default_log();
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
         {
           [BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:];
         }
@@ -2777,10 +2996,10 @@ LABEL_5:
 
         v30 = [MEMORY[0x277CBEBC0] fileURLWithPath:v29];
         v31 = [objc_alloc(MEMORY[0x277CCAC90]) initWithURL:v30 readonly:1];
-        v91 = 0;
-        v32 = [BRCDocumentSignatureCalculator calculateSignatureForScopedURLWrapper:v31 boundaryKey:0 error:&v91];
-        v80 = v91;
-        if (([v80 br_isPOSIXErrorCode:2] & 1) != 0 || objc_msgSend(v80, "br_isPOSIXErrorCode:", 34))
+        v90 = 0;
+        v32 = [BRCDocumentSignatureCalculator calculateSignatureForScopedURLWrapper:v31 boundaryKey:0 error:&v90];
+        v79 = v90;
+        if (([v79 br_isPOSIXErrorCode:2] & 1) != 0 || objc_msgSend(v79, "br_isPOSIXErrorCode:", 34))
         {
           v33 = brc_bread_crumbs();
           v34 = brc_default_log();
@@ -2789,7 +3008,7 @@ LABEL_5:
             [BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:];
           }
 
-          v35 = [MEMORY[0x277CCA9B8] brc_errorDamagedDocumentOnDiskWithUnderlyingError:v80];
+          v35 = [MEMORY[0x277CCA9B8] brc_errorDamagedDocumentOnDiskWithUnderlyingError:v79];
 
           analyticsReporter = [(BRCAccountSession *)self->super.super._session analyticsReporter];
           [analyticsReporter aggregateReportForAppTelemetryIdentifier:215 error:v35];
@@ -2805,7 +3024,7 @@ LABEL_5:
 
       else
       {
-        v80 = 0;
+        v79 = 0;
       }
 
       brc_isCloudKitUnknownItemError = [(__CFString *)errorCopy brc_isCloudKitUnknownItemError];
@@ -2818,19 +3037,19 @@ LABEL_5:
           [BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:];
         }
 
-        [v87 handleUnknownItemError];
+        [v86 handleUnknownItemError];
         uploadFileModifiedThrottle = 0;
         goto LABEL_41;
       }
 
       if (([(__CFString *)errorCopy brc_isCloudKitErrorRequiringAssetRecheck]& 1) != 0 || ([(__CFString *)errorCopy brc_isCloudKitErrorRequiringAssetRescan]& 1) != 0 || [(__CFString *)errorCopy br_isCKErrorCode:12])
       {
-        if ([(BRCFSUploader *)self _shouldReingestAfterUploadErrorWithItem:v87 record:recordCopy])
+        if ([(BRCFSUploader *)self _shouldReingestAfterUploadErrorWithItem:v86 record:recordCopy])
         {
-          [(BRCFSUploader *)self _handleFileModifiedError:errorCopy forItem:v87];
+          [(BRCFSUploader *)self _handleFileModifiedError:errorCopy forItem:v86];
           uploadFileModifiedThrottle = [contextCopy uploadFileModifiedThrottle];
 LABEL_41:
-          v79 = 0;
+          v78 = 0;
 LABEL_42:
           v45 = brc_isCloudKitUnknownItemError ^ 1;
           goto LABEL_43;
@@ -2853,7 +3072,7 @@ LABEL_42:
           }
 
 LABEL_85:
-          v79 = 0;
+          v78 = 0;
 LABEL_86:
 
           uploadFileModifiedThrottle = 0;
@@ -2879,8 +3098,8 @@ LABEL_86:
 
         if ([(__CFString *)errorCopy brc_isCloudKitErrorRequiresVerifyTerms])
         {
-          v71 = +[BRCAccountHandler currentiCloudAccount];
-          br_needsToVerifyTerms = [v71 br_needsToVerifyTerms];
+          v70 = +[BRCAccountHandler currentiCloudAccount];
+          br_needsToVerifyTerms = [v70 br_needsToVerifyTerms];
 
           if (br_needsToVerifyTerms)
           {
@@ -2891,7 +3110,7 @@ LABEL_86:
               [BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:];
             }
 
-            v79 = 1;
+            v78 = 1;
             goto LABEL_86;
           }
         }
@@ -2902,23 +3121,23 @@ LABEL_86:
           v65 = brc_default_log();
           if (os_log_type_enabled(v65, 0x90u))
           {
-            v75 = [v87 st];
-            displayName = [v75 displayName];
+            v74 = [v86 st];
+            displayName = [v74 displayName];
             *buf = 138412802;
-            v95 = displayName;
-            v96 = 2112;
-            v97 = errorCopy;
-            v98 = 2112;
-            v99 = v64;
+            v94 = displayName;
+            v95 = 2112;
+            v96 = errorCopy;
+            v97 = 2112;
+            v98 = v64;
             _os_log_error_impl(&dword_223E7A000, v65, 0x90u, "[ERROR] non recoverable error while uploading %@: %@%@", buf, 0x20u);
           }
 
           goto LABEL_85;
         }
 
-        v73 = brc_bread_crumbs();
-        v74 = brc_default_log();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+        v72 = brc_bread_crumbs();
+        v73 = brc_default_log();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
         {
           [BRCFSUploader _finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:];
         }
@@ -2928,7 +3147,7 @@ LABEL_86:
 
       [(BRCFSUploader *)self _retryUploadForError:errorCopy jobID:dCopy recomputeRecord:v66 syncContext:contextCopy];
       v45 = 0;
-      v79 = 0;
+      v78 = 0;
       uploadFileModifiedThrottle = 0;
 LABEL_43:
       v46 = brc_bread_crumbs();
@@ -2949,7 +3168,7 @@ LABEL_43:
       {
       }
 
-      appLibrary = [v87 appLibrary];
+      appLibrary = [v86 appLibrary];
       mangledID = [appLibrary mangledID];
       v52 = [BRCUserDefaults defaultsForMangledID:mangledID];
       uploadRetryCountForFailure = [v52 uploadRetryCountForFailure];
@@ -2972,7 +3191,7 @@ LABEL_43:
         brc_isCloudKitMMCSItemNotFound = 0;
       }
 
-      appLibrary2 = [v87 appLibrary];
+      appLibrary2 = [v86 appLibrary];
       mangledID2 = [appLibrary2 mangledID];
       v57 = [BRCUserDefaults defaultsForMangledID:mangledID2];
       uploadRetryCountForAssetNotFoundFailure = [v57 uploadRetryCountForAssetNotFoundFailure];
@@ -2981,15 +3200,15 @@ LABEL_43:
       {
         if (v49 > uploadRetryCountForFailure || ((v49 > uploadRetryCountForAssetNotFoundFailure) & brc_isCloudKitMMCSItemNotFound) != 0)
         {
-          [(BRCFSUploader *)self _reportUploadErrorForDocument:v87 error:errorCopy underlyingError:v80];
+          [(BRCFSUploader *)self _reportUploadErrorForDocument:v86 error:errorCopy underlyingError:v79];
           if (brc_isCloudKitMMCSItemNotFound)
           {
-            fileIDForUpload2 = [v87 fileIDForUpload];
+            fileIDForUpload2 = [v86 fileIDForUpload];
             [(BRCFSUploader *)self _sendItemNotFoundStatsTelemetryForFileID:fileIDForUpload2];
           }
         }
 
-        v61 = v80;
+        v61 = v79;
         goto LABEL_79;
       }
 
@@ -3008,7 +3227,7 @@ LABEL_43:
         v59 = 36;
       }
 
-      else if ((v79 & [(__CFString *)errorCopy brc_isCloudKitErrorRequiresVerifyTerms]& 1) != 0)
+      else if ((v78 & [(__CFString *)errorCopy brc_isCloudKitErrorRequiresVerifyTerms]& 1) != 0)
       {
         v59 = 37;
       }
@@ -3017,10 +3236,10 @@ LABEL_43:
       {
         if (![(__CFString *)errorCopy brc_isNetworkUnreachableDueToCellularError])
         {
-          [(BRCFSUploader *)self setState:33 forItem:v87 uploadError:errorCopy];
+          [(BRCFSUploader *)self setState:33 forItem:v86 uploadError:errorCopy];
           if (([(__CFString *)errorCopy brc_isCloudKitErrorRequiringAssetRescan]& 1) == 0)
           {
-            [(BRCFSUploader *)self _reportUploadErrorForDocument:v87 error:errorCopy];
+            [(BRCFSUploader *)self _reportUploadErrorForDocument:v86 error:errorCopy];
           }
 
           goto LABEL_76;
@@ -3029,7 +3248,7 @@ LABEL_43:
         v59 = 38;
       }
 
-      [(BRCFSUploader *)self setState:v59 forItem:v87 uploadError:errorCopy];
+      [(BRCFSUploader *)self setState:v59 forItem:v86 uploadError:errorCopy];
 LABEL_76:
 
       goto LABEL_77;
@@ -3050,31 +3269,29 @@ LABEL_76:
   [(BRCFSUploader *)self _clearUploadErrorForDocument:itemCopy];
   errorCopy = 0;
 LABEL_77:
-  currentVersion = [v87 currentVersion];
+  currentVersion = [v86 currentVersion];
   [currentVersion setUploadError:errorCopy];
 
-  [v87 saveToDB];
+  [v86 saveToDB];
   if (errorCopy)
   {
     clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
     serialQueue = [clientDB serialQueue];
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContext_hasPerformedServerSideAssetCopy_error___block_invoke;
-    v88[3] = &unk_2784FF478;
-    v89 = clientZone;
-    v90 = dCopy;
-    dispatch_async_with_logs_8(serialQueue, v88);
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContext_hasPerformedServerSideAssetCopy_error___block_invoke;
+    v87[3] = &unk_2784FF478;
+    v88 = clientZone;
+    v89 = dCopy;
+    dispatch_async_with_logs_8(serialQueue, v87);
 
-    [v87 recoverDamagedDocumentIfNecessaryWithError:errorCopy];
-    v61 = v89;
+    [v86 recoverDamagedDocumentIfNecessaryWithError:errorCopy];
+    v61 = v88;
 LABEL_79:
   }
 
 LABEL_80:
-  __brc_leave_section(v93);
-
-  v70 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v92);
 }
 
 void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContext_hasPerformedServerSideAssetCopy_error___block_invoke(uint64_t a1)
@@ -3085,7 +3302,7 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
 
 - (void)_serializeServerSideAssetCopyPluginFieldsForRecord:(id)record newZone:(id)zone origZone:(id)origZone
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   origZoneCopy = origZone;
   recordCopy = record;
@@ -3126,18 +3343,16 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
     v10 = 2;
   }
 
-  v18 = @"br_assetRereference";
+  v17 = @"br_assetRereference";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v10];
-  v19[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   [recordCopy setPluginFields:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performServerSideAssetCopyForItem:(id)item transferSize:(unint64_t)size
 {
-  v72[1] = *MEMORY[0x277D85DE8];
+  v71[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   currentVersion = [itemCopy currentVersion];
   previousItemGlobalID = [currentVersion previousItemGlobalID];
@@ -3152,12 +3367,12 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
   v10 = [itemID contentsRecordIDInZoneID:zoneID];
 
   baseRecord = [itemCopy baseRecord];
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__39;
-  v69 = __Block_byref_object_dispose__39;
-  v70 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__39;
+  v68 = __Block_byref_object_dispose__39;
+  v69 = 0;
   v12 = [BRCUserDefaults defaultsForMangledID:0];
   LODWORD(session) = [v12 supportsEnhancedDrivePrivacy];
 
@@ -3166,31 +3381,31 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
     clientZone = [v8 clientZone];
     v14 = [itemCopy db];
     v15 = [clientZone contentBoundaryKeyForItemID:itemID withDB:v14];
-    v16 = v66[5];
-    v66[5] = v15;
+    v16 = v65[5];
+    v65[5] = v15;
   }
 
   v17 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [itemCopy dbRowID]);
   clientZone2 = [v8 clientZone];
   v19 = [clientZone2 serverItemByItemID:itemID];
 
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke;
-  v57[3] = &unk_278505708;
-  v46 = v17;
-  v58 = v46;
-  v45 = v8;
-  v59 = v45;
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke;
+  v56[3] = &unk_278505708;
+  v45 = v17;
+  v57 = v45;
+  v44 = v8;
+  v58 = v44;
   v20 = itemCopy;
-  v60 = v20;
+  v59 = v20;
   selfCopy = self;
   v21 = v10;
-  v62 = v21;
-  v64 = &v65;
-  v44 = baseRecord;
-  v63 = v44;
-  v22 = MEMORY[0x22AA4A310](v57);
+  v61 = v21;
+  v63 = &v64;
+  v43 = baseRecord;
+  v62 = v43;
+  v22 = MEMORY[0x22AA4A310](v56);
   if (v19)
   {
     v23 = v19;
@@ -3211,14 +3426,14 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
     }
 
     v26 = objc_alloc(MEMORY[0x277CBC3E0]);
-    v72[0] = v21;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:1];
+    v71[0] = v21;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
     v28 = [v26 initWithRecordIDs:v27];
 
     [v28 setShouldFetchAssetContent:0];
-    v71[0] = @"pkgManifest";
-    v71[1] = @"pkgXattrs";
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+    v70[0] = @"pkgManifest";
+    v70[1] = @"pkgXattrs";
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
     [v28 setDesiredKeys:v29];
 
     v30 = [BRCUserDefaults defaultsForMangledID:0];
@@ -3229,21 +3444,21 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
       [v28 setShouldCloneFileInAssetCache:1];
     }
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_212;
-    v50[3] = &unk_278505758;
-    v50[4] = self;
-    v56 = dbRowID;
-    v32 = v46;
-    v51 = v32;
-    v52 = v21;
-    v33 = v45;
-    v53 = v33;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_212;
+    v49[3] = &unk_278505758;
+    v49[4] = self;
+    v55 = dbRowID;
+    v32 = v45;
+    v50 = v32;
+    v51 = v21;
+    v33 = v44;
+    v52 = v33;
     v34 = itemID;
-    v54 = v34;
-    v55 = v22;
-    [v28 setFetchRecordsCompletionBlock:v50];
+    v53 = v34;
+    v54 = v22;
+    [v28 setFetchRecordsCompletionBlock:v49];
     v35 = [BRCFetchRecordsWrapperOperation alloc];
     itemIDString = [v34 itemIDString];
     v37 = [MEMORY[0x277CBC4F8] br_operationGroupWithName:@"FetchRecordsWrapper"];
@@ -3262,8 +3477,7 @@ void __111__BRCFSUploader__finishedUploadingItem_record_jobID_stageID_syncContex
     (v22)[2](v22, v20, v19, 0, 0);
   }
 
-  _Block_object_dispose(&v65, 8);
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v64, 8);
 }
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, char a5)
@@ -3305,7 +3519,7 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_1(a1);
+    __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_1();
   }
 
   if ([*(a1 + 40) isSharedZone])
@@ -3500,7 +3714,7 @@ LABEL_45:
             v59 = brc_default_log();
             if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
             {
-              __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_9(a1);
+              __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_9();
             }
           }
         }
@@ -3551,7 +3765,7 @@ LABEL_45:
           v69 = brc_default_log();
           if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
           {
-            __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_10(a1);
+            __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_10();
           }
         }
 
@@ -3595,7 +3809,7 @@ LABEL_66:
     v22 = brc_default_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_2(a1);
+      __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_2();
     }
 
     v23 = *(a1 + 72);
@@ -3641,7 +3855,7 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_213(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) itemFetcher];
   v3 = [v2 itemByRowID:*(a1 + 96)];
   v4 = [v3 asDocument];
@@ -3675,11 +3889,11 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v29 = v8;
-        v30 = 2112;
-        v31 = v4;
-        v32 = 2112;
-        v33 = v11;
+        v28 = v8;
+        v29 = 2112;
+        v30 = v4;
+        v31 = 2112;
+        v32 = v11;
         _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: No error but also no asset or item with record %@ item %@%@", buf, 0x20u);
       }
 
@@ -3699,19 +3913,19 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
       v19 = brc_default_log();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v26 = [*(a1 + 64) recordName];
-        v25 = [v9 signature];
-        v23 = MEMORY[0x277CCABB0];
-        v27 = [v8 objectForKeyedSubscript:@"pkgXattrs"];
-        [v23 numberWithInt:v27 != 0];
+        v25 = [*(a1 + 64) recordName];
+        v24 = [v9 signature];
+        v22 = MEMORY[0x277CCABB0];
+        v26 = [v8 objectForKeyedSubscript:@"pkgXattrs"];
+        [v22 numberWithInt:v26 != 0];
         *buf = 138413058;
-        v29 = v26;
-        v30 = 2112;
-        v31 = v25;
-        v33 = v32 = 2112;
-        v24 = v33;
-        v34 = 2112;
-        v35 = v18;
+        v28 = v25;
+        v29 = 2112;
+        v30 = v24;
+        v32 = v31 = 2112;
+        v23 = v32;
+        v33 = 2112;
+        v34 = v18;
         _os_log_debug_impl(&dword_223E7A000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] Record [%@] pkgManifest signature [%@] hasXattrs [%@]%@", buf, 0x2Au);
       }
 
@@ -3721,8 +3935,6 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
       (*(v20 + 16))(v20, v4, v17, v15, v21 != 0);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAndRescheduleUploaderConstraintCheckerIfNeeded
@@ -3735,13 +3947,13 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
 
 - (void)_transferStreamOfSyncContext:(id)context didBecomeReadyWithMaxRecordsCount:(unint64_t)count sizeHint:(unint64_t)hint priority:(int64_t)priority
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   selfCopy = self;
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   v7 = clientDB;
   [clientDB assertOnQueue];
-  v61 = brc_current_date_nsec();
+  v60 = brc_current_date_nsec();
   if ([(BRCFSSchedulerBase *)selfCopy isCancelled])
   {
     goto LABEL_44;
@@ -3750,29 +3962,29 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
   contextIdentifier = [contextCopy contextIdentifier];
   v9 = [clientDB fetch:{@"  SELECT throttle_id, zone_rowid, transfer_size, transfer_record, next_retry_stamp, transfer_stage     FROM client_uploads    WHERE throttle_state = 1      AND transfer_queue = %@      AND transfer_operation IS NULL ORDER BY upload_priority DESC, transfer_size ASC", contextIdentifier}];
 
-  v63 = 0;
-  v57 = 0;
+  v62 = 0;
+  v56 = 0;
   val = 0;
-  v59 = 0;
-  v60 = 0x7FFFFFFFFFFFFFFFLL;
-  while ([v9 next] && v59 + v63 + -[BRCTransferBatchOperation itemsCount](val, "itemsCount") < count)
+  v58 = 0;
+  v59 = 0x7FFFFFFFFFFFFFFFLL;
+  while ([v9 next] && v58 + v62 + -[BRCTransferBatchOperation itemsCount](val, "itemsCount") < count)
   {
     context = objc_autoreleasePoolPush();
     v10 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v9 longLongAtIndex:0]);
     v11 = [v9 numberAtIndex:1];
     v12 = [v9 unsignedIntegerAtIndex:2];
-    v69 = [v9 unarchivedObjectOfClass:objc_opt_class() atIndex:3];
+    v68 = [v9 unarchivedObjectOfClass:objc_opt_class() atIndex:3];
     v13 = [v9 longLongAtIndex:4];
     v14 = [v9 stringAtIndex:5];
-    if (v13 > v61)
+    if (v13 > v60)
     {
-      v15 = v60;
-      if (v60 >= v13)
+      v15 = v59;
+      if (v59 >= v13)
       {
         v15 = v13;
       }
 
-      v60 = v15;
+      v59 = v15;
       matchingJobsWhereSQLClause = [(BRCItemDBRowIDJobIdentifier *)v10 matchingJobsWhereSQLClause];
       [clientDB execute:{@"UPDATE client_uploads    SET transfer_queue = '_retry'  WHERE %@", matchingJobsWhereSQLClause}];
       v17 = 0;
@@ -3781,62 +3993,62 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
 
     matchingJobsWhereSQLClause = [(BRCAccountSession *)selfCopy->super.super._session serverZoneByRowID:v11];
     itemFetcher = [(BRCAccountSession *)selfCopy->super.super._session itemFetcher];
-    v70 = [itemFetcher itemByRowID:{-[BRCItemDBRowIDJobIdentifier itemDBRowID](v10, "itemDBRowID")}];
+    v69 = [itemFetcher itemByRowID:{-[BRCItemDBRowIDJobIdentifier itemDBRowID](v10, "itemDBRowID")}];
 
-    if (([v70 isDocument] & 1) == 0)
+    if (([v69 isDocument] & 1) == 0)
     {
       v24 = brc_bread_crumbs();
       v25 = brc_default_log();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         *location = 138412546;
-        *&location[4] = v70;
-        v82 = 2112;
-        v83 = v24;
+        *&location[4] = v69;
+        v81 = 2112;
+        v82 = v24;
         _os_log_fault_impl(&dword_223E7A000, v25, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: %@ should be a document%@", location, 0x16u);
       }
 
       goto LABEL_31;
     }
 
-    if ([v70 syncUpState] != 3)
+    if ([v69 syncUpState] != 3)
     {
       v26 = brc_bread_crumbs();
       v27 = brc_default_log();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
       {
         *location = 138412546;
-        *&location[4] = v70;
-        v82 = 2112;
-        v83 = v26;
+        *&location[4] = v69;
+        v81 = 2112;
+        v82 = v26;
         _os_log_fault_impl(&dword_223E7A000, v27, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: %@ should be needs-upload%@", location, 0x16u);
       }
 
-      [(BRCFSUploader *)selfCopy cancelAndCleanupItemUpload:v70];
+      [(BRCFSUploader *)selfCopy cancelAndCleanupItemUpload:v69];
       goto LABEL_31;
     }
 
-    if ([v70 isDocumentBeingCopiedToNewZone])
+    if ([v69 isDocumentBeingCopiedToNewZone])
     {
-      currentVersion = [v70 currentVersion];
+      currentVersion = [v69 currentVersion];
       contentSignature = [currentVersion contentSignature];
       if ([contentSignature brc_signatureIsValid])
       {
         session = selfCopy->super.super._session;
-        currentVersion2 = [v70 currentVersion];
+        currentVersion2 = [v69 currentVersion];
         previousItemGlobalID = [currentVersion2 previousItemGlobalID];
         zoneRowID = [previousItemGlobalID zoneRowID];
-        v52 = [(BRCAccountSession *)session serverZoneByRowID:zoneRowID];
-        clientZone = [v52 clientZone];
+        v51 = [(BRCAccountSession *)session serverZoneByRowID:zoneRowID];
+        clientZone = [v51 clientZone];
         enhancedDrivePrivacyEnabled = [clientZone enhancedDrivePrivacyEnabled];
-        clientZone2 = [v70 clientZone];
+        clientZone2 = [v69 clientZone];
         enhancedDrivePrivacyEnabled2 = [clientZone2 enhancedDrivePrivacyEnabled];
 
         if (((enhancedDrivePrivacyEnabled ^ enhancedDrivePrivacyEnabled2) & 1) == 0)
         {
-          [(BRCFSUploader *)selfCopy _performServerSideAssetCopyForItem:v70 transferSize:v12];
+          [(BRCFSUploader *)selfCopy _performServerSideAssetCopyForItem:v69 transferSize:v12];
           v17 = 0;
-          ++v59;
+          ++v58;
           goto LABEL_32;
         }
       }
@@ -3857,52 +4069,52 @@ void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block
 
       operationID = [(_BRCOperation *)val operationID];
 
-      v76[0] = MEMORY[0x277D85DD0];
-      v76[1] = 3221225472;
-      v76[2] = __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke;
-      v76[3] = &unk_2785057A8;
-      v77 = clientDB;
-      v78 = selfCopy;
-      v57 = operationID;
-      v79 = v57;
-      v80 = contextCopy;
-      [(BRCUploadBatchOperation *)val setPerUploadCompletionBlock:v76];
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke;
+      v75[3] = &unk_2785057A8;
+      v76 = clientDB;
+      v77 = selfCopy;
+      v56 = operationID;
+      v78 = v56;
+      v79 = contextCopy;
+      [(BRCUploadBatchOperation *)val setPerUploadCompletionBlock:v75];
       objc_initWeak(location, val);
-      v72[0] = MEMORY[0x277D85DD0];
-      v72[1] = 3221225472;
-      v72[2] = __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke_229;
-      v72[3] = &unk_2785057D0;
-      objc_copyWeak(&v75, location);
-      v73 = v70;
-      v74 = selfCopy;
-      [(BRCUploadBatchOperation *)val setUploadBatchCompletionBlock:v72];
+      v71[0] = MEMORY[0x277D85DD0];
+      v71[1] = 3221225472;
+      v71[2] = __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke_229;
+      v71[3] = &unk_2785057D0;
+      objc_copyWeak(&v74, location);
+      v72 = v69;
+      v73 = selfCopy;
+      [(BRCUploadBatchOperation *)val setUploadBatchCompletionBlock:v71];
 
-      objc_destroyWeak(&v75);
+      objc_destroyWeak(&v74);
       objc_destroyWeak(location);
 
 LABEL_27:
       v34 = +[BRCUploadConstraintChecker defaultChecker];
-      itemScope = [v70 itemScope];
-      itemID = [v70 itemID];
-      v71 = 0;
-      LODWORD(itemScope) = [v34 canUploadItemWithSize:v12 itemScope:itemScope itemID:itemID withError:&v71];
-      v37 = v71;
+      itemScope = [v69 itemScope];
+      itemID = [v69 itemID];
+      v70 = 0;
+      LODWORD(itemScope) = [v34 canUploadItemWithSize:v12 itemScope:itemScope itemID:itemID withError:&v70];
+      v37 = v70;
 
       if (itemScope)
       {
-        [(BRCUploadBatchOperation *)val addItem:v70 stageID:v14 record:v69 transferSize:v12];
+        [(BRCUploadBatchOperation *)val addItem:v69 stageID:v14 record:v68 transferSize:v12];
         uploadThrottle = [contextCopy uploadThrottle];
-        [(BRCFSUploader *)selfCopy _willAttemptJobID:v10 throttle:uploadThrottle operationID:v57];
+        [(BRCFSUploader *)selfCopy _willAttemptJobID:v10 throttle:uploadThrottle operationID:v56];
 
-        [v70 triggerNotificationIfNeeded];
+        [v69 triggerNotificationIfNeeded];
       }
 
       else
       {
-        v39 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v70 dbRowID]);
-        [(BRCFSUploader *)selfCopy _finishedUploadingItem:v70 record:v69 jobID:v39 stageID:v14 syncContext:contextCopy hasPerformedServerSideAssetCopy:0 error:v37];
+        v39 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v69 dbRowID]);
+        [(BRCFSUploader *)selfCopy _finishedUploadingItem:v69 record:v68 jobID:v39 stageID:v14 syncContext:contextCopy hasPerformedServerSideAssetCopy:0 error:v37];
 
-        ++v63;
+        ++v62;
         v37 = v39;
       }
 
@@ -3928,7 +4140,7 @@ LABEL_33:
     }
   }
 
-  if (v60 != 0x7FFFFFFFFFFFFFFFLL)
+  if (v59 != 0x7FFFFFFFFFFFFFFFLL)
   {
     [(BRCDeadlineSource *)selfCopy->_retryQueueSource signalWithDeadline:?];
   }
@@ -3946,10 +4158,10 @@ LABEL_33:
       contextIdentifier2 = [contextCopy contextIdentifier];
       *location = 134218498;
       *&location[4] = itemsCount2;
-      v82 = 2112;
-      v83 = contextIdentifier2;
-      v84 = 2112;
-      v85 = v41;
+      v81 = 2112;
+      v82 = contextIdentifier2;
+      v83 = 2112;
+      v84 = v41;
       _os_log_impl(&dword_223E7A000, v42, OS_LOG_TYPE_DEFAULT, "[NOTICE] uploading %ld documents in %@%@", location, 0x20u);
     }
 
@@ -3968,8 +4180,6 @@ LABEL_33:
 
   v7 = clientDB;
 LABEL_44:
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3995,7 +4205,7 @@ void __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecor
 
 void __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transferID];
   v3 = -[BRCItemDBRowIDJobIdentifier initWithItemDBRowID:]([BRCItemDBRowIDJobIdentifier alloc], "initWithItemDBRowID:", [v2 unsignedLongLongValue]);
 
@@ -4014,18 +4224,16 @@ void __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecor
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = [*(a1 + 48) UUIDString];
+      v10 = [*(a1 + 48) UUIDString];
       *buf = 138412802;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v8;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v8;
       _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] Uploader[%@]: throttle for %@ doesn't exist anymore%@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __98__BRCFSUploader__transferStreamOfSyncContext_didBecomeReadyWithMaxRecordsCount_sizeHint_priority___block_invoke_229(uint64_t a1, void *a2, uint64_t a3)
@@ -4087,28 +4295,28 @@ uint64_t __113__BRCFSUploader_transferStreamOfSyncContext_didBecomeReadyWithMaxR
 
 - (void)finishedSyncingUpItem:(id)item withOutOfQuotaError:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   errorCopy = error;
   dbRowID = [itemCopy dbRowID];
-  memset(v18, 0, sizeof(v18));
-  __brc_create_section(0, "[BRCFSUploader finishedSyncingUpItem:withOutOfQuotaError:]", 1932, 0, v18);
+  memset(v17, 0, sizeof(v17));
+  __brc_create_section(0, "[BRCFSUploader finishedSyncingUpItem:withOutOfQuotaError:]", 1932, 0, v17);
   v9 = brc_bread_crumbs();
   v10 = brc_default_log();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v18[0];
+    v13 = v17[0];
     digestDescription = [itemCopy digestDescription];
     *buf = 134219010;
-    v20 = v14;
-    v21 = 2048;
-    v22 = dbRowID;
-    v23 = 2112;
-    v24 = digestDescription;
-    v25 = 2112;
-    v26 = errorCopy;
-    v27 = 2112;
-    v28 = v9;
+    v19 = v13;
+    v20 = 2048;
+    v21 = dbRowID;
+    v22 = 2112;
+    v23 = digestDescription;
+    v24 = 2112;
+    v25 = errorCopy;
+    v26 = 2112;
+    v27 = v9;
     _os_log_debug_impl(&dword_223E7A000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Uploader[%lld]: %@ failed to sync up because it's out of quota: %@%@", buf, 0x34u);
   }
 
@@ -4120,17 +4328,15 @@ uint64_t __113__BRCFSUploader_transferStreamOfSyncContext_didBecomeReadyWithMaxR
 
   if (!v12)
   {
-    v16 = brc_bread_crumbs();
-    v17 = brc_default_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v15 = brc_bread_crumbs();
+    v16 = brc_default_log();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [BRCFSUploader finishedSyncingUpItem:withOutOfQuotaError:];
     }
   }
 
-  __brc_leave_section(v18);
-
-  v13 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v17);
 }
 
 - (BOOL)hasItemsOverQuotaForOwner:(id)owner
@@ -4161,10 +4367,7 @@ uint64_t __113__BRCFSUploader_transferStreamOfSyncContext_didBecomeReadyWithMaxR
 
 uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) numberWithSQL:{@"SELECT 1 FROM client_uploads  WHERE throttle_state = 32    AND zone_rowid IN (SELECT rowid FROM client_zones WHERE zone_owner = %@ AND zone_plist IS NOT NULL)  LIMIT 1", *(a1 + 40)}];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) numberWithSQL:{@"SELECT 1 FROM client_uploads  WHERE throttle_state = 32    AND zone_rowid IN (SELECT rowid FROM client_zones WHERE zone_owner = %@ AND zone_plist IS NOT NULL)  LIMIT 1", *(a1 + 40)}];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4200,21 +4403,21 @@ uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a
 
 - (void)_rescheduleJobsOutOfQuotaForDefaultOwnerWithAvailableSize:(int64_t)size
 {
-  v26 = *MEMORY[0x277D85DE8];
-  memset(v19, 0, sizeof(v19));
-  __brc_create_section(0, "[BRCFSUploader _rescheduleJobsOutOfQuotaForDefaultOwnerWithAvailableSize:]", 1981, 0, v19);
+  v25 = *MEMORY[0x277D85DE8];
+  memset(v18, 0, sizeof(v18));
+  __brc_create_section(0, "[BRCFSUploader _rescheduleJobsOutOfQuotaForDefaultOwnerWithAvailableSize:]", 1981, 0, v18);
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v17 = v19[0];
-    v18 = [BRCDumpContext stringFromByteCount:size context:0];
+    v16 = v18[0];
+    v17 = [BRCDumpContext stringFromByteCount:size context:0];
     *buf = 134218498;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v18;
-    v24 = 2112;
-    v25 = v5;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v17;
+    v23 = 2112;
+    v24 = v5;
     _os_log_debug_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx re-uploading failed items with size less than %@%@", buf, 0x20u);
   }
 
@@ -4248,13 +4451,12 @@ uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a
 
   [(BRCFSUploader *)self setIsDefaultOwnerOutOfQuota:[(BRCFSUploader *)self hasItemsOverQuotaForOwner:*MEMORY[0x277CBBF28]]];
 
-  __brc_leave_section(v19);
-  v16 = *MEMORY[0x277D85DE8];
+  __brc_leave_section(v18);
 }
 
 - (void)setQuotaAvailableForDefaultOwner:(unint64_t)owner
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   [clientDB assertOnQueue];
 
@@ -4267,23 +4469,23 @@ uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a
 
   if (unsignedLongLongValue != owner)
   {
-    memset(v18, 0, sizeof(v18));
-    __brc_create_section(0, "[BRCFSUploader setQuotaAvailableForDefaultOwner:]", 2034, 0, v18);
+    memset(v17, 0, sizeof(v17));
+    __brc_create_section(0, "[BRCFSUploader setQuotaAvailableForDefaultOwner:]", 2034, 0, v17);
     v10 = brc_bread_crumbs();
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = v18[0];
-      v16 = [BRCDumpContext stringFromByteCount:unsignedLongLongValue context:0];
-      v17 = [BRCDumpContext stringFromByteCount:owner context:0];
+      v14 = v17[0];
+      v15 = [BRCDumpContext stringFromByteCount:unsignedLongLongValue context:0];
+      v16 = [BRCDumpContext stringFromByteCount:owner context:0];
       *buf = 134218754;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v10;
+      v19 = v14;
+      v20 = 2112;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v10;
       _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx quota changed from %@ to %@%@", buf, 0x2Au);
     }
 
@@ -4296,10 +4498,8 @@ uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a
       [(BRCFSUploader *)self _rescheduleJobsOutOfQuotaForDefaultOwnerWithAvailableSize:owner];
     }
 
-    __brc_leave_section(v18);
+    __brc_leave_section(v17);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_globalQuotaStateUpdateForDefaultOwner
@@ -4321,38 +4521,37 @@ uint64_t __43__BRCFSUploader_hasItemsOverQuotaForOwner___block_invoke(uint64_t a
   br_quotaUpdateUploader = [MEMORY[0x277CBC4F8] br_quotaUpdateUploader];
   [v3 setGroup:br_quotaUpdateUploader];
 
-  quotaPacer = self->_quotaPacer;
   br_pacer_suspend();
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   serialQueue = [clientDB serialQueue];
   [v3 setCallbackQueue:serialQueue];
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke;
-  v13[3] = &unk_278505820;
-  v13[4] = self;
-  [v3 setFetchUserQuotaCompletionBlock:v13];
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
-  v12[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_259;
-  v12[3] = &unk_2784FF450;
+  v12[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke;
+  v12[3] = &unk_278505820;
   v12[4] = self;
-  [v3 setCompletionBlock:v12];
-  v8 = dispatch_get_global_queue(17, 0);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2;
-  v10[3] = &unk_2784FF478;
-  v10[4] = self;
-  v11 = v3;
-  v9 = v3;
-  dispatch_async_with_logs_8(v8, v10);
+  [v3 setFetchUserQuotaCompletionBlock:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_259;
+  v11[3] = &unk_2784FF450;
+  v11[4] = self;
+  [v3 setCompletionBlock:v11];
+  v7 = dispatch_get_global_queue(17, 0);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2;
+  v9[3] = &unk_2784FF478;
+  v9[4] = self;
+  v10 = v3;
+  v8 = v3;
+  dispatch_async_with_logs_8(v7, v9);
 }
 
 void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
@@ -4367,14 +4566,13 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke(uint64
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] can't update quota: %@%@", &v12, 0x16u);
+      v10 = 138412546;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] can't update quota: %@%@", &v10, 0x16u);
     }
 
-    v10 = *(*(a1 + 32) + 88);
     br_pacer_signal();
   }
 
@@ -4382,8 +4580,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke(uint64
   {
     [*(a1 + 32) setQuotaAvailableForDefaultOwner:a2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint64_t a1)
@@ -4400,7 +4596,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
     self->_isDefaultOwnerOutOfQuota = quota;
     if (quota)
     {
-      quotaPacer = self->_quotaPacer;
       br_pacer_signal();
     }
   }
@@ -4419,7 +4614,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
 {
   if ([owner isEqualToString:*MEMORY[0x277CBBF28]] && -[BRCFSUploader isDefaultOwnerOutOfQuota](self, "isDefaultOwnerOutOfQuota"))
   {
-    globalQuotaStateUpdatePacer = self->_globalQuotaStateUpdatePacer;
 
     br_pacer_signal();
   }
@@ -4429,7 +4623,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
 {
   if ([owner isEqualToString:*MEMORY[0x277CBBF28]] && -[BRCFSUploader isDefaultOwnerOutOfQuota](self, "isDefaultOwnerOutOfQuota"))
   {
-    quotaPacer = self->_quotaPacer;
 
     br_pacer_signal();
   }
@@ -4439,7 +4632,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
 {
   if ([owner isEqualToString:*MEMORY[0x277CBBF28]])
   {
-    quotaPacer = self->_quotaPacer;
 
     br_pacer_signal();
   }
@@ -4469,42 +4661,42 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
 
 - (void)recoverAndReportMissingJobsWithCompletion:(id)completion recoveryTask:(id)task
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   taskCopy = task;
   clientDB = [(BRCAccountSession *)self->super.super._session clientDB];
   v9 = [clientDB fetch:{@"SELECT ci.rowid, ci.zone_rowid, ci.item_id, ci.item_creator_id, ci.item_sharing_options, ci.item_side_car_ckinfo, ci.item_parent_zone_rowid, ci.item_localsyncupstate, ci.item_local_diffs, ci.item_notifs_rank, ci.app_library_rowid, ci.item_min_supported_os_rowid, ci.item_user_visible, ci.item_stat_ckinfo, ci.item_state, ci.item_type, ci.item_mode, ci.item_birthtime, ci.item_lastusedtime, ci.item_favoriterank, ci.item_parent_id, ci.item_filename, ci.item_hidden_ext, ci.item_finder_tags, ci.item_xattr_signature, ci.item_trash_put_back_path, ci.item_trash_put_back_parent_id, ci.item_alias_target, ci.item_creator, ci.item_processing_stamp, ci.item_bouncedname, ci.item_scope, ci.item_local_change_count, ci.item_old_version_identifier, ci.fp_creation_item_identifier, ci.version_name, ci.version_ckinfo, ci.version_mtime, ci.version_size, ci.version_thumb_size, ci.version_thumb_signature, ci.version_content_signature, ci.version_xattr_signature, ci.version_edited_since_shared, ci.version_device, ci.version_conflict_loser_etags, ci.version_quarantine_info, ci.version_uploaded_assets, ci.version_upload_error, ci.version_old_zone_item_id, ci.version_old_zone_rowid, ci.version_local_change_count, ci.version_old_version_identifier, ci.item_live_conflict_loser_etags, ci.item_file_id, ci.item_generation FROM client_items AS ci WHERE ci.item_localsyncupstate = 3 AND ci.item_localsyncupstate != 0 AND NOT EXISTS (SELECT 1 FROM client_uploads AS up WHERE ci.rowid = up.throttle_id AND up.throttle_state != 0)"}];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __72__BRCFSUploader_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke;
-  v44[3] = &unk_2784FF910;
-  v44[4] = self;
-  v10 = [v9 enumerateObjects:v44];
-  v11 = [v10 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __72__BRCFSUploader_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke;
+  v43[3] = &unk_2784FF910;
+  v43[4] = self;
+  v10 = [v9 enumerateObjects:v43];
+  v11 = [v10 countByEnumeratingWithState:&v44 objects:v52 count:16];
   v12 = v11;
   if (v11)
   {
-    v40 = taskCopy;
-    v41 = completionCopy;
-    v42 = 0;
-    v13 = *v46;
-    v39 = v11;
+    v39 = taskCopy;
+    v40 = completionCopy;
+    v41 = 0;
+    v13 = *v45;
+    v38 = v11;
     v14 = v11;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v46 != v13)
+        if (*v45 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v45 + 1) + 8 * i);
+        v16 = *(*(&v44 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         if ([v16 isDocument])
         {
@@ -4519,9 +4711,9 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412546;
-            v50 = v16;
-            v51 = 2112;
-            v52 = v19;
+            v49 = v16;
+            v50 = 2112;
+            v51 = v19;
             _os_log_fault_impl(&dword_223E7A000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Item scheduled to upload isn't a document %@%@", buf, 0x16u);
           }
 
@@ -4532,23 +4724,23 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
         objc_autoreleasePoolPop(v17);
       }
 
-      v42 += v14;
-      v14 = [v10 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v41 += v14;
+      v14 = [v10 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v14);
 
     v21 = brc_bread_crumbs();
     v22 = brc_default_log();
-    v23 = v42;
+    v23 = v41;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       [BRCFSUploader recoverAndReportMissingJobsWithCompletion:recoveryTask:];
     }
 
-    taskCopy = v40;
-    completionCopy = v41;
-    v12 = v39;
+    taskCopy = v39;
+    completionCopy = v40;
+    v12 = v38;
   }
 
   else
@@ -4586,7 +4778,7 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
     _rescheduleJobsPendingVerifyTerms = [(BRCFSUploader *)self _rescheduleJobsPendingVerifyTerms];
     if (_rescheduleJobsPendingVerifyTerms >= 1)
     {
-      v43 = v23;
+      v42 = v23;
       v32 = v12;
       v33 = brc_bread_crumbs();
       v34 = brc_default_log();
@@ -4596,7 +4788,7 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
       }
 
       v12 = v32;
-      v23 = v43;
+      v23 = v42;
     }
   }
 
@@ -4614,8 +4806,6 @@ void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_2(uint
   }
 
   completionCopy[2](completionCopy, v35);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 id __72__BRCFSUploader_recoverAndReportMissingJobsWithCompletion_recoveryTask___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -4630,7 +4820,7 @@ id __72__BRCFSUploader_recoverAndReportMissingJobsWithCompletion_recoveryTask___
 
 - (BOOL)_handleCollaborationUploadError:(id)error recordID:(id)d clientZone:(id)zone reply:(id)reply
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dCopy = d;
   zoneCopy = zone;
@@ -4649,9 +4839,9 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v43 = 0;
-    v18 = [errorCopy brc_isCloudKitShouldBeUsingEnhancedDrivePrivacyWithFieldName:&v43];
-    v19 = v43;
+    v42 = 0;
+    v18 = [errorCopy brc_isCloudKitShouldBeUsingEnhancedDrivePrivacyWithFieldName:&v42];
+    v19 = v42;
     if (v18)
     {
       v20 = brc_bread_crumbs();
@@ -4663,7 +4853,7 @@ LABEL_22:
         *&buf[12] = 2112;
         *&buf[14] = v19;
         *&buf[22] = 2112;
-        v47 = v20;
+        v46 = v20;
         _os_log_debug_impl(&dword_223E7A000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] Enabling server zone %@ to use enhanced drive privacy (field name %@)%@", buf, 0x20u);
       }
 
@@ -4672,7 +4862,7 @@ LABEL_22:
       block[1] = 3221225472;
       block[2] = __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke;
       block[3] = &unk_2784FF450;
-      v42 = zoneCopy;
+      v41 = zoneCopy;
       dispatch_async_and_wait(clientTruthWorkloop, block);
 
       v17 = [MEMORY[0x277CCA9B8] br_errorWithDomain:v15 code:1 description:{@"Upload failed, please try again"}];
@@ -4683,28 +4873,28 @@ LABEL_22:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v47 = __Block_byref_object_copy__39;
-      v48 = __Block_byref_object_dispose__39;
-      v49 = 0;
+      v46 = __Block_byref_object_copy__39;
+      v47 = __Block_byref_object_dispose__39;
+      v48 = 0;
       clientTruthWorkloop2 = [(BRCAccountSession *)self->super.super._session clientTruthWorkloop];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke_2;
-      v37[3] = &unk_278500D08;
-      v40 = buf;
-      v38 = zoneCopy;
-      v39 = dCopy;
-      dispatch_async_and_wait(clientTruthWorkloop2, v37);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke_2;
+      v36[3] = &unk_278500D08;
+      v39 = buf;
+      v37 = zoneCopy;
+      v38 = dCopy;
+      dispatch_async_and_wait(clientTruthWorkloop2, v36);
 
       v24 = *(*&buf[8] + 40);
       if (v24)
       {
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke_3;
-        v35[3] = &unk_278500CB8;
-        v36 = replyCopy;
-        [v24 addLocateRecordCompletionBlock:v35];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke_3;
+        v34[3] = &unk_278500CB8;
+        v35 = replyCopy;
+        [v24 addLocateRecordCompletionBlock:v34];
 
         v17 = 0;
       }
@@ -4745,10 +4935,10 @@ LABEL_23:
       }
 
       v28 = MEMORY[0x277CCA9B8];
-      v44 = *MEMORY[0x277CFADF0];
+      v43 = *MEMORY[0x277CFADF0];
       v29 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-      v45 = v29;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v44 = v29;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
       v17 = [v28 br_errorWithDomain:v15 code:1 userInfo:v30 description:{@"Upload failed, please try again"}];
     }
 
@@ -4769,16 +4959,12 @@ LABEL_20:
 
 LABEL_24:
 
-  v33 = *MEMORY[0x277D85DE8];
   return errorCopy != 0;
 }
 
 uint64_t __75__BRCFSUploader__handleCollaborationUploadError_recordID_clientZone_reply___block_invoke_2(uint64_t a1)
 {
-  v2 = [*(a1 + 32) locateRecordIfNecessaryForRecordID:*(a1 + 40) isUserWaiting:1];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) locateRecordIfNecessaryForRecordID:*(a1 + 40) isUserWaiting:1];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -5123,55 +5309,54 @@ void __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginal
 
 void __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_2_293(uint64_t a1)
 {
-  v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (v2)
   {
-    v4 = [MEMORY[0x277CBC190] br_assetWithFileURL:v2 boundaryKey:*(a1 + 40)];
-    [*(*(*(a1 + 104) + 8) + 40) setObject:v4 forKeyedSubscript:@"thumb1024"];
-    v5 = brc_bread_crumbs();
-    v6 = brc_default_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v3 = [MEMORY[0x277CBC190] br_assetWithFileURL:v2 boundaryKey:*(a1 + 40)];
+    [*(*(*(a1 + 104) + 8) + 40) setObject:v3 forKeyedSubscript:@"thumb1024"];
+    v4 = brc_bread_crumbs();
+    v5 = brc_default_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_2_293_cold_1(v3);
+      __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_2_293_cold_1();
     }
 
-    [*(a1 + 48) setTotalUnitCount:{objc_msgSend(v4, "size") + *(a1 + 120)}];
+    [*(a1 + 48) setTotalUnitCount:{objc_msgSend(v3, "size") + *(a1 + 120)}];
   }
 
-  v7 = *(*(*(a1 + 104) + 8) + 40);
-  v8 = *(*(a1 + 56) + 8);
-  v26 = 0;
-  v9 = [v7 validateEnhancedDrivePrivacyFieldsWithSession:v8 error:&v26];
-  v10 = v26;
-  if (v9)
+  v6 = *(*(*(a1 + 104) + 8) + 40);
+  v7 = *(*(a1 + 56) + 8);
+  v25 = 0;
+  v8 = [v6 validateEnhancedDrivePrivacyFieldsWithSession:v7 error:&v25];
+  v9 = v25;
+  if (v8)
   {
-    v11 = [[BRCCollaborationUploadOperation alloc] initWithRecord:*(*(*(a1 + 104) + 8) + 40) progress:*(a1 + 48) syncContext:*(a1 + 64) sessionContext:*(*(a1 + 72) + 8) options:*(a1 + 128)];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_295;
-    v20 = &unk_2785058C0;
-    v12 = *(a1 + 96);
-    v13 = *(a1 + 112);
+    v10 = [[BRCCollaborationUploadOperation alloc] initWithRecord:*(*(*(a1 + 104) + 8) + 40) progress:*(a1 + 48) syncContext:*(a1 + 64) sessionContext:*(*(a1 + 72) + 8) options:*(a1 + 128)];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_295;
+    v19 = &unk_2785058C0;
+    v11 = *(a1 + 96);
+    v12 = *(a1 + 112);
+    v22 = v11;
     v23 = v12;
-    v24 = v13;
-    v21 = *(a1 + 56);
-    v25 = *(a1 + 136);
-    v22 = *(a1 + 80);
-    [(BRCCollaborationUploadOperation *)v11 setUploadCompletionBlock:&v17];
-    if (v11)
+    v20 = *(a1 + 56);
+    v24 = *(a1 + 136);
+    v21 = *(a1 + 80);
+    [(BRCCollaborationUploadOperation *)v10 setUploadCompletionBlock:&v16];
+    if (v10)
     {
-      v14 = [*(a1 + 88) session];
-      [v14 addMiscOperation:v11];
+      v13 = [*(a1 + 88) session];
+      [v13 addMiscOperation:v10];
 
-      [(_BRCOperation *)v11 schedule];
+      [(_BRCOperation *)v10 schedule];
     }
 
     else
     {
-      v15 = *(a1 + 96);
-      v16 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:{@"Upload operation failed to allocate", v17, v18, v19, v20, v21}];
-      (*(v15 + 16))(v15, 0, v16);
+      v14 = *(a1 + 96);
+      v15 = [MEMORY[0x277CCA9B8] brc_unkownErrorWithDescription:{@"Upload operation failed to allocate", v16, v17, v18, v19, v20}];
+      (*(v14 + 16))(v14, 0, v15);
     }
   }
 
@@ -5269,8 +5454,7 @@ void __35__BRCFSUploader_screenLockChanged___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   if ((*(v1 + 105) & 1) == 0)
   {
-    v3 = [*(v1 + 8) personaIdentifier];
-    v4 = *(a1 + 32);
+    v2 = [*(v1 + 8) personaIdentifier];
     BRPerformWithPersonaAndError();
   }
 }
@@ -5314,8 +5498,7 @@ void __44__BRCFSUploader_networkReachabilityChanged___block_invoke(uint64_t a1)
   v1 = *(a1 + 32);
   if (*(v1 + 106) == 1)
   {
-    v3 = [*(v1 + 8) personaIdentifier];
-    v4 = *(a1 + 32);
+    v2 = [*(v1 + 8) personaIdentifier];
     BRPerformWithPersonaAndError();
   }
 }
@@ -5358,134 +5541,95 @@ void __44__BRCFSUploader_networkReachabilityChanged___block_invoke_2(uint64_t a1
   dispatch_async(clientTruthWorkloop, block);
 }
 
-void __40__BRCFSUploader_initWithAccountSession___block_invoke_6_cold_1(uint64_t *a1)
+void __40__BRCFSUploader_initWithAccountSession___block_invoke_6_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)_rescheduleUploadJobsPendingState:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_rescheduleUploadJobsPendingState:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BRCFSUploader_rescheduleJobsPendingCellular__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFirstSchedulingAfterStartupInDB:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 changes];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __25__BRCFSUploader_schedule__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __25__BRCFSUploader_schedule__block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: upload scheduler is exact we should have an item%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePackageRecord:item:stageID:error:.cold.1()
 {
   OUTLINED_FUNCTION_18();
   v1 = v0;
-  v9 = *MEMORY[0x277D85DE8];
   [v0 dbRowID];
   v2 = [v1 itemID];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePackageRecord:item:stageID:error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Failed to add item to package%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223E7A000, v0, 0x90u, "[ERROR] Failed to add item to package%@", v1, 0xCu);
 }
 
 - (void)_updateRecord:item:syncContext:targetThumbnailURL:stageID:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !item.isFinderBookmark%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: !item.isFinderBookmark%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRecord:item:syncContext:targetThumbnailURL:stageID:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRecord:item:syncContext:targetThumbnailURL:stageID:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_6_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateRecord:item:syncContext:targetThumbnailURL:stageID:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: can't upload an item without a fileID%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishPackageUploadWithRecord:(_DWORD *)a1 item:(void *)a2 stageID:packageChecksummer:error:.cold.1(_DWORD *a1, void *a2)
@@ -5518,315 +5662,146 @@ void __25__BRCFSUploader_schedule__block_invoke_cold_2()
 
 - (void)_handleFileModifiedError:forItem:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldReingestAfterUploadErrorWithItem:record:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 fileURL];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldReingestAfterUploadErrorWithItem:record:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldReingestAfterUploadErrorWithItem:record:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: error%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Error is retriable, putting item back in the queue%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Suspending for user need to verify terms%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Suspending for no network%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] We received an asset unavailable error but it exists in the correct place. Computing new record and retrying upload%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] failing on CKErrorAssetNotAvailable/CKUnderlyingErrorMMCSItemNotAvailable when screen is locked --> Suspending for data protection class%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] The error is for an unknown item, check if the zone hasn't been wiped%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_finishedUploadingItem:record:jobID:stageID:syncContext:hasPerformedServerSideAssetCopy:error:.cold.10()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: ![item isReadAndUploaded] || (item.isDead && item.syncUpState == BRC_SUS_NEEDS_SYNC_UP)%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performServerSideAssetCopyForItem:transferSize:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_1(uint64_t a1)
+void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_2(uint64_t a1)
+void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] duplicate document content%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] creating contentAssetReference failed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_6()
 {
   OUTLINED_FUNCTION_18();
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 96);
-  v2 = [MEMORY[0x277CCABB0] numberWithBool:*(v0 + 112)];
+  v1 = [MEMORY[0x277CCABB0] numberWithBool:*(v0 + 112)];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_9(uint64_t a1)
+void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_9()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_10(uint64_t a1)
+void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_10()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 56);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_6_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_11()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] creating kBRRecordKeyPackageManifest CKAsset failed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __65__BRCFSUploader__performServerSideAssetCopyForItem_transferSize___block_invoke_2_cold_12()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] creating manifestAssetReference failed%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)finishedSyncingUpItem:withOutOfQuotaError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] Assertion failed: _session.clientDB.changes == 1%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__BRCFSUploader__scheduleQuotaFetchForDefaultOwner__block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *MEMORY[0x277CBBF28];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)recoverAndReportMissingJobsWithCompletion:recoveryTask:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverAndReportMissingJobsWithCompletion:recoveryTask:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recoverAndReportMissingJobsWithCompletion:recoveryTask:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)uploadDocument:withContents:baseVersion:basedOnOriginalVersion:options:reply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_2_293_cold_1(uint64_t *a1)
+void __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_2_293_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __94__BRCFSUploader_uploadDocument_withContents_baseVersion_basedOnOriginalVersion_options_reply___block_invoke_295_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] Unable to deserialize record: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

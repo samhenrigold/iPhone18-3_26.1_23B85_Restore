@@ -20,7 +20,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_BOOLeanPriv != 0, &cfstr_BooleanprivNul.isa, v2, v3, v4, v5, v6, v7, v9.receiver);
+  FxDebugAssert(self->_BOOLeanPriv != 0, &cfstr_BooleanprivNul.isa, v2, v3, v4, v5, v6, v7);
   free(self->_BOOLeanPriv);
   v9.receiver = self;
   v9.super_class = FxParameterBoolean;

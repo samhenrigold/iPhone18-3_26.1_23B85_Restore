@@ -42,7 +42,7 @@
 
 - (void)addServicesForeground:(id)foreground andRemoveServices:(id)services
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   foregroundCopy = foreground;
   servicesCopy = services;
   v8 = objc_autoreleasePoolPush();
@@ -52,25 +52,24 @@
   {
     keyPathForServicesAppearingForeground = [MEMORY[0x277CFE338] keyPathForServicesAppearingForeground];
     v12 = [userContext objectForKeyedSubscript:keyPathForServicesAppearingForeground];
-    v15 = 138412802;
-    v16 = foregroundCopy;
-    v17 = 2112;
-    v18 = servicesCopy;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&dword_22595A000, v10, OS_LOG_TYPE_DEFAULT, "Adding objects: %@, Removing objects: %@, previously %@", &v15, 0x20u);
+    v14 = 138412802;
+    v15 = foregroundCopy;
+    v16 = 2112;
+    v17 = servicesCopy;
+    v18 = 2112;
+    v19 = v12;
+    _os_log_impl(&dword_22595A000, v10, OS_LOG_TYPE_DEFAULT, "Adding objects: %@, Removing objects: %@, previously %@", &v14, 0x20u);
   }
 
   keyPathForServicesAppearingForeground2 = [MEMORY[0x277CFE338] keyPathForServicesAppearingForeground];
   [userContext addObjects:foregroundCopy andRemoveObjects:servicesCopy fromArrayAtKeyPath:keyPathForServicesAppearingForeground2];
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processMonitor:(id)monitor didUpdateState:(id)state forProcess:(id)process
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   bundle = [process bundle];
   identifier = [bundle identifier];
@@ -87,8 +86,8 @@
     {
       if (([(NSMutableSet *)self->_previouslyForegroundServices containsObject:identifier]& 1) == 0)
       {
-        v18[0] = identifier;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+        v17[0] = identifier;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
         [(_DKForegroundServicesMonitor *)self addServicesForeground:v14 andRemoveServices:MEMORY[0x277CBEBF8]];
 
         [(NSMutableSet *)self->_previouslyForegroundServices addObject:identifier];
@@ -97,15 +96,13 @@
 
     else
     {
-      v17 = identifier;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+      v16 = identifier;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
       [(_DKForegroundServicesMonitor *)self addServicesForeground:MEMORY[0x277CBEBF8] andRemoveServices:v15];
 
       [(NSMutableSet *)self->_previouslyForegroundServices removeObject:identifier];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)processUpdateHandler

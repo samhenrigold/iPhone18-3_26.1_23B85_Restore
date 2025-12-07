@@ -1,41 +1,3 @@
-id sub_1000F9410(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = [v3 lastPathComponent];
-  if ([v4 containsString:kCSAudioSyncedFileSuffix])
-  {
-    goto LABEL_2;
-  }
-
-  if ([v4 containsString:@"-almost"])
-  {
-LABEL_4:
-    v5 = [*(a1 + 32) shouldTransferVoiceTriggerLogFileWithURL:v3];
-    goto LABEL_5;
-  }
-
-  v7 = +[CSFPreferences sharedPreferences];
-  if ([v7 companionSyncVoiceTriggerUtterancesEnabled])
-  {
-    v8 = [v4 containsString:@"-triggered"];
-
-    if (v8)
-    {
-      goto LABEL_4;
-    }
-  }
-
-  else
-  {
-  }
-
-LABEL_2:
-  v5 = 0;
-LABEL_5:
-
-  return v5;
-}
-
 void sub_1000F94E4(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v13 = a2;
@@ -243,29 +205,29 @@ id sub_1000FA78C(uint64_t a1)
   return [*(a1 + 32) _sendAcousticGradingDataToPeerId:*(*(a1 + 32) + 24)];
 }
 
-void *sub_1000FA8F0(void *result)
+void *sub_1000FA8F0(void *result, uint64_t a2)
 {
   if (*(result[4] + 24))
   {
-    v1 = result;
+    v2 = result;
     result = CSIsHorseman();
     if (result)
     {
-      result = [v1[4] isHeadlessDeviceDataCollectionModeEnabled];
+      result = [v2[4] isHeadlessDeviceDataCollectionModeEnabled];
       if (result)
       {
-        v2 = CSLogContextFacilityCoreSpeech;
+        v3 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
-          v3 = *(v1[4] + 24);
-          v4 = 136315394;
-          v5 = "[CSP2PService sendVoiceProfileUpdatedMessageToNearbyPeerForLocale:]_block_invoke";
-          v6 = 2112;
-          v7 = v3;
-          _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%s Triggering voice profile sync with peer - %@", &v4, 0x16u);
+          v4 = *(v2[4] + 24);
+          v5 = 136315394;
+          v6 = "[CSP2PService sendVoiceProfileUpdatedMessageToNearbyPeerForLocale:]_block_invoke";
+          v7 = 2112;
+          v8 = v4;
+          _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s Triggering voice profile sync with peer - %@", &v5, 0x16u);
         }
 
-        return [v1[4] _sendVoiceProfileUpdateTriggerToPeerId:*(v1[4] + 24) forLocale:v1[5]];
+        return [v2[4] _sendVoiceProfileUpdateTriggerToPeerId:*(v2[4] + 24) forLocale:v2[5]];
       }
     }
   }
@@ -588,7 +550,7 @@ LABEL_19:
   {
     v11 = 2;
 LABEL_21:
-    v3 = [NSError errorWithDomain:@"CoreSpeech" code:v11 userInfo:0, *v29, *&v29[16], v30];
+    v3 = [NSError errorWithDomain:@"CoreSpeech" code:v11 userInfo:0, *v29, *&v29[8], v30];
     (*(v10 + 16))(v10, 0, v3);
 LABEL_22:
   }
@@ -2436,9 +2398,9 @@ void sub_1001089E4(id a1)
   qword_10029E390 = v1;
 }
 
-void sub_1001093CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1001093CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2491,9 +2453,9 @@ void sub_100109404(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10010992C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10010992C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2574,9 +2536,9 @@ void sub_10010994C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100109D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100109D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2771,31 +2733,30 @@ void sub_10010B4D0(uint64_t a1)
   if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 56);
-    v12 = 136315650;
-    v13 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
-    v14 = 2112;
-    v15 = v2;
-    v16 = 2048;
-    v17 = v4;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s selectedTrpId:%@ endpointerEvent:%ld", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
+    v13 = 2112;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s selectedTrpId:%@ endpointerEvent:%ld", &v11, 0x20u);
   }
 
   v5 = *(a1 + 32);
   if (v5[11] != 1)
   {
-    v10 = v5[15];
-    v11 = CSLogCategoryRequest;
+    v10 = CSLogCategoryRequest;
     if (v2)
     {
       if (v5[15])
       {
         if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 136315394;
-          v13 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
-          v14 = 2112;
-          v15 = v2;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s Received selected trpId: %@ sending TRPDetect msg", &v12, 0x16u);
+          v11 = 136315394;
+          v12 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
+          v13 = 2112;
+          v14 = v2;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s Received selected trpId: %@ sending TRPDetect msg", &v11, 0x16u);
           v5 = *(a1 + 32);
         }
 
@@ -2811,11 +2772,11 @@ void sub_10010B4D0(uint64_t a1)
         goto LABEL_18;
       }
 
-      v12 = 136315138;
-      v13 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
+      v11 = 136315138;
+      v12 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
       v7 = "%s Bail out since no TRP was selected";
 LABEL_16:
-      v8 = v11;
+      v8 = v10;
       v9 = 12;
       goto LABEL_17;
     }
@@ -2825,8 +2786,8 @@ LABEL_16:
       goto LABEL_18;
     }
 
-    v12 = 136315138;
-    v13 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
+    v11 = 136315138;
+    v12 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
     v7 = "%s Bail out since we're in manual endpointing mode";
     goto LABEL_16;
   }
@@ -2834,15 +2795,15 @@ LABEL_16:
   v6 = CSLogCategoryRequest;
   if (os_log_type_enabled(CSLogCategoryRequest, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
-    v14 = 2112;
-    v15 = v2;
+    v11 = 136315394;
+    v12 = "[CSAttSiriTCUGenerator attSiriNode:didDetectEndpointEventAtTime:eventType:withMetrics:usesAutomaticEndpointing:]_block_invoke";
+    v13 = 2112;
+    v14 = v2;
     v7 = "%s Ignore TRP selection for trpId: %@, since TRPDetect is already sent";
     v8 = v6;
     v9 = 22;
 LABEL_17:
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, &v12, v9);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v7, &v11, v9);
   }
 
 LABEL_18:
@@ -2945,9 +2906,9 @@ id sub_10010C110()
   return v1;
 }
 
-void sub_10010C1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10010C1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2963,7 +2924,7 @@ void sub_10010C1F0(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SMTTCUPackage");
     sub_10010C260();
   }
 }
@@ -2992,7 +2953,7 @@ void sub_10010C260()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
@@ -3001,15 +2962,14 @@ void sub_10010C260()
 
 uint64_t sub_10010C36C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E3A8 = result;
   return result;
 }
 
-void sub_10010CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10010CCA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3025,7 +2985,7 @@ void sub_10010CCC8(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "SMTTRPDetected");
     [(CSAttSiriTCUGenerator *)v2 _deliverTRPCandidatePackage:v3, v4];
   }
 }
@@ -3076,9 +3036,9 @@ id sub_10010DA0C()
   return v1;
 }
 
-void sub_10010DAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10010DAD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3126,16 +3086,17 @@ void sub_10010DC40(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "SMTTRPCandidate");
     [(CSAttSiriTCUGenerator *)v2 _processMultiUserResultCandidate:v3 withId:v4 isScoreRefreshAllowed:v5, v6];
   }
 }
 
-void sub_10010E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_10010E2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
-  _Block_object_dispose(&a47, 8);
+  va_start(va, a46);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v47 - 208), 8);
+  _Block_object_dispose((v46 - 208), 8);
   _Block_object_dispose(&a43, 8);
   _Unwind_Resume(a1);
 }
@@ -3229,11 +3190,10 @@ void sub_10010E318(uint64_t a1, void *a2, void *a3, _BYTE *a4)
   }
 }
 
-Class sub_10010E708(uint64_t a1)
+void sub_10010E708(uint64_t a1)
 {
   sub_10010C260();
-  result = objc_getClass("SMTMultiUserTRPCandidate");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("SMTMultiUserTRPCandidate");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     qword_10029E3B0 = *(*(*(a1 + 32) + 8) + 24);
@@ -3241,11 +3201,9 @@ Class sub_10010E708(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return sub_10010E778(v3);
+    v2 = abort_report_np("Unable to find class %s", "SMTMultiUserTRPCandidate");
+    sub_10010E778(v2, v3);
   }
-
-  return result;
 }
 
 void sub_10010E778(void *a1, void *a2)
@@ -3860,34 +3818,33 @@ void sub_100111BAC(uint64_t a1)
     v2 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(*(a1 + 32) + 32);
-      v4 = v2;
-      v5 = CSHearstRouteStatusGetName();
-      v6 = *(*(a1 + 32) + 48);
+      v3 = v2;
+      v4 = CSHearstRouteStatusGetName();
+      v5 = *(*(a1 + 32) + 48);
       *buf = 136315650;
-      v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-      v45 = 2112;
-      v46 = v5;
-      v47 = 2050;
-      v48 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%s Hearst Route Status=%@, splitterState = %{public}lu", buf, 0x20u);
+      v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+      v44 = 2112;
+      v45 = v4;
+      v46 = 2050;
+      v47 = v5;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%s Hearst Route Status=%@, splitterState = %{public}lu", buf, 0x20u);
     }
 
-    v7 = *(a1 + 32);
-    if ((*(v7 + 48) & 0xFFFFFFFFFFFFFFFELL) != 2)
+    v6 = *(a1 + 32);
+    if ((*(v6 + 48) & 0xFFFFFFFFFFFFFFFELL) != 2)
     {
-      v8 = *(v7 + 32);
-      if (v8 == 6 || v8 == 1)
+      v7 = *(v6 + 32);
+      if (v7 == 6 || v7 == 1)
       {
-        v10 = CSLogContextFacilityCoreSpeech;
+        v9 = CSLogContextFacilityCoreSpeech;
         if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_48;
         }
 
         *buf = 136315138;
-        v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-        v11 = "%s Hearst is routed. Ignore voice trigger notification from other remote devices.";
+        v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+        v10 = "%s Hearst is routed. Ignore voice trigger notification from other remote devices.";
         goto LABEL_26;
       }
     }
@@ -3895,25 +3852,25 @@ void sub_100111BAC(uint64_t a1)
 
   if (*(a1 + 72) == 1 && +[CSUtils supportRemoteDarwinVoiceTrigger])
   {
-    v12 = +[CSRemoteDarwinDeviceInfo sharedInstance];
-    if ([v12 hasDarwinDeviceConnected])
+    v11 = +[CSRemoteDarwinDeviceInfo sharedInstance];
+    if ([v11 hasDarwinDeviceConnected])
     {
-      v13 = +[CSRemoteDarwinDeviceInfo sharedInstance];
-      if ([v13 hasDarwinDeviceHandleVoiceTrigger])
+      v12 = +[CSRemoteDarwinDeviceInfo sharedInstance];
+      if ([v12 hasDarwinDeviceHandleVoiceTrigger])
       {
-        v14 = *(a1 + 80);
+        v13 = *(a1 + 80);
 
-        if (v14 == 1)
+        if (v13 == 1)
         {
-          v10 = CSLogContextFacilityCoreSpeech;
+          v9 = CSLogContextFacilityCoreSpeech;
           if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_48;
           }
 
           *buf = 136315138;
-          v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-          v11 = "%s Darwin device connected, ignore trigger from Gibraltar machine";
+          v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+          v10 = "%s Darwin device connected, ignore trigger from Gibraltar machine";
           goto LABEL_26;
         }
 
@@ -3923,126 +3880,126 @@ void sub_100111BAC(uint64_t a1)
   }
 
 LABEL_21:
-  v15 = +[CSOtherAppRecordingStateMonitorFactory otherAppRecordingStateMonitor];
-  if (![v15 isOtherNonEligibleAppRecording])
+  v14 = +[CSOtherAppRecordingStateMonitorFactory otherAppRecordingStateMonitor];
+  if (![v14 isOtherNonEligibleAppRecording])
   {
 
     goto LABEL_28;
   }
 
-  v16 = *(a1 + 72);
+  v15 = *(a1 + 72);
 
-  if (v16 == 2 && ((CSIsIOS() & 1) != 0 || CSIsAppleSiliconMac() && (+[CSUtils shouldBlockVoiceTriggerWhenOtherAppRecording]& 1) != 0))
+  if (v15 == 2 && ((CSIsIOS() & 1) != 0 || CSIsAppleSiliconMac() && (+[CSUtils shouldBlockVoiceTriggerWhenOtherAppRecording]& 1) != 0))
   {
-    v10 = CSLogContextFacilityCoreSpeech;
+    v9 = CSLogContextFacilityCoreSpeech;
     if (!os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_48;
     }
 
     *buf = 136315138;
-    v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-    v11 = "%s Other non eligible app is recording, ignore trigger from Darwin device";
+    v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+    v10 = "%s Other non eligible app is recording, ignore trigger from Darwin device";
 LABEL_26:
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
 LABEL_48:
-    v32 = *(a1 + 64);
-    if (v32)
+    v31 = *(a1 + 64);
+    if (v31)
     {
-      (*(v32 + 16))();
+      (*(v31 + 16))();
     }
 
     return;
   }
 
 LABEL_28:
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
-  v17 = *(*(a1 + 32) + 8);
-  v18 = [v17 countByEnumeratingWithState:&v38 objects:v42 count:16];
-  if (v18)
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v16 = *(*(a1 + 32) + 8);
+  v17 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v39;
+    v18 = v17;
+    v19 = *v38;
     do
     {
-      for (i = 0; i != v19; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v39 != v20)
+        if (*v38 != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        [*(*(&v38 + 1) + 8 * i) voiceTriggerDidDetectKeyword:*(a1 + 40) deviceId:{*(a1 + 48), v38}];
+        [*(*(&v37 + 1) + 8 * i) voiceTriggerDidDetectKeyword:*(a1 + 40) deviceId:{*(a1 + 48), v37}];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
   kdebug_trace();
   kdebug_trace();
-  v22 = CSLogContextFacilityCoreSpeech;
+  v21 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 40);
-    v25 = v22;
-    v26 = [v23 _createVoiceTriggerEventInfoString:v24];
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 40);
+    v24 = v21;
+    v25 = [v22 _createVoiceTriggerEventInfoString:v23];
     *buf = 136315394;
-    v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-    v45 = 2114;
-    v46 = v26;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
+    v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+    v44 = 2114;
+    v45 = v25;
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%s %{public}@", buf, 0x16u);
   }
 
-  [*(a1 + 32) _printVoiceTriggerMetricsString:{*(a1 + 40), v38}];
-  v27 = *(a1 + 72);
-  v28 = CSLogContextFacilityCoreSpeech;
-  if (v27 == 2)
+  [*(a1 + 32) _printVoiceTriggerMetricsString:{*(a1 + 40), v37}];
+  v26 = *(a1 + 72);
+  v27 = CSLogContextFacilityCoreSpeech;
+  if (v26 == 2)
   {
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s Notifying Darwin VoiceTrigger Trigger!!!!", buf, 0xCu);
+      v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s Notifying Darwin VoiceTrigger Trigger!!!!", buf, 0xCu);
     }
 
     if (CSIsOSX())
     {
-      v30 = [CSMyriadPHash decodeWithMyriadPHash:*(a1 + 56)];
-      [v30 absTime];
-      v31 = AFMachAbsoluteTimeAddTimeInterval();
+      v29 = [CSMyriadPHash decodeWithMyriadPHash:*(a1 + 56)];
+      [v29 absTime];
+      v30 = AFMachAbsoluteTimeAddTimeInterval();
     }
 
     else
     {
-      v31 = 0;
+      v30 = 0;
     }
 
-    v33 = +[CSSiriLauncher sharedLauncher];
-    v34 = *(a1 + 40);
-    v35 = *(a1 + 48);
-    v36 = *(a1 + 56);
-    v37 = [NSNumber numberWithUnsignedLongLong:v31];
-    [v33 notifyDarwinVoiceTrigger:v34 deviceId:v35 myriadPHash:v36 myriadLateActivationExpirationTime:v37 completion:*(a1 + 64)];
+    v32 = +[CSSiriLauncher sharedLauncher];
+    v33 = *(a1 + 40);
+    v34 = *(a1 + 48);
+    v35 = *(a1 + 56);
+    v36 = [NSNumber numberWithUnsignedLongLong:v30];
+    [v32 notifyDarwinVoiceTrigger:v33 deviceId:v34 myriadPHash:v35 myriadLateActivationExpirationTime:v36 completion:*(a1 + 64)];
   }
 
   else
   {
-    if (v27 != 1)
+    if (v26 != 1)
     {
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-        v45 = 2050;
-        v46 = v27;
-        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%s Unsupported trigger type : %{public}lu", buf, 0x16u);
+        v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+        v44 = 2050;
+        v45 = v26;
+        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "%s Unsupported trigger type : %{public}lu", buf, 0x16u);
       }
 
       goto LABEL_48;
@@ -4051,12 +4008,12 @@ LABEL_28:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v44 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%s Notifying Gibraltar VoiceTrigger Trigger!!!!", buf, 0xCu);
+      v43 = "[CSVoiceTriggerEventsCoordinator _notifyRemoteTriggerEvent:myriadHash:remoteTriggerType:remoteDeviceId:isTriggeredFromFullWake:completion:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%s Notifying Gibraltar VoiceTrigger Trigger!!!!", buf, 0xCu);
     }
 
-    v29 = +[CSSiriLauncher sharedLauncher];
-    [v29 notifyBuiltInVoiceTrigger:*(a1 + 40) myriadPHash:*(a1 + 56) completion:*(a1 + 64)];
+    v28 = +[CSSiriLauncher sharedLauncher];
+    [v28 notifyBuiltInVoiceTrigger:*(a1 + 40) myriadPHash:*(a1 + 56) completion:*(a1 + 64)];
   }
 }
 
@@ -4545,9 +4502,9 @@ void sub_100117678(uint64_t a1)
   }
 }
 
-void sub_100117D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100117D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5294,11 +5251,11 @@ void sub_10011B728(id a1)
   qword_10029E410 = v1;
 }
 
-void sub_10011BA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10011BA80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5331,10 +5288,11 @@ void sub_10011BABC(void *a1, uint64_t a2, uint64_t a3)
   *(v3 + 24) = v9;
 }
 
-void sub_10011C0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10011C0F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -5992,9 +5950,9 @@ void sub_100125718(uint64_t a1)
   }
 }
 
-void sub_100125D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_100125D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6003,33 +5961,32 @@ void sub_100125D3C(uint64_t a1)
 {
   if (*(*(*(a1 + 56) + 8) + 40) && *(a1 + 32))
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v2 = [*(a1 + 40) receivers];
-    v3 = [v2 countByEnumeratingWithState:&v45 objects:v53 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v44 objects:v52 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v46;
+      v5 = *v45;
       do
       {
         v6 = 0;
         do
         {
-          if (*v46 != v5)
+          if (*v45 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = *(*(&v45 + 1) + 8 * v6);
+          v7 = *(*(&v44 + 1) + 8 * v6);
           if (objc_opt_respondsToSelector())
           {
             v9 = *(a1 + 32);
             v8 = *(a1 + 40);
             [*(*(*(a1 + 56) + 8) + 40) floatValue];
-            v10 = *(*(*(a1 + 64) + 8) + 24);
             [v7 attSiriUresNode:v8 tcuGeneratedForRequestId:v9 withNldaScore:? withProcessedAudioDuration:?];
           }
 
@@ -6037,104 +5994,104 @@ void sub_100125D3C(uint64_t a1)
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v44 objects:v52 count:16];
       }
 
       while (v4);
     }
   }
 
-  if (*(a1 + 32) && ([*(*(a1 + 40) + 168) objectForKeyedSubscript:?], (v11 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (*(a1 + 32) && ([*(*(a1 + 40) + 168) objectForKeyedSubscript:?], (v10 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v12 = v11;
-    v13 = [v11 inputFeats];
-    v14 = [v13 inputOrigin];
+    v11 = v10;
+    v12 = [v10 inputFeats];
+    v13 = [v12 inputOrigin];
 
-    if (v14)
+    if (v13)
     {
-      v15 = *(a1 + 48);
-      if (v15 && ([v15 latticeMitigatorResult], v16 = objc_claimAutoreleasedReturnValue(), v16, v16))
+      v14 = *(a1 + 48);
+      if (v14 && ([v14 latticeMitigatorResult], v15 = objc_claimAutoreleasedReturnValue(), v15, v15))
       {
-        v17 = *(a1 + 40);
-        v18 = [*(a1 + 48) latticeMitigatorResult];
-        v19 = [v12 mhId];
-        [v17 _logLatticeRNNResults:v18 forMhId:v19];
+        v16 = *(a1 + 40);
+        v17 = [*(a1 + 48) latticeMitigatorResult];
+        v18 = [v11 mhId];
+        [v16 _logLatticeRNNResults:v17 forMhId:v18];
       }
 
       else
       {
-        v22 = CSLogCategorySDSD;
+        v21 = CSLogCategorySDSD;
         if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v50 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
-          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%s Speech package not present or Speech package doesn't contain LRNN scores", buf, 0xCu);
+          v49 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
+          _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%s Speech package not present or Speech package doesn't contain LRNN scores", buf, 0xCu);
         }
 
-        v23 = *(a1 + 40);
-        v24 = [v12 mhId];
-        [v23 _logLRNNFailMsgForMhId:v24];
+        v22 = *(a1 + 40);
+        v23 = [v11 mhId];
+        [v22 _logLRNNFailMsgForMhId:v23];
 
-        v25 = *(a1 + 40);
-        v18 = [v12 mhId];
-        [v25 _logURESFailureMsgInput:1902 forMhId:v18];
+        v24 = *(a1 + 40);
+        v17 = [v11 mhId];
+        [v24 _logURESFailureMsgInput:1902 forMhId:v17];
       }
 
       WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 80));
-      v27 = [v12 inputFeats];
-      v28 = [v27 speakerIDScore];
-      [v28 floatValue];
-      v30 = v29;
-      [v12 spkrIdAudioProcessedDuration];
-      v32 = v31;
-      LODWORD(v31) = v30;
-      [WeakRetained logSpeakerFalseTriggerMitigationScore:v31 withAudioDuration:v32];
+      v26 = [v11 inputFeats];
+      v27 = [v26 speakerIDScore];
+      [v27 floatValue];
+      v29 = v28;
+      [v11 spkrIdAudioProcessedDuration];
+      v31 = v30;
+      LODWORD(v30) = v29;
+      [WeakRetained logSpeakerFalseTriggerMitigationScore:v30 withAudioDuration:v31];
 
-      v33 = *(a1 + 48);
-      v34 = [v12 inputFeats];
-      [v34 setSpeechPackage:v33];
+      v32 = *(a1 + 48);
+      v33 = [v11 inputFeats];
+      [v33 setSpeechPackage:v32];
 
-      v35 = [*(a1 + 48) latticeMitigatorResult];
-      [v35 score];
-      v36 = [NSNumber numberWithFloat:?];
-      v37 = [v12 inputFeats];
-      [v37 setLrnnScore:v36];
+      v34 = [*(a1 + 48) latticeMitigatorResult];
+      [v34 score];
+      v35 = [NSNumber numberWithFloat:?];
+      v36 = [v11 inputFeats];
+      [v36 setLrnnScore:v35];
 
-      v38 = [*(a1 + 48) latticeMitigatorResult];
-      [v38 threshold];
-      v39 = [NSNumber numberWithFloat:?];
-      v40 = [v12 inputFeats];
-      [v40 setLrnnThreshold:v39];
+      v37 = [*(a1 + 48) latticeMitigatorResult];
+      [v37 threshold];
+      v38 = [NSNumber numberWithFloat:?];
+      v39 = [v11 inputFeats];
+      [v39 setLrnnThreshold:v38];
 
-      v41 = [v12 inputFeats];
-      v42 = [v12 mhId];
-      v43 = [v12 requestId];
-      [CSUtils logMitigationFeatures:v41 forTask:@"Mitigation" withModelOutput:&off_10025F0E8 forMHRequestId:v42 forRequestId:v43];
+      v40 = [v11 inputFeats];
+      v41 = [v11 mhId];
+      v42 = [v11 requestId];
+      [CSUtils logMitigationFeatures:v40 forTask:@"Mitigation" withModelOutput:&off_10025F0E8 forMHRequestId:v41 forRequestId:v42];
     }
 
     else
     {
-      v44 = CSLogCategorySDSD;
+      v43 = CSLogCategorySDSD;
       if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v50 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "%s Not running SDSD for nil inputOrigin", buf, 0xCu);
+        v49 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "%s Not running SDSD for nil inputOrigin", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v20 = CSLogCategorySDSD;
+    v19 = CSLogCategorySDSD;
     if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
+      v20 = *(a1 + 32);
       *buf = 136315394;
-      v50 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
-      v51 = 2114;
-      v52 = v21;
-      _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "%s Rcvd RC for invalid requestId %{public}@", buf, 0x16u);
+      v49 = "[CSAttSiriUresNode constructTCUIntendedInfoForRequestId:withResultCandidate:]_block_invoke";
+      v50 = 2114;
+      v51 = v20;
+      _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s Rcvd RC for invalid requestId %{public}@", buf, 0x16u);
     }
   }
 }
@@ -6163,7 +6120,7 @@ Class sub_10012622C(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6174,7 +6131,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "SMTSiriIntendedInfo");
   }
 
   qword_10029E470 = *(*(*(a1 + 32) + 8) + 24);
@@ -6183,7 +6140,6 @@ LABEL_4:
 
 uint64_t sub_100126380(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10029E478 = result;
   return result;
@@ -6334,7 +6290,7 @@ LABEL_25:
       }
 
       *&v35 = v20;
-      v36 = [NSNumber numberWithFloat:v35, *v37, *&v37[16], v38];
+      v36 = [NSNumber numberWithFloat:v35, *v37, *&v37[8], v38];
       [v14 setSpeakerIDScore:v36];
 
 LABEL_29:
@@ -6692,15 +6648,8 @@ void sub_100127F1C(uint64_t a1)
     if ([*(a1 + 32) _shouldRunMitigationForRequestContext:v4 forTask:*(a1 + 48)])
     {
       v5 = *(a1 + 56);
-      if (!v5)
+      if (!v5 || ([v5 latticeMitigatorResult], (v6 = objc_claimAutoreleasedReturnValue()) == 0) || (v7 = v6, objc_msgSend(*(a1 + 56), "latticeMitigatorResult"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "score"), v10 = v9, v8, v7, v10 == 0.0))
       {
-        goto LABEL_8;
-      }
-
-      v6 = [v5 latticeMitigatorResult];
-      if (!v6 || (v7 = v6, [*(a1 + 56) latticeMitigatorResult], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "score"), v10 = v9, v8, v7, v10 == 0.0))
-      {
-LABEL_8:
         v11 = CSLogCategorySDSD;
         if (os_log_type_enabled(CSLogCategorySDSD, OS_LOG_TYPE_ERROR))
         {
@@ -6859,9 +6808,9 @@ LABEL_13:
 LABEL_21:
 }
 
-void sub_100128BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100128BB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6975,9 +6924,9 @@ void sub_100128BD8(uint64_t a1, void *a2)
   [*v11 _releaseUresProcessingTransaction];
 }
 
-void sub_10012A104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_10012A104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8477,11 +8426,11 @@ LABEL_17:
 LABEL_18:
 }
 
-void sub_100131E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100131E78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 112), 8);
+  _Block_object_dispose((v15 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9156,4 +9105,16 @@ void sub_1001357FC(uint64_t a1)
 
     while (v5);
   }
+}
+
+void sub_1001359E8(uint64_t a1)
+{
+  v2 = [*(a1 + 32) observers];
+  [v2 removeObject:*(a1 + 40)];
+}
+
+void sub_100135AD4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) observers];
+  [v2 addObject:*(a1 + 40)];
 }

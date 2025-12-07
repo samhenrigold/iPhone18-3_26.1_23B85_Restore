@@ -2,6 +2,7 @@
 - (BOOL)mt_isSynchronized;
 - (NSString)mt_secretValue;
 - (void)mt_setSecretValue:(id)value;
+- (void)mt_setSynchronized:(BOOL)synchronized;
 @end
 
 @implementation CKRecord
@@ -12,6 +13,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)mt_setSynchronized:(BOOL)synchronized
+{
+  v4 = [NSNumber numberWithBool:synchronized];
+  objc_setAssociatedObject(self, "mt_isSynchronized", v4, 3);
 }
 
 - (NSString)mt_secretValue

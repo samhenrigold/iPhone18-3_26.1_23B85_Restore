@@ -8,14 +8,13 @@
 - (TKTokenKeyAlgorithm)initWithAlgorithmsArray:(id)array
 {
   arrayCopy = array;
-  v10.receiver = self;
-  v10.super_class = TKTokenKeyAlgorithm;
-  v6 = [(TKTokenKeyAlgorithm *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = TKTokenKeyAlgorithm;
+  v6 = [(TKTokenKeyAlgorithm *)&v9 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_algorithms, array);
-    algorithms = v7->_algorithms;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0 || ![(NSArray *)v7->_algorithms count])
     {

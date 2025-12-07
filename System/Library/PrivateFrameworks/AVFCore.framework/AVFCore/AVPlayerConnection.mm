@@ -90,7 +90,7 @@ LABEL_24:
 
   if ([playerItem status] == 2)
   {
-    v15 = -12780;
+    v15 = 4294954516;
     goto LABEL_15;
   }
 
@@ -99,7 +99,7 @@ LABEL_24:
   v18 = *(*(CMBaseObjectGetVTable() + 16) + 16);
   if (!v18)
   {
-    v15 = -12782;
+    v15 = 4294954514;
     if (!_copyFigPlayer)
     {
       goto LABEL_14;

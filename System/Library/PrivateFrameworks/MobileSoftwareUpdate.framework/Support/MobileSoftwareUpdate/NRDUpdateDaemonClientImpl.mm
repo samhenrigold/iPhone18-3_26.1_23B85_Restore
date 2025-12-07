@@ -79,7 +79,7 @@
 
 id __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke(uint64_t a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -90,7 +90,7 @@ id __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke(uint
 
 id __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_7(uint64_t a1)
 {
-  v2 = nrdSharedLogger();
+  v2 = nrdSharedLogger(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_7_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -103,21 +103,22 @@ id __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_7(ui
 {
   errorCopy = error;
   handlerCopy = handler;
+  v10 = handlerCopy;
   if (errorCopy)
   {
-    v10 = nrdSharedLogger();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    v11 = nrdSharedLogger(handlerCopy);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
     if (method)
     {
-      if (v11)
+      if (v12)
       {
-        [NRDUpdateDaemonClientImpl handleConnectionError:method method:errorCopy handler:v10];
+        [NRDUpdateDaemonClientImpl handleConnectionError:method method:errorCopy handler:v11];
       }
     }
 
-    else if (v11)
+    else if (v12)
     {
-      [(NRDUpdateDaemonClientImpl *)errorCopy handleConnectionError:v10 method:v12 handler:v13, v14, v15, v16, v17];
+      [(NRDUpdateDaemonClientImpl *)errorCopy handleConnectionError:v11 method:v13 handler:v14, v15, v16, v17, v18];
     }
 
     domain = [errorCopy domain];
@@ -144,7 +145,7 @@ LABEL_12:
     }
 
 LABEL_13:
-    handlerCopy[2](handlerCopy);
+    v10[2](v10);
   }
 }
 
@@ -212,22 +213,22 @@ void __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke(
 
     if (!v3 || !v4)
     {
-      v12 = a1[4];
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke_12;
-      v13[3] = &unk_100049FB0;
-      v14 = v3;
-      v15 = a1[6];
-      [v12 getNRDUpdateBrainEndpoint:v13];
+      v13 = a1[4];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke_12;
+      v14[3] = &unk_100049FB0;
+      v15 = v3;
+      v16 = a1[6];
+      [v13 getNRDUpdateBrainEndpoint:v14];
 
       goto LABEL_9;
     }
 
-    v5 = nrdSharedLogger();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = nrdSharedLogger(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke_cold_1(v3, v5, v6, v7, v8, v9, v10, v11);
+      __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke_cold_1(v3, v6, v7, v8, v9, v10, v11, v12);
     }
   }
 
@@ -363,27 +364,28 @@ void __36__NRDUpdateDaemonClientImpl_update___block_invoke(uint64_t a1, void *a2
 {
   updateCopy = update;
   replyCopy = reply;
+  v8 = replyCopy;
   if (updateCopy)
   {
-    v8 = nrdSharedLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = nrdSharedLogger(replyCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = updateCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Warning: NRDUpdated options are not supported on this platform. options=%{public}@", buf, 0xCu);
+      v16 = updateCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Warning: NRDUpdated options are not supported on this platform. options=%{public}@", buf, 0xCu);
     }
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = __42__NRDUpdateDaemonClientImpl_update_reply___block_invoke;
-  v11[3] = &unk_100049F88;
-  v12 = replyCopy;
-  v13 = "[NRDUpdateDaemonClientImpl update:reply:]";
-  v11[4] = self;
-  v9 = replyCopy;
-  v10 = [(NRDUpdateDaemonClientImpl *)self _remoteInterfaceWithErrorHandler:v11];
-  [v10 update:v9];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = __42__NRDUpdateDaemonClientImpl_update_reply___block_invoke;
+  v12[3] = &unk_100049F88;
+  v13 = v8;
+  v14 = "[NRDUpdateDaemonClientImpl update:reply:]";
+  v12[4] = self;
+  v10 = v8;
+  v11 = [(NRDUpdateDaemonClientImpl *)self _remoteInterfaceWithErrorHandler:v12];
+  [v11 update:v10];
 }
 
 void __42__NRDUpdateDaemonClientImpl_update_reply___block_invoke(uint64_t a1, void *a2)
@@ -484,6 +486,20 @@ LABEL_22:
   return v17;
 }
 
+void __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"com.apple.mobile.NRDUpdated";
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a1, a3, "connection to %{public}@ invalidated", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __55__NRDUpdateDaemonClientImpl_connectToServerIfNecessary__block_invoke_7_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"com.apple.mobile.NRDUpdated";
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a1, a3, "connection to %{public}@ interrupted", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 - (void)handleConnectionError:(uint64_t)a1 method:(uint64_t)a2 handler:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 136446466;
@@ -491,6 +507,20 @@ LABEL_22:
   v5 = 2114;
   v6 = a2;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "%{public}s - connection error: %{public}@", &v3, 0x16u);
+}
+
+- (void)handleConnectionError:(uint64_t)a3 method:(uint64_t)a4 handler:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "connection error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __57__NRDUpdateDaemonClientImpl_acquireNRDUpdateBrain_reply___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&_mh_execute_header, a2, a3, "Updating NRD brain completed with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -104,25 +104,23 @@
 
 - (id)dictionary
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10[0] = @"nc";
-  v10[1] = @"gr";
-  v9 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
-  v11 = vbslq_s8(vceqzq_s64(*&self->_noiseCharacteristics), v9, *&self->_noiseCharacteristics);
-  v10[2] = @"atc";
+  v14 = *MEMORY[0x277D85DE8];
+  v9[0] = @"nc";
+  v9[1] = @"gr";
+  v8 = vdupq_n_s64(MEMORY[0x277CBEBF8]);
+  v10 = vbslq_s8(vceqzq_s64(*&self->_noiseCharacteristics), v8, *&self->_noiseCharacteristics);
+  v9[2] = @"atc";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_accelTimestampCorrection];
   v4 = *&self->_imuToIMURotation;
-  v5 = vbslq_s8(vceqzq_s64(*&self->_accelConversion), v9, *&self->_accelConversion);
-  v12 = v3;
-  v10[3] = @"ac";
-  v10[4] = @"gc";
-  v13 = v5;
-  v10[5] = @"r";
-  v10[6] = @"t";
-  v14 = vbslq_s8(vceqzq_s64(v4), v9, v4);
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:v10 count:7];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v5 = vbslq_s8(vceqzq_s64(*&self->_accelConversion), v8, *&self->_accelConversion);
+  v11 = v3;
+  v9[3] = @"ac";
+  v9[4] = @"gc";
+  v12 = v5;
+  v9[5] = @"r";
+  v9[6] = @"t";
+  v13 = vbslq_s8(vceqzq_s64(v4), v8, v4);
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:v9 count:7];
 
   return v6;
 }

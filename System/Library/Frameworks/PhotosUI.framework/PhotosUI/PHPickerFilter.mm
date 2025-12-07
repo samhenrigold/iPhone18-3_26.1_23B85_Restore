@@ -142,7 +142,7 @@ LABEL_8:
 
 + (PHPickerFilter)notFilterOfSubfilter:(PHPickerFilter *)subfilter
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = subfilter;
   if (!v3)
   {
@@ -152,12 +152,11 @@ LABEL_8:
   v4 = v3;
   v5 = [PUPickerCompoundFilter alloc];
   _puPickerFilter = [(PHPickerFilter *)v4 _puPickerFilter];
-  v12[0] = _puPickerFilter;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = _puPickerFilter;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v8 = [(PUPickerCompoundFilter *)v5 initWithFilterType:2 subfilters:v7];
 
   v9 = [[PHPickerFilter alloc] _initWithPUPickerFilter:v8];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -176,7 +175,7 @@ LABEL_8:
   {
 LABEL_7:
     v9 = _PFAssertFailHandler();
-    return __46__PHPickerFilter_allFilterMatchingSubfilters___block_invoke(v9);
+    return __46__PHPickerFilter_allFilterMatchingSubfilters___block_invoke(v9, v10);
   }
 
   v5 = PFMap();
@@ -200,7 +199,7 @@ LABEL_7:
   {
 LABEL_7:
     v9 = _PFAssertFailHandler();
-    return __46__PHPickerFilter_anyFilterMatchingSubfilters___block_invoke(v9);
+    return __46__PHPickerFilter_anyFilterMatchingSubfilters___block_invoke(v9, v10);
   }
 
   v5 = PFMap();
@@ -313,35 +312,31 @@ LABEL_7:
 
 + (PHPickerFilter)videosFilter
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = [[PUPickerAssetPlaybackStyleFilter alloc] initWithPlaybackStyle:4];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [[PUPickerAssetPlaybackStyleFilter alloc] initWithPlaybackStyle:5];
-  v9[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
 
   v5 = [[PUPickerCompoundFilter alloc] initWithFilterType:0 subfilters:v4];
   v6 = [[PHPickerFilter alloc] _initWithPUPickerFilter:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (PHPickerFilter)imagesFilter
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = [[PUPickerAssetPlaybackStyleFilter alloc] initWithPlaybackStyle:1];
   v3 = [[PUPickerAssetPlaybackStyleFilter alloc] initWithPlaybackStyle:2, v2];
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = [[PUPickerAssetPlaybackStyleFilter alloc] initWithPlaybackStyle:3];
-  v10[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
+  v9[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:3];
 
   v6 = [[PUPickerCompoundFilter alloc] initWithFilterType:0 subfilters:v5];
   v7 = [[PHPickerFilter alloc] _initWithPUPickerFilter:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

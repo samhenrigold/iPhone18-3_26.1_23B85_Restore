@@ -757,7 +757,7 @@ LABEL_3:
   return [(TSSStylesheet *)self stylesPassingTest:v4];
 }
 
-uint64_t __36__TSSStylesheet_namedStylesOfClass___block_invoke(uint64_t a1, void *a2)
+void *__36__TSSStylesheet_namedStylesOfClass___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 name];
   if (result)
@@ -1473,7 +1473,7 @@ LABEL_5:
   return v8;
 }
 
-uint64_t __111__TSSStylesheet_TSWPStyleAdditions__p_variationMapForVaryingCharacterStyle_overParagraphStyle_withPropertyMap___block_invoke(uint64_t a1, uint64_t a2)
+void *__111__TSSStylesheet_TSWPStyleAdditions__p_variationMapForVaryingCharacterStyle_overParagraphStyle_withPropertyMap___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) boxedObjectForProperty:a2];
   if (v4 == [MEMORY[0x277CBEB68] null])
@@ -1570,8 +1570,8 @@ LABEL_3:
 
 - (id)headerAndFooterStyle
 {
-  objc_opt_class();
-  -[TSSStylesheet cascadedFirstStyleWithName:](self, "cascadedFirstStyleWithName:", [TSWPBundle() localizedStringForKey:@"Header & Footer" value:&stru_287D36338 table:@"TSText"]);
+  v3 = objc_opt_class();
+  -[TSSStylesheet cascadedFirstStyleWithName:](self, "cascadedFirstStyleWithName:", [TSWPBundle(v3 v4)]);
   result = TSUDynamicCast();
   if (!result)
   {
@@ -1589,12 +1589,12 @@ LABEL_3:
   return [(TSSStylesheet *)self _defaultStyleOfClass:v5 withIdentifier:@"character-style-null" wasCreated:created usingBlock:&__block_literal_global_61];
 }
 
-uint64_t __67__TSSStylesheet_TSText_Internal___defaultCharacterStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
+TSWPCharacterStyle *__67__TSSStylesheet_TSText_Internal___defaultCharacterStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [TSWPCharacterStyle alloc];
-  v4 = [TSWPBundle() localizedStringForKey:@"None" value:&stru_287D36338 table:@"TSText"];
+  v5 = [TSWPBundle(v3 v4)];
 
-  return [(TSSStyle *)v3 initWithContext:a2 name:v4 overridePropertyMap:0 isVariation:0];
+  return [(TSSStyle *)v3 initWithContext:a2 name:v5 overridePropertyMap:0 isVariation:0];
 }
 
 - (id)_hyperlinkStyleWasCreated:(BOOL *)created
@@ -1604,13 +1604,13 @@ uint64_t __67__TSSStylesheet_TSText_Internal___defaultCharacterStyleWasCreated__
   return [(TSSStylesheet *)self _defaultStyleOfClass:v5 withIdentifier:@"character-style-hyperlink" wasCreated:created usingBlock:&__block_literal_global_71];
 }
 
-uint64_t __60__TSSStylesheet_TSText_Internal___hyperlinkStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
+TSWPCharacterStyle *__60__TSSStylesheet_TSText_Internal___hyperlinkStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [TSWPCharacterStyle alloc];
-  v4 = [TSWPBundle() localizedStringForKey:@"Link" value:&stru_287D36338 table:@"TSText"];
-  v5 = [TSSPropertyMap propertyMapWithPropertiesAndValues:22, 1, 0];
+  v5 = [TSWPBundle(v3 v4)];
+  v6 = [TSSPropertyMap propertyMapWithPropertiesAndValues:22, 1, 0];
 
-  return [(TSSStyle *)v3 initWithContext:a2 name:v4 overridePropertyMap:v5 isVariation:0];
+  return [(TSSStyle *)v3 initWithContext:a2 name:v5 overridePropertyMap:v6 isVariation:0];
 }
 
 - (id)_defaultParagraphStyleWasCreated:(BOOL *)created
@@ -1635,13 +1635,13 @@ uint64_t __60__TSSStylesheet_TSText_Internal___hyperlinkStyleWasCreated___block_
   return v5;
 }
 
-uint64_t __67__TSSStylesheet_TSText_Internal___defaultParagraphStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
+TSWPParagraphStyle *__67__TSSStylesheet_TSText_Internal___defaultParagraphStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [TSWPParagraphStyle alloc];
-  v4 = [TSWPBundle() localizedStringForKey:@"Free Form" value:&stru_287D36338 table:@"TSText"];
-  v5 = +[TSWPParagraphStyle defaultPropertyMap];
+  v5 = [TSWPBundle(v3 v4)];
+  v6 = +[TSWPParagraphStyle defaultPropertyMap];
 
-  return [(TSSStyle *)v3 initWithContext:a2 name:v4 overridePropertyMap:v5 isVariation:0];
+  return [(TSSStyle *)v3 initWithContext:a2 name:v5 overridePropertyMap:v6 isVariation:0];
 }
 
 - (id)_defaultListStyleWasCreated:(BOOL *)created
@@ -1651,13 +1651,13 @@ uint64_t __67__TSSStylesheet_TSText_Internal___defaultParagraphStyleWasCreated__
   return [(TSSStylesheet *)self _defaultStyleOfClass:v5 withIdentifier:@"text-0-liststyle-None" wasCreated:created usingBlock:&__block_literal_global_84];
 }
 
-uint64_t __62__TSSStylesheet_TSText_Internal___defaultListStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
+TSWPListStyle *__62__TSSStylesheet_TSText_Internal___defaultListStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [TSWPListStyle alloc];
-  v4 = [TSWPBundle() localizedStringForKey:@"None" value:&stru_287D36338 table:@"TSText"];
-  v5 = +[TSWPListStyle defaultPropertyMap];
+  v5 = [TSWPBundle(v3 v4)];
+  v6 = +[TSWPListStyle defaultPropertyMap];
 
-  return [(TSWPListStyle *)v3 initWithContext:a2 name:v4 overridePropertyMap:v5 isVariation:0];
+  return [(TSWPListStyle *)v3 initWithContext:a2 name:v5 overridePropertyMap:v6 isVariation:0];
 }
 
 - (id)_defaultColumnStyleWasCreated:(BOOL *)created
@@ -1667,7 +1667,7 @@ uint64_t __62__TSSStylesheet_TSText_Internal___defaultListStyleWasCreated___bloc
   return [(TSSStylesheet *)self _defaultStyleOfClass:v5 withIdentifier:@"column-style-default" wasCreated:created usingBlock:&__block_literal_global_88];
 }
 
-uint64_t __64__TSSStylesheet_TSText_Internal___defaultColumnStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
+TSWPColumnStyle *__64__TSSStylesheet_TSText_Internal___defaultColumnStyleWasCreated___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = [TSWPColumnStyle alloc];
 

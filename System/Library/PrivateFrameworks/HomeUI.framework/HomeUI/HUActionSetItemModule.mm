@@ -78,10 +78,11 @@
   v6 = (self + OBJC_IVAR___HUActionSetItemModule_filter);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_20CEC8164(v7);
+  sub_20CEC8164(v7, v8);
 }
 
 - (id)sortBlock
@@ -152,7 +153,7 @@
 
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81AF70, &unk_20D5BCEC0);
     sub_20CEF9114();
     v4 = sub_20D567CD8();
   }
@@ -167,16 +168,16 @@
 
 - (id)buildSectionsWithDisplayedItems:(id)items
 {
-  sub_20CECF940(0, &qword_281120AC0);
+  sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
   sub_20CEF99B4();
-  sub_20D567D08();
+  v4 = sub_20D567D08();
   selfCopy = self;
-  sub_20D0D8840();
+  sub_20D0D8840(v4);
 
-  sub_20CECF940(0, &unk_28111FFD0);
-  v5 = sub_20D567A58();
+  sub_20CECF940(0, &unk_28111FFD0, 0x277D14778);
+  v6 = sub_20D567A58();
 
-  return v5;
+  return v6;
 }
 
 @end

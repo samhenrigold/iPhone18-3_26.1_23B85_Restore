@@ -45,7 +45,7 @@
 {
   v7 = *MEMORY[0x1E69E9840];
   _effectiveDisplayDate = [(CSProminentDisplayView *)self _effectiveDisplayDate];
-  v4 = CSLogCommon();
+  v4 = CSLogCommon(_effectiveDisplayDate);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -329,7 +329,7 @@
   timeView = self->_timeView;
   if (timeView)
   {
-    [(CSProminentTimeView *)timeView transform];
+    objc_msgSend_transform(timeView);
   }
 
   else

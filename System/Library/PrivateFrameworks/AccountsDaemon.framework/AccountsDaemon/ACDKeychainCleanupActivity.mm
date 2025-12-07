@@ -67,7 +67,7 @@ uint64_t __44__ACDKeychainCleanupActivity_sharedActivity__block_invoke()
 
 void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 8) allCredentialItems];
   v3 = [MEMORY[0x277CB8F98] sharedInstance];
   v4 = [v3 dataSeparatedPersonasUIDs];
@@ -91,38 +91,38 @@ void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke(uint64_t 
       }
 
       v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
-      v16 = v4;
+      v15 = v4;
       obj = v4;
-      v8 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v21;
+        v10 = *v20;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v10)
+            if (*v20 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v20 + 1) + 8 * i);
+            v12 = *(*(&v19 + 1) + 8 * i);
             v13 = MEMORY[0x277CB8F98];
-            v18[0] = MEMORY[0x277D85DD0];
-            v18[1] = 3221225472;
-            v18[2] = __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke_5;
-            v18[3] = &unk_27848BFF0;
-            v18[4] = *(a1 + 32);
-            v19 = v6;
-            [v13 performWithinPersona:v12 withBlock:v18];
+            v17[0] = MEMORY[0x277D85DD0];
+            v17[1] = 3221225472;
+            v17[2] = __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke_5;
+            v17[3] = &unk_27848BFF0;
+            v17[4] = *(a1 + 32);
+            v18 = v6;
+            [v13 performWithinPersona:v12 withBlock:v17];
           }
 
-          v9 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v9 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v9);
@@ -143,7 +143,7 @@ void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke(uint64_t 
         }
       }
 
-      v4 = v16;
+      v4 = v15;
     }
 
     else if (v7)
@@ -152,8 +152,6 @@ void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke(uint64_t 
       _os_log_impl(&dword_221D2F000, v6, OS_LOG_TYPE_DEFAULT, "No credentials items queued for deletion, will not start cleanup activity.", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke_5(uint64_t a1)
@@ -190,28 +188,28 @@ void __48__ACDKeychainCleanupActivity_checkInIfNecessary__block_invoke_5(uint64_
 
 uint64_t __66__ACDKeychainCleanupActivity_queueNonPersistentCredentialRemoval___block_invoke(id *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = a1[4];
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * v6);
+        v7 = *(*(&v11 + 1) + 8 * v6);
         v8 = a1[5];
         v9 = [a1[6] copy];
         [v8 _activityQueue_queueCredentialItemWithAccount:v9 serviceName:v7];
@@ -220,15 +218,13 @@ uint64_t __66__ACDKeychainCleanupActivity_queueNonPersistentCredentialRemoval___
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
-  result = [a1[5] _activityQueue_checkIn];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a1[5] _activityQueue_checkIn];
 }
 
 - (void)_activityQueue_checkIn
@@ -243,7 +239,7 @@ uint64_t __66__ACDKeychainCleanupActivity_queueNonPersistentCredentialRemoval___
 
 - (void)_activityQueue_queueCredentialItemWithAccount:(id)account serviceName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   nameCopy = name;
   v8 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:300.0];
@@ -255,11 +251,11 @@ uint64_t __66__ACDKeychainCleanupActivity_queueNonPersistentCredentialRemoval___
     v11 = _ACLogSystem();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_221D2F000, v11, OS_LOG_TYPE_DEFAULT, "Extending credential item: %@ expiration date: %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_221D2F000, v11, OS_LOG_TYPE_DEFAULT, "Extending credential item: %@ expiration date: %@", &v15, 0x16u);
     }
 
     [(ACAccountStore *)self->_accountStore saveCredentialItem:v10 withCompletionHandler:&__block_literal_global_10_0];
@@ -276,17 +272,15 @@ uint64_t __66__ACDKeychainCleanupActivity_queueNonPersistentCredentialRemoval___
     v14 = _ACLogSystem();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v8;
-      _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Creating credential item: %@ expiration date: %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v8;
+      _os_log_impl(&dword_221D2F000, v14, OS_LOG_TYPE_DEFAULT, "Creating credential item: %@ expiration date: %@", &v15, 0x16u);
     }
 
     [(ACAccountStore *)self->_accountStore insertCredentialItem:v10 withCompletionHandler:&__block_literal_global_10_0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAccount_serviceName___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -304,7 +298,7 @@ void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAcco
 
 - (void)_activityQueue_configureXPCActivityWithCriteria:(id)criteria
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   xpcActivity = self->_xpcActivity;
   if (xpcActivity)
@@ -316,8 +310,8 @@ void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAcco
       v8 = _ACLogSystem();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_221D2F000, v8, OS_LOG_TYPE_DEFAULT, "XPC criteria not changed, ignoring criteria.", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_221D2F000, v8, OS_LOG_TYPE_DEFAULT, "XPC criteria not changed, ignoring criteria.", &v10, 2u);
       }
     }
 
@@ -326,9 +320,9 @@ void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAcco
       v9 = _ACLogSystem();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
-        v12 = criteriaCopy;
-        _os_log_impl(&dword_221D2F000, v9, OS_LOG_TYPE_DEFAULT, "Configuring keychain cleanup activity: %@", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = criteriaCopy;
+        _os_log_impl(&dword_221D2F000, v9, OS_LOG_TYPE_DEFAULT, "Configuring keychain cleanup activity: %@", &v10, 0xCu);
       }
 
       xpc_activity_set_criteria(self->_xpcActivity, criteriaCopy);
@@ -339,8 +333,6 @@ void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAcco
   {
     [(ACDKeychainCleanupActivity *)self _activityQueue_registerXPCActivityWithCriteria:criteriaCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activityQueue_registerXPCActivityWithCriteria:(id)criteria
@@ -366,7 +358,7 @@ void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAcco
 
 void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCriteria___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   v5 = _ACLogSystem();
@@ -374,25 +366,23 @@ void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCrit
   {
     v6 = [MEMORY[0x277CCABB0] numberWithLong:state];
     *buf = 138412290;
-    v17 = v6;
+    v16 = v6;
     _os_log_impl(&dword_221D2F000, v5, OS_LOG_TYPE_DEFAULT, "XPC Activity block invoked with state %@...", buf, 0xCu);
   }
 
   v8 = *(a1 + 32);
   v7 = *(a1 + 40);
   v9 = *(v8 + 24);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCriteria___block_invoke_13;
-  v12[3] = &unk_27848BE10;
-  v12[4] = v8;
-  v13 = v3;
-  v15 = state;
-  v14 = v7;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCriteria___block_invoke_13;
+  v11[3] = &unk_27848BE10;
+  v11[4] = v8;
+  v12 = v3;
+  v14 = state;
+  v13 = v7;
   v10 = v3;
-  dispatch_async(v9, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(v9, v11);
 }
 
 void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCriteria___block_invoke_13(uint64_t a1)
@@ -420,7 +410,7 @@ void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCrit
 
 - (void)_activityQueue_removeExpiredCredentials
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = _os_activity_create(&dword_221D2F000, "accounts/keychain-cleanup-activity", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -433,8 +423,8 @@ void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCrit
   }
 
   *buf = 0;
-  v23 = buf;
-  v24 = 0x2020000000;
+  v22 = buf;
+  v23 = 0x2020000000;
   _removeExpiredCredentials = [(ACDKeychainCleanupActivity *)self _removeExpiredCredentials];
   mEMORY[0x277CB8F98] = [MEMORY[0x277CB8F98] sharedInstance];
   dataSeparatedPersonasUIDs = [mEMORY[0x277CB8F98] dataSeparatedPersonasUIDs];
@@ -445,66 +435,64 @@ void __77__ACDKeychainCleanupActivity__activityQueue_registerXPCActivityWithCrit
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [dataSeparatedPersonasUIDs count];
-      *v28 = 134217984;
-      v29 = v8;
-      _os_log_impl(&dword_221D2F000, v7, OS_LOG_TYPE_DEFAULT, "We have %ld enterprise or guest persona(s). Running cleanup within those personas as well.", v28, 0xCu);
+      *v27 = 134217984;
+      v28 = v8;
+      _os_log_impl(&dword_221D2F000, v7, OS_LOG_TYPE_DEFAULT, "We have %ld enterprise or guest persona(s). Running cleanup within those personas as well.", v27, 0xCu);
     }
 
-    v15 = dataSeparatedPersonasUIDs;
-    v16 = v3;
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
+    v14 = dataSeparatedPersonasUIDs;
+    v15 = v3;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v9 = dataSeparatedPersonasUIDs;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v26 count:16];
     if (v10)
     {
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredentials__block_invoke;
-          v17[3] = &unk_27848C308;
-          v17[4] = self;
-          v17[5] = buf;
-          [MEMORY[0x277CB8F98] performWithinPersona:v13 withBlock:{v17, v15, v16}];
+          v13 = *(*(&v17 + 1) + 8 * v12);
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredentials__block_invoke;
+          v16[3] = &unk_27848C308;
+          v16[4] = self;
+          v16[5] = buf;
+          [MEMORY[0x277CB8F98] performWithinPersona:v13 withBlock:{v16, v14, v15}];
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v18 objects:v27 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v17 objects:v26 count:16];
       }
 
       while (v10);
     }
 
-    dataSeparatedPersonasUIDs = v15;
-    v3 = v16;
+    dataSeparatedPersonasUIDs = v14;
+    v3 = v15;
   }
 
-  if (v23[24] == 1)
+  if (v22[24] == 1)
   {
     [(ACDKeychainCleanupActivity *)self _activityQueue_unregisterActivity];
   }
 
   _Block_object_dispose(buf, 8);
   os_activity_scope_leave(&state);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredentials__block_invoke(uint64_t a1)
+void *__69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredentials__block_invoke(uint64_t a1)
 {
   v1 = *(*(a1 + 40) + 8);
   if (*(v1 + 24) == 1)
@@ -524,12 +512,12 @@ uint64_t __69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredential
 
 - (BOOL)_removeExpiredCredentials
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   allCredentialItems = [(ACAccountStore *)self->_accountStore allCredentialItems];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 1;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 1;
   if ([allCredentialItems count])
   {
     v4 = dispatch_semaphore_create(0);
@@ -537,46 +525,45 @@ uint64_t __69__ACDKeychainCleanupActivity__activityQueue_removeExpiredCredential
     aBlock[1] = 3221225472;
     aBlock[2] = __55__ACDKeychainCleanupActivity__removeExpiredCredentials__block_invoke;
     aBlock[3] = &unk_27848D1E0;
-    v20 = &v21;
+    v19 = &v20;
     v5 = v4;
-    v19 = v5;
+    v18 = v5;
     v6 = _Block_copy(aBlock);
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = allCredentialItems;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v25 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v24 count:16];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(ACDKeychainCleanupActivity *)self _activityQueue_removeCredentialItem:*(*(&v14 + 1) + 8 * v10) withCompletionHandler:v6, v14];
+          [(ACDKeychainCleanupActivity *)self _activityQueue_removeCredentialItem:*(*(&v13 + 1) + 8 * v10) withCompletionHandler:v6, v13];
           dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v7 countByEnumeratingWithState:&v14 objects:v25 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v13 objects:v24 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *(v22 + 24);
-  _Block_object_dispose(&v21, 8);
+  v11 = *(v21 + 24);
+  _Block_object_dispose(&v20, 8);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 & 1;
 }
 
@@ -625,14 +612,14 @@ LABEL_10:
 
 - (void)_activityQueue_removeCredentialItem:(id)item withCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   handlerCopy = handler;
   v8 = _ACLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = itemCopy;
+    v23 = itemCopy;
     _os_log_impl(&dword_221D2F000, v8, OS_LOG_TYPE_DEFAULT, "Attempting to remove credential item (and keychain item) for %@", buf, 0xCu);
   }
 
@@ -644,9 +631,9 @@ LABEL_10:
 
     v16 = MEMORY[0x277CCA9B8];
     v17 = *MEMORY[0x277CB8DC0];
-    v21 = *MEMORY[0x277CCA450];
-    v22 = v11;
-    serviceName = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *MEMORY[0x277CCA450];
+    v21 = v11;
+    serviceName = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     v13 = [v16 errorWithDomain:v17 code:23 userInfo:serviceName];
     goto LABEL_7;
   }
@@ -658,9 +645,9 @@ LABEL_10:
   if (v11)
   {
     serviceName = [itemCopy serviceName];
-    v20 = 0;
-    [ACDKeychainManager removeCredentialForAccount:v11 key:serviceName error:&v20];
-    v13 = v20;
+    v19 = 0;
+    [ACDKeychainManager removeCredentialForAccount:v11 key:serviceName error:&v19];
+    v13 = v19;
 LABEL_7:
     v18 = v13;
 
@@ -679,8 +666,6 @@ LABEL_8:
   {
     [(ACAccountStore *)self->_accountStore removeCredentialItem:itemCopy withCompletionHandler:handlerCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activityQueue_unregisterActivity
@@ -699,20 +684,18 @@ LABEL_8:
 
 void __88__ACDKeychainCleanupActivity__activityQueue_queueCredentialItemWithAccount_serviceName___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to save credential item: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to save credential item: %@", &v2, 0xCu);
 }
 
 void __55__ACDKeychainCleanupActivity__removeExpiredCredentials__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to remove credential item: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to remove credential item: %@", &v2, 0xCu);
 }
 
 @end

@@ -10,36 +10,34 @@
 
 + (id)requiredDAGServices
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v11[0] = v4;
+  v10[0] = v4;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v11[1] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v8 = [v2 setWithArray:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (id)getUsageForAssetSetName:(int64_t)name withLocale:(id)locale
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (name)
   {
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x1E696AD98] numberWithInteger:name];
-      v10 = 136315394;
-      v11 = "+[CDMEmbeddingServiceGraph getUsageForAssetSetName:withLocale:]";
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v10, 0x16u);
+      v8 = [MEMORY[0x1E696AD98] numberWithInteger:name];
+      v9 = 136315394;
+      v10 = "+[CDMEmbeddingServiceGraph getUsageForAssetSetName:withLocale:]";
+      v11 = 2112;
+      v12 = v8;
+      _os_log_debug_impl(&dword_1DC287000, v5, OS_LOG_TYPE_DEBUG, "%s No usages found for asset set name %@", &v9, 0x16u);
     }
 
     v6 = 0;
@@ -49,8 +47,6 @@
   {
     v6 = [CDMAssetsUtils getNLUsages:locale];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -65,7 +61,7 @@
 
 + (id)responseFeatureStoreStreamId
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!+[CDMPlatformUtils isInternalInstall])
   {
     v4 = CDMOSLoggerForCategory(0);
@@ -74,11 +70,11 @@
       goto LABEL_7;
     }
 
-    v8 = 136315138;
-    v9 = "+[CDMEmbeddingServiceGraph responseFeatureStoreStreamId]";
+    v7 = 136315138;
+    v8 = "+[CDMEmbeddingServiceGraph responseFeatureStoreStreamId]";
     v5 = "%s Device not on internal build. Not inserting SubwordEmbeddingResponse to FeatureStore.";
 LABEL_12:
-    _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, v5, &v8, 0xCu);
+    _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, v5, &v7, 0xCu);
     goto LABEL_7;
   }
 
@@ -92,8 +88,8 @@ LABEL_12:
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315138;
-    v9 = "+[CDMEmbeddingServiceGraph responseFeatureStoreStreamId]";
+    v7 = 136315138;
+    v8 = "+[CDMEmbeddingServiceGraph responseFeatureStoreStreamId]";
     v5 = "%s UserDefault for inserting CDMEmbeddingGraph outputs to FeatureStore is not enabled. Not inserting SubwordEmbeddingResponse to FeatureStore.";
     goto LABEL_12;
   }
@@ -102,7 +98,6 @@ LABEL_7:
 
   v2 = 0;
 LABEL_8:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -170,13 +165,13 @@ LABEL_8:
 
 void __38__CDMEmbeddingServiceGraph_buildGraph__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 136315138;
-    v9 = "[CDMEmbeddingServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CDMEmbeddingServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMTokenizationProtoRequestCommand for use in CDMTokenizerProtoService", &v7, 0xCu);
   }
 
   v3 = [CDMTokenizerProtoService createProtoTokenRequestWithText:*(*(*(a1 + 48) + 8) + 40) locale:*(a1 + 32)];
@@ -184,19 +179,17 @@ void __38__CDMEmbeddingServiceGraph_buildGraph__block_invoke(uint64_t a1)
   v5 = *(*(a1 + 56) + 8);
   v6 = *(v5 + 40);
   *(v5 + 40) = v4;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CDMEmbeddingServiceGraph_buildGraph__block_invoke_515(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315138;
-    v18 = "[CDMEmbeddingServiceGraph buildGraph]_block_invoke";
-    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[CDMEmbeddingServiceGraph buildGraph]_block_invoke";
+    _os_log_debug_impl(&dword_1DC287000, v2, OS_LOG_TYPE_DEBUG, "%s Creating CDMEmbeddingProtoRequestCommand for use in CDMEmbeddingProtoService", &v16, 0xCu);
   }
 
   v3 = objc_alloc_init(MEMORY[0x1E69D12B0]);
@@ -225,8 +218,6 @@ void __38__CDMEmbeddingServiceGraph_buildGraph__block_invoke_515(uint64_t a1)
   v14 = [[CDMEmbeddingGraphResponseCommand alloc] initWithEmbeddingProtoResponseCommand:*(*(*(a1 + 56) + 8) + 40)];
   v15 = objc_loadWeakRetained((a1 + 64));
   [v15 setGraphOutput:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

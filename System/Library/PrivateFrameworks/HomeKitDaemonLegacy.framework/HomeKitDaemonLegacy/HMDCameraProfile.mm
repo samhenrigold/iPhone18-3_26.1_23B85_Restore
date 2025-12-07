@@ -48,7 +48,7 @@
 
 - (NSDictionary)assistantObject
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessory = [(HMDAccessoryProfile *)self accessory];
   name = [accessory name];
   home = [accessory home];
@@ -56,23 +56,23 @@
   if (home && ([home name], v7 = objc_claimAutoreleasedReturnValue(), v7, v7) && name)
   {
     v8 = objc_alloc(MEMORY[0x277CBEB38]);
-    v30[0] = *MEMORY[0x277D48170];
+    v29[0] = *MEMORY[0x277D48170];
     v9 = [(HMDCameraProfile *)self urlString:@"objectType"];
     v10 = *MEMORY[0x277D482E0];
-    v30[1] = v9;
-    v30[2] = v10;
-    v29[2] = @"objectServiceType";
-    v29[3] = @"objectHome";
+    v29[1] = v9;
+    v29[2] = v10;
+    v28[2] = @"objectServiceType";
+    v28[3] = @"objectHome";
     name2 = [v6 name];
-    v30[3] = name2;
-    v29[4] = @"objectHomeIdentifier";
+    v29[3] = name2;
+    v28[4] = @"objectHomeIdentifier";
     urlString = [v6 urlString];
-    v30[4] = urlString;
-    v30[5] = self;
-    v29[5] = @"objectReference";
-    v29[6] = @"objectName";
-    v30[6] = name;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+    v29[4] = urlString;
+    v29[5] = self;
+    v28[5] = @"objectReference";
+    v28[6] = @"objectName";
+    v29[6] = name;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:7];
     v14 = [v8 initWithDictionary:v13];
 
     name3 = [accessory name];
@@ -96,7 +96,7 @@
       }
     }
 
-    v22 = [v14 copy];
+    v22 = objc_msgSend_copy(v14);
   }
 
   else
@@ -117,13 +117,13 @@
       }
 
       *buf = 138544130;
-      v32 = v25;
-      v33 = 2112;
-      v34 = v6;
-      v35 = 2112;
-      v36 = name6;
-      v37 = 2112;
-      v38 = name;
+      v31 = v25;
+      v32 = 2112;
+      v33 = v6;
+      v34 = 2112;
+      v35 = name6;
+      v36 = 2112;
+      v37 = name;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@Skipping because one of the properties of service is nil: service.accessory.home %@  service.accessory.home.name %@  service.name %@", buf, 0x2Au);
       if (v6)
       {
@@ -134,56 +134,51 @@
     v22 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (NSString)urlString
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   services = [(HMDAccessoryProfile *)self services];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(services, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   services2 = [(HMDAccessoryProfile *)self services];
-  v7 = [services2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [services2 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(services2);
         }
 
         v11 = MEMORY[0x277CCACA8];
-        instanceID = [*(*(&v19 + 1) + 8 * i) instanceID];
+        instanceID = [*(*(&v17 + 1) + 8 * i) instanceID];
         v13 = [v11 stringWithFormat:@"%@", instanceID];
         [v5 addObject:v13];
       }
 
-      v8 = [services2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [services2 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
-  v14 = *MEMORY[0x277CCF2A8];
   uniqueIdentifier = [(HMDAccessoryProfile *)self uniqueIdentifier];
-  v16 = hm_assistantIdentifierWithSalts();
+  v15 = hm_assistantIdentifierWithSalts();
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v15;
 }
 
 - (HMDHAPAccessory)hapAccessory
@@ -195,7 +190,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -210,9 +205,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Performing recording events cleanup due to timer firing", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Performing recording events cleanup due to timer firing", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -222,8 +217,6 @@
     reachabilityEventManager = [(HMDCameraProfile *)selfCopy reachabilityEventManager];
     [reachabilityEventManager cleanUpEvents];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkMonitorIsUnreachable:(id)unreachable
@@ -498,7 +491,7 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
 
 - (void)_handleStreamControlRequest:(id)request
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -512,11 +505,11 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
     name = [requestCopy name];
     messagePayload = [requestCopy messagePayload];
     *buf = 138543874;
-    v58 = v9;
-    v59 = 2112;
-    v60 = name;
-    v61 = 2112;
-    v62 = messagePayload;
+    v57 = v9;
+    v58 = 2112;
+    v59 = name;
+    v60 = 2112;
+    v61 = messagePayload;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling %@ message with payload: %@", buf, 0x20u);
   }
 
@@ -525,28 +518,28 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
   if (v12)
   {
     settingProactiveReaders = [(HMDCameraProfile *)selfCopy settingProactiveReaders];
-    v14 = [settingProactiveReaders copy];
+    v14 = objc_msgSend_copy(settingProactiveReaders);
 
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v15 = v14;
-    v16 = [v15 countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v52;
+      v18 = *v51;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v52 != v18)
+          if (*v51 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v51 + 1) + 8 * i);
+          v20 = *(*(&v50 + 1) + 8 * i);
           if ([v20 hasPendingNegotiateMessageForSessionWithIdentifier:v12])
           {
             [v20 handleMessage:requestCopy];
@@ -555,7 +548,7 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v50 objects:v55 count:16];
         if (v17)
         {
           continue;
@@ -565,43 +558,43 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
       }
     }
 
-    v43 = v15;
-    v44 = requestCopy;
+    v42 = v15;
+    v43 = requestCopy;
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v46 = selfCopy;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v45 = selfCopy;
     obj = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
-    v21 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+    v21 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v48;
+      v23 = *v47;
       while (2)
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v48 != v23)
+          if (*v47 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v47 + 1) + 8 * j);
+          v25 = *(*(&v46 + 1) + 8 * j);
           v26 = objc_autoreleasePoolPush();
-          v27 = v46;
+          v27 = v45;
           v28 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             v29 = HMFGetLogIdentifier();
             streamSessionID = [v25 streamSessionID];
             *buf = 138543874;
-            v58 = v29;
-            v59 = 2112;
-            v60 = streamSessionID;
-            v61 = 2112;
-            v62 = v12;
+            v57 = v29;
+            v58 = 2112;
+            v59 = streamSessionID;
+            v60 = 2112;
+            v61 = v12;
             _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Checking if stream message handler's session ID %@ matches with given %@", buf, 0x20u);
           }
 
@@ -611,15 +604,15 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
 
           if (v32)
           {
-            requestCopy = v44;
-            [v25 handleMessage:v44];
-            v15 = v43;
+            requestCopy = v43;
+            [v25 handleMessage:v43];
+            v15 = v42;
             v37 = obj;
             goto LABEL_30;
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+        v22 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
         if (v22)
         {
           continue;
@@ -630,23 +623,23 @@ void __46__HMDCameraProfile_networkMonitorIsReachable___block_invoke(uint64_t a1
     }
 
     v33 = objc_autoreleasePoolPush();
-    v34 = v46;
+    v34 = v45;
     v35 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
       v36 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v58 = v36;
-      v59 = 2112;
-      v60 = v12;
+      v57 = v36;
+      v58 = 2112;
+      v59 = v12;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_ERROR, "%{public}@Did not find the stream with Session ID %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v33);
     v37 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
-    requestCopy = v44;
-    [v44 respondWithError:v37];
-    v15 = v43;
+    requestCopy = v43;
+    [v43 respondWithError:v37];
+    v15 = v42;
 LABEL_30:
   }
 
@@ -659,7 +652,7 @@ LABEL_30:
     {
       v41 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v41;
+      v57 = v41;
       _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_ERROR, "%{public}@Stream session ID is not present in start request", buf, 0xCu);
     }
 
@@ -667,13 +660,11 @@ LABEL_30:
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     [requestCopy respondWithError:v15];
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNegotiateStreamRequest:(id)request
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -691,17 +682,17 @@ LABEL_30:
       v12 = HMFGetLogIdentifier();
       shortDescription = [requestCopy shortDescription];
       *buf = 138543874;
-      v70 = v12;
-      v71 = 2112;
-      v72 = v7;
-      v73 = 2114;
-      v74 = shortDescription;
+      v69 = v12;
+      v70 = 2112;
+      v71 = v7;
+      v72 = 2114;
+      v73 = shortDescription;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@[%@] Handling negotiate stream request message: %{public}@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
-    v68 = objc_opt_class();
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+    v67 = objc_opt_class();
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
     v15 = [requestCopy unarchivedObjectForKey:@"kCameraSessionPreference" ofClasses:v14];
     v16 = v15;
     if (v15)
@@ -718,26 +709,26 @@ LABEL_30:
 
     if ([requestCopy isEntitledForSPIAccess] && objc_msgSend(v19, "shouldTakeOwnershipOfExistingStream"))
     {
-      v63 = 0u;
-      v64 = 0u;
-      v61 = 0u;
       v62 = 0u;
+      v63 = 0u;
+      v60 = 0u;
+      v61 = 0u;
       cameraStreamManagers = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
-      v21 = [cameraStreamManagers countByEnumeratingWithState:&v61 objects:v67 count:16];
+      v21 = [cameraStreamManagers countByEnumeratingWithState:&v60 objects:v66 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v62;
+        v23 = *v61;
         while (2)
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v62 != v23)
+            if (*v61 != v23)
             {
               objc_enumerationMutation(cameraStreamManagers);
             }
 
-            v25 = *(*(&v61 + 1) + 8 * i);
+            v25 = *(*(&v60 + 1) + 8 * i);
             if ([v25 hasStreamSessionShowingOnCurrentDevice])
             {
               [v25 takeOwnershipOfStreamUsingMessage:requestCopy];
@@ -745,7 +736,7 @@ LABEL_30:
             }
           }
 
-          v22 = [cameraStreamManagers countByEnumeratingWithState:&v61 objects:v67 count:16];
+          v22 = [cameraStreamManagers countByEnumeratingWithState:&v60 objects:v66 count:16];
           if (v22)
           {
             continue;
@@ -756,33 +747,33 @@ LABEL_30:
       }
     }
 
-    v52 = v7;
+    v51 = v7;
     cameraStreamManagers = [(HMDCameraProfile *)selfCopy hapAccessory];
     if ([cameraStreamManagers isReachable])
     {
-      v55 = 0uLL;
-      v56 = 0uLL;
-      v53 = 0uLL;
       v54 = 0uLL;
+      v55 = 0uLL;
+      v52 = 0uLL;
+      v53 = 0uLL;
       cameraStreamManagers2 = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
-      v27 = [cameraStreamManagers2 countByEnumeratingWithState:&v53 objects:v65 count:16];
+      v27 = [cameraStreamManagers2 countByEnumeratingWithState:&v52 objects:v64 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v54;
+        v29 = *v53;
         do
         {
           for (j = 0; j != v28; ++j)
           {
-            if (*v54 != v29)
+            if (*v53 != v29)
             {
               objc_enumerationMutation(cameraStreamManagers2);
             }
 
-            [*(*(&v53 + 1) + 8 * j) setNegotiationMilestone:v6];
+            [*(*(&v52 + 1) + 8 * j) setNegotiationMilestone:v6];
           }
 
-          v28 = [cameraStreamManagers2 countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v28 = [cameraStreamManagers2 countByEnumeratingWithState:&v52 objects:v64 count:16];
         }
 
         while (v28);
@@ -792,8 +783,8 @@ LABEL_30:
       workQueue2 = [(HMDAccessoryProfile *)selfCopy workQueue];
       cameraStreamManagers3 = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
       logIdentifier = [(HMDAccessoryProfile *)selfCopy logIdentifier];
-      v7 = v52;
-      cameraStreamManagers4 = [(HMDCameraSettingProactiveReader *)v31 initWithWorkQueue:workQueue2 sessionID:v52 accessory:cameraStreamManagers message:requestCopy streamControlMessageHandlers:cameraStreamManagers3 streamPreferences:v19 logIdentifier:logIdentifier];
+      v7 = v51;
+      cameraStreamManagers4 = [(HMDCameraSettingProactiveReader *)v31 initWithWorkQueue:workQueue2 sessionID:v51 accessory:cameraStreamManagers message:requestCopy streamControlMessageHandlers:cameraStreamManagers3 streamPreferences:v19 logIdentifier:logIdentifier];
 
       settingProactiveReaders = [(HMDCameraProfile *)selfCopy settingProactiveReaders];
       [settingProactiveReaders addObject:cameraStreamManagers4];
@@ -804,45 +795,45 @@ LABEL_30:
 
     else
     {
-      v59 = 0uLL;
-      v60 = 0uLL;
-      v57 = 0uLL;
       v58 = 0uLL;
+      v59 = 0uLL;
+      v56 = 0uLL;
+      v57 = 0uLL;
       cameraStreamManagers4 = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
-      v37 = [(HMDCameraSettingProactiveReader *)cameraStreamManagers4 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      v37 = [(HMDCameraSettingProactiveReader *)cameraStreamManagers4 countByEnumeratingWithState:&v56 objects:v65 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v58;
+        v39 = *v57;
         while (2)
         {
           for (k = 0; k != v38; ++k)
           {
-            if (*v58 != v39)
+            if (*v57 != v39)
             {
               objc_enumerationMutation(cameraStreamManagers4);
             }
 
-            v41 = *(*(&v57 + 1) + 8 * k);
+            v41 = *(*(&v56 + 1) + 8 * k);
             if (([v41 hasStreamSession] & 1) == 0)
             {
               v46 = objc_autoreleasePoolPush();
               v47 = selfCopy;
               v48 = HMFGetOSLogHandle();
-              v7 = v52;
+              v7 = v51;
               if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
               {
                 HMFGetLogIdentifier();
-                v49 = v51 = v46;
+                v49 = v50 = v46;
                 *buf = 138543874;
-                v70 = v49;
-                v71 = 2112;
-                v72 = v52;
-                v73 = 2112;
-                v74 = v41;
+                v69 = v49;
+                v70 = 2112;
+                v71 = v51;
+                v72 = 2112;
+                v73 = v41;
                 _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@[%@] Accessory is not reachable, routing request to camera streaming service: %@", buf, 0x20u);
 
-                v46 = v51;
+                v46 = v50;
               }
 
               objc_autoreleasePoolPop(v46);
@@ -852,7 +843,7 @@ LABEL_30:
             }
           }
 
-          v38 = [(HMDCameraSettingProactiveReader *)cameraStreamManagers4 countByEnumeratingWithState:&v57 objects:v66 count:16];
+          v38 = [(HMDCameraSettingProactiveReader *)cameraStreamManagers4 countByEnumeratingWithState:&v56 objects:v65 count:16];
           if (v38)
           {
             continue;
@@ -865,14 +856,14 @@ LABEL_30:
       v42 = objc_autoreleasePoolPush();
       v43 = selfCopy;
       v44 = HMFGetOSLogHandle();
-      v7 = v52;
+      v7 = v51;
       if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
         v45 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v70 = v45;
-        v71 = 2112;
-        v72 = v52;
+        v69 = v45;
+        v70 = 2112;
+        v71 = v51;
         _os_log_impl(&dword_2531F8000, v44, OS_LOG_TYPE_ERROR, "%{public}@[%@] Accessory is not reachable and cannot route request to a camera streaming service", buf, 0x16u);
       }
 
@@ -892,7 +883,7 @@ LABEL_45:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v70 = v18;
+      v69 = v18;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Stream session ID is not present in negotiate request", buf, 0xCu);
     }
 
@@ -900,8 +891,6 @@ LABEL_45:
     v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     [requestCopy respondWithError:v19];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNotificationForUpdatedSignificantEvent:(id)event allClipSignificantEvents:(id)events homePresence:(id)presence
@@ -920,20 +909,8 @@ LABEL_45:
     bulletinBoard = [objc_opt_class() bulletinBoard];
     v14 = [bulletinBoard hasDoorbellPressNotificationToUpdateWithSignificantEventBulletin:v12];
 
-    if (!v14)
+    if (!v14 || ([objc_opt_class() bulletinBoard], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "updateDoorbellPressNotificationsWithSignificantEventBulletin:", v12), v15, objc_msgSend(v12, "significantEvents"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "na_any:", &__block_literal_global_110_156650), v16, v17))
     {
-      goto LABEL_11;
-    }
-
-    bulletinBoard2 = [objc_opt_class() bulletinBoard];
-    [bulletinBoard2 updateDoorbellPressNotificationsWithSignificantEventBulletin:v12];
-
-    significantEvents = [v12 significantEvents];
-    v17 = [significantEvents na_any:&__block_literal_global_110_156650];
-
-    if (v17)
-    {
-LABEL_11:
       if ([(HMDCameraProfile *)self _shouldNotifyForSignificantEvent:eventCopy homePresence:presenceCopy])
       {
         clipUserNotificationCenter2 = [(HMDCameraProfile *)self clipUserNotificationCenter];
@@ -953,7 +930,7 @@ BOOL __102__HMDCameraProfile__postNotificationForUpdatedSignificantEvent_allClip
 
 - (void)_postNotificationForUpdatedSignificantEvent:(id)event homePresence:(id)presence
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   presenceCopy = presence;
   clipManager = [(HMDCameraProfile *)self clipManager];
@@ -969,11 +946,11 @@ BOOL __102__HMDCameraProfile__postNotificationForUpdatedSignificantEvent_allClip
     {
       v14 = HMFGetLogIdentifier();
       clipUUID2 = [eventCopy clipUUID];
-      v18 = 138543618;
-      v19 = v14;
-      v20 = 2112;
-      v21 = clipUUID2;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find any significant events for clip with UUID %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v14;
+      v19 = 2112;
+      v20 = clipUUID2;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find any significant events for clip with UUID %@", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -983,13 +960,11 @@ BOOL __102__HMDCameraProfile__postNotificationForUpdatedSignificantEvent_allClip
   }
 
   [(HMDCameraProfile *)self _postNotificationForUpdatedSignificantEvent:eventCopy allClipSignificantEvents:v10 homePresence:presenceCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldNotifyForSignificantEvent:(id)event homePresence:(id)presence
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   presenceCopy = presence;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
@@ -1018,9 +993,9 @@ LABEL_9:
       v26 = HMFGetLogIdentifier();
       uniqueIdentifier = [eventCopy uniqueIdentifier];
       *buf = 138543618;
-      v67 = v26;
-      v68 = 2112;
-      v69 = uniqueIdentifier;
+      v66 = v26;
+      v67 = 2112;
+      v68 = uniqueIdentifier;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Not notifying for significant event %@ because smart notification bulletin is disabled", buf, 0x16u);
     }
 
@@ -1037,13 +1012,13 @@ LABEL_9:
     hapAccessory = [(HMDCameraProfile *)self hapAccessory];
     home = [hapAccessory home];
 
-    v63 = home;
+    v62 = home;
     currentUser = [home currentUser];
     predicateUtilities = [(HMDCameraProfile *)self predicateUtilities];
     v20 = eventCopy;
     v21 = smartBulletinBoardNotificationCondition;
-    v65 = presenceCopy;
-    v62 = currentUser;
+    v64 = presenceCopy;
+    v61 = currentUser;
     v22 = predicateUtilities;
     if ([v20 reason] == 6)
     {
@@ -1091,39 +1066,39 @@ LABEL_9:
     }
 
     [v22 setPersonFamiliarityOptions:v40];
-    v61 = v21;
-    v42 = [v22 rewritePredicate:v21 currentCharacteristicInPredicate:0 characteristicsToRead:0 homePresence:v65];
+    v60 = v21;
+    v42 = [v22 rewritePredicate:v21 currentCharacteristicInPredicate:0 characteristicsToRead:0 homePresence:v64];
     [v42 allowEvaluation];
-    v72 = @"THIS_OBJECT";
-    v73[0] = v22;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
-    v64 = [v42 evaluateWithObject:v22 substitutionVariables:v43];
+    v71 = @"THIS_OBJECT";
+    v72[0] = v22;
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
+    v63 = [v42 evaluateWithObject:v22 substitutionVariables:v43];
 
     v44 = objc_autoreleasePoolPush();
     v45 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v46 = v60 = smartBulletinBoardNotificationCondition;
+      v46 = v59 = smartBulletinBoardNotificationCondition;
       HMFBooleanToString();
       v47 = eventCopy;
       v49 = v48 = presenceCopy;
       *buf = 138543874;
-      v67 = v46;
-      v68 = 2112;
-      v69 = v42;
-      v70 = 2112;
-      v71 = v49;
+      v66 = v46;
+      v67 = 2112;
+      v68 = v42;
+      v69 = 2112;
+      v70 = v49;
       _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_INFO, "%{public}@Evaluated predicate: %@ with result: %@", buf, 0x20u);
 
       presenceCopy = v48;
       eventCopy = v47;
 
-      smartBulletinBoardNotificationCondition = v60;
+      smartBulletinBoardNotificationCondition = v59;
     }
 
     objc_autoreleasePoolPop(v44);
-    v28 = ![(HMDCameraProfile *)self _areFaceClassificationNotificationsSuppressedForSignificantEvent:v20]& v64;
+    v28 = ![(HMDCameraProfile *)self _areFaceClassificationNotificationsSuppressedForSignificantEvent:v20]& v63;
     v50 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v52 = HMFGetOSLogHandle();
@@ -1135,11 +1110,11 @@ LABEL_9:
       v56 = v55 = smartBulletinBoardNotificationCondition;
       v57 = HMFBooleanToString();
       *buf = 138543874;
-      v67 = v54;
-      v68 = 2112;
-      v69 = v56;
-      v70 = 2112;
-      v71 = v57;
+      v66 = v54;
+      v67 = 2112;
+      v68 = v56;
+      v69 = 2112;
+      v70 = v57;
       _os_log_impl(&dword_2531F8000, v52, OS_LOG_TYPE_INFO, "%{public}@Determined should add notification for significant event %@: %@", buf, 0x20u);
 
       smartBulletinBoardNotificationCondition = v55;
@@ -1159,9 +1134,9 @@ LABEL_9:
       v32 = HMFGetLogIdentifier();
       uniqueIdentifier2 = [eventCopy uniqueIdentifier];
       *buf = 138543618;
-      v67 = v32;
-      v68 = 2112;
-      v69 = uniqueIdentifier2;
+      v66 = v32;
+      v67 = 2112;
+      v68 = uniqueIdentifier2;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Notifying for significant event %@ because smart notification bulletin condition is nil", buf, 0x16u);
     }
 
@@ -1170,13 +1145,12 @@ LABEL_9:
   }
 
 LABEL_27:
-  v58 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 - (BOOL)_areFaceClassificationNotificationsSuppressedForSignificantEvent:(id)event
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   faceClassification = [eventCopy faceClassification];
   person = [faceClassification person];
@@ -1201,13 +1175,13 @@ LABEL_27:
   {
     v16 = HMFGetLogIdentifier();
     v17 = HMFBooleanToString();
-    v21 = 138543874;
-    v22 = v16;
-    v23 = 2112;
-    v24 = v17;
-    v25 = 2112;
-    v26 = person;
-    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Classification notifications enabled is %@ for person: %@", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v16;
+    v22 = 2112;
+    v23 = v17;
+    v24 = 2112;
+    v25 = person;
+    _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Classification notifications enabled is %@ for person: %@", &v20, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -1222,13 +1196,12 @@ LABEL_6:
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (void)registerForMessages
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1239,7 +1212,7 @@ LABEL_6:
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v75 = v7;
+    v74 = v7;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Registering for messages", buf, 0xCu);
   }
 
@@ -1258,7 +1231,7 @@ LABEL_6:
       {
         v48 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v75 = v48;
+        v74 = v48;
         _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Not registering for messages because home reference is nil", buf, 0xCu);
       }
 
@@ -1269,31 +1242,31 @@ LABEL_6:
     snapshotManager = [(HMDCameraProfile *)selfCopy snapshotManager];
     [snapshotManager registerForMessages];
 
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     cameraStreamManagers = [(HMDCameraProfile *)selfCopy cameraStreamManagers];
-    v13 = [cameraStreamManagers countByEnumeratingWithState:&v65 objects:v73 count:16];
+    v13 = [cameraStreamManagers countByEnumeratingWithState:&v64 objects:v72 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v66;
+      v15 = *v65;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v66 != v15)
+          if (*v65 != v15)
           {
             objc_enumerationMutation(cameraStreamManagers);
           }
 
-          v17 = *(*(&v65 + 1) + 8 * i);
+          v17 = *(*(&v64 + 1) + 8 * i);
           msgDispatcher = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
           [v17 configureWithMessageDispatcher:msgDispatcher];
         }
 
-        v14 = [cameraStreamManagers countByEnumeratingWithState:&v65 objects:v73 count:16];
+        v14 = [cameraStreamManagers countByEnumeratingWithState:&v64 objects:v72 count:16];
       }
 
       while (v14);
@@ -1329,9 +1302,9 @@ LABEL_6:
 
     v31 = [HMDXPCMessagePolicy policyWithEntitlements:1];
     v32 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-    v72[0] = v30;
-    v72[1] = v31;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v72 count:2];
+    v71[0] = v30;
+    v71[1] = v31;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
     msgDispatcher2 = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
     [msgDispatcher2 registerForMessage:*MEMORY[0x277CCF5F0] receiver:selfCopy policies:v33 selector:?];
 
@@ -1341,9 +1314,9 @@ LABEL_6:
     msgDispatcher4 = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
     [msgDispatcher4 registerForMessage:*MEMORY[0x277CCF5F8] receiver:selfCopy policies:v33 selector:sel__handleStreamControlRequest_];
 
-    v71[0] = v30;
-    v71[1] = v32;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+    v70[0] = v30;
+    v70[1] = v32;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
     msgDispatcher5 = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
     [msgDispatcher5 registerForMessage:*MEMORY[0x277CCF600] receiver:selfCopy policies:v37 selector:sel__handleStreamControlRequest_];
 
@@ -1351,7 +1324,7 @@ LABEL_6:
     [msgDispatcher6 registerForMessage:*MEMORY[0x277CCF618] receiver:selfCopy policies:v37 selector:sel__handleStreamControlRequest_];
 
     v40 = +[HMDDeviceCapabilities deviceCapabilities];
-    v64 = v32;
+    v63 = v32;
     if ([v40 isResidentCapable])
     {
     }
@@ -1364,9 +1337,9 @@ LABEL_6:
       {
 LABEL_22:
         v58 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-        v69[0] = v30;
-        v69[1] = v58;
-        v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
+        v68[0] = v30;
+        v68[1] = v58;
+        v59 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
         msgDispatcher7 = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
         [msgDispatcher7 registerForMessage:@"kStreamRemoteConnectionSetupNotificationKey" receiver:selfCopy policies:v59 selector:sel__handleStreamControlRequest_];
 
@@ -1380,12 +1353,12 @@ LABEL_23:
 
     v50 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
     [v50 setRoles:{objc_msgSend(v50, "roles") | 6}];
-    v63 = home;
+    v62 = home;
     v51 = v31;
-    v52 = [v50 copy];
-    v70[0] = v30;
-    v70[1] = v52;
-    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
+    v52 = objc_msgSend_copy(v50);
+    v69[0] = v30;
+    v69[1] = v52;
+    v53 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
     msgDispatcher9 = [(HMDAccessoryProfile *)selfCopy msgDispatcher];
     [msgDispatcher9 registerForMessage:@"kNegotitateRemoteStreamRequestKey" receiver:selfCopy policies:v53 selector:sel__handleNegotiateStreamRequest_];
 
@@ -1399,7 +1372,7 @@ LABEL_23:
     [msgDispatcher12 registerForMessage:@"kReconfigureRemoteStreamRequestKey" receiver:selfCopy policies:v53 selector:sel__handleStreamControlRequest_];
 
     v31 = v51;
-    home = v63;
+    home = v62;
 
     goto LABEL_22;
   }
@@ -1411,49 +1384,47 @@ LABEL_23:
   {
     v44 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v75 = v44;
+    v74 = v44;
     _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Not registering for messages because accessory reference is nil", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v41);
 LABEL_24:
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setControlSupport
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [(HMDAccessoryProfile *)self services];
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     v6 = *MEMORY[0x277CD0EB8];
     v7 = *MEMORY[0x277CD0EF0];
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        serviceType = [v9 serviceType];
-        v11 = [serviceType isEqualToString:v6];
+        v9 = *(*(&v16 + 1) + 8 * i);
+        v10 = objc_msgSend_serviceType(v9);
+        v11 = [v10 isEqualToString:v6];
 
         v12 = &OBJC_IVAR___HMDCameraProfile__microphonePresent;
         if ((v11 & 1) == 0)
         {
-          serviceType2 = [v9 serviceType];
-          v14 = [serviceType2 isEqualToString:v7];
+          v13 = objc_msgSend_serviceType(v9);
+          v14 = [v13 isEqualToString:v7];
 
           v12 = &OBJC_IVAR___HMDCameraProfile__speakerPresent;
           if (!v14)
@@ -1465,13 +1436,11 @@ LABEL_24:
         *(&self->super.super.super.isa + *v12) = 1;
       }
 
-      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
@@ -1491,7 +1460,7 @@ LABEL_24:
   v7 = v5;
   dispatch_sync(workQueue, &v10);
 
-  v8 = [v7 copy];
+  v8 = objc_msgSend_copy(v7, v10, v11, v12, v13);
 
   return v8;
 }
@@ -1524,7 +1493,7 @@ void __46__HMDCameraProfile_dumpStateWithPrivacyLevel___block_invoke(uint64_t a1
 
 - (void)unconfigure
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   hapAccessory = [(HMDCameraProfile *)self hapAccessory];
   home = [hapAccessory home];
   v5 = home;
@@ -1532,15 +1501,13 @@ void __46__HMDCameraProfile_dumpStateWithPrivacyLevel___block_invoke(uint64_t a1
   {
     notificationRegistry = [v5 notificationRegistry];
     uuid = [hapAccessory uuid];
-    v11[0] = uuid;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = uuid;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [notificationRegistry disableReachabilityEventNotificationForAccessoryUUIDs:v8 forUserID:0];
   }
 
   notificationCenter = [(HMDCameraProfile *)self notificationCenter];
   [notificationCenter postNotificationName:@"HMDCameraProfileUnconfiguredNotification" object:self];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeCloudData
@@ -1559,16 +1526,16 @@ void __46__HMDCameraProfile_dumpStateWithPrivacyLevel___block_invoke(uint64_t a1
 
 void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Removing all cloud data", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Removing all cloud data", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1577,8 +1544,6 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
 
   v8 = [*(a1 + 32) cameraSettingsManager];
   [v8 remove];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -1600,7 +1565,7 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
 
 - (void)_createCameraRecordingManager
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1628,9 +1593,9 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = HMFGetLogIdentifier();
-          v30 = 138543362;
-          v31 = v15;
-          _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Creating camera recording manager", &v30, 0xCu);
+          v29 = 138543362;
+          v30 = v15;
+          _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Creating camera recording manager", &v29, 0xCu);
         }
 
         objc_autoreleasePoolPop(v12);
@@ -1652,9 +1617,9 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         v27 = HMFGetLogIdentifier();
-        v30 = 138543362;
-        v31 = v27;
-        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Destroying camera recording manager", &v30, 0xCu);
+        v29 = 138543362;
+        v30 = v27;
+        _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Destroying camera recording manager", &v29, 0xCu);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -1673,20 +1638,18 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v30 = 138543362;
-      v31 = v23;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Not configuring for recording because there is no recording service", &v30, 0xCu);
+      v29 = 138543362;
+      v30 = v23;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Not configuring for recording because there is no recording service", &v29, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDownWithReplacementCameraProfile:(id)profile
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1700,24 +1663,22 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
     {
       v9 = HMFGetLogIdentifier();
       recordingManagementService = [(HMDCameraProfile *)selfCopy recordingManagementService];
-      v14 = 138543618;
-      v15 = v9;
-      v16 = 2112;
-      v17 = recordingManagementService;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing clip data because we have a recording management service %@ and we are transitioning to a replacement camera profile that does not", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v9;
+      v15 = 2112;
+      v16 = recordingManagementService;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing clip data because we have a recording management service %@ and we are transitioning to a replacement camera profile that does not", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     clipManager = [(HMDCameraProfile *)selfCopy clipManager];
     remove = [clipManager remove];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUp
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDAccessoryProfile *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1748,11 +1709,11 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
         v14 = HMFGetLogIdentifier();
         cameraSettingsManager = [(HMDCameraProfile *)selfCopy cameraSettingsManager];
         zoneName = [cameraSettingsManager zoneName];
-        v35 = 138543618;
-        v36 = v14;
-        v37 = 2112;
-        v38 = zoneName;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Using zone %@ for camera settings", &v35, 0x16u);
+        v34 = 138543618;
+        v35 = v14;
+        v36 = 2112;
+        v37 = zoneName;
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Using zone %@ for camera settings", &v34, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -1778,9 +1739,9 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
       if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         v33 = HMFGetLogIdentifier();
-        v35 = 138543362;
-        v36 = v33;
-        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Skipping camera profile setup because home reference is nil", &v35, 0xCu);
+        v34 = 138543362;
+        v35 = v33;
+        _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Skipping camera profile setup because home reference is nil", &v34, 0xCu);
       }
 
       objc_autoreleasePoolPop(v30);
@@ -1795,15 +1756,13 @@ void __35__HMDCameraProfile_removeCloudData__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       v29 = HMFGetLogIdentifier();
-      v35 = 138543362;
-      v36 = v29;
-      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Skipping camera profile setup because accessory reference is nil", &v35, 0xCu);
+      v34 = 138543362;
+      v35 = v29;
+      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Skipping camera profile setup because accessory reference is nil", &v34, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCameraRecordingFeatureSupported
@@ -1861,7 +1820,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v48 = clipManagerCopy;
+  v50 = clipManagerCopy;
   if (!homeCopy)
   {
 LABEL_19:
@@ -1909,16 +1868,16 @@ LABEL_24:
   {
 LABEL_25:
     v44 = _HMFPreconditionFailure();
-    return __293__HMDCameraProfile_initWithAccessory_services_recordingManagementService_msgDispatcher_workQueue_home_settingsManager_uniqueIdentifier_clipManager_clipUserNotificationCenter_reachabilityEventManager_networkMonitor_streamSnapshotHandler_snapshotManager_cameraStreamManagers_notificationCenter___block_invoke_2(v44);
+    return __293__HMDCameraProfile_initWithAccessory_services_recordingManagementService_msgDispatcher_workQueue_home_settingsManager_uniqueIdentifier_clipManager_clipUserNotificationCenter_reachabilityEventManager_networkMonitor_streamSnapshotHandler_snapshotManager_cameraStreamManagers_notificationCenter___block_invoke_2(v44, v45, v46);
   }
 
   v31 = homeCopy;
-  v47 = eventManagerCopy;
+  v49 = eventManagerCopy;
   v32 = monitorCopy;
   allObjects = [servicesCopy allObjects];
-  v59.receiver = self;
-  v59.super_class = HMDCameraProfile;
-  v34 = [(HMDAccessoryProfile *)&v59 initWithAccessory:accessoryCopy uniqueIdentifier:identifierCopy services:allObjects workQueue:queueCopy];
+  v61.receiver = self;
+  v61.super_class = HMDCameraProfile;
+  v34 = [(HMDAccessoryProfile *)&v61 initWithAccessory:accessoryCopy uniqueIdentifier:identifierCopy services:allObjects workQueue:queueCopy];
 
   if (v34)
   {
@@ -1974,14 +1933,14 @@ id __293__HMDCameraProfile_initWithAccessory_services_recordingManagementService
 
 - (HMDCameraProfile)initWithAccessory:(id)accessory services:(id)services msgDispatcher:(id)dispatcher workQueue:(id)queue home:(id)home settingsManager:(id)manager
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   servicesCopy = services;
   dispatcherCopy = dispatcher;
   queueCopy = queue;
   homeCopy = home;
   managerCopy = manager;
-  v89 = accessoryCopy;
+  v88 = accessoryCopy;
   if (!accessoryCopy)
   {
     _HMFPreconditionFailure();
@@ -2015,42 +1974,42 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  v83 = queueCopy;
+  v82 = queueCopy;
   selfCopy = self;
-  v88 = managerCopy;
-  v92 = homeCopy;
+  v87 = managerCopy;
+  v91 = homeCopy;
   v20 = [MEMORY[0x277CBEB58] set];
   v21 = [MEMORY[0x277CBEB58] set];
+  v109 = 0u;
   v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
   obj = servicesCopy;
-  v22 = [obj countByEnumeratingWithState:&v110 objects:v116 count:16];
-  v93 = dispatcherCopy;
+  v22 = [obj countByEnumeratingWithState:&v109 objects:v115 count:16];
+  v92 = dispatcherCopy;
   if (!v22)
   {
-    v94 = 0;
+    v93 = 0;
     goto LABEL_21;
   }
 
   v23 = v22;
-  v94 = 0;
-  v24 = *v111;
+  v93 = 0;
+  v24 = *v110;
   v25 = *MEMORY[0x277CD0E00];
   v26 = *MEMORY[0x277CD0E08];
   do
   {
     for (i = 0; i != v23; ++i)
     {
-      if (*v111 != v24)
+      if (*v110 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v110 + 1) + 8 * i);
-      serviceType = [v28 serviceType];
-      v30 = [serviceType isEqualToString:v25];
+      v28 = *(*(&v109 + 1) + 8 * i);
+      v29 = objc_msgSend_serviceType(v28);
+      v30 = [v29 isEqualToString:v25];
 
       if (v30)
       {
@@ -2059,14 +2018,14 @@ LABEL_45:
 
       else
       {
-        serviceType2 = [v28 serviceType];
-        v33 = [serviceType2 isEqualToString:v26];
+        v32 = objc_msgSend_serviceType(v28);
+        v33 = [v32 isEqualToString:v26];
 
         if (v33)
         {
           v34 = v28;
 
-          v94 = v34;
+          v93 = v34;
           continue;
         }
 
@@ -2076,70 +2035,70 @@ LABEL_45:
       [v31 addObject:v28];
     }
 
-    v23 = [obj countByEnumeratingWithState:&v110 objects:v116 count:16];
+    v23 = [obj countByEnumeratingWithState:&v109 objects:v115 count:16];
   }
 
   while (v23);
 LABEL_21:
 
   array = [MEMORY[0x277CBEB18] array];
+  v105 = 0u;
   v106 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v109 = 0u;
   v36 = v20;
-  v37 = [v36 countByEnumeratingWithState:&v106 objects:v115 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v105 objects:v114 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v107;
+    v39 = *v106;
     do
     {
       for (j = 0; j != v38; ++j)
       {
-        if (*v107 != v39)
+        if (*v106 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
         v41 = MEMORY[0x277CCACA8];
-        instanceID = [*(*(&v106 + 1) + 8 * j) instanceID];
+        instanceID = [*(*(&v105 + 1) + 8 * j) instanceID];
         v43 = [v41 stringWithFormat:@"%@", instanceID];
         [array addObject:v43];
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v106 objects:v115 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v105 objects:v114 count:16];
     }
 
     while (v38);
   }
 
-  v104 = 0u;
-  v105 = 0u;
-  v102 = 0u;
   v103 = 0u;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   v44 = v21;
-  v45 = [v44 countByEnumeratingWithState:&v102 objects:v114 count:16];
+  v45 = [v44 countByEnumeratingWithState:&v101 objects:v113 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v103;
+    v47 = *v102;
     do
     {
       for (k = 0; k != v46; ++k)
       {
-        if (*v103 != v47)
+        if (*v102 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
         v49 = MEMORY[0x277CCACA8];
-        instanceID2 = [*(*(&v102 + 1) + 8 * k) instanceID];
+        instanceID2 = [*(*(&v101 + 1) + 8 * k) instanceID];
         v51 = [v49 stringWithFormat:@"%@", instanceID2];
         [array addObject:v51];
       }
 
-      v46 = [v44 countByEnumeratingWithState:&v102 objects:v114 count:16];
+      v46 = [v44 countByEnumeratingWithState:&v101 objects:v113 count:16];
     }
 
     while (v46);
@@ -2147,72 +2106,71 @@ LABEL_21:
 
   v52 = [array sortedArrayUsingSelector:sel_compare_];
   v53 = MEMORY[0x277CCAD78];
-  uuid = [v89 uuid];
-  v82 = v52;
+  uuid = [v88 uuid];
+  v81 = v52;
   v55 = [v53 hm_deriveUUIDFromBaseUUID:uuid withSalts:v52];
 
   v56 = MEMORY[0x277CCACA8];
-  name = [v92 name];
-  name2 = [v89 name];
-  v91 = [v56 stringWithFormat:@"%@/%@/%@", name, name2, v55];
+  name = [v91 name];
+  name2 = [v88 name];
+  v90 = [v56 stringWithFormat:@"%@/%@/%@", name, name2, v55];
 
-  v80 = v55;
-  if (v94)
+  v79 = v55;
+  if (v93)
   {
     v59 = MEMORY[0x277CD18F0];
-    uuid2 = [v94 uuid];
+    uuid2 = [v93 uuid];
     v61 = [v59 zoneNameForRecordingManagementServiceUUID:uuid2];
 
-    v62 = v93;
-    v63 = v83;
-    v87 = [[HMDCameraClipManager alloc] initWithHome:v92 zoneName:v61 messageDispatcher:v93 workQueue:v83 cameraProfileUUID:v55];
+    v62 = v92;
+    v63 = v82;
+    v86 = [[HMDCameraClipManager alloc] initWithHome:v91 zoneName:v61 messageDispatcher:v92 workQueue:v82 cameraProfileUUID:v55];
     v64 = +[HMDCameraProfile bulletinBoard];
     v65 = v64;
     if (v64)
     {
-      v64 = [[HMDCameraClipUserNotificationCenter alloc] initWithBulletinBoard:v64 workQueue:v83 logIdentifier:v91];
+      v64 = [[HMDCameraClipUserNotificationCenter alloc] initWithBulletinBoard:v64 workQueue:v82 logIdentifier:v90];
     }
 
-    v66 = v89;
-    v86 = v64;
-    v81 = [[HMDCameraRecordingReachabilityEventManager alloc] initWithHAPAccessory:v89 zoneName:v61 workQueue:v83];
+    v66 = v88;
+    v85 = v64;
+    v80 = [[HMDCameraRecordingReachabilityEventManager alloc] initWithHAPAccessory:v88 zoneName:v61 workQueue:v82];
   }
 
   else
   {
-    v81 = 0;
+    v80 = 0;
+    v85 = 0;
     v86 = 0;
-    v87 = 0;
-    v62 = v93;
-    v66 = v89;
-    v63 = v83;
+    v62 = v92;
+    v66 = v88;
+    v63 = v82;
   }
 
   v67 = objc_alloc_init(MEMORY[0x277D0F868]);
   v68 = [HMDCameraStreamSnapshotHandler alloc];
   allObjects = [v36 allObjects];
-  v70 = [(HMDCameraStreamSnapshotHandler *)v68 initWithWorkQueue:v63 services:allObjects logIdentifier:v91];
+  v70 = [(HMDCameraStreamSnapshotHandler *)v68 initWithWorkQueue:v63 services:allObjects logIdentifier:v90];
 
-  v90 = [[HMDCameraSnapshotManager alloc] initWithAccessory:v66 workQueue:v63 streamSnapshotHandler:v70 uniqueIdentifier:v80 msgDispatcher:v62 networkMonitor:v67];
-  v96[0] = MEMORY[0x277D85DD0];
-  v96[1] = 3221225472;
-  v96[2] = __92__HMDCameraProfile_initWithAccessory_services_msgDispatcher_workQueue_home_settingsManager___block_invoke;
-  v96[3] = &unk_27972FE00;
-  v97 = v63;
-  v98 = v70;
-  v99 = v66;
-  v100 = v80;
-  v101 = v67;
-  v79 = v67;
-  v71 = v80;
+  v89 = [[HMDCameraSnapshotManager alloc] initWithAccessory:v66 workQueue:v63 streamSnapshotHandler:v70 uniqueIdentifier:v79 msgDispatcher:v62 networkMonitor:v67];
+  v95[0] = MEMORY[0x277D85DD0];
+  v95[1] = 3221225472;
+  v95[2] = __92__HMDCameraProfile_initWithAccessory_services_msgDispatcher_workQueue_home_settingsManager___block_invoke;
+  v95[3] = &unk_27972FE00;
+  v96 = v63;
+  v97 = v70;
+  v98 = v66;
+  v99 = v79;
+  v100 = v67;
+  v78 = v67;
+  v71 = v79;
   v72 = v66;
-  v84 = v70;
+  v83 = v70;
   v73 = v63;
-  v74 = [v36 na_map:v96];
+  v74 = [v36 na_map:v95];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v76 = [(HMDCameraProfile *)selfCopy initWithAccessory:v72 services:v44 recordingManagementService:v94 msgDispatcher:v93 workQueue:v73 home:v92 settingsManager:v88 uniqueIdentifier:v71 clipManager:v87 clipUserNotificationCenter:v86 reachabilityEventManager:v81 networkMonitor:v79 streamSnapshotHandler:v84 snapshotManager:v90 cameraStreamManagers:v74 notificationCenter:defaultCenter];
+  v76 = [(HMDCameraProfile *)selfCopy initWithAccessory:v72 services:v44 recordingManagementService:v93 msgDispatcher:v92 workQueue:v73 home:v91 settingsManager:v87 uniqueIdentifier:v71 clipManager:v86 clipUserNotificationCenter:v85 reachabilityEventManager:v80 networkMonitor:v78 streamSnapshotHandler:v83 snapshotManager:v89 cameraStreamManagers:v74 notificationCenter:defaultCenter];
 
-  v77 = *MEMORY[0x277D85DE8];
   return v76;
 }
 
@@ -2226,7 +2184,7 @@ HMDCameraStreamControlMessageHandler *__92__HMDCameraProfile_initWithAccessory_s
 
 + (id)messageBindingForDispatcher:(id)dispatcher message:(id)message receiver:(id)receiver
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   messageCopy = message;
   receiverCopy = receiver;
@@ -2247,10 +2205,10 @@ HMDCameraStreamControlMessageHandler *__92__HMDCameraProfile_initWithAccessory_s
 
   v13 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:1 requiresCameraStreamingAccess:1];
   v14 = [HMDXPCMessagePolicy policyWithEntitlements:1];
-  v56 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v60[0] = v13;
-  v60[1] = v14;
-  snapshotManager = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+  v51 = [HMDXPCMessagePolicy policyWithEntitlements:5];
+  v55[0] = v13;
+  v55[1] = v14;
+  snapshotManager = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
   name = [messageCopy name];
   v17 = [name isEqualToString:*MEMORY[0x277CCF5F0]];
 
@@ -2258,146 +2216,145 @@ HMDCameraStreamControlMessageHandler *__92__HMDCameraProfile_initWithAccessory_s
   name4 = name2;
   if (v17)
   {
-    v20 = &selRef__handleNegotiateStreamRequest_;
-LABEL_10:
-    v24 = *v20;
-LABEL_11:
-    v25 = HMFCreateMessageBinding();
-LABEL_12:
-    v26 = v25;
-    goto LABEL_13;
+    goto LABEL_8;
   }
 
-  v21 = [name2 isEqualToString:*MEMORY[0x277CCF608]];
+  v20 = [name2 isEqualToString:*MEMORY[0x277CCF608]];
 
   name3 = [messageCopy name];
   name4 = name3;
-  if (v21)
+  if (v20)
   {
+    goto LABEL_8;
+  }
+
+  v22 = [name3 isEqualToString:*MEMORY[0x277CCF5F8]];
+
+  if (v22)
+  {
+    name4 = [messageCopy name];
+LABEL_8:
+    v23 = HMFCreateMessageBinding();
 LABEL_9:
-    v20 = &selRef__handleStreamControlRequest_;
+    v24 = v23;
     goto LABEL_10;
   }
 
-  v23 = [name3 isEqualToString:*MEMORY[0x277CCF5F8]];
-
-  if (v23)
-  {
-    name4 = [messageCopy name];
-    goto LABEL_9;
-  }
-
-  v59[0] = v13;
-  v59[1] = v56;
-  snapshotManager = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
+  v54[0] = v13;
+  v54[1] = v51;
+  snapshotManager = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
   name5 = [messageCopy name];
-  v30 = [name5 isEqualToString:*MEMORY[0x277CCF600]];
+  v27 = [name5 isEqualToString:*MEMORY[0x277CCF600]];
 
   name6 = [messageCopy name];
   name4 = name6;
-  if (v30)
+  if (v27)
   {
-    goto LABEL_11;
+    goto LABEL_8;
   }
 
-  v32 = [name6 isEqualToString:*MEMORY[0x277CCF618]];
+  v29 = [name6 isEqualToString:*MEMORY[0x277CCF618]];
 
-  if (v32)
+  if (v29)
   {
     name4 = [messageCopy name];
-    goto LABEL_11;
+    goto LABEL_8;
   }
 
-  v33 = +[HMDDeviceCapabilities deviceCapabilities];
-  if ([v33 isResidentCapable])
+  v30 = +[HMDDeviceCapabilities deviceCapabilities];
+  if ([v30 isResidentCapable])
   {
   }
 
   else
   {
-    v34 = isiOSDevice();
+    v31 = isiOSDevice();
 
-    if (!v34)
+    if (!v31)
     {
-      goto LABEL_32;
+      goto LABEL_27;
     }
   }
 
   snapshotManager = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
   [snapshotManager setRoles:{objc_msgSend(snapshotManager, "roles") | 6}];
-  name4 = [snapshotManager copy];
-  v58[0] = v13;
-  v58[1] = name4;
-  v54 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:2];
+  name4 = objc_msgSend_copy(snapshotManager);
+  v53[0] = v13;
+  v53[1] = name4;
+  v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
   name7 = [messageCopy name];
-  v36 = [name7 isEqualToString:@"kNegotitateRemoteStreamRequestKey"];
+  v33 = [name7 isEqualToString:@"kNegotitateRemoteStreamRequestKey"];
+
+  name8 = [messageCopy name];
+  if (v33)
+  {
+    goto LABEL_25;
+  }
+
+  v35 = name8;
+  v36 = [name8 isEqualToString:@"kStartRemoteStreamRequestKey"];
 
   name8 = [messageCopy name];
   if (v36)
   {
-    v38 = &selRef__handleNegotiateStreamRequest_;
-LABEL_30:
-    v45 = *v38;
-    v46 = name8;
-    v26 = HMFCreateMessageBinding();
+    goto LABEL_25;
+  }
 
-    goto LABEL_13;
+  v37 = name8;
+  v38 = [name8 isEqualToString:@"kStopRemoteStreamRequestKey"];
+
+  name8 = [messageCopy name];
+  if (v38)
+  {
+    goto LABEL_25;
   }
 
   v39 = name8;
-  v40 = [name8 isEqualToString:@"kStartRemoteStreamRequestKey"];
+  v40 = [name8 isEqualToString:@"kReconfigureRemoteStreamRequestKey"];
 
-  name8 = [messageCopy name];
-  if (v40 & 1) != 0 || (v41 = name8, v42 = [name8 isEqualToString:@"kStopRemoteStreamRequestKey"], v41, objc_msgSend(messageCopy, "name"), name8 = objc_claimAutoreleasedReturnValue(), (v42))
-  {
-LABEL_29:
-    v38 = &selRef__handleStreamControlRequest_;
-    goto LABEL_30;
-  }
-
-  v43 = name8;
-  v44 = [name8 isEqualToString:@"kReconfigureRemoteStreamRequestKey"];
-
-  if (v44)
+  if (v40)
   {
     name8 = [messageCopy name];
-    goto LABEL_29;
+LABEL_25:
+    v41 = name8;
+    v24 = HMFCreateMessageBinding();
+
+    goto LABEL_10;
   }
 
-LABEL_32:
+LABEL_27:
   snapshotManager = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v57[0] = v13;
-  v57[1] = snapshotManager;
-  name4 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v52[0] = v13;
+  v52[1] = snapshotManager;
+  name4 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
   name9 = [messageCopy name];
-  v48 = [name9 isEqualToString:@"kStreamRemoteConnectionSetupNotificationKey"];
+  v43 = [name9 isEqualToString:@"kStreamRemoteConnectionSetupNotificationKey"];
 
   name10 = [messageCopy name];
-  if ((v48 & 1) == 0)
+  if ((v43 & 1) == 0)
   {
-    v50 = name10;
-    v51 = [name10 isEqualToString:@"kStreamStoppedRemoteNotificationKey"];
+    v45 = name10;
+    v46 = [name10 isEqualToString:@"kStreamStoppedRemoteNotificationKey"];
 
-    if (!v51)
+    if (!v46)
     {
 
       snapshotManager = [v10 snapshotManager];
-      v53 = objc_opt_class();
+      v48 = objc_opt_class();
       name4 = [v10 snapshotManager];
-      v25 = [v53 messageBindingForDispatcher:dispatcherCopy message:messageCopy receiver:name4];
-      goto LABEL_12;
+      v23 = [v48 messageBindingForDispatcher:dispatcherCopy message:messageCopy receiver:name4];
+      goto LABEL_9;
     }
 
     name10 = [messageCopy name];
   }
 
-  v52 = name10;
-  v26 = HMFCreateMessageBinding();
+  v47 = name10;
+  v24 = HMFCreateMessageBinding();
 
-LABEL_13:
-  v27 = *MEMORY[0x277D85DE8];
+LABEL_10:
 
-  return v26;
+  return v24;
 }
 
 + (id)logCategory
@@ -2414,12 +2371,11 @@ LABEL_13:
 
 uint64_t __31__HMDCameraProfile_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_156777;
-  logCategory__hmf_once_v9_156777 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_156777;
+  logCategory__hmf_once_v9_156777 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (HMDCameraBulletinBoard)bulletinBoard

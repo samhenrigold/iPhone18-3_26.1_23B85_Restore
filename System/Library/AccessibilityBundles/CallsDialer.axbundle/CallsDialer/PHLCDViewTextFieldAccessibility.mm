@@ -21,25 +21,23 @@
 
 - (unint64_t)accessibilityTraits
 {
-  v10 = 0;
+  v8 = 0;
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
-  v9.receiver = self;
-  v9.super_class = PHLCDViewTextFieldAccessibility;
-  accessibilityTraits = [(PHLCDViewTextFieldAccessibility *)&v9 accessibilityTraits];
-  isEditing = [v3 isEditing];
-  v6 = *MEMORY[0x29EDC7528];
-  if (isEditing)
+  v7.receiver = self;
+  v7.super_class = PHLCDViewTextFieldAccessibility;
+  accessibilityTraits = [(PHLCDViewTextFieldAccessibility *)&v7 accessibilityTraits];
+  if ([v3 isEditing])
   {
-    v7 = *MEMORY[0x29EDC7528] | *MEMORY[0x29EDC7598];
+    v5 = *MEMORY[0x29EDC7528] | *MEMORY[0x29EDC7598];
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  return v7 | accessibilityTraits;
+  return v5 | accessibilityTraits;
 }
 
 - (void)_accessibilityPaste

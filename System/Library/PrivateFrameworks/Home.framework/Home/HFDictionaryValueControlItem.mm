@@ -22,7 +22,7 @@
 
 - (HFDictionaryValueControlItem)initWithValueSource:(id)source characteristicType:(id)type displayResults:(id)results
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   typeCopy = type;
   v10 = MEMORY[0x277CBEB58];
@@ -30,33 +30,32 @@
   v12 = objc_alloc_init(v10);
   [v12 addObject:typeCopy];
   v13 = *MEMORY[0x277CCFAB0];
-  v30[0] = *MEMORY[0x277CCFAA8];
-  v30[1] = v13;
-  v30[2] = *MEMORY[0x277CCFA98];
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:3];
+  v29[0] = *MEMORY[0x277CCFAA8];
+  v29[1] = v13;
+  v29[2] = *MEMORY[0x277CCFA98];
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
   [v12 addObjectsFromArray:v14];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __86__HFDictionaryValueControlItem_initWithValueSource_characteristicType_displayResults___block_invoke;
-  v26[3] = &unk_277DF3130;
-  v27 = sourceCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __86__HFDictionaryValueControlItem_initWithValueSource_characteristicType_displayResults___block_invoke;
+  v25[3] = &unk_277DF3130;
+  v26 = sourceCopy;
   v15 = sourceCopy;
-  v16 = [v12 na_filter:v26];
+  v16 = [v12 na_filter:v25];
   v17 = [HFControlItemCharacteristicOptions alloc];
-  v28 = &unk_2825240F0;
-  v29 = v16;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v27 = &unk_2825240F0;
+  v28 = v16;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
   v19 = [(HFControlItemCharacteristicOptions *)v17 initWithCharacteristicTypesByUsage:v18];
 
-  v25.receiver = self;
-  v25.super_class = HFDictionaryValueControlItem;
-  v20 = [(HFControlItem *)&v25 initWithValueSource:v15 characteristicOptions:v19 displayResults:resultsCopy];
+  v24.receiver = self;
+  v24.super_class = HFDictionaryValueControlItem;
+  v20 = [(HFControlItem *)&v24 initWithValueSource:v15 characteristicOptions:v19 displayResults:resultsCopy];
 
   characteristicType = v20->_characteristicType;
   v20->_characteristicType = typeCopy;
   v22 = typeCopy;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -232,82 +231,82 @@ LABEL_22:
 
 - (void)getStatus:(id *)status mainTextColor:(id *)color supplementaryDescription:(id *)description withBatchReadResponse:(id)response
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v96 = 0;
-  v97 = &v96;
-  v98 = 0x3032000000;
-  v99 = __Block_byref_object_copy__13;
-  v100 = __Block_byref_object_dispose__13;
-  v101 = 0;
-  v90 = 0;
-  v91 = &v90;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__13;
-  v94 = __Block_byref_object_dispose__13;
   v95 = 0;
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x3032000000;
-  v87 = __Block_byref_object_copy__13;
-  v88 = __Block_byref_object_dispose__13;
+  v96 = &v95;
+  v97 = 0x3032000000;
+  v98 = __Block_byref_object_copy__13;
+  v99 = __Block_byref_object_dispose__13;
+  v100 = 0;
   v89 = 0;
+  v90 = &v89;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__13;
+  v93 = __Block_byref_object_dispose__13;
+  v94 = 0;
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__13;
+  v87 = __Block_byref_object_dispose__13;
+  v88 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __103__HFDictionaryValueControlItem_getStatus_mainTextColor_supplementaryDescription_withBatchReadResponse___block_invoke;
   aBlock[3] = &unk_277DFBEE0;
-  aBlock[4] = &v96;
-  aBlock[5] = &v90;
+  aBlock[4] = &v95;
+  aBlock[5] = &v89;
   aBlock[8] = color;
   aBlock[9] = description;
-  aBlock[6] = &v84;
+  aBlock[6] = &v83;
   aBlock[7] = status;
-  v72 = _Block_copy(aBlock);
-  v78 = [(HFControlItem *)self characteristicValuesByTypeForBatchReadResponse:responseCopy];
+  v71 = _Block_copy(aBlock);
+  v77 = [(HFControlItem *)self characteristicValuesByTypeForBatchReadResponse:responseCopy];
   v10 = *MEMORY[0x277CCFAB0];
-  v110[0] = *MEMORY[0x277CCFAA8];
-  v9 = v110[0];
-  v110[1] = v10;
-  v111 = *MEMORY[0x277CCFA98];
-  v11 = v111;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v110 count:3];
-  v108[0] = v9;
-  v108[1] = v10;
-  v109[0] = &unk_282524108;
-  v109[1] = &unk_282524108;
-  v108[2] = v11;
-  v109[2] = &unk_282524108;
-  v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:v108 count:3];
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
+  v109[0] = *MEMORY[0x277CCFAA8];
+  v9 = v109[0];
+  v109[1] = v10;
+  v110 = *MEMORY[0x277CCFA98];
+  v11 = v110;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v109 count:3];
+  v107[0] = v9;
+  v107[1] = v10;
+  v108[0] = &unk_282524108;
+  v108[1] = &unk_282524108;
+  v107[2] = v11;
+  v108[2] = &unk_282524108;
+  v76 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:v107 count:3];
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v79 objects:v107 count:16];
-  v70 = v10;
-  v71 = v9;
-  v69 = v11;
+  v13 = [obj countByEnumeratingWithState:&v78 objects:v106 count:16];
+  v69 = v10;
+  v70 = v9;
+  v68 = v11;
   if (v13)
   {
-    v76 = 0;
-    v14 = *v80;
+    v75 = 0;
+    v14 = *v79;
 LABEL_3:
     v15 = 0;
     while (1)
     {
-      if (*v80 != v14)
+      if (*v79 != v14)
       {
         objc_enumerationMutation(obj);
       }
 
-      v16 = *(*(&v79 + 1) + 8 * v15);
-      v17 = [v77 objectForKey:v16];
+      v16 = *(*(&v78 + 1) + 8 * v15);
+      v17 = [v76 objectForKey:v16];
       objc_opt_class();
       v18 = v17;
       v19 = (objc_opt_isKindOfClass() & 1) != 0 ? v18 : 0;
       v20 = v19;
 
-      v21 = [v78 objectForKey:v16];
+      v21 = [v77 objectForKey:v16];
       objc_opt_class();
       v22 = v21;
       v23 = (objc_opt_isKindOfClass() & 1) != 0 ? v22 : 0;
@@ -324,7 +323,7 @@ LABEL_3:
         v26 = v16;
 
         v27 = 0;
-        v76 = v26;
+        v75 = v26;
       }
 
       if (!v27)
@@ -334,7 +333,7 @@ LABEL_3:
 
       if (v13 == ++v15)
       {
-        v13 = [obj countByEnumeratingWithState:&v79 objects:v107 count:16];
+        v13 = [obj countByEnumeratingWithState:&v78 objects:v106 count:16];
         if (v13)
         {
           goto LABEL_3;
@@ -347,7 +346,7 @@ LABEL_3:
 
   else
   {
-    v76 = 0;
+    v75 = 0;
   }
 
   valueSource = [(HFControlItem *)self valueSource];
@@ -357,32 +356,32 @@ LABEL_3:
   v31 = MEMORY[0x277CCF938];
   v32 = MEMORY[0x277CCF978];
   v33 = MEMORY[0x277CCF9A8];
-  if (v76)
+  if (v75)
   {
-    v105[0] = v71;
+    v104[0] = v70;
     v34 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicStateGroupedTitleStatusLowBattery", @"HFCharacteristicStateGroupedTitleStatusLowBattery", 1);
-    v106[0] = v34;
-    v105[1] = v70;
+    v105[0] = v34;
+    v104[1] = v69;
     v35 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicStateGroupedTitleStatusTampered", @"HFCharacteristicStateGroupedTitleStatusTampered", 1);
-    v106[1] = v35;
-    v105[2] = v69;
+    v105[1] = v35;
+    v104[2] = v68;
     v36 = _HFLocalizedStringWithDefaultValue(@"HFCharacteristicStateGroupedTitleStatusFault", @"HFCharacteristicStateGroupedTitleStatusFault", 1);
-    v106[2] = v36;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:3];
+    v105[2] = v36;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
 
-    v38 = [v37 objectForKey:v76];
-    v39 = v97[5];
-    v97[5] = v38;
+    v38 = [v37 objectForKey:v75];
+    v39 = v96[5];
+    v96[5] = v38;
 
     systemRedColor = [MEMORY[0x277D75348] systemRedColor];
-    v41 = v91[5];
-    v91[5] = systemRedColor;
+    v41 = v90[5];
+    v90[5] = systemRedColor;
   }
 
   else
   {
-    v76 = [MEMORY[0x277CD1D90] hf_sensorCharacteristicTypeForServiceType:serviceType];
-    v42 = [v78 objectForKey:v76];
+    v75 = [MEMORY[0x277CD1D90] hf_sensorCharacteristicTypeForServiceType:serviceType];
+    v42 = [v77 objectForKey:v75];
     objc_opt_class();
     v37 = v42;
     if (objc_opt_isKindOfClass())
@@ -400,87 +399,86 @@ LABEL_3:
     if (v41)
     {
       valueSource2 = [(HFControlItem *)self valueSource];
-      v45 = [valueSource2 metadataForCharacteristicType:v76];
+      v45 = [valueSource2 metadataForCharacteristicType:v75];
 
       v46 = *MEMORY[0x277CCF7A0];
-      v104[0] = *MEMORY[0x277CCFA80];
-      v104[1] = v46;
+      v103[0] = *MEMORY[0x277CCFA80];
+      v103[1] = v46;
       v47 = *v31;
-      v104[2] = *MEMORY[0x277CCF7B8];
-      v104[3] = v47;
+      v103[2] = *MEMORY[0x277CCF7B8];
+      v103[3] = v47;
       v48 = *v33;
-      v104[4] = *v32;
-      v104[5] = v48;
-      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:6];
-      v50 = [v49 containsObject:v76];
+      v103[4] = *v32;
+      v103[5] = v48;
+      v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:6];
+      v50 = [v49 containsObject:v75];
 
       if (v50)
       {
-        [MEMORY[0x277CCAA28] hf_controlDescriptionFormatterForCharacteristicType:v76 withMetadata:v45 options:0 form:1];
+        [MEMORY[0x277CCAA28] hf_controlDescriptionFormatterForCharacteristicType:v75 withMetadata:v45 options:0 form:1];
       }
 
       else
       {
-        [MEMORY[0x277CCAA28] hf_valueFormatterForCharacteristicType:v76 withMetadata:v45 options:0];
+        [MEMORY[0x277CCAA28] hf_valueFormatterForCharacteristicType:v75 withMetadata:v45 options:0];
       }
       v51 = ;
       v52 = [v51 stringForObjectValue:v41];
-      v53 = v97[5];
-      v97[5] = v52;
+      v53 = v96[5];
+      v96[5] = v52;
     }
 
-    v54 = [objc_opt_class() defaultMainTextColorForCharacteristicType:v76];
-    v55 = v91[5];
-    v91[5] = v54;
+    v54 = [objc_opt_class() defaultMainTextColorForCharacteristicType:v75];
+    v55 = v90[5];
+    v90[5] = v54;
   }
 
   v56 = *MEMORY[0x277CCF7E8];
-  v102[0] = *MEMORY[0x277CCF770];
-  v102[1] = v56;
-  v103[0] = @"AirQuality";
-  v103[1] = @"ContactSensor";
+  v101[0] = *MEMORY[0x277CCF770];
+  v101[1] = v56;
+  v102[0] = @"AirQuality";
+  v102[1] = @"ContactSensor";
   v57 = *MEMORY[0x277CCF868];
-  v102[2] = *MEMORY[0x277CCF830];
-  v102[3] = v57;
-  v103[2] = @"LightSensor";
-  v103[3] = @"TemperatureSensor";
+  v101[2] = *MEMORY[0x277CCF830];
+  v101[3] = v57;
+  v102[2] = @"LightSensor";
+  v102[3] = @"TemperatureSensor";
   v58 = *MEMORY[0x277CCF7A0];
-  v102[4] = *MEMORY[0x277CCFA80];
-  v102[5] = v58;
-  v103[4] = @"SmokeSensor";
-  v103[5] = @"CarbonDioxideSensor";
+  v101[4] = *MEMORY[0x277CCFA80];
+  v101[5] = v58;
+  v102[4] = @"SmokeSensor";
+  v102[5] = @"CarbonDioxideSensor";
   v59 = *v31;
-  v102[6] = *MEMORY[0x277CCF7B8];
-  v102[7] = v59;
-  v103[6] = @"CarbonMonoxideSensor";
-  v103[7] = @"LeakSensor";
+  v101[6] = *MEMORY[0x277CCF7B8];
+  v101[7] = v59;
+  v102[6] = @"CarbonMonoxideSensor";
+  v102[7] = @"LeakSensor";
   v60 = *v33;
-  v102[8] = *v32;
-  v102[9] = v60;
-  v103[8] = @"MotionSensor";
-  v103[9] = @"OccupancySensor";
-  v102[10] = *MEMORY[0x277CCF850];
-  v103[10] = @"HumiditySensor";
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:11];
+  v101[8] = *v32;
+  v101[9] = v60;
+  v102[8] = @"MotionSensor";
+  v102[9] = @"OccupancySensor";
+  v101[10] = *MEMORY[0x277CCF850];
+  v102[10] = @"HumiditySensor";
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:v101 count:11];
   v62 = [MEMORY[0x277CD1D90] hf_sensorCharacteristicTypeForServiceType:serviceType];
   v63 = MEMORY[0x277CCACA8];
   v64 = [v61 objectForKey:v62];
   v65 = [v63 stringWithFormat:@"HFServiceType%@", v64];
 
   v66 = _HFLocalizedStringWithDefaultValue(v65, v65, 1);
-  v67 = v85[5];
-  v85[5] = v66;
+  v67 = v84[5];
+  v84[5] = v66;
 
-  if (v72)
+  if (v71)
   {
-    v72[2](v72);
+    v71[2](v71);
   }
 
-  _Block_object_dispose(&v84, 8);
-  _Block_object_dispose(&v90, 8);
+  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v89, 8);
 
-  _Block_object_dispose(&v96, 8);
-  v68 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v95, 8);
 }
 
 void *__103__HFDictionaryValueControlItem_getStatus_mainTextColor_supplementaryDescription_withBatchReadResponse___block_invoke(void *result)
@@ -509,20 +507,18 @@ void *__103__HFDictionaryValueControlItem_getStatus_mainTextColor_supplementaryD
 
 + (id)defaultMainTextColorForCharacteristicType:(id)type
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277CCF770];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277CCF770];
   v3 = MEMORY[0x277D75348];
   typeCopy = type;
   labelColor = [v3 labelColor];
-  v12[0] = labelColor;
-  v11[1] = *MEMORY[0x277CCF830];
+  v11[0] = labelColor;
+  v10[1] = *MEMORY[0x277CCF830];
   systemYellowColor = [MEMORY[0x277D75348] systemYellowColor];
-  v12[1] = systemYellowColor;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = systemYellowColor;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
 
   v8 = [v7 objectForKey:typeCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

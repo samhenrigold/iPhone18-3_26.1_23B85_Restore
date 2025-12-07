@@ -17,7 +17,7 @@
   objc_opt_self();
   if (v2)
   {
-    if (!_MergedGlobals_1015 || ([qword_1ED49CA40 isEqualToString:v2] & 1) == 0)
+    if (!_MergedGlobals_1015 || (objc_msgSend_isEqualToString_(qword_1ED49CA40) & 1) == 0)
     {
       v3 = [v2 copy];
       v4 = qword_1ED49CA40;

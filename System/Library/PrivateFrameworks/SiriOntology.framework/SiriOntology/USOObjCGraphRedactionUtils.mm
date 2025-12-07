@@ -41,38 +41,33 @@
       {
         v16 = &var0[16 * v15];
         v17 = *v16;
-        v18 = *(v16 + 1);
-        v19 = (*(**v16 + 16))(*v16);
-        if (v19 <= 2)
+        v18 = (*(**v16 + 16))(*v16);
+        if (v18 <= 2)
         {
-          if (v19 == 1)
+          if (v18 == 1)
           {
-            v28 = **v17;
-            siri::ontology::UsoGraph::createTaskNode(*graph, v29[3], v29[13]);
+            siri::ontology::UsoGraph::createTaskNode(*graph, v22[3], v22[13]);
           }
 
-          if (v19 == 2)
+          if (v18 == 2)
           {
-            v22 = **v17;
-            siri::ontology::UsoGraph::createEntityNode(*graph, v23[3]);
+            siri::ontology::UsoGraph::createEntityNode(*graph, v20[3]);
           }
         }
 
         else
         {
-          switch(v19)
+          switch(v18)
           {
             case 3:
-              v24 = **v17;
-              v25 = *graph;
-              siri::ontology::UsoGraph::createStringNode();
+              v21 = *graph;
+              v28.__r_.__value_.__s.__data_[0] = 0;
+              v29 = 0;
+              siri::ontology::UsoGraph::createStringNode(v21, &v28);
             case 4:
-              v26 = **v17;
-              v27 = *graph;
-              siri::ontology::UsoGraph::createIntNode();
+              siri::ontology::UsoGraph::createIntNode(*graph, v25 & 0xFFFFFFFFFFFFFF00, v24 & 0xFFFFFFFFFFFFFF00);
             case 5:
-              v20 = **v17;
-              siri::ontology::UsoGraph::createOperatorNode(*graph, v21[3]);
+              siri::ontology::UsoGraph::createOperatorNode(*graph, v19[3]);
           }
         }
 
@@ -83,8 +78,8 @@
       while (v15 < (a7->var1 - a7->var0) >> 4);
     }
 
-    v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:nodeCopy->var2];
-    [nodesCopy addObject:v30];
+    v23 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:nodeCopy->var2];
+    [nodesCopy addObject:v23];
   }
 }
 
@@ -479,18 +474,18 @@
 + (unique_ptr<siri::ontology::UsoEntitySpan,)getRedactedEntitySpan:(UsoEntitySpan *)span isContactRelatedEntityNode:(BOOL)node
 {
   nodeCopy = node;
-  v41 = 0uLL;
-  v42 = 0;
-  siri::ontology::UsoEntitySpan::getSpanProperties(span, v37);
-  __p = v37[0];
-  if (v37[0] != v37[1])
+  v29 = 0uLL;
+  v30 = 0;
+  siri::ontology::UsoEntitySpan::getSpanProperties(v25, span);
+  __p = v25[0];
+  if (v25[0] != v25[1])
   {
-    v46.__r_.__value_.__s.__data_[0] = 0;
-    v47 = 0;
-    v5 = *v37[0];
-    if (*(*v37[0] + 48) == 1)
+    v34.__r_.__value_.__s.__data_[0] = 0;
+    v35 = 0;
+    v5 = *v25[0];
+    if (*(*v25[0] + 48) == 1)
     {
-      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v46, [@"USO_REDACTION_DROPPED" UTF8String]);
+      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v34, [@"USO_REDACTION_DROPPED" UTF8String]);
       if ((*(*__p + 48) & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
@@ -500,21 +495,21 @@
       v5 = *__p;
       if (v6)
       {
-        if (v47 == *(v5 + 48))
+        if (v35 == *(v5 + 48))
         {
-          if (v47)
+          if (v35)
           {
-            std::string::operator=(&v46, (v5 + 24));
+            std::string::operator=(&v34, (v5 + 24));
           }
         }
 
         else
         {
-          if (v47)
+          if (v35)
           {
-            if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v46.__r_.__value_.__l.__data_);
+              operator delete(v34.__r_.__value_.__l.__data_);
             }
 
             v7 = 0;
@@ -524,18 +519,18 @@
           {
             if (*(v5 + 47) < 0)
             {
-              std::string::__init_copy_ctor_external(&v46, *(v5 + 24), *(v5 + 32));
+              std::string::__init_copy_ctor_external(&v34, *(v5 + 24), *(v5 + 32));
             }
 
             else
             {
-              v46 = *(v5 + 24);
+              v34 = *(v5 + 24);
             }
 
             v7 = 1;
           }
 
-          v47 = v7;
+          v35 = v7;
         }
 
         v5 = *__p;
@@ -544,12 +539,12 @@
 
     if (*(v5 + 60) == 1)
     {
-      std::to_string(&v43, *(v5 + 56));
-      v8 = [self shouldRetainEntitySpanValue:&v43 key:*__p entitySpan:span isContactRelatedEntityNode:nodeCopy];
+      std::to_string(&v31, *(v5 + 56));
+      v8 = [self shouldRetainEntitySpanValue:&v31 key:*__p entitySpan:span isContactRelatedEntityNode:nodeCopy];
       v9 = v8;
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
         if (v9)
         {
           goto LABEL_21;
@@ -560,203 +555,192 @@
       {
 LABEL_21:
         v5 = *__p;
-        v10 = *(*__p + 56);
-        v11 = *(*__p + 57) | (*(*__p + 59) << 16);
-        v12 = *(*__p + 60) << 32;
         goto LABEL_25;
       }
 
-      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v46, [@"USO_REDACTION_DROPPED_INT" UTF8String]);
+      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v34, [@"USO_REDACTION_DROPPED_INT" UTF8String]);
       v5 = *__p;
     }
 
 LABEL_25:
     if (*(v5 + 68) == 1)
     {
-      std::to_string(&v43, *(v5 + 64));
-      v13 = [self shouldRetainEntitySpanValue:&v43 key:*__p entitySpan:span isContactRelatedEntityNode:nodeCopy];
-      v14 = v13;
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      std::to_string(&v31, *(v5 + 64));
+      v10 = [self shouldRetainEntitySpanValue:&v31 key:*__p entitySpan:span isContactRelatedEntityNode:nodeCopy];
+      v11 = v10;
+      if ((SHIBYTE(v31.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
-        if (v14)
+        if (v10)
         {
-          goto LABEL_28;
+          goto LABEL_32;
         }
-      }
 
-      else if (v13)
-      {
-LABEL_28:
-        v15 = *(*__p + 64);
-        v16 = *(*__p + 65) | (*(*__p + 67) << 16);
-        v17 = *(*__p + 68) << 32;
+LABEL_31:
+        std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v34, [@"USO_REDACTION_DROPPED_FLOAT" UTF8String]);
         goto LABEL_32;
       }
 
-      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v46, [@"USO_REDACTION_DROPPED_FLOAT" UTF8String]);
-      v18 = *__p;
+      operator delete(v31.__r_.__value_.__l.__data_);
+      if (!v11)
+      {
+        goto LABEL_31;
+      }
     }
 
 LABEL_32:
     operator new();
   }
 
-  if (v37[0])
+  if (v25[0])
   {
-    operator delete(v37[0]);
+    operator delete(v25[0]);
   }
 
   __src[0] = 0;
   __src[1] = 0;
-  v40 = 0;
-  siri::ontology::UsoEntitySpan::getAlternatives(span, &v46.__r_.__value_.__l.__data_);
-  v30 = v46.__r_.__value_.__r.__words[0];
-  if (v46.__r_.__value_.__r.__words[0] == v46.__r_.__value_.__l.__size_)
+  v28 = 0;
+  siri::ontology::UsoEntitySpan::getAlternatives(&v34.__r_.__value_.__l.__data_, span);
+  v18 = v34.__r_.__value_.__r.__words[0];
+  if (v34.__r_.__value_.__r.__words[0] == v34.__r_.__value_.__l.__size_)
   {
-    if (v46.__r_.__value_.__r.__words[0])
+    if (v34.__r_.__value_.__r.__words[0])
     {
-      operator delete(v46.__r_.__value_.__l.__data_);
+      operator delete(v34.__r_.__value_.__l.__data_);
     }
 
     if (span[3].var0.var0.var1.var0.var0.var0[8])
     {
-      var0 = span[3].var0.var0.var1.var0.var1.var0;
       operator new();
     }
 
-    LOBYTE(v37[0]) = 0;
-    v38 = 0;
-    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v43, &span->var0.var0.var0);
-    if (v44 == 1)
+    LOBYTE(v25[0]) = 0;
+    v26 = 0;
+    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v31, &span->var0.var0.var0);
+    if (v32 == 1)
     {
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
 
-      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v43, &span->var0.var0.var0);
-      if ((v44 & 1) == 0)
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v31, &span->var0.var0.var0);
+      if ((v32 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      v36 = v43;
-      memset(&v43, 0, sizeof(v43));
-      v24 = [self obfuscateAppBundleId:&v36];
-      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(v37, [v24 UTF8String]);
+      v24 = v31;
+      memset(&v31, 0, sizeof(v31));
+      v15 = [self obfuscateAppBundleId:&v24];
+      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(v25, [v15 UTF8String]);
 
-      if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v36.__r_.__value_.__l.__data_);
+        operator delete(v24.__r_.__value_.__l.__data_);
       }
 
-      if (v44 == 1 && SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (v32 == 1 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
     }
 
-    v34.__r_.__value_.__s.__data_[0] = 0;
-    v35 = 0;
-    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v43, &span[6].var0.var0.var1.var0.var1.var1);
-    if (v44 == 1)
+    v22.__r_.__value_.__s.__data_[0] = 0;
+    v23 = 0;
+    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v31, &span[6].var0.var0.var1.var0.var1.var1);
+    if (v32 == 1)
     {
-      if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
 
-      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v34, [@"USO_REDACTION_DROPPED" UTF8String]);
-      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v43, &span[6].var0.var0.var1.var0.var1.var1);
-      if ((v44 & 1) == 0)
+      std::optional<std::string>::operator=[abi:ne200100]<char const*,void>(&v22, [@"USO_REDACTION_DROPPED" UTF8String]);
+      std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v31, &span[6].var0.var0.var1.var0.var1.var1);
+      if ((v32 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      std::string::basic_string[abi:ne200100]<0>(&v46, [@"item_id" UTF8String]);
-      v25 = [self shouldRetainEntitySpanValue:&v43 key:&v46 entitySpan:span isContactRelatedEntityNode:nodeCopy];
-      if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
+      std::string::basic_string[abi:ne200100]<0>(&v34, [@"item_id" UTF8String]);
+      v16 = [self shouldRetainEntitySpanValue:&v31 key:&v34 entitySpan:span isContactRelatedEntityNode:nodeCopy];
+      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v46.__r_.__value_.__l.__data_);
+        operator delete(v34.__r_.__value_.__l.__data_);
       }
 
-      if (v44 == 1 && SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+      if (v32 == 1 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v43.__r_.__value_.__l.__data_);
+        operator delete(v31.__r_.__value_.__l.__data_);
       }
 
-      if (v25)
+      if (v16)
       {
-        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v43, &span[6].var0.var0.var1.var0.var1.var1);
-        if (v35 == v44)
+        std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v31, &span[6].var0.var0.var1.var0.var1.var1);
+        if (v23 == v32)
         {
-          if (v35)
+          if (v23)
           {
-            if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v34.__r_.__value_.__l.__data_);
+              operator delete(v22.__r_.__value_.__l.__data_);
             }
 
-            v34 = v43;
-            *(&v43.__r_.__value_.__s + 23) = 0;
-            v43.__r_.__value_.__s.__data_[0] = 0;
+            v22 = v31;
+            *(&v31.__r_.__value_.__s + 23) = 0;
+            v31.__r_.__value_.__s.__data_[0] = 0;
           }
         }
 
-        else if (v35)
+        else if (v23)
         {
-          if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v34.__r_.__value_.__l.__data_);
+            operator delete(v22.__r_.__value_.__l.__data_);
           }
 
-          v35 = 0;
+          v23 = 0;
         }
 
         else
         {
-          v34 = v43;
-          memset(&v43, 0, sizeof(v43));
-          v35 = 1;
+          v22 = v31;
+          memset(&v31, 0, sizeof(v31));
+          v23 = 1;
         }
 
-        if (v44 == 1 && SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+        if (v32 == 1 && SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v43.__r_.__value_.__l.__data_);
+          operator delete(v31.__r_.__value_.__l.__data_);
         }
       }
     }
 
-    var1 = span[1].var0.var0.var1.var0.var1.var1;
-    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v33, &span[1].var0.var0.var1.var0.var1 + 1);
-    v27 = *(&span[4].var0.var0.var1.var0.var1 + 2);
-    v28 = span[5].var0.var0.var1.var0.var1.var0;
+    std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v21, &span[1].var0.var0.var1.var0.var1 + 1);
     operator new();
   }
 
-  std::string::basic_string[abi:ne200100]<0>(&v45, [@"USO_REDACTION_DROPPED" UTF8String]);
-  v19 = *v30;
-  std::string::basic_string[abi:ne200100]<0>(&v43, [@"asr_alternative" UTF8String]);
-  v20 = [self shouldRetainEntitySpanValue:v19 key:&v43 entitySpan:span isContactRelatedEntityNode:nodeCopy];
-  v21 = v20;
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string[abi:ne200100]<0>(&v33, [@"USO_REDACTION_DROPPED" UTF8String]);
+  v12 = *v18;
+  std::string::basic_string[abi:ne200100]<0>(&v31, [@"asr_alternative" UTF8String]);
+  v13 = [self shouldRetainEntitySpanValue:v12 key:&v31 entitySpan:span isContactRelatedEntityNode:nodeCopy];
+  v14 = v13;
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
-    if (!v21)
+    operator delete(v31.__r_.__value_.__l.__data_);
+    if (!v14)
     {
       goto LABEL_41;
     }
   }
 
-  else if (!v20)
+  else if (!v13)
   {
 LABEL_41:
-    v22 = *v30;
     operator new();
   }
 
-  std::string::operator=(&v45, *v30);
+  std::string::operator=(&v33, *v18);
   goto LABEL_41;
 }
 
@@ -772,21 +756,21 @@ LABEL_41:
 + (unique_ptr<siri::ontology::UsoIdentifier,)getRedactedIdentifier:(UsoIdentifier *)identifier isContactRelatedEntityNode:
 {
   v4 = v3;
-  v17 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*(&identifier[1].var0.var0.var1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v16, identifier[1].var0.var0.var1.var0, identifier[1].var0.var0.var1.var1);
+    std::string::__init_copy_ctor_external(&v11, identifier[1].var0.var0.var1.var0, identifier[1].var0.var0.var1.var1);
   }
 
   else
   {
-    v16 = identifier[1];
+    v11 = identifier[1];
   }
 
-  v7 = [self obfuscateAppBundleId:&v16];
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  v7 = [self obfuscateAppBundleId:&v11];
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v16.__r_.__value_.__l.__data_);
+    operator delete(v11.__r_.__value_.__l.__data_);
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, [@"USO_REDACTION_DROPPED" UTF8String]);
@@ -794,12 +778,12 @@ LABEL_41:
   {
     if (*(&identifier->var0.var0.var1 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v14, identifier->var0.var0.var1.var0, identifier->var0.var0.var1.var1);
+      std::string::__init_copy_ctor_external(&v9, identifier->var0.var0.var1.var0, identifier->var0.var0.var1.var1);
     }
 
     else
     {
-      v14 = *identifier;
+      v9 = *identifier;
     }
 
     if (*(&__p.var0.var0.var1 + 23) < 0)
@@ -807,17 +791,12 @@ LABEL_41:
       operator delete(__p.var0.var0.var1.var0);
     }
 
-    __p = v14;
+    __p = v9;
   }
 
   v8 = v7;
   [v7 UTF8String];
-  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v14, identifier[2].var0.var0.var0.var0);
-  var1 = identifier[3].var0.var0.var1.var1;
-  v10 = identifier[3].var0.var0.var0.var0[16];
-  var0 = identifier[4].var0.var0.var1.var0;
-  v11 = identifier[4].var0.var0.var1.var1;
-  v13 = *(&identifier[4].var0.var0.var1 + 2);
+  std::__optional_copy_base<std::string,false>::__optional_copy_base[abi:ne200100](&v9, identifier[2].var0.var0.var0.var0);
   operator new();
 }
 

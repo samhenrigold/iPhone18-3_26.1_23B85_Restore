@@ -37,70 +37,68 @@
 
 - (void)_messageAttachmentStorageLocationsDidChangeNotification:(id)notification
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKey:@"messages"];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v18 = *v24;
+    v17 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v18)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        libraryID = [*(*(&v23 + 1) + 8 * i) libraryID];
+        libraryID = [*(*(&v22 + 1) + 8 * i) libraryID];
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         allKeys = [(NSMutableDictionary *)self->super.super._metadata allKeys];
-        v11 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v11 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v20;
+          v13 = *v19;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v20 != v13)
+              if (*v19 != v13)
               {
                 objc_enumerationMutation(allKeys);
               }
 
-              v15 = *(*(&v19 + 1) + 8 * j);
+              v15 = *(*(&v18 + 1) + 8 * j);
               if ([v15 mf_rowID] == libraryID)
               {
                 [(NSMutableDictionary *)self->super.super._metadata removeObjectForKey:v15];
               }
             }
 
-            v12 = [allKeys countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v12 = [allKeys countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v12);
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataProviderForAttachmentURL:(id)l error:(id *)error
@@ -170,31 +168,31 @@
 
 - (id)attachmentsForMessage:(id)message withSchemes:(id)schemes
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   schemesCopy = schemes;
   array = [MEMORY[0x277CBEB18] array];
   [messageCopy messageBodyIfAvailable];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v21 = v27 = 0u;
-  obj = [v21 attachments];
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v20 = v26 = 0u;
+  obj = [v20 attachments];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        mimePart = [*(*(&v24 + 1) + 8 * i) mimePart];
+        mimePart = [*(*(&v23 + 1) + 8 * i) mimePart];
         partURL = [mimePart partURL];
 
         if (([messageCopy messageFlags] & 8) != 0)
@@ -213,7 +211,7 @@
           v15 = 0;
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v15 = v21;
+            v15 = v20;
           }
 
           if (schemesCopy)
@@ -238,13 +236,11 @@ LABEL_12:
 LABEL_16:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }

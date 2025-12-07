@@ -2,6 +2,7 @@
 - (QSSMutableRecoverPronsResponse)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)error_code;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
 - (void)setRecovery_return_codes:(id)recovery_return_codes;
 - (void)setSession_id:(id)session_id;
@@ -26,6 +27,12 @@
 - (void)setError_str:(id)error_str
 {
   v4 = [error_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

@@ -1,165 +1,3 @@
-void sub_19BC7C7D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
-{
-  objc_destroyWeak((v17 + 56));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_19BC7E924(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 48));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-__CFString *HMAccessoryAllowedHostPurposeAsString(unint64_t a1)
-{
-  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  if (!a1)
-  {
-    goto LABEL_42;
-  }
-
-  v3 = 1;
-  v4 = a1;
-  do
-  {
-    if ((v3 & a1) == 0)
-    {
-      goto LABEL_38;
-    }
-
-    if (v3 > 127)
-    {
-      if (v3 <= 1023)
-      {
-        switch(v3)
-        {
-          case 128:
-            v5 = @"UsageMetrics";
-            break;
-          case 256:
-            v5 = @"Diagnostics";
-            break;
-          case 512:
-            v5 = @"RemoteAccess";
-            break;
-          default:
-            goto LABEL_38;
-        }
-      }
-
-      else if (v3 > 4095)
-      {
-        if (v3 == 4096)
-        {
-          v5 = @"ConnectivityChecks";
-        }
-
-        else
-        {
-          if (v3 != 0x2000)
-          {
-            goto LABEL_38;
-          }
-
-          v5 = @"EmergencyNotifications";
-        }
-      }
-
-      else if (v3 == 1024)
-      {
-        v5 = @"HomeEcosystem";
-      }
-
-      else
-      {
-        if (v3 != 2048)
-        {
-          goto LABEL_38;
-        }
-
-        v5 = @"TimeSynchronization";
-      }
-    }
-
-    else if (v3 <= 7)
-    {
-      switch(v3)
-      {
-        case 1:
-          v5 = @"Other";
-          break;
-        case 2:
-          v5 = @"FirmwareUpdate";
-          break;
-        case 4:
-          v5 = @"AccountManagement";
-          break;
-        default:
-          goto LABEL_38;
-      }
-    }
-
-    else if (v3 > 31)
-    {
-      if (v3 == 32)
-      {
-        v5 = @"UserStorage";
-      }
-
-      else
-      {
-        if (v3 != 64)
-        {
-          goto LABEL_38;
-        }
-
-        v5 = @"Notifications";
-      }
-    }
-
-    else if (v3 == 8)
-    {
-      v5 = @"PeerToPeer";
-    }
-
-    else
-    {
-      if (v3 != 16)
-      {
-        goto LABEL_38;
-      }
-
-      v5 = @"UserEvents";
-    }
-
-    v4 &= ~v3;
-    [v2 addObject:v5];
-LABEL_38:
-    v3 *= 2;
-  }
-
-  while (v3 - 1 < a1);
-  if ((a1 & 1) == 0 && v4)
-  {
-    [v2 addObject:@"Other"];
-  }
-
-LABEL_42:
-  if ([v2 count])
-  {
-    v6 = [v2 componentsJoinedByString:{@", "}];
-  }
-
-  else
-  {
-    v6 = @"none";
-  }
-
-  return v6;
-}
-
 void sub_19BC81B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location)
 {
   objc_destroyWeak(&a26);
@@ -169,7 +7,7 @@ void sub_19BC81B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __handleAccessoryRuntimeStateUpdate(void *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -180,29 +18,29 @@ void __handleAccessoryRuntimeStateUpdate(void *a1, void *a2, void *a3)
     v10 = [v6 allKeys];
     v11 = [v9 setWithArray:v10];
 
-    v22 = v7;
+    v21 = v7;
     [v8 notifyDelegateOfBatchNotificationsStartWithReason:v7];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
-    v23 = v5;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v22 = v5;
     v12 = [v5 accessories];
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           v18 = [v17 uuid];
           v19 = [v18 UUIDString];
 
@@ -213,19 +51,17 @@ void __handleAccessoryRuntimeStateUpdate(void *a1, void *a2, void *a3)
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v14);
     }
 
-    v7 = v22;
-    [v8 notifyDelegateOfBatchNotificationsEndWithReason:v22];
+    v7 = v21;
+    [v8 notifyDelegateOfBatchNotificationsEndWithReason:v21];
 
-    v5 = v23;
+    v5 = v22;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 __CFString *HMHomeActivityStateToString(unint64_t a1)
@@ -348,11 +184,12 @@ void sub_19BCB69F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BCB7510(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_19BCB7510(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v21 + 56));
+  va_start(va, location);
+  objc_destroyWeak((v20 + 56));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -788,24 +625,31 @@ void sub_19BCD14D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_19BCD4718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
+{
+  va_start(va, a44);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getHAPSystemKeychainStoreClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!CoreHAPLibraryCore_frameworkLibrary_33288)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __CoreHAPLibraryCore_block_invoke_33289;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E754ABD8;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreHAPLibraryCore_block_invoke_33289;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E754ABD8;
+    v6 = 0;
     CoreHAPLibraryCore_frameworkLibrary_33288 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CoreHAPLibraryCore_frameworkLibrary_33288)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -813,7 +657,7 @@ Class __getHAPSystemKeychainStoreClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -824,21 +668,17 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "HAPSystemKeychainStore");
   }
 
   getHAPSystemKeychainStoreClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreHAPLibraryCore_block_invoke_33289(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreHAPLibraryCore_frameworkLibrary_33288 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1060,9 +900,9 @@ void sub_19BCE8A3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BCED0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_19BCED0F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3427,9 +3267,9 @@ LABEL_506:
   return [a2 hasError] ^ 1;
 }
 
-void sub_19BD02078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BD02078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4161,28 +4001,28 @@ __CFString *HMCameraAccessModeAsString(unint64_t a1)
 
 uint64_t HMCameraSignificantEventTypesFromReasons(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v1);
         }
 
-        v7 = [*(*(&v10 + 1) + 8 * i) unsignedIntegerValue];
+        v7 = [*(*(&v9 + 1) + 8 * i) unsignedIntegerValue];
         if (v7 <= 2)
         {
           if (v7 == 1)
@@ -4213,7 +4053,7 @@ uint64_t HMCameraSignificantEventTypesFromReasons(void *a1)
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v3);
@@ -4224,7 +4064,6 @@ uint64_t HMCameraSignificantEventTypesFromReasons(void *a1)
     v4 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -4691,11 +4530,12 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_19BD45D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, uint64_t a27, uint64_t a28, char a29)
+void sub_19BD45D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, uint64_t a27, uint64_t a28, ...)
 {
-  objc_destroyWeak((v29 + 48));
+  va_start(va, a28);
+  objc_destroyWeak((v28 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4708,23 +4548,23 @@ uint64_t __Block_byref_object_copy__40884(uint64_t result, uint64_t a2)
 
 void *__getAnalyticsSendEventLazySymbolLoc_block_invoke_40995(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
   if (!CoreAnalyticsLibraryCore_frameworkLibrary_40997)
   {
-    v6[1] = MEMORY[0x1E69E9820];
-    v6[2] = 3221225472;
-    v6[3] = __CoreAnalyticsLibraryCore_block_invoke_40998;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_1E754BB88;
-    v8 = 0;
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = __CoreAnalyticsLibraryCore_block_invoke_40998;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E754BB88;
+    v7 = 0;
     CoreAnalyticsLibraryCore_frameworkLibrary_40997 = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = CoreAnalyticsLibraryCore_frameworkLibrary_40997;
     if (CoreAnalyticsLibraryCore_frameworkLibrary_40997)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -4732,7 +4572,7 @@ void *__getAnalyticsSendEventLazySymbolLoc_block_invoke_40995(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -4744,17 +4584,13 @@ LABEL_5:
   result = dlsym(v2, "AnalyticsSendEventLazy");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAnalyticsSendEventLazySymbolLoc_ptr_40994 = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreAnalyticsLibraryCore_block_invoke_40998(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreAnalyticsLibraryCore_frameworkLibrary_40997 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4807,11 +4643,10 @@ void sub_19BD4F854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-Class __getSFDeviceClass_block_invoke(uint64_t a1)
+void __getSFDeviceClass_block_invoke(uint64_t a1)
 {
   SharingLibrary();
-  result = objc_getClass("SFDevice");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("SFDevice");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getSFDeviceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -4819,61 +4654,53 @@ Class __getSFDeviceClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
-    return __28__HMSymptomFixSession_start__block_invoke(v3);
+    v2 = abort_report_np("Unable to find class %s", "SFDevice");
+    __28__HMSymptomFixSession_start__block_invoke(v2, v3, v4);
   }
-
-  return result;
 }
 
 void SharingLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!SharingLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __SharingLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E754BD50;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __SharingLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E754BD50;
+    v3 = 0;
     SharingLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (SharingLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __SharingLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SharingLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void sub_19BD51A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BD51A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4889,7 +4716,7 @@ void __getSFDeviceRepairSessionClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "SFDeviceRepairSession");
     [(HMSetting *)v2 .cxx_destruct];
   }
 }
@@ -5389,10 +5216,10 @@ void sub_19BD5C570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BD5EBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BD5EBAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  os_unfair_lock_unlock(v7 + 2);
+  va_start(va, a13);
+  os_unfair_lock_unlock(v13 + 2);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5428,34 +5255,43 @@ void sub_19BD69CB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BD6C54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BD6C54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t IDSFoundationLibraryCore_45308()
+uint64_t IDSFoundationLibraryCore_45308(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!IDSFoundationLibraryCore_frameworkLibrary_45310)
   {
     IDSFoundationLibraryCore_frameworkLibrary_45310 = _sl_dlopen();
   }
 
-  result = IDSFoundationLibraryCore_frameworkLibrary_45310;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return IDSFoundationLibraryCore_frameworkLibrary_45310;
 }
 
 Class __getIDSURIClass_block_invoke(uint64_t a1)
 {
-  if (!IDSFoundationLibraryCore_45308())
+  v6 = 0;
+  v2 = IDSFoundationLibraryCore_45308(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("IDSURI");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -5465,8 +5301,8 @@ Class __getIDSURIClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = abort_report_np();
-    return __IDSFoundationLibraryCore_block_invoke_45311(v4);
+    v5 = abort_report_np("Unable to find class %s", "IDSURI");
+    return __IDSFoundationLibraryCore_block_invoke_45311(v5);
   }
 
   return result;
@@ -5474,11 +5310,8 @@ Class __getIDSURIClass_block_invoke(uint64_t a1)
 
 uint64_t __IDSFoundationLibraryCore_block_invoke_45311(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IDSFoundationLibraryCore_frameworkLibrary_45310 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5517,24 +5350,21 @@ void sub_19BD71E34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BD726B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_19BD726B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t UIKitLibraryCore_45531()
+uint64_t UIKitLibraryCore_45531(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!UIKitLibraryCore_frameworkLibrary_45544)
   {
     UIKitLibraryCore_frameworkLibrary_45544 = _sl_dlopen();
   }
 
-  result = UIKitLibraryCore_frameworkLibrary_45544;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return UIKitLibraryCore_frameworkLibrary_45544;
 }
 
 void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke_45534(uint64_t a1)
@@ -5548,11 +5378,19 @@ void *__getNSDocumentTypeDocumentAttributeSymbolLoc_block_invoke_45534(uint64_t 
 
 uint64_t UIKitLibrary_45535()
 {
-  v0 = UIKitLibraryCore_45531();
+  v3 = 0;
+  v0 = UIKitLibraryCore_45531(&v3);
+  v1 = v3;
   if (!v0)
   {
-    v2 = abort_report_np();
-    free(v2);
+    v1 = abort_report_np("%s", v3);
+    goto LABEL_5;
+  }
+
+  if (v3)
+  {
+LABEL_5:
+    free(v1);
   }
 
   return v0;
@@ -5578,11 +5416,8 @@ void *__getNSCharacterEncodingDocumentAttributeSymbolLoc_block_invoke_45540(uint
 
 uint64_t __UIKitLibraryCore_block_invoke_45545(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   UIKitLibraryCore_frameworkLibrary_45544 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7367,7 +7202,7 @@ __CFString *HMRegionStateString(unint64_t a1)
   return v2;
 }
 
-__CFString *HMCLAuthorizationStatusAsString(unsigned int a1)
+__CFString *HMCLAuthorizationStatusAsString(int a1)
 {
   if (a1 >= 5)
   {
@@ -7534,35 +7369,44 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_19BDABA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BDABA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  os_unfair_lock_unlock((v7 + v8));
+  os_unfair_lock_unlock((v13 + v14));
   _Unwind_Resume(a1);
 }
 
-uint64_t WorkflowKitLibraryCore()
+uint64_t WorkflowKitLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   if (!WorkflowKitLibraryCore_frameworkLibrary)
   {
     WorkflowKitLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = WorkflowKitLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return WorkflowKitLibraryCore_frameworkLibrary;
 }
 
 Class __getWFHomeWorkflowClass_block_invoke(uint64_t a1)
 {
-  if (!WorkflowKitLibraryCore())
+  v6 = 0;
+  v2 = WorkflowKitLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
   result = objc_getClass("WFHomeWorkflow");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (*(*(*(a1 + 32) + 8) + 24))
@@ -7572,8 +7416,8 @@ Class __getWFHomeWorkflowClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = abort_report_np();
-    return __WorkflowKitLibraryCore_block_invoke(v4);
+    v5 = abort_report_np("Unable to find class %s", "WFHomeWorkflow");
+    return __WorkflowKitLibraryCore_block_invoke(v5);
   }
 
   return result;
@@ -7581,11 +7425,8 @@ Class __getWFHomeWorkflowClass_block_invoke(uint64_t a1)
 
 uint64_t __WorkflowKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WorkflowKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7660,6 +7501,32 @@ __CFString *HMAccessoryBatteryStatusToString(uint64_t a1)
   {
     return v1;
   }
+}
+
+void sub_19BDB45B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v19 = objc_begin_catch(a1);
+    v20 = objc_autoreleasePoolPush();
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      LODWORD(buf) = 138543618;
+      *(&buf + 4) = v22;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v19;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Exception while searching list (%@)", &buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v20);
+    objc_end_catch();
+    JUMPOUT(0x19BDB4544);
+  }
+
+  os_unfair_lock_unlock(v17 + 2);
+  _Unwind_Resume(a1);
 }
 
 __CFString *HMDeviceSetupSessionStateAsString(unint64_t a1)
@@ -7770,32 +7637,31 @@ LABEL_15:
 
 uint64_t __validateAccessories(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v11;
+    v4 = *v9;
     while (2)
     {
       v5 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * v5);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v7 = 0;
+          v6 = 0;
           goto LABEL_11;
         }
 
@@ -7803,7 +7669,7 @@ uint64_t __validateAccessories(void *a1)
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -7813,11 +7679,10 @@ uint64_t __validateAccessories(void *a1)
     }
   }
 
-  v7 = 1;
+  v6 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v7;
+  return v6;
 }
 
 __CFString *HMAssistantAccessControlOptionsToString(uint64_t a1)
@@ -7864,9 +7729,9 @@ void sub_19BDC37E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_19BDC44AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19BDC44AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7879,12 +7744,12 @@ BOOL HMActionSetTypeIsHomeOwned(void *a1)
   return v2;
 }
 
-void HMProxify(void *a1)
+void HMProxify(void *a1, uint64_t a2)
 {
   v24 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    goto LABEL_9;
+    return;
   }
 
   if (HMProxify_once != -1)
@@ -7892,10 +7757,10 @@ void HMProxify(void *a1)
     dispatch_once(&HMProxify_once, &__block_literal_global_56092);
   }
 
-  v2 = objc_opt_self();
+  v3 = objc_opt_self();
   Class = object_getClass(a1);
-  v4 = [(objc_class *)Class instanceMethodForSelector:sel_dealloc];
-  if (v4 != HMProxify_defaultDealloc)
+  v5 = [(objc_class *)Class instanceMethodForSelector:sel_dealloc];
+  if (v5 != HMProxify_defaultDealloc)
   {
     if (isInternalBuild())
     {
@@ -7922,16 +7787,16 @@ void HMProxify(void *a1)
   {
     objc_destructInstance(a1);
     object_setClass(a1, HMProxify_proxyClassIVar);
-    a1[1] = v2;
-    goto LABEL_9;
+    a1[1] = v3;
+    return;
   }
 
   if (InstanceSize >= HMProxify_proxyClassAssocSize)
   {
     objc_destructInstance(a1);
     object_setClass(a1, HMProxify_proxyClassAssoc);
-    objc_setAssociatedObject(a1, &HMProxyObjectAssocTargetKey, v2, 1);
-    goto LABEL_9;
+    objc_setAssociatedObject(a1, &HMProxyObjectAssocTargetKey, v3, 1);
+    return;
   }
 
   v9 = InstanceSize;
@@ -7959,11 +7824,9 @@ LABEL_20:
   }
 
   objc_autoreleasePoolPop(v10);
-LABEL_9:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __HMProxify_block_invoke()
+void *__HMProxify_block_invoke()
 {
   HMProxify_proxyClassIVar = objc_opt_class();
   HMProxify_proxyClassIVarSize = class_getInstanceSize(HMProxify_proxyClassIVar);
@@ -9186,6 +9049,33 @@ void sub_19BDDBCC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_19BDDCEDC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf)
+{
+  if (a2 == 1)
+  {
+    v14 = objc_begin_catch(a1);
+    v15 = objc_autoreleasePoolPush();
+    v16 = v12;
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      v18 = HMFGetLogIdentifier();
+      LODWORD(buf) = 138543618;
+      *(&buf + 4) = v18;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v14;
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize accessory collection setting item value due to unexpected exception: %@", &buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v15);
+    objc_end_catch();
+    JUMPOUT(0x19BDDCE4CLL);
+  }
+
+  os_unfair_lock_unlock(v11 + 2);
+  _Unwind_Resume(a1);
+}
+
 void sub_19BDDD904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
 {
   objc_destroyWeak((v25 + 48));
@@ -9195,7 +9085,7 @@ void sub_19BDDD904(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t __validateItem(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = v6;
@@ -9204,30 +9094,29 @@ uint64_t __validateItem(void *a1, void *a2, void *a3)
   {
     v9 = [v6 value];
     [v5 itemValueClasses];
+    v20 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v10 = v25 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = v23 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v21;
       while (2)
       {
         v14 = 0;
         do
         {
-          if (*v23 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * v14);
           if (objc_opt_isKindOfClass())
           {
             v8 = 1;
-            v18 = v10;
+            v17 = v10;
             goto LABEL_14;
           }
 
@@ -9235,7 +9124,7 @@ uint64_t __validateItem(void *a1, void *a2, void *a3)
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v12)
         {
           continue;
@@ -9247,11 +9136,11 @@ uint64_t __validateItem(void *a1, void *a2, void *a3)
 
     if (a3)
     {
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = MEMORY[0x1E696AEC0];
-      v18 = [v7 value];
-      v19 = [v17 stringWithFormat:@"Item value class, %@, is not in expected classes: %@", objc_opt_class(), v10, v22];
-      *a3 = [v16 hmErrorWithCode:22 description:@"Invalid value class." reason:v19 suggestion:0];
+      v15 = MEMORY[0x1E696ABC0];
+      v16 = MEMORY[0x1E696AEC0];
+      v17 = [v7 value];
+      v18 = [v16 stringWithFormat:@"Item value class, %@, is not in expected classes: %@", objc_opt_class(), v10, v20];
+      *a3 = [v15 hmErrorWithCode:22 description:@"Invalid value class." reason:v18 suggestion:0];
 
       v8 = 0;
 LABEL_14:
@@ -9263,13 +9152,12 @@ LABEL_14:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 id __constraintsForItems(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E695DFD8];
   v5 = [a1 internal];
@@ -9277,28 +9165,28 @@ id __constraintsForItems(void *a1, void *a2)
   v7 = [v4 setWithArray:v6];
 
   v8 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(v3, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v9 = v3;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         v15 = [HMAccessorySettingConstraint alloc];
-        v16 = [(HMAccessorySettingConstraint *)v15 initWithType:4 value:v14, v22];
+        v16 = [(HMAccessorySettingConstraint *)v15 initWithType:4 value:v14, v21];
         v17 = [v7 member:v16];
         if (v17)
         {
@@ -9313,15 +9201,13 @@ id __constraintsForItems(void *a1, void *a2)
         [v8 addObject:v18];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
   }
 
   v19 = [v8 array];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -9612,16 +9498,15 @@ id HMClassForActionType(unint64_t a1)
 {
   if (a1 > 5)
   {
-    v3 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v2 = *off_1E754DD00[a1];
-    v3 = objc_opt_class();
+    v2 = objc_opt_class();
   }
 
-  return v3;
+  return v2;
 }
 
 uint64_t HMImmutableSettingsProtoStringSettingEventReadFrom(uint64_t a1, void *a2)
@@ -9916,7 +9801,7 @@ uint64_t base36Decode(uint64_t a1, uint64_t a2, void *a3)
   v5 = 0;
   v6 = 0;
   v7 = 0;
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   while (1)
   {
     v8 = *(a1 + v7);
@@ -9943,9 +9828,9 @@ LABEL_5:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v15;
-        _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Decoding base-36 encoded string overflowed 128 bits", &v24, 0xCu);
+        v23 = 138543362;
+        v24 = v15;
+        _os_log_impl(&dword_19BB39000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Decoding base-36 encoded string overflowed 128 bits", &v23, 0xCu);
       }
 
       v16 = v13;
@@ -9957,7 +9842,7 @@ LABEL_5:
     v6 = v11;
     if (a2 == v7)
     {
-      goto LABEL_17;
+      return result;
     }
   }
 
@@ -9967,32 +9852,33 @@ LABEL_5:
   {
     v19 = HMFGetLogIdentifier();
     v20 = *(a1 + v7);
-    v24 = 138543618;
-    v25 = v19;
-    v26 = 1024;
-    v27 = v20;
-    _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Decoding base-36 encoded string encountered an invalid character - 0x%02x", &v24, 0x12u);
+    v23 = 138543618;
+    v24 = v19;
+    v25 = 1024;
+    v26 = v20;
+    _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Decoding base-36 encoded string encountered an invalid character - 0x%02x", &v23, 0x12u);
   }
 
   v16 = v17;
 LABEL_14:
   objc_autoreleasePoolPop(v16);
-  if (a3)
+  if (!a3)
   {
-    v21 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
-    v22 = v21;
-    result = 0;
-    *a3 = v21;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-LABEL_17:
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = [MEMORY[0x1E696ABC0] hmErrorWithCode:3];
+  v22 = v21;
+  result = 0;
+  *a3 = v21;
   return result;
+}
+
+void sub_19BDF60D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__64154(uint64_t result, uint64_t a2)
@@ -10342,7 +10228,7 @@ void sub_19BDFFC34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) state];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -10355,9 +10241,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
       *buf = 138543618;
-      v54 = v7;
-      v55 = 2112;
-      v56 = v8;
+      v53 = v7;
+      v54 = 2112;
+      v55 = v8;
       _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Finished unarchive with error: %@", buf, 0x16u);
     }
 
@@ -10379,8 +10265,8 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
 
       if (v16)
       {
-        v51 = v13;
-        v52 = v12;
+        v50 = v13;
+        v51 = v12;
         v17 = [HMSoftwareUpdateDocumentation localizationsForBundle:v16];
         v18 = [(HMSoftwareUpdateDocumentation *)v17 count];
         v19 = objc_autoreleasePoolPush();
@@ -10393,9 +10279,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
           {
             v23 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v54 = v23;
-            v55 = 2112;
-            v56 = v17;
+            v53 = v23;
+            v54 = 2112;
+            v55 = v17;
             _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_INFO, "%{public}@Available localizations: %@", buf, 0x16u);
           }
 
@@ -10412,9 +10298,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
             {
               v30 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v54 = v30;
-              v55 = 2112;
-              v56 = v24;
+              v53 = v30;
+              v54 = 2112;
+              v55 = v24;
               _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_INFO, "%{public}@Cached documentation: %@", buf, 0x16u);
             }
 
@@ -10428,9 +10314,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
             {
               v39 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v54 = v39;
-              v55 = 2112;
-              v56 = v16;
+              v53 = v39;
+              v54 = 2112;
+              v55 = v16;
               _os_log_impl(&dword_19BB39000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse documentation for asset bundle: %@", buf, 0x16u);
             }
 
@@ -10438,7 +10324,7 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
             v31 = [MEMORY[0x1E696ABC0] hmErrorWithCode:2];
           }
 
-          v12 = v52;
+          v12 = v51;
         }
 
         else
@@ -10447,9 +10333,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
           {
             v38 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v54 = v38;
-            v55 = 2112;
-            v56 = v16;
+            v53 = v38;
+            v54 = 2112;
+            v55 = v16;
             _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@No available localization for asset bundle: %@", buf, 0x16u);
           }
 
@@ -10458,7 +10344,7 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
           v25 = 0;
         }
 
-        v13 = v51;
+        v13 = v50;
       }
 
       else
@@ -10472,9 +10358,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
           v36 = v35 = v13;
           v37 = [v33 bundleURL];
           *buf = 138543618;
-          v54 = v36;
-          v55 = 2112;
-          v56 = v37;
+          v53 = v36;
+          v54 = 2112;
+          v55 = v37;
           _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to create bundle from: %@", buf, 0x16u);
 
           v13 = v35;
@@ -10503,9 +10389,9 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
         {
           v45 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v54 = v45;
-          v55 = 2112;
-          v56 = v41;
+          v53 = v45;
+          v54 = 2112;
+          v55 = v41;
           _os_log_impl(&dword_19BB39000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to validate asset with error: %@", buf, 0x16u);
         }
 
@@ -10531,14 +10417,12 @@ void ____handleFinishedUnarchive_block_invoke(uint64_t a1)
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v54 = v10;
+      v53 = v10;
       _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Unable to finish unarchive, not currently unarchiving", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v50 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19BE009B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -10566,7 +10450,7 @@ void __processNextArchivedData(void *a1)
 
 void ____processNextArchivedData_block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) archivedFileStream];
   v4 = [v3 hasBytesAvailable];
@@ -10581,7 +10465,7 @@ void ____processNextArchivedData_block_invoke(uint64_t a1)
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v9;
+      v21 = v9;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Reading next chunk from the archive", buf, 0xCu);
     }
 
@@ -10594,14 +10478,14 @@ void ____processNextArchivedData_block_invoke(uint64_t a1)
     v14 = [MEMORY[0x1E695DEF0] dataWithBytes:buf length:v13];
     objc_initWeak(&location, *v10);
     v15 = [*v10 extractor];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = ____processNextArchivedData_block_invoke_308;
-    v18[3] = &unk_1E754E320;
-    objc_copyWeak(&v19, &location);
-    [v15 supplyBytes:v14 withCompletionBlock:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = ____processNextArchivedData_block_invoke_308;
+    v17[3] = &unk_1E754E320;
+    objc_copyWeak(&v18, &location);
+    [v15 supplyBytes:v14 withCompletionBlock:v17];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -10611,15 +10495,13 @@ void ____processNextArchivedData_block_invoke(uint64_t a1)
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v16;
+      v21 = v16;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Reached end of input stream", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     [*(a1 + 32) finishUnarchive];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void sub_19BE00EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -10631,7 +10513,7 @@ void sub_19BE00EB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ____processNextArchivedData_block_invoke_308(uint64_t a1, void *a2, int a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = WeakRetained;
@@ -10643,11 +10525,11 @@ void ____processNextArchivedData_block_invoke_308(uint64_t a1, void *a2, int a3)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to append data with error: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to append data with error: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -10661,15 +10543,13 @@ void ____processNextArchivedData_block_invoke_308(uint64_t a1, void *a2, int a3)
 
   else
   {
-    __processNextArchivedData();
+    __processNextArchivedData(WeakRetained);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __resourceBundleForBundle(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 URLForResource:@"AssetData" withExtension:0];
   if (v2)
@@ -10684,52 +10564,50 @@ id __resourceBundleForBundle(void *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to find resource bundle", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to find resource bundle", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v3 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 HMHTMLDocument *__htmlDocumentForResource(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [v5 URLForResource:v7 withExtension:@"html" subdirectory:0 localization:*(*(&v24 + 1) + 8 * i)];
+        v13 = [v5 URLForResource:v7 withExtension:@"html" subdirectory:0 localization:*(*(&v23 + 1) + 8 * i)];
         if (v13)
         {
           v15 = v13;
-          v23 = 0;
-          v14 = [[HMHTMLDocument alloc] initWithURL:v13 error:&v23];
-          v16 = v23;
+          v22 = 0;
+          v14 = [[HMHTMLDocument alloc] initWithURL:v13 error:&v22];
+          v16 = v22;
           if (!v14)
           {
             v17 = objc_autoreleasePoolPush();
@@ -10739,11 +10617,11 @@ HMHTMLDocument *__htmlDocumentForResource(void *a1, void *a2, void *a3)
               v19 = HMFGetLogIdentifier();
               v20 = [v15 path];
               *buf = 138543874;
-              v29 = v19;
-              v30 = 2112;
-              v31 = v20;
-              v32 = 2112;
-              v33 = v16;
+              v28 = v19;
+              v29 = 2112;
+              v30 = v20;
+              v31 = 2112;
+              v32 = v16;
               _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_INFO, "%{public}@Unable to load document, %@, with error: %@", buf, 0x20u);
             }
 
@@ -10754,7 +10632,7 @@ HMHTMLDocument *__htmlDocumentForResource(void *a1, void *a2, void *a3)
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v23 objects:v33 count:16];
       if (v10)
       {
         continue;
@@ -10766,8 +10644,6 @@ HMHTMLDocument *__htmlDocumentForResource(void *a1, void *a2, void *a3)
 
   v14 = 0;
 LABEL_15:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -11144,11 +11020,11 @@ __CFString *HMUserPresenceAuthorizationStatusAsString(unint64_t a1)
   return v2;
 }
 
-void sub_19BE093E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_19BE093E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 

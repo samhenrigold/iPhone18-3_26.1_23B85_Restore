@@ -387,7 +387,7 @@ LABEL_10:
   v9 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy, v8, v9);
   }
 
   if ([(CBShellServer *)self _auditToken:&v8 hasEntitlement:kCheckerBoardServicesEntitlement])

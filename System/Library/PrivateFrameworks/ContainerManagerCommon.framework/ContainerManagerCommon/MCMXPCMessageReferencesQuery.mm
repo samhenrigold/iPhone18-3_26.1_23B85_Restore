@@ -1,80 +1,17 @@
 @interface MCMXPCMessageReferencesQuery
-- (BOOL)createDuringReconciliation;
-- (BOOL)deleteDuringReconciliation;
-- (BOOL)yesReallyApplyToAll;
-- (MCMUserIdentity)userIdentity;
 - (MCMXPCMessageReferencesQuery)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error;
-- (unint64_t)explicitFlags;
-- (unint64_t)privateFlags;
-- (unsigned)uid;
 @end
 
 @implementation MCMXPCMessageReferencesQuery
 
-- (MCMUserIdentity)userIdentity
-{
-  result = self->_userIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)yesReallyApplyToAll
-{
-  result = self->_yesReallyApplyToAll;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)deleteDuringReconciliation
-{
-  result = self->_deleteDuringReconciliation;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)createDuringReconciliation
-{
-  result = self->_createDuringReconciliation;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)privateFlags
-{
-  result = self->_privateFlags;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unsigned)uid
-{
-  result = self->_uid;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)explicitFlags
-{
-  result = self->_explicitFlags;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (MCMXPCMessageReferencesQuery)initWithXPCObject:(id)object context:(id)context error:(unint64_t *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = MCMXPCMessageReferencesQuery;
-  v10 = [(MCMXPCMessageWithOwnersAndGroupsBase *)&v31 initWithXPCObject:objectCopy context:contextCopy error:error];
+  v30.receiver = self;
+  v30.super_class = MCMXPCMessageReferencesQuery;
+  v10 = [(MCMXPCMessageWithOwnersAndGroupsBase *)&v30 initWithXPCObject:objectCopy context:contextCopy error:error];
   if (v10)
   {
     v10->_privateFlags = xpc_dictionary_get_uint64(objectCopy, "PrivateFlags");
@@ -115,9 +52,9 @@ LABEL_17:
       {
         v23 = v22;
         clientIdentity3 = [contextCopy clientIdentity];
-        v30 = 0;
-        v25 = [(MCMXPCMessageBase *)v10 userIdentityFromClientPersonaUniqueString:v23 clientIdentity:clientIdentity3 error:&v30];
-        context = v30;
+        v29 = 0;
+        v25 = [(MCMXPCMessageBase *)v10 userIdentityFromClientPersonaUniqueString:v23 clientIdentity:clientIdentity3 error:&v29];
+        context = v29;
         v26 = v10->_userIdentity;
         v10->_userIdentity = v25;
       }
@@ -150,7 +87,6 @@ LABEL_17:
 
 LABEL_18:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

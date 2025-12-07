@@ -72,10 +72,10 @@
 
 - (VCAudioTransmitter)initWithConfig:(id)config
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v40.receiver = self;
-  v40.super_class = VCAudioTransmitter;
-  v4 = [(VCAudioTransmitter *)&v40 init];
+  v43 = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = VCAudioTransmitter;
+  v4 = [(VCAudioTransmitter *)&v41 init];
   if (!v4)
   {
     return v4;
@@ -215,7 +215,7 @@ LABEL_28:
   v18 = v4 + 392;
   if (config)
   {
-    [config inputFormat];
+    objc_msgSend_inputFormat(config);
   }
 
   else
@@ -263,25 +263,26 @@ LABEL_28:
   *(v4 + 121) = [config experimentManager];
   if (v4[736] == 1)
   {
+    v21 = *(v4 + 174);
     if (*(v4 + 25))
     {
-      v21 = *(v4 + 25) + VCNetworkUtils_AdditionalOverheadForIDSOptions();
+      v22 = *(v4 + 25) + VCNetworkUtils_AdditionalOverheadForIDSOptions(v21, 1, 0);
     }
 
     else
     {
-      v21 = VCNetworkUtils_WorstCaseIDSOverheadForOptions();
+      v22 = VCNetworkUtils_WorstCaseIDSOverheadForOptions(v21, 1, 0);
     }
 
-    *(v4 + 25) = v21;
+    *(v4 + 25) = v22;
     v4[695] = 1;
   }
 
-  v22 = *(v4 + 91);
-  if (v22)
+  v23 = *(v4 + 91);
+  if (v23)
   {
     v4[646] = 1;
-    *(v4 + 81) = v22;
+    *(v4 + 81) = v23;
   }
 
   sframeCryptor = [config sframeCryptor];
@@ -293,7 +294,7 @@ LABEL_28:
   *(v4 + 106) = sframeCryptor;
   *(v4 + 247) = [config packetExpirationTime];
   *(v4 + 122) = [config ratType];
-  v24 = *(v4 + 55);
+  v25 = *(v4 + 55);
   reportingAgent = [config reportingAgent];
   *(v4 + 55) = reportingAgent;
   if (reportingAgent)
@@ -301,18 +302,18 @@ LABEL_28:
     CFRetain(reportingAgent);
   }
 
-  if (v24)
+  if (v25)
   {
-    CFRelease(v24);
+    CFRelease(v25);
   }
 
   *(v4 + 112) = VCReporting_GetDynamicReportingModuleID();
   [config reportingParentID];
   reportingInheritModuleSpecificInfoFromParent();
   *(v4 + 90) = VCMemoryPool_CreateTyped(0x640uLL, 2964314069);
-  v26 = *(v4 + 46);
-  v27 = *(v4 + 57);
-  v28 = *(v4 + 31);
+  v27 = *(v4 + 46);
+  v28 = *(v4 + 57);
+  v29 = *(v4 + 31);
   *(v4 + 1) = -[VCPacketBundler initWithOperatingMode:bundlingScheme:]([VCPacketBundler alloc], "initWithOperatingMode:bundlingScheme:", *(v4 + 113), [config bundlingScheme]);
   [*(v4 + 1) setPacketsPerBundle:{objc_msgSend(config, "packetsPerBundle")}];
   *(v4 + 2) = -[VCPacketBundler initWithOperatingMode:bundlingScheme:]([VCPacketBundler alloc], "initWithOperatingMode:bundlingScheme:", *(v4 + 113), [config bundlingScheme]);
@@ -339,11 +340,11 @@ LABEL_28:
     *(v4 + 29) = (20 * forceRedMaxDelay);
   }
 
-  v31 = *(v4 + 49);
-  *(v4 + 28) = *(v4 + 108) / v31;
+  v32 = *(v4 + 49);
+  *(v4 + 28) = *(v4 + 108) / v32;
   [*(v4 + 1) setMaxPacketSize:1600];
   [*(v4 + 2) setMaxPacketSize:1600];
-  *(v4 + 244) = RTPGetTimestampBase();
+  *(v4 + 244) = RTPGetTimestampBase(*(v4 + 37));
   [v4 setStreamIDs:{objc_msgSend(config, "streamIDs")}];
   v4[980] = VCDefaults_GetBoolValueForKey(@"shouldApplyRedAsBoolean", [config shouldApplyRedAsBoolean]);
   *(v4 + 107) = 0;
@@ -354,32 +355,32 @@ LABEL_28:
 
   v4[888] = [config audioDumpEnabled];
   *(v4 + 113) = v18;
-  *(v4 + 223) = [objc_msgSend(*(v4 + 47) "config")];
-  v4[896] = [objc_msgSend(*(v4 + 47) "config")];
-  v4[897] = [objc_msgSend(*(v4 + 47) "config")];
+  *(v4 + 223) = [objc_msgSend_config(*(v4 + 47)) payload];
+  v4[896] = [objc_msgSend_config(*(v4 + 47)) payloadOctetAligned];
+  v4[897] = [objc_msgSend_config(*(v4 + 47)) evsHeaderFullOnly];
   v4[608] = 0;
   *(v4 + 872) = 0u;
   v4[925] = [config ramStadSRCEnabled];
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     __str = 0;
-    v32 = objc_opt_class() ? [objc_msgSend(objc_opt_class() "description")] : "<nil>";
-    asprintf(&__str, "%s[%p] %s", v32, v4, [objc_msgSend(config "description")]);
+    v33 = objc_opt_class() ? [objc_msgSend(objc_opt_class() "description")] : "<nil>";
+    asprintf(&__str, "%s[%p] %s", v33, v4, [objc_msgSend(config "description")]);
     if (__str)
     {
       __lasts = 0;
-      v33 = strtok_r(__str, "\n", &__lasts);
-      v34 = MEMORY[0x1E6986650];
+      v34 = strtok_r(__str, "\n", &__lasts);
+      v35 = MEMORY[0x1E6986650];
       do
       {
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
-          v35 = VRTraceErrorLogLevelToCSTR();
-          v36 = *v34;
-          if (os_log_type_enabled(*v34, OS_LOG_TYPE_DEFAULT))
+          v36 = VRTraceErrorLogLevelToCSTR();
+          v37 = *v35;
+          if (os_log_type_enabled(*v35, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136316162;
-            *&buf[4] = v35;
+            *&buf[4] = v36;
             *&buf[12] = 2080;
             *&buf[14] = "[VCAudioTransmitter initWithConfig:]";
             *&buf[22] = 1024;
@@ -387,15 +388,15 @@ LABEL_28:
             *&buf[28] = 2080;
             *&buf[30] = "[VCAudioTransmitter initWithConfig:]";
             *&buf[38] = 2080;
-            *&buf[40] = v33;
-            _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
+            *&buf[40] = v34;
+            _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s %s", buf, 0x30u);
           }
         }
 
-        v33 = strtok_r(0, "\n", &__lasts);
+        v34 = strtok_r(0, "\n", &__lasts);
       }
 
-      while (v33);
+      while (v34);
       free(__str);
     }
   }
@@ -537,7 +538,7 @@ LABEL_28:
 - (BOOL)isCodecModeChangeRequestValid:(_VCAudioCodecModeChangeEvent *)valid
 {
   v5 = [VCPayloadUtils isCodecModeSupported:valid->codecRateMode forBandwidth:valid->codecBandwidth withPayload:valid->payload];
-  v6 = [VCPayloadUtils skipBandWidthCheckForCodecRateModes:valid->payload supportedBitrates:[(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBitrates]];
+  v6 = +[VCPayloadUtils skipBandWidthCheckForCodecRateModes:supportedBitrates:](VCPayloadUtils, "skipBandWidthCheckForCodecRateModes:supportedBitrates:", valid->payload, [objc_msgSend_config(self->_currentAudioPayload) supportedBitrates]);
   result = v6 && v5;
   if (!v6 && v5)
   {
@@ -548,10 +549,10 @@ LABEL_28:
 
     else
     {
-      supportedBandwidths = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBandwidths];
+      supportedBandwidths = [objc_msgSend_config(self->_currentAudioPayload) supportedBandwidths];
       v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:valid->codecBandwidth];
 
-      return [(NSArray *)supportedBandwidths containsObject:v9];
+      return [supportedBandwidths containsObject:v9];
     }
   }
 
@@ -786,10 +787,10 @@ LABEL_28:
         objc_enumerationMutation(audioPayloads);
       }
 
-      v9 = [objc_msgSend(*(*(&v15 + 1) + 8 * i) "config")];
-      if (v9 > v6)
+      samplesPerFrame = [objc_msgSend_config(*(*(&v15 + 1) + 8 * i)) samplesPerFrame];
+      if (samplesPerFrame > v6)
       {
-        v6 = v9;
+        v6 = samplesPerFrame;
       }
     }
 
@@ -928,7 +929,7 @@ LABEL_13:
 
 - (void)updateAudioTxRate
 {
-  v3 = micro();
+  v3 = micro(self, a2);
   lastReportingCallbackTimeShort = self->_lastReportingCallbackTimeShort;
   v5 = v3 - lastReportingCallbackTimeShort;
   self->_lastReportingCallbackTimeShort = v3;
@@ -963,93 +964,93 @@ LABEL_13:
 
 - (void)gatherRealtimeStats:(__CFDictionary *)stats
 {
-  v63 = *MEMORY[0x1E69E9840];
-  [(VCAudioTransmitter *)self updateAudioTxRate];
+  v65 = *MEMORY[0x1E69E9840];
+  updateAudioTxRate = [(VCAudioTransmitter *)self updateAudioTxRate];
   if (stats)
   {
-    v5 = micro();
-    v6 = v5 - self->_lastReportingCallbackTime;
-    self->_lastReportingCallbackTime = v5;
-    if (v6 >= 0.5)
+    v7 = micro(updateAudioTxRate, v6);
+    v8 = v7 - self->_lastReportingCallbackTime;
+    self->_lastReportingCallbackTime = v7;
+    if (v8 >= 0.5)
     {
-      v11 = ((8 * [(VCAudioTransmitter *)self encodedBytes]) / v6 / 1000.0 + 0.5);
-      v10 = ((8 * [(VCAudioTransmitter *)self sentAudioBytes]) / v6 / 1000.0 + 0.5);
-      v9 = ((8 * [(VCAudioTransmitter *)self encodedRedBytes]) / v6 / 1000.0 + 0.5);
+      v13 = ((8 * [(VCAudioTransmitter *)self encodedBytes]) / v8 / 1000.0 + 0.5);
+      v12 = ((8 * [(VCAudioTransmitter *)self sentAudioBytes]) / v8 / 1000.0 + 0.5);
+      v11 = ((8 * [(VCAudioTransmitter *)self encodedRedBytes]) / v8 / 1000.0 + 0.5);
     }
 
     else
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v7 = VRTraceErrorLogLevelToCSTR();
-        v8 = *MEMORY[0x1E6986650];
+        v9 = VRTraceErrorLogLevelToCSTR();
+        v10 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316418;
-          v36 = v7;
-          v37 = 2080;
-          v38 = "[VCAudioTransmitter gatherRealtimeStats:]";
-          v39 = 1024;
-          v40 = 625;
-          v41 = 2048;
-          selfCopy2 = self;
+          v38 = v9;
+          v39 = 2080;
+          v40 = "[VCAudioTransmitter gatherRealtimeStats:]";
+          v41 = 1024;
+          v42 = 625;
           v43 = 2048;
-          *v44 = v6;
-          *&v44[8] = 2048;
-          *&v44[10] = 0x3FE0000000000000;
-          _os_log_error_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_ERROR, " [%s] %s:%d [%p] Failed to compute audio Tx bit rate because timePeriod=%fs < (AUDIO_TRANSMITTER_MIN_BITRATE_REPORT_PERIOD=%fs)", buf, 0x3Au);
+          selfCopy2 = self;
+          v45 = 2048;
+          *v46 = v8;
+          *&v46[8] = 2048;
+          *&v46[10] = 0x3FE0000000000000;
+          _os_log_error_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_ERROR, " [%s] %s:%d [%p] Failed to compute audio Tx bit rate because timePeriod=%fs < (AUDIO_TRANSMITTER_MIN_BITRATE_REPORT_PERIOD=%fs)", buf, 0x3Au);
         }
       }
 
-      v9 = 0;
-      v10 = 0;
       v11 = 0;
+      v12 = 0;
+      v13 = 0;
     }
 
     self->_currentChannelMetrics.averageMediaBitrate = 0;
-    v34 = 0;
-    RTPGetUplinkReportingStats(self->_rtpHandle, &v34);
+    v36 = 0;
+    RTPGetUplinkReportingStats(self->_rtpHandle, &v36);
     lastReportedRTPIngresspackets = self->_lastReportedRTPIngresspackets;
-    if (v34 <= lastReportedRTPIngresspackets)
+    if (v36 <= lastReportedRTPIngresspackets)
     {
       lastReportedRTPIngresspackets = 0;
     }
 
-    v13 = v34 - lastReportedRTPIngresspackets;
-    v14 = selectDestinationForRTMetrics();
-    CFDictionaryAddValue(v14, @"RTPUplinkIngressAudioPkts", [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v13]);
-    CFDictionaryAddValue(v14, @"ATxR", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v10]);
-    LODWORD(v15) = self->_currentDuplication;
-    CFDictionaryAddValue(v14, @"AFEC", [MEMORY[0x1E696AD98] numberWithDouble:v15 / 100.0]);
-    CFDictionaryAddValue(v14, @"ATxRPrimary", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v11]);
-    CFDictionaryAddValue(v14, @"ATxEncodedBitrate", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v11]);
-    CFDictionaryAddValue(v14, @"VCASRedundancyLevel", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_redNumPayloads]);
-    CFDictionaryAddValue(v14, @"QID", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_qualityIndex]);
-    CFDictionaryAddValue(v14, @"ATCC", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputFormat.format.mChannelsPerFrame]);
-    CFDictionaryAddValue(v14, @"RedPayloadsAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.redPayloads]);
-    CFDictionaryAddValue(v14, @"RedMaxDelayAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.redMaxDelay]);
-    CFDictionaryAddValue(v14, @"REDPayloadBitrate", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v9]);
-    CFDictionaryAddValue(v14, @"PayloadAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.codecPayload]);
-    CFDictionaryAddValue(v14, @"BitRateAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.codecBitrate]);
-    CFDictionaryAddValue(v14, @"BundleAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.bundling]);
-    v16 = MEMORY[0x1E696AD98];
+    v15 = v36 - lastReportedRTPIngresspackets;
+    v16 = selectDestinationForRTMetrics();
+    CFDictionaryAddValue(v16, @"RTPUplinkIngressAudioPkts", [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v15]);
+    CFDictionaryAddValue(v16, @"ATxR", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v12]);
+    LODWORD(v17) = self->_currentDuplication;
+    CFDictionaryAddValue(v16, @"AFEC", [MEMORY[0x1E696AD98] numberWithDouble:v17 / 100.0]);
+    CFDictionaryAddValue(v16, @"ATxRPrimary", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13]);
+    CFDictionaryAddValue(v16, @"ATxEncodedBitrate", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v13]);
+    CFDictionaryAddValue(v16, @"VCASRedundancyLevel", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_redNumPayloads]);
+    CFDictionaryAddValue(v16, @"QID", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_qualityIndex]);
+    CFDictionaryAddValue(v16, @"ATCC", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_inputFormat.format.mChannelsPerFrame]);
+    CFDictionaryAddValue(v16, @"RedPayloadsAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.redPayloads]);
+    CFDictionaryAddValue(v16, @"RedMaxDelayAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.redMaxDelay]);
+    CFDictionaryAddValue(v16, @"REDPayloadBitrate", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v11]);
+    CFDictionaryAddValue(v16, @"PayloadAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.codecPayload]);
+    CFDictionaryAddValue(v16, @"BitRateAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.codecBitrate]);
+    CFDictionaryAddValue(v16, @"BundleAlt", [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_tierInfo.bundling]);
+    v18 = MEMORY[0x1E696AD98];
     atomic_exchange(&self->_audioTierChangeCount, 0);
-    CFDictionaryAddValue(v14, @"ATierChangeCount", [v16 numberWithUnsignedInt:?]);
+    CFDictionaryAddValue(v16, @"ATierChangeCount", [v18 numberWithUnsignedInt:?]);
     if ([(VCAudioTransmitter *)self isStandaloneStreamMode])
     {
-      LODWORD(v17) = self->_targetBitrate;
-      CFDictionaryAddValue(v14, @"TTxR", [MEMORY[0x1E696AD98] numberWithDouble:v17 / 1000.0]);
+      LODWORD(v19) = self->_targetBitrate;
+      CFDictionaryAddValue(v16, @"TTxR", [MEMORY[0x1E696AD98] numberWithDouble:v19 / 1000.0]);
     }
 
-    v33 = 0;
-    RTPGetPacketSent(self->_rtpHandle, &v33);
-    v32 = 0.0;
-    AFRCGetAudioPauseTime(self->_afrc, &v32);
-    v31 = NAN;
-    AFRCGetAudioMaxPauseTimes(self->_afrc, &v31);
-    CFDictionaryAddValue(v14, @"APT", [MEMORY[0x1E696AD98] numberWithDouble:v32]);
-    CFDictionaryAddValue(v14, @"APSM", [MEMORY[0x1E696AD98] numberWithDouble:v31]);
-    CFDictionaryAddValue(v14, @"APS", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v33]);
+    v35 = 0;
+    RTPGetPacketSent(self->_rtpHandle, &v35);
+    v34 = 0.0;
+    AFRCGetAudioPauseTime(self->_afrc, &v34);
+    v33 = NAN;
+    AFRCGetAudioMaxPauseTimes(self->_afrc, &v33);
+    CFDictionaryAddValue(v16, @"APT", [MEMORY[0x1E696AD98] numberWithDouble:v34]);
+    CFDictionaryAddValue(v16, @"APSM", [MEMORY[0x1E696AD98] numberWithDouble:v33]);
+    CFDictionaryAddValue(v16, @"APS", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v35]);
     audioIssueDetector = self->_audioIssueDetector;
     if (audioIssueDetector)
     {
@@ -1057,73 +1058,73 @@ LABEL_13:
       VCAudioIssueDetector_GetReportingStats(audioIssueDetector, buf);
     }
 
-    self->_lastReportedRTPIngresspackets = v34;
-    v19 = [MEMORY[0x1E696AD60] stringWithFormat:@"streamIDsCount=%d ", self->_idsChannelDataFormat.numOfStreamIDs];
+    self->_lastReportedRTPIngresspackets = v36;
+    v21 = [MEMORY[0x1E696AD60] stringWithFormat:@"streamIDsCount=%d ", self->_idsChannelDataFormat.numOfStreamIDs];
     if (self->_idsChannelDataFormat.numOfStreamIDs)
     {
-      v20 = 0;
+      v22 = 0;
       do
       {
-        [v19 appendFormat:@"StreamID%d=%d ", v20, self->_idsChannelDataFormat.streamIDs[v20]];
-        ++v20;
+        [v21 appendFormat:@"StreamID%d=%d ", v22, self->_idsChannelDataFormat.streamIDs[v22]];
+        ++v22;
       }
 
-      while (v20 < self->_idsChannelDataFormat.numOfStreamIDs);
+      while (v22 < self->_idsChannelDataFormat.numOfStreamIDs);
     }
 
     if (VRTraceGetErrorLogLevelForModule() > 5)
     {
-      v21 = VRTraceErrorLogLevelToCSTR();
-      v22 = *MEMORY[0x1E6986650];
+      v23 = VRTraceErrorLogLevelToCSTR();
+      v24 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v23) = self->_currentDuplication;
+        LODWORD(v25) = self->_currentDuplication;
         redNumPayloads = self->_redNumPayloads;
         qualityIndex = self->_qualityIndex;
-        v26 = v23 / 100.0;
-        payload = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload];
+        v28 = v25 / 100.0;
+        payload = [objc_msgSend_config(self->_currentAudioPayload) payload];
         targetBitrate = self->_targetBitrate;
         currentTargetBitrate = self->_currentTargetBitrate;
         supportsAdaptation = self->_supportsAdaptation;
         *buf = 136318978;
-        v36 = v21;
-        v37 = 2080;
-        v38 = "[VCAudioTransmitter gatherRealtimeStats:]";
-        v39 = 1024;
-        v40 = 684;
-        v41 = 2048;
+        v38 = v23;
+        v39 = 2080;
+        v40 = "[VCAudioTransmitter gatherRealtimeStats:]";
+        v41 = 1024;
+        v42 = 684;
+        v43 = 2048;
         selfCopy2 = self;
-        v43 = 1024;
-        *v44 = v10;
-        *&v44[4] = 2048;
-        *&v44[6] = v26;
-        *&v44[14] = 1024;
-        *&v44[16] = v11;
         v45 = 1024;
-        v46 = redNumPayloads;
+        *v46 = v12;
+        *&v46[4] = 2048;
+        *&v46[6] = v28;
+        *&v46[14] = 1024;
+        *&v46[16] = v13;
         v47 = 1024;
-        v48 = qualityIndex;
+        v48 = redNumPayloads;
         v49 = 1024;
-        v50 = payload;
+        v50 = qualityIndex;
         v51 = 1024;
-        v52 = v33;
-        v53 = 2112;
-        v54 = v19;
-        v55 = 1024;
-        v56 = targetBitrate;
+        v52 = payload;
+        v53 = 1024;
+        v54 = v35;
+        v55 = 2112;
+        v56 = v21;
         v57 = 1024;
-        v58 = currentTargetBitrate;
+        v58 = targetBitrate;
         v59 = 1024;
-        v60 = supportsAdaptation;
+        v60 = currentTargetBitrate;
         v61 = 1024;
-        v62 = v9;
-        _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VCAudioTransmitter [%p] audioTxBitrate=%ukbps, audioFecTx=%f, primaryAudioTxRate=%ukbps, audioStreamRedundancyLevel=%u, _qualityIndex=%u, payload=%u, totalPacketsSent=%d %@ _targetBitrate=%u _currentTargetBitrate=%u _supportsAdaptation=%d audioTxRedRate=%ukbps", buf, 0x76u);
+        v62 = supportsAdaptation;
+        v63 = 1024;
+        v64 = v11;
+        _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @=@ Health: VCAudioTransmitter [%p] audioTxBitrate=%ukbps, audioFecTx=%f, primaryAudioTxRate=%ukbps, audioStreamRedundancyLevel=%u, _qualityIndex=%u, payload=%u, totalPacketsSent=%d %@ _targetBitrate=%u _currentTargetBitrate=%u _supportsAdaptation=%d audioTxRedRate=%ukbps", buf, 0x76u);
       }
     }
   }
 }
 
-uint64_t __43__VCAudioTransmitter_registerReportingTask__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__43__VCAudioTransmitter_registerReportingTask__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 periodicReportingEnabled];
   if (result)
@@ -1213,8 +1214,8 @@ LABEL_11:
 
 - (float)nextAudioInterval:(int)interval
 {
-  samplesPerFrame = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] samplesPerFrame];
-  v6 = [(VCPacketBundler *)self->_audioBundler packetsPerBundle]* samplesPerFrame - interval;
+  v5 = [objc_msgSend_config(self->_currentAudioPayload a2)];
+  v6 = [(VCPacketBundler *)self->_audioBundler packetsPerBundle]* v5 - interval;
   if (v6 < 1)
   {
     return 0.0;
@@ -1392,7 +1393,7 @@ LABEL_8:
     v6 = 0;
     do
     {
-      *&v5[4 * v6] = [objc_msgSend(-[NSMutableArray objectAtIndex:](self->_audioPayloads objectAtIndex:{v6), "config"), "payload"}];
+      *&v5[4 * v6] = [objc_msgSend_config(-[NSMutableArray objectAtIndex:](self->_audioPayloads objectAtIndex:{v6)), "payload"}];
       ++v6;
     }
 
@@ -1617,7 +1618,7 @@ LABEL_13:
   if (v3)
   {
     v4 = v3;
-    v5 = 0;
+    samplesPerFrame = 0;
     v6 = *v12;
     do
     {
@@ -1629,9 +1630,9 @@ LABEL_13:
         }
 
         v8 = *(*(&v11 + 1) + 8 * i);
-        if (v5 < [objc_msgSend(v8 "config")])
+        if (samplesPerFrame < [objc_msgSend_config(v8) samplesPerFrame])
         {
-          v5 = [objc_msgSend(v8 "config")];
+          samplesPerFrame = [objc_msgSend_config(v8) samplesPerFrame];
         }
       }
 
@@ -1643,10 +1644,10 @@ LABEL_13:
 
   else
   {
-    LODWORD(v5) = 0;
+    LODWORD(samplesPerFrame) = 0;
   }
 
-  return v5;
+  return samplesPerFrame;
 }
 
 - (void)setCurrentDTXEnable:(BOOL)enable
@@ -1707,7 +1708,7 @@ LABEL_13:
           }
 
           v11 = *(*(&v13 + 1) + 8 * i);
-          if ([objc_msgSend(v11 "config")] == used)
+          if ([objc_msgSend_config(v11) samplesPerFrame] == used)
           {
             *payloadUsed = v11;
             return;
@@ -1728,18 +1729,23 @@ LABEL_13:
 
 - (BOOL)chooseAudioNetworkBitrate
 {
-  v100 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   if (!self->_supportsAdaptation)
   {
     return 1;
   }
 
+  selfCopy = self;
   rateChangeCounter = self->_rateChangeCounter;
   targetBitrate = self->_targetBitrate;
-  v87 = rateChangeCounter;
+  v91 = rateChangeCounter;
   isAudioStalled = self->_isAudioStalled;
-  v86 = 0;
-  v85 = 0;
+  v90 = 0;
+  v89 = 0;
+  v87 = 0u;
+  v88 = 0u;
+  v85 = 0u;
+  v86 = 0u;
   v83 = 0u;
   v84 = 0u;
   v81 = 0u;
@@ -1748,47 +1754,43 @@ LABEL_13:
   v80 = 0u;
   v77 = 0u;
   v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
   if (self->_statisticsCollector)
   {
 LABEL_5:
-    redundancyPercentage = self->_redundancyPercentage;
+    redundancyPercentage = selfCopy->_redundancyPercentage;
     v6 = redundancyPercentage / 0x64;
-    v7 = (self->_redundancyInterval / 20.0);
-    v8 = redundancyPercentage / 0x64 != self->_redundancyControllerNumPayloads || self->_redundancyControllerMaxDelay20ms != v7;
-    if (v86)
+    v7 = (selfCopy->_redundancyInterval / 20.0);
+    v8 = redundancyPercentage / 0x64 != selfCopy->_redundancyControllerNumPayloads || selfCopy->_redundancyControllerMaxDelay20ms != v7;
+    if (v90)
     {
-      RTPResetConnectionStats();
+      self = RTPResetConnectionStats(selfCopy->_rtpHandle);
     }
 
-    operatingMode = self->_operatingMode;
+    operatingMode = selfCopy->_operatingMode;
     if (operatingMode == 7 || operatingMode == 2)
     {
-      RTPUpdateAudioOnlyRateChange(self->_rtpHandle, v87);
+      self = RTPUpdateAudioOnlyRateChange(selfCopy->_rtpHandle, v91);
     }
 
-    v11 = micro();
-    if (self->_isLocalCellular_LowestConnectionQuality && v11 - self->_lastUpdateQualityIndicator > 5.0)
+    v11 = micro(self, a2);
+    if (selfCopy->_isLocalCellular_LowestConnectionQuality && v11 - selfCopy->_lastUpdateQualityIndicator > 5.0)
     {
-      self->_lastUpdateQualityIndicator = v11;
+      selfCopy->_lastUpdateQualityIndicator = v11;
       global_queue = dispatch_get_global_queue(2, 0);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __47__VCAudioTransmitter_chooseAudioNetworkBitrate__block_invoke;
       block[3] = &unk_1E85F3778;
-      block[4] = self;
+      block[4] = selfCopy;
       dispatch_async(global_queue, block);
     }
 
-    if (isAudioStalled != self->_lastAudioStalled)
+    if (isAudioStalled != selfCopy->_lastAudioStalled)
     {
-      if (self->_isLocalCellular_LowestConnectionQuality)
+      if (selfCopy->_isLocalCellular_LowestConnectionQuality)
       {
-        RTPSetCellularAudioStallState(self->_rtpVideo, isAudioStalled);
-        RTPSetCellularAudioStallState(self->_rtpHandle, isAudioStalled);
+        RTPSetCellularAudioStallState(selfCopy->_rtpVideo, isAudioStalled);
+        RTPSetCellularAudioStallState(selfCopy->_rtpHandle, isAudioStalled);
       }
 
       else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1797,8 +1799,8 @@ LABEL_5:
         v14 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
-          lastAudioStalled = self->_lastAudioStalled;
-          isConnectedOnIPv6_LowestConnectionQuality = self->_isConnectedOnIPv6_LowestConnectionQuality;
+          lastAudioStalled = selfCopy->_lastAudioStalled;
+          isConnectedOnIPv6_LowestConnectionQuality = selfCopy->_isConnectedOnIPv6_LowestConnectionQuality;
           *buf = 136316418;
           *&buf[4] = v13;
           *&buf[12] = 2080;
@@ -1815,27 +1817,27 @@ LABEL_5:
         }
       }
 
-      self->_lastAudioStalled = isAudioStalled;
+      selfCopy->_lastAudioStalled = isAudioStalled;
     }
 
     isAudioStalled = 0;
-    audioTierChangeRequestCount = self->_audioTierChangeRequestCount;
+    audioTierChangeRequestCount = selfCopy->_audioTierChangeRequestCount;
     if (audioTierChangeRequestCount >= 1)
     {
-      [(VCAudioTransmitter *)self setupAudioHeaderSize];
-      [(VCAudioTransmitter *)self setupAudioTierPicker];
-      atomic_fetch_add(&self->_audioTierChangeRequestCount, 0xFFFFFFFF);
+      [(VCAudioTransmitter *)selfCopy setupAudioHeaderSize];
+      [(VCAudioTransmitter *)selfCopy setupAudioTierPicker];
+      atomic_fetch_add(&selfCopy->_audioTierChangeRequestCount, 0xFFFFFFFF);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
         v16 = VRTraceErrorLogLevelToCSTR();
         v17 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          payload = [(VCAudioPayloadConfig *)[(VCAudioTier *)self->_currentAudioTier payloadConfig] payload];
-          audioCodecBitrate = [(VCAudioTier *)self->_currentAudioTier audioCodecBitrate];
-          redNumPayloads = [(VCAudioTier *)self->_currentAudioTier redNumPayloads];
-          packetsPerBundle = [(VCAudioTier *)self->_currentAudioTier packetsPerBundle];
-          v20 = self->_operatingMode;
+          payload = [(VCAudioPayloadConfig *)[(VCAudioTier *)selfCopy->_currentAudioTier payloadConfig] payload];
+          audioCodecBitrate = [(VCAudioTier *)selfCopy->_currentAudioTier audioCodecBitrate];
+          redNumPayloads = [(VCAudioTier *)selfCopy->_currentAudioTier redNumPayloads];
+          packetsPerBundle = [(VCAudioTier *)selfCopy->_currentAudioTier packetsPerBundle];
+          v20 = selfCopy->_operatingMode;
           *buf = 136317186;
           *&buf[4] = v16;
           *&buf[12] = 2080;
@@ -1843,7 +1845,7 @@ LABEL_5:
           *&buf[22] = 1024;
           *&buf[24] = 1187;
           *&buf[28] = 2048;
-          *&buf[30] = self;
+          *&buf[30] = selfCopy;
           *&buf[38] = 1024;
           *&buf[40] = payload;
           *&buf[44] = 1024;
@@ -1854,7 +1856,7 @@ LABEL_5:
           *&buf[56] = 1024;
           *&buf[58] = packetsPerBundle;
           *&buf[62] = 1024;
-          LODWORD(v91) = v20;
+          LODWORD(v95) = v20;
           _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VCAudioTransmitter[%p] AudioTierPicker was reset. Current audioTier info from default tier: payload=%u audioCodecBitrate=%u redNumPayloads=%u packetsPerBundle=%u operatingMode=%d.", buf, 0x44u);
         }
       }
@@ -1862,16 +1864,16 @@ LABEL_5:
 
     v21 = redundancyPercentage + 100;
     v22 = v8;
-    if (targetBitrate == self->_currentTargetBitrate && v21 == self->_currentDuplication && !v8 && audioTierChangeRequestCount <= 0 && !self->_audioTierHysteresis)
+    if (targetBitrate == selfCopy->_currentTargetBitrate && v21 == selfCopy->_currentDuplication && !v8 && audioTierChangeRequestCount <= 0 && !selfCopy->_audioTierHysteresis)
     {
       return !isAudioStalled;
     }
 
-    self->_currentTargetBitrate = targetBitrate;
-    if (self->_isRedEnabled)
+    selfCopy->_currentTargetBitrate = targetBitrate;
+    if (selfCopy->_isRedEnabled)
     {
-      audioTierPicker = self->_audioTierPicker;
-      if (self->_targetBitrateIsAudioOnly)
+      audioTierPicker = selfCopy->_audioTierPicker;
+      if (selfCopy->_targetBitrateIsAudioOnly)
       {
         v24 = [VCAudioTierPicker tierForAudioBitrate:"tierForAudioBitrate:withRedNumPayloads:" withRedNumPayloads:?];
       }
@@ -1882,7 +1884,7 @@ LABEL_5:
       }
 
       v25 = v24;
-      redNumPayloads2 = [(VCAudioTier *)self->_currentAudioTier redNumPayloads];
+      redNumPayloads2 = [(VCAudioTier *)selfCopy->_currentAudioTier redNumPayloads];
       v26 = redNumPayloads2 != [(VCAudioTier *)v25 redNumPayloads];
     }
 
@@ -1892,29 +1894,30 @@ LABEL_5:
       v26 = 0;
     }
 
-    if (([(VCAudioPayloadConfig *)[(VCAudioTier *)v25 payloadConfig] isEqual:[(VCAudioPayload *)self->_currentAudioPayload config]]& 1) != 0 || v21 != self->_currentDuplication || v22 || (v28 = [(VCAudioTier *)v25 audioCodecBitrate], v28 == [(VCAudioPayload *)self->_currentAudioPayload bitrate]) || ([(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] qualityForBitRate:[(VCAudioTier *)v25 audioCodecBitrate]], v29 <= 0.5))
+    if ((-[VCAudioPayloadConfig isEqual:](-[VCAudioTier payloadConfig](v25, "payloadConfig"), "isEqual:", objc_msgSend_config(selfCopy->_currentAudioPayload)) & 1) != 0 || v21 != selfCopy->_currentDuplication || v22 || (v28 = -[VCAudioTier audioCodecBitrate](v25, "audioCodecBitrate"), v28 == -[VCAudioPayload bitrate](selfCopy->_currentAudioPayload, "bitrate")) || ([objc_msgSend_config(selfCopy->_currentAudioPayload) qualityForBitRate:{-[VCAudioTier audioCodecBitrate](v25, "audioCodecBitrate")}], v29 <= 0.5))
     {
-      if (([(VCAudioPayloadConfig *)[(VCAudioTier *)v25 payloadConfig] isEqual:[(VCAudioPayload *)self->_currentAudioPayload config]]& 1) == 0)
+      if (([(VCAudioPayloadConfig *)[(VCAudioTier *)v25 payloadConfig] isEqual:objc_msgSend_config(selfCopy->_currentAudioPayload)]& 1) == 0)
       {
         audioCodecBitrate2 = [(VCAudioTier *)v25 audioCodecBitrate];
-        if (audioCodecBitrate2 > [(VCAudioPayload *)self->_currentAudioPayload bitrate]&& v21 <= self->_currentDuplication && v6 <= self->_redNumPayloads && self->_lastTierSwitch != 0.0)
+        bitrate = [(VCAudioPayload *)selfCopy->_currentAudioPayload bitrate];
+        if (audioCodecBitrate2 > bitrate && v21 <= selfCopy->_currentDuplication && v6 <= selfCopy->_redNumPayloads && selfCopy->_lastTierSwitch != 0.0)
         {
-          v35 = micro();
-          if (audioTierChangeRequestCount <= 0 && v35 - self->_lastTierSwitch < 2.0)
+          v39 = micro(bitrate, v38);
+          if (audioTierChangeRequestCount <= 0 && v39 - selfCopy->_lastTierSwitch < 2.0)
           {
-            if (!self->_audioTierHysteresis)
+            if (!selfCopy->_audioTierHysteresis)
             {
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v36 = VRTraceErrorLogLevelToCSTR();
-                v37 = *MEMORY[0x1E6986650];
+                v40 = VRTraceErrorLogLevelToCSTR();
+                v41 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
-                  payload2 = [(VCAudioPayloadConfig *)[(VCAudioTier *)self->_currentAudioTier payloadConfig] payload];
+                  payload2 = [(VCAudioPayloadConfig *)[(VCAudioTier *)selfCopy->_currentAudioTier payloadConfig] payload];
                   payload3 = [(VCAudioPayloadConfig *)[(VCAudioTier *)v25 payloadConfig] payload];
-                  lastTierSwitch = self->_lastTierSwitch;
+                  lastTierSwitch = selfCopy->_lastTierSwitch;
                   *buf = 136316418;
-                  *&buf[4] = v36;
+                  *&buf[4] = v40;
                   *&buf[12] = 2080;
                   *&buf[14] = "[VCAudioTransmitter chooseAudioNetworkBitrate]";
                   *&buf[22] = 1024;
@@ -1925,11 +1928,11 @@ LABEL_5:
                   *&buf[36] = payload3;
                   *&buf[40] = 2048;
                   *&buf[42] = lastTierSwitch;
-                  _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Time Hysteresis preventing tier upgrade from %d to %d, last upgrade at %6.3f", buf, 0x32u);
+                  _os_log_impl(&dword_1DB56E000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Time Hysteresis preventing tier upgrade from %d to %d, last upgrade at %6.3f", buf, 0x32u);
                 }
               }
 
-              self->_audioTierHysteresis = 1;
+              selfCopy->_audioTierHysteresis = 1;
             }
 
             return !isAudioStalled;
@@ -1937,22 +1940,22 @@ LABEL_5:
         }
       }
 
-      if (v25 == self->_currentAudioTier || (v41 = [(VCAudioTier *)v25 audioCodecBitrate], v41 == [(VCAudioPayload *)self->_currentAudioPayload bitrate]) && v21 == self->_currentDuplication && !v22 && (v42 = [(VCAudioTier *)self->_currentAudioTier packetsPerBundle], v42 == [(VCAudioTier *)v25 packetsPerBundle]&& !v26))
+      if (v25 == selfCopy->_currentAudioTier || (v45 = [(VCAudioTier *)v25 audioCodecBitrate], v45 == [(VCAudioPayload *)selfCopy->_currentAudioPayload bitrate]) && v21 == selfCopy->_currentDuplication && !v22 && (v46 = [(VCAudioTier *)selfCopy->_currentAudioTier packetsPerBundle], v46 == [(VCAudioTier *)v25 packetsPerBundle]&& !v26))
       {
-        if (v21 != self->_currentDuplication || v22)
+        if (v21 != selfCopy->_currentDuplication || v22)
         {
-          self->_currentDuplication = v21;
-          self->_redundancyControllerNumPayloads = v6;
-          self->_redundancyControllerMaxDelay20ms = v7;
-          if (self->_isRedEnabled && [(VCAudioTier *)v25 redNumPayloads]!= v6 && VRTraceGetErrorLogLevelForModule() >= 6)
+          selfCopy->_currentDuplication = v21;
+          selfCopy->_redundancyControllerNumPayloads = v6;
+          selfCopy->_redundancyControllerMaxDelay20ms = v7;
+          if (selfCopy->_isRedEnabled && [(VCAudioTier *)v25 redNumPayloads]!= v6 && VRTraceGetErrorLogLevelForModule() >= 6)
           {
-            v60 = VRTraceErrorLogLevelToCSTR();
-            v61 = *MEMORY[0x1E6986650];
+            v64 = VRTraceErrorLogLevelToCSTR();
+            v65 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               redNumPayloads3 = [(VCAudioTier *)v25 redNumPayloads];
               *buf = 136316162;
-              *&buf[4] = v60;
+              *&buf[4] = v64;
               *&buf[12] = 2080;
               *&buf[14] = "[VCAudioTransmitter chooseAudioNetworkBitrate]";
               *&buf[22] = 1024;
@@ -1961,63 +1964,63 @@ LABEL_5:
               *&buf[30] = v6;
               *&buf[34] = 1024;
               *&buf[36] = redNumPayloads3;
-              _os_log_impl(&dword_1DB56E000, v61, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Overriding suggested red value %d with red value %u", buf, 0x28u);
+              _os_log_impl(&dword_1DB56E000, v65, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Overriding suggested red value %d with red value %u", buf, 0x28u);
             }
           }
 
           redMaxDelay20ms = [(VCAudioTier *)v25 redMaxDelay20ms];
-          redundancyControllerMaxDelay20ms = self->_redundancyControllerMaxDelay20ms;
+          redundancyControllerMaxDelay20ms = selfCopy->_redundancyControllerMaxDelay20ms;
           if (redMaxDelay20ms > redundancyControllerMaxDelay20ms)
           {
             redundancyControllerMaxDelay20ms = redMaxDelay20ms;
           }
 
-          redMaxDelay20ms = self->_redMaxDelay20ms;
-          atomic_compare_exchange_strong_explicit(&self->_redMaxDelay20ms, &redMaxDelay20ms, redundancyControllerMaxDelay20ms, memory_order_relaxed, memory_order_relaxed);
-          [(VCAudioTransmitter *)self setRedNumPayloads:[(VCAudioTier *)self->_currentAudioTier redNumPayloads] withMaxDelay:self->_redMaxDelay20ms shouldResetHistory:0 shouldEnableShortRED:[(VCAudioTier *)self->_currentAudioTier shortREDEnabled]];
+          redMaxDelay20ms = selfCopy->_redMaxDelay20ms;
+          atomic_compare_exchange_strong_explicit(&selfCopy->_redMaxDelay20ms, &redMaxDelay20ms, redundancyControllerMaxDelay20ms, memory_order_relaxed, memory_order_relaxed);
+          [(VCAudioTransmitter *)selfCopy setRedNumPayloads:[(VCAudioTier *)selfCopy->_currentAudioTier redNumPayloads] withMaxDelay:selfCopy->_redMaxDelay20ms shouldResetHistory:0 shouldEnableShortRED:[(VCAudioTier *)selfCopy->_currentAudioTier shortREDEnabled]];
         }
 
         else
         {
-          self->_audioTierHysteresis = 0;
+          selfCopy->_audioTierHysteresis = 0;
         }
 
         return !isAudioStalled;
       }
 
-      if (v25 != self->_requestedAudioTier || self->_currentDuplication != v21 || v22 || v26)
+      if (v25 != selfCopy->_requestedAudioTier || selfCopy->_currentDuplication != v21 || v22 || v26)
       {
-        self->_requestedAudioTier = v25;
-        self->_currentDuplication = v21;
-        self->_redundancyControllerNumPayloads = v6;
-        self->_redundancyControllerMaxDelay20ms = v7;
-        redNumPayloads = self->_redNumPayloads;
-        atomic_compare_exchange_strong_explicit(&self->_redNumPayloads, &redNumPayloads, [(VCAudioTier *)v25 redNumPayloads], memory_order_relaxed, memory_order_relaxed);
+        selfCopy->_requestedAudioTier = v25;
+        selfCopy->_currentDuplication = v21;
+        selfCopy->_redundancyControllerNumPayloads = v6;
+        selfCopy->_redundancyControllerMaxDelay20ms = v7;
+        redNumPayloads = selfCopy->_redNumPayloads;
+        atomic_compare_exchange_strong_explicit(&selfCopy->_redNumPayloads, &redNumPayloads, [(VCAudioTier *)v25 redNumPayloads], memory_order_relaxed, memory_order_relaxed);
         redMaxDelay20ms2 = [(VCAudioTier *)v25 redMaxDelay20ms];
-        v45 = self->_redundancyControllerMaxDelay20ms;
-        if (redMaxDelay20ms2 > v45)
+        v49 = selfCopy->_redundancyControllerMaxDelay20ms;
+        if (redMaxDelay20ms2 > v49)
         {
-          v45 = redMaxDelay20ms2;
+          v49 = redMaxDelay20ms2;
         }
 
-        v46 = self->_redMaxDelay20ms;
-        atomic_compare_exchange_strong_explicit(&self->_redMaxDelay20ms, &v46, v45, memory_order_relaxed, memory_order_relaxed);
+        v50 = selfCopy->_redMaxDelay20ms;
+        atomic_compare_exchange_strong_explicit(&selfCopy->_redMaxDelay20ms, &v50, v49, memory_order_relaxed, memory_order_relaxed);
         if (VRTraceGetErrorLogLevelForModule() >= 6)
         {
-          v47 = VRTraceErrorLogLevelToCSTR();
-          v48 = *MEMORY[0x1E6986650];
+          v51 = VRTraceErrorLogLevelToCSTR();
+          v52 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
-            payload4 = [(VCAudioPayloadConfig *)[(VCAudioTier *)self->_currentAudioTier payloadConfig] payload];
+            payload4 = [(VCAudioPayloadConfig *)[(VCAudioTier *)selfCopy->_currentAudioTier payloadConfig] payload];
             payload5 = [(VCAudioPayloadConfig *)[(VCAudioTier *)v25 payloadConfig] payload];
-            v71 = v6;
-            v50 = targetBitrate;
-            networkBitrate = [(VCAudioTier *)self->_currentAudioTier networkBitrate];
+            v75 = v6;
+            v54 = targetBitrate;
+            networkBitrate = [(VCAudioTier *)selfCopy->_currentAudioTier networkBitrate];
             networkBitrate2 = [(VCAudioTier *)v25 networkBitrate];
-            packetsPerBundle2 = [(VCAudioTier *)self->_currentAudioTier packetsPerBundle];
+            packetsPerBundle2 = [(VCAudioTier *)selfCopy->_currentAudioTier packetsPerBundle];
             packetsPerBundle3 = [(VCAudioTier *)v25 packetsPerBundle];
             *buf = 136317442;
-            *&buf[4] = v47;
+            *&buf[4] = v51;
             *&buf[12] = 2080;
             *&buf[14] = "[VCAudioTransmitter chooseAudioNetworkBitrate]";
             *&buf[22] = 1024;
@@ -2027,29 +2030,29 @@ LABEL_5:
             *&buf[34] = 1024;
             *&buf[36] = payload5;
             *&buf[40] = 1024;
-            *&buf[42] = v50;
-            v6 = v71;
+            *&buf[42] = v54;
+            v6 = v75;
             *&buf[46] = 1024;
             *&buf[48] = networkBitrate;
             *&buf[52] = 1024;
             *&buf[54] = networkBitrate2;
             *&buf[58] = 1024;
             *&buf[60] = packetsPerBundle2;
-            LOWORD(v91) = 1024;
-            *(&v91 + 2) = packetsPerBundle3;
-            _os_log_impl(&dword_1DB56E000, v48, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Switching audio bitrate tier payload %d -> %d for total tx %d: netBitrate %d -> %d, bundle %d -> %d", buf, 0x46u);
+            LOWORD(v95) = 1024;
+            *(&v95 + 2) = packetsPerBundle3;
+            _os_log_impl(&dword_1DB56E000, v52, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Switching audio bitrate tier payload %d -> %d for total tx %d: netBitrate %d -> %d, bundle %d -> %d", buf, 0x46u);
           }
         }
 
-        if (self->_isRedEnabled && [(VCAudioTier *)v25 redNumPayloads]!= v6 && VRTraceGetErrorLogLevelForModule() >= 6)
+        if (selfCopy->_isRedEnabled && [(VCAudioTier *)v25 redNumPayloads]!= v6 && VRTraceGetErrorLogLevelForModule() >= 6)
         {
-          v55 = VRTraceErrorLogLevelToCSTR();
-          v56 = *MEMORY[0x1E6986650];
+          v59 = VRTraceErrorLogLevelToCSTR();
+          v60 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             redNumPayloads4 = [(VCAudioTier *)v25 redNumPayloads];
             *buf = 136316162;
-            *&buf[4] = v55;
+            *&buf[4] = v59;
             *&buf[12] = 2080;
             *&buf[14] = "[VCAudioTransmitter chooseAudioNetworkBitrate]";
             *&buf[22] = 1024;
@@ -2058,29 +2061,29 @@ LABEL_5:
             *&buf[30] = v6;
             *&buf[34] = 1024;
             *&buf[36] = redNumPayloads4;
-            _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Overriding suggested red value %d with red value %u", buf, 0x28u);
+            _os_log_impl(&dword_1DB56E000, v60, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Overriding suggested red value %d with red value %u", buf, 0x28u);
           }
         }
 
         redPayloadSize = [(VCAudioTier *)v25 redPayloadSize];
-        v59 = redPayloadSize < [(VCAudioTier *)self->_currentAudioTier redPayloadSize];
-        [(VCAudioTransmitter *)self useAudioTier:v25];
-        [(VCAudioTransmitter *)self setRedNumPayloads:self->_redNumPayloads withMaxDelay:self->_redMaxDelay20ms shouldResetHistory:v59 shouldEnableShortRED:[(VCAudioTier *)v25 shortREDEnabled]];
-        [(VCAudioTransmitter *)self reportRedundancyConfigChange];
+        v63 = redPayloadSize < [(VCAudioTier *)selfCopy->_currentAudioTier redPayloadSize];
+        [(VCAudioTransmitter *)selfCopy useAudioTier:v25];
+        [(VCAudioTransmitter *)selfCopy setRedNumPayloads:selfCopy->_redNumPayloads withMaxDelay:selfCopy->_redMaxDelay20ms shouldResetHistory:v63 shouldEnableShortRED:[(VCAudioTier *)v25 shortREDEnabled]];
+        reportRedundancyConfigChange = [(VCAudioTransmitter *)selfCopy reportRedundancyConfigChange];
         goto LABEL_77;
       }
     }
 
-    else if (v25 != self->_requestedAudioTier)
+    else if (v25 != selfCopy->_requestedAudioTier)
     {
-      self->_requestedAudioTier = v25;
+      selfCopy->_requestedAudioTier = v25;
       if (VRTraceGetErrorLogLevelForModule() >= 6)
       {
         v30 = VRTraceErrorLogLevelToCSTR();
         v31 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          bitrate = [(VCAudioPayload *)self->_currentAudioPayload bitrate];
+          bitrate2 = [(VCAudioPayload *)selfCopy->_currentAudioPayload bitrate];
           audioCodecBitrate3 = [(VCAudioTier *)v25 audioCodecBitrate];
           *buf = 136316162;
           *&buf[4] = v30;
@@ -2089,41 +2092,41 @@ LABEL_5:
           *&buf[22] = 1024;
           *&buf[24] = 1218;
           *&buf[28] = 1024;
-          *&buf[30] = bitrate;
+          *&buf[30] = bitrate2;
           *&buf[34] = 1024;
           *&buf[36] = audioCodecBitrate3;
           _os_log_impl(&dword_1DB56E000, v31, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Switching audio bitrates without changing tier %d -> %d", buf, 0x28u);
         }
       }
 
-      [(VCAudioTransmitter *)self useAudioPayload:self->_currentAudioPayload withBitrate:[(VCAudioTier *)v25 audioCodecBitrate] redNumPayloads:[(VCAudioTier *)v25 redNumPayloads]];
-      [(VCAudioTransmitter *)self updateAudioTxBitrate];
+      [(VCAudioTransmitter *)selfCopy useAudioPayload:selfCopy->_currentAudioPayload withBitrate:[(VCAudioTier *)v25 audioCodecBitrate] redNumPayloads:[(VCAudioTier *)v25 redNumPayloads]];
+      reportRedundancyConfigChange = [(VCAudioTransmitter *)selfCopy updateAudioTxBitrate];
 LABEL_77:
-      self->_lastTierSwitch = micro();
-      self->_audioTierHysteresis = 0;
-      [(VCAudioTransmitter *)self logTierInfo:1];
+      selfCopy->_lastTierSwitch = micro(reportRedundancyConfigChange, v35);
+      selfCopy->_audioTierHysteresis = 0;
+      [(VCAudioTransmitter *)selfCopy logTierInfo:1];
     }
 
     return !isAudioStalled;
   }
 
-  if ((AFRCGetAudioTxInfo(self->_afrc, &targetBitrate, 0, 0, 0, 0, &isAudioStalled, &v87, &v86, &v73) & 0x80000000) == 0)
+  if ((AFRCGetAudioTxInfo(self->_afrc, &targetBitrate, 0, 0, 0, 0, &isAudioStalled, &v91, &v90, &v77) & 0x80000000) == 0)
   {
-    redundancyController = self->_redundancyController;
+    redundancyController = selfCopy->_redundancyController;
+    v101 = v87;
+    v102 = v88;
+    v103 = v89;
     v97 = v83;
     v98 = v84;
     v99 = v85;
-    v93 = v79;
-    v94 = v80;
+    v100 = v86;
+    *&buf[32] = v79;
+    *&buf[48] = v80;
     v95 = v81;
     v96 = v82;
-    *&buf[32] = v75;
-    *&buf[48] = v76;
-    v91 = v77;
-    v92 = v78;
-    *buf = v73;
-    *&buf[16] = v74;
-    [(VCRedundancyControllerAudio *)redundancyController updateRedundancyStrategyWithNetworkStatistics:buf];
+    *buf = v77;
+    *&buf[16] = v78;
+    self = [(VCRedundancyControllerAudio *)redundancyController updateRedundancyStrategyWithNetworkStatistics:buf];
     goto LABEL_5;
   }
 
@@ -2248,7 +2251,7 @@ LABEL_19:
   self->_audioHeaderSize = v9;
   if (self->_useRateControl)
   {
-    v9 = VCMediaControlInfoGeneratorGetFeedbackSize(self->_controlInfoGenerator, a2) + self->_audioHeaderSize + 10;
+    v9 = VCMediaControlInfoGeneratorGetFeedbackSize(self->_controlInfoGenerator) + self->_audioHeaderSize + 10;
     self->_audioHeaderSize = v9;
   }
 
@@ -2293,7 +2296,7 @@ LABEL_20:
             objc_enumerationMutation(audioPayloads);
           }
 
-          if ([objc_msgSend(*(*(&v12 + 1) + 8 * i) "config")] == 101)
+          if ([objc_msgSend_config(*(*(&v12 + 1) + 8 * i)) payload] == 101)
           {
             return &unk_1F579E250;
           }
@@ -2352,7 +2355,7 @@ LABEL_20:
           objc_enumerationMutation(audioPayloads);
         }
 
-        [v4 setObject:objc_msgSend(*(*(&v36 + 1) + 8 * i) atIndexedSubscript:{"config"), objc_msgSend(v4, "count")}];
+        [v4 setObject:objc_msgSend_config(*(*(&v36 + 1) + 8 * i)) atIndexedSubscript:{objc_msgSend(v4, "count")}];
       }
 
       v7 = [(NSMutableArray *)audioPayloads countByEnumeratingWithState:&v36 objects:v35 count:16];
@@ -2447,17 +2450,17 @@ LABEL_20:
 {
   v64 = *MEMORY[0x1E69E9840];
   audioTxBitrate = self->_audioTxBitrate;
-  config = [(VCAudioPayload *)self->_currentAudioPayload config];
+  v4 = objc_msgSend_config(self->_currentAudioPayload, a2);
   v5 = (8 * self->_audioHeaderSize);
   mSampleRate = self->_inputFormat.format.mSampleRate;
-  v7 = (mSampleRate / [(VCAudioPayloadConfig *)config samplesPerFrame]* v5);
+  v7 = (mSampleRate / [v4 samplesPerFrame] * v5);
   p_vtable = VCVideoTransmitterDefault.vtable;
-  if ([VCPayloadUtils canBundleExternallyForPayload:[(VCAudioPayloadConfig *)config payload] forBundlingScheme:[(VCPacketBundler *)self->_audioBundler bundlingScheme] operatingMode:self->_operatingMode])
+  if (+[VCPayloadUtils canBundleExternallyForPayload:forBundlingScheme:operatingMode:](VCPayloadUtils, "canBundleExternallyForPayload:forBundlingScheme:operatingMode:", [v4 payload], -[VCPacketBundler bundlingScheme](self->_audioBundler, "bundlingScheme"), self->_operatingMode))
   {
     v9 = (v7 / [(VCPacketBundler *)self->_audioBundler packetsPerBundle]);
-    v10 = (8 * [(VCAudioPayloadConfig *)config bundleHeaderBytes]);
+    v10 = (8 * [v4 bundleHeaderBytes]);
     v11 = self->_inputFormat.format.mSampleRate;
-    v7 = (v9 + v10 * (v11 / [(VCAudioPayloadConfig *)config samplesPerFrame]));
+    v7 = (v9 + v10 * (v11 / [v4 samplesPerFrame]));
   }
 
   self->_audioTxBitrate = [(VCAudioPayload *)self->_currentAudioPayload bitrate]+ v7;
@@ -2473,9 +2476,9 @@ LABEL_20:
         bitrate = [(VCAudioPayload *)self->_currentAudioPayload bitrate];
         audioHeaderSize = self->_audioHeaderSize;
         packetsPerBundle = [(VCPacketBundler *)self->_audioBundler packetsPerBundle];
-        bundleHeaderBytes = [(VCAudioPayloadConfig *)config bundleHeaderBytes];
+        bundleHeaderBytes = [v4 bundleHeaderBytes];
         v18 = self->_inputFormat.format.mSampleRate;
-        samplesPerFrame = [(VCAudioPayloadConfig *)config samplesPerFrame];
+        samplesPerFrame = [v4 samplesPerFrame];
         operatingMode = self->_operatingMode;
         *buf = 136317954;
         v44 = v13;
@@ -2533,9 +2536,9 @@ LABEL_13:
         bitrate2 = [(VCAudioPayload *)self->_currentAudioPayload bitrate];
         v40 = self->_audioHeaderSize;
         packetsPerBundle2 = [(VCPacketBundler *)self->_audioBundler packetsPerBundle];
-        bundleHeaderBytes2 = [(VCAudioPayloadConfig *)config bundleHeaderBytes];
+        bundleHeaderBytes2 = [v4 bundleHeaderBytes];
         v28 = self->_inputFormat.format.mSampleRate;
-        samplesPerFrame2 = [(VCAudioPayloadConfig *)config samplesPerFrame];
+        samplesPerFrame2 = [v4 samplesPerFrame];
         v30 = self->_operatingMode;
         *buf = 136318466;
         v44 = v24;
@@ -2576,15 +2579,15 @@ LABEL_13:
 
   if (self->_mediaQueue != 0xFFFFFFFFLL)
   {
-    v31 = [(VCAudioPayloadConfig *)config samplesPerFrame]/ self->_inputFormat.format.mSampleRate;
-    if ([p_vtable + 472 canBundleExternallyForPayload:-[VCAudioPayloadConfig payload](config forBundlingScheme:"payload") operatingMode:{-[VCPacketBundler bundlingScheme](self->_audioBundler, "bundlingScheme"), self->_operatingMode}])
+    v31 = [v4 samplesPerFrame] / self->_inputFormat.format.mSampleRate;
+    if ([p_vtable + 472 canBundleExternallyForPayload:objc_msgSend(v4 forBundlingScheme:"payload") operatingMode:{-[VCPacketBundler bundlingScheme](self->_audioBundler, "bundlingScheme"), self->_operatingMode}])
     {
       v31 = v31 * [(VCPacketBundler *)self->_audioBundler packetsPerBundle];
     }
 
     if (v31 != self->_audioInterval)
     {
-      MediaQueue_SetThrottlingAudioInterval(v31);
+      MediaQueue_SetThrottlingAudioInterval(self->_mediaQueue, v31);
       self->_audioInterval = v31;
     }
   }
@@ -2629,16 +2632,21 @@ LABEL_13:
 - (void)useAudioPayload:(id)payload withBitrate:(unsigned int)bitrate redNumPayloads:(unsigned int)payloads
 {
   v6 = *&bitrate;
-  v28 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (self->_allowAudioSwitching)
   {
     currentAudioPayload = self->_currentAudioPayload;
     if (currentAudioPayload != payload)
     {
-      payload = [(VCAudioPayloadConfig *)[(VCAudioPayload *)currentAudioPayload config] payload];
-      if (VCPayloadUtils_SupportsShortREDForPayload(payload) && (VCPayloadUtils_SupportsShortREDForPayload([objc_msgSend(payload "config")]) & 1) == 0)
+      v10 = [objc_msgSend_config(currentAudioPayload a2)];
+      v11 = v10;
+      if (VCPayloadUtils_SupportsShortREDForPayload(v10, v12))
       {
-        [(VCAudioRedBuilder *)self->_redBuilder resetShortREDHistoryAndPrimaryPayloadHistory:0];
+        payload = [objc_msgSend_config(payload) payload];
+        if ((VCPayloadUtils_SupportsShortREDForPayload(payload, v14) & 1) == 0)
+        {
+          [(VCAudioRedBuilder *)self->_redBuilder resetShortREDHistoryAndPrimaryPayloadHistory:0];
+        }
       }
 
       self->_currentAudioPayload = payload;
@@ -2650,42 +2658,42 @@ LABEL_13:
           goto LABEL_17;
         }
 
-        v12 = VRTraceErrorLogLevelToCSTR();
-        v13 = *MEMORY[0x1E6986650];
+        v16 = VRTraceErrorLogLevelToCSTR();
+        v17 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_17;
         }
 
-        payload2 = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload];
-        samplesPerFrame = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] samplesPerFrame];
-        *v23 = 136316418;
-        *&v23[4] = v12;
-        *&v23[12] = 2080;
-        *&v23[14] = "[VCAudioTransmitter useAudioPayload:withBitrate:redNumPayloads:]";
-        *&v23[22] = 1024;
-        LODWORD(v24) = 1593;
-        WORD2(v24) = 1024;
-        *(&v24 + 6) = payload;
-        WORD5(v24) = 1024;
-        HIDWORD(v24) = payload2;
+        payload2 = [objc_msgSend_config(self->_currentAudioPayload) payload];
+        samplesPerFrame = [objc_msgSend_config(self->_currentAudioPayload) samplesPerFrame];
+        *v29 = 136316418;
+        *&v29[4] = v16;
+        *&v29[12] = 2080;
+        *&v29[14] = "[VCAudioTransmitter useAudioPayload:withBitrate:redNumPayloads:]";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 1593;
+        WORD2(v30) = 1024;
+        *(&v30 + 6) = v11;
+        WORD5(v30) = 1024;
+        HIDWORD(v30) = payload2;
         LOWORD(selfCopy) = 1024;
         *(&selfCopy + 2) = samplesPerFrame;
-        v16 = " [%s] %s:%d Switching payloads from payload=%d -> %d %d samplesPerFrame";
-        v17 = v13;
-        v18 = 46;
+        v20 = " [%s] %s:%d Switching payloads from payload=%d -> %d %d samplesPerFrame";
+        v21 = v17;
+        v22 = 46;
       }
 
       else
       {
         if (objc_opt_respondsToSelector())
         {
-          v11 = [(VCAudioTransmitter *)self performSelector:sel_logPrefix];
+          v15 = [(VCAudioTransmitter *)self performSelector:sel_logPrefix];
         }
 
         else
         {
-          v11 = &stru_1F570E008;
+          v15 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() < 6)
@@ -2693,39 +2701,41 @@ LABEL_13:
           goto LABEL_17;
         }
 
-        v19 = VRTraceErrorLogLevelToCSTR();
-        v20 = *MEMORY[0x1E6986650];
+        v23 = VRTraceErrorLogLevelToCSTR();
+        v24 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_17;
         }
 
-        payload3 = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload];
-        samplesPerFrame2 = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] samplesPerFrame];
-        *v23 = 136316930;
-        *&v23[4] = v19;
-        *&v23[12] = 2080;
-        *&v23[14] = "[VCAudioTransmitter useAudioPayload:withBitrate:redNumPayloads:]";
-        *&v23[22] = 1024;
-        LODWORD(v24) = 1593;
-        WORD2(v24) = 2112;
-        *(&v24 + 6) = v11;
-        HIWORD(v24) = 2048;
+        payload3 = [objc_msgSend_config(self->_currentAudioPayload) payload];
+        samplesPerFrame2 = [objc_msgSend_config(self->_currentAudioPayload) samplesPerFrame];
+        *v29 = 136316930;
+        *&v29[4] = v23;
+        *&v29[12] = 2080;
+        *&v29[14] = "[VCAudioTransmitter useAudioPayload:withBitrate:redNumPayloads:]";
+        *&v29[22] = 1024;
+        LODWORD(v30) = 1593;
+        WORD2(v30) = 2112;
+        *(&v30 + 6) = v15;
+        HIWORD(v30) = 2048;
         selfCopy = self;
-        LOWORD(v26) = 1024;
-        *(&v26 + 2) = payload;
-        HIWORD(v26) = 1024;
-        LODWORD(v27) = payload3;
-        WORD2(v27) = 1024;
-        *(&v27 + 6) = samplesPerFrame2;
-        v16 = " [%s] %s:%d %@(%p) Switching payloads from payload=%d -> %d %d samplesPerFrame";
-        v17 = v20;
-        v18 = 66;
+        LOWORD(v32) = 1024;
+        *(&v32 + 2) = v11;
+        HIWORD(v32) = 1024;
+        LODWORD(v33) = payload3;
+        WORD2(v33) = 1024;
+        *(&v33 + 6) = samplesPerFrame2;
+        v20 = " [%s] %s:%d %@(%p) Switching payloads from payload=%d -> %d %d samplesPerFrame";
+        v21 = v24;
+        v22 = 66;
       }
 
-      _os_log_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_DEFAULT, v16, v23, v18);
+      _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, v20, v29, v22);
 LABEL_17:
-      AFRCSetAudioPayload(self->_afrc, [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config:*v23] payload], [(VCAudioPayload *)self->_currentAudioPayload bitrate]);
+      afrc = self->_afrc;
+      v28 = [objc_msgSend_config(self->_currentAudioPayload *v29];
+      AFRCSetAudioPayload(afrc, v28, [(VCAudioPayload *)self->_currentAudioPayload bitrate]);
     }
   }
 
@@ -3460,7 +3470,7 @@ LABEL_25:
   audioIssueDetector = self->_audioIssueDetector;
   if (audioIssueDetector)
   {
-    VCAudioIssueDetector_ReportRTCPTraffic(audioIssueDetector);
+    VCAudioIssueDetector_ReportRTCPTraffic(audioIssueDetector, a2);
   }
 }
 
@@ -3636,7 +3646,7 @@ LABEL_11:
 {
   v28 = *MEMORY[0x1E69E9840];
   self->_maxAudioPacketSize = [multiway maxConnectionMTU];
-  v5 = VCNetworkUtils_AdditionalOverheadForIDSOptions();
+  v5 = VCNetworkUtils_AdditionalOverheadForIDSOptions(LOBYTE(self->_maxIDSStreamIdCount), 1, 0);
   self->_maxAudioPacketSize -= v5;
   if (objc_opt_class() != self)
   {
@@ -3859,17 +3869,17 @@ LABEL_12:
     }
 
     VRTraceErrorLogLevelToCSTR();
-    v7 = OUTLINED_FUNCTION_40();
-    if (!v7)
+    v6 = OUTLINED_FUNCTION_40();
+    if (!v6)
     {
-      return v7;
+      return v6;
     }
 
 LABEL_13:
     OUTLINED_FUNCTION_24();
-    v13 = 50;
+    v12 = 50;
 LABEL_17:
-    _os_log_error_impl(v8, v9, v10, v11, v12, v13);
+    _os_log_error_impl(v7, v8, v9, v10, v11, v12);
     goto LABEL_18;
   }
 
@@ -3879,7 +3889,7 @@ LABEL_17:
   }
 
   payload = bitrate->payload;
-  if (payload != [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload])
+  if (payload != [objc_msgSend_config(self->_currentAudioPayload) payload])
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
     {
@@ -3887,79 +3897,77 @@ LABEL_17:
     }
 
     VRTraceErrorLogLevelToCSTR();
-    v7 = OUTLINED_FUNCTION_40();
-    if (!v7)
+    v6 = OUTLINED_FUNCTION_40();
+    if (!v6)
     {
-      return v7;
+      return v6;
     }
 
-    [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload];
+    [objc_msgSend_config(self->_currentAudioPayload) payload];
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_11_19();
     goto LABEL_13;
   }
 
-  supportedBitrates = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBitrates];
-  if (-[NSArray containsObject:](supportedBitrates, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:bitrate->codecBitrate]))
+  if ([objc_msgSend(objc_msgSend_config(self->_currentAudioPayload) "supportedBitrates")])
   {
-    LOBYTE(v7) = 1;
-    return v7;
+    LOBYTE(v6) = 1;
+    return v6;
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
-    v7 = OUTLINED_FUNCTION_40();
-    if (!v7)
+    v6 = OUTLINED_FUNCTION_40();
+    if (!v6)
     {
-      return v7;
+      return v6;
     }
 
-    [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBitrates];
+    [objc_msgSend_config(self->_currentAudioPayload) supportedBitrates];
     OUTLINED_FUNCTION_9_2();
     OUTLINED_FUNCTION_10_26();
     OUTLINED_FUNCTION_24();
-    v13 = 60;
+    v12 = 60;
     goto LABEL_17;
   }
 
 LABEL_18:
-  LOBYTE(v7) = 0;
-  return v7;
+  LOBYTE(v6) = 0;
+  return v6;
 }
 
 - (BOOL)shouldUpdateCodecBandwidth:(_VCAudioCodecModeChangeEvent *)bandwidth
 {
   payload = bandwidth->payload;
-  if (payload == [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload])
+  if (payload == [objc_msgSend_config(self->_currentAudioPayload a2)])
   {
     codecBandwidth = bandwidth->codecBandwidth;
     if (codecBandwidth != [(VCAudioPayload *)self->_currentAudioPayload bandwidth])
     {
-      supportedBandwidths = [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBandwidths];
-      if (-[NSArray containsObject:](supportedBandwidths, "containsObject:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:bandwidth->codecBandwidth]))
+      if ([objc_msgSend(objc_msgSend_config(self->_currentAudioPayload) "supportedBandwidths")])
       {
-        LOBYTE(v8) = 1;
-        return v8;
+        LOBYTE(v7) = 1;
+        return v7;
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
-        v8 = OUTLINED_FUNCTION_40();
-        if (!v8)
+        v7 = OUTLINED_FUNCTION_40();
+        if (!v7)
         {
-          return v8;
+          return v7;
         }
 
-        [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] supportedBandwidths];
+        [objc_msgSend_config(self->_currentAudioPayload) supportedBandwidths];
         OUTLINED_FUNCTION_9_2();
         OUTLINED_FUNCTION_10_26();
         OUTLINED_FUNCTION_24();
-        v14 = 60;
+        v13 = 60;
 LABEL_12:
-        _os_log_error_impl(v9, v10, v11, v12, v13, v14);
+        _os_log_error_impl(v8, v9, v10, v11, v12, v13);
       }
     }
   }
@@ -3967,23 +3975,23 @@ LABEL_12:
   else if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
     VRTraceErrorLogLevelToCSTR();
-    v8 = OUTLINED_FUNCTION_40();
-    if (!v8)
+    v7 = OUTLINED_FUNCTION_40();
+    if (!v7)
     {
-      return v8;
+      return v7;
     }
 
-    [(VCAudioPayloadConfig *)[(VCAudioPayload *)self->_currentAudioPayload config] payload];
+    [objc_msgSend_config(self->_currentAudioPayload) payload];
     OUTLINED_FUNCTION_10();
     OUTLINED_FUNCTION_6();
     OUTLINED_FUNCTION_11_19();
     OUTLINED_FUNCTION_24();
-    v14 = 50;
+    v13 = 50;
     goto LABEL_12;
   }
 
-  LOBYTE(v8) = 0;
-  return v8;
+  LOBYTE(v7) = 0;
+  return v7;
 }
 
 - (void)handleCodecModeChangeEvent:(int *)a1 didUpdateBandwidth:didUpdateBitrate:.cold.1(int *a1)

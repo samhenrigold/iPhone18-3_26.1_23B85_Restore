@@ -62,7 +62,7 @@ void __58__HDMCAnalysisScheduler__registerActivityAfterCompletion___block_invoke
 - (void)_handleActivity:(id)activity forceRescheduleOnCheckIn:(BOOL)in
 {
   inCopy = in;
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   state = xpc_activity_get_state(activityCopy);
   if (state == 2)
@@ -74,7 +74,7 @@ void __58__HDMCAnalysisScheduler__registerActivityAfterCompletion___block_invoke
       v18 = *MEMORY[0x277CCC2E8];
       if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
       {
-        [HDMCAnalysisScheduler _handleActivity:v18 forceRescheduleOnCheckIn:?];
+        [HDMCAnalysisScheduler _handleActivity:v18 forceRescheduleOnCheckIn:self];
       }
     }
 
@@ -101,16 +101,16 @@ void __58__HDMCAnalysisScheduler__registerActivityAfterCompletion___block_invoke
           {
             if (v14)
             {
-              v25 = v13;
-              v26 = objc_opt_class();
-              v27 = MEMORY[0x277CCABB0];
-              v28 = v26;
-              v29 = [v27 numberWithLongLong:int64];
-              v30 = 138543618;
-              v31 = v26;
-              v32 = 2112;
-              v33 = v29;
-              _os_log_impl(&dword_2293D1000, v25, OS_LOG_TYPE_INFO, "[%{public}@] Found existing valid criteria; not rescheduling. Delay: %@", &v30, 0x16u);
+              v24 = v13;
+              v25 = objc_opt_class();
+              v26 = MEMORY[0x277CCABB0];
+              v27 = v25;
+              v28 = [v26 numberWithLongLong:int64];
+              v29 = 138543618;
+              v30 = v25;
+              v31 = 2112;
+              v32 = v28;
+              _os_log_impl(&dword_2293D1000, v24, OS_LOG_TYPE_INFO, "[%{public}@] Found existing valid criteria; not rescheduling. Delay: %@", &v29, 0x16u);
             }
 
             goto LABEL_20;
@@ -119,21 +119,21 @@ void __58__HDMCAnalysisScheduler__registerActivityAfterCompletion___block_invoke
           if (v14)
           {
             v15 = v13;
-            v30 = 138543362;
-            v31 = objc_opt_class();
-            v16 = v31;
+            v29 = 138543362;
+            v30 = objc_opt_class();
+            v16 = v30;
             v17 = "[%{public}@] Rescheduling for completed activity";
 LABEL_18:
-            _os_log_impl(&dword_2293D1000, v15, OS_LOG_TYPE_INFO, v17, &v30, 0xCu);
+            _os_log_impl(&dword_2293D1000, v15, OS_LOG_TYPE_INFO, v17, &v29, 0xCu);
           }
         }
 
         else if (v14)
         {
           v15 = v13;
-          v30 = 138543362;
-          v31 = objc_opt_class();
-          v16 = v31;
+          v29 = 138543362;
+          v30 = objc_opt_class();
+          v16 = v30;
           v17 = "[%{public}@] No delay found in existing criteria";
           goto LABEL_18;
         }
@@ -146,9 +146,9 @@ LABEL_18:
         if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_INFO))
         {
           v15 = v20;
-          v30 = 138543362;
-          v31 = objc_opt_class();
-          v16 = v31;
+          v29 = 138543362;
+          v30 = objc_opt_class();
+          v16 = v30;
           v17 = "[%{public}@] No existing criteria found";
           goto LABEL_18;
         }
@@ -181,13 +181,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_delayUntilNextAnalysisSchedulingWindowStartDateAfterDate:(id)date
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   v6 = [(HKMCSettingsManager *)self->_settingsManager hdmc_nextAnalysisSchedulingWindowStartDateAfterDate:dateCopy calendar:currentCalendar];
@@ -205,78 +203,69 @@ LABEL_21:
     v9 = 86400.0;
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_FAULT))
     {
-      v13 = v10;
-      v15 = 138543874;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = dateCopy;
-      v19 = 2114;
-      v20 = currentCalendar;
-      v14 = v16;
-      _os_log_fault_impl(&dword_2293D1000, v13, OS_LOG_TYPE_FAULT, "[%{public}@] Next date to schedule analysis after %{public}@ should not be nil, calendar: %{public}@", &v15, 0x20u);
+      v12 = v10;
+      v14 = 138543874;
+      v15 = objc_opt_class();
+      v16 = 2114;
+      v17 = dateCopy;
+      v18 = 2114;
+      v19 = currentCalendar;
+      v13 = v15;
+      _os_log_fault_impl(&dword_2293D1000, v12, OS_LOG_TYPE_FAULT, "[%{public}@] Next date to schedule analysis after %{public}@ should not be nil, calendar: %{public}@", &v14, 0x20u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_runAnalysis
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_0(v2);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v4, v5, "[%{public}@] Error running analysis from XPC activity: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error running analysis from XPC activity: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)daemonReady:(id)ready
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    *v8 = 138543362;
-    *&v8[4] = objc_opt_class();
-    v6 = *&v8[4];
-    _os_log_impl(&dword_2293D1000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Daemon ready, scheduling activity", v8, 0xCu);
+    *v7 = 138543362;
+    *&v7[4] = objc_opt_class();
+    v6 = *&v7[4];
+    _os_log_impl(&dword_2293D1000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Daemon ready, scheduling activity", v7, 0xCu);
   }
 
-  [(HDMCAnalysisScheduler *)self _registerActivityAfterCompletion:0, *v8];
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDMCAnalysisScheduler *)self _registerActivityAfterCompletion:0, *v7, *&v7[8]];
 }
 
-- (void)_handleActivity:(void *)a1 forceRescheduleOnCheckIn:.cold.1(void *a1)
+- (void)_handleActivity:(void *)a1 forceRescheduleOnCheckIn:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
+  v2 = a1;
   v4 = 138543362;
   v5 = objc_opt_class();
-  v2 = v5;
-  _os_log_error_impl(&dword_2293D1000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to update completion state", &v4, 0xCu);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = v5;
+  _os_log_error_impl(&dword_2293D1000, v2, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to update completion state", &v4, 0xCu);
 }
 
 - (void)_handleActivity:(uint64_t)a3 forceRescheduleOnCheckIn:.cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = objc_opt_class();
   v6 = MEMORY[0x277CCABB0];
   v7 = v5;
   v8 = [v6 numberWithLong:a3];
-  v10 = 138543618;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v8;
-  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected activity registration state: %@", &v10, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543618;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v8;
+  _os_log_error_impl(&dword_2293D1000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected activity registration state: %@", &v9, 0x16u);
 }
 
 @end

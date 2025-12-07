@@ -60,73 +60,73 @@
 
 - (BOOL)_establishConnection
 {
-  v42[6] = *MEMORY[0x277D85DE8];
+  v41[6] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.diagnostics.remote-runner-service" options:4096];
-  v22 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2884B79A0];
+  v21 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2884B79A0];
   v3 = MEMORY[0x277CBEB98];
-  v42[0] = objc_opt_class();
-  v42[1] = objc_opt_class();
-  v42[2] = objc_opt_class();
-  v42[3] = objc_opt_class();
-  v42[4] = objc_opt_class();
-  v42[5] = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:6];
-  v5 = [v3 setWithArray:v4];
-  [v22 setClasses:v5 forSelector:sel_runTestWithID_name_description_parameters_completion_ argumentIndex:3 ofReply:0];
-
-  v6 = MEMORY[0x277CBEB98];
   v41[0] = objc_opt_class();
   v41[1] = objc_opt_class();
   v41[2] = objc_opt_class();
   v41[3] = objc_opt_class();
   v41[4] = objc_opt_class();
   v41[5] = objc_opt_class();
-  v41[6] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:7];
-  v8 = [v6 setWithArray:v7];
-  [v22 setClasses:v8 forSelector:sel_runTestWithID_name_description_parameters_completion_ argumentIndex:0 ofReply:1];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:6];
+  v5 = [v3 setWithArray:v4];
+  [v21 setClasses:v5 forSelector:sel_runTestWithID_name_description_parameters_completion_ argumentIndex:3 ofReply:0];
 
-  [v2 setRemoteObjectInterface:v22];
+  v6 = MEMORY[0x277CBEB98];
+  v40[0] = objc_opt_class();
+  v40[1] = objc_opt_class();
+  v40[2] = objc_opt_class();
+  v40[3] = objc_opt_class();
+  v40[4] = objc_opt_class();
+  v40[5] = objc_opt_class();
+  v40[6] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:7];
+  v8 = [v6 setWithArray:v7];
+  [v21 setClasses:v8 forSelector:sel_runTestWithID_name_description_parameters_completion_ argumentIndex:0 ofReply:1];
+
+  [v2 setRemoteObjectInterface:v21];
   v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2884B7A70];
   [v2 setExportedInterface:v9];
   [v2 setExportedObject:self];
   [v2 activate];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy_;
-  v39 = __Block_byref_object_dispose_;
-  v40 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy_;
+  v38 = __Block_byref_object_dispose_;
+  v39 = 0;
   objc_initWeak(&location, self);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __49__DADiagnosticsRemoteRunner__establishConnection__block_invoke;
-  v32[3] = &unk_27A66EBD8;
-  v32[4] = &v35;
-  objc_copyWeak(&v33, &location);
-  v10 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v32];
-  if (v10 && !v36[5])
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __49__DADiagnosticsRemoteRunner__establishConnection__block_invoke;
+  v31[3] = &unk_27A66EBD8;
+  v31[4] = &v34;
+  objc_copyWeak(&v32, &location);
+  v10 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v31];
+  if (v10 && !v35[5])
   {
     v12 = dispatch_queue_create("com.apple.Diagnostics.RemoteRunnerCheckQueue", MEMORY[0x277D85CD8]);
     diagsAliveCheckQueue = self->_diagsAliveCheckQueue;
     self->_diagsAliveCheckQueue = v12;
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy_;
-    v30 = __Block_byref_object_dispose_;
-    v31 = dispatch_semaphore_create(0);
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy_;
+    v29 = __Block_byref_object_dispose_;
+    v30 = dispatch_semaphore_create(0);
     v14 = self->_diagsAliveCheckQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __49__DADiagnosticsRemoteRunner__establishConnection__block_invoke_2;
     block[3] = &unk_27A66EC28;
     v15 = v10;
-    v24 = v15;
-    v25 = &v26;
+    v23 = v15;
+    v24 = &v25;
     dispatch_async(v14, block);
-    v16 = v27[5];
+    v16 = v26[5];
     v17 = dispatch_time(0, 2000000000);
     v18 = dispatch_semaphore_wait(v16, v17);
     v11 = v18 == 0;
@@ -136,7 +136,7 @@
       [(DADiagnosticsRemoteRunner *)self setRemoteRunnerServer:v15];
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v25, 8);
   }
 
   else
@@ -144,11 +144,10 @@
     v11 = 0;
   }
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v34, 8);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

@@ -178,7 +178,7 @@ LABEL_24:
   return v2;
 }
 
-uint64_t __44__PLXPCTransaction_openXPCTransactionStatus__block_invoke(uint64_t a1)
+void *__44__PLXPCTransaction_openXPCTransactionStatus__block_invoke(uint64_t a1)
 {
   result = [_allTransactions count];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -219,7 +219,7 @@ uint64_t __44__PLXPCTransaction_openXPCTransactionStatus__block_invoke(uint64_t 
   _Block_object_dispose(&v10, 8);
 }
 
-uint64_t __45__PLXPCTransaction__stopTrackingTransaction___block_invoke(uint64_t a1)
+void *__45__PLXPCTransaction__stopTrackingTransaction___block_invoke(uint64_t a1)
 {
   [_allTransactions removeObject:*(*(*(a1 + 32) + 8) + 24)];
   result = [_allTransactions count];

@@ -1,5 +1,6 @@
 @interface MODaemonSPINotifier
 - (MODaemonSPINotifier)initWithName:(id)name;
+- (void)sendNotification:(int)notification withPayload:(id)payload;
 @end
 
 @implementation MODaemonSPINotifier
@@ -16,6 +17,16 @@
   }
 
   return v4;
+}
+
+- (void)sendNotification:(int)notification withPayload:(id)payload
+{
+  v4 = *&notification;
+  payloadCopy = payload;
+  if ([(MONotifier *)self isEnabled])
+  {
+    [(MONotifier *)self notify:v4 withPayload:payloadCopy];
+  }
 }
 
 @end

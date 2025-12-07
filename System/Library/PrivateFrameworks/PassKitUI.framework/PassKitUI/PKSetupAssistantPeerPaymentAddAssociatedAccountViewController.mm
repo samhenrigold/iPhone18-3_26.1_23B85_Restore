@@ -107,14 +107,15 @@
   [WeakRetained peerPaymentAddAssociatedAccountViewController:self didFinishWithSuccess:sucessCopy updatedPeerPaymentAccount:accountCopy];
 }
 
-void __152__PKSetupAssistantPeerPaymentAddAssociatedAccountViewController_addPeerPaymentAssociatedAccountSetupCompletedWithSucess_updatedAccount_forFamilyMember___block_invoke(uint64_t a1, int a2, uint64_t a3)
+void __152__PKSetupAssistantPeerPaymentAddAssociatedAccountViewController_addPeerPaymentAssociatedAccountSetupCompletedWithSucess_updatedAccount_forFamilyMember___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v11 = *MEMORY[0x1E69E9840];
   v5 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"NO";
-    if (a2)
+    if (v4)
     {
       v6 = @"YES";
     }

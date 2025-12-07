@@ -140,7 +140,7 @@ void __18__WLDServer__init__block_invoke(uint64_t a1)
   memset(&v22, 0, sizeof(v22));
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v21 = 0;
@@ -155,7 +155,7 @@ void __18__WLDServer__init__block_invoke(uint64_t a1)
     error = 0;
     if (v8)
     {
-      [v8 auditToken];
+      objc_msgSend_auditToken(v8);
     }
 
     else

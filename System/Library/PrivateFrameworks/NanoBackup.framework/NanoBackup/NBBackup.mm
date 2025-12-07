@@ -20,7 +20,7 @@
 
 - (NSURL)activeWatchFaceFileURL
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (!selfCopy->_hasResolvedActiveWatchFaceFilePath)
@@ -30,9 +30,9 @@
     v4 = [@"/var/mobile/Library/NanoBackup" stringByAppendingPathComponent:uUIDString];
 
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v26 = 0;
-    v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v26];
-    v7 = v26;
+    v25 = 0;
+    v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v25];
+    v7 = v25;
 
     if (v7)
     {
@@ -40,35 +40,35 @@
       if (os_log_type_enabled(nb_framework_log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v29 = v4;
-        v30 = 2112;
-        v31 = v7;
+        v28 = v4;
+        v29 = 2112;
+        v30 = v7;
         _os_log_impl(&dword_25AEFA000, v8, OS_LOG_TYPE_DEFAULT, "Failed to list file within directory (%@) with error: (%@)", buf, 0x16u);
       }
     }
 
     else
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v9 = v6;
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v10)
       {
-        v11 = *v23;
+        v11 = *v22;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v23 != v11)
+            if (*v22 != v11)
             {
               objc_enumerationMutation(v9);
             }
 
-            v13 = *(*(&v22 + 1) + 8 * i);
-            [v13 rangeOfString:@"ActiveWatchFace" options:{8, v22}];
+            v13 = *(*(&v21 + 1) + 8 * i);
+            [v13 rangeOfString:@"ActiveWatchFace" options:{8, v21}];
             if (v14)
             {
               v15 = MEMORY[0x277CBEBC0];
@@ -81,7 +81,7 @@
             }
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
           if (v10)
           {
             continue;
@@ -98,7 +98,6 @@ LABEL_15:
   objc_sync_exit(selfCopy);
 
   v19 = selfCopy->_activeWatchFaceFileURL;
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

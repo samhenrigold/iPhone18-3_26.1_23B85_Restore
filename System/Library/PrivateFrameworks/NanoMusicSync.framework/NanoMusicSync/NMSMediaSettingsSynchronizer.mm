@@ -101,7 +101,7 @@ uint64_t __50__NMSMediaSettingsSynchronizer_sharedSynchronizer__block_invoke()
 
 - (void)_createDefaultGreenTeaSettingsIfNecessary
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v2 = [(NSUserDefaults *)self->_nanoMusicSyncDefaults objectForKey:@"GreenTeaMobileIpodCellularKeysAreMirrored"];
 
   v3 = NMLogForCategory(5);
@@ -125,29 +125,26 @@ uint64_t __50__NMSMediaSettingsSynchronizer_sharedSynchronizer__block_invoke()
 
     v3 = dispatch_queue_create("com.apple.NanoMusicSync.MediaSettingsSynchronizer", 0);
     _CTServerConnectionAddIdentifierException();
-    v5 = *MEMORY[0x277CBECE8];
     _CTServerConnectionCreateOnTargetQueue();
-    v15 = *MEMORY[0x277CC39A8];
-    v16[0] = *MEMORY[0x277CC39B8];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v13 = *MEMORY[0x277CC39A8];
+    v14[0] = *MEMORY[0x277CC39B8];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     CellularUsagePolicyMirroring = _CTServerConnectionGetCellularUsagePolicyMirroring();
     if (CellularUsagePolicyMirroring)
     {
-      v8 = NMLogForCategory(5);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v7 = NMLogForCategory(5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        v12 = CellularUsagePolicyMirroring;
-        v13 = 1024;
-        v14 = HIDWORD(CellularUsagePolicyMirroring);
-        _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Error fetching mirroring policy %d %d", buf, 0xEu);
+        v10 = CellularUsagePolicyMirroring;
+        v11 = 1024;
+        v12 = HIDWORD(CellularUsagePolicyMirroring);
+        _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Error fetching mirroring policy %d %d", buf, 0xEu);
       }
 
-      __73__NMSMediaSettingsSynchronizer__createDefaultGreenTeaSettingsIfNecessary__block_invoke(v9, 0);
+      __73__NMSMediaSettingsSynchronizer__createDefaultGreenTeaSettingsIfNecessary__block_invoke(v8, 0);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __73__NMSMediaSettingsSynchronizer__createDefaultGreenTeaSettingsIfNecessary__block_invoke(uint64_t a1, uint64_t a2)
@@ -164,50 +161,48 @@ void __73__NMSMediaSettingsSynchronizer__createDefaultGreenTeaSettingsIfNecessar
 
 uint64_t __73__NMSMediaSettingsSynchronizer__createDefaultGreenTeaSettingsIfNecessary__block_invoke_2(uint64_t a1, int a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = NMLogForCategory(5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a3)
   {
     if (v7)
     {
-      v10 = 67109376;
-      v11 = a3;
-      v12 = 1024;
-      v13 = HIDWORD(a3);
-      _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Error fetching mirroring policy %d %d", &v10, 0xEu);
+      v9 = 67109376;
+      v10 = a3;
+      v11 = 1024;
+      v12 = HIDWORD(a3);
+      _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Error fetching mirroring policy %d %d", &v9, 0xEu);
     }
   }
 
   else if (v7)
   {
-    v10 = 67109120;
-    v11 = a2;
-    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Fetched mirroring policy %x", &v10, 8u);
+    v9 = 67109120;
+    v10 = a2;
+    _os_log_impl(&dword_25B27B000, v6, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Fetched mirroring policy %x", &v9, 8u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)_reconcileGreenTeaSettingsIfNecessary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((isEitherDeviceGreenTeaCapable() & 1) == 0)
   {
     v8 = NMLogForCategory(5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v9 = "[NMSMediaSettingsSynchronizer] Neither device is Green Tea capable. Will not reconcile.";
 LABEL_11:
-      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, v9, &v11, 2u);
+      _os_log_impl(&dword_25B27B000, v8, OS_LOG_TYPE_DEFAULT, v9, &v10, 2u);
     }
 
 LABEL_12:
 
-    goto LABEL_13;
+    return;
   }
 
   v3 = [(NSUserDefaults *)self->_nanoMusicSyncDefaults objectForKey:@"GreenTeaMobileIpodCellularKeysAreMirrored"];
@@ -217,7 +212,7 @@ LABEL_12:
     v8 = NMLogForCategory(5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
+      LOWORD(v10) = 0;
       v9 = "[NMSMediaSettingsSynchronizer] Companion has not set Green Tea mirroring yet. We'll wait.";
       goto LABEL_11;
     }
@@ -234,22 +229,19 @@ LABEL_12:
     v7 = NMLogForCategory(5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 134217984;
-      v12 = _preferredGreenTeaMusicStreamingResolutionPreference;
-      _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Reconciling on init. Overriding LowBandwidthResolution with %ld", &v11, 0xCu);
+      v10 = 134217984;
+      v11 = _preferredGreenTeaMusicStreamingResolutionPreference;
+      _os_log_impl(&dword_25B27B000, v7, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Reconciling on init. Overriding LowBandwidthResolution with %ld", &v10, 0xCu);
     }
 
     CFPreferencesSetAppValue(@"MusicLowBandwidthResolution", [MEMORY[0x277CCABB0] numberWithInteger:_preferredGreenTeaMusicStreamingResolutionPreference], @"com.apple.mobileipod");
     CFPreferencesAppSynchronize(@"com.apple.mobileipod");
   }
-
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_migrateMusicDefaultsIfNecessary
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = [(NSUserDefaults *)self->_nanoMusicSyncDefaults integerForKey:@"NMLastSyncedMusicSettingsVersion"];
   if (v3 != 10)
   {
@@ -258,9 +250,9 @@ LABEL_13:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v27 = v4;
-      v28 = 2048;
-      v29 = 10;
+      v26 = v4;
+      v27 = 2048;
+      v28 = 10;
       _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Music settings migration required. LastSyncedVersion:%lu, CurrentVersion:%lu", buf, 0x16u);
     }
 
@@ -268,7 +260,7 @@ LABEL_13:
     {
       if (v4 > 9)
       {
-        goto LABEL_16;
+        return;
       }
     }
 
@@ -322,9 +314,6 @@ LABEL_13:
       [(NSUserDefaults *)self->_nanoMusicSyncDefaults setInteger:10 forKey:@"NMLastSyncedMusicSettingsVersion"];
     }
   }
-
-LABEL_16:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)_preferredGreenTeaMusicStreamingResolutionPreference
@@ -358,7 +347,7 @@ LABEL_16:
 
 - (id)_podcastsUserDefaults
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CC1E88] bundleProxyForIdentifier:@"com.apple.podcasts"];
   dataContainerURL = [v2 dataContainerURL];
 
@@ -366,14 +355,12 @@ LABEL_16:
   v5 = NMLogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
-    v9 = v4;
-    v10 = 2112;
-    v11 = dataContainerURL;
-    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Observing podcasts user defaults %@ at %@", &v8, 0x16u);
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = dataContainerURL;
+    _os_log_impl(&dword_25B27B000, v5, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Observing podcasts user defaults %@ at %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -460,7 +447,7 @@ LABEL_16:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   if (isEitherDeviceGreenTeaCapable())
@@ -482,10 +469,10 @@ LABEL_16:
   }
 
   selfCopy = self;
-  v71 = greenTeaMusicIsMirroringStreamingSettings;
+  v70 = greenTeaMusicIsMirroringStreamingSettings;
   if (context == @"MPCPlaybackPrivateListeningEnabled")
   {
-    v75 = @"MPCPlaybackPrivateListeningEnabled";
+    v74 = @"MPCPlaybackPrivateListeningEnabled";
     v14 = [(NSUserDefaults *)self->_mediaPlaybackCoreDefaults objectForKey:?];
     v13 = @"com.apple.mediaplaybackcore";
     goto LABEL_14;
@@ -497,7 +484,7 @@ LABEL_16:
     {
       if (greenTeaMusicIsMirroringStreamingSettings)
       {
-        v75 = @"AllowsCellularDataDownloads";
+        v74 = @"AllowsCellularDataDownloads";
         v14 = [(NSUserDefaults *)self->_musicDefaults objectForKey:?];
         v13 = @"com.apple.Music";
         goto LABEL_14;
@@ -510,7 +497,7 @@ LABEL_16:
       if (@"GreenTeaMusicAllowsCellularData" == context || (v12 = @"GreenTeaMusicAllowsHighQualityStreamingOnCellular", @"GreenTeaMusicAllowsHighQualityStreamingOnCellular" == context) || (v12 = @"GreenTeaMusicAllowsDownloadsOverCellular", @"GreenTeaMusicAllowsDownloadsOverCellular" == context))
       {
         v13 = @"com.apple.NanoMusicSync";
-        v75 = v12;
+        v74 = v12;
         v14 = [(NSUserDefaults *)self->_nanoMusicSyncDefaults objectForKey:?];
 LABEL_14:
         v15 = 1;
@@ -526,7 +513,7 @@ LABEL_14:
 LABEL_20:
     v15 = 0;
     v14 = 0;
-    v75 = 0;
+    v74 = 0;
     v13 = 0;
     goto LABEL_21;
   }
@@ -541,7 +528,7 @@ LABEL_20:
   mobileIPodDefaults = self->_mobileIPodDefaults;
   if (v21)
   {
-    v75 = @"MusicLowBandwidthResolution";
+    v74 = @"MusicLowBandwidthResolution";
     v14 = [(NSUserDefaults *)mobileIPodDefaults objectForKey:?];
     v13 = @"com.apple.mobileipod";
     goto LABEL_14;
@@ -558,7 +545,7 @@ LABEL_20:
 
   v15 = 0;
   v14 = 0;
-  v75 = 0;
+  v74 = 0;
 LABEL_21:
   mEMORY[0x277D2BCF8]2 = [MEMORY[0x277D2BCF8] sharedInstance];
   activePairedDeviceSelectorBlock2 = [MEMORY[0x277D2BCF8] activePairedDeviceSelectorBlock];
@@ -574,17 +561,17 @@ LABEL_22:
     {
       v29 = v14;
       v30 = pathCopy;
-      v31 = v75;
+      v31 = v74;
 LABEL_43:
       v39 = NMLogForCategory(5);
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        *v77 = v13;
+        *v76 = v13;
+        *&v76[8] = 2112;
+        *v77 = v31;
         *&v77[8] = 2112;
-        *v78 = v31;
-        *&v78[8] = 2112;
-        *v79 = v29;
+        *v78 = v29;
         _os_log_impl(&dword_25B27B000, v39, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Synchronizing defaults for domain: %@, key: %@, value: %@", buf, 0x20u);
       }
 
@@ -652,7 +639,7 @@ LABEL_38:
 
   _podcastsAppGroupPath = [(NMSMediaSettingsSynchronizer *)selfCopy _podcastsAppGroupPath];
 
-  v75 = @"MTPrivacyResetIdentifier";
+  v74 = @"MTPrivacyResetIdentifier";
   v29 = [(NSUserDefaults *)selfCopy->_podcastsDefaults objectForKey:?];
 
   v30 = pathCopy;
@@ -671,9 +658,9 @@ LABEL_34:
         _os_log_impl(&dword_25B27B000, v35, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] GreenTeaMobileIpodCellularKeysAreMirrored did change", buf, 2u);
       }
 
-      if (v71)
+      if (v70)
       {
-        v70 = [(NSUserDefaults *)selfCopy->_mobileIPodDefaults integerForKey:@"MusicLowBandwidthResolution"];
+        v69 = [(NSUserDefaults *)selfCopy->_mobileIPodDefaults integerForKey:@"MusicLowBandwidthResolution"];
         mEMORY[0x277D2BCF8]3 = [MEMORY[0x277D2BCF8] sharedInstance];
         activePairedDeviceSelectorBlock3 = [MEMORY[0x277D2BCF8] activePairedDeviceSelectorBlock];
         v43 = [mEMORY[0x277D2BCF8]3 getAllDevicesWithArchivedAltAccountDevicesMatching:activePairedDeviceSelectorBlock3];
@@ -688,7 +675,7 @@ LABEL_34:
           if (v48)
           {
             *buf = 134217984;
-            *v77 = v70;
+            *v76 = v69;
             _os_log_impl(&dword_25B27B000, v47, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer]\tSynchronizing preferredMusicLowBandwidthResolution %ld", buf, 0xCu);
           }
 
@@ -706,9 +693,9 @@ LABEL_34:
             v58 = [(NSUserDefaults *)selfCopy->_mobileIPodDefaults objectForKey:@"MusicAllowsCellularData"];
             v59 = [(NSUserDefaults *)selfCopy->_mobileIPodDefaults objectForKey:@"MusicAllowsHighQualityStreamingOnCellular"];
             *buf = 138412546;
-            *v77 = v58;
-            *&v77[8] = 2112;
-            *v78 = v59;
+            *v76 = v58;
+            *&v76[8] = 2112;
+            *v77 = v59;
             _os_log_impl(&dword_25B27B000, v47, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer]\tSynchronizing CellularStreamingAllowed %@ and MusicAllowsHighQualityStreamingOnCellular %@", buf, 0x16u);
           }
 
@@ -722,7 +709,7 @@ LABEL_34:
         {
           v61 = [(NSUserDefaults *)v40->_musicDefaults objectForKey:@"AllowsCellularDataDownloads"];
           *buf = 138412290;
-          *v77 = v61;
+          *v76 = v61;
           _os_log_impl(&dword_25B27B000, v60, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer]\tSynchronizing AllowsDownloadsOverCellular %@", buf, 0xCu);
         }
 
@@ -741,11 +728,11 @@ LABEL_34:
           v56 = [(NSUserDefaults *)selfCopy->_nanoMusicSyncDefaults objectForKey:?];
           v57 = [(NSUserDefaults *)selfCopy->_nanoMusicSyncDefaults objectForKey:@"GreenTeaMusicAllowsDownloadsOverCellular"];
           *buf = 138412802;
-          *v77 = v55;
+          *v76 = v55;
+          *&v76[8] = 2112;
+          *v77 = v56;
           *&v77[8] = 2112;
-          *v78 = v56;
-          *&v78[8] = 2112;
-          *v79 = v57;
+          *v78 = v57;
           _os_log_impl(&dword_25B27B000, v54, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer]\tSynchronizing GreenTeaCellularStreamingAllowed %@, GreenTeaMusicAllowsHighQualityStreamingOnCellular %@, and GreenTeaMusicAllowsDownloadsOverCellular: %@", buf, 0x20u);
 
           v40 = selfCopy;
@@ -764,9 +751,9 @@ LABEL_34:
       {
         v67 = [(NSUserDefaults *)v40->_nanoMusicSyncDefaults objectForKey:@"GreenTeaMobileIpodCellularKeysAreMirrored"];
         *buf = 138412546;
-        *v77 = v67;
-        *&v77[8] = 1024;
-        *v78 = v71;
+        *v76 = v67;
+        *&v76[8] = 1024;
+        *v77 = v70;
         _os_log_impl(&dword_25B27B000, v66, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer]\tSynchronizing GreenTeaMobileIpodCellularKeysAreMirrored %@ BOOL value %x", buf, 0x12u);
       }
 
@@ -779,19 +766,19 @@ LABEL_34:
     {
       v36 = isEitherDeviceGreenTeaCapable();
       *buf = 67110146;
-      *v77 = v36;
-      *&v77[4] = 1024;
-      *&v77[6] = v71;
+      *v76 = v36;
+      *&v76[4] = 1024;
+      *&v76[6] = v70;
+      *v77 = 2112;
+      *&v77[2] = v30;
       *v78 = 2112;
-      *&v78[2] = v30;
+      *&v78[2] = objectCopy;
       *v79 = 2112;
-      *&v79[2] = objectCopy;
-      *v80 = 2112;
-      *&v80[2] = context;
+      *&v79[2] = context;
       _os_log_error_impl(&dword_25B27B000, v35, OS_LOG_TYPE_ERROR, "[NMSMediaSettingsSynchronizer] Did not sync value change. isGreenTea %x, isMirroringCellularPolicy: %x, keypath: %@, object: %@, context: %@", buf, 0x2Cu);
     }
 
-    v31 = v75;
+    v31 = v74;
     goto LABEL_67;
   }
 
@@ -807,15 +794,15 @@ LABEL_39:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413314;
-    *v77 = @"243LU875E5.groups.com.apple.podcasts";
+    *v76 = @"243LU875E5.groups.com.apple.podcasts";
+    *&v76[8] = 2112;
+    *v77 = @"com.apple.podcasts";
     *&v77[8] = 2112;
-    *v78 = @"com.apple.podcasts";
+    *v78 = @"243LU875E5.groups.com.apple.podcasts";
     *&v78[8] = 2112;
-    *v79 = @"243LU875E5.groups.com.apple.podcasts";
+    *v79 = v31;
     *&v79[8] = 2112;
-    *v80 = v31;
-    *&v80[8] = 2112;
-    v81 = v29;
+    v80 = v29;
     _os_log_impl(&dword_25B27B000, v37, OS_LOG_TYPE_DEFAULT, "[NMSMediaSettingsSynchronizer] Synchronizing defaults for domain: %@, container: %@, appGroup: %@, key: %@, value: %@", buf, 0x34u);
   }
 
@@ -824,7 +811,6 @@ LABEL_39:
   [v35 synchronizeUserDefaultsDomain:@"243LU875E5.groups.com.apple.podcasts" keys:v38 container:@"com.apple.podcasts" appGroupContainer:@"243LU875E5.groups.com.apple.podcasts"];
 
 LABEL_67:
-  v69 = *MEMORY[0x277D85DE8];
 }
 
 @end

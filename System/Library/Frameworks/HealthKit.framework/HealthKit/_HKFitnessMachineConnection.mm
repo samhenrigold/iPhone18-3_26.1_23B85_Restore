@@ -91,18 +91,17 @@
 
 - (void)connectionInvalidated
 {
-  v7 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v6 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v5, 0xCu);
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: Connection invalidated", &v4, 0xCu);
   }
 
   [(_HKFitnessMachineConnection *)self connectionInterrupted];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -166,8 +165,8 @@
 
 - (void)_registerClient
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
@@ -176,24 +175,23 @@
     _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "Registering Client. Fitness machine connection %@", buf, 0xCu);
   }
 
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __46___HKFitnessMachineConnection__registerClient__block_invoke;
-  v6[3] = &unk_1E737F960;
-  v6[4] = self;
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
-  v5[2] = __46___HKFitnessMachineConnection__registerClient__block_invoke_2;
-  v5[3] = &unk_1E7376898;
+  v5[2] = __46___HKFitnessMachineConnection__registerClient__block_invoke;
+  v5[3] = &unk_1E737F960;
   v5[4] = self;
-  [(_HKFitnessMachineConnection *)self _fetchProxyWithHandler:v6 errorHandler:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __46___HKFitnessMachineConnection__registerClient__block_invoke_2;
+  v4[3] = &unk_1E7376898;
+  v4[4] = self;
+  [(_HKFitnessMachineConnection *)self _fetchProxyWithHandler:v5 errorHandler:v4];
 }
 
 - (void)end
 {
-  v8 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v7 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
@@ -202,13 +200,12 @@
     _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_DEFAULT, "End fitness machine connection %@", buf, 0xCu);
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __34___HKFitnessMachineConnection_end__block_invoke_2;
-  v5[3] = &unk_1E7376898;
-  v5[4] = self;
-  [(_HKFitnessMachineConnection *)self _fetchProxyWithHandler:&__block_literal_global_19 errorHandler:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __34___HKFitnessMachineConnection_end__block_invoke_2;
+  v4[3] = &unk_1E7376898;
+  v4[4] = self;
+  [(_HKFitnessMachineConnection *)self _fetchProxyWithHandler:&__block_literal_global_19 errorHandler:v4];
 }
 
 - (void)endWithFitnessMachineSessionUUID:(id)d

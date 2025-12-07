@@ -277,7 +277,7 @@
 {
   v7[12] = *MEMORY[0x1E69E9840];
   [(CEKLightingCube *)self points:v7 forOutlineWithSize:size.width, size.height];
-  RoundedPathForConvexPolygon = CreateRoundedPathForConvexPolygon(v7, 6, radius);
+  RoundedPathForConvexPolygon = CreateRoundedPathForConvexPolygon(v7, 6uLL, radius);
   return CFAutorelease(RoundedPathForConvexPolygon);
 }
 
@@ -429,7 +429,7 @@
 {
   v6[8] = *MEMORY[0x1E69E9840];
   [(CEKLightingCube *)self points:v6 forPlane:plane size:size.width, size.height];
-  RoundedPathForConvexPolygon = CreateRoundedPathForConvexPolygon(v6, 4, 0.0);
+  RoundedPathForConvexPolygon = CreateRoundedPathForConvexPolygon(v6, 4uLL, 0.0);
   return CFAutorelease(RoundedPathForConvexPolygon);
 }
 

@@ -384,8 +384,9 @@ LABEL_10:
   if (self->_zeroPadTimeSubstringToSeparatorText != text)
   {
     self->_zeroPadTimeSubstringToSeparatorText = text;
+    timeSubstringToSeparatorText = self->_timeSubstringToSeparatorText;
     self->_timeSubstringToSeparatorText = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, timeSubstringToSeparatorText);
   }
 }
 
@@ -433,8 +434,9 @@ LABEL_10:
   if (self->_includeSeparatorInTimeSubstringFromSeparatorText != text)
   {
     self->_includeSeparatorInTimeSubstringFromSeparatorText = text;
+    timeSubstringFromSeparatorText = self->_timeSubstringFromSeparatorText;
     self->_timeSubstringFromSeparatorText = 0;
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](self, timeSubstringFromSeparatorText);
   }
 }
 

@@ -38,35 +38,35 @@
   {
     if (self->_encodedRemoteAppIdentifier)
     {
-      v14 = 0;
-      v15 = &v14;
-      v16 = 0x2050000000;
+      v15 = 0;
+      v16 = &v15;
+      v17 = 0x2050000000;
       v4 = getAPSLaunchUtilClass_softClass;
-      v17 = getAPSLaunchUtilClass_softClass;
+      v18 = getAPSLaunchUtilClass_softClass;
       if (!getAPSLaunchUtilClass_softClass)
       {
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __getAPSLaunchUtilClass_block_invoke;
-        v13[3] = &unk_1E789DA88;
-        v13[4] = &v14;
-        __getAPSLaunchUtilClass_block_invoke(v13);
-        v4 = v15[3];
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __getAPSLaunchUtilClass_block_invoke;
+        v14[3] = &unk_1E789DA88;
+        v14[4] = &v15;
+        __getAPSLaunchUtilClass_block_invoke(v14);
+        v4 = v16[3];
       }
 
       v5 = v4;
-      _Block_object_dispose(&v14, 8);
+      _Block_object_dispose(&v15, 8);
       encodedRemoteAppIdentifier = self->_encodedRemoteAppIdentifier;
-      v12 = 0;
-      v7 = [v4 lsRecordForLaunchPayload:encodedRemoteAppIdentifier error:&v12];
-      v8 = v12;
+      v13 = 0;
+      v7 = [v4 lsRecordForLaunchPayload:encodedRemoteAppIdentifier error:&v13];
+      v8 = v13;
       v9 = self->_lsApplicationRecord;
       self->_lsApplicationRecord = v7;
 
       if (v8)
       {
-        v10 = SBLogContinuitySessionService();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v11 = SBLogContinuitySessionService(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [(SBUIContinuitySessionAppLaunchEvent *)v8 lsApplicationRecord];
         }

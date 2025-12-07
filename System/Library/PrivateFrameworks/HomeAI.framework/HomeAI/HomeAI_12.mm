@@ -108,20 +108,20 @@ _OWORD *cv::transpose_32sC8(_OWORD *result, uint64_t a2, _OWORD *a3, uint64_t a4
           v52 = *(v18 + v46 + 16);
           *v51 = *(v18 + v46);
           v51[1] = v52;
-          v53 = (v48 + v45);
+          v53 = &v48[v45];
           v54 = *(v18 + v46 + 48);
           *v53 = *(v18 + v46 + 32);
-          v53[1] = v54;
-          v55 = (v49 + v45);
+          *(v53 + 1) = v54;
+          v55 = &v49[v45];
           v56 = *(v18 + v46 + 80);
           *v55 = *(v18 + v46 + 64);
-          v55[1] = v56;
-          v57 = (v50 + v45);
+          *(v55 + 1) = v56;
+          v57 = &v50[v45];
           v58 = *(v18 + v46 + 112);
           v50 += 32;
           v49 += 32;
           *v57 = *(v18 + v46 + 96);
-          v57[1] = v58;
+          *(v57 + 1) = v58;
           v48 += 32;
           v47 += 2;
           v46 += a2;
@@ -153,7 +153,7 @@ _OWORD *cv::transpose_32sC8(_OWORD *result, uint64_t a2, _OWORD *a3, uint64_t a4
     v11 = v11;
     v59 = &result[2 * v11];
     v60 = a3 + a4 * v11;
-    result = (v60 + 64);
+    result = v60 + 64;
     do
     {
       if (v6 >= 4)
@@ -192,14 +192,14 @@ _OWORD *cv::transpose_32sC8(_OWORD *result, uint64_t a2, _OWORD *a3, uint64_t a4
       if (v61 < v7)
       {
         v69 = v6 - v61;
-        v70 = (v60 + 32 * v61);
+        v70 = &v60[32 * v61];
         v71 = a2 * v61;
         do
         {
           v72 = *(v59 + v71 + 16);
           *v70 = *(v59 + v71);
-          v70[1] = v72;
-          v70 += 2;
+          *(v70 + 1) = v72;
+          v70 += 32;
           v71 += a2;
           --v69;
         }
@@ -219,16 +219,16 @@ _OWORD *cv::transpose_32sC8(_OWORD *result, uint64_t a2, _OWORD *a3, uint64_t a4
   return result;
 }
 
-uint64_t std::vector<cv::Mat>::__append(uint64_t result, unint64_t a2)
+cv::Mat **std::vector<cv::Mat>::__append(cv::Mat **result, unint64_t a2)
 {
   v3 = result;
-  v5 = *(result + 8);
-  v4 = *(result + 16);
+  v5 = result[1];
+  v4 = result[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v4 - v5) >> 5) >= a2)
   {
     if (a2)
     {
-      v10 = v5 + 96 * a2;
+      v10 = (v5 + 96 * a2);
       v11 = 96 * a2;
       v12 = (v5 + 80);
       do
@@ -251,10 +251,10 @@ uint64_t std::vector<cv::Mat>::__append(uint64_t result, unint64_t a2)
 
     else
     {
-      v10 = *(result + 8);
+      v10 = result[1];
     }
 
-    *(result + 8) = v10;
+    result[1] = v10;
   }
 
   else
@@ -311,13 +311,13 @@ uint64_t std::vector<cv::Mat>::__append(uint64_t result, unint64_t a2)
 
     while (v14);
     *&v22 = v13 + 96 * a2;
-    v16 = *(result + 8);
+    v16 = result[1];
     v17 = (v13 + *result - v16);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<cv::Mat>,cv::Mat*>(result, *result, v16, v17);
     v18 = *v3;
     *v3 = v17;
-    v19 = *(v3 + 16);
-    *(v3 + 8) = v22;
+    v19 = v3[2];
+    *(v3 + 1) = v22;
     *&v22 = v18;
     *(&v22 + 1) = v19;
     v20 = v18;
@@ -328,9 +328,9 @@ uint64_t std::vector<cv::Mat>::__append(uint64_t result, unint64_t a2)
   return result;
 }
 
-void sub_22D26E3C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22D26E3C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<cv::Mat>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2470,7 +2470,7 @@ uint64_t cv::Exception::what(cv::Exception *this)
 
 void cv::error(cv *this, const cv::Exception *a2)
 {
-  v2 = MEMORY[0x28223BE20](this, a2);
+  v2 = MEMORY[0x28223BE20](this);
   v14 = *MEMORY[0x277D85DE8];
   v3 = *(v2 + 32);
   if (cv::customErrorCallback)
@@ -2943,14 +2943,14 @@ double cv::gpu::GpuMat::release(cv::gpu::GpuMat *this)
 
 void EmptyFuncTable::copy(EmptyFuncTable *this, const cv::Mat *a2, cv::gpu::GpuMat *a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(v6, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v5, "copy");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v7, 4294967080, v6, v5, __p, 115);
+  std::string::basic_string[abi:ne200100]<0>(&v6, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "copy");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v7, -216, &v6, &v5, &__p, 115);
   cv::error(v7, v3);
 }
 
-void sub_22D271710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -2973,14 +2973,14 @@ void sub_22D271710(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::copy(EmptyFuncTable *this, const cv::gpu::GpuMat *a2, cv::Mat *a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(v6, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v5, "copy");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v7, 4294967080, v6, v5, __p, 116);
+  std::string::basic_string[abi:ne200100]<0>(&v6, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "copy");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v7, -216, &v6, &v5, &__p, 116);
   cv::error(v7, v3);
 }
 
-void sub_22D27181C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D27181C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3003,14 +3003,14 @@ void sub_22D27181C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::copy(EmptyFuncTable *this, const cv::gpu::GpuMat *a2, cv::gpu::GpuMat *a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(v6, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v5, "copy");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v7, 4294967080, v6, v5, __p, 117);
+  std::string::basic_string[abi:ne200100]<0>(&v6, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "copy");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v7, -216, &v6, &v5, &__p, 117);
   cv::error(v7, v3);
 }
 
-void sub_22D271928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3033,14 +3033,14 @@ void sub_22D271928(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::copyWithMask(EmptyFuncTable *this, const cv::gpu::GpuMat *a2, cv::gpu::GpuMat *a3, const cv::gpu::GpuMat *a4)
 {
-  std::string::basic_string[abi:ne200100]<0>(v7, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v6, "copyWithMask");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v8, 4294967080, v7, v6, __p, 119);
+  std::string::basic_string[abi:ne200100]<0>(&v7, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v6, "copyWithMask");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v8, -216, &v7, &v6, &__p, 119);
   cv::error(v8, v4);
 }
 
-void sub_22D271A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3063,14 +3063,14 @@ void sub_22D271A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::convert(EmptyFuncTable *this, const cv::gpu::GpuMat *a2, cv::gpu::GpuMat *a3, double a4, double a5, void *a6)
 {
-  std::string::basic_string[abi:ne200100]<0>(v9, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v8, "convert");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v10, 4294967080, v9, v8, __p, 122);
+  std::string::basic_string[abi:ne200100]<0>(&v9, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v8, "convert");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v10, -216, &v9, &v8, &__p, 122);
   cv::error(v10, v6);
 }
 
-void sub_22D271B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3093,14 +3093,14 @@ void sub_22D271B40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::convert(EmptyFuncTable *this, const cv::gpu::GpuMat *a2, cv::gpu::GpuMat *a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(v6, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v5, "convert");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v7, 4294967080, v6, v5, __p, 121);
+  std::string::basic_string[abi:ne200100]<0>(&v6, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "convert");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v7, -216, &v6, &v5, &__p, 121);
   cv::error(v7, v3);
 }
 
-void sub_22D271C4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271C4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3123,14 +3123,14 @@ void sub_22D271C4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::setTo()
 {
-  std::string::basic_string[abi:ne200100]<0>(v3, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v2, "setTo");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v4, 4294967080, v3, v2, __p, 124);
+  std::string::basic_string[abi:ne200100]<0>(&v3, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v2, "setTo");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v4, -216, &v3, &v2, &__p, 124);
   cv::error(v4, v0);
 }
 
-void sub_22D271D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3153,14 +3153,14 @@ void sub_22D271D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void EmptyFuncTable::mallocPitch(EmptyFuncTable *this, void **a2, unint64_t *a3)
 {
-  std::string::basic_string[abi:ne200100]<0>(v6, "The library is compiled without CUDA support");
-  std::string::basic_string[abi:ne200100]<0>(v5, "mallocPitch");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
-  cv::Exception::Exception(v7, 4294967080, v6, v5, __p, 126);
+  std::string::basic_string[abi:ne200100]<0>(&v6, "The library is compiled without CUDA support");
+  std::string::basic_string[abi:ne200100]<0>(&v5, "mallocPitch");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/include/opencv2/dynamicuda/dynamicuda.hpp");
+  cv::Exception::Exception(v7, -216, &v6, &v5, &__p, 126);
   cv::error(v7, v3);
 }
 
-void sub_22D271E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D271E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3181,16 +3181,16 @@ void sub_22D271E64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::parallel_for_(uint64_t *a1, uint64_t a2, double a3)
+void cv::parallel_for_(uint64_t *a1, uint64_t a2, __n128 a3)
 {
   {
     v4 = *a1;
     context[0] = a2;
     context[1] = v4;
     v5 = 1.0;
-    if (a3 >= 1.0)
+    if (a3.n128_f64[0] >= 1.0)
     {
-      v5 = a3;
+      v5 = a3.n128_f64[0];
     }
 
     if (v5 > (HIDWORD(v4) - v4))
@@ -3198,7 +3198,7 @@ void cv::parallel_for_(uint64_t *a1, uint64_t a2, double a3)
       v5 = (HIDWORD(v4) - v4);
     }
 
-    if (a3 <= 0.0)
+    if (a3.n128_f64[0] <= 0.0)
     {
       v6 = (HIDWORD(v4) - v4);
     }
@@ -3216,7 +3216,7 @@ void cv::parallel_for_(uint64_t *a1, uint64_t a2, double a3)
   {
     v8 = *(*a2 + 16);
 
-    v8(a2, a1);
+    v8(a2, a1, a3);
   }
 }
 
@@ -3239,23 +3239,23 @@ uint64_t anonymous namespace::block_function(_anonymous_namespace_ *this, void *
 void cv::goodFeaturesToTrack(void (***this)(uint64_t *__return_ptr), const cv::_InputArray *a2, const cv::_OutputArray *a3, void (***a4)(uint64_t *__return_ptr, void, uint64_t), double a5, double a6, const cv::_InputArray *a7, int a8, double a9)
 {
   v15 = a3;
-  (**this)(&v38);
-  (**a4)(&v33, a4, 0xFFFFFFFFLL);
+  (**this)(&v36);
+  (**a4)(&v31, a4, 0xFFFFFFFFLL);
   if (v15 < 0 || a5 <= 0.0 || a6 < 0.0)
   {
     std::string::basic_string[abi:ne200100]<0>(v25, "qualityLevel > 0 && minDistance >= 0 && maxCorners >= 0");
     std::string::basic_string[abi:ne200100]<0>(v23, "goodFeaturesToTrack");
-    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/featureselect.cpp");
-    cv::Exception::Exception(v29, 4294967081, v25, v23, &__p, 62);
-    cv::error(v29, v16);
+    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/featureselect.cpp");
+    cv::Exception::Exception(v27, -215, v25, v23, __p, 62);
+    cv::error(v27, v16);
   }
 
-  if (v36)
+  if (v34)
   {
-    v17 = HIDWORD(v33);
-    if (SHIDWORD(v33) >= 3)
+    v17 = HIDWORD(v31);
+    if (SHIDWORD(v31) >= 3)
     {
-      v19 = v37;
+      v19 = v35;
       v18 = 1;
       do
       {
@@ -3269,49 +3269,50 @@ void cv::goodFeaturesToTrack(void (***this)(uint64_t *__return_ptr), const cv::_
 
     else
     {
-      v18 = v35 * v34;
+      v18 = v33 * v32;
     }
 
     if (v18)
     {
-      if ((v33 & 0xFFF) != 0 || (v37[1] == v39[1] ? (v21 = *v37 == *v39) : (v21 = 0), !v21))
+      if ((v31 & 0xFFF) != 0 || (v35[1] == v37[1] ? (v21 = *v35 == *v37) : (v21 = 0), !v21))
       {
         std::string::basic_string[abi:ne200100]<0>(v25, "mask.empty() || (mask.type() == CV_8UC1 && mask.size() == image.size())");
         std::string::basic_string[abi:ne200100]<0>(v23, "goodFeaturesToTrack");
-        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/featureselect.cpp");
-        cv::Exception::Exception(v29, 4294967081, v25, v23, &__p, 63);
-        cv::error(v29, v22);
+        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/featureselect.cpp");
+        cv::Exception::Exception(v27, -215, v25, v23, __p, 63);
+        cv::error(v27, v22);
       }
     }
   }
 
-  v30 = &v29[2];
-  v31 = v32;
-  v32[0] = 0;
-  v32[1] = 0;
-  v29[0] = 1124007936;
-  memset(&v29[1], 0, 60);
-  v26 = &v25[2];
-  v27 = v28;
-  v28[0] = 0;
-  v28[1] = 0;
-  v25[0] = 1124007936;
-  memset(&v25[1], 0, 60);
+  v28 = &v27[2];
+  v29 = v30;
+  v30[0] = 0;
+  v30[1] = 0;
+  v27[0] = 1124007936;
+  memset(&v27[1], 0, 60);
+  v25[8] = &v25[1];
+  v25[9] = v26;
+  v26[0] = 0;
+  v26[1] = 0;
+  LODWORD(v25[0]) = 1124007936;
+  memset(v25 + 4, 0, 32);
+  memset(&v25[4] + 4, 0, 28);
   if (a8)
   {
-    cv::_InputArray::_InputArray(v23, &v38);
-    cv::_OutputArray::_OutputArray(&__p, v29);
-    cv::cornerHarris(v23, &__p, a7, 3, a9);
+    cv::_InputArray::_InputArray(v23, &v36);
+    cv::_OutputArray::_OutputArray(__p, v27);
+    cv::cornerHarris(v23, __p, a7, 3, 4u, a9);
   }
 
-  cv::_InputArray::_InputArray(v23, &v38);
-  cv::_OutputArray::_OutputArray(&__p, v29);
-  cv::cornerMinEigenVal(v23, &__p, a7, 3);
+  cv::_InputArray::_InputArray(v23, &v36);
+  cv::_OutputArray::_OutputArray(__p, v27);
+  cv::cornerMinEigenVal(v23, __p, a7, 3, 4u);
 }
 
 void sub_22D272C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *__p, uint64_t a48, int a49, __int16 a50, char a51, char a52, uint64_t a53, void *a54, uint64_t a55, int a56, __int16 a57, char a58, char a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  cv::Exception::~Exception(&a69);
+  cv::Exception::~Exception(&a65);
   if (a52 < 0)
   {
     operator delete(__p);
@@ -3328,11 +3329,11 @@ void sub_22D272C84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   }
 
   cv::Mat::~Mat(&STACK[0x210]);
-  cv::Mat::~Mat((v69 - 224));
+  cv::Mat::~Mat((v65 - 224));
   _Unwind_Resume(a1);
 }
 
-uint64_t cv::sort<float const*,cv::greaterThanPtr<float>>(uint64_t result)
+unint64_t cv::sort<float const*,cv::greaterThanPtr<float>>(unint64_t result)
 {
   v70[96] = *MEMORY[0x277D85DE8];
   v1 = *result;
@@ -3768,20 +3769,20 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<float const*>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<std::vector<cv::Point_<float>>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<cv::Point_<float>>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<cv::Point_<float>>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<cv::Point_<float>>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<cv::Point_<float>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<cv::Point_<float>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -3862,7 +3863,7 @@ void sub_22D273490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int *cvCreateMat(int a1, int a2, unsigned int a3)
+int *cvCreateMat(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   MatHeader = cvCreateMatHeader(a1, a2, a3);
   cvCreateData(MatHeader);
@@ -3874,20 +3875,20 @@ _DWORD *cvCreateMatHeader(int a1, int a2, unsigned int a3)
   v3 = a3;
   if (a1 < 0 || a2 <= 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "Non-positive width or height");
-    std::string::basic_string[abi:ne200100]<0>(v11, "cvCreateMatHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v13, 4294967095, v12, v11, __p, 113);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "Non-positive width or height");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "cvCreateMatHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v13, -201, &v12, &v11, &__p, 113);
     cv::error(v13, v6);
   }
 
   v7 = ((((a3 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (a3 & 7))) & 3)) * a2;
   if (v7 <= 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v12, "Invalid matrix type");
-    std::string::basic_string[abi:ne200100]<0>(v11, "cvCreateMatHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v13, 4294967086, v12, v11, __p, 117);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "Invalid matrix type");
+    std::string::basic_string[abi:ne200100]<0>(&v11, "cvCreateMatHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v13, -210, &v12, &v11, &__p, 117);
     cv::error(v13, v8);
   }
 
@@ -3907,7 +3908,7 @@ _DWORD *cvCreateMatHeader(int a1, int a2, unsigned int a3)
   return result;
 }
 
-void sub_22D2736D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2736D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -3944,10 +3945,10 @@ int *cvCreateData(int *result)
     {
       if (*(result + 11))
       {
-        std::string::basic_string[abi:ne200100]<0>(v21, "Data is already allocated");
-        std::string::basic_string[abi:ne200100]<0>(v20, "cvCreateData");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(v22, 4294967294, v21, v20, __p, 825);
+        std::string::basic_string[abi:ne200100]<0>(&v21, "Data is already allocated");
+        std::string::basic_string[abi:ne200100]<0>(&v20, "cvCreateData");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(v22, -2, &v21, &v20, &__p, 825);
         cv::error(v22, v9);
       }
 
@@ -3996,10 +3997,10 @@ int *cvCreateData(int *result)
 
       if (*(result + 3))
       {
-        std::string::basic_string[abi:ne200100]<0>(v21, "Data is already allocated");
-        std::string::basic_string[abi:ne200100]<0>(v20, "cvCreateData");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(v22, 4294967294, v21, v20, __p, 859);
+        std::string::basic_string[abi:ne200100]<0>(&v21, "Data is already allocated");
+        std::string::basic_string[abi:ne200100]<0>(&v20, "cvCreateData");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(v22, -2, &v21, &v20, &__p, 859);
         cv::error(v22, v14);
       }
 
@@ -4040,10 +4041,10 @@ int *cvCreateData(int *result)
     }
 
 LABEL_27:
-    std::string::basic_string[abi:ne200100]<0>(v21, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v20, "cvCreateData");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v22, 4294967291, v21, v20, __p, 883);
+    std::string::basic_string[abi:ne200100]<0>(&v21, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v20, "cvCreateData");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v22, -5, &v21, &v20, &__p, 883);
     cv::error(v22, v15);
   }
 
@@ -4064,10 +4065,10 @@ LABEL_27:
     v6 = result[1];
     if (*(result + 3))
     {
-      std::string::basic_string[abi:ne200100]<0>(v21, "Data is already allocated");
-      std::string::basic_string[abi:ne200100]<0>(v20, "cvCreateData");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v22, 4294967294, v21, v20, __p, 807);
+      std::string::basic_string[abi:ne200100]<0>(&v21, "Data is already allocated");
+      std::string::basic_string[abi:ne200100]<0>(&v20, "cvCreateData");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v22, -2, &v21, &v20, &__p, 807);
       cv::error(v22, v7);
     }
 
@@ -4087,7 +4088,7 @@ LABEL_39:
   return result;
 }
 
-void sub_22D273B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D273B6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4113,19 +4114,19 @@ uint64_t cvInitMatHeader(uint64_t result, int a2, int a3, unsigned int a4, uint6
   v6 = a6;
   if (!result)
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "");
-    std::string::basic_string[abi:ne200100]<0>(v15, "cvInitMatHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v17, 4294967269, v16, v15, __p, 140);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "");
+    std::string::basic_string[abi:ne200100]<0>(&v15, "cvInitMatHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v17, -27, &v16, &v15, &__p, 140);
     cv::error(v17, v7);
   }
 
   if (a2 < 0 || a3 <= 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "Non-positive cols or rows");
-    std::string::basic_string[abi:ne200100]<0>(v15, "cvInitMatHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v17, 4294967095, v16, v15, __p, 146);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "Non-positive cols or rows");
+    std::string::basic_string[abi:ne200100]<0>(&v15, "cvInitMatHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v17, -201, &v16, &v15, &__p, 146);
     cv::error(v17, v8);
   }
 
@@ -4141,10 +4142,10 @@ uint64_t cvInitMatHeader(uint64_t result, int a2, int a3, unsigned int a4, uint6
   {
     if (v10 > a6)
     {
-      std::string::basic_string[abi:ne200100]<0>(v16, "");
-      std::string::basic_string[abi:ne200100]<0>(v15, "cvInitMatHeader");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v17, 4294967283, v16, v15, __p, 162);
+      std::string::basic_string[abi:ne200100]<0>(&v16, "");
+      std::string::basic_string[abi:ne200100]<0>(&v15, "cvInitMatHeader");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v17, -13, &v16, &v15, &__p, 162);
       cv::error(v17, v13);
     }
   }
@@ -4174,7 +4175,7 @@ uint64_t cvInitMatHeader(uint64_t result, int a2, int a3, unsigned int a4, uint6
   return result;
 }
 
-void sub_22D273E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D273E94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4199,10 +4200,10 @@ void cvReleaseMat(void **a1)
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "");
-    std::string::basic_string[abi:ne200100]<0>(v10, "cvReleaseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v12, 4294967287, v11, v10, __p, 183);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "cvReleaseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v12, -9, &v11, &v10, &__p, 183);
     cv::error(v12, v1);
   }
 
@@ -4213,10 +4214,10 @@ void cvReleaseMat(void **a1)
     v4 = *v2 & 0xFFFF0000;
     if (v4 != 1111687168 && (v4 != 1111621632 || (v2[9] & 0x80000000) != 0 || (v2[8] & 0x80000000) != 0))
     {
-      std::string::basic_string[abi:ne200100]<0>(v11, "");
-      std::string::basic_string[abi:ne200100]<0>(v10, "cvReleaseMat");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v12, 4294967090, v11, v10, __p, 190);
+      std::string::basic_string[abi:ne200100]<0>(&v11, "");
+      std::string::basic_string[abi:ne200100]<0>(&v10, "cvReleaseMat");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v12, -206, &v11, &v10, &__p, 190);
       cv::error(v12, v5);
     }
 
@@ -4241,7 +4242,7 @@ void cvReleaseMat(void **a1)
   }
 }
 
-void sub_22D274104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D274104(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4266,11 +4267,11 @@ uint64_t cvCloneMat(uint64_t a1)
 {
   if (!a1 || (v2 = *a1, HIWORD(*a1) != 16962) || (v3 = *(a1 + 36), v3 < 1) || (v4 = *(a1 + 32), v4 <= 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "Bad CvMat header");
-    std::string::basic_string[abi:ne200100]<0>(v10, "cvCloneMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v12, 4294967291, v11, v10, __p, 205);
-    cv::error(v12, v5);
+    std::string::basic_string[abi:ne200100]<0>(&v14, "Bad CvMat header");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "cvCloneMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v15, -5, &v14, &v13, &__p, 205);
+    cv::error(v15, v5);
   }
 
   MatHeader = cvCreateMatHeader(v4, v3, v2);
@@ -4278,13 +4279,13 @@ uint64_t cvCloneMat(uint64_t a1)
   if (*(a1 + 24))
   {
     cvCreateData(MatHeader);
-    cvCopy(a1, v7, 0);
+    cvCopy(a1, v7, 0, v8, v9, v10);
   }
 
   return v7;
 }
 
-void sub_22D274284(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D274284(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4309,29 +4310,29 @@ uint64_t cvInitMatNDHeader(uint64_t result, unsigned int a2, uint64_t a3, unsign
 {
   if (!result)
   {
-    std::string::basic_string[abi:ne200100]<0>(v18, "NULL matrix header pointer");
-    std::string::basic_string[abi:ne200100]<0>(v17, "cvInitMatNDHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v19, 4294967269, v18, v17, __p, 231);
+    std::string::basic_string[abi:ne200100]<0>(&v18, "NULL matrix header pointer");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "cvInitMatNDHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v19, -27, &v18, &v17, &__p, 231);
     cv::error(v19, v5);
   }
 
   if (!a3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v18, "NULL <sizes> pointer");
-    std::string::basic_string[abi:ne200100]<0>(v17, "cvInitMatNDHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v19, 4294967269, v18, v17, __p, 237);
+    std::string::basic_string[abi:ne200100]<0>(&v18, "NULL <sizes> pointer");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "cvInitMatNDHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v19, -27, &v18, &v17, &__p, 237);
     cv::error(v19, v6);
   }
 
   v7 = (((a4 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (a4 & 7))) & 3);
   if (a2 - 33 <= 0xFFFFFFDF)
   {
-    std::string::basic_string[abi:ne200100]<0>(v18, "non-positive or too large number of dimensions");
-    std::string::basic_string[abi:ne200100]<0>(v17, "cvInitMatNDHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v19, 4294967085, v18, v17, __p, 241);
+    std::string::basic_string[abi:ne200100]<0>(&v18, "non-positive or too large number of dimensions");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "cvInitMatNDHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v19, -211, &v18, &v17, &__p, 241);
     cv::error(v19, v8);
   }
 
@@ -4342,20 +4343,20 @@ uint64_t cvInitMatNDHeader(uint64_t result, unsigned int a2, uint64_t a3, unsign
   {
     if (*v11 < 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(v18, "one of dimesion sizes is non-positive");
-      std::string::basic_string[abi:ne200100]<0>(v17, "cvInitMatNDHeader");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v19, 4294967095, v18, v17, __p, 246);
+      std::string::basic_string[abi:ne200100]<0>(&v18, "one of dimesion sizes is non-positive");
+      std::string::basic_string[abi:ne200100]<0>(&v17, "cvInitMatNDHeader");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v19, -201, &v18, &v17, &__p, 246);
       cv::error(v19, v12);
     }
 
     *(v10 - 1) = *v11;
     if (v7 >= 0x80000000)
     {
-      std::string::basic_string[abi:ne200100]<0>(v18, "The array is too big");
-      std::string::basic_string[abi:ne200100]<0>(v17, "cvInitMatNDHeader");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v19, 4294967085, v18, v17, __p, 249);
+      std::string::basic_string[abi:ne200100]<0>(&v18, "The array is too big");
+      std::string::basic_string[abi:ne200100]<0>(&v17, "cvInitMatNDHeader");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v19, -211, &v18, &v17, &__p, 249);
       cv::error(v19, v13);
     }
 
@@ -4385,7 +4386,7 @@ uint64_t cvInitMatNDHeader(uint64_t result, unsigned int a2, uint64_t a3, unsign
   return result;
 }
 
-void sub_22D2746D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, char a30)
+void sub_22D2746D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, std::exception a30)
 {
   cv::Exception::~Exception(&a30);
   if (a17 < 0)
@@ -4406,7 +4407,7 @@ void sub_22D2746D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-int *cvCreateMatND(unsigned int a1, uint64_t a2, unsigned int a3)
+int *cvCreateMatND(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   MatNDHeader = cvCreateMatNDHeader(a1, a2, a3);
   cvCreateData(MatNDHeader);
@@ -4417,10 +4418,10 @@ uint64_t cvCreateMatNDHeader(unsigned int a1, uint64_t a2, unsigned int a3)
 {
   if (a1 - 33 <= 0xFFFFFFDF)
   {
-    std::string::basic_string[abi:ne200100]<0>(v11, "non-positive or too large number of dimensions");
-    std::string::basic_string[abi:ne200100]<0>(v10, "cvCreateMatNDHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v12, 4294967085, v11, v10, __p, 280);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "non-positive or too large number of dimensions");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "cvCreateMatNDHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v12, -211, &v11, &v10, &__p, 280);
     cv::error(v12, v6);
   }
 
@@ -4430,7 +4431,7 @@ uint64_t cvCreateMatNDHeader(unsigned int a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-void sub_22D27489C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D27489C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -4451,25 +4452,25 @@ void sub_22D27489C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-int *cvCloneMatND(uint64_t a1)
+uint64_t cvCloneMatND(uint64_t a1)
 {
   v44 = *MEMORY[0x277D85DE8];
   if (!a1 || *(a1 + 2) != 16963)
   {
-    std::string::basic_string[abi:ne200100]<0>(v25, "Bad CvMatND header");
+    std::string::basic_string[abi:ne200100]<0>(&v25, "Bad CvMatND header");
     std::string::basic_string[abi:ne200100]<0>(v35, "cvCloneMatND");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    v2 = cv::Exception::Exception(v43, 4294967291, v25, v35, __p, 295);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    v2 = cv::Exception::Exception(v43, -5, &v25, v35, &__p, 295);
     cv::error(v2, v3);
   }
 
   v4 = *(a1 + 4);
   if (v4 >= 33)
   {
-    std::string::basic_string[abi:ne200100]<0>(v25, "src->dims <= CV_MAX_DIM");
+    std::string::basic_string[abi:ne200100]<0>(&v25, "src->dims <= CV_MAX_DIM");
     std::string::basic_string[abi:ne200100]<0>(v35, "cvCloneMatND");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    v5 = cv::Exception::Exception(v43, 4294967081, v25, v35, __p, 297);
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    v5 = cv::Exception::Exception(v43, -215, &v25, v35, &__p, 297);
     cv::error(v5, v6);
   }
 
@@ -4495,29 +4496,29 @@ int *cvCloneMatND(uint64_t a1)
   {
     cvCreateData(MatNDHeader);
     cv::Mat::Mat(v35, a1, 0);
-    cv::Mat::Mat(__p, v12, 0);
-    v13 = *(v12 + 3);
-    cv::_OutputArray::_OutputArray(v25, __p);
-    cv::Mat::copyTo(v35, v25);
+    cv::Mat::Mat(&__p, v12, 0);
+    v13 = *(v12 + 24);
+    cv::_OutputArray::_OutputArray(&v25, &__p);
+    cv::Mat::copyTo(v35, &v25);
     if (v27 != v13)
     {
-      std::string::basic_string[abi:ne200100]<0>(v24, "_dst.data == data0");
-      std::string::basic_string[abi:ne200100]<0>(v23, "cvCloneMatND");
-      std::string::basic_string[abi:ne200100]<0>(v22, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v25, 4294967081, v24, v23, v22, 311);
-      cv::error(v25, v14);
+      std::string::basic_string[abi:ne200100]<0>(&v24, "_dst.data == data0");
+      std::string::basic_string[abi:ne200100]<0>(&v23, "cvCloneMatND");
+      std::string::basic_string[abi:ne200100]<0>(&v22, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(&v25, -215, &v24, &v23, &v22, 311);
+      cv::error(&v25, v14);
     }
 
     if (v28 && atomic_fetch_add(v28, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(__p);
+      cv::Mat::deallocate(&__p);
     }
 
     v27 = 0;
     v29 = 0;
     v30 = 0;
     v31 = 0;
-    if (SHIDWORD(__p[0]) >= 1)
+    if (SDWORD1(__p) >= 1)
     {
       v15 = 0;
       v16 = v32;
@@ -4526,7 +4527,7 @@ int *cvCloneMatND(uint64_t a1)
         *(v16 + 4 * v15++) = 0;
       }
 
-      while (v15 < SHIDWORD(__p[0]));
+      while (v15 < SDWORD1(__p));
     }
 
     v28 = 0;
@@ -4596,35 +4597,35 @@ void sub_22D274C8C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = a6;
   v7 = a4;
   v9 = a2;
   if (a1 - 11 <= 0xFFFFFFF5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v64, "Incorrect number of arrays");
-    std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v65, 4294967085, v64, v63, __p, 386);
+    std::string::basic_string[abi:ne200100]<0>(&v64, "Incorrect number of arrays");
+    std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v65, -211, &v64, &v63, &__p, 386);
     cv::error(v65, v10);
   }
 
   if (!a2 || !a4)
   {
-    std::string::basic_string[abi:ne200100]<0>(v64, "Some of required array pointers is NULL");
-    std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v65, 4294967269, v64, v63, __p, 389);
+    std::string::basic_string[abi:ne200100]<0>(&v64, "Some of required array pointers is NULL");
+    std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v65, -27, &v64, &v63, &__p, 389);
     cv::error(v65, v11);
   }
 
   if (!a5)
   {
-    std::string::basic_string[abi:ne200100]<0>(v64, "Iterator pointer is NULL");
-    std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v65, 4294967269, v64, v63, __p, 392);
+    std::string::basic_string[abi:ne200100]<0>(&v64, "Iterator pointer is NULL");
+    std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v65, -27, &v64, &v63, &__p, 392);
     cv::error(v65, v12);
   }
 
@@ -4663,10 +4664,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
         MatND = *(v9 + 8 * v13);
         if (!MatND)
         {
-          std::string::basic_string[abi:ne200100]<0>(v64, "Some of required array pointers is NULL");
-          std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v65, 4294967269, v64, v63, __p, 402);
+          std::string::basic_string[abi:ne200100]<0>(&v64, "Some of required array pointers is NULL");
+          std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v65, -27, &v64, &v63, &__p, 402);
           cv::error(v65, v41);
         }
       }
@@ -4677,10 +4678,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
         MatND = cvGetMatND(MatND, v7 + 288 * v13, &v61);
         if (v61)
         {
-          std::string::basic_string[abi:ne200100]<0>(v64, "COI set is not allowed here");
-          std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v65, 4294967272, v64, v63, __p, 413);
+          std::string::basic_string[abi:ne200100]<0>(&v64, "COI set is not allowed here");
+          std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v65, -24, &v64, &v63, &__p, 413);
           cv::error(v65, v20);
         }
       }
@@ -4691,10 +4692,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
       {
         if (MatND[1] != v18[1])
         {
-          std::string::basic_string[abi:ne200100]<0>(v64, "Number of dimensions is the same for all arrays");
-          std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v65, 4294967087, v64, v63, __p, 422);
+          std::string::basic_string[abi:ne200100]<0>(&v64, "Number of dimensions is the same for all arrays");
+          std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v65, -209, &v64, &v63, &__p, 422);
           cv::error(v65, v21);
         }
 
@@ -4702,10 +4703,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
         {
           if ((*MatND & 0xFFE) != 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(v64, "Mask should have 8uC1 or 8sC1 data type");
-            std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-            std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-            cv::Exception::Exception(v65, 4294967088, v64, v63, __p, 448);
+            std::string::basic_string[abi:ne200100]<0>(&v64, "Mask should have 8uC1 or 8sC1 data type");
+            std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+            std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+            cv::Exception::Exception(v65, -208, &v64, &v63, &__p, 448);
             cv::error(v65, v23);
           }
         }
@@ -4714,10 +4715,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
         {
           if (v16 == 2 && ((*v18 ^ *MatND) & 0xFF8) != 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(v64, "Depth is not the same for all arrays");
-            std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-            std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-            cv::Exception::Exception(v65, 4294967091, v64, v63, __p, 441);
+            std::string::basic_string[abi:ne200100]<0>(&v64, "Depth is not the same for all arrays");
+            std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+            std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+            cv::Exception::Exception(v65, -205, &v64, &v63, &__p, 441);
             cv::error(v65, v24);
           }
         }
@@ -4726,20 +4727,20 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
         {
           if (((*v18 ^ *MatND) & 0xFF8) != 0)
           {
-            std::string::basic_string[abi:ne200100]<0>(v64, "Number of channels is not the same for all arrays");
-            std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-            std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-            cv::Exception::Exception(v65, 4294967091, v64, v63, __p, 436);
+            std::string::basic_string[abi:ne200100]<0>(&v64, "Number of channels is not the same for all arrays");
+            std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+            std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+            cv::Exception::Exception(v65, -205, &v64, &v63, &__p, 436);
             cv::error(v65, v25);
           }
         }
 
         else if (((*v18 ^ *MatND) & 0xFFF) != 0)
         {
-          std::string::basic_string[abi:ne200100]<0>(v64, "Data type is not the same for all arrays");
-          std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v65, 4294967091, v64, v63, __p, 431);
+          std::string::basic_string[abi:ne200100]<0>(&v64, "Data type is not the same for all arrays");
+          std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v65, -205, &v64, &v63, &__p, 431);
           cv::error(v65, v22);
         }
 
@@ -4760,10 +4761,10 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
           {
             if (MatND[v32] != v18[v32])
             {
-              std::string::basic_string[abi:ne200100]<0>(v64, "Dimension sizes are the same for all arrays");
-              std::string::basic_string[abi:ne200100]<0>(v63, "cvInitNArrayIterator");
-              std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-              cv::Exception::Exception(v65, 4294967087, v64, v63, __p, 456);
+              std::string::basic_string[abi:ne200100]<0>(&v64, "Dimension sizes are the same for all arrays");
+              std::string::basic_string[abi:ne200100]<0>(&v63, "cvInitNArrayIterator");
+              std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+              cv::Exception::Exception(v65, -209, &v64, &v63, &__p, 456);
               cv::error(v65, v33);
             }
 
@@ -4783,7 +4784,7 @@ uint64_t cvInitNArrayIterator(unsigned int a1, uint64_t a2, _DWORD *a3, uint64_t
       }
 
       v34 = MatND[1];
-      v35 = (((*MatND >> 3) & 0x1FFu) + 1) << ((0xFA50u >> (2 * (*MatND & 7))) & 3);
+      v35 = (((*MatND >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (*MatND & 7))) & 3);
       LODWORD(v36) = v34 - 1;
       if (v34 - 1 > v17)
       {
@@ -4884,7 +4885,7 @@ LABEL_48:
   return result;
 }
 
-void sub_22D275668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36)
+void sub_22D275668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, std::exception a36)
 {
   cv::Exception::~Exception(&a36);
   if (a23 < 0)
@@ -4905,7 +4906,7 @@ void sub_22D275668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_DWORD *cvGetMatND(uint64_t a1, uint64_t a2, _DWORD *a3)
+int *cvGetMatND(int *a1, uint64_t a2, _DWORD *a3)
 {
   v4 = a1;
   if (a3)
@@ -4915,22 +4916,22 @@ _DWORD *cvGetMatND(uint64_t a1, uint64_t a2, _DWORD *a3)
 
   if (!a1 || !a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v15, "NULL array pointer is passed");
-    std::string::basic_string[abi:ne200100]<0>(v17, "cvGetMatND");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v18, 4294967269, v15, v17, __p, 328);
+    std::string::basic_string[abi:ne200100]<0>(&v15, "NULL array pointer is passed");
+    std::string::basic_string[abi:ne200100]<0>(&v17, "cvGetMatND");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v18, -27, &v15, &v17, &__p, 328);
     cv::error(v18, v5);
   }
 
   v6 = *a1;
   if (HIWORD(*a1) == 16963)
   {
-    if (!*(a1 + 24))
+    if (!*(a1 + 3))
     {
-      std::string::basic_string[abi:ne200100]<0>(v15, "The matrix has NULL data pointer");
-      std::string::basic_string[abi:ne200100]<0>(v17, "cvGetMatND");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v18, 4294967269, v15, v17, __p, 333);
+      std::string::basic_string[abi:ne200100]<0>(&v15, "The matrix has NULL data pointer");
+      std::string::basic_string[abi:ne200100]<0>(&v17, "cvGetMatND");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v18, -27, &v15, &v17, &__p, 333);
       cv::error(v18, v7);
     }
 
@@ -4939,7 +4940,7 @@ _DWORD *cvGetMatND(uint64_t a1, uint64_t a2, _DWORD *a3)
 
   if (v6 == 144)
   {
-    Mat = cvGetMat(a1, v15, a3, 0);
+    Mat = cvGetMat(a1, &v15, a3, 0);
     v4 = Mat;
     if (!Mat)
     {
@@ -4952,20 +4953,20 @@ _DWORD *cvGetMatND(uint64_t a1, uint64_t a2, _DWORD *a3)
   if (HIWORD(v6) != 16962 || v4[9] < 1 || v4[8] <= 0)
   {
 LABEL_15:
-    std::string::basic_string[abi:ne200100]<0>(v17, "Unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(__p, "cvGetMatND");
-    std::string::basic_string[abi:ne200100]<0>(v14, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v18, 4294967291, v17, __p, v14, 345);
+    std::string::basic_string[abi:ne200100]<0>(&v17, "Unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "cvGetMatND");
+    std::string::basic_string[abi:ne200100]<0>(&v14, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v18, -5, &v17, &__p, &v14, 345);
     cv::error(v18, v9);
   }
 
   v10 = *(v4 + 3);
   if (!v10)
   {
-    std::string::basic_string[abi:ne200100]<0>(v17, "Input array has NULL data pointer");
-    std::string::basic_string[abi:ne200100]<0>(__p, "cvGetMatND");
-    std::string::basic_string[abi:ne200100]<0>(v14, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v18, 4294967269, v17, __p, v14, 348);
+    std::string::basic_string[abi:ne200100]<0>(&v17, "Input array has NULL data pointer");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "cvGetMatND");
+    std::string::basic_string[abi:ne200100]<0>(&v14, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v18, -27, &v17, &__p, &v14, 348);
     cv::error(v18, v11);
   }
 
@@ -4982,7 +4983,7 @@ LABEL_15:
   return a2;
 }
 
-void sub_22D275AB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, char a36)
+void sub_22D275AB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, std::exception a36)
 {
   cv::Exception::~Exception(&a36);
   if (a29 < 0)
@@ -5071,28 +5072,28 @@ _DWORD *cvCreateSparseMat(int a1, int *a2, unsigned int a3)
   v6 = (0x88442211 >> (4 * (a3 & 7))) & 0xF;
   if (!v6)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "invalid array data type");
-    std::string::basic_string[abi:ne200100]<0>(v23, "cvCreateSparseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v25, 4294967086, v24, v23, __p, 538);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "invalid array data type");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "cvCreateSparseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v25, -210, &v24, &v23, &__p, 538);
     cv::error(v25, v7);
   }
 
   if ((a1 - 1025) <= 0xFFFFFBFF)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "bad number of dimensions");
-    std::string::basic_string[abi:ne200100]<0>(v23, "cvCreateSparseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v25, 4294967085, v24, v23, __p, 541);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "bad number of dimensions");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "cvCreateSparseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v25, -211, &v24, &v23, &__p, 541);
     cv::error(v25, v8);
   }
 
   if (!a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "NULL <sizes> pointer");
-    std::string::basic_string[abi:ne200100]<0>(v23, "cvCreateSparseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v25, 4294967269, v24, v23, __p, 544);
+    std::string::basic_string[abi:ne200100]<0>(&v24, "NULL <sizes> pointer");
+    std::string::basic_string[abi:ne200100]<0>(&v23, "cvCreateSparseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v25, -27, &v24, &v23, &__p, 544);
     cv::error(v25, v9);
   }
 
@@ -5105,10 +5106,10 @@ _DWORD *cvCreateSparseMat(int a1, int *a2, unsigned int a3)
       v12 = *v11++;
       if (v12 <= 0)
       {
-        std::string::basic_string[abi:ne200100]<0>(v24, "one of dimesion sizes is non-positive");
-        std::string::basic_string[abi:ne200100]<0>(v23, "cvCreateSparseMat");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(v25, 4294967095, v24, v23, __p, 549);
+        std::string::basic_string[abi:ne200100]<0>(&v24, "one of dimesion sizes is non-positive");
+        std::string::basic_string[abi:ne200100]<0>(&v23, "cvCreateSparseMat");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(v25, -201, &v24, &v23, &__p, 549);
         cv::error(v25, v13);
       }
 
@@ -5153,7 +5154,7 @@ _DWORD *cvCreateSparseMat(int a1, int *a2, unsigned int a3)
   return v15;
 }
 
-void sub_22D276020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D276020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5178,10 +5179,10 @@ void cvReleaseSparseMat(uint64_t *a1)
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v6, "");
-    std::string::basic_string[abi:ne200100]<0>(v5, "cvReleaseSparseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v7, 4294967287, v6, v5, __p, 582);
+    std::string::basic_string[abi:ne200100]<0>(&v6, "");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "cvReleaseSparseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v7, -9, &v6, &v5, &__p, 582);
     cv::error(v7, v1);
   }
 
@@ -5190,10 +5191,10 @@ void cvReleaseSparseMat(uint64_t *a1)
   {
     if (*(v2 + 2) != 16964)
     {
-      std::string::basic_string[abi:ne200100]<0>(v6, "");
-      std::string::basic_string[abi:ne200100]<0>(v5, "cvReleaseSparseMat");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v7, 4294967090, v6, v5, __p, 589);
+      std::string::basic_string[abi:ne200100]<0>(&v6, "");
+      std::string::basic_string[abi:ne200100]<0>(&v5, "cvReleaseSparseMat");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v7, -206, &v6, &v5, &__p, 589);
       cv::error(v7, v3);
     }
 
@@ -5206,7 +5207,7 @@ void cvReleaseSparseMat(uint64_t *a1)
   }
 }
 
-void sub_22D276234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D276234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5231,19 +5232,19 @@ _DWORD *cvCloneSparseMat(uint64_t a1)
 {
   if (!a1 || HIWORD(*a1) != 16964)
   {
-    std::string::basic_string[abi:ne200100]<0>(v7, "Invalid sparse array header");
-    std::string::basic_string[abi:ne200100]<0>(v6, "cvCloneSparseMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v8, 4294967291, v7, v6, __p, 606);
-    cv::error(v8, v2);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Invalid sparse array header");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "cvCloneSparseMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v11, -5, &v10, &v9, &__p, 606);
+    cv::error(v11, v2);
   }
 
   SparseMat = cvCreateSparseMat(*(a1 + 4), (a1 + 52), *a1);
-  cvCopy(a1, SparseMat, 0);
+  cvCopy(a1, SparseMat, 0, v4, v5, v6);
   return SparseMat;
 }
 
-void sub_22D276390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D276390(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5268,19 +5269,19 @@ uint64_t cvInitSparseMatIterator(uint64_t a1, uint64_t a2)
 {
   if (!a1 || *(a1 + 2) != 16964)
   {
-    std::string::basic_string[abi:ne200100]<0>(v10, "Invalid sparse matrix header");
-    std::string::basic_string[abi:ne200100]<0>(v9, "cvInitSparseMatIterator");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v11, 4294967291, v10, v9, __p, 621);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Invalid sparse matrix header");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "cvInitSparseMatIterator");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v11, -5, &v10, &v9, &__p, 621);
     cv::error(v11, v3);
   }
 
   if (!a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v10, "NULL iterator pointer");
-    std::string::basic_string[abi:ne200100]<0>(v9, "cvInitSparseMatIterator");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v11, 4294967269, v10, v9, __p, 624);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "NULL iterator pointer");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "cvInitSparseMatIterator");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v11, -27, &v10, &v9, &__p, 624);
     cv::error(v11, v4);
   }
 
@@ -5320,7 +5321,7 @@ LABEL_13:
   return result;
 }
 
-void sub_22D27659C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D27659C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5379,10 +5380,10 @@ LABEL_6:
     }
 
 LABEL_17:
-    std::string::basic_string[abi:ne200100]<0>(v11, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v10, "cvReleaseData");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v12, 4294967291, v11, v10, __p, 996);
+    std::string::basic_string[abi:ne200100]<0>(&v11, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v10, "cvReleaseData");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v12, -5, &v11, &v10, &__p, 996);
     cv::error(v12, v7);
   }
 
@@ -5408,7 +5409,7 @@ LABEL_17:
   }
 }
 
-void sub_22D276790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D276790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5429,7 +5430,7 @@ void sub_22D276790(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t cvPtr2D(uint64_t a1, unsigned int a2, unsigned int a3, int *a4)
+uint64_t cvPtr2D(unsigned int *a1, unsigned int a2, unsigned int a3, int *a4)
 {
   v30 = *MEMORY[0x277D85DE8];
   if (!a1)
@@ -5441,20 +5442,20 @@ uint64_t cvPtr2D(uint64_t a1, unsigned int a2, unsigned int a3, int *a4)
   v5 = *a1 & 0xFFFF0000;
   if (v5 == 1111621632)
   {
-    v6 = *(a1 + 36);
+    v6 = a1[9];
     if (v6 >= 1)
     {
-      v7 = *(a1 + 32);
+      v7 = a1[8];
       if (v7 >= 1)
       {
-        if (*(a1 + 24))
+        if (*(a1 + 3))
         {
           if (v6 <= a3 || v7 <= a2)
           {
-            std::string::basic_string[abi:ne200100]<0>(v28, "index is out of range");
-            std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-            std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-            cv::Exception::Exception(__src, 4294967085, v28, v27, __p, 1754);
+            std::string::basic_string[abi:ne200100]<0>(&v28, "index is out of range");
+            std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+            std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+            cv::Exception::Exception(__src, -211, &v28, &v27, &__p, 1754);
             cv::error(__src, v8);
           }
 
@@ -5463,85 +5464,85 @@ uint64_t cvPtr2D(uint64_t a1, unsigned int a2, unsigned int a3, int *a4)
             *a4 = *a1 & 0xFFF;
           }
 
-          return *(a1 + 24) + *(a1 + 4) * a2 + (((((v4 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (v4 & 7))) & 3)) * a3);
+          return *(a1 + 3) + a1[1] * a2 + (((((v4 >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * (v4 & 7))) & 3)) * a3);
         }
       }
     }
 
 LABEL_30:
-    std::string::basic_string[abi:ne200100]<0>(v28, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(__src, 4294967291, v28, v27, __p, 1830);
+    std::string::basic_string[abi:ne200100]<0>(&v28, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(__src, -5, &v28, &v27, &__p, 1830);
     cv::error(__src, v21);
   }
 
   if (v4 == 144)
   {
-    v10 = *(a1 + 88);
+    v10 = *(a1 + 11);
     if (!v10)
     {
       goto LABEL_30;
     }
 
-    v11 = *(a1 + 16) >> 3;
-    v12 = *(a1 + 28);
+    v11 = a1[4] >> 3;
+    v12 = a1[7];
     if (!v12)
     {
-      v11 *= *(a1 + 8);
+      v11 *= a1[2];
     }
 
-    v13 = *(a1 + 48);
+    v13 = *(a1 + 6);
     if (v13)
     {
       v14 = v13[3];
       v15 = v13[4];
-      v10 += *(a1 + 96) * v13[2] + v13[1] * v11;
+      v10 += (a1[24] * v13[2] + v13[1] * v11);
       if (v12)
       {
         v16 = *v13;
         if (!v16)
         {
-          std::string::basic_string[abi:ne200100]<0>(v28, "COI must be non-null in case of planar images");
-          std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(__src, 4294967272, v28, v27, __p, 1785);
+          std::string::basic_string[abi:ne200100]<0>(&v28, "COI must be non-null in case of planar images");
+          std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(__src, -24, &v28, &v27, &__p, 1785);
           cv::error(__src, v17);
         }
 
-        v10 += *(a1 + 80) * (v16 - 1);
+        v10 += a1[20] * (v16 - 1);
       }
     }
 
     else
     {
-      v14 = *(a1 + 40);
-      v15 = *(a1 + 44);
+      v14 = a1[10];
+      v15 = a1[11];
     }
 
     if (v15 <= a2 || v14 <= a3)
     {
-      std::string::basic_string[abi:ne200100]<0>(v28, "index is out of range");
-      std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(__src, 4294967085, v28, v27, __p, 1797);
+      std::string::basic_string[abi:ne200100]<0>(&v28, "index is out of range");
+      std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(__src, -211, &v28, &v27, &__p, 1797);
       cv::error(__src, v23);
     }
 
-    v9 = v10 + (v11 * a3 + *(a1 + 96) * a2);
+    v9 = v10 + (v11 * a3 + a1[24] * a2);
     if (a4)
     {
-      v24 = *(a1 + 8);
-      if ((v24 - 5) <= 0xFFFFFFFB)
+      v24 = a1[2];
+      if (v24 - 5 <= 0xFFFFFFFB)
       {
-        std::string::basic_string[abi:ne200100]<0>(v28, "");
-        std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(__src, 4294967086, v28, v27, __p, 1805);
+        std::string::basic_string[abi:ne200100]<0>(&v28, "");
+        std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(__src, -210, &v28, &v27, &__p, 1805);
         cv::error(__src, v25);
       }
 
-      v20 = ((0x43160520u >> (((*(a1 + 16) >> 2) & 0x3C) + ((*(a1 + 16) >> 31) & 0x14))) & 7 | (8 * v24)) - 8;
+      v20 = ((0x43160520u >> (((a1[4] >> 2) & 0x3C) + ((a1[4] >> 31) & 0x14))) & 7 | (8 * v24)) - 8;
       goto LABEL_41;
     }
   }
@@ -5560,22 +5561,22 @@ LABEL_30:
       goto LABEL_30;
     }
 
-    v18 = *(a1 + 24);
+    v18 = *(a1 + 3);
     if (!v18)
     {
       goto LABEL_30;
     }
 
-    if (*(a1 + 4) != 2 || *(a1 + 32) <= a2 || *(a1 + 40) <= a3)
+    if (a1[1] != 2 || a1[8] <= a2 || a1[10] <= a3)
     {
-      std::string::basic_string[abi:ne200100]<0>(v28, "index is out of range");
-      std::string::basic_string[abi:ne200100]<0>(v27, "cvPtr2D");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(__src, 4294967085, v28, v27, __p, 1817);
+      std::string::basic_string[abi:ne200100]<0>(&v28, "index is out of range");
+      std::string::basic_string[abi:ne200100]<0>(&v27, "cvPtr2D");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(__src, -211, &v28, &v27, &__p, 1817);
       cv::error(__src, v19);
     }
 
-    v9 = v18 + *(a1 + 36) * a2 + *(a1 + 44) * a3;
+    v9 = v18 + a1[9] * a2 + a1[11] * a3;
     if (a4)
     {
       v20 = *a1 & 0xFFF;
@@ -5587,7 +5588,7 @@ LABEL_41:
   return v9;
 }
 
-void sub_22D276DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28)
+void sub_22D276DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, std::exception a28)
 {
   cv::Exception::~Exception(&a28);
   if (a15 < 0)
@@ -5635,17 +5636,17 @@ uint64_t cvGetElemType(int *a1)
   if (v1 != 144 || !*(a1 + 11))
   {
 LABEL_15:
-    std::string::basic_string[abi:ne200100]<0>(v8, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v7, "cvGetElemType");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v9, 4294967291, v8, v7, __p, 1086);
+    std::string::basic_string[abi:ne200100]<0>(&v8, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v7, "cvGetElemType");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v9, -5, &v8, &v7, &__p, 1086);
     cv::error(v9, v5);
   }
 
   return ((0x43160520u >> (((a1[4] >> 2) & 0x3C) + ((a1[4] >> 31) & 0x14))) & 7 | (8 * a1[2])) - 8;
 }
 
-void sub_22D276FA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D276FA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5713,10 +5714,10 @@ LABEL_11:
     }
 
 LABEL_20:
-    std::string::basic_string[abi:ne200100]<0>(v14, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v13, "cvGetDims");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v15, 4294967291, v14, v13, __p, 1140);
+    std::string::basic_string[abi:ne200100]<0>(&v14, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v13, "cvGetDims");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v15, -5, &v14, &v13, &__p, 1140);
     cv::error(v15, v10);
   }
 
@@ -5756,7 +5757,7 @@ LABEL_20:
   return v6;
 }
 
-void sub_22D277190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D277190(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5782,10 +5783,10 @@ unint64_t cvGetSize(uint64_t a1)
   if (!a1)
   {
 LABEL_11:
-    std::string::basic_string[abi:ne200100]<0>(v10, "Array should be CvMat or IplImage");
-    std::string::basic_string[abi:ne200100]<0>(v9, "cvGetSize");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v11, 4294967291, v10, v9, __p, 1238);
+    std::string::basic_string[abi:ne200100]<0>(&v10, "Array should be CvMat or IplImage");
+    std::string::basic_string[abi:ne200100]<0>(&v9, "cvGetSize");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v11, -5, &v10, &v9, &__p, 1238);
     cv::error(v11, v6);
   }
 
@@ -5831,7 +5832,7 @@ LABEL_11:
   return v1 | (v2 << 32);
 }
 
-void sub_22D277308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D277308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -5852,15 +5853,15 @@ void sub_22D277308(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t cvGetMat(uint64_t a1, uint64_t a2, _DWORD *a3, int a4)
+uint64_t cvGetMat(int *a1, uint64_t a2, _DWORD *a3, int a4)
 {
   v6 = a1;
   if (!a1 || !a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v39, "NULL array pointer is passed");
-    std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v40, 4294967269, v39, v38, __p, 2382);
+    std::string::basic_string[abi:ne200100]<0>(&v39, "NULL array pointer is passed");
+    std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v40, -27, &v39, &v38, &__p, 2382);
     cv::error(v40, v7);
   }
 
@@ -5870,17 +5871,17 @@ uint64_t cvGetMat(uint64_t a1, uint64_t a2, _DWORD *a3, int a4)
   {
     if (v8 == 144)
     {
-      if (!*(a1 + 88))
+      if (!*(a1 + 11))
       {
-        std::string::basic_string[abi:ne200100]<0>(v39, "The image has NULL data pointer");
-        std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(v40, 4294967269, v39, v38, __p, 2397);
+        std::string::basic_string[abi:ne200100]<0>(&v39, "The image has NULL data pointer");
+        std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(v40, -27, &v39, &v38, &__p, 2397);
         cv::error(v40, v12);
       }
 
-      v13 = (0x43160520u >> (((*(a1 + 16) >> 2) & 0x3C) + ((*(a1 + 16) >> 31) & 0x14))) & 7;
-      v14 = *(a1 + 8);
+      v13 = (0x43160520u >> (((a1[4] >> 2) & 0x3C) + ((a1[4] >> 31) & 0x14))) & 7;
+      v14 = a1[2];
       if (v14 <= 1)
       {
         v15 = 0;
@@ -5888,10 +5889,10 @@ uint64_t cvGetMat(uint64_t a1, uint64_t a2, _DWORD *a3, int a4)
 
       else
       {
-        v15 = *(a1 + 28);
+        v15 = a1[7];
       }
 
-      v16 = *(a1 + 48);
+      v16 = *(a1 + 6);
       if (v16)
       {
         if (v15 != 1)
@@ -5899,14 +5900,14 @@ uint64_t cvGetMat(uint64_t a1, uint64_t a2, _DWORD *a3, int a4)
           v11 = *v16;
           if (v14 >= 513)
           {
-            std::string::basic_string[abi:ne200100]<0>(v39, "The image is interleaved and has over CV_CN_MAX channels");
-            std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-            std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-            cv::Exception::Exception(v40, 4294967281, v39, v38, __p, 2429);
+            std::string::basic_string[abi:ne200100]<0>(&v39, "The image is interleaved and has over CV_CN_MAX channels");
+            std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+            std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+            cv::Exception::Exception(v40, -15, &v39, &v38, &__p, 2429);
             cv::error(v40, v35);
           }
 
-          cvInitMatHeader(a2, v16[4], v16[3], v13 | (8 * v14 - 8), *(a1 + 88) + *(a1 + 96) * v16[2] + v16[1] * (((((8 * v14 - 8) >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * v13)) & 3)), *(a1 + 96));
+          cvInitMatHeader(a2, v16[4], v16[3], v13 | (8 * v14 - 8), *(a1 + 11) + a1[24] * v16[2] + v16[1] * (((((8 * v14 - 8) >> 3) & 0x1FF) + 1) << ((0xFA50u >> (2 * v13)) & 3)), a1[24]);
 LABEL_48:
           v6 = a2;
           if (!a3)
@@ -5921,17 +5922,17 @@ LABEL_49:
 
         if (!*v16)
         {
-          std::string::basic_string[abi:ne200100]<0>(v39, "Images with planar data layout should be used with COI selected");
-          std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v40, 4294967090, v39, v38, __p, 2413);
+          std::string::basic_string[abi:ne200100]<0>(&v39, "Images with planar data layout should be used with COI selected");
+          std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v40, -206, &v39, &v38, &__p, 2413);
           cv::error(v40, v17);
         }
 
         v19 = v16[3];
         v18 = v16[4];
-        v20 = *(a1 + 96);
-        v21 = *(a1 + 88) + (*v16 - 1) * *(a1 + 80) + v20 * v16[2] + (v16[1] << ((0xFA50u >> (2 * v13)) & 3));
+        v20 = a1[24];
+        v21 = *(a1 + 11) + (*v16 - 1) * a1[20] + v20 * v16[2] + (v16[1] << ((0xFA50u >> (2 * v13)) & 3));
         v22 = a2;
         v23 = v13;
       }
@@ -5940,18 +5941,18 @@ LABEL_49:
       {
         if (v15)
         {
-          std::string::basic_string[abi:ne200100]<0>(v39, "Pixel order should be used with coi == 0");
-          std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(v40, 4294967090, v39, v38, __p, 2443);
+          std::string::basic_string[abi:ne200100]<0>(&v39, "Pixel order should be used with coi == 0");
+          std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(v40, -206, &v39, &v38, &__p, 2443);
           cv::error(v40, v34);
         }
 
         v23 = (v13 | (8 * v14)) - 8;
-        v19 = *(a1 + 40);
-        v18 = *(a1 + 44);
-        v21 = *(a1 + 88);
-        v20 = *(a1 + 96);
+        v19 = a1[10];
+        v18 = a1[11];
+        v21 = *(a1 + 11);
+        v20 = a1[24];
         v22 = a2;
       }
 
@@ -5964,44 +5965,44 @@ LABEL_44:
 LABEL_22:
     if (!a4 || v9 != 1111687168)
     {
-      std::string::basic_string[abi:ne200100]<0>(v39, "Unrecognized or unsupported array type");
-      std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v40, 4294967090, v39, v38, __p, 2482);
+      std::string::basic_string[abi:ne200100]<0>(&v39, "Unrecognized or unsupported array type");
+      std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v40, -206, &v39, &v38, &__p, 2482);
       cv::error(v40, v25);
     }
 
-    v24 = *(a1 + 32);
-    if (!*(a1 + 24))
+    v24 = a1[8];
+    if (!*(a1 + 3))
     {
-      std::string::basic_string[abi:ne200100]<0>(v39, "Input array has NULL data pointer");
-      std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v40, 4294967269, v39, v38, __p, 2458);
+      std::string::basic_string[abi:ne200100]<0>(&v39, "Input array has NULL data pointer");
+      std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v40, -27, &v39, &v38, &__p, 2458);
       cv::error(v40, v26);
     }
 
     if ((v8 & 0x4000) == 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(v39, "Only continuous nD arrays are supported here");
-      std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-      std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-      cv::Exception::Exception(v40, 4294967291, v39, v38, __p, 2461);
+      std::string::basic_string[abi:ne200100]<0>(&v39, "Only continuous nD arrays are supported here");
+      std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+      std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+      cv::Exception::Exception(v40, -5, &v39, &v38, &__p, 2461);
       cv::error(v40, v27);
     }
 
-    v28 = *(a1 + 4);
+    v28 = a1[1];
     if (v28 < 3)
     {
       if (v28 != 1)
       {
-        LODWORD(v28) = *(a1 + 40);
+        LODWORD(v28) = a1[10];
       }
     }
 
     else
     {
-      v29 = (a1 + 40);
+      v29 = a1 + 10;
       v30 = v28 - 1;
       LODWORD(v28) = 1;
       do
@@ -6017,7 +6018,7 @@ LABEL_22:
 
     *(a2 + 8) = 0;
     *(a2 + 16) = 0;
-    *(a2 + 24) = *(a1 + 24);
+    *(a2 + 24) = *(a1 + 3);
     *(a2 + 32) = v24;
     *(a2 + 36) = v28;
     v32 = *a1;
@@ -6039,17 +6040,17 @@ LABEL_22:
     goto LABEL_44;
   }
 
-  if (*(a1 + 36) < 1 || *(a1 + 32) < 1)
+  if (a1[9] < 1 || a1[8] < 1)
   {
     goto LABEL_22;
   }
 
-  if (!*(a1 + 24))
+  if (!*(a1 + 3))
   {
-    std::string::basic_string[abi:ne200100]<0>(v39, "The matrix has NULL data pointer");
-    std::string::basic_string[abi:ne200100]<0>(v38, "cvGetMat");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v40, 4294967269, v39, v38, __p, 2387);
+    std::string::basic_string[abi:ne200100]<0>(&v39, "The matrix has NULL data pointer");
+    std::string::basic_string[abi:ne200100]<0>(&v38, "cvGetMat");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v40, -27, &v39, &v38, &__p, 2387);
     cv::error(v40, v10);
   }
 
@@ -6062,7 +6063,7 @@ LABEL_22:
   return v6;
 }
 
-void sub_22D277B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D277B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6083,7 +6084,7 @@ void sub_22D277B20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t icvGetNodePtr(uint64_t a1, _DWORD *__src, int *a3, int a4, int *a5)
+uint64_t icvGetNodePtr(uint64_t a1, _DWORD *__src, int *a3, int a4, unsigned int *a5)
 {
   if (*(a1 + 2) != 16964)
   {
@@ -6112,10 +6113,10 @@ uint64_t icvGetNodePtr(uint64_t a1, _DWORD *__src, int *a3, int a4, int *a5)
         v10 = __src[v9];
         if (v10 >= *(a1 + 52 + 4 * v9))
         {
-          std::string::basic_string[abi:ne200100]<0>(v38, "One of indices is out of range");
-          std::string::basic_string[abi:ne200100]<0>(v37, "icvGetNodePtr");
-          std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-          cv::Exception::Exception(&v39, 4294967085, v38, v37, __p, 658);
+          std::string::basic_string[abi:ne200100]<0>(&v38, "One of indices is out of range");
+          std::string::basic_string[abi:ne200100]<0>(&v37, "icvGetNodePtr");
+          std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+          cv::Exception::Exception(&v39, -211, &v38, &v37, &__p, 658);
           cv::error(&v39, v11);
         }
 
@@ -6305,14 +6306,14 @@ void sub_22D277FB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t cvPtrND(uint64_t a1, unsigned int *__src, int *a3, int a4, int *a5)
+uint64_t cvPtrND(uint64_t a1, unsigned int *__src, int *a3, int a4, unsigned int *a5)
 {
   if (!__src)
   {
-    std::string::basic_string[abi:ne200100]<0>(v19, "NULL pointer to indices");
-    std::string::basic_string[abi:ne200100]<0>(v18, "cvPtrND");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v20, 4294967269, v19, v18, __p, 1879);
+    std::string::basic_string[abi:ne200100]<0>(&v19, "NULL pointer to indices");
+    std::string::basic_string[abi:ne200100]<0>(&v18, "cvPtrND");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v20, -27, &v19, &v18, &__p, 1879);
     cv::error(v20, v5);
   }
 
@@ -6345,10 +6346,10 @@ uint64_t cvPtrND(uint64_t a1, unsigned int *__src, int *a3, int a4, int *a5)
     }
 
 LABEL_22:
-    std::string::basic_string[abi:ne200100]<0>(v19, "unrecognized or unsupported array type");
-    std::string::basic_string[abi:ne200100]<0>(v18, "cvPtrND");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v20, 4294967291, v19, v18, __p, 1903);
+    std::string::basic_string[abi:ne200100]<0>(&v19, "unrecognized or unsupported array type");
+    std::string::basic_string[abi:ne200100]<0>(&v18, "cvPtrND");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v20, -5, &v19, &v18, &__p, 1903);
     cv::error(v20, v15);
   }
 
@@ -6368,10 +6369,10 @@ LABEL_22:
       v12 = __src[v10];
       if (v12 >= *(v11 - 1))
       {
-        std::string::basic_string[abi:ne200100]<0>(v19, "index is out of range");
-        std::string::basic_string[abi:ne200100]<0>(v18, "cvPtrND");
-        std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-        cv::Exception::Exception(v20, 4294967085, v19, v18, __p, 1893);
+        std::string::basic_string[abi:ne200100]<0>(&v19, "index is out of range");
+        std::string::basic_string[abi:ne200100]<0>(&v18, "cvPtrND");
+        std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+        cv::Exception::Exception(v20, -211, &v19, &v18, &__p, 1893);
         cv::error(v20, v13);
       }
 
@@ -6392,7 +6393,7 @@ LABEL_22:
   return v8;
 }
 
-void sub_22D278310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D278310(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6417,10 +6418,10 @@ uint64_t cvInitImageHeader(uint64_t a1, uint64_t a2, int a3, int a4, unsigned in
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v32, "null pointer to header");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cvInitImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v33, 4294967287, v32, v31, __p, 2908);
+    std::string::basic_string[abi:ne200100]<0>(&v32, "null pointer to header");
+    std::string::basic_string[abi:ne200100]<0>(&v31, "cvInitImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v33, -9, &v32, &v31, &__p, 2908);
     cv::error(v33, v12);
   }
 
@@ -6451,10 +6452,10 @@ uint64_t cvInitImageHeader(uint64_t a1, uint64_t a2, int a3, int a4, unsigned in
   strncpy((a1 + 24), v15, 4uLL);
   if ((a2 & 0x8000000080000000) != 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v32, "Bad input roi");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cvInitImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v33, 4294967271, v32, v31, __p, 2918);
+    std::string::basic_string[abi:ne200100]<0>(&v32, "Bad input roi");
+    std::string::basic_string[abi:ne200100]<0>(&v31, "cvInitImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v33, -25, &v32, &v31, &__p, 2918);
     cv::error(v33, v16);
   }
 
@@ -6462,28 +6463,28 @@ uint64_t cvInitImageHeader(uint64_t a1, uint64_t a2, int a3, int a4, unsigned in
   v22 = a3 != 1 && v17 != 8 && v17 != 16 && v17 != 32 && a3 != 64;
   if (a4 < 0 || v22)
   {
-    std::string::basic_string[abi:ne200100]<0>(v32, "Unsupported format");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cvInitImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v33, 4294967279, v32, v31, __p, 2925);
+    std::string::basic_string[abi:ne200100]<0>(&v32, "Unsupported format");
+    std::string::basic_string[abi:ne200100]<0>(&v31, "cvInitImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v33, -17, &v32, &v31, &__p, 2925);
     cv::error(v33, v23);
   }
 
   if (a5 >= 2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v32, "Bad input origin");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cvInitImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v33, 4294967276, v32, v31, __p, 2927);
+    std::string::basic_string[abi:ne200100]<0>(&v32, "Bad input origin");
+    std::string::basic_string[abi:ne200100]<0>(&v31, "cvInitImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v33, -20, &v32, &v31, &__p, 2927);
     cv::error(v33, v24);
   }
 
   if (a6 != 4 && a6 != 8)
   {
-    std::string::basic_string[abi:ne200100]<0>(v32, "Bad input align");
-    std::string::basic_string[abi:ne200100]<0>(v31, "cvInitImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v33, 4294967275, v32, v31, __p, 2930);
+    std::string::basic_string[abi:ne200100]<0>(&v32, "Bad input align");
+    std::string::basic_string[abi:ne200100]<0>(&v31, "cvInitImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v33, -21, &v32, &v31, &__p, 2930);
     cv::error(v33, v25);
   }
 
@@ -6516,7 +6517,7 @@ uint64_t cvInitImageHeader(uint64_t a1, uint64_t a2, int a3, int a4, unsigned in
   return a1;
 }
 
-void sub_22D2787B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2787B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6584,10 +6585,10 @@ void cvReleaseImageHeader(void ***a1)
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v5, "");
-    std::string::basic_string[abi:ne200100]<0>(v4, "cvReleaseImageHeader");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v6, 4294967269, v5, v4, __p, 2959);
+    std::string::basic_string[abi:ne200100]<0>(&v5, "");
+    std::string::basic_string[abi:ne200100]<0>(&v4, "cvReleaseImageHeader");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v6, -27, &v5, &v4, &__p, 2959);
     cv::error(v6, v1);
   }
 
@@ -6609,7 +6610,7 @@ void cvReleaseImageHeader(void ***a1)
   }
 }
 
-void sub_22D278A64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D278A64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6634,10 +6635,10 @@ void cvReleaseImage(void ***a1)
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v6, "");
-    std::string::basic_string[abi:ne200100]<0>(v5, "cvReleaseImage");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v7, 4294967269, v6, v5, __p, 2983);
+    std::string::basic_string[abi:ne200100]<0>(&v6, "");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "cvReleaseImage");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v7, -27, &v6, &v5, &__p, 2983);
     cv::error(v7, v2);
   }
 
@@ -6651,7 +6652,7 @@ void cvReleaseImage(void ***a1)
   }
 }
 
-void sub_22D278B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D278B94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6677,20 +6678,20 @@ _DWORD *cvSetImageROI(_DWORD *result, unint64_t a2, unint64_t a3)
   v3 = result;
   if (!result)
   {
-    std::string::basic_string[abi:ne200100]<0>(v17, "");
-    std::string::basic_string[abi:ne200100]<0>(v16, "cvSetImageROI");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v18, 4294967287, v17, v16, __p, 3000);
+    std::string::basic_string[abi:ne200100]<0>(&v17, "");
+    std::string::basic_string[abi:ne200100]<0>(&v16, "cvSetImageROI");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v18, -9, &v17, &v16, &__p, 3000);
     cv::error(v18, v4);
   }
 
   v5 = HIDWORD(a2);
   if ((a3 & 0x8000000080000000) != 0 || (v6 = result[10], v6 <= a2) || (v7 = result[11], v7 <= SHIDWORD(a2)) || (v8 = a2 + a3, a2 + a3 < (a3 != 0)) || HIDWORD(a2) + HIDWORD(a3) < (HIDWORD(a3) != 0))
   {
-    std::string::basic_string[abi:ne200100]<0>(v17, "rect.width >= 0 && rect.height >= 0 && rect.x < image->width && rect.y < image->height && rect.x + rect.width >= (int)(rect.width > 0) && rect.y + rect.height >= (int)(rect.height > 0)");
-    std::string::basic_string[abi:ne200100]<0>(v16, "cvSetImageROI");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v18, 4294967081, v17, v16, __p, 3006);
+    std::string::basic_string[abi:ne200100]<0>(&v17, "rect.width >= 0 && rect.height >= 0 && rect.x < image->width && rect.y < image->height && rect.x + rect.width >= (int)(rect.width > 0) && rect.y + rect.height >= (int)(rect.height > 0)");
+    std::string::basic_string[abi:ne200100]<0>(&v16, "cvSetImageROI");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v18, -215, &v17, &v16, &__p, 3006);
     cv::error(v18, v9);
   }
 
@@ -6726,7 +6727,7 @@ _DWORD *cvSetImageROI(_DWORD *result, unint64_t a2, unint64_t a3)
   return result;
 }
 
-void sub_22D278DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D278DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6774,19 +6775,19 @@ _DWORD *cvSetImageCOI(_DWORD *result, unsigned int a2)
   v2 = result;
   if (!result)
   {
-    std::string::basic_string[abi:ne200100]<0>(v8, "");
-    std::string::basic_string[abi:ne200100]<0>(v7, "cvSetImageCOI");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v9, 4294967287, v8, v7, __p, 3073);
+    std::string::basic_string[abi:ne200100]<0>(&v8, "");
+    std::string::basic_string[abi:ne200100]<0>(&v7, "cvSetImageCOI");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v9, -9, &v8, &v7, &__p, 3073);
     cv::error(v9, v3);
   }
 
   if (result[2] < a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v8, "");
-    std::string::basic_string[abi:ne200100]<0>(v7, "cvSetImageCOI");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v9, 4294967272, v8, v7, __p, 3076);
+    std::string::basic_string[abi:ne200100]<0>(&v8, "");
+    std::string::basic_string[abi:ne200100]<0>(&v7, "cvSetImageCOI");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v9, -24, &v8, &v7, &__p, 3076);
     cv::error(v9, v4);
   }
 
@@ -6808,7 +6809,7 @@ _DWORD *cvSetImageCOI(_DWORD *result, unsigned int a2)
   return result;
 }
 
-void sub_22D279088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D279088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6833,10 +6834,10 @@ uint64_t cvGetImageCOI(uint64_t a1)
 {
   if (!a1)
   {
-    std::string::basic_string[abi:ne200100]<0>(v6, "");
-    std::string::basic_string[abi:ne200100]<0>(v5, "cvGetImageCOI");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v7, 4294967287, v6, v5, __p, 3096);
+    std::string::basic_string[abi:ne200100]<0>(&v6, "");
+    std::string::basic_string[abi:ne200100]<0>(&v5, "cvGetImageCOI");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v7, -9, &v6, &v5, &__p, 3096);
     cv::error(v7, v1);
   }
 
@@ -6852,7 +6853,7 @@ uint64_t cvGetImageCOI(uint64_t a1)
   }
 }
 
-void sub_22D2791C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2791C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6873,14 +6874,14 @@ void sub_22D2791C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t cvCloneImage(__int128 *a1)
+void *cvCloneImage(__int128 *a1)
 {
   if (!a1 || *a1 != 144)
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "Bad image header");
-    std::string::basic_string[abi:ne200100]<0>(v15, "cvCloneImage");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
-    cv::Exception::Exception(v17, 4294967291, v16, v15, __p, 3108);
+    std::string::basic_string[abi:ne200100]<0>(&v16, "Bad image header");
+    std::string::basic_string[abi:ne200100]<0>(&v15, "cvCloneImage");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/core/array.cpp");
+    cv::Exception::Exception(v17, -5, &v16, &v15, &__p, 3108);
     cv::error(v17, v2);
   }
 
@@ -6925,7 +6926,7 @@ uint64_t cvCloneImage(__int128 *a1)
   return v3;
 }
 
-void sub_22D2793A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+void sub_22D2793A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -6957,7 +6958,7 @@ void icvGetNodePtr()
 
 void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
 {
-  v2 = a2 & 7;
+  v5 = a2 & 7;
   if (this < 2)
   {
     if (this)
@@ -6969,7 +6970,7 @@ void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
           operator new();
         }
 
-        if (v2 == 2)
+        if (v5 == 2)
         {
           operator new();
         }
@@ -6977,7 +6978,7 @@ void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
 
       else
       {
-        switch(v2)
+        switch(v5)
         {
           case 3:
             operator new();
@@ -6996,7 +6997,7 @@ void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
         operator new();
       }
 
-      if (v2 == 2)
+      if (v5 == 2)
       {
         operator new();
       }
@@ -7004,7 +7005,7 @@ void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
 
     else
     {
-      switch(v2)
+      switch(v5)
       {
         case 3:
           operator new();
@@ -7015,23 +7016,23 @@ void cv::getMorphologyRowFilter(cv *this, uint64_t a2)
       }
     }
 
-    cv::format(v7, a2);
-    std::string::basic_string[abi:ne200100]<0>(v6, "getMorphologyRowFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-    cv::Exception::Exception(v8, 4294967083, v7, v6, __p, 886);
-    cv::error(v8, v4);
+    cv::format(&v10, a2);
+    std::string::basic_string[abi:ne200100]<0>(&v9, "getMorphologyRowFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+    cv::Exception::Exception(v11, -213, &v10, &v9, &__p, 886);
+    cv::error(v11, v7);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v7, "op == MORPH_ERODE || op == MORPH_DILATE");
-  std::string::basic_string[abi:ne200100]<0>(v6, "getMorphologyRowFilter");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-  cv::Exception::Exception(v8, 4294967081, v7, v6, __p, 848);
-  cv::error(v8, v3);
+  std::string::basic_string[abi:ne200100]<0>(&v10, "op == MORPH_ERODE || op == MORPH_DILATE");
+  std::string::basic_string[abi:ne200100]<0>(&v9, "getMorphologyRowFilter");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+  cv::Exception::Exception(v11, -215, &v10, &v9, &__p, 848);
+  cv::error(v11, v6);
 }
 
 void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
 {
-  v2 = a2 & 7;
+  v5 = a2 & 7;
   if (this < 2)
   {
     if (this)
@@ -7043,7 +7044,7 @@ void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
           operator new();
         }
 
-        if (v2 == 2)
+        if (v5 == 2)
         {
           operator new();
         }
@@ -7051,7 +7052,7 @@ void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
 
       else
       {
-        switch(v2)
+        switch(v5)
         {
           case 3:
             operator new();
@@ -7070,7 +7071,7 @@ void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
         operator new();
       }
 
-      if (v2 == 2)
+      if (v5 == 2)
       {
         operator new();
       }
@@ -7078,7 +7079,7 @@ void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
 
     else
     {
-      switch(v2)
+      switch(v5)
       {
         case 3:
           operator new();
@@ -7089,28 +7090,28 @@ void cv::getMorphologyColumnFilter(cv *this, uint64_t a2)
       }
     }
 
-    cv::format(v7, a2);
-    std::string::basic_string[abi:ne200100]<0>(v6, "getMorphologyColumnFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-    cv::Exception::Exception(v8, 4294967083, v7, v6, __p, 933);
-    cv::error(v8, v4);
+    cv::format(&v10, a2);
+    std::string::basic_string[abi:ne200100]<0>(&v9, "getMorphologyColumnFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+    cv::Exception::Exception(v11, -213, &v10, &v9, &__p, 933);
+    cv::error(v11, v7);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v7, "op == MORPH_ERODE || op == MORPH_DILATE");
-  std::string::basic_string[abi:ne200100]<0>(v6, "getMorphologyColumnFilter");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-  cv::Exception::Exception(v8, 4294967081, v7, v6, __p, 895);
-  cv::error(v8, v3);
+  std::string::basic_string[abi:ne200100]<0>(&v10, "op == MORPH_ERODE || op == MORPH_DILATE");
+  std::string::basic_string[abi:ne200100]<0>(&v9, "getMorphologyColumnFilter");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+  cv::Exception::Exception(v11, -215, &v10, &v9, &__p, 895);
+  cv::error(v11, v6);
 }
 
 void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__return_ptr, void, uint64_t), void **a4)
 {
-  (**a3)(v14, a3, 0xFFFFFFFFLL);
-  v12[0] = *a4;
-  v11[0] = vrev64_s32(*v14[8]);
-  cv::normalizeAnchor(v12, v11, v13);
-  v7 = a2 & 7;
-  *a4 = *v13;
+  (**a3)(v15, a3, 0xFFFFFFFFLL);
+  v13[0] = *a4;
+  *&v12 = vrev64_s32(*v15[8]);
+  cv::normalizeAnchor(v13, &v12, v14);
+  v8 = a2 & 7;
+  *a4 = *v14;
   if (a1 < 2)
   {
     if (a1)
@@ -7122,7 +7123,7 @@ void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__
           operator new();
         }
 
-        if (v7 == 2)
+        if (v8 == 2)
         {
           operator new();
         }
@@ -7130,7 +7131,7 @@ void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__
 
       else
       {
-        switch(v7)
+        switch(v8)
         {
           case 3:
             operator new();
@@ -7149,7 +7150,7 @@ void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__
         operator new();
       }
 
-      if (v7 == 2)
+      if (v8 == 2)
       {
         operator new();
       }
@@ -7157,7 +7158,7 @@ void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__
 
     else
     {
-      switch(v7)
+      switch(v8)
       {
         case 3:
           operator new();
@@ -7168,28 +7169,68 @@ void cv::getMorphologyFilter(unsigned int a1, uint64_t a2, void (***a3)(void *__
       }
     }
 
-    cv::format(v12, a2);
-    std::string::basic_string[abi:ne200100]<0>(v11, "getMorphologyFilter");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-    cv::Exception::Exception(v13, 4294967083, v12, v11, __p, 971);
-    cv::error(v13, v9);
+    cv::format(v13, a2);
+    std::string::basic_string[abi:ne200100]<0>(&v12, "getMorphologyFilter");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+    cv::Exception::Exception(v14, -213, v13, &v12, &__p, 971);
+    cv::error(v14, v10);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v12, "op == MORPH_ERODE || op == MORPH_DILATE");
-  std::string::basic_string[abi:ne200100]<0>(v11, "getMorphologyFilter");
-  std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-  cv::Exception::Exception(v13, 4294967081, v12, v11, __p, 943);
-  cv::error(v13, v8);
+  std::string::basic_string[abi:ne200100]<0>(v13, "op == MORPH_ERODE || op == MORPH_DILATE");
+  std::string::basic_string[abi:ne200100]<0>(&v12, "getMorphologyFilter");
+  std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+  cv::Exception::Exception(v14, -215, v13, &v12, &__p, 943);
+  cv::error(v14, v9);
 }
 
-void sub_22D27A4D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D27A4D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
 {
-  MEMORY[0x2318CB1A0](v29, 0x10A1C407469E563);
+  MEMORY[0x2318CB1A0](v29, 0x10A1C407469E563, a3, a4, a5, a6, a7, a8);
   cv::Mat::~Mat((v30 - 144));
   _Unwind_Resume(a1);
 }
 
-void sub_22D27A6C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, char a27)
+int *cv::normalizeAnchor@<X0>(int *result@<X0>, int *a2@<X1>, int *a3@<X8>)
+{
+  v4 = *result;
+  if (*result == -1)
+  {
+    v4 = *a2 / 2;
+    *result = v4;
+  }
+
+  v5 = result[1];
+  if (v5 == -1)
+  {
+    v5 = a2[1] / 2;
+    result[1] = v5;
+    if (v4 < 0)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  else if (v4 < 0)
+  {
+    goto LABEL_10;
+  }
+
+  if (v4 >= *a2 || v5 < 0 || v5 >= a2[1])
+  {
+LABEL_10:
+    std::string::basic_string[abi:ne200100]<0>(&v9, "anchor.inside(Rect(0, 0, ksize.width, ksize.height))");
+    std::string::basic_string[abi:ne200100]<0>(&v8, "normalizeAnchor");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/precomp.hpp");
+    cv::Exception::Exception(v10, -215, &v9, &v8, &__p, 88);
+    cv::error(v10, v6);
+  }
+
+  *a3 = v4;
+  a3[1] = v5;
+  return result;
+}
+
+void sub_22D27A6C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, std::exception a27)
 {
   cv::Exception::~Exception(&a27);
   if (a14 < 0)
@@ -7212,30 +7253,30 @@ void sub_22D27A6C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void cv::createMorphologyFilter(cv *a1, uint64_t a2, void (***a3)(uint64_t *__return_ptr, void, uint64_t), void **a4)
 {
-  (**a3)(&v18, a3, 0xFFFFFFFFLL);
-  v11[0] = *a4;
-  v9[0] = vrev64_s32(*v21);
-  cv::normalizeAnchor(v11, v9, &v10);
-  *a4 = v10;
+  (**a3)(&v22, a3, 0xFFFFFFFFLL);
+  v15[0] = *a4;
+  v13[0] = vrev64_s32(*v25);
+  cv::normalizeAnchor(v15, v13, &v14);
+  *a4 = v14;
+  v20 = 0;
+  v21 = 0;
+  v18 = 0;
+  v19 = 0;
   v16 = 0;
   v17 = 0;
-  v14 = 0;
-  v15 = 0;
-  v12 = 0;
-  v13 = 0;
-  cv::_InputArray::_InputArray(&v10, &v18);
-  v8 = cv::countNonZero(&v10, v7);
-  if (v8 == v20 * v19)
+  cv::_InputArray::_InputArray(&v14, &v22);
+  v12 = cv::countNonZero(&v14, v11);
+  if (v12 == v24 * v23)
   {
     cv::getMorphologyRowFilter(a1, a2);
   }
 
-  cv::_InputArray::_InputArray(&v10, &v18);
-  v9[0] = *a4;
-  cv::getMorphologyFilter(a1, a2, &v10, v9);
+  cv::_InputArray::_InputArray(&v14, &v22);
+  v13[0] = *a4;
+  cv::getMorphologyFilter(a1, a2, &v14, v13);
 }
 
-void sub_22D27ADB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D27ADB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -7260,49 +7301,49 @@ void sub_22D27ADB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void cv::getStructuringElement(unsigned int a1@<W0>, int *a2@<X1>, int *a3@<X2>, uint64_t a4@<X8>)
+void cv::getStructuringElement(unsigned int a1@<W0>, void **a2@<X1>, void **a3@<X2>, uint64_t a4@<X8>)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1 >= 3)
   {
-    std::string::basic_string[abi:ne200100]<0>(v27, "shape == MORPH_RECT || shape == MORPH_CROSS || shape == MORPH_ELLIPSE");
-    std::string::basic_string[abi:ne200100]<0>(v26, "getStructuringElement");
-    std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-    cv::Exception::Exception(v28, 4294967081, v27, v26, __p, 1026);
-    cv::error(v28, v7);
+    std::string::basic_string[abi:ne200100]<0>(v29, "shape == MORPH_RECT || shape == MORPH_CROSS || shape == MORPH_ELLIPSE");
+    std::string::basic_string[abi:ne200100]<0>(v28, "getStructuringElement");
+    std::string::basic_string[abi:ne200100]<0>(&__p, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+    cv::Exception::Exception(v30, -215, v29, v28, &__p, 1026);
+    cv::error(v30, v7);
   }
 
-  v27[0] = *a3;
-  v26[0] = *a2;
-  cv::normalizeAnchor(v27, v26, v28);
-  *a3 = *v28;
-  v8 = *a2;
-  v9 = a2[1];
-  if (v9 == 1 && v8 == 1)
+  v29[0] = *a3;
+  v28[0] = *a2;
+  cv::normalizeAnchor(v29, v28, v30);
+  *a3 = *v30;
+  v10 = *a2;
+  v11 = *(a2 + 1);
+  if (v11 == 1 && v10 == 1)
   {
-    v11 = 0;
+    v13 = 0;
   }
 
   else
   {
-    v11 = a1;
+    v13 = a1;
   }
 
-  v12 = 0.0;
-  if (v11 == 2)
+  v14 = 0.0;
+  if (v13 == 2)
   {
-    v13 = v9 / 2;
-    v23 = v8 / 2;
-    if ((v9 + 1) >= 3)
+    v15 = v11 / 2;
+    v25 = v10 / 2;
+    if ((v11 + 1) >= 3)
     {
-      v12 = 1.0 / (v13 * v13);
+      v14 = 1.0 / (v15 * v15);
     }
   }
 
   else
   {
-    v13 = 0;
-    v23 = 0;
+    v15 = 0;
+    v25 = 0;
   }
 
   *(a4 + 80) = 0;
@@ -7314,107 +7355,107 @@ void cv::getStructuringElement(unsigned int a1@<W0>, int *a2@<X1>, int *a3@<X2>,
   *(a4 + 20) = 0u;
   *(a4 + 36) = 0u;
   *(a4 + 48) = 0u;
-  v28[0] = v9;
-  v28[1] = v8;
-  cv::Mat::create(a4, 2, v28, 0);
-  if (a2[1] >= 1)
+  v30[0] = v11;
+  v30[1] = v10;
+  cv::Mat::create(a4, 2, v30, 0, v8, v9);
+  if (*(a2 + 1) >= 1)
   {
-    v14 = 0;
-    v22 = v23 + 1;
+    v16 = 0;
+    v24 = v25 + 1;
     while (1)
     {
-      v15 = *(a4 + 16);
-      v16 = *(a4 + 80);
-      if (!v11)
+      v17 = *(a4 + 16);
+      v18 = *(a4 + 80);
+      if (!v13)
       {
         goto LABEL_18;
       }
 
-      if (v11 == 1)
+      if (v13 == 1)
       {
         break;
       }
 
-      v19 = v14 - v13;
-      if (v14 - v13 < 0)
+      v21 = v16 - v15;
+      if (v16 - v15 < 0)
       {
-        v19 = v13 - v14;
+        v21 = v15 - v16;
       }
 
-      if (v19 <= v13)
+      if (v21 <= v15)
       {
-        v20 = rint(sqrt(v12 * ((v13 - v14 + v13) * v14)) * v23);
-        v17 = (v23 - v20) & ~((v23 - v20) >> 31);
-        if (*a2 >= (v22 + v20))
+        v22 = rint(sqrt(v14 * ((v15 - v16 + v15) * v16)) * v25);
+        v19 = (v25 - v22) & ~((v25 - v22) >> 31);
+        if (*a2 >= (v24 + v22))
         {
-          v18 = v22 + v20;
+          v20 = v24 + v22;
         }
 
         else
         {
-          v18 = *a2;
+          v20 = *a2;
         }
 
 LABEL_27:
-        if (v17 < 1)
+        if (v19 < 1)
         {
-          v17 = 0;
+          v19 = 0;
         }
 
         else
         {
-          bzero((v15 + v16 * v14), v17);
+          bzero((v17 + v18 * v16), v19);
         }
 
         goto LABEL_30;
       }
 
-      v18 = 0;
+      v20 = 0;
 LABEL_33:
-      if (v18 < *a2)
+      if (v20 < *a2)
       {
-        v21 = (v15 + v16 * v14 + v18);
+        v23 = (v17 + v18 * v16 + v20);
         do
         {
-          *v21++ = 0;
-          ++v18;
+          *v23++ = 0;
+          ++v20;
         }
 
-        while (*a2 > v18);
+        while (*a2 > v20);
       }
 
-      if (++v14 >= a2[1])
+      if (++v16 >= *(a2 + 1))
       {
         return;
       }
     }
 
-    if (v14 != a3[1])
+    if (v16 != *(a3 + 1))
     {
-      v17 = *a3;
-      v18 = *a3 + 1;
+      v19 = *a3;
+      v20 = *a3 + 1;
       goto LABEL_27;
     }
 
 LABEL_18:
-    v17 = 0;
-    v18 = *a2;
+    v19 = 0;
+    v20 = *a2;
 LABEL_30:
-    if (v17 >= v18)
+    if (v19 >= v20)
     {
-      v18 = v17;
+      v20 = v19;
     }
 
     else
     {
-      memset((v15 + v16 * v14 + v17), 1, (v18 + ~v17) + 1);
+      memset((v17 + v18 * v16 + v19), 1, (v20 + ~v19) + 1);
     }
 
     goto LABEL_33;
   }
 }
 
-void sub_22D27B1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
+void sub_22D27B1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, std::exception a29)
 {
   cv::Exception::~Exception(&a29);
   if (a16 < 0)
@@ -7437,10 +7478,10 @@ void sub_22D27B1A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void cv::morphOp(int a1, void (***a2)(void **__return_ptr, void, uint64_t), uint64_t a3, void (***a4)(__int128 *__return_ptr, void, uint64_t), uint64_t a5, int a6, int a7, uint64_t *a8)
 {
-  (**a4)(&v116, a4, 0xFFFFFFFFLL);
-  if (v117)
+  (**a4)(&v117, a4, 0xFFFFFFFFLL);
+  if (v118)
   {
-    v15 = *v121;
+    v15 = *v122;
   }
 
   else
@@ -7448,123 +7489,123 @@ void cv::morphOp(int a1, void (***a2)(void **__return_ptr, void, uint64_t), uint
     v15 = 0x300000003;
   }
 
-  v107[0] = *a5;
-  v64 = vrev64_s32(v15);
-  __p[0] = v64;
-  cv::normalizeAnchor(v107, __p, &v89);
-  *v16.i8 = v89;
-  *a5 = v89;
+  v108[0] = *a5;
+  v65 = vrev64_s32(v15);
+  __p[0] = v65;
+  cv::normalizeAnchor(v108, __p, &v90);
+  *v16.i8 = v90;
+  *a5 = v90;
   v16.i64[1] = v16.i64[0];
-  v17.i64[0] = v64;
+  v17.i64[0] = v65;
   v17.i64[1] = -1;
   v18.i32[0] = vmovn_s32(vcgtq_s32(v17, v16)).u32[0];
   v18.i32[1] = vmovn_s32(vcgtq_s32(v16, v17)).i32[1];
   if ((vminv_u16(v18) & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v107, "anchor.inside(Rect(0, 0, ksize.width, ksize.height))");
+    std::string::basic_string[abi:ne200100]<0>(v108, "anchor.inside(Rect(0, 0, ksize.width, ksize.height))");
     std::string::basic_string[abi:ne200100]<0>(__p, "morphOp");
-    std::string::basic_string[abi:ne200100]<0>(&v115, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
-    cv::Exception::Exception(&v89, 4294967081, v107, __p, &v115, 1298);
-    cv::error(&v89, v19);
+    std::string::basic_string[abi:ne200100]<0>(&v116, "/Library/Caches/com.apple.xbs/Sources/HomeAI/OpenCV/src/imgproc/morph.cpp");
+    cv::Exception::Exception(&v90, -215, v108, __p, &v116, 1298);
+    cv::error(&v90, v19);
   }
 
-  (**a2)(v107, a2, 0xFFFFFFFFLL);
-  v89 = vrev64_s32(*v112);
-  (*(*a3 + 128))(a3, &v89, v107[0] & 0xFFF, 0xFFFFFFFFLL, 0, 0);
+  (**a2)(v108, a2, 0xFFFFFFFFLL);
+  v90 = vrev64_s32(*v113);
+  (*(*a3 + 128))(a3, &v90, v108[0] & 0xFFF, 0xFFFFFFFFLL, 0, 0);
   (**a3)(__p, a3, 0xFFFFFFFFLL);
-  if (!a6 || HIDWORD(v116) * DWORD2(v116) == 1)
+  if (!a6 || HIDWORD(v117) * DWORD2(v117) == 1)
   {
-    cv::_OutputArray::_OutputArray(&v89, __p);
-    cv::Mat::copyTo(v107, &v89);
+    cv::_OutputArray::_OutputArray(&v90, __p);
+    cv::Mat::copyTo(v108, &v90);
     goto LABEL_9;
   }
 
-  v63 = a8;
-  if (!v117)
+  v64 = a8;
+  if (!v118)
   {
-    v115.i32[0] = (2 * a6) | 1;
-    v115.i32[1] = v115.i32[0];
-    v98 = -1;
-    cv::getStructuringElement(0, &v115, &v98, &v89);
-    if (v92)
+    LODWORD(v116) = (2 * a6) | 1;
+    DWORD1(v116) = v116;
+    v99 = -1;
+    cv::getStructuringElement(0, &v116, &v99, &v90);
+    if (v93)
     {
-      atomic_fetch_add(v92, 1u);
+      atomic_fetch_add(v93, 1u);
     }
 
-    if (v118 && atomic_fetch_add(v118, 0xFFFFFFFF) == 1)
+    if (v119 && atomic_fetch_add(v119, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(&v116);
+      cv::Mat::deallocate(&v117);
     }
 
-    v117 = 0;
-    *(&v118 + 1) = 0;
-    v119 = 0uLL;
-    if (v116 <= 0)
+    v118 = 0;
+    *(&v119 + 1) = 0;
+    v120 = 0uLL;
+    if (v117 <= 0)
     {
-      *&v118 = 0;
-      LODWORD(v116) = v89.i32[0];
+      *&v119 = 0;
+      LODWORD(v117) = v90.i32[0];
     }
 
     else
     {
       v36 = 0;
-      v37 = v121;
+      v37 = v122;
       do
       {
         v37->i32[v36++] = 0;
       }
 
-      while (v36 < SDWORD1(v116));
-      *&v118 = 0;
-      LODWORD(v116) = v89.i32[0];
-      if (SDWORD1(v116) > 2)
+      while (v36 < SDWORD1(v117));
+      *&v119 = 0;
+      LODWORD(v117) = v90.i32[0];
+      if (SDWORD1(v117) > 2)
       {
         goto LABEL_70;
       }
     }
 
-    if (v89.i32[1] <= 2)
+    if (v90.i32[1] <= 2)
     {
-      DWORD1(v116) = v89.i32[1];
-      *(&v116 + 1) = v90;
-      v38 = v96;
-      v39 = v122;
-      *v122 = *v96;
+      DWORD1(v117) = v90.i32[1];
+      *(&v117 + 1) = v91;
+      v38 = v97;
+      v39 = v123;
+      *v123 = *v97;
       v39[1] = v38[1];
       goto LABEL_71;
     }
 
 LABEL_70:
-    cv::Mat::copySize(&v116, &v89);
+    cv::Mat::copySize(&v117, &v90);
 LABEL_71:
+    v120 = v94;
     v119 = v93;
     v118 = v92;
-    v117 = v91;
-    v120 = v94;
-    if (v92 && atomic_fetch_add(v92, 0xFFFFFFFF) == 1)
+    v121 = v95;
+    if (v93 && atomic_fetch_add(v93, 0xFFFFFFFF) == 1)
     {
-      cv::Mat::deallocate(&v89);
+      cv::Mat::deallocate(&v90);
     }
 
-    v91 = 0;
-    v93 = 0uLL;
-    *(&v92 + 1) = 0;
-    if (v89.i32[1] >= 1)
+    v92 = 0;
+    v94 = 0uLL;
+    *(&v93 + 1) = 0;
+    if (v90.i32[1] >= 1)
     {
       v40 = 0;
-      v41 = v95;
+      v41 = v96;
       do
       {
         *(v41 + 4 * v40++) = 0;
       }
 
-      while (v40 < v89.i32[1]);
+      while (v40 < v90.i32[1]);
     }
 
-    *&v92 = 0;
-    if (v96)
+    *&v93 = 0;
+    if (v97)
     {
-      v42 = v96 == v97;
+      v42 = v97 == v98;
     }
 
     else
@@ -7574,7 +7615,7 @@ LABEL_71:
 
     if (!v42)
     {
-      free(v96);
+      free(v97);
     }
 
     v35 = a1;
@@ -7585,107 +7626,107 @@ LABEL_71:
 
   if (a6 >= 2)
   {
-    cv::_InputArray::_InputArray(&v89, &v116);
-    v30 = cv::countNonZero(&v89, v29);
-    if (v30 == HIDWORD(v116) * DWORD2(v116))
+    cv::_InputArray::_InputArray(&v90, &v117);
+    v30 = cv::countNonZero(&v90, v29);
+    if (v30 == HIDWORD(v117) * DWORD2(v117))
     {
       v31 = *a5 * a6;
       v32 = *(a5 + 4) * a6;
       *a5 = v31;
       *(a5 + 4) = v32;
-      v115 = vmla_s32(v64, vadd_s32(v64, -1), vdup_n_s32(a6 - 1));
-      v98 = __PAIR64__(v32, v31);
-      cv::getStructuringElement(0, &v115, &v98, &v89);
-      if (v92)
+      *&v116 = vmla_s32(v65, vadd_s32(v65, -1), vdup_n_s32(a6 - 1));
+      v99 = __PAIR64__(v32, v31);
+      cv::getStructuringElement(0, &v116, &v99, &v90);
+      if (v93)
       {
-        atomic_fetch_add(v92, 1u);
+        atomic_fetch_add(v93, 1u);
       }
 
-      if (v118 && atomic_fetch_add(v118, 0xFFFFFFFF) == 1)
+      if (v119 && atomic_fetch_add(v119, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v116);
+        cv::Mat::deallocate(&v117);
       }
 
-      v117 = 0;
-      *(&v118 + 1) = 0;
-      v119 = 0uLL;
-      if (v116 <= 0)
+      v118 = 0;
+      *(&v119 + 1) = 0;
+      v120 = 0uLL;
+      if (v117 <= 0)
       {
-        *&v118 = 0;
-        LODWORD(v116) = v89.i32[0];
+        *&v119 = 0;
+        LODWORD(v117) = v90.i32[0];
       }
 
       else
       {
         v33 = 0;
-        v34 = v121;
+        v34 = v122;
         do
         {
           v34->i32[v33++] = 0;
         }
 
-        while (v33 < SDWORD1(v116));
-        *&v118 = 0;
-        LODWORD(v116) = v89.i32[0];
-        if (SDWORD1(v116) > 2)
+        while (v33 < SDWORD1(v117));
+        *&v119 = 0;
+        LODWORD(v117) = v90.i32[0];
+        if (SDWORD1(v117) > 2)
         {
           goto LABEL_135;
         }
       }
 
-      if (v89.i32[1] <= 2)
+      if (v90.i32[1] <= 2)
       {
-        DWORD1(v116) = v89.i32[1];
-        *(&v116 + 1) = v90;
-        v58 = v96;
-        v59 = v122;
-        *v122 = *v96;
-        v59[1] = v58[1];
+        DWORD1(v117) = v90.i32[1];
+        *(&v117 + 1) = v91;
+        v59 = v97;
+        v60 = v123;
+        *v123 = *v97;
+        v60[1] = v59[1];
         goto LABEL_136;
       }
 
 LABEL_135:
-      cv::Mat::copySize(&v116, &v89);
+      cv::Mat::copySize(&v117, &v90);
 LABEL_136:
+      v120 = v94;
       v119 = v93;
       v118 = v92;
-      v117 = v91;
-      v120 = v94;
-      if (v92 && atomic_fetch_add(v92, 0xFFFFFFFF) == 1)
+      v121 = v95;
+      if (v93 && atomic_fetch_add(v93, 0xFFFFFFFF) == 1)
       {
-        cv::Mat::deallocate(&v89);
+        cv::Mat::deallocate(&v90);
       }
 
-      v91 = 0;
-      v93 = 0uLL;
-      *(&v92 + 1) = 0;
-      if (v89.i32[1] >= 1)
+      v92 = 0;
+      v94 = 0uLL;
+      *(&v93 + 1) = 0;
+      if (v90.i32[1] >= 1)
       {
-        v60 = 0;
-        v61 = v95;
+        v61 = 0;
+        v62 = v96;
         do
         {
-          *(v61 + 4 * v60++) = 0;
+          *(v62 + 4 * v61++) = 0;
         }
 
-        while (v60 < v89.i32[1]);
+        while (v61 < v90.i32[1]);
       }
 
       v35 = a1;
-      *&v92 = 0;
-      if (v96)
+      *&v93 = 0;
+      if (v97)
       {
-        v62 = v96 == v97;
+        v63 = v97 == v98;
       }
 
       else
       {
-        v62 = 1;
+        v63 = 1;
       }
 
-      if (!v62)
+      if (!v63)
       {
-        free(v96);
+        free(v97);
       }
 
 LABEL_83:
@@ -7696,216 +7737,217 @@ LABEL_83:
 
   v35 = a1;
 LABEL_84:
-  v115 = 0x100000000;
-  v81 = *v107;
-  v83 = v109;
+  *&v116 = 0x100000000;
+  v82 = *v108;
   v84 = v110;
-  v82 = v108;
   v85 = v111;
-  v86 = &v81 + 8;
-  v87 = v88;
-  v88[0] = 0;
-  v88[1] = 0;
-  if (v109)
+  v83 = v109;
+  v86 = v112;
+  v87 = &v82 + 8;
+  v88 = v89;
+  v89[0] = 0;
+  v89[1] = 0;
+  if (v110)
   {
-    atomic_fetch_add(v109, 1u);
+    atomic_fetch_add(v110, 1u);
   }
 
-  if (SHIDWORD(v107[0]) > 2)
+  if (SHIDWORD(v108[0]) > 2)
   {
-    DWORD1(v81) = 0;
-    cv::Mat::copySize(&v81, v107);
+    DWORD1(v82) = 0;
+    cv::Mat::copySize(&v82, v108);
   }
 
   else
   {
-    v43 = v113;
-    v44 = v87;
-    *v87 = *v113;
+    v43 = v114;
+    v44 = v88;
+    *v88 = *v114;
     v44[1] = v43[1];
   }
 
-  v74 = v100;
-  v73 = *__p;
   v75 = v101;
+  v74 = *__p;
   v76 = v102;
   v77 = v103;
-  v78 = &v73 + 8;
-  v80[0] = 0;
-  v80[1] = 0;
-  v79 = v80;
-  if (v101)
+  v78 = v104;
+  v79 = &v74 + 8;
+  v81[0] = 0;
+  v81[1] = 0;
+  v80 = v81;
+  if (v102)
   {
-    atomic_fetch_add(v101, 1u);
+    atomic_fetch_add(v102, 1u);
   }
 
   if (SHIDWORD(__p[0]) > 2)
   {
-    DWORD1(v73) = 0;
-    cv::Mat::copySize(&v73, __p);
+    DWORD1(v74) = 0;
+    cv::Mat::copySize(&v74, __p);
   }
 
   else
   {
-    v45 = v105;
-    v46 = v79;
-    *v79 = *v105;
+    v45 = v106;
+    v46 = v80;
+    *v80 = *v106;
     v46[1] = v45[1];
   }
 
-  v66 = v117;
-  v65 = v116;
   v67 = v118;
+  v66 = v117;
   v68 = v119;
   v69 = v120;
-  v70 = &v65 + 8;
-  v72[0] = 0;
-  v72[1] = 0;
-  v71 = v72;
-  if (v118)
+  v70 = v121;
+  v71 = &v66 + 8;
+  v73[0] = 0;
+  v73[1] = 0;
+  v72 = v73;
+  if (v119)
   {
-    atomic_fetch_add(v118, 1u);
+    atomic_fetch_add(v119, 1u);
   }
 
-  if (SDWORD1(v116) > 2)
+  if (SDWORD1(v117) > 2)
   {
-    DWORD1(v65) = 0;
-    cv::Mat::copySize(&v65, &v116);
+    DWORD1(v66) = 0;
+    cv::Mat::copySize(&v66, &v117);
   }
 
   else
   {
-    v47 = v122;
-    v48 = v71;
-    *v71 = *v122;
+    v47 = v123;
+    v48 = v72;
+    *v72 = *v123;
     v48[1] = v47[1];
   }
 
-  v98 = *a5;
-  cv::MorphologyRunner::MorphologyRunner(&v89, &v81, &v73, 1, a6, v35, &v65, &v98, a7, a7, v63);
-  cv::parallel_for_(&v115, &v89, -1.0);
-  cv::MorphologyRunner::~MorphologyRunner(&v89);
-  if (v67 && atomic_fetch_add(v67, 0xFFFFFFFF) == 1)
+  v99 = *a5;
+  cv::MorphologyRunner::MorphologyRunner(&v90, &v82, &v74, 1, a6, v35, &v66, &v99, a7, a7, v64);
+  v49.n128_u64[0] = -1.0;
+  cv::parallel_for_(&v116, &v90, v49);
+  cv::MorphologyRunner::~MorphologyRunner(&v90);
+  if (v68 && atomic_fetch_add(v68, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v65);
+    cv::Mat::deallocate(&v66);
   }
 
-  v66 = 0;
-  v68 = 0uLL;
-  *(&v67 + 1) = 0;
-  if (SDWORD1(v65) >= 1)
+  v67 = 0;
+  v69 = 0uLL;
+  *(&v68 + 1) = 0;
+  if (SDWORD1(v66) >= 1)
   {
-    v49 = 0;
-    v50 = v70;
+    v50 = 0;
+    v51 = v71;
     do
     {
-      *&v50[4 * v49++] = 0;
+      *&v51[4 * v50++] = 0;
     }
 
-    while (v49 < SDWORD1(v65));
+    while (v50 < SDWORD1(v66));
   }
 
-  *&v67 = 0;
-  if (v71)
+  *&v68 = 0;
+  if (v72)
   {
-    v51 = v71 == v72;
+    v52 = v72 == v73;
   }
 
   else
   {
-    v51 = 1;
+    v52 = 1;
   }
 
-  if (!v51)
+  if (!v52)
   {
-    free(v71);
+    free(v72);
   }
 
-  if (v75 && atomic_fetch_add(v75, 0xFFFFFFFF) == 1)
+  if (v76 && atomic_fetch_add(v76, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v73);
+    cv::Mat::deallocate(&v74);
   }
 
-  v74 = 0;
-  v76 = 0uLL;
-  *(&v75 + 1) = 0;
-  if (SDWORD1(v73) >= 1)
+  v75 = 0;
+  v77 = 0uLL;
+  *(&v76 + 1) = 0;
+  if (SDWORD1(v74) >= 1)
   {
-    v52 = 0;
-    v53 = v78;
+    v53 = 0;
+    v54 = v79;
     do
     {
-      *&v53[4 * v52++] = 0;
+      *&v54[4 * v53++] = 0;
     }
 
-    while (v52 < SDWORD1(v73));
+    while (v53 < SDWORD1(v74));
   }
 
-  *&v75 = 0;
-  if (v79)
+  *&v76 = 0;
+  if (v80)
   {
-    v54 = v79 == v80;
+    v55 = v80 == v81;
   }
 
   else
   {
-    v54 = 1;
+    v55 = 1;
   }
 
-  if (!v54)
+  if (!v55)
   {
-    free(v79);
+    free(v80);
   }
 
-  if (v83 && atomic_fetch_add(v83, 0xFFFFFFFF) == 1)
+  if (v84 && atomic_fetch_add(v84, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v81);
+    cv::Mat::deallocate(&v82);
   }
 
-  v82 = 0;
-  v84 = 0uLL;
-  *(&v83 + 1) = 0;
-  if (SDWORD1(v81) >= 1)
+  v83 = 0;
+  v85 = 0uLL;
+  *(&v84 + 1) = 0;
+  if (SDWORD1(v82) >= 1)
   {
-    v55 = 0;
-    v56 = v86;
+    v56 = 0;
+    v57 = v87;
     do
     {
-      *&v56[4 * v55++] = 0;
+      *&v57[4 * v56++] = 0;
     }
 
-    while (v55 < SDWORD1(v81));
+    while (v56 < SDWORD1(v82));
   }
 
-  *&v83 = 0;
-  if (v87)
+  *&v84 = 0;
+  if (v88)
   {
-    v57 = v87 == v88;
+    v58 = v88 == v89;
   }
 
   else
   {
-    v57 = 1;
+    v58 = 1;
   }
 
-  if (!v57)
+  if (!v58)
   {
-    free(v87);
+    free(v88);
   }
 
 LABEL_9:
-  if (v101 && atomic_fetch_add(v101, 0xFFFFFFFF) == 1)
+  if (v102 && atomic_fetch_add(v102, 0xFFFFFFFF) == 1)
   {
     cv::Mat::deallocate(__p);
   }
 
-  v100 = 0;
-  *(&v101 + 1) = 0;
-  v102 = 0uLL;
+  v101 = 0;
+  *(&v102 + 1) = 0;
+  v103 = 0uLL;
   if (SHIDWORD(__p[0]) >= 1)
   {
     v20 = 0;
-    v21 = v104;
+    v21 = v105;
     do
     {
       *(v21 + 4 * v20++) = 0;
@@ -7914,10 +7956,10 @@ LABEL_9:
     while (v20 < SHIDWORD(__p[0]));
   }
 
-  *&v101 = 0;
-  if (v105)
+  *&v102 = 0;
+  if (v106)
   {
-    v22 = v105 == &v106;
+    v22 = v106 == &v107;
   }
 
   else
@@ -7927,33 +7969,33 @@ LABEL_9:
 
   if (!v22)
   {
-    free(v105);
+    free(v106);
   }
 
-  if (v109 && atomic_fetch_add(v109, 0xFFFFFFFF) == 1)
+  if (v110 && atomic_fetch_add(v110, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(v107);
+    cv::Mat::deallocate(v108);
   }
 
-  v108 = 0;
-  *(&v109 + 1) = 0;
-  v110 = 0uLL;
-  if (SHIDWORD(v107[0]) >= 1)
+  v109 = 0;
+  *(&v110 + 1) = 0;
+  v111 = 0uLL;
+  if (SHIDWORD(v108[0]) >= 1)
   {
     v23 = 0;
-    v24 = v112;
+    v24 = v113;
     do
     {
       v24->i32[v23++] = 0;
     }
 
-    while (v23 < SHIDWORD(v107[0]));
+    while (v23 < SHIDWORD(v108[0]));
   }
 
-  *&v109 = 0;
-  if (v113)
+  *&v110 = 0;
+  if (v114)
   {
-    v25 = v113 == &v114;
+    v25 = v114 == &v115;
   }
 
   else
@@ -7963,33 +8005,33 @@ LABEL_9:
 
   if (!v25)
   {
-    free(v113);
+    free(v114);
   }
 
-  if (v118 && atomic_fetch_add(v118, 0xFFFFFFFF) == 1)
+  if (v119 && atomic_fetch_add(v119, 0xFFFFFFFF) == 1)
   {
-    cv::Mat::deallocate(&v116);
+    cv::Mat::deallocate(&v117);
   }
 
-  v117 = 0;
-  *(&v118 + 1) = 0;
-  v119 = 0uLL;
-  if (SDWORD1(v116) >= 1)
+  v118 = 0;
+  *(&v119 + 1) = 0;
+  v120 = 0uLL;
+  if (SDWORD1(v117) >= 1)
   {
     v26 = 0;
-    v27 = v121;
+    v27 = v122;
     do
     {
       v27->i32[v26++] = 0;
     }
 
-    while (v26 < SDWORD1(v116));
+    while (v26 < SDWORD1(v117));
   }
 
-  *&v118 = 0;
-  if (v122)
+  *&v119 = 0;
+  if (v123)
   {
-    v28 = v122 == &v123;
+    v28 = v123 == &v124;
   }
 
   else
@@ -7999,7 +8041,7 @@ LABEL_9:
 
   if (!v28)
   {
-    free(v122);
+    free(v123);
   }
 }
 
@@ -8433,11 +8475,10 @@ void cv::MorphologyRunner::operator()(uint64_t a1, _DWORD *a2)
 
   v14[0] = v6;
   v14[1] = v8;
-  *&v12[0] = 0x7FFFFFFF80000000;
-  cv::Mat::Mat(v15, a1 + 8, v14, v12);
+  cv::Mat::Mat(v15);
   *&v12[0] = __PAIR64__(v8, v6);
   v13 = 0x7FFFFFFF80000000;
-  cv::Mat::Mat(v14, a1 + 104, v12, &v13);
+  cv::Mat::Mat(v14);
   v9 = *(a1 + 208);
   v10 = *(a1 + 8);
   cv::_InputArray::_InputArray(v12, (a1 + 216));
@@ -8445,15 +8486,15 @@ void cv::MorphologyRunner::operator()(uint64_t a1, _DWORD *a2)
   cv::createMorphologyFilter(v9, v10 & 0xFFF, v12, &v11);
 }
 
-void sub_22D27C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22D27C5B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   cv::Ptr<cv::FilterEngine>::~Ptr(va);
   cv::Mat::~Mat(va1);
-  cv::Mat::~Mat((v9 - 144));
+  cv::Mat::~Mat((v16 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -8464,10 +8505,10 @@ void cv::MorphRowFilter<cv::MinOp<unsigned char>,cv::MorphRowNoVec>::~MorphRowFi
   JUMPOUT(0x2318CB1A0);
 }
 
-unsigned __int8 *cv::MorphRowFilter<cv::MinOp<unsigned char>,cv::MorphRowNoVec>::operator()(unsigned __int8 *result, char *a2, _BYTE *a3, int a4, unsigned int a5)
+char *cv::MorphRowFilter<cv::MinOp<unsigned char>,cv::MorphRowNoVec>::operator()(char *result, char *a2, _BYTE *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -8486,7 +8527,7 @@ unsigned __int8 *cv::MorphRowFilter<cv::MinOp<unsigned char>,cv::MorphRowNoVec>:
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     do
@@ -8544,7 +8585,7 @@ unsigned __int8 *cv::MorphRowFilter<cv::MinOp<unsigned char>,cv::MorphRowNoVec>:
               v19 += a5;
             }
 
-            while (v5 > (a5 + v19));
+            while (v5 > a5 + v19);
           }
 
           a3[v12] = v18;
@@ -8573,10 +8614,10 @@ void cv::MorphRowFilter<cv::MinOp<unsigned short>,cv::MorphRowNoVec>::~MorphRowF
   JUMPOUT(0x2318CB1A0);
 }
 
-__int16 *cv::MorphRowFilter<cv::MinOp<unsigned short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, unsigned int a5)
+__int16 *cv::MorphRowFilter<cv::MinOp<unsigned short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -8595,7 +8636,7 @@ __int16 *cv::MorphRowFilter<cv::MinOp<unsigned short>,cv::MorphRowNoVec>::operat
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 2 * a5;
@@ -8653,7 +8694,7 @@ __int16 *cv::MorphRowFilter<cv::MinOp<unsigned short>,cv::MorphRowNoVec>::operat
 
           a3[v13 + a5] = v20;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -8712,10 +8753,10 @@ void cv::MorphRowFilter<cv::MinOp<short>,cv::MorphRowNoVec>::~MorphRowFilter(cv:
   JUMPOUT(0x2318CB1A0);
 }
 
-__int16 *cv::MorphRowFilter<cv::MinOp<short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, unsigned int a5)
+__int16 *cv::MorphRowFilter<cv::MinOp<short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -8734,7 +8775,7 @@ __int16 *cv::MorphRowFilter<cv::MinOp<short>,cv::MorphRowNoVec>::operator()(__in
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 2 * a5;
@@ -8787,7 +8828,7 @@ __int16 *cv::MorphRowFilter<cv::MinOp<short>,cv::MorphRowNoVec>::operator()(__in
 
           a3[v13 + a5] = v20;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -8846,10 +8887,10 @@ void cv::MorphRowFilter<cv::MinOp<float>,cv::MorphRowNoVec>::~MorphRowFilter(cv:
   JUMPOUT(0x2318CB1A0);
 }
 
-int *cv::MorphRowFilter<cv::MinOp<float>,cv::MorphRowNoVec>::operator()(int *result, int *a2, _DWORD *a3, int a4, unsigned int a5)
+int *cv::MorphRowFilter<cv::MinOp<float>,cv::MorphRowNoVec>::operator()(int *result, int *a2, _DWORD *a3, int a4, int a5)
 {
   v5 = result[2] * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -8868,7 +8909,7 @@ int *cv::MorphRowFilter<cv::MinOp<float>,cv::MorphRowNoVec>::operator()(int *res
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 4 * a5;
@@ -8920,7 +8961,7 @@ int *cv::MorphRowFilter<cv::MinOp<float>,cv::MorphRowNoVec>::operator()(int *res
 
           *&a3[v13 + a5] = v16;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -8979,10 +9020,10 @@ void cv::MorphRowFilter<cv::MinOp<double>,cv::MorphRowNoVec>::~MorphRowFilter(cv
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t *cv::MorphRowFilter<cv::MinOp<double>,cv::MorphRowNoVec>::operator()(uint64_t *result, uint64_t *a2, void *a3, int a4, unsigned int a5)
+uint64_t *cv::MorphRowFilter<cv::MinOp<double>,cv::MorphRowNoVec>::operator()(uint64_t *result, uint64_t *a2, void *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9001,7 +9042,7 @@ uint64_t *cv::MorphRowFilter<cv::MinOp<double>,cv::MorphRowNoVec>::operator()(ui
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 8 * a5;
@@ -9053,7 +9094,7 @@ uint64_t *cv::MorphRowFilter<cv::MinOp<double>,cv::MorphRowNoVec>::operator()(ui
 
           *&a3[v13 + a5] = v16;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -9112,10 +9153,10 @@ void cv::MorphRowFilter<cv::MaxOp<unsigned char>,cv::MorphRowNoVec>::~MorphRowFi
   JUMPOUT(0x2318CB1A0);
 }
 
-unsigned __int8 *cv::MorphRowFilter<cv::MaxOp<unsigned char>,cv::MorphRowNoVec>::operator()(unsigned __int8 *result, char *a2, _BYTE *a3, int a4, unsigned int a5)
+char *cv::MorphRowFilter<cv::MaxOp<unsigned char>,cv::MorphRowNoVec>::operator()(char *result, char *a2, _BYTE *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9134,7 +9175,7 @@ unsigned __int8 *cv::MorphRowFilter<cv::MaxOp<unsigned char>,cv::MorphRowNoVec>:
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     do
@@ -9192,7 +9233,7 @@ unsigned __int8 *cv::MorphRowFilter<cv::MaxOp<unsigned char>,cv::MorphRowNoVec>:
               v19 += a5;
             }
 
-            while (v5 > (a5 + v19));
+            while (v5 > a5 + v19);
           }
 
           a3[v12] = v18;
@@ -9221,10 +9262,10 @@ void cv::MorphRowFilter<cv::MaxOp<unsigned short>,cv::MorphRowNoVec>::~MorphRowF
   JUMPOUT(0x2318CB1A0);
 }
 
-__int16 *cv::MorphRowFilter<cv::MaxOp<unsigned short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, unsigned int a5)
+__int16 *cv::MorphRowFilter<cv::MaxOp<unsigned short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9243,7 +9284,7 @@ __int16 *cv::MorphRowFilter<cv::MaxOp<unsigned short>,cv::MorphRowNoVec>::operat
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 2 * a5;
@@ -9297,7 +9338,7 @@ __int16 *cv::MorphRowFilter<cv::MaxOp<unsigned short>,cv::MorphRowNoVec>::operat
 
           a3[v13 + a5] = v20;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -9356,10 +9397,10 @@ void cv::MorphRowFilter<cv::MaxOp<short>,cv::MorphRowNoVec>::~MorphRowFilter(cv:
   JUMPOUT(0x2318CB1A0);
 }
 
-__int16 *cv::MorphRowFilter<cv::MaxOp<short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, unsigned int a5)
+__int16 *cv::MorphRowFilter<cv::MaxOp<short>,cv::MorphRowNoVec>::operator()(__int16 *result, __int16 *a2, _WORD *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9378,7 +9419,7 @@ __int16 *cv::MorphRowFilter<cv::MaxOp<short>,cv::MorphRowNoVec>::operator()(__in
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 2 * a5;
@@ -9431,7 +9472,7 @@ __int16 *cv::MorphRowFilter<cv::MaxOp<short>,cv::MorphRowNoVec>::operator()(__in
 
           a3[v13 + a5] = v20;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -9490,10 +9531,10 @@ void cv::MorphRowFilter<cv::MaxOp<float>,cv::MorphRowNoVec>::~MorphRowFilter(cv:
   JUMPOUT(0x2318CB1A0);
 }
 
-int *cv::MorphRowFilter<cv::MaxOp<float>,cv::MorphRowNoVec>::operator()(int *result, int *a2, _DWORD *a3, int a4, unsigned int a5)
+int *cv::MorphRowFilter<cv::MaxOp<float>,cv::MorphRowNoVec>::operator()(int *result, int *a2, _DWORD *a3, int a4, int a5)
 {
   v5 = result[2] * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9512,7 +9553,7 @@ int *cv::MorphRowFilter<cv::MaxOp<float>,cv::MorphRowNoVec>::operator()(int *res
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 4 * a5;
@@ -9564,7 +9605,7 @@ int *cv::MorphRowFilter<cv::MaxOp<float>,cv::MorphRowNoVec>::operator()(int *res
 
           *&a3[v13 + a5] = v16;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);
@@ -9623,10 +9664,10 @@ void cv::MorphRowFilter<cv::MaxOp<double>,cv::MorphRowNoVec>::~MorphRowFilter(cv
   JUMPOUT(0x2318CB1A0);
 }
 
-uint64_t *cv::MorphRowFilter<cv::MaxOp<double>,cv::MorphRowNoVec>::operator()(uint64_t *result, uint64_t *a2, void *a3, int a4, unsigned int a5)
+uint64_t *cv::MorphRowFilter<cv::MaxOp<double>,cv::MorphRowNoVec>::operator()(uint64_t *result, uint64_t *a2, void *a3, int a4, int a5)
 {
   v5 = *(result + 2) * a5;
-  v6 = a5 * a4;
+  v6 = (a5 * a4);
   if (v5 == a5)
   {
     if (v6 >= 1)
@@ -9645,7 +9686,7 @@ uint64_t *cv::MorphRowFilter<cv::MaxOp<double>,cv::MorphRowNoVec>::operator()(ui
   else if (a5 >= 1)
   {
     v8 = 0;
-    v9 = 2 * a5;
+    v9 = (2 * a5);
     v10 = v6 - 2 * a5;
     v11 = &a2[v9];
     v12 = 8 * a5;
@@ -9697,7 +9738,7 @@ uint64_t *cv::MorphRowFilter<cv::MaxOp<double>,cv::MorphRowNoVec>::operator()(ui
 
           *&a3[v13 + a5] = v16;
           v13 += v9;
-          v14 += 2 * a5;
+          v14 += (2 * a5);
         }
 
         while (v10 >= v13);

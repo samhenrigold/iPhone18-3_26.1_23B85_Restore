@@ -78,13 +78,13 @@ void __83__SBScreenTimeTrackingController_layoutMonitor_didUpdateDisplayLayout_w
   _block_invoke_requestCount = v2 + 1;
 }
 
-uint64_t __83__SBScreenTimeTrackingController_layoutMonitor_didUpdateDisplayLayout_withContext___block_invoke_2(uint64_t result)
+id *__83__SBScreenTimeTrackingController_layoutMonitor_didUpdateDisplayLayout_withContext___block_invoke_2(id *result)
 {
   v1 = _block_invoke_requestCount;
   _block_invoke_requestCount = 0;
   if (v1 >= 2)
   {
-    return [*(result + 32) _queue_handleNewLayout:*(*(result + 32) + 32) withContext:*(*(result + 32) + 40)];
+    return [result[4] _queue_handleNewLayout:*(result[4] + 4) withContext:*(result[4] + 5)];
   }
 
   return result;

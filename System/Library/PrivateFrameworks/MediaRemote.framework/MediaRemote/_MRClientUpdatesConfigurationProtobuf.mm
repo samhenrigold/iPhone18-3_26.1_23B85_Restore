@@ -124,13 +124,13 @@
 
 - (id)dictionaryRepresentation
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   has = self->_has;
   if ((has & 4) != 0)
   {
-    v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_nowPlayingUpdates];
-    [dictionary setObject:v15 forKey:@"nowPlayingUpdates"];
+    v14 = [MEMORY[0x1E696AD98] numberWithBool:self->_nowPlayingUpdates];
+    [dictionary setObject:v14 forKey:@"nowPlayingUpdates"];
 
     has = self->_has;
     if ((has & 1) == 0)
@@ -150,8 +150,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v16 = [MEMORY[0x1E696AD98] numberWithBool:self->_artworkUpdates];
-  [dictionary setObject:v16 forKey:@"artworkUpdates"];
+  v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_artworkUpdates];
+  [dictionary setObject:v15 forKey:@"artworkUpdates"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -166,8 +166,8 @@ LABEL_4:
   }
 
 LABEL_22:
-  v17 = [MEMORY[0x1E696AD98] numberWithBool:self->_volumeUpdates];
-  [dictionary setObject:v17 forKey:@"volumeUpdates"];
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:self->_volumeUpdates];
+  [dictionary setObject:v16 forKey:@"volumeUpdates"];
 
   has = self->_has;
   if ((has & 2) == 0)
@@ -182,8 +182,8 @@ LABEL_5:
   }
 
 LABEL_23:
-  v18 = [MEMORY[0x1E696AD98] numberWithBool:self->_keyboardUpdates];
-  [dictionary setObject:v18 forKey:@"keyboardUpdates"];
+  v17 = [MEMORY[0x1E696AD98] numberWithBool:self->_keyboardUpdates];
+  [dictionary setObject:v17 forKey:@"keyboardUpdates"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -198,8 +198,8 @@ LABEL_6:
   }
 
 LABEL_24:
-  v19 = [MEMORY[0x1E696AD98] numberWithBool:self->_outputDeviceUpdates];
-  [dictionary setObject:v19 forKey:@"outputDeviceUpdates"];
+  v18 = [MEMORY[0x1E696AD98] numberWithBool:self->_outputDeviceUpdates];
+  [dictionary setObject:v18 forKey:@"outputDeviceUpdates"];
 
   if ((*&self->_has & 0x10) != 0)
   {
@@ -212,30 +212,30 @@ LABEL_8:
   if ([(NSMutableArray *)self->_subscribedPlayerPaths count])
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_subscribedPlayerPaths, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v7 = self->_subscribedPlayerPaths;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          dictionaryRepresentation = [*(*(&v20 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
           [v6 addObject:dictionaryRepresentation];
         }
 
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -244,19 +244,16 @@ LABEL_8:
     [dictionary setObject:v6 forKey:@"subscribedPlayerPaths"];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
   has = self->_has;
   if ((has & 4) != 0)
   {
-    nowPlayingUpdates = self->_nowPlayingUpdates;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 1) == 0)
@@ -276,7 +273,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  artworkUpdates = self->_artworkUpdates;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -291,7 +287,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  volumeUpdates = self->_volumeUpdates;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -306,7 +301,6 @@ LABEL_5:
   }
 
 LABEL_19:
-  keyboardUpdates = self->_keyboardUpdates;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -321,46 +315,41 @@ LABEL_6:
   }
 
 LABEL_20:
-  outputDeviceUpdates = self->_outputDeviceUpdates;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_7:
-    systemEndpointUpdates = self->_systemEndpointUpdates;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_8:
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = self->_subscribedPlayerPaths;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_subscribedPlayerPaths;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v20;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -463,7 +452,7 @@ LABEL_8:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -544,36 +533,35 @@ LABEL_7:
   }
 
 LABEL_8:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v8 = self->_subscribedPlayerPaths;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:{zone, v16}];
+        v13 = [*(*(&v15 + 1) + 8 * i) copyWithZone:{zone, v15}];
         [v6 addSubscribedPlayerPaths:v13];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -585,7 +573,6 @@ LABEL_8:
     goto LABEL_52;
   }
 
-  v5 = *(equalCopy + 24);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 24) & 4) == 0)
@@ -593,7 +580,6 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    v8 = *(equalCopy + 18);
     if (self->_nowPlayingUpdates)
     {
       if ((*(equalCopy + 18) & 1) == 0)
@@ -620,7 +606,6 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    v9 = *(equalCopy + 16);
     if (self->_artworkUpdates)
     {
       if ((*(equalCopy + 16) & 1) == 0)
@@ -647,7 +632,6 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    v10 = *(equalCopy + 21);
     if (self->_volumeUpdates)
     {
       if ((*(equalCopy + 21) & 1) == 0)
@@ -674,7 +658,6 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    v11 = *(equalCopy + 17);
     if (self->_keyboardUpdates)
     {
       if ((*(equalCopy + 17) & 1) == 0)
@@ -701,7 +684,6 @@ LABEL_8:
       goto LABEL_52;
     }
 
-    v12 = *(equalCopy + 19);
     if (self->_outputDeviceUpdates)
     {
       if ((*(equalCopy + 19) & 1) == 0)
@@ -729,7 +711,7 @@ LABEL_8:
     }
 
 LABEL_52:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_53;
   }
 
@@ -738,7 +720,6 @@ LABEL_52:
     goto LABEL_52;
   }
 
-  v13 = *(equalCopy + 20);
   if (self->_systemEndpointUpdates)
   {
     if ((*(equalCopy + 20) & 1) == 0)
@@ -756,17 +737,17 @@ LABEL_14:
   subscribedPlayerPaths = self->_subscribedPlayerPaths;
   if (subscribedPlayerPaths | *(equalCopy + 1))
   {
-    v7 = [(NSMutableArray *)subscribedPlayerPaths isEqual:?];
+    v6 = [(NSMutableArray *)subscribedPlayerPaths isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_53:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash
@@ -853,7 +834,7 @@ LABEL_7:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 24);
@@ -934,35 +915,33 @@ LABEL_7:
   }
 
 LABEL_8:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(fromCopy + 1);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(_MRClientUpdatesConfigurationProtobuf *)self addSubscribedPlayerPaths:*(*(&v13 + 1) + 8 * i), v13];
+        [(_MRClientUpdatesConfigurationProtobuf *)self addSubscribedPlayerPaths:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -57,37 +57,37 @@
 
 - (BOOL)validateOperation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   context = [(FCChannelIssuesFetchOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires a context"];
-    v10 = 136315906;
-    v11 = "[FCChannelIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCChannelIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 61;
-    v16 = 2114;
-    v17 = v8;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires a context"];
+    v9 = 136315906;
+    v10 = "[FCChannelIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCChannelIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 61;
+    v15 = 2114;
+    v16 = v7;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   channelIDs = [(FCChannelIssuesFetchOperation *)self channelIDs];
 
   if (!channelIDs && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires channel IDs"];
-    v10 = 136315906;
-    v11 = "[FCChannelIssuesFetchOperation validateOperation]";
-    v12 = 2080;
-    v13 = "FCChannelIssuesFetchOperation.m";
-    v14 = 1024;
-    v15 = 65;
-    v16 = 2114;
-    v17 = v9;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v10, 0x26u);
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channel issues fetch operation requires channel IDs"];
+    v9 = 136315906;
+    v10 = "[FCChannelIssuesFetchOperation validateOperation]";
+    v11 = 2080;
+    v12 = "FCChannelIssuesFetchOperation.m";
+    v13 = 1024;
+    v14 = 65;
+    v15 = 2114;
+    v16 = v8;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v9, 0x26u);
   }
 
   if (context)
@@ -100,20 +100,18 @@
     v5 = 1;
   }
 
-  result = !v5;
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v5;
 }
 
 - (void)performOperation
 {
-  v21[3] = *MEMORY[0x1E69E9840];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke;
-  v16[3] = &unk_1E7C3B578;
-  v16[4] = self;
-  v3 = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke(v16);
+  v20[3] = *MEMORY[0x1E69E9840];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke;
+  v15[3] = &unk_1E7C3B578;
+  v15[4] = self;
+  v3 = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke(v15);
   v4 = objc_alloc_init(FCRecordChainFetchOperation);
   context = [(FCChannelIssuesFetchOperation *)self context];
   [(FCRecordChainFetchOperation *)v4 setContext:context];
@@ -121,15 +119,15 @@
   channelIDs = [(FCChannelIssuesFetchOperation *)self channelIDs];
   [(FCRecordChainFetchOperation *)v4 setTopLevelRecordIDs:channelIDs];
 
-  v21[0] = v3;
-  v20[0] = @"Tag";
-  v20[1] = @"IssueList";
-  v19 = @"issueIDs";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
-  v20[2] = @"Issue";
-  v21[1] = v7;
-  v21[2] = MEMORY[0x1E695E0F0];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+  v20[0] = v3;
+  v19[0] = @"Tag";
+  v19[1] = @"IssueList";
+  v18 = @"issueIDs";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+  v19[2] = @"Issue";
+  v20[1] = v7;
+  v20[2] = MEMORY[0x1E695E0F0];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
   [(FCRecordChainFetchOperation *)v4 setLinkKeysByRecordType:v8];
 
   cachePolicy = [(FCChannelIssuesFetchOperation *)self cachePolicy];
@@ -146,35 +144,33 @@
 
   v12 = v11;
 
-  v17[0] = @"Tag";
-  v17[1] = @"IssueList";
-  v18[0] = v12;
-  v18[1] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[0] = @"Tag";
+  v16[1] = @"IssueList";
+  v17[0] = v12;
+  v17[1] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   [(FCRecordChainFetchOperation *)v4 setCachePoliciesByRecordType:v13];
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke_2;
-  v15[3] = &unk_1E7C39358;
-  v15[4] = self;
-  [(FCRecordChainFetchOperation *)v4 setRecordChainCompletionHandler:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __49__FCChannelIssuesFetchOperation_performOperation__block_invoke_2;
+  v14[3] = &unk_1E7C39358;
+  v14[4] = self;
+  [(FCRecordChainFetchOperation *)v4 setRecordChainCompletionHandler:v14];
   [(FCOperation *)self associateChildOperation:v4];
   [(FCOperation *)v4 start];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 id __49__FCChannelIssuesFetchOperation_performOperation__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) issueSet];
   if (v1 == 1)
   {
-    v7 = @"latestIssueIDs";
-    v8 = @"archiveIssueListID";
+    v6 = @"latestIssueIDs";
+    v7 = @"archiveIssueListID";
     v2 = MEMORY[0x1E695DEC8];
-    v3 = &v7;
+    v3 = &v6;
     v4 = 2;
   }
 
@@ -185,15 +181,14 @@ id __49__FCChannelIssuesFetchOperation_performOperation__block_invoke(uint64_t a
       goto LABEL_6;
     }
 
-    v9[0] = @"latestIssueIDs";
+    v8[0] = @"latestIssueIDs";
     v2 = MEMORY[0x1E695DEC8];
-    v3 = v9;
+    v3 = v8;
     v4 = 1;
   }
 
-  v1 = [v2 arrayWithObjects:v3 count:{v4, v7, v8, v9[0]}];
+  v1 = [v2 arrayWithObjects:v3 count:{v4, v6, v7, v8[0]}];
 LABEL_6:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v1;
 }

@@ -41,7 +41,7 @@
 
 - (void)main
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   sequenceRecordID = [(HDCloudSyncChangeRecord *)self->_changeRecord sequenceRecordID];
   recordID = [(HDCloudSyncRecord *)self->_sequenceRecord recordID];
   v5 = [sequenceRecordID isEqual:recordID];
@@ -50,8 +50,8 @@
   {
     v6 = objc_alloc(MEMORY[0x277CBC3E0]);
     recordID2 = [(HDCloudSyncRecord *)self->_changeRecord recordID];
-    v33[0] = recordID2;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+    v30[0] = recordID2;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
     v9 = [v6 initWithRecordIDs:v8];
 
     v10 = +[HDCloudSyncChangeRecord assetKeys];
@@ -67,27 +67,27 @@
       [v9 setDropInMemoryAssetContentASAP:1];
     }
 
-    v31[0] = 0;
-    v31[1] = v31;
-    v31[2] = 0x3032000000;
-    v31[3] = __Block_byref_object_copy__94;
-    v31[4] = __Block_byref_object_dispose__94;
-    v32 = 0;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke;
-    v29[3] = &unk_278620C18;
-    v29[4] = self;
-    v29[5] = v31;
-    v30 = v14;
-    [v9 setPerRecordCompletionBlock:v29];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke_306;
-    v28[3] = &unk_278620C40;
-    v28[4] = self;
-    v28[5] = v31;
-    [v9 setFetchRecordsCompletionBlock:v28];
+    v28[0] = 0;
+    v28[1] = v28;
+    v28[2] = 0x3032000000;
+    v28[3] = __Block_byref_object_copy__94;
+    v28[4] = __Block_byref_object_dispose__94;
+    v29 = 0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke;
+    v26[3] = &unk_278620C18;
+    v26[4] = self;
+    v26[5] = v28;
+    v27 = v14;
+    [v9 setPerRecordCompletionBlock:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke_306;
+    v25[3] = &unk_278620C40;
+    v25[4] = self;
+    v25[5] = v28;
+    [v9 setFetchRecordsCompletionBlock:v25];
     configuration = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration cachedCloudState];
     [cachedCloudState setOperationCountForAnalytics:{objc_msgSend(cachedCloudState, "operationCountForAnalytics") + 1}];
@@ -103,130 +103,124 @@
     v23 = HDDatabaseForContainer(container, profileIdentifier);
 
     [v23 addOperation:v9];
-    _Block_object_dispose(v31, 8);
-
-    v24 = *MEMORY[0x277D85DE8];
+    _Block_object_dispose(v28, 8);
   }
 
   else
   {
-    changeRecord = self->_changeRecord;
-    v27 = [MEMORY[0x277CCA9B8] hk_error:709 format:{@"Change record %@ does not match this sequence record (%@)", changeRecord, self->_sequenceRecord}];
-    [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v27];
-    v26 = *MEMORY[0x277D85DE8];
+    v24 = [MEMORY[0x277CCA9B8] hk_error:709 format:{@"Change record %@ does not match this sequence record (%@)", self->_changeRecord, self->_sequenceRecord}];
+    [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v24];
   }
 }
 
 void __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 40) + 8) + 40))
   {
     _HKInitializeLogging();
     v5 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v29 = *(a1 + 32);
+      v27 = *(a1 + 32);
       *buf = 138543362;
-      *&buf[4] = v29;
+      *&buf[4] = v27;
       _os_log_fault_impl(&dword_228986000, v5, OS_LOG_TYPE_FAULT, "%{public}@: Multiple calls to perRecordCompletionBlock.", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 48);
-    v11 = a2;
-    v12 = a3;
-    v13 = a4;
-    if (v9)
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 48);
+    v10 = a2;
+    v11 = a3;
+    v12 = a4;
+    if (v8)
     {
-      [v9 updateCompletedProgressCount:100];
+      [v8 updateCompletedProgressCount:100];
       _HKInitializeLogging();
-      v14 = MEMORY[0x277CCC328];
+      v13 = MEMORY[0x277CCC328];
+      v14 = *MEMORY[0x277CCC328];
       v15 = *MEMORY[0x277CCC328];
-      v16 = *MEMORY[0x277CCC328];
-      if (v11)
+      if (v10)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          *&buf[4] = v9;
+          *&buf[4] = v8;
           *&buf[12] = 2114;
-          *&buf[14] = v11;
-          _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Persisting fetched change record %{public}@", buf, 0x16u);
+          *&buf[14] = v10;
+          _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Persisting fetched change record %{public}@", buf, 0x16u);
         }
 
-        v17 = v11;
-        v30 = 0;
-        v31 = &v30;
-        v32 = 0x3032000000;
-        v33 = __Block_byref_object_copy__330;
-        v34 = __Block_byref_object_dispose__331;
-        v35 = 0;
+        v16 = v10;
+        v28 = 0;
+        v29 = &v28;
+        v30 = 0x3032000000;
+        v31 = __Block_byref_object_copy__330;
+        v32 = __Block_byref_object_dispose__331;
+        v33 = 0;
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChangeRecord_assetContentInMemory_error___block_invoke;
-        v37 = &unk_278620C90;
-        v41 = v10;
-        v40 = &v30;
-        v38 = v9;
-        v18 = v17;
-        v39 = v18;
+        v35 = &unk_278620C90;
+        v39 = v9;
+        v38 = &v28;
+        v36 = v8;
+        v17 = v16;
+        v37 = v17;
         if (HKWithAutoreleasePool())
         {
-          v19 = v31[5];
+          v18 = v29[5];
         }
 
         else
         {
-          v19 = 0;
+          v18 = 0;
         }
 
-        v21 = v19;
+        v20 = v18;
 
-        _Block_object_dispose(&v30, 8);
-        v22 = 0;
-        v20 = v22;
-        if (v21)
+        _Block_object_dispose(&v28, 8);
+        v21 = 0;
+        v19 = v21;
+        if (v20)
         {
-          v30 = 0;
-          v23 = [HDCloudSyncChangeRecord recordWithCKRecord:v18 error:&v30];
-          v24 = v30;
-          if (v23)
+          v28 = 0;
+          v22 = [HDCloudSyncChangeRecord recordWithCKRecord:v17 error:&v28];
+          v23 = v28;
+          if (v22)
           {
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke_2;
-            v37 = &unk_27861A028;
-            v38 = v23;
-            v39 = v9;
-            v40 = v21;
-            v9 = _Block_copy(buf);
+            v35 = &unk_27861A028;
+            v36 = v22;
+            v37 = v8;
+            v38 = v20;
+            v8 = _Block_copy(buf);
           }
 
           else
           {
             _HKInitializeLogging();
-            v25 = *v14;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            v24 = *v13;
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543618;
-              *&buf[4] = v9;
+              *&buf[4] = v8;
               *&buf[12] = 2114;
-              *&buf[14] = v24;
-              _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "%{public}@: change record instantiation failed: %{public}@", buf, 0x16u);
+              *&buf[14] = v23;
+              _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "%{public}@: change record instantiation failed: %{public}@", buf, 0x16u);
             }
 
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke_313;
-            v37 = &unk_278616D40;
-            v38 = v24;
-            v9 = _Block_copy(buf);
+            v35 = &unk_278616D40;
+            v36 = v23;
+            v8 = _Block_copy(buf);
           }
         }
 
@@ -235,48 +229,47 @@ void __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke(uint64_t a1, 
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke_312;
-          v37 = &unk_278620C68;
-          v38 = v22;
-          v39 = v9;
-          v9 = _Block_copy(buf);
-          v24 = v38;
+          v35 = &unk_278620C68;
+          v36 = v21;
+          v37 = v8;
+          v8 = _Block_copy(buf);
+          v23 = v36;
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          *&buf[4] = v9;
+          *&buf[4] = v8;
           *&buf[12] = 2114;
-          *&buf[14] = v13;
-          _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch change asset: %{public}@", buf, 0x16u);
+          *&buf[14] = v12;
+          _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch change asset: %{public}@", buf, 0x16u);
         }
 
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke;
-        v37 = &unk_27861A028;
-        v38 = v13;
-        v39 = v9;
-        v40 = v12;
-        v9 = _Block_copy(buf);
+        v35 = &unk_27861A028;
+        v36 = v12;
+        v37 = v8;
+        v38 = v11;
+        v8 = _Block_copy(buf);
 
-        v20 = v38;
+        v19 = v36;
       }
     }
 
-    v26 = *(*(a1 + 40) + 8);
-    v27 = *(v26 + 40);
-    *(v26 + 40) = v9;
-    v28 = *MEMORY[0x277D85DE8];
+    v25 = *(*(a1 + 40) + 8);
+    v26 = *(v25 + 40);
+    *(v25 + 40) = v8;
   }
 }
 
 void __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke_306(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -285,54 +278,54 @@ void __44__HDCloudSyncPullChangeRecordOperation_main__block_invoke_306(uint64_t 
     v7 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = *(v24 + 128);
+      v23 = *(a1 + 32);
+      v24 = *(v23 + 128);
       *buf = 138543874;
-      v29 = v24;
-      v30 = 2114;
-      v31 = v25;
-      v32 = 2114;
-      v33 = v6;
+      v28 = v23;
+      v29 = 2114;
+      v30 = v24;
+      v31 = 2114;
+      v32 = v6;
       _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Failed record fetch for change %{public}@: %{public}@", buf, 0x20u);
     }
 
     v8 = *(a1 + 32);
     v9 = [v8[16] recordID];
-    v27 = 0;
-    [(HDCloudSyncPullChangeRecordOperation *)v8 _handlePossibleCacheDiscrepancyWithRecordID:v9 fetchError:v6 errorOut:&v27];
-    v10 = v27;
+    v26 = 0;
+    [(HDCloudSyncPullChangeRecordOperation *)v8 _handlePossibleCacheDiscrepancyWithRecordID:v9 fetchError:v6 errorOut:&v26];
+    v10 = v26;
   }
 
   else
   {
-    v15 = *(*(*(a1 + 40) + 8) + 40);
-    if (!v15)
+    v14 = *(*(*(a1 + 40) + 8) + 40);
+    if (!v14)
     {
-      v20 = *(a1 + 32);
-      v21 = MEMORY[0x277CCA9B8];
-      v22 = [v20[16] recordID];
-      v23 = [v21 hk_error:720 format:{@"Failed to fetch requested change record %@", v22}];
-      [v20 finishWithSuccess:0 error:v23];
+      v19 = *(a1 + 32);
+      v20 = MEMORY[0x277CCA9B8];
+      v21 = [v19[16] recordID];
+      v22 = [v20 hk_error:720 format:{@"Failed to fetch requested change record %@", v21}];
+      [v19 finishWithSuccess:0 error:v22];
 
       goto LABEL_7;
     }
 
-    v26 = 0;
-    v16 = (*(v15 + 16))(v15, &v26);
-    v10 = v26;
-    if (v16)
+    v25 = 0;
+    v15 = (*(v14 + 16))(v14, &v25);
+    v10 = v25;
+    if (v15)
     {
       _HKInitializeLogging();
-      v17 = *MEMORY[0x277CCC328];
+      v16 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(a1 + 32);
-        v19 = *(v18 + 128);
+        v17 = *(a1 + 32);
+        v18 = *(v17 + 128);
         *buf = 138543618;
-        v29 = v18;
-        v30 = 2114;
-        v31 = v19;
-        _os_log_impl(&dword_228986000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished record fetch for change %{public}@", buf, 0x16u);
+        v28 = v17;
+        v29 = 2114;
+        v30 = v18;
+        _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Finished record fetch for change %{public}@", buf, 0x16u);
       }
 
       v11 = *(a1 + 32);
@@ -349,12 +342,11 @@ LABEL_6:
   [v11 finishWithSuccess:v12 error:v13];
 
 LABEL_7:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePossibleCacheDiscrepancyWithRecordID:(void *)d fetchError:(void *)error errorOut:
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (self)
   {
@@ -363,10 +355,10 @@ LABEL_7:
     cachedCloudState = [configuration cachedCloudState];
     container = [self[14] container];
     containerIdentifier = [container containerIdentifier];
-    v27 = 0;
-    v13 = [cachedCloudState zoneForRecordID:v8 containerIdentifier:containerIdentifier error:&v27];
+    v26 = 0;
+    v13 = [cachedCloudState zoneForRecordID:v8 containerIdentifier:containerIdentifier error:&v26];
 
-    v14 = v27;
+    v14 = v26;
     if (v13)
     {
       container2 = [self[14] container];
@@ -392,8 +384,8 @@ LABEL_7:
       {
         *buf = 138543618;
         selfCopy = self;
-        v30 = 2114;
-        v31 = v14;
+        v29 = 2114;
+        v30 = v14;
         _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to lookup zone during cache discrepancy reporting %{public}@", buf, 0x16u);
       }
     }
@@ -413,8 +405,6 @@ LABEL_7:
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke(uint64_t a1, void *a2)
@@ -473,7 +463,7 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
 
 - (uint64_t)_shouldSucceedWithAssetExtractionError:(uint64_t)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (error)
   {
@@ -484,9 +474,9 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
     v8 = HDCloudSyncKeyValueDomainWithProfile(legacyRepositoryProfile);
 
     _assetExtractionFailureCountKey = [(HDCloudSyncPullChangeRecordOperation *)error _assetExtractionFailureCountKey];
-    v32 = 0;
-    v10 = [v8 numberForKey:_assetExtractionFailureCountKey error:&v32];
-    v11 = v32;
+    v31 = 0;
+    v10 = [v8 numberForKey:_assetExtractionFailureCountKey error:&v31];
+    v11 = v31;
     v12 = v11;
     v13 = MEMORY[0x277CCC328];
     if (!v10)
@@ -499,8 +489,8 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
         {
           *buf = 138543618;
           errorCopy3 = _assetExtractionFailureCountKey;
-          v35 = 2114;
-          v36 = v12;
+          v34 = 2114;
+          v35 = v12;
           _os_log_error_impl(&dword_228986000, v14, OS_LOG_TYPE_ERROR, "Failed to get value for %{public}@: %{public}@.", buf, 0x16u);
         }
       }
@@ -517,12 +507,12 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
       {
         *buf = 138543618;
         errorCopy3 = error;
-        v35 = 2114;
-        v36 = v3;
+        v34 = 2114;
+        v35 = v3;
         _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: skip record due to multiple failures to extract archive: %{public}@", buf, 0x16u);
       }
 
-      v30 = v3;
+      v29 = v3;
       [(HDCloudSyncPullChangeRecordOperation *)error _setAssetExtractionFailureCount:?];
       decodedSyncAnchorRangeMap = [*(error + 128) decodedSyncAnchorRangeMap];
       v19 = [HDSyncAnchorMap syncAnchorMapWithSyncAnchorRangeMap:decodedSyncAnchorRangeMap];
@@ -531,9 +521,9 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
       repository2 = [configuration2 repository];
       profile2 = [repository2 profile];
       legacyRepositoryProfile2 = [profile2 legacyRepositoryProfile];
-      v31 = 0;
-      v25 = [HDSyncAnchorEntity updateSyncAnchorsWithMap:v19 type:3 store:store updatePolicy:1 resetInvalid:0 profile:legacyRepositoryProfile2 error:&v31];
-      v26 = v31;
+      v30 = 0;
+      v25 = [HDSyncAnchorEntity updateSyncAnchorsWithMap:v19 type:3 store:store updatePolicy:1 resetInvalid:0 profile:legacyRepositoryProfile2 error:&v30];
+      v26 = v30;
 
       if (!v25)
       {
@@ -543,14 +533,14 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
         {
           *buf = 138543618;
           errorCopy3 = error;
-          v35 = 2114;
-          v36 = v26;
+          v34 = 2114;
+          v35 = v26;
           _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Failed to update anchors when skipping record due to extraction failures: %{public}@", buf, 0x16u);
         }
       }
 
       error = 1;
-      v3 = v30;
+      v3 = v29;
     }
 
     else
@@ -559,8 +549,8 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
       {
         *buf = 138543618;
         errorCopy3 = error;
-        v35 = 2114;
-        v36 = v3;
+        v34 = 2114;
+        v35 = v3;
         _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: zip extraction failed: %{public}@", buf, 0x16u);
       }
 
@@ -569,7 +559,6 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -595,7 +584,7 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
 
 uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedRecord_recordID_inMemoryAsset_fetchError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v82[2] = *MEMORY[0x277D85DE8];
+  v81[2] = *MEMORY[0x277D85DE8];
   CFAbsoluteTimeGetCurrent();
   v3 = MEMORY[0x277CCC328];
   v4 = os_signpost_id_make_with_pointer(*MEMORY[0x277CCC328], *(a1 + 32));
@@ -653,7 +642,7 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
         *&buf[12] = 2048;
         *&buf[14] = v12;
         *&buf[22] = 2048;
-        v74 = v19;
+        v73 = v19;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Change record has protocol version %ld, which is later than store protocol version %ld. Attempting pull and will re-ingest upon upgrade.", buf, 0x20u);
       }
     }
@@ -675,45 +664,45 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
       v23 = 0;
     }
 
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2020000000;
-    v72 = 1;
-    v63 = 0;
-    v64 = &v63;
-    v65 = 0x3032000000;
-    v66 = __Block_byref_object_copy__330;
-    v67 = __Block_byref_object_dispose__331;
     v68 = 0;
-    v62[0] = 0;
-    v62[1] = v62;
-    v62[2] = 0x2020000000;
-    v62[3] = 0;
+    v69 = &v68;
+    v70 = 0x2020000000;
+    v71 = 1;
+    v62 = 0;
+    v63 = &v62;
+    v64 = 0x3032000000;
+    v65 = __Block_byref_object_copy__330;
+    v66 = __Block_byref_object_dispose__331;
+    v67 = 0;
+    v61[0] = 0;
+    v61[1] = v61;
+    v61[2] = 0x2020000000;
+    v61[3] = 0;
     v25 = MEMORY[0x277CBEB98];
-    v82[0] = objc_opt_class();
-    v82[1] = objc_opt_class();
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:2];
+    v81[0] = objc_opt_class();
+    v81[1] = objc_opt_class();
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:2];
     v27 = [v25 setWithArray:v26];
 
-    v28 = v64 + 5;
-    obj = v64[5];
+    v28 = v63 + 5;
+    obj = v63[5];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke;
-    v74 = &unk_278620D08;
-    v75 = v11;
-    v79 = &v63;
+    v73 = &unk_278620D08;
+    v74 = v11;
+    v78 = &v62;
     v29 = v27;
-    v76 = v29;
-    v80 = &v69;
+    v75 = v29;
+    v79 = &v68;
     v30 = v16;
-    v77 = v30;
-    v81 = v62;
+    v76 = v30;
+    v80 = v61;
     v31 = v23;
-    v78 = v31;
+    v77 = v31;
     LODWORD(v11) = [v13 enumerateEntriesWithError:&obj block:buf];
     objc_storeStrong(v28, obj);
-    *(v70 + 24) = v11;
+    *(v69 + 24) = v11;
     if (v11)
     {
       v32 = 0;
@@ -721,7 +710,7 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
 
     else
     {
-      v33 = v64[5];
+      v33 = v63[5];
       v32 = v33;
       if (v33)
       {
@@ -729,10 +718,10 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
       }
     }
 
-    _Block_object_dispose(v62, 8);
-    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(v61, 8);
+    _Block_object_dispose(&v62, 8);
 
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v68, 8);
   }
 
   else
@@ -755,7 +744,7 @@ uint64_t __104__HDCloudSyncPullChangeRecordOperation__continuationForFetchedReco
     *&buf[12] = 2112;
     *&buf[14] = v37;
     *&buf[22] = 2114;
-    v74 = v40;
+    v73 = v40;
     _os_log_impl(&dword_228986000, v39, OS_LOG_TYPE_INFO, "%{public}@: persisted %@ in %{public}@", buf, 0x20u);
   }
 
@@ -795,10 +784,10 @@ LABEL_46:
       }
     }
 
-    if (v60)
+    if (v59)
     {
       v56 = v35;
-      *v60 = v35;
+      *v59 = v35;
     }
 
     else
@@ -827,9 +816,9 @@ LABEL_46:
       _os_log_impl(&dword_228986000, v51, OS_LOG_TYPE_INFO, "%{public}@: Recording pull operation applied changes", buf, 0xCu);
     }
 
-    v63 = 0;
-    v52 = [v50 setNumber:MEMORY[0x277CBEC38] forKey:@"HDCloudSyncHasPullAppliedChange" error:&v63];
-    v53 = v63;
+    v62 = 0;
+    v52 = [v50 setNumber:MEMORY[0x277CBEC38] forKey:@"HDCloudSyncHasPullAppliedChange" error:&v62];
+    v53 = v62;
     if ((v52 & 1) == 0)
     {
       _HKInitializeLogging();
@@ -846,13 +835,12 @@ LABEL_46:
   v55 = 1;
 LABEL_47:
 
-  v57 = *MEMORY[0x277D85DE8];
   return v55;
 }
 
 - (void)_setAssetExtractionFailureCount:(void *)count
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (count)
   {
     configuration = [count configuration];
@@ -863,9 +851,9 @@ LABEL_47:
 
     _assetExtractionFailureCountKey = [(HDCloudSyncPullChangeRecordOperation *)count _assetExtractionFailureCountKey];
     v10 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v14 = 0;
-    LOBYTE(repository) = [v8 setNumber:v10 forKey:_assetExtractionFailureCountKey error:&v14];
-    v11 = v14;
+    v13 = 0;
+    LOBYTE(repository) = [v8 setNumber:v10 forKey:_assetExtractionFailureCountKey error:&v13];
+    v11 = v13;
 
     if ((repository & 1) == 0)
     {
@@ -874,20 +862,18 @@ LABEL_47:
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v16 = _assetExtractionFailureCountKey;
-        v17 = 2114;
-        v18 = v11;
+        v15 = _assetExtractionFailureCountKey;
+        v16 = 2114;
+        v17 = v11;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to set value for %{public}@: %{public}@.", buf, 0x16u);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChangeRecord_assetContentInMemory_error___block_invoke(uint64_t a1, void *a2)
 {
-  *&v87[13] = *MEMORY[0x277D85DE8];
+  *&v86[13] = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
   if (*(a1 + 56) == 1)
@@ -909,28 +895,28 @@ uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChan
       {
         v10 = v9;
         *buf = 138543618;
-        v85 = v5;
-        v86 = 2048;
-        *v87 = [v7 length];
+        v84 = v5;
+        v85 = 2048;
+        *v86 = [v7 length];
         _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: fetched asset data size (%lu)", buf, 0x16u);
       }
 
       if ([v7 length] <= 0x40000)
       {
-        v39 = [v7 copy];
+        v39 = objc_msgSend_copy(v7);
       }
 
       else
       {
-        v79 = [MEMORY[0x277CCAD78] UUID];
-        v11 = [v79 UUIDString];
+        v78 = [MEMORY[0x277CCAD78] UUID];
+        v11 = [v78 UUIDString];
         objc_opt_self();
         v12 = objc_alloc_init(MEMORY[0x277CCAA00]);
         v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"syncarchive-%@", v11];
-        v78 = v11;
+        v77 = v11;
 
         v14 = [v12 temporaryDirectory];
-        v76 = v13;
+        v75 = v13;
         v15 = [v14 URLByAppendingPathComponent:v13];
         v16 = [v15 URLByAppendingPathExtension:@"zip"];
 
@@ -941,58 +927,58 @@ uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChan
           v54 = v17;
           v55 = [v16 path];
           *buf = 138543362;
-          v85 = v55;
+          v84 = v55;
           _os_log_debug_impl(&dword_228986000, v54, OS_LOG_TYPE_DEBUG, "Creating asset file %{public}@", buf, 0xCu);
         }
 
         v18 = [v16 path];
         v19 = [v12 createFileAtPath:v18 contents:0 attributes:0];
 
-        v77 = v12;
+        v76 = v12;
         if (v19)
         {
-          v81 = 0;
-          v20 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingURL:v16 error:&v81];
-          v21 = v81;
+          v80 = 0;
+          v20 = [MEMORY[0x277CCA9F8] fileHandleForUpdatingURL:v16 error:&v80];
+          v21 = v80;
           v22 = v21;
           if (v20)
           {
-            v74 = v21;
+            v73 = v21;
             if (fcntl([v20 fileDescriptor], 48, 1))
             {
               _HKInitializeLogging();
               v23 = *MEMORY[0x277CCC328];
               if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
               {
-                v63 = v23;
-                v64 = [v16 path];
-                v65 = v12;
-                v66 = *__error();
-                v67 = __error();
-                v68 = strerror(*v67);
+                v62 = v23;
+                v63 = [v16 path];
+                v64 = v12;
+                v65 = *__error();
+                v66 = __error();
+                v67 = strerror(*v66);
                 *buf = 138543874;
-                v85 = v64;
-                v86 = 1024;
-                *v87 = v66;
-                v12 = v65;
-                v87[2] = 2082;
-                *&v87[3] = v68;
-                _os_log_error_impl(&dword_228986000, v63, OS_LOG_TYPE_ERROR, "Error setting F_NOCACHE on file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
+                v84 = v63;
+                v85 = 1024;
+                *v86 = v65;
+                v12 = v64;
+                v86[2] = 2082;
+                *&v86[3] = v67;
+                _os_log_error_impl(&dword_228986000, v62, OS_LOG_TYPE_ERROR, "Error setting F_NOCACHE on file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
               }
             }
 
             v24 = *MEMORY[0x277CCA198];
             v25 = *MEMORY[0x277CCA180];
-            v82[0] = *MEMORY[0x277CCA1B0];
-            v82[1] = v25;
-            v83[0] = v24;
-            v83[1] = &unk_283CB2178;
-            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
+            v81[0] = *MEMORY[0x277CCA1B0];
+            v81[1] = v25;
+            v82[0] = v24;
+            v82[1] = &unk_283CB2178;
+            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
             v27 = [v16 path];
-            v80 = 0;
-            v75 = v26;
-            v28 = [v12 setAttributes:v26 ofItemAtPath:v27 error:&v80];
-            v29 = v80;
+            v79 = 0;
+            v74 = v26;
+            v28 = [v12 setAttributes:v26 ofItemAtPath:v27 error:&v79];
+            v29 = v79;
 
             if (v28)
             {
@@ -1005,18 +991,18 @@ uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChan
                 v32 = *MEMORY[0x277CCC328];
                 if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
                 {
-                  v69 = v32;
-                  v70 = [v16 path];
-                  v71 = *__error();
-                  v72 = __error();
-                  v73 = strerror(*v72);
+                  v68 = v32;
+                  v69 = [v16 path];
+                  v70 = *__error();
+                  v71 = __error();
+                  v72 = strerror(*v71);
                   *buf = 138543874;
-                  v85 = v70;
-                  v86 = 1024;
-                  *v87 = v71;
-                  v87[2] = 2082;
-                  *&v87[3] = v73;
-                  _os_log_error_impl(&dword_228986000, v69, OS_LOG_TYPE_ERROR, "Error unlinking file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
+                  v84 = v69;
+                  v85 = 1024;
+                  *v86 = v70;
+                  v86[2] = 2082;
+                  *&v86[3] = v72;
+                  _os_log_error_impl(&dword_228986000, v68, OS_LOG_TYPE_ERROR, "Error unlinking file at %{public}@ failed (%d): %{public}s", buf, 0x1Cu);
                 }
               }
 
@@ -1047,7 +1033,7 @@ uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChan
               v33 = 0;
             }
 
-            v22 = v74;
+            v22 = v73;
           }
 
           else
@@ -1059,7 +1045,7 @@ uint64_t __103__HDCloudSyncPullChangeRecordOperation__zipArchiveExtractorForChan
             v46 = [v16 path];
             v47 = [v45 stringWithFormat:@"Failed to create fileHandle at %@", v46];
 
-            v75 = v47;
+            v74 = v47;
             v29 = [MEMORY[0x277CCA9B8] hk_error:102 description:v47 underlyingError:v22];
             if (v29)
             {
@@ -1193,75 +1179,72 @@ LABEL_58:
   v60 = *(v59 + 40);
   *(v59 + 40) = v36;
 
-  v61 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
-void __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke(uint64_t a1, void *a2)
+void __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v27 = *MEMORY[0x277D85DE8];
+  v4 = a2;
   _HKInitializeLogging();
-  v4 = *MEMORY[0x277CCC328];
+  v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v7 = [v3 pathname];
+    v6 = *(a1 + 32);
+    v7 = v5;
+    v8 = [v4 pathname];
     *buf = 138543618;
-    *&buf[4] = v5;
+    *&buf[4] = v6;
     *&buf[12] = 2114;
-    *&buf[14] = v7;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: persist change set file %{public}@", buf, 0x16u);
+    *&buf[14] = v8;
+    _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: persist change set file %{public}@", buf, 0x16u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v25 = __Block_byref_object_copy__330;
-  v26 = __Block_byref_object_dispose__331;
-  v27 = 0;
-  v8 = *(*(a1 + 64) + 8);
-  obj = *(v8 + 40);
-  v9 = v3;
-  v21 = *(a1 + 32);
-  v22 = *(a1 + 40);
-  v10 = HKWithAutoreleasePool();
-  objc_storeStrong((v8 + 40), obj);
-  if (v10)
+  v24 = __Block_byref_object_copy__330;
+  v25 = __Block_byref_object_dispose__331;
+  v26 = 0;
+  v9 = *(*(a1 + 64) + 8);
+  obj = *(v9 + 40);
+  v10 = v4;
+  v21 = *(a1 + 40);
+  v11 = HKWithAutoreleasePool();
+  objc_storeStrong((v9 + 40), obj);
+  if (v11)
   {
-    v11 = *(*(a1 + 64) + 8);
-    v20 = *(v11 + 40);
+    v12 = *(*(a1 + 64) + 8);
+    v20 = *(v12 + 40);
     v14 = MEMORY[0x277D85DD0];
     v15 = 3221225472;
     v16 = __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke_337;
     v17 = &unk_278620CE0;
     v18 = *(a1 + 32);
     v19 = *(a1 + 48);
-    v12 = HKWithAutoreleasePool();
-    objc_storeStrong((v11 + 40), v20);
-    *(*(*(a1 + 72) + 8) + 24) = v12;
+    v13 = HKWithAutoreleasePool();
+    objc_storeStrong((v12 + 40), v20);
+    *(*(*(a1 + 72) + 8) + 24) = v13;
   }
 
   [*(a1 + 56) setCompletedUnitCount:{++*(*(*(a1 + 80) + 8) + 24), v14, v15, v16, v17, v18}];
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke_335(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
-  v19 = 0;
-  v3 = [v2 dataWithError:&v19];
-  v4 = v19;
+  v18 = 0;
+  v3 = [v2 dataWithError:&v18];
+  v4 = v18;
   if (v3)
   {
     v5 = a1[6];
-    v18 = 0;
-    v6 = [MEMORY[0x277CCAAC8] hk_unarchivedObjectOfClasses:v5 forKey:@"changes" data:v3 error:&v18];
-    v7 = v18;
+    v17 = 0;
+    v6 = [MEMORY[0x277CCAAC8] hk_unarchivedObjectOfClasses:v5 forKey:@"changes" data:v3 error:&v17];
+    v7 = v17;
     v8 = *(a1[7] + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v6;
@@ -1274,11 +1257,11 @@ BOOL __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_prot
       v12 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v17 = a1[5];
+        v16 = a1[5];
         *buf = 138543618;
-        v21 = v17;
-        v22 = 2114;
-        v23 = v7;
+        v20 = v16;
+        v21 = 2114;
+        v22 = v7;
         _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "%{public}@: Failed to unarchive changes: %{public}@", buf, 0x16u);
       }
     }
@@ -1290,28 +1273,27 @@ BOOL __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_prot
     v13 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v16 = a1[5];
+      v15 = a1[5];
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2114;
-      v23 = v4;
+      v20 = v15;
+      v21 = 2114;
+      v22 = v4;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "%{public}@: Failed to extract data from archive: %{public}@", buf, 0x16u);
     }
 
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_protocolVersion_error___block_invoke_337(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 40);
   v5 = *(*(*(a1 + 48) + 8) + 40);
   v6 = *(a1 + 32);
-  v26 = 0;
+  v25 = 0;
   v7 = v5;
   v8 = v4;
   if (v6)
@@ -1336,30 +1318,30 @@ uint64_t __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_error___block_invoke;
-    v28 = &unk_27861A218;
-    v29 = v12;
-    v30 = v7;
-    v31 = v6;
-    v32 = v8;
+    v27 = &unk_27861A218;
+    v28 = v12;
+    v29 = v7;
+    v30 = v6;
+    v31 = v8;
     v17 = v12;
-    v6 = [v16 performWithTransactionContext:v13 error:&v26 block:buf];
+    v6 = [v16 performWithTransactionContext:v13 error:&v25 block:buf];
   }
 
-  v18 = v26;
+  v18 = v25;
   if ((v6 & 1) == 0)
   {
     _HKInitializeLogging();
     v19 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v24 = *(a1 + 32);
-      v25 = *(a1 + 40);
+      v23 = *(a1 + 32);
+      v24 = *(a1 + 40);
       *buf = 138543874;
-      *&buf[4] = v24;
+      *&buf[4] = v23;
       *&buf[12] = 2114;
-      *&buf[14] = v25;
+      *&buf[14] = v24;
       *&buf[22] = 2114;
-      v28 = v18;
+      v27 = v18;
       _os_log_error_impl(&dword_228986000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Error applying sync changes to store %{public}@ with error %{public}@", buf, 0x20u);
     }
 
@@ -1380,49 +1362,46 @@ uint64_t __90__HDCloudSyncPullChangeRecordOperation__persistFetchedArchiveAsset_
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_error___block_invoke(uint64_t a1)
+uint64_t __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_error___block_invoke(id *a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = [*(a1 + 32) syncEngine];
+  v20 = *MEMORY[0x277D85DE8];
+  v3 = [a1[4] syncEngine];
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v3 = *(a1 + 40);
-  v4 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v4)
+  v4 = a1[5];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v18;
+    v6 = v5;
+    v7 = *v16;
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v6)
+        if (*v16 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = *(a1 + 32);
-        v14 = *(a1 + 48);
-        v15 = v2;
-        v16 = *(a1 + 56);
-        v8 = HKWithAutoreleasePool();
+        v12 = a1[4];
+        v13 = v3;
+        v14 = a1[7];
+        v9 = HKWithAutoreleasePool();
 
-        if (!v8)
+        if (!v9)
         {
-          v9 = 0;
+          v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v5)
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v6)
       {
         continue;
       }
@@ -1431,35 +1410,34 @@ uint64_t __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_erro
     }
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 uint64_t __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_error___block_invoke_2(uint64_t *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([a1[4] syncEntityClassForProfile:a1[5]])
   {
     v4 = a1[4];
     v5 = a1[7];
     v6 = a1[8];
-    v18 = 0;
-    v7 = [v5 applySyncChange:v4 forStore:v6 error:&v18];
-    v8 = v18;
+    v17 = 0;
+    v7 = [v5 applySyncChange:v4 forStore:v6 error:&v17];
+    v8 = v17;
     if ((v7 & 1) == 0)
     {
       _HKInitializeLogging();
       v9 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v17 = a1[4];
+        v16 = a1[4];
         *buf = 138543618;
-        v20 = v17;
-        v21 = 2114;
-        v22 = v8;
+        v19 = v16;
+        v20 = 2114;
+        v21 = v8;
         _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "failed to apply request change %{public}@: %{public}@", buf, 0x16u);
       }
 
@@ -1489,16 +1467,15 @@ uint64_t __70__HDCloudSyncPullChangeRecordOperation__applySyncChanges_store_erro
       v13 = a1[6];
       v14 = a1[4];
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v14;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v14;
       _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: cannot apply change %{public}@ because it is for an unknown (possibly future) sync entity.", buf, 0x16u);
     }
 
-    v7 = 1;
+    return 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

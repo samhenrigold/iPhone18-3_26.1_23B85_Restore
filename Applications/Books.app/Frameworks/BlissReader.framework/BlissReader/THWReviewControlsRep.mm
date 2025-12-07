@@ -329,15 +329,15 @@ LABEL_24:
   [layer setBorderWidth:0.0];
   if ([control highlighted])
   {
-    v27 = 0.5;
+    v29 = 0.5;
   }
 
   else
   {
-    v27 = 1.0;
+    v29 = 1.0;
   }
 
-  [layer setBackgroundColor:{-[TSUColor CGColor](+[TSUColor colorWithRed:green:blue:alpha:](TSUColor, "colorWithRed:green:blue:alpha:", 0.09, 0.49, 0.98, v27), "CGColor")}];
+  [layer setBackgroundColor:{-[TSUColor CGColor](+[TSUColor colorWithRed:green:blue:alpha:](TSUColor, "colorWithRed:green:blue:alpha:", 0.09, 0.49, 0.98, v29), "CGColor")}];
   [layer setBorderColor:0];
 LABEL_25:
   if (!self->_checkAnswerButtonLabel)
@@ -355,10 +355,10 @@ LABEL_25:
 
   [objc_msgSend(control "canvas")];
   v22 = v21;
-  [(THWLabelLayer *)self->_checkAnswerButtonLabel contentsScale];
-  if (v23 != v22)
+  contentsScale = [(THWLabelLayer *)self->_checkAnswerButtonLabel contentsScale];
+  if (v25 != v22)
   {
-    [(THWLabelLayer *)self->_checkAnswerButtonLabel setContentsScale:v22];
+    contentsScale = [(THWLabelLayer *)self->_checkAnswerButtonLabel setContentsScale:v22];
   }
 
   checkAnswerButtonState = self->_checkAnswerButtonState;
@@ -366,8 +366,8 @@ LABEL_25:
   {
     if (checkAnswerButtonState == 2)
     {
-      v25 = THBundle();
-      v26 = @"Clear Answer";
+      v27 = THBundle(contentsScale, v24);
+      v28 = @"Clear Answer";
     }
 
     else
@@ -377,8 +377,8 @@ LABEL_25:
         goto LABEL_45;
       }
 
-      v25 = THBundle();
-      v26 = @"Start Over";
+      v27 = THBundle(contentsScale, v24);
+      v28 = @"Start Over";
     }
   }
 
@@ -386,7 +386,7 @@ LABEL_25:
   {
     if (!checkAnswerButtonState)
     {
-      -[THWLabelLayer setString:](self->_checkAnswerButtonLabel, "setString:", [THBundle() localizedStringForKey:@"Check Answer" value:&stru_471858 table:0]);
+      -[THWLabelLayer setString:](self->_checkAnswerButtonLabel, "setString:", [THBundle(contentsScale v24)]);
       if (self->_checkAnswerButtonDisabled)
       {
         disabledPrimaryColor = [layout2 disabledPrimaryColor];
@@ -405,19 +405,19 @@ LABEL_25:
       goto LABEL_45;
     }
 
-    v25 = THBundle();
-    v26 = @"Try Again";
+    v27 = THBundle(contentsScale, v24);
+    v28 = @"Try Again";
   }
 
-  -[THWLabelLayer setString:](self->_checkAnswerButtonLabel, "setString:", [v25 localizedStringForKey:v26 value:&stru_471858 table:0]);
+  -[THWLabelLayer setString:](self->_checkAnswerButtonLabel, "setString:", [v27 localizedStringForKey:v28 value:&stru_471858 table:0]);
   disabledPrimaryColor = [layout2 primaryColor];
 LABEL_44:
   [(THWLabelLayer *)self->_checkAnswerButtonLabel setTextColor:disabledPrimaryColor];
 LABEL_45:
   [layout2 buttonFontSize];
-  v30 = v29;
+  v32 = v31;
   [-[THWReviewControlsRep canvas](self "canvas")];
-  [(THWLabelLayer *)self->_checkAnswerButtonLabel setFontSize:v30 * v31];
+  [(THWLabelLayer *)self->_checkAnswerButtonLabel setFontSize:v32 * v33];
   [layer bounds];
   [(THWLabelLayer *)self->_checkAnswerButtonLabel setFrame:?];
   if ([(THWLabelLayer *)self->_checkAnswerButtonLabel superlayer]!= layer)

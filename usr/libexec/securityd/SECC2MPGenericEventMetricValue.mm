@@ -40,18 +40,28 @@
   v7 = *(fromCopy + 3);
   if (errorValue)
   {
-    if (v7)
+    if (!v7)
     {
-      [(SECC2MPError *)errorValue mergeFrom:?];
+      goto LABEL_13;
     }
+
+    errorValue = [(SECC2MPError *)errorValue mergeFrom:?];
   }
 
-  else if (v7)
+  else
   {
-    [(SECC2MPGenericEventMetricValue *)self setErrorValue:?];
+    if (!v7)
+    {
+      goto LABEL_13;
+    }
+
+    errorValue = [(SECC2MPGenericEventMetricValue *)self setErrorValue:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v8;
+LABEL_13:
+
+  _objc_release_x1(errorValue, fromCopy);
 }
 
 - (unint64_t)hash
@@ -120,7 +130,6 @@
     }
   }
 
-  v6 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_doubleValue != *(equalCopy + 2))
@@ -132,7 +141,7 @@
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_16:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_17;
   }
 
@@ -152,17 +161,17 @@ LABEL_16:
   errorValue = self->_errorValue;
   if (errorValue | *(equalCopy + 3))
   {
-    v8 = [(SECC2MPError *)errorValue isEqual:?];
+    v7 = [(SECC2MPError *)errorValue isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_17:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -227,33 +236,31 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    dateValue = self->_dateValue;
     PBDataWriterWriteUint64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

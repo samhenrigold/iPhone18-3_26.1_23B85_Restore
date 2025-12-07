@@ -246,15 +246,15 @@ id __19__PTChoiceRow_hash__block_invoke(uint64_t a1)
 - (PTChoiceRow)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = PTChoiceRow;
-  v5 = [(PTRow *)&v20 initWithCoder:coderCopy];
+  v22.receiver = self;
+  v22.super_class = PTChoiceRow;
+  v5 = [(PTRow *)&v22 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
     v7 = objc_opt_class();
     v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0}];
-    v9 = PTPlistableClasses();
+    v9 = PTPlistableClasses(v8);
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"values"];
     possibleValues = v5->_possibleValues;
     v5->_possibleValues = v10;
@@ -268,16 +268,16 @@ id __19__PTChoiceRow_hash__block_invoke(uint64_t a1)
     v5->_possibleShortTitles = v14;
 
     v16 = v5->_possibleTitles;
-    objc_opt_class();
-    if ((PTValidateArray(v16) & 1) == 0)
+    v17 = objc_opt_class();
+    if ((PTValidateArray(v16, v17) & 1) == 0)
     {
-      v17 = v5->_possibleTitles;
-      if (!v17)
+      v18 = v5->_possibleTitles;
+      if (!v18)
       {
-        v17 = @"nil";
+        v18 = @"nil";
       }
 
-      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"PTChoiceRow expected array of strings for 'possibleTitles', got %@", v17}];
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"PTChoiceRow expected array of strings for 'possibleTitles', got %@", v18}];
     }
 
     if (!v5->_possibleValues)
@@ -285,11 +285,11 @@ id __19__PTChoiceRow_hash__block_invoke(uint64_t a1)
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"PTChoiceRow expected array of plist types for 'possibleValues', got nil"}];
     }
 
-    v18 = v5->_possibleShortTitles;
-    if (v18)
+    v19 = v5->_possibleShortTitles;
+    if (v19)
     {
-      objc_opt_class();
-      if ((PTValidateArray(v18) & 1) == 0)
+      v20 = objc_opt_class();
+      if ((PTValidateArray(v19, v20) & 1) == 0)
       {
         [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CCA2A8] format:{@"PTChoiceRow expected optional array of strings for 'possibleShortTitles', got %@", v5->_possibleShortTitles}];
       }

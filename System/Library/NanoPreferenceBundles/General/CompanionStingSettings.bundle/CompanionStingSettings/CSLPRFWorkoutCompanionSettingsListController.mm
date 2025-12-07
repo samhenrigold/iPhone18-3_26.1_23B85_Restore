@@ -65,24 +65,15 @@
     v9 = [NSBundle bundleForClass:objc_opt_class()];
     v54 = [v9 localizedStringForKey:@"OPEN_APP" value:&stru_C380 table:@"LocalizableSettings-N199"];
 
-    if (!bundleID)
+    if (bundleID && (+[CSLPRFApplicationLibrary sharedLibraryForLocation:](CSLPRFApplicationLibrary, "sharedLibraryForLocation:", 0), v10 = objc_claimAutoreleasedReturnValue(), [v10 applicationWithBundleIdentifier:bundleID], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "localizedName"), v12 = objc_claimAutoreleasedReturnValue(), v11, v10, v12))
     {
-      goto LABEL_6;
-    }
-
-    v10 = [CSLPRFApplicationLibrary sharedLibraryForLocation:0];
-    v11 = [v10 applicationWithBundleIdentifier:bundleID];
-    localizedName = [v11 localizedName];
-
-    if (localizedName)
-    {
-      v50 = localizedName;
-      if ([localizedName length])
+      v50 = v12;
+      if ([v12 length])
       {
         v13 = [NSBundle bundleForClass:objc_opt_class()];
         [v13 localizedStringForKey:@"OPEN_APP_NAME" value:&stru_C380 table:@"LocalizableSettings-N199"];
         v15 = v14 = bundleID;
-        v16 = [NSString stringWithFormat:v15, localizedName];
+        v16 = [NSString stringWithFormat:v15, v12];
 
         bundleID = v14;
         v54 = v16;
@@ -91,7 +82,6 @@
 
     else
     {
-LABEL_6:
       v50 = 0;
     }
 

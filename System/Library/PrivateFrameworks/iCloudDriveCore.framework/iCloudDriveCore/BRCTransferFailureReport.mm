@@ -2,8 +2,8 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToTransferFailureReport:(id)report;
 - (BRCTransferFailureReport)initWithError:(id)error;
-- (id)description;
 - (unint64_t)hash;
+- (void)encounteredErrorWithPCSState:(unsigned int)state enhancedDrivePrivacyEnabled:(BOOL)enabled privateDB:(BOOL)b atDate:(id)date;
 - (void)encounteredErrors:(unint64_t)errors atDate:(id)date;
 - (void)setLastFailureDate:(id)date;
 @end
@@ -62,6 +62,40 @@ LABEL_3:
 LABEL_4:
 }
 
+- (void)encounteredErrorWithPCSState:(unsigned int)state enhancedDrivePrivacyEnabled:(BOOL)enabled privateDB:(BOOL)b atDate:(id)date
+{
+  enabledCopy = enabled;
+  v8 = *&state;
+  v10 = 16;
+  if (b)
+  {
+    v10 = 8;
+  }
+
+  v20 = *(&self->super.isa + v10);
+  v11 = MEMORY[0x277CFAE78];
+  v12 = MEMORY[0x277CCABB0];
+  dateCopy = date;
+  v14 = [v12 numberWithUnsignedInt:v8];
+  v15 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  v16 = [v11 pairWithLeft:v14 andRight:v15];
+
+  v17 = [v20 objectForKeyedSubscript:v16];
+  if (v17)
+  {
+    v18 = v17;
+    v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(v17, "longLongValue") + 1}];
+  }
+
+  else
+  {
+    v19 = &unk_2837B00A0;
+  }
+
+  [v20 setObject:v19 forKeyedSubscript:v16];
+  [(BRCTransferFailureReport *)self setLastFailureDate:dateCopy];
+}
+
 - (void)encounteredErrors:(unint64_t)errors atDate:(id)date
 {
   v6 = MEMORY[0x277CFAE78];
@@ -85,14 +119,6 @@ LABEL_4:
 
   [(NSMutableDictionary *)self->_privateDBErrorCountByPCSAndEDPState setObject:v13 forKeyedSubscript:v14];
   [(BRCTransferFailureReport *)self setLastFailureDate:dateCopy];
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  privateDBErrorCountByPCSAndEDPState = self->_privateDBErrorCountByPCSAndEDPState;
-  return [v3 stringWithFormat:@"<%@:%p e:%@ ppcs:%@ spcs:%@>", v4, self, self->_error, privateDBErrorCountByPCSAndEDPState, self->_shareDBErrorCountByPCSAndEDPState];
 }
 
 - (unint64_t)hash

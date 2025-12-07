@@ -1,5 +1,6 @@
 @interface EventDescription
 - ($115C4C562B26FF47E01F9F4EA65B5887)auditToken;
+- (EventDescription)initWithType:(int)type length:(int64_t)length data:(void *)data fromAuditToken:(id *)token fromPid:(unint64_t)pid named:(char *)named bundleId:(const char *)id verifiedDelegateSymptom:(BOOL)self0;
 - (EventDescription)initWithType:(int)type length:(int64_t)length data:(void *)data fromPid:(unint64_t)pid named:(char *)named bundleId:(const char *)id;
 - (char)originatorForLogging;
 - (id)description;
@@ -42,17 +43,30 @@
 {
   if (!self->_eventType && (eventData = self->_eventData) != 0 && self->_eventLen == 88)
   {
-    v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"EventDescription [#%llu] sb at %p from pid %llu %s SYMPTOM 0x%x  flags 0x%x qual0 0x%llx qual1 0x%llx key %@ num additional quals %d", self->_seqNo, eventData, self->_processId, self->_processName, *(eventData + 4), *(eventData + 1), eventData[3], eventData[4], self->_eventKey, -[NSMutableDictionary count](self->_eventQualifiers, "count")];
+    v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"EventDescription [#%llu] sb at %p from pid %llu %s SYMPTOM 0x%x  flags 0x%x qual0 0x%llx qual1 0x%llx key %@ num additional quals %d", self->_seqNo, eventData, self->_processId, self->_processName, *(eventData + 4), *(eventData + 1), eventData[3], eventData[4], self->_eventKey, -[NSMutableDictionary count](self->_eventQualifiers, "count")];
   }
 
   else
   {
-    v3 = objc_alloc(MEMORY[0x277CCACA8]);
-    eventLen = self->_eventLen;
-    v5 = [v3 initWithFormat:@"EventDescription [#%llu] _type = %d ptr %p len %ld key %@", self->_seqNo, self->_eventType, self->_eventData, eventLen, self->_eventKey, v8, v9, v10, v11, v12];
+    v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"EventDescription [#%llu] _type = %d ptr %p len %ld key %@", self->_seqNo, self->_eventType, self->_eventData, self->_eventLen, self->_eventKey, v5, v6, v7, v8, v9];
   }
 
-  return v5;
+  return v2;
+}
+
+- (EventDescription)initWithType:(int)type length:(int64_t)length data:(void *)data fromAuditToken:(id *)token fromPid:(unint64_t)pid named:(char *)named bundleId:(const char *)id verifiedDelegateSymptom:(BOOL)self0
+{
+  v12 = [[EventDescription alloc] initWithType:*&type length:length data:data fromPid:pid named:named bundleId:id];
+
+  if (v12)
+  {
+    v13 = *token->var0;
+    *&v12->_auditToken.val[4] = *&token->var0[4];
+    *v12->_auditToken.val = v13;
+    v12->_verifiedDelegateSymptom = symptom;
+  }
+
+  return v12;
 }
 
 - (EventDescription)initWithType:(int)type length:(int64_t)length data:(void *)data fromPid:(unint64_t)pid named:(char *)named bundleId:(const char *)id
@@ -134,7 +148,7 @@
 
 - (char)originatorForLogging
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   bundleId = self->_bundleId;
   if (bundleId)
   {
@@ -152,18 +166,17 @@
   v3 = evaluationLogHandle;
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315138;
-    v7 = bundleId;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "return for logging is %s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = bundleId;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEBUG, "return for logging is %s", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return bundleId;
 }
 
 - (id)eventQualifierStringForKey:(id)key
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v5 = [(NSMutableDictionary *)self->_eventQualifiers objectForKeyedSubscript:keyCopy];
   v6 = v5;
@@ -183,18 +196,18 @@ LABEL_10:
   if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
   {
     v13 = "not ";
-    v17 = 138412802;
-    v18 = keyCopy;
+    v16 = 138412802;
+    v17 = keyCopy;
     if (!v10)
     {
       v13 = "";
     }
 
-    v19 = 2080;
+    v18 = 2080;
     selfCopy = v13;
-    v21 = 2112;
-    v22 = v11;
-    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "Converted qualifier %@ to string, was %snull terminated, result %@", &v17, 0x20u);
+    v20 = 2112;
+    v21 = v11;
+    _os_log_impl(&dword_23255B000, v12, OS_LOG_TYPE_DEBUG, "Converted qualifier %@ to string, was %snull terminated, result %@", &v16, 0x20u);
   }
 
   if (!v11)
@@ -202,19 +215,17 @@ LABEL_10:
     v14 = evaluationLogHandle;
     if (os_log_type_enabled(evaluationLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412546;
-      v18 = keyCopy;
-      v19 = 2112;
+      v16 = 138412546;
+      v17 = keyCopy;
+      v18 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "Unable to convert qualifier %@ to string for event %@", &v17, 0x16u);
+      _os_log_impl(&dword_23255B000, v14, OS_LOG_TYPE_DEBUG, "Unable to convert qualifier %@ to string for event %@", &v16, 0x16u);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -231,7 +242,8 @@ LABEL_11:
 {
   if (OUTLINED_FUNCTION_1_0())
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strdup() failed", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strdup() failed", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;
@@ -244,7 +256,8 @@ LABEL_11:
 {
   if (OUTLINED_FUNCTION_1_0())
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict allocator failed", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict allocator failed", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;

@@ -1877,7 +1877,7 @@ LABEL_32:
   state = [diffingCopy state];
   generationID = [state generationID];
   generationID2 = [(_UIDiffableDataSourceState *)self->_state generationID];
-  v8 = [generationID isEqual:generationID2];
+  isEqual = objc_msgSend_isEqual_(generationID);
 
   pendingSnapshotUpdates = [diffingCopy pendingSnapshotUpdates];
 
@@ -1886,7 +1886,7 @@ LABEL_32:
   v11 = pendingSnapshotUpdates | [(__UIDiffableDataSource *)self isApplyingWithoutRebasingSectionSnapshots];
   if (v10 == 1)
   {
-    v12 = v8;
+    v12 = isEqual;
   }
 
   else

@@ -14,6 +14,9 @@
 - (void)mapView:(id)view didDeselectAnnotationView:(id)annotationView;
 - (void)mapView:(id)view didSelectAnnotationView:(id)annotationView;
 - (void)mapView:(id)view didUpdateUserLocation:(id)location;
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated;
+- (void)mapView:(id)view regionWillChangeAnimated:(BOOL)animated;
+- (void)mapViewDidFinishRenderingMap:(id)map fullyRendered:(BOOL)rendered;
 - (void)selectAnnotation:(id)annotation;
 - (void)slideAnnotation:(id)annotation intoViewIfNeededForMapView:(id)view;
 - (void)zoomToFitAnnotationsForMapView:(id)view includeMe:(BOOL)me duration:(double)duration;
@@ -222,6 +225,53 @@ void __56__FMFMapViewDelegateInternal_mapView_viewForAnnotation___block_invoke(u
   }
 }
 
+- (void)mapView:(id)view regionWillChangeAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  viewCopy = view;
+  if ([(FMFMapViewDelegateInternal *)self respondingToUserTouch])
+  {
+    [viewCopy centerCoordinate];
+    beforeCoordinate = v6;
+    *algn_27EF4E968 = v7;
+    [viewCopy region];
+    beforeSpan = v8;
+    *algn_27EF4E978 = v9;
+  }
+
+  delegate = [(FMFMapViewDelegateInternal *)self delegate];
+  [delegate regionWillChangeAnimated:animatedCopy];
+}
+
+- (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  viewCopy = view;
+  if ([(FMFMapViewDelegateInternal *)self respondingToUserTouch])
+  {
+    [viewCopy centerCoordinate];
+    v7 = v6;
+    v9 = v8;
+    [viewCopy convertCoordinate:0 toPointToView:{*&beforeCoordinate, *algn_27EF4E968}];
+    v11 = v10;
+    v13 = v12;
+    [viewCopy convertCoordinate:0 toPointToView:{v7, v9}];
+    v15 = v14;
+    v17 = v16;
+    [viewCopy region];
+    if (vabdd_f64(v18, *&beforeSpan) > 0.0001 || sqrt((v17 - v13) * (v17 - v13) + (v15 - v11) * (v15 - v11)) > 20.0)
+    {
+      delegate = [(FMFMapViewDelegateInternal *)self delegate];
+      [delegate setShouldZoomToFitNewLocations:0];
+    }
+
+    [(FMFMapViewDelegateInternal *)self setRespondingToUserTouch:0];
+  }
+
+  delegate2 = [(FMFMapViewDelegateInternal *)self delegate];
+  [delegate2 regionDidChangeAnimated:animatedCopy];
+}
+
 - (void)mapView:(id)view didUpdateUserLocation:(id)location
 {
   locationCopy = location;
@@ -238,6 +288,12 @@ void __56__FMFMapViewDelegateInternal_mapView_viewForAnnotation___block_invoke(u
 
     [delegate didUpdateUserLocation:locationCopy];
   }
+}
+
+- (void)mapViewDidFinishRenderingMap:(id)map fullyRendered:(BOOL)rendered
+{
+  v4 = [(FMFMapViewDelegateInternal *)self delegate:map];
+  [v4 mapViewDidFinishRenderingMap];
 }
 
 - (id)mapView:(id)view rendererForOverlay:(id)overlay
@@ -385,72 +441,71 @@ LABEL_11:
   [location coordinate];
   v8 = v7;
   v10 = v9;
-  if ([(FMFMapViewDelegateInternal *)self regionIsValid:?])
+  v11 = [(FMFMapViewDelegateInternal *)self regionIsValid:?];
+  if (v11)
   {
     [FMFMapUtilities mapRectForCoordinateRegion:v8, v10, 0.003, 0.003];
-    v46 = v12;
-    v47 = v11;
-    v44 = v14;
-    v45 = v13;
+    v46 = v13;
+    v47 = v12;
+    v44 = v15;
+    v45 = v14;
     delegate = [(FMFMapViewDelegateInternal *)self delegate];
     [delegate edgeInsets];
     [(FMFMapViewDelegateInternal *)self edgeInsetsWithMinApplied:?];
-    v17 = v16;
-    v19 = v18;
-    v21 = v20;
-    v23 = v22;
+    v18 = v17;
+    v20 = v19;
+    v22 = v21;
+    v24 = v23;
     mapView = [(FMFMapViewDelegateInternal *)self mapView];
     [mapView bounds];
-    v26 = v25;
-    v28 = v27;
+    v27 = v26;
+    v29 = v28;
 
     mapView2 = [(FMFMapViewDelegateInternal *)self mapView];
-    [mapView2 mapRectThatFits:v47 edgePadding:{v46, v45, v44, v17, v19, v21, v23}];
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    v37 = v36;
+    [mapView2 mapRectThatFits:v47 edgePadding:{v46, v45, v44, v18, v20, v22, v24}];
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
+    v38 = v37;
 
-    v38 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v31 forViewSize:{v33, v35, v37, v26, v28}];
-    v39 = LogCategory_Daemon();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v39 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v32 forViewSize:{v34, v36, v38, v27, v29}];
+    v40 = LogCategory_Daemon(v39);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [v38 debugDescription];
+      v41 = [v39 debugDescription];
       *buf = 138412290;
-      v51 = v40;
-      _os_log_impl(&dword_24A4E3000, v39, OS_LOG_TYPE_DEFAULT, "FMMapViewDelegateInternal: camera updated %@", buf, 0xCu);
+      v51 = v41;
+      _os_log_impl(&dword_24A4E3000, v40, OS_LOG_TYPE_DEFAULT, "FMMapViewDelegateInternal: camera updated %@", buf, 0xCu);
     }
 
     if ([FMFMapUtilities doNotAnimateToNewLocation:viewCopy forMapView:v8, v10])
     {
       mapView3 = [(FMFMapViewDelegateInternal *)self mapView];
-      [mapView3 setCamera:v38 animated:0];
+      [mapView3 setCamera:v39 animated:0];
     }
 
     else
     {
-      v42 = MEMORY[0x277D75D18];
+      v43 = MEMORY[0x277D75D18];
       v48[0] = MEMORY[0x277D85DD0];
       v48[1] = 3221225472;
       v48[2] = __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invoke;
       v48[3] = &unk_278FE2A10;
       v48[4] = self;
-      v49 = v38;
-      [v42 animateWithDuration:v48 animations:0.200000003];
+      v49 = v39;
+      [v43 animateWithDuration:v48 animations:0.200000003];
     }
   }
 
   else
   {
-    delegate = LogCategory_Daemon();
+    delegate = LogCategory_Daemon(v11);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_24A4E3000, delegate, OS_LOG_TYPE_DEFAULT, "Not zooming due to invalid region (0,0).", buf, 2u);
     }
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invoke(uint64_t a1)
@@ -461,15 +516,16 @@ void __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invok
 
 - (void)zoomToFitAnnotationsForMapView:(id)view includeMe:(BOOL)me duration:(double)duration
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v109 = *MEMORY[0x277D85DE8];
   viewCopy = view;
-  if ([viewCopy userTrackingMode] != 2)
+  userTrackingMode = [viewCopy userTrackingMode];
+  if (userTrackingMode != 2)
   {
-    v9 = LogCategory_Daemon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = LogCategory_Daemon(userTrackingMode);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A4E3000, v9, OS_LOG_TYPE_DEFAULT, "zoomToFitAnnotationsForMapView", buf, 2u);
+      _os_log_impl(&dword_24A4E3000, v10, OS_LOG_TYPE_DEFAULT, "zoomToFitAnnotationsForMapView", buf, 2u);
     }
 
     delegate = [(FMFMapViewDelegateInternal *)self delegate];
@@ -483,9 +539,9 @@ void __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invok
     {
       mapView = [(FMFMapViewDelegateInternal *)self mapView];
       selectedAnnotations = [mapView selectedAnnotations];
-      v14 = [selectedAnnotations count];
+      v15 = [selectedAnnotations count];
 
-      if (!v14)
+      if (!v15)
       {
         goto LABEL_29;
       }
@@ -494,40 +550,40 @@ void __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invok
       selectedAnnotations2 = [mapView2 selectedAnnotations];
       array = [selectedAnnotations2 mutableCopy];
 
-      v98 = 0u;
       v99 = 0u;
-      v96 = 0u;
+      v100 = 0u;
       v97 = 0u;
+      v98 = 0u;
       mapView3 = [(FMFMapViewDelegateInternal *)self mapView];
       annotations2 = [mapView3 annotations];
 
-      v20 = [annotations2 countByEnumeratingWithState:&v96 objects:v106 count:16];
-      if (v20)
+      v21 = [annotations2 countByEnumeratingWithState:&v97 objects:v107 count:16];
+      if (v21)
       {
-        v21 = v20;
-        v90 = annotations;
-        v92 = delegate;
-        v22 = *v97;
+        v22 = v21;
+        v91 = annotations;
+        v93 = delegate;
+        v23 = *v98;
         while (2)
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v97 != v22)
+            if (*v98 != v23)
             {
               objc_enumerationMutation(annotations2);
             }
 
-            v24 = *(*(&v96 + 1) + 8 * i);
+            v25 = *(*(&v97 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [array addObject:v24];
+              [array addObject:v25];
               goto LABEL_27;
             }
           }
 
-          v21 = [annotations2 countByEnumeratingWithState:&v96 objects:v106 count:16];
-          if (v21)
+          v22 = [annotations2 countByEnumeratingWithState:&v97 objects:v107 count:16];
+          if (v22)
           {
             continue;
           }
@@ -540,75 +596,75 @@ void __59__FMFMapViewDelegateInternal_zoomToFitLocation_forMapView___block_invok
     else
     {
       array = [MEMORY[0x277CBEB18] array];
-      v100 = 0u;
       v101 = 0u;
       v102 = 0u;
       v103 = 0u;
+      v104 = 0u;
       annotations2 = annotations;
-      v25 = [annotations2 countByEnumeratingWithState:&v100 objects:v107 count:16];
-      if (v25)
+      v26 = [annotations2 countByEnumeratingWithState:&v101 objects:v108 count:16];
+      if (v26)
       {
-        v26 = v25;
-        v90 = annotations;
-        v92 = delegate;
-        v27 = *v101;
+        v27 = v26;
+        v91 = annotations;
+        v93 = delegate;
+        v28 = *v102;
         do
         {
-          for (j = 0; j != v26; ++j)
+          for (j = 0; j != v27; ++j)
           {
-            if (*v101 != v27)
+            if (*v102 != v28)
             {
               objc_enumerationMutation(annotations2);
             }
 
-            v29 = *(*(&v100 + 1) + 8 * j);
+            v30 = *(*(&v101 + 1) + 8 * j);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              [array addObject:v29];
+              [array addObject:v30];
             }
           }
 
-          v26 = [annotations2 countByEnumeratingWithState:&v100 objects:v107 count:16];
+          v27 = [annotations2 countByEnumeratingWithState:&v101 objects:v108 count:16];
         }
 
-        while (v26);
+        while (v27);
 LABEL_27:
-        annotations = v90;
-        delegate = v92;
+        annotations = v91;
+        delegate = v93;
       }
     }
 
     annotations = array;
 LABEL_29:
     [FMFMapUtilities regionForAnnotations:annotations];
-    latitude = v30;
-    longitude = v32;
-    latitudeDelta = v34;
-    longitudeDelta = v36;
+    latitude = v31;
+    longitude = v33;
+    latitudeDelta = v35;
+    longitudeDelta = v37;
     firstObject = [annotations firstObject];
     if ([delegate alwaysShowAccuracy] && !me)
     {
       [firstObject coordinate];
-      v40 = v39;
-      v42 = v41;
+      v41 = v40;
+      v43 = v42;
       location = [firstObject location];
       [location horizontalAccuracy];
-      [(FMFMapViewDelegateInternal *)self mapRectMakeWithRadialDistanceForCoordinate:v40 andRadius:v42, v44];
-      v46 = v45;
-      v48 = v47;
-      v50 = v49;
-      v52 = v51;
+      [(FMFMapViewDelegateInternal *)self mapRectMakeWithRadialDistanceForCoordinate:v41 andRadius:v43, v45];
+      v47 = v46;
+      v49 = v48;
+      v51 = v50;
+      v53 = v52;
 
-      v109.origin.x = v46;
-      v109.origin.y = v48;
-      v109.size.width = v50;
-      v109.size.height = v52;
-      v110 = MKCoordinateRegionForMapRect(v109);
-      latitude = v110.center.latitude;
-      longitude = v110.center.longitude;
-      latitudeDelta = v110.span.latitudeDelta;
-      longitudeDelta = v110.span.longitudeDelta;
+      v110.origin.x = v47;
+      v110.origin.y = v49;
+      v110.size.width = v51;
+      v110.size.height = v53;
+      v111 = MKCoordinateRegionForMapRect(v110);
+      latitude = v111.center.latitude;
+      longitude = v111.center.longitude;
+      latitudeDelta = v111.span.latitudeDelta;
+      longitudeDelta = v111.span.longitudeDelta;
     }
 
     if (latitudeDelta < 0.003)
@@ -621,78 +677,77 @@ LABEL_29:
       longitudeDelta = 0.003;
     }
 
-    if ([(FMFMapViewDelegateInternal *)self regionIsValid:latitude, longitude, latitudeDelta, longitudeDelta])
+    longitudeDelta = [(FMFMapViewDelegateInternal *)self regionIsValid:latitude, longitude, latitudeDelta, longitudeDelta];
+    if (longitudeDelta)
     {
       durationCopy = duration;
-      v87 = longitude;
-      v88 = latitude;
+      v88 = longitude;
+      v89 = latitude;
       [FMFMapUtilities mapRectForCoordinateRegion:latitude, longitude, latitudeDelta, longitudeDelta];
-      v89 = v54;
-      v91 = v53;
-      v56 = v55;
+      v90 = v56;
+      v92 = v55;
       v58 = v57;
+      v60 = v59;
       [delegate edgeInsets];
       [(FMFMapViewDelegateInternal *)self edgeInsetsWithMinApplied:?];
-      v60 = v59;
       v62 = v61;
       v64 = v63;
       v66 = v65;
+      v68 = v67;
       mapView4 = [(FMFMapViewDelegateInternal *)self mapView];
       [mapView4 bounds];
-      v69 = v68;
       v71 = v70;
+      v73 = v72;
 
       mapView5 = [(FMFMapViewDelegateInternal *)self mapView];
-      [mapView5 mapRectThatFits:v91 edgePadding:{v89, v56, v58, v60, v62, v64, v66}];
-      v74 = v73;
+      [mapView5 mapRectThatFits:v92 edgePadding:{v90, v58, v60, v62, v64, v66, v68}];
       v76 = v75;
       v78 = v77;
       v80 = v79;
+      v82 = v81;
 
-      v81 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v74 forViewSize:{v76, v78, v80, v69, v71}];
-      v82 = LogCategory_Daemon();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
+      v83 = [MEMORY[0x277CD4E58] _cameraLookingAtMapRect:v76 forViewSize:{v78, v80, v82, v71, v73}];
+      v84 = LogCategory_Daemon(v83);
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
       {
-        v83 = [v81 debugDescription];
+        v85 = [v83 debugDescription];
         *buf = 138412290;
-        v105 = v83;
-        _os_log_impl(&dword_24A4E3000, v82, OS_LOG_TYPE_DEFAULT, "FMFMapViewDelegateInternal: zoomToFitAnnotationsForMapView new camera %@", buf, 0xCu);
+        v106 = v85;
+        _os_log_impl(&dword_24A4E3000, v84, OS_LOG_TYPE_DEFAULT, "FMFMapViewDelegateInternal: zoomToFitAnnotationsForMapView new camera %@", buf, 0xCu);
       }
 
-      if (durationCopy <= 0.0 || [FMFMapUtilities doNotAnimateToNewLocation:viewCopy forMapView:v88, v87])
+      if (durationCopy <= 0.0 || [FMFMapUtilities doNotAnimateToNewLocation:viewCopy forMapView:v89, v88])
       {
         mapView6 = [(FMFMapViewDelegateInternal *)self mapView];
-        [mapView6 setCamera:v81 animated:0];
+        [mapView6 setCamera:v83 animated:0];
       }
 
       else
       {
-        v85 = MEMORY[0x277D75D18];
-        v94[0] = MEMORY[0x277D85DD0];
-        v94[1] = 3221225472;
-        v94[2] = __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_duration___block_invoke;
-        v94[3] = &unk_278FE2A10;
-        v94[4] = self;
-        v81 = v81;
-        v95 = v81;
-        [v85 animateWithDuration:196614 delay:v94 options:&__block_literal_global_1 animations:durationCopy completion:0.0];
+        v87 = MEMORY[0x277D75D18];
+        v95[0] = MEMORY[0x277D85DD0];
+        v95[1] = 3221225472;
+        v95[2] = __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_duration___block_invoke;
+        v95[3] = &unk_278FE2A10;
+        v95[4] = self;
+        v83 = v83;
+        v96 = v83;
+        [v87 animateWithDuration:196614 delay:v95 options:&__block_literal_global_1 animations:durationCopy completion:0.0];
       }
     }
 
     else
     {
-      v81 = LogCategory_Daemon();
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEFAULT))
+      v83 = LogCategory_Daemon(longitudeDelta);
+      if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_24A4E3000, v81, OS_LOG_TYPE_DEFAULT, "Not zooming due to invalid region (0,0).", buf, 2u);
+        _os_log_impl(&dword_24A4E3000, v83, OS_LOG_TYPE_DEFAULT, "Not zooming due to invalid region (0,0).", buf, 2u);
       }
     }
 
 LABEL_46:
   }
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
 void __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_duration___block_invoke(uint64_t a1)
@@ -724,7 +779,7 @@ void __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_d
   left = applied.left;
   top = applied.top;
   v22 = *MEMORY[0x277D85DE8];
-  v7 = LogCategory_Daemon();
+  v7 = LogCategory_Daemon(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 134218752;
@@ -758,8 +813,8 @@ void __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_d
     bottom = 48.0;
   }
 
-  v8 = LogCategory_Daemon();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = LogCategory_Daemon(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 134218752;
     v15 = top;
@@ -769,10 +824,9 @@ void __80__FMFMapViewDelegateInternal_zoomToFitAnnotationsForMapView_includeMe_d
     v19 = right;
     v20 = 2048;
     v21 = bottom;
-    _os_log_impl(&dword_24A4E3000, v8, OS_LOG_TYPE_DEFAULT, "FMMapViewDelegateInternal: after top: %f, left: %f, right: %f, bottom: %f", &v14, 0x2Au);
+    _os_log_impl(&dword_24A4E3000, v9, OS_LOG_TYPE_DEFAULT, "FMMapViewDelegateInternal: after top: %f, left: %f, right: %f, bottom: %f", &v14, 0x2Au);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   v10 = top;
   v11 = left;
   v12 = bottom;

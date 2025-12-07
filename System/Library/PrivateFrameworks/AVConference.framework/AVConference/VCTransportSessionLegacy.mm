@@ -134,7 +134,7 @@
   dispatch_async(stateQueue, v3);
 }
 
-uint64_t __33__VCTransportSessionLegacy_start__block_invoke(uint64_t a1)
+void *__33__VCTransportSessionLegacy_start__block_invoke(uint64_t a1)
 {
   v6[1] = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 64) startTimingForKey:14];
@@ -1029,14 +1029,14 @@ uint64_t __84__VCTransportSessionLegacy_createSecondaryRelayDispatchTimer_callID
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __69__VCTransportSessionLegacy_setupPendingSecondaryRelayWithNewPrimary___block_invoke(uint64_t result)
+void *__69__VCTransportSessionLegacy_setupPendingSecondaryRelayWithNewPrimary___block_invoke(void *result)
 {
   v12 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 248) >= 1)
+  if (*(result[4] + 248) >= 1)
   {
     v1 = result;
-    result = VCConnection_Priority(*(result + 40));
-    if (result == 3 && (*(*(v1 + 32) + 261) & 1) == 0)
+    result = VCConnection_Priority(result[5]);
+    if (result == 3 && (*(v1[4] + 261) & 1) == 0)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -1054,18 +1054,18 @@ uint64_t __69__VCTransportSessionLegacy_setupPendingSecondaryRelayWithNewPrimary
         }
       }
 
-      IsRelay = VCConnection_IsRelay(*(v1 + 40));
-      v5 = *(v1 + 32);
+      IsRelay = VCConnection_IsRelay(v1[5]);
+      v5 = v1[4];
       if ((IsRelay & 1) == 0)
       {
         [v5 notifyDelegateToCancelRelay];
-        [*(*(v1 + 32) + 280) discardRelayBindingForCallID:*(*(v1 + 32) + 288)];
-        v5 = *(v1 + 32);
+        [*(v1[4] + 280) discardRelayBindingForCallID:*(v1[4] + 288)];
+        v5 = v1[4];
       }
 
       result = [v5 setupSecondaryRelayForCall:v5[72] callerRequired:1];
-      *(*(v1 + 32) + 248) = 0;
-      *(*(v1 + 32) + 261) = 1;
+      *(v1[4] + 248) = 0;
+      *(v1[4] + 261) = 1;
     }
   }
 
@@ -1790,7 +1790,7 @@ LABEL_23:
   v37 = 0xAAAAAAAAAAAAAAAALL;
   v36[0] = v4;
   v36[1] = v4;
-  [v3 IPPortForPrimaryConnectionOnLocalInterface:1];
+  objc_msgSend_IPPortForPrimaryConnectionOnLocalInterface_(v3);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v5 = VRTraceErrorLogLevelToCSTR();
@@ -2370,7 +2370,7 @@ void __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictio
   dispatch_async(v8, v9);
 }
 
-uint64_t __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_62(uint64_t a1)
+void *__112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_62(uint64_t a1)
 {
   v6[1] = *MEMORY[0x1E69E9840];
   v6[0] = 0;
@@ -2413,11 +2413,11 @@ void __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictio
   dispatch_async(v2, v3);
 }
 
-uint64_t __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_6(uint64_t a1)
+void *__112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_6(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   result = *(a1 + 32);
-  if (*(result + 240) != 5)
+  if (*(result + 30) != 5)
   {
     if (*(result + 267))
     {
@@ -2468,7 +2468,7 @@ void __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictio
   dispatch_async(v3, block);
 }
 
-uint64_t __112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_2_68(uint64_t a1)
+void *__112__VCTransportSessionLegacy_createTCPTunnelForParticipantID_relayDictionary_didOriginateRequest_relayType_error___block_invoke_2_68(uint64_t a1)
 {
   *(*(a1 + 32) + 240) = 6;
   [*(a1 + 32) resetLoopback];
@@ -2787,7 +2787,7 @@ _BYTE *__67__VCTransportSessionLegacy_receivedRealTimeData_fromParticipantID___b
       result = memchr(v3, 10, [a1[6] length]);
       if (result)
       {
-        result = strnstr(v3, "SIP/", result - v3);
+        result = strnstr(v3, "SIP/", &result[-v3]);
         if (result)
         {
           [a1[4] setupLoopbackWithConnectionType:0];
@@ -3648,7 +3648,7 @@ uint64_t __42__VCTransportSessionLegacy_setupTransport__block_invoke_4(uint64_t 
   v4 = v2;
   if (self)
   {
-    [(VCTransportSessionLegacy *)self IPPortForPrimaryConnectionOnLocalInterface:1, v3, v4, v5, v6];
+    objc_msgSend_IPPortForPrimaryConnectionOnLocalInterface_(self, a2, 1, v3, v4, v5, v6);
   }
 
   else

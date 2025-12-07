@@ -50,14 +50,12 @@
 
 - (void)connect
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   externalDevice = self->_externalDevice;
-  v5 = @"MRExternalDeviceConnectionReasonUserInfoKey";
-  v6[0] = @"MRLegacyController";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = @"MRExternalDeviceConnectionReasonUserInfoKey";
+  v5[0] = @"MRLegacyController";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [(MRExternalDevice *)externalDevice connectWithOptions:0 userInfo:v3];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getMasterVolumeWithCompletion:(id)completion
@@ -218,8 +216,8 @@ LABEL_8:
   userInfo2 = [notificationCopy userInfo];
   v8 = [userInfo2 objectForKeyedSubscript:@"kMRAVEndpointOutputDeviceIdentifierUserInfoKey"];
 
-  v9 = [v8 isEqualToString:self->_outputDeviceUID];
-  if ((v6 & 1) != 0 || v9)
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
+  if ((v6 & 1) != 0 || isEqualToString)
   {
     userInfo3 = [notificationCopy userInfo];
     v11 = [userInfo3 objectForKeyedSubscript:@"kMRAVEndpointVolumeControlCapabilitiesUserInfoKey"];

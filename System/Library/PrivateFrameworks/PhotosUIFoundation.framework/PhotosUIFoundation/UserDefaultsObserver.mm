@@ -49,7 +49,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_1B3FB097C(&qword_1EB87B948, type metadata accessor for NSKeyValueChangeKey);
+  sub_1B3FB097C(&qword_1EB87B948, type metadata accessor for NSKeyValueChangeKey, &unk_1B406F194);
   v15 = sub_1B405D274();
 
 LABEL_8:

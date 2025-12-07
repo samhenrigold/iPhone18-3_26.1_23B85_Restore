@@ -34,7 +34,7 @@
 
 - (INIntent)intent
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   inMemoryIntent = self->_inMemoryIntent;
   if (inMemoryIntent)
   {
@@ -55,47 +55,45 @@
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"CHSIntentReference.m" lineNumber:146 description:@"Cannot rehydrate a partialized intent with missing schema data."];
-
-      partialSchemaData = self->_partialSchemaData;
     }
 
-    v23 = 0;
-    v8 = OPACKDecodeData();
-    partialConfigData = self->_partialConfigData;
-    v10 = OPACKDecodeData();
     v22 = 0;
-    v11 = [MEMORY[0x1E696E880] makeFromWidgetPlistableRepresentation:v8 error:&v22];
-    v12 = v22;
+    v9 = OPACKDecodeData();
+    v10 = OPACKDecodeData();
+    v21 = 0;
+    v11 = [MEMORY[0x1E696E880] makeFromWidgetPlistableRepresentation:v9 error:&v21];
+    v12 = v21;
     if (v12)
     {
       v13 = v12;
-      v14 = CHSLogChronoServices();
+      v14 = CHSLogChronoServices(v12);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v26 = v13;
+        v25 = v13;
         _os_log_impl(&dword_195EB2000, v14, OS_LOG_TYPE_DEFAULT, "Error decoding partialized schema intent: %{public}@", buf, 0xCu);
       }
     }
 
     else
     {
-      v21 = 0;
-      v14 = [v11 _copyApplyingNewBackingStoreData:v10 error:&v21];
-      v13 = v21;
-      if (!v13)
+      v20 = 0;
+      v14 = [v11 _copyApplyingNewBackingStoreData:v10 error:&v20];
+      v15 = v20;
+      v13 = v15;
+      if (!v15)
       {
         v14 = v14;
         v3 = v14;
         goto LABEL_22;
       }
 
-      v15 = CHSLogChronoServices();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = CHSLogChronoServices(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v26 = v13;
-        _os_log_impl(&dword_195EB2000, v15, OS_LOG_TYPE_DEFAULT, "Error decoding partialized intent: %{public}@", buf, 0xCu);
+        v25 = v13;
+        _os_log_impl(&dword_195EB2000, v16, OS_LOG_TYPE_DEFAULT, "Error decoding partialized intent: %{public}@", buf, 0xCu);
       }
     }
 
@@ -105,22 +103,22 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v24 = 0;
-  v3 = [CHSIntentReference _decodeFromOPACK:intentData error:&v24];
-  v6 = v24;
+  v23 = 0;
+  v3 = [CHSIntentReference _decodeFromOPACK:intentData error:&v23];
+  v6 = v23;
+  v7 = v6;
   if (v6)
   {
-    v7 = CHSLogChronoServices();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CHSLogChronoServices(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v26 = v6;
-      _os_log_impl(&dword_195EB2000, v7, OS_LOG_TYPE_DEFAULT, "Error decoding intent: %{public}@", buf, 0xCu);
+      v25 = v7;
+      _os_log_impl(&dword_195EB2000, v8, OS_LOG_TYPE_DEFAULT, "Error decoding intent: %{public}@", buf, 0xCu);
     }
   }
 
 LABEL_23:
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -226,6 +224,7 @@ LABEL_23:
       if (_backingStoreData)
       {
         v14 = MEMORY[0x19A8C4E60](_backingStoreData, 0, &v33);
+        v15 = v14;
         if (!v33)
         {
           self = [(CHSIntentReference *)self initWithIntentData:0 configData:v14 schemaData:dataCopy stableHash:_indexingHash];
@@ -233,11 +232,11 @@ LABEL_23:
           goto LABEL_20;
         }
 
-        v15 = CHSLogChronoServices();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = CHSLogChronoServices(v14);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v16 = [MEMORY[0x1E696AD98] numberWithInt:v33];
-          [CHSIntentReference _initWithGenericIntent:v16 schemaData:buf error:v15];
+          v17 = [MEMORY[0x1E696AD98] numberWithInt:v33];
+          [CHSIntentReference _initWithGenericIntent:v17 schemaData:buf error:v16];
         }
 
         if (!p_isa)
@@ -245,44 +244,43 @@ LABEL_23:
           goto LABEL_20;
         }
 
-        v17 = MEMORY[0x1E696ABC0];
+        v18 = MEMORY[0x1E696ABC0];
         v37 = *MEMORY[0x1E696A578];
-        v18 = MEMORY[0x1E696AEC0];
-        v19 = [MEMORY[0x1E696AD98] numberWithInt:v33];
-        v20 = [v18 stringWithFormat:@"Could not OPACK encode backing store dictionary: %@", v19];
-        v38[0] = v20;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
-        *p_isa = [v17 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v21];
+        v19 = MEMORY[0x1E696AEC0];
+        v20 = [MEMORY[0x1E696AD98] numberWithInt:v33];
+        v21 = [v19 stringWithFormat:@"Could not OPACK encode backing store dictionary: %@", v20];
+        v38[0] = v21;
+        v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+        *p_isa = [v18 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v22];
       }
 
       else
       {
-        v22 = CHSLogChronoServices();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v23 = CHSLogChronoServices(0);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v23 = objc_opt_class();
-          v24 = NSStringFromClass(v23);
-          [(CHSIntentReference *)v24 _initWithGenericIntent:intentCopy schemaData:buf error:v22];
+          v24 = objc_opt_class();
+          v25 = NSStringFromClass(v24);
+          [(CHSIntentReference *)v25 _initWithGenericIntent:intentCopy schemaData:buf error:v23];
         }
 
         if (!p_isa)
         {
-          v14 = 0;
+          v15 = 0;
           goto LABEL_20;
         }
 
-        v25 = MEMORY[0x1E696AEC0];
-        v26 = objc_opt_class();
-        v27 = NSStringFromClass(v26);
-        v28 = objc_claimAutoreleasedReturnValue();
+        v26 = MEMORY[0x1E696AEC0];
+        v27 = objc_opt_class();
+        v29 = v28 = NSStringFromClass(v27);
 
-        v29 = MEMORY[0x1E696ABC0];
+        v30 = MEMORY[0x1E696ABC0];
         v34 = *MEMORY[0x1E696A578];
-        v35 = v28;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-        *p_isa = [v29 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v30];
+        v35 = v29;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        *p_isa = [v30 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v31];
 
-        v14 = 0;
+        v15 = 0;
       }
 
       p_isa = 0;
@@ -305,7 +303,6 @@ LABEL_20:
   }
 
 LABEL_21:
-  v31 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -398,7 +395,7 @@ LABEL_6:
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v10 = 1;
+    v8 = 1;
   }
 
   else
@@ -409,24 +406,22 @@ LABEL_6:
       v5 = equalCopy;
       if (self->_stableHash == v5->_stableHash && (v6 = [(NSData *)self->_intentData length], v6 == [(NSData *)v5->_intentData length]) && (v7 = [(NSData *)self->_partialConfigData length], v7 == [(NSData *)v5->_partialConfigData length]))
       {
-        inMemoryIntent = self->_inMemoryIntent;
-        v9 = v5->_inMemoryIntent;
-        v10 = BSEqualObjects();
+        v8 = BSEqualObjects();
       }
 
       else
       {
-        v10 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v10 = 0;
+      v8 = 0;
     }
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)_copyWithoutSchemaDataIfNecessary
@@ -463,27 +458,27 @@ LABEL_4:
   }
 
   v22 = 0;
-  v11 = [intentCopy _copyWithoutBackingStoreData:&v22];
-  v12 = v22;
-  v21 = v12;
-  v13 = [v11 widgetPlistableRepresentation:&v21];
+  v10 = [intentCopy _copyWithoutBackingStoreData:&v22];
+  v11 = v22;
+  v21 = v11;
+  v12 = [v10 widgetPlistableRepresentation:&v21];
   v7 = v21;
 
   v6 = 0;
-  if (!v7 && v13)
+  if (!v7 && v12)
   {
     *buf = 0;
-    v6 = MEMORY[0x19A8C4E60](v13, 0, buf);
+    v6 = MEMORY[0x19A8C4E60](v12, 0, buf);
     if (*buf)
     {
-      v14 = MEMORY[0x1E696ABC0];
+      v13 = MEMORY[0x1E696ABC0];
       v25 = *MEMORY[0x1E696A578];
-      v15 = MEMORY[0x1E696AEC0];
-      v16 = [MEMORY[0x1E696AD98] numberWithInt:?];
-      v17 = [v15 stringWithFormat:@"Unable to encode intent schema: %@", v16];
-      v26[0] = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-      v7 = [v14 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v18];
+      v14 = MEMORY[0x1E696AEC0];
+      v15 = [MEMORY[0x1E696AD98] numberWithInt:?];
+      v16 = [v14 stringWithFormat:@"Unable to encode intent schema: %@", v15];
+      v26[0] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v7 = [v13 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v17];
     }
 
     else
@@ -497,7 +492,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v19 = CHSLogChronoServices();
+  v19 = CHSLogChronoServices(v18);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -518,8 +513,6 @@ LABEL_4:
   }
 
 LABEL_5:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -656,7 +649,7 @@ LABEL_5:
     if (!v22)
     {
       v10 = v9;
-      v18 = v10;
+      v19 = v10;
       goto LABEL_13;
     }
 
@@ -669,10 +662,10 @@ LABEL_5:
     v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v16 = [v11 errorWithDomain:@"CHSErrorDomain" code:6 userInfo:v15];
 
-    v17 = CHSLogChronoServices();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = CHSLogChronoServices(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [CHSIntentReference _encodeToOPACK:v16 error:v17];
+      [CHSIntentReference _encodeToOPACK:v16 error:v18];
     }
 
     v7 = v16;
@@ -683,56 +676,47 @@ LABEL_5:
     v10 = 0;
   }
 
-  v18 = 0;
+  v19 = 0;
   if (error && v7)
   {
-    v19 = v7;
-    v18 = 0;
+    v20 = v7;
+    v19 = 0;
     *error = v7;
   }
 
 LABEL_13:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 + (id)_decodeFromOPACK:(id)k error:(id *)error
 {
-  v16 = 0;
+  v13 = 0;
   v5 = OPACKDecodeData();
   v6 = [v5 objectForKeyedSubscript:@"isAppIntent"];
-  bOOLValue = [v6 BOOLValue];
+  [v6 BOOLValue];
 
   if (v5)
   {
-    v8 = 0x1E696E730;
-    if (!bOOLValue)
-    {
-      v8 = 0x1E696E880;
-    }
-
-    v9 = *v8;
-    v15 = 0;
-    v10 = [objc_opt_class() makeFromWidgetPlistableRepresentation:v5 error:&v15];
-    v11 = v15;
+    v12 = 0;
+    v7 = [objc_opt_class() makeFromWidgetPlistableRepresentation:v5 error:&v12];
+    v8 = v12;
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CHSErrorDomain" code:6 userInfo:0];
-    v11 = v12;
-    v10 = 0;
-    if (error && v12)
+    v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"CHSErrorDomain" code:6 userInfo:0];
+    v8 = v9;
+    v7 = 0;
+    if (error && v9)
     {
-      v13 = v12;
-      v10 = 0;
-      *error = v11;
+      v10 = v9;
+      v7 = 0;
+      *error = v8;
     }
   }
 
-  return v10;
+  return v7;
 }
 
 - (void)_initWithGenericIntent:(void *)a1 schemaData:(uint8_t *)buf error:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -752,11 +736,10 @@ LABEL_13:
 
 + (void)_encodeToOPACK:(uint64_t)a1 error:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Error encoding intent: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_195EB2000, a2, OS_LOG_TYPE_ERROR, "Error encoding intent: %{public}@", &v2, 0xCu);
 }
 
 @end

@@ -41,9 +41,9 @@
 
 - (NMCServer)init
 {
-  v47.receiver = self;
-  v47.super_class = NMCServer;
-  v2 = [(NMCServer *)&v47 init];
+  v48.receiver = self;
+  v48.super_class = NMCServer;
+  v2 = [(NMCServer *)&v48 init];
   if (v2)
   {
     v3 = [[NMCSyncManager alloc] initWithDelegate:v2];
@@ -87,16 +87,16 @@
     handler[1] = 3221225472;
     handler[2] = sub_10004CF78;
     handler[3] = &unk_100086438;
-    objc_copyWeak(&v45, &location);
+    objc_copyWeak(&v46, &location);
     notify_register_dispatch(v20, &v2->_configStoreNeedsSyncToken, v21, handler);
 
     v22 = GEOMapDataSubscriptionManagerFullyDownloadedSubscriptionsDidChangeDarwinNotification;
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_10004CFB8;
-    v42[3] = &unk_100086438;
-    objc_copyWeak(&v43, &location);
-    notify_register_dispatch(v22, &v2->_subscriptionsChangedToken, v21, v42);
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_10004CFB8;
+    v43[3] = &unk_100086438;
+    objc_copyWeak(&v44, &location);
+    notify_register_dispatch(v22, &v2->_subscriptionsChangedToken, v21, v43);
 
     v23 = +[NRPairedDeviceRegistry sharedInstance];
     registry = v2->_registry;
@@ -143,9 +143,9 @@
     v39 = +[NMCGizmoConnection sharedInstance];
     [v39 addConnectionObserver:v2];
 
-    v40 = sub_10001418C();
-    objc_destroyWeak(&v43);
-    objc_destroyWeak(&v45);
+    v41 = sub_10001418C(v40);
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(&v46);
     objc_destroyWeak(&location);
   }
 
@@ -519,29 +519,30 @@ LABEL_14:
 
 - (void)_syncConfigStore:(id)store
 {
-  v8 = 0;
-  v3 = [NSPropertyListSerialization dataWithPropertyList:store format:200 options:0 error:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [NSPropertyListSerialization dataWithPropertyList:store format:200 options:0 error:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v3)
   {
-    v5 = objc_alloc_init(NMMessage);
-    [(NMMessage *)v5 setType:56];
-    v6 = objc_alloc_init(NMArgument);
-    [(NMArgument *)v6 setTag:1];
-    [(NMArgument *)v6 setDataValue:v3];
-    [(NMMessage *)v5 addArgument:v6];
-    v7 = +[NMCGizmoConnection sharedInstance];
-    [v7 sendMessage:v5 options:0];
+    v6 = objc_alloc_init(NMMessage);
+    [(NMMessage *)v6 setType:56];
+    v7 = objc_alloc_init(NMArgument);
+    [(NMArgument *)v7 setTag:1];
+    [(NMArgument *)v7 setDataValue:v3];
+    [(NMMessage *)v6 addArgument:v7];
+    v8 = +[NMCGizmoConnection sharedInstance];
+    [v8 sendMessage:v6 options:0];
   }
 
   else
   {
-    v5 = sub_10005318C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_10005318C(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v10 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Failed to serialize config store for sync: %{public}@", buf, 0xCu);
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to serialize config store for sync: %{public}@", buf, 0xCu);
     }
   }
 }
@@ -774,7 +775,8 @@ LABEL_13:
 
 - (void)connectionNeedsStateSynchronization:(id)synchronization
 {
-  if ([synchronization isNearbyAndUsable])
+  isNearbyAndUsable = [synchronization isNearbyAndUsable];
+  if (isNearbyAndUsable)
   {
     [(NMCSyncManager *)self->_syncManager synchronizePreferences];
     [(NMCRoutePlanningController *)self->_routePlanningController sendPreviewRoutesIfAvailable];
@@ -785,11 +787,11 @@ LABEL_13:
 
   else
   {
-    v4 = sub_100053324();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = sub_100053324(isNearbyAndUsable);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Connection needs sync but it's not nearby and usable; ignoring", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Connection needs sync but it's not nearby and usable; ignoring", v6, 2u);
     }
   }
 }
@@ -938,7 +940,7 @@ LABEL_8:
 - (void)checkinForNavigationControl
 {
   v3 = +[NSXPCConnection currentConnection];
-  v4 = sub_10005318C();
+  v4 = sub_10005318C(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = 138412290;
@@ -1195,17 +1197,17 @@ LABEL_8:
   {
     if (self->_companionControllerConnection == connectionCopy)
     {
-      v9 = sub_100001B24();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
+      v10 = sub_100001B24(v8);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
 
-      if (v10)
+      if (v11)
       {
-        v8 = @"NanoCompanionController";
+        v9 = @"NanoCompanionController";
       }
 
       else
       {
-        v8 = 0;
+        v9 = 0;
       }
 
       companionControllerConnection = self->_companionControllerConnection;
@@ -1216,28 +1218,27 @@ LABEL_8:
 
     else
     {
-      v8 = 0;
+      v9 = 0;
     }
 
-    [(NSMutableArray *)self->_mapsPeerConnections removeObject:connectionCopy];
-    v12 = sub_10005318C();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = sub_10005318C([(NSMutableArray *)self->_mapsPeerConnections removeObject:connectionCopy]);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      if (!v8)
+      if (!v9)
       {
-        v8 = @"Other";
+        v9 = @"Other";
       }
 
-      v13 = [(NSMutableArray *)self->_mapsPeerConnections count];
-      v14 = 138413058;
-      v15 = reasonCopy;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2112;
-      v21 = connectionCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%@ XPC connection %@ (%lu remaining peers) %@", &v14, 0x2Au);
+      v14 = [(NSMutableArray *)self->_mapsPeerConnections count];
+      v15 = 138413058;
+      v16 = reasonCopy;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2048;
+      v20 = v14;
+      v21 = 2112;
+      v22 = connectionCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%@ XPC connection %@ (%lu remaining peers) %@", &v15, 0x2Au);
     }
   }
 }
@@ -1293,21 +1294,19 @@ LABEL_8:
 
 - (void)_checkinWithSubscriptionStateSummary
 {
-  v3 = GeoOfflineConfig_SubscriptionIDSMessagesMode[1];
   if (GEOConfigGetUInteger() != 2)
   {
-    v4 = objc_alloc_init(GEOMapDataSubscriptionManager);
-    [v4 _fetchSerializedPairedDeviceSubscriptionsSummaryWithCallbackQueue:self->_connectionQueue completionHandler:&stru_100086CC0];
+    v3 = objc_alloc_init(GEOMapDataSubscriptionManager);
+    [v3 _fetchSerializedPairedDeviceSubscriptionsSummaryWithCallbackQueue:self->_connectionQueue completionHandler:&stru_100086CC0];
   }
 }
 
 - (void)updateObservedStateSubscriptionIdentifiers
 {
-  v3 = GeoOfflineConfig_SubscriptionIDSMessagesMode[1];
   if (GEOConfigGetUInteger() != 2)
   {
-    v4 = objc_alloc_init(GEOMapDataSubscriptionManager);
-    [v4 _fetchSerializedPairedDeviceSubscriptionIdentifiersToObserveWithCallbackQueue:self->_connectionQueue completionHandler:&stru_100086D50];
+    v3 = objc_alloc_init(GEOMapDataSubscriptionManager);
+    [v3 _fetchSerializedPairedDeviceSubscriptionIdentifiersToObserveWithCallbackQueue:self->_connectionQueue completionHandler:&stru_100086D50];
   }
 }
 

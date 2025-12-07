@@ -29,10 +29,11 @@
 
 - (void)didFinishLaunching
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  objc_opt_class();
+  OUTLINED_FUNCTION_9();
+  v2 = v1;
+  OUTLINED_FUNCTION_1();
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (NSXPCListener)secondaryListener
@@ -40,35 +41,35 @@
   v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  resume = objc_sync_enter(selfCopy);
   if (!gSecondaryListener)
   {
     anonymousListener = [MEMORY[0x277CCAE98] anonymousListener];
-    v6 = gSecondaryListener;
+    v7 = gSecondaryListener;
     gSecondaryListener = anonymousListener;
 
+    resume = gSecondaryListener;
     if (gSecondaryListener)
     {
       [gSecondaryListener setDelegate:selfCopy];
-      [gSecondaryListener resume];
+      resume = [gSecondaryListener resume];
     }
   }
 
-  v7 = fskit_std_log();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = fskit_std_log(resume);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
     v12 = gSecondaryListener;
-    _os_log_impl(&dword_24A929000, v7, OS_LOG_TYPE_DEFAULT, "Set secondary listener up %@", &v11, 0xCu);
+    _os_log_impl(&dword_24A929000, v8, OS_LOG_TYPE_DEFAULT, "Set secondary listener up %@", &v11, 0xCu);
   }
 
-  v8 = gSecondaryListener;
+  v9 = gSecondaryListener;
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v3);
-  v9 = *MEMORY[0x277D85DE8];
 
-  return v8;
+  return v9;
 }
 
 - (FSModuleConnector)fskitdCurrentConnection
@@ -87,8 +88,8 @@
   {
     [(_EXExtension *)v5 setDelegate:appexCopy];
     objc_storeStrong(p_isa + 6, appex);
-    v7 = fskit_std_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = fskit_std_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[FSModuleExtension(Project) moduleExtensionForAppex:];
     }
@@ -104,7 +105,7 @@
   memset(&v13[1], 0, sizeof(audit_token_t));
   if (clientCopy)
   {
-    [clientCopy auditToken];
+    objc_msgSend_auditToken(clientCopy);
   }
 
   v13[0] = v13[1];
@@ -133,7 +134,7 @@ LABEL_8:
 
   v8 = &stru_285DEFA28;
 LABEL_10:
-  v10 = fskit_std_log();
+  v10 = fskit_std_log(v5);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleExtension(Project) fskitdIsClient:];
@@ -145,7 +146,7 @@ LABEL_10:
 
 - (BOOL)shouldAcceptConnection:(id)connection
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v5 = objc_opt_new();
   [v5 setOurModule:self];
@@ -163,16 +164,14 @@ LABEL_10:
   [connectionCopy setRemoteObjectInterface:v7];
 
   [connectionCopy resume];
-  [(NSMutableArray *)self->_connectors addObject:v5];
-  v8 = fskit_std_log();
+  v8 = fskit_std_log([(NSMutableArray *)self->_connectors addObject:v5]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[FSModuleExtension(Project) shouldAcceptConnection:]";
-    _os_log_impl(&dword_24A929000, v8, OS_LOG_TYPE_DEFAULT, "%s returning YES", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[FSModuleExtension(Project) shouldAcceptConnection:]";
+    _os_log_impl(&dword_24A929000, v8, OS_LOG_TYPE_DEFAULT, "%s returning YES", &v10, 0xCu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -180,7 +179,7 @@ LABEL_10:
 {
   resourceCopy = resource;
   handlerCopy = handler;
-  v8 = fskit_std_log();
+  v8 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleExtension(Project) sendWipeResource:replyHandler:];
@@ -189,33 +188,33 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
   if (WeakRetained)
   {
-    v10 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __60__FSModuleExtension_Project__sendWipeResource_replyHandler___block_invoke;
-    v14[3] = &unk_278FECE20;
-    v15 = handlerCopy;
-    [v10 sendWipeResource:resourceCopy replyHandler:v14];
+    v11 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __60__FSModuleExtension_Project__sendWipeResource_replyHandler___block_invoke;
+    v16[3] = &unk_278FECE20;
+    v17 = handlerCopy;
+    [v11 sendWipeResource:resourceCopy replyHandler:v16];
 
-    v11 = fskit_std_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v13 = fskit_std_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [FSModuleExtension(Project) sendWipeResource:replyHandler:];
     }
 
-    v12 = v15;
+    v14 = v17;
   }
 
   else
   {
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = fskit_std_log(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [FSModuleExtension(Project) sendWipeResource:? replyHandler:?];
     }
 
-    v12 = fs_errorForPOSIXError(45);
-    (*(handlerCopy + 2))(handlerCopy, v12);
+    v14 = fs_errorForPOSIXError(45);
+    (*(handlerCopy + 2))(handlerCopy, v14);
   }
 }
 
@@ -224,7 +223,7 @@ LABEL_10:
   usedCopy = used;
   bundleCopy = bundle;
   handlerCopy = handler;
-  v11 = fskit_std_log();
+  v11 = fskit_std_log(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleExtension(Project) sendIsVolumeUsed:bundle:replyHandler:];
@@ -233,33 +232,33 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
   if (WeakRetained)
   {
-    v13 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __67__FSModuleExtension_Project__sendIsVolumeUsed_bundle_replyHandler___block_invoke;
-    v17[3] = &unk_278FECE48;
-    v18 = handlerCopy;
-    [v13 sendIsVolumeUsed:usedCopy bundle:bundleCopy replyHandler:v17];
+    v14 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __67__FSModuleExtension_Project__sendIsVolumeUsed_bundle_replyHandler___block_invoke;
+    v19[3] = &unk_278FECE48;
+    v20 = handlerCopy;
+    [v14 sendIsVolumeUsed:usedCopy bundle:bundleCopy replyHandler:v19];
 
-    v14 = fskit_std_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = fskit_std_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [FSModuleExtension(Project) sendIsVolumeUsed:bundle:replyHandler:];
     }
 
-    v15 = v18;
+    v17 = v20;
   }
 
   else
   {
-    v16 = fskit_std_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = fskit_std_log(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [FSModuleExtension(Project) sendIsVolumeUsed:? bundle:? replyHandler:?];
     }
 
-    v15 = fs_errorForPOSIXError(45);
-    (*(handlerCopy + 2))(handlerCopy, 0, v15);
+    v17 = fs_errorForPOSIXError(45);
+    (*(handlerCopy + 2))(handlerCopy, 0, v17);
   }
 }
 
@@ -267,16 +266,16 @@ LABEL_10:
 {
   handlerCopy = handler;
   v5 = self->_fsMachPort;
-  v6 = fskit_std_log();
+  v6 = fskit_std_log(v5);
   v7 = v6;
   if (!v5)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [FSModuleExtension(Project) sendConfigureUserClientWithReplyHandler:?];
+      [FSModuleExtension(Project) sendConfigureUserClientWithReplyHandler:];
     }
 
-    v12 = 6;
+    v14 = 6;
     goto LABEL_14;
   }
 
@@ -288,34 +287,34 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
   if (!WeakRetained)
   {
-    v13 = fskit_std_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = fskit_std_log(v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [FSModuleExtension(Project) sendConfigureUserClientWithReplyHandler:?];
     }
 
-    v12 = 45;
+    v14 = 45;
 LABEL_14:
-    v11 = fs_errorForPOSIXError(v12);
-    handlerCopy[2](handlerCopy, v11);
+    v13 = fs_errorForPOSIXError(v14);
+    handlerCopy[2](handlerCopy, v13);
     goto LABEL_15;
   }
 
-  v9 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __70__FSModuleExtension_Project__sendConfigureUserClientWithReplyHandler___block_invoke;
-  v14[3] = &unk_278FECE20;
-  v15 = handlerCopy;
-  [v9 sendConfigureUserClient:v5 replyHandler:v14];
+  v10 = objc_loadWeakRetained(&self->_fskitdCurrentConnection);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __70__FSModuleExtension_Project__sendConfigureUserClientWithReplyHandler___block_invoke;
+  v16[3] = &unk_278FECE20;
+  v17 = handlerCopy;
+  [v10 sendConfigureUserClient:v5 replyHandler:v16];
 
-  v10 = fskit_std_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = fskit_std_log(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [FSModuleExtension(Project) sendConfigureUserClientWithReplyHandler:];
   }
 
-  v11 = v15;
+  v13 = v17;
 LABEL_15:
 }
 

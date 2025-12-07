@@ -20,9 +20,9 @@
   delegateCopy = delegate;
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v8 = [bundleIdentifier isEqualToString:@"com.apple.springboard"];
+  isEqualToString = objc_msgSend_isEqualToString_(bundleIdentifier);
 
-  if ((v8 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"_UIGestureStudyInteraction.m" lineNumber:89 description:@"This interaction is only intended for use in SpringBoard."];

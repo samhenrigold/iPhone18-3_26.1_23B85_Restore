@@ -196,42 +196,30 @@ void __75__GTDisplayServiceXPCDispatcher_update_completionHandler__replyConnecti
 
 - (void)show_completionHandler_:(void *)a1 replyConnection:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display show request %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display show request %@", v4, v5, v6, v7);
 }
 
 void __73__GTDisplayServiceXPCDispatcher_show_completionHandler__replyConnection___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display show response %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display show response %@", v4, v5, v6, v7);
 }
 
 - (void)update_completionHandler_:(void *)a1 replyConnection:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display update request %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to unarchive display update request %@", v4, v5, v6, v7);
 }
 
 void __75__GTDisplayServiceXPCDispatcher_update_completionHandler__replyConnection___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display update response %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1(&dword_24DBC9000, v2, v3, "Failed to archive display update response %@", v4, v5, v6, v7);
 }
 
 @end

@@ -222,7 +222,7 @@ LABEL_11:
   calendar = [(_UIDatePickerMode *)self calendar];
   calendarIdentifier = [calendar calendarIdentifier];
 
-  if ([calendarIdentifier isEqualToString:*MEMORY[0x1E695D860]])
+  if (objc_msgSend_isEqualToString_(calendarIdentifier))
   {
     v5 = 6;
   }
@@ -688,9 +688,8 @@ LABEL_11:
   while (v19 > 14);
   if (![(_UIDatePickerMode *)self is24Hour])
   {
-    amPmFont = self->_amPmFont;
     p_amPmFont = &self->_amPmFont;
-    if (([v18 isEqual:amPmFont] & 1) == 0)
+    if ((objc_msgSend_isEqual_(v18) & 1) == 0)
     {
       objc_storeStrong(p_amPmFont, v24);
     }
@@ -989,7 +988,7 @@ LABEL_11:
 
   calendar4 = [(_UIDatePickerMode *)self calendar];
   calendarIdentifier = [calendar4 calendarIdentifier];
-  self->_isUsingJapaneseCalendar = [calendarIdentifier isEqualToString:*MEMORY[0x1E695D898]];
+  self->_isUsingJapaneseCalendar = objc_msgSend_isEqualToString_(calendarIdentifier);
 }
 
 - (void)resetComponentWidths
@@ -1103,7 +1102,7 @@ LABEL_11:
         v20 = 30;
       }
 
-      if (year >= year + v20)
+      if (year >= &year[v20])
       {
         v9 = 0;
       }

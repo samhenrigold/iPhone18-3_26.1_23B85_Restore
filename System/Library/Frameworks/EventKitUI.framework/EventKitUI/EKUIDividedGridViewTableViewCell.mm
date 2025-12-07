@@ -22,28 +22,28 @@
 
     view = [(EKUIDividedGridViewController *)v14->_gridViewController view];
     [view setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    [contentView addSubview:view];
+    v18 = objc_msgSend_contentView(v14);
+    [v18 addSubview:view];
 
-    contentView2 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
+    v19 = objc_msgSend_contentView(v14);
     v20 = MEMORY[0x1E696ACD8];
-    contentView3 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    v22 = [v20 constraintWithItem:contentView3 attribute:9 relatedBy:0 toItem:view attribute:9 multiplier:1.0 constant:0.0];
-    [contentView2 addConstraint:v22];
+    v21 = objc_msgSend_contentView(v14);
+    v22 = [v20 constraintWithItem:v21 attribute:9 relatedBy:0 toItem:view attribute:9 multiplier:1.0 constant:0.0];
+    [v19 addConstraint:v22];
 
-    contentView4 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    [contentView4 setPreservesSuperviewLayoutMargins:1];
+    v23 = objc_msgSend_contentView(v14);
+    [v23 setPreservesSuperviewLayoutMargins:1];
 
     [(EKUIDividedGridViewTableViewCell *)v14 setPreservesSuperviewLayoutMargins:1];
     leadingAnchor = [view leadingAnchor];
-    contentView5 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    safeAreaLayoutGuide = [contentView5 safeAreaLayoutGuide];
+    v25 = objc_msgSend_contentView(v14);
+    safeAreaLayoutGuide = [v25 safeAreaLayoutGuide];
     leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
     v28 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
 
     trailingAnchor = [view trailingAnchor];
-    contentView6 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    safeAreaLayoutGuide2 = [contentView6 safeAreaLayoutGuide];
+    v30 = objc_msgSend_contentView(v14);
+    safeAreaLayoutGuide2 = [v30 safeAreaLayoutGuide];
     trailingAnchor2 = [safeAreaLayoutGuide2 trailingAnchor];
     v33 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
 
@@ -53,25 +53,25 @@
     v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
     [v34 activateConstraints:v35];
 
-    contentView7 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
+    v36 = objc_msgSend_contentView(v14);
     v37 = [MEMORY[0x1E696ACD8] constraintWithItem:view attribute:7 relatedBy:-1 toItem:0 attribute:0 multiplier:1.0 constant:100000.0];
-    [contentView7 addConstraint:v37];
+    [v36 addConstraint:v37];
 
     v38 = MEMORY[0x1E696ACD8];
-    contentView8 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    v40 = [v38 constraintWithItem:contentView8 attribute:8 relatedBy:1 toItem:view attribute:8 multiplier:1.0 constant:0.0];
+    v39 = objc_msgSend_contentView(v14);
+    v40 = [v38 constraintWithItem:v39 attribute:8 relatedBy:1 toItem:view attribute:8 multiplier:1.0 constant:0.0];
 
     LODWORD(v41) = 1148829696;
     [v40 setPriority:v41];
     v42 = MEMORY[0x1E696ACD8];
-    contentView9 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
-    v44 = [v42 constraintWithItem:contentView9 attribute:3 relatedBy:0 toItem:view attribute:3 multiplier:1.0 constant:0.0];
+    v43 = objc_msgSend_contentView(v14);
+    v44 = [v42 constraintWithItem:v43 attribute:3 relatedBy:0 toItem:view attribute:3 multiplier:1.0 constant:0.0];
 
-    contentView10 = [(EKUIDividedGridViewTableViewCell *)v14 contentView];
+    v45 = objc_msgSend_contentView(v14);
     v49[0] = v40;
     v49[1] = v44;
     v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
-    [contentView10 addConstraints:v46];
+    [v45 addConstraints:v46];
   }
 
   return v14;

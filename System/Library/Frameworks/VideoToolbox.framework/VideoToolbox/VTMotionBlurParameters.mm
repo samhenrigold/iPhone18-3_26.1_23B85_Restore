@@ -7,7 +7,7 @@
 
 - (VTMotionBlurParameters)initWithSourceFrame:(id)frame nextFrame:(id)nextFrame previousFrame:(id)previousFrame nextOpticalFlow:(id)flow previousOpticalFlow:(id)opticalFlow motionBlurStrength:(int64_t)strength submissionMode:(int64_t)mode destinationFrame:(id)self0
 {
-  if (loadVEFrameworkOnce())
+  if (loadVEFrameworkOnce(self, a2))
   {
     v20.receiver = self;
     v20.super_class = VTMotionBlurParameters;

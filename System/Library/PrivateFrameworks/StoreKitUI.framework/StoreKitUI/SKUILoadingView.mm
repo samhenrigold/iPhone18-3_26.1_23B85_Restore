@@ -72,14 +72,14 @@ LABEL_8:
     colorScheme = self->_colorScheme;
     self->_colorScheme = v4;
 
-    primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
-    if (!primaryTextColor)
+    labelColor = objc_msgSend_primaryTextColor(self->_colorScheme);
+    if (!labelColor)
     {
-      primaryTextColor = [MEMORY[0x277D75348] labelColor];
+      labelColor = [MEMORY[0x277D75348] labelColor];
     }
 
-    v7 = primaryTextColor;
-    [(UIActivityIndicatorView *)self->_spinner setColor:primaryTextColor];
+    v7 = labelColor;
+    [(UIActivityIndicatorView *)self->_spinner setColor:labelColor];
     [(UILabel *)self->_label setTextColor:v7];
   }
 }
@@ -105,11 +105,11 @@ LABEL_8:
       v11 = [MEMORY[0x277D74300] systemFontOfSize:11.0];
       [(UILabel *)v10 setFont:v11];
 
-      primaryTextColor = [(SKUIColorScheme *)self->_colorScheme primaryTextColor];
+      v12 = objc_msgSend_primaryTextColor(self->_colorScheme);
       v13 = self->_label;
-      if (primaryTextColor)
+      if (v12)
       {
-        [(UILabel *)self->_label setTextColor:primaryTextColor];
+        [(UILabel *)self->_label setTextColor:v12];
       }
 
       else

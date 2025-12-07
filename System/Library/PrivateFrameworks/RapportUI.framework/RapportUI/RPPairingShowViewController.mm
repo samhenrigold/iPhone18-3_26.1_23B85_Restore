@@ -1,6 +1,8 @@
 @interface RPPairingShowViewController
 + (id)instantiateViewController;
 - (void)_updatePasswordUI;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation RPPairingShowViewController
@@ -13,6 +15,32 @@
   view = [v4 view];
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = RPPairingShowViewController;
+  [(RPPairingShowViewController *)&v5 viewWillAppear:appear];
+  navigationController = [(RPPairingShowViewController *)self navigationController];
+  [(UIButton *)self->_cancelButton setHidden:navigationController != 0];
+
+  [(RPPairingShowViewController *)self _updatePasswordUI];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = RPPairingShowViewController;
+  [(RPPairingShowViewController *)&v6 viewDidDisappear:disappear];
+  v4 = MEMORY[0x26670B920](self->_dismissHandler);
+  dismissHandler = self->_dismissHandler;
+  self->_dismissHandler = 0;
+
+  if (v4)
+  {
+    v4[2](v4);
+  }
 }
 
 - (void)_updatePasswordUI

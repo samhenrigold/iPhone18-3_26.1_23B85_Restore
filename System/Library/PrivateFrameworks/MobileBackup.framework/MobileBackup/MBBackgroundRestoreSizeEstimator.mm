@@ -34,7 +34,7 @@
         *buf = 138412290;
         v22 = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "=bg-estimate= Failed to determine whether restoring from file lists: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"F ", "=bg-estimate= Failed to determine whether restoring from file lists: %@", v16);
       }
 
       v13->_isRestoringFromFileLists = 0;
@@ -101,22 +101,22 @@
     __assert_rtn("[MBBackgroundRestoreSizeEstimator _estimateCurrentBackgroundRestoreSizeWithError:]", "MBBackgroundRestoreSizeEstimator.m", 81, "account");
   }
 
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x2020000000;
-  v86 = 0;
-  v79 = 0;
-  v80 = &v79;
-  v81 = 0x2020000000;
-  v82 = 0;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
-  v78 = 0;
-  v71 = 0;
-  v72 = &v71;
-  v73 = 0x2020000000;
-  v74 = 0;
+  v73 = 0;
+  v74 = &v73;
+  v75 = 0x2020000000;
+  v76 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 0;
   v9 = dispatch_get_global_queue(17, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
@@ -124,57 +124,57 @@
   block[3] = &unk_1003C1380;
   block[4] = self;
   v10 = serviceManager;
-  v65 = v10;
+  v55 = v10;
   v11 = account;
-  v66 = v11;
+  v56 = v11;
   v12 = v6;
-  v67 = v12;
-  v68 = &v79;
-  v69 = &v75;
-  v70 = &v71;
+  v57 = v12;
+  v58 = &v69;
+  v59 = &v65;
+  v60 = &v61;
   dispatch_group_async(v5, v9, block);
 
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x2020000000;
-  v63 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0;
   if ([v11 isPrimaryAccount])
   {
     dispatch_group_enter(v5);
     v13 = objc_alloc_init(ASDRestoreTotalDownloadSizeEstimateRequest);
-    v56[0] = _NSConcreteStackBlock;
-    v56[1] = 3221225472;
-    v56[2] = sub_1001E37A8;
-    v56[3] = &unk_1003C13A8;
-    v57 = v12;
-    v59 = &v60;
-    v58 = v5;
-    [v13 startWithCompletionHandler:v56];
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_1001E37A8;
+    v46[3] = &unk_1003C13A8;
+    v47 = v12;
+    v49 = &v50;
+    v48 = v5;
+    [v13 startWithCompletionHandler:v46];
   }
 
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   if ([v11 isPrimaryAccount])
   {
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1001E38DC;
-    v43[3] = &unk_1003BD2C8;
-    v45 = &v48;
-    v44 = v10;
-    v46 = &v83;
-    v47 = &v52;
-    dispatch_group_async(v5, v9, v43);
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_1001E38DC;
+    v33[3] = &unk_1003BD2C8;
+    v35 = &v38;
+    v34 = v10;
+    v36 = &v73;
+    v37 = &v42;
+    dispatch_group_async(v5, v9, v33);
   }
 
   dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  v14 = atomic_load(v84 + 24);
+  v14 = atomic_load(v74 + 24);
   if (v14)
   {
     v15 = [MBError errorWithCode:17 format:@"Cannot fetch background size estimate for account:%@", v11];
@@ -190,13 +190,13 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v18 = v61[3] + v80[3] + v53[3];
+  v18 = v51[3] + v70[3] + v43[3];
   v19 = 100000000 * (v18 / 0x5F5E100);
   v20 = v18 == v19;
   v21 = v19 + 100000000;
   if (v20)
   {
-    v16 = v61[3] + v80[3] + v53[3];
+    v16 = v51[3] + v70[3] + v43[3];
   }
 
   else
@@ -209,36 +209,30 @@ LABEL_12:
     v22 = MBGetDefaultLog();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = v80[3];
-      v24 = v76[3];
-      v25 = v72[3];
-      v26 = v61[3];
-      v27 = v53[3];
-      v28 = *(v49 + 24);
+      v23 = v70[3];
+      v24 = v66[3];
+      v25 = v62[3];
+      v26 = v51[3];
+      v27 = v43[3];
+      v28 = *(v39 + 24);
       *buf = 138414082;
-      v88 = v11;
+      v78 = v11;
+      v79 = 2048;
+      v80 = v23;
+      v81 = 2048;
+      v82 = v24;
+      v83 = 2048;
+      v84 = v25;
+      v85 = 2048;
+      *v86 = v26;
+      *&v86[8] = 2048;
+      *&v86[10] = v27;
+      v87 = 1024;
+      v88 = v28;
       v89 = 2048;
-      v90 = v23;
-      v91 = 2048;
-      v92 = v24;
-      v93 = 2048;
-      v94 = v25;
-      v95 = 2048;
-      *v96 = v26;
-      *&v96[8] = 2048;
-      *&v96[10] = v27;
-      v97 = 1024;
-      v98 = v28;
-      v99 = 2048;
-      v100 = v16;
+      v90 = v16;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=bg-estimate= Fetched background restore sizes for account %@ plan:%llu(%llu/%llu) appStore:%llu atc:%llu(%d) total:%llu", buf, 0x4Eu);
-      v42 = *(v49 + 24);
-      v39 = v61[3];
-      v41 = v53[3];
-      v35 = v76[3];
-      v37 = v72[3];
-      v33 = v80[3];
-      _MBLog();
+      _MBLog(@"Df", "=bg-estimate= Fetched background restore sizes for account %@ plan:%llu(%llu/%llu) appStore:%llu atc:%llu(%d) total:%llu", v11, v70[3], v66[3], v62[3], v51[3], v43[3], *(v39 + 24), v16);
     }
   }
 
@@ -247,40 +241,36 @@ LABEL_12:
     v22 = MBGetDefaultLog();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = v80[3];
-      v30 = v61[3];
-      v31 = v53[3];
-      v32 = *(v49 + 24);
+      v29 = v70[3];
+      v30 = v51[3];
+      v31 = v43[3];
+      v32 = *(v39 + 24);
       *buf = 138413570;
-      v88 = v11;
-      v89 = 2048;
-      v90 = v29;
-      v91 = 2048;
-      v92 = v30;
-      v93 = 2048;
-      v94 = v31;
-      v95 = 1024;
-      *v96 = v32;
-      *&v96[4] = 2048;
-      *&v96[6] = v16;
+      v78 = v11;
+      v79 = 2048;
+      v80 = v29;
+      v81 = 2048;
+      v82 = v30;
+      v83 = 2048;
+      v84 = v31;
+      v85 = 1024;
+      *v86 = v32;
+      *&v86[4] = 2048;
+      *&v86[6] = v16;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=bg-estimate= Fetched background restore sizes for account %@ cache:%llu appStore:%llu atc:%llu(%d) total:%llu", buf, 0x3Au);
-      v40 = *(v49 + 24);
-      v36 = v61[3];
-      v38 = v53[3];
-      v34 = v80[3];
-      _MBLog();
+      _MBLog(@"Df", "=bg-estimate= Fetched background restore sizes for account %@ cache:%llu appStore:%llu atc:%llu(%d) total:%llu", v11, v70[3], v51[3], v43[3], *(v39 + 24), v16);
     }
   }
 
 LABEL_13:
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-  _Block_object_dispose(&v60, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
+  _Block_object_dispose(&v50, 8);
 
-  _Block_object_dispose(&v71, 8);
-  _Block_object_dispose(&v75, 8);
-  _Block_object_dispose(&v79, 8);
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 
   return v16;
 }

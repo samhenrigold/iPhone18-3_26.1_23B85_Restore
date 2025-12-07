@@ -8,13 +8,13 @@
 
 - (WBSPasswordBreachConfigurationBag)initWithSnapshotData:(id)data error:(id *)error
 {
-  v6 = [MEMORY[0x1E695DF20] safari_dictionaryWithJSONOrPropertyListData:data];
-  if (!v6)
+  v7 = [MEMORY[0x1E695DF20] safari_dictionaryWithJSONOrPropertyListData:data];
+  if (!v7)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordBreachConfigurationBag initWithSnapshotData:v8 error:?];
+      [WBSPasswordBreachConfigurationBag initWithSnapshotData:v9 error:?];
       if (error)
       {
         goto LABEL_5;
@@ -33,7 +33,7 @@ LABEL_5:
     goto LABEL_8;
   }
 
-  self = [(WBSPasswordBreachConfigurationBag *)self initWithBagDictionary:v6];
+  self = [(WBSPasswordBreachConfigurationBag *)self initWithBagDictionary:v7];
   selfCopy = self;
 LABEL_8:
 
@@ -43,112 +43,115 @@ LABEL_8:
 - (WBSPasswordBreachConfigurationBag)initWithBagDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v14.receiver = self;
-  v14.super_class = WBSPasswordBreachConfigurationBag;
-  v5 = [(WBSPasswordBreachConfigurationBag *)&v14 init];
+  v17.receiver = self;
+  v17.super_class = WBSPasswordBreachConfigurationBag;
+  v5 = [(WBSPasswordBreachConfigurationBag *)&v17 init];
   if (v5)
   {
     v6 = [dictionaryCopy safari_numberForKey:@"BagVersion"];
-    v7 = v6;
+    v8 = v6;
     if (v6)
     {
-      if ([v6 unsignedIntegerValue] < 2)
+      unsignedIntegerValue = [v6 unsignedIntegerValue];
+      if (unsignedIntegerValue < 2)
       {
-        v11 = [dictionaryCopy copy];
+        v14 = [dictionaryCopy copy];
         bag = v5->_bag;
-        v5->_bag = v11;
+        v5->_bag = v14;
 
-        v9 = v5;
+        v12 = v5;
         goto LABEL_11;
       }
 
-      v8 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(unsignedIntegerValue, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(WBSPasswordBreachConfigurationBag *)v7 initWithBagDictionary:v8];
+        [(WBSPasswordBreachConfigurationBag *)v8 initWithBagDictionary:v11];
       }
     }
 
     else
     {
-      v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v7);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [WBSPasswordBreachConfigurationBag initWithBagDictionary:v10];
+        [WBSPasswordBreachConfigurationBag initWithBagDictionary:v13];
       }
     }
 
-    v9 = 0;
+    v12 = 0;
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v9 = 0;
+  v12 = 0;
 LABEL_12:
 
-  return v9;
+  return v12;
 }
 
 - (id)firstConfigurationForSupportedProtocolVersion:(unint64_t)version rampIdentifier:(unint64_t)identifier allowValuesForTesting:(BOOL)testing
 {
   testingCopy = testing;
-  v35 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = [(NSDictionary *)self->_bag safari_arrayContainingObjectsOfClass:objc_opt_class() forKey:@"Configurations"];
-  v8 = v7;
+  v9 = v7;
   if (v7)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v24 = v7;
-    v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v10)
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v31 = v7;
+    v10 = v7;
+    v11 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v30;
+      v12 = v11;
+      v13 = *v37;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v12)
+          if (*v37 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v29 + 1) + 8 * i);
-          v15 = [objc_alloc(MEMORY[0x1E69C8908]) initWithDictionary:v14];
-          [v15 unsignedIntegerForKey:@"ProtocolVersion" minimumValue:1 maximumValue:version];
-          if ([v15 errorOccurred])
+          v15 = *(*(&v36 + 1) + 8 * i);
+          v16 = [objc_alloc(MEMORY[0x1E69C8908]) initWithDictionary:v15];
+          [v16 unsignedIntegerForKey:@"ProtocolVersion" minimumValue:1 maximumValue:version];
+          errorOccurred = [v16 errorOccurred];
+          if (errorOccurred)
           {
-            v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+            v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(errorOccurred, v18);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
             {
-              [WBSPasswordBreachConfigurationBag firstConfigurationForSupportedProtocolVersion:v33 rampIdentifier:&v33[1] allowValuesForTesting:v16];
+              [WBSPasswordBreachConfigurationBag firstConfigurationForSupportedProtocolVersion:v40 rampIdentifier:&v40[1] allowValuesForTesting:v19];
             }
           }
 
           else
           {
-            [v15 unsignedIntegerForKey:@"MaximumRampIdentifier" minimumValue:identifier maximumValue:-1];
-            if ([v15 errorOccurred])
+            [v16 unsignedIntegerForKey:@"MaximumRampIdentifier" minimumValue:identifier maximumValue:-1];
+            errorOccurred2 = [v16 errorOccurred];
+            if (errorOccurred2)
             {
-              v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+              v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(errorOccurred2, v21);
+              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
               {
-                [WBSPasswordBreachConfigurationBag firstConfigurationForSupportedProtocolVersion:v28 rampIdentifier:v17 allowValuesForTesting:?];
+                [WBSPasswordBreachConfigurationBag firstConfigurationForSupportedProtocolVersion:v35 rampIdentifier:v22 allowValuesForTesting:?];
               }
             }
 
             else
             {
-              v18 = objc_alloc(MEMORY[0x1E69C8900]);
-              v19 = [v18 initWithDictionary:v14 protocolClasses:MEMORY[0x1E695E0F0] allowValuesForTesting:testingCopy];
-              if (v19)
+              v23 = objc_alloc(MEMORY[0x1E69C8900]);
+              v24 = [v23 initWithDictionary:v15 protocolClasses:MEMORY[0x1E695E0F0] allowValuesForTesting:testingCopy];
+              if (v24)
               {
-                v21 = v19;
+                v28 = v24;
 
                 goto LABEL_23;
               }
@@ -156,8 +159,8 @@ LABEL_12:
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
-        if (v11)
+        v12 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        if (v12)
         {
           continue;
         }
@@ -166,31 +169,31 @@ LABEL_12:
       }
     }
 
-    v20 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v27 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v25, v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BB6F3000, v20, OS_LOG_TYPE_INFO, "No valid configuration available in the bag.", buf, 2u);
+      _os_log_impl(&dword_1BB6F3000, v27, OS_LOG_TYPE_INFO, "No valid configuration available in the bag.", buf, 2u);
     }
 
-    v21 = 0;
+    v28 = 0;
 LABEL_23:
-    v8 = v24;
+    v9 = v31;
   }
 
   else
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v29 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_1BB6F3000, v22, OS_LOG_TYPE_INFO, "No configurations were found in the bag.", v33, 2u);
+      *v40 = 0;
+      _os_log_impl(&dword_1BB6F3000, v29, OS_LOG_TYPE_INFO, "No configurations were found in the bag.", v40, 2u);
     }
 
-    v21 = 0;
+    v28 = 0;
   }
 
-  return v21;
+  return v28;
 }
 
 - (void)initWithBagDictionary:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

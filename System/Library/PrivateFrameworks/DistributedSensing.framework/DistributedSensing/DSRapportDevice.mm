@@ -112,16 +112,15 @@
 
 - (void)sendNextRequest
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_249027000, a2, OS_LOG_TYPE_ERROR, "[DSRapportDevice] Invalid request %@\n", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_249027000, a2, OS_LOG_TYPE_ERROR, "[DSRapportDevice] Invalid request %@\n", &v2, 0xCu);
 }
 
 void __34__DSRapportDevice_sendNextRequest__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -129,7 +128,7 @@ void __34__DSRapportDevice_sendNextRequest__block_invoke(uint64_t a1, void *a2, 
   v11 = WeakRetained;
   if (WeakRetained)
   {
-    v40 = v9;
+    v39 = v9;
     v12 = WeakRetained[5];
     v13 = +[DSLogging sharedInstance];
     v14 = [v13 dsLogger];
@@ -141,12 +140,12 @@ void __34__DSRapportDevice_sendNextRequest__block_invoke(uint64_t a1, void *a2, 
       {
         v16 = *(a1 + 32);
         *buf = 138412290;
-        v47 = v16;
+        v46 = v16;
         _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Cancelling Response Timer for requestID %@\n", buf, 0xCu);
       }
 
       v17 = *(v11 + 5);
-      v9 = v40;
+      v9 = v39;
       if (!dispatch_source_testcancel(v17))
       {
         dispatch_source_cancel(v17);
@@ -155,12 +154,12 @@ void __34__DSRapportDevice_sendNextRequest__block_invoke(uint64_t a1, void *a2, 
 
       *(v11 + 5) = 0;
 
-      if (!v40)
+      if (!v39)
       {
         goto LABEL_23;
       }
 
-      v18 = [v40 domain];
+      v18 = [v39 domain];
       if ([v18 isEqualToString:@"DSErrorDomain"])
       {
 
@@ -177,50 +176,50 @@ LABEL_23:
         goto LABEL_23;
       }
 
-      v31 = +[DSLogging sharedInstance];
-      v32 = [v31 dsLogger];
+      v30 = +[DSLogging sharedInstance];
+      v31 = [v30 dsLogger];
 
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_249027000, v32, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Retrying sendRequest on error\n", buf, 2u);
+        _os_log_impl(&dword_249027000, v31, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Retrying sendRequest on error\n", buf, 2u);
       }
 
       [*(v11 + 1) invalidate];
-      v33 = *(v11 + 1);
+      v32 = *(v11 + 1);
       *(v11 + 1) = 0;
 
       if (*(a1 + 40))
       {
-        v34 = *(a1 + 40);
+        v33 = *(a1 + 40);
       }
 
       else
       {
-        v34 = MEMORY[0x277CBEC10];
+        v33 = MEMORY[0x277CBEC10];
       }
 
-      v35 = [v34 mutableCopy];
-      [v35 setObject:*(a1 + 32) forKeyedSubscript:@"RapportRequestIDKey"];
-      v36 = MEMORY[0x24C1EF510](*(a1 + 56));
-      [v35 setObject:v36 forKeyedSubscript:@"RapportRequestHandlerKey"];
+      v34 = [v33 mutableCopy];
+      [v34 setObject:*(a1 + 32) forKeyedSubscript:@"RapportRequestIDKey"];
+      v35 = MEMORY[0x24C1EF510](*(a1 + 56));
+      [v34 setObject:v35 forKeyedSubscript:@"RapportRequestHandlerKey"];
 
-      [v35 setObject:*(a1 + 48) forKeyedSubscript:@"RapportOptionsKey"];
-      v37 = [v35 copy];
-      [v11 addRequestToQueue:v37];
+      [v34 setObject:*(a1 + 48) forKeyedSubscript:@"RapportOptionsKey"];
+      v36 = [v34 copy];
+      [v11 addRequestToQueue:v36];
 
       [v11 _forceBLEDiscoverytoSendRequestID];
     }
 
     else
     {
-      v38 = v8;
-      v39 = v7;
+      v37 = v8;
+      v38 = v7;
       if (v15)
       {
         v19 = *(a1 + 32);
         *buf = 138412290;
-        v47 = v19;
+        v46 = v19;
         _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Response Handler Timer invalidated for requestID %@\n", buf, 0xCu);
       }
 
@@ -228,26 +227,26 @@ LABEL_23:
       v21 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:9 userInfo:0];
       (*(v20 + 16))(v20, 0, 0, v21);
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v22 = *(v11 + 6);
-      v23 = [v22 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v42;
+        v25 = *v41;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v42 != v25)
+            if (*v41 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = [*(*(&v41 + 1) + 8 * i) objectForKeyedSubscript:@"RapportRequestHandlerKey"];
+            v27 = [*(*(&v40 + 1) + 8 * i) objectForKeyedSubscript:@"RapportRequestHandlerKey"];
             if (v27)
             {
               v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:9 userInfo:0];
@@ -255,28 +254,26 @@ LABEL_23:
             }
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
         }
 
         while (v24);
       }
 
       [*(v11 + 6) removeAllObjects];
-      v8 = v38;
-      v7 = v39;
-      v9 = v40;
+      v8 = v37;
+      v7 = v38;
+      v9 = v39;
     }
   }
 
 LABEL_24:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateSessionClientWithForceL2CAP:(BOOL)p
 {
   pCopy = p;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = +[DSLogging sharedInstance];
   dsLogger = [v5 dsLogger];
 
@@ -284,7 +281,7 @@ LABEL_24:
   {
     rpDevice = [(DSRapportDevice *)self rpDevice];
     *buf = 138412290;
-    v24 = rpDevice;
+    v23 = rpDevice;
     _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Creating a session client to device %@\n", buf, 0xCu);
   }
 
@@ -297,13 +294,13 @@ LABEL_24:
     {
       rpDevice2 = [(DSRapportDevice *)self rpDevice];
       *buf = 138412290;
-      v24 = rpDevice2;
+      v23 = rpDevice2;
       _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Session can't be activated, Trying a force discovery for %@\n", buf, 0xCu);
     }
 
 LABEL_6:
 
-    goto LABEL_16;
+    return;
   }
 
   if (self->_sessionClient)
@@ -315,7 +312,7 @@ LABEL_6:
     {
       rpDevice3 = [(DSRapportDevice *)self rpDevice];
       *buf = 138412290;
-      v24 = rpDevice3;
+      v23 = rpDevice3;
       _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Session already exists for device %@\n", buf, 0xCu);
     }
 
@@ -337,7 +334,7 @@ LABEL_6:
     {
       rpDevice4 = [(DSRapportDevice *)self rpDevice];
       *buf = 138412290;
-      v24 = rpDevice4;
+      v23 = rpDevice4;
       _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Forcing an L2CAP session for %@\n", buf, 0xCu);
     }
 
@@ -348,22 +345,20 @@ LABEL_6:
   [(RPCompanionLinkClient *)self->_sessionClient setDispatchQueue:self->_queue];
   objc_initWeak(buf, self);
   v18 = self->_sessionClient;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke;
-  v20[3] = &unk_278F85BB0;
-  objc_copyWeak(&v21, buf);
-  v22 = pCopy;
-  [(RPCompanionLinkClient *)v18 activateWithCompletion:v20];
-  objc_destroyWeak(&v21);
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke;
+  v19[3] = &unk_278F85BB0;
+  objc_copyWeak(&v20, buf);
+  v21 = pCopy;
+  [(RPCompanionLinkClient *)v18 activateWithCompletion:v19];
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -381,27 +376,27 @@ void __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke(u
       *(v5 + 25) = 0;
       if (*(a1 + 40))
       {
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
         v8 = v5[6];
-        v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v20;
+          v11 = *v19;
           do
           {
             v12 = 0;
             do
             {
-              if (*v20 != v11)
+              if (*v19 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [*(*(&v19 + 1) + 8 * v12) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v19}];
+              v13 = [*(*(&v18 + 1) + 8 * v12) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v18}];
               v14 = v13;
               if (v13)
               {
@@ -412,7 +407,7 @@ void __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke(u
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v18 objects:v24 count:16];
           }
 
           while (v10);
@@ -436,15 +431,13 @@ void __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke(u
       {
         v17 = [v5 rpDevice];
         *buf = 138412290;
-        v24 = v17;
+        v23 = v17;
         _os_log_impl(&dword_249027000, v16, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Activated session client to device %@\n", buf, 0xCu);
       }
 
       [v5 sendNextRequest];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forceBLEDiscoverytoSendRequestID
@@ -500,7 +493,7 @@ void __56__DSRapportDevice__activateSessionClientWithForceL2CAP___block_invoke(u
 
 void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -522,11 +515,11 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke(uint6
         {
           v12 = [v3 identifier];
           v13 = [v3 model];
-          v18 = 138412546;
-          v19 = v12;
-          v20 = 2112;
-          v21 = v13;
-          _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Device discovered via BLEScreenOff Rapport Discovery: %@ %@\n", &v18, 0x16u);
+          v17 = 138412546;
+          v18 = v12;
+          v19 = 2112;
+          v20 = v13;
+          _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Device discovered via BLEScreenOff Rapport Discovery: %@ %@\n", &v17, 0x16u);
         }
 
         if (*(v5 + 4))
@@ -536,9 +529,9 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke(uint6
 
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 138412290;
-            v19 = v3;
-            _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Cancelling Discovery Timer for device %@\n", &v18, 0xCu);
+            v17 = 138412290;
+            v18 = v3;
+            _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Cancelling Discovery Timer for device %@\n", &v17, 0xCu);
           }
 
           v16 = *(v5 + 4);
@@ -556,13 +549,11 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke(uint6
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke_55(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -574,27 +565,27 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke_55(ui
       v6 = v5[2];
       v5[2] = 0;
 
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
       v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v7 = v5[6];
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v16;
+        v10 = *v15;
         do
         {
           v11 = 0;
           do
           {
-            if (*v16 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = [*(*(&v15 + 1) + 8 * v11) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v15}];
+            v12 = [*(*(&v14 + 1) + 8 * v11) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v14}];
             v13 = v12;
             if (v12)
             {
@@ -605,7 +596,7 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke_55(ui
           }
 
           while (v9 != v11);
-          v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v9);
@@ -619,8 +610,6 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke_55(ui
       [WeakRetained _startDiscoveryExitTimer];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startResponseTimeoutTimer
@@ -658,7 +647,7 @@ void __52__DSRapportDevice__forceBLEDiscoverytoSendRequestID__block_invoke_55(ui
 
 void __45__DSRapportDevice__startResponseTimeoutTimer__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dispatch_source_cancel(*(a1 + 32));
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -669,9 +658,9 @@ void __45__DSRapportDevice__startResponseTimeoutTimer__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [WeakRetained rpDevice];
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Timed out while waiting for a response from %@\n", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Timed out while waiting for a response from %@\n", &v10, 0xCu);
     }
 
     v6 = WeakRetained[5];
@@ -690,8 +679,6 @@ void __45__DSRapportDevice__startResponseTimeoutTimer__block_invoke(uint64_t a1)
       WeakRetained[2] = 0;
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDiscoveryExitTimer
@@ -728,83 +715,80 @@ void __45__DSRapportDevice__startResponseTimeoutTimer__block_invoke(uint64_t a1)
 
 void __43__DSRapportDevice__startDiscoveryExitTimer__block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_source_cancel(*(a1 + 32));
   v2 = *(a1 + 40);
-  if (!v2)
+  if (v2)
   {
-LABEL_15:
-    v17 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  if (*(v2 + 24))
-  {
-    v3 = +[DSLogging sharedInstance];
-    v4 = [v3 dsLogger];
-
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (*(v2 + 24))
     {
-      v5 = [*(a1 + 48) rpDevice];
-      *buf = 138412290;
-      v26 = v5;
-      _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Exit timer fired, stop force discovery for %@\n", buf, 0xCu);
-    }
+      v3 = +[DSLogging sharedInstance];
+      v4 = [v3 dsLogger];
 
-    [*(*(a1 + 40) + 16) invalidate];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 16);
-    *(v6 + 16) = 0;
-
-    v8 = *(a1 + 40);
-    v9 = *(v8 + 32);
-    *(v8 + 32) = 0;
-
-    *(*(a1 + 40) + 24) = 0;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v10 = *(*(a1 + 40) + 48);
-    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v11)
-    {
-      v12 = v11;
-      v13 = *v21;
-      do
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 0;
-        do
-        {
-          if (*v21 != v13)
-          {
-            objc_enumerationMutation(v10);
-          }
-
-          v15 = [*(*(&v20 + 1) + 8 * v14) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v20}];
-          if (v15)
-          {
-            v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:8 userInfo:0];
-            (v15)[2](v15, 0, 0, v16);
-          }
-
-          ++v14;
-        }
-
-        while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [*(a1 + 48) rpDevice];
+        *buf = 138412290;
+        v24 = v5;
+        _os_log_impl(&dword_249027000, v4, OS_LOG_TYPE_DEFAULT, "[DSRapportDevice] Exit timer fired, stop force discovery for %@\n", buf, 0xCu);
       }
 
-      while (v12);
+      [*(*(a1 + 40) + 16) invalidate];
+      v6 = *(a1 + 40);
+      v7 = *(v6 + 16);
+      *(v6 + 16) = 0;
+
+      v8 = *(a1 + 40);
+      v9 = *(v8 + 32);
+      *(v8 + 32) = 0;
+
+      *(*(a1 + 40) + 24) = 0;
+      v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v10 = *(*(a1 + 40) + 48);
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v11)
+      {
+        v12 = v11;
+        v13 = *v19;
+        do
+        {
+          v14 = 0;
+          do
+          {
+            if (*v19 != v13)
+            {
+              objc_enumerationMutation(v10);
+            }
+
+            v15 = [*(*(&v18 + 1) + 8 * v14) objectForKeyedSubscript:{@"RapportRequestHandlerKey", v18}];
+            if (v15)
+            {
+              v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:8 userInfo:0];
+              (v15)[2](v15, 0, 0, v16);
+            }
+
+            ++v14;
+          }
+
+          while (v12 != v14);
+          v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        }
+
+        while (v12);
+      }
+
+      [*(*(a1 + 40) + 48) removeAllObjects];
     }
 
-    [*(*(a1 + 40) + 48) removeAllObjects];
-    goto LABEL_15;
+    else
+    {
+      v17 = *(v2 + 32);
+      *(v2 + 32) = 0;
+    }
   }
-
-  v18 = *(v2 + 32);
-  *(v2 + 32) = 0;
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

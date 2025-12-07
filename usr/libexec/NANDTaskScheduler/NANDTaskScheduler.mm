@@ -51,8 +51,12 @@ LABEL_13:
   return v12;
 }
 
-void *fetchTunnelBufferWithInVal(char **a1, int a2, int a3, int a4, void *a5, char a6, char a7)
+void *fetchTunnelBufferWithInVal(char **a1, uint64_t a2, int a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
+  v8 = a6;
+  v10 = a4;
+  v12 = a2;
   v13 = a1;
   v21 = 0;
   *a5 = 0;
@@ -65,10 +69,10 @@ LABEL_11:
   }
 
   v14 = a3;
-  v15 = sub_100000CF8(v13, a2, a3, a4, a7);
+  v15 = sub_100000CF8(v13, v12, a3, v10, v7);
   if (!v15)
   {
-    fprintf(__stderrp, "failed to get data size for cmd option %d\n", a2);
+    fprintf(__stderrp, "failed to get data size for cmd option %d\n", v12);
     goto LABEL_11;
   }
 
@@ -79,7 +83,7 @@ LABEL_11:
   if (v18)
   {
     bzero(v18, v17);
-    if (sub_100000DC0(v13, a2, v14, a4, v19, v17, a6, a7))
+    if (sub_100000DC0(v13, v12, v14, v10, v19, v17, v8, v7))
     {
       *a5 = v16;
     }
@@ -364,7 +368,7 @@ LABEL_12:
   return v8;
 }
 
-uint64_t ASPParseBufferToCxt(uint64_t a1, uint64_t *a2, unsigned int a3)
+uint64_t ASPParseBufferToCxt(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
   *(a1 + 36) = -1;
   if (a3 < 8)
@@ -376,7 +380,7 @@ uint64_t ASPParseBufferToCxt(uint64_t a1, uint64_t *a2, unsigned int a3)
   while (2)
   {
     v9 = *a2;
-    v8 = a2 + 1;
+    v8 = (a2 + 1);
     v7 = v9;
     v10 = HIDWORD(v9);
     v11 = v6 - 1;
@@ -4971,7983 +4975,7427 @@ double ASPReleaseContext(uint64_t a1)
   return result;
 }
 
-uint64_t ASPFTLParseBufferToCxt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ASPFTLParseBufferToCxt(uint64_t a1, unint64_t *a2, unsigned int a3)
 {
-  v8 = a2;
-  v10 = 0;
-  v11 = a3 >> 3;
+  v5 = 0;
+  v6 = a3 >> 3;
   *__str = 0u;
-  v24 = 0u;
+  v17 = 0u;
   do
   {
 LABEL_2:
-    if (!v11)
+    if (!v6)
     {
-      return v10;
+      return v5;
     }
 
-    v13 = *v8++;
-    v12 = v13;
-    --v11;
-    v14 = HIDWORD(v13);
+    v8 = *a2++;
+    v7 = v8;
+    --v6;
+    v9 = HIDWORD(v8);
   }
 
-  while (!HIDWORD(v13));
-  if (v12 == 0xFFFF || v12 > 0x30000000 || v11 < v14)
+  while (!HIDWORD(v8));
+  if (v7 == 0xFFFF || v7 > 0x30000000 || v6 < v9)
   {
-    return v10;
+    return v5;
   }
 
-  switch(v12)
+  switch(v7)
   {
     case 1:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "version", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "version", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: version(1) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: version(1) cannot add 1 element to context";
       goto LABEL_161;
     case 2:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWriteXacts", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWriteXacts", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWriteXacts(2) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWriteXacts(2) cannot add 1 element to context";
       goto LABEL_161;
     case 3:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostReadXacts", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostReadXacts", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadXacts(3) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostReadXacts(3) cannot add 1 element to context";
       goto LABEL_161;
     case 4:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWrites", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWrites(4) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWrites(4) cannot add 1 element to context";
       goto LABEL_161;
     case 5:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesDyn", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesDyn", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesDyn(5) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesDyn(5) cannot add 1 element to context";
       goto LABEL_161;
     case 6:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesStatic", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesStatic", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesStatic(6) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesStatic(6) cannot add 1 element to context";
       goto LABEL_161;
     case 7:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostReads", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostReads", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReads(7) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostReads(7) cannot add 1 element to context";
       goto LABEL_161;
     case 8:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "validLbas", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "validLbas", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: validLbas(8) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: validLbas(8) cannot add 1 element to context";
       goto LABEL_161;
     case 9:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "shutdowns", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "shutdowns", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: shutdowns(9) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: shutdowns(9) cannot add 1 element to context";
       goto LABEL_161;
     case 10:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "boots", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "boots", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: boots(10) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: boots(10) cannot add 1 element to context";
       goto LABEL_161;
     case 11:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "uncleanBoots", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "uncleanBoots", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: uncleanBoots(11) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: uncleanBoots(11) cannot add 1 element to context";
       goto LABEL_161;
     case 12:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_free", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_free", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: IND_pool_free(12) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: IND_pool_free(12) cannot add 1 element to context";
       goto LABEL_161;
     case 13:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_count", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_count", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: IND_pool_count(13) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: IND_pool_count(13) cannot add 1 element to context";
       goto LABEL_161;
     case 14:
-      if (v14 != 10)
+      if (v9 != 10)
       {
-        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): (#10) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0xB)
+      if (v9 >= 0xB)
       {
-        v18 = 10;
+        v12 = 10;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (AddMultipleFieldsToGenericContext(a1, "hostWriteLogHisto_", v8, 8u, v18))
+      if (AddMultipleFieldsToGenericContext(a1, "hostWriteLogHisto_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: hostWriteLogHisto(14): Cannot add 10 elements to context";
-      goto LABEL_2993;
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWriteLogHisto(14): Cannot add 10 elements to context", v14);
+      return v5;
     case 15:
-      if (v14 != 10)
+      if (v9 != 10)
       {
-        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadLogHisto(15): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadLogHisto(15): (#10) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0xB)
+      if (v9 >= 0xB)
       {
-        v18 = 10;
+        v12 = 10;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (AddMultipleFieldsToGenericContext(a1, "hostReadLogHisto_", v8, 8u, v18))
+      if (AddMultipleFieldsToGenericContext(a1, "hostReadLogHisto_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: hostReadLogHisto(15): Cannot add 10 elements to context";
-      goto LABEL_2993;
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadLogHisto(15): Cannot add 10 elements to context", v14);
+      return v5;
     case 16:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcWrites", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcWrites(16) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: gcWrites(16) cannot add 1 element to context";
       goto LABEL_161;
     case 17:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wearLevMoves", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wearLevMoves", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wearLevMoves(17) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: wearLevMoves(17) cannot add 1 element to context";
       goto LABEL_161;
     case 18:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nandWrites", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nandWrites", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandWrites(18) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: nandWrites(18) cannot add 1 element to context";
       goto LABEL_161;
     case 19:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nandReads", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nandReads", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandReads(19) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: nandReads(19) cannot add 1 element to context";
       goto LABEL_161;
     case 20:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandErases", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandErases", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandErases(20) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: bandErases(20) cannot add 1 element to context";
       goto LABEL_161;
     case 22:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numPfail", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numPfail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numPfail(22) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numPfail(22) cannot add 1 element to context";
       goto LABEL_161;
     case 23:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numEfail", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numEfail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numEfail(23) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numEfail(23) cannot add 1 element to context";
       goto LABEL_161;
     case 24:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numPerformanceRefreshes", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numPerformanceRefreshes", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numPerformanceRefreshes(24) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numPerformanceRefreshes(24) cannot add 1 element to context";
       goto LABEL_161;
     case 27:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesMeta", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesMeta", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesMeta(27) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: hostWritesMeta(27) cannot add 1 element to context";
       goto LABEL_161;
     case 28:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numSleepOps", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numSleepOps", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numSleepOps(28) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numSleepOps(28) cannot add 1 element to context";
       goto LABEL_161;
     case 30:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cntTimeWentBackWardOnBoot", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cntTimeWentBackWardOnBoot", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cntTimeWentBackWardOnBoot(30) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cntTimeWentBackWardOnBoot(30) cannot add 1 element to context";
       goto LABEL_161;
     case 31:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cntTimeWentBackWard", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cntTimeWentBackWard", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cntTimeWentBackWard(31) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cntTimeWentBackWard(31) cannot add 1 element to context";
       goto LABEL_161;
     case 34:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "powerOnHours", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "powerOnHours", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerOnHours(34) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: powerOnHours(34) cannot add 1 element to context";
       goto LABEL_161;
     case 36:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "smartCritWarnings", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "smartCritWarnings", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: smartCritWarnings(36) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: smartCritWarnings(36) cannot add 1 element to context";
       goto LABEL_161;
     case 37:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFlushes", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFlushes", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFlushes(37) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFlushes(37) cannot add 1 element to context";
       goto LABEL_161;
     case 38:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmap", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmap", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numUnmap(38) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numUnmap(38) cannot add 1 element to context";
       goto LABEL_161;
     case 39:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmapSec", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmapSec", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numUnmapSec(39) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numUnmapSec(39) cannot add 1 element to context";
       goto LABEL_161;
     case 41:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogProgram", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogProgram", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogProgram(41) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogProgram(41) cannot add 1 element to context";
       goto LABEL_161;
     case 42:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPFail", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPFail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPFail(42) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogPFail(42) cannot add 1 element to context";
       goto LABEL_161;
     case 43:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogRead", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogRead", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogRead(43) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogRead(43) cannot add 1 element to context";
       goto LABEL_161;
     case 44:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogRFail", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogRFail", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogRFail(44) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: clogRFail(44) cannot add 1 element to context";
       goto LABEL_161;
     case 45:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxHighEnduranceBlockErases", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxHighEnduranceBlockErases", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxHighEnduranceBlockErases(45) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: maxHighEnduranceBlockErases(45) cannot add 1 element to context";
       goto LABEL_161;
     case 46:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFactoryBad", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFactoryBad", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFactoryBad(46) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFactoryBad(46) cannot add 1 element to context";
       goto LABEL_161;
     case 47:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numGrownBad", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numGrownBad", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numGrownBad(47) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numGrownBad(47) cannot add 1 element to context";
       goto LABEL_161;
     case 48:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFreeVirtualBlocks", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFreeVirtualBlocks", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFreeVirtualBlocks(48) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numFreeVirtualBlocks(48) cannot add 1 element to context";
       goto LABEL_161;
     case 49:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bytesPerPage", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bytesPerPage", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bytesPerPage(49) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: bytesPerPage(49) cannot add 1 element to context";
       goto LABEL_161;
     case 50:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "pagesPerVirtualBlock", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "pagesPerVirtualBlock", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: pagesPerVirtualBlock(50) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: pagesPerVirtualBlock(50) cannot add 1 element to context";
       goto LABEL_161;
     case 51:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "blocksPerVirtualBlock", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "blocksPerVirtualBlock", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: blocksPerVirtualBlock(51) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: blocksPerVirtualBlock(51) cannot add 1 element to context";
       goto LABEL_161;
     case 52:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numVirtualBlocks", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numVirtualBlocks", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numVirtualBlocks(52) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: numVirtualBlocks(52) cannot add 1 element to context";
       goto LABEL_161;
     case 53:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "exportVersion", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "exportVersion", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: exportVersion(53) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: exportVersion(53) cannot add 1 element to context";
       goto LABEL_161;
     case 54:
-      if (v14 != 100)
+      if (v9 != 100)
       {
-        SetAPIErrorMessage("ASPFTLParseBufferToCxt: ECBins(54): (#100) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: ECBins(54): (#100) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0x65)
+      if (v9 >= 0x65)
       {
-        v18 = 100;
+        v12 = 100;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (AddMultipleFieldsToGenericContext(a1, "ECBins_", v8, 8u, v18))
+      if (AddMultipleFieldsToGenericContext(a1, "ECBins_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: ECBins(54): Cannot add 100 elements to context";
-      goto LABEL_2993;
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: ECBins(54): Cannot add 100 elements to context", v14);
+      return v5;
     case 55:
-      if (v14 != 100)
+      if (v9 != 100)
       {
-        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RCBins(55): (#100) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RCBins(55): (#100) cfg elements != (%d) buffer elements", v9);
       }
 
-      if (v14 >= 0x65)
+      if (v9 >= 0x65)
       {
-        v18 = 100;
+        v12 = 100;
       }
 
       else
       {
-        v18 = v14;
+        v12 = v9;
       }
 
-      if (AddMultipleFieldsToGenericContext(a1, "RCBins_", v8, 8u, v18))
+      if (AddMultipleFieldsToGenericContext(a1, "RCBins_", a2, 8u, v12))
       {
         goto LABEL_110;
       }
 
-      v19 = "ASPFTLParseBufferToCxt: RCBins(55): Cannot add 100 elements to context";
-      goto LABEL_2993;
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: RCBins(55): Cannot add 100 elements to context", v14);
+      return v5;
     case 56:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "utilFormatTime", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "utilFormatTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: utilFormatTime(56) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: utilFormatTime(56) cannot add 1 element to context";
       goto LABEL_161;
     case 57:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "calendarTime", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "calendarTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: calendarTime(57) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: calendarTime(57) cannot add 1 element to context";
       goto LABEL_161;
     case 58:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wallTime", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wallTime", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wallTime(58) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: wallTime(58) cannot add 1 element to context";
       goto LABEL_161;
     case 59:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_flush_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_flush_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_flush_us(59) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_flush_us(59) cannot add 1 element to context";
       goto LABEL_161;
     case 60:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_unmap_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_unmap_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_unmap_us(60) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_unmap_us(60) cannot add 1 element to context";
       goto LABEL_161;
     case 61:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri0_r_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri0_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri0_r_us(61) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri0_r_us(61) cannot add 1 element to context";
       goto LABEL_161;
     case 62:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri0_w_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri0_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri0_w_us(62) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri0_w_us(62) cannot add 1 element to context";
       goto LABEL_161;
     case 63:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri1_r_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri1_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri1_r_us(63) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri1_r_us(63) cannot add 1 element to context";
       goto LABEL_161;
     case 64:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri1_w_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri1_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri1_w_us(64) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri1_w_us(64) cannot add 1 element to context";
       goto LABEL_161;
     case 65:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri2_r_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri2_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri2_r_us(65) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri2_r_us(65) cannot add 1 element to context";
       goto LABEL_161;
     case 66:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri2_w_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri2_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri2_w_us(66) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri2_w_us(66) cannot add 1 element to context";
       goto LABEL_161;
     case 67:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri3_r_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri3_r_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri3_r_us(67) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri3_r_us(67) cannot add 1 element to context";
       goto LABEL_161;
     case 68:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri3_w_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmdq_pri3_w_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmdq_pri3_w_us(68) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmdq_pri3_w_us(68) cannot add 1 element to context";
       goto LABEL_161;
     case 69:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "host_idle_ms", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "host_idle_ms", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: host_idle_ms(69) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: host_idle_ms(69) cannot add 1 element to context";
       goto LABEL_161;
     case 70:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_hysteresis_window_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_hysteresis_window_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_hysteresis_window_us(70) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_hysteresis_window_us(70) cannot add 1 element to context";
       goto LABEL_161;
     case 71:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_lowPriHoldoffDelay_us", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_lowPriHoldoffDelay_us", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_lowPriHoldoffDelay_us(71) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_lowPriHoldoffDelay_us(71) cannot add 1 element to context";
       goto LABEL_161;
     case 72:
-      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_lowPriHoldoffEnabled", *v8))
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_lowPriHoldoffEnabled", *a2) & 1) == 0)
       {
-        goto LABEL_162;
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_lowPriHoldoffEnabled(72) cannot add 1 element to context");
       }
 
-      v17 = "ASPFTLParseBufferToCxt: cmd_lowPriHoldoffEnabled(72) cannot add 1 element to context";
       goto LABEL_161;
     default:
-      switch(v12)
+      switch(v7)
       {
         case 73:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_expedite_num_success", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_expedite_num_success", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_expedite_num_success(73) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_expedite_num_success(73) cannot add 1 element to context";
           goto LABEL_161;
         case 75:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_expedite_num_failures", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_expedite_num_failures", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_expedite_num_failures(75) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_expedite_num_failures(75) cannot add 1 element to context";
           goto LABEL_161;
         case 76:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "num_trimerase", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "num_trimerase", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: num_trimerase(76) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: num_trimerase(76) cannot add 1 element to context";
           goto LABEL_161;
         case 77:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "staticSizeInMB", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "staticSizeInMB", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: staticSizeInMB(77) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: staticSizeInMB(77) cannot add 1 element to context";
           goto LABEL_161;
         case 80:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcInvalidations", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcInvalidations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcInvalidations(80) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: slcInvalidations(80) cannot add 1 element to context";
           goto LABEL_161;
         case 81:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcGCInvalidations", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcGCInvalidations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcGCInvalidations(81) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: slcGCInvalidations(81) cannot add 1 element to context";
           goto LABEL_161;
         case 82:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostSectorsDuringGCon", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostSectorsDuringGCon", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostSectorsDuringGCon(82) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: hostSectorsDuringGCon(82) cannot add 1 element to context";
           goto LABEL_161;
         case 83:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "highWaterMarkSLCUsed", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "highWaterMarkSLCUsed", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: highWaterMarkSLCUsed(83) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: highWaterMarkSLCUsed(83) cannot add 1 element to context";
           goto LABEL_161;
         case 84:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "intermediateBandErases", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "intermediateBandErases", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: intermediateBandErases(84) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: intermediateBandErases(84) cannot add 1 element to context";
           goto LABEL_161;
         case 85:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "intermediatePartitionStart", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "intermediatePartitionStart", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: intermediatePartitionStart(85) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: intermediatePartitionStart(85) cannot add 1 element to context";
           goto LABEL_161;
         case 86:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "userPartitionStart", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "userPartitionStart", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: userPartitionStart(86) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: userPartitionStart(86) cannot add 1 element to context";
           goto LABEL_161;
         case 87:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "iolog_lbas", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "iolog_lbas", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: iolog_lbas(87) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: iolog_lbas(87) cannot add 1 element to context";
           goto LABEL_161;
         case 88:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBins(88): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBins(88): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "bandsAgeBins_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "bandsAgeBins_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsAgeBins(88): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBins(88): Cannot add 10 elements to context", v14);
+          return v5;
         case 89:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "intermediateBandsAgeBins_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "intermediateBandsAgeBins_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: intermediateBandsAgeBins(89): Cannot add 10 elements to context", v14);
+          return v5;
         case 90:
-          if (v14 != 160)
+          if (v9 != 160)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosPerCmdQ(90): (#160) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosPerCmdQ(90): (#160) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xA1)
+          if (v9 >= 0xA1)
           {
-            v18 = 160;
+            v12 = 160;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "qosPerCmdQ_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "qosPerCmdQ_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: qosPerCmdQ(90): Cannot add 160 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosPerCmdQ(90): Cannot add 160 elements to context", v14);
+          return v5;
         case 91:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "maxQosPerCmdQ_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "maxQosPerCmdQ_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosPerCmdQ(91): Cannot add 10 elements to context", v14);
+          return v5;
         case 92:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "shutdownDuringGC", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "shutdownDuringGC", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: shutdownDuringGC(92) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: shutdownDuringGC(92) cannot add 1 element to context";
           goto LABEL_161;
         case 93:
-          if (v14 != 3)
+          if (v9 != 3)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): (#3) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 34)
+          if (v7 >> 34)
           {
-            v18 = 3;
+            v12 = 3;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "numBandsRefreshedForAgePerTier_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "numBandsRefreshedForAgePerTier_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): Cannot add 3 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBandsRefreshedForAgePerTier(93): Cannot add 3 elements to context", v14);
+          return v5;
         case 94:
-          if (v14 != 20)
+          if (v9 != 20)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrDeltaHot(94): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrDeltaHot(94): (#20) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0x15)
+          if (v9 >= 0x15)
           {
-            v18 = 20;
+            v12 = 20;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "bdrDeltaHot_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "bdrDeltaHot_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bdrDeltaHot(94): Cannot add 20 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrDeltaHot(94): Cannot add 20 elements to context", v14);
+          return v5;
         case 95:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnClockLoss", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnClockLoss", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRefreshOnClockLoss(95) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numRefreshOnClockLoss(95) cannot add 1 element to context";
           goto LABEL_161;
         case 96:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshRel", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshRel", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshRel(96) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshRel(96) cannot add 1 element to context";
           goto LABEL_161;
         case 97:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBGRefreshMoves", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBGRefreshMoves", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBGRefreshMoves(97) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBGRefreshMoves(97) cannot add 1 element to context";
           goto LABEL_161;
         case 98:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBGPaddingMoves", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBGPaddingMoves", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBGPaddingMoves(98) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBGPaddingMoves(98) cannot add 1 element to context";
           goto LABEL_161;
         case 99:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesPhoto", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesPhoto", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesPhoto(99) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: hostWritesPhoto(99) cannot add 1 element to context";
           goto LABEL_161;
         case 100:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDPooldFree", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDPooldFree", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDPooldFree(100) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDPooldFree(100) cannot add 1 element to context";
           goto LABEL_161;
         case 101:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDContigCount", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDContigCount", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDContigCount(101) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDContigCount(101) cannot add 1 element to context";
           goto LABEL_161;
         case 102:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDValidContigCount", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDValidContigCount", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDValidContigCount(102) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDValidContigCount(102) cannot add 1 element to context";
           goto LABEL_161;
         case 103:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDMinContigSize", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDMinContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDMinContigSize(103) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDMinContigSize(103) cannot add 1 element to context";
           goto LABEL_161;
         case 104:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDMaxContigSize", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDMaxContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDMaxContigSize(104) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDMaxContigSize(104) cannot add 1 element to context";
           goto LABEL_161;
         case 105:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDAveContigSize", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDAveContigSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDAveContigSize(105) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDAveContigSize(105) cannot add 1 element to context";
           goto LABEL_161;
         case 106:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "INDpoolSize", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "INDpoolSize", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: INDpoolSize(106) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: INDpoolSize(106) cannot add 1 element to context";
           goto LABEL_161;
         case 107:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "pushSyncWrites", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "pushSyncWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: pushSyncWrites(107) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: pushSyncWrites(107) cannot add 1 element to context";
           goto LABEL_161;
         case 109:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_rw_hysteresis_us", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cmd_rw_hysteresis_us", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cmd_rw_hysteresis_us(109) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: cmd_rw_hysteresis_us(109) cannot add 1 element to context";
           goto LABEL_161;
         case 110:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "photoFlowMode", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "photoFlowMode", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: photoFlowMode(110) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: photoFlowMode(110) cannot add 1 element to context";
           goto LABEL_161;
         case 112:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBandsPaddedForAge", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBandsPaddedForAge", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBandsPaddedForAge(112) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numBandsPaddedForAge(112) cannot add 1 element to context";
           goto LABEL_161;
         case 113:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "bandsPerHostFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "bandsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsPerHostFlow(113): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerHostFlow(113): Cannot add 4 elements to context", v14);
+          return v5;
         case 114:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "bandsPerSpecialFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "bandsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsPerSpecialFlow(114): Cannot add 5 elements to context", v14);
+          return v5;
         case 115:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerHostFlow(115): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerHostFlow(115): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "secsPerHostFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "secsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: secsPerHostFlow(115): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerHostFlow(115): Cannot add 4 elements to context", v14);
+          return v5;
         case 116:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "secsPerSpecialFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "secsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerSpecialFlow(116): Cannot add 5 elements to context", v14);
+          return v5;
         case 118:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "overWritesPerHostFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "overWritesPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerHostFlow(118): Cannot add 4 elements to context", v14);
+          return v5;
         case 119:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "overWritesPerSpecialFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "overWritesPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: overWritesPerSpecialFlow(119): Cannot add 5 elements to context", v14);
+          return v5;
         case 120:
-          if (v14 != 10)
+          if (v9 != 10)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): (#10) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 0xB)
+          if (v9 >= 0xB)
           {
-            v18 = 10;
+            v12 = 10;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "padSectorsPerFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "padSectorsPerFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: padSectorsPerFlow(120): Cannot add 10 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSectorsPerFlow(120): Cannot add 10 elements to context", v14);
+          return v5;
         case 121:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSizes(121): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSizes(121): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "padSizes_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "padSizes_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: padSizes(121): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: padSizes(121): Cannot add 4 elements to context", v14);
+          return v5;
         case 122:
-          if (v14 != 4)
+          if (v9 != 4)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): (#4) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 5)
+          if (v9 >= 5)
           {
-            v18 = 4;
+            v12 = 4;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "unmapsPerHostFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "unmapsPerHostFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): Cannot add 4 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerHostFlow(122): Cannot add 4 elements to context", v14);
+          return v5;
         case 123:
-          if (v14 != 5)
+          if (v9 != 5)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): (#5) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v12 >> 33 >= 3)
+          if (v7 >> 33 >= 3)
           {
-            v18 = 5;
+            v12 = 5;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "unmapsPerSpecialFlow_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "unmapsPerSpecialFlow_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): Cannot add 5 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unmapsPerSpecialFlow(123): Cannot add 5 elements to context", v14);
+          return v5;
         case 124:
-          if (v14 != 2)
+          if (v9 != 2)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: coldestCycle(124): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: coldestCycle(124): (#2) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 3)
+          if (v9 >= 3)
           {
-            v18 = 2;
+            v12 = 2;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "coldestCycle_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "coldestCycle_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: coldestCycle(124): Cannot add 2 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: coldestCycle(124): Cannot add 2 elements to context", v14);
+          return v5;
         case 125:
-          if (v14 != 2)
+          if (v9 != 2)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: hottestCycle(125): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: hottestCycle(125): (#2) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 3)
+          if (v9 >= 3)
           {
-            v18 = 2;
+            v12 = 2;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "hottestCycle_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "hottestCycle_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: hottestCycle(125): Cannot add 2 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: hottestCycle(125): Cannot add 2 elements to context", v14);
+          return v5;
         case 126:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcLonlyWrites", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcLonlyWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcLonlyWrites(126) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcLonlyWrites(126) cannot add 1 element to context";
           goto LABEL_161;
         case 127:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPLWrites", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPLWrites", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPLWrites(127) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcPLWrites(127) cannot add 1 element to context";
           goto LABEL_161;
         case 129:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "pagesPerVirtualBlockSlc", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "pagesPerVirtualBlockSlc", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: pagesPerVirtualBlockSlc(129) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: pagesPerVirtualBlockSlc(129) cannot add 1 element to context";
           goto LABEL_161;
         case 130:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrPadding", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrPadding", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrPadding(130) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: bdrPadding(130) cannot add 1 element to context";
           goto LABEL_161;
         case 131:
-          if (v14 != 8)
+          if (v9 != 8)
           {
-            SetAPIErrorMessage("ASPFTLParseBufferToCxt: errInjCounters(131): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: errInjCounters(131): (#8) cfg elements != (%d) buffer elements", v9);
           }
 
-          if (v14 >= 9)
+          if (v9 >= 9)
           {
-            v18 = 8;
+            v12 = 8;
           }
 
           else
           {
-            v18 = v14;
+            v12 = v9;
           }
 
-          if (AddMultipleFieldsToGenericContext(a1, "errInjCounters_", v8, 8u, v18))
+          if (AddMultipleFieldsToGenericContext(a1, "errInjCounters_", a2, 8u, v12))
           {
             goto LABEL_110;
           }
 
-          v19 = "ASPFTLParseBufferToCxt: errInjCounters(131): Cannot add 8 elements to context";
-          goto LABEL_2993;
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: errInjCounters(131): Cannot add 8 elements to context", v14);
+          return v5;
         case 132:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulReconstructionInternal", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulReconstructionInternal", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulReconstructionInternal(132) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulReconstructionInternal(132) cannot add 1 element to context";
           goto LABEL_161;
         case 133:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulReconstructionHost", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulReconstructionHost", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulReconstructionHost(133) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulReconstructionHost(133) cannot add 1 element to context";
           goto LABEL_161;
         case 134:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionInternal", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionInternal", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReconstructionInternal(134) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionInternal(134) cannot add 1 element to context";
           goto LABEL_161;
         case 135:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionHost", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionHost", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReconstructionHost(135) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionHost(135) cannot add 1 element to context";
           goto LABEL_161;
         case 136:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBandsPerHostFlow", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBandsPerHostFlow", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBandsPerHostFlow(136) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidBandsPerHostFlow(136) cannot add 1 element to context";
           goto LABEL_161;
         case 137:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSecsPerHostFlow", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSecsPerHostFlow", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSecsPerHostFlow(137) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: raidSecsPerHostFlow(137) cannot add 1 element to context";
           goto LABEL_161;
         case 138:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcFreeL", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcFreeL", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcFreeL(138) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcFreeL(138) cannot add 1 element to context";
           goto LABEL_161;
         case 139:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestinations", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestinations", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcDestinations(139) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcDestinations(139) cannot add 1 element to context";
           goto LABEL_161;
         case 140:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcFragments", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcFragments", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcFragments(140) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: gcFragments(140) cannot add 1 element to context";
           goto LABEL_161;
         case 141:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemChoke", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemChoke", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numMemChoke(141) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: numMemChoke(141) cannot add 1 element to context";
           goto LABEL_161;
         case 142:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemChokeDuration", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemChokeDuration", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxMemChokeDuration(142) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: maxMemChokeDuration(142) cannot add 1 element to context";
           goto LABEL_161;
         case 143:
-          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "memChokeDuration", *v8))
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "memChokeDuration", *a2) & 1) == 0)
           {
-            goto LABEL_162;
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: memChokeDuration(143) cannot add 1 element to context");
           }
 
-          v17 = "ASPFTLParseBufferToCxt: memChokeDuration(143) cannot add 1 element to context";
           goto LABEL_161;
         default:
-          switch(v12)
+          switch(v7)
           {
             case 144:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemExtreme", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemExtreme", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numMemExtreme(144) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numMemExtreme(144) cannot add 1 element to context";
               goto LABEL_161;
             case 145:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemExtremeDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemExtremeDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxMemExtremeDuration(145) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: maxMemExtremeDuration(145) cannot add 1 element to context";
               goto LABEL_161;
             case 146:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "memExtremeDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "memExtremeDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: memExtremeDuration(146) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: memExtremeDuration(146) cannot add 1 element to context";
               goto LABEL_161;
             case 147:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandGetsExtreme", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandGetsExtreme", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandGetsExtreme(147) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bandGetsExtreme(147) cannot add 1 element to context";
               goto LABEL_161;
             case 148:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandGetsLow", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandGetsLow", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandGetsLow(148) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bandGetsLow(148) cannot add 1 element to context";
               goto LABEL_161;
             case 149:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numHostChoke", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numHostChoke", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numHostChoke(149) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numHostChoke(149) cannot add 1 element to context";
               goto LABEL_161;
             case 152:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_ProgramError", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_ProgramError", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_ProgramError(152) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_ProgramError(152) cannot add 1 element to context";
               goto LABEL_161;
             case 153:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_ReadErrorOpenBand", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_ReadErrorOpenBand", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_ReadErrorOpenBand(153) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_ReadErrorOpenBand(153) cannot add 1 element to context";
               goto LABEL_161;
             case 154:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_FailedRebuildingParity", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_FailedRebuildingParity", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_FailedRebuildingParity(154) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortSkip_FailedRebuildingParity(154) cannot add 1 element to context";
               goto LABEL_161;
             case 155:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_OpenRefreshBand", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_OpenRefreshBand", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_OpenRefreshBand(155) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_OpenRefreshBand(155) cannot add 1 element to context";
               goto LABEL_161;
             case 156:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_CloseBands", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_CloseBands", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_CloseBands(156) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_CloseBands(156) cannot add 1 element to context";
               goto LABEL_161;
             case 157:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_SetPhoto", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_SetPhoto", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_SetPhoto(157) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_SetPhoto(157) cannot add 1 element to context";
               goto LABEL_161;
             case 158:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcNoSource", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcNoSource", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_GcNoSource(158) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_GcNoSource(158) cannot add 1 element to context";
               goto LABEL_161;
             case 159:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_Format", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_Format", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_Format(159) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: AbortPad_Format(159) cannot add 1 element to context";
               goto LABEL_161;
             case 160:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nandDiscoveryDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nandDiscoveryDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandDiscoveryDuration(160) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: nandDiscoveryDuration(160) cannot add 1 element to context";
               goto LABEL_161;
             case 161:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "coreCCEnableDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "coreCCEnableDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: coreCCEnableDuration(161) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreCCEnableDuration(161) cannot add 1 element to context";
               goto LABEL_161;
             case 163:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "coreOpenDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "coreOpenDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: coreOpenDuration(163) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreOpenDuration(163) cannot add 1 element to context";
               goto LABEL_161;
             case 164:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "coreWritableDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "coreWritableDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: coreWritableDuration(164) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreWritableDuration(164) cannot add 1 element to context";
               goto LABEL_161;
             case 165:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "coreClogLoadDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "coreClogLoadDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: coreClogLoadDuration(165) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: coreClogLoadDuration(165) cannot add 1 element to context";
               goto LABEL_161;
             case 167:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bulkPFail", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bulkPFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bulkPFail(167) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bulkPFail(167) cannot add 1 element to context";
               goto LABEL_161;
             case 169:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bulkRFail", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bulkRFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bulkRFail(169) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: bulkRFail(169) cannot add 1 element to context";
               goto LABEL_161;
             case 172:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSmartErrors", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSmartErrors", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSmartErrors(172) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: raidSmartErrors(172) cannot add 1 element to context";
               goto LABEL_161;
             case 182:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "internalUeccs", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "internalUeccs", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: internalUeccs(182) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: internalUeccs(182) cannot add 1 element to context";
               goto LABEL_161;
             case 183:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "e2eFail", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "e2eFail", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: e2eFail(183) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: e2eFail(183) cannot add 1 element to context";
               goto LABEL_161;
             case 184:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TempSensorMax", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TempSensorMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: TempSensorMax(184) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: TempSensorMax(184) cannot add 1 element to context";
               goto LABEL_161;
             case 185:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TempSensorMin", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TempSensorMin", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: TempSensorMin(185) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: TempSensorMin(185) cannot add 1 element to context";
               goto LABEL_161;
             case 186:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "powerUpFromDDR", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "powerUpFromDDR", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerUpFromDDR(186) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: powerUpFromDDR(186) cannot add 1 element to context";
               goto LABEL_161;
             case 187:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemLow", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numMemLow", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numMemLow(187) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numMemLow(187) cannot add 1 element to context";
               goto LABEL_161;
             case 188:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemLowDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMemLowDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxMemLowDuration(188) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: maxMemLowDuration(188) cannot add 1 element to context";
               goto LABEL_161;
             case 189:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "memLowDuration", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "memLowDuration", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: memLowDuration(189) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: memLowDuration(189) cannot add 1 element to context";
               goto LABEL_161;
             case 190:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFences", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFences", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFences(190) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numFences(190) cannot add 1 element to context";
               goto LABEL_161;
             case 191:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostPassiveIO", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostPassiveIO", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostPassiveIO(191) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: hostPassiveIO(191) cannot add 1 element to context";
               goto LABEL_161;
             case 192:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "odtsMax", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "odtsMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: odtsMax(192) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: odtsMax(192) cannot add 1 element to context";
               goto LABEL_161;
             case 193:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMFromOrphans", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMFromOrphans", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: defragMFromOrphans(193) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMFromOrphans(193) cannot add 1 element to context";
               goto LABEL_161;
             case 194:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMFromFragments", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMFromFragments", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: defragMFromFragments(194) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMFromFragments(194) cannot add 1 element to context";
               goto LABEL_161;
             case 195:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMTime", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMTime", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: defragMTime(195) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMTime(195) cannot add 1 element to context";
               goto LABEL_161;
             case 196:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMMaxTime", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "defragMMaxTime", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: defragMMaxTime(196) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: defragMMaxTime(196) cannot add 1 element to context";
               goto LABEL_161;
             case 197:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedLbaMismatch", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedLbaMismatch", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedLbaMismatch(197) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: raidFailedLbaMismatch(197) cannot add 1 element to context";
               goto LABEL_161;
             case 198:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numSyscfgWrites", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numSyscfgWrites", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numSyscfgWrites(198) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numSyscfgWrites(198) cannot add 1 element to context";
               goto LABEL_161;
             case 199:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsXfer", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsXfer", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbUnitsXfer(199) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsXfer(199) cannot add 1 element to context";
               goto LABEL_161;
             case 200:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsCache", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsCache", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbUnitsCache(200) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsCache(200) cannot add 1 element to context";
               goto LABEL_161;
             case 201:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsInd", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsInd", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbUnitsInd(201) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: indmbUnitsInd(201) cannot add 1 element to context";
               goto LABEL_161;
             case 202:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_Mbytes", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_Mbytes", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFS_Mbytes(202) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_Mbytes(202) cannot add 1 element to context";
               goto LABEL_161;
             case 203:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_Mbytes", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_Mbytes", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_Mbytes(203) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheDS_Mbytes(203) cannot add 1 element to context";
               goto LABEL_161;
             case 204:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "powerOnSeconds", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "powerOnSeconds", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerOnSeconds(204) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: powerOnSeconds(204) cannot add 1 element to context";
               goto LABEL_161;
             case 205:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnknownTokenHostRead", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnknownTokenHostRead", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numUnknownTokenHostRead(205) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numUnknownTokenHostRead(205) cannot add 1 element to context";
               goto LABEL_161;
             case 206:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmmapedTokenHostRead", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnmmapedTokenHostRead", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numUnmmapedTokenHostRead(206) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: numUnmmapedTokenHostRead(206) cannot add 1 element to context";
               goto LABEL_161;
             case 207:
-              if (v14 != 25)
+              if (v9 != 25)
               {
-                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): (#25) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v12 >> 33 >= 0xD)
+              if (v7 >> 33 >= 0xD)
               {
-                v18 = 25;
+                v12 = 25;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerLevel_", v8, 8u, v18))
+              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerLevel_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): Cannot add 25 elements to context";
-              goto LABEL_2993;
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerLevel(207): Cannot add 25 elements to context", v14);
+              return v5;
             case 208:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesMin", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesMin", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFS_MbytesMin(208) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesMin(208) cannot add 1 element to context";
               goto LABEL_161;
             case 209:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesMax", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesMax", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFS_MbytesMax(209) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesMax(209) cannot add 1 element to context";
               goto LABEL_161;
             case 210:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownFailCounter", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownFailCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: prepareForShutdownFailCounter(210) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownFailCounter(210) cannot add 1 element to context";
               goto LABEL_161;
             case 211:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lpsrEntry", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lpsrEntry", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: lpsrEntry(211) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: lpsrEntry(211) cannot add 1 element to context";
               goto LABEL_161;
             case 212:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lpsrExit", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lpsrExit", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: lpsrExit(212) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: lpsrExit(212) cannot add 1 element to context";
               goto LABEL_161;
             case 213:
-              if (v14 != 8)
+              if (v9 != 8)
               {
-                SetAPIErrorMessage("ASPFTLParseBufferToCxt: crcInternalReadFail(213): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: crcInternalReadFail(213): (#8) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v14 >= 9)
+              if (v9 >= 9)
               {
-                v18 = 8;
+                v12 = 8;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (AddMultipleFieldsToGenericContext(a1, "crcInternalReadFail_", v8, 8u, v18))
+              if (AddMultipleFieldsToGenericContext(a1, "crcInternalReadFail_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: crcInternalReadFail(213): Cannot add 8 elements to context";
-              goto LABEL_2993;
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: crcInternalReadFail(213): Cannot add 8 elements to context", v14);
+              return v5;
             case 214:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSEvictCnt", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSEvictCnt", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSEvictCnt(214) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSEvictCnt(214) cannot add 1 element to context";
               goto LABEL_161;
             case 215:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSEvictSize", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSEvictSize", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSEvictSize(215) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSEvictSize(215) cannot add 1 element to context";
               goto LABEL_161;
             case 216:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSWr", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFSWr", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSWr(216) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheFSWr(216) cannot add 1 element to context";
               goto LABEL_161;
             case 217:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDSWr", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDSWr", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSWr(217) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: wcacheDSWr(217) cannot add 1 element to context";
               goto LABEL_161;
             case 218:
-              if (v14 != 10)
+              if (v9 != 10)
               {
-                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): (#10) cfg elements != (%d) buffer elements", v9);
               }
 
-              if (v14 >= 0xB)
+              if (v9 >= 0xB)
               {
-                v18 = 10;
+                v12 = 10;
               }
 
               else
               {
-                v18 = v14;
+                v12 = v9;
               }
 
-              if (AddMultipleFieldsToGenericContext(a1, "wcacheFSEvictSizeLogDist_", v8, 8u, v18))
+              if (AddMultipleFieldsToGenericContext(a1, "wcacheFSEvictSizeLogDist_", a2, 8u, v12))
               {
                 goto LABEL_110;
               }
 
-              v19 = "ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): Cannot add 10 elements to context";
-              goto LABEL_2993;
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSEvictSizeLogDist(218): Cannot add 10 elements to context", v14);
+              return v5;
             case 219:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownTimeoutCounter", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownTimeoutCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: prepareForShutdownTimeoutCounter(219) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownTimeoutCounter(219) cannot add 1 element to context";
               goto LABEL_161;
             case 220:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownCancelCounter", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prepareForShutdownCancelCounter", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: prepareForShutdownCancelCounter(220) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: prepareForShutdownCancelCounter(220) cannot add 1 element to context";
               goto LABEL_161;
             case 221:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandCount", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandCount", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_openBandCount(221) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_openBandCount(221) cannot add 1 element to context";
               goto LABEL_161;
             case 222:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandNops", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandNops", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_openBandNops(222) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_openBandNops(222) cannot add 1 element to context";
               goto LABEL_161;
             case 223:
-              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictCount", *v8))
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictCount", *a2) & 1) == 0)
               {
-                goto LABEL_162;
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBandEvictCount(223) cannot add 1 element to context");
               }
 
-              v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictCount(223) cannot add 1 element to context";
               goto LABEL_161;
             default:
-              switch(v12)
+              switch(v7)
               {
                 case 224:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictSectors", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictSectors", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBandEvictSectors(224) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictSectors(224) cannot add 1 element to context";
                   goto LABEL_161;
                 case 225:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandFragmentCount", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandFragmentCount", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBandFragmentCount(225) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandFragmentCount(225) cannot add 1 element to context";
                   goto LABEL_161;
                 case 226:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandFragmentSectors", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandFragmentSectors", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBandFragmentSectors(226) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RD_closedBandFragmentSectors(226) cannot add 1 element to context";
                   goto LABEL_161;
                 case 227:
-                  if (v14 != 10)
+                  if (v9 != 10)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): (#10) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0xB)
+                  if (v9 >= 0xB)
                   {
-                    v18 = 10;
+                    v12 = 10;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "wcacheFSOverWrLogSizeCnts_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "wcacheFSOverWrLogSizeCnts_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): Cannot add 10 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrLogSizeCnts(227): Cannot add 10 elements to context", v14);
+                  return v5;
                 case 228:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "wcacheFSOverWrSizeByFlow_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "wcacheFSOverWrSizeByFlow_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFSOverWrSizeByFlow(228): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 229:
-                  if (v14 != 2)
+                  if (v9 != 2)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbXferCountTo(229): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbXferCountTo(229): (#2) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 3)
+                  if (v9 >= 3)
                   {
-                    v18 = 2;
+                    v12 = 2;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "indmbXferCountTo_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "indmbXferCountTo_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: indmbXferCountTo(229): Cannot add 2 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbXferCountTo(229): Cannot add 2 elements to context", v14);
+                  return v5;
                 case 230:
-                  if (v14 != 2)
+                  if (v9 != 2)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): (#2) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 3)
+                  if (v9 >= 3)
                   {
-                    v18 = 2;
+                    v12 = 2;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "indmbAccumulatedTimeBetweenXfers_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "indmbAccumulatedTimeBetweenXfers_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): Cannot add 2 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbAccumulatedTimeBetweenXfers(230): Cannot add 2 elements to context", v14);
+                  return v5;
                 case 231:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxGracefulBootTimeMs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxGracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxGracefulBootTimeMs(231) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: maxGracefulBootTimeMs(231) cannot add 1 element to context";
                   goto LABEL_161;
                 case 232:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxUngracefulBootTimeMs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxUngracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxUngracefulBootTimeMs(232) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: maxUngracefulBootTimeMs(232) cannot add 1 element to context";
                   goto LABEL_161;
                 case 233:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "averageGracefulBootTimeMs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "averageGracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: averageGracefulBootTimeMs(233) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: averageGracefulBootTimeMs(233) cannot add 1 element to context";
                   goto LABEL_161;
                 case 234:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "averageUngracefulBootTimeMs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "averageUngracefulBootTimeMs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: averageUngracefulBootTimeMs(234) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: averageUngracefulBootTimeMs(234) cannot add 1 element to context";
                   goto LABEL_161;
                 case 235:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "gracefulBootTimeLogMs_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "gracefulBootTimeLogMs_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: gracefulBootTimeLogMs(235): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 236:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "ungracefulBootTimeLogMs_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "ungracefulBootTimeLogMs_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: ungracefulBootTimeLogMs(236): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 237:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationCount(237): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationCount(237): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "CalibrationCount_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "CalibrationCount_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: CalibrationCount(237): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationCount(237): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 238:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationLastTmp", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationLastTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationLastTmp(238) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationLastTmp(238) cannot add 1 element to context";
                   goto LABEL_161;
                 case 239:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationMaxTmp", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationMaxTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationMaxTmp(239) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationMaxTmp(239) cannot add 1 element to context";
                   goto LABEL_161;
                 case 240:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationMinTmp", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "CalibrationMinTmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: CalibrationMinTmp(240) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: CalibrationMinTmp(240) cannot add 1 element to context";
                   goto LABEL_161;
                 case 241:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ungracefulBootWorstIndicator", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ungracefulBootWorstIndicator", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: ungracefulBootWorstIndicator(241) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: ungracefulBootWorstIndicator(241) cannot add 1 element to context";
                   goto LABEL_161;
                 case 242:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "metaMismatchReread", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "metaMismatchReread", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: metaMismatchReread(242) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: metaMismatchReread(242) cannot add 1 element to context";
                   goto LABEL_161;
                 case 243:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numS3SleepOps", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numS3SleepOps", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numS3SleepOps(243) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numS3SleepOps(243) cannot add 1 element to context";
                   goto LABEL_161;
                 case 244:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "odtsCurrent", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "odtsCurrent", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: odtsCurrent(244) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: odtsCurrent(244) cannot add 1 element to context";
                   goto LABEL_161;
                 case 245:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchReads", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: prefetchReads(245) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchReads(245) cannot add 1 element to context";
                   goto LABEL_161;
                 case 246:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchHits", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchHits", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: prefetchHits(246) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchHits(246) cannot add 1 element to context";
                   goto LABEL_161;
                 case 247:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchWritesInvalidation", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchWritesInvalidation", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: prefetchWritesInvalidation(247) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: prefetchWritesInvalidation(247) cannot add 1 element to context";
                   goto LABEL_161;
                 case 248:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsTotal", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indmbUnitsTotal", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indmbUnitsTotal(248) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indmbUnitsTotal(248) cannot add 1 element to context";
                   goto LABEL_161;
                 case 249:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "selfThrottlingEngage", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "selfThrottlingEngage", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: selfThrottlingEngage(249) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: selfThrottlingEngage(249) cannot add 1 element to context";
                   goto LABEL_161;
                 case 250:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "selfThrottlingDisengage", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "selfThrottlingDisengage", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: selfThrottlingDisengage(250) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: selfThrottlingDisengage(250) cannot add 1 element to context";
                   goto LABEL_161;
                 case 252:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_WlpMode", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_WlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_WlpMode(252) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: AbortSkip_WlpMode(252) cannot add 1 element to context";
                   goto LABEL_161;
                 case 253:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesWlpMode", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostWritesWlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesWlpMode(253) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: hostWritesWlpMode(253) cannot add 1 element to context";
                   goto LABEL_161;
                 case 254:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numClogDoubleUnc", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numClogDoubleUnc", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numClogDoubleUnc(254) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numClogDoubleUnc(254) cannot add 1 element to context";
                   goto LABEL_161;
                 case 256:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_WlpMode", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_WlpMode", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_WlpMode(256) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: AbortPad_WlpMode(256) cannot add 1 element to context";
                   goto LABEL_161;
                 case 257:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediateBandErases", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediateBandErases", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireIntermediateBandErases(257) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediateBandErases(257) cannot add 1 element to context";
                   goto LABEL_161;
                 case 258:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserBandErases", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserBandErases", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireUserBandErases(258) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserBandErases(258) cannot add 1 element to context";
                   goto LABEL_161;
                 case 259:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediateBandProgs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediateBandProgs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireIntermediateBandProgs(259) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediateBandProgs(259) cannot add 1 element to context";
                   goto LABEL_161;
                 case 260:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserBandProgs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserBandProgs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireUserBandProgs(260) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserBandProgs(260) cannot add 1 element to context";
                   goto LABEL_161;
                 case 261:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediatePageReads", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireIntermediatePageReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireIntermediatePageReads(261) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireIntermediatePageReads(261) cannot add 1 element to context";
                   goto LABEL_161;
                 case 262:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserPageReads", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bonfireUserPageReads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bonfireUserPageReads(262) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bonfireUserPageReads(262) cannot add 1 element to context";
                   goto LABEL_161;
                 case 263:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "refreshUtil00", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "refreshUtil00", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: refreshUtil00(263) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: refreshUtil00(263) cannot add 1 element to context";
                   goto LABEL_161;
                 case 264:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "failToReadUtil00", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "failToReadUtil00", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: failToReadUtil00(264) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: failToReadUtil00(264) cannot add 1 element to context";
                   goto LABEL_161;
                 case 265:
-                  if (v14 != 5)
+                  if (v9 != 5)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: readCountHisto(265): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: readCountHisto(265): (#5) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v12 >> 33 >= 3)
+                  if (v7 >> 33 >= 3)
                   {
-                    v18 = 5;
+                    v12 = 5;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "readCountHisto_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "readCountHisto_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: readCountHisto(265): Cannot add 5 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: readCountHisto(265): Cannot add 5 elements to context", v14);
+                  return v5;
                 case 266:
-                  if (v14 != 16)
+                  if (v9 != 16)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: readAmpHisto(266): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: readAmpHisto(266): (#16) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x11)
+                  if (v9 >= 0x11)
                   {
-                    v18 = 16;
+                    v12 = 16;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "readAmpHisto_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "readAmpHisto_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: readAmpHisto(266): Cannot add 16 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: readAmpHisto(266): Cannot add 16 elements to context", v14);
+                  return v5;
                 case 267:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "totalReadAmp", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "totalReadAmp", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: totalReadAmp(267) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: totalReadAmp(267) cannot add 1 element to context";
                   goto LABEL_161;
                 case 268:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvmeModeSelect(268): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvmeModeSelect(268): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "nvmeModeSelect_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "nvmeModeSelect_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: nvmeModeSelect(268): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvmeModeSelect(268): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 269:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "numBootBlockRefreshSuccess_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "numBootBlockRefreshSuccess_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshSuccess(269): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 270:
-                  if (v14 != 8)
+                  if (v9 != 8)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): (#8) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 9)
+                  if (v9 >= 9)
                   {
-                    v18 = 8;
+                    v12 = 8;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "numBootBlockRefreshFail_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "numBootBlockRefreshFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): Cannot add 8 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockRefreshFail(270): Cannot add 8 elements to context", v14);
+                  return v5;
                 case 271:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnsupportedAsi", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numUnsupportedAsi", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numUnsupportedAsi(271) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: numUnsupportedAsi(271) cannot add 1 element to context";
                   goto LABEL_161;
                 case 272:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "NumTerminatedProgramSegs", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "NumTerminatedProgramSegs", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: NumTerminatedProgramSegs(272) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: NumTerminatedProgramSegs(272) cannot add 1 element to context";
                   goto LABEL_161;
                 case 273:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indParityPagesDrops", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indParityPagesDrops", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indParityPagesDrops(273) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indParityPagesDrops(273) cannot add 1 element to context";
                   goto LABEL_161;
                 case 274:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indFlowPrograms", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indFlowPrograms", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indFlowPrograms(274) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: indFlowPrograms(274) cannot add 1 element to context";
                   goto LABEL_161;
                 case 277:
-                  if (v14 != 4)
+                  if (v9 != 4)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerBudgetSelect(277): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerBudgetSelect(277): (#4) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 5)
+                  if (v9 >= 5)
                   {
-                    v18 = 4;
+                    v12 = 4;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "powerBudgetSelect_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "powerBudgetSelect_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: powerBudgetSelect(277): Cannot add 4 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerBudgetSelect(277): Cannot add 4 elements to context", v14);
+                  return v5;
                 case 279:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnNandWrites", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnNandWrites", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnNandWrites(279) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: RxBurnNandWrites(279) cannot add 1 element to context";
                   goto LABEL_161;
                 case 280:
-                  if (v14 != 12)
+                  if (v9 != 12)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): (#12) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0xD)
+                  if (v9 >= 0xD)
                   {
-                    v18 = 12;
+                    v12 = 12;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "E2EDPErrorCounters_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "E2EDPErrorCounters_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): Cannot add 12 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: E2EDPErrorCounters(280): Cannot add 12 elements to context", v14);
+                  return v5;
                 case 281:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsMax", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsMax", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheSectorsMax(281) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsMax(281) cannot add 1 element to context";
                   goto LABEL_161;
                 case 282:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsMin", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsMin", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheSectorsMin(282) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsMin(282) cannot add 1 element to context";
                   goto LABEL_161;
                 case 283:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsCur", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsCur", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheSectorsCur(283) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheSectorsCur(283) cannot add 1 element to context";
                   goto LABEL_161;
                 case 284:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsMax", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsMax", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_SectorsMax(284) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsMax(284) cannot add 1 element to context";
                   goto LABEL_161;
                 case 285:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsMin", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsMin", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_SectorsMin(285) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsMin(285) cannot add 1 element to context";
                   goto LABEL_161;
                 case 286:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsCur", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsCur", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_SectorsCur(286) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsCur(286) cannot add 1 element to context";
                   goto LABEL_161;
                 case 287:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_Reads", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_Reads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFS_Reads(287) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheFS_Reads(287) cannot add 1 element to context";
                   goto LABEL_161;
                 case 288:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_Reads", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_Reads", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_Reads(288) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: wcacheDS_Reads(288) cannot add 1 element to context";
                   goto LABEL_161;
                 case 289:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockReadFail_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockReadFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockReadFail(289): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 290:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockProgFail_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockProgFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockProgFail(290): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 291:
-                  if (v14 != 32)
+                  if (v9 != 32)
                   {
-                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): (#32) cfg elements != (%d) buffer elements", v9);
                   }
 
-                  if (v14 >= 0x21)
+                  if (v9 >= 0x21)
                   {
-                    v18 = 32;
+                    v12 = 32;
                   }
 
                   else
                   {
-                    v18 = v14;
+                    v12 = v9;
                   }
 
-                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockEraseFail_", v8, 8u, v18))
+                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockEraseFail_", a2, 8u, v12))
                   {
                     goto LABEL_110;
                   }
 
-                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): Cannot add 32 elements to context";
-                  goto LABEL_2993;
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockEraseFail(291): Cannot add 32 elements to context", v14);
+                  return v5;
                 case 292:
-                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandsRefreshedOnError", *v8))
+                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandsRefreshedOnError", *a2) & 1) == 0)
                   {
-                    goto LABEL_162;
+                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsRefreshedOnError(292) cannot add 1 element to context");
                   }
 
-                  v17 = "ASPFTLParseBufferToCxt: bandsRefreshedOnError(292) cannot add 1 element to context";
                   goto LABEL_161;
                 default:
-                  switch(v12)
+                  switch(v7)
                   {
                     case 298:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReads(298): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReads(298): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostReads_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostReads_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostReads(298): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReads(298): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 299:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReadXacts(299): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReadXacts(299): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostReadXacts_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostReadXacts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostReadXacts(299): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostReadXacts(299): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 300:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWrites(300): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWrites(300): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostWrites_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostWrites_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostWrites(300): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWrites(300): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 301:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWriteXacts(301): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWriteXacts(301): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostWriteXacts_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostWriteXacts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostWriteXacts(301): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostWriteXacts(301): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 302:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFlushes(302): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFlushes(302): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostNumFlushes_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostNumFlushes_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostNumFlushes(302): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFlushes(302): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 303:
-                      if (v14 != 2)
+                      if (v9 != 2)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFences(303): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFences(303): (#2) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 3)
+                      if (v9 >= 3)
                       {
-                        v18 = 2;
+                        v12 = 2;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "perHostNumFences_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "perHostNumFences_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: perHostNumFences(303): Cannot add 2 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: perHostNumFences(303): Cannot add 2 elements to context", v14);
+                      return v5;
                     case 304:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "commitPadSectorsPerFlow_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "commitPadSectorsPerFlow_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: commitPadSectorsPerFlow(304): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 305:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDSOverWrLogSizeCnts_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDSOverWrLogSizeCnts_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrLogSizeCnts(305): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 306:
-                      if (v14 != 4)
+                      if (v9 != 4)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): (#4) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 5)
+                      if (v9 >= 5)
                       {
-                        v18 = 4;
+                        v12 = 4;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDSOverWrSizeByFlow_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDSOverWrSizeByFlow_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): Cannot add 4 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDSOverWrSizeByFlow(306): Cannot add 4 elements to context", v14);
+                      return v5;
                     case 307:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "CmdRaisePrioiryEvents_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "CmdRaisePrioiryEvents_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: CmdRaisePrioiryEvents(307): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 308:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "utilNumVerification", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "utilNumVerification", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: utilNumVerification(308) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilNumVerification(308) cannot add 1 element to context";
                       goto LABEL_161;
                     case 309:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "utilRefreshes", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "utilRefreshes", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: utilRefreshes(309) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilRefreshes(309) cannot add 1 element to context";
                       goto LABEL_161;
                     case 310:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "utilBDRErrors", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "utilBDRErrors", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: utilBDRErrors(310) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilBDRErrors(310) cannot add 1 element to context";
                       goto LABEL_161;
                     case 311:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indBandsPerFlow", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indBandsPerFlow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: indBandsPerFlow(311) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indBandsPerFlow(311) cannot add 1 element to context";
                       goto LABEL_161;
                     case 312:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "secsPerIndFlow", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "secsPerIndFlow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: secsPerIndFlow(312) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: secsPerIndFlow(312) cannot add 1 element to context";
                       goto LABEL_161;
                     case 313:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indDecodedECC", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indDecodedECC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: indDecodedECC(313) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indDecodedECC(313) cannot add 1 element to context";
                       goto LABEL_161;
                     case 314:
-                      if (v14 != 8)
+                      if (v9 != 8)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): (#8) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 9)
+                      if (v9 >= 9)
                       {
-                        v18 = 8;
+                        v12 = 8;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "numBootBlockValidateSuccess_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "numBootBlockValidateSuccess_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): Cannot add 8 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateSuccess(314): Cannot add 8 elements to context", v14);
+                      return v5;
                     case 315:
-                      if (v14 != 8)
+                      if (v9 != 8)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): (#8) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 9)
+                      if (v9 >= 9)
                       {
-                        v18 = 8;
+                        v12 = 8;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "numBootBlockValidateFail_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "numBootBlockValidateFail_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): Cannot add 8 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootBlockValidateFail(315): Cannot add 8 elements to context", v14);
+                      return v5;
                     case 316:
-                      if (v14 != 4)
+                      if (v9 != 4)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): (#4) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 5)
+                      if (v9 >= 5)
                       {
-                        v18 = 4;
+                        v12 = 4;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "clogPagesFillingPercentage_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "clogPagesFillingPercentage_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): Cannot add 4 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPagesFillingPercentage(316): Cannot add 4 elements to context", v14);
+                      return v5;
                     case 317:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrCalTimeAccFactor", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrCalTimeAccFactor", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrCalTimeAccFactor(317) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bdrCalTimeAccFactor(317) cannot add 1 element to context";
                       goto LABEL_161;
                     case 318:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainRdError", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainRdError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bootChainRdError(318) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainRdError(318) cannot add 1 element to context";
                       goto LABEL_161;
                     case 319:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainBlankError", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainBlankError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bootChainBlankError(319) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainBlankError(319) cannot add 1 element to context";
                       goto LABEL_161;
                     case 320:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainRefreshError", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainRefreshError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bootChainRefreshError(320) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainRefreshError(320) cannot add 1 element to context";
                       goto LABEL_161;
                     case 321:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainVersionError", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bootChainVersionError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bootChainVersionError(321) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: bootChainVersionError(321) cannot add 1 element to context";
                       goto LABEL_161;
                     case 322:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockMismatch", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockMismatch", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockMismatch(322) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: mspBootBlockMismatch(322) cannot add 1 element to context";
                       goto LABEL_161;
                     case 323:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockMismatchErr", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockMismatchErr", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockMismatchErr(323) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: mspBootBlockMismatchErr(323) cannot add 1 element to context";
                       goto LABEL_161;
                     case 324:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipAddr(324): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipAddr(324): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bitflipAddr_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bitflipAddr_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipAddr(324): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipAddr(324): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 325:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipCount(325): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipCount(325): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bitflipCount_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bitflipCount_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipCount(325): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipCount(325): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 326:
-                      if (v14 != 5)
+                      if (v9 != 5)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipDupes(326): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipDupes(326): (#5) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 3)
+                      if (v7 >> 33 >= 3)
                       {
-                        v18 = 5;
+                        v12 = 5;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bitflipDupes_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bitflipDupes_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bitflipDupes(326): Cannot add 5 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitflipDupes(326): Cannot add 5 elements to context", v14);
+                      return v5;
                     case 327:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bandsMaxTempHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bandsMaxTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMaxTempHisto(327): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 328:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bandsMinTempHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bandsMinTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsMinTempHisto(328): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsMinTempHisto(328): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 329:
-                      if (v14 != 30)
+                      if (v9 != 30)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): (#30) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): (#30) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x1F)
+                      if (v9 >= 0x1F)
                       {
-                        v18 = 30;
+                        v12 = 30;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bandsLifeTimeTempHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bandsLifeTimeTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): Cannot add 30 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsLifeTimeTempHisto(329): Cannot add 30 elements to context", v14);
+                      return v5;
                     case 330:
-                      if (v14 != 22)
+                      if (v9 != 22)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): (#22) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): (#22) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x17)
+                      if (v9 >= 0x17)
                       {
-                        v18 = 22;
+                        v12 = 22;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bandsDeltaTempHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bandsDeltaTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): Cannot add 22 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsDeltaTempHisto(330): Cannot add 22 elements to context", v14);
+                      return v5;
                     case 331:
-                      if (v14 != 45)
+                      if (v9 != 45)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): (#45) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): (#45) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v12 >> 33 >= 0x17)
+                      if (v7 >> 33 >= 0x17)
                       {
-                        v18 = 45;
+                        v12 = 45;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "bandsCrossTempHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "bandsCrossTempHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): Cannot add 45 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsCrossTempHisto(331): Cannot add 45 elements to context", v14);
+                      return v5;
                     case 332:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "wcacheWaitLogMs_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "wcacheWaitLogMs_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheWaitLogMs(332): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 333:
-                      if (v14 != 10)
+                      if (v9 != 10)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): (#10) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0xB)
+                      if (v9 >= 0xB)
                       {
-                        v18 = 10;
+                        v12 = 10;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDS_segsSortedLogSize_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "wcacheDS_segsSortedLogSize_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): Cannot add 10 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_segsSortedLogSize(333): Cannot add 10 elements to context", v14);
+                      return v5;
                     case 334:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFirmwareWrites", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFirmwareWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFirmwareWrites(334) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numFirmwareWrites(334) cannot add 1 element to context";
                       goto LABEL_161;
                     case 335:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBisWrites", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBisWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBisWrites(335) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numBisWrites(335) cannot add 1 element to context";
                       goto LABEL_161;
                     case 336:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBootChainUpdates", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBootChainUpdates", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBootChainUpdates(336) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numBootChainUpdates(336) cannot add 1 element to context";
                       goto LABEL_161;
                     case 337:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cntCalTimeWentBackWard", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cntCalTimeWentBackWard", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: cntCalTimeWentBackWard(337) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: cntCalTimeWentBackWard(337) cannot add 1 element to context";
                       goto LABEL_161;
                     case 338:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indBoRecoveries", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indBoRecoveries", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: indBoRecoveries(338) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indBoRecoveries(338) cannot add 1 element to context";
                       goto LABEL_161;
                     case 340:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numCrossTempUecc", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numCrossTempUecc", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numCrossTempUecc(340) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numCrossTempUecc(340) cannot add 1 element to context";
                       goto LABEL_161;
                     case 341:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "latencyMonitorError", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "latencyMonitorError", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: latencyMonitorError(341) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: latencyMonitorError(341) cannot add 1 element to context";
                       goto LABEL_161;
                     case 343:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "utilUeccReads", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "utilUeccReads", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: utilUeccReads(343) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: utilUeccReads(343) cannot add 1 element to context";
                       goto LABEL_161;
                     case 344:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfAvoidedGCDueToTemp", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfAvoidedGCDueToTemp", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfAvoidedGCDueToTemp(344) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: numOfAvoidedGCDueToTemp(344) cannot add 1 element to context";
                       goto LABEL_161;
                     case 345:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "forceShutdowns", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "forceShutdowns", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: forceShutdowns(345) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: forceShutdowns(345) cannot add 1 element to context";
                       goto LABEL_161;
                     case 346:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcSlcDestinations", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcSlcDestinations", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSlcDestinations(346) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: gcSlcDestinations(346) cannot add 1 element to context";
                       goto LABEL_161;
                     case 347:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indReplayExtUsed", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indReplayExtUsed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: indReplayExtUsed(347) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: indReplayExtUsed(347) cannot add 1 element to context";
                       goto LABEL_161;
                     case 348:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "defectsPerPackageOverflow", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "defectsPerPackageOverflow", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: defectsPerPackageOverflow(348) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: defectsPerPackageOverflow(348) cannot add 1 element to context";
                       goto LABEL_161;
                     case 349:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnIntBandsProgrammed", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnIntBandsProgrammed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnIntBandsProgrammed(349) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnIntBandsProgrammed(349) cannot add 1 element to context";
                       goto LABEL_161;
                     case 350:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnUsrBandsProgrammed", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnUsrBandsProgrammed", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnUsrBandsProgrammed(350) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnUsrBandsProgrammed(350) cannot add 1 element to context";
                       goto LABEL_161;
                     case 351:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnIntNandWrites", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnIntNandWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnIntNandWrites(351) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnIntNandWrites(351) cannot add 1 element to context";
                       goto LABEL_161;
                     case 352:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnUsrNandWrites", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnUsrNandWrites", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnUsrNandWrites(352) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: RxBurnUsrNandWrites(352) cannot add 1 element to context";
                       goto LABEL_161;
                     case 353:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogLastStripeUeccs", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogLastStripeUeccs", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogLastStripeUeccs(353) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: clogLastStripeUeccs(353) cannot add 1 element to context";
                       goto LABEL_161;
                     case 354:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "GC_MidDestSrcSwitchSLC2TLC", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "GC_MidDestSrcSwitchSLC2TLC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchSLC2TLC(354) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchSLC2TLC(354) cannot add 1 element to context";
                       goto LABEL_161;
                     case 355:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "GC_MidDestSrcSwitchTLC2SLC", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "GC_MidDestSrcSwitchTLC2SLC", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchTLC2SLC(355) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: GC_MidDestSrcSwitchTLC2SLC(355) cannot add 1 element to context";
                       goto LABEL_161;
                     case 356:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host0_normal", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host0_normal", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_normal(356) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_normal(356) cannot add 1 element to context";
                       goto LABEL_161;
                     case 357:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host1_normal", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host1_normal", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_normal(357) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_normal(357) cannot add 1 element to context";
                       goto LABEL_161;
                     case 358:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host0_s2r", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host0_s2r", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_s2r(358) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host0_s2r(358) cannot add 1 element to context";
                       goto LABEL_161;
                     case 359:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host1_s2r", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nvme_stats_shutdown_count_host1_s2r", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_s2r(359) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: nvme_stats_shutdown_count_host1_s2r(359) cannot add 1 element to context";
                       goto LABEL_161;
                     case 360:
-                      if (v14 != 16)
+                      if (v9 != 16)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): (#16) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x11)
+                      if (v9 >= 0x11)
                       {
-                        v18 = 16;
+                        v12 = 16;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "gcPDusterIntrSrcValidityHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "gcPDusterIntrSrcValidityHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): Cannot add 16 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterIntrSrcValidityHisto(360): Cannot add 16 elements to context", v14);
+                      return v5;
                     case 361:
-                      if (v14 != 16)
+                      if (v9 != 16)
                       {
-                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): (#16) cfg elements != (%d) buffer elements", v9);
                       }
 
-                      if (v14 >= 0x11)
+                      if (v9 >= 0x11)
                       {
-                        v18 = 16;
+                        v12 = 16;
                       }
 
                       else
                       {
-                        v18 = v14;
+                        v12 = v9;
                       }
 
-                      if (AddMultipleFieldsToGenericContext(a1, "gcPDusterUserSrcValidityHisto_", v8, 8u, v18))
+                      if (AddMultipleFieldsToGenericContext(a1, "gcPDusterUserSrcValidityHisto_", a2, 8u, v12))
                       {
                         goto LABEL_110;
                       }
 
-                      v19 = "ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): Cannot add 16 elements to context";
-                      goto LABEL_2993;
+                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterUserSrcValidityHisto(361): Cannot add 16 elements to context", v14);
+                      return v5;
                     case 362:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadParity", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadParity", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadParity(362) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: raidFailedReadParity(362) cannot add 1 element to context";
                       goto LABEL_161;
                     case 364:
-                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotNumSkipes", *v8))
+                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotNumSkipes", *a2) & 1) == 0)
                       {
-                        goto LABEL_162;
+                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: lhotNumSkipes(364) cannot add 1 element to context");
                       }
 
-                      v17 = "ASPFTLParseBufferToCxt: lhotNumSkipes(364) cannot add 1 element to context";
                       goto LABEL_161;
                     default:
-                      switch(v12)
+                      switch(v7)
                       {
                         case 365:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotNumIsHotCalls", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotNumIsHotCalls", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: lhotNumIsHotCalls(365) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotNumIsHotCalls(365) cannot add 1 element to context";
                           goto LABEL_161;
                         case 366:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotFullLap", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotFullLap", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: lhotFullLap(366) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotFullLap(366) cannot add 1 element to context";
                           goto LABEL_161;
                         case 367:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotSkipPrecent", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lhotSkipPrecent", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: lhotSkipPrecent(367) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: lhotSkipPrecent(367) cannot add 1 element to context";
                           goto LABEL_161;
                         case 368:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendEvents", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendEvents", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendEvents(368) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendEvents(368) cannot add 1 element to context";
                           goto LABEL_161;
                         case 369:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendedStatuses", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendedStatuses", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendedStatuses(369) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendedStatuses(369) cannot add 1 element to context";
                           goto LABEL_161;
                         case 370:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendedBands", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendedBands", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendedBands(370) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendedBands(370) cannot add 1 element to context";
                           goto LABEL_161;
                         case 371:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendSituationsBelowThreshold", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendSituationsBelowThreshold", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendSituationsBelowThreshold(371) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendSituationsBelowThreshold(371) cannot add 1 element to context";
                           goto LABEL_161;
                         case 372:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendSituationsAboveThreshold", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendSituationsAboveThreshold", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendSituationsAboveThreshold(372) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendSituationsAboveThreshold(372) cannot add 1 element to context";
                           goto LABEL_161;
                         case 373:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendReadChainsProcessed", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eraseSuspendReadChainsProcessed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: eraseSuspendReadChainsProcessed(373) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: eraseSuspendReadChainsProcessed(373) cannot add 1 element to context";
                           goto LABEL_161;
                         case 374:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrLastDoneHr", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrLastDoneHr", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrLastDoneHr(374) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bdrLastDoneHr(374) cannot add 1 element to context";
                           goto LABEL_161;
                         case 375:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrBackupThreshHrs", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrBackupThreshHrs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrBackupThreshHrs(375) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bdrBackupThreshHrs(375) cannot add 1 element to context";
                           goto LABEL_161;
                         case 376:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortableProgBufs", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortableProgBufs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPortableProgBufs(376) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortableProgBufs(376) cannot add 1 element to context";
                           goto LABEL_161;
                         case 377:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortableDropBufs", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortableDropBufs", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPortableDropBufs(377) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortableDropBufs(377) cannot add 1 element to context";
                           goto LABEL_161;
                         case 378:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortablePadSectors", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogPortablePadSectors", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogPortablePadSectors(378) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: clogPortablePadSectors(378) cannot add 1 element to context";
                           goto LABEL_161;
                         case 379:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRetiredBlocks", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRetiredBlocks", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRetiredBlocks(379) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numRetiredBlocks(379) cannot add 1 element to context";
                           goto LABEL_161;
                         case 381:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerf", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerf", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerf(381) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerf(381) cannot add 1 element to context";
                           goto LABEL_161;
                         case 382:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructReads", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructReads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructReads(382) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructReads(382) cannot add 1 element to context";
                           goto LABEL_161;
                         case 383:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcReadsNoBlog", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcReadsNoBlog", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcReadsNoBlog(383) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: gcReadsNoBlog(383) cannot add 1 element to context";
                           goto LABEL_161;
                         case 384:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXReadVerifyClosedBand", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXReadVerifyClosedBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyClosedBand(384) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyClosedBand(384) cannot add 1 element to context";
                           goto LABEL_161;
                         case 385:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "openBandReadFail", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "openBandReadFail", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: openBandReadFail(385) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: openBandReadFail(385) cannot add 1 element to context";
                           goto LABEL_161;
                         case 386:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXReadVerifyOpenBand", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXReadVerifyOpenBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyOpenBand(386) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXReadVerifyOpenBand(386) cannot add 1 element to context";
                           goto LABEL_161;
                         case 387:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MBPXFailedRebuildingParity", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MBPXFailedRebuildingParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_MBPXFailedRebuildingParity(387) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_MBPXFailedRebuildingParity(387) cannot add 1 element to context";
                           goto LABEL_161;
                         case 388:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulPMXReconstructionInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulPMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionInternal(388) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionInternal(388) cannot add 1 element to context";
                           goto LABEL_161;
                         case 389:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulPMXReconstructionHost", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulPMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionHost(389) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulPMXReconstructionHost(389) cannot add 1 element to context";
                           goto LABEL_161;
                         case 390:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedPMXReconstructionInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedPMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedPMXReconstructionInternal(390) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedPMXReconstructionInternal(390) cannot add 1 element to context";
                           goto LABEL_161;
                         case 391:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedPMXReconstructionHost", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedPMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedPMXReconstructionHost(391) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedPMXReconstructionHost(391) cannot add 1 element to context";
                           goto LABEL_161;
                         case 392:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulRMXReconstructionInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulRMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionInternal(392) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionInternal(392) cannot add 1 element to context";
                           goto LABEL_161;
                         case 393:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulRMXReconstructionHost", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulRMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionHost(393) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulRMXReconstructionHost(393) cannot add 1 element to context";
                           goto LABEL_161;
                         case 394:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedRMXReconstructionInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedRMXReconstructionInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRMXReconstructionInternal(394) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedRMXReconstructionInternal(394) cannot add 1 element to context";
                           goto LABEL_161;
                         case 395:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedRMXReconstructionHost", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedRMXReconstructionHost", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRMXReconstructionHost(395) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedRMXReconstructionHost(395) cannot add 1 element to context";
                           goto LABEL_161;
                         case 396:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadParityInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadParityInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadParityInternal(396) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadParityInternal(396) cannot add 1 element to context";
                           goto LABEL_161;
                         case 397:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQParityInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQParityInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadQParityInternal(397) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQParityInternal(397) cannot add 1 element to context";
                           goto LABEL_161;
                         case 398:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQParity", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadQParity(398) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQParity(398) cannot add 1 element to context";
                           goto LABEL_161;
                         case 399:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQCopy", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQCopy", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadQCopy(399) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQCopy(399) cannot add 1 element to context";
                           goto LABEL_161;
                         case 400:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionQParity", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReconstructionQParity", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReconstructionQParity(400) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReconstructionQParity(400) cannot add 1 element to context";
                           goto LABEL_161;
                         case 401:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "offlineBlocksCnt", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "offlineBlocksCnt", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: offlineBlocksCnt(401) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: offlineBlocksCnt(401) cannot add 1 element to context";
                           goto LABEL_161;
                         case 402:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bork0Revectors", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bork0Revectors", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bork0Revectors(402) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: bork0Revectors(402) cannot add 1 element to context";
                           goto LABEL_161;
                         case 403:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadBlog", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadBlog", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadBlog(403) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadBlog(403) cannot add 1 element to context";
                           goto LABEL_161;
                         case 404:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numReliabilityRefreshes", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numReliabilityRefreshes", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numReliabilityRefreshes(404) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numReliabilityRefreshes(404) cannot add 1 element to context";
                           goto LABEL_161;
                         case 405:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQCopyInternal", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadQCopyInternal", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadQCopyInternal(405) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedReadQCopyInternal(405) cannot add 1 element to context";
                           goto LABEL_161;
                         case 406:
-                          if (v14 != 5)
+                          if (v9 != 5)
                           {
-                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): (#5) cfg elements != (%d) buffer elements", v9);
                           }
 
-                          if (v12 >> 33 >= 3)
+                          if (v7 >> 33 >= 3)
                           {
-                            v18 = 5;
+                            v12 = 5;
                           }
 
                           else
                           {
-                            v18 = v14;
+                            v12 = v9;
                           }
 
-                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructSuccessFlow_", v8, 8u, v18))
+                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructSuccessFlow_", a2, 8u, v12))
                           {
                             goto LABEL_110;
                           }
 
-                          v19 = "ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): Cannot add 5 elements to context";
-                          goto LABEL_2993;
+                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessFlow(406): Cannot add 5 elements to context", v14);
+                          return v5;
                         case 407:
-                          if (v14 != 5)
+                          if (v9 != 5)
                           {
-                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): (#5) cfg elements != (%d) buffer elements", v9);
                           }
 
-                          if (v12 >> 33 >= 3)
+                          if (v7 >> 33 >= 3)
                           {
-                            v18 = 5;
+                            v12 = 5;
                           }
 
                           else
                           {
-                            v18 = v14;
+                            v12 = v9;
                           }
 
-                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructFailFlow_", v8, 8u, v18))
+                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructFailFlow_", a2, 8u, v12))
                           {
                             goto LABEL_110;
                           }
 
-                          v19 = "ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): Cannot add 5 elements to context";
-                          goto LABEL_2993;
+                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailFlow(407): Cannot add 5 elements to context", v14);
+                          return v5;
                         case 408:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailP", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailP", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailP(408) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailP(408) cannot add 1 element to context";
                           goto LABEL_161;
                         case 409:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailQ", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailQ", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailQ(409) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailQ(409) cannot add 1 element to context";
                           goto LABEL_161;
                         case 410:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailUECC", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailUECC", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailUECC(410) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailUECC(410) cannot add 1 element to context";
                           goto LABEL_161;
                         case 411:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailUnsupp", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailUnsupp", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailUnsupp(411) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailUnsupp(411) cannot add 1 element to context";
                           goto LABEL_161;
                         case 412:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidUECCOpenBand", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidUECCOpenBand", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidUECCOpenBand(412) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidUECCOpenBand(412) cannot add 1 element to context";
                           goto LABEL_161;
                         case 414:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ueccReads", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ueccReads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: ueccReads(414) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: ueccReads(414) cannot add 1 element to context";
                           goto LABEL_161;
                         case 416:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulVerify", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulVerify", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulVerify(416) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulVerify(416) cannot add 1 element to context";
                           goto LABEL_161;
                         case 417:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedVerify", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedVerify", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedVerify(417) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: raidFailedVerify(417) cannot add 1 element to context";
                           goto LABEL_161;
                         case 418:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBandsVerified", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBandsVerified", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBandsVerified(418) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: numBandsVerified(418) cannot add 1 element to context";
                           goto LABEL_161;
                         case 419:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cache_heads", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cache_heads", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cache_heads(419) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: cache_heads(419) cannot add 1 element to context";
                           goto LABEL_161;
                         case 420:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_RMXtoMPBX", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_RMXtoMPBX", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_RMXtoMPBX(420) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: AbortSkip_RMXtoMPBX(420) cannot add 1 element to context";
                           goto LABEL_161;
                         case 421:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "s3eFwVer", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "s3eFwVer", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: s3eFwVer(421) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: s3eFwVer(421) cannot add 1 element to context";
                           goto LABEL_161;
                         case 422:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "readVerifyNative", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "readVerifyNative", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: readVerifyNative(422) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: readVerifyNative(422) cannot add 1 element to context";
                           goto LABEL_161;
                         case 423:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "reducedReadVerifyNative", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "reducedReadVerifyNative", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: reducedReadVerifyNative(423) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: reducedReadVerifyNative(423) cannot add 1 element to context";
                           goto LABEL_161;
                         case 424:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "readVerifySlc", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "readVerifySlc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: readVerifySlc(424) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: readVerifySlc(424) cannot add 1 element to context";
                           goto LABEL_161;
                         case 425:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "reducedReadVerifySlc", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "reducedReadVerifySlc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: reducedReadVerifySlc(425) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: reducedReadVerifySlc(425) cannot add 1 element to context";
                           goto LABEL_161;
                         case 426:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnEvictions", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RxBurnEvictions", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: RxBurnEvictions(426) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: RxBurnEvictions(426) cannot add 1 element to context";
                           goto LABEL_161;
                         case 427:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "directToTLCBands", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "directToTLCBands", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: directToTLCBands(427) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: directToTLCBands(427) cannot add 1 element to context";
                           goto LABEL_161;
                         case 428:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nandDesc", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nandDesc", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandDesc(428) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: nandDesc(428) cannot add 1 element to context";
                           goto LABEL_161;
                         case 429:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fwUpdatesPercentUsed", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fwUpdatesPercentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: fwUpdatesPercentUsed(429) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: fwUpdatesPercentUsed(429) cannot add 1 element to context";
                           goto LABEL_161;
                         case 430:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcPercentUsed", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcPercentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcPercentUsed(430) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: slcPercentUsed(430) cannot add 1 element to context";
                           goto LABEL_161;
                         case 431:
-                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "percentUsed", *v8))
+                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "percentUsed", *a2) & 1) == 0)
                           {
-                            goto LABEL_162;
+                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: percentUsed(431) cannot add 1 element to context");
                           }
 
-                          v17 = "ASPFTLParseBufferToCxt: percentUsed(431) cannot add 1 element to context";
                           goto LABEL_161;
                         default:
-                          switch(v12)
+                          switch(v7)
                           {
                             case 432:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostAutoWrites", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostAutoWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostAutoWrites(432) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: hostAutoWrites(432) cannot add 1 element to context";
                               goto LABEL_161;
                             case 433:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "hostAutoWriteXacts", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "hostAutoWriteXacts", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostAutoWriteXacts(433) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: hostAutoWriteXacts(433) cannot add 1 element to context";
                               goto LABEL_161;
                             case 434:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestDynamic", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestDynamic", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcDestDynamic(434) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestDynamic(434) cannot add 1 element to context";
                               goto LABEL_161;
                             case 435:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestStatic", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestStatic", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcDestStatic(435) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestStatic(435) cannot add 1 element to context";
                               goto LABEL_161;
                             case 436:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestWearlevel", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestWearlevel", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcDestWearlevel(436) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestWearlevel(436) cannot add 1 element to context";
                               goto LABEL_161;
                             case 437:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestParity", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcDestParity", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcDestParity(437) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: gcDestParity(437) cannot add 1 element to context";
                               goto LABEL_161;
                             case 438:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_Format", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_Format", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_Format(438) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: AbortSkip_Format(438) cannot add 1 element to context";
                               goto LABEL_161;
                             case 440:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCPadding", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCPadding", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSLCPadding(440) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCPadding(440) cannot add 1 element to context";
                               goto LABEL_161;
                             case 441:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCBands", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCBands", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidGCBands(441) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCBands(441) cannot add 1 element to context";
                               goto LABEL_161;
                             case 442:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCSectors", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidGCSectors(442) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCSectors(442) cannot add 1 element to context";
                               goto LABEL_161;
                             case 443:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCPadding", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidGCPadding", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidGCPadding(443) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidGCPadding(443) cannot add 1 element to context";
                               goto LABEL_161;
                             case 444:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCBandsPerHostFlow", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCBandsPerHostFlow", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSLCBandsPerHostFlow(444) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCBandsPerHostFlow(444) cannot add 1 element to context";
                               goto LABEL_161;
                             case 445:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCSecsPerHostFlow", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSLCSecsPerHostFlow", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSLCSecsPerHostFlow(445) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidSLCSecsPerHostFlow(445) cannot add 1 element to context";
                               goto LABEL_161;
                             case 446:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnMinCycleRuns", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnMinCycleRuns", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: rxBurnMinCycleRuns(446) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnMinCycleRuns(446) cannot add 1 element to context";
                               goto LABEL_161;
                             case 447:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogNumFastCxt", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogNumFastCxt", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogNumFastCxt(447) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogNumFastCxt(447) cannot add 1 element to context";
                               goto LABEL_161;
                             case 448:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogNumRapidReboots", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogNumRapidReboots", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogNumRapidReboots(448) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogNumRapidReboots(448) cannot add 1 element to context";
                               goto LABEL_161;
                             case 449:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFastCxtAbvThr", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFastCxtAbvThr", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFastCxtAbvThr(449) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogFastCxtAbvThr(449) cannot add 1 element to context";
                               goto LABEL_161;
                             case 450:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnDiffModeRuns", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnDiffModeRuns", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: rxBurnDiffModeRuns(450) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnDiffModeRuns(450) cannot add 1 element to context";
                               goto LABEL_161;
                             case 452:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "indReadVerifyFail", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "indReadVerifyFail", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indReadVerifyFail(452) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: indReadVerifyFail(452) cannot add 1 element to context";
                               goto LABEL_161;
                             case 453:
-                              if (v14 != 25)
+                              if (v9 != 25)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): (#25) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 0xD)
+                              if (v7 >> 33 >= 0xD)
                               {
-                                v18 = 25;
+                                v12 = 25;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerReadLevel_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerReadLevel_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): Cannot add 25 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerReadLevel(453): Cannot add 25 elements to context", v14);
+                              return v5;
                             case 454:
-                              if (v14 != 25)
+                              if (v9 != 25)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): (#25) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 0xD)
+                              if (v7 >> 33 >= 0xD)
                               {
-                                v18 = 25;
+                                v12 = 25;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerWriteLevel_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "numOfThrottlingEntriesPerWriteLevel_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): Cannot add 25 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingEntriesPerWriteLevel(454): Cannot add 25 elements to context", v14);
+                              return v5;
                             case 456:
-                              if (v14 != 10)
+                              if (v9 != 10)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcFifoDepth(456): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcFifoDepth(456): (#10) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0xB)
+                              if (v9 >= 0xB)
                               {
-                                v18 = 10;
+                                v12 = 10;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "slcFifoDepth_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "slcFifoDepth_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: slcFifoDepth(456): Cannot add 10 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcFifoDepth(456): Cannot add 10 elements to context", v14);
+                              return v5;
                             case 457:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsDirtyIdle", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheSectorsDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheSectorsDirtyIdle(457) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheSectorsDirtyIdle(457) cannot add 1 element to context";
                               goto LABEL_161;
                             case 458:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsDirtyIdle", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheDS_SectorsDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDS_SectorsDirtyIdle(458) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheDS_SectorsDirtyIdle(458) cannot add 1 element to context";
                               goto LABEL_161;
                             case 459:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesDirtyIdle", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "wcacheFS_MbytesDirtyIdle", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheFS_MbytesDirtyIdle(459) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: wcacheFS_MbytesDirtyIdle(459) cannot add 1 element to context";
                               goto LABEL_161;
                             case 460:
-                              if (v14 != 256)
+                              if (v9 != 256)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): (#256) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): (#256) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x101)
+                              if (v9 >= 0x101)
                               {
-                                v18 = 256;
+                                v12 = 256;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "CacheDepthVsThroughput_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "CacheDepthVsThroughput_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): Cannot add 256 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: CacheDepthVsThroughput(460): Cannot add 256 elements to context", v14);
+                              return v5;
                             case 461:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "directToTLCSectors", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "directToTLCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: directToTLCSectors(461) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: directToTLCSectors(461) cannot add 1 element to context";
                               goto LABEL_161;
                             case 462:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fallbackToWaterfall", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fallbackToWaterfall", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: fallbackToWaterfall(462) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: fallbackToWaterfall(462) cannot add 1 element to context";
                               goto LABEL_161;
                             case 463:
-                              if (v14 != 11)
+                              if (v9 != 11)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): (#11) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 34 >= 3)
+                              if (v7 >> 34 >= 3)
                               {
-                                v18 = 11;
+                                v12 = 11;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "balanceProportionBucketsHistogram_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "balanceProportionBucketsHistogram_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): Cannot add 11 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogram(463): Cannot add 11 elements to context", v14);
+                              return v5;
                             case 464:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lockToTlc", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lockToTlc", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: lockToTlc(464) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: lockToTlc(464) cannot add 1 element to context";
                               goto LABEL_161;
                             case 465:
-                              if (v14 != 10)
+                              if (v9 != 10)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: burstSizeHistogram(465): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: burstSizeHistogram(465): (#10) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0xB)
+                              if (v9 >= 0xB)
                               {
-                                v18 = 10;
+                                v12 = 10;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "burstSizeHistogram_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "burstSizeHistogram_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: burstSizeHistogram(465): Cannot add 10 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: burstSizeHistogram(465): Cannot add 10 elements to context", v14);
+                              return v5;
                             case 466:
-                              if (v14 != 64)
+                              if (v9 != 64)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosDirectToTLC(466): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosDirectToTLC(466): (#64) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x41)
+                              if (v9 >= 0x41)
                               {
-                                v18 = 64;
+                                v12 = 64;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "qosDirectToTLC_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "qosDirectToTLC_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: qosDirectToTLC(466): Cannot add 64 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: qosDirectToTLC(466): Cannot add 64 elements to context", v14);
+                              return v5;
                             case 467:
-                              if (v14 != 4)
+                              if (v9 != 4)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): (#4) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 5)
+                              if (v9 >= 5)
                               {
-                                v18 = 4;
+                                v12 = 4;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "maxQosDirectToTLC_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "maxQosDirectToTLC_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): Cannot add 4 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxQosDirectToTLC(467): Cannot add 4 elements to context", v14);
+                              return v5;
                             case 468:
-                              if (v14 != 16)
+                              if (v9 != 16)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): (#16) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x11)
+                              if (v9 >= 0x11)
                               {
-                                v18 = 16;
+                                v12 = 16;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "wcacheDirtyAtFlush_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "wcacheDirtyAtFlush_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): Cannot add 16 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcacheDirtyAtFlush(468): Cannot add 16 elements to context", v14);
+                              return v5;
                             case 469:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "raidReconstructSuccessPartition_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "raidReconstructSuccessPartition_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessPartition(469): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 470:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "raidReconstructFailPartition_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "raidReconstructFailPartition_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailPartition(470): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 471:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidUncleanBootBandFail", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidUncleanBootBandFail", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidUncleanBootBandFail(471) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidUncleanBootBandFail(471) cannot add 1 element to context";
                               goto LABEL_161;
                             case 472:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowHost", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowHost", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowHost(472) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowHost(472) cannot add 1 element to context";
                               goto LABEL_161;
                             case 473:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowGC", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowGC", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowGC(473) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowGC(473) cannot add 1 element to context";
                               goto LABEL_161;
                             case 476:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "raidSuccessfulRecoLbaRange_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "raidSuccessfulRecoLbaRange_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoLbaRange(476): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 477:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "raidFailedRecoLbaRange_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "raidFailedRecoLbaRange_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoLbaRange(477): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 481:
-                              if (v14 != 32)
+                              if (v9 != 32)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): (#32) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x21)
+                              if (v9 >= 0x21)
                               {
-                                v18 = 32;
+                                v12 = 32;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "skinnyBandErases_481_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "skinnyBandErases_481_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: skinnyBandErases_481(481): Cannot add 32 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandErases_481(481): Cannot add 32 elements to context", v14);
+                              return v5;
                             case 483:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "tlcOverHeatWaterfall", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "tlcOverHeatWaterfall", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcOverHeatWaterfall(483) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: tlcOverHeatWaterfall(483) cannot add 1 element to context";
                               goto LABEL_161;
                             case 484:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyCyclesConvert", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyCyclesConvert", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyCyclesConvert(484) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: skinnyCyclesConvert(484) cannot add 1 element to context";
                               goto LABEL_161;
                             case 485:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "non_proportional_directToTLCSectors", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "non_proportional_directToTLCSectors", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: non_proportional_directToTLCSectors(485) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: non_proportional_directToTLCSectors(485) cannot add 1 element to context";
                               goto LABEL_161;
                             case 486:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxFailedFastCxtSync", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxFailedFastCxtSync", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxFailedFastCxtSync(486) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: maxFailedFastCxtSync(486) cannot add 1 element to context";
                               goto LABEL_161;
                             case 487:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFormatUserArea", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFormatUserArea", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFormatUserArea(487) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numFormatUserArea(487) cannot add 1 element to context";
                               goto LABEL_161;
                             case 488:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFastCxtSyncAborted", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFastCxtSyncAborted", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFastCxtSyncAborted(488) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: clogFastCxtSyncAborted(488) cannot add 1 element to context";
                               goto LABEL_161;
                             case 489:
-                              if (v14 != 5)
+                              if (v9 != 5)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogOccupationSectors(489): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogOccupationSectors(489): (#5) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v12 >> 33 >= 3)
+                              if (v7 >> 33 >= 3)
                               {
-                                v18 = 5;
+                                v12 = 5;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "clogOccupationSectors_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "clogOccupationSectors_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: clogOccupationSectors(489): Cannot add 5 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogOccupationSectors(489): Cannot add 5 elements to context", v14);
+                              return v5;
                             case 490:
-                              if (v14 != 64)
+                              if (v9 != 64)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrTmpHist(490): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrTmpHist(490): (#64) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 0x41)
+                              if (v9 >= 0x41)
                               {
-                                v18 = 64;
+                                v12 = 64;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "bdrTmpHist_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "bdrTmpHist_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: bdrTmpHist(490): Cannot add 64 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrTmpHist(490): Cannot add 64 elements to context", v14);
+                              return v5;
                             case 491:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numFWUpdates", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numFWUpdates", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numFWUpdates(491) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numFWUpdates(491) cannot add 1 element to context";
                               goto LABEL_161;
                             case 492:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numClogLoadFails", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numClogLoadFails", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numClogLoadFails(492) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: numClogLoadFails(492) cannot add 1 element to context";
                               goto LABEL_161;
                             case 493:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnNumForcedDiffMode", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "rxBurnNumForcedDiffMode", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: rxBurnNumForcedDiffMode(493) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: rxBurnNumForcedDiffMode(493) cannot add 1 element to context";
                               goto LABEL_161;
                             case 494:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_numSaves", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_numSaves", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_numSaves(494) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: RD_numSaves(494) cannot add 1 element to context";
                               goto LABEL_161;
                             case 495:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanCompressWrites", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanCompressWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanCompressWrites(495) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanCompressWrites(495) cannot add 1 element to context";
                               goto LABEL_161;
                             case 496:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostWrites", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanHostWrites(496) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostWrites(496) cannot add 1 element to context";
                               goto LABEL_161;
                             case 497:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandPreErases", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandPreErases", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandPreErases(497) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: bandPreErases(497) cannot add 1 element to context";
                               goto LABEL_161;
                             case 498:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostUnmaps", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostUnmaps", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanHostUnmaps(498) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostUnmaps(498) cannot add 1 element to context";
                               goto LABEL_161;
                             case 499:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostFlushes", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanHostFlushes", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanHostFlushes(499) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanHostFlushes(499) cannot add 1 element to context";
                               goto LABEL_161;
                             case 500:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFastWrites", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFastWrites", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFastWrites(500) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: eanFastWrites(500) cannot add 1 element to context";
                               goto LABEL_161;
                             case 501:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autowriteDS2FSCollisions", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autowriteDS2FSCollisions", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: autowriteDS2FSCollisions(501) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: autowriteDS2FSCollisions(501) cannot add 1 element to context";
                               goto LABEL_161;
                             case 502:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autowriteWaitTransferTaskBlocks", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autowriteWaitTransferTaskBlocks", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: autowriteWaitTransferTaskBlocks(502) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: autowriteWaitTransferTaskBlocks(502) cannot add 1 element to context";
                               goto LABEL_161;
                             case 503:
-                              if (v14 != 2)
+                              if (v9 != 2)
                               {
-                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: avgCycle(503): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: avgCycle(503): (#2) cfg elements != (%d) buffer elements", v9);
                               }
 
-                              if (v14 >= 3)
+                              if (v9 >= 3)
                               {
-                                v18 = 2;
+                                v12 = 2;
                               }
 
                               else
                               {
-                                v18 = v14;
+                                v12 = v9;
                               }
 
-                              if (AddMultipleFieldsToGenericContext(a1, "avgCycle_", v8, 8u, v18))
+                              if (AddMultipleFieldsToGenericContext(a1, "avgCycle_", a2, 8u, v12))
                               {
                                 goto LABEL_110;
                               }
 
-                              v19 = "ASPFTLParseBufferToCxt: avgCycle(503): Cannot add 2 elements to context";
-                              goto LABEL_2993;
+                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: avgCycle(503): Cannot add 2 elements to context", v14);
+                              return v5;
                             case 504:
-                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_DeferredClearsOverflowCnt", *v8))
+                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_DeferredClearsOverflowCnt", *a2) & 1) == 0)
                               {
-                                goto LABEL_162;
+                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_DeferredClearsOverflowCnt(504) cannot add 1 element to context");
                               }
 
-                              v17 = "ASPFTLParseBufferToCxt: RD_DeferredClearsOverflowCnt(504) cannot add 1 element to context";
                               goto LABEL_161;
                             default:
-                              switch(v12)
+                              switch(v7)
                               {
                                 case 505:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxVerticsInBand", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxVerticsInBand", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxVerticsInBand(505) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: maxVerticsInBand(505) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 506:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numVertics", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numVertics", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numVertics(506) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numVertics(506) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 507:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "exceededCVertics", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "exceededCVertics", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: exceededCVertics(507) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: exceededCVertics(507) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 510:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailMismatch", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailMismatch", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailMismatch(510) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailMismatch(510) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 511:
-                                  if (v14 != 32)
+                                  if (v9 != 32)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): (#32) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0x21)
+                                  if (v9 >= 0x21)
                                   {
-                                    v18 = 32;
+                                    v12 = 32;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "mspbootBlockRefreshCnt_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "mspbootBlockRefreshCnt_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): Cannot add 32 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspbootBlockRefreshCnt(511): Cannot add 32 elements to context", v14);
+                                  return v5;
                                 case 516:
-                                  if (v14 != 32)
+                                  if (v9 != 32)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): (#32) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0x21)
+                                  if (v9 >= 0x21)
                                   {
-                                    v18 = 32;
+                                    v12 = 32;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockRefreshTime_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "mspBootBlockRefreshTime_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): Cannot add 32 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockRefreshTime(516): Cannot add 32 elements to context", v14);
+                                  return v5;
                                 case 517:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockCountPerMsp", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "mspBootBlockCountPerMsp", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: mspBootBlockCountPerMsp(517) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: mspBootBlockCountPerMsp(517) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 518:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyRevectorSLC", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyRevectorSLC", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyRevectorSLC(518) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyRevectorSLC(518) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 519:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyRevectorTLC", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyRevectorTLC", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyRevectorTLC(519) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyRevectorTLC(519) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 520:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfSetupAttempts", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfSetupAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfSetupAttempts(520) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfSetupAttempts(520) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 521:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfSetupSuccesses", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfSetupSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfSetupSuccesses(521) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfSetupSuccesses(521) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 522:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfWriteAttempts", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfWriteAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfWriteAttempts(522) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfWriteAttempts(522) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 523:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfWriteSuccesses", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfWriteSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfWriteSuccesses(523) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfWriteSuccesses(523) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 524:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfReadAttempts", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfReadAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfReadAttempts(524) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfReadAttempts(524) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 525:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfReadSuccesses", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfReadSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfReadSuccesses(525) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfReadSuccesses(525) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 526:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfCleanupAttempts", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfCleanupAttempts", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfCleanupAttempts(526) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfCleanupAttempts(526) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 527:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfCleanupSuccesses", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfCleanupSuccesses", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfCleanupSuccesses(527) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: perfCleanupSuccesses(527) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 530:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "firstFailedDieId", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "firstFailedDieId", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: firstFailedDieId(530) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: firstFailedDieId(530) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 531:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numDieFailures", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numDieFailures", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numDieFailures(531) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numDieFailures(531) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 532:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "spareAvailablePercent", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "spareAvailablePercent", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: spareAvailablePercent(532) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: spareAvailablePercent(532) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 533:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "dataFabricErr", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "dataFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: dataFabricErr(533) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: dataFabricErr(533) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 534:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "downlinkFabricErr", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "downlinkFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: downlinkFabricErr(534) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: downlinkFabricErr(534) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 535:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prpAccTimeoutErr", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prpAccTimeoutErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: prpAccTimeoutErr(535) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: prpAccTimeoutErr(535) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 537:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "uplinkFabricErr", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "uplinkFabricErr", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: uplinkFabricErr(537) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: uplinkFabricErr(537) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 538:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsGBB", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsGBB", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandsGBB(538) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: skinnyBandsGBB(538) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 539:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcMustPadBand", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcMustPadBand", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_GcMustPadBand(539) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: AbortPad_GcMustPadBand(539) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 540:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcMustPadSkinny", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortPad_GcMustPadSkinny", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortPad_GcMustPadSkinny(540) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: AbortPad_GcMustPadSkinny(540) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 541:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingInitial", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingInitial", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrHostPingInitial(541) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bdrHostPingInitial(541) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 542:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingMoreNeeded", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingMoreNeeded", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrHostPingMoreNeeded(542) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bdrHostPingMoreNeeded(542) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 543:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandParityAllocationFailed", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandParityAllocationFailed", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandParityAllocationFailed(543) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: bandParityAllocationFailed(543) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 544:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwBurstToSlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwBurstToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: fastHwBurstToSlc(544) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: fastHwBurstToSlc(544) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 545:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwToTlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwToTlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slowHwToTlc(545) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwToTlc(545) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 546:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstSizeDetected_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstSizeDetected_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeDetected(546): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 547:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstDur_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstDur_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstDur(547): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstDur(547): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 548:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwToTlcBurst", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwToTlcBurst", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: fastHwToTlcBurst(548) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: fastHwToTlcBurst(548) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 549:
-                                  if (v14 != 10)
+                                  if (v9 != 10)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): (#10) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v14 >= 0xB)
+                                  if (v9 >= 0xB)
                                   {
-                                    v18 = 10;
+                                    v12 = 10;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstSizeSlc_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "slcDemandBurstSizeSlc_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): Cannot add 10 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstSizeSlc(549): Cannot add 10 elements to context", v14);
+                                  return v5;
                                 case 551:
-                                  if (v14 != 11)
+                                  if (v9 != 11)
                                   {
-                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): (#11) cfg elements != (%d) buffer elements", v9);
                                   }
 
-                                  if (v12 >> 34 >= 3)
+                                  if (v7 >> 34 >= 3)
                                   {
-                                    v18 = 11;
+                                    v12 = 11;
                                   }
 
                                   else
                                   {
-                                    v18 = v14;
+                                    v12 = v9;
                                   }
 
-                                  if (AddMultipleFieldsToGenericContext(a1, "balanceProportionBucketsHistogramTlc_", v8, 8u, v18))
+                                  if (AddMultipleFieldsToGenericContext(a1, "balanceProportionBucketsHistogramTlc_", a2, 8u, v12))
                                   {
                                     goto LABEL_110;
                                   }
 
-                                  v19 = "ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): Cannot add 11 elements to context";
-                                  goto LABEL_2993;
+                                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: balanceProportionBucketsHistogramTlc(551): Cannot add 11 elements to context", v14);
+                                  return v5;
                                 case 553:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwFlushToSlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwFlushToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slowHwFlushToSlc(553) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwFlushToSlc(553) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 557:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwToSlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slowHwToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slowHwToSlc(557) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slowHwToSlc(557) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 558:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "flushNwToSlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "flushNwToSlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: flushNwToSlc(558) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: flushNwToSlc(558) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 559:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "flushNwToTlc", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "flushNwToTlc", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: flushNwToTlc(559) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: flushNwToTlc(559) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 560:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHw", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHw", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHw(560) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcHw(560) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 561:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcTransitions", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcTransitions", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcTransitions(561) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcTransitions(561) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 563:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandFlushCount", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandFlushCount", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandFlushCount(563) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slcDemandFlushCount(563) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 564:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstCount", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstCount", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstCount(564) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: slcDemandBurstCount(564) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 565:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseAvgPE", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseAvgPE", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcBaseAvgPE(565) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcBaseAvgPE(565) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 566:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailNoSPBX", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailNoSPBX", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailNoSPBX(566) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailNoSPBX(566) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 567:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailDouble", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailDouble", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailDouble(567) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailDouble(567) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 568:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcFastWAmpUOnOff", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcFastWAmpUOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcFastWAmpUOnOff(568) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcFastWAmpUOnOff(568) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 569:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcSlowWAmpUOnOff", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcSlowWAmpUOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcSlowWAmpUOnOff(569) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcSlowWAmpUOnOff(569) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 570:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailInvalid", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailInvalid", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailInvalid(570) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailInvalid(570) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 572:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcLastWAmpUx10", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcLastWAmpUx10", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcLastWAmpUx10(572) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcLastWAmpUx10(572) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 573:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadNoBlog", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedReadNoBlog", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedReadNoBlog(573) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidFailedReadNoBlog(573) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 574:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBlank", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBlank", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBlank(574) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBlank(574) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 575:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHotTLCOnOff", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHotTLCOnOff", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHotTLCOnOff(575) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcHotTLCOnOff(575) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 576:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcVPackDestinations", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcVPackDestinations", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVPackDestinations(576) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: gcVPackDestinations(576) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 581:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "averageTLCPECycles", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "averageTLCPECycles", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: averageTLCPECycles(581) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: averageTLCPECycles(581) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 582:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "averageSLCPECycles", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "averageSLCPECycles", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: averageSLCPECycles(582) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: averageSLCPECycles(582) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 583:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numAtomicBoots", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numAtomicBoots", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: numAtomicBoots(583) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: numAtomicBoots(583) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 584:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogMinorMismatch", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogMinorMismatch", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogMinorMismatch(584) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: clogMinorMismatch(584) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 586:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailRMXReconstructionInternal", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailRMXReconstructionInternal", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionInternal(586) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionInternal(586) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 587:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailRMXReconstructionHost", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailRMXReconstructionHost", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionHost(587) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: raidExpectedFailRMXReconstructionHost(587) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 588:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCinvalidations", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCinvalidations", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcGCinvalidations(588) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcGCinvalidations(588) cannot add 1 element to context";
                                   goto LABEL_161;
                                 case 589:
-                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCActivateReason", *v8))
+                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCActivateReason", *a2) & 1) == 0)
                                   {
-                                    goto LABEL_162;
+                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcGCActivateReason(589) cannot add 1 element to context");
                                   }
 
-                                  v17 = "ASPFTLParseBufferToCxt: oslcGCActivateReason(589) cannot add 1 element to context";
                                   goto LABEL_161;
                                 default:
-                                  switch(v12)
+                                  switch(v7)
                                   {
                                     case 590:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcLowCleanBandsUOnOff", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcLowCleanBandsUOnOff", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcLowCleanBandsUOnOff(590) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcLowCleanBandsUOnOff(590) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 591:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcTooManyGCMustOnOff", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcTooManyGCMustOnOff", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcTooManyGCMustOnOff(591) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcTooManyGCMustOnOff(591) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 592:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseHostWrites", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseHostWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcBaseHostWrites(592) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBaseHostWrites(592) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 593:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseBandErases", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBaseBandErases", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcBaseBandErases(593) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBaseBandErases(593) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 594:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBdrBands", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBdrBands", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcBdrBands(594) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBdrBands(594) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 595:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBdrValid", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcBdrValid", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcBdrValid(595) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcBdrValid(595) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 596:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksInternal", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksInternal", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: unexpectedBlanksInternal(596) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksInternal(596) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 597:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksOnRV", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksOnRV", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: unexpectedBlanksOnRV(597) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksOnRV(597) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 601:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "waterfallLockSectors", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "waterfallLockSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: waterfallLockSectors(601) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: waterfallLockSectors(601) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 602:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCActiveWrites", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcGCActiveWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcGCActiveWrites(602) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcGCActiveWrites(602) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 603:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "chipIdTemperatureSample", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "chipIdTemperatureSample", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: chipIdTemperatureSample(603) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: chipIdTemperatureSample(603) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 604:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcVPackWrites", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcVPackWrites", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVPackWrites(604) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: gcVPackWrites(604) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 605:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcActiveReasons(605): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcActiveReasons(605): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "gcActiveReasons_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "gcActiveReasons_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: gcActiveReasons(605): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcActiveReasons(605): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 606:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxInitTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMaxInitTimeMs(606) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMaxInitTimeMs(606) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 607:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMinToFirstReadTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMinToFirstReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMinToFirstReadTimeMs(607) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMinToFirstReadTimeMs(607) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 608:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyAPGMRetire", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyAPGMRetire", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyAPGMRetire(608) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyAPGMRetire(608) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 609:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksHost", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedBlanksHost", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: unexpectedBlanksHost(609) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: unexpectedBlanksHost(609) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 610:
-                                      if (v14 != 64)
+                                      if (v9 != 64)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: pcieAerCounters(610): (#64) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: pcieAerCounters(610): (#64) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0x41)
+                                      if (v9 >= 0x41)
                                       {
-                                        v18 = 64;
+                                        v12 = 64;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "pcieAerCounters_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "pcieAerCounters_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: pcieAerCounters(610): Cannot add 64 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: pcieAerCounters(610): Cannot add 64 elements to context", v14);
+                                      return v5;
                                     case 611:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwToTlcBalance", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fastHwToTlcBalance", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: fastHwToTlcBalance(611) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: fastHwToTlcBalance(611) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 612:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfOSLCRuns", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfOSLCRuns", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfOSLCRuns(612) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: perfOSLCRuns(612) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 613:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInGC", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInGC", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstWritesInGC(613) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInGC(613) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 614:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInTT", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInTT", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstWritesInTT(614) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInTT(614) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 615:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInNRP", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "slcDemandBurstWritesInNRP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: slcDemandBurstWritesInNRP(615) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: slcDemandBurstWritesInNRP(615) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 616:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "perfTotalDmaMb", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "perfTotalDmaMb", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: perfTotalDmaMb(616) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: perfTotalDmaMb(616) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 617:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgInitTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanAvgInitTimeMs(617) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgInitTimeMs(617) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 618:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgToFirstReadTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgToFirstReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanAvgToFirstReadTimeMs(618) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgToFirstReadTimeMs(618) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 619:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxBootReadTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxBootReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMaxBootReadTimeMs(619) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMaxBootReadTimeMs(619) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 620:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgBootReadTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgBootReadTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanAvgBootReadTimeMs(620) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgBootReadTimeMs(620) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 621:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanBootReadsHist(621): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanBootReadsHist(621): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "eanBootReadsHist_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "eanBootReadsHist_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: eanBootReadsHist(621): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanBootReadsHist(621): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 622:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxBgInitTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxBgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxBgInitTimeMs(622) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: maxBgInitTimeMs(622) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 623:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "avgBgInitTimeMs", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "avgBgInitTimeMs", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: avgBgInitTimeMs(623) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: avgBgInitTimeMs(623) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 624:
-                                      if (v14 != 16)
+                                      if (v9 != 16)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFailReason(624): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFailReason(624): (#16) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0x11)
+                                      if (v9 >= 0x11)
                                       {
-                                        v18 = 16;
+                                        v12 = 16;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "clogFailReason_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "clogFailReason_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: clogFailReason(624): Cannot add 16 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFailReason(624): Cannot add 16 elements to context", v14);
+                                      return v5;
                                     case 625:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMinBootReadMBPerSec", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMinBootReadMBPerSec", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMinBootReadMBPerSec(625) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanMinBootReadMBPerSec(625) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 626:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgBootReadMBPerSec", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanAvgBootReadMBPerSec", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanAvgBootReadMBPerSec(626) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanAvgBootReadMBPerSec(626) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 627:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "minSkinnyPECycles", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "minSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: minSkinnyPECycles(627) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: minSkinnyPECycles(627) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 628:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxSkinnyPECycles", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxSkinnyPECycles(628) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: maxSkinnyPECycles(628) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 629:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "averageSkinnyPECycles", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "averageSkinnyPECycles", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: averageSkinnyPECycles(629) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: averageSkinnyPECycles(629) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 630:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "raidSuccessfulRecoEAN_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "raidSuccessfulRecoEAN_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulRecoEAN(630): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 631:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "raidFailedRecoEAN_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "raidFailedRecoEAN_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedRecoEAN(631): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 632:
-                                      if (v14 != 6)
+                                      if (v9 != 6)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFirstReadMode(632): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFirstReadMode(632): (#6) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 7)
+                                      if (v9 >= 7)
                                       {
-                                        v18 = 6;
+                                        v12 = 6;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "eanFirstReadMode_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "eanFirstReadMode_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: eanFirstReadMode(632): Cannot add 6 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFirstReadMode(632): Cannot add 6 elements to context", v14);
+                                      return v5;
                                     case 635:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwGC", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwGC", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHwGC(635) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwGC(635) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 636:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwTT", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwTT", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHwTT(636) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwTT(636) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 637:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwNRP", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwNRP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHwNRP(637) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: oslcHwNRP(637) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 638:
-                                      if (v14 != 10)
+                                      if (v9 != 10)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): (#10) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 0xB)
+                                      if (v9 >= 0xB)
                                       {
-                                        v18 = 10;
+                                        v12 = 10;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "oslcDemandBurstSize_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "oslcDemandBurstSize_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): Cannot add 10 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcDemandBurstSize(638): Cannot add 10 elements to context", v14);
+                                      return v5;
                                     case 639:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructSuccessBandFlowOslc", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructSuccessBandFlowOslc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructSuccessBandFlowOslc(639) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidReconstructSuccessBandFlowOslc(639) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 640:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowOslc", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBandFlowOslc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBandFlowOslc(640) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBandFlowOslc(640) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 641:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailSectors", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailSectors(641) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidFailSectors(641) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 642:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFailSectors", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFailSectors", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFailSectors(642) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: eanFailSectors(642) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 643:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrTimeMode", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrTimeMode", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrTimeMode(643) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: bdrTimeMode(643) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 644:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityNotSavedP", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityNotSavedP", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityNotSavedP(644) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityNotSavedP(644) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 645:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityNotSavedQ", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityNotSavedQ", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityNotSavedQ(645) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityNotSavedQ(645) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 646:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityInvalid", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityInvalid", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityInvalid(646) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityInvalid(646) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 647:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityUnknown", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityUnknown", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityUnknown(647) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityUnknown(647) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 648:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityUnmapped", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityUnmapped", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityUnmapped(648) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityUnmapped(648) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 649:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityGCUnc", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidParityGCUnc", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidParityGCUnc(649) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidParityGCUnc(649) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 657:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXProbational", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "AbortSkip_MPBXProbational", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: AbortSkip_MPBXProbational(657) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: AbortSkip_MPBXProbational(657) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 659:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidVerificationReads", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidVerificationReads", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidVerificationReads(659) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: raidVerificationReads(659) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 666:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "nofDies", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "nofDies", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: nofDies(666) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: nofDies(666) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 671:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsNum", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsNum", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandsNum(671) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyBandsNum(671) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 672:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsNumDips", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsNumDips", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandsNumDips(672) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: skinnyBandsNumDips(672) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 674:
-                                      if (v14 != 8)
+                                      if (v9 != 8)
                                       {
-                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): (#8) cfg elements != (%d) buffer elements", v9);
                                       }
 
-                                      if (v14 >= 9)
+                                      if (v9 >= 9)
                                       {
-                                        v18 = 8;
+                                        v12 = 8;
                                       }
 
                                       else
                                       {
-                                        v18 = v14;
+                                        v12 = v9;
                                       }
 
-                                      if (AddMultipleFieldsToGenericContext(a1, "oslcNoVotesHw_", v8, 8u, v18))
+                                      if (AddMultipleFieldsToGenericContext(a1, "oslcNoVotesHw_", a2, 8u, v12))
                                       {
                                         goto LABEL_110;
                                       }
 
-                                      v19 = "ASPFTLParseBufferToCxt: oslcNoVotesHw(674): Cannot add 8 elements to context";
-                                      goto LABEL_2993;
+                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcNoVotesHw(674): Cannot add 8 elements to context", v14);
+                                      return v5;
                                     case 675:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "totalLbas", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "totalLbas", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: totalLbas(675) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: totalLbas(675) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 676:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingExtra", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrHostPingExtra", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrHostPingExtra(676) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: bdrHostPingExtra(676) cannot add 1 element to context";
                                       goto LABEL_161;
                                     case 677:
-                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "magazineInstanceMeta", *v8))
+                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "magazineInstanceMeta", *a2) & 1) == 0)
                                       {
-                                        goto LABEL_162;
+                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: magazineInstanceMeta(677) cannot add 1 element to context");
                                       }
 
-                                      v17 = "ASPFTLParseBufferToCxt: magazineInstanceMeta(677) cannot add 1 element to context";
                                       goto LABEL_161;
                                     default:
-                                      switch(v12)
+                                      switch(v7)
                                       {
                                         case 680:
-                                          if (v14 != 3)
+                                          if (v9 != 3)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: magazineFWVersion(680): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: magazineFWVersion(680): (#3) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 34)
+                                          if (v7 >> 34)
                                           {
-                                            v18 = 3;
+                                            v12 = 3;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "magazineFWVersion_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "magazineFWVersion_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: magazineFWVersion(680): Cannot add 3 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: magazineFWVersion(680): Cannot add 3 elements to context", v14);
+                                          return v5;
                                         case 681:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailPMXUnsup", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailPMXUnsup", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailPMXUnsup(681) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailPMXUnsup(681) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 682:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXUnsup", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXUnsup", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBMXUnsup(682) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXUnsup(682) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 683:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "iBootNANDResets", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "iBootNANDResets", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: iBootNANDResets(683) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: iBootNANDResets(683) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 684:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "pcieClkreqHighTimeout", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "pcieClkreqHighTimeout", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: pcieClkreqHighTimeout(684) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: pcieClkreqHighTimeout(684) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 687:
-                                          if (v14 != 3)
+                                          if (v9 != 3)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrInitSent(687): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrInitSent(687): (#3) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 34)
+                                          if (v7 >> 34)
                                           {
-                                            v18 = 3;
+                                            v12 = 3;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrInitSent_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrInitSent_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrInitSent(687): Cannot add 3 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrInitSent(687): Cannot add 3 elements to context", v14);
+                                          return v5;
                                         case 688:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrPauseSent", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrPauseSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrPauseSent(688) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrPauseSent(688) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 689:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrResumeSent", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrResumeSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrResumeSent(689) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrResumeSent(689) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 690:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrGetResultSent", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrGetResultSent", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrGetResultSent(690) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrGetResultSent(690) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 691:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrEarlyExits", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrEarlyExits", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrEarlyExits(691) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrEarlyExits(691) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 694:
-                                          if (v14 != 10)
+                                          if (v9 != 10)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): (#10) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xB)
+                                          if (v9 >= 0xB)
                                           {
-                                            v18 = 10;
+                                            v12 = 10;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshGrades_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshGrades_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): Cannot add 10 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGrades(694): Cannot add 10 elements to context", v14);
+                                          return v5;
                                         case 695:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNotEnoughReads", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNotEnoughReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrNotEnoughReads(695) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNotEnoughReads(695) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 696:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrAborts", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrAborts", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrAborts(696) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrAborts(696) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 697:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidHostClassifications", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidHostClassifications", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidHostClassifications(697) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidHostClassifications(697) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 698:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidInternalClassifications", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidInternalClassifications", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidInternalClassifications(698) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidInternalClassifications(698) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 699:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrFullyDone", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrFullyDone", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrFullyDone(699) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrFullyDone(699) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 702:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: vcurve(702): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: vcurve(702): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "vcurve_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "vcurve_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: vcurve(702): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: vcurve(702): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 703:
-                                          if (v14 != 12)
+                                          if (v9 != 12)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: injDepth(703): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: injDepth(703): (#12) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xD)
+                                          if (v9 >= 0xD)
                                           {
-                                            v18 = 12;
+                                            v12 = 12;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "injDepth_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "injDepth_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: injDepth(703): Cannot add 12 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: injDepth(703): Cannot add 12 elements to context", v14);
+                                          return v5;
                                         case 704:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "logical_disk_occupied_promiles", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "logical_disk_occupied_promiles", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: logical_disk_occupied_promiles(704) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: logical_disk_occupied_promiles(704) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 711:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidPrevFailedReconstructSkip", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidPrevFailedReconstructSkip", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidPrevFailedReconstructSkip(711) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidPrevFailedReconstructSkip(711) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 712:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidSuccessfulHostAuxReads", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidSuccessfulHostAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidSuccessfulHostAuxReads(712) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidSuccessfulHostAuxReads(712) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 713:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidSuccessfulInternalAuxReads", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidSuccessfulInternalAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidSuccessfulInternalAuxReads(713) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidSuccessfulInternalAuxReads(713) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 714:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationReliabilityHost", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationReliabilityHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityHost(714) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityHost(714) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 715:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationReliabilityInternal", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationReliabilityInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityInternal(715) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationReliabilityInternal(715) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 716:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationQualityHost", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationQualityHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassificationQualityHost(716) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationQualityHost(716) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 717:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationQualityInternal", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidClassificationQualityInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassificationQualityInternal(717) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: turboRaidClassificationQualityInternal(717) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 719:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandErases", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandErases", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandErases(719) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: skinnyBandErases(719) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 721:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPDusterDestinations", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPDusterDestinations", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterDestinations(721) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: gcPDusterDestinations(721) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 722:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPDusterWrites", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcPDusterWrites", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcPDusterWrites(722) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: gcPDusterWrites(722) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 730:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "rvFails", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "rvFails", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: rvFails(730) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: rvFails(730) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 737:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidFailedHostAuxReads", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidFailedHostAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidFailedHostAuxReads(737) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidFailedHostAuxReads(737) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 738:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidFailedInternalAuxReads", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidFailedInternalAuxReads", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidFailedInternalAuxReads(738) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: TurboRaidFailedInternalAuxReads(738) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 741:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipTriggers", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipTriggers", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: autoSkipTriggers(741) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipTriggers(741) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 742:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipPlanes", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipPlanes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: autoSkipPlanes(742) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipPlanes(742) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 744:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructDurationHisto_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "raidReconstructDurationHisto_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructDurationHisto(744): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 745:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "failsOnReconstructHisto_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "failsOnReconstructHisto_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: failsOnReconstructHisto(745): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 746:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_userFlattenExcessive", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_userFlattenExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_userFlattenExcessive(746) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_userFlattenExcessive(746) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 747:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_IntFlattenExcessive", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_IntFlattenExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_IntFlattenExcessive(747) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_IntFlattenExcessive(747) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 748:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_userFlattenBalance", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_userFlattenBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_userFlattenBalance(748) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_userFlattenBalance(748) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 749:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_intFlattenBalance", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_intFlattenBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_intFlattenBalance(749) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_intFlattenBalance(749) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 750:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_formatVertExcessive", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_formatVertExcessive", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_formatVertExcessive(750) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_formatVertExcessive(750) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 751:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_formatVertBalance", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_formatVertBalance", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_formatVertBalance(751) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_formatVertBalance(751) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 753:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNumSlowRefreshes", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNumSlowRefreshes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrNumSlowRefreshes(753) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNumSlowRefreshes(753) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 754:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNumFastRefreshes", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrNumFastRefreshes", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrNumFastRefreshes(754) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrNumFastRefreshes(754) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 755:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrTotalRefreshValidity", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrTotalRefreshValidity", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrTotalRefreshValidity(755) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrTotalRefreshValidity(755) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 756:
-                                          if (v14 != 9)
+                                          if (v9 != 9)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): (#9) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): (#9) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 5)
+                                          if (v7 >> 33 >= 5)
                                           {
-                                            v18 = 9;
+                                            v12 = 9;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshedAges_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshedAges_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): Cannot add 9 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAges(756): Cannot add 9 elements to context", v14);
+                                          return v5;
                                         case 758:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrSkippedBlocks", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrSkippedBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrSkippedBlocks(758) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: cbdrSkippedBlocks(758) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 759:
-                                          if (v14 != 5)
+                                          if (v9 != 5)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPct(759): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPct(759): (#5) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 3)
+                                          if (v7 >> 33 >= 3)
                                           {
-                                            v18 = 5;
+                                            v12 = 5;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrScanPct_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrScanPct_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrScanPct(759): Cannot add 5 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPct(759): Cannot add 5 elements to context", v14);
+                                          return v5;
                                         case 760:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulBMXReconstructionInternal", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulBMXReconstructionInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionInternal(760) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionInternal(760) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 761:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulBMXReconstructionHost", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulBMXReconstructionHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionHost(761) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidSuccessfulBMXReconstructionHost(761) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 762:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedBMXReconstructionInternal", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedBMXReconstructionInternal", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedBMXReconstructionInternal(762) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidFailedBMXReconstructionInternal(762) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 763:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedBMXReconstructionHost", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedBMXReconstructionHost", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedBMXReconstructionHost(763) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidFailedBMXReconstructionHost(763) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 764:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ricSPRVFail", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ricSPRVFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: ricSPRVFail(764) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: ricSPRVFail(764) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 765:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ricMPRVFail", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ricMPRVFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: ricMPRVFail(765) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: ricMPRVFail(765) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 767:
-                                          if (v14 != 10)
+                                          if (v9 != 10)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): (#10) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0xB)
+                                          if (v9 >= 0xB)
                                           {
-                                            v18 = 10;
+                                            v12 = 10;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshGradesSLC_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshGradesSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): Cannot add 10 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshGradesSLC(767): Cannot add 10 elements to context", v14);
+                                          return v5;
                                         case 768:
-                                          if (v14 != 9)
+                                          if (v9 != 9)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): (#9) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): (#9) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 5)
+                                          if (v7 >> 33 >= 5)
                                           {
-                                            v18 = 9;
+                                            v12 = 9;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshedAgesSLC_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrRefreshedAgesSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): Cannot add 9 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrRefreshedAgesSLC(768): Cannot add 9 elements to context", v14);
+                                          return v5;
                                         case 769:
-                                          if (v14 != 5)
+                                          if (v9 != 5)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): (#5) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v12 >> 33 >= 3)
+                                          if (v7 >> 33 >= 3)
                                           {
-                                            v18 = 5;
+                                            v12 = 5;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrScanPctSLC_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cbdrScanPctSLC_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): Cannot add 5 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanPctSLC(769): Cannot add 5 elements to context", v14);
+                                          return v5;
                                         case 770:
-                                          if (v14 != 8)
+                                          if (v9 != 8)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cpuBurstLength(770): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cpuBurstLength(770): (#8) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 9)
+                                          if (v9 >= 9)
                                           {
-                                            v18 = 8;
+                                            v12 = 8;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "cpuBurstLength_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "cpuBurstLength_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: cpuBurstLength(770): Cannot add 8 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: cpuBurstLength(770): Cannot add 8 elements to context", v14);
+                                          return v5;
                                         case 771:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipRaidRecoFail", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSkipRaidRecoFail", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: autoSkipRaidRecoFail(771) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: autoSkipRaidRecoFail(771) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 772:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc(772): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc(772): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc(772): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc(772): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 773:
-                                          if (v14 != 32)
+                                          if (v9 != 32)
                                           {
-                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc(773): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc(773): (#32) cfg elements != (%d) buffer elements", v9);
                                           }
 
-                                          if (v14 >= 0x21)
+                                          if (v9 >= 0x21)
                                           {
-                                            v18 = 32;
+                                            v12 = 32;
                                           }
 
                                           else
                                           {
-                                            v18 = v14;
+                                            v12 = v9;
                                           }
 
-                                          if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_", v8, 8u, v18))
+                                          if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_", a2, 8u, v12))
                                           {
                                             goto LABEL_110;
                                           }
 
-                                          v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc(773): Cannot add 32 elements to context";
-                                          goto LABEL_2993;
+                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc(773): Cannot add 32 elements to context", v14);
+                                          return v5;
                                         case 774:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXAbort", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXAbort", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBMXAbort(774) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXAbort(774) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 775:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_fatBindingNoBlocks", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_fatBindingNoBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_fatBindingNoBlocks(775) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_fatBindingNoBlocks(775) cannot add 1 element to context";
                                           goto LABEL_161;
                                         case 776:
-                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_fatBindingFewBlocks", *v8))
+                                          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bandKill_fatBindingFewBlocks", *a2) & 1) == 0)
                                           {
-                                            goto LABEL_162;
+                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandKill_fatBindingFewBlocks(776) cannot add 1 element to context");
                                           }
 
-                                          v17 = "ASPFTLParseBufferToCxt: bandKill_fatBindingFewBlocks(776) cannot add 1 element to context";
                                           goto LABEL_161;
                                         default:
-                                          switch(v12)
+                                          switch(v7)
                                           {
                                             case 777:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numBadBootBlocks", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numBadBootBlocks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numBadBootBlocks(777) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numBadBootBlocks(777) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 778:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "snapshotCPUHigh", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "snapshotCPUHigh", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: snapshotCPUHigh(778) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: snapshotCPUHigh(778) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 779:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "snapshotCPULow", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "snapshotCPULow", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: snapshotCPULow(779) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: snapshotCPULow(779) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 780:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcWithoutBMs", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcWithoutBMs", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcWithoutBMs(780) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: gcWithoutBMs(780) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 781:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "gcSearchTimeHistory_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "gcSearchTimeHistory_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchTimeHistory(781): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 785:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchPortion(785): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchPortion(785): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "gcSearchPortion_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "gcSearchPortion_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: gcSearchPortion(785): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcSearchPortion(785): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 786:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBmxMp", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBmxMp", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBmxMp(786) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBmxMp(786) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 787:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBmx", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBmx", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBmx(787) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBmx(787) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 788:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXUECC", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXUECC", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBMXUECC(788) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXUECC(788) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 789:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXBlank", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidReconstructFailBMXBlank", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidReconstructFailBMXBlank(789) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidReconstructFailBMXBlank(789) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 790:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidPrevFailedReconstructBmxMpSkip", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidPrevFailedReconstructBmxMpSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidPrevFailedReconstructBmxMpSkip(790) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidPrevFailedReconstructBmxMpSkip(790) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 792:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numTLCFatBands", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numTLCFatBands", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numTLCFatBands(792) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numTLCFatBands(792) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 793:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fatValidity", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fatValidity", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: fatValidity(793) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: fatValidity(793) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 794:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "fatTotal", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "fatTotal", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: fatTotal(794) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: fatTotal(794) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 798:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailP(798): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailP(798): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailP_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailP_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailP(798): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailP(798): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 799:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailUECC_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailUECC_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailUECC(799): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUECC(799): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 804:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailNoSPBX_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailNoSPBX_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailNoSPBX(804): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 806:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailBlank_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailBlank_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailBlank(806): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailBlank(806): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 809:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailUnsup_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailUnsup_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailUnsup(809): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 811:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailMpSkip_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailMpSkip_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailMpSkip(811): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 812:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailAbort_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailAbort_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailAbort(812): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailAbort(812): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 813:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidIsEnabled", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "TurboRaidIsEnabled", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: TurboRaidIsEnabled(813) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: TurboRaidIsEnabled(813) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 814:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailOther(814): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailOther(814): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailOther_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXFailOther_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXFailOther(814): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXFailOther(814): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 815:
-                                              if (v14 != 4)
+                                              if (v9 != 4)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXSuccess(815): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXSuccess(815): (#4) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 5)
+                                              if (v9 >= 5)
                                               {
-                                                v18 = 4;
+                                                v12 = 4;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXSuccess_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "raidBMXSuccess_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: raidBMXSuccess(815): Cannot add 4 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBMXSuccess(815): Cannot add 4 elements to context", v14);
+                                              return v5;
                                             case 816:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsExtraDip", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "skinnyBandsExtraDip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: skinnyBandsExtraDip(816) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: skinnyBandsExtraDip(816) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 821:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "writeAmp", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "writeAmp", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: writeAmp(821) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: writeAmp(821) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 822:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ricMaxClogOnlyPages", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ricMaxClogOnlyPages", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: ricMaxClogOnlyPages(822) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: ricMaxClogOnlyPages(822) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 823:
-                                              if (v14 != 3)
+                                              if (v9 != 3)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): (#3) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 34)
+                                              if (v7 >> 34)
                                               {
-                                                v18 = 3;
+                                                v12 = 3;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "readClassifyStatusesHisto_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "readClassifyStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): Cannot add 3 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: readClassifyStatusesHisto(823): Cannot add 3 elements to context", v14);
+                                              return v5;
                                             case 824:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "readWithAuxStatusesHisto_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "readWithAuxStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: readWithAuxStatusesHisto(824): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 825:
-                                              if (v14 != 10)
+                                              if (v9 != 10)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): (#10) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0xB)
+                                              if (v9 >= 0xB)
                                               {
-                                                v18 = 10;
+                                                v12 = 10;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "readReconstructStatusesHisto_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "readReconstructStatusesHisto_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): Cannot add 10 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: readReconstructStatusesHisto(825): Cannot add 10 elements to context", v14);
+                                              return v5;
                                             case 826:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrBackupChecks", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bdrBackupChecks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: bdrBackupChecks(826) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: bdrBackupChecks(826) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 827:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ricExceedClogOnlyPagesTH", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ricExceedClogOnlyPagesTH", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: ricExceedClogOnlyPagesTH(827) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: ricExceedClogOnlyPagesTH(827) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 828:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numDipFailures", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numDipFailures", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: numDipFailures(828) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: numDipFailures(828) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 831:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchNextRange", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchNextRange", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: prefetchNextRange(831) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: prefetchNextRange(831) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 862:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulSkip", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSuccessfulSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSuccessfulSkip(862) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidSuccessfulSkip(862) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 863:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedSkip", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidFailedSkip", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidFailedSkip(863) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidFailedSkip(863) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 864:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSkipAttempts", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidSkipAttempts", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidSkipAttempts(864) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: raidSkipAttempts(864) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 865:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerLevel_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerLevel(865): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 866:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerReadLevel_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerReadLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerReadLevel(866): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 867:
-                                              if (v14 != 25)
+                                              if (v9 != 25)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): (#25) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): (#25) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v12 >> 33 >= 0xD)
+                                              if (v7 >> 33 >= 0xD)
                                               {
-                                                v18 = 25;
+                                                v12 = 25;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerWriteLevel_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "timeOfThrottlingPerWriteLevel_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): Cannot add 25 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: timeOfThrottlingPerWriteLevel(867): Cannot add 25 elements to context", v14);
+                                              return v5;
                                             case 868:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_1bc_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_1bc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc(868): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 869:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_1bc_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_1bc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc(869): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 870:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_1bc_he_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_1bc_he_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_1bc_he(870): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 871:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_1bc_he_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_1bc_he_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_1bc_he(871): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 876:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_mbc_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsSlc_mbc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsSlc_mbc(876): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 877:
-                                              if (v14 != 32)
+                                              if (v9 != 32)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): (#32) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x21)
+                                              if (v9 >= 0x21)
                                               {
-                                                v18 = 32;
+                                                v12 = 32;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_mbc_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "dmReasonsTlc_mbc_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): Cannot add 32 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: dmReasonsTlc_mbc(877): Cannot add 32 elements to context", v14);
+                                              return v5;
                                             case 883:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogEmptyProgramms", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogEmptyProgramms", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogEmptyProgramms(883) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: clogEmptyProgramms(883) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 884:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwCloseBand", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "oslcHwCloseBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: oslcHwCloseBand(884) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: oslcHwCloseBand(884) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 891:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidSuccessAuxPartition_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidSuccessAuxPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidSuccessAuxPartition(891): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 892:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidFailAuxPartition_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidFailAuxPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidFailAuxPartition(892): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 893:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidClassifyQualPartition_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidClassifyQualPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyQualPartition(893): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 894:
-                                              if (v14 != 2)
+                                              if (v9 != 2)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): (#2) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 3)
+                                              if (v9 >= 3)
                                               {
-                                                v18 = 2;
+                                                v12 = 2;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidClassifyRelPartition_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidClassifyRelPartition_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): Cannot add 2 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidClassifyRelPartition(894): Cannot add 2 elements to context", v14);
+                                              return v5;
                                             case 895:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_freeMinSilo", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "IND_pool_freeMinSilo", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: IND_pool_freeMinSilo(895) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: IND_pool_freeMinSilo(895) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 896:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSweepBlocks", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "autoSweepBlocks", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: autoSweepBlocks(896) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: autoSweepBlocks(896) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 897:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcWrFragSizes(897): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcWrFragSizes(897): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "wcWrFragSizes_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "wcWrFragSizes_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: wcWrFragSizes(897): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: wcWrFragSizes(897): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 898:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "indStateAcrossGcDidNoL_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "indStateAcrossGcDidNoL_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidNoL(898): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 899:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "indStateAcrossGcDidL_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "indStateAcrossGcDidL_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: indStateAcrossGcDidL(899): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 900:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToWasRetire", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToWasRetire", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToWasRetire(900) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToWasRetire(900) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 901:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToOpenBand", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToOpenBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToOpenBand(901) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToOpenBand(901) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 902:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToQualityBlock", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidNoClassifyDueToQualityBlock", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToQualityBlock(902) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidNoClassifyDueToQualityBlock(902) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 903:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidGbbOpenBand", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidGbbOpenBand", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidGbbOpenBand(903) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidGbbOpenBand(903) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 904:
-                                              if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidGbbShouldRetireOnRefresh", *v8))
+                                              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidGbbShouldRetireOnRefresh", *a2) & 1) == 0)
                                               {
-                                                goto LABEL_162;
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidGbbShouldRetireOnRefresh(904) cannot add 1 element to context");
                                               }
 
-                                              v17 = "ASPFTLParseBufferToCxt: turboRaidGbbShouldRetireOnRefresh(904) cannot add 1 element to context";
                                               goto LABEL_161;
                                             case 905:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelPerBlock_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelPerBlock_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelPerBlock(905): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             case 906:
-                                              if (v14 != 16)
+                                              if (v9 != 16)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): (#16) cfg elements != (%d) buffer elements", v9);
                                               }
 
-                                              if (v14 >= 0x11)
+                                              if (v9 >= 0x11)
                                               {
-                                                v18 = 16;
+                                                v12 = 16;
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                v12 = v9;
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                              if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                               {
                                                 goto LABEL_110;
                                               }
 
-                                              v19 = "ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): Cannot add 16 elements to context";
-                                              goto LABEL_2993;
+                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelBetweenRefreshesPerBlock(906): Cannot add 16 elements to context", v14);
+                                              return v5;
                                             default:
-                                              if (v12 <= 997)
+                                              if (v7 <= 997)
                                               {
-                                                switch(v12)
+                                                switch(v7)
                                                 {
                                                   case 907:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxRelBetweenRefreshesPerBlock(907): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 908:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinRelBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinRelBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinRelBetweenRefreshesPerBlock(908): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 909:
                                                   case 910:
                                                   case 911:
@@ -12983,2865 +12431,2765 @@ LABEL_2:
                                                   case 968:
                                                   case 969:
                                                   case 970:
-                                                    goto LABEL_2529;
+                                                    goto LABEL_2528;
                                                   case 918:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxCyclesBetweenRel_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxCyclesBetweenRel_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenRel(918): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 919:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinCyclesBetweenRel_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinCyclesBetweenRel_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenRel(919): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 920:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxPerBlock_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxPerBlock(920): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 921:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxBetweenRefreshesPerBlock_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxBetweenRefreshesPerBlock_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxBetweenRefreshesPerBlock(921): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 922:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidRelLockMark", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidRelLockMark", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelLockMark(922) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidRelLockMark(922) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 923:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidAuxLockMark", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidAuxLockMark", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxLockMark(923) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidAuxLockMark(923) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 930:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxCyclesBetweenAux_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMaxCyclesBetweenAux_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMaxCyclesBetweenAux(930): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 931:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinCyclesBetweenAux_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidMinCyclesBetweenAux_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidMinCyclesBetweenAux(931): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 932:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidLastRelPECycles_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidLastRelPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastRelPECycles(932): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 933:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelQualPECycles_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidRelQualPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidRelQualPECycles(933): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 934:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidLastAuxPECycles_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidLastAuxPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidLastAuxPECycles(934): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 935:
-                                                    if (v14 != 16)
+                                                    if (v9 != 16)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): (#16) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x11)
+                                                    if (v9 >= 0x11)
                                                     {
-                                                      v18 = 16;
+                                                      v12 = 16;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxQualPECycles_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "turboRaidAuxQualPECycles_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): Cannot add 16 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidAuxQualPECycles(935): Cannot add 16 elements to context", v14);
+                                                    return v5;
                                                   case 937:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidPEFailAfterRel", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidPEFailAfterRel", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidPEFailAfterRel(937) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidPEFailAfterRel(937) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 938:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidPEFailAfterAux", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "turboRaidPEFailAfterAux", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: turboRaidPEFailAfterAux(938) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: turboRaidPEFailAfterAux(938) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 939:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "dvfmVotesCPU", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "dvfmVotesCPU", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: dvfmVotesCPU(939) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: dvfmVotesCPU(939) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 940:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "dvfmVotesBandwidth", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "dvfmVotesBandwidth", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: dvfmVotesBandwidth(940) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: dvfmVotesBandwidth(940) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 942:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxSLCEndurance", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxSLCEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxSLCEndurance(942) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxSLCEndurance(942) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 943:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMixedEndurance", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxMixedEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxMixedEndurance(943) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxMixedEndurance(943) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 944:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "maxNativeEndurance", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "maxNativeEndurance", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: maxNativeEndurance(944) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: maxNativeEndurance(944) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 948:
-                                                    if (v14 != 40)
+                                                    if (v9 != 40)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: assertHistory(948): (#40) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: assertHistory(948): (#40) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0x29)
+                                                    if (v9 >= 0x29)
                                                     {
-                                                      v18 = 40;
+                                                      v12 = 40;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "assertHistory_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "assertHistory_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: assertHistory(948): Cannot add 40 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: assertHistory(948): Cannot add 40 elements to context", v14);
+                                                    return v5;
                                                   case 951:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "asp3Support", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "asp3Support", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: asp3Support(951) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: asp3Support(951) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 953:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numCrossTempRaidUecc", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numCrossTempRaidUecc", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: numCrossTempRaidUecc(953) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: numCrossTempRaidUecc(953) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 961:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "osBuildStr", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "osBuildStr", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: osBuildStr(961) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: osBuildStr(961) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 962:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidConfig", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidConfig", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidConfig(962) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidConfig(962) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 964:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBlkParityBands", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBlkParityBands", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBlkParityBands(964) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidBlkParityBands(964) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 965:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBlkParitySecs", *v8))
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidBlkParitySecs", *a2) & 1) == 0)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidBlkParitySecs(965) cannot add 1 element to context");
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: raidBlkParitySecs(965) cannot add 1 element to context";
-                                                    goto LABEL_161;
+                                                    break;
                                                   case 967:
-                                                    if (v14 != 12)
+                                                    if (v9 != 12)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: indTrimFrags(967): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: indTrimFrags(967): (#12) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0xD)
+                                                    if (v9 >= 0xD)
                                                     {
-                                                      v18 = 12;
+                                                      v12 = 12;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "indTrimFrags_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "indTrimFrags_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: indTrimFrags(967): Cannot add 12 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indTrimFrags(967): Cannot add 12 elements to context", v14);
+                                                    return v5;
                                                   case 971:
-                                                    if (v14 != 12)
+                                                    if (v9 != 12)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: indUsedFrags(971): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: indUsedFrags(971): (#12) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v14 >= 0xD)
+                                                    if (v9 >= 0xD)
                                                     {
-                                                      v18 = 12;
+                                                      v12 = 12;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if (AddMultipleFieldsToGenericContext(a1, "indUsedFrags_", v8, 8u, v18))
+                                                    if (AddMultipleFieldsToGenericContext(a1, "indUsedFrags_", a2, 8u, v12))
                                                     {
                                                       goto LABEL_110;
                                                     }
 
-                                                    v19 = "ASPFTLParseBufferToCxt: indUsedFrags(971): Cannot add 12 elements to context";
-                                                    goto LABEL_2993;
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: indUsedFrags(971): Cannot add 12 elements to context", v14);
+                                                    return v5;
                                                   default:
-                                                    if (v12 != 996)
+                                                    if (v7 == 996)
                                                     {
-                                                      if (v12 != 997)
+                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindFail", *a2) & 1) == 0)
                                                       {
-                                                        goto LABEL_2529;
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFindFail(996) cannot add 1 element to context");
                                                       }
 
-                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindBlank", *v8) & 1) == 0)
-                                                      {
-                                                        v17 = "ASPFTLParseBufferToCxt: clogFindBlank(997) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      }
-
-                                                      goto LABEL_162;
+                                                      break;
                                                     }
 
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindFail", *v8))
+                                                    if (v7 != 997)
                                                     {
-                                                      goto LABEL_162;
+                                                      goto LABEL_2528;
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindFail(996) cannot add 1 element to context";
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindBlank", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFindBlank(997) cannot add 1 element to context");
+                                                    }
+
                                                     break;
                                                 }
 
-                                                goto LABEL_161;
-                                              }
-
-                                              if (v12 <= 1137)
-                                              {
-                                                if (v12 > 1039)
-                                                {
-                                                  if (v12 > 1104)
-                                                  {
-                                                    if (v12 > 1115)
-                                                    {
-                                                      if (v12 == 1116)
-                                                      {
-                                                        if (v14 != 32)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcwamp(1116): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x21)
-                                                        {
-                                                          v18 = 32;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((AddMultipleFieldsToGenericContext(a1, "gcwamp_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: gcwamp(1116): Cannot add 32 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-
-                                                      if (v12 == 1137)
-                                                      {
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfToUnhappySwitches", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: numOfToUnhappySwitches(1137) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      }
-                                                    }
-
-                                                    else
-                                                    {
-                                                      if (v12 == 1105)
-                                                      {
-                                                        if (v14 != 14)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadSequential(1105): (#14) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0xF)
-                                                        {
-                                                          v18 = 14;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((AddMultipleFieldsToGenericContext(a1, "hostReadSequential_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: hostReadSequential(1105): Cannot add 14 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-
-                                                      if (v12 == 1106)
-                                                      {
-                                                        if (v14 != 14)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: GCReadSequential(1106): (#14) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0xF)
-                                                        {
-                                                          v18 = 14;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((AddMultipleFieldsToGenericContext(a1, "GCReadSequential_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: GCReadSequential(1106): Cannot add 14 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-
-                                                        goto LABEL_110;
-                                                      }
-                                                    }
-                                                  }
-
-                                                  else
-                                                  {
-                                                    if (v12 <= 1041)
-                                                    {
-                                                      v22 = v12 >> 37;
-                                                      if (v12 == 1040)
-                                                      {
-                                                        if (v14 != 31)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v22)
-                                                        {
-                                                          v18 = 31;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsV2_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): Cannot add 31 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-                                                      }
-
-                                                      else
-                                                      {
-                                                        if (v14 != 31)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): (#31) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v22)
-                                                        {
-                                                          v18 = 31;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsSnapshot_", v8, 8u, v18) & 1) == 0)
-                                                        {
-                                                          v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): Cannot add 31 elements to context";
-                                                          goto LABEL_2993;
-                                                        }
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    if (v12 == 1042)
-                                                    {
-                                                      if (v14 != 15)
-                                                      {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): (#15) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
-
-                                                      if (v12 >> 36)
-                                                      {
-                                                        v18 = 15;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v18 = v14;
-                                                      }
-
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsReadSectors_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): Cannot add 15 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    if (v12 == 1080)
-                                                    {
-                                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidForceClogLoad", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: raidForceClogLoad(1080) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 > 1002)
-                                                {
-                                                  if (v12 > 1015)
-                                                  {
-                                                    if (v12 == 1016)
-                                                    {
-                                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanEarlyBootNumUeccPages", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: eanEarlyBootNumUeccPages(1016) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-
-                                                    if (v12 == 1017)
-                                                    {
-                                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanEarlyBootUeccMultiplane", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: eanEarlyBootUeccMultiplane(1017) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-                                                  }
-
-                                                  else
-                                                  {
-                                                    if (v12 == 1003)
-                                                    {
-                                                      if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogReplaySpfError", *v8))
-                                                      {
-                                                        goto LABEL_162;
-                                                      }
-
-                                                      v17 = "ASPFTLParseBufferToCxt: clogReplaySpfError(1003) cannot add 1 element to context";
-                                                      goto LABEL_161;
-                                                    }
-
-                                                    if (v12 == 1015)
-                                                    {
-                                                      if (v14 != 4)
-                                                      {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
-
-                                                      if (v14 >= 5)
-                                                      {
-                                                        v18 = 4;
-                                                      }
-
-                                                      else
-                                                      {
-                                                        v18 = v14;
-                                                      }
-
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "eanEarlyBootUeccPage_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-
-                                                      goto LABEL_110;
-                                                    }
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 <= 1000)
-                                                {
-                                                  if (v12 == 998)
-                                                  {
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindUnc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindUnc(998) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  if (v12 == 999)
-                                                  {
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindUnexpected", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: clogFindUnexpected(999) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  goto LABEL_2529;
-                                                }
-
-                                                if (v12 == 1001)
-                                                {
-                                                  if (v14 != 8)
-                                                  {
-                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 9)
-                                                  {
-                                                    v18 = 8;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v18 = v14;
-                                                  }
-
-                                                  if ((AddMultipleFieldsToGenericContext(a1, "clogReplayFailReason_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: clogReplayFailReason(1001): Cannot add 8 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
-
-                                                  goto LABEL_110;
-                                                }
-
-                                                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogReplayTransientError", *v8) & 1) == 0)
-                                                {
-                                                  v17 = "ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context";
 LABEL_161:
-                                                  SetAPIErrorMessage(v17, a2, a3, a4, a5, a6, a7, a8, v21);
-                                                }
-
-LABEL_162:
-                                                v10 = (v10 + 1);
-LABEL_163:
-                                                v8 += v14;
-                                                v11 -= v14;
-                                                goto LABEL_2;
+                                                v5 = (v5 + 1);
+                                                goto LABEL_162;
                                               }
 
-                                              if (v12 > 1170)
+                                              if (v7 > 1137)
                                               {
-                                                if (v12 > 1180)
+                                                if (v7 > 1170)
                                                 {
-                                                  if (v12 <= 1182)
+                                                  if (v7 > 1180)
                                                   {
-                                                    if (v12 == 1181)
+                                                    if (v7 <= 1182)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v7 == 1181)
                                                       {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                      }
+                                                        if (v9 != 4)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
 
-                                                      if (v14 >= 5)
-                                                      {
-                                                        v18 = 4;
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc3_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        if (v9 != 4)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((AddMultipleFieldsToGenericContext(a1, "gc_tot_dw_gc1_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc3_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc3(1181): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
+                                                      goto LABEL_110;
                                                     }
 
-                                                    else
+                                                    if (v7 == 1183)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v9 != 4)
                                                       {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): (#4) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      if (v9 >= 5)
                                                       {
-                                                        v18 = 4;
+                                                        v12 = 4;
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        v12 = v9;
                                                       }
 
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "gc_tot_dw_gc1_", v8, 8u, v18) & 1) == 0)
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "gc_tot_dw_gc2_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_tot_dw_gc1(1182): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1183)
-                                                  {
-                                                    if (v14 != 4)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((AddMultipleFieldsToGenericContext(a1, "gc_tot_dw_gc2_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): Cannot add 4 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1184)
-                                                  {
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unhappy_state", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: unhappy_state(1184) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-                                                }
-
-                                                else
-                                                {
-                                                  if (v12 > 1178)
-                                                  {
-                                                    if (v12 == 1179)
-                                                    {
-                                                      if (v14 != 4)
-                                                      {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_tot_dw_gc2(1183): Cannot add 4 elements to context", v14);
+                                                        return v5;
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1184)
+                                                    {
+                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unhappy_state", *a2) & 1) == 0)
                                                       {
-                                                        v18 = 4;
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappy_state(1184) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+                                                  }
+
+                                                  else
+                                                  {
+                                                    if (v7 > 1178)
+                                                    {
+                                                      if (v7 == 1179)
+                                                      {
+                                                        if (v9 != 4)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc1_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        if (v9 != 4)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): (#4) cfg elements != (%d) buffer elements", v9);
+                                                        }
+
+                                                        if (v9 >= 5)
+                                                        {
+                                                          v12 = 4;
+                                                        }
+
+                                                        else
+                                                        {
+                                                          v12 = v9;
+                                                        }
+
+                                                        if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc2_", a2, 8u, v12) & 1) == 0)
+                                                        {
+                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): Cannot add 4 elements to context", v14);
+                                                          return v5;
+                                                        }
                                                       }
 
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc1_", v8, 8u, v18) & 1) == 0)
-                                                      {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc1(1179): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      }
+                                                      goto LABEL_110;
                                                     }
 
-                                                    else
+                                                    if (v7 == 1171)
                                                     {
-                                                      if (v14 != 4)
+                                                      if (v9 != 10)
                                                       {
-                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): (#10) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      if (v14 >= 5)
+                                                      if (v9 >= 0xB)
                                                       {
-                                                        v18 = 4;
+                                                        v12 = 10;
                                                       }
 
                                                       else
                                                       {
-                                                        v18 = v14;
+                                                        v12 = v9;
                                                       }
 
-                                                      if ((AddMultipleFieldsToGenericContext(a1, "gc_cur_dw_gc2_", v8, 8u, v18) & 1) == 0)
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "poDetectEmptySpotRemovalAge_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        v19 = "ASPFTLParseBufferToCxt: gc_cur_dw_gc2(1180): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): Cannot add 10 elements to context", v14);
+                                                        return v5;
                                                       }
+
+                                                      goto LABEL_110;
                                                     }
 
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1171)
-                                                  {
-                                                    if (v14 != 10)
+                                                    if (v7 == 1172)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      if (v9 != 3)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): (#3) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v7 >> 34)
+                                                      {
+                                                        v12 = 3;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "poDetectGBBedMostSevereCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): Cannot add 3 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
                                                     }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((AddMultipleFieldsToGenericContext(a1, "poDetectEmptySpotRemovalAge_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalAge(1171): Cannot add 10 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1172)
-                                                  {
-                                                    if (v14 != 3)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34)
-                                                    {
-                                                      v18 = 3;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((AddMultipleFieldsToGenericContext(a1, "poDetectGBBedMostSevereCost_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectGBBedMostSevereCost(1172): Cannot add 3 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
                                                   }
                                                 }
 
-                                                goto LABEL_2529;
-                                              }
-
-                                              if (v12 > 1156)
-                                              {
-                                                if (v12 > 1167)
+                                                else if (v7 > 1156)
                                                 {
-                                                  if (v12 == 1168)
+                                                  if (v7 > 1167)
                                                   {
-                                                    if (v14 != 2)
+                                                    if (v7 == 1168)
                                                     {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
+                                                      if (v9 != 2)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): (#2) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 3)
+                                                      {
+                                                        v12 = 2;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "poDetectPERemovalTotalCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): Cannot add 2 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
                                                     }
 
-                                                    if (v14 >= 3)
+                                                    if (v7 == 1169)
                                                     {
-                                                      v18 = 2;
+                                                      if (v9 != 2)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): (#2) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 3)
+                                                      {
+                                                        v12 = 2;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "poDetectEmptySpotRemovalTotalCost_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): Cannot add 2 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+                                                  }
+
+                                                  else
+                                                  {
+                                                    if (v7 == 1157)
+                                                    {
+                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxForceROTimeMs", *a2) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMaxForceROTimeMs(1157) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+
+                                                    if (v7 == 1158)
+                                                    {
+                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxForceRORecoTimeMs", *a2) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanMaxForceRORecoTimeMs(1158) cannot add 1 element to context");
+                                                      }
+
+                                                      goto LABEL_161;
+                                                    }
+                                                  }
+                                                }
+
+                                                else if (v7 > 1147)
+                                                {
+                                                  if (v7 == 1148)
+                                                  {
+                                                    if (v9 != 24)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): (#24) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 0x19)
+                                                    {
+                                                      v12 = 24;
                                                     }
 
                                                     else
                                                     {
-                                                      v18 = v14;
+                                                      v12 = v9;
                                                     }
 
-                                                    if ((AddMultipleFieldsToGenericContext(a1, "poDetectPERemovalTotalCost_", v8, 8u, v18) & 1) == 0)
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc1_", a2, 8u, v12) & 1) == 0)
                                                     {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectPERemovalTotalCost(1168): Cannot add 2 elements to context";
-                                                      goto LABEL_2993;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): Cannot add 24 elements to context", v14);
+                                                      return v5;
                                                     }
 
-                                                    goto LABEL_110;
-                                                  }
-
-                                                  if (v12 == 1169)
-                                                  {
-                                                    if (v14 != 2)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): (#2) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 3)
-                                                    {
-                                                      v18 = 2;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if ((AddMultipleFieldsToGenericContext(a1, "poDetectEmptySpotRemovalTotalCost_", v8, 8u, v18) & 1) == 0)
-                                                    {
-                                                      v19 = "ASPFTLParseBufferToCxt: poDetectEmptySpotRemovalTotalCost(1169): Cannot add 2 elements to context";
-                                                      goto LABEL_2993;
-                                                    }
-
-                                                    goto LABEL_110;
-                                                  }
-                                                }
-
-                                                else
-                                                {
-                                                  if (v12 == 1157)
-                                                  {
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxForceROTimeMs", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanMaxForceROTimeMs(1157) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-
-                                                  if (v12 == 1158)
-                                                  {
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanMaxForceRORecoTimeMs", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanMaxForceRORecoTimeMs(1158) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  }
-                                                }
-
-                                                goto LABEL_2529;
-                                              }
-
-                                              if (v12 <= 1147)
-                                              {
-                                                if (v12 == 1138)
-                                                {
-                                                  if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfToHappySwitches", *v8))
-                                                  {
+LABEL_110:
+                                                    v5 = v12 + v5;
                                                     goto LABEL_162;
                                                   }
 
-                                                  v17 = "ASPFTLParseBufferToCxt: numOfToHappySwitches(1138) cannot add 1 element to context";
-                                                  goto LABEL_161;
-                                                }
-
-                                                if (v12 == 1147)
-                                                {
-                                                  if (v14 != 24)
+                                                  if (v7 == 1149)
                                                   {
-                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 0x19)
-                                                  {
-                                                    v18 = 24;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v18 = v14;
-                                                  }
-
-                                                  if ((AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc12_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
-
-                                                  goto LABEL_110;
-                                                }
-
-LABEL_2529:
-                                                switch(v12)
-                                                {
-                                                  case 1185:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unhappy_level", *v8))
+                                                    if (v9 != 24)
                                                     {
-                                                      goto LABEL_162;
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): (#24) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    v17 = "ASPFTLParseBufferToCxt: unhappy_level(1185) cannot add 1 element to context";
+                                                    if (v9 >= 0x19)
+                                                    {
+                                                      v12 = 24;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc2_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): Cannot add 24 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  if (v7 == 1138)
+                                                  {
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfToHappySwitches", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfToHappySwitches(1138) cannot add 1 element to context");
+                                                    }
+
                                                     goto LABEL_161;
-                                                  case 1186:
-                                                  case 1187:
-                                                  case 1188:
-                                                  case 1191:
-                                                  case 1192:
-                                                  case 1193:
-                                                  case 1194:
-                                                  case 1195:
-                                                  case 1200:
-                                                  case 1203:
-                                                  case 1204:
-                                                  case 1205:
-                                                  case 1206:
-                                                  case 1207:
-                                                  case 1208:
-                                                  case 1209:
-                                                  case 1210:
-                                                  case 1212:
-                                                  case 1213:
-                                                  case 1214:
-                                                  case 1219:
-                                                  case 1220:
-                                                  case 1235:
-                                                  case 1236:
-                                                  case 1237:
-                                                  case 1238:
-                                                  case 1239:
-                                                  case 1240:
-                                                  case 1242:
-                                                  case 1243:
-                                                  case 1245:
-                                                  case 1247:
-                                                  case 1248:
-                                                  case 1249:
-                                                  case 1250:
-                                                  case 1251:
-                                                  case 1252:
-                                                  case 1253:
-                                                  case 1254:
-                                                  case 1255:
-                                                  case 1256:
-                                                  case 1257:
-                                                  case 1258:
-                                                  case 1259:
-                                                  case 1260:
-                                                  case 1261:
-                                                  case 1262:
-                                                  case 1263:
-LABEL_2686:
-                                                    if (v12 <= 1447)
+                                                  }
+
+                                                  if (v7 == 1147)
+                                                  {
+                                                    if (v9 != 24)
                                                     {
-                                                      switch(v12)
-                                                      {
-                                                        case 1354:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfThrottlingLevels", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: numOfThrottlingLevels(1354) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1355:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempColdEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempColdEvict(1355) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1356:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempHotEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempHotEvict(1356) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1357:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempColdHotEvict", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: crossTempColdHotEvict(1357) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1358:
-                                                          if (v14 != 13)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedHisto(1358): (#13) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 7)
-                                                          {
-                                                            v18 = 13;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (AddMultipleFieldsToGenericContext(a1, "tempChangedHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: tempChangedHisto(1358): Cannot add 13 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1359:
-                                                          if (v14 != 13)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): (#13) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 7)
-                                                          {
-                                                            v18 = 13;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (AddMultipleFieldsToGenericContext(a1, "tempChangedEnterETHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): Cannot add 13 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1362:
-                                                          if (v14 != 20)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcMustReasons(1362): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x15)
-                                                          {
-                                                            v18 = 20;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (AddMultipleFieldsToGenericContext(a1, "gcMustReasons_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: gcMustReasons(1362): Cannot add 20 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1367:
-                                                          if (v14 != 32)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): (#32) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x21)
-                                                          {
-                                                            v18 = 32;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (AddMultipleFieldsToGenericContext(a1, "asyncMessageHisto_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: asyncMessageHisto(1367): Cannot add 32 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1368:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanIgnoredTooFrequent", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: massScanIgnoredTooFrequent(1368) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1369:
-                                                          if (v14 != 8)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 9)
-                                                          {
-                                                            v18 = 8;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if (AddMultipleFieldsToGenericContext(a1, "realGBBPerDipOfFailingDie_", v8, 8u, v18))
-                                                          {
-                                                            goto LABEL_110;
-                                                          }
-
-                                                          v19 = "ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): Cannot add 8 elements to context";
-                                                          goto LABEL_2993;
-                                                        case 1379:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedReadBlank", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedReadBlank(1379) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1380:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedRaidSuccessValidLba", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedRaidSuccessValidLba(1380) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1381:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedRaidFailures", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: unexpectedRaidFailures(1381) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1382:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedUnexpectedBlankValid", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: boffOrderedUnexpectedBlankValid(1382) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1383:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailPMXReconstructionInternal", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionInternal(1383) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1384:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailPMXReconstructionHost", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionHost(1384) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1385:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailBMXReconstructionInternal", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionInternal(1385) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1386:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailBMXReconstructionHost", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionHost(1386) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1392:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrHPScanHP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrHPScanHP(1392) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1393:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrMPScanMP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrMPScanMP(1393) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1394:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrMPScanHP", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: cbdrMPScanHP(1394) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1401:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "ldefragFailedMemBalancer", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: ldefragFailedMemBalancer(1401) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1409:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "BP_readThrottleEngagedCnt", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: BP_readThrottleEngagedCnt(1409) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        case 1410:
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "BP_readThrottleActualSize", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: BP_readThrottleActualSize(1410) cannot add 1 element to context";
-                                                          goto LABEL_161;
-                                                        default:
-                                                          goto LABEL_2987;
-                                                      }
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): (#24) cfg elements != (%d) buffer elements", v9);
                                                     }
 
-                                                    if (v12 > 1535)
+                                                    if (v9 >= 0x19)
                                                     {
-                                                      if (v12 > 1542)
+                                                      v12 = 24;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc12_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc12(1147): Cannot add 24 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
+                                              }
+
+                                              else if (v7 > 1039)
+                                              {
+                                                if (v7 > 1104)
+                                                {
+                                                  if (v7 > 1115)
+                                                  {
+                                                    if (v7 == 1116)
+                                                    {
+                                                      if (v9 != 32)
                                                       {
-                                                        if (v12 <= 1544)
-                                                        {
-                                                          if (v12 == 1543)
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "istkLowNoDIPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "istkLowNoSUIPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1545)
-                                                        {
-                                                          if (v14 != 6)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 7)
-                                                          {
-                                                            v18 = 6;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((AddMultipleFieldsToGenericContext(a1, "istkLowAfterMedIntervals_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): Cannot add 6 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1547)
-                                                        {
-                                                          if (v14 != 5)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v12 >> 33 >= 3)
-                                                          {
-                                                            v18 = 5;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((AddMultipleFieldsToGenericContext(a1, "istkHWBetweenMed_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): Cannot add 5 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 != 1570)
-                                                        {
-                                                          goto LABEL_2987;
-                                                        }
-
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "uptimeSeconds", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: uptimeSeconds(1570) cannot add 1 element to context";
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcwamp(1116): (#32) cfg elements != (%d) buffer elements", v9);
                                                       }
 
-                                                      else if (v12 <= 1537)
+                                                      if (v9 >= 0x21)
                                                       {
-                                                        if (v12 == 1536)
-                                                        {
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowPings", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: istkLowPings(1536) cannot add 1 element to context";
-                                                        }
-
-                                                        else
-                                                        {
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowNoDIPings", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: istkLowNoDIPings(1537) cannot add 1 element to context";
-                                                        }
+                                                        v12 = 32;
                                                       }
 
                                                       else
                                                       {
-                                                        switch(v12)
-                                                        {
-                                                          case 0x602:
-                                                            if (AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowNoSUIPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkLowNoSUIPings(1538) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x603:
-                                                            if (AddSingleValueToGenericContext(a1, &unk_10004A471, "istkMedPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkMedPings(1539) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x604:
-                                                            if (AddSingleValueToGenericContext(a1, &unk_10004A471, "istkHighPings", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: istkHighPings(1540) cannot add 1 element to context";
-                                                            break;
-                                                          default:
-                                                            goto LABEL_2987;
-                                                        }
+                                                        v12 = v9;
                                                       }
-                                                    }
 
-                                                    else
-                                                    {
-                                                      if (v12 > 1462)
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "gcwamp_", a2, 8u, v12) & 1) == 0)
                                                       {
-                                                        if (v12 > 1532)
-                                                        {
-                                                          if (v12 == 1533)
-                                                          {
-                                                            if (v14 != 12)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): (#12) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xD)
-                                                            {
-                                                              v18 = 12;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "istkLowPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): Cannot add 12 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else if (v12 == 1534)
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "istkMedPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          else
-                                                          {
-                                                            if (v14 != 10)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 0xB)
-                                                            {
-                                                              v18 = 10;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "istkHighPingIntervals_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): Cannot add 10 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1463)
-                                                        {
-                                                          if (v14 != 6)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandReadsByMode(1463): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 7)
-                                                          {
-                                                            v18 = 6;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((AddMultipleFieldsToGenericContext(a1, "nandReadsByMode_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: nandReadsByMode(1463): Cannot add 6 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        if (v12 == 1494)
-                                                        {
-                                                          if (v14 != 20)
-                                                          {
-                                                            SetAPIErrorMessage("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                          }
-
-                                                          if (v14 >= 0x15)
-                                                          {
-                                                            v18 = 20;
-                                                          }
-
-                                                          else
-                                                          {
-                                                            v18 = v14;
-                                                          }
-
-                                                          if ((AddMultipleFieldsToGenericContext(a1, "throttlingSecPerTTPerMW_", v8, 8u, v18) & 1) == 0)
-                                                          {
-                                                            v19 = "ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): Cannot add 20 elements to context";
-                                                            goto LABEL_2993;
-                                                          }
-
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        goto LABEL_2987;
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcwamp(1116): Cannot add 32 elements to context", v14);
+                                                        return v5;
                                                       }
 
-                                                      if (v12 <= 1449)
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1137)
+                                                    {
+                                                      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfToUnhappySwitches", *a2) & 1) == 0)
                                                       {
-                                                        if (v12 == 1448)
-                                                        {
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempMaxValue", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: deviceTempMaxValue(1448) cannot add 1 element to context";
-                                                        }
-
-                                                        else
-                                                        {
-                                                          if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempHighValue", *v8))
-                                                          {
-                                                            goto LABEL_162;
-                                                          }
-
-                                                          v17 = "ASPFTLParseBufferToCxt: deviceTempHighValue(1449) cannot add 1 element to context";
-                                                        }
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfToUnhappySwitches(1137) cannot add 1 element to context");
                                                       }
 
-                                                      else
-                                                      {
-                                                        switch(v12)
-                                                        {
-                                                          case 0x5AA:
-                                                            if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempLowValue", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: deviceTempLowValue(1450) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x5AC:
-                                                            if (AddSingleValueToGenericContext(a1, &unk_10004A471, "selfPanicEnabled", *v8))
-                                                            {
-                                                              goto LABEL_162;
-                                                            }
-
-                                                            v17 = "ASPFTLParseBufferToCxt: selfPanicEnabled(1452) cannot add 1 element to context";
-                                                            break;
-                                                          case 0x5B6:
-                                                            if (v14 != 6)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandWritesByMode(1462): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                            }
-
-                                                            if (v14 >= 7)
-                                                            {
-                                                              v18 = 6;
-                                                            }
-
-                                                            else
-                                                            {
-                                                              v18 = v14;
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, "nandWritesByMode_", v8, 8u, v18) & 1) == 0)
-                                                            {
-                                                              v19 = "ASPFTLParseBufferToCxt: nandWritesByMode(1462): Cannot add 6 elements to context";
-                                                              goto LABEL_2993;
-                                                            }
-
-                                                            goto LABEL_110;
-                                                          default:
-LABEL_2987:
-                                                            if (v12 >> 33)
-                                                            {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d_");
-                                                            }
-
-                                                            else
-                                                            {
-                                                              snprintf(__str, 0x20uLL, "Stat_%d");
-                                                            }
-
-                                                            if ((AddMultipleFieldsToGenericContext(a1, __str, v8, 8u, v14) & 1) == 0)
-                                                            {
-                                                              SetAPIErrorMessage("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context", a2, a3, a4, a5, a6, a7, a8, v12);
-                                                              return v10;
-                                                            }
-
-                                                            v10 = (v10 + v14);
-                                                            goto LABEL_163;
-                                                        }
-                                                      }
+                                                      goto LABEL_161;
                                                     }
-
-                                                    break;
-                                                  case 1189:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "lastLbaFormatTime", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: lastLbaFormatTime(1189) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1190:
-                                                    if (v14 != 11)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerDownTime(1190): (#11) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34 >= 3)
-                                                    {
-                                                      v18 = 11;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "powerDownTime_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: powerDownTime(1190): Cannot add 11 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1196:
-                                                    if (v14 != 5)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 33 >= 3)
-                                                    {
-                                                      v18 = 5;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "poDetectGBBedTotalCost_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): Cannot add 5 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1197:
-                                                    if (v14 != 10)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "poDetectGBBedAge_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1198:
-                                                    if (v14 != 3)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): (#3) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 34)
-                                                    {
-                                                      v18 = 3;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "poDetectPERemovalMostSevereCost_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): Cannot add 3 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1199:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "poDetectCurrentSize", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: poDetectCurrentSize(1199) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1201:
-                                                    if (v14 != 4)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "gcVerticalSuccssfulAlignments_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): Cannot add 4 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1202:
-                                                    if (v14 != 4)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 5)
-                                                    {
-                                                      v18 = 4;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "gcVerticalNoAlignmentDueToMissingSegs_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): Cannot add 4 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1211:
-                                                    if (v14 != 24)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "forcedAllocationSmallEraseQ_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1215:
-                                                    if (v14 != 5)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): (#5) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v12 >> 33 >= 3)
-                                                    {
-                                                      v18 = 5;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "hostWritesPerThrottleZone_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): Cannot add 5 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1216:
-                                                    if (v14 != 24)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipAvgPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1217:
-                                                    if (v14 != 24)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipMaxPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1218:
-                                                    if (v14 != 24)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x19)
-                                                    {
-                                                      v18 = 24;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipMinPEC_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1221:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandEvictBlocks", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: RD_openBandEvictBlocks(1221) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1222:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictBlocks", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: RD_closedBandEvictBlocks(1222) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1223:
-                                                    if (v14 != 10)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "RD_closedBlocksTHHist_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1224:
-                                                    if (v14 != 20)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): (#20) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0x15)
-                                                    {
-                                                      v18 = 20;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "apfsValidLbaOvershoot_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): Cannot add 20 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1225:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeMinSlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeMinSlc(1225) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1226:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeInt", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeInt(1226) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1227:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeGap", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicySwitchPeGap(1227) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1228:
-                                                    if (v14 != 6)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 7)
-                                                    {
-                                                      v18 = 6;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "HUPolicyWidthDown_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): Cannot add 6 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1229:
-                                                    if (v14 != 6)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): (#6) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 7)
-                                                    {
-                                                      v18 = 6;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "HUPolicyWidthUp_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): Cannot add 6 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1230:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicyPrevPeSlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicyPrevPeSlc(1230) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1231:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicyPrevPeTlc", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: HUPolicyPrevPeTlc(1231) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1232:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFastSize", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanFastSize(1232) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1233:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanNumSlcEvictions", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanNumSlcEvictions(1233) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1234:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "eanNumForcedCompress", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: eanNumForcedCompress(1234) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1241:
-                                                    if (v14 != 10)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): (#10) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 0xB)
-                                                    {
-                                                      v18 = 10;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "s2rTimeHisto_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: s2rTimeHisto(1241): Cannot add 10 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1244:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "calendarTimeWentBackward", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: calendarTimeWentBackward(1244) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  case 1246:
-                                                    if (v14 != 8)
-                                                    {
-                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                    }
-
-                                                    if (v14 >= 9)
-                                                    {
-                                                      v18 = 8;
-                                                    }
-
-                                                    else
-                                                    {
-                                                      v18 = v14;
-                                                    }
-
-                                                    if (AddMultipleFieldsToGenericContext(a1, "bandsUeccCrossTempHisto_", v8, 8u, v18))
-                                                    {
-                                                      goto LABEL_110;
-                                                    }
-
-                                                    v19 = "ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): Cannot add 8 elements to context";
-                                                    goto LABEL_2993;
-                                                  case 1264:
-                                                    if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerfOpt", *v8))
-                                                    {
-                                                      goto LABEL_162;
-                                                    }
-
-                                                    v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOpt(1264) cannot add 1 element to context";
-                                                    goto LABEL_161;
-                                                  default:
-                                                    switch(v12)
-                                                    {
-                                                      case 1271:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempMax", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempMax(1271) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1272:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempHigh", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempHigh(1272) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1273:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempLow", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: deviceTempLow(1273) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1282:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrScanHP", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: cbdrScanHP(1282) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1283:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrScanMP", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: cbdrScanMP(1283) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1285:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "bitsPerCell", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: bitsPerCell(1285) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1289:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerfOptOpen", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOptOpen(1289) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1293:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1294:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1295:
-                                                        if (v14 != 8)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): (#8) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 9)
-                                                        {
-                                                          v18 = 8;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpHostChokeTime_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpHostChokeTime(1295): Cannot add 8 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1296:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryHW_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1298:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitHW_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1302:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryHostTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1303:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryGCTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1304:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitHostTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1305:
-                                                        if (v14 != 16)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): (#16) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 0x11)
-                                                        {
-                                                          v18 = 16;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitGCTP_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): Cannot add 16 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1323:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchNofHits", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: prefetchNofHits(1323) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1326:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanFullRounds", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanFullRounds(1326) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1327:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanEarlyExits", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanEarlyExits(1327) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1328:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanMspFullScanRequests", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanMspFullScanRequests(1328) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1329:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanMspEarlyExitRequests", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: massScanMspEarlyExitRequests(1329) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1333:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedRecoverableErrorGbbs", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedRecoverableErrorGbbs(1333) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1334:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedUnrecoverableErrorGbbs", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedUnrecoverableErrorGbbs(1334) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1335:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedBandOrphansNumBands", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumBands(1335) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1336:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedBandOrphansNumSectors", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumSectors(1336) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1337:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragEvents", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragEvents(1337) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1338:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragIterations", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragIterations(1338) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1339:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragSectors", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: gcBoffOrderedDefragSectors(1339) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1344:
-                                                        if (v14 != 4)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 5)
-                                                        {
-                                                          v18 = 4;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "unhappyWideGC1_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: unhappyWideGC1(1344): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1345:
-                                                        if (v14 != 4)
-                                                        {
-                                                          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyVertGC(1345): (#4) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                        }
-
-                                                        if (v14 >= 5)
-                                                        {
-                                                          v18 = 4;
-                                                        }
-
-                                                        else
-                                                        {
-                                                          v18 = v14;
-                                                        }
-
-                                                        if (AddMultipleFieldsToGenericContext(a1, "unhappyVertGC_", v8, 8u, v18))
-                                                        {
-                                                          goto LABEL_110;
-                                                        }
-
-                                                        v19 = "ASPFTLParseBufferToCxt: unhappyVertGC(1345): Cannot add 4 elements to context";
-                                                        goto LABEL_2993;
-                                                      case 1348:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "thermalSelfThrottlingSupported", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: thermalSelfThrottlingSupported(1348) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      case 1349:
-                                                        if (AddSingleValueToGenericContext(a1, &unk_10004A471, "thermalSelfThrottlingEnabled", *v8))
-                                                        {
-                                                          goto LABEL_162;
-                                                        }
-
-                                                        v17 = "ASPFTLParseBufferToCxt: thermalSelfThrottlingEnabled(1349) cannot add 1 element to context";
-                                                        goto LABEL_161;
-                                                      default:
-                                                        goto LABEL_2686;
-                                                    }
-                                                }
-
-                                                goto LABEL_161;
-                                              }
-
-                                              if (v12 != 1148)
-                                              {
-                                                if (v12 == 1149)
-                                                {
-                                                  if (v14 != 24)
-                                                  {
-                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                                  }
-
-                                                  if (v14 >= 0x19)
-                                                  {
-                                                    v18 = 24;
                                                   }
 
                                                   else
                                                   {
-                                                    v18 = v14;
-                                                  }
+                                                    if (v7 == 1105)
+                                                    {
+                                                      if (v9 != 14)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadSequential(1105): (#14) cfg elements != (%d) buffer elements", v9);
+                                                      }
 
-                                                  if ((AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc2_", v8, 8u, v18) & 1) == 0)
-                                                  {
-                                                    v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc2(1149): Cannot add 24 elements to context";
-                                                    goto LABEL_2993;
-                                                  }
+                                                      if (v9 >= 0xF)
+                                                      {
+                                                        v12 = 14;
+                                                      }
 
-                                                  goto LABEL_110;
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "hostReadSequential_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostReadSequential(1105): Cannot add 14 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+
+                                                    if (v7 == 1106)
+                                                    {
+                                                      if (v9 != 14)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: GCReadSequential(1106): (#14) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v9 >= 0xF)
+                                                      {
+                                                        v12 = 14;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "GCReadSequential_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: GCReadSequential(1106): Cannot add 14 elements to context", v14);
+                                                        return v5;
+                                                      }
+
+                                                      goto LABEL_110;
+                                                    }
+                                                  }
                                                 }
 
-                                                goto LABEL_2529;
+                                                else
+                                                {
+                                                  if (v7 <= 1041)
+                                                  {
+                                                    v15 = v7 >> 37;
+                                                    if (v7 == 1040)
+                                                    {
+                                                      if (v9 != 31)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): (#31) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v15)
+                                                      {
+                                                        v12 = 31;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsV2_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsV2(1040): Cannot add 31 elements to context", v14);
+                                                        return v5;
+                                                      }
+                                                    }
+
+                                                    else
+                                                    {
+                                                      if (v9 != 31)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): (#31) cfg elements != (%d) buffer elements", v9);
+                                                      }
+
+                                                      if (v15)
+                                                      {
+                                                        v12 = 31;
+                                                      }
+
+                                                      else
+                                                      {
+                                                        v12 = v9;
+                                                      }
+
+                                                      if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsSnapshot_", a2, 8u, v12) & 1) == 0)
+                                                      {
+                                                        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsSnapshot(1041): Cannot add 31 elements to context", v14);
+                                                        return v5;
+                                                      }
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if (v7 == 1042)
+                                                  {
+                                                    if (v9 != 15)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): (#15) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v7 >> 36)
+                                                    {
+                                                      v12 = 15;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "bandsAgeBinsReadSectors_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsAgeBinsReadSectors(1042): Cannot add 15 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if (v7 == 1080)
+                                                  {
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidForceClogLoad", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidForceClogLoad(1080) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+                                                }
                                               }
 
-                                              if (v14 != 24)
+                                              else if (v7 > 1002)
                                               {
-                                                SetAPIErrorMessage("ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): (#24) cfg elements != (%d) buffer elements", a2, a3, a4, a5, a6, a7, a8, v14);
-                                              }
+                                                if (v7 > 1015)
+                                                {
+                                                  if (v7 == 1016)
+                                                  {
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanEarlyBootNumUeccPages", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanEarlyBootNumUeccPages(1016) cannot add 1 element to context");
+                                                    }
 
-                                              if (v14 >= 0x19)
-                                              {
-                                                v18 = 24;
+                                                    goto LABEL_161;
+                                                  }
+
+                                                  if (v7 == 1017)
+                                                  {
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanEarlyBootUeccMultiplane", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanEarlyBootUeccMultiplane(1017) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+                                                }
+
+                                                else
+                                                {
+                                                  if (v7 == 1003)
+                                                  {
+                                                    if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogReplaySpfError", *a2) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogReplaySpfError(1003) cannot add 1 element to context");
+                                                    }
+
+                                                    goto LABEL_161;
+                                                  }
+
+                                                  if (v7 == 1015)
+                                                  {
+                                                    if (v9 != 4)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): (#4) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 5)
+                                                    {
+                                                      v12 = 4;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "eanEarlyBootUeccPage_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanEarlyBootUeccPage(1015): Cannot add 4 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+                                                }
                                               }
 
                                               else
                                               {
-                                                v18 = v14;
+                                                if (v7 > 1000)
+                                                {
+                                                  if (v7 == 1001)
+                                                  {
+                                                    if (v9 != 8)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): (#8) cfg elements != (%d) buffer elements", v9);
+                                                    }
+
+                                                    if (v9 >= 9)
+                                                    {
+                                                      v12 = 8;
+                                                    }
+
+                                                    else
+                                                    {
+                                                      v12 = v9;
+                                                    }
+
+                                                    if ((AddMultipleFieldsToGenericContext(a1, "clogReplayFailReason_", a2, 8u, v12) & 1) == 0)
+                                                    {
+                                                      SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogReplayFailReason(1001): Cannot add 8 elements to context", v14);
+                                                      return v5;
+                                                    }
+
+                                                    goto LABEL_110;
+                                                  }
+
+                                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogReplayTransientError", *a2) & 1) == 0)
+                                                  {
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogReplayTransientError(1002) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
+
+                                                if (v7 == 998)
+                                                {
+                                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindUnc", *a2) & 1) == 0)
+                                                  {
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFindUnc(998) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
+
+                                                if (v7 == 999)
+                                                {
+                                                  if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "clogFindUnexpected", *a2) & 1) == 0)
+                                                  {
+                                                    SetAPIErrorMessage("ASPFTLParseBufferToCxt: clogFindUnexpected(999) cannot add 1 element to context");
+                                                  }
+
+                                                  goto LABEL_161;
+                                                }
                                               }
 
-                                              if (AddMultipleFieldsToGenericContext(a1, "gc_concurrent_dw_gc1_", v8, 8u, v18))
-                                              {
-LABEL_110:
-                                                v10 = v18 + v10;
-                                                goto LABEL_163;
-                                              }
-
-                                              v19 = "ASPFTLParseBufferToCxt: gc_concurrent_dw_gc1(1148): Cannot add 24 elements to context";
-LABEL_2993:
-                                              SetAPIErrorMessage(v19, a2, a3, a4, a5, a6, a7, a8, v21);
-                                              return v10;
+                                              break;
                                           }
+
+                                          break;
                                       }
+
+                                      break;
                                   }
+
+                                  break;
                               }
+
+                              break;
                           }
+
+                          break;
                       }
+
+                      break;
                   }
+
+                  break;
               }
+
+              break;
           }
+
+          break;
       }
+
+      break;
+  }
+
+LABEL_2528:
+  switch(v7)
+  {
+    case 1185:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unhappy_level", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappy_level(1185) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1186:
+    case 1187:
+    case 1188:
+    case 1191:
+    case 1192:
+    case 1193:
+    case 1194:
+    case 1195:
+    case 1200:
+    case 1203:
+    case 1204:
+    case 1205:
+    case 1206:
+    case 1207:
+    case 1208:
+    case 1209:
+    case 1210:
+    case 1212:
+    case 1213:
+    case 1214:
+    case 1219:
+    case 1220:
+    case 1235:
+    case 1236:
+    case 1237:
+    case 1238:
+    case 1239:
+    case 1240:
+    case 1242:
+    case 1243:
+    case 1245:
+    case 1247:
+    case 1248:
+    case 1249:
+    case 1250:
+    case 1251:
+    case 1252:
+    case 1253:
+    case 1254:
+    case 1255:
+    case 1256:
+    case 1257:
+    case 1258:
+    case 1259:
+    case 1260:
+    case 1261:
+    case 1262:
+    case 1263:
+LABEL_2685:
+      if (v7 > 1447)
+      {
+        if (v7 > 1535)
+        {
+          if (v7 > 1542)
+          {
+            if (v7 <= 1544)
+            {
+              if (v7 == 1543)
+              {
+                if (v9 != 10)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): (#10) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 0xB)
+                {
+                  v12 = 10;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((AddMultipleFieldsToGenericContext(a1, "istkLowNoDIPingIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoDIPingIntervals(1543): Cannot add 10 elements to context", v14);
+                  return v5;
+                }
+              }
+
+              else
+              {
+                if (v9 != 10)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): (#10) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 0xB)
+                {
+                  v12 = 10;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((AddMultipleFieldsToGenericContext(a1, "istkLowNoSUIPingIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoSUIPingIntervals(1544): Cannot add 10 elements to context", v14);
+                  return v5;
+                }
+              }
+
+              goto LABEL_110;
+            }
+
+            switch(v7)
+            {
+              case 0x609:
+                if (v9 != 6)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): (#6) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v9 >= 7)
+                {
+                  v12 = 6;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((AddMultipleFieldsToGenericContext(a1, "istkLowAfterMedIntervals_", a2, 8u, v12) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowAfterMedIntervals(1545): Cannot add 6 elements to context", v14);
+                  return v5;
+                }
+
+                goto LABEL_110;
+              case 0x60B:
+                if (v9 != 5)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): (#5) cfg elements != (%d) buffer elements", v9);
+                }
+
+                if (v7 >> 33 >= 3)
+                {
+                  v12 = 5;
+                }
+
+                else
+                {
+                  v12 = v9;
+                }
+
+                if ((AddMultipleFieldsToGenericContext(a1, "istkHWBetweenMed_", a2, 8u, v12) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHWBetweenMed(1547): Cannot add 5 elements to context", v14);
+                  return v5;
+                }
+
+                goto LABEL_110;
+              case 0x622:
+                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "uptimeSeconds", *a2) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: uptimeSeconds(1570) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+            }
+          }
+
+          else
+          {
+            if (v7 <= 1537)
+            {
+              if (v7 == 1536)
+              {
+                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowPings", *a2) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowPings(1536) cannot add 1 element to context");
+                }
+              }
+
+              else if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowNoDIPings", *a2) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoDIPings(1537) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            }
+
+            switch(v7)
+            {
+              case 0x602:
+                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "istkLowNoSUIPings", *a2) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowNoSUIPings(1538) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+              case 0x603:
+                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "istkMedPings", *a2) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkMedPings(1539) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+              case 0x604:
+                if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "istkHighPings", *a2) & 1) == 0)
+                {
+                  SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHighPings(1540) cannot add 1 element to context");
+                }
+
+                goto LABEL_161;
+            }
+          }
+        }
+
+        else if (v7 > 1462)
+        {
+          if (v7 > 1532)
+          {
+            if (v7 == 1533)
+            {
+              if (v9 != 12)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): (#12) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xD)
+              {
+                v12 = 12;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((AddMultipleFieldsToGenericContext(a1, "istkLowPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkLowPingIntervals(1533): Cannot add 12 elements to context", v14);
+                return v5;
+              }
+            }
+
+            else if (v7 == 1534)
+            {
+              if (v9 != 10)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): (#10) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xB)
+              {
+                v12 = 10;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((AddMultipleFieldsToGenericContext(a1, "istkMedPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkMedPingIntervals(1534): Cannot add 10 elements to context", v14);
+                return v5;
+              }
+            }
+
+            else
+            {
+              if (v9 != 10)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): (#10) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 0xB)
+              {
+                v12 = 10;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((AddMultipleFieldsToGenericContext(a1, "istkHighPingIntervals_", a2, 8u, v12) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: istkHighPingIntervals(1535): Cannot add 10 elements to context", v14);
+                return v5;
+              }
+            }
+
+            goto LABEL_110;
+          }
+
+          if (v7 == 1463)
+          {
+            if (v9 != 6)
+            {
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandReadsByMode(1463): (#6) cfg elements != (%d) buffer elements", v9);
+            }
+
+            if (v9 >= 7)
+            {
+              v12 = 6;
+            }
+
+            else
+            {
+              v12 = v9;
+            }
+
+            if ((AddMultipleFieldsToGenericContext(a1, "nandReadsByMode_", a2, 8u, v12) & 1) == 0)
+            {
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandReadsByMode(1463): Cannot add 6 elements to context", v14);
+              return v5;
+            }
+
+            goto LABEL_110;
+          }
+
+          if (v7 == 1494)
+          {
+            if (v9 != 20)
+            {
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): (#20) cfg elements != (%d) buffer elements", v9);
+            }
+
+            if (v9 >= 0x15)
+            {
+              v12 = 20;
+            }
+
+            else
+            {
+              v12 = v9;
+            }
+
+            if ((AddMultipleFieldsToGenericContext(a1, "throttlingSecPerTTPerMW_", a2, 8u, v12) & 1) == 0)
+            {
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: throttlingSecPerTTPerMW(1494): Cannot add 20 elements to context", v14);
+              return v5;
+            }
+
+            goto LABEL_110;
+          }
+        }
+
+        else
+        {
+          if (v7 <= 1449)
+          {
+            if (v7 == 1448)
+            {
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempMaxValue", *a2) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempMaxValue(1448) cannot add 1 element to context");
+              }
+            }
+
+            else if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempHighValue", *a2) & 1) == 0)
+            {
+              SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempHighValue(1449) cannot add 1 element to context");
+            }
+
+            goto LABEL_161;
+          }
+
+          switch(v7)
+          {
+            case 0x5AA:
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempLowValue", *a2) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempLowValue(1450) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            case 0x5AC:
+              if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "selfPanicEnabled", *a2) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: selfPanicEnabled(1452) cannot add 1 element to context");
+              }
+
+              goto LABEL_161;
+            case 0x5B6:
+              if (v9 != 6)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandWritesByMode(1462): (#6) cfg elements != (%d) buffer elements", v9);
+              }
+
+              if (v9 >= 7)
+              {
+                v12 = 6;
+              }
+
+              else
+              {
+                v12 = v9;
+              }
+
+              if ((AddMultipleFieldsToGenericContext(a1, "nandWritesByMode_", a2, 8u, v12) & 1) == 0)
+              {
+                SetAPIErrorMessage("ASPFTLParseBufferToCxt: nandWritesByMode(1462): Cannot add 6 elements to context", v14);
+                return v5;
+              }
+
+              goto LABEL_110;
+          }
+        }
+
+LABEL_2986:
+        if (v7 >> 33)
+        {
+          snprintf(__str, 0x20uLL, "Stat_%d_");
+        }
+
+        else
+        {
+          snprintf(__str, 0x20uLL, "Stat_%d");
+        }
+
+        if ((AddMultipleFieldsToGenericContext(a1, __str, a2, 8u, v9) & 1) == 0)
+        {
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt %d: Cannot add %d elements to context");
+          return v5;
+        }
+
+        v5 = (v5 + v9);
+LABEL_162:
+        a2 += v9;
+        v6 -= v9;
+        goto LABEL_2;
+      }
+
+      switch(v7)
+      {
+        case 1354:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numOfThrottlingLevels", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numOfThrottlingLevels(1354) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1355:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempColdEvict", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: crossTempColdEvict(1355) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1356:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempHotEvict", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: crossTempHotEvict(1356) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1357:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "crossTempColdHotEvict", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: crossTempColdHotEvict(1357) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1358:
+          if (v9 != 13)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedHisto(1358): (#13) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v7 >> 33 >= 7)
+          {
+            v12 = 13;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "tempChangedHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedHisto(1358): Cannot add 13 elements to context", v14);
+          break;
+        case 1359:
+          if (v9 != 13)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): (#13) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v7 >> 33 >= 7)
+          {
+            v12 = 13;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "tempChangedEnterETHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: tempChangedEnterETHisto(1359): Cannot add 13 elements to context", v14);
+          break;
+        case 1362:
+          if (v9 != 20)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcMustReasons(1362): (#20) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x15)
+          {
+            v12 = 20;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "gcMustReasons_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcMustReasons(1362): Cannot add 20 elements to context", v14);
+          break;
+        case 1367:
+          if (v9 != 32)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): (#32) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x21)
+          {
+            v12 = 32;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "asyncMessageHisto_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: asyncMessageHisto(1367): Cannot add 32 elements to context", v14);
+          break;
+        case 1368:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanIgnoredTooFrequent", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: massScanIgnoredTooFrequent(1368) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1369:
+          if (v9 != 8)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): (#8) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 9)
+          {
+            v12 = 8;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "realGBBPerDipOfFailingDie_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: realGBBPerDipOfFailingDie(1369): Cannot add 8 elements to context", v14);
+          break;
+        case 1379:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedReadBlank", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: boffOrderedReadBlank(1379) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1380:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedRaidSuccessValidLba", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: boffOrderedRaidSuccessValidLba(1380) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1381:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "unexpectedRaidFailures", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unexpectedRaidFailures(1381) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1382:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "boffOrderedUnexpectedBlankValid", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: boffOrderedUnexpectedBlankValid(1382) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1383:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailPMXReconstructionInternal", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionInternal(1383) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1384:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailPMXReconstructionHost", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailPMXReconstructionHost(1384) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1385:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailBMXReconstructionInternal", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionInternal(1385) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1386:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "raidExpectedFailBMXReconstructionHost", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: raidExpectedFailBMXReconstructionHost(1386) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1392:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrHPScanHP", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrHPScanHP(1392) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1393:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrMPScanMP", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrMPScanMP(1393) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1394:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrMPScanHP", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrMPScanHP(1394) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1401:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "ldefragFailedMemBalancer", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: ldefragFailedMemBalancer(1401) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1409:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "BP_readThrottleEngagedCnt", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: BP_readThrottleEngagedCnt(1409) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1410:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "BP_readThrottleActualSize", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: BP_readThrottleActualSize(1410) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        default:
+          goto LABEL_2986;
+      }
+
+      return v5;
+    case 1189:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "lastLbaFormatTime", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: lastLbaFormatTime(1189) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1190:
+      if (v9 != 11)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerDownTime(1190): (#11) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 34 >= 3)
+      {
+        v12 = 11;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "powerDownTime_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: powerDownTime(1190): Cannot add 11 elements to context", v14);
+      return v5;
+    case 1196:
+      if (v9 != 5)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): (#5) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 33 >= 3)
+      {
+        v12 = 5;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "poDetectGBBedTotalCost_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedTotalCost(1196): Cannot add 5 elements to context", v14);
+      return v5;
+    case 1197:
+      if (v9 != 10)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "poDetectGBBedAge_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectGBBedAge(1197): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1198:
+      if (v9 != 3)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): (#3) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 34)
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "poDetectPERemovalMostSevereCost_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectPERemovalMostSevereCost(1198): Cannot add 3 elements to context", v14);
+      return v5;
+    case 1199:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "poDetectCurrentSize", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: poDetectCurrentSize(1199) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1201:
+      if (v9 != 4)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): (#4) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 5)
+      {
+        v12 = 4;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "gcVerticalSuccssfulAlignments_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalSuccssfulAlignments(1201): Cannot add 4 elements to context", v14);
+      return v5;
+    case 1202:
+      if (v9 != 4)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): (#4) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 5)
+      {
+        v12 = 4;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "gcVerticalNoAlignmentDueToMissingSegs_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcVerticalNoAlignmentDueToMissingSegs(1202): Cannot add 4 elements to context", v14);
+      return v5;
+    case 1211:
+      if (v9 != 24)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "forcedAllocationSmallEraseQ_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: forcedAllocationSmallEraseQ(1211): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1215:
+      if (v9 != 5)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): (#5) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v7 >> 33 >= 3)
+      {
+        v12 = 5;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "hostWritesPerThrottleZone_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: hostWritesPerThrottleZone(1215): Cannot add 5 elements to context", v14);
+      return v5;
+    case 1216:
+      if (v9 != 24)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipAvgPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipAvgPEC(1216): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1217:
+      if (v9 != 24)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipMaxPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMaxPEC(1217): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1218:
+      if (v9 != 24)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): (#24) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x19)
+      {
+        v12 = 24;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "tlcWLPerDipMinPEC_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: tlcWLPerDipMinPEC(1218): Cannot add 24 elements to context", v14);
+      return v5;
+    case 1221:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_openBandEvictBlocks", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_openBandEvictBlocks(1221) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1222:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "RD_closedBandEvictBlocks", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBandEvictBlocks(1222) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1223:
+      if (v9 != 10)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "RD_closedBlocksTHHist_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: RD_closedBlocksTHHist(1223): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1224:
+      if (v9 != 20)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): (#20) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0x15)
+      {
+        v12 = 20;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "apfsValidLbaOvershoot_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: apfsValidLbaOvershoot(1224): Cannot add 20 elements to context", v14);
+      return v5;
+    case 1225:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeMinSlc", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicySwitchPeMinSlc(1225) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1226:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeInt", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicySwitchPeInt(1226) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1227:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicySwitchPeGap", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicySwitchPeGap(1227) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1228:
+      if (v9 != 6)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): (#6) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 7)
+      {
+        v12 = 6;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "HUPolicyWidthDown_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthDown(1228): Cannot add 6 elements to context", v14);
+      return v5;
+    case 1229:
+      if (v9 != 6)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): (#6) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 7)
+      {
+        v12 = 6;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "HUPolicyWidthUp_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyWidthUp(1229): Cannot add 6 elements to context", v14);
+      return v5;
+    case 1230:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicyPrevPeSlc", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyPrevPeSlc(1230) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1231:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "HUPolicyPrevPeTlc", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: HUPolicyPrevPeTlc(1231) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1232:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanFastSize", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanFastSize(1232) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1233:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanNumSlcEvictions", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanNumSlcEvictions(1233) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1234:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "eanNumForcedCompress", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: eanNumForcedCompress(1234) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1241:
+      if (v9 != 10)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): (#10) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 0xB)
+      {
+        v12 = 10;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "s2rTimeHisto_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: s2rTimeHisto(1241): Cannot add 10 elements to context", v14);
+      return v5;
+    case 1244:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "calendarTimeWentBackward", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: calendarTimeWentBackward(1244) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    case 1246:
+      if (v9 != 8)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): (#8) cfg elements != (%d) buffer elements", v9);
+      }
+
+      if (v9 >= 9)
+      {
+        v12 = 8;
+      }
+
+      else
+      {
+        v12 = v9;
+      }
+
+      if (AddMultipleFieldsToGenericContext(a1, "bandsUeccCrossTempHisto_", a2, 8u, v12))
+      {
+        goto LABEL_110;
+      }
+
+      SetAPIErrorMessage("ASPFTLParseBufferToCxt: bandsUeccCrossTempHisto(1246): Cannot add 8 elements to context", v14);
+      return v5;
+    case 1264:
+      if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerfOpt", *a2) & 1) == 0)
+      {
+        SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOpt(1264) cannot add 1 element to context");
+      }
+
+      goto LABEL_161;
+    default:
+      switch(v7)
+      {
+        case 1271:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempMax", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempMax(1271) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1272:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempHigh", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempHigh(1272) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1273:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "deviceTempLow", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: deviceTempLow(1273) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1282:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrScanHP", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanHP(1282) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1283:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "cbdrScanMP", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: cbdrScanMP(1283) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1285:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "bitsPerCell", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bitsPerCell(1285) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1289:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "numRefreshOnErrNandRefreshPerfOptOpen", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: numRefreshOnErrNandRefreshPerfOptOpen(1289) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1293:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryTime(1293): Cannot add 16 elements to context", v14);
+          break;
+        case 1294:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitTime(1294): Cannot add 16 elements to context", v14);
+          break;
+        case 1295:
+          if (v9 != 8)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): (#8) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 9)
+          {
+            v12 = 8;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpHostChokeTime_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpHostChokeTime(1295): Cannot add 8 elements to context", v14);
+          break;
+        case 1296:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryHW_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHW(1296): Cannot add 16 elements to context", v14);
+          break;
+        case 1298:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitHW_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHW(1298): Cannot add 16 elements to context", v14);
+          break;
+        case 1302:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryHostTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryHostTP(1302): Cannot add 16 elements to context", v14);
+          break;
+        case 1303:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2EntryGCTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2EntryGCTP(1303): Cannot add 16 elements to context", v14);
+          break;
+        case 1304:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitHostTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitHostTP(1304): Cannot add 16 elements to context", v14);
+          break;
+        case 1305:
+          if (v9 != 16)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): (#16) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 0x11)
+          {
+            v12 = 16;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "bpZone2ExitGCTP_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: bpZone2ExitGCTP(1305): Cannot add 16 elements to context", v14);
+          break;
+        case 1323:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "prefetchNofHits", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: prefetchNofHits(1323) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1326:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanFullRounds", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: massScanFullRounds(1326) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1327:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanEarlyExits", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: massScanEarlyExits(1327) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1328:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanMspFullScanRequests", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: massScanMspFullScanRequests(1328) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1329:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "massScanMspEarlyExitRequests", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: massScanMspEarlyExitRequests(1329) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1333:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedRecoverableErrorGbbs", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedRecoverableErrorGbbs(1333) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1334:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedUnrecoverableErrorGbbs", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedUnrecoverableErrorGbbs(1334) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1335:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedBandOrphansNumBands", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumBands(1335) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1336:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedBandOrphansNumSectors", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedBandOrphansNumSectors(1336) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1337:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragEvents", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedDefragEvents(1337) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1338:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragIterations", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedDefragIterations(1338) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1339:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "gcBoffOrderedDefragSectors", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: gcBoffOrderedDefragSectors(1339) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1344:
+          if (v9 != 4)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): (#4) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 5)
+          {
+            v12 = 4;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "unhappyWideGC1_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyWideGC1(1344): Cannot add 4 elements to context", v14);
+          break;
+        case 1345:
+          if (v9 != 4)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyVertGC(1345): (#4) cfg elements != (%d) buffer elements", v9);
+          }
+
+          if (v9 >= 5)
+          {
+            v12 = 4;
+          }
+
+          else
+          {
+            v12 = v9;
+          }
+
+          if (AddMultipleFieldsToGenericContext(a1, "unhappyVertGC_", a2, 8u, v12))
+          {
+            goto LABEL_110;
+          }
+
+          SetAPIErrorMessage("ASPFTLParseBufferToCxt: unhappyVertGC(1345): Cannot add 4 elements to context", v14);
+          break;
+        case 1348:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "thermalSelfThrottlingSupported", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: thermalSelfThrottlingSupported(1348) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        case 1349:
+          if ((AddSingleValueToGenericContext(a1, &unk_10004A471, "thermalSelfThrottlingEnabled", *a2) & 1) == 0)
+          {
+            SetAPIErrorMessage("ASPFTLParseBufferToCxt: thermalSelfThrottlingEnabled(1349) cannot add 1 element to context");
+          }
+
+          goto LABEL_161;
+        default:
+          goto LABEL_2685;
+      }
+
+      return v5;
   }
 }

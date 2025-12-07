@@ -30,8 +30,8 @@
 
 - (id)toDict
 {
-  v23[5] = *MEMORY[0x277D85DE8];
-  v22[0] = @"hasGestures";
+  v22[5] = *MEMORY[0x277D85DE8];
+  v21[0] = @"hasGestures";
   hasGestures = [(ICASPdfNavIxData *)self hasGestures];
   if (hasGestures)
   {
@@ -44,8 +44,8 @@
   }
 
   v4 = hasGestures2;
-  v23[0] = hasGestures2;
-  v22[1] = @"hasScroll";
+  v22[0] = hasGestures2;
+  v21[1] = @"hasScroll";
   hasScroll = [(ICASPdfNavIxData *)self hasScroll];
   if (hasScroll)
   {
@@ -58,8 +58,8 @@
   }
 
   v7 = hasScroll2;
-  v23[1] = hasScroll2;
-  v22[2] = @"hasPagination";
+  v22[1] = hasScroll2;
+  v21[2] = @"hasPagination";
   hasPagination = [(ICASPdfNavIxData *)self hasPagination];
   if (hasPagination)
   {
@@ -72,8 +72,8 @@
   }
 
   v10 = hasPagination2;
-  v23[2] = hasPagination2;
-  v22[3] = @"hasPinchZoom";
+  v22[2] = hasPagination2;
+  v21[3] = @"hasPinchZoom";
   hasPinchZoom = [(ICASPdfNavIxData *)self hasPinchZoom];
   if (hasPinchZoom)
   {
@@ -86,8 +86,8 @@
   }
 
   v13 = hasPinchZoom2;
-  v23[3] = hasPinchZoom2;
-  v22[4] = @"hasPinchToExpandState";
+  v22[3] = hasPinchZoom2;
+  v21[4] = @"hasPinchToExpandState";
   hasPinchToExpandState = [(ICASPdfNavIxData *)self hasPinchToExpandState];
   if (hasPinchToExpandState)
   {
@@ -100,10 +100,8 @@
   }
 
   v16 = hasPinchToExpandState2;
-  v23[4] = hasPinchToExpandState2;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v22[4] = hasPinchToExpandState2;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:5];
 
   return v17;
 }

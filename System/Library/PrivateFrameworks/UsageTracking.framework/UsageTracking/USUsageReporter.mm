@@ -192,11 +192,10 @@ void __82__USUsageReporter_fetchUsageForApplications_webDomains_categories_inter
 
 void __101__USUsageReporter_fetchReportsDuringInterval_partitionInterval_forceImmediateSync_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138543362;
-  v3 = a1;
-  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error synchronizing with high urgency: %{public}@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138543362;
+  v2 = a1;
+  _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error synchronizing with high urgency: %{public}@", &v1, 0xCu);
 }
 
 @end

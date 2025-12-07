@@ -5,7 +5,6 @@
 
 uint64_t ____MDCopyTokensFromString_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
   result = _CFBundleGetBundleWithIdentifierAndLibraryName();
   if (result)
   {
@@ -16,7 +15,6 @@ uint64_t ____MDCopyTokensFromString_block_invoke()
     _locNotToken = result;
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 

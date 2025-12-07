@@ -6,6 +6,7 @@
 - (NSSet)discoveredBluetoothDevices;
 - (id)_presentingViewController;
 - (id)_vehicleDeviceFromBluetoothDevice:(id)device;
+- (void)_allowBluetoothConnections:(BOOL)connections;
 - (void)_handleRemovedDevice:(id)device;
 - (void)_handleUpdatedDevice:(id)device;
 - (void)_presentPairingFailedForDevice:(id)device error:(int)error;
@@ -21,6 +22,7 @@
 - (void)deviceRemovedHandler:(id)handler;
 - (void)deviceUnpairedHandler:(id)handler;
 - (void)deviceUpdatedHandler:(id)handler;
+- (void)handleChangedDiscoveryState:(BOOL)state;
 - (void)handleDiscoveredVehicle:(id)vehicle;
 - (void)handlePowerChangedNotification:(id)notification;
 - (void)handleRemovedVehicle:(id)vehicle;
@@ -212,6 +214,33 @@
   [(CARBluetoothClassicDiscoverer *)&v4 dealloc];
 }
 
+- (void)_allowBluetoothConnections:(BOOL)connections
+{
+  connectionsCopy = connections;
+  if (!connections || (+[UIApplication sharedApplication](UIApplication, "sharedApplication"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 applicationState], v5, !v6))
+  {
+    v7 = +[BluetoothManager sharedInstance];
+    [v7 setDiscoverable:connectionsCopy];
+
+    v8 = +[BluetoothManager sharedInstance];
+    [v8 setConnectable:connectionsCopy];
+
+    v9 = +[BluetoothManager sharedInstance];
+    [v9 setDeviceScanningEnabled:connectionsCopy];
+
+    v10 = +[BluetoothManager sharedInstance];
+    [v10 setDevicePairingEnabled:connectionsCopy];
+
+    if (!connectionsCopy)
+    {
+      v11 = +[BluetoothManager sharedInstance];
+      [v11 resetDeviceScanning];
+    }
+  }
+
+  [(CARBluetoothClassicDiscoverer *)self handleChangedDiscoveryState:connectionsCopy];
+}
+
 - (void)startDiscovery
 {
   [(CARBluetoothClassicDiscoverer *)self _shouldListenToBluetoothNotifications:1];
@@ -256,6 +285,19 @@
   block[3] = &unk_6E2C0;
   block[4] = self;
   dispatch_async(&_dispatch_main_q, block);
+}
+
+- (void)handleChangedDiscoveryState:(BOOL)state
+{
+  stateCopy = state;
+  bluetoothDiscoveryDelegate = [(CARBluetoothClassicDiscoverer *)self bluetoothDiscoveryDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    bluetoothDiscoveryDelegate2 = [(CARBluetoothClassicDiscoverer *)self bluetoothDiscoveryDelegate];
+    [bluetoothDiscoveryDelegate2 bluetoothDiscoverer:self changedDiscoveryState:stateCopy];
+  }
 }
 
 - (void)handleDiscoveredVehicle:(id)vehicle

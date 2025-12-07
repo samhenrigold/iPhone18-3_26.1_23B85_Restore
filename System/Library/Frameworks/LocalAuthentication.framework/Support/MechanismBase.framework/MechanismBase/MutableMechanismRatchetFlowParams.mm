@@ -77,13 +77,13 @@ LABEL_12:
 
 - (NSString)description
 {
-  v25[5] = *MEMORY[0x277D85DE8];
-  v24 = MEMORY[0x277CCACA8];
-  v23 = objc_opt_class();
+  v24[5] = *MEMORY[0x277D85DE8];
+  v23 = MEMORY[0x277CCACA8];
+  v22 = objc_opt_class();
   v3 = MEMORY[0x277CCACA8];
   stateComposite = [(MutableMechanismRatchetFlowParams *)self stateComposite];
   v5 = [v3 stringWithFormat:@"stateComposite : %@", stateComposite];
-  v25[0] = v5;
+  v24[0] = v5;
   v6 = MEMORY[0x277CCACA8];
   if ([(MutableMechanismRatchetFlowParams *)self handlingBiometryMatchConfirmedRequirement])
   {
@@ -96,7 +96,7 @@ LABEL_12:
   }
 
   v8 = [v6 stringWithFormat:@"handlingBiometryMatchConfirmedRequirement : %@", v7];
-  v25[1] = v8;
+  v24[1] = v8;
   v9 = MEMORY[0x277CCACA8];
   if ([(MutableMechanismRatchetFlowParams *)self skipCountdownUI])
   {
@@ -109,7 +109,7 @@ LABEL_12:
   }
 
   v11 = [v9 stringWithFormat:@"skipCountdownUI : %@", v10];
-  v25[2] = v11;
+  v24[2] = v11;
   v12 = MEMORY[0x277CCACA8];
   if ([(MutableMechanismRatchetFlowParams *)self skipBeginSecurityDelayUI])
   {
@@ -122,7 +122,7 @@ LABEL_12:
   }
 
   v14 = [v12 stringWithFormat:@"skipBeginSecurityDelayUI : %@", v13];
-  v25[3] = v14;
+  v24[3] = v14;
   v15 = MEMORY[0x277CCACA8];
   if ([(MutableMechanismRatchetFlowParams *)self skipGracePeriodUI])
   {
@@ -135,12 +135,10 @@ LABEL_12:
   }
 
   v17 = [v15 stringWithFormat:@"skipGracePeriodUI : %@", v16];
-  v25[4] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
+  v24[4] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
   v19 = [v18 componentsJoinedByString:@" "];;
-  v20 = [v24 stringWithFormat:@"<%@ %p %@>", v23, self, v19];;
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [v23 stringWithFormat:@"<%@ %p %@>", v22, self, v19];;
 
   return v20;
 }

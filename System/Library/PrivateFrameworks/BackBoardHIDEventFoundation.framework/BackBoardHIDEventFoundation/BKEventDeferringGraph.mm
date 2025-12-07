@@ -161,13 +161,13 @@ void __62__BKEventDeferringGraph__dictionaryWithGraphToIdentityMapping__block_in
 
 void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentity_toTarget___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v95 = *MEMORY[0x277D85DE8];
-  v79 = a2;
+  v93 = *MEMORY[0x277D85DE8];
+  v77 = a2;
   v5 = *(a1 + 32);
   v6 = a3;
-  if (v79)
+  if (v77)
   {
-    v7 = [v79[4] objectForKey:v5];
+    v7 = [v77[4] objectForKey:v5];
     v8 = v7 != 0;
   }
 
@@ -182,8 +182,8 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
 
   if (!v8)
   {
-    v70 = [v9 stringWithFormat:@"not in %@\n", v11];
-    [v10 writeString:v70];
+    v69 = [v9 stringWithFormat:@"not in %@\n", v11];
+    [v10 writeString:v69];
 
     goto LABEL_65;
   }
@@ -194,9 +194,9 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
   v13 = *(a1 + 40);
   v14 = *(a1 + 32);
   v15 = v13;
-  if (v79)
+  if (v77)
   {
-    v16 = [v79[4] objectForKey:v14];
+    v16 = [v77[4] objectForKey:v14];
     v17 = v16;
     v18 = MEMORY[0x277CF0C08];
     if (v16)
@@ -206,13 +206,13 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
       [v15 writeString:v20];
 
       [v15 writeString:@"\n"];
-      v21 = *(v17 + 24);
+      v21 = v17[3];
     }
 
     else
     {
-      v71 = [MEMORY[0x277CF0C08] descriptionForRootObject:0];
-      [v15 writeString:v71];
+      v70 = [MEMORY[0x277CF0C08] descriptionForRootObject:0];
+      [v15 writeString:v70];
 
       [v15 writeString:@"\n"];
       v21 = 0;
@@ -222,16 +222,16 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
     v23 = [v22 bs_map:&__block_literal_global_3223];
 
     v24 = MEMORY[0x277CCACA8];
-    v74 = v23;
+    v72 = v23;
     v25 = [MEMORY[0x277CF0C08] descriptionForRootObject:v23];
     v26 = [v24 stringWithFormat:@"has supernodes %@\n", v25];
     [v15 writeString:v26];
 
-    v75 = v14;
-    v76 = a1;
+    v73 = v14;
+    v74 = a1;
     if (v17)
     {
-      v27 = *(v17 + 32);
+      v27 = v17[4];
     }
 
     else
@@ -243,55 +243,55 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
     v29 = [v28 bs_map:&__block_literal_global_80];
 
     v30 = MEMORY[0x277CCACA8];
-    v73 = v29;
+    v71 = v29;
     v31 = [MEMORY[0x277CF0C08] descriptionForRootObject:v29];
     v32 = [v30 stringWithFormat:@"has subnodes %@\n", v31];
-    v83 = v15;
+    v81 = v15;
     [v15 writeString:v32];
 
-    v91 = 0u;
-    v92 = 0u;
     v89 = 0u;
     v90 = 0u;
-    obj = v79[3];
-    v82 = v17;
-    v80 = [obj countByEnumeratingWithState:&v89 objects:v94 count:16];
-    if (v80)
+    v87 = 0u;
+    v88 = 0u;
+    obj = v77[3];
+    v80 = v17;
+    v78 = [obj countByEnumeratingWithState:&v87 objects:v92 count:16];
+    if (v78)
     {
-      v78 = *v90;
+      v76 = *v88;
       do
       {
         v33 = 0;
         do
         {
-          if (*v90 != v78)
+          if (*v88 != v76)
           {
             objc_enumerationMutation(obj);
           }
 
-          v81 = v33;
-          v34 = *(*(&v89 + 1) + 8 * v33);
-          v87 = 0u;
-          v88 = 0u;
+          v79 = v33;
+          v34 = *(*(&v87 + 1) + 8 * v33);
           v85 = 0u;
           v86 = 0u;
-          v84 = v79[3];
-          v35 = [v84 countByEnumeratingWithState:&v85 objects:v93 count:16];
+          v83 = 0u;
+          v84 = 0u;
+          v82 = v77[3];
+          v35 = [v82 countByEnumeratingWithState:&v83 objects:v91 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v86;
+            v37 = *v84;
             do
             {
               v38 = 0;
               do
               {
-                if (*v86 != v37)
+                if (*v84 != v37)
                 {
-                  objc_enumerationMutation(v84);
+                  objc_enumerationMutation(v82);
                 }
 
-                v39 = *(*(&v85 + 1) + 8 * v38);
+                v39 = *(*(&v83 + 1) + 8 * v38);
                 v41 = v34 == v17 || v39 == v17;
                 if (v34 != v39 && v41)
                 {
@@ -324,9 +324,9 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
                     v49 = v48;
                     v50 = [v49 identity];
                     v51 = [v45 stringWithFormat:@" %@  -> %@: %@\n", v47, v50, v43];
-                    [v83 writeString:v51];
+                    [v81 writeString:v51];
 
-                    v17 = v82;
+                    v17 = v80;
                   }
                 }
 
@@ -334,26 +334,26 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
               }
 
               while (v36 != v38);
-              v52 = [v84 countByEnumeratingWithState:&v85 objects:v93 count:16];
+              v52 = [v82 countByEnumeratingWithState:&v83 objects:v91 count:16];
               v36 = v52;
             }
 
             while (v52);
           }
 
-          v33 = v81 + 1;
+          v33 = v79 + 1;
         }
 
-        while (v81 + 1 != v80);
-        v80 = [obj countByEnumeratingWithState:&v89 objects:v94 count:16];
+        while (v79 + 1 != v78);
+        v78 = [obj countByEnumeratingWithState:&v87 objects:v92 count:16];
       }
 
-      while (v80);
+      while (v78);
     }
 
-    v53 = v79[1];
-    v14 = v75;
-    v54 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v75, "pid")}];
+    v53 = v77[1];
+    v14 = v73;
+    v54 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v73, "pid")}];
     v55 = [v53 objectForKey:v54];
     v56 = v55;
     if (v55)
@@ -366,8 +366,8 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
       v57 = 0;
     }
 
-    a1 = v76;
-    v15 = v83;
+    a1 = v74;
+    v15 = v81;
     v58 = v57;
     v59 = [v58 containsObject:v17];
 
@@ -378,7 +378,7 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
 
     if (v17)
     {
-      v60 = *(v17 + 24);
+      v60 = v17[3];
     }
 
     else
@@ -392,16 +392,15 @@ void __83__BKEventDeferringGraph_logConnectionDescriptionForDeferringRuleIdentit
     v63 = MEMORY[0x277CCACA8];
     if (v17)
     {
-      v64 = *(v17 + 8);
-      v65 = BSProcessDescriptionForPID();
+      v64 = BSProcessDescriptionForPID();
       if (v62)
       {
-        v66 = *(v17 + 24);
+        v65 = v17[3];
 LABEL_51:
-        v67 = v66;
-        v68 = [v67 bs_map:&__block_literal_global_91_3227];
-        v69 = [v63 stringWithFormat:@"entrypoint into %@ from %@\n", v65, v68];
-        [v15 writeString:v69];
+        v66 = v65;
+        v67 = [v66 bs_map:&__block_literal_global_91_3227];
+        v68 = [v63 stringWithFormat:@"entrypoint into %@ from %@\n", v64, v67];
+        [v15 writeString:v68];
 
 LABEL_62:
 LABEL_63:
@@ -412,21 +411,21 @@ LABEL_63:
 
     else
     {
-      v65 = BSProcessDescriptionForPID();
+      v64 = BSProcessDescriptionForPID();
       if (v62)
       {
-        v66 = 0;
-        v17 = v82;
-        v15 = v83;
+        v65 = 0;
+        v17 = v80;
+        v15 = v81;
         goto LABEL_51;
       }
 
-      v17 = v82;
-      v15 = v83;
+      v17 = v80;
+      v15 = v81;
     }
 
-    v67 = [v63 stringWithFormat:@"root node in %@\n", v65];
-    [v15 writeString:v67];
+    v66 = [v63 stringWithFormat:@"root node in %@\n", v64];
+    [v15 writeString:v66];
     goto LABEL_62;
   }
 
@@ -434,7 +433,6 @@ LABEL_64:
 
   [*(a1 + 40) writeString:@"\n"];
 LABEL_65:
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logRulesToTarget:(uint64_t)target
@@ -518,8 +516,8 @@ id __69__BKEventDeferringGraph__mapSelectionTargetablesByEnvironment_block___blo
 
 void __66__BKEventDeferringGraph_setConstraintAssertions_forClientWithPID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v26 = *(a1 + 32);
+  v41 = *MEMORY[0x277D85DE8];
+  v25 = *(a1 + 32);
   v4 = a3;
   if (a2)
   {
@@ -529,13 +527,13 @@ void __66__BKEventDeferringGraph_setConstraintAssertions_forClientWithPID___bloc
       v6 = a2[2];
       v7 = [MEMORY[0x277CF0C08] descriptionForRootObject:v4];
       *buf = 138544130;
-      v35 = v6;
-      v36 = 2048;
-      v37 = a2;
-      v38 = 1024;
-      v39 = v26;
-      v40 = 2114;
-      v41 = v7;
+      v34 = v6;
+      v35 = 2048;
+      v36 = a2;
+      v37 = 1024;
+      v38 = v25;
+      v39 = 2114;
+      v40 = v7;
       _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] setConstraintAssertions:forPID(%d): %{public}@", buf, 0x26u);
     }
 
@@ -552,38 +550,38 @@ void __66__BKEventDeferringGraph_setConstraintAssertions_forClientWithPID___bloc
         v9 = a2[8];
       }
 
-      v12 = [MEMORY[0x277CCABB0] numberWithInt:v26];
+      v12 = [MEMORY[0x277CCABB0] numberWithInt:v25];
       [v9 setObject:v4 forKey:v12];
     }
 
     else
     {
-      v12 = [MEMORY[0x277CCABB0] numberWithInt:v26];
+      v12 = [MEMORY[0x277CCABB0] numberWithInt:v25];
       [v9 removeObjectForKey:v12];
     }
 
     [(BKEventDeferringEnvironmentGraph *)a2 _updateConstraintMap];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v25 = v4;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v24 = v4;
     v13 = v4;
-    v14 = [v13 countByEnumeratingWithState:&v30 objects:buf count:16];
+    v14 = [v13 countByEnumeratingWithState:&v29 objects:buf count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           v19 = [v18 selectionTarget];
           v20 = a2[5];
           v21 = [v19 target];
@@ -592,33 +590,31 @@ void __66__BKEventDeferringGraph_setConstraintAssertions_forClientWithPID___bloc
           if (v22)
           {
             v23 = [v18 pathIdentifier];
-            v27[0] = MEMORY[0x277D85DD0];
-            v27[1] = 3221225472;
-            v27[2] = __77__BKEventDeferringEnvironmentGraph_setConstraintAssertions_forClientWithPID___block_invoke;
-            v27[3] = &unk_2784F7088;
-            v27[4] = a2;
-            v28 = v22;
-            v29 = v26;
-            [(BKEventDeferringEnvironmentGraph *)a2 _forEachSelectionPath:v23 block:v27];
+            v26[0] = MEMORY[0x277D85DD0];
+            v26[1] = 3221225472;
+            v26[2] = __77__BKEventDeferringEnvironmentGraph_setConstraintAssertions_forClientWithPID___block_invoke;
+            v26[3] = &unk_2784F7088;
+            v26[4] = a2;
+            v27 = v22;
+            v28 = v25;
+            [(BKEventDeferringEnvironmentGraph *)a2 _forEachSelectionPath:v23 block:v26];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v30 objects:buf count:16];
+        v15 = [v13 countByEnumeratingWithState:&v29 objects:buf count:16];
       }
 
       while (v15);
     }
 
-    v4 = v25;
+    v4 = v24;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BKEventDeferringGraph_setModalityAssertions_forClientWithPID___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v32 = *(a1 + 32);
+  v50 = *MEMORY[0x277D85DE8];
+  v31 = *(a1 + 32);
   v4 = a3;
   if (a2)
   {
@@ -628,19 +624,19 @@ void __64__BKEventDeferringGraph_setModalityAssertions_forClientWithPID___block_
       v6 = *(a2 + 16);
       v7 = [MEMORY[0x277CF0C08] descriptionForRootObject:v4];
       *buf = 138544130;
-      v44 = v6;
-      v45 = 2048;
-      v46 = a2;
-      v47 = 1024;
-      v48 = v32;
-      v49 = 2114;
-      v50 = v7;
+      v43 = v6;
+      v44 = 2048;
+      v45 = a2;
+      v46 = 1024;
+      v47 = v31;
+      v48 = 2114;
+      v49 = v7;
       _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@ %p] setModalityAssertions:forPID(%d): %{public}@", buf, 0x26u);
     }
 
-    v8 = [MEMORY[0x277CCABB0] numberWithInt:v32];
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:v31];
     v9 = [*(a2 + 56) objectForKey:v8];
-    v31 = v4;
+    v30 = v4;
     v10 = v4;
     v11 = v10;
     if ([v9 count])
@@ -648,12 +644,12 @@ void __64__BKEventDeferringGraph_setModalityAssertions_forClientWithPID___block_
       v11 = v10;
       if ([v10 count])
       {
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __75__BKEventDeferringEnvironmentGraph_setModalityAssertions_forClientWithPID___block_invoke;
-        v41[3] = &unk_2784F70B0;
-        v42 = v9;
-        v11 = [v10 bs_filter:v41];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __75__BKEventDeferringEnvironmentGraph_setModalityAssertions_forClientWithPID___block_invoke;
+        v40[3] = &unk_2784F70B0;
+        v41 = v9;
+        v11 = [v10 bs_filter:v40];
       }
     }
 
@@ -679,26 +675,26 @@ void __64__BKEventDeferringGraph_setModalityAssertions_forClientWithPID___block_
     }
 
     [(BKEventDeferringEnvironmentGraph *)a2 _updateModalityMap];
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v16 = v11;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:buf count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:buf count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v37 + 1) + 8 * i);
+          v21 = *(*(&v36 + 1) + 8 * i);
           v22 = [v21 selectionTarget];
           v23 = *(a2 + 40);
           v24 = [v22 target];
@@ -707,34 +703,32 @@ void __64__BKEventDeferringGraph_setModalityAssertions_forClientWithPID___block_
           if (v25)
           {
             v26 = [v21 pathIdentifier];
-            v33[0] = MEMORY[0x277D85DD0];
-            v33[1] = 3221225472;
-            v33[2] = __75__BKEventDeferringEnvironmentGraph_setModalityAssertions_forClientWithPID___block_invoke_2;
-            v33[3] = &unk_2784F70D8;
-            v33[4] = a2;
+            v32[0] = MEMORY[0x277D85DD0];
+            v32[1] = 3221225472;
+            v32[2] = __75__BKEventDeferringEnvironmentGraph_setModalityAssertions_forClientWithPID___block_invoke_2;
+            v32[3] = &unk_2784F70D8;
+            v32[4] = a2;
             v27 = v25;
-            v36 = v32;
-            v34 = v27;
-            v35 = v21;
-            [(BKEventDeferringEnvironmentGraph *)a2 _forEachSelectionPath:v26 block:v33];
+            v35 = v31;
+            v33 = v27;
+            v34 = v21;
+            [(BKEventDeferringEnvironmentGraph *)a2 _forEachSelectionPath:v26 block:v32];
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:buf count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:buf count:16];
       }
 
       while (v18);
     }
 
-    v4 = v31;
+    v4 = v30;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-void __65__BKEventDeferringGraph_requestSelectionChange_forClientWithPID___block_invoke(uint64_t a1, uint64_t a2)
+void __65__BKEventDeferringGraph_requestSelectionChange_forClientWithPID___block_invoke(uint64_t a1, id *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = *(a1 + 40);
@@ -748,7 +742,7 @@ void __65__BKEventDeferringGraph_requestSelectionChange_forClientWithPID___block
 
       if (v7)
       {
-        v8 = [*(a2 + 40) objectForKey:v6];
+        v8 = [a2[5] objectForKey:v6];
         v9 = v8;
         if (!v8)
         {
@@ -771,26 +765,26 @@ void __65__BKEventDeferringGraph_requestSelectionChange_forClientWithPID___block
           v13 = [v12 target];
           if ([v13 pid] != v3)
           {
-            v21 = v11[3];
-            v22 = [v21 firstObject];
-            if (v22)
+            v20 = v11[3];
+            v21 = [v20 firstObject];
+            if (v21)
             {
-              v23 = v22[2];
+              v22 = v21[2];
             }
 
             else
             {
-              v23 = 0;
+              v22 = 0;
             }
 
-            if (v23 == v3)
+            if (v22 == v3)
             {
               v18 = BKLogEventDelivery();
               if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
               {
-                v24 = BSProcessDescriptionForPID();
+                v23 = BSProcessDescriptionForPID();
                 *buf = 138543618;
-                *&buf[4] = v24;
+                *&buf[4] = v23;
                 *&buf[12] = 2114;
                 *&buf[14] = v4;
                 _os_log_error_impl(&dword_223CBE000, v18, OS_LOG_TYPE_ERROR, "selection request token is not accessible by the requesting process(%{public}@): %{public}@", buf, 0x16u);
@@ -803,32 +797,32 @@ LABEL_9:
             v14 = [v4 basis];
             if (!v14)
             {
-              v25 = MEMORY[0x277CCACA8];
-              v26 = objc_opt_class();
-              v27 = NSStringFromClass(v26);
-              v28 = [v25 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"basis", v27];
+              v24 = MEMORY[0x277CCACA8];
+              v25 = objc_opt_class();
+              v26 = NSStringFromClass(v25);
+              v27 = [v24 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"basis", v26];
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                v29 = NSStringFromSelector(sel__selectDeferringPathForRequest_requestingPID_);
-                v30 = objc_opt_class();
-                v31 = NSStringFromClass(v30);
+                v28 = NSStringFromSelector(sel__selectDeferringPathForRequest_requestingPID_);
+                v29 = objc_opt_class();
+                v30 = NSStringFromClass(v29);
                 *buf = 138544642;
-                *&buf[4] = v29;
+                *&buf[4] = v28;
                 *&buf[12] = 2114;
-                *&buf[14] = v31;
+                *&buf[14] = v30;
                 *&buf[22] = 2048;
-                v42 = a2;
-                LOWORD(v43) = 2114;
-                *(&v43 + 2) = @"BKEventDeferringEnvironmentGraph.m";
-                WORD5(v43) = 1024;
-                HIDWORD(v43) = 369;
-                *v44 = 2114;
-                *&v44[2] = v28;
+                v41 = a2;
+                LOWORD(v42) = 2114;
+                *(&v42 + 2) = @"BKEventDeferringEnvironmentGraph.m";
+                WORD5(v42) = 1024;
+                HIDWORD(v42) = 369;
+                *v43 = 2114;
+                *&v43[2] = v27;
                 _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
               }
 
-              [v28 UTF8String];
+              [v27 UTF8String];
               _bs_set_crash_log_message();
               __break(0);
               JUMPOUT(0x223CE328CLL);
@@ -838,39 +832,39 @@ LABEL_9:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v32 = MEMORY[0x277CCACA8];
-              v33 = [v15 classForCoder];
-              if (!v33)
+              v31 = MEMORY[0x277CCACA8];
+              v32 = [v15 classForCoder];
+              if (!v32)
               {
-                v33 = objc_opt_class();
+                v32 = objc_opt_class();
               }
 
-              v34 = NSStringFromClass(v33);
-              v35 = objc_opt_class();
-              v36 = NSStringFromClass(v35);
-              v37 = [v32 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"basis", v34, v36];
+              v33 = NSStringFromClass(v32);
+              v34 = objc_opt_class();
+              v35 = NSStringFromClass(v34);
+              v36 = [v31 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"basis", v33, v35];
 
               if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
               {
-                v38 = NSStringFromSelector(sel__selectDeferringPathForRequest_requestingPID_);
-                v39 = objc_opt_class();
-                v40 = NSStringFromClass(v39);
+                v37 = NSStringFromSelector(sel__selectDeferringPathForRequest_requestingPID_);
+                v38 = objc_opt_class();
+                v39 = NSStringFromClass(v38);
                 *buf = 138544642;
-                *&buf[4] = v38;
+                *&buf[4] = v37;
                 *&buf[12] = 2114;
-                *&buf[14] = v40;
+                *&buf[14] = v39;
                 *&buf[22] = 2048;
-                v42 = a2;
-                LOWORD(v43) = 2114;
-                *(&v43 + 2) = @"BKEventDeferringEnvironmentGraph.m";
-                WORD5(v43) = 1024;
-                HIDWORD(v43) = 369;
-                *v44 = 2114;
-                *&v44[2] = v37;
+                v41 = a2;
+                LOWORD(v42) = 2114;
+                *(&v42 + 2) = @"BKEventDeferringEnvironmentGraph.m";
+                WORD5(v42) = 1024;
+                HIDWORD(v42) = 369;
+                *v43 = 2114;
+                *&v43[2] = v36;
                 _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
               }
 
-              [v37 UTF8String];
+              [v36 UTF8String];
               _bs_set_crash_log_message();
               __break(0);
               JUMPOUT(0x223CE33C8);
@@ -881,12 +875,12 @@ LABEL_9:
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __81__BKEventDeferringEnvironmentGraph__selectDeferringPathForRequest_requestingPID___block_invoke;
-            v42 = &unk_2784F7100;
-            *&v43 = a2;
-            *&v44[8] = v3;
-            *(&v43 + 1) = v11;
-            *v44 = v15;
-            v45 = v16;
+            v41 = &unk_2784F7100;
+            *&v42 = a2;
+            *&v43[8] = v3;
+            *(&v42 + 1) = v11;
+            *v43 = v15;
+            v44 = v16;
             v18 = v15;
             [(BKEventDeferringEnvironmentGraph *)a2 _forEachSelectionPath:v17 block:buf];
 
@@ -923,13 +917,11 @@ LABEL_16:
 
 LABEL_20:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deferringPathForPID:(void *)d environment:(void *)environment display:(void *)display dispatchTarget:(void *)target returnModalities:
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v11 = MEMORY[0x277CF05F8];
@@ -981,42 +973,42 @@ LABEL_48:
       [*(v17 + 48) setObject:v29 forKey:selectionPathIdentifier];
     }
 
-    v63 = selectionPathIdentifier;
-    v64 = v27;
+    v62 = selectionPathIdentifier;
+    v63 = v27;
     if (v18)
     {
       deferringToken = [v18 deferringToken];
-      v62 = deferringToken != 0;
+      v61 = deferringToken != 0;
       firstObject = v25;
       if (deferringToken)
       {
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         obj = v27;
-        v32 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
+        v32 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
         firstObject = v25;
         if (v32)
         {
           v33 = v32;
-          v56 = v25;
-          v58 = v18;
-          v53 = v19;
-          v54 = v20;
-          v55 = v17;
-          v60 = v16;
-          v34 = *v71;
+          v55 = v25;
+          v57 = v18;
+          v52 = v19;
+          v53 = v20;
+          v54 = v17;
+          v59 = v16;
+          v34 = *v70;
 LABEL_13:
           v35 = 0;
           while (1)
           {
-            if (*v71 != v34)
+            if (*v70 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v70 + 1) + 8 * v35);
+            v36 = *(*(&v69 + 1) + 8 * v35);
             v37 = v36 ? v36[2] : 0;
             v38 = v37;
             predicate = [v38 predicate];
@@ -1030,12 +1022,12 @@ LABEL_13:
 
             if (v33 == ++v35)
             {
-              v42 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
+              v42 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
               v33 = v42;
               if (!v42)
               {
-                v25 = v56;
-                firstObject = v56;
+                v25 = v55;
+                firstObject = v55;
                 goto LABEL_27;
               }
 
@@ -1044,17 +1036,17 @@ LABEL_13:
           }
 
           firstObject = v36;
-          v25 = v56;
+          v25 = v55;
 
 LABEL_27:
-          v18 = v58;
-          v16 = v60;
-          v20 = v54;
-          v17 = v55;
-          v19 = v53;
+          v18 = v57;
+          v16 = v59;
+          v20 = v53;
+          v17 = v54;
+          v19 = v52;
         }
 
-        v27 = v64;
+        v27 = v63;
       }
 
       if (firstObject)
@@ -1065,7 +1057,7 @@ LABEL_27:
 
     else
     {
-      v62 = 0;
+      v61 = 0;
       firstObject = v25;
       if (v25)
       {
@@ -1079,25 +1071,25 @@ LABEL_27:
 LABEL_35:
       if (v19)
       {
-        v59 = v18;
-        v61 = v16;
-        v57 = v25;
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
+        v58 = v18;
+        v60 = v16;
+        v56 = v25;
         v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         reverseObjectEnumerator = [v20 reverseObjectEnumerator];
-        v45 = [reverseObjectEnumerator countByEnumeratingWithState:&v66 objects:buf count:16];
+        v45 = [reverseObjectEnumerator countByEnumeratingWithState:&v65 objects:buf count:16];
         if (v45)
         {
           v46 = v45;
-          v47 = *v67;
+          v47 = *v66;
           while (2)
           {
             v48 = v19;
             for (i = 0; i != v46; ++i)
             {
-              if (*v67 != v47)
+              if (*v66 != v47)
               {
                 objc_enumerationMutation(reverseObjectEnumerator);
               }
@@ -1112,7 +1104,7 @@ LABEL_35:
               }
             }
 
-            v46 = [reverseObjectEnumerator countByEnumeratingWithState:&v66 objects:buf count:16];
+            v46 = [reverseObjectEnumerator countByEnumeratingWithState:&v65 objects:buf count:16];
             v19 = v48;
             if (v46)
             {
@@ -1125,10 +1117,10 @@ LABEL_35:
 
 LABEL_46:
 
-        v25 = v57;
-        v18 = v59;
-        v16 = v61;
-        v27 = v64;
+        v25 = v56;
+        v18 = v58;
+        v16 = v60;
+        v27 = v63;
       }
 
       goto LABEL_48;
@@ -1139,14 +1131,14 @@ LABEL_31:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543618;
-      v75 = v29;
-      v76 = 2114;
-      v77 = firstObject;
+      v74 = v29;
+      v75 = 2114;
+      v76 = firstObject;
       _os_log_debug_impl(&dword_223CBE000, v43, OS_LOG_TYPE_DEBUG, "CHOOSE %{public}@ @ %{public}@", buf, 0x16u);
     }
 
     [BKEventDeferringEnvironmentGraph _chooseSubnodeOfNode:firstObject forSelectionPath:v29 appendToPath:v20];
-    if (!v62)
+    if (!v61)
     {
       [v20 removeObjectAtIndex:0];
     }
@@ -1156,7 +1148,6 @@ LABEL_31:
 
   v20 = 0;
 LABEL_49:
-  v51 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

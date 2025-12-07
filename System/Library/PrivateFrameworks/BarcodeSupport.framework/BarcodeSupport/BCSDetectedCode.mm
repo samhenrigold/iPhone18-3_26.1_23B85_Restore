@@ -29,21 +29,21 @@
 
 - (void)parseCodeWithCompletion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_241993000, "parseCodeWithCompletion:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
   objc_initWeak(&location, self);
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __43__BCSDetectedCode_parseCodeWithCompletion___block_invoke;
-  v25 = &unk_278CFE5F8;
-  objc_copyWeak(&v27, &location);
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __43__BCSDetectedCode_parseCodeWithCompletion___block_invoke;
+  v24 = &unk_278CFE5F8;
+  objc_copyWeak(&v26, &location);
   v6 = completionCopy;
-  v26 = v6;
-  v7 = MEMORY[0x245CF4600](&v22);
+  v25 = v6;
+  v7 = MEMORY[0x245CF4600](&v21);
   if (self->_mrcObject)
   {
     payloadDataValue = +[BCSQRCodeParser sharedParser];
@@ -65,28 +65,28 @@
     }
 
     symbology2 = [(VNBarcodeObservation *)self->_observation symbology];
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v13 = getVNBarcodeSymbologyAppClipCodeSymbolLoc_ptr;
-    v33 = getVNBarcodeSymbologyAppClipCodeSymbolLoc_ptr;
+    v32 = getVNBarcodeSymbologyAppClipCodeSymbolLoc_ptr;
     if (!getVNBarcodeSymbologyAppClipCodeSymbolLoc_ptr)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getVNBarcodeSymbologyAppClipCodeSymbolLoc_block_invoke;
-      v35 = &unk_278CFE620;
-      v36 = &v30;
+      v34 = &unk_278CFE620;
+      v35 = &v29;
       __getVNBarcodeSymbologyAppClipCodeSymbolLoc_block_invoke(buf);
-      v13 = v31[3];
+      v13 = v30[3];
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
     if (!v13)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"VNBarcodeSymbology getVNBarcodeSymbologyAppClipCode(void)"];
-      [currentHandler handleFailureInFunction:v21 file:@"BCSDetectedCode.m" lineNumber:23 description:{@"%s", dlerror(), v22, v23, v24, v25}];
+      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"VNBarcodeSymbology getVNBarcodeSymbologyAppClipCode(void)"];
+      [currentHandler handleFailureInFunction:v20 file:@"BCSDetectedCode.m" lineNumber:23 description:{@"%s", dlerror(), v21, v22, v23, v24}];
 
       __break(1u);
     }
@@ -126,11 +126,9 @@
     (*(v6 + 2))(v6, 0, payloadDataValue);
   }
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
   os_activity_scope_leave(&state);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __43__BCSDetectedCode_parseCodeWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)

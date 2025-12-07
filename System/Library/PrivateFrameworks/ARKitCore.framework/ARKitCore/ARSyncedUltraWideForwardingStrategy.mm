@@ -81,7 +81,7 @@ LABEL_11:
 LABEL_9:
     mostRecentTimestamps = self->_mostRecentTimestamps;
     v13 = MEMORY[0x1E696AD98];
-    [v7 timestamp];
+    objc_msgSend_timestamp(v7);
     v14 = [v13 numberWithDouble:?];
     v15 = [(ARCircularArray *)mostRecentTimestamps addObject:v14];
   }
@@ -111,7 +111,7 @@ LABEL_14:
 
   objc_opt_class();
   objc_opt_isKindOfClass();
-  [dataCopy timestamp];
+  objc_msgSend_timestamp(dataCopy);
   v10 = v9;
   lastObject = [timestampsCopy lastObject];
   v12 = lastObject;
@@ -166,7 +166,7 @@ LABEL_10:
   mostRecentTimestamps = self->_mostRecentTimestamps;
   v7 = MEMORY[0x1E696AD98];
   imageData = [contextCopy imageData];
-  [imageData timestamp];
+  objc_msgSend_timestamp(imageData);
   v9 = [v7 numberWithDouble:?];
   LOBYTE(mostRecentTimestamps) = [(ARCircularArray *)mostRecentTimestamps containsObject:v9];
 

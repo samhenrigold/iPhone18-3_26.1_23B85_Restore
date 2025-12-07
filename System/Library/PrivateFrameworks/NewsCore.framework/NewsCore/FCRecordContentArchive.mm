@@ -134,41 +134,38 @@ __CFString *__37__FCRecordContentArchive_description__block_invoke(uint64_t a1)
 
 - (id)unarchiveIntoContentContext:(id)context
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   recordBase = [(FCRecordContentArchive *)&self->super.super.isa recordBase];
   internalContentContext = [contextCopy internalContentContext];
 
   recordSources = [internalContentContext recordSources];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __54__FCRecordContentArchive_unarchiveIntoContentContext___block_invoke;
-  v15[3] = &unk_1E7C371D0;
-  v16 = recordBase;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __54__FCRecordContentArchive_unarchiveIntoContentContext___block_invoke;
+  v14[3] = &unk_1E7C371D0;
+  v15 = recordBase;
   v8 = recordBase;
-  v9 = [recordSources fc_firstObjectPassingTest:v15];
+  v9 = [recordSources fc_firstObjectPassingTest:v14];
 
-  v17[0] = self->_record;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = self->_record;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   v11 = [v9 savePBRecords:v10];
 
   v12 = [[FCContentUnarchiveResult alloc] initWithInterestToken:v11 storageSize:[(FCContentArchive *)self storageSize]];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)manifest
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [FCContentManifest alloc];
   recordBase = [(FCRecordContentArchive *)&self->super.super.isa recordBase];
   identifier = [recordBase identifier];
-  v10[0] = identifier;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = identifier;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [(FCContentManifest *)v3 initWithRecordIDs:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

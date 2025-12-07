@@ -31,24 +31,26 @@
 
 uint64_t __40__MTPairedDeviceListener_sharedListener__block_invoke()
 {
-  sharedListener___sharedListener = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedListener___sharedListener;
+  sharedListener___sharedListener = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (MTPairedDeviceListener)init
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = MTPairedDeviceListener;
-  v2 = [(MTPairedDeviceListener *)&v13 init];
+  v15 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = MTPairedDeviceListener;
+  v2 = [(MTPairedDeviceListener *)&v12 init];
   if (v2)
   {
     v3 = MTLogForCategory(6);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v15 = v2;
+      v14 = v2;
       _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
     }
 
@@ -69,7 +71,6 @@ uint64_t __40__MTPairedDeviceListener_sharedListener__block_invoke()
     [(MTPairedDeviceListener *)v2 updateActiveDeviceInfo];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -104,7 +105,7 @@ uint64_t __40__MTPairedDeviceListener_sharedListener__block_invoke()
 
 void __48__MTPairedDeviceListener_updateActiveDeviceInfo__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69B36C0] sharedInstance];
   v3 = [v2 getActivePairedDevice];
 
@@ -117,16 +118,14 @@ void __48__MTPairedDeviceListener_updateActiveDeviceInfo__block_invoke(uint64_t 
     v7 = [v6 valueForProperty:*MEMORY[0x1E69B3608]];
     v8 = [*(a1 + 32) pairedDevice];
     v9 = [v8 valueForProperty:*MEMORY[0x1E69B3640]];
-    v11 = 138543874;
-    v12 = v5;
-    v13 = 2114;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v9;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Active Paired Device: %{public}@ (version: %{public}@)", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v5;
+    v12 = 2114;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Active Paired Device: %{public}@ (version: %{public}@)", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_handledNotifications
@@ -143,21 +142,19 @@ void __48__MTPairedDeviceListener_updateActiveDeviceInfo__block_invoke(uint64_t 
 
 void __47__MTPairedDeviceListener__handledNotifications__block_invoke()
 {
-  v7[5] = *MEMORY[0x1E69E9840];
+  v6[5] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = *MEMORY[0x1E69B36A8];
-  v7[0] = *MEMORY[0x1E69B36A0];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x1E69B36A0];
+  v6[1] = v1;
   v2 = *MEMORY[0x1E69B3670];
-  v7[2] = *MEMORY[0x1E69B3680];
-  v7[3] = v2;
-  v7[4] = *MEMORY[0x1E69B3698];
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:5];
+  v6[2] = *MEMORY[0x1E69B3680];
+  v6[3] = v2;
+  v6[4] = *MEMORY[0x1E69B3698];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:5];
   v4 = [v0 setWithArray:v3];
   v5 = _handledNotifications___handledNotifications;
   _handledNotifications___handledNotifications = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handlesNotification:(id)notification ofType:(int64_t)type
@@ -189,22 +186,20 @@ void __47__MTPairedDeviceListener__handledNotifications__block_invoke()
 
 - (void)didReceiveNotificationNamed:(id)named
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   namedCopy = named;
   v5 = MTLogForCategory(6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
-    v10 = namedCopy;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = namedCopy;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ received %{public}@", &v6, 0x16u);
   }
 
   [(MTPairedDeviceListener *)self updateActiveDeviceInfo];
   [(MTPairedDeviceListener *)self notifyObserversWithBlock:&__block_literal_global_14_0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)pairedDeviceVersion
@@ -260,7 +255,7 @@ void __45__MTPairedDeviceListener_pairedDeviceVersion__block_invoke(uint64_t a1)
 
 void __60__MTPairedDeviceListener_hasActivePairedDeviceCheckSyncing___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pairedDevice];
 
   if (!v2)
@@ -269,9 +264,9 @@ void __60__MTPairedDeviceListener_hasActivePairedDeviceCheckSyncing___block_invo
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = *(a1 + 32);
-      v14 = 138543362;
-      v15 = v4;
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ no paired device detected", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v4;
+      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ no paired device detected", &v13, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -289,9 +284,9 @@ void __60__MTPairedDeviceListener_hasActivePairedDeviceCheckSyncing___block_invo
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v9 = *(a1 + 32);
-        v14 = 138543362;
-        v15 = v9;
-        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ paired watch version is too old for sync", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v9;
+        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ paired watch version is too old for sync", &v13, 0xCu);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -310,15 +305,13 @@ void __60__MTPairedDeviceListener_hasActivePairedDeviceCheckSyncing___block_invo
         v12 = @" with sync capability";
       }
 
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2114;
-      v17 = v12;
-      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_INFO, "%{public}@ has active paired watch%{public}@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2114;
+      v16 = v12;
+      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_INFO, "%{public}@ has active paired watch%{public}@", &v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasActivePairedDeviceSupportingAlarmKit
@@ -342,7 +335,7 @@ void __60__MTPairedDeviceListener_hasActivePairedDeviceCheckSyncing___block_invo
 
 void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) pairedDevice];
 
   if (!v2)
@@ -351,9 +344,9 @@ void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       v4 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v4;
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ no paired device detected", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v4;
+      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_INFO, "%{public}@ no paired device detected", &v12, 0xCu);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -371,9 +364,9 @@ void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = *(a1 + 32);
-        v13 = 138543362;
-        v14 = v9;
-        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ paired watch version is too old for custom AlarmKit alert", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = v9;
+        _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%{public}@ paired watch version is too old for custom AlarmKit alert", &v12, 0xCu);
       }
 
       *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -386,13 +379,11 @@ void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = *(a1 + 32);
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_INFO, "%{public}@ has active paired watch with AlarmKit capability", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_INFO, "%{public}@ has active paired watch with AlarmKit capability", &v12, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserversWithBlock:(id)block
@@ -404,12 +395,12 @@ void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block
 
 - (void)printDiagnostics
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTPairedDeviceListener-----", &v14, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "-----MTPairedDeviceListener-----", &v13, 2u);
   }
 
   v4 = MTLogForCategory(6);
@@ -421,25 +412,23 @@ void __65__MTPairedDeviceListener_hasActivePairedDeviceSupportingAlarmKit__block
     v8 = [pairedDevice2 valueForProperty:*MEMORY[0x1E69B3640]];
     pairedDevice3 = [(MTPairedDeviceListener *)self pairedDevice];
     v10 = [pairedDevice3 valueForProperty:*MEMORY[0x1E69B3628]];
-    v14 = 138543874;
-    v15 = v6;
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v10;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Paired Device: %{public}@ - %{public}@ - %{public}@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v6;
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "Paired Device: %{public}@ - %{public}@ - %{public}@", &v13, 0x20u);
   }
 
   v11 = MTLogForCategory(6);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     pairedDevice4 = [(MTPairedDeviceListener *)self pairedDevice];
-    v14 = 67240192;
-    LODWORD(v15) = pairedDevice4 != 0;
-    _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "Paired Device Active: %{public}d", &v14, 8u);
+    v13 = 67240192;
+    LODWORD(v14) = pairedDevice4 != 0;
+    _os_log_impl(&dword_1B1F9F000, v11, OS_LOG_TYPE_DEFAULT, "Paired Device Active: %{public}d", &v13, 8u);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

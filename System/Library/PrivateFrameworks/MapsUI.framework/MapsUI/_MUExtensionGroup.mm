@@ -36,26 +36,24 @@
 
   if (v6)
   {
-    extensionsLock = self->_extensionsLock;
-    v8 = identifierCopy;
+    v7 = identifierCopy;
     geo_isolate_sync();
   }
 }
 
 - (_MXExtension)bestExtensionToUse
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__16682;
-  v9 = __Block_byref_object_dispose__16683;
-  v10 = 0;
-  extensionsLock = self->_extensionsLock;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__16682;
+  v8 = __Block_byref_object_dispose__16683;
+  v9 = 0;
   geo_isolate_sync();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 @end

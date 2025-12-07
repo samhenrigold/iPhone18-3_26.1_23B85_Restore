@@ -279,37 +279,38 @@
         {
           CFArrayGetValueAtIndex(self->_cgSelections, i);
           CGPDFSelectionGetBounds();
-          v32.origin.x = v14;
-          v32.origin.y = v15;
-          v32.size.width = v16;
-          v32.size.height = v17;
-          v29.origin.x = x;
-          v29.origin.y = y;
-          v29.size.width = width;
-          v29.size.height = height;
-          v30 = CGRectUnion(v29, v32);
-          x = v30.origin.x;
-          y = v30.origin.y;
-          width = v30.size.width;
-          height = v30.size.height;
+          v33.origin.x = v14;
+          v33.origin.y = v15;
+          v33.size.width = v16;
+          v33.size.height = v17;
+          v30.origin.x = x;
+          v30.origin.y = y;
+          v30.size.width = width;
+          v30.size.height = height;
+          v31 = CGRectUnion(v30, v33);
+          x = v31.origin.x;
+          y = v31.origin.y;
+          width = v31.size.width;
+          height = v31.size.height;
         }
       }
     }
   }
 
-  v18 = PDFRectFromCGRect(x, y, width, height);
-  v20 = v19;
-  v22 = v21;
-  v24 = v23;
+  PDFRectFromCGRect();
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
 
-  v25 = v18;
-  v26 = v20;
-  v27 = v22;
-  v28 = v24;
-  result.size.height = v28;
-  result.size.width = v27;
-  result.origin.y = v26;
-  result.origin.x = v25;
+  v26 = v19;
+  v27 = v21;
+  v28 = v23;
+  v29 = v25;
+  result.size.height = v29;
+  result.size.width = v28;
+  result.origin.y = v27;
+  result.origin.x = v26;
   return result;
 }
 
@@ -1053,11 +1054,11 @@ LABEL_9:
               }
 
               CGPDFSelectionGetRectAndTransform();
-              v12 = vaddq_f64(0, vmlaq_n_f64(vmulq_n_f64(0, 0.0 * 0.5 + 0.0), 0, 0.0 * 0.5 + 0.0));
-              v13 = PDFPointFromCGPoint(v12.f64[0], v12.f64[1]);
+              PDFPointFromCGPoint();
+              v13 = v12;
               v15 = v14;
               v16 = CGPDFSelectionGetClientProperty();
-              v17 = [v16 selectionForLineAtPoint:{v13, v15}];
+              v17 = [v16 selectionForLineAtPoint:{v13, v15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}];
               if (v17)
               {
                 [v6 addObject:v17];
@@ -1132,25 +1133,26 @@ LABEL_9:
 
   CFArrayGetValueAtIndex(v6, 0);
   CGPDFSelectionGetBounds();
-  x = v17.origin.x;
-  y = v17.origin.y;
-  width = v17.size.width;
-  height = v17.size.height;
+  x = v15.origin.x;
+  y = v15.origin.y;
+  width = v15.size.width;
+  height = v15.size.height;
   v11 = 0;
-  if (!CGRectEqualToRect(v17, *MEMORY[0x1E695F050]))
+  if (!CGRectEqualToRect(v15, *MEMORY[0x1E695F050]))
   {
     v12 = [PDFDestination alloc];
-    v18.origin.x = x;
-    v18.origin.y = y;
-    v18.size.width = width;
-    v18.size.height = height;
-    MinX = CGRectGetMinX(v18);
-    v19.origin.x = x;
-    v19.origin.y = y;
-    v19.size.width = width;
-    v19.size.height = height;
-    MidY = CGRectGetMidY(v19);
-    v11 = [(PDFDestination *)v12 initWithPage:v4 atPoint:PDFPointMake(MinX, MidY)];
+    v16.origin.x = x;
+    v16.origin.y = y;
+    v16.size.width = width;
+    v16.size.height = height;
+    CGRectGetMinX(v16);
+    v17.origin.x = x;
+    v17.origin.y = y;
+    v17.size.width = width;
+    v17.size.height = height;
+    CGRectGetMidY(v17);
+    PDFPointMake();
+    v11 = [(PDFDestination *)v12 initWithPage:v4 atPoint:?];
   }
 
   CFRelease(v6);
@@ -1342,8 +1344,9 @@ LABEL_6:
             CGPDFSelectionGetRectAndTransform();
             v14 = MEMORY[0x1E696B098];
             v18 = *&v19[32];
-            v21 = CGRectApplyAffineTransform(*v19, &v18);
-            v15 = [v14 PDFKitValueWithPDFRect:{PDFRectFromCGRect(v21.origin.x, v21.origin.y, v21.size.width, v21.size.height)}];
+            CGRectApplyAffineTransform(*v19, &v18);
+            PDFRectFromCGRect();
+            v15 = [v14 PDFKitValueWithPDFRect:?];
             [v9 addObject:v15];
           }
         }
@@ -1605,24 +1608,17 @@ LABEL_5:
   if (CFArrayGetValueAtIndex(self->_cgSelections, 0))
   {
     CGPDFSelectionGetRectAndTransform();
-    v8.origin = 0u;
-    v8.size = 0u;
-    MidX = CGRectGetMidX(v8);
-    v9.origin = 0u;
-    v9.size = 0u;
-    v3 = CGRectGetMidY(v9) * 0.0 + 0.0 * MidX + 0.0;
-    v4 = v3;
+    v5.origin = 0u;
+    v5.size = 0u;
+    CGRectGetMidX(v5);
+    v6.origin = 0u;
+    v6.size = 0u;
+    CGRectGetMidY(v6);
   }
 
-  else
-  {
-    v3 = *MEMORY[0x1E695EFF8];
-    v4 = *(MEMORY[0x1E695EFF8] + 8);
-  }
-
-  v5 = PDFPointFromCGPoint(v3, v4);
-  result.y = v6;
-  result.x = v5;
+  PDFPointFromCGPoint();
+  result.y = v3;
+  result.x = v2;
   return result;
 }
 
@@ -1631,24 +1627,17 @@ LABEL_5:
   if (CFArrayGetValueAtIndex(self->_cgSelections, 0))
   {
     CGPDFSelectionGetRectAndTransform();
-    v8.origin = 0u;
-    v8.size = 0u;
-    MinX = CGRectGetMinX(v8);
-    v9.origin = 0u;
-    v9.size = 0u;
-    v3 = CGRectGetMidY(v9) * 0.0 + 0.0 * MinX + 0.0;
-    v4 = v3;
+    v5.origin = 0u;
+    v5.size = 0u;
+    CGRectGetMinX(v5);
+    v6.origin = 0u;
+    v6.size = 0u;
+    CGRectGetMidY(v6);
   }
 
-  else
-  {
-    v3 = *MEMORY[0x1E695EFF8];
-    v4 = *(MEMORY[0x1E695EFF8] + 8);
-  }
-
-  v5 = PDFPointFromCGPoint(v3, v4);
-  result.y = v6;
-  result.x = v5;
+  PDFPointFromCGPoint();
+  result.y = v3;
+  result.x = v2;
   return result;
 }
 
@@ -1659,24 +1648,17 @@ LABEL_5:
   {
     CGPDFSelectionGetNumberOfRectsAndTransforms();
     CGPDFSelectionGetRectAndTransform();
-    v10.origin = 0u;
-    v10.size = 0u;
-    MaxX = CGRectGetMaxX(v10);
-    v11.origin = 0u;
-    v11.size = 0u;
-    v5 = CGRectGetMidY(v11) * 0.0 + 0.0 * MaxX + 0.0;
-    v6 = v5;
+    v7.origin = 0u;
+    v7.size = 0u;
+    CGRectGetMaxX(v7);
+    v8.origin = 0u;
+    v8.size = 0u;
+    CGRectGetMidY(v8);
   }
 
-  else
-  {
-    v5 = *MEMORY[0x1E695EFF8];
-    v6 = *(MEMORY[0x1E695EFF8] + 8);
-  }
-
-  v7 = PDFPointFromCGPoint(v5, v6);
-  result.y = v8;
-  result.x = v7;
+  PDFPointFromCGPoint();
+  result.y = v5;
+  result.x = v4;
   return result;
 }
 
@@ -1942,32 +1924,36 @@ LABEL_15:
 
           CGContextSetFillColorWithColor(context, [color CGColor]);
           CGContextSaveGState(context);
-          rect = PDFRectToCGRect([pageCopy boundsForBox:0]);
+          [pageCopy boundsForBox:0];
+          PDFRectToCGRect();
           v17 = v16;
+          rect = v16;
           v19 = v18;
-          rect_16 = v20;
-          v37.origin.x = PDFRectToCGRect([pageCopy boundsForBox:boxCopy]);
-          x = v37.origin.x;
-          y = v37.origin.y;
-          width = v37.size.width;
-          height = v37.size.height;
-          MinX = CGRectGetMinX(v37);
-          v38.origin.x = rect;
-          v38.origin.y = v17;
-          v38.size.width = v19;
-          v38.size.height = rect_16;
-          rect_8 = MinX - CGRectGetMinX(v38);
-          v39.origin.x = x;
-          v39.origin.y = y;
-          v39.size.width = width;
-          v39.size.height = height;
-          MinY = CGRectGetMinY(v39);
-          v40.origin.x = rect;
-          v40.origin.y = v17;
-          v40.size.width = v19;
+          v21 = v20;
+          rect_16 = v22;
+          [pageCopy boundsForBox:boxCopy];
+          PDFRectToCGRect();
+          x = v39.origin.x;
+          y = v39.origin.y;
+          width = v39.size.width;
+          height = v39.size.height;
+          MinX = CGRectGetMinX(v39);
+          v40.origin.x = v17;
+          v40.origin.y = v19;
+          v40.size.width = v21;
           v40.size.height = rect_16;
-          v27 = CGRectGetMinY(v40);
-          CGContextTranslateCTM(context, -rect_8, -(MinY - v27));
+          rect_8 = MinX - CGRectGetMinX(v40);
+          v41.origin.x = x;
+          v41.origin.y = y;
+          v41.size.width = width;
+          v41.size.height = height;
+          MinY = CGRectGetMinY(v41);
+          v42.origin.x = rect;
+          v42.origin.y = v19;
+          v42.size.width = v21;
+          v42.size.height = rect_16;
+          v29 = CGRectGetMinY(v42);
+          CGContextTranslateCTM(context, -rect_8, -(MinY - v29));
           renderingProperties = [pageCopy renderingProperties];
           [renderingProperties isDarkMode];
           CGContextSetCompositeOperation();
@@ -1983,8 +1969,8 @@ LABEL_15:
                 NumberOfRectsAndTransforms = CGPDFSelectionGetNumberOfRectsAndTransforms();
                 if (NumberOfRectsAndTransforms >= 1)
                 {
-                  v32 = NumberOfRectsAndTransforms;
-                  for (j = 0; j != v32; ++j)
+                  v34 = NumberOfRectsAndTransforms;
+                  for (j = 0; j != v34; ++j)
                   {
                     CGPDFSelectionGetRectAndTransform();
                     CGContextMoveToPoint(context, 0.0 * 0.0 + 0.0 * 0.0 + 0.0, 0.0 * 0.0 + 0.0 * 0.0 + 0.0);

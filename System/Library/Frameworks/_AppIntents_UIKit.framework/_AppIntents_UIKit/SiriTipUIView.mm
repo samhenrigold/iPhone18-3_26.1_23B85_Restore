@@ -9,8 +9,9 @@
 
 - (void)setIsPresented:(BOOL)presented
 {
+  presentedCopy = presented;
   selfCopy = self;
-  SiriTipUIView.isPresented.setter(presented);
+  SiriTipUIView.isPresented.setter(presentedCopy);
 }
 
 - (CGSize)intrinsicContentSize

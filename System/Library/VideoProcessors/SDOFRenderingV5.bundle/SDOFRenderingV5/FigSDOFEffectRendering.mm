@@ -1,10 +1,12 @@
 @interface FigSDOFEffectRendering
+- (BOOL)allocateResourcesForInputImageWidth:(unint64_t)width inputImageHeight:(unint64_t)height shiftMapWidth:(unint64_t)mapWidth shiftMapHeight:(unint64_t)mapHeight enableForegroundBlur:(BOOL)blur;
 - (BOOL)sanityChecksSamplingWithImage:(__CVBuffer *)image inputFaceAdjustedBlurMap:(__CVBuffer *)map inputAlphaMask:(__CVBuffer *)mask inputGainMap:(__CVBuffer *)gainMap resultImage:(__CVBuffer *)resultImage;
 - (FigSDOFEffectRendering)initWithCommandQueue:(id)queue;
 - (int)_prewarm:(id)_prewarm;
 - (int)loadModelsWithTuningParameters:(id)parameters;
 - (int)prewarmWithTuningParameters:(id)parameters;
 - (int)runSamplingWithImage:(opaqueCMSampleBuffer *)image inputPixelBuffer:(__CVBuffer *)buffer inputFaceAdjustedBlurMap:(__CVBuffer *)map inputAlphaMask:(__CVBuffer *)mask inputGainMap:(__CVBuffer *)gainMap resultImage:(__CVBuffer *)resultImage;
+- (int)setOptionsInternal:(id)internal isPrewarm:(BOOL)prewarm;
 - (void)dealloc;
 - (void)releaseResources;
 @end
@@ -141,6 +143,121 @@ LABEL_11:
   return v40;
 }
 
+- (int)setOptionsInternal:(id)internal isPrewarm:(BOOL)prewarm
+{
+  prewarmCopy = prewarm;
+  internalCopy = internal;
+  objc_storeStrong(&self->_options, internal);
+  v10 = objc_msgSend_objectForKeyedSubscript_(internalCopy, v8, *MEMORY[0x29EDC0298], v9);
+  v11 = v10;
+  if (v10)
+  {
+    v12 = [FigSDOFRenderingTuningParameters alloc];
+    v10 = objc_msgSend_initWithTuningDictionary_(v12, v13, v11, v14);
+  }
+
+  tuningParameters = self->_tuningParameters;
+  self->_tuningParameters = v10;
+
+  v18 = objc_msgSend_parameterSetForMode_(self->_tuningParameters, v16, 0, v17);
+  if (v18)
+  {
+    v22 = v18;
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v47 = 0u;
+    objc_msgSend_renderingConfig(v18, v19, v20, v21);
+    isPrewarm = objc_msgSend_setOptions_isPrewarm_(self->_applyBlurmap, v23, &v47, prewarmCopy);
+    if (isPrewarm)
+    {
+      v32 = isPrewarm;
+      sub_295EB794C(isPrewarm, v22);
+    }
+
+    else
+    {
+      v27 = objc_msgSend_parameterSetForMode_(self->_tuningParameters, v25, 1, v26);
+
+      if (v27)
+      {
+        objc_msgSend_renderingConfig(v27, v28, v29, v30);
+        v57 = v44;
+        v58 = v45;
+        v59 = v46;
+        v53 = v40;
+        v54 = v41;
+        v55 = v42;
+        v56 = v43;
+        v49 = v36;
+        v50 = v37;
+        v51 = v38;
+        v52 = v39;
+        v47 = v34;
+        v48 = v35;
+        v32 = objc_msgSend_setOptions_isPrewarm_(self->_applyBlurmap, v31, &v47, prewarmCopy);
+      }
+
+      else
+      {
+        v32 = 0;
+      }
+    }
+  }
+
+  else
+  {
+    sub_295EB79DC();
+    v32 = -12780;
+  }
+
+  return v32;
+}
+
+- (BOOL)allocateResourcesForInputImageWidth:(unint64_t)width inputImageHeight:(unint64_t)height shiftMapWidth:(unint64_t)mapWidth shiftMapHeight:(unint64_t)mapHeight enableForegroundBlur:(BOOL)blur
+{
+  blurCopy = blur;
+  self->_inputImageWidth = width;
+  self->_inputImageHeight = height;
+  self->_inputShiftMapWidth = mapWidth;
+  self->_inputShiftMapHeight = mapHeight;
+  self->_upsampledShiftMapWidth = width >> 1;
+  self->_upsampledShiftMapHeight = height >> 1;
+  v13 = sub_295EAE6D0();
+  v14 = NSSelectorFromString(&cfstr_Blurmapsize.isa);
+  v17 = objc_msgSend_methodForSelector_(v13, v15, v14, v16);
+  if (v17)
+  {
+    v21 = v17;
+    v22 = sub_295EAE6D0();
+    v23 = NSSelectorFromString(&cfstr_Blurmapsize.isa);
+    self->_upsampledShiftMapWidth = v21(v22, v23, width, height);
+    self->_upsampledShiftMapHeight = v24;
+  }
+
+  v25 = objc_msgSend_sharedInstance(SDOFResources, v18, v19, v20);
+  resources = self->_resources;
+  self->_resources = v25;
+
+  ResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur = objc_msgSend_allocateResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur_(self->_resources, v27, self->_metalContext, width, height, mapWidth, mapHeight, blurCopy);
+  v29 = ResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur;
+  if (ResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur)
+  {
+    sub_295EB7A54(ResourcesUsingMetalContext_inputImageWidth_inputImageHeight_shiftMapWidth_shiftMapHeight_enableForegroundBlur, self);
+  }
+
+  return v29 == 0;
+}
+
 - (void)dealloc
 {
   objc_msgSend_releaseResources(self, a2, v2, v3);
@@ -160,33 +277,33 @@ LABEL_11:
 {
   if (!image)
   {
-    sub_295EB82E0(v193);
+    sub_295EB82E0(v194);
 LABEL_44:
-    v187 = 0;
+    v188 = 0;
     v57 = 0;
     v53 = 0;
     resultImageCopy = 0;
 LABEL_46:
-    v188 = 0;
     v189 = 0;
     v190 = 0;
+    v191 = 0;
     v48 = 0;
-    v184 = 0;
-    v186 = 0;
+    v185 = 0;
+    v187 = 0;
     goto LABEL_60;
   }
 
   if (!map)
   {
-    sub_295EB8234(v193);
+    sub_295EB8234(v194);
     goto LABEL_44;
   }
 
   resultImageCopy = resultImage;
   if (!resultImage)
   {
-    sub_295EB8188(v193);
-    v187 = 0;
+    sub_295EB8188(v194);
+    v188 = 0;
     v57 = 0;
     v53 = 0;
     goto LABEL_46;
@@ -196,17 +313,17 @@ LABEL_46:
   {
     sub_295EB8110();
 LABEL_49:
-    v187 = 0;
     v188 = 0;
+    v189 = 0;
     v57 = 0;
     v53 = 0;
     resultImageCopy = 0;
-    v189 = 0;
     v190 = 0;
+    v191 = 0;
     v48 = 0;
-    v184 = 0;
-    v186 = 0;
-    v178 = -12780;
+    v185 = 0;
+    v187 = 0;
+    v179 = -12780;
     goto LABEL_41;
   }
 
@@ -222,7 +339,7 @@ LABEL_49:
   if (v17)
   {
     objc_msgSend_renderingConfig(v17, v18, v19, v20);
-    v22 = v192;
+    v22 = v193;
   }
 
   else
@@ -233,7 +350,7 @@ LABEL_49:
   v23 = CMGetAttachment(image, *MEMORY[0x29EDC0850], 0);
   v26 = objc_msgSend_objectForKeyedSubscript_(v23, v24, *MEMORY[0x29EDC07F0], v25);
   v30 = v26;
-  v185 = v21;
+  v186 = v21;
   if (v26)
   {
     objc_msgSend_floatValue(v26, v27, v28, v29);
@@ -244,42 +361,42 @@ LABEL_49:
     }
   }
 
-  v184 = v30;
+  v185 = v30;
   v36 = NSSelectorFromString(&cfstr_Getunifiedrend.isa);
   v37 = sub_295EB0948();
   v40 = objc_msgSend_methodForSelector_(v37, v38, v36, v39);
   v41 = sub_295EB0948();
-  v186 = v23;
+  v187 = v23;
   v44 = objc_msgSend_objectForKeyedSubscript_(v23, v42, @"RenderingParameters", v43);
   v45 = v40(v41, v36, v44);
 
-  v190 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v46, buffer, 10, 17, 0);
-  if (!v190)
+  v191 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v46, buffer, 10, 17, 0);
+  if (!v191)
   {
-    sub_295EB8064(v193);
-    v187 = 0;
+    sub_295EB8064(v194);
     v188 = 0;
+    v189 = 0;
     v57 = 0;
     v53 = 0;
     resultImageCopy = 0;
-    v189 = 0;
     v190 = 0;
-    v178 = v193[0];
-    v48 = v185;
+    v191 = 0;
+    v179 = v194[0];
+    v48 = v186;
     goto LABEL_41;
   }
 
   objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v47, buffer, 30, 17, 1);
-  v189 = v48 = v185;
-  if (!v189)
+  v190 = v48 = v186;
+  if (!v190)
   {
-    sub_295EB7FB8(v193);
-    v187 = 0;
+    sub_295EB7FB8(v194);
     v188 = 0;
+    v189 = 0;
     v57 = 0;
     v53 = 0;
     resultImageCopy = 0;
-    v189 = 0;
+    v190 = 0;
     goto LABEL_60;
   }
 
@@ -293,12 +410,12 @@ LABEL_49:
   {
     objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(metalContext, v49, map, 10, 17, 0);
   }
-  v188 = ;
-  if (!v188)
+  v189 = ;
+  if (!v189)
   {
-    sub_295EB7F0C(v193);
-    v187 = 0;
+    sub_295EB7F0C(v194);
     v188 = 0;
+    v189 = 0;
     v57 = 0;
     v53 = 0;
 LABEL_54:
@@ -309,8 +426,8 @@ LABEL_54:
   v53 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v51, resultImageCopy, 10, 22, 0);
   if (!v53)
   {
-    sub_295EB7E60(v193);
-    v187 = 0;
+    sub_295EB7E60(v194);
+    v188 = 0;
     v57 = 0;
     goto LABEL_54;
   }
@@ -318,15 +435,15 @@ LABEL_54:
   resultImageCopy = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v52, resultImageCopy, 30, 22, 1);
   if (!resultImageCopy)
   {
-    sub_295EB7DB4(v193);
+    sub_295EB7DB4(v194);
     goto LABEL_59;
   }
 
   if (mask)
   {
-    v187 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v54, mask, 10, 17, 0);
+    v188 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v54, mask, 10, 17, 0);
     v56 = gainMapCopy;
-    if (v187)
+    if (v188)
     {
       if (gainMapCopy)
       {
@@ -336,14 +453,14 @@ LABEL_54:
       goto LABEL_26;
     }
 
-    sub_295EB7B68(v193);
+    sub_295EB7B68(v194);
 LABEL_59:
-    v187 = 0;
+    v188 = 0;
     v57 = 0;
     goto LABEL_60;
   }
 
-  v187 = 0;
+  v188 = 0;
   v56 = gainMapCopy;
   if (gainMapCopy)
   {
@@ -351,9 +468,9 @@ LABEL_23:
     v57 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v54, v56, 10, 17, 0);
     if (!v57)
     {
-      sub_295EB7C14(v193);
+      sub_295EB7C14(v194);
 LABEL_60:
-      v178 = v193[0];
+      v179 = v194[0];
       goto LABEL_41;
     }
 
@@ -377,37 +494,37 @@ LABEL_27:
     v65 = 0;
   }
 
-  v194 = 0;
-  v195 = &v194;
-  v196 = 0x2050000000;
+  v195 = 0;
+  v196 = &v195;
+  v197 = 0x2050000000;
   v66 = qword_2A1390238;
-  v197 = qword_2A1390238;
+  v198 = qword_2A1390238;
   if (!qword_2A1390238)
   {
-    v193[0] = MEMORY[0x29EDCA5F8];
-    v193[1] = 3221225472;
-    v193[2] = sub_295EB0E7C;
-    v193[3] = &unk_29EDEA5B0;
-    v193[4] = &v194;
-    sub_295EB0E7C(v193);
-    v66 = v195[3];
+    v194[0] = MEMORY[0x29EDCA5F8];
+    v194[1] = 3221225472;
+    v194[2] = sub_295EB0E7C;
+    v194[3] = &unk_29EDEA5B0;
+    v194[4] = &v195;
+    sub_295EB0E7C(v194);
+    v66 = v196[3];
   }
 
   v67 = v66;
-  _Block_object_dispose(&v194, 8);
+  _Block_object_dispose(&v195, 8);
   v70 = objc_alloc_init(v66);
   if (v70)
   {
-    v71 = objc_msgSend_objectForKeyedSubscript_(v186, v68, *MEMORY[0x29EDC07F8], v69);
+    v71 = objc_msgSend_objectForKeyedSubscript_(v187, v68, *MEMORY[0x29EDC07F8], v69);
     objc_msgSend_setMetadata_(v70, v72, v71, v73);
 
     objc_msgSend_metadata(v70, v74, v75, v76);
     LODWORD(v77) = v22;
     objc_msgSend_setSimulatedAperture_(v70, v78, v79, v80, v77);
-    if (v185)
+    if (v186)
     {
-      objc_msgSend_renderingConfig(v185, v81, v82, v83);
-      LODWORD(v84) = v191;
+      objc_msgSend_renderingConfig(v186, v81, v82, v83);
+      LODWORD(v84) = v192;
     }
 
     else
@@ -418,11 +535,11 @@ LABEL_27:
     objc_msgSend_setMaxBlur_(v70, v81, v82, v83, v84);
     LODWORD(v85) = v65;
     objc_msgSend_setLumaNoiseAmplitude_(v70, v86, v87, v88, v85);
-    objc_msgSend_setInputBlurMap_(v70, v89, v188, v90);
-    objc_msgSend_setInputAlpha_(v70, v91, v187, v92);
+    objc_msgSend_setInputBlurMap_(v70, v89, v189, v90);
+    objc_msgSend_setInputAlpha_(v70, v91, v188, v92);
     objc_msgSend_setInputGainMap_(v70, v93, v57, v94);
-    objc_msgSend_setInputImageLuma_(v70, v95, v190, v96);
-    objc_msgSend_setInputImageChroma_(v70, v97, v189, v98);
+    objc_msgSend_setInputImageLuma_(v70, v95, v191, v96);
+    objc_msgSend_setInputImageChroma_(v70, v97, v190, v98);
     objc_msgSend_setOutputImageLuma_(v70, v99, v53, v100);
     objc_msgSend_setOutputImageChroma_(v70, v101, resultImageCopy, v102);
     v106 = objc_msgSend_blurMapSmoothing_intermediate_tex(self->_resources, v103, v104, v105);
@@ -453,34 +570,35 @@ LABEL_27:
     v170 = objc_msgSend_intermediates(v70, v167, v168, v169);
     objc_msgSend_setInputHalfResRGTex_(v170, v171, v166, v172);
 
-    v178 = objc_msgSend_enqueueRenderingUsingArgs_(self->_applyBlurmap, v173, v70, v174);
-    if (v178)
+    v175 = objc_msgSend_enqueueRenderingUsingArgs_(self->_applyBlurmap, v173, v70, v174);
+    v179 = v175;
+    if (v175)
     {
-      sub_295EB7CC0();
+      sub_295EB7CC0(v175);
     }
 
     else
     {
-      objc_msgSend_waitForSchedule(self->_metalContext, v175, v176, v177);
+      objc_msgSend_waitForSchedule(self->_metalContext, v176, v177, v178);
     }
 
-    v48 = v185;
+    v48 = v186;
   }
 
   else
   {
     sub_295EB7D3C();
-    v178 = -12786;
+    v179 = -12786;
   }
 
   if (v58)
   {
-    objc_msgSend_deactivateResources(self->_resources, v179, v180, v181);
+    objc_msgSend_deactivateResources(self->_resources, v180, v181, v182);
   }
 
 LABEL_41:
 
-  return v178;
+  return v179;
 }
 
 - (int)loadModelsWithTuningParameters:(id)parameters
@@ -514,7 +632,7 @@ LABEL_41:
   {
     fig_log_get_emitter();
     sub_295EADC88();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_26;
   }
 

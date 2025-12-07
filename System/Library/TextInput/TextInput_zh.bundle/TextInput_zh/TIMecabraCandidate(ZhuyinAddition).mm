@@ -93,13 +93,11 @@ LABEL_15:
 
 - (void)hasUnsupportedReading
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s Mecabra returned NULL or empty syllable length array. Bailing...", "-[TIMecabraCandidate(ZhuyinAddition) hasUnsupportedReading]"];
   *buf = 138412290;
-  v5 = v2;
+  v4 = v2;
   _os_log_debug_impl(&dword_29EA88000, self, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 @end

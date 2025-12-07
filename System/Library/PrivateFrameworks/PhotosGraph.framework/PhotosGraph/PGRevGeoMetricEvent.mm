@@ -7,36 +7,34 @@
 
 - (id)payload
 {
-  v16[9] = *MEMORY[0x277D85DE8];
+  v15[9] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:{self->_numberOfAssetClustersPerMomentMean, @"numberOfAssetClustersPerMomentMean"}];
-  v16[0] = v3;
-  v15[1] = @"numberOfAssetClustersPerMomentStdDev";
+  v15[0] = v3;
+  v14[1] = @"numberOfAssetClustersPerMomentStdDev";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_numberOfAssetClustersPerMomentStdDev];
-  v16[1] = v4;
-  v15[2] = @"numberOfAssetsPerClusterMean";
+  v15[1] = v4;
+  v14[2] = @"numberOfAssetsPerClusterMean";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_numberOfAssetsPerClusterMean];
-  v16[2] = v5;
-  v15[3] = @"numberOfAssetsPerClusterStdDev";
+  v15[2] = v5;
+  v14[3] = @"numberOfAssetsPerClusterStdDev";
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:self->_numberOfAssetsPerClusterStdDev];
-  v16[3] = v6;
-  v15[4] = @"ratioAssetClustersWithin10mOfCenter";
+  v15[3] = v6;
+  v14[4] = @"ratioAssetClustersWithin10mOfCenter";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioAssetClustersWithin10mOfCenter];
-  v16[4] = v7;
-  v15[5] = @"ratioAssetClustersWithin20mOfCenter";
+  v15[4] = v7;
+  v14[5] = @"ratioAssetClustersWithin20mOfCenter";
   v8 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioAssetClustersWithin20mOfCenter];
-  v16[5] = v8;
-  v15[6] = @"ratioAssetClustersWithin50mOfCenter";
+  v15[5] = v8;
+  v14[6] = @"ratioAssetClustersWithin50mOfCenter";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioAssetClustersWithin50mOfCenter];
-  v16[6] = v9;
-  v15[7] = @"ratioAssetClustersWithin100mOfCenter";
+  v15[6] = v9;
+  v14[7] = @"ratioAssetClustersWithin100mOfCenter";
   v10 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioAssetClustersWithin100mOfCenter];
-  v16[7] = v10;
-  v15[8] = @"ratioAssetClusters100mPlusFromCenter";
+  v15[7] = v10;
+  v14[8] = @"ratioAssetClusters100mPlusFromCenter";
   v11 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratioAssetClusters100mPlusFromCenter];
-  v16[8] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15[8] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:9];
 
   return v12;
 }

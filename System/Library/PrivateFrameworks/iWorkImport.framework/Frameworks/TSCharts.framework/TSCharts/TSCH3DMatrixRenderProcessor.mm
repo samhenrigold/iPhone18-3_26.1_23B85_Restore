@@ -12,42 +12,41 @@
 
 - (id)normalizedViewAll
 {
-  v30 = 0;
-  v29 = 0;
-  v32 = 0;
+  v34 = 0;
   v33 = 0;
-  v35 = xmmword_2764D5F60;
-  v28 = 1056964608;
-  v31 = 1056964608;
-  v34 = 1056964608;
-  v5 = objc_msgSend_projection(self, a2, 0.0000305175853, v2, v3);
-  *&v6 = sub_2761558A0(&v28, v5, v26).u64[0];
+  v36 = 0;
+  v37 = 0;
+  v39 = xmmword_2764D5F60;
+  v32 = 1056964608;
+  v35 = 1056964608;
+  v38 = 1056964608;
+  v5 = objc_msgSend_projection(self, 0.0000305175853, v2, v3, a2);
+  *&v6 = sub_2761558A0(&v32, v5, v18).u64[0];
   v10 = objc_msgSend_current(self, v7, v6, v8, v9);
-  sub_2761558A0(v26, v10, &v27);
-  v11 = v27.f32[0];
-  v12 = MEMORY[0x277CCACA8];
-  sub_276152FD4("mat4x4((%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f))", v13, v14, v15, v16, v17, v18, v19, SLOBYTE(v11));
-  if (v37 >= 0)
+  sub_2761558A0(v18, v10, &v19);
+  v11 = MEMORY[0x277CCACA8];
+  sub_276152FD4(v40, "mat4x4((%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f), (%f, %f, %f, %f))", v19.f32[0], v19.f32[1], v19.f32[2], v19.f32[3], v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31);
+  if (v41 >= 0)
   {
-    objc_msgSend_stringWithUTF8String_(v12, v20, v21, v22, v23, &v36);
+    objc_msgSend_stringWithUTF8String_(v11, v12, v13, v14, v15, v40);
   }
 
   else
   {
-    objc_msgSend_stringWithUTF8String_(v12, v20, v21, v22, v23, v36);
+    objc_msgSend_stringWithUTF8String_(v11, v12, v13, v14, v15, v40[0]);
   }
-  v24 = ;
-  if (v37 < 0)
+  v16 = ;
+  if (v41 < 0)
   {
-    operator delete(v36);
+    operator delete(v40[0]);
   }
 
-  return v24;
+  return v16;
 }
 
 - (void)copyProjectionInto:(void *)into
 {
-  v7 = objc_msgSend_projection(self, a2, v3, v4, v5);
+  v7 = objc_msgSend_projection(self, v3, v4, v5, a2);
   *into = *v7;
   *(into + 1) = v7[1];
   *(into + 2) = v7[2];

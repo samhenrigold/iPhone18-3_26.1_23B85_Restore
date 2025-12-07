@@ -18,39 +18,39 @@
 
 - (SPLocationFetchContext)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"cachePolicy"];
   [(SPLocationFetchContext *)self setCachePolicy:v5];
 
   v6 = MEMORY[0x277CBEB98];
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"searchIdentifiers"];
   [(SPLocationFetchContext *)self setSearchIdentifiers:v9];
 
   v10 = MEMORY[0x277CBEB98];
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"searchPriority"];
   [(SPLocationFetchContext *)self setSearchPriority:v13];
 
   v14 = MEMORY[0x277CBEB98];
-  v36[0] = objc_opt_class();
-  v36[1] = objc_opt_class();
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v35[0] = objc_opt_class();
+  v35[1] = objc_opt_class();
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
   v16 = [v14 setWithArray:v15];
   v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"searchTypes"];
   [(SPLocationFetchContext *)self setSearchTypes:v17];
 
   v18 = MEMORY[0x277CBEB98];
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   v20 = [v18 setWithArray:v19];
   v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"searchLocationSources"];
   [(SPLocationFetchContext *)self setSearchLocationSources:v21];
@@ -65,15 +65,14 @@
   [coderCopy decodeFloatForKey:@"primaryIndexRangeLength"];
   [(SPLocationFetchContext *)self setPrimaryIndexRange:v24, v25];
   v26 = MEMORY[0x277CBEB98];
+  v31 = objc_opt_class();
   v32 = objc_opt_class();
   v33 = objc_opt_class();
-  v34 = objc_opt_class();
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:3];
-  v28 = [v26 setWithArray:{v27, v32, v33}];
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:3];
+  v28 = [v26 setWithArray:{v27, v31, v32}];
   v29 = [coderCopy decodeObjectOfClasses:v28 forKey:@"lastOnlineLocationInfo"];
 
   [(SPLocationFetchContext *)self setLastOnlineLocationInfo:v29];
-  v30 = *MEMORY[0x277D85DE8];
   return self;
 }
 

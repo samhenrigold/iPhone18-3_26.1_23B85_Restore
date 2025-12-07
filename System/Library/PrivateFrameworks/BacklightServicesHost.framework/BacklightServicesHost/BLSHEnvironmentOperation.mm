@@ -20,12 +20,11 @@
 
 - (id)description
 {
-  v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
-  backlightState = self->_backlightState;
-  v5 = NSStringFromBLSBacklightState();
-  v6 = [v3 appendObject:v5 withName:@"backlightState"];
+  v2 = [MEMORY[0x277CF0C00] builderWithObject:self];
+  v3 = NSStringFromBLSBacklightState();
+  v4 = [v2 appendObject:v3 withName:@"backlightState"];
 
-  build = [v3 build];
+  build = [v2 build];
 
   return build;
 }

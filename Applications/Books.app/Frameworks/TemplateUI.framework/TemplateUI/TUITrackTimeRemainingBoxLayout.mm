@@ -9,11 +9,11 @@
   [(TUILayout *)self renderModelSizeWithContext:context];
   v6 = v5;
   v8 = v7;
-  v9 = [(TUILayout *)self box];
+  v9 = objc_msgSend_box(self);
   identifier = [v9 identifier];
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   dynamicProgress = [v11 dynamicProgress];
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   style = [v13 style];
   v15 = [TUITrackTimeRemainingView renderModelWithIdentifier:identifier dynamicProgress:dynamicProgress style:style];
 

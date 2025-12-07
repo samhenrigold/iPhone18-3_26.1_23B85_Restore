@@ -1,10 +1,46 @@
 @interface GCGameIntentSettings
++ (id)appLibrarySettings:(BOOL)settings appLibraryPod:(int64_t)pod;
++ (id)gameSettings:(BOOL)settings gameBundleID:(id)d;
++ (id)homeScreenSettings:(BOOL)settings;
 - (GCGameIntentSettings)init;
 - (GCGameIntentSettings)initWithCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation GCGameIntentSettings
+
++ (id)homeScreenSettings:(BOOL)settings
+{
+  settingsCopy = settings;
+  v4 = objc_alloc_init(GCGameIntentSettings);
+  [(GCGameIntentSettings *)v4 setType:0];
+  [(GCGameIntentSettings *)v4 setEnabled:settingsCopy];
+
+  return v4;
+}
+
++ (id)gameSettings:(BOOL)settings gameBundleID:(id)d
+{
+  settingsCopy = settings;
+  dCopy = d;
+  v6 = objc_alloc_init(GCGameIntentSettings);
+  [(GCGameIntentSettings *)v6 setType:1];
+  [(GCGameIntentSettings *)v6 setEnabled:settingsCopy];
+  [(GCGameIntentSettings *)v6 setGameBundleID:dCopy];
+
+  return v6;
+}
+
++ (id)appLibrarySettings:(BOOL)settings appLibraryPod:(int64_t)pod
+{
+  settingsCopy = settings;
+  v6 = objc_alloc_init(GCGameIntentSettings);
+  [(GCGameIntentSettings *)v6 setType:2];
+  [(GCGameIntentSettings *)v6 setEnabled:settingsCopy];
+  [(GCGameIntentSettings *)v6 setAppLibraryPod:pod];
+
+  return v6;
+}
 
 - (GCGameIntentSettings)init
 {

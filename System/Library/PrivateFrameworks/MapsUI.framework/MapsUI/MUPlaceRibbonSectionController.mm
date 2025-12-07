@@ -45,24 +45,22 @@ LABEL_6:
 - (void)_updateWithPreviousState:(BOOL)state
 {
   stateCopy = state;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([(MUPlaceRibbonSectionController *)self hasContent]!= state)
   {
     v5 = MUGetPlaceCardLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v8[0] = 67109376;
-      v8[1] = stateCopy;
-      v9 = 1024;
+      v7[0] = 67109376;
+      v7[1] = stateCopy;
+      v8 = 1024;
       hasContent = [(MUPlaceRibbonSectionController *)self hasContent];
-      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "MUPlaceHeaderButtonsSectionController: hasContent changed from %d to %d, will tell parent to update.", v8, 0xEu);
+      _os_log_impl(&dword_1C5620000, v5, OS_LOG_TYPE_INFO, "MUPlaceHeaderButtonsSectionController: hasContent changed from %d to %d, will tell parent to update.", v7, 0xEu);
     }
 
     delegate = [(MUPlaceSectionController *)self delegate];
     [delegate placeSectionControllerDidUpdateContent:self];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_supportsAddRatingsCallToAction
@@ -83,46 +81,46 @@ LABEL_6:
 
 - (void)buildContent
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __46__MUPlaceRibbonSectionController_buildContent__block_invoke;
   aBlock[3] = &unk_1E8219398;
   v4 = v3;
-  v79 = v4;
+  v78 = v4;
   v5 = _Block_copy(aBlock);
   mapItem = [(MUPlaceSectionController *)self mapItem];
   ribbonConfig = [(MUPlaceRibbonSectionController *)self ribbonConfig];
 
   if (ribbonConfig)
   {
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
     v75 = 0u;
+    v76 = 0u;
+    v73 = 0u;
+    v74 = 0u;
     ribbonConfig2 = [(MUPlaceRibbonSectionController *)self ribbonConfig];
     ribbonItems = [ribbonConfig2 ribbonItems];
 
-    v10 = [ribbonItems countByEnumeratingWithState:&v74 objects:v85 count:16];
+    v10 = [ribbonItems countByEnumeratingWithState:&v73 objects:v84 count:16];
     if (v10)
     {
       v11 = v10;
-      v69 = mapItem;
-      v67 = v4;
-      v12 = *v75;
+      v68 = mapItem;
+      v66 = v4;
+      v12 = *v74;
       selfCopy = self;
       while (1)
       {
         v13 = 0;
         do
         {
-          if (*v75 != v12)
+          if (*v74 != v12)
           {
             objc_enumerationMutation(ribbonItems);
           }
 
-          v14 = *(*(&v74 + 1) + 8 * v13);
+          v14 = *(*(&v73 + 1) + 8 * v13);
           isValid = [v14 isValid];
           v16 = MUGetPlaceCardLog();
           v17 = v16;
@@ -138,9 +136,9 @@ LABEL_6:
               }
 
               *buf = 138412546;
-              v82 = v14;
-              v83 = 2112;
-              v84 = v27;
+              v81 = v14;
+              v82 = 2112;
+              v83 = v27;
               _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_ERROR, "Ribbon item %@ of type %@ is invalid", buf, 0x16u);
             }
 
@@ -151,7 +149,7 @@ LABEL_6:
           {
             type = [v14 type];
             *buf = 67109120;
-            LODWORD(v82) = type;
+            LODWORD(v81) = type;
             _os_log_impl(&dword_1C5620000, v17, OS_LOG_TYPE_INFO, "Creating a ribbon from ribbon type %d", buf, 8u);
           }
 
@@ -165,20 +163,20 @@ LABEL_6:
                 if (type2 == 3)
                 {
                   amenityItem = [v14 amenityItem];
-                  v32 = [MUPlaceRibbonItemViewModel amenityItemViewForMapItem:v69 amenityItemConfiguration:amenityItem];
+                  v32 = [MUPlaceRibbonItemViewModel amenityItemViewForMapItem:v68 amenityItemConfiguration:amenityItem];
                   v5[2](v5, v32);
 
                   goto LABEL_44;
                 }
 
-                v28 = [MUPlaceRibbonItemViewModel costItemViewForMapItem:v69];
+                v28 = [MUPlaceRibbonItemViewModel costItemViewForMapItem:v68];
 LABEL_43:
                 amenityItem = v28;
                 v5[2](v5, v28);
                 goto LABEL_44;
               }
 
-              v37 = [[MUPlaceRatingRibbonViewModel alloc] initWithMapItem:v69];
+              v37 = [[MUPlaceRatingRibbonViewModel alloc] initWithMapItem:v68];
               v24 = 96;
               ratingViewModel = self->_ratingViewModel;
               self->_ratingViewModel = v37;
@@ -193,7 +191,7 @@ LABEL_43:
                 goto LABEL_50;
               }
 
-              v28 = [MUPlaceRibbonItemViewModel hoursItemViewModelForMapItem:v69];
+              v28 = [MUPlaceRibbonItemViewModel hoursItemViewModelForMapItem:v68];
               goto LABEL_43;
             }
 
@@ -201,7 +199,7 @@ LABEL_43:
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v82 = v14;
+              v81 = v14;
               _os_log_impl(&dword_1C5620000, v31, OS_LOG_TYPE_ERROR, "Encountered a ribbon item %@ with an unknown type", buf, 0xCu);
             }
           }
@@ -212,7 +210,7 @@ LABEL_43:
             {
               if (type2 == 5)
               {
-                v28 = [MUPlaceRibbonItemViewModel guidesItemViewModelForMapItem:v69];
+                v28 = [MUPlaceRibbonItemViewModel guidesItemViewModelForMapItem:v68];
                 goto LABEL_43;
               }
 
@@ -237,7 +235,7 @@ LABEL_43:
                     factoidItem2 = [v14 factoidItem];
                     indexWithinFactoidComponent = [factoidItem2 indexWithinFactoidComponent];
                     *buf = 67109120;
-                    LODWORD(v82) = indexWithinFactoidComponent;
+                    LODWORD(v81) = indexWithinFactoidComponent;
                     _os_log_impl(&dword_1C5620000, v36, OS_LOG_TYPE_ERROR, "Failed to find a factoid with index %d", buf, 8u);
                   }
                 }
@@ -299,14 +297,14 @@ LABEL_49:
                   goto LABEL_50;
                 }
 
-                v28 = [MUPlaceRibbonItemViewModel accoladesItemViewModelForMapItem:v69];
+                v28 = [MUPlaceRibbonItemViewModel accoladesItemViewModelForMapItem:v68];
                 goto LABEL_43;
               }
 
               if (type2 == 11 && MapsFeature_IsEnabled_ApplePayEnhancementsEnabled())
               {
                 amenityItem = [v14 contactlessPaymentsItem];
-                v30 = [MUPlaceRibbonItemViewModel acceptsPaymentsViewForMapItem:v69 contactlessPaymentsRibbonItem:amenityItem];
+                v30 = [MUPlaceRibbonItemViewModel acceptsPaymentsViewForMapItem:v68 contactlessPaymentsRibbonItem:amenityItem];
                 v5[2](v5, v30);
 
 LABEL_44:
@@ -319,11 +317,11 @@ LABEL_50:
         }
 
         while (v11 != v13);
-        v45 = [ribbonItems countByEnumeratingWithState:&v74 objects:v85 count:16];
+        v45 = [ribbonItems countByEnumeratingWithState:&v73 objects:v84 count:16];
         v11 = v45;
         if (!v45)
         {
-          v4 = v67;
+          v4 = v66;
           goto LABEL_65;
         }
       }
@@ -346,7 +344,7 @@ LABEL_50:
     v50 = [MUPlaceRibbonItemViewModel costItemViewForMapItem:mapItem];
     v5[2](v5, v50);
 
-    v69 = mapItem;
+    v68 = mapItem;
     v51 = [MUPlaceRibbonItemViewModel amenityItemViewForMapItem:mapItem amenityItemConfiguration:0];
     v5[2](v5, v51);
 
@@ -358,35 +356,35 @@ LABEL_50:
     self->_distanceViewModel = v55;
 
     v5[2](v5, self->_distanceViewModel);
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
     v71 = 0u;
+    v72 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     mapItem5 = [(MUPlaceSectionController *)self mapItem];
     _geoMapItem = [mapItem5 _geoMapItem];
     _encyclopedicInfo2 = [_geoMapItem _encyclopedicInfo];
     ribbonItems = [_encyclopedicInfo2 factoids];
 
-    v60 = [ribbonItems countByEnumeratingWithState:&v70 objects:v80 count:16];
+    v60 = [ribbonItems countByEnumeratingWithState:&v69 objects:v79 count:16];
     if (v60)
     {
       v61 = v60;
       v62 = v4;
-      v63 = *v71;
+      v63 = *v70;
       do
       {
         for (i = 0; i != v61; ++i)
         {
-          if (*v71 != v63)
+          if (*v70 != v63)
           {
             objc_enumerationMutation(ribbonItems);
           }
 
-          v65 = [MUPlaceRibbonItemViewModel factoidItemForFactoid:*(*(&v70 + 1) + 8 * i)];
+          v65 = [MUPlaceRibbonItemViewModel factoidItemForFactoid:*(*(&v69 + 1) + 8 * i)];
           v5[2](v5, v65);
         }
 
-        v61 = [ribbonItems countByEnumeratingWithState:&v70 objects:v80 count:16];
+        v61 = [ribbonItems countByEnumeratingWithState:&v69 objects:v79 count:16];
       }
 
       while (v61);
@@ -394,18 +392,17 @@ LABEL_50:
     }
 
 LABEL_65:
-    mapItem = v69;
+    mapItem = v68;
   }
 
   [(MUPlaceRibbonView *)self->_ribbonView setViewModels:v4];
-  v66 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __46__MUPlaceRibbonSectionController_buildContent__block_invoke(uint64_t result, uint64_t a2)
+id *__46__MUPlaceRibbonSectionController_buildContent__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;

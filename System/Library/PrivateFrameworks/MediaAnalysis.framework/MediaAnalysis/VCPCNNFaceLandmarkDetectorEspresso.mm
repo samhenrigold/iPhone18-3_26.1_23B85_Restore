@@ -62,21 +62,21 @@ VCPCNNModelEspresso *__50__VCPCNNFaceLandmarkDetectorEspresso_sharedModel___bloc
     modelEspresso = self->_modelEspresso;
     if (modelEspresso)
     {
-      [(VCPCNNModelEspresso *)modelEspresso outputBlob];
+      objc_msgSend_outputBlob(modelEspresso);
       v7 = self->_modelEspresso;
       v8 = v17;
       if (v7)
       {
-        [(VCPCNNModelEspresso *)v7 outputBlob];
+        objc_msgSend_outputBlob(v7);
         v9 = self->_modelEspresso;
         if (v9)
         {
-          [(VCPCNNModelEspresso *)v9 outputBlob];
+          objc_msgSend_outputBlob(v9);
           v10 = self->_modelEspresso;
           v11 = 4 * v16 * v15;
           if (v10)
           {
-            [(VCPCNNModelEspresso *)v10 outputBlob];
+            objc_msgSend_outputBlob(v10);
             v12 = v14;
 LABEL_10:
             memcpy(landmarks, v8, v12 * v11);

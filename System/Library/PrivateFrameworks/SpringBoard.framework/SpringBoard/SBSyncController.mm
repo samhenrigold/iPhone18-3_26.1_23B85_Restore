@@ -100,30 +100,30 @@ uint64_t __34__SBSyncController_sharedInstance__block_invoke()
   [defaultCenter addObserver:self selector:sel__appInstallationNotification name:@"SBInstalledApplicationsDidChangeNotification" object:0];
 }
 
-void __34__SBSyncController_startObserving__block_invoke()
+void __34__SBSyncController_startObserving__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = SBLogCommon();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_DEFAULT, "SB RESTORE: SBRestoreStarted", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "SB RESTORE: SBRestoreStarted", v4, 2u);
   }
 
-  v1 = +[SBSyncController sharedInstance];
-  [v1 beginRestoring];
+  v3 = +[SBSyncController sharedInstance];
+  [v3 beginRestoring];
 }
 
-void __34__SBSyncController_startObserving__block_invoke_8()
+void __34__SBSyncController_startObserving__block_invoke_8(uint64_t a1, uint64_t a2)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = SBLogCommon();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_21ED4E000, v0, OS_LOG_TYPE_DEFAULT, "SB RESTORE: SBRestoreEnded", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "SB RESTORE: SBRestoreEnded", v4, 2u);
   }
 
-  v1 = +[SBSyncController sharedInstance];
-  [v1 _didEndRestoring:2];
+  v3 = +[SBSyncController sharedInstance];
+  [v3 _didEndRestoring:2];
 }
 
 - (void)stopObserving
@@ -205,7 +205,7 @@ void __34__SBSyncController_startObserving__block_invoke_8()
 - (void)resetService:(id)service willBeginDataResetWithMode:(int64_t)mode
 {
   v8 = *MEMORY[0x277D85DE8];
-  v5 = SBLogDataReset();
+  v5 = SBLogDataReset(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -221,8 +221,8 @@ void __60__SBSyncController_resetService_willBeginDataResetWithMode___block_invo
   v3 = *(a1 + 32);
   if (!*(v3 + 12))
   {
-    v23 = v1;
-    v24 = v2;
+    v24 = v1;
+    v25 = v2;
     *(v3 + 12) = 1;
     v5 = [MEMORY[0x277D0AB08] sharedInstance];
     [v5 prepareDisplaysForExit];
@@ -232,46 +232,46 @@ void __60__SBSyncController_resetService_willBeginDataResetWithMode___block_invo
 
     if (!*(*(a1 + 32) + 64))
     {
-      v7 = SBLogDataReset();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = SBLogDataReset(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Hiding the status bar", buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Hiding the status bar", buf, 2u);
       }
 
-      v8 = [SBApp windowSceneManager];
-      v9 = [v8 embeddedDisplayWindowScene];
+      v9 = [SBApp windowSceneManager];
+      v10 = [v9 embeddedDisplayWindowScene];
 
-      v10 = [v9 statusBarManager];
-      v11 = [v10 assertionManager];
+      v11 = [v10 statusBarManager];
+      v12 = [v11 assertionManager];
 
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[SBSyncController resetService:willBeginDataResetWithMode:]_block_invoke"];
-      v13 = [v11 newSettingsAssertionWithStatusBarHidden:1 atLevel:10 reason:v12];
-      v14 = *(a1 + 32);
-      v15 = *(v14 + 64);
-      *(v14 + 64) = v13;
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[SBSyncController resetService:willBeginDataResetWithMode:]_block_invoke"];
+      v14 = [v12 newSettingsAssertionWithStatusBarHidden:1 atLevel:10 reason:v13];
+      v15 = *(a1 + 32);
+      v16 = *(v15 + 64);
+      *(v15 + 64) = v14;
 
       [*(*(a1 + 32) + 64) acquire];
     }
 
-    v16 = SBLogDataReset();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = SBLogDataReset(v7);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Disabling the idle timer", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Disabling the idle timer", v22, 2u);
     }
 
-    v17 = [*(a1 + 32) _idleTimerCoordinator];
-    v18 = *(a1 + 32);
-    v19 = [v18 _idleTimerBehavior];
-    v20 = [v17 idleTimerProvider:v18 didProposeBehavior:v19 forReason:@"SBSyncControllerReset"];
+    v18 = [*(a1 + 32) _idleTimerCoordinator];
+    v19 = *(a1 + 32);
+    v20 = [v19 _idleTimerBehavior];
+    v21 = [v18 idleTimerProvider:v19 didProposeBehavior:v20 forReason:@"SBSyncControllerReset"];
   }
 }
 
 - (void)resetService:(id)service didBeginDataResetWithMode:(int64_t)mode
 {
   v8 = *MEMORY[0x277D85DE8];
-  v5 = SBLogDataReset();
+  v5 = SBLogDataReset(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;
@@ -284,7 +284,7 @@ void __60__SBSyncController_resetService_willBeginDataResetWithMode___block_invo
 {
   v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v8 = SBLogDataReset();
+  v8 = SBLogDataReset(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -404,7 +404,7 @@ void __38__SBSyncController__syncSessionDidEnd__block_invoke(uint64_t a1)
   v12[4] = self;
   v12[5] = v13;
   v2 = MEMORY[0x223D6F7F0](v12, a2);
-  v3 = SBLogDataReset();
+  v3 = SBLogDataReset(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -430,37 +430,37 @@ void __38__SBSyncController__syncSessionDidEnd__block_invoke(uint64_t a1)
   _Block_object_dispose(v13, 8);
 }
 
-uint64_t __48__SBSyncController__killApplicationsIfNecessary__block_invoke(uint64_t result)
+void *__48__SBSyncController__killApplicationsIfNecessary__block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 8);
+  v1 = *(*(result + 5) + 8);
   if ((*(v1 + 24) & 1) == 0)
   {
     *(v1 + 24) = 1;
-    return [*(result + 32) finishedTerminatingApplications];
+    return [*(result + 4) finishedTerminatingApplications];
   }
 
   return result;
 }
 
-uint64_t __48__SBSyncController__killApplicationsIfNecessary__block_invoke_43(uint64_t a1)
+uint64_t __48__SBSyncController__killApplicationsIfNecessary__block_invoke_43(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = SBLogDataReset();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogDataReset(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Completed killing all applications", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Completed killing all applications", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();
 }
 
-uint64_t __48__SBSyncController__killApplicationsIfNecessary__block_invoke_45(uint64_t a1)
+uint64_t __48__SBSyncController__killApplicationsIfNecessary__block_invoke_45(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = SBLogDataReset();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogDataReset(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Killing all applications watchdog fired: continuing anyway.", v4, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Killing all applications watchdog fired: continuing anyway.", v6, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

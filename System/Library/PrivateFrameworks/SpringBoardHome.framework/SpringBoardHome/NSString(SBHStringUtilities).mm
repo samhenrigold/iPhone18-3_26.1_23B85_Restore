@@ -50,9 +50,9 @@
     +[NSString(SBHStringUtilities) sbh_bootInstanceIdentifier];
   }
 
-  v1 = sbh_bootInstanceIdentifier_uuid;
+  v2 = sbh_bootInstanceIdentifier_uuid;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -70,7 +70,7 @@ uint64_t __55__CADRealCalendarDatabaseDataProvider_realDataProvider__block_invok
 
 - (void)gatherCalendarRowIDs:(id)ds inStore:(void *)store inDatabase:(CalDatabase *)database
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v6 = CalStoreCopyCalendars();
   if (v6)
@@ -97,13 +97,11 @@ uint64_t __55__CADRealCalendarDatabaseDataProvider_realDataProvider__block_invok
     if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
     {
       v13 = v12;
-      v15[0] = 67109120;
-      v15[1] = CalStoreGetUID();
-      _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_ERROR, "Calendar are nil for store with RowID: [%i]", v15, 8u);
+      v14[0] = 67109120;
+      v14[1] = CalStoreGetUID();
+      _os_log_impl(&dword_22430B000, v13, OS_LOG_TYPE_ERROR, "Calendar are nil for store with RowID: [%i]", v14, 8u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (int)naturalLanguageSuggestionsCalendarRowIDInDatabase:(CalDatabase *)database

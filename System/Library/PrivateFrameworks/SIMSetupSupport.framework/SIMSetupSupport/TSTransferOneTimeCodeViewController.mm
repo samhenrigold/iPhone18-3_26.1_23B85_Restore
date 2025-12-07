@@ -110,10 +110,10 @@ LABEL_16:
 
 - (void)viewDidLoad
 {
-  v42[2] = *MEMORY[0x277D85DE8];
-  v41.receiver = self;
-  v41.super_class = TSTransferOneTimeCodeViewController;
-  [(TSOBWelcomeController *)&v41 viewDidLoad];
+  v41[2] = *MEMORY[0x277D85DE8];
+  v40.receiver = self;
+  v40.super_class = TSTransferOneTimeCodeViewController;
+  [(TSOBWelcomeController *)&v40 viewDidLoad];
   [(TSTransferOneTimeCodeViewController *)self _startObserver];
   [(TSTransferOneTimeCodeViewController *)self setModalInPresentation:1];
   systemBackgroundColor = [MEMORY[0x277D75348] systemBackgroundColor];
@@ -140,13 +140,13 @@ LABEL_16:
 
   v8 = [objc_alloc(MEMORY[0x277D75C58]) initWithFrame:{0.0, 0.0, 320.0, 50.0}];
   v9 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:5 target:0 action:0];
-  v42[0] = v9;
+  v41[0] = v9;
   v10 = objc_alloc(MEMORY[0x277D751E0]);
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v12 = [v11 localizedStringForKey:@"DONE" value:&stru_28753DF48 table:@"Localizable"];
   v13 = [v10 initWithTitle:v12 style:2 target:self action:sel__hideKeyboard];
-  v42[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   [v8 setItems:v14];
 
   [v8 sizeToFit];
@@ -221,8 +221,6 @@ LABEL_16:
   v38 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:self action:sel__hideKeyboard];
   view4 = [(TSTransferOneTimeCodeViewController *)self view];
   [view4 addGestureRecognizer:v38];
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)textFieldShouldReturn:(id)return
@@ -290,14 +288,14 @@ LABEL_16:
 
 - (void)updateOtpState:(int64_t)state
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v5 = _TSLogDomain();
+  v27 = *MEMORY[0x277D85DE8];
+  v5 = _TSLogDomain(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     stateCopy = state;
-    v26 = 2080;
-    v27 = "[TSTransferOneTimeCodeViewController updateOtpState:]";
+    v25 = 2080;
+    v26 = "[TSTransferOneTimeCodeViewController updateOtpState:]";
     _os_log_impl(&dword_262AA8000, v5, OS_LOG_TYPE_DEFAULT, "updating otpState to %ld @%s", buf, 0x16u);
   }
 
@@ -336,41 +334,37 @@ LABEL_16:
     v16 = MEMORY[0x277D750F8];
     v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v18 = [v17 localizedStringForKey:@"OK" value:&stru_28753DF48 table:@"Localizable"];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __54__TSTransferOneTimeCodeViewController_updateOtpState___block_invoke;
-    v22[3] = &unk_279B44550;
-    objc_copyWeak(&v23, buf);
-    v19 = [v16 actionWithTitle:v18 style:0 handler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __54__TSTransferOneTimeCodeViewController_updateOtpState___block_invoke;
+    v21[3] = &unk_279B44550;
+    objc_copyWeak(&v22, buf);
+    v19 = [v16 actionWithTitle:v18 style:0 handler:v21];
     [v15 addAction:v19];
 
     [(TSTransferOneTimeCodeViewController *)self presentViewController:v15 animated:1 completion:0];
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
 
     objc_destroyWeak(buf);
-    goto LABEL_13;
   }
 
-  if (state != 2)
+  else if (state == 2)
   {
-LABEL_13:
-    [(OBWelcomeController *)self _hideButtonTraySpinner];
-    [(SSOBLinkTrayButton *)self->_resendOTPButton hideSpinner];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __54__TSTransferOneTimeCodeViewController_updateOtpState___block_invoke_2;
-    v21[3] = &unk_279B44578;
-    v21[4] = self;
-    dispatch_async(MEMORY[0x277D85CD0], v21);
-    goto LABEL_14;
+    [(TSTransferOneTimeCodeViewController *)self disableButtonsAndHideSpinnerText];
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    [WeakRetained viewControllerDidComplete:self];
+
+    return;
   }
 
-  [(TSTransferOneTimeCodeViewController *)self disableButtonsAndHideSpinnerText];
-  WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  [WeakRetained viewControllerDidComplete:self];
-
-LABEL_14:
-  v20 = *MEMORY[0x277D85DE8];
+  [(OBWelcomeController *)self _hideButtonTraySpinner];
+  [(SSOBLinkTrayButton *)self->_resendOTPButton hideSpinner];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __54__TSTransferOneTimeCodeViewController_updateOtpState___block_invoke_2;
+  v20[3] = &unk_279B44578;
+  v20[4] = self;
+  dispatch_async(MEMORY[0x277D85CD0], v20);
 }
 
 void __54__TSTransferOneTimeCodeViewController_updateOtpState___block_invoke(uint64_t a1)
@@ -428,10 +422,11 @@ uint64_t __71__TSTransferOneTimeCodeViewController_disableButtonsAndHideSpinnerT
 void __61__TSTransferOneTimeCodeViewController__continueButtonTapped___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __61__TSTransferOneTimeCodeViewController__continueButtonTapped___block_invoke_cold_1();
     }
@@ -440,38 +435,34 @@ void __61__TSTransferOneTimeCodeViewController__continueButtonTapped___block_inv
 
 - (void)_cancelButtonTapped:(id)tapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4 = _TSLogDomain();
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = _TSLogDomain(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[TSTransferOneTimeCodeViewController _cancelButtonTapped:]";
-    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "cancelled otp verification @%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[TSTransferOneTimeCodeViewController _cancelButtonTapped:]";
+    _os_log_impl(&dword_262AA8000, v4, OS_LOG_TYPE_DEFAULT, "cancelled otp verification @%s", &v6, 0xCu);
   }
 
   [(TSTransferOneTimeCodeViewController *)self disableButtonsAndHideSpinnerText];
   [(CoreTelephonyClient *)self->_client handleUserEnteredOtp:self->_sourceIccid otp:0 completion:&__block_literal_global_118];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained viewControllerDidComplete:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __59__TSTransferOneTimeCodeViewController__cancelButtonTapped___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = _TSLogDomain();
+  v3 = _TSLogDomain(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412546;
-    v6 = v2;
-    v7 = 2080;
-    v8 = "[TSTransferOneTimeCodeViewController _cancelButtonTapped:]_block_invoke";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Otp cancelled : %@ @%s", &v5, 0x16u);
+    v4 = 138412546;
+    v5 = v2;
+    v6 = 2080;
+    v7 = "[TSTransferOneTimeCodeViewController _cancelButtonTapped:]_block_invoke";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "Otp cancelled : %@ @%s", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_changeOtpTextFieldState:(BOOL)state
@@ -506,13 +497,13 @@ void __59__TSTransferOneTimeCodeViewController__cancelButtonTapped___block_invok
 
 - (void)_resendOTP
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[TSTransferOneTimeCodeViewController _resendOTP]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "requested new OTP @%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[TSTransferOneTimeCodeViewController _resendOTP]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "requested new OTP @%s", &v5, 0xCu);
   }
 
   [(TSTransferOneTimeCodeViewController *)self _changeOtpTextFieldState:0];
@@ -523,16 +514,16 @@ void __59__TSTransferOneTimeCodeViewController__cancelButtonTapped___block_invok
   [WeakRetained startTimer:1];
 
   [(CoreTelephonyClient *)self->_client renewOneTimePassword:self->_sourceIccid completion:&__block_literal_global_120];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__TSTransferOneTimeCodeViewController__resendOTP__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __49__TSTransferOneTimeCodeViewController__resendOTP__block_invoke_cold_1();
     }
@@ -560,20 +551,18 @@ void __49__TSTransferOneTimeCodeViewController__resendOTP__block_invoke(uint64_t
 
 void __61__TSTransferOneTimeCodeViewController__continueButtonTapped___block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTransferOneTimeCodeViewController _continueButtonTapped:]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleUserEnteredOtp failed : %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTransferOneTimeCodeViewController _continueButtonTapped:]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]handleUserEnteredOtp failed : %@ @%s", v1, 0x16u);
 }
 
 void __49__TSTransferOneTimeCodeViewController__resendOTP__block_invoke_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v3 = "[TSTransferOneTimeCodeViewController _resendOTP]_block_invoke";
-  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]renewOneTimePassword failed : %@ @%s", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = "[TSTransferOneTimeCodeViewController _resendOTP]_block_invoke";
+  _os_log_error_impl(&dword_262AA8000, v0, OS_LOG_TYPE_ERROR, "[E]renewOneTimePassword failed : %@ @%s", v1, 0x16u);
 }
 
 @end

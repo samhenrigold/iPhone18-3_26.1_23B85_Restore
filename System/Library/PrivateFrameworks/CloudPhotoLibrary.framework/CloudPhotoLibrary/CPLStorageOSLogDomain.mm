@@ -10,9 +10,11 @@ uint64_t ____CPLStorageOSLogDomain_block_invoke()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLStorageOSLogDomain_result = os_log_create("com.apple.photos.cpl", "engine.transientrepository.shared");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.transientrepository.shared");
+  v1 = __CPLStorageOSLogDomain_result;
+  __CPLStorageOSLogDomain_result = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLStorageOSLogDomain_block_invoke_209()
@@ -22,9 +24,11 @@ uint64_t ____CPLStorageOSLogDomain_block_invoke_209()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLStorageOSLogDomain_result_206 = os_log_create("com.apple.photos.cpl", "engine.resourcestorage");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.resourcestorage");
+  v1 = __CPLStorageOSLogDomain_result_206;
+  __CPLStorageOSLogDomain_result_206 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLStorageOSLogDomain_block_invoke_512()
@@ -34,9 +38,11 @@ uint64_t ____CPLStorageOSLogDomain_block_invoke_512()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLStorageOSLogDomain_result_509 = os_log_create("com.apple.photos.cpl", "engine.transientrepository.extraction");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.transientrepository.extraction");
+  v1 = __CPLStorageOSLogDomain_result_509;
+  __CPLStorageOSLogDomain_result_509 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLStorageOSLogDomain_block_invoke_920()
@@ -46,9 +52,11 @@ uint64_t ____CPLStorageOSLogDomain_block_invoke_920()
     dispatch_once(&_CPLOSLogSubsystem_onceToken, &__block_literal_global_40);
   }
 
-  __CPLStorageOSLogDomain_result_917 = os_log_create("com.apple.photos.cpl", "engine.pushrepository");
+  v0 = os_log_create("com.apple.photos.cpl", "engine.pushrepository");
+  v1 = __CPLStorageOSLogDomain_result_917;
+  __CPLStorageOSLogDomain_result_917 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t ____CPLStorageOSLogDomain_block_invoke_2033()

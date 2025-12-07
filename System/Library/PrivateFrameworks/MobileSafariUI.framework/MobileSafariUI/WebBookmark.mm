@@ -18,17 +18,19 @@
 
     if ([selfCopy isFullArchiveAvailable])
     {
-      v10 = 0;
-      address = [selfCopy webarchivePathInReaderForm:0 fileExists:&v10];
-      if (v10 != 1)
+      v14 = 0;
+      v7 = [selfCopy webarchivePathInReaderForm:0 fileExists:&v14];
+      address = v7;
+      if (v14 != 1)
       {
-        v7 = WBS_LOG_CHANNEL_PREFIXReadingList();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = WBS_LOG_CHANNEL_PREFIXReadingList(v7, v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          [(WebBookmark *)v7 safari_bestCurrentURL];
+          [(WebBookmark *)v9 safari_bestCurrentURL];
         }
 
-        if ([MEMORY[0x277D7B5A8] lockSync])
+        lockSync = [MEMORY[0x277D7B5A8] lockSync];
+        if (lockSync)
         {
           [selfCopy setArchiveStatus:6];
           mainBookmarkCollection = [MEMORY[0x277D7B5A8] mainBookmarkCollection];
@@ -39,10 +41,10 @@
 
         else
         {
-          v9 = WBS_LOG_CHANNEL_PREFIXReadingList();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          v13 = WBS_LOG_CHANNEL_PREFIXReadingList(lockSync, v11);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
-            [(WebBookmark *)v9 safari_bestCurrentURL];
+            [(WebBookmark *)v13 safari_bestCurrentURL];
           }
         }
 
@@ -50,7 +52,7 @@
         goto LABEL_6;
       }
 
-      _web_bestURLForUserTypedString = [MEMORY[0x277CBEBC0] fileURLWithPath:address isDirectory:0];
+      _web_bestURLForUserTypedString = [MEMORY[0x277CBEBC0] fileURLWithPath:v7 isDirectory:0];
 LABEL_5:
       selfCopy = _web_bestURLForUserTypedString;
 LABEL_6:

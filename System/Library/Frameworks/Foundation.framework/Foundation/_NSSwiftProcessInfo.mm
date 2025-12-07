@@ -292,7 +292,7 @@
 
   selfCopy = self;
   v14 = specialized _NSSwiftProcessInfo.beginActivity(options:reason:expirationHandler:)(options, v9, v11, v8, v12);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v8);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v8, v12);
 
   return v14;
 }
@@ -327,7 +327,7 @@
         [v14 _performActivityWithOptions_reason_usingBlock_];
         _Block_release(v15);
         swift_unknownObjectRelease();
-        outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(partial apply for thunk for @escaping @callee_unowned @convention(block) () -> ());
+        outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(partial apply for thunk for @escaping @callee_unowned @convention(block) () -> (), v12);
 
         return;
       }
@@ -389,22 +389,24 @@ LABEL_9:
   {
     v5 = v4;
     v4 = swift_allocObject();
+    v6 = v4;
     *(v4 + 16) = v5;
-    v6 = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable () -> ();
+    v7 = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable () -> ();
   }
 
   else
   {
+    v7 = 0;
     v6 = 0;
   }
 
-  v7 = *(&self->super.super.isa + OBJC_IVAR____NSSwiftProcessInfo__state);
+  v8 = *(&self->super.super.isa + OBJC_IVAR____NSSwiftProcessInfo__state);
   MEMORY[0x1EEE9AC00](v4);
   selfCopy = self;
-  os_unfair_lock_lock(v7 + 19);
-  partial apply for closure #1 in _NSSwiftProcessInfo._setShouldRelaunchDue(toAutomaticTerminationStateChangedHandler:)(&v7[4]);
-  os_unfair_lock_unlock(v7 + 19);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v6);
+  os_unfair_lock_lock(v8 + 19);
+  partial apply for closure #1 in _NSSwiftProcessInfo._setShouldRelaunchDue(toAutomaticTerminationStateChangedHandler:)(&v8[4]);
+  os_unfair_lock_unlock(v8 + 19);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed URL, @guaranteed Error) -> (@unowned Bool))?(v7, v6);
 }
 
 - ($9FE6E10C8CE45DBC9A88DFDEA39A390D)macCatalystVersion

@@ -27,19 +27,16 @@
   to;
   if ([(_CPSpotlightEmbeddingState *)self embeddedPhotosAssetsCount])
   {
-    embeddedPhotosAssetsCount = self->_embeddedPhotosAssetsCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPSpotlightEmbeddingState *)self totalPhotosAssetsCount])
   {
-    totalPhotosAssetsCount = self->_totalPhotosAssetsCount;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPSpotlightEmbeddingState *)self embeddedPhotosAssetsPercentage])
   {
-    embeddedPhotosAssetsPercentage = self->_embeddedPhotosAssetsPercentage;
     PBDataWriterWriteInt32Field();
   }
 

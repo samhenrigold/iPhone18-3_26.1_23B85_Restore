@@ -10,16 +10,16 @@
 
 - (MTTimerIntentDonor)initWithStorage:(id)storage
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   if (self)
   {
     v6 = MTLogForCategory(4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543362;
+      v14 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", &v15, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", &v14, 0xCu);
     }
 
     objc_storeStrong(&self->_storage, storage);
@@ -36,7 +36,6 @@
     self->_serializer = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -60,50 +59,48 @@
 
 void __42__MTTimerIntentDonor_source_didAddTimers___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v17 = v3;
-    v18 = 2114;
-    v19 = v4;
+    v16 = v3;
+    v17 = 2114;
+    v18 = v4;
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ didAddTimers %{public}@", buf, 0x16u);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(a1 + 32) _queue_donateCreateTimerIntent:*(*(&v11 + 1) + 8 * v9++) source:{*(a1 + 48), v11}];
+        [*(a1 + 32) _queue_donateCreateTimerIntent:*(*(&v10 + 1) + 8 * v9++) source:{*(a1 + 48), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didUpdateTimers:(id)timers
@@ -126,39 +123,39 @@ void __42__MTTimerIntentDonor_source_didAddTimers___block_invoke(uint64_t a1)
 
 void __45__MTTimerIntentDonor_source_didUpdateTimers___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138543618;
-    v20 = v3;
-    v21 = 2114;
-    v22 = v4;
+    v19 = v3;
+    v20 = 2114;
+    v21 = v4;
     _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ didUpdateTimers %{public}@", buf, 0x16u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = *(a1 + 40);
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 state] == 3)
         {
           [*(a1 + 32) _queue_donateCreateTimerIntent:v10 source:*(a1 + 48)];
@@ -172,13 +169,11 @@ void __45__MTTimerIntentDonor_source_didUpdateTimers___block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didFireTimer:(id)timer
@@ -197,30 +192,28 @@ void __45__MTTimerIntentDonor_source_didUpdateTimers___block_invoke(uint64_t a1)
 
 void __42__MTTimerIntentDonor_source_didFireTimer___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MTLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v3;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ didFireTimer %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v3;
+    v10 = 2114;
+    v11 = v4;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ didFireTimer %{public}@", &v8, 0x16u);
   }
 
   v5 = *(a1 + 40);
   v6 = *(*(a1 + 32) + 16);
   v7 = [v5 timerID];
   [v6 removeObject:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_donateCreateTimerIntent:(id)intent source:(id)source
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   sourceCopy = source;
   donatedTimerIDs = self->_donatedTimerIDs;
@@ -252,13 +245,13 @@ void __42__MTTimerIntentDonor_source_didFireTimer___block_invoke(uint64_t a1)
     {
       *buf = 138543618;
       selfCopy = self;
-      v35 = 2114;
-      v36 = v14;
+      v34 = 2114;
+      v35 = v14;
       _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Donating intent: %{public}@", buf, 0x16u);
     }
 
     v16 = [MEMORY[0x1E696B090] mtUserActivityWithActivityType:@"com.apple.clock.timer"];
-    v31[0] = @"identifier";
+    v30[0] = @"identifier";
     identifier = [v14 identifier];
     v18 = identifier;
     if (identifier)
@@ -271,36 +264,34 @@ void __42__MTTimerIntentDonor_source_didFireTimer___block_invoke(uint64_t a1)
       v19 = &stru_1F29360E0;
     }
 
-    v31[1] = @"duration";
-    v32[0] = v19;
+    v30[1] = @"duration";
+    v31[0] = v19;
     v20 = MEMORY[0x1E696AD98];
     [v14 duration];
     v21 = [v20 numberWithDouble:?];
-    v32[1] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v31[1] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
     [v16 setUserInfo:v22];
 
     v23 = [objc_alloc(MEMORY[0x1E696E7D8]) initWithCode:3 userActivity:v16];
     v24 = [objc_alloc(MEMORY[0x1E696E8B8]) initWithIntent:v14 response:v23];
     [v24 mtSetIntentDonorFromSource:sourceCopy];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __60__MTTimerIntentDonor__queue_donateCreateTimerIntent_source___block_invoke;
-    v29[3] = &unk_1E7B0D658;
-    v30 = v14;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __60__MTTimerIntentDonor__queue_donateCreateTimerIntent_source___block_invoke;
+    v28[3] = &unk_1E7B0D658;
+    v29 = v14;
     v25 = v14;
-    [v24 donateInteractionWithCompletion:v29];
+    [v24 donateInteractionWithCompletion:v28];
     v26 = self->_donatedTimerIDs;
     timerID2 = [intentCopy timerID];
     [(NSMutableSet *)v26 addObject:timerID2];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MTTimerIntentDonor__queue_donateCreateTimerIntent_source___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MTLogForCategory(4);
   v5 = v4;
@@ -315,21 +306,18 @@ void __60__MTTimerIntentDonor__queue_donateCreateTimerIntent_source___block_invo
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%@ donated successfully", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%@ donated successfully", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__MTTimerIntentDonor__queue_donateCreateTimerIntent_source___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Error donating timer create intent: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "Error donating timer create intent: %{public}@", &v2, 0xCu);
 }
 
 @end

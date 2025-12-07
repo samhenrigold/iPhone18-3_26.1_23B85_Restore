@@ -1,9 +1,9 @@
-uint64_t lazy protocol witness table accessor for type [SKNode] and conformance [A](unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type [SKNode] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -13,7 +13,7 @@ uint64_t lazy protocol witness table accessor for type [SKNode] and conformance 
 
 uint64_t outlined init with copy of FMPFSKLabelNodeStyle?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI20FMPFSKLabelNodeStyleVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI20FMPFSKLabelNodeStyleVSgMd, &_s10TVRemoteUI20FMPFSKLabelNodeStyleVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -312,7 +312,7 @@ id TVRUITipManager.popoverPresentationConductor.getter()
   return v3;
 }
 
-uint64_t TVRUITipManager.init(tipSourceViewProvider:tipType:)(void *a1, uint64_t a2)
+void *TVRUITipManager.init(tipSourceViewProvider:tipType:)(void *a1, uint64_t a2)
 {
   *&v2[OBJC_IVAR___TVRUITipManager_tipObservation] = 0;
   *&v2[OBJC_IVAR___TVRUITipManager_presentingViewController] = 0;
@@ -353,18 +353,18 @@ id TVRUITipManager.commonInit(tipSourceViewProvider:)(void *a1)
   v1 = type metadata accessor for Tips.ConfigurationOption.AnalyticsEngine();
   v17 = *(v1 - 8);
   v18 = v1;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v1);
   v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = type metadata accessor for Tips.ConfigurationOption.DatastoreLocation();
   v15 = *(v4 - 8);
   v16 = v4;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v4);
   v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for Tips.ConfigurationOption.DisplayFrequency();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy6TipKit4TipsO19ConfigurationOptionVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy6TipKit4TipsO19ConfigurationOptionVGMd, &_ss23_ContiguousArrayStorageCy6TipKit4TipsO19ConfigurationOptionVGMR);
   type metadata accessor for Tips.ConfigurationOption();
   *(swift_allocObject() + 16) = xmmword_26D0D3E20;
   static Tips.ConfigurationOption.DisplayFrequency.immediate.getter();
@@ -389,10 +389,10 @@ id TVRUITipManager.commonInit(tipSourceViewProvider:)(void *a1)
 uint64_t TVRUITipManager.setupTipsObserver()()
 {
   v1 = v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  result = MEMORY[0x28223BE20]();
-  v4 = v20 - v3;
-  v5 = OBJC_IVAR___TVRUITipManager_tipObservation;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  result = MEMORY[0x28223BE20](v2 - 8);
+  v5 = v21 - v4;
+  v6 = OBJC_IVAR___TVRUITipManager_tipObservation;
   if (!*&v0[OBJC_IVAR___TVRUITipManager_tipObservation])
   {
     if (one-time initialization token for tip != -1)
@@ -400,43 +400,43 @@ uint64_t TVRUITipManager.setupTipsObserver()()
       swift_once();
     }
 
-    v6 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v6, static Logger.tip);
-    v7 = v0;
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.default.getter();
+    v7 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v7, static Logger.tip);
+    v8 = v0;
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v8, v9))
+    if (os_log_type_enabled(v9, v10))
     {
-      v10 = swift_slowAlloc();
       v11 = swift_slowAlloc();
-      v21 = v11;
-      *v10 = 136315138;
-      outlined init with copy of Tip(&v7[OBJC_IVAR___TVRUITipManager_tip], v20);
-      __swift_project_boxed_opaque_existential_1(v20, v20[3]);
+      v12 = swift_slowAlloc();
+      v22 = v12;
+      *v11 = 136315138;
+      outlined init with copy of Tip(&v8[OBJC_IVAR___TVRUITipManager_tip], v21);
+      __swift_project_boxed_opaque_existential_1(v21, v21[3]);
       swift_getDynamicType();
-      __swift_destroy_boxed_opaque_existential_1(v20);
-      v12 = _typeName(_:qualified:)();
-      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v21);
+      __swift_destroy_boxed_opaque_existential_1(v21);
+      v13 = _typeName(_:qualified:)();
+      v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v22);
 
-      *(v10 + 4) = v14;
-      _os_log_impl(&dword_26CFEB000, v8, v9, "Setting up tip observation for %s", v10, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v11);
+      *(v11 + 4) = v15;
+      _os_log_impl(&dword_26CFEB000, v9, v10, "Setting up tip observation for %s", v11, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v12);
+      MEMORY[0x26D6B2710](v12, -1, -1);
       MEMORY[0x26D6B2710](v11, -1, -1);
-      MEMORY[0x26D6B2710](v10, -1, -1);
     }
 
-    v15 = type metadata accessor for TaskPriority();
-    (*(*(v15 - 8) + 56))(v4, 1, 1, v15);
+    v16 = type metadata accessor for TaskPriority();
+    (*(*(v16 - 8) + 56))(v5, 1, 1, v16);
     type metadata accessor for MainActor();
-    v16 = v7;
-    v17 = static MainActor.shared.getter();
-    v18 = swift_allocObject();
-    v19 = MEMORY[0x277D85700];
-    v18[2] = v17;
-    v18[3] = v19;
-    v18[4] = v16;
-    *&v1[v5] = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v4, &async function pointer to partial apply for closure #1 in TVRUITipManager.setupTipsObserver(), v18);
+    v17 = v8;
+    v18 = static MainActor.shared.getter();
+    v19 = swift_allocObject();
+    v20 = MEMORY[0x277D85700];
+    v19[2] = v18;
+    v19[3] = v20;
+    v19[4] = v17;
+    *&v1[v6] = _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v5, &async function pointer to partial apply for closure #1 in TVRUITipManager.setupTipsObserver(), v19);
   }
 
   return result;
@@ -445,31 +445,31 @@ uint64_t TVRUITipManager.setupTipsObserver()()
 uint64_t closure #1 in TVRUITipManager.setupTipsObserver()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[6] = a4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
   v4[7] = swift_task_alloc();
   v5 = type metadata accessor for Tips.Status();
   v4[8] = v5;
   v4[9] = *(v5 - 8);
   v4[10] = swift_task_alloc();
-  v4[11] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd);
+  v4[11] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR);
   v4[12] = swift_task_alloc();
-  v4[13] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  v4[13] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR);
   v4[14] = swift_task_alloc();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMd, &_ss16AsyncMapSequenceVyScSy6TipKit4TipsO6StatusOGSbGMR);
   v4[15] = v6;
   v4[16] = *(v6 - 8);
   v4[17] = swift_task_alloc();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMd, &_ss16AsyncMapSequenceV8IteratorVyScSy6TipKit4TipsO6StatusOGSb_GMR);
   v4[18] = v7;
   v4[19] = *(v7 - 8);
   v4[20] = swift_task_alloc();
   v4[21] = type metadata accessor for MainActor();
   v4[22] = static MainActor.shared.getter();
-  v8 = dispatch thunk of Actor.unownedExecutor.getter();
-  v4[23] = v8;
-  v4[24] = v9;
+  v9 = dispatch thunk of Actor.unownedExecutor.getter();
+  v4[23] = v9;
+  v4[24] = v8;
 
-  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v8);
+  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v9, v8);
 }
 
 uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
@@ -486,7 +486,7 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
   Tip.shouldDisplayUpdates.getter();
   (*(v7 + 8))(v8, v5);
   MEMORY[0x26D6B1710](v3);
-  lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd);
+  lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(&lazy protocol witness table cache variable for type AsyncStream<Tips.Status> and conformance AsyncStream<A>, &_sScSy6TipKit4TipsO6StatusOGMd, &_sScSy6TipKit4TipsO6StatusOGMR, MEMORY[0x277D857C0]);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   AsyncMapSequence.Iterator.transform.getter();
   (*(v1 + 8))(v2, v3);
@@ -510,13 +510,13 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
   v0[26] = v10;
   v0[27] = v12;
 
-  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v10);
+  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v10, v12);
 }
 
 {
   v1 = v0[25];
   v0[28] = AsyncMapSequence.Iterator.baseIterator.modify();
-  lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd);
+  lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(&lazy protocol witness table cache variable for type AsyncStream<Tips.Status>.Iterator and conformance AsyncStream<A>.Iterator, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMd, &_sScS8IteratorVy6TipKit4TipsO6StatusO_GMR, MEMORY[0x277D857B0]);
   v2 = swift_task_alloc();
   v0[29] = v2;
   *v2 = v0;
@@ -533,17 +533,19 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
   if (v0)
   {
     v3 = *(v2 + 208);
-    v4 = closure #1 in TVRUITipManager.setupTipsObserver();
+    v4 = *(v2 + 216);
+    v5 = closure #1 in TVRUITipManager.setupTipsObserver();
   }
 
   else
   {
     (*(v2 + 224))();
     v3 = *(v2 + 208);
-    v4 = closure #1 in TVRUITipManager.setupTipsObserver();
+    v4 = *(v2 + 216);
+    v5 = closure #1 in TVRUITipManager.setupTipsObserver();
   }
 
-  return MEMORY[0x2822009F8](v4, v3);
+  return MEMORY[0x2822009F8](v5, v3, v4);
 }
 
 {
@@ -553,25 +555,26 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
   if ((*(v2 + 48))(v3, 1, v1) == 1)
   {
 
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v3, &_s6TipKit4TipsO6StatusOSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v3, &_s6TipKit4TipsO6StatusOSgMd, &_s6TipKit4TipsO6StatusOSgMR);
     v4 = v0[23];
+    v5 = v0[24];
 
-    return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v4);
+    return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v4, v5);
   }
 
   else
   {
     (*(v2 + 32))(v0[10], v3, v1);
-    v5 = AsyncMapSequence.Iterator.transform.getter();
-    v0[30] = v6;
-    v10 = (v5 + *v5);
-    v7 = swift_task_alloc();
-    v0[31] = v7;
-    *v7 = v0;
-    v7[1] = closure #1 in TVRUITipManager.setupTipsObserver();
-    v8 = v0[10];
+    v6 = AsyncMapSequence.Iterator.transform.getter();
+    v0[30] = v7;
+    v11 = (v6 + *v6);
+    v8 = swift_task_alloc();
+    v0[31] = v8;
+    *v8 = v0;
+    v8[1] = closure #1 in TVRUITipManager.setupTipsObserver();
+    v9 = v0[10];
 
-    return (v10)(v0 + 32, v8);
+    return (v11)(v0 + 32, v9);
   }
 }
 
@@ -587,16 +590,18 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
 
   (*(v3 + 8))(v2, v4);
   *(v1 + 257) = *(v1 + 256);
-  v5 = *(v1 + 208);
+  v5 = *(v1 + 216);
+  v6 = *(v1 + 208);
 
-  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v5);
+  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v6, v5);
 }
 
 {
 
   v1 = *(v0 + 184);
+  v2 = *(v0 + 192);
 
-  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v1);
+  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v1, v2);
 }
 
 {
@@ -628,7 +633,7 @@ uint64_t closure #1 in TVRUITipManager.setupTipsObserver()()
   *(v0 + 208) = v2;
   *(v0 + 216) = v4;
 
-  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v2);
+  return MEMORY[0x2822009F8](closure #1 in TVRUITipManager.setupTipsObserver(), v2, v4);
 }
 
 {
@@ -765,87 +770,87 @@ LABEL_20:
 
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
-  MEMORY[0x28223BE20]();
-  v10 = v24 - v9;
-  outlined init with copy of TaskPriority?(a3, v24 - v9);
-  v11 = type metadata accessor for TaskPriority();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v10, 1, v11);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = v25 - v10;
+  outlined init with copy of TaskPriority?(a3, v25 - v10);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v13 == 1)
+  if (v14 == 1)
   {
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v10, &_sScPSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v11, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v12 + 8))(v10, v11);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v14 = *(a5 + 16);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v14)
+  if (v15)
   {
     swift_getObjectType();
-    v15 = dispatch thunk of Actor.unownedExecutor.getter();
-    v17 = v16;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v18 = String.utf8CString.getter() + 32;
-      v19 = swift_allocObject();
-      *(v19 + 16) = a4;
-      *(v19 + 24) = a5;
+      v19 = String.utf8CString.getter() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v17 | v15)
+      if (v18 | v16)
       {
-        v25[0] = 0;
-        v25[1] = 0;
-        v20 = v25;
-        v25[2] = v15;
-        v25[3] = v17;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      v24[1] = 7;
-      v24[2] = v20;
-      v24[3] = v18;
-      v22 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a3, &_sScPSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a3, &_sScPSgMd, &_sScPSgMR);
 
-      return v22;
+      return v23;
     }
   }
 
   else
   {
-    v15 = 0;
-    v17 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
     }
   }
 
-  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a3, &_sScPSgMd);
-  v21 = swift_allocObject();
-  *(v21 + 16) = a4;
-  *(v21 + 24) = a5;
-  if (v17 | v15)
+  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a3, &_sScPSgMd, &_sScPSgMR);
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v25[4] = 0;
-    v25[5] = 0;
-    v25[6] = v15;
-    v25[7] = v17;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -891,7 +896,7 @@ void closure #1 in TVRUITipManager.invalidate(_:didPerformAction:completion:)(ui
 {
   v7 = type metadata accessor for Tips.InvalidationReason();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v7);
   v10 = v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -1116,7 +1121,7 @@ void specialized TVRUITipManager.hideTip(animated:completion:)(void (*a1)(void),
       v22 = &block_descriptor_9;
       v18 = _Block_copy(aBlock);
       v19 = v6;
-      outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a1);
+      outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a1, a2);
 
       [v16 dismissViewControllerWithTransition:6 completion:v18];
       _Block_release(v18);
@@ -1170,7 +1175,7 @@ uint64_t specialized TVRUITipManager.invalidate(_:didPerformAction:completion:)(
   *(v17 + 32) = a3;
   *(v17 + 40) = a1 & 1;
 
-  outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a2);
+  outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a2, a3);
   specialized TVRUITipManager.hideTip(animated:completion:)(partial apply for closure #1 in TVRUITipManager.invalidate(_:didPerformAction:completion:), v17);
 }
 
@@ -1241,7 +1246,7 @@ uint64_t partial apply for closure #1 in TVRUITipManager.setupTipsObserver()()
 
 uint64_t outlined init with copy of TaskPriority?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1268,12 +1273,12 @@ uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TA_30(ui
   return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
-uint64_t lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(unint64_t *a1, uint64_t *a2)
+uint64_t lazy protocol witness table accessor for type AsyncStream<Tips.Status> and conformance AsyncStream<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1284,176 +1289,176 @@ uint64_t lazy protocol witness table accessor for type AsyncStream<Tips.Status> 
 char *FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(unsigned __int8 *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, double a6, double a7)
 {
   v8 = v7;
-  v76 = a5;
-  v79 = a4;
-  v77 = a3;
-  v74 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v13 = *(v74 - 8);
-  MEMORY[0x28223BE20](v74, v14);
-  v16 = &v74 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for OS_dispatch_queue.Attributes();
-  MEMORY[0x28223BE20](v17 - 8, v18);
-  v19 = type metadata accessor for DispatchQoS();
-  MEMORY[0x28223BE20](v19 - 8, v20);
-  v75 = *a1;
-  v21 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_style];
+  v73 = a5;
+  v76 = a4;
+  v74 = a3;
+  v71 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v13 = *(v71 - 8);
+  MEMORY[0x28223BE20](v71);
+  v15 = &v71 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v16 - 8);
+  v17 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v17 - 8);
+  v72 = *a1;
+  v18 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_style];
   __asm { FMOV            V0.2D, #0.5 }
 
-  *v21 = _Q0;
-  *(v21 + 2) = 0;
-  v78 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_ringView;
+  *v18 = _Q0;
+  *(v18 + 2) = 0;
+  v75 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_ringView;
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_ringView] = 0;
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_axisesNode] = 0;
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_patternNode] = 0;
-  v27 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading];
-  *v27 = 0;
-  v27[8] = 1;
-  v28 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
-  *&v7[v28] = [objc_allocWithZone(MEMORY[0x277CC1CD8]) init];
+  v24 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading];
+  *v24 = 0;
+  v24[8] = 1;
+  v25 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
+  *&v7[v25] = [objc_allocWithZone(MEMORY[0x277CC1CD8]) init];
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation] = 0;
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation] = 0;
-  v29 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_lastRenderTime];
-  *v29 = 0;
-  v29[8] = 1;
-  v30 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  v26 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_lastRenderTime];
+  *v26 = 0;
+  v26[8] = 1;
+  v27 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue;
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   static DispatchQoS.userInitiated.getter();
   static OS_dispatch_queue.Attributes.concurrent.getter();
-  (*(v13 + 104))(v16, *MEMORY[0x277D85260], v74);
-  *&v7[v30] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v31 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialBearing];
-  *v31 = 0;
-  v31[8] = 1;
-  v32 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialTouchDownLocation];
-  *v32 = 0;
-  *(v32 + 1) = 0;
-  v32[16] = 1;
+  (*(v13 + 104))(v15, *MEMORY[0x277D85260], v71);
+  *&v7[v27] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v28 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialBearing];
+  *v28 = 0;
+  v28[8] = 1;
+  v29 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialTouchDownLocation];
+  *v29 = 0;
+  *(v29 + 1) = 0;
+  v29[16] = 1;
   v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_usingDebuggingTouches] = 0;
   v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_shouldApplyOpacity] = 1;
-  v33 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_opacity];
-  *v33 = 0;
-  v33[8] = 1;
-  v34 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_presentedOpacity];
-  *v34 = 0;
-  v34[8] = 1;
+  v30 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_opacity];
+  *v30 = 0;
+  v30[8] = 1;
+  v31 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_presentedOpacity];
+  *v31 = 0;
+  v31[8] = 1;
   *&v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_altDelegate + 8] = 0;
   swift_unknownObjectWeakInit();
   v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isInteractivelyDebugging] = 0;
-  v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_experienceType] = v75;
-  v35 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_config];
-  v36 = *(a2 + 144);
-  *(v35 + 8) = *(a2 + 128);
-  *(v35 + 9) = v36;
-  *(v35 + 10) = *(a2 + 160);
-  v35[176] = *(a2 + 176);
-  v37 = *(a2 + 80);
-  *(v35 + 4) = *(a2 + 64);
-  *(v35 + 5) = v37;
-  v38 = *(a2 + 112);
-  *(v35 + 6) = *(a2 + 96);
-  *(v35 + 7) = v38;
-  v39 = *(a2 + 16);
-  *v35 = *a2;
-  *(v35 + 1) = v39;
-  v40 = *(a2 + 48);
-  *(v35 + 2) = *(a2 + 32);
-  *(v35 + 3) = v40;
-  v41 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_sceneSize];
-  *v41 = a6;
-  v41[1] = a7;
-  v42 = *&v7[v78];
-  v43 = v77;
-  *&v8[v78] = v77;
-  v78 = a2;
+  v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_experienceType] = v72;
+  v32 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_config];
+  v33 = *(a2 + 144);
+  *(v32 + 8) = *(a2 + 128);
+  *(v32 + 9) = v33;
+  *(v32 + 10) = *(a2 + 160);
+  v32[176] = *(a2 + 176);
+  v34 = *(a2 + 80);
+  *(v32 + 4) = *(a2 + 64);
+  *(v32 + 5) = v34;
+  v35 = *(a2 + 112);
+  *(v32 + 6) = *(a2 + 96);
+  *(v32 + 7) = v35;
+  v36 = *(a2 + 16);
+  *v32 = *a2;
+  *(v32 + 1) = v36;
+  v37 = *(a2 + 48);
+  *(v32 + 2) = *(a2 + 32);
+  *(v32 + 3) = v37;
+  v38 = &v7[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_sceneSize];
+  *v38 = a6;
+  v38[1] = a7;
+  v39 = *&v7[v75];
+  v40 = v74;
+  *&v8[v75] = v74;
+  v75 = a2;
   outlined init with copy of FMPFSKPatternNodeConfig(a2, aBlock);
-  v77 = v43;
+  v74 = v40;
 
   *&v8[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_opacitySpring] = specialized static FMPFFluidSpring.defaultSpringWith(initialValue:stableValueThreshold:response:)(0, 1, 0x3F847AE147AE147BLL, 0, 0, 1);
-  v44 = type metadata accessor for FMPFSKScene();
-  v80.receiver = v8;
-  v80.super_class = v44;
-  v45 = objc_msgSendSuper2(&v80, sel_initWithSize_, a6, a7);
-  *&v45[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_altDelegate + 8] = v76;
+  v41 = type metadata accessor for FMPFSKScene();
+  v77.receiver = v8;
+  v77.super_class = v41;
+  v42 = objc_msgSendSuper2(&v77, sel_initWithSize_, a6, a7);
+  *&v42[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_altDelegate + 8] = v73;
   swift_unknownObjectWeakAssign();
-  v46 = objc_opt_self();
-  v47 = v45;
-  v48 = [v46 clearColor];
-  [v47 setBackgroundColor_];
+  v43 = objc_opt_self();
+  v44 = v42;
+  v45 = [v43 clearColor];
+  [v44 setBackgroundColor_];
 
-  [v47 setAnchorPoint_];
-  [v47 setScaleMode_];
+  [v44 setAnchorPoint_];
+  [v44 setScaleMode_];
   FMPFSKScene.setupScene()();
-  v49 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
-  [*&v47[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager] setDeviceMotionUpdateInterval_];
-  v50 = *&v47[v49];
-  v51 = objc_opt_self();
-  v52 = v50;
-  v53 = [v51 mainQueue];
-  v54 = swift_allocObject();
+  v46 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
+  [*&v44[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager] setDeviceMotionUpdateInterval_];
+  v47 = *&v44[v46];
+  v48 = objc_opt_self();
+  v49 = v47;
+  v50 = [v48 mainQueue];
+  v51 = swift_allocObject();
   swift_unknownObjectWeakInit();
   aBlock[4] = partial apply for closure #1 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:);
-  aBlock[5] = v54;
+  aBlock[5] = v51;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed CMDeviceMotion?, @guaranteed Error?) -> ();
   aBlock[3] = &block_descriptor_10;
-  v55 = _Block_copy(aBlock);
+  v52 = _Block_copy(aBlock);
 
-  [v52 startDeviceMotionUpdatesUsingReferenceFrame:4 toQueue:v53 withHandler:v55];
-  _Block_release(v55);
+  [v49 startDeviceMotionUpdatesUsingReferenceFrame:4 toQueue:v50 withHandler:v52];
+  _Block_release(v52);
 
-  v56 = objc_opt_self();
-  v57 = [v56 standardUserDefaults];
+  v53 = objc_opt_self();
+  v54 = [v53 standardUserDefaults];
+  aBlock[0] = v54;
+  swift_getKeyPath();
+  swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v55 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
+
+  v56 = *&v44[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation];
+  *&v44[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation] = v55;
+
+  v57 = [v53 standardUserDefaults];
   aBlock[0] = v57;
   swift_getKeyPath();
   swift_allocObject();
   swift_unknownObjectWeakInit();
   v58 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
 
-  v59 = *&v47[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation];
-  *&v47[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation] = v58;
-
-  v60 = [v56 standardUserDefaults];
-  aBlock[0] = v60;
-  swift_getKeyPath();
-  swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v61 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
-
-  v62 = *&v47[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation];
-  *&v47[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation] = v61;
+  v59 = *&v44[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation];
+  *&v44[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation] = v58;
 
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v63 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v63, static Logger.default);
-  v64 = Logger.logObject.getter();
-  v65 = static os_log_type_t.default.getter();
+  v60 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v60, static Logger.default);
+  v61 = Logger.logObject.getter();
+  v62 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v64, v65))
+  if (os_log_type_enabled(v61, v62))
   {
-    v66 = swift_slowAlloc();
-    v67 = swift_slowAlloc();
-    v68 = swift_slowAlloc();
-    aBlock[0] = v68;
-    *v66 = 138412546;
-    *(v66 + 4) = v47;
-    *v67 = v47;
-    *(v66 + 12) = 2080;
-    v69 = v47;
-    v70 = CGSize.debugDescription.getter();
-    v72 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v70, v71, aBlock);
+    v63 = swift_slowAlloc();
+    v64 = swift_slowAlloc();
+    v65 = swift_slowAlloc();
+    aBlock[0] = v65;
+    *v63 = 138412546;
+    *(v63 + 4) = v44;
+    *v64 = v44;
+    *(v63 + 12) = 2080;
+    v66 = v44;
+    v67 = CGSize.debugDescription.getter();
+    v69 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v67, v68, aBlock);
 
-    *(v66 + 14) = v72;
-    _os_log_impl(&dword_26CFEB000, v64, v65, "🧭 FMPFSKScene%@: init with size={%s}", v66, 0x16u);
-    outlined destroy of NSObject?(v67);
-    MEMORY[0x26D6B2710](v67, -1, -1);
-    __swift_destroy_boxed_opaque_existential_1(v68);
-    MEMORY[0x26D6B2710](v68, -1, -1);
-    MEMORY[0x26D6B2710](v66, -1, -1);
+    *(v63 + 14) = v69;
+    _os_log_impl(&dword_26CFEB000, v61, v62, "🧭 FMPFSKScene%@: init with size={%s}", v63, 0x16u);
+    outlined destroy of NSObject?(v64);
+    MEMORY[0x26D6B2710](v64, -1, -1);
+    __swift_destroy_boxed_opaque_existential_1(v65);
+    MEMORY[0x26D6B2710](v65, -1, -1);
+    MEMORY[0x26D6B2710](v63, -1, -1);
 
     swift_unknownObjectRelease();
   }
@@ -1464,20 +1469,20 @@ char *FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(unsigne
     swift_unknownObjectRelease();
   }
 
-  outlined destroy of FMPFSKPatternNodeConfig(v78);
+  outlined destroy of FMPFSKPatternNodeConfig(v75);
 
-  return v47;
+  return v44;
 }
 
-void closure #1 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(objc_class *a1)
+void closure #1 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(objc_class *a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
-  v2.value.super.super.isa = swift_unknownObjectWeakLoadStrong();
-  if (v2.value.super.super.isa)
+  v4.value.super.super.isa = swift_unknownObjectWeakLoadStrong();
+  if (v4.value.super.super.isa)
   {
-    isa = v2.value.super.super.isa;
-    v2.value.super.super.isa = a1;
-    FMPFSKScene.handleDeviceMotionUpdate(_:)(v2);
+    isa = v4.value.super.super.isa;
+    v4.value.super.super.isa = a1;
+    FMPFSKScene.handleDeviceMotionUpdate(_:)(v4);
   }
 }
 
@@ -1490,24 +1495,24 @@ void thunk for @escaping @callee_guaranteed (@guaranteed CMDeviceMotion?, @guara
   v5(a2, a3);
 }
 
-uint64_t closure #2 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)()
+void *closure #2 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for DispatchWorkItemFlags();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0, v2);
-  v4 = &v9[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v10[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v6 = result;
-    v7 = static DispatchWorkItemFlags.barrier.getter();
-    MEMORY[0x28223BE20](v7, v8);
-    *&v9[-16] = v6;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd);
+    v8 = result;
+    v9 = static DispatchWorkItemFlags.barrier.getter();
+    MEMORY[0x28223BE20](v9);
+    *&v10[-16] = v8;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sytSgMd, &_sytSgMR);
     OS_dispatch_queue.sync<A>(flags:execute:)();
 
-    return (*(v1 + 8))(v4, v0);
+    return (*(v4 + 8))(v6, v3);
   }
 
   return result;
@@ -1543,27 +1548,27 @@ LABEL_7:
   *a2 = v3 == 0;
 }
 
-uint64_t closure #3 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)()
+void *closure #3 in FMPFSKScene.init(experienceType:config:size:ringView:altDelegate:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = type metadata accessor for DispatchWorkItemFlags();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0, v2);
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchWorkItemFlags();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v6 = result;
-    v7 = [objc_opt_self() standardUserDefaults];
-    v8 = [v7 fmpfDebugMode];
+    v8 = result;
+    v9 = [objc_opt_self() standardUserDefaults];
+    v10 = [v9 fmpfDebugMode];
 
-    v9 = static DispatchWorkItemFlags.barrier.getter();
-    MEMORY[0x28223BE20](v9, v10);
-    *(&v11 - 2) = v6;
-    *(&v11 - 8) = v8;
+    v11 = static DispatchWorkItemFlags.barrier.getter();
+    MEMORY[0x28223BE20](v11);
+    *(&v12 - 2) = v8;
+    *(&v12 - 8) = v10;
     OS_dispatch_queue.sync<A>(flags:execute:)();
 
-    return (*(v1 + 8))(v4, v0);
+    return (*(v4 + 8))(v6, v3);
   }
 
   return result;
@@ -1636,11 +1641,11 @@ uint64_t FMPFSKScene.setupScene()()
 {
   v1 = type metadata accessor for DispatchQoS();
   v2 = *(v1 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v1);
   v4 = aBlock - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for DispatchWorkItemFlags();
   v6 = *(v5 - 8);
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v5);
   v8 = aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = *&v0[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_sceneSize];
   v10 = *&v0[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_sceneSize + 8];
@@ -1730,7 +1735,7 @@ void closure #1 in FMPFSKScene.setupScene()(char *a1, void *a2, double a3, doubl
 
   [v34 setAlpha_];
   [v13 addChild_];
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UIBezierPath);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UIBezierPath, 0x277D75208);
   [a1 size];
   v37 = v36;
   [a1 size];
@@ -1916,64 +1921,64 @@ Swift::Void __swiftcall FMPFSKScene.handleDeviceMotionUpdate(_:)(CMDeviceMotion_
   isa = a1.value.super.super.isa;
   v3 = type metadata accessor for DispatchQoS();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DispatchWorkItemFlags();
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchWorkItemFlags();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_experienceType] != 2 || !UIAccessibilityIsReduceMotionEnabled()) && isa)
   {
-    v13 = isa;
-    [(objc_class *)v13 heading];
-    v15 = v14;
-    v16 = &v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading];
+    v11 = isa;
+    [(objc_class *)v11 heading];
+    v13 = v12;
+    v14 = &v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading];
     if (v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading + 8])
     {
     }
 
     else
     {
-      v17 = v14 - *v16;
-      v18 = v17 + -360.0;
-      if (v17 <= 180.0)
+      v15 = v12 - *v14;
+      v16 = v15 + -360.0;
+      if (v15 <= 180.0)
       {
-        v18 = v15 - *v16;
+        v16 = v13 - *v14;
       }
 
-      if (v17 >= -180.0)
+      if (v15 >= -180.0)
       {
-        v19 = v18;
+        v17 = v16;
       }
 
       else
       {
-        v19 = v17 + 360.0;
+        v17 = v15 + 360.0;
       }
 
-      v23[1] = *&v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue];
+      v21[1] = *&v1[OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue];
       static DispatchWorkItemFlags.barrier.getter();
-      v20 = swift_allocObject();
-      *(v20 + 16) = v1;
-      *(v20 + 24) = v19;
+      v18 = swift_allocObject();
+      *(v18 + 16) = v1;
+      *(v18 + 24) = v17;
       aBlock[4] = partial apply for specialized closure #1 in FMPFSKScene.handleDeviceMotionUpdate(_:);
-      aBlock[5] = v20;
+      aBlock[5] = v18;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 1107296256;
       aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
       aBlock[3] = &block_descriptor_132;
-      v21 = _Block_copy(aBlock);
-      v22 = v1;
+      v19 = _Block_copy(aBlock);
+      v20 = v1;
       static DispatchQoS.unspecified.getter();
-      MEMORY[0x26D6B1500](0, v7, v12, v21);
+      MEMORY[0x26D6B1500](0, v6, v10, v19);
 
-      _Block_release(v21);
-      (*(v4 + 8))(v7, v3);
-      (*(v9 + 8))(v12, v8);
+      _Block_release(v19);
+      (*(v4 + 8))(v6, v3);
+      (*(v8 + 8))(v10, v7);
     }
 
-    *v16 = v15;
-    *(v16 + 8) = 0;
+    *v14 = v13;
+    *(v14 + 8) = 0;
   }
 }
 
@@ -2237,29 +2242,29 @@ Swift::Void __swiftcall FMPFSKScene.pulseBTNode(duration:)(Swift::Double duratio
 {
   v3 = type metadata accessor for DispatchQoS();
   v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DispatchWorkItemFlags();
-  v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v6 = aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchWorkItemFlags();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static DispatchWorkItemFlags.barrier.getter();
-  v13 = swift_allocObject();
-  *(v13 + 16) = v1;
-  *(v13 + 24) = duration;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v1;
+  *(v11 + 24) = duration;
   aBlock[4] = partial apply for closure #1 in FMPFSKScene.pulseBTNode(duration:);
-  aBlock[5] = v13;
+  aBlock[5] = v11;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_108;
-  v14 = _Block_copy(aBlock);
-  v15 = v1;
+  v12 = _Block_copy(aBlock);
+  v13 = v1;
   static DispatchQoS.unspecified.getter();
-  MEMORY[0x26D6B1500](0, v7, v12, v14);
-  _Block_release(v14);
-  (*(v4 + 8))(v7, v3);
-  (*(v9 + 8))(v12, v8);
+  MEMORY[0x26D6B1500](0, v6, v10, v12);
+  _Block_release(v12);
+  (*(v4 + 8))(v6, v3);
+  (*(v8 + 8))(v10, v7);
 }
 
 void closure #1 in FMPFSKScene.pulseBTNode(duration:)(uint64_t a1, Swift::Double a2)
@@ -2334,36 +2339,36 @@ void closure #1 in FMPFSKScene.setBTDiskNodeSize(_:sprung:)(uint64_t a1, char a2
   }
 }
 
-uint64_t FMPFSKScene.setPatternConformedToExplodedFactor(_:sprung:)(char a1, double a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t FMPFSKScene.setPatternConformedToExplodedFactor(_:sprung:)(char a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5)
 {
-  v22 = a4;
-  v23 = a5;
+  v20 = a3;
+  v21 = a4;
   v8 = type metadata accessor for DispatchQoS();
   v9 = *(v8 - 8);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for DispatchWorkItemFlags();
-  v14 = *(v13 - 8);
-  MEMORY[0x28223BE20](v13, v15);
-  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for DispatchWorkItemFlags();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   static DispatchWorkItemFlags.barrier.getter();
-  v18 = swift_allocObject();
-  *(v18 + 16) = v5;
-  *(v18 + 24) = a2;
-  *(v18 + 32) = a1;
-  aBlock[4] = v22;
-  aBlock[5] = v18;
+  v16 = swift_allocObject();
+  *(v16 + 16) = v5;
+  *(v16 + 24) = a5;
+  *(v16 + 32) = a1;
+  aBlock[4] = v20;
+  aBlock[5] = v16;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
-  aBlock[3] = v23;
-  v19 = _Block_copy(aBlock);
-  v20 = v5;
+  aBlock[3] = v21;
+  v17 = _Block_copy(aBlock);
+  v18 = v5;
   static DispatchQoS.unspecified.getter();
-  MEMORY[0x26D6B1500](0, v12, v17, v19);
-  _Block_release(v19);
-  (*(v9 + 8))(v12, v8);
-  (*(v14 + 8))(v17, v13);
+  MEMORY[0x26D6B1500](0, v11, v15, v17);
+  _Block_release(v17);
+  (*(v9 + 8))(v11, v8);
+  (*(v13 + 8))(v15, v12);
 }
 
 void closure #1 in FMPFSKScene.setBTDiskNodeOpacity(_:sprung:)(uint64_t a1, char a2, Swift::Double a3)
@@ -2450,51 +2455,51 @@ void specialized FMPFSKScene.init(coder:)()
   v1 = v0;
   v2 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20]();
-  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for OS_dispatch_queue.Attributes();
-  MEMORY[0x28223BE20]();
-  type metadata accessor for DispatchQoS();
-  MEMORY[0x28223BE20]();
-  v6 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_style;
+  MEMORY[0x28223BE20](v2);
+  v5 = &v22 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v6 - 8);
+  v7 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v7 - 8);
+  v8 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_style;
   __asm { FMOV            V0.2D, #0.5 }
 
-  *v6 = _Q0;
-  *(v6 + 16) = 0;
+  *v8 = _Q0;
+  *(v8 + 16) = 0;
   *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_ringView) = 0;
   *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_axisesNode) = 0;
   *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_patternNode) = 0;
-  v12 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading;
-  *v12 = 0;
-  *(v12 + 8) = 1;
-  v13 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
-  *(v1 + v13) = [objc_allocWithZone(MEMORY[0x277CC1CD8]) init];
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation) = 0;
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation) = 0;
-  v14 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_lastRenderTime;
+  v14 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_previousHeading;
   *v14 = 0;
   *(v14 + 8) = 1;
-  v15 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  v15 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_motionManager;
+  *(v1 + v15) = [objc_allocWithZone(MEMORY[0x277CC1CD8]) init];
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_dotCountObservation) = 0;
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_debugModeObservation) = 0;
+  v16 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_lastRenderTime;
+  *v16 = 0;
+  *(v16 + 8) = 1;
+  v17 = OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isolationQueue;
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   static DispatchQoS.userInitiated.getter();
   static OS_dispatch_queue.Attributes.concurrent.getter();
   (*(v3 + 104))(v5, *MEMORY[0x277D85260], v2);
-  *(v1 + v15) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v16 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialBearing;
-  *v16 = 0;
-  *(v16 + 8) = 1;
-  v17 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialTouchDownLocation;
-  *v17 = 0;
-  *(v17 + 8) = 0;
-  *(v17 + 16) = 1;
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_usingDebuggingTouches) = 0;
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_shouldApplyOpacity) = 1;
-  v18 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_opacity;
+  *(v1 + v17) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v18 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialBearing;
   *v18 = 0;
   *(v18 + 8) = 1;
-  v19 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_presentedOpacity;
+  v19 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_initialTouchDownLocation;
   *v19 = 0;
-  *(v19 + 8) = 1;
+  *(v19 + 8) = 0;
+  *(v19 + 16) = 1;
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_usingDebuggingTouches) = 0;
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_shouldApplyOpacity) = 1;
+  v20 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_opacity;
+  *v20 = 0;
+  *(v20 + 8) = 1;
+  v21 = v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_presentedOpacity;
+  *v21 = 0;
+  *(v21 + 8) = 1;
   *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_altDelegate + 8) = 0;
   swift_unknownObjectWeakInit();
   *(v1 + OBJC_IVAR____TtC10TVRemoteUI11FMPFSKScene_isInteractivelyDebugging) = 0;
@@ -2541,7 +2546,7 @@ uint64_t block_copy_helper_10(uint64_t a1, uint64_t a2)
 
 uint64_t outlined destroy of NSObject?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2617,7 +2622,7 @@ id FMBTDistanceView.setup()()
 {
   [v0 setOverrideUserInterfaceStyle_];
   [v0 setAxis_];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_26D0D2880;
   v2 = *&v0[OBJC_IVAR____TtC10TVRemoteUI16FMBTDistanceView_distanceLabel];
@@ -2841,7 +2846,7 @@ id closure #1 in FMBTDistanceView.update(with:nextBeacon:)(uint64_t a1, uint64_t
     v17._object = 0xE000000000000000;
     NSLocalizedString(_:tableName:bundle:value:comment:)(v16, 0, v15, v17, v49);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v18 = swift_allocObject();
     *(v18 + 16) = xmmword_26D0D2E90;
     *(v18 + 56) = MEMORY[0x277D837D0];
@@ -2860,7 +2865,7 @@ id closure #1 in FMBTDistanceView.update(with:nextBeacon:)(uint64_t a1, uint64_t
       goto LABEL_10;
     }
 
-    v19 = FMFindingMeasurement.hint(for:)(*(a2 + 97));
+    v19 = FMFindingMeasurement.hint(for:)(*(a2 + 97), *(a2 + 24));
     v21 = v23;
   }
 
@@ -3132,62 +3137,62 @@ LABEL_11:
   return countAndFlagsBits;
 }
 
-uint64_t FMFindingMeasurement.hint(for:)(char a1)
+uint64_t FMFindingMeasurement.hint(for:)(char a1, __n128 a2)
 {
-  v2 = 0x4953414552434544;
+  v3 = 0x4953414552434544;
   if (a1 == 1)
   {
-    v3 = v1;
-    v2 = 0x4953414552434E49;
+    v4 = v2;
+    v3 = 0x4953414552434E49;
     goto LABEL_5;
   }
 
   if (a1 == 2)
   {
-    v3 = v1;
+    v4 = v2;
 LABEL_5:
 
-    MEMORY[0x26D6B12B0](v2, 0xEA0000000000474ELL);
+    MEMORY[0x26D6B12B0](v3, 0xEA0000000000474ELL);
     swift_bridgeObjectRelease_n();
-    v5 = 95;
-    v4 = 0xE100000000000000;
-    v1 = v3;
+    v6 = 95;
+    v5 = 0xE100000000000000;
+    v2 = v4;
     goto LABEL_7;
   }
 
-  v5 = 0;
-  v4 = 0xE000000000000000;
+  v6 = 0;
+  v5 = 0xE000000000000000;
 LABEL_7:
-  if (*(v1 + 16) == 3)
+  if (*(v2 + 16) == 3)
   {
-    v16 = FMFindingMeasurement.hintKey.getter();
-    v17 = v6;
-    MEMORY[0x26D6B12B0](v5, v4);
+    v17 = FMFindingMeasurement.hintKey.getter();
+    v18 = v7;
+    MEMORY[0x26D6B12B0](v6, v5);
 
-    v8 = v16;
-    v7 = v17;
+    v9 = v17;
+    v8 = v18;
   }
 
   else
   {
 
-    v8 = FMFindingMeasurement.hintKey.getter();
-    v7 = v9;
+    v9 = FMFindingMeasurement.hintKey.getter();
+    v8 = v10;
   }
 
   type metadata accessor for FMBTDistanceView();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v11 = [objc_opt_self() bundleForClass_];
+  v12 = [objc_opt_self() bundleForClass_];
   _StringGuts.grow(_:)(27);
 
-  MEMORY[0x26D6B12B0](v8, v7);
-  v18._countAndFlagsBits = 0xD000000000000019;
-  v18._object = 0x800000026D0DD740;
-  v12._countAndFlagsBits = v8;
-  v12._object = v7;
-  v13._countAndFlagsBits = 0;
-  v13._object = 0xE000000000000000;
-  countAndFlagsBits = NSLocalizedString(_:tableName:bundle:value:comment:)(v12, 0, v11, v13, v18)._countAndFlagsBits;
+  MEMORY[0x26D6B12B0](v9, v8);
+  v19._countAndFlagsBits = 0xD000000000000019;
+  v19._object = 0x800000026D0DD740;
+  v13._countAndFlagsBits = v9;
+  v13._object = v8;
+  v14._countAndFlagsBits = 0;
+  v14._object = 0xE000000000000000;
+  countAndFlagsBits = NSLocalizedString(_:tableName:bundle:value:comment:)(v13, 0, v12, v14, v19)._countAndFlagsBits;
 
   return countAndFlagsBits;
 }
@@ -3430,12 +3435,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FMPFSKP
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance FMPFSKPatternFragmentNodeTravelingStyle()
+double protocol witness for Hashable.hash(into:) in conformance FMPFSKPatternFragmentNodeTravelingStyle(uint64_t a1)
 {
   String.hash(into:)();
+
+  return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMPFSKPatternFragmentNodeTravelingStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FMPFSKPatternFragmentNodeTravelingStyle(uint64_t a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -3512,19 +3519,19 @@ unint64_t specialized FMPFSKPatternFragmentNodeTravelingStyle.init(rawValue:)(Sw
   }
 }
 
-id FMPFView.__deallocating_deinit()
+id FMPFView.__deallocating_deinit(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *&v0[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_ecoModeObservation];
-  if (v2)
+  v2 = v1;
+  v3 = *&v1[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_ecoModeObservation];
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     dispatch thunk of NSKeyValueObservation.invalidate()();
   }
 
-  v5.receiver = v1;
-  v5.super_class = type metadata accessor for FMPFView();
-  return objc_msgSendSuper2(&v5, sel_dealloc);
+  v6.receiver = v2;
+  v6.super_class = type metadata accessor for FMPFView();
+  return objc_msgSendSuper2(&v6, sel_dealloc);
 }
 
 void FMPFView.setupConstraints()()
@@ -3532,7 +3539,7 @@ void FMPFView.setupConstraints()()
   v1 = *&v0[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skSceneView];
   [v1 setTranslatesAutoresizingMaskIntoConstraints_];
   v2 = objc_opt_self();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_26D0D46C0;
   v4 = [v1 topAnchor];
@@ -3555,7 +3562,7 @@ void FMPFView.setupConstraints()()
   v15 = [v13 constraintEqualToAnchor_];
 
   *(v3 + 56) = v15;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v2 activateConstraints_];
@@ -3801,7 +3808,7 @@ Swift::Void __swiftcall FMPFView.thermalStateDidChange(notification:)(NSNotifica
   v7[1] = v6;
   if (*(&v6 + 1))
   {
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSProcessInfo);
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSProcessInfo, 0x277CCAC38);
     if (swift_dynamicCast())
     {
       v2 = [v4 thermalState];
@@ -3822,7 +3829,7 @@ Swift::Void __swiftcall FMPFView.thermalStateDidChange(notification:)(NSNotifica
 
   else
   {
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v7, &_sypSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v7, &_sypSgMd, &_sypSgMR);
   }
 }
 
@@ -3903,24 +3910,24 @@ LABEL_12:
   return MEMORY[0x2821FBFB0]();
 }
 
-char *specialized FMPFView.init(experienceType:config:distance:)(unsigned __int8 *a1, uint64_t a2)
+char *specialized FMPFView.init(experienceType:config:distance:)(unsigned __int8 *a1, __int128 *a2)
 {
-  v4 = *(a2 + 144);
-  v87 = *(a2 + 128);
+  v4 = a2[9];
+  v87 = a2[8];
   v88 = v4;
-  v89 = *(a2 + 160);
+  v89 = a2[10];
   v90 = *(a2 + 176);
-  v5 = *(a2 + 80);
-  v83 = *(a2 + 64);
+  v5 = a2[5];
+  v83 = a2[4];
   v84 = v5;
-  v6 = *(a2 + 112);
-  v85 = *(a2 + 96);
+  v6 = a2[7];
+  v85 = a2[6];
   v86 = v6;
-  v7 = *(a2 + 16);
+  v7 = a2[1];
   v79 = *a2;
   v80 = v7;
-  v8 = *(a2 + 48);
-  v81 = *(a2 + 32);
+  v8 = a2[3];
+  v81 = a2[2];
   v82 = v8;
   v9 = *a1;
   *&v2[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_style] = 0x3FE8000000000000;
@@ -3948,22 +3955,22 @@ char *specialized FMPFView.init(experienceType:config:distance:)(unsigned __int8
   v2[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_sceneIsRunning] = 0;
   v2[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_isConvergingBackdropShown] = 0;
   v2[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_experienceType] = v9;
-  v15 = *(a2 + 144);
-  v65[8] = *(a2 + 128);
+  v15 = a2[9];
+  v65[8] = a2[8];
   v65[9] = v15;
-  v65[10] = *(a2 + 160);
+  v65[10] = a2[10];
   v66 = *(a2 + 176);
-  v16 = *(a2 + 80);
-  v65[4] = *(a2 + 64);
+  v16 = a2[5];
+  v65[4] = a2[4];
   v65[5] = v16;
-  v17 = *(a2 + 112);
-  v65[6] = *(a2 + 96);
+  v17 = a2[7];
+  v65[6] = a2[6];
   v65[7] = v17;
-  v18 = *(a2 + 16);
+  v18 = a2[1];
   v65[0] = *a2;
   v65[1] = v18;
-  v19 = *(a2 + 48);
-  v65[2] = *(a2 + 32);
+  v19 = a2[3];
+  v65[2] = a2[2];
   v65[3] = v19;
   if (_s10TVRemoteUI23FMPFSKPatternNodeConfigVSgWOg(v65) == 1)
   {
@@ -4049,7 +4056,7 @@ char *specialized FMPFView.init(experienceType:config:distance:)(unsigned __int8
   v54 = v68;
   v55 = v21;
   v56 = v22;
-  destructiveProjectEnumData for FMFindingState(&v53);
+  destructiveProjectEnumData for FMFindingState();
   v28 = &v2[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_config];
   v29 = v62;
   *(v28 + 8) = v61;
@@ -4103,7 +4110,7 @@ char *specialized FMPFView.init(experienceType:config:distance:)(unsigned __int8
   swift_unknownObjectWeakInit();
   v48 = _KeyValueCodingAndObserving.observe<A>(_:options:changeHandler:)();
 
-  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a2, &_s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMd);
+  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(a2, &_s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMd, _s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMR);
 
   v49 = *&v44[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_ecoModeObservation];
   *&v44[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_ecoModeObservation] = v48;
@@ -4130,7 +4137,7 @@ uint64_t _s10TVRemoteUI23FMPFSKPatternNodeConfigVSgWOg(uint64_t a1)
 
 uint64_t outlined init with copy of FMPFSKPatternNodeConfig?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMd, _s10TVRemoteUI23FMPFSKPatternNodeConfigVSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -4167,14 +4174,14 @@ void specialized FMPFView.init(coder:)()
 
 id UIAccessibilityCustomAction.__allocating_init(name:target:selector:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v6 = MEMORY[0x26D6B1210]();
+  v6 = MEMORY[0x26D6B1210](a1);
 
   v7 = a3[3];
   if (v7)
   {
     v8 = __swift_project_boxed_opaque_existential_1(a3, a3[3]);
     v9 = *(v7 - 8);
-    MEMORY[0x28223BE20](v8, v8);
+    MEMORY[0x28223BE20](v8);
     v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v9 + 16))(v11);
     v12 = _bridgeAnythingToObjectiveC<A>(_:)();
@@ -4297,9 +4304,9 @@ LABEL_7:
 Swift::Void __swiftcall FindingViewController.viewIsAppearing(_:)(Swift::Bool a1)
 {
   v2 = v1;
-  v23.receiver = v2;
-  v23.super_class = type metadata accessor for FindingViewController();
-  objc_msgSendSuper2(&v23, sel_viewIsAppearing_, a1);
+  v24.receiver = v2;
+  v24.super_class = type metadata accessor for FindingViewController();
+  objc_msgSendSuper2(&v24, sel_viewIsAppearing_, a1);
   FMFindingSleepPreventer.disableSleepingForAWhileWhileFinding()();
   v4 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_isFirstAppear;
   if (v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_isFirstAppear] == 1)
@@ -4331,10 +4338,11 @@ Swift::Void __swiftcall FindingViewController.viewIsAppearing(_:)(Swift::Bool a1
       swift_unknownObjectWeakInit();
       v21 = (v19 + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler);
       v22 = *(v19 + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler);
+      v23 = v21[1];
       *v21 = partial apply for closure #1 in FindingViewController.viewIsAppearing(_:);
       v21[1] = v20;
 
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v22);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v22, v23);
 
       FindingViewController.updateHaptics()();
       v2[v4] = 0;
@@ -4347,22 +4355,22 @@ Swift::Void __swiftcall FindingViewController.viewIsAppearing(_:)(Swift::Bool a1
   }
 }
 
-void closure #1 in FindingViewController.viewIsAppearing(_:)(uint64_t a1, uint64_t a2)
+void closure #1 in FindingViewController.viewIsAppearing(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v4 = Strong;
-    outlined init with copy of Any?(a2, v10, &_sypSgMd);
-    if (v11)
+    v5 = Strong;
+    outlined init with copy of Any?(a2, v11, &_sypSgMd, &_sypSgMR);
+    if (v12)
     {
       if (swift_dynamicCast())
       {
-        v5 = v9;
-        v6 = FindingViewController.findingView.getter();
-        v7 = *&v6[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
-        if (!v7)
+        v6 = v10;
+        v7 = FindingViewController.findingView.getter();
+        v8 = *&v7[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
+        if (!v8)
         {
           goto LABEL_10;
         }
@@ -4373,22 +4381,22 @@ void closure #1 in FindingViewController.viewIsAppearing(_:)(uint64_t a1, uint64
 
     else
     {
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v10, &_sypSgMd);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v11, &_sypSgMd, &_sypSgMR);
     }
 
-    v6 = FindingViewController.findingView.getter();
-    v7 = *&v6[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
-    if (!v7)
+    v7 = FindingViewController.findingView.getter();
+    v8 = *&v7[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
+    if (!v8)
     {
 LABEL_10:
 
       return;
     }
 
-    v5 = 0.5;
+    v6 = 0.5;
 LABEL_9:
-    v8 = v7;
-    FMPFSKScene.pulseBTNode(duration:)(v5);
+    v9 = v8;
+    FMPFSKScene.pulseBTNode(duration:)(v6);
 
     goto LABEL_10;
   }
@@ -4399,13 +4407,14 @@ Swift::Void __swiftcall FindingViewController.viewDidDisappear(_:)(Swift::Bool a
   v2 = v1;
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  MEMORY[0x28223BE20](v4, v6);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = (*&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_hapticsController] + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler);
-  v10 = *v9;
-  *v9 = 0;
-  v9[1] = 0;
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v10);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = (*&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_hapticsController] + OBJC_IVAR____TtC10TVRemoteUI21FMR1HapticsController_playedHapticPatternHandler);
+  v9 = *v8;
+  v10 = v8[1];
+  *v8 = 0;
+  v8[1] = 0;
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v9, v10);
   FMR1HapticsController.stopHaptics()();
   FMR1HapticsController.tearDownHaptics()();
   [*&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession] invalidate];
@@ -4416,36 +4425,38 @@ Swift::Void __swiftcall FindingViewController.viewDidDisappear(_:)(Swift::Bool a
   v13 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_dismissedHandler];
   if (v13)
   {
+    v14 = v12[1];
 
-    v13(v14);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v13);
-    v15 = *v12;
+    v13(v15);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v13, v14);
+    v16 = *v12;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
+  v17 = v12[1];
   *v12 = 0;
   v12[1] = 0;
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v15);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(v16, v17);
   FMFindingSleepPreventer.reset()();
-  v16 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
-  v17 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
+  v18 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
+  v19 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
   Date.init()();
   isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v5 + 8))(v8, v4);
-  [v17 setSessionEndTime_];
+  (*(v5 + 8))(v7, v4);
+  [v19 setSessionEndTime_];
 
-  [*&v2[v16] setEndingProximityMeasurement_];
-  v19 = [objc_allocWithZone(MEMORY[0x277D6C4B8]) init];
-  [v19 logFindingSessionStatistics_];
+  [*&v2[v18] setEndingProximityMeasurement_];
+  v21 = [objc_allocWithZone(MEMORY[0x277D6C4B8]) init];
+  [v21 logFindingSessionStatistics_];
 
-  v20 = type metadata accessor for FindingViewController();
-  v21.receiver = v2;
-  v21.super_class = v20;
-  objc_msgSendSuper2(&v21, sel_viewDidDisappear_, a1);
+  v22 = type metadata accessor for FindingViewController();
+  v23.receiver = v2;
+  v23.super_class = v22;
+  objc_msgSendSuper2(&v23, sel_viewDidDisappear_, a1);
 }
 
 void FindingViewController.startNISession()()
@@ -4453,53 +4464,53 @@ void FindingViewController.startNISession()()
   v1 = v0;
   v2 = type metadata accessor for Date();
   v3 = *(v2 - 8);
-  MEMORY[0x28223BE20](v2, v4);
-  v6 = &v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData);
+  MEMORY[0x28223BE20](v2);
+  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData);
   Date.init()();
   isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v3 + 8))(v6, v2);
-  [v7 setSessionStartTime_];
+  (*(v3 + 8))(v5, v2);
+  [v6 setSessionStartTime_];
 
-  v9 = [objc_allocWithZone(MEMORY[0x277CD8A68]) init];
-  v10 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession;
-  v11 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession);
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession) = v9;
-  v12 = v9;
+  v8 = [objc_allocWithZone(MEMORY[0x277CD8A68]) init];
+  v9 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession;
+  v10 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession);
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_niSession) = v8;
+  v11 = v8;
 
-  if (v12)
+  if (v11)
   {
-    [v12 setDelegate_];
+    [v11 setDelegate_];
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_26D0D4110;
-  v14 = objc_allocWithZone(MEMORY[0x277CD8A60]);
-  v15 = MEMORY[0x26D6B1210](1701995880, 0xE400000000000000);
-  v16 = [v14 initWithName:v15 devicePresencePreset:1];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_26D0D4110;
+  v13 = objc_allocWithZone(MEMORY[0x277CD8A60]);
+  v14 = MEMORY[0x26D6B1210](1701995880, 0xE400000000000000);
+  v15 = [v13 initWithName:v14 devicePresencePreset:1];
 
-  *(v13 + 32) = v16;
-  v17 = objc_allocWithZone(MEMORY[0x277CD8A60]);
-  v18 = MEMORY[0x26D6B1210](1918985582, 0xE400000000000000);
-  v19 = [v17 initWithName:v18 devicePresencePreset:4];
+  *(v12 + 32) = v15;
+  v16 = objc_allocWithZone(MEMORY[0x277CD8A60]);
+  v17 = MEMORY[0x26D6B1210](1918985582, 0xE400000000000000);
+  v18 = [v16 initWithName:v17 devicePresencePreset:4];
 
-  *(v13 + 40) = v19;
-  v20 = objc_allocWithZone(MEMORY[0x277CD8A60]);
-  v21 = MEMORY[0x26D6B1210](7496038, 0xE300000000000000);
-  v22 = [v20 initWithName:v21 devicePresencePreset:5];
+  *(v12 + 40) = v18;
+  v19 = objc_allocWithZone(MEMORY[0x277CD8A60]);
+  v20 = MEMORY[0x26D6B1210](7496038, 0xE300000000000000);
+  v21 = [v19 initWithName:v20 devicePresencePreset:5];
 
-  *(v13 + 48) = v22;
-  v23 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_discoveryToken);
+  *(v12 + 48) = v21;
+  v22 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_discoveryToken);
   objc_allocWithZone(MEMORY[0x277CD8A28]);
-  v24 = v23;
-  v25 = specialized @nonobjc NIDevicePresenceConfiguration.init(discoveryToken:regions:preferredUpdateRate:)(v24, v13, 2);
+  v23 = v22;
+  v24 = specialized @nonobjc NIDevicePresenceConfiguration.init(discoveryToken:regions:preferredUpdateRate:)(v23, v12, 2);
 
-  v26 = *(v1 + v10);
-  if (v26)
+  v25 = *(v1 + v9);
+  if (v25)
   {
-    v27 = v26;
-    [v27 runWithConfiguration_];
+    v26 = v25;
+    [v26 runWithConfiguration_];
   }
 }
 
@@ -4546,7 +4557,7 @@ uint64_t closure #1 in FindingViewController.session(_:object:didUpdateRegion:pr
     v13[5] = v10;
     v13[2] = v7;
     v13[3] = v8;
-    outlined init with copy of Any?(v13, v12, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
+    outlined init with copy of Any?(v13, v12, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
     FindingViewController.updateState(to:)(&v15);
     return outlined destroy of FMFindingState(&v22);
   }
@@ -4557,141 +4568,141 @@ uint64_t closure #1 in FindingViewController.session(_:object:didUpdateRegion:pr
 uint64_t FindingViewController.restartSessionOnError()()
 {
   v1 = type metadata accessor for DispatchWorkItemFlags();
-  v55 = *(v1 - 8);
-  v56 = v1;
-  MEMORY[0x28223BE20](v1, v2);
-  v52 = &v47 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for DispatchQoS();
-  v53 = *(v4 - 8);
-  v54 = v4;
-  MEMORY[0x28223BE20](v4, v5);
-  v51 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for DispatchTimeInterval();
-  v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7, v9);
-  v11 = (&v47 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v57 = type metadata accessor for DispatchTime();
-  v50 = *(v57 - 8);
-  v13 = MEMORY[0x28223BE20](v57, v12);
-  v15 = &v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13, v16);
-  v49 = &v47 - v17;
+  v50 = *(v1 - 8);
+  v51 = v1;
+  MEMORY[0x28223BE20](v1);
+  v47 = &v42 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for DispatchQoS();
+  v48 = *(v3 - 8);
+  v49 = v3;
+  MEMORY[0x28223BE20](v3);
+  v46 = &v42 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for DispatchTimeInterval();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = (&v42 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v52 = type metadata accessor for DispatchTime();
+  v45 = *(v52 - 8);
+  v9 = MEMORY[0x28223BE20](v52);
+  v11 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v44 = &v42 - v12;
   if (one-time initialization token for findingExperience != -1)
   {
     swift_once();
   }
 
-  v18 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v18, static Logger.findingExperience);
-  v19 = v0;
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v20, v21))
+  v13 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v13, static Logger.findingExperience);
+  v14 = v0;
+  v15 = Logger.logObject.getter();
+  v16 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v15, v16))
   {
-    v22 = v7;
-    v23 = swift_slowAlloc();
-    *v23 = 134217984;
-    *(v23 + 4) = *(v19 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds);
+    v17 = v5;
+    v18 = swift_slowAlloc();
+    *v18 = 134217984;
+    *(v18 + 4) = *(v14 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds);
 
-    _os_log_impl(&dword_26CFEB000, v20, v21, "NISession to restart after a delay of (%ld) ms", v23, 0xCu);
-    v24 = v23;
-    v7 = v22;
-    MEMORY[0x26D6B2710](v24, -1, -1);
+    _os_log_impl(&dword_26CFEB000, v15, v16, "NISession to restart after a delay of (%ld) ms", v18, 0xCu);
+    v19 = v18;
+    v5 = v17;
+    MEMORY[0x26D6B2710](v19, -1, -1);
   }
 
   else
   {
 
-    v20 = v19;
+    v15 = v14;
   }
 
-  [*(&v19->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_trendTimer) invalidate];
-  v25 = v19 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state;
-  v27 = *(&v19[2].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v26 = *(&v19[4].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v66 = *(&v19->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v67 = v27;
-  v68 = v26;
-  v29 = *(&v19[8].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v28 = *(&v19[10].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v30 = *(&v19[6].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v72 = *(&v19[12].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v70 = v29;
-  v71 = v28;
-  v69 = v30;
-  if ((v67 - 6) >= 4 && (*(v25 + 2) - 6) >= 4)
+  [*(&v14->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_trendTimer) invalidate];
+  v20 = v14 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state;
+  v22 = *(&v14[2].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v21 = *(&v14[4].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v61 = *(&v14->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v62 = v22;
+  v63 = v21;
+  v24 = *(&v14[8].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v23 = *(&v14[10].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v25 = *(&v14[6].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v67 = *(&v14[12].isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v65 = v24;
+  v66 = v23;
+  v64 = v25;
+  if ((v62 - 6) >= 4 && (*(v20 + 2) - 6) >= 4)
   {
-    v73 = *v25;
-    v76 = *(v25 + 40);
-    v77 = *(v25 + 56);
-    *v78 = *(v25 + 72);
-    *&v78[9] = *(v25 + 81);
-    v75 = *(v25 + 24);
-    v74 = v67;
-    v79 = 3;
-    v31 = *(v25 + 3);
-    v32 = *(v25 + 48);
-    v33 = *(v25 + 5);
-    v63 = *(v25 + 4);
-    v64 = v33;
-    v65 = v32;
-    v62 = v31;
-    v34 = *(v25 + 1);
-    v61 = *(v25 + 2);
-    v59 = v73;
-    v60 = v34;
-    outlined init with copy of Any?(&v59, &v58, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
-    FindingViewController.updateState(to:)(&v73);
-    outlined destroy of FMFindingState(&v66);
+    v68 = *v20;
+    v71 = *(v20 + 40);
+    v72 = *(v20 + 56);
+    *v73 = *(v20 + 72);
+    *&v73[9] = *(v20 + 81);
+    v70 = *(v20 + 24);
+    v69 = v62;
+    v74 = 3;
+    v26 = *(v20 + 3);
+    v27 = *(v20 + 48);
+    v28 = *(v20 + 5);
+    v58 = *(v20 + 4);
+    v59 = v28;
+    v60 = v27;
+    v57 = v26;
+    v29 = *(v20 + 1);
+    v56 = *(v20 + 2);
+    v54 = v68;
+    v55 = v29;
+    outlined init with copy of Any?(&v54, &v53, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
+    FindingViewController.updateState(to:)(&v68);
+    outlined destroy of FMFindingState(&v61);
   }
 
-  v35 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayResetTimer;
-  [*(&v19->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayResetTimer) invalidate];
-  v36 = *(&v19->isa + v35);
-  *(&v19->isa + v35) = 0;
+  v30 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayResetTimer;
+  [*(&v14->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayResetTimer) invalidate];
+  v31 = *(&v14->isa + v30);
+  *(&v14->isa + v30) = 0;
 
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v47 = static OS_dispatch_queue.main.getter();
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+  v42 = static OS_dispatch_queue.main.getter();
   static DispatchTime.now()();
-  v48 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds;
-  *v11 = *(&v19->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds);
-  (*(v8 + 104))(v11, *MEMORY[0x277D85178], v7);
-  v37 = v49;
-  MEMORY[0x26D6B11C0](v15, v11);
-  (*(v8 + 8))(v11, v7);
-  v50 = *(v50 + 8);
-  (v50)(v15, v57);
-  v38 = swift_allocObject();
-  *(v38 + 16) = v19;
-  *&v61 = partial apply for closure #1 in FindingViewController.restartSessionOnError();
-  *(&v61 + 1) = v38;
-  *&v59 = MEMORY[0x277D85DD0];
-  *(&v59 + 1) = 1107296256;
-  *&v60 = thunk for @escaping @callee_guaranteed () -> ();
-  *(&v60 + 1) = &block_descriptor_95;
-  v39 = _Block_copy(&v59);
-  v40 = v19;
+  v43 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds;
+  *v8 = *(&v14->isa + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_sessionRestartDelayMilliseconds);
+  (*(v6 + 104))(v8, *MEMORY[0x277D85178], v5);
+  v32 = v44;
+  MEMORY[0x26D6B11C0](v11, v8);
+  (*(v6 + 8))(v8, v5);
+  v45 = *(v45 + 8);
+  (v45)(v11, v52);
+  v33 = swift_allocObject();
+  *(v33 + 16) = v14;
+  *&v56 = partial apply for closure #1 in FindingViewController.restartSessionOnError();
+  *(&v56 + 1) = v33;
+  *&v54 = MEMORY[0x277D85DD0];
+  *(&v54 + 1) = 1107296256;
+  *&v55 = thunk for @escaping @callee_guaranteed () -> ();
+  *(&v55 + 1) = &block_descriptor_95;
+  v34 = _Block_copy(&v54);
+  v35 = v14;
 
-  v41 = v51;
+  v36 = v46;
   static DispatchQoS.unspecified.getter();
-  *&v59 = MEMORY[0x277D84F90];
+  *&v54 = MEMORY[0x277D84F90];
   lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-  v42 = v52;
-  v43 = v56;
+  v37 = v47;
+  v38 = v51;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v44 = v47;
-  MEMORY[0x26D6B14C0](v37, v41, v42, v39);
-  _Block_release(v39);
+  v39 = v42;
+  MEMORY[0x26D6B14C0](v32, v36, v37, v34);
+  _Block_release(v34);
 
-  (*(v55 + 8))(v42, v43);
-  (*(v53 + 8))(v41, v54);
-  result = (v50)(v37, v57);
-  v46 = *(&v19->isa + v48);
-  if (v46 <= 9999)
+  (*(v50 + 8))(v37, v38);
+  (*(v48 + 8))(v36, v49);
+  result = (v45)(v32, v52);
+  v41 = *(&v14->isa + v43);
+  if (v41 <= 9999)
   {
-    *(&v19->isa + v48) = (v46 + 10);
+    *(&v14->isa + v43) = (v41 + 10);
   }
 
   return result;
@@ -4706,7 +4717,7 @@ void FindingViewController.setupConstraints()()
   v4 = FindingViewController.findingView.getter();
   [v4 setTranslatesAutoresizingMaskIntoConstraints_];
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_26D0D46C0;
   v6 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController____lazy_storage___findingView;
@@ -4766,7 +4777,7 @@ LABEL_27:
 
   v27 = [v22 constraintEqualToAnchor_];
   *(v5 + 56) = v27;
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v124 = v25;
@@ -5104,7 +5115,7 @@ LABEL_15:
     v34._object = 0xE000000000000000;
     NSLocalizedString(_:tableName:bundle:value:comment:)(v33, 0, v32, v34, v96);
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
     v35 = swift_allocObject();
     *(v35 + 16) = xmmword_26D0D2E90;
     *(v35 + 56) = MEMORY[0x277D837D0];
@@ -5214,7 +5225,7 @@ LABEL_15:
   [v70 removeAllAnimations];
 
   v71 = *&v45[v68];
-  outlined init with copy of Any?(v92, v90, &_sypSgMd);
+  outlined init with copy of Any?(v92, v90, &_sypSgMd, &_sypSgMR);
   v72 = v91;
   if (v91)
   {
@@ -5222,7 +5233,7 @@ LABEL_15:
     v89 = &v86;
     v74 = v61;
     v75 = *(v72 - 8);
-    MEMORY[0x28223BE20](v73, v73);
+    MEMORY[0x28223BE20](v73);
     v77 = &v86 - ((v76 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v75 + 16))(v77);
     v78 = v71;
@@ -5245,10 +5256,10 @@ LABEL_15:
   v81 = MEMORY[0x26D6B1210](v66._countAndFlagsBits, v66._object);
   [v45 setAccessibilityLabel_];
 
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction);
-  outlined init with copy of Any?(v92, v90, &_sypSgMd);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for UIAccessibilityCustomAction, 0x277D75088);
+  outlined init with copy of Any?(v92, v90, &_sypSgMd, &_sypSgMR);
   v82 = UIAccessibilityCustomAction.__allocating_init(name:target:selector:)(v66._countAndFlagsBits, v66._object, v90, sel_closeActionWithSender_);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   v83 = swift_allocObject();
   *(v83 + 16) = xmmword_26D0D2860;
   *(v83 + 32) = v82;
@@ -5257,7 +5268,7 @@ LABEL_15:
 
   [v45 setAccessibilityCustomActions_];
 
-  return outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v92, &_sypSgMd);
+  return outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v92, &_sypSgMd, &_sypSgMR);
 }
 
 void FindingViewController.setupInstructionsView()()
@@ -5312,41 +5323,41 @@ void FindingViewController.updateState(to:)(uint64_t a1)
   v2 = v1;
   v4 = &v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
   v5 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80];
-  v58[4] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64];
-  v58[5] = v5;
-  v59 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96];
+  v64[4] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64];
+  v64[5] = v5;
+  v65 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96];
   v6 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16];
-  v58[0] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
-  v58[1] = v6;
+  v64[0] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
+  v64[1] = v6;
   v7 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48];
-  v58[2] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32];
-  v58[3] = v7;
+  v64[2] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32];
+  v64[3] = v7;
   v8 = &v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState];
   v9 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 16];
-  v60[0] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState];
-  v60[1] = v9;
+  v66[0] = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState];
+  v66[1] = v9;
   v10 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 32];
   v11 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 48];
   v12 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 64];
   v13 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 80];
-  v61 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 96];
-  v60[4] = v12;
-  v60[5] = v13;
-  v60[2] = v10;
-  v60[3] = v11;
+  v67 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 96];
+  v66[4] = v12;
+  v66[5] = v13;
+  v66[2] = v10;
+  v66[3] = v11;
   memmove(&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState], &v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state], 0x62uLL);
-  outlined init with copy of FMFindingState(v58, v62);
-  outlined destroy of FMFindingState(v60);
+  outlined init with copy of FMFindingState(v64, v68);
+  outlined destroy of FMFindingState(v66);
   v14 = *(v4 + 5);
-  v62[4] = *(v4 + 4);
-  v62[5] = v14;
-  v63 = *(v4 + 48);
+  v68[4] = *(v4 + 4);
+  v68[5] = v14;
+  v69 = *(v4 + 48);
   v15 = *(v4 + 1);
-  v62[0] = *v4;
-  v62[1] = v15;
+  v68[0] = *v4;
+  v68[1] = v15;
   v16 = *(v4 + 3);
-  v62[2] = *(v4 + 2);
-  v62[3] = v16;
+  v68[2] = *(v4 + 2);
+  v68[3] = v16;
   v17 = *(a1 + 16);
   *v4 = *a1;
   *(v4 + 1) = v17;
@@ -5359,98 +5370,98 @@ void FindingViewController.updateState(to:)(uint64_t a1)
   *(v4 + 5) = v21;
   *(v4 + 2) = v18;
   *(v4 + 3) = v19;
-  outlined destroy of FMFindingState(v62);
+  outlined destroy of FMFindingState(v68);
   v22 = *(v8 + 5);
-  v56[4] = *(v8 + 4);
-  v56[5] = v22;
-  v57 = *(v8 + 48);
+  v62[4] = *(v8 + 4);
+  v62[5] = v22;
+  v63 = *(v8 + 48);
   v23 = *(v8 + 1);
-  v56[0] = *v8;
-  v56[1] = v23;
+  v62[0] = *v8;
+  v62[1] = v23;
   v24 = *(v8 + 3);
-  v56[2] = *(v8 + 2);
-  v56[3] = v24;
-  outlined init with copy of FMFindingState(a1, v54);
-  outlined init with copy of FMFindingState(v56, v54);
-  v25 = specialized static FMFindingState.== infix(_:_:)(v56, a1);
-  outlined destroy of FMFindingState(v56);
-  if ((v25 & 1) == 0)
+  v62[2] = *(v8 + 2);
+  v62[3] = v24;
+  outlined init with copy of FMFindingState(a1, v60);
+  outlined init with copy of FMFindingState(v62, v60);
+  v31 = specialized static FMFindingState.== infix(_:_:)(v62, a1, v25, v26, v27, v28, v29, v30);
+  outlined destroy of FMFindingState(v62);
+  if ((v31 & 1) == 0)
   {
     if (one-time initialization token for findingExperience != -1)
     {
       swift_once();
     }
 
-    v26 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v26, static Logger.findingExperience);
-    v27 = v2;
-    v28 = Logger.logObject.getter();
-    v29 = static os_log_type_t.default.getter();
+    v32 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v32, static Logger.findingExperience);
+    v33 = v2;
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v28, v29))
+    if (os_log_type_enabled(v34, v35))
     {
-      v30 = swift_slowAlloc();
-      v48 = swift_slowAlloc();
-      v49[0] = v48;
-      *v30 = 136315394;
-      v31 = *(v8 + 5);
-      v54[4] = *(v8 + 4);
-      v54[5] = v31;
-      v55 = *(v8 + 48);
-      v32 = *(v8 + 1);
-      v54[0] = *v8;
-      v54[1] = v32;
-      v33 = *(v8 + 3);
-      v54[2] = *(v8 + 2);
-      v54[3] = v33;
-      outlined init with copy of FMFindingState(v54, v52);
-      v34 = FMFindingState.description.getter();
-      v36 = v35;
-      outlined destroy of FMFindingState(v54);
-      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v36, v49);
+      v36 = swift_slowAlloc();
+      v54 = swift_slowAlloc();
+      v55[0] = v54;
+      *v36 = 136315394;
+      v37 = *(v8 + 5);
+      v60[4] = *(v8 + 4);
+      v60[5] = v37;
+      v61 = *(v8 + 48);
+      v38 = *(v8 + 1);
+      v60[0] = *v8;
+      v60[1] = v38;
+      v39 = *(v8 + 3);
+      v60[2] = *(v8 + 2);
+      v60[3] = v39;
+      outlined init with copy of FMFindingState(v60, v58);
+      v40 = FMFindingState.description.getter();
+      v42 = v41;
+      outlined destroy of FMFindingState(v60);
+      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, v55);
 
-      *(v30 + 4) = v37;
-      *(v30 + 12) = 2080;
-      v38 = *(v4 + 5);
-      v52[4] = *(v4 + 4);
-      v52[5] = v38;
-      v53 = *(v4 + 48);
-      v39 = *(v4 + 1);
-      v52[0] = *v4;
-      v52[1] = v39;
-      v40 = *(v4 + 3);
-      v52[2] = *(v4 + 2);
-      v52[3] = v40;
-      outlined init with copy of FMFindingState(v52, v50);
-      v41 = FMFindingState.description.getter();
-      v43 = v42;
-      outlined destroy of FMFindingState(v52);
-      v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, v49);
+      *(v36 + 4) = v43;
+      *(v36 + 12) = 2080;
+      v44 = *(v4 + 5);
+      v58[4] = *(v4 + 4);
+      v58[5] = v44;
+      v59 = *(v4 + 48);
+      v45 = *(v4 + 1);
+      v58[0] = *v4;
+      v58[1] = v45;
+      v46 = *(v4 + 3);
+      v58[2] = *(v4 + 2);
+      v58[3] = v46;
+      outlined init with copy of FMFindingState(v58, v56);
+      v47 = FMFindingState.description.getter();
+      v49 = v48;
+      outlined destroy of FMFindingState(v58);
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v55);
 
-      *(v30 + 14) = v44;
-      _os_log_impl(&dword_26CFEB000, v28, v29, "Updated state: %s → %s", v30, 0x16u);
+      *(v36 + 14) = v50;
+      _os_log_impl(&dword_26CFEB000, v34, v35, "Updated state: %s → %s", v36, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x26D6B2710](v48, -1, -1);
-      MEMORY[0x26D6B2710](v30, -1, -1);
+      MEMORY[0x26D6B2710](v54, -1, -1);
+      MEMORY[0x26D6B2710](v36, -1, -1);
     }
 
     FindingViewController.updateInstructionsView()();
   }
 
   FindingViewController.updateFindingView(sprung:state:)(1, a1);
-  v45 = *(v4 + 5);
-  v50[4] = *(v4 + 4);
-  v50[5] = v45;
-  v51 = *(v4 + 48);
-  v46 = *(v4 + 1);
-  v50[0] = *v4;
-  v50[1] = v46;
-  v47 = *(v4 + 3);
-  v50[2] = *(v4 + 2);
-  v50[3] = v47;
-  outlined init with copy of FMFindingState(v50, v49);
-  FMBTDistanceView.update(with:nextBeacon:)(v50, 0, 0);
-  outlined destroy of FMFindingState(v50);
+  v51 = *(v4 + 5);
+  v56[4] = *(v4 + 4);
+  v56[5] = v51;
+  v57 = *(v4 + 48);
+  v52 = *(v4 + 1);
+  v56[0] = *v4;
+  v56[1] = v52;
+  v53 = *(v4 + 3);
+  v56[2] = *(v4 + 2);
+  v56[3] = v53;
+  outlined init with copy of FMFindingState(v56, v55);
+  FMBTDistanceView.update(with:nextBeacon:)(v56, 0, 0);
+  outlined destroy of FMFindingState(v56);
   FindingViewController.updateHaptics()();
 }
 
@@ -5499,7 +5510,7 @@ void FindingViewController.updateFindingView(sprung:state:)(char a1, uint64_t a2
   v22 = *&v21[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
   if (v22)
   {
-    v23 = v110;
+    v23 = *&v109[2];
     v24 = v22;
     FMPFSKScene.setBTDiskNodeOpacity(_:sprung:)(a1 & 1, v23);
   }
@@ -5520,11 +5531,11 @@ void FindingViewController.updateFindingView(sprung:state:)(char a1, uint64_t a2
   v38 = v37;
   v40 = v39;
 
-  v116.origin.x = v34;
-  v116.origin.y = v36;
-  v116.size.width = v38;
-  v116.size.height = v40;
-  Width = CGRectGetWidth(v116);
+  v113.origin.x = v34;
+  v113.origin.y = v36;
+  v113.size.width = v38;
+  v113.size.height = v40;
+  Width = CGRectGetWidth(v113);
   v42 = [v25 mainScreen];
   [v42 bounds];
   v44 = v43;
@@ -5532,11 +5543,11 @@ void FindingViewController.updateFindingView(sprung:state:)(char a1, uint64_t a2
   v48 = v47;
   v50 = v49;
 
-  v117.origin.x = v44;
-  v117.origin.y = v46;
-  v117.size.width = v48;
-  v117.size.height = v50;
-  v51 = CGRectGetWidth(v117);
+  v114.origin.x = v44;
+  v114.origin.y = v46;
+  v114.size.width = v48;
+  v114.size.height = v50;
+  v51 = CGRectGetWidth(v114);
   v52 = *(v3 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement);
   v53 = *(v3 + v9);
   v54 = *&v53[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
@@ -5603,11 +5614,11 @@ void FindingViewController.updateFindingView(sprung:state:)(char a1, uint64_t a2
       FMPFView.updateConvergingBackdropColor(sprung:)(1);
 
       v98 = *(v3 + v9);
-      FMFindingState.defaultConfiguration.getter(v112);
+      FMFindingState.defaultConfiguration.getter(v111);
       v99 = *&v98[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
       if (v99)
       {
-        v100 = v114;
+        v100 = *&v111[2];
         v101 = v99;
         FMPFSKScene.setBTDiskNodeOpacity(_:sprung:)(0, v100);
       }
@@ -5704,21 +5715,21 @@ LABEL_43:
   }
 
   v59 = *(v3 + v9);
-  FMFindingState.defaultConfiguration.getter(v111);
+  FMFindingState.defaultConfiguration.getter(v110);
   v60 = *&v59[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
   if (v60)
   {
-    v61 = v111[0];
+    v61 = *v110;
     v62 = v60;
     FMPFSKScene.setBTRangeNodeSize(_:sprung:)(1, v61);
   }
 
   v63 = *(v3 + v9);
-  FMFindingState.defaultConfiguration.getter(v112);
+  FMFindingState.defaultConfiguration.getter(v111);
   v64 = *&v63[OBJC_IVAR____TtC10TVRemoteUI8FMPFView_skScene];
   if (v64)
   {
-    v65 = v113;
+    v65 = *&v111[1];
     v66 = v64;
     FMPFSKScene.setBTDiskNodeSize(_:sprung:)(1, v65);
   }
@@ -5881,7 +5892,7 @@ LABEL_3:
     v24 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
     v25 = &block_descriptor_89;
     v16 = _Block_copy(&v22);
-    outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a3);
+    outlined copy of (@escaping @callee_guaranteed (@guaranteed FMR1HapticPattern?, @in_guaranteed Any?) -> ())?(a3, a4);
 
     [v11 animateWithDuration:v13 animations:v16 completion:0.5];
     _Block_release(v16);
@@ -5933,48 +5944,48 @@ void FindingViewController.updateInstructionsView()()
   v1 = v0;
   v2 = type metadata accessor for DispatchWallTime();
   v3 = *(v2 - 8);
-  v5 = MEMORY[0x28223BE20](v2, v4);
-  v7 = v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5, v8);
-  v10 = v24 - v9;
-  v11 = type metadata accessor for DispatchWorkItemFlags();
-  MEMORY[0x28223BE20](v11, v12);
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = v21 - v7;
+  v9 = type metadata accessor for DispatchWorkItemFlags();
+  MEMORY[0x28223BE20](v9);
   if ((*(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16) & 0xFFFFFFFFFFFFFFFELL) == 6)
   {
-    v13 = swift_allocObject();
-    v24[0] = v2;
-    v14 = v13;
+    v10 = swift_allocObject();
+    v21[0] = v2;
+    v11 = v10;
     swift_unknownObjectWeakInit();
     aBlock[4] = partial apply for closure #1 in FindingViewController.updateInstructionsView();
-    aBlock[5] = v14;
+    aBlock[5] = v11;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_12;
     _Block_copy(aBlock);
-    v24[1] = MEMORY[0x277D84F90];
+    v21[1] = MEMORY[0x277D84F90];
     lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
     lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
     dispatch thunk of SetAlgebra.init<A>(_:)();
     type metadata accessor for DispatchWorkItem();
     swift_allocObject();
-    v15 = DispatchWorkItem.init(flags:block:)();
+    v12 = DispatchWorkItem.init(flags:block:)();
 
-    *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_searchingDelayWorkItem) = v15;
+    *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_searchingDelayWorkItem) = v12;
 
-    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-    v16 = static OS_dispatch_queue.main.getter();
+    type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+    v13 = static OS_dispatch_queue.main.getter();
     static DispatchWallTime.now()();
     + infix(_:_:)();
-    v17 = *(v3 + 8);
-    v18 = v7;
-    v19 = v24[0];
-    v17(v18, v24[0]);
+    v14 = *(v3 + 8);
+    v15 = v6;
+    v16 = v21[0];
+    v14(v15, v21[0]);
     OS_dispatch_queue.asyncAfter(wallDeadline:execute:)();
 
-    v17(v10, v19);
+    v14(v8, v16);
   }
 
   else
@@ -5986,76 +5997,76 @@ void FindingViewController.updateInstructionsView()()
     }
 
     FindingViewController.showInstructionsLabel(_:animated:completion:)(0, 1, 0, 0);
-    v20 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsTopLabel);
-    v21 = MEMORY[0x26D6B1210](0, 0xE000000000000000);
-    [v20 setText_];
+    v17 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsTopLabel);
+    v18 = MEMORY[0x26D6B1210](0, 0xE000000000000000);
+    [v17 setText_];
 
-    v22 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsLabel);
-    v24[0] = MEMORY[0x26D6B1210](0, 0xE000000000000000);
-    [v22 setText_];
+    v19 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsLabel);
+    v21[0] = MEMORY[0x26D6B1210](0, 0xE000000000000000);
+    [v19 setText_];
 
-    v23 = v24[0];
+    v20 = v21[0];
   }
 }
 
-void closure #1 in FindingViewController.updateInstructionsView()()
+void closure #1 in FindingViewController.updateInstructionsView()(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = objc_opt_self();
-    v3 = *&v1[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsTopLabel];
-    v4 = swift_allocObject();
-    *(v4 + 16) = v1;
+    v2 = Strong;
+    v3 = objc_opt_self();
+    v4 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsTopLabel];
+    v5 = swift_allocObject();
+    *(v5 + 16) = v2;
     aBlock[4] = partial apply for closure #1 in closure #1 in FindingViewController.updateInstructionsView();
-    aBlock[5] = v4;
+    aBlock[5] = v5;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
     aBlock[3] = &block_descriptor_77;
-    v5 = _Block_copy(aBlock);
-    v6 = v3;
-    v7 = v1;
+    v6 = _Block_copy(aBlock);
+    v7 = v4;
+    v8 = v2;
 
-    [v2 transitionWithView:v6 duration:5242880 options:v5 animations:0 completion:1.0];
-    _Block_release(v5);
+    [v3 transitionWithView:v7 duration:5242880 options:v6 animations:0 completion:1.0];
+    _Block_release(v6);
 
-    v8 = *&v7[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsLabel];
-    if (v7[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_requiresAdditionalConnectionTime] == 1)
+    v9 = *&v8[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_instructionsLabel];
+    if (v8[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_requiresAdditionalConnectionTime] == 1)
     {
       type metadata accessor for FMBTDistanceView();
       ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-      v10 = objc_opt_self();
-      v11 = v8;
-      v12 = [v10 bundleForClass_];
-      v22 = 0x800000026D0DDDC0;
-      v13 = 0x800000026D0DDDA0;
-      v14 = 0xD000000000000029;
-      v15 = 0xD000000000000010;
+      v11 = objc_opt_self();
+      v12 = v9;
+      v13 = [v11 bundleForClass_];
+      v23 = 0x800000026D0DDDC0;
+      v14 = 0x800000026D0DDDA0;
+      v15 = 0xD000000000000029;
+      v16 = 0xD000000000000010;
     }
 
     else
     {
       type metadata accessor for FMBTDistanceView();
-      v16 = swift_getObjCClassFromMetadata();
-      v17 = objc_opt_self();
-      v18 = v8;
-      v12 = [v17 bundleForClass_];
-      v22 = 0x800000026D0DDD70;
-      v15 = 0x43524145535F5442;
-      v13 = 0xEC000000474E4948;
-      v14 = 0xD000000000000025;
+      v17 = swift_getObjCClassFromMetadata();
+      v18 = objc_opt_self();
+      v19 = v9;
+      v13 = [v18 bundleForClass_];
+      v23 = 0x800000026D0DDD70;
+      v16 = 0x43524145535F5442;
+      v14 = 0xEC000000474E4948;
+      v15 = 0xD000000000000025;
     }
 
-    v19._countAndFlagsBits = 0;
-    v19._object = 0xE000000000000000;
-    v20 = NSLocalizedString(_:tableName:bundle:value:comment:)(*&v15, 0, v12, v19, *&v14);
+    v20._countAndFlagsBits = 0;
+    v20._object = 0xE000000000000000;
+    v21 = NSLocalizedString(_:tableName:bundle:value:comment:)(*&v16, 0, v13, v20, *&v15);
 
-    v21 = MEMORY[0x26D6B1210](v20._countAndFlagsBits, v20._object);
+    v22 = MEMORY[0x26D6B1210](v21._countAndFlagsBits, v21._object);
 
-    [v8 setText_];
+    [v9 setText_];
 
     FindingViewController.showInstructionsLabel(_:animated:completion:)(1, 1, 0, 0);
   }
@@ -6084,27 +6095,27 @@ void closure #1 in closure #1 in FindingViewController.updateInstructionsView()(
 
 void FindingViewController.updateHaptics()()
 {
-  v1 = (v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v1 = v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state;
   v2 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80);
-  v94 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64);
-  v95 = v2;
-  v96 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96);
+  v106 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64);
+  v107 = v2;
+  v108 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96);
   v3 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16);
-  v90 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v91 = v3;
+  v102 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v103 = v3;
   v4 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48);
-  v92 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32);
-  v93 = v4;
+  v104 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32);
+  v105 = v4;
   if ((v3 - 8) >= 2)
   {
     v5 = v0;
-    if (v91 == 7)
+    if (v103 == 7)
     {
       FMR1HapticsController.stopHaptics()();
       return;
     }
 
-    if (v91 == 6)
+    if (v103 == 6)
     {
       if (one-time initialization token for findingExperience != -1)
       {
@@ -6127,74 +6138,74 @@ void FindingViewController.updateHaptics()()
       goto LABEL_9;
     }
 
-    v84 = *v1;
-    v85 = v91;
-    v87 = *(v1 + 40);
-    v88 = *(v1 + 56);
-    v89[0] = *(v1 + 72);
-    *(v89 + 9) = *(v1 + 81);
-    v86 = *(v1 + 24);
-    if (v91 > 3)
+    v96 = *v1;
+    v97 = v103;
+    v99 = *(v1 + 40);
+    v100 = *(v1 + 56);
+    v101[0] = *(v1 + 72);
+    *(v101 + 9) = *(v1 + 81);
+    v98 = *(v1 + 24);
+    if (v103 > 3)
     {
-      if (v91 == 4)
+      if (v103 == 4)
       {
-        v18 = v1[5];
-        *&v63[16] = v1[4];
-        v64 = v18;
-        v65 = *(v1 + 48);
-        v19 = v1[1];
-        v60 = *v1;
-        v61 = v19;
-        v20 = v1[3];
-        v62 = v1[2];
-        *v63 = v20;
-        outlined init with copy of Any?(&v60, &v66, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
+        v18 = *(v1 + 80);
+        *&v75[16] = *(v1 + 64);
+        v76 = v18;
+        v77 = *(v1 + 96);
+        v19 = *(v1 + 16);
+        v72 = *v1;
+        v73 = v19;
+        v20 = *(v1 + 48);
+        v74 = *(v1 + 32);
+        *v75 = v20;
+        outlined init with copy of Any?(&v72, &v78, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
         FMR1HapticsController.stopHaptics()();
-        v21 = v1[5];
-        *&v83[48] = v1[4];
-        *&v83[64] = v21;
-        *&v83[80] = *(v1 + 48);
-        v22 = v1[1];
-        v82 = *v1;
-        *v83 = v22;
-        v23 = v1[3];
-        *&v83[16] = v1[2];
-        *&v83[32] = v23;
+        v21 = *(v1 + 80);
+        *&v95[48] = *(v1 + 64);
+        *&v95[64] = v21;
+        *&v95[80] = *(v1 + 96);
+        v22 = *(v1 + 16);
+        v94 = *v1;
+        *v95 = v22;
+        v23 = *(v1 + 48);
+        *&v95[16] = *(v1 + 32);
+        *&v95[32] = v23;
         v24 = v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState;
         v25 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 16);
-        v66 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState);
-        *v67 = v25;
+        v78 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState);
+        *v79 = v25;
         v26 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 32);
         v27 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 48);
         v28 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 64);
         v29 = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 80);
-        *&v67[80] = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 96);
-        *&v67[48] = v28;
-        *&v67[64] = v29;
-        *&v67[16] = v26;
-        *&v67[32] = v27;
-        outlined init with copy of FMFindingState(&v82, &v54);
-        outlined init with copy of FMFindingState(&v66, &v54);
-        v30 = specialized static FMFindingState.== infix(_:_:)(&v82, &v66);
-        outlined destroy of FMFindingState(&v66);
-        outlined destroy of FMFindingState(&v82);
-        if ((v30 & 1) == 0 && *(v24 + 16) != 6)
+        *&v79[80] = *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 96);
+        *&v79[48] = v28;
+        *&v79[64] = v29;
+        *&v79[16] = v26;
+        *&v79[32] = v27;
+        outlined init with copy of FMFindingState(&v94, &v66);
+        outlined init with copy of FMFindingState(&v78, &v66);
+        v36 = specialized static FMFindingState.== infix(_:_:)(&v94, &v78, v30, v31, v32, v33, v34, v35);
+        outlined destroy of FMFindingState(&v78);
+        outlined destroy of FMFindingState(&v94);
+        if ((v36 & 1) == 0 && *(v24 + 16) != 6)
         {
           if (one-time initialization token for findingExperience != -1)
           {
             swift_once();
           }
 
-          v31 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v31, static Logger.findingExperience);
-          v32 = Logger.logObject.getter();
-          v33 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v32, v33))
+          v37 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v37, static Logger.findingExperience);
+          v38 = Logger.logObject.getter();
+          v39 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v38, v39))
           {
-            v34 = swift_slowAlloc();
-            *v34 = 0;
-            _os_log_impl(&dword_26CFEB000, v32, v33, "FMFindingViewCtrl: Playing here haptic", v34, 2u);
-            MEMORY[0x26D6B2710](v34, -1, -1);
+            v40 = swift_slowAlloc();
+            *v40 = 0;
+            _os_log_impl(&dword_26CFEB000, v38, v39, "FMFindingViewCtrl: Playing here haptic", v40, 2u);
+            MEMORY[0x26D6B2710](v40, -1, -1);
           }
 
           FMR1HapticsController.playLevelIncreasedHaptic()();
@@ -6203,132 +6214,132 @@ void FindingViewController.updateHaptics()()
         goto LABEL_9;
       }
 
-      if (v91 == 5)
+      if (v103 == 5)
       {
-        v12 = v1[5];
-        *&v67[48] = v1[4];
-        *&v67[64] = v12;
-        *&v67[80] = *(v1 + 48);
-        v13 = v1[1];
-        v66 = *v1;
-        *v67 = v13;
-        v14 = v1[3];
-        *&v67[16] = v1[2];
-        *&v67[32] = v14;
-        outlined init with copy of Any?(&v66, &v82, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
+        v12 = *(v1 + 80);
+        *&v79[48] = *(v1 + 64);
+        *&v79[64] = v12;
+        *&v79[80] = *(v1 + 96);
+        v13 = *(v1 + 16);
+        v78 = *v1;
+        *v79 = v13;
+        v14 = *(v1 + 48);
+        *&v79[16] = *(v1 + 32);
+        *&v79[32] = v14;
+        outlined init with copy of Any?(&v78, &v94, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
         FMR1HapticsController.startDelayedNearbyHapticPlayerIfNecessary()();
 LABEL_9:
-        outlined destroy of FMFindingState(&v90);
+        outlined destroy of FMFindingState(&v102);
         return;
       }
 
       goto LABEL_31;
     }
 
-    if (v91 == 2)
+    if (v103 == 2)
     {
-      v15 = v1[5];
-      *&v67[48] = v1[4];
-      *&v67[64] = v15;
-      *&v67[80] = *(v1 + 48);
-      v16 = v1[1];
-      v66 = *v1;
-      *v67 = v16;
-      v17 = v1[3];
-      *&v67[16] = v1[2];
-      *&v67[32] = v17;
-      outlined init with copy of Any?(&v66, &v82, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
+      v15 = *(v1 + 80);
+      *&v79[48] = *(v1 + 64);
+      *&v79[64] = v15;
+      *&v79[80] = *(v1 + 96);
+      v16 = *(v1 + 16);
+      v78 = *v1;
+      *v79 = v16;
+      v17 = *(v1 + 48);
+      *&v79[16] = *(v1 + 32);
+      *&v79[32] = v17;
+      outlined init with copy of Any?(&v78, &v94, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
       goto LABEL_31;
     }
 
-    if (v91 != 3)
+    if (v103 != 3)
     {
       goto LABEL_31;
     }
 
-    v10 = (v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState);
+    v10 = v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState;
     v11 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 16);
     if ((v11 - 6) >= 4)
     {
-      v54 = *v10;
-      v35 = *(v10 + 40);
-      v36 = *(v10 + 72);
-      v62 = *(v10 + 56);
-      *v63 = v36;
-      *&v63[9] = *(v10 + 81);
-      v60 = *(v10 + 24);
-      v61 = v35;
-      v66 = v54;
-      *v67 = v11;
-      *&v67[66] = *(v10 + 82);
-      *&v67[56] = v36;
-      *&v67[40] = v62;
-      *&v67[24] = v35;
-      *&v67[8] = v60;
-      outlined init with copy of Any?(&v66, &v82, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
-      v80 = v54;
-      *(&v81[1] + 8) = v61;
-      *(&v81[2] + 8) = v62;
-      *(&v81[3] + 8) = *v63;
-      *(&v81[4] + 1) = *&v63[9];
-      *(v81 + 8) = v60;
-      *&v81[0] = v11;
-      v79 = v54;
-      v77 = v62;
-      v78[0] = *(&v81[3] + 8);
-      *(v78 + 9) = *&v63[9];
-      v75 = v60;
-      v76 = v61;
-      v56 = v60;
-      *&v59[9] = *&v63[9];
-      *v59 = *(&v81[3] + 8);
-      v58 = v62;
-      v57 = v61;
-      v82 = 0uLL;
-      *v83 = 2;
-      memset(&v83[8], 0, 73);
-      v60 = 0uLL;
-      v61 = *v83;
-      LOBYTE(v65) = 0;
-      *&v63[16] = *&v83[48];
-      v64 = *&v83[64];
-      v62 = *&v83[16];
-      *v63 = *&v83[32];
-      v55 = v11;
-      outlined init with copy of FMFindingState(&v90, &v66);
-      outlined init with copy of Any?(&v80, &v66, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-      v37 = specialized static FMFindingMeasurement.== infix(_:_:)(&v54, &v60);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v82, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v80, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-      v66 = v79;
-      *v67 = v11;
-      *&v67[24] = v76;
-      *&v67[40] = v77;
-      *&v67[56] = v78[0];
-      *&v67[65] = *(v78 + 9);
-      *&v67[8] = v75;
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v66, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-      if (v37)
+      v66 = *v10;
+      v41 = *(v10 + 40);
+      v42 = *(v10 + 72);
+      v74 = *(v10 + 56);
+      *v75 = v42;
+      *&v75[9] = *(v10 + 81);
+      v72 = *(v10 + 24);
+      v73 = v41;
+      v78 = v66;
+      *v79 = v11;
+      *&v79[66] = *(v10 + 82);
+      *&v79[56] = v42;
+      *&v79[40] = v74;
+      *&v79[24] = v41;
+      *&v79[8] = v72;
+      outlined init with copy of Any?(&v78, &v94, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
+      v92 = v66;
+      *(&v93[1] + 8) = v73;
+      *(&v93[2] + 8) = v74;
+      *(&v93[3] + 8) = *v75;
+      *(&v93[4] + 1) = *&v75[9];
+      *(v93 + 8) = v72;
+      *&v93[0] = v11;
+      v91 = v66;
+      v89 = v74;
+      v90[0] = *(&v93[3] + 8);
+      *(v90 + 9) = *&v75[9];
+      v87 = v72;
+      v88 = v73;
+      v68 = v72;
+      *&v71[9] = *&v75[9];
+      *v71 = *(&v93[3] + 8);
+      v70 = v74;
+      v69 = v73;
+      v94 = 0uLL;
+      *v95 = 2;
+      memset(&v95[8], 0, 73);
+      v72 = 0uLL;
+      v73 = *v95;
+      LOBYTE(v77) = 0;
+      *&v75[16] = *&v95[48];
+      v76 = *&v95[64];
+      v74 = *&v95[16];
+      *v75 = *&v95[32];
+      v67 = v11;
+      outlined init with copy of FMFindingState(&v102, &v78);
+      outlined init with copy of Any?(&v92, &v78, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+      v49 = specialized static FMFindingMeasurement.== infix(_:_:)(&v66, &v72, v43, v44, v45, v46, v47, v48);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v94, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v92, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+      v78 = v91;
+      *v79 = v11;
+      *&v79[24] = v88;
+      *&v79[40] = v89;
+      *&v79[56] = v90[0];
+      *&v79[65] = *(v90 + 9);
+      *&v79[8] = v87;
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v78, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+      if (v49)
       {
-        v38 = *(v10 + 2);
+        v50 = *(v10 + 16);
 LABEL_30:
-        if (v38 != 6)
+        if (v50 != 6)
         {
           if (one-time initialization token for findingExperience != -1)
           {
             swift_once();
           }
 
-          v50 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v50, static Logger.findingExperience);
-          v51 = Logger.logObject.getter();
-          v52 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v51, v52))
+          v62 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v62, static Logger.findingExperience);
+          v63 = Logger.logObject.getter();
+          v64 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v63, v64))
           {
-            v53 = swift_slowAlloc();
-            *v53 = 0;
-            _os_log_impl(&dword_26CFEB000, v51, v52, "FMFindingViewCtrl: Playing near haptic", v53, 2u);
-            MEMORY[0x26D6B2710](v53, -1, -1);
+            v65 = swift_slowAlloc();
+            *v65 = 0;
+            _os_log_impl(&dword_26CFEB000, v63, v64, "FMFindingViewCtrl: Playing near haptic", v65, 2u);
+            MEMORY[0x26D6B2710](v65, -1, -1);
           }
 
           FMR1HapticsController.playFarNearHaptic()();
@@ -6336,69 +6347,69 @@ LABEL_30:
         }
 
 LABEL_31:
-        v39 = (v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState);
-        v40 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 16);
-        if ((v40 - 6) >= 4)
+        v51 = (v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState);
+        v52 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_prevState + 16);
+        if ((v52 - 6) >= 4)
         {
-          v79 = *v39;
-          v41 = *(v39 + 40);
-          v42 = *(v39 + 72);
-          v77 = *(v39 + 56);
-          v78[0] = v42;
-          *(v78 + 9) = *(v39 + 81);
-          v75 = *(v39 + 24);
-          v76 = v41;
-          v66 = v79;
-          *v67 = v40;
-          *&v67[66] = *(v39 + 82);
-          *&v67[56] = v42;
-          *&v67[40] = v77;
-          *&v67[24] = v41;
-          *&v67[8] = v75;
-          outlined init with copy of Any?(&v66, &v82, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
-          v80 = v79;
-          *(&v81[1] + 8) = v76;
-          *(&v81[2] + 8) = v77;
-          *(&v81[3] + 8) = v78[0];
-          *(&v81[4] + 1) = *(v78 + 9);
-          *(v81 + 8) = v75;
+          v91 = *v51;
+          v53 = *(v51 + 40);
+          v54 = *(v51 + 72);
+          v89 = *(v51 + 56);
+          v90[0] = v54;
+          *(v90 + 9) = *(v51 + 81);
+          v87 = *(v51 + 24);
+          v88 = v53;
+          v78 = v91;
+          *v79 = v52;
+          *&v79[66] = *(v51 + 82);
+          *&v79[56] = v54;
+          *&v79[40] = v89;
+          *&v79[24] = v53;
+          *&v79[8] = v87;
+          outlined init with copy of Any?(&v78, &v94, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
+          v92 = v91;
+          *(&v93[1] + 8) = v88;
+          *(&v93[2] + 8) = v89;
+          *(&v93[3] + 8) = v90[0];
+          *(&v93[4] + 1) = *(v90 + 9);
+          *(v93 + 8) = v87;
         }
 
         else
         {
-          v80 = 0uLL;
-          memset(v81 + 8, 0, 73);
-          v40 = 6;
+          v92 = 0uLL;
+          memset(v93 + 8, 0, 73);
+          v52 = 6;
         }
 
-        *&v81[0] = v40;
-        *&v83[48] = v81[3];
-        *&v83[64] = v81[4];
-        v83[80] = v81[5];
-        *&v83[16] = v81[1];
-        *&v83[32] = v81[2];
-        v82 = v80;
-        *v83 = v81[0];
-        v43 = FMFindingMeasurement.calculateTrend(from:)(&v82);
-        outlined init with copy of FMFindingState(&v90, &v66);
-        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v80, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-        if (v43 == 2)
+        *&v93[0] = v52;
+        *&v95[48] = v93[3];
+        *&v95[64] = v93[4];
+        v95[80] = v93[5];
+        *&v95[16] = v93[1];
+        *&v95[32] = v93[2];
+        v94 = v92;
+        *v95 = v93[0];
+        v55 = FMFindingMeasurement.calculateTrend(from:)(&v94);
+        outlined init with copy of FMFindingState(&v102, &v78);
+        outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v92, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+        if (v55 == 2)
         {
         }
 
         else
         {
-          v44 = _stringCompareWithSmolCheck(_:_:expecting:)();
+          v56 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-          if ((v44 & 1) == 0)
+          if ((v56 & 1) == 0)
           {
 LABEL_42:
-            v49 = fmin(*(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) * *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) * 1.8, 0.7);
-            *&v67[8] = MEMORY[0x277D85048];
-            *&v66 = (v49 + -0.3) / -0.4 * 0.75 + 1.0;
-            FMR1HapticsController.playInFOVModeTapHapticAt(hapticFactor:period:context:)(&v66, v49, *&v66);
-            outlined destroy of FMFindingState(&v90);
-            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v66, &_sypSgMd);
+            v61 = fmin(*(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) * *(v5 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) * 1.8, 0.7);
+            *&v79[8] = MEMORY[0x277D85048];
+            *&v78 = (v61 + -0.3) / -0.4 * 0.75 + 1.0;
+            FMR1HapticsController.playInFOVModeTapHapticAt(hapticFactor:period:context:)(&v78, v61, *&v78);
+            outlined destroy of FMFindingState(&v102);
+            outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v78, &_sypSgMd, &_sypSgMR);
             return;
           }
         }
@@ -6408,16 +6419,16 @@ LABEL_42:
           swift_once();
         }
 
-        v45 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v45, static Logger.findingExperience);
-        v46 = Logger.logObject.getter();
-        v47 = static os_log_type_t.info.getter();
-        if (os_log_type_enabled(v46, v47))
+        v57 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v57, static Logger.findingExperience);
+        v58 = Logger.logObject.getter();
+        v59 = static os_log_type_t.info.getter();
+        if (os_log_type_enabled(v58, v59))
         {
-          v48 = swift_slowAlloc();
-          *v48 = 0;
-          _os_log_impl(&dword_26CFEB000, v46, v47, "FMFindingViewCtrl: Playing level decreased haptic", v48, 2u);
-          MEMORY[0x26D6B2710](v48, -1, -1);
+          v60 = swift_slowAlloc();
+          *v60 = 0;
+          _os_log_impl(&dword_26CFEB000, v58, v59, "FMFindingViewCtrl: Playing level decreased haptic", v60, 2u);
+          MEMORY[0x26D6B2710](v60, -1, -1);
         }
 
         FMR1HapticsController.playLevelDecreasedHaptic()();
@@ -6427,25 +6438,25 @@ LABEL_42:
 
     else
     {
-      v80 = 0uLL;
-      memset(v81 + 8, 0, 73);
-      *&v81[0] = 6;
-      v66 = 0uLL;
-      memset(&v67[8], 0, 73);
-      *v67 = 6;
-      v68 = 0;
-      v69 = 0;
-      v70 = 2;
-      v71 = 0u;
-      v72 = 0u;
-      v73 = 0u;
-      memset(v74, 0, sizeof(v74));
-      outlined init with copy of FMFindingState(&v90, &v82);
-      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v66, &_s10TVRemoteUI20FMFindingMeasurementOSg_ADtMd);
+      v92 = 0uLL;
+      memset(v93 + 8, 0, 73);
+      *&v93[0] = 6;
+      v78 = 0uLL;
+      memset(&v79[8], 0, 73);
+      *v79 = 6;
+      v80 = 0;
+      v81 = 0;
+      v82 = 2;
+      v83 = 0u;
+      v84 = 0u;
+      v85 = 0u;
+      memset(v86, 0, sizeof(v86));
+      outlined init with copy of FMFindingState(&v102, &v94);
+      outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v78, &_s10TVRemoteUI20FMFindingMeasurementOSg_ADtMd, &_s10TVRemoteUI20FMFindingMeasurementOSg_ADtMR);
     }
 
-    v38 = *(v10 + 2);
-    if ((v38 - 6) >= 4)
+    v50 = *(v10 + 16);
+    if ((v50 - 6) >= 4)
     {
       goto LABEL_31;
     }
@@ -6862,7 +6873,7 @@ void specialized FindingViewController.init(coder:)()
 id specialized @nonobjc NIDevicePresenceConfiguration.init(discoveryToken:regions:preferredUpdateRate:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v11[1] = *MEMORY[0x277D85DE8];
-  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NIRegionPredicate);
+  type metadata accessor for SKConstraint(0, &lazy cache variable for type metadata for NIRegionPredicate, 0x277CD8A60);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   v11[0] = 0;
@@ -6961,11 +6972,11 @@ uint64_t specialized FindingViewController.session(_:didUpdate:)(uint64_t a1)
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  result = MEMORY[0x28223BE20](v3, v5);
-  v8 = &v22[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  result = MEMORY[0x28223BE20](v3);
+  v7 = &v21[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   if ((a1 & 0xC000000000000001) != 0)
   {
-    v9 = MEMORY[0x26D6B1680](0, a1);
+    v8 = MEMORY[0x26D6B1680](0, a1);
   }
 
   else
@@ -6976,148 +6987,148 @@ uint64_t specialized FindingViewController.session(_:didUpdate:)(uint64_t a1)
       return result;
     }
 
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
   }
 
-  v10 = v9;
-  [v9 boundedRegionRange];
-  v12 = v11;
+  v9 = v8;
+  [v8 boundedRegionRange];
+  v11 = v10;
 
-  v13 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement;
-  *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) = v12;
-  v14 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_firstMeasurement;
+  v12 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement;
+  *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_currentProximityMeasurement) = v11;
+  v13 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_firstMeasurement;
   if (*(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_firstMeasurement) == 1)
   {
-    v15 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
-    v16 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData);
+    v14 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
+    v15 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData);
     Date.init()();
     isa = Date._bridgeToObjectiveC()().super.isa;
-    (*(v4 + 8))(v8, v3);
-    [v16 setFirstMeasurementTime_];
+    (*(v4 + 8))(v7, v3);
+    [v15 setFirstMeasurementTime_];
 
-    [*(v1 + v15) setStartingProximityMeasurement_];
-    *(v1 + v14) = 0;
+    [*(v1 + v14) setStartingProximityMeasurement_];
+    *(v1 + v13) = 0;
   }
 
-  v18 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80);
-  v23[4] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64);
-  v23[5] = v18;
-  v24 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96);
-  v19 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16);
-  v23[0] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
-  v23[1] = v19;
-  v20 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48);
-  v23[2] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32);
-  v23[3] = v20;
-  outlined init with copy of FMFindingState(v23, v22);
-  FindingViewController.updateState(to:)(v23);
-  return outlined destroy of FMFindingState(v23);
+  v17 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80);
+  v22[4] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64);
+  v22[5] = v17;
+  v23 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96);
+  v18 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16);
+  v22[0] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state);
+  v22[1] = v18;
+  v19 = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48);
+  v22[2] = *(v1 + OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32);
+  v22[3] = v19;
+  outlined init with copy of FMFindingState(v22, v21);
+  FindingViewController.updateState(to:)(v22);
+  return outlined destroy of FMFindingState(v22);
 }
 
 char *specialized FindingViewController.session(_:object:didUpdateRegion:previousRegion:)(void *a1, void *a2)
 {
   v3 = v2;
-  v102 = a1;
+  v106 = a1;
   v5 = type metadata accessor for Date();
   v6 = *(v5 - 8);
-  v8 = MEMORY[0x28223BE20](v5, v7);
-  v10 = &v95 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8, v11);
-  v99 = &v95 - v12;
-  v13 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
-  v14 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80];
-  v147 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64];
-  v148 = v14;
-  v149 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96];
-  v15 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16];
-  v143 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
-  v144 = v15;
-  v16 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48];
-  v145 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32];
-  v146 = v16;
-  v17 = v144;
-  if ((v144 - 6) >= 4)
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v99 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v103 = &v99 - v10;
+  v11 = &v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
+  v12 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 80];
+  v151 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 64];
+  v152 = v12;
+  v153 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 96];
+  v13 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 16];
+  v147 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state];
+  v148 = v13;
+  v14 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 48];
+  v149 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_state + 32];
+  v150 = v14;
+  v15 = v148;
+  if ((v148 - 6) >= 4)
   {
-    v24 = *(v13 + 1);
-    v103 = *v13;
-    v25 = *(v13 + 40);
-    v26 = *(v13 + 72);
-    v110 = *(v13 + 56);
-    v111[0] = v26;
-    *(v111 + 9) = *(v13 + 81);
-    v108 = *(v13 + 24);
-    v109 = v25;
-    v27 = *(v13 + 5);
-    v126 = *(v13 + 4);
-    v127 = v27;
-    v128 = *(v13 + 48);
-    v122 = v103;
-    v123 = v24;
-    v28 = *(v13 + 3);
-    v124 = *(v13 + 2);
-    v125 = v28;
-    outlined init with copy of Any?(&v122, &v113, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd);
-    v141 = v103;
-    *(&v142[1] + 8) = v109;
-    *(&v142[2] + 8) = v110;
-    *(&v142[3] + 8) = v111[0];
-    *(&v142[4] + 1) = *(v111 + 9);
-    *(v142 + 8) = v108;
-    *&v142[0] = v17;
+    v22 = *(v11 + 1);
+    v107 = *v11;
+    v23 = *(v11 + 40);
+    v24 = *(v11 + 72);
+    v114 = *(v11 + 56);
+    v115[0] = v24;
+    *(v115 + 9) = *(v11 + 81);
+    v112 = *(v11 + 24);
+    v113 = v23;
+    v25 = *(v11 + 5);
+    v130 = *(v11 + 4);
+    v131 = v25;
+    v132 = *(v11 + 48);
+    v126 = v107;
+    v127 = v22;
+    v26 = *(v11 + 3);
+    v128 = *(v11 + 2);
+    v129 = v26;
+    outlined init with copy of Any?(&v126, &v117, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMd, &_s10TVRemoteUI20FMFindingMeasurementO11measurement_AA0C5TrendO5trendtMR);
+    v145 = v107;
+    *(&v146[1] + 8) = v113;
+    *(&v146[2] + 8) = v114;
+    *(&v146[3] + 8) = v115[0];
+    *(&v146[4] + 1) = *(v115 + 9);
+    *(v146 + 8) = v112;
+    *&v146[0] = v15;
     if (a2)
     {
       goto LABEL_3;
     }
 
 LABEL_8:
-    outlined init with copy of FMFindingState(&v143, &v122);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v141, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-    v29 = 0;
+    outlined init with copy of FMFindingState(&v147, &v126);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v145, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+    v27 = 0;
+    v104 = 0u;
+    v105 = xmmword_26D0D38E0;
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
     v100 = 0u;
-    v101 = xmmword_26D0D38E0;
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
-    v96 = 0u;
     goto LABEL_17;
   }
 
-  v141 = 0uLL;
-  *(v142 + 8) = 0u;
-  *(&v142[1] + 8) = 0u;
-  *(&v142[2] + 8) = 0u;
-  *(&v142[3] + 8) = 0u;
-  v17 = 6;
-  *(&v142[4] + 1) = 0u;
-  *&v142[0] = 6;
+  v145 = 0uLL;
+  *(v146 + 8) = 0u;
+  *(&v146[1] + 8) = 0u;
+  *(&v146[2] + 8) = 0u;
+  *(&v146[3] + 8) = 0u;
+  v15 = 6;
+  *(&v146[4] + 1) = 0u;
+  *&v146[0] = 6;
   if (!a2)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  if (v17 > 3)
+  if (v15 > 3)
   {
-    if ((v17 - 4) < 2)
+    if ((v15 - 4) < 2)
     {
-      v18 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
-      outlined init with copy of FMFindingState(&v143, &v122);
-      v19 = v18;
-      result = [v19 numberOfGotFartherRegionTransitions];
+      v16 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
+      outlined init with copy of FMFindingState(&v147, &v126);
+      v17 = v16;
+      result = [v17 numberOfGotFartherRegionTransitions];
       if (!__OFADD__(result, 1))
       {
-        [v19 setNumberOfGotFartherRegionTransitions_];
+        [v17 setNumberOfGotFartherRegionTransitions_];
 
-        v119 = v142[3];
-        v120 = v142[4];
-        v121 = v142[5];
-        v115 = v141;
-        v116 = v142[0];
-        v22 = v142[1];
-        v21 = v142[2];
-        v23 = 2;
+        v123 = v146[3];
+        v124 = v146[4];
+        v125 = v146[5];
+        v119 = v145;
+        v120 = v146[0];
+        v20 = v146[1];
+        v19 = v146[2];
+        v21 = 2;
 LABEL_14:
-        LODWORD(v100) = v23;
+        LODWORD(v104) = v21;
         goto LABEL_15;
       }
 
@@ -7126,40 +7137,40 @@ LABEL_63:
       return result;
     }
 
-    if (v17 == 6)
+    if (v15 == 6)
     {
 LABEL_13:
-      outlined init with copy of FMFindingState(&v143, &v122);
-      v119 = v142[3];
-      v120 = v142[4];
-      v121 = v142[5];
-      v115 = v141;
-      v116 = v142[0];
-      v22 = v142[1];
-      v21 = v142[2];
-      v23 = 3;
+      outlined init with copy of FMFindingState(&v147, &v126);
+      v123 = v146[3];
+      v124 = v146[4];
+      v125 = v146[5];
+      v119 = v145;
+      v120 = v146[0];
+      v20 = v146[1];
+      v19 = v146[2];
+      v21 = 3;
       goto LABEL_14;
     }
 
 LABEL_11:
-    outlined init with copy of FMFindingState(&v143, &v122);
-    LODWORD(v100) = 0;
-    v121 = v142[5];
-    v119 = v142[3];
-    v120 = v142[4];
-    v115 = v141;
-    v116 = v142[0];
-    v22 = v142[1];
-    v21 = v142[2];
+    outlined init with copy of FMFindingState(&v147, &v126);
+    LODWORD(v104) = 0;
+    v125 = v146[5];
+    v123 = v146[3];
+    v124 = v146[4];
+    v119 = v145;
+    v120 = v146[0];
+    v20 = v146[1];
+    v19 = v146[2];
 LABEL_15:
-    v117 = v22;
-    v118 = v21;
+    v121 = v20;
+    v122 = v19;
     goto LABEL_19;
   }
 
-  if (v17 != 2)
+  if (v15 != 2)
   {
-    if (v17 == 3)
+    if (v15 == 3)
     {
       goto LABEL_13;
     }
@@ -7167,313 +7178,313 @@ LABEL_15:
     goto LABEL_11;
   }
 
-  outlined init with copy of FMFindingState(&v143, &v122);
-  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v141, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-  v100 = v141;
-  v101 = v142[0];
-  v97 = v142[2];
-  v98 = v142[1];
-  v95 = v142[4];
-  v96 = v142[3];
-  v29 = v142[5];
+  outlined init with copy of FMFindingState(&v147, &v126);
+  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v145, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+  v104 = v145;
+  v105 = v146[0];
+  v101 = v146[2];
+  v102 = v146[1];
+  v99 = v146[4];
+  v100 = v146[3];
+  v27 = v146[5];
 LABEL_17:
-  v30 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
-  result = [v30 numberOfGotCloserRegionTransitions];
+  v28 = *&v2[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData];
+  result = [v28 numberOfGotCloserRegionTransitions];
   if (__OFADD__(result, 1))
   {
     __break(1u);
     goto LABEL_63;
   }
 
-  [v30 setNumberOfGotCloserRegionTransitions_];
+  [v28 setNumberOfGotCloserRegionTransitions_];
 
-  v115 = v100;
-  v116 = v101;
-  v117 = v98;
-  v118 = v97;
-  v119 = v96;
-  v120 = v95;
-  LODWORD(v100) = 1;
-  v121 = v29;
+  v119 = v104;
+  v120 = v105;
+  v121 = v102;
+  v122 = v101;
+  v123 = v100;
+  v124 = v99;
+  LODWORD(v104) = 1;
+  v125 = v27;
 LABEL_19:
-  *&v96 = v10;
-  *&v97 = v6;
-  *&v98 = v5;
+  *&v100 = v9;
+  *&v101 = v6;
+  *&v102 = v5;
   if (one-time initialization token for findingExperience != -1)
   {
     swift_once();
   }
 
-  v31 = type metadata accessor for Logger();
-  v32 = __swift_project_value_buffer(v31, static Logger.findingExperience);
-  v33 = a2;
-  v34 = v102;
-  v35 = v102;
-  *&v101 = v32;
-  v36 = Logger.logObject.getter();
-  v37 = static os_log_type_t.info.getter();
+  v29 = type metadata accessor for Logger();
+  v30 = __swift_project_value_buffer(v29, static Logger.findingExperience);
+  v31 = a2;
+  v32 = v106;
+  v33 = v106;
+  *&v105 = v30;
+  v34 = Logger.logObject.getter();
+  v35 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v36, v37))
+  if (os_log_type_enabled(v34, v35))
   {
-    v38 = v3;
-    v39 = swift_slowAlloc();
-    v40 = swift_slowAlloc();
-    *v39 = 138412546;
-    *(v39 + 4) = v35;
-    *(v39 + 12) = 2112;
-    *(v39 + 14) = v33;
-    *v40 = v102;
-    v40[1] = a2;
-    v41 = v35;
-    v42 = v33;
-    _os_log_impl(&dword_26CFEB000, v36, v37, "#nibtfinding didUpdateRegion region:%@ previousRegion:%@", v39, 0x16u);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+    v36 = v3;
+    v37 = swift_slowAlloc();
+    v38 = swift_slowAlloc();
+    *v37 = 138412546;
+    *(v37 + 4) = v33;
+    *(v37 + 12) = 2112;
+    *(v37 + 14) = v31;
+    *v38 = v106;
+    v38[1] = a2;
+    v39 = v33;
+    v40 = v31;
+    _os_log_impl(&dword_26CFEB000, v34, v35, "#nibtfinding didUpdateRegion region:%@ previousRegion:%@", v37, 0x16u);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     swift_arrayDestroy();
-    MEMORY[0x26D6B2710](v40, -1, -1);
-    v43 = v39;
-    v3 = v38;
-    v34 = v102;
-    MEMORY[0x26D6B2710](v43, -1, -1);
+    MEMORY[0x26D6B2710](v38, -1, -1);
+    v41 = v37;
+    v3 = v36;
+    v32 = v106;
+    MEMORY[0x26D6B2710](v41, -1, -1);
   }
 
   FMFindingSleepPreventer.disableSleepingForAWhileWhileFinding()();
-  if (!v34)
+  if (!v32)
   {
     goto LABEL_50;
   }
 
-  v44 = [v35 name];
-  v45 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v47 = v46;
+  v42 = [v33 name];
+  v43 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v45 = v44;
 
-  if ((v45 != 7496038 || v47 != 0xE300000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((v43 != 7496038 || v45 != 0xE300000000000000) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
-    if (v45 == 1918985582 && v47 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v43 == 1918985582 && v45 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      v49 = v3;
-      v50 = Logger.logObject.getter();
-      v51 = static os_log_type_t.default.getter();
-      if (!os_log_type_enabled(v50, v51))
+      v47 = v3;
+      v48 = Logger.logObject.getter();
+      v49 = static os_log_type_t.default.getter();
+      if (!os_log_type_enabled(v48, v49))
       {
-        outlined destroy of FMFindingState(&v143);
+        outlined destroy of FMFindingState(&v147);
 
-        v3 = v49;
+        v3 = v47;
 LABEL_48:
-        v113 = 0uLL;
-        v48 = 3;
-        *v114 = 3;
-        memset(&v114[8], 0, 73);
-        v114[81] = v100;
+        v117 = 0uLL;
+        v46 = 3;
+        *v118 = 3;
+        memset(&v118[8], 0, 73);
+        v118[81] = v104;
         goto LABEL_54;
       }
 
-      v52 = swift_slowAlloc();
-      v53 = swift_slowAlloc();
-      *&v122 = v53;
-      *v52 = 136315138;
-      if (v100 > 1)
+      v50 = swift_slowAlloc();
+      v51 = swift_slowAlloc();
+      *&v126 = v51;
+      *v50 = 136315138;
+      if (v104 > 1)
       {
-        if (v100 != 2)
+        if (v104 != 2)
         {
-          v54 = 0xE600000000000000;
-          v55 = 0x656C62617473;
+          v52 = 0xE600000000000000;
+          v53 = 0x656C62617473;
           goto LABEL_47;
         }
 
-        v55 = 0x6973616572636564;
+        v53 = 0x6973616572636564;
       }
 
       else
       {
-        if (!v100)
+        if (!v104)
         {
-          v54 = 0xE700000000000000;
-          v55 = 0x6E776F6E6B6E75;
+          v52 = 0xE700000000000000;
+          v53 = 0x6E776F6E6B6E75;
 LABEL_47:
-          v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v54, &v122);
+          v64 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v52, &v126);
 
-          *(v52 + 4) = v66;
-          _os_log_impl(&dword_26CFEB000, v50, v51, "new trend: %s", v52, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1(v53);
-          MEMORY[0x26D6B2710](v53, -1, -1);
-          MEMORY[0x26D6B2710](v52, -1, -1);
-          outlined destroy of FMFindingState(&v143);
+          *(v50 + 4) = v64;
+          _os_log_impl(&dword_26CFEB000, v48, v49, "new trend: %s", v50, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1(v51);
+          MEMORY[0x26D6B2710](v51, -1, -1);
+          MEMORY[0x26D6B2710](v50, -1, -1);
+          outlined destroy of FMFindingState(&v147);
 
-          v3 = v49;
+          v3 = v47;
           goto LABEL_48;
         }
 
-        v55 = 0x6973616572636E69;
+        v53 = 0x6973616572636E69;
       }
 
-      v54 = 0xEA0000000000676ELL;
+      v52 = 0xEA0000000000676ELL;
       goto LABEL_47;
     }
 
-    if (v45 == 1701995880 && v47 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    if (v43 == 1701995880 && v45 == 0xE400000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
     {
-      outlined destroy of FMFindingState(&v143);
-      v56 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
+      outlined destroy of FMFindingState(&v147);
+      v54 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData;
       if (([*&v3[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_analyticsSessionData] gotToHere] & 1) == 0)
       {
-        [*&v3[v56] setGotToHere_];
-        v57 = *&v3[v56];
-        v58 = v99;
+        [*&v3[v54] setGotToHere_];
+        v55 = *&v3[v54];
+        v56 = v103;
         Date.init()();
-        v59 = [*&v3[v56] sessionStartTime];
-        v60 = v96;
+        v57 = [*&v3[v54] sessionStartTime];
+        v58 = v100;
         static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
         Date.timeIntervalSince(_:)();
-        v62 = v61;
-        v63 = *(v97 + 8);
-        v64 = v60;
-        v65 = v98;
-        v63(v64, v98);
-        v63(v58, v65);
-        [v57 setTimeToHere_];
+        v60 = v59;
+        v61 = *(v101 + 8);
+        v62 = v58;
+        v63 = v102;
+        v61(v62, v102);
+        v61(v56, v63);
+        [v55 setTimeToHere_];
       }
 
-      v113 = 0uLL;
-      v48 = 4;
+      v117 = 0uLL;
+      v46 = 4;
       goto LABEL_53;
     }
 
 LABEL_50:
-    v67 = Logger.logObject.getter();
-    v68 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v67, v68))
+    v65 = Logger.logObject.getter();
+    v66 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v65, v66))
     {
-      v69 = swift_slowAlloc();
-      *v69 = 0;
-      _os_log_impl(&dword_26CFEB000, v67, v68, "received nil region", v69, 2u);
-      MEMORY[0x26D6B2710](v69, -1, -1);
+      v67 = swift_slowAlloc();
+      *v67 = 0;
+      _os_log_impl(&dword_26CFEB000, v65, v66, "received nil region", v67, 2u);
+      MEMORY[0x26D6B2710](v67, -1, -1);
     }
 
-    outlined destroy of FMFindingState(&v143);
+    outlined destroy of FMFindingState(&v147);
 
-    v113 = 0uLL;
-    v48 = 7;
+    v117 = 0uLL;
+    v46 = 7;
     goto LABEL_53;
   }
 
-  outlined destroy of FMFindingState(&v143);
-  v113 = 0uLL;
-  v48 = 2;
+  outlined destroy of FMFindingState(&v147);
+  v117 = 0uLL;
+  v46 = 2;
 LABEL_53:
-  *v114 = v48;
-  memset(&v114[8], 0, 74);
+  *v118 = v46;
+  memset(&v118[8], 0, 74);
 LABEL_54:
-  v126 = *&v114[48];
-  v127 = *&v114[64];
-  v128 = *&v114[80];
-  v122 = v113;
-  v123 = *v114;
-  v124 = *&v114[16];
-  v125 = *&v114[32];
-  v70 = *(v13 + 1);
-  v108 = *v13;
-  v109 = v70;
-  v71 = *(v13 + 2);
-  v72 = *(v13 + 3);
-  v73 = *(v13 + 4);
-  v74 = *(v13 + 5);
-  v112 = *(v13 + 48);
-  v111[1] = v73;
-  v111[2] = v74;
-  v110 = v71;
-  v111[0] = v72;
-  if ((v109 - 6) >= 4)
+  v130 = *&v118[48];
+  v131 = *&v118[64];
+  v132 = *&v118[80];
+  v126 = v117;
+  v127 = *v118;
+  v128 = *&v118[16];
+  v129 = *&v118[32];
+  v68 = *(v11 + 1);
+  v112 = *v11;
+  v113 = v68;
+  v69 = *(v11 + 2);
+  v70 = *(v11 + 3);
+  v71 = *(v11 + 4);
+  v72 = *(v11 + 5);
+  v116 = *(v11 + 48);
+  v115[1] = v71;
+  v115[2] = v72;
+  v114 = v69;
+  v115[0] = v70;
+  if ((v113 - 6) >= 4)
   {
-    v129 = *v13;
-    v130 = v109;
-    v132 = *(v13 + 40);
-    v133 = *(v13 + 56);
-    v134[0] = *(v13 + 72);
-    *(v134 + 9) = *(v13 + 81);
-    v131 = *(v13 + 24);
-    if ((v48 - 6) >= 4)
+    v133 = *v11;
+    v134 = v113;
+    v136 = *(v11 + 40);
+    v137 = *(v11 + 56);
+    v138[0] = *(v11 + 72);
+    *(v138 + 9) = *(v11 + 81);
+    v135 = *(v11 + 24);
+    if ((v46 - 6) >= 4)
     {
-      v135 = v113;
-      v136 = v48;
-      v138 = *&v114[24];
-      v139 = *&v114[40];
-      v140[0] = *&v114[56];
-      *(v140 + 9) = *&v114[65];
-      v137 = *&v114[8];
-      outlined init with copy of FMFindingState(&v108, &v103);
-      outlined init with copy of FMFindingState(&v113, &v103);
-      if (specialized static FMFindingMeasurement.== infix(_:_:)(&v129, &v135))
+      v139 = v117;
+      v140 = v46;
+      v142 = *&v118[24];
+      v143 = *&v118[40];
+      v144[0] = *&v118[56];
+      *(v144 + 9) = *&v118[65];
+      v141 = *&v118[8];
+      outlined init with copy of FMFindingState(&v112, &v107);
+      outlined init with copy of FMFindingState(&v117, &v107);
+      if (specialized static FMFindingMeasurement.== infix(_:_:)(&v133, &v139, v73, v74, v75, v76, v77, v78))
       {
-        outlined destroy of FMFindingState(&v113);
-        outlined destroy of FMFindingState(&v108);
+        outlined destroy of FMFindingState(&v117);
+        outlined destroy of FMFindingState(&v112);
       }
 
       else
       {
-        outlined init with copy of FMFindingState(&v108, &v103);
-        outlined init with copy of FMFindingState(&v113, &v103);
-        v75 = Logger.logObject.getter();
-        v76 = static os_log_type_t.default.getter();
-        outlined destroy of FMFindingState(&v113);
-        outlined destroy of FMFindingState(&v108);
-        if (os_log_type_enabled(v75, v76))
+        outlined init with copy of FMFindingState(&v112, &v107);
+        outlined init with copy of FMFindingState(&v117, &v107);
+        v79 = Logger.logObject.getter();
+        v80 = static os_log_type_t.default.getter();
+        outlined destroy of FMFindingState(&v117);
+        outlined destroy of FMFindingState(&v112);
+        if (os_log_type_enabled(v79, v80))
         {
-          v77 = v3;
-          v78 = swift_slowAlloc();
-          v79 = swift_slowAlloc();
-          *&v103 = v79;
-          *v78 = 136315394;
-          v80 = FMFindingMeasurement.description.getter();
-          v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v80, v81, &v103);
+          v81 = v3;
+          v82 = swift_slowAlloc();
+          v83 = swift_slowAlloc();
+          *&v107 = v83;
+          *v82 = 136315394;
+          v84 = FMFindingMeasurement.description.getter();
+          v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v84, v85, &v107);
 
-          *(v78 + 4) = v82;
-          *(v78 + 12) = 2080;
-          v83 = FMFindingMeasurement.description.getter();
-          v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v84, &v103);
+          *(v82 + 4) = v86;
+          *(v82 + 12) = 2080;
+          v87 = FMFindingMeasurement.description.getter();
+          v89 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v88, &v107);
 
-          *(v78 + 14) = v85;
-          _os_log_impl(&dword_26CFEB000, v75, v76, "Measurement bucket changed to:%s from previous state:%s", v78, 0x16u);
+          *(v82 + 14) = v89;
+          _os_log_impl(&dword_26CFEB000, v79, v80, "Measurement bucket changed to:%s from previous state:%s", v82, 0x16u);
           swift_arrayDestroy();
-          MEMORY[0x26D6B2710](v79, -1, -1);
-          v86 = v78;
-          v3 = v77;
-          MEMORY[0x26D6B2710](v86, -1, -1);
+          MEMORY[0x26D6B2710](v83, -1, -1);
+          v90 = v82;
+          v3 = v81;
+          MEMORY[0x26D6B2710](v90, -1, -1);
         }
 
-        v87 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_trendTimer;
+        v91 = OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_trendTimer;
         [*&v3[OBJC_IVAR____TtC10TVRemoteUI21FindingViewController_trendTimer] invalidate];
-        v88 = *&v3[v87];
-        *&v3[v87] = 0;
+        v92 = *&v3[v91];
+        *&v3[v91] = 0;
 
-        v89 = objc_opt_self();
-        v90 = swift_allocObject();
-        *(v90 + 16) = v3;
-        v106 = partial apply for closure #1 in FindingViewController.session(_:object:didUpdateRegion:previousRegion:);
-        v107 = v90;
-        *&v103 = MEMORY[0x277D85DD0];
-        *(&v103 + 1) = 1107296256;
-        v104 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NSTimer) -> ();
-        v105 = &block_descriptor_101;
-        v91 = _Block_copy(&v103);
-        v92 = v3;
+        v93 = objc_opt_self();
+        v94 = swift_allocObject();
+        *(v94 + 16) = v3;
+        v110 = partial apply for closure #1 in FindingViewController.session(_:object:didUpdateRegion:previousRegion:);
+        v111 = v94;
+        *&v107 = MEMORY[0x277D85DD0];
+        *(&v107 + 1) = 1107296256;
+        v108 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NSTimer) -> ();
+        v109 = &block_descriptor_101;
+        v95 = _Block_copy(&v107);
+        v96 = v3;
 
-        v93 = [v89 scheduledTimerWithTimeInterval:0 repeats:v91 block:9.5];
-        outlined destroy of FMFindingState(&v108);
-        outlined destroy of FMFindingState(&v113);
-        _Block_release(v91);
-        v94 = *&v3[v87];
-        *&v3[v87] = v93;
+        v97 = [v93 scheduledTimerWithTimeInterval:0 repeats:v95 block:9.5];
+        outlined destroy of FMFindingState(&v112);
+        outlined destroy of FMFindingState(&v117);
+        _Block_release(v95);
+        v98 = *&v3[v91];
+        *&v3[v91] = v97;
       }
     }
   }
 
-  FindingViewController.updateState(to:)(&v122);
-  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v115, &_s10TVRemoteUI20FMFindingMeasurementOSgMd);
-  return outlined destroy of FMFindingState(&v113);
+  FindingViewController.updateState(to:)(&v126);
+  outlined destroy of (FMFindingDistance?, FMFindingDistance?)(&v119, &_s10TVRemoteUI20FMFindingMeasurementOSgMd, &_s10TVRemoteUI20FMFindingMeasurementOSgMR);
+  return outlined destroy of FMFindingState(&v117);
 }
 
-uint64_t specialized FindingViewController.session(_:didInvalidateWith:)(void *a1, const char *a2)
+uint64_t specialized FindingViewController.session(_:didInvalidateWith:)(void *a1, const char *a2, ...)
 {
   if (one-time initialization token for findingExperience != -1)
   {
@@ -7496,7 +7507,7 @@ uint64_t specialized FindingViewController.session(_:didInvalidateWith:)(void *a
     *(v8 + 4) = v11;
     *v9 = v11;
     _os_log_impl(&dword_26CFEB000, v6, v7, a2, v8, 0xCu);
-    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd);
+    outlined destroy of (FMFindingDistance?, FMFindingDistance?)(v9, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x26D6B2710](v9, -1, -1);
     MEMORY[0x26D6B2710](v8, -1, -1);
   }
@@ -7611,7 +7622,7 @@ id FMPFSKBTRangingNode.init()()
 
 void FMPFSKBTRangingNode.setupLayout()()
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_26D0D4110;
   v2 = *&v0[OBJC_IVAR____TtC10TVRemoteUI19FMPFSKBTRangingNode_rangeDiskNode];
@@ -7670,14 +7681,39 @@ void FMPFSKBTRangingNode.__ivar_destroyer()
   v1 = *(v0 + OBJC_IVAR____TtC10TVRemoteUI19FMPFSKBTRangingNode_levelRingsNode);
 }
 
-id FMPFSKBTRangingNode.__deallocating_deinit()
+id FMPFSKBTRangingNode.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for FMPFSKBTRangingNode();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for FMPFSKBTRangingNode();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
-uint64_t (*specialized protocol witness for Collection.subscript.read in conformance [A](uint64_t (*result)(), unint64_t a2, uint64_t a3))()
+void (*specialized protocol witness for Collection.subscript.read in conformance [A](void (*result)(id *a1), unint64_t a2, uint64_t a3))(id *a1)
+{
+  v3 = result;
+  if ((a3 & 0xC000000000000001) != 0)
+  {
+    v4 = MEMORY[0x26D6B1680](a2, a3);
+    goto LABEL_5;
+  }
+
+  if ((a2 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
+  {
+    v4 = *(a3 + 8 * a2 + 32);
+LABEL_5:
+    *v3 = v4;
+    return protocol witness for Collection.subscript.read in conformance [A]specialized ;
+  }
+
+  __break(1u);
+  return result;
+}
+
 {
   v3 = result;
   if ((a3 & 0xC000000000000001) != 0)
@@ -7713,32 +7749,6 @@ unint64_t type metadata accessor for SKConstraint()
     atomic_store(result, &lazy cache variable for type metadata for SKConstraint);
   }
 
-  return result;
-}
-
-void (*specialized protocol witness for Collection.subscript.read in conformance [A](void (*result)(id *a1), unint64_t a2, uint64_t a3))(id *a1)
-{
-  v3 = result;
-  if ((a3 & 0xC000000000000001) != 0)
-  {
-    v4 = MEMORY[0x26D6B1680](a2, a3);
-    goto LABEL_5;
-  }
-
-  if ((a2 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-  }
-
-  else if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
-  {
-    v4 = *(a3 + 8 * a2 + 32);
-LABEL_5:
-    *v3 = v4;
-    return protocol witness for Collection.subscript.read in conformance [A]specialized ;
-  }
-
-  __break(1u);
   return result;
 }
 

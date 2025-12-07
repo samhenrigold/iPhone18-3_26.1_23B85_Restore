@@ -1,5 +1,6 @@
 @interface AUHALOutputUnit
 - (AUHALOutputUnit)initWithAudioUnit:(OpaqueAudioComponentInstance *)unit description:(AudioComponentDescription *)description;
+- (AUHALOutputUnit)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error;
 - (BOOL)canPerformInput;
 - (BOOL)canPerformOutput;
 - (BOOL)isInputEnabled;
@@ -9,6 +10,7 @@
 - (id).cxx_construct;
 - (id)_inputHandler;
 - (id)outputProvider;
+- (int)enableBus:(unsigned int)bus scope:(unsigned int)scope enable:(BOOL)enable;
 - (int64_t)tokenByAddingRenderObserver:(id)observer;
 - (void)addRenderObserver:(void *)observer userData:(void *)data;
 - (void)dealloc;
@@ -204,6 +206,30 @@
 
     [(AUHALOutputUnit *)self enableBus:0 scope:1 enable:*(self + 85) != 0];
   }
+}
+
+- (int)enableBus:(unsigned int)bus scope:(unsigned int)scope enable:(BOOL)enable
+{
+  if (bus || scope != 1)
+  {
+    return [(AUAudioUnitV2Bridge *)&v7 enableBus:*&bus scope:*&scope enable:enable, self, AUHALOutputUnit, v8.receiver, v8.super_class];
+  }
+
+  *(self + 698) = enable;
+  if (!enable)
+  {
+    return [(AUAudioUnitV2Bridge *)&v8 enableBus:0 scope:1 enable:enable, v7.receiver, v7.super_class, self, AUHALOutputUnit];
+  }
+
+  v5 = *(self + 85);
+  if (!v5)
+  {
+    return [(AUAudioUnitV2Bridge *)&v8 enableBus:0 scope:1 enable:enable, v7.receiver, v7.super_class, self, AUHALOutputUnit];
+  }
+
+  inData[0] = AUHALOutputUnit_ProvideOutputCallback;
+  inData[1] = v5;
+  return AudioUnitSetProperty([(AUAudioUnitV2Bridge *)self audioUnit], 0x17u, 1u, 0, inData, 0x10u);
 }
 
 - (id)_inputHandler
@@ -528,6 +554,21 @@ LABEL_17:
   }
 
   return v5;
+}
+
+- (AUHALOutputUnit)initWithComponentDescription:(AudioComponentDescription *)description options:(unsigned int)options error:(id *)error
+{
+  v9 = *description;
+  v8.receiver = self;
+  v8.super_class = AUHALOutputUnit;
+  v5 = [(AUAudioUnitV2Bridge *)&v8 initWithComponentDescription:&v9 options:*&options error:error];
+  v6 = v5;
+  if (v5)
+  {
+    [(AUHALOutputUnit *)v5 initAUHALOutputUnit];
+  }
+
+  return v6;
 }
 
 @end

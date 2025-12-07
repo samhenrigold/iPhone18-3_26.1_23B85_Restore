@@ -30,7 +30,7 @@
 
 - (HKCountrySet)activeRemoteCountrySet
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   activeRemoteCountrySet = [(HDAllowedCountriesDataSource *)self->_allowedCountriesDataSource activeRemoteCountrySet];
   v4 = activeRemoteCountrySet;
   if (activeRemoteCountrySet)
@@ -48,11 +48,11 @@
     {
       if (v8)
       {
-        v11 = 138543618;
+        v10 = 138543618;
         selfCopy2 = self;
-        v13 = 2114;
-        v14 = activePairedDevice;
-        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v11, 0x16u);
+        v12 = 2114;
+        v13 = activePairedDevice;
+        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v10, 0x16u);
       }
 
       localCountrySet = [(HDAllowedCountriesDataSourceWithLocalCountrySetFallback *)self localCountrySet];
@@ -62,23 +62,21 @@
     {
       if (v8)
       {
-        v11 = 138543362;
+        v10 = 138543362;
         selfCopy2 = self;
-        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] No active paired device found", &v11, 0xCu);
+        _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] No active paired device found", &v10, 0xCu);
       }
 
       localCountrySet = 0;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return localCountrySet;
 }
 
 - (id)remoteCountrySetForDevice:(id)device
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   v5 = [(HDAllowedCountriesDataSource *)self->_allowedCountriesDataSource remoteCountrySetForDevice:deviceCopy];
   v6 = v5;
@@ -93,19 +91,17 @@
     loggingCategory = self->_loggingCategory;
     if (os_log_type_enabled(loggingCategory, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543618;
+      v11 = 138543618;
       selfCopy = self;
-      v14 = 2114;
-      v15 = deviceCopy;
-      _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v12, 0x16u);
+      v13 = 2114;
+      v14 = deviceCopy;
+      _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Returning local device availability for paired device %{public}@", &v11, 0x16u);
     }
 
     localCountrySet = [(HDAllowedCountriesDataSourceWithLocalCountrySetFallback *)self localCountrySet];
   }
 
   v9 = localCountrySet;
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

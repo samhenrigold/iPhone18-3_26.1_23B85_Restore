@@ -247,7 +247,7 @@
     MaxY = CGRectGetMaxY(v12);
     item = [(PKDetectionView *)self item];
     menuInteraction = [(PKDetectionView *)self menuInteraction];
-    [(PKDetectionView *)self drawingTransform];
+    objc_msgSend_drawingTransform(self);
     v8 = *(MEMORY[0x1E695EFD0] + 16);
     v9[0] = *MEMORY[0x1E695EFD0];
     v9[1] = v8;

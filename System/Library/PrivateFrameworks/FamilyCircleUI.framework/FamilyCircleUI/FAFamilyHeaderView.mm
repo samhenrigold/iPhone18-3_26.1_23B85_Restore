@@ -22,12 +22,12 @@
 
 - (FAFamilyHeaderView)initWithFamilyCircle:(id)circle profilePictureStore:(id)store
 {
-  v43[7] = *MEMORY[0x277D85DE8];
+  v42[7] = *MEMORY[0x277D85DE8];
   circleCopy = circle;
   storeCopy = store;
-  v42.receiver = self;
-  v42.super_class = FAFamilyHeaderView;
-  v8 = [(FAFamilyHeaderView *)&v42 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v41.receiver = self;
+  v41.super_class = FAFamilyHeaderView;
+  v8 = [(FAFamilyHeaderView *)&v41 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (v8)
   {
     v9 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -55,38 +55,37 @@
     [(FAFamilyHeaderView *)v8 addSubview:v8->_mugShots];
     leftAnchor = [(FAMugshotMarqueeView *)v8->_mugShots leftAnchor];
     leftAnchor2 = [(FAFamilyHeaderView *)v8 leftAnchor];
-    v39 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:8.0];
-    v43[0] = v39;
+    v38 = [leftAnchor constraintEqualToAnchor:leftAnchor2 constant:8.0];
+    v42[0] = v38;
     rightAnchor = [(FAMugshotMarqueeView *)v8->_mugShots rightAnchor];
     rightAnchor2 = [(FAFamilyHeaderView *)v8 rightAnchor];
-    v36 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-8.0];
-    v43[1] = v36;
+    v35 = [rightAnchor constraintEqualToAnchor:rightAnchor2 constant:-8.0];
+    v42[1] = v35;
     topAnchor = [(FAMugshotMarqueeView *)v8->_mugShots topAnchor];
     topAnchor2 = [(FAFamilyHeaderView *)v8 topAnchor];
-    v33 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:24.0];
-    v43[2] = v33;
+    v32 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:24.0];
+    v42[2] = v32;
     firstBaselineAnchor = [(UILabel *)v8->_familyHeaderLabel firstBaselineAnchor];
     bottomAnchor = [(FAMugshotMarqueeView *)v8->_mugShots bottomAnchor];
-    v30 = [firstBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:40.0];
-    v43[3] = v30;
+    v29 = [firstBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:40.0];
+    v42[3] = v29;
     leadingAnchor = [(UILabel *)v8->_familyHeaderLabel leadingAnchor];
     leadingAnchor2 = [(FAFamilyHeaderView *)v8 leadingAnchor];
     v18 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:8.0];
-    v43[4] = v18;
+    v42[4] = v18;
     trailingAnchor = [(UILabel *)v8->_familyHeaderLabel trailingAnchor];
     trailingAnchor2 = [(FAFamilyHeaderView *)v8 trailingAnchor];
     v21 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-8.0];
-    v43[5] = v21;
+    v42[5] = v21;
     firstBaselineAnchor2 = [(UILabel *)v8->_familyHeaderLabel firstBaselineAnchor];
     bottomAnchor2 = [(FAFamilyHeaderView *)v8 bottomAnchor];
     v24 = [firstBaselineAnchor2 constraintEqualToAnchor:bottomAnchor2 constant:-24.0];
-    v43[6] = v24;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:7];
+    v42[6] = v24;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:7];
 
-    [MEMORY[0x277CCAAD0] activateConstraints:v27];
+    [MEMORY[0x277CCAAD0] activateConstraints:v26];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -214,7 +214,7 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_identifier)
   {
@@ -224,7 +224,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    imageGrade = self->_imageGrade;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -244,47 +243,44 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  numPeople = self->_numPeople;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    cameraRollGrade = self->_cameraRollGrade;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_7:
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v7 = self->_extractedSignals;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_extractedSignals;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v21;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((v13 & 0x10) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x10) == 0)
   {
     if ((*&self->_has & 8) == 0)
     {
@@ -292,7 +288,6 @@ LABEL_7:
     }
 
 LABEL_23:
-    childGrade = self->_childGrade;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 1) == 0)
     {
@@ -302,25 +297,21 @@ LABEL_23:
     goto LABEL_17;
   }
 
-  extractedGrade = self->_extractedGrade;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((v13 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
     goto LABEL_23;
   }
 
 LABEL_16:
-  if (v13)
+  if (v11)
   {
 LABEL_17:
-    childAge = self->_childAge;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_18:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -421,7 +412,7 @@ LABEL_15:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_identifier copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -460,30 +451,30 @@ LABEL_4:
   }
 
 LABEL_5:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v9 = self->_extractedSignals;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
+        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
         [v5 addExtractedSignals:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -502,7 +493,7 @@ LABEL_21:
     *(v5 + 40) |= 8u;
     if ((*&self->_has & 1) == 0)
     {
-      goto LABEL_16;
+      return v5;
     }
 
     goto LABEL_15;
@@ -524,8 +515,6 @@ LABEL_15:
     *(v5 + 40) |= 1u;
   }
 
-LABEL_16:
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -547,7 +536,6 @@ LABEL_16:
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 40);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 40) & 0x20) == 0)
@@ -555,7 +543,6 @@ LABEL_16:
       goto LABEL_47;
     }
 
-    v8 = *(equalCopy + 39);
     if (self->_imageGrade)
     {
       if ((*(equalCopy + 39) & 1) == 0)
@@ -595,7 +582,6 @@ LABEL_16:
       goto LABEL_47;
     }
 
-    v11 = *(equalCopy + 36);
     if (self->_cameraRollGrade)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -633,7 +619,6 @@ LABEL_16:
       goto LABEL_47;
     }
 
-    v12 = *(equalCopy + 38);
     if (self->_extractedGrade)
     {
       if ((*(equalCopy + 38) & 1) == 0)
@@ -661,7 +646,7 @@ LABEL_16:
     }
 
 LABEL_47:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_48;
   }
 
@@ -670,7 +655,6 @@ LABEL_47:
     goto LABEL_47;
   }
 
-  v13 = *(equalCopy + 37);
   if (self->_childGrade)
   {
     if ((*(equalCopy + 37) & 1) == 0)
@@ -685,7 +669,7 @@ LABEL_47:
   }
 
 LABEL_24:
-  v10 = (*(equalCopy + 40) & 1) == 0;
+  v8 = (*(equalCopy + 40) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_childAge != *(equalCopy + 2))
@@ -693,12 +677,12 @@ LABEL_24:
       goto LABEL_47;
     }
 
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_48:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash
@@ -781,7 +765,7 @@ LABEL_11:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -821,29 +805,29 @@ LABEL_6:
   }
 
 LABEL_7:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(fromCopy + 2);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(VisionSignalGradingVisionGrade *)self addExtractedSignals:*(*(&v13 + 1) + 8 * i), v13];
+        [(VisionSignalGradingVisionGrade *)self addExtractedSignals:*(*(&v12 + 1) + 8 * i), v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -885,8 +869,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

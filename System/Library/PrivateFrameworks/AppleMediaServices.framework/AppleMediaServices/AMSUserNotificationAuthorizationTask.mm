@@ -439,26 +439,26 @@ void __60__AMSUserNotificationAuthorizationTask_requestAuthorization__block_invo
   }
 }
 
-void __60__AMSUserNotificationAuthorizationTask_requestAuthorization__block_invoke_44()
+void __60__AMSUserNotificationAuthorizationTask_requestAuthorization__block_invoke_44(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = +[AMSLogConfig sharedConfig];
-  if (!v0)
+  v10 = *MEMORY[0x1E69E9840];
+  v1 = +[AMSLogConfig sharedConfig];
+  if (!v1)
   {
-    v0 = +[AMSLogConfig sharedConfig];
+    v1 = +[AMSLogConfig sharedConfig];
   }
 
-  v1 = [v0 OSLogObject];
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+  v2 = [v1 OSLogObject];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v2 = objc_opt_class();
-    v3 = v2;
-    v4 = AMSLogKey();
-    v5 = 138543618;
-    v6 = v2;
-    v7 = 2114;
-    v8 = v4;
-    _os_log_impl(&dword_192869000, v1, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Notification authorization completed successfully", &v5, 0x16u);
+    v3 = objc_opt_class();
+    v4 = v3;
+    v5 = AMSLogKey();
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v5;
+    _os_log_impl(&dword_192869000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Notification authorization completed successfully", &v6, 0x16u);
   }
 }
 

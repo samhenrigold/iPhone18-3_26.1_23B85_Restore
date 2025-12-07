@@ -1,4 +1,6 @@
 @interface PSTransitionManager
+- (BOOL)commitAddedGraphs:(id)graphs removedGraphs:(id)removedGraphs option:(unint64_t)option stopGraphs:(BOOL)stopGraphs error:(id *)error;
+- (BOOL)commitRemoteGraphs:(id)graphs removedGraphs:(id)removedGraphs option:(unint64_t)option stopGraphs:(BOOL)stopGraphs error:(id *)error;
 - (BOOL)deliverResourceRequest:(id)request removing:(id)removing;
 - (BOOL)prepareTransition:(id)transition error:(id *)error;
 - (PSExecutionSession)executionSession;
@@ -71,11 +73,11 @@
     compiler = v22->_compiler;
     v22->_compiler = v28;
 
-    v30 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_queue");
+    v30 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_queue", 60);
     transitionQueue = v22->_transitionQueue;
     v22->_transitionQueue = v30;
 
-    v32 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_callback_queue");
+    v32 = ps_util_create_serial_dispatch_queue("com.apple.polaris.transition_callback_queue", 60);
     transitionCallbackQueue = v22->_transitionCallbackQueue;
     v22->_transitionCallbackQueue = v32;
 
@@ -151,13 +153,12 @@
   return v22;
 }
 
-void __139__PSTransitionManager_initWithExecutionSession_withContext_withProvider_withComputeDevices_systemGraphClient_withPLSDevice_withPRMManager___block_invoke(uint64_t a1, unsigned int a2)
+void __139__PSTransitionManager_initWithExecutionSession_withContext_withProvider_withComputeDevices_systemGraphClient_withPLSDevice_withPRMManager___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v5 = WeakRetained;
-    v4 = *(&ps_ca_log_handle_for_event + a2);
     pbs_ringbufferlogger_shared_write();
     WeakRetained = v5;
   }
@@ -203,54 +204,51 @@ void __139__PSTransitionManager_initWithExecutionSession_withContext_withProvide
 
 - (void)callTransitionCallback:(unint64_t)callback unretainedContext:(void *)context freeAfterUse:(BOOL)use
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   transitionCallback = [(PSTransitionManager *)self transitionCallback];
 
   if (transitionCallback)
   {
     transitionCallbackQueue = [(PSTransitionManager *)self transitionCallbackQueue];
     v11 = transitionCallbackQueue;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfterUse___block_invoke;
-    v17[3] = &unk_279A487F8;
-    v17[4] = self;
-    v17[5] = callback;
-    v17[6] = context;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfterUse___block_invoke;
+    v16[3] = &unk_279A487F8;
+    v16[4] = self;
+    v16[5] = callback;
+    v16[6] = context;
     useCopy = use;
-    v12 = v17;
+    v12 = v16;
 LABEL_5:
     dispatch_async(transitionCallbackQueue, v12);
 
-    goto LABEL_6;
+    return;
   }
 
   if ([(PSTransitionManager *)self transitionCallbackF])
   {
     transitionCallbackQueue = [(PSTransitionManager *)self transitionCallbackQueue];
     v11 = transitionCallbackQueue;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfterUse___block_invoke_2;
-    v15[3] = &unk_279A487F8;
-    v15[4] = self;
-    v15[5] = callback;
-    v15[6] = context;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfterUse___block_invoke_2;
+    v14[3] = &unk_279A487F8;
+    v14[4] = self;
+    v14[5] = callback;
+    v14[6] = context;
     useCopy2 = use;
-    v12 = v15;
+    v12 = v14;
     goto LABEL_5;
   }
 
-  v14 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v13 = __PLSLogSharedInstance(0);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     callbackCopy = callback;
-    _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_ERROR, "Tried to send callback of type %d, no transition callback handler installed.", buf, 8u);
+    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, "Tried to send callback of type %d, no transition callback handler installed.", buf, 8u);
   }
-
-LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfterUse___block_invoke(uint64_t a1)
@@ -285,7 +283,7 @@ void __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfte
 
 - (void)callTransitionCallback:(unint64_t)callback retainedContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   transitionCallback = [(PSTransitionManager *)self transitionCallback];
 
@@ -298,10 +296,10 @@ void __77__PSTransitionManager_callTransitionCallback_unretainedContext_freeAfte
     block[3] = &unk_279A48820;
     block[4] = self;
     callbackCopy = callback;
-    v17 = contextCopy;
+    v16 = contextCopy;
     dispatch_async(transitionCallbackQueue, block);
 
-    v9 = v17;
+    v9 = v16;
 LABEL_5:
 
     goto LABEL_6;
@@ -310,29 +308,28 @@ LABEL_5:
   if ([(PSTransitionManager *)self transitionCallbackF])
   {
     transitionCallbackQueue2 = [(PSTransitionManager *)self transitionCallbackQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __62__PSTransitionManager_callTransitionCallback_retainedContext___block_invoke_2;
-    v13[3] = &unk_279A48820;
-    v13[4] = self;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __62__PSTransitionManager_callTransitionCallback_retainedContext___block_invoke_2;
+    v12[3] = &unk_279A48820;
+    v12[4] = self;
     callbackCopy2 = callback;
-    v14 = contextCopy;
-    dispatch_async(transitionCallbackQueue2, v13);
+    v13 = contextCopy;
+    dispatch_async(transitionCallbackQueue2, v12);
 
-    v9 = v14;
+    v9 = v13;
     goto LABEL_5;
   }
 
-  v12 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v11 = __PLSLogSharedInstance(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
     callbackCopy3 = callback;
-    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "Tried to send callback of type %d, no transition callback handler installed.", buf, 8u);
+    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, "Tried to send callback of type %d, no transition callback handler installed.", buf, 8u);
   }
 
 LABEL_6:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__PSTransitionManager_callTransitionCallback_retainedContext___block_invoke(uint64_t a1)
@@ -497,7 +494,7 @@ void __46__PSTransitionManager_dispatchReplayDelegate___block_invoke(uint64_t a1
 
 - (BOOL)deliverResourceRequest:(id)request removing:(id)removing
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   removingCopy = removing;
   val = self;
@@ -518,25 +515,25 @@ void __46__PSTransitionManager_dispatchReplayDelegate___block_invoke(uint64_t a1
         v12 = requestCopy;
         v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v54 = 0u;
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
         obj = v12;
-        v15 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+        v15 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
         if (v15)
         {
-          v16 = *v56;
+          v16 = *v55;
           do
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v56 != v16)
+              if (*v55 != v16)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v55 + 1) + 8 * i);
+              v18 = *(*(&v54 + 1) + 8 * i);
               resourceKey = [v18 resourceKey];
               v20 = [(NSSet *)val->_prioritizedResources containsObject:resourceKey];
               v21 = !v20;
@@ -564,7 +561,7 @@ void __46__PSTransitionManager_dispatchReplayDelegate___block_invoke(uint64_t a1
               [v23 addObject:resourceKey];
             }
 
-            v15 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
+            v15 = [obj countByEnumeratingWithState:&v54 objects:v58 count:16];
           }
 
           while (v15);
@@ -585,7 +582,7 @@ void __46__PSTransitionManager_dispatchReplayDelegate___block_invoke(uint64_t a1
         }
 
         v29 = !v28;
-        v30 = __PLSLogSharedInstance();
+        v30 = __PLSLogSharedInstance(v26);
         v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
         if (v29)
         {
@@ -632,17 +629,17 @@ LABEL_35:
         block[1] = 3221225472;
         block[2] = __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke;
         block[3] = &unk_279A48898;
-        objc_copyWeak(v53, buf);
-        v46 = date;
-        v53[1] = v27;
-        v47 = removingCopy;
-        v48 = v10;
-        v49 = v13;
-        v50 = val;
-        v53[2] = v24;
-        v53[3] = v25;
-        v51 = v11;
-        v52 = v14;
+        objc_copyWeak(v52, buf);
+        v45 = date;
+        v52[1] = v27;
+        v46 = removingCopy;
+        v47 = v10;
+        v48 = v13;
+        v49 = val;
+        v52[2] = v24;
+        v52[3] = v25;
+        v50 = v11;
+        v51 = v14;
         v34 = v14;
         v35 = v11;
         v36 = v13;
@@ -650,7 +647,7 @@ LABEL_35:
         v38 = date;
         dispatch_async(executionSessionDelegate, block);
 
-        objc_destroyWeak(v53);
+        objc_destroyWeak(v52);
         objc_destroyWeak(buf);
 
         LOBYTE(executionSessionDelegate) = 1;
@@ -663,13 +660,12 @@ LABEL_35:
 
 LABEL_37:
 
-  v39 = *MEMORY[0x277D85DE8];
   return executionSessionDelegate;
 }
 
 void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke(uint64_t a1)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
   if (WeakRetained)
   {
@@ -682,168 +678,166 @@ void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke(ui
       v7 = [*(a1 + 40) allObjects];
       v8 = [v7 componentsJoinedByString:{@", "}];
 
-      v9 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __PLSLogSharedInstance(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 96);
+        v11 = *(a1 + 96);
         *buf = 134218498;
-        v63 = v10;
-        v64 = 2112;
-        v65 = v8;
-        v66 = 2048;
-        v67 = v5;
-        _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%lu Resources No Longer wanted : [%@], dispatched in %lf seconds", buf, 0x20u);
+        v64 = v11;
+        v65 = 2112;
+        v66 = v8;
+        v67 = 2048;
+        v68 = v5;
+        _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "%lu Resources No Longer wanted : [%@], dispatched in %lf seconds", buf, 0x20u);
       }
 
       [v6 resourcesNoLongerWanted:*(a1 + 40)];
       if ([WeakRetained shouldSendResourcesNoLongerWantedProcessed])
       {
-        v11 = [WeakRetained executionSession];
-        [v11 resourcesNoLongerWantedProcessed:*(a1 + 40)];
+        v12 = [WeakRetained executionSession];
+        [v12 resourcesNoLongerWantedProcessed:*(a1 + 40)];
       }
     }
 
-    v12 = [MEMORY[0x277CBEAA8] date];
+    v13 = [MEMORY[0x277CBEAA8] date];
 
-    [v12 timeIntervalSinceDate:*(a1 + 32)];
+    [v13 timeIntervalSinceDate:*(a1 + 32)];
     if (*(a1 + 104))
     {
-      v14 = v13;
-      v15 = [*(a1 + 48) componentsJoinedByString:{@", "}];
-      v16 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v15 = v14;
+      v16 = [*(a1 + 48) componentsJoinedByString:{@", "}];
+      v17 = __PLSLogSharedInstance(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(a1 + 104);
+        v18 = *(a1 + 104);
         *buf = 134218498;
-        v63 = v17;
-        v64 = 2112;
-        v65 = v15;
-        v66 = 2048;
-        v67 = v14;
-        _os_log_impl(&dword_25EA3A000, v16, OS_LOG_TYPE_DEFAULT, "%lu Resources Requested First : [%@], dispatched in %lf seconds", buf, 0x20u);
+        v64 = v18;
+        v65 = 2112;
+        v66 = v16;
+        v67 = 2048;
+        v68 = v15;
+        _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_DEFAULT, "%lu Resources Requested First : [%@], dispatched in %lf seconds", buf, 0x20u);
       }
 
-      v48 = v15;
+      v49 = v16;
 
-      v50 = *(a1 + 48);
-      v56 = 0u;
+      v51 = *(a1 + 48);
       v57 = 0u;
       v58 = 0u;
       v59 = 0u;
-      v18 = *(a1 + 56);
-      v19 = [v18 countByEnumeratingWithState:&v56 objects:v61 count:16];
-      if (v19)
+      v60 = 0u;
+      v19 = *(a1 + 56);
+      v20 = [v19 countByEnumeratingWithState:&v57 objects:v62 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v21 = *v57;
+        v21 = v20;
+        v22 = *v58;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v21; ++i)
           {
-            if (*v57 != v21)
+            if (*v58 != v22)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            v23 = *(*(&v56 + 1) + 8 * i);
-            v24 = [WeakRetained compiler];
-            [v24 withWriterForKey:v23 perform:&__block_literal_global_11];
+            v24 = *(*(&v57 + 1) + 8 * i);
+            v25 = [WeakRetained compiler];
+            [v25 withWriterForKey:v24 perform:&__block_literal_global_11];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v56 objects:v61 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
 
-      v25 = [MEMORY[0x277CBEAA8] date];
-      v26 = v50;
-      [v6 resourcesRequested:v50];
-      v27 = [MEMORY[0x277CBEAA8] date];
-      [v27 timeIntervalSinceDate:v25];
-      ps_ca_resource_request_completed(*(*(a1 + 64) + 120), *(a1 + 104), v28);
+      v26 = [MEMORY[0x277CBEAA8] date];
+      v27 = v51;
+      [v6 resourcesRequested:v51];
+      v28 = [MEMORY[0x277CBEAA8] date];
+      [v28 timeIntervalSinceDate:v26];
+      ps_ca_resource_request_completed(*(*(a1 + 64) + 120), *(a1 + 104), v29);
 
-      v29 = v48;
+      v30 = v49;
     }
 
     else
     {
-      v29 = 0;
-      v26 = 0;
+      v30 = 0;
+      v27 = 0;
     }
 
-    v30 = [MEMORY[0x277CBEAA8] date];
+    v31 = [MEMORY[0x277CBEAA8] date];
 
-    [v30 timeIntervalSinceDate:*(a1 + 32)];
+    [v31 timeIntervalSinceDate:*(a1 + 32)];
     if (*(a1 + 112))
     {
-      v32 = v31;
-      v33 = [*(a1 + 72) componentsJoinedByString:{@", "}];
+      v33 = v32;
+      v34 = [*(a1 + 72) componentsJoinedByString:{@", "}];
 
-      v34 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v36 = __PLSLogSharedInstance(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = *(a1 + 112);
+        v37 = *(a1 + 112);
         *buf = 134218498;
-        v63 = v35;
-        v64 = 2112;
-        v65 = v33;
-        v66 = 2048;
-        v67 = v32;
-        _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_DEFAULT, "%lu Resources Requested Later [%@], dispatched in %lf seconds", buf, 0x20u);
+        v64 = v37;
+        v65 = 2112;
+        v66 = v34;
+        v67 = 2048;
+        v68 = v33;
+        _os_log_impl(&dword_25EA3A000, v36, OS_LOG_TYPE_DEFAULT, "%lu Resources Requested Later [%@], dispatched in %lf seconds", buf, 0x20u);
       }
 
-      v49 = v33;
-      v51 = v30;
+      v50 = v34;
+      v52 = v31;
 
-      v36 = *(a1 + 72);
-      v54 = 0u;
+      v38 = *(a1 + 72);
       v55 = 0u;
-      v52 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v37 = *(a1 + 80);
-      v38 = [v37 countByEnumeratingWithState:&v52 objects:v60 count:16];
-      if (v38)
+      v54 = 0u;
+      v39 = *(a1 + 80);
+      v40 = [v39 countByEnumeratingWithState:&v53 objects:v61 count:16];
+      if (v40)
       {
-        v39 = v38;
-        v40 = *v53;
+        v41 = v40;
+        v42 = *v54;
         do
         {
-          for (j = 0; j != v39; ++j)
+          for (j = 0; j != v41; ++j)
           {
-            if (*v53 != v40)
+            if (*v54 != v42)
             {
-              objc_enumerationMutation(v37);
+              objc_enumerationMutation(v39);
             }
 
-            v42 = *(*(&v52 + 1) + 8 * j);
-            v43 = [WeakRetained compiler];
-            [v43 withWriterForKey:v42 perform:&__block_literal_global_106];
+            v44 = *(*(&v53 + 1) + 8 * j);
+            v45 = [WeakRetained compiler];
+            [v45 withWriterForKey:v44 perform:&__block_literal_global_106];
           }
 
-          v39 = [v37 countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v41 = [v39 countByEnumeratingWithState:&v53 objects:v61 count:16];
         }
 
-        while (v39);
+        while (v41);
       }
 
-      v44 = [MEMORY[0x277CBEAA8] date];
-      [v6 resourcesRequested:v36];
-      v45 = [MEMORY[0x277CBEAA8] date];
-      [v45 timeIntervalSinceDate:v44];
-      ps_ca_resource_request_completed(*(*(a1 + 64) + 120), *(a1 + 112), v46);
+      v46 = [MEMORY[0x277CBEAA8] date];
+      [v6 resourcesRequested:v38];
+      v47 = [MEMORY[0x277CBEAA8] date];
+      [v47 timeIntervalSinceDate:v46];
+      ps_ca_resource_request_completed(*(*(a1 + 64) + 120), *(a1 + 112), v48);
 
-      v29 = v49;
-      v30 = v51;
+      v30 = v50;
+      v31 = v52;
     }
 
     else
     {
-      v36 = v26;
+      v38 = v27;
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke_102(uint64_t a1, void *a2)
@@ -877,13 +871,14 @@ void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke_10
 
     if (executionSessionDelegateQueue)
     {
-      if ([(PSTransitionManager *)self conformsToResourcePauseSetupDelegate])
+      conformsToResourcePauseSetupDelegate = [(PSTransitionManager *)self conformsToResourcePauseSetupDelegate];
+      if (conformsToResourcePauseSetupDelegate)
       {
-        v8 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = __PLSLogSharedInstance(conformsToResourcePauseSetupDelegate);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "enqueueing setupResources", buf, 2u);
+          _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "enqueueing setupResources", buf, 2u);
         }
 
         date = [MEMORY[0x277CBEAA8] date];
@@ -893,13 +888,13 @@ void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke_10
         block[1] = 3221225472;
         block[2] = __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke;
         block[3] = &unk_279A48848;
-        objc_copyWeak(&v15, buf);
-        v13 = date;
-        v14 = requestCopy;
-        v11 = date;
+        objc_copyWeak(&v16, buf);
+        v14 = date;
+        v15 = requestCopy;
+        v12 = date;
         dispatch_async(executionSessionDelegateQueue2, block);
 
-        objc_destroyWeak(&v15);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(buf);
       }
     }
@@ -908,7 +903,7 @@ void __55__PSTransitionManager_deliverResourceRequest_removing___block_invoke_10
 
 void __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -918,23 +913,21 @@ void __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke(uint6
     v6 = *(a1 + 40);
     v7 = [v6 componentsJoinedByString:{@", "}];
     v8 = [v6 count];
-    v9 = __PLSLogSharedInstance();
+    v9 = __PLSLogSharedInstance(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134218498;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2048;
-      v17 = v5;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%lu Setup Resources [%@], dispatched in %lf seconds", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2048;
+      v16 = v5;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%lu Setup Resources [%@], dispatched in %lf seconds", &v11, 0x20u);
     }
 
     v10 = [WeakRetained executionSessionDelegate];
     [v10 setupResources:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverPauseResourcesRequest:(id)request
@@ -981,13 +974,14 @@ void __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke(uint6
 
     if (!v12)
     {
-      if ([(PSTransitionManager *)self conformsToResourcePauseSetupDelegate])
+      conformsToResourcePauseSetupDelegate = [(PSTransitionManager *)self conformsToResourcePauseSetupDelegate];
+      if (conformsToResourcePauseSetupDelegate)
       {
-        v13 = __PLSLogSharedInstance();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = __PLSLogSharedInstance(conformsToResourcePauseSetupDelegate);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_DEFAULT, "enqueueing pauseResources", buf, 2u);
+          _os_log_impl(&dword_25EA3A000, v14, OS_LOG_TYPE_DEFAULT, "enqueueing pauseResources", buf, 2u);
         }
 
         date = [MEMORY[0x277CBEAA8] date];
@@ -1000,7 +994,7 @@ void __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke(uint6
         objc_copyWeak(&v21, buf);
         v19 = date;
         v20 = requestCopy;
-        v16 = date;
+        v17 = date;
         dispatch_async(executionSessionDelegateQueue2, block);
 
         objc_destroyWeak(&v21);
@@ -1008,8 +1002,6 @@ void __52__PSTransitionManager_deliverSetupResourcesRequest___block_invoke(uint6
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PSTransitionManager_deliverPauseResourcesRequest___block_invoke(uint64_t a1, void *a2)
@@ -1024,7 +1016,7 @@ void __52__PSTransitionManager_deliverPauseResourcesRequest___block_invoke(uint6
 
 void __52__PSTransitionManager_deliverPauseResourcesRequest___block_invoke_109(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -1035,23 +1027,21 @@ void __52__PSTransitionManager_deliverPauseResourcesRequest___block_invoke_109(u
     v7 = [v6 componentsJoinedByString:{@", "}];
 
     v8 = [*(a1 + 40) count];
-    v9 = __PLSLogSharedInstance();
+    v9 = __PLSLogSharedInstance(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 134218498;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2048;
-      v17 = v5;
-      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%lu Pause Resources [%@], dispatched in %lf seconds", &v12, 0x20u);
+      v11 = 134218498;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2048;
+      v16 = v5;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_DEFAULT, "%lu Pause Resources [%@], dispatched in %lf seconds", &v11, 0x20u);
     }
 
     v10 = [WeakRetained executionSessionDelegate];
     [v10 pauseResources:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deliverDynamicResourcesAvailableNotification:(id)notification
@@ -1060,13 +1050,13 @@ void __52__PSTransitionManager_deliverPauseResourcesRequest___block_invoke_109(u
   executionSessionDelegate = [(PSTransitionManager *)self executionSessionDelegate];
   if (!executionSessionDelegate || (v6 = executionSessionDelegate, [(PSTransitionManager *)self executionSessionDelegateQueue], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, !v7))
   {
-    v11 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __PLSLogSharedInstance(executionSessionDelegate);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      v12 = "The execution session delegate or dispatch queue is invalid";
+      v13 = "The execution session delegate or dispatch queue is invalid";
 LABEL_9:
-      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, v12, location, 2u);
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, v13, location, 2u);
     }
 
 LABEL_10:
@@ -1079,11 +1069,11 @@ LABEL_10:
 
   if ((v9 & 1) == 0)
   {
-    v11 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __PLSLogSharedInstance(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      v12 = "The execution session delegate doesn't conforms to protocol PSExecutionSessionResourceDelegate";
+      v13 = "The execution session delegate doesn't conforms to protocol PSExecutionSessionResourceDelegate";
       goto LABEL_9;
     }
 
@@ -1092,15 +1082,15 @@ LABEL_10:
 
   objc_initWeak(location, self);
   executionSessionDelegateQueue = [(PSTransitionManager *)self executionSessionDelegateQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __68__PSTransitionManager_deliverDynamicResourcesAvailableNotification___block_invoke;
-  v13[3] = &unk_279A48120;
-  objc_copyWeak(&v15, location);
-  v14 = notificationCopy;
-  dispatch_async(executionSessionDelegateQueue, v13);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __68__PSTransitionManager_deliverDynamicResourcesAvailableNotification___block_invoke;
+  v14[3] = &unk_279A48120;
+  objc_copyWeak(&v16, location);
+  v15 = notificationCopy;
+  dispatch_async(executionSessionDelegateQueue, v14);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(location);
 LABEL_11:
 }
@@ -1124,13 +1114,13 @@ void __68__PSTransitionManager_deliverDynamicResourcesAvailableNotification___bl
   executionSessionDelegate = [(PSTransitionManager *)self executionSessionDelegate];
   if (!executionSessionDelegate || (v6 = executionSessionDelegate, [(PSTransitionManager *)self executionSessionDelegateQueue], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, !v7))
   {
-    v11 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __PLSLogSharedInstance(executionSessionDelegate);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      v12 = "The execution session delegate or dispatch queue is invalid";
+      v13 = "The execution session delegate or dispatch queue is invalid";
 LABEL_9:
-      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, v12, location, 2u);
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, v13, location, 2u);
     }
 
 LABEL_10:
@@ -1143,11 +1133,11 @@ LABEL_10:
 
   if ((v9 & 1) == 0)
   {
-    v11 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __PLSLogSharedInstance(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       LOWORD(location[0]) = 0;
-      v12 = "The execution session delegate doesn't conforms to protocol PSExecutionSessionResourceDelegate";
+      v13 = "The execution session delegate doesn't conforms to protocol PSExecutionSessionResourceDelegate";
       goto LABEL_9;
     }
 
@@ -1156,15 +1146,15 @@ LABEL_10:
 
   objc_initWeak(location, self);
   executionSessionDelegateQueue = [(PSTransitionManager *)self executionSessionDelegateQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __76__PSTransitionManager_deliverDynamicResourcesNoLongerAvailableNotification___block_invoke;
-  v13[3] = &unk_279A48120;
-  objc_copyWeak(&v15, location);
-  v14 = notificationCopy;
-  dispatch_async(executionSessionDelegateQueue, v13);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __76__PSTransitionManager_deliverDynamicResourcesNoLongerAvailableNotification___block_invoke;
+  v14[3] = &unk_279A48120;
+  objc_copyWeak(&v16, location);
+  v15 = notificationCopy;
+  dispatch_async(executionSessionDelegateQueue, v14);
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(location);
 LABEL_11:
 }
@@ -1226,6 +1216,141 @@ void __51__PSTransitionManager_deliverReplayResourceRequest__block_invoke(uint64
   }
 }
 
+- (BOOL)commitAddedGraphs:(id)graphs removedGraphs:(id)removedGraphs option:(unint64_t)option stopGraphs:(BOOL)stopGraphs error:(id *)error
+{
+  stopGraphsCopy = stopGraphs;
+  v57 = *MEMORY[0x277D85DE8];
+  graphsCopy = graphs;
+  removedGraphsCopy = removedGraphs;
+  p_transitionMonitor = &self->_transitionMonitor;
+  transitionCond = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+  [transitionCond lock];
+  while (1)
+  {
+
+    if ([(PSTransitionMonitor *)*p_transitionMonitor transitionState]== 12)
+    {
+      break;
+    }
+
+    p_transitionMonitor = &self->_transitionMonitor;
+    transitionCond = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+    [transitionCond wait];
+  }
+
+  [(PSTransitionMonitor *)self->_transitionMonitor setTransitionState:0];
+  transitionCond2 = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+  [transitionCond2 unlock];
+
+  WeakRetained = objc_loadWeakRetained(&self->_executionSession);
+  dashboard = [WeakRetained dashboard];
+  v19 = [PSTransitionBlock generateTransitionBlockWithAddedGraphs:graphsCopy withRemovedGraphs:removedGraphsCopy withDashboard:dashboard withStopOption:stopGraphsCopy];
+
+  if (![(PSTransitionManager *)self prepareTransition:v19 error:error])
+  {
+    transitionMonitor = self->_transitionMonitor;
+    v21 = &self->_transitionMonitor;
+    transitionCond3 = [(PSTransitionMonitor *)transitionMonitor transitionCond];
+    [transitionCond3 lock];
+
+    [(PSTransitionMonitor *)*v21 setTransitionState:12];
+    transitionCond4 = [(PSTransitionMonitor *)*v21 transitionCond];
+    [transitionCond4 broadcast];
+
+    transitionCond5 = [(PSTransitionMonitor *)*v21 transitionCond];
+    [transitionCond5 unlock];
+
+    v26 = 0;
+LABEL_13:
+
+    return v26 & 1;
+  }
+
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy_;
+  v45 = __Block_byref_object_dispose_;
+  v46 = 0;
+  objc_initWeak(&location, self);
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs_error___block_invoke;
+  aBlock[3] = &unk_279A488E0;
+  objc_copyWeak(&v39, &location);
+  v36 = v19;
+  v37 = &v41;
+  v38 = &v47;
+  v20 = _Block_copy(aBlock);
+  if (option == 1)
+  {
+    dispatch_async_and_wait(self->_transitionQueue, v20);
+    if (!error)
+    {
+LABEL_12:
+      v27 = *(v48 + 24);
+
+      objc_destroyWeak(&v39);
+      objc_destroyWeak(&location);
+      _Block_object_dispose(&v41, 8);
+
+      v26 = (option != 1) | v27 ^ 1;
+      _Block_object_dispose(&v47, 8);
+      goto LABEL_13;
+    }
+
+LABEL_11:
+    *error = v42[5];
+    goto LABEL_12;
+  }
+
+  if (!option)
+  {
+    dispatch_async(self->_transitionQueue, v20);
+    if (!error)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_11;
+  }
+
+  v34 = 0;
+  v29 = asprintf(&v34, "Unrecognized commit type (%llu) requested for transition.", option);
+  v30 = __PLSLogSharedInstance(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315650;
+    v52 = "[PSTransitionManager commitAddedGraphs:removedGraphs:option:stopGraphs:error:]";
+    v53 = 1024;
+    v54 = 729;
+    v55 = 2048;
+    optionCopy = option;
+    _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_FAULT, "%s:%d Unrecognized commit type (%llu) requested for transition.", buf, 0x1Cu);
+  }
+
+  v31 = OSLogFlushBuffers();
+  v32 = v31;
+  if (v31)
+  {
+    v33 = __PLSLogSharedInstance(v31);
+    [PSTransitionManager commitAddedGraphs:v33 removedGraphs:v32 option:? stopGraphs:? error:?];
+  }
+
+  else
+  {
+    usleep(0x1E8480u);
+  }
+
+  result = abort_with_reason();
+  __break(1u);
+  return result;
+}
+
 void __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs_error___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -1251,7 +1376,7 @@ void __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs
 
 - (unint64_t)transitionExecutorForRemote:(id)remote error:(id *)error
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   remoteCopy = remote;
   session_hash = self->_transition_analytics.session_hash;
   *&self->_transition_analytics.session_hash = 0u;
@@ -1262,7 +1387,7 @@ void __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs
   *&self->_transition_analytics.prmCreationTime = 0u;
   *&self->_transition_analytics.totalTransitionTime = 0u;
   self->_transition_analytics.session_hash = session_hash;
-  v83 = mach_absolute_time();
+  v85 = mach_absolute_time();
   v7 = __thread_selfusage();
   addedGraphs = [remoteCopy addedGraphs];
   [(PSTransitionManager *)self setupCoreAnalyticsForAddedGraphs:addedGraphs];
@@ -1280,29 +1405,29 @@ void __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs
 
   if (v14)
   {
+    v90 = 0u;
+    v91 = 0u;
     v88 = 0u;
     v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
     allStreams = [(PSContext *)self->_context allStreams];
-    v16 = [allStreams countByEnumeratingWithState:&v86 objects:v95 count:16];
+    v16 = [allStreams countByEnumeratingWithState:&v88 objects:v97 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v87;
+      v18 = *v89;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v87 != v18)
+          if (*v89 != v18)
           {
             objc_enumerationMutation(allStreams);
           }
 
-          [(PLSDevice *)self->_device populateProviderTypeForStream:*(*(&v86 + 1) + 8 * i)];
+          [(PLSDevice *)self->_device populateProviderTypeForStream:*(*(&v88 + 1) + 8 * i)];
         }
 
-        v17 = [allStreams countByEnumeratingWithState:&v86 objects:v95 count:16];
+        v17 = [allStreams countByEnumeratingWithState:&v88 objects:v97 count:16];
       }
 
       while (v17);
@@ -1310,7 +1435,7 @@ void __79__PSTransitionManager_commitAddedGraphs_removedGraphs_option_stopGraphs
   }
 
   v20 = mach_absolute_time();
-  v84 = v7;
+  v86 = v7;
   if (![(PSTransitionManager *)self sysGraphEnabled])
   {
     executionSession2 = [(PSTransitionManager *)self executionSession];
@@ -1354,41 +1479,41 @@ LABEL_39:
   }
 
   UPDATE_STATE(self, 1);
-  v21 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = __PLSLogSharedInstance(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v21, OS_LOG_TYPE_DEFAULT, "Requesting system graph transition.", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEFAULT, "Requesting system graph transition.", buf, 2u);
   }
 
-  v22 = MEMORY[0x277CBEB98];
-  v94[0] = PLSResourceKeyDisplayMattingLeft[0];
-  v94[1] = PLSResourceKeyDisplayMattingRight[0];
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
-  v24 = [v22 setWithArray:v23];
+  v23 = MEMORY[0x277CBEB98];
+  v96[0] = PLSResourceKeyDisplayMattingLeft[0];
+  v96[1] = PLSResourceKeyDisplayMattingRight[0];
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+  v25 = [v23 setWithArray:v24];
 
   compiler = [(PSTransitionManager *)self compiler];
-  v26 = [compiler transitionAddedResources:remoteCopy];
+  v27 = [compiler transitionAddedResources:remoteCopy];
 
-  if ([v26 intersectsSet:v24])
+  if ([v27 intersectsSet:v25])
   {
-    v27 = +[PSExecutionSessionWorkarounds sharedInstance];
-    shouldAssumeMattingIsAlwaysOn = [v27 shouldAssumeMattingIsAlwaysOn];
+    v28 = +[PSExecutionSessionWorkarounds sharedInstance];
+    shouldAssumeMattingIsAlwaysOn = [v28 shouldAssumeMattingIsAlwaysOn];
 
     if (shouldAssumeMattingIsAlwaysOn)
     {
-      v29 = [MEMORY[0x277CBEB58] setWithSet:v26];
-      [v29 minusSet:v24];
+      v30 = [MEMORY[0x277CBEB58] setWithSet:v27];
+      [v30 minusSet:v25];
 
-      v26 = v29;
+      v27 = v30;
     }
   }
 
   executionSession6 = [(PSTransitionManager *)self executionSession];
-  [executionSession6 waitForContextFromExecutionSessionsProvidingResources:v26];
+  [executionSession6 waitForContextFromExecutionSessionsProvidingResources:v27];
 
-  v31 = +[PLSSettings currentSettings];
-  if ([v31 enableFastTransition])
+  v32 = +[PLSSettings currentSettings];
+  if ([v32 enableFastTransition])
   {
     executionSession7 = [(PSTransitionManager *)self executionSession];
     systemGraphSession3 = [executionSession7 systemGraphSession];
@@ -1406,42 +1531,42 @@ LABEL_39:
   compiler2 = [(PSTransitionManager *)self compiler];
   systemGraphSession2 = [compiler2 systemGraphResourceWithStridesRequest:remoteCopy];
 
-  v42 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v44 = __PLSLogSharedInstance(v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
     resourcesWantedWithStrides = [systemGraphSession2 resourcesWantedWithStrides];
     resourcesNoLongerWantedWithStrides = [systemGraphSession2 resourcesNoLongerWantedWithStrides];
     *buf = 138412546;
-    v91 = resourcesWantedWithStrides;
-    v92 = 2112;
-    v93 = resourcesNoLongerWantedWithStrides;
-    _os_log_impl(&dword_25EA3A000, v42, OS_LOG_TYPE_DEBUG, "System graph request: resourcesWantedWithStrides=%@, resourcesNoLongerWantedWithStrides=%@", buf, 0x16u);
+    v93 = resourcesWantedWithStrides;
+    v94 = 2112;
+    v95 = resourcesNoLongerWantedWithStrides;
+    _os_log_impl(&dword_25EA3A000, v44, OS_LOG_TYPE_DEBUG, "System graph request: resourcesWantedWithStrides=%@, resourcesNoLongerWantedWithStrides=%@", buf, 0x16u);
   }
 
-  v45 = objc_alloc_init(MEMORY[0x277D3E820]);
+  v47 = objc_alloc_init(MEMORY[0x277D3E820]);
   resourcesWanted = [systemGraphSession2 resourcesWanted];
-  [v45 setResourcesWanted:resourcesWanted];
+  [v47 setResourcesWanted:resourcesWanted];
 
   resourcesWantedWithStrides2 = [systemGraphSession2 resourcesWantedWithStrides];
-  [v45 setResourcesWantedWithStrides:resourcesWantedWithStrides2];
+  [v47 setResourcesWantedWithStrides:resourcesWantedWithStrides2];
 
-  resourcesWantedWithStrides3 = [v45 resourcesWantedWithStrides];
-  v49 = [resourcesWantedWithStrides3 count];
+  resourcesWantedWithStrides3 = [v47 resourcesWantedWithStrides];
+  v51 = [resourcesWantedWithStrides3 count];
 
-  if (v49)
+  if (v51)
   {
     systemGraphClient = [(PSTransitionManager *)self systemGraphClient];
-    v51 = [systemGraphClient requestResources:v45];
+    v53 = [systemGraphClient requestResources:v47];
 
-    if (v51 == 1)
+    if (v53 == 1)
     {
       if (error)
       {
         *error = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-200 description:@"commitAddedGraphs failed due to sleep"];
       }
 
-      v52 = +[PLSSettings currentSettings];
-      if ([(PSTransitionBlock *)v52 enableFastTransition])
+      v54 = +[PLSSettings currentSettings];
+      if ([(PSTransitionBlock *)v54 enableFastTransition])
       {
         executionSession8 = [(PSTransitionManager *)self executionSession];
         systemGraphSession4 = [executionSession8 systemGraphSession];
@@ -1450,25 +1575,24 @@ LABEL_39:
         {
 LABEL_35:
 
-          v61 = 1;
+          v63 = 1;
 LABEL_50:
 
-          v78 = *MEMORY[0x277D85DE8];
-          return v61;
+          return v63;
         }
 
-        v52 = objc_alloc_init(PSTransitionBlock);
-        v55 = objc_alloc(MEMORY[0x277CBEB98]);
+        v54 = objc_alloc_init(PSTransitionBlock);
+        v57 = objc_alloc(MEMORY[0x277CBEB98]);
         removedGraphs2 = [remoteCopy removedGraphs];
-        v57 = [v55 initWithSet:removedGraphs2];
-        [(PSTransitionBlock *)v52 setAddedGraphs:v57];
+        v59 = [v57 initWithSet:removedGraphs2];
+        [(PSTransitionBlock *)v54 setAddedGraphs:v59];
 
-        v58 = objc_alloc(MEMORY[0x277CBEB98]);
+        v60 = objc_alloc(MEMORY[0x277CBEB98]);
         addedGraphs3 = [remoteCopy addedGraphs];
-        v60 = [v58 initWithSet:addedGraphs3];
-        [(PSTransitionBlock *)v52 setRemovedGraphs:v60];
+        v62 = [v60 initWithSet:addedGraphs3];
+        [(PSTransitionBlock *)v54 setRemovedGraphs:v62];
 
-        [(PSTransitionManager *)self sendGraphInfoToSystemGraph:v52];
+        [(PSTransitionManager *)self sendGraphInfoToSystemGraph:v54];
       }
 
       goto LABEL_35;
@@ -1476,32 +1600,32 @@ LABEL_50:
   }
 
 LABEL_40:
-  v62 = mach_absolute_time();
-  self->_transition_analytics.sysGraphRequestTime = ps_util_mach_time_to_ns(v62 - v20) / 0xF4240;
+  v64 = mach_absolute_time();
+  self->_transition_analytics.sysGraphRequestTime = ps_util_mach_time_to_ns(v64 - v20) / 0xF4240;
   if ([(PSTransitionManager *)self sysGraphEnabled])
   {
     UPDATE_STATE(self, 11);
-    v63 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+    v66 = __PLSLogSharedInstance(v65);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v63, OS_LOG_TYPE_DEFAULT, "Notifying system graph of transition completion.", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v66, OS_LOG_TYPE_DEFAULT, "Notifying system graph of transition completion.", buf, 2u);
     }
 
-    v64 = objc_alloc_init(MEMORY[0x277D3E820]);
+    v67 = objc_alloc_init(MEMORY[0x277D3E820]);
     resourcesNoLongerWanted = [systemGraphSession2 resourcesNoLongerWanted];
-    [v64 setResourcesNoLongerWanted:resourcesNoLongerWanted];
+    [v67 setResourcesNoLongerWanted:resourcesNoLongerWanted];
 
     resourcesNoLongerWantedWithStrides2 = [systemGraphSession2 resourcesNoLongerWantedWithStrides];
-    [v64 setResourcesNoLongerWantedWithStrides:resourcesNoLongerWantedWithStrides2];
+    [v67 setResourcesNoLongerWantedWithStrides:resourcesNoLongerWantedWithStrides2];
 
-    resourcesNoLongerWantedWithStrides3 = [v64 resourcesNoLongerWantedWithStrides];
-    v68 = [resourcesNoLongerWantedWithStrides3 count];
+    resourcesNoLongerWantedWithStrides3 = [v67 resourcesNoLongerWantedWithStrides];
+    v71 = [resourcesNoLongerWantedWithStrides3 count];
 
-    if (v68)
+    if (v71)
     {
       systemGraphClient2 = [(PSTransitionManager *)self systemGraphClient];
-      [systemGraphClient2 requestResources:v64];
+      [systemGraphClient2 requestResources:v67];
     }
 
     compiler3 = [(PSTransitionManager *)self compiler];
@@ -1510,36 +1634,35 @@ LABEL_40:
     systemGraphClient3 = [(PSTransitionManager *)self systemGraphClient];
     addedGraphs4 = [remoteCopy addedGraphs];
     removedGraphs3 = [remoteCopy removedGraphs];
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __57__PSTransitionManager_transitionExecutorForRemote_error___block_invoke;
-    v85[3] = &unk_279A48908;
-    v85[4] = self;
-    [systemGraphClient3 updateGraphStateWithAdded:addedGraphs4 removed:removedGraphs3 getLivenessNode:v85];
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __57__PSTransitionManager_transitionExecutorForRemote_error___block_invoke;
+    v87[3] = &unk_279A48908;
+    v87[4] = self;
+    [systemGraphClient3 updateGraphStateWithAdded:addedGraphs4 removed:removedGraphs3 getLivenessNode:v87];
   }
 
-  context = self->_context;
   addedGraphs5 = [remoteCopy addedGraphs];
-  LOBYTE(context) = PSGraphExtractResourceKeyInfo();
-  v24 = 0;
+  ResourceKeyInfo = PSGraphExtractResourceKeyInfo();
+  v25 = 0;
 
-  if (context)
+  if (ResourceKeyInfo)
   {
-    v76 = mach_absolute_time();
-    self->_transition_analytics.totalTransitionTime = ps_util_mach_time_to_ns(v76 - v83) / 0xF4240;
-    v77 = __thread_selfusage();
-    self->_transition_analytics.totalTransitionCPUTime = ps_util_mach_time_to_ns(v77 - v84) / 0xF4240;
+    v79 = mach_absolute_time();
+    self->_transition_analytics.totalTransitionTime = ps_util_mach_time_to_ns(v79 - v85) / 0xF4240;
+    v80 = __thread_selfusage();
+    self->_transition_analytics.totalTransitionCPUTime = ps_util_mach_time_to_ns(v80 - v86) / 0xF4240;
     if (self->_isCoreAnalyticsEnabled)
     {
       pbs_ringbufferlogger_shared_write();
     }
 
-    v61 = 0;
+    v63 = 0;
     goto LABEL_50;
   }
 
-  v80 = [PSTransitionManager transitionExecutorForRemote:buf error:v24];
-  UPDATE_STATE(v80, v81);
+  v82 = [PSTransitionManager transitionExecutorForRemote:buf error:v25];
+  UPDATE_STATE(v82, v83);
   return result;
 }
 
@@ -1560,9 +1683,68 @@ uint64_t __57__PSTransitionManager_transitionExecutorForRemote_error___block_inv
   return v4;
 }
 
+- (BOOL)commitRemoteGraphs:(id)graphs removedGraphs:(id)removedGraphs option:(unint64_t)option stopGraphs:(BOOL)stopGraphs error:(id *)error
+{
+  stopGraphsCopy = stopGraphs;
+  graphsCopy = graphs;
+  removedGraphsCopy = removedGraphs;
+  transitionCond = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+  [transitionCond lock];
+  while (1)
+  {
+
+    if ([(PSTransitionMonitor *)self->_transitionMonitor transitionState]== 12)
+    {
+      break;
+    }
+
+    transitionCond = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+    [transitionCond wait];
+  }
+
+  [(PSTransitionMonitor *)self->_transitionMonitor setTransitionState:0];
+  transitionCond2 = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+  [transitionCond2 unlock];
+
+  WeakRetained = objc_loadWeakRetained(&self->_executionSession);
+  dashboard = [WeakRetained dashboard];
+  v17 = [PSTransitionBlock generateTransitionBlockWithAddedGraphs:graphsCopy withRemovedGraphs:removedGraphsCopy withDashboard:dashboard withStopOption:stopGraphsCopy];
+
+  if ([(PSTransitionManager *)self prepareTransition:v17 error:error])
+  {
+    v25 = 0;
+    transitionCond4 = [(PSTransitionManager *)self transitionExecutorForRemote:v17 error:&v25]!= 1;
+    v19 = +[PLSSettings currentSettings];
+    graphTransitionTimeoutSec = [v19 graphTransitionTimeoutSec];
+
+    transitionMonitor = [(PSTransitionManager *)self transitionMonitor];
+    [transitionMonitor start:graphTransitionTimeoutSec];
+
+    [(PSTransitionManager *)self updateTransitionCompleted:v17 transitionSucceeded:transitionCond4];
+    [(PSTransitionManager *)self callTransitionCallback:0 retainedContext:0];
+  }
+
+  else
+  {
+    transitionCond3 = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+    [transitionCond3 lock];
+
+    [(PSTransitionMonitor *)self->_transitionMonitor setTransitionState:12];
+    transitionCond4 = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+    [transitionCond4 broadcast];
+
+    transitionCond5 = [(PSTransitionMonitor *)self->_transitionMonitor transitionCond];
+    [transitionCond5 unlock];
+
+    LOBYTE(transitionCond4) = 0;
+  }
+
+  return transitionCond4;
+}
+
 - (BOOL)prepareTransition:(id)transition error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   transitionCopy = transition;
   addedGraphs = [transitionCopy addedGraphs];
   if ([addedGraphs count])
@@ -1578,15 +1760,16 @@ uint64_t __57__PSTransitionManager_transitionExecutorForRemote_error___block_inv
     {
       if (error)
       {
-        *error = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-5 description:@"No graphs were requested for addition or removal"];
+        v10 = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-5 description:@"No graphs were requested for addition or removal"];
+        *error = v10;
       }
 
-      v30 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = __PLSLogSharedInstance(v10);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        v37 = 138412290;
-        v38 = @"No graphs were requested for addition or removal";
-        _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_ERROR, "%@", &v37, 0xCu);
+        v39 = 138412290;
+        v40 = @"No graphs were requested for addition or removal";
+        _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_ERROR, "%@", &v39, 0xCu);
       }
 
       goto LABEL_18;
@@ -1594,55 +1777,54 @@ uint64_t __57__PSTransitionManager_transitionExecutorForRemote_error___block_inv
   }
 
   [(PSGraphCompiler *)self->_compiler resolveTimerStreamsForTransitionBlock:transitionCopy];
-  [(PSGraphCompiler *)self->_compiler setBufferDepthsForTransitionBlock:transitionCopy];
-  v10 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = __PLSLogSharedInstance([(PSGraphCompiler *)self->_compiler setBufferDepthsForTransitionBlock:transitionCopy]);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v37) = 0;
-    _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_DEFAULT, "*********************** Transition Requested ***********************", &v37, 2u);
+    LOWORD(v39) = 0;
+    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "*********************** Transition Requested ***********************", &v39, 2u);
   }
 
   [transitionCopy printLogsWithContext:self->_context];
   addedGraphs2 = [transitionCopy addedGraphs];
-  v12 = PSCheckGraphsAreDAG();
+  v13 = PSCheckGraphsAreDAG();
 
-  if (!v12)
+  if (!v13)
   {
     goto LABEL_19;
   }
 
   context = [(PSTransitionManager *)self context];
   postTransitionGraphs = [transitionCopy postTransitionGraphs];
-  v15 = PSGraphResolveFrequencies();
+  v16 = PSGraphResolveFrequencies();
 
-  if (!v15)
+  if (!v16)
   {
     goto LABEL_19;
   }
 
   context2 = [(PSTransitionManager *)self context];
   addedGraphs3 = [transitionCopy addedGraphs];
-  v18 = PSGraphResolveCriticalities();
+  v19 = PSGraphResolveCriticalities();
 
-  if (!v18)
+  if (!v19)
   {
     goto LABEL_19;
   }
 
   context3 = [(PSTransitionManager *)self context];
   addedGraphs4 = [transitionCopy addedGraphs];
-  v21 = PSGraphApplyThreadPoolSizeLimits();
+  v22 = PSGraphApplyThreadPoolSizeLimits();
 
-  if (!v21)
+  if (!v22)
   {
     goto LABEL_19;
   }
 
   context4 = [(PSTransitionManager *)self context];
   addedGraphs5 = [transitionCopy addedGraphs];
-  v24 = PSGraphResolveThreadPoolSizes();
+  v25 = PSGraphResolveThreadPoolSizes();
 
-  if (!v24)
+  if (!v25)
   {
     goto LABEL_19;
   }
@@ -1652,18 +1834,18 @@ uint64_t __57__PSTransitionManager_transitionExecutorForRemote_error___block_inv
 
   if ((remoteSession & 1) == 0)
   {
-    v27 = objc_loadWeakRetained(&self->_executionSession);
-    v28 = [PSGraphValidation validateTransitionBlock:transitionCopy forSession:v27 error:error];
+    v28 = objc_loadWeakRetained(&self->_executionSession);
+    v29 = [PSGraphValidation validateTransitionBlock:transitionCopy forSession:v28 error:error];
 
-    if (!v28)
+    if (!v29)
     {
-      v33 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v34 = __PLSLogSharedInstance(v30);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         localizedDescription = [*error localizedDescription];
-        v37 = 138412290;
-        v38 = localizedDescription;
-        _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_ERROR, "An error has occurred during graph transition: %@", &v37, 0xCu);
+        v39 = 138412290;
+        v40 = localizedDescription;
+        _os_log_impl(&dword_25EA3A000, v34, OS_LOG_TYPE_ERROR, "An error has occurred during graph transition: %@", &v39, 0xCu);
       }
 
       localizedRecoverySuggestion = [*error localizedRecoverySuggestion];
@@ -1673,53 +1855,54 @@ uint64_t __57__PSTransitionManager_transitionExecutorForRemote_error___block_inv
         goto LABEL_19;
       }
 
-      v30 = __PLSLogSharedInstance();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = __PLSLogSharedInstance(v37);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         localizedRecoverySuggestion2 = [*error localizedRecoverySuggestion];
-        v37 = 138412290;
-        v38 = localizedRecoverySuggestion2;
-        _os_log_impl(&dword_25EA3A000, v30, OS_LOG_TYPE_ERROR, "Recovery suggestion: %@", &v37, 0xCu);
+        v39 = 138412290;
+        v40 = localizedRecoverySuggestion2;
+        _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_ERROR, "Recovery suggestion: %@", &v39, 0xCu);
       }
 
 LABEL_18:
 
 LABEL_19:
-      v29 = 0;
+      v31 = 0;
       goto LABEL_20;
     }
   }
 
-  v29 = 1;
+  v31 = 1;
 LABEL_20:
 
-  v31 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v31;
 }
 
 - (void)updateTransitionCompleted:(id)completed transitionSucceeded:(BOOL)succeeded
 {
   succeededCopy = succeeded;
-  completedCopy = completed;
+  is_enabled = completed;
+  v7 = is_enabled;
   if (succeededCopy)
   {
     WeakRetained = objc_loadWeakRetained(&self->_executionSession);
     dashboard = [WeakRetained dashboard];
-    postTransitionGraphs = [completedCopy postTransitionGraphs];
+    postTransitionGraphs = [v7 postTransitionGraphs];
     [dashboard setRunningGraphs:postTransitionGraphs];
 
-    if (ps_telemetry_is_enabled())
+    is_enabled = ps_telemetry_is_enabled();
+    if (is_enabled)
     {
       systemGraphClient = [(PSTransitionManager *)self systemGraphClient];
       [systemGraphClient serverRequestedCurrentGraphs];
     }
   }
 
-  v11 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = __PLSLogSharedInstance(is_enabled);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_DEFAULT, "*********************** Transition Completed ***********************", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_DEFAULT, "*********************** Transition Completed ***********************", v14, 2u);
   }
 
   transitionMonitor = [(PSTransitionManager *)self transitionMonitor];
@@ -1728,7 +1911,7 @@ LABEL_20:
 
 - (void)sendGraphInfoToSystemGraph:(id)graph
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = xpc_dictionary_create(0, 0, 0);
   executionSession = [(PSTransitionManager *)self executionSession];
@@ -1737,36 +1920,36 @@ LABEL_20:
   v9 = getpid();
   populateGraphSetInfo(v5, 8uLL, uTF8String, v9);
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   addedGraphs = [graphCopy addedGraphs];
-  v11 = [addedGraphs countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v11 = [addedGraphs countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(addedGraphs);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * v14);
+        v15 = *(*(&v32 + 1) + 8 * v14);
         context = [(PSTransitionManager *)self context];
         device = [(PSTransitionManager *)self device];
         v18 = populateAddedGraphsInfo(v15, v5, context, device);
 
         if (v18)
         {
-          v24 = [(PSTransitionManager *)&v32 sendGraphInfoToSystemGraph:v18];
+          v24 = [(PSTransitionManager *)&v31 sendGraphInfoToSystemGraph:v18];
 LABEL_20:
-          [(PSTransitionManager *)&v32 sendGraphInfoToSystemGraph:v24];
+          [(PSTransitionManager *)&v31 sendGraphInfoToSystemGraph:v24];
           goto LABEL_21;
         }
 
@@ -1774,33 +1957,33 @@ LABEL_20:
       }
 
       while (v12 != v14);
-      v12 = [addedGraphs countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v12 = [addedGraphs countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v12);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   removedGraphs = [graphCopy removedGraphs];
-  v20 = [removedGraphs countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v20 = [removedGraphs countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v29;
+    v22 = *v28;
     do
     {
       v23 = 0;
       do
       {
-        if (*v29 != v22)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(removedGraphs);
         }
 
-        v24 = populateRemovedGraphsInfo(*(*(&v28 + 1) + 8 * v23), v5);
+        v24 = populateRemovedGraphsInfo(*(*(&v27 + 1) + 8 * v23), v5);
         if (v24)
         {
           goto LABEL_20;
@@ -1810,7 +1993,7 @@ LABEL_20:
       }
 
       while (v21 != v23);
-      v21 = [removedGraphs countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v21 = [removedGraphs countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v21);
@@ -1823,16 +2006,14 @@ LABEL_20:
   if (self)
   {
 LABEL_21:
-    [(PSTransitionManager *)&v32 sendGraphInfoToSystemGraph:?];
+    [(PSTransitionManager *)&v31 sendGraphInfoToSystemGraph:?];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)transitionExecutorForBlock:(id)block error:(id *)error
 {
   errorCopy = error;
-  v127 = *MEMORY[0x277D85DE8];
+  v130 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   session_hash = self->_transition_analytics.session_hash;
   *&self->_transition_analytics.session_hash = 0u;
@@ -1843,7 +2024,7 @@ LABEL_21:
   *&self->_transition_analytics.prmCreationTime = 0u;
   *&self->_transition_analytics.totalTransitionTime = 0u;
   self->_transition_analytics.session_hash = session_hash;
-  v112 = mach_absolute_time();
+  v115 = mach_absolute_time();
   v7 = __thread_selfusage();
   addedGraphs = [blockCopy addedGraphs];
   [(PSTransitionManager *)self setupCoreAnalyticsForAddedGraphs:addedGraphs];
@@ -1861,29 +2042,29 @@ LABEL_21:
 
   if (v14)
   {
+    v123 = 0u;
+    v121 = 0u;
+    v122 = 0u;
     v120 = 0u;
-    v118 = 0u;
-    v119 = 0u;
-    v117 = 0u;
     allStreams = [(PSContext *)self->_context allStreams];
-    v16 = [allStreams countByEnumeratingWithState:&v117 objects:v126 count:16];
+    v16 = [allStreams countByEnumeratingWithState:&v120 objects:v129 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v118;
+      v18 = *v121;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v118 != v18)
+          if (*v121 != v18)
           {
             objc_enumerationMutation(allStreams);
           }
 
-          [(PLSDevice *)self->_device populateProviderTypeForStream:*(*(&v117 + 1) + 8 * i), errorCopy];
+          [(PLSDevice *)self->_device populateProviderTypeForStream:*(*(&v120 + 1) + 8 * i), errorCopy];
         }
 
-        v17 = [allStreams countByEnumeratingWithState:&v117 objects:v126 count:16];
+        v17 = [allStreams countByEnumeratingWithState:&v120 objects:v129 count:16];
       }
 
       while (v17);
@@ -1892,7 +2073,7 @@ LABEL_21:
 
   v20 = mach_absolute_time();
   v21 = 0x279A47000uLL;
-  v113 = v7;
+  v116 = v7;
   if (![(PSTransitionManager *)self sysGraphEnabled])
   {
     executionSession2 = [(PSTransitionManager *)self executionSession];
@@ -1954,41 +2135,41 @@ LABEL_42:
   }
 
   UPDATE_STATE(self, 1);
-  v22 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = __PLSLogSharedInstance(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v22, OS_LOG_TYPE_DEFAULT, "Requesting system graph transition.", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v23, OS_LOG_TYPE_DEFAULT, "Requesting system graph transition.", buf, 2u);
   }
 
-  v23 = MEMORY[0x277CBEB98];
-  v125[0] = PLSResourceKeyDisplayMattingLeft[0];
-  v125[1] = PLSResourceKeyDisplayMattingRight[0];
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v125 count:2];
-  v25 = [v23 setWithArray:v24];
+  v24 = MEMORY[0x277CBEB98];
+  v128[0] = PLSResourceKeyDisplayMattingLeft[0];
+  v128[1] = PLSResourceKeyDisplayMattingRight[0];
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v128 count:2];
+  v26 = [v24 setWithArray:v25];
 
   compiler = [(PSTransitionManager *)self compiler];
-  v27 = [compiler transitionAddedResources:blockCopy];
+  v28 = [compiler transitionAddedResources:blockCopy];
 
-  if ([v27 intersectsSet:v25])
+  if ([v28 intersectsSet:v26])
   {
-    v28 = +[PSExecutionSessionWorkarounds sharedInstance];
-    shouldAssumeMattingIsAlwaysOn = [v28 shouldAssumeMattingIsAlwaysOn];
+    v29 = +[PSExecutionSessionWorkarounds sharedInstance];
+    shouldAssumeMattingIsAlwaysOn = [v29 shouldAssumeMattingIsAlwaysOn];
 
     if (shouldAssumeMattingIsAlwaysOn)
     {
-      v30 = [MEMORY[0x277CBEB58] setWithSet:v27];
-      [v30 minusSet:v25];
+      v31 = [MEMORY[0x277CBEB58] setWithSet:v28];
+      [v31 minusSet:v26];
 
-      v27 = v30;
+      v28 = v31;
     }
   }
 
   executionSession7 = [(PSTransitionManager *)self executionSession];
-  [executionSession7 waitForContextFromExecutionSessionsProvidingResources:v27];
+  [executionSession7 waitForContextFromExecutionSessionsProvidingResources:v28];
 
-  v32 = +[PLSSettings currentSettings];
-  if ([v32 enableFastTransition])
+  v33 = +[PLSSettings currentSettings];
+  if ([v33 enableFastTransition])
   {
     executionSession8 = [(PSTransitionManager *)self executionSession];
     systemGraphSession4 = [executionSession8 systemGraphSession];
@@ -2006,57 +2187,57 @@ LABEL_42:
   compiler2 = [(PSTransitionManager *)self compiler];
   systemGraphSession3 = [compiler2 systemGraphResourceWithStridesRequest:blockCopy];
 
-  v45 = +[PSExecutionSessionWorkarounds sharedInstance];
-  shouldAssumeMattingIsAlwaysOn2 = [v45 shouldAssumeMattingIsAlwaysOn];
+  v46 = +[PSExecutionSessionWorkarounds sharedInstance];
+  shouldAssumeMattingIsAlwaysOn2 = [v46 shouldAssumeMattingIsAlwaysOn];
 
   if (shouldAssumeMattingIsAlwaysOn2)
   {
     resourcesWantedWithStrides = [systemGraphSession3 resourcesWantedWithStrides];
-    v115[0] = MEMORY[0x277D85DD0];
-    v115[1] = 3221225472;
-    v115[2] = __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke;
-    v115[3] = &unk_279A48930;
-    v116 = v25;
-    v48 = [resourcesWantedWithStrides filteredArrayWithBlock:v115];
-    [systemGraphSession3 setResourcesWantedWithStrides:v48];
+    v118[0] = MEMORY[0x277D85DD0];
+    v118[1] = 3221225472;
+    v118[2] = __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke;
+    v118[3] = &unk_279A48930;
+    v119 = v26;
+    v50 = [resourcesWantedWithStrides filteredArrayWithBlock:v118];
+    [systemGraphSession3 setResourcesWantedWithStrides:v50];
   }
 
-  v49 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+  v51 = __PLSLogSharedInstance(v48);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
     resourcesWantedWithStrides2 = [systemGraphSession3 resourcesWantedWithStrides];
     resourcesNoLongerWantedWithStrides = [systemGraphSession3 resourcesNoLongerWantedWithStrides];
     *buf = 138412546;
-    v122 = resourcesWantedWithStrides2;
-    v123 = 2112;
-    v124 = resourcesNoLongerWantedWithStrides;
-    _os_log_impl(&dword_25EA3A000, v49, OS_LOG_TYPE_DEBUG, "System graph request: resourcesWantedWithStrides=%@, resourcesNoLongerWantedWithStrides=%@", buf, 0x16u);
+    v125 = resourcesWantedWithStrides2;
+    v126 = 2112;
+    v127 = resourcesNoLongerWantedWithStrides;
+    _os_log_impl(&dword_25EA3A000, v51, OS_LOG_TYPE_DEBUG, "System graph request: resourcesWantedWithStrides=%@, resourcesNoLongerWantedWithStrides=%@", buf, 0x16u);
   }
 
-  v52 = objc_alloc_init(MEMORY[0x277D3E820]);
+  v54 = objc_alloc_init(MEMORY[0x277D3E820]);
   resourcesWanted = [systemGraphSession3 resourcesWanted];
-  [v52 setResourcesWanted:resourcesWanted];
+  [v54 setResourcesWanted:resourcesWanted];
 
   resourcesWantedWithStrides3 = [systemGraphSession3 resourcesWantedWithStrides];
-  [v52 setResourcesWantedWithStrides:resourcesWantedWithStrides3];
+  [v54 setResourcesWantedWithStrides:resourcesWantedWithStrides3];
 
-  resourcesWantedWithStrides4 = [v52 resourcesWantedWithStrides];
-  v56 = [resourcesWantedWithStrides4 count];
+  resourcesWantedWithStrides4 = [v54 resourcesWantedWithStrides];
+  v58 = [resourcesWantedWithStrides4 count];
 
-  if (v56)
+  if (v58)
   {
     systemGraphClient = [(PSTransitionManager *)self systemGraphClient];
-    v58 = [systemGraphClient requestResources:v52];
+    v60 = [systemGraphClient requestResources:v54];
 
-    if (v58 == 1)
+    if (v60 == 1)
     {
       if (errorCopy)
       {
         *errorCopy = [MEMORY[0x277CCA9B8] polarisErrorWithCode:-200 description:@"commitAddedGraphs failed due to sleep"];
       }
 
-      v59 = +[PLSSettings currentSettings];
-      if ([(PSTransitionBlock *)v59 enableFastTransition])
+      v61 = +[PLSSettings currentSettings];
+      if ([(PSTransitionBlock *)v61 enableFastTransition])
       {
         executionSession9 = [(PSTransitionManager *)self executionSession];
         systemGraphSession5 = [executionSession9 systemGraphSession];
@@ -2065,25 +2246,24 @@ LABEL_42:
         {
 LABEL_37:
 
-          v68 = 1;
+          v70 = 1;
 LABEL_64:
 
-          v107 = *MEMORY[0x277D85DE8];
-          return v68;
+          return v70;
         }
 
-        v59 = objc_alloc_init(PSTransitionBlock);
-        v62 = objc_alloc(MEMORY[0x277CBEB98]);
+        v61 = objc_alloc_init(PSTransitionBlock);
+        v64 = objc_alloc(MEMORY[0x277CBEB98]);
         removedGraphs2 = [blockCopy removedGraphs];
-        v64 = [v62 initWithSet:removedGraphs2];
-        [(PSTransitionBlock *)v59 setAddedGraphs:v64];
+        v66 = [v64 initWithSet:removedGraphs2];
+        [(PSTransitionBlock *)v61 setAddedGraphs:v66];
 
-        v65 = objc_alloc(MEMORY[0x277CBEB98]);
+        v67 = objc_alloc(MEMORY[0x277CBEB98]);
         addedGraphs3 = [blockCopy addedGraphs];
-        v67 = [v65 initWithSet:addedGraphs3];
-        [(PSTransitionBlock *)v59 setRemovedGraphs:v67];
+        v69 = [v67 initWithSet:addedGraphs3];
+        [(PSTransitionBlock *)v61 setRemovedGraphs:v69];
 
-        [(PSTransitionManager *)self sendGraphInfoToSystemGraph:v59];
+        [(PSTransitionManager *)self sendGraphInfoToSystemGraph:v61];
       }
 
       goto LABEL_37;
@@ -2092,17 +2272,17 @@ LABEL_64:
 
   v21 = 0x279A47000;
 LABEL_47:
-  v70 = mach_absolute_time();
-  self->_transition_analytics.sysGraphRequestTime = ps_util_mach_time_to_ns(v70 - v20) / 0xF4240;
+  v72 = mach_absolute_time();
+  self->_transition_analytics.sysGraphRequestTime = ps_util_mach_time_to_ns(v72 - v20) / 0xF4240;
   UPDATE_STATE(self, 2);
   compiler3 = [(PSTransitionManager *)self compiler];
   [compiler3 resolveStreamDomainsForTransitionBlock:blockCopy];
 
-  v72 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+  v75 = __PLSLogSharedInstance(v74);
+  if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v72, OS_LOG_TYPE_DEFAULT, "*********************** Resolved Added Graphs ***********************", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v75, OS_LOG_TYPE_DEFAULT, "*********************** Resolved Added Graphs ***********************", buf, 2u);
   }
 
   [blockCopy printLogsWithContext:self->_context printResolvedFieldsOnly:1];
@@ -2110,8 +2290,8 @@ LABEL_47:
   compiler4 = [(PSTransitionManager *)self compiler];
   [compiler4 initializeLocalSystemSourcesForTransitionBlock:blockCopy];
 
-  v74 = mach_absolute_time();
-  v75 = __thread_selfusage();
+  v77 = mach_absolute_time();
+  v78 = __thread_selfusage();
   UPDATE_STATE(self, 4);
   compiler5 = [(PSTransitionManager *)self compiler];
   [compiler5 createSourceTasksForTransitionBlock:blockCopy];
@@ -2125,10 +2305,10 @@ LABEL_47:
   compiler8 = [(PSTransitionManager *)self compiler];
   [compiler8 createReadersForTransitionBlock:blockCopy];
 
-  v80 = mach_absolute_time();
-  self->_transition_analytics.prmCreationTime = ps_util_mach_time_to_ns(v80 - v74) / 0xF4240;
-  v81 = __thread_selfusage();
-  self->_transition_analytics.prmCreationCPUTime = ps_util_mach_time_to_ns(v81 - v75) / 0xF4240;
+  v83 = mach_absolute_time();
+  self->_transition_analytics.prmCreationTime = ps_util_mach_time_to_ns(v83 - v77) / 0xF4240;
+  v84 = __thread_selfusage();
+  self->_transition_analytics.prmCreationCPUTime = ps_util_mach_time_to_ns(v84 - v78) / 0xF4240;
   UPDATE_STATE(self, 7);
   currentSettings = [*(v21 + 1680) currentSettings];
   if ([currentSettings enableFastTransition])
@@ -2180,27 +2360,27 @@ LABEL_54:
   if ([(PSTransitionManager *)self sysGraphEnabled])
   {
     UPDATE_STATE(self, 11);
-    v92 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
+    v96 = __PLSLogSharedInstance(v95);
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v92, OS_LOG_TYPE_DEFAULT, "Notifying system graph of transition completion.", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v96, OS_LOG_TYPE_DEFAULT, "Notifying system graph of transition completion.", buf, 2u);
     }
 
-    v93 = objc_alloc_init(MEMORY[0x277D3E820]);
+    v97 = objc_alloc_init(MEMORY[0x277D3E820]);
     resourcesNoLongerWanted = [systemGraphSession3 resourcesNoLongerWanted];
-    [v93 setResourcesNoLongerWanted:resourcesNoLongerWanted];
+    [v97 setResourcesNoLongerWanted:resourcesNoLongerWanted];
 
     resourcesNoLongerWantedWithStrides2 = [systemGraphSession3 resourcesNoLongerWantedWithStrides];
-    [v93 setResourcesNoLongerWantedWithStrides:resourcesNoLongerWantedWithStrides2];
+    [v97 setResourcesNoLongerWantedWithStrides:resourcesNoLongerWantedWithStrides2];
 
-    resourcesNoLongerWantedWithStrides3 = [v93 resourcesNoLongerWantedWithStrides];
-    v97 = [resourcesNoLongerWantedWithStrides3 count];
+    resourcesNoLongerWantedWithStrides3 = [v97 resourcesNoLongerWantedWithStrides];
+    v101 = [resourcesNoLongerWantedWithStrides3 count];
 
-    if (v97)
+    if (v101)
     {
       systemGraphClient2 = [(PSTransitionManager *)self systemGraphClient];
-      [systemGraphClient2 requestResources:v93];
+      [systemGraphClient2 requestResources:v97];
     }
 
     compiler16 = [(PSTransitionManager *)self compiler];
@@ -2209,36 +2389,35 @@ LABEL_54:
     systemGraphClient3 = [(PSTransitionManager *)self systemGraphClient];
     addedGraphs4 = [blockCopy addedGraphs];
     removedGraphs3 = [blockCopy removedGraphs];
-    v114[0] = MEMORY[0x277D85DD0];
-    v114[1] = 3221225472;
-    v114[2] = __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke_138;
-    v114[3] = &unk_279A48908;
-    v114[4] = self;
-    [systemGraphClient3 updateGraphStateWithAdded:addedGraphs4 removed:removedGraphs3 getLivenessNode:v114];
+    v117[0] = MEMORY[0x277D85DD0];
+    v117[1] = 3221225472;
+    v117[2] = __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke_138;
+    v117[3] = &unk_279A48908;
+    v117[4] = self;
+    [systemGraphClient3 updateGraphStateWithAdded:addedGraphs4 removed:removedGraphs3 getLivenessNode:v117];
   }
 
-  context = self->_context;
   addedGraphs5 = [blockCopy addedGraphs];
-  LOBYTE(context) = PSGraphExtractResourceKeyInfo();
-  v25 = 0;
+  ResourceKeyInfo = PSGraphExtractResourceKeyInfo();
+  v26 = 0;
 
-  if (context)
+  if (ResourceKeyInfo)
   {
-    v105 = mach_absolute_time();
-    self->_transition_analytics.totalTransitionTime = ps_util_mach_time_to_ns(v105 - v112) / 0xF4240;
-    v106 = __thread_selfusage();
-    self->_transition_analytics.totalTransitionCPUTime = ps_util_mach_time_to_ns(v106 - v113) / 0xF4240;
+    v109 = mach_absolute_time();
+    self->_transition_analytics.totalTransitionTime = ps_util_mach_time_to_ns(v109 - v115) / 0xF4240;
+    v110 = __thread_selfusage();
+    self->_transition_analytics.totalTransitionCPUTime = ps_util_mach_time_to_ns(v110 - v116) / 0xF4240;
     if (self->_isCoreAnalyticsEnabled)
     {
       pbs_ringbufferlogger_shared_write();
     }
 
-    v68 = 0;
+    v70 = 0;
     goto LABEL_64;
   }
 
-  v109 = [PSTransitionManager transitionExecutorForBlock:buf error:v25];
-  return __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke(v109, v110);
+  v112 = [PSTransitionManager transitionExecutorForBlock:buf error:v26];
+  return __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke(v112, v113);
 }
 
 uint64_t __56__PSTransitionManager_transitionExecutorForBlock_error___block_invoke(uint64_t a1, void *a2)
@@ -2276,16 +2455,16 @@ uint64_t __56__PSTransitionManager_transitionExecutorForBlock_error___block_invo
 
   if (v6)
   {
-    v7 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __PLSLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Initializing GSTs for transition block.", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "Initializing GSTs for transition block.", buf, 2u);
     }
   }
 
-  v8 = +[PLSSettings currentSettings];
-  if ([v8 enableFastTransition])
+  v9 = +[PLSSettings currentSettings];
+  if ([v9 enableFastTransition])
   {
     executionSession = [(PSTransitionManager *)self executionSession];
     systemGraphSession = [executionSession systemGraphSession];
@@ -2308,41 +2487,41 @@ LABEL_10:
   v31 = 0u;
   v32 = 0u;
   addedGraphs2 = [blockCopy addedGraphs];
-  v12 = [addedGraphs2 countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v12)
+  v13 = [addedGraphs2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v32;
+    v14 = v13;
+    v15 = *v32;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v32 != v14)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(addedGraphs2);
         }
 
-        v16 = *(*(&v31 + 1) + 8 * i);
-        tasks = [v16 tasks];
-        v18 = [tasks count];
+        v17 = *(*(&v31 + 1) + 8 * i);
+        tasks = [v17 tasks];
+        v19 = [tasks count];
 
-        if (v18)
+        if (v19)
         {
           *buf = 0;
-          v19 = [(NSMapTable *)self->_execGraphMap objectForKey:v16];
-          [v19 getValue:buf];
+          v20 = [(NSMapTable *)self->_execGraphMap objectForKey:v17];
+          [v20 getValue:buf];
 
           if (*buf)
           {
-            [(PSGraphCompiler *)self->_compiler initializeGroupedTriggersForSubgraph:*buf withClientGraph:v16];
+            [(PSGraphCompiler *)self->_compiler initializeGroupedTriggersForSubgraph:*buf withClientGraph:v17];
           }
         }
       }
 
-      v13 = [addedGraphs2 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v14 = [addedGraphs2 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
   v28 = 0u;
@@ -2350,16 +2529,16 @@ LABEL_10:
   v26 = 0u;
   v27 = 0u;
   addedGraphs3 = [blockCopy addedGraphs];
-  v21 = [addedGraphs3 countByEnumeratingWithState:&v26 objects:v35 count:16];
-  if (v21)
+  v22 = [addedGraphs3 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v22)
   {
-    v22 = v21;
-    v23 = *v27;
+    v23 = v22;
+    v24 = *v27;
     do
     {
-      for (j = 0; j != v22; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v27 != v23)
+        if (*v27 != v24)
         {
           objc_enumerationMutation(addedGraphs3);
         }
@@ -2367,13 +2546,11 @@ LABEL_10:
         [(PSGraphCompiler *)self->_compiler initThreadPoolForGraph:*(*(&v26 + 1) + 8 * j) withExecutorGraph:self->_executor->var0];
       }
 
-      v22 = [addedGraphs3 countByEnumeratingWithState:&v26 objects:v35 count:16];
+      v23 = [addedGraphs3 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v22);
+    while (v23);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeExecutorGraphsOverXPCForTransitionBlock:(id)block
@@ -2387,63 +2564,62 @@ LABEL_10:
   {
 LABEL_38:
 
-    v51 = *MEMORY[0x277D85DE8];
     return;
   }
 
-  v7 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = __PLSLogSharedInstance(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Removing PolarisExecutor graphs for transition block via XPC.", buf, 2u);
+    _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "Removing PolarisExecutor graphs for transition block via XPC.", buf, 2u);
   }
 
   v55 = blockCopy;
   removedGraphs2 = [blockCopy removedGraphs];
-  v9 = xpc_dictionary_create(0, 0, 0);
+  v10 = xpc_dictionary_create(0, 0, 0);
   WeakRetained = objc_loadWeakRetained(&self->_executionSession);
   name = [WeakRetained name];
   uTF8String = [name UTF8String];
-  v13 = getpid();
-  xdict = v9;
-  populateGraphSetInfo(v9, 2uLL, uTF8String, v13);
+  v14 = getpid();
+  xdict = v10;
+  populateGraphSetInfo(v10, 2uLL, uTF8String, v14);
 
   [(PSTransitionMonitor *)self->_transitionMonitor lock];
   v68 = 0u;
   v69 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v14 = removedGraphs2;
-  v15 = [v14 countByEnumeratingWithState:&v66 objects:v72 count:16];
-  if (v15)
+  v15 = removedGraphs2;
+  v16 = [v15 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v67;
+    v17 = v16;
+    v18 = *v67;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v67 != v17)
+        if (*v67 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        v19 = *(*(&v66 + 1) + 8 * i);
-        tasks = [v19 tasks];
-        v21 = [tasks count];
+        v20 = *(*(&v66 + 1) + 8 * i);
+        tasks = [v20 tasks];
+        v22 = [tasks count];
 
-        if (v21)
+        if (v22)
         {
-          v22 = [(NSMapTable *)self->_execGraphMap objectForKey:v19];
+          v23 = [(NSMapTable *)self->_execGraphMap objectForKey:v20];
           subGraphsToBeRemoved = [(PSTransitionMonitor *)self->_transitionMonitor subGraphsToBeRemoved];
-          [subGraphsToBeRemoved addObject:v22];
+          [subGraphsToBeRemoved addObject:v23];
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v66 objects:v72 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
   [(PSTransitionMonitor *)self->_transitionMonitor unlock];
@@ -2451,101 +2627,101 @@ LABEL_38:
   v65 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v24 = v14;
-  v25 = [v24 countByEnumeratingWithState:&v62 objects:v71 count:16];
-  if (v25)
+  v25 = v15;
+  v26 = [v25 countByEnumeratingWithState:&v62 objects:v71 count:16];
+  if (v26)
   {
-    v26 = v25;
-    v27 = *v63;
+    v27 = v26;
+    v28 = *v63;
     do
     {
-      for (j = 0; j != v26; ++j)
+      for (j = 0; j != v27; ++j)
       {
-        if (*v63 != v27)
+        if (*v63 != v28)
         {
-          objc_enumerationMutation(v24);
+          objc_enumerationMutation(v25);
         }
 
-        v29 = *(*(&v62 + 1) + 8 * j);
-        tasks2 = [v29 tasks];
-        v31 = [tasks2 count];
+        v30 = *(*(&v62 + 1) + 8 * j);
+        tasks2 = [v30 tasks];
+        v32 = [tasks2 count];
 
-        if (v31)
+        if (v32)
         {
-          v32 = [(NSMapTable *)self->_execGraphMap objectForKey:v29];
-          if (!v32)
+          v33 = [(NSMapTable *)self->_execGraphMap objectForKey:v30];
+          if (!v33)
           {
-            [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v29];
+            [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v30];
 LABEL_40:
-            [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v29];
+            [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v30];
           }
 
-          v33 = v32;
-          pointerValue = [v32 pointerValue];
-          if ([v29 teardownType])
+          v34 = v33;
+          pointerValue = [v33 pointerValue];
+          if ([v30 teardownType])
           {
             goto LABEL_40;
           }
 
           graphGSTMap = [(PSGraphCompiler *)self->_compiler graphGSTMap];
-          v36 = [graphGSTMap objectForKey:v29];
+          v37 = [graphGSTMap objectForKey:v30];
 
-          if (v36)
+          if (v37)
           {
-            v37 = xpc_dictionary_create(0, 0, 0);
-            xpc_dictionary_set_string(v37, "graph_name", (pointerValue + 113));
-            xpc_dictionary_set_uint64(v37, "gst_idx", *[v36 pointerValue]);
-            appendGraphInfotoGraphSetInfo(v37, xdict);
+            v38 = xpc_dictionary_create(0, 0, 0);
+            xpc_dictionary_set_string(v38, "graph_name", (pointerValue + 113));
+            xpc_dictionary_set_uint64(v38, "gst_idx", *[v37 pointerValue]);
+            appendGraphInfotoGraphSetInfo(v38, xdict);
           }
 
           ps_exec_request_subgraph_terminate(self->_executor, pointerValue);
 
-          [(NSMapTable *)self->_execGraphMap removeObjectForKey:v29];
+          [(NSMapTable *)self->_execGraphMap removeObjectForKey:v30];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v62 objects:v71 count:16];
     }
 
-    while (v26);
+    while (v27);
   }
 
-  v38 = xpc_dictionary_get_value(xdict, "graphs_array");
-  if (!xpc_array_get_count(v38) || (v39 = objc_loadWeakRetained(&self->_executionSession), [v39 systemGraphSession], v40 = objc_claimAutoreleasedReturnValue(), v41 = xpc_session_send_message(v40, xdict), v40, v39, !v41))
+  v39 = xpc_dictionary_get_value(xdict, "graphs_array");
+  if (!xpc_array_get_count(v39) || (v40 = objc_loadWeakRetained(&self->_executionSession), [v40 systemGraphSession], v41 = objc_claimAutoreleasedReturnValue(), v42 = xpc_session_send_message(v41, xdict), v41, v40, !v42))
   {
     v59 = 0u;
     v60 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v42 = v24;
-    v43 = [v42 countByEnumeratingWithState:&v57 objects:v70 count:16];
-    if (v43)
+    v43 = v25;
+    v44 = [v43 countByEnumeratingWithState:&v57 objects:v70 count:16];
+    if (v44)
     {
-      v44 = v43;
-      v45 = *v58;
+      v45 = v44;
+      v46 = *v58;
       do
       {
-        for (k = 0; k != v44; ++k)
+        for (k = 0; k != v45; ++k)
         {
-          if (*v58 != v45)
+          if (*v58 != v46)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(v43);
           }
 
-          v47 = *(*(&v57 + 1) + 8 * k);
-          tasks3 = [v47 tasks];
-          v49 = [tasks3 count];
+          v48 = *(*(&v57 + 1) + 8 * k);
+          tasks3 = [v48 tasks];
+          v50 = [tasks3 count];
 
-          if (v49)
+          if (v50)
           {
-            [(PSGraphCompiler *)self->_compiler removeGraphFromThreadPool:v47];
+            [(PSGraphCompiler *)self->_compiler removeGraphFromThreadPool:v48];
           }
         }
 
-        v44 = [v42 countByEnumeratingWithState:&v57 objects:v70 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v57 objects:v70 count:16];
       }
 
-      while (v44);
+      while (v45);
     }
 
     [(PSTransitionMonitor *)self->_transitionMonitor lock];
@@ -2557,7 +2733,7 @@ LABEL_40:
     goto LABEL_38;
   }
 
-  v52 = [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v41];
+  v52 = [(PSTransitionManager *)buf removeExecutorGraphsOverXPCForTransitionBlock:v42];
   [(PSTransitionManager *)v52 removeExecutorGraphsForTransitionBlock:v53, v54];
 }
 
@@ -2570,11 +2746,11 @@ LABEL_40:
 
   if (v6)
   {
-    v7 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __PLSLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Removing PolarisExecutor graphs for transition block.", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "Removing PolarisExecutor graphs for transition block.", buf, 2u);
     }
 
     removedGraphs2 = [blockCopy removedGraphs];
@@ -2583,37 +2759,37 @@ LABEL_40:
     v56 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v9 = removedGraphs2;
-    v10 = [v9 countByEnumeratingWithState:&v53 objects:v59 count:16];
-    if (v10)
+    v10 = removedGraphs2;
+    v11 = [v10 countByEnumeratingWithState:&v53 objects:v59 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v54;
+      v12 = v11;
+      v13 = *v54;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v54 != v12)
+          if (*v54 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v53 + 1) + 8 * i);
-          tasks = [v14 tasks];
-          v16 = [tasks count];
+          v15 = *(*(&v53 + 1) + 8 * i);
+          tasks = [v15 tasks];
+          v17 = [tasks count];
 
-          if (v16)
+          if (v17)
           {
-            v17 = [(NSMapTable *)self->_execGraphMap objectForKey:v14];
+            v18 = [(NSMapTable *)self->_execGraphMap objectForKey:v15];
             subGraphsToBeRemoved = [(PSTransitionMonitor *)self->_transitionMonitor subGraphsToBeRemoved];
-            [subGraphsToBeRemoved addObject:v17];
+            [subGraphsToBeRemoved addObject:v18];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v53 objects:v59 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v53 objects:v59 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     [(PSTransitionMonitor *)self->_transitionMonitor unlock];
@@ -2621,43 +2797,43 @@ LABEL_40:
     v52 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v19 = v9;
-    v20 = [v19 countByEnumeratingWithState:&v49 objects:v58 count:16];
-    if (v20)
+    v20 = v10;
+    v21 = [v20 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    if (v21)
     {
-      v21 = v20;
-      v22 = *v50;
+      v22 = v21;
+      v23 = *v50;
       do
       {
-        for (j = 0; j != v21; ++j)
+        for (j = 0; j != v22; ++j)
         {
-          if (*v50 != v22)
+          if (*v50 != v23)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v20);
           }
 
-          v24 = *(*(&v49 + 1) + 8 * j);
-          tasks2 = [v24 tasks];
-          v26 = [tasks2 count];
+          v25 = *(*(&v49 + 1) + 8 * j);
+          tasks2 = [v25 tasks];
+          v27 = [tasks2 count];
 
-          if (v26)
+          if (v27)
           {
-            v27 = [(NSMapTable *)self->_execGraphMap objectForKey:v24];
-            if (!v27)
+            v28 = [(NSMapTable *)self->_execGraphMap objectForKey:v25];
+            if (!v28)
             {
-              [(PSTransitionManager *)buf removeExecutorGraphsForTransitionBlock:v24];
+              [(PSTransitionManager *)buf removeExecutorGraphsForTransitionBlock:v25];
 LABEL_42:
-              [(PSTransitionManager *)buf removeExecutorGraphsForTransitionBlock:v24];
+              [(PSTransitionManager *)buf removeExecutorGraphsForTransitionBlock:v25];
             }
 
-            v28 = v27;
-            pointerValue = [v27 pointerValue];
-            teardownType = [v24 teardownType];
+            v29 = v28;
+            pointerValue = [v28 pointerValue];
+            teardownType = [v25 teardownType];
             if (teardownType == 2)
             {
               executor = self->_executor;
-              v32 = pointerValue;
-              v33 = 0;
+              v33 = pointerValue;
+              v34 = 0;
             }
 
             else
@@ -2674,57 +2850,57 @@ LABEL_42:
               }
 
               executor = self->_executor;
-              v32 = pointerValue;
-              v33 = 1;
+              v33 = pointerValue;
+              v34 = 1;
             }
 
-            ps_exec_request_remove_subgraph_with_sequenced_teardown(executor, v32, v33);
+            ps_exec_request_remove_subgraph_with_sequenced_teardown(executor, v33, v34);
 LABEL_27:
-            [(NSMapTable *)self->_execGraphMap removeObjectForKey:v24];
+            [(NSMapTable *)self->_execGraphMap removeObjectForKey:v25];
 
             continue;
           }
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v49 objects:v58 count:16];
       }
 
-      while (v21);
+      while (v22);
     }
 
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v34 = v19;
-    v35 = [v34 countByEnumeratingWithState:&v44 objects:v57 count:16];
-    if (v35)
+    v35 = v20;
+    v36 = [v35 countByEnumeratingWithState:&v44 objects:v57 count:16];
+    if (v36)
     {
-      v36 = v35;
-      v37 = *v45;
+      v37 = v36;
+      v38 = *v45;
       do
       {
-        for (k = 0; k != v36; ++k)
+        for (k = 0; k != v37; ++k)
         {
-          if (*v45 != v37)
+          if (*v45 != v38)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v35);
           }
 
-          v39 = *(*(&v44 + 1) + 8 * k);
-          tasks3 = [v39 tasks];
-          v41 = [tasks3 count];
+          v40 = *(*(&v44 + 1) + 8 * k);
+          tasks3 = [v40 tasks];
+          v42 = [tasks3 count];
 
-          if (v41)
+          if (v42)
           {
-            [(PSGraphCompiler *)self->_compiler removeGraphFromThreadPool:v39];
+            [(PSGraphCompiler *)self->_compiler removeGraphFromThreadPool:v40];
           }
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v44 objects:v57 count:16];
+        v37 = [v35 countByEnumeratingWithState:&v44 objects:v57 count:16];
       }
 
-      while (v36);
+      while (v37);
     }
 
     [(PSTransitionMonitor *)self->_transitionMonitor lock];
@@ -2733,138 +2909,135 @@ LABEL_27:
 
     [(PSTransitionMonitor *)self->_transitionMonitor unlock];
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addExecutorGraphsForTransitionBlock:(id)block
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v156 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   addedGraphs = [blockCopy addedGraphs];
   v6 = [addedGraphs count];
 
   if (v6)
   {
-    v7 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __PLSLogSharedInstance(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_DEFAULT, "Adding PolarisExecutor graphs for transition block.", buf, 2u);
+      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_DEFAULT, "Adding PolarisExecutor graphs for transition block.", buf, 2u);
     }
 
-    v90 = blockCopy;
+    v87 = blockCopy;
     addedGraphs2 = [blockCopy addedGraphs];
     selfCopy = self;
     if (self->_isCoreAnalyticsEnabled)
     {
-      v89 = addedGraphs2;
-      v117 = 0u;
-      v118 = 0u;
+      v86 = addedGraphs2;
+      v114 = 0u;
       v115 = 0u;
-      v116 = 0u;
+      v112 = 0u;
+      v113 = 0u;
       obj = [blockCopy addedGraphs];
-      v93 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
-      if (v93)
+      v90 = [obj countByEnumeratingWithState:&v112 objects:v119 count:16];
+      if (v90)
       {
-        v92 = *v116;
+        v89 = *v113;
         do
         {
-          v9 = 0;
+          v10 = 0;
           do
           {
-            if (*v116 != v92)
+            if (*v113 != v89)
             {
               objc_enumerationMutation(obj);
             }
 
-            v94 = v9;
-            v10 = *(*(&v115 + 1) + 8 * v9);
-            v11 = +[PSExecutionSessionWorkarounds sharedInstance];
-            v96 = v10;
-            name = [v10 name];
+            v91 = v10;
+            v11 = *(*(&v112 + 1) + 8 * v10);
+            v12 = +[PSExecutionSessionWorkarounds sharedInstance];
+            v93 = v11;
+            name = [v11 name];
             processInfo = [MEMORY[0x277CCAC38] processInfo];
             processName = [processInfo processName];
-            v15 = [v11 shortenedNameForGraph:name procName:processName];
+            v16 = [v12 shortenedNameForGraph:name procName:processName];
 
-            v95 = v15;
-            uTF8String = [v15 UTF8String];
+            v92 = v16;
+            uTF8String = [v16 UTF8String];
             if (uTF8String)
             {
-              v17 = *uTF8String;
-              v18 = 2166136261;
+              v18 = *uTF8String;
+              v19 = 2166136261;
               if (*uTF8String)
               {
-                v19 = uTF8String + 1;
+                v20 = uTF8String + 1;
                 do
                 {
-                  v18 = 16777619 * (v18 ^ v17);
-                  v20 = *v19++;
-                  v17 = v20;
+                  v19 = 16777619 * (v19 ^ v18);
+                  v21 = *v20++;
+                  v18 = v21;
                 }
 
-                while (v20);
+                while (v21);
               }
             }
 
             else
             {
-              v18 = 0;
+              v19 = 0;
             }
 
             graphHashTracker = self->_graphHashTracker;
-            v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v18];
-            LOBYTE(graphHashTracker) = [(NSMutableSet *)graphHashTracker containsObject:v22];
+            v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
+            LOBYTE(graphHashTracker) = [(NSMutableSet *)graphHashTracker containsObject:v23];
 
             if ((graphHashTracker & 1) == 0)
             {
-              v23 = self->_graphHashTracker;
-              v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v18];
-              [(NSMutableSet *)v23 addObject:v24];
+              v24 = self->_graphHashTracker;
+              v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
+              [(NSMutableSet *)v24 addObject:v25];
 
-              uTF8String2 = [v15 UTF8String];
+              uTF8String2 = [v16 UTF8String];
               if (uTF8String2)
               {
-                v26 = uTF8String2;
-                v158 = 0;
-                v156 = 0u;
-                v157 = 0u;
-                v27 = v18;
-                v154 = 0u;
-                v155 = 0u;
-                v152 = 0u;
+                v27 = uTF8String2;
+                v155 = 0;
                 v153 = 0u;
-                v150 = 0u;
+                v154 = 0u;
+                v28 = v19;
                 v151 = 0u;
-                v148 = 0u;
+                v152 = 0u;
                 v149 = 0u;
-                v146 = 0u;
+                v150 = 0u;
                 v147 = 0u;
-                v144 = 0u;
+                v148 = 0u;
                 v145 = 0u;
-                v142 = 0u;
+                v146 = 0u;
                 v143 = 0u;
-                v140 = 0u;
+                v144 = 0u;
                 v141 = 0u;
-                v138 = 0u;
+                v142 = 0u;
                 v139 = 0u;
-                v136 = 0u;
+                v140 = 0u;
                 v137 = 0u;
-                v134 = 0u;
+                v138 = 0u;
                 v135 = 0u;
-                v132 = 0u;
+                v136 = 0u;
                 v133 = 0u;
-                v130 = 0u;
+                v134 = 0u;
                 v131 = 0u;
-                v128 = 0u;
+                v132 = 0u;
                 v129 = 0u;
+                v130 = 0u;
                 v127 = 0u;
-                *buf = v18;
+                v128 = 0u;
+                v125 = 0u;
+                v126 = 0u;
+                v124 = 0u;
+                *buf = v19;
                 __strlcpy_chk();
-                v28 = 0;
+                v29 = 0;
                 while (1)
                 {
-                  v29 = ps_ca_buffers[ps_ca_decode_buffers[v28]];
                   v30 = pbs_ringbufferlogger_shared_write_decode_data();
                   if (!v30)
                   {
@@ -2872,12 +3045,13 @@ LABEL_27:
                   }
 
                   v31 = v30;
-                  if (++v28 == 3)
+                  v29 += 4;
+                  if (v29 == 12)
                   {
-                    v125 = 0;
-                    v123 = v27;
-                    strncpy(v124, v26, 0x100uLL);
-                    LODWORD(v125) = v31;
+                    v122 = 0;
+                    v120 = v28;
+                    strncpy(v121, v27, 0x100uLL);
+                    LODWORD(v122) = v31;
                     pbs_ringbuffer_get_shared_error_log();
                     pbs_ringbufferlogger_shared_write();
                     break;
@@ -2886,25 +3060,25 @@ LABEL_27:
               }
             }
 
-            v113 = 0u;
-            v114 = 0u;
+            v110 = 0u;
             v111 = 0u;
-            v112 = 0u;
-            tasks = [v96 tasks];
-            v101 = [tasks countByEnumeratingWithState:&v111 objects:v121 count:16];
-            if (v101)
+            v108 = 0u;
+            v109 = 0u;
+            tasks = [v93 tasks];
+            v98 = [tasks countByEnumeratingWithState:&v108 objects:v118 count:16];
+            if (v98)
             {
-              v32 = *v112;
+              v32 = *v109;
               do
               {
-                for (i = 0; i != v101; ++i)
+                for (i = 0; i != v98; ++i)
                 {
-                  if (*v112 != v32)
+                  if (*v109 != v32)
                   {
                     objc_enumerationMutation(tasks);
                   }
 
-                  v34 = *(*(&v111 + 1) + 8 * i);
+                  v34 = *(*(&v108 + 1) + 8 * i);
                   name2 = [v34 name];
                   uTF8String3 = [name2 UTF8String];
                   if (uTF8String3)
@@ -2946,58 +3120,58 @@ LABEL_27:
                     {
                       v47 = uTF8String4;
                       v48 = v32;
-                      v158 = 0;
-                      v156 = 0u;
-                      v157 = 0u;
-                      v49 = v38;
-                      v154 = 0u;
-                      v155 = 0u;
-                      v152 = 0u;
+                      v155 = 0;
                       v153 = 0u;
-                      v150 = 0u;
+                      v154 = 0u;
+                      v49 = v38;
                       v151 = 0u;
-                      v148 = 0u;
+                      v152 = 0u;
                       v149 = 0u;
-                      v146 = 0u;
+                      v150 = 0u;
                       v147 = 0u;
-                      v144 = 0u;
+                      v148 = 0u;
                       v145 = 0u;
-                      v142 = 0u;
+                      v146 = 0u;
                       v143 = 0u;
-                      v140 = 0u;
+                      v144 = 0u;
                       v141 = 0u;
-                      v138 = 0u;
+                      v142 = 0u;
                       v139 = 0u;
-                      v136 = 0u;
+                      v140 = 0u;
                       v137 = 0u;
-                      v134 = 0u;
+                      v138 = 0u;
                       v135 = 0u;
-                      v132 = 0u;
+                      v136 = 0u;
                       v133 = 0u;
-                      v130 = 0u;
+                      v134 = 0u;
                       v131 = 0u;
-                      v128 = 0u;
+                      v132 = 0u;
                       v129 = 0u;
+                      v130 = 0u;
                       v127 = 0u;
+                      v128 = 0u;
+                      v125 = 0u;
+                      v126 = 0u;
+                      v124 = 0u;
                       *buf = v38;
                       __strlcpy_chk();
                       v50 = 0;
                       while (1)
                       {
-                        v51 = ps_ca_buffers[ps_ca_decode_buffers[v50]];
-                        v52 = pbs_ringbufferlogger_shared_write_decode_data();
-                        if (!v52)
+                        v51 = pbs_ringbufferlogger_shared_write_decode_data();
+                        if (!v51)
                         {
                           break;
                         }
 
-                        v53 = v52;
-                        if (++v50 == 3)
+                        v52 = v51;
+                        v50 += 4;
+                        if (v50 == 12)
                         {
-                          v125 = 0;
-                          v123 = v49;
-                          strncpy(v124, v47, 0x100uLL);
-                          LODWORD(v125) = v53;
+                          v122 = 0;
+                          v120 = v49;
+                          strncpy(v121, v47, 0x100uLL);
+                          LODWORD(v122) = v52;
                           pbs_ringbuffer_get_shared_error_log();
                           pbs_ringbufferlogger_shared_write();
                           break;
@@ -3010,125 +3184,125 @@ LABEL_27:
                   }
                 }
 
-                v101 = [tasks countByEnumeratingWithState:&v111 objects:v121 count:16];
+                v98 = [tasks countByEnumeratingWithState:&v108 objects:v118 count:16];
               }
 
-              while (v101);
+              while (v98);
             }
 
-            v109 = 0u;
-            v110 = 0u;
+            v106 = 0u;
             v107 = 0u;
-            v108 = 0u;
-            writers = [v96 writers];
-            v102 = [writers countByEnumeratingWithState:&v107 objects:v120 count:16];
-            if (v102)
+            v104 = 0u;
+            v105 = 0u;
+            writers = [v93 writers];
+            v99 = [writers countByEnumeratingWithState:&v104 objects:v117 count:16];
+            if (v99)
             {
-              v100 = *v108;
+              v97 = *v105;
               do
               {
-                for (j = 0; j != v102; ++j)
+                for (j = 0; j != v99; ++j)
                 {
-                  if (*v108 != v100)
+                  if (*v105 != v97)
                   {
                     objc_enumerationMutation(writers);
                   }
 
-                  v55 = *(*(&v107 + 1) + 8 * j);
-                  output = [v55 output];
+                  v54 = *(*(&v104 + 1) + 8 * j);
+                  output = [v54 output];
                   resourceKey = [output resourceKey];
                   uTF8String5 = [resourceKey UTF8String];
                   if (uTF8String5)
                   {
-                    v59 = *uTF8String5;
-                    v60 = 2166136261;
+                    v58 = *uTF8String5;
+                    v59 = 2166136261;
                     if (*uTF8String5)
                     {
-                      v61 = uTF8String5 + 1;
+                      v60 = uTF8String5 + 1;
                       do
                       {
-                        v60 = 16777619 * (v60 ^ v59);
-                        v62 = *v61++;
-                        v59 = v62;
+                        v59 = 16777619 * (v59 ^ v58);
+                        v61 = *v60++;
+                        v58 = v61;
                       }
 
-                      while (v62);
+                      while (v61);
                     }
                   }
 
                   else
                   {
-                    v60 = 0;
+                    v59 = 0;
                   }
 
-                  v63 = self->_graphHashTracker;
-                  v64 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v60];
-                  LOBYTE(v63) = [(NSMutableSet *)v63 containsObject:v64];
+                  v62 = self->_graphHashTracker;
+                  v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v59];
+                  LOBYTE(v62) = [(NSMutableSet *)v62 containsObject:v63];
 
-                  if ((v63 & 1) == 0)
+                  if ((v62 & 1) == 0)
                   {
-                    v65 = self->_graphHashTracker;
-                    v66 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v60];
-                    [(NSMutableSet *)v65 addObject:v66];
+                    v64 = self->_graphHashTracker;
+                    v65 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v59];
+                    [(NSMutableSet *)v64 addObject:v65];
 
-                    output2 = [v55 output];
+                    output2 = [v54 output];
                     resourceKey2 = [output2 resourceKey];
                     uTF8String6 = [resourceKey2 UTF8String];
                     if (uTF8String6)
                     {
-                      v70 = uTF8String6;
-                      v158 = 0;
-                      v156 = 0u;
-                      v157 = 0u;
-                      v71 = v60;
-                      v154 = 0u;
-                      v155 = 0u;
-                      v152 = 0u;
+                      v69 = uTF8String6;
+                      v155 = 0;
                       v153 = 0u;
-                      v150 = 0u;
+                      v154 = 0u;
+                      v70 = v59;
                       v151 = 0u;
-                      v148 = 0u;
+                      v152 = 0u;
                       v149 = 0u;
-                      v146 = 0u;
+                      v150 = 0u;
                       v147 = 0u;
-                      v144 = 0u;
+                      v148 = 0u;
                       v145 = 0u;
-                      v142 = 0u;
+                      v146 = 0u;
                       v143 = 0u;
-                      v140 = 0u;
+                      v144 = 0u;
                       v141 = 0u;
-                      v138 = 0u;
+                      v142 = 0u;
                       v139 = 0u;
-                      v136 = 0u;
+                      v140 = 0u;
                       v137 = 0u;
-                      v134 = 0u;
+                      v138 = 0u;
                       v135 = 0u;
-                      v132 = 0u;
+                      v136 = 0u;
                       v133 = 0u;
-                      v130 = 0u;
+                      v134 = 0u;
                       v131 = 0u;
-                      v128 = 0u;
+                      v132 = 0u;
                       v129 = 0u;
+                      v130 = 0u;
                       v127 = 0u;
-                      *buf = v60;
+                      v128 = 0u;
+                      v125 = 0u;
+                      v126 = 0u;
+                      v124 = 0u;
+                      *buf = v59;
                       __strlcpy_chk();
-                      v72 = 0;
+                      v71 = 0;
                       while (1)
                       {
-                        v73 = ps_ca_buffers[ps_ca_decode_buffers[v72]];
-                        v74 = pbs_ringbufferlogger_shared_write_decode_data();
-                        if (!v74)
+                        v72 = pbs_ringbufferlogger_shared_write_decode_data();
+                        if (!v72)
                         {
                           break;
                         }
 
-                        v75 = v74;
-                        if (++v72 == 3)
+                        v73 = v72;
+                        v71 += 4;
+                        if (v71 == 12)
                         {
-                          v125 = 0;
-                          v123 = v71;
-                          strncpy(v124, v70, 0x100uLL);
-                          LODWORD(v125) = v75;
+                          v122 = 0;
+                          v120 = v70;
+                          strncpy(v121, v69, 0x100uLL);
+                          LODWORD(v122) = v73;
                           pbs_ringbuffer_get_shared_error_log();
                           pbs_ringbufferlogger_shared_write();
                           break;
@@ -3140,73 +3314,71 @@ LABEL_27:
                   }
                 }
 
-                v102 = [writers countByEnumeratingWithState:&v107 objects:v120 count:16];
+                v99 = [writers countByEnumeratingWithState:&v104 objects:v117 count:16];
               }
 
-              while (v102);
+              while (v99);
             }
 
-            v9 = v94 + 1;
+            v10 = v91 + 1;
           }
 
-          while (v94 + 1 != v93);
-          v93 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
+          while (v91 + 1 != v90);
+          v90 = [obj countByEnumeratingWithState:&v112 objects:v119 count:16];
         }
 
-        while (v93);
+        while (v90);
       }
 
-      addedGraphs2 = v89;
+      addedGraphs2 = v86;
     }
 
-    v105 = 0u;
-    v106 = 0u;
+    v102 = 0u;
     v103 = 0u;
-    v104 = 0u;
-    v76 = addedGraphs2;
-    v77 = [v76 countByEnumeratingWithState:&v103 objects:v119 count:16];
-    if (v77)
+    v100 = 0u;
+    v101 = 0u;
+    v74 = addedGraphs2;
+    v75 = [v74 countByEnumeratingWithState:&v100 objects:v116 count:16];
+    if (v75)
     {
-      v78 = v77;
-      v79 = *v104;
+      v76 = v75;
+      v77 = *v101;
       do
       {
-        for (k = 0; k != v78; ++k)
+        for (k = 0; k != v76; ++k)
         {
-          if (*v104 != v79)
+          if (*v101 != v77)
           {
-            objc_enumerationMutation(v76);
+            objc_enumerationMutation(v74);
           }
 
-          v81 = *(*(&v103 + 1) + 8 * k);
-          tasks2 = [v81 tasks];
-          v83 = [tasks2 count];
+          v79 = *(*(&v100 + 1) + 8 * k);
+          tasks2 = [v79 tasks];
+          v81 = [tasks2 count];
 
-          if (v83)
+          if (v81)
           {
-            v84 = ps_exec_request_add_subgraph(selfCopy->_executor);
-            [(PSGraphCompiler *)selfCopy->_compiler createExecSubGraphWithFreeSlot:v84 withClientGraph:v81];
+            v82 = ps_exec_request_add_subgraph(selfCopy->_executor);
+            [(PSGraphCompiler *)selfCopy->_compiler createExecSubGraphWithFreeSlot:v82 withClientGraph:v79];
             WeakRetained = objc_loadWeakRetained(&selfCopy->_executionSession);
-            ps_frame_history_graph_buffer_init(WeakRetained[1], v84, v81);
+            ps_frame_history_graph_buffer_init(WeakRetained[1], v82, v79);
 
-            [v81 setSubgraph_idx:*(v84 + 8)];
+            [v79 setSubgraph_idx:*(v82 + 4)];
             execGraphMap = selfCopy->_execGraphMap;
-            v87 = [MEMORY[0x277CCAE60] valueWithPointer:v84];
-            [(NSMapTable *)execGraphMap setObject:v87 forKey:v81];
+            v85 = [MEMORY[0x277CCAE60] valueWithPointer:v82];
+            [(NSMapTable *)execGraphMap setObject:v85 forKey:v79];
           }
         }
 
-        v78 = [v76 countByEnumeratingWithState:&v103 objects:v119 count:16];
+        v76 = [v74 countByEnumeratingWithState:&v100 objects:v116 count:16];
       }
 
-      while (v78);
+      while (v76);
     }
 
     ps_exec_finish_adding_subgraphs(selfCopy->_executor);
-    blockCopy = v90;
+    blockCopy = v87;
   }
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 - (PSExecutionSession)executionSession
@@ -3218,30 +3390,30 @@ LABEL_27:
 
 - (void)setupCoreAnalyticsForAddedGraphs:(id)graphs
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   graphsCopy = graphs;
   obj = graphsCopy;
   if (self->_isCoreAnalyticsEnabled)
   {
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
-    v60 = OUTLINED_FUNCTION_9_1(graphsCopy, v5, v6, v7, v8, v9, v10, v11, v54, graphsCopy, v57, v59, v61, v63);
-    if (v60)
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v59 = OUTLINED_FUNCTION_9_1(graphsCopy, v5, v6, v7, v8, v9, v10, v11, v53, graphsCopy, v56, v58, v60, v62, v64, *(&v64 + 1), v65, *(&v65 + 1), v66, *(&v66 + 1), v67, *(&v67 + 1));
+    if (v59)
     {
-      v58 = *v70;
+      v57 = *v69;
       do
       {
         v12 = 0;
         do
         {
-          if (*v70 != v58)
+          if (*v69 != v57)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v69 + 1) + 8 * v12);
+          v13 = *(*(&v68 + 1) + 8 * v12);
           v14 = +[PSExecutionSessionWorkarounds sharedInstance];
           name = [v13 name];
           processInfo = [MEMORY[0x277CCAC38] processInfo];
@@ -3252,7 +3424,7 @@ LABEL_27:
           v19 = MEMORY[0x277CCABB0];
           caName = [v13 caName];
           uTF8String = [caName UTF8String];
-          v62 = v12;
+          v61 = v12;
           if (uTF8String)
           {
             v22 = *uTF8String;
@@ -3279,26 +3451,26 @@ LABEL_27:
           v26 = [v19 numberWithUnsignedInt:v23];
           [v13 setCaNameHash:v26];
 
-          v67 = 0u;
-          v68 = 0u;
-          v65 = 0u;
           v66 = 0u;
+          v67 = 0u;
+          v64 = 0u;
+          v65 = 0u;
           tasks = [v13 tasks];
-          v27 = [tasks countByEnumeratingWithState:&v65 objects:v73 count:16];
+          v27 = [tasks countByEnumeratingWithState:&v64 objects:v72 count:16];
           if (v27)
           {
             v28 = v27;
-            v29 = *v66;
+            v29 = *v65;
             do
             {
               for (i = 0; i != v28; ++i)
               {
-                if (*v66 != v29)
+                if (*v65 != v29)
                 {
                   objc_enumerationMutation(tasks);
                 }
 
-                v31 = *(*(&v65 + 1) + 8 * i);
+                v31 = *(*(&v64 + 1) + 8 * i);
                 v32 = +[PSExecutionSessionWorkarounds sharedInstance];
                 name2 = [v31 name];
                 processInfo2 = [MEMORY[0x277CCAC38] processInfo];
@@ -3336,65 +3508,61 @@ LABEL_27:
                 [v31 setCaNameHash:v44];
               }
 
-              v28 = [tasks countByEnumeratingWithState:&v65 objects:v73 count:16];
+              v28 = [tasks countByEnumeratingWithState:&v64 objects:v72 count:16];
             }
 
             while (v28);
           }
 
-          v12 = v62 + 1;
+          v12 = v61 + 1;
         }
 
-        while (v62 + 1 != v60);
-        v60 = OUTLINED_FUNCTION_9_1(v45, v46, v47, v48, v49, v50, v51, v52, v55, obj, v58, v60, v62, tasks);
+        while (v61 + 1 != v59);
+        v59 = OUTLINED_FUNCTION_9_1(v45, v46, v47, v48, v49, v50, v51, v52, v54, obj, v57, v59, v61, tasks, v64, *(&v64 + 1), v65, *(&v65 + 1), v66, *(&v66 + 1), v67, *(&v67 + 1));
       }
 
-      while (v60);
+      while (v59);
     }
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)commitAddedGraphs:(NSObject *)a1 removedGraphs:(int)a2 option:stopGraphs:error:.cold.1(NSObject *a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[PSTransitionManager commitAddedGraphs:removedGraphs:option:stopGraphs:error:]";
-    v7 = 1024;
-    v8 = a2;
-    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "[PSTransitionManager commitAddedGraphs:removedGraphs:option:stopGraphs:error:]";
+    v6 = 1024;
+    v7 = a2;
+    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)transitionExecutorForRemote:(char *)a1 error:(void *)a2 .cold.1(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 description];
   asprintf(a1, "Could not extract resource key info because %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 description];
-    [v6 UTF8String];
+    v7 = [a2 description];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not extract resource key info because %s", v9, v10, v11, v12, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not extract resource key info because %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3403,34 +3571,34 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager sendGraphInfoToSystemGraph:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 sendGraphInfoToSystemGraph:v23];
 }
 
 - (uint64_t)sendGraphInfoToSystemGraph:(char *)a1 .cold.1(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 localizedDescription];
   asprintf(a1, "An error has occurred during graph transition %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 localizedDescription];
-    [v6 UTF8String];
+    v7 = [a2 localizedDescription];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d An error has occurred during graph transition %s", v9, v10, v11, v12, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d An error has occurred during graph transition %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3439,34 +3607,34 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager sendGraphInfoToSystemGraph:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 sendGraphInfoToSystemGraph:v23];
 }
 
 - (uint64_t)sendGraphInfoToSystemGraph:(char *)a1 .cold.2(char **a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 localizedDescription];
   asprintf(a1, "An error has occurred during graph transition: %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 localizedDescription];
-    [v6 UTF8String];
+    v7 = [a2 localizedDescription];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d An error has occurred during graph transition: %s", v9, v10, v11, v12, v23, v24, v25);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d An error has occurred during graph transition: %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24, v25);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3475,32 +3643,32 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [(PSTransitionManager *)v20 sendGraphInfoToSystemGraph:v21];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 sendGraphInfoToSystemGraph:v23];
 }
 
 - (uint64_t)sendGraphInfoToSystemGraph:(char *)a1 .cold.3(char **a1, xpc_rich_error_t error)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v5 = xpc_rich_error_copy_description(error);
-  asprintf(a1, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", v5);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(a1, "Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", v5);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     xpc_rich_error_copy_description(error);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", v9, v10, v11, v12, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Failed to send an XPC message for graphsAddedRemoved to polarisd, aborting! Error = %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3509,34 +3677,34 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager transitionExecutorForBlock:v20 error:?];
+  v22 = OUTLINED_FUNCTION_0();
+  return [PSTransitionManager transitionExecutorForBlock:v22 error:v23];
 }
 
 - (uint64_t)transitionExecutorForBlock:(char *)a1 error:(void *)a2 .cold.1(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 description];
   asprintf(a1, "Could not extract resource key info because %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 description];
-    [v6 UTF8String];
+    v7 = [a2 description];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not extract resource key info because %s", v9, v10, v11, v12, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not extract resource key info because %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3545,32 +3713,32 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager removeExecutorGraphsOverXPCForTransitionBlock:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 removeExecutorGraphsOverXPCForTransitionBlock:v23];
 }
 
 - (uint64_t)removeExecutorGraphsOverXPCForTransitionBlock:(char *)a1 .cold.1(char **a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 name];
   asprintf(a1, "Bad teardown type specified for graph %s: %lu", [v4 UTF8String], objc_msgSend(a2, "teardownType"));
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 name];
-    [v6 UTF8String];
+    v7 = [a2 name];
+    [v7 UTF8String];
     [a2 teardownType];
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v7, v8, "%s:%d Bad teardown type specified for graph %s: %lu", v9, v10, v11, v12, v22, v23, 2u);
+    OUTLINED_FUNCTION_1(&dword_25EA3A000, v8, v9, "%s:%d Bad teardown type specified for graph %s: %lu", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, 2u);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3579,34 +3747,34 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager removeExecutorGraphsOverXPCForTransitionBlock:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 removeExecutorGraphsOverXPCForTransitionBlock:v23];
 }
 
 - (uint64_t)removeExecutorGraphsOverXPCForTransitionBlock:(char *)a1 .cold.2(char **a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 description];
   asprintf(a1, "Could not find ps_exec_subgraph_t for removal for PSGraph %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 description];
-    [v6 UTF8String];
+    v7 = [a2 description];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not find ps_exec_subgraph_t for removal for PSGraph %s", v9, v10, v11, v12, v23, v24, v25);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not find ps_exec_subgraph_t for removal for PSGraph %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24, v25);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3615,32 +3783,32 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [(PSTransitionManager *)v20 removeExecutorGraphsOverXPCForTransitionBlock:v21];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 removeExecutorGraphsOverXPCForTransitionBlock:v23];
 }
 
 - (uint64_t)removeExecutorGraphsOverXPCForTransitionBlock:(char *)a1 .cold.3(char **a1, xpc_rich_error_t error)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v5 = xpc_rich_error_copy_description(error);
-  asprintf(a1, "Failed to send an XPC message to removeExecutorGraphs to polarisd, aborting! Error = %s", v5);
-  v6 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v6))
+  v6 = asprintf(a1, "Failed to send an XPC message to removeExecutorGraphs to polarisd, aborting! Error = %s", v5);
+  v7 = __PLSLogSharedInstance(v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     xpc_rich_error_copy_description(error);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Failed to send an XPC message to removeExecutorGraphs to polarisd, aborting! Error = %s", v9, v10, v11, v12, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Failed to send an XPC message to removeExecutorGraphs to polarisd, aborting! Error = %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3649,32 +3817,32 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager removeExecutorGraphsForTransitionBlock:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 removeExecutorGraphsForTransitionBlock:v23];
 }
 
 - (uint64_t)removeExecutorGraphsForTransitionBlock:(char *)a1 .cold.1(char **a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 name];
   asprintf(a1, "Bad teardown type specified for graph %s: %lu", [v4 UTF8String], objc_msgSend(a2, "teardownType"));
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 name];
-    [v6 UTF8String];
+    v7 = [a2 name];
+    [v7 UTF8String];
     [a2 teardownType];
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v7, v8, "%s:%d Bad teardown type specified for graph %s: %lu", v9, v10, v11, v12, v22, v23, 2u);
+    OUTLINED_FUNCTION_1(&dword_25EA3A000, v8, v9, "%s:%d Bad teardown type specified for graph %s: %lu", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, 2u);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3683,34 +3851,34 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [PSTransitionManager removeExecutorGraphsForTransitionBlock:v20];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionManager *)v22 removeExecutorGraphsForTransitionBlock:v23];
 }
 
 - (uint64_t)removeExecutorGraphsForTransitionBlock:(char *)a1 .cold.2(char **a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 description];
   asprintf(a1, "Could not find ps_exec_subgraph_t for removal for PSGraph %s", [v4 UTF8String]);
 
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v6 = [a2 description];
-    [v6 UTF8String];
+    v7 = [a2 description];
+    [v7 UTF8String];
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Could not find ps_exec_subgraph_t for removal for PSGraph %s", v9, v10, v11, v12, v23, v24, v25);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not find ps_exec_subgraph_t for removal for PSGraph %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24, v25);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v25, v26);
     }
   }
 
@@ -3719,8 +3887,8 @@ LABEL_27:
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return [(PSTransitionMonitor *)v20 stateToString:v21];
+  v22 = OUTLINED_FUNCTION_0();
+  return [(PSTransitionMonitor *)v22 stateToString:v23];
 }
 
 @end

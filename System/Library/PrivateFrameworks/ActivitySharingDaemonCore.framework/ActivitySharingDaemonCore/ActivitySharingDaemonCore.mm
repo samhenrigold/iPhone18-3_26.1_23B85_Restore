@@ -88,11 +88,12 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E5E7000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_23E5E7000(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 176), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -103,94 +104,95 @@ void sub_23E5E7C7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E8410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E5E8410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E8908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E5E8908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E8C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E5E8C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E8F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E5E8F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E920C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E5E920C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 48), 8);
+  _Block_object_dispose((v20 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E96DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_23E5E96DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_23E5E9A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v26 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5E9CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E5E9A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a13);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 48), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5EA004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E5E9CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5EA3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E5EA004(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_23E5EA3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id OUTLINED_FUNCTION_2(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
 
   return a2;
 }
@@ -203,7 +205,7 @@ uint64_t OUTLINED_FUNCTION_3()
 
 id ASInsertInviteForContact(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v9 = a1;
   v10 = a2;
   v11 = a4;
@@ -229,8 +231,8 @@ id ASInsertInviteForContact(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 
     v17 = v16;
     v18 = [v10 outgoingHandshakeToken];
-    *v26 = 138412290;
-    *&v26[4] = v18;
+    *v25 = 138412290;
+    *&v25[4] = v18;
     v19 = "Outgoing handshake token already exists for this person: %@";
   }
 
@@ -249,27 +251,25 @@ id ASInsertInviteForContact(void *a1, void *a2, void *a3, void *a4, uint64_t a5)
 
     v17 = v22;
     v18 = [v10 outgoingHandshakeToken];
-    *v26 = 138412290;
-    *&v26[4] = v18;
+    *v25 = 138412290;
+    *&v25[4] = v18;
     v19 = "Creating new outgoing handshake token: %@";
   }
 
-  _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, v19, v26, 0xCu);
+  _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, v19, v25, 0xCu);
 
 LABEL_7:
-  [v10 insertEventWithType:{a5, *v26}];
+  [v10 insertEventWithType:{a5, *v25, *&v25[8]}];
   v23 = [v9 relationshipStorage];
   [v23 updateRelationship:v10 cloudType:{objc_msgSend(v10, "cloudType")}];
   [v9 setRelationshipStorage:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id ASSaveRelationshipRecordForContact(void *a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -281,9 +281,9 @@ id ASSaveRelationshipRecordForContact(void *a1, void *a2, void *a3, void *a4)
     v16 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = v7;
-      _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "Failed to save relationship, no relationship from records %@", &v21, 0xCu);
+      v20 = 138412290;
+      v21 = v7;
+      _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "Failed to save relationship, no relationship from records %@", &v20, 0xCu);
     }
 
     if (a4)
@@ -311,9 +311,9 @@ LABEL_17:
       v18 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 138412290;
-        v22 = v11;
-        _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "Failed to save relationship, no matching contact %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v11;
+        _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "Failed to save relationship, no matching contact %@", &v20, 0xCu);
       }
 
       if (a4)
@@ -332,8 +332,8 @@ LABEL_17:
   v13 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Successfully saved relationship record in CloudKit", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Successfully saved relationship record in CloudKit", &v20, 2u);
   }
 
   v14 = [v8 relationshipStorage];
@@ -343,7 +343,6 @@ LABEL_17:
   v15 = v11;
 
 LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -372,7 +371,7 @@ id ASRelationshipForRecords(uint64_t a1)
 
 id ASMakeActivityDataPreviewWithManager(void *a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 currentActivitySnapshot];
   v3 = [v2 codableSnapshot];
@@ -400,23 +399,23 @@ id ASMakeActivityDataPreviewWithManager(void *a1)
   v13 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v35 = v5;
+    v34 = v5;
     v14 = MEMORY[0x277CCABB0];
     log = v13;
-    v34 = [v8 activitySnapshot];
-    [v34 energyBurned];
-    v30 = [v14 numberWithDouble:?];
-    v15 = MEMORY[0x277CCABB0];
     v33 = [v8 activitySnapshot];
-    [v33 energyBurnedGoal];
-    v28 = [v15 numberWithDouble:?];
+    [v33 energyBurned];
+    v29 = [v14 numberWithDouble:?];
+    v15 = MEMORY[0x277CCABB0];
+    v32 = [v8 activitySnapshot];
+    [v32 energyBurnedGoal];
+    v27 = [v15 numberWithDouble:?];
     v16 = MEMORY[0x277CCABB0];
-    v31 = [v8 activitySnapshot];
-    [v31 mmv];
-    v29 = [v16 numberWithDouble:?];
+    v30 = [v8 activitySnapshot];
+    [v30 mmv];
+    v28 = [v16 numberWithDouble:?];
     v17 = MEMORY[0x277CCABB0];
     [v8 activitySnapshot];
-    v18 = v36 = v3;
+    v18 = v35 = v3;
     [v18 mmg];
     v19 = [v17 numberWithDouble:?];
     v20 = MEMORY[0x277CCABB0];
@@ -426,38 +425,36 @@ id ASMakeActivityDataPreviewWithManager(void *a1)
     v24 = [v8 achievements];
     v25 = [v23 numberWithUnsignedInteger:{objc_msgSend(v24, "count")}];
     *buf = 138413570;
-    v38 = v30;
-    v39 = 2112;
-    v40 = v28;
-    v41 = 2112;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v19;
-    v45 = 2112;
-    v46 = v22;
-    v47 = 2112;
-    v48 = v25;
+    v37 = v29;
+    v38 = 2112;
+    v39 = v27;
+    v40 = 2112;
+    v41 = v28;
+    v42 = 2112;
+    v43 = v19;
+    v44 = 2112;
+    v45 = v22;
+    v46 = 2112;
+    v47 = v25;
     _os_log_impl(&dword_23E5E3000, log, OS_LOG_TYPE_DEFAULT, "Generated activity data preview: %@/%@ calories, %@/%@ moveMinutes, %@ workouts, %@ achievements", buf, 0x3Eu);
 
-    v5 = v35;
-    v3 = v36;
+    v5 = v34;
+    v3 = v35;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
-id ASDeviceBuildNumber()
+id ASDeviceBuildNumber(uint64_t a1)
 {
   if (ASDeviceBuildNumber_onceToken != -1)
   {
     ASDeviceBuildNumber_cold_1();
   }
 
-  v1 = ASDeviceBuildNumber_buildNumber;
+  v2 = ASDeviceBuildNumber_buildNumber;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASDeviceBuildNumber_block_invoke()
@@ -469,7 +466,7 @@ uint64_t __ASDeviceBuildNumber_block_invoke()
 
 void ASProcessActivityDataPreviewWithManager(void *a1, void *a2, void *a3)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -487,8 +484,8 @@ void ASProcessActivityDataPreviewWithManager(void *a1, void *a2, void *a3)
 
     v11 = MEMORY[0x277CBEAA8];
     [v5 date];
-    v25 = [v11 dateWithTimeIntervalSinceReferenceDate:?];
-    v12 = [MEMORY[0x277CCDDC8] fitnessFriendActivitySnapshotWithCodableSnapshot:v8 friendUUID:v6 uploadedDate:v25];
+    v24 = [v11 dateWithTimeIntervalSinceReferenceDate:?];
+    v12 = [MEMORY[0x277CCDDC8] fitnessFriendActivitySnapshotWithCodableSnapshot:v8 friendUUID:v6 uploadedDate:v24];
     v13 = MEMORY[0x277CBEB98];
     v14 = [v5 workouts];
     v15 = [v13 setWithArray:v14];
@@ -499,8 +496,8 @@ void ASProcessActivityDataPreviewWithManager(void *a1, void *a2, void *a3)
     v19 = [v17 setWithArray:v18];
     v20 = ASAchievementsFromCodableAchievements();
 
-    v27[0] = v12;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v12;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     v22 = [v16 allObjects];
     v23 = [v20 allObjects];
     [v7 saveActivitySnapshots:v21 workouts:v22 achievements:v23 isInvitationData:1];
@@ -511,8 +508,6 @@ void ASProcessActivityDataPreviewWithManager(void *a1, void *a2, void *a3)
     *buf = 0;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "RelationshipManager message didn't include an activity snapshot preview, not processing", buf, 2u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 id ASContactForIncomingHandshakeTokenWithManager(void *a1, void *a2, uint64_t a3)
@@ -642,34 +637,34 @@ id ASReconcileCloudKitRelationshipsForCloudType(void *a1, void *a2, uint64_t a3,
 
 id ASAllRelationshipsByRecordIDForCloudType(void *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [MEMORY[0x277CBEB38] dictionary];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     v9 = MEMORY[0x277CE9008];
     do
     {
       v10 = 0;
       do
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v24 + 1) + 8 * v10);
+        v11 = *(*(&v23 + 1) + 8 * v10);
         if (!a2)
         {
-          v13 = [*(*(&v24 + 1) + 8 * v10) relationshipStorage];
+          v13 = [*(*(&v23 + 1) + 8 * v10) relationshipStorage];
           v14 = [v13 legacyRelationship];
 LABEL_11:
           v15 = v14;
@@ -691,7 +686,7 @@ LABEL_11:
               if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v29 = v15;
+                v28 = v15;
                 _os_log_error_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_ERROR, "RelationshipManager found a relationship that was missing a record ID: %@", buf, 0xCu);
               }
             }
@@ -712,7 +707,7 @@ LABEL_11:
         v18 = *v9;
         if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
         {
-          ASAllRelationshipsByRecordIDForCloudType_cold_1(&v22, v23, v18);
+          ASAllRelationshipsByRecordIDForCloudType_cold_1(&v21, v22, v18);
         }
 
 LABEL_19:
@@ -720,13 +715,11 @@ LABEL_19:
       }
 
       while (v7 != v10);
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v7);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -748,7 +741,7 @@ id ASMergeCloudKitRelationshipWithExistingRelationships(void *a1, void *a2)
 
 id ASResolveDuplicateRelationshipByCloudKitAddress(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE9008];
@@ -759,56 +752,55 @@ id ASResolveDuplicateRelationshipByCloudKitAddress(void *a1)
 
   v3 = [MEMORY[0x277CBEB38] dictionary];
   v4 = [MEMORY[0x277CBEB38] dictionary];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke;
-  v23[3] = &unk_278C4B728;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke;
+  v22[3] = &unk_278C4B728;
   v5 = v4;
-  v24 = v5;
+  v23 = v5;
   v6 = v3;
-  v25 = v6;
-  [v1 enumerateKeysAndObjectsUsingBlock:v23];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v24 = v6;
+  [v1 enumerateKeysAndObjectsUsingBlock:v22];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = [v6 allValues];
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v26 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         v13 = [v12 systemFieldsOnlyRecord];
         v14 = [v13 recordID];
         [v5 setObject:v12 forKeyedSubscript:v14];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v26 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v25 count:16];
     }
 
     while (v9);
   }
 
-  v15 = v25;
+  v15 = v24;
   v16 = v5;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void __ASMergeCloudKitRelationshipWithExistingRelationships_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -823,11 +815,11 @@ void __ASMergeCloudKitRelationshipWithExistingRelationships_block_invoke(uint64_
       v19 = v9;
       v20 = [v6 preferredReachableAddress];
       v21 = [v6 cloudKitAddress];
-      v23 = 138412546;
-      v24 = v20;
-      v25 = 2112;
-      v26 = v21;
-      _os_log_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a new relationship that doesn't exist locally (%@/%@)", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v20;
+      v24 = 2112;
+      v25 = v21;
+      _os_log_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a new relationship that doesn't exist locally (%@/%@)", &v22, 0x16u);
     }
 
     goto LABEL_11;
@@ -840,15 +832,15 @@ void __ASMergeCloudKitRelationshipWithExistingRelationships_block_invoke(uint64_
     v13 = [v7 cloudKitAddress];
     v14 = [v6 preferredReachableAddress];
     v15 = [v6 cloudKitAddress];
-    v23 = 138413058;
-    v24 = v12;
-    v25 = 2112;
-    v26 = v13;
-    v27 = 2112;
-    v28 = v14;
-    v29 = 2112;
-    v30 = v15;
-    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a conflict (%@/%@ vs %@/%@)", &v23, 0x2Au);
+    v22 = 138413058;
+    v23 = v12;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v14;
+    v28 = 2112;
+    v29 = v15;
+    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a conflict (%@/%@ vs %@/%@)", &v22, 0x2Au);
   }
 
   v16 = ASMostRecentlyModifiedRelationship(v6, v7);
@@ -860,8 +852,8 @@ void __ASMergeCloudKitRelationshipWithExistingRelationships_block_invoke(uint64_
   {
     if (v18)
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "RelationshipManager determined the cloudKit relationship is newer, taking it", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "RelationshipManager determined the cloudKit relationship is newer, taking it", &v22, 2u);
     }
 
 LABEL_11:
@@ -871,13 +863,11 @@ LABEL_11:
 
   if (v18)
   {
-    LOWORD(v23) = 0;
-    _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "RelationshipManager determined cloudKit relationship is older, keeping the existing relationship", &v23, 2u);
+    LOWORD(v22) = 0;
+    _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "RelationshipManager determined cloudKit relationship is older, keeping the existing relationship", &v22, 2u);
   }
 
 LABEL_12:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void *ASMostRecentlyModifiedRelationship(void *a1, void *a2)
@@ -1026,72 +1016,70 @@ id ASContactPreferringPlaceholderForUUID(void *a1, void *a2)
 
 id ASContactsPreferringPlaceholders(void *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB38] dictionary];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v3 = [v1 contacts];
-  v4 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * i);
+        v8 = *(*(&v23 + 1) + 8 * i);
         v9 = [v8 UUID];
         [v2 setObject:v8 forKeyedSubscript:v9];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v5);
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v10 = [v1 placeholderContacts];
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * j);
+        v15 = *(*(&v19 + 1) + 8 * j);
         v16 = [v15 UUID];
         [v2 setObject:v15 forKeyedSubscript:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v12);
   }
 
   v17 = [v2 allValues];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1165,31 +1153,31 @@ uint64_t ASIsRelationshipMigrating(void *a1, void *a2)
 
 id ASAllContactsByRecordID(void *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB38] dictionary];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = v1;
-  v3 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+  v3 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v24;
+    v6 = *v23;
     *&v4 = 138412290;
-    v21 = v4;
+    v20 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 relationshipStorage];
         v10 = [v9 legacyRelationship];
 
@@ -1207,8 +1195,8 @@ id ASAllContactsByRecordID(void *a1)
           v13 = *MEMORY[0x277CE9008];
           if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v28 = v10;
+            *buf = v20;
+            v27 = v10;
             _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "RelationshipManager found a contact with legacy relationship missing a record ID: %@", buf, 0xCu);
           }
         }
@@ -1232,38 +1220,36 @@ id ASAllContactsByRecordID(void *a1)
             v18 = *MEMORY[0x277CE9008];
             if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
             {
-              *buf = v21;
-              v28 = v15;
+              *buf = v20;
+              v27 = v15;
               _os_log_error_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_ERROR, "RelationshipManager found a contact with secure cloud relationship missing a record ID: %@", buf, 0xCu);
             }
           }
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v5 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
     }
 
     while (v5);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 void ASReconcileRelationshipsAgainstAddressBook(void *a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a1;
   val = a2;
-  v19 = v3;
+  v18 = v3;
   v4 = [v3 mutableCopy];
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = v4;
+    v30 = v4;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager preparing to reconcile with address book %@", buf, 0xCu);
   }
 
@@ -1276,44 +1262,44 @@ void ASReconcileRelationshipsAgainstAddressBook(void *a1, void *a2)
   }
 
   objc_initWeak(&location, val);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __ASReconcileRelationshipsAgainstAddressBook_block_invoke;
-  v26[3] = &unk_278C4B7B8;
-  objc_copyWeak(&v28, &location);
-  v18 = v4;
-  v27 = v18;
-  [val setContactsUsingTransaction:v26];
-  v20 = [val contacts];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __ASReconcileRelationshipsAgainstAddressBook_block_invoke;
+  v25[3] = &unk_278C4B7B8;
+  objc_copyWeak(&v27, &location);
+  v17 = v4;
+  v26 = v17;
+  [val setContactsUsingTransaction:v25];
+  v19 = [val contacts];
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [v20 count];
+    v8 = [v19 count];
     *buf = 134217984;
-    v31 = v8;
+    v30 = v8;
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "RelationshipManager reconcile complete with %ld contacts", buf, 0xCu);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v9 = [val contacts];
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v10)
   {
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         ASLoggingInitialize();
         v14 = *MEMORY[0x277CE9008];
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -1321,23 +1307,21 @@ void ASReconcileRelationshipsAgainstAddressBook(void *a1, void *a2)
           v15 = [v13 displayName];
           v16 = [v13 relationshipStorage];
           *buf = 138412546;
-          v31 = v15;
-          v32 = 2112;
-          v33 = v16;
+          v30 = v15;
+          v31 = 2112;
+          v32 = v16;
           _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "%@ -> %@", buf, 0x16u);
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v33 count:16];
     }
 
     while (v10);
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23E5ED87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, id location)
@@ -1385,8 +1369,8 @@ id __ASReconcileRelationshipsAgainstAddressBook_block_invoke(uint64_t a1)
 
 void __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v104 = a2;
+  v118 = *MEMORY[0x277D85DE8];
+  v103 = a2;
   v6 = a4;
   ASLoggingInitialize();
   v7 = MEMORY[0x277CE9008];
@@ -1396,51 +1380,51 @@ void __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2(uint64_t a1, vo
     v9 = *(a1 + 32);
     v10 = v8;
     *buf = 138543618;
-    v116 = v104;
-    v117 = 2048;
-    v118 = [v9 count];
+    v115 = v103;
+    v116 = 2048;
+    v117 = [v9 count];
     _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "RelationshipManager starting reconcile pass: %{public}@ (%lu remaining relationships)", buf, 0x16u);
   }
 
-  v102 = a1;
+  v101 = a1;
   ASLoggingInitialize();
   v11 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v116) = a3;
+    LODWORD(v115) = a3;
     _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "RelationshipManager create person without address book match is %d for this pass", buf, 8u);
   }
 
   v12 = [*(a1 + 32) allValues];
   v13 = [v12 sortedArrayUsingComparator:&__block_literal_global_315];
 
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
   v111 = 0u;
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
   obj = v13;
-  v14 = [obj countByEnumeratingWithState:&v110 objects:v114 count:16];
+  v14 = [obj countByEnumeratingWithState:&v109 objects:v113 count:16];
   if (v14)
   {
     v16 = v14;
-    v17 = *v111;
+    v17 = *v110;
     *&v15 = 138412546;
-    v100 = v15;
-    v105 = *v111;
+    v99 = v15;
+    v104 = *v110;
     do
     {
       v18 = 0;
-      v19 = v102;
-      v106 = v16;
+      v19 = v101;
+      v105 = v16;
       do
       {
-        if (*v111 != v17)
+        if (*v110 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v110 + 1) + 8 * v18);
+        v20 = *(*(&v109 + 1) + 8 * v18);
         v21 = v6[2](v6, v20);
         v22 = v21;
         if (v21 && [v21 count])
@@ -1451,7 +1435,7 @@ void __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2(uint64_t a1, vo
           if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v116 = v22;
+            v115 = v22;
             _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "RelationshipManager looking for contact with destinations: %@", buf, 0xCu);
           }
 
@@ -1491,20 +1475,20 @@ LABEL_22:
             if (os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v116 = v45;
+              v115 = v45;
               _os_log_error_impl(&dword_23E5E3000, v46, OS_LOG_TYPE_ERROR, "RelationshipManager contact already has a relationship (possibly from a previous pass): %@", buf, 0xCu);
             }
 
             ASLoggingInitialize();
             v47 = *v23;
-            v16 = v106;
+            v16 = v105;
             if (os_log_type_enabled(*v23, OS_LOG_TYPE_ERROR))
             {
-              __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2_cold_1(&v108, v109, v47);
+              __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2_cold_1(&v107, v108, v47);
             }
 
 LABEL_71:
-            v17 = v105;
+            v17 = v104;
             goto LABEL_72;
           }
 
@@ -1544,7 +1528,7 @@ LABEL_17:
           if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
-            LODWORD(v116) = v48 != 0;
+            LODWORD(v115) = v48 != 0;
             _os_log_impl(&dword_23E5E3000, v49, OS_LOG_TYPE_DEFAULT, "RelationshipManager contact in address book: %d", buf, 8u);
           }
 
@@ -1553,7 +1537,7 @@ LABEL_17:
           v51 = os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT);
           if (!v48 && !a3)
           {
-            v16 = v106;
+            v16 = v105;
             if (v51)
             {
               *buf = 0;
@@ -1567,7 +1551,7 @@ LABEL_17:
           if (v51)
           {
             *buf = 138412290;
-            v116 = v20;
+            v115 = v20;
             _os_log_impl(&dword_23E5E3000, v50, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a match for relationship: %@", buf, 0xCu);
           }
 
@@ -1579,9 +1563,9 @@ LABEL_17:
             v53 = v52;
             v54 = [v30 UUID];
             *buf = 138543618;
-            v116 = v54;
-            v117 = 2112;
-            v118 = v30;
+            v115 = v54;
+            v116 = 2112;
+            v117 = v30;
             _os_log_impl(&dword_23E5E3000, v53, OS_LOG_TYPE_DEFAULT, "RelationshipManager matching contact: %{public}@ - %@", buf, 0x16u);
           }
 
@@ -1622,26 +1606,11 @@ LABEL_17:
           }
 
           v67 = [v20 systemFieldsOnlyRecord];
-          v103 = [v67 recordID];
+          v102 = [v67 recordID];
 
-          if (!ASSecureCloudEnabled())
+          if (!ASSecureCloudEnabled() || (v68 = MEMORY[0x277CBEB98], [*(v19 + 40) allValues], v69 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v68, "setWithArray:", v69), v70 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "UUID"), v71 = objc_claimAutoreleasedReturnValue(), ASFindContactWithDestinationsOrIdentifierInContacts(v22, v70, v71), v72 = objc_claimAutoreleasedReturnValue(), v71, v7 = v23, v70, v19 = v101, v69, !v72))
           {
-            goto LABEL_49;
-          }
-
-          v68 = MEMORY[0x277CBEB98];
-          v69 = [*(v19 + 40) allValues];
-          v70 = [v68 setWithArray:v69];
-          v71 = [v20 UUID];
-          v72 = ASFindContactWithDestinationsOrIdentifierInContacts(v22, v70, v71);
-
-          v7 = v23;
-          v19 = v102;
-
-          if (!v72)
-          {
-LABEL_49:
-            v76 = [*(v19 + 56) objectForKeyedSubscript:v103];
+            v76 = [*(v19 + 56) objectForKeyedSubscript:v102];
             if (v76)
             {
               v72 = v76;
@@ -1723,7 +1692,7 @@ LABEL_56:
 LABEL_60:
           if (ASSecureCloudEnabled())
           {
-            v87 = v102;
+            v87 = v101;
             if ([v20 cloudType])
             {
               if ([v20 cloudType] == 1)
@@ -1741,7 +1710,7 @@ LABEL_60:
               v90 = [v88 storageWithSynchronizedRelationshipIdentifiers];
               [v30 setRelationshipStorage:v90];
 
-              v87 = v102;
+              v87 = v101;
 LABEL_66:
             }
 
@@ -1763,21 +1732,21 @@ LABEL_66:
             v93 = v92;
             v94 = [v30 displayName];
             v95 = [v30 relationshipStorage];
-            *buf = v100;
-            v116 = v94;
-            v117 = 2112;
-            v118 = v95;
+            *buf = v99;
+            v115 = v94;
+            v116 = 2112;
+            v117 = v95;
             _os_log_impl(&dword_23E5E3000, v93, OS_LOG_TYPE_DEFAULT, "RelationshipManager saving match to %@ with storage %@", buf, 0x16u);
           }
 
-          v96 = *(v102 + 40);
+          v96 = *(v101 + 40);
           v97 = [v30 UUID];
           [v96 setObject:v30 forKeyedSubscript:v97];
 
-          v19 = v102;
-          [*(v102 + 32) removeObjectForKey:v103];
+          v19 = v101;
+          [*(v101 + 32) removeObjectForKey:v102];
 
-          v16 = v106;
+          v16 = v105;
           goto LABEL_71;
         }
 
@@ -1786,7 +1755,7 @@ LABEL_66:
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v116 = v104;
+          v115 = v103;
           _os_log_impl(&dword_23E5E3000, v40, OS_LOG_TYPE_DEFAULT, "RelationshipManager reconcile didn't receive destinations, skipping this pass (%{public}@)", buf, 0xCu);
         }
 
@@ -1796,14 +1765,12 @@ LABEL_72:
       }
 
       while (v16 != v18);
-      v98 = [obj countByEnumeratingWithState:&v110 objects:v114 count:16];
+      v98 = [obj countByEnumeratingWithState:&v109 objects:v113 count:16];
       v16 = v98;
     }
 
     while (v98);
   }
-
-  v99 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __ASReconcileRelationshipsAgainstAddressBook_block_invoke_312(uint64_t a1, void *a2, void *a3)
@@ -1832,44 +1799,40 @@ id _ASProcessedRelationshipIdentifier(void *a1)
 
 id __ASReconcileRelationshipsAgainstAddressBook_block_invoke_320(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 cloudKitAddress];
   if (v3)
   {
     v4 = [v2 cloudKitAddress];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2_327(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 preferredReachableAddress];
   if (v3)
   {
     v4 = [v2 preferredReachableAddress];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1884,44 +1847,40 @@ id __ASReconcileRelationshipsAgainstAddressBook_block_invoke_3(uint64_t a1, void
 
 id __ASReconcileRelationshipsAgainstAddressBook_block_invoke_4(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 cloudKitAddress];
   if (v3)
   {
     v4 = [v2 cloudKitAddress];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id __ASReconcileRelationshipsAgainstAddressBook_block_invoke_5(uint64_t a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 preferredReachableAddress];
   if (v3)
   {
     v4 = [v2 preferredReachableAddress];
-    v8[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1952,7 +1911,7 @@ BOOL __ASCompetitionEventsFromRelationship_block_invoke(uint64_t a1, void *a2)
 
 uint64_t __ASFilterInvalidCloudKitRelationships_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a3;
   if (![v3 cloudType])
   {
@@ -1968,8 +1927,8 @@ uint64_t __ASFilterInvalidCloudKitRelationships_block_invoke(uint64_t a1, uint64
       v14 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = v3;
+        v18 = 138412290;
+        v19 = v3;
         v15 = "RelationshipManager filtering invalid legacy relationship %@";
         goto LABEL_10;
       }
@@ -1994,11 +1953,11 @@ LABEL_11:
       v14 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = v3;
+        v18 = 138412290;
+        v19 = v3;
         v15 = "RelationshipManager filtering invalid secure cloud relationship %@";
 LABEL_10:
-        _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, v15, &v19, 0xCu);
+        _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, v15, &v18, 0xCu);
         goto LABEL_11;
       }
 
@@ -2009,21 +1968,22 @@ LABEL_10:
   v16 = 1;
 LABEL_12:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_23E5F0398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_23E5F0398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2034,49 +1994,49 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E5F0984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23E5F0984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
 void ASSendRichMessagePayloadToDestination(void *a1, void *a2)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v37 = a1;
-  v34 = a2;
-  v35 = [MEMORY[0x277D18D68] sharedInstance];
-  if (([v35 hasListenerForID:@"com.apple.ActivitySharingControl"] & 1) == 0)
+  v48 = *MEMORY[0x277D85DE8];
+  v35 = a1;
+  v32 = a2;
+  v33 = [MEMORY[0x277D18D68] sharedInstance];
+  if (([v33 hasListenerForID:@"com.apple.ActivitySharingControl"] & 1) == 0)
   {
-    [v35 addListenerID:@"com.apple.ActivitySharingControl" capabilities:*MEMORY[0x277D19358]];
+    [v33 addListenerID:@"com.apple.ActivitySharingControl" capabilities:*MEMORY[0x277D19358]];
   }
 
-  [v35 blockUntilConnected];
-  v38 = [MEMORY[0x277D18DE0] serviceWithName:@"iMessage"];
-  if (!v38)
+  [v33 blockUntilConnected];
+  v36 = [MEMORY[0x277D18DE0] serviceWithName:@"iMessage"];
+  if (!v36)
   {
     ASSendRichMessagePayloadToDestination_cold_4();
   }
 
   v3 = [MEMORY[0x277D18D28] sharedInstance];
-  v4 = [v3 accountsForService:v38];
+  v4 = [v3 accountsForService:v36];
 
-  v47 = 0u;
-  v48 = 0u;
   v45 = 0u;
   v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (!v6)
   {
 LABEL_12:
@@ -2084,17 +2044,17 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v7 = *v46;
+  v7 = *v44;
 LABEL_6:
   v8 = 0;
   while (1)
   {
-    if (*v46 != v7)
+    if (*v44 != v7)
     {
       objc_enumerationMutation(v5);
     }
 
-    v9 = *(*(&v45 + 1) + 8 * v8);
+    v9 = *(*(&v43 + 1) + 8 * v8);
     if ([v9 isActive])
     {
       break;
@@ -2102,7 +2062,7 @@ LABEL_6:
 
     if (v6 == ++v8)
     {
-      v6 = [v5 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v43 objects:v47 count:16];
       if (!v6)
       {
         goto LABEL_12;
@@ -2112,22 +2072,22 @@ LABEL_6:
     }
   }
 
-  v33 = v9;
+  v31 = v9;
 
-  if (!v33)
+  if (!v31)
   {
 LABEL_13:
     ASSendRichMessagePayloadToDestination_cold_3();
   }
 
-  v39 = [v33 imHandleWithID:v34];
-  if (!v39)
+  v37 = [v31 imHandleWithID:v32];
+  if (!v37)
   {
     ASSendRichMessagePayloadToDestination_cold_2();
   }
 
   v10 = [MEMORY[0x277D18D40] sharedRegistry];
-  v11 = [v10 existingChatWithHandle:v39];
+  v11 = [v10 existingChatWithHandle:v37];
   if (v11)
   {
   }
@@ -2135,7 +2095,7 @@ LABEL_13:
   else
   {
     v12 = [MEMORY[0x277D18D40] sharedRegistry];
-    v11 = [v12 chatWithHandle:v39];
+    v11 = [v12 chatWithHandle:v37];
 
     if (!v11)
     {
@@ -2143,64 +2103,68 @@ LABEL_13:
     }
   }
 
-  v13 = *MEMORY[0x277D19720];
-  v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:0000000000:%@", *MEMORY[0x277D19720], *MEMORY[0x277CE9238]];
-  v36 = objc_opt_new();
-  v14 = *MEMORY[0x277D19D68];
-  [v36 setObject:@"MSMessageLiveLayout" forKeyedSubscript:*MEMORY[0x277D19D68]];
-  v32 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v36 requiringSecureCoding:1 error:0];
-  v15 = objc_opt_new();
-  [v15 setObject:@"MSMessageTemplateLayout" forKeyedSubscript:v14];
-  [v15 setObject:v37 forKeyedSubscript:*MEMORY[0x277D19D88]];
-  [v15 setObject:v32 forKeyedSubscript:*MEMORY[0x277D19D78]];
-  [v15 setObject:MEMORY[0x277CBEC10] forKeyedSubscript:*MEMORY[0x277D19D70]];
-  v16 = ASMessageFromRichMessagePayload();
-  [v15 setObject:v16 forKeyedSubscript:*MEMORY[0x277D19D80]];
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:0000000000:%@", *MEMORY[0x277D19720], *MEMORY[0x277CE9238]];
+  v34 = objc_opt_new();
+  v13 = *MEMORY[0x277D19D68];
+  [v34 setObject:@"MSMessageLiveLayout" forKeyedSubscript:*MEMORY[0x277D19D68]];
+  v30 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v34 requiringSecureCoding:1 error:0];
+  v14 = objc_opt_new();
+  [v14 setObject:@"MSMessageTemplateLayout" forKeyedSubscript:v13];
+  [v14 setObject:v35 forKeyedSubscript:*MEMORY[0x277D19D88]];
+  [v14 setObject:v30 forKeyedSubscript:*MEMORY[0x277D19D78]];
+  [v14 setObject:MEMORY[0x277CBEC10] forKeyedSubscript:*MEMORY[0x277D19D70]];
+  v15 = ASMessageFromRichMessagePayload();
+  [v14 setObject:v15 forKeyedSubscript:*MEMORY[0x277D19D80]];
 
-  v17 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v15 requiringSecureCoding:1 error:0];
-  v18 = objc_alloc(MEMORY[0x277D18DA0]);
-  v19 = [MEMORY[0x277CBEAA8] date];
-  v20 = [MEMORY[0x277CCACA8] stringGUID];
-  v21 = [v18 initWithSender:0 time:v19 text:0 messageSubject:0 fileTransferGUIDs:0 flags:5 error:0 guid:v20 subject:0 balloonBundleID:v31 payloadData:v17 expressiveSendStyleID:0];
+  v16 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v14 requiringSecureCoding:1 error:0];
+  v17 = objc_alloc(MEMORY[0x277D18DA0]);
+  v18 = [MEMORY[0x277CBEAA8] date];
+  v19 = [MEMORY[0x277CCACA8] stringGUID];
+  v20 = [v17 initWithSender:0 time:v18 text:0 messageSubject:0 fileTransferGUIDs:0 flags:5 error:0 guid:v19 subject:0 balloonBundleID:v29 payloadData:v16 expressiveSendStyleID:0];
 
   if ([v11 joinState] != 3)
   {
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
-    v44 = 1;
-    v22 = [MEMORY[0x277CCAB98] defaultCenter];
-    v23 = [MEMORY[0x277CCABD8] mainQueue];
-    v24 = *MEMORY[0x277D18CB8];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __ASSendRichMessagePayloadToDestination_block_invoke;
-    v40[3] = &unk_278C4B938;
-    v40[4] = &v41;
-    v25 = [v22 addObserverForName:v24 object:0 queue:v23 usingBlock:v40];
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 1;
+    v21 = [MEMORY[0x277CCAB98] defaultCenter];
+    v22 = [MEMORY[0x277CCABD8] mainQueue];
+    v23 = *MEMORY[0x277D18CB8];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __ASSendRichMessagePayloadToDestination_block_invoke;
+    v38[3] = &unk_278C4B938;
+    v38[4] = &v39;
+    v24 = [v21 addObserverForName:v23 object:0 queue:v22 usingBlock:v38];
 
     [v11 join];
-    v26 = [MEMORY[0x277CBEB88] currentRunLoop];
-    v27 = *MEMORY[0x277CBE640];
+    v25 = [MEMORY[0x277CBEB88] currentRunLoop];
+    v26 = *MEMORY[0x277CBE640];
     do
     {
-      if (*(v42 + 24) != 1)
+      if (*(v40 + 24) != 1)
       {
         break;
       }
 
-      v28 = [MEMORY[0x277CBEAA8] distantFuture];
-      v29 = [v26 runMode:v27 beforeDate:v28];
+      v27 = [MEMORY[0x277CBEAA8] distantFuture];
+      v28 = [v25 runMode:v26 beforeDate:v27];
     }
 
-    while ((v29 & 1) != 0);
+    while ((v28 & 1) != 0);
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v39, 8);
   }
 
-  [v11 sendMessage:v21];
+  [v11 sendMessage:v20];
+}
 
-  v30 = *MEMORY[0x277D85DE8];
+void sub_23E5F0FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 __CFString *ThreadIdentifierForBulletinType(unint64_t a1)
@@ -2218,7 +2182,7 @@ __CFString *ThreadIdentifierForBulletinType(unint64_t a1)
 
 id ExpirationDateForBulletinTypeAndPublishDate(unint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (a1 <= 8)
   {
@@ -2233,9 +2197,9 @@ id ExpirationDateForBulletinTypeAndPublishDate(unint64_t a1, void *a2)
       v7 = *MEMORY[0x277CE8FF8];
       if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138543362;
-        v12 = a1;
-        _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Bulletin expiration date is %{public}@", &v11, 0xCu);
+        v10 = 138543362;
+        v11 = a1;
+        _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Bulletin expiration date is %{public}@", &v10, 0xCu);
       }
     }
 
@@ -2245,15 +2209,13 @@ id ExpirationDateForBulletinTypeAndPublishDate(unint64_t a1, void *a2)
       v8 = *MEMORY[0x277CE8FF8];
       if (os_log_type_enabled(*MEMORY[0x277CE8FF8], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "No expiration date for bulletin", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "No expiration date for bulletin", &v10, 2u);
       }
 
       a1 = 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return a1;
 }
@@ -2265,58 +2227,62 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E5F3798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E5F3798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5F38D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E5F38D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5F7C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_23E5F7C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 176), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 176), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5F8274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_23E5F8274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 152), 8);
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5F8A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61)
+void sub_23E5F8A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, ...)
 {
+  va_start(va, a60);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a43, 8);
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a55, 8);
-  _Block_object_dispose(&a61, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5F914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_23E5F914C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a35, 8);
   _Block_object_dispose(&a41, 8);
   _Block_object_dispose(&a47, 8);
-  _Block_object_dispose(&a53, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E5FA47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E5FA47C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2330,13 +2296,12 @@ void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 id ASAllDatabaseCompetitionListEntryKeys()
 {
-  v3[4] = *MEMORY[0x277D85DE8];
-  v3[0] = @"friend_uuid";
-  v3[1] = @"type";
-  v3[2] = @"system_fields";
-  v3[3] = @"owner";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:4];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[4] = *MEMORY[0x277D85DE8];
+  v2[0] = @"friend_uuid";
+  v2[1] = @"type";
+  v2[2] = @"system_fields";
+  v2[3] = @"owner";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:4];
 
   return v0;
 }
@@ -2357,74 +2322,73 @@ id _TopPlaceholderContactInPlaceholderArray(void *a1)
   return v3;
 }
 
-void sub_23E5FE710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23E5FE710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id ASFindContactWithDestinationsInContacts(void *a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
+  v26 = 0u;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
   v5 = v3;
-  v22 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v22)
+  v20 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v20)
   {
-    v6 = *v29;
-    v23 = v4;
-    v21 = *v29;
+    v6 = *v27;
+    v21 = v4;
+    v19 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v29 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
-        v9 = ASSanitizedContactDestination();
+        v8 = ASSanitizedContactDestination();
+        v22 = 0u;
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
-        v27 = 0u;
-        v10 = v4;
-        v11 = [v10 countByEnumeratingWithState:&v24 objects:v32 count:16];
-        if (v11)
+        v9 = v4;
+        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        if (v10)
         {
-          v12 = v11;
-          v13 = *v25;
+          v11 = v10;
+          v12 = *v23;
           while (2)
           {
-            for (j = 0; j != v12; ++j)
+            for (j = 0; j != v11; ++j)
             {
-              if (*v25 != v13)
+              if (*v23 != v12)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v9);
               }
 
-              v15 = *(*(&v24 + 1) + 8 * j);
-              v16 = [v15 destinations];
-              v17 = [v16 containsObject:v9];
+              v14 = *(*(&v22 + 1) + 8 * j);
+              v15 = [v14 destinations];
+              v16 = [v15 containsObject:v8];
 
-              if (v17)
+              if (v16)
               {
-                v18 = v15;
+                v17 = v14;
 
-                v4 = v23;
+                v4 = v21;
                 goto LABEL_19;
               }
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v24 objects:v32 count:16];
-            if (v12)
+            v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            if (v11)
             {
               continue;
             }
@@ -2433,56 +2397,54 @@ id ASFindContactWithDestinationsInContacts(void *a1, void *a2)
           }
         }
 
-        v4 = v23;
-        v6 = v21;
+        v4 = v21;
+        v6 = v19;
       }
 
-      v18 = 0;
-      v22 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v17 = 0;
+      v20 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v20);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
 LABEL_19:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 id _DestinationsForContactStoreContact(void *a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB98] set];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v3 = [v1 phoneNumbers];
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       v8 = v2;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = [*(*(&v26 + 1) + 8 * v7) value];
+        v9 = [*(*(&v25 + 1) + 8 * v7) value];
         v10 = [v9 stringValue];
         v11 = ASSanitizedContactDestination();
 
@@ -2493,34 +2455,34 @@ id _DestinationsForContactStoreContact(void *a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v12 = [v1 emailAddresses];
-  v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v23;
+    v15 = *v22;
     do
     {
       v16 = 0;
       v17 = v2;
       do
       {
-        if (*v23 != v15)
+        if (*v22 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = [*(*(&v22 + 1) + 8 * v16) value];
+        v18 = [*(*(&v21 + 1) + 8 * v16) value];
         v19 = ASSanitizedContactDestination();
 
         v2 = [v17 setByAddingObject:v19];
@@ -2530,102 +2492,99 @@ id _DestinationsForContactStoreContact(void *a1)
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v14);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
-void sub_23E5FF8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E5FF8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id ASFindContactWithDestinationsOrIdentifierInContacts(void *a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v37;
-    v30 = v8;
-    v31 = v6;
-    v28 = *v37;
+    v11 = *v35;
+    v28 = v8;
+    v29 = v6;
+    v26 = *v35;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
-        v14 = ASSanitizedContactDestination();
+        v13 = ASSanitizedContactDestination();
+        v30 = 0u;
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v35 = 0u;
-        v15 = v6;
-        v16 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
-        if (v16)
+        v14 = v6;
+        v15 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
+        if (v15)
         {
-          v17 = v16;
-          v18 = *v33;
-          v29 = v10;
+          v16 = v15;
+          v17 = *v31;
+          v27 = v10;
           while (2)
           {
-            for (j = 0; j != v17; ++j)
+            for (j = 0; j != v16; ++j)
             {
-              if (*v33 != v18)
+              if (*v31 != v17)
               {
-                objc_enumerationMutation(v15);
+                objc_enumerationMutation(v14);
               }
 
-              v20 = *(*(&v32 + 1) + 8 * j);
-              v21 = [v20 destinations];
-              v22 = [v21 containsObject:v14];
+              v19 = *(*(&v30 + 1) + 8 * j);
+              v20 = [v19 destinations];
+              v21 = [v20 containsObject:v13];
 
-              if ((v22 & 1) == 0)
+              if ((v21 & 1) == 0)
               {
-                v23 = [v20 UUID];
-                v24 = [v23 isEqual:v7];
+                v22 = [v19 UUID];
+                v23 = [v22 isEqual:v7];
 
-                if ((v24 & 1) == 0)
+                if ((v23 & 1) == 0)
                 {
                   continue;
                 }
               }
 
-              v25 = v20;
+              v24 = v19;
 
-              v8 = v30;
-              v6 = v31;
+              v8 = v28;
+              v6 = v29;
               goto LABEL_20;
             }
 
-            v17 = [v15 countByEnumeratingWithState:&v32 objects:v40 count:16];
-            v8 = v30;
-            v6 = v31;
-            v11 = v28;
-            v10 = v29;
-            if (v17)
+            v16 = [v14 countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v8 = v28;
+            v6 = v29;
+            v11 = v26;
+            v10 = v27;
+            if (v16)
             {
               continue;
             }
@@ -2635,8 +2594,8 @@ id ASFindContactWithDestinationsOrIdentifierInContacts(void *a1, void *a2, void 
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v36 objects:v41 count:16];
-      v25 = 0;
+      v10 = [v8 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v24 = 0;
     }
 
     while (v10);
@@ -2644,14 +2603,12 @@ id ASFindContactWithDestinationsOrIdentifierInContacts(void *a1, void *a2, void 
 
   else
   {
-    v25 = 0;
+    v24 = 0;
   }
 
 LABEL_20:
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v24;
 }
 
 id _MapDataToChangeTokens(void *a1)
@@ -2839,33 +2796,33 @@ uint64_t ASWriteContactToDiskCache(void *a1)
 
 uint64_t ASWriteContactsToDiskCache(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = objc_autoreleasePoolPush();
         v8 = ASWriteContactToDiskCache(v6);
         objc_autoreleasePoolPop(v7);
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
@@ -2876,18 +2833,17 @@ uint64_t ASWriteContactsToDiskCache(void *a1)
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 BOOL ASDeleteContactsFromDiskCache()
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = _ContactsCacheDirectoryPath();
-  v24 = 0;
-  v2 = [v0 contentsOfDirectoryAtURL:v1 includingPropertiesForKeys:0 options:0 error:&v24];
-  v3 = v24;
+  v23 = 0;
+  v2 = [v0 contentsOfDirectoryAtURL:v1 includingPropertiesForKeys:0 options:0 error:&v23];
+  v3 = v23;
   if (v3)
   {
     ASLoggingInitialize();
@@ -2900,32 +2856,32 @@ BOOL ASDeleteContactsFromDiskCache()
 
   else
   {
-    v17 = v2;
-    v18 = v1;
+    v16 = v2;
+    v17 = v1;
     v5 = [v2 hk_filter:&__block_literal_global_315_0];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = MEMORY[0x277CE8FE8];
-      v9 = *v21;
+      v9 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
-          v19 = 0;
-          [v0 removeItemAtURL:v11 error:&v19];
-          v12 = v19;
+          v11 = *(*(&v19 + 1) + 8 * i);
+          v18 = 0;
+          [v0 removeItemAtURL:v11 error:&v18];
+          v12 = v18;
           ASLoggingInitialize();
           v13 = *v8;
           v14 = *v8;
@@ -2934,9 +2890,9 @@ BOOL ASDeleteContactsFromDiskCache()
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v26 = v11;
-              v27 = 2112;
-              v28 = v12;
+              v25 = v11;
+              v26 = 2112;
+              v27 = v12;
               _os_log_error_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_ERROR, "Failed to delete cache file (%@): %@", buf, 0x16u);
             }
           }
@@ -2944,23 +2900,22 @@ BOOL ASDeleteContactsFromDiskCache()
           else if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v26 = v11;
+            v25 = v11;
             _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Deleted contact at URL: %@", buf, 0xCu);
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v20 objects:v29 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v28 count:16];
       }
 
       while (v7);
     }
 
-    v2 = v17;
-    v1 = v18;
+    v2 = v16;
+    v1 = v17;
     v3 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v3 == 0;
 }
 
@@ -3054,7 +3009,7 @@ LABEL_5:
 
 id CodableWorkoutBulletinForFriendWorkout(void *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   ASLoggingInitialize();
@@ -3065,11 +3020,11 @@ id CodableWorkoutBulletinForFriendWorkout(void *a1, void *a2)
     v7 = [v3 UUID];
     v8 = [v3 displayName];
     *buf = 138543874;
-    v21 = v7;
-    v22 = 2112;
-    v23 = v8;
-    v24 = 2112;
-    v25 = v4;
+    v20 = v7;
+    v21 = 2112;
+    v22 = v8;
+    v23 = 2112;
+    v24 = v4;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Creating workout bulletin for friend: %{public}@ - %@ with workout %@", buf, 0x20u);
   }
 
@@ -3090,14 +3045,12 @@ id CodableWorkoutBulletinForFriendWorkout(void *a1, void *a2)
   v17 = [v3 currentCompetition];
   [v10 setCompetitionStage:{objc_msgSend(v17, "stage")}];
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 id CodableAchievementBulletinForFriendAchievement(void *a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   ASLoggingInitialize();
@@ -3108,11 +3061,11 @@ id CodableAchievementBulletinForFriendAchievement(void *a1, void *a2)
     v7 = [v3 UUID];
     v8 = [v3 displayName];
     *buf = 138543874;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v4;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v8;
+    v24 = 2112;
+    v25 = v4;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Creating achievement bulletin for friend: %{public}@ - %@ with achievement %@", buf, 0x20u);
   }
 
@@ -3134,14 +3087,12 @@ id CodableAchievementBulletinForFriendAchievement(void *a1, void *a2)
   v18 = [v3 currentCompetition];
   [v11 setCompetitionStage:{objc_msgSend(v18, "stage")}];
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 id CodableGoalCompletionBulletinForFriendActivitySnapshot(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   ASLoggingInitialize();
@@ -3152,11 +3103,11 @@ id CodableGoalCompletionBulletinForFriendActivitySnapshot(void *a1, void *a2)
     v7 = [v3 UUID];
     v8 = [v3 displayName];
     *buf = 138543874;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v8;
-    v28 = 2112;
-    v29 = v4;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v8;
+    v27 = 2112;
+    v28 = v4;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Creating goal completion bulletin for friend: %{public}@ - %@ with snapshot %@", buf, 0x20u);
   }
 
@@ -3190,14 +3141,12 @@ id CodableGoalCompletionBulletinForFriendActivitySnapshot(void *a1, void *a2)
   v21 = [v3 currentCompetition];
   [v17 setCompetitionStage:{objc_msgSend(v21, "stage")}];
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 id CodableCompetitionBulletinForFriendForTypeWithTitle(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   v9 = a4;
@@ -3207,15 +3156,15 @@ id CodableCompetitionBulletinForFriendForTypeWithTitle(void *a1, uint64_t a2, vo
   {
     v11 = v10;
     v12 = [v7 UUID];
-    v25 = 138544130;
-    v26 = v12;
-    v27 = 2112;
-    v28 = v7;
-    v29 = 2112;
-    v30 = v8;
-    v31 = 2112;
-    v32 = v9;
-    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Creating competition bulletin for friend: %{public}@ - %@, title: %@, competition: %@", &v25, 0x2Au);
+    v24 = 138544130;
+    v25 = v12;
+    v26 = 2112;
+    v27 = v7;
+    v28 = 2112;
+    v29 = v8;
+    v30 = 2112;
+    v31 = v9;
+    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Creating competition bulletin for friend: %{public}@ - %@, title: %@, competition: %@", &v24, 0x2Au);
   }
 
   [v9 victoryBadgeStyle];
@@ -3237,8 +3186,6 @@ id CodableCompetitionBulletinForFriendForTypeWithTitle(void *a1, uint64_t a2, vo
 
   v22 = [v7 currentCompetition];
   [v20 setCompetitionStage:{objc_msgSend(v22, "stage")}];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -3439,14 +3386,14 @@ void sub_23E6063F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_23E607400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, char a63)
+void sub_23E607400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a57, 8);
   _Block_object_dispose(&a63, 8);
-  _Block_object_dispose(&a67, 8);
-  _Block_object_dispose((v67 - 256), 8);
-  _Block_object_dispose((v67 - 208), 8);
-  _Block_object_dispose((v67 - 176), 8);
+  _Block_object_dispose(&a65, 8);
+  _Block_object_dispose((v65 - 256), 8);
+  _Block_object_dispose((v65 - 208), 8);
+  _Block_object_dispose((v65 - 176), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3457,15 +3404,16 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_23E609034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E609034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3479,26 +3427,26 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
 
 void sub_23E60A680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, id a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, id a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, id a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  objc_destroyWeak((v73 + 32));
-  objc_destroyWeak((v72 + 32));
-  objc_destroyWeak((v71 + 32));
-  objc_destroyWeak((v70 + 32));
-  objc_destroyWeak((v74 + 32));
   objc_destroyWeak((v69 + 32));
-  objc_destroyWeak((v75 + 32));
+  objc_destroyWeak((v68 + 32));
+  objc_destroyWeak((v67 + 32));
+  objc_destroyWeak((v66 + 32));
+  objc_destroyWeak((v70 + 32));
+  objc_destroyWeak((v65 + 32));
+  objc_destroyWeak((v71 + 32));
   objc_destroyWeak(&a49);
   objc_destroyWeak(&a54);
   objc_destroyWeak(&a59);
   objc_destroyWeak(&a64);
-  objc_destroyWeak(&a69);
+  objc_destroyWeak(&a65);
   objc_destroyWeak(&STACK[0x208]);
   objc_destroyWeak(&STACK[0x230]);
   objc_destroyWeak(&STACK[0x258]);
   objc_destroyWeak(&STACK[0x280]);
-  objc_destroyWeak((v76 - 200));
-  objc_destroyWeak((v76 - 160));
-  objc_destroyWeak((v76 - 120));
-  objc_destroyWeak((v76 - 112));
+  objc_destroyWeak((v72 - 200));
+  objc_destroyWeak((v72 - 160));
+  objc_destroyWeak((v72 - 120));
+  objc_destroyWeak((v72 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -3561,9 +3509,9 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E60F8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23E60F8C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3574,9 +3522,9 @@ void OUTLINED_FUNCTION_0_4(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_error_impl(a1, v5, OS_LOG_TYPE_ERROR, a4, v4, 0xCu);
 }
 
-void sub_23E614010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E614010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3653,17 +3601,18 @@ id _CreateZoneSubscription(void *a1, uint64_t a2, int a3)
   return v6;
 }
 
-void sub_23E615690(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_23E615690(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
   if (a2 == 1)
   {
-    v13 = objc_begin_catch(exception_object);
+    v12 = objc_begin_catch(exception_object);
     ASLoggingInitialize();
-    v14 = *MEMORY[0x277CE8FD0];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = *MEMORY[0x277CE8FD0];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = [v13 reason];
-      __44__ASCloudKitManager_beginHandlingOperations__block_invoke_cold_1(v15, &buf, v14);
+      v14 = [v12 reason];
+      __44__ASCloudKitManager_beginHandlingOperations__block_invoke_cold_1(v14, va, v13);
     }
 
     objc_end_catch();
@@ -3673,7 +3622,7 @@ void sub_23E615690(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23E61683C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_23E61683C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a46, 8);
   _Block_object_dispose(&a52, 8);
@@ -3695,9 +3644,9 @@ uint64_t __Block_byref_object_copy__8(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E619EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E619EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3713,6 +3662,13 @@ void sub_23E61B9D8(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v1 + 32));
   objc_destroyWeak((v2 - 24));
+  _Unwind_Resume(a1);
+}
+
+void sub_23E61E3A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3733,14 +3689,14 @@ uint64_t ASRemoveAllActivitySharingUserDefaults()
   return v3;
 }
 
-void sub_23E6213D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_23E6213D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
-  objc_destroyWeak((v8 + 32));
-  objc_destroyWeak((v6 + 32));
-  objc_destroyWeak((v7 + 32));
-  objc_destroyWeak((v9 - 88));
+  objc_destroyWeak((v13 + 32));
+  objc_destroyWeak((v11 + 32));
+  objc_destroyWeak((v12 + 32));
+  objc_destroyWeak((v14 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -3751,10 +3707,11 @@ uint64_t __Block_byref_object_copy__9(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_23E62CCEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
@@ -3785,9 +3742,9 @@ void sub_23E631EAC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23E636698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23E636698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3799,48 +3756,46 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E63D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23E63D9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 128), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 128), 8);
   _Unwind_Resume(a1);
 }
 
 id ASCompetitionPredicateForFriendUUIDAndType(uint64_t a1, uint64_t a2)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D10B18] predicateWithProperty:@"friend_uuid" equalToValue:a1];
   v4 = MEMORY[0x277D10B18];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
   v6 = [v4 predicateWithProperty:@"competition_type" equalToValue:v5];
 
   v7 = MEMORY[0x277D10B20];
-  v12[0] = v3;
-  v12[1] = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[0] = v3;
+  v11[1] = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [v7 predicateMatchingAllPredicates:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 id ASAllDatabaseCompetitionKeys()
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v3[0] = @"friend_uuid";
-  v3[1] = @"competition_uuid";
-  v3[2] = @"competition_type";
-  v3[3] = @"current_cache_index";
-  v3[4] = @"last_pushed_cache_index";
-  v3[5] = @"scores";
-  v3[6] = @"opponent_scores";
-  v3[7] = @"start_date_components";
-  v3[8] = @"duration_date_components";
-  v3[9] = @"preferred_victory_badge_styles";
-  v3[10] = @"maximum_points_per_day";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:11];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[11] = *MEMORY[0x277D85DE8];
+  v2[0] = @"friend_uuid";
+  v2[1] = @"competition_uuid";
+  v2[2] = @"competition_type";
+  v2[3] = @"current_cache_index";
+  v2[4] = @"last_pushed_cache_index";
+  v2[5] = @"scores";
+  v2[6] = @"opponent_scores";
+  v2[7] = @"start_date_components";
+  v2[8] = @"duration_date_components";
+  v2[9] = @"preferred_victory_badge_styles";
+  v2[10] = @"maximum_points_per_day";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:11];
 
   return v0;
 }
@@ -3878,9 +3833,9 @@ id _FriendUUIDFromDefaults(void *a1)
   return v6;
 }
 
-void sub_23E643A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E643A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3901,16 +3856,16 @@ id _ActivitySharingDefaults()
   return v1;
 }
 
-id ASCloudKitGroupInitialSetup()
+id ASCloudKitGroupInitialSetup(uint64_t a1)
 {
   if (ASCloudKitGroupInitialSetup_onceToken != -1)
   {
     ASCloudKitGroupInitialSetup_cold_1();
   }
 
-  v1 = ASCloudKitGroupInitialSetup___group;
+  v2 = ASCloudKitGroupInitialSetup___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupInitialSetup_block_invoke()
@@ -3924,16 +3879,16 @@ uint64_t __ASCloudKitGroupInitialSetup_block_invoke()
   return [v2 setName:@"InitialSetup"];
 }
 
-id ASCloudKitGroupInitialDownload()
+id ASCloudKitGroupInitialDownload(uint64_t a1)
 {
   if (ASCloudKitGroupInitialDownload_onceToken != -1)
   {
     ASCloudKitGroupInitialDownload_cold_1();
   }
 
-  v1 = ASCloudKitGroupInitialDownload___group;
+  v2 = ASCloudKitGroupInitialDownload___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupInitialDownload_block_invoke()
@@ -3947,16 +3902,16 @@ uint64_t __ASCloudKitGroupInitialDownload_block_invoke()
   return [v2 setName:@"InitialDownload"];
 }
 
-id ASCloudKitGroupCoreDuetTriggered()
+id ASCloudKitGroupCoreDuetTriggered(uint64_t a1)
 {
   if (ASCloudKitGroupCoreDuetTriggered_onceToken != -1)
   {
     ASCloudKitGroupCoreDuetTriggered_cold_1();
   }
 
-  v1 = ASCloudKitGroupCoreDuetTriggered___group;
+  v2 = ASCloudKitGroupCoreDuetTriggered___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupCoreDuetTriggered_block_invoke()
@@ -3970,16 +3925,16 @@ uint64_t __ASCloudKitGroupCoreDuetTriggered_block_invoke()
   return [v2 setName:@"CoreDuetTriggered"];
 }
 
-id ASCloudKitGroupPushTriggered()
+id ASCloudKitGroupPushTriggered(uint64_t a1)
 {
   if (ASCloudKitGroupPushTriggered_onceToken != -1)
   {
     ASCloudKitGroupPushTriggered_cold_1();
   }
 
-  v1 = ASCloudKitGroupPushTriggered___group;
+  v2 = ASCloudKitGroupPushTriggered___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupPushTriggered_block_invoke()
@@ -3993,16 +3948,16 @@ uint64_t __ASCloudKitGroupPushTriggered_block_invoke()
   return [v2 setName:@"PushTriggered"];
 }
 
-id ASCloudKitGroupUserActionExplicit()
+id ASCloudKitGroupUserActionExplicit(uint64_t a1)
 {
   if (ASCloudKitGroupUserActionExplicit_onceToken != -1)
   {
     ASCloudKitGroupUserActionExplicit_cold_1();
   }
 
-  v1 = ASCloudKitGroupUserActionExplicit___group;
+  v2 = ASCloudKitGroupUserActionExplicit___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupUserActionExplicit_block_invoke()
@@ -4016,16 +3971,16 @@ uint64_t __ASCloudKitGroupUserActionExplicit_block_invoke()
   return [v2 setName:@"UserActionExplicit"];
 }
 
-id ASCloudKitGroupUserActionImplicit()
+id ASCloudKitGroupUserActionImplicit(uint64_t a1)
 {
   if (ASCloudKitGroupUserActionImplicit_onceToken != -1)
   {
     ASCloudKitGroupUserActionImplicit_cold_1();
   }
 
-  v1 = ASCloudKitGroupUserActionImplicit___group;
+  v2 = ASCloudKitGroupUserActionImplicit___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupUserActionImplicit_block_invoke()
@@ -4039,16 +3994,16 @@ uint64_t __ASCloudKitGroupUserActionImplicit_block_invoke()
   return [v2 setName:@"UserActionImplicit"];
 }
 
-id ASCloudKitGroupSharingSetup()
+id ASCloudKitGroupSharingSetup(uint64_t a1)
 {
   if (ASCloudKitGroupSharingSetup_onceToken != -1)
   {
     ASCloudKitGroupSharingSetup_cold_1();
   }
 
-  v1 = ASCloudKitGroupSharingSetup___group;
+  v2 = ASCloudKitGroupSharingSetup___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupSharingSetup_block_invoke()
@@ -4062,16 +4017,16 @@ uint64_t __ASCloudKitGroupSharingSetup_block_invoke()
   return [v2 setName:@"SharingSetup"];
 }
 
-id ASCloudKitGroupManateeInvitation()
+id ASCloudKitGroupManateeInvitation(uint64_t a1)
 {
   if (ASCloudKitGroupManateeInvitation_onceToken != -1)
   {
     ASCloudKitGroupManateeInvitation_cold_1();
   }
 
-  v1 = ASCloudKitGroupManateeInvitation___group;
+  v2 = ASCloudKitGroupManateeInvitation___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupManateeInvitation_block_invoke()
@@ -4085,16 +4040,16 @@ uint64_t __ASCloudKitGroupManateeInvitation_block_invoke()
   return [v2 setName:@"ManateeInvitation"];
 }
 
-id ASCloudKitGroupManateeAddContainer()
+id ASCloudKitGroupManateeAddContainer(uint64_t a1)
 {
   if (ASCloudKitGroupManateeAddContainer_onceToken != -1)
   {
     ASCloudKitGroupManateeAddContainer_cold_1();
   }
 
-  v1 = ASCloudKitGroupManateeAddContainer___group;
+  v2 = ASCloudKitGroupManateeAddContainer___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupManateeAddContainer_block_invoke()
@@ -4108,16 +4063,16 @@ uint64_t __ASCloudKitGroupManateeAddContainer_block_invoke()
   return [v2 setName:@"ManateeAddContainer"];
 }
 
-id ASCloudKitGroupManateeMigrate()
+id ASCloudKitGroupManateeMigrate(uint64_t a1)
 {
   if (ASCloudKitGroupManateeMigrate_onceToken != -1)
   {
     ASCloudKitGroupManateeMigrate_cold_1();
   }
 
-  v1 = ASCloudKitGroupManateeMigrate___group;
+  v2 = ASCloudKitGroupManateeMigrate___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupManateeMigrate_block_invoke()
@@ -4131,16 +4086,16 @@ uint64_t __ASCloudKitGroupManateeMigrate_block_invoke()
   return [v2 setName:@"ManateeMigrate"];
 }
 
-id ASCloudKitGroupManateeDowngrade()
+id ASCloudKitGroupManateeDowngrade(uint64_t a1)
 {
   if (ASCloudKitGroupManateeDowngrade_onceToken != -1)
   {
     ASCloudKitGroupManateeDowngrade_cold_1();
   }
 
-  v1 = ASCloudKitGroupManateeDowngrade___group;
+  v2 = ASCloudKitGroupManateeDowngrade___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupManateeDowngrade_block_invoke()
@@ -4154,16 +4109,16 @@ uint64_t __ASCloudKitGroupManateeDowngrade_block_invoke()
   return [v2 setName:@"ManateeDowngrade"];
 }
 
-id ASCloudKitGroupManateeRepair()
+id ASCloudKitGroupManateeRepair(uint64_t a1)
 {
   if (ASCloudKitGroupManateeRepair_onceToken != -1)
   {
     ASCloudKitGroupManateeRepair_cold_1();
   }
 
-  v1 = ASCloudKitGroupManateeRepair___group;
+  v2 = ASCloudKitGroupManateeRepair___group;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ASCloudKitGroupManateeRepair_block_invoke()
@@ -4202,12 +4157,13 @@ void _NotifyOnMainQueue(char a1, void *a2, void *a3)
   }
 }
 
-void sub_23E651060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_23E651060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  _Block_object_dispose(&a35, 8);
-  _Block_object_dispose((v35 - 240), 8);
-  _Block_object_dispose((v35 - 192), 8);
-  _Block_object_dispose((v35 - 144), 8);
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v34 - 240), 8);
+  _Block_object_dispose((v34 - 192), 8);
+  _Block_object_dispose((v34 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4218,20 +4174,22 @@ uint64_t __Block_byref_object_copy__13(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E651C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_23E651C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
+  va_start(va, a57);
   _Block_object_dispose(&a52, 8);
-  _Block_object_dispose(&a58, 8);
-  _Block_object_dispose((v58 - 248), 8);
-  _Block_object_dispose((v58 - 200), 8);
-  _Block_object_dispose((v58 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v57 - 248), 8);
+  _Block_object_dispose((v57 - 200), 8);
+  _Block_object_dispose((v57 - 152), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E65465C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_23E65465C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a18, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4251,23 +4209,16 @@ uint64_t _IsRelationshipTransitioningToInactive(void *a1, void *a2)
   return v4 & (v5 ^ 1u);
 }
 
-id _DeviceBuildNumber()
+id _DeviceBuildNumber(uint64_t a1)
 {
   if (_DeviceBuildNumber_onceToken != -1)
   {
     _DeviceBuildNumber_cold_1();
   }
 
-  v1 = _DeviceBuildNumber_buildNumber;
+  v2 = _DeviceBuildNumber_buildNumber;
 
-  return v1;
-}
-
-uint64_t OUTLINED_FUNCTION_7@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
+  return v2;
 }
 
 id _ASOperationConfigurationForPriority(uint64_t a1, void *a2)
@@ -4294,9 +4245,9 @@ LABEL_5:
   return v5;
 }
 
-void sub_23E658A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E658A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4308,33 +4259,33 @@ uint64_t __Block_byref_object_copy__14(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23E658F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23E658F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23E659634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23E659634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _ASRecordIDsForRecords(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v2 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     v5 = MEMORY[0x277CBEBF8];
     do
     {
@@ -4342,12 +4293,12 @@ id _ASRecordIDsForRecords(void *a1)
       v7 = v5;
       do
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * v6) recordID];
+        v8 = [*(*(&v10 + 1) + 8 * v6) recordID];
         v5 = [v7 arrayByAddingObject:v8];
 
         ++v6;
@@ -4355,7 +4306,7 @@ id _ASRecordIDsForRecords(void *a1)
       }
 
       while (v3 != v6);
-      v3 = [v1 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
@@ -4365,8 +4316,6 @@ id _ASRecordIDsForRecords(void *a1)
   {
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -4386,14 +4335,6 @@ void sub_23E65C394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ASRelationshipForRecords_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error de-serializing relationships: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void ASAllRelationshipsByRecordIDForCloudType_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
@@ -4401,36 +4342,11 @@ void ASAllRelationshipsByRecordIDForCloudType_cold_1(uint8_t *buf, _BYTE *a2, os
   _os_log_error_impl(&dword_23E5E3000, log, OS_LOG_TYPE_ERROR, "RelationshipManager received invalid cloud type for relationships by recordID", buf, 2u);
 }
 
-void __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "RelationshipManager relationship %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "RelationshipManager conflicts with %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke_cold_4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "RelationshipManger resolved to the newest relationship: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __ASResolveDuplicateRelationshipByCloudKitAddress_block_invoke_cold_5()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_23E5E3000, v0, OS_LOG_TYPE_DEBUG, "RelationshipManager found relationship that didn't have a cloudKit address, not checking for duplicates: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23E5E3000, v0, OS_LOG_TYPE_DEBUG, "RelationshipManager found relationship that didn't have a cloudKit address, not checking for duplicates: %@", v1, 0xCu);
 }
 
 void __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4442,51 +4358,30 @@ void __ASReconcileRelationshipsAgainstAddressBook_block_invoke_2_cold_1(uint8_t 
 
 void _CreateContactsCacheDirectory_cold_1(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = _ContactsCacheDirectoryPath();
   OUTLINED_FUNCTION_0_2();
-  v7 = a2;
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Error creating cache directory (%@): %@", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ASReadContactFromDiskCache_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error reading from file (%@): %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void ASWriteContactToDiskCache_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error writing to file (%@): %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = a2;
+  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Error creating cache directory (%@): %@", v5, 0x16u);
 }
 
 void ASDeleteContactsFromDiskCache_cold_1(void *a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 path];
   OUTLINED_FUNCTION_0_2();
-  v9 = a3;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Error reading all files at (%@): %@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a3;
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Error reading all files at (%@): %@", v7, 0x16u);
 }
 
 void _IsRelationshipTransitioningToInactive_cold_1(char a1, char a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a1 & 1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_debug_impl(&dword_23E5E3000, log, OS_LOG_TYPE_DEBUG, "RelationshipManager wasPreviouslyActive=%d, isCurrentlyActive=%d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a1 & 1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_debug_impl(&dword_23E5E3000, log, OS_LOG_TYPE_DEBUG, "RelationshipManager wasPreviouslyActive=%d, isCurrentlyActive=%d", v3, 0xEu);
 }

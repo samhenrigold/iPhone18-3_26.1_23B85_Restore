@@ -8,6 +8,7 @@
 - (SPSearchSuggestionResult)initWithSearchSuggestion:(id)suggestion query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id;
 - (SPSearchSuggestionResult)initWithSpotlightSuggestion:(id)suggestion query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id;
 - (id)localSuggestionFeatures;
+- (id)suggestionsFeedbackData;
 - (int64_t)compareByRank:(id)rank;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -16,7 +17,7 @@
 
 + (void)updateRankingItemForSuggestionResult:(id)result
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   if ([resultCopy type] == 32 || objc_msgSend(resultCopy, "type") == 38)
   {
@@ -26,14 +27,14 @@
 
     [resultCopy rankingScore];
     [(PRSRankingItem *)v4 setSuggestionScore:?];
-    v19 = @"suggestion score";
+    v18 = @"suggestion score";
     v6 = MEMORY[0x1E696AD98];
     [(PRSRankingItem *)v4 suggestionScore];
     v7 = [v6 numberWithDouble:?];
-    v20[0] = v7;
+    v19[0] = v7;
     v8 = MEMORY[0x1E695DF20];
-    v9 = v20;
-    v10 = &v19;
+    v9 = v19;
+    v10 = &v18;
   }
 
   else
@@ -54,14 +55,14 @@
 
     [resultCopy rankingScore];
     [(PRSRankingItem *)v4 setSuggestionScore:?];
-    v17 = @"suggestion score";
-    v16 = MEMORY[0x1E696AD98];
+    v16 = @"suggestion score";
+    v15 = MEMORY[0x1E696AD98];
     [(PRSRankingItem *)v4 suggestionScore];
-    v7 = [v16 numberWithDouble:?];
-    v18 = v7;
+    v7 = [v15 numberWithDouble:?];
+    v17 = v7;
     v8 = MEMORY[0x1E695DF20];
-    v9 = &v18;
-    v10 = &v17;
+    v9 = &v17;
+    v10 = &v16;
   }
 
   v11 = [v8 dictionaryWithObjects:v9 forKeys:v10 count:1];
@@ -73,7 +74,6 @@ LABEL_5:
   [(PRSRankingItem *)v4 setSectionBundleIdentifier:sectionBundleIdentifier];
 
   [resultCopy setRankingItem:v4];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)searchSuggestionRankingResultWithResult:(id)result query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id
@@ -102,16 +102,16 @@ LABEL_5:
 
 - (SPSearchSuggestionResult)initWithSearchResult:(id)result query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id
 {
-  v85[1] = *MEMORY[0x1E69E9840];
+  v84[1] = *MEMORY[0x1E69E9840];
   resultCopy = result;
   obj = query;
   queryCopy = query;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
   v12 = resultCopy;
-  v80.receiver = self;
-  v80.super_class = SPSearchSuggestionResult;
-  v13 = [(SFSearchResult_SpotlightExtras *)&v80 initWithResult:v12 groupId:0];
+  v79.receiver = self;
+  v79.super_class = SPSearchSuggestionResult;
+  v13 = [(SFSearchResult_SpotlightExtras *)&v79 initWithResult:v12 groupId:0];
   v14 = v13;
   if (v13)
   {
@@ -220,8 +220,8 @@ LABEL_5:
         personQueryIdentifier4 = [completion personQueryIdentifier];
         [(SFSearchResult_SpotlightExtras *)v14 setPersonQueryIdentifier:personQueryIdentifier4];
 
-        v85[0] = completion;
-        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:1];
+        v84[0] = completion;
+        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v84 count:1];
         personIdentifier6 = [(SFSearchResult_SpotlightExtras *)v14 personIdentifier];
         if (personIdentifier6)
         {
@@ -261,8 +261,8 @@ LABEL_5:
 
       if (personQueryIdentifier3)
       {
-        v84 = personQueryIdentifier3;
-        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
+        v83 = personQueryIdentifier3;
+        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
       }
 
       else
@@ -291,8 +291,8 @@ LABEL_5:
         if (objc_opt_isKindOfClass())
         {
           v50 = [(SPSearchEntity *)SPSearchCommandEntity searchEntityWithCommand:personQueryIdentifier3 fromSuggestion:1];
-          v83 = v50;
-          v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+          v82 = v50;
+          v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
 
           searchString = [personQueryIdentifier3 searchString];
           goto LABEL_70;
@@ -403,7 +403,7 @@ LABEL_59:
           else
           {
             resultBundleId4 = [(SPSearchSuggestionResult *)v14 resultBundleId];
-            v81[0] = resultBundleId4;
+            v80[0] = resultBundleId4;
             completion3 = [(SPSearchSuggestionResult *)v14 completion];
             v64 = completion3;
             if (completion3)
@@ -416,8 +416,8 @@ LABEL_59:
               v65 = &stru_1F556FE60;
             }
 
-            v81[1] = v65;
-            [MEMORY[0x1E695DEC8] arrayWithObjects:v81 count:2];
+            v80[1] = v65;
+            [MEMORY[0x1E695DEC8] arrayWithObjects:v80 count:2];
             v67 = v66 = queryCopy;
             v68 = [v67 componentsJoinedByString:@":"];
             [(SPSearchSuggestionResult *)v14 setIdentifier:v68];
@@ -441,8 +441,8 @@ LABEL_59:
         [MEMORY[0x1E696AEC0] stringWithFormat:@"**=%@cwd || _kMDItemLaunchString=%@cwd", v56, v56, obj];
         v58 = v57 = queryCopy;
         v59 = [SPSearchEntity searchEntityWithSearchString:personIdentifier6 spotlightQueryString:v58 preferredBundleIDs:0];
-        v82 = v59;
-        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v82 count:1];
+        v81 = v59;
+        v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v81 count:1];
 
         queryCopy = v57;
       }
@@ -460,7 +460,6 @@ LABEL_59:
 
 LABEL_60:
 
-  v73 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -478,13 +477,13 @@ LABEL_60:
 
 - (SPSearchSuggestionResult)initWithSpotlightSuggestion:(id)suggestion query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id
 {
-  v46[2] = *MEMORY[0x1E69E9840];
+  v45[2] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   queryCopy = query;
   identifierCopy = identifier;
-  v44.receiver = self;
-  v44.super_class = SPSearchSuggestionResult;
-  v14 = [(SFSearchResult_SpotlightExtras *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = SPSearchSuggestionResult;
+  v14 = [(SFSearchResult_SpotlightExtras *)&v43 init];
   v15 = v14;
   if (!v14)
   {
@@ -504,9 +503,9 @@ LABEL_60:
 
   v20 = @"com.apple.spotlight.suggestionlist.local";
   localFeatures = [(SPSearchSuggestionResult *)v15 localFeatures];
-  v42 = identifierCopy;
-  v43 = queryCopy;
-  v41 = localFeatures;
+  v41 = identifierCopy;
+  v42 = queryCopy;
+  v40 = localFeatures;
   if (localFeatures)
   {
     v22 = [localFeatures objectForKeyedSubscript:@"completionType"];
@@ -617,25 +616,25 @@ LABEL_26:
     v33 = &stru_1F556FE60;
   }
 
-  v46[0] = v32;
-  v46[1] = v33;
-  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+  v45[0] = v32;
+  v45[1] = v33;
+  v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
   v35 = [v34 componentsJoinedByString:@": "];
   [(SPSearchSuggestionResult *)v15 setIdentifier:v35];
 
   v36 = [MEMORY[0x1E69CA4F0] textWithString:string];
   [(SPSearchSuggestionResult *)v15 setTitle:v36];
 
-  identifierCopy = v42;
-  [(SPSearchSuggestionResult *)v15 setSectionBundleIdentifier:v42];
+  identifierCopy = v41;
+  [(SPSearchSuggestionResult *)v15 setSectionBundleIdentifier:v41];
   [(SPSearchSuggestionResult *)v15 setType:v27];
   [(SPSearchSuggestionResult *)v15 setCompletion:string];
   [(SPSearchSuggestionResult *)v15 setResultBundleId:v20];
   [(SFSearchResult_SpotlightExtras *)v15 setProtectionClass:&stru_1F556FE60];
   if (v26)
   {
-    v45 = v26;
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v45 count:1];
+    v44 = v26;
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
   }
 
   else
@@ -643,7 +642,7 @@ LABEL_26:
     v37 = 0;
   }
 
-  queryCopy = v43;
+  queryCopy = v42;
   objc_storeStrong(&v15->_searchEntities, v37);
   if (v26)
   {
@@ -652,19 +651,18 @@ LABEL_26:
   objc_storeStrong(&v15->_query, query);
 
 LABEL_38:
-  v38 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (SPSearchSuggestionResult)initWithSearchSuggestion:(id)suggestion query:(id)query sectionBundleIdentifier:(id)identifier queryId:(unint64_t)id
 {
-  v50[2] = *MEMORY[0x1E69E9840];
+  v49[2] = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
   queryCopy = query;
   identifierCopy = identifier;
-  v49.receiver = self;
-  v49.super_class = SPSearchSuggestionResult;
-  v14 = [(SFSearchResult_SpotlightExtras *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = SPSearchSuggestionResult;
+  v14 = [(SFSearchResult_SpotlightExtras *)&v48 init];
   if (!v14)
   {
     goto LABEL_46;
@@ -693,9 +691,9 @@ LABEL_7:
   [suggestionCopy score];
   v20 = v19;
   type = [suggestionCopy type];
-  v47 = identifierCopy;
-  v48 = queryCopy;
-  v45 = lastObject;
+  v46 = identifierCopy;
+  v47 = queryCopy;
+  v44 = lastObject;
   obj = query;
   if (type <= 6)
   {
@@ -739,7 +737,7 @@ LABEL_38:
     }
 
 LABEL_29:
-    if (lastObject && [lastObject isAppEntitySearch] || (objc_msgSend(suggestionCopy, "bundleIdentifier"), v27 = objc_claimAutoreleasedReturnValue(), v43 = objc_msgSend(v27, "isEqualToString:", @"com.apple.application"), v27, v43))
+    if (lastObject && [lastObject isAppEntitySearch] || (objc_msgSend(suggestionCopy, "bundleIdentifier"), v27 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v27, "isEqualToString:", @"com.apple.application"), v27, v42))
     {
       v23 = @"com.apple.application";
 
@@ -846,9 +844,9 @@ LABEL_39:
     v32 = &stru_1F556FE60;
   }
 
-  v50[0] = v31;
-  v50[1] = v32;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+  v49[0] = v31;
+  v49[1] = v32;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
   v34 = [v33 componentsJoinedByString:@": "];
   [(SPSearchSuggestionResult *)v14 setIdentifier:v34];
 
@@ -858,8 +856,8 @@ LABEL_39:
   v36 = [suggestionCopy fbr];
   [(SPSearchSuggestionResult *)v14 setFbr:v36];
 
-  identifierCopy = v47;
-  [(SPSearchSuggestionResult *)v14 setSectionBundleIdentifier:v47];
+  identifierCopy = v46;
+  [(SPSearchSuggestionResult *)v14 setSectionBundleIdentifier:v46];
   [(SPSearchSuggestionResult *)v14 setType:v22];
   [(SPSearchSuggestionResult *)v14 setCompletion:suggestion];
   [(SPSearchSuggestionResult *)v14 setResultBundleId:v18];
@@ -877,10 +875,9 @@ LABEL_39:
   objc_storeStrong(&v14->_suggestion, suggestion);
   objc_storeStrong(&v14->_query, obj);
 
-  queryCopy = v48;
+  queryCopy = v47;
 LABEL_46:
 
-  v41 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -1252,19 +1249,305 @@ LABEL_27:
   return dictionary;
 }
 
-void __51__SPSearchSuggestionResult_localSuggestionFeatures__block_invoke()
+void __51__SPSearchSuggestionResult_localSuggestionFeatures__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5 = objc_opt_class();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:3];
-  v2 = [v0 setWithArray:{v1, v5, v6}];
-  v3 = localSuggestionFeatures_sFeatureClasses;
-  localSuggestionFeatures_sFeatureClasses = v2;
+  v8 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:3];
+  v4 = [v2 setWithArray:{v3, v6, v7}];
+  v5 = localSuggestionFeatures_sFeatureClasses;
+  localSuggestionFeatures_sFeatureClasses = v4;
+}
 
-  v4 = *MEMORY[0x1E69E9840];
+- (id)suggestionsFeedbackData
+{
+  v119 = *MEMORY[0x1E69E9840];
+  dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v4 = SSRoundDouble(4, [(SPSearchSuggestionResult *)self type]);
+  [dictionary setValue:v4 forKey:@"type"];
+
+  query = [(SPSearchSuggestionResult *)self query];
+  v6 = SSRoundDouble(4, [query length]);
+  [dictionary setValue:v6 forKey:@"plen"];
+
+  score = [(SFSearchResult_SpotlightExtras *)self score];
+  v8 = SSRoundDouble(4, *&score);
+  [dictionary setValue:v8 forKey:@"score"];
+
+  completion = [(SPSearchSuggestionResult *)self completion];
+  v10 = SSRoundDouble(4, [completion length]);
+  [dictionary setValue:v10 forKey:@"slen"];
+
+  query2 = [(SPSearchSuggestionResult *)self query];
+  v12 = [query2 length];
+  completion2 = [(SPSearchSuggestionResult *)self completion];
+  v14 = SSRoundDouble(4, v12 / ([completion2 length] + 1.0));
+  [dictionary setValue:v14 forKey:@"ratio"];
+
+  serverFeatures = [(SPSearchSuggestionResult *)self serverFeatures];
+  localFeatures = [(SPSearchSuggestionResult *)self localFeatures];
+  if (objc_msgSend_count(serverFeatures))
+  {
+    v116 = 0u;
+    v117 = 0u;
+    v114 = 0u;
+    v115 = 0u;
+    serverFeatures2 = [(SPSearchSuggestionResult *)self serverFeatures];
+    v16 = [serverFeatures2 countByEnumeratingWithState:&v114 objects:v118 count:16];
+    if (v16)
+    {
+      v17 = *v115;
+      do
+      {
+        for (i = 0; i != v16; ++i)
+        {
+          if (*v115 != v17)
+          {
+            objc_enumerationMutation(serverFeatures2);
+          }
+
+          v19 = *(*(&v114 + 1) + 8 * i);
+          serverFeatures3 = [(SPSearchSuggestionResult *)self serverFeatures];
+          v21 = [serverFeatures3 objectForKeyedSubscript:v19];
+          [v21 doubleValue];
+          v23 = SSRoundDouble(4, v22);
+          [dictionary setValue:v23 forKey:v19];
+        }
+
+        v16 = [serverFeatures2 countByEnumeratingWithState:&v114 objects:v118 count:16];
+      }
+
+      while (v16);
+    }
+  }
+
+  else if (objc_msgSend_count(localFeatures))
+  {
+    v26 = [localFeatures objectForKeyedSubscript:@"stype"];
+
+    if (v26)
+    {
+      v27 = [localFeatures objectForKeyedSubscript:@"stype"];
+      [v27 doubleValue];
+      v29 = SSRoundDouble(4, v28);
+      [dictionary setValue:v29 forKey:@"stype"];
+    }
+
+    v30 = [localFeatures objectForKeyedSubscript:@"sslen"];
+
+    if (v30)
+    {
+      v31 = [localFeatures objectForKeyedSubscript:@"sslen"];
+      [v31 doubleValue];
+      v33 = SSRoundDouble(4, v32);
+      [dictionary setValue:v33 forKey:@"sslen"];
+    }
+
+    v34 = [localFeatures objectForKeyedSubscript:@"sscore"];
+
+    if (v34)
+    {
+      v35 = [localFeatures objectForKeyedSubscript:@"sscore"];
+      [v35 doubleValue];
+      v37 = SSRoundDouble(4, v36);
+      [dictionary setValue:v37 forKey:@"sscore"];
+    }
+
+    v38 = [localFeatures objectForKeyedSubscript:@"queryLen"];
+
+    if (v38)
+    {
+      v39 = [localFeatures objectForKeyedSubscript:@"queryLen"];
+      [v39 doubleValue];
+      v41 = SSRoundDouble(4, v40);
+      [dictionary setValue:v41 forKey:@"queryLen"];
+    }
+
+    v42 = [localFeatures objectForKeyedSubscript:@"queryFragmentCount"];
+
+    if (v42)
+    {
+      v43 = [localFeatures objectForKeyedSubscript:@"queryFragmentCount"];
+      [v43 doubleValue];
+      v45 = SSRoundDouble(4, v44);
+      [dictionary setValue:v45 forKey:@"queryFragmentCount"];
+    }
+
+    v46 = [localFeatures objectForKeyedSubscript:@"queryCompletionCount"];
+
+    if (v46)
+    {
+      v47 = [localFeatures objectForKeyedSubscript:@"queryCompletionCount"];
+      v48 = SSRoundUInt64([v47 unsignedLongValue]);
+      [dictionary setValue:v48 forKey:@"queryCompletionCount"];
+    }
+
+    v49 = [localFeatures objectForKeyedSubscript:@"fragments"];
+
+    if (v49)
+    {
+      v50 = [localFeatures objectForKeyedSubscript:@"fragments"];
+      [v50 doubleValue];
+      v52 = SSRoundDouble(4, v51);
+      [dictionary setValue:v52 forKey:@"fragments"];
+    }
+
+    v53 = [localFeatures objectForKeyedSubscript:@"age"];
+
+    if (v53)
+    {
+      v54 = [localFeatures objectForKeyedSubscript:@"age"];
+      [v54 doubleValue];
+      v56 = SSRoundDouble(4, v55);
+      [dictionary setValue:v56 forKey:@"age"];
+    }
+
+    v57 = [localFeatures objectForKeyedSubscript:@"prob"];
+
+    if (v57)
+    {
+      v58 = [localFeatures objectForKeyedSubscript:@"prob"];
+      [v58 doubleValue];
+      v60 = SSRoundDouble(2, v59);
+      [dictionary setValue:v60 forKey:@"prob"];
+    }
+
+    v61 = [localFeatures objectForKeyedSubscript:@"maxscore"];
+
+    if (v61)
+    {
+      v62 = [localFeatures objectForKeyedSubscript:@"maxscore"];
+      v63 = SSRoundUInt64([v62 unsignedLongValue]);
+      [dictionary setValue:v63 forKey:@"maxscore"];
+    }
+
+    v64 = [localFeatures objectForKeyedSubscript:@"weight"];
+
+    if (v64)
+    {
+      v65 = [localFeatures objectForKeyedSubscript:@"weight"];
+      [v65 doubleValue];
+      v67 = SSRoundDouble(4, v66);
+      [dictionary setValue:v67 forKey:@"weight"];
+    }
+
+    v68 = [localFeatures objectForKeyedSubscript:@"parentWeight"];
+
+    if (v68)
+    {
+      v69 = [localFeatures objectForKeyedSubscript:@"parentWeight"];
+      [v69 doubleValue];
+      v71 = SSRoundDouble(4, v70);
+      [dictionary setValue:v71 forKey:@"parentWeight"];
+    }
+
+    v72 = [localFeatures objectForKeyedSubscript:@"rootWeight"];
+
+    if (v72)
+    {
+      v73 = [localFeatures objectForKeyedSubscript:@"rootWeight"];
+      [v73 doubleValue];
+      v75 = SSRoundDouble(4, v74);
+      [dictionary setValue:v75 forKey:@"rootWeight"];
+    }
+
+    v76 = [localFeatures objectForKeyedSubscript:@"phraseScore"];
+
+    if (v76)
+    {
+      v77 = [localFeatures objectForKeyedSubscript:@"phraseScore"];
+      [v77 doubleValue];
+      v79 = SSRoundDouble(4, v78);
+      [dictionary setValue:v79 forKey:@"phraseScore"];
+    }
+
+    v80 = [localFeatures objectForKeyedSubscript:@"punishment"];
+
+    if (v80)
+    {
+      v81 = [localFeatures objectForKeyedSubscript:@"punishment"];
+      [v81 doubleValue];
+      v83 = SSRoundDouble(4, v82);
+      [dictionary setValue:v83 forKey:@"punishment"];
+    }
+
+    v84 = [localFeatures objectForKeyedSubscript:@"compositeScore"];
+
+    if (v84)
+    {
+      v85 = [localFeatures objectForKeyedSubscript:@"compositeScore"];
+      [v85 doubleValue];
+      v87 = SSRoundDouble(4, v86);
+      [dictionary setValue:v87 forKey:@"compositeScore"];
+    }
+
+    v88 = [localFeatures objectForKeyedSubscript:@"completionType"];
+
+    if (v88)
+    {
+      v89 = [localFeatures objectForKeyedSubscript:@"completionType"];
+      [v89 doubleValue];
+      v91 = SSRoundDouble(4, v90);
+      [dictionary setValue:v91 forKey:@"completionType"];
+    }
+
+    v92 = [localFeatures objectForKeyedSubscript:@"fieldWeight"];
+
+    if (v92)
+    {
+      v93 = [localFeatures objectForKeyedSubscript:@"fieldWeight"];
+      [v93 doubleValue];
+      v95 = SSRoundDouble(4, v94);
+      [dictionary setValue:v95 forKey:@"fieldWeight"];
+    }
+
+    v96 = [localFeatures objectForKeyedSubscript:@"isSingleThread"];
+
+    if (v96)
+    {
+      v97 = [localFeatures objectForKeyedSubscript:@"isSingleThread"];
+      [v97 doubleValue];
+      v99 = SSRoundDouble(2, v98);
+      [dictionary setValue:v99 forKey:@"isSingleThread"];
+    }
+
+    v100 = [localFeatures objectForKeyedSubscript:@"hasUsedDate"];
+
+    if (v100)
+    {
+      v101 = [localFeatures objectForKeyedSubscript:@"hasUsedDate"];
+      [v101 doubleValue];
+      v103 = SSRoundDouble(2, v102);
+      [dictionary setValue:v103 forKey:@"hasUsedDate"];
+    }
+
+    v104 = [localFeatures objectForKeyedSubscript:@"isShortcut"];
+
+    if (v104)
+    {
+      v105 = [localFeatures objectForKeyedSubscript:@"isShortcut"];
+      [v105 doubleValue];
+      v107 = SSRoundDouble(2, v106);
+      [dictionary setValue:v107 forKey:@"isShortcut"];
+    }
+
+    v108 = [localFeatures objectForKeyedSubscript:@"hasMultipleResults"];
+
+    if (v108)
+    {
+      v109 = [localFeatures objectForKeyedSubscript:@"hasMultipleResults"];
+      [v109 doubleValue];
+      v111 = SSRoundDouble(2, v110);
+      [dictionary setValue:v111 forKey:@"hasMultipleResults"];
+    }
+  }
+
+  v24 = [MEMORY[0x1E696ACB0] dataWithJSONObject:dictionary options:2 error:0];
+
+  return v24;
 }
 
 @end

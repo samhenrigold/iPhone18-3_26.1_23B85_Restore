@@ -282,7 +282,7 @@
 
 - (void)pairedDockAccessoriesWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -307,7 +307,7 @@
 
 - (void)selectSubjects:(NSArray *)subjects completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -347,7 +347,7 @@
 {
   y = at.y;
   x = at.x;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v8 - 8);
   v10 = &v17 - v9;
   v11 = _Block_copy(handler);
@@ -386,7 +386,7 @@
 
 - (void)setFramingModeWithMode:(int64_t)mode completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -416,7 +416,7 @@
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v19 - v11;
   v13 = _Block_copy(handler);
@@ -466,7 +466,7 @@
 
 - (void)getClientConfigurationUpdatesWithDelegate:(_TtP11DockKitCore38XPCTrackingCameraCaptureClientProtocol_ *)delegate appID:(NSString *)d completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -606,7 +606,7 @@
 
 - (void)connectedDockAccessoryWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -631,7 +631,7 @@
 
 - (void)dockedDockAccessoryWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -656,7 +656,7 @@
 
 - (void)getDockTrackingButtonStateWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -681,7 +681,7 @@
 
 - (void)updateCameraSessionWithSession:(_TtC11DockKitCore24CameraSessionInformation *)session new:(BOOL)new completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -721,7 +721,7 @@
 
 - (void)setSystemTrackingEnabledWithEnabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -747,7 +747,7 @@
 
 - (void)getSystemTrackingEnabledWithAppID:(NSString *)d completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -822,7 +822,7 @@
 
 - (void)notifyConfigDelegateWithAppID:(id)d
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v13 - v5;
   v7 = sub_224627CD8();
@@ -890,7 +890,7 @@
 
 - (void)setDockAccessoryStateWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info docked:(int64_t)docked completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -929,7 +929,7 @@
 
 - (void)triggerSystemEventWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info event:(_TtC11DockKitCore20AccessorySystemEvent *)event completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -970,7 +970,7 @@
 
 - (void)getTrackerDebugNotificationsWithDelegate:(_TtP11DockKitCore23DockClientDebugProtocol_ *)delegate completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -1009,7 +1009,7 @@
 
 - (void)stopTrackerDebugNotificationsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -1034,7 +1034,7 @@
 
 - (void)getAccessoryDescriptionWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info delegate:(_TtP11DockKitCore27XPCDataStreamClientProtocol_ *)delegate completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -1098,7 +1098,7 @@
 
 - (void)getAccessoryDiagnosticsWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info delegate:(_TtP11DockKitCore30XPCCertificationClientProtocol_ *)delegate options:(NSDictionary *)options completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -1130,7 +1130,7 @@
 - (void)_getAccessoryDiagnosticsWithInfo:(id)info delegate:(id)delegate options:(id)options completion:(id)completion
 {
   v9 = _Block_copy(completion);
-  sub_22450950C(0, &unk_27D0C89A0);
+  sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
   v10 = sub_224627C58();
   _Block_copy(v9);
   infoCopy = info;
@@ -1145,7 +1145,7 @@
 
 - (void)getAccessoryDiagnosticsWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info options:(NSDictionary *)options completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -1175,7 +1175,7 @@
 - (void)_getAccessoryDiagnosticsWithInfo:(id)info options:(id)options completion:(id)completion
 {
   v7 = _Block_copy(completion);
-  sub_22450950C(0, &unk_27D0C89A0);
+  sub_22450950C(0, &unk_27D0C89A0, 0x277CCABB0);
   v8 = sub_224627C58();
   _Block_copy(v7);
   infoCopy = info;
@@ -1187,7 +1187,7 @@
 
 - (void)manualFirmwareUpdateWithFilePath:(NSString *)path sandboxExt:(NSString *)ext delegate:(_TtP11DockKitCore30XPCCertificationClientProtocol_ *)delegate completionHandler:(id)handler
 {
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);
@@ -1234,7 +1234,7 @@
 
 - (void)haltWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info delegate:(_TtP11DockKitCore30XPCCertificationClientProtocol_ *)delegate completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -1284,7 +1284,7 @@
 
 - (void)rebootWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info delegate:(_TtP11DockKitCore30XPCCertificationClientProtocol_ *)delegate completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
@@ -1313,7 +1313,7 @@
 
 - (void)connectedClientsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -1338,7 +1338,7 @@
 
 - (void)versionsWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -1363,7 +1363,7 @@
 
 - (void)migrateDataWithUpdate:(BOOL)update completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -1389,7 +1389,7 @@
 
 - (void)dumpStateWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -1414,7 +1414,7 @@
 
 - (void)unpairAccessoryWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -1441,7 +1441,7 @@
 
 - (void)returnToBaseWithInfo:(_TtC11DockKitCore12DockCoreInfo *)info completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -1468,7 +1468,7 @@
 
 - (void)dumpTrackerDiagsWithPath:(NSString *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -1495,7 +1495,7 @@
 
 - (void)dumpTrackerStatesWithPath:(NSString *)path completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -1522,7 +1522,7 @@
 
 - (void)searchWithCalibrate:(BOOL)calibrate completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -1548,7 +1548,7 @@
 
 - (void)stopSearchWithCalibrate:(BOOL)calibrate completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -1574,7 +1574,7 @@
 
 - (void)setDockTrackingButtonStateWithState:(int64_t)state completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -1600,7 +1600,7 @@
 
 - (void)setTrackingActivityWithEnabled:(BOOL)enabled completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27D0C9408, &qword_22462F160);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);

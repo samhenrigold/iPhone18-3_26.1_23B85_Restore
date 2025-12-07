@@ -69,27 +69,25 @@ void __71__CPSMapsImageLoader_loadImageForGEOStyleAttributes_completionHandler__
 
 void __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke(void *a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D0EBA8]) initWithMUID:a1[6] coordinate:{-180.0, -180.0}];
   v3 = [MEMORY[0x277D0EBD0] sharedService];
   v4 = [v3 defaultTraits];
 
   [v4 setWantsBrandIcon:1];
   v5 = [MEMORY[0x277D0EBD0] sharedService];
-  v12[0] = v2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v5 ticketForIdentifiers:v6 resultProviderID:0 contentProvider:0 traits:v4];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_2;
-  v10[3] = &unk_278DCF300;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_2;
+  v9[3] = &unk_278DCF300;
   v8 = a1[5];
-  v10[4] = a1[4];
-  v11 = v8;
-  [v7 submitWithHandler:v10 networkActivity:0];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9[4] = a1[4];
+  v10 = v8;
+  [v7 submitWithHandler:v9 networkActivity:0];
 }
 
 void __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -98,7 +96,7 @@ void __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_
   v6 = [a2 firstObject];
   v7 = [v6 _bestAvatarBrandIconURLForSize:1 allowSmaller:{500.0, 500.0}];
   v8 = [v6 _styleAttributes];
-  v9 = v8;
+  v10 = v8;
   if (v7)
   {
     [*(*(a1 + 32) + 16) downloadImageWithURL:v7 completionHandler:*(a1 + 40)];
@@ -106,36 +104,36 @@ void __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_
 
   else if (v8)
   {
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 8);
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 8);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_3;
     block[3] = &unk_278DCDCF8;
-    block[4] = v10;
-    v23 = v8;
-    v24 = *(a1 + 40);
-    dispatch_async(v11, block);
+    block[4] = v11;
+    v24 = v8;
+    v25 = *(a1 + 40);
+    dispatch_async(v12, block);
   }
 
   else
   {
-    v12 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = CPS_LOG_CHANNEL_PREFIXClipServices(0, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_2_cold_1(v12, v13, v14, v15, v16, v17, v18, v19);
+      __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_invoke_2_cold_1(v13, v14, v15, v16, v17, v18, v19, v20);
     }
 
-    v20 = *(a1 + 40);
+    v21 = *(a1 + 40);
     if (v5)
     {
-      (*(v20 + 16))(v20, 0, v5);
+      (*(v21 + 16))(v21, 0, v5);
     }
 
     else
     {
-      v21 = [MEMORY[0x277CCA9B8] cps_errorWithCode:1];
-      (*(v20 + 16))(v20, 0, v21);
+      v22 = [MEMORY[0x277CCA9B8] cps_errorWithCode:1];
+      (*(v21 + 16))(v21, 0, v22);
     }
   }
 }
@@ -149,61 +147,62 @@ void __64__CPSMapsImageLoader_loadImageForMapItemMUID_completionHandler___block_
   v9 = objc_alloc_init(MEMORY[0x277D78198]);
   [v9 setGlyphOnly:1];
   mEMORY[0x277D78190] = [MEMORY[0x277D78190] sharedManager];
-  v11 = _CPSScreenScale();
-  *&v11 = v11;
-  v12 = [mEMORY[0x277D78190] imageForStyleAttributes:attributesCopy withStylesheetName:@"default-search" contentScale:9 sizeGroup:v9 modifiers:v11];
+  v12 = _CPSScreenScale(mEMORY[0x277D78190], v11);
+  *&v12 = v12;
+  v13 = [mEMORY[0x277D78190] imageForStyleAttributes:attributesCopy withStylesheetName:@"default-search" contentScale:9 sizeGroup:v9 modifiers:v12];
 
   mEMORY[0x277D78190]2 = [MEMORY[0x277D78190] sharedManager];
-  v14 = _CPSScreenScale();
-  *&v14 = v14;
-  v15 = [mEMORY[0x277D78190]2 imageForStyleAttributes:attributesCopy withStylesheetName:@"default-search" contentScale:9 sizeGroup:0 modifiers:v14];
+  v16 = _CPSScreenScale(mEMORY[0x277D78190]2, v15);
+  *&v16 = v16;
+  v17 = [mEMORY[0x277D78190]2 imageForStyleAttributes:attributesCopy withStylesheetName:@"default-search" contentScale:9 sizeGroup:0 modifiers:v16];
 
-  image = [v12 image];
-  if (v12 && v15)
+  image = [v13 image];
+  if (v13 && v17)
   {
-    v17 = image;
-    [v15 imageSize];
-    v19 = v18;
-    v21 = v20;
-    v22 = _CPSScreenScale();
-    [v15 imageSize];
-    v24 = v23;
-    [v15 imageSize];
-    v26 = CPSCreateImageFromImageAndBackgroundColor(v17, [v15 fillColor], v19, v21, v22, 0.0, 0.0, v24, v25);
-    v27 = CPSImagePNGRepresentation(v26);
-    if (v26)
+    v20 = image;
+    imageSize = [v17 imageSize];
+    v23 = v22;
+    v25 = v24;
+    v27 = _CPSScreenScale(imageSize, v26);
+    [v17 imageSize];
+    v29 = v28;
+    [v17 imageSize];
+    v31 = CPSCreateImageFromImageAndBackgroundColor(v20, [v17 fillColor], v23, v25, v27, 0.0, 0.0, v29, v30);
+    v32 = CPSImagePNGRepresentation(v31);
+    v34 = v32;
+    if (v31)
     {
-      CGImageRelease(v26);
+      CGImageRelease(v31);
     }
 
-    if (v27)
+    if (v34)
     {
-      handlerCopy[2](handlerCopy, v27, 0);
+      handlerCopy[2](handlerCopy, v34, 0);
     }
 
     else
     {
-      v36 = CPS_LOG_CHANNEL_PREFIXClipServices();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      v43 = CPS_LOG_CHANNEL_PREFIXClipServices(v32, v33);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        [(CPSMapsImageLoader *)v36 _loadImageForGEOFeatureStyleAttributes:v37 completionHandler:v38, v39, v40, v41, v42, v43];
+        [(CPSMapsImageLoader *)v43 _loadImageForGEOFeatureStyleAttributes:v44 completionHandler:v45, v46, v47, v48, v49, v50];
       }
 
-      v44 = [MEMORY[0x277CCA9B8] cps_errorWithCode:7];
-      (handlerCopy)[2](handlerCopy, 0, v44);
+      v51 = [MEMORY[0x277CCA9B8] cps_errorWithCode:7];
+      (handlerCopy)[2](handlerCopy, 0, v51);
     }
   }
 
   else
   {
-    v28 = CPS_LOG_CHANNEL_PREFIXClipServices();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v35 = CPS_LOG_CHANNEL_PREFIXClipServices(image, v19);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      [(CPSMapsImageLoader *)v28 _loadImageForGEOFeatureStyleAttributes:v29 completionHandler:v30, v31, v32, v33, v34, v35];
+      [(CPSMapsImageLoader *)v35 _loadImageForGEOFeatureStyleAttributes:v36 completionHandler:v37, v38, v39, v40, v41, v42];
     }
 
-    v27 = [MEMORY[0x277CCA9B8] cps_errorWithCode:7];
-    (handlerCopy)[2](handlerCopy, 0, v27);
+    v34 = [MEMORY[0x277CCA9B8] cps_errorWithCode:7];
+    (handlerCopy)[2](handlerCopy, 0, v34);
   }
 }
 

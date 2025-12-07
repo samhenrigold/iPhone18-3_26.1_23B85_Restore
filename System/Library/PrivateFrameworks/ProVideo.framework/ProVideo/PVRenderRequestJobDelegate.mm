@@ -19,23 +19,23 @@
   requestCopy = request;
   handlerCopy = handler;
   rendererCopy = renderer;
-  v22.receiver = self;
-  v22.super_class = PVRenderRequestJobDelegate;
-  v12 = [(PVRenderRequestJobDelegate *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = PVRenderRequestJobDelegate;
+  v12 = [(PVRenderRequestJobDelegate *)&v21 init];
   v13 = v12;
   v14 = v12;
   if (v12)
   {
     objc_storeStrong(&v12->m_request, request);
     objc_storeStrong(&v13->m_pvRenderer, renderer);
-    PVRenderManager::INSTANCE(v15, &v21);
+    PVRenderManager::INSTANCE(&v20);
     m_Obj = v14->m_renderManager.m_Obj;
-    v17 = v21;
-    if (m_Obj == v21)
+    v16 = v20;
+    if (m_Obj == v20)
     {
       if (m_Obj)
       {
-        (*(*v21 + 24))(v21);
+        (*(*v20 + 24))(v20);
       }
     }
 
@@ -44,15 +44,15 @@
       if (m_Obj)
       {
         (*(*m_Obj + 24))(m_Obj);
-        v17 = v21;
+        v16 = v20;
       }
 
-      v14->m_renderManager.m_Obj = v17;
+      v14->m_renderManager.m_Obj = v16;
     }
 
-    v18 = MEMORY[0x2666EAFC0](handlerCopy);
+    v17 = MEMORY[0x2666EAFC0](handlerCopy);
     m_completionHandler = v14->m_completionHandler;
-    v14->m_completionHandler = v18;
+    v14->m_completionHandler = v17;
 
     operator new();
   }
@@ -109,7 +109,7 @@
   m_pvRenderer = self->m_pvRenderer;
   if (m_pvRenderer)
   {
-    [(PVRenderer *)m_pvRenderer frameDuration];
+    objc_msgSend_frameDuration(m_pvRenderer);
   }
 
   else
@@ -127,7 +127,7 @@
   m_request = self->m_request;
   if (m_request)
   {
-    [(PVRenderRequest *)m_request time];
+    objc_msgSend_time(m_request);
     v17 = MEMORY[0x277CCACA8];
     value = v87.value;
     timescale = v87.timescale;
@@ -177,7 +177,7 @@
     v26 = self->m_request;
     if (v26)
     {
-      [(PVRenderRequest *)v26 time];
+      objc_msgSend_time(v26);
     }
 
     else
@@ -248,7 +248,7 @@
         v40 = selfCopy2->m_request;
         if (v40)
         {
-          [(PVRenderRequest *)v40 time];
+          objc_msgSend_time(v40);
         }
 
         else
@@ -264,7 +264,7 @@
 
         if (v39)
         {
-          [v39 hgNodeForTime:&v87 trackInputs:&time renderer:&v77 igContext:&v71];
+          objc_msgSend_hgNodeForTime_trackInputs_renderer_igContext_(v39);
         }
 
         else
@@ -339,7 +339,7 @@
         }
 
         outputCVPixelBufferFormat = [(PVRenderRequestJobDelegate *)self outputCVPixelBufferFormat];
-        if (PVIsMultiplaneCoreVideo420Format(outputCVPixelBufferFormat) || PVIsMultiplaneCoreVideo422Format(outputCVPixelBufferFormat))
+        if ((PVIsMultiplaneCoreVideo420Format(outputCVPixelBufferFormat) & 1) != 0 || PVIsMultiplaneCoreVideo422Format(outputCVPixelBufferFormat))
         {
           [(PVRenderRequest *)self->m_request outputSize];
           v48 = v47;
@@ -415,26 +415,26 @@
 {
   if (*(self->m_destinationBitmaps + 1) == *self->m_destinationBitmaps)
   {
-    v8 = [(PVRenderRequestJobDelegate *)self outputCVPixelBufferFormat:buffers];
+    [(PVRenderRequestJobDelegate *)self outputCVPixelBufferFormat:buffers];
     outputNodes = [(PVRenderRequest *)self->m_request outputNodes];
-    v10 = [outputNodes count];
+    v9 = [outputNodes count];
 
-    for (; v10; --v10)
+    for (; v9; --v9)
     {
       m_pvRenderer = self->m_pvRenderer;
       [(PVRenderRequest *)self->m_request outputSize];
       if (m_pvRenderer)
       {
-        [(PVRenderer *)m_pvRenderer getDestinationBuffer:v8 cvPixelBufferFormat:?];
+        objc_msgSend_getDestinationBuffer_cvPixelBufferFormat_(m_pvRenderer);
       }
 
       else
       {
-        v14 = 0;
+        v13 = 0;
       }
 
-      std::vector<HGRef<HGBitmap>>::push_back[abi:ne200100](self->m_destinationBitmaps, &v14);
-      CVBitmapStorage = HGCVBitmap::getCVBitmapStorage(v14, v12);
+      std::vector<HGRef<HGBitmap>>::push_back[abi:ne200100](self->m_destinationBitmaps, &v13);
+      CVBitmapStorage = HGCVBitmap::getCVBitmapStorage(v13, v11);
       if (CVBitmapStorage)
       {
         PVCreateOutputBufferForHGCVPixelBuffer(*(CVBitmapStorage[16] + 24), context, buffers);
@@ -442,12 +442,12 @@
 
       else
       {
-        std::vector<HGRef<HGBitmap>>::push_back[abi:ne200100](buffers, &v14);
+        std::vector<HGRef<HGBitmap>>::push_back[abi:ne200100](buffers, &v13);
       }
 
-      if (v14)
+      if (v13)
       {
-        (*(*v14 + 24))(v14);
+        (*(*v13 + 24))(v13);
       }
     }
   }

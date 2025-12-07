@@ -15,7 +15,7 @@ CHConfiguration *__get_DKKnowledgeStoreClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_DKKnowledgeStoreClass_block_invoke_cold_1();
+    __get_DKKnowledgeStoreClass_block_invoke_cold_1();
     return [(CHConfiguration *)v3 initWithDataSource:v4, v5];
   }
 

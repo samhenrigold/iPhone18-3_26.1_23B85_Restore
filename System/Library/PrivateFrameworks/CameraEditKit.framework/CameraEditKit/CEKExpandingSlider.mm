@@ -30,13 +30,13 @@
 - (CEKExpandingSlider)initWithTitle:(id)title minimumValue:(double)value maximumValue:(double)maximumValue defaultValue:(double)defaultValue
 {
   titleCopy = title;
-  v40.receiver = self;
-  v40.super_class = CEKExpandingSlider;
+  v41.receiver = self;
+  v41.super_class = CEKExpandingSlider;
   v11 = *MEMORY[0x1E695F058];
   v12 = *(MEMORY[0x1E695F058] + 8);
   v13 = *(MEMORY[0x1E695F058] + 16);
   v14 = *(MEMORY[0x1E695F058] + 24);
-  v15 = [(CEKExpandingSlider *)&v40 initWithFrame:*MEMORY[0x1E695F058], v12, v13, v14];
+  v15 = [(CEKExpandingSlider *)&v41 initWithFrame:*MEMORY[0x1E695F058], v12, v13, v14];
   if (v15)
   {
     systemYellowColor = [MEMORY[0x1E69DC888] systemYellowColor];
@@ -79,26 +79,27 @@
     [(UILabel *)v15->__titleLabel setNumberOfLines:0];
     [(UILabel *)v15->__titleLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UILabel *)v15->__titleLabel setText:titleCopy];
-    v25 = CEKFontOfSizeAndStyle(1, 14.0);
-    [(UILabel *)v15->__titleLabel setFont:v25];
+    v25.n128_u64[0] = 14.0;
+    v26 = CEKFontOfSizeAndStyle(1, v25);
+    [(UILabel *)v15->__titleLabel setFont:v26];
 
     [(CEKExpandingSlider *)v15 addSubview:v15->__titleLabel];
-    v26 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v11, v12, v13, v14}];
+    v27 = [objc_alloc(MEMORY[0x1E69DCC10]) initWithFrame:{v11, v12, v13, v14}];
     valueLabel = v15->__valueLabel;
-    v15->__valueLabel = v26;
+    v15->__valueLabel = v27;
 
     [(UILabel *)v15->__valueLabel setUserInteractionEnabled:0];
     [(UILabel *)v15->__valueLabel setTextAlignment:1];
     [(UILabel *)v15->__valueLabel setLineBreakMode:4];
     [(UILabel *)v15->__valueLabel setNumberOfLines:1];
     [(UILabel *)v15->__valueLabel setTranslatesAutoresizingMaskIntoConstraints:0];
-    v28 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(1, 14.0);
-    [(UILabel *)v15->__valueLabel setFont:v28];
+    v29 = CEKMonospacedStylisticNumeralFontOfSizeAndStyle(1, 14.0);
+    [(UILabel *)v15->__valueLabel setFont:v29];
 
     [(CEKExpandingSlider *)v15 addSubview:v15->__valueLabel];
-    v29 = objc_alloc_init(MEMORY[0x1E69DD250]);
+    v30 = objc_alloc_init(MEMORY[0x1E69DD250]);
     levelIndicatorView = v15->__levelIndicatorView;
-    v15->__levelIndicatorView = v29;
+    v15->__levelIndicatorView = v30;
 
     [(UIView *)v15->__levelIndicatorView setUserInteractionEnabled:0];
     layer = [(UIView *)v15->__levelIndicatorView layer];
@@ -109,14 +110,14 @@
 
     [(CEKExpandingSlider *)v15 addSubview:v15->__levelIndicatorView];
     v15->_markedValue = 1.79769313e308;
-    v33 = objc_alloc_init(CEKAdditiveAnimator);
+    v34 = objc_alloc_init(CEKAdditiveAnimator);
     animator = v15->__animator;
-    v15->__animator = v33;
+    v15->__animator = v34;
 
     [(CEKAdditiveAnimator *)v15->__animator setDelegate:v15];
-    v35 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:v15 action:sel__handlePress_];
+    v36 = [objc_alloc(MEMORY[0x1E69DCC48]) initWithTarget:v15 action:sel__handlePress_];
     gestureRecognizer = v15->__gestureRecognizer;
-    v15->__gestureRecognizer = v35;
+    v15->__gestureRecognizer = v36;
 
     [(UILongPressGestureRecognizer *)v15->__gestureRecognizer setMinimumPressDuration:0.0];
     [(UILongPressGestureRecognizer *)v15->__gestureRecognizer setCancelsTouchesInView:0];
@@ -128,7 +129,7 @@
     [(CEKExpandingSlider *)v15 _updateLabelColorsForProgress:0.0];
     [(CEKExpandingSlider *)v15 _updateColors];
     systemTraitsAffectingColorAppearance = [MEMORY[0x1E69DD1B8] systemTraitsAffectingColorAppearance];
-    v38 = [(CEKExpandingSlider *)v15 registerForTraitChanges:systemTraitsAffectingColorAppearance withAction:sel__updateColors];
+    v39 = [(CEKExpandingSlider *)v15 registerForTraitChanges:systemTraitsAffectingColorAppearance withAction:sel__updateColors];
   }
 
   return v15;
@@ -264,7 +265,7 @@
   }
 }
 
-uint64_t __57__CEKExpandingSlider__setExpanded_animated_shouldNotify___block_invoke_2(uint64_t a1)
+void *__57__CEKExpandingSlider__setExpanded_animated_shouldNotify___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _setExpansionAnimationCounter:{objc_msgSend(*(a1 + 32), "_expansionAnimationCounter") - 1}];
   result = [*(a1 + 32) _expansionAnimationCounter];

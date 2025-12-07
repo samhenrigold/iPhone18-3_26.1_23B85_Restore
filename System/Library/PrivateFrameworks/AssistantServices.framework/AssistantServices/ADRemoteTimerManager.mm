@@ -72,7 +72,7 @@ LABEL_11:
 - (void)_invalidateStorageForDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v4 = [(NSMutableDictionary *)self->_storagesByDeviceIdentifier objectForKey:?];
+  v4 = objc_msgSend_objectForKey_(self->_storagesByDeviceIdentifier);
   v5 = v4;
   if (v4)
   {
@@ -84,7 +84,7 @@ LABEL_11:
 - (id)_storageForDeviceWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v5 = [(NSMutableDictionary *)self->_storagesByDeviceIdentifier objectForKey:identifierCopy];
+  v5 = objc_msgSend_objectForKey_(self->_storagesByDeviceIdentifier);
   if (!v5)
   {
     v5 = [[AFClockItemStorage alloc] initWithIdentifier:identifierCopy delegate:self];
@@ -116,7 +116,7 @@ LABEL_11:
   {
     if ([typeCopy isEqualToString:@"clocktimer"])
     {
-      v14 = [messageCopy objectForKey:@"action"];
+      v14 = objc_msgSend_objectForKey_(messageCopy);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -124,7 +124,7 @@ LABEL_11:
         v14 = 0;
       }
 
-      v15 = [messageCopy objectForKey:@"timer-id-string"];
+      v15 = objc_msgSend_objectForKey_(messageCopy);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -136,7 +136,7 @@ LABEL_11:
         v16 = 0;
       }
 
-      v19 = [messageCopy objectForKey:@"timer-changes"];
+      v19 = objc_msgSend_objectForKey_(messageCopy);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {

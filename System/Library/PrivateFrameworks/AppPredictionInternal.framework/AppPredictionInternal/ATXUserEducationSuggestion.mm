@@ -5,16 +5,16 @@
 
 void __52__ATXUserEducationSuggestion_Internal__logFeedback___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_context_user_education_suggestions();
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_context_user_education_suggestions(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v11 = 136315394;
-    v12 = "[ATXUserEducationSuggestion(Internal) logFeedback:]_block_invoke";
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%s: Processing feedback: %@", &v11, 0x16u);
+    v9 = 136315394;
+    v10 = "[ATXUserEducationSuggestion(Internal) logFeedback:]_block_invoke";
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "%s: Processing feedback: %@", &v9, 0x16u);
   }
 
   v4 = [*(a1 + 32) feedbackType] - 1;
@@ -28,13 +28,11 @@ void __52__ATXUserEducationSuggestion_Internal__logFeedback___block_invoke(uint6
   v6 = [v5 coreAnalyticsDictionary];
   v7 = [v6 mutableCopy];
 
-  v8 = *(a1 + 40);
   [objc_opt_class() suggestionType];
-  v9 = ATXUserEducationSuggestionTypeToString();
-  [v7 setObject:v9 forKey:@"suggestionType"];
+  v8 = ATXUserEducationSuggestionTypeToString();
+  [v7 setObject:v8 forKey:@"suggestionType"];
 
   AnalyticsSendEvent();
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,11 +1,11 @@
 @interface NSString(TSDKVCKeyPathAdditions)
 - (__CFString)tsu_keyPathByRemovingFirstKey;
 - (__CFString)tsu_keyPathByRemovingLastKey;
-- (uint64_t)tsu_firstKey;
 - (uint64_t)tsu_keyPathByAppendingKey:()TSDKVCKeyPathAdditions;
 - (uint64_t)tsu_keyPathByPrependingKey:()TSDKVCKeyPathAdditions;
-- (uint64_t)tsu_lastKey;
 - (uint64_t)tsu_numberOfKeysInKeyPath;
+- (void)tsu_firstKey;
+- (void)tsu_lastKey;
 @end
 
 @implementation NSString(TSDKVCKeyPathAdditions)
@@ -78,7 +78,7 @@
   return [v6 stringWithString:selfCopy];
 }
 
-- (uint64_t)tsu_firstKey
+- (void)tsu_firstKey
 {
   v2 = [self rangeOfString:@"." options:2];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)
@@ -89,7 +89,7 @@
   return [self substringToIndex:v2];
 }
 
-- (uint64_t)tsu_lastKey
+- (void)tsu_lastKey
 {
   v2 = [self rangeOfString:@"." options:6];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)

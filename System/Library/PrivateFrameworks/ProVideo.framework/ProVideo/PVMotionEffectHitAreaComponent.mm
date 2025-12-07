@@ -11,77 +11,74 @@
 
 - (id)hitAreaPointsAtTime:(id *)time forcePosterFrame:(BOOL)frame includeDropShadow:(BOOL)shadow scale:(CGPoint)scale viewSize:(CGSize)size viewOrigin:(int)origin
 {
-  v8 = *&origin;
   height = size.height;
   width = size.width;
   y = scale.y;
   x = scale.x;
-  shadowCopy = shadow;
-  frameCopy = frame;
   motionEffect = [(PVMotionEffectComponent *)self motionEffect];
   [motionEffect outputSize];
-  v19 = v18;
-  v21 = v20;
+  v18 = v17;
+  v20 = v19;
 
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   LODWORD(motionEffect) = [motionEffect2 origin];
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__4;
-  v43 = __Block_byref_object_dispose__4;
-  v44 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__4;
+  v42 = __Block_byref_object_dispose__4;
+  v43 = 0;
   motionEffect3 = [(PVMotionEffectComponent *)self motionEffect];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = *"";
-  v34[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke;
-  v34[3] = &unk_279AA5A50;
-  v38 = frameCopy;
-  v35 = *time;
-  *&v34[6] = x;
-  *&v34[7] = y;
-  v34[4] = self;
-  v34[5] = &v39;
-  v34[8] = v19;
-  v34[9] = v21;
-  *&v34[10] = width;
-  *&v34[11] = height;
-  v36 = motionEffect;
-  v37 = v8;
-  [motionEffect3 runEnsuringDocumentReadyAndLockingDocument:v34];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = *"";
+  v33[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke;
+  v33[3] = &unk_279AA5A50;
+  frameCopy = frame;
+  v34 = *time;
+  *&v33[6] = x;
+  *&v33[7] = y;
+  v33[4] = self;
+  v33[5] = &v38;
+  v33[8] = v18;
+  v33[9] = v20;
+  *&v33[10] = width;
+  *&v33[11] = height;
+  v35 = motionEffect;
+  originCopy = origin;
+  [motionEffect3 runEnsuringDocumentReadyAndLockingDocument:v33];
 
-  if ([v40[5] count] < 3)
+  if ([v39[5] count] < 3)
   {
-    memset(&v33, 0, sizeof(v33));
+    memset(&v32, 0, sizeof(v32));
     motionEffect4 = [(PVMotionEffectComponent *)self motionEffect];
     transformComponent = [motionEffect4 transformComponent];
-    v27 = transformComponent;
-    v31 = *&time->var0;
+    v26 = transformComponent;
+    v30 = *&time->var0;
     var3 = time->var3;
     if (transformComponent)
     {
-      [transformComponent cornersAtTime:&v31 forcePosterFrame:frameCopy includeDropShadow:shadowCopy scale:v8 viewSize:x viewOrigin:{y, width, height}];
+      objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(transformComponent, x, y, width, height);
     }
 
     else
     {
-      memset(&v33, 0, sizeof(v33));
+      memset(&v32, 0, sizeof(v32));
     }
 
-    v30 = v33;
-    v24 = PVCGPointQuad_to_NSArray(&v30);
+    v29 = v32;
+    v23 = PVCGPointQuad_to_NSArray(&v29);
   }
 
   else
   {
-    v24 = v40[5];
+    v23 = v39[5];
   }
 
-  v28 = v24;
-  _Block_object_dispose(&v39, 8);
+  v27 = v23;
+  _Block_object_dispose(&v38, 8);
 
-  return v28;
+  return v27;
 }
 
 void __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke(uint64_t a1, uint64_t a2)
@@ -89,87 +86,82 @@ void __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_
   if (!*(a2 + 164))
   {
     v4 = *(a2 + 160);
-    if (*(a1 + 128))
+    if ((*(a1 + 128) & 1) == 0)
     {
-      v5 = 1;
+      v5 = [*(a1 + 32) motionEffect];
+      v6 = [v5 timelineComponent];
+      [v6 isForceRenderAtPosterFrameEnabled];
+    }
+
+    v37 = 0uLL;
+    v38 = 0;
+    v7 = [*(a1 + 32) motionEffect];
+    v8 = [v7 timelineComponent];
+    v9 = v8;
+    v35 = *(a1 + 96);
+    v36 = *(a1 + 112);
+    if (v8)
+    {
+      objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(v8);
     }
 
     else
     {
-      v6 = [*(a1 + 32) motionEffect];
-      v7 = [v6 timelineComponent];
-      v5 = [v7 isForceRenderAtPosterFrameEnabled];
+      v37 = 0uLL;
+      v38 = 0;
     }
 
-    v38 = 0uLL;
-    v39 = 0;
-    v8 = [*(a1 + 32) motionEffect];
-    v9 = [v8 timelineComponent];
-    v10 = v9;
-    v36 = *(a1 + 96);
-    v37 = *(a1 + 112);
-    if (v9)
-    {
-      [v9 timelineTimeFromComponentTime_NoLock:&v36 forcePosterFrame:v5 documentInfo:a2];
-    }
-
-    else
-    {
-      v38 = 0uLL;
-      v39 = 0;
-    }
-
-    v11 = [*(a1 + 32) motionEffect];
+    v10 = [*(a1 + 32) motionEffect];
+    v30 = v37;
     v31 = v38;
-    v32 = v39;
-    v12 = [v11 publishedParam_NoLock:a2 forKey:@"kPVHitAreaPointsKey" atTime:&v31 includeHidden:1];
+    v11 = [v10 publishedParam_NoLock:a2 forKey:@"kPVHitAreaPointsKey" atTime:&v30 includeHidden:1];
 
-    *&v31 = 0;
-    *(&v31 + 1) = &v31;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__4;
-    v34 = __Block_byref_object_dispose__4;
-    v35 = [v12 objectForKeyedSubscript:@"PVEffectParam_ValuesArrayKey"];
-    if ([*(*(&v31 + 1) + 40) count] >= 3)
+    *&v30 = 0;
+    *(&v30 + 1) = &v30;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__4;
+    v33 = __Block_byref_object_dispose__4;
+    v34 = [v11 objectForKeyedSubscript:@"PVEffectParam_ValuesArrayKey"];
+    if ([*(*(&v30 + 1) + 40) count] >= 3)
     {
-      v13 = pv_CGPoint_scale_polygon(*(*(&v31 + 1) + 40), *(a1 + 48), *(a1 + 56));
-      v14 = *(*(&v31 + 1) + 40);
-      *(*(&v31 + 1) + 40) = v13;
+      v12 = pv_CGPoint_scale_polygon(*(*(&v30 + 1) + 40), *(a1 + 48), *(a1 + 56));
+      v13 = *(*(&v30 + 1) + 40);
+      *(*(&v30 + 1) + 40) = v12;
 
-      v15 = [*(a1 + 32) motionEffect];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = *"";
-      v25[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_2;
-      v25[3] = &unk_279AA53A0;
-      v25[4] = *(a1 + 32);
-      v25[5] = &v31;
-      v26 = v4;
+      v14 = [*(a1 + 32) motionEffect];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = *"";
+      v24[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_2;
+      v24[3] = &unk_279AA53A0;
+      v24[4] = *(a1 + 32);
+      v24[5] = &v30;
+      v25 = v4;
+      v26 = v37;
       v27 = v38;
-      v28 = v39;
-      v29 = *(a1 + 96);
-      v30 = *(a1 + 112);
-      v25[6] = a2;
-      [v15 runWithInspectableProperties:v25];
+      v28 = *(a1 + 96);
+      v29 = *(a1 + 112);
+      v24[6] = a2;
+      [v14 runWithInspectableProperties:v24];
 
-      v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(*(&v31 + 1) + 40), "count")}];
-      v17 = *(*(a1 + 40) + 8);
-      v18 = *(v17 + 40);
-      *(v17 + 40) = v16;
+      v15 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(*(&v30 + 1) + 40), "count")}];
+      v16 = *(*(a1 + 40) + 8);
+      v17 = *(v16 + 40);
+      *(v16 + 40) = v15;
 
-      v19 = *(*(&v31 + 1) + 40);
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = *"";
-      v20 = *(a1 + 80);
-      v22 = *(a1 + 64);
-      v21[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_3;
-      v21[3] = &unk_279AA5A28;
-      v23 = v20;
-      v24 = *(a1 + 120);
-      v21[4] = *(a1 + 40);
-      [v19 enumerateObjectsUsingBlock:v21];
+      v18 = *(*(&v30 + 1) + 40);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = *"";
+      v19 = *(a1 + 80);
+      v21 = *(a1 + 64);
+      v20[2] = __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin___block_invoke_3;
+      v20[3] = &unk_279AA5A28;
+      v22 = v19;
+      v23 = *(a1 + 120);
+      v20[4] = *(a1 + 40);
+      [v18 enumerateObjectsUsingBlock:v20];
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 }
 
@@ -412,16 +404,11 @@ void __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_
 
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)convertTimeToTimelineTime_noLock:(SEL)lock forcePosterFrame:(id *)frame documentInfo:(BOOL)info
 {
-  if (info)
-  {
-    isForceRenderAtPosterFrameEnabled = 1;
-  }
-
-  else
+  if (!info)
   {
     motionEffect = [(PVMotionEffectComponent *)self motionEffect];
     timelineComponent = [motionEffect timelineComponent];
-    isForceRenderAtPosterFrameEnabled = [timelineComponent isForceRenderAtPosterFrameEnabled];
+    [timelineComponent isForceRenderAtPosterFrameEnabled];
   }
 
   retstr->var0 = 0;
@@ -429,12 +416,10 @@ void __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_
   retstr->var3 = 0;
   motionEffect2 = [(PVMotionEffectComponent *)self motionEffect];
   timelineComponent2 = [motionEffect2 timelineComponent];
-  v15 = timelineComponent2;
-  v17 = *&frame->var0;
-  var3 = frame->var3;
+  v13 = timelineComponent2;
   if (timelineComponent2)
   {
-    [timelineComponent2 timelineTimeFromComponentTime_NoLock:&v17 forcePosterFrame:isForceRenderAtPosterFrameEnabled documentInfo:a6];
+    objc_msgSend_timelineTimeFromComponentTime_NoLock_forcePosterFrame_documentInfo_(timelineComponent2, *&frame->var0, frame->var3);
   }
 
   else
@@ -492,7 +477,7 @@ void __115__PVMotionEffectHitAreaComponent_hitAreaPointsAtTime_forcePosterFrame_
   return v26;
 }
 
-void __145__PVMotionEffectHitAreaComponent_objectHitTest_atTime_forcePosterFrame_scale_adjustForMinimumSize_minimumSize_sizeThreshold_viewSize_viewOrigin___block_invoke(uint64_t a1, void **a2)
+void __145__PVMotionEffectHitAreaComponent_objectHitTest_atTime_forcePosterFrame_scale_adjustForMinimumSize_minimumSize_sizeThreshold_viewSize_viewOrigin___block_invoke(uint64_t a1, const char *a2)
 {
   memset(&v36, 0, sizeof(v36));
   v4 = *(a1 + 32);
@@ -500,7 +485,7 @@ void __145__PVMotionEffectHitAreaComponent_objectHitTest_atTime_forcePosterFrame
   v35 = *(a1 + 112);
   if (v4)
   {
-    [v4 convertTimeToTimelineTime_noLock:&v34 forcePosterFrame:*(a1 + 128) documentInfo:a2];
+    objc_msgSend_convertTimeToTimelineTime_noLock_forcePosterFrame_documentInfo_(v4, a2, &v34, *(a1 + 128), a2);
   }
 
   else

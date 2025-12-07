@@ -16,9 +16,9 @@
 - (_TtC9DashBoard29DBWallpaperRootViewController)initWithEnvironment:(id)environment
 {
   swift_unknownObjectRetain();
-  v3 = sub_248370474();
+  v4 = sub_248370474(environment);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (_TtC9DashBoard29DBWallpaperRootViewController)initWithCoder:(id)coder

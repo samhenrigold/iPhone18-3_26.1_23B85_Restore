@@ -202,24 +202,22 @@ void __41__WFLinkActionWorkflowRunnerClient_start__block_invoke(id *a1, void *a2
 
 id __41__WFLinkActionWorkflowRunnerClient_start__block_invoke_2(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  v12[0] = @"actionIdentifier";
+  v12[3] = *MEMORY[0x1E69E9840];
+  v11[0] = @"actionIdentifier";
   v2 = [*(a1 + 32) appBundleIdentifier];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [*(a1 + 40) identifier];
-  v11[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v5 = [v4 componentsJoinedByString:@"."];
-  v13[0] = v5;
-  v12[1] = @"completed";
+  v12[0] = v5;
+  v11[1] = @"completed";
   v6 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 48) == 0];
-  v13[1] = v6;
-  v12[2] = @"runSource";
+  v12[1] = v6;
+  v11[2] = @"runSource";
   v7 = [*(a1 + 56) runSource];
-  v13[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v8;
 }

@@ -5,18 +5,21 @@
 - (void)getFileTransferPipeWithReply:(id)reply;
 - (void)getPipesWithReply:(id)reply;
 - (void)openInterfaceWithReply:(id)reply;
+- (void)readPipe:(unsigned __int8)pipe length:(unsigned int)length withReply:(id)reply;
+- (void)writePipe:(unsigned __int8)pipe data:(id)data length:(unint64_t)length withReply:(id)reply;
 @end
 
 @implementation AMRLocalUSBInterface
 
 - (AMRLocalUSBInterface)initWithService:(unsigned int)service
 {
+  v3 = *&service;
   v7.receiver = self;
   v7.super_class = AMRLocalUSBInterface;
   v4 = [(AMRLocalUSBInterface *)&v7 init];
   if (v4)
   {
-    InterfaceInterfaceForService = _getInterfaceInterfaceForService(service);
+    InterfaceInterfaceForService = _getInterfaceInterfaceForService(v3);
     v4->interfaceInterface = InterfaceInterfaceForService;
     if (!InterfaceInterfaceForService)
     {
@@ -272,6 +275,43 @@ LABEL_35:
 
     v8(reply, 2010, 0, 0, 0, 0);
   }
+}
+
+- (void)writePipe:(unsigned __int8)pipe data:(id)data length:(unint64_t)length withReply:(id)reply
+{
+  lengthCopy = length;
+  pipeCopy = pipe;
+  if ([data length] < length)
+  {
+    lengthCopy = [data length];
+  }
+
+  v11 = ((*self->interfaceInterface)->WritePipe)(self->interfaceInterface, pipeCopy, [data bytes], lengthCopy);
+  v12 = _AMRestoreErrorForIOReturn(v11, 2003);
+  v13 = *(reply + 2);
+
+  v13(reply, v12, 0);
+}
+
+- (void)readPipe:(unsigned __int8)pipe length:(unsigned int)length withReply:(id)reply
+{
+  pipeCopy = pipe;
+  v9 = [[NSMutableData alloc] initWithLength:length];
+  lengthCopy = length;
+  v10 = ((*self->interfaceInterface)->ReadPipe)(self->interfaceInterface, pipeCopy, [v9 mutableBytes], &lengthCopy);
+  if (v10)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    [v9 setLength:lengthCopy];
+    v11 = v9;
+  }
+
+  v12 = _AMRestoreErrorForIOReturn(v10, 2004);
+  (*(reply + 2))(reply, v12, v11, [v11 length], 0);
 }
 
 @end

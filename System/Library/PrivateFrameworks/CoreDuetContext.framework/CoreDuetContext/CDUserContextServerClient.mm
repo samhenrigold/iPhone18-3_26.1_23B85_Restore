@@ -5,13 +5,13 @@
 
 void __45___CDUserContextServerClient_serverInterface__block_invoke()
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F1D225A8];
   v1 = serverInterface_serverInterface_0;
   serverInterface_serverInterface_0 = v0;
 
-  v34 = MEMORY[0x1E695DFD8];
-  v33 = objc_opt_class();
+  v33 = MEMORY[0x1E695DFD8];
+  v32 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -22,7 +22,7 @@ void __45___CDUserContextServerClient_serverInterface__block_invoke()
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v12 = [v34 setWithObjects:{v33, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
+  v12 = [v33 setWithObjects:{v32, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
   [serverInterface_serverInterface_0 setClasses:v12 forSelector:sel_addObjects_andRemoveObjects_forArrayAtPath_handler_ argumentIndex:0 ofReply:0];
   [serverInterface_serverInterface_0 setClasses:v12 forSelector:sel_addObjects_andRemoveObjects_forArrayAtPath_handler_ argumentIndex:1 ofReply:0];
   [serverInterface_serverInterface_0 setClass:objc_opt_class() forSelector:sel_removeObjectsMatchingPredicate_fromArrayAtPath_handler_ argumentIndex:0 ofReply:0];
@@ -50,9 +50,9 @@ void __45___CDUserContextServerClient_serverInterface__block_invoke()
   v25 = +[_CDContextValue supportedContextValueClasses];
   v26 = [v25 mutableCopy];
 
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
   [v26 addObjectsFromArray:v27];
 
   [serverInterface_serverInterface_0 setClasses:v26 forSelector:sel_valuesForPaths_handler_ argumentIndex:0 ofReply:1];
@@ -68,7 +68,6 @@ void __45___CDUserContextServerClient_serverInterface__block_invoke()
   [v30 setClasses:v31 forSelector:sel_propertiesOfPath_handler_ argumentIndex:0 ofReply:1];
 
   [serverInterface_serverInterface_0 setClass:objc_opt_class() forSelector:sel_propertiesOfPath_handler_ argumentIndex:1 ofReply:1];
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __45___CDUserContextServerClient_clientInterface__block_invoke()
@@ -90,7 +89,7 @@ void __45___CDUserContextServerClient_clientInterface__block_invoke()
 
 void __71___CDUserContextServerClient_initForService_withConnection_andContext___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = os_transaction_create();
   v3 = [MEMORY[0x1E6997908] contextChannel];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -106,30 +105,30 @@ void __71___CDUserContextServerClient_initForService_withConnection_andContext__
     [v5 deregisterAllCallbacks:0];
     v7 = [v6 wakingRegistrations];
     objc_sync_enter(v7);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v8 = [v6 wakingRegistrations];
-    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v9)
     {
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [WeakRetained addOpenRegistration:*(*(&v13 + 1) + 8 * v11++)];
+          [WeakRetained addOpenRegistration:*(*(&v12 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -138,8 +137,6 @@ void __71___CDUserContextServerClient_initForService_withConnection_andContext__
     objc_sync_exit(v7);
     [WeakRetained clientWasInterrupted:v6];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __58___CDUserContextServerClient__hasKnowledgeOfPath_handler___block_invoke(uint64_t a1)
@@ -234,10 +231,10 @@ void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke
   dispatch_async(v6, v8);
 }
 
-void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2(uint64_t a1)
+void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2(void **a1)
 {
-  v2 = (a1 + 32);
-  if (*(a1 + 32))
+  v2 = a1 + 4;
+  if (a1[4])
   {
     v3 = [MEMORY[0x1E6997908] mdcsChannel];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -246,44 +243,42 @@ void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke
     }
   }
 
-  v10 = [*(*(a1 + 40) + 32) propertiesForContextualKeyPath:*(a1 + 48)];
+  v10 = [*(a1[5] + 4) propertiesForContextualKeyPath:a1[6]];
   v11 = [MEMORY[0x1E6997908] mdcsChannel];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2_cold_2((a1 + 48), v10);
+    __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2_cold_2(a1 + 6, v10);
   }
 
-  (*(*(a1 + 56) + 16))();
+  (*(a1[7] + 2))();
 }
 
 void __69___CDUserContextServerClient_handlePreviouslyFiredRegistration_info___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E6997908] contextChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) identifier];
     v4 = [*(a1 + 32) clientIdentifier];
     *buf = 138412546;
-    v13 = v3;
-    v14 = 2114;
-    v15 = v4;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v4;
     _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_INFO, "Sending previously fired registration %@ to %{public}@", buf, 0x16u);
   }
 
   v5 = [*(*(a1 + 40) + 40) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_125];
   v6 = [*(a1 + 32) identifier];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __69___CDUserContextServerClient_handlePreviouslyFiredRegistration_info___block_invoke_126;
-  v9[3] = &unk_1E7886CB0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69___CDUserContextServerClient_handlePreviouslyFiredRegistration_info___block_invoke_126;
+  v8[3] = &unk_1E7886CB0;
   v7 = *(a1 + 48);
-  v9[4] = *(a1 + 40);
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 32);
-  [v5 handleContextualChange:v6 info:v7 handler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[4] = *(a1 + 40);
+  v9 = *(a1 + 56);
+  v10 = *(a1 + 32);
+  [v5 handleContextualChange:v6 info:v7 handler:v8];
 }
 
 void __69___CDUserContextServerClient_handlePreviouslyFiredRegistration_info___block_invoke_123(uint64_t a1, void *a2)
@@ -348,33 +343,33 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke(uint64_t a
 
 void __47___CDUserContextServerClient_registerCallback___block_invoke_2(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) predicate];
   v4 = [v3 keyPaths];
 
-  v5 = [v4 countByEnumeratingWithState:&v32 objects:v41 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v31 objects:v40 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v33;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v33 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [_CDContextMonitorManager activateMonitorForKeyPath:*(*(&v32 + 1) + 8 * i)];
+        [_CDContextMonitorManager activateMonitorForKeyPath:*(*(&v31 + 1) + 8 * i)];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v32 objects:v41 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v31 objects:v40 count:16];
     }
 
     while (v6);
@@ -383,34 +378,34 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke_2(uint64_t
   v9 = [*(*(a1 + 40) + 24) persistence];
   [v9 saveRegistration:*(a1 + 32)];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v10 = [*(a1 + 32) predicate];
   v11 = [v10 keyPaths];
 
-  v12 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v27 objects:v39 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v29;
+    v14 = *v28;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v29 != v14)
+        if (*v28 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v28 + 1) + 8 * j);
+        v16 = *(*(&v27 + 1) + 8 * j);
         v17 = [*(*(a1 + 40) + 24) persistence];
         v18 = [*(*(a1 + 40) + 32) propertiesForContextualKeyPath:v16];
         [v17 saveValue:v18 forKeyPath:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v27 objects:v39 count:16];
     }
 
     while (v13);
@@ -423,19 +418,19 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke_2(uint64_t
     v20 = [*v2 identifier];
     v21 = [*v2 clientIdentifier];
     *buf = 138412546;
-    v37 = v20;
-    v38 = 2114;
-    v39 = v21;
+    v36 = v20;
+    v37 = 2114;
+    v38 = v21;
     _os_log_impl(&dword_1A9611000, v19, OS_LOG_TYPE_INFO, "Sending registration completed for registration %@ to %{public}@", buf, 0x16u);
   }
 
   v22 = *(*(a1 + 40) + 40);
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __47___CDUserContextServerClient_registerCallback___block_invoke_130;
-  v26[3] = &unk_1E7886808;
-  v27 = *(a1 + 32);
-  v23 = [v22 remoteObjectProxyWithErrorHandler:v26];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __47___CDUserContextServerClient_registerCallback___block_invoke_130;
+  v25[3] = &unk_1E7886808;
+  v26 = *(a1 + 32);
+  v23 = [v22 remoteObjectProxyWithErrorHandler:v25];
   if (v23)
   {
     v24 = [*v2 identifier];
@@ -450,8 +445,6 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke_2(uint64_t
       __47___CDUserContextServerClient_registerCallback___block_invoke_2_cold_1(v2);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __47___CDUserContextServerClient_registerCallback___block_invoke_130(uint64_t a1, void *a2)
@@ -487,34 +480,34 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke_134()
 
 void __79___CDUserContextServerClient_performRegistrationCallbackWithRegistration_info___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 1;
+  v18 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 1;
   v2 = [MEMORY[0x1E6997908] contextChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
     v4 = [*(a1 + 32) clientIdentifier];
     *buf = 138412546;
-    v16 = v3;
-    v17 = 2114;
-    v18 = v4;
+    v15 = v3;
+    v16 = 2114;
+    v17 = v4;
     _os_log_impl(&dword_1A9611000, v2, OS_LOG_TYPE_DEFAULT, "Sending fired registration %@ to %{public}@", buf, 0x16u);
   }
 
   v5 = [*(*(a1 + 40) + 40) synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_139];
   v6 = [*(a1 + 32) identifier];
   v7 = *(a1 + 48);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __79___CDUserContextServerClient_performRegistrationCallbackWithRegistration_info___block_invoke_140;
-  v10[3] = &unk_1E7886850;
-  v10[4] = &v11;
-  [v5 handleContextualChange:v6 info:v7 handler:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __79___CDUserContextServerClient_performRegistrationCallbackWithRegistration_info___block_invoke_140;
+  v9[3] = &unk_1E7886850;
+  v9[4] = &v10;
+  [v5 handleContextualChange:v6 info:v7 handler:v9];
 
-  if (*(a1 + 32) && *(v12 + 24) == 1)
+  if (*(a1 + 32) && *(v11 + 24) == 1)
   {
     v8 = [*(*(a1 + 40) + 24) persistence];
     [v8 deleteRegistration:*(a1 + 32)];
@@ -522,8 +515,7 @@ void __79___CDUserContextServerClient_performRegistrationCallbackWithRegistratio
     [*(a1 + 40) deregisterCallback:*(a1 + 32)];
   }
 
-  _Block_object_dispose(&v11, 8);
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v10, 8);
 }
 
 void __79___CDUserContextServerClient_performRegistrationCallbackWithRegistration_info___block_invoke_137(uint64_t a1, void *a2)
@@ -632,7 +624,7 @@ void __87___CDUserContextServerClient_subscribeToDeviceStatusChangeNotifications
 
 void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke(void *a1)
 {
-  v2 = (a1 + 5);
+  v2 = a1 + 5;
   if (*(*(a1[5] + 8) + 40))
   {
     v3 = [MEMORY[0x1E6997908] contextChannel];
@@ -658,42 +650,42 @@ void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke(voi
 
 void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_149(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v2 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v2)
   {
     v3 = v2;
-    v16 = *v24;
+    v15 = *v23;
     do
     {
       v4 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v23 + 1) + 8 * v4);
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_2;
-        v18[3] = &unk_1E7886E10;
-        v18[4] = *(a1 + 40);
-        v18[5] = v5;
+        v5 = *(*(&v22 + 1) + 8 * v4);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_2;
+        v17[3] = &unk_1E7886E10;
+        v17[4] = *(a1 + 40);
+        v17[5] = v5;
         v6 = *(a1 + 80);
-        v20 = *(a1 + 64);
-        v22 = v6;
-        v17 = *(a1 + 48);
-        v7 = v17;
-        v19 = v17;
-        v21 = *(a1 + 72);
-        v8 = MEMORY[0x1AC5886D0](v18);
+        v19 = *(a1 + 64);
+        v21 = v6;
+        v16 = *(a1 + 48);
+        v7 = v16;
+        v18 = v16;
+        v20 = *(a1 + 72);
+        v8 = MEMORY[0x1AC5886D0](v17);
         v9 = +[_CDDevice localDevice];
         v10 = [v9 deviceID];
         v11 = [v5 deviceID];
@@ -715,13 +707,11 @@ void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_149
       }
 
       while (v3 != v4);
-      v3 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v3 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v3);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_2(uint64_t a1, void *a2)
@@ -777,52 +767,34 @@ void __71___CDUserContextServerClient_initForService_withConnection_andContext__
 
 void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, a2, a3, "Unable to fetch properties of remote key path: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_1A9611000, a2, a3, "Unable to fetch properties of remote key path: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __58___CDUserContextServerClient__valueForRemotePath_handler___block_invoke_2_cold_2(void **a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = _CDRedactedObjectForKeyPath(*a1, a2);
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __69___CDUserContextServerClient_handlePreviouslyFiredRegistration_info___block_invoke_123_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Error communicating with client for handlePreviouslyFiredRegistration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __47___CDUserContextServerClient_registerCallback___block_invoke_2_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 identifier];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __47___CDUserContextServerClient_registerCallback___block_invoke_130_cold_1()
 {
   OUTLINED_FUNCTION_10();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) identifier];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __47___CDUserContextServerClient_registerCallback___block_invoke_134_cold_1()
@@ -832,90 +804,49 @@ void __47___CDUserContextServerClient_registerCallback___block_invoke_134_cold_1
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __79___CDUserContextServerClient_performRegistrationCallbackWithRegistration_info___block_invoke_137_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Error communicating with client for performRegistrationCallbackWithRegistration: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __109___CDUserContextServerClient_fetchPropertiesOfRemoteKeyPaths_remoteUserContextProxySourceDeviceUUID_handler___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Failed to fetch properties of remote key paths: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 void __109___CDUserContextServerClient_fetchPropertiesOfRemoteKeyPaths_remoteUserContextProxySourceDeviceUUID_handler___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3(a1);
-  v2 = _CDPrettyPrintCollection();
+  v1 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __93___CDUserContextServerClient_subscribeToContextValueNotificationsWithRegistration_deviceIDs___block_invoke_cold_1(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3(a1);
-  v2 = _CDPrettyPrintCollection();
+  v1 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __93___CDUserContextServerClient_subscribeToContextValueNotificationsWithRegistration_deviceIDs___block_invoke_cold_2(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3(a1);
-  v2 = _CDPrettyPrintCollection();
+  v1 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void __97___CDUserContextServerClient_unsubscribeFromContextValueNotificationsWithRegistration_deviceIDs___block_invoke_cold_1(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3(a1);
-  v3 = _CDPrettyPrintCollection();
-  v4 = *(a1 + 40);
+  v1 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __97___CDUserContextServerClient_unsubscribeFromContextValueNotificationsWithRegistration_deviceIDs___block_invoke_cold_2(uint64_t a1)
 {
-  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_3(a1);
-  v3 = _CDPrettyPrintCollection();
-  v4 = *(a1 + 40);
+  v1 = _CDPrettyPrintCollection();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __87___CDUserContextServerClient_subscribeToDeviceStatusChangeNotificationsForDeviceTypes___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_1A9611000, v0, v1, "Failed to subscribe to device status change notifications: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __87___CDUserContextServerClient_subscribeToDeviceStatusChangeNotificationsForDeviceTypes___block_invoke_cold_2()
@@ -927,13 +858,10 @@ void __87___CDUserContextServerClient_subscribeToDeviceStatusChangeNotifications
 
 void __54___CDUserContextServerClient__valuesForPaths_handler___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{*(a1 + 56) - objc_msgSend(*(*(*a2 + 8) + 40), "count")}];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_4();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

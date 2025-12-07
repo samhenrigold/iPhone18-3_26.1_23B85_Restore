@@ -13,7 +13,6 @@
 - (id)_messageCreateResponse;
 - (id)_messageDecodeCapabilities:(id)capabilities;
 - (id)_messageEncodeCapabilities;
-- (void)_messageEncodeCapabilities;
 - (void)_notifyDelegate:(id)delegate;
 - (void)_rapportDeregister;
 - (void)_rapportProcessRequest:(id)request emittingResponse:(id)response;
@@ -439,7 +438,7 @@ void __42__COCapabilityLegacyShim__rapportRegister__block_invoke(uint64_t a1, vo
   dispatch_async(queue, block);
 }
 
-uint64_t __66__COCapabilityLegacyShim__rapportProcessRequest_emittingResponse___block_invoke(uint64_t a1)
+void *__66__COCapabilityLegacyShim__rapportProcessRequest_emittingResponse___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) isCompanionQueryNeeded] & 1) != 0 || (objc_msgSend(*(a1 + 32), "isCompanionQueryUnsuccessful") & 1) != 0 || (result = objc_msgSend(*(a1 + 32), "isCompanionQueryIncompatible"), result))
   {
@@ -458,7 +457,7 @@ uint64_t __66__COCapabilityLegacyShim__rapportProcessRequest_emittingResponse___
 
 - (void)_rapportProcessResponse:(id)response error:(id)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
   [(COCapabilityLegacyShim *)self setCompanionQueryInProgress:0];
@@ -476,7 +475,7 @@ uint64_t __66__COCapabilityLegacyShim__rapportProcessRequest_emittingResponse___
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v36 = v11;
+          v35 = v11;
           _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "Legacy Shim: response has Capabilities(%@)", buf, 0xCu);
         }
       }
@@ -569,23 +568,21 @@ LABEL_18:
     objc_initWeak(buf, self);
     v25 = dispatch_walltime(0, 120000000000);
     queue2 = [(COCapabilityLegacyShim *)self queue];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_27;
-    v32[3] = &unk_278E15B10;
-    objc_copyWeak(&v33, buf);
-    dispatch_after(v25, queue2, v32);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_27;
+    v31[3] = &unk_278E15B10;
+    objc_copyWeak(&v32, buf);
+    dispatch_after(v25, queue2, v31);
 
-    objc_destroyWeak(&v33);
+    objc_destroyWeak(&v32);
     objc_destroyWeak(buf);
   }
 
 LABEL_27:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke(uint64_t a1)
+void *__56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCompanionQueryNeeded];
   if (result)
@@ -622,26 +619,23 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
 
 - (id)_messageCreateRequest
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v5 = @"version";
-  v6[0] = &unk_2857C8828;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v4 = @"version";
+  v5[0] = &unk_2857C8828;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
 
 - (id)_messageCreateResponse
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"version";
-  v6[1] = @"supported";
-  v7[0] = &unk_2857C8828;
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"version";
+  v5[1] = @"supported";
+  v6[0] = &unk_2857C8828;
   _messageEncodeCapabilities = [(COCapabilityLegacyShim *)self _messageEncodeCapabilities];
-  v7[1] = _messageEncodeCapabilities;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[1] = _messageEncodeCapabilities;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }
@@ -664,7 +658,7 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(COCapabilityLegacyShim *)v7 _messageValidateRequest:v8, v9, v10, v11, v12, v13, v14];
+    [(COCapabilityLegacyShim *)v7 _messageValidateRequest:v8, v9, v10, v11, v12, v13, v14, v5];
   }
 
   return v5 == 1.0;
@@ -688,7 +682,7 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [(COCapabilityLegacyShim *)v7 _messageValidateResponse:v8, v9, v10, v11, v12, v13, v14];
+    [(COCapabilityLegacyShim *)v7 _messageValidateResponse:v8, v9, v10, v11, v12, v13, v14, v5];
   }
 
   return v5 == 1.0;
@@ -731,17 +725,17 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
 
 - (id)_messageDecodeCapabilities:(id)capabilities
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   v4 = MEMORY[0x277CBEB98];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
   v6 = [v4 setWithArray:v5];
 
-  v25 = 0;
-  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v6 fromData:capabilitiesCopy error:&v25];
-  v8 = v25;
+  v23 = 0;
+  v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v6 fromData:capabilitiesCopy error:&v23];
+  v8 = v23;
   v9 = v8;
   if (v7)
   {
@@ -755,32 +749,31 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
 
   if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v7;
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v20;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v18 = COCoreLogForCategory(5);
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v17 = COCoreLogForCategory(5);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
               [COCapabilityLegacyShim _messageDecodeCapabilities:];
             }
@@ -789,7 +782,7 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v24 count:16];
         if (v13)
         {
           continue;
@@ -799,25 +792,23 @@ void __56__COCapabilityLegacyShim__rapportProcessResponse_error___block_invoke_2
       }
     }
 
-    v17 = v11;
+    v16 = v11;
   }
 
   else
   {
-    v18 = COCoreLogForCategory(5);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = COCoreLogForCategory(5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [COCapabilityLegacyShim _messageDecodeCapabilities:];
     }
 
 LABEL_18:
 
-    v17 = 0;
+    v16 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v16;
 }
 
 - (NSSet)availableCapabilities
@@ -848,7 +839,7 @@ uint64_t __47__COCapabilityLegacyShim_availableCapabilities__block_invoke(uint64
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setAvailableCapabilities:(id)capabilities
@@ -878,7 +869,7 @@ uint64_t __47__COCapabilityLegacyShim_availableCapabilities__block_invoke(uint64
 
 void __51__COCapabilityLegacyShim_setAvailableCapabilities___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isEqualToSet:*(*(a1 + 40) + 16)] & 1) == 0)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
@@ -891,13 +882,11 @@ void __51__COCapabilityLegacyShim_setAvailableCapabilities___block_invoke(uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(a1 + 40) + 16);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Legacy Shim: available Capabilities updated(%@)", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Legacy Shim: available Capabilities updated(%@)", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)companionCapabilities
@@ -928,7 +917,7 @@ uint64_t __47__COCapabilityLegacyShim_companionCapabilities__block_invoke(uint64
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setCompanionCapabilities:(id)capabilities
@@ -946,7 +935,7 @@ uint64_t __47__COCapabilityLegacyShim_companionCapabilities__block_invoke(uint64
 
 void __51__COCapabilityLegacyShim_setCompanionCapabilities___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isEqualToSet:*(*(a1 + 40) + 24)] & 1) == 0)
   {
     v2 = [*(a1 + 32) copy];
@@ -958,13 +947,11 @@ void __51__COCapabilityLegacyShim_setCompanionCapabilities___block_invoke(uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(a1 + 40) + 24);
-      v8 = 138412290;
-      v9 = v6;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Legacy Shim: companion Capabilities updated(%@)", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "Legacy Shim: companion Capabilities updated(%@)", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withLock:(id)lock
@@ -1029,62 +1016,58 @@ void __51__COCapabilityLegacyShim_setCompanionCapabilities___block_invoke(uint64
 
 - (BOOL)_isStereoPeerActive
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if ([(COCapabilityLegacyShim *)self _isStereoPairMember])
+  v20 = *MEMORY[0x277D85DE8];
+  if (![(COCapabilityLegacyShim *)self _isStereoPairMember])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    rapport = [(COCapabilityLegacyShim *)self rapport];
-    activeDevices = [rapport activeDevices];
+    return 0;
+  }
 
-    v5 = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v5)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  rapport = [(COCapabilityLegacyShim *)self rapport];
+  activeDevices = [rapport activeDevices];
+
+  v5 = [activeDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v16;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v17;
-      while (2)
+      for (i = 0; i != v6; ++i)
       {
-        for (i = 0; i != v6; ++i)
+        if (*v16 != v7)
         {
-          if (*v17 != v7)
-          {
-            objc_enumerationMutation(activeDevices);
-          }
-
-          v9 = *(*(&v16 + 1) + 8 * i);
-          rapport2 = [(COCapabilityLegacyShim *)self rapport];
-          localDevice = [rapport2 localDevice];
-          v12 = [v9 isEqual:localDevice];
-
-          if ((v12 & 1) == 0 && [(COCapabilityLegacyShim *)self _isStereoPeer:v9])
-          {
-            v13 = 1;
-            goto LABEL_14;
-          }
+          objc_enumerationMutation(activeDevices);
         }
 
-        v6 = [activeDevices countByEnumeratingWithState:&v16 objects:v20 count:16];
-        if (v6)
-        {
-          continue;
-        }
+        v9 = *(*(&v15 + 1) + 8 * i);
+        rapport2 = [(COCapabilityLegacyShim *)self rapport];
+        localDevice = [rapport2 localDevice];
+        v12 = [v9 isEqual:localDevice];
 
-        break;
+        if ((v12 & 1) == 0 && [(COCapabilityLegacyShim *)self _isStereoPeer:v9])
+        {
+          v13 = 1;
+          goto LABEL_14;
+        }
       }
+
+      v6 = [activeDevices countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v13 = 0;
+  v13 = 0;
 LABEL_14:
-  }
 
-  else
-  {
-    v13 = 0;
-  }
-
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1095,101 +1078,52 @@ LABEL_14:
   return WeakRetained;
 }
 
-void __39__COCapabilityLegacyShim__rapportStart__block_invoke_24_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim: Rapport activation failed: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_rapportProcessRequest:emittingResponse:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim: received invalid request %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_rapportProcessResponse:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim: received invalid response(%@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_rapportProcessResponse:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim: response(%@) lacks Capabilities", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_rapportProcessResponse:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_244378000, v1, OS_LOG_TYPE_ERROR, "Legacy Shim: response missing(%@) or error(%@)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_244378000, v1, OS_LOG_TYPE_ERROR, "Legacy Shim: response missing(%@) or error(%@)", v2, 0x16u);
 }
 
 - (void)_rapportProcessResponse:(uint64_t)a3 error:(uint64_t)a4 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: retrying in %lu seconds", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = 120;
+  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: retrying in %lu seconds", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-- (void)_messageValidateRequest:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (double)_messageValidateRequest:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: received request with incompatible version (%f)", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = a9;
+  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: received request with incompatible version (%f)", a5, a6, a7, a8, v10, DWORD2(v10));
+  return result;
 }
 
 - (void)_messageValidateRequest:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 0x3FF0000000000000;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "Legacy Shim: received request (version %f)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 0x3FF0000000000000;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "Legacy Shim: received request (version %f)", &v1, 0xCu);
 }
 
-- (void)_messageValidateResponse:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (double)_messageValidateResponse:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float a9)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: received response with incompatible version (%f)", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v10) = 134217984;
+  *(&v10 + 4) = a9;
+  OUTLINED_FUNCTION_0_0(&dword_244378000, a1, a3, "Legacy Shim: received response with incompatible version (%f)", a5, a6, a7, a8, v10, DWORD2(v10));
+  return result;
 }
 
 - (void)_messageValidateResponse:(os_log_t)log .cold.2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = 0x3FF0000000000000;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "Legacy Shim: received response (version %f)", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_messageEncodeCapabilities
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim: failed to encode: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_messageDecodeCapabilities:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_244378000, v0, v1, "Legacy Shim failed to decode: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = 0x3FF0000000000000;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "Legacy Shim: received response (version %f)", &v1, 0xCu);
 }
 
 @end

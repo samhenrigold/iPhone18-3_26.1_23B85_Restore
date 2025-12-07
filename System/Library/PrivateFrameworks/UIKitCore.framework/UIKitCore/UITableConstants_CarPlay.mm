@@ -361,7 +361,7 @@ LABEL_6:
   accessoryIdentifierCopy = accessoryIdentifier;
   cellCopy = cell;
   v12 = 0.0;
-  if (([identifier isEqualToString:0x1EFB34170] & 1) == 0 && (objc_msgSend(accessoryIdentifierCopy, "isEqualToString:", 0x1EFB34170) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(identifier) & 1) == 0 && (objc_msgSend_isEqualToString_(accessoryIdentifierCopy) & 1) == 0)
   {
     if (identifier)
     {

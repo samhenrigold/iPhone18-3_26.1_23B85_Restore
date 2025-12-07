@@ -40,7 +40,7 @@
 
 - (BOOL)_setCurrentState:(id)state
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   currentState = [(_GKStateMachine *)self currentState];
   if ([(_GKStateMachine *)self shouldLogStateTransitions])
@@ -54,11 +54,11 @@
 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v16 = 138412546;
-      v17 = currentState;
-      v18 = 2112;
-      v19 = stateCopy;
-      _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, " ➤➤➤ request state change from %@ to %@", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = currentState;
+      v17 = 2112;
+      v18 = stateCopy;
+      _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, " ➤➤➤ request state change from %@ to %@", &v15, 0x16u);
     }
   }
 
@@ -92,13 +92,12 @@
 
   v13 = [stateCopy isEqual:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_validateTransitionFromState:(id)state toState:(id)toState
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   toStateCopy = toState;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -107,9 +106,9 @@
   aBlock[3] = &unk_2785E25B8;
   aBlock[4] = self;
   v8 = stateCopy;
-  v35 = v8;
+  v34 = v8;
   v9 = toStateCopy;
-  v36 = v9;
+  v35 = v9;
   v10 = _Block_copy(aBlock);
   if (!v9)
   {
@@ -181,17 +180,17 @@ LABEL_24:
       v28 = os_log_GKError;
       if (os_log_type_enabled(os_log_GKError, OS_LOG_TYPE_ERROR))
       {
-        v32 = v28;
-        v33 = NSStringFromSelector(v26);
+        v31 = v28;
+        v32 = NSStringFromSelector(v26);
         *buf = 138413058;
         selfCopy3 = self;
-        v39 = 2112;
-        v40 = v9;
-        v41 = 2112;
-        v42 = v8;
-        v43 = 2112;
-        v44 = v33;
-        _os_log_error_impl(&dword_227904000, v32, OS_LOG_TYPE_ERROR, "  ➤➤➤ %@ transition disallowed to %@ from %@ (via %@)", buf, 0x2Au);
+        v38 = 2112;
+        v39 = v9;
+        v40 = 2112;
+        v41 = v8;
+        v42 = 2112;
+        v43 = v32;
+        _os_log_error_impl(&dword_227904000, v31, OS_LOG_TYPE_ERROR, "  ➤➤➤ %@ transition disallowed to %@ from %@ (via %@)", buf, 0x2Au);
       }
 
       v29 = v10[2](v10);
@@ -232,10 +231,10 @@ LABEL_24:
     {
       *buf = 138412802;
       selfCopy3 = self;
-      v39 = 2112;
-      v40 = v9;
-      v41 = 2112;
-      v42 = v8;
+      v38 = 2112;
+      v39 = v9;
+      v40 = 2112;
+      v41 = v8;
       _os_log_error_impl(&dword_227904000, v20, OS_LOG_TYPE_ERROR, "  ➤➤➤ %@ cannot transition to %@ from %@", buf, 0x20u);
     }
 
@@ -252,14 +251,13 @@ LABEL_24:
 LABEL_36:
 
 LABEL_37:
-  v30 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (void)_performTransitionFromState:(id)state toState:(id)toState
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   toStateCopy = toState;
   if ([(_GKStateMachine *)self shouldLogStateTransitions])
@@ -275,10 +273,10 @@ LABEL_37:
     {
       *buf = 138412802;
       selfCopy = self;
-      v25 = 2112;
-      v26 = stateCopy;
-      v27 = 2112;
-      v28 = toStateCopy;
+      v24 = 2112;
+      v25 = stateCopy;
+      v26 = 2112;
+      v27 = toStateCopy;
       _os_log_impl(&dword_227904000, v8, OS_LOG_TYPE_INFO, "  ➤➤➤ %@ state change from %@ to %@", buf, 0x20u);
     }
   }
@@ -335,28 +333,24 @@ LABEL_37:
   {
     [(_GKStateMachine *)v13 stateDidChange];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_validateTransitionFromState:(uint64_t)a1 toState:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "validation for a state change failed:  ➤➤➤ %@ cannot transition to <nil> state", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_227904000, a2, OS_LOG_TYPE_ERROR, "validation for a state change failed:  ➤➤➤ %@ cannot transition to <nil> state", &v2, 0xCu);
 }
 
 - (void)_validateTransitionFromState:(os_log_t)log toState:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "  ➤➤➤ %@ ignoring reentry to %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "  ➤➤➤ %@ ignoring reentry to %@", &v3, 0x16u);
 }
 
 @end

@@ -1,6 +1,7 @@
 @interface LAContext
 + (id)_optionsForEvent:(int64_t)event;
 + (void)notifyEvent:(int64_t)event completionHandler:(id)handler;
+- (BOOL)_setCredential:(id)credential type:(int64_t)type options:(id)options log:(int64_t)log cid:(unsigned int)cid error:(id *)error;
 - (BOOL)canEvaluatePolicy:(LAPolicy)policy error:(NSError *)error;
 - (BOOL)checkContextValidWithError:(id *)error;
 - (BOOL)evaluateBoolOption:(int64_t)option options:(id)options property:(id)property;
@@ -17,6 +18,7 @@
 - (LAContext)initWithExternalizedContext:(id)context userSession:(const unsigned int *)session flags:(int64_t)flags;
 - (NSData)externalizedContext;
 - (NSTimeInterval)touchIDAuthenticationAllowableReuseDuration;
+- (id)_evaluatePolicy:(int64_t)policy options:(id)options log:(int64_t)log cid:(unsigned int)cid error:(id *)error;
 - (id)_evaluationMechanismsFromReturnedError:(id)error error:(id *)a4;
 - (id)_fetchDomainStateWithOptions:(id)options error:(id *)error;
 - (id)_hashWithBundleIdentifier:(id)identifier;
@@ -36,6 +38,8 @@
 - (void)_decodeCredential:(id)credential type:(int64_t)type reply:(id)reply;
 - (void)_encodeCredential:(id)credential type:(int64_t)type reply:(id)reply;
 - (void)_evaluateAccessControl:(__SecAccessControl *)control operation:(id)operation options:(id)options log:(int64_t)log cid:(unsigned int)cid synchronous:(BOOL)synchronous reply:(id)reply;
+- (void)_evaluatePolicy:(int64_t)policy options:(id)options log:(int64_t)log cid:(unsigned int)cid synchronous:(BOOL)synchronous reply:(id)reply;
+- (void)_evaluatePolicy:(int64_t)policy options:(id)options synchronous:(BOOL)synchronous reply:(id)reply;
 - (void)_notifyObserversAfterInvalidation;
 - (void)_setCredential:(id)credential type:(int64_t)type options:(id)options log:(int64_t)log cid:(unsigned int)cid reply:(id)reply;
 - (void)_setServerPropertyForOption:(int64_t)option value:(id)value log:(int64_t)log;
@@ -55,6 +59,7 @@
 - (void)failProcessedEvent:(int64_t)event failureError:(id)error reply:(id)reply;
 - (void)invalidate;
 - (void)optionsForInternalOperation:(int64_t)operation reply:(id)reply;
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply;
 - (void)prearmTouchIDWithReply:(id)reply;
 - (void)removeContextObserver:(id)observer;
 - (void)resetProcessedEvent:(int64_t)event reply:(id)reply;
@@ -62,7 +67,9 @@
 - (void)retryProcessedEvent:(int64_t)event reply:(id)reply;
 - (void)setCredential:(id)credential forProcessedEvent:(int64_t)event credentialType:(int64_t)type reply:(id)reply;
 - (void)setCredential:(id)credential type:(int64_t)type options:(id)options reply:(id)reply;
+- (void)setInteractionNotAllowed:(BOOL)interactionNotAllowed;
 - (void)setOptions:(id)options forInternalOperation:(int64_t)operation reply:(id)reply;
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event reply:(id)reply;
 - (void)setTouchIDAuthenticationAllowableReuseDuration:(NSTimeInterval)touchIDAuthenticationAllowableReuseDuration;
 @end
 
@@ -70,17 +77,17 @@
 
 - (NSData)externalizedContext
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = LALogForCategory();
   v4 = +[LAContext newCommandId];
   v5 = [(LAContext *)self description];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 1024;
-    v15 = v4;
-    _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_INFO, "externalizedContext on %{public}@ cid:%u", &v12, 0x12u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 1024;
+    v14 = v4;
+    _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_INFO, "externalizedContext on %{public}@ cid:%u", &v11, 0x12u);
   }
 
   externalizedContext = [(LAClient *)self->_client externalizedContext];
@@ -89,16 +96,14 @@
   if (os_log_type_enabled(v7, v8))
   {
     v9 = [externalizedContext hash];
-    v12 = 138543874;
-    v13 = v5;
-    v14 = 1024;
-    v15 = v4;
-    v16 = 1024;
-    v17 = v9;
-    _os_log_impl(&dword_1A784E000, v7, v8, "externalizedContext on %{public}@ cid:%u returned %x", &v12, 0x18u);
+    v11 = 138543874;
+    v12 = v5;
+    v13 = 1024;
+    v14 = v4;
+    v15 = 1024;
+    v16 = v9;
+    _os_log_impl(&dword_1A784E000, v7, v8, "externalizedContext on %{public}@ cid:%u returned %x", &v11, 0x18u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return externalizedContext;
 }
@@ -134,7 +139,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = LALogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -144,10 +149,9 @@
   }
 
   [(LAClient *)self->_client invalidateWithMessage:@"context dealloc"];
-  v5.receiver = self;
-  v5.super_class = LAContext;
-  [(LAContext *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = LAContext;
+  [(LAContext *)&v4 dealloc];
 }
 
 - (void)authorizeOperation:(int64_t)operation protectedBy:(__SecAccessControl *)by options:(id)options reply:(id)reply
@@ -219,7 +223,7 @@
 
 + (void)notifyEvent:(int64_t)event completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (notifyEvent_completionHandler__onceToken[0] != -1)
   {
@@ -232,39 +236,38 @@
   {
     *buf = 67109376;
     *&buf[4] = event;
-    LOWORD(v20) = 1024;
-    *(&v20 + 2) = v7;
+    LOWORD(v19) = 1024;
+    *(&v19 + 2) = v7;
     _os_log_impl(&dword_1A784E000, v6, OS_LOG_TYPE_DEFAULT, "notifyEvent:%d cid:%u", buf, 0xEu);
   }
 
   *buf = 0;
-  v20 = buf;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__5;
-  v23 = __Block_byref_object_dispose__5;
-  v24 = objc_opt_new();
-  v8 = *(v20 + 5);
+  v19 = buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__5;
+  v22 = __Block_byref_object_dispose__5;
+  v23 = objc_opt_new();
+  v8 = *(v19 + 5);
   v9 = [LAContext _optionsForEvent:event];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __43__LAContext_notifyEvent_completionHandler___block_invoke_6;
-  v13[3] = &unk_1E77CC508;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __43__LAContext_notifyEvent_completionHandler___block_invoke_6;
+  v12[3] = &unk_1E77CC508;
   v10 = v6;
-  v18 = v7;
-  v14 = v10;
-  v16 = buf;
+  v17 = v7;
+  v13 = v10;
+  v15 = buf;
   eventCopy = event;
   v11 = handlerCopy;
-  v15 = v11;
-  [v8 notifyEvent:event options:v9 reply:v13];
+  v14 = v11;
+  [v8 notifyEvent:event options:v9 reply:v12];
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __43__LAContext_notifyEvent_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
@@ -277,13 +280,13 @@ void __43__LAContext_notifyEvent_completionHandler___block_invoke_6(uint64_t a1,
       v9 = v5;
     }
 
-    v14[0] = 67109634;
-    v14[1] = v7;
-    v15 = 1024;
-    v16 = v8;
-    v17 = 2114;
-    v18 = v9;
-    _os_log_impl(&dword_1A784E000, v6, OS_LOG_TYPE_INFO, "notifyEvent:%d cid:%u returned %{public}@", v14, 0x18u);
+    v13[0] = 67109634;
+    v13[1] = v7;
+    v14 = 1024;
+    v15 = v8;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_1A784E000, v6, OS_LOG_TYPE_INFO, "notifyEvent:%d cid:%u returned %{public}@", v13, 0x18u);
   }
 
   [*(*(*(a1 + 48) + 8) + 40) invalidateWithMessage:@"Helper context invalidated"];
@@ -296,27 +299,23 @@ void __43__LAContext_notifyEvent_completionHandler___block_invoke_6(uint64_t a1,
   {
     (*(v12 + 16))(v12, a2, v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_optionsForEvent:(int64_t)event
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if ((event | 2) == 2)
   {
-    v7 = &unk_1F1A6FCB0;
+    v6 = &unk_1F1A6FCB0;
     date = [MEMORY[0x1E695DF00] date];
-    v8[0] = date;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = date;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -340,11 +339,11 @@ void __43__LAContext_notifyEvent_completionHandler___block_invoke_6(uint64_t a1,
 
 - (LAContext)initWithExternalizedContext:(id)context userSession:(const unsigned int *)session flags:(int64_t)flags
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v18.receiver = self;
-  v18.super_class = LAContext;
-  v9 = [(LAContext *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = LAContext;
+  v9 = [(LAContext *)&v17 init];
   if (!v9)
   {
     goto LABEL_15;
@@ -385,9 +384,9 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v20 = v11;
-    v21 = 1024;
-    LODWORD(v22) = v13;
+    v19 = v11;
+    v20 = 1024;
+    LODWORD(v21) = v13;
     _os_log_impl(&dword_1A784E000, v10, OS_LOG_TYPE_DEFAULT, "Creating LAContext %{public}@ cid:%u", buf, 0x12u);
   }
 
@@ -400,16 +399,15 @@ LABEL_10:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v20 = v9;
-    v21 = 2114;
-    v22 = v11;
-    v23 = 1024;
-    v24 = v13;
+    v19 = v9;
+    v20 = 2114;
+    v21 = v11;
+    v22 = 1024;
+    v23 = v13;
     _os_log_impl(&dword_1A784E000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ created %{public}@ cid:%u", buf, 0x1Cu);
   }
 
 LABEL_15:
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -424,11 +422,11 @@ LABEL_15:
 
 - (LAContext)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = LAContext;
-  v5 = [(LAContext *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = LAContext;
+  v5 = [(LAContext *)&v18 init];
   if (v5)
   {
     if (initWithCoder__onceToken != -1)
@@ -442,7 +440,7 @@ LABEL_15:
     v9 = objc_alloc(MEMORY[0x1E69AD220]);
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -473,7 +471,6 @@ LABEL_15:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -516,7 +513,7 @@ LABEL_15:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = LALogForCategory();
   v6 = +[LAContext newCommandId];
@@ -542,7 +539,7 @@ LABEL_15:
     v11 = objc_alloc(MEMORY[0x1E69AD220]);
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -554,43 +551,41 @@ LABEL_15:
     data = [v16 data];
 
     client = self->_client;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __29__LAContext_encodeWithCoder___block_invoke_55;
-    v19[3] = &unk_1E77CC558;
-    v20 = v5;
-    v21 = v7;
-    v22 = processIdentifier;
-    v23 = v6;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __29__LAContext_encodeWithCoder___block_invoke_55;
+    v18[3] = &unk_1E77CC558;
+    v19 = v5;
+    v20 = v7;
+    v21 = processIdentifier;
+    v22 = v6;
     v15 = v7;
     v13 = v5;
-    [(LAClient *)client allowTransferToProcess:processIdentifier receiverAuditTokenData:data reply:v19];
+    [(LAClient *)client allowTransferToProcess:processIdentifier receiverAuditTokenData:data reply:v18];
   }
 
   else
   {
     v12 = self->_client;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __29__LAContext_encodeWithCoder___block_invoke;
-    v24[3] = &unk_1E77CC530;
-    v25 = coderCopy;
-    v26 = v5;
-    v27 = v7;
-    v28 = v6;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __29__LAContext_encodeWithCoder___block_invoke;
+    v23[3] = &unk_1E77CC530;
+    v24 = coderCopy;
+    v25 = v5;
+    v26 = v7;
+    v27 = v6;
     v13 = v7;
     data = v5;
-    [(LAClient *)v12 tokenForTransferToUnknownProcess:v24];
+    [(LAClient *)v12 tokenForTransferToUnknownProcess:v23];
 
-    v15 = v25;
+    v15 = v24;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __29__LAContext_encodeWithCoder___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -603,22 +598,20 @@ void __29__LAContext_encodeWithCoder___block_invoke(uint64_t a1, void *a2, void 
       v9 = v7;
       v10 = [v5 hash];
       v11 = *(a1 + 56);
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 1024;
-      v16 = v10;
-      v17 = 1024;
-      v18 = v11;
-      _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "Encoded %{public}@ for transfer with token:%x cid:%u", &v13, 0x18u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 1024;
+      v15 = v10;
+      v16 = 1024;
+      v17 = v11;
+      _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "Encoded %{public}@ for transfer with token:%x cid:%u", &v12, 0x18u);
     }
   }
 
   else if (os_log_type_enabled(*(a1 + 40), OS_LOG_TYPE_ERROR))
   {
-    __29__LAContext_encodeWithCoder___block_invoke_cold_1(v6, a1);
+    __29__LAContext_encodeWithCoder___block_invoke_cold_1();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __29__LAContext_encodeWithCoder___block_invoke_55(uint64_t a1, int a2, void *a3)
@@ -635,45 +628,43 @@ void __29__LAContext_encodeWithCoder___block_invoke_55(uint64_t a1, int a2, void
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    __29__LAContext_encodeWithCoder___block_invoke_55_cold_1(a1);
+    __29__LAContext_encodeWithCoder___block_invoke_55_cold_1();
   }
 }
 
 - (void)invalidate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = LALogForCategory();
   v4 = +[LAContext newCommandId];
   v5 = [(LAContext *)self description];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v16 = v5;
-    v17 = 1024;
-    v18 = v4;
+    v15 = v5;
+    v16 = 1024;
+    v17 = v4;
     _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_INFO, "Invalidating %{public}@ cid:%u", buf, 0x12u);
   }
 
   client = self->_client;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __23__LAContext_invalidate__block_invoke;
-  v11[3] = &unk_1E77CC580;
-  v11[4] = self;
-  v12 = v3;
-  v13 = v5;
-  v14 = v4;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __23__LAContext_invalidate__block_invoke;
+  v10[3] = &unk_1E77CC580;
+  v10[4] = self;
+  v11 = v3;
+  v12 = v5;
+  v13 = v4;
   v7 = v5;
   v8 = v3;
   selfCopy = self;
-  [(LAClient *)client invalidateWithReply:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client invalidateWithReply:v10];
 }
 
 void __23__LAContext_invalidate__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   v7 = *(v6 + 8);
@@ -701,16 +692,14 @@ void __23__LAContext_invalidate__block_invoke(uint64_t a1, int a2, void *a3)
       v12 = v5;
     }
 
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 1024;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1A784E000, v9, v8, "invalidate %{public}@ cid:%u internally returned %{public}@", &v14, 0x1Cu);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 1024;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_1A784E000, v9, v8, "invalidate %{public}@ cid:%u internally returned %{public}@", &v13, 0x1Cu);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)evaluatePolicy:(int64_t)policy options:(id)options reply:(id)reply
@@ -720,9 +709,62 @@ void __23__LAContext_invalidate__block_invoke(uint64_t a1, int a2, void *a3)
   [(LAContext *)self _evaluatePolicy:policy options:optionsCopy log:LALogCategoryForPolicy() cid:+[LAContext synchronous:"newCommandId"]reply:0, replyCopy];
 }
 
+- (void)_evaluatePolicy:(int64_t)policy options:(id)options log:(int64_t)log cid:(unsigned int)cid synchronous:(BOOL)synchronous reply:(id)reply
+{
+  synchronousCopy = synchronous;
+  v38 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  replyCopy = reply;
+  if (log)
+  {
+    v16 = [(LAContext *)self description];
+    v17 = LALogForCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = "async";
+      *buf = 67110146;
+      policyCopy = policy;
+      if (synchronousCopy)
+      {
+        v18 = "sync";
+      }
+
+      v30 = 2114;
+      v31 = optionsCopy;
+      v32 = 2114;
+      v33 = v16;
+      v34 = 2082;
+      v35 = v18;
+      v36 = 1024;
+      cidCopy = cid;
+      _os_log_impl(&dword_1A784E000, v17, OS_LOG_TYPE_DEFAULT, "evaluatePolicy:%d options:%{public}@ on %{public}@ (%{public}s) cid:%u", buf, 0x2Cu);
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __63__LAContext__evaluatePolicy_options_log_cid_synchronous_reply___block_invoke;
+  v22[3] = &unk_1E77CC5B8;
+  v25 = replyCopy;
+  logCopy = log;
+  v22[4] = self;
+  v23 = v16;
+  cidCopy2 = cid;
+  v24 = optionsCopy;
+  v19 = optionsCopy;
+  v20 = replyCopy;
+  v21 = v16;
+  [(LAContext *)self _evaluatePolicy:policy options:v19 synchronous:synchronousCopy reply:v22];
+}
+
 void __63__LAContext__evaluatePolicy_options_log_cid_synchronous_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -772,13 +814,13 @@ LABEL_6:
         v19 = v7;
       }
 
-      v25 = 138543874;
-      v26 = v17;
-      v27 = 1024;
-      v28 = v18;
-      v29 = 2114;
-      v30 = v19;
-      _os_log_impl(&dword_1A784E000, v16, OS_LOG_TYPE_DEFAULT, "evaluatePolicy on %{public}@ cid:%u returned %{public}@", &v25, 0x1Cu);
+      v24 = 138543874;
+      v25 = v17;
+      v26 = 1024;
+      v27 = v18;
+      v28 = 2114;
+      v29 = v19;
+      _os_log_impl(&dword_1A784E000, v16, OS_LOG_TYPE_DEFAULT, "evaluatePolicy on %{public}@ cid:%u returned %{public}@", &v24, 0x1Cu);
     }
   }
 
@@ -801,8 +843,22 @@ LABEL_6:
 
     (*(*(a1 + 56) + 16))();
   }
+}
 
-  v24 = *MEMORY[0x1E69E9840];
+- (void)_evaluatePolicy:(int64_t)policy options:(id)options synchronous:(BOOL)synchronous reply:(id)reply
+{
+  synchronousCopy = synchronous;
+  replyCopy = reply;
+  client = self->_client;
+  optionsCopy = options;
+  uiDelegate = [(LAContext *)self uiDelegate];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __55__LAContext__evaluatePolicy_options_synchronous_reply___block_invoke;
+  v15[3] = &unk_1E77CB0F8;
+  v16 = replyCopy;
+  v14 = replyCopy;
+  [(LAClient *)client evaluatePolicy:policy options:optionsCopy uiDelegate:uiDelegate synchronous:synchronousCopy reply:v15];
 }
 
 void __55__LAContext__evaluatePolicy_options_synchronous_reply___block_invoke(uint64_t a1, void *a2, uint64_t a3)
@@ -840,6 +896,42 @@ void __55__LAContext__evaluatePolicy_options_synchronous_reply___block_invoke(ui
   error = [(LAContext *)self _evaluatePolicy:policy options:optionsCopy log:LALogCategoryForPolicy() cid:+[LAContext error:"newCommandId"], error];
 
   return error;
+}
+
+- (id)_evaluatePolicy:(int64_t)policy options:(id)options log:(int64_t)log cid:(unsigned int)cid error:(id *)error
+{
+  v8 = *&cid;
+  optionsCopy = options;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__5;
+  v26 = __Block_byref_object_dispose__5;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__5;
+  v20 = __Block_byref_object_dispose__5;
+  v21 = 0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __51__LAContext__evaluatePolicy_options_log_cid_error___block_invoke;
+  v15[3] = &unk_1E77CC268;
+  v15[4] = &v22;
+  v15[5] = &v16;
+  [(LAContext *)self _evaluatePolicy:policy options:optionsCopy log:log cid:v8 synchronous:1 reply:v15];
+  if (error)
+  {
+    *error = v17[5];
+  }
+
+  v13 = v23[5];
+  _Block_object_dispose(&v16, 8);
+
+  _Block_object_dispose(&v22, 8);
+
+  return v13;
 }
 
 void __51__LAContext__evaluatePolicy_options_log_cid_error___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -902,7 +994,7 @@ void __51__LAContext__evaluatePolicy_options_log_cid_error___block_invoke(uint64
 
 - (void)evaluatePolicy:(LAPolicy)policy localizedReason:(NSString *)localizedReason reply:(void *)reply
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   v8 = localizedReason;
   v9 = reply;
   [(LAContext *)self setEvaluatedPolicyDomainState:0];
@@ -911,21 +1003,19 @@ void __51__LAContext__evaluatePolicy_options_log_cid_error___block_invoke(uint64
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Non-empty localizedReason must be provided."];
   }
 
-  v16[0] = &unk_1F1A6FCF8;
-  v16[1] = &unk_1F1A6FD10;
-  v17[0] = v8;
-  v17[1] = MEMORY[0x1E695E118];
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v15[0] = &unk_1F1A6FCF8;
+  v15[1] = &unk_1F1A6FD10;
+  v16[0] = v8;
+  v16[1] = MEMORY[0x1E695E118];
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
   v11 = +[LAContext newCommandId];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __50__LAContext_evaluatePolicy_localizedReason_reply___block_invoke;
-  v14[3] = &unk_1E77CB0F8;
-  v15 = v9;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __50__LAContext_evaluatePolicy_localizedReason_reply___block_invoke;
+  v13[3] = &unk_1E77CB0F8;
+  v14 = v9;
   v12 = v9;
-  [(LAContext *)self _evaluatePolicy:policy options:v10 log:8 cid:v11 synchronous:0 reply:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(LAContext *)self _evaluatePolicy:policy options:v10 log:8 cid:v11 synchronous:0 reply:v13];
 }
 
 - (id)_evaluationMechanismsFromReturnedError:(id)error error:(id *)a4
@@ -964,26 +1054,26 @@ LABEL_4:
 
 - (id)evaluationMechanismsForPolicy:(int64_t)policy error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v7 = +[LAContext newCommandId];
   v8 = LALogForPolicy();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 67109634;
     policyCopy2 = policy;
-    v20 = 2114;
+    v19 = 2114;
     selfCopy2 = self;
-    v22 = 1024;
-    v23 = v7;
+    v21 = 1024;
+    v22 = v7;
     _os_log_impl(&dword_1A784E000, v8, OS_LOG_TYPE_INFO, "evaluationMechanismsForPolicy:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
-  v26 = &unk_1F1A6FD28;
-  v27[0] = MEMORY[0x1E695E118];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-  v17 = 0;
-  v10 = [(LAContext *)self _evaluatePolicy:policy options:v9 log:0 cid:v7 error:&v17];
-  v11 = v17;
+  v25 = &unk_1F1A6FD28;
+  v26[0] = MEMORY[0x1E695E118];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v16 = 0;
+  v10 = [(LAContext *)self _evaluatePolicy:policy options:v9 log:0 cid:v7 error:&v16];
+  v11 = v16;
 
   v12 = [(LAContext *)self _evaluationMechanismsFromReturnedError:v11 error:error];
   v13 = 16 * (v12 == 0);
@@ -1001,23 +1091,21 @@ LABEL_4:
 
     *buf = 67109890;
     policyCopy2 = policy;
-    v20 = 2114;
+    v19 = 2114;
     selfCopy2 = self;
-    v22 = 1024;
-    v23 = v7;
-    v24 = 2114;
-    v25 = v14;
+    v21 = 1024;
+    v22 = v7;
+    v23 = 2114;
+    v24 = v14;
     _os_log_impl(&dword_1A784E000, v8, v13, "evaluationMechanismsForPolicy:%d on %{public}@ cid:%u returned %{public}@", buf, 0x22u);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)evaluationMechanismsForAccessControl:(__SecAccessControl *)control operation:(int64_t)operation error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v9 = LALogForCategory();
   v10 = +[LAContext newCommandId];
   v11 = [(LAContext *)self description];
@@ -1025,19 +1113,19 @@ LABEL_4:
   {
     *buf = 138412802;
     controlCopy2 = control;
-    v23 = 2114;
-    v24 = v11;
-    v25 = 1024;
-    v26 = v10;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 1024;
+    v25 = v10;
     _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "evaluationMechanismsForAccessControl:%@ on %{public}@ cid:%u", buf, 0x1Cu);
   }
 
-  v29 = &unk_1F1A6FD28;
-  v30[0] = MEMORY[0x1E695E118];
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-  v20 = 0;
-  v13 = [(LAContext *)self evaluateAccessControl:control operation:operation options:v12 error:&v20];
-  v14 = v20;
+  v28 = &unk_1F1A6FD28;
+  v29[0] = MEMORY[0x1E695E118];
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v19 = 0;
+  v13 = [(LAContext *)self evaluateAccessControl:control operation:operation options:v12 error:&v19];
+  v14 = v19;
 
   v15 = [(LAContext *)self _evaluationMechanismsFromReturnedError:v14 error:error];
   v16 = 16 * (v15 == 0);
@@ -1055,44 +1143,42 @@ LABEL_4:
 
     *buf = 138413058;
     controlCopy2 = control;
-    v23 = 2114;
-    v24 = v11;
-    v25 = 1024;
-    v26 = v10;
-    v27 = 2114;
-    v28 = v17;
+    v22 = 2114;
+    v23 = v11;
+    v24 = 1024;
+    v25 = v10;
+    v26 = 2114;
+    v27 = v17;
     _os_log_impl(&dword_1A784E000, v9, v16, "evaluationMechanismsForAccessControl:%@ on %{public}@ cid:%u returned %{public}@", buf, 0x26u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BOOL)canEvaluatePolicy:(LAPolicy)policy error:(NSError *)error
 {
-  v30[2] = *MEMORY[0x1E69E9840];
-  v29[0] = &unk_1F1A6FD28;
-  v29[1] = &unk_1F1A6FD10;
-  v30[0] = MEMORY[0x1E695E118];
-  v30[1] = MEMORY[0x1E695E118];
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v29[2] = *MEMORY[0x1E69E9840];
+  v28[0] = &unk_1F1A6FD28;
+  v28[1] = &unk_1F1A6FD10;
+  v29[0] = MEMORY[0x1E695E118];
+  v29[1] = MEMORY[0x1E695E118];
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
   v8 = +[LAContext newCommandId];
   v9 = LALogForPolicy();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 67109634;
-    v22 = policy;
-    v23 = 2114;
+    v21 = policy;
+    v22 = 2114;
     selfCopy2 = self;
-    v25 = 1024;
-    v26 = v8;
+    v24 = 1024;
+    v25 = v8;
     _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "canEvaluatePolicy:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
-  v20 = 0;
-  v10 = [(LAContext *)self _evaluatePolicy:policy options:v7 log:0 cid:v8 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [(LAContext *)self _evaluatePolicy:policy options:v7 log:0 cid:v8 error:&v19];
+  v11 = v19;
   if (v10)
   {
     v12 = 1;
@@ -1151,23 +1237,22 @@ LABEL_5:
       v17 = v11;
     }
 
-    v22 = policy;
-    v23 = 2114;
+    v21 = policy;
+    v22 = 2114;
     selfCopy2 = self;
-    v25 = 1024;
-    v26 = v8;
-    v27 = 2114;
-    v28 = v17;
+    v24 = 1024;
+    v25 = v8;
+    v26 = 2114;
+    v27 = v17;
     _os_log_impl(&dword_1A784E000, v14, v15, "canEvaluatePolicy:%d on %{public}@ cid:%u returned %{public}@", buf, 0x22u);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)failProcessedEvent:(int64_t)event failureError:(id)error reply:(id)reply
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   replyCopy = reply;
   v10 = LALogForCategory();
@@ -1177,38 +1262,36 @@ LABEL_5:
   {
     *buf = 67109890;
     eventCopy = event;
-    v28 = 2114;
-    v29 = errorCopy;
-    v30 = 2114;
-    v31 = v12;
-    v32 = 1024;
-    v33 = v11;
+    v27 = 2114;
+    v28 = errorCopy;
+    v29 = 2114;
+    v30 = v12;
+    v31 = 1024;
+    v32 = v11;
     _os_log_impl(&dword_1A784E000, v10, OS_LOG_TYPE_INFO, "failProcessedEvent:%d failureError:%{public}@ on %{public}@ cid:%u", buf, 0x22u);
   }
 
   client = self->_client;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __51__LAContext_failProcessedEvent_failureError_reply___block_invoke;
-  v19[3] = &unk_1E77CC5F8;
-  v23 = replyCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __51__LAContext_failProcessedEvent_failureError_reply___block_invoke;
+  v18[3] = &unk_1E77CC5F8;
+  v22 = replyCopy;
   eventCopy2 = event;
-  v20 = v10;
-  v21 = errorCopy;
-  v25 = v11;
-  v22 = v12;
+  v19 = v10;
+  v20 = errorCopy;
+  v24 = v11;
+  v21 = v12;
   v14 = replyCopy;
   v15 = v12;
   v16 = errorCopy;
   v17 = v10;
-  [(LAClient *)client failProcessedEvent:event failureError:v16 reply:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client failProcessedEvent:event failureError:v16 reply:v18];
 }
 
 void __51__LAContext_failProcessedEvent_failureError_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -1233,17 +1316,17 @@ void __51__LAContext_failProcessedEvent_failureError_reply___block_invoke(uint64
       v12 = v5;
     }
 
-    v15[0] = 67110146;
-    v15[1] = v8;
-    v16 = 2114;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 2114;
-    v23 = v12;
-    _os_log_impl(&dword_1A784E000, v6, v7, "failProcessedEvent:%d failureError:%{public}@ on %{public}@ cid:%u returned %{public}@", v15, 0x2Cu);
+    v14[0] = 67110146;
+    v14[1] = v8;
+    v15 = 2114;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_impl(&dword_1A784E000, v6, v7, "failProcessedEvent:%d failureError:%{public}@ on %{public}@ cid:%u returned %{public}@", v14, 0x2Cu);
   }
 
   v13 = *(a1 + 56);
@@ -1251,13 +1334,11 @@ void __51__LAContext_failProcessedEvent_failureError_reply___block_invoke(uint64
   {
     (*(v13 + 16))(v13, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retryProcessedEvent:(int64_t)event reply:(id)reply
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v7 = LALogForCategory();
   v8 = +[LAContext newCommandId];
@@ -1266,34 +1347,32 @@ void __51__LAContext_failProcessedEvent_failureError_reply___block_invoke(uint64
   {
     *buf = 67109634;
     eventCopy = event;
-    v23 = 2114;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v8;
+    v22 = 2114;
+    v23 = v9;
+    v24 = 1024;
+    v25 = v8;
     _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_INFO, "retryProcessEvent:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __39__LAContext_retryProcessedEvent_reply___block_invoke;
-  v15[3] = &unk_1E77CC620;
-  v16 = v7;
-  v17 = v9;
-  v20 = v8;
-  v18 = replyCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __39__LAContext_retryProcessedEvent_reply___block_invoke;
+  v14[3] = &unk_1E77CC620;
+  v15 = v7;
+  v16 = v9;
+  v19 = v8;
+  v17 = replyCopy;
   eventCopy2 = event;
   v11 = replyCopy;
   v12 = v9;
   v13 = v7;
-  [(LAClient *)client retryProcessedEvent:event reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client retryProcessedEvent:event reply:v14];
 }
 
 void __39__LAContext_retryProcessedEvent_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -1317,15 +1396,15 @@ void __39__LAContext_retryProcessedEvent_reply___block_invoke(uint64_t a1, uint6
       v11 = v5;
     }
 
-    v14[0] = 67109890;
-    v14[1] = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_1A784E000, v6, v7, "retryProcessEvent:%d on %{public}@ cid:%u returned %{public}@", v14, 0x22u);
+    v13[0] = 67109890;
+    v13[1] = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 1024;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1A784E000, v6, v7, "retryProcessEvent:%d on %{public}@ cid:%u returned %{public}@", v13, 0x22u);
   }
 
   v12 = *(a1 + 48);
@@ -1333,13 +1412,11 @@ void __39__LAContext_retryProcessedEvent_reply___block_invoke(uint64_t a1, uint6
   {
     (*(v12 + 16))(v12, a2, v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetProcessedEvent:(int64_t)event reply:(id)reply
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v7 = LALogForCategory();
   v8 = +[LAContext newCommandId];
@@ -1348,34 +1425,32 @@ void __39__LAContext_retryProcessedEvent_reply___block_invoke(uint64_t a1, uint6
   {
     *buf = 67109634;
     eventCopy = event;
-    v23 = 2114;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v8;
+    v22 = 2114;
+    v23 = v9;
+    v24 = 1024;
+    v25 = v8;
     _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_INFO, "resetProcessedEvent:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __39__LAContext_resetProcessedEvent_reply___block_invoke;
-  v15[3] = &unk_1E77CC620;
-  v16 = v7;
-  v17 = v9;
-  v20 = v8;
-  v18 = replyCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __39__LAContext_resetProcessedEvent_reply___block_invoke;
+  v14[3] = &unk_1E77CC620;
+  v15 = v7;
+  v16 = v9;
+  v19 = v8;
+  v17 = replyCopy;
   eventCopy2 = event;
   v11 = replyCopy;
   v12 = v9;
   v13 = v7;
-  [(LAClient *)client resetProcessedEvent:event reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client resetProcessedEvent:event reply:v14];
 }
 
 void __39__LAContext_resetProcessedEvent_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -1399,15 +1474,15 @@ void __39__LAContext_resetProcessedEvent_reply___block_invoke(uint64_t a1, uint6
       v11 = v5;
     }
 
-    v14[0] = 67109890;
-    v14[1] = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_1A784E000, v6, v7, "resetProcessedEvent:%d on %{public}@ cid:%u returned %{public}@", v14, 0x22u);
+    v13[0] = 67109890;
+    v13[1] = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 1024;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1A784E000, v6, v7, "resetProcessedEvent:%d on %{public}@ cid:%u returned %{public}@", v13, 0x22u);
   }
 
   v12 = *(a1 + 48);
@@ -1415,13 +1490,48 @@ void __39__LAContext_resetProcessedEvent_reply___block_invoke(uint64_t a1, uint6
   {
     (*(v12 + 16))(v12, a2, v5);
   }
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (void)pauseProcessedEvent:(int64_t)event pause:(BOOL)pause reply:(id)reply
+{
+  pauseCopy = pause;
+  v30 = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  v9 = LALogForCategory();
+  v10 = +[LAContext newCommandId];
+  v11 = [(LAContext *)self description];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109890;
+    eventCopy = event;
+    v24 = 1024;
+    v25 = pauseCopy;
+    v26 = 2114;
+    v27 = v11;
+    v28 = 1024;
+    v29 = v10;
+    _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "pauseProcessedEvent:%d pause:%d on %{public}@ cid:%u", buf, 0x1Eu);
+  }
+
+  client = self->_client;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __45__LAContext_pauseProcessedEvent_pause_reply___block_invoke;
+  v16[3] = &unk_1E77CC620;
+  v17 = v9;
+  v18 = v11;
+  v21 = v10;
+  v19 = replyCopy;
+  eventCopy2 = event;
+  v13 = replyCopy;
+  v14 = v11;
+  v15 = v9;
+  [(LAClient *)client pauseProcessedEvent:event pause:pauseCopy reply:v16];
 }
 
 void __45__LAContext_pauseProcessedEvent_pause_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -1445,15 +1555,15 @@ void __45__LAContext_pauseProcessedEvent_pause_reply___block_invoke(uint64_t a1,
       v11 = v5;
     }
 
-    v14[0] = 67109890;
-    v14[1] = v8;
-    v15 = 2114;
-    v16 = v9;
-    v17 = 1024;
-    v18 = v10;
-    v19 = 2114;
-    v20 = v11;
-    _os_log_impl(&dword_1A784E000, v6, v7, "pauseProcessedEvent:%d on %{public}@ cid:%u returned %{public}@", v14, 0x22u);
+    v13[0] = 67109890;
+    v13[1] = v8;
+    v14 = 2114;
+    v15 = v9;
+    v16 = 1024;
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1A784E000, v6, v7, "pauseProcessedEvent:%d on %{public}@ cid:%u returned %{public}@", v13, 0x22u);
   }
 
   v12 = *(a1 + 48);
@@ -1461,13 +1571,11 @@ void __45__LAContext_pauseProcessedEvent_pause_reply___block_invoke(uint64_t a1,
   {
     (*(v12 + 16))(v12, a2, v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCredential:(id)credential forProcessedEvent:(int64_t)event credentialType:(int64_t)type reply:(id)reply
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   replyCopy = reply;
   v12 = LALogForCategory();
@@ -1477,36 +1585,34 @@ void __45__LAContext_pauseProcessedEvent_pause_reply___block_invoke(uint64_t a1,
   {
     LODWORD(buf) = 67109890;
     HIDWORD(buf) = event;
-    v26 = 1024;
+    v25 = 1024;
     typeCopy = type;
-    v28 = 2114;
-    v29 = v14;
-    v30 = 1024;
-    v31 = v13;
+    v27 = 2114;
+    v28 = v14;
+    v29 = 1024;
+    v30 = v13;
     _os_log_impl(&dword_1A784E000, v12, OS_LOG_TYPE_INFO, "setCredential:forProcessedEvent:%d credentialType:%d on %{public}@ cid:%u", &buf, 0x1Eu);
   }
 
   objc_initWeak(&buf, self);
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke;
-  v19[3] = &unk_1E77CC670;
-  objc_copyWeak(v23, &buf);
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke;
+  v18[3] = &unk_1E77CC670;
+  objc_copyWeak(v22, &buf);
   v15 = v12;
-  v20 = v15;
-  v23[1] = event;
-  v23[2] = type;
+  v19 = v15;
+  v22[1] = event;
+  v22[2] = type;
   v16 = v14;
-  v21 = v16;
-  v24 = v13;
+  v20 = v16;
+  v23 = v13;
   v17 = replyCopy;
-  v22 = v17;
-  [(LAContext *)self _encodeCredential:credentialCopy type:type reply:v19];
+  v21 = v17;
+  [(LAContext *)self _encodeCredential:credentialCopy type:type reply:v18];
 
-  objc_destroyWeak(v23);
+  objc_destroyWeak(v22);
   objc_destroyWeak(&buf);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1521,7 +1627,7 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
     {
       if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
       {
-        __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke_cold_1(a1);
+        __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke_cold_1();
       }
 
       v9 = *(a1 + 48);
@@ -1552,7 +1658,7 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
 
 void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke_84(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -1577,17 +1683,17 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
       v12 = v5;
     }
 
-    v15[0] = 67110146;
-    v15[1] = v8;
-    v16 = 1024;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 2114;
-    v23 = v12;
-    _os_log_impl(&dword_1A784E000, v6, v7, "setCredential:forProcessedEvent:%d credentialType:%d on %{public}@ cid:%u returned %{public}@", v15, 0x28u);
+    v14[0] = 67110146;
+    v14[1] = v8;
+    v15 = 1024;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_impl(&dword_1A784E000, v6, v7, "setCredential:forProcessedEvent:%d credentialType:%d on %{public}@ cid:%u returned %{public}@", v14, 0x28u);
   }
 
   v13 = *(a1 + 48);
@@ -1595,8 +1701,6 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
   {
     (*(v13 + 16))(v13, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)evaluateAccessControl:(__SecAccessControl *)control operation:(int64_t)operation options:(id)options reply:(id)reply
@@ -1617,9 +1721,9 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
 
 - (void)_evaluateAccessControl:(__SecAccessControl *)control operation:(id)operation options:(id)options log:(int64_t)log cid:(unsigned int)cid synchronous:(BOOL)synchronous reply:(id)reply
 {
-  LODWORD(v26) = cid;
-  HIDWORD(v26) = synchronous;
-  v48 = *MEMORY[0x1E69E9840];
+  LODWORD(v25) = cid;
+  HIDWORD(v25) = synchronous;
+  v47 = *MEMORY[0x1E69E9840];
   operationCopy = operation;
   optionsCopy = options;
   replyCopy = reply;
@@ -1632,21 +1736,21 @@ void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___bloc
       v18 = "async";
       *buf = 138544642;
       controlCopy = control;
-      v38 = 2114;
-      if (HIDWORD(v26))
+      v37 = 2114;
+      if (HIDWORD(v25))
       {
         v18 = "sync";
       }
 
-      v39 = operationCopy;
-      v40 = 2114;
-      v41 = optionsCopy;
-      v42 = 2114;
-      v43 = v16;
-      v44 = 2082;
-      v45 = v18;
-      v46 = 1024;
-      v47 = v26;
+      v38 = operationCopy;
+      v39 = 2114;
+      v40 = optionsCopy;
+      v41 = 2114;
+      v42 = v16;
+      v43 = 2082;
+      v44 = v18;
+      v45 = 1024;
+      v46 = v25;
       _os_log_impl(&dword_1A784E000, v17, OS_LOG_TYPE_DEFAULT, "evaluateAccessControl:%{public}@ operation:%{public}@ options:%{public}@ on %{public}@ (%{public}s) cid:%u", buf, 0x3Au);
     }
 
@@ -1671,37 +1775,35 @@ LABEL_7:
 LABEL_10:
   client = self->_client;
   uiDelegate = [(LAContext *)self uiDelegate];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronous_reply___block_invoke;
-  v29[3] = &unk_1E77CC698;
-  v29[4] = self;
-  v30 = optionsCopy;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronous_reply___block_invoke;
+  v28[3] = &unk_1E77CC698;
+  v28[4] = self;
+  v29 = optionsCopy;
   controlCopy2 = control;
   logCopy = log;
-  v35 = v27;
-  v31 = v16;
-  v32 = replyCopy;
+  v34 = v26;
+  v30 = v16;
+  v31 = replyCopy;
   v22 = replyCopy;
   v23 = v16;
   v24 = optionsCopy;
-  [(LAClient *)client evaluateACL:v19 operation:operationCopy options:v24 uiDelegate:uiDelegate synchronous:v28 reply:v29];
-
-  v25 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client evaluateACL:v19 operation:operationCopy options:v24 uiDelegate:uiDelegate synchronous:v27 reply:v28];
 }
 
 void __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronous_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    *v18 = 0;
-    if (!LAUpdateAccessControl(*(a1 + 64), v5, v18))
+    *v17 = 0;
+    if (!LAUpdateAccessControl(*(a1 + 64), v5, v17))
     {
 
-      v7 = *v18;
+      v7 = *v17;
       v5 = 0;
       v6 = v7;
     }
@@ -1739,13 +1841,13 @@ void __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronou
         v15 = v6;
       }
 
-      *v18 = 138543874;
-      *&v18[4] = v13;
-      v19 = 1024;
-      v20 = v14;
-      v21 = 2114;
-      v22 = v15;
-      _os_log_impl(&dword_1A784E000, v12, OS_LOG_TYPE_DEFAULT, "evaluateAccessControl on %{public}@ cid:%u returned %{public}@", v18, 0x1Cu);
+      *v17 = 138543874;
+      *&v17[4] = v13;
+      v18 = 1024;
+      v19 = v14;
+      v20 = 2114;
+      v21 = v15;
+      _os_log_impl(&dword_1A784E000, v12, OS_LOG_TYPE_DEFAULT, "evaluateAccessControl on %{public}@ cid:%u returned %{public}@", v17, 0x1Cu);
     }
   }
 
@@ -1754,13 +1856,11 @@ void __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronou
   {
     (*(v16 + 16))(v16, v5, v6);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)evaluateAccessControl:(SecAccessControlRef)accessControl operation:(LAAccessControlOperation)operation localizedReason:(NSString *)localizedReason reply:(void *)reply
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   v10 = localizedReason;
   v11 = reply;
   if (![(NSString *)v10 length])
@@ -1768,23 +1868,21 @@ void __80__LAContext__evaluateAccessControl_operation_options_log_cid_synchronou
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:@"Non-empty localizedReason must be provided."];
   }
 
-  v20[0] = &unk_1F1A6FCF8;
-  v20[1] = &unk_1F1A6FD10;
-  v21[0] = v10;
-  v21[1] = MEMORY[0x1E695E118];
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[0] = &unk_1F1A6FCF8;
+  v19[1] = &unk_1F1A6FD10;
+  v20[0] = v10;
+  v20[1] = MEMORY[0x1E695E118];
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:2];
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:operation];
   v14 = LALogCategoryForOptions();
   v15 = +[LAContext newCommandId];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __67__LAContext_evaluateAccessControl_operation_localizedReason_reply___block_invoke;
-  v18[3] = &unk_1E77CB0F8;
-  v19 = v11;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __67__LAContext_evaluateAccessControl_operation_localizedReason_reply___block_invoke;
+  v17[3] = &unk_1E77CB0F8;
+  v18 = v11;
   v16 = v11;
-  [(LAContext *)self _evaluateAccessControl:accessControl operation:v13 options:v12 log:v14 cid:v15 synchronous:0 reply:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(LAContext *)self _evaluateAccessControl:accessControl operation:v13 options:v12 log:v14 cid:v15 synchronous:0 reply:v17];
 }
 
 uint64_t __67__LAContext_evaluateAccessControl_operation_localizedReason_reply___block_invoke(uint64_t a1, uint64_t a2)
@@ -1904,7 +2002,7 @@ void __62__LAContext_evaluateAccessControl_aksOperation_options_error___block_in
 
 - (LABiometryType)biometryType
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (_cachedBiometryType)
   {
     integerValue = [_cachedBiometryType integerValue];
@@ -1920,12 +2018,11 @@ void __62__LAContext_evaluateAccessControl_aksOperation_options_error___block_in
   v5 = LALogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = integerValue;
-    _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_DEFAULT, "returned biometryType: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = integerValue;
+    _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_DEFAULT, "returned biometryType: %d", v7, 8u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return integerValue;
 }
 
@@ -1989,7 +2086,7 @@ id __36__LAContext_domainStateWithOptions___block_invoke(uint64_t a1, void *a2, 
 
 - (id)_fetchDomainStateWithOptions:(id)options error:(id *)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v7 = LALogCategoryForOptions();
   if (v7)
@@ -2011,29 +2108,29 @@ id __36__LAContext_domainStateWithOptions___block_invoke(uint64_t a1, void *a2, 
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__5;
-  v37 = __Block_byref_object_dispose__5;
-  v38 = 0;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__5;
-  v32 = __Block_byref_object_dispose__5;
-  v33 = 0;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__5;
+  v36 = __Block_byref_object_dispose__5;
+  v37 = 0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__5;
+  v31 = __Block_byref_object_dispose__5;
+  v32 = 0;
   client = self->_client;
-  v20 = MEMORY[0x1E69E9820];
-  v21 = 3221225472;
-  v22 = __48__LAContext__fetchDomainStateWithOptions_error___block_invoke;
-  v23 = &unk_1E77CC6E8;
-  v27 = v7;
+  v19 = MEMORY[0x1E69E9820];
+  v20 = 3221225472;
+  v21 = __48__LAContext__fetchDomainStateWithOptions_error___block_invoke;
+  v22 = &unk_1E77CC6E8;
+  v26 = v7;
   v11 = v8;
-  v24 = v11;
+  v23 = v11;
   p_buf = &buf;
-  v26 = &v28;
-  [(LAClient *)client getDomainStateWithOptions:optionsCopy synchronous:1 reply:&v20];
+  v25 = &v27;
+  [(LAClient *)client getDomainStateWithOptions:optionsCopy synchronous:1 reply:&v19];
   v12 = [LADomainState alloc];
-  v13 = [(LADomainState *)v12 initWithResult:*(*(&buf + 1) + 40), v20, v21, v22, v23];
+  v13 = [(LADomainState *)v12 initWithResult:*(*(&buf + 1) + 40), v19, v20, v21, v22];
   v14 = MEMORY[0x1E696AD98];
   biometry = [(LADomainState *)v13 biometry];
   v16 = [v14 numberWithInteger:{objc_msgSend(biometry, "biometryType")}];
@@ -2042,20 +2139,18 @@ id __36__LAContext_domainStateWithOptions___block_invoke(uint64_t a1, void *a2, 
 
   if (error)
   {
-    *error = v29[5];
+    *error = v28[5];
   }
 
-  _Block_object_dispose(&v28, 8);
+  _Block_object_dispose(&v27, 8);
   _Block_object_dispose(&buf, 8);
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 void __48__LAContext__fetchDomainStateWithOptions_error___block_invoke(void *a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (a1[7])
@@ -2074,11 +2169,11 @@ void __48__LAContext__fetchDomainStateWithOptions_error___block_invoke(void *a1,
         v9 = v6;
       }
 
-      v16 = 138543618;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v9;
-      _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_DEFAULT, "DomainState on %{public}@ returned: %{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v9;
+      _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_DEFAULT, "DomainState on %{public}@ returned: %{public}@", &v15, 0x16u);
     }
   }
 
@@ -2090,8 +2185,6 @@ void __48__LAContext__fetchDomainStateWithOptions_error___block_invoke(void *a1,
   v13 = *(a1[6] + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v6;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setCredential:(id)credential type:(int64_t)type options:(id)options error:(id *)error
@@ -2101,6 +2194,38 @@ void __48__LAContext__fetchDomainStateWithOptions_error___block_invoke(void *a1,
   LOBYTE(error) = [(LAContext *)self _setCredential:credentialCopy type:type options:optionsCopy log:16 cid:+[LAContext error:"newCommandId"], error];
 
   return error;
+}
+
+- (BOOL)_setCredential:(id)credential type:(int64_t)type options:(id)options log:(int64_t)log cid:(unsigned int)cid error:(id *)error
+{
+  v9 = *&cid;
+  credentialCopy = credential;
+  optionsCopy = options;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__5;
+  v27 = __Block_byref_object_dispose__5;
+  v28 = 0;
+  v16 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, &__block_literal_global_89);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2;
+  v20[3] = &unk_1E77CC710;
+  v22 = &v23;
+  v17 = v16;
+  v21 = v17;
+  [(LAContext *)self _setCredential:credentialCopy type:type options:optionsCopy log:log cid:v9 reply:v20];
+  dispatch_block_wait(v17, 0xFFFFFFFFFFFFFFFFLL);
+  if (error)
+  {
+    *error = v24[5];
+  }
+
+  v18 = v24[5] == 0;
+
+  _Block_object_dispose(&v23, 8);
+  return v18;
 }
 
 void __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2(uint64_t a1, int a2, id obj)
@@ -2120,7 +2245,7 @@ void __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2(
 
 - (void)_setCredential:(id)credential type:(int64_t)type options:(id)options log:(int64_t)log cid:(unsigned int)cid reply:(id)reply
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   optionsCopy = options;
   replyCopy = reply;
@@ -2130,11 +2255,11 @@ void __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2(
   {
     LODWORD(buf) = 67109890;
     HIDWORD(buf) = type;
-    v40 = 2114;
-    v41 = optionsCopy;
-    v42 = 2114;
-    v43 = v14;
-    v44 = 1024;
+    v39 = 2114;
+    v40 = optionsCopy;
+    v41 = 2114;
+    v42 = v14;
+    v43 = 1024;
     cidCopy = cid;
     _os_log_impl(&dword_1A784E000, v15, OS_LOG_TYPE_INFO, "setCredential:type:%d options:%{public}@ on %{public}@ cid:%u", &buf, 0x22u);
   }
@@ -2146,13 +2271,13 @@ void __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2(
 
     if ((featureFlagExtractableCredentialProtectionEnabled & 1) == 0)
     {
-      v27 = *MEMORY[0x1E69AD0F8];
+      v26 = *MEMORY[0x1E69AD0F8];
       entitlementsChecker = [(LAContext *)self entitlementsChecker];
-      v38 = v27;
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
-      v37 = 0;
-      v20 = [entitlementsChecker checkHasEntitlements:v19 error:&v37];
-      v21 = v37;
+      v37 = v26;
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
+      v36 = 0;
+      v20 = [entitlementsChecker checkHasEntitlements:v19 error:&v36];
+      v21 = v36;
 
       if ((v20 & 1) == 0 && os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
@@ -2162,32 +2287,30 @@ void __55__LAContext__setCredential_type_options_log_cid_error___block_invoke_2(
   }
 
   objc_initWeak(&buf, self);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke;
-  v30[3] = &unk_1E77CC738;
-  objc_copyWeak(v35, &buf);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke;
+  v29[3] = &unk_1E77CC738;
+  objc_copyWeak(v34, &buf);
   v22 = v15;
-  v31 = v22;
-  v35[1] = type;
+  v30 = v22;
+  v34[1] = type;
   v23 = v14;
-  v32 = v23;
+  v31 = v23;
   cidCopy2 = cid;
   v24 = replyCopy;
-  v34 = v24;
+  v33 = v24;
   v25 = optionsCopy;
-  v33 = v25;
-  [(LAContext *)self _encodeCredential:credentialCopy type:type reply:v30];
+  v32 = v25;
+  [(LAContext *)self _encodeCredential:credentialCopy type:type reply:v29];
 
-  objc_destroyWeak(v35);
+  objc_destroyWeak(v34);
   objc_destroyWeak(&buf);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -2199,19 +2322,19 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke(ui
       v9 = *(a1 + 32);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v16 = *(a1 + 72);
-        v17 = *(a1 + 40);
-        v18 = *(a1 + 80);
+        v15 = *(a1 + 72);
+        v16 = *(a1 + 40);
+        v17 = *(a1 + 80);
         *buf = 67110146;
-        v27 = v5 != 0;
-        v28 = 1024;
-        v29 = v16;
-        v30 = 2114;
-        v31 = v17;
-        v32 = 1024;
-        v33 = v18;
-        v34 = 2114;
-        v35 = v6;
+        v26 = v5 != 0;
+        v27 = 1024;
+        v28 = v15;
+        v29 = 2114;
+        v30 = v16;
+        v31 = 1024;
+        v32 = v17;
+        v33 = 2114;
+        v34 = v6;
         _os_log_error_impl(&dword_1A784E000, v9, OS_LOG_TYPE_ERROR, "setCredential:%d type:%d on %{public}@ cid:%u returned %{public}@ when attempting to encode credential", buf, 0x28u);
       }
 
@@ -2223,28 +2346,26 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke(ui
       v10 = *(WeakRetained + 10);
       v11 = *(a1 + 72);
       v12 = *(a1 + 48);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92;
-      v19[3] = &unk_1E77CC5F8;
-      v20 = *(a1 + 32);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92;
+      v18[3] = &unk_1E77CC5F8;
+      v19 = *(a1 + 32);
       v13 = v5;
       v14 = *(a1 + 72);
-      v21 = v13;
-      v24 = v14;
-      v22 = *(a1 + 40);
-      v25 = *(a1 + 80);
-      v23 = *(a1 + 56);
-      [v10 setCredential:v13 type:v11 options:v12 reply:v19];
+      v20 = v13;
+      v23 = v14;
+      v21 = *(a1 + 40);
+      v24 = *(a1 + 80);
+      v22 = *(a1 + 56);
+      [v10 setCredential:v13 type:v11 options:v12 reply:v18];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -2269,17 +2390,17 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92
       v12 = v5;
     }
 
-    v15[0] = 67110146;
-    v15[1] = v9;
-    v16 = 1024;
-    v17 = v10;
-    v18 = 2114;
-    v19 = v8;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 2114;
-    v23 = v12;
-    _os_log_impl(&dword_1A784E000, v6, v7, "setCredential:%d type:%d on %{public}@ cid:%u returned %{public}@", v15, 0x28u);
+    v14[0] = 67110146;
+    v14[1] = v9;
+    v15 = 1024;
+    v16 = v10;
+    v17 = 2114;
+    v18 = v8;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_impl(&dword_1A784E000, v6, v7, "setCredential:%d type:%d on %{public}@ cid:%u returned %{public}@", v14, 0x28u);
   }
 
   v13 = *(a1 + 56);
@@ -2287,13 +2408,11 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92
   {
     (*(v13 + 16))(v13, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)credentialOfType:(int64_t)type reply:(id)reply
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v7 = LALogForCategory();
   v8 = +[LAContext newCommandId];
@@ -2302,10 +2421,10 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92
   {
     LODWORD(buf) = 67109634;
     HIDWORD(buf) = type;
-    v31 = 2114;
-    v32 = v9;
-    v33 = 1024;
-    v34 = v8;
+    v30 = 2114;
+    v31 = v9;
+    v32 = 1024;
+    v33 = v8;
     _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_INFO, "credentialOfType:%d on %{public}@ cid:%u", &buf, 0x18u);
   }
 
@@ -2316,13 +2435,13 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92
 
     if ((featureFlagExtractableCredentialProtectionEnabled & 1) == 0)
     {
-      v21 = *MEMORY[0x1E69AD0F0];
+      v20 = *MEMORY[0x1E69AD0F0];
       entitlementsChecker = [(LAContext *)self entitlementsChecker];
-      v29 = v21;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-      v28 = 0;
-      v14 = [entitlementsChecker checkHasEntitlements:v13 error:&v28];
-      v15 = v28;
+      v28 = v20;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+      v27 = 0;
+      v14 = [entitlementsChecker checkHasEntitlements:v13 error:&v27];
+      v15 = v27;
 
       if ((v14 & 1) == 0 && os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
@@ -2333,30 +2452,28 @@ void __55__LAContext__setCredential_type_options_log_cid_reply___block_invoke_92
 
   objc_initWeak(&buf, self);
   client = self->_client;
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __36__LAContext_credentialOfType_reply___block_invoke;
-  v22[3] = &unk_1E77CC788;
-  objc_copyWeak(v26, &buf);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __36__LAContext_credentialOfType_reply___block_invoke;
+  v21[3] = &unk_1E77CC788;
+  objc_copyWeak(v25, &buf);
   v17 = v7;
-  v23 = v17;
-  v26[1] = type;
+  v22 = v17;
+  v25[1] = type;
   v18 = v9;
-  v24 = v18;
-  v27 = v8;
+  v23 = v18;
+  v26 = v8;
   v19 = replyCopy;
-  v25 = v19;
-  [(LAClient *)client credentialOfType:type reply:v22];
+  v24 = v19;
+  [(LAClient *)client credentialOfType:type reply:v21];
 
-  objc_destroyWeak(v26);
+  objc_destroyWeak(v25);
   objc_destroyWeak(&buf);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __36__LAContext_credentialOfType_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -2383,18 +2500,18 @@ void __36__LAContext_credentialOfType_reply___block_invoke(uint64_t a1, void *a2
           v12 = *(a1 + 40);
           v13 = *(a1 + 72);
           *buf = 67109634;
-          v25 = v11;
-          v26 = 2114;
-          v27 = v12;
-          v28 = 1024;
-          v29 = v13;
+          v24 = v11;
+          v25 = 2114;
+          v26 = v12;
+          v27 = 1024;
+          v28 = v13;
           _os_log_impl(&dword_1A784E000, v10, OS_LOG_TYPE_DEFAULT, "credentialOfType:%d on %{public}@ cid:%u returned", buf, 0x18u);
         }
       }
 
       else if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
       {
-        __36__LAContext_credentialOfType_reply___block_invoke_cold_2(a1);
+        __36__LAContext_credentialOfType_reply___block_invoke_cold_2();
       }
 
       (*(*(a1 + 48) + 16))();
@@ -2403,27 +2520,25 @@ void __36__LAContext_credentialOfType_reply___block_invoke(uint64_t a1, void *a2
     else
     {
       v14 = *(a1 + 64);
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __36__LAContext_credentialOfType_reply___block_invoke_93;
-      v18[3] = &unk_1E77CC760;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __36__LAContext_credentialOfType_reply___block_invoke_93;
+      v17[3] = &unk_1E77CC760;
       v15 = *(a1 + 32);
       v16 = *(a1 + 64);
-      v19 = v15;
-      v22 = v16;
-      v20 = *(a1 + 40);
-      v23 = *(a1 + 72);
-      v21 = *(a1 + 48);
-      [WeakRetained _decodeCredential:v5 type:v14 reply:v18];
+      v18 = v15;
+      v21 = v16;
+      v19 = *(a1 + 40);
+      v22 = *(a1 + 72);
+      v20 = *(a1 + 48);
+      [WeakRetained _decodeCredential:v5 type:v14 reply:v17];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __36__LAContext_credentialOfType_reply___block_invoke_93(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -2434,24 +2549,22 @@ void __36__LAContext_credentialOfType_reply___block_invoke_93(uint64_t a1, void 
       v8 = *(a1 + 56);
       v9 = *(a1 + 40);
       v10 = *(a1 + 64);
-      v12[0] = 67109634;
-      v12[1] = v8;
-      v13 = 2114;
-      v14 = v9;
-      v15 = 1024;
-      v16 = v10;
-      _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_DEFAULT, "credentialOfType:%d on %{public}@ cid:%u returned", v12, 0x18u);
+      v11[0] = 67109634;
+      v11[1] = v8;
+      v12 = 2114;
+      v13 = v9;
+      v14 = 1024;
+      v15 = v10;
+      _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_DEFAULT, "credentialOfType:%d on %{public}@ cid:%u returned", v11, 0x18u);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __36__LAContext_credentialOfType_reply___block_invoke_93_cold_1(a1);
+    __36__LAContext_credentialOfType_reply___block_invoke_93_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)credentialOfType:(int64_t)type error:(id *)error
@@ -2511,7 +2624,7 @@ void __36__LAContext_credentialOfType_error___block_invoke_2(void *a1, void *a2,
 
 - (BOOL)isCredentialSet:(LACredentialType)type
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = LALogForCategory();
   v6 = +[LAContext newCommandId];
   v7 = [(LAContext *)self description];
@@ -2519,44 +2632,43 @@ void __36__LAContext_credentialOfType_error___block_invoke_2(void *a1, void *a2,
   {
     *buf = 67109634;
     *&buf[4] = type;
-    LOWORD(v24) = 2114;
-    *(&v24 + 2) = v7;
-    WORD5(v24) = 1024;
-    HIDWORD(v24) = v6;
+    LOWORD(v23) = 2114;
+    *(&v23 + 2) = v7;
+    WORD5(v23) = 1024;
+    HIDWORD(v23) = v6;
     _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_INFO, "isCredentialSet:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
   *buf = 0;
-  *&v24 = buf;
-  *(&v24 + 1) = 0x2020000000;
-  v25 = 0;
+  *&v23 = buf;
+  *(&v23 + 1) = 0x2020000000;
+  v24 = 0;
   v8 = dispatch_block_create(DISPATCH_BLOCK_ASSIGN_CURRENT, &__block_literal_global_97);
   client = self->_client;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __29__LAContext_isCredentialSet___block_invoke_2;
-  v16[3] = &unk_1E77CC7D8;
-  v20 = buf;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __29__LAContext_isCredentialSet___block_invoke_2;
+  v15[3] = &unk_1E77CC7D8;
+  v19 = buf;
   v10 = v5;
-  v17 = v10;
-  v21 = type;
+  v16 = v10;
+  v20 = type;
   v11 = v7;
-  v18 = v11;
-  v22 = v6;
+  v17 = v11;
+  v21 = v6;
   v12 = v8;
-  v19 = v12;
-  [(LAClient *)client isCredentialSet:type reply:v16];
+  v18 = v12;
+  [(LAClient *)client isCredentialSet:type reply:v15];
   dispatch_block_wait(v12, 0xFFFFFFFFFFFFFFFFLL);
-  v13 = *(v24 + 24);
+  v13 = *(v23 + 24);
 
   _Block_object_dispose(buf, 8);
-  v14 = *MEMORY[0x1E69E9840];
   return v13 & 1;
 }
 
 void __29__LAContext_isCredentialSet___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   *(*(*(a1 + 56) + 8) + 24) = a2;
   v6 = *(a1 + 32);
@@ -2590,24 +2702,23 @@ void __29__LAContext_isCredentialSet___block_invoke_2(uint64_t a1, char a2, void
       v11 = v5;
     }
 
-    v13[0] = 67109890;
-    v13[1] = v10;
-    v14 = 2114;
-    v15 = v8;
-    v16 = 1024;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_impl(&dword_1A784E000, v6, v7, "isCredentialSet:%d on %{public}@ cid:%u returned %{public}@", v13, 0x22u);
+    v12[0] = 67109890;
+    v12[1] = v10;
+    v13 = 2114;
+    v14 = v8;
+    v15 = 1024;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v11;
+    _os_log_impl(&dword_1A784E000, v6, v7, "isCredentialSet:%d on %{public}@ cid:%u returned %{public}@", v12, 0x22u);
   }
 
   (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOptions:(id)options forInternalOperation:(int64_t)operation reply:(id)reply
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   replyCopy = reply;
   v10 = LALogForCategory();
@@ -2617,39 +2728,37 @@ void __29__LAContext_isCredentialSet___block_invoke_2(uint64_t a1, char a2, void
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 67109890;
-    v28 = [optionsCopy hash];
-    v29 = 1024;
+    v27 = [optionsCopy hash];
+    v28 = 1024;
     operationCopy = operation;
-    v31 = 2114;
-    v32 = v12;
-    v33 = 1024;
-    v34 = v11;
+    v30 = 2114;
+    v31 = v12;
+    v32 = 1024;
+    v33 = v11;
     _os_log_impl(&dword_1A784E000, v13, OS_LOG_TYPE_INFO, "setOptions:%x forInternalOperation:%d on %{public}@ cid:%u", buf, 0x1Eu);
   }
 
   client = self->_client;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __51__LAContext_setOptions_forInternalOperation_reply___block_invoke;
-  v20[3] = &unk_1E77CC5F8;
-  v21 = v13;
-  v22 = optionsCopy;
-  v24 = replyCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __51__LAContext_setOptions_forInternalOperation_reply___block_invoke;
+  v19[3] = &unk_1E77CC5F8;
+  v20 = v13;
+  v21 = optionsCopy;
+  v23 = replyCopy;
   operationCopy2 = operation;
-  v26 = v11;
-  v23 = v12;
+  v25 = v11;
+  v22 = v12;
   v15 = replyCopy;
   v16 = v12;
   v17 = optionsCopy;
   v18 = v13;
-  [(LAClient *)client setOptions:v17 forInternalOperation:operation reply:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client setOptions:v17 forInternalOperation:operation reply:v19];
 }
 
 void __51__LAContext_setOptions_forInternalOperation_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -2676,17 +2785,17 @@ void __51__LAContext_setOptions_forInternalOperation_reply___block_invoke(uint64
       v14 = v5;
     }
 
-    v17[0] = 67110146;
-    v17[1] = v10;
-    v18 = 1024;
-    v19 = v11;
-    v20 = 2114;
-    v21 = v12;
-    v22 = 1024;
-    v23 = v13;
-    v24 = 2114;
-    v25 = v14;
-    _os_log_impl(&dword_1A784E000, v9, v7, "setOptions:%x forInternalOperation:%d on %{public}@ cid:%u returned %{public}@", v17, 0x28u);
+    v16[0] = 67110146;
+    v16[1] = v10;
+    v17 = 1024;
+    v18 = v11;
+    v19 = 2114;
+    v20 = v12;
+    v21 = 1024;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v14;
+    _os_log_impl(&dword_1A784E000, v9, v7, "setOptions:%x forInternalOperation:%d on %{public}@ cid:%u returned %{public}@", v16, 0x28u);
   }
 
   v15 = *(a1 + 56);
@@ -2694,13 +2803,11 @@ void __51__LAContext_setOptions_forInternalOperation_reply___block_invoke(uint64
   {
     (*(v15 + 16))(v15, a2, v5);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)optionsForInternalOperation:(int64_t)operation reply:(id)reply
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v7 = LALogForCategory();
   v8 = +[LAContext newCommandId];
@@ -2709,34 +2816,32 @@ void __51__LAContext_setOptions_forInternalOperation_reply___block_invoke(uint64
   {
     *buf = 67109634;
     operationCopy = operation;
-    v23 = 2114;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v8;
+    v22 = 2114;
+    v23 = v9;
+    v24 = 1024;
+    v25 = v8;
     _os_log_impl(&dword_1A784E000, v7, OS_LOG_TYPE_INFO, "optionsForInternalOperation:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
   client = self->_client;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __47__LAContext_optionsForInternalOperation_reply___block_invoke;
-  v15[3] = &unk_1E77CC800;
-  v16 = v7;
-  v17 = v9;
-  v20 = v8;
-  v18 = replyCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __47__LAContext_optionsForInternalOperation_reply___block_invoke;
+  v14[3] = &unk_1E77CC800;
+  v15 = v7;
+  v16 = v9;
+  v19 = v8;
+  v17 = replyCopy;
   operationCopy2 = operation;
   v11 = replyCopy;
   v12 = v9;
   v13 = v7;
-  [(LAClient *)client optionsForInternalOperation:operation reply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client optionsForInternalOperation:operation reply:v14];
 }
 
 void __47__LAContext_optionsForInternalOperation_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -2756,27 +2861,26 @@ void __47__LAContext_optionsForInternalOperation_reply___block_invoke(uint64_t a
       v12 = v6;
     }
 
-    v14[0] = 67109890;
-    v14[1] = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 1024;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v12;
-    _os_log_impl(&dword_1A784E000, v7, v8, "optionsForInternalOperation:%d on %{public}@ cid:%u returned %{public}@", v14, 0x22u);
+    v13[0] = 67109890;
+    v13[1] = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 1024;
+    v17 = v11;
+    v18 = 2114;
+    v19 = v12;
+    _os_log_impl(&dword_1A784E000, v7, v8, "optionsForInternalOperation:%d on %{public}@ cid:%u returned %{public}@", v13, 0x22u);
     if (v5)
     {
     }
   }
 
   (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prearmTouchIDWithReply:(id)reply
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = LALogForCategory();
   v6 = +[LAContext newCommandId];
@@ -2784,33 +2888,31 @@ void __47__LAContext_optionsForInternalOperation_reply___block_invoke(uint64_t a
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v19 = v7;
-    v20 = 1024;
-    v21 = v6;
+    v18 = v7;
+    v19 = 1024;
+    v20 = v6;
     _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_INFO, "prearmTouchIDWithReply on %{public}@ cid:%u", buf, 0x12u);
   }
 
   client = self->_client;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __36__LAContext_prearmTouchIDWithReply___block_invoke;
-  v13[3] = &unk_1E77CC828;
-  v13[4] = self;
-  v14 = v5;
-  v17 = v6;
-  v15 = v7;
-  v16 = replyCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __36__LAContext_prearmTouchIDWithReply___block_invoke;
+  v12[3] = &unk_1E77CC828;
+  v12[4] = self;
+  v13 = v5;
+  v16 = v6;
+  v14 = v7;
+  v15 = replyCopy;
   v9 = replyCopy;
   v10 = v7;
   v11 = v5;
-  [(LAClient *)client prearmTouchIdWithReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client prearmTouchIdWithReply:v12];
 }
 
 void __36__LAContext_prearmTouchIDWithReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -2835,23 +2937,21 @@ void __36__LAContext_prearmTouchIDWithReply___block_invoke(uint64_t a1, void *a2
       v12 = v7;
     }
 
-    v14 = 138543874;
-    v15 = v10;
-    v16 = 1024;
-    v17 = v11;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1A784E000, v9, v8, "prearmTouchIDWithReply on %{public}@ cid:%u returned %{public}@", &v14, 0x1Cu);
+    v13 = 138543874;
+    v14 = v10;
+    v15 = 1024;
+    v16 = v11;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_impl(&dword_1A784E000, v9, v8, "prearmTouchIDWithReply on %{public}@ cid:%u returned %{public}@", &v13, 0x1Cu);
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithReply:(id)reply
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = LALogForCategory();
   v6 = +[LAContext newCommandId];
@@ -2859,32 +2959,30 @@ void __36__LAContext_prearmTouchIDWithReply___block_invoke(uint64_t a1, void *a2
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v19 = v7;
-    v20 = 1024;
-    v21 = v6;
+    v18 = v7;
+    v19 = 1024;
+    v20 = v6;
     _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_INFO, "resetWithReply on %{public}@ cid:%u", buf, 0x12u);
   }
 
   client = self->_client;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __28__LAContext_resetWithReply___block_invoke;
-  v13[3] = &unk_1E77CC850;
-  v14 = v5;
-  v15 = v7;
-  v17 = v6;
-  v16 = replyCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __28__LAContext_resetWithReply___block_invoke;
+  v12[3] = &unk_1E77CC850;
+  v13 = v5;
+  v14 = v7;
+  v16 = v6;
+  v15 = replyCopy;
   v9 = replyCopy;
   v10 = v7;
   v11 = v5;
-  [(LAClient *)client resetProcessedEvent:0 reply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client resetProcessedEvent:0 reply:v12];
 }
 
 void __28__LAContext_resetWithReply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -2907,13 +3005,13 @@ void __28__LAContext_resetWithReply___block_invoke(uint64_t a1, uint64_t a2, voi
       v10 = v5;
     }
 
-    v13 = 138543874;
-    v14 = v8;
-    v15 = 1024;
-    v16 = v9;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_impl(&dword_1A784E000, v6, v7, "resetWithReply on %{public}@ cid:%u returned %{public}@", &v13, 0x1Cu);
+    v12 = 138543874;
+    v13 = v8;
+    v14 = 1024;
+    v15 = v9;
+    v16 = 2114;
+    v17 = v10;
+    _os_log_impl(&dword_1A784E000, v6, v7, "resetWithReply on %{public}@ cid:%u returned %{public}@", &v12, 0x1Cu);
   }
 
   v11 = *(a1 + 48);
@@ -2921,13 +3019,11 @@ void __28__LAContext_resetWithReply___block_invoke(uint64_t a1, uint64_t a2, voi
   {
     (*(v11 + 16))(v11, a2, v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)authMethodWithReply:(id)reply
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = LALogForCategory();
   v6 = +[LAContext newCommandId];
@@ -2935,32 +3031,30 @@ void __28__LAContext_resetWithReply___block_invoke(uint64_t a1, uint64_t a2, voi
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v19 = v7;
-    v20 = 1024;
-    v21 = v6;
+    v18 = v7;
+    v19 = 1024;
+    v20 = v6;
     _os_log_impl(&dword_1A784E000, v5, OS_LOG_TYPE_INFO, "authMethodWithReply on %{public}@ cid:%u", buf, 0x12u);
   }
 
   client = self->_client;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __33__LAContext_authMethodWithReply___block_invoke;
-  v13[3] = &unk_1E77CC878;
-  v14 = v5;
-  v15 = v7;
-  v17 = v6;
-  v16 = replyCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __33__LAContext_authMethodWithReply___block_invoke;
+  v12[3] = &unk_1E77CC878;
+  v13 = v5;
+  v14 = v7;
+  v16 = v6;
+  v15 = replyCopy;
   v9 = replyCopy;
   v10 = v7;
   v11 = v5;
-  [(LAClient *)client authMethodWithReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(LAClient *)client authMethodWithReply:v12];
 }
 
 void __33__LAContext_authMethodWithReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -2979,25 +3073,62 @@ void __33__LAContext_authMethodWithReply___block_invoke(uint64_t a1, void *a2, v
       v11 = v6;
     }
 
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 1024;
-    v16 = v10;
-    v17 = 2114;
-    v18 = v11;
-    _os_log_impl(&dword_1A784E000, v7, v8, "authMethodWithReply on %{public}@ cid:%u returned %{public}@", &v13, 0x1Cu);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 1024;
+    v15 = v10;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_1A784E000, v7, v8, "authMethodWithReply on %{public}@ cid:%u returned %{public}@", &v12, 0x1Cu);
     if (v5)
     {
     }
   }
 
   (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
+}
+
+- (void)setShowingCoachingHint:(BOOL)hint event:(int64_t)event reply:(id)reply
+{
+  hintCopy = hint;
+  v31 = *MEMORY[0x1E69E9840];
+  replyCopy = reply;
+  v9 = LALogForCategory();
+  v10 = +[LAContext newCommandId];
+  v11 = [(LAContext *)self description];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109890;
+    v24 = hintCopy;
+    v25 = 1024;
+    eventCopy = event;
+    v27 = 2114;
+    v28 = v11;
+    v29 = 1024;
+    v30 = v10;
+    _os_log_impl(&dword_1A784E000, v9, OS_LOG_TYPE_INFO, "setShowingCoachingHint:%d event:%d on %{public}@ cid:%u", buf, 0x1Eu);
+  }
+
+  client = self->_client;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __48__LAContext_setShowingCoachingHint_event_reply___block_invoke;
+  v16[3] = &unk_1E77CC8A0;
+  v22 = hintCopy;
+  v17 = v9;
+  v18 = v11;
+  v21 = v10;
+  v19 = replyCopy;
+  eventCopy2 = event;
+  v13 = replyCopy;
+  v14 = v11;
+  v15 = v9;
+  [(LAClient *)client setShowingCoachingHint:hintCopy event:event reply:v16];
 }
 
 void __48__LAContext_setShowingCoachingHint_event_reply___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -3022,17 +3153,17 @@ void __48__LAContext_setShowingCoachingHint_event_reply___block_invoke(uint64_t 
       v12 = v5;
     }
 
-    v15[0] = 67110146;
-    v15[1] = v8;
-    v16 = 1024;
-    v17 = v9;
-    v18 = 2114;
-    v19 = v10;
-    v20 = 1024;
-    v21 = v11;
-    v22 = 2114;
-    v23 = v12;
-    _os_log_impl(&dword_1A784E000, v6, v7, "setShowingCoachingHint:%d event:%d on %{public}@ cid:%u returned %{public}@", v15, 0x28u);
+    v14[0] = 67110146;
+    v14[1] = v8;
+    v15 = 1024;
+    v16 = v9;
+    v17 = 2114;
+    v18 = v10;
+    v19 = 1024;
+    v20 = v11;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_impl(&dword_1A784E000, v6, v7, "setShowingCoachingHint:%d event:%d on %{public}@ cid:%u returned %{public}@", v14, 0x28u);
   }
 
   v13 = *(a1 + 48);
@@ -3040,8 +3171,6 @@ void __48__LAContext_setShowingCoachingHint_event_reply___block_invoke(uint64_t 
   {
     (*(v13 + 16))(v13, a2, v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkContextValidWithError:(id *)error
@@ -3059,7 +3188,7 @@ void __48__LAContext_setShowingCoachingHint_event_reply___block_invoke(uint64_t 
 
 - (BOOL)verifyFileVaultUser:(id)user volumeUuid:(id)uuid options:(unint64_t)options error:(id *)error
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   userCopy = user;
   uuidCopy = uuid;
   v12 = LALogForCategory();
@@ -3072,58 +3201,57 @@ void __48__LAContext_setShowingCoachingHint_event_reply___block_invoke(uint64_t 
     *&buf[12] = 2114;
     *&buf[14] = uuidCopy;
     *&buf[22] = 1024;
-    LODWORD(v36) = options;
-    WORD2(v36) = 2114;
-    *(&v36 + 6) = v14;
-    HIWORD(v36) = 1024;
-    LODWORD(v37) = v13;
+    LODWORD(v35) = options;
+    WORD2(v35) = 2114;
+    *(&v35 + 6) = v14;
+    HIWORD(v35) = 1024;
+    LODWORD(v36) = v13;
     _os_log_impl(&dword_1A784E000, v12, OS_LOG_TYPE_INFO, "verifyFileVaultUser:%{public}@ volumeUuid:%{public}@ options:%u on %{public}@ cid:%u", buf, 0x2Cu);
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = 0;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  *&v36 = __Block_byref_object_copy__5;
-  *(&v36 + 1) = __Block_byref_object_dispose__5;
-  v37 = 0;
+  *&v35 = __Block_byref_object_copy__5;
+  *(&v35 + 1) = __Block_byref_object_dispose__5;
+  v36 = 0;
   client = self->_client;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke;
-  v23[3] = &unk_1E77CC8C8;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke;
+  v22[3] = &unk_1E77CC8C8;
   v16 = v12;
-  v24 = v16;
+  v23 = v16;
   v17 = userCopy;
-  v25 = v17;
+  v24 = v17;
   v18 = uuidCopy;
-  v26 = v18;
+  v25 = v18;
   v19 = v14;
-  v30 = v13;
-  v27 = v19;
-  v28 = &v31;
-  v29 = buf;
-  [(LAClient *)client verifyFileVaultUser:v17 volumeUuid:v18 options:options reply:v23];
+  v29 = v13;
+  v26 = v19;
+  v27 = &v30;
+  v28 = buf;
+  [(LAClient *)client verifyFileVaultUser:v17 volumeUuid:v18 options:options reply:v22];
   if (error)
   {
     *error = *(*&buf[8] + 40);
   }
 
-  v20 = *(v32 + 24);
+  v20 = *(v31 + 24);
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20 & 1;
 }
 
 void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (a2)
@@ -3148,30 +3276,28 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
       v12 = v5;
     }
 
-    v16 = 138544386;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v10;
-    v22 = 1024;
-    v23 = v11;
-    v24 = 2114;
-    v25 = v12;
-    _os_log_impl(&dword_1A784E000, v6, v7, "verifyFileVaultUser:%{public}@ volumeUuid:%{public}@ on %{public}@ cid:%u returned %{public}@", &v16, 0x30u);
+    v15 = 138544386;
+    v16 = v8;
+    v17 = 2114;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v10;
+    v21 = 1024;
+    v22 = v11;
+    v23 = 2114;
+    v24 = v12;
+    _os_log_impl(&dword_1A784E000, v6, v7, "verifyFileVaultUser:%{public}@ volumeUuid:%{public}@ on %{public}@ cid:%u returned %{public}@", &v15, 0x30u);
   }
 
   *(*(*(a1 + 64) + 8) + 24) = a2;
   v13 = *(*(a1 + 72) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v5;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_serverPropertyValueForOption:(int64_t)option log:(int64_t)log
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v6 = LALogForCategory();
   v7 = +[LAContext newCommandId];
   v8 = [(LAContext *)self description];
@@ -3179,17 +3305,17 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
   {
     *buf = 67109634;
     optionCopy2 = option;
-    v21 = 2114;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v7;
+    v20 = 2114;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v7;
     _os_log_impl(&dword_1A784E000, v6, OS_LOG_TYPE_INFO, "serverPropertyValueForOption:%d on %{public}@ cid:%u", buf, 0x18u);
   }
 
   client = self->_client;
-  v18 = 0;
-  v10 = [(LAClient *)client serverPropertyForOption:option error:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [(LAClient *)client serverPropertyForOption:option error:&v17];
+  v11 = v17;
   null = [MEMORY[0x1E695DFB0] null];
   v13 = [v10 isEqual:null];
 
@@ -3214,23 +3340,21 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
 
     *buf = 67109890;
     optionCopy2 = option;
-    v21 = 2114;
-    v22 = v8;
-    v23 = 1024;
-    v24 = v7;
-    v25 = 2114;
-    v26 = v15;
+    v20 = 2114;
+    v21 = v8;
+    v22 = 1024;
+    v23 = v7;
+    v24 = 2114;
+    v25 = v15;
     _os_log_impl(&dword_1A784E000, v6, v14, "serverPropertyValueForOption:%d on %{public}@ cid:%u returned %{public}@", buf, 0x22u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)_setServerPropertyForOption:(int64_t)option value:(id)value log:(int64_t)log
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v8 = LALogForCategory();
   v9 = +[LAContext newCommandId];
@@ -3239,12 +3363,12 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
   {
     *buf = 67109890;
     optionCopy2 = option;
-    v21 = 2114;
-    v22 = valueCopy;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 1024;
-    v26 = v9;
+    v20 = 2114;
+    v21 = valueCopy;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 1024;
+    v25 = v9;
     _os_log_impl(&dword_1A784E000, v8, OS_LOG_TYPE_INFO, "setServerPropertyForOption:%d value:%{public}@ on %{public}@ cid:%u", buf, 0x22u);
   }
 
@@ -3262,9 +3386,9 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = 0;
-  v13 = [(LAClient *)client setServerPropertyForOption:option value:null error:&v18];
-  v14 = v18;
+  v17 = 0;
+  v13 = [(LAClient *)client setServerPropertyForOption:option value:null error:&v17];
+  v14 = v17;
   if (!valueCopy)
   {
   }
@@ -3280,18 +3404,16 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
     }
 
     optionCopy2 = option;
-    v21 = 2114;
-    v22 = valueCopy;
-    v23 = 2114;
-    v24 = v10;
-    v25 = 1024;
-    v26 = v9;
-    v27 = 2114;
-    v28 = v16;
+    v20 = 2114;
+    v21 = valueCopy;
+    v22 = 2114;
+    v23 = v10;
+    v24 = 1024;
+    v25 = v9;
+    v26 = 2114;
+    v27 = v16;
     _os_log_impl(&dword_1A784E000, v8, v15, "setServerPropertyForOption:%d value:%{public}@ on %{public}@ cid:%u returned %{public}@", buf, 0x2Cu);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (NSTimeInterval)touchIDAuthenticationAllowableReuseDuration
@@ -3344,14 +3466,14 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
 
 - (void)_notifyObserversAfterInvalidation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = LALogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     observers = [(LAContext *)self observers];
     *buf = 67109378;
-    v24 = [observers count];
-    v25 = 2114;
+    v23 = [observers count];
+    v24 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_1A784E000, v3, OS_LOG_TYPE_INFO, "Will notify %d observers of changes in %{public}@", buf, 0x12u);
   }
@@ -3372,39 +3494,37 @@ void __58__LAContext_verifyFileVaultUser_volumeUuid_options_error___block_invoke
 
   v10 = [v5 arrayWithArray:v9];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v19;
+    v14 = *v18;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v19 != v14)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * i);
+        v16 = *(*(&v17 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v16 contextDidBecomeInvalid:{self, v18}];
+          [v16 contextDidBecomeInvalid:{self, v17}];
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_encodeCredential:(id)credential type:(int64_t)type reply:(id)reply
@@ -3583,9 +3703,15 @@ void __42__LAContext__decodeCredential_type_reply___block_invoke(uint64_t a1, vo
   return bOOLValue;
 }
 
+- (void)setInteractionNotAllowed:(BOOL)interactionNotAllowed
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:interactionNotAllowed];
+  [(LAContext *)self _setServerPropertyForOption:1000 value:v4 log:8];
+}
+
 - (BOOL)evaluateBoolOption:(int64_t)option options:(id)options property:(id)property
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   v8 = MEMORY[0x1E696AD98];
   optionsCopy = options;
@@ -3638,13 +3764,13 @@ LABEL_3:
       v16 = LALogForCategory();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v21[0] = 67109632;
-        v21[1] = option;
-        v22 = 1024;
+        v20[0] = 67109632;
+        v20[1] = option;
+        v21 = 1024;
         bOOLValue3 = [v11 BOOLValue];
-        v24 = 1024;
+        v23 = 1024;
         bOOLValue4 = [propertyCopy BOOLValue];
-        _os_log_error_impl(&dword_1A784E000, v16, OS_LOG_TYPE_ERROR, "Discrepancy between option %d value (%d) and property value (%d)", v21, 0x14u);
+        _os_log_error_impl(&dword_1A784E000, v16, OS_LOG_TYPE_ERROR, "Discrepancy between option %d value (%d) and property value (%d)", v20, 0x14u);
       }
     }
 
@@ -3667,95 +3793,36 @@ LABEL_11:
   bOOLValue = 0;
 LABEL_16:
 
-  v19 = *MEMORY[0x1E69E9840];
   return (bOOLValue5 | bOOLValue) & 1;
-}
-
-void __29__LAContext_encodeWithCoder___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *(a2 + 56);
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __29__LAContext_encodeWithCoder___block_invoke_55_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 48);
-  v8 = *(a1 + 52);
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __29__LAContext_encodeWithCoder___block_invoke_55_cold_2(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *(a1 + 48);
   v4 = *(a1 + 52);
-  v6 = 138543874;
-  v7 = v2;
-  v8 = 1024;
-  v9 = v3;
-  v10 = 1024;
-  v11 = v4;
-  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "Encoded %{public}@ for transfer to pid:%d cid:%u", &v6, 0x18u);
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543874;
+  v6 = v2;
+  v7 = 1024;
+  v8 = v3;
+  v9 = 1024;
+  v10 = v4;
+  _os_log_debug_impl(&dword_1A784E000, a2, OS_LOG_TYPE_DEBUG, "Encoded %{public}@ for transfer to pid:%d cid:%u", &v5, 0x18u);
 }
 
-void __66__LAContext_setCredential_forProcessedEvent_credentialType_reply___block_invoke_cold_1(uint64_t a1)
+void __36__LAContext_credentialOfType_reply___block_invoke_cold_2()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 80);
-  OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_setCredential:type:options:log:cid:reply:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_1A784E000, v0, v1, "Stashing a LACredentialTypeExtractablePassword will require the '%@' entitlement. The operation will be allowed for now. Error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)credentialOfType:reply:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3(&dword_1A784E000, v0, v1, "Extracting a LACredentialTypeExtractablePassword will require the '%@' entitlement. The operation will be allowed for now. Error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __36__LAContext_credentialOfType_reply___block_invoke_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 64);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 72);
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x22u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
-void __36__LAContext_credentialOfType_reply___block_invoke_93_cold_1(uint64_t a1)
+void __36__LAContext_credentialOfType_reply___block_invoke_93_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 56);
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 64);
   OUTLINED_FUNCTION_1_5();
   OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x22u);
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 @end

@@ -97,21 +97,21 @@
 
 - (void)setVisibleModalAlertCount:(unint64_t)count
 {
-  v12 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
+  v13 = *MEMORY[0x277D85DE8];
+  v5 = BSDispatchQueueAssertMain();
   if (self->_visibleModalAlertCount != count)
   {
     self->_visibleModalAlertCount = count;
-    v5 = SBLogAlertItems();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SBLogAlertItems(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       identityToken = [(FBScene *)self->_scene identityToken];
       stringRepresentation = [identityToken stringRepresentation];
-      v8 = 138412546;
-      v9 = stringRepresentation;
-      v10 = 2048;
+      v9 = 138412546;
+      v10 = stringRepresentation;
+      v11 = 2048;
       countCopy = count;
-      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Setting visible modal alert count for [%@] to %zu", &v8, 0x16u);
+      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Setting visible modal alert count for [%@] to %zu", &v9, 0x16u);
     }
 
     [(SBModalAlertPresenter *)self _addOrRemoveModalAlertPresenterIfNecessary];
@@ -120,20 +120,20 @@
 
 - (void)incrementVisibleModalAlertCount
 {
-  v11 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = BSDispatchQueueAssertMain();
   ++self->_visibleModalAlertCount;
-  v3 = SBLogAlertItems();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogAlertItems(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     identityToken = [(FBScene *)self->_scene identityToken];
     stringRepresentation = [identityToken stringRepresentation];
     visibleModalAlertCount = self->_visibleModalAlertCount;
-    v7 = 138412546;
-    v8 = stringRepresentation;
-    v9 = 2048;
-    v10 = visibleModalAlertCount;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Incremented visible modal alert count for [%@] to %zu", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = stringRepresentation;
+    v10 = 2048;
+    v11 = visibleModalAlertCount;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Incremented visible modal alert count for [%@] to %zu", &v8, 0x16u);
   }
 
   [(SBModalAlertPresenter *)self _addOrRemoveModalAlertPresenterIfNecessary];
@@ -141,23 +141,23 @@
 
 - (void)decrementVisibleModalAlertCount
 {
-  v12 = *MEMORY[0x277D85DE8];
-  BSDispatchQueueAssertMain();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = BSDispatchQueueAssertMain();
   visibleModalAlertCount = self->_visibleModalAlertCount;
   if (visibleModalAlertCount)
   {
     self->_visibleModalAlertCount = visibleModalAlertCount - 1;
-    v4 = SBLogAlertItems();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SBLogAlertItems(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       identityToken = [(FBScene *)self->_scene identityToken];
       stringRepresentation = [identityToken stringRepresentation];
-      v7 = self->_visibleModalAlertCount;
-      v8 = 138412546;
-      v9 = stringRepresentation;
-      v10 = 2048;
-      v11 = v7;
-      _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Decremented visible modal alert count for [%@] to %zu", &v8, 0x16u);
+      v8 = self->_visibleModalAlertCount;
+      v9 = 138412546;
+      v10 = stringRepresentation;
+      v11 = 2048;
+      v12 = v8;
+      _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_DEFAULT, "Decremented visible modal alert count for [%@] to %zu", &v9, 0x16u);
     }
 
     [(SBModalAlertPresenter *)self _addOrRemoveModalAlertPresenterIfNecessary];
@@ -166,29 +166,29 @@
 
 - (id)acquireVisibleModalAlertAssertionWithDescription:(id)description
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   BSDispatchQueueAssertMain();
   v5 = objc_alloc(MEMORY[0x277CF0CE8]);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __74__SBModalAlertPresenter_acquireVisibleModalAlertAssertionWithDescription___block_invoke;
-  v11[3] = &unk_2783A8A98;
-  v11[4] = self;
-  v6 = [v5 initWithIdentifier:@"modalAlertPresenterContentAssertion" forReason:descriptionCopy queue:MEMORY[0x277D85CD0] invalidationBlock:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __74__SBModalAlertPresenter_acquireVisibleModalAlertAssertionWithDescription___block_invoke;
+  v12[3] = &unk_2783A8A98;
+  v12[4] = self;
+  v6 = [v5 initWithIdentifier:@"modalAlertPresenterContentAssertion" forReason:descriptionCopy queue:MEMORY[0x277D85CD0] invalidationBlock:v12];
 
-  v7 = SBLogAlertItems();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = SBLogAlertItems(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(FBScene *)self->_scene identifier];
-    v9 = [(NSHashTable *)self->_visibleAlertAssertions count];
+    v10 = [(NSHashTable *)self->_visibleAlertAssertions count];
     *buf = 134218498;
-    v13 = v6;
-    v14 = 2114;
-    v15 = identifier;
-    v16 = 2048;
-    v17 = v9 + 1;
-    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring visible modal alert assertion (%p) for presenter: %{public}@, count %zu", buf, 0x20u);
+    v14 = v6;
+    v15 = 2114;
+    v16 = identifier;
+    v17 = 2048;
+    v18 = v10 + 1;
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Acquiring visible modal alert assertion (%p) for presenter: %{public}@, count %zu", buf, 0x20u);
   }
 
   [(NSHashTable *)self->_visibleAlertAssertions addObject:v6];
@@ -200,7 +200,7 @@ void __74__SBModalAlertPresenter_acquireVisibleModalAlertAssertionWithDescriptio
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = SBLogAlertItems();
+  v4 = SBLogAlertItems(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [*(*(a1 + 32) + 16) identifier];

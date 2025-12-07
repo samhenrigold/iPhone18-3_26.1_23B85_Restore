@@ -19,32 +19,32 @@
 
 - (id)open
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = MEMORY[0x277CBEBA0];
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   v6 = objc_msgSend_bufferSize(selfCopy, v4, v5);
-  objc_msgSend_CKCreateBoundInputStream_outputStream_bufferSize_(v3, v7, &v23, &v22, v6);
-  v8 = v23;
-  v9 = v23;
-  v10 = v22;
-  v11 = v22;
+  objc_msgSend_CKCreateBoundInputStream_outputStream_bufferSize_(v3, v7, &v22, &v21, v6);
+  v8 = v22;
+  v9 = v22;
+  v10 = v21;
+  v11 = v21;
   if (!v9)
   {
-    v20 = "inputStream != nil";
-    v21 = 145;
+    v19 = "inputStream != nil";
+    v20 = 145;
     goto LABEL_12;
   }
 
   v12 = v11;
   if (!v11)
   {
-    v20 = "outputStream != nil";
-    v21 = 146;
+    v19 = "outputStream != nil";
+    v20 = 146;
 LABEL_12:
-    __assert_rtn("[CKDProtobufStreamWriter open]", "CKDProtobufStreamWriter.m", v21, v20);
+    __assert_rtn("[CKDProtobufStreamWriter open]", "CKDProtobufStreamWriter.m", v20, v19);
   }
 
   objc_storeStrong(&selfCopy->_inputStream, v8);
@@ -62,19 +62,18 @@ LABEL_12:
   {
     outputStream = selfCopy->_outputStream;
     *buf = 134217984;
-    v25 = outputStream;
+    v24 = outputStream;
     _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Opened outputStream: %p", buf, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)_tearDownOutputStream
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (selfCopy->_outputStream)
@@ -88,9 +87,9 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       outputStream = selfCopy->_outputStream;
-      v10 = 134217984;
-      v11 = outputStream;
-      _os_log_debug_impl(&dword_22506F000, v3, OS_LOG_TYPE_DEBUG, "Tearing down output stream: %p", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = outputStream;
+      _os_log_debug_impl(&dword_22506F000, v3, OS_LOG_TYPE_DEBUG, "Tearing down output stream: %p", &v9, 0xCu);
     }
 
     MEMORY[0x22AA63810](selfCopy->_outputStream, 0);
@@ -107,8 +106,6 @@ LABEL_12:
   }
 
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDown
@@ -134,10 +131,10 @@ LABEL_12:
 - (CKDProtobufStreamWriter)initWithCompression:(BOOL)compression
 {
   compressionCopy = compression;
-  v22 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = CKDProtobufStreamWriter;
-  v4 = [(CKDProtobufStreamWriter *)&v19 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = CKDProtobufStreamWriter;
+  v4 = [(CKDProtobufStreamWriter *)&v18 init];
   v5 = v4;
   if (v4)
   {
@@ -161,7 +158,7 @@ LABEL_12:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v21 = v7;
+          v20 = v7;
           _os_log_error_impl(&dword_22506F000, v8, OS_LOG_TYPE_ERROR, "Could not initialize zlib for compression, error %d", buf, 8u);
         }
 
@@ -184,54 +181,49 @@ LABEL_12:
     v5->_dispatchQueue = v15;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)setStreamedObjects:(id)objects
 {
-  v4 = objc_msgSend_mutableCopy(objects, a2, objects);
-  allObjects = self->_allObjects;
-  self->_allObjects = v4;
+  self->_allObjects = objc_msgSend_mutableCopy(objects, a2, objects);
 
   MEMORY[0x2821F96F8]();
 }
 
 + (id)uncompressedDataForStreamedObjects:(id)objects
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = objectsCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v21, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v16, v20, 16);
   if (v8)
   {
     v10 = v8;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = objc_msgSend__dataForMessage_(self, v9, *(*(&v17 + 1) + 8 * i), v17);
+        v13 = objc_msgSend__dataForMessage_(self, v9, *(*(&v16 + 1) + 8 * i), v16);
         objc_msgSend_appendData_(v5, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v17, v21, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v16, v20, 16);
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -239,10 +231,10 @@ LABEL_12:
 - (id)_compressBodyData:(id)data shouldFlush:(BOOL)flush
 {
   flushCopy = flush;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v10 = objc_msgSend_data(MEMORY[0x277CBEB28], v8, v9);
-  bzero(v26, 0x2000uLL);
+  bzero(v25, 0x2000uLL);
   v11 = dataCopy;
   self->_zlibStream.next_in = objc_msgSend_bytes(v11, v12, v13);
   self->_zlibStream.avail_in = objc_msgSend_length(v11, v14, v15);
@@ -250,8 +242,8 @@ LABEL_12:
   {
     if (objc_msgSend_haveFinishedCompression(self, v16, v17))
     {
-      v24 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
-      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v24, v25, a2, self, @"CKDProtobufStreamWriter.m", 171, @"We just tried to finish compression twice");
+      v23 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v18, v19);
+      objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v23, v24, a2, self, @"CKDProtobufStreamWriter.m", 171, @"We just tried to finish compression twice");
     }
 
     objc_msgSend_setHaveFinishedCompression_(self, v18, 1);
@@ -266,13 +258,13 @@ LABEL_12:
   do
   {
     self->_zlibStream.avail_out = 0x2000;
-    self->_zlibStream.next_out = v26;
+    self->_zlibStream.next_out = v25;
     if (deflate(&self->_zlibStream, v20) == -2)
     {
       __assert_rtn("[CKDProtobufStreamWriter _compressBodyData:shouldFlush:]", "CKDProtobufStreamWriter.m", 180, "ret != Z_STREAM_ERROR");
     }
 
-    objc_msgSend_appendBytes_length_(v10, v21, v26, 0x2000 - self->_zlibStream.avail_out);
+    objc_msgSend_appendBytes_length_(v10, v21, v25, 0x2000 - self->_zlibStream.avail_out);
   }
 
   while (!self->_zlibStream.avail_out);
@@ -280,8 +272,6 @@ LABEL_12:
   {
     __assert_rtn("[CKDProtobufStreamWriter _compressBodyData:shouldFlush:]", "CKDProtobufStreamWriter.m", 184, "_zlibStream.avail_in == 0");
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -336,17 +326,15 @@ LABEL_12:
 
 + (id)_dataForMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_data(message, a2, message);
-  v13 = 0;
   v12 = 0;
+  v11 = 0;
   objc_msgSend_length(v3, v4, v5);
   v6 = PBDataWriterWriteBareVarint();
   v7 = objc_opt_new();
-  objc_msgSend_appendBytes_length_(v7, v8, &v12, v6);
+  objc_msgSend_appendBytes_length_(v7, v8, &v11, v6);
   objc_msgSend_appendData_(v7, v9, v3);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -414,13 +402,13 @@ LABEL_2:
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v25 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKDProtobufStreamWriter.m", 268, @"I didn't order this stream, so why is it on my bill?");
+    v24 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v24, v25, a2, self, @"CKDProtobufStreamWriter.m", 268, @"I didn't order this stream, so why is it on my bill?");
   }
 
   if ((objc_msgSend_haveFinishedStreaming(self, v8, v9) & 1) == 0)
@@ -440,9 +428,9 @@ LABEL_2:
         {
           v18 = v17;
           v21 = objc_msgSend_streamError(streamCopy, v19, v20);
-          v27 = 138412290;
-          v28 = v21;
-          _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Got a stream error: %@", &v27, 0xCu);
+          v26 = 138412290;
+          v27 = v21;
+          _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "Got a stream error: %@", &v26, 0xCu);
         }
 
         goto LABEL_22;
@@ -490,9 +478,9 @@ LABEL_22:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         outputStream = self->_outputStream;
-        v27 = 134217984;
-        v28 = outputStream;
-        _os_log_error_impl(&dword_22506F000, v22, OS_LOG_TYPE_ERROR, "Failed to write into the outputStream:%p", &v27, 0xCu);
+        v26 = 134217984;
+        v27 = outputStream;
+        _os_log_error_impl(&dword_22506F000, v22, OS_LOG_TYPE_ERROR, "Failed to write into the outputStream:%p", &v26, 0xCu);
       }
     }
 
@@ -502,8 +490,6 @@ LABEL_21:
   }
 
 LABEL_23:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 @end

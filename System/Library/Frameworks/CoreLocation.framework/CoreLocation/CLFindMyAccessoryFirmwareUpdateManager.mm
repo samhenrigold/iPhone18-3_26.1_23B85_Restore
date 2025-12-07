@@ -40,7 +40,7 @@
 
 - (void)handleInterruption
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C8 != -1)
   {
     dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
@@ -62,7 +62,8 @@
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    v13[0] = 0;
+    v5 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4700, 16, "Connection to locationd interrupted!!", v13, 2);
     sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryFirmwareUpdateManager handleInterruption]", "CoreLocation: %s\n", v5);
     if (v5 != buf)
     {
@@ -71,18 +72,18 @@
   }
 
   v6 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v9 = *MEMORY[0x1E696A578];
-  v10 = @"Connection to locationd interrupted!";
-  v7 = [v6 initWithDomain:@"kCLErrorDomainPrivate" code:8 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v10, &v9, 1)}];
-  [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self didFailWithError:v7 forDevice:0];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E696A578];
+  v15 = @"Connection to locationd interrupted!";
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, &v15, &v14, 1);
+  v10 = objc_msgSend_initWithDomain_code_userInfo_(v6, v9, @"kCLErrorDomainPrivate", 8, v8);
+  Weak = objc_loadWeak(&self->_delegate);
+  objc_msgSend_findMyAccessoryFirmwareUpdateManager_didFailWithError_forDevice_(Weak, v12, self, v10, 0);
 }
 
 - (void)handleMessage:(shared_ptr<CLConnectionMessage>)message
 {
   var0 = message.var0;
-  v71 = *MEMORY[0x1E69E9840];
+  v196 = *MEMORY[0x1E69E9840];
   if (qword_1EAFE46C8 != -1)
   {
     dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
@@ -103,7 +104,7 @@
     }
 
     *buf = 136315138;
-    v66 = v7;
+    v191 = v7;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "Got Reply: message: %s", buf, 0xCu);
   }
 
@@ -116,58 +117,68 @@
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
     }
 
-    v9 = CLConnectionMessage::name(*var0);
-    if (*(v9 + 23) < 0)
+    v9 = qword_1EAFE4700;
+    v10 = CLConnectionMessage::name(*var0);
+    if (*(v10 + 23) >= 0)
     {
-      v10 = *v9;
+      v11 = v10;
     }
 
-    v11 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v11);
-    if (v11 != buf)
+    else
     {
-      free(v11);
+      v11 = *v10;
+    }
+
+    v184 = 136315138;
+    v185 = v11;
+    v12 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v9, 0, "Got Reply: message: %s", &v184, 12);
+    sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v12);
+    if (v12 != buf)
+    {
+      free(v12);
     }
   }
 
-  v12 = MEMORY[0x1E695DFD8];
-  v13 = objc_opt_class();
+  v13 = MEMORY[0x1E695DFD8];
   v14 = objc_opt_class();
   v15 = objc_opt_class();
-  v16 = [v12 setWithObjects:{v13, v14, v15, objc_opt_class(), 0}];
-  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*var0, v16);
-  v18 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E747E0];
-  v19 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74840];
-  v20 = CLConnectionMessage::name(*var0);
-  if (!std::string::compare(v20, "DurianManagement/DidFetchPersonalizationInformation"))
+  v16 = objc_opt_class();
+  v17 = objc_opt_class();
+  v20 = objc_msgSend_setWithObjects_(v13, v18, v14, v19, v15, v16, v17, 0);
+  DictionaryOfClasses = CLConnectionMessage::getDictionaryOfClasses(*var0, v20);
+  v24 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v22, 0x1F0E747E0, v23);
+  v27 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v25, 0x1F0E74840, v26);
+  v28 = CLConnectionMessage::name(*var0);
+  if (!std::string::compare(v28, "DurianManagement/DidFetchPersonalizationInformation"))
   {
-    v28 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74960];
+    v44 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v29, 0x1F0E74960, v30);
     if (qword_1EAFE46C8 != -1)
     {
       dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
     }
 
-    v29 = qword_1EAFE4700;
+    v45 = qword_1EAFE4700;
     if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [objc_msgSend(v18 "UUIDString")];
-      v31 = "Failed";
+      v49 = objc_msgSend_UUIDString(v24, v46, v47, v48);
+      v53 = objc_msgSend_UTF8String(v49, v50, v51, v52);
+      v54 = "Failed";
       *buf = 136315650;
-      v66 = v30;
-      if (!v19)
+      v191 = v53;
+      if (!v27)
       {
-        v31 = "Success";
+        v54 = "Success";
       }
 
-      v67 = 2080;
-      v68 = v31;
-      v69 = 2112;
-      v70 = v28;
-      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_DEFAULT, "informing client -- did retreive personalization info for device: %s - %s with info: %@", buf, 0x20u);
+      v192 = 2080;
+      v193 = v54;
+      v194 = 2112;
+      v195 = v44;
+      _os_log_impl(&dword_19B873000, v45, OS_LOG_TYPE_DEFAULT, "informing client -- did retreive personalization info for device: %s - %s with info: %@", buf, 0x20u);
     }
 
-    v32 = sub_19B87DD40();
-    if (*(v32 + 160) > 1 || *(v32 + 164) > 1 || *(v32 + 168) > 1 || *(v32 + 152))
+    v55 = sub_19B87DD40();
+    if (*(v55 + 160) > 1 || *(v55 + 164) > 1 || *(v55 + 168) > 1 || *(v55 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1EAFE46C8 != -1)
@@ -175,47 +186,63 @@
         dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
       }
 
-      [objc_msgSend(v18 "UUIDString")];
-      v33 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v33);
-      if (v33 != buf)
+      v59 = qword_1EAFE4700;
+      v60 = objc_msgSend_UUIDString(v24, v56, v57, v58);
+      v64 = objc_msgSend_UTF8String(v60, v61, v62, v63);
+      v65 = "Failed";
+      v184 = 136315650;
+      v185 = v64;
+      if (!v27)
       {
-        free(v33);
+        v65 = "Success";
+      }
+
+      v186 = 2080;
+      v187 = v65;
+      v188 = 2112;
+      v189 = v44;
+      v66 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v59, 0, "informing client -- did retreive personalization info for device: %s - %s with info: %@", &v184, 32);
+      sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v66);
+      if (v66 != buf)
+      {
+        free(v66);
       }
     }
 
-    [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self personalizationRequestForDevice:v18 completedWithInfo:v28 andError:v19];
+    Weak = objc_loadWeak(&self->_delegate);
+    objc_msgSend_findMyAccessoryFirmwareUpdateManager_personalizationRequestForDevice_completedWithInfo_andError_(Weak, v68, self, v24, v44, v27);
   }
 
   else
   {
-    v21 = CLConnectionMessage::name(*var0);
-    if (!std::string::compare(v21, "DurianManagement/DidUpdateFirmware"))
+    v31 = CLConnectionMessage::name(*var0);
+    if (!std::string::compare(v31, "DurianManagement/DidUpdateFirmware"))
     {
       if (qword_1EAFE46C8 != -1)
       {
         dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
       }
 
-      v34 = qword_1EAFE4700;
+      v69 = qword_1EAFE4700;
       if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_DEFAULT))
       {
-        v35 = [objc_msgSend(v18 "UUIDString")];
-        v36 = "Failed";
-        if (!v19)
+        v73 = objc_msgSend_UUIDString(v24, v70, v71, v72);
+        v77 = objc_msgSend_UTF8String(v73, v74, v75, v76);
+        v78 = "Failed";
+        if (!v27)
         {
-          v36 = "Succeeded";
+          v78 = "Succeeded";
         }
 
         *buf = 136315394;
-        v66 = v35;
-        v67 = 2080;
-        v68 = v36;
-        _os_log_impl(&dword_19B873000, v34, OS_LOG_TYPE_DEFAULT, "informing client -- firmware update for device: %s - %s", buf, 0x16u);
+        v191 = v77;
+        v192 = 2080;
+        v193 = v78;
+        _os_log_impl(&dword_19B873000, v69, OS_LOG_TYPE_DEFAULT, "informing client -- firmware update for device: %s - %s", buf, 0x16u);
       }
 
-      v37 = sub_19B87DD40();
-      if (*(v37 + 160) > 1 || *(v37 + 164) > 1 || *(v37 + 168) > 1 || *(v37 + 152))
+      v79 = sub_19B87DD40();
+      if (*(v79 + 160) > 1 || *(v79 + 164) > 1 || *(v79 + 168) > 1 || *(v79 + 152))
       {
         bzero(buf, 0x65CuLL);
         if (qword_1EAFE46C8 != -1)
@@ -223,52 +250,65 @@
           dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
         }
 
-        [objc_msgSend(v18 "UUIDString")];
-        v38 = _os_log_send_and_compose_impl();
-        sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v38);
-        if (v38 != buf)
+        v83 = qword_1EAFE4700;
+        v84 = objc_msgSend_UUIDString(v24, v80, v81, v82);
+        v88 = objc_msgSend_UTF8String(v84, v85, v86, v87);
+        v89 = "Failed";
+        if (!v27)
         {
-          free(v38);
+          v89 = "Succeeded";
+        }
+
+        v184 = 136315394;
+        v185 = v88;
+        v186 = 2080;
+        v187 = v89;
+        v90 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v83, 0, "informing client -- firmware update for device: %s - %s", &v184, 22);
+        sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v90);
+        if (v90 != buf)
+        {
+          free(v90);
         }
       }
 
-      [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self firmwareUpdateRequestForDevice:v18 completedWithError:v19];
+      v91 = objc_loadWeak(&self->_delegate);
+      objc_msgSend_findMyAccessoryFirmwareUpdateManager_firmwareUpdateRequestForDevice_completedWithError_(v91, v92, self, v24, v27);
     }
 
     else
     {
-      v22 = CLConnectionMessage::name(*var0);
-      if (!std::string::compare(v22, "DurianManagement/DidUseLocalAssetRequest"))
+      v32 = CLConnectionMessage::name(*var0);
+      if (!std::string::compare(v32, "DurianManagement/DidUseLocalAssetRequest"))
       {
-        v39 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F60];
-        v40 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F80];
+        v93 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v33, 0x1F0E74F60, v34);
+        v96 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v94, 0x1F0E74F80, v95);
         if (qword_1EAFE46C8 != -1)
         {
           dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
         }
 
-        v41 = qword_1EAFE4700;
+        v97 = qword_1EAFE4700;
         if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_DEFAULT))
         {
-          uTF8String = [v39 UTF8String];
-          uTF8String2 = [v40 UTF8String];
-          v44 = "Failed";
+          v101 = objc_msgSend_UTF8String(v93, v98, v99, v100);
+          v105 = objc_msgSend_UTF8String(v96, v102, v103, v104);
+          v106 = "Failed";
           *buf = 136315650;
-          v66 = uTF8String;
-          v67 = 2080;
-          if (!v19)
+          v191 = v101;
+          v192 = 2080;
+          if (!v27)
           {
-            v44 = "Succeeded";
+            v106 = "Succeeded";
           }
 
-          v68 = uTF8String2;
-          v69 = 2080;
-          v70 = v44;
-          _os_log_impl(&dword_19B873000, v41, OS_LOG_TYPE_DEFAULT, "informing client -- use local asset request for product group: %s, product number: %s - %s", buf, 0x20u);
+          v193 = v105;
+          v194 = 2080;
+          v195 = v106;
+          _os_log_impl(&dword_19B873000, v97, OS_LOG_TYPE_DEFAULT, "informing client -- use local asset request for product group: %s, product number: %s - %s", buf, 0x20u);
         }
 
-        v45 = sub_19B87DD40();
-        if (*(v45 + 160) > 1 || *(v45 + 164) > 1 || *(v45 + 168) > 1 || *(v45 + 152))
+        v107 = sub_19B87DD40();
+        if (*(v107 + 160) > 1 || *(v107 + 164) > 1 || *(v107 + 168) > 1 || *(v107 + 152))
         {
           bzero(buf, 0x65CuLL);
           if (qword_1EAFE46C8 != -1)
@@ -276,57 +316,71 @@
             dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
           }
 
-          [v39 UTF8String];
-          [v40 UTF8String];
-          v46 = _os_log_send_and_compose_impl();
-          sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v46);
-          if (v46 != buf)
+          v111 = qword_1EAFE4700;
+          v112 = objc_msgSend_UTF8String(v93, v108, v109, v110);
+          v116 = objc_msgSend_UTF8String(v96, v113, v114, v115);
+          v117 = "Failed";
+          v184 = 136315650;
+          v185 = v112;
+          v186 = 2080;
+          if (!v27)
           {
-            free(v46);
+            v117 = "Succeeded";
+          }
+
+          v187 = v116;
+          v188 = 2080;
+          v189 = v117;
+          v118 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v111, 0, "informing client -- use local asset request for product group: %s, product number: %s - %s", &v184, 32);
+          sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v118);
+          if (v118 != buf)
+          {
+            free(v118);
           }
         }
 
-        [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self useLocalAssetRequestForProductGroup:v39 andProductNumber:v40 completedWithError:v19];
+        v119 = objc_loadWeak(&self->_delegate);
+        objc_msgSend_findMyAccessoryFirmwareUpdateManager_useLocalAssetRequestForProductGroup_andProductNumber_completedWithError_(v119, v120, self, v93, v96, v27);
       }
 
       else
       {
-        v23 = CLConnectionMessage::name(*var0);
-        if (!std::string::compare(v23, "DurianManagement/DidUseDefaultAssetRequest"))
+        v35 = CLConnectionMessage::name(*var0);
+        if (!std::string::compare(v35, "DurianManagement/DidUseDefaultAssetRequest"))
         {
-          v47 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F60];
-          v48 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F80];
+          v121 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v36, 0x1F0E74F60, v37);
+          v124 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v122, 0x1F0E74F80, v123);
           if (qword_1EAFE46C8 != -1)
           {
             dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
           }
 
-          v49 = qword_1EAFE4700;
+          v125 = qword_1EAFE4700;
           if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_DEFAULT))
           {
-            uTF8String3 = [v47 UTF8String];
-            uTF8String4 = [v48 UTF8String];
+            v129 = objc_msgSend_UTF8String(v121, v126, v127, v128);
+            v133 = objc_msgSend_UTF8String(v124, v130, v131, v132);
             *buf = 136315650;
-            if (v19)
+            if (v27)
             {
-              v52 = "Failed";
+              v134 = "Failed";
             }
 
             else
             {
-              v52 = "Succeeded";
+              v134 = "Succeeded";
             }
 
-            v66 = uTF8String3;
-            v67 = 2080;
-            v68 = uTF8String4;
-            v69 = 2080;
-            v70 = v52;
-            _os_log_impl(&dword_19B873000, v49, OS_LOG_TYPE_DEFAULT, "informing client -- use default asset request for product group: %s, product number: %s - %s", buf, 0x20u);
+            v191 = v129;
+            v192 = 2080;
+            v193 = v133;
+            v194 = 2080;
+            v195 = v134;
+            _os_log_impl(&dword_19B873000, v125, OS_LOG_TYPE_DEFAULT, "informing client -- use default asset request for product group: %s, product number: %s - %s", buf, 0x20u);
           }
 
-          v53 = sub_19B87DD40();
-          if (*(v53 + 160) > 1 || *(v53 + 164) > 1 || *(v53 + 168) > 1 || *(v53 + 152))
+          v135 = sub_19B87DD40();
+          if (*(v135 + 160) > 1 || *(v135 + 164) > 1 || *(v135 + 168) > 1 || *(v135 + 152))
           {
             bzero(buf, 0x65CuLL);
             if (qword_1EAFE46C8 != -1)
@@ -334,58 +388,77 @@
               dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
             }
 
-            [v47 UTF8String];
-            [v48 UTF8String];
-            v54 = _os_log_send_and_compose_impl();
-            sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v54);
-            if (v54 != buf)
+            v139 = qword_1EAFE4700;
+            v140 = objc_msgSend_UTF8String(v121, v136, v137, v138);
+            v144 = objc_msgSend_UTF8String(v124, v141, v142, v143);
+            v184 = 136315650;
+            if (v27)
             {
-              free(v54);
+              v145 = "Failed";
+            }
+
+            else
+            {
+              v145 = "Succeeded";
+            }
+
+            v185 = v140;
+            v186 = 2080;
+            v187 = v144;
+            v188 = 2080;
+            v189 = v145;
+            v146 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v139, 0, "informing client -- use default asset request for product group: %s, product number: %s - %s", &v184, 32);
+            sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v146);
+            if (v146 != buf)
+            {
+              free(v146);
             }
           }
 
-          [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self useDefaultAssetRequestForProductGroup:v47 andProductNumber:v48 completedWithError:v19];
+          v147 = objc_loadWeak(&self->_delegate);
+          objc_msgSend_findMyAccessoryFirmwareUpdateManager_useDefaultAssetRequestForProductGroup_andProductNumber_completedWithError_(v147, v148, self, v121, v124, v27);
         }
 
         else
         {
-          v24 = CLConnectionMessage::name(*var0);
-          if (!std::string::compare(v24, "DurianManagement/DidFetchWhetherLocalFirmwareAssetIsInUse"))
+          v38 = CLConnectionMessage::name(*var0);
+          if (!std::string::compare(v38, "DurianManagement/DidFetchWhetherLocalFirmwareAssetIsInUse"))
           {
-            v55 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F60];
-            v56 = [DictionaryOfClasses objectForKeyedSubscript:0x1F0E74F80];
-            v57 = [objc_msgSend(DictionaryOfClasses objectForKeyedSubscript:{0x1F0E74FC0), "BOOLValue"}];
+            v149 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v39, 0x1F0E74F60, v40);
+            v152 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v150, 0x1F0E74F80, v151);
+            v155 = objc_msgSend_objectForKeyedSubscript_(DictionaryOfClasses, v153, 0x1F0E74FC0, v154);
+            v159 = objc_msgSend_BOOLValue(v155, v156, v157, v158);
             if (qword_1EAFE46C8 != -1)
             {
               dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
             }
 
-            v58 = qword_1EAFE4700;
+            v160 = qword_1EAFE4700;
             if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_DEFAULT))
             {
-              if (v57)
+              if (v159)
               {
-                v59 = "IN USE";
+                v164 = "IN USE";
               }
 
               else
               {
-                v59 = "NOT IN USE";
+                v164 = "NOT IN USE";
               }
 
-              uTF8String5 = [v55 UTF8String];
-              uTF8String6 = [v56 UTF8String];
+              v165 = objc_msgSend_UTF8String(v149, v161, v162, v163);
+              v169 = objc_msgSend_UTF8String(v152, v166, v167, v168);
               *buf = 136315650;
-              v66 = v59;
-              v67 = 2080;
-              v68 = uTF8String5;
-              v69 = 2080;
-              v70 = uTF8String6;
-              _os_log_impl(&dword_19B873000, v58, OS_LOG_TYPE_DEFAULT, "informing client -- local firmware asset is %s for product group: %s, product number: %s", buf, 0x20u);
+              v191 = v164;
+              v192 = 2080;
+              v193 = v165;
+              v194 = 2080;
+              v195 = v169;
+              _os_log_impl(&dword_19B873000, v160, OS_LOG_TYPE_DEFAULT, "informing client -- local firmware asset is %s for product group: %s, product number: %s", buf, 0x20u);
             }
 
-            v62 = sub_19B87DD40();
-            if (*(v62 + 160) > 1 || *(v62 + 164) > 1 || *(v62 + 168) > 1 || *(v62 + 152))
+            v170 = sub_19B87DD40();
+            if (*(v170 + 160) > 1 || *(v170 + 164) > 1 || *(v170 + 168) > 1 || *(v170 + 152))
             {
               bzero(buf, 0x65CuLL);
               if (qword_1EAFE46C8 != -1)
@@ -393,17 +466,35 @@
                 dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
               }
 
-              [v55 UTF8String];
-              [v56 UTF8String];
-              v63 = _os_log_send_and_compose_impl();
-              sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v63);
-              if (v63 != buf)
+              v174 = qword_1EAFE4700;
+              if (v159)
               {
-                free(v63);
+                v175 = "IN USE";
+              }
+
+              else
+              {
+                v175 = "NOT IN USE";
+              }
+
+              v176 = objc_msgSend_UTF8String(v149, v171, v172, v173);
+              v180 = objc_msgSend_UTF8String(v152, v177, v178, v179);
+              v184 = 136315650;
+              v185 = v175;
+              v186 = 2080;
+              v187 = v176;
+              v188 = 2080;
+              v189 = v180;
+              v181 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v174, 0, "informing client -- local firmware asset is %s for product group: %s, product number: %s", &v184, 32);
+              sub_19B885924("Generic", 1, 0, 2, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v181);
+              if (v181 != buf)
+              {
+                free(v181);
               }
             }
 
-            [objc_loadWeak(&self->_delegate) findMyAccessoryFirmwareUpdateManager:self didFetchWhetherLocalFirmwareAssetIsInUseForProductGroup:v55 andProductNumber:v56 withResult:v57];
+            v182 = objc_loadWeak(&self->_delegate);
+            objc_msgSend_findMyAccessoryFirmwareUpdateManager_didFetchWhetherLocalFirmwareAssetIsInUseForProductGroup_andProductNumber_withResult_(v182, v183, self, v149, v152, v159);
           }
 
           else
@@ -413,15 +504,15 @@
               dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
             }
 
-            v25 = qword_1EAFE4700;
+            v41 = qword_1EAFE4700;
             if (os_log_type_enabled(qword_1EAFE4700, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "CLFindMyAccessoryFirmwareUpdateManager - Unknown Message - ignoring", buf, 2u);
+              _os_log_impl(&dword_19B873000, v41, OS_LOG_TYPE_ERROR, "CLFindMyAccessoryFirmwareUpdateManager - Unknown Message - ignoring", buf, 2u);
             }
 
-            v26 = sub_19B87DD40();
-            if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
+            v42 = sub_19B87DD40();
+            if ((*(v42 + 160) & 0x80000000) == 0 || (*(v42 + 164) & 0x80000000) == 0 || (*(v42 + 168) & 0x80000000) == 0 || *(v42 + 152))
             {
               bzero(buf, 0x65CuLL);
               if (qword_1EAFE46C8 != -1)
@@ -429,11 +520,12 @@
                 dispatch_once(&qword_1EAFE46C8, &unk_1F0E6EA50);
               }
 
-              v27 = _os_log_send_and_compose_impl();
-              sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v27);
-              if (v27 != buf)
+              LOWORD(v184) = 0;
+              v43 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4700, 16, "CLFindMyAccessoryFirmwareUpdateManager - Unknown Message - ignoring", &v184, 2);
+              sub_19B885924("Generic", 1, 0, 0, "[CLFindMyAccessoryFirmwareUpdateManager handleMessage:]", "CoreLocation: %s\n", v43);
+              if (v43 != buf)
               {
-                free(v27);
+                free(v43);
               }
             }
           }
@@ -441,57 +533,58 @@
       }
     }
   }
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPersonalizationInfoForDevice:(id)device
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (!device)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v7 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v7, v8, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 142, @"Invalid parameter not satisfying: %@", @"device");
   }
 
-  v4 = 0x1F0E747E0;
-  v5[0] = device;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v9 = 0x1F0E747E0;
+  v10[0] = device;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v10, &v9, 1);
   sub_19B890E08();
 }
 
 - (void)updateFirmwareForDevice:(id)device withAssetURL:(id)l
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   if (!l)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, device, 0);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v8, v9, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 154, @"Invalid parameter not satisfying: %@", @"assetURL");
   }
 
-  v6[0] = 0x1F0E747E0;
-  v6[1] = 0x1F0E74980;
-  v7[0] = device;
-  v7[1] = l;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v10[0] = 0x1F0E747E0;
+  v10[1] = 0x1F0E74980;
+  v11[0] = device;
+  v11[1] = l;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v11, v10, 2);
   sub_19B890E08();
 }
 
 - (void)abortFirmwareUpdateForDevice:(id)device
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   if (!device)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v7 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v7, v8, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 165, @"Invalid parameter not satisfying: %@", @"device");
   }
 
-  v4 = 0x1F0E747E0;
-  v5[0] = device;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v9 = 0x1F0E747E0;
+  v10[0] = device;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v10, &v9, 1);
   sub_19B890E08();
 }
 
 - (void)useLocalFirmwareAssetFromURL:(id)l forProductGroup:(id)group forProductNumber:(id)number withSandboxExtension:(id)extension
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v21[4] = *MEMORY[0x1E69E9840];
   if (l)
   {
     if (group)
@@ -502,7 +595,8 @@
 
   else
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v12 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, group);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v12, v13, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 179, @"Invalid parameter not satisfying: %@", @"firmwareUpdateAssetURL");
     if (group)
     {
 LABEL_3:
@@ -515,7 +609,8 @@ LABEL_3:
     }
   }
 
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v14 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, l, group);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v14, v15, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 180, @"Invalid parameter not satisfying: %@", @"productGroup");
   if (number)
   {
 LABEL_4:
@@ -525,22 +620,24 @@ LABEL_4:
     }
 
 LABEL_9:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v18 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, l, group);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v18, v19, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 182, @"Invalid parameter not satisfying: %@", @"extension");
 LABEL_5:
-    v12[0] = 0x1F0E74F40;
-    v12[1] = 0x1F0E74F60;
-    v13[0] = l;
-    v13[1] = group;
-    v12[2] = 0x1F0E74F80;
-    v12[3] = 0x1F0E74FA0;
-    v13[2] = number;
-    v13[3] = extension;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
+    v20[0] = 0x1F0E74F40;
+    v20[1] = 0x1F0E74F60;
+    v21[0] = l;
+    v21[1] = group;
+    v20[2] = 0x1F0E74F80;
+    v20[3] = 0x1F0E74FA0;
+    v21[2] = number;
+    v21[3] = extension;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v21, v20, 4);
     sub_19B890E08();
   }
 
 LABEL_8:
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, l, group);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 181, @"Invalid parameter not satisfying: %@", @"productNumber");
   if (extension)
   {
     goto LABEL_5;
@@ -551,7 +648,7 @@ LABEL_8:
 
 - (void)useDefaultFirmwareAssetSourceForProductGroup:(id)group andProductNumber:(id)number
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if (group)
   {
     if (number)
@@ -562,26 +659,28 @@ LABEL_8:
 
   else
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, number);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v8, v9, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 203, @"Invalid parameter not satisfying: %@", @"productGroup");
     if (number)
     {
       goto LABEL_3;
     }
   }
 
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v10 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, group, number);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v10, v11, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 204, @"Invalid parameter not satisfying: %@", @"productNumber");
 LABEL_3:
-  v8[0] = 0x1F0E74F60;
-  v8[1] = 0x1F0E74F80;
-  v9[0] = group;
-  v9[1] = number;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v12[0] = 0x1F0E74F60;
+  v12[1] = 0x1F0E74F80;
+  v13[0] = group;
+  v13[1] = number;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v13, v12, 2);
   sub_19B890E08();
 }
 
 - (void)fetchWhetherLocalFirmwareAssetIsInUseForProductGroup:(id)group andProductNumber:(id)number
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   if (group)
   {
     if (number)
@@ -592,20 +691,22 @@ LABEL_3:
 
   else
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, number);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v8, v9, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 221, @"Invalid parameter not satisfying: %@", @"productGroup");
     if (number)
     {
       goto LABEL_3;
     }
   }
 
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v10 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, group, number);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v10, v11, a2, self, @"CLFindMyAccessoryFirmwareUpdateManager.mm", 222, @"Invalid parameter not satisfying: %@", @"productNumber");
 LABEL_3:
-  v8[0] = 0x1F0E74F60;
-  v8[1] = 0x1F0E74F80;
-  v9[0] = group;
-  v9[1] = number;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v12[0] = 0x1F0E74F60;
+  v12[1] = 0x1F0E74F80;
+  v13[0] = group;
+  v13[1] = number;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v13, v12, 2);
   sub_19B890E08();
 }
 

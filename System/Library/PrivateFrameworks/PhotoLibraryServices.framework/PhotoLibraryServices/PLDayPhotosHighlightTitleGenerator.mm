@@ -14,7 +14,7 @@
   {
     case 2:
       extendedAssetsShared = [highlightCopy extendedAssetsShared];
-      if ([extendedAssetsShared count])
+      if (objc_msgSend_count(extendedAssetsShared))
       {
         goto LABEL_12;
       }
@@ -23,7 +23,7 @@
       goto LABEL_10;
     case 1:
       extendedAssetsShared = [highlightCopy extendedAssetsPrivate];
-      if ([extendedAssetsShared count])
+      if (objc_msgSend_count(extendedAssetsShared))
       {
         goto LABEL_12;
       }
@@ -32,7 +32,7 @@
       goto LABEL_10;
     case 0:
       extendedAssetsShared = [highlightCopy extendedAssets];
-      if ([extendedAssetsShared count])
+      if (objc_msgSend_count(extendedAssetsShared))
       {
         goto LABEL_12;
       }

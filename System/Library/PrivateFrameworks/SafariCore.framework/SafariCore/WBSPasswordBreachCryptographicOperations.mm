@@ -114,24 +114,22 @@
   v3 = CCECCryptorExportKey();
   if (v3)
   {
-    v4 = v3;
-    v5 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v5 = v3;
+    v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [(WBSPasswordBreachCryptographicOperations *)v4 _exportKeyFromCryptor:v5];
+      [(WBSPasswordBreachCryptographicOperations *)v5 _exportKeyFromCryptor:v6];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E695DEF0] dataWithBytes:v9 length:256];
+    v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v9 length:256];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 - (id)_exportHashToCurve:(id)curve
@@ -185,17 +183,17 @@ uint64_t __63__WBSPasswordBreachCryptographicOperations__exportHashToCurve___blo
   [curveCopy length];
   [curveCopy bytes];
 
-  v5 = CCECCryptorH2C();
-  if (!v5)
+  v6 = CCECCryptorH2C();
+  if (!v6)
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [WBSPasswordBreachCryptographicOperations _hashToCurve:v6];
+      [WBSPasswordBreachCryptographicOperations _hashToCurve:v7];
     }
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)_blindPasswordHash:(id)hash
@@ -221,7 +219,6 @@ uint64_t __63__WBSPasswordBreachCryptographicOperations__exportHashToCurve___blo
   v18[3] = v6;
   if (v6)
   {
-    blindingKeys = self->_blindingKeys;
     v8 = CCECCryptorBlind();
     v14[3] = v8;
     if (v8)
@@ -230,7 +227,7 @@ uint64_t __63__WBSPasswordBreachCryptographicOperations__exportHashToCurve___blo
       goto LABEL_7;
     }
 
-    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
+    v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v7);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [WBSPasswordBreachCryptographicOperations _blindPasswordHash:v10];
@@ -266,60 +263,59 @@ uint64_t __63__WBSPasswordBreachCryptographicOperations__blindPasswordHash___blo
 - (id)unblindHash:(id)hash
 {
   hashCopy = hash;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v20[3] = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
-  v22 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
   v5 = objc_alloc_init(WBSScopeExitHandler);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __56__WBSPasswordBreachCryptographicOperations_unblindHash___block_invoke;
-  v14[3] = &unk_1E7CF31E0;
-  v14[4] = &v19;
-  v14[5] = &v15;
-  [(WBSScopeExitHandler *)v5 setHandler:v14];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __56__WBSPasswordBreachCryptographicOperations_unblindHash___block_invoke;
+  v15[3] = &unk_1E7CF31E0;
+  v15[4] = v20;
+  v15[5] = &v16;
+  [(WBSScopeExitHandler *)v5 setHandler:v15];
   [hashCopy bytes];
   [hashCopy length];
   v6 = CCECCryptorImportKey();
+  v8 = v6;
   if (v6)
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordBreachCryptographicOperations *)v6 unblindHash:v7];
+      [(WBSPasswordBreachCryptographicOperations *)v8 unblindHash:v9];
     }
 
 LABEL_4:
-    v8 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
-  blindingKeys = self->_blindingKeys;
-  v10 = v20[3];
-  v11 = CCECCryptorUnblind();
-  v16[3] = v11;
-  if (!v11)
+  v12 = CCECCryptorUnblind();
+  v17[3] = v12;
+  if (!v12)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordBreachCryptographicOperations unblindHash:v13];
+      [WBSPasswordBreachCryptographicOperations unblindHash:v14];
     }
 
     goto LABEL_4;
   }
 
-  v8 = [(WBSPasswordBreachCryptographicOperations *)self _exportKeyFromCryptor:v11];
+  v10 = [(WBSPasswordBreachCryptographicOperations *)self _exportKeyFromCryptor:v12];
 LABEL_7:
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(v20, 8);
 
-  return v8;
+  return v10;
 }
 
 uint64_t __56__WBSPasswordBreachCryptographicOperations_unblindHash___block_invoke(uint64_t a1)
@@ -347,24 +343,22 @@ uint64_t __56__WBSPasswordBreachCryptographicOperations_unblindHash___block_invo
   v4 = SecRandomCopyBytes(*MEMORY[0x1E697B308], fakePasswordLengthBytes, v3);
   if (v4)
   {
-    v5 = v4;
-    v6 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v6 = v4;
+    v7 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(WBSPasswordBreachCryptographicOperations *)v5 generateFakeEncodedPasswordForHighFrequencyBucket];
+      [(WBSPasswordBreachCryptographicOperations *)v6 generateFakeEncodedPasswordForHighFrequencyBucket];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:fakePasswordLengthBytes];
+    v8 = [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:fakePasswordLengthBytes];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 - (id)generateFakeEncodedPasswordForLowFrequencyBucket
@@ -395,29 +389,26 @@ uint64_t __56__WBSPasswordBreachCryptographicOperations_unblindHash___block_invo
 
 - (void)_exportKeyFromCryptor:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67240192;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_1B8447000, a2, OS_LOG_TYPE_FAULT, "Failed to export key. CCECCryptorExportKey returned status %{public}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67240192;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_1B8447000, a2, OS_LOG_TYPE_FAULT, "Failed to export key. CCECCryptorExportKey returned status %{public}d", v2, 8u);
 }
 
 - (void)unblindHash:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67240192;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to import server blinded key. CCECCryptorImportKey returned status %{public}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67240192;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to import server blinded key. CCECCryptorImportKey returned status %{public}d", v2, 8u);
 }
 
 - (void)generateFakeEncodedPasswordForHighFrequencyBucket
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to generate random bytes for fake password: %d.", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Failed to generate random bytes for fake password: %d.", v2, 8u);
 }
 
 @end

@@ -12,9 +12,9 @@
 
 + (BOOL)addFaceObservations:(id)observations toFaceDescriptorBuffer:(void *)buffer error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   observationsCopy = observations;
-  v6 = [observationsCopy objectAtIndex:{0, error}];
+  v6 = [observationsCopy objectAtIndex:error];
   faceprint = [v6 faceprint];
   lengthInBytes = [faceprint lengthInBytes];
 
@@ -25,7 +25,7 @@
   v22 = 0u;
   v23 = 0u;
   v9 = observationsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:? objects:? count:?];
   if (v10)
   {
     LODWORD(v11) = 0;
@@ -50,12 +50,12 @@
         memcpy(DataForKthDescriptor, [descriptorData bytes], lengthInBytes);
         homeai::mod::ImageDescriptorBufferAbstract::setDescriptorIdForKthDescriptor(buffer, v11, [v14 faceId]);
 
-        ++v13;
+        v13 = (v13 + 1);
         ++v11;
       }
 
       while (v10 != v13);
-      v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v9 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v10);
@@ -87,7 +87,7 @@
       }
     }
 
-    v16 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1046];
+    v16 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:?];
     v17 = v16;
     if (error)
     {
@@ -110,42 +110,42 @@
 
 - (id)getClustersWithFaces:(id)faces error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   facesCopy = faces;
   if ([facesCopy count])
   {
-    v7 = [facesCopy objectAtIndexedSubscript:0];
-    v18 = 0;
-    __p = 0;
-    v13 = 0;
-    v14 = 0;
-    faceprint = [v7 faceprint];
-    lengthInBytes = [faceprint lengthInBytes];
-    homeai::mod::ImageDescriptorBufferAbstract::ImageDescriptorBufferAbstract(v15, &__p, &v18, lengthInBytes, 0, 0);
-    v16 = 1;
+    v6 = [facesCopy objectAtIndexedSubscript:?];
     v17 = 0;
-    v15[0] = &unk_284053C80;
-    v15[12] = (lengthInBytes >> 2);
+    __p = 0;
+    v12 = 0;
+    v13 = 0;
+    faceprint = [v6 faceprint];
+    lengthInBytes = [faceprint lengthInBytes];
+    homeai::mod::ImageDescriptorBufferAbstract::ImageDescriptorBufferAbstract(v14, &__p, &v17, lengthInBytes, 0, 0);
+    v15 = 1;
+    v16 = 0;
+    v14[0] = &unk_284053C80;
+    v14[12] = (lengthInBytes >> 2);
 
     if (__p)
     {
-      v13 = __p;
+      v12 = __p;
       operator delete(__p);
     }
 
-    v16 = 2;
-    if ([objc_opt_class() addFaceObservations:facesCopy toFaceDescriptorBuffer:v15 error:error])
+    v15 = 2;
+    if ([objc_opt_class() addFaceObservations:? toFaceDescriptorBuffer:? error:?])
     {
       __p = 0;
+      v12 = 0;
       v13 = 0;
-      v14 = 0;
-      homeai::clustering::GreedyClusterer::performClustering(self->_greedyClusterer.__ptr_, v15);
+      homeai::clustering::GreedyClusterer::performClustering(self->_greedyClusterer.__ptr_, v14, &__p);
     }
 
     array = 0;
-    v15[0] = &unk_284053C80;
-    free(v17);
-    homeai::mod::ImageDescriptorBufferAbstract::~ImageDescriptorBufferAbstract(v15);
+    v14[0] = &unk_284053C80;
+    free(v16);
+    homeai::mod::ImageDescriptorBufferAbstract::~ImageDescriptorBufferAbstract(v14);
   }
 
   else
@@ -158,62 +158,59 @@
 
 - (id)convertToClusters:(void *)clusters
 {
-  v26 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  for (i = *clusters; i != *(clusters + 1); i += 2)
+  for (i = *clusters; i != *(clusters + 1); i += 16)
   {
-    v7 = [MEMORY[0x277CCABB0] numberWithLongLong:i[1]];
-    v8 = [v5 objectForKeyedSubscript:v7];
+    v7 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+    v8 = [v5 objectForKeyedSubscript:?];
 
     if (v8)
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithLongLong:*i];
-      [v8 addObject:v9];
+      v9 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+      [v8 addObject:?];
     }
 
     else
     {
       v10 = MEMORY[0x277CBEB18];
-      v11 = [MEMORY[0x277CCABB0] numberWithLongLong:*i];
-      v8 = [v10 arrayWithObject:v11];
+      v11 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+      v8 = [v10 arrayWithObject:?];
 
-      v9 = [MEMORY[0x277CCABB0] numberWithLongLong:i[1]];
-      [v5 setObject:v8 forKeyedSubscript:v9];
+      v9 = [MEMORY[0x277CCABB0] numberWithLongLong:?];
+      [v5 setObject:? forKeyedSubscript:?];
     }
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   allKeys = [v5 allKeys];
-  v13 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v13 = [allKeys countByEnumeratingWithState:? objects:? count:?];
   if (v13)
   {
-    v14 = *v22;
+    v14 = MEMORY[0];
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v13; j = (j + 1))
       {
-        if (*v22 != v14)
+        if (MEMORY[0] != v14)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * j);
+        v16 = *(8 * j);
         v17 = objc_alloc_init(MEMORY[0x277CE2C10]);
-        v18 = [v5 objectForKeyedSubscript:v16];
-        [v17 setObjects:v18];
-        [v17 setClusterId:{objc_msgSend(v16, "intValue")}];
+        v18 = [v5 objectForKeyedSubscript:?];
+        [v17 setObjects:?];
+        [v16 intValue];
+        [v17 setClusterId:?];
         objects = [v17 objects];
-        [v17 setTotalObjectCount:{objc_msgSend(objects, "count")}];
+        [objects count];
+        [v17 setTotalObjectCount:?];
 
-        [v17 setShouldUpdateRepresentative:0];
-        [v4 addObject:v17];
+        [v17 setShouldUpdateRepresentative:?];
+        [v4 addObject:?];
       }
 
-      v13 = [allKeys countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [allKeys countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v13);
@@ -247,17 +244,17 @@
 
 + (id)centermostFaceprintInCluster:(id)cluster faceObservations:(id)observations
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   observationsCopy = observations;
-  v50 = clusterCopy;
+  v46 = clusterCopy;
   objects = [clusterCopy objects];
   v7 = [objects count];
 
   if (!v7 || ![observationsCopy count] || (objc_msgSend(observationsCopy, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "faceprint"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, !v9))
   {
     _HMFPreconditionFailure();
-LABEL_33:
+LABEL_31:
     __break(1u);
   }
 
@@ -265,18 +262,18 @@ LABEL_33:
   faceprint = [firstObject faceprint];
   lengthInBytes = [faceprint lengthInBytes];
 
-  v52 = lengthInBytes >> 2;
-  objects4 = v48 - (((lengthInBytes & 0x3FFFFFFFCLL) + 15) & 0x7FFFFFFF0);
-  v49 = 4 * (lengthInBytes >> 2);
-  bzero(objects4, v49);
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  objects2 = [v50 objects];
-  v48[1] = v48;
-  v51 = objects2;
-  v14 = [objects2 countByEnumeratingWithState:&v59 objects:v64 count:16];
+  v48 = lengthInBytes >> 2;
+  objects4 = v44 - (((lengthInBytes & 0x3FFFFFFFCLL) + 15) & 0x7FFFFFFF0);
+  v45 = 4 * (lengthInBytes >> 2);
+  bzero(objects4, v45);
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  objects2 = [v46 objects];
+  v44[1] = v44;
+  v47 = objects2;
+  v14 = [objects2 countByEnumeratingWithState:? objects:? count:?];
   v15 = (lengthInBytes >> 2) & 0x7FFFFFFF;
   if (!v14)
   {
@@ -284,121 +281,114 @@ LABEL_33:
   }
 
   v16 = lengthInBytes >> 2;
-  v17 = *v60;
+  v17 = *v56;
   do
   {
-    for (i = 0; i != v14; ++i)
+    for (i = 0; i != v14; i = (i + 1))
     {
-      if (*v60 != v17)
+      if (*v56 != v17)
       {
-        objc_enumerationMutation(v51);
+        objc_enumerationMutation(v47);
       }
 
-      intValue = [*(*(&v59 + 1) + 8 * i) intValue];
-      v20 = [observationsCopy objectAtIndexedSubscript:intValue];
-      faceprint2 = [v20 faceprint];
+      [*(*(&v55 + 1) + 8 * i) intValue];
+      v19 = [observationsCopy objectAtIndexedSubscript:?];
+      faceprint2 = [v19 faceprint];
       descriptorData = [faceprint2 descriptorData];
-      v23 = descriptorData;
+      v22 = descriptorData;
       bytes = [descriptorData bytes];
 
-      faceprint3 = [v20 faceprint];
+      faceprint3 = [v19 faceprint];
       LODWORD(faceprint2) = v16 == [faceprint3 lengthInBytes] >> 2;
 
       if (!faceprint2)
       {
         _HMFPreconditionFailure();
-        goto LABEL_33;
+        goto LABEL_31;
       }
 
-      v26 = v15;
-      v27 = objects4;
-      if (v52 >= 1)
+      v25 = v15;
+      v26 = objects4;
+      if (v48 >= 1)
       {
         do
         {
-          v28 = *bytes++;
-          *v27 = v28 + *v27;
-          ++v27;
-          --v26;
+          v27 = *bytes++;
+          *v26 = v27 + *v26;
+          ++v26;
+          --v25;
         }
 
-        while (v26);
+        while (v25);
       }
     }
 
-    v14 = [v51 countByEnumeratingWithState:&v59 objects:v64 count:16];
+    v14 = [v47 countByEnumeratingWithState:? objects:? count:?];
   }
 
   while (v14);
 LABEL_14:
 
-  if (v52 >= 1)
+  if (v48 >= 1)
   {
-    v29 = objects4;
+    v28 = objects4;
     do
     {
-      v30 = *v29;
-      objects3 = [v50 objects];
-      *v29 = v30 / [objects3 count];
+      v29 = *v28;
+      objects3 = [v46 objects];
+      *v28 = v29 / [objects3 count];
 
-      ++v29;
+      ++v28;
       --v15;
     }
 
     while (v15);
   }
 
-  v32 = [MEMORY[0x277CBEA90] dataWithBytes:objects4 length:v49];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  objects4 = [v50 objects];
-  v33 = [objects4 countByEnumeratingWithState:&v55 objects:v63 count:16];
-  if (v33)
+  v31 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  objects4 = [v46 objects];
+  v32 = [objects4 countByEnumeratingWithState:? objects:? count:?];
+  if (v32)
   {
-    v34 = *v56;
-    intValue3 = -1;
-    v36 = 100000.0;
+    v33 = *v52;
+    v34 = 100000.0;
     do
     {
-      for (j = 0; j != v33; ++j)
+      for (j = 0; j != v32; j = (j + 1))
       {
-        if (*v56 != v34)
+        if (*v52 != v33)
         {
           objc_enumerationMutation(objects4);
         }
 
-        v38 = *(*(&v55 + 1) + 8 * j);
-        intValue2 = [v38 intValue];
-        v40 = [observationsCopy objectAtIndexedSubscript:intValue2];
-        faceprint4 = [v40 faceprint];
+        v36 = *(*(&v51 + 1) + 8 * j);
+        [v36 intValue];
+        v37 = [observationsCopy objectAtIndexedSubscript:?];
+        faceprint4 = [v37 faceprint];
         descriptorData2 = [faceprint4 descriptorData];
 
-        [HMIGreedyClustering faceDistanceFromDescriptor:descriptorData2 toDescriptor:v32];
-        v44 = v43;
-        if (v43 < v36)
+        [HMIGreedyClustering faceDistanceFromDescriptor:"faceDistanceFromDescriptor:toDescriptor:" toDescriptor:?];
+        v41 = v40;
+        if (v40 < v34)
         {
-          intValue3 = [v38 intValue];
-          v36 = v44;
+          [v36 intValue];
+          v34 = v41;
         }
       }
 
-      v33 = [objects4 countByEnumeratingWithState:&v55 objects:v63 count:16];
+      v32 = [objects4 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v33);
-    v45 = intValue3;
+    while (v32);
   }
 
-  else
-  {
-    v45 = -1;
-  }
+  v42 = [observationsCopy objectAtIndexedSubscript:?];
 
-  v46 = [observationsCopy objectAtIndexedSubscript:v45];
-
-  return v46;
+  return v42;
 }
 
 - (id).cxx_construct

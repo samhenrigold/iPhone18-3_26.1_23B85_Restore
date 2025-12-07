@@ -21,155 +21,153 @@
 
 - (DiagnosticHUDLayer)init
 {
-  v68.receiver = self;
-  v68.super_class = DiagnosticHUDLayer;
-  v2 = [(DiagnosticHUDLayer *)&v68 init];
+  v54.receiver = self;
+  v54.super_class = DiagnosticHUDLayer;
+  v2 = [(DiagnosticHUDLayer *)&v54 init];
   if (v2)
   {
     v3 = +[CRColor greenColor];
-    [(DiagnosticHUDLayer *)v2 setFreshPointColor:v3];
+    [(DiagnosticHUDLayer *)v2 setFreshPointColor:?];
 
     v4 = +[CRColor yellowColor];
-    [(DiagnosticHUDLayer *)v2 setStalePointColor:v4];
+    [(DiagnosticHUDLayer *)v2 setStalePointColor:?];
 
     layer = [MEMORY[0x277CD9F90] layer];
-    [(DiagnosticHUDLayer *)v2 setCameraAreaLayer:layer];
+    [(DiagnosticHUDLayer *)v2 setCameraAreaLayer:?];
 
     v6 = +[CRColor blackColor];
-    cGColor = [v6 CGColor];
+    [v6 CGColor];
     cameraAreaLayer = [(DiagnosticHUDLayer *)v2 cameraAreaLayer];
-    [cameraAreaLayer setBackgroundColor:cGColor];
+    [cameraAreaLayer setBackgroundColor:?];
 
-    v9 = +[CRColor yellowColor];
-    cGColor2 = [v9 CGColor];
+    v8 = +[CRColor yellowColor];
+    [v8 CGColor];
     cameraAreaLayer2 = [(DiagnosticHUDLayer *)v2 cameraAreaLayer];
-    [cameraAreaLayer2 setFillColor:cGColor2];
+    [cameraAreaLayer2 setFillColor:?];
 
     cameraAreaLayer3 = [(DiagnosticHUDLayer *)v2 cameraAreaLayer];
-    LODWORD(v13) = 0.5;
-    [cameraAreaLayer3 setOpacity:v13];
+    [cameraAreaLayer3 setOpacity:?];
 
     cameraAreaLayer4 = [(DiagnosticHUDLayer *)v2 cameraAreaLayer];
-    [(DiagnosticHUDLayer *)v2 addSublayer:cameraAreaLayer4];
+    [(DiagnosticHUDLayer *)v2 addSublayer:?];
 
     array = [MEMORY[0x277CBEB18] array];
-    [(DiagnosticHUDLayer *)v2 setPointLayers:array];
+    [(DiagnosticHUDLayer *)v2 setPointLayers:?];
 
-    v16 = 0.0;
-    v17 = 4;
+    v13 = 0.0;
+    v14 = 4;
     do
     {
       layer2 = [MEMORY[0x277CD9F90] layer];
-      [layer2 setBounds:{0.0, 0.0, v16 * -2.5 + 20.0, v16 * -2.5 + 20.0}];
-      [layer2 setHidden:1];
+      [layer2 setBounds:?];
+      [layer2 setHidden:?];
       [layer2 bounds];
-      [layer2 setPath:{CGPathCreateWithEllipseInRect(v69, 0)}];
-      [(DiagnosticHUDLayer *)v2 addSublayer:layer2];
+      CGPathCreateWithEllipseInRect(v55, 0);
+      [layer2 setPath:?];
+      [(DiagnosticHUDLayer *)v2 addSublayer:?];
       pointLayers = [(DiagnosticHUDLayer *)v2 pointLayers];
-      [pointLayers addObject:layer2];
+      [pointLayers addObject:?];
 
-      v16 = v16 + 1.0;
-      --v17;
+      v13 = v13 + 1.0;
+      --v14;
     }
 
-    while (v17);
+    while (v14);
     layer3 = [MEMORY[0x277CD9F90] layer];
-    [(DiagnosticHUDLayer *)v2 setFocusIndicatorLayer:layer3];
+    [(DiagnosticHUDLayer *)v2 setFocusIndicatorLayer:?];
 
     focusIndicatorLayer = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
-    [focusIndicatorLayer setBounds:{0.0, 0.0, 20.0, 20.0}];
+    [focusIndicatorLayer setBounds:?];
 
     focusIndicatorLayer2 = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
-    [focusIndicatorLayer2 setHidden:1];
+    [focusIndicatorLayer2 setHidden:?];
 
     focusIndicatorLayer3 = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
     [focusIndicatorLayer3 bounds];
-    v24 = CGPathCreateWithEllipseInRect(v70, 0);
+    CGPathCreateWithEllipseInRect(v56, 0);
     focusIndicatorLayer4 = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
-    [focusIndicatorLayer4 setPath:v24];
+    [focusIndicatorLayer4 setPath:?];
 
-    v26 = +[CRColor blueColor];
-    cGColor3 = [v26 CGColor];
+    v22 = +[CRColor blueColor];
+    [v22 CGColor];
     focusIndicatorLayer5 = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
-    [focusIndicatorLayer5 setFillColor:cGColor3];
+    [focusIndicatorLayer5 setFillColor:?];
 
     focusIndicatorLayer6 = [(DiagnosticHUDLayer *)v2 focusIndicatorLayer];
-    [(DiagnosticHUDLayer *)v2 addSublayer:focusIndicatorLayer6];
+    [(DiagnosticHUDLayer *)v2 addSublayer:?];
 
     layer4 = [MEMORY[0x277CD9F90] layer];
-    [(DiagnosticHUDLayer *)v2 setFocusPointLayer:layer4];
+    [(DiagnosticHUDLayer *)v2 setFocusPointLayer:?];
 
     focusPointLayer = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer setBounds:{0.0, 0.0, 30.0, 30.0}];
+    [focusPointLayer setBounds:?];
 
     focusPointLayer2 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer2 setHidden:1];
+    [focusPointLayer2 setHidden:?];
 
     focusPointLayer3 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
     [focusPointLayer3 bounds];
-    v34 = CGPathCreateWithEllipseInRect(v71, 0);
+    CGPathCreateWithEllipseInRect(v57, 0);
     focusPointLayer4 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer4 setPath:v34];
+    [focusPointLayer4 setPath:?];
 
     focusPointLayer5 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    LODWORD(v37) = 0.5;
-    [focusPointLayer5 setOpacity:v37];
+    [focusPointLayer5 setOpacity:?];
 
-    v38 = +[CRColor clearColor];
-    cGColor4 = [v38 CGColor];
+    v31 = +[CRColor clearColor];
+    [v31 CGColor];
     focusPointLayer6 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer6 setFillColor:cGColor4];
+    [focusPointLayer6 setFillColor:?];
 
-    v41 = +[CRColor grayColor];
-    cGColor5 = [v41 CGColor];
+    v33 = +[CRColor grayColor];
+    [v33 CGColor];
     focusPointLayer7 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer7 setStrokeColor:cGColor5];
+    [focusPointLayer7 setStrokeColor:?];
 
     focusPointLayer8 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer8 setLineWidth:4.0];
+    [focusPointLayer8 setLineWidth:?];
 
     focusPointLayer9 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
     [focusPointLayer9 bounds];
-    v46 = CGRectGetWidth(v72) * 3.14159265 / 20.0;
+    CGRectGetWidth(v58);
 
-    v47 = MEMORY[0x277CBEA60];
-    v48 = [MEMORY[0x277CCABB0] numberWithDouble:v46];
-    v49 = [MEMORY[0x277CCABB0] numberWithDouble:v46];
-    v50 = [v47 arrayWithObjects:{v48, v49, 0}];
+    v37 = MEMORY[0x277CBEA60];
+    v38 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v39 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    v40 = [v37 arrayWithObjects:{v39, 0}];
     focusPointLayer10 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [focusPointLayer10 setLineDashPattern:v50];
+    [focusPointLayer10 setLineDashPattern:?];
 
     focusPointLayer11 = [(DiagnosticHUDLayer *)v2 focusPointLayer];
-    [(DiagnosticHUDLayer *)v2 addSublayer:focusPointLayer11];
+    [(DiagnosticHUDLayer *)v2 addSublayer:?];
 
     layer5 = [MEMORY[0x277CD9F90] layer];
-    [(DiagnosticHUDLayer *)v2 setFrameIndicator:layer5];
+    [(DiagnosticHUDLayer *)v2 setFrameIndicator:?];
 
     frameIndicator = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    [frameIndicator setBounds:{0.0, 0.0, 20.0, 20.0}];
+    [frameIndicator setBounds:?];
 
     frameIndicator2 = [(DiagnosticHUDLayer *)v2 frameIndicator];
     [frameIndicator2 bounds];
-    v56 = CGPathCreateWithEllipseInRect(v73, 0);
+    CGPathCreateWithEllipseInRect(v59, 0);
     frameIndicator3 = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    [frameIndicator3 setPath:v56];
+    [frameIndicator3 setPath:?];
 
     frameIndicator4 = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    LODWORD(v59) = 0.5;
-    [frameIndicator4 setOpacity:v59];
+    [frameIndicator4 setOpacity:?];
 
-    v60 = +[CRColor redColor];
-    cGColor6 = [v60 CGColor];
+    v48 = +[CRColor redColor];
+    [v48 CGColor];
     frameIndicator5 = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    [frameIndicator5 setFillColor:cGColor6];
+    [frameIndicator5 setFillColor:?];
 
-    v63 = +[CRColor grayColor];
-    cGColor7 = [v63 CGColor];
+    v50 = +[CRColor grayColor];
+    [v50 CGColor];
     frameIndicator6 = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    [frameIndicator6 setStrokeColor:cGColor7];
+    [frameIndicator6 setStrokeColor:?];
 
     frameIndicator7 = [(DiagnosticHUDLayer *)v2 frameIndicator];
-    [(DiagnosticHUDLayer *)v2 addSublayer:frameIndicator7];
+    [(DiagnosticHUDLayer *)v2 addSublayer:?];
   }
 
   return v2;
@@ -185,145 +183,143 @@
     if (v5 == *MEMORY[0x277CBF3A8] && v4 == *(MEMORY[0x277CBF3A8] + 8))
     {
       cameraAreaLayer = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      [cameraAreaLayer setPath:0];
+      [cameraAreaLayer setPath:?];
     }
 
     else
     {
       [MEMORY[0x277CD9FF0] begin];
-      [MEMORY[0x277CD9FF0] setDisableActions:1];
+      [MEMORY[0x277CD9FF0] setDisableActions:?];
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v8 = v7;
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v10 = v9;
       cameraAreaLayer2 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      [cameraAreaLayer2 setBounds:{0.0, 0.0, v8, v10}];
+      [cameraAreaLayer2 setBounds:?];
 
       [(DiagnosticHUDLayer *)self bounds];
-      Width = CGRectGetWidth(v58);
+      Width = CGRectGetWidth(v44);
       [(DiagnosticHUDLayer *)self bounds];
-      Height = CGRectGetHeight(v59);
+      Height = CGRectGetHeight(v45);
       [(DiagnosticHUDLayer *)self bounds];
       if (Width <= Height)
       {
-        v18 = CGRectGetHeight(*&v14);
+        v14 = CGRectGetHeight(*&v10);
       }
 
       else
       {
-        v18 = CGRectGetWidth(*&v14);
+        v14 = CGRectGetWidth(*&v10);
       }
 
-      v20 = v18 / 5.0;
+      v16 = v14 / 5.0;
       [(DiagnosticHUDLayer *)self bounds];
-      v21 = CGRectGetWidth(v60);
+      v17 = CGRectGetWidth(v46);
       [(DiagnosticHUDLayer *)self bounds];
-      v22 = CGRectGetHeight(v61);
+      v18 = CGRectGetHeight(v47);
       [(DiagnosticHUDLayer *)self bounds];
-      if (v21 <= v22)
+      if (v17 <= v18)
       {
-        v27 = CGRectGetWidth(*&v23);
+        CGRectGetWidth(*&v19);
       }
 
       else
       {
-        v27 = CGRectGetHeight(*&v23);
+        CGRectGetHeight(*&v19);
       }
 
-      v28 = v27 / 15.0;
       cameraAreaLayer3 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
       [cameraAreaLayer3 bounds];
-      v30 = v20 / CGRectGetWidth(v62);
+      v24 = v16 / CGRectGetWidth(v48);
 
-      CGAffineTransformMakeScale(&v57, v30, v30);
+      CGAffineTransformMakeScale(&v43, v24, v24);
       cameraAreaLayer4 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      v56 = v57;
-      [cameraAreaLayer4 setAffineTransform:&v56];
+      [cameraAreaLayer4 setAffineTransform:{*&v43.a, *&v43.b, *&v43.c, *&v43.d, *&v43.tx, *&v43.ty}];
 
       cameraAreaLayer5 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      [cameraAreaLayer5 setAnchorPoint:{1.0, 1.0}];
+      [cameraAreaLayer5 setAnchorPoint:?];
 
       [(DiagnosticHUDLayer *)self bounds];
-      v33 = CGRectGetMaxX(v63) - v28;
+      CGRectGetMaxX(v49);
       [(DiagnosticHUDLayer *)self bounds];
-      v34 = CGRectGetMaxY(v64) - v28;
+      CGRectGetMaxY(v50);
       cameraAreaLayer6 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      [cameraAreaLayer6 setPosition:{v33, v34}];
+      [cameraAreaLayer6 setPosition:?];
 
       [(DiagnosticHUDLayer *)self visibleRect];
-      MinX = CGRectGetMinX(v65);
+      MinX = CGRectGetMinX(v51);
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v38 = MinX * v37;
+      v30 = MinX * v29;
       [(DiagnosticHUDLayer *)self visibleRect];
-      MinY = CGRectGetMinY(v66);
+      MinY = CGRectGetMinY(v52);
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v41 = MinY * v40;
+      v33 = MinY * v32;
       [(DiagnosticHUDLayer *)self visibleRect];
-      v42 = CGRectGetWidth(v67);
+      v34 = CGRectGetWidth(v53);
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v44 = v42 * v43;
+      v36 = v34 * v35;
       [(DiagnosticHUDLayer *)self visibleRect];
-      v45 = CGRectGetHeight(v68);
+      v37 = CGRectGetHeight(v54);
       [(DiagnosticHUDLayer *)self cameraResolution];
-      v69.size.height = v45 * v46;
-      v69.origin.x = v38;
-      v69.origin.y = v41;
-      v69.size.width = v44;
-      v47 = CGPathCreateWithRect(v69, 0);
-      v48 = CFAutorelease(v47);
+      v55.size.height = v37 * v38;
+      v55.origin.x = v30;
+      v55.origin.y = v33;
+      v55.size.width = v36;
+      v39 = CGPathCreateWithRect(v55, 0);
+      CFAutorelease(v39);
       cameraAreaLayer7 = [(DiagnosticHUDLayer *)self cameraAreaLayer];
-      [cameraAreaLayer7 setPath:v48];
+      [cameraAreaLayer7 setPath:?];
 
       [MEMORY[0x277CD9FF0] commit];
     }
   }
 
   [(DiagnosticHUDLayer *)self bounds];
-  v50 = CGRectGetMaxX(v70) + -40.0;
+  CGRectGetMaxX(v56);
   [(DiagnosticHUDLayer *)self bounds];
-  v51 = CGRectGetMinY(v71) + 40.0;
+  CGRectGetMinY(v57);
   focusIndicatorLayer = [(DiagnosticHUDLayer *)self focusIndicatorLayer];
-  [focusIndicatorLayer setPosition:{v50, v51}];
+  [focusIndicatorLayer setPosition:?];
 
   [(DiagnosticHUDLayer *)self bounds];
-  v53 = CGRectGetMinX(v72) + 40.0;
+  CGRectGetMinX(v58);
   [(DiagnosticHUDLayer *)self bounds];
-  v54 = CGRectGetMinY(v73) + 80.0;
+  CGRectGetMinY(v59);
   frameIndicator = [(DiagnosticHUDLayer *)self frameIndicator];
-  [frameIndicator setPosition:{v53, v54}];
+  [frameIndicator setPosition:?];
 }
 
 - (void)setBoxPoints:(id)points
 {
   pointsCopy = points;
   [MEMORY[0x277CD9FF0] begin];
-  v4 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"fillColor"];
+  v4 = [MEMORY[0x277CD9E10] animationWithKeyPath:?];
   freshPointColor = [(DiagnosticHUDLayer *)self freshPointColor];
-  [v4 setFromValue:{objc_msgSend(freshPointColor, "CGColor")}];
+  [freshPointColor CGColor];
+  [v4 setFromValue:?];
 
   stalePointColor = [(DiagnosticHUDLayer *)self stalePointColor];
-  [v4 setToValue:{objc_msgSend(stalePointColor, "CGColor")}];
+  [stalePointColor CGColor];
+  [v4 setToValue:?];
 
-  [v4 setDuration:1.0];
+  [v4 setDuration:?];
   for (i = 0; i != 4; ++i)
   {
-    v8 = [pointsCopy objectAtIndex:i];
+    v8 = [pointsCopy objectAtIndex:?];
     pointLayers = [(DiagnosticHUDLayer *)self pointLayers];
-    v10 = [pointLayers objectAtIndex:i];
+    v10 = [pointLayers objectAtIndex:?];
 
     [v10 removeAllAnimations];
-    [v10 setHidden:v8 == 0];
+    [v10 setHidden:?];
     [v8 CGPointValue];
     [v10 setPosition:?];
     v11 = MEMORY[0x277CBEAC0];
     null = [MEMORY[0x277CBEB68] null];
     null2 = [MEMORY[0x277CBEB68] null];
-    v14 = [v11 dictionaryWithObjectsAndKeys:{null, @"hidden", null2, @"position", 0}];
-    [v10 setActions:v14];
+    v14 = [v11 dictionaryWithObjectsAndKeys:{@"hidden", null2, @"position", 0}];
+    [v10 setActions:?];
 
-    [v10 addAnimation:v4 forKey:@"fillColor"];
+    [v10 addAnimation:? forKey:?];
     toValue = [v4 toValue];
-    [v10 setFillColor:toValue];
+    [v10 setFillColor:?];
   }
 
   [MEMORY[0x277CD9FF0] commit];
@@ -331,35 +327,27 @@
 
 - (void)setPreviewLayer:(id)layer visibleRect:(CGRect)rect cameraResolution:(CGSize)resolution
 {
-  height = resolution.height;
-  width = resolution.width;
-  v7 = rect.size.height;
-  v8 = rect.size.width;
-  y = rect.origin.y;
-  x = rect.origin.x;
-  [(DiagnosticHUDLayer *)self setPreviewLayer:layer];
-  [(DiagnosticHUDLayer *)self setPreviewLayerVisibleRect:x, y, v8, v7];
-  [(DiagnosticHUDLayer *)self setCameraResolution:width, height];
+  [(DiagnosticHUDLayer *)self setPreviewLayer:?];
+  [(DiagnosticHUDLayer *)self setPreviewLayerVisibleRect:?];
+  [(DiagnosticHUDLayer *)self setCameraResolution:?];
 
   [(DiagnosticHUDLayer *)self setNeedsLayout];
 }
 
 - (void)setAdjustingFocus:(BOOL)focus pointOfInterestSupported:(BOOL)supported focusPoint:(CGPoint)point
 {
-  y = point.y;
-  x = point.x;
   supportedCopy = supported;
   focusCopy = focus;
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:1];
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
   focusIndicatorLayer = [(DiagnosticHUDLayer *)self focusIndicatorLayer];
-  [focusIndicatorLayer setHidden:!focusCopy];
+  [focusIndicatorLayer setHidden:?];
 
   focusPointLayer = [(DiagnosticHUDLayer *)self focusPointLayer];
   focusPointLayer3 = focusPointLayer;
   if (supportedCopy)
   {
-    [focusPointLayer setHidden:0];
+    [focusPointLayer setHidden:?];
 
     if (focusCopy)
     {
@@ -370,48 +358,43 @@
     {
       +[CRColor grayColor];
     }
-    v13 = ;
-    cGColor = [v13 CGColor];
+    v11 = ;
+    [v11 CGColor];
     focusPointLayer2 = [(DiagnosticHUDLayer *)self focusPointLayer];
-    [focusPointLayer2 setStrokeColor:cGColor];
+    [focusPointLayer2 setStrokeColor:?];
 
     focusPointLayer3 = [(DiagnosticHUDLayer *)self focusPointLayer];
-    [focusPointLayer3 setPosition:{x, y}];
+    [focusPointLayer3 setPosition:?];
   }
 
   else
   {
-    [focusPointLayer setHidden:1];
+    [focusPointLayer setHidden:?];
   }
 
-  v16 = MEMORY[0x277CD9FF0];
+  v13 = MEMORY[0x277CD9FF0];
 
-  [v16 commit];
+  [v13 commit];
 }
 
 - (void)refreshFrameIndicator
 {
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:0];
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
   frameIndicator = [(DiagnosticHUDLayer *)self frameIndicator];
-  [frameIndicator setHidden:0];
+  [frameIndicator setHidden:?];
 
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __43__DiagnosticHUDLayer_refreshFrameIndicator__block_invoke;
-  v4[3] = &unk_278EAAB20;
-  v4[4] = self;
-  [MEMORY[0x277CD9FF0] setCompletionBlock:v4];
+  [MEMORY[0x277CD9FF0] setCompletionBlock:?];
   [MEMORY[0x277CD9FF0] commit];
 }
 
-uint64_t __43__DiagnosticHUDLayer_refreshFrameIndicator__block_invoke(uint64_t a1)
+void *__43__DiagnosticHUDLayer_refreshFrameIndicator__block_invoke(uint64_t a1)
 {
   [MEMORY[0x277CD9FF0] begin];
-  [MEMORY[0x277CD9FF0] setDisableActions:0];
-  [MEMORY[0x277CD9FF0] setAnimationDuration:2.0];
+  [MEMORY[0x277CD9FF0] setDisableActions:?];
+  [MEMORY[0x277CD9FF0] setAnimationDuration:?];
   v2 = [*(a1 + 32) frameIndicator];
-  [v2 setHidden:1];
+  [v2 setHidden:?];
 
   v3 = MEMORY[0x277CD9FF0];
 

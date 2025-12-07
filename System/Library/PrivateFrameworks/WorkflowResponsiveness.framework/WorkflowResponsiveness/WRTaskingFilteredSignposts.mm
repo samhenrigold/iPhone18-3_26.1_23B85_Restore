@@ -33,7 +33,7 @@ LABEL_7:
 
 void ___WRTaskingFilteredSignposts_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -70,44 +70,42 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    v11 = v6;
-    v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v11, "count")}];
+    v10 = v6;
+    v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v10, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v13 = v11;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v14)
+    v12 = v10;
+    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v13)
     {
-      v15 = v14;
-      v16 = *v21;
+      v14 = v13;
+      v15 = *v20;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v16)
+          if (*v20 != v15)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = _WRTaskingDiagnosticRemovedDict(*(*(&v20 + 1) + 8 * i));
-          [v12 addObject:{v18, v20}];
+          v17 = _WRTaskingDiagnosticRemovedDict(*(*(&v19 + 1) + 8 * i));
+          [v11 addObject:{v17, v19}];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v15);
+      while (v14);
     }
 
-    v19 = [v12 copy];
-    [*(a1 + 40) setObject:v19 forKeyedSubscript:v5];
+    v18 = [v11 copy];
+    [*(a1 + 40) setObject:v18 forKeyedSubscript:v5];
   }
 
 LABEL_7:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

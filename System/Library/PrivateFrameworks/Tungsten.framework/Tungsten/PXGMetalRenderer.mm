@@ -526,39 +526,27 @@ LABEL_52:
       [recordingSession2 recordEvent:v14];
     }
 
-    v25 = textureCopy;
-    shader = 0;
-    memset(v29, 0, sizeof(v29));
-    v27 = 0x7FFFFFFFFFFFFFFFLL;
-    v28 = 0;
-    BYTE8(v29[0]) = 0;
-    shaderFlags = [textureCopy shaderFlags];
+    [textureCopy shaderFlags];
     if (v6)
     {
       entityManager = [(PXGMetalRenderer *)self entityManager];
       effectComponent = [entityManager effectComponent];
 
-      v18 = [effectComponent effectForId:v6];
-      shader = [v18 shader];
-      shaderFlags |= 0x400000u;
+      v17 = [effectComponent effectForId:v6];
+      [v17 shader];
     }
 
     renderDestination = [(PXGMetalRenderer *)self renderDestination];
-    colorPixelFormat = [renderDestination colorPixelFormat];
+    [renderDestination colorPixelFormat];
 
-    didPerformFirstRender = self->_didPerformFirstRender;
-    if (didPerformFirstRender)
+    if (self->_didPerformFirstRender)
     {
       if ([textureCopy isOpaque])
       {
-        BYTE12(v29[1]) = 0;
-        DWORD1(v29[0]) = shaderFlags;
-        [(PXGMetalRenderer *)self _pipelineForRenderTexture:&v25 colorPixelFormat:colorPixelFormat waitForCompilation:1];
+        objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
       }
 
-      BYTE12(v29[1]) = 0;
-      DWORD1(v29[0]) = shaderFlags | 0x100000;
-      [(PXGMetalRenderer *)self _pipelineForRenderTexture:&v25 colorPixelFormat:colorPixelFormat waitForCompilation:1];
+      objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
 
       if (v6)
       {
@@ -566,9 +554,8 @@ LABEL_52:
       }
     }
 
-    BYTE12(v29[1]) = [textureCopy isOpaque];
-    DWORD1(v29[0]) = shaderFlags;
-    [(PXGMetalRenderer *)self _pipelineForRenderTexture:&v25 colorPixelFormat:colorPixelFormat waitForCompilation:didPerformFirstRender];
+    [textureCopy isOpaque];
+    objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
   }
 }
 
@@ -587,23 +574,14 @@ LABEL_52:
   v5 = shaderCopy;
   if (self->_device)
   {
-    v11[0] = 0;
-    memset(v13, 0, sizeof(v13));
-    v17 = 0;
-    v11[1] = shaderCopy;
-    v12 = 0x7FFFFFFFFFFFFFFFuLL;
-    *&v13[4] = 0x400000;
-    v14 = 0;
-    isOpaque = [shaderCopy isOpaque];
-    v16 = 0;
+    [shaderCopy isOpaque];
     renderDestination = [(PXGMetalRenderer *)self renderDestination];
-    colorPixelFormat = [renderDestination colorPixelFormat];
+    [renderDestination colorPixelFormat];
 
-    [(PXGMetalRenderer *)self _pipelineForRenderTexture:v11 colorPixelFormat:colorPixelFormat waitForCompilation:0];
+    objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
     if ([v5 isOpaque])
     {
-      isOpaque = 0;
-      [(PXGMetalRenderer *)self _pipelineForRenderTexture:v11 colorPixelFormat:colorPixelFormat waitForCompilation:0];
+      objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
     }
   }
 }
@@ -675,12 +653,13 @@ void __53__PXGMetalRenderer_effectComponent_prepareForEffect___block_invoke(uint
   passCopy = pass;
   encoderCopy = encoder;
   v10 = texture->var0;
-  [(PXGMetalRenderer *)self interactionState];
-  v11 = v70;
+  objc_msgSend_interactionState(self);
+  v11 = v70[0];
   v68 = 0u;
   v69 = 0u;
   v67 = 0u;
-  -[PXGMetalRenderer _pipelineForRenderTexture:colorPixelFormat:waitForCompilation:](self, "_pipelineForRenderTexture:colorPixelFormat:waitForCompilation:", texture, [passCopy pixelFormat], v70 < 1);
+  [passCopy pixelFormat];
+  objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self);
   v12 = texture->var1;
   recordingSession = [(PXGMetalRenderer *)self recordingSession];
 
@@ -712,7 +691,7 @@ void __53__PXGMetalRenderer_effectComponent_prepareForEffect___block_invoke(uint
     [frameState addRecordedSpriteIndexes:spriteIndexes];
   }
 
-  if (v69 || !self->_didPerformFirstRender && (dispatch_sync(self->_compilationQueue, &__block_literal_global_290), -[PXGMetalRenderer _pipelineForRenderTexture:colorPixelFormat:waitForCompilation:](self, "_pipelineForRenderTexture:colorPixelFormat:waitForCompilation:", texture, [passCopy pixelFormat], v11 < 1), v67 = *buf, v40 = *&buf[16], *&buf[16] = 0, v41 = v68, *&v68 = v40, v41, v42 = *&buf[24], *&buf[24] = 0, v43 = *(&v68 + 1), *(&v68 + 1) = v42, v43, v44 = *v72, *v72 = 0, v45 = v69, *&v69 = v44, v45, BYTE8(v69) = v72[8], v69))
+  if (v69 || !self->_didPerformFirstRender && (dispatch_sync(self->_compilationQueue, &__block_literal_global_290), [passCopy pixelFormat], objc_msgSend__pipelineForRenderTexture_colorPixelFormat_waitForCompilation_(self), v67 = *buf, v40 = *&buf[16], *&buf[16] = 0, v41 = v68, *&v68 = v40, v41, v42 = *&buf[24], *&buf[24] = 0, v43 = *(&v68 + 1), *(&v68 + 1) = v42, v43, v44 = *v72, *v72 = 0, v45 = v69, *&v69 = v44, v45, BYTE8(v69) = v72[8], v69))
   {
     [encoderCopy setRenderPipelineState:?];
     memset(buf, 0, sizeof(buf));
@@ -903,7 +882,7 @@ LABEL_31:
   v23 = MEMORY[0x21CEE40A0](v22);
   if (stateCopy)
   {
-    [stateCopy values];
+    objc_msgSend_values(stateCopy);
   }
 
   else
@@ -1433,7 +1412,7 @@ double __73__PXGMetalRenderer__parseAndSortRenderTextures_willPerformOffscreenPa
   v231 = 0u;
   if (stateCopy)
   {
-    [stateCopy values];
+    objc_msgSend_values(stateCopy);
     v138 = v231;
   }
 
@@ -1631,7 +1610,7 @@ LABEL_36:
         v54 = selfCopy->_offscreenTextureCache;
         if (v44)
         {
-          [(PXGMetalRenderPass *)v44 renderSize];
+          objc_msgSend_renderSize(v44);
         }
 
         else
@@ -1676,7 +1655,7 @@ LABEL_43:
           v62 = selfCopy->_offscreenTextureCache;
           if (v44)
           {
-            [(PXGMetalRenderPass *)v44 renderSize];
+            objc_msgSend_renderSize(v44);
           }
 
           else
@@ -2395,7 +2374,7 @@ void __70__PXGMetalRenderer__renderToMainDestination_withCompletionCompletion___
   v38 = 0u;
   v35 = 0u;
   v36 = 0u;
-  [(PXGMetalRenderState *)v6 values];
+  objc_msgSend_values(v6);
   v31 = v39;
   v32 = v40;
   v33 = v41;
@@ -2634,7 +2613,7 @@ LABEL_11:
     dataStoreCopy = v144;
     if (v144)
     {
-      [v144 sprites];
+      objc_msgSend_sprites(v144);
     }
 
     else
@@ -2658,7 +2637,7 @@ LABEL_11:
     v140 = v48;
     if (v48)
     {
-      [(PXGSpriteDataStore *)v48 sprites];
+      objc_msgSend_sprites(v48);
       v49 = __src[0];
     }
 
@@ -2818,7 +2797,7 @@ LABEL_11:
       v139 = v103;
       v104 = v103;
       *(v71 + 264) = v104;
-      [v147 renderSize];
+      objc_msgSend_renderSize(v147);
       v136 = v106;
       v137 = v105;
       [(PXGMetalRenderer *)selfCopy2 renderOrigin];
@@ -3115,7 +3094,7 @@ void __101__PXGMetalRenderer__populateEffectSprites_spriteRenderDataStore_presen
             v16 = *(a1 + 56);
             if (v16)
             {
-              [v16 spritesInRange:v11];
+              objc_msgSend_spritesInRange_(v16);
             }
 
             v17 = *(a1 + 96);
@@ -3591,7 +3570,7 @@ LABEL_32:
   pipelinesCount = self->_pipelinesCount;
   if (pipelinesCount >= 1)
   {
-    HIDWORD(v58) = v34;
+    v58 = v34;
     v59 = v11;
     v60 = v10;
     v36 = 0;
@@ -3627,7 +3606,7 @@ LABEL_32:
       {
         v11 = v59;
         v10 = v60;
-        v34 = HIDWORD(v58);
+        v34 = v58;
         break;
       }
     }
@@ -3658,8 +3637,7 @@ LABEL_45:
     if (v62)
     {
       v46 = [(PXGMetalRenderer *)self _createPipelineStateForColorProgram:colorProgram shader:v13 shaderFlags:v28 colorPixelFormat:compilationCopy depthStencilPixelFormat:depthStencilPixelFormat isOpaque:v65];
-      LOBYTE(v58) = v65;
-      [(PXGMetalRenderer *)self _handleCompiledRenderPipelineState:v46 forColorProgram:colorProgram shader:v13 shaderFlags:v28 colorPixelFormat:compilationCopy pipelineIndex:pipelinesCount isOpaque:v58];
+      objc_msgSend__handleCompiledRenderPipelineState_forColorProgram_shader_shaderFlags_colorPixelFormat_pipelineIndex_isOpaque_(self, v65);
       *&retstr->var0 = *location;
       v47 = v75;
       v75 = 0;
@@ -3712,35 +3690,34 @@ void __82__PXGMetalRenderer__pipelineForRenderTexture_colorPixelFormat_waitForCo
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v3 = [WeakRetained _createPipelineStateForColorProgram:*(a1 + 32) shader:*(a1 + 40) shaderFlags:*(a1 + 88) colorPixelFormat:*(a1 + 64) depthStencilPixelFormat:*(a1 + 72) isOpaque:*(a1 + 92)];
 
-  v11 = 0u;
-  v12 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
   v4 = objc_loadWeakRetained((a1 + 56));
   v5 = v4;
   if (v4)
   {
-    LOBYTE(v7) = *(a1 + 92);
-    [v4 _handleCompiledRenderPipelineState:v3 forColorProgram:*(a1 + 32) shader:*(a1 + 40) shaderFlags:*(a1 + 88) colorPixelFormat:*(a1 + 64) pipelineIndex:*(a1 + 80) isOpaque:v7];
+    objc_msgSend__handleCompiledRenderPipelineState_forColorProgram_shader_shaderFlags_colorPixelFormat_pipelineIndex_isOpaque_(v4, *(a1 + 92));
   }
 
   else
   {
-    v11 = 0u;
-    v12 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v9 = 0u;
   }
 
-  if (v12)
+  if (v11)
   {
     v6 = *(*(a1 + 48) + 304);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __82__PXGMetalRenderer__pipelineForRenderTexture_colorPixelFormat_waitForCompilation___block_invoke_2;
     block[3] = &unk_2782A94F8;
-    objc_copyWeak(&v9, (a1 + 56));
+    objc_copyWeak(&v8, (a1 + 56));
     block[4] = *(a1 + 48);
     dispatch_async(v6, block);
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
   }
 }
 

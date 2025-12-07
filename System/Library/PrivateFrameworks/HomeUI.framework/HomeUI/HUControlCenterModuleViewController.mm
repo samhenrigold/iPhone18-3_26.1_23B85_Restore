@@ -232,7 +232,7 @@
   v9 = [(HFItemManager *)itemManager displayedItemsInSection:v8];
   if (!v9)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v9 = sub_20D567A58();
   }
@@ -335,21 +335,21 @@
 - (double)preferredExpandedContentHeight
 {
   CCUIScreenBounds();
-  CGRectGetWidth(v5);
+  CGRectGetWidth(v4);
   CCUIScreenBounds();
-  CGRectGetHeight(v6);
-  CGSizeMake(v2);
-  return v3;
+  CGRectGetHeight(v5);
+  CGSizeMake();
+  return v2;
 }
 
 - (double)preferredExpandedContentWidth
 {
   CCUIScreenBounds();
-  CGRectGetWidth(v5);
+  CGRectGetWidth(v4);
   CCUIScreenBounds();
-  CGRectGetHeight(v6);
+  CGRectGetHeight(v5);
 
-  CGSizeMake(v2);
+  CGSizeMake();
   return result;
 }
 
@@ -360,7 +360,7 @@
 
   if (v3)
   {
-    sub_20CECF940(0, &qword_28111FB70);
+    sub_20CECF940(0, &qword_28111FB70, 0x277D75D18);
     v4 = sub_20D567A58();
   }
 
@@ -391,7 +391,6 @@
 
 - (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion
 {
-  animatedCopy = animated;
   v6 = _Block_copy(completion);
   if (v6)
   {
@@ -406,8 +405,8 @@
   }
 
   selfCopy = self;
-  HUControlCenterModuleViewController.dismissPresentedContent(animated:completion:)(animatedCopy, v6, v7);
-  sub_20CEC8164(v6);
+  HUControlCenterModuleViewController.dismissPresentedContent(animated:completion:)(animated, v6, v7);
+  sub_20CEC8164(v6, v7);
 }
 
 - (BOOL)canDismissPresentedContent
@@ -487,7 +486,7 @@
 
 - (void)applyGridSizeClass:(int64_t)class completionBlock:(id)block
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(block);
@@ -522,7 +521,7 @@
 
 - (void)accessoryControlViewControllerFor:(HFAccessoryRepresentableItem *)for tileItem:(HFItem *)item completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C81C610, &qword_20D5BCCE0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

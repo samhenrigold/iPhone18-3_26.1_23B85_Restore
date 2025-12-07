@@ -12,7 +12,7 @@
 
 + (__CFString)errorMessageForSQLite3Context:()sqlite3
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = sqlite3_errmsg(a3);
   if (v4)
   {
@@ -41,11 +41,11 @@
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           v14 = HMFGetLogIdentifier();
-          v17 = 138543618;
-          v18 = v14;
-          v19 = 2080;
-          v20 = v5;
-          _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not convert SQLite error into NSString: %s", &v17, 0x16u);
+          v16 = 138543618;
+          v17 = v14;
+          v18 = 2080;
+          v19 = v5;
+          _os_log_impl(&dword_22AD27000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not convert SQLite error into NSString: %s", &v16, 0x16u);
         }
 
         objc_autoreleasePoolPop(v11);
@@ -59,20 +59,18 @@
     v8 = @"<NULL SQLite3 error>";
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)hmbErrorWithSQLite3Status:()sqlite3
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277D0F1A0];
-  v15[0] = @"extcode";
+  v14[0] = @"extcode";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:?];
-  v15[1] = @"text";
-  v16[0] = v6;
+  v14[1] = @"text";
+  v15[0] = v6;
   v7 = MEMORY[0x277CCACA8];
   v8 = sqlite3_errstr(a3);
   if (v8)
@@ -86,29 +84,27 @@
   }
 
   v10 = [v7 stringWithUTF8String:v9];
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v12 = [v4 errorWithDomain:v5 code:3 userInfo:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)hmbErrorWithSQLite3Statement:()sqlite3
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = *MEMORY[0x277D0F1A0];
-  v19[0] = @"extcode";
+  v18[0] = @"extcode";
   v7 = MEMORY[0x277CCABB0];
   v8 = sqlite3_db_handle(a3);
   v9 = [v7 numberWithInt:sqlite3_errcode(v8)];
-  v20[0] = v9;
-  v19[1] = @"text";
+  v19[0] = v9;
+  v18[1] = @"text";
   v10 = [self errorMessageForSQLite3Context:sqlite3_db_handle(a3)];
-  v20[1] = v10;
-  v19[2] = @"statement";
+  v19[1] = v10;
+  v18[2] = @"statement";
   v11 = MEMORY[0x277CCACA8];
   v12 = sqlite3_sql(a3);
   if (v12)
@@ -122,27 +118,25 @@
   }
 
   v14 = [v11 stringWithUTF8String:v13];
-  v20[2] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+  v19[2] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
   v16 = [v5 errorWithDomain:v6 code:3 userInfo:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)hmbErrorWithSQLite3Connection:()sqlite3 statement:
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CCA9B8];
   v8 = *MEMORY[0x277D0F1A0];
-  v17[0] = @"extcode";
+  v16[0] = @"extcode";
   v9 = [MEMORY[0x277CCABB0] numberWithInt:sqlite3_errcode(db)];
-  v18[0] = v9;
-  v17[1] = @"text";
+  v17[0] = v9;
+  v16[1] = @"text";
   v10 = [self errorMessageForSQLite3Context:db];
-  v18[1] = v10;
-  v17[2] = @"statement";
+  v17[1] = v10;
+  v16[2] = @"statement";
   if (a4)
   {
     v11 = a4;
@@ -154,24 +148,22 @@
   }
 
   v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11];
-  v18[2] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v17[2] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
   v14 = [v7 errorWithDomain:v8 code:3 userInfo:v13];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 + (id)hmbErrorWithSQLite3Connection:()sqlite3
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
   v5 = *MEMORY[0x277D0F1A0];
-  v15[0] = @"extcode";
+  v14[0] = @"extcode";
   v6 = [MEMORY[0x277CCABB0] numberWithInt:sqlite3_errcode(db)];
-  v15[1] = @"text";
-  v16[0] = v6;
+  v14[1] = @"text";
+  v15[0] = v6;
   v7 = MEMORY[0x277CCACA8];
   v8 = sqlite3_errmsg(db);
   if (v8)
@@ -185,11 +177,9 @@
   }
 
   v10 = [v7 stringWithUTF8String:v9];
-  v16[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v12 = [v4 errorWithDomain:v5 code:3 userInfo:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

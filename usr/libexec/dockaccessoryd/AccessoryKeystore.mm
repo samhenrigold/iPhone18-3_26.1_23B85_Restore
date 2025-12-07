@@ -87,12 +87,10 @@
 
 - (NSString)activeControllerPairingIdentifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC14dockaccessoryd17AccessoryKeystore__activeController);
-  v3 = *&self->keyGroup[OBJC_IVAR____TtC14dockaccessoryd17AccessoryKeystore__activeController];
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (BOOL)removeControllerKeyPairWithError:(id *)error
@@ -297,39 +295,37 @@ LABEL_6:
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v21[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v21[-v15];
+  v11 = &v19[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v12 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
+  __chkstk_darwin(v12 - 8);
+  v14 = &v19[-v13];
   if (identifier)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v9 + 32))(v16, v12, v8);
-    (*(v9 + 56))(v16, 0, 1, v8);
+    (*(v9 + 32))(v14, v11, v8);
+    (*(v9 + 56))(v14, 0, 1, v8);
   }
 
   else
   {
-    (*(v9 + 56))(v16, 1, 1, v8);
+    (*(v9 + 56))(v14, 1, 1, v8);
   }
 
   if (accessoryIdentifier)
   {
     accessoryIdentifier = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v18 = v17;
+    v16 = v15;
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
   selfCopy = self;
-  sub_100179F78(v16, accessoryIdentifier, v18);
-  sub_100095C84(v16, &qword_1002A7AF0, &qword_10023C9D0);
+  sub_100179F78(v14, accessoryIdentifier, v16);
+  sub_100095C84(v14, &qword_1002A7AF0, &qword_10023C9D0);
 
   return 1;
 }
@@ -389,66 +385,63 @@ LABEL_6:
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (identifier)
   {
     identifier = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = v13;
+    v13 = v12;
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
   selfCopy = self;
-  sub_10017AF58(identifier, v14, v12);
+  sub_10017AF58(identifier, v13, v11);
 
-  v16.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v9 + 8))(v12, v8);
+  v15.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+  (*(v9 + 8))(v11, v8);
 
-  return v16.super.isa;
+  return v15.super.isa;
 }
 
 - (BOOL)updatePeripheralIdentifier:(id)identifier forAccessoryIdentifier:(id)accessoryIdentifier protocolVersion:(unint64_t)version previousVersion:(unint64_t *)previousVersion resumeSessionID:(unint64_t)d error:(id *)error
 {
   v13 = type metadata accessor for UUID();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
   __chkstk_darwin(v13);
-  v17 = &v26[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v18 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18 - 8);
-  v21 = &v26[-v20];
+  v16 = &v24[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v17 = sub_100095274(&qword_1002A7AF0, &qword_10023C9D0);
+  __chkstk_darwin(v17 - 8);
+  v19 = &v24[-v18];
   if (identifier)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    (*(v14 + 32))(v21, v17, v13);
-    (*(v14 + 56))(v21, 0, 1, v13);
+    (*(v14 + 32))(v19, v16, v13);
+    (*(v14 + 56))(v19, 0, 1, v13);
   }
 
   else
   {
-    (*(v14 + 56))(v21, 1, 1, v13);
+    (*(v14 + 56))(v19, 1, 1, v13);
   }
 
   if (accessoryIdentifier)
   {
-    v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    accessoryIdentifier = v23;
+    v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    accessoryIdentifier = v21;
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
   selfCopy = self;
-  sub_10017DBCC(v21, v22, accessoryIdentifier, version, d);
-  sub_100095C84(v21, &qword_1002A7AF0, &qword_10023C9D0);
+  sub_10017DBCC(v19, v20, accessoryIdentifier, version, d);
+  sub_100095C84(v19, &qword_1002A7AF0, &qword_10023C9D0);
 
   return 1;
 }

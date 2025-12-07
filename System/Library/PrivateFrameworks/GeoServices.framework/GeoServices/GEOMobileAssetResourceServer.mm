@@ -386,12 +386,11 @@ LABEL_46:
   GEOGetMonotonicTime();
   v6 = v5;
   lastCorruptMessage = self->_lastCorruptMessage;
-  v8 = GeoServicesConfig_MAResourceCorruptDeletionHoldDown[1];
   GEOConfigGetDouble();
-  if (lastCorruptMessage + v9 <= v6)
+  if (lastCorruptMessage + v8 <= v6)
   {
-    v12 = [requestCopy url];
-    isFileURL = [v12 isFileURL];
+    v11 = [requestCopy url];
+    isFileURL = [v11 isFileURL];
 
     if ((isFileURL & 1) == 0)
     {
@@ -403,99 +402,99 @@ LABEL_46:
 
       uRLByResolvingSymlinksInPath2 = [requestCopy url];
       *buf = 138412290;
-      v39 = *&uRLByResolvingSymlinksInPath2;
+      v38 = *&uRLByResolvingSymlinksInPath2;
       _os_log_impl(&_mh_execute_header, uRLByResolvingSymlinksInPath, OS_LOG_TYPE_FAULT, "Will not remove MAResource, URL is not a file URL: %@", buf, 0xCu);
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    v14 = [GEOFilePaths urlFor:17];
-    uRLByResolvingSymlinksInPath = [v14 URLByResolvingSymlinksInPath];
+    v13 = [GEOFilePaths urlFor:17];
+    uRLByResolvingSymlinksInPath = [v13 URLByResolvingSymlinksInPath];
 
-    v15 = [requestCopy url];
-    uRLByResolvingSymlinksInPath2 = [v15 URLByResolvingSymlinksInPath];
+    v14 = [requestCopy url];
+    uRLByResolvingSymlinksInPath2 = [v14 URLByResolvingSymlinksInPath];
 
     absoluteString = [uRLByResolvingSymlinksInPath2 absoluteString];
     absoluteString2 = [uRLByResolvingSymlinksInPath absoluteString];
-    v19 = [absoluteString hasPrefix:absoluteString2];
+    v18 = [absoluteString hasPrefix:absoluteString2];
 
-    if (v19)
+    if (v18)
     {
-      v20 = +[NSFileManager defaultManager];
-      v21 = [requestCopy url];
-      path = [v21 path];
-      v23 = [v20 fileExistsAtPath:path];
+      v19 = +[NSFileManager defaultManager];
+      v20 = [requestCopy url];
+      path = [v20 path];
+      v22 = [v19 fileExistsAtPath:path];
 
-      if (v23)
+      if (v22)
       {
         self->_lastCorruptMessage = v6;
-        v24 = [requestCopy url];
-        v37 = 0;
-        v25 = [GEOMAResource removeResourceAt:v24 error:&v37];
-        v26 = v37;
+        v23 = [requestCopy url];
+        v36 = 0;
+        v24 = [GEOMAResource removeResourceAt:v23 error:&v36];
+        v25 = v36;
 
-        v27 = sub_100020BFC();
-        v28 = v27;
-        if (v25)
+        v26 = sub_100020BFC();
+        v27 = v26;
+        if (v24)
         {
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v39 = *&uRLByResolvingSymlinksInPath2;
-            v29 = "Removed corrupt MAResource at %@";
-            v30 = v28;
-            v31 = OS_LOG_TYPE_DEBUG;
-            v32 = 12;
+            v38 = *&uRLByResolvingSymlinksInPath2;
+            v28 = "Removed corrupt MAResource at %@";
+            v29 = v27;
+            v30 = OS_LOG_TYPE_DEBUG;
+            v31 = 12;
 LABEL_19:
-            _os_log_impl(&_mh_execute_header, v30, v31, v29, buf, v32);
+            _os_log_impl(&_mh_execute_header, v29, v30, v28, buf, v31);
           }
         }
 
-        else if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        else if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v39 = *&uRLByResolvingSymlinksInPath2;
-          v40 = 2112;
-          v41 = v26;
-          v29 = "Failed to remove corrupt MAResource at %@: %@";
-          v30 = v28;
-          v31 = OS_LOG_TYPE_FAULT;
-          v32 = 22;
+          v38 = *&uRLByResolvingSymlinksInPath2;
+          v39 = 2112;
+          v40 = v25;
+          v28 = "Failed to remove corrupt MAResource at %@: %@";
+          v29 = v27;
+          v30 = OS_LOG_TYPE_FAULT;
+          v31 = 22;
           goto LABEL_19;
         }
 
         goto LABEL_21;
       }
 
-      v26 = sub_100020BFC();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v25 = sub_100020BFC();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = *&uRLByResolvingSymlinksInPath2;
-        v33 = "Can not remove MAResource, no file/dir found at %@";
-        v34 = v26;
-        v35 = OS_LOG_TYPE_ERROR;
-        v36 = 12;
+        v38 = *&uRLByResolvingSymlinksInPath2;
+        v32 = "Can not remove MAResource, no file/dir found at %@";
+        v33 = v25;
+        v34 = OS_LOG_TYPE_ERROR;
+        v35 = 12;
         goto LABEL_16;
       }
     }
 
     else
     {
-      v26 = sub_100020BFC();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v25 = sub_100020BFC();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412546;
-        v39 = *&uRLByResolvingSymlinksInPath2;
-        v40 = 2112;
-        v41 = uRLByResolvingSymlinksInPath;
-        v33 = "Will not remove URL, is not an MAResource: %@ (expected prefix: %@";
-        v34 = v26;
-        v35 = OS_LOG_TYPE_FAULT;
-        v36 = 22;
+        v38 = *&uRLByResolvingSymlinksInPath2;
+        v39 = 2112;
+        v40 = uRLByResolvingSymlinksInPath;
+        v32 = "Will not remove URL, is not an MAResource: %@ (expected prefix: %@";
+        v33 = v25;
+        v34 = OS_LOG_TYPE_FAULT;
+        v35 = 22;
 LABEL_16:
-        _os_log_impl(&_mh_execute_header, v34, v35, v33, buf, v36);
+        _os_log_impl(&_mh_execute_header, v33, v34, v32, buf, v35);
       }
     }
 
@@ -507,9 +506,9 @@ LABEL_21:
   uRLByResolvingSymlinksInPath = sub_100020BFC();
   if (os_log_type_enabled(uRLByResolvingSymlinksInPath, OS_LOG_TYPE_ERROR))
   {
-    v11 = v6 - self->_lastCorruptMessage;
+    v10 = v6 - self->_lastCorruptMessage;
     *buf = 134217984;
-    v39 = v11;
+    v38 = v10;
     _os_log_impl(&_mh_execute_header, uRLByResolvingSymlinksInPath, OS_LOG_TYPE_ERROR, "Will not remove MAResource, last call to reportCorrupt was only %f seconds ago", buf, 0xCu);
   }
 

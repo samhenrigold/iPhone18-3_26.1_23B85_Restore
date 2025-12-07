@@ -515,28 +515,28 @@
     insideRectCopy = insideRect;
     overlapCopy = overlap;
     shiftCopy = shift;
-    v49 = a9;
+    v46 = a9;
     [self p_touchRectForHUDWithFrame:{a2, frame, offset, rect}];
-    v33 = offset * 0.5 + v32 * 1.5 + 1.0;
+    v30 = offset * 0.5 + v29 * 1.5 + 1.0;
     if (a11 == 3)
     {
-      v34 = v33 + self[6];
+      v31 = v30 + self[6];
     }
 
     else
     {
       if (a11 != 2)
       {
-        v35 = self + 8;
-        v34 = self[8];
+        v32 = self + 8;
+        v31 = self[8];
 LABEL_10:
-        [self p_frameForHUDWithSize:offset anchoredAtPoint:rect insideRect:{v34, v35[1], a14, a15, a16, a17}];
-        v29 = v36;
-        frameCopy = v37;
-        offsetCopy = v38;
-        rectCopy = v39;
+        [self p_frameForHUDWithSize:offset anchoredAtPoint:rect insideRect:{v31, v32[1], a14, a15, a16, a17}];
+        v26 = v33;
+        frameCopy = v34;
+        offsetCopy = v35;
+        rectCopy = v36;
         shift = shiftCopy;
-        a9 = v49;
+        a9 = v46;
         insideRect = insideRectCopy;
         overlap = overlapCopy;
         if (!a12)
@@ -547,38 +547,38 @@ LABEL_10:
         goto LABEL_11;
       }
 
-      v34 = self[6] - v33;
+      v31 = self[6] - v30;
     }
 
-    v35 = self + 8;
+    v32 = self + 8;
     goto LABEL_10;
   }
 
   rectCopy = rect;
   offsetCopy = offset;
   frameCopy = frame;
-  v29 = a2;
+  v26 = a2;
   if (a12)
   {
 LABEL_11:
-    v50.origin.x = v29;
-    v50.origin.y = frameCopy;
-    v50.size.width = offsetCopy;
-    v50.size.height = rectCopy;
-    v51 = CGRectIntersection(v50, *&insideRect);
-    *a12 = v51.size.width * v51.size.height;
+    v47.origin.x = v26;
+    v47.origin.y = frameCopy;
+    v47.size.width = offsetCopy;
+    v47.size.height = rectCopy;
+    v48 = CGRectIntersection(v47, *&insideRect);
+    *a12 = v48.size.width * v48.size.height;
   }
 
 LABEL_12:
   if (a13)
   {
-    v40 = sub_100120414(a2, frame, offset, rect);
-    v42 = v41;
-    v43 = sub_100120414(v29, frameCopy, offsetCopy, rectCopy);
-    *a13 = sub_100120090(v40, v42, v43, v44);
+    v37 = sub_100120414(a2, frame, offset, rect);
+    v39 = v38;
+    v40 = sub_100120414(v26, frameCopy, offsetCopy, rectCopy);
+    *a13 = sub_100120090(v37, v39, v40, v41);
   }
 
-  return v29;
+  return v26;
 }
 
 - (CGRect)p_frameForHUDWithSize:(CGSize)size anchoredAtPoint:(CGPoint)point insideRect:(CGRect)rect

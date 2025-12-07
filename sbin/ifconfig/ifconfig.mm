@@ -222,76 +222,68 @@ uint64_t opt_register(uint64_t result)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v146 = 0;
-  v145 = 0u;
-  v144 = 0u;
-  memset(&v142, 0, sizeof(v142));
+  v144 = 0;
+  v143 = 0u;
+  v142 = 0u;
+  memset(&v140, 0, sizeof(v140));
   noload = 0;
   all = 0;
   __strlcpy_chk();
-  v5 = opts;
-  if (opts)
+  for (i = opts; i; i = *(i + 24))
   {
-    do
-    {
-      v6 = *v5;
-      __strlcat_chk();
-      v5 = v5[3];
-    }
-
-    while (v5);
+    __strlcat_chk();
   }
 
-  v7 = getopt(argc, argv, v143);
-  v8 = &unk_10001A000;
-  v9 = is_regex;
-  if (v7 == -1 || is_regex)
+  v6 = getopt(argc, argv, v141);
+  v7 = &unk_10001A000;
+  v8 = is_regex;
+  if (v6 == -1 || is_regex)
   {
-    v23 = 0;
-    v21 = 0;
-    v19 = 0;
-    v25 = 0;
-    v22 = optind;
-    v24 = 1;
+    v22 = 0;
+    v20 = 0;
+    v18 = 0;
+    v24 = 0;
+    v21 = optind;
+    v23 = 1;
     goto LABEL_54;
   }
 
-  v138 = 0;
+  v136 = 0;
+  v9 = 0;
   v10 = 0;
-  v11 = 0;
-  v140 = 0;
+  v138 = 0;
   while (1)
   {
-    if (v7 > 107)
+    if (v6 > 107)
     {
-      if (v7 <= 113)
+      if (v6 <= 113)
       {
-        if (v7 == 108)
+        if (v6 == 108)
         {
-          ++v140;
+          ++v138;
         }
 
         else
         {
-          if (v7 != 109)
+          if (v6 != 109)
           {
 LABEL_44:
-            v18 = opts;
+            v17 = opts;
             if (!opts)
             {
               goto LABEL_94;
             }
 
-            while (v7 != **v18)
+            while (v6 != **v17)
             {
-              v18 = *(v18 + 3);
-              if (!v18)
+              v17 = *(v17 + 3);
+              if (!v17)
               {
                 goto LABEL_94;
               }
             }
 
-            (*(v18 + 2))(optarg);
+            (*(v17 + 2))(optarg);
             goto LABEL_49;
           }
 
@@ -301,13 +293,13 @@ LABEL_44:
 
       else
       {
-        switch(v7)
+        switch(v6)
         {
           case 'r':
             ++showrtref;
             break;
           case 'u':
-            v10 = (v10 + 1);
+            v9 = (v9 + 1);
             break;
           case 'v':
             ++verbose;
@@ -318,17 +310,17 @@ LABEL_44:
       }
     }
 
-    else if (v7 <= 97)
+    else if (v6 <= 97)
     {
-      if (v7 == 88)
+      if (v6 == 88)
       {
-        v8[3560] = 1;
-        v138 = optarg;
+        v7[3560] = 1;
+        v136 = optarg;
       }
 
       else
       {
-        if (v7 != 97)
+        if (v6 != 97)
         {
           goto LABEL_44;
         }
@@ -339,13 +331,13 @@ LABEL_44:
 
     else
     {
-      switch(v7)
+      switch(v6)
       {
         case 'b':
           ++bond_details;
           break;
         case 'd':
-          v11 = (v11 + 1);
+          v10 = (v10 + 1);
           break;
         case 'f':
           if (!optarg)
@@ -353,55 +345,55 @@ LABEL_44:
             goto LABEL_94;
           }
 
+          v11 = v9;
           v12 = v10;
-          v13 = v11;
           __stringp[0] = strdup(optarg);
-          v14 = strsep(__stringp, ",");
-          if (v14)
+          v13 = strsep(__stringp, ",");
+          if (v13)
           {
-            v15 = v14;
+            v14 = v13;
             do
             {
-              v16 = strchr(v15, 58);
-              if (v16 && (v17 = v16 + 1, v16[1]))
+              v15 = strchr(v14, 58);
+              if (v15 && (v16 = v15 + 1, v15[1]))
               {
-                *v16 = 0;
-                if (!strcmp(v15, "addr"))
+                *v15 = 0;
+                if (!strcmp(v14, "addr"))
                 {
-                  f_addr = strdup(v17);
+                  f_addr = strdup(v16);
                 }
 
-                else if (!strcmp(v15, "ether"))
+                else if (!strcmp(v14, "ether"))
                 {
-                  f_ether = strdup(v17);
+                  f_ether = strdup(v16);
                 }
 
-                else if (!strcmp(v15, "inet"))
+                else if (!strcmp(v14, "inet"))
                 {
-                  f_inet = strdup(v17);
+                  f_inet = strdup(v16);
                 }
 
-                else if (!strcmp(v15, "inet6"))
+                else if (!strcmp(v14, "inet6"))
                 {
-                  f_inet6 = strdup(v17);
+                  f_inet6 = strdup(v16);
                 }
               }
 
               else
               {
-                warnx("Skipping invalid format specification: %s\n", v15);
+                warnx("Skipping invalid format specification: %s\n", v14);
               }
 
-              v15 = strsep(__stringp, ",");
+              v14 = strsep(__stringp, ",");
             }
 
-            while (v15);
+            while (v14);
           }
 
           free(__stringp[0]);
-          v8 = &unk_10001A000;
-          v11 = v13;
+          v7 = &unk_10001A000;
           v10 = v12;
+          v9 = v11;
           break;
         default:
           goto LABEL_44;
@@ -409,23 +401,23 @@ LABEL_44:
     }
 
 LABEL_49:
-    v7 = getopt(argc, argv, v143);
-    v9 = v8[3560];
-    if (v7 == -1 || v8[3560])
+    v6 = getopt(argc, argv, v141);
+    v8 = v7[3560];
+    if (v6 == -1 || v7[3560])
     {
-      v19 = v10 != 0;
-      v20 = v11;
-      v21 = v11 != 0;
-      v22 = optind;
-      v23 = v140;
-      v24 = v140 == 0;
-      if (!v140)
+      v18 = v9 != 0;
+      v19 = v10;
+      v20 = v10 != 0;
+      v21 = optind;
+      v22 = v138;
+      v23 = v138 == 0;
+      if (!v138)
       {
-        v25 = v138;
+        v24 = v136;
         goto LABEL_92;
       }
 
-      v25 = v138;
+      v24 = v136;
       if (all || supmedia || bond_details)
       {
 LABEL_94:
@@ -433,97 +425,97 @@ LABEL_94:
       }
 
 LABEL_92:
-      if (v10 && v20)
+      if (v9 && v19)
       {
         goto LABEL_94;
       }
 
 LABEL_54:
-      v26 = argc - v22;
-      if (v24 && v26 <= 0)
+      v25 = argc - v21;
+      if (v23 && v25 <= 0)
       {
         all = 1;
       }
 
-      if (v9)
+      if (v8)
       {
-        v27 = regcomp(&v142, v25, 5);
-        v26 = argc - v22;
-        if (v27)
+        v26 = regcomp(&v140, v24, 5);
+        v25 = argc - v21;
+        if (v26)
         {
           errx(1, "bad interface pattern '%s'");
         }
       }
 
-      v28 = &argv[v22];
-      if (all | v23)
+      v27 = &argv[v21];
+      if (all | v22)
       {
-        if (v26 >= 2)
+        if (v25 >= 2)
         {
           goto LABEL_94;
         }
 
-        if (v26 != 1)
+        if (v25 != 1)
         {
           goto LABEL_75;
         }
 
-        v30 = *v28;
-        v33 = af_getbyname(*v28);
-        if (!v33)
+        v29 = *v27;
+        v32 = af_getbyname(*v27);
+        if (!v32)
         {
           goto LABEL_94;
         }
 
-        v136 = v33;
-        if (*v33)
+        v134 = v32;
+        if (*v32)
         {
-          v137 = 0;
-          ++v28;
+          v135 = 0;
+          ++v27;
         }
 
         else
         {
-          v29 = 1;
+          v28 = 1;
 LABEL_63:
-          v31 = af_getbyname(v30);
-          if (v31)
+          v30 = af_getbyname(v29);
+          if (v30)
           {
-            --v29;
+            --v28;
           }
 
-          v137 = v29;
-          if (v31)
+          v135 = v28;
+          if (v30)
           {
-            ++v28;
-            v32 = v31;
+            ++v27;
+            v31 = v30;
           }
 
           else
           {
-            v32 = 0;
+            v31 = 0;
           }
 
-          v136 = v32;
+          v134 = v31;
         }
       }
 
       else
       {
-        if ((v8[3560] & 1) == 0)
+        if ((v7[3560] & 1) == 0)
         {
-          if (v26 <= 0)
+          if (v25 <= 0)
           {
             goto LABEL_94;
           }
 
-          v35 = *v28++;
-          v25 = v35;
-          v36 = v26 - 1;
-          v37 = v26;
-          if (!if_nametoindex(v35))
+          v34 = *v27++;
+          v24 = v34;
+          v35 = v25 - 1;
+          v36 = v25;
+          if (!if_nametoindex(v34))
           {
-            if (v37 == 1 || (v120 = *v28, strcmp(*v28, "create")) && strcmp(v120, "plumb"))
+            if (v36 == 1 || (v118 = *v27, strcmp(*v27, "create")) && strcmp(v118, "plumb"))
             {
               errx(1, "interface %s does not exist");
             }
@@ -533,97 +525,96 @@ LABEL_63:
               errx(1, "%s: cloning name too long");
             }
 
-            ifconfig(v36, v28, 1, 0);
+            ifconfig(v35, v27, 1, 0);
 LABEL_83:
             exit(0);
           }
 
-          v26 = v36;
+          v25 = v35;
         }
 
-        if (v26 >= 1)
+        if (v25 >= 1)
         {
-          v29 = v26;
-          v30 = *v28;
+          v28 = v25;
+          v29 = *v27;
           goto LABEL_63;
         }
 
 LABEL_75:
-        v137 = v26;
-        v136 = 0;
+        v135 = v25;
+        v134 = 0;
       }
 
-      if (getifaddrs(&v146))
+      if (getifaddrs(&v144))
       {
-        err(1, "getifaddrs", v122);
+        err(1, "getifaddrs", v120);
       }
 
-      v134 = v28;
-      v141 = v24;
-      v34 = v146;
-      if (!v146)
+      v132 = v27;
+      v139 = v23;
+      v33 = v144;
+      if (!v144)
       {
         goto LABEL_78;
       }
 
+      v37 = 0;
       v38 = 0;
-      v39 = 0;
-      v135 = v21;
-      v139 = v25;
-      v129 = v19;
+      v133 = v20;
+      v137 = v24;
+      v127 = v18;
       while (2)
       {
-        v145 = 0u;
-        v144 = 0u;
-        ifa_name = v34->ifa_name;
+        v143 = 0u;
+        v142 = 0u;
         __strlcpy_chk();
-        if (v34->ifa_addr->sa_len <= 0x10uLL)
+        if (v33->ifa_addr->sa_len <= 0x10uLL)
         {
           __memcpy_chk();
         }
 
-        v41 = v34->ifa_name;
-        if (v8[3560] == 1)
+        ifa_name = v33->ifa_name;
+        if (v7[3560] == 1)
         {
-          if (regexec(&v142, v34->ifa_name, 0, 0, 0))
+          if (regexec(&v140, v33->ifa_name, 0, 0, 0))
           {
             goto LABEL_153;
           }
 
-          v41 = v34->ifa_name;
+          ifa_name = v33->ifa_name;
         }
 
-        else if (v25 && strcmp(v25, v34->ifa_name))
+        else if (v24 && strcmp(v24, v33->ifa_name))
         {
           goto LABEL_153;
         }
 
-        if (v38 && !strcmp(v38, v41))
+        if (v37 && !strcmp(v37, ifa_name))
         {
           goto LABEL_153;
         }
 
-        v42 = __strlcpy_chk();
-        v43 = v34->ifa_name;
-        if (v42 >= 0x10)
+        v40 = __strlcpy_chk();
+        v41 = v33->ifa_name;
+        if (v40 >= 0x10)
         {
-          warnx("%s: interface name too long, skipping", v34->ifa_name);
+          warnx("%s: interface name too long, skipping", v33->ifa_name);
 LABEL_153:
-          v44 = v39;
-          v43 = v38;
+          v42 = v38;
+          v41 = v37;
           goto LABEL_154;
         }
 
-        if (v21 && (v34->ifa_flags & 1) != 0 || v19 && (v34->ifa_flags & 1) == 0)
+        if (v20 && (v33->ifa_flags & 1) != 0 || v18 && (v33->ifa_flags & 1) == 0)
         {
-          v44 = v39;
+          v42 = v38;
           goto LABEL_154;
         }
 
-        v44 = (v39 + 1);
-        if (!v141)
+        v42 = (v38 + 1);
+        if (!v139)
         {
-          if (v39 >= 1)
+          if (v38 >= 1)
           {
             putchar(32);
           }
@@ -632,21 +623,21 @@ LABEL_153:
           goto LABEL_154;
         }
 
-        v45 = v137;
-        if (is_regex == 1 && v137 >= 1)
+        v43 = v135;
+        if (is_regex == 1 && v135 >= 1)
         {
-          v46 = snprintf(print_command_args_line, 0x800uLL, "ifconfig %s", name);
-          if (v46 <= 0x7FF)
+          v44 = snprintf(print_command_args_line, 0x800uLL, "ifconfig %s", name);
+          if (v44 <= 0x7FF)
           {
-            v47 = v46;
-            v48 = 2048 - v46;
-            if (v136)
+            v45 = v44;
+            v46 = 2048 - v44;
+            if (v134)
             {
-              v49 = snprintf(&print_command_args_line[v46], v48, " %s", *v136);
-              if (v48 > v49)
+              v47 = snprintf(&print_command_args_line[v44], v46, " %s", *v134);
+              if (v46 > v47)
               {
-                v47 += v49;
-                v48 -= v47;
+                v45 += v47;
+                v46 -= v45;
                 goto LABEL_118;
               }
             }
@@ -654,57 +645,55 @@ LABEL_153:
             else
             {
 LABEL_118:
-              if (v47 <= 0x7FF)
+              if (v45 <= 0x7FF)
               {
-                v50 = v134;
-                v51 = 1;
+                v48 = v132;
+                v49 = 1;
                 do
                 {
-                  v52 = snprintf(&print_command_args_line[v47], v48, " %s", *v50);
-                  if (v48 <= v52)
+                  v50 = snprintf(&print_command_args_line[v45], v46, " %s", *v48);
+                  if (v46 <= v50)
                   {
                     break;
                   }
 
-                  if (v51 >= v137)
+                  if (v49 >= v135)
                   {
                     break;
                   }
 
-                  v47 += v52;
-                  v48 -= v47;
-                  ++v51;
-                  ++v50;
+                  v45 += v50;
+                  v46 -= v45;
+                  ++v49;
+                  ++v48;
                 }
 
-                while (v47 < 0x800);
+                while (v45 < 0x800);
               }
             }
           }
 
           puts(print_command_args_line);
-          v21 = v135;
-          v45 = v137;
+          v20 = v133;
+          v43 = v135;
         }
 
-        if (v45 >= 1)
+        if (v43 >= 1)
         {
-          ifconfig(v45, v134, 0, v136);
+          ifconfig(v43, v132, 0, v134);
           goto LABEL_154;
         }
 
-        v147 = 712;
-        v53 = v136;
-        if (!v136)
+        v145 = 712;
+        v51 = v134;
+        if (!v134)
         {
-          v53 = af_getbyname("inet");
+          v51 = af_getbyname("inet");
         }
 
-        memset(v197, 0, 496);
+        memset(v195, 0, 496);
         *__stringp = 0u;
-        v195 = 0;
-        v194 = 0u;
-        v193 = 0u;
+        v193 = 0;
         v192 = 0u;
         v191 = 0u;
         v190 = 0u;
@@ -712,6 +701,10 @@ LABEL_118:
         v188 = 0u;
         v187 = 0u;
         v186 = 0u;
+        v185 = 0u;
+        v184 = 0u;
+        v169 = 0u;
+        v170 = 0u;
         v171 = 0u;
         v172 = 0u;
         v173 = 0u;
@@ -725,10 +718,6 @@ LABEL_118:
         v181 = 0u;
         v182 = 0u;
         v183 = 0u;
-        v184 = 0u;
-        v185 = 0u;
-        v170 = 0u;
-        v169 = 0u;
         v168 = 0u;
         v167 = 0u;
         v166 = 0u;
@@ -749,49 +738,51 @@ LABEL_118:
         v151 = 0u;
         v150 = 0u;
         v149 = 0u;
-        memset(v148, 0, sizeof(v148));
-        v54 = *(v53 + 18);
-        if (v54 == 18)
+        v148 = 0u;
+        v147 = 0u;
+        memset(v146, 0, sizeof(v146));
+        v52 = *(v51 + 18);
+        if (v52 == 18)
         {
-          LOBYTE(v54) = 2;
+          LOBYTE(v52) = 2;
         }
 
-        BYTE1(qword_10001AE28) = v54;
+        BYTE1(qword_10001AE28) = v52;
         __strlcpy_chk();
-        v55 = socket(BYTE1(qword_10001AE28), 2, 0);
-        if ((v55 & 0x80000000) != 0)
+        v53 = socket(BYTE1(qword_10001AE28), 2, 0);
+        if ((v53 & 0x80000000) != 0)
         {
           err(1, "socket(family %u,SOCK_DGRAM)");
         }
 
-        v56 = v55;
+        v54 = v53;
         printf("%s: ", name);
-        printb("flags", v34->ifa_flags, "\x10\x01UP\x02BROADCAST\x03DEBUG\x04LOOPBACK\x05POINTOPOINT\x06SMART\aRUNNING\bNOARP\tPROMISC\nALLMULTI\vOACTIVE\fSIMPLEX\rLINK0\x0ELINK1\x0FLINK2\x10MULTICAST");
-        if (ioctl(v56, 0xC0206917uLL, &ifr) != -1 && qword_10001AE28)
+        printb("flags", v33->ifa_flags, "\x10\x01UP\x02BROADCAST\x03DEBUG\x04LOOPBACK\x05POINTOPOINT\x06SMART\aRUNNING\bNOARP\tPROMISC\nALLMULTI\vOACTIVE\fSIMPLEX\rLINK0\x0ELINK1\x0FLINK2\x10MULTICAST");
+        if (ioctl(v54, 0xC0206917uLL, &ifr) != -1 && qword_10001AE28)
         {
           printf(" metric %d", qword_10001AE28);
         }
 
-        if (ioctl(v56, 0xC0206933uLL, &ifr) != -1)
+        if (ioctl(v54, 0xC0206933uLL, &ifr) != -1)
         {
           printf(" mtu %d", qword_10001AE28);
         }
 
-        if (showrtref && ioctl(v56, 0xC0206989uLL, &ifr) != -1)
+        if (showrtref && ioctl(v54, 0xC0206989uLL, &ifr) != -1)
         {
           printf(" rtref %d", qword_10001AE28);
         }
 
         if (verbose)
         {
-          v57 = if_nametoindex(v34->ifa_name);
-          if (v57)
+          v55 = if_nametoindex(v33->ifa_name);
+          if (v55)
           {
-            printf(" index %u", v57);
+            printf(" index %u", v55);
           }
         }
 
-        if (!ioctl(v56, 0xC02069CCuLL, &ifr) && qword_10001AE28)
+        if (!ioctl(v54, 0xC02069CCuLL, &ifr) && qword_10001AE28)
         {
           printf(" constrained");
         }
@@ -799,20 +790,20 @@ LABEL_118:
         putchar(10);
         if (verbose)
         {
-          if (ioctl(v56, 0xC020698EuLL, &ifr) == -1 || (v58 = qword_10001AE28, !qword_10001AE28))
+          if (ioctl(v54, 0xC020698EuLL, &ifr) == -1 || (v56 = qword_10001AE28, !qword_10001AE28))
           {
-            v59 = 1;
+            v57 = 1;
           }
 
           else
           {
             printb("\teflags", qword_10001AE28, "\x10\x01AUTOCONFIGURING\x04PROBE_CONNECTIVITY\x05ADV_REPORT\x06IPV6_DISABLED\aACCEPT_RTADV\bTXSTART\tRXPOLL\nVLAN\vBOND\fARPLL\rCLAT46\x0ENOAUTOIPV6\x0FEXPENSIVE\x10ROUTER4\x11CLONE\x12LOCALNET_PRIVATE\x13ND6ALT\x14RESTRICTED_RECV\x15AWDL\x16NOACKPRI\x17AWDL_RESTRICTED\x18CL2K\x19ECN_ENABLE\x1AECN_DISABLE\x1BCHANNEL_DRV\x1CCA\x1DSENDLIST\x1EDIRECTLINK\x1FFASTLN_ON UPDOWNCHANGE");
             putchar(10);
-            v59 = (v58 & 0x80) == 0;
+            v57 = (v56 & 0x80) == 0;
           }
 
-          v130 = v59;
-          if (verbose && ioctl(v56, 0xC02069CEuLL, &ifr) != -1 && qword_10001AE28)
+          v128 = v57;
+          if (verbose && ioctl(v54, 0xC02069CEuLL, &ifr) != -1 && qword_10001AE28)
           {
             printb("\txflags", qword_10001AE28, "\x10\x01WOL\x02TIMESTAMP\x03NOAUTONX\x04LEGACY\x05TXLOWINET\x06RXLOWINET\aALLOCKPI\bLOWPOWER\tMPKLOG\nCONSTRAINED\vLOWLAT\fMARKWKPKT\rFPD\x0ENOSHAPING\x0FMANAGEMENT\x10ULTRA_CONSTRAINED\x11IS_VPN\x12DELAYWAKEPKTEVENT\x13DISABLE_INPUT\x16RXFLOWSTEERING\x18LINK_HEURISTICS\x19LHOF\x1APOINTOPOINT_MDNS\x1BINBAND_WAKE_PKT\x1CLOW_POWER_WAKE");
             putchar(10);
@@ -821,26 +812,26 @@ LABEL_118:
 
         else
         {
-          v130 = 1;
+          v128 = 1;
         }
 
-        if (ioctl(v56, 0xC020695BuLL, &ifr))
+        if (ioctl(v54, 0xC020695BuLL, &ifr))
         {
-          v133 = 0;
+          v131 = 0;
         }
 
         else
         {
-          v60 = WORD2(qword_10001AE28);
+          v58 = WORD2(qword_10001AE28);
           if (HIDWORD(qword_10001AE28))
           {
-            v61 = WORD2(qword_10001AE28);
+            v59 = WORD2(qword_10001AE28);
             printb("\toptions", HIDWORD(qword_10001AE28), "\x10\x01RXCSUM\x02TXCSUM\x03VLAN_MTU\x04VLAN_HWTAGGING\x05JUMBO_MTU\x06TSO4\aTSO6\bLRO\tAV\nTXSTATUS\vCHANNEL_IO\fHW_TIMESTAMP\rSW_TIMESTAMP\x0EPARTIAL_CSUM\x0FZEROINVERT_CSUM\x10LRO_NUM_SEG");
             putchar(10);
-            v60 = v61;
+            v58 = v59;
           }
 
-          v133 = v60;
+          v131 = v58;
           if (supmedia && qword_10001AE28)
           {
             printb("\tcapabilities", qword_10001AE28, "\x10\x01RXCSUM\x02TXCSUM\x03VLAN_MTU\x04VLAN_HWTAGGING\x05JUMBO_MTU\x06TSO4\aTSO6\bLRO\tAV\nTXSTATUS\vCHANNEL_IO\fHW_TIMESTAMP\rSW_TIMESTAMP\x0EPARTIAL_CSUM\x0FZEROINVERT_CSUM\x10LRO_NUM_SEG");
@@ -850,76 +841,76 @@ LABEL_118:
 
         if (verbose)
         {
-          v203[0] = 0;
-          *v198 = xmmword_10000C420;
-          LODWORD(v199[0]) = 3;
-          DWORD1(v199[0]) = if_nametoindex(name);
-          if (sysctl(v198, 6u, 0, v203, 0, 0) == -1)
+          v201[0] = 0;
+          *v196 = xmmword_10000C420;
+          LODWORD(v197[0]) = 3;
+          DWORD1(v197[0]) = if_nametoindex(name);
+          if (sysctl(v196, 6u, 0, v201, 0, 0) == -1)
           {
-            v76 = "sysctl";
+            v74 = "sysctl";
           }
 
           else
           {
-            v62 = malloc_type_calloc(v203[0], 1uLL, 0xE42D8F8DuLL);
-            if (v62)
+            v60 = malloc_type_calloc(v201[0], 1uLL, 0xE42D8F8DuLL);
+            if (v60)
             {
-              v63 = v62;
-              if (sysctl(v198, 6u, v62, v203, 0, 0) == -1)
+              v61 = v60;
+              if (sysctl(v196, 6u, v60, v201, 0, 0) == -1)
               {
                 perror("sysctl");
               }
 
               else
               {
-                v64 = v63[25];
-                if (v64)
+                v62 = v61[25];
+                if (v62)
                 {
-                  printb("\thwassist", v64, "\x10\x01CSUM_IP\x02CSUM_TCP\x03CSUM_UDP\x04CSUM_IP_FRAGS\x05CSUM_FRAGMENT\x06CSUM_TCPIPV6\aCSUM_UDPIPV6\bCSUM_FRAGMENT_IPV6\rCSUM_PARTIAL\x0ECSUM_ZERO_INVERT\x11VLAN_TAGGING\x12VLAN_MTU\x15MULTIPAGES\x16TSO_V4\x17TSO_V6\x18TXSTATUS\x19HW_TIMESTAMP\x1ASW_TIMESTAMP\x1DLRO\x1ERX_CSUM ");
+                  printb("\thwassist", v62, "\x10\x01CSUM_IP\x02CSUM_TCP\x03CSUM_UDP\x04CSUM_IP_FRAGS\x05CSUM_FRAGMENT\x06CSUM_TCPIPV6\aCSUM_UDPIPV6\bCSUM_FRAGMENT_IPV6\rCSUM_PARTIAL\x0ECSUM_ZERO_INVERT\x11VLAN_TAGGING\x12VLAN_MTU\x15MULTIPAGES\x16TSO_V4\x17TSO_V6\x18TXSTATUS\x19HW_TIMESTAMP\x1ASW_TIMESTAMP\x1DLRO\x1ERX_CSUM ");
                   putchar(10);
                 }
               }
 
-              free(v63);
+              free(v61);
               goto LABEL_176;
             }
 
-            v76 = "calloc";
+            v74 = "calloc";
           }
 
-          perror(v76);
+          perror(v74);
         }
 
 LABEL_176:
-        *&v198[4] = 0;
-        *v198 = 0;
-        for (i = afs; i; i = *(i + 96))
+        *&v196[4] = 0;
+        *v196 = 0;
+        for (j = afs; j; j = *(j + 96))
         {
-          v66 = *(i + 104);
-          if (v66 && (!*(i + 18) || ((v198[((*(i + 18) + ((*(i + 18) >> 28) & 7)) << 16) >> 19] >> (*(i + 18) & 7)) & 1) == 0))
+          v64 = *(j + 104);
+          if (v64 && (!*(j + 18) || ((v196[((*(j + 18) + ((*(j + 18) >> 28) & 7)) << 16) >> 19] >> (*(j + 18) & 7)) & 1) == 0))
           {
-            v66(v56);
-            v67 = *(i + 18);
-            v68 = 1 << (v67 & 7);
-            v69 = ((v67 + ((v67 >> 28) & 7)) << 16) >> 19;
-            v198[v69] |= v68;
+            v64(v54);
+            v65 = *(j + 18);
+            v66 = 1 << (v65 & 7);
+            v67 = ((v65 + ((v65 >> 28) & 7)) << 16) >> 19;
+            v196[v67] |= v66;
           }
         }
 
-        v70 = v34;
+        v68 = v33;
 LABEL_183:
-        ifa_addr = v70->ifa_addr;
-        if (!ifa_addr || strcmp(v34->ifa_name, v70->ifa_name))
+        ifa_addr = v68->ifa_addr;
+        if (!ifa_addr || strcmp(v33->ifa_name, v68->ifa_name))
         {
 LABEL_185:
-          v70 = v70->ifa_next;
-          if (!v70)
+          v68 = v68->ifa_next;
+          if (!v68)
           {
-            *v203 = 0u;
-            v204 = 0u;
-            LODWORD(v205) = 0;
+            *v201 = 0u;
+            v202 = 0u;
+            LODWORD(v203) = 0;
             __strlcpy_chk();
-            if (ioctl(v56, 0xC02469C9uLL, v203) < 0)
+            if (ioctl(v54, 0xC02469C9uLL, v201) < 0)
             {
               if (*__error() != 2 && *__error() != 12 && *__error() != 1)
               {
@@ -927,19 +918,19 @@ LABEL_185:
               }
             }
 
-            else if (inet_ntop(30, &v204, v198, 0x100u))
+            else if (inet_ntop(30, &v202, v196, 0x100u))
             {
-              printf("\tinet6 %s prefixlen %d clat46\n", v198, v205);
+              printf("\tinet6 %s prefixlen %d clat46\n", v196, v203);
             }
 
-            *v203 = 0u;
+            *v201 = 0u;
+            v202 = 0u;
+            v203 = 0u;
             v204 = 0u;
             v205 = 0u;
             v206 = 0u;
-            v207 = 0u;
-            v208 = 0u;
             __strlcpy_chk();
-            if (ioctl(v56, 0xC06069C1uLL, v203) < 0)
+            if (ioctl(v54, 0xC06069C1uLL, v201) < 0)
             {
               if (*__error() == 2 || *__error() == 12 || *__error() == 1)
               {
@@ -947,82 +938,82 @@ LABEL_185:
               }
 
               warn("ioctl(SIOCGIFNAT64PREFIX)");
-              if (!v136)
+              if (!v134)
               {
                 goto LABEL_221;
               }
 
 LABEL_214:
-              if (*(v53 + 32))
+              if (*(v51 + 32))
               {
-                call_af_other_status(v53, v56);
+                call_af_other_status(v51, v54);
               }
             }
 
             else
             {
-              v74 = &v204;
-              v75 = 4;
+              v72 = &v202;
+              v73 = 4;
               do
               {
-                if (*(v74 + 4))
+                if (*(v72 + 4))
                 {
-                  inet_ntop(30, v74, v198, 0x100u);
-                  printf("\tnat64 prefix %s prefixlen %d\n", v198, 8 * *(v74 + 4));
+                  inet_ntop(30, v72, v196, 0x100u);
+                  printf("\tnat64 prefix %s prefixlen %d\n", v196, 8 * *(v72 + 4));
                 }
 
-                v74 = (v74 + 20);
-                --v75;
+                v72 = (v72 + 20);
+                --v73;
               }
 
-              while (v75);
+              while (v73);
 LABEL_213:
-              if (v136)
+              if (v134)
               {
                 goto LABEL_214;
               }
 
 LABEL_221:
-              *&v198[4] = 0;
-              *v198 = 0;
-              for (j = afs; j; j = *(j + 96))
+              *&v196[4] = 0;
+              *v196 = 0;
+              for (k = afs; k; k = *(k + 96))
               {
-                if (*(j + 32) && (!*(j + 18) || ((v198[((*(j + 18) + ((*(j + 18) >> 28) & 7)) << 16) >> 19] >> (*(j + 18) & 7)) & 1) == 0))
+                if (*(k + 32) && (!*(k + 18) || ((v196[((*(k + 18) + ((*(k + 18) >> 28) & 7)) << 16) >> 19] >> (*(k + 18) & 7)) & 1) == 0))
                 {
-                  call_af_other_status(j, v56);
-                  v78 = *(j + 18);
-                  v79 = 1 << (v78 & 7);
-                  v80 = ((v78 + ((v78 >> 28) & 7)) << 16) >> 19;
-                  v198[v80] |= v79;
+                  call_af_other_status(k, v54);
+                  v76 = *(k + 18);
+                  v77 = 1 << (v76 & 7);
+                  v78 = ((v76 + ((v76 >> 28) & 7)) << 16) >> 19;
+                  v196[v78] |= v77;
                 }
               }
             }
 
             __strlcpy_chk();
-            v25 = v139;
-            if (!ioctl(v56, 0xC331693DuLL, __stringp))
+            v24 = v137;
+            if (!ioctl(v54, 0xC331693DuLL, __stringp))
             {
-              printf("%s", v197);
+              printf("%s", v195);
             }
 
-            v21 = v135;
+            v20 = v133;
             if (!verbose)
             {
               goto LABEL_425;
             }
 
-            if (ioctl(v56, 0xC02069D9uLL, &ifr) != -1)
+            if (ioctl(v54, 0xC02069D9uLL, &ifr) != -1)
             {
               printf("\tgeneration id: %llu\n", qword_10001AE28);
             }
 
-            if (ioctl(v56, 0xC020699FuLL, &ifr) == -1)
+            if (ioctl(v54, 0xC020699FuLL, &ifr) == -1)
             {
               goto LABEL_271;
             }
 
-            v81 = 0;
-            v82 = 1;
+            v79 = 0;
+            v80 = 1;
             if (qword_10001AE28 <= 143)
             {
               if (qword_10001AE28 != 1)
@@ -1036,15 +1027,15 @@ LABEL_221:
                 {
                   if (dword_10001AE30 == 3)
                   {
-                    v82 = 0;
-                    v81 = "Wi-Fi";
+                    v80 = 0;
+                    v79 = "Wi-Fi";
                     goto LABEL_263;
                   }
 
                   if (dword_10001AE30 == 4)
                   {
-                    v82 = 0;
-                    v81 = "IP over Thunderbolt";
+                    v80 = 0;
+                    v79 = "IP over Thunderbolt";
                     goto LABEL_263;
                   }
                 }
@@ -1053,21 +1044,21 @@ LABEL_221:
                 {
                   if (dword_10001AE30 == 1)
                   {
-                    v82 = 0;
-                    v81 = "USB Ethernet";
+                    v80 = 0;
+                    v79 = "USB Ethernet";
                     goto LABEL_263;
                   }
 
                   if (dword_10001AE30 == 2)
                   {
-                    v82 = 0;
-                    v81 = "Bluetooth PAN";
+                    v80 = 0;
+                    v79 = "Bluetooth PAN";
                     goto LABEL_263;
                   }
                 }
 
-                v82 = 0;
-                v81 = "Ethernet";
+                v80 = 0;
+                v79 = "Ethernet";
                 goto LABEL_263;
               }
 
@@ -1077,15 +1068,15 @@ LABEL_221:
                 {
                   if (dword_10001AE30 == 8)
                   {
-                    v82 = 0;
-                    v81 = "Companion Link Default";
+                    v80 = 0;
+                    v79 = "Companion Link Default";
                     goto LABEL_263;
                   }
 
                   if (dword_10001AE30 == 7)
                   {
-                    v82 = 0;
-                    v81 = "Companion Link QuickRelay";
+                    v80 = 0;
+                    v79 = "Companion Link QuickRelay";
                     goto LABEL_263;
                   }
                 }
@@ -1094,44 +1085,44 @@ LABEL_221:
                 {
                   if (dword_10001AE30 == 2)
                   {
-                    v82 = 0;
-                    v81 = "Companion Link Bluetooth";
+                    v80 = 0;
+                    v79 = "Companion Link Bluetooth";
                     goto LABEL_263;
                   }
 
                   if (dword_10001AE30 == 3)
                   {
-                    v82 = 0;
-                    v81 = "Companion Link Wi-Fi";
+                    v80 = 0;
+                    v79 = "Companion Link Wi-Fi";
                     goto LABEL_263;
                   }
                 }
               }
 
-              v81 = 0;
+              v79 = 0;
               goto LABEL_263;
             }
 
             switch(qword_10001AE28)
             {
               case 0x90:
-                v82 = 0;
-                v81 = "IP over FireWire";
+                v80 = 0;
+                v79 = "IP over FireWire";
                 break;
               case 0xFE:
-                v82 = 0;
-                v81 = "Packet capture";
+                v80 = 0;
+                v79 = "Packet capture";
                 break;
               case 0xFF:
-                v82 = 0;
-                v81 = "Cellular";
+                v80 = 0;
+                v79 = "Cellular";
                 break;
             }
 
 LABEL_263:
             if (verbose < 2)
             {
-              if ((v82 & 1) == 0)
+              if ((v80 & 1) == 0)
               {
                 goto LABEL_270;
               }
@@ -1139,7 +1130,7 @@ LABEL_263:
 
             else
             {
-              if (v82)
+              if (v80)
               {
                 snprintf(ift2str_buf, 0x100uLL, "0x%x family: %u subfamily: %u");
               }
@@ -1149,113 +1140,113 @@ LABEL_263:
                 snprintf(ift2str_buf, 0x100uLL, "%s (0x%x) family: %u subfamily: %u");
               }
 
-              v81 = ift2str_buf;
+              v79 = ift2str_buf;
 LABEL_270:
-              printf("\ttype: %s\n", v81);
+              printf("\ttype: %s\n", v79);
 LABEL_271:
-              if (verbose >= 2 && ioctl(v56, 0xC02069ADuLL, &ifr) != -1)
+              if (verbose >= 2 && ioctl(v54, 0xC02069ADuLL, &ifr) != -1)
               {
-                v83 = qword_10001AE28 - 1;
-                if (qword_10001AE28 - 1) <= 6 && ((0x5Fu >> v83))
+                v81 = qword_10001AE28 - 1;
+                if (qword_10001AE28 - 1) <= 6 && ((0x5Fu >> v81))
                 {
-                  printf("\tfunctional type: %s\n", off_1000143A0[v83]);
+                  printf("\tfunctional type: %s\n", off_1000143A0[v81]);
                 }
               }
             }
 
-            *v203 = 0u;
-            v204 = 0u;
+            *v201 = 0u;
+            v202 = 0u;
             __strlcpy_chk();
-            if (ioctl(v56, 0xC02069A7uLL, v203) != -1)
+            if (ioctl(v54, 0xC02069A7uLL, v201) != -1)
             {
-              if (v204)
+              if (v202)
               {
-                *(&v204 + 1) = malloc_type_calloc(v204, 0x10uLL, 0x1000040451B5BE8uLL);
-                if (*(&v204 + 1))
+                *(&v202 + 1) = malloc_type_calloc(v202, 0x10uLL, 0x1000040451B5BE8uLL);
+                if (*(&v202 + 1))
                 {
-                  if (ioctl(v56, 0xC02069A7uLL, v203) != 1 && v204)
+                  if (ioctl(v54, 0xC02069A7uLL, v201) != 1 && v202)
                   {
-                    v84 = 0;
-                    v85 = 0;
+                    v82 = 0;
+                    v83 = 0;
                     do
                     {
-                      v202 = 0u;
-                      memset(v201, 0, sizeof(v201));
-                      memset(v200, 0, sizeof(v200));
+                      v200 = 0u;
                       memset(v199, 0, sizeof(v199));
-                      *v198 = 0u;
-                      uuid_copy(v198, (*(&v204 + 1) + v84));
-                      if (ioctl(v56, 0xC0E069A8uLL, v198) != 1)
+                      memset(v198, 0, sizeof(v198));
+                      memset(v197, 0, sizeof(v197));
+                      *v196 = 0u;
+                      uuid_copy(v196, (*(&v202 + 1) + v82));
+                      if (ioctl(v54, 0xC0E069A8uLL, v196) != 1)
                       {
-                        printf("\tagent domain:%s type:%s flags:0x%x desc:%s\n", v199, v200, v202, v201);
+                        printf("\tagent domain:%s type:%s flags:0x%x desc:%s\n", v197, v198, v200, v199);
                       }
 
-                      ++v85;
-                      v84 += 16;
+                      ++v83;
+                      v82 += 16;
                     }
 
-                    while (v85 < v204);
+                    while (v83 < v202);
                   }
 
-                  free(*(&v204 + 1));
+                  free(*(&v202 + 1));
                 }
               }
             }
 
-            if (ioctl(v56, 0xC020698AuLL, &ifr) != -1)
+            if (ioctl(v54, 0xC020698AuLL, &ifr) != -1)
             {
               print_linkqualitymetric(qword_10001AE28);
               putchar(10);
             }
 
-            if (ioctl(v56, 0xC02069AAuLL, &ifr) != -1)
+            if (ioctl(v54, 0xC02069AAuLL, &ifr) != -1)
             {
               printf("\tstate");
-              v86 = qword_10001AE28;
+              v84 = qword_10001AE28;
               if (qword_10001AE28)
               {
-                v87 = BYTE1(qword_10001AE28);
+                v85 = BYTE1(qword_10001AE28);
                 printf(" rrc: %u ", BYTE1(qword_10001AE28));
-                v88 = "(?)";
-                if (!v87)
+                v86 = "(?)";
+                if (!v85)
                 {
-                  v88 = "(idle)";
+                  v86 = "(idle)";
                 }
 
-                if (v87 == 1)
+                if (v85 == 1)
                 {
                   printf("(connected)");
                 }
 
                 else
                 {
-                  printf(v88);
+                  printf(v86);
                 }
 
-                v86 = qword_10001AE28;
+                v84 = qword_10001AE28;
               }
 
-              v89 = " availability: (not valid)";
-              if ((v86 & 4) != 0)
+              v87 = " availability: (not valid)";
+              if ((v84 & 4) != 0)
               {
-                v90 = BYTE3(qword_10001AE28);
+                v88 = BYTE3(qword_10001AE28);
                 printf(" availability: %u ", BYTE3(qword_10001AE28));
-                v91 = "(?)";
-                if (v90 == 1)
+                v89 = "(?)";
+                if (v88 == 1)
                 {
-                  v91 = "(false)";
+                  v89 = "(false)";
                 }
 
-                if (!v90)
+                if (!v88)
                 {
                   printf("(true)");
                   goto LABEL_303;
                 }
 
-                v89 = v91;
+                v87 = v89;
               }
 
-              printf(v89);
+              printf(v87);
 LABEL_303:
               if (verbose >= 2 && (qword_10001AE28 & 2) != 0)
               {
@@ -1264,6 +1255,8 @@ LABEL_303:
             }
 
             putchar(10);
+            v169 = 0u;
+            v170 = 0u;
             v171 = 0u;
             v172 = 0u;
             v173 = 0u;
@@ -1277,89 +1270,87 @@ LABEL_303:
             v181 = 0u;
             v182 = 0u;
             v183 = 0u;
-            v184 = 0u;
-            v185 = 0u;
             __strlcpy_chk();
-            if (ioctl(v56, 0xC0F06992uLL, &v171) != -1)
+            if (ioctl(v54, 0xC0F06992uLL, &v169) != -1)
             {
-              v92 = *(&v175 + 1);
-              v93 = v175;
-              v94 = *(&v174 + 1);
-              v95 = v174;
-              v96 = *(&v172 + 1);
-              v124 = v173;
-              v126 = *(&v177 + 1);
-              v127 = v177;
-              v128 = *(&v176 + 1);
-              v125 = v176;
-              if ((v130 & 1) == 0)
+              v90 = *(&v173 + 1);
+              v91 = v173;
+              v92 = *(&v172 + 1);
+              v93 = v172;
+              v94 = *(&v170 + 1);
+              v122 = v171;
+              v124 = *(&v175 + 1);
+              v125 = v175;
+              v126 = *(&v174 + 1);
+              v123 = v174;
+              if ((v128 & 1) == 0)
               {
-                v131 = v175;
-                v97 = v172;
-                memset(v198, 0, sizeof(v198));
-                LODWORD(v199[0]) = 0;
-                v98 = "ALTQ_";
-                if ((v172 & 1) == 0)
+                v129 = v173;
+                v95 = v170;
+                memset(v196, 0, sizeof(v196));
+                LODWORD(v197[0]) = 0;
+                v96 = "ALTQ_";
+                if ((v170 & 1) == 0)
                 {
-                  v98 = &unk_10000D3B1;
+                  v96 = &unk_10000D3B1;
                 }
 
-                v99 = "UNKNOWN";
-                if (DWORD1(v172) == 7)
+                v97 = "UNKNOWN";
+                if (DWORD1(v170) == 7)
                 {
-                  v99 = "FQ_CODEL";
+                  v97 = "FQ_CODEL";
                 }
 
-                v100 = "NONE";
-                if (DWORD1(v172))
+                v98 = "NONE";
+                if (DWORD1(v170))
                 {
-                  v100 = v99;
+                  v98 = v97;
                 }
 
-                printf("\tscheduler: %s%s ", v98, v100);
-                if ((v97 & 2) != 0)
+                printf("\tscheduler: %s%s ", v96, v98);
+                if ((v95 & 2) != 0)
                 {
                   printf("(driver managed)");
                 }
 
                 putchar(10);
-                memset(v198, 0, sizeof(v198));
-                LODWORD(v199[0]) = 0;
+                memset(v196, 0, sizeof(v196));
+                LODWORD(v197[0]) = 0;
                 __strlcpy_chk();
-                if (ioctl(v56, 0xC0146995uLL, v198) != -1 && LODWORD(v199[0]))
+                if (ioctl(v54, 0xC0146995uLL, v196) != -1 && LODWORD(v197[0]))
                 {
-                  v101 = "unknown";
-                  if (LODWORD(v199[0]) == 1)
+                  v99 = "unknown";
+                  if (LODWORD(v197[0]) == 1)
                   {
-                    v101 = "opportunistic";
+                    v99 = "opportunistic";
                   }
 
-                  printf("\tthrottling: level %d (%s)\n", LODWORD(v199[0]), v101);
+                  printf("\tthrottling: level %d (%s)\n", LODWORD(v197[0]), v99);
                 }
 
-                v21 = v135;
-                v93 = v131;
+                v20 = v133;
+                v91 = v129;
               }
 
-              v102 = v95 >= v96 ? v96 : v95;
-              v103 = v96 ? v102 : v95;
-              if (v92 | v94)
+              v100 = v93 >= v94 ? v94 : v93;
+              v101 = v94 ? v100 : v93;
+              if (v90 | v92)
               {
-                if (v92 == v94 && v93 == v103 && v92 == v93 && !v96)
+                if (v90 == v92 && v91 == v101 && v90 == v91 && !v94)
                 {
-                  v96 = v92;
-                  v104 = "\tlink rate: %s\n";
+                  v94 = v90;
+                  v102 = "\tlink rate: %s\n";
                 }
 
                 else
                 {
-                  v132 = v93;
-                  bps_to_str(v103);
+                  v130 = v91;
+                  bps_to_str(v101);
                   printf("\tuplink rate: %s [eff] / ", bps_to_str_buf);
-                  if (v96)
+                  if (v94)
                   {
-                    bps_to_str(v96);
-                    if (v124)
+                    bps_to_str(v94);
+                    if (v122)
                     {
                       printf("%s [tbr %u%%] / ");
                     }
@@ -1369,139 +1360,137 @@ LABEL_303:
                       printf("%s [tbr] / ");
                     }
 
-                    bps_to_str(v94);
+                    bps_to_str(v92);
                     printf("%s", bps_to_str_buf);
                     printf(" [max]");
                   }
 
                   else
                   {
-                    bps_to_str(v94);
+                    bps_to_str(v92);
                     printf("%s");
                   }
 
                   putchar(10);
-                  if (v92 == v132)
+                  if (v90 == v130)
                   {
-                    v96 = v92;
-                    v104 = "\tdownlink rate: %s\n";
+                    v94 = v90;
+                    v102 = "\tdownlink rate: %s\n";
                   }
 
                   else
                   {
-                    bps_to_str(v132);
+                    bps_to_str(v130);
                     printf("\tdownlink rate: %s [eff] / ", bps_to_str_buf);
-                    v96 = v92;
-                    v104 = "%s [max]\n";
+                    v94 = v90;
+                    v102 = "%s [max]\n";
                   }
                 }
 
-                v105 = v126;
+                v103 = v124;
 LABEL_346:
-                bps_to_str(v96);
-                printf(v104, bps_to_str_buf);
+                bps_to_str(v94);
+                printf(v102, bps_to_str_buf);
               }
 
               else
               {
-                v104 = "\tuplink rate: %s [tbr]\n";
-                v105 = v126;
-                if (v96)
+                v102 = "\tuplink rate: %s [tbr]\n";
+                v103 = v124;
+                if (v94)
                 {
                   goto LABEL_346;
                 }
               }
 
-              v106 = v128;
-              v25 = v139;
-              if (v105 | v128)
+              v104 = v126;
+              v24 = v137;
+              if (v103 | v126)
               {
-                if (v105 == v128 && v127 == v125)
+                if (v103 == v126 && v125 == v123)
                 {
-                  v107 = "\tlink latency: %s\n";
-                  if (v105 == v127)
+                  v105 = "\tlink latency: %s\n";
+                  if (v103 == v125)
                   {
                     goto LABEL_360;
                   }
                 }
 
-                if (v128 && (v108 = "\tuplink latency: %s\n", v125 == v128))
+                if (v126 && (v106 = "\tuplink latency: %s\n", v123 == v126))
                 {
 LABEL_355:
-                  ns_to_str(v106);
-                  printf(v108, ns_to_str_buf);
+                  ns_to_str(v104);
+                  printf(v106, ns_to_str_buf);
                 }
 
-                else if (v128)
+                else if (v126)
                 {
-                  ns_to_str(v125);
+                  ns_to_str(v123);
                   printf("\tuplink latency: %s [eff] / ", ns_to_str_buf);
-                  v106 = v128;
-                  v108 = "%s [max]\n";
+                  v104 = v126;
+                  v106 = "%s [max]\n";
                   goto LABEL_355;
                 }
 
-                if (v105 && (v107 = "\tdownlink latency: %s\n", v105 == v127))
+                if (v103 && (v105 = "\tdownlink latency: %s\n", v103 == v125))
                 {
 LABEL_360:
-                  ns_to_str(v105);
-                  printf(v107, ns_to_str_buf);
+                  ns_to_str(v103);
+                  printf(v105, ns_to_str_buf);
                 }
 
-                else if (v105)
+                else if (v103)
                 {
-                  ns_to_str(v127);
+                  ns_to_str(v125);
                   printf("\tdownlink latency: %s [eff] / ", ns_to_str_buf);
-                  v107 = "%s [max]\n";
+                  v105 = "%s [max]\n";
                   goto LABEL_360;
                 }
               }
             }
 
-            *v198 = xmmword_10000C430;
-            *&v199[0] = if_nametoindex(name) | 0x500000000;
-            if (sysctl(v198, 6u, v148, &v147, 0, 0) == -1)
+            *v196 = xmmword_10000C430;
+            *&v197[0] = if_nametoindex(name) | 0x500000000;
+            if (sysctl(v196, 6u, v146, &v145, 0, 0) == -1)
             {
-              err(1, "sysctl IFDATA_SUPPLEMENTAL", v123);
+              err(1, "sysctl IFDATA_SUPPLEMENTAL", v121);
             }
 
-            if (v149)
+            if (v147)
             {
-              printf("\tunaligned pkts: %llu\n", v149);
+              printf("\tunaligned pkts: %llu\n", v147);
             }
 
-            if (*(&v149 + 1))
+            if (*(&v147 + 1))
             {
-              v109 = *(&v149 + 1);
-              if (*(&v149 + 1) >> 30)
+              v107 = *(&v147 + 1);
+              if (*(&v147 + 1) >> 30)
               {
-                v109 = v109 * 9.31322575e-10;
-                v110 = "GB";
+                v107 = v107 * 9.31322575e-10;
+                v108 = "GB";
               }
 
-              else if (*(&v149 + 1) < 0x100000uLL)
+              else if (*(&v147 + 1) < 0x100000uLL)
               {
-                v110 = "bytes";
-                if (*(&v149 + 1) > 0x3FFuLL)
+                v108 = "bytes";
+                if (*(&v147 + 1) > 0x3FFuLL)
                 {
-                  v110 = "KB";
-                  v109 = v109 * 0.0009765625;
+                  v108 = "KB";
+                  v107 = v107 * 0.0009765625;
                 }
               }
 
               else
               {
-                v109 = v109 * 0.000000953674316;
-                v110 = "MB";
+                v107 = v107 * 0.000000953674316;
+                v108 = "MB";
               }
 
-              snprintf(bytes_to_str_buf, 0x20uLL, "%-4.2Lf %s", v109, v110);
+              snprintf(bytes_to_str_buf, 0x20uLL, "%-4.2Lf %s", v107, v108);
               printf("\tdata milestone interval: %s\n", bytes_to_str_buf);
             }
 
-            v195 = 0;
-            v194 = 0u;
-            v193 = 0u;
+            v193 = 0;
             v192 = 0u;
             v191 = 0u;
             v190 = 0u;
@@ -1509,53 +1498,55 @@ LABEL_360:
             v188 = 0u;
             v187 = 0u;
             v186 = 0u;
+            v185 = 0u;
+            v184 = 0u;
             __strlcpy_chk();
-            if (ioctl(v56, 0xC0946990uLL, &v186) != -1 && v187)
+            if (ioctl(v54, 0xC0946990uLL, &v184) != -1 && v185)
             {
-              printf("\tdesc: %s\n", &v187 + 4);
+              printf("\tdesc: %s\n", &v185 + 4);
             }
 
-            if (ioctl(v56, 0xC020699CuLL, &ifr) != -1 && qword_10001AE28)
+            if (ioctl(v54, 0xC020699CuLL, &ifr) != -1 && qword_10001AE28)
             {
               printf("\tlogging: level %d ", qword_10001AE28);
               printb("facilities", HIDWORD(qword_10001AE28), "\x10\x01DLIL\x11FAMILY\x19DRIVER\x1DFIRMWARE");
               putchar(10);
             }
 
-            if (ioctl(v56, 0xC020699DuLL, &ifr) != -1 && qword_10001AE28 && if_indextoname(qword_10001AE28, v203))
+            if (ioctl(v54, 0xC020699DuLL, &ifr) != -1 && qword_10001AE28 && if_indextoname(qword_10001AE28, v201))
             {
-              printf("\teffective interface: %s\n", v203);
+              printf("\teffective interface: %s\n", v201);
             }
 
-            if (ioctl(v56, 0xC02069A4uLL, &ifr) != -1 && qword_10001AE28 && HIDWORD(qword_10001AE28))
+            if (ioctl(v54, 0xC02069A4uLL, &ifr) != -1 && qword_10001AE28 && HIDWORD(qword_10001AE28))
             {
               printf("\ttxstart qlen: %u packets timeout: %u microseconds\n", qword_10001AE28, HIDWORD(qword_10001AE28) / 0x3E8);
             }
 
-            if ((v133 & 0x1800) != 0 && ioctl(v56, 0xC02069BAuLL, &ifr) != -1)
+            if ((v131 & 0x1800) != 0 && ioctl(v54, 0xC02069BAuLL, &ifr) != -1)
             {
-              v111 = "enabled";
+              v109 = "enabled";
               if (!qword_10001AE28)
               {
-                v111 = "disabled";
+                v109 = "disabled";
               }
 
-              printf("\ttimestamp: %s\n", v111);
+              printf("\ttimestamp: %s\n", v109);
             }
 
-            if (ioctl(v56, 0xC02069B7uLL, &ifr) == -1)
+            if (ioctl(v54, 0xC02069B7uLL, &ifr) == -1)
             {
               goto LABEL_406;
             }
 
-            v112 = "yes";
+            v110 = "yes";
             if (!qword_10001AE28)
             {
-              v112 = "no";
+              v110 = "no";
             }
 
-            printf("\tqosmarking enabled: %s mode: ", v112);
-            if (ioctl(v56, 0xC02069B6uLL, &ifr) == -1)
+            printf("\tqosmarking enabled: %s mode: ", v110);
+            if (ioctl(v54, 0xC02069B6uLL, &ifr) == -1)
             {
               goto LABEL_406;
             }
@@ -1564,7 +1555,7 @@ LABEL_360:
             {
               if (qword_10001AE28 == 2)
               {
-                v113 = "RFC4594";
+                v111 = "RFC4594";
               }
 
               else
@@ -1574,7 +1565,7 @@ LABEL_360:
                   goto LABEL_402;
                 }
 
-                v113 = "custom";
+                v111 = "custom";
               }
 
               goto LABEL_405;
@@ -1582,22 +1573,44 @@ LABEL_360:
 
             if (!qword_10001AE28)
             {
-              v113 = "none";
+              v111 = "none";
 LABEL_405:
-              puts(v113);
+              puts(v111);
               goto LABEL_406;
             }
 
             if (qword_10001AE28 == 1)
             {
-              v113 = "fastlane";
+              v111 = "fastlane";
               goto LABEL_405;
             }
 
 LABEL_402:
             printf("unknown (%u)\n", qword_10001AE28);
 LABEL_406:
-            if (ioctl(v56, 0xC02069C7uLL, &ifr) != -1)
+            if (ioctl(v54, 0xC02069C7uLL, &ifr) != -1)
+            {
+              v112 = "enabled";
+              if (!qword_10001AE28)
+              {
+                v112 = "disabled";
+              }
+
+              printf("\tlow power mode: %s\n", v112);
+            }
+
+            if (ioctl(v54, 0xC02069E4uLL, &ifr) != -1 && qword_10001AE28)
+            {
+              v113 = "enabled";
+              if (qword_10001AE28 != 1)
+              {
+                v113 = "disabled";
+              }
+
+              printf("\tL4S: %s\n", v113);
+            }
+
+            if (ioctl(v54, 0xC02069CAuLL, &ifr) != -1)
             {
               v114 = "enabled";
               if (!qword_10001AE28)
@@ -1605,41 +1618,19 @@ LABEL_406:
                 v114 = "disabled";
               }
 
-              printf("\tlow power mode: %s\n", v114);
+              printf("\tmulti layer packet logging (mpklog): %s\n", v114);
             }
 
-            if (ioctl(v56, 0xC02069E4uLL, &ifr) != -1 && qword_10001AE28)
+            v115 = af_getbyname("inet");
+            if (v115)
             {
-              v115 = "enabled";
-              if (qword_10001AE28 != 1)
-              {
-                v115 = "disabled";
-              }
-
-              printf("\tL4S: %s\n", v115);
+              (*(v115 + 128))(v54, 0, 0);
             }
 
-            if (ioctl(v56, 0xC02069CAuLL, &ifr) != -1)
+            v116 = af_getbyname("inet6");
+            if (v116)
             {
-              v116 = "enabled";
-              if (!qword_10001AE28)
-              {
-                v116 = "disabled";
-              }
-
-              printf("\tmulti layer packet logging (mpklog): %s\n", v116);
-            }
-
-            v117 = af_getbyname("inet");
-            if (v117)
-            {
-              (*(v117 + 128))(v56, 0, 0);
-            }
-
-            v118 = af_getbyname("inet6");
-            if (v118)
-            {
-              v119 = v118;
+              v117 = v116;
               if (show_routermode6_s < 0 && (show_routermode6_s = socket(30, 2, 0), show_routermode6_s < 0))
               {
                 perror("socket");
@@ -1647,30 +1638,30 @@ LABEL_406:
 
               else
               {
-                (*(v119 + 128))();
+                (*(v117 + 128))();
               }
             }
 
 LABEL_425:
-            close(v56);
-            v19 = v129;
+            close(v54);
+            v18 = v127;
 LABEL_154:
-            v34 = v34->ifa_next;
-            v38 = v43;
-            v39 = v44;
-            v8 = &unk_10001A000;
-            if (!v34)
+            v33 = v33->ifa_next;
+            v37 = v41;
+            v38 = v42;
+            v7 = &unk_10001A000;
+            if (!v33)
             {
 LABEL_78:
-              if (!v141)
+              if (!v139)
               {
                 putchar(10);
               }
 
-              freeifaddrs(v146);
-              if (v8[3560] == 1)
+              freeifaddrs(v144);
+              if (v7[3560] == 1)
               {
-                regfree(&v142);
+                regfree(&v140);
               }
 
               freeformat();
@@ -1686,41 +1677,41 @@ LABEL_78:
         break;
       }
 
-      if (v136)
+      if (v134)
       {
-        if (*(v53 + 18) != ifa_addr->sa_family)
+        if (*(v51 + 18) != ifa_addr->sa_family)
         {
           goto LABEL_185;
         }
 
-        v72 = *(v53 + 24);
+        v70 = *(v51 + 24);
       }
 
       else
       {
-        v73 = afs;
+        v71 = afs;
         if (!afs)
         {
           goto LABEL_185;
         }
 
-        while (*(v73 + 18) != ifa_addr->sa_family)
+        while (*(v71 + 18) != ifa_addr->sa_family)
         {
-          v73 = *(v73 + 96);
-          if (!v73)
+          v71 = *(v71 + 96);
+          if (!v71)
           {
             goto LABEL_185;
           }
         }
 
-        v72 = *(v73 + 24);
-        if (!v72)
+        v70 = *(v71 + 24);
+        if (!v70)
         {
           goto LABEL_185;
         }
       }
 
-      v72(v56, v70);
+      v70(v54, v68);
       goto LABEL_185;
     }
   }
@@ -1728,15 +1719,14 @@ LABEL_78:
 
 void usage()
 {
-  v2[0] = 0;
+  v1[0] = 0;
   for (i = opts; i; i = *(i + 24))
   {
-    v1 = *(i + 8);
     __strlcat_chk();
     __strlcat_chk();
   }
 
-  fprintf(__stderrp, "usage: ifconfig %sinterface address_family [address [dest_address]]\n                [parameters]\n       ifconfig interface create\n       ifconfig -a %s[-d] [-m] [-u] [-v] [address_family]\n       ifconfig -l [-d] [-u] [address_family]\n       ifconfig %s[-d] [-m] [-u] [-v]\n       ifconfig -X pattern %s[-a] [-d] [-d] [-m] [-u] [-v] [address_family]\n", v2, v2, v2, v2);
+  fprintf(__stderrp, "usage: ifconfig %sinterface address_family [address [dest_address]]\n                [parameters]\n       ifconfig interface create\n       ifconfig -a %s[-d] [-m] [-u] [-v] [address_family]\n       ifconfig -l [-d] [-u] [address_family]\n       ifconfig %s[-d] [-m] [-u] [-v]\n       ifconfig -X pattern %s[-a] [-d] [-d] [-m] [-u] [-v] [address_family]\n", v1, v1, v1, v1);
   exit(1);
 }
 
@@ -2172,7 +2162,7 @@ uint64_t settimestamp(const char *a1, int a2, int a3)
   return result;
 }
 
-void setecnmode(const char *a1, uint64_t a2, int a3)
+void setecnmode(char *a1, uint64_t a2, int a3)
 {
   if (!strcmp(a1, "default"))
   {
@@ -2985,7 +2975,7 @@ void setrouter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   if (v5)
   {
 
-    v5(a3);
+    v5(a3, a2);
   }
 
   else
@@ -3015,7 +3005,7 @@ void setifdesc(const char *a1, uint64_t a2, int a3)
   }
 }
 
-void settbr(const char *a1, uint64_t a2, int a3)
+void settbr(char *a1, uint64_t a2, int a3)
 {
   v11 = 0;
   *__error() = 0;
@@ -3186,8 +3176,9 @@ LABEL_37:
   }
 }
 
-uint64_t setnetem(int a1, const char **a2, int a3)
+uint64_t setnetem(uint64_t a1, const char **a2, int a3)
 {
+  v5 = a1;
   memset(v20, 0, sizeof(v20));
   v21 = 0u;
   v22 = 0u;
@@ -3233,7 +3224,7 @@ uint64_t setnetem(int a1, const char **a2, int a3)
       v8 = &v12;
     }
 
-    v7 = netem_parse_args(v8, a1, a2);
+    v7 = netem_parse_args(v8, v5, a2);
     if ((v7 & 0x80000000) != 0)
     {
 LABEL_21:
@@ -3249,7 +3240,7 @@ LABEL_21:
     warn("ioctl (get link params)");
   }
 
-  if (a1 == 1)
+  if (v5 == 1)
   {
     v6 = *a2;
     if (!strcmp(*a2, "input"))
@@ -3279,7 +3270,7 @@ LABEL_20:
 
   else
   {
-    if (!a1)
+    if (!v5)
     {
       print_netem_params(&v21, "Input");
       print_netem_params(&v25, "Output");
@@ -3325,7 +3316,7 @@ LABEL_20:
   return v7;
 }
 
-void setthrottle(const char *a1, uint64_t a2, int a3)
+void setthrottle(char *a1, uint64_t a2, int a3)
 {
   v5 = 0;
   *__error() = 0;
@@ -3355,7 +3346,7 @@ void setthrottle(const char *a1, uint64_t a2, int a3)
   }
 }
 
-void setlog(const char *a1, uint64_t a2, int a3)
+void setlog(char *a1, uint64_t a2, int a3)
 {
   v5 = 0;
   *__error() = 0;
@@ -3377,7 +3368,7 @@ void setlog(const char *a1, uint64_t a2, int a3)
   }
 }
 
-void setdisableoutput(const char *a1, uint64_t a2, int a3)
+void setdisableoutput(char *a1, uint64_t a2, int a3)
 {
   v5 = 0;
   *__error() = 0;
@@ -3744,15 +3735,11 @@ LABEL_12:
   printf("\tdelay latency                  %dms\n\t      jitter                   %dms\n\tcorruption                     %.3f%%\n\treordering                     %.3f%%\n\n\trecovery                       %dms\n", a1[4], a1[5], v9 / 1000.0, v10 / 1000.0, a1[13]);
   if (*(a1 + 9) || a1[11] || a1[12])
   {
-    v11 = a1[8];
-    v12 = a1[11];
-    v13 = a1[12];
     return printf("\tloss GAP_RECV   -> GAP_LOSS    %.3f%%\n\t     GAP_RECV   -> BURST_LOSS  %.3f%%\n\t     BURST_LOSS -> BURST_RECV  %.3f%%\n\t     BURST_LOSS -> GAP_RECV    %.3f%%\n\t     BURST_RECV -> BURST_LOSS  %.3f%%\n");
   }
 
   else
   {
-    v14 = a1[8];
     return printf("\tloss                           %.3f%%\n");
   }
 }
@@ -3885,71 +3872,69 @@ uint64_t ifmedia_ctor()
 void *setmedia(const char *a1, uint64_t a2, int a3)
 {
   v4 = ifmedia_getstate(a3);
-  v5 = v4;
-  v6 = &ifm_type_descriptions;
-  v7 = &ifmedia_types_to_subtypes;
-  while (*v6 != (**(v4 + 36) & 0xE0))
+  v5 = &ifm_type_descriptions;
+  v6 = &ifmedia_types_to_subtypes;
+  while (*v5 != (**(v4 + 36) & 0xE0))
   {
-    v8 = *(v6 + 3);
-    v6 += 4;
-    v7 += 22;
-    if (!v8)
+    v7 = *(v5 + 3);
+    v5 += 4;
+    v6 += 22;
+    if (!v7)
     {
-      v15 = **(v4 + 36) & 0xE0;
       errx(1, "unknown media type 0x%x");
     }
   }
 
-  v9 = *v7;
-  if (!*v7)
+  v8 = *v6;
+  if (!*v6)
   {
 LABEL_13:
     errx(1, "unknown media subtype: %s");
   }
 
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    v11 = *(v9 + 1);
-    if (v11)
+    v10 = *(v8 + 1);
+    if (v10)
     {
-      while (strcasecmp(v11, a1))
+      while (strcasecmp(v10, a1))
       {
-        v11 = *(v9 + 3);
-        v9 += 4;
-        if (!v11)
+        v10 = *(v8 + 3);
+        v8 += 4;
+        if (!v10)
         {
           goto LABEL_12;
         }
       }
 
-      v12 = *v9;
-      if (v12 != -1)
+      v11 = *v8;
+      if (v11 != -1)
       {
         break;
       }
     }
 
 LABEL_12:
-    ++v10;
-    v9 = v7[2 * v10];
-    if (!v9)
+    ++v9;
+    v8 = v6[2 * v9];
+    if (!v8)
     {
       goto LABEL_13;
     }
   }
 
   __strlcpy_chk();
-  v13 = *(v5 + 16) & 0xFFF0FF00 | v12 | **(v5 + 36) & 0xE0;
-  if ((v12 & 0xF001F) == 0)
+  v12 = *(v4 + 16) & 0xFFF0FF00 | v11 | **(v4 + 36) & 0xE0;
+  if ((v11 & 0xF001F) == 0)
   {
-    v13 = *(v5 + 16) & 0xF000FF00 | v12 & 0xF000FFE0 | **(v5 + 36) & 0xE0;
+    v12 = *(v4 + 16) & 0xF000FF00 | v11 & 0xF000FFE0 | **(v4 + 36) & 0xE0;
   }
 
-  LODWORD(qword_10001AE28) = v13;
-  *(v5 + 16) = v13;
+  LODWORD(qword_10001AE28) = v12;
+  *(v4 + 16) = v12;
 
-  return callback_register(setifmediacallback, v5);
+  return callback_register(setifmediacallback, v4);
 }
 
 void *setmediainst(const char *a1, uint64_t a2, int a3)
@@ -4118,12 +4103,12 @@ void media_status(int a1)
       }
 
       printf("\tmedia: ");
-      print_media_word(v20[1]);
+      print_media_word(LODWORD(v20[1]));
       if (HIDWORD(v20[1]) != LODWORD(v20[1]))
       {
         putchar(32);
         putchar(40);
-        print_media_word(SHIDWORD(v20[1]));
+        print_media_word(HIDWORD(v20[1]));
         putchar(41);
       }
 
@@ -4203,14 +4188,14 @@ LABEL_21:
                     {
                       if (!*(v18 + 2))
                       {
-                        for (i = *(v14 + 1); i; v14 += 16)
+                        for (i = *(v14 + 8); i; v14 += 16)
                         {
                           if ((*v14 & v5) != 0)
                           {
                             printf(" mediaopt %s", i);
                           }
 
-                          i = *(v14 + 3);
+                          i = *(v14 + 24);
                         }
                       }
 
@@ -4258,8 +4243,9 @@ LABEL_21:
   }
 }
 
-uint64_t print_media_word(int a1)
+uint64_t print_media_word(uint64_t a1)
 {
+  v1 = a1;
   v2 = a1 & 0xE0;
   v3 = &ifm_type_descriptions;
   while (v2 != *v3)
@@ -4308,15 +4294,15 @@ LABEL_6:
         {
           if (!*(v15 + 2))
           {
-            for (i = *(v11 + 1); i; v11 += 16)
+            for (i = *(v11 + 8); i; v11 += 16)
             {
-              if ((*v11 & a1) != 0)
+              if ((*v11 & v1) != 0)
               {
                 v17 = ",";
                 if (!v14)
                 {
                   printf(" <");
-                  i = *(v11 + 1);
+                  i = *(v11 + 8);
                   v17 = &unk_10000D3B1;
                 }
 
@@ -4324,7 +4310,7 @@ LABEL_6:
                 printf("%s%s", v17, i);
               }
 
-              i = *(v11 + 3);
+              i = *(v11 + 24);
             }
           }
 
@@ -4360,7 +4346,7 @@ LABEL_6:
   return printf(v19);
 }
 
-uint64_t get_subtype_desc(int a1, void *a2)
+uint64_t get_subtype_desc(int a1, uint64_t *a2)
 {
   result = *a2;
   if (*a2)
@@ -4411,7 +4397,7 @@ void *vlan_ctor()
   return callback_register(vlan_cb, 0);
 }
 
-void vlan_cb()
+void vlan_cb(uint64_t result, uint64_t a2)
 {
   if ((word_100019FC8 != -1) != (params != 0))
   {
@@ -4434,13 +4420,13 @@ void *setvlantag(const char *a1, uint64_t a2, uint64_t a3)
     setvlantag_cold_2();
   }
 
-  v7[0] = 0;
-  v7[1] = 0;
-  v8 = 0;
-  qword_10001AE28 = v7;
+  v8[0] = 0;
+  v8[1] = 0;
+  v9 = 0;
+  qword_10001AE28 = v8;
   if (ioctl(a3, 0xC020697FuLL, &ifr) == -1)
   {
-    return clone_setcallback(vlan_create);
+    return clone_setcallback(vlan_create, v5);
   }
 
   else
@@ -4452,13 +4438,13 @@ void *setvlantag(const char *a1, uint64_t a2, uint64_t a3)
 void *setvlandev(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   __strlcpy_chk();
-  v5[0] = 0;
-  v5[1] = 0;
-  v6 = 0;
-  qword_10001AE28 = v5;
+  v6[0] = 0;
+  v6[1] = 0;
+  v7 = 0;
+  qword_10001AE28 = v6;
   if (ioctl(a3, 0xC020697FuLL, &ifr) == -1)
   {
-    return clone_setcallback(vlan_create);
+    return clone_setcallback(vlan_create, v4);
   }
 
   else
@@ -4568,8 +4554,8 @@ void in_status(uint64_t a1, uint64_t a2)
   if (!f_addr || !strcmp(f_addr, "default"))
   {
     v6.s_addr = *(v2 + 1);
-    v20 = inet_ntoa(v6);
-    printf("\tinet %s", v20);
+    v19 = inet_ntoa(v6);
+    printf("\tinet %s", v19);
   }
 
   else
@@ -4625,70 +4611,65 @@ void in_status(uint64_t a1, uint64_t a2)
   {
     if (v10)
     {
-      v13 = *(v10 + 4);
+      v12 = *(v10 + 4);
     }
 
     else
     {
-      v13 = 0;
+      v12 = 0;
     }
 
-    v15 = bswap32(v13);
-    v16 = 32;
+    v14 = bswap32(v12);
+    v15 = 32;
     do
     {
-      if (v15)
+      if (v14)
       {
         break;
       }
 
-      v15 >>= 1;
-      --v16;
+      v14 >>= 1;
+      --v15;
     }
 
-    while (v16);
+    while (v15);
     printf("/%d");
+    goto LABEL_34;
   }
 
-  else
+  if (!strcmp(v11, "dotted"))
   {
-    if (strcmp(v11, "dotted"))
-    {
-LABEL_22:
-      if (v10)
-      {
-        v12 = *(v10 + 4);
-      }
-
-      printf(" netmask 0x%lx");
-      goto LABEL_36;
-    }
-
     if (v10)
     {
-      v14.s_addr = *(v10 + 4);
+      v13.s_addr = *(v10 + 4);
     }
 
     else
     {
-      v14.s_addr = 0;
+      v13.s_addr = 0;
     }
 
-    inet_ntoa(v14);
+    inet_ntoa(v13);
     printf(" netmask %s");
   }
 
-LABEL_36:
+  else
+  {
+LABEL_22:
+    printf(" netmask 0x%lx");
+  }
+
+LABEL_34:
   if ((*(a2 + 16) & 2) != 0)
   {
-    v17 = *(a2 + 40);
-    if (v17)
+    v16 = *(a2 + 40);
+    if (v16)
     {
-      v18.s_addr = *(v17 + 4);
-      if (v18.s_addr)
+      v17.s_addr = *(v16 + 4);
+      if (v17.s_addr)
       {
-        v19 = inet_ntoa(v18);
-        printf(" broadcast %s", v19);
+        v18 = inet_ntoa(v17);
+        printf(" broadcast %s", v18);
       }
     }
   }
@@ -4786,15 +4767,13 @@ uint64_t in_status_tunnel(int a1)
   return result;
 }
 
-void in_set_tunnel(int a1, uint64_t a2, uint64_t a3)
+void in_set_tunnel(int a1)
 {
-  memset(v8, 0, sizeof(v8));
+  memset(v2, 0, sizeof(v2));
   __strlcpy_chk();
-  v6 = **(a2 + 32);
   __memcpy_chk();
-  v7 = **(a3 + 32);
   __memcpy_chk();
-  if (ioctl(a1, 0x8040693EuLL, v8) < 0)
+  if (ioctl(a1, 0x8040693EuLL, v2) < 0)
   {
     warn("SIOCSIFPHYADDR");
   }
@@ -4907,21 +4886,21 @@ uint64_t setifprefixlen(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
   v4 = *(a4 + 48);
   if (v4)
   {
-    result = v4(result, 2);
+    result = v4(result, 2, a3);
   }
 
   explicit_prefix = 1;
   return result;
 }
 
-void setip6flags(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
+void setip6flags(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*(a4 + 18) != 30)
   {
     setip6flags_cold_1();
   }
 
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     v4 = dword_10001A59C & (a2 - 1);
   }
@@ -5011,7 +4990,7 @@ LABEL_11:
   freeifaddrs(v4);
 }
 
-uint64_t setip6lifetime(const char *a1, const char *a2, uint64_t a3)
+uint64_t setip6lifetime(const char *a1, char *a2, uint64_t a3)
 {
   __endptr = 0;
   v6 = time(0);
@@ -5559,15 +5538,13 @@ uint64_t in6_status_tunnel(int a1)
   return result;
 }
 
-void in6_set_tunnel(int a1, uint64_t a2, uint64_t a3)
+void in6_set_tunnel(int a1)
 {
-  memset(v8, 0, sizeof(v8));
+  memset(v2, 0, sizeof(v2));
   __strlcpy_chk();
-  v6 = **(a2 + 32);
   __memcpy_chk();
-  v7 = **(a3 + 32);
   __memcpy_chk();
-  if (ioctl(a1, 0x8080693EuLL, v8) < 0)
+  if (ioctl(a1, 0x8080693EuLL, v2) < 0)
   {
     warn("SIOCSIFPHYADDR_IN6");
   }
@@ -6369,87 +6346,87 @@ uint64_t get_val(const char *a1, unint64_t *a2)
 
 void bridge_status(int a1)
 {
-  v58 = 0;
+  v49 = 0;
+  v47 = 0u;
+  v48 = 0u;
+  v46 = 0u;
+  v45 = 0;
   v56 = 0u;
-  v57 = 0u;
-  v55 = 0u;
-  v54 = 0;
-  v65 = 0u;
   __strlcpy_chk();
-  v66 = xmmword_10000C560;
-  *&v67 = &v54;
-  if ((ioctl(a1, 0xC028697BuLL, &v65) & 0x80000000) == 0)
+  v57 = xmmword_10000C560;
+  *&v58 = &v45;
+  if ((ioctl(a1, 0xC028697BuLL, &v56) & 0x80000000) == 0)
   {
-    v2 = v54;
-    *&v67 = 0;
-    v65 = 0u;
-    v66 = 0u;
+    v2 = v45;
+    *&v58 = 0;
+    v56 = 0u;
+    v57 = 0u;
     __strlcpy_chk();
-    v66 = xmmword_10000C570;
-    *&v67 = &v54;
-    if ((ioctl(a1, 0xC028697BuLL, &v65) & 0x80000000) == 0)
+    v57 = xmmword_10000C570;
+    *&v58 = &v45;
+    if ((ioctl(a1, 0xC028697BuLL, &v56) & 0x80000000) == 0)
     {
-      v3 = v54;
-      *&v67 = 0;
-      v65 = 0u;
-      v66 = 0u;
+      v3 = v45;
+      *&v58 = 0;
+      v56 = 0u;
+      v57 = 0u;
       __strlcpy_chk();
-      v66 = xmmword_10000C580;
-      *&v67 = &v54;
-      if ((ioctl(a1, 0xC028697BuLL, &v65) & 0x80000000) == 0)
+      v57 = xmmword_10000C580;
+      *&v58 = &v45;
+      if ((ioctl(a1, 0xC028697BuLL, &v56) & 0x80000000) == 0)
       {
-        v4 = v54;
-        *&v67 = 0;
-        v65 = 0u;
-        v66 = 0u;
+        v4 = v45;
+        *&v58 = 0;
+        v56 = 0u;
+        v57 = 0u;
         __strlcpy_chk();
-        v66 = xmmword_10000C590;
-        *&v67 = &v55;
-        if ((ioctl(a1, 0xC028697BuLL, &v65) & 0x80000000) == 0)
+        v57 = xmmword_10000C590;
+        *&v58 = &v46;
+        if ((ioctl(a1, 0xC028697BuLL, &v56) & 0x80000000) == 0)
         {
-          v5 = WORD3(v55);
-          v6 = BYTE4(v55);
-          v7 = BYTE2(v55);
-          v8 = BYTE3(v55);
-          v9 = v55;
-          v51 = v4;
-          v10 = BYTE1(v55);
+          v5 = WORD3(v46);
+          v6 = BYTE4(v46);
+          v7 = BYTE2(v46);
+          v8 = BYTE3(v46);
+          v9 = v46;
+          v42 = v4;
+          v10 = BYTE1(v46);
           puts("\tConfiguration:");
-          v53.octet[0] = BYTE5(v56);
-          v53.octet[1] = BYTE4(v56);
-          v53.octet[2] = BYTE3(v56);
-          v53.octet[3] = BYTE2(v56);
-          v53.octet[4] = BYTE1(v56);
-          v53.octet[5] = v56;
-          v11 = ether_ntoa(&v53);
+          v44.octet[0] = BYTE5(v47);
+          v44.octet[1] = BYTE4(v47);
+          v44.octet[2] = BYTE3(v47);
+          v44.octet[3] = BYTE2(v47);
+          v44.octet[4] = BYTE1(v47);
+          v44.octet[5] = v47;
+          v11 = ether_ntoa(&v44);
           printf("\t\tid %s priority %u hellotime %u fwddelay %u\n", v11, v5, v7, v8);
           printf("\t\tmaxage %u holdcnt %u proto %s maxaddr %u timeout %u\n", v10, v9, stpproto[v6], v2, v3);
-          v53.octet[0] = BYTE13(v56);
-          v53.octet[1] = BYTE12(v56);
-          v12 = HIWORD(*(&v56 + 1));
-          v53.octet[2] = BYTE11(v56);
-          v53.octet[3] = BYTE10(v56);
-          v53.octet[4] = BYTE9(v56);
-          v53.octet[5] = BYTE8(v56);
-          v13 = ether_ntoa(&v53);
-          printf("\t\troot id %s priority %d ifcost %u port %u\n", v13, v12, HIDWORD(v55), WORD4(v55) & 0xFFF);
+          v44.octet[0] = BYTE13(v47);
+          v44.octet[1] = BYTE12(v47);
+          v12 = HIWORD(*(&v47 + 1));
+          v44.octet[2] = BYTE11(v47);
+          v44.octet[3] = BYTE10(v47);
+          v44.octet[4] = BYTE9(v47);
+          v44.octet[5] = BYTE8(v47);
+          v13 = ether_ntoa(&v44);
+          printf("\t\troot id %s priority %d ifcost %u port %u\n", v13, v12, HIDWORD(v46), WORD4(v46) & 0xFFF);
           v14 = "enabled";
-          if ((v51 & 1) == 0)
+          if ((v42 & 1) == 0)
           {
             v14 = "disabled";
           }
 
-          printf("\t\tipfilter %s flags 0x%x\n", v14, v51);
-          v52 = strdup("\tmember: ");
-          if (!v52)
+          printf("\t\tipfilter %s flags 0x%x\n", v14, v42);
+          v43 = strdup("\tmember: ");
+          if (!v43)
           {
             domediaopt_cold_1();
           }
 
-          v15 = *v52;
-          if (*v52)
+          v15 = *v43;
+          if (*v43)
           {
-            v16 = (v52 + 1);
+            v16 = (v43 + 1);
             while ((v15 & 0x80) == 0)
             {
               if ((_DefaultRuneLocale.__runetype[v15] & 0x40000) != 0)
@@ -6477,7 +6454,7 @@ LABEL_12:
           }
 
 LABEL_17:
-          memset(v60, 0, 12);
+          memset(v51, 0, 12);
           v18 = malloc_type_realloc(0, 0x2000uLL, 0xF69E43E8uLL);
           if (!v18)
           {
@@ -6489,20 +6466,20 @@ LABEL_22:
           v20 = 0x2000;
           while (1)
           {
-            LODWORD(v60[0]) = v20;
-            *(v60 + 4) = v19;
-            *&v67 = 0;
-            v65 = 0u;
-            v66 = 0u;
+            LODWORD(v51[0]) = v20;
+            *(v51 + 4) = v19;
+            *&v58 = 0;
+            v56 = 0u;
+            v57 = 0u;
             __strlcpy_chk();
-            v66 = xmmword_10000C5A0;
-            *&v67 = v60;
-            if (ioctl(a1, 0xC028697BuLL, &v65) < 0)
+            v57 = xmmword_10000C5A0;
+            *&v58 = v51;
+            if (ioctl(a1, 0xC028697BuLL, &v56) < 0)
             {
               bridge_status_cold_7();
             }
 
-            if (LODWORD(v60[0]) + 80 < v20)
+            if (LODWORD(v51[0]) + 80 < v20)
             {
               break;
             }
@@ -6515,62 +6492,53 @@ LABEL_22:
             }
           }
 
-          if (LODWORD(v60[0]) >= 0x50)
+          if (LODWORD(v51[0]) >= 0x50)
           {
             v28 = 0;
             v29 = 0;
             v30 = &ifr;
-            v50 = a1;
+            v41 = a1;
             do
             {
-              v31 = *(v60 + 4);
-              v32 = *(v60 + 4) + v28;
-              printf("%s%s ", "\tmember: ", (*(v60 + 4) + v28));
+              v31 = *(v51 + 4);
+              v32 = *(v51 + 4) + v28;
+              printf("%s%s ", "\tmember: ", (*(v51 + 4) + v28));
               printb("flags", *(v32 + 16), "\x10\x01LEARNING\x02DISCOVER\x03STP\x04SPAN\x05STICKY006EDGE\aAUTOEDGE\bPTP\tAUTOPTP\fPRIVATE\rPROXYSTA\x0EPROXYSTA_DISCOVER\x10MACNAT\x11CSUM\x12VIRTIO");
               putchar(10);
-              printf("%s", v52);
+              printf("%s", v43);
               printf("ifmaxaddr %u", *(v32 + 40));
               printf(" port %u priority %u", *(v32 + 28), *(v32 + 29));
               printf(" path cost %u", *(v32 + 24));
               if ((*(v32 + 16) & 4) != 0)
               {
-                v33 = *(v32 + 30);
-                if (v33 > 2)
+                if (*(v32 + 30) > 2uLL)
                 {
-                  v45 = *(v32 + 30);
                   printf(" <unknown proto %d>");
                 }
 
                 else
                 {
-                  v44 = stpproto[v33];
                   printf(" proto %s");
                 }
 
-                printf("\n%s", v52);
-                v34 = *(v31 + v28 + 31);
-                if (v34 > 4)
+                printf("\n%s", v43);
+                if (*(v31 + v28 + 31) > 4uLL)
                 {
-                  v47 = *(v31 + v28 + 31);
                   printf("<unknown role %d>");
                 }
 
                 else
                 {
-                  v46 = stproles[v34];
                   printf("role %s");
                 }
 
-                v35 = *(v31 + v28 + 32);
-                if (v35 > 5)
+                if (*(v31 + v28 + 32) > 5uLL)
                 {
-                  v49 = *(v31 + v28 + 32);
                   printf(" <unknown state %d>");
                 }
 
                 else
                 {
-                  v48 = stpstates[v35];
                   printf(" state %s");
                 }
               }
@@ -6578,113 +6546,113 @@ LABEL_22:
               putchar(10);
               if (verbose)
               {
-                *&v59.octet[4] = 0;
-                *v59.octet = 0;
-                v61 = 0u;
-                v62 = 0u;
+                *&v50.octet[4] = 0;
+                *v50.octet = 0;
+                v52 = 0u;
+                v53 = 0u;
                 __strlcpy_chk();
-                *&v67 = 0;
-                v65 = 0u;
-                v66 = 0u;
+                *&v58 = 0;
+                v56 = 0u;
+                v57 = 0u;
                 __strlcpy_chk();
-                v66 = xmmword_10000C5B0;
-                *&v67 = &v61;
-                if (ioctl(a1, 0xC028697BuLL, &v65) < 0)
+                v57 = xmmword_10000C5B0;
+                *&v58 = &v52;
+                if (ioctl(a1, 0xC028697BuLL, &v56) < 0)
                 {
                   err(1, "unable to get host filter settings for %s");
                 }
 
-                v36 = v30;
-                if (v61)
+                v33 = v30;
+                if (v52)
                 {
-                  v37 = HIDWORD(v62);
-                  v59 = *(&v62 + 4);
+                  v34 = HIDWORD(v53);
+                  v50 = *(&v53 + 4);
                 }
 
                 else
                 {
-                  v37 = 0;
-                  *&v59.octet[4] = 0;
-                  *v59.octet = 0;
+                  v34 = 0;
+                  *&v50.octet[4] = 0;
+                  *v50.octet = 0;
                 }
 
-                printf("%s", v52);
-                v38 = v61 & 1;
-                v39 = ether_ntoa(&v59);
-                v40.s_addr = v37;
-                v41 = inet_ntoa(v40);
-                printf("hostfilter %d hw: %s ip: %s", v38, v39, v41);
+                printf("%s", v43);
+                v35 = v52 & 1;
+                v36 = ether_ntoa(&v50);
+                v37.s_addr = v34;
+                v38 = inet_ntoa(v37);
+                printf("hostfilter %d hw: %s ip: %s", v35, v36, v38);
                 putchar(10);
-                v65 = 0u;
-                v66 = 0u;
-                v67 = 0u;
-                v68 = 0u;
-                v69 = 0u;
+                v56 = 0u;
+                v57 = 0u;
+                v58 = 0u;
+                v59 = 0u;
+                v60 = 0u;
                 __strlcpy_chk();
-                v72 = 0;
-                v70 = 0u;
-                v71 = 0u;
-                v30 = v36;
+                v63 = 0;
+                v61 = 0u;
+                v62 = 0u;
+                v30 = v33;
                 __strlcpy_chk();
-                v71 = xmmword_10000C530;
-                v72 = &v65;
-                if (ioctl(v50, 0xC028697BuLL, &v70) < 0)
+                v62 = xmmword_10000C530;
+                v63 = &v56;
+                if (ioctl(v41, 0xC028697BuLL, &v61) < 0)
                 {
                   do_bridgeflag_cold_2();
                 }
 
-                a1 = v50;
-                if (BYTE2(v66))
+                a1 = v41;
+                if (BYTE2(v57))
                 {
-                  v64 = 0u;
-                  v63 = 0u;
+                  v55 = 0u;
+                  v54 = 0u;
                   __strlcpy_chk();
-                  v72 = 0;
-                  v70 = 0u;
-                  v71 = 0u;
+                  v63 = 0;
+                  v61 = 0u;
+                  v62 = 0u;
                   __strlcpy_chk();
-                  v71 = xmmword_10000C5C0;
-                  v72 = &v63;
-                  if (ioctl(v50, 0xC028697BuLL, &v70) < 0)
+                  v62 = xmmword_10000C5C0;
+                  v63 = &v54;
+                  if (ioctl(v41, 0xC028697BuLL, &v61) < 0)
                   {
                     warn("unable to get bridge member stats size %s");
                   }
 
-                  else if (DWORD1(v64) <= 0xF7)
+                  else if (DWORD1(v55) <= 0xF7)
                   {
                     warn("bridge stats incompatible size %d < %lu");
                   }
 
                   else
                   {
-                    v42 = malloc_type_malloc(v64, 0xBBC9EE50uLL);
-                    if (!v42)
+                    v39 = malloc_type_malloc(v55, 0xBBC9EE50uLL);
+                    if (!v39)
                     {
                       bridge_status_cold_1();
                     }
 
-                    v43 = v42;
-                    *(&v64 + 1) = v42;
-                    v72 = 0;
-                    v70 = 0u;
-                    v71 = 0u;
+                    v40 = v39;
+                    *(&v55 + 1) = v39;
+                    v63 = 0;
+                    v61 = 0u;
+                    v62 = 0u;
                     __strlcpy_chk();
-                    v71 = xmmword_10000C5C0;
-                    v72 = &v63;
-                    if (ioctl(v50, 0xC028697BuLL, &v70) < 0)
+                    v62 = xmmword_10000C5C0;
+                    v63 = &v54;
+                    if (ioctl(v41, 0xC028697BuLL, &v61) < 0)
                     {
                       err(1, "unable to get bridge member stats %s");
                     }
 
                     puts("\t\tchecksum stats:");
-                    print_bripstats("\t\tin:", v43);
-                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum offloaded:", v43[16], v43[17], v43[18], "\n");
-                    print_bripstats("\t\tout:", (v43 + 8));
-                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum good sw:", v43[19], v43[20], v43[21], &unk_10000D3B1);
-                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", " hw:", v43[22], v43[23], v43[24], "\n");
-                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum bad sw:", v43[25], v43[26], v43[27], &unk_10000D3B1);
-                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", " hw:", v43[28], v43[29], v43[30], "\n");
-                    free(v43);
+                    print_bripstats("\t\tin:", v40);
+                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum offloaded:", v40[16], v40[17], v40[18], "\n");
+                    print_bripstats("\t\tout:", (v40 + 8));
+                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum good sw:", v40[19], v40[20], v40[21], &unk_10000D3B1);
+                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", " hw:", v40[22], v40[23], v40[24], "\n");
+                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", "\t\t\tchecksum bad sw:", v40[25], v40[26], v40[27], &unk_10000D3B1);
+                    printf("%s IPv4=%qu UDP=%qu TCP=%qu%s", " hw:", v40[28], v40[29], v40[30], "\n");
+                    free(v40);
                   }
                 }
               }
@@ -6693,11 +6661,11 @@ LABEL_22:
               v28 += 80;
             }
 
-            while (v29 < LODWORD(v60[0]) / 0x50uLL);
+            while (v29 < LODWORD(v51[0]) / 0x50uLL);
           }
 
           free(v19);
-          free(v52);
+          free(v43);
           if (all)
           {
             v21 = verbose < 2;
@@ -6712,61 +6680,61 @@ LABEL_22:
           {
             puts("\tAddress cache:");
             bridge_addresses(a1, "\t\t");
-            v70 = 0uLL;
-            *&v67 = 0;
-            v65 = 0u;
-            v66 = 0u;
+            v61 = 0uLL;
+            *&v58 = 0;
+            v56 = 0u;
+            v57 = 0u;
             __strlcpy_chk();
-            v66 = xmmword_10000C5D0;
-            *&v67 = &v70;
-            if ((ioctl(a1, 0xC028697BuLL, &v65) & 0x80000000) == 0)
+            v57 = xmmword_10000C5D0;
+            *&v58 = &v61;
+            if ((ioctl(a1, 0xC028697BuLL, &v56) & 0x80000000) == 0)
             {
-              if (v70)
+              if (v61)
               {
                 puts("\tMAC NAT list:");
-                if (!WORD2(v70))
+                if (!WORD2(v61))
                 {
                   bridge_status_cold_6();
                 }
 
-                if (WORD2(v70) <= 0x2Fu)
+                if (WORD2(v61) <= 0x2Fu)
                 {
                   bridge_status_cold_5();
                 }
 
-                v22 = malloc_type_malloc(v70, 0x73C7F85AuLL);
+                v22 = malloc_type_malloc(v61, 0x73C7F85AuLL);
                 if (!v22)
                 {
                   bridge_status_cold_4();
                 }
 
                 v23 = v22;
-                *(&v70 + 1) = v22;
-                *&v67 = 0;
-                v65 = 0u;
-                v66 = 0u;
+                *(&v61 + 1) = v22;
+                *&v58 = 0;
+                v56 = 0u;
+                v57 = 0u;
                 __strlcpy_chk();
-                v66 = xmmword_10000C5D0;
-                *&v67 = &v70;
-                if (ioctl(a1, 0xC028697BuLL, &v65) < 0)
+                v57 = xmmword_10000C5D0;
+                *&v58 = &v61;
+                if (ioctl(a1, 0xC028697BuLL, &v56) < 0)
                 {
                   bridge_status_cold_3();
                 }
 
-                if (v70 >= WORD2(v70))
+                if (v61 >= WORD2(v61))
                 {
                   v24 = 0;
                   v25 = v23;
-                  v26 = v70 / WORD2(v70);
+                  v26 = v61 / WORD2(v61);
                   do
                   {
-                    LODWORD(v63) = v25[6];
-                    WORD2(v63) = *(v25 + 14);
-                    inet_ntop(*(v25 + 31), v25 + 8, &v65, 0x2Eu);
-                    v27 = ether_ntoa(&v63);
-                    printf("%s%s %s %s %lu\n", "\t\t", v25, &v65, v27, *(v25 + 2));
+                    LODWORD(v54) = v25[6];
+                    WORD2(v54) = *(v25 + 14);
+                    inet_ntop(*(v25 + 31), v25 + 8, &v56, 0x2Eu);
+                    v27 = ether_ntoa(&v54);
+                    printf("%s%s %s %s %lu\n", "\t\t", v25, &v56, v27, *(v25 + 2));
                     ++v24;
-                    v25 = (v25 + WORD2(v70));
+                    v25 = (v25 + WORD2(v61));
                   }
 
                   while (v24 < v26);
@@ -6801,19 +6769,19 @@ LABEL_5:
   return putchar(10);
 }
 
-void *clone_setcallback(void *result)
+void *clone_setcallback(void *result, uint64_t a2)
 {
   if (clone_cb)
   {
-    v1 = clone_cb == result;
+    v2 = clone_cb == result;
   }
 
   else
   {
-    v1 = 1;
+    v2 = 1;
   }
 
-  if (!v1)
+  if (!v2)
   {
     clone_setcallback_cold_1();
   }

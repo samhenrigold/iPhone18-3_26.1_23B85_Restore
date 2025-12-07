@@ -14,11 +14,13 @@
 
 - (id)description
 {
+  v6 = 0;
   bundleIdentifier = [(_EXExtensionIdentity *)self->_ekExtension bundleIdentifier];
-  NSAppendPrintF();
-  v2 = 0;
+  NSAppendPrintF(&v6, "%@", bundleIdentifier);
+  v3 = v6;
+  v4 = v6;
 
-  return 0;
+  return v3;
 }
 
 - (void)activate
@@ -36,8 +38,8 @@
 {
   if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    v0 = CUPrintNSError();
-    LogPrintF();
+    v3 = CUPrintNSError();
+    LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension _activate]", 90, "### Extension XPC start failed: %@, %@", a2, v3);
   }
 }
 
@@ -90,7 +92,7 @@ uint64_t __33__DADiscoveryExtension__activate__block_invoke_4(uint64_t a1, void 
 {
   if (gLogCategory_DADiscovery <= 90 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscoveryExtension _interrupted];
+    [(DADiscoveryExtension *)self _interrupted];
   }
 }
 
@@ -109,7 +111,7 @@ uint64_t __33__DADiscoveryExtension__activate__block_invoke_4(uint64_t a1, void 
 {
   if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
   {
-    [DADiscoveryExtension _invalidate];
+    [(DADiscoveryExtension *)self _invalidate];
   }
 
   parent = self->_parent;
@@ -130,7 +132,7 @@ uint64_t __33__DADiscoveryExtension__activate__block_invoke_4(uint64_t a1, void 
 
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DADiscoveryExtension _invalidated];
+      [(DADiscoveryExtension *)self _invalidated];
     }
 
     v5 = v6;
@@ -185,12 +187,10 @@ uint64_t __47__DADiscoveryExtension_reportEventToExtension___block_invoke(uint64
     {
       if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
       {
-        selfCopy = self;
-        v8 = eventCopy;
-        LogPrintF();
+        LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension reportEvent:]", 30, "ASK Extension event: %@, %@", self, eventCopy);
       }
 
-      [(DADiscovery *)self->_parent _reportASKEvent:eventCopy, selfCopy, v8];
+      [(DADiscovery *)self->_parent _reportASKEvent:eventCopy];
     }
   }
 
@@ -198,14 +198,10 @@ uint64_t __47__DADiscoveryExtension_reportEventToExtension___block_invoke(uint64
   {
     if (gLogCategory_DADiscovery <= 30 && (gLogCategory_DADiscovery != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
-      [(DADiscovery *)self->_parent _reportEvent:eventCopy, self, eventCopy];
+      LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension reportEvent:]", 30, "Extension event: %@, %@", self, eventCopy);
     }
 
-    else
-    {
-      [(DADiscovery *)self->_parent _reportEvent:eventCopy, selfCopy, v8];
-    }
+    [(DADiscovery *)self->_parent _reportEvent:eventCopy];
   }
 }
 
@@ -215,7 +211,7 @@ void __33__DADiscoveryExtension__activate__block_invoke_3_cold_1(uint64_t a1, ui
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension _activate]_block_invoke_3", 90, "### Extension XPC failed for consumeToken: %@, %@");
 }
 
 void __33__DADiscoveryExtension__activate__block_invoke_4_cold_1(uint64_t a1, uint64_t a2)
@@ -224,7 +220,7 @@ void __33__DADiscoveryExtension__activate__block_invoke_4_cold_1(uint64_t a1, ui
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension _activate]_block_invoke_4", 90, "### Extension XPC failed for startDiscovery: %@, %@");
 }
 
 void __47__DADiscoveryExtension_reportEventToExtension___block_invoke_cold_1(uint64_t a1, uint64_t a2)
@@ -233,7 +229,7 @@ void __47__DADiscoveryExtension_reportEventToExtension___block_invoke_cold_1(uin
   CUPrintNSError();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
-  LogPrintF();
+  LogPrintF(&gLogCategory_DADiscovery, "[DADiscoveryExtension reportEventToExtension:]_block_invoke", 90, "### Extension XPC failed for didReceiveDeviceChangedEvent: %@, %@");
 }
 
 @end

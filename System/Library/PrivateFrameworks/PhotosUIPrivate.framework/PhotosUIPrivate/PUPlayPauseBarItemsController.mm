@@ -46,7 +46,7 @@
   [(PUPlayPauseBarItemsController *)self _performChanges:v7];
 }
 
-uint64_t __62__PUPlayPauseBarItemsController__handleVideoPlayer_didChange___block_invoke(uint64_t a1)
+void *__62__PUPlayPauseBarItemsController__handleVideoPlayer_didChange___block_invoke(uint64_t a1)
 {
   if (([*(a1 + 32) isActivatedDidChange] & 1) != 0 || (objc_msgSend(*(a1 + 32), "desiredPlayStateDidChange") & 1) != 0 || objc_msgSend(*(a1 + 32), "playStateDidChange"))
   {
@@ -133,8 +133,8 @@ uint64_t __62__PUPlayPauseBarItemsController__handleVideoPlayer_didChange___bloc
     {
       if (_avPlayer)
       {
-        [_avPlayer currentTime];
-        [v6 currentItemDuration];
+        objc_msgSend_currentTime(_avPlayer);
+        objc_msgSend_currentItemDuration(v6);
       }
     }
 

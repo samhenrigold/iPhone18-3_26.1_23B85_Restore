@@ -68,7 +68,7 @@ void __82__HMDGuestModel_CoreData__cd_generateValueForProperty_managedObjectFiel
 
 - (id)cd_generateValueForModelObjectFromManagedObject:(id)object modelObjectField:(id)field modelFieldInfo:(id)info
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   fieldCopy = field;
   infoCopy = info;
@@ -81,9 +81,9 @@ void __82__HMDGuestModel_CoreData__cd_generateValueForProperty_managedObjectFiel
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v14;
-      v22 = 2114;
-      v23 = fieldCopy;
+      v20 = v14;
+      v21 = 2114;
+      v22 = fieldCopy;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring property [%{public}@] as it is not applicable for _MKFGuest entity", buf, 0x16u);
     }
 
@@ -100,15 +100,13 @@ void __82__HMDGuestModel_CoreData__cd_generateValueForProperty_managedObjectFiel
 
     else
     {
-      v19.receiver = self;
-      v19.super_class = HMDGuestModel;
-      allowedAccessoryUUIDs = [(HMDUserModel *)&v19 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
+      v18.receiver = self;
+      v18.super_class = HMDGuestModel;
+      allowedAccessoryUUIDs = [(HMDUserModel *)&v18 cd_generateValueForModelObjectFromManagedObject:objectCopy modelObjectField:fieldCopy modelFieldInfo:infoCopy];
     }
 
     v15 = allowedAccessoryUUIDs;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -129,47 +127,45 @@ void __82__HMDGuestModel_CoreData__cd_generateValueForProperty_managedObjectFiel
 
 void __48__HMDGuestModel_CoreData__shouldIgnoreProperty___block_invoke()
 {
-  v5[33] = *MEMORY[0x277D85DE8];
+  v4[33] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"activityNotificationsEnabledForPersonalRequests";
-  v5[1] = @"allowExplicitContent";
-  v5[2] = @"allowiTunesAccount";
-  v5[3] = @"analysisAccessSelection";
-  v5[4] = @"changeTag";
-  v5[5] = @"crossfadeEnabled";
-  v5[6] = @"crossfadeDuration";
-  v5[7] = @"dolbyAtmosEnabled";
-  v5[8] = @"losslessMusicEnabled";
-  v5[9] = @"ownerAddSceneButtonPresentedCount";
-  v5[10] = @"ownerCharacteristicAuthorizationData";
-  v5[11] = @"ownerCompletedSwitchingHomesOnboardingUI";
-  v5[12] = @"ownerDismissed2024EnergyOnboarding";
-  v5[13] = @"ownerDismissedAccessCodeOnboarding";
-  v5[14] = @"ownerDismissedAccessoryFirmwareUpdateOnboarding";
-  v5[15] = @"ownerDismissedAnnounceOnboarding";
-  v5[16] = @"ownerDismissedCameraRecordingOnboarding";
-  v5[17] = @"ownerDismissedCameraRecordingSetupBanner";
-  v5[18] = @"ownerDismissedCameraUpgradeOfferBanner";
-  v5[19] = @"ownerDismissedHomeTheaterOnboarding";
-  v5[20] = @"ownerDismissedIdentifyVoiceOnboarding";
-  v5[21] = @"ownerDismissedIdentifyVoiceSetupBanner";
-  v5[22] = @"ownerDismissedNaturalLightingOnboarding";
-  v5[23] = @"ownerDismissedTVViewingProfileOnboarding";
-  v5[24] = @"ownerDismissedTVViewingProfileSetupBanner";
-  v5[25] = @"ownerDismissedUserSplitMediaAccountWarning";
-  v5[26] = @"ownerDismissedWalletKeyExpressModeOnboarding";
-  v5[27] = @"ownerDismissedWelcomeUI";
-  v5[28] = @"ownerHasUserSeenRMVNewLanguageNotification";
-  v5[29] = @"photosPersonDataZoneUUIDString";
-  v5[30] = @"playbackInfluencesEnabled";
-  v5[31] = @"sharePhotosFaceClassifications";
-  v5[32] = @"siriIdentifyVoiceEnabled";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:33];
+  v4[0] = @"activityNotificationsEnabledForPersonalRequests";
+  v4[1] = @"allowExplicitContent";
+  v4[2] = @"allowiTunesAccount";
+  v4[3] = @"analysisAccessSelection";
+  v4[4] = @"changeTag";
+  v4[5] = @"crossfadeEnabled";
+  v4[6] = @"crossfadeDuration";
+  v4[7] = @"dolbyAtmosEnabled";
+  v4[8] = @"losslessMusicEnabled";
+  v4[9] = @"ownerAddSceneButtonPresentedCount";
+  v4[10] = @"ownerCharacteristicAuthorizationData";
+  v4[11] = @"ownerCompletedSwitchingHomesOnboardingUI";
+  v4[12] = @"ownerDismissed2024EnergyOnboarding";
+  v4[13] = @"ownerDismissedAccessCodeOnboarding";
+  v4[14] = @"ownerDismissedAccessoryFirmwareUpdateOnboarding";
+  v4[15] = @"ownerDismissedAnnounceOnboarding";
+  v4[16] = @"ownerDismissedCameraRecordingOnboarding";
+  v4[17] = @"ownerDismissedCameraRecordingSetupBanner";
+  v4[18] = @"ownerDismissedCameraUpgradeOfferBanner";
+  v4[19] = @"ownerDismissedHomeTheaterOnboarding";
+  v4[20] = @"ownerDismissedIdentifyVoiceOnboarding";
+  v4[21] = @"ownerDismissedIdentifyVoiceSetupBanner";
+  v4[22] = @"ownerDismissedNaturalLightingOnboarding";
+  v4[23] = @"ownerDismissedTVViewingProfileOnboarding";
+  v4[24] = @"ownerDismissedTVViewingProfileSetupBanner";
+  v4[25] = @"ownerDismissedUserSplitMediaAccountWarning";
+  v4[26] = @"ownerDismissedWalletKeyExpressModeOnboarding";
+  v4[27] = @"ownerDismissedWelcomeUI";
+  v4[28] = @"ownerHasUserSeenRMVNewLanguageNotification";
+  v4[29] = @"photosPersonDataZoneUUIDString";
+  v4[30] = @"playbackInfluencesEnabled";
+  v4[31] = @"sharePhotosFaceClassifications";
+  v4[32] = @"siriIdentifyVoiceEnabled";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:33];
   v2 = [v0 setWithArray:v1];
   v3 = shouldIgnoreProperty__ignoredPropertySet;
   shouldIgnoreProperty__ignoredPropertySet = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)properties
@@ -191,25 +187,24 @@ void __48__HMDGuestModel_CoreData__shouldIgnoreProperty___block_invoke()
 
 void __27__HMDGuestModel_properties__block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v11 = @"allowedAccessoryUUIDs";
+  v10 = @"allowedAccessoryUUIDs";
   v3 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v12[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
-  v10.receiver = *(a1 + 32);
-  v10.super_class = &OBJC_METACLASS___HMDGuestModel;
-  v5 = objc_msgSendSuper2(&v10, sel_properties);
+  v9.receiver = *(a1 + 32);
+  v9.super_class = &OBJC_METACLASS___HMDGuestModel;
+  v5 = objc_msgSendSuper2(&v9, sel_properties);
   v6 = [v5 mutableCopy];
 
   [v6 addEntriesFromDictionary:v4];
-  v7 = [v6 copy];
+  v7 = objc_msgSend_copy(v6);
   v8 = properties__properties_201416;
   properties__properties_201416 = v7;
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

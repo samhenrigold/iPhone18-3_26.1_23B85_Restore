@@ -49,46 +49,46 @@
 
 - (void)remoteUIController:(id)controller shouldLoadRequest:(id)request redirectResponse:(id)response withCompletionHandler:(id)handler
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, controller);
-  v37 = 0;
-  objc_storeStrong(&v37, request);
   v36 = 0;
-  objc_storeStrong(&v36, response);
+  objc_storeStrong(&v36, request);
   v35 = 0;
-  objc_storeStrong(&v35, handler);
-  [(AKAppleIDServerUIContextController *)selfCopy->_serverUIContextController processResponse:v36];
+  objc_storeStrong(&v35, response);
+  v34 = 0;
+  objc_storeStrong(&v34, handler);
+  [(AKAppleIDServerUIContextController *)selfCopy->_serverUIContextController processResponse:v35];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   presentingViewController = [WeakRetained presentingViewController];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     topViewController = [presentingViewController topViewController];
-    v31 = _AKLogSystem();
-    v30 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = _AKLogSystem();
+    v29 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_64(v40, topViewController);
-      _os_log_impl(&dword_222379000, v31, v30, "Starting nav controller: %@", v40, 0xCu);
+      __os_log_helper_16_2_1_8_64(v39, topViewController);
+      _os_log_impl(&dword_222379000, v30, v29, "Starting nav controller: %@", v39, 0xCu);
     }
 
-    objc_storeStrong(&v31, 0);
+    objc_storeStrong(&v30, 0);
     objc_storeWeak(&selfCopy->_topViewControllerOnLoadStart, topViewController);
     objc_storeStrong(&topViewController, 0);
   }
 
   httpHeadersForRemoteUI = [WeakRetained httpHeadersForRemoteUI];
-  v17 = httpHeadersForRemoteUI;
-  v23 = MEMORY[0x277D85DD0];
-  v24 = -1073741824;
-  v25 = 0;
-  v26 = __117__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke;
-  v27 = &unk_2784A7710;
-  v28 = MEMORY[0x277D82BE0](v37);
-  [v17 enumerateKeysAndObjectsUsingBlock:&v23];
+  v16 = httpHeadersForRemoteUI;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = -1073741824;
+  v24 = 0;
+  v25 = __117__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke;
+  v26 = &unk_2784A7710;
+  v27 = MEMORY[0x277D82BE0](v36);
+  [v16 enumerateKeysAndObjectsUsingBlock:&v22];
   isRequestedFromOOPViewService = 0;
   if ([WeakRetained needsCredentialRecovery])
   {
@@ -96,50 +96,48 @@
   }
 
   mEMORY[0x277CF0228] = [MEMORY[0x277CF0228] sharedManager];
-  v16 = 0;
+  v15 = 0;
   if ([mEMORY[0x277CF0228] isForgotPasswordNativeTakeoverEnabled])
   {
-    v16 = isRequestedFromOOPViewService & 1;
+    v15 = isRequestedFromOOPViewService & 1;
   }
 
   v6 = MEMORY[0x277D82BD8](mEMORY[0x277CF0228]).n128_u64[0];
-  if (v16)
+  if (v15)
   {
     _passwordResetRequestType = [(AKInAppAuthenticationRemoteUIDelegate *)selfCopy _passwordResetRequestType];
-    v12 = v37;
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_passwordResetRequestType];
-    stringValue = [v14 stringValue];
-    v7 = *MEMORY[0x277CEFEB8];
-    [v12 setValue:? forHTTPHeaderField:?];
+    v11 = v36;
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_passwordResetRequestType];
+    stringValue = [v13 stringValue];
+    [v11 setValue:? forHTTPHeaderField:?];
     MEMORY[0x277D82BD8](stringValue);
-    *&v8 = MEMORY[0x277D82BD8](v14).n128_u64[0];
+    *&v7 = MEMORY[0x277D82BD8](v13).n128_u64[0];
     if ([WeakRetained isNativeTakeover])
     {
-      [v37 setValue:*MEMORY[0x277CF00B8] forHTTPHeaderField:*MEMORY[0x277CEFFF8]];
+      [v36 setValue:*MEMORY[0x277CF00B8] forHTTPHeaderField:*MEMORY[0x277CEFFF8]];
     }
 
     else
     {
       serviceIdentifier = [WeakRetained serviceIdentifier];
-      v11 = [serviceIdentifier isEqualToString:*MEMORY[0x277CEFF68]];
+      v10 = [serviceIdentifier isEqualToString:*MEMORY[0x277CEFF68]];
       v6 = MEMORY[0x277D82BD8](serviceIdentifier).n128_u64[0];
-      if (v11)
+      if (v10)
       {
-        [v37 setValue:*MEMORY[0x277CF00B0] forHTTPHeaderField:{*MEMORY[0x277CEFFF8], *&v6}];
+        [v36 setValue:*MEMORY[0x277CF00B0] forHTTPHeaderField:{*MEMORY[0x277CEFFF8], *&v6}];
       }
     }
   }
 
-  [(AKAppleIDServerUIContextController *)selfCopy->_serverUIContextController signRequest:v37 withCompletionHandler:v35, *&v6, &v35];
-  objc_storeStrong(&v28, 0);
+  [(AKAppleIDServerUIContextController *)selfCopy->_serverUIContextController signRequest:v36 withCompletionHandler:v34, *&v6, &v34];
+  objc_storeStrong(&v27, 0);
   objc_storeStrong(&httpHeadersForRemoteUI, 0);
   objc_storeStrong(&presentingViewController, 0);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(v9, 0);
+  objc_storeStrong(v8, 0);
+  objc_storeStrong(&v35, 0);
   objc_storeStrong(&v36, 0);
-  objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __117__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_shouldLoadRequest_redirectResponse_withCompletionHandler___block_invoke(id *a1, void *a2, void *a3)
@@ -242,7 +240,6 @@ void __117__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_shouldLoadR
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller didFinishLoadWithError:(id)error forRequest:(id)request
@@ -432,7 +429,6 @@ void __94__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didFinishLoa
   MEMORY[0x277D82BD8](WeakRetained);
   objc_storeStrong(&v7, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller didDismissModalNavigationWithObjectModels:(id)models
@@ -764,7 +760,6 @@ LABEL_66:
   objc_storeStrong(&navigationController, 0);
   objc_storeStrong(&v86, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __95__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didReceiveObjectModel_actionSignal___block_invoke(uint64_t a1)
@@ -949,7 +944,6 @@ void __95__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didReceiveOb
   objc_storeStrong(&WeakRetained, 0);
   objc_storeStrong(&v37, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller didReceiveChallenge:(id)challenge completionHandler:(id)handler
@@ -1039,23 +1033,21 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, i);
-  v10 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0350] error:0];
-  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [MEMORY[0x277CE44D8] encodedElementNameWithDomainPrefix:@"com.apple.remoteui" element:location[0] activeElements:v9];
-  aaf_arrayAsCommaSeperatedString = [v9 aaf_arrayAsCommaSeperatedString];
-  v3 = *MEMORY[0x277CF0328];
-  [v10 setObject:? forKeyedSubscript:?];
+  v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0350] error:0];
+  v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [MEMORY[0x277CE44D8] encodedElementNameWithDomainPrefix:@"com.apple.remoteui" element:location[0] activeElements:v7];
+  aaf_arrayAsCommaSeperatedString = [v7 aaf_arrayAsCommaSeperatedString];
+  [v8 setObject:? forKeyedSubscript:?];
   MEMORY[0x277D82BD8](aaf_arrayAsCommaSeperatedString);
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   telemetryFlowID = [WeakRetained telemetryFlowID];
-  v4 = *MEMORY[0x277CE45B8];
-  [v10 setObject:? forKeyedSubscript:?];
+  [v8 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v10];
+  [rtcAnalyticsReporter sendEvent:v8];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(&v9, 0);
-  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1065,16 +1057,15 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, element);
-  v7 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0330] error:0];
+  v6 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0330] error:0];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   telemetryFlowID = [WeakRetained telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v7 setObject:? forKeyedSubscript:?];
+  [v6 setObject:? forKeyedSubscript:?];
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v7];
+  [rtcAnalyticsReporter sendEvent:v6];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1084,16 +1075,15 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v7 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0338] error:0];
+  v6 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0338] error:0];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   telemetryFlowID = [WeakRetained telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v7 setObject:? forKeyedSubscript:?];
+  [v6 setObject:? forKeyedSubscript:?];
   MEMORY[0x277D82BD8](telemetryFlowID);
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v7];
+  [rtcAnalyticsReporter sendEvent:v6];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
-  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1103,19 +1093,18 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, l);
-  v10 = 0;
-  objc_storeStrong(&v10, error);
-  v9 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0340] error:v10];
+  v9 = 0;
+  objc_storeStrong(&v9, error);
+  v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0340] error:v9];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   telemetryFlowID = [WeakRetained telemetryFlowID];
-  v4 = *MEMORY[0x277CE45B8];
-  [v9 setObject:? forKeyedSubscript:?];
+  [v8 setObject:? forKeyedSubscript:?];
   MEMORY[0x277D82BD8](telemetryFlowID);
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v9];
+  [rtcAnalyticsReporter sendEvent:v8];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(&v9, 0);
-  objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1125,22 +1114,20 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, hook);
-  v11 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0348] error:0];
+  v9 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:location[0] eventName:*MEMORY[0x277CF0348] error:0];
   WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
   telemetryFlowID = [WeakRetained telemetryFlowID];
-  v3 = *MEMORY[0x277CE45B8];
-  [v11 setObject:? forKeyedSubscript:?];
-  *&v4 = MEMORY[0x277D82BD8](telemetryFlowID).n128_u64[0];
+  [v9 setObject:? forKeyedSubscript:?];
+  *&v3 = MEMORY[0x277D82BD8](telemetryFlowID).n128_u64[0];
   attributes = [location[0] attributes];
-  v7 = [attributes objectForKeyedSubscript:@"name"];
-  v5 = *MEMORY[0x277CF0370];
-  [v11 setObject:? forKeyedSubscript:?];
-  MEMORY[0x277D82BD8](v7);
+  v5 = [attributes objectForKeyedSubscript:@"name"];
+  [v9 setObject:? forKeyedSubscript:?];
+  MEMORY[0x277D82BD8](v5);
   rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-  [rtcAnalyticsReporter sendEvent:v11];
+  [rtcAnalyticsReporter sendEvent:v9];
   MEMORY[0x277D82BD8](rtcAnalyticsReporter);
   objc_storeStrong(&WeakRetained, 0);
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1150,29 +1137,28 @@ uint64_t __98__AKInAppAuthenticationRemoteUIDelegate_remoteUIController_didRecei
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, error);
-  v11 = 0;
-  objc_storeStrong(&v11, element);
+  v10 = 0;
+  objc_storeStrong(&v10, element);
   if (location[0])
   {
-    v9 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:v11 eventName:*MEMORY[0x277CF0358] error:location[0]];
+    v8 = [MEMORY[0x277CE44D8] ak_analyticsEventWithRUITelemetryElement:v10 eventName:*MEMORY[0x277CF0358] error:location[0]];
     WeakRetained = objc_loadWeakRetained(&selfCopy->_context);
     telemetryFlowID = [WeakRetained telemetryFlowID];
-    v4 = *MEMORY[0x277CE45B8];
-    [v9 setObject:? forKeyedSubscript:?];
+    [v8 setObject:? forKeyedSubscript:?];
     rtcAnalyticsReporter = [MEMORY[0x277CF0158] rtcAnalyticsReporter];
-    [rtcAnalyticsReporter sendEvent:v9];
+    [rtcAnalyticsReporter sendEvent:v8];
     MEMORY[0x277D82BD8](rtcAnalyticsReporter);
     objc_storeStrong(&WeakRetained, 0);
-    objc_storeStrong(&v9, 0);
-    v10 = 0;
+    objc_storeStrong(&v8, 0);
+    v9 = 0;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -1367,7 +1353,6 @@ void __52__AKInAppAuthenticationRemoteUIDelegate__showAlert___block_invoke(uint6
   objc_storeStrong(&v24, 0);
   objc_storeStrong(&v23, 0);
   objc_storeStrong(v2, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __52__AKInAppAuthenticationRemoteUIDelegate__showAlert___block_invoke_82(void *a1, void *a2)

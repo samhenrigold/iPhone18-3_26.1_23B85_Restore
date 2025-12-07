@@ -1,4 +1,5 @@
 @interface ICRemovePinRequest
+- (ICRemovePinRequest)initWithEntityType:(int64_t)type cloudID:(int64_t)d cloudLibraryID:(id)iD databaseID:(unsigned int)databaseID databaseRevision:(unsigned int)revision;
 - (id)_bodyDataWithServerDatabaseRevision:(unsigned int)revision;
 - (id)canonicalResponseForResponse:(id)response;
 - (id)description;
@@ -9,12 +10,10 @@
 - (id)description
 {
   v3 = objc_opt_class();
-  entityType = self->_entityType;
-  v5 = NSStringFromICLibraryPinEntityType();
-  cloudID = self->_cloudID;
-  v7 = [NSString stringWithFormat:@"<%@: %p entityType=%@, cloudID=%lld, cloudLibraryID=%@>", v3, self, v5, cloudID, self->_cloudLibraryID];
+  v4 = NSStringFromICLibraryPinEntityType();
+  v5 = [NSString stringWithFormat:@"<%@: %p entityType=%@, cloudID=%lld, cloudLibraryID=%@>", v3, self, v4, self->_cloudID, self->_cloudLibraryID];
 
-  return v7;
+  return v5;
 }
 
 - (id)_bodyDataWithServerDatabaseRevision:(unsigned int)revision
@@ -40,6 +39,32 @@
   }
 
   return v4;
+}
+
+- (ICRemovePinRequest)initWithEntityType:(int64_t)type cloudID:(int64_t)d cloudLibraryID:(id)iD databaseID:(unsigned int)databaseID databaseRevision:(unsigned int)revision
+{
+  v7 = *&revision;
+  v8 = *&databaseID;
+  iDCopy = iD;
+  v13 = [NSString stringWithFormat:@"databases/%u/edit", v8];
+  v19.receiver = self;
+  v19.super_class = ICRemovePinRequest;
+  v14 = [(ICDRequest *)&v19 initWithAction:v13];
+
+  if (v14)
+  {
+    v14->_cloudID = d;
+    v14->_entityType = type;
+    v15 = [iDCopy copy];
+    cloudLibraryID = v14->_cloudLibraryID;
+    v14->_cloudLibraryID = v15;
+
+    [(ICDRequest *)v14 setMethod:1];
+    v17 = [(ICRemovePinRequest *)v14 _bodyDataWithServerDatabaseRevision:v7];
+    [(ICDRequest *)v14 setBodyData:v17];
+  }
+
+  return v14;
 }
 
 @end

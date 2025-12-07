@@ -246,15 +246,15 @@
   {
     asset = [v5 asset];
     identifier = [asset identifier];
-    indexPath = [(PUReviewAssetsDataSource *)self indexPathForAssetWithIdentifier:identifier];
+    v9 = [(PUReviewAssetsDataSource *)self indexPathForAssetWithIdentifier:identifier];
   }
 
   else
   {
-    indexPath = [v5 indexPath];
+    v9 = objc_msgSend_indexPath(v5);
   }
 
-  return indexPath;
+  return v9;
 }
 
 - (id)assetReferenceAtIndexPath:(id)path

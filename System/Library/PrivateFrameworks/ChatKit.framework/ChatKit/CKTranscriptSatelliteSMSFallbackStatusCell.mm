@@ -253,7 +253,7 @@ LABEL_11:
     smsFallbackStatusTitleLabelAttributedText = IMLogHandleForCategory();
     if (os_log_type_enabled(smsFallbackStatusTitleLabelAttributedText, OS_LOG_TYPE_ERROR))
     {
-      [CKTranscriptSatelliteSMSFallbackStatusCell(CKChatItem) configureForChatItem:context:animated:animationDuration:animationCurve:];
+      [CKTranscriptSatelliteSMSFallbackStatusCell(CKChatItem) configureForChatItem:itemCopy context:? animated:? animationDuration:? animationCurve:?];
     }
   }
 }

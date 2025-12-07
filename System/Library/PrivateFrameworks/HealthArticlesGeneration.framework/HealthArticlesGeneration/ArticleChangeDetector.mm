@@ -9,14 +9,13 @@
 {
   v4 = sub_2288AF1F0();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2288AF1D0();
   selfCopy = self;
-  sub_2288A348C();
+  sub_2288A348C(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (_TtC24HealthArticlesGeneration21ArticleChangeDetector)init

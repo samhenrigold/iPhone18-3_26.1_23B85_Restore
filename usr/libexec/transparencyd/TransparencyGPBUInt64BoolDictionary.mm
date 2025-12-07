@@ -10,6 +10,7 @@
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndBoolsUsingBlock:(id)block;
 - (void)removeBoolForKey:(unint64_t)key;
+- (void)setBool:(BOOL)bool forKey:(unint64_t)key;
 - (void)setTransparencyGPBGenericValue:(id *)value forTransparencyGPBGenericValueKey:(id *)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
@@ -226,6 +227,17 @@
 
       sub_100192DE8(autocreator, self);
     }
+  }
+}
+
+- (void)setBool:(BOOL)bool forKey:(unint64_t)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithBool:" numberWithBool:bool], [NSNumber numberWithUnsignedLongLong:key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    sub_100192DE8(autocreator, self);
   }
 }
 

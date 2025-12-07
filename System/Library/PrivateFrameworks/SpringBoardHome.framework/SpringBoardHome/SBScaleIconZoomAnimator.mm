@@ -45,13 +45,13 @@
 
 - (void)_prepareAnimation
 {
-  v1 = NSStringFromSelector(self);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(self);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_10();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_3_2(&dword_1BEB18000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3_2(&dword_1BEB18000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
 - (CGPoint)_referenceIconImageCenter
@@ -264,7 +264,7 @@
 {
   viewCopy = view;
   targetIconContainerView = [(SBScaleIconZoomAnimator *)self targetIconContainerView];
-  [targetIconContainerView bounds];
+  objc_msgSend_bounds(targetIconContainerView);
   [viewCopy setFrame:?];
 
   [targetIconContainerView addSubview:self->_targetIconPositioningView];
@@ -495,7 +495,7 @@ void __124__SBScaleIconZoomAnimator__performAnimationToFraction_withCentralAnima
 - (CGRect)_zoomedFrame
 {
   referenceView = [(SBIconAnimator *)self referenceView];
-  [referenceView bounds];
+  objc_msgSend_bounds(referenceView);
   v4 = v3;
   v6 = v5;
   v8 = v7;
@@ -576,7 +576,7 @@ void __124__SBScaleIconZoomAnimator__performAnimationToFraction_withCentralAnima
   [targetIconView _setVisualAltitude:self->_naturalVisualAltitude + (v11 - self->_naturalVisualAltitude) * fraction];
   if (targetIconView)
   {
-    [targetIconView transform];
+    objc_msgSend_transform(targetIconView);
   }
 
   else

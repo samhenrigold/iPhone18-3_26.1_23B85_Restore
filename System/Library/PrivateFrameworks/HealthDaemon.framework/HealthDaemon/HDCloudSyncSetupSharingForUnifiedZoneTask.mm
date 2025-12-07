@@ -14,12 +14,12 @@
   v17 = [(HDCloudSyncManagerPipelineTask *)&v23 initWithManager:manager context:context accessibilityAssertion:assertion completion:completion];
   if (v17)
   {
-    v18 = [infoCopy copy];
+    v18 = objc_msgSend_copy(infoCopy);
     lookupInfo = v17->_lookupInfo;
     v17->_lookupInfo = v18;
 
     v17->_requireExistingRelationship = relationship;
-    v20 = [modeCopy copy];
+    v20 = objc_msgSend_copy(modeCopy);
     requireZoneDeviceMode = v17->_requireZoneDeviceMode;
     v17->_requireZoneDeviceMode = v20;
   }

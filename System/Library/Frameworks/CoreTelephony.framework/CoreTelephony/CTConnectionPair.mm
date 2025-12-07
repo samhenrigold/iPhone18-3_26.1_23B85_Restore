@@ -18,20 +18,21 @@
   parameters1Copy = parameters1;
   endpoint2Copy = endpoint2;
   parameter2Copy = parameter2;
-  v27.receiver = self;
-  v27.super_class = CTConnectionPair;
-  v18 = [(CTConnectionPair *)&v27 init];
+  v29.receiver = self;
+  v29.super_class = CTConnectionPair;
+  v18 = [(CTConnectionPair *)&v29 init];
   if (!v18)
   {
 LABEL_7:
-    v21 = 0;
+    v23 = 0;
     goto LABEL_8;
   }
 
-  if (([objc_opt_class() conformsToProtocol:&unk_1EF07D270] & 1) == 0)
+  v19 = [objc_opt_class() conformsToProtocol:&unk_1EF07D270];
+  if ((v19 & 1) == 0)
   {
-    v22 = CTLogConnectionPair();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = CTLogConnectionPair(v19, v20);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [CTConnectionPair initWithQueue:delegate:endpoint1:parameters1:endpoint2:parameter2:];
     }
@@ -55,10 +56,10 @@ LABEL_7:
   objc_storeStrong(&v18->fEndpoint2, endpoint2);
   objc_storeStrong(&v18->fParameters2, parameter2);
   v18->fConnectionState2 = 0;
-  v21 = v18;
+  v23 = v18;
 LABEL_8:
 
-  return v21;
+  return v23;
 }
 
 - (void)receiveData:(int64_t)data
@@ -92,12 +93,13 @@ void __32__CTConnectionPair_receiveData___block_invoke(uint64_t a1, void *a2, vo
   v8 = a2;
   v9 = a3;
   v10 = a5;
+  v12 = v10;
   if (v10)
   {
-    v11 = CTLogConnectionPair();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogConnectionPair(v10, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __32__CTConnectionPair_receiveData___block_invoke_cold_1(a1);
+      __32__CTConnectionPair_receiveData___block_invoke_cold_1();
     }
   }
 
@@ -105,21 +107,21 @@ void __32__CTConnectionPair_receiveData___block_invoke(uint64_t a1, void *a2, vo
   {
     if (v8)
     {
-      v12 = v8;
-      v13 = *(a1 + 32);
+      v14 = v8;
+      v15 = *(a1 + 32);
       objc_copyWeak(to, (a1 + 40));
-      v14 = v12;
-      v15 = *(a1 + 48);
-      to[1] = v14;
-      to[2] = v15;
-      v16 = v13;
+      v16 = v14;
+      v17 = *(a1 + 48);
+      to[1] = v16;
+      to[2] = v17;
+      v18 = v15;
       operator new();
     }
 
-    v11 = CTLogConnectionPair();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = CTLogConnectionPair(0, v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __32__CTConnectionPair_receiveData___block_invoke_cold_2(a1);
+      __32__CTConnectionPair_receiveData___block_invoke_cold_2();
     }
   }
 }
@@ -251,13 +253,13 @@ void __25__CTConnectionPair_start__block_invoke(uint64_t a1, uint64_t a2, void *
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = WeakRetained;
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v5)
     {
-      v8 = CTLogConnectionPair();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = CTLogConnectionPair(WeakRetained, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __25__CTConnectionPair_start__block_invoke_cold_1();
       }
@@ -274,13 +276,13 @@ void __25__CTConnectionPair_start__block_invoke_54(uint64_t a1, uint64_t a2, voi
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = WeakRetained;
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v5)
     {
-      v8 = CTLogConnectionPair();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = CTLogConnectionPair(WeakRetained, v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __25__CTConnectionPair_start__block_invoke_54_cold_1();
       }
@@ -310,24 +312,24 @@ void __25__CTConnectionPair_start__block_invoke_54(uint64_t a1, uint64_t a2, voi
       fConnection2 = self->fConnection1;
     }
 
-    v11 = dispatch_data_create([dataCopy bytes], objc_msgSend(dataCopy, "length"), 0, 0);
-    nw_connection_send(fConnection2, v11, *MEMORY[0x1E6977E88], 1, completionCopy);
+    v13 = dispatch_data_create([dataCopy bytes], objc_msgSend(dataCopy, "length"), 0, 0);
+    nw_connection_send(fConnection2, v13, *MEMORY[0x1E6977E88], 1, completionCopy);
 
-    v12 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v13 = CTLogConnectionPair();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = CTLogConnectionPair(v10, v11);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [CTConnectionPair sendData:? usingConnection:? completion:?];
+      [CTConnectionPair sendData:usingConnection:completion:];
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (void)dealloc

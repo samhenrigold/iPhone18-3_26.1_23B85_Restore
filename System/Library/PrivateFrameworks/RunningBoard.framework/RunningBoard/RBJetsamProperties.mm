@@ -1,5 +1,7 @@
 @interface RBJetsamProperties
++ (id)jetsamPropertiesForProperties:(id)properties globalProperties:(id)globalProperties taskLimit:(int)limit unLimit:(int)unLimit;
 - (BOOL)isFreezerEligible;
+- (id)_altKeyForCategory:(id)category strength:(unsigned __int8)strength;
 - (id)_directPropertyDescription:(id)description;
 - (id)_initWithProperties:(id)properties globalProperties:(id)globalProperties taskLimit:(int)limit unLimit:(int)unLimit;
 - (id)_keyForCategory:(id)category strength:(unsigned __int8)strength;
@@ -9,6 +11,7 @@
 - (int)_integerLimitValue:(id)value;
 - (int)memoryLimitForCategory:(id)category strength:(unsigned __int8 *)strength;
 - (unsigned)_altStrength:(unsigned __int8)strength;
+- (void)_setLimitFor:(id)for strength:(unsigned __int8)strength toValue:(id)value;
 - (void)overrideMemoryLimitCategoriesWithProperties:(id)properties;
 @end
 
@@ -53,13 +56,10 @@
 
 - (id)_propertiesDescription
 {
-  memoryLimitCategories = self->_memoryLimitCategories;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v5 = self->_memoryLimitCategories;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v6 = [self->_memoryLimitCategories entriesToStringWithIndent:1 debug:1];
+    v3 = [self->_memoryLimitCategories entriesToStringWithIndent:1 debug:1];
   }
 
   else
@@ -67,19 +67,19 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v7 = objc_alloc(MEMORY[0x277CCACA8]);
-      v8 = [(RBJetsamProperties *)self _directPropertyDescription:@"Active"];
-      v9 = [(RBJetsamProperties *)self _directPropertyDescription:@"Inactive"];
-      v6 = [v7 initWithFormat:@"%@%@", v8, v9];
+      v4 = objc_alloc(MEMORY[0x277CCACA8]);
+      v5 = [(RBJetsamProperties *)self _directPropertyDescription:@"Active"];
+      v6 = [(RBJetsamProperties *)self _directPropertyDescription:@"Inactive"];
+      v3 = [v4 initWithFormat:@"%@%@", v5, v6];
     }
 
     else
     {
-      v6 = 0;
+      v3 = 0;
     }
   }
 
-  return v6;
+  return v3;
 }
 
 - (id)getValueFrom:(id)from forKey:(id)key
@@ -191,6 +191,25 @@ LABEL_16:
   }
 }
 
+- (id)_altKeyForCategory:(id)category strength:(unsigned __int8)strength
+{
+  strengthCopy = strength;
+  categoryCopy = category;
+  [(RBJetsamProperties *)self _altStrength:strengthCopy];
+  v7 = NSStringFromRBSMemoryLimitStrength();
+  v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@%@MemoryLimit", categoryCopy, v7];
+
+  return v8;
+}
+
+- (void)_setLimitFor:(id)for strength:(unsigned __int8)strength toValue:(id)value
+{
+  strengthCopy = strength;
+  valueCopy = value;
+  v9 = [(RBJetsamProperties *)self _keyForCategory:for strength:strengthCopy];
+  [self->_memoryLimitCategories setValue:valueCopy forKey:v9];
+}
+
 - (id)_initWithProperties:(id)properties globalProperties:(id)globalProperties taskLimit:(int)limit unLimit:(int)unLimit
 {
   propertiesCopy = properties;
@@ -210,6 +229,17 @@ LABEL_16:
   }
 
   return v12;
+}
+
++ (id)jetsamPropertiesForProperties:(id)properties globalProperties:(id)globalProperties taskLimit:(int)limit unLimit:(int)unLimit
+{
+  v6 = *&unLimit;
+  v7 = *&limit;
+  globalPropertiesCopy = globalProperties;
+  propertiesCopy = properties;
+  v11 = [[RBJetsamProperties alloc] _initWithProperties:propertiesCopy globalProperties:globalPropertiesCopy taskLimit:v7 unLimit:v6];
+
+  return v11;
 }
 
 - (int)_integerLimitValue:(id)value
@@ -235,7 +265,7 @@ LABEL_16:
 
 - (int)memoryLimitForCategory:(id)category strength:(unsigned __int8 *)strength
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   v7 = *strength;
   v8 = [(RBJetsamProperties *)self _altStrength:*strength];
@@ -291,27 +321,27 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v19 = [(RBJetsamProperties *)self _keyForCategory:categoryCopy strength:v10];
+  v18 = [(RBJetsamProperties *)self _keyForCategory:categoryCopy strength:v10];
 
-  v20 = [(RBJetsamProperties *)self getValueFrom:self->_globalProperties forKey:v19];
-  if (v20)
+  v19 = [(RBJetsamProperties *)self getValueFrom:self->_globalProperties forKey:v18];
+  if (v19)
   {
-    v21 = v20;
+    v20 = v19;
     *strength = v10;
-    taskLimit = [(RBJetsamProperties *)self _integerLimitValue:v20];
+    taskLimit = [(RBJetsamProperties *)self _integerLimitValue:v19];
 
-    v11 = v19;
+    v11 = v18;
     goto LABEL_15;
   }
 
   v11 = [(RBJetsamProperties *)self _keyForCategory:categoryCopy strength:v8];
 
-  v22 = [(RBJetsamProperties *)self getValueFrom:self->_globalProperties forKey:v11];
-  if (v22)
+  v21 = [(RBJetsamProperties *)self getValueFrom:self->_globalProperties forKey:v11];
+  if (v21)
   {
-    v23 = v22;
+    v22 = v21;
     *strength = v8;
-    taskLimit = [(RBJetsamProperties *)self _integerLimitValue:v22];
+    taskLimit = [(RBJetsamProperties *)self _integerLimitValue:v21];
 
     goto LABEL_15;
   }
@@ -322,18 +352,17 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v24 = rbs_jetsam_log();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = rbs_jetsam_log();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = categoryCopy;
-    _os_log_impl(&dword_262485000, v24, OS_LOG_TYPE_DEFAULT, "No JetsamProperties for this process for category '%@'", &v25, 0xCu);
+    v24 = 138412290;
+    v25 = categoryCopy;
+    _os_log_impl(&dword_262485000, v23, OS_LOG_TYPE_DEFAULT, "No JetsamProperties for this process for category '%@'", &v24, 0xCu);
   }
 
   taskLimit = [(RBJetsamProperties *)self memoryLimitForCategory:@"Inactive" strength:strength];
 LABEL_15:
 
-  v17 = *MEMORY[0x277D85DE8];
   return taskLimit;
 }
 
@@ -371,27 +400,25 @@ LABEL_6:
 
 - (void)overrideMemoryLimitCategoriesWithProperties:(id)properties
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  memoryLimitCategories = self->_memoryLimitCategories;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v7 = propertiesCopy[1], objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
   {
-    v8 = [(RBJetsamProperties *)self _keyForCategory:@"Active" strength:1];
+    v6 = [(RBJetsamProperties *)self _keyForCategory:@"Active" strength:1];
+    [v5 addObject:v6];
+
+    v7 = [(RBJetsamProperties *)self _keyForCategory:@"Active" strength:2];
+    [v5 addObject:v7];
+
+    v8 = [(RBJetsamProperties *)self _keyForCategory:@"Inactive" strength:1];
     [v5 addObject:v8];
 
-    v9 = [(RBJetsamProperties *)self _keyForCategory:@"Active" strength:2];
+    v9 = [(RBJetsamProperties *)self _keyForCategory:@"Inactive" strength:2];
     [v5 addObject:v9];
-
-    v10 = [(RBJetsamProperties *)self _keyForCategory:@"Inactive" strength:1];
-    [v5 addObject:v10];
-
-    v11 = [(RBJetsamProperties *)self _keyForCategory:@"Inactive" strength:2];
-    [v5 addObject:v11];
   }
 
-  v12 = self->_memoryLimitCategories;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -399,7 +426,6 @@ LABEL_6:
     [v5 addObjectsFromArray:allKeys];
   }
 
-  v14 = propertiesCopy[1];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -407,72 +433,70 @@ LABEL_6:
     [v5 addObjectsFromArray:allKeys2];
   }
 
-  v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v17 = v5;
-  v18 = [v17 countByEnumeratingWithState:&v31 objects:v35 count:16];
-  obj = v17;
-  if (!v18)
+  v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  memoryLimitCategories = v5;
+  v14 = [memoryLimitCategories countByEnumeratingWithState:&v26 objects:v30 count:16];
+  obj = memoryLimitCategories;
+  if (!v14)
   {
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v19 = v18;
-  v20 = 0;
-  v21 = *v32;
+  v15 = v14;
+  v16 = 0;
+  v17 = *v27;
   do
   {
-    for (i = 0; i != v19; ++i)
+    for (i = 0; i != v15; ++i)
     {
-      if (*v32 != v21)
+      if (*v27 != v17)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v31 + 1) + 8 * i);
-      v24 = [(RBJetsamProperties *)self getValueFrom:self->_memoryLimitCategories forKey:v23];
-      v25 = [propertiesCopy getValueFrom:propertiesCopy[1] forKey:v23];
-      v26 = v25;
-      if (v25)
+      v19 = *(*(&v26 + 1) + 8 * i);
+      v20 = [(RBJetsamProperties *)self getValueFrom:self->_memoryLimitCategories forKey:v19];
+      v21 = [propertiesCopy getValueFrom:propertiesCopy[1] forKey:v19];
+      v22 = v21;
+      if (v21)
       {
-        v20 = 1;
-        v27 = v25;
+        v16 = 1;
+        v23 = v21;
       }
 
       else
       {
-        v27 = v24;
-        if (!v24)
+        v23 = v20;
+        if (!v20)
         {
           goto LABEL_17;
         }
       }
 
-      [v16 setObject:v27 forKey:v23];
+      [v12 setObject:v23 forKey:v19];
 LABEL_17:
     }
 
-    v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   }
 
-  while (v19);
+  while (v15);
 
-  if (v20)
+  if (v16)
   {
-    v28 = v16;
-    v17 = self->_memoryLimitCategories;
-    self->_memoryLimitCategories = v28;
+    v24 = v12;
+    memoryLimitCategories = self->_memoryLimitCategories;
+    self->_memoryLimitCategories = v24;
     goto LABEL_21;
   }
 
 LABEL_22:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

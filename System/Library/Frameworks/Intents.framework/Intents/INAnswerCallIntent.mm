@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[2] = *MEMORY[0x1E69E9840];
-  v13[0] = @"audioRoute";
+  v13[2] = *MEMORY[0x1E69E9840];
+  v12[0] = @"audioRoute";
   audioRoute = [(INAnswerCallIntent *)self audioRoute];
   v4 = @"speakerphoneAudioRoute";
   v5 = @"heySiriAudioRoute";
@@ -44,8 +44,8 @@
   }
 
   v7 = v4;
-  v13[1] = @"callIdentifier";
-  v14[0] = v7;
+  v12[1] = @"callIdentifier";
+  v13[0] = v7;
   callIdentifier = [(INAnswerCallIntent *)self callIdentifier];
   null = callIdentifier;
   if (!callIdentifier)
@@ -53,13 +53,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[1] = null;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = null;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   if (!callIdentifier)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

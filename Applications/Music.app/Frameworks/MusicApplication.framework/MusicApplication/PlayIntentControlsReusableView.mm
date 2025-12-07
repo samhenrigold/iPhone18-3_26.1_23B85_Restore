@@ -19,13 +19,13 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_41376C();
+  sub_41376C(selfCopy);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_413844();
+  sub_413844(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

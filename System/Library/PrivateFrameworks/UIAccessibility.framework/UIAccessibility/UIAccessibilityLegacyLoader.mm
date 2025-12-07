@@ -44,7 +44,7 @@ void __41__UIAccessibilityLegacyLoader_initialize__block_invoke()
 
 + (void)loadExtendedAccessibilityBundles
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   v5 = [self _axBundleForBundle:mainBundle];
@@ -53,9 +53,9 @@ void __41__UIAccessibilityLegacyLoader_initialize__block_invoke()
   {
     bundleIdentifier = [mainBundle bundleIdentifier];
     *buf = 138543618;
-    v24 = bundleIdentifier;
-    v25 = 2114;
-    v26 = v5;
+    v26 = bundleIdentifier;
+    v27 = 2114;
+    v28 = v5;
     _os_log_impl(&dword_1A9B83000, v6, OS_LOG_TYPE_DEBUG, "Loading AX for '%{public}@'. AXBundle '%{public}@'", buf, 0x16u);
   }
 
@@ -75,13 +75,13 @@ void __41__UIAccessibilityLegacyLoader_initialize__block_invoke()
 
     UIAccessibilityPostNotification(0xFA0u, 0);
     [self loadAccessibilityBundleForBundle:mainBundle didLoadCallback:&__block_literal_global_303];
-    v21[2] = MEMORY[0x1E69E9820];
-    v21[3] = 3221225472;
-    v21[4] = __63__UIAccessibilityLegacyLoader_loadExtendedAccessibilityBundles__block_invoke_309;
-    v21[5] = &unk_1E78AB890;
-    v13 = v22;
-    v22[0] = v5;
-    v22[1] = self;
+    v23[2] = MEMORY[0x1E69E9820];
+    v23[3] = 3221225472;
+    v23[4] = __63__UIAccessibilityLegacyLoader_loadExtendedAccessibilityBundles__block_invoke_309;
+    v23[5] = &unk_1E78AB890;
+    v13 = v24;
+    v24[0] = v5;
+    v24[1] = self;
     v14 = v5;
     AXPerformBlockOnMainThreadAfterDelay();
   }
@@ -92,33 +92,33 @@ void __41__UIAccessibilityLegacyLoader_initialize__block_invoke()
     {
       bundleIdentifier2 = [v5 bundleIdentifier];
       *buf = 138543362;
-      v24 = bundleIdentifier2;
+      v26 = bundleIdentifier2;
       _os_log_impl(&dword_1A9B83000, v11, OS_LOG_TYPE_INFO, "%{public}@: Loading synchronously", buf, 0xCu);
     }
 
     [self loadAccessibilityBundleForBundle:mainBundle didLoadCallback:&__block_literal_global_303];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __63__UIAccessibilityLegacyLoader_loadExtendedAccessibilityBundles__block_invoke_311;
-    v20[3] = &unk_1E78AB890;
-    v13 = v21;
-    v21[0] = v5;
-    v21[1] = self;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __63__UIAccessibilityLegacyLoader_loadExtendedAccessibilityBundles__block_invoke_311;
+    v22[3] = &unk_1E78AB890;
+    v13 = v23;
+    v23[0] = v5;
+    v23[1] = self;
     v16 = v5;
-    v17 = _Block_copy(v20);
+    v17 = _Block_copy(v22);
     if (_UIApplicationIsExtension())
     {
       v18 = AXLogLoading();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v24 = 0x3FE0000000000000;
+        v26 = 0x3FE0000000000000;
         _os_log_impl(&dword_1A9B83000, v18, OS_LOG_TYPE_INFO, "Accessibility bundles: Delaying load by %fs", buf, 0xCu);
       }
 
-      _UIAXInitializeConstantValues();
-      v19 = dispatch_time(0, 500000000);
-      dispatch_after(v19, MEMORY[0x1E69E96A0], v17);
+      _UIAXInitializeConstantValues(v19, v20);
+      v21 = dispatch_time(0, 500000000);
+      dispatch_after(v21, MEMORY[0x1E69E96A0], v17);
     }
 
     else

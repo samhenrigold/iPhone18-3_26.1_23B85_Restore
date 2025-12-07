@@ -9,7 +9,7 @@
 
 - (id)defaultSerializedRepresentationForEnumeration:(id)enumeration
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   defaultActivity = [MEMORY[0x277D7C438] defaultActivity];
   if (defaultActivity)
   {
@@ -27,15 +27,13 @@
     v10 = getWFWorkflowExecutionLogObject();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136315138;
-      v14 = "[WFFocusModesPickerParameter defaultSerializedRepresentationForEnumeration:]";
-      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_FAULT, "%s Could not get defaultActivity from FocusModesManager.", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[WFFocusModesPickerParameter defaultSerializedRepresentationForEnumeration:]";
+      _os_log_impl(&dword_23DE30000, v10, OS_LOG_TYPE_FAULT, "%s Could not get defaultActivity from FocusModesManager.", &v12, 0xCu);
     }
 
     serializedRepresentation = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return serializedRepresentation;
 }

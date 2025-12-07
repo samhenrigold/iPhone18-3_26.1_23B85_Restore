@@ -1,6 +1,7 @@
 @interface _NFSecureElementManagerSession
 + (id)validateEntitlements:(id)entitlements;
 - (BOOL)_activateSecureElementWrapper:(id)wrapper;
+- (_NFSecureElementManagerSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode;
 - (id)_createResponseFromCommand:(id)command params:(id)params rapdu:(id)rapdu duration:(unint64_t)duration;
 - (id)_getAllApplets:(id *)applets;
 - (id)_getSecureElementForAID:(id)d;
@@ -120,6 +121,31 @@
     v24[3] = v19;
     v20 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:4];
     v5 = [v15 initWithDomain:v16 code:32 userInfo:v20];
+  }
+
+  return v5;
+}
+
+- (_NFSecureElementManagerSession)initWithRemoteObject:(id)object workQueue:(id)queue allowsBackgroundMode:(BOOL)mode
+{
+  v13.receiver = self;
+  v13.super_class = _NFSecureElementManagerSession;
+  v5 = [(_NFXPCSession *)&v13 initWithRemoteObject:object workQueue:queue allowsBackgroundMode:mode];
+  if (v5)
+  {
+    v6 = objc_alloc_init(NFFelicaStateEvent);
+    felicaEvents = v5->_felicaEvents;
+    v5->_felicaEvents = v6;
+
+    v8 = objc_opt_new();
+    appletRequiresEndOfTransactionProcessing = v5->_appletRequiresEndOfTransactionProcessing;
+    v5->_appletRequiresEndOfTransactionProcessing = v8;
+
+    v10 = objc_opt_new();
+    appletChangedByTSM = v5->_appletChangedByTSM;
+    v5->_appletChangedByTSM = v10;
+
+    v5->_delayExpressMode = 0.0;
   }
 
   return v5;
@@ -2766,59 +2792,58 @@ LABEL_75:
   keyCopy = key;
   authorizationCopy = authorization;
   completionCopy = completion;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   v14 = appletsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v40;
+    v17 = *v39;
     while (2)
     {
       v18 = 0;
       do
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v39 + 1) + 8 * v18);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (completionCopy)
           {
-            v23 = [NSError alloc];
-            v24 = [NSString stringWithUTF8String:"nfcd"];
-            v43[0] = NSLocalizedDescriptionKey;
-            v25 = [NSString stringWithUTF8String:"Invalid State"];
-            v44[0] = v25;
-            v44[1] = &off_100332868;
-            v43[1] = @"Line";
-            v43[2] = @"Method";
-            v26 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
-            v44[2] = v26;
-            v43[3] = NSDebugDescriptionErrorKey;
+            v22 = [NSError alloc];
+            v23 = [NSString stringWithUTF8String:"nfcd"];
+            v42[0] = NSLocalizedDescriptionKey;
+            v24 = [NSString stringWithUTF8String:"Invalid State"];
+            v43[0] = v24;
+            v43[1] = &off_100332868;
+            v42[1] = @"Line";
+            v42[2] = @"Method";
+            v25 = [[NSString alloc] initWithFormat:@"%s", sel_getName(a2)];
+            v43[2] = v25;
+            v42[3] = NSDebugDescriptionErrorKey;
             1594 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 1594];
-            v44[3] = 1594;
-            v28 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:4];
-            v29 = [v23 initWithDomain:v24 code:12 userInfo:v28];
-            completionCopy[2](completionCopy, v29);
+            v43[3] = 1594;
+            v27 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:4];
+            v28 = [v22 initWithDomain:v23 code:12 userInfo:v27];
+            completionCopy[2](completionCopy, v28);
           }
 
-          v22 = keyCopy;
+          v21 = keyCopy;
           goto LABEL_15;
         }
 
-        v18 = v18 + 1;
+        ++v18;
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v16)
       {
         continue;
@@ -2828,27 +2853,27 @@ LABEL_75:
     }
   }
 
-  v20 = NFSharedSignpostLog();
-  if (os_signpost_enabled(v20))
+  v19 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SEMSession:disableAuthorizationForApplets", "in", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v19, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SEMSession:disableAuthorizationForApplets", "in", buf, 2u);
   }
 
-  v37.receiver = self;
-  v37.super_class = _NFSecureElementManagerSession;
-  workQueue = [(_NFSession *)&v37 workQueue];
+  v36.receiver = self;
+  v36.super_class = _NFSecureElementManagerSession;
+  workQueue = [(_NFSession *)&v36 workQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001700B4;
   block[3] = &unk_100319340;
   block[4] = self;
-  v36 = a2;
-  v35 = completionCopy;
-  v32 = v14;
-  v22 = keyCopy;
-  v33 = keyCopy;
-  v34 = authorizationCopy;
+  v35 = a2;
+  v34 = completionCopy;
+  v31 = v14;
+  v21 = keyCopy;
+  v32 = keyCopy;
+  v33 = authorizationCopy;
   dispatch_async(workQueue, block);
 
 LABEL_15:

@@ -6,9 +6,9 @@
 
 - (NRAnalytics)init
 {
-  v12.receiver = self;
-  v12.super_class = NRAnalytics;
-  v2 = [(NRAnalytics *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = NRAnalytics;
+  v2 = [(NRAnalytics *)&v14 init];
   if (!v2)
   {
     v7 = sub_100155154();
@@ -17,14 +17,14 @@
     if (IsLevelEnabled)
     {
       v9 = sub_100155154();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v9, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRAnalytics init]"", 53);
     }
 
-    _os_log_pack_size();
-    v10 = *__error();
-    v11 = _os_log_pack_fill();
-    *v11 = 136446210;
-    *(v11 + 4) = "[NRAnalytics init]";
+    v10 = _os_log_pack_size();
+    v11 = __error();
+    v12 = _os_log_pack_fill(&v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v10, *v11, &_mh_execute_header, "%{public}s [super init] failed");
+    *v12 = 136446210;
+    *(v12 + 4) = "[NRAnalytics init]";
     sub_100155154();
     _NRLogAbortWithPack();
   }

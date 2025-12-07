@@ -165,7 +165,7 @@
   trackerCopy = tracker;
   reuseIdentifier = self->_reuseIdentifier;
   reuseIdentifier = [fromCopy reuseIdentifier];
-  if (![(NSString *)reuseIdentifier isEqualToString:reuseIdentifier])
+  if (!objc_msgSend_isEqualToString_(reuseIdentifier))
   {
     v17 = 0;
 LABEL_8:
@@ -245,7 +245,7 @@ LABEL_9:
     {
       reuseIdentifier = [(TUIRenderModelView *)self reuseIdentifier];
       reuseIdentifier2 = [v9 reuseIdentifier];
-      if (reuseIdentifier == reuseIdentifier2 || [reuseIdentifier isEqualToString:reuseIdentifier2])
+      if (reuseIdentifier == reuseIdentifier2 || objc_msgSend_isEqualToString_(reuseIdentifier))
       {
         style = self->_style;
         style = [v9 style];

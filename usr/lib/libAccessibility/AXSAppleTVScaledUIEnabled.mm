@@ -3,7 +3,7 @@
 
 @implementation AXSAppleTVScaledUIEnabled
 
-uint64_t ___AXSAppleTVScaledUIEnabled_block_invoke()
+void *___AXSAppleTVScaledUIEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

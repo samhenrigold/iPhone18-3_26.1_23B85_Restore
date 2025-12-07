@@ -14,9 +14,9 @@
 + (id)clipWithAnimation:(id)animation name:(id)name
 {
   v6 = objc_alloc_init(VFXAnimationClip);
-  objc_msgSend_setName_(v6, v7, name, v8);
-  v12 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v9, v10, v11);
-  v6->_identifier = objc_msgSend_UUIDString(v12, v13, v14, v15);
+  objc_msgSend_setName_(v6, v7, name);
+  v10 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v8, v9);
+  v6->_identifier = objc_msgSend_UUIDString(v10, v11, v12);
   v6->_animation = animation;
 
   return v6;
@@ -52,11 +52,11 @@
 - (void)copyTo:(id)to withContext:(id)context
 {
   v6 = objc_msgSend_copy(self->_animation, a2, to, context);
-  objc_msgSend_setAnimation_(to, v7, v6, v8);
-  v12 = objc_msgSend_name(self, v9, v10, v11);
-  v17 = objc_msgSend_copy(v12, v13, v14, v15);
+  objc_msgSend_setAnimation_(to, v7, v6);
+  v10 = objc_msgSend_name(self, v8, v9);
+  v14 = objc_msgSend_copy(v10, v11, v12);
 
-  objc_msgSend_setName_(to, v16, v17, v18);
+  objc_msgSend_setName_(to, v13, v14);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -72,9 +72,9 @@
 
 - (VFXAnimationClip)initWithCoder:(id)coder
 {
-  v20.receiver = self;
-  v20.super_class = VFXAnimationClip;
-  v4 = [(VFXAnimationClip *)&v20 init];
+  v18.receiver = self;
+  v18.super_class = VFXAnimationClip;
+  v4 = [(VFXAnimationClip *)&v18 init];
   if (v4)
   {
     v5 = objc_opt_class();
@@ -84,12 +84,12 @@
     v4->_identifier = v9;
     if (!v9)
     {
-      v13 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v10, v11, v12);
-      v4->_identifier = objc_msgSend_UUIDString(v13, v14, v15, v16);
+      v12 = objc_msgSend_UUID(MEMORY[0x1E696AFB0], v10, v11);
+      v4->_identifier = objc_msgSend_UUIDString(v12, v13, v14);
     }
 
-    v17 = objc_opt_class();
-    v4->_animation = objc_msgSend_decodeObjectOfClass_forKey_(coder, v18, v17, @"animation");
+    v15 = objc_opt_class();
+    v4->_animation = objc_msgSend_decodeObjectOfClass_forKey_(coder, v16, v15, @"animation");
   }
 
   return v4;

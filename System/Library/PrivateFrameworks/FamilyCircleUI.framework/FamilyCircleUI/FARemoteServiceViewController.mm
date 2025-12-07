@@ -213,8 +213,8 @@ uint64_t __48__FARemoteServiceViewController__showFamilyFlow__block_invoke(uint6
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _FALogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -222,10 +222,9 @@ uint64_t __48__FARemoteServiceViewController__showFamilyFlow__block_invoke(uint6
     _os_log_impl(&dword_21BB35000, v3, OS_LOG_TYPE_DEFAULT, "%@ deallocated", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = FARemoteServiceViewController;
-  [(FARemoteServiceViewController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = FARemoteServiceViewController;
+  [(FARemoteServiceViewController *)&v4 dealloc];
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -246,40 +245,38 @@ uint64_t __48__FARemoteServiceViewController__showFamilyFlow__block_invoke(uint6
 
 - (void)_removeChildViewControllers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   childViewControllers = [(FARemoteServiceViewController *)self childViewControllers];
-  v4 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         view = [v8 view];
         [view removeFromSuperview];
 
         [(FARemoteServiceViewController *)self removeChildViewController:v8 notifyDidMove:1];
       }
 
-      v5 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentAsChildViewController:(id)controller

@@ -210,21 +210,21 @@
 {
   type metadata accessor for ASCredentialRequestPaneHeaderConfiguration();
   selfCopy = self;
-  v4 = sub_1B1CEC55C();
-  v6 = v5;
-  v7 = sub_1B1CEC978();
-  v9 = v8;
-  v10 = *(&selfCopy->persona + OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon);
-  v11 = *&selfCopy->overrideTitle[OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon];
-  v12 = selfCopy->overrideTitle[OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon + 8];
-  v15[0] = *(&selfCopy->super.isa + OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon);
-  v15[1] = v10;
-  v15[2] = v11;
-  v16 = v12;
-  sub_1B1CE2000(v15[0], v10, v11, v12);
-  v13 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(v4, v6, v7, v9, v15);
+  sub_1B1CEC55C();
+  v5 = v4;
+  sub_1B1CEC978();
+  v7 = v6;
+  v8 = *(&selfCopy->persona + OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon);
+  v9 = *&selfCopy->overrideTitle[OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon];
+  v10 = selfCopy->overrideTitle[OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon + 8];
+  v14[0] = *(&selfCopy->super.isa + OBJC_IVAR___ASPasswordAuthenticationPaneViewControllerConfiguration_icon);
+  v14[1] = v8;
+  v14[2] = v9;
+  v15 = v10;
+  sub_1B1CE2000(v14[0], v8, v9, v10);
+  v12 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(v5, v7, v14, v11);
 
-  return v13;
+  return v12;
 }
 
 - (ASPasswordAuthenticationPaneViewControllerConfiguration)init

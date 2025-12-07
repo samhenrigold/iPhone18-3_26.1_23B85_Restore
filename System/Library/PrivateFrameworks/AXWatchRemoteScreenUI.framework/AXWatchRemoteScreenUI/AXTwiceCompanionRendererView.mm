@@ -1,4 +1,5 @@
 @interface AXTwiceCompanionRendererView
+- (BOOL)performAXAction:(int)action withValue:(id)value onBridgeElement:(id)element;
 - (_TtC21AXWatchRemoteScreenUI28AXTwiceCompanionRendererView)initWithFrame:(CGRect)frame;
 - (void)layoutSubviews;
 @end
@@ -33,6 +34,31 @@
   v12.receiver = self;
   v12.super_class = type metadata accessor for AXTwiceCompanionRendererView();
   return [(AXTwiceCompanionRendererView *)&v12 initWithFrame:x, y, width, height];
+}
+
+- (BOOL)performAXAction:(int)action withValue:(id)value onBridgeElement:(id)element
+{
+  v6 = *&action;
+  if (value)
+  {
+    elementCopy = element;
+    selfCopy = self;
+    swift_unknownObjectRetain();
+    sub_23D6EE8A0();
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    memset(v14, 0, sizeof(v14));
+    elementCopy2 = element;
+    selfCopy2 = self;
+  }
+
+  v12 = AXTwiceCompanionRendererView.perform(_:withValue:on:)(v6, v14, element);
+
+  sub_23D6D4260(v14);
+  return v12;
 }
 
 @end

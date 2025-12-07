@@ -8,7 +8,7 @@
 
 - (id)getFeatureFlags
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = logPPSFeatureFlagReaderHelper();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -19,24 +19,24 @@
   date = [MEMORY[0x277CBEAA8] date];
   createXPCConnection = [(PPSFeatureFlagReaderHelper *)self createXPCConnection];
   *buf = 0;
-  v17 = buf;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__5;
-  v20 = __Block_byref_object_dispose__5;
-  v21 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __45__PPSFeatureFlagReaderHelper_getFeatureFlags__block_invoke;
-  v15[3] = &unk_27825BB18;
-  v15[4] = buf;
-  [createXPCConnection getFeatureFlags:v15];
+  v16 = buf;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__5;
+  v19 = __Block_byref_object_dispose__5;
+  v20 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__PPSFeatureFlagReaderHelper_getFeatureFlags__block_invoke;
+  v14[3] = &unk_27825BB18;
+  v14[4] = buf;
+  [createXPCConnection getFeatureFlags:v14];
   v6 = logPPSFeatureFlagReaderHelper();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = *(v17 + 5);
-    *v22 = 138412290;
-    v23 = v14;
-    _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] getFeatureFlags result: %@", v22, 0xCu);
+    v13 = *(v16 + 5);
+    *v21 = 138412290;
+    v22 = v13;
+    _os_log_debug_impl(&dword_21A4C6000, v6, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] getFeatureFlags result: %@", v21, 0xCu);
   }
 
   [(PPSFeatureFlagReaderHelper *)self closeXPCConnection];
@@ -46,19 +46,17 @@
   v10 = logPPSFeatureFlagReaderHelper();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    *v22 = 134218498;
-    v23 = v9;
-    v24 = 2112;
-    v25 = date;
-    v26 = 2112;
-    v27 = date2;
-    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] Time for getting getFeatureFlags reading to run: %f, %@, %@", v22, 0x20u);
+    *v21 = 134218498;
+    v22 = v9;
+    v23 = 2112;
+    v24 = date;
+    v25 = 2112;
+    v26 = date2;
+    _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "[PPSFeatureFlagReader] Time for getting getFeatureFlags reading to run: %f, %@, %@", v21, 0x20u);
   }
 
-  v11 = *(v17 + 5);
+  v11 = *(v16 + 5);
   _Block_object_dispose(buf, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -116,18 +114,16 @@ void __49__PPSFeatureFlagReaderHelper_createXPCConnection__block_invoke_10()
 
 void __49__PPSFeatureFlagReaderHelper_createXPCConnection__block_invoke_13(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = logPPSFeatureFlagReaderHelper();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = [v2 description];
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_error_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_ERROR, "os_log_debug Connection error happened %@", &v6, 0xCu);
+    v4 = [v2 description];
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_ERROR, "os_log_debug Connection error happened %@", &v5, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeXPCConnection

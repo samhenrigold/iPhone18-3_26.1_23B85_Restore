@@ -623,31 +623,31 @@ LABEL_11:
 
 - (uint64_t)safari_isEligibleforDirectSSO
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v27 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:0];
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
+  v35 = *MEMORY[0x1E69E9840];
+  v26 = [MEMORY[0x1E696AF20] componentsWithURL:self resolvingAgainstBaseURL:0];
   v32 = 0u;
-  obj = [v27 queryItems];
-  v1 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  obj = [v26 queryItems];
+  v1 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v1)
   {
-    v28 = 0;
-    v30 = 0;
+    v27 = 0;
+    v29 = 0;
     v2 = 0;
     v3 = 0;
-    v4 = *v32;
+    v4 = *v31;
     do
     {
       for (i = 0; i != v1; ++i)
       {
-        if (*v32 != v4)
+        if (*v31 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v31 + 1) + 8 * i);
+        v6 = *(*(&v30 + 1) + 8 * i);
         name = [v6 name];
         lowercaseString = [name lowercaseString];
         if ([lowercaseString isEqualToString:@"client_id"])
@@ -675,7 +675,7 @@ LABEL_11:
           value3 = [v6 value];
           v18 = [value3 hasPrefix:@"http"];
 
-          BYTE4(v30) |= v18 ^ 1;
+          BYTE4(v29) |= v18 ^ 1;
         }
 
         name4 = [v6 name];
@@ -687,17 +687,17 @@ LABEL_11:
           value4 = [v6 value];
           v23 = [value4 isEqualToString:@"query"];
 
-          LOBYTE(v30) = v23 | v30;
-          v28 = 1;
+          LOBYTE(v29) = v23 | v29;
+          v27 = 1;
         }
       }
 
-      v1 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v1 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v1);
 
-    v24 = v3 & v2 & BYTE4(v30) & (v28 ^ 1 | v30);
+    v24 = v3 & v2 & BYTE4(v29) & (v27 ^ 1 | v29);
   }
 
   else
@@ -706,7 +706,6 @@ LABEL_11:
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24 & 1;
 }
 
@@ -873,7 +872,7 @@ LABEL_11:
 
 - (NSURL)safari_URLWithUniqueFilename
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (fileExists(self))
   {
     uRLByDeletingLastPathComponent = [(NSURL *)self URLByDeletingLastPathComponent];
@@ -881,25 +880,25 @@ LABEL_11:
     lastPathComponent = [(NSURL *)self lastPathComponent];
     v5 = [(WBSUniqueFilenameEnumerator *)v3 initWithFilename:lastPathComponent];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = v5;
-    v7 = [(WBSUniqueFilenameEnumerator *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(WBSUniqueFilenameEnumerator *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
-      v8 = *v17;
+      v8 = *v16;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        selfCopy = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:*(*(&v16 + 1) + 8 * v9) isDirectory:{0, v16}];
+        selfCopy = [uRLByDeletingLastPathComponent URLByAppendingPathComponent:*(*(&v15 + 1) + 8 * v9) isDirectory:{0, v15}];
         v11 = fileExists(selfCopy);
         v12 = v11;
         v13 = v11 ? selfCopy : 0;
@@ -911,7 +910,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [(WBSUniqueFilenameEnumerator *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v7 = [(WBSUniqueFilenameEnumerator *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -933,8 +932,6 @@ LABEL_13:
   {
     selfCopy = self;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }

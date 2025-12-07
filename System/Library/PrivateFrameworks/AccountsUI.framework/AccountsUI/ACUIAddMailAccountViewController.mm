@@ -61,34 +61,33 @@
 - (id)specifierForOtherAccounts
 {
   selfCopy = self;
-  v14[1] = a2;
-  v5 = MEMORY[0x277D3FAD8];
-  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v6 = [v7 localizedStringForKey:@"OTHER" value:&stru_2850054A0 table:@"Localizable"];
-  v14[0] = [v5 preferenceSpecifierNamed:v6 target:selfCopy set:0 get:0 detail:objc_opt_class() cell:11 edit:0];
+  v13[1] = a2;
+  v4 = MEMORY[0x277D3FAD8];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v5 = [v6 localizedStringForKey:@"OTHER" value:&stru_2850054A0 table:@"Localizable"];
+  v13[0] = [v4 preferenceSpecifierNamed:v5 target:selfCopy set:0 get:0 detail:objc_opt_class() cell:11 edit:0];
+  MEMORY[0x277D82BD8](v5);
   MEMORY[0x277D82BD8](v6);
-  MEMORY[0x277D82BD8](v7);
   viewProvidersManager = [(ACUIAddAccountViewController *)selfCopy viewProvidersManager];
-  v9 = MEMORY[0x277CB8C60];
-  v13 = [(ACUIAccountViewProvidersManager *)viewProvidersManager viewControllerClassForCreatingAccountWithType:*MEMORY[0x277CB8C60]];
+  v8 = MEMORY[0x277CB8C60];
+  v12 = [(ACUIAccountViewProvidersManager *)viewProvidersManager viewControllerClassForCreatingAccountWithType:*MEMORY[0x277CB8C60]];
   MEMORY[0x277D82BD8](viewProvidersManager);
   viewProvidersManager2 = [(ACUIAddAccountViewController *)selfCopy viewProvidersManager];
-  location = [(ACUIAccountViewProvidersManager *)viewProvidersManager2 configurationInfoForCreatingAccountWithType:*v9];
+  location = [(ACUIAccountViewProvidersManager *)viewProvidersManager2 configurationInfoForCreatingAccountWithType:*v8];
   MEMORY[0x277D82BD8](viewProvidersManager2);
-  v11 = NSStringFromClass(v13);
-  v2 = *MEMORY[0x277D400B8];
-  [v14[0] setProperty:? forKey:?];
-  MEMORY[0x277D82BD8](v11);
+  v10 = NSStringFromClass(v12);
+  [v13[0] setProperty:? forKey:?];
+  MEMORY[0x277D82BD8](v10);
   if (location)
   {
-    [v14[0] setUserInfo:location];
+    [v13[0] setUserInfo:location];
   }
 
-  v4 = MEMORY[0x277D82BE0](v14[0]);
+  v3 = MEMORY[0x277D82BE0](v13[0]);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v14, 0);
+  objc_storeStrong(v13, 0);
 
-  return v4;
+  return v3;
 }
 
 - (void)nonModalDataclassConfigurationControllerDidCompleteWithSuccess:(BOOL)success

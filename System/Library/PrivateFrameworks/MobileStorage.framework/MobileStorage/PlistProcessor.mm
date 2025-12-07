@@ -30,32 +30,32 @@ uint64_t __38__PlistProcessor_sharedPlistProcessor__block_invoke()
 
 - (void)scanPlistsAtPath:(id)path execBlock:(id)block
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   blockCopy = block;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v8 = [defaultManager enumeratorAtPath:pathCopy];
 
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
+        v13 = *(*(&v17 + 1) + 8 * i);
         v14 = [pathCopy stringByAppendingPathComponent:v13];
         v15 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfFile:v14];
         if (v15 && (blockCopy[2](blockCopy, v15, v13) & 1) == 0)
@@ -65,7 +65,7 @@ uint64_t __38__PlistProcessor_sharedPlistProcessor__block_invoke()
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         continue;
@@ -76,8 +76,6 @@ uint64_t __38__PlistProcessor_sharedPlistProcessor__block_invoke()
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyAndFixPlist:(id)plist forMountPoint:(id)point withError:(id *)error
@@ -231,12 +229,12 @@ LABEL_29:
 
 - (id)copyPlistWithMSMKeys:(id)keys withError:(id *)error
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v9 = keysCopy;
   if (!keysCopy)
   {
-    v13 = createMobileStorageError("[PlistProcessor copyPlistWithMSMKeys:withError:]", 196, -2, 0, @"Invalid input.", v6, v7, v8, v31);
+    v13 = createMobileStorageError("[PlistProcessor copyPlistWithMSMKeys:withError:]", 196, -2, 0, @"Invalid input.", v6, v7, v8, v30);
     v14 = 0;
     v10 = 0;
     v11 = 0;
@@ -268,8 +266,8 @@ LABEL_8:
     goto LABEL_10;
   }
 
-  v33[0] = v11;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = v11;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   v15 = [v18 mutableCopy];
 
 LABEL_10:
@@ -295,9 +293,9 @@ LABEL_10:
   v17 = v22;
   if (v22)
   {
-    v31 = @"ManagedByMobileStorageMounter";
-    v32 = MEMORY[0x277CBEC38];
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+    v30 = @"ManagedByMobileStorageMounter";
+    v31 = MEMORY[0x277CBEC38];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
     [v17 setObject:v26 forKeyedSubscript:@"MobileStorageMounter"];
 
     [v10 setObject:v17 forKeyedSubscript:@"_AdditionalProperties"];
@@ -311,7 +309,7 @@ LABEL_10:
 
   else
   {
-    v13 = createMobileStorageError("[PlistProcessor copyPlistWithMSMKeys:withError:]", 228, -2, 0, @"Failed to allocate dictionary.", v23, v24, v25, v31);
+    v13 = createMobileStorageError("[PlistProcessor copyPlistWithMSMKeys:withError:]", 228, -2, 0, @"Failed to allocate dictionary.", v23, v24, v25, v30);
     v14 = 0;
     if (!error)
     {
@@ -329,7 +327,6 @@ LABEL_17:
 LABEL_19:
   v28 = v14;
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -507,38 +504,30 @@ LABEL_21:
 
 - (void)copyAndFixPlist:forMountPoint:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)jobIsManagedByMSM:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)jobIsManagedByMSM:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)jobIsManagedByMSM:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

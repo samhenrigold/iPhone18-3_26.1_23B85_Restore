@@ -240,7 +240,7 @@ LABEL_36:
     }
 
     v34 = [VUIFamilySharingMediaItem alloc];
-    v35 = VUIMediaEntityFetchRequestAllPropertiesSet();
+    v35 = VUIMediaEntityFetchRequestAllPropertiesSet(v34);
     v10 = [(VUIFamilySharingMediaItem *)v34 initWithAMSEntity:v29 requestedProperties:v35];
 
     v13 = v59;

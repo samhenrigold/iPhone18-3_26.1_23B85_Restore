@@ -13,7 +13,7 @@
   v5 = [(HDRequiredFeatureSettingsValidator *)&v9 init];
   if (v5)
   {
-    v6 = [keysCopy copy];
+    v6 = objc_msgSend_copy(keysCopy);
     requiredSettingsKeys = v5->_requiredSettingsKeys;
     v5->_requiredSettingsKeys = v6;
   }

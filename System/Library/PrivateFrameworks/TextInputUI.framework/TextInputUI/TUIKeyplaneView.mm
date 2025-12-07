@@ -5177,12 +5177,12 @@ LABEL_89:
     v11 = 0;
   }
 
-  bottomRowSizingGuide = [(TUIKeyplaneView *)self bottomRowSizingGuide];
+  v12 = objc_msgSend_bottomRowSizingGuide(self);
 
-  if (bottomRowSizingGuide)
+  if (v12)
   {
-    bottomRowSizingGuide2 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-    owningView = [bottomRowSizingGuide2 owningView];
+    v13 = objc_msgSend_bottomRowSizingGuide(self);
+    owningView = [v13 owningView];
 
     if (owningView)
     {
@@ -5200,8 +5200,8 @@ LABEL_89:
   }
 
   keyboardContentView = [(TUIKeyplaneView *)self keyboardContentView];
-  bottomRowSizingGuide3 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-  [keyboardContentView addLayoutGuide:bottomRowSizingGuide3];
+  v17 = objc_msgSend_bottomRowSizingGuide(self);
+  [keyboardContentView addLayoutGuide:v17];
 
 LABEL_12:
   screenTraits = [(TUIKeyplaneView *)self screenTraits];
@@ -5321,7 +5321,7 @@ LABEL_12:
           v11 = 2;
         }
 
-        keySizeReferenceGuide = [(TUIKeyplaneView *)self bottomRowSizingGuide];
+        keySizeReferenceGuide = objc_msgSend_bottomRowSizingGuide(self);
         [(TUIKeyplaneView *)self updateBottomRowSizingGuide];
       }
 
@@ -5943,9 +5943,9 @@ LABEL_12:
 
 - (void)updateBottomRowSizingGuideForClass:(int64_t)class
 {
-  bottomRowSizingGuide = [(TUIKeyplaneView *)self bottomRowSizingGuide];
+  v5 = objc_msgSend_bottomRowSizingGuide(self, a2);
 
-  if (!bottomRowSizingGuide)
+  if (!v5)
   {
     return;
   }
@@ -6020,20 +6020,20 @@ LABEL_19:
   bottomRowSizingConstraint = [(TUIKeyplaneView *)self bottomRowSizingConstraint];
   [bottomRowSizingConstraint setActive:0];
 
-  bottomRowSizingGuide2 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-  owningView = [bottomRowSizingGuide2 owningView];
+  v13 = objc_msgSend_bottomRowSizingGuide(self);
+  owningView = [v13 owningView];
 
   if (!owningView)
   {
     keyboardContentView = [(TUIKeyplaneView *)self keyboardContentView];
-    bottomRowSizingGuide3 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-    [keyboardContentView addLayoutGuide:bottomRowSizingGuide3];
+    v16 = objc_msgSend_bottomRowSizingGuide(self);
+    [keyboardContentView addLayoutGuide:v16];
   }
 
   if ((class - 2) < 3)
   {
-    bottomRowSizingGuide4 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-    widthAnchor = [bottomRowSizingGuide4 widthAnchor];
+    v17 = objc_msgSend_bottomRowSizingGuide(self);
+    widthAnchor = [v17 widthAnchor];
     keySizeReferenceGuide = [(TUIKeyplaneView *)self keySizeReferenceGuide];
     heightAnchor = [keySizeReferenceGuide heightAnchor];
 LABEL_25:
@@ -6046,8 +6046,8 @@ LABEL_25:
 
   if (class <= 1)
   {
-    bottomRowSizingGuide4 = [(TUIKeyplaneView *)self bottomRowSizingGuide];
-    widthAnchor = [bottomRowSizingGuide4 widthAnchor];
+    v17 = objc_msgSend_bottomRowSizingGuide(self);
+    widthAnchor = [v17 widthAnchor];
     keySizeReferenceGuide = [(TUIKeyplaneView *)self keyboardContentView];
     heightAnchor = [keySizeReferenceGuide widthAnchor];
     goto LABEL_25;

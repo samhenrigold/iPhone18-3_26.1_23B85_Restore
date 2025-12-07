@@ -115,7 +115,7 @@
 
 + (BOOL)isDeviceBeforeFirstUnlock
 {
-  v2 = getDownloadManager();
+  v2 = getDownloadManager(self);
   v17 = 0;
   v18 = &v17;
   v19 = 0x2020000000;
@@ -158,9 +158,10 @@
 
 id __44__DownloadManager_isDeviceBeforeFirstUnlock__block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) deviceBeforeFirstUnlock])
+  v2 = [*(a1 + 32) deviceBeforeFirstUnlock];
+  if (v2)
   {
-    if (!_MAPreferencesIsInternalAllowed() || (v4 = 0, _MAPreferencesSync(@"isDeviceBeforeFirstUnlock", @"have not detected first-unlock since MA daemon startup"), AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"ForceBeforeFirstUnlock", &v4), !v4) || !AppBooleanValue)
+    if (!_MAPreferencesIsInternalAllowed(v2, v3) || (v6 = 0, _MAPreferencesSync(@"isDeviceBeforeFirstUnlock", @"have not detected first-unlock since MA daemon startup"), AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"ForceBeforeFirstUnlock", &v6), !v6) || !AppBooleanValue)
     {
       if (!MKBDeviceFormattedForContentProtection() || MKBDeviceUnlockedSinceBoot() == 1)
       {
@@ -257,7 +258,7 @@ void __37__DownloadManager_startDownloadTimer__block_invoke(uint64_t a1)
 
 - (MADAnalyticsManager)analytics
 {
-  v2 = getControlManager();
+  v2 = getControlManager(self);
   analytics = [v2 analytics];
 
   return analytics;
@@ -396,9 +397,9 @@ LABEL_27:
 
 - (DownloadManager)init
 {
-  v58.receiver = self;
-  v58.super_class = DownloadManager;
-  v2 = [(DownloadManager *)&v58 init];
+  v60.receiver = self;
+  v60.super_class = DownloadManager;
+  v2 = [(DownloadManager *)&v60 init];
   v3 = v2;
   if (!v2)
   {
@@ -411,14 +412,14 @@ LABEL_27:
   v3->_currentSplunkEvent = v4;
 
   *&v3->_haveSyncedSplunkData = 0;
-  v57 = 0;
-  if (backgroundDownloadsPossibleWithInfo(&v57))
+  v59 = 0;
+  if (backgroundDownloadsPossibleWithInfo(&v59))
   {
     v3->_haveSyncedSplunkState = 0;
     v6 = _MADLog(@"Download");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      if (v57)
+      if (v59)
       {
         v7 = @"should have been forced inProc";
       }
@@ -429,7 +430,7 @@ LABEL_27:
       }
 
       *buf = 138543362;
-      v60 = v7;
+      v62 = v7;
       v8 = "backgroundDownloadsPossible: 1 %{public}@";
       v9 = v6;
       v10 = 12;
@@ -444,7 +445,7 @@ LABEL_27:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v60) = v57;
+      LODWORD(v62) = v59;
       v8 = "backgroundDownloadsPossible: 1 forced inProc: %d";
       v9 = v6;
       v10 = 8;
@@ -538,40 +539,40 @@ LABEL_10:
   previousTimeEstimatePoint = v3->_previousTimeEstimatePoint;
   v3->_previousTimeEstimatePoint = 0;
 
-  if (_MAPreferencesIsInternalAllowed())
+  if (_MAPreferencesIsInternalAllowed(v48, v49))
   {
-    v48 = _MAPreferencesCopyValue(@"MABrainForceStartupBusy");
-    if (v48)
+    v50 = _MAPreferencesCopyValue(@"MABrainForceStartupBusy");
+    if (v50)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [(__CFString *)v48 intValue]>= 1)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [(__CFString *)v50 intValue]>= 1)
       {
-        v49 = _MADLog(@"Brain");
-        if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+        v51 = _MADLog(@"Brain");
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v60 = v48;
-          _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Forcing MA Brain to be busy during startup for %@ seconds", buf, 0xCu);
+          v62 = v50;
+          _os_log_impl(&dword_0, v51, OS_LOG_TYPE_DEFAULT, "Forcing MA Brain to be busy during startup for %@ seconds", buf, 0xCu);
         }
 
         v3->_forceDaemonBusy = 1;
-        v50 = dispatch_time(0, 1000000000 * [(__CFString *)v48 unsignedLongValue]);
-        v51 = v3->_downloadStateQueue;
-        v55[0] = _NSConcreteStackBlock;
-        v55[1] = 3221225472;
-        v55[2] = __23__DownloadManager_init__block_invoke;
-        v55[3] = &unk_4B2AA0;
-        v56 = v3;
-        dispatch_after(v50, v51, v55);
+        v52 = dispatch_time(0, 1000000000 * [(__CFString *)v50 unsignedLongValue]);
+        v53 = v3->_downloadStateQueue;
+        v57[0] = _NSConcreteStackBlock;
+        v57[1] = 3221225472;
+        v57[2] = __23__DownloadManager_init__block_invoke;
+        v57[3] = &unk_4B2AA0;
+        v58 = v3;
+        dispatch_after(v52, v53, v57);
       }
     }
   }
 
   *&v3->_checkMadeForBeforeFirstUnlock = 256;
   v3->_performingNSURLSessionSync = 0;
-  v52 = objc_opt_new();
+  v54 = objc_opt_new();
   nwActivityObjectsByJobUUID = v3->_nwActivityObjectsByJobUUID;
-  v3->_nwActivityObjectsByJobUUID = v52;
+  v3->_nwActivityObjectsByJobUUID = v54;
 
   return v3;
 }
@@ -1532,11 +1533,11 @@ LABEL_49:
       goto LABEL_38;
     }
 
-    v30[0] = @"clientId";
-    v30[1] = @"events";
-    v31[0] = idCopy;
-    v31[1] = reportCopy;
-    v12 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v31[0] = @"clientId";
+    v31[1] = @"events";
+    v32[0] = idCopy;
+    v32[1] = reportCopy;
+    v12 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
     v11 = [NSMutableDictionary dictionaryWithDictionary:v12];
 
     [v11 addEntriesFromDictionary:fieldsCopy];
@@ -1577,31 +1578,31 @@ LABEL_49:
               PreferenceLong = getPreferenceLong(@"SplunkTimeout");
               if ((PreferenceLong & 0x8000000000000000) == 0)
               {
-                v21 = [NSNumber numberWithLong:PreferenceLong];
-                [v21 doubleValue];
+                v22 = [NSNumber numberWithLong:PreferenceLong];
+                [v22 doubleValue];
                 [v18 set_timeoutIntervalForResource:?];
               }
 
-              IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled();
-              v23 = _MADLog(@"Analytics");
-              v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+              IsVerboseLoggingEnabled = _MAPreferencesIsVerboseLoggingEnabled(PreferenceLong, v21);
+              v24 = _MADLog(@"Analytics");
+              v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
               if (IsVerboseLoggingEnabled)
               {
-                if (v24)
+                if (v25)
                 {
                   *buf = 138543362;
-                  v29 = v11;
-                  v25 = "Sending splunk event:\n%{public}@";
+                  v30 = v11;
+                  v26 = "Sending splunk event:\n%{public}@";
 LABEL_33:
-                  _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
+                  _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
                 }
               }
 
-              else if (v24)
+              else if (v25)
               {
                 *buf = 138543362;
-                v29 = idCopy;
-                v25 = "Sending splunk event; session id: %{public}@";
+                v30 = idCopy;
+                v26 = "Sending splunk event; session id: %{public}@";
                 goto LABEL_33;
               }
 
@@ -1615,7 +1616,7 @@ LABEL_35:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              v27 = "SPLUNK Failed when creating request";
+              v28 = "SPLUNK Failed when creating request";
               goto LABEL_26;
             }
 
@@ -1634,7 +1635,7 @@ LABEL_38:
           }
 
           *buf = 0;
-          v27 = "SPLUNK Failed due to nil session or url";
+          v28 = "SPLUNK Failed due to nil session or url";
         }
 
         else
@@ -1646,22 +1647,22 @@ LABEL_38:
           }
 
           *buf = 0;
-          v27 = "Have not synced splunk, skipping networking";
+          v28 = "Have not synced splunk, skipping networking";
         }
 
 LABEL_26:
-        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, v27, buf, 2u);
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, v28, buf, 2u);
         goto LABEL_36;
       }
     }
 
     else
     {
-      v26 = _MADLog(@"Analytics");
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v27 = _MADLog(@"Analytics");
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "SPLUNK unable to create payload", buf, 2u);
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "SPLUNK unable to create payload", buf, 2u);
       }
     }
 
@@ -1688,21 +1689,21 @@ LABEL_39:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = nameCopy;
+    v26 = nameCopy;
     _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "In configDownload for client: %{public}@", buf, 0xCu);
   }
 
-  v15 = downloadManagerDecodeClasses();
-  v16 = getObjectFromMessage(withCopy, "downloadConfigLength", "downloadConfig", v15);
+  v16 = downloadManagerDecodeClasses(v15);
+  v17 = getObjectFromMessage(withCopy, "downloadConfigLength", "downloadConfig", v16);
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = [objc_opt_new() initWithPlist:v16];
+    v18 = [objc_opt_new() initWithPlist:v17];
 
-    [v17 logConfig];
-    v16 = v17;
-    if (!v17)
+    [v18 logConfig];
+    v17 = v18;
+    if (!v18)
     {
       goto LABEL_15;
     }
@@ -1710,37 +1711,37 @@ LABEL_39:
     goto LABEL_9;
   }
 
-  if (v16)
+  if (v17)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v23 = _MADLog(@"Download");
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = _MADLog(@"Download");
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v25 = nameCopy;
-        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "No options specified for download config, wrong class, skipping configDownload for: %{public}@", buf, 0xCu);
+        v26 = nameCopy;
+        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "No options specified for download config, wrong class, skipping configDownload for: %{public}@", buf, 0xCu);
       }
 
       [(DownloadManager *)self indicateDownloadJobFinished:2 usingXPCConnection:usingCopy withXPCMessage:withCopy];
       goto LABEL_24;
     }
 
-    [v16 logConfig];
+    [v17 logConfig];
 LABEL_9:
     string = xpc_dictionary_get_string(withCopy, "Purpose");
     if (string)
     {
-      v19 = [NSString stringWithUTF8String:string];
-      if (!isWellFormedPurpose(v19))
+      v20 = [NSString stringWithUTF8String:string];
+      if (!isWellFormedPurpose(v20))
       {
-        v20 = _MADLog(@"Download");
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = _MADLog(@"Download");
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v25 = nameCopy;
-          _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Supplied purpose for download config is not well formed, skipping configDownload for: %{public}@", buf, 0xCu);
+          v26 = nameCopy;
+          _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Supplied purpose for download config is not well formed, skipping configDownload for: %{public}@", buf, 0xCu);
         }
 
         [(DownloadManager *)self indicateDownloadJobFinished:2 usingXPCConnection:usingCopy withXPCMessage:withCopy];
@@ -1750,11 +1751,11 @@ LABEL_9:
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v22 = [NSString stringWithUTF8String:xpc_dictionary_get_string(withCopy, "AssetId")];
-    [(DownloadManager *)self configAssetDownload:downloadCopy withPurpose:v19 matchingAssetId:v22 usingDownloadConfig:v16 usingXPCConnection:usingCopy withXPCMessage:withCopy performingAutoAssetJob:0 asClientName:nameCopy];
+    v23 = [NSString stringWithUTF8String:xpc_dictionary_get_string(withCopy, "AssetId")];
+    [(DownloadManager *)self configAssetDownload:downloadCopy withPurpose:v20 matchingAssetId:v23 usingDownloadConfig:v17 usingXPCConnection:usingCopy withXPCMessage:withCopy performingAutoAssetJob:0 asClientName:nameCopy];
 
 LABEL_20:
 LABEL_24:
@@ -1764,12 +1765,12 @@ LABEL_24:
 
   [0 logConfig];
 LABEL_15:
-  v21 = _MADLog(@"Download");
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = _MADLog(@"Download");
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v25 = nameCopy;
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "No options specified for download config, skipping configDownload for: %{public}@", buf, 0xCu);
+    v26 = nameCopy;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "No options specified for download config, skipping configDownload for: %{public}@", buf, 0xCu);
   }
 
   [(DownloadManager *)self indicateDownloadJobFinished:2 usingXPCConnection:usingCopy withXPCMessage:withCopy];
@@ -2259,26 +2260,26 @@ void __43__DownloadManager_cancelAssetDownloadTask___block_invoke(uint64_t a1)
 {
   serverCopy = server;
   optionsCopy = options;
-  v7 = getDownloadManager();
-  IsInternalAllowed = _MAPreferencesIsInternalAllowed();
+  v7 = getDownloadManager(optionsCopy);
+  IsInternalAllowed = _MAPreferencesIsInternalAllowed(v7, v8);
   if ([v7 getPallasEnabledForAssetType:serverCopy])
   {
     _MAPreferencesSync(@"pathToCatalogLookupServer", serverCopy);
-    v9 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:serverCopy];
+    v10 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:serverCopy];
   }
 
   else if (optionsCopy && ([optionsCopy liveServerCatalogOnly] & 1) != 0)
   {
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v10 = normalizedAssetType(serverCopy);
-    v9 = getStandardUrl(serverCopy, v10);
+    v11 = normalizedAssetType(serverCopy);
+    v10 = getStandardUrl(serverCopy, v11);
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)handleDownloadCannotStartResult:(int64_t)result assetType:(id)type connection:(id)connection requestMessage:(id)message clientName:(id)name autoAssetJobID:(id)d ofJobType:(id)jobType underlyingError:(id)self0 additionalData:(id)self1 notifyingAutoAssetLayer:(BOOL)self2
@@ -2783,85 +2784,90 @@ void __52__DownloadManager_reportDownloadAttemptResult_with___block_invoke(uint6
 
   v20 = [*(a1 + 56) task];
   v21 = [*(a1 + 64) analytics];
-  v41 = *(a1 + 80);
-  v42 = *(a1 + 72);
-  v39 = *(a1 + 96);
-  v40 = *(a1 + 88);
-  v37 = *(a1 + 112);
-  v38 = *(a1 + 104);
+  v42 = *(a1 + 80);
+  v43 = *(a1 + 72);
+  v40 = *(a1 + 96);
+  v41 = *(a1 + 88);
+  v38 = *(a1 + 112);
+  v39 = *(a1 + 104);
   v22 = *(a1 + 193);
   v23 = *(a1 + 120);
   v24 = *(a1 + 128);
   v25 = *(a1 + 192) ^ 1;
-  v36 = *(a1 + 136);
+  v37 = *(a1 + 136);
   v26 = *(a1 + 152);
-  v43 = v20;
+  v44 = v20;
   v27 = [v20 _incompleteTaskMetrics];
   v28 = [*(a1 + 56) options];
-  LOBYTE(v35) = v25;
-  LOWORD(v34) = v22;
-  [v21 recordDownloadAttemptForAssetType:v42 clientName:v41 baseUrl:v40 relativePath:v39 purpose:v38 result:v37 analyticsFileType:v23 isAutoDownload:v34 isPallas:v24 pallasAssetAudience:v35 isUserPriority:v36 bytesWritten:v26 bytesTransferredEst:v27 brainVersion:v28 withTaskMetrics:v4 withOptions:? additionalData:?];
+  LOBYTE(v36) = v25;
+  LOWORD(v35) = v22;
+  [v21 recordDownloadAttemptForAssetType:v43 clientName:v42 baseUrl:v41 relativePath:v40 purpose:v39 result:v38 analyticsFileType:v23 isAutoDownload:v35 isPallas:v24 pallasAssetAudience:v36 isUserPriority:v37 bytesWritten:v26 bytesTransferredEst:v27 brainVersion:v28 withTaskMetrics:v4 withOptions:? additionalData:?];
 
   v29 = [*(a1 + 160) objectForKey:@"assetIdentifier"];
-  if ([*(a1 + 136) integerValue] >= 1000 && (objc_msgSend(*(a1 + 168), "intValue") == 5 || objc_msgSend(*(a1 + 168), "intValue") == 2))
+  if ([*(a1 + 136) integerValue] >= 1000)
   {
-    v30 = getControlManager();
-    v31 = [v30 assetQueue];
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = __52__DownloadManager_reportDownloadAttemptResult_with___block_invoke_1917;
-    block[3] = &unk_4B4000;
-    v45 = v29;
-    v46 = *(a1 + 176);
-    v47 = *(a1 + 104);
-    v53 = *(a1 + 193);
-    v48 = *(a1 + 72);
-    v49 = *(a1 + 80);
-    v50 = *(a1 + 40);
-    v32 = *(a1 + 136);
-    v33 = *(a1 + 184);
-    v51 = v32;
-    v52 = v33;
-    dispatch_async(v31, block);
+    v30 = [*(a1 + 168) intValue];
+    if (v30 == 5 || (v30 = [*(a1 + 168) intValue], v30 == 2))
+    {
+      v31 = getControlManager(v30);
+      v32 = [v31 assetQueue];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = __52__DownloadManager_reportDownloadAttemptResult_with___block_invoke_1917;
+      block[3] = &unk_4B4000;
+      v46 = v29;
+      v47 = *(a1 + 176);
+      v48 = *(a1 + 104);
+      v54 = *(a1 + 193);
+      v49 = *(a1 + 72);
+      v50 = *(a1 + 80);
+      v51 = *(a1 + 40);
+      v33 = *(a1 + 136);
+      v34 = *(a1 + 184);
+      v52 = v33;
+      v53 = v34;
+      dispatch_async(v32, block);
+    }
   }
 }
 
 void __52__DownloadManager_reportDownloadAttemptResult_with___block_invoke_1917(uint64_t a1)
 {
-  v18 = objc_opt_new();
+  v2 = objc_opt_new();
+  v19 = v2;
   if (*(a1 + 32))
   {
-    v2 = getControlManager();
-    v3 = [v2 getAssetAttributes:*(a1 + 40) purpose:*(a1 + 48) assetID:*(a1 + 32)];
+    v3 = getControlManager(v2);
+    v4 = [v3 getAssetAttributes:*(a1 + 40) purpose:*(a1 + 48) assetID:*(a1 + 32)];
 
-    v18 = v3;
+    v19 = v4;
   }
 
-  v4 = *(a1 + 96);
-  v5 = [MADPowerLogData alloc];
-  v6 = *(a1 + 56);
-  if (v4 == 1)
+  v5 = *(a1 + 96);
+  v6 = [MADPowerLogData alloc];
+  v7 = *(a1 + 56);
+  if (v5 == 1)
   {
-    v7 = [v18 objectForKeyedSubscript:@"AssetSpecifier"];
-    v8 = [v18 objectForKeyedSubscript:@"AssetVersion"];
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
-    v11 = +[NSDate now];
-    v12 = [*(a1 + 80) longLongValue];
-    LOBYTE(v17) = *(a1 + 88) == 0;
-    v13 = [(MADPowerLogData *)v5 initWithType:v6 withAssetSpecifier:v7 versionNumber:v8 clientName:v9 startingAt:v10 endingAt:v11 withTotalBytes:v12 andResult:v17];
-    [MADPowerLogManager sendTelemetry:@"DownloadMetrics" forCategory:@"AutoAssetDownloads" withPayload:v13];
+    v8 = [v19 objectForKeyedSubscript:@"AssetSpecifier"];
+    v9 = [v19 objectForKeyedSubscript:@"AssetVersion"];
+    v10 = *(a1 + 64);
+    v11 = *(a1 + 72);
+    v12 = +[NSDate now];
+    v13 = [*(a1 + 80) longLongValue];
+    LOBYTE(v18) = *(a1 + 88) == 0;
+    v14 = [(MADPowerLogData *)v6 initWithType:v7 withAssetSpecifier:v8 versionNumber:v9 clientName:v10 startingAt:v11 endingAt:v12 withTotalBytes:v13 andResult:v18];
+    [MADPowerLogManager sendTelemetry:@"DownloadMetrics" forCategory:@"AutoAssetDownloads" withPayload:v14];
   }
 
   else
   {
-    v14 = *(a1 + 64);
-    v15 = *(a1 + 72);
-    v7 = +[NSDate now];
-    v16 = [*(a1 + 80) longLongValue];
-    LOBYTE(v17) = *(a1 + 88) == 0;
-    v8 = [(MADPowerLogData *)v5 initWithType:v6 withAssetSpecifier:&stru_4BD3F0 versionNumber:&stru_4BD3F0 clientName:v14 startingAt:v15 endingAt:v7 withTotalBytes:v16 andResult:v17];
-    [MADPowerLogManager sendTelemetry:@"DownloadMetrics" forCategory:@"v2AssetDownloads" withPayload:v8];
+    v15 = *(a1 + 64);
+    v16 = *(a1 + 72);
+    v8 = +[NSDate now];
+    v17 = [*(a1 + 80) longLongValue];
+    LOBYTE(v18) = *(a1 + 88) == 0;
+    v9 = [(MADPowerLogData *)v6 initWithType:v7 withAssetSpecifier:&stru_4BD3F0 versionNumber:&stru_4BD3F0 clientName:v15 startingAt:v16 endingAt:v8 withTotalBytes:v17 andResult:v18];
+    [MADPowerLogManager sendTelemetry:@"DownloadMetrics" forCategory:@"v2AssetDownloads" withPayload:v9];
   }
 }
 
@@ -3189,7 +3195,7 @@ LABEL_45:
           else
           {
             v80 = errorStringForMADownloadResult(3uLL);
-            v27 = MAErrorForDownloadResultWithUnderlying(3, v84, @"No catalog at filesystem location:%@ | %@(%ld)", v57, v58, v59, v60, v61, v54);
+            v27 = MAErrorForDownloadResultWithUnderlying(3uLL, v84, @"No catalog at filesystem location:%@ | %@(%ld)", v57, v58, v59, v60, v61, v54);
 
             v28 = 0;
           }
@@ -3214,7 +3220,7 @@ LABEL_45:
           }
 
           v46 = errorStringForMADownloadResult(0x1EuLL);
-          v27 = MAErrorForDownloadResultWithUnderlying(30, v84, @"Catalog download success with incomplete information: %@(%ld)", v47, v48, v49, v50, v51, v46);
+          v27 = MAErrorForDownloadResultWithUnderlying(0x1EuLL, v84, @"Catalog download success with incomplete information: %@(%ld)", v47, v48, v49, v50, v51, v46);
 
           if (!v27)
           {
@@ -3892,7 +3898,7 @@ LABEL_47:
 
   [*(a1 + 32) setDownloadTasksInFlight:v73];
   v58 = [v73 allKeys];
-  v59 = getControlManager();
+  v59 = getControlManager(v58);
   [v59 removeDownloadsNotRecentlyInFlight:v58];
 
   [MADAutoAssetControlManager downloadManagerStateSyncDetermined:v58];
@@ -5385,7 +5391,7 @@ LABEL_33:
 
   if (isBuddyRunning_buddyDetectionSupported == 1)
   {
-    if (!SetupAssistantLibraryCore() || !getBYSetupAssistantBundleIdentifierSymbolLoc())
+    if (!SetupAssistantLibraryCore(0) || !getBYSetupAssistantBundleIdentifierSymbolLoc())
     {
       goto LABEL_14;
     }
@@ -5461,7 +5467,7 @@ LABEL_19:
 
 void __33__DownloadManager_isBuddyRunning__block_invoke(id a1)
 {
-  if (!SetupAssistantLibraryCore())
+  if (!SetupAssistantLibraryCore(0))
   {
     v1 = _MADLog(@"Download");
     if (!os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
@@ -5815,130 +5821,130 @@ LABEL_10:
   dispatch_assert_queue_V2(self->_downloadStateQueue);
   context = objc_autoreleasePoolPush();
   _MAPreferencesSync(@"pallasRequestV2", v2Copy);
-  v152 = 0;
-  v153 = &v152;
-  v154 = 0x2020000000;
-  v155 = 1;
-  v127 = +[NSUUID UUID];
-  IsInternalAllowed = _MAPreferencesIsInternalAllowed();
+  v155 = 0;
+  v156 = &v155;
+  v157 = 0x2020000000;
+  v158 = 1;
+  v130 = +[NSUUID UUID];
+  IsInternalAllowed = _MAPreferencesIsInternalAllowed(v130, v22);
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v166 = 0x3032000000;
-  v167 = __Block_byref_object_copy__11;
-  v168 = __Block_byref_object_dispose__11;
-  v169 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:v2Copy];
+  v169 = 0x3032000000;
+  v170 = __Block_byref_object_copy__11;
+  v171 = __Block_byref_object_dispose__11;
+  v172 = [DownloadManager getPallasUrl:IsInternalAllowed assetType:v2Copy];
   if (*(*(&buf + 1) + 40))
   {
-    v23 = objc_opt_new();
-    v24 = +[ASAssetMetadataUpdatePolicy policy];
-    v25 = [v24 serverURLForAssetType:v2Copy];
-    absoluteString = [v25 absoluteString];
+    v24 = objc_opt_new();
+    v25 = +[ASAssetMetadataUpdatePolicy policy];
+    v26 = [v25 serverURLForAssetType:v2Copy];
+    absoluteString = [v26 absoluteString];
 
     if (absoluteString)
     {
-      [(__CFString *)v23 setObject:absoluteString forKey:@"BaseUrl"];
+      [(__CFString *)v24 setObject:absoluteString forKey:@"BaseUrl"];
     }
 
-    v26 = +[ASAssetMetadataUpdatePolicy policy];
-    syntheticTrainName = [v26 syntheticTrainName];
+    v27 = +[ASAssetMetadataUpdatePolicy policy];
+    syntheticTrainName = [v27 syntheticTrainName];
 
     if (syntheticTrainName)
     {
-      v28 = [NSString stringWithUTF8String:syntheticTrainName];
-      if (v28)
+      v29 = [NSString stringWithUTF8String:syntheticTrainName];
+      if (v29)
       {
-        [(__CFString *)v23 setObject:v28 forKey:@"TrainName"];
+        [(__CFString *)v24 setObject:v29 forKey:@"TrainName"];
       }
     }
 
     if (IsInternalAllowed)
     {
-      v29 = @"true";
+      v30 = @"true";
     }
 
     else
     {
-      v29 = @"false";
+      v30 = @"false";
     }
 
-    v30 = v29;
-    [(__CFString *)v23 setObject:v30 forKey:@"InternalBuild"];
+    v31 = v30;
+    [(__CFString *)v24 setObject:v31 forKey:@"InternalBuild"];
 
-    v151 = 0;
-    v123 = [(DownloadManager *)self newAssetAudience:IsInternalAllowed assetType:v2Copy logMessage:&v151];
-    v109 = v151;
+    v154 = 0;
+    v126 = [(DownloadManager *)self newAssetAudience:IsInternalAllowed assetType:v2Copy logMessage:&v154];
+    v112 = v154;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       liveAssetAudienceUUID = [optionsCopy liveAssetAudienceUUID];
-      v32 = liveAssetAudienceUUID == 0;
+      v33 = liveAssetAudienceUUID == 0;
 
-      if (!v32)
+      if (!v33)
       {
-        [(__CFString *)v23 setObject:v123 forKey:@"OriginalAssetAudience"];
+        [(__CFString *)v24 setObject:v126 forKey:@"OriginalAssetAudience"];
         liveAssetAudienceUUID2 = [optionsCopy liveAssetAudienceUUID];
-        v34 = [liveAssetAudienceUUID2 copy];
+        v35 = [liveAssetAudienceUUID2 copy];
 
-        v123 = v34;
+        v126 = v35;
       }
     }
 
-    [(__CFString *)v23 setObject:v123 forKey:@"AssetAudience"];
-    [(__CFString *)v23 setObject:v2Copy forKey:@"AssetType"];
-    v125 = objc_opt_new();
-    [v125 setObject:nameCopy forKey:@"DeviceAccessClient"];
+    [(__CFString *)v24 setObject:v126 forKey:@"AssetAudience"];
+    [(__CFString *)v24 setObject:v2Copy forKey:@"AssetType"];
+    v128 = objc_opt_new();
+    [v128 setObject:nameCopy forKey:@"DeviceAccessClient"];
     if (isXMLAssetType(v2Copy))
     {
-      v35 = @"true";
+      v36 = @"true";
     }
 
     else
     {
-      v35 = @"false";
+      v36 = @"false";
     }
 
-    v36 = v35;
-    [v125 setObject:v36 forKey:@"AllowXmlFallback"];
+    v37 = v36;
+    [v128 setObject:v37 forKey:@"AllowXmlFallback"];
 
-    [(__CFString *)v23 setObject:v125 forKey:@"ClientData"];
-    v37 = [NSNumber numberWithInt:2];
-    [(__CFString *)v23 setObject:v37 forKey:@"ClientVersion"];
+    [(__CFString *)v24 setObject:v128 forKey:@"ClientData"];
+    v38 = [NSNumber numberWithInt:2];
+    [(__CFString *)v24 setObject:v38 forKey:@"ClientVersion"];
 
-    uUIDString = [v127 UUIDString];
-    [(__CFString *)v23 setObject:uUIDString forKey:@"Nonce"];
+    uUIDString = [v130 UUIDString];
+    [(__CFString *)v24 setObject:uUIDString forKey:@"Nonce"];
 
     sessionId = [optionsCopy sessionId];
     if (!sessionId)
     {
-      v40 = +[NSUUID UUID];
-      uUIDString2 = [v40 UUIDString];
+      v41 = +[NSUUID UUID];
+      uUIDString2 = [v41 UUIDString];
 
       sessionId = uUIDString2;
     }
 
-    v115 = sessionId;
-    [__CFString setObject:v23 forKey:"setObject:forKey:"];
-    v114 = [(DownloadManager *)self addSUOptions:v23 options:optionsCopy];
+    v118 = sessionId;
+    [__CFString setObject:v24 forKey:"setObject:forKey:"];
+    v117 = [(DownloadManager *)self addSUOptions:v24 options:optionsCopy];
     if ([optionsCopy liveServerCatalogOnlyIsOverridden])
     {
       if ([optionsCopy liveServerCatalogOnly])
       {
-        v42 = @"true";
+        v43 = @"true";
       }
 
       else
       {
-        v42 = @"false";
+        v43 = @"false";
       }
 
-      v43 = v42;
-      [(__CFString *)v23 setObject:v43 forKey:@"NoFallback"];
+      v44 = v43;
+      [(__CFString *)v24 setObject:v44 forKey:@"NoFallback"];
     }
 
-    v113 = [(DownloadManager *)self pallasRequestedAssetSetID:v2Copy];
-    if (v113)
+    v116 = [(DownloadManager *)self pallasRequestedAssetSetID:v2Copy];
+    if (v116)
     {
-      [(__CFString *)v23 setObject:v113 forKey:@"RequestedAssetSetID"];
+      [(__CFString *)v24 setObject:v116 forKey:@"RequestedAssetSetID"];
     }
 
     if (!os_variant_has_internal_content())
@@ -5947,217 +5953,217 @@ LABEL_48:
       additionalServerParams = [optionsCopy additionalServerParams];
       if (additionalServerParams && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        addAdditionalParams(v23, additionalServerParams);
-        v108 = [additionalServerParams objectForKey:@"DeviceCheck"];
+        addAdditionalParams(v24, additionalServerParams);
+        v111 = [additionalServerParams objectForKey:@"DeviceCheck"];
       }
 
       else
       {
-        v108 = 0;
+        v111 = 0;
       }
 
-      v112 = pallasStringParams();
-      if (v112)
+      v115 = pallasStringParams();
+      if (v115)
       {
-        [(__CFString *)v23 setSafeObject:v112 forKey:@"DeviceOSData"];
+        [(__CFString *)v24 setSafeObject:v115 forKey:@"DeviceOSData"];
       }
 
-      v107 = additionalServerParams;
+      v110 = additionalServerParams;
       if (!IsInternalAllowed)
       {
-        v50 = v23;
+        v51 = v24;
 LABEL_73:
         [(PallasResponseVerifier *)self->_pallasVerifier issuanceDate];
-        v63 = v62;
-        if (v62 != 0.0)
+        v64 = v63;
+        if (v63 != 0.0)
         {
-          v64 = [NSDate dateWithTimeIntervalSinceReferenceDate:v62];
-          if (v64)
+          v65 = [NSDate dateWithTimeIntervalSinceReferenceDate:v63];
+          if (v65)
           {
-            v65 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v64];
-            if (v65)
+            v66 = [(NSDateFormatter *)self->_dateFormatter stringFromDate:v65];
+            if (v66)
             {
-              [(__CFString *)v50 setObject:v65 forKey:@"CertIssuanceDay"];
+              [(__CFString *)v51 setObject:v66 forKey:@"CertIssuanceDay"];
             }
 
             else
             {
-              v66 = _MADLog(@"Download");
-              if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
+              v67 = _MADLog(@"Download");
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
               {
-                v157 = 138543874;
-                v158 = v127;
-                v159 = 2048;
-                v160 = *&v63;
-                v161 = 2112;
-                v162 = v64;
-                _os_log_impl(&dword_0, v66, OS_LOG_TYPE_FAULT, "[PallasNonce:%{public}@] Cannot format CertIssuanceDay. %f %@", &v157, 0x20u);
+                v160 = 138543874;
+                v161 = v130;
+                v162 = 2048;
+                v163 = *&v64;
+                v164 = 2112;
+                v165 = v65;
+                _os_log_impl(&dword_0, v67, OS_LOG_TYPE_FAULT, "[PallasNonce:%{public}@] Cannot format CertIssuanceDay. %f %@", &v160, 0x20u);
               }
             }
           }
 
           else
           {
-            v65 = _MADLog(@"Download");
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+            v66 = _MADLog(@"Download");
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
             {
-              v157 = 138543618;
-              v158 = v127;
-              v159 = 2048;
-              v160 = *&v63;
-              _os_log_impl(&dword_0, v65, OS_LOG_TYPE_FAULT, "[PallasNonce:%{public}@] Cannot format CertIssuanceDay. %f nil", &v157, 0x16u);
+              v160 = 138543618;
+              v161 = v130;
+              v162 = 2048;
+              v163 = *&v64;
+              _os_log_impl(&dword_0, v66, OS_LOG_TYPE_FAULT, "[PallasNonce:%{public}@] Cannot format CertIssuanceDay. %f nil", &v160, 0x16u);
             }
           }
         }
 
-        v67 = _MADLog(@"Download");
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+        v68 = _MADLog(@"Download");
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
-          v68 = *(*(&buf + 1) + 40);
-          v157 = 138543874;
-          v158 = v127;
-          v159 = 2114;
-          v160 = v109;
-          v161 = 2114;
-          v162 = v68;
-          _os_log_impl(&dword_0, v67, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] %{public}@. Server URL: %{public}@", &v157, 0x20u);
+          v69 = *(*(&buf + 1) + 40);
+          v160 = 138543874;
+          v161 = v130;
+          v162 = 2114;
+          v163 = v112;
+          v164 = 2114;
+          v165 = v69;
+          _os_log_impl(&dword_0, v68, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] %{public}@. Server URL: %{public}@", &v160, 0x20u);
         }
 
-        if ([NSJSONSerialization isValidJSONObject:v50])
+        if ([NSJSONSerialization isValidJSONObject:v51])
         {
-          v105 = [NSJSONSerialization dataWithJSONObject:v50 options:1 error:0];
-          v69 = objc_autoreleasePoolPush();
-          v70 = +[NSOutputStream outputStreamToMemory];
-          [v70 open];
-          v150 = 0;
-          [NSJSONSerialization writeJSONObject:v50 toStream:v70 options:11 error:&v150];
-          v71 = v150;
-          if (v71)
+          v108 = [NSJSONSerialization dataWithJSONObject:v51 options:1 error:0];
+          v70 = objc_autoreleasePoolPush();
+          v71 = +[NSOutputStream outputStreamToMemory];
+          [v71 open];
+          v153 = 0;
+          [NSJSONSerialization writeJSONObject:v51 toStream:v71 options:11 error:&v153];
+          v72 = v153;
+          if (v72)
           {
-            v72 = _MADLog(@"Download");
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+            v73 = _MADLog(@"Download");
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
             {
-              v73 = *(*(&buf + 1) + 40);
-              v157 = 138544130;
-              v158 = v127;
-              v159 = 2114;
-              v160 = v2Copy;
-              v161 = 2114;
-              v162 = v73;
-              v163 = 2114;
-              v164 = v50;
-              _os_log_impl(&dword_0, v72, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Params being sent to the server are (%{public}@, %{public}@): %{public}@", &v157, 0x2Au);
+              v74 = *(*(&buf + 1) + 40);
+              v160 = 138544130;
+              v161 = v130;
+              v162 = 2114;
+              v163 = v2Copy;
+              v164 = 2114;
+              v165 = v74;
+              v166 = 2114;
+              v167 = v51;
+              _os_log_impl(&dword_0, v73, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Params being sent to the server are (%{public}@, %{public}@): %{public}@", &v160, 0x2Au);
             }
           }
 
           else
           {
-            v72 = [v70 propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
-            v75 = [[NSString alloc] initWithData:v72 encoding:4];
-            v76 = _MADLog(@"Download");
-            if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+            v73 = [v71 propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
+            v76 = [[NSString alloc] initWithData:v73 encoding:4];
+            v77 = _MADLog(@"Download");
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
             {
-              v157 = 138543362;
-              v158 = v75;
-              _os_log_impl(&dword_0, v76, OS_LOG_TYPE_DEFAULT, "Params being sent to the server are: %{public}@", &v157, 0xCu);
+              v160 = 138543362;
+              v161 = v76;
+              _os_log_impl(&dword_0, v77, OS_LOG_TYPE_DEFAULT, "Params being sent to the server are: %{public}@", &v160, 0xCu);
             }
           }
 
-          [v70 close];
-          objc_autoreleasePoolPop(v69);
-          v77 = [NSMutableURLRequest requestWithURL:*(*(&buf + 1) + 40)];
-          v106 = [(DownloadManager *)self getUserAgentStringForClient:nameCopy withAssetType:typeCopy];
-          [v77 setCachePolicy:4];
-          [v77 setHTTPMethod:@"POST"];
-          [v77 setValue:v106 forHTTPHeaderField:@"User-Agent"];
-          [v77 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-          [v77 setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-          uUIDString3 = [v127 UUIDString];
-          [v77 setValue:uUIDString3 forHTTPHeaderField:@"Nonce"];
+          [v71 close];
+          objc_autoreleasePoolPop(v70);
+          v78 = [NSMutableURLRequest requestWithURL:*(*(&buf + 1) + 40)];
+          v109 = [(DownloadManager *)self getUserAgentStringForClient:nameCopy withAssetType:typeCopy];
+          [v78 setCachePolicy:4];
+          [v78 setHTTPMethod:@"POST"];
+          [v78 setValue:v109 forHTTPHeaderField:@"User-Agent"];
+          [v78 setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+          [v78 setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+          uUIDString3 = [v130 UUIDString];
+          [v78 setValue:uUIDString3 forHTTPHeaderField:@"Nonce"];
 
-          [v77 setHTTPBody:v105];
-          if (_MAPreferencesIsVerboseLoggingEnabled())
+          v80 = [v78 setHTTPBody:v108];
+          if (_MAPreferencesIsVerboseLoggingEnabled(v80, v81))
           {
-            v79 = _MADLog(@"Download");
-            if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+            v82 = _MADLog(@"Download");
+            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
             {
-              v157 = 138543618;
-              v158 = v127;
-              v159 = 2112;
-              v160 = v106;
-              _os_log_impl(&dword_0, v79, OS_LOG_TYPE_DEBUG, "[PallasNonce:%{public}@] User Agent String is: %@", &v157, 0x16u);
+              v160 = 138543618;
+              v161 = v130;
+              v162 = 2112;
+              v163 = v109;
+              _os_log_impl(&dword_0, v82, OS_LOG_TYPE_DEBUG, "[PallasNonce:%{public}@] User Agent String is: %@", &v160, 0x16u);
             }
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v80 = optionsCopy;
-            purpose = [v80 purpose];
-            v82 = normalizePurpose(purpose);
+            v83 = optionsCopy;
+            purpose = [v83 purpose];
+            v85 = normalizePurpose(purpose);
 
-            if (!isWellFormedPurpose(v82))
+            if (!isWellFormedPurpose(v85))
             {
-              v83 = _MADLog(@"Download");
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+              v86 = _MADLog(@"Download");
+              if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
               {
-                v157 = 138543874;
-                v158 = v127;
-                v159 = 2114;
-                v160 = v82;
-                v161 = 2114;
-                v162 = v2Copy;
-                _os_log_impl(&dword_0, v83, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] The purpose for pallas v2 is: '%{public}@' which is not well formed, and type is: %{public}@", &v157, 0x20u);
+                v160 = 138543874;
+                v161 = v130;
+                v162 = 2114;
+                v163 = v85;
+                v164 = 2114;
+                v165 = v2Copy;
+                _os_log_impl(&dword_0, v86, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] The purpose for pallas v2 is: '%{public}@' which is not well formed, and type is: %{public}@", &v160, 0x20u);
               }
             }
           }
 
           else
           {
-            v82 = 0;
+            v85 = 0;
           }
 
-          v84 = assembleTaskDescriptorWithPurposeAndAutoAssetJobID(typeCopy, @"xml", v82, jobCopy);
-          v131[0] = _NSConcreteStackBlock;
-          v131[1] = 3221225472;
-          v131[2] = __110__DownloadManager_pallasRequestV2_normalizedType_withPurpose_options_using_with_autoAssetJob_clientName_then___block_invoke;
-          v131[3] = &unk_4B4158;
-          v147 = &v152;
-          v101 = v127;
-          v132 = v101;
+          v87 = assembleTaskDescriptorWithPurposeAndAutoAssetJobID(typeCopy, @"xml", v85, jobCopy);
+          v134[0] = _NSConcreteStackBlock;
+          v134[1] = 3221225472;
+          v134[2] = __110__DownloadManager_pallasRequestV2_normalizedType_withPurpose_options_using_with_autoAssetJob_clientName_then___block_invoke;
+          v134[3] = &unk_4B4158;
+          v150 = &v155;
+          v104 = v130;
+          v135 = v104;
           selfCopy = self;
-          v134 = v107;
+          v137 = v110;
           p_buf = &buf;
-          v100 = jobCopy;
-          v135 = v100;
-          v85 = v2Copy;
-          v136 = v85;
-          v104 = v84;
-          v137 = v104;
-          v138 = typeCopy;
-          v103 = v82;
-          v139 = v103;
-          v149 = spid;
-          v146 = thenCopy;
-          v140 = v114;
-          v141 = v115;
-          v99 = v123;
-          v142 = v99;
-          v143 = absoluteString;
-          v102 = optionsCopy;
-          v144 = v102;
-          v145 = v108;
-          spida = objc_retainBlock(v131);
-          if ([(DownloadManager *)self pallasRequestRequiresAuthentication:*(*(&buf + 1) + 40) serverParams:v50])
+          v103 = jobCopy;
+          v138 = v103;
+          v88 = v2Copy;
+          v139 = v88;
+          v107 = v87;
+          v140 = v107;
+          v141 = typeCopy;
+          v106 = v85;
+          v142 = v106;
+          v152 = spid;
+          v149 = thenCopy;
+          v143 = v117;
+          v144 = v118;
+          v102 = v126;
+          v145 = v102;
+          v146 = absoluteString;
+          v105 = optionsCopy;
+          v147 = v105;
+          v148 = v111;
+          spida = objc_retainBlock(v134);
+          if ([(DownloadManager *)self pallasRequestRequiresAuthentication:*(*(&buf + 1) + 40) serverParams:v51])
           {
-            v86 = _MADLog(@"Download");
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+            v89 = _MADLog(@"Download");
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
             {
-              v157 = 138543618;
-              v158 = v101;
-              v159 = 2114;
-              v160 = v85;
-              _os_log_impl(&dword_0, v86, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using auth pallas session for %{public}@", &v157, 0x16u);
+              v160 = 138543618;
+              v161 = v104;
+              v162 = 2114;
+              v163 = v88;
+              _os_log_impl(&dword_0, v89, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using auth pallas session for %{public}@", &v160, 0x16u);
             }
 
             pallasDelegate = [(DownloadManager *)self pallasDelegate];
@@ -6169,236 +6175,236 @@ LABEL_73:
             pallasDelegate = _MADLog(@"Download");
             if (os_log_type_enabled(pallasDelegate, OS_LOG_TYPE_DEFAULT))
             {
-              v157 = 138543618;
-              v158 = v101;
-              v159 = 2114;
-              v160 = v85;
-              _os_log_impl(&dword_0, pallasDelegate, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using standard pallas session for %{public}@", &v157, 0x16u);
+              v160 = 138543618;
+              v161 = v104;
+              v162 = 2114;
+              v163 = v88;
+              _os_log_impl(&dword_0, pallasDelegate, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using standard pallas session for %{public}@", &v160, 0x16u);
             }
           }
 
-          v88 = [(NSURLSession *)self->_pallasSession dataTaskWithRequest:v77 completionHandler:spida];
+          v91 = [(NSURLSession *)self->_pallasSession dataTaskWithRequest:v78 completionHandler:spida];
           PreferenceLong = getPreferenceLong(@"PallasTimeout");
           if (PreferenceLong < 0)
           {
-            if ([v102 timeoutIntervalForResource] < 1)
+            if ([v105 timeoutIntervalForResource] < 1)
             {
               PreferenceLong = 90;
             }
 
             else
             {
-              PreferenceLong = [v102 timeoutIntervalForResource];
+              PreferenceLong = [v105 timeoutIntervalForResource];
             }
           }
 
-          v90 = [NSNumber numberWithLong:PreferenceLong];
-          [v90 doubleValue];
-          v92 = v91;
+          v93 = [NSNumber numberWithLong:PreferenceLong];
+          [v93 doubleValue];
+          v95 = v94;
 
-          v130 = 0;
-          if (![(DownloadManager *)self useBootstrapDataPathForScan:v85])
+          v133 = 0;
+          if (![(DownloadManager *)self useBootstrapDataPathForScan:v88])
           {
             goto LABEL_124;
           }
 
-          v93 = _MADLog(@"Download");
-          if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+          v96 = _MADLog(@"Download");
+          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
           {
-            v157 = 138543618;
-            v158 = v101;
-            v159 = 2114;
-            v160 = v85;
-            _os_log_impl(&dword_0, v93, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using BootstrapDataService config for pallas request for %{public}@", &v157, 0x16u);
+            v160 = 138543618;
+            v161 = v104;
+            v162 = 2114;
+            v163 = v88;
+            _os_log_impl(&dword_0, v96, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Using BootstrapDataService config for pallas request for %{public}@", &v160, 0x16u);
           }
 
           currentConfig = [(DownloadManager *)self currentConfig];
-          v95 = [currentConfig copy];
+          v98 = [currentConfig copy];
 
-          [v95 set_sourceApplicationSecondaryIdentifier:@"com.apple.CommCenter.CellularPlanProvisioning"];
-          if ((backgroundDownloadsPossibleWithInfo(&v130) & 1) == 0)
+          [v98 set_sourceApplicationSecondaryIdentifier:@"com.apple.CommCenter.CellularPlanProvisioning"];
+          if ((backgroundDownloadsPossibleWithInfo(&v133) & 1) == 0)
           {
-            v96 = _MADLog(@"Download");
-            if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+            v99 = _MADLog(@"Download");
+            if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
             {
-              v157 = 138543874;
-              v158 = v101;
-              v159 = 2048;
-              v160 = PreferenceLong;
-              v161 = 1024;
-              LODWORD(v162) = v130;
-              _os_log_impl(&dword_0, v96, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Download foreground download, timeout: %ld forced in-proc: %d", &v157, 0x1Cu);
+              v160 = 138543874;
+              v161 = v104;
+              v162 = 2048;
+              v163 = PreferenceLong;
+              v164 = 1024;
+              LODWORD(v165) = v133;
+              _os_log_impl(&dword_0, v99, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Download foreground download, timeout: %ld forced in-proc: %d", &v160, 0x1Cu);
             }
 
-            [v95 setTimeoutIntervalForResource:v92];
-            [v95 set_socketStreamProperties:&off_4F8390];
+            [v98 setTimeoutIntervalForResource:v95];
+            [v98 set_socketStreamProperties:&off_4F8390];
           }
 
-          [v88 _adoptEffectiveConfiguration:v95];
-          if (!v95)
+          [v91 _adoptEffectiveConfiguration:v98];
+          if (!v98)
           {
 LABEL_124:
-            if (backgroundDownloadsPossibleWithInfo(&v130))
+            if (backgroundDownloadsPossibleWithInfo(&v133))
             {
-              v95 = 0;
+              v98 = 0;
             }
 
             else
             {
-              v97 = _MADLog(@"Download");
-              if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+              v100 = _MADLog(@"Download");
+              if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
               {
-                v157 = 138543874;
-                v158 = v101;
-                v159 = 2048;
-                v160 = PreferenceLong;
-                v161 = 1024;
-                LODWORD(v162) = v130;
-                _os_log_impl(&dword_0, v97, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Download foreground download, timeout: %ld forced in-proc: %d", &v157, 0x1Cu);
+                v160 = 138543874;
+                v161 = v104;
+                v162 = 2048;
+                v163 = PreferenceLong;
+                v164 = 1024;
+                LODWORD(v165) = v133;
+                _os_log_impl(&dword_0, v100, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] Download foreground download, timeout: %ld forced in-proc: %d", &v160, 0x1Cu);
               }
 
               currentConfig2 = [(DownloadManager *)self currentConfig];
-              v95 = [currentConfig2 copy];
+              v98 = [currentConfig2 copy];
 
-              [v95 setTimeoutIntervalForResource:v92];
-              [v95 set_socketStreamProperties:&off_4F83B8];
-              [v88 _adoptEffectiveConfiguration:v95];
+              [v98 setTimeoutIntervalForResource:v95];
+              [v98 set_socketStreamProperties:&off_4F83B8];
+              [v91 _adoptEffectiveConfiguration:v98];
             }
           }
 
-          [v88 set_timeoutIntervalForResource:v92];
-          [(DownloadManager *)self addLiveServerRequest:v104 forAssetType:v85 withPurpose:v103 audience:v99 pallasUrl:*(*(&buf + 1) + 40) using:usingCopy with:withCopy clientName:nameCopy autoAssetJobID:v100 task:v88 options:v102];
+          [v91 set_timeoutIntervalForResource:v95];
+          [(DownloadManager *)self addLiveServerRequest:v107 forAssetType:v88 withPurpose:v106 audience:v102 pallasUrl:*(*(&buf + 1) + 40) using:usingCopy with:withCopy clientName:nameCopy autoAssetJobID:v103 task:v91 options:v105];
 
-          v74 = v105;
+          v75 = v108;
         }
 
         else
         {
-          v74 = _MADLog(@"Download");
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          v75 = _MADLog(@"Download");
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
           {
-            v157 = 138543362;
-            v158 = v127;
-            _os_log_impl(&dword_0, v74, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] Params are not valid", &v157, 0xCu);
+            v160 = 138543362;
+            v161 = v130;
+            _os_log_impl(&dword_0, v75, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] Params are not valid", &v160, 0xCu);
           }
         }
 
         goto LABEL_131;
       }
 
-      v54 = objc_autoreleasePoolPush();
+      v55 = objc_autoreleasePoolPush();
       v2Copy = [NSString stringWithFormat:@"%@-%@", @"PallasOverrides", v2Copy];
-      v56 = _MAPreferencesCopyNSDictionaryValue(v2Copy);
-      if (v56)
+      v57 = _MAPreferencesCopyNSDictionaryValue(v2Copy);
+      if (v57)
       {
-        v57 = _MADLog(@"Download");
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v58 = _MADLog(@"Download");
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          v157 = 138543874;
-          v158 = v127;
-          v159 = 2114;
-          v160 = v2Copy;
-          v161 = 2114;
-          v162 = v56;
-          v58 = "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Parsing value set in asset specific default(%{public}@) for PallasOverrides(%{public}@)";
+          v160 = 138543874;
+          v161 = v130;
+          v162 = 2114;
+          v163 = v2Copy;
+          v164 = 2114;
+          v165 = v57;
+          v59 = "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Parsing value set in asset specific default(%{public}@) for PallasOverrides(%{public}@)";
 LABEL_62:
-          _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, v58, &v157, 0x20u);
+          _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, v59, &v160, 0x20u);
         }
       }
 
       else
       {
-        v56 = _MAPreferencesCopyNSDictionaryValue(@"PallasOverrides");
-        if (!v56)
+        v57 = _MAPreferencesCopyNSDictionaryValue(@"PallasOverrides");
+        if (!v57)
         {
-          v50 = v23;
+          v51 = v24;
 LABEL_72:
 
-          objc_autoreleasePoolPop(v54);
+          objc_autoreleasePoolPop(v55);
           goto LABEL_73;
         }
 
-        v57 = _MADLog(@"Download");
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v58 = _MADLog(@"Download");
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
         {
-          v157 = 138543874;
-          v158 = v127;
-          v159 = 2114;
-          v160 = @"PallasOverrides";
-          v161 = 2114;
-          v162 = v56;
-          v58 = "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Parsing value set in global default(%{public}@) for PallasOverrides(%{public}@)";
+          v160 = 138543874;
+          v161 = v130;
+          v162 = 2114;
+          v163 = @"PallasOverrides";
+          v164 = 2114;
+          v165 = v57;
+          v59 = "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Parsing value set in global default(%{public}@) for PallasOverrides(%{public}@)";
           goto LABEL_62;
         }
       }
 
-      v59 = [(__CFString *)v23 mutableCopy];
-      v60 = _MADLog(@"Download");
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v60 = [(__CFString *)v24 mutableCopy];
+      v61 = _MADLog(@"Download");
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
       {
-        v157 = 138543874;
-        v158 = v127;
-        v159 = 2114;
-        v160 = v23;
-        v161 = 2114;
-        v162 = v56;
-        _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Merging current serverParams(%{public}@) with PallasOverrides(%{public}@)", &v157, 0x20u);
+        v160 = 138543874;
+        v161 = v130;
+        v162 = 2114;
+        v163 = v24;
+        v164 = 2114;
+        v165 = v57;
+        _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Merging current serverParams(%{public}@) with PallasOverrides(%{public}@)", &v160, 0x20u);
       }
 
-      if (deepMergeDictionaries(v59, v56))
+      if (deepMergeDictionaries(v60, v57))
       {
-        v50 = v59;
+        v51 = v60;
 
-        v61 = _MADLog(@"Download");
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+        v62 = _MADLog(@"Download");
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
         {
-          v157 = 138543618;
-          v158 = v127;
-          v159 = 2114;
-          v160 = v50;
-          _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Merged serverParams { %{public}@ }", &v157, 0x16u);
+          v160 = 138543618;
+          v161 = v130;
+          v162 = 2114;
+          v163 = v51;
+          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_DEFAULT, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Merged serverParams { %{public}@ }", &v160, 0x16u);
         }
       }
 
       else
       {
-        v61 = _MADLog(@"Download");
-        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+        v62 = _MADLog(@"Download");
+        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
         {
-          v157 = 138543362;
-          v158 = v127;
-          _os_log_impl(&dword_0, v61, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Failed to merge serverParams with PallasOverrides", &v157, 0xCu);
+          v160 = 138543362;
+          v161 = v130;
+          _os_log_impl(&dword_0, v62, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] [PALLAS OVERRIDES]: Failed to merge serverParams with PallasOverrides", &v160, 0xCu);
         }
 
-        v50 = v23;
+        v51 = v24;
       }
 
       goto LABEL_72;
     }
 
-    v44 = _MAPreferencesCopyValue(@"TimeTravelDate");
-    v45 = _MAPreferencesCopyValue(@"TimeTravelDateDiff");
+    v45 = _MAPreferencesCopyValue(@"TimeTravelDate");
+    v46 = _MAPreferencesCopyValue(@"TimeTravelDateDiff");
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = v45;
       v47 = v46;
-      if (!v44)
+      v48 = v47;
+      if (!v45)
       {
-        if (!v46)
+        if (!v47)
         {
-          v51 = 0;
+          v52 = 0;
           goto LABEL_47;
         }
 
-        v44 = +[NSDate now];
-        v48 = dateAfterTimeTravel(0, v44, v47);
+        v45 = +[NSDate now];
+        v49 = dateAfterTimeTravel(0, v45, v48);
 LABEL_44:
-        v51 = v48;
+        v52 = v49;
 
-        if (v51)
+        if (v52)
         {
-          v44 = v51;
+          v45 = v52;
           goto LABEL_46;
         }
 
@@ -6410,54 +6416,54 @@ LABEL_47:
 
     else
     {
-      v47 = 0;
-      v51 = 0;
-      if (!v44)
+      v48 = 0;
+      v52 = 0;
+      if (!v45)
       {
         goto LABEL_47;
       }
     }
 
-    if ([v44 rangeOfString:@"^\\d{4}-\\d{2}-\\d{2}$" options:1024] == 0x7FFFFFFFFFFFFFFFLL)
+    if ([v45 rangeOfString:@"^\\d{4}-\\d{2}-\\d{2}$" options:1024] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v52 = _MADLog(@"Download");
-      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+      v53 = _MADLog(@"Download");
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
       {
-        v157 = 138543362;
-        v158 = v127;
-        _os_log_impl(&dword_0, v52, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] Time Travel Date has invalid format where it should be of format YYYY-MM-DD", &v157, 0xCu);
+        v160 = 138543362;
+        v161 = v130;
+        _os_log_impl(&dword_0, v53, OS_LOG_TYPE_ERROR, "[PallasNonce:%{public}@] Time Travel Date has invalid format where it should be of format YYYY-MM-DD", &v160, 0xCu);
       }
 
       goto LABEL_46;
     }
 
-    if (!v47)
+    if (!v48)
     {
 LABEL_46:
-      [(__CFString *)v23 setObject:v44 forKey:@"TimeTravelDate"];
-      v51 = v44;
+      [(__CFString *)v24 setObject:v45 forKey:@"TimeTravelDate"];
+      v52 = v45;
       goto LABEL_47;
     }
 
-    v48 = dateAfterTimeTravel(v44, 0, v47);
+    v49 = dateAfterTimeTravel(v45, 0, v48);
     goto LABEL_44;
   }
 
-  v49 = _MADLog(@"Download");
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v50 = _MADLog(@"Download");
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v157) = 0;
-    _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Skipping live asset due to nil server url", &v157, 2u);
+    LOWORD(v160) = 0;
+    _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "Skipping live asset due to nil server url", &v160, 2u);
   }
 
-  v50 = getStandardUrl(v2Copy, typeCopy);
-  (*(thenCopy + 2))(thenCopy, v50, v153[3], 27);
-  v114 = 0;
-  v115 = 0;
+  v51 = getStandardUrl(v2Copy, typeCopy);
+  (*(thenCopy + 2))(thenCopy, v51, v156[3], 27);
+  v117 = 0;
+  v118 = 0;
 LABEL_131:
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(&v152, 8);
+  _Block_object_dispose(&v155, 8);
   objc_autoreleasePoolPop(context);
   os_activity_scope_leave(&state);
 }
@@ -7825,32 +7831,32 @@ void __47__DownloadManager_getCurrentInflightDownloads___block_invoke_2279(uint6
   os_activity_scope_enter(v19, &state);
 
   currentConfig = [(DownloadManager *)self currentConfig];
-  v83 = [currentConfig copy];
+  v91 = [currentConfig copy];
 
-  v86 = 0;
+  v94 = 0;
   dispatch_assert_queue_V2(self->_downloadStateQueue);
   if (!sessionCopy)
   {
-    v32 = _MADLog(@"Download");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = _MADLog(@"Download");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v33 = "Cannot download without a valid session";
-      v34 = v32;
-      v35 = OS_LOG_TYPE_DEFAULT;
+      v35 = "Cannot download without a valid session";
+      v36 = v34;
+      v37 = OS_LOG_TYPE_DEFAULT;
 LABEL_21:
-      _os_log_impl(&dword_0, v34, v35, v33, buf, 2u);
+      _os_log_impl(&dword_0, v36, v37, v35, buf, 2u);
     }
 
 LABEL_22:
     downloadAuthorizationHeader = 0;
-    v77 = 0;
-    v78 = 0;
-    v74 = 0;
+    v85 = 0;
+    v86 = 0;
+    v82 = 0;
     firstClientName = 0;
     v23 = 0;
-    v37 = 0;
-    v73 = 0;
+    v39 = 0;
+    v81 = 0;
     v24 = 0;
     v21 = 0;
     goto LABEL_23;
@@ -7858,13 +7864,13 @@ LABEL_22:
 
   if (!taskCopy)
   {
-    v32 = _MADLog(@"Download");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = _MADLog(@"Download");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v33 = "Cannot start download with nil URL";
-      v34 = v32;
-      v35 = OS_LOG_TYPE_ERROR;
+      v35 = "Cannot start download with nil URL";
+      v36 = v34;
+      v37 = OS_LOG_TYPE_ERROR;
       goto LABEL_21;
     }
 
@@ -7876,95 +7882,95 @@ LABEL_22:
   v23 = v22;
   if (!v22)
   {
-    v32 = _MADLog(@"Download");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = _MADLog(@"Download");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "Cannot start download with nil DownloadInfo", buf, 2u);
+      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "Cannot start download with nil DownloadInfo", buf, 2u);
     }
 
     downloadAuthorizationHeader = 0;
-    v77 = 0;
-    v78 = 0;
-    v74 = 0;
+    v85 = 0;
+    v86 = 0;
+    v82 = 0;
     firstClientName = 0;
     v23 = 0;
-    v37 = 0;
-    v73 = 0;
+    v39 = 0;
+    v81 = 0;
     v24 = 0;
     goto LABEL_23;
   }
 
   firstClientName = [v22 firstClientName];
-  v71 = downloadTypeForTaskDescriptor(forCopy);
+  v79 = downloadTypeForTaskDescriptor(forCopy);
   v24 = getAssetTypeFromTaskDescriptor(forCopy);
   v25 = repositoryPath(v24);
   v26 = ensureDirectory(v25);
 
-  v74 = normalizedAssetType(v24);
-  v78 = [(DownloadManager *)self getUserAgentStringForClient:firstClientName withAssetType:v74];
-  [v21 setValue:v78 forHTTPHeaderField:@"User-Agent"];
-  if (_MAPreferencesIsVerboseLoggingEnabled())
+  v82 = normalizedAssetType(v24);
+  v86 = [(DownloadManager *)self getUserAgentStringForClient:firstClientName withAssetType:v82];
+  v27 = [v21 setValue:v86 forHTTPHeaderField:@"User-Agent"];
+  if (_MAPreferencesIsVerboseLoggingEnabled(v27, v28))
   {
-    v27 = _MADLog(@"Download");
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v29 = _MADLog(@"Download");
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      sizeCopy = v78;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, "User Agent String is: %@", buf, 0xCu);
+      sizeCopy = v86;
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEBUG, "User Agent String is: %@", buf, 0xCu);
     }
   }
 
-  v73 = getPathToStagedFile(v24, forCopy, 0);
-  removeItem(v73);
-  v77 = 0;
+  v81 = getPathToStagedFile(v24, forCopy, 0);
+  removeItem(v81);
+  v85 = 0;
   if (atCopy && lengthCopy)
   {
     intValue = [atCopy intValue];
-    v77 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"bytes=%d-%d", intValue, intValue + [lengthCopy intValue] - 1);
-    v29 = _MADLog(@"Download");
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v85 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"bytes=%d-%d", intValue, intValue + [lengthCopy intValue] - 1);
+    v31 = _MADLog(@"Download");
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      sizeCopy = v77;
-      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Range string is: %{public}@", buf, 0xCu);
+      sizeCopy = v85;
+      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Range string is: %{public}@", buf, 0xCu);
     }
 
-    [v21 setValue:v77 forHTTPHeaderField:@"Range"];
+    [v21 setValue:v85 forHTTPHeaderField:@"Range"];
   }
 
   if (modifiedCopy)
   {
-    v30 = _MADLog(@"Download");
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = _MADLog(@"Download");
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       sizeCopy = modifiedCopy;
-      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Setting ifModified header to: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Setting ifModified header to: %{public}@", buf, 0xCu);
     }
 
-    v31 = ASHTTPDateStringForDate(modifiedCopy);
-    [v21 setValue:v31 forHTTPHeaderField:@"If-Modified-Since"];
+    v33 = ASHTTPDateStringForDate(modifiedCopy);
+    [v21 setValue:v33 forHTTPHeaderField:@"If-Modified-Since"];
   }
 
   else
   {
-    v31 = _MADLog(@"Download");
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = _MADLog(@"Download");
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "IfModified empty", buf, 2u);
+      _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "IfModified empty", buf, 2u);
     }
   }
 
   downloadAuthorizationHeader = [optionsCopy downloadAuthorizationHeader];
   if ([downloadAuthorizationHeader length])
   {
-    v40 = _MADLog(@"Download");
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+    v42 = _MADLog(@"Download");
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Attaching downloadAuthorizationHeader to the request", buf, 2u);
+      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "Attaching downloadAuthorizationHeader to the request", buf, 2u);
     }
 
     [v21 setValue:downloadAuthorizationHeader forHTTPHeaderField:@"Authorization"];
@@ -7972,11 +7978,11 @@ LABEL_22:
 
   else
   {
-    v41 = _MADLog(@"Download");
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v43 = _MADLog(@"Download");
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "No downloadAuthorizationHeader provided", buf, 2u);
+      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "No downloadAuthorizationHeader provided", buf, 2u);
     }
   }
 
@@ -7986,51 +7992,52 @@ LABEL_22:
     [v21 setAllowsCellularAccess:{objc_msgSend(optionsCopy, "allowsCellularAccess")}];
   }
 
-  v32 = [sessionCopy downloadTaskWithRequest:v21];
-  if (!v32)
+  v34 = [sessionCopy downloadTaskWithRequest:v21];
+  if (!v34)
   {
-    v32 = _MADLog(@"Download");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v34 = _MADLog(@"Download");
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "Cannot start download with nil DownloadTask", buf, 2u);
+      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "Cannot start download with nil DownloadTask", buf, 2u);
     }
 
-    v37 = 0;
+    v39 = 0;
     goto LABEL_23;
   }
 
-  v42 = calculateTimeout(size);
-  if (v71 == 5)
+  v44 = calculateTimeout(size);
+  v46 = v44;
+  if (v79 == 5)
   {
-    v42 = 604800;
-    if (_MAPreferencesIsVerboseLoggingEnabled())
+    v46 = 604800;
+    if (_MAPreferencesIsVerboseLoggingEnabled(v44, v45))
     {
-      v43 = _MADLog(@"Download");
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v47 = _MADLog(@"Download");
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Overriding resource timeout for auto asset to max download timeout.", buf, 2u);
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_DEFAULT, "Overriding resource timeout for auto asset to max download timeout.", buf, 2u);
       }
     }
   }
 
   if (!optionsCopy)
   {
-    [v32 set_timeoutIntervalForResource:v42];
-    v50 = _MADLog(@"Download");
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    [v34 set_timeoutIntervalForResource:v46];
+    v56 = _MADLog(@"Download");
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       sizeCopy = forCopy;
-      v90 = 2048;
-      v91 = v42;
-      v51 = "Setting the time out on: %{public}@ to: %ld due to nil options";
+      v98 = 2048;
+      v99 = v46;
+      v57 = "Setting the time out on: %{public}@ to: %ld due to nil options";
 LABEL_72:
-      v54 = v50;
-      v55 = 22;
+      v60 = v56;
+      v61 = 22;
 LABEL_73:
-      _os_log_impl(&dword_0, v54, OS_LOG_TYPE_DEFAULT, v51, buf, v55);
+      _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, v57, buf, v61);
     }
 
 LABEL_74:
@@ -8040,47 +8047,47 @@ LABEL_74:
 
   if ([optionsCopy discretionary])
   {
-    v44 = 1;
+    v48 = 1;
   }
 
   else
   {
-    v44 = 2;
+    v48 = 2;
   }
 
-  [v32 set_discretionaryOverride:v44];
+  [v34 set_discretionaryOverride:v48];
   if (!server)
   {
     if ([optionsCopy timeoutIntervalForResource] < 1)
     {
-      [v32 set_timeoutIntervalForResource:v42];
-      v50 = _MADLog(@"Download");
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      [v34 set_timeoutIntervalForResource:v46];
+      v56 = _MADLog(@"Download");
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         sizeCopy = forCopy;
-        v90 = 2048;
-        v91 = v42;
-        v51 = "Setting the time out on: %{public}@ to: %ld due to options specifying to use default";
+        v98 = 2048;
+        v99 = v46;
+        v57 = "Setting the time out on: %{public}@ to: %ld due to options specifying to use default";
         goto LABEL_72;
       }
     }
 
     else
     {
-      v52 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [optionsCopy timeoutIntervalForResource]);
-      [v52 doubleValue];
-      [v32 set_timeoutIntervalForResource:?];
+      v58 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [optionsCopy timeoutIntervalForResource]);
+      [v58 doubleValue];
+      [v34 set_timeoutIntervalForResource:?];
 
-      v50 = _MADLog(@"Download");
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v56 = _MADLog(@"Download");
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
         timeoutIntervalForResource = [optionsCopy timeoutIntervalForResource];
         *buf = 138543618;
         sizeCopy = forCopy;
-        v90 = 2048;
-        v91 = timeoutIntervalForResource;
-        v51 = "Setting the time out on: %{public}@ to: %ld due to options";
+        v98 = 2048;
+        v99 = timeoutIntervalForResource;
+        v57 = "Setting the time out on: %{public}@ to: %ld due to options";
         goto LABEL_72;
       }
     }
@@ -8088,75 +8095,76 @@ LABEL_74:
     goto LABEL_74;
   }
 
-  v45 = calculateTimeout(size);
-  if (v45 >= 3600)
+  v49 = calculateTimeout(size);
+  if (v49 >= 3600)
   {
-    v46 = 3600;
+    v50 = 3600;
   }
 
   else
   {
-    v46 = v45;
+    v50 = v49;
   }
 
-  v47 = [NSNumber numberWithLong:v46];
-  [v47 doubleValue];
-  [v32 set_timeoutIntervalForResource:?];
+  v51 = [NSNumber numberWithLong:v50];
+  [v51 doubleValue];
+  [v34 set_timeoutIntervalForResource:?];
 
-  v48 = _MADLog(@"Download");
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v52 = _MADLog(@"Download");
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     sizeCopy = forCopy;
-    v90 = 2048;
-    v91 = v46;
-    _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "Setting the time out on: %{public}@ to: %ld due to caching server", buf, 0x16u);
+    v98 = 2048;
+    v99 = v50;
+    _os_log_impl(&dword_0, v52, OS_LOG_TYPE_DEFAULT, "Setting the time out on: %{public}@ to: %ld due to caching server", buf, 0x16u);
   }
 
   if (!__isPlatformVersionAtLeast(2, 19, 0, 0))
   {
-    v50 = _MADLog(@"Download");
-    if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v56 = _MADLog(@"Download");
+    if (!os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_74;
     }
 
     *buf = 0;
-    v51 = "DisableBackgroundRetry is not supported in this environment";
-    v54 = v50;
-    v55 = 2;
+    v57 = "DisableBackgroundRetry is not supported in this environment";
+    v60 = v56;
+    v61 = 2;
     goto LABEL_73;
   }
 
-  if (objc_opt_respondsToSelector())
+  v53 = objc_opt_respondsToSelector();
+  if (v53)
   {
-    v49 = _MADLog(@"Download");
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+    v55 = _MADLog(@"Download");
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v49, OS_LOG_TYPE_DEFAULT, "Setting disableBackgroundRetry to YES due to content cache download", buf, 2u);
+      _os_log_impl(&dword_0, v55, OS_LOG_TYPE_DEFAULT, "Setting disableBackgroundRetry to YES due to content cache download", buf, 2u);
     }
 
-    [v32 set_disableBackgroundRetry:1];
+    v53 = [v34 set_disableBackgroundRetry:1];
   }
 
 LABEL_75:
-  if (_MAPreferencesIsInternalAllowed())
+  if (_MAPreferencesIsInternalAllowed(v53, v54))
   {
-    v85 = 0;
-    AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"ForceNonDiscretionaryDownload", &v85);
-    if (v85)
+    v93 = 0;
+    AppBooleanValue = _MAPreferencesGetAppBooleanValue(@"ForceNonDiscretionaryDownload", &v93);
+    if (v93)
     {
       if (AppBooleanValue)
       {
-        v57 = _MADLog(@"Download");
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        v63 = _MADLog(@"Download");
+        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v57, OS_LOG_TYPE_DEFAULT, "Forcing non-discretionary download", buf, 2u);
+          _os_log_impl(&dword_0, v63, OS_LOG_TYPE_DEFAULT, "Forcing non-discretionary download", buf, 2u);
         }
 
-        [v32 set_discretionaryOverride:2];
+        [v34 set_discretionaryOverride:2];
       }
     }
   }
@@ -8169,105 +8177,105 @@ LABEL_75:
       [withCopy setSessionID:forCopy];
     }
 
-    [v32 set_extractor:withCopy];
+    [v34 set_extractor:withCopy];
   }
 
-  [v32 setTaskDescription:forCopy];
-  v58 = _MADLog(@"Download");
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  [v34 setTaskDescription:forCopy];
+  v64 = _MADLog(@"Download");
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     sizeCopy = size;
-    _os_log_impl(&dword_0, v58, OS_LOG_TYPE_DEFAULT, "The download size is: %llu", buf, 0xCu);
+    _os_log_impl(&dword_0, v64, OS_LOG_TYPE_DEFAULT, "The download size is: %llu", buf, 0xCu);
   }
 
   if (size >= 1)
   {
-    [v32 setCountOfBytesClientExpectsToReceive:size];
+    [v34 setCountOfBytesClientExpectsToReceive:size];
   }
 
-  [v83 setDiscretionary:1];
-  [v83 set_allowsExpensiveAccess:{objc_msgSend(optionsCopy, "allowsExpensiveAccess")}];
-  [v83 set_requiresPowerPluggedIn:{objc_msgSend(optionsCopy, "requiresPowerPluggedIn")}];
-  if (_MAPreferencesIsInternalAllowed())
+  [v91 setDiscretionary:1];
+  [v91 set_allowsExpensiveAccess:{objc_msgSend(optionsCopy, "allowsExpensiveAccess")}];
+  v65 = [v91 set_requiresPowerPluggedIn:{objc_msgSend(optionsCopy, "requiresPowerPluggedIn")}];
+  if (_MAPreferencesIsInternalAllowed(v65, v66))
   {
-    v85 = 0;
-    v59 = _MAPreferencesGetAppBooleanValue(@"ForceBatteryAllowedDownload", &v85);
-    if (v85)
+    v93 = 0;
+    v67 = _MAPreferencesGetAppBooleanValue(@"ForceBatteryAllowedDownload", &v93);
+    if (v93)
     {
-      if (v59)
+      if (v67)
       {
-        v60 = _MADLog(@"Download");
-        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+        v68 = _MADLog(@"Download");
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "Forcing requiresPowerPluggedIn to false", buf, 2u);
+          _os_log_impl(&dword_0, v68, OS_LOG_TYPE_DEFAULT, "Forcing requiresPowerPluggedIn to false", buf, 2u);
         }
 
-        [v83 set_requiresPowerPluggedIn:0];
+        [v91 set_requiresPowerPluggedIn:0];
       }
     }
   }
 
-  if ((backgroundDownloadsPossibleWithInfo(&v86) & 1) == 0)
+  if ((backgroundDownloadsPossibleWithInfo(&v94) & 1) == 0)
   {
-    v61 = _MADLog(@"Download");
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+    v69 = _MADLog(@"Download");
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       sizeCopy = forCopy;
-      v90 = 1024;
-      LODWORD(v91) = v86;
-      _os_log_impl(&dword_0, v61, OS_LOG_TYPE_DEFAULT, "Downloading in foreground: %{public}@, removing timeout. (forced inProc: %d)", buf, 0x12u);
+      v98 = 1024;
+      LODWORD(v99) = v94;
+      _os_log_impl(&dword_0, v69, OS_LOG_TYPE_DEFAULT, "Downloading in foreground: %{public}@, removing timeout. (forced inProc: %d)", buf, 0x12u);
     }
 
-    [v83 set_socketStreamProperties:&off_4F83E0];
+    [v91 set_socketStreamProperties:&off_4F83E0];
   }
 
   if (!forCopy)
   {
-    v37 = 0;
+    v39 = 0;
     goto LABEL_104;
   }
 
-  v62 = getPathToTempDownloadFile(v24, forCopy, 1);
-  v37 = v62;
-  if (v62)
+  v70 = getPathToTempDownloadFile(v24, forCopy, 1);
+  v39 = v70;
+  if (v70)
   {
-    if (removeItem(v62))
+    if (removeItem(v70))
     {
-      path = [v37 path];
-      [v32 set_pathToDownloadTaskFile:path];
+      path = [v39 path];
+      [v34 set_pathToDownloadTaskFile:path];
 
       goto LABEL_104;
     }
 
-    v70 = _MADLog(@"Download");
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v78 = _MADLog(@"Download");
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       sizeCopy = forCopy;
-      _os_log_impl(&dword_0, v70, OS_LOG_TYPE_DEFAULT, "Download failed for: %{public}@, could not remove temp file before starting", buf, 0xCu);
+      _os_log_impl(&dword_0, v78, OS_LOG_TYPE_DEFAULT, "Download failed for: %{public}@, could not remove temp file before starting", buf, 0xCu);
     }
 
 LABEL_23:
-    v32 = 0;
+    v34 = 0;
     goto LABEL_24;
   }
 
 LABEL_104:
-  [v32 _adoptEffectiveConfiguration:v83];
+  [v34 _adoptEffectiveConfiguration:v91];
   if (__isPlatformVersionAtLeast(2, 17, 0, 0) && (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v64 = [(DownloadManager *)self clientIdentifierWithName:firstClientName];
-    [v32 set_sourceApplicationBundleIdentifierForMobileAsset:v64];
+    v72 = [(DownloadManager *)self clientIdentifierWithName:firstClientName];
+    [v34 set_sourceApplicationBundleIdentifierForMobileAsset:v72];
   }
 
-  if (v71 <= 3)
+  if (v79 <= 3)
   {
-    if (v71 != 1)
+    if (v79 != 1)
     {
-      if (v71 != 2)
+      if (v79 != 2)
       {
         goto LABEL_116;
       }
@@ -8278,44 +8286,44 @@ LABEL_104:
     goto LABEL_113;
   }
 
-  if (v71 == 5)
+  if (v79 == 5)
   {
 LABEL_114:
-    v65 = objc_opt_class();
-    v66 = 3;
+    v73 = objc_opt_class();
+    v74 = 3;
     goto LABEL_115;
   }
 
-  if (v71 == 4)
+  if (v79 == 4)
   {
 LABEL_113:
-    v65 = objc_opt_class();
-    v66 = 2;
+    v73 = objc_opt_class();
+    v74 = 2;
 LABEL_115:
-    [v65 addNWActivityToDownloadInfo:v23 andTask:v32 andLabel:v66 withOptions:optionsCopy];
+    [v73 addNWActivityToDownloadInfo:v23 andTask:v34 andLabel:v74 withOptions:optionsCopy];
   }
 
 LABEL_116:
   if ([v23 signpost])
   {
-    v67 = _MADLog(@"Download");
+    v75 = _MADLog(@"Download");
     signpost = [v23 signpost];
-    if ((signpost - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
+    if ((signpost - 1) <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
     {
-      v69 = mach_continuous_time();
+      v77 = mach_continuous_time();
       *buf = 134349056;
-      sizeCopy = v69;
-      _os_signpost_emit_with_name_impl(&dword_0, v67, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "DownloadSession", "%{public, signpost.description:begin_time}llu  enableTelemetry=YES ", buf, 0xCu);
+      sizeCopy = v77;
+      _os_signpost_emit_with_name_impl(&dword_0, v75, OS_SIGNPOST_INTERVAL_BEGIN, signpost, "DownloadSession", "%{public, signpost.description:begin_time}llu  enableTelemetry=YES ", buf, 0xCu);
     }
   }
 
-  [v32 resume];
+  [v34 resume];
 LABEL_24:
-  v38 = v32;
+  v40 = v34;
 
   os_activity_scope_leave(&state);
 
-  return v38;
+  return v40;
 }
 
 + (void)addNWActivityToDownloadInfo:(id)info andTask:(id)task andLabel:(unsigned int)label withOptions:(id)options
@@ -8542,8 +8550,7 @@ LABEL_26:
       }
     }
 
-    [v42 setObject:assetsCopy forKey:@"Assets"];
-    v41 = getControlManager();
+    v41 = getControlManager([v42 setObject:assetsCopy forKey:@"Assets"]);
     if (v41 && v42)
     {
       updated = isSoftwareUpdateType(persistCopy);
@@ -8784,7 +8791,7 @@ LABEL_26:
   path = [uRLByDeletingLastPathComponent2 path];
 
   v37 = ensureDirectory(path);
-  v25 = getControlManager();
+  v25 = getControlManager(v37);
   if (!v25)
   {
     v40 = _MADLog(@"Download");
@@ -10021,19 +10028,19 @@ void __78__DownloadManager_updateProgressIfRequired_totalWritten_totalExpected_n
   nameCopy = name;
   metadataCopy = metadata;
   dCopy = d;
-  v58 = jobCopy;
+  v59 = jobCopy;
   _MAPreferencesSync(@"registerAssetDownloadJob", jobCopy);
-  v52 = withCopy;
-  v53 = atCopy;
-  v51 = toCopy;
-  v48 = connectionCopy;
+  v53 = withCopy;
+  v54 = atCopy;
+  v52 = toCopy;
+  v49 = connectionCopy;
   if (backgroundDownloadsPossibleWithInfo(0) && [(DownloadManager *)self checkDownloadIsSyncing:@"registerAssetDownloadJob" using:connectionCopy with:messageCopy autoAssetJob:0 ofJobType:@"asset_job"])
   {
     v28 = _MADLog(@"Download");
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v60 = jobCopy;
+      v61 = jobCopy;
       _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Trying to create an asset download job while background sync is ongoing, bailing, %{public}@", buf, 0xCu);
     }
 
@@ -10053,67 +10060,68 @@ LABEL_16:
   if (v32)
   {
 LABEL_17:
-    v39 = nameCopy;
-    v47 = connectionCopy;
-    LOBYTE(v46) = necessary;
-    v45 = withCopy;
-    v42 = v53;
-    v43 = v33;
-    v40 = v51;
-    [(DownloadManager *)self registerAssetDownloadJob:v58 withPurpose:v30 usingDownloadOptions:v29 forAssetId:v31 withBase:v33 relativeTo:v51 startingAt:v53 withLength:lengthCopy extractWith:v45 allocateExtractorIfNecessary:v46 usingXPCConnection:v47 withXPCMessage:messageCopy clientName:nameCopy performingAutoAssetJob:0 notify:notify withCatalogMetadata:metadataCopy withSpaceCheckedUUID:dCopy, v48];
+    v40 = nameCopy;
+    v48 = connectionCopy;
+    LOBYTE(v47) = necessary;
+    v46 = withCopy;
+    v43 = v54;
+    v44 = v33;
+    v41 = v52;
+    [(DownloadManager *)self registerAssetDownloadJob:v59 withPurpose:v30 usingDownloadOptions:v29 forAssetId:v31 withBase:v33 relativeTo:v52 startingAt:v54 withLength:lengthCopy extractWith:v46 allocateExtractorIfNecessary:v47 usingXPCConnection:v48 withXPCMessage:messageCopy clientName:nameCopy performingAutoAssetJob:0 notify:notify withCatalogMetadata:metadataCopy withSpaceCheckedUUID:dCopy, v49];
 
-    v38 = metadataCopy;
-    v41 = dCopy;
+    v39 = metadataCopy;
+    v42 = dCopy;
     goto LABEL_18;
   }
 
   string = xpc_dictionary_get_string(messageCopy, "Purpose");
   v30 = normalizePurposeFromUtf8(string);
-  if (isWellFormedPurpose(v30))
+  v35 = isWellFormedPurpose(v30);
+  if (v35)
   {
-    v35 = downloadManagerDecodeClasses();
-    v36 = getObjectFromMessage(messageCopy, "downloadOptionsLength", "downloadOptions", v35);
+    v36 = downloadManagerDecodeClasses(v35);
+    v37 = getObjectFromMessage(messageCopy, "downloadOptionsLength", "downloadOptions", v36);
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v29 = [objc_opt_new() initWithPlist:v36];
+      v29 = [objc_opt_new() initWithPlist:v37];
     }
 
     else
     {
-      v44 = _MADLog(@"Download");
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      v45 = _MADLog(@"Download");
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v60 = v58;
-        v61 = 2114;
-        v62 = thisCopy;
-        _os_log_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ and %{public}@ were not a valid class, failing", buf, 0x16u);
+        v61 = v59;
+        v62 = 2114;
+        v63 = thisCopy;
+        _os_log_impl(&dword_0, v45, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ and %{public}@ were not a valid class, failing", buf, 0x16u);
       }
 
-      [(DownloadManager *)self sendDownloadCannotStartResult:22 assetType:v58 connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"asset_job" underlyingError:0];
+      [(DownloadManager *)self sendDownloadCannotStartResult:22 assetType:v59 connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"asset_job" underlyingError:0];
       v29 = 0;
     }
 
     goto LABEL_16;
   }
 
-  v37 = _MADLog(@"Download");
-  v38 = metadataCopy;
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v38 = _MADLog(@"Download");
+  v39 = metadataCopy;
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v60 = v58;
-    _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "Trying to create a download job without a well formed purpose, bailing, %{public}@", buf, 0xCu);
+    v61 = v59;
+    _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "Trying to create a download job without a well formed purpose, bailing, %{public}@", buf, 0xCu);
   }
 
-  v39 = nameCopy;
-  [(DownloadManager *)self sendDownloadCannotStartResult:3 assetType:v58 connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"asset_job" underlyingError:0];
-  v41 = dCopy;
-  v40 = toCopy;
-  v42 = v53;
-  v43 = baseCopy;
+  v40 = nameCopy;
+  [(DownloadManager *)self sendDownloadCannotStartResult:3 assetType:v59 connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"asset_job" underlyingError:0];
+  v42 = dCopy;
+  v41 = toCopy;
+  v43 = v54;
+  v44 = baseCopy;
 LABEL_18:
 }
 
@@ -10329,201 +10337,202 @@ LABEL_31:
   v27 = _os_activity_create(&dword_0, "DownloadManager:registerAssetDownloadJob", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v27, &state);
 
-  v97 = 0;
-  v98 = &v97;
-  v99 = 0x3032000000;
-  v100 = __Block_byref_object_copy__11;
-  v101 = __Block_byref_object_dispose__11;
-  v102 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x3032000000;
+  v101 = __Block_byref_object_copy__11;
+  v102 = __Block_byref_object_dispose__11;
+  v103 = 0;
   v28 = normalizedAssetType(jobCopy);
   v29 = assembleTaskDescriptorWithPurposeAndAutoAssetJobID(v28, idCopy, purposeCopy, assetJobCopy);
-  v30 = v98[5];
-  v98[5] = v29;
+  v30 = v99[5];
+  v99[5] = v29;
 
-  if (!v98[5])
+  if (!v99[5])
   {
-    v34 = _MADLog(@"Download");
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = _MADLog(@"Download");
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = jobCopy;
-      _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
     }
 
-    v31 = 0;
-    v36 = 0;
-    v38 = 3;
+    v32 = 0;
+    v37 = 0;
+    v39 = 3;
     goto LABEL_12;
   }
 
   v31 = [metadataCopy safeDictionaryForKey:@"RequiredFeatures"];
+  v32 = v31;
   if (v31)
   {
-    v32 = _MADLog(@"Download");
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = _MADLog(@"Download");
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      *&buf[4] = v31;
-      _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Asset requires features: %{public}@", buf, 0xCu);
+      *&buf[4] = v32;
+      _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "Asset requires features: %{public}@", buf, 0xCu);
     }
 
-    v95 = 0;
     v96 = 0;
-    v33 = [v31 areRequirementsMetByBrain:&v96 error:&v95];
-    v34 = v96;
-    v35 = v95;
-    if (v35)
+    v97 = 0;
+    v34 = [v32 areRequirementsMetByBrain:&v97 error:&v96];
+    v35 = v97;
+    v36 = v96;
+    if (v36)
     {
-      v36 = v35;
-      v37 = _MADLog(@"Download");
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v37 = v36;
+      v38 = _MADLog(@"Download");
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v36;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_ERROR, "Got an error trying to determine if brain has features required by asset: %{public}@", buf, 0xCu);
+        *&buf[4] = v37;
+        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_ERROR, "Got an error trying to determine if brain has features required by asset: %{public}@", buf, 0xCu);
       }
 
-      v38 = 78;
+      v39 = 78;
 LABEL_12:
 
-      [(DownloadManager *)self sendDownloadCannotStartResult:v38 assetType:jobCopy connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:assetJobCopy ofJobType:@"asset_job" underlyingError:v36, d, atCopy, lengthCopy];
+      [(DownloadManager *)self sendDownloadCannotStartResult:v39 assetType:jobCopy connection:connectionCopy requestMessage:messageCopy clientName:nameCopy autoAssetJobID:assetJobCopy ofJobType:@"asset_job" underlyingError:v37, d, atCopy, lengthCopy];
       goto LABEL_29;
     }
 
-    if ((v33 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
-      v46 = _MADLog(@"Download");
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v47 = _MADLog(@"Download");
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        *&buf[4] = v34;
-        _os_log_impl(&dword_0, v46, OS_LOG_TYPE_ERROR, "[WARNING] Asset requires new features - need to look for a new brain that supports these features: %{public}@", buf, 0xCu);
+        *&buf[4] = v35;
+        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_ERROR, "[WARNING] Asset requires new features - need to look for a new brain that supports these features: %{public}@", buf, 0xCu);
       }
 
-      v47 = +[NSMutableDictionary dictionary];
-      [v47 setObject:v31 forKeyedSubscript:@"requiredFeatures"];
-      [v47 setObject:&__kCFBooleanTrue forKeyedSubscript:@"relaunchBrain"];
-      v48 = &__kCFBooleanFalse;
+      v48 = +[NSMutableDictionary dictionary];
+      [v48 setObject:v32 forKeyedSubscript:@"requiredFeatures"];
+      [v48 setObject:&__kCFBooleanTrue forKeyedSubscript:@"relaunchBrain"];
+      v49 = &__kCFBooleanFalse;
       if (optionsCopy && ![optionsCopy discretionary])
       {
-        v48 = &__kCFBooleanTrue;
+        v49 = &__kCFBooleanTrue;
       }
 
-      [v47 setObject:v48 forKeyedSubscript:@"nonDiscetionary"];
+      [v48 setObject:v49 forKeyedSubscript:@"nonDiscetionary"];
       downloadAuthorizationHeader = [optionsCopy downloadAuthorizationHeader];
-      [v47 setObject:downloadAuthorizationHeader forKeyedSubscript:@"dawHeader"];
+      [v48 setObject:downloadAuthorizationHeader forKeyedSubscript:@"dawHeader"];
 
-      v50 = +[MABrainUpdater sharedInstance];
-      v89[0] = _NSConcreteStackBlock;
-      v89[1] = 3221225472;
-      v89[2] = __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOptions_forAssetId_withBase_relativeTo_startingAt_withLength_extractWith_allocateExtractorIfNecessary_usingXPCConnection_withXPCMessage_clientName_performingAutoAssetJob_notify_withCatalogMetadata_withSpaceCheckedUUID___block_invoke;
-      v89[3] = &unk_4B4270;
-      v89[4] = self;
-      v90 = jobCopy;
-      v91 = connectionCopy;
-      v92 = messageCopy;
-      v93 = nameCopy;
-      v94 = assetJobCopy;
-      [v50 update:v47 completion:v89];
+      v51 = +[MABrainUpdater sharedInstance];
+      v90[0] = _NSConcreteStackBlock;
+      v90[1] = 3221225472;
+      v90[2] = __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOptions_forAssetId_withBase_relativeTo_startingAt_withLength_extractWith_allocateExtractorIfNecessary_usingXPCConnection_withXPCMessage_clientName_performingAutoAssetJob_notify_withCatalogMetadata_withSpaceCheckedUUID___block_invoke;
+      v90[3] = &unk_4B4270;
+      v90[4] = self;
+      v91 = jobCopy;
+      v92 = connectionCopy;
+      v93 = messageCopy;
+      v94 = nameCopy;
+      v95 = assetJobCopy;
+      [v51 update:v48 completion:v90];
 
-      v36 = 0;
+      v37 = 0;
       goto LABEL_29;
     }
   }
 
-  v36 = 0;
+  v37 = 0;
   if (withCopy || !necessary)
   {
-    v42 = withCopy;
+    v43 = withCopy;
   }
 
   else
   {
-    v39 = getControlManager();
-    v40 = v98[5];
-    v88 = 0;
-    v41 = [v39 newExtractor:metadataCopy downloadOptions:optionsCopy sessionID:v40 error:&v88];
-    v36 = v88;
+    v40 = getControlManager(v31);
+    v41 = v99[5];
+    v89 = 0;
+    v42 = [v40 newExtractor:metadataCopy downloadOptions:optionsCopy sessionID:v41 error:&v89];
+    v37 = v89;
 
-    if (!v41)
+    if (!v42)
     {
-      v34 = _MADLog(@"Download");
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = _MADLog(@"Download");
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413826;
         *&buf[4] = assetJobCopy;
         *&buf[12] = 2112;
         *&buf[14] = jobCopy;
         *&buf[22] = 2112;
-        v105 = purposeCopy;
-        *v106 = 2112;
-        *&v106[2] = idCopy;
-        *&v106[10] = 2112;
-        *&v106[12] = baseCopy;
-        v107 = 2112;
-        v108 = toCopy;
-        v109 = 2112;
-        v110 = v36;
-        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "Unable to register asset download job (unable to create catalog-based extractor) | autoAssetJobID:%@, assetType:%@, purpose:%@, assetId:%@ | baseURL:%@, relativeURL:%@ error:%@", buf, 0x48u);
+        v106 = purposeCopy;
+        *v107 = 2112;
+        *&v107[2] = idCopy;
+        *&v107[10] = 2112;
+        *&v107[12] = baseCopy;
+        v108 = 2112;
+        v109 = toCopy;
+        v110 = 2112;
+        v111 = v37;
+        _os_log_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "Unable to register asset download job (unable to create catalog-based extractor) | autoAssetJobID:%@, assetType:%@, purpose:%@, assetId:%@ | baseURL:%@, relativeURL:%@ error:%@", buf, 0x48u);
       }
 
-      v38 = 5;
+      v39 = 5;
       goto LABEL_12;
     }
 
-    v42 = v41;
+    v43 = v42;
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v105 = __Block_byref_object_copy__11;
-  *v106 = __Block_byref_object_dispose__11;
-  *&v106[8] = 0;
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x2020000000;
-  v87 = 0;
-  v64[0] = _NSConcreteStackBlock;
-  v64[1] = 3221225472;
-  v64[2] = __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOptions_forAssetId_withBase_relativeTo_startingAt_withLength_extractWith_allocateExtractorIfNecessary_usingXPCConnection_withXPCMessage_clientName_performingAutoAssetJob_notify_withCatalogMetadata_withSpaceCheckedUUID___block_invoke_2362;
-  v64[3] = &unk_4B4298;
-  v43 = metadataCopy;
-  v65 = v43;
-  v66 = v42;
-  v67 = jobCopy;
-  v68 = idCopy;
-  v69 = baseCopy;
-  v70 = toCopy;
+  v106 = __Block_byref_object_copy__11;
+  *v107 = __Block_byref_object_dispose__11;
+  *&v107[8] = 0;
+  v85 = 0;
+  v86 = &v85;
+  v87 = 0x2020000000;
+  v88 = 0;
+  v65[0] = _NSConcreteStackBlock;
+  v65[1] = 3221225472;
+  v65[2] = __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOptions_forAssetId_withBase_relativeTo_startingAt_withLength_extractWith_allocateExtractorIfNecessary_usingXPCConnection_withXPCMessage_clientName_performingAutoAssetJob_notify_withCatalogMetadata_withSpaceCheckedUUID___block_invoke_2362;
+  v65[3] = &unk_4B4298;
+  v44 = metadataCopy;
+  v66 = v44;
+  v67 = v43;
+  v68 = jobCopy;
+  v69 = idCopy;
+  v70 = baseCopy;
+  v71 = toCopy;
   selfCopy = self;
-  v72 = optionsCopy;
-  v73 = purposeCopy;
-  v80 = &v97;
-  v74 = atCopy;
-  v75 = lengthCopy;
-  v81 = &v84;
-  withCopy = v66;
-  v76 = connectionCopy;
-  v77 = messageCopy;
-  v78 = nameCopy;
-  v82 = buf;
+  v73 = optionsCopy;
+  v74 = purposeCopy;
+  v81 = &v98;
+  v75 = atCopy;
+  v76 = lengthCopy;
+  v82 = &v85;
+  withCopy = v67;
+  v77 = connectionCopy;
+  v78 = messageCopy;
+  v79 = nameCopy;
+  v83 = buf;
   notifyCopy = notify;
-  v79 = assetJobCopy;
-  v44 = objc_retainBlock(v64);
-  v45 = [v43 safeULLForKey:@"_DownloadSize"];
-  v85[3] = v45;
+  v80 = assetJobCopy;
+  v45 = objc_retainBlock(v65);
+  v46 = [v44 safeULLForKey:@"_DownloadSize"];
+  v86[3] = v46;
   if (dCopy)
   {
     objc_storeStrong((*&buf[8] + 40), d);
   }
 
-  dispatch_async(self->_downloadStateQueue, v44);
+  dispatch_async(self->_downloadStateQueue, v45);
 
-  _Block_object_dispose(&v84, 8);
+  _Block_object_dispose(&v85, 8);
   _Block_object_dispose(buf, 8);
 
 LABEL_29:
-  _Block_object_dispose(&v97, 8);
+  _Block_object_dispose(&v98, 8);
 
   os_activity_scope_leave(&state);
 }
@@ -10605,17 +10614,17 @@ void __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOp
       v10 = v14;
     }
 
-    v31 = v8;
-    v32 = 2112;
-    v33 = v9;
-    v34 = 2112;
-    v35 = v12;
-    v36 = 2112;
-    v37 = v11;
-    v38 = 2112;
-    v39 = v13;
-    v40 = 2112;
-    v41 = v10;
+    v32 = v8;
+    v33 = 2112;
+    v34 = v9;
+    v35 = 2112;
+    v36 = v12;
+    v37 = 2112;
+    v38 = v11;
+    v39 = 2112;
+    v40 = v13;
+    v41 = 2112;
+    v42 = v10;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Determining URL for Asset(Type: %@ ID: %@): KnoxURL: %@ DecryptionKey: %@ BaseURL: %@ relativeURL: %@", buf, 0x3Eu);
   }
 
@@ -10629,14 +10638,14 @@ void __287__DownloadManager_registerAssetDownloadJob_withPurpose_usingDownloadOp
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v31 = v15;
+        v32 = v15;
         _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Using baseURL from supplied override to construct asset download URL: %{public}@", buf, 0xCu);
       }
 
       v17 = v15;
 LABEL_31:
-      v23 = [NSURL URLWithString:v17];
-      v20 = [v23 URLByAppendingPathComponent:*(a1 + 72)];
+      v24 = [NSURL URLWithString:v17];
+      v20 = [v24 URLByAppendingPathComponent:*(a1 + 72)];
 
       goto LABEL_39;
     }
@@ -10649,7 +10658,7 @@ LABEL_31:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v31 = v2;
+      v32 = v2;
       _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Using Knox url from asset to construct asset download URL: %{public}@", buf, 0xCu);
     }
 
@@ -10662,53 +10671,54 @@ LABEL_31:
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v21 = _MADLog(@"Download");
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = _MADLog(@"Download");
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = *(a1 + 64);
+        v23 = *(a1 + 64);
         *buf = 138543362;
-        v31 = v22;
-        _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "Using base url from request to construct asset download URL: %{public}@", buf, 0xCu);
+        v32 = v23;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Using base url from request to construct asset download URL: %{public}@", buf, 0xCu);
       }
 
       v17 = *(a1 + 64);
       goto LABEL_31;
     }
 
-    v24 = getControlManager();
-    v25 = [v24 getMetadataFromCatalog:*(a1 + 48) key:@"DownloadedFrom" withPurpose:*(a1 + 96)];
+    v25 = getControlManager(isKindOfClass);
+    v26 = [v25 getMetadataFromCatalog:*(a1 + 48) key:@"DownloadedFrom" withPurpose:*(a1 + 96)];
 
-    if (v25 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v26 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v26 = [NSURL URLWithString:v25];
+      v27 = [NSURL URLWithString:v26];
     }
 
     else
     {
-      v27 = +[ASAssetMetadataUpdatePolicy policy];
-      v26 = [v27 serverURLForAssetType:*(a1 + 48)];
+      v28 = +[ASAssetMetadataUpdatePolicy policy];
+      v27 = [v28 serverURLForAssetType:*(a1 + 48)];
     }
 
-    v28 = _MADLog(@"Download");
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _MADLog(@"Download");
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v31 = v26;
-      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "The base url is empty in the request, using default: %{public}@", buf, 0xCu);
+      v32 = v27;
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "The base url is empty in the request, using default: %{public}@", buf, 0xCu);
     }
 
-    v20 = [(__CFString *)v26 URLByAppendingPathComponent:*(a1 + 72)];
+    v20 = [(__CFString *)v27 URLByAppendingPathComponent:*(a1 + 72)];
   }
 
 LABEL_39:
-  v29 = _MADLog(@"Download");
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v30 = _MADLog(@"Download");
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v31 = v20;
-    _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Full URL is %{public}@", buf, 0xCu);
+    v32 = v20;
+    _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Full URL is %{public}@", buf, 0xCu);
   }
 
   [*(a1 + 80) startDownloadAndUpdateState:v20 for:*(*(*(a1 + 152) + 8) + 40) startingAt:*(a1 + 104) withLength:*(a1 + 112) extractWith:*(a1 + 40) modified:0 options:*(a1 + 88) downloadSize:*(*(*(a1 + 160) + 8) + 24) using:*(a1 + 120) with:*(a1 + 128) clientName:*(a1 + 136) autoAssetJob:*(a1 + 144) ofJobType:@"asset_job" notify:*(a1 + 176) spaceCheckedUUID:*(*(*(a1 + 168) + 8) + 40)];
@@ -10765,12 +10775,12 @@ LABEL_9:
 void __64__DownloadManager_registerPmvDownloadJob_using_with_clientName___block_invoke(uint64_t a1)
 {
   v2 = normalizedAssetType(@"com.apple.MobileAsset.SoftwareUpdate");
-  _MAPreferencesSync(@"registerPmvDownloadJob", *(a1 + 32));
-  v3 = *(a1 + 40);
-  v4 = downloadManagerDecodeClasses();
-  v5 = getObjectFromMessage(v3, "downloadOptionsLength", "downloadOptions", v4);
+  v3 = _MAPreferencesSync(@"registerPmvDownloadJob", *(a1 + 32));
+  v4 = *(a1 + 40);
+  v5 = downloadManagerDecodeClasses(v3);
+  v6 = getObjectFromMessage(v4, "downloadOptionsLength", "downloadOptions", v5);
 
-  if (!v5)
+  if (!v6)
   {
     goto LABEL_10;
   }
@@ -10782,49 +10792,50 @@ LABEL_5:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v5 logOptions];
+      [v6 logOptions];
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v8 = 0;
+        v9 = 0;
         goto LABEL_16;
       }
 
-      v7 = [v5 purpose];
-      v8 = normalizePurpose(v7);
+      v8 = [v6 purpose];
+      v9 = normalizePurpose(v8);
 
-      if (isWellFormedPurpose(v8))
+      if (isWellFormedPurpose(v9))
       {
 LABEL_16:
-        v12 = assembleTaskDescriptorWithPurpose(v2, @"pmv", v8);
-        if (v12)
+        v13 = assembleTaskDescriptorWithPurpose(v2, @"pmv", v9);
+        v15 = v13;
+        if (v13)
         {
-          IsInternalAllowed = _MAPreferencesIsInternalAllowed();
-          v14 = getPmvUrl(IsInternalAllowed, @"com.apple.MobileAsset.SoftwareUpdate");
-          v15 = _MADLog(@"Download");
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          IsInternalAllowed = _MAPreferencesIsInternalAllowed(v13, v14);
+          v17 = getPmvUrl(IsInternalAllowed, @"com.apple.MobileAsset.SoftwareUpdate");
+          v18 = _MADLog(@"Download");
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = *(a1 + 64);
+            v19 = *(a1 + 64);
             *buf = 138543874;
-            v20 = v14;
-            v21 = 2114;
-            v22 = @"com.apple.MobileAsset.SoftwareUpdate";
-            v23 = 2114;
-            v24 = v16;
-            _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "PMV download is being forced as client asked. Downloading %{public}@ for %{public}@ client: %{public}@", buf, 0x20u);
+            v23 = v17;
+            v24 = 2114;
+            v25 = @"com.apple.MobileAsset.SoftwareUpdate";
+            v26 = 2114;
+            v27 = v19;
+            _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "PMV download is being forced as client asked. Downloading %{public}@ for %{public}@ client: %{public}@", buf, 0x20u);
           }
 
-          [*(a1 + 48) startDownloadAndUpdateState:v14 for:v12 modified:0 options:v5 using:*(a1 + 56) with:*(a1 + 40) clientName:*(a1 + 64) autoAssetJob:0 ofJobType:@"PMV_job"];
+          [*(a1 + 48) startDownloadAndUpdateState:v17 for:v15 modified:0 options:v6 using:*(a1 + 56) with:*(a1 + 40) clientName:*(a1 + 64) autoAssetJob:0 ofJobType:@"PMV_job"];
         }
 
         else
         {
-          v17 = _MADLog(@"Download");
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v20 = _MADLog(@"Download");
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v20 = @"com.apple.MobileAsset.SoftwareUpdate";
-            _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
+            v23 = @"com.apple.MobileAsset.SoftwareUpdate";
+            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
           }
 
           [*(a1 + 48) sendDownloadCannotStartResult:3 assetType:@"com.apple.MobileAsset.SoftwareUpdate" connection:*(a1 + 56) requestMessage:*(a1 + 40) clientName:*(a1 + 64) autoAssetJobID:0 ofJobType:@"PMV_job" underlyingError:0];
@@ -10833,15 +10844,15 @@ LABEL_16:
         goto LABEL_24;
       }
 
-      v9 = _MADLog(@"Download");
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = _MADLog(@"Download");
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [v5 purpose];
+        v11 = [v6 purpose];
         *buf = 138543618;
-        v20 = v10;
-        v21 = 2114;
-        v22 = @"com.apple.MobileAsset.SoftwareUpdate";
-        _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "The purpose for PMV is: '%{public}@' which is not well formed, and type is: %{public}@", buf, 0x16u);
+        v23 = v11;
+        v24 = 2114;
+        v25 = @"com.apple.MobileAsset.SoftwareUpdate";
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "The purpose for PMV is: '%{public}@' which is not well formed, and type is: %{public}@", buf, 0x16u);
       }
 
 LABEL_15:
@@ -10849,42 +10860,42 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v9 = v5;
+    v10 = v6;
 LABEL_12:
-    v11 = _MADLog(@"Download");
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = _MADLog(@"Download");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "registerPmvDownloadJob options are nil", buf, 2u);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "registerPmvDownloadJob options are nil", buf, 2u);
     }
 
-    v5 = objc_alloc_init(MADownloadOptions);
-    v8 = 0;
+    v6 = objc_alloc_init(MADownloadOptions);
+    v9 = 0;
     goto LABEL_15;
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = [objc_opt_new() initWithPlist:v5];
+    v7 = [objc_opt_new() initWithPlist:v6];
 
-    v5 = v6;
-    if (v6)
+    v6 = v7;
+    if (v7)
     {
       goto LABEL_5;
     }
 
 LABEL_10:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_12;
   }
 
-  v18 = _MADLog(@"Download");
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v21 = _MADLog(@"Download");
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v20 = @"com.apple.MobileAsset.SoftwareUpdate";
-    _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ PMV were not a valid class, failing", buf, 0xCu);
+    v23 = @"com.apple.MobileAsset.SoftwareUpdate";
+    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ PMV were not a valid class, failing", buf, 0xCu);
   }
 
   [*(a1 + 48) sendDownloadCannotStartResult:22 assetType:@"com.apple.MobileAsset.SoftwareUpdate" connection:*(a1 + 56) requestMessage:*(a1 + 40) clientName:*(a1 + 64) autoAssetJobID:0 ofJobType:@"PMV_job" underlyingError:0];
@@ -10902,11 +10913,11 @@ LABEL_24:
   v14 = _os_activity_create(&dword_0, "DownloadManager:registerXmlDownloadJob", &_os_activity_current, OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v14, &state);
 
-  v15 = downloadManagerDecodeClasses();
-  v16 = getObjectFromMessage(withCopy, "downloadOptionsLength", "downloadOptions", v15);
+  v16 = downloadManagerDecodeClasses(v15);
+  v17 = getObjectFromMessage(withCopy, "downloadOptionsLength", "downloadOptions", v16);
 
   _MAPreferencesSync(@"registerXmlDownloadJob", jobCopy);
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_7;
   }
@@ -10917,25 +10928,25 @@ LABEL_24:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v24 = _MADLog(@"Download");
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = _MADLog(@"Download");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v27 = jobCopy;
-        v28 = 2114;
-        v29 = v16;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ catalog were not a valid class, failing: %{public}@", buf, 0x16u);
+        v28 = jobCopy;
+        v29 = 2114;
+        v30 = v17;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ catalog were not a valid class, failing: %{public}@", buf, 0x16u);
       }
 
       [(DownloadManager *)self sendDownloadCannotStartResult:22 assetType:jobCopy connection:usingCopy requestMessage:withCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"catalog_job" underlyingError:0, state.opaque[0], state.opaque[1]];
-      v22 = 0;
+      v23 = 0;
       goto LABEL_21;
     }
 
-    v17 = [objc_opt_new() initWithPlist:v16];
+    v18 = [objc_opt_new() initWithPlist:v17];
 
-    v16 = v17;
-    if (!v17)
+    v17 = v18;
+    if (!v18)
     {
       goto LABEL_7;
     }
@@ -10944,54 +10955,54 @@ LABEL_24:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v16 logOptions];
+    [v17 logOptions];
   }
 
   else
   {
 LABEL_7:
-    v18 = _MADLog(@"Download");
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _MADLog(@"Download");
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "registerXmlDownloadJob options are nil", buf, 2u);
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "registerXmlDownloadJob options are nil", buf, 2u);
     }
 
-    v19 = objc_alloc_init(MADownloadOptions);
-    v16 = v19;
+    v20 = objc_alloc_init(MADownloadOptions);
+    v17 = v20;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v22 = 0;
+    v23 = 0;
     goto LABEL_14;
   }
 
-  v20 = v16;
-  purpose = [v20 purpose];
-  v22 = normalizePurpose(purpose);
+  v21 = v17;
+  purpose = [v21 purpose];
+  v23 = normalizePurpose(purpose);
 
-  if (isWellFormedPurpose(v22))
+  if (isWellFormedPurpose(v23))
   {
 
 LABEL_14:
-    [(DownloadManager *)self registerCatalogDownloadJob:jobCopy withPurpose:v22 usingDownloadOptions:v16 usingXPCConnection:usingCopy withXPCMessage:withCopy performingAutoAssetJob:0 asClientName:nameCopy];
+    [(DownloadManager *)self registerCatalogDownloadJob:jobCopy withPurpose:v23 usingDownloadOptions:v17 usingXPCConnection:usingCopy withXPCMessage:withCopy performingAutoAssetJob:0 asClientName:nameCopy];
     goto LABEL_21;
   }
 
-  v23 = _MADLog(@"Download");
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v24 = _MADLog(@"Download");
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v27 = v22;
-    v28 = 2114;
-    v29 = jobCopy;
-    _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "The purpose for XML is: '%{public}@' which is not well formed, and type is: %{public}@, bailing", buf, 0x16u);
+    v28 = v23;
+    v29 = 2114;
+    v30 = jobCopy;
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_DEFAULT, "The purpose for XML is: '%{public}@' which is not well formed, and type is: %{public}@, bailing", buf, 0x16u);
   }
 
   [(DownloadManager *)self sendDownloadCannotStartResult:74 assetType:jobCopy connection:usingCopy requestMessage:withCopy clientName:nameCopy autoAssetJobID:0 ofJobType:@"catalog_job" underlyingError:0, state.opaque[0], state.opaque[1]];
-  v16 = v20;
+  v17 = v21;
 LABEL_21:
 
   os_activity_scope_leave(&state);
@@ -11062,15 +11073,16 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
 {
   v2 = normalizedAssetType(*(a1 + 32));
   v3 = assembleTaskDescriptorWithPurposeAndAutoAssetJobID(v2, @"xml", *(a1 + 40), *(a1 + 48));
+  v4 = v3;
   if (v3)
   {
     if (!*(a1 + 48))
     {
-      v4 = *(a1 + 72);
-      v5 = downloadManagerDecodeClasses();
-      v6 = getObjectFromMessage(v4, "downloadOptionsLength", "downloadOptions", v5);
+      v5 = *(a1 + 72);
+      v6 = downloadManagerDecodeClasses(v3);
+      v7 = getObjectFromMessage(v5, "downloadOptionsLength", "downloadOptions", v6);
 
-      if (!v6)
+      if (!v7)
       {
         goto LABEL_12;
       }
@@ -11081,25 +11093,25 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v34 = _MADLog(@"Download");
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v36 = _MADLog(@"Download");
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v35 = *(a1 + 32);
+            v37 = *(a1 + 32);
             *buf = 138543618;
-            v51 = v35;
-            v52 = 2114;
-            v53 = v6;
-            _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ catalog were not a valid class, failing: %{public}@", buf, 0x16u);
+            v53 = v37;
+            v54 = 2114;
+            v55 = v7;
+            _os_log_impl(&dword_0, v36, OS_LOG_TYPE_ERROR, "The asset download options for %{public}@ catalog were not a valid class, failing: %{public}@", buf, 0x16u);
           }
 
           [*(a1 + 56) indicateDownloadJobFinished:22 usingXPCConnection:*(a1 + 64) withXPCMessage:*(a1 + 72) performingAutoAssetJob:*(a1 + 48) ofJobType:@"catalog_job"];
           goto LABEL_29;
         }
 
-        v7 = [objc_opt_new() initWithPlist:v6];
+        v8 = [objc_opt_new() initWithPlist:v7];
 
-        v6 = v7;
-        if (!v7)
+        v7 = v8;
+        if (!v8)
         {
           goto LABEL_12;
         }
@@ -11108,87 +11120,88 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v6 logOptions];
+        [v7 logOptions];
       }
 
       else
       {
 LABEL_12:
-        v10 = _MADLog(@"Download");
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = _MADLog(@"Download");
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "registerXmlDownloadJob options are nil", buf, 2u);
+          _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "registerXmlDownloadJob options are nil", buf, 2u);
         }
       }
     }
 
-    if (![*(a1 + 56) getPallasEnabledForAssetType:*(a1 + 32)])
+    v12 = [*(a1 + 56) getPallasEnabledForAssetType:*(a1 + 32)];
+    if (!v12)
     {
-      v18 = _MADLog(@"Download");
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = _MADLog(@"Download");
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(a1 + 32);
-        v20 = *(a1 + 80);
+        v21 = *(a1 + 32);
+        v22 = *(a1 + 80);
         *buf = 138543618;
-        v51 = v19;
-        v52 = 2114;
-        v53 = v20;
-        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Skipping pallas route for %{public}@ client: %{public}@", buf, 0x16u);
+        v53 = v21;
+        v54 = 2114;
+        v55 = v22;
+        _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Skipping pallas route for %{public}@ client: %{public}@", buf, 0x16u);
       }
 
-      v21 = getStandardUrl(*(a1 + 32), v2);
-      v22 = *(*(a1 + 96) + 8);
-      v23 = *(v22 + 40);
-      *(v22 + 40) = v21;
+      v23 = getStandardUrl(*(a1 + 32), v2);
+      v24 = *(*(a1 + 96) + 8);
+      v25 = *(v24 + 40);
+      *(v24 + 40) = v23;
 
       if (*(*(*(a1 + 96) + 8) + 40))
       {
-        v24 = *(a1 + 88);
-        if (!v24 || ![v24 liveServerCatalogOnly])
+        v26 = *(a1 + 88);
+        if (!v26 || (v26 = [v26 liveServerCatalogOnly], !v26))
         {
-          v29 = getControlManager();
-          v30 = [v29 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:*(*(*(a1 + 96) + 8) + 40) withPurpose:*(a1 + 40)];
+          v31 = getControlManager(v26);
+          v32 = [v31 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:*(*(*(a1 + 96) + 8) + 40) withPurpose:*(a1 + 40)];
 
-          [*(a1 + 56) startDownloadAndUpdateState:*(*(*(a1 + 96) + 8) + 40) for:v3 modified:v30 options:*(a1 + 88) using:*(a1 + 64) with:*(a1 + 72) clientName:*(a1 + 80) autoAssetJob:*(a1 + 48) ofJobType:@"catalog_job"];
+          [*(a1 + 56) startDownloadAndUpdateState:*(*(*(a1 + 96) + 8) + 40) for:v4 modified:v32 options:*(a1 + 88) using:*(a1 + 64) with:*(a1 + 72) clientName:*(a1 + 80) autoAssetJob:*(a1 + 48) ofJobType:@"catalog_job"];
           goto LABEL_29;
         }
 
-        v25 = _MADLog(@"Download");
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v27 = _MADLog(@"Download");
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = *(*(*(a1 + 96) + 8) + 40);
-          v27 = *(a1 + 32);
-          v28 = *(a1 + 80);
+          v28 = *(*(*(a1 + 96) + 8) + 40);
+          v29 = *(a1 + 32);
+          v30 = *(a1 + 80);
           *buf = 138543874;
-          v51 = v26;
-          v52 = 2114;
-          v53 = v27;
+          v53 = v28;
           v54 = 2114;
-          v55 = v28;
-          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "XML catalog failed as client asked for liveServerCatalogOnly to disable fallback. Would have attempted %{public}@ after skipping on pallas for %{public}@ client: %{public}@", buf, 0x20u);
+          v55 = v29;
+          v56 = 2114;
+          v57 = v30;
+          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "XML catalog failed as client asked for liveServerCatalogOnly to disable fallback. Would have attempted %{public}@ after skipping on pallas for %{public}@ client: %{public}@", buf, 0x20u);
         }
       }
 
       else
       {
-        v25 = _MADLog(@"Download");
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v27 = _MADLog(@"Download");
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = stringForMADownloadResult(0x19uLL);
-          v32 = *(a1 + 32);
-          v33 = *(a1 + 80);
+          v33 = stringForMADownloadResult(0x19uLL);
+          v34 = *(a1 + 32);
+          v35 = *(a1 + 80);
           *buf = 134219010;
-          v51 = 25;
-          v52 = 2114;
-          v53 = v31;
+          v53 = 25;
           v54 = 2114;
-          v55 = v32;
+          v55 = v33;
           v56 = 2114;
-          v57 = v33;
+          v57 = v34;
           v58 = 2114;
-          v59 = v32;
-          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "Sending download result %ld (%{public}@) for assetType: %{public}@ XML download did not have a catalog URL. This could be for a type where liveServerCatalogOnly was set to disable XML fallback, or a lookup error for the build of SystemApps. Would have attempted the fallback URL after skipping on pallas for %{public}@ client: %{public}@", buf, 0x34u);
+          v59 = v35;
+          v60 = 2114;
+          v61 = v34;
+          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Sending download result %ld (%{public}@) for assetType: %{public}@ XML download did not have a catalog URL. This could be for a type where liveServerCatalogOnly was set to disable XML fallback, or a lookup error for the build of SystemApps. Would have attempted the fallback URL after skipping on pallas for %{public}@ client: %{public}@", buf, 0x34u);
         }
       }
 
@@ -11196,42 +11209,42 @@ LABEL_12:
       goto LABEL_29;
     }
 
-    v11 = getDownloadManager();
-    v12 = *(a1 + 32);
-    v37 = *(a1 + 64);
-    v38 = *(a1 + 40);
-    v36 = *(a1 + 72);
-    v13 = *(a1 + 48);
-    v14 = *(a1 + 80);
-    v15 = *(a1 + 88);
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownloadOptions_usingXPCConnection_withXPCMessage_performingAutoAssetJob_asClientName___block_invoke_2381;
-    v39[3] = &unk_4B42E8;
-    v40 = v12;
+    v13 = getDownloadManager(v12);
+    v14 = *(a1 + 32);
+    v39 = *(a1 + 64);
+    v40 = *(a1 + 40);
+    v38 = *(a1 + 72);
+    v15 = *(a1 + 48);
     v16 = *(a1 + 80);
-    v17 = *(a1 + 56);
-    v41 = v16;
-    v42 = v17;
-    v43 = v3;
-    v44 = v2;
-    v45 = *(a1 + 40);
-    v46 = *(a1 + 88);
-    v47 = *(a1 + 64);
-    v48 = *(a1 + 72);
-    v49 = *(a1 + 48);
-    [v11 pallasRequestV2:v40 normalizedType:v44 withPurpose:v38 options:v15 using:v37 with:v36 autoAssetJob:v13 clientName:v14 then:v39];
+    v17 = *(a1 + 88);
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownloadOptions_usingXPCConnection_withXPCMessage_performingAutoAssetJob_asClientName___block_invoke_2381;
+    v41[3] = &unk_4B42E8;
+    v42 = v14;
+    v18 = *(a1 + 80);
+    v19 = *(a1 + 56);
+    v43 = v18;
+    v44 = v19;
+    v45 = v4;
+    v46 = v2;
+    v47 = *(a1 + 40);
+    v48 = *(a1 + 88);
+    v49 = *(a1 + 64);
+    v50 = *(a1 + 72);
+    v51 = *(a1 + 48);
+    [v13 pallasRequestV2:v42 normalizedType:v46 withPurpose:v40 options:v17 using:v39 with:v38 autoAssetJob:v15 clientName:v16 then:v41];
   }
 
   else
   {
-    v8 = _MADLog(@"Download");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _MADLog(@"Download");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138543362;
-      v51 = v9;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
+      v53 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Trying to create a download job with nil task descriptor, bailing, %{public}@", buf, 0xCu);
     }
 
     [*(a1 + 56) sendDownloadCannotStartResult:3 assetType:*(a1 + 32) connection:*(a1 + 64) requestMessage:*(a1 + 72) clientName:*(a1 + 80) autoAssetJobID:*(a1 + 48) ofJobType:@"catalog_job" underlyingError:0];
@@ -11256,14 +11269,14 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
           v28 = *(a1 + 32);
           v29 = *(a1 + 40);
           *buf = 138543618;
-          v64 = v28;
-          v65 = 2114;
-          v66 = v29;
+          v67 = v28;
+          v68 = 2114;
+          v69 = v29;
           _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "Succeeded with not modified on pallas for %{public}@ client: %{public}@", buf, 0x16u);
         }
 
-        v30 = getControlManager();
-        [v30 updateLastFetchedDate:*(a1 + 64) assetType:*(a1 + 32) withPurpose:*(a1 + 72) with:*(a1 + 56)];
+        v31 = getControlManager(v30);
+        [v31 updateLastFetchedDate:*(a1 + 64) assetType:*(a1 + 32) withPurpose:*(a1 + 72) with:*(a1 + 56)];
 
         v13 = *(a1 + 48);
         v14 = *(a1 + 56);
@@ -11279,9 +11292,9 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
           v10 = *(a1 + 32);
           v11 = *(a1 + 40);
           *buf = 138543618;
-          v64 = v10;
-          v65 = 2114;
-          v66 = v11;
+          v67 = v10;
+          v68 = 2114;
+          v69 = v11;
           _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed with no retry on pallas for %{public}@ client: %{public}@", buf, 0x16u);
         }
 
@@ -11309,19 +11322,19 @@ void __149__DownloadManager_registerCatalogDownloadJob_withPurpose_usingDownload
       v22 = _MADLog(@"Download");
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v52 = *(a1 + 32);
-        v53 = *(a1 + 40);
+        v54 = *(a1 + 32);
+        v55 = *(a1 + 40);
         v25 = stringForMADownloadResult(a4);
         *buf = 138544386;
-        v64 = v8;
-        v65 = 2114;
-        v66 = v52;
-        v67 = 2114;
-        v68 = v53;
-        v69 = 2048;
-        v70 = a4;
-        v71 = 2114;
-        v72 = v25;
+        v67 = v8;
+        v68 = 2114;
+        v69 = v54;
+        v70 = 2114;
+        v71 = v55;
+        v72 = 2048;
+        v73 = a4;
+        v74 = 2114;
+        v75 = v25;
         v26 = "Failed MAPallasFailedRetrySame but asset type does not support XML fallback. Would have attempted retry with: %{public}@ after failing on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@";
         goto LABEL_46;
       }
@@ -11346,15 +11359,15 @@ LABEL_54:
         v24 = *(a1 + 40);
         v25 = stringForMADownloadResult(a4);
         *buf = 138544386;
-        v64 = v8;
-        v65 = 2114;
-        v66 = v23;
-        v67 = 2114;
-        v68 = v24;
-        v69 = 2048;
-        v70 = a4;
-        v71 = 2114;
-        v72 = v25;
+        v67 = v8;
+        v68 = 2114;
+        v69 = v23;
+        v70 = 2114;
+        v71 = v24;
+        v72 = 2048;
+        v73 = a4;
+        v74 = 2114;
+        v75 = v25;
         v26 = "Failed MAPallasFailedRetrySame but client used liveServerCatalogOnly to disable XML fallback. Would have attempted retry with: %{public}@ after failing on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@";
 LABEL_46:
         _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, v26, buf, 0x34u);
@@ -11365,24 +11378,24 @@ LABEL_46:
       goto LABEL_53;
     }
 
-    v42 = _MADLog(@"Download");
-    v43 = v42;
+    v43 = _MADLog(@"Download");
+    v44 = v43;
     if (!v8)
     {
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v60 = *(a1 + 32);
-        v61 = *(a1 + 40);
-        v62 = stringForMADownloadResult(a4);
+        v63 = *(a1 + 32);
+        v64 = *(a1 + 40);
+        v65 = stringForMADownloadResult(a4);
         *buf = 138544130;
-        v64 = v60;
-        v65 = 2114;
-        v66 = v61;
-        v67 = 2048;
-        v68 = a4;
-        v69 = 2114;
-        v70 = v62;
-        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_ERROR, "Had no fallback XML url to retry with: (nil) after failure on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@", buf, 0x2Au);
+        v67 = v63;
+        v68 = 2114;
+        v69 = v64;
+        v70 = 2048;
+        v71 = a4;
+        v72 = 2114;
+        v73 = v65;
+        _os_log_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "Had no fallback XML url to retry with: (nil) after failure on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@", buf, 0x2Au);
       }
 
       v13 = *(a1 + 48);
@@ -11391,28 +11404,28 @@ LABEL_46:
       goto LABEL_54;
     }
 
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = *(a1 + 32);
-      v45 = *(a1 + 40);
-      v46 = stringForMADownloadResult(a4);
+      v45 = *(a1 + 32);
+      v46 = *(a1 + 40);
+      v47 = stringForMADownloadResult(a4);
       *buf = 138544386;
-      v64 = v8;
-      v65 = 2114;
-      v66 = v44;
-      v67 = 2114;
-      v68 = v45;
-      v69 = 2048;
-      v70 = a4;
-      v71 = 2114;
-      v72 = v46;
-      _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "Falling back to XML. Retry with: %{public}@ after failure on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@", buf, 0x34u);
+      v67 = v8;
+      v68 = 2114;
+      v69 = v45;
+      v70 = 2114;
+      v71 = v46;
+      v72 = 2048;
+      v73 = a4;
+      v74 = 2114;
+      v75 = v47;
+      _os_log_impl(&dword_0, v44, OS_LOG_TYPE_DEFAULT, "Falling back to XML. Retry with: %{public}@ after failure on pallas for %{public}@ client: %{public}@ with failure: %ld %{public}@", buf, 0x34u);
     }
 
-    v47 = getControlManager();
-    v48 = [v47 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:v8 withPurpose:*(a1 + 72)];
+    v49 = getControlManager(v48);
+    v50 = [v49 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:v8 withPurpose:*(a1 + 72)];
 
-    [*(a1 + 48) retryTask:*(a1 + 56) retryUrl:v8 modified:v48 clientName:*(a1 + 40)];
+    [*(a1 + 48) retryTask:*(a1 + 56) retryUrl:v8 modified:v50 clientName:*(a1 + 40)];
 LABEL_50:
 
     goto LABEL_55;
@@ -11423,49 +11436,49 @@ LABEL_50:
     if (a3 != 1)
     {
 LABEL_33:
-      v34 = _MADLog(@"Download");
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v35 = _MADLog(@"Download");
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v35 = *(a1 + 32);
-        v36 = *(a1 + 40);
+        v36 = *(a1 + 32);
+        v37 = *(a1 + 40);
         *buf = 134218498;
-        v64 = a3;
-        v65 = 2114;
-        v66 = v35;
-        v67 = 2114;
-        v68 = v36;
-        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_ERROR, "MADownloadFailed: Pallas result unknown! %ld on pallas for %{public}@ client: %{public}@", buf, 0x20u);
+        v67 = a3;
+        v68 = 2114;
+        v69 = v36;
+        v70 = 2114;
+        v71 = v37;
+        _os_log_impl(&dword_0, v35, OS_LOG_TYPE_ERROR, "MADownloadFailed: Pallas result unknown! %ld on pallas for %{public}@ client: %{public}@", buf, 0x20u);
       }
 
-      v37 = *(a1 + 48);
-      v38 = *(a1 + 88);
-      v39 = *(a1 + 96);
-      v40 = *(a1 + 104);
-      v41 = 3;
+      v38 = *(a1 + 48);
+      v39 = *(a1 + 88);
+      v40 = *(a1 + 96);
+      v41 = *(a1 + 104);
+      v42 = 3;
 LABEL_43:
-      [v37 indicateDownloadJobFinished:v41 usingXPCConnection:v38 withXPCMessage:v39 performingAutoAssetJob:v40 ofJobType:@"catalog_job"];
+      [v38 indicateDownloadJobFinished:v42 usingXPCConnection:v39 withXPCMessage:v40 performingAutoAssetJob:v41 ofJobType:@"catalog_job"];
       goto LABEL_55;
     }
 
     if (!v7)
     {
-      v49 = _MADLog(@"Download");
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v51 = _MADLog(@"Download");
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v50 = *(a1 + 32);
-        v51 = *(a1 + 40);
+        v52 = *(a1 + 32);
+        v53 = *(a1 + 40);
         *buf = 138543618;
-        v64 = v50;
-        v65 = 2114;
-        v66 = v51;
-        _os_log_impl(&dword_0, v49, OS_LOG_TYPE_ERROR, "Failed MAPallasFailedRetryNew and had no url on pallas for %{public}@ client: %{public}@", buf, 0x16u);
+        v67 = v52;
+        v68 = 2114;
+        v69 = v53;
+        _os_log_impl(&dword_0, v51, OS_LOG_TYPE_ERROR, "Failed MAPallasFailedRetryNew and had no url on pallas for %{public}@ client: %{public}@", buf, 0x16u);
       }
 
-      v37 = *(a1 + 48);
-      v38 = *(a1 + 88);
-      v39 = *(a1 + 96);
-      v40 = *(a1 + 104);
-      v41 = 27;
+      v38 = *(a1 + 48);
+      v39 = *(a1 + 88);
+      v40 = *(a1 + 96);
+      v41 = *(a1 + 104);
+      v42 = 27;
       goto LABEL_43;
     }
 
@@ -11475,14 +11488,14 @@ LABEL_43:
       v22 = _MADLog(@"Download");
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v58 = *(a1 + 32);
-        v59 = *(a1 + 40);
+        v61 = *(a1 + 32);
+        v62 = *(a1 + 40);
         *buf = 138543874;
-        v64 = v8;
-        v65 = 2114;
-        v66 = v58;
-        v67 = 2114;
-        v68 = v59;
+        v67 = v8;
+        v68 = 2114;
+        v69 = v61;
+        v70 = 2114;
+        v71 = v62;
         _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Failed MAPallasFailedRetryNew but asset type does not support XML fallback. Would have attempted with: %{public}@ after failing on pallas for %{public}@ client: %{public}@", buf, 0x20u);
       }
 
@@ -11498,11 +11511,11 @@ LABEL_43:
         v18 = *(a1 + 32);
         v19 = *(a1 + 40);
         *buf = 138543874;
-        v64 = v8;
-        v65 = 2114;
-        v66 = v18;
-        v67 = 2114;
-        v68 = v19;
+        v67 = v8;
+        v68 = 2114;
+        v69 = v18;
+        v70 = 2114;
+        v71 = v19;
         _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Failed MAPallasFailedRetryNew but client used liveServerCatalogOnly to disable XML fallback. Would have attempted with: %{public}@ after failing on pallas for %{public}@ client: %{public}@", buf, 0x20u);
       }
 
@@ -11512,37 +11525,37 @@ LABEL_43:
       goto LABEL_54;
     }
 
-    v54 = _MADLog(@"Download");
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+    v56 = _MADLog(@"Download");
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
-      v55 = *(a1 + 32);
-      v56 = *(a1 + 40);
+      v57 = *(a1 + 32);
+      v58 = *(a1 + 40);
       *buf = 138543874;
-      v64 = v8;
-      v65 = 2114;
-      v66 = v55;
-      v67 = 2114;
-      v68 = v56;
-      _os_log_impl(&dword_0, v54, OS_LOG_TYPE_DEFAULT, "Falling back to XML: %{public}@ after failure before pallas response for %{public}@ client: %{public}@", buf, 0x20u);
+      v67 = v8;
+      v68 = 2114;
+      v69 = v57;
+      v70 = 2114;
+      v71 = v58;
+      _os_log_impl(&dword_0, v56, OS_LOG_TYPE_DEFAULT, "Falling back to XML: %{public}@ after failure before pallas response for %{public}@ client: %{public}@", buf, 0x20u);
     }
 
-    v57 = getControlManager();
-    v48 = [v57 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:v8 withPurpose:*(a1 + 72)];
+    v60 = getControlManager(v59);
+    v50 = [v60 getCatalogLastModifiedDate:*(a1 + 32) ifFromXmlUrl:v8 withPurpose:*(a1 + 72)];
 
-    [*(a1 + 48) startDownloadAndUpdateState:v8 for:*(a1 + 56) modified:v48 options:*(a1 + 80) using:*(a1 + 88) with:*(a1 + 96) clientName:*(a1 + 40) autoAssetJob:*(a1 + 104) ofJobType:@"catalog_job"];
+    [*(a1 + 48) startDownloadAndUpdateState:v8 for:*(a1 + 56) modified:v50 options:*(a1 + 80) using:*(a1 + 88) with:*(a1 + 96) clientName:*(a1 + 40) autoAssetJob:*(a1 + 104) ofJobType:@"catalog_job"];
     goto LABEL_50;
   }
 
-  v31 = _MADLog(@"Download");
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+  v32 = _MADLog(@"Download");
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    v32 = *(a1 + 32);
-    v33 = *(a1 + 40);
+    v33 = *(a1 + 32);
+    v34 = *(a1 + 40);
     *buf = 138543618;
-    v64 = v32;
-    v65 = 2114;
-    v66 = v33;
-    _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Pallas call succeeded on pallas for %{public}@ client: %{public}@", buf, 0x16u);
+    v67 = v33;
+    v68 = 2114;
+    v69 = v34;
+    _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Pallas call succeeded on pallas for %{public}@ client: %{public}@", buf, 0x16u);
   }
 
 LABEL_55:
@@ -12099,9 +12112,9 @@ LABEL_63:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v37 = v16;
-    v38 = 2114;
-    v39 = fromCopy;
+    v38 = v16;
+    v39 = 2114;
+    v40 = fromCopy;
     _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "The PMV staging path is: %{public}@ from %{public}@", buf, 0x16u);
   }
 
@@ -12114,11 +12127,11 @@ LABEL_63:
     }
 
     *buf = 138543874;
-    v37 = v16;
-    v38 = 2114;
-    v39 = toCopy;
-    v40 = 2114;
-    v41 = v15;
+    v38 = v16;
+    v39 = 2114;
+    v40 = toCopy;
+    v41 = 2114;
+    v42 = v15;
     v23 = "Cannot persist PMV as there is no target location for copying %{public}@ to %{public}@ for %{public}@";
     v24 = v21;
     v25 = OS_LOG_TYPE_ERROR;
@@ -12140,9 +12153,9 @@ LABEL_14:
     }
 
     *buf = 138543618;
-    v37 = v16;
-    v38 = 2114;
-    v39 = fromCopy;
+    v38 = v16;
+    v39 = 2114;
+    v40 = fromCopy;
     v23 = "could not load PMV file after download: %{public}@ from %{public}@";
     v24 = v21;
     v25 = OS_LOG_TYPE_DEFAULT;
@@ -12150,71 +12163,72 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v34 = 0;
-  v33 = [NSJSONSerialization JSONObjectWithData:v19 options:0 error:&v34];
-  v20 = v34;
+  v35 = 0;
+  v34 = [NSJSONSerialization JSONObjectWithData:v19 options:0 error:&v35];
+  v20 = v35;
   if (!v20)
   {
-    if (v33)
+    if (v34)
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         if (dateCopy)
         {
-          v29 = _MADLog(@"Download");
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v30 = _MADLog(@"Download");
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v37 = dateCopy;
-            v38 = 2114;
-            v39 = fromCopy;
-            _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "The PMV posting date is: %{public}@ from %{public}@", buf, 0x16u);
+            v38 = dateCopy;
+            v39 = 2114;
+            v40 = fromCopy;
+            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "The PMV posting date is: %{public}@ from %{public}@", buf, 0x16u);
           }
         }
 
-        v21 = getControlManager();
+        v21 = getControlManager(isKindOfClass);
         if (v21)
         {
           path2 = [toCopy path];
-          [v21 writeJsonDictionaryToFile:v33 to:path2 with:persistCopy];
+          [v21 writeJsonDictionaryToFile:v34 to:path2 with:persistCopy];
 
           v27 = 31;
           goto LABEL_16;
         }
 
-        v32 = _MADLog(@"Download");
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v33 = _MADLog(@"Download");
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v32, OS_LOG_TYPE_DEFAULT, "Cannot write PMV as control manager is nil", buf, 2u);
+          _os_log_impl(&dword_0, v33, OS_LOG_TYPE_DEFAULT, "Cannot write PMV as control manager is nil", buf, 2u);
         }
       }
 
       else
       {
-        v32 = _MADLog(@"Download");
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v33 = _MADLog(@"Download");
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v37 = v16;
-          v38 = 2114;
-          v39 = fromCopy;
-          _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "PMV file contents were not JSON dictionary: %{public}@ from %{public}@", buf, 0x16u);
+          v38 = v16;
+          v39 = 2114;
+          v40 = fromCopy;
+          _os_log_impl(&dword_0, v33, OS_LOG_TYPE_ERROR, "PMV file contents were not JSON dictionary: %{public}@ from %{public}@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v31 = _MADLog(@"Download");
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = _MADLog(@"Download");
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v37 = v16;
-        v38 = 2114;
-        v39 = fromCopy;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "could not load PMV JSON after download: %{public}@ from %{public}@", buf, 0x16u);
+        v38 = v16;
+        v39 = 2114;
+        v40 = fromCopy;
+        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_ERROR, "could not load PMV JSON after download: %{public}@ from %{public}@", buf, 0x16u);
       }
     }
 
@@ -12228,11 +12242,11 @@ LABEL_14:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543874;
-    v37 = v16;
-    v38 = 2114;
-    v39 = fromCopy;
-    v40 = 2114;
-    v41 = v21;
+    v38 = v16;
+    v39 = 2114;
+    v40 = fromCopy;
+    v41 = 2114;
+    v42 = v21;
     _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "could not load PMV JSON after download: %{public}@ from %{public}@ error %{public}@", buf, 0x20u);
   }
 
@@ -12345,22 +12359,23 @@ LABEL_12:
       path = [v17 path];
       aks_migrate_path([path UTF8String]);
 
-      if ([(DownloadManager *)self decryptContentEncryptedAssetAtPathIfRequired:v18])
+      v20 = [(DownloadManager *)self decryptContentEncryptedAssetAtPathIfRequired:v18];
+      if (v20)
       {
-        v20 = getControlManager();
-        if (v20)
+        v21 = getControlManager(v20);
+        if (v21)
         {
           if (!moveCopy)
           {
-            v23 = 0;
+            v24 = 0;
             goto LABEL_20;
           }
 
           path2 = [v18 path];
-          v22 = [NSURL fileURLWithPath:path2];
-          [v20 moveAssetIntoRepo:v22 forType:downloadCopy forAsset:withCopy cleanUp:v18 with:andCopy];
+          v23 = [NSURL fileURLWithPath:path2];
+          [v21 moveAssetIntoRepo:v23 forType:downloadCopy forAsset:withCopy cleanUp:v18 with:andCopy];
 
-          v23 = 31;
+          v24 = 31;
         }
 
         else
@@ -12368,12 +12383,12 @@ LABEL_12:
           path2 = _MADLog(@"Download");
           if (os_log_type_enabled(path2, OS_LOG_TYPE_ERROR))
           {
-            *v25 = 0;
-            _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Cannot move file as control manager is nil", v25, 2u);
+            *v26 = 0;
+            _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Cannot move file as control manager is nil", v26, 2u);
           }
 
-          v20 = 0;
-          v23 = 0;
+          v21 = 0;
+          v24 = 0;
         }
       }
 
@@ -12382,12 +12397,12 @@ LABEL_12:
         path2 = _MADLog(@"Download");
         if (os_log_type_enabled(path2, OS_LOG_TYPE_ERROR))
         {
-          *v25 = 0;
-          _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Failed to decrypt asset content", v25, 2u);
+          *v26 = 0;
+          _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Failed to decrypt asset content", v26, 2u);
         }
 
-        v20 = 0;
-        v23 = 85;
+        v21 = 0;
+        v24 = 85;
       }
     }
 
@@ -12396,36 +12411,36 @@ LABEL_12:
       path2 = _MADLog(@"Download");
       if (os_log_type_enabled(path2, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&dword_0, path2, OS_LOG_TYPE_DEFAULT, "Error, download failed due to invalid staging path", v25, 2u);
+        *v26 = 0;
+        _os_log_impl(&dword_0, path2, OS_LOG_TYPE_DEFAULT, "Error, download failed due to invalid staging path", v26, 2u);
       }
 
       v18 = 0;
-      v20 = 0;
-      v23 = 33;
+      v21 = 0;
+      v24 = 33;
     }
   }
 
   else
   {
     path2 = _MADLog(@"Download");
-    v23 = 16;
+    v24 = 16;
     if (os_log_type_enabled(path2, OS_LOG_TYPE_ERROR))
     {
-      *v25 = 0;
-      v23 = 16;
-      _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Error, download failed due to nil extractor", v25, 2u);
+      *v26 = 0;
+      v24 = 16;
+      _os_log_impl(&dword_0, path2, OS_LOG_TYPE_ERROR, "Error, download failed due to nil extractor", v26, 2u);
     }
 
     v18 = 0;
     v16 = 0;
-    v20 = 0;
+    v21 = 0;
   }
 
 LABEL_20:
   os_activity_scope_leave(&state);
 
-  return v23;
+  return v24;
 }
 
 - (void)handleSuccessfulDownload:(id)download task:(id)task taskId:(id)id shouldMove:(BOOL)move extractorExists:(BOOL)exists postedDate:(id)date notModified:(BOOL)modified
@@ -12572,7 +12587,7 @@ LABEL_33:
 
       else
       {
-        v37 = getControlManager();
+        v37 = getControlManager(0);
         v28 = [v37 updateLastFetchedDate:v20 assetType:v22 withPurpose:v24 with:taskCopy];
       }
 
@@ -12630,7 +12645,7 @@ LABEL_18:
     else
     {
       v13 = stringForMADownloadResult(3uLL);
-      MAErrorForDownloadResultWithUnderlying(3, 0, @"Catalog download finished indication at unexpected point - reporting as: %@(%ld)", v32, v33, v34, v35, v36, v13);
+      MAErrorForDownloadResultWithUnderlying(3uLL, 0, @"Catalog download finished indication at unexpected point - reporting as: %@(%ld)", v32, v33, v34, v35, v36, v13);
     }
     v25 = ;
 

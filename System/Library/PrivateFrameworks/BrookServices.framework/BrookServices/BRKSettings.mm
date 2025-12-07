@@ -39,7 +39,12 @@
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info;
 - (void)setBrookCoolDownInterval:(double)interval;
+- (void)setDataCollectionEnabled:(BOOL)enabled;
+- (void)setDataCollectionUploadDisabled:(BOOL)disabled;
+- (void)setEnabled:(BOOL)enabled;
+- (void)setOnboardingComplete:(BOOL)complete;
 - (void)setOverrideDataCollectionAuthorization:(unint64_t)authorization;
+- (void)setRemindersEnabled:(BOOL)enabled;
 @end
 
 @implementation BRKSettings
@@ -63,22 +68,22 @@
 
 - (id)_initWithDevice:(id)device
 {
-  v24[7] = *MEMORY[0x277D85DE8];
+  v23[7] = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v23.receiver = self;
-  v23.super_class = BRKSettings;
-  v6 = [(BRKSettings *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = BRKSettings;
+  v6 = [(BRKSettings *)&v22 init];
   if (v6)
   {
     v7 = MEMORY[0x277CBEB98];
-    v24[0] = @"BrookEnabled";
-    v24[1] = @"BrookRemindersEnabled";
-    v24[2] = @"BrookOnboardingComplete";
-    v24[3] = @"BrookCoolDownInterval";
-    v24[4] = @"BrookLastDataCollectionUploadDate";
-    v24[5] = @"BrookOverrideDataCollectionAuthorization";
-    v24[6] = @"BrookDataCollectionUploadDisabled";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:7];
+    v23[0] = @"BrookEnabled";
+    v23[1] = @"BrookRemindersEnabled";
+    v23[2] = @"BrookOnboardingComplete";
+    v23[3] = @"BrookCoolDownInterval";
+    v23[4] = @"BrookLastDataCollectionUploadDate";
+    v23[5] = @"BrookOverrideDataCollectionAuthorization";
+    v23[6] = @"BrookDataCollectionUploadDisabled";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:7];
     v9 = [v7 setWithArray:v8];
     observedKeys = v6->_observedKeys;
     v6->_observedKeys = v9;
@@ -114,7 +119,6 @@
     [(BRKSettings *)v6 _setupLocationManager];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -135,7 +139,7 @@
 
 void __36__BRKSettings__setupLocationManager__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -163,9 +167,9 @@ void __36__BRKSettings__setupLocationManager__block_invoke(uint64_t a1)
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[BRKSettings _setupLocationManager]_block_invoke";
-      _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_INFO, "%s: successfully initialized location manager for Handwashing settings!", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[BRKSettings _setupLocationManager]_block_invoke";
+      _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_INFO, "%s: successfully initialized location manager for Handwashing settings!", &v10, 0xCu);
     }
   }
 
@@ -173,8 +177,6 @@ void __36__BRKSettings__setupLocationManager__block_invoke(uint64_t a1)
   {
     __36__BRKSettings__setupLocationManager__block_invoke_cold_2(v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -234,12 +236,60 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
   return device;
 }
 
+- (void)setEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = BRKLoggingObjectForDomain(14);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (enabledCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v8 = 136315394;
+    v9 = "[BRKSettings setEnabled:]";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v8, 0x16u);
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [(BRKSettings *)self _setValue:v7 forKey:@"BrookEnabled"];
+}
+
 - (BOOL)isEnabled
 {
   v2 = [(BRKSettings *)self _valueForKey:@"BrookEnabled"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setRemindersEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = BRKLoggingObjectForDomain(14);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (enabledCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v8 = 136315394;
+    v9 = "[BRKSettings setRemindersEnabled:]";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v8, 0x16u);
+  }
+
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:enabledCopy];
+  [(BRKSettings *)self _setValue:v7 forKey:@"BrookRemindersEnabled"];
 }
 
 - (BOOL)areRemindersEnabled
@@ -250,9 +300,33 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
   return bOOLValue;
 }
 
+- (void)setDataCollectionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  v4 = BRKLoggingObjectForDomain(14);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = @"NO";
+    if (enabledCopy)
+    {
+      v5 = @"YES";
+    }
+
+    v7 = 136315394;
+    v8 = "[BRKSettings setDataCollectionEnabled:]";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s %@", &v7, 0x16u);
+  }
+
+  mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+  [mEMORY[0x277D262A0] setBoolValue:enabledCopy forSetting:*MEMORY[0x277D25F08]];
+}
+
 - (BOOL)isDataCollectionEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (BRKActiveDeviceIsAltAccount())
   {
     _isTinkerDataCollectionEnabled = [(BRKSettings *)self _isTinkerDataCollectionEnabled];
@@ -273,14 +347,13 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
       v6 = @"YES";
     }
 
-    v9 = 136315394;
-    v10 = "[BRKSettings isDataCollectionEnabled]";
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[BRKSettings isDataCollectionEnabled]";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -290,6 +363,12 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
   v3 = [mEMORY[0x277D262A0] effectiveBoolValueForSetting:*MEMORY[0x277D25F08]] != 0;
 
   return v3;
+}
+
+- (void)setOnboardingComplete:(BOOL)complete
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:complete];
+  [(BRKSettings *)self _setValue:v4 forKey:@"BrookOnboardingComplete"];
 }
 
 - (BOOL)isOnboardingComplete
@@ -302,7 +381,7 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
 
 - (void)isLocationAuthFlowEnabledWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = _os_feature_enabled_impl();
   if ((v5 & 1) == 0)
@@ -311,7 +390,7 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
+      v19 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
       _os_log_impl(&dword_241EE4000, v6, OS_LOG_TYPE_DEFAULT, "%s return NO os_feature_enabled(Brook, brook_new_location_auth) == NO", buf, 0xCu);
     }
   }
@@ -326,7 +405,7 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v20 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
+      v19 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
       _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_DEFAULT, "%s return NO [_device supportsCapability:NRDEVICECAPABILITY_BROOK_NEW_LOCATION_AUTH] == NO", buf, 0xCu);
     }
 
@@ -341,12 +420,12 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
     block[1] = 3221225472;
     block[2] = __62__BRKSettings_isLocationAuthFlowEnabledWithCompletionHandler___block_invoke;
     block[3] = &unk_278D28CB0;
-    objc_copyWeak(&v17, buf);
-    v18 = v5;
-    v16 = handlerCopy;
+    objc_copyWeak(&v16, buf);
+    v17 = v5;
+    v15 = handlerCopy;
     dispatch_async(locationManagerQueue, block);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
     objc_destroyWeak(buf);
   }
 
@@ -368,7 +447,7 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
+        v19 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]";
         _os_log_impl(&dword_241EE4000, v13, OS_LOG_TYPE_DEFAULT, "%s return NO [_locationManager(legacy) authorizationStatus] != kCLAuthorizationStatusNotDetermined", buf, 0xCu);
       }
 
@@ -377,13 +456,11 @@ void __47__BRKSettings__BRKRegisterForBRKSettingsChange__block_invoke(uint64_t a
 
     (*(handlerCopy + 2))(handlerCopy, v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __62__BRKSettings_isLocationAuthFlowEnabledWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if ([WeakRetained locationManagerAuthorizationStatusHasChangedOnce])
   {
@@ -397,9 +474,9 @@ void __62__BRKSettings_isLocationAuthFlowEnabledWithCompletionHandler___block_in
     v5 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s return NO [_locationManager(legacy) authorizationStatus] != kCLAuthorizationStatusNotDetermined", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s return NO [_locationManager(legacy) authorizationStatus] != kCLAuthorizationStatusNotDetermined", &v6, 0xCu);
     }
   }
 
@@ -413,26 +490,24 @@ void __62__BRKSettings_isLocationAuthFlowEnabledWithCompletionHandler___block_in
     v5 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]_block_invoke";
-      _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s return YES", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[BRKSettings isLocationAuthFlowEnabledWithCompletionHandler:]_block_invoke";
+      _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s return YES", &v6, 0xCu);
     }
   }
 
 LABEL_13:
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isCachedLocationAuthFlowEnabled
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "Checking if location auth flow is enabled!", &v13, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "Checking if location auth flow is enabled!", &v12, 2u);
   }
 
   if ((_os_feature_enabled_impl() & 1) == 0)
@@ -440,8 +515,8 @@ LABEL_13:
     v7 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
+      v12 = 136315138;
+      v13 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
       v9 = "%s return NO os_feature_enabled(Brook, brook_new_location_auth) == NO";
       goto LABEL_12;
     }
@@ -460,8 +535,8 @@ LABEL_13:
     v7 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315138;
-      v14 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
+      v12 = 136315138;
+      v13 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
       v9 = "%s return NO [_device supportsCapability:NRDEVICECAPABILITY_BROOK_NEW_LOCATION_AUTH] == NO";
       goto LABEL_12;
     }
@@ -476,11 +551,11 @@ LABEL_13:
   {
     if (v8)
     {
-      v13 = 136315138;
-      v14 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
+      v12 = 136315138;
+      v13 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
       v9 = "%s return NO [_locationManager(legacy) authorizationStatus] != kCLAuthorizationStatusNotDetermined";
 LABEL_12:
-      _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, v9, &v13, 0xCu);
+      _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, v9, &v12, 0xCu);
       goto LABEL_13;
     }
 
@@ -489,15 +564,14 @@ LABEL_12:
 
   if (v8)
   {
-    v13 = 136315138;
-    v14 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
-    _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, "%s return YES", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[BRKSettings isCachedLocationAuthFlowEnabled]";
+    _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, "%s return YES", &v12, 0xCu);
   }
 
   v10 = 1;
 LABEL_14:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -536,6 +610,12 @@ LABEL_14:
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setDataCollectionUploadDisabled:(BOOL)disabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:disabled];
+  [(BRKSettings *)self _setValue:v4 forKey:@"BrookDataCollectionUploadDisabled"];
 }
 
 - (id)tinkerDataCollectionCredentials
@@ -775,20 +855,18 @@ void __53__BRKSettings_locationManagerDidChangeAuthorization___block_invoke(uint
 
 void __36__BRKSettings__setupLocationManager__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[BRKSettings _setupLocationManager]_block_invoke";
-  _os_log_error_impl(&dword_241EE4000, log, OS_LOG_TYPE_ERROR, "%s: cannot initialize location manager for Handwashing settings, BRKSettings reference is nil!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[BRKSettings _setupLocationManager]_block_invoke";
+  _os_log_error_impl(&dword_241EE4000, log, OS_LOG_TYPE_ERROR, "%s: cannot initialize location manager for Handwashing settings, BRKSettings reference is nil!", &v1, 0xCu);
 }
 
 void __36__BRKSettings__setupLocationManager__block_invoke_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[BRKSettings _setupLocationManager]_block_invoke";
-  _os_log_error_impl(&dword_241EE4000, log, OS_LOG_TYPE_ERROR, "%s: failed to initialize location manager for Handwashing settings!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[BRKSettings _setupLocationManager]_block_invoke";
+  _os_log_error_impl(&dword_241EE4000, log, OS_LOG_TYPE_ERROR, "%s: failed to initialize location manager for Handwashing settings!", &v1, 0xCu);
 }
 
 @end

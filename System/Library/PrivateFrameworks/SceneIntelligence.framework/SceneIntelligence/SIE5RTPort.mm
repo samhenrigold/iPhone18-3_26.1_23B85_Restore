@@ -7,12 +7,12 @@
 
 - (id)initPortWithE5RTStreamOperation:(e5rt_execution_stream_operation *)operation blobName:(id)name portType:(int64_t)type operationBackend:(int64_t)backend surfaceAllocator:(id)allocator
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   allocatorCopy = allocator;
-  v33.receiver = self;
-  v33.super_class = SIE5RTPort;
-  v14 = [(SIE5RTPort *)&v33 init];
+  v38.receiver = self;
+  v38.super_class = SIE5RTPort;
+  v14 = [(SIE5RTPort *)&v38 init];
   v15 = v14;
   if (!v14)
   {
@@ -25,157 +25,158 @@
   [nameCopy UTF8String];
   if (!type)
   {
-    if (e5rt_execution_stream_operation_retain_input_port())
+    v21 = e5rt_execution_stream_operation_retain_input_port();
+    if (v21)
     {
-      v19 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = __SceneIntelligenceLogSharedInstance(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v20 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 47);
+        v23 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 47);
         *buf = 136381187;
-        v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-        v36 = 1025;
-        v37 = 47;
-        v38 = 2113;
-        v39 = v20;
-        _os_log_impl(&dword_21DE0D000, v19, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+        v41 = 1025;
+        v42 = 47;
+        v43 = 2113;
+        v44 = v23;
+        _os_log_impl(&dword_21DE0D000, v22, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v21 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v25 = __SceneIntelligenceLogSharedInstance(v24);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_26;
       }
 
       *buf = 136381187;
-      v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-      v36 = 1025;
-      v37 = 47;
-      v38 = 2113;
-      v39 = nameCopy;
-      v22 = " %{private}s:%{private}d *** Failed to retain the input port for blob: %{private}@ ***";
-      v23 = v21;
-      v24 = 28;
+      v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+      v41 = 1025;
+      v42 = 47;
+      v43 = 2113;
+      v44 = nameCopy;
+      v26 = " %{private}s:%{private}d *** Failed to retain the input port for blob: %{private}@ ***";
+      v27 = v25;
+      v28 = 28;
       goto LABEL_25;
     }
 
 LABEL_14:
-    port = v15->_port;
-    if (e5rt_io_port_is_tensor())
+    is_tensor = e5rt_io_port_is_tensor();
+    if (is_tensor)
     {
-      v26 = __SceneIntelligenceLogSharedInstance();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v30 = __SceneIntelligenceLogSharedInstance(is_tensor);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        v27 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 58);
+        v31 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 58);
         *buf = 136381187;
-        v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-        v36 = 1025;
-        v37 = 58;
-        v38 = 2113;
-        v39 = v27;
-        _os_log_impl(&dword_21DE0D000, v26, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+        v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+        v41 = 1025;
+        v42 = 58;
+        v43 = 2113;
+        v44 = v31;
+        _os_log_impl(&dword_21DE0D000, v30, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
       }
 
-      v21 = __SceneIntelligenceLogSharedInstance();
-      if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v25 = __SceneIntelligenceLogSharedInstance(v32);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_26;
       }
 
       *buf = 136380931;
-      v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-      v36 = 1025;
-      v37 = 58;
-      v22 = " %{private}s:%{private}d *** Failed to check the port type - tensor ***";
+      v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+      v41 = 1025;
+      v42 = 58;
+      v26 = " %{private}s:%{private}d *** Failed to check the port type - tensor ***";
     }
 
     else
     {
-      v28 = v15->_port;
-      if (e5rt_io_port_is_surface())
+      is_surface = e5rt_io_port_is_surface();
+      if (is_surface)
       {
-        v29 = __SceneIntelligenceLogSharedInstance();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v34 = __SceneIntelligenceLogSharedInstance(is_surface);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          v30 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 61);
+          v35 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 61);
           *buf = 136381187;
-          v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-          v36 = 1025;
-          v37 = 61;
-          v38 = 2113;
-          v39 = v30;
-          _os_log_impl(&dword_21DE0D000, v29, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+          v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+          v41 = 1025;
+          v42 = 61;
+          v43 = 2113;
+          v44 = v35;
+          _os_log_impl(&dword_21DE0D000, v34, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
         }
 
-        v21 = __SceneIntelligenceLogSharedInstance();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = __SceneIntelligenceLogSharedInstance(v36);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_26;
         }
 
         *buf = 136380931;
-        v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-        v36 = 1025;
-        v37 = 61;
-        v22 = " %{private}s:%{private}d *** Failed to check the port type - surface ***";
+        v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+        v41 = 1025;
+        v42 = 61;
+        v26 = " %{private}s:%{private}d *** Failed to check the port type - surface ***";
       }
 
       else
       {
-        v21 = __SceneIntelligenceLogSharedInstance();
-        if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = __SceneIntelligenceLogSharedInstance(is_surface);
+        if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_26;
         }
 
         *buf = 136380931;
-        v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-        v36 = 1025;
-        v37 = 72;
-        v22 = " %{private}s:%{private}d *** Failed to initialize io port: Unknown port descriptor ***";
+        v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+        v41 = 1025;
+        v42 = 72;
+        v26 = " %{private}s:%{private}d *** Failed to initialize io port: Unknown port descriptor ***";
       }
     }
 
-    v23 = v21;
-    v24 = 18;
+    v27 = v25;
+    v28 = 18;
 LABEL_25:
-    _os_log_impl(&dword_21DE0D000, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
+    _os_log_impl(&dword_21DE0D000, v27, OS_LOG_TYPE_ERROR, v26, buf, v28);
 LABEL_26:
 
     goto LABEL_27;
   }
 
-  if (!e5rt_execution_stream_operation_retain_output_port())
+  v16 = e5rt_execution_stream_operation_retain_output_port();
+  if (!v16)
   {
     goto LABEL_14;
   }
 
-  v16 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = __SceneIntelligenceLogSharedInstance(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v17 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 51);
+    v18 = createE5RTExceptionMessage("/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m", 51);
     *buf = 136381187;
-    v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-    v36 = 1025;
-    v37 = 51;
-    v38 = 2113;
-    v39 = v17;
-    _os_log_impl(&dword_21DE0D000, v16, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
+    v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+    v41 = 1025;
+    v42 = 51;
+    v43 = 2113;
+    v44 = v18;
+    _os_log_impl(&dword_21DE0D000, v17, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** E5RT error message: %{private}@ ***", buf, 0x1Cu);
   }
 
-  v18 = __SceneIntelligenceLogSharedInstance();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = __SceneIntelligenceLogSharedInstance(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     *buf = 136381187;
-    v35 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
-    v36 = 1025;
-    v37 = 51;
-    v38 = 2113;
-    v39 = nameCopy;
-    _os_log_impl(&dword_21DE0D000, v18, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to retain the output port for blob: %{private}@ ***", buf, 0x1Cu);
+    v40 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/E5RT/SIE5RTPort.m";
+    v41 = 1025;
+    v42 = 51;
+    v43 = 2113;
+    v44 = nameCopy;
+    _os_log_impl(&dword_21DE0D000, v20, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to retain the output port for blob: %{private}@ ***", buf, 0x1Cu);
   }
 
 LABEL_27:
-  v31 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

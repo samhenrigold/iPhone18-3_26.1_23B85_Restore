@@ -48,29 +48,29 @@
 
 - (id)apply
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   std::mutex::lock((self + 56));
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = sub_247F80CA8;
-  v44 = sub_247F80CB8;
-  v45 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = sub_247F80CA8;
+  v43 = sub_247F80CB8;
+  v44 = 0;
   _validateConfigLocked = [(DTKPKperfConfiguration *)self _validateConfigLocked];
-  v4 = v41[5];
-  v41[5] = _validateConfigLocked;
+  v4 = v40[5];
+  v40[5] = _validateConfigLocked;
 
-  v5 = v41[5];
+  v5 = v40[5];
   if (v5)
   {
     goto LABEL_3;
   }
 
   _reinitializeKperf = [(DTKPKperfConfiguration *)self _reinitializeKperf];
-  v7 = v41[5];
-  v41[5] = _reinitializeKperf;
+  v7 = v40[5];
+  v40[5] = _reinitializeKperf;
 
-  v5 = v41[5];
+  v5 = v40[5];
   if (v5)
   {
     goto LABEL_3;
@@ -86,14 +86,14 @@
   [(DTKPKperfConfiguration *)self _enableKdebugCodes];
   if ([*(self + 15) pmcEventCount])
   {
-    v11 = *(self + 15);
-    v12 = v41;
-    v39 = v41[5];
-    [v11 forceCounters:&v39];
-    objc_storeStrong(v12 + 5, v39);
-    v13 = v41 + 5;
-    v5 = v41[5];
-    if (v5 || (v14 = *(self + 15), v38 = 0, [v14 configureHardwareCounters:&v38], objc_storeStrong(v13, v38), (v5 = v41[5]) != 0))
+    v10 = *(self + 15);
+    v11 = v40;
+    v38 = v40[5];
+    [v10 forceCounters:&v38];
+    objc_storeStrong(v11 + 5, v38);
+    v12 = v40 + 5;
+    v5 = v40[5];
+    if (v5 || (v13 = *(self + 15), v37 = 0, [v13 configureHardwareCounters:&v37], objc_storeStrong(v12, v37), (v5 = v40[5]) != 0))
     {
 LABEL_3:
       v8 = v5;
@@ -107,80 +107,45 @@ LABEL_3:
     sub_24802CBD8(countingMode, buf);
   }
 
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = sub_247F80CA8;
-  v36 = sub_247F80CB8;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_247F80CA8;
+  v35 = sub_247F80CB8;
   array = [MEMORY[0x277CBEB18] array];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_247F80CC0;
-  v30 = sub_247F80CEC;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_247F80CC0;
+  v29 = sub_247F80CEC;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = sub_247F80CF4;
   aBlock[3] = &unk_278EF1C78;
-  aBlock[4] = &v32;
-  v31 = _Block_copy(aBlock);
-  v16 = *(self + 2);
-  if (v16)
+  aBlock[4] = &v31;
+  v30 = _Block_copy(aBlock);
+  v15 = *(self + 2);
+  if (v15 && (v16 = v40, obj = v40[5], [v15 start:&obj], objc_storeStrong(v16 + 5, obj), objc_msgSend(v32[5], "addObject:", *(self + 2)), v40[5]) || (v17 = *(self + 3)) != 0 && (v18 = v40, v22 = v40[5], objc_msgSend(v17, "start:", &v22), objc_storeStrong(v18 + 5, v22), objc_msgSend(v32[5], "addObject:", *(self + 3)), v40[5]))
   {
-    v17 = v41;
-    obj = v41[5];
-    [v16 start:&obj];
-    objc_storeStrong(v17 + 5, obj);
-    [v33[5] addObject:*(self + 2)];
-    if (v41[5])
-    {
-      goto LABEL_20;
-    }
+    (*(v26[5] + 16))();
+    v19 = v40[5];
   }
 
-  v18 = *(self + 3);
-  if (v18 && (v19 = v41, v23 = v41[5], [v18 start:&v23], objc_storeStrong(v19 + 5, v23), objc_msgSend(v33[5], "addObject:", *(self + 3)), v41[5]))
+  else if (![*(self + 4) count] || (v20 = *(self + 4), v21[0] = MEMORY[0x277D85DD0], v21[1] = 3221225472, v21[2] = sub_247F80D10, v21[3] = &unk_278EF1CA0, v21[4] = &v39, v21[5] = &v31, v21[6] = &v25, objc_msgSend(v20, "enumerateObjectsUsingBlock:", v21), (v19 = v40[5]) == 0))
   {
-LABEL_20:
-    (*(v27[5] + 16))();
-    v20 = v41[5];
+    v8 = 0;
+    goto LABEL_25;
   }
 
-  else
-  {
-    if (![*(self + 4) count])
-    {
-      goto LABEL_24;
-    }
-
-    v21 = *(self + 4);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_247F80D10;
-    v22[3] = &unk_278EF1CA0;
-    v22[4] = &v40;
-    v22[5] = &v32;
-    v22[6] = &v26;
-    [v21 enumerateObjectsUsingBlock:v22];
-    v20 = v41[5];
-    if (!v20)
-    {
-LABEL_24:
-      v8 = 0;
-      goto LABEL_25;
-    }
-  }
-
-  v8 = v20;
+  v8 = v19;
 LABEL_25:
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
 LABEL_4:
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
 
   std::mutex::unlock((self + 56));
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

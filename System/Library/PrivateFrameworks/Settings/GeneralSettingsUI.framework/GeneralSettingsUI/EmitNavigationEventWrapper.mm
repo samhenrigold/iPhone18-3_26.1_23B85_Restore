@@ -9,18 +9,17 @@
 {
   v7 = sub_21CF553F4();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = sub_21CF55634();
-  v14 = v13;
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = sub_21CF55634();
+  v13 = v12;
   sub_21CF5027C();
-  v15 = sub_21CF55674();
+  v14 = sub_21CF55674();
   sub_21CF553E4();
   titleCopy = title;
-  sub_21CF4FE78(v12, v14, titleCopy, v15, v11);
+  sub_21CF4FE78(v11, v13, titleCopy, v14, v10);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (_TtC17GeneralSettingsUI26EmitNavigationEventWrapper)init

@@ -7,7 +7,7 @@
 
 + (void)instantiateWithAnalyticsContentId:(NSString *)id analyticsSupplementalContentCount:(NSNumber *)count analyticsTracker:(_TtC13BookAnalytics9BATracker *)tracker completionHandler:(id)handler
 {
-  v11 = sub_1001F1160(&qword_100AD67D0);
+  v11 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v11 - 8);
   v13 = &v22 - v12;
   v14 = _Block_copy(handler);

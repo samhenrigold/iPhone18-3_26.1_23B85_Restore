@@ -15,7 +15,7 @@
   if (v2)
   {
     v3 = +[NSNotificationCenter defaultCenter];
-    v4 = sub_1003BBF50();
+    v4 = sub_1003BBF50(Device);
     isHRNMode = [v4 isHRNMode];
 
     if ((isHRNMode & 1) == 0)
@@ -83,7 +83,7 @@
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received a beta app crash notification for %{public}@", &v10, 0xCu);
     }
 
-    v8 = sub_1002404C0();
+    v8 = sub_1002404C0(TestFlightFeedbackManager);
     sub_100243234(v8, v5, v6);
   }
 

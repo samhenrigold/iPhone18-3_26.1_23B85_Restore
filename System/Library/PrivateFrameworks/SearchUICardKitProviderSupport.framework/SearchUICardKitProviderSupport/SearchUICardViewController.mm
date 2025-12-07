@@ -19,15 +19,15 @@ id __84__SearchUICardViewController_CRKCardViewControlling__setCardViewControlle
 
 void __91__SearchUICardViewController_CRKCardViewControlling__presentViewControllerForCard_animate___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = MEMORY[0x277CF93F0];
   v5 = *MEMORY[0x277CF93F0];
   if (os_log_type_enabled(*MEMORY[0x277CF93F0], OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = v3;
-    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "Asynchronous card loading completed for card\n    Card: %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = v3;
+    _os_log_impl(&dword_264EDF000, v5, OS_LOG_TYPE_DEFAULT, "Asynchronous card loading completed for card\n    Card: %@", &v23, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -94,18 +94,15 @@ void __91__SearchUICardViewController_CRKCardViewControlling__presentViewControl
 LABEL_16:
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __91__SearchUICardViewController_CRKCardViewControlling__presentViewControllerForCard_animate___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_264EDF000, a2, OS_LOG_TYPE_ERROR, "Failed to load card view controller for card\n    Card: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_264EDF000, a2, OS_LOG_TYPE_ERROR, "Failed to load card view controller for card\n    Card: %@", &v3, 0xCu);
 }
 
 @end

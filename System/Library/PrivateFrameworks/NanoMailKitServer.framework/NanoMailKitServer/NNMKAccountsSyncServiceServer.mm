@@ -85,34 +85,34 @@
 
 - (void)readProtobufData:(id)data type:(unint64_t)type
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (type == 2)
   {
     selfCopy = self;
     v9 = [[NNMKProtoAccountAuthenticationStatus alloc] initWithData:dataCopy];
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v21 = v9;
+    v20 = v9;
     accountsStatus = [(NNMKProtoAccountAuthenticationStatus *)v9 accountsStatus];
-    v11 = [accountsStatus countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v11 = [accountsStatus countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v26;
+      v13 = *v25;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v26 != v13)
+          if (*v25 != v13)
           {
             objc_enumerationMutation(accountsStatus);
           }
 
-          v15 = *(*(&v25 + 1) + 8 * i);
+          v15 = *(*(&v24 + 1) + 8 * i);
           accountId = [v15 accountId];
 
           if (accountId)
@@ -126,20 +126,20 @@
             v18 = qword_28144D620;
             if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_ERROR))
             {
-              [(NNMKAccountsSyncServiceServer *)&buf readProtobufData:v24 type:v18];
+              [(NNMKAccountsSyncServiceServer *)&buf readProtobufData:v23 type:v18];
             }
           }
         }
 
-        v12 = [accountsStatus countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v12 = [accountsStatus countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v12);
     }
 
     WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
-    v7 = v21;
-    [(NNMKProtoAccountSourceType *)v21 requestTime];
+    v7 = v20;
+    [(NNMKProtoAccountSourceType *)v20 requestTime];
     [WeakRetained accountsSyncServiceServer:selfCopy didReceivedAccountAuthenticationStatus:v8 requestTime:?];
 
     goto LABEL_16;
@@ -152,8 +152,6 @@
     [v8 accountsSyncServiceServer:self didChangeAccountSourceType:v7];
 LABEL_16:
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (NNMKAccountsSyncServiceServerDelegate)delegate

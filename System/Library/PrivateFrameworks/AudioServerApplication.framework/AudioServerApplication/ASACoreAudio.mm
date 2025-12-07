@@ -4,6 +4,7 @@
 - (ASAAudioDevice)defaultInputAudioDevice;
 - (ASAAudioDevice)defaultOutputAudioDevice;
 - (ASAAudioDevice)defaultSystemOutputAudioDevice;
+- (ASACoreAudio)initWithAudioObjectID:(unsigned int)d;
 - (NSArray)audioDeviceObjectIDs;
 - (NSArray)audioDevices;
 - (NSArray)boxObjectIDs;
@@ -15,6 +16,7 @@
 - (id)audioDeviceWithUID:(id)d;
 - (id)boxWithUID:(id)d;
 - (id)clockDeviceWithUID:(id)d;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)pluginWithBundleID:(id)d;
 - (id)transportManagerWithBundleID:(id)d;
 - (unsigned)audioDeviceObjectIDWithUID:(id)d;
@@ -74,6 +76,32 @@ uint64_t __37__ASACoreAudio_sharedCoreAudioObject__block_invoke(uint64_t a1)
   return v2;
 }
 
+- (ASACoreAudio)initWithAudioObjectID:(unsigned int)d
+{
+  v7.receiver = self;
+  v7.super_class = ASACoreAudio;
+  v3 = [(ASAObject *)&v7 initWithAudioObjectID:*&d];
+  if (v3)
+  {
+    v4 = dispatch_queue_create("com.apple.AudioVideoBridging.ASACoreAudio.client", 0);
+    clientQueue = v3->_clientQueue;
+    v3->_clientQueue = v4;
+
+    if (v3->_clientQueue)
+    {
+      [(ASACoreAudio *)v3 _setupDeathSource];
+    }
+
+    else
+    {
+
+      return 0;
+    }
+  }
+
+  return v3;
+}
+
 - (void)addClient:(id)client
 {
   clientCopy = client;
@@ -124,7 +152,7 @@ void __26__ASACoreAudio_addClient___block_invoke(uint64_t a1)
   dispatch_sync(clientQueue, v7);
 }
 
-uint64_t __29__ASACoreAudio_removeClient___block_invoke(uint64_t a1)
+void *__29__ASACoreAudio_removeClient___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) containsObject:*(a1 + 40)];
   if (result)
@@ -188,7 +216,7 @@ void __26__ASACoreAudio_addPlugin___block_invoke(uint64_t a1)
   dispatch_sync(clientQueue, v7);
 }
 
-uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
+void *__29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 48) containsObject:*(a1 + 40)];
   if (result)
@@ -473,29 +501,29 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
 
 - (NSArray)plugins
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pluginObjectIDs = [(ASACoreAudio *)self pluginObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = pluginObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASAPlugin alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -504,13 +532,11 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -553,29 +579,29 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
 
 - (NSArray)boxes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   boxObjectIDs = [(ASACoreAudio *)self boxObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = boxObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASABox alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -584,13 +610,11 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -633,29 +657,29 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
 
 - (NSArray)audioDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   audioDeviceObjectIDs = [(ASACoreAudio *)self audioDeviceObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = audioDeviceObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASAAudioDevice alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -664,13 +688,11 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -713,29 +735,29 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
 
 - (NSArray)clockDevices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   clockDeviceObjectIDs = [(ASACoreAudio *)self clockDeviceObjectIDs];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = clockDeviceObjectIDs;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [ASAClockDevice alloc];
         v11 = -[ASAObject initWithAudioObjectID:](v10, "initWithAudioObjectID:", [v9 unsignedIntValue]);
         if (v11)
@@ -744,15 +766,235 @@ uint64_t __29__ASACoreAudio_removePlugin___block_invoke(uint64_t a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return array;
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v77 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v72.receiver = self;
+  v72.super_class = ASACoreAudio;
+  v7 = [(ASAObject *)&v72 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  v55 = [indentCopy stringByAppendingString:@"|        "];
+  defaultInputAudioDevice = [(ASACoreAudio *)self defaultInputAudioDevice];
+  deviceUID = [defaultInputAudioDevice deviceUID];
+  [v7 appendFormat:@"%@|    Default Input UID: %@\n", indentCopy, deviceUID];
+
+  defaultOutputAudioDevice = [(ASACoreAudio *)self defaultOutputAudioDevice];
+  deviceUID2 = [defaultOutputAudioDevice deviceUID];
+  [v7 appendFormat:@"%@|    Default Output UID: %@\n", indentCopy, deviceUID2];
+
+  defaultSystemOutputAudioDevice = [(ASACoreAudio *)self defaultSystemOutputAudioDevice];
+  deviceUID3 = [defaultSystemOutputAudioDevice deviceUID];
+  v14 = indentCopy;
+  [v7 appendFormat:@"%@|    Default System Output UID: %@\n", indentCopy, deviceUID3];
+
+  boxObjectIDs = [(ASACoreAudio *)self boxObjectIDs];
+  selfCopy = self;
+  if ([boxObjectIDs count])
+  {
+    [v7 appendFormat:@"%@|    Box Objects:\n", indentCopy];
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v15 = boxObjectIDs;
+    v16 = [v15 countByEnumeratingWithState:&v68 objects:v76 count:16];
+    if (v16)
+    {
+      v17 = v16;
+      v18 = 0;
+      v19 = *v69;
+      do
+      {
+        for (i = 0; i != v17; ++i)
+        {
+          if (*v69 != v19)
+          {
+            objc_enumerationMutation(v15);
+          }
+
+          if (treeCopy)
+          {
+            v21 = -[ASAObject initWithAudioObjectID:]([ASABox alloc], "initWithAudioObjectID:", [*(*(&v68 + 1) + 8 * i) unsignedIntValue]);
+            v22 = [(ASABox *)v21 diagnosticDescriptionWithIndent:v55 walkTree:1];
+            [v7 appendString:v22];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v14, v18, objc_msgSend(*(*(&v68 + 1) + 8 * i), "unsignedIntValue")];
+          }
+
+          v18 = (v18 + 1);
+        }
+
+        v17 = [v15 countByEnumeratingWithState:&v68 objects:v76 count:16];
+      }
+
+      while (v17);
+    }
+
+    self = selfCopy;
+  }
+
+  audioDeviceObjectIDs = [(ASACoreAudio *)self audioDeviceObjectIDs];
+  if ([audioDeviceObjectIDs count])
+  {
+    [v7 appendFormat:@"%@|    Device Objects:\n", v14];
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v23 = audioDeviceObjectIDs;
+    v24 = [v23 countByEnumeratingWithState:&v64 objects:v75 count:16];
+    if (v24)
+    {
+      v25 = v24;
+      v26 = 0;
+      v27 = *v65;
+      do
+      {
+        for (j = 0; j != v25; ++j)
+        {
+          if (*v65 != v27)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          if (treeCopy)
+          {
+            v29 = -[ASAObject initWithAudioObjectID:]([ASAAudioDevice alloc], "initWithAudioObjectID:", [*(*(&v64 + 1) + 8 * j) unsignedIntValue]);
+            v30 = [(ASAAudioDevice *)v29 diagnosticDescriptionWithIndent:v55 walkTree:1];
+            [v7 appendString:v30];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v14, v26, objc_msgSend(*(*(&v64 + 1) + 8 * j), "unsignedIntValue")];
+          }
+
+          v26 = (v26 + 1);
+        }
+
+        v25 = [v23 countByEnumeratingWithState:&v64 objects:v75 count:16];
+      }
+
+      while (v25);
+    }
+
+    self = selfCopy;
+  }
+
+  clockDeviceObjectIDs = [(ASACoreAudio *)self clockDeviceObjectIDs];
+  v50 = clockDeviceObjectIDs;
+  if ([clockDeviceObjectIDs count])
+  {
+    [v7 appendFormat:@"%@|    Clock Device Objects:\n", v14];
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v32 = clockDeviceObjectIDs;
+    v33 = [v32 countByEnumeratingWithState:&v60 objects:v74 count:16];
+    if (v33)
+    {
+      v34 = v33;
+      v35 = 0;
+      v36 = *v61;
+      do
+      {
+        for (k = 0; k != v34; ++k)
+        {
+          if (*v61 != v36)
+          {
+            objc_enumerationMutation(v32);
+          }
+
+          if (treeCopy)
+          {
+            v38 = -[ASAObject initWithAudioObjectID:]([ASAClockDevice alloc], "initWithAudioObjectID:", [*(*(&v60 + 1) + 8 * k) unsignedIntValue]);
+            v39 = [(ASAClockDevice *)v38 diagnosticDescriptionWithIndent:v55 walkTree:1];
+            [v7 appendString:v39];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v14, v35, objc_msgSend(*(*(&v60 + 1) + 8 * k), "unsignedIntValue")];
+          }
+
+          v35 = (v35 + 1);
+        }
+
+        v34 = [v32 countByEnumeratingWithState:&v60 objects:v74 count:16];
+      }
+
+      while (v34);
+    }
+
+    self = selfCopy;
+    clockDeviceObjectIDs = v50;
+  }
+
+  pluginObjectIDs = [(ASACoreAudio *)self pluginObjectIDs];
+  if ([pluginObjectIDs count])
+  {
+    [v7 appendFormat:@"%@|    Plugin Objects:\n", v14];
+    v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v54 = pluginObjectIDs;
+    v41 = pluginObjectIDs;
+    v42 = [v41 countByEnumeratingWithState:&v56 objects:v73 count:16];
+    if (v42)
+    {
+      v43 = v42;
+      v44 = 0;
+      v45 = *v57;
+      do
+      {
+        for (m = 0; m != v43; ++m)
+        {
+          if (*v57 != v45)
+          {
+            objc_enumerationMutation(v41);
+          }
+
+          if (treeCopy)
+          {
+            v47 = -[ASAObject initWithAudioObjectID:]([ASAPlugin alloc], "initWithAudioObjectID:", [*(*(&v56 + 1) + 8 * m) unsignedIntValue]);
+            v48 = [(ASAPlugin *)v47 diagnosticDescriptionWithIndent:v55 walkTree:1];
+            [v7 appendString:v48];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v14, v44, objc_msgSend(*(*(&v56 + 1) + 8 * m), "unsignedIntValue")];
+          }
+
+          v44 = (v44 + 1);
+        }
+
+        v43 = [v41 countByEnumeratingWithState:&v56 objects:v73 count:16];
+      }
+
+      while (v43);
+    }
+
+    clockDeviceObjectIDs = v50;
+    pluginObjectIDs = v54;
+  }
+
+  return v7;
 }
 
 - (void)dealloc

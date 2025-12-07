@@ -83,7 +83,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -185,7 +184,6 @@
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 64);
     if (*&self->_has)
     {
       if ((*(equal + 64) & 1) == 0 || self->_timestamp != *(equal + 1))

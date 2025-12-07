@@ -6,7 +6,7 @@
 
 + (id)parseBuffer:(id)buffer error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   v6 = [MEMORY[0x277CBEB98] setWithArray:&unk_283BBDA40];
   currentToken = [bufferCopy currentToken];
@@ -28,15 +28,13 @@
     value = [currentToken value];
     v14 = [v12 stringWithFormat:@"Unexpected token %@ found. Expecting literal token.", value];
 
-    v18 = @"REErrorTokenKey";
-    v19[0] = currentToken;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = @"REErrorTokenKey";
+    v18[0] = currentToken;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *error = RECreateErrorWithCodeMessageAndUseInfo(204, v14, v15);
 
     error = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return error;
 }

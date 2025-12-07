@@ -7,17 +7,17 @@
 - (IMScheduledSectionDateChatItem)initWithItem:(id)item
 {
   itemCopy = item;
-  v11.receiver = self;
-  v11.super_class = IMScheduledSectionDateChatItem;
-  v7 = [(IMChatItem *)&v11 _initWithItem:itemCopy];
-  if (v7)
+  v9.receiver = self;
+  v9.super_class = IMScheduledSectionDateChatItem;
+  v5 = [(IMChatItem *)&v9 _initWithItem:itemCopy];
+  if (v5)
   {
-    v8 = objc_msgSend_time(itemCopy, v5, v6);
-    date = v7->_date;
-    v7->_date = v8;
+    time = [itemCopy time];
+    date = v5->_date;
+    v5->_date = time;
   }
 
-  return v7;
+  return v5;
 }
 
 @end

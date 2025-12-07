@@ -177,9 +177,9 @@ LABEL_11:
 
 - (void)updateFromLayout
 {
-  v18.receiver = self;
-  v18.super_class = THWPageControlRep;
-  [(THWPageControlRep *)&v18 updateFromLayout];
+  v19.receiver = self;
+  v19.super_class = THWPageControlRep;
+  [(THWPageControlRep *)&v19 updateFromLayout];
   layout = [(THWPageControlRep *)self layout];
   numberOfPages = [layout numberOfPages];
   if (numberOfPages > 0xA || [layout forceTextOnly])
@@ -277,7 +277,7 @@ LABEL_11:
     if (*(&self->_currentPage + 1) != currentPage2)
     {
       *(&self->_currentPage + 1) = currentPage2;
-      [*(&self->_textIndicator + 1) setString:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", objc_msgSend(THBundle(), "localizedStringForKey:value:table:", @"%lu of %lu", &stru_471858, 0), *(&self->_currentPage + 1) + 1, numberOfPages)}];
+      [*(&self->_textIndicator + 1) setString:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", objc_msgSend(THBundle(currentPage2, v18), "localizedStringForKey:value:table:", @"%lu of %lu", &stru_471858, 0), *(&self->_currentPage + 1) + 1, numberOfPages)}];
     }
   }
 }

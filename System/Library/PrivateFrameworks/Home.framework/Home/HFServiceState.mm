@@ -69,38 +69,36 @@
   return v12;
 }
 
-void __49__HFServiceState_stateClassForServiceDescriptor___block_invoke_2()
+void __49__HFServiceState_stateClassForServiceDescriptor___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = *MEMORY[0x277CD0DA8];
-  v4[0] = objc_opt_class();
-  v3[1] = *MEMORY[0x277CD0DB0];
-  v4[1] = objc_opt_class();
-  v3[2] = *MEMORY[0x277CD0DA0];
-  v4[2] = objc_opt_class();
-  v3[3] = *MEMORY[0x277CD0DC0];
-  v4[3] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
-  v1 = qword_280E02648;
-  qword_280E02648 = v0;
-  v2 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CD0DA8];
+  v5[0] = objc_opt_class();
+  v4[1] = *MEMORY[0x277CD0DB0];
+  v5[1] = objc_opt_class();
+  v4[2] = *MEMORY[0x277CD0DA0];
+  v5[2] = objc_opt_class();
+  v4[3] = *MEMORY[0x277CD0DC0];
+  v5[3] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
+  v3 = qword_280E02648;
+  qword_280E02648 = v2;
 }
 
-void __49__HFServiceState_stateClassForServiceDescriptor___block_invoke_5()
+void __49__HFServiceState_stateClassForServiceDescriptor___block_invoke_5(uint64_t a1, uint64_t a2)
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = *MEMORY[0x277CD0E48];
-  v4[0] = objc_opt_class();
-  v3[1] = *MEMORY[0x277CD0E80];
-  v4[1] = objc_opt_class();
-  v3[2] = *MEMORY[0x277CD0F48];
-  v4[2] = objc_opt_class();
-  v3[3] = *MEMORY[0x277CD0F50];
-  v4[3] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
-  v1 = qword_280E02658;
-  qword_280E02658 = v0;
-  v2 = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CD0E48];
+  v5[0] = objc_opt_class();
+  v4[1] = *MEMORY[0x277CD0E80];
+  v5[1] = objc_opt_class();
+  v4[2] = *MEMORY[0x277CD0F48];
+  v5[2] = objc_opt_class();
+  v4[3] = *MEMORY[0x277CD0F50];
+  v5[3] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
+  v3 = qword_280E02658;
+  qword_280E02658 = v2;
 }
 
 + (id)stateForServiceDescriptor:(id)descriptor withBatchReadResponse:(id)response
@@ -134,11 +132,11 @@ void __29__HFServiceState_na_identity__block_invoke_2()
   qword_280E02668 = v3;
 }
 
-uint64_t __29__HFServiceState_na_identity__block_invoke_4()
+uint64_t __29__HFServiceState_na_identity__block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
+  v2 = objc_opt_class();
 
-  return [v0 stateClassIdentifier];
+  return [v2 stateClassIdentifier];
 }
 
 - (unint64_t)hash

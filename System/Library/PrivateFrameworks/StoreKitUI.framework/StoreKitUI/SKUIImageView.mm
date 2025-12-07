@@ -1,5 +1,6 @@
 @interface SKUIImageView
 + (Class)layerClass;
++ (void)layerClass;
 - (CGSize)imageSize;
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (UITapGestureRecognizer)tapRecognizer;
@@ -7,6 +8,7 @@
 - (void)setContents:(id)contents;
 - (void)setImage:(id)image;
 - (void)setPlaceholder:(id)placeholder;
+- (void)tapRecognizer;
 @end
 
 @implementation SKUIImageView
@@ -232,49 +234,8 @@ LABEL_16:
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-      if (v3)
-      {
-        [(SKUIImageView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v26.receiver = self;
-  v26.super_class = SKUIImageView;
-  [(SKUIImageView *)&v26 layoutSubviews];
-  [(SKUIImageView *)self bounds];
-  if (self->_cornerPathBlock)
-  {
-    v15 = v11;
-    v16 = v12;
-    v17 = v13;
-    v18 = v14;
-    p_lastLayoutSize = &self->_lastLayoutSize;
-    if (self->_lastLayoutSize.width != v13 || self->_lastLayoutSize.height != v14)
-    {
-      layer = [(SKUIImageView *)self layer];
-      [layer lineWidth];
-      UIRoundToViewScale();
-      v23 = v22;
-
-      v27.origin.x = v15;
-      v27.origin.y = v16;
-      v27.size.width = v17;
-      v27.size.height = v18;
-      v28 = CGRectInset(v27, v23, v23);
-      v24 = (*(self->_cornerPathBlock + 2))(v28.origin, *&v28.origin.y, v28.size, *&v28.size.height);
-      layer2 = [(SKUIImageView *)self layer];
-      [layer2 setPath:{objc_msgSend(v24, "CGPath")}];
-
-      p_lastLayoutSize->width = v17;
-      p_lastLayoutSize->height = v18;
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView layoutSubviews]";
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
@@ -333,6 +294,42 @@ LABEL_16:
   result.height = height;
   result.width = width;
   return result;
+}
+
++ (void)layerClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageView layerClass]";
+}
+
+- (void)tapRecognizer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView tapRecognizer]";
+}
+
+- (void)setImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView setImage:]";
+}
+
+- (void)setPlaceholder:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView setPlaceholder:]";
+}
+
+- (void)setContents:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView setContents:]";
+}
+
+- (void)sizeThatFits:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageView sizeThatFits:]";
 }
 
 @end

@@ -41,7 +41,7 @@ Class __get_DKIntentMetadataKeyClass_block_invoke_0(uint64_t a1)
   return result;
 }
 
-void __get_DKIntentMetadataKeyClass_block_invoke_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void __get_DKIntentMetadataKeyClass_block_invoke_1(uint64_t a1)
 {
   CoreDuetLibrary_2();
   *(*(*(a1 + 32) + 8) + 24) = objc_getClass("_DKIntentMetadataKey");
@@ -52,8 +52,8 @@ void __get_DKIntentMetadataKeyClass_block_invoke_1(uint64_t a1, uint64_t a2, uin
 
   else
   {
-    v10 = __get_DKIntentMetadataKeyClass_block_invoke_cold_1();
-    OUTLINED_FUNCTION_1_6(v10, v11, v12, v13, v14, v15, v16, v17, a9);
+    v2 = __get_DKIntentMetadataKeyClass_block_invoke_cold_1();
+    OUTLINED_FUNCTION_1_6(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 

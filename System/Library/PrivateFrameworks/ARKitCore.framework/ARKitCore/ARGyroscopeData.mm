@@ -135,7 +135,7 @@
   v5 = [(ARGyroscopeData *)&v14 init];
   if (v5)
   {
-    [dataCopy timestamp];
+    objc_msgSend_timestamp(dataCopy);
     v5->_timestamp = v6;
     rotationRate = [dataCopy rotationRate];
     [rotationRate x];
@@ -261,7 +261,7 @@
   v5 = NSStringFromClass(v4);
   v6 = [v3 stringWithFormat:@"<%@: %p", v5, self];
 
-  [(ARGyroscopeData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [v6 appendFormat:@" timestamp=%f", v7];
   [(ARGyroscopeData *)self rotationRate];
   v9 = v8;

@@ -14,47 +14,47 @@
   objc_opt_class();
   v5 = TSUCheckedDynamicCast();
 
-  v45 = 0;
+  v37 = 0;
   if (v5)
   {
-    objc_msgSend_inset(self, v6, v7, v8, v9);
-    v11 = v10;
-    objc_msgSend_inset(v5, v12, v13, v14, v15);
-    if (v11 == v20)
+    objc_msgSend_inset(self, v6, v7, v8);
+    v10 = v9;
+    objc_msgSend_inset(v5, v11, v12, v13);
+    if (v10 == v17)
     {
-      v21 = objc_msgSend_reoriginToZero(self, v16, v17, v18, v19);
-      if (v21 == objc_msgSend_reoriginToZero(v5, v22, v23, v24, v25))
+      v18 = objc_msgSend_reoriginToZero(self, v14, v15, v16);
+      if (v18 == objc_msgSend_reoriginToZero(v5, v19, v20, v21))
       {
-        if (((v30 = objc_msgSend_gridRange(self, v26, v27, v28, v29), v32 = v31, v36 = objc_msgSend_gridRange(v5, v31, v33, v34, v35), v30 == -1) || v32 == -1 || v30 > v32 || HIDWORD(v30) == 0xFFFFFFFF || v32 >> 32 == 0xFFFFFFFF || HIDWORD(v30) > v32 >> 32) && (v36 == -1 || v37 == -1 || v36 > v37 || HIDWORD(v36) == 0xFFFFFFFF || v37 >> 32 == 0xFFFFFFFF || HIDWORD(v36) > v37 >> 32) || v30 == v36 && !((v36 ^ v30) >> 32) && v32 == v37 && !((v37 ^ v32) >> 32))
+        if (((v25 = objc_msgSend_gridRange(self, v22, v23, v24), v27 = v26, v30 = objc_msgSend_gridRange(v5, v26, v28, v29), v25 == -1) || v27 == -1 || v25 > v27 || HIDWORD(v25) == 0xFFFFFFFF || v27 >> 32 == 0xFFFFFFFF || HIDWORD(v25) > v27 >> 32) && (v30 == -1 || v31 == -1 || v30 > v31 || HIDWORD(v30) == 0xFFFFFFFF || v31 >> 32 == 0xFFFFFFFF || HIDWORD(v30) > v31 >> 32) || v25 == v30 && !((v30 ^ v25) >> 32) && v27 == v31 && !((v31 ^ v27) >> 32))
         {
-          objc_msgSend_transform(self, v37, v38, v39, v40);
-          objc_msgSend_transform(v5, v41, v42, v43, v44);
-          if (CGAffineTransformEqualToTransform(&t1, &v47))
+          objc_msgSend_transform(self, v31, v32, v33);
+          objc_msgSend_transform(v5, v34, v35, v36);
+          if (CGAffineTransformEqualToTransform(&t1, &v39))
           {
-            v45 = 1;
+            v37 = 1;
           }
         }
       }
     }
   }
 
-  return v45;
+  return v37;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(TSTLayoutSpaceBezierPathCacheKey);
-  v9 = objc_msgSend_gridRange(self, v5, v6, v7, v8);
-  objc_msgSend_setGridRange_(v4, v10, v9, v10, v11);
-  objc_msgSend_transform(self, v12, v13, v14, v15);
-  v36[0] = v36[3];
-  v36[1] = v36[4];
-  v36[2] = v36[5];
-  objc_msgSend_setTransform_(v4, v16, v36, v17, v18);
-  objc_msgSend_inset(self, v19, v20, v21, v22);
-  objc_msgSend_setInset_(v4, v23, v24, v25, v26);
-  v31 = objc_msgSend_reoriginToZero(self, v27, v28, v29, v30);
-  objc_msgSend_setReoriginToZero_(v4, v32, v31, v33, v34);
+  v8 = objc_msgSend_gridRange(self, v5, v6, v7);
+  objc_msgSend_setGridRange_(v4, v9, v8, v9);
+  objc_msgSend_transform(self, v10, v11, v12);
+  v28[0] = v28[3];
+  v28[1] = v28[4];
+  v28[2] = v28[5];
+  objc_msgSend_setTransform_(v4, v13, v28, v14);
+  objc_msgSend_inset(self, v15, v16, v17);
+  objc_msgSend_setInset_(v4, v18, v19, v20);
+  v24 = objc_msgSend_reoriginToZero(self, v21, v22, v23);
+  objc_msgSend_setReoriginToZero_(v4, v25, v24, v26);
   return v4;
 }
 

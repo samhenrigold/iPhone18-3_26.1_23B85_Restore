@@ -63,76 +63,76 @@ LABEL_9:
 
 - (id)_bestAddressNodeForCityNodes:(id)nodes inMomentNodes:(id)momentNodes
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   momentNodesCopy = momentNodes;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   obj = nodesCopy;
-  v29 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
+  if (v28)
   {
     bestAddressNode = 0;
-    v27 = *v53;
+    v26 = *v52;
     v7 = -1.79769313e308;
     do
     {
       v8 = 0;
       do
       {
-        if (*v53 != v27)
+        if (*v52 != v26)
         {
           v9 = v8;
           objc_enumerationMutation(obj);
           v8 = v9;
         }
 
-        v30 = v8;
-        v10 = *(*(&v52 + 1) + 8 * v8);
+        v29 = v8;
+        v10 = *(*(&v51 + 1) + 8 * v8);
+        v47 = 0u;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
-        v31 = momentNodesCopy;
-        v11 = [v31 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v30 = momentNodesCopy;
+        v11 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
         if (v11)
         {
-          v12 = *v49;
+          v12 = *v48;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v49 != v12)
+              if (*v48 != v12)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              v14 = *(*(&v48 + 1) + 8 * i);
-              v44 = 0;
-              v45 = &v44;
-              v46 = 0x2020000000;
-              v47 = 0;
-              *buf = 0;
-              v39 = buf;
-              v40 = 0x3032000000;
-              v41 = __Block_byref_object_copy__48759;
-              v42 = __Block_byref_object_dispose__48760;
+              v14 = *(*(&v47 + 1) + 8 * i);
               v43 = 0;
-              v37[0] = MEMORY[0x277D85DD0];
-              v37[1] = 3221225472;
-              v37[2] = __73__PGLocationTripTitleUtility__bestAddressNodeForCityNodes_inMomentNodes___block_invoke;
-              v37[3] = &unk_2788852E8;
-              v37[4] = self;
-              v37[5] = v10;
-              v37[6] = &v44;
-              v37[7] = buf;
-              [v14 enumerateAddressEdgesAndNodesUsingBlock:v37];
-              v15 = v45[3];
+              v44 = &v43;
+              v45 = 0x2020000000;
+              v46 = 0;
+              *buf = 0;
+              v38 = buf;
+              v39 = 0x3032000000;
+              v40 = __Block_byref_object_copy__48759;
+              v41 = __Block_byref_object_dispose__48760;
+              v42 = 0;
+              v36[0] = MEMORY[0x277D85DD0];
+              v36[1] = 3221225472;
+              v36[2] = __73__PGLocationTripTitleUtility__bestAddressNodeForCityNodes_inMomentNodes___block_invoke;
+              v36[3] = &unk_2788852E8;
+              v36[4] = self;
+              v36[5] = v10;
+              v36[6] = &v43;
+              v36[7] = buf;
+              [v14 enumerateAddressEdgesAndNodesUsingBlock:v36];
+              v15 = v44[3];
               if (v15 > v7)
               {
-                v16 = *(v39 + 5);
+                v16 = *(v38 + 5);
                 v17 = bestAddressNode;
                 bestAddressNode = v16;
 
@@ -141,23 +141,23 @@ LABEL_9:
 
               _Block_object_dispose(buf, 8);
 
-              _Block_object_dispose(&v44, 8);
+              _Block_object_dispose(&v43, 8);
             }
 
-            v11 = [v31 countByEnumeratingWithState:&v48 objects:v57 count:16];
+            v11 = [v30 countByEnumeratingWithState:&v47 objects:v56 count:16];
           }
 
           while (v11);
         }
 
-        v8 = v30 + 1;
+        v8 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+      while (v29 + 1 != v28);
+      v28 = [obj countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
-    while (v29);
+    while (v28);
 
     if (bestAddressNode)
     {
@@ -178,25 +178,25 @@ LABEL_9:
     _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Could not find best address for city in moments. Using any address", buf, 2u);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v20 = momentNodesCopy;
-  v21 = [v20 countByEnumeratingWithState:&v33 objects:v56 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v32 objects:v55 count:16];
   if (v21)
   {
-    v22 = *v34;
+    v22 = *v33;
 LABEL_24:
     v23 = 0;
     while (1)
     {
-      if (*v34 != v22)
+      if (*v33 != v22)
       {
         objc_enumerationMutation(v20);
       }
 
-      bestAddressNode = [*(*(&v33 + 1) + 8 * v23) bestAddressNode];
+      bestAddressNode = [*(*(&v32 + 1) + 8 * v23) bestAddressNode];
       if (bestAddressNode)
       {
         break;
@@ -204,7 +204,7 @@ LABEL_24:
 
       if (v21 == ++v23)
       {
-        v21 = [v20 countByEnumeratingWithState:&v33 objects:v56 count:16];
+        v21 = [v20 countByEnumeratingWithState:&v32 objects:v55 count:16];
         if (v21)
         {
           goto LABEL_24;
@@ -222,7 +222,6 @@ LABEL_30:
   }
 
 LABEL_32:
-  v24 = *MEMORY[0x277D85DE8];
 
   return bestAddressNode;
 }
@@ -255,48 +254,48 @@ void __73__PGLocationTripTitleUtility__bestAddressNodeForCityNodes_inMomentNodes
 {
   onceCopy = once;
   selfCopy = self;
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   countryNodeCopy = countryNode;
   nodesCopy = nodes;
   resultCopy = result;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v13 = nodesCopy;
-  v14 = [v13 countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v14)
   {
-    v15 = *v32;
+    v15 = *v31;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v32 != v15)
+      if (*v31 != v15)
       {
         objc_enumerationMutation(v13);
       }
 
-      v17 = *(*(&v31 + 1) + 8 * v16);
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __107__PGLocationTripTitleUtility__cityTitleWithCityNode_countryNode_visitedCountryOnlyOnce_momentNodes_result___block_invoke;
-      v30[3] = &unk_2788852C0;
-      v30[4] = &v35;
-      [v17 enumerateROINodesUsingBlock:{v30, selfCopy, nodeCopy}];
-      if (v36[3])
+      v17 = *(*(&v30 + 1) + 8 * v16);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __107__PGLocationTripTitleUtility__cityTitleWithCityNode_countryNode_visitedCountryOnlyOnce_momentNodes_result___block_invoke;
+      v29[3] = &unk_2788852C0;
+      v29[4] = &v34;
+      [v17 enumerateROINodesUsingBlock:{v29, selfCopy, nodeCopy}];
+      if (v35[3])
       {
         break;
       }
 
       if (v14 == ++v16)
       {
-        v14 = [v13 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v14 = [v13 countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v14)
         {
           goto LABEL_3;
@@ -308,7 +307,7 @@ LABEL_3:
   }
 
   v18 = countryNodeCopy;
-  v19 = *(v36 + 24);
+  v19 = *(v35 + 24);
   v20 = nodeCopy;
   v21 = v20;
   if (!onceCopy || (v19 & 1) != 0)
@@ -318,8 +317,8 @@ LABEL_3:
 
   else
   {
-    v39 = v20;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+    v38 = v20;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
     v23 = [(PGLocationTripTitleUtility *)selfCopy _bestAddressNodeForCityNodes:v22 inMomentNodes:v13];
 
     name = [(PGLocationTripTitleUtility *)selfCopy _locationTitleWithLocationNode:v21 addressNode:v23 countryNode:v18 allowSecondPart:1];
@@ -340,8 +339,7 @@ LABEL_3:
     resultCopy[2](resultCopy, name, v25);
   }
 
-  _Block_object_dispose(&v35, 8);
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
 }
 
 void __107__PGLocationTripTitleUtility__cityTitleWithCityNode_countryNode_visitedCountryOnlyOnce_momentNodes_result___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -358,55 +356,53 @@ void __107__PGLocationTripTitleUtility__cityTitleWithCityNode_countryNode_visite
 
 - (id)_cityNodesFromMomentNodes:(id)nodes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   array = [MEMORY[0x277CBEB18] array];
   v6 = [MEMORY[0x277CCAB00] mapTableWithKeyOptions:0 valueOptions:0];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = nodesCopy;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invoke;
-        v18[3] = &unk_278885270;
-        v18[4] = self;
-        v19 = v6;
-        v20 = array;
-        [v11 enumerateAddressEdgesAndNodesUsingBlock:v18];
+        v11 = *(*(&v20 + 1) + 8 * i);
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invoke;
+        v17[3] = &unk_278885270;
+        v17[4] = self;
+        v18 = v6;
+        v19 = array;
+        [v11 enumerateAddressEdgesAndNodesUsingBlock:v17];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
 
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invoke_2;
-  v16[3] = &unk_278885298;
-  v17 = v6;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invoke_2;
+  v15[3] = &unk_278885298;
+  v16 = v6;
   v12 = v6;
-  [array sortUsingComparator:v16];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [array sortUsingComparator:v15];
 
   return array;
 }
@@ -537,150 +533,150 @@ uint64_t __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invo
 
 - (void)_generateTitleForMomentNodes:(id)nodes resolvedMomentNodes:(id)momentNodes resolvedLocations:(id)locations
 {
-  v281 = *MEMORY[0x277D85DE8];
+  v280 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   momentNodesCopy = momentNodes;
   locationsCopy = locations;
-  v192 = momentNodesCopy;
+  v191 = momentNodesCopy;
   firstObject = [momentNodesCopy firstObject];
   graph = [firstObject graph];
 
   if (graph)
   {
     *buf = 0;
-    v258 = buf;
-    v259 = 0x3032000000;
-    v260 = __Block_byref_object_copy__48759;
-    v261 = __Block_byref_object_dispose__48760;
-    v262 = 0;
-    v251 = 0;
-    v252 = &v251;
-    v253 = 0x3032000000;
-    v254 = __Block_byref_object_copy__48759;
-    v255 = __Block_byref_object_dispose__48760;
-    v256 = [MEMORY[0x277CBEB98] set];
-    v245 = 0;
-    v246 = &v245;
-    v247 = 0x3032000000;
-    v248 = __Block_byref_object_copy__48759;
-    v249 = __Block_byref_object_dispose__48760;
-    v250 = [MEMORY[0x277CBEB98] set];
-    v239 = 0;
-    v240 = &v239;
-    v241 = 0x3032000000;
-    v242 = __Block_byref_object_copy__48759;
-    v243 = __Block_byref_object_dispose__48760;
+    v257 = buf;
+    v258 = 0x3032000000;
+    v259 = __Block_byref_object_copy__48759;
+    v260 = __Block_byref_object_dispose__48760;
+    v261 = 0;
+    v250 = 0;
+    v251 = &v250;
+    v252 = 0x3032000000;
+    v253 = __Block_byref_object_copy__48759;
+    v254 = __Block_byref_object_dispose__48760;
+    v255 = [MEMORY[0x277CBEB98] set];
     v244 = 0;
-    v233 = 0;
-    v234 = &v233;
-    v235 = 0x3032000000;
-    v236 = __Block_byref_object_copy__48759;
-    v237 = __Block_byref_object_dispose__48760;
+    v245 = &v244;
+    v246 = 0x3032000000;
+    v247 = __Block_byref_object_copy__48759;
+    v248 = __Block_byref_object_dispose__48760;
+    v249 = [MEMORY[0x277CBEB98] set];
     v238 = 0;
-    v227 = 0;
-    v228 = &v227;
-    v229 = 0x3032000000;
-    v230 = __Block_byref_object_copy__48759;
-    v231 = __Block_byref_object_dispose__48760;
+    v239 = &v238;
+    v240 = 0x3032000000;
+    v241 = __Block_byref_object_copy__48759;
+    v242 = __Block_byref_object_dispose__48760;
+    v243 = 0;
     v232 = 0;
+    v233 = &v232;
+    v234 = 0x3032000000;
+    v235 = __Block_byref_object_copy__48759;
+    v236 = __Block_byref_object_dispose__48760;
+    v237 = 0;
+    v226 = 0;
+    v227 = &v226;
+    v228 = 0x3032000000;
+    v229 = __Block_byref_object_copy__48759;
+    v230 = __Block_byref_object_dispose__48760;
+    v231 = 0;
     v9 = objc_opt_class();
-    v226[0] = MEMORY[0x277D85DD0];
-    v226[1] = 3221225472;
-    v226[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke;
-    v226[3] = &unk_278885158;
-    v226[4] = &v239;
-    v226[5] = &v233;
-    v226[6] = &v227;
-    [v9 _cityStateAndCountryNodesForLocationNodes:locationsCopy result:v226];
-    if (![v228[5] count])
+    v225[0] = MEMORY[0x277D85DD0];
+    v225[1] = 3221225472;
+    v225[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke;
+    v225[3] = &unk_278885158;
+    v225[4] = &v238;
+    v225[5] = &v232;
+    v225[6] = &v226;
+    [v9 _cityStateAndCountryNodesForLocationNodes:locationsCopy result:v225];
+    if (![v227[5] count])
     {
       array = [MEMORY[0x277CBEB18] array];
       array2 = [MEMORY[0x277CBEB18] array];
-      v224 = 0u;
-      v225 = 0u;
-      v222 = 0u;
       v223 = 0u;
+      v224 = 0u;
+      v221 = 0u;
+      v222 = 0u;
       obj = nodesCopy;
-      v12 = [obj countByEnumeratingWithState:&v222 objects:v280 count:16];
+      v12 = [obj countByEnumeratingWithState:&v221 objects:v279 count:16];
       if (v12)
       {
-        v13 = *v223;
+        v13 = *v222;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v223 != v13)
+            if (*v222 != v13)
             {
               objc_enumerationMutation(obj);
             }
 
-            collection = [*(*(&v222 + 1) + 8 * i) collection];
+            collection = [*(*(&v221 + 1) + 8 * i) collection];
             addressNodes = [collection addressNodes];
             stateNodes = [addressNodes stateNodes];
-            v219[0] = MEMORY[0x277D85DD0];
-            v219[1] = 3221225472;
-            v219[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_2;
-            v219[3] = &unk_2788851A8;
-            v220 = array2;
-            v221 = array;
-            [stateNodes enumerateNodesUsingBlock:v219];
+            v218[0] = MEMORY[0x277D85DD0];
+            v218[1] = 3221225472;
+            v218[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_2;
+            v218[3] = &unk_2788851A8;
+            v219 = array2;
+            v220 = array;
+            [stateNodes enumerateNodesUsingBlock:v218];
           }
 
-          v12 = [obj countByEnumeratingWithState:&v222 objects:v280 count:16];
+          v12 = [obj countByEnumeratingWithState:&v221 objects:v279 count:16];
         }
 
         while (v12);
       }
 
-      v18 = v228[5];
-      v228[5] = array;
+      v18 = v227[5];
+      v227[5] = array;
       v19 = array;
 
-      v20 = v234[5];
-      v234[5] = array2;
+      v20 = v233[5];
+      v233[5] = array2;
     }
 
-    if ([v228[5] count] == 1 && (objc_msgSend(v228[5], "firstObject"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "name"), v22 = objc_claimAutoreleasedReturnValue(), v23 = +[PGCountrySize isLargeCountry:](PGCountrySize, "isLargeCountry:", v22), v22, v21, v23))
+    if ([v227[5] count] == 1 && (objc_msgSend(v227[5], "firstObject"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "name"), v22 = objc_claimAutoreleasedReturnValue(), v23 = +[PGCountrySize isLargeCountry:](PGCountrySize, "isLargeCountry:", v22), v22, v21, v23))
     {
-      v24 = [v234[5] count];
-      v189 = 1;
+      v24 = [v233[5] count];
+      v188 = 1;
     }
 
     else
     {
-      v24 = [v228[5] count];
-      v189 = 0;
+      v24 = [v227[5] count];
+      v188 = 0;
     }
 
     obja = [graph supersetCountryNodes];
     supersetStateNodes = [graph supersetStateNodes];
-    v217 = 0u;
-    v218 = 0u;
-    v215 = 0u;
     v216 = 0u;
-    v25 = v228[5];
-    v26 = [v25 countByEnumeratingWithState:&v215 objects:v279 count:16];
-    v187 = v24;
+    v217 = 0u;
+    v214 = 0u;
+    v215 = 0u;
+    v25 = v227[5];
+    v26 = [v25 countByEnumeratingWithState:&v214 objects:v278 count:16];
+    v186 = v24;
     if (v26)
     {
-      v27 = *v216;
+      v27 = *v215;
       while (2)
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v216 != v27)
+          if (*v215 != v27)
           {
             objc_enumerationMutation(v25);
           }
 
-          if (([obja containsNode:*(*(&v215 + 1) + 8 * j)] & 1) == 0)
+          if (([obja containsNode:*(*(&v214 + 1) + 8 * j)] & 1) == 0)
           {
-            v188 = 0;
+            v187 = 0;
             goto LABEL_25;
           }
         }
 
-        v26 = [v25 countByEnumeratingWithState:&v215 objects:v279 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v214 objects:v278 count:16];
         if (v26)
         {
           continue;
@@ -690,19 +686,35 @@ uint64_t __56__PGLocationTripTitleUtility__cityNodesFromMomentNodes___block_invo
       }
     }
 
-    v188 = 1;
+    v187 = 1;
 LABEL_25:
 
     selfCopy2 = self;
-    v190 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithSet:self->_momentNodes graph:graph];
-    if (v228[5])
+    v189 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithSet:self->_momentNodes graph:graph];
+    if (v227[5])
     {
       v30 = [PGGraphLocationCountryNodeCollection alloc];
-      v31 = [(MAElementCollection *)v30 initWithArray:v228[5] graph:graph];
+      v31 = [(MAElementCollection *)v30 initWithArray:v227[5] graph:graph];
       v32 = [(PGGraphLocationHelper *)self->_locationHelper addressNodesFromLocationNodes:v31];
-      v185 = [objc_opt_class() visitedLocations:v32 onlyDuringMoments:v190 locationHelper:self->_locationHelper];
+      v184 = [objc_opt_class() visitedLocations:v32 onlyDuringMoments:v189 locationHelper:self->_locationHelper];
 
       selfCopy2 = self;
+    }
+
+    else
+    {
+      v184 = 0;
+    }
+
+    v35 = v233;
+    if (v233[5])
+    {
+      v36 = [PGGraphLocationStateNodeCollection alloc];
+      v37 = [(MAElementCollection *)v36 initWithArray:v233[5] graph:graph];
+      v38 = [(PGGraphLocationHelper *)selfCopy2->_locationHelper addressNodesFromLocationNodes:v37];
+      v185 = [objc_opt_class() visitedLocations:v38 onlyDuringMoments:v189 locationHelper:selfCopy2->_locationHelper];
+
+      v35 = v233;
     }
 
     else
@@ -710,48 +722,32 @@ LABEL_25:
       v185 = 0;
     }
 
-    v35 = v234;
-    if (v234[5])
-    {
-      v36 = [PGGraphLocationStateNodeCollection alloc];
-      v37 = [(MAElementCollection *)v36 initWithArray:v234[5] graph:graph];
-      v38 = [(PGGraphLocationHelper *)selfCopy2->_locationHelper addressNodesFromLocationNodes:v37];
-      v186 = [objc_opt_class() visitedLocations:v38 onlyDuringMoments:v190 locationHelper:selfCopy2->_locationHelper];
-
-      v35 = v234;
-    }
-
-    else
-    {
-      v186 = 0;
-    }
-
-    v213 = 0u;
-    v214 = 0u;
-    v211 = 0u;
     v212 = 0u;
+    v213 = 0u;
+    v210 = 0u;
+    v211 = 0u;
     v39 = v35[5];
-    v40 = [v39 countByEnumeratingWithState:&v211 objects:v278 count:16];
+    v40 = [v39 countByEnumeratingWithState:&v210 objects:v277 count:16];
     if (v40)
     {
-      v41 = *v212;
+      v41 = *v211;
       while (2)
       {
         for (k = 0; k != v40; ++k)
         {
-          if (*v212 != v41)
+          if (*v211 != v41)
           {
             objc_enumerationMutation(v39);
           }
 
-          if ([supersetStateNodes containsNode:*(*(&v211 + 1) + 8 * k)])
+          if ([supersetStateNodes containsNode:*(*(&v210 + 1) + 8 * k)])
           {
-            v184 = 1;
+            v183 = 1;
             goto LABEL_44;
           }
         }
 
-        v40 = [v39 countByEnumeratingWithState:&v211 objects:v278 count:16];
+        v40 = [v39 countByEnumeratingWithState:&v210 objects:v277 count:16];
         if (v40)
         {
           continue;
@@ -761,30 +757,30 @@ LABEL_25:
       }
     }
 
-    v184 = 0;
+    v183 = 0;
 LABEL_44:
 
-    v209 = 0u;
-    v210 = 0u;
-    v207 = 0u;
     v208 = 0u;
-    v43 = v228[5];
-    v44 = [v43 countByEnumeratingWithState:&v207 objects:v277 count:16];
+    v209 = 0u;
+    v206 = 0u;
+    v207 = 0u;
+    v43 = v227[5];
+    v44 = [v43 countByEnumeratingWithState:&v206 objects:v276 count:16];
     if (v44)
     {
-      v45 = *v208;
+      v45 = *v207;
       v46 = 1;
       v47 = 1;
       do
       {
         for (m = 0; m != v44; ++m)
         {
-          if (*v208 != v45)
+          if (*v207 != v45)
           {
             objc_enumerationMutation(v43);
           }
 
-          v49 = *(*(&v207 + 1) + 8 * m);
+          v49 = *(*(&v206 + 1) + 8 * m);
           v50 = [obja containsNode:v49];
           name = [v49 name];
           v52 = [PGCountrySize isLargeCountry:name];
@@ -793,7 +789,7 @@ LABEL_44:
           v46 &= !v52;
         }
 
-        v44 = [v43 countByEnumeratingWithState:&v207 objects:v277 count:16];
+        v44 = [v43 countByEnumeratingWithState:&v206 objects:v276 count:16];
       }
 
       while (v44);
@@ -814,46 +810,46 @@ LABEL_44:
     [universalEndDate timeIntervalSinceDate:universalStartDate];
     v60 = v59;
 
-    v61 = v60 < 1209600.0 || [v228[5] count] < 5;
-    v62 = [objc_opt_class() _filteredCityNodesByNameForCityNodes:v240[5]];
-    v63 = v240[5];
-    v240[5] = v62;
+    v61 = v60 < 1209600.0 || [v227[5] count] < 5;
+    v62 = [objc_opt_class() _filteredCityNodesByNameForCityNodes:v239[5]];
+    v63 = v239[5];
+    v239[5] = v62;
 
     v64 = lastObject;
-    v65 = [v240[5] count];
+    v65 = [v239[5] count];
     v66 = v65;
-    v68 = (v187 * 1.2) > v65 && v65 != 0;
+    v68 = (v186 * 1.2) > v65 && v65 != 0;
     selfCopy5 = self;
     v70 = self->_locationHelper;
-    v71 = [v234[5] count];
-    v72 = v189 | v188;
+    v71 = [v233[5] count];
+    v72 = v188 | v187;
     if (v71 != 1)
     {
       v72 = 0;
     }
 
-    if ((v72 & v186) == 1)
+    if ((v72 & v185) == 1)
     {
-      firstObject3 = [v234[5] firstObject];
+      firstObject3 = [v233[5] firstObject];
       v74 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
       v75 = v74;
       if (v74)
       {
-        v276 = v74;
-        v76 = [MEMORY[0x277CBEA60] arrayWithObjects:&v276 count:1];
-        v77 = *(v258 + 5);
-        *(v258 + 5) = v76;
+        v275 = v74;
+        v76 = [MEMORY[0x277CBEA60] arrayWithObjects:&v275 count:1];
+        v77 = *(v257 + 5);
+        *(v257 + 5) = v76;
 
         v78 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-        v79 = v252[5];
-        v252[5] = v78;
+        v79 = v251[5];
+        v251[5] = v78;
 
         v80 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-        v81 = v246[5];
-        v246[5] = v80;
+        v81 = v245[5];
+        v245[5] = v80;
 
         self->_tripTitleLocationType = 2;
-        if (v188)
+        if (v187)
         {
           self->_tripTitleType = 2;
         }
@@ -862,33 +858,33 @@ LABEL_44:
 
     else
     {
-      v82 = [v228[5] count];
-      v83 = v189;
+      v82 = [v227[5] count];
+      v83 = v188;
       if (v82 != 1)
       {
         v83 = 1;
       }
 
-      if ((v188 | v83) & 1) != 0 || ((v185 ^ 1))
+      if ((v187 | v83) & 1) != 0 || ((v184 ^ 1))
       {
         if (v66 == 1)
         {
-          firstObject3 = [v240[5] firstObject];
-          firstObject4 = [v228[5] firstObject];
-          v206[0] = MEMORY[0x277D85DD0];
-          v206[1] = 3221225472;
-          v206[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_4;
-          v206[3] = &unk_2788851D0;
-          v206[6] = &v251;
-          v206[7] = &v245;
-          v206[4] = self;
-          v206[5] = buf;
-          [(PGLocationTripTitleUtility *)self _cityTitleWithCityNode:firstObject3 countryNode:firstObject4 visitedCountryOnlyOnce:v185 momentNodes:v192 result:v206];
+          firstObject3 = [v239[5] firstObject];
+          firstObject4 = [v227[5] firstObject];
+          v205[0] = MEMORY[0x277D85DD0];
+          v205[1] = 3221225472;
+          v205[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_4;
+          v205[3] = &unk_2788851D0;
+          v205[6] = &v250;
+          v205[7] = &v244;
+          v205[4] = self;
+          v205[5] = buf;
+          [(PGLocationTripTitleUtility *)self _cityTitleWithCityNode:firstObject3 countryNode:firstObject4 visitedCountryOnlyOnce:v184 momentNodes:v191 result:v205];
 
           goto LABEL_109;
         }
 
-        if (((v184 | v189 ^ 1) & 1) != 0 || v66 < 3)
+        if (((v183 | v188 ^ 1) & 1) != 0 || v66 < 3)
         {
           if ((v66 < 3) | (v53 | v54) & 1 || !v61)
           {
@@ -897,7 +893,7 @@ LABEL_44:
               goto LABEL_98;
             }
 
-            v111 = v188 ^ 1;
+            v111 = v187 ^ 1;
             if (v66 - 1 > 3)
             {
               v111 = 1;
@@ -905,58 +901,58 @@ LABEL_44:
 
             if (v111)
             {
-              if (!v189 || ![v234[5] count] || objc_msgSend(v234[5], "count") >= 5)
+              if (!v188 || ![v233[5] count] || objc_msgSend(v233[5], "count") >= 5)
               {
-                if (!v188)
+                if (!v187)
                 {
-                  if (![v228[5] count])
+                  if (![v227[5] count])
                   {
                     goto LABEL_110;
                   }
 
-                  firstObject3 = [v228[5] firstObject];
-                  lastObject2 = [v228[5] lastObject];
-                  v166 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
-                  v167 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject2 locationHelper:v70];
-                  v168 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject2, 0}];
-                  v169 = v252[5];
-                  v252[5] = v168;
+                  firstObject3 = [v227[5] firstObject];
+                  lastObject2 = [v227[5] lastObject];
+                  v165 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
+                  v166 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject2 locationHelper:v70];
+                  v167 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject2, 0}];
+                  v168 = v251[5];
+                  v251[5] = v167;
 
-                  v170 = [MEMORY[0x277CBEB98] setWithArray:v228[5]];
-                  v171 = v246[5];
-                  v246[5] = v170;
+                  v169 = [MEMORY[0x277CBEB98] setWithArray:v227[5]];
+                  v170 = v245[5];
+                  v245[5] = v169;
 
                   self->_tripTitleLocationType = 3;
-                  if (v166)
+                  if (v165)
                   {
-                    v172 = [firstObject3 isSameNodeAsNode:lastObject2];
-                    if (v167)
+                    v171 = [firstObject3 isSameNodeAsNode:lastObject2];
+                    if (v166)
                     {
-                      v173 = v172;
+                      v172 = v171;
                     }
 
                     else
                     {
-                      v173 = 1;
+                      v172 = 1;
                     }
 
-                    if (v173 == 1)
+                    if (v172 == 1)
                     {
-                      v266 = v166;
-                      v174 = [MEMORY[0x277CBEA60] arrayWithObjects:&v266 count:1];
-                      v175 = *(v258 + 5);
-                      *(v258 + 5) = v174;
+                      v265 = v165;
+                      v173 = [MEMORY[0x277CBEA60] arrayWithObjects:&v265 count:1];
+                      v174 = *(v257 + 5);
+                      *(v257 + 5) = v173;
                     }
 
                     else if (v61)
                     {
-                      v265[0] = v166;
-                      v265[1] = v167;
-                      v178 = [MEMORY[0x277CBEA60] arrayWithObjects:v265 count:2];
-                      v179 = *(v258 + 5);
-                      *(v258 + 5) = v178;
+                      v264[0] = v165;
+                      v264[1] = v166;
+                      v177 = [MEMORY[0x277CBEA60] arrayWithObjects:v264 count:2];
+                      v178 = *(v257 + 5);
+                      *(v257 + 5) = v177;
 
-                      if ([v228[5] count] >= 3)
+                      if ([v227[5] count] >= 3)
                       {
                         self->_tripTitleType = 4;
                       }
@@ -964,67 +960,67 @@ LABEL_44:
 
                     else
                     {
-                      v180 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                      v181 = [v180 localizedStringForKey:@"PGLocationTitleFormatTripWorldTrip" value:@"PGLocationTitleFormatTripWorldTrip" table:@"Localizable"];
-                      v264 = v181;
-                      v182 = [MEMORY[0x277CBEA60] arrayWithObjects:&v264 count:1];
-                      v183 = *(v258 + 5);
-                      *(v258 + 5) = v182;
+                      v179 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                      v180 = [v179 localizedStringForKey:@"PGLocationTitleFormatTripWorldTrip" value:@"PGLocationTitleFormatTripWorldTrip" table:@"Localizable"];
+                      v263 = v180;
+                      v181 = [MEMORY[0x277CBEA60] arrayWithObjects:&v263 count:1];
+                      v182 = *(v257 + 5);
+                      *(v257 + 5) = v181;
                     }
                   }
 
                   goto LABEL_109;
                 }
 
-                if (![v234[5] count])
+                if (![v233[5] count])
                 {
                   goto LABEL_110;
                 }
               }
 
-              firstObject3 = [v234[5] firstObject];
-              lastObject3 = [v234[5] lastObject];
-              v153 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
-              v154 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject3 locationHelper:v70];
-              v155 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject3, 0}];
-              v156 = v252[5];
-              v252[5] = v155;
+              firstObject3 = [v233[5] firstObject];
+              lastObject3 = [v233[5] lastObject];
+              v152 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
+              v153 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject3 locationHelper:v70];
+              v154 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject3, 0}];
+              v155 = v251[5];
+              v251[5] = v154;
 
-              v157 = [MEMORY[0x277CBEB98] setWithArray:v234[5]];
-              v158 = v246[5];
-              v246[5] = v157;
+              v156 = [MEMORY[0x277CBEB98] setWithArray:v233[5]];
+              v157 = v245[5];
+              v245[5] = v156;
 
               self->_tripTitleLocationType = 2;
-              if (v153)
+              if (v152)
               {
-                v159 = [firstObject3 isSameNodeAsNode:lastObject3];
-                if (v154)
+                v158 = [firstObject3 isSameNodeAsNode:lastObject3];
+                if (v153)
                 {
-                  v160 = v159;
+                  v159 = v158;
                 }
 
                 else
                 {
-                  v160 = 1;
+                  v159 = 1;
                 }
 
-                if (v160 == 1)
+                if (v159 == 1)
                 {
-                  v268 = v153;
-                  v161 = [MEMORY[0x277CBEA60] arrayWithObjects:&v268 count:1];
-                  v162 = *(v258 + 5);
-                  *(v258 + 5) = v161;
+                  v267 = v152;
+                  v160 = [MEMORY[0x277CBEA60] arrayWithObjects:&v267 count:1];
+                  v161 = *(v257 + 5);
+                  *(v257 + 5) = v160;
                 }
 
                 else
                 {
-                  v267[0] = v153;
-                  v267[1] = v154;
-                  v176 = [MEMORY[0x277CBEA60] arrayWithObjects:v267 count:2];
-                  v177 = *(v258 + 5);
-                  *(v258 + 5) = v176;
+                  v266[0] = v152;
+                  v266[1] = v153;
+                  v175 = [MEMORY[0x277CBEA60] arrayWithObjects:v266 count:2];
+                  v176 = *(v257 + 5);
+                  *(v257 + 5) = v175;
 
-                  if ([v234[5] count] >= 3)
+                  if ([v233[5] count] >= 3)
                   {
                     self->_tripTitleType = 4;
                   }
@@ -1039,21 +1035,21 @@ LABEL_98:
               aBlock[1] = 3221225472;
               aBlock[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_5;
               aBlock[3] = &unk_278885220;
-              v202 = v192;
+              v201 = v191;
               v112 = v70;
-              v203 = v112;
+              v202 = v112;
               selfCopy4 = self;
-              v205 = &v239;
+              v204 = &v238;
               v113 = _Block_copy(aBlock);
               v114 = (*(v113 + 2))(v113, 0, 0);
               v115 = (*(v113 + 2))(v113, 1, v114);
               v116 = [MEMORY[0x277CBEB98] setWithObjects:{v114, v115, 0}];
-              v117 = v252[5];
-              v252[5] = v116;
+              v117 = v251[5];
+              v251[5] = v116;
 
-              v118 = [MEMORY[0x277CBEB98] setWithArray:v240[5]];
-              v119 = v246[5];
-              v246[5] = v118;
+              v118 = [MEMORY[0x277CBEB98] setWithArray:v239[5]];
+              v119 = v245[5];
+              v245[5] = v118;
 
               self->_tripTitleLocationType = 1;
               v120 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:v114 locationHelper:v112];
@@ -1063,13 +1059,13 @@ LABEL_98:
               {
                 if (v121 && ![v114 isSameNodeAsNode:v115])
                 {
-                  v269[0] = v120;
-                  v269[1] = v122;
-                  v163 = [MEMORY[0x277CBEA60] arrayWithObjects:v269 count:2];
-                  v164 = *(v258 + 5);
-                  *(v258 + 5) = v163;
+                  v268[0] = v120;
+                  v268[1] = v122;
+                  v162 = [MEMORY[0x277CBEA60] arrayWithObjects:v268 count:2];
+                  v163 = *(v257 + 5);
+                  *(v257 + 5) = v162;
 
-                  if ([v240[5] count] >= 3)
+                  if ([v239[5] count] >= 3)
                   {
                     self->_tripTitleType = 4;
                   }
@@ -1077,14 +1073,14 @@ LABEL_98:
 
                 else
                 {
-                  v270 = v120;
-                  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v270 count:1];
-                  v124 = *(v258 + 5);
-                  *(v258 + 5) = v123;
+                  v269 = v120;
+                  v123 = [MEMORY[0x277CBEA60] arrayWithObjects:&v269 count:1];
+                  v124 = *(v257 + 5);
+                  *(v257 + 5) = v123;
                 }
               }
 
-              firstObject3 = v202;
+              firstObject3 = v201;
             }
 
 LABEL_109:
@@ -1092,21 +1088,21 @@ LABEL_109:
             selfCopy5 = self;
 LABEL_110:
             v133 = objc_opt_class();
-            v134 = v252[5];
+            v134 = v251[5];
             allowLongAOI = selfCopy5->_allowLongAOI;
-            v200[0] = MEMORY[0x277D85DD0];
-            v200[1] = 3221225472;
-            v200[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_7;
-            v200[3] = &unk_278885248;
-            v200[6] = &v251;
-            v200[7] = &v245;
-            v200[4] = selfCopy5;
-            v200[5] = buf;
-            [v133 _aoiTitleWithLocationNodes:v134 momentNodes:v192 allowLongAOI:allowLongAOI graph:graph locationHelper:v70 result:v200];
-            firstObject5 = [*(v258 + 5) firstObject];
-            lastObject4 = [*(v258 + 5) lastObject];
+            v199[0] = MEMORY[0x277D85DD0];
+            v199[1] = 3221225472;
+            v199[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_7;
+            v199[3] = &unk_278885248;
+            v199[6] = &v250;
+            v199[7] = &v244;
+            v199[4] = selfCopy5;
+            v199[5] = buf;
+            [v133 _aoiTitleWithLocationNodes:v134 momentNodes:v191 allowLongAOI:allowLongAOI graph:graph locationHelper:v70 result:v199];
+            firstObject5 = [*(v257 + 5) firstObject];
+            lastObject4 = [*(v257 + 5) lastObject];
             v138 = v64;
-            if ([*(v258 + 5) count] == 1 && objc_msgSend(firstObject5, "length"))
+            if ([*(v257 + 5) count] == 1 && objc_msgSend(firstObject5, "length"))
             {
               if (self->_tripTitleType != 2)
               {
@@ -1118,7 +1114,7 @@ LABEL_110:
 
             else
             {
-              if ([*(v258 + 5) count] < 2 || !objc_msgSend(firstObject5, "length") || !objc_msgSend(lastObject4, "length"))
+              if ([*(v257 + 5) count] < 2 || !objc_msgSend(firstObject5, "length") || !objc_msgSend(lastObject4, "length"))
               {
                 goto LABEL_123;
               }
@@ -1140,9 +1136,9 @@ LABEL_110:
               v142 = ;
               v137 = [v140 localizedStringWithFormat:v142, firstObject5, lastObject4];
 
-              v263[0] = firstObject5;
-              v263[1] = lastObject4;
-              v144 = [MEMORY[0x277CBEA60] arrayWithObjects:v263 count:2];
+              v262[0] = firstObject5;
+              v262[1] = lastObject4;
+              v144 = [MEMORY[0x277CBEA60] arrayWithObjects:v262 count:2];
               v139 = [PGCommonTitleUtility titleWithLineBreakForTitle:v137 andUsedNames:v144];
             }
 
@@ -1153,17 +1149,17 @@ LABEL_126:
               self->_title = v139;
               v150 = v139;
 
-              objc_storeStrong(&self->_usedLocationNodes, v252[5]);
-              objc_storeStrong(&self->_filteredLocationNodes, v246[5]);
-              objc_storeStrong(&self->_usedTitleComponents, *(v258 + 5));
+              objc_storeStrong(&self->_usedLocationNodes, v251[5]);
+              objc_storeStrong(&self->_filteredLocationNodes, v245[5]);
+              objc_storeStrong(&self->_usedTitleComponents, *(v257 + 5));
 
-              _Block_object_dispose(&v227, 8);
-              _Block_object_dispose(&v233, 8);
+              _Block_object_dispose(&v226, 8);
+              _Block_object_dispose(&v232, 8);
 
-              _Block_object_dispose(&v239, 8);
-              _Block_object_dispose(&v245, 8);
+              _Block_object_dispose(&v238, 8);
+              _Block_object_dispose(&v244, 8);
 
-              _Block_object_dispose(&v251, 8);
+              _Block_object_dispose(&v250, 8);
               _Block_object_dispose(buf, 8);
 
               goto LABEL_127;
@@ -1175,27 +1171,27 @@ LABEL_123:
 
             if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
             {
-              *v199 = 0;
-              _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Falling back to normal title generation", v199, 2u);
+              *v198 = 0;
+              _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "Falling back to normal title generation", v198, 2u);
             }
 
-            v147 = v252[5];
-            v252[5] = 0;
+            v147 = v251[5];
+            v251[5] = 0;
 
-            v148 = v246[5];
-            v246[5] = 0;
+            v148 = v245[5];
+            v245[5] = 0;
 
             v139 = 0;
             goto LABEL_126;
           }
 
-          firstObject3 = [v228[5] firstObject];
-          lastObject5 = [v228[5] lastObject];
+          firstObject3 = [v227[5] firstObject];
+          lastObject5 = [v227[5] lastObject];
           v93 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
           v94 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject5 locationHelper:v70];
-          v103 = [MEMORY[0x277CBEB98] setWithArray:v228[5]];
-          v104 = v246[5];
-          v246[5] = v103;
+          v103 = [MEMORY[0x277CBEB98] setWithArray:v227[5]];
+          v104 = v245[5];
+          v245[5] = v103;
 
           self->_tripTitleLocationType = 3;
           if (v93)
@@ -1213,29 +1209,29 @@ LABEL_123:
 
             if (v106 == 1)
             {
-              v272 = v93;
-              v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v272 count:1];
-              v108 = *(v258 + 5);
-              *(v258 + 5) = v107;
+              v271 = v93;
+              v107 = [MEMORY[0x277CBEA60] arrayWithObjects:&v271 count:1];
+              v108 = *(v257 + 5);
+              *(v257 + 5) = v107;
 
               v109 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-              v110 = v252[5];
-              v252[5] = v109;
+              v110 = v251[5];
+              v251[5] = v109;
             }
 
             else
             {
-              v271[0] = v93;
-              v271[1] = v94;
-              v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v271 count:2];
-              v130 = *(v258 + 5);
-              *(v258 + 5) = v129;
+              v270[0] = v93;
+              v270[1] = v94;
+              v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v270 count:2];
+              v130 = *(v257 + 5);
+              *(v257 + 5) = v129;
 
               v131 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject5, 0}];
-              v132 = v252[5];
-              v252[5] = v131;
+              v132 = v251[5];
+              v251[5] = v131;
 
-              if ([v228[5] count] >= 3)
+              if ([v227[5] count] >= 3)
               {
                 self->_tripTitleType = 4;
               }
@@ -1245,13 +1241,13 @@ LABEL_123:
 
         else
         {
-          firstObject3 = [v234[5] firstObject];
-          lastObject5 = [v234[5] lastObject];
+          firstObject3 = [v233[5] firstObject];
+          lastObject5 = [v233[5] lastObject];
           v93 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
           v94 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:lastObject5 locationHelper:v70];
-          v95 = [MEMORY[0x277CBEB98] setWithArray:v234[5]];
-          v96 = v246[5];
-          v246[5] = v95;
+          v95 = [MEMORY[0x277CBEB98] setWithArray:v233[5]];
+          v96 = v245[5];
+          v245[5] = v95;
 
           self->_tripTitleLocationType = 2;
           if (v93)
@@ -1269,29 +1265,29 @@ LABEL_123:
 
             if (v98 == 1)
             {
-              v274 = v93;
-              v99 = [MEMORY[0x277CBEA60] arrayWithObjects:&v274 count:1];
-              v100 = *(v258 + 5);
-              *(v258 + 5) = v99;
+              v273 = v93;
+              v99 = [MEMORY[0x277CBEA60] arrayWithObjects:&v273 count:1];
+              v100 = *(v257 + 5);
+              *(v257 + 5) = v99;
 
               v101 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-              v102 = v252[5];
-              v252[5] = v101;
+              v102 = v251[5];
+              v251[5] = v101;
             }
 
             else
             {
-              v273[0] = v93;
-              v273[1] = v94;
-              v125 = [MEMORY[0x277CBEA60] arrayWithObjects:v273 count:2];
-              v126 = *(v258 + 5);
-              *(v258 + 5) = v125;
+              v272[0] = v93;
+              v272[1] = v94;
+              v125 = [MEMORY[0x277CBEA60] arrayWithObjects:v272 count:2];
+              v126 = *(v257 + 5);
+              *(v257 + 5) = v125;
 
               v127 = [MEMORY[0x277CBEB98] setWithObjects:{firstObject3, lastObject5, 0}];
-              v128 = v252[5];
-              v252[5] = v127;
+              v128 = v251[5];
+              v251[5] = v127;
 
-              if ([v234[5] count] >= 3)
+              if ([v233[5] count] >= 3)
               {
                 self->_tripTitleType = 4;
               }
@@ -1302,23 +1298,23 @@ LABEL_123:
         goto LABEL_109;
       }
 
-      firstObject3 = [v228[5] firstObject];
+      firstObject3 = [v227[5] firstObject];
       v84 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:firstObject3 locationHelper:v70];
       v75 = v84;
       if (v84)
       {
-        v275 = v84;
-        v85 = [MEMORY[0x277CBEA60] arrayWithObjects:&v275 count:1];
-        v86 = *(v258 + 5);
-        *(v258 + 5) = v85;
+        v274 = v84;
+        v85 = [MEMORY[0x277CBEA60] arrayWithObjects:&v274 count:1];
+        v86 = *(v257 + 5);
+        *(v257 + 5) = v85;
 
         v87 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-        v88 = v252[5];
-        v252[5] = v87;
+        v88 = v251[5];
+        v251[5] = v87;
 
         v89 = [MEMORY[0x277CBEB98] setWithObject:firstObject3];
-        v90 = v246[5];
-        v246[5] = v89;
+        v90 = v245[5];
+        v245[5] = v89;
 
         self->_tripTitleLocationType = 3;
       }
@@ -1337,7 +1333,6 @@ LABEL_123:
   }
 
 LABEL_127:
-  v151 = *MEMORY[0x277D85DE8];
 }
 
 void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke(void *a1, void *a2, void *a3, void *a4)
@@ -1380,14 +1375,14 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
 
 void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_4(void *a1, void *a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v6 = a3;
   if (a2)
   {
-    v13[0] = a2;
+    v12[0] = a2;
     v7 = MEMORY[0x277CBEA60];
     v8 = a2;
-    v9 = [v7 arrayWithObjects:v13 count:1];
+    v9 = [v7 arrayWithObjects:v12 count:1];
     v10 = *(a1[5] + 8);
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
@@ -1396,14 +1391,12 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
     objc_storeStrong((*(a1[7] + 8) + 40), a3);
     *(a1[4] + 72) = 1;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_5(uint64_t a1, unsigned int a2, void *a3)
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v25 = a3;
+  v46 = *MEMORY[0x277D85DE8];
+  v24 = a3;
   v5 = *(a1 + 32);
   if (a2)
   {
@@ -1416,65 +1409,65 @@ id __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentN
   }
 
   v7 = v6;
-  v24 = [v25 name];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v23 = [v24 name];
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v7;
-  v8 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v8 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v8)
   {
-    v23 = *v43;
+    v22 = *v42;
 LABEL_6:
     v9 = 0;
     while (1)
     {
-      if (*v43 != v23)
+      if (*v42 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v42 + 1) + 8 * v9);
-      v41[0] = 0;
-      v41[1] = v41;
-      v41[2] = 0x2020000000;
-      v41[3] = a2 - 1;
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x3032000000;
-      v38 = __Block_byref_object_copy__48759;
-      v39 = __Block_byref_object_dispose__48760;
-      v40 = 0;
+      v10 = *(*(&v41 + 1) + 8 * v9);
+      v40[0] = 0;
+      v40[1] = v40;
+      v40[2] = 0x2020000000;
+      v40[3] = a2 - 1;
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x3032000000;
+      v37 = __Block_byref_object_copy__48759;
+      v38 = __Block_byref_object_dispose__48760;
+      v39 = 0;
       v11 = [v10 collection];
       v12 = [v11 addressNodes];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_6;
-      v26[3] = &unk_2788851F8;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_6;
+      v25[3] = &unk_2788851F8;
       v13 = *(a1 + 40);
       v14 = *(a1 + 48);
-      v27 = v13;
-      v28 = v14;
-      v15 = v25;
+      v26 = v13;
+      v27 = v14;
+      v15 = v24;
       v16 = *(a1 + 56);
-      v29 = v15;
-      v31 = v16;
-      v17 = v24;
-      v34 = a2;
-      v30 = v17;
-      v32 = v41;
-      v33 = &v35;
-      [v12 enumerateNodesUsingBlock:v26];
+      v28 = v15;
+      v30 = v16;
+      v17 = v23;
+      v33 = a2;
+      v29 = v17;
+      v31 = v40;
+      v32 = &v34;
+      [v12 enumerateNodesUsingBlock:v25];
 
-      v18 = v36[5];
+      v18 = v35[5];
       if (v18)
       {
-        v22 = v18;
+        v21 = v18;
       }
 
-      _Block_object_dispose(&v35, 8);
-      _Block_object_dispose(v41, 8);
+      _Block_object_dispose(&v34, 8);
+      _Block_object_dispose(v40, 8);
       if (v18)
       {
         break;
@@ -1482,7 +1475,7 @@ LABEL_6:
 
       if (v8 == ++v9)
       {
-        v8 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v8 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
         if (v8)
         {
           goto LABEL_6;
@@ -1496,12 +1489,10 @@ LABEL_6:
   else
   {
 LABEL_14:
-    v22 = 0;
+    v21 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomentNodes_resolvedLocations___block_invoke_7(void *a1, void *a2, void *a3)
@@ -1554,23 +1545,21 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
 
 - (void)_generateLocationTitle
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   momentNodes = self->_momentNodes;
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestampUTCStart" ascending:1];
-  v11[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [(NSSet *)momentNodes sortedArrayUsingDescriptors:v5];
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__PGLocationTripTitleUtility__generateLocationTitle__block_invoke;
-  v9[3] = &unk_278885130;
-  v9[4] = self;
-  v10 = v6;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__PGLocationTripTitleUtility__generateLocationTitle__block_invoke;
+  v8[3] = &unk_278885130;
+  v8[4] = self;
+  v9 = v6;
   v7 = v6;
-  [(PGLocationTripTitleUtility *)self _resolveMomentNodes:v7 withResult:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [(PGLocationTripTitleUtility *)self _resolveMomentNodes:v7 withResult:v8];
 }
 
 - (PGLocationTripTitleUtility)initWithMomentNodes:(id)nodes filterMomentsAndCities:(BOOL)cities allowLongAOI:(BOOL)i locationHelper:(id)helper
@@ -1600,7 +1589,7 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
 
 + (void)_cityStateAndCountryNodesForLocationNodes:(id)nodes result:(id)result
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   resultCopy = result;
   if ([nodesCopy count])
@@ -1643,30 +1632,30 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
 
     if (([label isEqualToString:@"Country"] & 1) == 0)
     {
-      v24 = v9;
-      v25 = resultCopy;
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
+      v23 = v9;
+      v24 = resultCopy;
       v29 = 0u;
-      v26 = nodesCopy;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
+      v25 = nodesCopy;
       obj = nodesCopy;
-      v12 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v12 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v29;
+        v14 = *v28;
         do
         {
           v15 = 0;
           do
           {
-            if (*v29 != v14)
+            if (*v28 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v16 = *(*(&v28 + 1) + 8 * v15);
+            v16 = *(*(&v27 + 1) + 8 * v15);
             if (array && ([label isEqualToString:@"State"] & 1) == 0)
             {
               locationNodeCollection = [v16 locationNodeCollection];
@@ -1692,15 +1681,15 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
           }
 
           while (v13 != v15);
-          v13 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v13 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v13);
       }
 
-      resultCopy = v25;
-      nodesCopy = v26;
-      v9 = v24;
+      resultCopy = v24;
+      nodesCopy = v25;
+      v9 = v23;
     }
 
     if (resultCopy)
@@ -1708,8 +1697,6 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
       resultCopy[2](resultCopy, v9, array, array2);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)visitedLocations:(id)locations onlyDuringMoments:(id)moments locationHelper:(id)helper
@@ -1725,7 +1712,7 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
 + (void)_aoiTitleWithLocationNodes:(id)nodes momentNodes:(id)momentNodes allowLongAOI:(BOOL)i graph:(id)graph locationHelper:(id)helper result:(id)result
 {
   iCopy = i;
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   momentNodesCopy = momentNodes;
   graphCopy = graph;
@@ -1736,14 +1723,14 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
   context = objc_autoreleasePoolPush();
   v19 = [MEMORY[0x277CBEB98] setWithArray:momentNodesCopy];
   v20 = [PGLocationTitleUtility containsAmusementParkPOIFromMomentNodes:v19];
-  v49 = momentNodesCopy;
+  v48 = momentNodesCopy;
   v21 = [(MAElementCollection *)[PGGraphMomentNodeCollection alloc] initWithArray:momentNodesCopy graph:graphCopy];
-  v50 = nodesCopy;
-  v48 = graphCopy;
+  v49 = nodesCopy;
+  v47 = graphCopy;
   v22 = [(MAElementCollection *)[PGGraphLocationNodeCollection alloc] initWithSet:nodesCopy graph:graphCopy];
-  v44 = v21;
+  v43 = v21;
   addressNodes = [(PGGraphMomentNodeCollection *)v21 addressNodes];
-  v43 = v22;
+  v42 = v22;
   addressNodes2 = [(PGGraphLocationNodeCollection *)v22 addressNodes];
   v25 = [addressNodes collectionByIntersecting:addressNodes2];
 
@@ -1757,39 +1744,39 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
     v26 = 1;
   }
 
-  v42 = v25;
+  v41 = v25;
   temporarySet = [v25 temporarySet];
-  v45 = v19;
+  v44 = v19;
   v28 = [PGLocationTitleUtility commonAOIComponentsForMomentNodes:v19 addressNodes:temporarySet aoiDisplayType:v26 containsAmusementParkPOI:v20 locationHelper:helperCopy];
 
   v29 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestampStart" ascending:1];
-  v56[0] = v29;
+  v55[0] = v29;
   v30 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"node.name" ascending:1];
-  v56[1] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
-  v41 = v28;
+  v55[1] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
+  v40 = v28;
   v32 = [v28 sortedArrayUsingDescriptors:v31];
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v33 = v32;
-  v34 = [v33 countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v52;
+    v36 = *v51;
     do
     {
       for (i = 0; i != v35; ++i)
       {
-        if (*v52 != v36)
+        if (*v51 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        node = [*(*(&v51 + 1) + 8 * i) node];
+        node = [*(*(&v50 + 1) + 8 * i) node];
         v39 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:node locationHelper:helperCopy];
         if ([v39 length])
         {
@@ -1798,7 +1785,7 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v35);
@@ -1809,36 +1796,34 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
   {
     resultCopy[2](resultCopy, array, v17);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_filteredCityNodesByNameForCityNodes:(id)nodes
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nodesCopy, "count")}];
   v5 = [MEMORY[0x277CBEB58] set];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = nodesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         name = [v11 name];
         if (name && ([v5 containsObject:name] & 1) == 0)
         {
@@ -1847,13 +1832,11 @@ void __97__PGLocationTripTitleUtility__generateTitleForMomentNodes_resolvedMomen
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

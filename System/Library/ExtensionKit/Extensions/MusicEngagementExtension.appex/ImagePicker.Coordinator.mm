@@ -12,7 +12,7 @@
 - (void)imagePickerController:(id)controller didFinishPickingMediaWithInfo:(id)info
 {
   type metadata accessor for UIImagePickerControllerInfoKey(0);
-  lazy protocol witness table accessor for type UIImagePickerControllerInfoKey and conformance UIImagePickerControllerInfoKey(&lazy protocol witness table cache variable for type UIImagePickerControllerInfoKey and conformance UIImagePickerControllerInfoKey, type metadata accessor for UIImagePickerControllerInfoKey);
+  lazy protocol witness table accessor for type UIImagePickerControllerInfoKey and conformance UIImagePickerControllerInfoKey(&lazy protocol witness table cache variable for type UIImagePickerControllerInfoKey and conformance UIImagePickerControllerInfoKey, type metadata accessor for UIImagePickerControllerInfoKey, &protocol conformance descriptor for UIImagePickerControllerInfoKey);
   v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
   selfCopy = self;
@@ -39,7 +39,7 @@
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6);
+  __chkstk_darwin();
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   controllerCopy = controller;
@@ -52,7 +52,7 @@
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
   type metadata accessor for ImagePicker(0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySbGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI7BindingVySbGMd, &_s7SwiftUI7BindingVySbGMR);
   Binding.wrappedValue.setter();
 }
 

@@ -71,7 +71,7 @@
   viewCopy = view;
   itemCopy = item;
   selfCopy = self;
-  sub_1909D5ACC(viewCopy);
+  sub_1909D5ACC(viewCopy, itemCopy);
 }
 
 - (void)updateWithSyncState:(id)state

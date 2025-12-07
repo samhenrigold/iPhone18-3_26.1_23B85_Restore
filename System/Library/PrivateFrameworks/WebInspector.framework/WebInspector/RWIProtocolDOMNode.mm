@@ -17,6 +17,7 @@
 - (NSString)value;
 - (NSString)xmlVersion;
 - (RWIProtocolDOMNode)contentDocument;
+- (RWIProtocolDOMNode)initWithNodeId:(int)id nodeType:(int)type nodeName:(id)name localName:(id)localName nodeValue:(id)value;
 - (RWIProtocolDOMNode)templateContent;
 - (int)childNodeCount;
 - (int)nodeId;
@@ -26,6 +27,7 @@
 - (int64_t)shadowRootType;
 - (void)setAttributes:(id)attributes;
 - (void)setBaseURL:(id)l;
+- (void)setChildNodeCount:(int)count;
 - (void)setChildren:(id)children;
 - (void)setContentDocument:(id)document;
 - (void)setContentSecurityPolicyHash:(id)hash;
@@ -35,7 +37,9 @@
 - (void)setLayoutFlags:(id)flags;
 - (void)setLocalName:(id)name;
 - (void)setName:(id)name;
+- (void)setNodeId:(int)id;
 - (void)setNodeName:(id)name;
+- (void)setNodeType:(int)type;
 - (void)setNodeValue:(id)value;
 - (void)setPseudoElements:(id)elements;
 - (void)setPseudoType:(int64_t)type;
@@ -50,11 +54,63 @@
 
 @implementation RWIProtocolDOMNode
 
+- (RWIProtocolDOMNode)initWithNodeId:(int)id nodeType:(int)type nodeName:(id)name localName:(id)localName nodeValue:(id)value
+{
+  v9 = *&type;
+  v10 = *&id;
+  nameCopy = name;
+  localNameCopy = localName;
+  valueCopy = value;
+  v18.receiver = self;
+  v18.super_class = RWIProtocolDOMNode;
+  v15 = [(RWIProtocolJSONObject *)&v18 init];
+  if (v15)
+  {
+    if (!nameCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"nodeName"}];
+    }
+
+    if (!localNameCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"localName"}];
+    }
+
+    if (!valueCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"nodeValue"}];
+    }
+
+    [(RWIProtocolDOMNode *)v15 setNodeId:v10];
+    [(RWIProtocolDOMNode *)v15 setNodeType:v9];
+    [(RWIProtocolDOMNode *)v15 setNodeName:nameCopy];
+    [(RWIProtocolDOMNode *)v15 setLocalName:localNameCopy];
+    [(RWIProtocolDOMNode *)v15 setNodeValue:valueCopy];
+    v16 = v15;
+  }
+
+  return v15;
+}
+
+- (void)setNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"nodeId"];
+}
+
 - (int)nodeId
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMNode;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"nodeId"];
+}
+
+- (void)setNodeType:(int)type
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&type forKey:@"nodeType"];
 }
 
 - (int)nodeType
@@ -128,6 +184,13 @@
   return v2;
 }
 
+- (void)setChildNodeCount:(int)count
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&count forKey:@"childNodeCount"];
+}
+
 - (int)childNodeCount
 {
   v3.receiver = self;
@@ -137,27 +200,27 @@
 
 - (void)setChildren:(id)children
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = children;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -168,18 +231,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolDOMNode;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"children"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"children"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -192,8 +255,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)children
@@ -573,7 +634,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMNode;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"contentDocument"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -619,27 +680,27 @@ LABEL_8:
 
 - (void)setShadowRoots:(id)roots
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = roots;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -650,18 +711,18 @@ LABEL_8:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolDOMNode;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"shadowRoots"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"shadowRoots"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -674,8 +735,6 @@ LABEL_8:
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)shadowRoots
@@ -706,7 +765,7 @@ LABEL_8:
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMNode;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"templateContent"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -752,27 +811,27 @@ LABEL_8:
 
 - (void)setPseudoElements:(id)elements
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = elements;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -783,18 +842,18 @@ LABEL_8:
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolDOMNode;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"pseudoElements"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolDOMNode;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"pseudoElements"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -807,8 +866,6 @@ LABEL_8:
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)pseudoElements

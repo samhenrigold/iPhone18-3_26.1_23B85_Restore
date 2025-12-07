@@ -6,6 +6,7 @@
 - (BOOL)isEqual:(id)equal;
 - (HKOntologyLocalizedEducationContent)init;
 - (HKOntologyLocalizedEducationContent)initWithCoder:(id)coder;
+- (HKOntologyLocalizedEducationContent)initWithSections:(id)sections version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (HKOntologyLocalizedEducationContent)initWithType:(int64_t)type version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted;
 - (id)_sectionsUniquedByLocaleSectionTypePairing;
 - (id)allSectionsWithType:(int64_t)type;
@@ -34,6 +35,28 @@
   [v7 raise:v8 format:{@"The -%@ method is not available on %@", v9, objc_opt_class()}];
 
   return 0;
+}
+
+- (HKOntologyLocalizedEducationContent)initWithSections:(id)sections version:(int64_t)version timestamp:(double)timestamp deleted:(BOOL)deleted
+{
+  deletedCopy = deleted;
+  sectionsCopy = sections;
+  if (!sectionsCopy)
+  {
+    [HKOntologyLocalizedEducationContent initWithSections:a2 version:self timestamp:? deleted:?];
+  }
+
+  v16.receiver = self;
+  v16.super_class = HKOntologyLocalizedEducationContent;
+  v12 = [(HKUserDomainConceptProperty *)&v16 initWithType:160019 version:version timestamp:deletedCopy deleted:timestamp];
+  if (v12)
+  {
+    v13 = [sectionsCopy copy];
+    sections = v12->_sections;
+    v12->_sections = v13;
+  }
+
+  return v12;
 }
 
 + (id)nullPropertyWithVersion:(int64_t)version
@@ -82,7 +105,7 @@ __CFString *__55__HKOntologyLocalizedEducationContent_valueDescription__block_in
 
 + (id)mergeListsOfPropertiesWithType:(int64_t)type intoListOfProperties:(id)properties fromListOfProperties:(id)ofProperties options:(unint64_t)options
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   ofPropertiesCopy = ofProperties;
   v12 = ofPropertiesCopy;
@@ -126,21 +149,20 @@ LABEL_14:
 
   else
   {
-    v22[0] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+    v21[0] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   }
 
   v19 = v17;
 
 LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 + (id)_mergeDataFromSectionsInto:(id)into fromContent:(id)content options:(unint64_t)options
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   intoCopy = into;
   contentCopy = content;
   v8 = intoCopy;
@@ -185,110 +207,106 @@ LABEL_8:
 
   else
   {
-    v37 = v11;
-    v35 = v10;
+    v36 = v11;
+    v34 = v10;
     _sectionsUniquedByLocaleSectionTypePairing = [v8 _sectionsUniquedByLocaleSectionTypePairing];
-    v36 = contentCopy;
+    v35 = contentCopy;
     _sectionsUniquedByLocaleSectionTypePairing2 = [contentCopy _sectionsUniquedByLocaleSectionTypePairing];
-    v38 = [_sectionsUniquedByLocaleSectionTypePairing mutableCopy];
+    v37 = [_sectionsUniquedByLocaleSectionTypePairing mutableCopy];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v20 = _sectionsUniquedByLocaleSectionTypePairing2;
-    v21 = [v20 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v41;
+      v23 = *v40;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v41 != v23)
+          if (*v40 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v40 + 1) + 8 * i);
+          v25 = *(*(&v39 + 1) + 8 * i);
           v26 = [v20 objectForKeyedSubscript:v25];
           v27 = [_sectionsUniquedByLocaleSectionTypePairing objectForKeyedSubscript:v25];
           v28 = [HKOntologyLocalizedEducationContentSection sectionByMerging:v27 sectionToMergeFrom:v26 options:options];
           if (v28 != v27)
           {
-            [v38 setObject:v28 forKeyedSubscript:v25];
-            v37 = 1;
+            [v37 setObject:v28 forKeyedSubscript:v25];
+            v36 = 1;
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v22);
     }
 
-    if (v37)
+    if (v36)
     {
       v29 = [HKOntologyLocalizedEducationContent alloc];
-      v30 = v38;
-      allValues = [v38 allValues];
-      v10 = v35;
-      version4 = [v35 version];
-      [v35 timestamp];
+      v30 = v37;
+      allValues = [v37 allValues];
+      v10 = v34;
+      version4 = [v34 version];
+      [v34 timestamp];
       v17 = [(HKOntologyLocalizedEducationContent *)v29 initWithSections:allValues version:version4 timestamp:0 deleted:?];
 
-      contentCopy = v36;
+      contentCopy = v35;
     }
 
     else
     {
       v17 = v8;
-      contentCopy = v36;
-      v10 = v35;
-      v30 = v38;
+      contentCopy = v35;
+      v10 = v34;
+      v30 = v37;
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)_sectionsUniquedByLocaleSectionTypePairing
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sections;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         identifier = [v9 identifier];
         [v3 setObject:v9 forKeyedSubscript:identifier];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

@@ -114,43 +114,41 @@
 
 - (id)descriptionDictionary
 {
-  v10[4] = *MEMORY[0x1E69E9840];
-  v10[0] = self->_contactID;
-  v9[0] = @"ContactID";
-  v9[1] = @"FrequencyScore";
+  v9[4] = *MEMORY[0x1E69E9840];
+  v9[0] = self->_contactID;
+  v8[0] = @"ContactID";
+  v8[1] = @"FrequencyScore";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_frequencyScore];
-  v10[1] = v3;
-  v9[2] = @"RecencyScore";
+  v9[1] = v3;
+  v8[2] = @"RecencyScore";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->_recencyScore];
-  v10[2] = v4;
-  v9[3] = @"SignificanceScore";
+  v9[2] = v4;
+  v8[3] = @"SignificanceScore";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->_significanceScore];
-  v10[3] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[3] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
 
 - (id)description
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   descriptionDictionary = [(RTContactScore *)self descriptionDictionary];
-  v12 = 0;
-  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v12];
-  v4 = v12;
+  v11 = 0;
+  v3 = [MEMORY[0x1E696ACB0] JSONStringFromNSDictionary:descriptionDictionary error:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = _rt_log_facility_get_os_log(RTLogFacilityGathering);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v4;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v4;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "%@ instance failed to create description:%@", buf, 0x16u);
     }
 
@@ -163,8 +161,6 @@
   }
 
   v7 = string;
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

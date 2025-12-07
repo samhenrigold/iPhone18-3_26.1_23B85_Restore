@@ -22,7 +22,7 @@
 
 + (void)_rebuildVolumes
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(qword_280D580A0);
   v4 = objc_msgSend_mountedVolumes(CKDVolume, v2, v3);
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -33,28 +33,28 @@
   v8 = qword_280D580B0;
   qword_280D580B0 = v7;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v9 = v4;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v27, v31, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v26, v30, 16);
   if (v11)
   {
     v14 = v11;
-    v15 = *v28;
+    v15 = *v27;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v28 != v15)
+        if (*v27 != v15)
         {
           objc_enumerationMutation(v9);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * i);
+        v17 = *(*(&v26 + 1) + 8 * i);
         v18 = qword_280D580A8;
-        v19 = objc_msgSend_volumeUUID(v17, v12, v13, v27);
+        v19 = objc_msgSend_volumeUUID(v17, v12, v13, v26);
         objc_msgSend_setObject_forKey_(v18, v20, v17, v19);
 
         if ((objc_msgSend_isRootVolume(v17, v21, v22) & 1) == 0)
@@ -65,13 +65,11 @@
         }
       }
 
-      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v27, v31, 16);
+      v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v26, v30, 16);
     }
 
     while (v14);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)volumeForVolumeUUID:(id)d

@@ -3,6 +3,7 @@
 + (BOOL)headphonesAreInUse;
 - (BOOL)activate;
 - (BOOL)deactivateWithForce:(BOOL)force;
+- (BOOL)updatePropertiesWithOptions:(id)options transportType:(int)type error:(id *)error;
 - (MNAudioSessionAccessDelegate)delegate;
 - (MNAudioSessionResourceAccess)init;
 - (id)_stringForAVAudioSessionErrorCode:(int64_t)code;
@@ -159,7 +160,7 @@ LABEL_64:
 
 - (BOOL)deactivateWithForce:(BOOL)force
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (self->_state)
   {
     force = 1;
@@ -201,12 +202,11 @@ LABEL_64:
       }
 
       *buf = 138412290;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_INFO, "Ⓓ Deactivation ignored : state = %@", buf, 0xCu);
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return force;
 }
 
@@ -231,7 +231,7 @@ void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke(uint6
 
 void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) && !*(a1 + 32))
   {
     *(*(a1 + 40) + 16) = 0;
@@ -255,7 +255,7 @@ void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke_2(uin
       {
         v23 = [*(a1 + 40) delegate];
         *buf = 138412290;
-        v29 = v23;
+        v28 = v23;
         _os_log_impl(&dword_1D311E000, v18, OS_LOG_TYPE_INFO, "Ⓓ    Audio session didDeactivateSession:YES message processed by %@", buf, 0xCu);
       }
 
@@ -280,17 +280,17 @@ void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke_2(uin
         v9 = [*(a1 + 32) code];
         v10 = *(a1 + 32);
         *buf = 138413570;
-        v29 = v5;
-        v30 = 1024;
-        v31 = v6;
-        v32 = 1024;
-        v33 = v7;
-        v34 = 1024;
-        v35 = v8;
-        v36 = 1024;
-        v37 = v9;
-        v38 = 2112;
-        v39 = v10;
+        v28 = v5;
+        v29 = 1024;
+        v30 = v6;
+        v31 = 1024;
+        v32 = v7;
+        v33 = 1024;
+        v34 = v8;
+        v35 = 1024;
+        v36 = v9;
+        v37 = 2112;
+        v38 = v10;
         _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "⒟    Error deactivating audio session (error code %@ '%c%c%c%c') : %@", buf, 0x2Eu);
       }
 
@@ -318,9 +318,9 @@ void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke_2(uin
       v16 = *(a1 + 32);
       if (v16)
       {
-        v26 = *MEMORY[0x1E696AA08];
-        v27 = v16;
-        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+        v25 = *MEMORY[0x1E696AA08];
+        v26 = v16;
+        v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
         v18 = [v14 errorWithDomain:@"MNAudioSystemError" code:v11 userInfo:v17];
       }
 
@@ -335,13 +335,11 @@ void __52__MNAudioSessionResourceAccess_deactivateWithForce___block_invoke_2(uin
 LABEL_20:
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)activate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   state = self->_state;
   if (state == 2)
   {
@@ -360,7 +358,7 @@ LABEL_20:
       }
 
       *buf = 138412290;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "Ⓓ Activation ignored : state = %@", buf, 0xCu);
     }
   }
@@ -384,9 +382,7 @@ LABEL_20:
     dispatch_async(queue, block);
   }
 
-  result = state != 2;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return state != 2;
 }
 
 void __40__MNAudioSessionResourceAccess_activate__block_invoke(uint64_t a1)
@@ -411,7 +407,7 @@ void __40__MNAudioSessionResourceAccess_activate__block_invoke(uint64_t a1)
 
 void __40__MNAudioSessionResourceAccess_activate__block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(a1 + 56) && !*(a1 + 32))
   {
     *(*(a1 + 40) + 16) = 2;
@@ -441,7 +437,7 @@ LABEL_14:
     {
       v3 = *(a1 + 32);
       *buf = 138412290;
-      v19 = v3;
+      v18 = v3;
       _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_ERROR, "⒟    Error activating audio session: %@", buf, 0xCu);
     }
 
@@ -456,9 +452,9 @@ LABEL_14:
       v8 = *(a1 + 32);
       if (v8)
       {
-        v16 = *MEMORY[0x1E696AA08];
-        v17 = v8;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+        v15 = *MEMORY[0x1E696AA08];
+        v16 = v8;
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
         v10 = [v6 errorWithDomain:@"MNAudioSystemError" code:3403 userInfo:v9];
       }
 
@@ -473,17 +469,15 @@ LABEL_14:
       goto LABEL_14;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_changeNumChannels
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E698D710] = [MEMORY[0x1E698D710] sharedInstance];
-  v19 = 0;
-  v4 = [mEMORY[0x1E698D710] setPreferredOutputNumberOfChannels:1 error:&v19];
-  v5 = v19;
+  v18 = 0;
+  v4 = [mEMORY[0x1E698D710] setPreferredOutputNumberOfChannels:1 error:&v18];
+  v5 = v18;
 
   v6 = GetAudioLogForMNAudioSessionResourceAccessCategory();
   v7 = v6;
@@ -521,7 +515,7 @@ LABEL_14:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v23 = v5;
+      v22 = v5;
       _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "⒟    Error setting the channel count: %@", buf, 0xCu);
     }
 
@@ -532,9 +526,9 @@ LABEL_14:
     {
       v11 = MEMORY[0x1E696ABC0];
       v12 = @"MNAudioSystemError";
-      v20 = *MEMORY[0x1E696AA08];
-      v21 = v5;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x1E696AA08];
+      v20 = v5;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       delegate2 = [v11 errorWithDomain:@"MNAudioSystemError" code:3404 userInfo:v13];
 
       delegate4 = [(MNAudioSessionResourceAccess *)self delegate];
@@ -543,8 +537,117 @@ LABEL_14:
 LABEL_13:
     }
   }
+}
 
-  v18 = *MEMORY[0x1E69E9840];
+- (BOOL)updatePropertiesWithOptions:(id)options transportType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  v37 = *MEMORY[0x1E69E9840];
+  optionsCopy = options;
+  v9 = optionsCopy;
+  if (optionsCopy)
+  {
+    if (([optionsCopy guidanceLevelForTransportType:v6] - 1) > 1)
+    {
+      v10 = 1;
+    }
+
+    else if ([v9 pauseSpokenAudio])
+    {
+      v10 = 19;
+    }
+
+    else
+    {
+      v10 = 3;
+    }
+
+    v14 = GetAudioLogForMNAudioSessionResourceAccessCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    {
+      *buf = 67109120;
+      LODWORD(v30) = v10;
+      _os_log_impl(&dword_1D311E000, v14, OS_LOG_TYPE_INFO, "Ⓓ Setting AVAudioSession category to Playback with options: 0x%x", buf, 8u);
+    }
+
+    v15 = *MEMORY[0x1E698D528];
+    v16 = *MEMORY[0x1E698D640];
+    mEMORY[0x1E698D710] = [MEMORY[0x1E698D710] sharedInstance];
+    v26 = 0;
+    v18 = [mEMORY[0x1E698D710] setCategory:v15 mode:v16 options:v10 error:&v26];
+    v19 = v26;
+
+    if (v19)
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = v18;
+    }
+
+    if (v13)
+    {
+      [(MNAudioSessionResourceAccess *)self _changeNumChannels];
+      v20 = GetAudioLogForMNAudioSessionResourceAccessCategory();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412802;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v16;
+        v33 = 2048;
+        v34 = v10;
+        _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_INFO, "Ⓓ    Successfully set the category (%@), mode (%@), and options (0x%lX)", buf, 0x20u);
+      }
+    }
+
+    else
+    {
+      v21 = GetAudioLogForMNAudioSessionResourceAccessCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138413058;
+        v30 = v15;
+        v31 = 2112;
+        v32 = v16;
+        v33 = 2048;
+        v34 = v10;
+        v35 = 2112;
+        v36 = v19;
+        _os_log_impl(&dword_1D311E000, v21, OS_LOG_TYPE_ERROR, "⒟    Error setting the category (%@), mode (%@), and options (0x%lX) - %@", buf, 0x2Au);
+      }
+
+      if (!error)
+      {
+        goto LABEL_23;
+      }
+
+      v22 = MEMORY[0x1E696ABC0];
+      v20 = @"MNAudioSystemError";
+      v23 = @"MNAudioSystemError";
+      v27 = *MEMORY[0x1E696AA08];
+      v28 = v19;
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+      *error = [v22 errorWithDomain:@"MNAudioSystemError" code:3401 userInfo:v24];
+    }
+
+LABEL_23:
+    goto LABEL_24;
+  }
+
+  if (error)
+  {
+    v11 = MEMORY[0x1E696ABC0];
+    v12 = @"MNAudioSystemError";
+    *error = [v11 errorWithDomain:@"MNAudioSystemError" code:3400 userInfo:0];
+  }
+
+  v13 = 0;
+LABEL_24:
+
+  return v13;
 }
 
 - (unint64_t)promptStyle
@@ -580,31 +683,31 @@ LABEL_13:
 
 + (BOOL)deviceSpeakerIsInUse
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   mEMORY[0x1E698D710] = [MEMORY[0x1E698D710] sharedInstance];
   currentRoute = [mEMORY[0x1E698D710] currentRoute];
   outputs = [currentRoute outputs];
 
-  v5 = [outputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [outputs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = *MEMORY[0x1E698D680];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(outputs);
         }
 
-        portType = [*(*(&v15 + 1) + 8 * i) portType];
+        portType = [*(*(&v14 + 1) + 8 * i) portType];
         v11 = [portType isEqualToString:v8];
 
         if (v11)
@@ -614,7 +717,7 @@ LABEL_13:
         }
       }
 
-      v6 = [outputs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [outputs countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -627,42 +730,41 @@ LABEL_13:
   v12 = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (BOOL)headphonesAreInUse
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   mEMORY[0x1E698D710] = [MEMORY[0x1E698D710] sharedInstance];
   currentRoute = [mEMORY[0x1E698D710] currentRoute];
   outputs = [currentRoute outputs];
 
-  v5 = [outputs countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [outputs countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(outputs);
         }
 
-        if ([*(*(&v10 + 1) + 8 * i) isHeadphones])
+        if ([*(*(&v9 + 1) + 8 * i) isHeadphones])
         {
           LOBYTE(v5) = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [outputs countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [outputs countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -674,7 +776,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

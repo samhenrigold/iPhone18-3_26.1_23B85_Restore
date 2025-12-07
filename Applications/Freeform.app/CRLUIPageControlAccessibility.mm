@@ -19,14 +19,14 @@
   if ([(CRLUIPageControlAccessibility *)self crlaxPageChangeCausesLayoutChange])
   {
 
-    CRLAccessibilityPostLayoutChangedNotification(0);
+    CRLAccessibilityPostLayoutChangedNotification(0, v3);
   }
 
   else
   {
-    v3.receiver = self;
-    v3.super_class = CRLUIPageControlAccessibility;
-    [(CRLUIPageControlAccessibility *)&v3 _accessibilityCurrentPageDidChange];
+    v4.receiver = self;
+    v4.super_class = CRLUIPageControlAccessibility;
+    [(CRLUIPageControlAccessibility *)&v4 _accessibilityCurrentPageDidChange];
   }
 }
 

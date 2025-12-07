@@ -6,7 +6,7 @@
 
 - (uint64_t)vui_isNonLightningSecondScreenScene
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -17,16 +17,16 @@
   displayConfiguration = [screen displayConfiguration];
   name = [displayConfiguration name];
 
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = name;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "Found window scene with display name %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = name;
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "Found window scene with display name %@", &v9, 0xCu);
   }
 
-  v6 = [name hasPrefix:@"TVOut"];
-  return v6;
+  v7 = [name hasPrefix:@"TVOut"];
+  return v7;
 }
 
 @end

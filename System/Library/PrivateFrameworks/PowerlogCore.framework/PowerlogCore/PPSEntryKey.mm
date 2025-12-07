@@ -57,7 +57,8 @@
   }
 
   v14 = v5;
-  if ([PPSCoreUtilities shouldSetupMetric:v5])
+  metricCopy = [PPSCoreUtilities shouldSetupMetric:v5];
+  if (metricCopy)
   {
     v6 = [PPSEntryKey entrySelectorForMetric:v14];
     objc_sync_enter(@"++entryKeyObjectsSync++");
@@ -95,7 +96,7 @@
 
 LABEL_12:
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](metricCopy);
 }
 
 uint64_t __38__PPSEntryKey_setupEntryKeyForMetric___block_invoke()
@@ -749,38 +750,38 @@ void __46__PPSEntryKey_allAppIdentiferKeysForEntryKey___block_invoke(uint64_t a1
 
 + (int)directionalityForEntryKey:(id)key
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = [PPSEntryKey anyMetricsForEntryKey:key];
   v4 = v3;
   if (v3)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     allValues = [v3 allValues];
-    v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) directionality] == 3)
+          if ([*(*(&v13 + 1) + 8 * i) directionality] == 3)
           {
             directionality = 3;
             goto LABEL_12;
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v7)
         {
           continue;
@@ -802,43 +803,42 @@ LABEL_12:
     directionality = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return directionality;
 }
 
 + (BOOL)filterEntryLoggingForEntryKey:(id)key
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [PPSEntryKey baseMetricsForEntryKey:key];
   v4 = v3;
   if (v3)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     allValues = [v3 allValues];
-    v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          if ([*(*(&v11 + 1) + 8 * i) filterEntryLogging])
+          if ([*(*(&v10 + 1) + 8 * i) filterEntryLogging])
           {
             LOBYTE(v6) = 1;
             goto LABEL_12;
           }
         }
 
-        v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -856,7 +856,6 @@ LABEL_12:
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

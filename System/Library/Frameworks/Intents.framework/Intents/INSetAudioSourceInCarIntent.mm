@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"audioSource";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"audioSource";
   audioSource = [(INSetAudioSourceInCarIntent *)self audioSource];
   if ((audioSource - 1) > 8)
   {
@@ -36,8 +36,8 @@
   }
 
   v5 = v4;
-  v12[1] = @"relativeAudioSourceReference";
-  v13[0] = v5;
+  v11[1] = @"relativeAudioSourceReference";
+  v12[0] = v5;
   relativeAudioSourceReference = [(INSetAudioSourceInCarIntent *)self relativeAudioSourceReference];
   v7 = @"unknown";
   if (relativeAudioSourceReference == INRelativeReferencePrevious)
@@ -51,10 +51,8 @@
   }
 
   v8 = v7;
-  v13[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

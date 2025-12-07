@@ -60,7 +60,7 @@
   return v2;
 }
 
-id __31__CAFDStateCaptureManager_init__block_invoke(uint64_t a1)
+NSMutableDictionary *__31__CAFDStateCaptureManager_init__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)

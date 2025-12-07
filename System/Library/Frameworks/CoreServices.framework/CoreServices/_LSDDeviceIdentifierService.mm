@@ -2,6 +2,7 @@
 + (id)XPCInterface;
 + (id)vendorNameForDeviceIdentifiersWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data;
 + (void)clearIdentifiersForUninstallationWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data;
++ (void)generateIdentifiersForInstallationWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data;
 @end
 
 @implementation _LSDDeviceIdentifierService
@@ -29,7 +30,6 @@
   v5 = 0;
   if (context && unit && data)
   {
-    installFailureReason_high = HIDWORD(data->installFailureReason);
     [(_LSDatabase *)context->db store];
     v5 = _CSStringCopyCFString();
     if (v5)
@@ -37,49 +37,48 @@
       goto LABEL_5;
     }
 
-    exactIdentifier = data->base.exactIdentifier;
     [(_LSDatabase *)context->db store];
-    v11 = _CSStringCopyCFString();
-    if (!v11)
+    v9 = _CSStringCopyCFString();
+    if (!v9)
     {
       v5 = 0;
       goto LABEL_16;
     }
 
-    v12 = v11;
-    if ([v12 hasPrefix:@"com.apple."])
+    v10 = v9;
+    if ([v10 hasPrefix:@"com.apple."])
     {
-      v13 = @"Apple Inc.";
+      v11 = @"Apple Inc.";
     }
 
     else
     {
-      v14 = [v12 componentsSeparatedByString:@"."];
-      v15 = [v14 mutableCopy];
+      v12 = [v10 componentsSeparatedByString:@"."];
+      v13 = [v12 mutableCopy];
 
-      if ([v15 count] >= 2)
+      if ([v13 count] >= 2)
       {
-        [v15 removeLastObject];
-        v16 = MEMORY[0x1E696AEC0];
-        v17 = [v15 componentsJoinedByString:@"."];
-        v13 = [v16 stringWithFormat:@"BundleID:%@", v17];
+        [v13 removeLastObject];
+        v14 = MEMORY[0x1E696AEC0];
+        v15 = [v13 componentsJoinedByString:@"."];
+        v11 = [v14 stringWithFormat:@"BundleID:%@", v15];
       }
 
       else
       {
-        v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BundleID:%@", v12];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BundleID:%@", v10];
       }
     }
 
-    v5 = v13;
-    if (v13)
+    v5 = v11;
+    if (v11)
     {
 LABEL_5:
       if ((*(&data->_clas + 6) & 0x20) != 0)
       {
-        v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Beta:%@", v5];
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Beta:%@", v5];
 
-        v5 = v9;
+        v5 = v8;
       }
     }
   }
@@ -93,12 +92,48 @@ LABEL_16:
 {
   if (context && unit && data)
   {
-    v11 = [self vendorNameForDeviceIdentifiersWithContext:? bundleUnit:? bundleData:?];
-    exactIdentifier = data->base.exactIdentifier;
+    v9 = [self vendorNameForDeviceIdentifiersWithContext:? bundleUnit:? bundleData:?];
     [(_LSDatabase *)context->db store];
-    v9 = _CSStringCopyCFString();
-    v10 = [(_LSDService *)self XPCProxyWithErrorHandler:?];
-    [v10 clearIdentifiersForUninstallationWithVendorName:v11 bundleIdentifier:v9];
+    v7 = _CSStringCopyCFString();
+    v8 = [(_LSDService *)self XPCProxyWithErrorHandler:?];
+    [v8 clearIdentifiersForUninstallationWithVendorName:v9 bundleIdentifier:v7];
+  }
+}
+
++ (void)generateIdentifiersForInstallationWithContext:(LSContext *)context bundleUnit:(unsigned int)unit bundleData:(const LSBundleData *)data
+{
+  v6 = *&unit;
+  v9 = [(_LSDService *)self XPCProxyWithErrorHandler:?];
+  memset(&v16, 0, sizeof(v16));
+  v10 = +[_LSDServiceDomain defaultServiceDomain];
+  v11 = _LSDServiceGetXPCConnection(self, v10);
+  v12 = v11;
+  if (v11)
+  {
+    objc_msgSend_auditToken(v11);
+  }
+
+  else
+  {
+    memset(&v16, 0, sizeof(v16));
+  }
+
+  if (context)
+  {
+    if (v6)
+    {
+      if (data)
+      {
+        v15 = v16;
+        if ((data->_bundleFlags & 0x18000000) == 0 || softLinkba_is_process_extension(&v15))
+        {
+          v13 = [self vendorNameForDeviceIdentifiersWithContext:context bundleUnit:v6 bundleData:{data, *v15.val, *&v15.val[4]}];
+          [(_LSDatabase *)context->db store];
+          v14 = _CSStringCopyCFString();
+          [v9 generateIdentifiersWithVendorName:v13 bundleIdentifier:v14];
+        }
+      }
+    }
   }
 }
 

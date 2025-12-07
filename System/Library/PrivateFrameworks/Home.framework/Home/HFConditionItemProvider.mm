@@ -37,7 +37,7 @@
 
 - (id)reloadItems
 {
-  home = [(HFConditionItemProvider *)self home];
+  v3 = objc_msgSend_home(self, a2);
   objc_initWeak(&location, self);
   conditions = [(HFConditionItemProvider *)self conditions];
   allObjects = [conditions allObjects];
@@ -45,7 +45,7 @@
   v12[1] = 3221225472;
   v12[2] = __38__HFConditionItemProvider_reloadItems__block_invoke_3;
   v12[3] = &unk_277E00FC8;
-  v6 = home;
+  v6 = v3;
   v13 = v6;
   v7 = [(HFItemProvider *)self reloadItemsWithObjects:allObjects keyAdaptor:&__block_literal_global_214 itemAdaptor:&__block_literal_global_10_11 filter:0 itemMap:v12];
   v10[0] = MEMORY[0x277D85DD0];

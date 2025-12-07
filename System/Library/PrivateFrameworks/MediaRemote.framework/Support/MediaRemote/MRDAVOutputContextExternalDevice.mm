@@ -4,6 +4,7 @@
 + (void)_createPlayerAndWaitForConnection:(id)connection command:(id)command deviceInfo:(id)info completion:(id)completion;
 + (void)_createPlayerForClient:(id)client playerPath:(id)path deviceInfo:(id)info completion:(id)completion;
 + (void)_reportStreamCountAnalytics;
++ (void)_sendCommandPreview:(unsigned int)preview options:(id)options playerPath:(id)path;
 + (void)initialize;
 + (void)prewarm;
 + (void)prewarmApp:(id)app origin:(id)origin deviceInfo:(id)info;
@@ -120,16 +121,15 @@
 
 - (void)dealloc
 {
-  serialQueue = self->_serialQueue;
-  v5 = _NSConcreteStackBlock;
-  v6 = 3221225472;
-  v7 = sub_10014B3AC;
-  v8 = &unk_1004B6D08;
+  v4 = _NSConcreteStackBlock;
+  v5 = 3221225472;
+  v6 = sub_10014B3AC;
+  v7 = &unk_1004B6D08;
   selfCopy = self;
   msv_dispatch_sync_on_queue();
-  v4.receiver = self;
-  v4.super_class = MRDAVOutputContextExternalDevice;
-  [(MRDAVOutputContextExternalDevice *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = MRDAVOutputContextExternalDevice;
+  [(MRDAVOutputContextExternalDevice *)&v3 dealloc];
 }
 
 + (void)initialize
@@ -298,154 +298,145 @@ LABEL_12:
 
 - (id)dictionaryRepresentation
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x3032000000;
-  v9 = sub_1000351BC;
-  v10 = sub_100035A94;
-  v11 = objc_alloc_init(NSMutableDictionary);
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = objc_alloc_init(NSMutableDictionary);
   msv_dispatch_sync_on_queue();
-  v4 = v7[5];
-  _Block_object_dispose(&v6, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v4;
+  return v2;
 }
 
 - (NSString)description
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (NSString)debugDescription
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (id)name
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (id)customOrigin
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (id)deviceInfo
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (unsigned)connectionState
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (void)setConnectionState:(unsigned int)state
 {
-  v16[0] = 0;
-  v16[1] = v16;
-  v16[2] = 0x2020000000;
-  serialQueue = self->_serialQueue;
-  v17 = 0;
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_10014CE28;
-  v12 = &unk_1004B8848;
+  v15[0] = 0;
+  v15[1] = v15;
+  v15[2] = 0x2020000000;
+  v16 = 0;
+  v8 = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_10014CE28;
+  v11 = &unk_1004B8848;
   selfCopy = self;
-  v14 = v16;
+  v13 = v15;
   stateCopy = state;
   msv_dispatch_sync_on_queue();
   notificationQueue = self->_notificationQueue;
-  v7[0] = _NSConcreteStackBlock;
-  v7[1] = 3221225472;
-  v7[2] = sub_10014CE5C;
-  v7[3] = &unk_1004B8848;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_10014CE5C;
+  v6[3] = &unk_1004B8848;
   stateCopy2 = state;
-  v7[4] = self;
-  v7[5] = v16;
-  dispatch_async(notificationQueue, v7);
-  _Block_object_dispose(v16, 8);
+  v6[4] = self;
+  v6[5] = v15;
+  dispatch_async(notificationQueue, v6);
+  _Block_object_dispose(v15, 8);
 }
 
 - (id)uid
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)updateDesignatedGroupLeader:(id)leader
@@ -470,33 +461,31 @@ LABEL_12:
 
 - (void)setDeviceInfo:(id)info
 {
-  infoCopy = info;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = sub_1000351BC;
-  v30 = sub_100035A94;
-  v31 = 0;
-  serialQueue = self->_serialQueue;
-  v19 = _NSConcreteStackBlock;
-  v20 = 3221225472;
-  v21 = sub_10014D408;
-  v22 = &unk_1004B7798;
-  v25 = &v26;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = sub_1000351BC;
+  v28 = sub_100035A94;
+  v29 = 0;
+  v17 = _NSConcreteStackBlock;
+  v18 = 3221225472;
+  v19 = sub_10014D408;
+  v20 = &unk_1004B7798;
+  v23 = &v24;
   selfCopy = self;
-  v6 = infoCopy;
-  v24 = v6;
+  infoCopy = info;
+  v22 = infoCopy;
   msv_dispatch_sync_on_queue();
-  routingContextID = [v6 routingContextID];
+  routingContextID = [infoCopy routingContextID];
 
   if (routingContextID)
   {
     origin = [(MRDAVOutputContextExternalDevice *)self origin];
     if (origin)
     {
-      v9 = +[MRDMediaRemoteServer server];
-      nowPlayingServer = [v9 nowPlayingServer];
-      [nowPlayingServer updateDeviceInfo:v6 origin:origin];
+      v7 = +[MRDMediaRemoteServer server];
+      nowPlayingServer = [v7 nowPlayingServer];
+      [nowPlayingServer updateDeviceInfo:infoCopy origin:origin];
     }
 
     notificationQueue = self->_notificationQueue;
@@ -504,23 +493,23 @@ LABEL_12:
     block[1] = 3221225472;
     block[2] = sub_10014D460;
     block[3] = &unk_1004B7798;
-    v18 = &v26;
-    v16 = v6;
+    v16 = &v24;
+    v14 = infoCopy;
     selfCopy2 = self;
     dispatch_async(notificationQueue, block);
   }
 
   else
   {
-    v12 = [NSError alloc];
-    routingContextID2 = [v27[5] routingContextID];
-    routingContextID3 = [v6 routingContextID];
-    origin = [v12 initWithMRError:32 format:{@"Invalid routingContextID detected. From %@ to %@", routingContextID2, routingContextID3}];
+    v10 = [NSError alloc];
+    routingContextID2 = [v25[5] routingContextID];
+    routingContextID3 = [infoCopy routingContextID];
+    origin = [v10 initWithMRError:32 format:{@"Invalid routingContextID detected. From %@ to %@", routingContextID2, routingContextID3}];
 
     [(MRDAVOutputContextExternalDevice *)self disconnect:origin];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v24, 8);
 }
 
 - (void)setOrigin:(id)origin
@@ -543,87 +532,82 @@ LABEL_12:
   if (originCopy)
   {
     objc_initWeak(location, self);
-    v37[1] = _NSConcreteStackBlock;
-    v37[2] = 3221225472;
-    v37[3] = sub_10014DAF0;
-    v37[4] = &unk_1004B8CC8;
-    objc_copyWeak(&v38, location);
-    MRMediaRemoteSetCommandHandler();
-    origin = self->_origin;
-    v36[1] = _NSConcreteStackBlock;
-    v36[2] = 3221225472;
-    v36[3] = sub_10014DC34;
-    v36[4] = &unk_1004B8D18;
-    objc_copyWeak(v37, location);
-    MRMediaRemotePlaybackQueueDataSourceSetRequestCallback();
-    v10 = self->_origin;
-    v35[1] = _NSConcreteStackBlock;
-    v35[2] = 3221225472;
-    v35[3] = sub_10014DCEC;
-    v35[4] = &unk_1004B8D68;
-    objc_copyWeak(v36, location);
-    MRMediaRemotePlaybackSessionSetRequestCallbackForOrigin();
-    v11 = +[MRNowPlayingOriginClientManager sharedManager];
-    v12 = [v11 originClientForOrigin:self->_origin];
-
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_10014DE20;
-    v34[3] = &unk_1004B8DB8;
-    objc_copyWeak(v35, location);
-    [v12 setPlaybackSessionMigrateRequestCallback:v34];
-    v13 = self->_origin;
     v32[1] = _NSConcreteStackBlock;
     v32[2] = 3221225472;
-    v32[3] = sub_10014DF10;
-    v32[4] = &unk_1004B8E08;
+    v32[3] = sub_10014DAF0;
+    v32[4] = &unk_1004B8CC8;
     objc_copyWeak(&v33, location);
-    MRMediaRemotePlaybackSessionSetMigrateBeginCallbackForOrigin();
-    v14 = self->_origin;
+    MRMediaRemoteSetCommandHandler();
     v31[1] = _NSConcreteStackBlock;
     v31[2] = 3221225472;
-    v31[3] = sub_10014DFF0;
-    v31[4] = &unk_1004B8E58;
+    v31[3] = sub_10014DC34;
+    v31[4] = &unk_1004B8D18;
     objc_copyWeak(v32, location);
-    MRMediaRemotePlaybackSessionSetMigrateFinalizeCallbackForOrigin();
-    v15 = self->_origin;
+    MRMediaRemotePlaybackQueueDataSourceSetRequestCallback();
     v30[1] = _NSConcreteStackBlock;
     v30[2] = 3221225472;
-    v30[3] = sub_10014E100;
-    v30[4] = &unk_1004B8EA8;
+    v30[3] = sub_10014DCEC;
+    v30[4] = &unk_1004B8D68;
     objc_copyWeak(v31, location);
+    MRMediaRemotePlaybackSessionSetRequestCallbackForOrigin();
+    v9 = +[MRNowPlayingOriginClientManager sharedManager];
+    v10 = [v9 originClientForOrigin:self->_origin];
+
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_10014DE20;
+    v29[3] = &unk_1004B8DB8;
+    objc_copyWeak(v30, location);
+    [v10 setPlaybackSessionMigrateRequestCallback:v29];
+    v27[1] = _NSConcreteStackBlock;
+    v27[2] = 3221225472;
+    v27[3] = sub_10014DF10;
+    v27[4] = &unk_1004B8E08;
+    objc_copyWeak(&v28, location);
+    MRMediaRemotePlaybackSessionSetMigrateBeginCallbackForOrigin();
+    v26[1] = _NSConcreteStackBlock;
+    v26[2] = 3221225472;
+    v26[3] = sub_10014DFF0;
+    v26[4] = &unk_1004B8E58;
+    objc_copyWeak(v27, location);
+    MRMediaRemotePlaybackSessionSetMigrateFinalizeCallbackForOrigin();
+    v25[1] = _NSConcreteStackBlock;
+    v25[2] = 3221225472;
+    v25[3] = sub_10014E100;
+    v25[4] = &unk_1004B8EA8;
+    objc_copyWeak(v26, location);
     MRMediaRemotePlaybackSessionSetMigratePostCallbackForOrigin();
-    v16 = +[MRDMediaRemoteServer server];
-    nowPlayingServer2 = [v16 nowPlayingServer];
-    v18 = [nowPlayingServer2 originClientForOrigin:originCopy];
+    v11 = +[MRDMediaRemoteServer server];
+    nowPlayingServer2 = [v11 nowPlayingServer];
+    v13 = [nowPlayingServer2 originClientForOrigin:originCopy];
 
     if (_os_feature_enabled_impl())
     {
-      v26 = _NSConcreteStackBlock;
-      v27 = 3221225472;
-      v28 = sub_10014E1FC;
-      v29 = &unk_1004BBE60;
-      objc_copyWeak(v30, location);
-      [v18 registerCreateNewApplicationConnectionCallback:&v26];
-      objc_destroyWeak(v30);
+      v21 = _NSConcreteStackBlock;
+      v22 = 3221225472;
+      v23 = sub_10014E1FC;
+      v24 = &unk_1004BBE60;
+      objc_copyWeak(v25, location);
+      [v13 registerCreateNewApplicationConnectionCallback:&v21];
+      objc_destroyWeak(v25);
     }
 
     else
     {
-      [v18 registerCreateNewApplicationConnectionCallback:&stru_1004BED90];
+      [v13 registerCreateNewApplicationConnectionCallback:&stru_1004BED90];
     }
 
-    v19 = [MRSharedSettings currentSettings:v26];
-    supportAirPlayLeaderInfoSync = [v19 supportAirPlayLeaderInfoSync];
+    v14 = [MRSharedSettings currentSettings:v21];
+    supportAirPlayLeaderInfoSync = [v14 supportAirPlayLeaderInfoSync];
 
     if (supportAirPlayLeaderInfoSync)
     {
-      v21 = [MRDAirPlayLeaderInfoPublisher alloc];
-      v22 = self->_origin;
+      v16 = [MRDAirPlayLeaderInfoPublisher alloc];
+      origin = self->_origin;
       outputContext = [(MRDAVOutputContextExternalDevice *)self outputContext];
-      v24 = [(MRDAirPlayLeaderInfoPublisher *)v21 initWithOrigin:v22 outputContext:outputContext];
-      v25 = self->_airplayPublisher;
-      self->_airplayPublisher = v24;
+      v19 = [(MRDAirPlayLeaderInfoPublisher *)v16 initWithOrigin:origin outputContext:outputContext];
+      v20 = self->_airplayPublisher;
+      self->_airplayPublisher = v19;
     }
 
     if ([(MRAVOutputDevice *)self->_designatedGroupLeader isLocalDevice])
@@ -631,74 +615,71 @@ LABEL_12:
       [(MRDAVOutputContextExternalDevice *)self _onQueue_forwardOriginToLocalOrigin:self->_origin];
     }
 
+    objc_destroyWeak(v26);
+    objc_destroyWeak(v27);
+    objc_destroyWeak(&v28);
+    objc_destroyWeak(v30);
+
     objc_destroyWeak(v31);
     objc_destroyWeak(v32);
     objc_destroyWeak(&v33);
-    objc_destroyWeak(v35);
-
-    objc_destroyWeak(v36);
-    objc_destroyWeak(v37);
-    objc_destroyWeak(&v38);
     objc_destroyWeak(location);
   }
 }
 
 - (MRAVOutputDevice)designatedGroupLeader
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000351BC;
-  v9 = sub_100035A94;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000351BC;
+  v8 = sub_100035A94;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (void)setDesignatedGroupLeader:(id)leader
 {
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3032000000;
+  v11 = sub_1000351BC;
+  v12 = sub_100035A94;
+  v13 = 0;
   leaderCopy = leader;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x3032000000;
-  v13 = sub_1000351BC;
-  v14 = sub_100035A94;
-  v15 = 0;
-  serialQueue = self->_serialQueue;
-  v6 = leaderCopy;
-  v9 = v6;
+  v7 = leaderCopy;
   msv_dispatch_sync_on_queue();
-  if (*(v17 + 24) == 1 && [v6 isLocalDevice])
+  if (*(v15 + 24) == 1 && [leaderCopy isLocalDevice])
   {
-    v20 = MRExternalDeviceConnectionReasonUserInfoKey;
-    v21 = @"Automatic NativeEndpoint Connection";
-    v7 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-    [(MRDAVOutputContextExternalDevice *)self connectWithOptions:0 userInfo:v7];
+    v18 = MRExternalDeviceConnectionReasonUserInfoKey;
+    v19 = @"Automatic NativeEndpoint Connection";
+    v5 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    [(MRDAVOutputContextExternalDevice *)self connectWithOptions:0 userInfo:v5];
 LABEL_6:
 
     goto LABEL_7;
   }
 
-  if (!v6)
+  if (!leaderCopy)
   {
-    v8 = [NSError alloc];
-    v7 = [v8 initWithMRError:32 format:{@"OutputContextExternalDevice does not have a designatedGroupLeader. (PreviousGroupLeader=%@)", v11[5], _NSConcreteStackBlock, 3221225472, sub_10014EA0C, &unk_1004BCD20, 0, self, &v16, &v10}];
-    [(MRDAVOutputContextExternalDevice *)self disconnect:v7];
+    v6 = [NSError alloc];
+    v5 = [v6 initWithMRError:32 format:{@"OutputContextExternalDevice does not have a designatedGroupLeader. (PreviousGroupLeader=%@)", v9[5], _NSConcreteStackBlock, 3221225472, sub_10014EA0C, &unk_1004BCD20, 0, self, &v14, &v8}];
+    [(MRDAVOutputContextExternalDevice *)self disconnect:v5];
     goto LABEL_6;
   }
 
 LABEL_7:
 
-  _Block_object_dispose(&v10, 8);
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 - (void)_handleRemoteCommand:(unsigned int)command withOptions:(id)options playerPath:(id)path completion:(id)completion
@@ -839,6 +820,54 @@ LABEL_7:
   }
 
   _Block_object_dispose(&v86, 8);
+}
+
++ (void)_sendCommandPreview:(unsigned int)preview options:(id)options playerPath:(id)path
+{
+  v6 = *&preview;
+  optionsCopy = options;
+  pathCopy = path;
+  v9 = +[MRDMediaRemoteServer server];
+  deviceInfo = [v9 deviceInfo];
+
+  if ((([deviceInfo clusterType] - 1) & 0xFFFFFFFD) == 0)
+  {
+    MRMediaRemoteSetClusterLeader();
+  }
+
+  v11 = +[MRDMediaRemoteServer server];
+  nowPlayingServer = [v11 nowPlayingServer];
+  localOriginClient = [nowPlayingServer localOriginClient];
+  overrideClient = [localOriginClient overrideClient];
+
+  if (overrideClient)
+  {
+    v15 = objc_alloc_init(NSMutableDictionary);
+    MRAddPlayerPathToUserInfo();
+    v16 = [NSNumber numberWithUnsignedInt:v6];
+    [v15 setObject:v16 forKeyedSubscript:kMRMediaRemoteOptionCommandType];
+
+    v17 = kMRMediaRemoteOptionCommandID;
+    v18 = [optionsCopy objectForKeyedSubscript:kMRMediaRemoteOptionCommandID];
+    [v15 setObject:v18 forKeyedSubscript:v17];
+
+    v19 = kMRMediaRemoteOptionSenderID;
+    v20 = [optionsCopy objectForKeyedSubscript:kMRMediaRemoteOptionSenderID];
+    [v15 setObject:v20 forKeyedSubscript:v19];
+
+    v21 = kMRMediaRemoteOptionRemoteControlInterfaceIdentifier;
+    v22 = [optionsCopy objectForKeyedSubscript:kMRMediaRemoteOptionRemoteControlInterfaceIdentifier];
+    [v15 setObject:v22 forKeyedSubscript:v21];
+
+    v23 = +[MRDMediaRemoteServer server];
+    v24 = _MRMediaRemoteWillSendCommandToPlayerNotification;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100150540;
+    v25[3] = &unk_1004B7038;
+    v26 = overrideClient;
+    [v23 postClientNotificationNamed:v24 userInfo:v15 predicate:v25];
+  }
 }
 
 - (id)_createResolvedPlayerPathFromPlayerPath:(id)path
@@ -1930,13 +1959,12 @@ LABEL_6:
   {
     *buf = 138543618;
     selfCopy = self;
-    v10 = 2114;
-    v11 = disconnectCopy;
+    v9 = 2114;
+    v10 = disconnectCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}@ disconnecting with error %{public}@", buf, 0x16u);
   }
 
-  serialQueue = self->_serialQueue;
-  v7 = disconnectCopy;
+  v6 = disconnectCopy;
   msv_dispatch_sync_on_queue();
 }
 

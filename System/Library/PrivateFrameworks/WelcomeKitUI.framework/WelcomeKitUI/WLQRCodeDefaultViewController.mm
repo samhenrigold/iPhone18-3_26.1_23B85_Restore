@@ -6,6 +6,8 @@
 - (void)requestCodes;
 - (void)setIndicatorHidden:(BOOL)hidden;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WLQRCodeDefaultViewController
@@ -57,16 +59,16 @@
 
 - (void)viewDidLoad
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = WLQRCodeDefaultViewController;
-  [(WLOnboardingViewController *)&v18 viewDidLoad];
-  v17 = WLLocalizedString();
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = WLQRCodeDefaultViewController;
+  [(WLOnboardingViewController *)&v17 viewDidLoad];
+  v16 = WLLocalizedString();
   linkButton = [MEMORY[0x277D37650] linkButton];
   continueButton = self->_continueButton;
   self->_continueButton = linkButton;
 
-  [(OBLinkTrayButton *)self->_continueButton setTitle:v17 forState:0];
+  [(OBLinkTrayButton *)self->_continueButton setTitle:v16 forState:0];
   [(OBLinkTrayButton *)self->_continueButton addTarget:self action:sel__listButtonTapped_ forControlEvents:64];
   buttonTray = [(WLQRCodeDefaultViewController *)self buttonTray];
   [buttonTray addButton:self->_continueButton];
@@ -81,18 +83,34 @@
   centerXAnchor = [(UIActivityIndicatorView *)self->_indicatorView centerXAnchor];
   centerXAnchor2 = [(OBLinkTrayButton *)self->_continueButton centerXAnchor];
   v11 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v19[0] = v11;
+  v18[0] = v11;
   centerYAnchor = [(UIActivityIndicatorView *)self->_indicatorView centerYAnchor];
   centerYAnchor2 = [(OBLinkTrayButton *)self->_continueButton centerYAnchor];
   v14 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v19[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   [v8 activateConstraints:v15];
 
   [(UIActivityIndicatorView *)self->_indicatorView stopAnimating];
   [(WLQRCodeDefaultViewController *)self requestCodes];
+}
 
-  v16 = *MEMORY[0x277D85DE8];
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = WLQRCodeDefaultViewController;
+  [(WLQRCodeViewController *)&v4 viewWillAppear:appear];
+  [(WLQRCodeDefaultViewController *)self setIndicatorHidden:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = WLQRCodeDefaultViewController;
+  [(OBBaseWelcomeController *)&v5 viewWillDisappear:disappear];
+  [(WLQRCodeProvider *)self->_provider setDelegate:0];
+  provider = self->_provider;
+  self->_provider = 0;
 }
 
 - (void)_listButtonTapped:(id)tapped

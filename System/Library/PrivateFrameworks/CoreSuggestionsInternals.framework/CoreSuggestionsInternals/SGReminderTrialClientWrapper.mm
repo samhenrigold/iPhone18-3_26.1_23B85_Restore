@@ -16,176 +16,168 @@
 
 - (id)reminderOutputMapping
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__24277;
-  v13 = __Block_byref_object_dispose__24278;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__24277;
+  v12 = __Block_byref_object_dispose__24278;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __53__SGReminderTrialClientWrapper_reminderOutputMapping__block_invoke;
-  v9[3] = &unk_27894FAD0;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __53__SGReminderTrialClientWrapper_reminderOutputMapping__block_invoke;
+  v8[3] = &unk_27894FAD0;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: reminderOutputMapping list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)reminderInputMapping
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__24277;
-  v13 = __Block_byref_object_dispose__24278;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__24277;
+  v12 = __Block_byref_object_dispose__24278;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __52__SGReminderTrialClientWrapper_reminderInputMapping__block_invoke;
-  v9[3] = &unk_27894FAD0;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __52__SGReminderTrialClientWrapper_reminderInputMapping__block_invoke;
+  v8[3] = &unk_27894FAD0;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: reminderInputMapping list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)reminderEnrichments
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__24277;
-  v13 = __Block_byref_object_dispose__24278;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__24277;
+  v12 = __Block_byref_object_dispose__24278;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __51__SGReminderTrialClientWrapper_reminderEnrichments__block_invoke;
-  v9[3] = &unk_27894FAD0;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __51__SGReminderTrialClientWrapper_reminderEnrichments__block_invoke;
+  v8[3] = &unk_27894FAD0;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: reminderEnrichments list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)reminderOverrides
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v11 = 0x3032000000;
-  v12 = __Block_byref_object_copy__24277;
-  v13 = __Block_byref_object_dispose__24278;
-  v14 = 0;
+  v10 = 0x3032000000;
+  v11 = __Block_byref_object_copy__24277;
+  v12 = __Block_byref_object_dispose__24278;
+  v13 = 0;
   lock = self->_lock;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__SGReminderTrialClientWrapper_reminderOverrides__block_invoke;
-  v9[3] = &unk_27894FAD0;
-  v9[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v9];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__SGReminderTrialClientWrapper_reminderOverrides__block_invoke;
+  v8[3] = &unk_27894FAD0;
+  v8[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v8];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = [v3 count];
-    v8 = @"YES";
-    if (!v7)
+    v6 = objc_msgSend_count(v3);
+    v7 = @"YES";
+    if (!v6)
     {
-      v8 = @"NO";
+      v7 = @"NO";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v8;
+    *(&buf + 4) = v7;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: reminderOverrides list loaded with Trial: %@", &buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)messagesBannerLimit
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v9 = 0x3032000000;
-  v10 = __Block_byref_object_copy__24277;
-  v11 = __Block_byref_object_dispose__24278;
-  v12 = 0;
+  v8 = 0x3032000000;
+  v9 = __Block_byref_object_copy__24277;
+  v10 = __Block_byref_object_dispose__24278;
+  v11 = 0;
   lock = self->_lock;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __51__SGReminderTrialClientWrapper_messagesBannerLimit__block_invoke;
-  v7[3] = &unk_27894FAD0;
-  v7[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __51__SGReminderTrialClientWrapper_messagesBannerLimit__block_invoke;
+  v6[3] = &unk_27894FAD0;
+  v6[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v6];
   v3 = *(*(&buf + 1) + 40);
   _Block_object_dispose(&buf, 8);
 
@@ -197,110 +189,105 @@
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: messagesBannerLimit: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (BOOL)actionVerbOptional
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   lock = self->_lock;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __50__SGReminderTrialClientWrapper_actionVerbOptional__block_invoke;
-  v8[3] = &unk_27894FAD0;
-  v8[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __50__SGReminderTrialClientWrapper_actionVerbOptional__block_invoke;
+  v7[3] = &unk_27894FAD0;
+  v7[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v7];
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = @"NO";
+    v6 = @"NO";
     if (v3)
     {
-      v7 = @"YES";
+      v6 = @"YES";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v7;
+    *(&buf + 4) = v6;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: actionVerbOptional: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)triggerOptional
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   lock = self->_lock;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __47__SGReminderTrialClientWrapper_triggerOptional__block_invoke;
-  v8[3] = &unk_27894FAD0;
-  v8[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __47__SGReminderTrialClientWrapper_triggerOptional__block_invoke;
+  v7[3] = &unk_27894FAD0;
+  v7[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v7];
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = @"NO";
+    v6 = @"NO";
     if (v3)
     {
-      v7 = @"YES";
+      v6 = @"YES";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v7;
+    *(&buf + 4) = v6;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: triggerOptional: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (BOOL)confirmationOptional
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v10 = 0x2020000000;
-  v11 = 0;
+  v9 = 0x2020000000;
+  v10 = 0;
   lock = self->_lock;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __52__SGReminderTrialClientWrapper_confirmationOptional__block_invoke;
-  v8[3] = &unk_27894FAD0;
-  v8[4] = &buf;
-  [(_PASLock *)lock runWithLockAcquired:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __52__SGReminderTrialClientWrapper_confirmationOptional__block_invoke;
+  v7[3] = &unk_27894FAD0;
+  v7[4] = &buf;
+  [(_PASLock *)lock runWithLockAcquired:v7];
   v3 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
   v4 = sgRemindersLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = @"NO";
+    v6 = @"NO";
     if (v3)
     {
-      v7 = @"YES";
+      v6 = @"YES";
     }
 
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v7;
+    *(&buf + 4) = v6;
     _os_log_debug_impl(&dword_231E60000, v4, OS_LOG_TYPE_DEBUG, "SGReminderTrialClientWrapper: confirmationOptional: %@", &buf, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -317,7 +304,7 @@
 
 void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1, void *a2)
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(v3 + 4) = 0;
   *(v3 + 10) = 0;
@@ -344,10 +331,10 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
 
       if ((v13 & 1) == 0)
       {
-        v80 = *(a1 + 32);
+        v79 = *(a1 + 32);
         v77 = [v6 fileValue];
         v78 = [v77 path];
-        [v80 uncompressModelAndUpdateFactors:v78 destinationPath:v11];
+        [v79 uncompressModelAndUpdateFactors:v78 destinationPath:v11];
         goto LABEL_57;
       }
     }
@@ -417,9 +404,9 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
   }
 
   v24 = [*(*(a1 + 32) + 8) levelForFactor:@"messagesBannerLimit" withNamespaceName:@"PRODUCTIVITY_INTELLIGENCE_REMINDERS"];
-  v92 = v22;
-  v93 = v19;
-  v91 = v24;
+  v91 = v22;
+  v92 = v19;
+  v90 = v24;
   if (v24)
   {
     v25 = v24;
@@ -453,9 +440,9 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
       v34 = MEMORY[0x277D425D8];
       v35 = [v29 fileValue];
       v36 = [v35 path];
-      v97 = 0;
-      v37 = [v34 dictionaryWithPath:v36 error:&v97];
-      v38 = v97;
+      v96 = 0;
+      v37 = [v34 dictionaryWithPath:v36 error:&v96];
+      v38 = v96;
 
       if (v37)
       {
@@ -469,12 +456,12 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
         v40 = sgRemindersLogHandle();
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v81 = [v29 fileValue];
-          v82 = [v81 path];
+          v80 = [v29 fileValue];
+          v81 = [v80 path];
           *buf = 138412546;
-          v100 = v82;
-          v101 = 2112;
-          v102 = v38;
+          v99 = v81;
+          v100 = 2112;
+          v101 = v38;
           _os_log_error_impl(&dword_231E60000, v40, OS_LOG_TYPE_ERROR, "Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
@@ -494,9 +481,9 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
       v46 = MEMORY[0x277D425D8];
       v47 = [v41 fileValue];
       v48 = [v47 path];
-      v96 = 0;
-      v49 = [v46 dictionaryWithPath:v48 error:&v96];
-      v50 = v96;
+      v95 = 0;
+      v49 = [v46 dictionaryWithPath:v48 error:&v95];
+      v50 = v95;
 
       if (v49)
       {
@@ -510,12 +497,12 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
         v52 = sgRemindersLogHandle();
         if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
         {
-          v90 = [v29 fileValue];
-          v83 = [v90 path];
+          v89 = [v29 fileValue];
+          v82 = [v89 path];
           *buf = 138412546;
-          v100 = v83;
-          v101 = 2112;
-          v102 = v50;
+          v99 = v82;
+          v100 = 2112;
+          v101 = v50;
           _os_log_error_impl(&dword_231E60000, v52, OS_LOG_TYPE_ERROR, "Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
@@ -532,13 +519,13 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
 
     if (v57)
     {
-      v88 = v6;
+      v87 = v6;
       v58 = MEMORY[0x277D425D8];
       v59 = [v53 fileValue];
       v60 = [v59 path];
-      v95 = 0;
-      v61 = [v58 dictionaryWithPath:v60 error:&v95];
-      v62 = v95;
+      v94 = 0;
+      v61 = [v58 dictionaryWithPath:v60 error:&v94];
+      v62 = v94;
 
       if (v61)
       {
@@ -552,17 +539,17 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
         v64 = sgRemindersLogHandle();
         if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
-          v86 = [v53 fileValue];
-          v84 = [v86 path];
+          v85 = [v53 fileValue];
+          v83 = [v85 path];
           *buf = 138412546;
-          v100 = v84;
-          v101 = 2112;
-          v102 = v62;
+          v99 = v83;
+          v100 = 2112;
+          v101 = v62;
           _os_log_error_impl(&dword_231E60000, v64, OS_LOG_TYPE_ERROR, "Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
 
-      v6 = v88;
+      v6 = v87;
     }
   }
 
@@ -576,13 +563,13 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
 
     if (v69)
     {
-      v89 = v6;
+      v88 = v6;
       v70 = MEMORY[0x277D425D8];
       v71 = [v65 fileValue];
       v72 = [v71 path];
-      v94 = 0;
-      v73 = [v70 dictionaryWithPath:v72 error:&v94];
-      v74 = v94;
+      v93 = 0;
+      v73 = [v70 dictionaryWithPath:v72 error:&v93];
+      v74 = v93;
 
       if (v73)
       {
@@ -596,25 +583,23 @@ void __45__SGReminderTrialClientWrapper_updateFactors__block_invoke(uint64_t a1,
         v76 = sgRemindersLogHandle();
         if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
-          v87 = [v65 fileValue];
-          v85 = [v87 path];
+          v86 = [v65 fileValue];
+          v84 = [v86 path];
           *buf = 138412546;
-          v100 = v85;
-          v101 = 2112;
-          v102 = v74;
+          v99 = v84;
+          v100 = 2112;
+          v101 = v74;
           _os_log_error_impl(&dword_231E60000, v76, OS_LOG_TYPE_ERROR, "Unable to load plplist content for %@: %@", buf, 0x16u);
         }
       }
 
-      v6 = v89;
+      v6 = v88;
     }
   }
 
-  v78 = v92;
-  v77 = v93;
+  v78 = v91;
+  v77 = v92;
 LABEL_57:
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 - (SGReminderTrialClientWrapper)init

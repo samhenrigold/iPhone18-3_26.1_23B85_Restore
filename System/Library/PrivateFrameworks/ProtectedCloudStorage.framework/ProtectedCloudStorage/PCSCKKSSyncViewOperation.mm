@@ -22,15 +22,7 @@
     goto LABEL_8;
   }
 
-  if (!contextCopy)
-  {
-    goto LABEL_8;
-  }
-
-  serviceContexts = [contextCopy serviceContexts];
-  v7 = [serviceContexts count];
-
-  if (!v7 || (v12.receiver = self, v12.super_class = PCSCKKSSyncViewOperation, v8 = [(PCSCKKSSyncViewOperation *)&v12 init], (self = v8) == 0))
+  if (!contextCopy || ([contextCopy serviceContexts], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, !v7) || (v12.receiver = self, v12.super_class = PCSCKKSSyncViewOperation, v8 = -[PCSCKKSSyncViewOperation init](&v12, sel_init), (self = v8) == 0))
   {
 LABEL_8:
     selfCopy = 0;
@@ -86,7 +78,7 @@ LABEL_9:
 
 - (BOOL)ensureControl
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   context = [(PCSCKKSSyncViewOperation *)self context];
   v4 = PCSCurrentPersonaMatchesDSIDFromSet([context set]);
 
@@ -103,9 +95,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v13 = 0;
-  v5 = [MEMORY[0x1E697AA20] controlObject:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [MEMORY[0x1E697AA20] controlObject:&v12];
+  v6 = v12;
   [(PCSCKKSSyncViewOperation *)self setCKKSControl:v5];
 
   cKKSControl = [(PCSCKKSSyncViewOperation *)self CKKSControl];
@@ -115,9 +107,9 @@ LABEL_9:
   {
     if (v6)
     {
-      v15 = *MEMORY[0x1E696AA08];
-      v16[0] = v6;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696AA08];
+      v15[0] = v6;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     }
 
     else
@@ -132,13 +124,12 @@ LABEL_10:
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)checkTLKStatus
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   if ([(PCSCKKSSyncViewOperation *)self ensureControl])
   {
     context = [(PCSCKKSSyncViewOperation *)self context];
@@ -147,32 +138,32 @@ LABEL_10:
     if (v4)
     {
       v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v23 = 0u;
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
-      v28 = 0u;
       context2 = [(PCSCKKSSyncViewOperation *)self context];
       serviceContexts = [context2 serviceContexts];
 
-      v8 = [serviceContexts countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v8 = [serviceContexts countByEnumeratingWithState:&v23 objects:v29 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v26;
+        v10 = *v24;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v26 != v10)
+            if (*v24 != v10)
             {
               objc_enumerationMutation(serviceContexts);
             }
 
-            v12 = PCSServiceItemGetCKKSViewByName(*(*(&v25 + 1) + 8 * i));
+            v12 = PCSServiceItemGetCKKSViewByName(*(*(&v23 + 1) + 8 * i));
             [v5 addObject:v12];
           }
 
-          v9 = [serviceContexts countByEnumeratingWithState:&v25 objects:v31 count:16];
+          v9 = [serviceContexts countByEnumeratingWithState:&v23 objects:v29 count:16];
         }
 
         while (v9);
@@ -186,17 +177,17 @@ LABEL_10:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v30 = v15;
+        v28 = v15;
         _os_log_impl(&dword_1B229C000, v16, OS_LOG_TYPE_DEFAULT, "Checking if CKKS reports bad state for active views (%{public}@)", buf, 0xCu);
       }
 
       cKKSControl = [(PCSCKKSSyncViewOperation *)self CKKSControl];
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke;
-      v24[3] = &unk_1E7B190E8;
-      v24[4] = self;
-      [cKKSControl rpcKnownBadStateForViews:allObjects reply:v24];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke;
+      v22[3] = &unk_1E7B190E8;
+      v22[4] = self;
+      [cKKSControl rpcKnownBadStateForViews:allObjects reply:v22];
     }
 
     else
@@ -207,23 +198,20 @@ LABEL_10:
         _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "dsid does not match current persona's account dsid", buf, 2u);
       }
 
-      v19 = MEMORY[0x1E696ABC0];
-      v20 = kPCSErrorDomain;
-      v32 = *MEMORY[0x1E696A578];
-      v33[0] = @"dsid does not match current persona's account dsid";
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
-      v22 = [v19 errorWithDomain:v20 code:146 userInfo:v21];
-      [(PCSCKKSOperation *)self setError:v22];
+      v18 = MEMORY[0x1E696ABC0];
+      v19 = kPCSErrorDomain;
+      v30 = *MEMORY[0x1E696A578];
+      v31[0] = @"dsid does not match current persona's account dsid";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v21 = [v18 errorWithDomain:v19 code:146 userInfo:v20];
+      [(PCSCKKSOperation *)self setError:v21];
 
       [(PCSCKKSOperation *)self completeOperation];
     }
-
-    v23 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v18 = *MEMORY[0x1E69E9840];
 
     [(PCSCKKSOperation *)self completeOperation];
   }
@@ -231,7 +219,7 @@ LABEL_10:
 
 uint64_t __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = pcsLogObjForScope("ckks");
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2 > 1)
@@ -241,8 +229,8 @@ uint64_t __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke(uint64_t a1
       case 2:
         if (v5)
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: Needs unlock", v10, 2u);
+          LOWORD(v9[0]) = 0;
+          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: Needs unlock", v9, 2u);
         }
 
         v6 = 132;
@@ -250,8 +238,8 @@ uint64_t __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke(uint64_t a1
       case 3:
         if (v5)
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: wait for Octagon", v10, 2u);
+          LOWORD(v9[0]) = 0;
+          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: wait for Octagon", v9, 2u);
         }
 
         v6 = 156;
@@ -259,8 +247,8 @@ uint64_t __42__PCSCKKSSyncViewOperation_checkTLKStatus__block_invoke(uint64_t a1
       case 4:
         if (v5)
         {
-          LOWORD(v10[0]) = 0;
-          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: no CloudKit account", v10, 2u);
+          LOWORD(v9[0]) = 0;
+          _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: no CloudKit account", v9, 2u);
         }
 
         v6 = 157;
@@ -269,16 +257,15 @@ LABEL_25:
         v8 = [MEMORY[0x1E696ABC0] errorWithDomain:kPCSErrorDomain code:v6 userInfo:0];
         [*(a1 + 32) setError:v8];
 
-        result = [*(a1 + 32) completeOperation];
-        goto LABEL_26;
+        return [*(a1 + 32) completeOperation];
     }
 
 LABEL_22:
     if (v5)
     {
-      v10[0] = 67109120;
-      v10[1] = a2;
-      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: unknown but likely fatal error: %d", v10, 8u);
+      v9[0] = 67109120;
+      v9[1] = a2;
+      _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: unknown but likely fatal error: %d", v9, 8u);
     }
 
     v6 = 133;
@@ -291,8 +278,8 @@ LABEL_22:
     {
       if (v5)
       {
-        LOWORD(v10[0]) = 0;
-        _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: TLKs missing", v10, 2u);
+        LOWORD(v9[0]) = 0;
+        _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: TLKs missing", v9, 2u);
       }
 
       v6 = 108;
@@ -304,19 +291,16 @@ LABEL_22:
 
   if (v5)
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: Likely good", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_1B229C000, v4, OS_LOG_TYPE_DEFAULT, "CKKS response for active views: Likely good", v9, 2u);
   }
 
-  result = [*(a1 + 32) syncView];
-LABEL_26:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) syncView];
 }
 
 - (void)syncView
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   if ([(PCSCKKSSyncViewOperation *)self ensureControl])
   {
     context = [(PCSCKKSSyncViewOperation *)self context];
@@ -335,15 +319,15 @@ LABEL_26:
       v7 = [context2 mtt];
       v8 = [v7 measurePoint:@"CKKSSyncView"];
 
-      v21 = MEMORY[0x1E69E9820];
-      v22 = 3221225472;
-      v23 = __36__PCSCKKSSyncViewOperation_syncView__block_invoke;
-      v24 = &unk_1E7B19110;
+      v19 = MEMORY[0x1E69E9820];
+      v20 = 3221225472;
+      v21 = __36__PCSCKKSSyncViewOperation_syncView__block_invoke;
+      v22 = &unk_1E7B19110;
       selfCopy = self;
-      v26 = v8;
+      v24 = v8;
       v9 = v8;
-      v10 = MEMORY[0x1B2745320](&v21);
-      v11 = [(PCSCKKSSyncViewOperation *)self context:v21];
+      v10 = MEMORY[0x1B2745320](&v19);
+      v11 = [(PCSCKKSSyncViewOperation *)self context:v19];
       forceSync = [v11 forceSync];
 
       cKKSControl = [(PCSCKKSSyncViewOperation *)self CKKSControl];
@@ -367,23 +351,20 @@ LABEL_26:
         _os_log_impl(&dword_1B229C000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "dsid does not match current persona's account dsid", buf, 2u);
       }
 
-      v16 = MEMORY[0x1E696ABC0];
-      v17 = kPCSErrorDomain;
-      v28 = *MEMORY[0x1E696A578];
-      v29[0] = @"dsid does not match current persona's account dsid";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-      v19 = [v16 errorWithDomain:v17 code:146 userInfo:v18];
-      [(PCSCKKSOperation *)self setError:v19];
+      v15 = MEMORY[0x1E696ABC0];
+      v16 = kPCSErrorDomain;
+      v26 = *MEMORY[0x1E696A578];
+      v27[0] = @"dsid does not match current persona's account dsid";
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v18 = [v15 errorWithDomain:v16 code:146 userInfo:v17];
+      [(PCSCKKSOperation *)self setError:v18];
 
       [(PCSCKKSOperation *)self completeOperation];
     }
-
-    v20 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v15 = *MEMORY[0x1E69E9840];
 
     [(PCSCKKSOperation *)self completeOperation];
   }

@@ -29,6 +29,7 @@
 - (void)_selectedOccurrencesChanged:(id)changed;
 - (void)_updateGroupVisibility;
 - (void)accountRefreshFinished:(id)finished;
+- (void)contextMenuInteraction:(id)interaction willEndForConfiguration:(id)configuration animator:(id)animator;
 - (void)contextMenuInteraction:(id)interaction willPerformPreviewActionForMenuWithConfiguration:(id)configuration animator:(id)animator;
 - (void)copy:(id)copy;
 - (void)cut:(id)cut;
@@ -1019,6 +1020,13 @@ LABEL_8:
     v12 = event;
     [animatorCopy addAnimations:v11];
   }
+}
+
+- (void)contextMenuInteraction:(id)interaction willEndForConfiguration:(id)configuration animator:(id)animator
+{
+  indexPathForRowWithContextMenu = self->_indexPathForRowWithContextMenu;
+  self->_indexPathForRowWithContextMenu = 0;
+  _objc_release_x1(self, indexPathForRowWithContextMenu);
 }
 
 - (id)noContentStringForInboxTableView:(id)view

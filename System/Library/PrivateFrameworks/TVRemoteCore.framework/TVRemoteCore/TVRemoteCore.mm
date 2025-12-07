@@ -42,13 +42,6 @@ void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
 void sub_26CF89498(_Unwind_Exception *a1)
 {
   objc_destroyWeak((v3 + 32));
@@ -58,10 +51,11 @@ void sub_26CF89498(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_26CF8B640(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -289,9 +283,9 @@ void sub_26CF9180C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26CF925E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26CF925E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -303,9 +297,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26CF95650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_26CF95650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -338,154 +332,155 @@ void sub_26CF976C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-id _TVRCBLEDiscoveryLog()
+id _TVRCBLEDiscoveryLog(uint64_t a1)
 {
   if (_TVRCBLEDiscoveryLog_onceToken != -1)
   {
     _TVRCBLEDiscoveryLog_cold_1();
   }
 
-  v1 = _TVRCBLEDiscoveryLog_log;
+  v2 = _TVRCBLEDiscoveryLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCGeneralLog()
+id _TVRCGeneralLog(uint64_t a1)
 {
   if (_TVRCGeneralLog_onceToken != -1)
   {
     _TVRCGeneralLog_cold_1();
   }
 
-  v1 = _TVRCGeneralLog_log;
+  v2 = _TVRCGeneralLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCDeviceQueryLog()
+id _TVRCDeviceQueryLog(uint64_t a1)
 {
   if (_TVRCDeviceQueryLog_onceToken != -1)
   {
     _TVRCDeviceQueryLog_cold_1();
   }
 
-  v1 = _TVRCDeviceQueryLog_log;
+  v2 = _TVRCDeviceQueryLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCHomeKitLog()
+id _TVRCHomeKitLog(uint64_t a1)
 {
   if (_TVRCHomeKitLog_onceToken != -1)
   {
     _TVRCHomeKitLog_cold_1();
   }
 
-  v1 = _TVRCHomeKitLog_log;
+  v2 = _TVRCHomeKitLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCPreferredDeviceLog()
+id _TVRCPreferredDeviceLog(uint64_t a1)
 {
   if (_TVRCPreferredDeviceLog_onceToken != -1)
   {
     _TVRCPreferredDeviceLog_cold_1();
   }
 
-  v1 = _TVRCPreferredDeviceLog_log;
+  v2 = _TVRCPreferredDeviceLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCRapportLog()
+id _TVRCRapportLog(uint64_t a1)
 {
   if (_TVRCRapportLog_onceToken != -1)
   {
     _TVRCRapportLog_cold_1();
   }
 
-  v1 = _TVRCRapportLog_log;
+  v2 = _TVRCRapportLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCRapportQueryLog()
+id _TVRCRapportQueryLog(uint64_t a1)
 {
   if (_TVRCRapportQueryLog_onceToken != -1)
   {
     _TVRCRapportQueryLog_cold_1();
   }
 
-  v1 = _TVRCRapportQueryLog_log;
+  v2 = _TVRCRapportQueryLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCRemoteTextInputLog()
+id _TVRCRemoteTextInputLog(uint64_t a1)
 {
   if (_TVRCRemoteTextInputLog_onceToken != -1)
   {
     _TVRCRemoteTextInputLog_cold_1();
   }
 
-  v1 = _TVRCRemoteTextInputLog_log;
+  v2 = _TVRCRemoteTextInputLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCMDMLog()
+id _TVRCMDMLog(uint64_t a1)
 {
   if (_TVRCMDMLog_onceToken != -1)
   {
     _TVRCMDMLog_cold_1();
   }
 
-  v1 = _TVRCMDMLog_log;
+  v2 = _TVRCMDMLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCMediaEventsLog()
+id _TVRCMediaEventsLog(uint64_t a1)
 {
   if (_TVRCMediaEventsLog_onceToken != -1)
   {
     _TVRCMediaEventsLog_cold_1();
   }
 
-  v1 = _TVRCMediaEventsLog_log;
+  v2 = _TVRCMediaEventsLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCMediaRemoteLog()
+id _TVRCMediaRemoteLog(uint64_t a1)
 {
   if (_TVRCMediaRemoteLog_onceToken != -1)
   {
     _TVRCMediaRemoteLog_cold_1();
   }
 
-  v1 = _TVRCMediaRemoteLog_log;
+  v2 = _TVRCMediaRemoteLog_log;
 
-  return v1;
+  return v2;
 }
 
-id _TVRCXPCLog()
+id _TVRCXPCLog(uint64_t a1)
 {
   if (_TVRCXPCLog_onceToken != -1)
   {
     _TVRCXPCLog_cold_1();
   }
 
-  v1 = _TVRCXPCLog_log;
+  v2 = _TVRCXPCLog_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t _TVRCAddStateHandlerWithName(uint64_t a1, void *a2)
@@ -707,9 +702,9 @@ void sub_26CFB17AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26CFB2A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26CFB2A14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -726,13 +721,6 @@ void sub_26CFB2E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   objc_destroyWeak((v15 + 32));
   objc_destroyWeak(&location);
   _Unwind_Resume(a1);
-}
-
-uint64_t OUTLINED_FUNCTION_6@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 80);
-  return result;
 }
 
 void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)

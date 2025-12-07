@@ -65,11 +65,9 @@ void __16__GCDaemon_init__block_invoke(uint64_t a1, void *a2)
   }
 }
 
-void __16__GCDaemon_init__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __16__GCDaemon_init__block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
-  v5 = *(a1 + 32);
-  v6 = v4;
   xpc_activity_set_completion_status();
   if (*(*(*(a1 + 40) + 8) + 24))
   {

@@ -1,5 +1,6 @@
 @interface FollowUpServer
 + (id)_executablePathForPID:(int)d;
++ (id)fl_getProcNameForPID:(int)d;
 - (BOOL)_connectionHasEntitlement:(id)entitlement;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (FollowUpServer)init;
@@ -161,6 +162,39 @@
   v3 = [[NSString alloc] initWithBytes:buffer length:proc_pidpath(d encoding:{buffer, 0x1000u), 4}];
 
   return v3;
+}
+
++ (id)fl_getProcNameForPID:(int)d
+{
+  v3 = *&d;
+  if (proc_name(d, buffer, 0x100u) >= 1)
+  {
+    v4 = buffer;
+LABEL_6:
+    v6 = [NSString stringWithUTF8String:v4];
+    goto LABEL_7;
+  }
+
+  v8 = 648;
+  *v10 = 0xE00000001;
+  memset(v9, 0, 512);
+  v11 = 1;
+  v12 = v3;
+  v5 = sysctl(v10, 4u, v9, &v8, 0, 0);
+  v6 = 0;
+  if (!v5 && BYTE3(v9[15]))
+  {
+    v4 = &v9[15] + 3;
+    goto LABEL_6;
+  }
+
+LABEL_7:
+  if (!v6)
+  {
+    v6 = [NSString stringWithFormat:@"<pid:%d>", v3];
+  }
+
+  return v6;
 }
 
 - (void)dealloc

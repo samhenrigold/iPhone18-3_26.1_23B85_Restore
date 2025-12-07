@@ -40,8 +40,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  success = self->_success;
-  v6 = toCopy;
   PBDataWriterWriteBOOLField();
   if (self->_errorString)
   {

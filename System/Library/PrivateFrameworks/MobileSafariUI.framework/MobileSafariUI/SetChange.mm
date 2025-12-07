@@ -213,7 +213,7 @@ void __24__SetChange_emptyChange__block_invoke()
   return v4;
 }
 
-unint64_t __63__SetChange__appendDescriptionForIndexSet_named_toDescription___block_invoke(uint64_t a1, uint64_t a2)
+void *__63__SetChange__appendDescriptionForIndexSet_named_toDescription___block_invoke(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) appendFormat:@" %ld", a2];
   result = [*(a1 + 40) count];

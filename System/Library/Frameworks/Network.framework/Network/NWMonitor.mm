@@ -58,14 +58,14 @@ void __18__NWMonitor_queue__block_invoke()
   return v2;
 }
 
-void __31__NWMonitor_mainOperationQueue__block_invoke()
+void __31__NWMonitor_mainOperationQueue__block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-  v1 = mainOperationQueue_opQueue;
-  mainOperationQueue_opQueue = v0;
+  v1 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+  v2 = mainOperationQueue_opQueue;
+  mainOperationQueue_opQueue = v1;
 
-  v2 = [objc_opt_class() queue];
-  [mainOperationQueue_opQueue setUnderlyingQueue:v2];
+  v3 = [objc_opt_class() queue];
+  [mainOperationQueue_opQueue setUnderlyingQueue:v3];
 }
 
 + (NWMonitor)monitorWithNetworkDescriptionArray:(id)array endpoint:(id)endpoint parameters:(id)parameters
@@ -74,7 +74,7 @@ void __31__NWMonitor_mainOperationQueue__block_invoke()
   arrayCopy = array;
   endpointCopy = endpoint;
   parametersCopy = parameters;
-  nw_allow_use_of_dispatch_internal();
+  nw_allow_use_of_dispatch_internal(parametersCopy);
   if (!arrayCopy)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -82,7 +82,7 @@ void __31__NWMonitor_mainOperationQueue__block_invoke()
     v17 = gLogObj;
     *buf = 136446210;
     v78 = "+[NWMonitor monitorWithNetworkDescriptionArray:endpoint:parameters:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s called with null networkDescriptionArray", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v75 = 0;
@@ -188,7 +188,7 @@ LABEL_48:
     v27 = gLogObj;
     *buf = 136446210;
     v78 = "+[NWMonitor monitorWithNetworkDescriptionArray:endpoint:parameters:]";
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s called with null networkDescriptionArray (empty)", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v75 = 0;
@@ -316,7 +316,7 @@ LABEL_69:
         v78 = "+[NWMonitor monitorWithNetworkDescriptionArray:endpoint:parameters:]";
         v79 = 2114;
         v80 = @"com.apple.private.corewifi";
-        v18 = _os_log_send_and_compose_impl();
+        v18 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v34, 16, "%{public}s This process does not have the %{public}@ entitlement required to monitor SSID", buf, 22);
 
         type = OS_LOG_TYPE_ERROR;
         v75 = 0;
@@ -466,7 +466,7 @@ LABEL_19:
     v49 = gLogObj;
     *buf = 136446210;
     v78 = "+[NWMonitor monitorWithNetworkDescriptionArray:endpoint:parameters:]";
-    v50 = _os_log_send_and_compose_impl();
+    v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v49, 16, "%{public}s super alloc init failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v75 = 0;
@@ -600,7 +600,7 @@ LABEL_105:
   v64 = gLogObj;
   *buf = 136446210;
   v78 = "+[NWMonitor monitorWithNetworkDescriptionArray:endpoint:parameters:]";
-  v50 = _os_log_send_and_compose_impl();
+  v50 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v64, 16, "%{public}s NWPathEvaluator alloc initWithEndpoint:parameters: failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v75 = 0;
@@ -1289,7 +1289,7 @@ LABEL_7:
   [*(a1 + 32) evaluateStartingAtIndex:*(a1 + 56) probeUUID:*(a1 + 40) probeWasSuccessful:v18];
 }
 
-uint64_t __66__NWMonitor_evaluateStartingAtIndex_probeUUID_probeWasSuccessful___block_invoke_39(uint64_t a1)
+void *__66__NWMonitor_evaluateStartingAtIndex_probeUUID_probeWasSuccessful___block_invoke_39(uint64_t a1)
 {
   v24 = *MEMORY[0x1E69E9840];
   if (*(a1 + 56) == 1)
@@ -1435,7 +1435,7 @@ LABEL_10:
   descriptionCopy = description;
   endpointCopy = endpoint;
   parametersCopy = parameters;
-  nw_allow_use_of_dispatch_internal();
+  nw_allow_use_of_dispatch_internal(parametersCopy);
   if (descriptionCopy)
   {
     v26 = descriptionCopy;
@@ -1450,7 +1450,7 @@ LABEL_10:
   v13 = gLogObj;
   *buf = 136446210;
   v28 = "+[NWMonitor monitorWithNetworkDescription:endpoint:parameters:]";
-  v14 = _os_log_send_and_compose_impl();
+  v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v13, 16, "%{public}s called with null networkDescription", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;

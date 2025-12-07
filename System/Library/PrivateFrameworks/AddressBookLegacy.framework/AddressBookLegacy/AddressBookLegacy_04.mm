@@ -175,18 +175,38 @@ void ABAddressBookRevert(ABAddressBookRef addressBook)
   OUTLINED_FUNCTION_5();
 }
 
-uint64_t _prepareSourceForDeletion(uint64_t a1, ABRecordRef record)
+void _prepareSourceForDeletion(uint64_t a1, ABRecordRef record)
 {
   RecordID = ABRecordGetRecordID(record);
-  if (RecordID == ABAddressBookGetIntegerProperty(a1))
+  if (RecordID == ABAddressBookGetIntegerProperty(a1, @"MeSourceID"))
   {
     ABAddressBookSetIntegerProperty(a1, @"MeSourceID", 0xFFFFFFFFLL, v4, v5, v6, v7, v8, v11);
   }
 
   v9 = OUTLINED_FUNCTION_6();
-  result = _ABAddressBookDeleteAllRecordsWithStore(v9);
+  _ABAddressBookDeleteAllRecordsWithStore(v9, v10, 1);
   *(a1 + 384) |= 0x100000u;
-  return result;
+}
+
+void ABCAddressBookMarkDirectoryForDeletion_cold_2(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_10(&dword_1B7EFB000, a2, a3, "Failed to mark address book database for deletion: _cn_setValue:forExtendedAttribute: returned  %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void ABCAddressBookIsDirectoryMarkedForDeletion_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_10(&dword_1B7EFB000, a2, a3, "Error fetching xattrs to check if database is marked for deletion: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void ___createStartABDatabaseDoctorCoalescingTimer_block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "com.apple.ABDatabaseDoctor";
+  OUTLINED_FUNCTION_10(&dword_1B7EFB000, a1, a3, "Error, could not create MachMessagePort for database doctor (%s)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 CFArrayRef ABCGroupCopyArrayOfAllMembersWithSortOrdering(uint64_t a1, int a2)
@@ -196,13 +216,13 @@ CFArrayRef ABCGroupCopyArrayOfAllMembersWithSortOrdering(uint64_t a1, int a2)
     return 0;
   }
 
-  if (ABCRecordGetValue(a1) - 1 != a2)
+  if (ABCRecordGetValue(a1, kABCFetchSortOrderProperty) - 1 != a2)
   {
     CPRecordInitializeProperty();
     CPRecordUnloadProperty();
   }
 
-  Value = ABCRecordGetValue(a1);
+  Value = ABCRecordGetValue(a1, kABCMembersProperty);
   if (!Value)
   {
     return 0;
@@ -211,14 +231,14 @@ CFArrayRef ABCGroupCopyArrayOfAllMembersWithSortOrdering(uint64_t a1, int a2)
   return ABCMultiValueCopyValues(Value);
 }
 
-CFArrayRef ABCGroupCopyArrayFromProperty(uint64_t a1)
+CFArrayRef ABCGroupCopyArrayFromProperty(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  Value = ABCRecordGetValue(a1);
+  Value = ABCRecordGetValue(a1, a2);
   if (!Value)
   {
     return 0;
@@ -271,18 +291,18 @@ uint64_t ABCGroupAddMemberOrSubgroup(const void *a1, const void *a2)
   if (v7 == v9)
   {
     v13 = OUTLINED_FUNCTION_3_0();
-    Value = ABCRecordGetValue(v13);
+    Value = ABCRecordGetValue(v13, v14);
     Mutable = Value;
     if (Value || (Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0])) != 0)
     {
       Count = CFArrayGetCount(Mutable);
-      v17 = OUTLINED_FUNCTION_5_0(Count);
-      v11 = v17 != -1;
-      if (v17 == -1)
+      v18 = OUTLINED_FUNCTION_5_0(Count);
+      v11 = v18 != -1;
+      if (v18 == -1)
       {
         CFArrayAppendValue(Mutable, a2);
-        v18 = OUTLINED_FUNCTION_3_0();
-        ABCRecordSetValue(v18, v19, Mutable);
+        v19 = OUTLINED_FUNCTION_3_0();
+        ABCRecordSetValue(v19, v20, Mutable);
       }
 
       if (!Value)
@@ -290,18 +310,18 @@ uint64_t ABCGroupAddMemberOrSubgroup(const void *a1, const void *a2)
         CFRelease(Mutable);
       }
 
-      v20 = OUTLINED_FUNCTION_2_0();
-      v21 = ABCRecordGetValue(v20);
-      if (v21)
+      v21 = OUTLINED_FUNCTION_2_0();
+      v23 = ABCRecordGetValue(v21, v22);
+      if (v23)
       {
-        v22 = v21;
-        v23 = CFArrayGetCount(v21);
-        if ((OUTLINED_FUNCTION_4_0(v23) & 0x8000000000000000) == 0)
+        v24 = v23;
+        v25 = CFArrayGetCount(v23);
+        if ((OUTLINED_FUNCTION_4_0(v25) & 0x8000000000000000) == 0)
         {
-          v24 = OUTLINED_FUNCTION_0_0();
-          CFArrayRemoveValueAtIndex(v24, v25);
-          v26 = OUTLINED_FUNCTION_2_0();
-          ABCRecordSetValue(v26, v27, v22);
+          v26 = OUTLINED_FUNCTION_0_0();
+          CFArrayRemoveValueAtIndex(v26, v27);
+          v28 = OUTLINED_FUNCTION_2_0();
+          ABCRecordSetValue(v28, v29, v24);
         }
       }
     }
@@ -332,25 +352,25 @@ uint64_t ABCGroupRemoveMemberAndReturnError(const void *a1, const void *a2)
     v4 = OUTLINED_FUNCTION_0_0();
     if (!ABPolicyShouldRemoveMember(v4, v5, a1, a2))
     {
-      v20 = 0;
-      v11 = 0;
-      return v20 & !v11;
+      v22 = 0;
+      v12 = 0;
+      return v22 & !v12;
     }
   }
 
   v6 = OUTLINED_FUNCTION_3_0();
-  Value = ABCRecordGetValue(v6);
+  Value = ABCRecordGetValue(v6, v7);
   Mutable = Value;
   if (Value || (Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0])) != 0)
   {
     Count = CFArrayGetCount(Mutable);
-    v10 = OUTLINED_FUNCTION_5_0(Count);
-    v11 = v10 != -1;
-    if (v10 == -1)
+    v11 = OUTLINED_FUNCTION_5_0(Count);
+    v12 = v11 != -1;
+    if (v11 == -1)
     {
       CFArrayAppendValue(Mutable, a2);
-      v22 = OUTLINED_FUNCTION_3_0();
-      ABCRecordSetValue(v22, v23, Mutable);
+      v24 = OUTLINED_FUNCTION_3_0();
+      ABCRecordSetValue(v24, v25, Mutable);
       if (Value)
       {
         goto LABEL_7;
@@ -360,18 +380,18 @@ uint64_t ABCGroupRemoveMemberAndReturnError(const void *a1, const void *a2)
     else if (Value)
     {
 LABEL_7:
-      v12 = OUTLINED_FUNCTION_2_0();
-      v13 = ABCRecordGetValue(v12);
-      if (v13)
+      v13 = OUTLINED_FUNCTION_2_0();
+      v15 = ABCRecordGetValue(v13, v14);
+      if (v15)
       {
-        v14 = v13;
-        v15 = CFArrayGetCount(v13);
-        if ((OUTLINED_FUNCTION_4_0(v15) & 0x8000000000000000) == 0)
+        v16 = v15;
+        v17 = CFArrayGetCount(v15);
+        if ((OUTLINED_FUNCTION_4_0(v17) & 0x8000000000000000) == 0)
         {
-          v16 = OUTLINED_FUNCTION_0_0();
-          CFArrayRemoveValueAtIndex(v16, v17);
-          v18 = OUTLINED_FUNCTION_2_0();
-          ABCRecordSetValue(v18, v19, v14);
+          v18 = OUTLINED_FUNCTION_0_0();
+          CFArrayRemoveValueAtIndex(v18, v19);
+          v20 = OUTLINED_FUNCTION_2_0();
+          ABCRecordSetValue(v20, v21, v16);
         }
       }
 
@@ -382,10 +402,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_10:
-  v20 = 1;
-  return v20 & !v11;
+  v22 = 1;
+  return v22 & !v12;
 }
 
 uint64_t ABCCopyArrayOfAllGroupsInSource(uint64_t result, uint64_t a2)
@@ -442,12 +462,12 @@ uint64_t ABCGetGroupCount(uint64_t a1, ABRecordRef record)
   return CountOfInstancesOfClassWhere;
 }
 
-uint64_t loadMembersAndSubgroups(uint64_t result, int a2, uint64_t a3)
+uint64_t loadMembersAndSubgroups(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
     v4 = result;
-    result = ABCRecordGetValue(result);
+    result = ABCRecordGetValue(result, kABCFetchSortOrderProperty);
     if (v4)
     {
       if (a2)
@@ -466,7 +486,7 @@ uint64_t loadMembersAndSubgroups(uint64_t result, int a2, uint64_t a3)
             sqlite3_bind_int(v7, 1, ID);
             CPSqliteStatementSendResults();
             CPSqliteStatementReset();
-            ABCRecordSetContents();
+            ABCRecordSetContents(v4, a2, v9);
             CFRelease(v9);
           }
 
@@ -487,7 +507,7 @@ const __CFArray *saveAddedMembersAndSubgroups(const __CFArray *result, int a2, u
     {
       if (a3)
       {
-        result = ABCRecordGetValue(result);
+        result = ABCRecordGetValue(result, kABCAddedMembersAndSubgroupsProperty);
         if (result)
         {
           v3 = result;
@@ -539,7 +559,7 @@ const __CFArray *saveRemovedMembersAndSubgroups(const __CFArray *result, int a2,
     {
       if (a3)
       {
-        result = ABCRecordGetValue(result);
+        result = ABCRecordGetValue(result, kABCRemovedMembersAndSubgroupsProperty);
         if (result)
         {
           v3 = result;
@@ -578,25 +598,25 @@ const __CFArray *saveRemovedMembersAndSubgroups(const __CFArray *result, int a2,
   return result;
 }
 
-BOOL ABCImageStoreRemoveAvatarRecipeDataForRecord(uint64_t a1, _BOOL8 a2)
+BOOL ABCImageStoreRemoveAvatarRecipeDataForRecord(uint64_t a1, _BOOL8 a2, uint64_t a3)
 {
-  v2 = a2;
+  v3 = a2;
   if (a2)
   {
     CPRecordStoreGetDatabase();
-    v4 = CPSqliteDatabaseStatementForReading();
+    v5 = CPSqliteDatabaseStatementForReading();
     ABRegulatoryLogReadContactsData(a1);
-    if (v4 && (v5 = *(v4 + 8)) != 0)
+    if (v5 && (v6 = *(v5 + 8)) != 0)
     {
       ID = CPRecordGetID();
-      sqlite3_bind_int(v5, 1, ID);
+      sqlite3_bind_int(v6, 1, ID);
       do
       {
         CPSqliteStatementIntegerResult();
         OUTLINED_FUNCTION_0_1();
-        if (!v8)
+        if (!v9)
         {
-          v2 = v7 == 101;
+          v3 = v8 == 101;
           goto LABEL_10;
         }
 
@@ -604,8 +624,8 @@ BOOL ABCImageStoreRemoveAvatarRecipeDataForRecord(uint64_t a1, _BOOL8 a2)
         OUTLINED_FUNCTION_0_1();
       }
 
-      while (v8);
-      v2 = 1;
+      while (v9);
+      v3 = 1;
 LABEL_10:
       CPSqliteStatementReset();
     }
@@ -616,7 +636,7 @@ LABEL_10:
     }
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t ABCImageStoreRemoveImagesForRecord(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -883,7 +903,7 @@ void *ABCMultiValueCreateMutableCopy(void *result)
   return result;
 }
 
-__CFArray *ABCMultiValueAdd(CFMutableArrayRef *a1, void *value, const void *a3, const __CFString *a4, int *a5)
+__CFArray *ABCMultiValueAdd(CFMutableArrayRef *a1, void *value, const void *a3, const __CFUUID *a4, int *a5)
 {
   if (!a1 || !value)
   {
@@ -904,7 +924,7 @@ __CFArray *ABCMultiValueAdd(CFMutableArrayRef *a1, void *value, const void *a3, 
   return ABCMultiValueInsertAndCreateIdentifier(a1, value, a3, Count, a4, a5, 1);
 }
 
-__CFArray *ABCMultiValueInsertAndCreateIdentifier(CFMutableArrayRef *a1, void *value, const void *a3, CFIndex idx, CFStringRef a5, int *a6, int a7)
+__CFArray *ABCMultiValueInsertAndCreateIdentifier(CFMutableArrayRef *a1, void *value, const void *a3, CFIndex idx, const __CFUUID *a5, int *a6, int a7)
 {
   result = 0;
   if (a1)
@@ -1131,7 +1151,7 @@ void ABCMultiValueShow(uint64_t a1)
   }
 }
 
-const __CFArray *ABCMultiValueBatchLoad(const __CFArray *result, int a2, uint64_t a3)
+const __CFArray *ABCMultiValueBatchLoad(const __CFArray *result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -1582,7 +1602,7 @@ uint64_t ABCPersonRemoveImageDataAndReturnError(const void *a1, int a2)
   return v14;
 }
 
-uint64_t ABCPersonHasImageDataEntries(uint64_t result, int a2)
+uint64_t ABCPersonHasImageDataEntries(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1639,7 +1659,7 @@ LABEL_9:
   return result;
 }
 
-CFStringRef ABCPersonInvalidateImageData(const __CFString *a1)
+CFStringRef ABCPersonInvalidateImageData(const __CFString *a1, uint64_t a2, uint64_t a3)
 {
   result = ABCAddressBookGetImageStore(a1);
   if (result)
@@ -1651,25 +1671,33 @@ CFStringRef ABCPersonInvalidateImageData(const __CFString *a1)
   return result;
 }
 
-CFStringRef ABCPersonInvalidateSpecificImageData(uint64_t a1)
+CFStringRef ABCPersonInvalidateSpecificImageData(uint64_t a1, int a2)
 {
-  ABCRecordGetUniqueId(a1);
-  v1 = ABCGetAddressBookForRecord();
-  return ABCPersonInvalidateImageData(v1);
+  v5[0] = ABCRecordGetUniqueId(a1);
+  v5[1] = a2;
+  v3 = ABCGetAddressBookForRecord();
+  return ABCPersonInvalidateImageData(v3, _invalidatePersonImageDataPredicate, v5);
 }
 
-uint64_t ABCPersonSetImageDataDerivedFromFormatAndCropRectAndReturnError(const void *a1, int a2)
+CFStringRef ABCPersonInvalidateSpecificImageDataForSetOfPersonIds(const __CFString *a1, uint64_t a2, unsigned int a3)
+{
+  v4[0] = a2;
+  v4[1] = a3;
+  return ABCPersonInvalidateImageData(a1, _invalidatePeopleImageDataPredicate, v4);
+}
+
+uint64_t ABCPersonSetImageDataDerivedFromFormatAndCropRectAndReturnError(const void *a1, int a2, unsigned int a3, uint64_t a4, int a5, int a6, int a7)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v4 = ABCGetAddressBookForRecord();
-  v5 = v4;
-  if (v4)
+  v9 = ABCGetAddressBookForRecord();
+  v10 = v9;
+  if (v9)
   {
-    ImageStore = ABCAddressBookGetImageStore(v4);
+    ImageStore = ABCAddressBookGetImageStore(v9);
   }
 
   else
@@ -1683,29 +1711,29 @@ uint64_t ABCPersonSetImageDataDerivedFromFormatAndCropRectAndReturnError(const v
   }
 
   Property = CPRecordGetProperty();
-  if (Property && (v7 = Property, Count = CFArrayGetCount(Property), Count >= 1))
+  if (Property && (v12 = Property, Count = CFArrayGetCount(Property), Count >= 1))
   {
-    v9 = Count;
-    v10 = 1;
+    v14 = Count;
+    v15 = 1;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v7, v10 - 1);
-      if (a2 != 2 || (CPRecordGetClass(), OUTLINED_FUNCTION_3_1(), !v12))
+      ValueAtIndex = CFArrayGetValueAtIndex(v12, v15 - 1);
+      if (a2 != 2 || (CPRecordGetClass(), OUTLINED_FUNCTION_3_1(), !v17))
       {
         CPRecordGetClass();
         OUTLINED_FUNCTION_3_1();
-        if (v12 || CPRecordGetProperty() != a2)
+        if (v17 || CPRecordGetProperty() != a2)
         {
           ValueAtIndex = 0;
         }
       }
 
-      if (v10 >= v9)
+      if (v15 >= v14)
       {
         break;
       }
 
-      ++v10;
+      ++v15;
     }
 
     while (!ValueAtIndex);
@@ -1718,7 +1746,7 @@ uint64_t ABCPersonSetImageDataDerivedFromFormatAndCropRectAndReturnError(const v
 
   if (ValueAtIndex)
   {
-    v13 = ImageStore;
+    v18 = ImageStore;
 LABEL_25:
     if (!ValueAtIndex)
     {
@@ -1728,19 +1756,19 @@ LABEL_25:
     goto LABEL_37;
   }
 
-  v13 = ImageStore;
+  v18 = ImageStore;
   if (!ImageStore)
   {
     goto LABEL_25;
   }
 
-  v14 = ABCImageStoreCopyImagesForRecordWithFormat(v5, ImageStore, a1, a2);
-  if (!v14 || ((v15 = v14, CFArrayGetCount(v14) < 1) ? (v16 = 0) : (v16 = CFArrayGetValueAtIndex(v15, 0)), CFRelease(v15), !v16))
+  v19 = ABCImageStoreCopyImagesForRecordWithFormat(v10, ImageStore, a1, a2);
+  if (!v19 || ((v20 = v19, CFArrayGetCount(v19) < 1) ? (v21 = 0) : (v21 = CFArrayGetValueAtIndex(v20, 0)), CFRelease(v20), !v21))
   {
 LABEL_29:
     ID = CPRecordGetID();
-    v18 = CPRecordCreate();
-    if (ID != -1 && v13)
+    v23 = CPRecordCreate();
+    if (ID != -1 && v18)
     {
       CPRecordStoreAddRecord();
     }
@@ -1757,11 +1785,11 @@ LABEL_29:
       Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
     }
 
-    CFArrayAppendValue(Mutable, v18);
+    CFArrayAppendValue(Mutable, v23);
     CPRecordSetProperty();
     CFRelease(Mutable);
-    CFRelease(v18);
-    if (v18)
+    CFRelease(v23);
+    if (v23)
     {
       goto LABEL_37;
     }
@@ -1772,7 +1800,7 @@ LABEL_29:
 LABEL_37:
   CPRecordGetClass();
   OUTLINED_FUNCTION_3_1();
-  if (v12)
+  if (v17)
   {
     CPRecordSetProperty();
     CPRecordSetProperty();
@@ -1788,14 +1816,14 @@ LABEL_37:
   }
 
   CPRecordSetProperty();
-  v20 = 1;
+  v25 = 1;
   _updatePreferredImageForPerson(a1, 1, 1, 0);
   if (a2 == 2)
   {
     ABPersonResetImageTypeIfNeeded(a1);
   }
 
-  return v20;
+  return v25;
 }
 
 uint64_t ABCPersonCopyImageDataAndCropRect(uint64_t a1, int a2, _DWORD *a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
@@ -1979,7 +2007,7 @@ LABEL_59:
   return a1;
 }
 
-uint64_t ABCPersonHasImageDataWithFormat(uint64_t a1, int a2)
+BOOL ABCPersonHasImageDataWithFormat(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -2003,7 +2031,7 @@ uint64_t ABCPersonHasImageDataWithFormat(uint64_t a1, int a2)
 
 CFStringRef ABCPersonCopyAvatarRecipeData(const void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = ABCGetAddressBookForRecord();
   result = 0;
   if (a1 && v2)
@@ -2013,34 +2041,39 @@ CFStringRef ABCPersonCopyAvatarRecipeData(const void *a1)
     {
       v5 = Property;
       v6 = CFGetTypeID(Property);
-      if (v6 == CFArrayGetTypeID() && CFArrayGetCount(v5) > 0)
+      TypeID = CFArrayGetTypeID();
+      if (v6 == TypeID)
       {
-        CFRetain(v5);
+        TypeID = CFArrayGetCount(v5);
+        if (TypeID > 0)
+        {
+          CFRetain(v5);
 LABEL_11:
-        if (CFArrayGetCount(v5) < 1)
-        {
-          v8 = 0;
-        }
+          if (CFArrayGetCount(v5) < 1)
+          {
+            v10 = 0;
+          }
 
-        else
-        {
-          CFArrayGetValueAtIndex(v5, 0);
-          v8 = CPRecordCopyProperty();
-        }
+          else
+          {
+            CFArrayGetValueAtIndex(v5, 0);
+            v10 = CPRecordCopyProperty();
+          }
 
 LABEL_18:
-        CFRelease(v5);
-        return v8;
+          CFRelease(v5);
+          return v10;
+        }
       }
 
-      v7 = ABOSLogGeneral();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = ABOSLogGeneral(TypeID, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = 134218240;
-        v11 = CFGetTypeID(v5);
-        v12 = 2048;
-        TypeID = CFArrayGetTypeID();
-        _os_log_error_impl(&dword_1B7EFB000, v7, OS_LOG_TYPE_ERROR, "AvatarRecipeData empty or non-array of type %lu (array is %lu)", &v10, 0x16u);
+        v13 = 134218240;
+        v14 = CFGetTypeID(v5);
+        v15 = 2048;
+        v16 = CFArrayGetTypeID();
+        _os_log_error_impl(&dword_1B7EFB000, v9, OS_LOG_TYPE_ERROR, "AvatarRecipeData empty or non-array of type %lu (array is %lu)", &v13, 0x16u);
       }
     }
 
@@ -2050,22 +2083,22 @@ LABEL_18:
       return result;
     }
 
-    v5 = ABCImageStoreCopyAvatarRecipeDataForRecord(v2);
+    v5 = ABCImageStoreCopyAvatarRecipeDataForRecord(v2, result, a1);
     if (v5)
     {
       goto LABEL_11;
     }
 
     v5 = ABRecordCopyValue(a1, kABPersonInternalUUIDProperty);
-    v9 = ABOSLogGeneral();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v12 = ABOSLogGeneral(v5, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_debug_impl(&dword_1B7EFB000, v9, OS_LOG_TYPE_DEBUG, "ABCPerson ABCPersonCopyAvatarRecipeData() fetched no instances of avatarRecipeData for contact identifier (%{public}@)", &v10, 0xCu);
+      v13 = 138543362;
+      v14 = v5;
+      _os_log_debug_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_DEBUG, "ABCPerson ABCPersonCopyAvatarRecipeData() fetched no instances of avatarRecipeData for contact identifier (%{public}@)", &v13, 0xCu);
     }
 
-    v8 = 0;
+    v10 = 0;
     result = 0;
     if (v5)
     {
@@ -2076,9 +2109,9 @@ LABEL_18:
   return result;
 }
 
-CFStringRef ABCPersonSetAvatarRecipeData(const void *a1, uint64_t a2)
+uint64_t ABCPersonSetAvatarRecipeData(const void *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = ABCGetAddressBookForRecord();
@@ -2110,7 +2143,7 @@ LABEL_23:
         return result;
       }
 
-      v8 = ABCImageStoreCopyAvatarRecipeDataForRecord(v3);
+      v8 = ABCImageStoreCopyAvatarRecipeDataForRecord(v3, result, a1);
       if (v8)
       {
         v9 = v8;
@@ -2122,8 +2155,8 @@ LABEL_23:
           if (ValueAtIndex)
           {
 LABEL_20:
-            v13 = OUTLINED_FUNCTION_3_0();
-            Mutable = ABCRecordCopyValue(v13, v14);
+            v14 = OUTLINED_FUNCTION_3_0();
+            Mutable = ABCRecordCopyValue(v14, v15);
             if (!Mutable)
             {
               Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9C0]);
@@ -2147,18 +2180,18 @@ LABEL_17:
           goto LABEL_20;
         }
 
-        v12 = v9;
+        v13 = v9;
       }
 
       else
       {
         v10 = ABRecordCopyValue(a1, kABPersonInternalUUIDProperty);
-        v11 = ABOSLogGeneral();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = ABOSLogGeneral(v10, v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v16 = 138543362;
-          v17 = v10;
-          _os_log_error_impl(&dword_1B7EFB000, v11, OS_LOG_TYPE_ERROR, "ABCPerson ABCPersonSetAvatarRecipeData() fetched no instances of avatarRecipeData for contact identifier (%{public}@)", &v16, 0xCu);
+          v17 = 138543362;
+          v18 = v10;
+          _os_log_error_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_ERROR, "ABCPerson ABCPersonSetAvatarRecipeData() fetched no instances of avatarRecipeData for contact identifier (%{public}@)", &v17, 0xCu);
           if (!v10)
           {
             goto LABEL_17;
@@ -2170,10 +2203,10 @@ LABEL_17:
           goto LABEL_17;
         }
 
-        v12 = v10;
+        v13 = v10;
       }
 
-      CFRelease(v12);
+      CFRelease(v13);
       goto LABEL_17;
     }
   }
@@ -2207,61 +2240,61 @@ BOOL ABCPersonClearAvatarRecipeData(uint64_t a1)
     return 0;
   }
 
-  return ABCImageStoreRemoveAvatarRecipeDataForRecord(v3, ImageStore);
+  return ABCImageStoreRemoveAvatarRecipeDataForRecord(v3, ImageStore, a1);
 }
 
-void ABCCopyPeopleAndIdentifiersMatchingName(uint64_t a1, __CFString *a2, int a3, int a4, const __CFArray **a5, const __CFArray **a6)
+void ABCCopyPeopleAndIdentifiersMatchingName(uint64_t result, __CFString *a2, uint64_t a3, uint64_t a4, const __CFArray **a5, const __CFArray **a6)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     if (a5)
     {
-      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(a1 + 16), a2, a3, a4, a5, a6, 0, 0, 0);
+      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(result + 16), a2, a3, a4, a5, a6, 0, 0, 0);
     }
   }
 }
 
-void ABCCopyPeopleAndMultiValuePropertiesMatchingName(uint64_t a1, __CFString *a2, int a3, int a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7)
+void ABCCopyPeopleAndMultiValuePropertiesMatchingName(uint64_t result, __CFString *a2, uint64_t a3, uint64_t a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     if (a5)
     {
-      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(a1 + 16), a2, a3, a4, a5, a6, a7, 0, 0);
+      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(result + 16), a2, a3, a4, a5, a6, a7, 0, 0);
     }
   }
 }
 
-void ABCCopyPeopleAndIdentifiersMatchingNameWithCancellationCallback(uint64_t a1, __CFString *a2, int a3, int a4, const __CFArray **a5, const __CFArray **a6, uint64_t a7, uint64_t a8)
+void ABCCopyPeopleAndIdentifiersMatchingNameWithCancellationCallback(uint64_t result, __CFString *a2, uint64_t a3, uint64_t a4, const __CFArray **a5, const __CFArray **a6, uint64_t a7, uint64_t a8)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     if (a5)
     {
-      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(a1 + 16), a2, a3, a4, a5, a6, 0, a7, a8);
+      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(result + 16), a2, a3, a4, a5, a6, 0, a7, a8);
     }
   }
 }
 
-void ABCCopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(uint64_t a1, __CFString *a2, int a3, int a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7, uint64_t a8, uint64_t a9)
+void ABCCopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(uint64_t result, __CFString *a2, uint64_t a3, uint64_t a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7, uint64_t a8, uint64_t a9)
 {
-  if (a1 && a2)
+  if (result && a2)
   {
     if (a5)
     {
-      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(a1 + 16), a2, a3, a4, a5, a6, a7, a8, a9);
+      _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(*(result + 16), a2, a3, a4, a5, a6, a7, a8, a9);
     }
   }
 }
 
-CFIndex saveImage(CFIndex result)
+uint64_t saveImage(uint64_t result)
 {
   if (result)
   {
     v1 = result;
     v2 = ABCGetAddressBookForRecord();
     ABCAddressBookGetImageStore(v2);
-    result = ABCRecordGetValue(v1);
+    result = ABCRecordGetValue(v1, kABCImageProperty);
     if (result)
     {
       v3 = result;
@@ -2292,14 +2325,14 @@ CFIndex saveImage(CFIndex result)
   return result;
 }
 
-CFIndex saveAvatarRecipeData(CFIndex result)
+uint64_t saveAvatarRecipeData(uint64_t result)
 {
   if (result)
   {
     v1 = result;
     v2 = ABCGetAddressBookForRecord();
     ABCAddressBookGetImageStore(v2);
-    result = ABCRecordGetValue(v1);
+    result = ABCRecordGetValue(v1, kABCPersonAvatarRecipeDataProperty);
     if (result)
     {
       v3 = result;
@@ -2778,7 +2811,7 @@ void saveSingleDateTime(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t ABCDBContextSaveMultiValue(uint64_t a1, const void *a2, int a3, const __CFArray *a4, int a5)
+BOOL ABCDBContextSaveMultiValue(uint64_t a1, const void *a2, int a3, const __CFArray *a4, int a5)
 {
   ID = CPRecordGetID();
   v11 = CPSqliteConnectionStatementForSQL();
@@ -2871,7 +2904,7 @@ uint64_t ABCDBContextSaveMultiValue(uint64_t a1, const void *a2, int a3, const _
             v36 = 0x10000;
           }
 
-          *(AddressBook + 384) |= v36;
+          AddressBook[96] |= v36;
 LABEL_19:
           v37 = ABPersonCopySource(v27);
           if (v37)
@@ -2879,7 +2912,7 @@ LABEL_19:
             v38 = v37;
             if (RecordID != -1 && ABRecordGetIntValue(v37, v97) == RecordID)
             {
-              *(AddressBook + 384) |= 0x40000u;
+              AddressBook[96] |= 0x40000u;
             }
 
             CFRelease(v38);
@@ -3226,13 +3259,13 @@ void appendSQLInitSingleValuePropertyString(__CFString *a1, CFStringRef appended
   }
 }
 
-CFMutableDictionaryRef ABCDBContextFetchMultiValueEntries(CFArrayRef theArray, uint64_t a2, int a3)
+CFMutableDictionaryRef ABCDBContextFetchMultiValueEntries(CFArrayRef theArray, uint64_t a2, uint64_t a3)
 {
   result = 0;
-  v36 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  v25 = 0u;
+  v37 = *MEMORY[0x1E69E9840];
+  v28 = 0;
   v26 = 0u;
+  v27 = 0u;
   if (!theArray || !a2)
   {
     return result;
@@ -3280,119 +3313,119 @@ CFMutableDictionaryRef ABCDBContextFetchMultiValueEntries(CFArrayRef theArray, u
 
   CFStringAppend(Mutable, v8);
   CFStringAppend(Mutable, @"AND property+0 = ?;");
-  v28[0] = 0;
-  v28[1] = ABCDBContextCollectMultiValueUID;
-  v28[2] = 0;
-  v28[3] = 1;
-  v28[4] = ABCDBContextCollectMultiValueIdentifier;
-  v28[5] = 0;
-  v28[6] = 2;
-  v28[7] = ABCDBContextCollectMultiValueRecordID;
-  v28[8] = 0;
-  v28[9] = 0x200000003;
-  v28[10] = ABCDBContextCollectMultiValueLabel;
-  v28[11] = 0;
-  v29 = 4;
-  CFArrayGetValueAtIndex(theArray, 0);
-  v10 = ABRecordTypeOfProperty() & 0xFFFFFEFF;
-  v11 = v10 != 2;
-  if (v10 == 7)
+  v29[0] = 0;
+  v29[1] = ABCDBContextCollectMultiValueUID;
+  v29[2] = 0;
+  v29[3] = 1;
+  v29[4] = ABCDBContextCollectMultiValueIdentifier;
+  v29[5] = 0;
+  v29[6] = 2;
+  v29[7] = ABCDBContextCollectMultiValueRecordID;
+  v29[8] = 0;
+  v29[9] = 0x200000003;
+  v29[10] = ABCDBContextCollectMultiValueLabel;
+  v29[11] = 0;
+  v30 = 4;
+  ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+  v11 = ABRecordTypeOfProperty(ValueAtIndex, a3) & 0xFFFFFEFF;
+  v12 = v11 != 2;
+  if (v11 == 7)
   {
-    v12 = 4;
+    v13 = 4;
   }
 
   else
   {
-    v12 = 2 * v11;
+    v13 = 2 * v12;
   }
 
-  v30 = v12;
-  v31 = ABCDBContextCollectMultiValueValue;
-  v32 = v11;
-  v33 = 0x200000005;
-  v34 = ABCDBContextCollectMultiValueUUID;
-  v35 = 0;
-  v13 = CPSqliteConnectionStatementForSQL();
-  if (!v13)
+  v31 = v13;
+  v32 = ABCDBContextCollectMultiValueValue;
+  v33 = v12;
+  v34 = 0x200000005;
+  v35 = ABCDBContextCollectMultiValueUUID;
+  v36 = 0;
+  v14 = CPSqliteConnectionStatementForSQL();
+  if (!v14)
   {
-    v14 = 0;
+    v15 = 0;
 LABEL_38:
     if (Mutable)
     {
       CFRelease(Mutable);
     }
 
-    if (v14)
+    if (v15)
     {
-      CFRelease(v14);
+      CFRelease(v15);
     }
 
     return 0;
   }
 
-  v14 = *(v13 + 8);
-  if (!v14)
+  v15 = *(v14 + 8);
+  if (!v15)
   {
     goto LABEL_38;
   }
 
   if (CFArrayGetCount(theArray) < 1)
   {
-    v17 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
     do
     {
-      CFArrayGetValueAtIndex(theArray, v15);
+      CFArrayGetValueAtIndex(theArray, v16);
       ID = CPRecordGetID();
-      sqlite3_bind_int(v14, ++v15, ID);
+      sqlite3_bind_int(v15, ++v16, ID);
     }
 
-    while (CFArrayGetCount(theArray) > v15);
-    v17 = v15 + 1;
+    while (CFArrayGetCount(theArray) > v16);
+    v18 = v16 + 1;
   }
 
-  sqlite3_bind_int(v14, v17, a3);
+  sqlite3_bind_int(v15, v18, a3);
   Count = CFArrayGetCount(theArray);
-  v14 = CFDictionaryCreateMutable(v6, Count, MEMORY[0x1E695E9D8], 0);
+  v15 = CFDictionaryCreateMutable(v6, Count, MEMORY[0x1E695E9D8], 0);
   if (CFArrayGetCount(theArray) >= 1)
   {
-    v19 = 0;
+    v20 = 0;
     do
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(theArray, v19);
+      v21 = CFArrayGetValueAtIndex(theArray, v20);
       valuePtr = CPRecordGetID();
-      v21 = CFNumberCreate(v6, kCFNumberSInt32Type, &valuePtr);
-      CFDictionarySetValue(v14, v21, ValueAtIndex);
-      if (v21)
+      v22 = CFNumberCreate(v6, kCFNumberSInt32Type, &valuePtr);
+      CFDictionarySetValue(v15, v22, v21);
+      if (v22)
       {
-        CFRelease(v21);
+        CFRelease(v22);
       }
 
-      ++v19;
+      ++v20;
     }
 
-    while (v19 < CFArrayGetCount(theArray));
+    while (v20 < CFArrayGetCount(theArray));
   }
 
-  *&v25 = v14;
-  DWORD2(v25) = a3;
-  *&v26 = v28;
-  DWORD2(v26) = 6;
-  v22 = CFArrayGetCount(theArray);
-  v27 = CFDictionaryCreateMutable(v6, v22, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (!v27)
+  *&v26 = v15;
+  DWORD2(v26) = a3;
+  *&v27 = v29;
+  DWORD2(v27) = 6;
+  v23 = CFArrayGetCount(theArray);
+  v28 = CFDictionaryCreateMutable(v6, v23, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+  if (!v28)
   {
     goto LABEL_38;
   }
 
-  v23 = CPSqliteStatementSendResults();
-  if (v23 != 101)
+  v24 = CPSqliteStatementSendResults();
+  if (v24 != 101)
   {
-    syslog(3, "Error fetching multivalue entries: %d", v23);
+    syslog(3, "Error fetching multivalue entries: %d", v24);
   }
 
   CPSqliteStatementReset();
@@ -3402,12 +3435,12 @@ LABEL_38:
     CFRelease(Mutable);
   }
 
-  if (v14)
+  if (v15)
   {
-    CFRelease(v14);
+    CFRelease(v15);
   }
 
-  return v27;
+  return v28;
 }
 
 uint64_t CollectMultiValueEntries(uint64_t a1, uint64_t a2)
@@ -3448,12 +3481,12 @@ uint64_t CollectMultiValueEntries(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t ABCIteratePeopleMatchingStringWithCustomQueryPrefix(uint64_t a1, const __CFString *a2, const __CFString *a3, const void *a4, const void *a5, int a6, int a7, int a8, uint64_t a9, CFStringRef theString, uint64_t a11)
+uint64_t ABCIteratePeopleMatchingStringWithCustomQueryPrefix(uint64_t a1, const __CFString *a2, const __CFString *a3, const void *a4, const void *a5, int a6, int a7, uint64_t a8, uint64_t a9, CFStringRef theString, uint64_t a11)
 {
   if ((ABCFTSIsEnabled() & 1) == 0)
   {
     ABDiagnosticsEnabled();
-    _ABLog2(3, "CFArrayRef ABCIteratePeopleMatchingStringWithCustomQueryPrefix(ABCDBContextRef, CFStringRef, CFStringRef, ABRecordRef, ABRecordRef, ABCPersonSortOrdering, _Bool, CPRecordStoreRowHandler, void *, CFStringRef, CFDictionaryRef)", 4128, 0, @"AB search used the disabled FTS index. Please open a radar to PEP Contacts (New Bugs) with simulated crash report.", v24, v25, v26, v63);
+    _ABLog2(3, "CFArrayRef ABCIteratePeopleMatchingStringWithCustomQueryPrefix(ABCDBContextRef, CFStringRef, CFStringRef, ABRecordRef, ABRecordRef, ABCPersonSortOrdering, _Bool, CPRecordStoreRowHandler, void *, CFStringRef, CFDictionaryRef)", 4128, 0, @"AB search used the disabled FTS index. Please open a radar to PEP Contacts (New Bugs) with simulated crash report.", v25, v26, v27, v69);
     ABLogSimulateCrashReport(@"AB search used the disabled FTS index. Please open a radar to PEP Contacts (New Bugs).");
     return 0;
   }
@@ -3486,16 +3519,16 @@ LABEL_74:
     return 0;
   }
 
-  if (ABTokenListGetCount(v18) < 1)
+  if (ABTokenListGetCount(v18, v23) < 1)
   {
-    v27 = 0;
+    v28 = 0;
     MutableCopy = 0;
 LABEL_67:
     CFRelease(v18);
     goto LABEL_68;
   }
 
-  v67 = a6;
+  v73 = a6;
   if (theString)
   {
     MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x1E695E480], 0, theString);
@@ -3527,18 +3560,18 @@ LABEL_67:
       }
     }
 
-    v29 = ABRecordGetRecordID(a5);
-    if (v29 != -1)
+    v30 = ABRecordGetRecordID(a5);
+    if (v30 != -1)
     {
-      v30 = v29;
-      v31 = 0;
-      v32 = @" abp.ROWID IN (select member_id FROM ABGroupMembers WHERE group_id = ? AND member_type = 0) AND";
+      v31 = v30;
+      v32 = 0;
+      v33 = @" abp.ROWID IN (select member_id FROM ABGroupMembers WHERE group_id = ? AND member_type = 0) AND";
       goto LABEL_26;
     }
 
 LABEL_22:
-    v30 = -1;
-    v31 = 1;
+    v31 = -1;
+    v32 = 1;
     if (RecordID == -1)
     {
       if (!a3)
@@ -3546,47 +3579,47 @@ LABEL_22:
         goto LABEL_27;
       }
 
-      v32 = @" StoreID IN (SELECT abs.RowID FROM ABStore abs, ABAccount aba WHERE abs.AccountID = aba.ROWID AND aba.AccountIdentifier = ?) AND";
+      v33 = @" StoreID IN (SELECT abs.RowID FROM ABStore abs, ABAccount aba WHERE abs.AccountID = aba.ROWID AND aba.AccountIdentifier = ?) AND";
     }
 
     else
     {
-      v32 = @" StoreID = ? AND";
+      v33 = @" StoreID = ? AND";
     }
 
 LABEL_26:
-    CFStringAppend(MutableCopy, v32);
+    CFStringAppend(MutableCopy, v33);
 LABEL_27:
     CFStringAppend(MutableCopy, @" abp.ROWID IN ");
-    v66 = a7;
-    v65 = a3;
+    v72 = a7;
+    v71 = a3;
     if (a7)
     {
       CFStringAppend(MutableCopy, @"(SELECT rowid from ABPersonFullTextSearch WHERE ABPersonFullTextSearch MATCH '");
-      if (ABTokenListGetCount(v18) >= 1)
+      if (ABTokenListGetCount(v18, v34) >= 1)
       {
-        v64 = RecordID;
-        v33 = 0;
+        v70 = RecordID;
+        v35 = 0;
         do
         {
-          if (v33)
+          if (v35)
           {
             CFStringAppend(MutableCopy, @" AND ");
           }
 
           CFStringAppend(MutableCopy, @"(");
-          v34 = 0;
+          v36 = 0;
           while (1)
           {
             do
             {
-              CFStringAppend(MutableCopy, gFTSearchNameOnlyProperties[v34]);
+              CFStringAppend(MutableCopy, gFTSearchNameOnlyProperties[v36]);
               CFStringAppend(MutableCopy, @":' || ? || '");
-              ++v34;
+              ++v36;
             }
 
-            while (!v34);
-            if (v34 == 14)
+            while (!v36);
+            if (v36 == 14)
             {
               break;
             }
@@ -3595,141 +3628,141 @@ LABEL_27:
           }
 
           CFStringAppend(MutableCopy, @""));
-          ++v33;
+          ++v35;
         }
 
-        while (ABTokenListGetCount(v18) > v33);
-        RecordID = v64;
+        while (ABTokenListGetCount(v18, v37) > v35);
+        RecordID = v70;
       }
 
-      v35 = @" '");
+      v38 = @" '");
     }
 
     else
     {
-      v35 = @"(SELECT rowid from ABPersonFullTextSearch WHERE ABPersonFullTextSearch MATCH ?) ";
+      v38 = @"(SELECT rowid from ABPersonFullTextSearch WHERE ABPersonFullTextSearch MATCH ?) ";
     }
 
-    CFStringAppend(MutableCopy, v35);
-    if (v67)
+    CFStringAppend(MutableCopy, v38);
+    if (v73)
     {
-      v36 = @" ORDER BY LastSortLanguageIndex+0, LastSortSection, LastSort";
+      v39 = @" ORDER BY LastSortLanguageIndex+0, LastSortSection, LastSort";
     }
 
     else
     {
-      v36 = @" ORDER BY FirstSortLanguageIndex+0, FirstSortSection, FirstSort";
+      v39 = @" ORDER BY FirstSortLanguageIndex+0, FirstSortSection, FirstSort";
     }
 
-    CFStringAppend(MutableCopy, v36);
+    CFStringAppend(MutableCopy, v39);
     CFStringAppend(MutableCopy, @";");
     CPRecordStoreGetDatabase();
-    v37 = CPSqliteDatabaseStatementForReading();
-    v38 = recordStoreContext(a1);
-    if (v38)
+    v40 = CPSqliteDatabaseStatementForReading();
+    v41 = recordStoreContext(a1);
+    if (v41)
     {
-      v38 = *v38;
+      v41 = *v41;
     }
 
-    ABRegulatoryLogReadContactsData(v38);
+    ABRegulatoryLogReadContactsData(v41);
     CFRelease(MutableCopy);
-    if (v37)
+    if (v40)
     {
-      v27 = *(v37 + 8);
-      if (!v27)
+      v28 = *(v40 + 8);
+      if (!v28)
       {
 LABEL_66:
         MutableCopy = 0;
         goto LABEL_67;
       }
 
-      if (v31)
+      if (v32)
       {
         if (RecordID == -1)
         {
-          if (!v65)
+          if (!v71)
           {
-            v42 = 1;
+            v46 = 1;
             goto LABEL_54;
           }
 
-          _ABCCreateUTF8StringFromCFString(v65);
+          _ABCCreateUTF8StringFromCFString(v71);
           OUTLINED_FUNCTION_0_4();
-          v59 = OUTLINED_FUNCTION_10_0();
-          sqlite3_bind_text(v59, v60, v61, -1, v62);
+          v65 = OUTLINED_FUNCTION_10_0();
+          sqlite3_bind_text(v65, v66, v67, -1, v68);
 LABEL_53:
-          v42 = 2;
+          v46 = 2;
 LABEL_54:
-          v43 = *(v37 + 8);
-          if (v66)
+          v47 = *(v40 + 8);
+          if (v72)
           {
-            if (ABTokenListGetCount(v18) >= 1)
+            if (ABTokenListGetCount(v18, v42) >= 1)
             {
-              v44 = 0;
-              v45 = *MEMORY[0x1E695E4A8];
+              v48 = 0;
+              v49 = *MEMORY[0x1E695E4A8];
               do
               {
-                Mutable = CFStringCreateMutable(v45, 0);
-                TokenAtIndex = ABTokenListGetTokenAtIndex(v18, v44);
+                Mutable = CFStringCreateMutable(v49, 0);
+                TokenAtIndex = ABTokenListGetTokenAtIndex(v18, v48);
                 CFStringAppend(Mutable, @"##&");
                 CFStringAppend(Mutable, TokenAtIndex);
                 CFStringAppend(Mutable, @"* ");
-                v48 = 14;
+                v52 = 14;
                 do
                 {
                   _ABCCreateUTF8StringFromCFString(Mutable);
                   OUTLINED_FUNCTION_0_4();
-                  sqlite3_bind_text(v43, v42++, v49, -1, v50);
-                  --v48;
+                  sqlite3_bind_text(v47, v46++, v53, -1, v54);
+                  --v52;
                 }
 
-                while (v48);
+                while (v52);
                 CFRelease(Mutable);
-                ++v44;
+                ++v48;
               }
 
-              while (ABTokenListGetCount(v18) > v44);
+              while (ABTokenListGetCount(v18, v55) > v48);
             }
           }
 
           else
           {
-            v51 = CFStringCreateMutable(*MEMORY[0x1E695E4A8], 0);
-            Count = ABTokenListGetCount(v18);
+            v56 = CFStringCreateMutable(*MEMORY[0x1E695E4A8], 0);
+            Count = ABTokenListGetCount(v18, v57);
             if (Count >= 1)
             {
-              v53 = Count;
-              for (i = 0; i != v53; ++i)
+              v59 = Count;
+              for (i = 0; i != v59; ++i)
               {
-                v55 = ABTokenListGetTokenAtIndex(v18, i);
-                CFStringAppend(v51, @"##&");
-                CFStringAppend(v51, v55);
-                CFStringAppend(v51, @"* ");
+                v61 = ABTokenListGetTokenAtIndex(v18, i);
+                CFStringAppend(v56, @"##&");
+                CFStringAppend(v56, v61);
+                CFStringAppend(v56, @"* ");
               }
             }
 
-            _ABCCreateUTF8StringFromCFString(v51);
+            _ABCCreateUTF8StringFromCFString(v56);
             OUTLINED_FUNCTION_0_4();
-            sqlite3_bind_text(v43, v42, v56, -1, v57);
-            CFRelease(v51);
+            sqlite3_bind_text(v47, v46, v62, -1, v63);
+            CFRelease(v56);
           }
 
-          v27 = CPRecordStoreProcessStatementWithPropertyIndices();
+          v28 = CPRecordStoreProcessStatementWithPropertyIndices();
           CPSqliteStatementReset();
           goto LABEL_66;
         }
 
-        v39 = OUTLINED_FUNCTION_10_0();
-        v41 = RecordID;
+        v43 = OUTLINED_FUNCTION_10_0();
+        v45 = RecordID;
       }
 
       else
       {
-        v39 = OUTLINED_FUNCTION_10_0();
-        v41 = v30;
+        v43 = OUTLINED_FUNCTION_10_0();
+        v45 = v31;
       }
 
-      sqlite3_bind_int(v39, v40, v41);
+      sqlite3_bind_int(v43, v44, v45);
       goto LABEL_53;
     }
 
@@ -3737,7 +3770,7 @@ LABEL_54:
   }
 
 LABEL_75:
-  v27 = 0;
+  v28 = 0;
   if (v18)
   {
     goto LABEL_67;
@@ -3749,10 +3782,10 @@ LABEL_68:
     CFRelease(MutableCopy);
   }
 
-  return v27;
+  return v28;
 }
 
-void _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(uint64_t a1, __CFString *a2, int a3, int a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7, uint64_t a8, uint64_t a9)
+void _CopyPeopleAndMultiValuePropertiesMatchingNameWithCancellationCallback(uint64_t a1, __CFString *a2, int a3, uint64_t a4, const __CFArray **a5, const __CFArray **a6, const __CFArray **a7, uint64_t a8, uint64_t a9)
 {
   v10 = a7;
   v12 = a5;
@@ -4156,7 +4189,7 @@ LABEL_82:
                         {
                           if (v59)
                           {
-                            ABCRecordSetContents();
+                            ABCRecordSetContents(v60, v114, v59);
                             CFRelease(v59);
                           }
 
@@ -4185,7 +4218,7 @@ LABEL_82:
                     if (v59)
                     {
                       ABMultiValueSetImmutable(v59, v62, v63, v64, v65, v66, v67, v68, v105);
-                      ABCRecordSetContents();
+                      ABCRecordSetContents(v61, a4, v59);
                       CFRelease(v59);
                     }
                   }
@@ -4322,13 +4355,14 @@ uint64_t ABCDBContextDeleteLabel(uint64_t a1, const __CFString *a2)
   return result;
 }
 
-void ABCDBContextMultiValueWillChange(const void *a1, int a2, uint64_t a3)
+void ABCDBContextMultiValueWillChange(const void *a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
     return;
   }
 
+  v4 = a2;
   ID = CPRecordGetID();
   if (ID == -1)
   {
@@ -4370,7 +4404,7 @@ LABEL_9:
   {
     v12 = 0;
     v13 = 0;
-    v36 = a2;
+    v36 = v4;
     value = v7;
     v14 = kABPersonInternalUUIDProperty;
     do
@@ -4549,7 +4583,7 @@ void ABCDBContextSaveCallback(uint64_t a1, uint64_t a2)
           }
         }
 
-        ABChangeHistoryAssociateSequenceNumberWithClient(*(*v5 + 44), v45, LastSequenceNumber + 1, v26);
+        ABChangeHistoryAssociateSequenceNumberWithClient(v45, LastSequenceNumber + 1, v26, *(*v5 + 44));
         v27 = v5[8];
         if (v27)
         {
@@ -4631,7 +4665,7 @@ uint64_t *ABCDBContextPreCommitSaveCallback(uint64_t *result, uint64_t a2)
               v4 = *(v3 + 384);
               if ((v4 & 0x4000) != 0)
               {
-                result = OUTLINED_FUNCTION_8_0();
+                result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToLabels");
                 v4 = *(v3 + 384) & 0xFFFFBFFF;
                 *(v3 + 384) = v4;
                 if ((v4 & 0x8000) == 0)
@@ -4651,7 +4685,7 @@ LABEL_9:
                 goto LABEL_9;
               }
 
-              result = OUTLINED_FUNCTION_8_0();
+              result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToPhoneLabels");
               v4 = *(v3 + 384) & 0xFFFF7FFF;
               *(v3 + 384) = v4;
               if ((v4 & 0x10000) == 0)
@@ -4666,7 +4700,7 @@ LABEL_10:
               }
 
 LABEL_17:
-              result = OUTLINED_FUNCTION_8_0();
+              result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToEmailLabels");
               v4 = *(v3 + 384) & 0xFFFEFFFF;
               *(v3 + 384) = v4;
               if ((v4 & 0x2000) == 0)
@@ -4681,7 +4715,7 @@ LABEL_11:
               }
 
 LABEL_18:
-              result = OUTLINED_FUNCTION_8_0();
+              result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToNames");
               v4 = *(v3 + 384) & 0xFFFFDFFF;
               *(v3 + 384) = v4;
               if ((v4 & 0x20000) == 0)
@@ -4696,7 +4730,7 @@ LABEL_12:
               }
 
 LABEL_19:
-              result = OUTLINED_FUNCTION_8_0();
+              result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToBirthdays");
               v5 = *(v3 + 384) & 0xFFFDFFFF;
               *(v3 + 384) = v5;
               if ((v5 & 0x40000) == 0)
@@ -4705,7 +4739,7 @@ LABEL_19:
               }
 
 LABEL_13:
-              result = OUTLINED_FUNCTION_8_0();
+              result = OUTLINED_FUNCTION_8_0(result, @"ABChangesToMeCards");
               *(v3 + 384) &= ~0x40000u;
             }
           }
@@ -4947,9 +4981,9 @@ uint64_t ABCDBContextCreateABPersonTriggersAndIndicesAndDropFirst(uint64_t a1, i
 
   if (a2)
   {
-    performSQLWithConnection();
-    performSQLWithConnection();
-    performSQLWithConnection();
+    performSQLWithConnection(a1, @"DROP TRIGGER IF EXISTS NamePreferredPersonInsertTrigger;");
+    performSQLWithConnection(a1, @"DROP TRIGGER IF EXISTS NamePreferredPersonDeleteTrigger;");
+    performSQLWithConnection(a1, @"DROP TRIGGER IF EXISTS NamePreferredPersonEditTrigger;");
   }
 
   if (!ABCDBContextPerformSQLResultDone(a1, @"CREATE TRIGGER IF NOT EXISTS NamePreferredPersonEditTrigger AFTER UPDATE OF Prefix, First, Middle, Last, Suffix, Organization, Kind ON ABPerson WHEN ((OLD.Prefix IS NOT NEW.Prefix) OR (OLD.First IS NOT NEW.First) OR (OLD.Middle IS NOT NEW.Middle) OR (OLD.Last IS NOT NEW.Last) OR (OLD.Suffix IS NOT NEW.Suffix) OR (OLD.Organization IS NOT NEW.Organization) OR (OLD.Kind IS NOT NEW.Kind)) BEGIN UPDATE ABPersonLink SET PreferredNamePersonID = OLD.ROWID WHERE (OLD.PersonLink = ROWID); END;") || !ABCDBContextPerformSQLResultDone(a1, @"CREATE TRIGGER IF NOT EXISTS NamePreferredPersonInsertTrigger AFTER INSERT ON ABPerson BEGIN UPDATE ABPersonLink SET PreferredNamePersonID = NEW.ROWID WHERE (ROWID = NEW.PersonLink AND PreferredNamePersonID = -1); END;") || !ABCDBContextPerformSQLResultDone(a1, @"CREATE TRIGGER IF NOT EXISTS NamePreferredPersonDeleteTrigger AFTER DELETE ON ABPerson BEGIN UPDATE ABPersonLink SET PreferredNamePersonID = (SELECT ROWID FROM ABPerson abp WHERE abp.PersonLink = OLD.PersonLink ORDER BY abp.ROWID LIMIT 1) WHERE (ROWID = OLD.PersonLink AND PreferredNamePersonID = OLD.ROWID); END;"))
@@ -5060,7 +5094,7 @@ uint64_t ABCDBContextCreateABPersonTriggersAndIndicesAndDropFirst(uint64_t a1, i
   return _addLimitedAccessDeletionTriggers(a1, a2);
 }
 
-uint64_t performSQLWithConnection()
+uint64_t performSQLWithConnection(uint64_t a1, uint64_t a2)
 {
   result = CPSqliteConnectionStatementForSQL();
   if (result)
@@ -5337,34 +5371,34 @@ void ABAddressBookMapPeopleMatchingString(uint64_t a1, const __CFString *a2, con
   }
 }
 
-CFMutableArrayRef ABAddressBookCopyArrayOfUIDsMatchingExternalUUID(CFMutableArrayRef Mutable)
+CFMutableArrayRef ABAddressBookCopyArrayOfUIDsMatchingExternalUUID(CFMutableArrayRef Mutable, uint64_t a2)
 {
   if (ABLogAPIUsage())
   {
-    v22 = _isMainThread();
-    v3 = OUTLINED_FUNCTION_3_2();
-    CFStringCreateWithFormat(v3, v4, v5);
-    v6 = OUTLINED_FUNCTION_4_2();
-    ABLogAddressBook(v6);
-    v7 = OUTLINED_FUNCTION_7();
-    _ABLog2(v7, v8, 2013, v1, v9, v10, v11, v12, v22);
-    CFRelease(v1);
+    v23 = _isMainThread();
+    v4 = OUTLINED_FUNCTION_3_2();
+    CFStringCreateWithFormat(v4, v5, v6);
+    v7 = OUTLINED_FUNCTION_4_2();
+    ABLogAddressBook(v7);
+    v8 = OUTLINED_FUNCTION_7();
+    _ABLog2(v8, v9, 2013, v2, v10, v11, v12, v13, v23);
+    CFRelease(v2);
   }
 
   if (Mutable)
   {
     CPRecordStoreGetDatabase();
     CPSqliteDatabaseStatementForReading();
-    v13 = OUTLINED_FUNCTION_4_2();
-    ABRegulatoryLogReadContactsData(v13);
-    if (v1 && v1->info)
+    v14 = OUTLINED_FUNCTION_4_2();
+    ABRegulatoryLogReadContactsData(v14);
+    if (v2 && v2->info)
     {
-      v14 = OUTLINED_FUNCTION_3_2();
-      Mutable = CFArrayCreateMutable(v14, v15, 0);
-      info = v1->info;
+      v15 = OUTLINED_FUNCTION_3_2();
+      Mutable = CFArrayCreateMutable(v15, v16, 0);
+      info = v2->info;
       _CPCreateUTF8StringFromCFString();
       OUTLINED_FUNCTION_0_6();
-      OUTLINED_FUNCTION_6_1(info, v17, v18, v19, v20);
+      OUTLINED_FUNCTION_6_1(info, v18, v19, v20, v21);
       CPSqliteStatementSendResults();
       CPSqliteStatementReset();
     }
@@ -5659,45 +5693,50 @@ void __getNSPersonNameComponentsFormatterPreferencesClass_block_invoke_cold_2(vo
 
 void ABAddressBookSetDefaultSource(uint64_t a1, const void *a2, int a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (ABLogAPIUsage())
+  v20 = *MEMORY[0x1E69E9840];
+  IntValue = ABLogAPIUsage();
+  if (IntValue)
   {
-    v6 = _isMainThread();
-    v7 = CFStringCreateWithFormat(0, 0, @"<< Main thread:%@ | ", v6);
-    v8 = ABLogAddressBook(a1);
-    _ABLog2(6, "void ABAddressBookSetDefaultSource(ABAddressBookRef, ABRecordRef, _Bool)", 208, v7, @"%@", v9, v10, v11, v8);
-    CFRelease(v7);
+    v8 = _isMainThread();
+    v9 = CFStringCreateWithFormat(0, 0, @"<< Main thread:%@ | ", v8);
+    v10 = ABLogAddressBook(a1);
+    _ABLog2(6, "void ABAddressBookSetDefaultSource(ABAddressBookRef, ABRecordRef, _Bool)", 208, v9, @"%@", v11, v12, v13, v10);
+    CFRelease(v9);
   }
 
-  if (a1 && (!a3 || !_ABCGetActualDefaultSource(a1)))
+  if (a1)
   {
-    if (a2)
+    if (!a3 || (IntValue = _ABCGetActualDefaultSource(a1)) == 0)
     {
-      RecordID = ABRecordGetRecordID(a2);
-      if ((ABRecordGetIntValue(a2, kABSourceTypeProperty) & 0x1000000) != 0)
+      if (a2)
       {
-        return;
+        RecordID = ABRecordGetRecordID(a2);
+        IntValue = ABRecordGetIntValue(a2, kABSourceTypeProperty);
+        if ((IntValue & 0x1000000) != 0)
+        {
+          return;
+        }
       }
-    }
 
-    else
-    {
-      RecordID = -1;
-    }
+      else
+      {
+        RecordID = -1;
+      }
 
-    v13 = ABOSLogGeneral();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 67109378;
-      v15 = RecordID;
-      v16 = 2112;
-      v17 = ABLogBacktrace();
-      _os_log_impl(&dword_1B7EFB000, v13, OS_LOG_TYPE_DEFAULT, "Setting default source to recordID %d, %@", buf, 0x12u);
-    }
+      v15 = ABOSLogGeneral(IntValue, v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109378;
+        v17 = RecordID;
+        v18 = 2112;
+        v19 = ABLogBacktrace();
+        _os_log_impl(&dword_1B7EFB000, v15, OS_LOG_TYPE_DEFAULT, "Setting default source to recordID %d, %@", buf, 0x12u);
+      }
 
-    CPRecordStoreGetDatabase();
-    CPSqliteDatabaseConnectionForReading();
-    CPSqliteConnectionSetIntegerForProperty();
+      CPRecordStoreGetDatabase();
+      CPSqliteDatabaseConnectionForReading();
+      CPSqliteConnectionSetIntegerForProperty();
+    }
   }
 }
 
@@ -5816,6 +5855,20 @@ uint64_t ABAddressBookMoveAllRecordsInSourceToSource(uint64_t a1, const void *a2
   return a1;
 }
 
+void ABSourceSetMe_cold_2(__CFString **a1)
+{
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = ABLogErrorPtr(a1);
+  OUTLINED_FUNCTION_3_4(&dword_1B7EFB000, v1, v2, "Error encountered while attempting to replace the existing Me card. %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void ABSourceSetMe_cold_5(__CFString **a1)
+{
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = ABLogErrorPtr(a1);
+  OUTLINED_FUNCTION_3_4(&dword_1B7EFB000, v1, v2, "Asked to set a nil Me card, but could not remove the old one. %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 void ABRemoveLimitedAccessIdentifiersForBundle_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v7 = *MEMORY[0x1E69E9840];
@@ -5880,7 +5933,16 @@ void _performQueryToClearSequenceNumber_cold_1(uint64_t a1)
   sqlite3_errcode(*(a1 + 8));
   sqlite3_errmsg(*(a1 + 8));
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d with query to clear sequence number: %s\n", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d with query to clear sequence number: %s\n", v3, v4, v5, v6);
+}
+
+void __ABChangeHistoryClearChangesToSequenceNumber_block_invoke_cold_1(_DWORD *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109378;
+  HIDWORD(v8) = *a1;
+  LOWORD(v9) = 2112;
+  *(&v9 + 2) = a2;
+  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], a3, "Failed to clear changes to sequence number %d with query %@", a5, a6, a7, a8, v8, v9, WORD4(v9), *MEMORY[0x1E69E9840]);
 }
 
 void ABChangeHistoryInsertPersonChangeRecord_cold_1(uint64_t a1)
@@ -5888,7 +5950,7 @@ void ABChangeHistoryInsertPersonChangeRecord_cold_1(uint64_t a1)
   sqlite3_errcode(*(a1 + 8));
   sqlite3_errmsg(*(a1 + 8));
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d adding change log entry statement: %s\n", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d adding change log entry statement: %s\n", v3, v4, v5, v6);
 }
 
 void ABChangeHistoryInsertPersonChangeRecord_cold_2(uint64_t a1)
@@ -5896,7 +5958,7 @@ void ABChangeHistoryInsertPersonChangeRecord_cold_2(uint64_t a1)
   sqlite3_errcode(*(a1 + 8));
   sqlite3_errmsg(*(a1 + 8));
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d preparing person changes log statement: %s\n", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_5(&dword_1B7EFB000, MEMORY[0x1E69E9C10], v2, "Error %d preparing person changes log statement: %s\n", v3, v4, v5, v6);
 }
 
 uint64_t ABTokenListCreate()
@@ -5919,7 +5981,7 @@ uint64_t ABTokenListCreate()
   return v1;
 }
 
-uint64_t ABAddressBookMergeRecordsInSourceIntoSource(const __CFString *a1, const void *a2, const void *a3)
+BOOL ABAddressBookMergeRecordsInSourceIntoSource(const __CFString *a1, const void *a2, const void *a3)
 {
   if (ABLogAPIUsage())
   {

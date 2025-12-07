@@ -62,13 +62,13 @@ void sub_1000015C0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1000015E4(uint64_t a1)
+void sub_1000015E4(uint64_t a1, uint64_t a2)
 {
-  v2 = ax_remote_daemon_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = ax_remote_daemon_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "timed out, clearing os_transaction", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "timed out, clearing os_transaction", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -410,9 +410,9 @@ uint64_t sub_1000035DC(uint64_t a1)
   return v2(a1, 0);
 }
 
-void sub_1000036A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000036A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -441,9 +441,9 @@ id sub_100003714()
   return v1;
 }
 
-void sub_1000037DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000037DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -473,7 +473,7 @@ void *sub_1000038B0(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -490,7 +490,6 @@ LABEL_5:
 
 uint64_t sub_1000039F0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CB38 = result;
   return result;
@@ -520,7 +519,7 @@ Class sub_100003A64(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -540,7 +539,6 @@ LABEL_4:
 
 uint64_t sub_100003BA8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000CB48 = result;
   return result;
@@ -564,7 +562,7 @@ void sub_100003CCC(uint64_t a1, NSObject *a2)
 
 void sub_100003DE0()
 {
-  dlerror();
-  v0 = abort_report_np();
-  sub_100003E04(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  sub_100003E04();
 }

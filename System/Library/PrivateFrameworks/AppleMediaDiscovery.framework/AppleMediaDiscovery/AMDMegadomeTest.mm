@@ -62,7 +62,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = testAPI;
 
   return v3;
@@ -286,7 +285,6 @@ LABEL_19:
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v65, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __42__AMDMegadomeTest_testSingleView_summary___block_invoke(void *a1, void *a2, uint64_t a3)
@@ -328,7 +326,6 @@ void __42__AMDMegadomeTest_testSingleView_summary___block_invoke(void *a1, void 
   v5 = v19;
   ++*(*(v17[5] + 8) + 24);
   objc_storeStrong(v4, v5);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

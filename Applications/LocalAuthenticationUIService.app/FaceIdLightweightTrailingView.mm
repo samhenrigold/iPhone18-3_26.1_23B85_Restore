@@ -109,7 +109,7 @@
     self->_state = state;
     if (self->_secureFaceIdView)
     {
-      [(LAUISecureFaceIDView *)self->_secureFaceIdView setState:LAUISecureFaceIDViewStateFromFaceIdLightweightTrailingViewState(state)];
+      [(LAUISecureFaceIDView *)self->_secureFaceIdView setState:LAUISecureFaceIDViewStateFromFaceIdLightweightTrailingViewState(state, a2)];
       secureFaceIdView = self->_secureFaceIdView;
 
       [(LAUISecureFaceIDView *)secureFaceIdView setHidden:state == 0];
@@ -118,7 +118,7 @@
     else
     {
       faceIDSpinnerView = self->_faceIDSpinnerView;
-      v7 = LACUIFaceIDSpinnerStateFromFaceIdLightweightTrailingViewState(state);
+      v7 = LACUIFaceIDSpinnerStateFromFaceIdLightweightTrailingViewState(state, a2);
 
       [(LACUIFaceIDSpinnerView *)faceIDSpinnerView setState:v7 animated:1 completion:0];
     }

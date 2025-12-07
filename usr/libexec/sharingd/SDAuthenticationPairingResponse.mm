@@ -130,14 +130,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteUint32Field();
   }
 
@@ -156,17 +154,15 @@
     PBDataWriterWriteDataField();
   }
 
-  v7 = self->_has;
-  if (v7)
+  v5 = self->_has;
+  if (v5)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 8) != 0)
+  if ((v5 & 8) != 0)
   {
-    requestArmingUI = self->_requestArmingUI;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -277,7 +273,6 @@
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 52);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 52) & 4) == 0 || self->_version != *(equalCopy + 11))
@@ -341,13 +336,13 @@
     goto LABEL_25;
   }
 
-  v9 = (*(equalCopy + 52) & 8) == 0;
+  v8 = (*(equalCopy + 52) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 52) & 8) == 0)
     {
 LABEL_25:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_26;
     }
 
@@ -364,12 +359,12 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_26:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

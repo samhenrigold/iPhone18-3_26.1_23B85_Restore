@@ -223,58 +223,57 @@ void __61__SWScriptsManager_executeScriptWithReturnObject_completion___block_inv
     v7 = [*(a1 + 32) logger];
     v8 = MEMORY[0x1E696AEC0];
     v9 = [v6 localizedDescription];
-    v10 = *(a1 + 40);
-    v11 = objc_opt_class();
-    v12 = NSStringFromClass(v11);
-    v13 = [v8 stringWithFormat:@"Failed to evaluate JavaScript with error: %@ script class=%@; script=%@", v9, v12, *(a1 + 48)];;
-    [v7 logError:v13];
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = [v8 stringWithFormat:@"Failed to evaluate JavaScript with error: %@ script class=%@; script=%@", v9, v11, *(a1 + 48)];;
+    [v7 logError:v12];
   }
 
   if (*(a1 + 56))
   {
-    v14 = [*(a1 + 32) webView];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __61__SWScriptsManager_executeScriptWithReturnObject_completion___block_invoke_2;
-    v15[3] = &unk_1E84DBBF8;
-    v17 = *(a1 + 56);
-    v16 = v5;
-    [v14 _doAfterNextPresentationUpdate:v15];
+    v13 = [*(a1 + 32) webView];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __61__SWScriptsManager_executeScriptWithReturnObject_completion___block_invoke_2;
+    v14[3] = &unk_1E84DBBF8;
+    v16 = *(a1 + 56);
+    v15 = v5;
+    [v13 _doAfterNextPresentationUpdate:v14];
   }
 }
 
 - (void)queueExecutableScript:(id)script scriptExecutionCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   scriptCopy = script;
   completionCopy = completion;
   if (([scriptCopy queueable] & 1) == 0)
   {
-    v23 = completionCopy;
+    v22 = completionCopy;
     selfCopy = self;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     queuedExecutableScripts = [(SWScriptsManager *)self queuedExecutableScripts];
     v9 = [queuedExecutableScripts copy];
 
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         v13 = 0;
         do
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * v13);
+          v14 = *(*(&v24 + 1) + 8 * v13);
           identifier = [scriptCopy identifier];
           script = [v14 script];
           identifier2 = [script identifier];
@@ -290,68 +289,64 @@ void __61__SWScriptsManager_executeScriptWithReturnObject_completion___block_inv
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
     }
 
-    completionCopy = v23;
+    completionCopy = v22;
     self = selfCopy;
-    if (v23)
+    if (v22)
     {
-      (*(v23 + 2))(v23, 0);
+      (*(v22 + 2))(v22, 0);
     }
   }
 
   v20 = [[SWQueueableScriptWithCompletion alloc] initWithScript:scriptCopy completion:completionCopy];
   queuedExecutableScripts3 = [(SWScriptsManager *)self queuedExecutableScripts];
   [queuedExecutableScripts3 addObject:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)executeQueuedScripts
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   queuedExecutableScripts = [(SWScriptsManager *)self queuedExecutableScripts];
   v4 = [queuedExecutableScripts copy];
 
   queuedExecutableScripts2 = [(SWScriptsManager *)self queuedExecutableScripts];
   [queuedExecutableScripts2 removeAllObjects];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         script = [v11 script];
         completion = [v11 completion];
         [(SWScriptsManager *)self executeScriptWithReturnObject:script completion:completion];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

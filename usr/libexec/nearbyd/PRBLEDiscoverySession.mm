@@ -9,6 +9,7 @@
 - (void)_configureCBSpatialSession;
 - (void)_executeActivationPendingOperations;
 - (void)activateWithDelegate:(id)delegate delegateQueue:(id)queue sessionIRK:(id)k sessionIdentifier:(id)identifier controlFlags:(NIBluetoothDiscoveryControlFlags)flags tokenFlags:(unsigned int)tokenFlags;
+- (void)allowScreenOffOperation:(BOOL)operation;
 - (void)bluetoothAdvertisingAddressChanged;
 - (void)bluetoothServiceInterrupted;
 - (void)bluetoothStateChanged;
@@ -18,6 +19,7 @@
 - (void)didLoseDevice:(id)device;
 - (void)invalidate;
 - (void)payloadDidChange;
+- (void)setBleRSSIThresholdHint:(char)hint;
 - (void)setDeviceRelationshipFlags:(unint64_t)flags;
 - (void)setWifiRangingActiveAdvertisement;
 - (void)startAdvertising;
@@ -26,6 +28,7 @@
 - (void)startScanningWithBurstPeriod:(double)period;
 - (void)stopAdvertising;
 - (void)stopAndClearState;
+- (void)stopScanningAndRemovePeers:(BOOL)peers;
 - (void)systemOverrideNotification;
 @end
 
@@ -150,7 +153,7 @@
 LABEL_11:
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_10049A678(&self->_cbSessionState);
+      sub_10049A678();
     }
 
     return;
@@ -436,7 +439,6 @@ LABEL_8:
 {
   tokenCopy = token;
   dispatch_assert_queue_V2(self->_clientQueue);
-  p_cbSessionState = &self->_cbSessionState;
   cbSessionState = self->_cbSessionState;
   if (cbSessionState > 2)
   {
@@ -450,13 +452,13 @@ LABEL_8:
   {
     if (cbSessionState == 1)
     {
-      v13 = qword_1009F9820;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = qword_1009F9820;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = CUPrintNSObjectMasked();
+        v12 = CUPrintNSObjectMasked();
         *buf = 138477827;
-        v20 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ble,addPeerToken %{private}@ waiting for activation complete", buf, 0xCu);
+        v18 = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#ble,addPeerToken %{private}@ waiting for activation complete", buf, 0xCu);
       }
 
       [(NSMutableSet *)self->_activationPendingPeers addObject:tokenCopy];
@@ -464,40 +466,41 @@ LABEL_8:
 
     else if (cbSessionState == 2)
     {
-      v7 = qword_1009F9820;
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v6 = qword_1009F9820;
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = CUPrintNSObjectMasked();
+        v7 = CUPrintNSObjectMasked();
         *buf = 138477827;
-        v20 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#ble,addPeerToken %{private}@ started", buf, 0xCu);
+        v18 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ble,addPeerToken %{private}@ started", buf, 0xCu);
       }
 
       [(NSMutableSet *)self->_peers addObject:tokenCopy];
       objc_initWeak(buf, self);
-      v9 = sub_100005288();
+      v8 = sub_100005288();
       cbSession = self->_cbSession;
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_1000277C0;
-      v16[3] = &unk_10098AB88;
-      v18[1] = *&v9;
-      objc_copyWeak(v18, buf);
-      v17 = tokenCopy;
-      [(CBSpatialInteractionSession *)cbSession addPeerToken:v17 completion:v16];
+      v14[0] = _NSConcreteStackBlock;
+      v14[1] = 3221225472;
+      v14[2] = sub_1000277C0;
+      v14[3] = &unk_10098AB88;
+      v16[1] = *&v8;
+      objc_copyWeak(v16, buf);
+      v15 = tokenCopy;
+      [(CBSpatialInteractionSession *)cbSession addPeerToken:v15 completion:v14];
 
-      objc_destroyWeak(v18);
+      objc_destroyWeak(v16);
       objc_destroyWeak(buf);
     }
 
     goto LABEL_15;
   }
 
-  v11 = qword_1009F9820;
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v10 = qword_1009F9820;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v12 = CUPrintNSObjectMasked();
-    sub_10049A898(v12, p_cbSessionState);
+    CUPrintNSObjectMasked();
+    objc_claimAutoreleasedReturnValue();
+    sub_10049A898();
   }
 
 LABEL_15:
@@ -520,8 +523,9 @@ LABEL_13:
     v9 = qword_1009F9820;
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = CUPrintNSObjectMasked();
-      sub_10049A8FC(v12, &self->_cbSessionState);
+      CUPrintNSObjectMasked();
+      objc_claimAutoreleasedReturnValue();
+      sub_10049A8FC();
     }
 
     goto LABEL_19;
@@ -532,13 +536,13 @@ LABEL_13:
     case 0:
       goto LABEL_13;
     case 1:
-      v13 = qword_1009F9820;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v12 = qword_1009F9820;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = CUPrintNSObjectMasked();
+        v13 = CUPrintNSObjectMasked();
         *buf = 138477827;
-        v22 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ble,removePeerToken %{private}@ removing from tokens that are waiting for activation complete", buf, 0xCu);
+        v21 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#ble,removePeerToken %{private}@ removing from tokens that are waiting for activation complete", buf, 0xCu);
       }
 
       [(NSMutableSet *)self->_activationPendingPeers removeObject:tokenCopy];
@@ -549,7 +553,7 @@ LABEL_13:
       {
         v7 = CUPrintNSObjectMasked();
         *buf = 138477827;
-        v22 = v7;
+        v21 = v7;
         _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ble,removePeerToken %{private}@ started", buf, 0xCu);
       }
 
@@ -562,7 +566,7 @@ LABEL_13:
         {
           v11 = CUPrintNSObjectMasked();
           *buf = 138477827;
-          v22 = v11;
+          v21 = v11;
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#ble,removePeerToken %{private}@ of device with system key relationship. Exit early", buf, 0xCu);
         }
       }
@@ -571,18 +575,18 @@ LABEL_13:
       {
         [(NSMutableSet *)self->_peers removeObject:tokenCopy];
         objc_initWeak(buf, self);
-        v15 = sub_100005288();
+        v14 = sub_100005288();
         cbSession = self->_cbSession;
-        v18[0] = _NSConcreteStackBlock;
-        v18[1] = 3221225472;
-        v18[2] = sub_100027D0C;
-        v18[3] = &unk_10098AB88;
-        v20[1] = *&v15;
-        objc_copyWeak(v20, buf);
-        v19 = tokenCopy;
-        [(CBSpatialInteractionSession *)cbSession removePeerToken:v19 completion:v18];
+        v17[0] = _NSConcreteStackBlock;
+        v17[1] = 3221225472;
+        v17[2] = sub_100027D0C;
+        v17[3] = &unk_10098AB88;
+        v19[1] = *&v14;
+        objc_copyWeak(v19, buf);
+        v18 = tokenCopy;
+        [(CBSpatialInteractionSession *)cbSession removePeerToken:v18 completion:v17];
 
-        objc_destroyWeak(v20);
+        objc_destroyWeak(v19);
         objc_destroyWeak(buf);
       }
 
@@ -646,7 +650,7 @@ LABEL_20:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_10049A960(&self->_cbSessionState);
+    sub_10049A960();
   }
 }
 
@@ -693,7 +697,7 @@ LABEL_20:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_10049A9EC(&self->_cbSessionState);
+    sub_10049A9EC();
   }
 }
 
@@ -743,7 +747,7 @@ LABEL_20:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_10049AA78(&self->_cbSessionState);
+    sub_10049AA78();
   }
 }
 
@@ -855,7 +859,7 @@ LABEL_20:
 
     else if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_10049ABB8(&self->_cbSessionState);
+      sub_10049ABB8();
     }
   }
 }
@@ -903,7 +907,7 @@ LABEL_20:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_10049AC44(&self->_cbSessionState);
+    sub_10049AC44();
   }
 }
 
@@ -952,7 +956,7 @@ LABEL_20:
 
     if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
     {
-      sub_10049AD0C(&self->_cbSessionState);
+      sub_10049AD0C();
     }
   }
 
@@ -1030,7 +1034,7 @@ LABEL_20:
 
   if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
   {
-    sub_10049AD98(&self->_cbSessionState);
+    sub_10049AD98();
   }
 }
 
@@ -1043,6 +1047,83 @@ LABEL_20:
     dispatch_source_cancel(scanRateAdjustmentTimer);
     v4 = self->_scanRateAdjustmentTimer;
     self->_scanRateAdjustmentTimer = 0;
+  }
+}
+
+- (void)stopScanningAndRemovePeers:(BOOL)peers
+{
+  peersCopy = peers;
+  dispatch_assert_queue_V2(self->_clientQueue);
+  cbSessionState = self->_cbSessionState;
+  if (cbSessionState > 2)
+  {
+    if ((cbSessionState - 3) > 1)
+    {
+      return;
+    }
+  }
+
+  else if (cbSessionState)
+  {
+    if (cbSessionState == 1)
+    {
+      v9 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = "NO";
+        if (peersCopy)
+        {
+          v10 = "YES";
+        }
+
+        *buf = 136315138;
+        v13 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "#ble,stopScanningAndRemovePeers[%s] waiting for activation complete", buf, 0xCu);
+      }
+
+      self->_activationPendingControlFlags |= 0x10u;
+      if (peersCopy)
+      {
+        [(NSMutableSet *)self->_activationPendingPeers removeAllObjects];
+      }
+    }
+
+    else if (cbSessionState == 2)
+    {
+      v6 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = "NO";
+        if (peersCopy)
+        {
+          v7 = "YES";
+        }
+
+        *buf = 136315138;
+        v13 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ble,stopScanningAndRemovePeers[%s]", buf, 0xCu);
+      }
+
+      [(PRBLEDiscoverySession *)self _cancelScanRateAdjustmentTimer];
+      [(CBSpatialInteractionSession *)self->_cbSession setControlFlags:[(CBSpatialInteractionSession *)self->_cbSession controlFlags]| 0x10];
+      if (peersCopy)
+      {
+        currentPeers = [(PRBLEDiscoverySession *)self currentPeers];
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = sub_100028F7C;
+        v11[3] = &unk_10098AC00;
+        v11[4] = self;
+        [currentPeers enumerateObjectsUsingBlock:v11];
+      }
+    }
+
+    return;
+  }
+
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_10049AE24();
   }
 }
 
@@ -1091,6 +1172,139 @@ LABEL_13:
   result.__engaged_ = v9;
   result.var0 = v7;
   return result;
+}
+
+- (void)allowScreenOffOperation:(BOOL)operation
+{
+  operationCopy = operation;
+  dispatch_assert_queue_V2(self->_clientQueue);
+  cbSessionState = self->_cbSessionState;
+  if (cbSessionState > 2)
+  {
+    if ((cbSessionState - 3) > 1)
+    {
+      return;
+    }
+  }
+
+  else if (cbSessionState)
+  {
+    if (cbSessionState == 1)
+    {
+      v10 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = "NO";
+        if (operationCopy)
+        {
+          v11 = "YES";
+        }
+
+        v14 = 136315138;
+        v15 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#ble,allowScreenOffOperation[%s] waiting for activation complete", &v14, 0xCu);
+      }
+
+      activationPendingControlFlags = self->_activationPendingControlFlags;
+      if (operationCopy)
+      {
+        v13 = activationPendingControlFlags | 0x1000;
+      }
+
+      else
+      {
+        v13 = activationPendingControlFlags & 0xFFFFEFFF;
+      }
+
+      self->_activationPendingControlFlags = v13;
+    }
+
+    else if (cbSessionState == 2)
+    {
+      v6 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = "NO";
+        if (operationCopy)
+        {
+          v7 = "YES";
+        }
+
+        v14 = 136315138;
+        v15 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ble,allowScreenOffOperation[%s]", &v14, 0xCu);
+      }
+
+      cbSession = self->_cbSession;
+      controlFlags = [(CBSpatialInteractionSession *)cbSession controlFlags];
+      if (operationCopy)
+      {
+        [(CBSpatialInteractionSession *)cbSession setControlFlags:controlFlags | 0x1000];
+      }
+
+      else
+      {
+        [(CBSpatialInteractionSession *)cbSession setControlFlags:controlFlags & 0xFFFFEFFF];
+      }
+    }
+
+    return;
+  }
+
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_10049AF64();
+  }
+}
+
+- (void)setBleRSSIThresholdHint:(char)hint
+{
+  hintCopy = hint;
+  dispatch_assert_queue_V2(self->_clientQueue);
+  cbSessionState = self->_cbSessionState;
+  if (cbSessionState > 2)
+  {
+    if ((cbSessionState - 3) > 1)
+    {
+      return;
+    }
+  }
+
+  else if (cbSessionState)
+  {
+    if (cbSessionState == 1)
+    {
+      v7 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = 67109120;
+        v9 = hintCopy;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#ble,setBleRSSIThresholdHint[%d dBm] waiting for activation complete", &v8, 8u);
+      }
+
+      self->_activationPendingRssiThresholdHint = hintCopy;
+    }
+
+    else if (cbSessionState == 2)
+    {
+      v6 = qword_1009F9820;
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+      {
+        v8 = 67109120;
+        v9 = hintCopy;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#ble,setBleRSSIThresholdHint[%d dBm]", &v8, 8u);
+      }
+
+      [(CBSpatialInteractionSession *)self->_cbSession setBleRSSIThresholdHint:hintCopy];
+    }
+
+    return;
+  }
+
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+  {
+    sub_10049B010();
+  }
 }
 
 - (void)didDiscoverDevice:(id)device

@@ -308,7 +308,7 @@
           goto LABEL_17;
         }
 
-        LODWORD(cornerMask) = [v8 isEqual:v9];
+        LODWORD(cornerMask) = objc_msgSend_isEqual_(v8);
 
         if (!cornerMask)
         {

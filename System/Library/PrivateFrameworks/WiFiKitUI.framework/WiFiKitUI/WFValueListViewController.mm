@@ -7,6 +7,7 @@
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WFValueListViewController
@@ -102,6 +103,22 @@ void __80__WFValueListViewController_initWithTitles_switchTitle_sublist_appearan
 
   tableView4 = [(WFValueListViewController *)self tableView];
   [tableView4 setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = WFValueListViewController;
+  [(WFValueListViewController *)&v8 viewWillDisappear:disappear];
+  completionHandler = [(WFValueListViewController *)self completionHandler];
+
+  if (completionHandler)
+  {
+    completionHandler2 = [(WFValueListViewController *)self completionHandler];
+    selectedTitle = [(WFValueListViewController *)self selectedTitle];
+    configSwitch = [(WFValueListViewController *)self configSwitch];
+    (completionHandler2)[2](completionHandler2, selectedTitle, [configSwitch isOn]);
+  }
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section

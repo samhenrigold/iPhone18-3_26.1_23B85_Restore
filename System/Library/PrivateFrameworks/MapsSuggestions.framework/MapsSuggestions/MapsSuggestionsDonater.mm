@@ -832,7 +832,7 @@ void __52__MapsSuggestionsDonater__initCloseTimerIfNecessary__block_invoke(uint6
     {
       uniqueName = [self uniqueName];
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v4, v5, "{MSgDebug} OBJECT{%@} %s BEGIN", v6, v7, v8, v9, v22[0]);
+      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v4, v5, "{MSgDebug} OBJECT{%@} %s BEGIN", v6, v7, v8, v9);
     }
 
     v10 = GEOFindOrCreateLog();
@@ -859,7 +859,7 @@ void __52__MapsSuggestionsDonater__initCloseTimerIfNecessary__block_invoke(uint6
     {
       uniqueName2 = [self uniqueName];
       OUTLINED_FUNCTION_1();
-      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v15, v16, "{MSgDebug} OBJECT{%@} %s END", v17, v18, v19, v20, v22[0]);
+      OUTLINED_FUNCTION_2_0(&dword_1C5126000, v15, v16, "{MSgDebug} OBJECT{%@} %s END", v17, v18, v19, v20);
     }
 
     v21 = GEOFindOrCreateLog();

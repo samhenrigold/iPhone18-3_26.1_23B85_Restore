@@ -2,6 +2,7 @@
 + (id)_defaultLog;
 + (void)_defaultLog;
 + (void)initializeWithLog:(id)log;
++ (void)logScenario:(id)scenario step:(unint64_t)step success:(BOOL)success forBundleID:(id)d description:(id)description;
 + (void)logStep:(unint64_t)step byParty:(unint64_t)party phase:(unint64_t)phase success:(BOOL)success forBundleID:(id)d persona:(id)persona description:(id)description;
 - (id)_initWithLog:(id)log;
 - (void)_logScenario:(id)scenario step:(unint64_t)step success:(BOOL)success forBundleID:(id)d persona:(id)persona description:(id)description;
@@ -34,10 +35,20 @@ uint64_t __38__AITransactionLog_initializeWithLog___block_invoke(uint64_t a1)
   return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
++ (void)logScenario:(id)scenario step:(unint64_t)step success:(BOOL)success forBundleID:(id)d description:(id)description
+{
+  successCopy = success;
+  descriptionCopy = description;
+  dCopy = d;
+  scenarioCopy = scenario;
+  _defaultLog = [self _defaultLog];
+  [_defaultLog _logScenario:scenarioCopy step:step success:successCopy forBundleID:dCopy persona:@"Unknown Persona" description:descriptionCopy];
+}
+
 + (void)logStep:(unint64_t)step byParty:(unint64_t)party phase:(unint64_t)phase success:(BOOL)success forBundleID:(id)d persona:(id)persona description:(id)description
 {
   successCopy = success;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   personaCopy = persona;
   descriptionCopy = description;
@@ -49,24 +60,22 @@ uint64_t __38__AITransactionLog_initializeWithLog___block_invoke(uint64_t a1)
   v17 = logStep_byParty_phase_success_forBundleID_persona_description__sharedLog;
   if (os_log_type_enabled(logStep_byParty_phase_success_forBundleID_persona_description__sharedLog, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138544898;
-    v20 = dCopy;
-    v21 = 2114;
-    v22 = personaCopy;
-    v23 = 2048;
+    v18 = 138544898;
+    v19 = dCopy;
+    v20 = 2114;
+    v21 = personaCopy;
+    v22 = 2048;
     partyCopy = party;
-    v25 = 2048;
+    v24 = 2048;
     stepCopy = step;
-    v27 = 2048;
+    v26 = 2048;
     phaseCopy = phase;
-    v29 = 1024;
-    v30 = successCopy;
-    v31 = 2114;
-    v32 = descriptionCopy;
-    _os_log_impl(&dword_1BF34F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@/%{public}@:%lu:%lu:%lu:%u:%{public}@", &v19, 0x44u);
+    v28 = 1024;
+    v29 = successCopy;
+    v30 = 2114;
+    v31 = descriptionCopy;
+    _os_log_impl(&dword_1BF34F000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@/%{public}@:%lu:%lu:%lu:%u:%{public}@", &v18, 0x44u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __82__AITransactionLog_logStep_byParty_phase_success_forBundleID_persona_description___block_invoke()
@@ -114,7 +123,7 @@ uint64_t __82__AITransactionLog_logStep_byParty_phase_success_forBundleID_person
 - (void)_logScenario:(id)scenario step:(unint64_t)step success:(BOOL)success forBundleID:(id)d persona:(id)persona description:(id)description
 {
   successCopy = success;
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   scenarioCopy = scenario;
   descriptionCopy = description;
   personaCopy = persona;
@@ -139,7 +148,7 @@ uint64_t __82__AITransactionLog_logStep_byParty_phase_success_forBundleID_person
       v25 = "_";
     }
 
-    v30 = 136316418;
+    v29 = 136316418;
     if (uTF8String3)
     {
       v26 = uTF8String3;
@@ -160,32 +169,30 @@ uint64_t __82__AITransactionLog_logStep_byParty_phase_success_forBundleID_person
       v27 = "_";
     }
 
-    v31 = v27;
-    v32 = 2080;
-    v33 = v26;
+    v30 = v27;
+    v31 = 2080;
+    v32 = v26;
     if (uTF8String)
     {
       v24 = uTF8String;
     }
 
-    v34 = 2080;
-    v35 = v24;
+    v33 = 2080;
+    v34 = v24;
     v28 = "Success";
-    v36 = 2048;
+    v35 = 2048;
     stepCopy = step;
     if (!successCopy)
     {
       v28 = "Fail";
     }
 
-    v38 = 2080;
-    v39 = v28;
-    v40 = 2080;
-    v41 = v25;
-    _os_log_impl(&dword_1BF34F000, log, OS_LOG_TYPE_DEFAULT, "%s:%s:%s:%ld:%s:%s", &v30, 0x3Eu);
+    v37 = 2080;
+    v38 = v28;
+    v39 = 2080;
+    v40 = v25;
+    _os_log_impl(&dword_1BF34F000, log, OS_LOG_TYPE_DEFAULT, "%s:%s:%s:%ld:%s:%s", &v29, 0x3Eu);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_defaultLog

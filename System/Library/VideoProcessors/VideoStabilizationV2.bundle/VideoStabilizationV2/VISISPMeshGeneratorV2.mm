@@ -377,25 +377,4 @@ LABEL_34:
   return v9;
 }
 
-uint64_t __64__VISISPMeshGeneratorV2_initWithMetalContext_metalCommandQueue___block_invoke_cold_1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_2_0();
-  return FigDebugAssert3();
-}
-
-uint64_t __64__VISISPMeshGeneratorV2_initWithMetalContext_metalCommandQueue___block_invoke_cold_2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_2_0();
-  return FigDebugAssert3();
-}
-
-uint64_t __64__VISISPMeshGeneratorV2_initWithMetalContext_metalCommandQueue___block_invoke_cold_3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_2_0();
-  return FigDebugAssert3();
-}
-
 @end

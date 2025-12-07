@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    ident = self->_ident;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sleepDurMs = self->_sleepDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  idleDurMs = self->_idleDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  activeDurMs = self->_activeDurMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_6:
-    sleepEntryCount = self->_sleepEntryCount;
     PBDataWriterWriteUint32Field();
   }
 

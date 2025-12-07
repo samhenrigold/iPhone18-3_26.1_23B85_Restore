@@ -646,9 +646,9 @@ LABEL_14:
   timeView = self->_timeView;
   timeCopy = time;
   selectedTime = [(_UIDatePickerCalendarTimeView *)timeView selectedTime];
-  v6 = [selectedTime isEqual:timeCopy];
+  isEqual = objc_msgSend_isEqual_(selectedTime);
 
-  return v6 ^ 1;
+  return isEqual ^ 1;
 }
 
 - (void)_updateSelectedDay:(id)day time:(id)time animated:(BOOL)animated notify:(BOOL)notify

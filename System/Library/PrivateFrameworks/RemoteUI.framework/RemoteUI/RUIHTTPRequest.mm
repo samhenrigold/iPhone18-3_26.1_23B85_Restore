@@ -71,21 +71,25 @@
 
 - (void)dealloc
 {
-  if (self->_dataTask && _isInternalInstall())
+  if (self->_dataTask)
   {
-    v3 = _RUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(self, a2);
+    if (isInternalInstall)
     {
-      *buf = 0;
-      _os_log_impl(&dword_21B93D000, v3, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest dealloc, canceling active reqeust", buf, 2u);
+      v4 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_21B93D000, v4, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest dealloc, canceling active reqeust", buf, 2u);
+      }
     }
   }
 
   [(RUIHTTPRequest *)self cancel];
   [(NSURLSession *)self->_urlSession invalidateAndCancel];
-  v4.receiver = self;
-  v4.super_class = RUIHTTPRequest;
-  [(RUIHTTPRequest *)&v4 dealloc];
+  v5.receiver = self;
+  v5.super_class = RUIHTTPRequest;
+  [(RUIHTTPRequest *)&v5 dealloc];
 }
 
 - (void)_finishedLoading
@@ -100,28 +104,29 @@
 - (void)_loadRequestMain:(id)main
 {
   mainCopy = main;
-  [(RUIHTTPRequest *)self _preLoadCancel];
-  if (_isInternalInstall())
+  _preLoadCancel = [(RUIHTTPRequest *)self _preLoadCancel];
+  isInternalInstall = _isInternalInstall(_preLoadCancel, v6);
+  if (isInternalInstall)
   {
-    v5 = _RUILoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v8 = _RUILoggingFacility(isInternalInstall);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_21B93D000, v5, OS_LOG_TYPE_INFO, "Querying overrides before loading the request...", buf, 2u);
+      _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_INFO, "Querying overrides before loading the request...", buf, 2u);
     }
   }
 
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __35__RUIHTTPRequest__loadRequestMain___block_invoke;
-  v6[3] = &unk_2782E84D0;
-  v6[4] = self;
-  [(RUIHTTPRequest *)self shouldLoadRequest:mainCopy completionHandler:v6];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __35__RUIHTTPRequest__loadRequestMain___block_invoke;
+  v9[3] = &unk_2782E84D0;
+  v9[4] = self;
+  [(RUIHTTPRequest *)self shouldLoadRequest:mainCopy completionHandler:v9];
 }
 
 void __35__RUIHTTPRequest__loadRequestMain___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v6)
@@ -151,18 +156,18 @@ void __35__RUIHTTPRequest__loadRequestMain___block_invoke(uint64_t a1, void *a2,
     v17 = [v16 lowercaseString];
     v18 = [v17 isEqualToString:@"post"];
 
-    isInternalInstall = _isInternalInstall();
+    isInternalInstall = _isInternalInstall(v19, v20);
     if (v18)
     {
       if (isInternalInstall)
       {
-        v20 = _RUILoggingFacility();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = _RUILoggingFacility(isInternalInstall);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = [*(*(a1 + 32) + 8) URL];
+          v23 = [*(*(a1 + 32) + 8) URL];
           *buf = 138412290;
-          v35 = v21;
-          _os_log_impl(&dword_21B93D000, v20, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest POST, URL = %@", buf, 0xCu);
+          v37 = v23;
+          _os_log_impl(&dword_21B93D000, v22, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest POST, URL = %@", buf, 0xCu);
 LABEL_13:
 
           goto LABEL_14;
@@ -174,16 +179,16 @@ LABEL_13:
 
     else if (isInternalInstall)
     {
-      v20 = _RUILoggingFacility();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = [v6 HTTPMethod];
-        v22 = [*(*(a1 + 32) + 8) URL];
+        v23 = [v6 HTTPMethod];
+        v24 = [*(*(a1 + 32) + 8) URL];
         *buf = 138412546;
-        v35 = v21;
-        v36 = 2112;
-        v37 = v22;
-        _os_log_impl(&dword_21B93D000, v20, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest %@, URL = %@", buf, 0x16u);
+        v37 = v23;
+        v38 = 2112;
+        v39 = v24;
+        _os_log_impl(&dword_21B93D000, v22, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest %@, URL = %@", buf, 0x16u);
 
         goto LABEL_13;
       }
@@ -191,18 +196,18 @@ LABEL_13:
 LABEL_14:
     }
 
-    v23 = *(a1 + 32);
-    v24 = *(v23 + 24);
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __35__RUIHTTPRequest__loadRequestMain___block_invoke_30;
-    v31 = &unk_2782E84A8;
-    v32 = v23;
-    v33 = v6;
-    v25 = [v24 dataTaskWithRequest:v33 completionHandler:&v28];
-    v26 = *(a1 + 32);
-    v27 = *(v26 + 16);
-    *(v26 + 16) = v25;
+    v25 = *(a1 + 32);
+    v26 = *(v25 + 24);
+    v30 = MEMORY[0x277D85DD0];
+    v31 = 3221225472;
+    v32 = __35__RUIHTTPRequest__loadRequestMain___block_invoke_30;
+    v33 = &unk_2782E84A8;
+    v34 = v25;
+    v35 = v6;
+    v27 = [v26 dataTaskWithRequest:v35 completionHandler:&v30];
+    v28 = *(a1 + 32);
+    v29 = *(v28 + 16);
+    *(v28 + 16) = v27;
 
     [*(*(a1 + 32) + 16) resume];
     [*(a1 + 32) _startedLoading];
@@ -233,7 +238,7 @@ void __35__RUIHTTPRequest__loadRequestMain___block_invoke_30(uint64_t a1, void *
 
 void __35__RUIHTTPRequest__loadRequestMain___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = 0;
@@ -245,50 +250,55 @@ void __35__RUIHTTPRequest__loadRequestMain___block_invoke_2(uint64_t a1)
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && _isInternalInstall())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v3 = _RUILoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    isInternalInstall = _isInternalInstall(isKindOfClass, v4);
+    if (isInternalInstall)
     {
-      v4 = [*(a1 + 48) allHeaderFields];
-      *buf = 138412290;
-      v13 = v4;
-      _os_log_impl(&dword_21B93D000, v3, OS_LOG_TYPE_DEFAULT, "Response Headers: %@", buf, 0xCu);
+      v6 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = [*(a1 + 48) allHeaderFields];
+        *buf = 138412290;
+        v16 = v7;
+        _os_log_impl(&dword_21B93D000, v6, OS_LOG_TYPE_DEFAULT, "Response Headers: %@", buf, 0xCu);
+      }
     }
   }
 
-  v5 = *(a1 + 40);
-  if (v5[2])
+  v8 = *(a1 + 40);
+  if (v8[2])
   {
-    [v5 _finishedLoading];
+    [v8 _finishedLoading];
   }
 
   if (v2)
   {
     [*(a1 + 40) willParseData];
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 64);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __35__RUIHTTPRequest__loadRequestMain___block_invoke_31;
-    v11[3] = &unk_2782E7F30;
-    v11[4] = v6;
-    [v6 parseData:v7 completion:v11];
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 64);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __35__RUIHTTPRequest__loadRequestMain___block_invoke_31;
+    v14[3] = &unk_2782E7F30;
+    v14[4] = v9;
+    [v9 parseData:v10 completion:v14];
   }
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *(a1 + 40);
-    if (v8)
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    if (v11)
     {
-      [*(a1 + 40) failWithError:v8 forRequest:*(a1 + 56)];
+      [*(a1 + 40) failWithError:v11 forRequest:*(a1 + 56)];
     }
 
     else
     {
-      v10 = [RUIHTTPRequest invalidResponseErrorWithResponse:*(a1 + 48)];
-      [v9 failWithError:v10 forRequest:*(a1 + 56)];
+      v13 = [RUIHTTPRequest invalidResponseErrorWithResponse:*(a1 + 48)];
+      [v12 failWithError:v13 forRequest:*(a1 + 56)];
     }
   }
 }
@@ -363,32 +373,33 @@ void __35__RUIHTTPRequest__loadRequestMain___block_invoke_31(uint64_t a1)
 
 - (BOOL)receivedValidResponse:(id)response forRequest:(id)request
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = responseCopy;
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v5, v6);
+    if (isInternalInstall)
     {
-      v6 = _RUILoggingFacility();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 134217984;
+        v11 = 134217984;
         statusCode = [v5 statusCode];
-        _os_log_impl(&dword_21B93D000, v6, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest Response StatusCode: %ld", &v9, 0xCu);
+        _os_log_impl(&dword_21B93D000, v8, OS_LOG_TYPE_DEFAULT, "RUIHTTPRequest Response StatusCode: %ld", &v11, 0xCu);
       }
     }
 
-    v7 = ([v5 statusCode] - 600) < 0xFFFFFFFFFFFFFF38;
+    v9 = ([v5 statusCode] - 600) < 0xFFFFFFFFFFFFFF38;
   }
 
   else
   {
-    v7 = 1;
+    v9 = 1;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)delegate

@@ -12,19 +12,19 @@
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
-    v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:3];
-    v5 = [dictionaryCopy objectForKey:@"type"];
+    v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:?];
+    v5 = [dictionaryCopy objectForKey:?];
     if (v5)
     {
-      [v4 setObject:v5 forKey:@"type"];
+      [v4 setObject:? forKey:?];
     }
 
-    [v4 setObject:@"response" forKey:@"kind"];
-    v6 = [dictionaryCopy objectForKey:@"messageID"];
+    [v4 setObject:? forKey:?];
+    v6 = [dictionaryCopy objectForKey:?];
 
     if (v6)
     {
-      [v4 setObject:v6 forKey:@"messageID"];
+      [v4 setObject:? forKey:?];
     }
   }
 
@@ -42,8 +42,8 @@
   {
     v3 = MEMORY[0x277CBEB38];
     typeCopy = type;
-    v5 = [[v3 alloc] initWithCapacity:2];
-    [v5 setObject:typeCopy forKey:@"type"];
+    v5 = [[v3 alloc] initWithCapacity:?];
+    [v5 setObject:? forKey:?];
   }
 
   else
@@ -65,11 +65,13 @@
     if (domain)
     {
       domain2 = [errorCopy domain];
-      [v4 setObject:domain2 forKey:@"domain"];
+      [v4 setObject:? forKey:?];
     }
 
-    v7 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-    [v4 setObject:v7 forKey:@"code"];
+    v7 = MEMORY[0x277CCABB0];
+    [errorCopy code];
+    v8 = [v7 numberWithInteger:?];
+    [v4 setObject:? forKey:?];
   }
 
   else
@@ -97,7 +99,7 @@ void __30__APRKUtilities_secureStopURL__block_invoke()
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = [v0 temporaryDirectory];
 
-  v1 = [v3 URLByAppendingPathComponent:@"FPSSecureStop"];
+  v1 = [v3 URLByAppendingPathComponent:?];
   v2 = secureStopURL_url;
   secureStopURL_url = v1;
 }

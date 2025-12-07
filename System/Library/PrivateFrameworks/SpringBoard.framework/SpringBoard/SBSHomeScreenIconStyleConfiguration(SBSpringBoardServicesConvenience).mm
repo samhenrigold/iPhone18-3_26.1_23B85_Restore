@@ -1,7 +1,7 @@
 @interface SBSHomeScreenIconStyleConfiguration(SBSpringBoardServicesConvenience)
 - (id)sb_iconImageStyleConfiguration;
-- (uint64_t)sb_iconImageStyleConfigurationType;
-- (uint64_t)sb_iconImageStyleConfigurationVariant;
+- (void)sb_iconImageStyleConfigurationType;
+- (void)sb_iconImageStyleConfigurationVariant;
 @end
 
 @implementation SBSHomeScreenIconStyleConfiguration(SBSpringBoardServicesConvenience)
@@ -18,18 +18,18 @@
   return v7;
 }
 
-- (uint64_t)sb_iconImageStyleConfigurationType
+- (void)sb_iconImageStyleConfigurationType
 {
   result = [self updatedConfigurationType];
   if (result != 2)
   {
-    return result == 1;
+    return (result == 1);
   }
 
   return result;
 }
 
-- (uint64_t)sb_iconImageStyleConfigurationVariant
+- (void)sb_iconImageStyleConfigurationVariant
 {
   result = [self variant];
   v2 = 3;

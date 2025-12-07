@@ -101,12 +101,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    requestByRange = self->_requestByRange;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -125,15 +124,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  requestByIdentifiers = self->_requestByIdentifiers;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    requestByRequest = self->_requestByRequest;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -231,7 +228,6 @@ LABEL_4:
       goto LABEL_24;
     }
 
-    v6 = equalCopy[9];
     if (self->_requestByRange)
     {
       if ((equalCopy[9] & 1) == 0)
@@ -268,7 +264,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v7 = equalCopy[8];
   if (self->_requestByIdentifiers)
   {
     if ((equalCopy[8] & 1) == 0)

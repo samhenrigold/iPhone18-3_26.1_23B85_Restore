@@ -3,6 +3,7 @@
 + (BOOL)isDeviceSupported:(id)supported;
 + (BOOL)isDeviceSupportedOnWatchOS:(id)s;
 + (BOOL)isDeviceSupportedOnXROS:(id)s;
++ (BOOL)isDeviceSupportedWithType:(unsigned __int8)type VIDsrc:(unsigned __int8)dsrc VID:(unsigned __int16)d PID:(unsigned __int16)iD;
 + (id)decodeApplePayloadByteStream:(id)stream;
 + (id)encodeApplePayloadByteStream:(id)stream;
 + (id)getBluetoothDebugSettingString:(__CFString *)string InKey:(__CFString *)key;
@@ -30,7 +31,7 @@
 
 + (BOOL)isDeviceSupportedOnXROS:(id)s
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   sCopy = s;
   if (CBLogInitOnce != -1)
   {
@@ -40,11 +41,11 @@
   v4 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136315394;
-    v27 = "+[CBUtil isDeviceSupportedOnXROS:]";
-    v28 = 2112;
-    *v29 = sCopy;
-    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%s - %@", &v26, 0x16u);
+    v25 = 136315394;
+    v26 = "+[CBUtil isDeviceSupportedOnXROS:]";
+    v27 = 2112;
+    *v28 = sCopy;
+    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%s - %@", &v25, 0x16u);
   }
 
   v5 = [sCopy valueForKey:@"DeviceType"];
@@ -101,8 +102,8 @@ LABEL_23:
         }
       }
 
-      v26 = 136446210;
-      v27 = "+[CBUtil isDeviceSupportedOnXROS:]";
+      v25 = 136446210;
+      v26 = "+[CBUtil isDeviceSupportedOnXROS:]";
       v20 = "%{public}s - Third party non-audio device - APPROVED";
       v21 = v23;
       v22 = 12;
@@ -153,15 +154,15 @@ LABEL_18:
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_20:
-      v26 = 136446466;
-      v27 = "+[CBUtil isDeviceSupportedOnXROS:]";
-      v28 = 1024;
-      *v29 = unsignedCharValue;
+      v25 = 136446466;
+      v26 = "+[CBUtil isDeviceSupportedOnXROS:]";
+      v27 = 1024;
+      *v28 = unsignedCharValue;
       v20 = "%{public}s - Apple device type=%d (not HID or audio) - APPROVED";
       v21 = v19;
       v22 = 18;
 LABEL_28:
-      _os_log_impl(&dword_1C0AC1000, v21, OS_LOG_TYPE_DEFAULT, v20, &v26, v22);
+      _os_log_impl(&dword_1C0AC1000, v21, OS_LOG_TYPE_DEFAULT, v20, &v25, v22);
     }
 
 LABEL_29:
@@ -179,22 +180,22 @@ LABEL_29:
     {
 LABEL_14:
       v17 = "APPROVED";
-      v26 = 136447234;
-      v27 = "+[CBUtil isDeviceSupportedOnXROS:]";
-      *v29 = unsignedCharValue;
-      v28 = 1024;
+      v25 = 136447234;
+      v26 = "+[CBUtil isDeviceSupportedOnXROS:]";
+      *v28 = unsignedCharValue;
+      v27 = 1024;
       if (v15)
       {
         v17 = "REJECTED";
       }
 
-      *&v29[4] = 1024;
-      *&v29[6] = unsignedShortValue2;
-      v30 = 2112;
-      v31 = &unk_1F40210E0;
-      v32 = 2082;
-      v33 = v17;
-      _os_log_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s - Apple device type=%d (HID) - checking PID 0x%04X against rejected list %@ ->%{public}s", &v26, 0x2Cu);
+      *&v28[4] = 1024;
+      *&v28[6] = unsignedShortValue2;
+      v29 = 2112;
+      v30 = &unk_1F40210E0;
+      v31 = 2082;
+      v32 = v17;
+      _os_log_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s - Apple device type=%d (HID) - checking PID 0x%04X against rejected list %@ ->%{public}s", &v25, 0x2Cu);
     }
   }
 
@@ -211,13 +212,12 @@ LABEL_14:
   v18 = v15 ^ 1;
 LABEL_30:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 + (BOOL)isDeviceSupportedOnWatchOS:(id)s
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   sCopy = s;
   if (CBLogInitOnce != -1)
   {
@@ -227,11 +227,11 @@ LABEL_30:
   v4 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 136315394;
-    v23 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
-    v24 = 2112;
-    *v25 = sCopy;
-    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%s - %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
+    v23 = 2112;
+    *v24 = sCopy;
+    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%s - %@", &v21, 0x16u);
   }
 
   v5 = [sCopy valueForKey:@"DeviceType"];
@@ -273,20 +273,20 @@ LABEL_30:
       }
 
       v17 = "REJECTED";
-      v23 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
-      v24 = 1024;
-      v22 = 136446978;
-      *v25 = unsignedShortValue2;
+      v22 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
+      v23 = 1024;
+      v21 = 136446978;
+      *v24 = unsignedShortValue2;
       if (v14)
       {
         v17 = "APPROVED";
       }
 
-      *&v25[4] = 2112;
-      *&v25[6] = &unk_1F40210F8;
-      v26 = 2082;
-      v27 = v17;
-      _os_log_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s - Apple keyboard - checking PID 0x%04X against approved list %@ ->%{public}s", &v22, 0x26u);
+      *&v24[4] = 2112;
+      *&v24[6] = &unk_1F40210F8;
+      v25 = 2082;
+      v26 = v17;
+      _os_log_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s - Apple keyboard - checking PID 0x%04X against approved list %@ ->%{public}s", &v21, 0x26u);
       goto LABEL_24;
     }
 
@@ -309,8 +309,8 @@ LABEL_30:
       }
     }
 
-    v22 = 136446210;
-    v23 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
+    v21 = 136446210;
+    v22 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
     v19 = "%{public}s - Third party keyboard - APPROVED";
     goto LABEL_22;
   }
@@ -333,11 +333,11 @@ LABEL_30:
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_18:
-      v22 = 136446210;
-      v23 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
+      v21 = 136446210;
+      v22 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
       v19 = "%{public}s - Not a mouse or a keyboard - APPROVED";
 LABEL_22:
-      _os_log_impl(&dword_1C0AC1000, v18, OS_LOG_TYPE_DEFAULT, v19, &v22, 0xCu);
+      _os_log_impl(&dword_1C0AC1000, v18, OS_LOG_TYPE_DEFAULT, v19, &v21, 0xCu);
     }
 
 LABEL_23:
@@ -363,21 +363,44 @@ LABEL_23:
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_9:
-    v22 = 136446210;
-    v23 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
-    _os_log_impl(&dword_1C0AC1000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s - Mouse - REJECTED", &v22, 0xCu);
+    v21 = 136446210;
+    v22 = "+[CBUtil isDeviceSupportedOnWatchOS:]";
+    _os_log_impl(&dword_1C0AC1000, v13, OS_LOG_TYPE_DEFAULT, "%{public}s - Mouse - REJECTED", &v21, 0xCu);
     LOBYTE(v14) = 0;
   }
 
 LABEL_24:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v14;
+}
+
++ (BOOL)isDeviceSupportedWithType:(unsigned __int8)type VIDsrc:(unsigned __int8)dsrc VID:(unsigned __int16)d PID:(unsigned __int16)iD
+{
+  iDCopy = iD;
+  dCopy = d;
+  dsrcCopy = dsrc;
+  v16[4] = *MEMORY[0x1E69E9840];
+  v15[0] = @"DeviceType";
+  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:type];
+  v16[0] = v9;
+  v15[1] = @"VendorIDSrc";
+  v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:dsrcCopy];
+  v16[1] = v10;
+  v15[2] = @"VendorID";
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:dCopy];
+  v16[2] = v11;
+  v15[3] = @"ProductID";
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:iDCopy];
+  v16[3] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  LOBYTE(iDCopy) = [CBUtil isDeviceSupported:v13];
+
+  return iDCopy;
 }
 
 + (BOOL)isDeviceSupported:(id)supported
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   supportedCopy = supported;
   if (CBLogInitOnce != -1)
   {
@@ -387,11 +410,11 @@ LABEL_24:
   v4 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "+[CBUtil isDeviceSupported:]";
-    v11 = 2114;
-    v12 = supportedCopy;
-    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s - %{public}@", &v9, 0x16u);
+    v8 = 136446466;
+    v9 = "+[CBUtil isDeviceSupported:]";
+    v10 = 2114;
+    v11 = supportedCopy;
+    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s - %{public}@", &v8, 0x16u);
   }
 
   if (+[CBUtil isWatchOS])
@@ -413,13 +436,12 @@ LABEL_24:
   v6 = v5;
 LABEL_11:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (int64_t)preSSPStringToPairingCode:(id)code
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   v4 = [codeCopy dataUsingEncoding:4];
   [v4 bytes];
@@ -434,21 +456,20 @@ LABEL_11:
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v9 = "+[CBUtil preSSPStringToPairingCode:]";
-    v10 = 2114;
-    v11 = codeCopy;
-    v12 = 2048;
-    v13 = 0;
+    v8 = "+[CBUtil preSSPStringToPairingCode:]";
+    v9 = 2114;
+    v10 = codeCopy;
+    v11 = 2048;
+    v12 = 0;
     _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s - str:%{public}@ -> pairingcode:0x%016llX", buf, 0x20u);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (id)preSSPPairingCodeToString:(int64_t)string
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:&stringCopy];
   if (CBLogInitOnce != -1)
@@ -460,15 +481,13 @@ LABEL_11:
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v9 = "+[CBUtil preSSPPairingCodeToString:]";
-    v10 = 2048;
-    v11 = stringCopy;
-    v12 = 2114;
-    v13 = v3;
+    v8 = "+[CBUtil preSSPPairingCodeToString:]";
+    v9 = 2048;
+    v10 = stringCopy;
+    v11 = 2114;
+    v12 = v3;
     _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "%{public}s - pairingcode:0x%016llX -> str:%{public}@", buf, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -659,27 +678,27 @@ LABEL_19:
 
 + (id)encodeApplePayloadByteStream:(id)stream
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   streamCopy = stream;
-  v21 = 76;
-  v4 = [MEMORY[0x1E695DF88] dataWithBytes:&v21 length:2];
+  v20 = 76;
+  v4 = [MEMORY[0x1E695DF88] dataWithBytes:&v20 length:2];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = streamCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 == v8)
+        if (*v17 == v8)
         {
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           if ([v10 integerValue] != 100)
           {
             continue;
@@ -689,7 +708,7 @@ LABEL_19:
         else
         {
           objc_enumerationMutation(v5);
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           if ([v10 integerValue] != 100)
           {
             continue;
@@ -700,32 +719,29 @@ LABEL_19:
         v12 = v11;
         if (v11 && [v11 length])
         {
-          v16 = 100;
-          v15 = [v12 length];
-          [v4 appendBytes:&v16 length:1];
+          v15 = 100;
+          v14 = [v12 length];
           [v4 appendBytes:&v15 length:1];
+          [v4 appendBytes:&v14 length:1];
           [v4 appendData:v12];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (void)isDeviceSupportedOnXROS:(int)a1 .cold.3(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_ERROR, "API MISUSE: CBUtil isDeviceSupported - invalid value provided for vendorIdSrc:%d (assuming CBVendorIDSourceBluetooth)", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_ERROR, "API MISUSE: CBUtil isDeviceSupported - invalid value provided for vendorIdSrc:%d (assuming CBVendorIDSourceBluetooth)", v2, 8u);
 }
 
 @end

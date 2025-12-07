@@ -106,29 +106,29 @@
 
 - (double)ck_identityTransformFrame
 {
-  memset(&v7[1], 0, sizeof(CGAffineTransform));
-  [self transform];
-  v7[0] = v7[1];
-  if (CGAffineTransformIsIdentity(v7))
+  memset(&v8[1], 0, sizeof(CGAffineTransform));
+  objc_msgSend_transform(self, a2);
+  v8[0] = v8[1];
+  if (CGAffineTransformIsIdentity(v8))
   {
     [self frame];
-    return v2;
+    return v3;
   }
 
   else
   {
-    v4 = *(MEMORY[0x1E695EFD0] + 16);
-    *&v7[0].a = *MEMORY[0x1E695EFD0];
-    *&v7[0].c = v4;
-    *&v7[0].tx = *(MEMORY[0x1E695EFD0] + 32);
-    [self setTransform:v7];
+    v5 = *(MEMORY[0x1E695EFD0] + 16);
+    *&v8[0].a = *MEMORY[0x1E695EFD0];
+    *&v8[0].c = v5;
+    *&v8[0].tx = *(MEMORY[0x1E695EFD0] + 32);
+    [self setTransform:v8];
     [self frame];
-    v3 = v5;
-    v7[0] = v7[1];
-    [self setTransform:v7];
+    v4 = v6;
+    v8[0] = v8[1];
+    [self setTransform:v8];
   }
 
-  return v3;
+  return v4;
 }
 
 - (double)ck_identityTransformFrameInView:()ChatKit

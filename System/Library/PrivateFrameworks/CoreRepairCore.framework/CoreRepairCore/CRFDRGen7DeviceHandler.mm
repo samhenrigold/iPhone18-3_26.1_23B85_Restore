@@ -1,4 +1,6 @@
 @interface CRFDRGen7DeviceHandler
++ (BOOL)isGen7ProductType:(int)type;
++ (id)getDeviceHandlerForProductType:(int)type;
 - (BOOL)getMakeDataClassesAndInstancesWithPartSPC:(id)c fdrRemote:(__AMFDR *)remote makeClasses:(id *)classes makeInstances:(id *)instances makePropertiesDict:(id *)dict fdrError:(id *)error;
 - (BOOL)getMinimalManifestsClassesAndInstancesWithPartSPC:(id)c fdrLocal:(__AMFDR *)local fdrRemote:(__AMFDR *)remote minimalSealingDataInstances:(id *)instances minimalSealedDataClasses:(id *)classes minimalSealedDataInstances:(id *)dataInstances minimalSealedVersions:(id *)versions error:(id *)self0;
 - (BOOL)validateAndFilterPatchWithPartSPC:(id)c patchClasses:(id *)classes patchInstances:(id *)instances patchValues:(id *)values validClasses:(id)validClasses validInstances:(id)validInstances error:(id *)error;
@@ -26,36 +28,82 @@
     if (v3)
     {
       componentsMapping = [(CRFDRBaseDeviceHandler *)v2 componentsMapping];
-      [componentsMapping setObject:v3 forKeyedSubscript:@"tcrt"];
+      objc_msgSend_setObject_forKeyedSubscript_(componentsMapping);
     }
 
     if (v4)
     {
       componentsMapping2 = [(CRFDRBaseDeviceHandler *)v2 componentsMapping];
-      [componentsMapping2 setObject:v4 forKeyedSubscript:@"vcrt"];
+      objc_msgSend_setObject_forKeyedSubscript_(componentsMapping2);
     }
 
     if (v5)
     {
       componentsMapping3 = [(CRFDRBaseDeviceHandler *)v2 componentsMapping];
-      [componentsMapping3 setObject:v5 forKeyedSubscript:@"prpc"];
+      objc_msgSend_setObject_forKeyedSubscript_(componentsMapping3);
     }
   }
 
   return v2;
 }
 
++ (BOOL)isGen7ProductType:(int)type
+{
+  result = 1;
+  if (*&type > 3048527335)
+  {
+    if (*&type == 3048527336)
+    {
+      return result;
+    }
+
+    v4 = 3591055299;
+  }
+
+  else
+  {
+    if (*&type == 1781728947)
+    {
+      return result;
+    }
+
+    v4 = 1872992317;
+  }
+
+  if (*&type != v4)
+  {
+    return 0;
+  }
+
+  return result;
+}
+
++ (id)getDeviceHandlerForProductType:(int)type
+{
+  if ([CRFDRGen7DeviceHandler isGen7ProductType:*&type])
+  {
+    v3 = objc_alloc_init(CRFDRGen7DeviceHandler);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  return v3;
+}
+
 - (id)getClaimDataClassesAndInstancesWithPartSPC:(id)c withError:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   cCopy = c;
   v7 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = cCopy;
-  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (!v8)
   {
     v15 = 0;
@@ -64,22 +112,22 @@
 
   v9 = v8;
   errorCopy = error;
-  v10 = *v30;
+  v10 = *v29;
   while (2)
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v30 != v10)
+      if (*v29 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v29 + 1) + 8 * i);
+      v12 = *(*(&v28 + 1) + 8 * i);
       if ([v12 isEqualToString:@"IPHONE COMP BATTERY"])
       {
-        v28 = 0;
-        v13 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"vcrt" withError:&v28];
-        v14 = v28;
+        v27 = 0;
+        v13 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"vcrt" withError:&v27];
+        v14 = v27;
         v15 = v14;
         if (!v13 || v14)
         {
@@ -95,9 +143,9 @@
 
       if ([v12 isEqualToString:@"IPHONE COMP DISPLAY"])
       {
-        v27 = 0;
-        v16 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"tcrt" withError:&v27];
-        v17 = v27;
+        v26 = 0;
+        v16 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"tcrt" withError:&v26];
+        v17 = v26;
         v15 = v17;
         if (!v16 || v17)
         {
@@ -119,9 +167,9 @@ LABEL_26:
       {
         if ([CRFDRBaseDeviceHandler isFDRDataClassSupported:@"prpc"])
         {
-          v26 = 0;
-          v18 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"prpc" withError:&v26];
-          v19 = v26;
+          v25 = 0;
+          v18 = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstanceToMutableDictionary:v7 dataClass:@"prpc" withError:&v25];
+          v19 = v25;
           v15 = v19;
           if (!v18 || v19)
           {
@@ -137,7 +185,7 @@ LABEL_26:
       }
     }
 
-    v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v9 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v9)
     {
       continue;
@@ -155,8 +203,6 @@ LABEL_27:
     v21 = v15;
     *error = v15;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -177,14 +223,14 @@ LABEL_27:
 
 - (BOOL)getMakeDataClassesAndInstancesWithPartSPC:(id)c fdrRemote:(__AMFDR *)remote makeClasses:(id *)classes makeInstances:(id *)instances makePropertiesDict:(id *)dict fdrError:(id *)error
 {
-  v183 = *MEMORY[0x1E69E9840];
+  v182 = *MEMORY[0x1E69E9840];
   cCopy = c;
   currentProperties = [(CRFDRBaseDeviceHandler *)self currentProperties];
   v14 = [currentProperties mutableCopy];
 
   v15 = objc_opt_new();
   v16 = objc_opt_new();
-  v136 = v16;
+  v135 = v16;
   obj = v15;
   if (v15)
   {
@@ -213,7 +259,7 @@ LABEL_27:
   }
 
   v24 = AMFDRGetOptions();
-  v132 = v24;
+  v131 = v24;
   selfCopy = self;
   if (v24)
   {
@@ -229,7 +275,7 @@ LABEL_27:
       {
         currentProperties3 = [(CRFDRBaseDeviceHandler *)selfCopy currentProperties];
         v31 = [currentProperties3 objectForKeyedSubscript:@"mlb#"];
-        [(__CFString *)v27 setObject:v31 forKeyedSubscript:@"MLBNumber"];
+        objc_msgSend_setObject_forKeyedSubscript_(v27);
       }
 
       currentProperties4 = [(CRFDRBaseDeviceHandler *)selfCopy currentProperties];
@@ -239,7 +285,7 @@ LABEL_27:
       {
         currentProperties5 = [(CRFDRBaseDeviceHandler *)selfCopy currentProperties];
         v35 = [currentProperties5 objectForKeyedSubscript:@"SrNm"];
-        [(__CFString *)v27 setObject:v35 forKeyedSubscript:@"SerialNumber"];
+        objc_msgSend_setObject_forKeyedSubscript_(v27);
       }
 
       AMFDRSetOption();
@@ -249,7 +295,7 @@ LABEL_27:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v180 = v27;
+      v179 = v27;
       _os_log_impl(&dword_1CEDC5000, v36, OS_LOG_TYPE_DEFAULT, "Meta-data = %@", buf, 0xCu);
     }
 
@@ -259,7 +305,7 @@ LABEL_27:
 
   if ([(CRFDRBaseDeviceHandler *)self allowFactoryReset])
   {
-    [v14 setObject:@"1" forKeyedSubscript:@"SrvP"];
+    objc_msgSend_setObject_forKeyedSubscript_(v14);
     v19 = 0;
 LABEL_21:
     LOBYTE(v21) = 0;
@@ -274,18 +320,18 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v172 = 0;
     v171 = 0;
     v170 = 0;
     v169 = 0;
-    LODWORD(v21) = [(CRFDRBaseDeviceHandler *)self getDataClassesAndInstancesOfKBBWith:remote dataClasses:&v172 dataInstances:&v171 propertiesDict:&v170 fdrError:&v169];
-    v37 = v169;
+    v168 = 0;
+    LODWORD(v21) = [(CRFDRBaseDeviceHandler *)self getDataClassesAndInstancesOfKBBWith:remote dataClasses:&v171 dataInstances:&v170 propertiesDict:&v169 fdrError:&v168];
+    v37 = v168;
     v38 = v37;
     if (v21 && !v37)
     {
-      if (v170)
+      if (v169)
       {
-        v39 = [v170 objectForKeyedSubscript:@"SrvP"];
+        v39 = [v169 objectForKeyedSubscript:@"SrvP"];
         v40 = [v39 isEqualToString:@"1"];
 
         if (v40)
@@ -296,24 +342,24 @@ LABEL_167:
           goto LABEL_255;
         }
 
-        if (v170)
+        if (v169)
         {
-          v109 = [v170 objectForKeyedSubscript:@"drp#"];
+          v109 = [v169 objectForKeyedSubscript:@"drp#"];
 
           if (v109)
           {
-            v110 = [v170 objectForKeyedSubscript:@"drp#"];
-            [v14 setObject:v110 forKeyedSubscript:@"drp#"];
+            v110 = [v169 objectForKeyedSubscript:@"drp#"];
+            objc_msgSend_setObject_forKeyedSubscript_(v14);
 
             v111 = handleForCategory(0);
             if (os_log_type_enabled(v111, OS_LOG_TYPE_DEFAULT))
             {
-              [v170 objectForKeyedSubscript:@"drp#"];
+              [v169 objectForKeyedSubscript:@"drp#"];
               v113 = v112 = instances;
               *buf = 138412546;
-              v180 = @"drp#";
-              v181 = 2112;
-              v182 = v113;
+              v179 = @"drp#";
+              v180 = 2112;
+              v181 = v113;
               _os_log_impl(&dword_1CEDC5000, v111, OS_LOG_TYPE_DEFAULT, "transferring property %@: %@", buf, 0x16u);
 
               instances = v112;
@@ -323,24 +369,24 @@ LABEL_167:
             [(CRFDRBaseDeviceHandler *)self setKbbCGSN:v114];
           }
 
-          if (v170)
+          if (v169)
           {
-            v115 = [v170 objectForKeyedSubscript:@"arc#"];
+            v115 = [v169 objectForKeyedSubscript:@"arc#"];
 
             if (v115)
             {
-              v116 = [v170 objectForKeyedSubscript:@"arc#"];
-              [v14 setObject:v116 forKeyedSubscript:@"arc#"];
+              v116 = [v169 objectForKeyedSubscript:@"arc#"];
+              objc_msgSend_setObject_forKeyedSubscript_(v14);
 
               v117 = handleForCategory(0);
               if (os_log_type_enabled(v117, OS_LOG_TYPE_DEFAULT))
               {
-                [v170 objectForKeyedSubscript:@"arc#"];
+                [v169 objectForKeyedSubscript:@"arc#"];
                 v119 = v118 = instances;
                 *buf = 138412546;
-                v180 = @"arc#";
-                v181 = 2112;
-                v182 = v119;
+                v179 = @"arc#";
+                v180 = 2112;
+                v181 = v119;
                 _os_log_impl(&dword_1CEDC5000, v117, OS_LOG_TYPE_DEFAULT, "transferring property %@: %@", buf, 0x16u);
 
                 instances = v118;
@@ -350,25 +396,25 @@ LABEL_167:
         }
       }
 
-      [v14 setObject:@"0" forKeyedSubscript:@"SrvP"];
-      if ([v172 count])
+      objc_msgSend_setObject_forKeyedSubscript_(v14);
+      if ([v171 count])
       {
         instancesCopy2 = instances;
         v121 = 0;
         do
         {
-          v122 = [v172 objectAtIndexedSubscript:v121];
-          v123 = [v171 objectAtIndexedSubscript:v121];
+          v122 = [v171 objectAtIndexedSubscript:v121];
+          v123 = [v170 objectAtIndexedSubscript:v121];
           if ([&unk_1F4BCD1B0 containsObject:v122])
           {
             [obj addObject:v122];
-            [v136 addObject:v123];
+            [v135 addObject:v123];
           }
 
           ++v121;
         }
 
-        while ([v172 count]> v121);
+        while ([v171 count]> v121);
         v38 = 0;
         v87 = 1;
         instances = instancesCopy2;
@@ -404,41 +450,41 @@ LABEL_255:
 LABEL_30:
   errorCopy = error;
   instancesCopy3 = instances;
-  v130 = v14;
+  v129 = v14;
   if (![cCopy containsObject:@"IPHONE COMP DISPLAY"])
   {
     goto LABEL_60;
   }
 
-  v127 = cCopy;
-  v167 = 0u;
-  v168 = 0u;
-  v165 = 0u;
+  v126 = cCopy;
   v166 = 0u;
-  v41 = [&unk_1F4BCD120 countByEnumeratingWithState:&v165 objects:v178 count:16];
+  v167 = 0u;
+  v164 = 0u;
+  v165 = 0u;
+  v41 = [&unk_1F4BCD120 countByEnumeratingWithState:&v164 objects:v177 count:16];
   if (!v41)
   {
     goto LABEL_57;
   }
 
   v42 = v41;
-  v43 = *v166;
+  v43 = *v165;
   do
   {
     v44 = 0;
     do
     {
-      if (*v166 != v43)
+      if (*v165 != v43)
       {
         objc_enumerationMutation(&unk_1F4BCD120);
       }
 
-      v45 = *(*(&v165 + 1) + 8 * v44);
+      v45 = *(*(&v164 + 1) + 8 * v44);
       if ([CRFDRBaseDeviceHandler isFDRDataClassSupported:v45])
       {
-        v164 = v38;
-        LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstancesToMutableArray:v45 dataClasses:obj dataInstances:v136 withError:&v164];
-        v19 = v164;
+        v163 = v38;
+        LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)self _addDataClassAndInstancesToMutableArray:v45 dataClasses:obj dataInstances:v135 withError:&v163];
+        v19 = v163;
 
         if (![(CRFDRBaseDeviceHandler *)self allowMissingData]|| [CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v45])
         {
@@ -487,7 +533,7 @@ LABEL_43:
         if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v180 = v45;
+          v179 = v45;
           _os_log_impl(&dword_1CEDC5000, v48, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
         }
 
@@ -500,7 +546,7 @@ LABEL_43:
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v180 = v45;
+          v179 = v45;
           _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
         }
       }
@@ -510,20 +556,20 @@ LABEL_47:
     }
 
     while (v42 != v44);
-    v49 = [&unk_1F4BCD120 countByEnumeratingWithState:&v165 objects:v178 count:16];
+    v49 = [&unk_1F4BCD120 countByEnumeratingWithState:&v164 objects:v177 count:16];
     v42 = v49;
   }
 
   while (v49);
 LABEL_57:
-  v163 = v38;
-  LODWORD(v21) = [(CRFDRBaseDeviceHandler *)self _addPropertyToMutableDictionary:v14 property:@"drp#" withError:&v163];
-  v19 = v163;
+  v162 = v38;
+  LODWORD(v21) = [(CRFDRBaseDeviceHandler *)self _addPropertyToMutableDictionary:v14 property:@"drp#" withError:&v162];
+  v19 = v162;
 
   if (!v21 || v19)
   {
     v108 = handleForCategory(0);
-    cCopy = v127;
+    cCopy = v126;
     instances = instancesCopy3;
     if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
     {
@@ -534,36 +580,36 @@ LABEL_57:
   }
 
   v38 = 0;
-  cCopy = v127;
+  cCopy = v126;
 LABEL_60:
   if ([cCopy containsObject:@"IPHONE COMP CAMERA"])
   {
-    v161 = 0u;
-    v162 = 0u;
-    v159 = 0u;
     v160 = 0u;
-    v50 = [&unk_1F4BCD150 countByEnumeratingWithState:&v159 objects:v177 count:16];
+    v161 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    v50 = [&unk_1F4BCD150 countByEnumeratingWithState:&v158 objects:v176 count:16];
     if (v50)
     {
       v51 = v50;
-      v52 = *v160;
+      v52 = *v159;
       do
       {
         v53 = 0;
-        v131 = v51;
+        v130 = v51;
         do
         {
-          if (*v160 != v52)
+          if (*v159 != v52)
           {
             objc_enumerationMutation(&unk_1F4BCD150);
           }
 
-          v54 = *(*(&v159 + 1) + 8 * v53);
+          v54 = *(*(&v158 + 1) + 8 * v53);
           if ([CRFDRBaseDeviceHandler isFDRDataClassSupported:v54])
           {
-            v158 = v38;
-            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)selfCopy _addDataClassAndInstancesToMutableArray:v54 dataClasses:obj dataInstances:v136 withError:&v158];
-            v19 = v158;
+            v157 = v38;
+            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)selfCopy _addDataClassAndInstancesToMutableArray:v54 dataClasses:obj dataInstances:v135 withError:&v157];
+            v19 = v157;
 
             if ([(CRFDRBaseDeviceHandler *)selfCopy allowMissingData]&& ![CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v54])
             {
@@ -583,7 +629,7 @@ LABEL_60:
                 if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v180 = v54;
+                  v179 = v54;
                   _os_log_impl(&dword_1CEDC5000, v62, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
                 }
               }
@@ -616,22 +662,22 @@ LABEL_60:
             if (![@"CmCl" isEqual:v54])
             {
               v38 = 0;
-              v51 = v131;
+              v51 = v130;
               goto LABEL_96;
             }
 
-            v172 = 0;
+            v171 = 0;
             v56 = AMFDRSealingMapCopyAssemblyIdentifierForClass();
             v57 = v56;
-            v19 = v172;
-            if (v172)
+            v19 = v171;
+            if (v171)
             {
               v58 = handleForCategory(0);
-              v51 = v131;
+              v51 = v130;
               if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v180 = v19;
+                v179 = v19;
                 _os_log_error_impl(&dword_1CEDC5000, v58, OS_LOG_TYPE_ERROR, "Failed to get asid: %@", buf, 0xCu);
               }
 
@@ -654,7 +700,7 @@ LABEL_94:
 
             else
             {
-              v51 = v131;
+              v51 = v130;
               if (v56)
               {
                 AMFDRSetAssemblyIdentifierToVerify();
@@ -671,7 +717,7 @@ LABEL_94:
           if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v180 = v54;
+            v179 = v54;
             _os_log_impl(&dword_1CEDC5000, v60, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
           }
 
@@ -680,21 +726,21 @@ LABEL_96:
         }
 
         while (v51 != v53);
-        v51 = [&unk_1F4BCD150 countByEnumeratingWithState:&v159 objects:v177 count:16];
+        v51 = [&unk_1F4BCD150 countByEnumeratingWithState:&v158 objects:v176 count:16];
       }
 
       while (v51);
     }
   }
 
-  if (![cCopy containsObject:@"IPHONE COMP FACEID"] || (v156 = 0u, v157 = 0u, v154 = 0u, v155 = 0u, (v63 = objc_msgSend(&unk_1F4BCD138, "countByEnumeratingWithState:objects:count:", &v154, v176, 16)) == 0))
+  if (![cCopy containsObject:@"IPHONE COMP FACEID"] || (v155 = 0u, v156 = 0u, v153 = 0u, v154 = 0u, (v63 = objc_msgSend(&unk_1F4BCD138, "countByEnumeratingWithState:objects:count:", &v153, v175, 16)) == 0))
   {
     v66 = selfCopy;
     goto LABEL_132;
   }
 
   v64 = v63;
-  v65 = *v155;
+  v65 = *v154;
   v21 = @"PlCl";
   v66 = selfCopy;
   while (2)
@@ -702,19 +748,19 @@ LABEL_96:
     v67 = 0;
     while (2)
     {
-      if (*v155 != v65)
+      if (*v154 != v65)
       {
         objc_enumerationMutation(&unk_1F4BCD138);
       }
 
-      v68 = *(*(&v154 + 1) + 8 * v67);
+      v68 = *(*(&v153 + 1) + 8 * v67);
       if ([CRFDRBaseDeviceHandler isFDRDataClassSupported:v68])
       {
         v69 = cCopy;
         v70 = v21;
-        v153 = v38;
-        LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)selfCopy _addDataClassAndInstancesToMutableArray:v68 dataClasses:obj dataInstances:v136 withError:&v153];
-        v19 = v153;
+        v152 = v38;
+        LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)selfCopy _addDataClassAndInstancesToMutableArray:v68 dataClasses:obj dataInstances:v135 withError:&v152];
+        v19 = v152;
 
         if ([(CRFDRBaseDeviceHandler *)selfCopy allowMissingData]&& ![CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v68])
         {
@@ -734,7 +780,7 @@ LABEL_96:
             if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v180 = v68;
+              v179 = v68;
               _os_log_impl(&dword_1CEDC5000, v74, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
             }
           }
@@ -764,9 +810,9 @@ LABEL_96:
             instances = instancesCopy3;
             dictCopy3 = dict;
             classesCopy3 = classes;
-            v20 = v132;
+            v20 = v131;
             cCopy = v69;
-            v14 = v130;
+            v14 = v129;
             goto LABEL_264;
           }
         }
@@ -795,7 +841,7 @@ LABEL_96:
         if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v180 = v68;
+          v179 = v68;
           _os_log_impl(&dword_1CEDC5000, v72, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
         }
 
@@ -810,7 +856,7 @@ LABEL_117:
       break;
     }
 
-    v75 = [&unk_1F4BCD138 countByEnumeratingWithState:&v154 objects:v176 count:16];
+    v75 = [&unk_1F4BCD138 countByEnumeratingWithState:&v153 objects:v175 count:16];
     v64 = v75;
     if (v75)
     {
@@ -821,47 +867,47 @@ LABEL_117:
   }
 
 LABEL_132:
-  v127 = cCopy;
+  v126 = cCopy;
   if ([cCopy containsObject:@"IPHONE BACK GLASS"])
   {
     if ([CRDeviceMap supportRepair:1030])
     {
-      v151 = 0u;
-      v152 = 0u;
-      v149 = 0u;
       v150 = 0u;
-      v76 = [&unk_1F4BCD198 countByEnumeratingWithState:&v149 objects:v175 count:16];
+      v151 = 0u;
+      v148 = 0u;
+      v149 = 0u;
+      v76 = [&unk_1F4BCD198 countByEnumeratingWithState:&v148 objects:v174 count:16];
       if (v76)
       {
         v77 = v76;
-        v78 = *v150;
+        v78 = *v149;
         do
         {
           v79 = 0;
           do
           {
-            if (*v150 != v78)
+            if (*v149 != v78)
             {
               objc_enumerationMutation(&unk_1F4BCD198);
             }
 
-            v80 = *(*(&v149 + 1) + 8 * v79);
-            if (![CRFDRBaseDeviceHandler isFDRDataClassSupported:v80, v127])
+            v80 = *(*(&v148 + 1) + 8 * v79);
+            if (![CRFDRBaseDeviceHandler isFDRDataClassSupported:v80, v126])
             {
               v19 = handleForCategory(0);
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v180 = v80;
+                v179 = v80;
                 _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
               }
 
               goto LABEL_149;
             }
 
-            v148 = v38;
-            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v80 dataClasses:obj dataInstances:v136 withError:&v148];
-            v19 = v148;
+            v147 = v38;
+            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v80 dataClasses:obj dataInstances:v135 withError:&v147];
+            v19 = v147;
 
             if ([(CRFDRBaseDeviceHandler *)v66 allowMissingData]&& ![CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v80])
             {
@@ -881,7 +927,7 @@ LABEL_132:
                 if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v180 = v80;
+                  v179 = v80;
                   _os_log_impl(&dword_1CEDC5000, v83, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
                 }
 
@@ -925,9 +971,9 @@ LABEL_150:
           }
 
           while (v77 != v79);
-          v84 = [&unk_1F4BCD198 countByEnumeratingWithState:&v149 objects:v175 count:16];
+          v84 = [&unk_1F4BCD198 countByEnumeratingWithState:&v148 objects:v174 count:16];
           v77 = v84;
-          cCopy = v127;
+          cCopy = v126;
         }
 
         while (v84);
@@ -935,33 +981,33 @@ LABEL_150:
     }
   }
 
-  if ([cCopy containsObject:{@"IPHONE COMP ENCL", v127}])
+  if ([cCopy containsObject:{@"IPHONE COMP ENCL", v126}])
   {
-    v147 = 0u;
-    v145 = 0u;
     v146 = 0u;
     v144 = 0u;
-    v88 = [&unk_1F4BCD180 countByEnumeratingWithState:&v144 objects:v174 count:16];
+    v145 = 0u;
+    v143 = 0u;
+    v88 = [&unk_1F4BCD180 countByEnumeratingWithState:&v143 objects:v173 count:16];
     if (v88)
     {
       v89 = v88;
-      v90 = *v145;
+      v90 = *v144;
       do
       {
         v91 = 0;
         do
         {
-          if (*v145 != v90)
+          if (*v144 != v90)
           {
             objc_enumerationMutation(&unk_1F4BCD180);
           }
 
-          v92 = *(*(&v144 + 1) + 8 * v91);
+          v92 = *(*(&v143 + 1) + 8 * v91);
           if ([CRFDRBaseDeviceHandler isFDRDataClassSupported:v92])
           {
-            v143 = v38;
-            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v92 dataClasses:obj dataInstances:v136 withError:&v143];
-            v19 = v143;
+            v142 = v38;
+            LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v92 dataClasses:obj dataInstances:v135 withError:&v142];
+            v19 = v142;
 
             if (![(CRFDRBaseDeviceHandler *)v66 allowMissingData]|| [CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v92])
             {
@@ -1010,7 +1056,7 @@ LABEL_181:
             if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v180 = v92;
+              v179 = v92;
               _os_log_impl(&dword_1CEDC5000, v95, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
             }
 
@@ -1023,7 +1069,7 @@ LABEL_181:
             if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v180 = v92;
+              v179 = v92;
               _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
             }
           }
@@ -1033,7 +1079,7 @@ LABEL_185:
         }
 
         while (v89 != v91);
-        v96 = [&unk_1F4BCD180 countByEnumeratingWithState:&v144 objects:v174 count:16];
+        v96 = [&unk_1F4BCD180 countByEnumeratingWithState:&v143 objects:v173 count:16];
         v89 = v96;
       }
 
@@ -1041,8 +1087,8 @@ LABEL_185:
     }
   }
 
-  cCopy = v127;
-  if (![v127 containsObject:@"IPHONE ENCLOSURE"] || (v141 = 0u, v142 = 0u, v139 = 0u, v140 = 0u, (v97 = objc_msgSend(&unk_1F4BCD168, "countByEnumeratingWithState:objects:count:", &v139, v173, 16)) == 0))
+  cCopy = v126;
+  if (![v126 containsObject:@"IPHONE ENCLOSURE"] || (v140 = 0u, v141 = 0u, v138 = 0u, v139 = 0u, (v97 = objc_msgSend(&unk_1F4BCD168, "countByEnumeratingWithState:objects:count:", &v138, v172, 16)) == 0))
   {
     LOBYTE(v21) = 1;
     v19 = v38;
@@ -1050,33 +1096,33 @@ LABEL_185:
   }
 
   v98 = v97;
-  v99 = *v140;
+  v99 = *v139;
   while (2)
   {
     v100 = 0;
 LABEL_199:
-    if (*v140 != v99)
+    if (*v139 != v99)
     {
       objc_enumerationMutation(&unk_1F4BCD168);
     }
 
-    v101 = *(*(&v139 + 1) + 8 * v100);
+    v101 = *(*(&v138 + 1) + 8 * v100);
     if (![CRFDRBaseDeviceHandler isFDRDataClassSupported:v101])
     {
       v19 = handleForCategory(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v180 = v101;
+        v179 = v101;
         _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "The device doesn't support class %@, so the class won't be added", buf, 0xCu);
       }
 
       goto LABEL_211;
     }
 
-    v138 = v38;
-    LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v101 dataClasses:obj dataInstances:v136 withError:&v138];
-    v19 = v138;
+    v137 = v38;
+    LOBYTE(v21) = [(CRFDRBaseDeviceHandler *)v66 _addDataClassAndInstancesToMutableArray:v101 dataClasses:obj dataInstances:v135 withError:&v137];
+    v19 = v137;
 
     if ([(CRFDRBaseDeviceHandler *)v66 allowMissingData]&& ![CRFDRBaseDeviceHandler isFDRPrimaryDataClass:v101])
     {
@@ -1101,7 +1147,7 @@ LABEL_208:
       if (os_log_type_enabled(v104, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v180 = v101;
+        v179 = v101;
         _os_log_impl(&dword_1CEDC5000, v104, OS_LOG_TYPE_DEFAULT, "%@ is missing, but allowed", buf, 0xCu);
       }
 
@@ -1111,7 +1157,7 @@ LABEL_211:
 LABEL_212:
       if (v98 == ++v100)
       {
-        v105 = [&unk_1F4BCD168 countByEnumeratingWithState:&v139 objects:v173 count:16];
+        v105 = [&unk_1F4BCD168 countByEnumeratingWithState:&v138 objects:v172 count:16];
         v98 = v105;
         LOBYTE(v21) = 1;
         if (!v105)
@@ -1153,16 +1199,16 @@ LABEL_212:
 LABEL_259:
 
 LABEL_260:
-  cCopy = v127;
+  cCopy = v126;
 LABEL_261:
   error = errorCopy;
 LABEL_262:
   instances = instancesCopy3;
-  v14 = v130;
+  v14 = v129;
 LABEL_263:
   dictCopy3 = dict;
   classesCopy3 = classes;
-  v20 = v132;
+  v20 = v131;
 LABEL_264:
   if (dictCopy3)
   {
@@ -1176,7 +1222,7 @@ LABEL_264:
 
   if (instances)
   {
-    objc_storeStrong(instances, v136);
+    objc_storeStrong(instances, v135);
   }
 
   if (error)
@@ -1185,18 +1231,17 @@ LABEL_264:
     *error = v19;
   }
 
-  v125 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)getMinimalManifestsClassesAndInstancesWithPartSPC:(id)c fdrLocal:(__AMFDR *)local fdrRemote:(__AMFDR *)remote minimalSealingDataInstances:(id *)instances minimalSealedDataClasses:(id *)classes minimalSealedDataInstances:(id *)dataInstances minimalSealedVersions:(id *)versions error:(id *)self0
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   cCopy = c;
-  v91 = 0;
+  v90 = 0;
   v14 = objc_opt_new();
   v15 = objc_opt_new();
-  v85 = cCopy;
+  v84 = cCopy;
   localCopy = local;
   remoteCopy = remote;
   if (!-[CRFDRBaseDeviceHandler isServicePart](self, "isServicePart") || ![cCopy containsObject:@"IPHONE COMP MLB"])
@@ -1206,13 +1251,13 @@ LABEL_264:
     goto LABEL_25;
   }
 
-  v89 = 0;
-  v90 = 0;
   v88 = 0;
-  v16 = [(CRFDRBaseDeviceHandler *)self getKBBMinimalManifestsWithVersions:&v88 minimalSealingDataInstances:&v90 minimalSealedDataClasses:0 minimalSealedDataInstances:0 minimalSealedVersions:&v89];
-  v17 = v88;
+  v89 = 0;
+  v87 = 0;
+  v16 = [(CRFDRBaseDeviceHandler *)self getKBBMinimalManifestsWithVersions:&v87 minimalSealingDataInstances:&v89 minimalSealedDataClasses:0 minimalSealedDataInstances:0 minimalSealedVersions:&v88];
+  v17 = v87;
   v18 = v17;
-  v80 = v17;
+  v79 = v17;
   if (!v16 || v17)
   {
     v74 = @"getKBBMinimalManifestsWithVersions failed";
@@ -1224,9 +1269,9 @@ LABEL_264:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v93 = v90;
-      v94 = 2112;
-      v95 = v89;
+      v92 = v89;
+      v93 = 2112;
+      v94 = v88;
       _os_log_impl(&dword_1CEDC5000, v19, OS_LOG_TYPE_DEFAULT, "KBB MinimalManifests: %@, %@", buf, 0x16u);
     }
 
@@ -1262,22 +1307,22 @@ LABEL_264:
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v93 = v23;
+          v92 = v23;
           _os_log_impl(&dword_1CEDC5000, v30, OS_LOG_TYPE_DEFAULT, "KBB pearl instance: %@", buf, 0xCu);
         }
 
-        if ([v90 count])
+        if ([v89 count])
         {
           v31 = 0;
           do
           {
-            v32 = [v90 objectAtIndexedSubscript:v31];
+            v32 = [v89 objectAtIndexedSubscript:v31];
             if ([v32 isEqual:v23])
             {
-              v33 = [v90 objectAtIndexedSubscript:v31];
+              v33 = [v89 objectAtIndexedSubscript:v31];
               [v14 addObject:v33];
 
-              v34 = [v89 objectAtIndexedSubscript:v31];
+              v34 = [v88 objectAtIndexedSubscript:v31];
               if (v34)
               {
                 [v15 addObject:v34];
@@ -1293,7 +1338,7 @@ LABEL_264:
             ++v31;
           }
 
-          while ([v90 count] > v31);
+          while ([v89 count] > v31);
         }
 
         v36 = 0;
@@ -1316,7 +1361,7 @@ LABEL_84:
     v45 = v15;
     v40 = v14;
     errorCopy6 = error;
-    v41 = v80;
+    v41 = v79;
     if (!error)
     {
       goto LABEL_81;
@@ -1325,18 +1370,18 @@ LABEL_84:
     goto LABEL_80;
   }
 
-  v38 = v80;
-  cCopy = v85;
+  v38 = v79;
+  cCopy = v84;
 LABEL_25:
   if (([cCopy containsObject:@"IPHONE COMP FACEID"] & 1) != 0 || objc_msgSend(cCopy, "containsObject:", @"RECOVER"))
   {
+    v88 = 0;
     v89 = 0;
-    v90 = 0;
     v39 = AMFDRSealingMapCopyMinimalManifestClassesAndInstancesWithAttribute();
-    v40 = v90;
+    v40 = v89;
 
-    v84 = v89;
-    v41 = v91;
+    v83 = v88;
+    v41 = v90;
 
     if (!v39 || v41)
     {
@@ -1345,7 +1390,7 @@ LABEL_25:
       LOBYTE(v37) = 0;
       v36 = v43;
       errorCopy6 = error;
-      v45 = v84;
+      v45 = v83;
       if (!error)
       {
         goto LABEL_81;
@@ -1358,9 +1403,9 @@ LABEL_25:
     if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v93 = v40;
-      v94 = 2112;
-      v95 = v84;
+      v92 = v40;
+      v93 = 2112;
+      v94 = v83;
       _os_log_impl(&dword_1CEDC5000, v42, OS_LOG_TYPE_DEFAULT, "Current MinimalManifests: %@, %@", buf, 0x16u);
     }
 
@@ -1369,19 +1414,19 @@ LABEL_25:
 
   else
   {
-    v84 = v15;
+    v83 = v15;
     v40 = v14;
   }
 
   if ([v40 count])
   {
+    v88 = 0;
     v89 = 0;
-    v90 = 0;
     obj = objc_opt_new();
     v46 = objc_opt_new();
-    v87 = v38;
-    v47 = [(CRFDRBaseDeviceHandler *)self getCurrentMinimalManifestsWithVersions:&v87 fdrRemote:remoteCopy minimalSealingDataInstances:&v90 minimalSealedDataClasses:0 minimalSealedDataInstances:0 minimalSealedVersions:&v89];
-    v41 = v87;
+    v86 = v38;
+    v47 = [(CRFDRBaseDeviceHandler *)self getCurrentMinimalManifestsWithVersions:&v86 fdrRemote:remoteCopy minimalSealingDataInstances:&v89 minimalSealedDataClasses:0 minimalSealedDataInstances:0 minimalSealedVersions:&v88];
+    v41 = v86;
 
     if (!v47 || v41)
     {
@@ -1395,9 +1440,9 @@ LABEL_25:
       if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v93 = v90;
-        v94 = 2112;
-        v95 = v89;
+        v92 = v89;
+        v93 = 2112;
+        v94 = v88;
         _os_log_impl(&dword_1CEDC5000, v48, OS_LOG_TYPE_DEFAULT, "Original MinimalManifests: %@, %@", buf, 0x16u);
       }
 
@@ -1434,23 +1479,23 @@ LABEL_25:
           if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v93 = v52;
+            v92 = v52;
             _os_log_impl(&dword_1CEDC5000, v59, OS_LOG_TYPE_DEFAULT, "Current pearl instance: %@", buf, 0xCu);
           }
 
-          v45 = v84;
-          if ([v90 count])
+          v45 = v83;
+          if ([v89 count])
           {
             v60 = 0;
             do
             {
-              v61 = [v90 objectAtIndexedSubscript:v60];
+              v61 = [v89 objectAtIndexedSubscript:v60];
               if (([v61 isEqual:v52] & 1) == 0)
               {
-                v62 = [v90 objectAtIndexedSubscript:v60];
+                v62 = [v89 objectAtIndexedSubscript:v60];
                 [obj addObject:v62];
 
-                v63 = [v89 objectAtIndexedSubscript:v60];
+                v63 = [v88 objectAtIndexedSubscript:v60];
                 if (v63)
                 {
                   [v46 addObject:v63];
@@ -1461,14 +1506,14 @@ LABEL_25:
                   null2 = [MEMORY[0x1E695DFB0] null];
                   [v46 addObject:null2];
 
-                  v45 = v84;
+                  v45 = v83;
                 }
               }
 
               ++v60;
             }
 
-            while ([v90 count] > v60);
+            while ([v89 count] > v60);
           }
 
           if ([v40 count])
@@ -1501,19 +1546,19 @@ LABEL_25:
           if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v93 = obj;
-            v94 = 2112;
-            v95 = v46;
+            v92 = obj;
+            v93 = 2112;
+            v94 = v46;
             _os_log_impl(&dword_1CEDC5000, v69, OS_LOG_TYPE_DEFAULT, "Merged MinimalManifests: %@, %@", buf, 0x16u);
           }
 
           v41 = 0;
-          if ((([v85 containsObject:@"IPHONE COMP MLB"] & 1) != 0 || objc_msgSend(v85, "containsObject:", @"IPHONE COMP FACEID")) && !-[CRFDRBaseDeviceHandler setMinimalSealingMeta:hintDataClass:sealingInstances:](self, "setMinimalSealingMeta:hintDataClass:sealingInstances:", localCopy, @"pspc", v40))
+          if ((([v84 containsObject:@"IPHONE COMP MLB"] & 1) != 0 || objc_msgSend(v84, "containsObject:", @"IPHONE COMP FACEID")) && !-[CRFDRBaseDeviceHandler setMinimalSealingMeta:hintDataClass:sealingInstances:](self, "setMinimalSealingMeta:hintDataClass:sealingInstances:", localCopy, @"pspc", v40))
           {
-            v79 = createCRError(0xFFFFFFFFFFFFFFFDLL, @"Failed to set minimal sealing meta", 0);
+            v78 = createCRError(0xFFFFFFFFFFFFFFFDLL, @"Failed to set minimal sealing meta", 0);
             v37 = 0;
             v71 = v36;
-            v36 = v79;
+            v36 = v78;
             errorCopy6 = error;
           }
 
@@ -1560,13 +1605,13 @@ LABEL_76:
     v71 = v36;
     v36 = v75;
     errorCopy6 = error;
-    v45 = v84;
+    v45 = v83;
     goto LABEL_76;
   }
 
   v41 = v38;
   errorCopy6 = error;
-  v45 = v84;
+  v45 = v83;
 LABEL_78:
   LOBYTE(v37) = 1;
 LABEL_79:
@@ -1579,7 +1624,6 @@ LABEL_80:
 
 LABEL_81:
 
-  v77 = *MEMORY[0x1E69E9840];
   return v37;
 }
 

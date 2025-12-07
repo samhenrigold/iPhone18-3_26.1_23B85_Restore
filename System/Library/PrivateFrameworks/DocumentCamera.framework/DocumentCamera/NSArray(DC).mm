@@ -130,7 +130,7 @@
 
 - (id)dc_objectBefore:()DC wrap:
 {
-  v6 = [self indexOfObject:?];
+  v6 = [self indexOfObject:a3];
   v7 = 0;
   if (v6)
   {
@@ -152,7 +152,7 @@
 
 - (id)dc_objectAfter:()DC wrap:
 {
-  v6 = [self indexOfObject:?];
+  v6 = [self indexOfObject:a3];
   if (v6 == 0x7FFFFFFFFFFFFFFFLL || (v8 = v6, (a4 & 1) == 0) && v6 == [self count] - 1)
   {
     v7 = 0;

@@ -15,7 +15,7 @@
   v14 = objc_opt_new();
   if ([dateCopy compare:endDateCopy] == 1)
   {
-    v15 = __atxlog_handle_context_heuristic();
+    v15 = __atxlog_handle_context_heuristic(1);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       +[ATXHeuristicCommuteWorkUtilities heuristicResultToWorkWithLocation:validStartDate:validEndDate:heuristicDevice:];
@@ -68,7 +68,7 @@
   v11 = objc_opt_new();
   if ([dateCopy compare:endDateCopy] == 1)
   {
-    v12 = __atxlog_handle_context_heuristic();
+    v12 = __atxlog_handle_context_heuristic(1);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       +[ATXHeuristicCommuteWorkUtilities heuristicResultToWorkWithLocation:validStartDate:validEndDate:heuristicDevice:];
@@ -103,14 +103,6 @@
   }
 
   return v13;
-}
-
-+ (void)heuristicResultToWorkWithLocation:validStartDate:validEndDate:heuristicDevice:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_3_1(&dword_23E3EA000, v0, v1, "ATXHeuristicCommuteWorkUtilities: validStartDate %@ is after validEndDate %@. Skipping suggestion");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

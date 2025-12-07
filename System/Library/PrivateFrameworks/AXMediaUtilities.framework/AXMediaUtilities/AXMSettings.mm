@@ -327,7 +327,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 
 - (BOOL)writeOutInputImages
 {
-  v3 = AXMHasInternalSecurityPrivilages();
+  v3 = AXMHasInternalSecurityPrivilages(self, a2);
   if (v3)
   {
     defaults = self->_defaults;
@@ -341,7 +341,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 - (void)setWriteOutInputImages:(BOOL)images
 {
   imagesCopy = images;
-  if (AXMHasInternalSecurityPrivilages())
+  if (AXMHasInternalSecurityPrivilages(self, a2))
   {
     defaults = self->_defaults;
 
@@ -351,7 +351,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 
 - (BOOL)writeOutOCRInputImages
 {
-  v3 = AXMHasInternalSecurityPrivilages();
+  v3 = AXMHasInternalSecurityPrivilages(self, a2);
   if (v3)
   {
     defaults = self->_defaults;
@@ -365,7 +365,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 - (void)setWriteOutOCRInputImages:(BOOL)images
 {
   imagesCopy = images;
-  if (AXMHasInternalSecurityPrivilages())
+  if (AXMHasInternalSecurityPrivilages(self, a2))
   {
     defaults = self->_defaults;
 
@@ -375,7 +375,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 
 - (BOOL)writeOutScreenCaptures
 {
-  v3 = AXMHasInternalSecurityPrivilages();
+  v3 = AXMHasInternalSecurityPrivilages(self, a2);
   if (v3)
   {
     defaults = self->_defaults;
@@ -389,7 +389,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 - (void)setWriteOutScreenCaptures:(BOOL)captures
 {
   capturesCopy = captures;
-  if (AXMHasInternalSecurityPrivilages())
+  if (AXMHasInternalSecurityPrivilages(self, a2))
   {
     defaults = self->_defaults;
 
@@ -399,7 +399,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 
 - (BOOL)useANODModelForAXElementVision
 {
-  if (!AXMHasInternalSecurityPrivilages())
+  if (!AXMHasInternalSecurityPrivilages(self, a2))
   {
     return 1;
   }
@@ -412,7 +412,7 @@ void __44__AXMSettings_removeObserverForAllSettings___block_invoke(uint64_t a1)
 - (void)setUseANODModelForAXElementVision:(BOOL)vision
 {
   visionCopy = vision;
-  if (AXMHasInternalSecurityPrivilages())
+  if (AXMHasInternalSecurityPrivilages(self, a2))
   {
     defaults = self->_defaults;
 

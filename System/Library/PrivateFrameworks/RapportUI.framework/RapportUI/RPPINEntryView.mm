@@ -152,7 +152,7 @@
 
 - (void)_updateFields
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_wells count];
   v4 = &stru_287405838;
   if (!v3)
@@ -160,32 +160,32 @@
     v4 = @"-";
   }
 
-  v30 = v4;
+  v29 = v4;
   v5 = [(NSMutableString *)self->_text length];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v6 = self->_labels;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v36;
+    v10 = *v35;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * i);
+        v12 = *(*(&v34 + 1) + 8 * i);
         if (v9 >= v5)
         {
-          [*(*(&v35 + 1) + 8 * i) setText:v30];
+          [*(*(&v34 + 1) + 8 * i) setText:v29];
         }
 
         else
@@ -209,7 +209,7 @@
         ++v9;
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v8);
@@ -226,34 +226,34 @@
     grayColor = [MEMORY[0x277D75348] grayColor];
   }
 
-  v29 = grayColor;
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
+  v28 = grayColor;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v17 = self->_wells;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v18)
   {
     v19 = v18;
     v20 = 0;
-    v21 = *v32;
+    v21 = *v31;
     do
     {
       v22 = 0;
-      v28 = v20;
+      v27 = v20;
       v23 = v5 - v20;
       do
       {
-        if (*v32 != v21)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(v17);
         }
 
-        v24 = *(*(&v31 + 1) + 8 * v22);
+        v24 = *(*(&v30 + 1) + 8 * v22);
         if (v23 == v22 && !self->_disabled)
         {
-          [*(*(&v31 + 1) + 8 * v22) setBorderColor:v29];
+          [*(*(&v30 + 1) + 8 * v22) setBorderColor:v28];
           v26 = 2.0;
         }
 
@@ -270,14 +270,12 @@
       }
 
       while (v19 != v22);
-      v20 = v28 + v19;
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v20 = v27 + v19;
+      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v19);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteBackward
@@ -293,10 +291,9 @@
       textChangedHandler = self->_textChangedHandler;
       if (textChangedHandler)
       {
-        v7 = self->_text;
-        v8 = *(textChangedHandler + 2);
+        v7 = *(textChangedHandler + 2);
 
-        v8();
+        v7();
       }
     }
   }

@@ -123,7 +123,7 @@
       v29 = 1;
 LABEL_18:
       v30 = [(SBUpdateContinuousExposeStripsPresentationResponse *)v27 initWithPresentationOptions:v28 dismissalOptions:v29];
-      v31 = SBAppendSwitcherModifierResponse(v30, v5);
+      v31 = SBAppendSwitcherModifierResponse();
 
       v5 = v31;
     }
@@ -155,7 +155,7 @@ LABEL_19:
       [(SBSwitcherTransitionRequest *)v37 setAppLayout:v38];
 
       v39 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v37 gestureInitiated:0];
-      v40 = SBAppendSwitcherModifierResponse(v39, v5);
+      v40 = SBAppendSwitcherModifierResponse();
 
       v5 = v40;
     }

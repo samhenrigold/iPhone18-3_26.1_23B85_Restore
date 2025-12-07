@@ -62,7 +62,7 @@
 
 - (void)__queryServerForID:(id)d count:(id)count completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   countCopy = count;
   completionCopy = completion;
@@ -72,9 +72,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v17 = dCopy;
-      v18 = 2112;
-      v19 = countCopy;
+      v16 = dCopy;
+      v17 = 2112;
+      v18 = countCopy;
       _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Performing server query with alias: %@, count: %@", buf, 0x16u);
     }
   }
@@ -90,16 +90,14 @@
   }
 
   v12 = v11;
-  v15 = completionCopy;
+  v14 = completionCopy;
   v13 = completionCopy;
   IDSCheckiMessageUnknownSender();
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSpamCheckTimerWithInterval:(double)interval forChatGUID:(id)d
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = dCopy;
   if (interval >= 0.0)
@@ -118,7 +116,7 @@
       {
         *buf = 138412546;
         intervalCopy2 = *&v7;
-        v23 = 2048;
+        v22 = 2048;
         intervalCopy3 = interval;
         _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping spam check for chatGUID: %@ interval: %f", buf, 0x16u);
       }
@@ -133,7 +131,7 @@
       {
         *buf = 134218242;
         intervalCopy2 = interval;
-        v23 = 2112;
+        v22 = 2112;
         intervalCopy3 = *&v7;
         _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Scheduling a spam check with interval: %f for chatGUID: %@", buf, 0x16u);
       }
@@ -148,13 +146,13 @@
 
     if (interval <= 0.0)
     {
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = sub_22B514EDC;
-      v18[3] = &unk_278702FA0;
-      v19 = v7;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = sub_22B514EDC;
+      v17[3] = &unk_278702FA0;
+      v18 = v7;
       selfCopy = self;
-      dispatch_async(MEMORY[0x277D85CD0], v18);
+      dispatch_async(MEMORY[0x277D85CD0], v17);
     }
 
     else
@@ -180,7 +178,7 @@
     {
       *buf = 138412546;
       intervalCopy2 = *&v7;
-      v23 = 2048;
+      v22 = 2048;
       intervalCopy3 = interval;
       _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Stopping spam check for chatGUID: %@ interval: %f", buf, 0x16u);
     }
@@ -189,8 +187,6 @@ LABEL_5:
   }
 
 LABEL_22:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_spamCheckTimerFired:(id)fired
@@ -228,7 +224,7 @@ LABEL_22:
 
 - (void)detectSpam:(id)spam chatGUID:(id)d
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   spamCopy = spam;
   dCopy = d;
   chatRegistry = [(IMDSpamController *)self chatRegistry];
@@ -251,16 +247,16 @@ LABEL_22:
           v18 = properties;
           v19 = @"NO";
           *buf = 138412802;
-          v36 = dCopy;
-          v37 = 2112;
+          v35 = dCopy;
+          v36 = 2112;
           if (_isDisabled)
           {
             v19 = @"YES";
           }
 
-          v38 = v19;
-          v39 = 2112;
-          v40 = properties;
+          v37 = v19;
+          v38 = 2112;
+          v39 = properties;
           _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "don't try to detect spam for chat: %@, disabled: %@, properties: %@", buf, 0x20u);
         }
       }
@@ -283,25 +279,23 @@ LABEL_22:
       unsignedIntegerValue = [v24 unsignedIntegerValue];
 
       v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = sub_22B5153A0;
-      v31[3] = &unk_278703380;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = sub_22B5153A0;
+      v30[3] = &unk_278703380;
       v27 = dCopy;
-      v32 = v27;
-      v33 = v9;
+      v31 = v27;
+      v32 = v9;
       selfCopy = self;
-      [(IMDSpamController *)self __queryServerForID:spamCopy count:v26 completion:v31];
+      [(IMDSpamController *)self __queryServerForID:spamCopy count:v26 completion:v30];
 
       chatGUIDToCountMap3 = [(IMDSpamController *)self chatGUIDToCountMap];
       v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue + 1];
       [chatGUIDToCountMap3 setObject:v29 forKey:v27];
 
-      chatGUIDToCountMap = v32;
+      chatGUIDToCountMap = v31;
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkForSpamWithExtensionInChat:(id)chat forMessageBody:(id)body sender:(id)sender withCompletion:(id)completion

@@ -58,19 +58,17 @@
 
 id __87__SCLActiveDurationAnalyticsSource_commitAnalyticsEventForTransitionFromState_toState___block_invoke(uint64_t a1)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  v8[0] = @"scheduleEnabled";
+  v8[3] = *MEMORY[0x277D85DE8];
+  v7[0] = @"scheduleEnabled";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "isScheduleEnabled")}];
-  v9[0] = v2;
-  v8[1] = @"inSchedule";
+  v8[0] = v2;
+  v7[1] = @"inSchedule";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "isInSchedule")}];
-  v9[1] = v3;
-  v8[2] = @"duration";
+  v8[1] = v3;
+  v7[2] = @"duration";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:*(a1 + 40)];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }

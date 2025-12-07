@@ -35,7 +35,7 @@
 
   else
   {
-    v9 = _ACLogSystem();
+    v9 = _ACLogSystem(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 0;
@@ -46,17 +46,15 @@
 
 void __88__ACAccountStoreClientSideListener_accountCredentialsDidChangeForAccountWithIdentifier___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];
   v3 = *(a1 + 32);
-  v6[0] = @"ACAccountIdentifierKey";
-  v6[1] = @"AccountIdentifier";
-  v7[0] = v3;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[0] = @"ACAccountIdentifierKey";
+  v5[1] = @"AccountIdentifier";
+  v6[0] = v3;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
   [v2 postNotificationName:@"ACAccountCredentialsDidChangeNotification" object:0 userInfo:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

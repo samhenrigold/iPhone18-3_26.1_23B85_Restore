@@ -22,7 +22,7 @@
   v11 = providerCopy;
   sub_1BE048964();
   sub_1BE052E74();
-
+  v9, v12, v13, v14, v15, v16, v17, v18;
   [(PKDashboardFinanceKitSpendingSummaryCell *)selfCopy setNeedsUpdateConfiguration];
 }
 

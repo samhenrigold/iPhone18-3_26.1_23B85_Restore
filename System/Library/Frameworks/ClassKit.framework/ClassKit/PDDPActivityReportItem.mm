@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 0;
   }
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100204038[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -127,42 +143,41 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_title)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_binaryValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_quantityValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_scoreValue)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -265,7 +280,6 @@
     }
   }
 
-  v7 = *(equalCopy + 52);
   if (*&self->_has)
   {
     if ((*(equalCopy + 52) & 1) == 0 || self->_type != *(equalCopy + 12))
@@ -277,7 +291,7 @@
   else if (*(equalCopy + 52))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -299,17 +313,17 @@ LABEL_17:
   scoreValue = self->_scoreValue;
   if (scoreValue | *(equalCopy + 4))
   {
-    v11 = [(PDDPScoreValue *)scoreValue isEqual:?];
+    v10 = [(PDDPScoreValue *)scoreValue isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -405,18 +419,28 @@ LABEL_19:
   v10 = *(fromCopy + 4);
   if (scoreValue)
   {
-    if (v10)
+    if (!v10)
     {
-      [(PDDPScoreValue *)scoreValue mergeFrom:?];
+      goto LABEL_25;
     }
+
+    scoreValue = [(PDDPScoreValue *)scoreValue mergeFrom:?];
   }
 
-  else if (v10)
+  else
   {
-    [(PDDPActivityReportItem *)self setScoreValue:?];
+    if (!v10)
+    {
+      goto LABEL_25;
+    }
+
+    scoreValue = [(PDDPActivityReportItem *)self setScoreValue:?];
   }
 
-  _objc_release_x1();
+  fromCopy = v11;
+LABEL_25:
+
+  _objc_release_x1(scoreValue, fromCopy);
 }
 
 @end

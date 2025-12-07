@@ -35,20 +35,19 @@
   if (data)
   {
 
-    v7 = dataCopy;
+    v6 = dataCopy;
     dataCopy = sub_1B4F64894();
-    v9 = v8;
+    v8 = v7;
   }
 
   else
   {
 
-    v9 = 0xF000000000000000;
+    v8 = 0xF000000000000000;
   }
 
-  v10 = *self->dispatchService;
-  TransportDispatchService.dispatchEvent(_:data:)(event, dataCopy, v9);
-  sub_1B4DD2B5C(dataCopy, v9);
+  TransportDispatchService.dispatchEvent(_:data:)(event, dataCopy, v8);
+  sub_1B4DD2B5C(dataCopy, v8);
 }
 
 @end

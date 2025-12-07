@@ -190,31 +190,28 @@ LABEL_20:
   toCopy = to;
   if ([(_INPBDecimalNumberValue *)self hasExponent])
   {
-    exponent = self->_exponent;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBDecimalNumberValue *)self hasIsNegative])
   {
-    isNegative = self->_isNegative;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBDecimalNumberValue *)self hasMantissa])
   {
-    mantissa = self->_mantissa;
     PBDataWriterWriteUint64Field();
   }
 
   valueMetadata = [(_INPBDecimalNumberValue *)self valueMetadata];
 
-  v8 = toCopy;
+  v5 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBDecimalNumberValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v8 = toCopy;
+    v5 = toCopy;
   }
 }
 

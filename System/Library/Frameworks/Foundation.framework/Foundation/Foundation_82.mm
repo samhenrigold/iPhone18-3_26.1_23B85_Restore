@@ -3,7 +3,7 @@ uint64_t closure #1 in AttributedString.Guts._constrainedAttributes(at:with:)(ui
   v17[0] = a1;
   v17[1] = a2;
   outlined init with copy of AttributedString._AttributeValue(a3, &v18);
-  outlined init with copy of FloatingPointRoundingRule?(v17, &v13, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+  outlined init with copy of FloatingPointRoundingRule?(v17, &v13, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 
   v7 = v15;
   v8 = v16;
@@ -14,7 +14,7 @@ uint64_t closure #1 in AttributedString.Guts._constrainedAttributes(at:with:)(ui
     if (a5 == 1)
     {
 
-      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
       goto LABEL_6;
     }
 
@@ -27,7 +27,7 @@ uint64_t closure #1 in AttributedString.Guts._constrainedAttributes(at:with:)(ui
 
           outlined copy of AttributedString.AttributeRunBoundaries?(a4, a5);
 
-          outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+          outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 LABEL_18:
           v9 = 1;
           goto LABEL_19;
@@ -37,7 +37,7 @@ LABEL_18:
 
         outlined copy of AttributedString.AttributeRunBoundaries?(v7, v8);
 
-        outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+        outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 LABEL_19:
         v10 = v7;
         v11 = v8;
@@ -46,13 +46,13 @@ LABEL_19:
 
       outlined copy of AttributedString.AttributeRunBoundaries?(v7, v8);
 
-      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
     }
 
     else
     {
 
-      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+      outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
       if (!a5)
       {
 
@@ -64,7 +64,7 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+  outlined destroy of TermOfAddress?(v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
   if (a5 == 1)
   {
     v9 = 1;
@@ -87,7 +87,7 @@ uint64_t closure #1 in AttributedString.Guts._characterInvalidatedAttributes(at:
   v12[0] = a1;
   v12[1] = a2;
   outlined init with copy of AttributedString._AttributeValue(a3, &v13);
-  outlined init with copy of FloatingPointRoundingRule?(v12, v9, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+  outlined init with copy of FloatingPointRoundingRule?(v12, v9, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 
   v3 = v11;
   if (v11)
@@ -114,12 +114,12 @@ LABEL_7:
     }
   }
 
-  outlined destroy of TermOfAddress?(v12, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+  outlined destroy of TermOfAddress?(v12, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
   outlined destroy of AttributedString._AttributeValue(&v10);
   return v3;
 }
 
-uint64_t AttributedString.Guts._applyStyle(type:from:to:)(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t AttributedString.Guts._applyStyle(type:from:to:)(uint64_t *a1, int64_t a2, uint64_t a3, uint64_t a4)
 {
   v272 = a3;
   v315 = *MEMORY[0x1E69E9840];
@@ -438,7 +438,7 @@ LABEL_29:
     goto LABEL_33;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
   v45 = static _DictionaryStorage.allocate(capacity:)();
   v238 = 0;
   v8 = *v32;
@@ -970,7 +970,7 @@ LABEL_179:
                   v311 = 0u;
                 }
 
-                outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+                outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
                 if (*(&v306 + 1))
                 {
                   v302 = v307;
@@ -985,14 +985,14 @@ LABEL_179:
 
                 else
                 {
-                  outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+                  outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
                   specialized Dictionary.removeValue(forKey:)(v138, v8, &v305);
                 }
 
                 AttributedString._AttributeStorage._attributeModified(_:old:new:)(v138, v8, &v305, &v310);
 
-                outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-                outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+                outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+                outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               }
 
               v142 = 0;
@@ -1041,7 +1041,7 @@ LABEL_120:
           v311 = 0u;
 
 LABEL_132:
-          outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           v121 = 0;
 LABEL_133:
           v123 = v281;
@@ -1079,7 +1079,7 @@ LABEL_148:
         }
 
         outlined init with copy of AttributedString._AttributeValue(&v310, &v305);
-        outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v121 = *(&v307 + 1);
         v122 = v308;
         outlined copy of AttributedString.AttributeRunBoundaries?(*(&v307 + 1), v308);
@@ -1128,7 +1128,7 @@ LABEL_136:
               v128 = v126;
 
               outlined init with copy of AttributedString._AttributeValue(*(v6 + 56) + 72 * v128, &v310);
-              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             }
 
             else
@@ -1138,13 +1138,13 @@ LABEL_136:
               v313 = 0u;
               v310 = 0u;
               v311 = 0u;
-              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               v314 = 0;
               v312 = 0u;
               v313 = 0u;
               v310 = 0u;
               v311 = 0u;
-              outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               if (*(&v306 + 1))
               {
                 v302 = v307;
@@ -1159,15 +1159,15 @@ LABEL_136:
 
               else
               {
-                outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+                outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
                 specialized Dictionary.removeValue(forKey:)(v117, v8, &v305);
               }
 
               AttributedString._AttributeStorage._attributeModified(_:old:new:)(v117, v8, &v305, &v310);
 
               v8 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
-              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+              outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               LODWORD(v268) = 1;
             }
 
@@ -1211,8 +1211,8 @@ LABEL_151:
     v310 = v283;
     v311 = v284;
     v312 = v285;
-    outlined destroy of TermOfAddress?(&v298, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd);
-    outlined destroy of TermOfAddress?(&v298 + 8, &_sShySSGMd);
+    outlined destroy of TermOfAddress?(&v298, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMR);
+    outlined destroy of TermOfAddress?(&v298 + 8, &_sShySSGMd, &_sShySSGMR);
     v311 = MEMORY[0x1E69E7CC8];
     v268 = v5 + 1;
     v84[12] = v5 + 1;
@@ -1250,7 +1250,7 @@ LABEL_78:
         v311 = 0u;
 
 LABEL_90:
-        outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v97 = 0;
 LABEL_91:
         v99 = v281;
@@ -1290,7 +1290,7 @@ LABEL_98:
       }
 
       outlined init with copy of AttributedString._AttributeValue(&v310, &v305);
-      outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v97 = *(&v307 + 1);
       v98 = v308;
       outlined copy of AttributedString.AttributeRunBoundaries?(*(&v307 + 1), v308);
@@ -1365,7 +1365,7 @@ LABEL_94:
             v105 = v103;
 
             outlined init with copy of AttributedString._AttributeValue(*(v102 + 56) + 72 * v105, &v310);
-            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             v5 = v277;
           }
 
@@ -1376,13 +1376,13 @@ LABEL_94:
             v313 = 0u;
             v310 = 0u;
             v311 = 0u;
-            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             v314 = 0;
             v312 = 0u;
             v313 = 0u;
             v310 = 0u;
             v311 = 0u;
-            outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             if (*(&v306 + 1))
             {
               v302 = v307;
@@ -1397,14 +1397,14 @@ LABEL_94:
 
             else
             {
-              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               specialized Dictionary.removeValue(forKey:)(v8, v93, &v305);
             }
 
             AttributedString._AttributeStorage._attributeModified(_:old:new:)(v8, v93, &v305, &v310);
 
-            outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             LODWORD(v275) = 1;
             v5 = v277;
           }
@@ -1547,7 +1547,7 @@ LABEL_218:
               v311 = 0u;
             }
 
-            outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined init with copy of FloatingPointRoundingRule?(&v310, &v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             if (*(&v306 + 1))
             {
               v302 = v307;
@@ -1562,14 +1562,14 @@ LABEL_218:
 
             else
             {
-              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+              outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
               specialized Dictionary.removeValue(forKey:)(v160, v8, &v305);
             }
 
             AttributedString._AttributeStorage._attributeModified(_:old:new:)(v160, v8, &v305, &v310);
 
-            outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+            outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+            outlined destroy of TermOfAddress?(&v310, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
             i = 1;
             v5 = v277;
             continue;
@@ -1646,8 +1646,8 @@ LABEL_212:
       v312 = v294;
       v191 = v282;
 
-      outlined destroy of TermOfAddress?(&v297, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd);
-      outlined destroy of TermOfAddress?(&v297 + 8, &_sShySSGMd);
+      outlined destroy of TermOfAddress?(&v297, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMR);
+      outlined destroy of TermOfAddress?(&v297 + 8, &_sShySSGMd, &_sShySSGMR);
       v311 = v191;
       v5 += 2;
       v192 = v278;
@@ -1677,8 +1677,8 @@ LABEL_212:
     specialized Rope._Node._prepareModify(at:)(v274, &v286);
     v295 = v287;
     v296 = v288;
-    outlined destroy of TermOfAddress?(&v295, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd);
-    outlined destroy of TermOfAddress?(&v296, &_sShySSGMd);
+    outlined destroy of TermOfAddress?(&v295, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_sSDySS10Foundation16AttributedStringV15_AttributeValueVGMR);
+    outlined destroy of TermOfAddress?(&v296, &_sShySSGMd, &_sShySSGMR);
     v310 = v286;
     v312 = v289;
     v184 = v282;
@@ -2071,7 +2071,7 @@ LABEL_393:
   return result;
 }
 
-uint64_t closure #1 in AttributedString.Guts.enforceAttributeConstraintsBeforeMutation(to:)(unint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, char **a5, char *a6, uint64_t a7, void *a8)
+uint64_t closure #1 in AttributedString.Guts.enforceAttributeConstraintsBeforeMutation(to:)(unint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, int64_t *a5, int64_t a6, uint64_t a7, uint64_t *a8)
 {
   v8 = a5;
   v9 = a1;
@@ -2174,7 +2174,7 @@ LABEL_118:
         {
           if (v172)
           {
-            if (v172 == *(v11 + 2))
+            if (v172 == *(v11 + 16))
             {
               v8 = v161;
 LABEL_114:
@@ -2182,12 +2182,12 @@ LABEL_114:
             }
 
             v10 = v11;
-            v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd);
+            v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
             v134 = static _SetStorage.allocate(capacity:)();
             v135 = 0;
             v136 = v164;
             v9 = *v164;
-            v11 = (v134 + 56);
+            v11 = v134 + 56;
             do
             {
               if (v9)
@@ -2232,9 +2232,9 @@ LABEL_114:
               v144 = -1 << *(v134 + 32);
               v145 = v143 & ~v144;
               v146 = v145 >> 6;
-              if (((-1 << v145) & ~*&v11[8 * (v145 >> 6)]) != 0)
+              if (((-1 << v145) & ~*(v11 + 8 * (v145 >> 6))) != 0)
               {
-                v137 = __clz(__rbit64((-1 << v145) & ~*&v11[8 * (v145 >> 6)])) | v145 & 0x7FFFFFFFFFFFFFC0;
+                v137 = __clz(__rbit64((-1 << v145) & ~*(v11 + 8 * (v145 >> 6)))) | v145 & 0x7FFFFFFFFFFFFFC0;
               }
 
               else
@@ -2255,14 +2255,14 @@ LABEL_114:
                   }
 
                   v147 |= v149;
-                  v150 = *&v11[8 * v146];
+                  v150 = *(v11 + 8 * v146);
                 }
 
                 while (v150 == -1);
                 v137 = __clz(__rbit64(~v150)) + (v146 << 6);
               }
 
-              *&v11[(v137 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v137;
+              *(v11 + ((v137 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v137;
               v138 = (*(v134 + 48) + 16 * v137);
               *v138 = v10;
               v138[1] = v8;
@@ -2297,7 +2297,7 @@ LABEL_112:
       v23 = (v25 - 1) & v25;
 LABEL_16:
       v26 = v22 | (v16 << 6);
-      v27 = *(v11 + 6);
+      v27 = *(v11 + 48);
       v171 = v26;
       v28 = (v27 + 16 * v26);
       v30 = *v28;
@@ -2368,16 +2368,16 @@ LABEL_16:
         v206 = 0u;
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v210, &v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined init with copy of FloatingPointRoundingRule?(&v205, &v200, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v210, &v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined init with copy of FloatingPointRoundingRule?(&v205, &v200, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*(&v196 + 1))
       {
-        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (!*(&v201 + 1))
         {
           v159 = v31;
-          outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           v11 = v174;
           goto LABEL_36;
         }
@@ -2385,14 +2385,14 @@ LABEL_16:
         goto LABEL_7;
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v195, &v190, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v195, &v190, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*(&v201 + 1))
       {
-        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(&v190);
 LABEL_7:
-        outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+        outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
         v11 = v174;
         goto LABEL_8;
       }
@@ -2424,15 +2424,15 @@ LABEL_7:
         break;
       }
 
-      outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v51 = v38;
       v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
       (*(v40 + 56))(v10, 1, 1, v51);
       (*(v48 + 8))(v10, v47);
       outlined destroy of AttributedString._AttributeValue(&v185);
       outlined destroy of AttributedString._AttributeValue(&v190);
-      outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v11 = v174;
       v17 = v165;
       v9 = v166;
@@ -2448,12 +2448,12 @@ LABEL_8:
     v50 = dispatch thunk of static Equatable.== infix(_:_:)();
     (*(v40 + 8))(v42, v38);
     v10 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     outlined destroy of AttributedString._AttributeValue(&v185);
     outlined destroy of AttributedString._AttributeValue(&v190);
     v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v11 = v174;
     v17 = v165;
     v9 = v166;
@@ -2471,13 +2471,13 @@ LABEL_36:
     v198 = 0u;
     v195 = 0u;
     v196 = 0u;
-    outlined init with copy of FloatingPointRoundingRule?(&v195, &v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(&v195, &v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v211 + 1))
     {
       break;
     }
 
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v55 = v175;
     v65 = specialized __RawDictionaryStorage.find<A>(_:)(v175, v177);
     if (v66)
@@ -2489,7 +2489,7 @@ LABEL_36:
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
         v55 = 1;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
         v110 = v63;
         v111 = static _DictionaryStorage.copy(original:)();
         v63 = v111;
@@ -2613,8 +2613,8 @@ LABEL_69:
     AttributedString._AttributeStorage._attributeModified(_:old:new:)(v55, v177, &v210, &v195);
     v10 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
     v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
     *v156 = v155;
     *(v164 + ((v171 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v171;
@@ -2692,7 +2692,7 @@ LABEL_68:
       LODWORD(v163) = v57;
       v55 = 1;
       v168 = v56;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v169 = static _DictionaryStorage.copy(original:)();
       if (*(v54 + 16))
       {
@@ -2888,16 +2888,17 @@ LABEL_8:
   v109 = 0u;
 LABEL_9:
   v18 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
-  outlined init with copy of FloatingPointRoundingRule?(&v113, &v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-  outlined init with copy of FloatingPointRoundingRule?(&v108, &v103, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+  v19 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
+  outlined init with copy of FloatingPointRoundingRule?(&v113, &v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+  outlined init with copy of FloatingPointRoundingRule?(&v108, &v103, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   if (*(&v99 + 1))
   {
-    outlined init with copy of FloatingPointRoundingRule?(&v98, v96, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(&v98, v96, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (!*(&v104 + 1))
     {
 LABEL_20:
-      outlined destroy of TermOfAddress?(&v108, v18);
-      outlined destroy of TermOfAddress?(&v113, v18);
+      outlined destroy of TermOfAddress?(&v108, v18, v19);
+      outlined destroy of TermOfAddress?(&v113, v18, v19);
       outlined destroy of AttributedString._AttributeValue(v96);
       goto LABEL_21;
     }
@@ -2907,13 +2908,13 @@ LABEL_20:
     v95 = v107;
     v94[0] = v103;
     v94[1] = v104;
-    v19 = specialized static AttributedString._AttributeValue.== infix(_:_:)(v96, v94);
+    v20 = specialized static AttributedString._AttributeValue.== infix(_:_:)(v96, v94);
     outlined destroy of AttributedString._AttributeValue(v94);
-    outlined destroy of TermOfAddress?(&v108, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v108, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     outlined destroy of AttributedString._AttributeValue(v96);
-    outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    if ((v19 & 1) == 0)
+    outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    if ((v20 & 1) == 0)
     {
       return 0;
     }
@@ -2921,16 +2922,16 @@ LABEL_20:
 
   else
   {
-    outlined destroy of TermOfAddress?(&v108, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v108, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v104 + 1))
     {
 LABEL_21:
-      outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+      outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
       return 0;
     }
 
-    outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   }
 
   *a5 = 1;
@@ -2939,11 +2940,11 @@ LABEL_21:
   v101 = 0u;
   v98 = 0u;
   v99 = 0u;
-  outlined init with copy of FloatingPointRoundingRule?(&v98, &v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+  outlined init with copy of FloatingPointRoundingRule?(&v98, &v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   if (!*(&v114 + 1))
   {
 
-    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v30 = specialized __RawDictionaryStorage.find<A>(_:)(v12, v11);
     if ((v31 & 1) == 0)
     {
@@ -2955,8 +2956,8 @@ LABEL_21:
 LABEL_51:
       v62 = v118;
       AttributedString._AttributeStorage._attributeModified(_:old:new:)(v12, v11, &v113, &v98);
-      outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v98, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v113, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
       *v62 = a7;
       return 1;
@@ -2972,7 +2973,7 @@ LABEL_51:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v63 = static _DictionaryStorage.copy(original:)();
       v18 = v63;
       if (v34[2])
@@ -3077,7 +3078,7 @@ LABEL_50:
   v109 = v114;
   outlined init with copy of AttributedString._AttributeValue(&v108, v96);
 
-  v20 = swift_isUniquelyReferenced_nonNull_native();
+  v19 = swift_isUniquelyReferenced_nonNull_native();
   *&v94[0] = *a2;
   v21 = *&v94[0];
   v22 = specialized __RawDictionaryStorage.find<A>(_:)(v12, v11);
@@ -3095,7 +3096,7 @@ LABEL_50:
     LOBYTE(a5) = v23;
     if (*(v21 + 24) < v27)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v20);
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v19);
       v18 = *&v94[0];
       v22 = specialized __RawDictionaryStorage.find<A>(_:)(v12, v11);
       if ((a5 & 1) != (v28 & 1))
@@ -3142,7 +3143,7 @@ LABEL_49:
       goto LABEL_50;
     }
 
-    if (v20)
+    if (v19)
     {
       v18 = v21;
       goto LABEL_29;
@@ -3150,7 +3151,7 @@ LABEL_49:
   }
 
   v80 = v22;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
   v46 = static _DictionaryStorage.copy(original:)();
   v18 = v46;
   if (!*(v21 + 16))
@@ -3248,7 +3249,7 @@ LABEL_69:
   return result;
 }
 
-uint64_t closure #2 in AttributedString.Guts.enforceAttributeConstraintsBeforeMutation(to:)(unint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, char **a5, char *a6, uint64_t a7, void *a8)
+uint64_t closure #2 in AttributedString.Guts.enforceAttributeConstraintsBeforeMutation(to:)(unint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, int64_t *a5, int64_t a6, uint64_t a7, uint64_t *a8)
 {
   v8 = a5;
   v9 = a1;
@@ -3351,7 +3352,7 @@ LABEL_118:
         {
           if (v172)
           {
-            if (v172 == *(v11 + 2))
+            if (v172 == *(v11 + 16))
             {
               v8 = v161;
 LABEL_114:
@@ -3359,12 +3360,12 @@ LABEL_114:
             }
 
             v10 = v11;
-            v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd);
+            v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
             v134 = static _SetStorage.allocate(capacity:)();
             v135 = 0;
             v136 = v164;
             v9 = *v164;
-            v11 = (v134 + 56);
+            v11 = v134 + 56;
             do
             {
               if (v9)
@@ -3409,9 +3410,9 @@ LABEL_114:
               v144 = -1 << *(v134 + 32);
               v145 = v143 & ~v144;
               v146 = v145 >> 6;
-              if (((-1 << v145) & ~*&v11[8 * (v145 >> 6)]) != 0)
+              if (((-1 << v145) & ~*(v11 + 8 * (v145 >> 6))) != 0)
               {
-                v137 = __clz(__rbit64((-1 << v145) & ~*&v11[8 * (v145 >> 6)])) | v145 & 0x7FFFFFFFFFFFFFC0;
+                v137 = __clz(__rbit64((-1 << v145) & ~*(v11 + 8 * (v145 >> 6)))) | v145 & 0x7FFFFFFFFFFFFFC0;
               }
 
               else
@@ -3432,14 +3433,14 @@ LABEL_114:
                   }
 
                   v147 |= v149;
-                  v150 = *&v11[8 * v146];
+                  v150 = *(v11 + 8 * v146);
                 }
 
                 while (v150 == -1);
                 v137 = __clz(__rbit64(~v150)) + (v146 << 6);
               }
 
-              *&v11[(v137 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v137;
+              *(v11 + ((v137 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v137;
               v138 = (*(v134 + 48) + 16 * v137);
               *v138 = v10;
               v138[1] = v8;
@@ -3474,7 +3475,7 @@ LABEL_112:
       v23 = (v25 - 1) & v25;
 LABEL_16:
       v26 = v22 | (v16 << 6);
-      v27 = *(v11 + 6);
+      v27 = *(v11 + 48);
       v171 = v26;
       v28 = (v27 + 16 * v26);
       v30 = *v28;
@@ -3545,16 +3546,16 @@ LABEL_16:
         v206 = 0u;
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v210, &v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined init with copy of FloatingPointRoundingRule?(&v205, &v200, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v210, &v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined init with copy of FloatingPointRoundingRule?(&v205, &v200, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*(&v196 + 1))
       {
-        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (!*(&v201 + 1))
         {
           v159 = v31;
-          outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           v11 = v174;
           goto LABEL_36;
         }
@@ -3562,14 +3563,14 @@ LABEL_16:
         goto LABEL_7;
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v195, &v190, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v195, &v190, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*(&v201 + 1))
       {
-        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(&v190);
 LABEL_7:
-        outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+        outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
         v11 = v174;
         goto LABEL_8;
       }
@@ -3601,15 +3602,15 @@ LABEL_7:
         break;
       }
 
-      outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v51 = v38;
       v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
       (*(v40 + 56))(v10, 1, 1, v51);
       (*(v48 + 8))(v10, v47);
       outlined destroy of AttributedString._AttributeValue(&v185);
       outlined destroy of AttributedString._AttributeValue(&v190);
-      outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       v11 = v174;
       v17 = v165;
       v9 = v166;
@@ -3625,12 +3626,12 @@ LABEL_8:
     v50 = dispatch thunk of static Equatable.== infix(_:_:)();
     (*(v40 + 8))(v42, v38);
     v10 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v205, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     outlined destroy of AttributedString._AttributeValue(&v185);
     outlined destroy of AttributedString._AttributeValue(&v190);
     v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v11 = v174;
     v17 = v165;
     v9 = v166;
@@ -3648,13 +3649,13 @@ LABEL_36:
     v198 = 0u;
     v195 = 0u;
     v196 = 0u;
-    outlined init with copy of FloatingPointRoundingRule?(&v195, &v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(&v195, &v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v211 + 1))
     {
       break;
     }
 
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v55 = v175;
     v65 = specialized __RawDictionaryStorage.find<A>(_:)(v175, v177);
     if (v66)
@@ -3666,7 +3667,7 @@ LABEL_36:
       if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
         v55 = 1;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
         v110 = v63;
         v111 = static _DictionaryStorage.copy(original:)();
         v63 = v111;
@@ -3790,8 +3791,8 @@ LABEL_69:
     AttributedString._AttributeStorage._attributeModified(_:old:new:)(v55, v177, &v210, &v195);
     v10 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
     v14 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
-    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v195, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v210, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
     *v156 = v155;
     *(v164 + ((v171 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v171;
@@ -3869,7 +3870,7 @@ LABEL_68:
       LODWORD(v163) = v57;
       v55 = 1;
       v168 = v56;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v169 = static _DictionaryStorage.copy(original:)();
       if (*(v54 + 16))
       {
@@ -4065,16 +4066,17 @@ LABEL_8:
   v110 = 0u;
 LABEL_9:
   v19 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
-  outlined init with copy of FloatingPointRoundingRule?(&v114, &v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-  outlined init with copy of FloatingPointRoundingRule?(&v109, &v104, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+  v20 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
+  outlined init with copy of FloatingPointRoundingRule?(&v114, &v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+  outlined init with copy of FloatingPointRoundingRule?(&v109, &v104, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   if (*(&v100 + 1))
   {
-    outlined init with copy of FloatingPointRoundingRule?(&v99, v97, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(&v99, v97, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (!*(&v105 + 1))
     {
 LABEL_20:
-      outlined destroy of TermOfAddress?(&v109, v19);
-      outlined destroy of TermOfAddress?(&v114, v19);
+      outlined destroy of TermOfAddress?(&v109, v19, v20);
+      outlined destroy of TermOfAddress?(&v114, v19, v20);
       outlined destroy of AttributedString._AttributeValue(v97);
       goto LABEL_21;
     }
@@ -4084,13 +4086,13 @@ LABEL_20:
     v96 = v108;
     v95[0] = v104;
     v95[1] = v105;
-    v20 = specialized static AttributedString._AttributeValue.== infix(_:_:)(v97, v95);
+    v21 = specialized static AttributedString._AttributeValue.== infix(_:_:)(v97, v95);
     outlined destroy of AttributedString._AttributeValue(v95);
-    outlined destroy of TermOfAddress?(&v109, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v109, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     outlined destroy of AttributedString._AttributeValue(v97);
-    outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    if ((v20 & 1) == 0)
+    outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    if ((v21 & 1) == 0)
     {
       return 0;
     }
@@ -4098,16 +4100,16 @@ LABEL_20:
 
   else
   {
-    outlined destroy of TermOfAddress?(&v109, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v109, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v105 + 1))
     {
 LABEL_21:
-      outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+      outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
       return 0;
     }
 
-    outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   }
 
   *a5 = 1;
@@ -4116,11 +4118,11 @@ LABEL_21:
   v102 = 0u;
   v99 = 0u;
   v100 = 0u;
-  outlined init with copy of FloatingPointRoundingRule?(&v99, &v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+  outlined init with copy of FloatingPointRoundingRule?(&v99, &v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   if (!*(&v115 + 1))
   {
 
-    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v31 = specialized __RawDictionaryStorage.find<A>(_:)(v13, v12);
     if ((v32 & 1) == 0)
     {
@@ -4132,8 +4134,8 @@ LABEL_21:
 LABEL_51:
       v63 = v119;
       AttributedString._AttributeStorage._attributeModified(_:old:new:)(v13, v12, &v114, &v99);
-      outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(&v99, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(&v114, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
       *v63 = a8;
       return 1;
@@ -4149,7 +4151,7 @@ LABEL_51:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v64 = static _DictionaryStorage.copy(original:)();
       v19 = v64;
       if (v35[2])
@@ -4254,7 +4256,7 @@ LABEL_50:
   v110 = v115;
   outlined init with copy of AttributedString._AttributeValue(&v109, v97);
 
-  v21 = swift_isUniquelyReferenced_nonNull_native();
+  v20 = swift_isUniquelyReferenced_nonNull_native();
   *&v95[0] = *a2;
   v22 = *&v95[0];
   v23 = specialized __RawDictionaryStorage.find<A>(_:)(v13, v12);
@@ -4272,7 +4274,7 @@ LABEL_50:
     LOBYTE(a5) = v24;
     if (*(v22 + 24) < v28)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v28, v21);
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v28, v20);
       v19 = *&v95[0];
       v23 = specialized __RawDictionaryStorage.find<A>(_:)(v13, v12);
       if ((a5 & 1) != (v29 & 1))
@@ -4319,7 +4321,7 @@ LABEL_49:
       goto LABEL_50;
     }
 
-    if (v21)
+    if (v20)
     {
       v19 = v22;
       goto LABEL_29;
@@ -4327,7 +4329,7 @@ LABEL_49:
   }
 
   v81 = v23;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
   v47 = static _DictionaryStorage.copy(original:)();
   v19 = v47;
   if (!*(v22 + 16))
@@ -4529,7 +4531,7 @@ LABEL_47:
     }
 
     v48 = a3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySSGMd, &_ss11_SetStorageCySSGMR);
     v23 = static _SetStorage.allocate(capacity:)();
     v24 = v23;
     if (v14)
@@ -4637,7 +4639,7 @@ LABEL_52:
   __break(1u);
 }
 
-BOOL specialized closure #1 in Sequence<>.contains(_:)(void *a1, void *a2)
+BOOL specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1, void *a2)
 {
   v3 = a1[1];
   v4 = a2[1];
@@ -4667,10 +4669,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Attribu
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString._AttributeValue()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AttributedString._AttributeValue(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  __swift_project_boxed_opaque_existential_1(v0, v0[3]);
+  __swift_project_boxed_opaque_existential_1(v1, v1[3]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
@@ -4678,7 +4680,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Att
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AttributedString._AttributeValue()
 {
   outlined init with copy of Hashable & Sendable(v0, v2);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSH_s8SendablepMd, &_sSH_s8SendablepMR);
   return String.init<A>(describing:)();
 }
 
@@ -4698,7 +4700,7 @@ uint64_t Dictionary<>._attrStrDescription.getter(uint64_t a1)
   v6 = v5 & v2;
   v7 = (v4 + 63) >> 6;
 
-  for (i = 0; v6; result = outlined destroy of TermOfAddress?(&v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd))
+  for (i = 0; v6; result = outlined destroy of TermOfAddress?(&v17, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR))
   {
     v10 = i;
 LABEL_9:
@@ -4784,13 +4786,13 @@ uint64_t closure #1 in AttributedString._AttributeStorage.attributesForAddedText
   v15[0] = *a1;
   v15[1] = v2;
   outlined init with copy of AttributedString._AttributeValue(a2, &v16);
-  outlined init with copy of FloatingPointRoundingRule?(v15, v13, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+  outlined init with copy of FloatingPointRoundingRule?(v15, v13, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 
   LODWORD(v2) = v14[56];
   outlined destroy of AttributedString._AttributeValue(v14);
   if (v2 == 1)
   {
-    outlined init with copy of FloatingPointRoundingRule?(v15, v10, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+    outlined init with copy of FloatingPointRoundingRule?(v15, v10, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
 
     v3 = v12;
     if (v12 && *(v12 + 16) && (Hasher.init(_seed:)(), MEMORY[0x1865CD060](0), v4 = Hasher._finalize()(), v5 = -1 << *(v3 + 32), v6 = v4 & ~v5, ((*(v3 + 56 + ((v6 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v6) & 1) != 0))
@@ -4814,13 +4816,13 @@ LABEL_8:
       v8 = 1;
     }
 
-    outlined destroy of TermOfAddress?(v15, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+    outlined destroy of TermOfAddress?(v15, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
     outlined destroy of AttributedString._AttributeValue(&v11);
   }
 
   else
   {
-    outlined destroy of TermOfAddress?(v15, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd);
+    outlined destroy of TermOfAddress?(v15, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMd, &_sSS3key_10Foundation16AttributedStringV15_AttributeValueV5valuetMR);
     return 0;
   }
 
@@ -4834,11 +4836,11 @@ uint64_t specialized getter of valueChanged #1 in AttributedString._AttributeSto
   {
     v20 = v3;
     v21 = v4;
-    outlined init with copy of FloatingPointRoundingRule?(a2, v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined init with copy of FloatingPointRoundingRule?(a3, &v15, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(a2, v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined init with copy of FloatingPointRoundingRule?(a3, &v15, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (v14)
     {
-      outlined init with copy of FloatingPointRoundingRule?(v13, v12, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(v13, v12, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (*(&v16 + 1))
       {
         v10[2] = v17;
@@ -4849,7 +4851,7 @@ uint64_t specialized getter of valueChanged #1 in AttributedString._AttributeSto
         v8 = specialized static AttributedString._AttributeValue.== infix(_:_:)(v12, v10);
         outlined destroy of AttributedString._AttributeValue(v10);
         outlined destroy of AttributedString._AttributeValue(v12);
-        outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         LOBYTE(v5) = v8 ^ 1;
 LABEL_9:
         *a1 = v5 & 1;
@@ -4861,12 +4863,12 @@ LABEL_9:
 
     else if (!*(&v16 + 1))
     {
-      outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       LOBYTE(v5) = 0;
       goto LABEL_9;
     }
 
-    outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+    outlined destroy of TermOfAddress?(v13, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
     LOBYTE(v5) = 1;
     goto LABEL_9;
   }
@@ -4966,8 +4968,8 @@ uint64_t specialized AttributedString._AttributeStorage.isEqual(to:comparing:)(u
   v4 = a3;
   v5 = a1;
   v6 = (a2 + 40);
-  v32 = a1;
-  v33 = a3;
+  v33 = a1;
+  v34 = a3;
   while (1)
   {
     v7 = *(v6 - 1);
@@ -4978,7 +4980,7 @@ uint64_t specialized AttributedString._AttributeStorage.isEqual(to:comparing:)(u
       v9 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v8);
       if (v10)
       {
-        outlined init with copy of AttributedString._AttributeValue(*(v4 + 56) + 72 * v9, &v56);
+        outlined init with copy of AttributedString._AttributeValue(*(v4 + 56) + 72 * v9, &v57);
         if (!*(v5 + 16))
         {
           goto LABEL_12;
@@ -4987,11 +4989,11 @@ uint64_t specialized AttributedString._AttributeStorage.isEqual(to:comparing:)(u
 
       else
       {
-        v60 = 0;
-        v58 = 0u;
+        v61 = 0;
         v59 = 0u;
-        v56 = 0u;
+        v60 = 0u;
         v57 = 0u;
+        v58 = 0u;
         if (!*(v5 + 16))
         {
 LABEL_12:
@@ -5003,11 +5005,11 @@ LABEL_12:
 
     else
     {
-      v60 = 0;
-      v58 = 0u;
+      v61 = 0;
       v59 = 0u;
-      v56 = 0u;
+      v60 = 0u;
       v57 = 0u;
+      v58 = 0u;
 
       if (!*(v5 + 16))
       {
@@ -5020,29 +5022,29 @@ LABEL_12:
 
     if (v13)
     {
-      outlined init with copy of AttributedString._AttributeValue(*(v5 + 56) + 72 * v11, v54);
+      outlined init with copy of AttributedString._AttributeValue(*(v5 + 56) + 72 * v11, v55);
       goto LABEL_14;
     }
 
 LABEL_13:
-    v55 = 0;
-    memset(v54, 0, sizeof(v54));
+    v56 = 0;
+    memset(v55, 0, sizeof(v55));
 LABEL_14:
-    outlined init with copy of FloatingPointRoundingRule?(&v56, v48, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined init with copy of FloatingPointRoundingRule?(v54, &v49, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    if (v48[3])
+    outlined init with copy of FloatingPointRoundingRule?(&v57, v49, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined init with copy of FloatingPointRoundingRule?(v55, &v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    if (v49[3])
     {
       break;
     }
 
-    outlined destroy of TermOfAddress?(v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v56, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    if (*(&v50 + 1))
+    outlined destroy of TermOfAddress?(v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v57, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    if (*(&v51 + 1))
     {
       goto LABEL_23;
     }
 
-    outlined destroy of TermOfAddress?(v48, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(v49, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 LABEL_3:
     v6 += 2;
     if (!--v3)
@@ -5051,39 +5053,40 @@ LABEL_3:
     }
   }
 
-  outlined init with copy of FloatingPointRoundingRule?(v48, v45, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-  if (!*(&v50 + 1))
+  outlined init with copy of FloatingPointRoundingRule?(v49, v46, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+  if (!*(&v51 + 1))
   {
-    outlined destroy of TermOfAddress?(v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v56, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of AttributedString._AttributeValue(v45);
+    outlined destroy of TermOfAddress?(v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v57, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of AttributedString._AttributeValue(v46);
 LABEL_23:
     v31 = &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd;
+    v32 = &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR;
     goto LABEL_25;
   }
 
-  v36 = v6;
-  v37 = v3;
-  v42 = v51;
+  v37 = v6;
+  v38 = v3;
   v43 = v52;
   v44 = v53;
-  v40 = v49;
+  v45 = v54;
   v41 = v50;
-  v14 = v46;
-  v35 = v47;
-  v34 = __swift_project_boxed_opaque_existential_1(v45, v46);
-  v15 = __swift_project_boxed_opaque_existential_1(&v40, *(&v41 + 1));
-  v39 = &v32;
+  v42 = v51;
+  v14 = v47;
+  v36 = v48;
+  v35 = __swift_project_boxed_opaque_existential_1(v46, v47);
+  v15 = __swift_project_boxed_opaque_existential_1(&v41, *(&v42 + 1));
+  v40 = &v33;
   v16 = *(v14 - 8);
   MEMORY[0x1EEE9AC00](v15);
-  v18 = &v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v38 = &v32;
+  v18 = &v33 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = &v33;
   v20 = MEMORY[0x1EEE9AC00](v19);
-  (*(v22 + 16))(&v32 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v20);
+  (*(v22 + 16))(&v33 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0), v20);
   v23 = type metadata accessor for Optional();
   v24 = *(v23 - 8);
   MEMORY[0x1EEE9AC00](v23);
-  v26 = &v32 - v25;
+  v26 = &v33 - v25;
   v27 = swift_dynamicCast();
   v28 = *(v16 + 56);
   if (v27)
@@ -5092,15 +5095,15 @@ LABEL_23:
     (*(v16 + 32))(v18, v26, v14);
     v29 = dispatch thunk of static Equatable.== infix(_:_:)();
     (*(v16 + 8))(v18, v14);
-    outlined destroy of TermOfAddress?(v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of TermOfAddress?(&v56, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined destroy of AttributedString._AttributeValue(&v40);
-    outlined destroy of AttributedString._AttributeValue(v45);
-    outlined destroy of TermOfAddress?(v48, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    v5 = v32;
-    v4 = v33;
-    v6 = v36;
-    v3 = v37;
+    outlined destroy of TermOfAddress?(v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of TermOfAddress?(&v57, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined destroy of AttributedString._AttributeValue(&v41);
+    outlined destroy of AttributedString._AttributeValue(v46);
+    outlined destroy of TermOfAddress?(v49, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    v5 = v33;
+    v4 = v34;
+    v6 = v37;
+    v3 = v38;
     if ((v29 & 1) == 0)
     {
       return 0;
@@ -5110,14 +5113,15 @@ LABEL_23:
   }
 
   v28(v26, 1, 1, v14);
-  outlined destroy of TermOfAddress?(v54, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-  outlined destroy of TermOfAddress?(&v56, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+  outlined destroy of TermOfAddress?(v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+  outlined destroy of TermOfAddress?(&v57, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
   (*(v24 + 8))(v26, v23);
-  outlined destroy of AttributedString._AttributeValue(&v40);
-  outlined destroy of AttributedString._AttributeValue(v45);
+  outlined destroy of AttributedString._AttributeValue(&v41);
+  outlined destroy of AttributedString._AttributeValue(v46);
   v31 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMd;
+  v32 = &_s10Foundation16AttributedStringV15_AttributeValueVSgMR;
 LABEL_25:
-  outlined destroy of TermOfAddress?(v48, v31);
+  outlined destroy of TermOfAddress?(v49, v31, v32);
   return 0;
 }
 
@@ -5222,7 +5226,7 @@ LABEL_9:
       else
       {
         outlined init with copy of AttributedString._AttributeValue(&v202, v201);
-        outlined init with copy of FloatingPointRoundingRule?(v201, &v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined init with copy of FloatingPointRoundingRule?(v201, &v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (*(&v197 + 1))
         {
           v193 = v198;
@@ -5256,7 +5260,7 @@ LABEL_9:
             else
             {
               v151 = v21;
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
               v111 = static _DictionaryStorage.copy(original:)();
               v28 = v111;
               if (*(v31 + 16))
@@ -5399,7 +5403,7 @@ LABEL_59:
           goto LABEL_60;
         }
 
-        outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v71 = specialized __RawDictionaryStorage.find<A>(_:)(v15, v14);
         if ((v72 & 1) == 0)
         {
@@ -5418,7 +5422,7 @@ LABEL_59:
         v43 = *v161;
         if ((v73 & 1) == 0)
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v130 = static _DictionaryStorage.copy(original:)();
           v45 = v130;
           if (*(v43 + 16))
@@ -5530,8 +5534,8 @@ LABEL_53:
         *v161 = v45;
 LABEL_61:
         AttributedString._AttributeStorage._attributeModified(_:old:new:)(v15, v14, &v196, v201);
-        outlined destroy of TermOfAddress?(v201, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v201, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
 
         outlined destroy of AttributedString._AttributeValue(&v202);
         if (!v8)
@@ -5542,7 +5546,7 @@ LABEL_61:
     }
 
     outlined init with copy of AttributedString._AttributeValue(&v202, v201);
-    outlined init with copy of FloatingPointRoundingRule?(v201, &v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(v201, &v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v197 + 1))
     {
       v193 = v198;
@@ -5576,7 +5580,7 @@ LABEL_61:
         else
         {
           v150 = v21;
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
           v92 = static _DictionaryStorage.copy(original:)();
           v28 = v92;
           if (*(v20 + 16))
@@ -5733,7 +5737,7 @@ LABEL_60:
       goto LABEL_61;
     }
 
-    outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined destroy of TermOfAddress?(&v196, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     v38 = specialized __RawDictionaryStorage.find<A>(_:)(v15, v14);
     v39 = v3;
     if ((v40 & 1) == 0)
@@ -5752,7 +5756,7 @@ LABEL_60:
     v43 = *v39;
     if ((v42 & 1) == 0)
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMd, &_ss18_DictionaryStorageCySS10Foundation16AttributedStringV15_AttributeValueVGMR);
       v44 = static _DictionaryStorage.copy(original:)();
       v45 = v44;
       v9 = v162;
@@ -5957,19 +5961,19 @@ LABEL_23:
     memset(v61, 0, sizeof(v61));
 LABEL_16:
     outlined init with copy of AttributedString._AttributeValue(v63, v60);
-    outlined init with copy of FloatingPointRoundingRule?(v61, &v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-    outlined init with copy of FloatingPointRoundingRule?(v60, &v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+    outlined init with copy of FloatingPointRoundingRule?(v61, &v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+    outlined init with copy of FloatingPointRoundingRule?(v60, &v55, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     if (*(&v51 + 1))
     {
-      outlined init with copy of FloatingPointRoundingRule?(&v50, v47, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v50, v47, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (!*(&v56 + 1))
       {
-        outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(v63);
         outlined destroy of AttributedString._AttributeValue(v47);
 LABEL_25:
-        outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+        outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
 LABEL_27:
 
         return 0;
@@ -5998,14 +6002,14 @@ LABEL_27:
       v30 = &v32 - v29;
       if (!swift_dynamicCast())
       {
-        outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(v63);
         (*(v21 + 56))(v30, 1, 1, v19);
         (*(v32 + 8))(v30, v28);
         outlined destroy of AttributedString._AttributeValue(&v42);
         outlined destroy of AttributedString._AttributeValue(v47);
-        outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         goto LABEL_27;
       }
 
@@ -6013,12 +6017,12 @@ LABEL_27:
       (*(v21 + 32))(v23, v30, v19);
       v31 = dispatch thunk of static Equatable.== infix(_:_:)();
       (*(v21 + 8))(v23, v19);
-      outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       outlined destroy of AttributedString._AttributeValue(v63);
       outlined destroy of AttributedString._AttributeValue(&v42);
       outlined destroy of AttributedString._AttributeValue(v47);
-      result = outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      result = outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       a2 = v35;
       v3 = v36;
       v4 = v34;
@@ -6030,15 +6034,15 @@ LABEL_27:
 
     else
     {
-      outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined destroy of TermOfAddress?(v60, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined destroy of TermOfAddress?(v61, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       outlined destroy of AttributedString._AttributeValue(v63);
       if (*(&v56 + 1))
       {
         goto LABEL_25;
       }
 
-      result = outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      result = outlined destroy of TermOfAddress?(&v50, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
     }
 
     v7 &= v7 - 1;
@@ -6070,10 +6074,10 @@ LABEL_27:
   return result;
 }
 
-uint64_t specialized BidirectionalCollection.formIndex(before:)(unint64_t *a1)
+void *specialized BidirectionalCollection.formIndex(before:)(unint64_t *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v239 - v6;
@@ -6097,8 +6101,8 @@ LABEL_229:
   v9 = v2[23];
   v10 = v2[26];
   v11 = v268;
-  v12 = *(type metadata accessor for AttributedString.Runs() + 24);
-  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v12 = *(type metadata accessor for AttributedString.Runs(0) + 24);
+  v275 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v276 = v12;
   RangeSet.ranges.getter();
   v13 = RangeSet.Ranges.count.getter();
@@ -6178,8 +6182,8 @@ LABEL_231:
     goto LABEL_232;
   }
 
-  type metadata accessor for AttributedString.Runs();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  type metadata accessor for AttributedString.Runs(0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   RangeSet.ranges.getter();
   RangeSet.Ranges.subscript.getter();
   (v277)(v7, v4);
@@ -6862,18 +6866,18 @@ LABEL_101:
       v300 = 0u;
       v301 = 0u;
 LABEL_102:
-      outlined init with copy of FloatingPointRoundingRule?(&v305, &v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined init with copy of FloatingPointRoundingRule?(&v300, &v295, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v305, &v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined init with copy of FloatingPointRoundingRule?(&v300, &v295, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (v292)
       {
-        outlined init with copy of FloatingPointRoundingRule?(&v289, &v283, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined init with copy of FloatingPointRoundingRule?(&v289, &v283, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (!*(&v296 + 1))
         {
-          outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           outlined destroy of AttributedString._AttributeValue(&v283);
 LABEL_129:
-          outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+          outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
 LABEL_131:
 
           v52 = v245;
@@ -6905,12 +6909,12 @@ LABEL_131:
         if (!v119)
         {
           v120(v118, 1, 1, v106);
-          outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           (*(v116 + 8))(v118, v115);
           outlined destroy of AttributedString._AttributeValue(&v278);
           outlined destroy of AttributedString._AttributeValue(&v283);
-          outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           goto LABEL_131;
         }
 
@@ -6918,11 +6922,11 @@ LABEL_131:
         (*(v108 + 32))(v110, v118, v106);
         v121 = dispatch thunk of static Equatable.== infix(_:_:)();
         (*(v108 + 8))(v110, v106);
-        outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(&v278);
         outlined destroy of AttributedString._AttributeValue(&v283);
-        outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v58 = v266;
         if ((v121 & 1) == 0)
         {
@@ -6932,14 +6936,14 @@ LABEL_131:
 
       else
       {
-        outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v300, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v305, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (*(&v296 + 1))
         {
           goto LABEL_129;
         }
 
-        outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v289, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       }
 
       v97 = v277 + 1;
@@ -7483,7 +7487,7 @@ LABEL_243:
 uint64_t specialized Collection.formIndex(after:)(unint64_t *a1)
 {
   v2 = v1;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMd, &_ss8RangeSetV6RangesVy19CollectionsInternal9BigStringV5IndexV_GMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v193 - v6;
@@ -7540,8 +7544,8 @@ LABEL_184:
   v211 = v260;
   v208 = v263;
   v209 = v262;
-  v14 = *(type metadata accessor for AttributedString.Runs() + 24);
-  v237 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd);
+  v14 = *(type metadata accessor for AttributedString.Runs(0) + 24);
+  v237 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMd, &_ss8RangeSetVy19CollectionsInternal9BigStringV5IndexVGMR);
   v238 = v14;
   RangeSet.ranges.getter();
   v15 = RangeSet.Ranges.count.getter();
@@ -7677,7 +7681,7 @@ LABEL_4:
   result = swift_unknownObjectRelease();
   v31 = v22[9];
   v32 = v22[10];
-  v33 = (v235 + 1);
+  v33 = v235 + 1;
   v200 = v228 + 5;
   v34 = v22[12];
   v255 = v27;
@@ -7903,18 +7907,18 @@ LABEL_170:
         v270 = 0u;
       }
 
-      outlined init with copy of FloatingPointRoundingRule?(&v274, &v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-      outlined init with copy of FloatingPointRoundingRule?(&v269, &v264, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+      outlined init with copy of FloatingPointRoundingRule?(&v274, &v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+      outlined init with copy of FloatingPointRoundingRule?(&v269, &v264, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       if (v258)
       {
-        outlined init with copy of FloatingPointRoundingRule?(&v255, &v245, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined init with copy of FloatingPointRoundingRule?(&v255, &v245, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (!*(&v265 + 1))
         {
-          outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           outlined destroy of AttributedString._AttributeValue(&v245);
 LABEL_73:
-          outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd);
+          outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMd, &_s10Foundation16AttributedStringV15_AttributeValueVSg_AFtMR);
 LABEL_75:
 
           v18 = v212;
@@ -7946,12 +7950,12 @@ LABEL_75:
         if (!v75)
         {
           v76(v74, 1, 1, v62);
-          outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-          outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+          outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           (*(v72 + 8))(v74, v71);
           outlined destroy of AttributedString._AttributeValue(&v240);
           outlined destroy of AttributedString._AttributeValue(&v245);
-          outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+          outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
           goto LABEL_75;
         }
 
@@ -7959,11 +7963,11 @@ LABEL_75:
         (*(v64 + 32))(v66, v74, v62);
         v77 = dispatch thunk of static Equatable.== infix(_:_:)();
         (*(v64 + 8))(v66, v62);
-        outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         outlined destroy of AttributedString._AttributeValue(&v240);
         outlined destroy of AttributedString._AttributeValue(&v245);
-        result = outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        result = outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         v2 = v225;
         v50 = v226;
         if ((v77 & 1) == 0)
@@ -7974,21 +7978,21 @@ LABEL_75:
 
       else
       {
-        outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
-        outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        outlined destroy of TermOfAddress?(&v269, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
+        outlined destroy of TermOfAddress?(&v274, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
         if (*(&v265 + 1))
         {
           goto LABEL_73;
         }
 
-        result = outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd);
+        result = outlined destroy of TermOfAddress?(&v255, &_s10Foundation16AttributedStringV15_AttributeValueVSgMd, &_s10Foundation16AttributedStringV15_AttributeValueVSgMR);
       }
 
-      v51 = (v235 + 1);
+      v51 = v235 + 1;
       v52 = v234 + 2;
     }
 
-    while (v227 != (v235 + 1));
+    while (v227 != v235 + 1);
 
     v22 = v222;
     v31 = v222[9];
@@ -8001,7 +8005,7 @@ LABEL_75:
     v28 = v196;
     v224 = v213;
     v257 = v196;
-    v33 = (v214 + 1);
+    v33 = v214 + 1;
     v18 = v212;
     if (!__OFADD__(v214, 1))
     {
@@ -8699,6 +8703,11 @@ LABEL_14:
 }
 
 {
+  return specialized Array.append<A>(contentsOf:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
+}
+
+uint64_t specialized Array.append<A>(contentsOf:)(char **a1)
+{
   v3 = *v1;
   v4 = *(*v1 + 2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
@@ -8800,23 +8809,19 @@ LABEL_9:
   return result;
 }
 
-{
-  return specialized Array.append<A>(contentsOf:)(a1, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
-}
-
 uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV09ByteCountJ0O_Tt1B5(int a1, void *a2)
 {
   v20 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v17 = *(v3 - 8);
   v18 = v3;
   MEMORY[0x1EEE9AC00](v3);
   v5 = &v16 - v4;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMd);
+  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMR);
   v6 = *(v19 - 8);
   MEMORY[0x1EEE9AC00](v19);
   v8 = &v16 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMR);
   v10 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v12 = &v16 - v11;
@@ -8862,7 +8867,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 {
   v37 = a1;
   v36 = a2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedEncodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v39 = *(v6 - 8);
   v40 = v6;
   MEMORY[0x1EEE9AC00](v6);
@@ -8873,7 +8878,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
   v14 = &v32 - v13;
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v32 - v16;
-  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd);
+  v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMR);
   v38 = *(v41 - 8);
   MEMORY[0x1EEE9AC00](v41);
   v19 = &v32 - v18;
@@ -8917,7 +8922,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
       v49 = a3;
       v50 = v34;
       type metadata accessor for NSDecimal(0);
-      lazy protocol witness table accessor for type NSDecimal and conformance NSDecimal(&lazy protocol witness table cache variable for type NSDecimal and conformance NSDecimal, type metadata accessor for NSDecimal);
+      lazy protocol witness table accessor for type NSDecimal and conformance NSDecimal(&lazy protocol witness table cache variable for type NSDecimal and conformance NSDecimal, type metadata accessor for NSDecimal, &protocol conformance descriptor for NSDecimal);
       v31 = v40;
       KeyedEncodingContainer.encode<A>(_:forKey:)();
       (*(v39 + 8))(v8, v31);
@@ -8955,7 +8960,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 
 uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV17ImageURLAttributeO_Tt1B5Tm(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMR);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v12 - v8;
@@ -8991,9 +8996,9 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
   }
 }
 
-uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV022MarkdownSourcePositionJ0O_Tt1B5(uint64_t a1, void *a2)
+uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV022MarkdownSourcePositionJ0O_Tt1B5(uint64_t *a1, void *a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMd, &_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV22MarkdownSourcePositionV10CodingKeys33_4C994178458EBF836D449F281EBCAF09LLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = v12 - v7;
@@ -9010,15 +9015,15 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
     KeyedEncodingContainer.encode(_:forKey:)();
     LOBYTE(v12[0]) = 3;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v9 = *(a1 + 48);
-    v14 = *(a1 + 32);
+    v9 = *(a1 + 3);
+    v14 = *(a1 + 2);
     v15 = v9;
     v16 = *(a1 + 64);
     v17 = 4;
     lazy protocol witness table accessor for type AttributedString.MarkdownSourcePosition.Offsets and conformance AttributedString.MarkdownSourcePosition.Offsets();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v10 = *(a1 + 88);
-    v12[0] = *(a1 + 72);
+    v10 = *(a1 + 11);
+    v12[0] = *(a1 + 9);
     v12[1] = v10;
     v13 = *(a1 + 104);
     LOBYTE(v14) = 5;
@@ -9051,7 +9056,7 @@ void _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE
 
     os_unfair_lock_unlock(v5);
     v6 = v72;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMd, &_ss23_ContiguousArrayStorageCy10Foundation14AttributeScope_pXpGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_181218E20;
     *(inited + 32) = &type metadata for AttributeScopes.FoundationAttributes;
@@ -9260,7 +9265,7 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMd, &_ss18_DictionaryStorageCySS10Foundation19AttributedStringKey_pXpGMR);
   v41 = static _DictionaryStorage.copy(original:)();
   v28 = v41;
   if (!*(v15 + 16))
@@ -9354,7 +9359,7 @@ LABEL_60:
 
 uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV018PresentationIntentJ0O_Tt1B5(uint64_t a1, void *a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation18PresentationIntentV10CodingKeys33_8153C1B385F9477C3B86198B81B6062BLLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation18PresentationIntentV10CodingKeys33_8153C1B385F9477C3B86198B81B6062BLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation18PresentationIntentV10CodingKeys33_8153C1B385F9477C3B86198B81B6062BLLOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = v9 - v6;
@@ -9363,8 +9368,8 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   v9[1] = a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation18PresentationIntentV0C4TypeVGMd);
-  lazy protocol witness table accessor for type [PresentationIntent.IntentType] and conformance <A> [A](&lazy protocol witness table cache variable for type [PresentationIntent.IntentType] and conformance <A> [A], lazy protocol witness table accessor for type PresentationIntent.IntentType and conformance PresentationIntent.IntentType);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10Foundation18PresentationIntentV0C4TypeVGMd, &_sSay10Foundation18PresentationIntentV0C4TypeVGMR);
+  lazy protocol witness table accessor for type [PresentationIntent.IntentType] and conformance <A> [A](&lazy protocol witness table cache variable for type [PresentationIntent.IntentType] and conformance <A> [A], lazy protocol witness table accessor for type PresentationIntent.IntentType and conformance PresentationIntent.IntentType, MEMORY[0x1E69E6300]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
   return (*(v5 + 8))(v7, v4);
@@ -9373,11 +9378,11 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV016WritingDirectionJ0O_Tt1g5(int a1, void *a2)
 {
   v13 = a1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation15EmptyCodingKeysOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v12 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV16WritingDirectionO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV16WritingDirectionO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation16AttributedStringV16WritingDirectionO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMR);
   v8 = *(v7 - 8);
   MEMORY[0x1EEE9AC00](v7);
   v10 = &v12 - v9;
@@ -9400,11 +9405,11 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
   return (*(v8 + 8))(v10, v7);
 }
 
-uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV014InflectionRuleJ0O_Tt1B5(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2toyAE_s7Encoder_ptKFZAA15AttributeScopesO0A10AttributesV014InflectionRuleJ0O_Tt1B5(int a1, uint64_t a2, uint64_t a3, void *a4)
 {
   __swift_project_boxed_opaque_existential_1(a4, a4[3]);
   dispatch thunk of Encoder.singleValueContainer()();
-  __swift_mutable_project_boxed_opaque_existential_1(v6, v7);
+  __swift_mutable_project_boxed_opaque_existential_1(v6, v6[3]);
   if (a2)
   {
     lazy protocol witness table accessor for type Morphology and conformance Morphology();
@@ -9423,7 +9428,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 {
   v14 = a2;
   v8 = a1;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV10CodingKeysOGMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation10MorphologyV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy10Foundation10MorphologyV10CodingKeysOGMR);
   v15 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
   v11 = &v13 - v10;
@@ -9438,7 +9443,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
       {
         if (BYTE2(a1) == 6 || (LOBYTE(v17) = BYTE2(a1), v16 = 3, lazy protocol witness table accessor for type Morphology.GrammaticalNumber and conformance Morphology.GrammaticalNumber(), KeyedEncodingContainer.encode<A>(_:forKey:)(), !v4))
         {
-          if (!*(v14 + 16) || (v17 = v14, v16 = 4, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd), lazy protocol witness table accessor for type [String : Morphology._CustomPronoun] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Morphology._CustomPronoun] and conformance <> [A : B], lazy protocol witness table accessor for type Morphology._CustomPronoun and conformance Morphology._CustomPronoun), KeyedEncodingContainer.encode<A>(_:forKey:)(), !v4))
+          if (!*(v14 + 16) || (v17 = v14, v16 = 4, __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd, &_sSDySS10Foundation10MorphologyV14_CustomPronounVGMR), lazy protocol witness table accessor for type [String : Morphology._CustomPronoun] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Morphology._CustomPronoun] and conformance <> [A : B], lazy protocol witness table accessor for type Morphology._CustomPronoun and conformance Morphology._CustomPronoun, MEMORY[0x1E69E6160], MEMORY[0x1E69E5E38]), KeyedEncodingContainer.encode<A>(_:forKey:)(), !v4))
           {
             if (BYTE1(a3) == 3 || (LOBYTE(v17) = BYTE1(a3), v16 = 5, lazy protocol witness table accessor for type Morphology.GrammaticalPerson and conformance Morphology.GrammaticalPerson(), KeyedEncodingContainer.encode<A>(_:forKey:)(), !v4))
             {
@@ -9467,7 +9472,7 @@ uint64_t _s10Foundation28EncodableAttributedStringKeyPAASE5ValueRpzrlE6encode_2t
 
 uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fromAEs7Decoder_p_tKFZAA15AttributeScopesO0A10AttributesV025AssumedFallbackInflectionJ0O_Tt1g5Tm@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV10CodingKeysOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation10MorphologyV10CodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation10MorphologyV10CodingKeysOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v21 - v7;
@@ -9509,9 +9514,9 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
     lazy protocol witness table accessor for type Morphology.GrammaticalNumber and conformance Morphology.GrammaticalNumber();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     v24 = v29;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS10Foundation10MorphologyV14_CustomPronounVGMd, &_sSDySS10Foundation10MorphologyV14_CustomPronounVGMR);
     v28[0] = 4;
-    lazy protocol witness table accessor for type [String : Morphology._CustomPronoun] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Morphology._CustomPronoun] and conformance <> [A : B], lazy protocol witness table accessor for type Morphology._CustomPronoun and conformance Morphology._CustomPronoun);
+    lazy protocol witness table accessor for type [String : Morphology._CustomPronoun] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Morphology._CustomPronoun] and conformance <> [A : B], lazy protocol witness table accessor for type Morphology._CustomPronoun and conformance Morphology._CustomPronoun, MEMORY[0x1E69E6190], MEMORY[0x1E69E5E58]);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     if (v29)
     {
@@ -9577,13 +9582,13 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
 uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fromAEs7Decoder_p_tKFZAA15AttributeScopesO0A10AttributesV09ByteCountJ0O_Tt1g5@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v41 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v4 = *(v3 - 8);
   v38 = v3;
   v39 = v4;
   MEMORY[0x1EEE9AC00](v3);
   v42 = &v36 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15EmptyCodingKeysOGMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15EmptyCodingKeysOGMd, &_ss22KeyedDecodingContainerVy10Foundation15EmptyCodingKeysOGMR);
   v40 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v8 = &v36 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -9591,7 +9596,7 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
   v11 = &v36 - v10;
   MEMORY[0x1EEE9AC00](v12);
   v14 = &v36 - v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV09ByteCountE0O9ComponentO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMR);
   v43 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v36 - v16;
@@ -9619,7 +9624,7 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
       v27 = type metadata accessor for DecodingError();
       swift_allocError();
       v29 = v28;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
       *v29 = &type metadata for AttributeScopes.FoundationAttributes.ByteCountAttribute.Component;
       KeyedDecodingContainer.codingPath.getter();
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -9715,7 +9720,7 @@ LABEL_10:
 
 uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fromAEs7Decoder_p_tKFZAA15AttributeScopesO0A10AttributesV17ImageURLAttributeO_Tt1g5Tm@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation3URLV10CodingKeys33_FB6C8C127CB51A72D58E049FC6F7743FLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v19 - v7;
@@ -9767,7 +9772,7 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
 uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fromAEs7Decoder_p_tKFZAA15AttributeScopesO0A10AttributesV09Localizedd8ArgumentL0V0m7NumericnJ0O_Tt1g5@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v45 = a2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMd, &_ss22KeyedDecodingContainerVy10Foundation33DefaultAssociatedValueCodingKeys1OGMR);
   v46 = *(v3 - 8);
   v47 = v3;
   MEMORY[0x1EEE9AC00](v3);
@@ -9778,7 +9783,7 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
   v11 = &v43[-v10];
   MEMORY[0x1EEE9AC00](v12);
   v14 = &v43[-v13];
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation15AttributeScopesO0D10AttributesV023LocalizedStringArgumentG0V0h7NumericjE0O5ValueO10CodingKeys33_163072BBDC91CE21DC09F272FDEEA67DLLOGMR);
   v48 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
   v17 = &v43[-v16];
@@ -9809,7 +9814,7 @@ uint64_t _s10Foundation28DecodableAttributedStringKeyPAASe5ValueRpzrlE6decode4fr
     v28 = type metadata accessor for DecodingError();
     swift_allocError();
     v30 = v29;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
     *v30 = &type metadata for AttributeScopes.FoundationAttributes.LocalizedStringArgumentAttributes.LocalizedNumericArgumentAttribute.Value;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
@@ -9877,7 +9882,7 @@ LABEL_20:
     if (!v37)
     {
       type metadata accessor for NSDecimal(0);
-      lazy protocol witness table accessor for type NSDecimal and conformance NSDecimal(&lazy protocol witness table cache variable for type NSDecimal and conformance NSDecimal, type metadata accessor for NSDecimal);
+      lazy protocol witness table accessor for type NSDecimal and conformance NSDecimal(&lazy protocol witness table cache variable for type NSDecimal and conformance NSDecimal, type metadata accessor for NSDecimal, &protocol conformance descriptor for NSDecimal);
       KeyedDecodingContainer.decode<A>(_:forKey:)();
       v49 = 0;
       (*(v21 + 8))(v20, v22);

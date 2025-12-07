@@ -3,6 +3,7 @@
 - (BOOL)grayscale;
 - (id).cxx_construct;
 - (void)addInstance:(id)instance;
+- (void)setGrayscale:(BOOL)grayscale;
 - (void)setSpringsStates:(unint64_t)states;
 - (void)setTarget:(BKUIPearlCrossHairsManager *)self;
 - (void)setValue:(BKUIPearlCrossHairsManager *)self;
@@ -73,6 +74,40 @@
   }
 
   return v2;
+}
+
+- (void)setGrayscale:(BOOL)grayscale
+{
+  grayscaleCopy = grayscale;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  springInstances = [(BKUIPearlCrossHairsManager *)self springInstances];
+  v5 = [springInstances countByEnumeratingWithState:&v8 objects:v12 count:16];
+  if (v5)
+  {
+    v6 = *v9;
+    do
+    {
+      v7 = 0;
+      do
+      {
+        if (*v9 != v6)
+        {
+          objc_enumerationMutation(springInstances);
+        }
+
+        [*(*(&v8 + 1) + 8 * v7++) setGrayscale:grayscaleCopy];
+      }
+
+      while (v5 != v7);
+      v5 = [springInstances countByEnumeratingWithState:&v8 objects:v12 count:16];
+    }
+
+    while (v5);
+  }
 }
 
 - (BOOL)grayscale
@@ -163,109 +198,103 @@
 
 - (void)setTarget:(BKUIPearlCrossHairsManager *)self
 {
-  v8 = v2;
-  v14 = *MEMORY[0x277D85DE8];
+  v7 = v2;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_springInstances;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) setTarget:{*&v8, v8, v9}];
+        [*(*(&v8 + 1) + 8 * v6++) setTarget:{*&v7, v7, v8}];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setValue:(BKUIPearlCrossHairsManager *)self
 {
-  v8 = v2;
-  v14 = *MEMORY[0x277D85DE8];
+  v7 = v2;
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_springInstances;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v6++) setValue:{*&v8, v8, v9}];
+        [*(*(&v8 + 1) + 8 * v6++) setValue:{*&v7, v7, v8}];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpringsStates:(unint64_t)states
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = self->_springInstances;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setSpringState:{states, v9}];
+        [*(*(&v8 + 1) + 8 * v7++) setSpringState:{states, v8}];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)update:(double)update

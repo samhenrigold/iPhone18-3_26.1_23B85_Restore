@@ -184,7 +184,6 @@ LABEL_28:
     if (reason == 4)
     {
       [GEOAPPortal captureUserAction:373 target:0 value:@"not updated"];
-      v10 = GeoOfflineConfig_UpdateRequiredExpirationInterval[1];
       [(MDNotificationCenter *)self->_notificationCenter addOfflineMapsExpiredNotificationForIdentifiers:subscriptionsCopy displayNames:namesCopy dueToNotBeingUpdatedWithinTimeInterval:GEOConfigGetUint64()];
       goto LABEL_16;
     }
@@ -219,7 +218,6 @@ LABEL_11:
   if (reason == 2)
   {
     notificationCenter = self->_notificationCenter;
-    v12 = &GeoOfflineConfig_OptimizeStorageNeverUsedDeleteInterval;
   }
 
   else
@@ -230,11 +228,8 @@ LABEL_11:
     }
 
     notificationCenter = self->_notificationCenter;
-    v12 = &GeoOfflineConfig_OptimizeStorageLastUsedDeleteInterval;
   }
 
-  v13 = *v12;
-  v14 = v12[1];
   [(MDNotificationCenter *)notificationCenter addOfflineMapsExpiredNotificationForIdentifiers:subscriptionsCopy displayNames:namesCopy dueToNotBeingUsedWithinTimeInterval:GEOConfigGetUint64()];
 LABEL_16:
 }

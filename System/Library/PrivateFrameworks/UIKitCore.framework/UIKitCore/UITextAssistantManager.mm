@@ -47,7 +47,7 @@ void __112___UITextAssistantManager_writingToolsCoordinator_requestsPreviewForTe
   v4 = objc_loadWeakRetained((a1[5] + 104));
   v5 = a1[6];
   v11 = *off_1E70EC920;
-  v6 = +[UIColor blackColor];
+  v6 = objc_msgSend_blackColor(UIColor);
   v12[0] = v6;
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v8 = [v4 _targetedPreviewForRange:v5 withRenderingAttributes:v7];

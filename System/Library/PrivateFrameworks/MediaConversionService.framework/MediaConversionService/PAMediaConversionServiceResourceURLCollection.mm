@@ -27,19 +27,21 @@
 - (void)enumerateResourceURLReferences:(id)references;
 - (void)enumerateResourceURLs:(id)ls;
 - (void)setResourceURL:(id)l forRole:(id)role;
+- (void)setResourceURL:(id)l forRole:(id)role deleteOnDeallocation:(BOOL)deallocation;
+- (void)setShouldDeleteURLOnDeallocation:(BOOL)deallocation forRole:(id)role;
 @end
 
 @implementation PAMediaConversionServiceResourceURLCollection
 
 - (BOOL)copyURL:(id)l forRole:(id)role toDirectory:(id)directory error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v18 = *MEMORY[0x277CCA160];
-  v19[0] = @"mobile";
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v17 = *MEMORY[0x277CCA160];
+  v18[0] = @"mobile";
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   v12 = [defaultManager createDirectoryAtURL:directoryCopy withIntermediateDirectories:0 attributes:v11 error:error];
 
   v13 = 0;
@@ -51,13 +53,12 @@
     v13 = [defaultManager copyItemAtURL:lCopy toURL:v15 error:error];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)urlForDebugDumpWithDirectoryName:(id)name inExistingParentDirectory:(id)directory error:(id *)error
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   directoryCopy = directory;
   v11 = directoryCopy;
@@ -85,28 +86,28 @@
 
 LABEL_3:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v44 = 0;
+  v43 = 0;
   path = [v11 path];
-  v14 = [defaultManager fileExistsAtPath:path isDirectory:&v44];
+  v14 = [defaultManager fileExistsAtPath:path isDirectory:&v43];
 
-  if ((v14 & v44 & 1) == 0)
+  if ((v14 & v43 & 1) == 0)
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:546 description:{@"Invalid parameter not satisfying: %@", @"exists && isDirectory"}];
   }
 
   v15 = [v11 URLByAppendingPathComponent:nameCopy];
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy_;
-  v42 = __Block_byref_object_dispose_;
-  v43 = 0;
-  v45 = *MEMORY[0x277CCA160];
-  v46[0] = @"mobile";
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-  v17 = (v39 + 5);
-  obj = v39[5];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy_;
+  v41 = __Block_byref_object_dispose_;
+  v42 = 0;
+  v44 = *MEMORY[0x277CCA160];
+  v45[0] = @"mobile";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+  v17 = (v38 + 5);
+  obj = v38[5];
   v18 = [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:0 attributes:v16 error:&obj];
   objc_storeStrong(v17, obj);
 
@@ -115,34 +116,34 @@ LABEL_3:
     goto LABEL_6;
   }
 
-  domain = [v39[5] domain];
+  domain = [v38[5] domain];
   if ([domain isEqualToString:*MEMORY[0x277CCA050]])
   {
-    v22 = [v39[5] code] == 516;
+    v22 = [v38[5] code] == 516;
 
     if (v22)
     {
 LABEL_6:
-      v33 = 0;
-      v34 = &v33;
-      v35 = 0x2020000000;
-      v36 = 0;
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __114__PAMediaConversionServiceResourceURLCollection_urlForDebugDumpWithDirectoryName_inExistingParentDirectory_error___block_invoke;
-      v28[3] = &unk_27989B620;
+      v32 = 0;
+      v33 = &v32;
+      v34 = 0x2020000000;
+      v35 = 0;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __114__PAMediaConversionServiceResourceURLCollection_urlForDebugDumpWithDirectoryName_inExistingParentDirectory_error___block_invoke;
+      v27[3] = &unk_27989B620;
       v19 = v15;
-      v29 = v19;
+      v28 = v19;
       selfCopy = self;
-      v31 = &v38;
-      v32 = &v33;
-      [(PAMediaConversionServiceResourceURLCollection *)self enumerateResourceURLs:v28];
-      if (*(v34 + 24) == 1)
+      v30 = &v37;
+      v31 = &v32;
+      [(PAMediaConversionServiceResourceURLCollection *)self enumerateResourceURLs:v27];
+      if (*(v33 + 24) == 1)
       {
         v20 = 0;
         if (error)
         {
-          *error = v39[5];
+          *error = v38[5];
         }
       }
 
@@ -151,7 +152,7 @@ LABEL_6:
         v20 = v19;
       }
 
-      _Block_object_dispose(&v33, 8);
+      _Block_object_dispose(&v32, 8);
       goto LABEL_18;
     }
   }
@@ -163,13 +164,11 @@ LABEL_6:
   v20 = 0;
   if (error)
   {
-    *error = v39[5];
+    *error = v38[5];
   }
 
 LABEL_18:
-  _Block_object_dispose(&v38, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v37, 8);
 
   return v20;
 }
@@ -215,34 +214,34 @@ void __71__PAMediaConversionServiceResourceURLCollection_enumerateResourceURLs__
 
 - (void)enumerateResourceURLReferences:(id)references
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   referencesCopy = references;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [(NSMutableDictionary *)self->_urlReferencesByRole allKeys];
   v6 = [allKeys sortedArrayUsingComparator:&__block_literal_global_117];
 
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v16 != v9)
+      if (*v15 != v9)
       {
         objc_enumerationMutation(v6);
       }
 
-      v11 = *(*(&v15 + 1) + 8 * v10);
+      v11 = *(*(&v14 + 1) + 8 * v10);
       v12 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:v11];
-      v14 = 0;
-      referencesCopy[2](referencesCopy, v11, v12, &v14);
-      LOBYTE(v11) = v14;
+      v13 = 0;
+      referencesCopy[2](referencesCopy, v11, v12, &v13);
+      LOBYTE(v11) = v13;
 
       if (v11)
       {
@@ -251,7 +250,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -261,8 +260,6 @@ LABEL_3:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fileSizeSummary
@@ -287,15 +284,15 @@ LABEL_3:
 
 void __64__PAMediaConversionServiceResourceURLCollection_fileSizeSummary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v13 = 0;
   v14 = 0;
-  v15 = 0;
-  v6 = [a3 getFileSize:&v15 error:&v14];
-  v7 = v14;
+  v6 = [a3 getFileSize:&v14 error:&v13];
+  v7 = v13;
   if (v6)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v15];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
     v9 = [v8 stringValue];
   }
 
@@ -304,9 +301,9 @@ void __64__PAMediaConversionServiceResourceURLCollection_fileSizeSummary__block_
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v18 = v5;
-      v19 = 2114;
-      v20 = v7;
+      v17 = v5;
+      v18 = 2114;
+      v19 = v7;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get file size for url with role %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -314,13 +311,11 @@ void __64__PAMediaConversionServiceResourceURLCollection_fileSizeSummary__block_
   }
 
   v10 = *(a1 + 32);
-  v16[0] = v5;
-  v16[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v5;
+  v15[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   v12 = [v11 componentsJoinedByString:@"="];
   [v10 addObject:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logMessageSummaryWithFullPath:(BOOL)path
@@ -345,11 +340,11 @@ void __64__PAMediaConversionServiceResourceURLCollection_fileSizeSummary__block_
 
 void __79__PAMediaConversionServiceResourceURLCollection_logMessageSummaryWithFullPath___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v15[0] = v5;
+  v14[0] = v5;
   v8 = *(a1 + 40);
   v9 = [v6 path];
   v10 = v9;
@@ -359,16 +354,14 @@ void __79__PAMediaConversionServiceResourceURLCollection_logMessageSummaryWithFu
     v11 = [v9 lastPathComponent];
   }
 
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v13 = [v12 componentsJoinedByString:@"="];
   [v7 addObject:v13];
 
   if ((v8 & 1) == 0)
   {
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allURLsAreReadable
@@ -438,26 +431,26 @@ void __67__PAMediaConversionServiceResourceURLCollection_allURLsAreReadable__blo
 
 void __83__PAMediaConversionServiceResourceURLCollection_removeExistingEmptyFilesWithError___block_invoke(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1[5] + 8);
   obj = *(v9 + 40);
-  v22 = 0;
-  v10 = [v8 getFileSize:&v22 error:&obj];
+  v21 = 0;
+  v10 = [v8 getFileSize:&v21 error:&obj];
   objc_storeStrong((v9 + 40), obj);
   if ((v10 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       v14 = [v8 url];
-      v19 = *(*(a1[5] + 8) + 40);
+      v18 = *(*(a1[5] + 8) + 40);
       *buf = 138543874;
-      v24 = v7;
-      v25 = 2112;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v19;
+      v23 = v7;
+      v24 = 2112;
+      v25 = v14;
+      v26 = 2114;
+      v27 = v18;
       v16 = MEMORY[0x277D86220];
       v17 = "Unable to get file size for URL ref with role %{public}@ %@: %{public}@";
       goto LABEL_10;
@@ -469,14 +462,14 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  if (!v22)
+  if (!v21)
   {
     v11 = a1[4];
     v12 = [v8 url];
     v13 = *(a1[5] + 8);
-    v20 = *(v13 + 40);
-    LOBYTE(v11) = [v11 removeItemAtURL:v12 error:&v20];
-    objc_storeStrong((v13 + 40), v20);
+    v19 = *(v13 + 40);
+    LOBYTE(v11) = [v11 removeItemAtURL:v12 error:&v19];
+    objc_storeStrong((v13 + 40), v19);
 
     if ((v11 & 1) == 0)
     {
@@ -485,11 +478,11 @@ LABEL_7:
         v14 = [v8 url];
         v15 = *(*(a1[5] + 8) + 40);
         *buf = 138543874;
-        v24 = v7;
-        v25 = 2112;
-        v26 = v14;
-        v27 = 2114;
-        v28 = v15;
+        v23 = v7;
+        v24 = 2112;
+        v25 = v14;
+        v26 = 2114;
+        v27 = v15;
         v16 = MEMORY[0x277D86220];
         v17 = "Unable to remove empty file for URL ref with role %{public}@ %@: %{public}@";
 LABEL_10:
@@ -503,8 +496,6 @@ LABEL_10:
   }
 
 LABEL_8:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)ensureFilesExistWithError:(id *)error
@@ -544,7 +535,7 @@ LABEL_8:
 
 void __75__PAMediaConversionServiceResourceURLCollection_ensureFilesExistWithError___block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = [v6 url];
   v8 = [v7 path];
@@ -557,15 +548,15 @@ void __75__PAMediaConversionServiceResourceURLCollection_ensureFilesExistWithErr
   v9 = [v6 url];
   v10 = [v9 URLByDeletingLastPathComponent];
 
-  v27 = 0;
+  v26 = 0;
   v11 = *(a1 + 32);
   v12 = [v10 path];
-  LODWORD(v11) = [v11 fileExistsAtPath:v12 isDirectory:&v27];
+  LODWORD(v11) = [v11 fileExistsAtPath:v12 isDirectory:&v26];
 
   if (v11)
   {
     v13 = MEMORY[0x277CCA160];
-    if (v27)
+    if (v26)
     {
       goto LABEL_9;
     }
@@ -576,7 +567,7 @@ void __75__PAMediaConversionServiceResourceURLCollection_ensureFilesExistWithErr
     }
 
     *buf = 138412290;
-    v33 = v8;
+    v32 = v8;
     v14 = MEMORY[0x277D86220];
     v15 = "Attempting to create empty destination output file at path %@ but the parent directory path exists and is not a directory";
     goto LABEL_19;
@@ -584,9 +575,9 @@ void __75__PAMediaConversionServiceResourceURLCollection_ensureFilesExistWithErr
 
   v16 = *(a1 + 32);
   v13 = MEMORY[0x277CCA160];
-  v30 = *MEMORY[0x277CCA160];
-  v31 = @"mobile";
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+  v29 = *MEMORY[0x277CCA160];
+  v30 = @"mobile";
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
   v18 = *(*(a1 + 48) + 8);
   obj = *(v18 + 40);
   LOBYTE(v16) = [v16 createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:v17 error:&obj];
@@ -599,9 +590,9 @@ void __75__PAMediaConversionServiceResourceURLCollection_ensureFilesExistWithErr
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v25 = *(*(*(a1 + 48) + 8) + 40);
+    v24 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138412290;
-    v33 = v25;
+    v32 = v24;
     v14 = MEMORY[0x277D86220];
     v15 = "Attempting to create empty destination output file at path %@ but parent directory creation failed:";
 LABEL_19:
@@ -614,9 +605,9 @@ LABEL_9:
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
   {
     v19 = *(a1 + 32);
-    v28 = *v13;
-    v29 = @"mobile";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v27 = *v13;
+    v28 = @"mobile";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
     LOBYTE(v19) = [v19 createFileAtPath:v8 contents:0 attributes:v20];
 
     if ((v19 & 1) == 0)
@@ -624,7 +615,7 @@ LABEL_9:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v33 = v8;
+        v32 = v8;
         _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create empty file at destination %@", buf, 0xCu);
       }
 
@@ -642,7 +633,6 @@ LABEL_9:
   }
 
 LABEL_17:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)filenameExtensionAndPathHashForRole:(id)role
@@ -713,7 +703,7 @@ LABEL_17:
 
 void __95__PAMediaConversionServiceResourceURLCollection_bookmarkDataDictionaryRepresentationWithError___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *(*(a1 + 40) + 8);
   obj = *(v8 + 40);
@@ -728,11 +718,11 @@ void __95__PAMediaConversionServiceResourceURLCollection_bookmarkDataDictionaryR
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = *(*(*(a1 + 40) + 8) + 40);
+      v10 = *(*(*(a1 + 40) + 8) + 40);
       *buf = 138543618;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v11;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v10;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to encode bookmark data for resource in role %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -740,13 +730,11 @@ void __95__PAMediaConversionServiceResourceURLCollection_bookmarkDataDictionaryR
   }
 
   *a4 = *(*(*(a1 + 48) + 8) + 24);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)typeIdentifierForResourceURLWithRole:(id)role
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   if (!roleCopy)
   {
@@ -769,12 +757,12 @@ void __95__PAMediaConversionServiceResourceURLCollection_bookmarkDataDictionaryR
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:313 description:@"Unexpected nil role"];
   }
 
-  v35 = 0;
-  v9 = *MEMORY[0x277CBE918];
   v34 = 0;
-  v10 = [v8 getResourceValue:&v35 forKey:v9 error:&v34];
-  v11 = v35;
-  v12 = v34;
+  v9 = *MEMORY[0x277CBE918];
+  v33 = 0;
+  v10 = [v8 getResourceValue:&v34 forKey:v9 error:&v33];
+  v11 = v34;
+  v12 = v33;
   v13 = v12;
   if ((v10 & 1) == 0)
   {
@@ -815,11 +803,11 @@ LABEL_21:
     {
       path = [v8 path];
       *buf = 138543874;
-      v37 = roleCopy;
-      v38 = 2112;
-      v39 = path;
-      v40 = 2114;
-      v41 = v13;
+      v36 = roleCopy;
+      v37 = 2112;
+      v38 = path;
+      v39 = 2114;
+      v40 = v13;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to determine type identifier for URL with role %{public}@ %@: %{public}@", buf, 0x20u);
     }
 
@@ -860,14 +848,13 @@ LABEL_13:
 LABEL_24:
 
 LABEL_25:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (BOOL)containsAnyRole:(id)role
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   roleCopy = role;
   if (![roleCopy count])
   {
@@ -875,26 +862,26 @@ LABEL_25:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:294 description:{@"Invalid parameter not satisfying: %@", @"[roles count]"}];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = roleCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
 
         if (v11)
         {
@@ -903,7 +890,7 @@ LABEL_25:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -916,13 +903,12 @@ LABEL_25:
   v12 = 0;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)containsAllRoles:(id)roles
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   rolesCopy = roles;
   if (![rolesCopy count])
   {
@@ -930,26 +916,26 @@ LABEL_13:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:283 description:{@"Invalid parameter not satisfying: %@", @"[roles count]"}];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = rolesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+        v11 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
 
         if (!v11)
         {
@@ -958,7 +944,7 @@ LABEL_13:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -971,8 +957,21 @@ LABEL_13:
   v12 = 1;
 LABEL_13:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
+}
+
+- (void)setShouldDeleteURLOnDeallocation:(BOOL)deallocation forRole:(id)role
+{
+  deallocationCopy = deallocation;
+  roleCopy = role;
+  v7 = [(NSMutableDictionary *)self->_urlReferencesByRole objectForKeyedSubscript:?];
+  if (!v7)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PAMediaConversionServiceResourceURLCollection.m" lineNumber:277 description:{@"No URL is currently set for role %@", roleCopy}];
+  }
+
+  [v7 setShouldDeleteOnDeallocation:deallocationCopy];
 }
 
 - (id)resourceURLForRole:(id)role
@@ -998,6 +997,14 @@ LABEL_13:
   }
 
   return v7;
+}
+
+- (void)setResourceURL:(id)l forRole:(id)role deleteOnDeallocation:(BOOL)deallocation
+{
+  deallocationCopy = deallocation;
+  roleCopy = role;
+  [(PAMediaConversionServiceResourceURLCollection *)self setResourceURL:l forRole:roleCopy];
+  [(PAMediaConversionServiceResourceURLCollection *)self setShouldDeleteURLOnDeallocation:deallocationCopy forRole:roleCopy];
 }
 
 - (void)setResourceURL:(id)l forRole:(id)role
@@ -1056,7 +1063,7 @@ LABEL_3:
   return v2;
 }
 
-uint64_t __53__PAMediaConversionServiceResourceURLCollection_hash__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__53__PAMediaConversionServiceResourceURLCollection_hash__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = 0;
   result = [a3 getPathHash:&v5 lastPathComponent:0];
@@ -1099,7 +1106,7 @@ uint64_t __53__PAMediaConversionServiceResourceURLCollection_hash__block_invoke(
 
 + (BOOL)getSignatureString:(id *)string filenameSummary:(id *)summary forDictionaryRepresentation:(id)representation
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   if (!representationCopy)
   {
@@ -1108,61 +1115,61 @@ uint64_t __53__PAMediaConversionServiceResourceURLCollection_hash__block_invoke(
   }
 
   array = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   allKeys = [representationCopy allKeys];
   v12 = [allKeys sortedArrayUsingComparator:&__block_literal_global];
 
-  v13 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v13)
   {
     v14 = v13;
     stringCopy = string;
     summaryCopy = summary;
     v15 = 0;
-    v16 = *v33;
-    v29 = 1;
+    v16 = *v32;
+    v28 = 1;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * i);
+        v18 = *(*(&v31 + 1) + 8 * i);
+        v29 = 0;
         v30 = 0;
-        v31 = 0;
         v19 = representationCopy;
         v20 = [representationCopy objectForKeyedSubscript:v18];
-        v21 = [PAMediaConversionServiceResourceURLReference getPathHash:&v31 lastPathComponent:&v30 forDictionaryRepresentation:v20];
-        v22 = v30;
+        v21 = [PAMediaConversionServiceResourceURLReference getPathHash:&v30 lastPathComponent:&v29 forDictionaryRepresentation:v20];
+        v22 = v29;
 
         if (v21)
         {
-          v15 ^= v31;
+          v15 ^= v30;
           [array addObject:v22];
         }
 
         else
         {
-          v29 = 0;
+          v28 = 0;
         }
 
         representationCopy = v19;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v14);
 
     string = stringCopy;
     summary = summaryCopy;
-    if ((v29 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
       v23 = 0;
       goto LABEL_21;
@@ -1188,7 +1195,6 @@ uint64_t __53__PAMediaConversionServiceResourceURLCollection_hash__block_invoke(
   v23 = 1;
 LABEL_21:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
@@ -1249,7 +1255,7 @@ LABEL_21:
 
 void __120__PAMediaConversionServiceResourceURLCollection_collectionForBookmarkDataDictionaryRepresentation_accessProvider_error___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = *(a1[5] + 8);
   obj = *(v8 + 40);
@@ -1264,11 +1270,11 @@ void __120__PAMediaConversionServiceResourceURLCollection_collectionForBookmarkD
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = *(*(a1[5] + 8) + 40);
+      v10 = *(*(a1[5] + 8) + 40);
       *buf = 138543618;
-      v14 = v7;
-      v15 = 2114;
-      v16 = v11;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v10;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to decode bookmark data for resource in role %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -1276,8 +1282,6 @@ void __120__PAMediaConversionServiceResourceURLCollection_collectionForBookmarkD
   }
 
   *a4 = *(*(a1[6] + 8) + 24);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)collectionWithMainResourceURL:(id)l

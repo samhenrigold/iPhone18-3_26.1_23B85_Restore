@@ -43,7 +43,7 @@
 
 + (id)_backupInfoWithSyncStore:(uint64_t)store
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_self();
   databaseIdentifier = [v2 databaseIdentifier];
@@ -73,13 +73,13 @@ LABEL_10:
 
         if ([v10 length])
         {
-          v21[0] = @"DatabaseIdentifier";
-          v21[1] = @"PullIdentifier";
-          v22[0] = uUIDString;
-          v22[1] = v10;
+          v20[0] = @"DatabaseIdentifier";
+          v20[1] = @"PullIdentifier";
+          v21[0] = uUIDString;
+          v21[1] = v10;
           v12 = MEMORY[0x277CBEAC0];
-          v13 = v22;
-          v14 = v21;
+          v13 = v21;
+          v14 = v20;
           v15 = 2;
           goto LABEL_9;
         }
@@ -92,11 +92,11 @@ LABEL_10:
       v9 = 0;
     }
 
-    v19 = @"DatabaseIdentifier";
-    v20 = uUIDString;
+    v18 = @"DatabaseIdentifier";
+    v19 = uUIDString;
     v12 = MEMORY[0x277CBEAC0];
-    v13 = &v20;
-    v14 = &v19;
+    v13 = &v19;
+    v14 = &v18;
     v15 = 1;
 LABEL_9:
     v11 = [v12 dictionaryWithObjects:v13 forKeys:v14 count:v15];
@@ -105,8 +105,6 @@ LABEL_9:
 
   v16 = MEMORY[0x277CBEC10];
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -166,7 +164,7 @@ LABEL_12:
 
 + (int64_t)receiveSyncObjects:(id)objects version:(id)version syncStore:(id)store profile:(id)profile error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   objectsCopy = objects;
   storeCopy = store;
   profileCopy = profile;
@@ -174,29 +172,29 @@ LABEL_12:
   if (v14)
   {
     errorCopy = error;
-    v35 = profileCopy;
+    v34 = profileCopy;
     v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v36 = objectsCopy;
+    v35 = objectsCopy;
     v16 = objectsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v38;
+      v19 = *v37;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v38 != v19)
+          if (*v37 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v37 + 1) + 8 * i);
+          v21 = *(*(&v36 + 1) + 8 * i);
           decodedBackupUUID = [v21 decodedBackupUUID];
           if ([decodedBackupUUID isEqual:v14])
           {
@@ -204,7 +202,7 @@ LABEL_12:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v36 objects:v44 count:16];
       }
 
       while (v18);
@@ -214,29 +212,29 @@ LABEL_12:
     {
       _HKInitializeLogging();
       v23 = *MEMORY[0x277CCC328];
-      profileCopy = v35;
+      profileCopy = v34;
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
       {
         v24 = v23;
         v25 = [v15 count];
         v26 = objc_opt_class();
         *buf = 134218242;
-        v42 = v25;
-        v43 = 2114;
-        v44 = v26;
+        v41 = v25;
+        v42 = 2114;
+        v43 = v26;
         v27 = v26;
         _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "Applying %lu objects for %{public}@", buf, 0x16u);
       }
 
-      v28 = [HDAuthorizationEntity _insertCodableSourceAuthorizations:v15 overwriteExisting:0 syncStore:storeCopy profile:v35 error:errorCopy]^ 1;
-      objectsCopy = v36;
+      v28 = [HDAuthorizationEntity _insertCodableSourceAuthorizations:v15 overwriteExisting:0 syncStore:storeCopy profile:v34 error:errorCopy]^ 1;
+      objectsCopy = v35;
     }
 
     else
     {
       v28 = 0;
-      profileCopy = v35;
-      objectsCopy = v36;
+      profileCopy = v34;
+      objectsCopy = v35;
     }
   }
 
@@ -248,15 +246,14 @@ LABEL_12:
     {
       v30 = v29;
       *buf = 138543362;
-      v42 = objc_opt_class();
-      v31 = v42;
+      v41 = objc_opt_class();
+      v31 = v41;
       _os_log_impl(&dword_228986000, v30, OS_LOG_TYPE_DEFAULT, "Ignoring %{public}@ objects (missing pull identifier)", buf, 0xCu);
     }
 
     v28 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

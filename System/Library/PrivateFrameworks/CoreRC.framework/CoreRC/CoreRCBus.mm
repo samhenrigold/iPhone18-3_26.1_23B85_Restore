@@ -48,43 +48,43 @@
 
 - (CoreRCBus)initWithBus:(id)bus
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (bus)
   {
-    v18.receiver = self;
-    v18.super_class = CoreRCBus;
-    v4 = [(CoreRCBus *)&v18 init];
+    v17.receiver = self;
+    v17.super_class = CoreRCBus;
+    v4 = [(CoreRCBus *)&v17 init];
     v5 = v4;
     if (v4)
     {
       v6 = [(CoreRCBus *)v4 zone];
       v5->_devicesInternal = [objc_msgSend(MEMORY[0x277CBEB58] allocWithZone:{v6), "init"}];
       v5->_uniqueID = [objc_msgSend(bus "uniqueID")];
+      v13 = 0u;
       v14 = 0u;
       v15 = 0u;
       v16 = 0u;
-      v17 = 0u;
       devices = [bus devices];
-      v8 = [devices countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v8 = [devices countByEnumeratingWithState:&v13 objects:v18 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v15;
+        v10 = *v14;
         do
         {
           v11 = 0;
           do
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(devices);
             }
 
-            [(CoreRCBus *)v5 addDevice:*(*(&v14 + 1) + 8 * v11++)];
+            [(CoreRCBus *)v5 addDevice:*(*(&v13 + 1) + 8 * v11++)];
           }
 
           while (v9 != v11);
-          v9 = [devices countByEnumeratingWithState:&v14 objects:v19 count:16];
+          v9 = [devices countByEnumeratingWithState:&v13 objects:v18 count:16];
         }
 
         while (v9);
@@ -95,45 +95,44 @@
   else
   {
 
-    v5 = 0;
+    return 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (CoreRCBus)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19.receiver = self;
-  v19.super_class = CoreRCBus;
-  v4 = [(CoreRCBus *)&v19 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v18.receiver = self;
+  v18.super_class = CoreRCBus;
+  v4 = [(CoreRCBus *)&v18 init];
   if (v4)
   {
     v4->_devicesInternal = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = MEMORY[0x277CBEB98];
     v6 = objc_opt_class();
     v7 = [coder decodeObjectOfClasses:objc_msgSend(v5 forKey:{"setWithObjects:", v6, objc_opt_class(), 0, 0), @"devices"}];
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * v11);
+          v12 = *(*(&v14 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -144,7 +143,7 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v9);
@@ -153,7 +152,6 @@
     v4->_uniqueID = [coder decodeObjectOfClass:objc_opt_class() forKey:@"uniqueID"];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -232,39 +230,37 @@
 
 - (void)setManager:(id)manager
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   self->_manager = manager;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   devices = [(CoreRCBus *)self devices];
-  v5 = [(NSSet *)devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSSet *)devices countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(devices);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setManager:manager];
+        [*(*(&v9 + 1) + 8 * v8++) setManager:manager];
       }
 
       while (v6 != v8);
-      v6 = [(NSSet *)devices countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSSet *)devices countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDevice:(id)device
@@ -282,29 +278,29 @@
 
 - (void)removeAllExternalDevices
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   devicesInternal = self->_devicesInternal;
-  v6 = [(NSMutableSet *)devicesInternal countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v6 = [(NSMutableSet *)devicesInternal countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v31;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(devicesInternal);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         if ([v10 isLocalDevice])
         {
           v11 = v3;
@@ -318,36 +314,36 @@
         [(NSMutableSet *)v11 addObject:v10];
       }
 
-      v7 = [(NSMutableSet *)devicesInternal countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v7 = [(NSMutableSet *)devicesInternal countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
     while (v7);
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v12 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v12 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v26 objects:v35 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v4);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * j);
+        v16 = *(*(&v26 + 1) + 8 * j);
         [v16 willRemoveFromBus:self];
         [(CoreRCBus *)self willRemoveDevice:v16];
       }
 
-      v13 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
+      v13 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
     while (v13);
@@ -355,73 +351,69 @@
 
   self->_devicesInternal = v3;
   [(CoreRCBus *)self notifyDelegateAllDevicesRemoved:v4];
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v17 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v23 objects:v35 count:16];
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v17 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v22 objects:v34 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v23;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v24 != v19)
+        if (*v23 != v19)
         {
           objc_enumerationMutation(v4);
         }
 
-        v21 = *(*(&v23 + 1) + 8 * k);
+        v21 = *(*(&v22 + 1) + 8 * k);
         [v21 setManager:0];
         [(CoreRCBus *)self didRemoveDevice:v21];
         [v21 didRemoveFromBus:self];
       }
 
-      v18 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v23 objects:v35 count:16];
+      v18 = [(NSMutableSet *)v4 countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
     while (v18);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didRemoveFromManager:(id)manager
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = [(CoreRCBus *)self devices:manager];
-  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) removeAllOwningClients];
+        [*(*(&v8 + 1) + 8 * v7++) removeAllOwningClients];
       }
 
       while (v5 != v7);
-      v5 = [(NSSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateProperties:(id)properties
@@ -496,40 +488,38 @@
 
 - (void)notifyDelegateAllDevicesRemoved:(id)removed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCBus notifyDelegateAllDevicesRemoved:];
+    [(CoreRCBus *)self notifyDelegateAllDevicesRemoved:a2];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v5 = [removed countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = [removed countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(removed);
         }
 
-        [(CoreRCBus *)self notifyDelegateDeviceRemoved:*(*(&v10 + 1) + 8 * i)];
+        [(CoreRCBus *)self notifyDelegateDeviceRemoved:*(*(&v9 + 1) + 8 * i)];
       }
 
-      v6 = [removed countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [removed countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDelegateDeviceUpdated:(id)updated
@@ -602,73 +592,71 @@
 
 - (void)mergePropertiesFromBus:(id)bus
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   if (v5 && [(CoreRCBus *)self isEqual:bus])
   {
-    v27 = 0u;
-    v28 = 0u;
+    v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     mergeProperties = [(CoreRCBus *)self mergeProperties];
-    v7 = [mergeProperties countByEnumeratingWithState:&v25 objects:v30 count:16];
+    v7 = [mergeProperties countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v26;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(mergeProperties);
           }
 
-          v11 = *(*(&v25 + 1) + 8 * i);
-          v12 = [bus valueForKey:{v11, v19, selfCopy}];
+          v11 = *(*(&v22 + 1) + 8 * i);
+          v12 = [bus valueForKey:v11];
           if (([-[CoreRCBus valueForKey:](self valueForKey:{v11), "isEqual:", v12}] & 1) == 0)
           {
             [(CoreRCBus *)self setValue:v12 forKey:v11];
             [v5 addObject:v11];
             if (gLogCategory_CoreRCBus <= 10 && (gLogCategory_CoreRCBus != -1 || _LogCategory_Initialize()))
             {
-              v19 = v11;
-              selfCopy = self;
-              LogPrintF();
+              LogPrintF(&gLogCategory_CoreRCBus, "[CoreRCBus mergePropertiesFromBus:]", 10, "UPDATED %@: %@\n", v11, self);
             }
           }
         }
 
-        v8 = [mergeProperties countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v8 = [mergeProperties countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
     }
 
-    v23 = 0u;
-    v24 = 0u;
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     devices = [bus devices];
-    v14 = [devices countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v14 = [devices countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v22;
+      v16 = *v19;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v22 != v16)
+          if (*v19 != v16)
           {
             objc_enumerationMutation(devices);
           }
 
-          [(CoreRCBus *)self mergeDevice:*(*(&v21 + 1) + 8 * j)];
+          [(CoreRCBus *)self mergeDevice:*(*(&v18 + 1) + 8 * j)];
         }
 
-        v15 = [devices countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v15 = [devices countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v15);
@@ -679,8 +667,6 @@
       [(CoreRCBus *)self didUpdateProperties:v5];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)serialQueue
@@ -694,25 +680,25 @@
 - (uint64_t)notifyDelegateDeviceAdded:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCBus, "[CoreRCBus notifyDelegateDeviceAdded:]", 10, "NOTIFY %@ %@ DEVICE ADDED %@ %@\n", v2, v1, v3, v0);
 }
 
 - (uint64_t)notifyDelegateDeviceRemoved:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCBus, "[CoreRCBus notifyDelegateDeviceRemoved:]", 10, "NOTIFY %@ %@ DEVICE REMOVED %@ %@\n", v2, v1, v3, v0);
 }
 
 - (uint64_t)notifyDelegateDeviceUpdated:.cold.1()
 {
   OUTLINED_FUNCTION_1_4();
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCBus, "[CoreRCBus notifyDelegateDeviceUpdated:]", 10, "NOTIFY %@ %@ DEVICE UPDATED %@ %@\n", v2, v1, v3, v0);
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface ICDPlaybackPositionResponseDataSync
 - (ICDPlaybackPositionResponseDataSync)initWithResponseDictionary:(id)dictionary forDomain:(id)domain;
+- (id)metadataWithPlaybackPositionKey:(id)key failuresOkay:(BOOL)okay;
 - (id)payloadDataForUpdateResponseKey:(id)key;
 - (void)_deserializeResponseDictionary:(id)dictionary;
 @end
@@ -12,50 +13,48 @@
   v5 = dictionaryCopy;
   if (dictionaryCopy)
   {
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100055D44;
-    v21[3] = &unk_1001DB3B8;
-    v6 = dictionaryCopy;
-    v22 = v6;
-    v7 = objc_retainBlock(v21);
-    (v7[2])(v7, self->_deletedKeys, @"peer-ops", @"deletes", &stru_1001DB3F8);
-    updatedKeys = self->_updatedKeys;
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100056030;
-    v20[3] = &unk_1001DB420;
-    v20[4] = self;
-    (v7[2])(v7, updatedKeys, @"peer-ops", @"puts", v20);
-    (v7[2])(v7, self->_conflictedKeys, @"ops", @"rejected", &stru_1001DB440);
-    successfullyUpdatedKeys = self->_successfullyUpdatedKeys;
     v19[0] = _NSConcreteStackBlock;
     v19[1] = 3221225472;
-    v19[2] = sub_100056064;
-    v19[3] = &unk_1001DB420;
-    v19[4] = self;
-    (v7[2])(v7, successfullyUpdatedKeys, @"ops", @"put-ok", v19);
-    successfullyDeletedKeys = self->_successfullyDeletedKeys;
+    v19[2] = sub_100055D44;
+    v19[3] = &unk_1001DB3B8;
+    v6 = dictionaryCopy;
+    v20 = v6;
+    v7 = objc_retainBlock(v19);
+    (v7[2])(v7, self->_deletedKeys, @"peer-ops", @"deletes", &stru_1001DB3F8);
+    updatedKeys = self->_updatedKeys;
     v18[0] = _NSConcreteStackBlock;
     v18[1] = 3221225472;
-    v18[2] = sub_100056090;
+    v18[2] = sub_100056030;
     v18[3] = &unk_1001DB420;
     v18[4] = self;
-    (v7[2])(v7, successfullyDeletedKeys, @"ops", @"deleted-ok", v18);
+    (v7[2])(v7, updatedKeys, @"peer-ops", @"puts", v18);
+    (v7[2])(v7, self->_conflictedKeys, @"ops", @"rejected", &stru_1001DB440);
+    successfullyUpdatedKeys = self->_successfullyUpdatedKeys;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100056064;
+    v17[3] = &unk_1001DB420;
+    v17[4] = self;
+    (v7[2])(v7, successfullyUpdatedKeys, @"ops", @"put-ok", v17);
+    successfullyDeletedKeys = self->_successfullyDeletedKeys;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100056090;
+    v16[3] = &unk_1001DB420;
+    v16[4] = self;
+    (v7[2])(v7, successfullyDeletedKeys, @"ops", @"deleted-ok", v16);
     v11 = [v6 valueForKey:@"version"];
     syncAnchor = self->_syncAnchor;
     self->_syncAnchor = v11;
 
-    v13 = self->_syncAnchor;
     if ((_NSIsNSString() & 1) == 0)
     {
+      v13 = objc_opt_respondsToSelector();
       v14 = self->_syncAnchor;
-      v15 = objc_opt_respondsToSelector();
-      v16 = self->_syncAnchor;
-      if (v15)
+      if (v13)
       {
-        stringValue = [(NSString *)v16 stringValue];
-        v16 = self->_syncAnchor;
+        stringValue = [(NSString *)v14 stringValue];
+        v14 = self->_syncAnchor;
       }
 
       else
@@ -66,6 +65,31 @@
       self->_syncAnchor = stringValue;
     }
   }
+}
+
+- (id)metadataWithPlaybackPositionKey:(id)key failuresOkay:(BOOL)okay
+{
+  okayCopy = okay;
+  keyCopy = key;
+  v7 = [(ICDPlaybackPositionResponseDataSync *)self payloadDataForUpdateResponseKey:keyCopy];
+  if (v7)
+  {
+    v8 = [(ICDPlaybackPositionResponseDataBase *)self metadataWithItemIdentifier:keyCopy keyValueStorePayload:v7 failuresOkay:okayCopy];
+  }
+
+  else
+  {
+    v9 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "metadataWithItemIdentifier - keyValueStorePayload=nil", v11, 2u);
+    }
+
+    v8 = 0;
+  }
+
+  return v8;
 }
 
 - (id)payloadDataForUpdateResponseKey:(id)key

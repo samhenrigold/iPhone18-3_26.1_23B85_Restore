@@ -1,26 +1,26 @@
-uint64_t ProResHWAnalyzer::parseProResFrame(int *a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t ProResHWAnalyzer::parseProResFrame(ThreadPool **a1, uint64_t a2, uint64_t a3, char a4, char a5)
 {
   *a3 = bswap32(*a2);
-  v4 = bswap32(*(a2 + 8)) >> 16;
-  *(a3 + 4) = v4;
+  v5 = bswap32(*(a2 + 8)) >> 16;
+  *(a3 + 4) = v5;
   *(a3 + 6) = bswap32(*(a2 + 16)) >> 16;
   *(a3 + 8) = bswap32(*(a2 + 18)) >> 16;
   *(a3 + 10) = *(a2 + 20) >> 6;
   *(a3 + 11) = (*(a2 + 20) >> 2) & 3;
-  v5 = *(a2 + 27);
-  *(a3 + 12) = (v5 & 2) != 0;
-  if ((v5 & 2) != 0)
+  v6 = *(a2 + 27);
+  *(a3 + 12) = (v6 & 2) != 0;
+  if ((v6 & 2) != 0)
   {
-    v6 = *(a2 + 28);
+    v7 = *(a2 + 28);
   }
 
   else
   {
-    v6 = 4;
+    v7 = 4;
   }
 
-  *(a3 + 13) = v6;
-  ProResHWAnalyzer::parseProResPicture(a1, a2 + 8 + v4, a3, (a3 + 16), a4);
+  *(a3 + 13) = v7;
+  ProResHWAnalyzer::parseProResPicture(a1, a2 + 8 + v5, a3, (a3 + 16), a4, a5);
   return 0;
 }
 
@@ -120,41 +120,41 @@ uint64_t extractEstSizeFromIndex(_WORD *a1, int a2)
 
 uint64_t ProResHWAnalyzer::interpolateSize(uint64_t a1, __int128 *a2, int a3, int a4, int a5)
 {
-  v28 = *MEMORY[0x29EDCA608];
-  v27[0] = a3;
+  v27 = *MEMORY[0x29EDCA608];
+  v26[0] = a3;
   for (i = 1; i != 7; ++i)
   {
     a3 *= 3;
-    v27[i] = a3;
+    v26[i] = a3;
   }
 
   v8 = qScale[a4];
-  if (v27[1] >= v8)
+  if (v26[1] >= v8)
   {
     v9 = 0;
   }
 
-  else if (v27[2] >= v8)
+  else if (v26[2] >= v8)
   {
     v9 = 1;
   }
 
-  else if (v27[3] >= v8)
+  else if (v26[3] >= v8)
   {
     v9 = 2;
   }
 
-  else if (v27[4] >= v8)
+  else if (v26[4] >= v8)
   {
     v9 = 3;
   }
 
-  else if (v27[5] >= v8)
+  else if (v26[5] >= v8)
   {
     v9 = 4;
   }
 
-  else if (v27[6] >= v8)
+  else if (v26[6] >= v8)
   {
     v9 = 5;
   }
@@ -166,42 +166,35 @@ uint64_t ProResHWAnalyzer::interpolateSize(uint64_t a1, __int128 *a2, int a3, in
 
   v10 = v9 + 1;
   v11 = a2[1];
-  v24 = *a2;
-  v25 = v11;
-  v26 = a2[2];
-  v12 = extractEstSizeFromIndex(&v24, v9);
+  v23 = *a2;
+  v24 = v11;
+  v25 = a2[2];
+  v12 = extractEstSizeFromIndex(&v23, v9);
   v13 = a2[1];
-  v24 = *a2;
-  v25 = v13;
-  v26 = a2[2];
-  v14 = extractEstSizeFromIndex(&v24, v9 + 1);
+  v23 = *a2;
+  v24 = v13;
+  v25 = a2[2];
+  v14 = extractEstSizeFromIndex(&v23, v9 + 1);
   switch(a5)
   {
     case 0:
-      v22 = v27[v9];
-      v21 = v12 + ((-(v12 - v14) / (v22 - v27[v10])) * (v22 - v8));
-      goto LABEL_23;
+      v22 = v26[v9];
+      v21 = v12 + ((-(v12 - v14) / (v22 - v26[v10])) * (v22 - v8));
+      return v21;
     case 1:
       v17 = (v12 - v14);
-      LOWORD(v15) = v27[v9];
+      LOWORD(v15) = v26[v9];
       *&v18 = log(v15);
       v19 = *&v18;
-      LOWORD(v18) = v27[v10];
+      LOWORD(v18) = v26[v10];
       v20 = v19 - log(v18);
       v21 = v12 - (v17 / v20) * (v19 - log(v8));
-LABEL_23:
-      result = v21;
-      break;
+      return v21;
     case 2:
-      result = v12;
-      break;
+      return v12;
     default:
-      result = 0;
-      break;
+      return 0;
   }
-
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
 }
 
 uint64_t ProResHWAnalyzer::getEstimatedSizeForSlice(ProResHWAnalyzer *this, unsigned __int8 *a2, int a3, int a4, int a5)
@@ -214,7 +207,7 @@ uint64_t ProResHWAnalyzer::getEstimatedSizeForSlice(ProResHWAnalyzer *this, unsi
   return ProResHWAnalyzer::interpolateSize(this, v8, a4, a5, 1);
 }
 
-void ProResHWAnalyzer::findMinMaxlastNZPos(ProResHWAnalyzer *this, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 *a4, unsigned int a5)
+void ProResHWAnalyzer::findMinMaxlastNZPos(uint64_t this, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 *a4, unsigned int a5)
 {
   if ((a5 & 7) != 0)
   {
@@ -443,7 +436,7 @@ LABEL_54:
   }
 }
 
-void ProResHWAnalyzer::parseHWStats(ProResHWAnalyzer *a1, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5, int a6, int a7, int a8, char a9, char a10)
+void ProResHWAnalyzer::parseHWStats(uint64_t result, uint64_t a2, void *a3, unsigned __int8 *a4, uint64_t a5, int a6, int a7, int a8, char a9, char a10)
 {
   v14 = 0;
   *(a2 + 4) = 148;
@@ -499,7 +492,7 @@ void ProResHWAnalyzer::parseHWStats(ProResHWAnalyzer *a1, uint64_t a2, void *a3,
       v23 = *v20;
       v20 += 56;
       *(*(a2 + 336) + v18) = ((v23 + (v23 >> 15)) >> 8) ^ 0x80;
-      ProResHWAnalyzer::findMinMaxlastNZPos(a1, a4 + 2, (*(a2 + 320) + v18), (*(a2 + 328) + v18), 0x20u);
+      ProResHWAnalyzer::findMinMaxlastNZPos(result, a4 + 2, (*(a2 + 320) + v18), (*(a2 + 328) + v18), 0x20u);
       a3 = (a3 + 60);
       ++v18;
       a4 = v20;
@@ -978,7 +971,7 @@ uint64_t ProResHWAnalyzer::getSliceToFix(uint64_t a1, unsigned int a2, unsigned 
 
 uint64_t ProResHWAnalyzer::stitchProResFrame(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t (*a7)(unsigned __int8 *a1, unsigned int a2, unsigned int a3, void *a4), void *a8)
 {
-  v55[2] = *MEMORY[0x29EDCA608];
+  v54[2] = *MEMORY[0x29EDCA608];
   if (a7)
   {
     v12 = a7;
@@ -989,11 +982,11 @@ uint64_t ProResHWAnalyzer::stitchProResFrame(uint64_t a1, uint64_t a2, unsigned 
     v12 = dummyCallback;
   }
 
-  v55[0] = a3;
-  v55[1] = a5;
-  v52 = 0;
-  v49 = v12;
-  v47 = *(a1 + 16);
+  v54[0] = a3;
+  v54[1] = a5;
+  v51 = 0;
+  v48 = v12;
+  v46 = *(a1 + 16);
   v13 = *(a2 + 4);
   v14 = v13 + 8;
   if (v12(a3, 0, v13 + 8, a8))
@@ -1011,69 +1004,69 @@ uint64_t ProResHWAnalyzer::stitchProResFrame(uint64_t a1, uint64_t a2, unsigned 
   v15 = *(a4 + 4);
   v16 = (a2 + 16);
   v17 = (a4 + 16);
-  v53[0] = a2 + 16;
-  v53[1] = a4 + 16;
+  v52[0] = a2 + 16;
+  v52[1] = a4 + 16;
   v18 = *(a2 + 40) * *(a2 + 36);
   if (v18 != *(a4 + 40) * *(a4 + 36))
   {
-    v32 = "numSlicesP0 == pic[1]->height_in_mb * pic[1]->number_of_slices_per_mb_row";
-    v33 = 1021;
+    v31 = "numSlicesP0 == pic[1]->height_in_mb * pic[1]->number_of_slices_per_mb_row";
+    v32 = 1021;
     goto LABEL_23;
   }
 
   if (v18 != *(a1 + 24))
   {
-    v32 = "numSlicesP0 == m_numSlices";
-    v33 = 1022;
+    v31 = "numSlicesP0 == m_numSlices";
+    v32 = 1022;
 LABEL_23:
-    __assert_rtn("stitchProResFrame", "AppleProResHWAnalyzer.cpp", v33, v32);
+    __assert_rtn("stitchProResFrame", "AppleProResHWAnalyzer.cpp", v32, v31);
   }
 
   v19 = *v16 + 2 * v18;
-  if (v49(&a3[v14], v13 + 8, v19, a8))
+  if (v48(&a3[v14], v13 + 8, v19, a8))
   {
-    v36 = __cxa_allocate_exception(8uLL);
-    *v36 = "picture header and slice table";
-    __cxa_throw(v36, MEMORY[0x29EDC9468], 0);
+    v35 = __cxa_allocate_exception(8uLL);
+    *v35 = "picture header and slice table";
+    __cxa_throw(v35, MEMORY[0x29EDC9468], 0);
   }
 
-  v41 = (a2 + 16);
-  v42 = v13;
-  v44 = v13 + 8;
+  v40 = (a2 + 16);
+  v41 = v13;
+  v43 = v13 + 8;
   v20 = *v16 + v14;
   v21 = *(a1 + 24);
   v22 = v15 + 8 + 2 * v21 + *v17;
-  v54[0] = v20 + 2 * v21;
-  v54[1] = v22;
-  v43 = a3;
-  v40 = v20;
+  v53[0] = v20 + 2 * v21;
+  v53[1] = v22;
+  v42 = a3;
+  v39 = v20;
   if (v21)
   {
     v23 = 0;
     v24 = 0;
     v25 = v19 + v13 + 8;
-    v45 = &a3[v20];
+    v44 = &a3[v20];
     do
     {
-      v26 = *(v47 + v24);
-      v27 = *(*(v53[v26] + 40) + v23);
-      v28 = v54[v26];
-      if (v49((v55[v26] + v28), v25, *(*(v53[v26] + 40) + v23), a8))
+      v26 = *(v46 + v24);
+      v27 = *(*(v52[v26] + 40) + v23);
+      v28 = v53[v26];
+      if (v48((v54[v26] + v28), v25, *(*(v52[v26] + 40) + v23), a8))
       {
-        v34 = __cxa_allocate_exception(8uLL);
-        *v34 = "slice data";
-        __cxa_throw(v34, MEMORY[0x29EDC9468], 0);
+        v33 = __cxa_allocate_exception(8uLL);
+        *v33 = "slice data";
+        __cxa_throw(v33, MEMORY[0x29EDC9468], 0);
       }
 
-      v54[v26] = v28 + v27;
+      v53[v26] = v28 + v27;
       if (a7 && v26)
       {
-        *&v45[v23] = __rev16(v27);
+        *&v44[v23] = __rev16(v27);
       }
 
       v25 = v25 + v27;
       v19 += v27;
-      v54[(1 - v26)] += *(*(v53[(1 - v26)] + 40) + v23);
+      v53[(1 - v26)] += *(*(v52[(1 - v26)] + 40) + v23);
       ++v24;
       v23 += 2;
     }
@@ -1081,33 +1074,56 @@ LABEL_23:
     while (*(a1 + 24) > v24);
   }
 
-  v51 = bswap32(v19);
-  if (v49(&v51, v42 + 9, 4u, a8))
+  v50 = bswap32(v19);
+  if (v48(&v50, v41 + 9, 4u, a8))
+  {
+    v36 = __cxa_allocate_exception(8uLL);
+    *v36 = "picture size";
+    __cxa_throw(v36, MEMORY[0x29EDC9468], 0);
+  }
+
+  if (v48(&v42[v39], v43 + *v40, 2 * *(a1 + 24), a8))
   {
     v37 = __cxa_allocate_exception(8uLL);
-    *v37 = "picture size";
+    *v37 = "slice table";
     __cxa_throw(v37, MEMORY[0x29EDC9468], 0);
   }
 
-  if (v49(&v43[v40], v44 + *v41, 2 * *(a1 + 24), a8))
+  v29 = v43 + v19;
+  *a6 = v29;
+  v51 = bswap32(v29);
+  if (v48(&v51, 0, 4u, a8))
   {
     v38 = __cxa_allocate_exception(8uLL);
-    *v38 = "slice table";
+    *v38 = "frame size";
     __cxa_throw(v38, MEMORY[0x29EDC9468], 0);
   }
 
-  v29 = v44 + v19;
-  *a6 = v29;
-  v52 = bswap32(v29);
-  if (v49(&v52, 0, 4u, a8))
+  return 0;
+}
+
+void sub_295309E40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int *a19, uint64_t a20, uint64_t a21, uint64_t a22, int buf, int a24, __int128 a25)
+{
+  if (a2 == 1)
   {
-    v39 = __cxa_allocate_exception(8uLL);
-    *v39 = "frame size";
-    __cxa_throw(v39, MEMORY[0x29EDC9468], 0);
+    v25 = __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      v26 = *a19;
+      buf = 67109634;
+      a24 = v26;
+      LOWORD(a25) = 2080;
+      *(&a25 + 2) = "stitchProResFrame";
+      WORD5(a25) = 2080;
+      *(&a25 + 12) = v25;
+      _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: write %s failed", &buf, 0x1Cu);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x295309C9CLL);
   }
 
-  v30 = *MEMORY[0x29EDCA608];
-  return 0;
+  _Unwind_Resume(a1);
 }
 
 void SliceList::sort(SliceList *this, unsigned __int16 *a2, int a3)
@@ -1125,7 +1141,7 @@ void SliceList::sort(SliceList *this, unsigned __int16 *a2, int a3)
       v12 = &v11[24 * v9];
       if (a3)
       {
-        v13 = v12[1];
+        v13 = *(v12 + 1);
         v14 = 126 - 2 * __clz((v13 - *v12) >> 2);
         if (v13 == *v12)
         {
@@ -1142,7 +1158,7 @@ void SliceList::sort(SliceList *this, unsigned __int16 *a2, int a3)
 
       else
       {
-        v16 = v12[1];
+        v16 = *(v12 + 1);
         v17 = 126 - 2 * __clz((v16 - *v12) >> 2);
         if (v16 == *v12)
         {
@@ -1154,18 +1170,18 @@ void SliceList::sort(SliceList *this, unsigned __int16 *a2, int a3)
           v18 = v17;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(v16, v12[1], *v12, *v12, &v23, v18, 1);
+        std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(v16, *(v12 + 1), *v12, *v12, &v23, v18, 1);
       }
 
       v19 = *v12;
-      v20 = v12[1];
+      v20 = *(v12 + 1);
       if (*v12 != v20)
       {
         v21 = &a2[v7];
         do
         {
-          *v21++ = v19[1];
-          v19 += 2;
+          *v21++ = *(v19 + 2);
+          v19 += 4;
           ++v7;
         }
 
@@ -1234,7 +1250,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-unsigned __int16 *std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *,false>(unsigned __int16 *result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, char a5)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *,false>(uint64_t result, unsigned __int16 *a2, uint64_t a3, uint64_t a4, char a5)
 {
   v8 = result;
 LABEL_2:
@@ -1396,20 +1412,7 @@ LABEL_11:
       if (v16 >= v17 && (v17 < v16 || v14[1] >= v10[1]))
       {
         v24 = *(a2 - 2);
-        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]))
-        {
-          goto LABEL_45;
-        }
-
-        *v14 = v24;
-        *(a2 - 2) = v16;
-        v25 = v14 + 1;
-        v26 = v14[1];
-        v14[1] = *(a2 - 1);
-        *(a2 - 1) = v26;
-        v27 = *v14;
-        v28 = *v10;
-        if (v27 >= v28 && (v28 < v27 || *v25 >= v10[1]))
+        if (v24 >= v16 && (v16 < v24 || *(a2 - 1) >= v14[1]) || (*v14 = v24, *(a2 - 2) = v16, v25 = v14 + 1, v26 = v14[1], v14[1] = *(a2 - 1), *(a2 - 1) = v26, v27 = *v14, v28 = *v10, v27 >= v28) && (v28 < v27 || *v25 >= v10[1]))
         {
 LABEL_45:
           v39 = v14 - 2;
@@ -1418,20 +1421,7 @@ LABEL_45:
           if (v40 >= v41 && (v41 < v40 || *(v14 - 1) >= v10[3]))
           {
             v44 = *(a2 - 4);
-            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)))
-            {
-              goto LABEL_67;
-            }
-
-            *v39 = v44;
-            *(a2 - 4) = v40;
-            v45 = v14 - 1;
-            v46 = *(v14 - 1);
-            *(v14 - 1) = *(a2 - 3);
-            *(a2 - 3) = v46;
-            v47 = *v39;
-            v48 = v10[2];
-            if (v47 >= v48 && (v48 < v47 || *v45 >= v10[3]))
+            if (v44 >= v40 && (v40 < v44 || *(a2 - 3) >= *(v14 - 1)) || (*v39 = v44, *(a2 - 4) = v40, v45 = v14 - 1, v46 = *(v14 - 1), *(v14 - 1) = *(a2 - 3), *(a2 - 3) = v46, v47 = *v39, v48 = v10[2], v47 >= v48) && (v48 < v47 || *v45 >= v10[3]))
             {
 LABEL_67:
               v57 = v14[2];
@@ -1441,20 +1431,7 @@ LABEL_67:
               if (v57 >= v58 && (v58 < v56 || v55[1] >= v10[5]))
               {
                 v61 = *(a2 - 6);
-                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]))
-                {
-                  goto LABEL_85;
-                }
-
-                *v55 = v61;
-                *(a2 - 6) = v56;
-                v62 = v55 + 1;
-                v63 = v55[1];
-                v55[1] = *(a2 - 5);
-                *(a2 - 5) = v63;
-                v64 = *v55;
-                v65 = v10[4];
-                if (v64 >= v65 && (v65 < v64 || *v62 >= v10[5]))
+                if (v61 >= v56 && (v56 < v61 || *(a2 - 5) >= v55[1]) || (*v55 = v61, *(a2 - 6) = v56, v62 = v55 + 1, v63 = v55[1], v55[1] = *(a2 - 5), *(a2 - 5) = v63, v64 = *v55, v65 = v10[4], v64 >= v65) && (v65 < v64 || *v62 >= v10[5]))
                 {
 LABEL_85:
                   LODWORD(v70) = *v15;
@@ -1933,14 +1910,14 @@ unsigned __int16 *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
     if (v6 < v4 || v4 >= v6 && a3[1] < a2[1])
     {
       *result = v6;
-      v7 = (result + 1);
+      v7 = result + 1;
     }
 
     else
     {
       *result = v4;
       *a2 = v5;
-      v7 = (a2 + 1);
+      v7 = a2 + 1;
       v13 = result[1];
       result[1] = a2[1];
       a2[1] = v13;
@@ -1955,7 +1932,7 @@ unsigned __int16 *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
     }
 
     *a3 = v5;
-    v10 = (a3 + 1);
+    v10 = a3 + 1;
     goto LABEL_14;
   }
 
@@ -1964,7 +1941,7 @@ unsigned __int16 *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
   {
     *a2 = v8;
     *a3 = v4;
-    v10 = (a2 + 1);
+    v10 = a2 + 1;
     v9 = a2[1];
     a2[1] = a3[1];
     a3[1] = v9;
@@ -1973,7 +1950,7 @@ unsigned __int16 *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<
     if (v11 < v12 || v12 >= v11 && *v10 < result[1])
     {
       *result = v11;
-      v7 = (result + 1);
+      v7 = result + 1;
       *a2 = v12;
 LABEL_14:
       v15 = *v7;
@@ -2551,9 +2528,9 @@ LABEL_20:
 LABEL_22:
       *a1 = v28;
       a1[4] = v27;
-      v29 = (a1 + 1);
+      v29 = a1 + 1;
 LABEL_64:
-      v37 = (a1 + 5);
+      v37 = a1 + 5;
       goto LABEL_65;
     }
 
@@ -2575,7 +2552,7 @@ LABEL_64:
     a1[2] = v27;
     v43 = a1[1];
     a1[3] = v43;
-    v29 = (a1 + 3);
+    v29 = a1 + 3;
     a1[1] = v39;
     if (v28 >= v27 && (v27 < v28 || a1[5] >= v43))
     {
@@ -2594,7 +2571,7 @@ LABEL_64:
     v36 = a1[5];
 LABEL_33:
     a1[3] = v36;
-    v37 = (a1 + 3);
+    v37 = a1 + 3;
     a1[2] = v34;
     a1[4] = v26;
     a1[5] = v35;
@@ -2605,7 +2582,7 @@ LABEL_33:
 
     *a1 = v34;
     a1[2] = v27;
-    v29 = (a1 + 1);
+    v29 = a1 + 1;
 LABEL_65:
     v44 = *v29;
     *v29 = *v37;
@@ -2698,7 +2675,7 @@ LABEL_81:
   }
 }
 
-unsigned __int16 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short> *>(unsigned __int16 *a1, unsigned __int16 *a2, unsigned __int16 *a3, uint64_t a4)
+unsigned __int16 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *,std::pair<unsigned short,unsigned short> *>(char *a1, char *a2, unsigned __int16 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -2707,7 +2684,7 @@ unsigned __int16 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[4 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *>(a1, a4, v8, v11);
@@ -2726,13 +2703,13 @@ unsigned __int16 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,
       {
         v13 = *v12;
         v14 = *a1;
-        if (v13 < v14 || v14 >= v13 && v12[1] < a1[1])
+        if (v13 < v14 || v14 >= v13 && v12[1] < *(a1 + 1))
         {
           *v12 = v14;
           *a1 = v13;
           v15 = v12[1];
-          v12[1] = a1[1];
-          a1[1] = v15;
+          v12[1] = *(a1 + 1);
+          *(a1 + 1) = v15;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned short,unsigned short> *>(a1, a4, v8, a1);
         }
 
@@ -2744,7 +2721,7 @@ unsigned __int16 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,
 
     if (v8 >= 2)
     {
-      v16 = a2 - 2;
+      v16 = (a2 - 4);
       do
       {
         v17 = *a1;
@@ -2943,7 +2920,7 @@ LABEL_10:
   return result;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, unsigned __int16 *a4, uint64_t a5, uint64_t a6, char a7)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(uint64_t result, char *a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, char a7)
 {
   while (2)
   {
@@ -2965,13 +2942,13 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
             {
               v105 = *a4;
               v106 = *(a2 - 2);
-              if (v105 < v106 || v106 >= v105 && a4[1] < *(a2 - 1))
+              if (v105 < v106 || v106 >= v105 && *(a4 + 1) < *(a2 - 1))
               {
                 *(a2 - 2) = v105;
                 *a4 = v106;
                 v107 = *(a2 - 1);
-                *(a2 - 1) = a4[1];
-                a4[1] = v107;
+                *(a2 - 1) = *(a4 + 1);
+                *(a4 + 1) = v107;
               }
 
               return;
@@ -2988,7 +2965,7 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
               if (v109 < v108 || v108 >= v109 && *(a2 - 3) < *(a2 - 1))
               {
                 v110 = *a4;
-                if (v110 >= v109 && (v109 < v110 || a4[1] >= *(a2 - 3)))
+                if (v110 >= v109 && (v109 < v110 || *(a4 + 1) >= *(a2 - 3)))
                 {
                   *(a2 - 2) = v109;
                   *(a2 - 4) = v108;
@@ -2996,15 +2973,15 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
                   *(a2 - 1) = *(a2 - 3);
                   *(a2 - 3) = v117;
                   v118 = *a4;
-                  if (v118 >= v108 && (v108 < v118 || a4[1] >= v117))
+                  if (v118 >= v108 && (v108 < v118 || *(a4 + 1) >= v117))
                   {
                     return;
                   }
 
-                  v116 = a2 - 3;
+                  v116 = a2 - 6;
                   *(a2 - 4) = v118;
                   *a4 = v108;
-                  v111 = a4 + 1;
+                  v111 = a4 + 2;
 LABEL_175:
                   v119 = *v116;
                   *v116 = *v111;
@@ -3014,13 +2991,13 @@ LABEL_175:
 
                 *(a2 - 2) = v110;
                 *a4 = v108;
-                v111 = a4 + 1;
+                v111 = a4 + 2;
               }
 
               else
               {
                 v112 = *a4;
-                if (v112 >= v109 && (v109 < v112 || a4[1] >= *(a2 - 3)))
+                if (v112 >= v109 && (v109 < v112 || *(a4 + 1) >= *(a2 - 3)))
                 {
                   return;
                 }
@@ -3028,8 +3005,8 @@ LABEL_175:
                 *(a2 - 4) = v112;
                 *a4 = v109;
                 v113 = *(a2 - 3);
-                *(a2 - 3) = a4[1];
-                a4[1] = v113;
+                *(a2 - 3) = *(a4 + 1);
+                *(a4 + 1) = v113;
                 v114 = *(a2 - 4);
                 v115 = *(a2 - 2);
                 if (v114 >= v115 && (v115 < v114 || *(a2 - 3) >= *(a2 - 1)))
@@ -3037,27 +3014,27 @@ LABEL_175:
                   return;
                 }
 
-                v111 = a2 - 3;
+                v111 = a2 - 6;
                 *(a2 - 2) = v114;
                 *(a2 - 4) = v115;
               }
 
-              v116 = a2 - 1;
+              v116 = a2 - 2;
               goto LABEL_175;
             case 4:
-              std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), a3, (a4 + 2));
+              std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(result, a2, (a2 - 4), (a2 - 4), (a2 - 8), (a2 - 8), a3, (a4 + 4));
               return;
             case 5:
-              std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), (a2 - 6), (a2 - 6));
+              std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(result, a2, (a2 - 4), (a2 - 4), (a2 - 8), (a2 - 8), (a2 - 12), (a2 - 12));
               v94 = *a4;
               v95 = *(a2 - 8);
-              if (v94 < v95 || v95 >= v94 && a4[1] < *(a2 - 7))
+              if (v94 < v95 || v95 >= v94 && *(a4 + 1) < *(a2 - 7))
               {
                 *(a2 - 8) = v94;
                 *a4 = v95;
                 v96 = *(a2 - 7);
-                *(a2 - 7) = a4[1];
-                a4[1] = v96;
+                *(a2 - 7) = *(a4 + 1);
+                *(a4 + 1) = v96;
                 v97 = *(a2 - 8);
                 v98 = *(a2 - 6);
                 if (v97 < v98 || v98 >= v97 && *(a2 - 7) < *(a2 - 5))
@@ -3097,12 +3074,12 @@ LABEL_9:
           {
             if (a7)
             {
-              std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(a1, a2, a3, a4);
+              std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(result, a2, a3, a4);
             }
 
             else
             {
-              std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(a1, a2, a3, a4);
+              std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(result, a2, a3, a4);
             }
 
             return;
@@ -3112,14 +3089,14 @@ LABEL_9:
           {
             if (a2 != a4)
             {
-              std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(a1, a2, a3, a4, a3, a4, a5);
+              std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(result, a2, a3, a4, a3, a4, a5);
             }
 
             return;
           }
 
-          v15 = (a2 - a4) & 0xFFFFFFFFFFFFFFFCLL;
-          v16 = (a2 - v15);
+          v15 = ((a2 - a4) >> 1) & 0xFFFFFFFFFFFFFFFCLL;
+          v16 = &a2[-v15];
           if (v14 >= 0x81)
           {
             v17 = *(v16 - 2);
@@ -3127,17 +3104,17 @@ LABEL_9:
             if (v17 < v18 || v18 >= v17 && *(v16 - 1) < *(a2 - 1))
             {
               v19 = *a4;
-              if (v19 < v17 || v17 >= v19 && a4[1] < *(v16 - 1))
+              if (v19 < v17 || v17 >= v19 && *(a4 + 1) < *(v16 - 1))
               {
                 *(a2 - 2) = v19;
                 *a4 = v18;
-                v20 = a2 - 1;
+                v20 = a2 - 2;
               }
 
               else
               {
                 *(a2 - 2) = v17;
-                v20 = v16 - 1;
+                v20 = v16 - 2;
                 v35 = *(v16 - 1);
                 *(v16 - 2) = v18;
                 v36 = *(a2 - 1);
@@ -3145,7 +3122,7 @@ LABEL_9:
                 *(v16 - 1) = v36;
                 v37 = *a4;
                 v38 = *(v16 - 2);
-                if (v37 >= v38 && (v38 < v37 || a4[1] >= v36))
+                if (v37 >= v38 && (v38 < v37 || *(a4 + 1) >= v36))
                 {
                   goto LABEL_34;
                 }
@@ -3154,157 +3131,118 @@ LABEL_9:
                 *a4 = v38;
               }
 
-              v27 = a4 + 1;
+              v27 = a4 + 2;
             }
 
             else
             {
               v25 = *a4;
-              if (v25 >= v17 && (v17 < v25 || a4[1] >= *(v16 - 1)))
-              {
-                goto LABEL_34;
-              }
-
-              *(v16 - 2) = v25;
-              *a4 = v17;
-              v27 = v16 - 1;
-              v26 = *(v16 - 1);
-              *(v16 - 1) = a4[1];
-              a4[1] = v26;
-              v28 = *(v16 - 2);
-              v29 = *(a2 - 2);
-              if (v28 >= v29 && (v29 < v28 || *v27 >= *(a2 - 1)))
+              if (v25 >= v17 && (v17 < v25 || *(a4 + 1) >= *(v16 - 1)) || (*(v16 - 2) = v25, *a4 = v17, v27 = v16 - 2, v26 = *(v16 - 1), *(v16 - 1) = *(a4 + 1), *(a4 + 1) = v26, v28 = *(v16 - 2), v29 = *(a2 - 2), v28 >= v29) && (v29 < v28 || *v27 >= *(a2 - 1)))
               {
 LABEL_34:
                 v40 = *v16;
                 v41 = *(a2 - 4);
-                if (v40 < v41 || v41 >= v40 && v16[1] < *(a2 - 3))
+                if (v40 < v41 || v41 >= v40 && *(v16 + 1) < *(a2 - 3))
                 {
-                  v42 = a4[2];
-                  if (v42 < v40 || v40 >= v42 && a4[3] < v16[1])
+                  v42 = *(a4 + 2);
+                  if (v42 < v40 || v40 >= v42 && *(a4 + 3) < *(v16 + 1))
                   {
                     *(a2 - 4) = v42;
-                    a4[2] = v41;
-                    v43 = a2 - 3;
+                    *(a4 + 2) = v41;
+                    v43 = a2 - 6;
                   }
 
                   else
                   {
                     *(a2 - 4) = v40;
-                    v43 = v16 + 1;
-                    v53 = v16[1];
+                    v43 = v16 + 2;
+                    v53 = *(v16 + 1);
                     *v16 = v41;
                     v54 = *(a2 - 3);
                     *(a2 - 3) = v53;
-                    v16[1] = v54;
-                    v55 = a4[2];
+                    *(v16 + 1) = v54;
+                    v55 = *(a4 + 2);
                     v56 = *v16;
-                    if (v55 >= v56 && (v56 < v55 || a4[3] >= v54))
+                    if (v55 >= v56 && (v56 < v55 || *(a4 + 3) >= v54))
                     {
                       goto LABEL_53;
                     }
 
                     *v16 = v55;
-                    a4[2] = v56;
+                    *(a4 + 2) = v56;
                   }
 
-                  v46 = a4 + 3;
+                  v46 = a4 + 6;
                 }
 
                 else
                 {
-                  v44 = a4[2];
-                  if (v44 >= v40 && (v40 < v44 || a4[3] >= v16[1]))
-                  {
-                    goto LABEL_53;
-                  }
-
-                  *v16 = v44;
-                  a4[2] = v40;
-                  v46 = v16 + 1;
-                  v45 = v16[1];
-                  v16[1] = a4[3];
-                  a4[3] = v45;
-                  v47 = *v16;
-                  v48 = *(a2 - 4);
-                  if (v47 >= v48 && (v48 < v47 || *v46 >= *(a2 - 3)))
+                  v44 = *(a4 + 2);
+                  if (v44 >= v40 && (v40 < v44 || *(a4 + 3) >= *(v16 + 1)) || (*v16 = v44, *(a4 + 2) = v40, v46 = v16 + 2, v45 = *(v16 + 1), *(v16 + 1) = *(a4 + 3), *(a4 + 3) = v45, v47 = *v16, v48 = *(a2 - 4), v47 >= v48) && (v48 < v47 || *v46 >= *(a2 - 3)))
                   {
 LABEL_53:
-                    v58 = a2 - v15 - 4;
+                    v58 = &a2[-v15 - 4];
                     v59 = *(v58 - 2);
                     v60 = *(a2 - 6);
                     if (v59 < v60 || v60 >= v59 && *(v58 - 1) < *(a2 - 5))
                     {
-                      v61 = a4[4];
-                      if (v61 < v59 || v59 >= v61 && a4[5] < *(v58 - 1))
+                      v61 = *(a4 + 4);
+                      if (v61 < v59 || v59 >= v61 && *(a4 + 5) < *(v58 - 1))
                       {
                         *(a2 - 6) = v61;
-                        a4[4] = v60;
-                        v62 = a2 - 5;
+                        *(a4 + 4) = v60;
+                        v62 = a2 - 10;
                       }
 
                       else
                       {
                         *(a2 - 6) = v59;
-                        v62 = (v58 - 2);
+                        v62 = v58 - 2;
                         v68 = *(v58 - 1);
                         *(v58 - 2) = v60;
                         v69 = *(a2 - 5);
                         *(a2 - 5) = v68;
                         *(v58 - 1) = v69;
-                        v70 = a4[4];
+                        v70 = *(a4 + 4);
                         v71 = *(v58 - 2);
-                        if (v70 >= v71 && (v71 < v70 || a4[5] >= v69))
+                        if (v70 >= v71 && (v71 < v70 || *(a4 + 5) >= v69))
                         {
                           goto LABEL_67;
                         }
 
                         *(v58 - 2) = v70;
-                        a4[4] = v71;
+                        *(a4 + 4) = v71;
                       }
 
-                      v65 = a4 + 5;
+                      v65 = a4 + 10;
                     }
 
                     else
                     {
-                      v63 = a4[4];
-                      if (v63 >= v59 && (v59 < v63 || a4[5] >= *(v58 - 1)))
-                      {
-                        goto LABEL_67;
-                      }
-
-                      *(v58 - 2) = v63;
-                      a4[4] = v59;
-                      v65 = (v58 - 2);
-                      v64 = *(v58 - 1);
-                      *(v58 - 1) = a4[5];
-                      a4[5] = v64;
-                      v66 = *(v58 - 2);
-                      v67 = *(a2 - 6);
-                      if (v66 >= v67 && (v67 < v66 || *v65 >= *(a2 - 5)))
+                      v63 = *(a4 + 4);
+                      if (v63 >= v59 && (v59 < v63 || *(a4 + 5) >= *(v58 - 1)) || (*(v58 - 2) = v63, *(a4 + 4) = v59, v65 = v58 - 2, v64 = *(v58 - 1), *(v58 - 1) = *(a4 + 5), *(a4 + 5) = v64, v66 = *(v58 - 2), v67 = *(a2 - 6), v66 >= v67) && (v67 < v66 || *v65 >= *(a2 - 5)))
                       {
 LABEL_67:
                         v73 = *(v16 - 2);
                         v74 = *v16;
-                        if (v73 < v74 || v74 >= v73 && *(v16 - 1) < v16[1])
+                        if (v73 < v74 || v74 >= v73 && *(v16 - 1) < *(v16 + 1))
                         {
                           v75 = *(v58 - 2);
                           if (v75 < v73 || v73 >= v75 && *(v58 - 1) < *(v16 - 1))
                           {
                             *v16 = v75;
                             *(v58 - 2) = v74;
-                            v76 = v16 + 1;
+                            v76 = v16 + 2;
                           }
 
                           else
                           {
                             *v16 = v73;
-                            v76 = v16 - 1;
+                            v76 = v16 - 2;
                             v81 = *(v16 - 1);
                             *(v16 - 2) = v74;
-                            v82 = v16[1];
-                            v16[1] = v81;
+                            v82 = *(v16 + 1);
+                            *(v16 + 1) = v81;
                             *(v16 - 1) = v82;
                             v83 = *(v58 - 2);
                             v73 = *(v16 - 2);
@@ -3317,39 +3255,26 @@ LABEL_67:
                             *(v58 - 2) = v73;
                           }
 
-                          v79 = (v58 - 2);
+                          v79 = v58 - 2;
                         }
 
                         else
                         {
                           v77 = *(v58 - 2);
-                          if (v77 >= v73 && (v73 < v77 || *(v58 - 1) >= *(v16 - 1)))
-                          {
-                            goto LABEL_81;
-                          }
-
-                          *(v16 - 2) = v77;
-                          *(v58 - 2) = v73;
-                          v79 = v16 - 1;
-                          v78 = *(v16 - 1);
-                          *(v16 - 1) = *(v58 - 1);
-                          *(v58 - 1) = v78;
-                          v73 = *(v16 - 2);
-                          v80 = *v16;
-                          if (v73 >= v80 && (v80 < v73 || *v79 >= v16[1]))
+                          if (v77 >= v73 && (v73 < v77 || *(v58 - 1) >= *(v16 - 1)) || (*(v16 - 2) = v77, *(v58 - 2) = v73, v79 = v16 - 2, v78 = *(v16 - 1), *(v16 - 1) = *(v58 - 1), *(v58 - 1) = v78, v73 = *(v16 - 2), v80 = *v16, v73 >= v80) && (v80 < v73 || *v79 >= *(v16 + 1)))
                           {
 LABEL_81:
                             v85 = *(a2 - 2);
                             *(a2 - 2) = v73;
                             *(v16 - 2) = v85;
-                            v24 = a2 - 1;
-                            v32 = v16 - 1;
+                            v24 = a2 - 2;
+                            v32 = v16 - 2;
                             goto LABEL_82;
                           }
 
                           *v16 = v73;
                           *(v16 - 2) = v80;
-                          v76 = v16 + 1;
+                          v76 = v16 + 2;
                         }
 
                         v84 = *v76;
@@ -3361,7 +3286,7 @@ LABEL_81:
 
                       *(a2 - 6) = v66;
                       *(v58 - 2) = v67;
-                      v62 = a2 - 5;
+                      v62 = a2 - 10;
                     }
 
                     v72 = *v62;
@@ -3372,7 +3297,7 @@ LABEL_81:
 
                   *(a2 - 4) = v47;
                   *v16 = v48;
-                  v43 = a2 - 3;
+                  v43 = a2 - 6;
                 }
 
                 v57 = *v43;
@@ -3383,7 +3308,7 @@ LABEL_81:
 
               *(a2 - 2) = v28;
               *(v16 - 2) = v29;
-              v20 = a2 - 1;
+              v20 = a2 - 2;
             }
 
             v39 = *v20;
@@ -3397,18 +3322,18 @@ LABEL_81:
           if (v21 < v22 || v22 >= v21 && *(a2 - 1) < *(v16 - 1))
           {
             v23 = *a4;
-            if (v23 < v21 || v21 >= v23 && a4[1] < *(a2 - 1))
+            if (v23 < v21 || v21 >= v23 && *(a4 + 1) < *(a2 - 1))
             {
               *(v16 - 2) = v23;
               *a4 = v22;
-              v24 = v16 - 1;
+              v24 = v16 - 2;
 LABEL_46:
-              v32 = a4 + 1;
+              v32 = a4 + 2;
               goto LABEL_82;
             }
 
             *(v16 - 2) = v21;
-            v24 = a2 - 1;
+            v24 = a2 - 2;
             v49 = *(a2 - 1);
             *(a2 - 2) = v22;
             v50 = *(v16 - 1);
@@ -3416,7 +3341,7 @@ LABEL_46:
             *(a2 - 1) = v50;
             v51 = *a4;
             v52 = *(a2 - 2);
-            if (v51 < v52 || v52 >= v51 && a4[1] < v50)
+            if (v51 < v52 || v52 >= v51 && *(a4 + 1) < v50)
             {
               *(a2 - 2) = v51;
               *a4 = v52;
@@ -3427,21 +3352,21 @@ LABEL_46:
           else
           {
             v30 = *a4;
-            if (v30 < v21 || v21 >= v30 && a4[1] < *(a2 - 1))
+            if (v30 < v21 || v21 >= v30 && *(a4 + 1) < *(a2 - 1))
             {
               *(a2 - 2) = v30;
               *a4 = v21;
-              v32 = a2 - 1;
+              v32 = a2 - 2;
               v31 = *(a2 - 1);
-              *(a2 - 1) = a4[1];
-              a4[1] = v31;
+              *(a2 - 1) = *(a4 + 1);
+              *(a4 + 1) = v31;
               v33 = *(a2 - 2);
               v34 = *(v16 - 2);
               if (v33 < v34 || v34 >= v33 && *v32 < *(v16 - 1))
               {
                 *(v16 - 2) = v33;
                 *(a2 - 2) = v34;
-                v24 = v16 - 1;
+                v24 = v16 - 2;
 LABEL_82:
                 v86 = *v24;
                 *v24 = *v32;
@@ -3457,13 +3382,13 @@ LABEL_82:
 
           v87 = *a2;
           v88 = *(a2 - 2);
-          if (v87 < v88 || v88 >= v87 && a2[1] < *(a2 - 1))
+          if (v87 < v88 || v88 >= v87 && *(a2 + 1) < *(a2 - 1))
           {
             break;
           }
 
-          std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,std::__less<void,void> &>(a1, a2, a3, a4);
-          a1 = v89;
+          std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,std::__less<void,void> &>(result, a2, a3, a4);
+          result = v89;
           a2 = v90;
           a7 = 0;
         }
@@ -3475,23 +3400,23 @@ LABEL_82:
         if (v123 != 1)
         {
 LABEL_139:
-          std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(a1, a2, v91, v92, a5, -i, a7 & 1);
+          std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,false>(result, a2, v91, v92, a5, -i, a7 & 1);
           a7 = 0;
-          a2 = v92 - 2;
-          a1 = v91;
+          a2 = v92 - 4;
+          result = v91;
           continue;
         }
 
         break;
       }
 
-      v93 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(a1, a2, v121, v122);
-      if (!std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>((v92 - 2), (v92 - 2), a3, a4))
+      v93 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(result, a2, v121, v122);
+      if (!std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>((v92 - 4), v92 - 2, a3, a4))
       {
         if (v93)
         {
-          a1 = v91;
-          a2 = v92 - 2;
+          result = v91;
+          a2 = v92 - 4;
           continue;
         }
 
@@ -3670,8 +3595,8 @@ LABEL_13:
 LABEL_12:
       v7 += 2;
       v16 = a2 + v13;
-      *(v16 - 4) = v14;
-      *(v16 - 2) = v15;
+      *(v16 - 2) = v14;
+      *(v16 - 1) = v15;
       v13 += 4;
       if (!v13)
       {
@@ -3980,7 +3905,7 @@ void std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
   *(a3 + 16) = a2 >= v3;
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned __int16 *a4)
+uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>>(uint64_t a1, unsigned __int16 *a2, uint64_t a3, unsigned __int16 *a4)
 {
   v6 = (a2 - a4) >> 2;
   if (v6 > 2)
@@ -3991,42 +3916,42 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
       {
         if (v6 == 5)
         {
-          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, a2 - 4, a2 - 4, a2 - 8, a2 - 8, a2 - 12, a2 - 12);
+          std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), (a2 - 6), (a2 - 6));
           v10 = *a4;
-          v11 = *(a2 - 16);
-          if (v10 < v11 || v11 >= v10 && a4[1] < *(a2 - 14))
+          v11 = *(a2 - 8);
+          if (v10 < v11 || v11 >= v10 && a4[1] < *(a2 - 7))
           {
-            *(a2 - 16) = v10;
+            *(a2 - 8) = v10;
             *a4 = v11;
-            v12 = *(a2 - 14);
-            *(a2 - 14) = a4[1];
+            v12 = *(a2 - 7);
+            *(a2 - 7) = a4[1];
             a4[1] = v12;
-            v13 = *(a2 - 16);
-            v14 = *(a2 - 12);
-            if (v13 < v14 || v14 >= v13 && *(a2 - 14) < *(a2 - 10))
+            v13 = *(a2 - 8);
+            v14 = *(a2 - 6);
+            if (v13 < v14 || v14 >= v13 && *(a2 - 7) < *(a2 - 5))
             {
-              *(a2 - 12) = v13;
-              *(a2 - 16) = v14;
-              v15 = *(a2 - 10);
-              *(a2 - 10) = *(a2 - 14);
-              *(a2 - 14) = v15;
-              v16 = *(a2 - 12);
-              v17 = *(a2 - 8);
-              if (v16 < v17 || v17 >= v16 && *(a2 - 10) < *(a2 - 6))
+              *(a2 - 6) = v13;
+              *(a2 - 8) = v14;
+              v15 = *(a2 - 5);
+              *(a2 - 5) = *(a2 - 7);
+              *(a2 - 7) = v15;
+              v16 = *(a2 - 6);
+              v17 = *(a2 - 4);
+              if (v16 < v17 || v17 >= v16 && *(a2 - 5) < *(a2 - 3))
               {
-                *(a2 - 8) = v16;
-                *(a2 - 12) = v17;
-                v18 = *(a2 - 6);
-                *(a2 - 6) = *(a2 - 10);
-                *(a2 - 10) = v18;
-                v19 = *(a2 - 4);
-                if (v16 < v19 || v19 >= v16 && *(a2 - 6) < *(a2 - 2))
+                *(a2 - 4) = v16;
+                *(a2 - 6) = v17;
+                v18 = *(a2 - 3);
+                *(a2 - 3) = *(a2 - 5);
+                *(a2 - 5) = v18;
+                v19 = *(a2 - 2);
+                if (v16 < v19 || v19 >= v16 && *(a2 - 3) < *(a2 - 1))
                 {
-                  *(a2 - 4) = v16;
-                  *(a2 - 8) = v19;
-                  v20 = *(a2 - 2);
-                  *(a2 - 2) = *(a2 - 6);
-                  *(a2 - 6) = v20;
+                  *(a2 - 2) = v16;
+                  *(a2 - 4) = v19;
+                  v20 = *(a2 - 1);
+                  *(a2 - 1) = *(a2 - 3);
+                  *(a2 - 3) = v20;
                 }
               }
             }
@@ -4038,68 +3963,68 @@ uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,s
         goto LABEL_17;
       }
 
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, a2 - 4, a2 - 4, a2 - 8, a2 - 8, a3, (a4 + 2));
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<unsigned short,unsigned short> *>>,0>(a1, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), a3, (a4 + 2));
 LABEL_43:
       v42 = 1;
       return v42 & 1;
     }
 
-    v21 = *(a2 - 4);
-    v22 = *(a2 - 8);
-    if (v22 < v21 || v21 >= v22 && *(a2 - 6) < *(a2 - 2))
+    v21 = *(a2 - 2);
+    v22 = *(a2 - 4);
+    if (v22 < v21 || v21 >= v22 && *(a2 - 3) < *(a2 - 1))
     {
       v23 = *a4;
-      if (v23 >= v22 && (v22 < v23 || a4[1] >= *(a2 - 6)))
+      if (v23 >= v22 && (v22 < v23 || a4[1] >= *(a2 - 3)))
       {
-        *(a2 - 4) = v22;
-        *(a2 - 8) = v21;
-        v39 = *(a2 - 2);
-        *(a2 - 2) = *(a2 - 6);
-        *(a2 - 6) = v39;
+        *(a2 - 2) = v22;
+        *(a2 - 4) = v21;
+        v39 = *(a2 - 1);
+        *(a2 - 1) = *(a2 - 3);
+        *(a2 - 3) = v39;
         v40 = *a4;
         if (v40 >= v21 && (v21 < v40 || a4[1] >= v39))
         {
           goto LABEL_43;
         }
 
-        v34 = (a2 - 6);
-        *(a2 - 8) = v40;
+        v34 = a2 - 3;
+        *(a2 - 4) = v40;
         *a4 = v21;
-        v24 = (a4 + 1);
+        v24 = a4 + 1;
         goto LABEL_42;
       }
 
-      *(a2 - 4) = v23;
+      *(a2 - 2) = v23;
       *a4 = v21;
-      v24 = (a4 + 1);
+      v24 = a4 + 1;
     }
 
     else
     {
       v30 = *a4;
-      if (v30 >= v22 && (v22 < v30 || a4[1] >= *(a2 - 6)))
+      if (v30 >= v22 && (v22 < v30 || a4[1] >= *(a2 - 3)))
       {
         goto LABEL_43;
       }
 
-      *(a2 - 8) = v30;
+      *(a2 - 4) = v30;
       *a4 = v22;
-      v31 = *(a2 - 6);
-      *(a2 - 6) = a4[1];
+      v31 = *(a2 - 3);
+      *(a2 - 3) = a4[1];
       a4[1] = v31;
-      v32 = *(a2 - 8);
-      v33 = *(a2 - 4);
-      if (v32 >= v33 && (v33 < v32 || *(a2 - 6) >= *(a2 - 2)))
+      v32 = *(a2 - 4);
+      v33 = *(a2 - 2);
+      if (v32 >= v33 && (v33 < v32 || *(a2 - 3) >= *(a2 - 1)))
       {
         goto LABEL_43;
       }
 
-      v24 = (a2 - 6);
-      *(a2 - 4) = v32;
-      *(a2 - 8) = v33;
+      v24 = a2 - 3;
+      *(a2 - 2) = v32;
+      *(a2 - 4) = v33;
     }
 
-    v34 = (a2 - 2);
+    v34 = a2 - 1;
 LABEL_42:
     v41 = *v34;
     *v34 = *v24;
@@ -4115,13 +4040,13 @@ LABEL_42:
   if (v6 == 2)
   {
     v7 = *a4;
-    v8 = *(a2 - 4);
-    if (v7 < v8 || v8 >= v7 && a4[1] < *(a2 - 2))
+    v8 = *(a2 - 2);
+    if (v7 < v8 || v8 >= v7 && a4[1] < *(a2 - 1))
     {
-      *(a2 - 4) = v7;
+      *(a2 - 2) = v7;
       *a4 = v8;
-      v9 = *(a2 - 2);
-      *(a2 - 2) = a4[1];
+      v9 = *(a2 - 1);
+      *(a2 - 1) = a4[1];
       a4[1] = v9;
     }
 
@@ -4129,71 +4054,71 @@ LABEL_42:
   }
 
 LABEL_17:
-  v25 = (a2 - 8);
-  v26 = *(a2 - 8);
-  v27 = *(a2 - 4);
-  if (v26 < v27 || v27 >= v26 && *(a2 - 6) < *(a2 - 2))
+  v25 = a2 - 4;
+  v26 = *(a2 - 4);
+  v27 = *(a2 - 2);
+  if (v26 < v27 || v27 >= v26 && *(a2 - 3) < *(a2 - 1))
   {
-    v28 = *(a2 - 12);
-    if (v28 < v26 || v26 >= v28 && *(a2 - 10) < *(a2 - 6))
+    v28 = *(a2 - 6);
+    if (v28 < v26 || v26 >= v28 && *(a2 - 5) < *(a2 - 3))
     {
-      *(a2 - 4) = v28;
-      *(a2 - 12) = v27;
-      v29 = (a2 - 2);
+      *(a2 - 2) = v28;
+      *(a2 - 6) = v27;
+      v29 = a2 - 1;
     }
 
     else
     {
-      *(a2 - 4) = v26;
-      *(a2 - 8) = v27;
-      v44 = *(a2 - 2);
-      *(a2 - 2) = *(a2 - 6);
-      *(a2 - 6) = v44;
-      v45 = *(a2 - 12);
-      if (v45 >= v27 && (v27 < v45 || *(a2 - 10) >= v44))
+      *(a2 - 2) = v26;
+      *(a2 - 4) = v27;
+      v44 = *(a2 - 1);
+      *(a2 - 1) = *(a2 - 3);
+      *(a2 - 3) = v44;
+      v45 = *(a2 - 6);
+      if (v45 >= v27 && (v27 < v45 || *(a2 - 5) >= v44))
       {
         goto LABEL_51;
       }
 
-      v29 = (a2 - 6);
-      *(a2 - 8) = v45;
-      *(a2 - 12) = v27;
+      v29 = a2 - 3;
+      *(a2 - 4) = v45;
+      *(a2 - 6) = v27;
     }
 
-    v38 = (a2 - 10);
+    v38 = a2 - 5;
   }
 
   else
   {
-    v35 = *(a2 - 12);
-    if (v35 >= v26 && (v26 < v35 || *(a2 - 10) >= *(a2 - 6)))
+    v35 = *(a2 - 6);
+    if (v35 >= v26 && (v26 < v35 || *(a2 - 5) >= *(a2 - 3)))
     {
       goto LABEL_51;
     }
 
-    *(a2 - 8) = v35;
-    *(a2 - 12) = v26;
-    v36 = *(a2 - 6);
-    *(a2 - 6) = *(a2 - 10);
-    *(a2 - 10) = v36;
-    v37 = *(a2 - 4);
-    if (v35 >= v37 && (v37 < v35 || *(a2 - 6) >= *(a2 - 2)))
-    {
-      goto LABEL_51;
-    }
-
-    v38 = (a2 - 6);
     *(a2 - 4) = v35;
-    *(a2 - 8) = v37;
-    v29 = (a2 - 2);
+    *(a2 - 6) = v26;
+    v36 = *(a2 - 3);
+    *(a2 - 3) = *(a2 - 5);
+    *(a2 - 5) = v36;
+    v37 = *(a2 - 2);
+    if (v35 >= v37 && (v37 < v35 || *(a2 - 3) >= *(a2 - 1)))
+    {
+      goto LABEL_51;
+    }
+
+    v38 = a2 - 3;
+    *(a2 - 2) = v35;
+    *(a2 - 4) = v37;
+    v29 = a2 - 1;
   }
 
   v46 = *v29;
   *v29 = *v38;
   *v38 = v46;
 LABEL_51:
-  v47 = a2 - 12;
-  if ((a2 - 12) == a4)
+  v47 = a2 - 6;
+  if (a2 - 6 == a4)
   {
 LABEL_69:
     v59 = 1;
@@ -4202,18 +4127,18 @@ LABEL_69:
   else
   {
     v48 = 0;
-    v49 = (a2 - 12);
+    v49 = a2 - 6;
     while (1)
     {
       v51 = *(v49 - 2);
       v49 -= 2;
       v50 = v51;
       v52 = *(v25 - 2);
-      if (v51 < v52 || v52 >= v50 && *(v47 - 2) < *(v25 - 1))
+      if (v51 < v52 || v52 >= v50 && *(v47 - 1) < *(v25 - 1))
       {
-        v53 = *(v47 - 4);
-        *(v47 - 4) = v52;
-        *(v47 - 2) = *(v25 - 1);
+        v53 = *(v47 - 1);
+        *(v47 - 2) = v52;
+        *(v47 - 1) = *(v25 - 1);
         if (v25 != a2)
         {
           v54 = v25;
@@ -4506,9 +4431,9 @@ LABEL_14:
   }
 }
 
-uint64_t ProResEncoder_CreateInstance(int a1, uint64_t a2, void *a3)
+uint64_t ProResEncoder_CreateInstance(int a1, uint64_t a2, CFTypeRef *a3)
 {
-  v77 = *MEMORY[0x29EDCA608];
+  v75 = *MEMORY[0x29EDCA608];
   v5 = *MEMORY[0x29EDB8ED8];
   v6 = CFUUIDCreate(*MEMORY[0x29EDB8ED8]);
   v7 = *&CFUUIDGetUUIDBytes(v6);
@@ -4537,8 +4462,8 @@ LABEL_19:
     {
       *buf = 67109378;
       *&buf[4] = v7;
-      LOWORD(v56) = 2080;
-      *(&v56 + 2) = "ProResEncoder_CreateInstance";
+      LOWORD(v54) = 2080;
+      *(&v54 + 2) = "ProResEncoder_CreateInstance";
       _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): AppleProResHW Encoder cannot encode unsupported codecType", buf, 0x12u);
     }
 
@@ -4548,17 +4473,17 @@ LABEL_12:
     {
       *buf = 67109634;
       *&buf[4] = -1;
-      LOWORD(v56) = 2080;
-      *(&v56 + 2) = "ProResEncoder_CreateInstance";
-      WORD5(v56) = 1024;
-      HIDWORD(v56) = v10;
+      LOWORD(v54) = 2080;
+      *(&v54 + 2) = "ProResEncoder_CreateInstance";
+      WORD5(v54) = 1024;
+      HIDWORD(v54) = v10;
       v11 = MEMORY[0x29EDCA988];
 LABEL_38:
       _os_log_impl(&dword_2952FC000, v11, OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): returning err = %d\n", buf, 0x18u);
-      goto LABEL_39;
+      return v10;
     }
 
-    goto LABEL_39;
+    return v10;
   }
 
 LABEL_9:
@@ -4605,7 +4530,7 @@ LABEL_9:
     v10 = Connection;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_CreateInstance_cold_2((DerivedStorage + 988));
+      ProResEncoder_CreateInstance_cold_2();
     }
   }
 
@@ -4614,24 +4539,26 @@ LABEL_9:
     v20 = *(DerivedStorage + 448);
     v21 = *MEMORY[0x29EDBCD58];
     *buf = *MEMORY[0x29EDBCDE0];
-    *&v56 = v21;
+    *&v54 = v21;
     v22 = *MEMORY[0x29EDBCDE8];
-    *(&v56 + 1) = *MEMORY[0x29EDBCDD8];
-    v57 = v22;
+    *(&v54 + 1) = *MEMORY[0x29EDBCDD8];
+    v55 = v22;
     v23 = *MEMORY[0x29EDBCD90];
-    v58 = *MEMORY[0x29EDBCDC8];
-    v59 = v23;
+    v56 = *MEMORY[0x29EDBCDC8];
+    v57 = v23;
     v24 = *MEMORY[0x29EDBCD40];
-    v60 = *MEMORY[0x29EDBCD98];
-    v61 = v24;
+    v58 = *MEMORY[0x29EDBCD98];
+    v59 = v24;
     v25 = *MEMORY[0x29EDBCD60];
-    v62 = *MEMORY[0x29EDBCD78];
-    v63 = v25;
+    v60 = *MEMORY[0x29EDBCD78];
+    v61 = v25;
     v26 = *MEMORY[0x29EDB96C0];
-    v64 = *MEMORY[0x29EDBCD70];
-    v65 = v26;
-    v66 = *MEMORY[0x29EDBCDB0];
-    v67 = @"ProResHW_TestSettings";
+    v62 = *MEMORY[0x29EDBCD70];
+    v63 = v26;
+    v64 = *MEMORY[0x29EDBCDB0];
+    v65 = @"ProResHW_TestSettings";
+    v66 = 0u;
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
@@ -4639,10 +4566,6 @@ LABEL_9:
     v72 = 0u;
     v73 = 0u;
     v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v53 = 0u;
-    v54 = 0u;
     v51 = 0u;
     v52 = 0u;
     v49 = 0u;
@@ -4655,16 +4578,18 @@ LABEL_9:
     v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    *values = 0u;
+    v39 = 0u;
     v40 = 0u;
+    *values = 0u;
+    v38 = 0u;
     if ((v20 & 0xFFFFFFEF) == 0x61703468)
     {
       v27 = *MEMORY[0x29EDBCD38];
-      *&v68 = *MEMORY[0x29EDBCDA8];
-      *(&v68 + 1) = v27;
+      *&v66 = *MEMORY[0x29EDBCDA8];
+      *(&v66 + 1) = v27;
       v28 = *MEMORY[0x29EDBCDD0];
-      *&v69 = @"kVTCodecPropertyKey_AlphaMode";
-      *(&v69 + 1) = v28;
+      *&v67 = @"kVTCodecPropertyKey_AlphaMode";
+      *(&v67 + 1) = v28;
       v29 = 18;
     }
 
@@ -4704,32 +4629,29 @@ LABEL_9:
     *a3 = 0;
   }
 
-  v34 = *(DerivedStorage + 456);
   kdebug_trace();
   if (v10)
   {
-    v35 = *(DerivedStorage + 400);
-    if (v35)
+    v34 = *(DerivedStorage + 400);
+    if (v34)
     {
-      closeUserClient(v35, *v18);
+      closeUserClient(v34, *v18);
     }
 
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      v36 = *v18;
+      v35 = *v18;
       *buf = 67109634;
-      *&buf[4] = v36;
-      LOWORD(v56) = 2080;
-      *(&v56 + 2) = "ProResEncoder_CreateInstance";
-      WORD5(v56) = 1024;
-      HIDWORD(v56) = v10;
+      *&buf[4] = v35;
+      LOWORD(v54) = 2080;
+      *(&v54 + 2) = "ProResEncoder_CreateInstance";
+      WORD5(v54) = 1024;
+      HIDWORD(v54) = v10;
       v11 = MEMORY[0x29EDCA988];
       goto LABEL_38;
     }
   }
 
-LABEL_39:
-  v37 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -4748,7 +4670,7 @@ uint64_t ProResEncoder_SetTestCallback(uint64_t a1, __int128 *a2)
 
 __CFDictionary *createFormatDescriptionExtensions(__CVBuffer *a1, uint64_t a2, int a3)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v6 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
   if (Mutable)
@@ -4888,11 +4810,11 @@ LABEL_29:
           {
             v20 = *(a2 + 988);
             *buf = 67109634;
-            v29 = v20;
-            v30 = 2080;
-            v31 = "createFormatDescriptionExtensions";
-            v32 = 1024;
-            v33 = v19;
+            v28 = v20;
+            v29 = 2080;
+            v30 = "createFormatDescriptionExtensions";
+            v31 = 1024;
+            v32 = v19;
             _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Invalid/Unsupported attachement for kCVImageBufferAlphaChannelModeKey, previously stored %d", buf, 0x18u);
           }
         }
@@ -4936,133 +4858,131 @@ LABEL_45:
       CFRelease(v24);
     }
 
-    goto LABEL_49;
+    return Mutable;
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
-    createFormatDescriptionExtensions(a2);
+    createFormatDescriptionExtensions();
   }
 
-LABEL_49:
-  v25 = *MEMORY[0x29EDCA608];
   return Mutable;
 }
 
-uint64_t ProResEncoder_Invalidate()
+uint64_t ProResEncoder_Invalidate(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
-    v1 = DerivedStorage;
-    v2 = *(DerivedStorage + 536);
+    v3 = DerivedStorage;
+    v4 = *(DerivedStorage + 536);
     if (*(DerivedStorage + 724))
     {
-      v3 = v2 == 0;
+      v5 = v4 == 0;
     }
 
     else
     {
-      v3 = 1;
+      v5 = 1;
     }
 
-    if (v3 || (v4 = *(DerivedStorage + 104)) == 0)
+    if (v5 || (v6 = *(DerivedStorage + 104)) == 0)
     {
       NumSkipP2Toggled = 0;
-      v7 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v5 = (ProResFrameReceiver::getNumDoubleEncodeFrames(v4) / v2) * 100.0;
-      NumSkipP2Toggled = ProResFrameReceiver::getNumSkipP2Toggled(*(v1 + 104));
-      v7 = v5;
+      v7 = (ProResFrameReceiver::getNumDoubleEncodeFrames(v6) / v4) * 100.0;
+      NumSkipP2Toggled = ProResFrameReceiver::getNumSkipP2Toggled(*(v3 + 104));
+      v9 = v7;
     }
 
-    v8 = *(v1 + 104);
-    if (v8)
+    v10 = *(v3 + 104);
+    if (v10)
     {
-      if (v2)
+      if (v4)
       {
-        NumFramesOverTargetSize = ProResFrameReceiver::getNumFramesOverTargetSize(v8);
-        v10 = (ProResFrameReceiver::getSumOfFramesOvershootPerc(*(v1 + 104)) / NumFramesOverTargetSize);
+        NumFramesOverTargetSize = ProResFrameReceiver::getNumFramesOverTargetSize(v10);
+        v12 = (ProResFrameReceiver::getSumOfFramesOvershootPerc(*(v3 + 104)) / NumFramesOverTargetSize);
         if (NumFramesOverTargetSize)
         {
-          v11 = v10;
+          v13 = v12;
         }
 
         else
         {
-          v11 = 0;
+          v13 = 0;
         }
 
-        v12 = ((NumFramesOverTargetSize / v2) * 100.0);
-        v8 = *(v1 + 104);
+        v14 = ((NumFramesOverTargetSize / v4) * 100.0);
+        v10 = *(v3 + 104);
       }
 
       else
       {
-        v11 = 0;
-        v12 = 0;
+        v13 = 0;
+        v14 = 0;
       }
 
-      HasHWError = ProResFrameReceiver::getHasHWError(v8);
-      IsNonCompliant = ProResFrameReceiver::getIsNonCompliant(*(v1 + 104));
+      HasHWError = ProResFrameReceiver::getHasHWError(v10);
+      IsNonCompliant = ProResFrameReceiver::getIsNonCompliant(*(v3 + 104));
     }
 
     else
     {
-      v11 = 0;
-      v12 = 0;
+      v13 = 0;
+      v14 = 0;
       IsNonCompliant = 0;
       HasHWError = 0;
     }
 
-    ProResEncoder_Finalize();
+    ProResEncoder_Finalize(a1);
     result = 0;
-    if ((*(v1 + 616) & 1) == 0 && v2)
+    if ((*(v3 + 616) & 1) == 0 && v4)
     {
-      if ((*(v1 + 984) & 1) == 0)
+      if ((*(v3 + 984) & 1) == 0)
       {
-        v30 = NumSkipP2Toggled;
-        v31 = v7;
-        FrameRateCode = GetFrameRateCode(*(v1 + 488), *(v1 + 484));
-        getRtMpeStr(1, *(v1 + 648), *(v1 + 652), &__p);
-        v16 = *(v1 + 512);
-        v17 = *(v1 + 516);
-        v18 = *(v1 + 448);
-        v19 = *(v1 + 548);
-        v20 = *(v1 + 452);
-        v21 = *(v1 + 724);
-        v22 = *(v1 + 675);
-        v23 = *(v1 + 988);
+        v32 = NumSkipP2Toggled;
+        v33 = v9;
+        FrameRateCode = GetFrameRateCode(*(v3 + 488), *(v3 + 484));
+        getRtMpeStr(1, *(v3 + 648), *(v3 + 652), &__p);
+        v18 = *(v3 + 512);
+        v19 = *(v3 + 516);
+        v20 = *(v3 + 448);
+        v21 = *(v3 + 548);
+        v22 = *(v3 + 452);
+        v23 = *(v3 + 724);
+        v24 = *(v3 + 675);
+        v25 = *(v3 + 988);
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
-          v26 = *(v1 + 448);
-          v27 = *(v1 + 516);
-          v28 = *(v1 + 512);
-          v24 = *(v1 + 452);
-          v25 = *(v1 + 548);
-          std::string::__init_copy_ctor_external(&v32, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-          v19 = v25;
-          v18 = v26;
-          v20 = v24;
-          v17 = v27;
-          v16 = v28;
+          v28 = *(v3 + 448);
+          v29 = *(v3 + 516);
+          v30 = *(v3 + 512);
+          v26 = *(v3 + 452);
+          v27 = *(v3 + 548);
+          std::string::__init_copy_ctor_external(&v34, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+          v21 = v27;
+          v20 = v28;
+          v22 = v26;
+          v19 = v29;
+          v18 = v30;
         }
 
         else
         {
-          v32 = __p;
+          v34 = __p;
         }
 
-        reportEncodeSessionInfo(v16, v17, v18, v19, v20, FrameRateCode, v21 != 0, v31, v30, v12, v11, v22, v2, v23, HasHWError, IsNonCompliant, &v32);
-        if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+        reportEncodeSessionInfo(v18, v19, v20, v21, v22, FrameRateCode, v23 != 0, v33, v32, v14, v13, v24, v4, v25, HasHWError, IsNonCompliant, &v34);
+        if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v32.__r_.__value_.__l.__data_);
+          operator delete(v34.__r_.__value_.__l.__data_);
         }
 
-        *(v1 + 984) = 1;
+        *(v3 + 984) = 1;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -5096,22 +5016,22 @@ void sub_29530E50C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t ProResEncoder_Finalize()
+uint64_t ProResEncoder_Finalize(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  ProResEncoder_CompleteFrames();
+  ProResEncoder_CompleteFrames(a1);
   DestroyFrameInfoQueue(DerivedStorage + 112);
-  v1 = *(DerivedStorage + 16);
-  if (v1)
+  v3 = *(DerivedStorage + 16);
+  if (v3)
   {
-    CFRelease(v1);
+    CFRelease(v3);
     *(DerivedStorage + 16) = 0;
   }
 
-  v2 = *(DerivedStorage + 424);
-  if (v2)
+  v4 = *(DerivedStorage + 424);
+  if (v4)
   {
-    CVPixelBufferPoolFlush(v2, 1uLL);
+    CVPixelBufferPoolFlush(v4, 1uLL);
     CVPixelBufferPoolRelease(*(DerivedStorage + 424));
     *(DerivedStorage + 424) = 0;
   }
@@ -5123,19 +5043,19 @@ uint64_t ProResEncoder_Finalize()
     *(DerivedStorage + 432) = 0;
   }
 
-  v3 = *(DerivedStorage + 712);
-  if (v3)
+  v5 = *(DerivedStorage + 712);
+  if (v5)
   {
-    CFRelease(v3);
+    CFRelease(v5);
     *(DerivedStorage + 712) = 0;
   }
 
   freeEncodeStatsBuffers(DerivedStorage + 856, *(DerivedStorage + 920));
   *(DerivedStorage + 920) = 0;
-  v4 = *(DerivedStorage + 440);
-  if (v4)
+  v6 = *(DerivedStorage + 440);
+  if (v6)
   {
-    CFRelease(v4);
+    CFRelease(v6);
     *(DerivedStorage + 440) = 0;
   }
 
@@ -5151,24 +5071,24 @@ uint64_t ProResEncoder_Finalize()
     *(DerivedStorage + 416) = 0;
   }
 
-  v5 = *(DerivedStorage + 104);
-  if (v5)
+  v7 = *(DerivedStorage + 104);
+  if (v7)
   {
-    DestroyProResFrameReceiver(v5, (DerivedStorage + 24));
+    DestroyProResFrameReceiver(v7, (DerivedStorage + 24));
     *(DerivedStorage + 104) = 0;
   }
 
-  v6 = *(DerivedStorage + 400);
-  if (v6)
+  v8 = *(DerivedStorage + 400);
+  if (v8)
   {
-    closeUserClient(v6, *(DerivedStorage + 988));
+    closeUserClient(v8, *(DerivedStorage + 988));
     *(DerivedStorage + 400) = 0;
   }
 
-  v7 = *(DerivedStorage + 960);
-  if (v7 != *(DerivedStorage + 968))
+  v9 = *(DerivedStorage + 960);
+  if (v9 != *(DerivedStorage + 968))
   {
-    *(DerivedStorage + 968) = v7;
+    *(DerivedStorage + 968) = v9;
     std::vector<unsigned char>::shrink_to_fit((DerivedStorage + 960));
   }
 
@@ -5371,8 +5291,8 @@ LABEL_23:
     {
       if (*(v8 + 484) == 0.0)
       {
-        v25 = *(v8 + 488);
-        *(&valuePtr + 1) = v25;
+        v24 = *(v8 + 488);
+        *(&valuePtr + 1) = v24;
         v15 = &valuePtr + 4;
       }
 
@@ -5400,8 +5320,8 @@ LABEL_23:
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD38]))
     {
-      v26 = *(v8 + 476);
-      switch(v26)
+      v25 = *(v8 + 476);
+      switch(v25)
       {
         case 2:
           result = 0;
@@ -5424,34 +5344,34 @@ LABEL_23:
       return result;
     }
 
-    v27 = *(v8 + 476);
-    if (v27)
+    v26 = *(v8 + 476);
+    if (v26)
     {
-      if (v27 == 1)
+      if (v26 == 1)
       {
-        v28 = 256;
+        v27 = 256;
       }
 
       else
       {
-        if (v27 != 2)
+        if (v26 != 2)
         {
           return 0;
         }
 
-        v28 = 258;
+        v27 = 258;
       }
 
-      HIDWORD(valuePtr) = v28;
-      v29 = CFNumberCreate(a3, kCFNumberSInt32Type, &valuePtr + 4);
+      HIDWORD(valuePtr) = v27;
+      v28 = CFNumberCreate(a3, kCFNumberSInt32Type, &valuePtr + 4);
     }
 
     else
     {
-      v29 = 0;
+      v28 = 0;
     }
 
-    *a4 = v29;
+    *a4 = v28;
     return 0;
   }
 
@@ -5466,10 +5386,9 @@ LABEL_56:
     valuePtr = 0;
     v21 = *(v8 + 512) * *(v8 + 516);
     v22 = ProResEncoder_AdjustBitRateAndTargetSizeMultiplier(v8, v21, -1);
-    v23 = *(v8 + 988);
-    CompressedFrameSize = GetCompressedFrameSize(*(v8 + 448), v21, v22, *(v8 + 564), &valuePtr + 1, &valuePtr, *(v8 + 617));
-    v30 = valuePtr;
-    v12 = CFNumberCreate(a3, kCFNumberFloat32Type, &v30);
+    CompressedFrameSize = GetCompressedFrameSize(*(v8 + 448), v21, v22, *(v8 + 564), &valuePtr + 1, &valuePtr, *(v8 + 617), *(v8 + 988));
+    v29 = valuePtr;
+    v12 = CFNumberCreate(a3, kCFNumberFloat32Type, &v29);
     result = CompressedFrameSize;
     goto LABEL_24;
   }
@@ -5491,7 +5410,7 @@ LABEL_56:
 
 uint64_t ProResEncoder_SetProperty(uint64_t a1, const __CFString *a2, const __CFBoolean *a3)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   if (!a1 || !a2)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -5499,7 +5418,7 @@ uint64_t ProResEncoder_SetProperty(uint64_t a1, const __CFString *a2, const __CF
       ProResEncoder_SetProperty();
     }
 
-    goto LABEL_12;
+    return 4294954394;
   }
 
   DerivedStorage = CMBaseObjectGetDerivedStorage();
@@ -5515,14 +5434,12 @@ uint64_t ProResEncoder_SetProperty(uint64_t a1, const __CFString *a2, const __CF
         ProResEncoder_SetProperty();
       }
 
-      goto LABEL_18;
+      return 4294954396;
     }
 
     if (!CFDictionaryContainsKey(v7, a2))
     {
-LABEL_18:
-      result = 4294954396;
-      goto LABEL_54;
+      return 4294954396;
     }
 
     if (CFEqual(a2, @"ProResHW_TestSettings"))
@@ -5545,7 +5462,7 @@ LABEL_18:
       *(v6 + 705) = v12;
       *(v6 + 617) = v11;
       *(v6 + 616) = v9;
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDC0]))
@@ -5578,17 +5495,15 @@ LABEL_52:
         result = 0;
 LABEL_53:
         *(v6 + 705) = 1;
-        goto LABEL_54;
+        return result;
       }
 
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_SetProperty(v6);
+        ProResEncoder_SetProperty();
       }
 
-LABEL_12:
-      result = 4294954394;
-      goto LABEL_54;
+      return 4294954394;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD58]))
@@ -5599,7 +5514,7 @@ LABEL_12:
         v16 = 2;
 LABEL_49:
         *(v6 + 641) = v16;
-        goto LABEL_54;
+        return result;
       }
 
       IntegerCodePointForString = CVColorPrimariesGetIntegerCodePointForString(a3);
@@ -5610,7 +5525,7 @@ LABEL_49:
         result = 0;
         if (v16 > 0xCu || ((0xB3u >> v17) & 1) != 0)
         {
-          goto LABEL_54;
+          return result;
         }
 
         goto LABEL_48;
@@ -5623,7 +5538,7 @@ LABEL_48:
         goto LABEL_49;
       }
 
-      goto LABEL_61;
+      return 0;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDD8]))
@@ -5637,7 +5552,7 @@ LABEL_48:
         {
           if (v18 > 0x12u)
           {
-            goto LABEL_61;
+            return 0;
           }
         }
 
@@ -5646,7 +5561,7 @@ LABEL_48:
           result = 0;
           if (v19 > 0x12u || ((0x3CFu >> v20) & 1) != 0)
           {
-            goto LABEL_54;
+            return result;
           }
         }
 
@@ -5664,26 +5579,26 @@ LABEL_48:
       }
 
       *(v6 + 642) = v19;
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDE8]))
     {
       if (a3)
       {
-        v22 = CVYCbCrMatrixGetIntegerCodePointForString(a3);
-        if (v22 > 9u)
+        v21 = CVYCbCrMatrixGetIntegerCodePointForString(a3);
+        if (v21 > 9u)
         {
-          v23 = 2;
+          v22 = 2;
         }
 
         else
         {
-          v23 = byte_2953939D0[v22 & 0xF];
+          v22 = byte_2953939D0[v21 & 0xF];
         }
 
         result = 0;
-        *(v6 + 643) = v23;
+        *(v6 + 643) = v22;
         *(v6 + 644) = 1;
       }
 
@@ -5693,35 +5608,35 @@ LABEL_48:
         *(v6 + 643) = 2;
       }
 
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDC8]))
     {
       if (a3)
       {
-        v24 = CFEqual(a3, *MEMORY[0x29EDB8F00]);
+        v23 = CFEqual(a3, *MEMORY[0x29EDB8F00]);
         result = 0;
-        v25 = v24 != 0;
+        v24 = v23 != 0;
       }
 
       else
       {
         result = 0;
-        v25 = 2;
+        v24 = 2;
       }
 
-      *(v6 + 648) = v25;
-      goto LABEL_54;
+      *(v6 + 648) = v24;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD90]))
     {
       if (a3)
       {
-        v26 = CFEqual(a3, *MEMORY[0x29EDB8F00]);
+        v25 = CFEqual(a3, *MEMORY[0x29EDB8F00]);
         result = 0;
-        *(v6 + 652) = v26 != 0;
+        *(v6 + 652) = v25 != 0;
       }
 
       else
@@ -5730,7 +5645,7 @@ LABEL_48:
         *(v6 + 652) = 0;
       }
 
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD98]))
@@ -5748,7 +5663,7 @@ LABEL_48:
         *(v6 + 508) = 0;
       }
 
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD40]))
@@ -5757,32 +5672,32 @@ LABEL_48:
       {
         result = 0;
         *(v6 + 653) = 0;
-        goto LABEL_54;
+        return result;
       }
 
       if (CFDataGetLength(a3) == 8)
       {
-        v45.location = 0;
-        v45.length = 8;
-        CFDataGetBytes(a3, v45, (v6 + 654));
+        v43.location = 0;
+        v43.length = 8;
+        CFDataGetBytes(a3, v43, (v6 + 654));
         result = 0;
         *(v6 + 653) = 1;
-        goto LABEL_54;
+        return result;
       }
 
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        v28 = *(v6 + 988);
+        v27 = *(v6 + 988);
         LODWORD(valuePtr) = 67109634;
-        HIDWORD(valuePtr) = v28;
-        v39 = 2080;
-        v40 = "ProResEncoder_SetProperty";
-        v41 = 1024;
+        HIDWORD(valuePtr) = v27;
+        v37 = 2080;
+        v38 = "ProResEncoder_SetProperty";
+        v39 = 1024;
         Length = CFDataGetLength(a3);
         _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Error: ValueLen = %d bytes, Wrongly sized property value for AmbientViewingEnvironment attached, should be 8 bytes\n", &valuePtr, 0x18u);
       }
 
-      goto LABEL_18;
+      return 4294954396;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDB0]))
@@ -5795,23 +5710,25 @@ LABEL_48:
           {
             if (*(v6 + 576))
             {
+              v32 = 3;
               *(v6 + 724) = 3;
               *(v6 + 852) = 1;
             }
 
             else
             {
+              v32 = 1;
               *(v6 + 724) = 1;
             }
 
-            if ((ProResFrameReceiver::InitializeDoubleEncode(*(v6 + 104), *(v6 + 848)) & 1) == 0)
+            if ((ProResFrameReceiver::InitializeDoubleEncode(*(v6 + 104), *(v6 + 848), v32) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
               {
-                ProResEncoder_SetProperty(v6);
+                ProResEncoder_SetProperty();
               }
 
-              goto LABEL_12;
+              return 4294954394;
             }
           }
 
@@ -5825,10 +5742,10 @@ LABEL_48:
           goto LABEL_53;
         }
 
-        goto LABEL_61;
+        return 0;
       }
 
-      goto LABEL_18;
+      return 4294954396;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDB96C0]))
@@ -5836,35 +5753,34 @@ LABEL_48:
       valuePtr = 0;
       if (!a3)
       {
-        goto LABEL_61;
+        return 0;
       }
 
-      v37 = 0;
-      CFNumberGetValue(a3, kCFNumberSInt32Type, &v37);
-      v29 = v37;
-      if ((v37 & 0x80000000) != 0)
+      v35 = 0;
+      CFNumberGetValue(a3, kCFNumberSInt32Type, &v35);
+      v28 = v35;
+      if ((v35 & 0x80000000) != 0)
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
         {
-          ProResEncoder_SetProperty(v6);
+          ProResEncoder_SetProperty();
         }
 
-        goto LABEL_12;
+        return 4294954394;
       }
 
-      *(v6 + 528) = v37;
-      createPixelBufferAttributesDictionary(&valuePtr, *(v6 + 512), *(v6 + 516), v29, *(v6 + 532), *(v6 + 452), *(v6 + 456), *(v6 + 662), *(v6 + 616), (v6 + 568));
-      v30 = *v6;
+      *(v6 + 528) = v35;
+      createPixelBufferAttributesDictionary(&valuePtr, *(v6 + 512), *(v6 + 516), v28, *(v6 + 532), *(v6 + 452), *(v6 + 456), *(v6 + 662), *(v6 + 616), (v6 + 568));
       VTEncoderSessionSetPixelBufferAttributes();
       result = valuePtr;
       if (!valuePtr)
       {
-        goto LABEL_54;
+        return result;
       }
 
 LABEL_113:
       CFRelease(result);
-      goto LABEL_61;
+      return 0;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCDA8]))
@@ -5872,27 +5788,26 @@ LABEL_113:
       valuePtr = 0;
       if (a3)
       {
-        v31 = CFEqual(a3, *MEMORY[0x29EDB8F00]) != 0;
+        v29 = CFEqual(a3, *MEMORY[0x29EDB8F00]) != 0;
       }
 
       else
       {
-        v31 = 1;
+        v29 = 1;
       }
 
-      *(v6 + 662) = v31;
+      *(v6 + 662) = v29;
       if ((*(v6 + 448) | 0x10) != 0x61703478)
       {
-        goto LABEL_61;
+        return 0;
       }
 
-      createPixelBufferAttributesDictionary(&valuePtr, *(v6 + 512), *(v6 + 516), *(v6 + 528), *(v6 + 532), 875836448, *(v6 + 456), v31, *(v6 + 616), (v6 + 568));
-      v33 = *v6;
+      createPixelBufferAttributesDictionary(&valuePtr, *(v6 + 512), *(v6 + 516), *(v6 + 528), *(v6 + 532), 875836448, *(v6 + 456), v29, *(v6 + 616), (v6 + 568));
       VTEncoderSessionSetPixelBufferAttributes();
       result = valuePtr;
       if (!valuePtr)
       {
-        goto LABEL_61;
+        return 0;
       }
 
       goto LABEL_113;
@@ -5901,20 +5816,20 @@ LABEL_113:
     if (CFEqual(a2, *MEMORY[0x29EDBCDD0]))
     {
       LODWORD(valuePtr) = 0;
-      v32 = 0;
+      v30 = 0;
       if (a3)
       {
         CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr);
         if (valuePtr)
         {
-          v32 = 1;
+          v30 = 1;
         }
       }
 
-      ProResFrameReceiver::SetDynamicAlphaBitDepth(*(v6 + 104), v32);
+      ProResFrameReceiver::SetDynamicAlphaBitDepth(*(v6 + 104), v30);
       result = 0;
       *(v6 + 472) = valuePtr;
-      goto LABEL_54;
+      return result;
     }
 
     if (CFEqual(a2, *MEMORY[0x29EDBCD38]))
@@ -5923,12 +5838,12 @@ LABEL_113:
       {
         if (CFEqual(a3, *MEMORY[0x29EDBCD28]))
         {
-          v34 = 1;
+          v31 = 1;
         }
 
         else
         {
-          v34 = 2 * (CFEqual(a3, *MEMORY[0x29EDBCD20]) != 0);
+          v31 = 2 * (CFEqual(a3, *MEMORY[0x29EDBCD20]) != 0);
         }
 
         goto LABEL_133;
@@ -5945,16 +5860,16 @@ LABEL_113:
           {
             LODWORD(valuePtr) = 0;
             CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr);
-            v36 = valuePtr;
+            v34 = valuePtr;
             *(v6 + 664) = valuePtr;
-            if (v36 == 1)
+            if (v34 == 1)
             {
-              result = 0;
+              return 0;
             }
 
             else
             {
-              result = 4294954394;
+              return 4294954394;
             }
           }
 
@@ -5964,41 +5879,38 @@ LABEL_113:
             *(v6 + 664) = 1;
           }
 
-          goto LABEL_54;
+          return result;
         }
 
         if (!CFEqual(a2, *MEMORY[0x29EDBCD70]))
         {
-          if (CFEqual(a2, *MEMORY[0x29EDBCD48]))
+          if (!CFEqual(a2, *MEMORY[0x29EDBCD48]))
           {
-            if (a3)
-            {
-              LODWORD(valuePtr) = 0;
-              CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr);
-              result = 0;
-              *(v6 + 928) = valuePtr;
-            }
+            return 4294954395;
+          }
 
-            else
-            {
-              result = 0;
-              *(v6 + 928) = 0;
-            }
+          if (a3)
+          {
+            LODWORD(valuePtr) = 0;
+            CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr);
+            result = 0;
+            *(v6 + 928) = valuePtr;
           }
 
           else
           {
-            result = 4294954395;
+            result = 0;
+            *(v6 + 928) = 0;
           }
 
-          goto LABEL_54;
+          return result;
         }
 
         if (!a3)
         {
           result = 0;
           *(v6 + 484) = 0;
-          goto LABEL_54;
+          return result;
         }
 
         LODWORD(valuePtr) = 0;
@@ -6007,15 +5919,15 @@ LABEL_113:
         {
           result = 0;
           *(v6 + 484) = valuePtr;
-          goto LABEL_54;
+          return result;
         }
 
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
         {
-          ProResEncoder_SetProperty(v6);
+          ProResEncoder_SetProperty();
         }
 
-        goto LABEL_12;
+        return 4294954394;
       }
 
       if (a3)
@@ -6024,47 +5936,45 @@ LABEL_113:
         CFNumberGetValue(a3, kCFNumberSInt32Type, &valuePtr);
         if (valuePtr == 256)
         {
-          v34 = 1;
+          v31 = 1;
         }
 
         else
         {
-          v34 = 2 * (valuePtr == 258);
+          v31 = 2 * (valuePtr == 258);
         }
 
 LABEL_133:
-        if (v34 != *(v6 + 476))
+        if (v31 != *(v6 + 476))
         {
-          if (v34 == 2)
+          if (v31 == 2)
           {
             result = 0;
             *(v6 + 480) = 257;
-            v35 = 2;
+            v33 = 2;
           }
 
           else
           {
-            if (v34 != 1)
+            if (v31 != 1)
             {
-              goto LABEL_61;
+              return 0;
             }
 
             result = 0;
             *(v6 + 480) = 257;
-            v35 = 1;
+            v33 = 1;
           }
 
-          *(v6 + 476) = v35;
-          goto LABEL_54;
+          *(v6 + 476) = v33;
+          return result;
         }
 
-LABEL_61:
-        result = 0;
-        goto LABEL_54;
+        return 0;
       }
     }
 
-    v34 = 0;
+    v31 = 0;
     goto LABEL_133;
   }
 
@@ -6073,10 +5983,7 @@ LABEL_61:
     ProResEncoder_SetProperty();
   }
 
-  result = 4294954384;
-LABEL_54:
-  v21 = *MEMORY[0x29EDCA608];
-  return result;
+  return 4294954384;
 }
 
 uint64_t GetFrameRateCode(double a1, double a2)
@@ -6157,7 +6064,7 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
   memmove(this, __s, v3);
 }
 
-uint64_t ProResEncoder_CompleteFrames()
+uint64_t ProResEncoder_CompleteFrames(uint64_t a1)
 {
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (!DerivedStorage)
@@ -6170,42 +6077,42 @@ uint64_t ProResEncoder_CompleteFrames()
     return 4294954384;
   }
 
-  v1 = DerivedStorage;
+  v2 = DerivedStorage;
   pthread_mutex_lock((DerivedStorage + 168));
-  gettimeofday(&v10, 0);
-  v2 = 1200;
-  if (*(v1 + 616) == 1)
+  gettimeofday(&v11, 0);
+  v3 = 1200;
+  if (*(v2 + 616) == 1)
   {
-    v3 = atomic_load((v1 + 160));
-    v2 = 1200 * v3;
+    v4 = atomic_load((v2 + 160));
+    v3 = 1200 * v4;
   }
 
-  v11.tv_sec = v2 + v10.tv_sec;
-  v11.tv_nsec = 1000 * v10.tv_usec;
-  if (atomic_load((v1 + 160)))
+  v12.tv_sec = v3 + v11.tv_sec;
+  v12.tv_nsec = 1000 * v11.tv_usec;
+  if (atomic_load((v2 + 160)))
   {
     do
     {
-      v5 = pthread_cond_timedwait((v1 + 232), (v1 + 168), &v11);
-      if (atomic_load((v1 + 160)))
+      v6 = pthread_cond_timedwait((v2 + 232), (v2 + 168), &v12);
+      if (atomic_load((v2 + 160)))
       {
-        v7 = v5 == 0;
+        v8 = v6 == 0;
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
     }
 
-    while (v7);
-    v8 = v5;
-    pthread_mutex_unlock((v1 + 168));
-    if (v8)
+    while (v8);
+    v9 = v6;
+    pthread_mutex_unlock((v2 + 168));
+    if (v9)
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_CompleteFrames(v1);
+        ProResEncoder_CompleteFrames();
       }
 
       return 4294954384;
@@ -6214,7 +6121,7 @@ uint64_t ProResEncoder_CompleteFrames()
 
   else
   {
-    pthread_mutex_unlock((v1 + 168));
+    pthread_mutex_unlock((v2 + 168));
   }
 
   return 0;
@@ -6225,24 +6132,23 @@ void std::vector<unsigned char>::shrink_to_fit(char **a1)
   v1 = a1[1];
   v2 = *a1;
   v3 = a1[2] - *a1;
-  v4 = (v1 - *a1);
+  v4 = v1 - *a1;
   if (v3 > v4)
   {
     if (v1 != v2)
     {
-      v6 = (v1 - *a1);
       operator new();
     }
 
     if (v4 < v3)
     {
-      v7 = (v1 - *a1);
-      v8 = a1[1];
-      v9 = &v4[v2 - v8];
-      memcpy(v9, v2, v8 - v2);
-      *a1 = v9;
-      a1[1] = v7;
-      a1[2] = v7;
+      v6 = (v1 - *a1);
+      v7 = a1[1];
+      v8 = (v4 + v2 - v7);
+      memcpy(v8, v2, v7 - v2);
+      *a1 = v8;
+      a1[1] = v6;
+      a1[2] = v6;
       if (v2)
       {
 
@@ -6353,39 +6259,37 @@ uint64_t ProResEncoder_StartSession(uint64_t a1, uint64_t a2, unint64_t a3, cons
 {
   v4 = a3;
   outputStructCnt = 24;
-  v84 = 0;
-  v81 = 0u;
-  v82 = 0u;
-  v6 = HIDWORD(a3);
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
+  v77 = 0;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
+  v6 = HIDWORD(a3);
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  memset(v64, 0, sizeof(v64));
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v62 = 0u;
   v63 = 0u;
   v60 = 0u;
   v61 = 0u;
   v58 = 0u;
   v59 = 0u;
+  memset(v57, 0, sizeof(v57));
+  v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  memset(v55, 0, sizeof(v55));
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  memset(v48, 0, sizeof(v48));
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v8 = *(DerivedStorage + 456);
-  v9 = *(DerivedStorage + 988);
   kdebug_trace();
   pthread_mutex_init((DerivedStorage + 288), 0);
   pthread_cond_init((DerivedStorage + 352), 0);
@@ -6403,10 +6307,10 @@ uint64_t ProResEncoder_StartSession(uint64_t a1, uint64_t a2, unint64_t a3, cons
   *(DerivedStorage + 532) = ((v6 + 15) & 0xFFFFFFF0) - v6;
   if (v4 > 0x10000)
   {
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
@@ -6414,10 +6318,10 @@ uint64_t ProResEncoder_StartSession(uint64_t a1, uint64_t a2, unint64_t a3, cons
 
   if (v6 > 0x10000)
   {
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
@@ -6425,307 +6329,299 @@ uint64_t ProResEncoder_StartSession(uint64_t a1, uint64_t a2, unint64_t a3, cons
 
   if (v6 * v4 >= 67108865)
   {
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
   }
 
-  v11 = *(DerivedStorage + 988);
   NumSlices = getNumSlices(v4, v6, 1 << *(DerivedStorage + 668));
   *(DerivedStorage + 848) = NumSlices;
   if (NumSlices > 0x8000)
   {
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
   }
 
-  v13 = *(DerivedStorage + 516) * *(DerivedStorage + 512);
-  if (*(DerivedStorage + 648) || v13 >> 10 < 0x7E9 || *(DerivedStorage + 724) || (*(DerivedStorage + 652) & 1) != 0)
+  v10 = *(DerivedStorage + 516) * *(DerivedStorage + 512);
+  if (*(DerivedStorage + 648) || v10 >> 10 < 0x7E9 || *(DerivedStorage + 724) || (*(DerivedStorage + 652) & 1) != 0)
   {
-    v14 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v14 = 3;
+    v11 = 3;
   }
 
-  *(DerivedStorage + 504) = v14;
+  *(DerivedStorage + 504) = v11;
   *(DerivedStorage + 16) = a4;
   if (a4)
   {
     CFRetain(a4);
-    v14 = *(DerivedStorage + 504);
+    v11 = *(DerivedStorage + 504);
   }
 
   inputStruct[0] = *(DerivedStorage + 456);
-  inputStruct[1] = v14;
-  v53 = 0xFFFFFFFFLL;
-  v54 = *(DerivedStorage + 988);
+  inputStruct[1] = v11;
+  v46 = 0xFFFFFFFFLL;
+  v47 = *(DerivedStorage + 988);
   if (IOConnectCallStructMethod(*(DerivedStorage + 400), 0, inputStruct, 0x14uLL, &outputStruct, &outputStructCnt))
   {
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
   }
 
-  *(DerivedStorage + 584) = v51;
-  v31 = (DerivedStorage + 568);
+  *(DerivedStorage + 584) = v44;
+  v24 = (DerivedStorage + 568);
   *(DerivedStorage + 568) = outputStruct;
-  v15 = 3;
+  v12 = 3;
   if (*(DerivedStorage + 456) == 3)
   {
     if (*(DerivedStorage + 575))
     {
-      v15 = 3;
+      v12 = 3;
     }
 
     else
     {
-      v15 = 1;
+      v12 = 1;
     }
   }
 
-  *(DerivedStorage + 460) = v15;
+  *(DerivedStorage + 460) = v12;
   if (*(DerivedStorage + 571) == 1 && *(DerivedStorage + 448) == 1634759276)
   {
     *(DerivedStorage + 460) = 1;
     *(DerivedStorage + 674) = 1;
   }
 
-  if (v13 <= 0x870000)
+  if (v10 <= 0x870000)
   {
-    v16 = 4;
+    v13 = 4;
   }
 
   else
   {
-    v16 = 2;
+    v13 = 2;
   }
 
-  *(DerivedStorage + 496) = v16;
-  if (v13 > 0x870000)
+  *(DerivedStorage + 496) = v13;
+  if (v10 > 0x870000)
   {
-    v17 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v17 = 2;
+    v14 = 2;
   }
 
-  CreateFrameInfoQueue(DerivedStorage + 112, *(DerivedStorage + 568) << v17);
-  v33[0] = *(DerivedStorage + 400);
-  v35 = 0;
-  v36 = *(DerivedStorage + 97);
-  v37 = DerivedStorage + 112;
-  v38 = DerivedStorage + 160;
-  v39 = DerivedStorage + 168;
-  v40 = DerivedStorage + 232;
-  v41 = DerivedStorage + 280;
-  v42 = DerivedStorage + 288;
-  v43 = DerivedStorage + 352;
-  v34 = *DerivedStorage;
-  v45 = 0;
-  v47 = DerivedStorage + 729;
-  v48 = DerivedStorage + 736;
-  v49 = DerivedStorage + 800;
-  v44 = (*(DerivedStorage + 504) & 0xFFFFFFFE) == 2;
-  v46 = *(DerivedStorage + 568);
-  if (v34 == 2)
+  CreateFrameInfoQueue(DerivedStorage + 112, *(DerivedStorage + 568) << v14);
+  v26[0] = *(DerivedStorage + 400);
+  v28 = 0;
+  v29 = *(DerivedStorage + 97);
+  v30 = DerivedStorage + 112;
+  v31 = DerivedStorage + 160;
+  v32 = DerivedStorage + 168;
+  v33 = DerivedStorage + 232;
+  v34 = DerivedStorage + 280;
+  v35 = DerivedStorage + 288;
+  v36 = DerivedStorage + 352;
+  v27 = *DerivedStorage;
+  v38 = 0;
+  v40 = DerivedStorage + 729;
+  v41 = DerivedStorage + 736;
+  v42 = DerivedStorage + 800;
+  v37 = (*(DerivedStorage + 504) & 0xFFFFFFFE) == 2;
+  v39 = *(DerivedStorage + 568);
+  if (v27 == 2)
   {
-    v45 = DerivedStorage + 592;
+    v38 = DerivedStorage + 592;
   }
 
-  ProResFrameReceiver = CreateProResFrameReceiver((DerivedStorage + 104), v33, (DerivedStorage + 24), (DerivedStorage + 88), *(DerivedStorage + 456), *(DerivedStorage + 988));
+  ProResFrameReceiver = CreateProResFrameReceiver((DerivedStorage + 104), v26, (DerivedStorage + 24), (DerivedStorage + 88), *(DerivedStorage + 456), *(DerivedStorage + 988));
   if (ProResFrameReceiver)
   {
-    v10 = ProResFrameReceiver;
+    v8 = ProResFrameReceiver;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
   }
 
-  v19 = *(DerivedStorage + 456);
-  if (v19 == 3)
+  v16 = *(DerivedStorage + 456);
+  if (v16 == 3)
   {
-    v20 = 1380013856;
+    v17 = 1380013856;
     goto LABEL_57;
   }
 
-  v20 = 875836448;
-  v21 = *(DerivedStorage + 448);
-  if (v21 > 1634743415)
+  v17 = 875836448;
+  v18 = *(DerivedStorage + 448);
+  if (v18 > 1634743415)
   {
-    if ((v21 - 1634755432) <= 0xB && ((1 << (v21 - 104)) & 0x8C1) != 0)
+    if ((v18 - 1634755432) <= 0xB && ((1 << (v18 - 104)) & 0x8C1) != 0)
     {
-      v20 = 875704864;
+      v17 = 875704864;
       goto LABEL_57;
     }
 
-    if (v21 == 1634743416)
+    if (v18 == 1634743416)
     {
       goto LABEL_57;
     }
 
-    if (v21 == 1634759276)
+    if (v18 == 1634759276)
     {
-      v20 = 1634759276;
+      v17 = 1634759276;
       goto LABEL_57;
     }
 
 LABEL_77:
-    v10 = 3758097084;
+    v8 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_StartSession((DerivedStorage + 988));
+      ProResEncoder_StartSession();
     }
 
     goto LABEL_81;
   }
 
-  if (v21 == 1634742376)
+  if (v18 == 1634742376)
   {
-    v20 = 875573280;
+    v17 = 875573280;
     goto LABEL_57;
   }
 
-  if (v21 == 1634742888)
+  if (v18 == 1634742888)
   {
-    v20 = 875704352;
+    v17 = 875704352;
     goto LABEL_57;
   }
 
-  if (v21 != 1634743400)
+  if (v18 != 1634743400)
   {
     goto LABEL_77;
   }
 
 LABEL_57:
-  *(DerivedStorage + 452) = v20;
+  *(DerivedStorage + 452) = v17;
   if (a2 == 2)
   {
-    v22 = *(DerivedStorage + 600);
-    *(DerivedStorage + 424) = v22;
-    if (!v22)
+    v19 = *(DerivedStorage + 600);
+    *(DerivedStorage + 424) = v19;
+    if (!v19)
     {
-      v10 = 3758097090;
+      v8 = 3758097090;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_StartSession((DerivedStorage + 988));
+        ProResEncoder_StartSession();
       }
 
       goto LABEL_81;
     }
 
-    CVPixelBufferPoolRetain(v22);
+    CVPixelBufferPoolRetain(v19);
   }
 
   else
   {
-    createPixelBufferAttributesDictionary(&v84, *(DerivedStorage + 512), *(DerivedStorage + 516), *(DerivedStorage + 528), *(DerivedStorage + 532), v20, v19, *(DerivedStorage + 662), *(DerivedStorage + 616), v31);
+    createPixelBufferAttributesDictionary(&v77, *(DerivedStorage + 512), *(DerivedStorage + 516), *(DerivedStorage + 528), *(DerivedStorage + 532), v17, v16, *(DerivedStorage + 662), *(DerivedStorage + 616), v24);
     VTEncoderSessionSetPixelBufferAttributes();
   }
 
   if (*(DerivedStorage + 456) == 3)
   {
-    v23 = *(DerivedStorage + 988);
-    v24 = (16386 * getNumSlices(*(DerivedStorage + 512), *(DerivedStorage + 516), 1 << *(DerivedStorage + 668)) + 287) & 0xFFFFFF80;
+    v20 = (16386 * getNumSlices(*(DerivedStorage + 512), *(DerivedStorage + 516), 1 << *(DerivedStorage + 668)) + 287) & 0xFFFFFF80;
 LABEL_67:
-    v26 = v24;
+    v22 = v20;
     if (CVDataBufferPoolCreate() || !*(DerivedStorage + 432))
     {
-      v10 = 3758097105;
+      v8 = 3758097105;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_StartSession((DerivedStorage + 988));
+        ProResEncoder_StartSession();
       }
     }
 
     else
     {
-      *(DerivedStorage + 552) = v26;
-      v27 = *MEMORY[0x29EDB8ED8];
+      *(DerivedStorage + 552) = v22;
       if (CVDataBufferPoolCreateDataBuffer() || !*(DerivedStorage + 712))
       {
         if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
         {
-          ProResEncoder_StartSession((DerivedStorage + 988));
+          ProResEncoder_StartSession();
         }
 
-        v10 = 3758097085;
+        v8 = 3758097085;
       }
 
       else
       {
-        v10 = 0;
+        v8 = 0;
       }
     }
 
     goto LABEL_81;
   }
 
-  *(&v56 + 4) = *(DerivedStorage + 512);
-  HIDWORD(v72) = *(DerivedStorage + 668);
-  LODWORD(v80) = 0;
-  if (!ProResEncoder_GetInInfoSizes(v55, *(DerivedStorage + 448), *(DerivedStorage + 674), v31, *(DerivedStorage + 730) & 0x7F, 0, (DerivedStorage + 720), *(DerivedStorage + 988), *(DerivedStorage + 560), *(DerivedStorage + 564), 0))
+  *(&v49 + 4) = *(DerivedStorage + 512);
+  HIDWORD(v65) = *(DerivedStorage + 668);
+  LODWORD(v73) = 0;
+  if (!ProResEncoder_GetInInfoSizes(v48, *(DerivedStorage + 448), *(DerivedStorage + 674), v24, *(DerivedStorage + 730) & 0x7F, 0, (DerivedStorage + 720), *(DerivedStorage + 988), *(DerivedStorage + 560), *(DerivedStorage + 564), 0))
   {
-    v24 = (v64[2] + 127) & 0xFFFFFF80;
-    *(DerivedStorage + 684) = v24;
-    *&v25 = *&v64[3];
-    *(&v25 + 1) = *(&v80 + 1);
-    *(DerivedStorage + 688) = v25;
+    v20 = (v57[2] + 127) & 0xFFFFFF80;
+    *(DerivedStorage + 684) = v20;
+    *&v21 = *&v57[3];
+    *(&v21 + 1) = *(&v73 + 1);
+    *(DerivedStorage + 688) = v21;
     *(DerivedStorage + 704) = *(DerivedStorage + 730) & 0x7F;
     goto LABEL_67;
   }
 
-  v10 = 3758097090;
+  v8 = 3758097090;
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
-    ProResEncoder_StartSession((DerivedStorage + 988));
+    ProResEncoder_StartSession();
   }
 
 LABEL_81:
-  if (v84)
+  if (v77)
   {
-    CFRelease(v84);
+    CFRelease(v77);
   }
 
-  v28 = *(DerivedStorage + 456);
-  v29 = *(DerivedStorage + 988);
   kdebug_trace();
-  return v10;
+  return v8;
 }
 
 uint64_t ProResEncoder_EncodeFrame(uint64_t a1, uint64_t a2, __CVBuffer *a3, __int128 *a4, __int128 *a5, uint64_t a6, _DWORD *a7)
 {
-  v250 = *MEMORY[0x29EDCA608];
+  v221 = *MEMORY[0x29EDCA608];
   memset(__src, 0, sizeof(__src));
   DerivedStorage = CMBaseObjectGetDerivedStorage();
-  v234 = 0;
-  v232 = 0u;
-  v233 = 0u;
+  v205 = 0;
+  v203 = 0u;
+  v204 = 0u;
   v12 = *(DerivedStorage + 536);
   v13 = v12 << (*(DerivedStorage + 724) != 0);
-  v14 = *(DerivedStorage + 456);
-  v15 = (DerivedStorage + 988);
-  v16 = *(DerivedStorage + 988);
   kdebug_trace();
   BYTE8(__src[30]) = *(DerivedStorage + 616);
   CVPixelBufferRetain(a3);
@@ -6733,15 +6629,15 @@ uint64_t ProResEncoder_EncodeFrame(uint64_t a1, uint64_t a2, __CVBuffer *a3, __i
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_EncodeFrame(v15);
+      ProResEncoder_EncodeFrame();
     }
 
-    v37 = 0;
-    v38 = 0;
+    v33 = 0;
+    v34 = 0;
     goto LABEL_94;
   }
 
-  v229 = (DerivedStorage + 988);
+  v199 = (DerivedStorage + 988);
   if (!*(DerivedStorage + 408))
   {
     FormatDescriptionExtensions = createFormatDescriptionExtensions(a3, DerivedStorage, 0);
@@ -6749,14 +6645,14 @@ uint64_t ProResEncoder_EncodeFrame(uint64_t a1, uint64_t a2, __CVBuffer *a3, __i
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_EncodeFrame(v15);
+        ProResEncoder_EncodeFrame();
       }
 
-      v37 = 0;
+      v33 = 0;
       goto LABEL_102;
     }
 
-    v40 = FormatDescriptionExtensions;
+    v36 = FormatDescriptionExtensions;
     if (*DerivedStorage == 2)
     {
       VideoFormatDescription = CMVideoFormatDescriptionCreate(*MEMORY[0x29EDB8ED8], *(DerivedStorage + 448), *(DerivedStorage + 512), *(DerivedStorage + 516), FormatDescriptionExtensions, (DerivedStorage + 408));
@@ -6764,23 +6660,20 @@ uint64_t ProResEncoder_EncodeFrame(uint64_t a1, uint64_t a2, __CVBuffer *a3, __i
 
     else
     {
-      v41 = *(DerivedStorage + 448);
-      v42 = *(DerivedStorage + 512);
-      v43 = *(DerivedStorage + 516);
       VideoFormatDescription = VTEncoderSessionCreateVideoFormatDescription();
     }
 
-    v51 = VideoFormatDescription;
-    CFRelease(v40);
-    if (v51)
+    v44 = VideoFormatDescription;
+    CFRelease(v36);
+    if (v44)
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_EncodeFrame(v229);
+        ProResEncoder_EncodeFrame();
       }
 
-      v37 = 0;
-      v38 = 0;
+      v33 = 0;
+      v34 = 0;
       goto LABEL_94;
     }
   }
@@ -6788,48 +6681,48 @@ uint64_t ProResEncoder_EncodeFrame(uint64_t a1, uint64_t a2, __CVBuffer *a3, __i
   pixelBuffer = a3;
   if (!*(DerivedStorage + 536))
   {
-    v17 = *(DerivedStorage + 648);
-    v18 = *(DerivedStorage + 652);
-    if (v17)
+    v14 = *(DerivedStorage + 648);
+    v15 = *(DerivedStorage + 652);
+    if (v14)
     {
-      if (v17 != 2)
+      if (v14 != 2)
       {
-        v18 = 0;
+        v15 = 0;
       }
 
-      *(DerivedStorage + 500) = v18;
-      v19 = *(DerivedStorage + 724);
+      *(DerivedStorage + 500) = v15;
+      v16 = *(DerivedStorage + 724);
     }
 
     else
     {
-      v49 = *(DerivedStorage + 516) * *(DerivedStorage + 512);
-      v22 = 3;
+      v42 = *(DerivedStorage + 516) * *(DerivedStorage + 512);
+      v19 = 3;
       if (*(DerivedStorage + 652))
       {
-        v50 = 1;
+        v43 = 1;
       }
 
       else
       {
-        v50 = 3;
+        v43 = 3;
       }
 
-      *(DerivedStorage + 500) = v50;
-      v19 = *(DerivedStorage + 724);
-      if (v49 >> 10 >= 0x7E9 && !v19 && !v18)
+      *(DerivedStorage + 500) = v43;
+      v16 = *(DerivedStorage + 724);
+      if (v42 >> 10 >= 0x7E9 && !v16 && !v15)
       {
-        v21 = 1;
-        v20 = 1;
+        v18 = 1;
+        v17 = 1;
 LABEL_9:
-        *(DerivedStorage + 504) = v22;
-        v23 = *(DerivedStorage + 104);
-        if (v23 && v21)
+        *(DerivedStorage + 504) = v19;
+        v20 = *(DerivedStorage + 104);
+        if (v20 && v18)
         {
-          ProResFrameReceiver::SetOutOfOrderFrameProcessing(v23, v20);
+          ProResFrameReceiver::SetOutOfOrderFrameProcessing(v20, v17);
         }
 
-        if (v20)
+        if (v17)
         {
           *(DerivedStorage + 496) *= *(DerivedStorage + 568);
         }
@@ -6838,109 +6731,108 @@ LABEL_9:
       }
     }
 
-    v20 = 0;
-    v21 = v19 == 0;
-    v22 = 1;
+    v17 = 0;
+    v18 = v16 == 0;
+    v19 = 1;
     goto LABEL_9;
   }
 
 LABEL_14:
   *(&__src[13] + 1) = *(DerivedStorage + 500);
-  *&v232 = *(DerivedStorage + 128);
-  v24 = *(DerivedStorage + 496);
-  DWORD2(v232) = *(DerivedStorage + 536);
-  HIDWORD(v232) = v24;
-  *&v233 = DerivedStorage + 280;
-  *(&v233 + 1) = DerivedStorage + 288;
-  v234 = DerivedStorage + 352;
-  v25 = *(DerivedStorage + 988);
-  EmptySpotInFrameInfoArray = GetEmptySpotInFrameInfoArray(&v232);
+  *&v203 = *(DerivedStorage + 128);
+  v21 = *(DerivedStorage + 496);
+  DWORD2(v203) = *(DerivedStorage + 536);
+  HIDWORD(v203) = v21;
+  *&v204 = DerivedStorage + 280;
+  *(&v204 + 1) = DerivedStorage + 288;
+  v205 = DerivedStorage + 352;
+  EmptySpotInFrameInfoArray = GetEmptySpotInFrameInfoArray(&v203, *(DerivedStorage + 988));
   if (EmptySpotInFrameInfoArray == -1)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_EncodeFrame(v229);
+      ProResEncoder_EncodeFrame();
     }
 
-    v37 = 0;
-    v38 = 0;
+    v33 = 0;
+    v34 = 0;
     goto LABEL_93;
   }
 
-  v27 = EmptySpotInFrameInfoArray;
-  v28 = *(DerivedStorage + 128) + 800 * EmptySpotInFrameInfoArray;
+  v23 = EmptySpotInFrameInfoArray;
+  v24 = *(DerivedStorage + 128) + 800 * EmptySpotInFrameInfoArray;
   *(DerivedStorage + 540) = CVPixelBufferGetWidth(pixelBuffer);
   *(DerivedStorage + 544) = CVPixelBufferGetHeight(pixelBuffer);
   *(DerivedStorage + 452) = CVPixelBufferGetPixelFormatType(pixelBuffer);
   PlaneCount = CVPixelBufferGetPlaneCount(pixelBuffer);
-  v30 = APR_ImgFmt_4CC(*(DerivedStorage + 452));
-  v227 = v28;
-  if (!v30)
+  v26 = APR_ImgFmt_4CC(*(DerivedStorage + 452));
+  v197 = v24;
+  if (!v26)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_EncodeFrame(v229);
+      ProResEncoder_EncodeFrame();
     }
 
-    v37 = 0;
+    v33 = 0;
     a3 = pixelBuffer;
     goto LABEL_32;
   }
 
-  v219 = PlaneCount;
-  v225 = v30;
-  *(DerivedStorage + 548) = v30[1];
-  v222 = *(DerivedStorage + 540);
+  v189 = PlaneCount;
+  v195 = v26;
+  *(DerivedStorage + 548) = v26[1];
+  v192 = *(DerivedStorage + 540);
   cf = *(DerivedStorage + 544);
   IOSurface = CVPixelBufferGetIOSurface(pixelBuffer);
   LODWORD(__src[6]) = IOSurfaceGetID(IOSurface);
-  v226 = IOSurface;
+  v196 = IOSurface;
   IOSurfaceGetPixelFormat(IOSurface);
-  *(v28 + 8) = *(DerivedStorage + 536);
-  *(v28 + 16) = a2;
+  *(v24 + 8) = *(DerivedStorage + 536);
+  *(v24 + 16) = a2;
   if (!*(DerivedStorage + 724))
   {
-    *(v28 + 24) |= 1u;
+    *(v24 + 24) |= 1u;
   }
 
-  *(v28 + 72) = pixelBuffer;
-  *(v28 + 88) = *(DerivedStorage + 408);
-  v32 = *a4;
-  *(v28 + 768) = *(a4 + 2);
-  *(v28 + 752) = v32;
-  v33 = *a5;
-  *(v28 + 744) = *(a5 + 2);
-  *(v28 + 728) = v33;
-  v34 = *MEMORY[0x29EDB9398];
-  *(v28 + 792) = *(MEMORY[0x29EDB9398] + 16);
-  *(v28 + 776) = v34;
+  *(v24 + 72) = pixelBuffer;
+  *(v24 + 88) = *(DerivedStorage + 408);
+  v28 = *a4;
+  *(v24 + 768) = *(a4 + 2);
+  *(v24 + 752) = v28;
+  v29 = *a5;
+  *(v24 + 744) = *(a5 + 2);
+  *(v24 + 728) = v29;
+  v30 = *MEMORY[0x29EDB9398];
+  *(v24 + 792) = *(MEMORY[0x29EDB9398] + 16);
+  *(v24 + 776) = v30;
   if (*(DerivedStorage + 616) == 1)
   {
     BYTE4(__src[13]) = 0;
-    v35 = *(DerivedStorage + 488);
-    v36 = *(DerivedStorage + 484);
-    v37 = IOSurface;
+    v31 = *(DerivedStorage + 488);
+    v32 = *(DerivedStorage + 484);
+    v33 = IOSurface;
     goto LABEL_58;
   }
 
-  v45 = *(DerivedStorage + 536);
-  v46 = *(v28 + 752);
-  *(DerivedStorage + 624 + 8 * (v45 & 1)) = v46;
-  if (!v45 || (v47 = *(v28 + 760)) == 0)
+  v38 = *(DerivedStorage + 536);
+  v39 = *(v24 + 752);
+  *(DerivedStorage + 624 + 8 * (v38 & 1)) = v39;
+  if (!v38 || (v40 = *(v24 + 760)) == 0)
   {
     *(DerivedStorage + 640) = 1;
-    v35 = 0.0;
-    v37 = IOSurface;
+    v31 = 0.0;
+    v33 = IOSurface;
     goto LABEL_57;
   }
 
-  v48 = v46 - *(DerivedStorage + 624 + 8 * !(v45 & 1));
-  v37 = IOSurface;
-  if (v48 <= 0.0)
+  v41 = v39 - *(DerivedStorage + 624 + 8 * !(v38 & 1));
+  v33 = IOSurface;
+  if (v41 <= 0.0)
   {
     *(DerivedStorage + 640) = 0;
 LABEL_56:
-    v35 = 0.0;
+    v31 = 0.0;
     goto LABEL_57;
   }
 
@@ -6950,69 +6842,69 @@ LABEL_56:
     goto LABEL_56;
   }
 
-  v35 = v47 / v48;
+  v31 = v40 / v41;
   *(DerivedStorage + 640) = 1;
 LABEL_57:
-  *(DerivedStorage + 488) = v35;
-  v36 = *(DerivedStorage + 484);
-  BYTE4(__src[13]) = GetFrameRateCode(v35, v36);
+  *(DerivedStorage + 488) = v31;
+  v32 = *(DerivedStorage + 484);
+  BYTE4(__src[13]) = GetFrameRateCode(v31, v32);
 LABEL_58:
   BYTE9(__src[30]) = *(DerivedStorage + 648) == 1;
   BYTE10(__src[30]) = 0;
-  *&__src[31] = v35;
-  DWORD2(__src[31]) = v36;
+  *&__src[31] = v31;
+  DWORD2(__src[31]) = v32;
   *(&__src[13] + 5) = *(DerivedStorage + 641);
   if (*(DerivedStorage + 644) == 1)
   {
-    v52 = *(DerivedStorage + 643);
-    v53 = *(DerivedStorage + 544);
+    v45 = *(DerivedStorage + 643);
+    v46 = *(DerivedStorage + 544);
   }
 
   else
   {
-    v53 = *(DerivedStorage + 544);
-    if (v53 > 0x2CF)
+    v46 = *(DerivedStorage + 544);
+    if (v46 > 0x2CF)
     {
-      v52 = 1;
+      v45 = 1;
     }
 
     else
     {
-      v52 = 6;
+      v45 = 6;
     }
   }
 
-  BYTE7(__src[13]) = v52;
-  *&__src[0] = __PAIR64__(v27, v13);
+  BYTE7(__src[13]) = v45;
+  *&__src[0] = __PAIR64__(v23, v13);
   WORD4(__src[0]) = v13;
   DWORD1(__src[4]) = *(DerivedStorage + 540);
-  DWORD2(__src[4]) = v53;
+  DWORD2(__src[4]) = v46;
   DWORD1(__src[29]) = 0;
   BYTE4(__src[1]) = *(DerivedStorage + 460);
   BYTE1(__src[1]) = IOSurfaceGetCompressionTypeOfPlane() != 0;
   BYTE11(__src[0]) = 1;
-  v56 = *(DerivedStorage + 464);
-  if (v56 == -1)
+  v49 = *(DerivedStorage + 464);
+  if (v49 == -1)
   {
-    v57 = (DerivedStorage + 988);
+    v50 = (DerivedStorage + 988);
     BYTE10(__src[0]) = BYTE4(__src[1]) >= 2u;
   }
 
   else
   {
-    BYTE10(__src[0]) = v56 != 0;
-    v57 = (DerivedStorage + 988);
+    BYTE10(__src[0]) = v49 != 0;
+    v50 = (DerivedStorage + 988);
   }
 
-  v58 = cf * v222;
-  v59 = *(DerivedStorage + 548) - 8;
-  if (v59 <= 8 && ((0x115u >> v59) & 1) != 0)
+  v51 = cf * v192;
+  v52 = *(DerivedStorage + 548) - 8;
+  if (v52 <= 8 && ((0x115u >> v52) & 1) != 0)
   {
-    HIDWORD(__src[1]) = dword_2953939DC[v59];
+    HIDWORD(__src[1]) = dword_2953939DC[v52];
   }
 
-  v60 = v225;
-  if (!*(v225 + 33))
+  v53 = v195;
+  if (!*(v195 + 33))
   {
     if (*(DerivedStorage + 456) != 3)
     {
@@ -7024,15 +6916,15 @@ LABEL_104:
         LOBYTE(__src[1]) = HIDWORD(__src[1]) != 0;
         if (HIDWORD(__src[1]))
         {
-          v83 = 2;
+          v69 = 2;
         }
 
         else
         {
-          v83 = 1;
+          v69 = 1;
         }
 
-        LODWORD(__src[29]) = v83;
+        LODWORD(__src[29]) = v69;
       }
 
       else
@@ -7045,90 +6937,89 @@ LABEL_104:
 LABEL_193:
       if (*(DerivedStorage + 573) == 1 && BYTE1(__src[1]) == 1)
       {
-        v120 = v60[10];
+        v103 = v53[10];
         if (HIDWORD(__src[1]) == 1)
         {
-          if (v120 == 3)
+          if (v103 == 3)
           {
             goto LABEL_198;
           }
         }
 
-        else if (!HIDWORD(__src[1]) && v120 == 2)
+        else if (!HIDWORD(__src[1]) && v103 == 2)
         {
 LABEL_198:
           if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
           {
-            ProResEncoder_EncodeFrame(v229);
+            ProResEncoder_EncodeFrame();
           }
 
           goto LABEL_92;
         }
 
-        DWORD2(__src[2]) = v60[10];
-        v121 = v60[10];
+        DWORD2(__src[2]) = v53[10];
+        v104 = v53[10];
         LODWORD(__src[2]) = 0;
-        DWORD1(__src[2]) = v121;
+        DWORD1(__src[2]) = v104;
       }
 
-      v54.i32[0] = 0;
-      v55.i32[0] = *(DerivedStorage + 724);
-      v122.i64[0] = 0x4000000040;
-      v122.i64[1] = 0x4000000040;
-      *(&__src[14] + 4) = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v55, v54), 0), xmmword_2953936E0, v122);
+      v47.i32[0] = 0;
+      v48.i32[0] = *(DerivedStorage + 724);
+      v105.i64[0] = 0x4000000040;
+      v105.i64[1] = 0x4000000040;
+      *(&__src[14] + 4) = vbslq_s8(vdupq_lane_s32(*&vceqq_s32(v48, v47), 0), xmmword_2953936E0, v105);
       LODWORD(__src[14]) = 12;
       DWORD1(__src[15]) = 64;
       DWORD2(__src[21]) = 1;
       *(&__src[16] + 8) = xmmword_2953936F0;
       *(&__src[15] + 1) = 0x4300000043000000;
       LODWORD(__src[16]) = 1110441984;
-      v123 = v58;
+      v106 = v51;
       memset_pattern16(&__src[17] + 8, &unk_295393720, 0x40uLL);
-      *(DerivedStorage + 560) = ProResEncoder_AdjustBitRateAndTargetSizeMultiplier(DerivedStorage, v123, *(v227 + 8));
+      *(DerivedStorage + 560) = ProResEncoder_AdjustBitRateAndTargetSizeMultiplier(DerivedStorage, v106, *(v197 + 8));
       if (*(DerivedStorage + 724))
       {
-        if (*(v227 + 8))
+        if (*(v197 + 8))
         {
           pthread_mutex_lock((DerivedStorage + 736));
-          gettimeofday(&v237, 0);
-          buffer.tv_sec = v237.tv_sec + 3;
-          buffer.tv_nsec = 1000 * v237.tv_usec;
-          v124 = *(DerivedStorage + 729);
-          if (v124)
+          gettimeofday(&v208, 0);
+          buffer.tv_sec = v208.tv_sec + 3;
+          buffer.tv_nsec = 1000 * v208.tv_usec;
+          v107 = *(DerivedStorage + 729);
+          if (v107)
           {
             *(DerivedStorage + 729) = 0;
             pthread_mutex_unlock((DerivedStorage + 736));
-            v125 = DerivedStorage + 500;
+            v108 = DerivedStorage + 500;
             goto LABEL_209;
           }
 
           do
           {
-            v130 = pthread_cond_timedwait((DerivedStorage + 800), (DerivedStorage + 736), &buffer);
-            v131 = v130;
-            v124 = *(DerivedStorage + 729);
+            v113 = pthread_cond_timedwait((DerivedStorage + 800), (DerivedStorage + 736), &buffer);
+            v114 = v113;
+            v107 = *(DerivedStorage + 729);
           }
 
-          while ((v124 & 1) == 0 && !v130);
+          while ((v107 & 1) == 0 && !v113);
           *(DerivedStorage + 729) = 0;
           pthread_mutex_unlock((DerivedStorage + 736));
-          if (v131)
+          if (v114)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
             {
-              ProResEncoder_EncodeFrame(v57);
+              ProResEncoder_EncodeFrame();
             }
 
             a3 = pixelBuffer;
 LABEL_225:
-            v37 = v226;
+            v33 = v196;
 LABEL_32:
-            v38 = v227;
+            v34 = v197;
 LABEL_94:
             if (*DerivedStorage != 1)
             {
-              ProResEncoder_CompleteFrames();
-              v77 = *DerivedStorage;
+              ProResEncoder_CompleteFrames(a1);
               VTEncoderSessionEmitEncodedFrame();
               *a7 |= 2u;
             }
@@ -7138,161 +7029,161 @@ LABEL_94:
               CVPixelBufferRelease(a3);
             }
 
-            v78 = *(DerivedStorage + 712);
-            if (v78)
+            v67 = *(DerivedStorage + 712);
+            if (v67)
             {
-              CFRelease(v78);
+              CFRelease(v67);
             }
 
             freeEncodeStatsBuffers(DerivedStorage + 856, 0);
-            if (v38)
+            if (v34)
             {
-              bzero(v38, 0x320uLL);
+              bzero(v34, 0x320uLL);
             }
 
             goto LABEL_102;
           }
 
-          v125 = DerivedStorage + 500;
+          v108 = DerivedStorage + 500;
 LABEL_209:
-          v126 = (v124 >> 8) & 0x7F;
+          v109 = (v107 >> 8) & 0x7F;
           if (*(DerivedStorage + 705) == 1)
           {
             *(DerivedStorage + 705) = 1;
-            *(DerivedStorage + 704) = v126;
+            *(DerivedStorage + 704) = v109;
           }
 
           else
           {
-            v127 = *(DerivedStorage + 704);
-            *(DerivedStorage + 704) = v126;
-            *(DerivedStorage + 705) = v126 != v127;
-            if (v126 == v127 && (v12 || !LODWORD(__src[29])))
+            v110 = *(DerivedStorage + 704);
+            *(DerivedStorage + 704) = v109;
+            *(DerivedStorage + 705) = v109 != v110;
+            if (v109 == v110 && (v12 || !LODWORD(__src[29])))
             {
-              *(&__src[12] + 1) = *(v125 + 184);
+              *(&__src[12] + 1) = *(v108 + 184);
               LODWORD(__src[13]) = *(DerivedStorage + 692);
               *(&__src[29] + 1) = *(DerivedStorage + 696);
-              v128 = DWORD2(__src[12]);
+              v111 = DWORD2(__src[12]);
               goto LABEL_227;
             }
           }
 
-          if (ProResEncoder_GetInInfoSizes(__src, *(DerivedStorage + 448), *(DerivedStorage + 674), DerivedStorage + 568, v126, *(DerivedStorage + 617), (DerivedStorage + 720), *(DerivedStorage + 988), *(DerivedStorage + 560), *(DerivedStorage + 564), v12 == 0))
+          if (ProResEncoder_GetInInfoSizes(__src, *(DerivedStorage + 448), *(DerivedStorage + 674), DerivedStorage + 568, v109, *(DerivedStorage + 617), (DerivedStorage + 720), *(DerivedStorage + 988), *(DerivedStorage + 560), *(DerivedStorage + 564), v12 == 0))
           {
             a3 = pixelBuffer;
-            v38 = v227;
+            v34 = v197;
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
             {
-              ProResEncoder_EncodeFrame(v229);
+              ProResEncoder_EncodeFrame();
             }
 
 LABEL_217:
-            v37 = v226;
+            v33 = v196;
             goto LABEL_94;
           }
 
-          v128 = (DWORD2(__src[12]) + 127) & 0xFFFFFF80;
-          DWORD2(__src[12]) = v128;
-          *(DerivedStorage + 684) = v128;
-          *&v129 = *(&__src[12] + 12);
-          *(&v129 + 1) = *(&__src[29] + 1);
-          *(DerivedStorage + 688) = v129;
+          v111 = (DWORD2(__src[12]) + 127) & 0xFFFFFF80;
+          DWORD2(__src[12]) = v111;
+          *(DerivedStorage + 684) = v111;
+          *&v112 = *(&__src[12] + 12);
+          *(&v112 + 1) = *(&__src[29] + 1);
+          *(DerivedStorage + 688) = v112;
           *(DerivedStorage + 705) = 0;
 LABEL_227:
           a3 = pixelBuffer;
-          v38 = v227;
-          v132 = *(DerivedStorage + 724);
-          if ((v132 - 1) < 2)
+          v34 = v197;
+          v115 = *(DerivedStorage + 724);
+          if ((v115 - 1) < 2)
           {
-            v128 *= 4;
+            v111 *= 4;
           }
 
-          *(v227 + 28) = v128;
-          v133 = *(DerivedStorage + 448);
-          if (v133 <= 1634755431)
+          *(v197 + 28) = v111;
+          v116 = *(DerivedStorage + 448);
+          if (v116 <= 1634755431)
           {
-            if (v133 <= 1634743399)
+            if (v116 <= 1634743399)
             {
-              if (v133 == 1634742376)
+              if (v116 == 1634742376)
               {
-                v134 = 0;
-                v135 = 0;
+                v117 = 0;
+                v118 = 0;
               }
 
               else
               {
-                if (v133 != 1634742888)
+                if (v116 != 1634742888)
                 {
                   goto LABEL_256;
                 }
 
-                v135 = 0;
-                v134 = 1;
+                v118 = 0;
+                v117 = 1;
               }
 
-              v136 = 1;
+              v119 = 1;
               goto LABEL_258;
             }
 
-            if (v133 != 1634743400)
+            if (v116 != 1634743400)
             {
-              if (v133 == 1634743416)
+              if (v116 == 1634743416)
               {
-                v135 = 0;
-                v136 = 1;
-                v134 = 3;
+                v118 = 0;
+                v119 = 1;
+                v117 = 3;
 LABEL_258:
-                DWORD2(__src[1]) = v134;
-                BYTE4(__src[12]) = v136;
-                HIDWORD(__src[28]) = v135;
+                DWORD2(__src[1]) = v117;
+                BYTE4(__src[12]) = v119;
+                HIDWORD(__src[28]) = v118;
                 if (*(DerivedStorage + 579) == 1)
                 {
-                  v137 = *(DerivedStorage + 468);
-                  if ((v132 & 0xFFFFFFFE) == 2)
+                  v120 = *(DerivedStorage + 468);
+                  if ((v115 & 0xFFFFFFFE) == 2)
                   {
-                    v137 = (v124 & 2 | v137) != 0;
+                    v120 = (v107 & 2 | v120) != 0;
                   }
 
-                  DWORD1(__src[3]) = v137;
+                  DWORD1(__src[3]) = v120;
                 }
 
-                v138 = &__src[28] + 12;
-                if ((v132 - 1) < 2)
+                v121 = &__src[28] + 12;
+                if ((v115 - 1) < 2)
                 {
-                  v139 = 2;
+                  v122 = 2;
 LABEL_266:
-                  *v138 = v139;
+                  *v121 = v122;
                   goto LABEL_267;
                 }
 
-                if (v132 == 3)
+                if (v115 == 3)
                 {
-                  v139 = 1;
+                  v122 = 1;
                   goto LABEL_266;
                 }
 
 LABEL_267:
-                if (*(DerivedStorage + 432) && *(DerivedStorage + 552) < v128)
+                if (*(DerivedStorage + 432) && *(DerivedStorage + 552) < v111)
                 {
-                  v140 = v128;
+                  v123 = v111;
                   CVDataBufferPoolFlush();
                   CFRelease(*(DerivedStorage + 432));
                   if (CVDataBufferPoolCreate() || !*(DerivedStorage + 432))
                   {
-                    v37 = v226;
+                    v33 = v196;
                     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                     {
-                      ProResEncoder_EncodeFrame(v229);
+                      ProResEncoder_EncodeFrame();
                     }
 
                     goto LABEL_94;
                   }
 
-                  *(DerivedStorage + 552) = v140;
-                  v141 = *(DerivedStorage + 712);
-                  if (v141)
+                  *(DerivedStorage + 552) = v123;
+                  v124 = *(DerivedStorage + 712);
+                  if (v124)
                   {
-                    CFRelease(v141);
+                    CFRelease(v124);
                   }
 
                   *(DerivedStorage + 712) = 0;
@@ -7300,131 +7191,120 @@ LABEL_267:
 
                 if (!*(DerivedStorage + 712))
                 {
-                  v147 = *(DerivedStorage + 456);
-                  v148 = *(DerivedStorage + 988);
                   kdebug_trace();
-                  v149 = *MEMORY[0x29EDB8ED8];
-                  v150 = *(DerivedStorage + 432);
                   DataBuffer = CVDataBufferPoolCreateDataBuffer();
-                  v152 = *(DerivedStorage + 456);
-                  v153 = *(DerivedStorage + 988);
                   kdebug_trace();
                   if (DataBuffer || !*(DerivedStorage + 712))
                   {
                     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                     {
-                      ProResEncoder_EncodeFrame(v229);
+                      ProResEncoder_EncodeFrame();
                     }
 
                     goto LABEL_217;
                   }
                 }
 
-                v142 = CVDataBufferGetIOSurface();
-                *IOSurfaceGetBaseAddress(v142) = 0;
-                LODWORD(__src[7]) = IOSurfaceGetID(v142);
-                *(v38 + 104) = __src[7];
-                *(v38 + 80) = *(DerivedStorage + 712);
+                v125 = CVDataBufferGetIOSurface();
+                *IOSurfaceGetBaseAddress(v125) = 0;
+                LODWORD(__src[7]) = IOSurfaceGetID(v125);
+                *(v34 + 104) = __src[7];
+                *(v34 + 80) = *(DerivedStorage + 712);
                 LODWORD(__src[12]) = 0;
-                *(v38 + 4) = HIDWORD(__src[0]);
-                *(v38 + 208) = *(DerivedStorage + 720);
+                *(v34 + 4) = HIDWORD(__src[0]);
+                *(v34 + 208) = *(DerivedStorage + 720);
                 DWORD2(__src[28]) = 3;
-                v143 = *(DerivedStorage + 848);
+                v126 = *(DerivedStorage + 848);
                 LOBYTE(buffer.tv_sec) = 0;
-                std::vector<unsigned char>::assign((DerivedStorage + 960), v143, &buffer);
+                std::vector<unsigned char>::assign((DerivedStorage + 960), v126, &buffer);
                 CVBufferAttachmentData = getCVBufferAttachmentData(a3, @"ProRes_QPMap", kCFNumberSInt8Type, *(DerivedStorage + 960), *(DerivedStorage + 848), 1u);
                 *(DerivedStorage + 954) = CVBufferAttachmentData;
                 if (*(DerivedStorage + 852) == 1)
                 {
-                  v145 = (DerivedStorage + 856);
-                  v146 = *(DerivedStorage + 988);
-                  if (createEncodeStatsBuffers(*(DerivedStorage + 848), DerivedStorage + 856, (DerivedStorage + 920), *(DerivedStorage + 448)))
+                  v128 = (DerivedStorage + 856);
+                  if (createEncodeStatsBuffers(*(DerivedStorage + 848), DerivedStorage + 856, (DerivedStorage + 920), *(DerivedStorage + 448), *(DerivedStorage + 988)))
                   {
                     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                     {
-                      ProResEncoder_EncodeFrame(v229);
+                      ProResEncoder_EncodeFrame();
                     }
 
                     goto LABEL_217;
                   }
 
-                  v154 = *(DerivedStorage + 456);
-                  if (v154 == 3)
+                  v130 = *(DerivedStorage + 456);
+                  if (v130 == 3)
                   {
                     DWORD1(__src[3]) = 1;
                   }
 
-                  else if (v154 == 2)
+                  else if (v130 == 2)
                   {
                     LODWORD(__src[3]) = 1;
                   }
 
-                  v158 = *v145;
-                  v159 = *(DerivedStorage + 872);
-                  v160 = *(DerivedStorage + 904);
-                  *(v38 + 144) = *(DerivedStorage + 888);
-                  *(v38 + 160) = v160;
-                  *(v38 + 112) = v158;
-                  *(v38 + 128) = v159;
-                  v161 = *(DerivedStorage + 872);
-                  __src[8] = *v145;
-                  __src[9] = v161;
-                  v162 = *(DerivedStorage + 904);
+                  v134 = *v128;
+                  v135 = *(DerivedStorage + 872);
+                  v136 = *(DerivedStorage + 904);
+                  *(v34 + 144) = *(DerivedStorage + 888);
+                  *(v34 + 160) = v136;
+                  *(v34 + 112) = v134;
+                  *(v34 + 128) = v135;
+                  v137 = *(DerivedStorage + 872);
+                  __src[8] = *v128;
+                  __src[9] = v137;
+                  v138 = *(DerivedStorage + 904);
                   __src[10] = *(DerivedStorage + 888);
-                  __src[11] = v162;
+                  __src[11] = v138;
                   if ((*(DerivedStorage + 954) & 1) == 0)
                   {
 LABEL_311:
                     if (*(DerivedStorage + 724))
                     {
-                      memcpy((v38 + 216), __src, 0x200uLL);
+                      memcpy((v34 + 216), __src, 0x200uLL);
                     }
 
                     if (BYTE4(__src[1]) == 1 && (BYTE10(__src[0]) & 1) != 0 || DWORD1(__src[3]))
                     {
-                      *(v38 + 176) = 1;
+                      *(v34 + 176) = 1;
                     }
 
-                    IOSurfaceGetID(v142);
-                    IOSurfaceGetPixelFormat(v142);
+                    IOSurfaceGetID(v125);
+                    IOSurfaceGetPixelFormat(v125);
                     if (ProResEncoder_CheckEncodeCmd(DerivedStorage, __src, __src + 8, *(DerivedStorage + 988)))
                     {
-                      v37 = v226;
+                      v33 = v196;
                       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                       {
-                        ProResEncoder_EncodeFrame(v229);
+                        ProResEncoder_EncodeFrame();
                       }
                     }
 
                     else
                     {
                       atomic_fetch_add((DerivedStorage + 160), 1u);
-                      v176 = *(DerivedStorage + 456);
-                      v177 = *(DerivedStorage + 988);
-                      IOSurfaceGetWidth(v142);
-                      IOSurfaceGetHeight(v142);
+                      IOSurfaceGetWidth(v125);
+                      IOSurfaceGetHeight(v125);
                       kdebug_trace();
-                      LODWORD(v177) = IOConnectCallStructMethod(*(DerivedStorage + 400), 3u, __src, 0x200uLL, 0, 0);
-                      v178 = *(DerivedStorage + 456);
-                      v179 = *(DerivedStorage + 988);
-                      IOSurfaceGetWidth(v142);
-                      IOSurfaceGetHeight(v142);
+                      v150 = IOConnectCallStructMethod(*(DerivedStorage + 400), 3u, __src, 0x200uLL, 0, 0);
+                      IOSurfaceGetWidth(v125);
+                      IOSurfaceGetHeight(v125);
                       kdebug_trace();
-                      if (!v177)
+                      if (!v150)
                       {
                         *a7 |= 1u;
                         *(DerivedStorage + 876) = 0;
                         ++*(DerivedStorage + 536);
-                        v37 = v226;
+                        v33 = v196;
                         goto LABEL_102;
                       }
 
                       atomic_fetch_add((DerivedStorage + 160), 0xFFFFFFFF);
-                      v37 = v226;
-                      v38 = v227;
+                      v33 = v196;
+                      v34 = v197;
                       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                       {
-                        ProResEncoder_EncodeFrame(v229);
+                        ProResEncoder_EncodeFrame();
                       }
 
                       a3 = pixelBuffer;
@@ -7439,140 +7319,138 @@ LABEL_311:
                   goto LABEL_311;
                 }
 
-                v163 = (DerivedStorage + 856);
-                v164 = *(DerivedStorage + 988);
-                if (createEncodeStatsBuffers(*(DerivedStorage + 848), DerivedStorage + 856, (DerivedStorage + 920), *(DerivedStorage + 448)))
+                v139 = (DerivedStorage + 856);
+                if (createEncodeStatsBuffers(*(DerivedStorage + 848), DerivedStorage + 856, (DerivedStorage + 920), *(DerivedStorage + 448), *(DerivedStorage + 988)))
                 {
                   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                   {
-                    ProResEncoder_EncodeFrame(v229);
+                    ProResEncoder_EncodeFrame();
                   }
 
                   goto LABEL_217;
                 }
 
-                v165 = *(DerivedStorage + 896);
-                v166 = CVDataBufferGetIOSurface();
-                BaseAddress = IOSurfaceGetBaseAddress(v166);
+                v140 = CVDataBufferGetIOSurface();
+                BaseAddress = IOSurfaceGetBaseAddress(v140);
                 memcpy(&BaseAddress[*(DerivedStorage + 872)], *(DerivedStorage + 960), *(DerivedStorage + 968) - *(DerivedStorage + 960));
-                v168 = *(DerivedStorage + 456);
-                if (v168 == 3)
+                v142 = *(DerivedStorage + 456);
+                if (v142 == 3)
                 {
                   LODWORD(__src[3]) = 1;
                 }
 
-                else if (v168 == 2)
+                else if (v142 == 2)
                 {
                   HIDWORD(__src[2]) = 1;
                 }
 
                 BYTE10(__src[0]) = 0;
                 BYTE4(__src[1]) = 1;
-                v171 = *v163;
-                v172 = *(DerivedStorage + 872);
-                v173 = *(DerivedStorage + 904);
-                *(v38 + 144) = *(DerivedStorage + 888);
-                *(v38 + 160) = v173;
-                *(v38 + 112) = v171;
-                *(v38 + 128) = v172;
-                v174 = *(DerivedStorage + 872);
-                __src[8] = *v163;
-                __src[9] = v174;
-                v175 = *(DerivedStorage + 904);
+                v145 = *v139;
+                v146 = *(DerivedStorage + 872);
+                v147 = *(DerivedStorage + 904);
+                *(v34 + 144) = *(DerivedStorage + 888);
+                *(v34 + 160) = v147;
+                *(v34 + 112) = v145;
+                *(v34 + 128) = v146;
+                v148 = *(DerivedStorage + 872);
+                __src[8] = *v139;
+                __src[9] = v148;
+                v149 = *(DerivedStorage + 904);
                 __src[10] = *(DerivedStorage + 888);
-                __src[11] = v175;
+                __src[11] = v149;
                 goto LABEL_311;
               }
 
               goto LABEL_256;
             }
 
-            v136 = 1;
-            v134 = 3;
+            v119 = 1;
+            v117 = 3;
           }
 
           else
           {
-            if (v133 > 1634755438)
+            if (v116 > 1634755438)
             {
-              switch(v133)
+              switch(v116)
               {
                 case 1634755439:
-                  v135 = 4;
-                  v136 = 8;
+                  v118 = 4;
+                  v119 = 8;
 LABEL_257:
-                  v134 = 2;
+                  v117 = 2;
                   goto LABEL_258;
                 case 1634755443:
-                  v136 = 3;
-                  v134 = 2;
-                  v135 = 3;
+                  v119 = 3;
+                  v117 = 2;
+                  v118 = 3;
                   goto LABEL_258;
                 case 1634759276:
-                  v134 = 0;
+                  v117 = 0;
 LABEL_245:
-                  v136 = 2;
-                  v135 = 2;
+                  v119 = 2;
+                  v118 = 2;
                   goto LABEL_258;
               }
 
 LABEL_256:
-              v135 = 0;
-              v136 = 1;
+              v118 = 0;
+              v119 = 1;
               goto LABEL_257;
             }
 
-            if (v133 != 1634755432)
+            if (v116 != 1634755432)
             {
-              if (v133 == 1634755438)
+              if (v116 == 1634755438)
               {
-                v134 = 2;
+                v117 = 2;
                 goto LABEL_245;
               }
 
               goto LABEL_256;
             }
 
-            v136 = 1;
-            v134 = 2;
+            v119 = 1;
+            v117 = 2;
           }
 
-          v135 = 1;
+          v118 = 1;
           goto LABEL_258;
         }
 
-        v124 = 4096;
+        v107 = 4096;
       }
 
       else
       {
-        v124 = 0;
+        v107 = 0;
       }
 
-      v125 = DerivedStorage + 500;
+      v108 = DerivedStorage + 500;
       goto LABEL_209;
     }
 
 LABEL_82:
-    v224 = cf * v222;
+    v194 = cf * v192;
     HIDWORD(__src[21]) = 4;
     HIDWORD(__src[0]) = 4;
     BYTE3(__src[1]) = 1;
-    v228 = *v57;
+    v198 = *v50;
     a3 = pixelBuffer;
-    v70 = getCVBufferAttachmentData(pixelBuffer, *MEMORY[0x29EDB9720], kCFNumberFloat32Type, &v237, 0x10u, 4u);
-    v71 = vmovn_s32(vcvtq_s32_f32(v237));
-    v72 = vuzp1_s8(v71, v71).u32[0];
-    if (!v70)
+    v60 = getCVBufferAttachmentData(pixelBuffer, *MEMORY[0x29EDB9720], kCFNumberFloat32Type, &v208, 0x10u, 4u);
+    v61 = vmovn_s32(vcvtq_s32_f32(v208));
+    v62 = vuzp1_s8(v61, v61).u32[0];
+    if (!v60)
     {
-      v72 = 0;
+      v62 = 0;
     }
 
-    LODWORD(__src[22]) = v72;
-    v73 = *MEMORY[0x29EDB9748];
+    LODWORD(__src[22]) = v62;
+    v63 = *MEMORY[0x29EDB9748];
     if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9748]) && (*(DerivedStorage + 616) & 1) == 0)
     {
-      v38 = v227;
+      v34 = v197;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         ProResEncoder_EncodeFrame();
@@ -7581,90 +7459,87 @@ LABEL_82:
       goto LABEL_185;
     }
 
-    v74 = CVBufferCopyAttachment(pixelBuffer, v73, 0);
+    v64 = CVBufferCopyAttachment(pixelBuffer, v63, 0);
     LOBYTE(valuePtr) = 0;
-    v38 = v227;
-    if (v74)
+    v34 = v197;
+    if (v64)
     {
-      v75 = v74;
-      if (!CFNumberGetValue(v74, kCFNumberSInt8Type, &valuePtr))
+      v65 = v64;
+      if (!CFNumberGetValue(v64, kCFNumberSInt8Type, &valuePtr))
       {
-        CFStringGetCString(v73, &buffer, 100, 0);
+        CFStringGetCString(v63, &buffer, 100, 0);
         LOBYTE(valuePtr) = 1;
       }
 
-      CFRelease(v75);
-      v76 = valuePtr;
+      CFRelease(v65);
+      v66 = valuePtr;
     }
 
     else
     {
-      CFStringGetCString(v73, &buffer, 100, 0);
-      v76 = 1;
+      CFStringGetCString(v63, &buffer, 100, 0);
+      v66 = 1;
     }
 
-    BYTE4(__src[22]) = v76;
-    v84 = *MEMORY[0x29EDB9740];
+    BYTE4(__src[22]) = v66;
+    v70 = *MEMORY[0x29EDB9740];
     if (CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9740]) || (*(DerivedStorage + 616) & 1) != 0)
     {
-      v85 = (16 - *(DerivedStorage + 548));
-      CVBufferAttachment = getCVBufferAttachmentNumber<unsigned int>(pixelBuffer, v84, 0xFFFFu >> (16 - *(DerivedStorage + 548)));
-      v87 = *MEMORY[0x29EDB9700];
+      CVBufferAttachment = getCVBufferAttachmentNumber<unsigned int>(pixelBuffer, v70, 0xFFFFu >> (16 - *(DerivedStorage + 548)));
+      v72 = *MEMORY[0x29EDB9700];
       if (CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9700]) || (*(DerivedStorage + 616) & 1) != 0)
       {
-        v88 = (16 - *(DerivedStorage + 548));
-        v89 = getCVBufferAttachmentNumber<unsigned int>(pixelBuffer, v87, 0x100u >> (16 - *(DerivedStorage + 548)));
-        v90 = v89;
-        if (*(v227 + 8))
+        v73 = getCVBufferAttachmentNumber<unsigned int>(pixelBuffer, v72, 0x100u >> (16 - *(DerivedStorage + 548)));
+        v74 = v73;
+        if (*(v197 + 8))
         {
-          v91 = *(DerivedStorage + 936);
-          v92 = BYTE4(__src[22]);
-          if ((v91 != BYTE4(__src[22]) || CVBufferAttachment != *(DerivedStorage + 938) || v89 != *(DerivedStorage + 940)) && (*(DerivedStorage + 616) & 1) == 0)
+          v75 = *(DerivedStorage + 936);
+          v76 = BYTE4(__src[22]);
+          if ((v75 != BYTE4(__src[22]) || CVBufferAttachment != *(DerivedStorage + 938) || v73 != *(DerivedStorage + 940)) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
             {
-              v169 = *(DerivedStorage + 938);
-              v170 = *(DerivedStorage + 940);
+              v143 = *(DerivedStorage + 938);
+              v144 = *(DerivedStorage + 940);
               LODWORD(buffer.tv_sec) = 67111170;
-              HIDWORD(buffer.tv_sec) = v228;
+              HIDWORD(buffer.tv_sec) = v198;
               buffer.tv_nsec = 0x8200000024B0400;
-              v239 = "getRAWAttachments";
-              v240 = 1024;
-              *v241 = v91;
-              *&v241[4] = 1024;
-              *&v241[6] = v92;
-              LOWORD(v242) = 1024;
-              *(&v242 + 2) = v169;
-              HIWORD(v242) = 1024;
-              *v243 = CVBufferAttachment;
-              *&v243[4] = 1024;
-              *&v243[6] = v170;
-              v244 = 1024;
-              LODWORD(v245) = v90;
+              v210 = "getRAWAttachments";
+              v211 = 1024;
+              *v212 = v75;
+              *&v212[4] = 1024;
+              *&v212[6] = v76;
+              LOWORD(v213) = 1024;
+              *(&v213 + 2) = v143;
+              HIWORD(v213) = 1024;
+              *v214 = CVBufferAttachment;
+              *&v214[4] = 1024;
+              *&v214[6] = v144;
+              v215 = 1024;
+              LODWORD(v216) = v74;
               _os_log_error_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): ProRes RAW encode parameters changed mid-session: CFA/BayerPattern=%d -> %d, whiteLevel=%d -> %d, blackLevel=%d -> %d, it needs to be locked\n", &buffer, 0x3Cu);
             }
 
-            v37 = v226;
-            v38 = v227;
+            v33 = v196;
+            v34 = v197;
             goto LABEL_185;
           }
 
 LABEL_125:
           if (*(DerivedStorage + 616))
           {
-            v93 = 0xFFFF;
+            v77 = 0xFFFF;
           }
 
           else
           {
-            v94 = (16 - *(DerivedStorage + 548));
-            v93 = (CVBufferAttachment - v89) << (16 - *(DerivedStorage + 548));
+            v77 = (CVBufferAttachment - v73) << (16 - *(DerivedStorage + 548));
           }
 
-          v37 = v226;
-          v38 = v227;
-          DWORD2(__src[22]) = v93;
-          v95 = *MEMORY[0x29EDB9738];
+          v33 = v196;
+          v34 = v197;
+          DWORD2(__src[22]) = v77;
+          v78 = *MEMORY[0x29EDB9738];
           if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9738]) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -7675,9 +7550,9 @@ LABEL_125:
             goto LABEL_185;
           }
 
-          v96 = getCVBufferAttachmentNumber<float>(pixelBuffer, v95, 1.0);
+          v79 = getCVBufferAttachmentNumber<float>(pixelBuffer, v78, 1.0);
           HIDWORD(__src[22]) = 1065353216;
-          v97 = *MEMORY[0x29EDB9728];
+          v80 = *MEMORY[0x29EDB9728];
           if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9728]) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -7688,9 +7563,9 @@ LABEL_125:
             goto LABEL_185;
           }
 
-          v98 = getCVBufferAttachmentNumber<float>(pixelBuffer, v97, 1.0);
+          v81 = getCVBufferAttachmentNumber<float>(pixelBuffer, v80, 1.0);
           LODWORD(__src[23]) = 1065353216;
-          v99 = *MEMORY[0x29EDB9730];
+          v82 = *MEMORY[0x29EDB9730];
           if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9730]) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -7701,54 +7576,54 @@ LABEL_125:
             goto LABEL_185;
           }
 
-          v100 = CVBufferCopyAttachment(pixelBuffer, v99, 0);
+          v83 = CVBufferCopyAttachment(pixelBuffer, v82, 0);
           valuePtr = 0;
-          if (v100)
+          if (v83)
           {
-            v101 = v100;
-            if (!CFNumberGetValue(v100, kCFNumberSInt16Type, &valuePtr))
+            v84 = v83;
+            if (!CFNumberGetValue(v83, kCFNumberSInt16Type, &valuePtr))
             {
-              CFStringGetCString(v99, &buffer, 100, 0);
+              CFStringGetCString(v82, &buffer, 100, 0);
               valuePtr = 0;
             }
 
-            CFRelease(v101);
-            v102 = valuePtr;
+            CFRelease(v84);
+            v85 = valuePtr;
           }
 
           else
           {
-            CFStringGetCString(v99, &buffer, 100, 0);
-            v102 = 0;
+            CFStringGetCString(v82, &buffer, 100, 0);
+            v85 = 0;
           }
 
-          WORD6(__src[25]) = v102;
-          v37 = v226;
-          if (*(v227 + 8))
+          WORD6(__src[25]) = v85;
+          v33 = v196;
+          if (*(v197 + 8))
           {
-            v103 = *(DerivedStorage + 944);
-            if ((v103 != v96 || *(DerivedStorage + 948) != v98 || *(DerivedStorage + 952) != v102) && (*(DerivedStorage + 616) & 1) == 0)
+            v86 = *(DerivedStorage + 944);
+            if ((v86 != v79 || *(DerivedStorage + 948) != v81 || *(DerivedStorage + 952) != v85) && (*(DerivedStorage + 616) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
               {
-                v201 = *(DerivedStorage + 948);
-                v202 = *(DerivedStorage + 952);
+                v171 = *(DerivedStorage + 948);
+                v172 = *(DerivedStorage + 952);
                 LODWORD(buffer.tv_sec) = 67111170;
-                HIDWORD(buffer.tv_sec) = v228;
+                HIDWORD(buffer.tv_sec) = v198;
                 buffer.tv_nsec = 0x820000002840400;
-                v239 = "getRAWAttachments";
-                v240 = 2048;
-                *v241 = v103;
-                *&v241[8] = 2048;
-                v242 = v96;
-                *v243 = 2048;
-                *&v243[2] = v201;
-                v244 = 2048;
-                v245 = v98;
-                v246 = 1024;
-                v247 = v202;
-                v248 = 1024;
-                v249 = v102;
+                v210 = "getRAWAttachments";
+                v211 = 2048;
+                *v212 = v86;
+                *&v212[8] = 2048;
+                v213 = v79;
+                *v214 = 2048;
+                *&v214[2] = v171;
+                v215 = 2048;
+                v216 = v81;
+                v217 = 1024;
+                v218 = v172;
+                v219 = 1024;
+                v220 = v85;
                 _os_log_error_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): whiteBalance changed mid-session: WBRedFactor=%f -> %f, WBBlueFactor=%f -> %f, WBCCT=%d -> %d, it needs to be locked\n", &buffer, 0x4Cu);
               }
 
@@ -7758,12 +7633,12 @@ LABEL_125:
 
           else
           {
-            *(DerivedStorage + 944) = v96;
-            *(DerivedStorage + 948) = v98;
-            *(DerivedStorage + 952) = v102;
+            *(DerivedStorage + 944) = v79;
+            *(DerivedStorage + 948) = v81;
+            *(DerivedStorage + 952) = v85;
           }
 
-          v104 = *MEMORY[0x29EDB9708];
+          v87 = *MEMORY[0x29EDB9708];
           if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9708]) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -7774,7 +7649,7 @@ LABEL_125:
             goto LABEL_185;
           }
 
-          if (!getCVBufferAttachmentData(pixelBuffer, v104, kCFNumberFloat32Type, &__src[23] + 4, 0x24u, 4u))
+          if (!getCVBufferAttachmentData(pixelBuffer, v87, kCFNumberFloat32Type, &__src[23] + 4, 0x24u, 4u))
           {
             if (*(DerivedStorage + 616) != 1)
             {
@@ -7786,42 +7661,42 @@ LABEL_125:
               goto LABEL_185;
             }
 
-            v105 = 0;
-            v106 = xmmword_295323F10;
-            v107 = vdupq_n_s64(9uLL);
-            v108 = &__src[23] + 2;
-            v109 = vdupq_n_s64(2uLL);
+            v88 = 0;
+            v89 = xmmword_295323F10;
+            v90 = vdupq_n_s64(9uLL);
+            v91 = &__src[23] + 2;
+            v92 = vdupq_n_s64(2uLL);
             do
             {
-              if (vmovn_s64(vcgtq_u64(v107, v106)).u8[0])
+              if (vmovn_s64(vcgtq_u64(v90, v89)).u8[0])
               {
-                if ((v105 & 2) != 0)
+                if ((v88 & 2) != 0)
                 {
-                  v110 = 0.0;
+                  v93 = 0.0;
                 }
 
                 else
                 {
-                  v110 = 1.0;
+                  v93 = 1.0;
                 }
 
-                *(v108 - 1) = v110;
+                *(v91 - 1) = v93;
               }
 
-              if (vmovn_s64(vcgtq_u64(vdupq_n_s64(9uLL), *&v106)).i32[1])
+              if (vmovn_s64(vcgtq_u64(vdupq_n_s64(9uLL), *&v89)).i32[1])
               {
-                *v108 = 0.0;
+                *v91 = 0.0;
               }
 
-              v105 += 2;
-              v106 = vaddq_s64(v106, v109);
-              v108 += 2;
+              v88 += 2;
+              v89 = vaddq_s64(v89, v92);
+              v91 += 2;
             }
 
-            while (v105 != 10);
+            while (v88 != 10);
           }
 
-          v111 = *MEMORY[0x29EDB9710];
+          v94 = *MEMORY[0x29EDB9710];
           if (!CVBufferHasAttachment(pixelBuffer, *MEMORY[0x29EDB9710]) && (*(DerivedStorage + 616) & 1) == 0)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -7832,27 +7707,27 @@ LABEL_125:
             goto LABEL_185;
           }
 
-          DWORD2(__src[25]) = getCVBufferAttachmentNumber<float>(pixelBuffer, v111, 16.0);
-          v112 = *MEMORY[0x29EDB9718];
-          v113 = CVBufferCopyAttachment(pixelBuffer, *MEMORY[0x29EDB9718], 0);
-          if (!v113)
+          DWORD2(__src[25]) = getCVBufferAttachmentNumber<float>(pixelBuffer, v94, 16.0);
+          v95 = *MEMORY[0x29EDB9718];
+          v96 = CVBufferCopyAttachment(pixelBuffer, *MEMORY[0x29EDB9718], 0);
+          if (!v96)
           {
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(buffer.tv_sec) = 67109634;
-              HIDWORD(buffer.tv_sec) = v228;
+              HIDWORD(buffer.tv_sec) = v198;
               buffer.tv_nsec = 0x8200000029E0400;
-              v239 = "getRAWAttachments";
+              v210 = "getRAWAttachments";
               _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): Skipping missing attachment - kCVPixelBufferProResRAWKey_MetadataExtension\n", &buffer, 0x18u);
             }
 
 LABEL_330:
-            v37 = v226;
+            v33 = v196;
             if (BYTE4(__src[22]) >= 4u && (*(DerivedStorage + 581) & 1) == 0)
             {
               if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
               {
-                ProResEncoder_EncodeFrame(v229);
+                ProResEncoder_EncodeFrame();
               }
 
               goto LABEL_94;
@@ -7861,104 +7736,103 @@ LABEL_330:
             if (*(DerivedStorage + 616) == 1)
             {
               BYTE6(__src[27]) = *(DerivedStorage + 672);
-              v180 = v225;
+              v151 = v195;
             }
 
             else
             {
               BYTE6(__src[27]) = *(DerivedStorage + 673);
-              v180 = v225;
+              v151 = v195;
               if (BYTE6(__src[27]) == 1)
               {
-                v181 = 0.0;
+                v152 = 0.0;
                 if (DWORD2(__src[22]))
                 {
-                  v181 = log2(DWORD2(__src[22]));
+                  v152 = log2(DWORD2(__src[22]));
                 }
 
-                v182 = 16.0 - v181;
-                v183 = *(&__src[25] + 2);
-                v184 = log2f(*(&__src[25] + 2));
-                if (v183 <= 0.0)
+                v153 = 16.0 - v152;
+                v154 = *(&__src[25] + 2);
+                v155 = log2f(*(&__src[25] + 2));
+                if (v154 <= 0.0)
                 {
-                  v184 = 0.0;
+                  v155 = 0.0;
                 }
 
-                v185 = (v182 + v184);
-                v186 = *(&__src[22] + 3);
-                v187 = log2f(*(&__src[22] + 3));
-                if (v186 <= 0.0)
+                v156 = (v153 + v155);
+                v157 = *(&__src[22] + 3);
+                v158 = log2f(*(&__src[22] + 3));
+                if (v157 <= 0.0)
                 {
-                  v188 = 0.0;
+                  v159 = 0.0;
                 }
 
                 else
                 {
-                  v188 = v187;
+                  v159 = v158;
                 }
 
-                v189 = *&__src[23];
-                v190 = log2f(*&__src[23]);
-                if (v189 <= 0.0)
+                v160 = *&__src[23];
+                v161 = log2f(*&__src[23]);
+                if (v160 <= 0.0)
                 {
-                  v190 = 0.0;
+                  v161 = 0.0;
                 }
 
-                v191 = (v188 + v190) * 0.25 + v185;
-                v192 = 7.0;
-                if (v191 <= 7.0)
+                v162 = (v159 + v161) * 0.25 + v156;
+                v163 = 7.0;
+                if (v162 <= 7.0)
                 {
-                  v192 = v191;
+                  v163 = v162;
                 }
 
-                if (v191 >= 0.0)
+                if (v162 >= 0.0)
                 {
-                  v193 = v192;
+                  v164 = v163;
                 }
 
                 else
                 {
-                  v193 = 0.0;
+                  v164 = 0.0;
                 }
 
-                *(&__src[27] + 8) = recommendedTransferFunctions[vcvtd_n_s64_f64(v193 + 0.125, 2uLL)];
+                *(&__src[27] + 8) = recommendedTransferFunctions[vcvtd_n_s64_f64(v164 + 0.125, 2uLL)];
               }
             }
 
-            v194 = *(DerivedStorage + 988);
             NumSlices = getNumSlices(SDWORD1(__src[4]), SDWORD2(__src[4]), 1 << *(DerivedStorage + 668));
-            v196 = *(DerivedStorage + 448);
-            if (v196 == 1634759278)
+            v166 = *(DerivedStorage + 448);
+            if (v166 == 1634759278)
             {
-              v197 = 7;
-              v198 = 3;
+              v167 = 7;
+              v168 = 3;
             }
 
             else
             {
-              if (v196 == 1634759272)
+              if (v166 == 1634759272)
               {
-                v197 = 6;
+                v167 = 6;
               }
 
               else
               {
-                v197 = 8;
+                v167 = 8;
               }
 
-              v198 = 1;
+              v168 = 1;
             }
 
-            BYTE4(__src[12]) = v198;
-            HIDWORD(__src[28]) = v197;
+            BYTE4(__src[12]) = v168;
+            HIDWORD(__src[28]) = v167;
             if (*(DerivedStorage + 575) == 1)
             {
-              *(DerivedStorage + 560) = ProResEncoder_AdjustBitRateAndTargetSizeMultiplier(DerivedStorage, v224, *(v227 + 8));
+              *(DerivedStorage + 560) = ProResEncoder_AdjustBitRateAndTargetSizeMultiplier(DerivedStorage, v194, *(v197 + 8));
               if (ProResEncoder_CalculateRawBitRates(__src, DerivedStorage))
               {
                 if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                 {
-                  ProResEncoder_EncodeFrame(v229);
+                  ProResEncoder_EncodeFrame();
                 }
 
                 goto LABEL_217;
@@ -7974,7 +7848,7 @@ LABEL_330:
               LOWORD(__src[26]) = 2048;
               DWORD2(__src[21]) = 0;
               memset_pattern16(&__src[17] + 8, &unk_295393730, 0x40uLL);
-              v180 = v225;
+              v151 = v195;
             }
 
             if (*(DerivedStorage + 676) != -1)
@@ -7990,53 +7864,53 @@ LABEL_330:
             DWORD2(__src[12]) = 16386 * NumSlices + 160;
             if (*(DerivedStorage + 570) != 1)
             {
-              v37 = v226;
-              if (v219 != 4)
+              v33 = v196;
+              if (v189 != 4)
               {
                 if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                 {
-                  ProResEncoder_EncodeFrame(v229);
+                  ProResEncoder_EncodeFrame();
                 }
 
                 goto LABEL_94;
               }
 
-              v128 = 0;
+              v111 = 0;
               goto LABEL_267;
             }
 
-            v37 = v226;
-            if ((v219 & 0xFFFFFFFFFFFFFFFBLL) != 0)
+            v33 = v196;
+            if ((v189 & 0xFFFFFFFFFFFFFFFBLL) != 0)
             {
               if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
               {
-                ProResEncoder_EncodeFrame(v229);
+                ProResEncoder_EncodeFrame();
               }
 
               goto LABEL_94;
             }
 
-            v199 = v180[9];
-            if (v199 <= 1652056887)
+            v169 = v151[9];
+            if (v169 <= 1652056887)
             {
-              if (v199 > 1650946097)
+              if (v169 > 1650946097)
               {
-                if (v199 != 1650946098)
+                if (v169 != 1650946098)
                 {
-                  if (v199 == 1651519798)
+                  if (v169 == 1651519798)
                   {
-                    v217 = BYTE4(__src[22]);
+                    v187 = BYTE4(__src[22]);
                     if (BYTE4(__src[22]) >= 4u && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                     {
-                      v218 = *v229;
+                      v188 = *v199;
                       LODWORD(buffer.tv_sec) = 67110146;
-                      HIDWORD(buffer.tv_sec) = v218;
+                      HIDWORD(buffer.tv_sec) = v188;
                       buffer.tv_nsec = 0x82000000A120400;
-                      v239 = "ProResEncoder_EncodeFrame";
-                      v240 = 1024;
-                      *v241 = v217;
-                      *&v241[4] = 1024;
-                      *&v241[6] = 3;
+                      v210 = "ProResEncoder_EncodeFrame";
+                      v211 = 1024;
+                      *v212 = v187;
+                      *&v212[4] = 1024;
+                      *&v212[6] = 3;
                       _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input cfa_pattern %d does not match with output format CFA/bayer_pattern [0,%d].\n", &buffer, 0x24u);
                     }
 
@@ -8044,106 +7918,106 @@ LABEL_330:
                     goto LABEL_442;
                   }
 
-                  v38 = v227;
+                  v34 = v197;
                   a3 = pixelBuffer;
-                  if (v199 != 1651798066)
+                  if (v169 != 1651798066)
                   {
                     goto LABEL_443;
                   }
                 }
 
 LABEL_395:
-                v203 = BYTE4(__src[22]);
-                if (v199 == 1919381552 && BYTE4(__src[22]))
+                v173 = BYTE4(__src[22]);
+                if (v169 == 1919381552 && BYTE4(__src[22]))
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_419;
                   }
 
-                  v204 = *v229;
+                  v174 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v204;
+                  HIDWORD(buffer.tv_sec) = v174;
                   buffer.tv_nsec = 0x82000000A3D0400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v203;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v173;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 0.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v203 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v173 = BYTE4(__src[22]);
                 }
 
-                if (v199 == 1735553072 && v203 != 1)
+                if (v169 == 1735553072 && v173 != 1)
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_419;
                   }
 
-                  v205 = *v229;
+                  v175 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v205;
+                  HIDWORD(buffer.tv_sec) = v175;
                   buffer.tv_nsec = 0x82000000A410400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v203;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v173;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 1.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v203 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v173 = BYTE4(__src[22]);
                 }
 
-                if (v199 == 1734504496 && v203 != 2)
+                if (v169 == 1734504496 && v173 != 2)
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_419;
                   }
 
-                  v206 = *v229;
+                  v176 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v206;
+                  HIDWORD(buffer.tv_sec) = v176;
                   buffer.tv_nsec = 0x82000000A450400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v203;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v173;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 2.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v203 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v173 = BYTE4(__src[22]);
                 }
 
-                if (v199 == 1650946096 && v203 != 3)
+                if (v169 == 1650946096 && v173 != 3)
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_419;
                   }
 
-                  v207 = *v229;
+                  v177 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v207;
+                  HIDWORD(buffer.tv_sec) = v177;
                   buffer.tv_nsec = 0x82000000A490400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v203;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v173;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 3.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v203 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v173 = BYTE4(__src[22]);
                 }
 
-                if (v199 != 1650946098 || v203 == 3)
+                if (v169 != 1650946098 || v173 == 3)
                 {
 LABEL_415:
-                  if (v199 == 1651798066 && v203 >= 4 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
+                  if (v169 == 1651798066 && v173 >= 4 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
-                    v209 = *v229;
+                    v179 = *v199;
                     LODWORD(buffer.tv_sec) = 67110146;
-                    HIDWORD(buffer.tv_sec) = v209;
+                    HIDWORD(buffer.tv_sec) = v179;
                     buffer.tv_nsec = 0x82000000A510400;
-                    v239 = "ProResEncoder_EncodeFrame";
-                    v240 = 1024;
-                    *v241 = v203;
-                    *&v241[4] = 1024;
-                    *&v241[6] = 3;
+                    v210 = "ProResEncoder_EncodeFrame";
+                    v211 = 1024;
+                    *v212 = v173;
+                    *&v212[4] = 1024;
+                    *&v212[6] = 3;
                     _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input cfa_pattern %d does not match with output format CFA/bayer_pattern [0,%d].\n", &buffer, 0x24u);
                   }
 
@@ -8152,41 +8026,41 @@ LABEL_415:
 
                 if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                 {
-                  v208 = *v229;
+                  v178 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v208;
+                  HIDWORD(buffer.tv_sec) = v178;
                   buffer.tv_nsec = 0x82000000A4D0400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v203;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v173;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 3.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v203 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v173 = BYTE4(__src[22]);
                   goto LABEL_415;
                 }
 
 LABEL_419:
                 *&__src[2] = 0x100000001;
 LABEL_442:
-                v38 = v227;
+                v34 = v197;
                 a3 = pixelBuffer;
                 goto LABEL_443;
               }
 
-              if (v199 == 1647392369)
+              if (v169 == 1647392369)
               {
-                v215 = BYTE4(__src[22]);
+                v185 = BYTE4(__src[22]);
                 if (BYTE4(__src[22]) >= 4u && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                 {
-                  v216 = *v229;
+                  v186 = *v199;
                   LODWORD(buffer.tv_sec) = 67110146;
-                  HIDWORD(buffer.tv_sec) = v216;
+                  HIDWORD(buffer.tv_sec) = v186;
                   buffer.tv_nsec = 0x82000000A0C0400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v215;
-                  *&v241[4] = 1024;
-                  *&v241[6] = 3;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v185;
+                  *&v212[4] = 1024;
+                  *&v212[6] = 3;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input cfa_pattern %d does not match with output format CFA/bayer_pattern [0,%d].\n", &buffer, 0x24u);
                 }
 
@@ -8194,103 +8068,103 @@ LABEL_442:
                 goto LABEL_442;
               }
 
-              v38 = v227;
+              v34 = v197;
               a3 = pixelBuffer;
-              if (v199 == 1650942776)
+              if (v169 == 1650942776)
               {
                 goto LABEL_420;
               }
 
-              v200 = 1650946096;
+              v170 = 1650946096;
             }
 
-            else if (v199 <= 1735549751)
+            else if (v169 <= 1735549751)
             {
-              if (v199 == 1652056888 || v199 == 1734501176)
+              if (v169 == 1652056888 || v169 == 1734501176)
               {
                 goto LABEL_420;
               }
 
-              v200 = 1734504496;
+              v170 = 1734504496;
             }
 
             else
             {
-              if (v199 <= 1919378231)
+              if (v169 <= 1919378231)
               {
-                if (v199 != 1735549752)
+                if (v169 != 1735549752)
                 {
-                  v200 = 1735553072;
+                  v170 = 1735553072;
                   goto LABEL_394;
                 }
 
 LABEL_420:
-                v210 = BYTE4(__src[22]);
-                if (v199 == 1919378232 && BYTE4(__src[22]))
+                v180 = BYTE4(__src[22]);
+                if (v169 == 1919378232 && BYTE4(__src[22]))
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_441;
                   }
 
-                  v211 = *v229;
+                  v181 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v211;
+                  HIDWORD(buffer.tv_sec) = v181;
                   buffer.tv_nsec = 0x82000000A1E0400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v210;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v180;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 0.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v210 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v180 = BYTE4(__src[22]);
                 }
 
-                if (v199 == 1735549752 && v210 != 1)
+                if (v169 == 1735549752 && v180 != 1)
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_441;
                   }
 
-                  v212 = *v229;
+                  v182 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v212;
+                  HIDWORD(buffer.tv_sec) = v182;
                   buffer.tv_nsec = 0x82000000A220400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v210;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v180;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 1.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v210 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v180 = BYTE4(__src[22]);
                 }
 
-                if (v199 == 1734501176 && v210 != 2)
+                if (v169 == 1734501176 && v180 != 2)
                 {
                   if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_441;
                   }
 
-                  v213 = *v229;
+                  v183 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v213;
+                  HIDWORD(buffer.tv_sec) = v183;
                   buffer.tv_nsec = 0x82000000A260400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v210;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v180;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 2.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v210 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v180 = BYTE4(__src[22]);
                 }
 
-                if (v199 != 1650942776 || v210 == 3)
+                if (v169 != 1650942776 || v180 == 3)
                 {
 LABEL_436:
-                  if (v199 == 1652056888 && v210 >= 4)
+                  if (v169 == 1652056888 && v180 >= 4)
                   {
                     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
                     {
-                      ProResEncoder_EncodeFrame(v229);
+                      ProResEncoder_EncodeFrame();
                     }
 
                     a3 = pixelBuffer;
@@ -8302,16 +8176,16 @@ LABEL_436:
 
                 if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
                 {
-                  v214 = *v229;
+                  v184 = *v199;
                   LODWORD(buffer.tv_sec) = 67109890;
-                  HIDWORD(buffer.tv_sec) = v214;
+                  HIDWORD(buffer.tv_sec) = v184;
                   buffer.tv_nsec = 0x82000000A2A0400;
-                  v239 = "ProResEncoder_EncodeFrame";
-                  v240 = 1024;
-                  *v241 = v210;
+                  v210 = "ProResEncoder_EncodeFrame";
+                  v211 = 1024;
+                  *v212 = v180;
                   _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): input bayer_pattern %d does not match with output format bayer_pattern 3.\n", &buffer, 0x1Eu);
-                  v199 = v225[9];
-                  v210 = BYTE4(__src[22]);
+                  v169 = v195[9];
+                  v180 = BYTE4(__src[22]);
                   goto LABEL_436;
                 }
 
@@ -8320,46 +8194,46 @@ LABEL_441:
                 goto LABEL_442;
               }
 
-              if (v199 == 1919378232)
+              if (v169 == 1919378232)
               {
                 goto LABEL_420;
               }
 
-              v200 = 1919381552;
+              v170 = 1919381552;
             }
 
 LABEL_394:
-            if (v199 != v200)
+            if (v169 != v170)
             {
 LABEL_443:
-              v128 = 0;
-              v138 = &__src[2] + 12;
-              v139 = BYTE4(__src[22]);
+              v111 = 0;
+              v121 = &__src[2] + 12;
+              v122 = BYTE4(__src[22]);
               goto LABEL_266;
             }
 
             goto LABEL_395;
           }
 
-          v114 = v113;
-          v115 = CFGetTypeID(v113);
-          cfa = v114;
-          if (v115 == CFDataGetTypeID())
+          v97 = v96;
+          v98 = CFGetTypeID(v96);
+          cfa = v97;
+          if (v98 == CFDataGetTypeID())
           {
-            Length = CFDataGetLength(v114);
+            Length = CFDataGetLength(v97);
             if (Length)
             {
-              v117 = *(v227 + 192) - *(v227 + 184);
-              v118 = Length;
-              std::vector<unsigned char>::resize(v227 + 184, v117 + Length);
-              if (getCVBufferAttachmentData(pixelBuffer, v112, kCFNumberCharType, (*(v227 + 184) + v117), v118, 1u))
+              v100 = *(v197 + 192) - *(v197 + 184);
+              v101 = Length;
+              std::vector<unsigned char>::resize(v197 + 184, v100 + Length);
+              if (getCVBufferAttachmentData(pixelBuffer, v95, kCFNumberCharType, (*(v197 + 184) + v100), v101, 1u))
               {
                 BYTE14(__src[25]) = 1;
               }
 
               else
               {
-                std::vector<unsigned char>::resize(v227 + 184, v117);
+                std::vector<unsigned char>::resize(v197 + 184, v100);
               }
 
               goto LABEL_329;
@@ -8368,14 +8242,14 @@ LABEL_443:
             if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
             {
               LODWORD(buffer.tv_sec) = 67109890;
-              HIDWORD(buffer.tv_sec) = v228;
+              HIDWORD(buffer.tv_sec) = v198;
               buffer.tv_nsec = 0x820000002B20400;
-              v239 = "getRAWAttachments";
-              v240 = 1024;
-              *v241 = 0;
-              v155 = MEMORY[0x29EDCA988];
-              v156 = "WARNING AppleProResHW (0x%x): %d: %s(): Attachment CFData length %u is invalid. Skip kCVPixelBufferProResRAWKey_MetadataExtension\n\n";
-              v157 = 30;
+              v210 = "getRAWAttachments";
+              v211 = 1024;
+              *v212 = 0;
+              v131 = MEMORY[0x29EDCA988];
+              v132 = "WARNING AppleProResHW (0x%x): %d: %s(): Attachment CFData length %u is invalid. Skip kCVPixelBufferProResRAWKey_MetadataExtension\n\n";
+              v133 = 30;
               goto LABEL_327;
             }
           }
@@ -8383,14 +8257,14 @@ LABEL_443:
           else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
           {
             LODWORD(buffer.tv_sec) = 67109634;
-            HIDWORD(buffer.tv_sec) = v228;
+            HIDWORD(buffer.tv_sec) = v198;
             buffer.tv_nsec = 0x820000002B70400;
-            v239 = "getRAWAttachments";
-            v155 = MEMORY[0x29EDCA988];
-            v156 = "WARNING AppleProResHW (0x%x): %d: %s(): Attachment type is not CFData. Skip kCVPixelBufferProResRAWKey_MetadataExtension\n";
-            v157 = 24;
+            v210 = "getRAWAttachments";
+            v131 = MEMORY[0x29EDCA988];
+            v132 = "WARNING AppleProResHW (0x%x): %d: %s(): Attachment type is not CFData. Skip kCVPixelBufferProResRAWKey_MetadataExtension\n";
+            v133 = 24;
 LABEL_327:
-            _os_log_impl(&dword_2952FC000, v155, OS_LOG_TYPE_DEFAULT, v156, &buffer, v157);
+            _os_log_impl(&dword_2952FC000, v131, OS_LOG_TYPE_DEFAULT, v132, &buffer, v133);
           }
 
 LABEL_329:
@@ -8398,11 +8272,11 @@ LABEL_329:
           goto LABEL_330;
         }
 
-        if (CVBufferAttachment > v89)
+        if (CVBufferAttachment > v73)
         {
           *(DerivedStorage + 936) = BYTE4(__src[22]);
           *(DerivedStorage + 938) = CVBufferAttachment;
-          *(DerivedStorage + 940) = v89;
+          *(DerivedStorage + 940) = v73;
           goto LABEL_125;
         }
 
@@ -8423,21 +8297,21 @@ LABEL_329:
       ProResEncoder_EncodeFrame();
     }
 
-    v37 = v226;
+    v33 = v196;
 LABEL_185:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_EncodeFrame(v229);
+      ProResEncoder_EncodeFrame();
     }
 
     goto LABEL_94;
   }
 
-  if (v225[3] != 3)
+  if (v195[3] != 3)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_EncodeFrame(v229);
+      ProResEncoder_EncodeFrame();
     }
 
     goto LABEL_92;
@@ -8454,89 +8328,82 @@ LABEL_185:
     goto LABEL_104;
   }
 
-  v223 = cf * v222;
+  v193 = cf * v192;
   HIDWORD(__src[0]) = 7;
-  BitDepthOfComponentOfPlane = IOSurfaceGetBitDepthOfComponentOfPlane(v37, 2uLL, 0);
+  BitDepthOfComponentOfPlane = IOSurfaceGetBitDepthOfComponentOfPlane(v33, 2uLL, 0);
   LOBYTE(__src[1]) = BitDepthOfComponentOfPlane == 16;
   if (BitDepthOfComponentOfPlane == 16)
   {
-    v62 = 2;
+    v55 = 2;
   }
 
   else
   {
-    v62 = 1;
+    v55 = 1;
   }
 
-  LODWORD(__src[29]) = v62;
-  v63 = *(DerivedStorage + 416);
-  if (v63 && *(DerivedStorage + 480) != 1)
+  LODWORD(__src[29]) = v55;
+  v56 = *(DerivedStorage + 416);
+  if (v56 && *(DerivedStorage + 480) != 1)
   {
 LABEL_192:
-    *(v227 + 96) = v63;
-    v58 = v223;
+    *(v197 + 96) = v56;
+    v51 = v193;
     goto LABEL_193;
   }
 
-  v64 = createFormatDescriptionExtensions(pixelBuffer, DerivedStorage, 1);
-  if (v64)
+  v57 = createFormatDescriptionExtensions(pixelBuffer, DerivedStorage, 1);
+  if (v57)
   {
-    v65 = v64;
+    v58 = v57;
     if (*DerivedStorage == 2)
     {
-      v69 = CMVideoFormatDescriptionCreate(*MEMORY[0x29EDB8ED8], *(DerivedStorage + 448), *(DerivedStorage + 512), *(DerivedStorage + 516), v64, (DerivedStorage + 416));
+      v59 = CMVideoFormatDescriptionCreate(*MEMORY[0x29EDB8ED8], *(DerivedStorage + 448), *(DerivedStorage + 512), *(DerivedStorage + 516), v57, (DerivedStorage + 416));
     }
 
     else
     {
-      v66 = *(DerivedStorage + 448);
-      v67 = *(DerivedStorage + 512);
-      v68 = *(DerivedStorage + 516);
-      v69 = VTEncoderSessionCreateVideoFormatDescription();
+      v59 = VTEncoderSessionCreateVideoFormatDescription();
     }
 
-    v119 = v69;
-    CFRelease(v65);
-    if (v119)
+    v102 = v59;
+    CFRelease(v58);
+    if (v102)
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_EncodeFrame(v229);
+        ProResEncoder_EncodeFrame();
       }
 
 LABEL_92:
-      v38 = v227;
+      v34 = v197;
 LABEL_93:
       a3 = pixelBuffer;
       goto LABEL_94;
     }
 
     *(DerivedStorage + 480) = 0;
-    v63 = *(DerivedStorage + 416);
-    v57 = (DerivedStorage + 988);
-    v60 = v225;
+    v56 = *(DerivedStorage + 416);
+    v53 = v195;
     goto LABEL_192;
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
-    ProResEncoder_EncodeFrame(v57);
+    ProResEncoder_EncodeFrame();
   }
 
 LABEL_102:
   *(DerivedStorage + 712) = 0;
-  v79 = *(DerivedStorage + 456);
-  v80 = *(DerivedStorage + 988);
-  IOSurfaceGetWidth(v37);
-  IOSurfaceGetHeight(v37);
+  IOSurfaceGetWidth(v33);
+  IOSurfaceGetHeight(v33);
   kdebug_trace();
-  v81 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
 uint64_t ProResEncoder_CopySupportedPropertyDictionary(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   DerivedStorage = CMBaseObjectGetDerivedStorage();
   if (DerivedStorage)
   {
@@ -8555,16 +8422,16 @@ uint64_t ProResEncoder_CopySupportedPropertyDictionary(uint64_t a1, void *a2)
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(v4 + 988);
-        v9[0] = 67109634;
-        v9[1] = v7;
-        v10 = 1024;
-        v11 = 3433;
-        v12 = 2080;
-        v13 = "ProResEncoder_CopySupportedPropertyDictionary";
-        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): AppleProResHW property dictionary is NULL - encoder configuration may be incomplete\n", v9, 0x18u);
+        v8[0] = 67109634;
+        v8[1] = v7;
+        v9 = 1024;
+        v10 = 3433;
+        v11 = 2080;
+        v12 = "ProResEncoder_CopySupportedPropertyDictionary";
+        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "WARNING AppleProResHW (0x%x): %d: %s(): AppleProResHW property dictionary is NULL - encoder configuration may be incomplete\n", v8, 0x18u);
       }
 
-      result = 4294954392;
+      return 4294954392;
     }
   }
 
@@ -8575,14 +8442,13 @@ uint64_t ProResEncoder_CopySupportedPropertyDictionary(uint64_t a1, void *a2)
       ProResEncoder_CopySupportedPropertyDictionary();
     }
 
-    result = 4294954384;
+    return 4294954384;
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t ProResEncoder_GetInInfoSizes(_DWORD *a1, int a2, int a3, uint64_t a4, int a5, int a6, _DWORD *a7, unsigned int a8, float a9, float a10, BOOL a11)
+uint64_t ProResEncoder_GetInInfoSizes(_DWORD *a1, int a2, int a3, uint64_t a4, int a5, int a6, _DWORD *a7, uint64_t a8, float a9, float a10, BOOL a11)
 {
   v14 = a3;
   *v42 = 0;
@@ -8602,7 +8468,7 @@ uint64_t ProResEncoder_GetInInfoSizes(_DWORD *a1, int a2, int a3, uint64_t a4, i
     a9 = v17;
   }
 
-  if (GetCompressedFrameSize(a2, v16, a9, a10, &v42[1], v42, a6))
+  if (GetCompressedFrameSize(a2, v16, a9, a10, &v42[1], v42, a6, a8))
   {
     v18 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -8765,7 +8631,7 @@ uint64_t ProResEncoder_GetInInfoSizes(_DWORD *a1, int a2, int a3, uint64_t a4, i
 
 uint64_t ProResEncoder_CalculateRawBitRates(uint64_t a1, uint64_t a2)
 {
-  *v28 = 0;
+  *v27 = 0;
   v4 = *(a1 + 68);
   v5 = *(a1 + 72);
   v6 = (v4 + 15) >> 4;
@@ -8806,80 +8672,79 @@ uint64_t ProResEncoder_CalculateRawBitRates(uint64_t a1, uint64_t a2)
   }
 
   v11 = numSlicesPerRow(0x10u, v6);
-  v12 = *(a2 + 988);
-  if (GetCompressedFrameSize(*(a2 + 448), (v8 * v10) << 8, *(a2 + 560), *(a2 + 564), &v28[1], v28, *(a2 + 617)))
+  if (GetCompressedFrameSize(*(a2 + 448), (v8 * v10) << 8, *(a2 + 560), *(a2 + 564), &v27[1], v27, *(a2 + 617), *(a2 + 988)))
   {
-    v13 = 3758097084;
+    v12 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResEncoder_CalculateRawBitRates((a2 + 988));
+      ProResEncoder_CalculateRawBitRates();
     }
   }
 
   else
   {
-    v14 = v10 * v8;
-    v15 = v28[0];
-    *(a2 + 720) = v28[0];
-    v16 = 10 * v11 * v10 + 8;
-    v17 = v28[1] - v16;
-    v18 = v15 - v16;
-    v19 = 8 * v18;
-    if (v18 < 0)
+    v13 = v10 * v8;
+    v14 = v27[0];
+    *(a2 + 720) = v27[0];
+    v15 = 10 * v11 * v10 + 8;
+    v16 = v27[1] - v15;
+    v17 = v14 - v15;
+    v18 = 8 * v17;
+    if (v17 < 0)
     {
-      v19 = 8;
+      v18 = 8;
     }
 
-    v20 = v19 / v14;
-    if (v17 >= 0)
+    v19 = v18 / v13;
+    if (v16 >= 0)
     {
-      v21 = 8 * v17;
+      v20 = 8 * v16;
     }
 
     else
     {
-      v21 = 8;
+      v20 = 8;
     }
 
-    v22 = v21 / v14;
-    *(a1 + 204) = v20;
-    *(a1 + 208) = v22;
-    if (v20 <= v22)
+    v21 = v20 / v13;
+    *(a1 + 204) = v19;
+    *(a1 + 208) = v21;
+    if (v19 <= v21)
     {
-      v13 = 0;
-      v23 = v10 / 5;
+      v12 = 0;
+      v22 = v10 / 5;
       if (v10 / 5 <= 0x1F / v11 + 1)
       {
-        v24 = 0x1F / v11 + 1;
+        v23 = 0x1F / v11 + 1;
       }
 
       else
       {
-        v24 = v10 / 5;
+        v23 = v10 / 5;
       }
 
-      *(a1 + 418) = v23;
+      *(a1 + 418) = v22;
+      v24 = v23 + v22;
+      *(a1 + 420) = v24;
       v25 = v24 + v23;
-      *(a1 + 420) = v25;
-      v26 = v25 + v24;
-      *(a1 + 422) = v26;
-      *(a1 + 424) = v26 + v24;
+      *(a1 + 422) = v25;
+      *(a1 + 424) = v25 + v23;
     }
 
     else
     {
-      v13 = 3758097084;
+      v12 = 3758097084;
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        ProResEncoder_CalculateRawBitRates((a2 + 988));
+        ProResEncoder_CalculateRawBitRates();
       }
     }
   }
 
-  return v13;
+  return v12;
 }
 
-void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int8 *a3)
+void *std::vector<unsigned char>::assign(uint64_t *a1, size_t a2, unsigned __int8 *a3)
 {
   v6 = a1[2];
   result = *a1;
@@ -8942,7 +8807,7 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
   {
     v15 = a1[1];
     result = memset(v15, *a3, v14);
-    v16 = &v15[v14];
+    v16 = v15 + v14;
   }
 
   else
@@ -8954,9 +8819,10 @@ void *std::vector<unsigned char>::assign(void **a1, unint64_t a2, unsigned __int
   return result;
 }
 
-uint64_t ProResEncoder_CheckEncodeCmd(_BYTE *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t ProResEncoder_CheckEncodeCmd(_BYTE *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v4 = a4;
+  v45 = *MEMORY[0x29EDCA608];
   v6 = *(a3 + 4);
   if (v6 >= 6)
   {
@@ -8980,13 +8846,13 @@ LABEL_27:
           ProResEncoder_CheckEncodeCmd();
         }
 
-        goto LABEL_75;
+        return v8;
       }
     }
 
     else if ((v6 & 0x7FFFFFFE) != 6)
     {
-      goto LABEL_74;
+      return 0;
     }
 
     if (a1[576] != 1)
@@ -9050,25 +8916,25 @@ LABEL_78:
           v8 = 3758097084;
           if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_75;
+            return v8;
           }
 
-          v30 = 67110914;
-          v31 = a4;
-          v33 = 2019;
-          v34 = 2080;
-          v32 = 1024;
-          v35 = "ProResEncoder_CheckEncodeCmd";
-          v36 = 1024;
-          v37 = v13;
-          v38 = 1024;
-          v39 = v9;
-          v40 = 1024;
-          v41 = v11;
-          v42 = 1024;
-          v43 = v10;
-          v44 = 1024;
-          v45 = v12;
+          v29 = 67110914;
+          v30 = v4;
+          v32 = 2019;
+          v33 = 2080;
+          v31 = 1024;
+          v34 = "ProResEncoder_CheckEncodeCmd";
+          v35 = 1024;
+          v36 = v13;
+          v37 = 1024;
+          v38 = v9;
+          v39 = 1024;
+          v40 = v11;
+          v41 = 1024;
+          v42 = v10;
+          v43 = 1024;
+          v44 = v12;
           v25 = MEMORY[0x29EDCA988];
           goto LABEL_80;
         }
@@ -9082,10 +8948,10 @@ LABEL_69:
             ProResEncoder_CheckEncodeCmd();
           }
 
-          goto LABEL_75;
+          return v8;
         }
 
-        goto LABEL_74;
+        return 0;
       default:
         v15 = 1;
         if (!v12)
@@ -9128,7 +8994,7 @@ LABEL_66:
       ProResEncoder_CheckEncodeCmd();
     }
 
-    goto LABEL_75;
+    return v8;
   }
 
   if (!*(a3 + 16))
@@ -9156,7 +9022,7 @@ LABEL_32:
         v23 = v22;
         if (!*(a3 + 2) || !v23)
         {
-          goto LABEL_75;
+          return v8;
         }
       }
 
@@ -9184,47 +9050,45 @@ LABEL_32:
 
         if ((v20 & 1) == 0 && v21)
         {
-          goto LABEL_74;
+          return 0;
         }
       }
 
       else if (v19 == 2 && *(a3 + 2) && !v17)
       {
-        goto LABEL_74;
+        return 0;
       }
 
       v8 = 3758097084;
       if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_75;
+        return v8;
       }
 
       v24 = *(a3 + 36);
-      v30 = 67110914;
-      v31 = a4;
-      v33 = 2066;
-      v34 = 2080;
-      v32 = 1024;
-      v35 = "ProResEncoder_CheckEncodeCmd";
-      v36 = 1024;
-      v37 = v19;
-      v38 = 1024;
-      v39 = v16;
-      v40 = 1024;
-      v41 = v24;
-      v42 = 1024;
-      v43 = v17;
-      v44 = 1024;
-      v45 = v18;
+      v29 = 67110914;
+      v30 = v4;
+      v32 = 2066;
+      v33 = 2080;
+      v31 = 1024;
+      v34 = "ProResEncoder_CheckEncodeCmd";
+      v35 = 1024;
+      v36 = v19;
+      v37 = 1024;
+      v38 = v16;
+      v39 = 1024;
+      v40 = v24;
+      v41 = 1024;
+      v42 = v17;
+      v43 = 1024;
+      v44 = v18;
       v25 = MEMORY[0x29EDCA988];
 LABEL_80:
-      _os_log_error_impl(&dword_2952FC000, v25, OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): Illegal combination of numPasses %d, fastPass %d, QpmEn %d, SwrEn %d BsWrDis %d\n", &v30, 0x36u);
-      goto LABEL_75;
+      _os_log_error_impl(&dword_2952FC000, v25, OS_LOG_TYPE_ERROR, "ERROR AppleProResHW (0x%x): %d: %s(): Illegal combination of numPasses %d, fastPass %d, QpmEn %d, SwrEn %d BsWrDis %d\n", &v29, 0x36u);
+      return v8;
     }
 
-LABEL_74:
-    v8 = 0;
-    goto LABEL_75;
+    return 0;
   }
 
   v8 = 3758097084;
@@ -9233,14 +9097,12 @@ LABEL_74:
     ProResEncoder_CheckEncodeCmd();
   }
 
-LABEL_75:
-  v28 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 BOOL getCVBufferAttachmentData(__CVBuffer *a1, const __CFString *a2, CFNumberType a3, UInt8 *a4, unsigned int a5, unsigned int a6)
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v11 = CVBufferCopyAttachment(a1, a2, 0);
   CFStringGetCString(a2, buffer, 100, 0);
   if (v11)
@@ -9251,13 +9113,13 @@ BOOL getCVBufferAttachmentData(__CVBuffer *a1, const __CFString *a2, CFNumberTyp
       Length = CFDataGetLength(v11);
       if (Length == a5)
       {
-        v27.length = Length;
-        v27.location = 0;
-        CFDataGetBytes(v11, v27, a4);
+        v26.length = Length;
+        v26.location = 0;
+        CFDataGetBytes(v11, v26, a4);
         v14 = 1;
 LABEL_13:
         CFRelease(v11);
-        goto LABEL_14;
+        return v14;
       }
     }
 
@@ -9269,28 +9131,28 @@ LABEL_13:
         Count = CFArrayGetCount(v11);
         if (Count == a5 / a6 && a6 <= a5)
         {
-          v20 = Count;
-          v21 = 1;
+          v19 = Count;
+          v20 = 1;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(v11, v21 - 1);
+            ValueAtIndex = CFArrayGetValueAtIndex(v11, v20 - 1);
             Value = CFNumberGetValue(ValueAtIndex, a3, a4);
             v14 = Value != 0;
             a4 += a6;
             if (Value)
             {
-              v24 = v21 >= v20;
+              v23 = v20 >= v19;
             }
 
             else
             {
-              v24 = 1;
+              v23 = 1;
             }
 
-            ++v21;
+            ++v20;
           }
 
-          while (!v24);
+          while (!v23);
           goto LABEL_13;
         }
       }
@@ -9300,28 +9162,25 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v14 = 0;
-LABEL_14:
-  v18 = *MEMORY[0x29EDCA608];
-  return v14;
+  return 0;
 }
 
 uint64_t getCVBufferAttachmentNumber<unsigned int>(__CVBuffer *a1, const __CFString *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v5 = CVBufferCopyAttachment(a1, a2, 0);
-  v9 = 0;
+  v8 = 0;
   if (v5)
   {
     v6 = v5;
-    if (!CFNumberGetValue(v5, kCFNumberSInt32Type, &v9))
+    if (!CFNumberGetValue(v5, kCFNumberSInt32Type, &v8))
     {
       CFStringGetCString(a2, buffer, 100, 0);
-      v9 = a3;
+      v8 = a3;
     }
 
     CFRelease(v6);
-    a3 = v9;
+    return v8;
   }
 
   else
@@ -9329,26 +9188,25 @@ uint64_t getCVBufferAttachmentNumber<unsigned int>(__CVBuffer *a1, const __CFStr
     CFStringGetCString(a2, buffer, 100, 0);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return a3;
 }
 
 float getCVBufferAttachmentNumber<float>(__CVBuffer *a1, const __CFString *a2, float a3)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v5 = CVBufferCopyAttachment(a1, a2, 0);
-  v9 = 0.0;
+  v8 = 0.0;
   if (v5)
   {
     v6 = v5;
-    if (!CFNumberGetValue(v5, kCFNumberFloat32Type, &v9))
+    if (!CFNumberGetValue(v5, kCFNumberFloat32Type, &v8))
     {
       CFStringGetCString(a2, buffer, 100, 0);
-      v9 = a3;
+      v8 = a3;
     }
 
     CFRelease(v6);
-    a3 = v9;
+    return v8;
   }
 
   else
@@ -9356,7 +9214,6 @@ float getCVBufferAttachmentNumber<float>(__CVBuffer *a1, const __CFString *a2, f
     CFStringGetCString(a2, buffer, 100, 0);
   }
 
-  v7 = *MEMORY[0x29EDCA608];
   return a3;
 }
 
@@ -9376,7 +9233,7 @@ void std::vector<unsigned char>::resize(uint64_t a1, unint64_t a2)
   }
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -9384,20 +9241,6 @@ void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t
   }
 
   std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-}
-
-unsigned int *OUTLINED_FUNCTION_7@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_10@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 988);
-  return result;
 }
 
 uint64_t ProResFrameReceiver::MakeCurrentThreadTimeConstraintThread(ProResFrameReceiver *this)
@@ -9575,73 +9418,74 @@ void freeProResFrame(void *a1)
   free(a1);
 }
 
-uint64_t ProResFrameReceiver::InitializeDoubleEncode(uint64_t a1, unsigned int a2)
+uint64_t ProResFrameReceiver::InitializeDoubleEncode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 284) >= a2)
   {
     return 1;
   }
 
+  v3 = a2;
   *(a1 + 264) = 0;
-  v4 = *(a1 + 232);
-  if (v4)
+  v5 = *(a1 + 232);
+  if (v5)
   {
-    ProResHWAnalyzer::~ProResHWAnalyzer(v4);
+    ProResHWAnalyzer::~ProResHWAnalyzer(v5);
     MEMORY[0x29C24C730]();
     *(a1 + 232) = 0;
   }
 
-  v5 = *(a1 + 216);
-  if (v5)
-  {
-    freeProResFrame(v5);
-    *(a1 + 216) = 0;
-  }
-
-  v6 = *(a1 + 224);
+  v6 = *(a1 + 216);
   if (v6)
   {
     freeProResFrame(v6);
+    *(a1 + 216) = 0;
+  }
+
+  v7 = *(a1 + 224);
+  if (v7)
+  {
+    freeProResFrame(v7);
     *(a1 + 224) = 0;
   }
 
-  v7 = *(a1 + 272);
-  if (v7)
+  v8 = *(a1 + 272);
+  if (v8)
   {
-    MEMORY[0x29C24C710](v7, 0x1000C80BDFB0063);
+    MEMORY[0x29C24C710](v8, 0x1000C80BDFB0063, a3);
     *(a1 + 272) = 0;
     *(a1 + 280) = 0;
   }
 
-  if (a2 < 0x4651)
+  if (v3 < 0x4651)
   {
     operator new[]();
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
-    ProResFrameReceiver::InitializeDoubleEncode(a1);
+    ProResFrameReceiver::InitializeDoubleEncode();
   }
 
-  v8 = *(a1 + 232);
-  if (v8)
+  v9 = *(a1 + 232);
+  if (v9)
   {
-    ProResHWAnalyzer::~ProResHWAnalyzer(v8);
+    ProResHWAnalyzer::~ProResHWAnalyzer(v9);
     MEMORY[0x29C24C730]();
     *(a1 + 232) = 0;
   }
 
-  v9 = *(a1 + 216);
-  if (v9)
-  {
-    freeProResFrame(v9);
-    *(a1 + 216) = 0;
-  }
-
-  v10 = *(a1 + 224);
+  v10 = *(a1 + 216);
   if (v10)
   {
     freeProResFrame(v10);
+    *(a1 + 216) = 0;
+  }
+
+  v11 = *(a1 + 224);
+  if (v11)
+  {
+    freeProResFrame(v11);
     *(a1 + 224) = 0;
   }
 
@@ -9657,7 +9501,7 @@ uint64_t ProResFrameReceiver::InitializeDoubleEncode(uint64_t a1, unsigned int a
   return result;
 }
 
-uint64_t allocateProResFrame()
+void *allocateProResFrame(unsigned int a1)
 {
   if (malloc_type_calloc(0x168uLL, 1uLL, 0x10100406F847EBDuLL))
   {
@@ -9669,13 +9513,13 @@ uint64_t allocateProResFrame()
 
 uint64_t ProResFrameReceiver::RegisterCallback(ProResFrameReceiver *this)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   inputStruct[0] = ProResFrameReceiver::FrameDone;
   inputStruct[1] = this;
   *reference = 0u;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = IOConnectCallAsyncMethod(*(this + 8), 1u, *(this + 4), reference, 8u, 0, 0, inputStruct, 0x10uLL, 0, 0, 0, 0);
   if (v2)
   {
@@ -9683,50 +9527,47 @@ uint64_t ProResFrameReceiver::RegisterCallback(ProResFrameReceiver *this)
     {
       v3 = *(this + 78);
       *buf = 67109634;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "RegisterCallback";
-      v11 = 1024;
-      v12 = v2;
+      v7 = v3;
+      v8 = 2080;
+      v9 = "RegisterCallback";
+      v10 = 1024;
+      v11 = v2;
       _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): IOConnectCallAsyncMethod failed -> Dispatcher cannot be installed err 0x%x\n", buf, 0x18u);
     }
 
     ProResFrameReceiver::RemoveIODispatcherFromRunLoop(this);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return v2;
 }
 
-void ProResFrameReceiver::FrameDone(ProResFrameReceiver *this, void *a2, int32x4_t *a3, unint64_t *a4)
+void ProResFrameReceiver::FrameDone(ProResFrameReceiver *this, void *a2, int32x4_t *a3, unint64_t *a4, int a5, uint64_t a6, uint64_t a7, unsigned int a8)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  v13 = 0uLL;
-  v14 = 0;
+  v18 = *MEMORY[0x29EDCA608];
+  v16 = 0uLL;
+  v17 = 0;
   if (a3)
   {
-    v4 = a4;
-    v6 = a3->i32[0];
-    v7 = a3->u32[2];
-    v8 = a3[1].i32[0];
-    v12 = a3[1].i64[1];
-    v9 = a3[2].i32[0];
-    v10 = a3[2].i32[2];
-    if (v4 >= 8)
+    v8 = a4;
+    v10 = a3->i32[0];
+    v11 = a3->u32[2];
+    v12 = a3[1].i32[0];
+    v15 = a3[1].i64[1];
+    v13 = a3[2].i32[0];
+    v14 = a3[2].i32[2];
+    if (v8 >= 8)
     {
-      v13 = vuzp1q_s32(a3[3], a3[4]);
-      v14 = a3[5].i64[0];
+      v16 = vuzp1q_s32(a3[3], a3[4]);
+      v17 = a3[5].i64[0];
     }
 
-    ProResFrameReceiver::ProcessFrameDone(this, v7, v6, v8, v9, &v12, v10);
+    ProResFrameReceiver::ProcessFrameDone(this, v11, v10, v12, v13, &v15, v14);
   }
 
   else if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
   {
     ProResFrameReceiver::FrameDone();
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t ProResFrameReceiver::Setup(mach_port_t *this)
@@ -9737,7 +9578,7 @@ uint64_t ProResFrameReceiver::Setup(mach_port_t *this)
   {
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::Setup(this);
+      ProResFrameReceiver::Setup();
     }
 
     return 3758097085;
@@ -9749,7 +9590,7 @@ uint64_t ProResFrameReceiver::Setup(mach_port_t *this)
     v4 = 3758097084;
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
-      ProResFrameReceiver::Setup(this);
+      ProResFrameReceiver::Setup();
     }
 
     return v4;
@@ -9770,7 +9611,7 @@ uint64_t ProResFrameReceiver::Setup(mach_port_t *this)
 
 uint64_t ProResFrameReceiver::AddIODispatcherToRunLoop(mach_port_t *this)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (!IOCreateReceivePort(0x39u, this + 4))
   {
     buf.version = 1;
@@ -9786,18 +9627,17 @@ uint64_t ProResFrameReceiver::AddIODispatcherToRunLoop(mach_port_t *this)
       if (RunLoopSource)
       {
         CFRunLoopAddSource(*this, RunLoopSource, *MEMORY[0x29EDB8FC0]);
-        v2 = 0;
-        goto LABEL_13;
+        return 0;
       }
 
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         v8 = this[78];
-        v11 = 67109378;
-        v12 = v8;
-        v13 = 2080;
-        v14 = "AddIODispatcherToRunLoop";
-        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateRunLoopSource failed -> Dispatcher cannot be installed\n", &v11, 0x12u);
+        v10 = 67109378;
+        v11 = v8;
+        v12 = 2080;
+        v13 = "AddIODispatcherToRunLoop";
+        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateRunLoopSource failed -> Dispatcher cannot be installed\n", &v10, 0x12u);
       }
     }
 
@@ -9806,21 +9646,20 @@ uint64_t ProResFrameReceiver::AddIODispatcherToRunLoop(mach_port_t *this)
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
       {
         v7 = this[78];
-        v11 = 67109634;
-        v12 = v7;
-        v13 = 2080;
-        v14 = "AddIODispatcherToRunLoop";
-        v15 = 2048;
-        v16 = 0;
-        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateWithPort failed m_CFAsyncPort %p\n", &v11, 0x1Cu);
+        v10 = 67109634;
+        v11 = v7;
+        v12 = 2080;
+        v13 = "AddIODispatcherToRunLoop";
+        v14 = 2048;
+        v15 = 0;
+        _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: CFMachPortCreateWithPort failed m_CFAsyncPort %p\n", &v10, 0x1Cu);
       }
 
       *(this + 3) = 0;
     }
 
     ProResFrameReceiver::RemoveIODispatcherFromRunLoop(this);
-    v2 = 3758097085;
-    goto LABEL_13;
+    return 3758097085;
   }
 
   v2 = 3758097084;
@@ -9834,7 +9673,164 @@ uint64_t ProResFrameReceiver::AddIODispatcherToRunLoop(mach_port_t *this)
     _os_log_impl(&dword_2952FC000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): ERROR: IOCreateReceivePort failed -> Dispatcher cannot be installed\n", &buf, 0x12u);
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x29EDCA608];
   return v2;
+}
+
+uint64_t ProResFrameReceiver::ChangeBackgroundPolicy(uint64_t this, int a2)
+{
+  if (*(this + 64) != a2)
+  {
+    *(this + 64) = a2;
+  }
+
+  return this;
+}
+
+uint64_t stitchCallback(unsigned __int8 *a1, size_t offsetIntoDestination, size_t dataLength, CMBlockBufferRef *a4)
+{
+  v4 = CMBlockBufferReplaceDataBytes(a1, *a4, offsetIntoDestination, dataLength);
+  if (v4 && os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+  {
+    stitchCallback();
+  }
+
+  return v4;
+}
+
+uint64_t ProResFrameReceiver::EmitPendingFrames(ProResFrameReceiver *this)
+{
+  v27 = *MEMORY[0x29EDCA608];
+  v1 = *(this + 48);
+  v2 = *(this + 25) + 32 * (v1 % *(this + 33));
+  v3 = 1;
+  if (*v2 == 1)
+  {
+    v5 = (this + 312);
+    v6 = MEMORY[0x29EDCA988];
+    while (*(v2 + 4) == v1)
+    {
+      v7 = *(v2 + 16);
+      v8 = *(v2 + 8);
+      if (v7 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        v9 = *v5;
+        v10 = *(v8 + 56);
+        *buf = 67109890;
+        v20 = v9;
+        v21 = 2080;
+        v22 = "EmitPendingFrames";
+        v23 = 1024;
+        v24 = v7;
+        v25 = 1024;
+        v26 = v10;
+        _os_log_impl(&dword_2952FC000, v6, OS_LOG_TYPE_ERROR, "AppleProResHW (0x%x): %s(): Emit to client status=0x%x for subFrameId=%d \n", buf, 0x1Eu);
+      }
+
+      v11 = *(v2 + 24);
+      if (*(v8 + 4) > 3)
+      {
+        ProResFrameReceiver::EmitEncodedFrame(this, v8, v11, v1, v7);
+        v14 = *(v2 + 24);
+        if (v14)
+        {
+          CFRelease(v14);
+        }
+
+        v15 = *(v8 + 72);
+        if (v15)
+        {
+          CVPixelBufferRelease(v15);
+        }
+
+        v16 = *(v8 + 80);
+        if (v16)
+        {
+          CFRelease(v16);
+        }
+      }
+
+      else
+      {
+        ProResFrameReceiver::EmitDecodedFrame(this, v8, v11, v1, v7, 0);
+        v12 = *(v2 + 24);
+        if (v12)
+        {
+          CVPixelBufferRelease(v12);
+        }
+
+        v13 = *(v8 + 40);
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
+        VTDecoderSessionCleanUpAfterDecode();
+      }
+
+      ++*(this + 48);
+      pthread_mutex_lock(*(this + 13));
+      bzero(v8, 0x320uLL);
+      **(this + 12) = 1;
+      pthread_cond_signal(*(this + 14));
+      pthread_mutex_unlock(*(this + 13));
+      atomic_fetch_add(*(this + 9), 0xFFFFFFFF);
+      pthread_mutex_lock(*(this + 10));
+      if (!atomic_load(*(this + 9)))
+      {
+        pthread_cond_signal(*(this + 11));
+      }
+
+      pthread_mutex_unlock(*(this + 10));
+      *v2 = 0u;
+      *(v2 + 16) = 0u;
+      v1 = *(this + 48);
+      v2 = *(this + 25) + 32 * (v1 % *(this + 33));
+      if ((*v2 & 1) == 0)
+      {
+        return 1;
+      }
+    }
+
+    if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
+    {
+      ProResFrameReceiver::EmitPendingFrames();
+    }
+
+    return 0;
+  }
+
+  return v3;
+}
+
+uint64_t ProResFrameReceiver::EmitDecodedFrame(void *a1, uint64_t a2, uint64_t a3, unsigned int a4, uint64_t a5, int a6)
+{
+  if (a6)
+  {
+    kdebug_trace();
+  }
+
+  if (a1[5] == 1)
+  {
+    v11 = a1[18];
+    if (v11)
+    {
+      v12 = a1[20];
+      if (v12)
+      {
+        v12(v11, *(a2 + 16), a5);
+      }
+    }
+  }
+
+  else
+  {
+    VTDecoderSessionEmitDecodedFrame();
+  }
+
+  if (a6)
+  {
+    kdebug_trace();
+  }
+
+  return 1;
 }

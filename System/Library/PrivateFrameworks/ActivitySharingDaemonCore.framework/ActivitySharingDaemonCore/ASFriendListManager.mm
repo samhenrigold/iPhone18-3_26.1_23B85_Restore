@@ -3,6 +3,7 @@
 - (ASActivityDataManager)activityDataManager;
 - (ASCompetitionManager)competitionManager;
 - (ASContactsManager)contactsManager;
+- (ASFriendListManager)initWithDatabaseClient:(id)client isWatch:(BOOL)watch;
 - (ASPeriodicUpdateManager)periodicUpdateManager;
 - (ASRelationshipManager)relationshipManager;
 - (BOOL)_queue_hasFriendsToShareWithForContacts:(id)contacts defaultsKey:(id)key;
@@ -39,6 +40,38 @@
 @end
 
 @implementation ASFriendListManager
+
+- (ASFriendListManager)initWithDatabaseClient:(id)client isWatch:(BOOL)watch
+{
+  watchCopy = watch;
+  clientCopy = client;
+  v19.receiver = self;
+  v19.super_class = ASFriendListManager;
+  v8 = [(ASFriendListManager *)&v19 init];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_databaseClient, client);
+    [(ASFriendListManager *)v9 setIsWatch:watchCopy];
+    weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
+    observers = v9->_observers;
+    v9->_observers = weakObjectsHashTable;
+
+    v12 = HKCreateSerialDispatchQueue();
+    observerQueue = v9->_observerQueue;
+    v9->_observerQueue = v12;
+
+    v14 = HKCreateSerialDispatchQueue();
+    friendListQueue = v9->_friendListQueue;
+    v9->_friendListQueue = v14;
+
+    v16 = HKCreateSerialDispatchQueue();
+    biomeDonationQueue = v9->_biomeDonationQueue;
+    v9->_biomeDonationQueue = v16;
+  }
+
+  return v9;
+}
 
 - (void)activitySharingManagerReady:(id)ready
 {
@@ -178,27 +211,27 @@ void __38__ASFriendListManager_friendWithUUID___block_invoke(uint64_t a1)
 
 void __67__ASFriendListManager_fetchCodableFriendWithRemoteUUID_completion___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = *(a1[4] + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * i);
+        v7 = *(*(&v12 + 1) + 8 * i);
         v8 = [v7 contact];
         v9 = [v8 primaryRemoteRelationship];
         v10 = [v9 UUID];
@@ -211,7 +244,7 @@ void __67__ASFriendListManager_fetchCodableFriendWithRemoteUUID_completion___blo
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v4)
       {
         continue;
@@ -222,8 +255,6 @@ void __67__ASFriendListManager_fetchCodableFriendWithRemoteUUID_completion___blo
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchfriendDataWithRemoteUUID:(id)d completion:(id)completion
@@ -262,28 +293,28 @@ void __64__ASFriendListManager_fetchfriendDataWithRemoteUUID_completion___block_
 
 - (id)_queue_friendWithUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_friendListQueue);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_friends;
-  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         contact = [v9 contact];
         uUID = [contact UUID];
         v12 = [uUID isEqual:dCopy];
@@ -295,7 +326,7 @@ void __64__ASFriendListManager_fetchfriendDataWithRemoteUUID_completion___block_
         }
       }
 
-      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSSet *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -307,14 +338,12 @@ void __64__ASFriendListManager_fetchfriendDataWithRemoteUUID_completion___block_
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_queue_updateFriendList
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_friendListQueue);
   _allContactsPreferringPlaceholderContacts = [(ASFriendListManager *)self _allContactsPreferringPlaceholderContacts];
   ASLoggingInitialize();
@@ -323,7 +352,7 @@ LABEL_11:
   {
     v5 = v4;
     *buf = 134217984;
-    v61 = [_allContactsPreferringPlaceholderContacts count];
+    v60 = [_allContactsPreferringPlaceholderContacts count];
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Updating local friend list from %lu contacts", buf, 0xCu);
   }
 
@@ -335,30 +364,30 @@ LABEL_11:
     self->_friends = v6;
   }
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = _allContactsPreferringPlaceholderContacts;
-  v8 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v8 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
   v9 = MEMORY[0x277CE8FF0];
   if (v8)
   {
     v10 = v8;
-    v11 = *v57;
-    v52 = *v57;
+    v11 = *v56;
+    v51 = *v56;
     do
     {
       v12 = 0;
-      v53 = v10;
+      v52 = v10;
       do
       {
-        if (*v57 != v11)
+        if (*v56 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v56 + 1) + 8 * v12);
+        v13 = *(*(&v55 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         ASLoggingInitialize();
         v15 = *v9;
@@ -369,9 +398,9 @@ LABEL_11:
           [v13 displayName];
           v44 = v43 = v14;
           *buf = 138543618;
-          v61 = uUID;
-          v62 = 2112;
-          v63 = v44;
+          v60 = uUID;
+          v61 = 2112;
+          v62 = v44;
           _os_log_debug_impl(&dword_23E5E3000, v41, OS_LOG_TYPE_DEBUG, "Updating list for contact %{public}@ (%@)", buf, 0x16u);
 
           v14 = v43;
@@ -389,9 +418,9 @@ LABEL_11:
             v45 = v18;
             uUID3 = [v17 UUID];
             *buf = 138543618;
-            v61 = uUID3;
-            v62 = 2112;
-            v63 = v17;
+            v60 = uUID3;
+            v61 = 2112;
+            v62 = v17;
             _os_log_debug_impl(&dword_23E5E3000, v45, OS_LOG_TYPE_DEBUG, "Found existing friend %{public}@ - %@, updating contact reference", buf, 0x16u);
           }
 
@@ -400,7 +429,7 @@ LABEL_11:
 
         else
         {
-          v55 = v14;
+          v54 = v14;
           if ([(ASDatabaseClient *)self->_databaseClient isProtectedDataAvailable])
           {
             activityDataManager = [(ASFriendListManager *)self activityDataManager];
@@ -427,9 +456,9 @@ LABEL_11:
               uUID5 = [v13 UUID];
               displayName = [v13 displayName];
               *buf = 138543618;
-              v61 = uUID5;
-              v62 = 2112;
-              v63 = displayName;
+              v60 = uUID5;
+              v61 = 2112;
+              v62 = displayName;
               _os_log_impl(&dword_23E5E3000, v29, OS_LOG_TYPE_DEFAULT, "Protected data is not available, not getting data for contact %{public}@ (%@)", buf, 0x16u);
             }
 
@@ -460,17 +489,17 @@ LABEL_11:
             v39 = v38;
             uUID7 = [v35 UUID];
             *buf = 138543618;
-            v61 = uUID7;
-            v62 = 2112;
-            v63 = v35;
+            v60 = uUID7;
+            v61 = 2112;
+            v62 = v35;
             _os_log_impl(&dword_23E5E3000, v39, OS_LOG_TYPE_DEFAULT, "Friend list loaded %{public}@ - %@", buf, 0x16u);
 
             v9 = MEMORY[0x277CE8FF0];
           }
 
-          v11 = v52;
-          v10 = v53;
-          v14 = v55;
+          v11 = v51;
+          v10 = v52;
+          v14 = v54;
         }
 
         objc_autoreleasePoolPop(v14);
@@ -478,7 +507,7 @@ LABEL_11:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v10 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
     }
 
     while (v10);
@@ -493,7 +522,7 @@ LABEL_11:
   }
 
   [(ASFriendListManager *)self _queue_friendListDidUpdate];
-  if (!v51 && self->_competitionDataAvailable)
+  if (!v50 && self->_competitionDataAvailable)
   {
     ASLoggingInitialize();
     v48 = *MEMORY[0x277CE8FF0];
@@ -505,8 +534,6 @@ LABEL_11:
 
     [(ASFriendListManager *)self _queue_notifyObserversOfCompetitionsLoaded];
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateFriendListWithNewSnapshots:(id)snapshots achievements:(id)achievements workouts:(id)workouts
@@ -531,32 +558,32 @@ LABEL_11:
 
 uint64_t __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements_workouts___block_invoke(id *a1)
 {
-  v119 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
+  v100 = 0u;
   v101 = 0u;
   v102 = 0u;
   v103 = 0u;
-  v104 = 0u;
   obj = a1[4];
-  v1 = [obj countByEnumeratingWithState:&v101 objects:v118 count:16];
+  v1 = [obj countByEnumeratingWithState:&v100 objects:v117 count:16];
   if (v1)
   {
     v3 = v1;
-    v4 = *v102;
+    v4 = *v101;
     *&v2 = 138543874;
-    v83 = v2;
-    v85 = *v102;
+    v82 = v2;
+    v84 = *v101;
     do
     {
       v5 = 0;
-      v86 = v3;
+      v85 = v3;
       do
       {
-        if (*v102 != v4)
+        if (*v101 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v101 + 1) + 8 * v5);
+        v6 = *(*(&v100 + 1) + 8 * v5);
         v7 = a1[5];
         v8 = [v6 friendUUID];
         v9 = [v7 _queue_friendWithUUID:v8];
@@ -582,9 +609,9 @@ uint64_t __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements
           if (v15)
           {
             v16 = MEMORY[0x277CCDDC8];
-            v117[0] = v6;
-            v117[1] = v15;
-            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:2];
+            v116[0] = v6;
+            v116[1] = v15;
+            v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:2];
             v18 = [v16 _mostSignificantSnapshotAmongSnapshots:v17];
           }
 
@@ -608,16 +635,16 @@ uint64_t __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements
             v24 = [v9 contact];
             v25 = [v24 displayName];
             v26 = [v6 snapshotIndex];
-            *buf = v83;
-            v112 = v23;
-            v113 = 2112;
-            v114 = v25;
-            v115 = 2048;
-            v116 = v26;
+            *buf = v82;
+            v111 = v23;
+            v112 = 2112;
+            v113 = v25;
+            v114 = 2048;
+            v115 = v26;
             _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Updated friend %{public}@ (%@) with new snapshot with index %lld", buf, 0x20u);
 
-            v4 = v85;
-            v3 = v86;
+            v4 = v84;
+            v3 = v85;
           }
         }
 
@@ -627,7 +654,7 @@ uint64_t __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements
           v13 = *MEMORY[0x277CE8FF0];
           if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_ERROR))
           {
-            __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements_workouts___block_invoke_cold_1(&v109, v13, v6, &v110);
+            __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements_workouts___block_invoke_cold_1(&v108, v13, v6, &v109);
           }
         }
 
@@ -635,34 +662,34 @@ uint64_t __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v101 objects:v118 count:16];
+      v3 = [obj countByEnumeratingWithState:&v100 objects:v117 count:16];
     }
 
     while (v3);
   }
 
-  v99 = 0u;
-  v100 = 0u;
-  v97 = 0u;
   v98 = 0u;
+  v99 = 0u;
+  v96 = 0u;
+  v97 = 0u;
   obja = a1[6];
-  v27 = [obja countByEnumeratingWithState:&v97 objects:v108 count:16];
+  v27 = [obja countByEnumeratingWithState:&v96 objects:v107 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v98;
+    v29 = *v97;
     do
     {
       v30 = 0;
-      v87 = v28;
+      v86 = v28;
       do
       {
-        if (*v98 != v29)
+        if (*v97 != v29)
         {
           objc_enumerationMutation(obja);
         }
 
-        v31 = *(*(&v97 + 1) + 8 * v30);
+        v31 = *(*(&v96 + 1) + 8 * v30);
         v32 = a1[5];
         v33 = [v31 friendUUID];
         v34 = [v32 _queue_friendWithUUID:v33];
@@ -707,15 +734,15 @@ LABEL_32:
               v51 = v50 = v29;
               v52 = [v31 templateUniqueName];
               *buf = 138543874;
-              v112 = v48;
-              v113 = 2112;
-              v114 = v51;
-              v115 = 2112;
-              v116 = v52;
+              v111 = v48;
+              v112 = 2112;
+              v113 = v51;
+              v114 = 2112;
+              v115 = v52;
               _os_log_impl(&dword_23E5E3000, v47, OS_LOG_TYPE_DEFAULT, "Updated friend %{public}@ (%@) with new achievement with template unique name %@", buf, 0x20u);
 
               v29 = v50;
-              v28 = v87;
+              v28 = v86;
             }
 
             goto LABEL_36;
@@ -729,7 +756,7 @@ LABEL_32:
         v42 = *MEMORY[0x277CE8FF0];
         if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_ERROR))
         {
-          __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements_workouts___block_invoke_cold_2(&v106, v42, v31, &v107);
+          __78__ASFriendListManager_updateFriendListWithNewSnapshots_achievements_workouts___block_invoke_cold_2(&v105, v42, v31, &v106);
         }
 
 LABEL_36:
@@ -738,35 +765,35 @@ LABEL_36:
       }
 
       while (v28 != v30);
-      v28 = [obja countByEnumeratingWithState:&v97 objects:v108 count:16];
+      v28 = [obja countByEnumeratingWithState:&v96 objects:v107 count:16];
     }
 
     while (v28);
   }
 
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
   objb = a1[7];
-  v53 = [objb countByEnumeratingWithState:&v93 objects:v105 count:16];
+  v53 = [objb countByEnumeratingWithState:&v92 objects:v104 count:16];
   if (v53)
   {
     v55 = v53;
-    v56 = *v94;
+    v56 = *v93;
     *&v54 = 138543362;
-    v84 = v54;
-    v88 = *v94;
+    v83 = v54;
+    v87 = *v93;
     do
     {
       for (i = 0; i != v55; ++i)
       {
-        if (*v94 != v56)
+        if (*v93 != v56)
         {
           objc_enumerationMutation(objb);
         }
 
-        v58 = *(*(&v93 + 1) + 8 * i);
+        v58 = *(*(&v92 + 1) + 8 * i);
         v59 = a1[5];
         v60 = [v58 friendUUID];
         v61 = [v59 _queue_friendWithUUID:v60];
@@ -810,14 +837,14 @@ LABEL_50:
               v79 = [v78 displayName];
               v80 = [v58 UUID];
               *buf = 138543874;
-              v112 = v77;
-              v113 = 2112;
-              v114 = v79;
-              v115 = 2114;
-              v116 = v80;
+              v111 = v77;
+              v112 = 2112;
+              v113 = v79;
+              v114 = 2114;
+              v115 = v80;
               _os_log_impl(&dword_23E5E3000, v76, OS_LOG_TYPE_DEFAULT, "Updated friend %{public}@ (%@) with new workout with UUID %{public}@", buf, 0x20u);
 
-              v56 = v88;
+              v56 = v87;
             }
 
             goto LABEL_54;
@@ -833,25 +860,23 @@ LABEL_50:
         {
           v70 = v69;
           v71 = [v58 friendUUID];
-          *buf = v84;
-          v112 = v71;
+          *buf = v83;
+          v111 = v71;
           _os_log_impl(&dword_23E5E3000, v70, OS_LOG_TYPE_DEFAULT, "Failed to update friend list with workout with friend UUID %{public}@ because no friend was found with matching UUID", buf, 0xCu);
 
-          v56 = v88;
+          v56 = v87;
         }
 
 LABEL_54:
       }
 
-      v55 = [objb countByEnumeratingWithState:&v93 objects:v105 count:16];
+      v55 = [objb countByEnumeratingWithState:&v92 objects:v104 count:16];
     }
 
     while (v55);
   }
 
-  result = [a1[5] _queue_notifyObserversOfFriendListChanges];
-  v82 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a1[5] _queue_notifyObserversOfFriendListChanges];
 }
 
 - (void)updateFriendListWithDeletedWorkoutEvents:(id)events
@@ -870,7 +895,7 @@ LABEL_54:
 
 uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FF0];
   v3 = *MEMORY[0x277CE8FF0];
@@ -879,32 +904,32 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
     v4 = *(a1 + 32);
     v5 = v3;
     *buf = 134217984;
-    v38 = [v4 count];
+    v37 = [v4 count];
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Updating friend list with %lu deleted workout events", buf, 0xCu);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v34;
+    v9 = *v33;
     *&v7 = 138543618;
-    v28 = v7;
+    v27 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * i);
+        v11 = *(*(&v32 + 1) + 8 * i);
         v12 = *(a1 + 40);
         v13 = [v11 friendUUID];
         v14 = [v12 _queue_friendWithUUID:v13];
@@ -919,10 +944,10 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
             v17 = v15;
             v18 = [v11 triggerUUID];
             v19 = [v14 displayName];
-            *buf = v28;
-            v38 = v18;
-            v39 = 2112;
-            v40 = v19;
+            *buf = v27;
+            v37 = v18;
+            v38 = 2112;
+            v39 = v19;
             _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "Removing deleted workout [%{public}@] for friend: %@", buf, 0x16u);
 
             v2 = MEMORY[0x277CE8FF0];
@@ -930,14 +955,14 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
 
           v20 = [MEMORY[0x277CBEB38] dictionary];
           v21 = [v14 friendWorkouts];
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_318;
-          v30[3] = &unk_278C4C548;
-          v31 = v20;
-          v32 = v11;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_318;
+          v29[3] = &unk_278C4C548;
+          v30 = v20;
+          v31 = v11;
           v22 = v20;
-          [v21 enumerateKeysAndObjectsUsingBlock:v30];
+          [v21 enumerateKeysAndObjectsUsingBlock:v29];
 
           [v14 setFriendWorkouts:v22];
         }
@@ -947,39 +972,37 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
           v23 = v15;
           v24 = [v11 friendUUID];
           v25 = [v11 triggerUUID];
-          *buf = v28;
-          v38 = v24;
-          v39 = 2114;
-          v40 = v25;
+          *buf = v27;
+          v37 = v24;
+          v38 = 2114;
+          v39 = v25;
           _os_log_error_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_ERROR, "Unable to find friend with UUID: %{public}@, skipping deleted workout with UUID: %{public}@", buf, 0x16u);
 
           v2 = MEMORY[0x277CE8FF0];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v8);
   }
 
-  result = [*(a1 + 40) _queue_notifyObserversOfFriendListChanges];
-  v27 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _queue_notifyObserversOfFriendListChanges];
 }
 
 void __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_318(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = MEMORY[0x277CCAC30];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_2;
-  v15[3] = &unk_278C4C520;
-  v15[4] = *(a1 + 40);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_2;
+  v14[3] = &unk_278C4C520;
+  v14[4] = *(a1 + 40);
   v7 = a3;
-  v8 = [v6 predicateWithBlock:v15];
+  v8 = [v6 predicateWithBlock:v14];
   v9 = [v7 filteredSetUsingPredicate:v8];
   [*(a1 + 32) setObject:v9 forKeyedSubscript:v5];
 
@@ -994,12 +1017,10 @@ void __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_
     if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v5;
+      v16 = v5;
       _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Successfully found deleted workout on snapshotIndex: %@", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___block_invoke_2(uint64_t a1, void *a2)
@@ -1078,34 +1099,34 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
 
 - (BOOL)_queue_hasFriendsToShareWithForContacts:(id)contacts defaultsKey:(id)key
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   keyCopy = key;
   dispatch_assert_queue_V2(self->_friendListQueue);
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v8 = contactsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
   v10 = MEMORY[0x277CE8FF0];
   if (v9)
   {
     v11 = v9;
     selfCopy = self;
-    v37 = keyCopy;
-    v12 = *v39;
+    v36 = keyCopy;
+    v12 = *v38;
     v13 = MEMORY[0x277CBEBF8];
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v39 != v12)
+        if (*v38 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v15 = [objc_alloc(MEMORY[0x277CE90F8]) initWithActivitySnapshots:0 friendAchievements:0 friendWorkouts:0 contact:*(*(&v38 + 1) + 8 * i) competitions:v13];
+        v15 = [objc_alloc(MEMORY[0x277CE90F8]) initWithActivitySnapshots:0 friendAchievements:0 friendWorkouts:0 contact:*(*(&v37 + 1) + 8 * i) competitions:v13];
         if ([v15 isMyActivityDataCurrentlyHidden])
         {
           ASLoggingInitialize();
@@ -1116,9 +1137,9 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
             [v15 UUID];
             v19 = v18 = v10;
             *buf = 138543618;
-            *v43 = v19;
-            *&v43[8] = 2112;
-            *&v43[10] = v15;
+            *v42 = v19;
+            *&v42[8] = 2112;
+            *&v42[10] = v15;
             _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "Not counting friend toward hasFriendsToShareWith because data is currently hidden: %{public}@ - %@", buf, 0x16u);
 
             v10 = v18;
@@ -1133,7 +1154,7 @@ uint64_t __64__ASFriendListManager_updateFriendListWithDeletedWorkoutEvents___bl
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v37 objects:v43 count:16];
       if (v11)
       {
         continue;
@@ -1161,9 +1182,9 @@ LABEL_16:
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
-    *v43 = v20;
-    *&v43[4] = 2114;
-    *&v43[6] = v24;
+    *v42 = v20;
+    *&v42[4] = 2114;
+    *&v42[6] = v24;
     _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "Checking current friend list for friends to share with: %{BOOL}d, checking defaults: %{public}@", buf, 0x12u);
   }
 
@@ -1200,17 +1221,17 @@ LABEL_24:
     if ((v20 & 1) == 0 && ![v8 count])
     {
       ASLoggingInitialize();
-      v35 = *v10;
+      v34 = *v10;
       if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23E5E3000, v35, OS_LOG_TYPE_DEFAULT, "Current value is false, but defaults value was true and the contact set is empty - maintaining defaults value until contacts exist", buf, 2u);
+        _os_log_impl(&dword_23E5E3000, v34, OS_LOG_TYPE_DEFAULT, "Current value is false, but defaults value was true and the contact set is empty - maintaining defaults value until contacts exist", buf, 2u);
       }
 
       goto LABEL_24;
     }
 
-    v28 = [MEMORY[0x277CCABB0] numberWithBool:{v20, selfCopy, v37}];
+    v28 = [MEMORY[0x277CCABB0] numberWithBool:{v20, selfCopy, v36}];
     [v23 setObject:v28 forKey:keyCopy];
 
     CFPreferencesAppSynchronize(v22);
@@ -1223,7 +1244,7 @@ LABEL_24:
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      *v43 = v20;
+      *v42 = v20;
       _os_log_impl(&dword_23E5E3000, v31, OS_LOG_TYPE_DEFAULT, "Updating and syncing default for friends to share with, setting to: %{BOOL}d", buf, 8u);
     }
   }
@@ -1234,11 +1255,10 @@ LABEL_33:
   if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v43 = v20;
+    *v42 = v20;
     _os_log_impl(&dword_23E5E3000, v32, OS_LOG_TYPE_DEFAULT, "Checked for friends to share with, found friends: %{BOOL}d", buf, 8u);
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -1266,10 +1286,7 @@ LABEL_33:
 
 uint64_t __30__ASFriendListManager_friends__block_invoke(uint64_t a1)
 {
-  v2 = [objc_alloc(MEMORY[0x277CBEB98]) initWithSet:*(*(a1 + 32) + 32) copyItems:1];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [objc_alloc(MEMORY[0x277CBEB98]) initWithSet:*(*(a1 + 32) + 32) copyItems:1];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -1370,7 +1387,7 @@ void __35__ASFriendListManager_addObserver___block_invoke(uint64_t a1)
 
 - (void)_queue_notifyObserversOfFriendListChanges
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_friendListQueue);
   v3 = [objc_alloc(MEMORY[0x277CBEB98]) initWithSet:self->_friends copyItems:1];
   ASLoggingInitialize();
@@ -1381,40 +1398,40 @@ void __35__ASFriendListManager_addObserver___block_invoke(uint64_t a1)
     observers = self->_observers;
     v7 = v5;
     *buf = 134218240;
-    v27 = [(NSHashTable *)observers count];
-    v28 = 2048;
-    v29 = [v3 count];
+    v26 = [(NSHashTable *)observers count];
+    v27 = 2048;
+    v28 = [v3 count];
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Notifying %lu observers of friend list changes %lu friends.", buf, 0x16u);
   }
 
   selfCopy = self;
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v3;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         ASLoggingInitialize();
         v14 = *v4;
         if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v27 = v13;
+          v26 = v13;
           _os_log_debug_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
 
@@ -1422,7 +1439,7 @@ void __35__ASFriendListManager_addObserver___block_invoke(uint64_t a1)
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -1436,50 +1453,46 @@ void __35__ASFriendListManager_addObserver___block_invoke(uint64_t a1)
     block[2] = __64__ASFriendListManager__queue_notifyObserversOfFriendListChanges__block_invoke;
     block[3] = &unk_278C4B250;
     block[4] = selfCopy;
-    v20 = v8;
+    v19 = v8;
     dispatch_async(observerQueue, block);
   }
 
   defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
   [defaultCenter postNotificationName:*MEMORY[0x277CE9158] object:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __64__ASFriendListManager__queue_notifyObserversOfFriendListChanges__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
+  v12 = *MEMORY[0x277D85DE8];
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = *(*(a1 + 32) + 16);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) friendListDidUpdate:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) friendListDidUpdate:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_notifyObserversOfCompetitionsLoaded
@@ -1498,38 +1511,36 @@ void __64__ASFriendListManager__queue_notifyObserversOfFriendListChanges__block_
 
 void __65__ASFriendListManager__queue_notifyObserversOfCompetitionsLoaded__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = 0u;
-  v10 = 0u;
-  v7 = 0u;
+  v11 = *MEMORY[0x277D85DE8];
   v8 = 0u;
+  v9 = 0u;
+  v6 = 0u;
+  v7 = 0u;
   v1 = *(*(a1 + 32) + 16);
-  v2 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) friendListDidLoadCompetitions];
+        [*(*(&v6 + 1) + 8 * v5++) friendListDidLoadCompetitions];
       }
 
       while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleHasFriendsChanged
@@ -1572,13 +1583,13 @@ void __47__ASFriendListManager__handleHasFriendsChanged__block_invoke(uint64_t a
   }
 
   WeakRetained = objc_loadWeakRetained((v3 + 120));
-  v4 = ASCloudKitGroupUserActionImplicit();
+  v4 = ASCloudKitGroupUserActionImplicit(WeakRetained);
   [WeakRetained requestImmediateUpdateWithCloudKitGroup:v4 completion:0];
 }
 
 - (void)_queue_friendListDidUpdate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_friendListQueue);
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE8FF0];
@@ -1586,46 +1597,43 @@ void __47__ASFriendListManager__handleHasFriendsChanged__block_invoke(uint64_t a
   {
     friends = self->_friends;
     v5 = v3;
-    v8 = 134217984;
-    v9 = [(NSSet *)friends count];
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Friends List did update: %lu friends", &v8, 0xCu);
+    v6 = 134217984;
+    v7 = [(NSSet *)friends count];
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Friends List did update: %lu friends", &v6, 0xCu);
   }
 
   self->_hasLegacyFriendsToShareWith = [(ASFriendListManager *)self _queue_hasLegacyFriendsToShareWith];
   self->_hasSecureCloudFriendsToShareWith = [(ASFriendListManager *)self _queue_hasSecureCloudFriendsToShareWith];
   [(ASFriendListManager *)self _queue_notifyObserversOfFriendListChanges];
-  v6 = self->_friends;
   ASAnalyticsUpdateWithFriends();
   if ([(NSSet *)self->_friends count])
   {
     dispatch_async(self->_biomeDonationQueue, &__block_literal_global_10);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __49__ASFriendListManager__queue_friendListDidUpdate__block_invoke()
+void __49__ASFriendListManager__queue_friendListDidUpdate__block_invoke(uint64_t a1)
 {
   ASLoggingInitialize();
-  v0 = MEMORY[0x277CE8FF0];
-  v1 = *MEMORY[0x277CE8FF0];
+  v1 = MEMORY[0x277CE8FF0];
+  v2 = *MEMORY[0x277CE8FF0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FF0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_23E5E3000, v1, OS_LOG_TYPE_DEFAULT, "Donating biome activity sharing friends event", buf, 2u);
+    _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "Donating biome activity sharing friends event", buf, 2u);
   }
 
-  v2 = [objc_alloc(MEMORY[0x277CF1938]) initWithIdentifier:@"com.apple.ActivityMonitorApp.activity-shared" bundleID:@"com.apple.ActivityMonitorApp" context:0];
-  v3 = [MEMORY[0x277CF1B58] discoverabilitySignal];
-  v4 = [v3 source];
-  [v4 sendEvent:v2];
+  v3 = [objc_alloc(MEMORY[0x277CF1938]) initWithIdentifier:@"com.apple.ActivityMonitorApp.activity-shared" bundleID:@"com.apple.ActivityMonitorApp" context:0];
+  v4 = [MEMORY[0x277CF1B58] discoverabilitySignal];
+  v5 = [v4 source];
+  [v5 sendEvent:v3];
 
   ASLoggingInitialize();
-  v5 = *v0;
-  if (os_log_type_enabled(*v0, OS_LOG_TYPE_DEFAULT))
+  v6 = *v1;
+  if (os_log_type_enabled(*v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Donated biome activity sharing friends event", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Donated biome activity sharing friends event", v7, 2u);
   }
 }
 
@@ -1643,30 +1651,30 @@ void __49__ASFriendListManager__queue_friendListDidUpdate__block_invoke()
 void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _allContactsPreferringPlaceholderContacts];
   v3 = [MEMORY[0x277CBEB58] set];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v2;
-  v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v29)
+  v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v28)
   {
-    v28 = *v31;
+    v27 = *v30;
     do
     {
       v4 = 0;
       v5 = v3;
       do
       {
-        if (*v31 != v28)
+        if (*v30 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v30 + 1) + 8 * v4);
+        v6 = *(*(&v29 + 1) + 8 * v4);
         v7 = *(v1 + 32);
         v8 = [v6 UUID];
         v9 = [v7 _queue_friendWithUUID:v8];
@@ -1683,7 +1691,7 @@ void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(u
           v12 = [v10 fitnessFriendSamplesForFriendWithUUID:v11];
 
           v13 = [*(v1 + 32) activityDataManager];
-          v27 = [v13 activitySnapshotsFromFitnessFriendSamples:v12];
+          v26 = [v13 activitySnapshotsFromFitnessFriendSamples:v12];
 
           v14 = [*(v1 + 32) activityDataManager];
           v15 = [v14 achievementsFromFitnessFriendSamples:v12];
@@ -1696,7 +1704,7 @@ void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(u
           [v18 competitionsForFriendWithUUID:v19];
           v21 = v20 = v1;
 
-          v9 = [objc_alloc(MEMORY[0x277CE90F8]) initWithActivitySnapshots:v27 friendAchievements:v15 friendWorkouts:v17 contact:v6 competitions:v21];
+          v9 = [objc_alloc(MEMORY[0x277CE90F8]) initWithActivitySnapshots:v26 friendAchievements:v15 friendWorkouts:v17 contact:v6 competitions:v21];
           v1 = v20;
         }
 
@@ -1706,11 +1714,11 @@ void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(u
         v5 = v3;
       }
 
-      while (v29 != v4);
-      v29 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      while (v28 != v4);
+      v28 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   v22 = *(v1 + 32);
@@ -1719,7 +1727,6 @@ void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(u
   v24 = v3;
 
   [*(v1 + 32) _queue_friendListDidUpdate];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)competitionManagerDidLoadCachedCompetitions:(id)competitions
@@ -1735,7 +1742,7 @@ void __56__ASFriendListManager_contactsManagerDidUpdateContacts___block_invoke(u
 
 void __67__ASFriendListManager_competitionManagerDidLoadCachedCompetitions___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FF0];
   v3 = *MEMORY[0x277CE8FF0];
@@ -1749,27 +1756,27 @@ void __67__ASFriendListManager_competitionManagerDidLoadCachedCompetitions___blo
   v4 = *(*(a1 + 32) + 32);
   if (v4)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * v9);
+          v10 = *(*(&v15 + 1) + 8 * v9);
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 128));
           v12 = [v10 UUID];
           v13 = [WeakRetained competitionsForFriendWithUUID:v12];
@@ -1779,7 +1786,7 @@ void __67__ASFriendListManager_competitionManagerDidLoadCachedCompetitions___blo
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
       }
 
       while (v7);
@@ -1798,8 +1805,6 @@ void __67__ASFriendListManager_competitionManagerDidLoadCachedCompetitions___blo
       _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "Friend list not yet constructed, not updating", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)competitionManager:(id)manager didUpdateCompetitionsForFriendsWithUUIDs:(id)ds
@@ -1818,7 +1823,7 @@ void __67__ASFriendListManager_competitionManagerDidLoadCachedCompetitions___blo
 
 uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFriendsWithUUIDs___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FF0];
   v3 = *MEMORY[0x277CE8FF0];
@@ -1828,29 +1833,29 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
     _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "FriendListManager updating with new competitions", buf, 2u);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v20;
+    v8 = *v19;
     *&v6 = 138543362;
-    v18 = v6;
+    v17 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
-        v11 = [*(a1 + 40) _queue_friendWithUUID:{v10, v18, v19}];
+        v10 = *(*(&v18 + 1) + 8 * i);
+        v11 = [*(a1 + 40) _queue_friendWithUUID:{v10, v17, v18}];
         if (v11)
         {
           WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 128));
@@ -1865,48 +1870,46 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
           v15 = *v2;
           if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
           {
-            *buf = v18;
-            v24 = v10;
+            *buf = v17;
+            v23 = v10;
             _os_log_error_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_ERROR, "FriendListManager couldn't find friend with UUID: %{public}@", buf, 0xCu);
           }
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v7);
   }
 
-  result = [*(a1 + 40) _queue_notifyObserversOfFriendListChanges];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) _queue_notifyObserversOfFriendListChanges];
 }
 
 - (unint64_t)badgeCount
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _allContactsPreferringPlaceholderContacts = [(ASFriendListManager *)self _allContactsPreferringPlaceholderContacts];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v3 = [_allContactsPreferringPlaceholderContacts countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [_allContactsPreferringPlaceholderContacts countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(_allContactsPreferringPlaceholderContacts);
         }
 
-        primaryRelationship = [*(*(&v13 + 1) + 8 * i) primaryRelationship];
+        primaryRelationship = [*(*(&v12 + 1) + 8 * i) primaryRelationship];
         if ([primaryRelationship isAwaitingInviteResponse] && objc_msgSend(primaryRelationship, "hasIncomingInviteRequest") && (objc_msgSend(primaryRelationship, "isFriendshipActive") & 1) == 0)
         {
           ++v5;
@@ -1921,7 +1924,7 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
         }
       }
 
-      v4 = [_allContactsPreferringPlaceholderContacts countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [_allContactsPreferringPlaceholderContacts countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
@@ -1932,13 +1935,12 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)_allContactsPreferringPlaceholderContacts
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_contactsManager);
   contacts = [WeakRetained contacts];
 
@@ -1946,60 +1948,60 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
   placeholderContacts = [v5 placeholderContacts];
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v8 = contacts;
-  v9 = [v8 countByEnumeratingWithState:&v43 objects:v52 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v44;
+    v11 = *v43;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v44 != v11)
+        if (*v43 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v43 + 1) + 8 * i);
+        v13 = *(*(&v42 + 1) + 8 * i);
         uUID = [v13 UUID];
         [dictionary setObject:v13 forKeyedSubscript:uUID];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v43 objects:v52 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
     }
 
     while (v10);
   }
 
-  v36 = v8;
+  v35 = v8;
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = placeholderContacts;
-  v15 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
+  v15 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v40;
+    v17 = *v39;
     v18 = MEMORY[0x277CE8FF0];
-    v37 = dictionary;
+    v36 = dictionary;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v40 != v17)
+        if (*v39 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * j);
+        v20 = *(*(&v38 + 1) + 8 * j);
         ASLoggingInitialize();
         v21 = *v18;
         if (os_log_type_enabled(*v18, OS_LOG_TYPE_DEFAULT))
@@ -2013,22 +2015,22 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
           v27 = v17;
           v29 = v28 = v18;
           *buf = 138412546;
-          v48 = relationshipStorage;
-          v49 = 2112;
-          v50 = v29;
+          v47 = relationshipStorage;
+          v48 = 2112;
+          v49 = v29;
           _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Placeholder contact storage %@ replacing %@", buf, 0x16u);
 
           v18 = v28;
           v17 = v27;
           v16 = v26;
-          dictionary = v37;
+          dictionary = v36;
         }
 
         uUID3 = [v20 UUID];
         [dictionary setObject:v20 forKeyedSubscript:uUID3];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v16 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
     }
 
     while (v16);
@@ -2037,8 +2039,6 @@ uint64_t __83__ASFriendListManager_competitionManager_didUpdateCompetitionsForFr
   v31 = MEMORY[0x277CBEB98];
   allValues = [dictionary allValues];
   v33 = [v31 setWithArray:allValues];
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

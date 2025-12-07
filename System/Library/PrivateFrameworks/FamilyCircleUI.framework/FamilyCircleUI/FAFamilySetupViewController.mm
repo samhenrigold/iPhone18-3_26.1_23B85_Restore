@@ -175,7 +175,7 @@ LABEL_7:
 
 - (void)_showActivitySpinnerInNavigationBar
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (!self->_spinnerView)
   {
     v3 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
@@ -213,9 +213,9 @@ LABEL_8:
     v8 = _AALogSystem();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = objc_opt_class();
-      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "%@ changed navigation item for spinner!", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = objc_opt_class();
+      _os_log_impl(&dword_21BB35000, v8, OS_LOG_TYPE_DEFAULT, "%@ changed navigation item for spinner!", &v14, 0xCu);
     }
 
     goto LABEL_8;
@@ -223,57 +223,52 @@ LABEL_8:
 
 LABEL_9:
   ++self->_spinnerCount;
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hideActivitySpinnerInNavigationBar
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   spinnerCount = self->_spinnerCount;
-  if (!spinnerCount)
+  if (spinnerCount)
   {
-    v7 = _AALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v4 = spinnerCount - 1;
+    self->_spinnerCount = v4;
+    if (!v4)
     {
-      v11 = 136315138;
-      Name = sel_getName(a2);
-      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "%s when there was no spinner", &v11, 0xCu);
+      [(UIActivityIndicatorView *)self->_spinnerView stopAnimating];
+      if (self->_originalRightBarButtonItems)
+      {
+        [(UINavigationItem *)self->_navigationItemShowingSpinner setRightBarButtonItems:?];
+        originalRightBarButtonItems = self->_originalRightBarButtonItems;
+      }
+
+      else
+      {
+        originalRightBarButtonItems = 0;
+      }
+
+      self->_originalRightBarButtonItems = 0;
+
+      navigationItemShowingSpinner = self->_navigationItemShowingSpinner;
+      self->_navigationItemShowingSpinner = 0;
     }
-
-    goto LABEL_8;
-  }
-
-  v4 = spinnerCount - 1;
-  self->_spinnerCount = v4;
-  if (v4)
-  {
-LABEL_8:
-    v8 = *MEMORY[0x277D85DE8];
-    return;
-  }
-
-  [(UIActivityIndicatorView *)self->_spinnerView stopAnimating];
-  if (self->_originalRightBarButtonItems)
-  {
-    [(UINavigationItem *)self->_navigationItemShowingSpinner setRightBarButtonItems:?];
-    originalRightBarButtonItems = self->_originalRightBarButtonItems;
   }
 
   else
   {
-    originalRightBarButtonItems = 0;
+    v7 = _AALogSystem();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 136315138;
+      Name = sel_getName(a2);
+      _os_log_impl(&dword_21BB35000, v7, OS_LOG_TYPE_DEFAULT, "%s when there was no spinner", &v9, 0xCu);
+    }
   }
-
-  self->_originalRightBarButtonItems = 0;
-
-  navigationItemShowingSpinner = self->_navigationItemShowingSpinner;
-  self->_navigationItemShowingSpinner = 0;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadRemoteUIPages
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(FAFamilySetupViewController *)self _showActivitySpinnerInNavigationBar];
   ams_sharedAccountStore = [MEMORY[0x277CB8F48] ams_sharedAccountStore];
   ams_activeiTunesAccount = [ams_sharedAccountStore ams_activeiTunesAccount];
@@ -288,9 +283,9 @@ LABEL_8:
   v9 = _AALogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = v5;
-    _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "Will load Family Setup remote UI using request: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v5;
+    _os_log_impl(&dword_21BB35000, v9, OS_LOG_TYPE_DEFAULT, "Will load Family Setup remote UI using request: %@", &v12, 0xCu);
   }
 
   v10 = objc_alloc_init(MEMORY[0x277CECAB8]);
@@ -300,26 +295,22 @@ LABEL_8:
   [(AAUIRemoteUIController *)self->_remoteUIController setDelegate:self];
   [(AAUIRemoteUIController *)self->_remoteUIController setNavigationController:self];
   [(AAUIRemoteUIController *)self->_remoteUIController loadRequest:self->_startRemoteUIRequest completion:&__block_literal_global_4];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__FAFamilySetupViewController__loadRemoteUIPages__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = _AALogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIController:(id)controller willPresentObjectModel:(id)model modally:(BOOL)modally
@@ -425,37 +416,33 @@ LABEL_9:
 
 void __73__FAFamilySetupViewController_remoteUIController_didReceiveHTTPResponse___block_invoke_82(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = _AALogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134218242;
-    v8 = a2;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials to continue BML flow: %ld. Error: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = a2;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials to continue BML flow: %ld. Error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__FAFamilySetupViewController_remoteUIController_didReceiveHTTPResponse___block_invoke_86(uint64_t a1, char a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = _AALogSystem();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_21BB35000, v5, OS_LOG_TYPE_DEFAULT, "Failed to load Family Setup remote UI: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remoteUIControllerDidDismiss:(id)dismiss

@@ -10,7 +10,7 @@
 
 - (ISURLOperationPool)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISURLOperationPool.m", 39, a2);
   v5.receiver = self;
   v5.super_class = ISURLOperationPool;
   v3 = [(ISURLOperationPool *)&v5 init];
@@ -48,27 +48,27 @@
 
 - (void)cancelOperation:(id)operation
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   operations = [(ISOperationQueue *)self->_operationQueue operations];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [operations countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [operations countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v12 != v7)
+      if (*v11 != v7)
       {
         objc_enumerationMutation(operations);
       }
 
-      v9 = *(*(&v11 + 1) + 8 * v8);
+      v9 = *(*(&v10 + 1) + 8 * v8);
       if ([v9 containsOperation:operation])
       {
         break;
@@ -76,7 +76,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [operations countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [operations countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -99,71 +99,62 @@ LABEL_3:
 LABEL_12:
     [operation cancel];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_poolOperationForOperation:(id)operation flags:(int64_t)flags
 {
   flagsCopy = flags;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataProvider = [operation dataProvider];
   v8 = [objc_msgSend(operation "_requestProperties")];
   operations = [(ISOperationQueue *)self->_operationQueue operations];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [operations countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v10)
+  v10 = [operations countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (!v10)
   {
-    v11 = v10;
-    v12 = *v20;
+    return 0;
+  }
+
+  v11 = v10;
+  v12 = *v19;
 LABEL_3:
-    v13 = 0;
-    while (1)
+  v13 = 0;
+  while (1)
+  {
+    if (*v19 != v12)
     {
-      if (*v20 != v12)
-      {
-        objc_enumerationMutation(operations);
-      }
+      objc_enumerationMutation(operations);
+    }
 
-      v14 = *(*(&v19 + 1) + 8 * v13);
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
+    v14 = *(*(&v18 + 1) + 8 * v13);
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      mainOperation = [v14 mainOperation];
+      if ([v8 isEqual:{objc_msgSend(objc_msgSend(mainOperation, "_requestProperties"), "URL")}])
       {
-        mainOperation = [v14 mainOperation];
-        if ([v8 isEqual:{objc_msgSend(objc_msgSend(mainOperation, "_requestProperties"), "URL")}])
+        dataProvider2 = [mainOperation dataProvider];
+        if (flagsCopy & 1) != 0 && (dataProvider == dataProvider2 || ([dataProvider isEqual:dataProvider2]))
         {
-          dataProvider2 = [mainOperation dataProvider];
-          if (flagsCopy & 1) != 0 && (dataProvider == dataProvider2 || ([dataProvider isEqual:dataProvider2]))
-          {
-            break;
-          }
+          return v14;
         }
-      }
-
-      if (v11 == ++v13)
-      {
-        v11 = [operations countByEnumeratingWithState:&v19 objects:v23 count:16];
-        if (v11)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_13;
       }
     }
-  }
 
-  else
-  {
-LABEL_13:
-    v14 = 0;
-  }
+    if (v11 == ++v13)
+    {
+      v11 = [operations countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v11)
+      {
+        goto LABEL_3;
+      }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v14;
+      return 0;
+    }
+  }
 }
 
 @end

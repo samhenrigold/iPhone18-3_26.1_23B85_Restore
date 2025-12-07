@@ -24,36 +24,36 @@
 - (void)migrateWorkflow
 {
   selfCopy = self;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v4 = [actions countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = @"is.workflow.actions.flashlight";
     v7 = @"WFFlashlightSetting";
-    v8 = *v32;
-    v30 = *v32;
+    v8 = *v31;
+    v29 = *v31;
     do
     {
       v9 = 0;
-      v29 = v5;
+      v28 = v5;
       do
       {
-        if (*v32 != v8)
+        if (*v31 != v8)
         {
           objc_enumerationMutation(actions);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * v9);
+        v10 = *(*(&v30 + 1) + 8 * v9);
         actionIdentifierKey = [(WFWorkflowMigration *)selfCopy actionIdentifierKey];
         v12 = [v10 objectForKey:actionIdentifierKey];
 
-        if ([v12 isEqualToString:v6])
+        if (objc_msgSend_isEqualToString_(v12))
         {
           actionParametersKey = [(WFWorkflowMigration *)selfCopy actionParametersKey];
           v14 = [v10 objectForKeyedSubscript:actionParametersKey];
@@ -63,7 +63,7 @@
           if (objc_opt_isKindOfClass())
           {
             v16 = v15;
-            if ([v16 isEqualToString:@"Off"])
+            if (objc_msgSend_isEqualToString_(v16))
             {
               [v14 setObject:@"set" forKey:@"operation"];
               v17 = v14;
@@ -71,7 +71,7 @@
               goto LABEL_15;
             }
 
-            if ([v16 isEqualToString:@"On"])
+            if (objc_msgSend_isEqualToString_(v16))
             {
               [v14 setObject:@"set" forKey:@"operation"];
               v17 = v14;
@@ -83,7 +83,7 @@ LABEL_16:
               [v14 removeObjectForKey:v7];
             }
 
-            else if ([v16 isEqualToString:@"Toggle"])
+            else if (objc_msgSend_isEqualToString_(v16))
             {
               v17 = v14;
               v18 = @"toggle";
@@ -93,7 +93,7 @@ LABEL_16:
 
 LABEL_17:
 
-            v5 = v29;
+            v5 = v28;
           }
 
           else
@@ -101,8 +101,8 @@ LABEL_17:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v28 = v15;
-              [(__CFString *)v28 objectForKeyedSubscript:@"WFSerializationType"];
+              v27 = v15;
+              [(__CFString *)v27 objectForKeyedSubscript:@"WFSerializationType"];
               v19 = selfCopy;
               v20 = v7;
               v21 = v6;
@@ -116,7 +116,7 @@ LABEL_17:
               if (v24)
               {
                 v17 = v14;
-                v18 = v28;
+                v18 = v27;
                 goto LABEL_15;
               }
 
@@ -124,14 +124,14 @@ LABEL_17:
             }
           }
 
-          v8 = v30;
+          v8 = v29;
         }
 
         ++v9;
       }
 
       while (v5 != v9);
-      v26 = [actions countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v26 = [actions countByEnumeratingWithState:&v30 objects:v34 count:16];
       v5 = v26;
     }
 
@@ -139,7 +139,6 @@ LABEL_17:
   }
 
   [(WFWorkflowMigration *)selfCopy finish];
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -172,7 +172,7 @@
   playerWrapper2 = [(PUTrimToolController *)self playerWrapper];
   if (actionCopy)
   {
-    [actionCopy time];
+    objc_msgSend_time(actionCopy);
   }
 
   else
@@ -267,7 +267,7 @@ uint64_t __52__PUTrimToolController__hideScrubberTimelineOverlay__block_invoke(u
     focusTimelineAction = self->_focusTimelineAction;
     if (focusTimelineAction)
     {
-      [(PXFocusTimelineAction *)focusTimelineAction time];
+      objc_msgSend_time(focusTimelineAction);
     }
 
     else
@@ -299,7 +299,7 @@ uint64_t __52__PUTrimToolController__hideScrubberTimelineOverlay__block_invoke(u
       v7 = self->_focusTimelineAction;
       if (v7)
       {
-        [(PXFocusTimelineAction *)v7 time];
+        objc_msgSend_time(v7);
       }
 
       else
@@ -434,7 +434,7 @@ void __54__PUTrimToolController_slowMotionEditorDidEndEditing___block_invoke(uin
     trimScrubber = self->_trimScrubber;
     if (trimScrubber)
     {
-      [(PXLivePhotoTrimScrubber *)trimScrubber keyTime];
+      objc_msgSend_keyTime(trimScrubber);
     }
 
     else
@@ -456,7 +456,7 @@ void __54__PUTrimToolController_slowMotionEditorDidEndEditing___block_invoke(uin
     v11 = self->_trimScrubber;
     if (v11)
     {
-      [(PXLivePhotoTrimScrubber *)v11 keyTime];
+      objc_msgSend_keyTime(v11);
     }
 
     else
@@ -464,7 +464,7 @@ void __54__PUTrimToolController_slowMotionEditorDidEndEditing___block_invoke(uin
       memset(&time1, 0, sizeof(time1));
     }
 
-    [(PUTrimToolController *)self unadjustedStillImageTime];
+    objc_msgSend_unadjustedStillImageTime(self);
     v12 = CMTimeCompare(&time1, &time2);
     delegate3 = [(PUTrimToolController *)self delegate];
     v14 = delegate3;
@@ -512,25 +512,22 @@ void __53__PUTrimToolController_userDidRequestToMakeKeyPhoto___block_invoke(uint
 
 uint64_t __50__PUTrimToolController_playerWrapper_timeChanged___block_invoke(uint64_t a1)
 {
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 56);
+  v8 = *(a1 + 40);
+  v9 = *(a1 + 56);
   if (![*(*(a1 + 32) + 992) currentlyInteractingElement])
   {
-    v7 = 0uLL;
-    v8 = 0;
-    v2 = *(a1 + 32);
-    v5 = v9;
-    v6 = v10;
-    [v2 _originalTimeFromCurrentPlayerScaledTime:&v5];
-    v3 = *(*(a1 + 32) + 992);
+    v6 = 0uLL;
+    v7 = 0;
+    objc_msgSend__originalTimeFromCurrentPlayerScaledTime_(*(a1 + 32), v8, v9);
+    v2 = *(*(a1 + 32) + 992);
+    v4 = v6;
     v5 = v7;
-    v6 = v8;
-    [v3 setKeyTime:&v5];
+    [v2 setKeyTime:&v4];
   }
 
-  v7 = *(a1 + 40);
-  v8 = *(a1 + 56);
-  return [*(a1 + 32) setDebugPlayerTime:&v7];
+  v6 = *(a1 + 40);
+  v7 = *(a1 + 56);
+  return [*(a1 + 32) setDebugPlayerTime:&v6];
 }
 
 - (void)playerStatusChangedForPlayerWrapper:(id)wrapper
@@ -581,8 +578,8 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
   memset(&v22, 0, sizeof(v22));
   if (slomoAdjustmentController)
   {
-    [slomoAdjustmentController startTime];
-    [slomoAdjustmentController endTime];
+    objc_msgSend_startTime(slomoAdjustmentController);
+    objc_msgSend_endTime(slomoAdjustmentController);
   }
 
   else
@@ -598,7 +595,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
   v6 = currentVideoAsset;
   if (currentVideoAsset)
   {
-    [currentVideoAsset duration];
+    objc_msgSend_duration(currentVideoAsset);
   }
 
   else
@@ -614,7 +611,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
   {
     v18 = 0uLL;
     v19 = 0;
-    [trimAdjustmentController startTime];
+    objc_msgSend_startTime(trimAdjustmentController);
     *&end.start.value = *&v22.start.value;
     end.start.epoch = v22.start.epoch;
     *&v15.start.value = v18;
@@ -655,7 +652,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
 
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       v13 = *a4;
       CMTimeSubtract(&time, &v13, &rhs);
       *a4 = time;
@@ -673,7 +670,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
 
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       v13 = *retstr;
       CMTimeAdd(&time, &v13, &rhs);
       *retstr = time;
@@ -694,7 +691,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
 
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       v13 = *a4;
       CMTimeSubtract(&time, &v13, &rhs);
       *a4 = time;
@@ -712,7 +709,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
 
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       v13 = *retstr;
       CMTimeAdd(&time, &v13, &rhs);
       *retstr = time;
@@ -725,7 +722,7 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
 - (void)stepByCount:(int64_t)count
 {
   playerWrapper = [(PUTrimToolController *)self playerWrapper];
-  [(PUTrimToolController *)self playheadTime];
+  objc_msgSend_playheadTime(self);
   [playerWrapper stepByCount:count playheadTime:v10];
   v6 = dispatch_time(0, 100000000);
   block[0] = MEMORY[0x1E69E9820];
@@ -738,21 +735,21 @@ void __61__PUTrimToolController_compositionDidUpdateForPlayerWrapper___block_inv
   dispatch_after(v6, MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __36__PUTrimToolController_stepByCount___block_invoke(uint64_t a1)
+uint64_t __36__PUTrimToolController_stepByCount___block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  if (v2)
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  if (v3)
   {
-    [*(a1 + 40) currentTime];
+    objc_msgSend_currentTime(*(a1 + 40), a2);
   }
 
   else
   {
-    memset(v4, 0, sizeof(v4));
+    memset(v5, 0, sizeof(v5));
   }
 
-  return [v1 playerWrapper:v2 timeChanged:v4];
+  return [v2 playerWrapper:v3 timeChanged:v5];
 }
 
 - (void)pause
@@ -867,7 +864,7 @@ uint64_t __36__PUTrimToolController_stepByCount___block_invoke(uint64_t a1)
   v3 = self->_trimScrubber;
   v17 = 0uLL;
   v18 = 0;
-  [(PUTrimToolController *)self currentStillFrameTime];
+  objc_msgSend_currentStillFrameTime(self);
   if (0 >> 96)
   {
     v13[0] = MEMORY[0x1E69E9820];
@@ -891,10 +888,10 @@ uint64_t __36__PUTrimToolController_stepByCount___block_invoke(uint64_t a1)
   v12 = 0;
   if (trimAdjustmentController)
   {
-    [trimAdjustmentController startTime];
+    objc_msgSend_startTime(trimAdjustmentController);
     v9 = 0uLL;
     v10 = 0;
-    [trimAdjustmentController endTime];
+    objc_msgSend_endTime(trimAdjustmentController);
     if (BYTE12(v11))
     {
       v7 = v11;
@@ -948,7 +945,7 @@ uint64_t __55__PUTrimToolController__resetScrubberToStillPhotoFrame__block_invok
 {
   v13 = 0uLL;
   v14 = 0;
-  result = [(PUTrimToolController *)self cachedFrameDuration];
+  result = objc_msgSend_cachedFrameDuration(self, a3);
   if (BYTE12(v13))
   {
     *&retstr->var0 = v13;
@@ -1128,20 +1125,20 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   if ([(PUTrimToolController *)self _allowsKeyFrameCreation])
   {
     v3 = [objc_alloc(MEMORY[0x1E695DFA0]) initWithCapacity:2];
-    [(PUTrimToolController *)self unadjustedStillImageTime];
+    objc_msgSend_unadjustedStillImageTime(self);
     if ((v10[36] & 0x1D) == 1)
     {
       v4 = MEMORY[0x1E696B098];
-      [(PUTrimToolController *)self unadjustedStillImageTime];
+      objc_msgSend_unadjustedStillImageTime(self);
       v5 = [v4 valueWithCMTime:v10];
       [v3 addObject:v5];
     }
 
-    [(PUTrimToolController *)self adjustedStillFrameTime];
+    objc_msgSend_adjustedStillFrameTime(self);
     if ((v9 & 0x1D) == 1)
     {
       v6 = MEMORY[0x1E696B098];
-      [(PUTrimToolController *)self adjustedStillFrameTime];
+      objc_msgSend_adjustedStillFrameTime(self);
       v7 = [v6 valueWithCMTime:v10];
       [v3 addObject:v7];
     }
@@ -1198,14 +1195,14 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   memset(&v46[32], 0, 24);
   if (trimAdjustmentController)
   {
-    [trimAdjustmentController startTime];
+    objc_msgSend_startTime(trimAdjustmentController);
     if ((v46[44] & 1) == 0)
     {
       *&v46[32] = **&MEMORY[0x1E6960CC0];
     }
 
     memset(v46, 0, 24);
-    [trimAdjustmentController endTime];
+    objc_msgSend_endTime(trimAdjustmentController);
   }
 
   else
@@ -1218,7 +1215,7 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   v6 = currentVideoAsset;
   if (currentVideoAsset)
   {
-    [currentVideoAsset duration];
+    objc_msgSend_duration(currentVideoAsset);
   }
 
   else
@@ -1233,7 +1230,7 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   v45 = *v46;
   [(PXLivePhotoTrimScrubber *)self->_trimScrubber setTrimEndTime:&v45];
   memset(&v45, 0, sizeof(v45));
-  [(PUTrimToolController *)self originalStartTime];
+  objc_msgSend_originalStartTime(self);
   v44 = v45;
   [(PXLivePhotoTrimScrubber *)self->_trimScrubber setOriginalStartTime:&v44];
   if (v45.flags)
@@ -1251,7 +1248,7 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   }
 
   memset(&v44, 0, sizeof(v44));
-  [(PUTrimToolController *)self originalEndTime];
+  objc_msgSend_originalEndTime(self);
   time1 = v44;
   [(PXLivePhotoTrimScrubber *)self->_trimScrubber setOriginalEndTime:&time1];
   if (v44.flags)
@@ -1272,14 +1269,14 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   composition = [compositionController2 composition];
   mediaType = [composition mediaType];
 
-  if (mediaType != 2 && ([(PUTrimToolController *)self currentStillFrameTime], (v41 & 1) != 0))
+  if (mediaType != 2 && (objc_msgSend_currentStillFrameTime(self), (v41 & 1) != 0))
   {
-    [(PUTrimToolController *)self currentStillFrameTime];
+    objc_msgSend_currentStillFrameTime(self);
   }
 
   else
   {
-    [(PUTrimToolController *)self playheadTime];
+    objc_msgSend_playheadTime(self);
   }
 
   trimScrubber = self->_trimScrubber;
@@ -1309,7 +1306,7 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   }
 
   [(PUTrimToolController *)self _updateSnappingDots];
-  [(PUTrimToolController *)self suggestedKeyFrameTime];
+  objc_msgSend_suggestedKeyFrameTime(self);
   if ((v40 & 1) == 0)
   {
     goto LABEL_31;
@@ -1326,7 +1323,7 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
   v24 = self->_trimScrubber;
   if (v24)
   {
-    [(PXLivePhotoTrimScrubber *)v24 suggestedKeyTime];
+    objc_msgSend_suggestedKeyTime(v24);
   }
 
   else
@@ -1334,10 +1331,10 @@ void __36__PUTrimToolController__updateVideo__block_invoke_160(id *a1)
     memset(&time1, 0, sizeof(time1));
   }
 
-  [(PUTrimToolController *)self suggestedKeyFrameTime];
+  objc_msgSend_suggestedKeyFrameTime(self);
   if (CMTimeCompare(&time1, &time2))
   {
-    [(PUTrimToolController *)self suggestedKeyFrameTime];
+    objc_msgSend_suggestedKeyFrameTime(self);
     v25 = self->_trimScrubber;
     time1 = v38;
     [(PXLivePhotoTrimScrubber *)v25 setSuggestedKeyTime:&time1];
@@ -1353,11 +1350,11 @@ LABEL_31:
   if ([(PUTrimToolController *)self isSlomoEnabled])
   {
     [(PXSlowMotionEditor *)self->_slomoView setMinValue:0.0];
-    [(PUTrimToolController *)self unadjustedAssetDuration];
+    objc_msgSend_unadjustedAssetDuration(self);
     Seconds = 1.0;
     if ((v37 & 0x1D) == 1)
     {
-      [(PUTrimToolController *)self unadjustedAssetDuration];
+      objc_msgSend_unadjustedAssetDuration(self, 1.0);
       Seconds = CMTimeGetSeconds(&time1);
     }
 
@@ -1368,7 +1365,7 @@ LABEL_31:
     memset(&time1, 0, sizeof(time1));
     if (slomoAdjustmentController)
     {
-      [slomoAdjustmentController startTime];
+      objc_msgSend_startTime(slomoAdjustmentController);
       if ((time1.flags & 0x1D) == 1)
       {
         time2 = time1;
@@ -1376,7 +1373,7 @@ LABEL_31:
       }
 
       memset(&time2, 0, sizeof(time2));
-      [slomoAdjustmentController endTime];
+      objc_msgSend_endTime(slomoAdjustmentController);
       if ((time2.flags & 0x1D) == 1)
       {
         time = time2;
@@ -1439,9 +1436,9 @@ LABEL_31:
     *&v8 = 0;
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       memset(&v12, 0, sizeof(v12));
-      [trimAdjustmentController endTime];
+      objc_msgSend_endTime(trimAdjustmentController);
     }
 
     else
@@ -1475,9 +1472,9 @@ LABEL_31:
   v35 = 0;
   if (v4)
   {
-    [(PXLivePhotoTrimScrubber *)v4 trimStartTime];
+    objc_msgSend_trimStartTime(v4);
     memset(&v33, 0, sizeof(v33));
-    [(PXLivePhotoTrimScrubber *)v5 trimEndTime];
+    objc_msgSend_trimEndTime(v5);
   }
 
   else
@@ -1493,7 +1490,7 @@ LABEL_31:
   memset(&end, 0, sizeof(end));
   if (v5)
   {
-    [(PXLivePhotoTrimScrubber *)v5 keyTime];
+    objc_msgSend_keyTime(v5);
   }
 
   else
@@ -1507,7 +1504,7 @@ LABEL_31:
   [(PXLivePhotoTrimScrubber *)v5 setKeyTime:&start];
   if (v5)
   {
-    [(PXLivePhotoTrimScrubber *)v5 keyTime];
+    objc_msgSend_keyTime(v5);
   }
 
   else
@@ -1519,10 +1516,10 @@ LABEL_31:
   if (!CMTimeCompare(&start.start, &time))
   {
     memset(&start, 0, 24);
-    [(PUTrimToolController *)self _frameDuration];
+    objc_msgSend__frameDuration(self);
     if (v5)
     {
-      [(PXLivePhotoTrimScrubber *)v5 keyTime];
+      objc_msgSend_keyTime(v5);
     }
 
     else
@@ -1536,7 +1533,7 @@ LABEL_31:
     [(PXLivePhotoTrimScrubber *)v5 setKeyTime:&time];
     if (v5)
     {
-      [(PXLivePhotoTrimScrubber *)v5 keyTime];
+      objc_msgSend_keyTime(v5);
     }
 
     else
@@ -1548,14 +1545,14 @@ LABEL_31:
     [(PXLivePhotoTrimScrubber *)v5 setKeyTime:&time];
   }
 
-  [(PUTrimToolController *)self currentStillFrameTime];
+  objc_msgSend_currentStillFrameTime(self);
   start = v32;
   v6 = CMTimeRangeContainsTime(&start, &time);
   time = **&MEMORY[0x1E6960C70];
   if (!v6)
   {
     memset(&rhs, 0, sizeof(rhs));
-    [(PUTrimToolController *)self currentStillFrameTime];
+    objc_msgSend_currentStillFrameTime(self);
     start = v32;
     CMTimeClampToRange(&rhs, &time2, &start);
     time = rhs;
@@ -1564,7 +1561,7 @@ LABEL_31:
     if (!CMTimeCompare(&start.start, &time2))
     {
       memset(&start, 0, 24);
-      [(PUTrimToolController *)self _frameDuration];
+      objc_msgSend__frameDuration(self);
       time2 = time;
       v24 = start.start;
       CMTimeSubtract(&time, &time2, &v24);
@@ -1709,7 +1706,7 @@ void __52__PUTrimToolController__updateCompositionController__block_invoke_2(uin
   v4 = v3;
   if (v3)
   {
-    [v3 keyFrameTime];
+    objc_msgSend_keyFrameTime(v3);
   }
 
   else
@@ -1738,9 +1735,9 @@ void __52__PUTrimToolController__updateCompositionController__block_invoke_3(uin
   [v3 setEndTime:&v4];
 }
 
-uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4(uint64_t result, void *a2)
+void *__52__PUTrimToolController__updateCompositionController__block_invoke_4(void *result, void *a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2)
   {
     return [a2 setEnabled:v2 == 2];
@@ -1751,7 +1748,7 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
 
 - (void)_updateTimeCodeOverlay
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = [(PUTrimToolController *)self internalState]== 2 || [(PUTrimToolController *)self internalState]== 3 || [(PUTrimToolController *)self internalState]== 4 || [(PUTrimToolController *)self internalState]== 5;
   editSource = [(PUTrimToolController *)self editSource];
   objc_opt_class();
@@ -1788,13 +1785,13 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
       if ([(PUTrimToolController *)self slomoDraggingStartHandle])
       {
         [(PXSlowMotionEditor *)self->_slomoView startValue];
-        CMTimeMakeWithSeconds(&v32, v17, [MEMORY[0x1E69C0890] preferredTimeScale]);
-        value = v32.value;
-        flags = v32.flags;
-        timescale = v32.timescale;
-        epoch = v32.epoch;
+        CMTimeMakeWithSeconds(&v31, v17, [MEMORY[0x1E69C0890] preferredTimeScale]);
+        value = v31.value;
+        flags = v31.flags;
+        timescale = v31.timescale;
+        epoch = v31.epoch;
         [(PXSlowMotionEditor *)self->_slomoView startHandleFrame];
-        MinX = CGRectGetMinX(v37);
+        MinX = CGRectGetMinX(v36);
         [(PXLivePhotoTrimScrubberSpec *)self->_spec handleWidth];
         v22 = -5.0;
       }
@@ -1802,29 +1799,29 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
       else
       {
         [(PXSlowMotionEditor *)self->_slomoView endValue];
-        CMTimeMakeWithSeconds(&v32, v27, [MEMORY[0x1E69C0890] preferredTimeScale]);
-        value = v32.value;
-        flags = v32.flags;
-        timescale = v32.timescale;
-        epoch = v32.epoch;
+        CMTimeMakeWithSeconds(&v31, v26, [MEMORY[0x1E69C0890] preferredTimeScale]);
+        value = v31.value;
+        flags = v31.flags;
+        timescale = v31.timescale;
+        epoch = v31.epoch;
         [(PXSlowMotionEditor *)self->_slomoView endHandleFrame];
-        MinX = CGRectGetMinX(v38);
+        MinX = CGRectGetMinX(v37);
         [(PXLivePhotoTrimScrubberSpec *)self->_spec handleWidth];
         v22 = -6.0;
       }
 
-      v28 = MinX + v21 + v22;
+      v27 = MinX + v21 + v22;
     }
 
     else
     {
-      currentlyInteractingElement = [(PXLivePhotoTrimScrubber *)self->_trimScrubber currentlyInteractingElement];
+      [(PXLivePhotoTrimScrubber *)self->_trimScrubber currentlyInteractingElement];
       trimScrubber = self->_trimScrubber;
       if (trimScrubber)
       {
-        [(PXLivePhotoTrimScrubber *)trimScrubber timeForElement:currentlyInteractingElement];
-        flags = v32.flags;
-        epoch = v32.epoch;
+        objc_msgSend_timeForElement_(trimScrubber);
+        flags = v31.flags;
+        epoch = v31.epoch;
         trimScrubber = self->_trimScrubber;
       }
 
@@ -1832,15 +1829,15 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
       {
         epoch = 0;
         flags = 0;
-        memset(&v32, 0, sizeof(v32));
+        memset(&v31, 0, sizeof(v31));
       }
 
-      v32.epoch = epoch;
-      value = v32.value;
-      timescale = v32.timescale;
-      v32.flags = flags;
-      [(PXLivePhotoTrimScrubber *)trimScrubber horizontalOffsetForTime:&v32];
-      v28 = v29;
+      v31.epoch = epoch;
+      value = v31.value;
+      timescale = v31.timescale;
+      v31.flags = flags;
+      [(PXLivePhotoTrimScrubber *)trimScrubber horizontalOffsetForTime:&v31];
+      v27 = v28;
     }
 
     if ((flags & 0x1D) != 1)
@@ -1849,16 +1846,16 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
       flags = *(MEMORY[0x1E6960CC0] + 12);
       timescale = *(MEMORY[0x1E6960CC0] + 8);
       epoch = *(MEMORY[0x1E6960CC0] + 16);
-      v28 = 0.0;
+      v27 = 0.0;
     }
 
-    v32.value = value;
-    v32.timescale = timescale;
-    v32.flags = flags;
-    v32.epoch = epoch;
-    [(PUTimeCodeOverlayView *)self->_timeCodeOverlayView setDisplayedTimeInterval:CMTimeGetSeconds(&v32)];
-    v30 = +[PUPhotoEditProtoSettings sharedInstance];
-    showFrameNumberOnVideoScrubber = [v30 showFrameNumberOnVideoScrubber];
+    v31.value = value;
+    v31.timescale = timescale;
+    v31.flags = flags;
+    v31.epoch = epoch;
+    [(PUTimeCodeOverlayView *)self->_timeCodeOverlayView setDisplayedTimeInterval:CMTimeGetSeconds(&v31)];
+    v29 = +[PUPhotoEditProtoSettings sharedInstance];
+    showFrameNumberOnVideoScrubber = [v29 showFrameNumberOnVideoScrubber];
 
     if (showFrameNumberOnVideoScrubber)
     {
@@ -1866,7 +1863,7 @@ uint64_t __52__PUTrimToolController__updateCompositionController__block_invoke_4
       [(PUTimeCodeOverlayView *)self->_timeCodeOverlayView setFrameRate:?];
     }
 
-    [(NSLayoutConstraint *)self->_timeCodeHorizontalConstraint setConstant:v28];
+    [(NSLayoutConstraint *)self->_timeCodeHorizontalConstraint setConstant:v27];
   }
 
   else if (timeCodeOverlayView)
@@ -2103,7 +2100,7 @@ LABEL_15:
     v5 = currentVideoAsset;
     if (currentVideoAsset)
     {
-      [currentVideoAsset duration];
+      objc_msgSend_duration(currentVideoAsset);
     }
 
     else
@@ -2111,11 +2108,11 @@ LABEL_15:
       memset(&v31, 0, sizeof(v31));
     }
 
-    [(PUTrimToolController *)self debugPlayerTime];
+    objc_msgSend_debugPlayerTime(self);
     if ((v30 & 0x1D) == 1 && (v31.flags & 0x1D) == 1)
     {
       v6 = MEMORY[0x1E696AEC0];
-      [(PUTrimToolController *)self debugPlayerTime];
+      objc_msgSend_debugPlayerTime(self);
       CMTimeGetSeconds(&time);
       v7 = PXTrimTimeCodeStringFromSecondsAndRound();
       time = v31;
@@ -2126,11 +2123,11 @@ LABEL_15:
       [debugPlayerTimeLabel2 setText:v9];
 
       memset(&time, 0, sizeof(time));
-      [(PUTrimToolController *)self debugPlayerTime];
-      [(PUTrimToolController *)self _originalTimeFromCurrentPlayerScaledTime:&v28];
+      objc_msgSend_debugPlayerTime(self);
+      objc_msgSend__originalTimeFromCurrentPlayerScaledTime_(self);
       memset(&v28, 0, sizeof(v28));
       v27 = v31;
-      [(PUTrimToolController *)self _originalTimeFromCurrentPlayerScaledTime:&v27];
+      objc_msgSend__originalTimeFromCurrentPlayerScaledTime_(self);
       v11 = MEMORY[0x1E696AEC0];
       v27 = time;
       CMTimeGetSeconds(&v27);
@@ -2180,9 +2177,9 @@ LABEL_15:
 
     if (trimAdjustmentController)
     {
-      [trimAdjustmentController startTime];
+      objc_msgSend_startTime(trimAdjustmentController);
       Seconds = CMTimeGetSeconds(&time);
-      [trimAdjustmentController endTime];
+      objc_msgSend_endTime(trimAdjustmentController);
       v21 = CMTimeGetSeconds(&time);
       [v4 appendFormat:@"Trim(s:%.1f, e:%.1f, d:%.1f)", *&Seconds, *&v21, v21 - Seconds, time.value, *&time.timescale, time.epoch];
     }
@@ -2193,7 +2190,7 @@ LABEL_15:
       v9 = currentVideoAsset;
       if (currentVideoAsset)
       {
-        [currentVideoAsset duration];
+        objc_msgSend_duration(currentVideoAsset);
       }
 
       else
@@ -2211,9 +2208,9 @@ LABEL_15:
 
     if (slomoAdjustmentController)
     {
-      [slomoAdjustmentController startTime];
+      objc_msgSend_startTime(slomoAdjustmentController);
       v13 = CMTimeGetSeconds(&time);
-      [slomoAdjustmentController endTime];
+      objc_msgSend_endTime(slomoAdjustmentController);
       v14 = CMTimeGetSeconds(&time);
       [v4 appendFormat:@" Slo(s:%.1f, e:%.1f, d:%.1f)", *&v13, *&v14, v14 - v13];
     }
@@ -2221,7 +2218,7 @@ LABEL_15:
     trimScrubber = self->_trimScrubber;
     if (trimScrubber)
     {
-      [(PXLivePhotoTrimScrubber *)trimScrubber viewportMinTime];
+      objc_msgSend_viewportMinTime(trimScrubber);
     }
 
     else
@@ -2233,7 +2230,7 @@ LABEL_15:
     v17 = self->_trimScrubber;
     if (v17)
     {
-      [(PXLivePhotoTrimScrubber *)v17 viewportMaxTime];
+      objc_msgSend_viewportMaxTime(v17);
     }
 
     else
@@ -2449,7 +2446,7 @@ void __46__PUTrimToolController__showKeyFrameSelection__block_invoke(uint64_t a1
     v9 = livePhotoKeyFrameAdjustmentController;
     if (livePhotoKeyFrameAdjustmentController)
     {
-      [livePhotoKeyFrameAdjustmentController keyFrameTime];
+      objc_msgSend_keyFrameTime(livePhotoKeyFrameAdjustmentController);
 LABEL_6:
       v9 = livePhotoKeyFrameAdjustmentController;
       goto LABEL_8;
@@ -2482,7 +2479,7 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [(PUTrimToolController *)self unadjustedStillImageTime];
+    objc_msgSend_unadjustedStillImageTime(self);
     time1 = *time;
     if (CMTimeCompare(&time1, &time2))
     {
@@ -2537,10 +2534,10 @@ uint64_t __50__PUTrimToolController_setAdjustedStillFrameTime___block_invoke(uin
   retstr->var0 = 0;
   *&retstr->var1 = 0;
   retstr->var3 = 0;
-  result = [(PUTrimToolController *)self adjustedStillFrameTime];
+  result = objc_msgSend_adjustedStillFrameTime(self, a3);
   if ((retstr->var2 & 1) == 0)
   {
-    result = [(PUTrimToolController *)self unadjustedStillImageTime];
+    result = objc_msgSend_unadjustedStillImageTime(self);
     *&retstr->var0 = v6;
     retstr->var3 = v7;
   }
@@ -2684,7 +2681,7 @@ LABEL_14:
 
       if (v13)
       {
-        [v13 duration];
+        objc_msgSend_duration(v13);
       }
 
       else
@@ -2871,7 +2868,7 @@ void __54__PUTrimToolController_trimScrubberDidLayoutSubviews___block_invoke(uin
   trimScrubber = self->_trimScrubber;
   if (trimScrubber)
   {
-    [(PXLivePhotoTrimScrubber *)trimScrubber timeForElement:element];
+    objc_msgSend_timeForElement_(trimScrubber);
   }
 
   if ((element - 1) > 1)
@@ -2884,10 +2881,10 @@ void __54__PUTrimToolController_trimScrubberDidLayoutSubviews___block_invoke(uin
         v20 = self->_trimScrubber;
         if (v20)
         {
-          [(PXLivePhotoTrimScrubber *)v20 keyTime];
+          objc_msgSend_keyTime(v20);
         }
 
-        [(PUTrimToolController *)self currentStillFrameTime];
+        objc_msgSend_currentStillFrameTime(self);
         v26 = location[0];
         v21 = CMTimeCompare(&v26, &time2);
         v22 = +[PUPhotoEditProtoSettings sharedInstance];
@@ -3119,13 +3116,13 @@ void __66__PUTrimToolController__dismissKeyFramePickerAndResetToStillFrame__bloc
   trimScrubber = self->_trimScrubber;
   if (trimScrubber)
   {
-    [(PXLivePhotoTrimScrubber *)trimScrubber timeForElement:element];
+    objc_msgSend_timeForElement_(trimScrubber, a2, element);
   }
 
   if (element == 4)
   {
     time1 = v15;
-    [(PUTrimToolController *)self _currentPlayerScaledTimeFromOriginalTime:&time1];
+    objc_msgSend__currentPlayerScaledTimeFromOriginalTime_(self, a2, &time1);
 LABEL_11:
     v15 = time2;
     goto LABEL_12;
@@ -3136,7 +3133,7 @@ LABEL_11:
     v10 = self->_trimScrubber;
     if (v10)
     {
-      [(PXLivePhotoTrimScrubber *)v10 trimEndTime];
+      objc_msgSend_trimEndTime(v10, a2);
     }
 
     else
@@ -3147,7 +3144,7 @@ LABEL_11:
     time1 = v15;
     if (!CMTimeCompare(&time1, &time2))
     {
-      [(PUTrimToolController *)self _frameDuration];
+      objc_msgSend__frameDuration(self);
       v12 = v15;
       CMTimeSubtract(&time2, &v12, &time1);
       goto LABEL_11;
@@ -3176,7 +3173,7 @@ LABEL_12:
   result = self->_trimScrubber;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result keyTime];
+    return objc_msgSend_keyTime(result, a3);
   }
 
   retstr->var0 = 0;

@@ -6,28 +6,28 @@
 
 - (BOOL)isPartialStringValid:(id)valid newEditingString:(id *)string errorDescription:(id *)description
 {
-  v67.receiver = self;
-  v67.super_class = IPv4AddressFormatter;
+  v92.receiver = self;
+  v92.super_class = IPv4AddressFormatter;
   v8 = [APFormatter isPartialStringValid:sel_isPartialStringValid_newEditingString_errorDescription_ newEditingString:? errorDescription:?];
   if (v8)
   {
-    if (!objc_msgSend_length(valid, v9, v10))
+    if (!objc_msgSend_length(valid, v9, v10, v11))
     {
       goto LABEL_12;
     }
 
-    v12 = objc_msgSend_componentsSeparatedByString_(valid, v11, @".");
-    v15 = objc_msgSend_count(v12, v13, v14);
-    if (v15 > 4)
+    v14 = objc_msgSend_componentsSeparatedByString_(valid, v12, @".", v13);
+    v18 = objc_msgSend_count(v14, v15, v16, v17);
+    if (v18 > 4)
     {
       if (string)
       {
-        v17 = MEMORY[0x277CCACA8];
-        v18 = objc_msgSend_objectAtIndex_(v12, v16, 0);
-        v20 = objc_msgSend_objectAtIndex_(v12, v19, 1);
-        v22 = objc_msgSend_objectAtIndex_(v12, v21, 2);
-        v24 = objc_msgSend_objectAtIndex_(v12, v23, 3);
-        *string = objc_msgSend_stringWithFormat_(v17, v25, @"%@.%@.%@.%@", v18, v20, v22, v24);
+        v21 = MEMORY[0x277CCACA8];
+        v22 = objc_msgSend_objectAtIndex_(v14, v19, 0, v20);
+        v25 = objc_msgSend_objectAtIndex_(v14, v23, 1, v24);
+        v28 = objc_msgSend_objectAtIndex_(v14, v26, 2, v27);
+        v31 = objc_msgSend_objectAtIndex_(v14, v29, 3, v30);
+        *string = objc_msgSend_stringWithFormat_(v21, v32, @"%@.%@.%@.%@", v33, v22, v25, v28, v31);
       }
 
       if (description)
@@ -38,24 +38,24 @@
       goto LABEL_46;
     }
 
-    v26 = v15;
-    if (!v15)
+    v34 = v18;
+    if (!v18)
     {
 LABEL_12:
       LOBYTE(v8) = 1;
       return v8;
     }
 
-    v27 = 0;
+    v35 = 0;
     while (1)
     {
-      v28 = objc_msgSend_objectAtIndex_(v12, v16, v27);
-      if (objc_msgSend_integerValue(v28, v29, v30) >= 256)
+      v36 = objc_msgSend_objectAtIndex_(v14, v19, v35, v20);
+      if (objc_msgSend_integerValue(v36, v37, v38, v39) >= 256)
       {
         break;
       }
 
-      if (v26 == ++v27)
+      if (v34 == ++v35)
       {
         goto LABEL_12;
       }
@@ -77,125 +77,125 @@ LABEL_46:
       return v8;
     }
 
-    if (objc_msgSend_UTF8ByteCount(v28, v16, v31) >= 4)
+    if (objc_msgSend_UTF8ByteCount(v36, v19, v40, v20) >= 4)
     {
-      v28 = objc_msgSend_substringToIndex_(v28, v32, 3);
+      v36 = objc_msgSend_substringToIndex_(v36, v41, 3, v43);
     }
 
-    if (objc_msgSend_integerValue(v28, v32, v33) >= 256)
+    if (objc_msgSend_integerValue(v36, v41, v42, v43) >= 256)
     {
-      v28 = objc_msgSend_substringToIndex_(v28, v34, 2);
+      v36 = objc_msgSend_substringToIndex_(v36, v44, 2, v45);
     }
 
-    if (v26 == 4)
+    if (v34 == 4)
     {
-      v35 = MEMORY[0x277CCACA8];
-      if (v27 > 1)
+      v46 = MEMORY[0x277CCACA8];
+      if (v35 > 1)
       {
-        if (v27 == 2)
+        if (v35 == 2)
         {
-          v43 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-          v45 = objc_msgSend_objectAtIndex_(v12, v44, 1);
-          v64 = v28;
-          v66 = objc_msgSend_objectAtIndex_(v12, v46, 3);
+          v59 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+          v62 = objc_msgSend_objectAtIndex_(v14, v60, 1, v61);
+          v89 = v36;
+          v91 = objc_msgSend_objectAtIndex_(v14, v63, 3, v64);
         }
 
         else
         {
-          v43 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-          v45 = objc_msgSend_objectAtIndex_(v12, v51, 1);
-          v64 = objc_msgSend_objectAtIndex_(v12, v52, 2);
-          v66 = v28;
+          v59 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+          v62 = objc_msgSend_objectAtIndex_(v14, v72, 1, v73);
+          v89 = objc_msgSend_objectAtIndex_(v14, v74, 2, v75);
+          v91 = v36;
         }
 
-        v61 = v45;
+        v86 = v62;
       }
 
       else
       {
-        if (!v27)
+        if (!v35)
         {
-          v36 = objc_msgSend_objectAtIndex_(v12, v34, 1);
-          v64 = objc_msgSend_objectAtIndex_(v12, v37, 2);
-          v66 = objc_msgSend_objectAtIndex_(v12, v38, 3);
-          v58 = v28;
-          v61 = v36;
+          v47 = objc_msgSend_objectAtIndex_(v14, v44, 1, v45);
+          v89 = objc_msgSend_objectAtIndex_(v14, v48, 2, v49);
+          v91 = objc_msgSend_objectAtIndex_(v14, v50, 3, v51);
+          v83 = v36;
+          v86 = v47;
 LABEL_36:
-          v53 = objc_msgSend_stringWithFormat_(v35, v39, @"%@.%@.%@.%@", v58, v61, v64, v66);
+          v76 = objc_msgSend_stringWithFormat_(v46, v52, @"%@.%@.%@.%@", v53, v83, v86, v89, v91);
           goto LABEL_43;
         }
 
-        v43 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-        v64 = objc_msgSend_objectAtIndex_(v12, v49, 2);
-        v66 = objc_msgSend_objectAtIndex_(v12, v50, 3);
-        v61 = v28;
+        v59 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+        v89 = objc_msgSend_objectAtIndex_(v14, v68, 2, v69);
+        v91 = objc_msgSend_objectAtIndex_(v14, v70, 3, v71);
+        v86 = v36;
       }
 
-      v58 = v43;
+      v83 = v59;
       goto LABEL_36;
     }
 
-    if (v26 < 3)
+    if (v34 < 3)
     {
-      if (v26 != 2)
+      if (v34 != 2)
       {
 LABEL_44:
-        *string = v28;
+        *string = v36;
         goto LABEL_45;
       }
 
-      v47 = MEMORY[0x277CCACA8];
-      if (v27)
+      v65 = MEMORY[0x277CCACA8];
+      if (v35)
       {
-        v60 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-        v63 = v28;
+        v85 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+        v88 = v36;
       }
 
       else
       {
-        v60 = v28;
-        v63 = objc_msgSend_objectAtIndex_(v12, v34, 1);
+        v85 = v36;
+        v88 = objc_msgSend_objectAtIndex_(v14, v44, 1, v45);
       }
 
-      v53 = objc_msgSend_stringWithFormat_(v47, v48, @"%@.%@", v60, v63);
+      v76 = objc_msgSend_stringWithFormat_(v65, v66, @"%@.%@", v67, v85, v88);
 LABEL_43:
-      v28 = v53;
+      v36 = v76;
       goto LABEL_44;
     }
 
-    if (v27 == 2)
+    if (v35 == 2)
     {
-      v40 = MEMORY[0x277CCACA8];
-      v54 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-      v62 = objc_msgSend_objectAtIndex_(v12, v56, 1);
-      v65 = v28;
+      v54 = MEMORY[0x277CCACA8];
+      v77 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+      v87 = objc_msgSend_objectAtIndex_(v14, v80, 1, v81);
+      v90 = v36;
     }
 
     else
     {
-      if (v27 != 1)
+      if (v35 != 1)
       {
-        if (v27)
+        if (v35)
         {
           goto LABEL_45;
         }
 
-        v40 = MEMORY[0x277CCACA8];
-        v62 = objc_msgSend_objectAtIndex_(v12, v34, 1);
-        v65 = objc_msgSend_objectAtIndex_(v12, v41, 2);
-        v59 = v28;
+        v54 = MEMORY[0x277CCACA8];
+        v87 = objc_msgSend_objectAtIndex_(v14, v44, 1, v45);
+        v90 = objc_msgSend_objectAtIndex_(v14, v55, 2, v56);
+        v84 = v36;
         goto LABEL_40;
       }
 
-      v40 = MEMORY[0x277CCACA8];
-      v54 = objc_msgSend_objectAtIndex_(v12, v34, 0);
-      v62 = v28;
-      v65 = objc_msgSend_objectAtIndex_(v12, v55, 2);
+      v54 = MEMORY[0x277CCACA8];
+      v77 = objc_msgSend_objectAtIndex_(v14, v44, 0, v45);
+      v87 = v36;
+      v90 = objc_msgSend_objectAtIndex_(v14, v78, 2, v79);
     }
 
-    v59 = v54;
+    v84 = v77;
 LABEL_40:
-    v53 = objc_msgSend_stringWithFormat_(v40, v42, @"%@.%@.%@", v59, v62, v65);
+    v76 = objc_msgSend_stringWithFormat_(v54, v57, @"%@.%@.%@", v58, v84, v87, v90);
     goto LABEL_43;
   }
 

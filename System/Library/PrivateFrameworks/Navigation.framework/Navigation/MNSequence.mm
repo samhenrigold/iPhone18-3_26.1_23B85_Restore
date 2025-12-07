@@ -13,21 +13,19 @@
 
 - (void)_endSequence
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = MNGetMNSequenceLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "%p Sequence ended.", &v5, 0xCu);
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_DEFAULT, "%p Sequence ended.", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finalizeSequenceWithPreviousStepResult:(id)result
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   finalizeHandler = self->_finalizeHandler;
   v6 = MNGetMNSequenceLog();
@@ -43,15 +41,14 @@
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v21 = 0x3032000000;
-    v22 = __Block_byref_object_copy__1729;
-    v23 = __Block_byref_object_dispose__1730;
-    v24 = 0;
-    stepsIsolater = self->_stepsIsolater;
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke;
-    v17 = &unk_1E8430960;
+    v19 = 0x3032000000;
+    v20 = __Block_byref_object_copy__1729;
+    v21 = __Block_byref_object_dispose__1730;
+    v22 = 0;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke;
+    v15 = &unk_1E8430960;
     selfCopy = self;
     p_buf = &buf;
     geo_isolate_sync();
@@ -61,8 +58,8 @@
     block[2] = __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke_2;
     block[3] = &unk_1E842FD80;
     block[4] = self;
-    v13 = &buf;
-    v12 = resultCopy;
+    v11 = &buf;
+    v10 = resultCopy;
     dispatch_async(queue, block);
 
     _Block_object_dispose(&buf, 8);
@@ -79,8 +76,6 @@
 
     [(MNSequence *)self _endSequence];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke(uint64_t a1)
@@ -93,66 +88,62 @@ void __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke(uin
 
 uint64_t __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = MNGetMNSequenceLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v9 = 134217984;
-    v10 = v3;
-    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "%p Running finalizeHandler.", &v9, 0xCu);
+    v7 = 134217984;
+    v8 = v3;
+    _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "%p Running finalizeHandler.", &v7, 0xCu);
   }
 
-  v4 = *(a1 + 40);
   (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
-  v5 = MNGetMNSequenceLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = MNGetMNSequenceLog();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 32);
-    v9 = 134217984;
-    v10 = v6;
-    _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "%p Finished finalizeHandler.", &v9, 0xCu);
+    v5 = *(a1 + 32);
+    v7 = 134217984;
+    v8 = v5;
+    _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_INFO, "%p Finished finalizeHandler.", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) _endSequence];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _endSequence];
 }
 
 - (void)_runNextStepWithPreviousStepResult:(id)result
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__1729;
-  v29 = __Block_byref_object_dispose__1730;
-  v30 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0x7FFFFFFFFFFFFFFFLL;
-  stepsIsolater = self->_stepsIsolater;
-  v14 = MEMORY[0x1E69E9820];
-  v15 = 3221225472;
-  v16 = __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke;
-  v17 = &unk_1E842A548;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__1729;
+  v27 = __Block_byref_object_dispose__1730;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0x7FFFFFFFFFFFFFFFLL;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke;
+  v15 = &unk_1E842A548;
   selfCopy = self;
-  v19 = &v25;
-  v20 = &v21;
+  v17 = &v23;
+  v18 = &v19;
   geo_isolate_sync();
-  if (v26[5])
+  if (v24[5])
   {
-    v6 = MNGetMNSequenceLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = MNGetMNSequenceLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = v22[3];
+      v6 = v20[3];
       *buf = 134218240;
       selfCopy2 = self;
-      v33 = 1024;
-      v34 = v7;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%p Starting step %d.", buf, 0x12u);
+      v31 = 1024;
+      v32 = v6;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_INFO, "%p Starting step %d.", buf, 0x12u);
     }
 
     queue = self->_queue;
@@ -161,9 +152,9 @@ uint64_t __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke
     block[2] = __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_20;
     block[3] = &unk_1E842A8F0;
     block[4] = self;
-    v12 = &v21;
-    v13 = &v25;
-    v11 = resultCopy;
+    v10 = &v19;
+    v11 = &v23;
+    v9 = resultCopy;
     dispatch_async(queue, block);
   }
 
@@ -172,10 +163,8 @@ uint64_t __54__MNSequence__finalizeSequenceWithPreviousStepResult___block_invoke
     [(MNSequence *)self _finalizeSequenceWithPreviousStepResult:resultCopy];
   }
 
-  _Block_object_dispose(&v21, 8);
-  _Block_object_dispose(&v25, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke(void *a1)
@@ -195,49 +184,47 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke(void *a1
 
 uint64_t __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_20(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MNGetMNSequenceLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = a1[4];
     v4 = *(*(a1[6] + 8) + 24);
     *buf = 134218240;
-    v15 = v3;
-    v16 = 1024;
-    v17 = v4;
+    v14 = v3;
+    v15 = 1024;
+    v16 = v4;
     _os_log_impl(&dword_1D311E000, v2, OS_LOG_TYPE_INFO, "%p Running step %d.", buf, 0x12u);
   }
 
   v5 = *(*(a1[7] + 8) + 40);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21;
-  v13[3] = &unk_1E842A570;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21;
+  v12[3] = &unk_1E842A570;
   v6 = a1[5];
   v7 = a1[6];
-  v13[4] = a1[4];
-  v13[5] = v7;
-  result = (*(v5 + 16))(v5, v6, v13, v8, v9, v10);
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  v12[4] = a1[4];
+  v12[5] = v7;
+  return (*(v5 + 16))(v5, v6, v12, v8, v9, v10);
 }
 
 void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint64_t a1, void *a2, int a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = MNGetMNSequenceLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = *(a1 + 32);
     v8 = *(*(*(a1 + 40) + 8) + 24);
-    v11 = 134218496;
-    v12 = v7;
-    v13 = 1024;
-    v14 = v8;
-    v15 = 1024;
-    v16 = a3;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%p Finished step %d. shouldContinue: %d", &v11, 0x18u);
+    v10 = 134218496;
+    v11 = v7;
+    v12 = 1024;
+    v13 = v8;
+    v14 = 1024;
+    v15 = a3;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_INFO, "%p Finished step %d. shouldContinue: %d", &v10, 0x18u);
   }
 
   v9 = *(a1 + 32);
@@ -250,30 +237,28 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
   {
     [v9 _finalizeSequenceWithPreviousStepResult:v5];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_isStarted)
   {
     v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MNSequence has already been started."];
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8 = 136316162;
+      v7 = 136316162;
       selfCopy = "[MNSequence start]";
-      v10 = 2080;
-      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
-      v12 = 1024;
-      v13 = 74;
-      v14 = 2080;
-      v15 = "NO";
-      v16 = 2112;
-      v17 = v2;
-      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v8, 0x30u);
+      v9 = 2080;
+      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
+      v11 = 1024;
+      v12 = 74;
+      v13 = 2080;
+      v14 = "NO";
+      v15 = 2112;
+      v16 = v2;
+      _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", &v7, 0x30u);
     }
   }
 
@@ -283,23 +268,21 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [(NSMutableArray *)self->_steps count];
-      v8 = 134218240;
+      v7 = 134218240;
       selfCopy = self;
-      v10 = 1024;
-      LODWORD(v11) = v6;
-      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%p Starting sequence with %d steps.", &v8, 0x12u);
+      v9 = 1024;
+      LODWORD(v10) = v6;
+      _os_log_impl(&dword_1D311E000, v5, OS_LOG_TYPE_DEFAULT, "%p Starting sequence with %d steps.", &v7, 0x12u);
     }
 
     self->_isStarted = 1;
     [(MNSequence *)self _runNextStepWithPreviousStepResult:0];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSequenceFinalizeHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self->_isStarted)
   {
@@ -307,23 +290,23 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      *v10 = 136316162;
-      *&v10[4] = "[MNSequence setSequenceFinalizeHandler:]";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
-      v13 = 1024;
-      v14 = 63;
-      v15 = 2080;
-      v16 = "NO";
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v10, 0x30u);
+      *v9 = 136316162;
+      *&v9[4] = "[MNSequence setSequenceFinalizeHandler:]";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
+      v12 = 1024;
+      v13 = 63;
+      v14 = 2080;
+      v15 = "NO";
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v9, 0x30u);
     }
   }
 
   else
   {
-    *v10 = self->_stepsIsolater;
+    *v9 = self->_stepsIsolater;
     _geo_isolate_lock();
     v7 = _Block_copy(handlerCopy);
     finalizeHandler = self->_finalizeHandler;
@@ -331,13 +314,11 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
 
     _geo_isolate_unlock();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addStep:(id)step
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   stepCopy = step;
   v5 = stepCopy;
   if (self->_isStarted)
@@ -346,23 +327,23 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
     v7 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      *v14 = 136316162;
-      *&v14[4] = "[MNSequence addStep:]";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
-      v17 = 1024;
-      v18 = 47;
-      v19 = 2080;
-      v20 = "NO";
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v14, 0x30u);
+      *v13 = 136316162;
+      *&v13[4] = "[MNSequence addStep:]";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
+      v16 = 1024;
+      v17 = 47;
+      v18 = 2080;
+      v19 = "NO";
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s) %@", v13, 0x30u);
     }
   }
 
   else if (stepCopy)
   {
-    *v14 = self->_stepsIsolater;
+    *v13 = self->_stepsIsolater;
     _geo_isolate_lock();
     steps = self->_steps;
     if (!steps)
@@ -380,13 +361,11 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
 
     _geo_isolate_unlock();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!self->_isStarted)
   {
     v3 = MNGetMNSequenceLog();
@@ -402,20 +381,19 @@ void __49__MNSequence__runNextStepWithPreviousStepResult___block_invoke_21(uint6
     {
       *buf = 136315906;
       selfCopy = "[MNSequence dealloc]";
-      v9 = 2080;
-      v10 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
-      v11 = 1024;
-      v12 = 40;
-      v13 = 2080;
-      v14 = "NO";
+      v8 = 2080;
+      v9 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Extras/MNSequence.m";
+      v10 = 1024;
+      v11 = 40;
+      v12 = 2080;
+      v13 = "NO";
       _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: (%s)", buf, 0x26u);
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = MNSequence;
-  [(MNSequence *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MNSequence;
+  [(MNSequence *)&v5 dealloc];
 }
 
 - (MNSequence)initWithQueue:(id)queue

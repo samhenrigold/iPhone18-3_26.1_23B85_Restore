@@ -12,34 +12,30 @@
 
 - (APSUserPreferences)userPreferences
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___APSUserDependencies_userPreferences);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (APSClientIdentityProvider)clientIdentityProvider
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___APSUserDependencies_clientIdentityProvider);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (APSSystemTokenStorage)systemTokenStorage
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___APSUserDependencies_systemTokenStorage);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (APSUserAppIDManager)userAppIDManager
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___APSUserDependencies_userAppIDManager);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (APSUserDependencies)initWithClientIdentityProvider:(id)provider systemTokenStorage:(id)storage userPreferences:(id)preferences userAppIDManager:(id)manager

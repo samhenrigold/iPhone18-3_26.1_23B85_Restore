@@ -30,7 +30,7 @@
 
 - (id)wf_contentItemFromLinkValue:()ContentItem appBundleIdentifier:displayedBundleIdentifier:teamIdentifier:disclosureLevel:
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v12 = a3;
   v13 = a4;
   v14 = MEMORY[0x1E696E720];
@@ -91,9 +91,9 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v38 = "[LNValueType(ContentItem) wf_contentItemFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:teamIdentifier:disclosureLevel:]";
-      v39 = 2112;
-      v40 = v13;
+      v37 = "[LNValueType(ContentItem) wf_contentItemFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:teamIdentifier:disclosureLevel:]";
+      v38 = 2112;
+      v39 = v13;
       v28 = "%s Couldn't find a Link content item class for bundleIdentifier: %@";
       v29 = v27;
       v30 = 22;
@@ -112,11 +112,11 @@ LABEL_20:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315650;
-      v38 = "[LNValueType(ContentItem) wf_contentItemFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:teamIdentifier:disclosureLevel:]";
-      v39 = 2112;
-      v40 = v26;
-      v41 = 2112;
-      v42 = v13;
+      v37 = "[LNValueType(ContentItem) wf_contentItemFromLinkValue:appBundleIdentifier:displayedBundleIdentifier:teamIdentifier:disclosureLevel:]";
+      v38 = 2112;
+      v39 = v26;
+      v40 = 2112;
+      v41 = v13;
       v28 = "%s Can't handle ambiguous content item classes %@ for bundleIdentifier: %@";
       v29 = v27;
       v30 = 32;
@@ -130,23 +130,22 @@ LABEL_19:
 
   firstObject = [v26 firstObject];
   value2 = [v12 value];
-  v36 = [MEMORY[0x1E6996D60] configurationWithOrigin:v24 disclosureLevel:a7];
-  v31 = [firstObject itemWithObject:value2 privacyConfiguration:v36];
+  v35 = [MEMORY[0x1E6996D60] configurationWithOrigin:v24 disclosureLevel:a7];
+  v31 = [firstObject itemWithObject:value2 privacyConfiguration:v35];
 
 LABEL_21:
-  v32 = *MEMORY[0x1E69E9840];
 
   return v31;
 }
 
 - (id)wf_contentItemClassesWithAppBundleIdentifier:()ContentItem
 {
-  v5[1] = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
   v1 = [self wf_contentItemClassWithAppBundleIdentifier:?];
   if (v1)
   {
-    v5[0] = v1;
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
+    v4[0] = v1;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
   }
 
   else
@@ -154,30 +153,27 @@ LABEL_21:
     v2 = MEMORY[0x1E695E0F0];
   }
 
-  v3 = *MEMORY[0x1E69E9840];
-
   return v2;
 }
 
 - (uint64_t)wf_contentItemClassWithAppBundleIdentifier:()ContentItem
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = getWFAppIntentsLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     v6 = NSStringFromSelector(a2);
-    v9 = 136315650;
-    v10 = "[LNValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
-    v11 = 2112;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_FAULT, "%s [%@ %@] must be overridden", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[LNValueType(ContentItem) wf_contentItemClassWithAppBundleIdentifier:]";
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_FAULT, "%s [%@ %@] must be overridden", &v8, 0x20u);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

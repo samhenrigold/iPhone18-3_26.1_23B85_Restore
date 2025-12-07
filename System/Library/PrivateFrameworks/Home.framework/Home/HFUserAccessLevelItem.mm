@@ -7,9 +7,9 @@
 
 - (unint64_t)cameraAccessLevel
 {
-  home = [(HFUserItem *)self home];
+  v3 = objc_msgSend_home(self, a2);
   user = [(HFUserItem *)self user];
-  v5 = [home homeAccessControlForUser:user];
+  v5 = [v3 homeAccessControlForUser:user];
   camerasAccessLevel = [v5 camerasAccessLevel];
 
   return camerasAccessLevel;

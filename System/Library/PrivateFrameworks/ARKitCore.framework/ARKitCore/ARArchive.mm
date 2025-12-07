@@ -91,7 +91,7 @@
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = archive_write_new();
   if (v7)
@@ -101,71 +101,71 @@
     [lCopy fileSystemRepresentation];
     if (archive_write_open_filename())
     {
-      archive_write_free();
+      v9 = archive_write_free();
     }
 
     else
     {
-      v16 = [(ARArchive *)self _writeToArchive:v8];
-      archive_write_free();
-      if (v16)
+      v18 = [(ARArchive *)self _writeToArchive:v8];
+      v9 = archive_write_free();
+      if (v18)
       {
         LOBYTE(error) = 1;
         goto LABEL_15;
       }
     }
 
-    v17 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _ARLogGeneral_47(v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       path = [lCopy path];
       *buf = 138543875;
-      v27 = v19;
-      v28 = 2048;
+      v29 = v21;
+      v30 = 2048;
       selfCopy2 = self;
-      v30 = 2113;
-      v31 = path;
-      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to write to archive at path: %{private}@.", buf, 0x20u);
+      v32 = 2113;
+      v33 = path;
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to write to archive at path: %{private}@.", buf, 0x20u);
     }
 
     if (error)
     {
-      v22 = *MEMORY[0x1E696A998];
-      v23 = lCopy;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+      v24 = *MEMORY[0x1E696A998];
+      v25 = lCopy;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
       goto LABEL_14;
     }
   }
 
   else
   {
-    v9 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _ARLogGeneral_47(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       path2 = [lCopy path];
       *buf = 138543875;
-      v27 = v11;
-      v28 = 2048;
+      v29 = v12;
+      v30 = 2048;
       selfCopy2 = self;
-      v30 = 2113;
-      v31 = path2;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create archive at path: %{private}@.", buf, 0x20u);
+      v32 = 2113;
+      v33 = path2;
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create archive at path: %{private}@.", buf, 0x20u);
     }
 
     if (error)
     {
-      v24 = *MEMORY[0x1E696A588];
-      v13 = ARKitCoreBundle();
-      v14 = [v13 localizedStringForKey:@"Unable to create archive." value:&stru_1F4208A80 table:@"Localizable"];
-      v25 = v14;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v26 = *MEMORY[0x1E696A588];
+      v15 = ARKitCoreBundle(v14);
+      v16 = [v15 localizedStringForKey:@"Unable to create archive." value:&stru_1F4208A80 table:@"Localizable"];
+      v27 = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
 
 LABEL_14:
-      *error = ARErrorWithCodeAndUserInfo(500, v15);
+      *error = ARErrorWithCodeAndUserInfo(500, v17);
 
       LOBYTE(error) = 0;
     }
@@ -178,7 +178,7 @@ LABEL_15:
 
 - (id)dataRepresentation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = archive_write_new();
   if (v3)
   {
@@ -187,79 +187,79 @@ LABEL_15:
     archive_write_set_format_zip();
     if (archive_write_open())
     {
-      archive_write_free();
+      v6 = archive_write_free();
     }
 
     else
     {
-      v8 = [(ARArchive *)self _writeToArchive:v4];
-      archive_write_free();
-      if (v8)
+      v9 = [(ARArchive *)self _writeToArchive:v4];
+      v6 = archive_write_free();
+      if (v9)
       {
         v5 = v5;
-        v9 = v5;
+        v10 = v5;
         goto LABEL_12;
       }
     }
 
-    v7 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ARLogGeneral_47(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v13 = 138543618;
-      v14 = v11;
-      v15 = 2048;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2048;
       selfCopy2 = self;
-      _os_log_impl(&dword_1C241C000, v7, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to write archive to memory", &v13, 0x16u);
+      _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to write archive to memory", &v14, 0x16u);
     }
 
     goto LABEL_10;
   }
 
-  v5 = _ARLogGeneral_47();
+  v5 = _ARLogGeneral_47(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v13 = 138543618;
-    v14 = v7;
-    v15 = 2048;
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2048;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create archive.", &v13, 0x16u);
+    _os_log_impl(&dword_1C241C000, v5, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to create archive.", &v14, 0x16u);
 LABEL_10:
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_12:
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)_loadArchiveFromMemory:(id)memory error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v45[1] = *MEMORY[0x1E69E9840];
   memoryCopy = memory;
   if (!memoryCopy)
   {
     if (!error)
     {
 LABEL_15:
-      v21 = 0;
+      v24 = 0;
       goto LABEL_16;
     }
 
-    v39 = *MEMORY[0x1E696A588];
-    v12 = ARKitCoreBundle();
-    v13 = [v12 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
-    v40[0] = v13;
-    v14 = MEMORY[0x1E695DF20];
-    v15 = v40;
-    v16 = &v39;
+    v44 = *MEMORY[0x1E696A588];
+    v14 = ARKitCoreBundle(0);
+    v15 = [v14 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
+    v45[0] = v15;
+    v16 = MEMORY[0x1E695DF20];
+    v17 = v45;
+    v18 = &v44;
 LABEL_14:
-    v20 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
+    v23 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
 
-    *error = ARErrorWithCodeAndUserInfo(500, v20);
+    *error = ARErrorWithCodeAndUserInfo(500, v23);
 
     goto LABEL_15;
   }
@@ -267,16 +267,16 @@ LABEL_14:
   _createArchiveForReading = [(ARArchive *)self _createArchiveForReading];
   if (!_createArchiveForReading)
   {
-    v17 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _ARLogGeneral_47(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v18 = objc_opt_class();
-      v19 = NSStringFromClass(v18);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138543618;
-      v36 = v19;
-      v37 = 2048;
+      v41 = v21;
+      v42 = 2048;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C241C000, v17, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
     }
 
     if (!error)
@@ -284,13 +284,13 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v33 = *MEMORY[0x1E696A588];
-    v12 = ARKitCoreBundle();
-    v13 = [v12 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
-    v34 = v13;
-    v14 = MEMORY[0x1E695DF20];
-    v15 = &v34;
-    v16 = &v33;
+    v38 = *MEMORY[0x1E696A588];
+    v14 = ARKitCoreBundle(v22);
+    v15 = [v14 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
+    v39 = v15;
+    v16 = MEMORY[0x1E695DF20];
+    v17 = &v39;
+    v18 = &v38;
     goto LABEL_14;
   }
 
@@ -299,17 +299,17 @@ LABEL_14:
   [memoryCopy length];
   if (archive_read_open_memory())
   {
-    archive_read_free();
-    v9 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    free = archive_read_free();
+    v10 = _ARLogGeneral_47(free);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       *buf = 138543618;
-      v36 = v11;
-      v37 = 2048;
+      v41 = v12;
+      v42 = 2048;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v10, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
     }
 
     if (!error)
@@ -317,65 +317,66 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v31 = *MEMORY[0x1E696A588];
-    v12 = ARKitCoreBundle();
-    v13 = [v12 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
-    v32 = v13;
-    v14 = MEMORY[0x1E695DF20];
-    v15 = &v32;
-    v16 = &v31;
+    v36 = *MEMORY[0x1E696A588];
+    v14 = ARKitCoreBundle(v13);
+    v15 = [v14 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:@"Localizable"];
+    v37 = v15;
+    v16 = MEMORY[0x1E695DF20];
+    v17 = &v37;
+    v18 = &v36;
     goto LABEL_14;
   }
 
-  v21 = [(ARArchive *)self _readDataFromArchive:v8];
-  if (!v21)
+  v26 = [(ARArchive *)self _readDataFromArchive:v8];
+  v24 = v26;
+  if ((v26 & 1) == 0)
   {
-    v23 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v27 = _ARLogGeneral_47(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138543618;
-      v36 = v25;
-      v37 = 2048;
+      v41 = v29;
+      v42 = 2048;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from memory", buf, 0x16u);
     }
 
     if (error)
     {
-      v29 = *MEMORY[0x1E696A588];
-      v26 = ARKitCoreBundle();
-      v27 = [v26 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:{@"Localizable", v29}];
-      v30 = v27;
-      v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v34 = *MEMORY[0x1E696A588];
+      v31 = ARKitCoreBundle(v30);
+      v32 = [v31 localizedStringForKey:@"Unable to read archive from memory." value:&stru_1F4208A80 table:{@"Localizable", v34}];
+      v35 = v32;
+      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
 
-      *error = ARErrorWithCodeAndUserInfo(500, v28);
+      *error = ARErrorWithCodeAndUserInfo(500, v33);
     }
   }
 
   archive_read_free();
 LABEL_16:
 
-  return v21;
+  return v24;
 }
 
 - (BOOL)_loadArchiveFromURL:(id)l error:(id *)error
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!lCopy)
   {
-    v18 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _ARLogGeneral_47(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
       *buf = 138543618;
-      v41 = v20;
-      v42 = 2048;
+      v43 = v21;
+      v44 = 2048;
       selfCopy4 = self;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from nil URL", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Cannot read archive from nil URL", buf, 0x16u);
     }
 
     if (!error)
@@ -383,30 +384,30 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v46 = *MEMORY[0x1E696A998];
-    v47[0] = @"NULL";
-    v15 = MEMORY[0x1E695DF20];
-    v16 = v47;
-    v17 = &v46;
+    v48 = *MEMORY[0x1E696A998];
+    v49[0] = @"NULL";
+    v16 = MEMORY[0x1E695DF20];
+    v17 = v49;
+    v18 = &v48;
     goto LABEL_16;
   }
 
   _createArchiveForReading = [(ARArchive *)self _createArchiveForReading];
   if (!_createArchiveForReading)
   {
-    v21 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _ARLogGeneral_47(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       path = [lCopy path];
       *buf = 138543875;
-      v41 = v23;
-      v42 = 2048;
+      v43 = v24;
+      v44 = 2048;
       selfCopy4 = self;
-      v44 = 2113;
-      v45 = path;
-      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
+      v46 = 2113;
+      v47 = path;
+      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
     }
 
     if (!error)
@@ -414,11 +415,11 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v38 = *MEMORY[0x1E696A998];
-    v39 = lCopy;
-    v15 = MEMORY[0x1E695DF20];
-    v16 = &v39;
-    v17 = &v38;
+    v40 = *MEMORY[0x1E696A998];
+    v41 = lCopy;
+    v16 = MEMORY[0x1E695DF20];
+    v17 = &v41;
+    v18 = &v40;
     goto LABEL_16;
   }
 
@@ -429,20 +430,20 @@ LABEL_16:
 
   if (open_filename)
   {
-    archive_read_free();
-    v11 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    free = archive_read_free();
+    v12 = _ARLogGeneral_47(free);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
       path3 = [lCopy path];
       *buf = 138543875;
-      v41 = v13;
-      v42 = 2048;
+      v43 = v14;
+      v44 = 2048;
       selfCopy4 = self;
-      v44 = 2113;
-      v45 = path3;
-      _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
+      v46 = 2113;
+      v47 = path3;
+      _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
     }
 
     if (!error)
@@ -450,55 +451,56 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v36 = *MEMORY[0x1E696A998];
-    v37 = lCopy;
-    v15 = MEMORY[0x1E695DF20];
-    v16 = &v37;
-    v17 = &v36;
+    v38 = *MEMORY[0x1E696A998];
+    v39 = lCopy;
+    v16 = MEMORY[0x1E695DF20];
+    v17 = &v39;
+    v18 = &v38;
 LABEL_16:
-    v25 = [v15 dictionaryWithObjects:v16 forKeys:v17 count:1];
-    *error = ARErrorWithCodeAndUserInfo(500, v25);
+    v26 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
+    *error = ARErrorWithCodeAndUserInfo(500, v26);
 
 LABEL_17:
-    v26 = 0;
+    v27 = 0;
     goto LABEL_18;
   }
 
-  v26 = [(ARArchive *)self _readDataFromArchive:v8];
-  if (!v26)
+  v29 = [(ARArchive *)self _readDataFromArchive:v8];
+  v27 = v29;
+  if ((v29 & 1) == 0)
   {
-    v28 = _ARLogGeneral_47();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = _ARLogGeneral_47(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       path4 = [lCopy path];
       *buf = 138543875;
-      v41 = v30;
-      v42 = 2048;
+      v43 = v32;
+      v44 = 2048;
       selfCopy4 = self;
-      v44 = 2113;
-      v45 = path4;
-      _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
+      v46 = 2113;
+      v47 = path4;
+      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Unable to read archive at path: %{private}@.", buf, 0x20u);
     }
 
     if (error)
     {
-      v34[0] = *MEMORY[0x1E696A588];
-      v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", archive_error_string()];
-      v34[1] = *MEMORY[0x1E696A998];
-      v35[0] = v32;
-      v35[1] = lCopy;
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
+      v36[0] = *MEMORY[0x1E696A588];
+      v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", archive_error_string()];
+      v36[1] = *MEMORY[0x1E696A998];
+      v37[0] = v34;
+      v37[1] = lCopy;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
-      *error = ARErrorWithCodeAndUserInfo(500, v33);
+      *error = ARErrorWithCodeAndUserInfo(500, v35);
     }
   }
 
   archive_read_free();
 LABEL_18:
 
-  return v26;
+  return v27;
 }
 
 - (BOOL)_writeToArchive:(archive *)archive
@@ -613,8 +615,9 @@ LABEL_14:
 - (BOOL)_readDataForEntry:(archive_entry *)entry archive:(archive *)archive
 {
   v4 = (MEMORY[0x1EEE9AC00])(self, a2, entry, archive);
-  v33 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:archive_entry_pathname()];
+  v6 = v5;
   if (!v5)
   {
     if (ARShouldUseLogTypeError_onceToken_53 != -1)
@@ -622,101 +625,103 @@ LABEL_14:
       [ARArchive _readDataForEntry:archive:];
     }
 
-    v8 = ARShouldUseLogTypeError_internalOSVersion_53;
-    v9 = _ARLogGeneral_47();
-    v6 = v9;
-    if (v8 == 1)
+    v10 = ARShouldUseLogTypeError_internalOSVersion_53;
+    v11 = _ARLogGeneral_47(v5);
+    v7 = v11;
+    if (v10 == 1)
     {
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_23;
       }
 
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138543618;
-      v30 = v11;
-      v31 = 2048;
-      v32 = v4;
-      v12 = "%{public}@ <%p>: Unable to construct path";
-      v13 = v6;
-      v14 = OS_LOG_TYPE_ERROR;
+      v32 = v13;
+      v33 = 2048;
+      v34 = v4;
+      v14 = "%{public}@ <%p>: Unable to construct path";
+      v15 = v7;
+      v16 = OS_LOG_TYPE_ERROR;
     }
 
     else
     {
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         goto LABEL_23;
       }
 
-      v22 = objc_opt_class();
-      v11 = NSStringFromClass(v22);
+      v24 = objc_opt_class();
+      v13 = NSStringFromClass(v24);
       *buf = 138543618;
-      v30 = v11;
-      v31 = 2048;
-      v32 = v4;
-      v12 = "Error: %{public}@ <%p>: Unable to construct path";
-      v13 = v6;
-      v14 = OS_LOG_TYPE_INFO;
+      v32 = v13;
+      v33 = 2048;
+      v34 = v4;
+      v14 = "Error: %{public}@ <%p>: Unable to construct path";
+      v15 = v7;
+      v16 = OS_LOG_TYPE_INFO;
     }
 
-    _os_log_impl(&dword_1C241C000, v13, v14, v12, buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v15, v16, v14, buf, 0x16u);
     goto LABEL_22;
   }
 
-  v6 = objc_alloc_init(MEMORY[0x1E695DF88]);
+  v7 = objc_alloc_init(MEMORY[0x1E695DF88]);
   data = archive_read_data();
+  v9 = data;
   if (data >= 1)
   {
     do
     {
-      [v6 appendBytes:buf length:data];
+      [v7 appendBytes:buf length:v9];
       data = archive_read_data();
+      v9 = data;
     }
 
     while (data > 0);
   }
 
-  if (data < 0)
+  if (v9 < 0)
   {
     if (ARShouldUseLogTypeError_onceToken_53 != -1)
     {
       [ARArchive _readDataForEntry:archive:];
     }
 
-    v15 = ARShouldUseLogTypeError_internalOSVersion_53;
-    v16 = _ARLogGeneral_47();
-    v11 = v16;
-    if (v15 == 1)
+    v17 = ARShouldUseLogTypeError_internalOSVersion_53;
+    v18 = _ARLogGeneral_47(data);
+    v13 = v18;
+    if (v17 == 1)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = objc_opt_class();
-        v18 = NSStringFromClass(v17);
-        v25 = 138543618;
-        v26 = v18;
-        v27 = 2048;
-        v28 = v4;
-        v19 = "%{public}@ <%p>: Could not read data to buffer.";
-        v20 = v11;
-        v21 = OS_LOG_TYPE_ERROR;
+        v19 = objc_opt_class();
+        v20 = NSStringFromClass(v19);
+        v27 = 138543618;
+        v28 = v20;
+        v29 = 2048;
+        v30 = v4;
+        v21 = "%{public}@ <%p>: Could not read data to buffer.";
+        v22 = v13;
+        v23 = OS_LOG_TYPE_ERROR;
 LABEL_21:
-        _os_log_impl(&dword_1C241C000, v20, v21, v19, &v25, 0x16u);
+        _os_log_impl(&dword_1C241C000, v22, v23, v21, &v27, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v23 = objc_opt_class();
-      v18 = NSStringFromClass(v23);
-      v25 = 138543618;
-      v26 = v18;
-      v27 = 2048;
-      v28 = v4;
-      v19 = "Error: %{public}@ <%p>: Could not read data to buffer.";
-      v20 = v11;
-      v21 = OS_LOG_TYPE_INFO;
+      v25 = objc_opt_class();
+      v20 = NSStringFromClass(v25);
+      v27 = 138543618;
+      v28 = v20;
+      v29 = 2048;
+      v30 = v4;
+      v21 = "Error: %{public}@ <%p>: Could not read data to buffer.";
+      v22 = v13;
+      v23 = OS_LOG_TYPE_INFO;
       goto LABEL_21;
     }
 
@@ -725,7 +730,7 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  [*(v4 + 8) setObject:v6 forKeyedSubscript:v5];
+  [*(v4 + 8) setObject:v7 forKeyedSubscript:v6];
 LABEL_23:
 
   return 0;

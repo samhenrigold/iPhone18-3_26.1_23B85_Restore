@@ -33,9 +33,8 @@
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_So9IRContextCtGMd, &_ss23_ContiguousArrayStorageCySS_So9IRContextCtGMR);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_2554B27D0;
-  v4 = *MEMORY[0x277D21248];
   *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  *(inited + 40) = v5;
+  *(inited + 40) = v4;
   selfCopy = self;
   *(inited + 48) = [(IRServicePackageAdapterHome *)selfCopy context];
   _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_So9IRContextCTt0g5Tf4g_nTm(inited, &_ss18_DictionaryStorageCySSSo9IRContextCGMd, &_ss18_DictionaryStorageCySSSo9IRContextCGMR);
@@ -43,9 +42,9 @@
   outlined destroy of (String, IRContext)(inited + 32);
 
   type metadata accessor for IRCandidateResult(0, &lazy cache variable for type metadata for IRContext, 0x277D212A8);
-  v7.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  return v7.super.isa;
+  return v6.super.isa;
 }
 
 - (NSDictionary)policyInspections
@@ -61,11 +60,10 @@
 {
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20]();
-  v11 = &v13 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
   return 0;
 }
 
@@ -94,9 +92,8 @@
 {
   v15 = type metadata accessor for Date();
   v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
   MEMORY[0x28223BE20](v15);
-  v19 = &v27 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = &v26 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   containerCopy = container;
   stateCopy = state;
@@ -104,9 +101,9 @@
   predictionCopy = prediction;
   deviceContainerCopy = deviceContainer;
   selfCopy = self;
-  LOBYTE(prediction) = specialized IRServicePackageAdapterHome.generateClassifications(withCandiatesContainer:systemState:historyEventsContainer:miloPrediction:nearbyDeviceContainer:fillInspection:date:)(containerCopy, eventsContainerCopy, prediction, v19);
+  LOBYTE(prediction) = specialized IRServicePackageAdapterHome.generateClassifications(withCandiatesContainer:systemState:historyEventsContainer:miloPrediction:nearbyDeviceContainer:fillInspection:date:)(containerCopy, eventsContainerCopy, prediction, v18);
 
-  (*(v16 + 8))(v19, v15);
+  (*(v16 + 8))(v18, v15);
   return prediction & 1;
 }
 

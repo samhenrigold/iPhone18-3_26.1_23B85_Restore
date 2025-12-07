@@ -105,9 +105,11 @@
 
 uint64_t __55__SBHIconViewContextMenuStateController_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(SBHIconViewContextMenuStateController);
+  v0 = objc_alloc_init(SBHIconViewContextMenuStateController);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)registerIconView:(id)view
@@ -216,128 +218,135 @@ LABEL_5:
 
 - (void)dismissAppIconForceTouchControllers:(id)controllers
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   controllersCopy = controllers;
-  v47[0] = 0;
-  v47[1] = v47;
-  v47[2] = 0x2020000000;
-  v48 = 0;
+  v50[0] = 0;
+  v50[1] = v50;
+  v50[2] = 0x2020000000;
+  v51 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke;
   aBlock[3] = &unk_1E80898B0;
-  v46 = v47;
+  v49 = v50;
   aBlock[4] = self;
-  v25 = controllersCopy;
-  v45 = v25;
-  v26 = _Block_copy(aBlock);
-  v27 = objc_opt_new();
+  v28 = controllersCopy;
+  v48 = v28;
+  v29 = _Block_copy(aBlock);
+  v30 = objc_opt_new();
   v5 = MEMORY[0x1E695DFD8];
   allObjects = [(NSHashTable *)self->_iconViewsAnimatingContextMenues allObjects];
   v7 = [v5 setWithArray:allObjects];
-  [v27 unionSet:v7];
+  [v30 unionSet:v7];
 
   v8 = MEMORY[0x1E695DFD8];
   allObjects2 = [(NSHashTable *)self->_iconViewsPresentingContextMenues allObjects];
   v10 = [v8 setWithArray:allObjects2];
-  [v27 unionSet:v10];
+  [v30 unionSet:v10];
 
-  v28 = [v27 mutableCopy];
-  if ([v28 count])
+  v31 = [v30 mutableCopy];
+  v11 = [v31 count];
+  if (v11)
   {
-    v11 = SBLogIcon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = SBLogIcon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v51 = v27;
-      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Starting mass dismissal of all presented icon view context menues: %{public}@", buf, 0xCu);
+      v54 = v30;
+      _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "Starting mass dismissal of all presented icon view context menues: %{public}@", buf, 0xCu);
     }
 
-    v12 = dispatch_group_create();
-    for (i = [v27 count]; i; --i)
+    v13 = dispatch_group_create();
+    for (i = [v30 count]; i; --i)
     {
-      dispatch_group_enter(v12);
+      dispatch_group_enter(v13);
     }
 
-    v42 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v14 = [v27 copy];
-    v15 = [v14 countByEnumeratingWithState:&v40 objects:v49 count:16];
-    if (v15)
+    v44 = 0u;
+    v15 = [v30 copy];
+    v16 = [v15 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    v17 = v16;
+    if (v16)
     {
-      v16 = *v41;
-      v17 = MEMORY[0x1E69E9820];
+      v18 = *v44;
+      v19 = MEMORY[0x1E69E9820];
       do
       {
-        for (j = 0; j != v15; ++j)
+        v20 = 0;
+        do
         {
-          if (*v41 != v16)
+          if (*v44 != v18)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v40 + 1) + 8 * j);
-          v20 = SBLogIcon();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v21 = *(*(&v43 + 1) + 8 * v20);
+          v22 = SBLogIcon(v16);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v51 = v19;
-            _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_DEFAULT, "Dismissing icon force touch controller for icon view: %{public}@", buf, 0xCu);
+            v54 = v21;
+            _os_log_impl(&dword_1BEB18000, v22, OS_LOG_TYPE_DEFAULT, "Dismissing icon force touch controller for icon view: %{public}@", buf, 0xCu);
           }
 
-          v37[0] = v17;
-          v37[1] = 3221225472;
-          v37[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_22;
-          v37[3] = &unk_1E8088F88;
-          v37[4] = v19;
-          v38 = v28;
-          v39 = v12;
-          [v19 dismissContextMenuWithCompletion:v37];
+          v40[0] = v19;
+          v40[1] = 3221225472;
+          v40[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_22;
+          v40[3] = &unk_1E8088F88;
+          v40[4] = v21;
+          v41 = v31;
+          v42 = v13;
+          [v21 dismissContextMenuWithCompletion:v40];
+
+          ++v20;
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v40 objects:v49 count:16];
+        while (v17 != v20);
+        v16 = [v15 countByEnumeratingWithState:&v43 objects:v52 count:16];
+        v17 = v16;
       }
 
-      while (v15);
+      while (v16);
     }
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_23;
     block[3] = &unk_1E80898D8;
-    v21 = v26;
-    v36 = v21;
-    v22 = v27;
-    v35 = v22;
-    v23 = MEMORY[0x1E69E96A0];
-    dispatch_group_notify(v12, MEMORY[0x1E69E96A0], block);
-    v24 = dispatch_time(0, 1000000000);
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_2;
-    v29[3] = &unk_1E8089900;
-    v33 = v47;
-    v30 = v28;
-    v32 = v21;
-    v31 = v22;
-    dispatch_after(v24, v23, v29);
+    v23 = v29;
+    v39 = v23;
+    v24 = v30;
+    v38 = v24;
+    v25 = MEMORY[0x1E69E96A0];
+    dispatch_group_notify(v13, MEMORY[0x1E69E96A0], block);
+    v26 = dispatch_time(0, 1000000000);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_2;
+    v32[3] = &unk_1E8089900;
+    v36 = v50;
+    v33 = v31;
+    v35 = v23;
+    v34 = v24;
+    dispatch_after(v26, v25, v32);
   }
 
   else
   {
-    (*(v26 + 2))(v26, MEMORY[0x1E695E0F0]);
-    v12 = SBLogIcon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v27 = (*(v29 + 2))(v29, MEMORY[0x1E695E0F0]);
+    v13 = SBLogIcon(v27);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v51 = v27;
-      _os_log_impl(&dword_1BEB18000, v12, OS_LOG_TYPE_DEFAULT, "No need for mass dismissal of all presented icon view context menues: %{public}@", buf, 0xCu);
+      v54 = v30;
+      _os_log_impl(&dword_1BEB18000, v13, OS_LOG_TYPE_DEFAULT, "No need for mass dismissal of all presented icon view context menues: %{public}@", buf, 0xCu);
     }
   }
 
-  _Block_object_dispose(v47, 8);
+  _Block_object_dispose(v50, 8);
 }
 
 void __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke(uint64_t a1, void *a2)
@@ -400,7 +409,7 @@ void __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControl
 void __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_22(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = SBLogIcon();
+  v2 = SBLogIcon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -424,7 +433,7 @@ void __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControl
 {
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    v2 = SBLogIcon();
+    v2 = SBLogIcon(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __77__SBHIconViewContextMenuStateController_dismissAppIconForceTouchControllers___block_invoke_2_cold_1(a1, v2);

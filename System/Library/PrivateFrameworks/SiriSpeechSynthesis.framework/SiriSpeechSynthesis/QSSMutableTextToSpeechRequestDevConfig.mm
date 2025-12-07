@@ -4,10 +4,18 @@
 - (QSSMutableTextToSpeechRequestDevConfig)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setResource_asset_path:(id)resource_asset_path;
+- (void)setReturn_log:(BOOL)return_log;
+- (void)setReturn_server_info:(BOOL)return_server_info;
 - (void)setVoice_asset_path:(id)voice_asset_path;
 @end
 
 @implementation QSSMutableTextToSpeechRequestDevConfig
+
+- (void)setReturn_server_info:(BOOL)return_server_info
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:return_server_info];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)return_server_info
 {
@@ -26,6 +34,12 @@
 - (void)setVoice_asset_path:(id)voice_asset_path
 {
   v4 = [voice_asset_path copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setReturn_log:(BOOL)return_log
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:return_log];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

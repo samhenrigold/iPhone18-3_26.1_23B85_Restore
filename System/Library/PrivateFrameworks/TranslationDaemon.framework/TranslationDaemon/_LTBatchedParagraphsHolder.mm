@@ -53,28 +53,28 @@
 
 - (id)paragraphs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_orderedParagraphIds;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSMutableDictionary *)self->_paragraphs objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i), v13];
+        v9 = [(NSMutableDictionary *)self->_paragraphs objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i), v12];
         requestParagraph = [v9 requestParagraph];
 
         if (requestParagraph)
@@ -83,41 +83,39 @@
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 - (void)completeAllAndCleanWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allValues = [(NSMutableDictionary *)self->_paragraphs allValues];
-  v6 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         completion = [v10 completion];
 
         if (completion)
@@ -127,7 +125,7 @@
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -135,8 +133,6 @@
 
   [(NSMutableDictionary *)self->_paragraphs removeAllObjects];
   [(NSMutableArray *)self->_orderedParagraphIds removeAllObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -129,59 +129,88 @@ void __30__FigCapturePowerMonitor_init__block_invoke(uint64_t a1, int a2)
       v5 = OUTLINED_FUNCTION_1_51();
       if (OUTLINED_FUNCTION_58(v5))
       {
-        v6 = v2;
+        v13 = v2;
       }
 
       else
       {
-        v6 = v2 & 0xFFFFFFFE;
+        v13 = v2 & 0xFFFFFFFE;
       }
 
-      if (v6)
+      if (v13)
       {
-        OUTLINED_FUNCTION_2_40();
-        v2 = v11;
+        *v30 = 136315650;
+        *&v30[4] = "[FigCapturePowerMonitor _powerNotification:]";
+        *&v30[12] = 1024;
+        *&v30[14] = a2;
+        *&v30[18] = 1024;
+        *&v30[20] = 30;
+        LODWORD(v29) = 24;
+        v13 = OUTLINED_FUNCTION_2_40(v13, v6, v7, v8, &dword_1AC90E000, v10, v11, "<<<< FigCapturePowerMonitor >>>> %s: Power level now %d (vs. threshold %d)", v30, v29, *v30, *&v30[8], *&v30[16], *&v30[24], *&v30[32], v31, v32, v33);
+        v14 = v13;
+        v2 = v34;
       }
 
-      OUTLINED_FUNCTION_0_39();
+      else
+      {
+        v14 = 0;
+      }
+
+      OUTLINED_FUNCTION_0_39(v13, v6, v7, v14, v9, v10, v11, v12, v28, v29, *v30, *&v30[8], *&v30[16], *&v30[24], *&v30[32], v31, v32, v33);
     }
 
     FigSimpleMutexLock();
     *(v4 + 44) = a2;
     if (a2 <= 0x1D)
     {
-      v7 = 1.0;
+      v15 = 1.0;
     }
 
     else
     {
-      v7 = 0.0;
+      v15 = 0.0;
     }
 
-    v8 = *(v4 + 40);
-    *(v4 + 40) = v7;
+    v16 = *(v4 + 40);
+    *(v4 + 40) = v15;
     result = FigSimpleMutexUnlock();
-    if (v7 != v8)
+    if (v15 != v16)
     {
       if (dword_1ED844090)
       {
-        v9 = OUTLINED_FUNCTION_1_51();
-        if (OUTLINED_FUNCTION_58(v9))
+        v17 = OUTLINED_FUNCTION_1_51();
+        if (OUTLINED_FUNCTION_58(v17))
         {
-          v10 = v2;
+          v25 = v2;
         }
 
         else
         {
-          v10 = v2 & 0xFFFFFFFE;
+          v25 = v2 & 0xFFFFFFFE;
         }
 
-        if (v10)
+        if (v25)
         {
-          OUTLINED_FUNCTION_2_40();
+          v26 = *(v4 + 44);
+          *v30 = 136315906;
+          *&v30[4] = "[FigCapturePowerMonitor _powerNotification:]";
+          *&v30[12] = 1024;
+          *&v30[14] = a2;
+          *&v30[18] = 2048;
+          *&v30[20] = v15;
+          *&v30[28] = 1024;
+          *&v30[30] = v26;
+          LODWORD(v29) = 34;
+          v25 = OUTLINED_FUNCTION_2_40(v25, v18, v19, v20, &dword_1AC90E000, v22, v23, "<<<< FigCapturePowerMonitor >>>> %s: Power level %d setting maxTorchLevel %g, _powerPressureLevel %d", v30, v29, *v30, *&v30[8], *&v30[16], *&v30[24], *&v30[32], v31, v32, v33);
+          v27 = v25;
         }
 
-        OUTLINED_FUNCTION_0_39();
+        else
+        {
+          v27 = 0;
+        }
+
+        OUTLINED_FUNCTION_0_39(v25, v18, v19, v27, v21, v22, v23, v24, v28, v29, *v30, *&v30[8], *&v30[16], *&v30[24], *&v30[32], v31, v32, v33);
       }
 
       result = *(v4 + 24);

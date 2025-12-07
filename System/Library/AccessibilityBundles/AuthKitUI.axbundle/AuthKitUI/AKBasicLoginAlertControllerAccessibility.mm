@@ -3,6 +3,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_accessibilitySetAlertIdentifier;
 - (void)jiggleAView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation AKBasicLoginAlertControllerAccessibility
@@ -30,6 +31,14 @@
   v3.receiver = self;
   v3.super_class = AKBasicLoginAlertControllerAccessibility;
   [(AKBasicLoginAlertControllerAccessibility *)&v3 _accessibilityLoadAccessibilityInformation];
+  [(AKBasicLoginAlertControllerAccessibility *)self _accessibilitySetAlertIdentifier];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AKBasicLoginAlertControllerAccessibility;
+  [(AKBasicLoginAlertControllerAccessibility *)&v4 viewDidAppear:appear];
   [(AKBasicLoginAlertControllerAccessibility *)self _accessibilitySetAlertIdentifier];
 }
 

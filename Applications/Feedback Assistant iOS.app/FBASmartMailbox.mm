@@ -7,11 +7,11 @@
 - (id)diffableIdentifier
 {
   selfCopy = self;
-  sub_1000855B0();
+  sub_1000855B0(selfCopy, v3);
 
-  v3 = String._bridgeToObjectiveC()();
+  v4 = String._bridgeToObjectiveC()();
 
-  return v3;
+  return v4;
 }
 
 @end

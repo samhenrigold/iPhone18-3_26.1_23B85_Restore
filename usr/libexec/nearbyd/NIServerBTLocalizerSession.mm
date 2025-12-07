@@ -25,6 +25,8 @@
 - (void)findMyAccessoryManager:(id)manager didStopAggressiveAdvertisingOnDevice:(id)device withError:(id)error;
 - (void)handleError:(id)error;
 - (void)invalidate;
+- (void)setCurrentLocalizerState:(int)state;
+- (void)setCurrentTask:(int)task;
 - (void)startRangingAsOwner:(BOOL)owner;
 - (void)stopRangingAsOwner:(BOOL)owner;
 - (void)updatesEngine:(id)engine didUpdateNearbyObjects:(id)objects;
@@ -88,7 +90,7 @@
 
   if (managerCopy)
   {
-    [managerCopy protobufLogger];
+    objc_msgSend_protobufLogger(managerCopy);
     v25 = *buf;
   }
 
@@ -404,7 +406,7 @@
     v14 = getResourcesManager;
     if (getResourcesManager)
     {
-      [getResourcesManager protobufLogger];
+      objc_msgSend_protobufLogger(getResourcesManager);
     }
 
     else
@@ -512,6 +514,46 @@
   sub_100004A08(retstr, [uUIDString UTF8String]);
 
   return result;
+}
+
+- (void)setCurrentTask:(int)task
+{
+  v3 = *&task;
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(NIServerBTLocalizerSession *)self convertToString:v3];
+    uTF8String = [v6 UTF8String];
+    uUID = [(PRRemoteDevice *)self->_beacon UUID];
+    uUIDString = [uUID UUIDString];
+    v10 = 136315394;
+    v11 = uTF8String;
+    v12 = 2080;
+    uTF8String2 = [uUIDString UTF8String];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,setting current task: %s for device %s", &v10, 0x16u);
+  }
+
+  self->_currentTask = v3;
+}
+
+- (void)setCurrentLocalizerState:(int)state
+{
+  v3 = *&state;
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(NIServerBTLocalizerSession *)self convertLocalizerStateToString:v3];
+    uTF8String = [v6 UTF8String];
+    uUID = [(PRRemoteDevice *)self->_beacon UUID];
+    uUIDString = [uUID UUIDString];
+    v10 = 136315394;
+    v11 = uTF8String;
+    v12 = 2080;
+    uTF8String2 = [uUIDString UTF8String];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,setting new localizer state: %s for device %s", &v10, 0x16u);
+  }
+
+  self->_currentLocalizerState = v3;
 }
 
 - (void)evaluateStateMachine
@@ -1281,25 +1323,24 @@ LABEL_15:
       uUIDString = [deviceCopy UUIDString];
       *buf = 136315394;
       uTF8String = [uUIDString UTF8String];
-      v35 = 2112;
-      v36 = errorCopy;
+      v34 = 2112;
+      v35 = errorCopy;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,_accessoryManager didStartUnauthorizedAggressiveAdvertisingOnDevice %s #error:%@", buf, 0x16u);
     }
 
-    v15 = self->_currentTask - 3;
     if (errorCopy)
     {
       if ((self->_currentTask - 3) <= 1)
       {
-        v16 = qword_1009F9820;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v15 = qword_1009F9820;
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           uUIDString2 = [deviceCopy UUIDString];
-          v18 = uUIDString2;
+          v17 = uUIDString2;
           uTF8String2 = [uUIDString2 UTF8String];
           *buf = 136315138;
           uTF8String = uTF8String2;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,reattempt connect for startUTAggressiveAdvertisement on device %s", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,reattempt connect for startUTAggressiveAdvertisement on device %s", buf, 0xCu);
         }
 
         [(CLFindMyAccessoryManager *)self->_accessoryManager connectDevice:deviceCopy];
@@ -1313,16 +1354,16 @@ LABEL_15:
       {
         [(NIServerBTLocalizerSession *)self setCurrentTask:5];
         [(NIServerBTLocalizerSession *)self setCurrentLocalizerState:3];
-        v20 = qword_1009F9820;
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v19 = qword_1009F9820;
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           uUID = [(PRRemoteDevice *)self->_beacon UUID];
           uUIDString3 = [uUID UUIDString];
-          v23 = uUIDString3;
+          v22 = uUIDString3;
           uTF8String3 = [uUIDString3 UTF8String];
           *buf = 136315138;
           uTF8String = uTF8String3;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,setting ut retry timer for device %s", buf, 0xCu);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#ses-bt-loc,setting ut retry timer for device %s", buf, 0xCu);
         }
 
         utRetryTimer = self->_utRetryTimer;
@@ -1331,23 +1372,23 @@ LABEL_15:
           dispatch_source_cancel(utRetryTimer);
         }
 
-        v26 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_clientQueue);
-        v27 = self->_utRetryTimer;
-        self->_utRetryTimer = v26;
+        v25 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_clientQueue);
+        v26 = self->_utRetryTimer;
+        self->_utRetryTimer = v25;
 
-        v28 = self->_utRetryTimer;
-        v29 = dispatch_walltime(0, 110000000000);
-        dispatch_source_set_timer(v28, v29, 0x199C82CC00uLL, 0);
+        v27 = self->_utRetryTimer;
+        v28 = dispatch_walltime(0, 110000000000);
+        dispatch_source_set_timer(v27, v28, 0x199C82CC00uLL, 0);
         objc_initWeak(buf, self);
-        v30 = self->_utRetryTimer;
+        v29 = self->_utRetryTimer;
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3221225472;
         handler[2] = sub_10020D7E8;
         handler[3] = &unk_10098AB18;
-        objc_copyWeak(&v32, buf);
-        dispatch_source_set_event_handler(v30, handler);
+        objc_copyWeak(&v31, buf);
+        dispatch_source_set_event_handler(v29, handler);
         dispatch_resume(self->_utRetryTimer);
-        objc_destroyWeak(&v32);
+        objc_destroyWeak(&v31);
         objc_destroyWeak(buf);
       }
 

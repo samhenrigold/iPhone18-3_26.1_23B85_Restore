@@ -354,7 +354,7 @@ __n128 __71__AVAssetReaderOutput__updateTimeRangesOnFigAssetReaderReturningError
   v4 = *(a1 + 32);
   if (a2)
   {
-    [a2 CMTimeRangeValue];
+    objc_msgSend_CMTimeRangeValue(a2);
   }
 
   else
@@ -516,7 +516,7 @@ __n128 __71__AVAssetReaderOutput__updateTimeRangesOnFigAssetReaderReturningError
       }
 
       memset(&v30, 0, sizeof(v30));
-      if (!v15 || ([v15 CMTimeRangeValue], (v30.start.flags & 0x1D) != 1))
+      if (!v15 || (objc_msgSend_CMTimeRangeValue(v15), (v30.start.flags & 0x1D) != 1))
       {
         v18 = MEMORY[0x1E695DF30];
         v19 = *MEMORY[0x1E695D940];

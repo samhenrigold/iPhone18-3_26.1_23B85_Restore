@@ -53,36 +53,36 @@
 
 - (void)captureConnection
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 40));
     v2 = *(self + 8);
     if (!v2)
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_connectionReference != nil"];
+      v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_connectionReference != nil"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v7 = NSStringFromSelector(sel_captureConnection);
-        v8 = objc_opt_class();
-        v9 = NSStringFromClass(v8);
+        v6 = NSStringFromSelector(sel_captureConnection);
+        v7 = objc_opt_class();
+        v8 = NSStringFromClass(v7);
         *buf = 138544642;
-        v18 = v7;
-        v19 = 2114;
-        v20 = v9;
-        v21 = 2048;
+        v16 = v6;
+        v17 = 2114;
+        v18 = v8;
+        v19 = 2048;
         selfCopy2 = self;
-        v23 = 2114;
-        v24 = @"BSNSXPCTransport.m";
-        v25 = 1024;
-        v26 = 178;
-        v27 = 2114;
-        v28 = v6;
+        v21 = 2114;
+        v22 = @"BSNSXPCTransport.m";
+        v23 = 1024;
+        v24 = 178;
+        v25 = 2114;
+        v26 = v5;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v10 = v6;
-      [v6 UTF8String];
+      v9 = v5;
+      [v5 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A82DE90);
@@ -96,88 +96,80 @@
 
       if (!*(self + 16))
       {
-        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_connection != nil"];
+        v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_connection != nil"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v12 = NSStringFromSelector(sel_captureConnection);
-          v13 = objc_opt_class();
-          NSStringFromClass(v13);
+          v11 = NSStringFromSelector(sel_captureConnection);
+          v12 = objc_opt_class();
+          NSStringFromClass(v12);
           *buf = 138544642;
-          v18 = v12;
-          v14 = v19 = 2114;
-          v20 = v14;
-          v21 = 2048;
+          v16 = v11;
+          v13 = v17 = 2114;
+          v18 = v13;
+          v19 = 2048;
           selfCopy2 = self;
-          v23 = 2114;
-          v24 = @"BSNSXPCTransport.m";
-          v25 = 1024;
-          v26 = 181;
-          v27 = 2114;
-          v28 = v11;
+          v21 = 2114;
+          v22 = @"BSNSXPCTransport.m";
+          v23 = 1024;
+          v24 = 181;
+          v25 = 2114;
+          v26 = v10;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        v15 = v11;
-        [v11 UTF8String];
+        v14 = v10;
+        [v10 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x19A82DF94);
       }
     }
 
-    v5 = *MEMORY[0x1E69E9840];
-
     os_unfair_lock_unlock((self + 40));
-  }
-
-  else
-  {
-    v16 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!self->_lock_invalidated)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_BSNSXPCCallbackTracking must invalidate before dealloc"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_BSNSXPCCallbackTracking must invalidate before dealloc"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v8;
-      v15 = 2048;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BSNSXPCTransport.m";
-      v19 = 1024;
-      v20 = 150;
-      v21 = 2114;
-      v22 = v5;
+      v16 = 2114;
+      v17 = @"BSNSXPCTransport.m";
+      v18 = 1024;
+      v19 = 150;
+      v20 = 2114;
+      v21 = v4;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A82E688);
   }
 
-  v10.receiver = self;
-  v10.super_class = _BSNSXPCCallbackTracking;
-  [(_BSNSXPCCallbackTracking *)&v10 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = _BSNSXPCCallbackTracking;
+  [(_BSNSXPCCallbackTracking *)&v9 dealloc];
 }
 
 - (void)sendError:(BOOL)error isOnQueue:
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock((self + 40));
@@ -190,7 +182,7 @@
       v9 = 0;
 LABEL_26:
 
-      goto LABEL_27;
+      return;
     }
 
     v9 = MEMORY[0x19A908200](*(self + 24));
@@ -214,9 +206,9 @@ LABEL_26:
       v12 = [_BSNSXPCConnectionEvent alloc];
       if (v12)
       {
-        *v23 = v12;
-        *&v23[8] = _BSNSXPCConnectionEvent;
-        v12 = objc_msgSendSuper2(v23, sel_init);
+        *v22 = v12;
+        *&v22[8] = _BSNSXPCConnectionEvent;
+        v12 = objc_msgSendSuper2(v22, sel_init);
         if (v12)
         {
           v12->_code = a2;
@@ -252,29 +244,29 @@ LABEL_23:
       {
         if (!v7)
         {
-          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot call observer with event %@ because connection has deallocated : %@", v6, *(self + 8)];
+          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot call observer with event %@ because connection has deallocated : %@", v6, *(self + 8)];
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v19 = NSStringFromSelector(sel_sendError_isOnQueue_);
-            v20 = objc_opt_class();
-            v21 = NSStringFromClass(v20);
-            *v23 = 138544642;
-            *&v23[4] = v19;
-            *&v23[12] = 2114;
-            *&v23[14] = v21;
-            v24 = 2048;
+            v18 = NSStringFromSelector(sel_sendError_isOnQueue_);
+            v19 = objc_opt_class();
+            v20 = NSStringFromClass(v19);
+            *v22 = 138544642;
+            *&v22[4] = v18;
+            *&v22[12] = 2114;
+            *&v22[14] = v20;
+            v23 = 2048;
             selfCopy = self;
-            v26 = 2114;
-            v27 = @"BSNSXPCTransport.m";
-            v28 = 1024;
-            v29 = 220;
-            v30 = 2114;
-            v31 = v18;
-            _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v23, 0x3Au);
+            v25 = 2114;
+            v26 = @"BSNSXPCTransport.m";
+            v27 = 1024;
+            v28 = 220;
+            v29 = 2114;
+            v30 = v17;
+            _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v22, 0x3Au);
           }
 
-          v22 = v18;
-          [v18 UTF8String];
+          v21 = v17;
+          [v17 UTF8String];
           _bs_set_crash_log_message();
           __break(0);
           JUMPOUT(0x19A838708);
@@ -308,9 +300,6 @@ LABEL_22:
     (v9)[2](v9, v15);
     goto LABEL_22;
   }
-
-LABEL_27:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

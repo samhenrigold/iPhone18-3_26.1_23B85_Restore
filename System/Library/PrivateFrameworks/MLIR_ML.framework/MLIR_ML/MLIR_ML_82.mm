@@ -1,4 +1,4 @@
-uint64_t mlir::mps::NonMaximumSuppressionOpAdaptor::verify(uint64_t a1, uint64_t a2)
+BOOL mlir::mps::NonMaximumSuppressionOpAdaptor::verify(uint64_t a1, uint64_t a2)
 {
   v24 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 32))
@@ -84,33 +84,33 @@ uint64_t mlir::mps::NonMaximumSuppressionOpAdaptor::verify(uint64_t a1, uint64_t
   return v3;
 }
 
-uint64_t mlir::mps::NonMaximumSuppressionOp::inferReturnTypes(mlir::MLIRContext *,std::optional<mlir::Location>,mlir::ValueRange,mlir::DictionaryAttr,mlir::OpaqueProperties,mlir::RegionRange,llvm::SmallVectorImpl<mlir::Type> &)::$_0::operator()(uint64_t a1, uint64_t a2)
+uint64_t mlir::mps::NonMaximumSuppressionOp::inferReturnTypes(mlir::MLIRContext *,std::optional<mlir::Location>,mlir::ValueRange,mlir::DictionaryAttr,mlir::OpaqueProperties,mlir::RegionRange,llvm::SmallVectorImpl<mlir::Type> &)::$_0::operator()(uint64_t ***a1, llvm::hashing::detail **a2)
 {
   v14[1] = *MEMORY[0x277D85DE8];
-  v4 = mlir::IntegerType::get(**a1, 32, 1u);
-  v5 = mlir::IntegerType::get(**a1, 32, 2u);
+  v4 = mlir::IntegerType::get(**a1, 0x20u, 1u);
+  v5 = mlir::IntegerType::get(**a1, 0x20u, 2u);
   v6 = *a2;
   v14[0] = **a2;
-  v7 = *(a1 + 8);
-  v8 = mlir::RankedTensorType::get(v6, *(a2 + 8), v4, 0);
-  v9 = *(v7 + 8);
-  if (v9 >= *(v7 + 12))
+  v7 = a1[1];
+  v8 = mlir::RankedTensorType::get(v6, *(a2 + 2), v4, 0);
+  v9 = *(v7 + 2);
+  if (v9 >= *(v7 + 3))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(*v7 + 8 * v9) = v8;
-  ++*(v7 + 8);
-  v10 = *(a1 + 8);
+  (*v7)[v9] = v8;
+  ++*(v7 + 2);
+  v10 = a1[1];
   v11 = mlir::RankedTensorType::get(v14, 1, v5, 0);
-  v12 = *(v10 + 8);
-  if (v12 >= *(v10 + 12))
+  v12 = *(v10 + 2);
+  if (v12 >= *(v10 + 3))
   {
     llvm::SmallVectorBase<unsigned int>::grow_pod();
   }
 
-  *(*v10 + 8 * v12) = v11;
-  ++*(v10 + 8);
+  (*v10)[v12] = v11;
+  ++*(v10 + 2);
   return 1;
 }
 
@@ -322,7 +322,7 @@ LABEL_30:
     {
       v82[0] = "boxes tensor must have shape [N, B, 4]";
       v83 = 259;
-      mlir::OpState::emitOpError(this, v82, v87);
+      mlir::OpState::emitOpError(v87, this, v82);
       v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v87);
       if (v87[0])
       {
@@ -522,7 +522,7 @@ LABEL_103:
       {
         v82[0] = "when class_indices tensor is provided, scores tensor must have shape [N, B, 1]";
         v83 = 259;
-        mlir::OpState::emitOpError(this, v82, v87);
+        mlir::OpState::emitOpError(v87, this, v82);
         v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v87);
         mlir::InFlightDiagnostic::~InFlightDiagnostic(v87);
         return v36;
@@ -533,7 +533,7 @@ LABEL_103:
 
     v82[0] = "class_indices tensor must have shape [N, B]";
     v83 = 259;
-    mlir::OpState::emitOpError(this, v82, v87);
+    mlir::OpState::emitOpError(v87, this, v82);
     v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v87);
     if (v87[0])
     {
@@ -645,7 +645,7 @@ LABEL_60:
 
   v82[0] = "scores tensor must have shape [N, B, K]";
   v83 = 259;
-  mlir::OpState::emitOpError(this, v82, v87);
+  mlir::OpState::emitOpError(v87, this, v82);
   v36 = mlir::InFlightDiagnostic::operator llvm::LogicalResult(v87);
   if (v87[0])
   {

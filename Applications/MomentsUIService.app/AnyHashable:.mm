@@ -1,11 +1,11 @@
 @interface AnyHashable:
-- (uint64_t)Any;
+- (double)Any;
 - (void)Any;
 @end
 
 @implementation AnyHashable:
 
-- (uint64_t)Any
+- (double)Any
 {
   v6 = *(self + 32);
   if (a4)
@@ -21,15 +21,17 @@
   v8 = a2;
   v9 = a3;
   v6(a2, a3, v7);
+
+  return result;
 }
 
 - (void)Any
 {
-  v3 = *(self + 32);
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = *(self + 32);
+  v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v5 = a2;
-  v3(a2, v4);
+  v6 = a2;
+  v4(a2, v5);
 }
 
 @end

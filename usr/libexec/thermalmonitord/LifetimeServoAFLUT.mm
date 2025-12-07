@@ -1,5 +1,6 @@
 @interface LifetimeServoAFLUT
 - (LifetimeServoAFLUT)initWithAFTableColumns:(id)columns;
+- (float)accelerationFactor:(int)factor voltage:(int)voltage;
 @end
 
 @implementation LifetimeServoAFLUT
@@ -67,6 +68,62 @@
   }
 
   return v4;
+}
+
+- (float)accelerationFactor:(int)factor voltage:(int)voltage
+{
+  v4 = *&factor;
+  minVoltage = self->_minVoltage;
+  if (minVoltage <= voltage)
+  {
+    if (self->_maxVoltage >= voltage)
+    {
+      minVoltage = voltage;
+    }
+
+    else
+    {
+      minVoltage = self->_maxVoltage;
+    }
+  }
+
+  afLUTColumns = self->_afLUTColumns;
+  if (self->_columnCount < 2)
+  {
+    LODWORD(v9) = 1;
+  }
+
+  else
+  {
+    v8 = &self->_afLUTColumns[1];
+    v9 = 1;
+    do
+    {
+      if (minVoltage <= [*v8 voltage])
+      {
+        break;
+      }
+
+      ++v9;
+      ++v8;
+    }
+
+    while (v9 < self->_columnCount);
+  }
+
+  v10 = &afLUTColumns[v9];
+  voltage = [(LifetimeServoAFLUTColumn *)*(v10 - 1) voltage];
+  voltage2 = [(LifetimeServoAFLUTColumn *)afLUTColumns[v9] voltage];
+  [(LifetimeServoAFLUTColumn *)*(v10 - 1) accelerationFactor:v4];
+  v14 = v13;
+  [(LifetimeServoAFLUTColumn *)afLUTColumns[v9] accelerationFactor:v4];
+  v16 = 0.0;
+  if (voltage2 != voltage)
+  {
+    return ((v14 * (voltage2 - minVoltage)) + (v15 * (minVoltage - voltage))) / (voltage2 - voltage);
+  }
+
+  return v16;
 }
 
 @end

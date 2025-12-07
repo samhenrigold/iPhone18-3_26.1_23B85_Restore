@@ -110,34 +110,33 @@ LABEL_13:
 
 - (void)addPortType:(id)type
 {
-  v5 = *off_1E798A0D8;
-  if ([type isEqualToString:*off_1E798A0D8])
+  if (objc_msgSend_isEqualToString_(type, a2, *off_1E798A0D8))
   {
-    v6 = 34;
+    v5 = 34;
   }
 
-  else if ([type isEqualToString:*off_1E798A0D0])
+  else if (objc_msgSend_isEqualToString_(type))
   {
-    v6 = 33;
+    v5 = 33;
   }
 
   else
   {
-    v7 = [type isEqualToString:*off_1E798A0C0];
-    v6 = 35;
-    if (v7)
+    isEqualToString = objc_msgSend_isEqualToString_(type);
+    v5 = 35;
+    if (isEqualToString)
     {
-      v6 = 36;
+      v5 = 36;
     }
   }
 
-  *(&self->super.isa + v6) = 1;
-  if (([type isEqualToString:*off_1E798A0E0] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", *off_1E798A0E8) & 1) != 0 || (objc_msgSend(type, "isEqualToString:", *off_1E798A0F8) & 1) != 0 || objc_msgSend(type, "isEqualToString:", *off_1E798A0F0))
+  *(&self->super.isa + v5) = 1;
+  if ((objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || objc_msgSend_isEqualToString_(type))
   {
     self->_captureDevicePositionFront = 1;
   }
 
-  if (([type isEqualToString:*off_1E798A0C0] & 1) != 0 || (objc_msgSend(type, "isEqualToString:", v5) & 1) != 0 || (objc_msgSend(type, "isEqualToString:", *off_1E798A0D0) & 1) != 0 || objc_msgSend(type, "isEqualToString:", *off_1E798A0C8))
+  if ((objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || (objc_msgSend_isEqualToString_(type) & 1) != 0 || objc_msgSend_isEqualToString_(type))
   {
     self->_captureDevicePositionBack = 1;
   }

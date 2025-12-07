@@ -94,25 +94,25 @@
     v11 = v10;
     if (v9 == v10)
     {
-      v12 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v12 = 0;
+      isEqualToString = 0;
       if (v9 && v10)
       {
-        v12 = [(NSString *)v9 isEqualToString:v10];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
       }
     }
   }
 
   else
   {
-    v12 = 0;
+    isEqualToString = 0;
   }
 
-  return v12;
+  return isEqualToString;
 }
 
 - (id)description

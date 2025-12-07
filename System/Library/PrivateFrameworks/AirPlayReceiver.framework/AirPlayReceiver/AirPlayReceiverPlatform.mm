@@ -48,7 +48,17 @@
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      if (self->_server->var41)
+      {
+        v7 = "yes";
+      }
+
+      else
+      {
+        v7 = "no";
+      }
+
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _updateMediaSessionActivationStateBasedOnMediaAudioActiveState:andVideoActiveState:]", 33554482, "isAnyMediaActive %d -> %d (audioMixing: %s)\n", v5, v6, v7);
     }
 
     if (!self->_server->var41)
@@ -63,7 +73,7 @@
 {
   if (gLogCategory_AirPlayReceiverPlatform <= 60 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _handleAVAudioSessionServicesLost:]", 33554492, "### AudioSession lost - platform level\n");
   }
 
   server = self->_server;
@@ -76,7 +86,7 @@
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   if (gLogCategory_AirPlayReceiverPlatform <= 60 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _handleAVAudioSessionServicesReset:]", 33554492, "### AudioSession reset - platform level\n");
   }
 
   AirPlayReceiverServerControl(self->_server, 0, @"partnerProcessDeath", @"MediaServices", 0, 0);
@@ -116,6 +126,7 @@ LABEL_5:
 
   v11 = 0;
   v9 = 1;
+  v10 = @"UnknownEvent";
 LABEL_7:
   if ([objc_msgSend(interruption "object")])
   {
@@ -135,6 +146,7 @@ LABEL_11:
 
   v14 = 0;
   v12 = 1;
+  v13 = @"UnknownInterruptee";
 LABEL_13:
   if (v6)
   {
@@ -160,7 +172,7 @@ LABEL_13:
 
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _handleAVAudioSessionInterruption:]", 33554482, "Audio Interruption: %@-%@\n", v13, v10);
   }
 
   if (v9 || v12)
@@ -217,8 +229,7 @@ LABEL_13:
               v4 = value;
             }
 
-            v9 = v4;
-            LogPrintF();
+            LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform updateMRNowPlayingAppStateForSinglePrimary]", 33554482, "Not becoming now playing app because screen session [%{ptr}] sender is HT-unaware.\n", v4);
           }
 
 LABEL_16:
@@ -258,10 +269,10 @@ LABEL_19:
       {
         if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform updateMRNowPlayingAppStateForSinglePrimary]", 33554482, "Setting MR playback state to Stopped when retiring from now playing app role\n");
         }
 
-        [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setMRPlaybackState:3, v9];
+        [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setMRPlaybackState:3];
         v7 = gLogCategory_AirPlayReceiverPlatform;
       }
 
@@ -273,11 +284,10 @@ LABEL_19:
           v8 = "no";
         }
 
-        v9 = v8;
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform updateMRNowPlayingAppStateForSinglePrimary]", 33554482, "Set isAirPlayReceiverMRNowPlayingApp to %s\n", v8);
       }
 
-      [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setIsNowPlaying:v6, v9];
+      [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setIsNowPlaying:v6];
       self->_state.nowPlaying.singlePrimary.isAirPlayReceiverMRNowPlayingApp = v6;
       if (v6 && !self->_useMediaRemotePerPlayerAPI && self->_server->var44)
       {
@@ -297,7 +307,7 @@ LABEL_19:
   if (gLogCategory_AirPlayReceiverPlatform <= 90 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
 
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform updateMRNowPlayingAppStateForSinglePrimary]", 33554522, "updateMRNowPlayingAppStateForSinglePrimary should only be called on a single-primary device");
   }
 }
 
@@ -314,8 +324,7 @@ LABEL_19:
         v5 = "out of";
       }
 
-      v7 = v5;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setShouldHandleMRCommands:]", 33554482, "Opt %s MR command handling.\n", v5);
     }
 
     if (commandsCopy)
@@ -328,7 +337,7 @@ LABEL_19:
       selfCopy = 0;
     }
 
-    [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setDelegate:selfCopy, v7];
+    [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setDelegate:selfCopy];
   }
 
   self->_state.isHandlingMRCommands = commandsCopy;
@@ -336,19 +345,35 @@ LABEL_19:
 
 - (void)setIsScreenActive:(unsigned __int8)active
 {
-  if (self->_state.isScreenActive != active)
+  isScreenActive = self->_state.isScreenActive;
+  if (isScreenActive == active)
   {
-    if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
+    return;
+  }
+
+  activeCopy = active;
+  if (gLogCategory_AirPlayReceiverPlatform <= 50)
+  {
+    if (gLogCategory_AirPlayReceiverPlatform != -1)
     {
-      LogPrintF();
+LABEL_4:
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsScreenActive:]", 33554482, "isScreenActive %d -> %d\n", isScreenActive, activeCopy);
+      goto LABEL_6;
     }
 
-    self->_state.isScreenActive = active;
-    if (!APSMultiPrimariesEnabled())
+    if (_LogCategory_Initialize())
     {
-
-      [(AirPlayReceiverPlatform *)self updateMRNowPlayingAppStateForSinglePrimary];
+      isScreenActive = self->_state.isScreenActive;
+      goto LABEL_4;
     }
+  }
+
+LABEL_6:
+  self->_state.isScreenActive = activeCopy;
+  if (!APSMultiPrimariesEnabled())
+  {
+
+    [(AirPlayReceiverPlatform *)self updateMRNowPlayingAppStateForSinglePrimary];
   }
 }
 
@@ -373,9 +398,7 @@ LABEL_19:
       isVideoActive = self->_state.isVideoActive;
     }
 
-    v6 = isVideoActive;
-    v7 = activeCopy;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsVideoActive:]", 33554482, "isVideoActive %d -> %d\n", isVideoActive, activeCopy);
   }
 
 LABEL_6:
@@ -384,7 +407,7 @@ LABEL_6:
     APSEnsureCanInitiatePlayback();
   }
 
-  [(AirPlayReceiverPlatform *)self _updateMediaSessionActivationStateBasedOnMediaAudioActiveState:self->_state.isMediaAudioActive andVideoActiveState:activeCopy, v6, v7];
+  [(AirPlayReceiverPlatform *)self _updateMediaSessionActivationStateBasedOnMediaAudioActiveState:self->_state.isMediaAudioActive andVideoActiveState:activeCopy];
   self->_state.isVideoActive = activeCopy;
 }
 
@@ -402,9 +425,7 @@ LABEL_6:
     if (gLogCategory_AirPlayReceiverPlatform != -1)
     {
 LABEL_4:
-      v6 = isMediaAudioActive;
-      v7 = activeCopy;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsMediaAudioActive:]", 33554482, "isMediaAudioActive %d -> %d\n", isMediaAudioActive, activeCopy);
       goto LABEL_6;
     }
 
@@ -416,7 +437,7 @@ LABEL_4:
   }
 
 LABEL_6:
-  [(AirPlayReceiverPlatform *)self _updateMediaSessionActivationStateBasedOnMediaAudioActiveState:activeCopy andVideoActiveState:self->_state.isVideoActive, v6, v7];
+  [(AirPlayReceiverPlatform *)self _updateMediaSessionActivationStateBasedOnMediaAudioActiveState:activeCopy andVideoActiveState:self->_state.isVideoActive];
   self->_state.isMediaAudioActive = activeCopy;
   if (!APSMultiPrimariesEnabled())
   {
@@ -428,50 +449,52 @@ LABEL_6:
 - (void)setIsAmbientAudioActive:(unsigned __int8)active
 {
   isAmbientAudioActive = self->_state.isAmbientAudioActive;
-  if (isAmbientAudioActive != active)
+  if (isAmbientAudioActive == active)
   {
-    v10[5] = v3;
-    v10[6] = v4;
-    activeCopy = active;
-    if (gLogCategory_AirPlayReceiverPlatform > 50)
-    {
-      goto LABEL_6;
-    }
+    return;
+  }
 
+  v9[5] = v3;
+  v9[6] = v4;
+  activeCopy = active;
+  if (gLogCategory_AirPlayReceiverPlatform <= 50)
+  {
     if (gLogCategory_AirPlayReceiverPlatform == -1)
     {
       if (!_LogCategory_Initialize())
       {
-LABEL_6:
-        v10[0] = 0;
-        if ([+[APAVAudioSessionManager setActive:v8], "setActive:error:", activeCopy != 0, v10])
-        {
-          if (gLogCategory_AirPlayReceiverPlatform > 50 || gLogCategory_AirPlayReceiverPlatform == -1 && !_LogCategory_Initialize())
-          {
-            goto LABEL_16;
-          }
-        }
-
-        else if (gLogCategory_AirPlayReceiverPlatform > 90 || gLogCategory_AirPlayReceiverPlatform == -1 && !_LogCategory_Initialize())
-        {
-          goto LABEL_16;
-        }
-
-        LogPrintF();
-LABEL_16:
-        _NotifyIsPlayingAmbientAudio(activeCopy);
-        self->_state.isAmbientAudioActive = activeCopy;
-        return;
+        goto LABEL_6;
       }
 
       isAmbientAudioActive = self->_state.isAmbientAudioActive;
     }
 
-    v8 = isAmbientAudioActive;
-    v9 = activeCopy;
-    LogPrintF();
-    goto LABEL_6;
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsAmbientAudioActive:]", 33554482, "isAmbientAudioActive %d -> %d\n", isAmbientAudioActive, activeCopy);
   }
+
+LABEL_6:
+  v9[0] = 0;
+  if ([+[APAVAudioSessionManager setActive:"setActive:error:"]
+  {
+    if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsAmbientAudioActive:]", 33554482, "Set ambient AVAudioSession to [%s]\n");
+    }
+  }
+
+  else if (gLogCategory_AirPlayReceiverPlatform <= 90 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
+  {
+    v8 = "ACTIVE";
+    if (!activeCopy)
+    {
+      v8 = "INACTIVE";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setIsAmbientAudioActive:]", 33554522, "### Setting ambient AVAudioSession to [%s] failed with error %@\n", v8, v9[0]);
+  }
+
+  _NotifyIsPlayingAmbientAudio(activeCopy);
+  self->_state.isAmbientAudioActive = activeCopy;
 }
 
 - (void)setMainMediaReceiverSession:(OpaqueAPReceiverRequestProcessor *)session
@@ -481,7 +504,7 @@ LABEL_16:
     APSLogErrorAt();
     if (gLogCategory_AirPlayReceiverPlatform <= 90 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setMainMediaReceiverSession:]", 33554522, "setMainMediaReceiverSession should only be called on a multi-primaries device");
     }
 
     goto LABEL_36;
@@ -499,9 +522,7 @@ LABEL_16:
     if (gLogCategory_AirPlayReceiverPlatform != -1)
     {
 LABEL_5:
-      v12 = mainMediaReceiverSession;
-      sessionCopy = session;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setMainMediaReceiverSession:]", 33554482, "Main media receiver session changing: [%{ptr}] -> [%{ptr}]", mainMediaReceiverSession, session);
       goto LABEL_7;
     }
 
@@ -540,7 +561,7 @@ LABEL_7:
       {
         if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setMainMediaReceiverSession:]", 33554482, "Starting NowPlayingSession synchronously");
         }
 
         mach_absolute_time();
@@ -553,7 +574,7 @@ LABEL_7:
           v9(session, @"nowPlayingSessionStartDurationMs", Int64);
         }
 
-        [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper startNowPlayingSession:v12];
+        [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper startNowPlayingSession];
         mach_absolute_time();
         UpTicksToMilliseconds();
         v10 = CFNumberCreateInt64();
@@ -594,28 +615,27 @@ LABEL_27:
 {
   mediaRemoteHelper = self->_mediaRemoteHelper;
   mediaAVAudioSessionID = self->_state.mediaAVAudioSessionID;
-  v5 = APReceiverRequestProcessorCopyReceiverSession();
+  v5 = APReceiverRequestProcessorCopyReceiverSession(async);
   if (v5)
   {
     v6 = v5;
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      v8 = v6;
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _startNowPlayingSessionAsync:]", 33554482, "Starting NowPlayingSession for [%{ptr}] asynchronously", v6);
     }
 
     startNowPlayingSessionTask = [v6[6] startNowPlayingSessionTask];
     [startNowPlayingSessionTask setNotCompleted];
     CFRetain(v6);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke;
-    v9[3] = &unk_278C5FC20;
-    v9[5] = mediaRemoteHelper;
-    v9[6] = v6;
-    v9[4] = startNowPlayingSessionTask;
-    v10 = mediaAVAudioSessionID;
-    [(AirPlayReceiverMediaRemoteHelper *)mediaRemoteHelper startNowPlayingSessionWithCompletion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke;
+    v8[3] = &unk_278C5FC20;
+    v8[5] = mediaRemoteHelper;
+    v8[6] = v6;
+    v8[4] = startNowPlayingSessionTask;
+    v9 = mediaAVAudioSessionID;
+    [(AirPlayReceiverMediaRemoteHelper *)mediaRemoteHelper startNowPlayingSessionWithCompletion:v8];
     CFRelease(v6);
   }
 
@@ -630,9 +650,7 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke(u
 {
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    v8 = *(a1 + 48);
-    v9 = a2;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _startNowPlayingSessionAsync:]_block_invoke", 33554482, "Started NowPlayingSession for [%{ptr}] with err: %#m", *(a1 + 48), a2);
   }
 
   v4 = *(a1 + 32);
@@ -646,7 +664,7 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke(u
     v5 = 0;
   }
 
-  [v4 setResult:{v5, v8, v9}];
+  [v4 setResult:v5];
   [*(a1 + 40) associateNowPlayingSessionWithAudioSession:*(a1 + 56)];
   CFRetain(*(a1 + 48));
   v6 = *(a1 + 48);
@@ -669,13 +687,30 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke_2
   v4 = cf;
   if (gLogCategory_AirPlayReceiverPlatform <= 30)
   {
-    if (gLogCategory_AirPlayReceiverPlatform != -1 || (v5 = _LogCategory_Initialize(), v3 = *(a1 + 32), v5))
+    v5 = cf;
+    if (gLogCategory_AirPlayReceiverPlatform == -1)
     {
-      LogPrintF();
+      v7 = _LogCategory_Initialize();
       v3 = *(a1 + 32);
+      if (!v7)
+      {
+        goto LABEL_7;
+      }
+
+      v5 = cf;
     }
+
+    v6 = "no";
+    if (v2 == v4)
+    {
+      v6 = "yes";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _startNowPlayingSessionAsync:]_block_invoke_2", 33554462, "Session: [%{ptr}], currentMainMediaSession: [%{ptr}], shouldHandleMRCommands? %s\n", v3, v5, v6);
+    v3 = *(a1 + 32);
   }
 
+LABEL_7:
   if (v2 == v4)
   {
     [*(v3[3] + 16) setShouldHandleMRCommands:1];
@@ -700,9 +735,7 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke_2
     {
       if (gLogCategory_AirPlayReceiverPlatform != -1 || (v8 = _LogCategory_Initialize(), receiverSessionCount = self->_state.receiverSessionCount, v8))
       {
-        v10 = receiverSessionCount;
-        neededCopy = needed;
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setReceiverSessionCountAndUpdateStateIfNeeded:]", 33554482, "receiverSessionCount: %d -> %d\n", receiverSessionCount, needed);
         receiverSessionCount = self->_state.receiverSessionCount;
       }
     }
@@ -713,13 +746,13 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke_2
       {
         if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setReceiverSessionCountAndUpdateStateIfNeeded:]", 33554482, "Interrupting any audio played in other processes by activating the media AVAudioSession\n");
         }
 
         APSEnsureCanInitiatePlayback();
       }
 
-      [(AirPlayReceiverPlatform *)self _setMediaAVAudioSessionActive:needed != 0, v10, neededCopy];
+      [(AirPlayReceiverPlatform *)self _setMediaAVAudioSessionActive:needed != 0];
     }
 
     if (APSIsAPMSpeaker() && (APSIsMemberOfHTGroup() || APSIsMemberOfStereoPair()) && needed && self->_state.receiverSessionCount > needed && !self->_useMediaRemotePerPlayerAPI)
@@ -734,10 +767,10 @@ void __56__AirPlayReceiverPlatform__startNowPlayingSessionAsync___block_invoke_2
 
       if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform setReceiverSessionCountAndUpdateStateIfNeeded:]", 33554482, "Setting playback state to stopped due to non-persistent session going away");
       }
 
-      [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setMRPlaybackState:3, v10, neededCopy];
+      [(AirPlayReceiverMediaRemoteHelper *)self->_mediaRemoteHelper setMRPlaybackState:3];
       v9 = cf[0];
       if (cf[0])
       {
@@ -760,7 +793,19 @@ LABEL_27:
   v5 = APSIsWHAParallelSetupProcessingEnabled();
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v6 = "Activate";
+    if (!activeCopy)
+    {
+      v6 = "Deactivate";
+    }
+
+    v7 = "asynchronously";
+    if (!v5)
+    {
+      v7 = "synchronously";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _setMediaAVAudioSessionActive:]", 33554482, "%s AVAudioSession %s", v6, v7);
   }
 
   if (v5)
@@ -771,24 +816,24 @@ LABEL_27:
     block[2] = __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_invoke;
     block[3] = &unk_278C5FB50;
     block[4] = self;
-    v9 = activeCopy;
+    v11 = activeCopy;
     dispatch_async(mediaAVAudioSessionActivationQueue, block);
   }
 
   else
   {
-    v7 = objc_opt_class();
+    v9 = objc_opt_class();
 
-    [v7 _setMediaAVAudioSessionActiveSync:activeCopy];
+    [v9 _setMediaAVAudioSessionActiveSync:activeCopy];
   }
 }
 
-uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_invoke(uint64_t a1)
+uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_class();
-  v3 = *(a1 + 40);
+  v3 = objc_opt_class();
+  v4 = *(a1 + 40);
 
-  return [v2 _setMediaAVAudioSessionActiveSync:v3];
+  return [v3 _setMediaAVAudioSessionActiveSync:v4];
 }
 
 - (void)updateActiveSessionRegistration:(AirPlayReceiverSessionPrivate *)registration regType:(int)type regOp:(int)op
@@ -856,11 +901,20 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
 
 - (void)_handleVolumeControlTypeChange
 {
-  IsAppleTV();
-  [objc_msgSend(MEMORY[0x277D26E58] "sharedAVSystemController")];
+  v2 = IsAppleTV() != 0;
+  if ([objc_msgSend(MEMORY[0x277D26E58] "sharedAVSystemController")])
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = (8 * v2);
+  }
+
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "void _SetVolumeControlTypeEx(AirPlayReceiverPlatform *, APVolumeControlTypeEx)", 33554482, "[AirPlayVolume] volumeControlType = %#{flags}\n", v3, &unk_23EAA1981);
   }
 
   CFObjectSetPropertyInt64();
@@ -871,11 +925,10 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _unregisterAVSystemControllerNotifications]", 33554482, "[%{ptr}] <AirPlayVolume> Unregistering for AVSC notifications\n", self);
   }
 
-  [defaultCenter removeObserver:self name:*MEMORY[0x277D26B00] object:{0, selfCopy}];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277D26B00] object:0];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D26D40] object:0];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D26DE8] object:0];
   [defaultCenter removeObserver:self name:*MEMORY[0x277D26BF0] object:0];
@@ -886,37 +939,36 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
 
 - (void)_registerAVSystemControllerNotifications
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _registerAVSystemControllerNotifications]", 33554482, "[%{ptr}] <AirPlayVolume> Registering for AVSC notifications\n", self);
   }
 
   array = [MEMORY[0x277CBEB18] array];
   v6 = MEMORY[0x277D26B00];
   v7 = MEMORY[0x277D26D40];
   v8 = *MEMORY[0x277D26D40];
-  v16[0] = *MEMORY[0x277D26B00];
-  v16[1] = v8;
-  [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v16, 2)}];
+  v15[0] = *MEMORY[0x277D26B00];
+  v15[1] = v8;
+  [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v15, 2)}];
   [defaultCenter addObserver:self selector:sel__avSystemControllerActiveAudioRouteChanged_ name:*v6 object:mEMORY[0x277D26E58]];
   [defaultCenter addObserver:self selector:sel__avSystemControllerConnectionDied_ name:*v7 object:mEMORY[0x277D26E58]];
   if (APSIsAPMSpeaker())
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _registerAVSystemControllerNotifications]", 33554482, "Registering for volume notifications from AVSystemController\n");
     }
 
     v9 = MEMORY[0x277D26DE8];
     v10 = MEMORY[0x277D26BF0];
     v11 = *MEMORY[0x277D26BF0];
-    v15[0] = *MEMORY[0x277D26DE8];
-    v15[1] = v11;
-    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v15, 2)}];
+    v14[0] = *MEMORY[0x277D26DE8];
+    v14[1] = v11;
+    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v14, 2)}];
     [defaultCenter addObserver:self selector:sel__avSystemControllerVolumeChanged_ name:*v9 object:mEMORY[0x277D26E58]];
     [defaultCenter addObserver:self selector:sel__avSystemControllerMuteChanged_ name:*v10 object:mEMORY[0x277D26E58]];
   }
@@ -925,12 +977,12 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _registerAVSystemControllerNotifications]", 33554482, "Registering for volume control notifications from AVSystemController\n");
     }
 
     v12 = MEMORY[0x277D26B88];
-    v14 = *MEMORY[0x277D26B88];
-    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v14, 1)}];
+    v13 = *MEMORY[0x277D26B88];
+    [array addObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v13, 1)}];
     [defaultCenter addObserver:self selector:sel__avSystemControllerVolumeConfigChanged_ name:*v12 object:mEMORY[0x277D26E58]];
   }
 
@@ -941,8 +993,7 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
 {
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _fetchInitialStates]", 33554482, "[%{ptr}] <AirPlayVolume> Fetching initial state\n", self);
   }
 
   [(AirPlayReceiverPlatform *)self _handleVolumeControlTypeChange];
@@ -956,7 +1007,17 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
     CFObjectSetProperty();
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      if (self->_state.isMuted)
+      {
+        v4 = "yes";
+      }
+
+      else
+      {
+        v4 = "no";
+      }
+
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _fetchInitialStates]", 33554482, "<AirPlayVolume> Retrieved Initial volume: %f and mute: %s\n", self->_state.volumeSliderValue, v4);
     }
   }
 }
@@ -967,7 +1028,13 @@ uint64_t __57__AirPlayReceiverPlatform__setMediaAVAudioSessionActive___block_inv
   v5 = [objc_msgSend(userInfo objectForKeyedSubscript:{*MEMORY[0x277D26B08]), "BOOLValue"}];
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v6 = "no";
+    if (v5)
+    {
+      v6 = "yes";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _avSystemControllerActiveAudioRouteChanged:]", 33554482, "[%{ptr}] AVSystemController active audio route changed. Should pause = %s\n", self, v6);
   }
 
   if (v5)
@@ -986,19 +1053,19 @@ void __70__AirPlayReceiverPlatform__avSystemControllerActiveAudioRouteChanged___
 {
   cf = 0;
   APReceiverSessionManagerCopyAirPlaySessionWithAttribute(*(*(*(a1 + 32) + 8) + 216), 0, 0, &cf);
-  v1 = cf;
+  v2 = cf;
   if (cf)
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 50)
     {
-      if (gLogCategory_AirPlayReceiverPlatform != -1 || (v2 = _LogCategory_Initialize(), v1 = cf, v2))
+      if (gLogCategory_AirPlayReceiverPlatform != -1 || (v3 = _LogCategory_Initialize(), v2 = cf, v3))
       {
-        LogPrintF();
-        v1 = cf;
+        LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _avSystemControllerActiveAudioRouteChanged:]_block_invoke", 33554482, "[%{ptr}] Sending pause command to session [%{ptr}]\n", *(a1 + 32), v2);
+        v2 = cf;
       }
     }
 
-    AirPlayReceiverSessionSendMediaRemoteCommand(v1, -1, 1885435251, 0);
+    AirPlayReceiverSessionSendMediaRemoteCommand(v2, -1, 1885435251, 0);
     if (cf)
     {
       CFRelease(cf);
@@ -1010,8 +1077,7 @@ void __70__AirPlayReceiverPlatform__avSystemControllerActiveAudioRouteChanged___
 {
   if (gLogCategory_AirPlayReceiverPlatform <= 90 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    selfCopy = self;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _avSystemControllerConnectionDied:]", 33554522, "[%{ptr}] AVSystemController connection died\n", self);
   }
 
   [(AirPlayReceiverPlatform *)self _unregisterAVSystemControllerNotifications];
@@ -1079,78 +1145,100 @@ float __60__AirPlayReceiverPlatform__avSystemControllerVolumeChanged___block_inv
   muteCopy = mute;
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v9 = "volume";
+    if (!changedCopy)
+    {
+      v9 = "mute";
+    }
+
+    v10 = "yes";
+    if (!muteCopy)
+    {
+      v10 = "no";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _updateVolume:andMute:becauseVolumeChanged:]", 33554482, "[AirPlayVolume] received AVSC %s change, newVolume = %f, newMute = %s)\n", v9, volume, v10);
   }
 
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (Mutable)
   {
-    v9 = Mutable;
-    v10 = CFDictionarySetDouble();
-    if (v10)
+    v12 = Mutable;
+    v13 = CFDictionarySetDouble();
+    if (v13)
     {
-      v15 = v10;
+      v18 = v13;
     }
 
     else
     {
-      v11 = *MEMORY[0x277CBED28];
-      v12 = *MEMORY[0x277CBED10];
+      v14 = *MEMORY[0x277CBED28];
+      v15 = *MEMORY[0x277CBED10];
       if (muteCopy)
       {
-        v13 = *MEMORY[0x277CBED28];
+        v16 = *MEMORY[0x277CBED28];
       }
 
       else
       {
-        v13 = *MEMORY[0x277CBED10];
+        v16 = *MEMORY[0x277CBED10];
       }
 
-      CFDictionarySetValue(v9, @"isMuted", v13);
+      CFDictionarySetValue(v12, @"isMuted", v16);
       if (changedCopy)
       {
-        v14 = v11;
+        v17 = v14;
       }
 
       else
       {
-        v14 = v12;
+        v17 = v15;
       }
 
-      CFDictionarySetValue(v9, @"isVolumeUpdate", v14);
-      v15 = AirPlayReceiverServerControl(self->_server, 1, @"sendVolumeUpdate", 0, v9, 0);
-      if (!v15)
+      CFDictionarySetValue(v12, @"isVolumeUpdate", v17);
+      v18 = AirPlayReceiverServerControl(self->_server, 1, @"sendVolumeUpdate", 0, v12, 0);
+      if (!v18)
       {
-        CFRelease(v9);
-        return v15;
+        CFRelease(v12);
+        return v18;
       }
     }
 
     APSLogErrorAt();
-    CFRelease(v9);
+    CFRelease(v12);
   }
 
   else
   {
     APSLogErrorAt();
-    v15 = -6728;
+    v18 = -6728;
   }
 
   if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _updateVolume:andMute:becauseVolumeChanged:]", 33554482, "Could not send volume update to sender. Error: %d\n", v18);
   }
 
-  return v15;
+  return v18;
 }
 
 - (void)_avSystemControllerVolumeConfigChanged:(id)changed
 {
   userInfo = [changed userInfo];
-  [objc_msgSend(userInfo objectForKeyedSubscript:{*MEMORY[0x277D26B30]), "BOOLValue"}];
-  if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
+  v5 = [objc_msgSend(userInfo objectForKeyedSubscript:{*MEMORY[0x277D26B30]), "BOOLValue"}];
+  if (gLogCategory_AirPlayReceiverPlatform <= 50)
   {
-    LogPrintF();
+    v6 = v5;
+    if (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize())
+    {
+      v7 = "no";
+      if (v6)
+      {
+        v7 = "yes";
+      }
+
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _avSystemControllerVolumeConfigChanged:]", 33554482, "AVSystemController CurrentRouteHasVolumeControl changed to %s\n", v7);
+    }
   }
 
   [(AirPlayReceiverPlatform *)self _handleVolumeControlTypeChange];
@@ -1182,11 +1270,11 @@ float __60__AirPlayReceiverPlatform__avSystemControllerVolumeChanged___block_inv
 void __62__AirPlayReceiverPlatform__handleNowPlayingAppStartedPlaying___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (!v2[49] && !v2[50])
+  if (!*(v2 + 49))
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 60 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform _handleNowPlayingAppStartedPlaying:]_block_invoke", 33554492, "### Process '%@-%d' started playing.\n", *(a1 + 40), *(a1 + 48));
     }
 
     AirPlayReceiverServerControl(*(*(a1 + 32) + 8), 1, @"otherProcessStartedPlaying", 0, 0, 0);
@@ -1227,7 +1315,7 @@ void __75__AirPlayReceiverPlatform_handleMRCommand_translatedAPCommand_withOptio
     {
       if (gLogCategory_AirPlayReceiverPlatform != -1 || (v3 = _LogCategory_Initialize(), v2 = cf, v3))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "[AirPlayReceiverPlatform handleMRCommand:translatedAPCommand:withOptions:]_block_invoke", 33554482, "[%{ptr}] Handle MR command '%d', AP command '%C'\n", v2, *(a1 + 48), *(a1 + 52));
         v2 = cf;
       }
     }
@@ -1260,22 +1348,26 @@ void __75__AirPlayReceiverPlatform_handleMRCommand_translatedAPCommand_withOptio
       v4 = "de";
     }
 
-    v5 = v4;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "+[AirPlayReceiverPlatform _setMediaAVAudioSessionActiveSync:]", 33554482, "Media AVAudioSession %sactivating\n", v4);
   }
 
-  if ([+[APAVAudioSessionManager setActive:v5]error:"setActive:error:", syncCopy != 0, &v6])
+  if ([+[APAVAudioSessionManager setActive:"setActive:error:"]
   {
     if (gLogCategory_AirPlayReceiverPlatform <= 50 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
     {
-LABEL_13:
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "+[AirPlayReceiverPlatform _setMediaAVAudioSessionActiveSync:]", 33554482, "Media AVAudioSession %sactivated\n");
     }
   }
 
   else if (gLogCategory_AirPlayReceiverPlatform <= 90 && (gLogCategory_AirPlayReceiverPlatform != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_13;
+    v5 = "";
+    if (!syncCopy)
+    {
+      v5 = "de";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverPlatform, "+[AirPlayReceiverPlatform _setMediaAVAudioSessionActiveSync:]", 33554522, "### Failed to %sactivate media AVAudioSession due to error: %@\n", v5, v6);
   }
 }
 

@@ -13,7 +13,7 @@
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Enabling backup for the account", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Enabling backup for the account");
     }
 
     v5 = dispatch_group_create();

@@ -14,7 +14,7 @@
 {
   if (PKPaymentSetupContextIsBridge())
   {
-    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass[0]());
+    v3 = objc_alloc_init(getNPKCompanionAgentConnectionClass());
     watchPaymentWebService = [v3 watchPaymentWebService];
   }
 

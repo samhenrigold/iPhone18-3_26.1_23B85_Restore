@@ -5,6 +5,7 @@
 - (void)accelerometer:(id)accelerometer didChangeDeviceOrientation:(int64_t)orientation;
 - (void)callCenterObserver:(id)observer callChanged:(id)changed;
 - (void)dealloc;
+- (void)setOrientationEventsEnabled:(BOOL)enabled;
 @end
 
 @implementation CSDOrientationMonitor
@@ -57,6 +58,24 @@
 {
   accelerometer = [(CSDOrientationMonitor *)self accelerometer];
   -[CSDOrientationMonitor setCurrentOrientation:](self, "setCurrentOrientation:", [accelerometer currentDeviceOrientation]);
+}
+
+- (void)setOrientationEventsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  accelerometer = [(CSDOrientationMonitor *)self accelerometer];
+  [accelerometer setOrientationEventsEnabled:enabledCopy];
+
+  accelerometer2 = [(CSDOrientationMonitor *)self accelerometer];
+  [accelerometer2 setPassiveOrientationEvents:enabledCopy ^ 1];
+
+  v8 = sub_100004778(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109120;
+    v9[1] = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "enabled: %d", v9, 8u);
+  }
 }
 
 - (void)callCenterObserver:(id)observer callChanged:(id)changed
@@ -130,31 +149,31 @@ LABEL_18:
 - (void)accelerometer:(id)accelerometer didChangeDeviceOrientation:(int64_t)orientation
 {
   [(CSDOrientationMonitor *)self _updateCurrentOrientationValue];
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   callCenterObserver = [(CSDOrientationMonitor *)self callCenterObserver];
   callContainer = [callCenterObserver callContainer];
   currentVideoCalls = [callContainer currentVideoCalls];
 
-  v9 = [currentVideoCalls countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v9 = [currentVideoCalls countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v19;
+    v12 = *v20;
     *&v10 = 134217984;
-    v17 = v10;
+    v18 = v10;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v19 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(currentVideoCalls);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         provider = [v14 provider];
         if (([provider isSystemProvider]& 1) != 0)
         {
@@ -165,10 +184,10 @@ LABEL_18:
 
         if (callStatus == 1)
         {
-          provider = sub_100004778();
+          provider = sub_100004778(v17);
           if (os_log_type_enabled(provider, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v17;
+            *buf = v18;
             orientationCopy = orientation;
             _os_log_impl(&_mh_execute_header, provider, OS_LOG_TYPE_DEFAULT, "accelerometer orientation changed to %ld", buf, 0xCu);
           }
@@ -179,7 +198,7 @@ LABEL_7:
         }
       }
 
-      v11 = [currentVideoCalls countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v11 = [currentVideoCalls countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v11);

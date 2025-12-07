@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (BOOL)_accessibilityIsDisplayedInBanner;
 - (BOOL)isAccessibilityElement;
+- (void)updateParticipantsAnimated:(BOOL)animated;
 @end
 
 @implementation PHCallParticipantsViewAccessibility
@@ -16,6 +17,23 @@
   [validationsCopy validateClass:@"PHCallParticipantsView" hasInstanceMethod:@"updateParticipantsAnimated:" withFullSignature:{"v", "B", 0}];
   [validationsCopy validateClass:@"PHSingleCallParticipantLabelView" hasInstanceMethod:@"bannerButtonsView" withFullSignature:{"@", 0}];
   [validationsCopy validateClass:@"PHBannerButtonsView" hasInstanceMethod:@"rightButton" withFullSignature:{"@", 0}];
+}
+
+- (void)updateParticipantsAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = [(PHCallParticipantsViewAccessibility *)self safeUIViewForKey:@"singleCallLabelView"];
+
+  v9.receiver = self;
+  v9.super_class = PHCallParticipantsViewAccessibility;
+  [(PHCallParticipantsViewAccessibility *)&v9 updateParticipantsAnimated:animatedCopy];
+  if (([(PHCallParticipantsViewAccessibility *)self safeBoolForKey:@"shouldIgnoreUpdates"]& 1) == 0 && !v5)
+  {
+    v6 = [(PHCallParticipantsViewAccessibility *)self safeValueForKeyPath:@"singleCallLabelView.bannerButtonsView"];
+    v8 = [v6 safeUIViewForKey:@"rightButton"];
+    v7 = v8;
+    AXPerformBlockOnMainThreadAfterDelay();
+  }
 }
 
 - (BOOL)isAccessibilityElement

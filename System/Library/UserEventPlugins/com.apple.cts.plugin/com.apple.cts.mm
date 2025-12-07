@@ -1047,7 +1047,7 @@ void sub_3244(void *a1)
 void sub_33C4(void *a1)
 {
   v5 = a1;
-  sub_3488();
+  sub_3488(v5, -1, 0);
   v1 = [v5 peer];
 
   if (v1)
@@ -1733,27 +1733,28 @@ BOOL sub_4C2C(void *a1, uint64_t a2)
   return v6;
 }
 
-void sub_4E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_4E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 88), 8);
+  _Block_object_dispose((v17 - 88), 8);
   _Unwind_Resume(a1);
 }
 
 unint64_t sub_4E3C()
 {
-  v4 = 0;
-  v2 = 0;
+  v5 = 0;
   v3 = 0;
-  if (mach_get_times())
+  v4 = 0;
+  times = mach_get_times();
+  if (times)
   {
-    sub_8AE4();
+    sub_8AE4(times);
   }
 
-  v1 = 0;
-  mach_timebase_info(&v1);
-  return v3 - v4 * v1.numer / v1.denom + 1000000000 * v2;
+  v2 = 0;
+  mach_timebase_info(&v2);
+  return v4 - v5 * v2.numer / v2.denom + 1000000000 * v3;
 }
 
 uint64_t sub_4EA8(uint64_t a1)
@@ -3042,7 +3043,7 @@ void sub_8AC8()
   __break(1u);
 }
 
-void sub_8AE4()
+void sub_8AE4(int a1)
 {
   _os_assert_log();
   _os_crash();

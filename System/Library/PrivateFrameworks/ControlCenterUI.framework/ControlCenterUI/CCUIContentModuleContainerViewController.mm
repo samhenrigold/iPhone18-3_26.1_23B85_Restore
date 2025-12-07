@@ -604,11 +604,11 @@ uint64_t __98__CCUIContentModuleContainerViewController_preferredContentSizeDidC
   [(CCUIContentModuleContainerViewController *)self dismissModulePresentedContentAnimated:animated completion:v3];
 }
 
-uint64_t __76__CCUIContentModuleContainerViewController_dismissPresentedContentAnimated___block_invoke(uint64_t result, char a2)
+id *__76__CCUIContentModuleContainerViewController_dismissPresentedContentAnimated___block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _closeExpandedModule:*(result + 40)];
+    return [result[4] _closeExpandedModule:*(result + 40)];
   }
 
   return result;
@@ -1753,7 +1753,7 @@ void __80__CCUIContentModuleContainerViewController__ensureAndConfigureEditingBo
   }
 }
 
-uint64_t __70__CCUIContentModuleContainerViewController__configureEditingAnimated___block_invoke(uint64_t a1)
+void *__70__CCUIContentModuleContainerViewController__configureEditingAnimated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 1136) addSubview:*(*(a1 + 32) + 1144)];
   [*(a1 + 40) addSubview:*(*(a1 + 32) + 1136)];
@@ -1768,12 +1768,12 @@ uint64_t __70__CCUIContentModuleContainerViewController__configureEditingAnimate
   return result;
 }
 
-uint64_t __70__CCUIContentModuleContainerViewController__configureEditingAnimated___block_invoke_5(uint64_t a1)
+void *__70__CCUIContentModuleContainerViewController__configureEditingAnimated___block_invoke_5(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (*(result + 1160) == *(a1 + 40) && (*(result + 1001) & 1) == 0)
+  if (*(result + 145) == *(a1 + 40) && (*(result + 1001) & 1) == 0)
   {
-    if (*(result + 1144))
+    if (*(result + 143))
     {
       return [result _removeEditingBorderView];
     }

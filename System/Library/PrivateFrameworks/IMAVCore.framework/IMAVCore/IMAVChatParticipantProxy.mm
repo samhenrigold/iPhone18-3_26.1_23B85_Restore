@@ -42,20 +42,19 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
-  v4 = sub_254761764();
+  v4 = sub_254761764(invocationCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v9 = objc_msgSend_selector(invocationCopy, v5, v6, v7, v8);
     v10 = NSStringFromSelector(v9);
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_254743000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] ********** IMAVChatParticipantProxy does not respond to selector %@, please file a radar **********", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_254743000, v4, OS_LOG_TYPE_DEFAULT, "[WARN] ********** IMAVChatParticipantProxy does not respond to selector %@, please file a radar **********", &v11, 0xCu);
   }
 
   IMLogBacktrace();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

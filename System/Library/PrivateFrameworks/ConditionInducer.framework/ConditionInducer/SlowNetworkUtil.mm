@@ -107,7 +107,7 @@
 
 - (void)loadProfile:(id)profile
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   *&self->nlcCommand.version = 0u;
   *&self->nlcCommand.nlc_conditions[1].downlink_config.qsize_unit = 0u;
   *&self->nlcCommand.nlc_conditions[1].downlink_config.bw_unit = 0u;
@@ -123,9 +123,9 @@
   *&self->nlcCommand.nlc_conditions[0].net_config.exclude_loopback = 0u;
   self->nlcCommand.version = 21;
   [(SlowNetworkUtil *)self extractProfileSetting:profile];
-  v29 = 0uLL;
-  v27 = 0uLL;
-  v28 = 0;
+  v28 = 0uLL;
+  v26 = 0uLL;
+  v27 = 0;
   downlinkDelay = self->downlinkDelay;
   if (downlinkDelay)
   {
@@ -182,9 +182,9 @@
   }
 
 LABEL_16:
-  v27 = 0uLL;
+  v26 = 0uLL;
   v13 = 9;
-  v28 = 0;
+  v27 = 0;
 LABEL_17:
   uplinkDelay = self->uplinkDelay;
   if (uplinkDelay)
@@ -233,15 +233,15 @@ LABEL_17:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v26 = 0;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Setting default params", v26, 2u);
+    *v25 = 0;
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Setting default params", v25, 2u);
   }
 
   if (v13)
   {
     *&v21 = 0;
     *&self->nlcCommand.nlc_conditions[1].net_config.family = 0x100000000;
-    *self->nlcCommand.nlc_conditions[1].net_config.ifname = v29;
+    *self->nlcCommand.nlc_conditions[1].net_config.ifname = v28;
     *&self->nlcCommand.nlc_conditions[1].uplink_config.bandwidth = 0;
     self->nlcCommand.nlc_conditions[1].flags = v13;
     self->nlcCommand.nlc_conditions[1].uplink_config.plr = v18;
@@ -252,8 +252,8 @@ LABEL_17:
     self->nlcCommand.nlc_conditions[1].downlink_config.bw_unit = v11;
     self->nlcCommand.nlc_conditions[1].downlink_config.plr = v8;
     self->nlcCommand.nlc_conditions[1].downlink_config.latency = unsignedLongValue;
-    *&self->nlcCommand.nlc_conditions[1].downlink_config.qsize = v27;
-    self->nlcCommand.nlc_conditions[1].downlink_config.src_port = v28;
+    *&self->nlcCommand.nlc_conditions[1].downlink_config.qsize = v26;
+    self->nlcCommand.nlc_conditions[1].downlink_config.src_port = v27;
   }
 
   if ([(NSNumber *)self->dnsDelayValue intValue]>= 1)
@@ -262,14 +262,14 @@ LABEL_17:
     unsignedLongValue4 = [(NSNumber *)self->excludeLoopback unsignedLongValue];
     if (unsignedLongValue3)
     {
-      v27 = 0uLL;
-      v28 = 0;
-      v29 = 0uLL;
+      v26 = 0uLL;
+      v27 = 0;
+      v28 = 0uLL;
       LODWORD(v24) = 0;
       HIDWORD(v24) = unsignedLongValue4;
       self->nlcCommand.nlc_conditions[0].flags = 6;
       *&self->nlcCommand.nlc_conditions[0].net_config.family = v24;
-      *self->nlcCommand.nlc_conditions[0].net_config.ifname = v29;
+      *self->nlcCommand.nlc_conditions[0].net_config.ifname = v28;
       *&self->nlcCommand.nlc_conditions[0].uplink_config.bw_unit = 0;
       self->nlcCommand.nlc_conditions[0].uplink_config.bandwidth = 0;
       self->nlcCommand.nlc_conditions[0].uplink_config.latency = unsignedLongValue3;
@@ -278,18 +278,16 @@ LABEL_17:
       *&self->nlcCommand.nlc_conditions[0].downlink_config.bandwidth = 0;
       *&self->nlcCommand.nlc_conditions[0].downlink_config.plr = 0;
       self->nlcCommand.nlc_conditions[0].uplink_config.src_port = 0;
-      self->nlcCommand.nlc_conditions[0].downlink_config.src_port = v28;
-      *&self->nlcCommand.nlc_conditions[0].downlink_config.qsize = v27;
+      self->nlcCommand.nlc_conditions[0].downlink_config.src_port = v27;
+      *&self->nlcCommand.nlc_conditions[0].downlink_config.qsize = v26;
     }
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    *v26 = 0;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Done setting", v26, 2u);
+    *v25 = 0;
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Done setting", v25, 2u);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)extractProfileSetting:(id)setting
@@ -376,39 +374,24 @@ LABEL_17:
 
 - (void)startNLC
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopNLC
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadNetworkProfilesData
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
-  v7 = NSStringFromClass(v0);
+  v6 = NSStringFromClass(v0);
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)readInProfile:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

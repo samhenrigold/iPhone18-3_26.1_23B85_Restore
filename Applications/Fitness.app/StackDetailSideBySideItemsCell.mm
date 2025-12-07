@@ -24,7 +24,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1002DE28C();
+  sub_1002DE28C(selfCopy);
 }
 
 @end

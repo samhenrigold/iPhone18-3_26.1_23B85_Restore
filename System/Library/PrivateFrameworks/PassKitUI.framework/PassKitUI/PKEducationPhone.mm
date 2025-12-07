@@ -231,11 +231,11 @@
   if (iconsView)
   {
     [(PKPaymentSetupInitialCardEducationIconsView *)iconsView setFrame:v16 * 0.5, v8, v12, 34.0];
-    v65.origin.x = v17;
-    v65.origin.y = v8;
-    v65.size.width = v12;
-    v65.size.height = 34.0;
-    MaxY = CGRectGetMaxY(v65);
+    v72.origin.x = v17;
+    v72.origin.y = v8;
+    v72.size.width = v12;
+    v72.size.height = 34.0;
+    MaxY = CGRectGetMaxY(v72);
     [(PKEducationPhone *)self _deviceIconsPadding];
     v8 = MaxY + v19;
   }
@@ -247,95 +247,98 @@
   image = [(UIImageView *)self->_cardImageView image];
   [image size];
   PKSizeAspectFit();
-  PKSizeRoundToPixel();
-  v24 = v23;
+  PKSizeRoundToPixel(v23, v24);
   v26 = v25;
+  v28 = v27;
 
-  v63 = v14;
-  v27 = (v4 - v24) * 0.5;
-  v28 = v8 + v21;
-  [(UIImageView *)self->_cardImageView setFrame:v27, v8 + v21, v24, v26];
-  PKFloatRoundToPixel();
-  v30 = v29;
-  v61 = v26;
-  v62 = v4;
-  v31 = (v4 - v29) * 0.5;
-  v66.origin.x = v27;
-  v60 = v28;
-  v66.origin.y = v28;
-  v32 = v12;
-  v66.size.width = v24;
-  v66.size.height = v26;
-  [(UIImageView *)self->_biometricsImageView setFrame:v31, CGRectGetMaxY(v66) + 20.0, v30, v30];
-  PKFloatRoundToPixel();
+  v70 = v14;
+  v29 = (v4 - v26) * 0.5;
+  v30 = v8 + v21;
+  [(UIImageView *)self->_cardImageView setFrame:v29, v8 + v21, v26, v28];
+  v31.n128_f64[0] = v12 * 0.25;
+  PKFloatRoundToPixel(v31, v32);
   v34 = v33;
-  v67.origin.x = recta.origin.x;
-  v58 = v8;
-  v67.origin.y = v8;
-  v67.size.width = v32;
-  v67.size.height = v63;
-  v35 = CGRectGetMaxY(v67);
-  MinY = v35;
+  v68 = v28;
+  v69 = v4;
+  v35 = (v4 - v33) * 0.5;
+  v73.origin.x = v29;
+  v67 = v30;
+  v73.origin.y = v30;
+  v36 = v12;
+  v73.size.width = v26;
+  v73.size.height = v28;
+  [(UIImageView *)self->_biometricsImageView setFrame:v35, CGRectGetMaxY(v73) + 20.0, v34, v34];
+  v37.n128_f64[0] = v70 * 0.015;
+  PKFloatRoundToPixel(v37, v38);
+  v40 = v39;
+  v74.origin.x = recta.origin.x;
+  v65 = v8;
+  v74.origin.y = v8;
+  v74.size.width = v36;
+  v74.size.height = v70;
+  v41.n128_f64[0] = CGRectGetMaxY(v74);
+  MinY = v41.n128_f64[0];
   if (self->_hasPearl)
   {
-    v37 = v32 * 0.5;
-    PKFloatRoundToPixel();
-    v38 = (v62 - v32 * 0.5) * 0.5;
-    v40 = v34;
-    v41 = MinY - v39 - v34;
-    v42 = v39 * 0.5;
+    v44 = v36 * 0.5;
+    v41.n128_f64[0] = v70 * 0.01;
+    PKFloatRoundToPixel(v41, v42);
+    v45 = (v69 - v36 * 0.5) * 0.5;
+    v47 = v40;
+    v48 = MinY - v46 - v40;
+    v49 = v46 * 0.5;
   }
 
   else
   {
-    v40 = v34;
-    v38 = (v62 + -35.0) * 0.5;
-    v41 = v35 + 10.0;
-    v37 = 35.0;
-    v68.origin.x = v38;
-    v68.origin.y = MinY + 10.0;
-    v68.size.width = 35.0;
-    v68.size.height = 35.0;
-    v69 = CGRectInset(v68, 4.0, 4.0);
-    width = v69.size.width;
-    [(UIView *)self->_homeButtonOutlineView setFrame:v69.origin.x, v69.origin.y];
+    v47 = v40;
+    v45 = (v69 + -35.0) * 0.5;
+    v48 = v41.n128_f64[0] + 10.0;
+    v44 = 35.0;
+    v75.origin.x = v45;
+    v75.origin.y = MinY + 10.0;
+    v75.size.width = 35.0;
+    v75.size.height = 35.0;
+    v76 = CGRectInset(v75, 4.0, 4.0);
+    width = v76.size.width;
+    [(UIView *)self->_homeButtonOutlineView setFrame:v76.origin.x, v76.origin.y];
     layer = [(UIView *)self->_homeButtonOutlineView layer];
     [layer setCornerRadius:width * 0.5];
 
-    v42 = 17.5;
+    v49 = 17.5;
   }
 
-  [(UIView *)self->_homeButtonView setFrame:v38, v41, v37, *&v58];
+  [(UIView *)self->_homeButtonView setFrame:v45, v48, v44, *&v65];
   layer2 = [(UIView *)self->_homeButtonView layer];
-  [layer2 setCornerRadius:v42];
+  [layer2 setCornerRadius:v49];
 
   image2 = [(UIImageView *)self->_walletImageView image];
   [image2 size];
-  v48 = v47;
-  v50 = v49;
+  v55 = v54;
+  v57 = v56;
 
-  v51 = v32 / (v48 / v50);
+  v58 = v36 / (v55 / v57);
   if (self->_hasPearl)
   {
     [(UIView *)self->_homeButtonView frame];
-    MinY = CGRectGetMinY(v70);
+    MinY = CGRectGetMinY(v77);
   }
 
-  [(UIImageView *)self->_walletImageView setFrame:recta.origin.x, MinY - v51 - v40, v32, v51];
-  v52 = v63;
+  [(UIImageView *)self->_walletImageView setFrame:recta.origin.x, MinY - v58 - v47, v36, v58];
+  v59 = v70;
   if (self->_hasPearl)
   {
-    v53 = v59;
-    v54 = v60 + (v61 + -30.0) * 0.5;
+    v60 = v66;
+    v61 = v67 + (v68 + -30.0) * 0.5;
     x = recta.origin.x;
-    v56 = v32;
-    v57 = CGRectGetMaxX(*(&v52 - 3)) + 5.0;
-    [(UIImageView *)self->_powerIndicatorView setFrame:v57, v54, 5.0, 30.0];
-    v71.size.width = 5.0;
-    v71.size.height = 30.0;
-    v71.origin.x = v57;
-    v71.origin.y = v54;
-    [(UIImageView *)self->_powerArrowImageView setFrame:CGRectGetMaxX(v71) + 5.0, v54, 35.0, 30.0];
+    v63 = v36;
+    v64 = CGRectGetMaxX(*(&v59 - 3)) + 5.0;
+    [(UIImageView *)self->_powerIndicatorView setFrame:v64, v61, 5.0, 30.0];
+    v78.size.width = 5.0;
+    v78.size.height = 30.0;
+    v78.origin.x = v64;
+    v78.origin.y = v61;
+    [(UIImageView *)self->_powerArrowImageView setFrame:CGRectGetMaxX(v78) + 5.0, v61, 35.0, 30.0];
   }
 }
 

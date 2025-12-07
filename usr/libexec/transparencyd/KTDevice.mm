@@ -12,6 +12,7 @@
 - (id)clientRecordForAppVersion:(unint64_t)version clientDataHash:(id)hash;
 - (id)clientRecordsForHash:(id)hash;
 - (id)debugDescription;
+- (void)cleanupRecords:(id)records removeAllMarked:(BOOL)marked;
 - (void)deleteMarkedEntries:(id)entries;
 - (void)encodeWithCoder:(id)coder;
 - (void)markClientDatasForAppVersion:(unint64_t)version mutationMs:(unint64_t)ms except:(id)except;
@@ -737,6 +738,46 @@ LABEL_11:
   v3 = [clientDatas count] == 0;
 
   return v3;
+}
+
+- (void)cleanupRecords:(id)records removeAllMarked:(BOOL)marked
+{
+  markedCopy = marked;
+  recordsCopy = records;
+  clientDatas = [(KTDevice *)self clientDatas];
+  v8 = [NSArray arrayWithArray:clientDatas];
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v9 = v8;
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v16;
+    do
+    {
+      for (i = 0; i != v11; i = i + 1)
+      {
+        if (*v16 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v15 + 1) + 8 * i);
+        if ([v14 shouldRemove:recordsCopy removeAllMarked:{markedCopy, v15}])
+        {
+          [(KTDevice *)self removeClientDatasObject:v14];
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v11);
+  }
 }
 
 - (void)deleteMarkedEntries:(id)entries

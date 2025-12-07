@@ -1,21 +1,235 @@
-void CI::ConvertNode::ConvertNode(CI::NodeWithChildren *a1, CI::Node *a2, unsigned int a3)
+char *std::vector<void const*>::insert(void *a1, char *__src, void *a3, __n128 a4)
 {
-  (*(*a2 + 168))(a2);
-  CI::cfname_for_conversion(a3);
-  v6 = (*(*a2 + 16))(a2);
-  if ((CI::is_image_type(v6) & 1) == 0)
+  v5 = __src;
+  v7 = a1[1];
+  v8 = a1[2];
+  if (v7 >= v8)
   {
-    CI::input_format_for_conversion(a3);
+    v11 = *a1;
+    v12 = (&v7[-*a1] >> 3) + 1;
+    if (v12 >> 61)
+    {
+      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
+    }
+
+    v13 = &__src[-v11];
+    v14 = v8 - v11;
+    if (v14 >> 2 > v12)
+    {
+      v12 = v14 >> 2;
+    }
+
+    if (v14 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v15 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
+    v16 = v13 >> 3;
+    v28 = a1;
+    if (v15)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(a1, v15);
+    }
+
+    v25 = 0;
+    v26 = 8 * v16;
+    v27 = (8 * v16);
+    std::__split_buffer<void const*>::emplace_back<void const*>(&v25, a3);
+    v17 = v26;
+    memcpy(v27, v5, a1[1] - v5);
+    v18 = *a1;
+    v19 = v26;
+    *&v27 = v27 + a1[1] - v5;
+    a1[1] = v5;
+    v20 = v5 - v18;
+    v21 = (v19 - (v5 - v18));
+    memcpy(v21, v18, v20);
+    v22 = *a1;
+    *a1 = v21;
+    v23 = a1[2];
+    *(a1 + 1) = v27;
+    *&v27 = v22;
+    *(&v27 + 1) = v23;
+    v25 = v22;
+    v26 = v22;
+    if (v22)
+    {
+      operator delete(v22);
+    }
+
+    return v17;
   }
 
-  CI::output_format_for_conversion(a3);
-  CI::conversion_is_alpha_one(a3);
-  v7 = (*(*a2 + 16))(a2);
-  CI::is_image_type(v7);
-  CI::ProcessorNode::ProcessorNode(a1, a2);
+  else if (__src == v7)
+  {
+    *v7 = *a3;
+    a1[1] = v7 + 8;
+  }
+
+  else
+  {
+    v9 = __src + 8;
+    if (v7 < 8)
+    {
+      v10 = a1[1];
+    }
+
+    else
+    {
+      *v7 = *(v7 - 1);
+      v10 = v7 + 8;
+    }
+
+    a1[1] = v10;
+    if (v7 != v9)
+    {
+      memmove(__src + 8, __src, v7 - v9);
+    }
+
+    *v5 = *a3;
+  }
+
+  return v5;
 }
 
-CI::Object *CI::ConvertNode::append_to_tree(CI::Object *this, int a2)
+char *std::vector<void const*>::insert(void *a1, char *__src, char *a3, __n128 a4)
+{
+  v5 = __src;
+  v7 = a1[1];
+  v8 = a1[2];
+  if (v7 >= v8)
+  {
+    v11 = *a1;
+    v12 = (&v7[-*a1] >> 3) + 1;
+    if (v12 >> 61)
+    {
+      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
+    }
+
+    v13 = &__src[-v11];
+    v14 = v8 - v11;
+    if (v14 >> 2 > v12)
+    {
+      v12 = v14 >> 2;
+    }
+
+    if (v14 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v15 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v15 = v12;
+    }
+
+    v16 = v13 >> 3;
+    v30 = a1;
+    if (v15)
+    {
+      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(a1, v15);
+    }
+
+    v27 = 0;
+    v28 = 8 * v16;
+    v29 = (8 * v16);
+    std::__split_buffer<void const*>::emplace_back<void const*>(&v27, a3);
+    v17 = v28;
+    memcpy(v29, v5, a1[1] - v5);
+    v18 = *a1;
+    v19 = v28;
+    *&v29 = v29 + a1[1] - v5;
+    a1[1] = v5;
+    v20 = v5 - v18;
+    v21 = (v19 - (v5 - v18));
+    memcpy(v21, v18, v20);
+    v22 = *a1;
+    *a1 = v21;
+    v23 = a1[2];
+    *(a1 + 1) = v29;
+    *&v29 = v22;
+    *(&v29 + 1) = v23;
+    v27 = v22;
+    v28 = v22;
+    if (v22)
+    {
+      operator delete(v22);
+    }
+
+    return v17;
+  }
+
+  else if (__src == v7)
+  {
+    *v7 = *a3;
+    a1[1] = v7 + 8;
+  }
+
+  else
+  {
+    v9 = __src + 8;
+    if (v7 < 8)
+    {
+      v10 = a1[1];
+    }
+
+    else
+    {
+      *v7 = *(v7 - 1);
+      v10 = (v7 + 8);
+    }
+
+    a1[1] = v10;
+    if (v7 != v9)
+    {
+      memmove(__src + 8, __src, v7 - v9);
+      v10 = a1[1];
+    }
+
+    v24 = v10 <= a3 || v5 > a3;
+    v25 = 8;
+    if (v24)
+    {
+      v25 = 0;
+    }
+
+    *v5 = *&a3[v25];
+  }
+
+  return v5;
+}
+
+void CI::ConvertNode::ConvertNode(CI::NodeWithChildren *a1, CI::Node *a2, signed int a3, char a4, const void *a5)
+{
+  *&v20 = (*(*a2 + 168))(a2);
+  *(&v20 + 1) = v10;
+  v21 = v11;
+  v22 = v12;
+  v13 = CI::cfname_for_conversion(a3);
+  v14 = (*(*a2 + 16))(a2);
+  if (CI::is_image_type(v14))
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = CI::input_format_for_conversion(a3);
+  }
+
+  v16 = CI::output_format_for_conversion(a3);
+  is_alpha_one = CI::conversion_is_alpha_one(a3);
+  v18 = (*(*a2 + 16))(a2);
+  is_image_type = CI::is_image_type(v18);
+  CI::ProcessorNode::ProcessorNode(a1, a2, 0, a5, &v20, v13, a3, 0, 0, v15, v16, 0, is_alpha_one, 0, 0, a4, 0, is_image_type ^ 1);
+}
+
+CI::Node *CI::ConvertNode::append_to_tree(CI::Object *this, signed int a2)
 {
   v2 = this;
   if (a2)
@@ -188,7 +402,7 @@ LABEL_16:
   }
 }
 
-void CI::ConvertNode::render(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, void *a5, CGRect *a6, int a7)
+void CI::ConvertNode::render(unsigned int *a1, uint64_t a2, void *a3, uint64_t *a4, uint64_t (*****a5)(void), CGRect *a6, int a7)
 {
   v14 = (*(*a1 + 48))(a1, 0);
   if (!v14)
@@ -203,95 +417,98 @@ void CI::ConvertNode::render(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, v
   }
 
   v16 = (*(***a4 + 32))(**a4);
-  v37[0] = 0;
-  v37[1] = 0;
-  CI::CGNode::surfaceForROI(v15, a3, &v16->origin.x, v37, &v36);
-  v17 = v36;
-  if (v36)
+  v43[0] = 0;
+  v43[1] = 0;
+  CI::CGNode::surfaceForROI(v15, a3, &v16->origin.x, v43, &v42);
+  v17 = v42;
+  if (v42)
   {
-    ReturnSurfaceToCache(v36);
+    ReturnSurfaceToCache(v42);
   }
 
   else
   {
-    if (CI_VERBOSE_SIGNPOSTS())
+    v18 = CI_VERBOSE_SIGNPOSTS();
+    if (v18)
     {
-      log = ci_signpost_log_render();
-      v18 = (*(*a3 + 280))(a3);
-      if ((*(a1 + 36) | (v18 << 32)) - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      log = ci_signpost_log_render(v18, v19);
+      v20 = (*(*a3 + 280))(a3);
+      if ((a1[9] | (v20 << 32)) - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v29 = *(a1 + 36) | (v18 << 32);
+        v35 = a1[9] | (v20 << 32);
         if (os_signpost_enabled(log))
         {
-          *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, log, OS_SIGNPOST_INTERVAL_BEGIN, v29, "convert_processor", &unk_19CFBCBAE, buf, 2u);
+          LOWORD(buf) = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, log, OS_SIGNPOST_INTERVAL_BEGIN, v35, "convert_processor", &unk_19CFBCBAE, &buf, 2u);
         }
       }
     }
 
-    v19 = (*(*a3 + 280))(a3);
-    TimerBase::TimerBase(buf, v19, *(a1 + 36), "convert_processor", 15);
-    v32 = CGRectIntersection(*v16, *a6);
-    CI::CGNode::cgImageForROI(v15, &v32, &image);
-    v20 = image;
+    v21 = (*(*a3 + 280))(a3);
+    TimerBase::TimerBase(&buf, v21, a1[9], "convert_processor", 0xFu);
+    v38 = CGRectIntersection(*v16, *a6);
+    CI::CGNode::cgImageForROI(&image, v15, &v38);
+    v22 = image;
     v17 = 0;
     if (image)
     {
       DataProvider = CGImageGetDataProvider(image);
-      *&v32.size.width = CGImageGetWidth(v20);
-      *&v32.origin.y = CGImageGetHeight(v20);
-      *&v32.size.height = CGImageGetBytesPerRow(v20);
-      if (DataProvider && (*&v32.origin.x = CGDataProviderRetainBytePtr()) != 0)
+      *&v38.size.width = CGImageGetWidth(v22);
+      *&v38.origin.y = CGImageGetHeight(v22);
+      BytesPerRow = CGImageGetBytesPerRow(v22);
+      *&v38.size.height = BytesPerRow;
+      if (DataProvider && (BytesPerRow = CGDataProviderRetainBytePtr(), (*&v38.origin.x = BytesPerRow) != 0))
       {
         if (a5[1] - *a5 == 8)
         {
-          v22 = (****a5)();
-          (*(***a5 + 24))(&v31);
-          CI::convert_buffer_to_texture(a3, 0, 0, 0, &v32, v22, v31, *(a1 + 296));
+          v26 = (****a5)();
+          ((***a5)[3])(&v37);
+          CI::convert_buffer_to_texture(a3, 0, 0, 0, &v38, v26, v37, a1[74]);
           CGDataProviderReleaseBytePtr();
         }
       }
 
       else
       {
-        v23 = ci_logger_render();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v27 = ci_logger_render(BytesPerRow, v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
         {
-          CI::ConvertNode::render(v20, v23);
+          CI::ConvertNode::render(v22, v27);
         }
       }
 
-      v24 = image;
+      v28 = image;
       image = 0;
-      if (v24)
+      if (v28)
       {
-        CFRelease(v24);
+        CFRelease(v28);
       }
     }
 
-    if (CI_VERBOSE_SIGNPOSTS())
+    v29 = CI_VERBOSE_SIGNPOSTS();
+    if (v29)
     {
-      v25 = ci_signpost_log_render();
-      v26 = v35;
-      if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v31 = ci_signpost_log_render(v29, v30);
+      v32 = v41;
+      if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v27 = v25;
-        if (os_signpost_enabled(v25))
+        v33 = v31;
+        if (os_signpost_enabled(v31))
         {
-          LOWORD(v32.origin.x) = 0;
-          _os_signpost_emit_with_name_impl(&dword_19CC36000, v27, OS_SIGNPOST_INTERVAL_END, v26, "convert_processor", &unk_19CFBCBAE, &v32, 2u);
+          LOWORD(v38.origin.x) = 0;
+          _os_signpost_emit_with_name_impl(&dword_19CC36000, v33, OS_SIGNPOST_INTERVAL_END, v32, "convert_processor", &unk_19CFBCBAE, &v38, 2u);
         }
       }
     }
 
-    TimerBase::~TimerBase(buf);
+    TimerBase::~TimerBase(&buf, v30);
   }
 
-  v28 = v36;
-  v36 = 0;
-  if (v28)
+  v34 = v42;
+  v42 = 0;
+  if (v34)
   {
-    CFRelease(v28);
+    CFRelease(v34);
   }
 
   if (v17)
@@ -420,7 +637,7 @@ void non-virtual thunk toCI::ConvertNode::~ConvertNode(CI::ConvertNode *this)
   JUMPOUT(0x19EAF5590);
 }
 
-void std::vector<__IOSurface *>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<__IOSurface *>::__vallocate[abi:nn200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -430,27 +647,26 @@ void std::vector<__IOSurface *>::__vallocate[abi:nn200100](uint64_t a1, unint64_
   std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
 }
 
-void *std::__split_buffer<void const*>::emplace_back<void const*>(void *result, void *a2)
+void std::__split_buffer<void const*>::emplace_back<void const*>(void *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(result[4], v11);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -459,21 +675,20 @@ void *std::__split_buffer<void const*>::emplace_back<void const*>(void *result, 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -493,7 +708,7 @@ void std::vector<BOOL>::__vallocate[abi:nn200100](uint64_t a1, uint64_t a2)
   std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
 }
 
-uint64_t std::vector<BOOL>::__init_with_size[abi:nn200100]<BOOL *,BOOL *>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<BOOL>::__init_with_size[abi:nn200100]<BOOL *,BOOL *>(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -560,37 +775,37 @@ void *std::vector<BOOL>::__construct_at_end<BOOL *,BOOL *>(void *result, _BYTE *
   return result;
 }
 
-void *std::vector<CI::intermediate_t const*>::vector[abi:nn200100](void *result, void *a2)
+uint64_t *std::vector<CI::intermediate_t const*>::vector[abi:nn200100](uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    std::vector<CI::intermediate_t const*>::__vallocate[abi:nn200100](result, (v2 - *a2) >> 3);
+    std::vector<CI::intermediate_t const*>::__vallocate[abi:nn200100](a1, (v2 - *a2) >> 3);
   }
 
-  return result;
+  return a1;
 }
 
 void *CI::InstanceCounted<(CI::Type)47>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103B0D8;
-  atomic_fetch_add(&dword_1ED7C47BC[45], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[38], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)47>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103B0D8;
-  atomic_fetch_add(&dword_1ED7C47BC[45], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[38], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
 uint64_t CI::ProgramNode::queue_pool(CI::ProgramNode *this)
 {
-  if ((atomic_load_explicit(&qword_1ED7C45F8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED7C45F8, memory_order_acquire) & 1) == 0)
   {
     CI::ProgramNode::queue_pool();
   }
@@ -659,7 +874,7 @@ void CI::ProgramNode::~ProgramNode(CI::ProgramNode *this)
   Queue::~Queue(v2);
   std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(this + 80, *(this + 11));
   *(this + 5) = &unk_1F103B3D0;
-  atomic_fetch_add(&dword_1ED7C47BC[58], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[51], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -763,7 +978,7 @@ void CI::ProgramNode::traverse_dag(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v11, v12[0]);
 }
 
-uint64_t CI::_traverse_dag(CI::SerialStringArray **a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+uint64_t CI::_traverse_dag(CI::SerialStringArray **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   v12 = a8;
   v20 = a4;
@@ -816,8 +1031,8 @@ uint64_t CI::_traverse_dag(CI::SerialStringArray **a1, unint64_t a2, uint64_t a3
 LABEL_14:
     v41 = a1;
     v37 = v20;
-    v43 = v22;
-    result = std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a9, &v43);
+    v43[0] = v22;
+    result = std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long>(a9, v43, v43);
     if (a10)
     {
       result = (*(a10 + 16))(a10, a2, a3, a4, a5, a6, a7, v12, v40);
@@ -906,9 +1121,9 @@ void CI::ProgramNode::traverse_dag_preorder(uint64_t a1, uint64_t a2, uint64_t a
   std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v11, v12[0]);
 }
 
-uint64_t CI::ProgramNode::child_type_is_image(CI::ProgramNode *this, int a2)
+uint64_t CI::ProgramNode::child_type_is_image(CI::ProgramNode *this, unsigned int a2)
 {
-  if (a2 < 0)
+  if ((a2 & 0x80000000) != 0)
   {
     return 0;
   }
@@ -946,9 +1161,9 @@ uint64_t CI::ProgramNode::child_type_is_image(CI::ProgramNode *this, int a2)
   return v11();
 }
 
-size_t CI::ProgramNode::child_depth(CI::ProgramNode *this, int a2)
+size_t CI::ProgramNode::child_depth(CI::ProgramNode *this, unsigned int a2)
 {
-  if (a2 < 0 || (*(*this + 40))(this) <= a2)
+  if ((a2 & 0x80000000) != 0 || (*(*this + 40))(this) <= a2)
   {
     return 0;
   }
@@ -958,9 +1173,9 @@ size_t CI::ProgramNode::child_depth(CI::ProgramNode *this, int a2)
   return strlen(v4);
 }
 
-size_t CI::ProgramNode::child_can_sample_nearest(CI::ProgramNode *this, int a2)
+uint64_t CI::ProgramNode::child_can_sample_nearest(CI::ProgramNode *this, unsigned int a2)
 {
-  if (a2 < 0 || (*(*this + 40))(this) <= a2)
+  if ((a2 & 0x80000000) != 0 || (*(*this + 40))(this) <= a2)
   {
     return 0;
   }
@@ -1039,9 +1254,9 @@ LABEL_12:
   return v14(v11);
 }
 
-uint64_t CI::ProgramNode::child(CI::ProgramNode *this, unsigned int a2)
+uint64_t CI::ProgramNode::child(CI::ProgramNode *this, int a2)
 {
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     return 0;
   }
@@ -1065,11 +1280,11 @@ uint64_t CI::ProgramNode::child(CI::ProgramNode *this, unsigned int a2)
   return *v5;
 }
 
-void CI::ProgramNode::set_child(CI::ProgramNode *this, CI::Node *a2, int a3)
+void CI::ProgramNode::set_child(void *this, CI::Node *a2, int a3)
 {
   if ((a3 & 0x80000000) == 0 && (*(*this + 40))(this) > a3)
   {
-    v6 = *(this + 8);
+    v6 = this[8];
 
     CI::SerialObjectPtrArray::replace(v6, a2, a3);
   }
@@ -1234,13 +1449,13 @@ CFStringRef CI::ProgramNode::description(CI::ProgramNode *this)
   return CFStringCreateWithFormat(0, 0, @"<CI::%s %p>", v3, this);
 }
 
-double CI::ProgramNode::compute_regions_of_child@<D0>(CI::ProgramNode *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, unsigned int a3@<W1>, unint64_t a4@<X2>, int a5@<W3>, int a6@<W4>, uint64_t a7@<X8>)
+double CI::ProgramNode::compute_regions_of_child@<D0>(CI::ProgramNode *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, int a3@<W1>, unint64_t a4@<X2>, int a5@<W3>, int a6@<W4>, uint64_t a7@<X8>)
 {
   *&v51 = a2.origin.x;
   *(&v51 + 1) = *&a2.origin.y;
   width = a2.size.width;
   height = a2.size.height;
-  if ((a3 & 0x80000000) != 0 || (*(*this + 40))(this) <= a3 || (v35 = *(*(*(this + 7) + 32) + 8 * a3), (v34 = strlen(v35)) == 0))
+  if (a3 < 0 || (*(*this + 40))(this) <= a3 || (v35 = *(*(*(this + 7) + 32) + 8 * a3), (v34 = strlen(v35)) == 0))
   {
     *a7 = 0;
     *(a7 + 8) = 0;
@@ -1415,12 +1630,12 @@ unint64_t CI::ProgramNode::digest(CI::ProgramNode *this)
   return XXH64_digest(v4);
 }
 
-void CI::ProgramNode::roiKeys_of_child(CI::ProgramNode *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a3@<X1>, void *a4@<X8>)
+void CI::ProgramNode::roiKeys_of_child(uint64_t *__return_ptr a1@<X8>, CI::ProgramNode *this@<X0>, CGRect a3@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a4@<X1>)
 {
-  height = a2.size.height;
-  width = a2.size.width;
-  y = a2.origin.y;
-  x = a2.origin.x;
+  height = a3.size.height;
+  width = a3.size.width;
+  y = a3.origin.y;
+  x = a3.origin.x;
   if (CI::Node::rois_count(this) < 1)
   {
     goto LABEL_16;
@@ -1480,10 +1695,10 @@ LABEL_8:
 
     *&v36 = this;
     *(&v36 + 1) = __PAIR64__(v17, v10);
-    v37 = a3 | 0xFFFFFFFF00000000;
+    v37 = a4 | 0xFFFFFFFF00000000;
     v38 = 0;
     v39 = 0;
-    v18 = (*(*this + 48))(this, a3);
+    v18 = (*(*this + 48))(this, a4);
     v19 = CI::Node::rois(v18);
     CI::SerialRectArray::findParentROI(v19, &v36, &__block_literal_global_26_1, &v33);
     if (!v35)
@@ -1492,7 +1707,7 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    CI::roiKeyVec::roiKeyVec(a4, v18, &v33);
+    CI::roiKeyVec::roiKeyVec(a1, v18, &v33);
     std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v33, v34);
     v20 = 1;
     v15 = v40;
@@ -1571,10 +1786,10 @@ LABEL_23:
 
     *&v36 = this;
     *(&v36 + 1) = __PAIR64__(v28, v21);
-    v37 = a3 | 0xFFFFFFFF00000000;
+    v37 = a4 | 0xFFFFFFFF00000000;
     v38 = 0;
     v39 = 0;
-    v29 = (*(*this + 48))(this, a3);
+    v29 = (*(*this + 48))(this, a4);
     v30 = CI::Node::rois(v29);
     CI::SerialRectArray::findRetiredParentROI(v30, &v36, &__block_literal_global_30_2, &v33);
     if (!v35)
@@ -1583,7 +1798,7 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    CI::roiKeyVec::roiKeyVec(a4, v29, &v33);
+    CI::roiKeyVec::roiKeyVec(a1, v29, &v33);
     std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(&v33, v34);
     v31 = 1;
     v26 = v40;
@@ -1603,9 +1818,9 @@ LABEL_26:
 
   while (v21 < CI::Node::rois_count(this));
 LABEL_31:
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
 }
 
 uint64_t *CI::SerialRectArray::findParentROI@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
@@ -1633,7 +1848,7 @@ uint64_t *CI::SerialRectArray::findParentROI@<X0>(uint64_t *result@<X0>, uint64_
           if (*v13 == *a2 && *(a2 + 16) == *(v13 + 16) && *(a2 + 12) == *(v13 + 12) && *(a2 + 8) == *(v13 + 8))
           {
             (*(a3 + 16))(a3, v13, v15);
-            result = std::__tree<int>::__emplace_unique_key_args<int,int const&>(a4, &v15);
+            result = std::__tree<int>::__emplace_unique_key_args<int,int const&>(a4, &v15, &v15);
           }
 
           v13 += 48;
@@ -1680,7 +1895,7 @@ uint64_t *CI::SerialRectArray::findRetiredParentROI@<X0>(uint64_t *result@<X0>, 
           if (*v13 == *a2 && *(a2 + 16) == *(v13 + 16) && *(a2 + 12) == *(v13 + 12) && *(a2 + 8) == *(v13 + 8))
           {
             (*(a3 + 16))(a3, v13);
-            result = std::__tree<int>::__emplace_unique_key_args<int,int const&>(a4, &v15);
+            result = std::__tree<int>::__emplace_unique_key_args<int,int const&>(a4, &v15, &v15);
           }
 
           v13 += 48;
@@ -1704,7 +1919,7 @@ uint64_t *CI::SerialRectArray::findRetiredParentROI@<X0>(uint64_t *result@<X0>, 
 
 void CI::ProgramNode::regions_of_child(CI::ProgramNode *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a3@<X1>, const void **a4@<X8>)
 {
-  CI::ProgramNode::roiKeys_of_child(this, a2, a3, __p);
+  CI::ProgramNode::roiKeys_of_child(__p, this, a2, a3);
   CI::roiKeyVec::roi(__p, a4);
   if (__p[0])
   {
@@ -1759,7 +1974,7 @@ void CI::roiKeyVec::roi(CI::roiKeyVec *this@<X0>, const void **a2@<X8>)
         *(v17 + 8) = v6;
         *(v17 + 16) = v7;
         *(v17 + 24) = v8;
-        v11 = 32 * v14 + 32;
+        v11 = (32 * v14 + 32);
         memcpy(0, v12, v13);
         v18 = *a2;
         *a2 = 0;
@@ -1775,7 +1990,7 @@ void CI::roiKeyVec::roi(CI::roiKeyVec *this@<X0>, const void **a2@<X8>)
       {
         *v9 = v5;
         *(v9 + 1) = v6;
-        v11 = (v9 + 32);
+        v11 = v9 + 32;
         *(v9 + 2) = v7;
         *(v9 + 3) = v8;
       }
@@ -2608,11 +2823,11 @@ uint64_t ___ZNK2CI11ProgramNode21compute_kernel_digestEPKNS_7ContextE_block_invo
   {
 LABEL_9:
     v20 = *(a1[5] + 8);
-    v21 = *(v20 + 24) + 1;
+    v21 = (*(v20 + 24) + 1);
     *(v20 + 24) = v21;
     v22 = *(a1[4] + 8);
     __src = v11;
-    std::__tree<std::__value_type<CI::NodeIndex,unsigned long>,std::__map_value_compare<CI::NodeIndex,std::__value_type<CI::NodeIndex,unsigned long>,std::less<CI::NodeIndex>,true>,std::allocator<std::__value_type<CI::NodeIndex,unsigned long>>>::__emplace_unique_key_args<CI::NodeIndex,std::piecewise_construct_t const&,std::tuple<CI::NodeIndex const&>,std::tuple<>>(v22 + 40, v11)[5] = v21;
+    std::__tree<std::__value_type<CI::NodeIndex,unsigned long>,std::__map_value_compare<CI::NodeIndex,std::__value_type<CI::NodeIndex,unsigned long>,std::less<CI::NodeIndex>,true>,std::allocator<std::__value_type<CI::NodeIndex,unsigned long>>>::__emplace_unique_key_args<CI::NodeIndex,std::piecewise_construct_t const&,std::tuple<CI::NodeIndex const&>,std::tuple<>>(v22 + 40, v11, &std::piecewise_construct, &__src)[5] = v21;
   }
 
   v23 = *(a1[6] + 8);
@@ -2769,7 +2984,7 @@ uint64_t ___ZNK2CI11ProgramNode25compute_kernel_attributesEPNS_7ContextE_block_i
       CI::Object::ref(this);
     }
 
-    v10 = (*(*v8 + 336))(v8, a1[7]);
+    v10 = (*(*v8 + 336))(v8, a1[7], a3, a4, a5);
     v13[1] = v10;
     if (v10)
     {
@@ -2823,7 +3038,7 @@ void CI::ProgramNode::addDestinationTransform(CI::ProgramNode *this, const CI::C
   v26[0] = v15;
   v26[1] = v16;
   v26[2] = v14;
-  CI::Affine::inverse(v26, &v27);
+  CI::Affine::inverse(&v27, v26);
   v23[0] = MEMORY[0x1E69E9820];
   v23[1] = *"";
   v24 = v27;
@@ -2850,13 +3065,13 @@ double CI::AffineNode::append_transform(CI::AffineNode *this, float64x2_t *a2)
   return result;
 }
 
-void *CI::SerialRectArray::replace(void *a1, char **a2, int a3, double a4, double a5, double a6, double a7)
+void **CI::SerialRectArray::replace(void *a1, char **a2, int a3, double a4, double a5, double a6, double a7)
 {
   v16 = CGRectStandardize(*&a4);
-  v10 = (*a1 + 120 * a3);
+  v10 = *a1 + 120 * a3;
   *v10 = v16;
-  result = &v10[1].origin.x;
-  if (&v10[1] != a2)
+  result = (v10 + 32);
+  if ((v10 + 32) != a2)
   {
     v12 = *a2;
     v13 = a2[1];
@@ -2892,24 +3107,25 @@ void ___ZN2CI11ProgramNode23addDestinationTransformERKNS_7ContextERKNS_6AffineE_
   }
 
   v9 = &unk_1F1033F70;
-  atomic_fetch_add(&dword_1ED7C47BC[64], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[57], 0xFFFFFFFF);
 }
 
 void CI::ProgramNode::create_program_and_arguments(CI::ProgramNode *this, CI::Context *a2, const char *a3)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v5 = CI_VERBOSE_SIGNPOSTS();
+  if (v5)
   {
-    v5 = ci_signpost_log_render();
-    v6 = *(this + 9) | ((*(*a2 + 280))(a2) << 32);
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v7 = ci_signpost_log_render(v5, v6);
+    v8 = *(this + 9) | ((*(*a2 + 280))(a2) << 32);
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v6, "create_program_and_arguments", &unk_19CFBCBAE, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v8, "create_program_and_arguments", &unk_19CFBCBAE, buf, 2u);
     }
   }
 
-  v7 = (*(*a2 + 280))(a2);
-  TimerBase::TimerBase(v9, v7, *(this + 9), "create_program_and_arguments", 37);
+  v9 = (*(*a2 + 280))(a2);
+  TimerBase::TimerBase(&v11, v9, *(this + 9), "create_program_and_arguments", 0x25u);
   operator new();
 }
 
@@ -2922,100 +3138,103 @@ void ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_
     v3 = "ciKernelMain";
   }
 
-  x_stream_init(v25);
-  if ((*(**(a1 + 48) + 16))(*(a1 + 48)) == 82 || (*(**(a1 + 48) + 16))(*(a1 + 48)) == 85 || (CI_PRINT_TIME() & 0x100) != 0)
+  x_stream_init(v34);
+  if ((*(**(a1 + 48) + 16))(*(a1 + 48)) == 82 || (v4 = (*(**(a1 + 48) + 16))(*(a1 + 48)), v4 == 85) || (CI_PRINT_TIME(v4, v5) & 0x100) != 0)
   {
-    v3 = (*(*v2 + 424))(v2, v25);
+    v3 = (*(*v2 + 424))(v2, v34);
   }
 
-  v4.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v6.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
   if (CI_ENABLE_METAL_DAG() && (*(**(a1 + 48) + 16))(*(a1 + 48)) == 85)
   {
-    *(v2 + 15) = CI::create_metal_dag(v3, *(a1 + 48), *(a1 + 56), v2, *(v2 + 16), v5);
+    *(v2 + 15) = CI::create_metal_dag(v3, *(a1 + 48), *(a1 + 56), v2, *(v2 + 16), v7);
     CI_ENABLE_METAL_DAG();
   }
 
   if ((*(**(a1 + 48) + 16))(*(a1 + 48)) == 83)
   {
-    *(v2 + 15) = CI::create_sw_dag(v3, *(a1 + 48), *(a1 + 56), v2, *(v2 + 16), v6);
+    *(v2 + 15) = CI::create_sw_dag(v3, *(a1 + 48), *(a1 + 56), v2, *(v2 + 16), v8);
   }
 
   if ((*(**(a1 + 48) + 16))(*(a1 + 48)) == 84 && !FOSL_DAG_CODEGEN())
   {
-    v7 = *(a1 + 48);
-    v8 = CI::ProgramNode::compute_kernel_attributes(v2, v7);
-    CI::createMainProgramCodeAndArgs(v7, v3, v2, *(v2 + 16), v8);
+    v9 = *(a1 + 48);
+    v10 = CI::ProgramNode::compute_kernel_attributes(v2, v9);
+    CI::createMainProgramCodeAndArgs(v9, v3, v2, *(v2 + 16), v10, 0);
   }
 
   if (!*(v2 + 15))
   {
-    if (CI_VERBOSE_SIGNPOSTS())
+    v11 = CI_VERBOSE_SIGNPOSTS();
+    if (v11)
     {
-      v9 = ci_signpost_log_render();
-      v10 = v2[9] | ((*(**(a1 + 48) + 280))(*(a1 + 48)) << 32);
-      if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+      v13 = ci_signpost_log_render(v11, v12);
+      v14 = v2[9] | ((*(**(a1 + 48) + 280))(*(a1 + 48)) << 32);
+      if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v10, "create_main_program_fosl", &unk_19CFBCBAE, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v14, "create_main_program_fosl", &unk_19CFBCBAE, buf, 2u);
       }
     }
 
-    v11 = (*(**(a1 + 48) + 280))(*(a1 + 48));
-    TimerBase::TimerBase(v24, v11, v2[9], "create_main_program_fosl", 0);
+    v15 = (*(**(a1 + 48) + 280))(*(a1 + 48));
+    TimerBase::TimerBase(&v33, v15, v2[9], "create_main_program_fosl", 0);
     operator new();
   }
 
-  v12.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
-  v13 = *(v2 + 15);
-  *(v13 + 40) = (v12.__d_.__rep_ - v4.__d_.__rep_) / 1000000000.0;
-  *(v13 + 16) = *(v2 + 20);
+  v16.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
+  v17 = *(v2 + 15);
+  *(v17 + 40) = (v16.__d_.__rep_ - v6.__d_.__rep_) / 1000000000.0;
+  *(v17 + 16) = *(v2 + 20);
   if (CI_ENABLE_KERNEL_CACHE())
   {
     CI::Context::cacheMainProgram(*(a1 + 48), *(v2 + 20), *(v2 + 15));
   }
 
   CachedMainProgram = CI::Context::findCachedMainProgram(*(a1 + 48), *(v2 + 20));
-  v15 = *(v2 + 15);
-  *(v2 + 168) = CachedMainProgram == v15;
+  v20 = *(v2 + 15);
+  *(v2 + 168) = CachedMainProgram == v20;
   if (CachedMainProgram)
   {
-    if (v15)
+    if (v20)
     {
-      CI::Object::unref(v15);
+      CI::Object::unref(v20);
     }
 
     *(v2 + 15) = CachedMainProgram;
   }
 
-  v16 = *(a1 + 48);
-  if (CI_PRINT_PROGRAM())
+  v21 = *(a1 + 48);
+  if (CI_PRINT_PROGRAM(v20, v18))
   {
-    v17 = (*(*v16 + 280))(v16);
-    if (CI_PRINT_PROGRAM_context(v17, v16 + 236))
+    v22 = (*(*v21 + 280))(v21);
+    v23 = CI_PRINT_PROGRAM_context(v22, v21 + 236);
+    if (v23)
     {
-      v18 = CI_LOG_FILE();
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 0x40000000;
-      v21[2] = ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_invoke_77;
-      v21[3] = &__block_descriptor_tmp_85;
-      v21[4] = v2;
-      v21[5] = v3;
-      v21[6] = *(a1 + 48);
-      v22 = *(a1 + 72);
-      stream_to_file(v18, v21);
+      v25 = CI_LOG_FILE(v23, v24);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 0x40000000;
+      v30[2] = ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_invoke_77;
+      v30[3] = &__block_descriptor_tmp_85;
+      v30[4] = v2;
+      v30[5] = v3;
+      v30[6] = *(a1 + 48);
+      v31 = *(a1 + 72);
+      stream_to_file(v25, v30);
     }
   }
 
-  if (CI::MainProgram::num_arguments(*(v2 + 15)) != **(v2 + 16))
+  v26 = CI::MainProgram::num_arguments(*(v2 + 15));
+  if (v26 != **(v2 + 16))
   {
-    v19 = CI_LOG_FILE();
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 0x40000000;
-    v20[2] = ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_invoke_2;
-    v20[3] = &__block_descriptor_tmp_90;
-    v20[4] = v2;
-    v20[5] = v3;
-    stream_to_file(v19, v20);
+    v28 = CI_LOG_FILE(v26, v27);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 0x40000000;
+    v29[2] = ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_invoke_2;
+    v29[3] = &__block_descriptor_tmp_90;
+    v29[4] = v2;
+    v29[5] = v3;
+    stream_to_file(v28, v29);
   }
 
   if (CI_ASYNC_KERNEL_COMPILE() >= 2)
@@ -3023,7 +3242,7 @@ void ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_
     (*(**(v2 + 15) + 72))(*(v2 + 15), *(a1 + 72));
   }
 
-  x_stream_free(v25);
+  x_stream_free(v34);
 }
 
 uint64_t ___ZN2CI11ProgramNode28create_program_and_argumentsEPNS_7ContextEPKc_block_invoke_77(uint64_t a1, FILE *a2)
@@ -3317,12 +3536,12 @@ BOOL ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordered_ma
   if (v3)
   {
     v9 = &v8;
-    if (!*(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v4 + 40), &v8) + 6))
+    if (!*(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v4 + 40), &v8, &std::piecewise_construct, &v9) + 6))
     {
       v5 = *(*(*(a1 + 40) + 8) + 24);
       v6 = *(*(a1 + 32) + 8);
       v9 = &v8;
-      *(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v6 + 40), &v8) + 6) = v5;
+      *(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v6 + 40), &v8, &std::piecewise_construct, &v9) + 6) = v5;
       --*(*(*(a1 + 40) + 8) + 24);
     }
   }
@@ -3330,13 +3549,13 @@ BOOL ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordered_ma
   else
   {
     v9 = &v8;
-    *(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v4 + 40), &v8) + 6) = 0;
+    *(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v4 + 40), &v8, &std::piecewise_construct, &v9) + 6) = 0;
   }
 
   return v3 != 0;
 }
 
-uint64_t ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS3_4hashIS7_EENS3_8equal_toIS7_EENS3_9allocatorINS3_4pairIKS7_jEEEEEENS_4Node9NodeStatsE_block_invoke_110(uint64_t a1, _DWORD **a2, uint64_t a3, unsigned int a4, int a5, uint64_t a6)
+uint64_t ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS3_4hashIS7_EENS3_8equal_toIS7_EENS3_9allocatorINS3_4pairIKS7_jEEEEEENS_4Node9NodeStatsE_block_invoke_110(uint64_t a1, _DWORD **a2, uint64_t a3, int a4, int a5, uint64_t a6)
 {
   v37 = a2;
   v11 = *(a1 + 56);
@@ -3398,12 +3617,12 @@ uint64_t ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordere
   {
     v23 = *(*(a1 + 40) + 8);
     v38 = &v37;
-    if (*(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v23 + 40), &v37) + 6) >= 1)
+    if (*(std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v23 + 40), &v37, &std::piecewise_construct, &v38) + 6) >= 1)
     {
       v24 = *(a1 + 64);
       v25 = *(*(a1 + 40) + 8);
       v38 = &v37;
-      v26 = std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v25 + 40), &v37);
+      v26 = std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v25 + 40), &v37, &std::piecewise_construct, &v38);
       fprintf(v24, "<%d>", *(v26 + 6));
       return 1;
     }
@@ -3463,16 +3682,16 @@ uint64_t ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordere
     (*(*v37 + 15))(v37, *(a1 + 64), *(a1 + 72), v30 ^ 1u);
     v31 = *(*(a1 + 40) + 8);
     v38 = &v37;
-    if ((std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v31 + 40), &v37)[3] & 0x80000000) != 0)
+    if ((std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v31 + 40), &v37, &std::piecewise_construct, &v38)[3] & 0x80000000) != 0)
     {
       v32 = *(*(a1 + 40) + 8);
       v38 = &v37;
-      v33 = std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v32 + 40), &v37);
+      v33 = std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v32 + 40), &v37, &std::piecewise_construct, &v38);
       *(v33 + 6) = -*(v33 + 6);
       v34 = *(a1 + 64);
       v35 = *(*(a1 + 40) + 8);
       v38 = &v37;
-      std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v35 + 40), &v37);
+      std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>((v35 + 40), &v37, &std::piecewise_construct, &v38);
       fprintf(v34, "<%d>");
     }
   }
@@ -3506,9 +3725,9 @@ uint64_t ___ZNK2CI11ProgramNode18print_for_graphvizEP7__sFILERKNSt3__113unordere
   return 0;
 }
 
-void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64_t a3)
+CIGVNode *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64_t a3)
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v6 = (*(*a1 + 176))(a1);
   v10 = CIGVNodeCreateForNode(a1, v6, v7, v8, v9);
   v11 = (*(*a1 + 56))(a1);
@@ -3517,29 +3736,29 @@ void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64
   CIGVNodeSetColor(v10, v12);
   v13 = (*(*a1 + 400))(a1);
   v15 = v13;
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x4002000000;
-  v50[3] = __Block_byref_object_copy__121;
-  v50[4] = __Block_byref_object_dispose__122;
-  memset(&v50[5], 0, 24);
   v49[0] = 0;
   v49[1] = v49;
-  v49[2] = 0x2000000000;
-  v49[3] = 0;
+  v49[2] = 0x4002000000;
+  v49[3] = __Block_byref_object_copy__121;
+  v49[4] = __Block_byref_object_dispose__122;
+  memset(&v49[5], 0, 24);
+  v48[0] = 0;
+  v48[1] = v48;
+  v48[2] = 0x2000000000;
+  v48[3] = 0;
   if (v13)
   {
     v16 = __CFString::createWithFormat("%llX", v14, v13);
     v17 = CopyPeakNonVolatileList();
-    v48[0] = MEMORY[0x1E69E9820];
-    v48[1] = 0x40000000;
-    v48[2] = ___ZNK2CI11ProgramNode23node_for_graphviz_statsERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS1_4hashIS5_EENS1_8equal_toIS5_EENS1_9allocatorINS1_4pairIKS5_jEEEEEENS_4Node9NodeStatsE_block_invoke;
-    v48[3] = &unk_1E75C6BB8;
-    v48[6] = v16;
-    v48[7] = v10;
-    v48[4] = v50;
-    v48[5] = v49;
-    __CFArray::for_each(v17, v48);
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 0x40000000;
+    v47[2] = ___ZNK2CI11ProgramNode23node_for_graphviz_statsERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS1_4hashIS5_EENS1_8equal_toIS5_EENS1_9allocatorINS1_4pairIKS5_jEEEEEENS_4Node9NodeStatsE_block_invoke;
+    v47[3] = &unk_1E75C6BB8;
+    v47[6] = v16;
+    v47[7] = v10;
+    v47[4] = v49;
+    v47[5] = v48;
+    __CFArray::for_each(v17, v47);
     if (v17)
     {
       CFRelease(v17);
@@ -3552,25 +3771,25 @@ void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64
   }
 
   (*(*a1 + 136))(a1, v10, a2);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = *"";
-  v37[2] = ___ZNK2CI11ProgramNode23node_for_graphviz_statsERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS1_4hashIS5_EENS1_8equal_toIS5_EENS1_9allocatorINS1_4pairIKS5_jEEEEEENS_4Node9NodeStatsE_block_invoke_2;
-  v37[3] = &unk_1F103B370;
-  v37[6] = a1;
-  v37[7] = a2;
-  std::vector<std::pair<CGRect,unsigned long>>::vector[abi:nn200100](v38, a3);
-  std::vector<std::pair<CGRect,unsigned long>>::vector[abi:nn200100](v39, (a3 + 24));
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = *"";
+  v36[2] = ___ZNK2CI11ProgramNode23node_for_graphviz_statsERKNSt3__113unordered_mapIPKNS_11GraphObjectEjNS1_4hashIS5_EENS1_8equal_toIS5_EENS1_9allocatorINS1_4pairIKS5_jEEEEEENS_4Node9NodeStatsE_block_invoke_2;
+  v36[3] = &unk_1F103B370;
+  v36[6] = a1;
+  v36[7] = a2;
+  std::vector<std::pair<CGRect,unsigned long>>::vector[abi:nn200100](v37, a3);
+  std::vector<std::pair<CGRect,unsigned long>>::vector[abi:nn200100](v38, (a3 + 24));
   std::vector<CGRect>::vector[abi:nn200100](__p, (a3 + 48));
-  v43 = *(a3 + 104);
-  v44 = *(a3 + 120);
-  v45 = *(a3 + 136);
-  v46 = *(a3 + 152);
-  v41 = *(a3 + 72);
-  v42 = *(a3 + 88);
-  v37[4] = v50;
-  v37[5] = v49;
-  v47 = v15;
-  v18 = stream_to_string(v37);
+  v42 = *(a3 + 104);
+  v43 = *(a3 + 120);
+  v44 = *(a3 + 136);
+  v45 = *(a3 + 152);
+  v40 = *(a3 + 72);
+  v41 = *(a3 + 88);
+  v36[4] = v49;
+  v36[5] = v48;
+  v46 = v15;
+  v18 = stream_to_string(v36);
   CIGVNodeSetLabel(v10, v18);
   CFRelease(v18);
   if (CI_PRINT_TREE_dump_rois() && CI::Node::rois_count(a1) >= 1)
@@ -3578,8 +3797,8 @@ void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64
     v19 = 0;
     do
     {
-      v20 = CI::Node::roi(a1, v19);
-      CIGVNodeAddRoi(v10, v20);
+      CI::Node::roi(a1, v19);
+      CIGVNodeAddRoi(v10);
       ++v19;
     }
 
@@ -3588,26 +3807,26 @@ void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64
 
   if (((CI_PRINT_TREE_dump_intermediates() & 1) != 0 || CI_PRINT_TREE_dump_outputs()) && CI::Node::rois_count(a1) >= 1)
   {
-    v21 = 0;
+    v20 = 0;
     do
     {
-      v22 = CI::Node::roi(a1, v21);
-      v24 = v23;
-      v26 = v25;
-      v28 = v27;
-      v29 = CI_TEMP_DIR();
-      v30 = getpid();
-      snprintf(__str, 0x100uLL, "%s/%d_intermediate_%d_%d_%d_%d_%d.png", v29, v30, *(a1 + 9), v22, v24, v26, v28);
-      if (!stat(__str, &v51) && v51.st_mode < 0 && v51.st_size && (v31 = CGDataProviderCreateWithFilename(__str), v32 = CGImageCreateWithPNGDataProvider(v31, 0, 1, kCGRenderingIntentDefault), CGDataProviderRelease(v31), v32) || (v33 = CI_TEMP_DIR(), v34 = getpid(), snprintf(__str, 0x100uLL, "%s/%d_output_%d_%d_%d_%d_%d.png", v33, v34, *(a1 + 9), v22, v24, v26, v28), !stat(__str, &v51)) && v51.st_mode < 0 && v51.st_size && (v35 = CGDataProviderCreateWithFilename(__str), v32 = CGImageCreateWithPNGDataProvider(v35, 0, 1, kCGRenderingIntentDefault), CGDataProviderRelease(v35), v32))
+      v21 = CI::Node::roi(a1, v20);
+      v23 = v22;
+      v25 = v24;
+      v27 = v26;
+      v28 = CI_TEMP_DIR();
+      v29 = getpid();
+      snprintf(__str, 0x100uLL, "%s/%d_intermediate_%d_%d_%d_%d_%d.png", v28, v29, *(a1 + 9), v21, v23, v25, v27);
+      if (!stat(__str, &v50) && v50.st_mode < 0 && v50.st_size && (v30 = CGDataProviderCreateWithFilename(__str), v31 = CGImageCreateWithPNGDataProvider(v30, 0, 1, kCGRenderingIntentDefault), CGDataProviderRelease(v30), v31) || (v32 = CI_TEMP_DIR(), v33 = getpid(), snprintf(__str, 0x100uLL, "%s/%d_output_%d_%d_%d_%d_%d.png", v32, v33, *(a1 + 9), v21, v23, v25, v27), !stat(__str, &v50)) && v50.st_mode < 0 && v50.st_size && (v34 = CGDataProviderCreateWithFilename(__str), v31 = CGImageCreateWithPNGDataProvider(v34, 0, 1, kCGRenderingIntentDefault), CGDataProviderRelease(v34), v31))
       {
-        CIGVNodeAddImage(v10, v32);
-        CGImageRelease(v32);
+        CIGVNodeAddImage(v10, v31);
+        CGImageRelease(v31);
       }
 
-      ++v21;
+      ++v20;
     }
 
-    while (v21 < CI::Node::rois_count(a1));
+    while (v20 < CI::Node::rois_count(a1));
   }
 
   if (__p[0])
@@ -3616,20 +3835,20 @@ void *CI::ProgramNode::node_for_graphviz_stats(CI::Node *a1, uint64_t a2, uint64
     operator delete(__p[0]);
   }
 
-  if (v39[0])
-  {
-    v39[1] = v39[0];
-    operator delete(v39[0]);
-  }
-
   if (v38[0])
   {
     v38[1] = v38[0];
     operator delete(v38[0]);
   }
 
+  if (v37[0])
+  {
+    v37[1] = v37[0];
+    operator delete(v37[0]);
+  }
+
+  _Block_object_dispose(v48, 8);
   _Block_object_dispose(v49, 8);
-  _Block_object_dispose(v50, 8);
   return v10;
 }
 
@@ -4107,8 +4326,8 @@ char *std::vector<CGRect>::__insert_with_size[abi:nn200100]<std::__wrap_iter<CGR
     do
     {
       v39 = *v7;
-      v40 = v7[1];
-      v7 += 2;
+      v40 = *(v7 + 1);
+      v7 += 32;
       *v38 = v39;
       v38[1] = v40;
       v38 += 2;
@@ -4212,41 +4431,41 @@ LABEL_34:
   return v5;
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -4355,7 +4574,7 @@ uint64_t CI::roiKeyVec::roiKeyVec(uint64_t a1, uint64_t a2, void *a3)
   return a1;
 }
 
-void *std::vector<CI::parentROI>::__assign_with_size[abi:nn200100]<CI::parentROI*,CI::parentROI*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<CI::parentROI>::__assign_with_size[abi:nn200100]<CI::parentROI*,CI::parentROI*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4431,7 +4650,7 @@ void *std::vector<CI::parentROI>::__assign_with_size[abi:nn200100]<CI::parentROI
   return result;
 }
 
-void std::vector<CI::parentROI>::__vallocate[abi:nn200100](uint64_t a1, unint64_t a2)
+void std::vector<CI::parentROI>::__vallocate[abi:nn200100](void *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -4520,14 +4739,14 @@ const __CFDictionary *__CFDictionary::getNumber(const __CFDictionary *this, cons
 void *CI::InstanceCounted<(CI::Type)60>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103B3D0;
-  atomic_fetch_add(&dword_1ED7C47BC[58], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[51], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)60>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103B3D0;
-  atomic_fetch_add(&dword_1ED7C47BC[58], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[51], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -4726,117 +4945,117 @@ void ___ZN9QueuePoolILi4EE3getEP21dispatch_queue_attr_s_block_invoke(uint64_t a1
   }
 }
 
-void *std::__tree<std::__value_type<CI::Object const*,unsigned long>,std::__map_value_compare<CI::Object const*,std::__value_type<CI::Object const*,unsigned long>,std::less<CI::Object const*>,true>,std::allocator<std::__value_type<CI::Object const*,unsigned long>>>::__emplace_unique_key_args<CI::Object const*,std::pair<CI::Object const*,unsigned long>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<CI::Object const*,unsigned long>,std::__map_value_compare<CI::Object const*,std::__value_type<CI::Object const*,unsigned long>,std::less<CI::Object const*>,true>,std::allocator<std::__value_type<CI::Object const*,unsigned long>>>::__emplace_unique_key_args<CI::Object const*,std::pair<CI::Object const*,unsigned long>>(uint64_t a1, unint64_t *a2, void *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<CI::NodeIndex,unsigned long>,std::__map_value_compare<CI::NodeIndex,std::__value_type<CI::NodeIndex,unsigned long>,std::less<CI::NodeIndex>,true>,std::allocator<std::__value_type<CI::NodeIndex,unsigned long>>>::__emplace_unique_key_args<CI::NodeIndex,std::piecewise_construct_t const&,std::tuple<CI::NodeIndex const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<CI::NodeIndex,unsigned long>,std::__map_value_compare<CI::NodeIndex,std::__value_type<CI::NodeIndex,unsigned long>,std::less<CI::NodeIndex>,true>,std::allocator<std::__value_type<CI::NodeIndex,unsigned long>>>::__emplace_unique_key_args<CI::NodeIndex,std::piecewise_construct_t const&,std::tuple<CI::NodeIndex const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<CI::Node *,int>,std::__unordered_map_hasher<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::hash<CI::Node *>,std::equal_to<CI::Node *>,true>,std::__unordered_map_equal<CI::Node *,std::__hash_value_type<CI::Node *,int>,std::equal_to<CI::Node *>,std::hash<CI::Node *>,true>,std::allocator<std::__hash_value_type<CI::Node *,int>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -4844,44 +5063,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 uint64_t CI::ProviderNode::FormatConversion(uint64_t result)
@@ -4897,13 +5116,13 @@ uint64_t CI::ProviderNode::FormatConversion(uint64_t result)
   }
 }
 
-void CI::ProviderNode::ProviderNode(CI::Node *a1)
+void CI::ProviderNode::ProviderNode(CI::Node *a1, int a2, CI *a3, const void *a4, const void *a5, const void *a6, unint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10, int a11, int a12, int a13, int a14, char a15, char a16, char a17)
 {
   CI::Node::Node(a1);
 }
 
 {
-  CI::ProviderNode::ProviderNode(a1);
+  CI::ProviderNode::ProviderNode(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17);
 }
 
 CFStringRef CI::makeCacheID(CI *this, uint64_t a2, dispatch_queue_s *a3)
@@ -4944,7 +5163,7 @@ void CI::ProviderNode::~ProviderNode(CI::ProviderNode *this)
 
   CI::Tileable::~Tileable(v2);
   *(this + 5) = &unk_1F103B630;
-  atomic_fetch_add(&dword_1ED7C47BC[50], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[43], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -5509,7 +5728,7 @@ void CI::ProviderNode::tileRect(CI::ProviderNode *this@<X0>, unint64_t a2@<X1>, 
   v9 = *(this + 9);
   if (v8 == v9 || 0xAAAAAAAAAAAAAAABLL * (v9 - v8) <= a2 || (v10 = v8[1], *v8 == v10) || 0xAAAAAAAAAAAAAAABLL * ((v10 - *v8) >> 3) <= a3)
   {
-    v31 = ci_logger_render();
+    v31 = ci_logger_render(this, a2);
     if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
 LABEL_34:
@@ -5718,274 +5937,277 @@ uint64_t ___ZNK2CI12ProviderNode11tileSurfaceEmmRy_block_invoke_2(void *a1, char
 
 uint64_t CI::ProviderNode::surfaceForROI(uint64_t a1, void *a2, CGFloat *a3, uint64_t a4)
 {
-  v79 = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  v84 = *MEMORY[0x1E69E9840];
+  v8 = CI_VERBOSE_SIGNPOSTS();
+  if (v8)
   {
-    v8 = ci_signpost_log_render();
-    v9 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v10 = ci_signpost_log_render(v8, v9);
+    v11 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
+    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
-      v10 = *a3;
-      v11 = *(a3 + 1);
-      v12 = *(a3 + 2);
-      v13 = *(a3 + 3);
+      v12 = *a3;
+      v13 = *(a3 + 1);
+      v14 = *(a3 + 2);
+      v15 = *(a3 + 3);
       *buf = 134218752;
-      *v74 = v10;
-      *&v74[8] = 2048;
-      *&v74[10] = v11;
-      v75 = 2048;
-      v76 = v12;
-      v77 = 2048;
-      v78 = v13;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v9, "surface_for_roi_from_prov", "[%g %g %g %g]", buf, 0x2Au);
+      *v79 = v12;
+      *&v79[8] = 2048;
+      *&v79[10] = v13;
+      v80 = 2048;
+      v81 = v14;
+      v82 = 2048;
+      v83 = v15;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "surface_for_roi_from_prov", "[%g %g %g %g]", buf, 0x2Au);
     }
   }
 
-  v14 = (*(*a2 + 280))(a2);
-  TimerBase::TimerBase(buf, v14, *(a1 + 36), "surface_for_roi_from_prov", 23);
-  v15 = *(a1 + 136);
-  v16 = *(a1 + 144);
-  v17 = *a3;
-  v18 = a3[1];
-  v19 = a3[2];
-  v20 = a3[3];
-  v80.origin.x = *a3;
-  v80.origin.y = v18;
-  v80.size.width = v19;
-  v80.size.height = v20;
-  if (CGRectIsNull(v80))
+  v16 = (*(*a2 + 280))(a2);
+  TimerBase::TimerBase(buf, v16, *(a1 + 36), "surface_for_roi_from_prov", 0x17u);
+  v17 = *(a1 + 136);
+  v18 = *(a1 + 144);
+  v19 = *a3;
+  v20 = a3[1];
+  v21 = a3[2];
+  v22 = a3[3];
+  v85.origin.x = *a3;
+  v85.origin.y = v20;
+  v85.size.width = v21;
+  v85.size.height = v22;
+  if (CGRectIsNull(v85))
   {
     width = 0;
     height = 0;
-    v23 = 0;
-    v24 = 0x7FFFFFFF;
-    v25 = 0x7FFFFFFF;
+    v25 = 0;
+    v26 = 0x7FFFFFFF;
+    v27 = 0x7FFFFFFF;
   }
 
   else
   {
-    v81.origin.x = v17;
-    v81.origin.y = v18;
-    v81.size.width = v19;
-    v81.size.height = v20;
-    if (CGRectIsInfinite(v81))
+    v86.origin.x = v19;
+    v86.origin.y = v20;
+    v86.size.width = v21;
+    v86.size.height = v22;
+    if (CGRectIsInfinite(v86))
     {
-      v23 = 0;
-      v24 = -2147483647;
+      v25 = 0;
+      v26 = -2147483647;
       width = 0xFFFFFFFFLL;
-      v25 = -2147483647;
+      v27 = -2147483647;
       height = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v82.origin.x = v17;
-      v82.origin.y = v18;
-      v82.size.width = v19;
-      v82.size.height = v20;
-      v83 = CGRectInset(v82, 0.000001, 0.000001);
-      v84 = CGRectIntegral(v83);
-      x = v84.origin.x;
-      y = v84.origin.y;
-      width = v84.size.width;
-      height = v84.size.height;
-      v29 = v15 == v84.size.width && v16 == height;
+      v87.origin.x = v19;
+      v87.origin.y = v20;
+      v87.size.width = v21;
+      v87.size.height = v22;
+      v88 = CGRectInset(v87, 0.000001, 0.000001);
+      v89 = CGRectIntegral(v88);
+      x = v89.origin.x;
+      y = v89.origin.y;
+      width = v89.size.width;
+      height = v89.size.height;
+      v31 = v17 == v89.size.width && v18 == height;
       if (y)
       {
-        v30 = v84.origin.y;
+        v32 = v89.origin.y;
       }
 
       else
       {
-        v30 = 0;
+        v32 = 0;
       }
 
       if (y)
       {
-        v29 = 0;
+        v31 = 0;
       }
 
       if (x)
       {
-        v24 = v84.origin.x;
+        v26 = v89.origin.x;
       }
 
       else
       {
-        v24 = 0;
+        v26 = 0;
       }
 
       if (x)
       {
-        v25 = v84.origin.y;
+        v27 = v89.origin.y;
       }
 
       else
       {
-        v25 = v30;
+        v27 = v32;
       }
 
       if (x)
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       else
       {
-        v23 = v29;
+        v25 = v31;
       }
     }
   }
 
-  v31 = CI::PixelFormatType_from_format(*(a1 + 48));
-  v32 = *(a1 + 196);
-  v33 = *(a1 + 96);
-  v34 = *(a1 + 64);
-  v35 = *(a1 + 72);
-  if (v34 == v35 || 0xAAAAAAAAAAAAAAABLL * (v35 - v34) <= 1 && ((v37 = *v34, v36 = v34[1], v37 == v36) || 0xAAAAAAAAAAAAAAABLL * ((v36 - v37) >> 3) < 2))
+  v33 = CI::PixelFormatType_from_format(*(a1 + 48));
+  v34 = *(a1 + 196);
+  v35 = *(a1 + 96);
+  v36 = *(a1 + 64);
+  v37 = *(a1 + 72);
+  if (v36 == v37 || 0xAAAAAAAAAAAAAAABLL * (v37 - v36) <= 1 && ((v39 = *v36, v38 = v36[1], v39 == v38) || 0xAAAAAAAAAAAAAAABLL * ((v38 - v39) >> 3) < 2))
   {
-    if (v23)
+    if (v25)
     {
-      v38 = v63;
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 0x40000000;
-      v63[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_3;
-      v63[3] = &__block_descriptor_tmp_11_5;
-      v63[4] = a1;
-      v64 = v24;
-      v65 = v25;
-      v66 = width;
-      v67 = height;
+      v40 = v68;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 0x40000000;
+      v68[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_3;
+      v68[3] = &__block_descriptor_tmp_11_5;
+      v68[4] = a1;
+      v69 = v26;
+      v70 = v27;
+      v71 = width;
+      v72 = height;
     }
 
     else
     {
-      v38 = v62;
-      v62[0] = MEMORY[0x1E69E9820];
-      v62[1] = 0x40000000;
-      v62[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_5;
-      v62[3] = &__block_descriptor_tmp_13_3;
-      v62[4] = a1;
-      v62[5] = v24;
-      v62[6] = v25;
+      v40 = v67;
+      v67[0] = MEMORY[0x1E69E9820];
+      v67[1] = 0x40000000;
+      v67[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_5;
+      v67[3] = &__block_descriptor_tmp_13_3;
+      v67[4] = a1;
+      v67[5] = v26;
+      v67[6] = v27;
     }
   }
 
   else
   {
-    v38 = v68;
-    v68[0] = MEMORY[0x1E69E9820];
-    v68[1] = 0x40000000;
-    v68[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke;
-    v68[3] = &__block_descriptor_tmp_9_2;
-    v68[4] = a1;
-    v69 = v24;
-    v70 = v25;
-    v71 = width;
-    v72 = height;
+    v40 = v73;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 0x40000000;
+    v73[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke;
+    v73[3] = &__block_descriptor_tmp_9_2;
+    v73[4] = a1;
+    v74 = v26;
+    v75 = v27;
+    v76 = width;
+    v77 = height;
   }
 
   if (*(a1 + 128))
   {
-    v38 = v61;
-    v61[0] = MEMORY[0x1E69E9820];
-    v61[1] = 0x40000000;
-    v61[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_14;
-    v61[3] = &__block_descriptor_tmp_15_5;
-    v61[4] = a1;
-    v61[5] = a3;
+    v40 = v66;
+    v66[0] = MEMORY[0x1E69E9820];
+    v66[1] = 0x40000000;
+    v66[2] = ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_14;
+    v66[3] = &__block_descriptor_tmp_15_5;
+    v66[4] = a1;
+    v66[5] = a3;
   }
 
-  if (v33)
+  if (v35)
   {
-    v39 = 0;
+    v41 = 0;
   }
 
   else
   {
-    v39 = v32;
+    v41 = v34;
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  *&v59 = __PAIR64__(v25, v24);
-  *(&v59 + 1) = width;
-  v60 = height;
-  v41 = (*(*a1 + 456))(a1, a2[19]);
-  SurfaceFromCacheAndFill = GetSurfaceFromCacheAndFill(&v59, v31, 0, v39, v41, *(a1 + 120), v38);
+  v63[0] = v26;
+  v63[1] = v27;
+  v64 = width;
+  v65 = height;
+  v43 = (*(*a1 + 456))(a1, a2[19]);
+  SurfaceFromCacheAndFill = GetSurfaceFromCacheAndFill(v63, v33, 0, v41, v43, *(a1 + 120), v40);
   *a4 = *a4 + CFAbsoluteTimeGetCurrent() - Current;
   *(a4 + 8) += height * width;
-  v44 = *(a1 + 168);
-  v43 = *(a1 + 176);
-  if (v44 >= v43)
+  v46 = *(a1 + 168);
+  v45 = *(a1 + 176);
+  if (v46 >= v45)
   {
-    v46 = *(a1 + 160);
-    v47 = (v44 - v46) >> 3;
-    if ((v47 + 1) >> 61)
+    v48 = *(a1 + 160);
+    v49 = (v46 - v48) >> 3;
+    if ((v49 + 1) >> 61)
     {
       std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
     }
 
-    v48 = v43 - v46;
-    v49 = v48 >> 2;
-    if (v48 >> 2 <= (v47 + 1))
+    v50 = v45 - v48;
+    v51 = v50 >> 2;
+    if (v50 >> 2 <= (v49 + 1))
     {
-      v49 = v47 + 1;
+      v51 = v49 + 1;
     }
 
-    if (v48 >= 0x7FFFFFFFFFFFFFF8)
+    if (v50 >= 0x7FFFFFFFFFFFFFF8)
     {
-      v50 = 0x1FFFFFFFFFFFFFFFLL;
+      v52 = 0x1FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v50 = v49;
+      v52 = v51;
     }
 
-    if (v50)
+    if (v52)
     {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<Queue *>>(a1 + 160, v50);
+      std::__allocate_at_least[abi:nn200100]<std::allocator<Queue *>>(a1 + 160, v52);
     }
 
-    *(8 * v47) = SurfaceFromCacheAndFill;
-    v45 = 8 * v47 + 8;
-    v51 = *(a1 + 160);
-    v52 = *(a1 + 168) - v51;
-    v53 = (8 * v47 - v52);
-    memcpy(v53, v51, v52);
-    v54 = *(a1 + 160);
-    *(a1 + 160) = v53;
-    *(a1 + 168) = v45;
+    *(8 * v49) = SurfaceFromCacheAndFill;
+    v47 = 8 * v49 + 8;
+    v53 = *(a1 + 160);
+    v54 = *(a1 + 168) - v53;
+    v55 = (8 * v49 - v54);
+    memcpy(v55, v53, v54);
+    v56 = *(a1 + 160);
+    *(a1 + 160) = v55;
+    *(a1 + 168) = v47;
     *(a1 + 176) = 0;
-    if (v54)
+    if (v56)
     {
-      operator delete(v54);
+      operator delete(v56);
     }
   }
 
   else
   {
-    *v44 = SurfaceFromCacheAndFill;
-    v45 = (v44 + 1);
+    *v46 = SurfaceFromCacheAndFill;
+    v47 = (v46 + 1);
   }
 
-  *(a1 + 168) = v45;
-  if (CI_VERBOSE_SIGNPOSTS())
+  *(a1 + 168) = v47;
+  v57 = CI_VERBOSE_SIGNPOSTS();
+  if (v57)
   {
-    v55 = ci_signpost_log_render();
-    v56 = *&v74[4];
-    if ((*&v74[4] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v59 = ci_signpost_log_render(v57, v58);
+    v60 = *&v79[4];
+    if ((*&v79[4] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v57 = v55;
-      if (os_signpost_enabled(v55))
+      v61 = v59;
+      if (os_signpost_enabled(v59))
       {
-        LOWORD(v59) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v57, OS_SIGNPOST_INTERVAL_END, v56, "surface_for_roi_from_prov", &unk_19CFBCBAE, &v59, 2u);
+        LOWORD(v63[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v61, OS_SIGNPOST_INTERVAL_END, v60, "surface_for_roi_from_prov", &unk_19CFBCBAE, v63, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(buf);
+  TimerBase::~TimerBase(buf, v58);
   return SurfaceFromCacheAndFill;
 }
 
@@ -6272,7 +6494,7 @@ uint64_t ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tile
   return SurfaceApplyPlaneBlock(a2, v4);
 }
 
-void ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_6(void *a1, char *a2, int a3, vImagePixelCount a4, vImagePixelCount a5, size_t a6)
+void ___ZNK2CI12ProviderNode13surfaceForROIEPKNS_7ContextERK6CGRectRNS_8Tileable5StatsE_block_invoke_6(void *a1, char *a2, uint64_t a3, vImagePixelCount a4, vImagePixelCount a5, size_t a6)
 {
   v11 = a1[4];
   v12 = CI::format_bytes_for_width_of_plane(*(v11 + 152), *(v11 + 136), a3);
@@ -6594,14 +6816,14 @@ uint64_t CI::ProviderNode::output_depth(CI::ProviderNode *this)
 void *CI::InstanceCounted<(CI::Type)52>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103B630;
-  atomic_fetch_add(&dword_1ED7C47BC[50], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[43], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)52>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103B630;
-  atomic_fetch_add(&dword_1ED7C47BC[50], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[43], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -6714,13 +6936,13 @@ LABEL_6:
 void CI::SampleModeNode::~SampleModeNode(CI::SampleModeNode *this)
 {
   *(this + 6) = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -6759,13 +6981,13 @@ uint64_t CI::SampleModeNode::print_for_graph_core(uint64_t a1, FILE *a2)
 void non-virtual thunk toCI::SampleModeNode::~SampleModeNode(CI::SampleModeNode *this)
 {
   *this = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -6774,14 +6996,14 @@ void non-virtual thunk toCI::SampleModeNode::~SampleModeNode(CI::SampleModeNode 
 void *CI::InstanceCounted<(CI::Type)53>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)53>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103B840;
-  atomic_fetch_add(&dword_1ED7C47BC[51], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[44], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -6800,7 +7022,7 @@ uint64_t CI::sw_ci_pass_thru(uint64_t a1, uint64_t a2, uint64_t a3)
   return *v7;
 }
 
-CI::Object *CI::SRGBNode::append_to_tree(CI::SRGBNode *this, CI::Node *a2, int a3)
+CI::SRGBNode *CI::SRGBNode::append_to_tree(CI::SRGBNode *this, CI::Node *a2, int a3)
 {
   v3 = this;
   if (a2)
@@ -6843,13 +7065,13 @@ CI::Object *CI::SRGBNode::append_to_tree(CI::SRGBNode *this, CI::Node *a2, int a
 
     else
     {
-      if ((*(v9 + 16))(v6) != 44 || *(v6 + 14) + v4)
+      if ((*(v9 + 16))(v6) != 44 || *(v6 + 56) + v4)
       {
 LABEL_25:
         operator new();
       }
 
-      v6 = *(v6 + 5);
+      v6 = *(v6 + 40);
       if (!v6)
       {
         goto LABEL_20;
@@ -6904,7 +7126,7 @@ uint64_t CI::SRGBNode::convert_to_kernel_node(CI::SRGBNode *this, CI::Context *a
     operator new();
   }
 
-  v3 = ci_logger_render();
+  v3 = ci_logger_render(this, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     CI::SRGBNode::convert_to_kernel_node(v2, v3);
@@ -6918,7 +7140,7 @@ void CI::SRGBNode::~SRGBNode(CI::SRGBNode *this)
   *this = &unk_1F103B868;
   *(this + 14) = 0;
   *(this + 6) = &unk_1F103BA48;
-  atomic_fetch_add(&dword_1ED7C47BC[42], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[35], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
@@ -6926,7 +7148,7 @@ void CI::SRGBNode::~SRGBNode(CI::SRGBNode *this)
   *this = &unk_1F103B868;
   *(this + 14) = 0;
   *(this + 6) = &unk_1F103BA48;
-  atomic_fetch_add(&dword_1ED7C47BC[42], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[35], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -6985,7 +7207,7 @@ void non-virtual thunk toCI::SRGBNode::~SRGBNode(CI::SRGBNode *this)
   *(this - 6) = &unk_1F103B868;
   *(this + 2) = 0;
   *this = &unk_1F103BA48;
-  atomic_fetch_add(&dword_1ED7C47BC[42], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[35], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
@@ -6996,14 +7218,14 @@ void non-virtual thunk toCI::SRGBNode::~SRGBNode(CI::SRGBNode *this)
 void *CI::InstanceCounted<(CI::Type)44>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103BA48;
-  atomic_fetch_add(&dword_1ED7C47BC[42], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[35], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)44>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103BA48;
-  atomic_fetch_add(&dword_1ED7C47BC[42], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[35], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -7069,13 +7291,13 @@ uint64_t CI::sw_ci_srgb_noop(uint64_t a1, uint64_t a2, uint64_t a3)
   return *v7;
 }
 
-void CI::SurfaceNode::SurfaceNode(CI::Node *a1)
+void CI::SurfaceNode::SurfaceNode(CI::Node *a1, int a2, void *a3, uint64_t a4, int a5, int a6, int a7, char a8, char a9)
 {
   CI::Node::Node(a1);
 }
 
 {
-  CI::SurfaceNode::SurfaceNode(a1);
+  CI::SurfaceNode::SurfaceNode(a1, a2, a3, a4, a5, a6, a7, a8, a9);
 }
 
 void sub_19CEC483C(_Unwind_Exception *a1)
@@ -7098,7 +7320,7 @@ void CI::SurfaceNode::~SurfaceNode(CI::SurfaceNode *this)
 
   *(this + 7) = 0;
   *(this + 5) = &unk_1F103BC60;
-  atomic_fetch_add(&dword_1ED7C47BC[52], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[45], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -7112,7 +7334,7 @@ void CI::SurfaceNode::~SurfaceNode(CI::SurfaceNode *this)
 void sub_19CEC4918(_Unwind_Exception *a1)
 {
   *(v1 + 5) = &unk_1F103BC60;
-  atomic_fetch_add(&dword_1ED7C47BC[52], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[45], 0xFFFFFFFF);
   CI::Node::~Node(v1);
   _Unwind_Resume(a1);
 }
@@ -7892,56 +8114,57 @@ LABEL_88:
 
 void CI::SurfaceNode::surfaceForROI(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __IOSurface **a4@<X8>, CGFloat a5@<D0>, CGFloat a6@<D1>, CGFloat a7@<D2>, CGFloat a8@<D3>)
 {
-  v52 = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  v56 = *MEMORY[0x1E69E9840];
+  v16 = CI_VERBOSE_SIGNPOSTS();
+  if (v16)
   {
-    v16 = ci_signpost_log_render();
-    v17 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = ci_signpost_log_render(v16, v17);
+    v19 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
       *buf = 134218752;
-      v45 = a5;
-      v46 = 2048;
-      v47 = a6;
-      v48 = 2048;
-      v49 = a7;
+      v49 = a5;
       v50 = 2048;
-      v51 = a8;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v17, "surface_for_roi_from_surface", "[%g %g %g %g]", buf, 0x2Au);
+      v51 = a6;
+      v52 = 2048;
+      v53 = a7;
+      v54 = 2048;
+      v55 = a8;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v19, "surface_for_roi_from_surface", "[%g %g %g %g]", buf, 0x2Au);
     }
   }
 
-  v18 = (*(*a2 + 280))(a2);
-  TimerBase::TimerBase(buf, v18, *(a1 + 36), "surface_for_roi_from_surface", 24);
-  v53.origin.x = a5;
-  v53.origin.y = a6;
-  v53.size.width = a7;
-  v53.size.height = a8;
-  if (!CGRectIsEmpty(v53))
+  v20 = (*(*a2 + 280))(a2);
+  TimerBase::TimerBase(buf, v20, *(a1 + 36), "surface_for_roi_from_surface", 0x18u);
+  v57.origin.x = a5;
+  v57.origin.y = a6;
+  v57.size.width = a7;
+  v57.size.height = a8;
+  if (!CGRectIsEmpty(v57))
   {
-    v54.origin.x = a5;
-    v54.origin.y = a6;
-    v54.size.width = a7;
-    v54.size.height = a8;
-    if (!CGRectIsInfinite(v54))
+    v58.origin.x = a5;
+    v58.origin.y = a6;
+    v58.size.width = a7;
+    v58.size.height = a8;
+    if (!CGRectIsInfinite(v58))
     {
-      v20 = CI::format_from_IOSurface(*(a1 + 56), v19);
-      v21 = (*(*a2 + 544))(a2, v20);
+      v22 = CI::format_from_IOSurface(*(a1 + 56), v21);
+      v23 = (*(*a2 + 544))(a2, v22);
       Current = CFAbsoluteTimeGetCurrent();
       *(a3 + 8) += a7 * a8;
-      v55.size.width = *(a1 + 80);
-      v55.size.height = *(a1 + 88);
-      v55.origin.x = 0.0;
-      v55.origin.y = 0.0;
-      v59 = CGRectInset(v55, 2.0, 2.0);
-      v56.origin.x = a5;
-      v56.origin.y = a6;
-      v56.size.width = a7;
-      v56.size.height = a8;
-      if (CGRectContainsRect(v56, v59))
+      v59.size.width = *(a1 + 80);
+      v59.size.height = *(a1 + 88);
+      v59.origin.x = 0.0;
+      v59.origin.y = 0.0;
+      v63 = CGRectInset(v59, 2.0, 2.0);
+      v60.origin.x = a5;
+      v60.origin.y = a6;
+      v60.size.width = a7;
+      v60.size.height = a8;
+      if (CGRectContainsRect(v60, v63))
       {
-        v23 = v21;
-        if (SurfaceIsRowBytesAligned(*(a1 + 56), v21))
+        v25 = v23;
+        if (SurfaceIsRowBytesAligned(*(a1 + 56), v23))
         {
           CFRetain(*(a1 + 56));
           *a3 = CFAbsoluteTimeGetCurrent() - Current + *a3;
@@ -7952,79 +8175,80 @@ void CI::SurfaceNode::surfaceForROI(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t
 
       else
       {
-        v23 = v21;
+        v25 = v23;
       }
 
-      if (!SurfaceIsRowBytesAligned(*(a1 + 56), v23))
+      IsRowBytesAligned = SurfaceIsRowBytesAligned(*(a1 + 56), v25);
+      if (!IsRowBytesAligned)
       {
-        v24 = ci_logger_performance();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v28 = ci_logger_performance(IsRowBytesAligned, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
-          v25 = *(a1 + 80);
-          v26 = *(a1 + 88);
-          *v41 = 134218496;
-          *&v41[4] = v25;
-          *&v41[12] = 2048;
-          *&v41[14] = v26;
-          *&v41[22] = 1024;
-          *&v41[24] = v21;
-          _os_log_impl(&dword_19CC36000, v24, OS_LOG_TYPE_INFO, "CI_CONVERSION: Converted %zux%zu input surface to a new surface with required rowbytes alignment (of %d bytes).", v41, 0x1Cu);
+          v29 = *(a1 + 80);
+          v30 = *(a1 + 88);
+          *v45 = 134218496;
+          *&v45[4] = v29;
+          *&v45[12] = 2048;
+          *&v45[14] = v30;
+          *&v45[22] = 1024;
+          *&v45[24] = v23;
+          _os_log_impl(&dword_19CC36000, v28, OS_LOG_TYPE_INFO, "CI_CONVERSION: Converted %zux%zu input surface to a new surface with required rowbytes alignment (of %d bytes).", v45, 0x1Cu);
         }
       }
 
       if (CI_ENABLE_METAL_BLIT() && (*(*a2 + 16))(a2) == 85)
       {
-        v21 = (*(*a2 + 552))(a2, v20);
+        v23 = (*(*a2 + 552))(a2, v22);
       }
 
       PixelFormat = IOSurfaceGetPixelFormat(*(a1 + 56));
-      Surface = CreateSurface(a7, a8, v21, PixelFormat, 0);
+      Surface = CreateSurface(a7, a8, v23, PixelFormat, 0);
       if (CI_ENABLE_METAL_BLIT())
       {
         if ((*(*a2 + 16))(a2) == 85 && IOSurfaceGetPlaneCount(*(a1 + 56)) <= 1)
         {
-          v29 = *(a1 + 80);
-          if (v29 <= (*(*a2 + 448))(a2))
+          v33 = *(a1 + 80);
+          if (v33 <= (*(*a2 + 448))(a2))
           {
-            v30 = *(a1 + 88);
-            if (v30 <= (*(*a2 + 448))(a2) && (((v20 - 1287) < 0xFFFFFFFE) & SurfaceIsRowBytesAligned(*(a1 + 56), v23)) != 0)
+            v34 = *(a1 + 88);
+            if (v34 <= (*(*a2 + 448))(a2) && (((v22 - 1287) < 0xFFFFFFFE) & SurfaceIsRowBytesAligned(*(a1 + 56), v25)) != 0)
             {
-              v31 = CI::MetalContext::device(a2);
-              v32 = CIMetalFormatForFormat(*(a1 + 48), *(a1 + 52));
-              v43 = 0;
-              v42 = 0u;
-              memset(v41, 0, sizeof(v41));
+              v35 = CI::MetalContext::device(a2);
+              v36 = CIMetalFormatForFormat(*(a1 + 48), *(a1 + 52));
+              v47 = 0;
+              v46 = 0u;
+              memset(v45, 0, sizeof(v45));
               MTLPixelFormatGetInfoForDevice();
-              if ((v41[8] & 2) != 0)
+              if ((v45[8] & 2) != 0)
               {
-                v33 = CIMetalTextureCreateFromIOSurface(*(a2 + 2008), v31, *(a1 + 56), 0, v32, 1);
-                if (v33)
+                v37 = CIMetalTextureCreateFromIOSurface(*(a2 + 2008), v35, *(a1 + 56), 0, v36, 1);
+                if (v37)
                 {
-                  v34 = CIMetalTextureCreateFromIOSurface(*(a2 + 2008), v31, Surface, 0, v32, 2);
-                  if (v34)
+                  v38 = CIMetalTextureCreateFromIOSurface(*(a2 + 2008), v35, Surface, 0, v36, 2);
+                  if (v38)
                   {
-                    v57.origin.x = a5;
-                    v57.origin.y = a6;
-                    v57.size.width = a7;
-                    v57.size.height = a8;
-                    v58 = CGRectIntegral(v57);
-                    v35 = *(a2 + 1848);
-                    CIMetalCommandBufferCopyTexture(v35, v34, v33, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v58.origin.x, v58.origin.y, v58.size.width, v58.size.height);
-                    v40[0] = MEMORY[0x1E69E9820];
-                    v40[1] = 3221225472;
-                    v40[2] = ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileable5StatsE_block_invoke;
-                    v40[3] = &unk_1E75C3558;
-                    v40[4] = v33;
-                    v40[5] = v34;
-                    CIMetalCommandBufferAddCompletionHandler(v35, v40);
-                    v36 = CFAbsoluteTimeGetCurrent();
+                    v61.origin.x = a5;
+                    v61.origin.y = a6;
+                    v61.size.width = a7;
+                    v61.size.height = a8;
+                    v62 = CGRectIntegral(v61);
+                    v39 = *(a2 + 1848);
+                    CIMetalCommandBufferCopyTexture(v39, v38, v37, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), v62.origin.x, v62.origin.y, v62.size.width, v62.size.height);
+                    v44[0] = MEMORY[0x1E69E9820];
+                    v44[1] = 3221225472;
+                    v44[2] = ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileable5StatsE_block_invoke;
+                    v44[3] = &unk_1E75C3558;
+                    v44[4] = v37;
+                    v44[5] = v38;
+                    CIMetalCommandBufferAddCompletionHandler(v39, v44);
+                    v40 = CFAbsoluteTimeGetCurrent();
 LABEL_30:
-                    *a3 = v36 - Current + *a3;
+                    *a3 = v40 - Current + *a3;
                     *a4 = Surface;
                     goto LABEL_31;
                   }
 
-                  CFRelease(v33);
+                  CFRelease(v37);
                 }
               }
             }
@@ -8032,20 +8256,20 @@ LABEL_30:
         }
       }
 
-      v37 = *(a1 + 56);
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileable5StatsE_block_invoke_2;
-      v38[3] = &__block_descriptor_84_e22_v48__0r_v8Q16Q24Q32Q40l;
-      v38[4] = a1;
-      v38[5] = Surface;
-      v39 = v20;
-      *&v38[6] = a5;
-      *&v38[7] = a6;
-      *&v38[8] = a7;
-      *&v38[9] = a8;
-      SurfaceApplyPlaneReadOnlyBlock(v37, v38);
-      v36 = CFAbsoluteTimeGetCurrent();
+      v41 = *(a1 + 56);
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileable5StatsE_block_invoke_2;
+      v42[3] = &__block_descriptor_84_e22_v48__0r_v8Q16Q24Q32Q40l;
+      v42[4] = a1;
+      v42[5] = Surface;
+      v43 = v22;
+      *&v42[6] = a5;
+      *&v42[7] = a6;
+      *&v42[8] = a7;
+      *&v42[9] = a8;
+      SurfaceApplyPlaneReadOnlyBlock(v41, v42);
+      v40 = CFAbsoluteTimeGetCurrent();
       goto LABEL_30;
     }
   }
@@ -8053,6 +8277,13 @@ LABEL_30:
   *a4 = 0;
 LABEL_31:
   CI::SurfaceNode::surfaceForROI(CI::Context const*,CGRect,CI::Tileable::Stats &)const::SignpostTimer::~SignpostTimer(buf);
+}
+
+void sub_19CEC5DEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  CI::SurfaceNode::surfaceForROI(CI::Context const*,CGRect,CI::Tileable::Stats &)const::SignpostTimer::~SignpostTimer(va);
+  _Unwind_Resume(a1);
 }
 
 void ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileable5StatsE_block_invoke(uint64_t a1)
@@ -8188,22 +8419,23 @@ uint64_t ___ZNK2CI11SurfaceNode13surfaceForROIEPKNS_7ContextE6CGRectRNS_8Tileabl
 
 void CI::SurfaceNode::surfaceForROI(CI::Context const*,CGRect,CI::Tileable::Stats &)const::SignpostTimer::~SignpostTimer(TimerBase *a1)
 {
-  if (CI_VERBOSE_SIGNPOSTS())
+  v2 = CI_VERBOSE_SIGNPOSTS();
+  if (v2)
   {
-    v2 = ci_signpost_log_render();
-    v3 = *(a1 + 1);
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v4 = ci_signpost_log_render(v2, v3);
+    v5 = *(a1 + 1);
+    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v4 = v2;
-      if (os_signpost_enabled(v2))
+      v6 = v4;
+      if (os_signpost_enabled(v4))
       {
-        *v5 = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v4, OS_SIGNPOST_INTERVAL_END, v3, "surface_for_roi_from_surface", &unk_19CFBCBAE, v5, 2u);
+        *v7 = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v6, OS_SIGNPOST_INTERVAL_END, v5, "surface_for_roi_from_surface", &unk_19CFBCBAE, v7, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(a1);
+  TimerBase::~TimerBase(a1, v3);
 }
 
 void CI::SurfaceNode::graphviz_add_images(void **this, void *a2)
@@ -8220,95 +8452,95 @@ void CI::SurfaceNode::graphviz_add_images(void **this, void *a2)
 void *CI::InstanceCounted<(CI::Type)54>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103BC60;
-  atomic_fetch_add(&dword_1ED7C47BC[52], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[45], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)54>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103BC60;
-  atomic_fetch_add(&dword_1ED7C47BC[52], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[45], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
-CI::Object *CI::SwizzleNode::append_to_tree(CI::Object *this, int a2, int a3)
+CI::Object *CI::SwizzleNode::append_to_tree(CI::Object *this, int a2, int a3, char a4)
 {
-  v3 = this;
+  v4 = this;
   if (a2)
   {
     if (a3 && (*(*this + 240))(this))
     {
-      v5 = 0;
-      v6 = v3;
+      v6 = 0;
+      v7 = v4;
       do
       {
-        v7 = v6;
-        if ((*(*v6 + 184))(v6))
+        v8 = v7;
+        if ((*(*v7 + 184))(v7))
         {
           break;
         }
 
-        v6 = (*(*v6 + 48))(v6, 0);
-        v5 = v7;
+        v7 = (*(*v7 + 48))(v7, 0);
+        v6 = v8;
       }
 
-      while (((*(*v6 + 240))(v6) & 1) != 0);
+      while (((*(*v7 + 240))(v7) & 1) != 0);
     }
 
     else
     {
-      v5 = 0;
-      v6 = v3;
+      v6 = 0;
+      v7 = v4;
     }
 
-    if ((*(*v6 + 16))(v6) != 55)
+    if ((*(*v7 + 16))(v7) != 55)
     {
       operator new();
     }
 
-    v8 = *(v6 + 56);
-    if (a2 == 1 && v8 == 1)
+    v9 = *(v7 + 56);
+    if (a2 == 1 && v9 == 1)
     {
-      v9 = *(v6 + 40);
-      if (v9)
+      v10 = *(v7 + 40);
+      if (v10)
       {
-        CI::Object::ref(*(v6 + 40));
+        CI::Object::ref(*(v7 + 40));
       }
     }
 
     else
     {
-      if (a2 != 10 || (v8 & 0xFFFFFFFE) != 0xA)
+      if (a2 != 10 || (v9 & 0xFFFFFFFE) != 0xA)
       {
         operator new();
       }
 
-      CI::Object::ref(v6);
-      v9 = v6;
+      CI::Object::ref(v7);
+      v10 = v7;
     }
 
-    if (!v5)
+    if (!v6)
     {
-      return v9;
+      return v10;
     }
 
-    (*(*v5 + 208))(v5, v9, 0);
-    if (v9)
+    (*(*v6 + 208))(v6, v10, 0);
+    if (v10)
     {
-      CI::Object::unref(v9);
+      CI::Object::unref(v10);
     }
 
-    if (v3)
+    if (v4)
     {
-      CI::Object::ref(v3);
+      CI::Object::ref(v4);
     }
 
-    return v3;
+    return v4;
   }
 
   if (!this)
   {
-    return v3;
+    return v4;
   }
 
   return CI::Object::ref(this);
@@ -8316,7 +8548,7 @@ CI::Object *CI::SwizzleNode::append_to_tree(CI::Object *this, int a2, int a3)
 
 uint64_t CI::SwizzleNode::convert_to_kernel_node(CI::SwizzleNode *this, CI::Context *a2)
 {
-  v2 = CI::Kernel::builtin(*(this + 14));
+  v2 = CI::Kernel::builtin(*(this + 14), a2);
   if (v2 && ((*v2)[2])(v2) != 72)
   {
     operator new();
@@ -8432,13 +8664,13 @@ uint64_t CI::SwizzleNode::output_format(CI::SwizzleNode *this)
 void CI::SwizzleNode::~SwizzleNode(CI::SwizzleNode *this)
 {
   *(this + 6) = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -8480,13 +8712,13 @@ uint64_t CI::SwizzleNode::add_to_kernel_hash(CI::SwizzleNode *this, CI::XXHashHe
 void non-virtual thunk toCI::SwizzleNode::~SwizzleNode(CI::SwizzleNode *this)
 {
   *this = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -8495,14 +8727,14 @@ void non-virtual thunk toCI::SwizzleNode::~SwizzleNode(CI::SwizzleNode *this)
 void *CI::InstanceCounted<(CI::Type)55>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)55>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103BE80;
-  atomic_fetch_add(&dword_1ED7C47BC[53], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[46], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -8525,7 +8757,7 @@ void CI::TextureNode::~TextureNode(CI::TextureNode *this)
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 5) = &unk_1F103C2B8;
-  atomic_fetch_add(&dword_1ED7C47BC[54], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[47], 0xFFFFFFFF);
   CI::Node::~Node(this);
 }
 
@@ -8539,9 +8771,9 @@ uint64_t CI::TextureNode::print_for_graph_core(uint64_t a1, FILE *a2)
   if ((*(*a1 + 448))(a1))
   {
     fprintf(a2, "MTLTexture %p", *(a1 + 48));
-    pixelFormatForMetalTexture(*(a1 + 48));
-    v4 = stringForMetalTextureFormat();
-    fprintf(a2, " %s", v4);
+    v4 = pixelFormatForMetalTexture(*(a1 + 48));
+    v5 = stringForMetalTextureFormat(v4);
+    fprintf(a2, " %s", v5);
   }
 
   if (*(a1 + 64))
@@ -8550,60 +8782,60 @@ uint64_t CI::TextureNode::print_for_graph_core(uint64_t a1, FILE *a2)
   }
 
   result = fprintf(a2, " %dx%d", *(a1 + 72), *(a1 + 76));
-  v6 = *(a1 + 80);
-  if (v6 <= 1)
+  v7 = *(a1 + 80);
+  if (v7 <= 1)
   {
-    if (!v6)
+    if (!v7)
     {
       goto LABEL_19;
     }
 
-    if (v6 == 1)
+    if (v7 == 1)
     {
-      v7 = "alpha_one";
+      v8 = "alpha_one";
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = "alpha_unknown";
+    v8 = "alpha_unknown";
     goto LABEL_18;
   }
 
-  if (v6 == 6)
+  if (v7 == 6)
   {
-    v7 = "alpha_unpremul-clear-edges";
+    v8 = "alpha_unpremul-clear-edges";
     goto LABEL_18;
   }
 
-  if (v6 == 4)
+  if (v7 == 4)
   {
-    v7 = "alpha_premul-clear-edges";
+    v8 = "alpha_premul-clear-edges";
     goto LABEL_18;
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
     goto LABEL_17;
   }
 
-  v7 = "alpha_unpremul";
+  v8 = "alpha_unpremul";
 LABEL_18:
-  result = fprintf(a2, " %s", v7);
+  result = fprintf(a2, " %s", v8);
 LABEL_19:
-  v8 = *(a1 + 84);
-  if (v8)
+  v9 = *(a1 + 84);
+  if (v9)
   {
-    if (v8 == 1)
+    if (v9 == 1)
     {
-      v9 = "edge_clamp";
+      v10 = "edge_clamp";
     }
 
     else
     {
-      v9 = "edge_unknown";
+      v10 = "edge_unknown";
     }
 
-    return fprintf(a2, " %s", v9);
+    return fprintf(a2, " %s", v10);
   }
 
   return result;
@@ -8752,7 +8984,7 @@ void CI::MetalTextureNode::~MetalTextureNode(CI::MetalTextureNode *this)
   *v3 = 0;
   v3[1] = 0;
   *(this + 5) = &unk_1F103C2B8;
-  atomic_fetch_add(&dword_1ED7C47BC[54], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[47], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -8826,7 +9058,7 @@ void sub_19CEC7968(_Unwind_Exception *a1)
   *v2 = 0;
   v2[1] = 0;
   *(v1 + 5) = &unk_1F103C2B8;
-  atomic_fetch_add(&dword_1ED7C47BC[54], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[47], 0xFFFFFFFF);
   CI::Node::~Node(v1);
   _Unwind_Resume(a1);
 }
@@ -8834,14 +9066,14 @@ void sub_19CEC7968(_Unwind_Exception *a1)
 void *CI::InstanceCounted<(CI::Type)56>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103C2B8;
-  atomic_fetch_add(&dword_1ED7C47BC[54], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[47], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)56>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103C2B8;
-  atomic_fetch_add(&dword_1ED7C47BC[54], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[47], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -8924,9 +9156,9 @@ double CI::parentROI::roi(CI::parentROI *this)
   return v7;
 }
 
-void CI::Node::clear_rois(CI::Node *this)
+void CI::Node::clear_rois(uint64_t this)
 {
-  v1 = *(this + 2);
+  v1 = *(this + 16);
   v3 = *v1;
   for (i = v1[1]; i != v3; std::allocator_traits<std::allocator<CI::SerialRectArray::roiData>>::destroy[abi:nn200100]<CI::SerialRectArray::roiData,void,0>(v1, i))
   {
@@ -9490,7 +9722,7 @@ void CI::SerialRectArray::append(uint64_t *a1, char **a2, double a3, double a4, 
     *(v8 + 48) = 0;
     if (v15[1] != v15[0])
     {
-      std::vector<CI::parentROI>::__vallocate[abi:nn200100](v8 + 32, 0xAAAAAAAAAAAAAAABLL * ((v15[1] - v15[0]) >> 4));
+      std::vector<CI::parentROI>::__vallocate[abi:nn200100]((v8 + 32), 0xAAAAAAAAAAAAAAABLL * ((v15[1] - v15[0]) >> 4));
     }
 
     *(v8 + 56) = 0;
@@ -9498,7 +9730,7 @@ void CI::SerialRectArray::append(uint64_t *a1, char **a2, double a3, double a4, 
     *(v8 + 72) = 0;
     if (v17 != v16[1])
     {
-      std::vector<CI::parentROI>::__vallocate[abi:nn200100](v8 + 56, 0xAAAAAAAAAAAAAAABLL * ((v17 - v16[1]) >> 4));
+      std::vector<CI::parentROI>::__vallocate[abi:nn200100]((v8 + 56), 0xAAAAAAAAAAAAAAABLL * ((v17 - v16[1]) >> 4));
     }
 
     v11 = *v18;
@@ -9508,7 +9740,7 @@ void CI::SerialRectArray::append(uint64_t *a1, char **a2, double a3, double a4, 
     *(v8 + 112) = 0;
     if (v19 != *&v18[16])
     {
-      std::vector<unsigned long>::__vallocate[abi:nn200100](v8 + 96, (v19 - *&v18[16]) >> 3);
+      std::vector<unsigned long>::__vallocate[abi:nn200100]((v8 + 96), (v19 - *&v18[16]) >> 3);
     }
 
     v12 = v8 + 120;
@@ -9534,27 +9766,27 @@ void CI::SerialRectArray::append(uint64_t *a1, char **a2, double a3, double a4, 
   }
 }
 
-void CI::Node::remove_parentROI(CI::SerialRectArray **a1, const CI::parentROI *a2, uint64_t a3, uint64_t a4, dispatch_object_t object)
+void CI::Node::remove_parentROI(CI::SerialRectArray **a1, const CI::parentROI *a2, uint64_t *a3, CI::TextureManager *a4, dispatch_object_t object)
 {
   dispatch_retain(object);
-  v10 = *(a4 + 96);
+  v10 = *(a4 + 12);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke;
   block[3] = &__block_descriptor_tmp_28;
   block[4] = object;
   dispatch_async(v10, block);
-  v31 = a3;
-  v11 = *(a3 + 8);
-  CI::SerialRectArray::removeTile(a1[2], v11, a2);
-  v12 = (*(*a1 + 2))(a1);
-  v13 = (CI::is_image_type(v12) & 1) != 0 || *(*a1[2] + 120 * v11 + 40) == *(*a1[2] + 120 * v11 + 32);
-  v30 = v13;
-  intermediate_for_node = CI::TextureManager::get_intermediate_for_node(a4, v31);
-  if (intermediate_for_node && (v15 = intermediate_for_node, (**intermediate_for_node)(intermediate_for_node)) && (v16 = (*(*a1 + 2))(a1), CI::is_image_type(v16)) && (v17 = (**v15)(v15), IOSurfaceGetPlaneCount(v17) >= 2))
+  v33 = a3;
+  v11 = *(a3 + 2);
+  CI::SerialRectArray::removeTile(a1[2], v11, a2, v12, v13);
+  v14 = (*(*a1 + 2))(a1);
+  v15 = (CI::is_image_type(v14) & 1) != 0 || *(*a1[2] + 120 * v11 + 40) == *(*a1[2] + 120 * v11 + 32);
+  v32 = v15;
+  intermediate_for_node = CI::TextureManager::get_intermediate_for_node(a4, v33);
+  if (intermediate_for_node && (v17 = intermediate_for_node, (**intermediate_for_node)(intermediate_for_node)) && (v18 = (*(*a1 + 2))(a1), CI::is_image_type(v18)) && (v19 = (**v17)(v17), IOSurfaceGetPlaneCount(v19) >= 2))
   {
-    v18 = (**v15)(v15);
-    PlaneCount = IOSurfaceGetPlaneCount(v18);
+    v20 = (**v17)(v17);
+    PlaneCount = IOSurfaceGetPlaneCount(v20);
     if (!PlaneCount)
     {
       return;
@@ -9566,395 +9798,76 @@ void CI::Node::remove_parentROI(CI::SerialRectArray **a1, const CI::parentROI *a
     PlaneCount = 1;
   }
 
-  v19 = 0;
-  v33 = a4;
+  v21 = 0;
+  v35 = a4;
   do
   {
-    v32 = v19;
-    v20 = CI::TextureManager::release_intermediate_for_node(a4, v31);
-    if (v30)
+    v34 = v21;
+    v22 = CI::TextureManager::release_intermediate_for_node(a4, v33);
+    if (v32)
     {
-      v21 = v20;
-      v22 = *a1;
-      if (v20)
+      v23 = v22;
+      v24 = *a1;
+      if (v22)
       {
-        v23 = (*(v22 + 2))(a1);
-        v25 = *(v33 + 88);
-        v24 = *(v33 + 96);
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 0x40000000;
-        v34[2] = ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke_3;
-        v34[3] = &__block_descriptor_tmp_3_5;
-        v35 = v23;
-        v34[4] = v33;
-        v34[5] = v21;
-        dispatch_group_async(v25, v24, v34);
+        v25 = v24[2](a1);
+        v27 = *(v35 + 11);
+        v26 = *(v35 + 12);
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 0x40000000;
+        v36[2] = ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke_3;
+        v36[3] = &__block_descriptor_tmp_3_5;
+        v37 = v25;
+        v36[4] = v35;
+        v36[5] = v23;
+        dispatch_group_async(v27, v26, v36);
       }
 
-      else if ((*(v22 + 5))(a1) >= 1)
+      else if (v24[5](a1) >= 1)
       {
-        v26 = 0;
+        v28 = 0;
         do
         {
           if (*(*a1[2] + 120 * v11 + 80) >= 1)
           {
-            v27 = 0;
+            v29 = 0;
             do
             {
-              *&v44 = a1;
-              *(&v44 + 1) = __PAIR64__(v27, v11);
-              v45 = v26 | 0xFFFFFFFF00000000;
-              *&v46 = 0;
-              DWORD2(v46) = 0;
-              v28 = *((*(*a1 + 6))(a1, v26) + 16);
-              v36[0] = MEMORY[0x1E69E9820];
-              v36[1] = 0x40000000;
+              *&v46 = a1;
+              *(&v46 + 1) = __PAIR64__(v29, v11);
+              v47 = v28 | 0xFFFFFFFF00000000;
+              *&v48 = 0;
+              DWORD2(v48) = 0;
+              v30 = *((*(*a1 + 6))(a1, v28) + 16);
+              v38[0] = MEMORY[0x1E69E9820];
+              v38[1] = 0x40000000;
+              v41 = v48;
+              v40 = v47;
+              v38[2] = ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke_2;
+              v38[3] = &__block_descriptor_tmp_2_2;
               v39 = v46;
-              v38 = v45;
-              v36[2] = ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke_2;
-              v36[3] = &__block_descriptor_tmp_2_2;
-              v37 = v44;
-              v42 = v26;
-              v36[4] = a1;
-              v40 = v33;
-              v41 = object;
-              CI::SerialRectArray::findParentROI(v28, &v44, v36, v43);
-              std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(v43, v43[1]);
-              ++v27;
+              v44 = v28;
+              v38[4] = a1;
+              v42 = v35;
+              v43 = object;
+              CI::SerialRectArray::findParentROI(v30, &v46, v38, v45);
+              std::__tree<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::__map_value_compare<unsigned long long,std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>,std::less<unsigned long long>,true>,std::allocator<std::__value_type<unsigned long long,CI::DAGHelper::ImageArgInfo>>>::destroy(v45, v45[1]);
+              ++v29;
             }
 
-            while (v27 < *(*a1[2] + 120 * v11 + 80));
+            while (v29 < *(*a1[2] + 120 * v11 + 80));
           }
 
-          v26 = (v26 + 1);
+          v28 = (v28 + 1);
         }
 
-        while (v26 < (*(*a1 + 5))(a1));
+        while (v28 < (*(*a1 + 5))(a1));
       }
     }
 
-    v19 = v32 + 1;
-    a4 = v33;
+    v21 = v34 + 1;
+    a4 = v35;
   }
 
-  while (v32 + 1 != PlaneCount);
-}
-
-void ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke(uint64_t a1)
-{
-  dispatch_group_wait(*(a1 + 32), 0xFFFFFFFFFFFFFFFFLL);
-  v2 = *(a1 + 32);
-
-  dispatch_release(v2);
-}
-
-void CI::SerialRectArray::removeTile(CI::SerialRectArray *this, int a2, const CI::parentROI *a3)
-{
-  v3 = *this + 120 * a2;
-  v5 = *(v3 + 32);
-  v4 = *(v3 + 40);
-  v6 = v3 + 32;
-  if (v5 != v4)
-  {
-    v10 = (v5 + 3);
-    while (!CI::parentROI::operator==(v5, a3))
-    {
-      v5 += 3;
-      v10 += 48;
-      if (v5 == *(v6 + 8))
-      {
-        return;
-      }
-    }
-
-    std::vector<CI::parentROI>::push_back[abi:nn200100](*this + 120 * a2 + 56, v5);
-    v11 = *(v6 + 8);
-    v12 = v11 - v10;
-    if (v11 != v10)
-    {
-      memmove(v10 - 48, v10, v11 - v10);
-    }
-
-    *(v6 + 8) = &v10[v12 - 48];
-  }
-}
-
-uint64_t ___ZN2CI4Node16remove_parentROIERKNS_9parentROIERKNS_6roiKeyEPNS_14TextureManagerEPv_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
-{
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 56);
-  v11 = *(a1 + 40);
-  v12 = v6;
-  v13 = *(a1 + 72);
-  DWORD1(v12) = *(a2 + 20);
-  v7 = (*(*v5 + 48))(v5, *(a1 + 104));
-  v9 = (*(*v5 + 48))(v5, *(a1 + 104));
-  v10 = a3;
-  return CI::Node::remove_parentROI(v7, &v11, &v9, *(a1 + 88), *(a1 + 96));
-}
-
-void CI::Node::regions_of_child(CI::Node *this@<X0>, CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a3@<X1>, void *a4@<X8>)
-{
-  if ((a3 & 0x80000000) != 0)
-  {
-    goto LABEL_47;
-  }
-
-  height = a2.size.height;
-  width = a2.size.width;
-  y = a2.origin.y;
-  x = a2.origin.x;
-  if (CGRectIsEmpty(a2))
-  {
-    goto LABEL_47;
-  }
-
-  v55 = 0u;
-  v56 = 0u;
-  v11 = (*(*this + 80))(this, a3, x, y, width, height);
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v18 = (*(*this + 48))(this, a3);
-  v19 = (*(*v18 + 368))();
-  if (v19 * v20)
-  {
-    v21 = v19;
-    v22 = v20;
-    v58.origin.x = v11;
-    v58.origin.y = v13;
-    v58.size.width = v15;
-    v58.size.height = v17;
-    if (CGRectIsNull(v58))
-    {
-      v23 = 0;
-      v24 = 0;
-      v25 = 0x7FFFFFFF;
-LABEL_6:
-      if (v25 != 0x7FFFFFFF || v23)
-      {
-        v26 = 0x7FFFFFFF;
-      }
-
-      else
-      {
-        v26 = 0x7FFFFFFF;
-        if (!v24)
-        {
-          v27 = MEMORY[0x1E695F050];
-LABEL_29:
-          v11 = *v27;
-          v13 = v27[1];
-          v15 = v27[2];
-          v17 = v27[3];
-LABEL_32:
-          *&v55 = v11;
-          *(&v55 + 1) = v13;
-          *&v56 = v15;
-          *(&v56 + 1) = v17;
-          goto LABEL_33;
-        }
-      }
-
-      goto LABEL_31;
-    }
-
-    v59.origin.x = v11;
-    v59.origin.y = v13;
-    v59.size.width = v15;
-    v59.size.height = v17;
-    if (CGRectIsInfinite(v59))
-    {
-      v24 = 0xFFFFFFFFLL;
-      v23 = 0xFFFFFFFFLL;
-      v25 = -2147483647;
-      v26 = -2147483647;
-    }
-
-    else
-    {
-      v60.origin.x = v11;
-      v60.origin.y = v13;
-      v60.size.width = v15;
-      v60.size.height = v17;
-      v61 = CGRectInset(v60, 0.000001, 0.000001);
-      v62 = CGRectIntegral(v61);
-      v26 = v62.origin.x;
-      v25 = v62.origin.y;
-      v23 = v62.size.width;
-      v24 = v62.size.height;
-    }
-
-    if (v26 == -2147483647 && v25 == -2147483647 && v23 == 0xFFFFFFFF)
-    {
-      v25 = -2147483647;
-      v23 = 0xFFFFFFFFLL;
-      if (!v24 || v24 == 0xFFFFFFFF)
-      {
-        goto LABEL_25;
-      }
-    }
-
-    else if (!v23 || !v24)
-    {
-LABEL_22:
-      if (v26 != -2147483647)
-      {
-        if (v26 != 0x7FFFFFFF)
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_6;
-      }
-
-LABEL_25:
-      v26 = -2147483647;
-      if (v25 == -2147483647 && v23 == 0xFFFFFFFF && v24 == 0xFFFFFFFF)
-      {
-        v27 = MEMORY[0x1E695F040];
-        goto LABEL_29;
-      }
-
-LABEL_31:
-      v11 = v26;
-      v13 = v25;
-      v15 = v23;
-      v17 = v24;
-      goto LABEL_32;
-    }
-
-    v28 = v21 + v26 + v23 - 1;
-    v29 = v22 + v24 + v25 - 1;
-    v26 = v26 / v21 * v21;
-    v25 = v25 / v22 * v22;
-    v23 = (v28 - v26 - v28 % v21);
-    v24 = (v29 - v25 - v29 % v22);
-    goto LABEL_22;
-  }
-
-LABEL_33:
-  v30 = (*(*v18 + 168))(v18);
-  v32 = v31;
-  v34 = v33;
-  v36 = v35;
-  v37 = (*(*v18 + 176))(v18);
-  v52 = v38;
-  v53 = v37;
-  v50 = v40;
-  v51 = v39;
-  v41 = (*(*v18 + 16))(v18) >= 47 && (*(*v18 + 16))(v18) < 50;
-  v42 = (*(*v18 + 16))(v18);
-  if (v41 && (v63.origin.x = v30, v63.origin.y = v32, v63.size.width = v34, v63.size.height = v36, !CGRectIsInfinite(v63)))
-  {
-    if ((v18[293] & 1) == 0)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  else if (v42 == 51)
-  {
-    v64.origin.x = v30;
-    v64.origin.y = v32;
-    v64.size.width = v34;
-    v64.size.height = v36;
-    if (!CGRectIsInfinite(v64) && (v18[140] & 1) == 0)
-    {
-      *(&v56 + 1) = v36;
-LABEL_43:
-      v17 = v36;
-      v15 = v34;
-      v13 = v32;
-      v11 = v30;
-    }
-  }
-
-  v65.origin.x = v30;
-  v65.origin.y = v32;
-  v65.size.width = v34;
-  v65.size.height = v36;
-  if (CGRectIsInfinite(v65))
-  {
-    v66.origin.y = v52;
-    v66.origin.x = v53;
-    v66.size.height = v50;
-    v66.size.width = v51;
-    IsInfinite = CGRectIsInfinite(v66);
-    if (!IsInfinite)
-    {
-      v71.origin.x = v11;
-      v71.origin.y = v13;
-      v71.size.width = v15;
-      v71.size.height = v17;
-      v77.origin.y = v52;
-      v77.origin.x = v53;
-      v77.size.height = v50;
-      v77.size.width = v51;
-      CI::ClampNode::adjust_roi_for_clamp_rect(IsInfinite, v71, v77);
-      v54 = CGRectIntegral(v72);
-      a4[1] = 0;
-      a4[2] = 0;
-      *a4 = 0;
-      v49 = &v54;
-      goto LABEL_55;
-    }
-  }
-
-  v67.origin.x = v30;
-  v67.origin.y = v32;
-  v67.size.width = v34;
-  v67.size.height = v36;
-  v76 = CGRectInset(v67, -1.0, -1.0);
-  v68.origin.x = v11;
-  v68.origin.y = v13;
-  v68.size.width = v15;
-  v68.size.height = v17;
-  v69 = CGRectIntersection(v68, v76);
-  v44 = v69.origin.x;
-  v45 = v69.origin.y;
-  v46 = v69.size.width;
-  v47 = v69.size.height;
-  if (!CGRectIsEmpty(v69))
-  {
-    v70.origin.x = v44;
-    v70.origin.y = v45;
-    v70.size.width = v46;
-    v70.size.height = v47;
-    if (CGRectIsInfinite(v70))
-    {
-      *a4 = 0;
-      a4[1] = 0;
-      a4[2] = 0;
-      v48 = MEMORY[0x1E695F040];
-      goto LABEL_48;
-    }
-
-    v73.origin.x = v44;
-    v73.origin.y = v45;
-    v73.size.width = v46;
-    v73.size.height = v47;
-    v74 = CGRectInset(v73, 0.001, 0.001);
-    v75 = CGRectIntegral(v74);
-    *&v55 = v75.origin.x;
-    *(&v55 + 1) = *&v75.origin.y;
-    *&v56 = v75.size.width;
-    *(&v56 + 1) = *&v75.size.height;
-    a4[1] = 0;
-    a4[2] = 0;
-    *a4 = 0;
-    v49 = &v55;
-LABEL_55:
-    std::vector<CGRect>::push_back[abi:nn200100](a4, v49);
-    return;
-  }
-
-LABEL_47:
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  v48 = MEMORY[0x1E695F050];
-LABEL_48:
-
-  std::vector<CGRect>::push_back[abi:nn200100](a4, v48);
+  while (v34 + 1 != PlaneCount);
 }

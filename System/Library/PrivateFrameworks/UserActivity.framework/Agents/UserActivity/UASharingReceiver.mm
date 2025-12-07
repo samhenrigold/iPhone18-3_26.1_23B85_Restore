@@ -1,6 +1,7 @@
 @interface UASharingReceiver
 - (BOOL)_addItem:(id)item scheduleUpdates:(BOOL)updates;
 - (BOOL)active;
+- (BOOL)addItem:(id)item scheduleUpdates:(BOOL)updates;
 - (BOOL)addSFActivityScanner:(id)scanner;
 - (BOOL)fetchMoreAppSuggestions;
 - (BOOL)receiving;
@@ -856,6 +857,35 @@ LABEL_26:
   return v33;
 }
 
+- (BOOL)addItem:(id)item scheduleUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  itemCopy = item;
+  if (!itemCopy)
+  {
+    return 0;
+  }
+
+  v7 = itemCopy;
+  activityType = [itemCopy activityType];
+  v9 = [activityType isEqualToString:UAUserActivityTypeNowPlaying];
+
+  if (v9)
+  {
+    v10 = dispatch_get_global_queue(0, 0);
+    MRMediaRemoteGetActiveOrigin();
+
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = [(UASharingReceiver *)self _addItem:v7 scheduleUpdates:updatesCopy];
+  }
+
+  return v11;
+}
+
 - (BOOL)removeItem:(id)item
 {
   itemCopy = item;
@@ -915,40 +945,11 @@ LABEL_26:
       if (v14)
       {
         v15 = +[NSDate date];
-        if (([v11 isPayloadRequested] & 1) == 0 && !objc_msgSend(v11, "isPayloadAvailable"))
-        {
-          goto LABEL_11;
-        }
-
-        removeAfter = [v11 removeAfter];
-        if (!removeAfter)
-        {
-          goto LABEL_11;
-        }
-
-        [v15 timeIntervalSinceReferenceDate];
-        v18 = v17;
-        removeAfter2 = [v11 removeAfter];
-        [removeAfter2 timeIntervalSinceReferenceDate];
-        v21 = v18 > v20;
-
-        if (!v21)
+        if ((([v11 isPayloadRequested] & 1) != 0 || objc_msgSend(v11, "isPayloadAvailable")) && (objc_msgSend(v11, "removeAfter"), (v16 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend(v15, "timeIntervalSinceReferenceDate"), v18 = v17, objc_msgSend(v11, "removeAfter"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "timeIntervalSinceReferenceDate"), v21 = v18 > v20, v19, v16, !v21))
         {
           currentUntilDate = [v11 currentUntilDate];
-          if (!currentUntilDate)
+          if (!currentUntilDate || ([v15 timeIntervalSinceReferenceDate], v27 = v26, objc_msgSend(v11, "currentUntilDate"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "timeIntervalSinceReferenceDate"), v30 = v27 > v29, v28, currentUntilDate, !v30))
           {
-            goto LABEL_16;
-          }
-
-          [v15 timeIntervalSinceReferenceDate];
-          v27 = v26;
-          currentUntilDate2 = [v11 currentUntilDate];
-          [currentUntilDate2 timeIntervalSinceReferenceDate];
-          v30 = v27 > v29;
-
-          if (!v30)
-          {
-LABEL_16:
             v31 = [NSDate dateWithTimeInterval:v15 sinceDate:-1.0];
             [v11 setCurrentUntilDate:v31];
           }
@@ -959,8 +960,8 @@ LABEL_16:
 
           [v33 timeIntervalSinceReferenceDate];
           v35 = v34;
-          removeAfter3 = [v11 removeAfter];
-          [removeAfter3 timeIntervalSinceReferenceDate];
+          removeAfter = [v11 removeAfter];
+          [removeAfter timeIntervalSinceReferenceDate];
           LOBYTE(v32) = v35 > v37;
 
           if ((v32 & 1) == 0)
@@ -973,22 +974,21 @@ LABEL_16:
           {
             uuid = [v11 uuid];
             uUIDString = [uuid UUIDString];
-            removeAfter4 = [v11 removeAfter];
+            removeAfter2 = [v11 removeAfter];
             *buf = v44;
             v53 = uUIDString;
             v54 = 2114;
-            v55 = removeAfter4;
+            v55 = removeAfter2;
             _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "Retaining %{public}@ in _receivedItems because it's .payloadRequested or .payloadAvailable, so that it remains available for a bit, until %{public}@.", buf, 0x16u);
           }
 
           periodicCleanup = [p_isa periodicCleanup];
-          removeAfter5 = [v11 removeAfter];
-          [periodicCleanup scheduleAt:removeAfter5];
+          removeAfter3 = [v11 removeAfter];
+          [periodicCleanup scheduleAt:removeAfter3];
         }
 
         else
         {
-LABEL_11:
           v22 = sub_100001A30(0);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
@@ -1056,37 +1056,25 @@ LABEL_28:
 
         v9 = *(*(&v24 + 1) + 8 * i);
         removeAfter = [v9 removeAfter];
-        if (!removeAfter)
-        {
-          goto LABEL_11;
-        }
-
-        removeAfter2 = [v9 removeAfter];
-        [removeAfter2 timeIntervalSinceReferenceDate];
-        v13 = v12;
-        [v23 timeIntervalSinceReferenceDate];
-        v15 = v13 > v14;
-
-        if (v15)
+        if (removeAfter && ([v9 removeAfter], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "timeIntervalSinceReferenceDate"), v13 = v12, objc_msgSend(v23, "timeIntervalSinceReferenceDate"), v15 = v13 > v14, v11, removeAfter, v15))
         {
           periodicCleanup = [(UASharingReceiver *)selfCopy periodicCleanup];
-          removeAfter3 = [v9 removeAfter];
-          [periodicCleanup scheduleAt:removeAfter3];
+          removeAfter2 = [v9 removeAfter];
+          [periodicCleanup scheduleAt:removeAfter2];
         }
 
         else
         {
-LABEL_11:
           v18 = sub_100001A30(0);
           if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             uuid = [v9 uuid];
             uUIDString = [uuid UUIDString];
-            removeAfter4 = [v9 removeAfter];
+            removeAfter3 = [v9 removeAfter];
             *buf = v22;
             v29 = uUIDString;
             v30 = 2114;
-            v31 = removeAfter4;
+            v31 = removeAfter3;
             _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Removing %{public}@ from .receivedItems because .removeAfter, %{public}@ has expired.", buf, 0x16u);
           }
 
@@ -1126,25 +1114,32 @@ LABEL_11:
         }
 
         v11 = *(*(&v20 + 1) + 8 * i);
-        if (!deviceCopy)
+        if (deviceCopy)
         {
-          goto LABEL_19;
-        }
+          uniqueID = [deviceCopy uniqueID];
+          peerDevice = [v11 peerDevice];
+          uniqueID2 = [peerDevice uniqueID];
+          v15 = [uniqueID isEqual:uniqueID2];
 
-        uniqueID = [deviceCopy uniqueID];
-        peerDevice = [v11 peerDevice];
-        uniqueID2 = [peerDevice uniqueID];
-        v15 = [uniqueID isEqual:uniqueID2];
-
-        if (v15)
-        {
-LABEL_19:
-          if (!payloadCopy || ([v11 advertisementPayload], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(payloadCopy, "isEqualHashedPayloadBytes:", v16), v16, v17))
+          if (!v15)
           {
-            v8 = v11;
-            goto LABEL_14;
+            continue;
           }
         }
+
+        if (payloadCopy)
+        {
+          advertisementPayload = [v11 advertisementPayload];
+          v17 = [payloadCopy isEqualHashedPayloadBytes:advertisementPayload];
+
+          if (!v17)
+          {
+            continue;
+          }
+        }
+
+        v8 = v11;
+        goto LABEL_14;
       }
 
       v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
@@ -2464,41 +2459,15 @@ LABEL_47:
         v67 = v19;
         v20 = *(*(&v79 + 1) + 8 * v19);
         v21 = v20;
-        if (!v20)
+        if (v20 && ([v20 scanner], v22 = objc_claimAutoreleasedReturnValue(), v22, v22) && (objc_msgSend(v21, "scanner"), v23 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v23, (isKindOfClass & 1) == 0) && (objc_msgSend(v21, "scanner"), v25 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v26 = objc_opt_isKindOfClass(), v25, (v26 & 1) != 0))
         {
-          goto LABEL_29;
-        }
-
-        scanner = [v20 scanner];
-
-        if (!scanner)
-        {
-          goto LABEL_29;
-        }
-
-        scanner2 = [v21 scanner];
-        objc_opt_class();
-        isKindOfClass = objc_opt_isKindOfClass();
-
-        if (isKindOfClass)
-        {
-          goto LABEL_29;
-        }
-
-        scanner3 = [v21 scanner];
-        objc_opt_class();
-        v26 = objc_opt_isKindOfClass();
-
-        if (v26)
-        {
-          scanner4 = [v21 scanner];
-          controller = [scanner4 controller];
+          scanner = [v21 scanner];
+          controller = [scanner controller];
           v70 = [objc_opt_class() description];
         }
 
         else
         {
-LABEL_29:
           v70 = &stru_1000C67D0;
         }
 

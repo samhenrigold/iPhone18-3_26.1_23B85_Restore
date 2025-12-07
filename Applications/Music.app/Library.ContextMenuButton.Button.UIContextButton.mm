@@ -15,7 +15,7 @@
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location
 {
-  sub_100009F78(0, &qword_1011987F8);
+  sub_100009F78(0, &qword_1011987F8, UIContextMenuConfiguration_ptr);
   v5 = swift_allocObject();
   swift_unknownObjectWeakInit();
   selfCopy = self;

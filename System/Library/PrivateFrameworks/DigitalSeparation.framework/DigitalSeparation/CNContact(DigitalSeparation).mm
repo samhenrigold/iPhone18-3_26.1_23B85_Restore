@@ -67,7 +67,7 @@ LABEL_13:
 
 - (uint64_t)isLikeIdentifiable:()DigitalSeparation
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = a3;
   unifiedContactIdentifier = [v4 unifiedContactIdentifier];
   if ([unifiedContactIdentifier length])
@@ -115,49 +115,49 @@ LABEL_8:
   }
 
   phoneNumber = [v4 phoneNumber];
-  v20 = [phoneNumber length];
+  v19 = [phoneNumber length];
 
-  if (v20)
+  if (v19)
   {
-    v21 = MEMORY[0x277CBDB70];
+    v20 = MEMORY[0x277CBDB70];
     phoneNumber2 = [v4 phoneNumber];
-    v23 = [v21 phoneNumberWithStringValue:phoneNumber2];
+    v22 = [v20 phoneNumberWithStringValue:phoneNumber2];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     phoneNumbers = [self phoneNumbers];
-    v25 = [phoneNumbers countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v25)
+    v24 = [phoneNumbers countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v24)
     {
-      v26 = v25;
-      v27 = *v34;
+      v25 = v24;
+      v26 = *v33;
       while (2)
       {
-        v28 = 0;
+        v27 = 0;
         do
         {
-          if (*v34 != v27)
+          if (*v33 != v26)
           {
             objc_enumerationMutation(phoneNumbers);
           }
 
-          value = [*(*(&v33 + 1) + 8 * v28) value];
-          v30 = [v23 isLikePhoneNumber:value];
+          value = [*(*(&v32 + 1) + 8 * v27) value];
+          v29 = [v22 isLikePhoneNumber:value];
 
-          if (v30)
+          if (v29)
           {
             v16 = 1;
             goto LABEL_22;
           }
 
-          ++v28;
+          ++v27;
         }
 
-        while (v26 != v28);
-        v26 = [phoneNumbers countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (v26)
+        while (v25 != v27);
+        v25 = [phoneNumbers countByEnumeratingWithState:&v32 objects:v36 count:16];
+        if (v25)
         {
           continue;
         }
@@ -181,13 +181,12 @@ LABEL_22:
 
 LABEL_9:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (id)ds_phoneNumbers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   phoneNumbers = [self phoneNumbers];
   v4 = [phoneNumbers count];
@@ -198,44 +197,42 @@ LABEL_9:
     v6 = [phoneNumbers2 valueForKey:@"value"];
     v7 = [v6 valueForKey:@"stringValue"];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          ds_formattedPotentialPhoneNumber = [*(*(&v16 + 1) + 8 * i) ds_formattedPotentialPhoneNumber];
+          ds_formattedPotentialPhoneNumber = [*(*(&v15 + 1) + 8 * i) ds_formattedPotentialPhoneNumber];
           [v2 addObject:ds_formattedPotentialPhoneNumber];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v2;
 }
 
 - (id)ds_emailAddresses
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   emailAddresses = [self emailAddresses];
   v4 = [emailAddresses count];
@@ -245,36 +242,34 @@ LABEL_9:
     emailAddresses2 = [self emailAddresses];
     v6 = [emailAddresses2 valueForKey:@"value"];
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v2 addObject:{*(*(&v14 + 1) + 8 * i), v14}];
+          [v2 addObject:{*(*(&v13 + 1) + 8 * i), v13}];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

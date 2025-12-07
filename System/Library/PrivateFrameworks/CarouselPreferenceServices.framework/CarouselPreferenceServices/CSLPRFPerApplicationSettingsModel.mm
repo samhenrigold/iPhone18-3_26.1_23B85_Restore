@@ -28,7 +28,7 @@
 
 - (void)didUpdateSettings:(id)settings
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   v5 = [(CSLPRFTwoWaySyncSetting *)self->_syncedSettings safeValueOfType:objc_opt_class()];
   v6 = v5;
@@ -73,32 +73,30 @@
     if ([settingsCopy isGlobalDefault])
     {
       observationHelper = self->_observationHelper;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __55__CSLPRFPerApplicationSettingsModel_didUpdateSettings___block_invoke;
-      v23[3] = &unk_278744D08;
-      v23[4] = self;
-      v24 = settingsCopy;
-      [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __55__CSLPRFPerApplicationSettingsModel_didUpdateSettings___block_invoke;
+      v22[3] = &unk_278744D08;
+      v22[4] = self;
+      v23 = settingsCopy;
+      [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v22];
     }
 
     else
     {
-      v25[0] = settingsCopy;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+      v24[0] = settingsCopy;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       v18 = self->_observationHelper;
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __55__CSLPRFPerApplicationSettingsModel_didUpdateSettings___block_invoke_2;
-      v21[3] = &unk_278744D08;
-      v21[4] = self;
-      v22 = v17;
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __55__CSLPRFPerApplicationSettingsModel_didUpdateSettings___block_invoke_2;
+      v20[3] = &unk_278744D08;
+      v20[4] = self;
+      v21 = v17;
       v19 = v17;
-      [(CSLPRFObservationHelper *)v18 notifyObserversWithBlock:v21];
+      [(CSLPRFObservationHelper *)v18 notifyObserversWithBlock:v20];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_globalSettingsForCustomizedSettings:(id)settings
@@ -115,30 +113,30 @@
 
 - (void)twoWaySyncSettingDidUpdate:(id)update
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v4 = [(CSLPRFTwoWaySyncSetting *)self->_syncedSettings safeValueOfType:objc_opt_class()];
   os_unfair_lock_lock(&self->_lock);
-  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableDictionary count](self->_lock_settings, "count")}];
+  v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSMutableDictionary count](self->_lock_settings, "count")}];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   allKeys = [v4 allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v47;
+    v8 = *v46;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v47 != v8)
+        if (*v46 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * i);
+        v10 = *(*(&v45 + 1) + 8 * i);
         globalDefaultIdentifer = [(objc_class *)self->_perApplicationSettingsClass globalDefaultIdentifer];
         v12 = [v10 isEqualToString:globalDefaultIdentifer];
 
@@ -150,7 +148,7 @@
             v14 = [(CSLPRFPerApplicationSettingsModel *)self settingsObjectForBundleId:v10 customizedSettings:v4 existingSettings:0];
             if (([0 isEqual:v14] & 1) == 0)
             {
-              [v37 addObject:v14];
+              [v36 addObject:v14];
             }
 
             lock_settings = self->_lock_settings;
@@ -160,7 +158,7 @@
         }
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v45 objects:v50 count:16];
     }
 
     while (v7);
@@ -169,26 +167,26 @@
   allValues = [(NSMutableDictionary *)self->_lock_settings allValues];
   v18 = [allValues copy];
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v41 objects:v49 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v43;
+    v22 = *v42;
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v43 != v22)
+        if (*v42 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v42 + 1) + 8 * j);
+        v24 = *(*(&v41 + 1) + 8 * j);
         identifier2 = [v24 identifier];
         v26 = [v4 bs_safeObjectForKey:identifier2 ofType:{-[objc_class serializationClass](self->_perApplicationSettingsClass, "serializationClass")}];
 
@@ -198,7 +196,7 @@
 
         if (([v29 isEqual:v24] & 1) == 0)
         {
-          [v37 addObject:v29];
+          [v36 addObject:v29];
         }
 
         v30 = self->_lock_settings;
@@ -206,7 +204,7 @@
         [(NSMutableDictionary *)v30 setObject:v29 forKey:identifier3];
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v41 objects:v49 count:16];
     }
 
     while (v21);
@@ -216,31 +214,29 @@
   v33 = [(CSLPRFPerApplicationSettingsModel *)self _globalSettingsForCustomizedSettings:v4];
   objc_storeStrong(&self->_lock_globalSettings, v33);
   os_unfair_lock_unlock(&self->_lock);
-  if ([v37 count])
+  if ([v36 count])
   {
     observationHelper = self->_observationHelper;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __64__CSLPRFPerApplicationSettingsModel_twoWaySyncSettingDidUpdate___block_invoke;
-    v40[3] = &unk_278744D08;
-    v40[4] = self;
-    v41 = v37;
-    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v40];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __64__CSLPRFPerApplicationSettingsModel_twoWaySyncSettingDidUpdate___block_invoke;
+    v39[3] = &unk_278744D08;
+    v39[4] = self;
+    v40 = v36;
+    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v39];
   }
 
   if (([v33 isEqual:v32] & 1) == 0)
   {
     v35 = self->_observationHelper;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __64__CSLPRFPerApplicationSettingsModel_twoWaySyncSettingDidUpdate___block_invoke_2;
-    v38[3] = &unk_278744D08;
-    v38[4] = self;
-    v39 = v33;
-    [(CSLPRFObservationHelper *)v35 notifyObserversWithBlock:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __64__CSLPRFPerApplicationSettingsModel_twoWaySyncSettingDidUpdate___block_invoke_2;
+    v37[3] = &unk_278744D08;
+    v37[4] = self;
+    v38 = v33;
+    [(CSLPRFObservationHelper *)v35 notifyObserversWithBlock:v37];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)settingsObjectForBundleId:(id)id customizedSettings:(id)settings existingSettings:(id)existingSettings
@@ -262,34 +258,34 @@
 
 - (void)applicationLibrary:(id)library didRemoveApplications:(id)applications
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   applicationsCopy = applications;
   os_unfair_lock_lock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = applicationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(NSMutableDictionary *)self->_lock_settings removeObjectForKey:*(*(&v16 + 1) + 8 * v10++)];
+        [(NSMutableDictionary *)self->_lock_settings removeObjectForKey:*(*(&v15 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -297,64 +293,62 @@
 
   os_unfair_lock_unlock(&self->_lock);
   observationHelper = self->_observationHelper;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __78__CSLPRFPerApplicationSettingsModel_applicationLibrary_didRemoveApplications___block_invoke;
-  v14[3] = &unk_278744D08;
-  v14[4] = self;
-  v15 = v6;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __78__CSLPRFPerApplicationSettingsModel_applicationLibrary_didRemoveApplications___block_invoke;
+  v13[3] = &unk_278744D08;
+  v13[4] = self;
+  v14 = v6;
   v12 = v6;
-  [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v14];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v13];
 }
 
 - (void)_processAddedOrUpdatedApplications:(id)applications
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   applicationsCopy = applications;
   v5 = [(CSLPRFTwoWaySyncSetting *)self->_syncedSettings safeValueOfType:objc_opt_class()];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke;
-  v52[3] = &unk_278744CE0;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke;
+  v51[3] = &unk_278744CE0;
   v6 = v5;
-  v53 = v6;
+  v52 = v6;
   selfCopy = self;
-  v38 = applicationsCopy;
-  v7 = [applicationsCopy bs_mapNoNulls:v52];
+  v37 = applicationsCopy;
+  v7 = [applicationsCopy bs_mapNoNulls:v51];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
-  v36 = v7;
-  v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v35 = v7;
+  v36 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
   os_unfair_lock_lock(&self->_lock);
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v39 = v6;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v38 = v6;
   allKeys = [v6 allKeys];
-  v10 = [allKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v10 = [allKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v49;
+    v12 = *v48;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v49 != v12)
+        if (*v48 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v48 + 1) + 8 * i);
+        v14 = *(*(&v47 + 1) + 8 * i);
         v15 = [(NSMutableDictionary *)self->_lock_settings objectForKey:v14];
         globalDefaultIdentifer = [(objc_class *)self->_perApplicationSettingsClass globalDefaultIdentifer];
         v17 = [v14 isEqualToString:globalDefaultIdentifer];
 
         if ((v17 & 1) == 0 && !v15)
         {
-          v18 = [(CSLPRFPerApplicationSettingsModel *)self settingsObjectForBundleId:v14 customizedSettings:v39 existingSettings:0];
+          v18 = [(CSLPRFPerApplicationSettingsModel *)self settingsObjectForBundleId:v14 customizedSettings:v38 existingSettings:0];
           [v8 addObject:v18];
           lock_settings = self->_lock_settings;
           identifier = [v18 identifier];
@@ -362,39 +356,39 @@
         }
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v47 objects:v55 count:16];
     }
 
     while (v11);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
-  v21 = v36;
-  v22 = [v21 countByEnumeratingWithState:&v44 objects:v55 count:16];
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v21 = v35;
+  v22 = [v21 countByEnumeratingWithState:&v43 objects:v54 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v45;
+    v24 = *v44;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v45 != v24)
+        if (*v44 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = *(*(&v44 + 1) + 8 * j);
+        v26 = *(*(&v43 + 1) + 8 * j);
         v27 = self->_lock_settings;
         identifier2 = [v26 identifier];
         v29 = [(NSMutableDictionary *)v27 objectForKey:identifier2];
 
         if (v29)
         {
-          v30 = v37;
+          v30 = v36;
         }
 
         else
@@ -408,7 +402,7 @@
         [(NSMutableDictionary *)v31 setObject:v26 forKey:identifier3];
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v44 objects:v55 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v43 objects:v54 count:16];
     }
 
     while (v23);
@@ -418,28 +412,26 @@
   if ([v8 count])
   {
     observationHelper = self->_observationHelper;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke_2;
-    v42[3] = &unk_278744D08;
-    v42[4] = self;
-    v43 = v8;
-    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v42];
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke_2;
+    v41[3] = &unk_278744D08;
+    v41[4] = self;
+    v42 = v8;
+    [(CSLPRFObservationHelper *)observationHelper notifyObserversWithBlock:v41];
   }
 
-  if ([v37 count])
+  if ([v36 count])
   {
     v34 = self->_observationHelper;
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke_3;
-    v40[3] = &unk_278744D08;
-    v40[4] = self;
-    v41 = v37;
-    [(CSLPRFObservationHelper *)v34 notifyObserversWithBlock:v40];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke_3;
+    v39[3] = &unk_278744D08;
+    v39[4] = self;
+    v40 = v36;
+    [(CSLPRFObservationHelper *)v34 notifyObserversWithBlock:v39];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 id __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___block_invoke(uint64_t a1, void *a2)
@@ -484,33 +476,33 @@ id __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___
 
 - (id)globalSettings
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v4 = self->_lock_globalSettings;
   if (!v4)
   {
-    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"globalSettings != nil"];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"globalSettings != nil"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v9 = NSStringFromSelector(a2);
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v8 = NSStringFromSelector(a2);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *buf = 138544642;
-      v13 = v9;
-      v14 = 2114;
-      v15 = v11;
-      v16 = 2048;
+      v12 = v8;
+      v13 = 2114;
+      v14 = v10;
+      v15 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = @"CSLPRFPerApplicationSettingsModel.m";
-      v20 = 1024;
-      v21 = 107;
-      v22 = 2114;
-      v23 = v8;
+      v17 = 2114;
+      v18 = @"CSLPRFPerApplicationSettingsModel.m";
+      v19 = 1024;
+      v20 = 107;
+      v21 = 2114;
+      v22 = v7;
       _os_log_error_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v8 UTF8String];
+    [v7 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x22CEAE7E0);
@@ -518,7 +510,6 @@ id __72__CSLPRFPerApplicationSettingsModel__processAddedOrUpdatedApplications___
 
   v5 = v4;
   os_unfair_lock_unlock(&self->_lock);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

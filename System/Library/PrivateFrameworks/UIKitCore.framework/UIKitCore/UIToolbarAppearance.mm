@@ -149,9 +149,9 @@
     goto LABEL_16;
   }
 
-  v11 = [v7 isEqual:v8];
+  isEqual = objc_msgSend_isEqual_(v7);
 
-  if (v11)
+  if (isEqual)
   {
 LABEL_10:
     _data3 = [(UIBarButtonItemAppearance *)self->_prominentButtonAppearance _data];
@@ -177,7 +177,7 @@ LABEL_10:
 
     if (!v16)
     {
-      v12 = [v7 isEqual:v15];
+      v12 = objc_msgSend_isEqual_(v7);
 LABEL_18:
 
       goto LABEL_19;
@@ -219,9 +219,9 @@ LABEL_19:
     goto LABEL_10;
   }
 
-  v8 = [(UIBarButtonItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UIBarButtonItemAppearance *)self->_buttonAppearance _setChangeObserver:0];
@@ -260,9 +260,9 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(UIBarButtonItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UIBarButtonItemAppearance *)self->_prominentButtonAppearance _setChangeObserver:0];

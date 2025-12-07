@@ -11,10 +11,10 @@
 
 - (BCSTorchButtonView)init
 {
-  v57[10] = *MEMORY[0x277D85DE8];
-  v56.receiver = self;
-  v56.super_class = BCSTorchButtonView;
-  v2 = [(BCSTorchButtonView *)&v56 init];
+  v56[10] = *MEMORY[0x277D85DE8];
+  v55.receiver = self;
+  v55.super_class = BCSTorchButtonView;
+  v2 = [(BCSTorchButtonView *)&v55 init];
   if (v2)
   {
     v3 = [MEMORY[0x277D75220] buttonWithType:0];
@@ -30,11 +30,11 @@
       v7 = 24.0;
     }
 
-    v46 = [v5 configurationWithPointSize:v7];
-    v55 = [MEMORY[0x277D755B8] _systemImageNamed:@"flashlight.on.fill" withConfiguration:v46];
-    v47 = [MEMORY[0x277D755B8] _systemImageNamed:@"flashlight.off.fill" withConfiguration:v46];
-    [(UIButton *)v2->_torchButton setImage:v47 forState:0];
-    [(UIButton *)v2->_torchButton setImage:v55 forState:4];
+    v45 = [v5 configurationWithPointSize:v7];
+    v54 = [MEMORY[0x277D755B8] _systemImageNamed:@"flashlight.on.fill" withConfiguration:v45];
+    v46 = [MEMORY[0x277D755B8] _systemImageNamed:@"flashlight.off.fill" withConfiguration:v45];
+    [(UIButton *)v2->_torchButton setImage:v46 forState:0];
+    [(UIButton *)v2->_torchButton setImage:v54 forState:4];
     [(BCSTorchButtonView *)v2 _updateTorchButtonTintColor];
     [(UIButton *)v2->_torchButton _setTouchInsets:-10.0, -10.0, -10.0, -10.0];
     [(UIButton *)v2->_torchButton addTarget:v2 action:sel__torchButtonPressed_ forControlEvents:0x2000];
@@ -94,49 +94,48 @@
     v20 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(UIButton *)v2->_torchButton leadingAnchor];
     leadingAnchor2 = [(UIView *)v2->_torchButtonPlatter leadingAnchor];
-    v44 = [leadingAnchor constraintEqualToAnchor:?];
-    v57[0] = v44;
+    v43 = [leadingAnchor constraintEqualToAnchor:?];
+    v56[0] = v43;
     trailingAnchor = [(UIButton *)v2->_torchButton trailingAnchor];
     trailingAnchor2 = [(UIView *)v2->_torchButtonPlatter trailingAnchor];
-    v42 = [trailingAnchor constraintEqualToAnchor:?];
-    v57[1] = v42;
+    v41 = [trailingAnchor constraintEqualToAnchor:?];
+    v56[1] = v41;
     topAnchor = [(UIButton *)v2->_torchButton topAnchor];
     topAnchor2 = [(UIView *)v2->_torchButtonPlatter topAnchor];
-    v40 = [topAnchor constraintEqualToAnchor:?];
-    v57[2] = v40;
+    v39 = [topAnchor constraintEqualToAnchor:?];
+    v56[2] = v39;
     bottomAnchor = [(UIButton *)v2->_torchButton bottomAnchor];
     bottomAnchor2 = [(UIView *)v2->_torchButtonPlatter bottomAnchor];
-    v38 = [bottomAnchor constraintEqualToAnchor:?];
-    v57[3] = v38;
+    v37 = [bottomAnchor constraintEqualToAnchor:?];
+    v56[3] = v37;
     leadingAnchor3 = [(UIView *)v2->_torchButtonPlatter leadingAnchor];
     leadingAnchor4 = [(BCSTorchButtonView *)v2 leadingAnchor];
-    v36 = [leadingAnchor3 constraintEqualToAnchor:?];
-    v57[4] = v36;
+    v35 = [leadingAnchor3 constraintEqualToAnchor:?];
+    v56[4] = v35;
     trailingAnchor3 = [(UIView *)v2->_torchButtonPlatter trailingAnchor];
     trailingAnchor4 = [(BCSTorchButtonView *)v2 trailingAnchor];
-    v34 = [trailingAnchor3 constraintEqualToAnchor:?];
-    v57[5] = v34;
+    v33 = [trailingAnchor3 constraintEqualToAnchor:?];
+    v56[5] = v33;
     topAnchor3 = [(UIView *)v2->_torchButtonPlatter topAnchor];
     topAnchor4 = [(BCSTorchButtonView *)v2 topAnchor];
-    v32 = [topAnchor3 constraintEqualToAnchor:?];
-    v57[6] = v32;
+    v31 = [topAnchor3 constraintEqualToAnchor:?];
+    v56[6] = v31;
     bottomAnchor3 = [(UIView *)v2->_torchButtonPlatter bottomAnchor];
     bottomAnchor4 = [(BCSTorchButtonView *)v2 bottomAnchor];
     v23 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v57[7] = v23;
+    v56[7] = v23;
     widthAnchor = [(UIView *)v2->_torchButtonPlatter widthAnchor];
     v25 = [widthAnchor constraintEqualToConstant:v19];
-    v57[8] = v25;
+    v56[8] = v25;
     heightAnchor = [(UIView *)v2->_torchButtonPlatter heightAnchor];
     v27 = [heightAnchor constraintEqualToConstant:v19];
-    v57[9] = v27;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:10];
+    v56[9] = v27;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:10];
     [v20 activateConstraints:v28];
 
     v29 = v2;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

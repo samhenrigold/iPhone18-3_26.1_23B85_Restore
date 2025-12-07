@@ -15,7 +15,7 @@ Class __get_DKSystemEventStreamsClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_DKSystemEventStreamsClass_block_invoke_cold_1();
+    __get_DKSystemEventStreamsClass_block_invoke_cold_1();
     return __get_DKKnowledgeStorageDidInsertEventsNotificationSymbolLoc_block_invoke(v3);
   }
 
@@ -34,7 +34,7 @@ Class __get_DKSystemEventStreamsClass_block_invoke_0(uint64_t a1)
 
   else
   {
-    v3 = __get_DKSystemEventStreamsClass_block_invoke_cold_1();
+    __get_DKSystemEventStreamsClass_block_invoke_cold_1();
     return __get_DKPredictionTimelineClass_block_invoke(v3);
   }
 

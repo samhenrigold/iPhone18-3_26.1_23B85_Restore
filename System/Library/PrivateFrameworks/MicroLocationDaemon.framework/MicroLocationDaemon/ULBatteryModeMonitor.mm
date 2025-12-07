@@ -118,17 +118,17 @@
 
 - (void)_startMonitoringForUnlimitedPower
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   notificationHelper = [(ULBatteryModeMonitor *)self notificationHelper];
-  v9 = MEMORY[0x277D85DD0];
-  v10 = 3221225472;
-  v11 = __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke;
-  v12 = &unk_2798D4080;
-  objc_copyWeak(&v13, &location);
-  [notificationHelper addObserverForNotificationName:@"com.apple.system.powermanagement.poweradapter" handler:&v9];
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke;
+  v11 = &unk_2798D4080;
+  objc_copyWeak(&v12, &location);
+  [notificationHelper addObserverForNotificationName:@"com.apple.system.powermanagement.poweradapter" handler:&v8];
 
-  [(ULBatteryModeMonitor *)self setUnlimitedPower:[(ULBatteryModeMonitor *)self _checkUnlimitedPower:v9]];
+  [(ULBatteryModeMonitor *)self setUnlimitedPower:[(ULBatteryModeMonitor *)self _checkUnlimitedPower:v8]];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULBatteryModeMonitor _startMonitoringForUnlimitedPower];
@@ -146,15 +146,14 @@
     }
 
     *buf = 138412546;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v7;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, unlimitedPower: %@", buf, 0x16u);
   }
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke(uint64_t a1)
@@ -170,7 +169,7 @@ void __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke(
 
 - (void)_startMonitoringForLowPowerMode
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__handleNSProcessInfoPowerStateDidChangeNotification_ name:*MEMORY[0x277CCA5E8] object:0];
 
@@ -192,19 +191,17 @@ void __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke(
       v8 = @"YES";
     }
 
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, lowPowerMode: %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, lowPowerMode: %@", &v9, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringForUnlimitedPower
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULBatteryModeMonitor _startMonitoringForLowPowerMode];
@@ -215,21 +212,20 @@ void __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke(
   {
     v4 = v3;
     v5 = +[(ULEvent *)ULBatteryModeMonitorEventUnlimitedPower];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v7, 0xCu);
   }
 
   notificationHelper = [(ULBatteryModeMonitor *)self notificationHelper];
   [notificationHelper removeObserverForNotificationName:@"com.apple.system.powermanagement.poweradapter"];
 
   [(ULBatteryModeMonitor *)self setUnlimitedPower:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringForLowPowerMode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     [ULBatteryModeMonitor _startMonitoringForLowPowerMode];
@@ -240,16 +236,15 @@ void __57__ULBatteryModeMonitor__startMonitoringForUnlimitedPower__block_invoke(
   {
     v4 = v3;
     v5 = +[(ULEvent *)ULBatteryModeMonitorEventLowPowerMode];
-    v8 = 138412290;
-    v9 = v5;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v7, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277CCA5E8] object:0];
 
   [(ULBatteryModeMonitor *)self setLowPowerMode:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleIOPSNotifyAdapterChangeNotification

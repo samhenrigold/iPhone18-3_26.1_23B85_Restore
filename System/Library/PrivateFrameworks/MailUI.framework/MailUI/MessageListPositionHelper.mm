@@ -13,9 +13,11 @@
 
 uint64_t ___ef_log_MessageListPositionHelper_block_invoke()
 {
-  _ef_log_MessageListPositionHelper_log = os_log_create("com.apple.email", "MessageListPositionHelper");
+  v0 = os_log_create("com.apple.email", "MessageListPositionHelper");
+  v1 = _ef_log_MessageListPositionHelper_log;
+  _ef_log_MessageListPositionHelper_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MessageListPositionHelper)initWithCollectionView:(id)view dataSource:(id)source
@@ -52,7 +54,7 @@ uint64_t ___ef_log_MessageListPositionHelper_block_invoke()
 {
   y = offset.y;
   x = offset.x;
-  v41 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (![(MessageListPositionHelper *)self userIsScrolling])
   {
     firstVisibleItemID = [(MessageListPositionHelper *)self firstVisibleItemID];
@@ -65,13 +67,13 @@ uint64_t ___ef_log_MessageListPositionHelper_block_invoke()
 
       if (!v9)
       {
-        v12 = _ef_log_MessageListPositionHelper();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v13 = _ef_log_MessageListPositionHelper(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v31) = 0;
-          v13 = "Item no longer present in list. Not adjusting content offset.";
-          v14 = v12;
-          v15 = 2;
+          LOWORD(v34) = 0;
+          v14 = "Item no longer present in list. Not adjusting content offset.";
+          v15 = v13;
+          v16 = 2;
           goto LABEL_10;
         }
 
@@ -84,74 +86,74 @@ LABEL_19:
       firstVisibleIndex = [(MessageListPositionHelper *)self firstVisibleIndex];
       if (item == firstVisibleIndex)
       {
-        v12 = _ef_log_MessageListPositionHelper();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v13 = _ef_log_MessageListPositionHelper(firstVisibleIndex);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v31 = 134217984;
-          v32 = item;
-          v13 = "First visible index (%ld) unchanged. Not adjusting content offset.";
-          v14 = v12;
-          v15 = 12;
+          v34 = 134217984;
+          v35 = item;
+          v14 = "First visible index (%ld) unchanged. Not adjusting content offset.";
+          v15 = v13;
+          v16 = 12;
 LABEL_10:
-          _os_log_impl(&dword_214A5E000, v14, OS_LOG_TYPE_INFO, v13, &v31, v15);
+          _os_log_impl(&dword_214A5E000, v15, OS_LOG_TYPE_INFO, v14, &v34, v16);
           goto LABEL_19;
         }
 
         goto LABEL_19;
       }
 
-      v16 = firstVisibleIndex;
+      v17 = firstVisibleIndex;
       collectionView = [(MessageListPositionHelper *)self collectionView];
-      v12 = collectionView;
-      if (v16 > 2)
+      v13 = collectionView;
+      if (v17 > 2)
       {
-        v23 = [collectionView cellForItemAtIndexPath:v9];
-        [v23 frame];
-        v25 = v24;
+        v25 = [collectionView cellForItemAtIndexPath:v9];
+        [v25 frame];
+        v27 = v26;
 
         [(MessageListPositionHelper *)self firstVisibleCellOrigin];
-        v27 = v25 - v26;
-        [(MessageListPositionHelper *)self startingContentOffset];
-        y = v28 + v27;
-        v19 = _ef_log_MessageListPositionHelper();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v29 = v27 - v28;
+        startingContentOffset = [(MessageListPositionHelper *)self startingContentOffset];
+        y = v31 + v29;
+        v21 = _ef_log_MessageListPositionHelper(startingContentOffset);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = 134219010;
-          v32 = item;
-          v33 = 2114;
-          v34 = v9;
-          v35 = 2048;
-          v36 = v25;
-          v37 = 2048;
-          v38 = v27;
-          v39 = 2048;
-          v40 = y;
-          v20 = "targetContentOffsetForProposedContentOffset - index:%ld indexPath:%{public}@ cellOrigin:%f cellDelta:%f offset:%f";
-          v21 = v19;
-          v22 = 52;
+          v34 = 134219010;
+          v35 = item;
+          v36 = 2114;
+          v37 = v9;
+          v38 = 2048;
+          v39 = v27;
+          v40 = 2048;
+          v41 = v29;
+          v42 = 2048;
+          v43 = y;
+          v22 = "targetContentOffsetForProposedContentOffset - index:%ld indexPath:%{public}@ cellOrigin:%f cellDelta:%f offset:%f";
+          v23 = v21;
+          v24 = 52;
           goto LABEL_17;
         }
       }
 
       else
       {
-        if (item <= v16)
+        if (item <= v17)
         {
           goto LABEL_19;
         }
 
-        [collectionView adjustedContentInset];
-        y = -v18;
-        v19 = _ef_log_MessageListPositionHelper();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        adjustedContentInset = [collectionView adjustedContentInset];
+        y = -v20;
+        v21 = _ef_log_MessageListPositionHelper(adjustedContentInset);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = 134217984;
-          v32 = item;
-          v20 = "Pinning to top - new first visible index %ld";
-          v21 = v19;
-          v22 = 12;
+          v34 = 134217984;
+          v35 = item;
+          v22 = "Pinning to top - new first visible index %ld";
+          v23 = v21;
+          v24 = 12;
 LABEL_17:
-          _os_log_impl(&dword_214A5E000, v21, OS_LOG_TYPE_DEFAULT, v20, &v31, v22);
+          _os_log_impl(&dword_214A5E000, v23, OS_LOG_TYPE_DEFAULT, v22, &v34, v24);
         }
       }
 
@@ -163,10 +165,10 @@ LABEL_17:
   }
 
 LABEL_20:
-  v29 = x;
-  v30 = y;
-  result.y = v30;
-  result.x = v29;
+  v32 = x;
+  v33 = y;
+  result.y = v33;
+  result.x = v32;
   return result;
 }
 
@@ -275,34 +277,35 @@ id __51__MessageListPositionHelper_actuallyVisibleItemIDs__block_invoke(uint64_t
 
 - (void)_calculateStartingPositionForCollectionView:(id)view dataSource:(id)source
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   sourceCopy = source;
   v8 = [(MessageListPositionHelper *)self _firstVisibleIndexPathForCollectionView:viewCopy];
+  v9 = v8;
   if (v8)
   {
-    v9 = [sourceCopy itemIdentifierForIndexPath:v8];
-    [(MessageListPositionHelper *)self setFirstVisibleItemID:v9];
+    v10 = [sourceCopy itemIdentifierForIndexPath:v8];
+    [(MessageListPositionHelper *)self setFirstVisibleItemID:v10];
 
-    -[MessageListPositionHelper setFirstVisibleIndex:](self, "setFirstVisibleIndex:", [v8 item]);
+    -[MessageListPositionHelper setFirstVisibleIndex:](self, "setFirstVisibleIndex:", [v9 item]);
     [viewCopy contentOffset];
-    [(MessageListPositionHelper *)self setStartingContentOffset:v10];
-    v11 = [viewCopy cellForItemAtIndexPath:v8];
-    [v11 frame];
-    [(MessageListPositionHelper *)self setFirstVisibleCellOrigin:v12];
+    [(MessageListPositionHelper *)self setStartingContentOffset:v11];
+    v12 = [viewCopy cellForItemAtIndexPath:v9];
+    [v12 frame];
+    [(MessageListPositionHelper *)self setFirstVisibleCellOrigin:v13];
   }
 
-  v13 = _ef_log_MessageListPositionHelper();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v14 = _ef_log_MessageListPositionHelper(v8);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     firstVisibleItemID = [(MessageListPositionHelper *)self firstVisibleItemID];
-    v15 = 138543874;
-    v16 = v8;
-    v17 = 2114;
-    v18 = firstVisibleItemID;
-    v19 = 2048;
+    v16 = 138543874;
+    v17 = v9;
+    v18 = 2114;
+    v19 = firstVisibleItemID;
+    v20 = 2048;
     firstVisibleIndex = [(MessageListPositionHelper *)self firstVisibleIndex];
-    _os_log_impl(&dword_214A5E000, v13, OS_LOG_TYPE_INFO, "Updating starting position for first visible indexpath:%{public}@ itemID:%{public}@ index:%ld", &v15, 0x20u);
+    _os_log_impl(&dword_214A5E000, v14, OS_LOG_TYPE_INFO, "Updating starting position for first visible indexpath:%{public}@ itemID:%{public}@ index:%ld", &v16, 0x20u);
   }
 }
 

@@ -187,7 +187,6 @@ LABEL_18:
 
   if (data)
   {
-    data = self->_data;
     PBDataWriterWriteDataField();
   }
 
@@ -195,18 +194,16 @@ LABEL_18:
 
   if (title)
   {
-    title = self->_title;
     PBDataWriterWriteStringField();
   }
 
-  v8 = [(_INPBUserActivity *)self uri];
+  v6 = [(_INPBUserActivity *)self uri];
 
-  v9 = toCopy;
-  if (v8)
+  v7 = toCopy;
+  if (v6)
   {
-    uri = self->_uri;
     PBDataWriterWriteStringField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

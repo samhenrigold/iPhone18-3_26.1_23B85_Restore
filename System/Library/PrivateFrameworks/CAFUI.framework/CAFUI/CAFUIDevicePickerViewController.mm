@@ -24,7 +24,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CAFUIDevicePickerViewController();
+  v5.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
   v4 = v5.receiver;
   [(CAFUIDevicePickerViewController *)&v5 viewDidAppear:appearCopy];
   CAFUIDevicePickerViewController.updatePTButton()();
@@ -38,7 +38,7 @@
   [defaultCenter removeObserver_];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for CAFUIDevicePickerViewController();
+  v6.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
   [(CAFUIDevicePickerViewController *)&v6 dealloc];
 }
 
@@ -50,12 +50,12 @@
 
 - (void)viewDidLayoutSubviews
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for CAFUIDevicePickerViewController();
-  v2 = v3.receiver;
-  [(CAFUIDevicePickerViewController *)&v3 viewDidLayoutSubviews];
-  CAFUIDevicePickerViewController.updateFlowLayout()();
-  CAFUIDevicePickerViewController.updatePageControl()();
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CAFUIDevicePickerViewController(0);
+  v2 = v5.receiver;
+  viewDidLayoutSubviews = [(CAFUIDevicePickerViewController *)&v5 viewDidLayoutSubviews];
+  CAFUIDevicePickerViewController.updateFlowLayout()(viewDidLayoutSubviews);
+  CAFUIDevicePickerViewController.updatePageControl()(v4);
 }
 
 - (CGSize)collectionView:(id)view layout:(id)layout sizeForItemAtIndexPath:(id)path

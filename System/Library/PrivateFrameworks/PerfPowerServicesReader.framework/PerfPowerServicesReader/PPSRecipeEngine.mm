@@ -47,7 +47,7 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
 
   else
   {
-    v10 = PPSReaderLog();
+    v10 = PPSReaderLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine createEventRecipeForMetric:];
@@ -88,7 +88,7 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
 
   else
   {
-    v11 = PPSReaderLog();
+    v11 = PPSReaderLog(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine createEventRecipeForMetric:];
@@ -128,7 +128,7 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
 
   else
   {
-    v10 = PPSReaderLog();
+    v10 = PPSReaderLog(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine createEventRecipeForMetric:];
@@ -156,7 +156,7 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
 
 - (id)executeEventRecipe:(id)recipe on:(id)on metrics:(id)metrics error:(id *)error
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   recipeCopy = recipe;
   onCopy = on;
   metricsCopy = metrics;
@@ -166,14 +166,14 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
   if (!v14)
   {
     recipeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Curated event recipe is not supported %@", recipeCopy];
-    v17 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = recipeCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-    *error = [v17 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v18];
+    v18 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277CCA450];
+    v25[0] = recipeCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    *error = [v18 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v19];
 
-    v19 = PPSReaderLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = PPSReaderLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine executeEventRecipe:on:metrics:error:];
     }
@@ -181,32 +181,31 @@ uint64_t __33__PPSRecipeEngine_sharedInstance__block_invoke()
     goto LABEL_9;
   }
 
-  recipeCopy = (v14)[2](v14, onCopy, metricsCopy, error);
+  v15 = (v14)[2](v14, onCopy, metricsCopy, error);
+  recipeCopy = v15;
   if (*error)
   {
-    v16 = PPSReaderLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = PPSReaderLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [PPSRecipeEngine executeEventRecipe:recipeCopy on:error metrics:? error:?];
+      [PPSRecipeEngine executeEventRecipe:on:metrics:error:];
     }
 
 LABEL_9:
-    v20 = 0;
+    v22 = 0;
     goto LABEL_11;
   }
 
-  v20 = [onCopy copy];
-  [v20 setMetrics:recipeCopy];
+  v22 = [onCopy copy];
+  [v22 setMetrics:recipeCopy];
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v22;
 }
 
 - (id)executeMetricRecipe:(id)recipe on:(id)on metric:(id)metric error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   recipeCopy = recipe;
   onCopy = on;
   metricCopy = metric;
@@ -216,45 +215,45 @@ LABEL_11:
   if (v14)
   {
     v15 = (v14)[2](v14, onCopy, metricCopy, error);
+    v16 = v15;
     if (!*error)
     {
       goto LABEL_9;
     }
 
-    recipeCopy = PPSReaderLog();
+    recipeCopy = PPSReaderLog(v15);
     if (os_log_type_enabled(recipeCopy, OS_LOG_TYPE_ERROR))
     {
-      [PPSRecipeEngine executeMetricRecipe:recipeCopy on:error metric:? error:?];
+      [PPSRecipeEngine executeMetricRecipe:on:metric:error:];
     }
   }
 
   else
   {
     recipeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Curated metric recipe is not supported %@", recipeCopy];
-    v17 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = recipeCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    *error = [v17 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v18];
+    v18 = MEMORY[0x277CCA9B8];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = recipeCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    *error = [v18 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v19];
 
-    v19 = PPSReaderLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = PPSReaderLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine executeMetricRecipe:on:metric:error:];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
 LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
 
-  return v15;
+  return v16;
 }
 
 - (id)executeTimeSeriesRecipe:(id)recipe on:(id)on metrics:(id)metrics error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   recipeCopy = recipe;
   onCopy = on;
   metricsCopy = metrics;
@@ -264,40 +263,40 @@ LABEL_9:
   if (v14)
   {
     v15 = (v14)[2](v14, onCopy, metricsCopy, error);
+    v16 = v15;
     if (!*error)
     {
       goto LABEL_9;
     }
 
-    recipeCopy = PPSReaderLog();
+    recipeCopy = PPSReaderLog(v15);
     if (os_log_type_enabled(recipeCopy, OS_LOG_TYPE_ERROR))
     {
-      [PPSRecipeEngine executeMetricRecipe:recipeCopy on:error metric:? error:?];
+      [PPSRecipeEngine executeMetricRecipe:on:metric:error:];
     }
   }
 
   else
   {
     recipeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Curated time series recipe is not supported %@", recipeCopy];
-    v17 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = recipeCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-    *error = [v17 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v18];
+    v18 = MEMORY[0x277CCA9B8];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = recipeCopy;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    *error = [v18 errorWithDomain:@"com.apple.PPSRecipeEngine" code:3 userInfo:v19];
 
-    v19 = PPSReaderLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = PPSReaderLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [PPSRecipeEngine executeMetricRecipe:on:metric:error:];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
 LABEL_9:
-  v20 = *MEMORY[0x277D85DE8];
 
-  return v15;
+  return v16;
 }
 
 - (PPSRecipeEngine)init
@@ -339,155 +338,153 @@ LABEL_9:
 
 - (void)registerHandlersForClass:(Class)class
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   eventRecipes = [(objc_class *)class eventRecipes];
   metricRecipes = [(objc_class *)class metricRecipes];
   timeSeriesRecipes = [(objc_class *)class timeSeriesRecipes];
-  v47 = 0u;
-  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v6 = eventRecipes;
-  v7 = [v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v48;
+    v9 = *v50;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v48 != v9)
+        if (*v50 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v47 + 1) + 8 * i);
+        v11 = *(*(&v49 + 1) + 8 * i);
         eventRecipeHandlers = [(PPSRecipeEngine *)self eventRecipeHandlers];
         v13 = [eventRecipeHandlers objectForKeyedSubscript:v11];
 
         if (v13)
         {
-          v14 = PPSReaderLog();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = PPSReaderLog(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v54 = v11;
-            _os_log_error_impl(&dword_25E225000, v14, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
+            v56 = v11;
+            _os_log_error_impl(&dword_25E225000, v15, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
           }
         }
 
         else
         {
-          v14 = [v6 objectForKeyedSubscript:v11];
+          v15 = [v6 objectForKeyedSubscript:v11];
           eventRecipeHandlers2 = [(PPSRecipeEngine *)self eventRecipeHandlers];
-          [eventRecipeHandlers2 setObject:v14 forKeyedSubscript:v11];
+          [eventRecipeHandlers2 setObject:v15 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v8);
   }
 
+  v47 = 0u;
+  v48 = 0u;
   v45 = 0u;
   v46 = 0u;
+  v17 = metricRecipes;
+  v18 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
+  if (v18)
+  {
+    v19 = v18;
+    v20 = *v46;
+    do
+    {
+      for (j = 0; j != v19; ++j)
+      {
+        if (*v46 != v20)
+        {
+          objc_enumerationMutation(v17);
+        }
+
+        v22 = *(*(&v45 + 1) + 8 * j);
+        metricRecipeHandlers = [(PPSRecipeEngine *)self metricRecipeHandlers];
+        v24 = [metricRecipeHandlers objectForKeyedSubscript:v22];
+
+        if (v24)
+        {
+          v26 = PPSReaderLog(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 138412290;
+            v56 = v22;
+            _os_log_error_impl(&dword_25E225000, v26, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
+          }
+        }
+
+        else
+        {
+          v26 = [v17 objectForKeyedSubscript:v22];
+          metricRecipeHandlers2 = [(PPSRecipeEngine *)self metricRecipeHandlers];
+          [metricRecipeHandlers2 setObject:v26 forKeyedSubscript:v22];
+        }
+      }
+
+      v19 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    }
+
+    while (v19);
+  }
+
   v43 = 0u;
   v44 = 0u;
-  v16 = metricRecipes;
-  v17 = [v16 countByEnumeratingWithState:&v43 objects:v52 count:16];
-  if (v17)
-  {
-    v18 = v17;
-    v19 = *v44;
-    do
-    {
-      for (j = 0; j != v18; ++j)
-      {
-        if (*v44 != v19)
-        {
-          objc_enumerationMutation(v16);
-        }
-
-        v21 = *(*(&v43 + 1) + 8 * j);
-        metricRecipeHandlers = [(PPSRecipeEngine *)self metricRecipeHandlers];
-        v23 = [metricRecipeHandlers objectForKeyedSubscript:v21];
-
-        if (v23)
-        {
-          v24 = PPSReaderLog();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138412290;
-            v54 = v21;
-            _os_log_error_impl(&dword_25E225000, v24, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
-          }
-        }
-
-        else
-        {
-          v24 = [v16 objectForKeyedSubscript:v21];
-          metricRecipeHandlers2 = [(PPSRecipeEngine *)self metricRecipeHandlers];
-          [metricRecipeHandlers2 setObject:v24 forKeyedSubscript:v21];
-        }
-      }
-
-      v18 = [v16 countByEnumeratingWithState:&v43 objects:v52 count:16];
-    }
-
-    while (v18);
-  }
-
   v41 = 0u;
   v42 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v26 = timeSeriesRecipes;
-  v27 = [v26 countByEnumeratingWithState:&v39 objects:v51 count:16];
-  if (v27)
+  v28 = timeSeriesRecipes;
+  v29 = [v28 countByEnumeratingWithState:&v41 objects:v53 count:16];
+  if (v29)
   {
-    v28 = v27;
-    v29 = *v40;
+    v30 = v29;
+    v31 = *v42;
     do
     {
-      for (k = 0; k != v28; ++k)
+      for (k = 0; k != v30; ++k)
       {
-        if (*v40 != v29)
+        if (*v42 != v31)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v28);
         }
 
-        v31 = *(*(&v39 + 1) + 8 * k);
+        v33 = *(*(&v41 + 1) + 8 * k);
         timeSeriesRecipeHandlers = [(PPSRecipeEngine *)self timeSeriesRecipeHandlers];
-        v33 = [timeSeriesRecipeHandlers objectForKeyedSubscript:v31];
+        v35 = [timeSeriesRecipeHandlers objectForKeyedSubscript:v33];
 
-        if (v33)
+        if (v35)
         {
-          v34 = PPSReaderLog();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v37 = PPSReaderLog(v36);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v54 = v31;
-            _os_log_error_impl(&dword_25E225000, v34, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
+            v56 = v33;
+            _os_log_error_impl(&dword_25E225000, v37, OS_LOG_TYPE_ERROR, "Attempting to register duplicate handler for %@, skipping", buf, 0xCu);
           }
         }
 
         else
         {
-          v34 = [v26 objectForKeyedSubscript:v31];
+          v37 = [v28 objectForKeyedSubscript:v33];
           timeSeriesRecipeHandlers2 = [(PPSRecipeEngine *)self timeSeriesRecipeHandlers];
-          [timeSeriesRecipeHandlers2 setObject:v34 forKeyedSubscript:v31];
+          [timeSeriesRecipeHandlers2 setObject:v37 forKeyedSubscript:v33];
         }
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v39 objects:v51 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v41 objects:v53 count:16];
     }
 
-    while (v28);
+    while (v30);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 + (id)recipeHandlers
@@ -509,40 +506,6 @@ void __33__PPSRecipeEngine_recipeHandlers__block_invoke()
   [v0 addObject:NSClassFromString(&cfstr_Ppsmodelurlrec.isa)];
   v1 = recipeHandlers_recipeHandlers;
   recipeHandlers_recipeHandlers = v0;
-}
-
-- (void)executeEventRecipe:(uint64_t)a1 on:(uint64_t *)a2 metrics:error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E225000, v3, v4, "Error fetching response for event recipe: %@ error: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)executeEventRecipe:on:metrics:error:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)executeMetricRecipe:(uint64_t)a1 on:(uint64_t *)a2 metric:error:.cold.1(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_25E225000, v3, v4, "Error fetching response for metric recipe: %@ error: %@");
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)executeMetricRecipe:on:metric:error:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

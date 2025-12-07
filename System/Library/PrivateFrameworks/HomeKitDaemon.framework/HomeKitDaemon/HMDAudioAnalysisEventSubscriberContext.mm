@@ -113,7 +113,7 @@
 {
   accessory = [(HMDAudioAnalysisEventSubscriberContext *)self accessory];
   name = [accessory name];
-  v4 = [name copy];
+  v4 = objc_msgSend_copy(name);
 
   return v4;
 }
@@ -210,10 +210,9 @@
 
 void __53__HMDAudioAnalysisEventSubscriberContext_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_54361;
-  logCategory__hmf_once_v1_54361 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_54361;
+  logCategory__hmf_once_v1_54361 = v0;
 }
 
 @end

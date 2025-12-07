@@ -33,7 +33,7 @@
 
 - (BOOL)_isUserConfirmedAway:(id)away
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   awayCopy = away;
   userActivityStateMap = [(HMDHomeActivityHomeAwayUserStatesDetails *)self userActivityStateMap];
   v6 = [userActivityStateMap objectForKeyedSubscript:awayCopy];
@@ -51,24 +51,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = awayCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did not find the user in user activity map: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = awayCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did not find the user in user activity map: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     isNotAtHome = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return isNotAtHome;
 }
 
 - (BOOL)_isUserConfirmedAtHome:(id)home
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   userActivityStateMap = [(HMDHomeActivityHomeAwayUserStatesDetails *)self userActivityStateMap];
   v6 = [userActivityStateMap objectForKeyedSubscript:homeCopy];
@@ -86,33 +85,32 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = homeCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did not find the user in user activity map: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = homeCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Did not find the user in user activity map: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     isAtHome = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return isAtHome;
 }
 
 - (BOOL)isAnyUserAtHome
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   userActivityStateMap = [(HMDHomeActivityHomeAwayUserStatesDetails *)self userActivityStateMap];
   if ([userActivityStateMap count])
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __59__HMDHomeActivityHomeAwayUserStatesDetails_isAnyUserAtHome__block_invoke;
-    v11[3] = &unk_278671850;
-    v11[4] = self;
-    v4 = [userActivityStateMap na_any:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __59__HMDHomeActivityHomeAwayUserStatesDetails_isAnyUserAtHome__block_invoke;
+    v10[3] = &unk_278671850;
+    v10[4] = self;
+    v4 = [userActivityStateMap na_any:v10];
   }
 
   else
@@ -124,7 +122,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@isAnyUserAtHome : HomeAway map is empty, returning NO", buf, 0xCu);
     }
 
@@ -132,22 +130,21 @@
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)isNoUserAtHome
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   userActivityStateMap = [(HMDHomeActivityHomeAwayUserStatesDetails *)self userActivityStateMap];
   if ([userActivityStateMap count])
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __58__HMDHomeActivityHomeAwayUserStatesDetails_isNoUserAtHome__block_invoke;
-    v11[3] = &unk_278671850;
-    v11[4] = self;
-    v4 = [userActivityStateMap na_allSatisfy:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __58__HMDHomeActivityHomeAwayUserStatesDetails_isNoUserAtHome__block_invoke;
+    v10[3] = &unk_278671850;
+    v10[4] = self;
+    v4 = [userActivityStateMap na_allSatisfy:v10];
   }
 
   else
@@ -159,7 +156,7 @@
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@isNoUserAtHome : HomeAway map is empty, returning NO", buf, 0xCu);
     }
 
@@ -167,7 +164,6 @@
     v4 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -267,7 +263,7 @@ uint64_t __59__HMDHomeActivityHomeAwayUserStatesDetails_areUsersAtHome___block_i
   v8 = [(HMDHomeActivityHomeAwayUserStatesDetails *)&v12 init];
   if (v8)
   {
-    v9 = [mapCopy copy];
+    v9 = objc_msgSend_copy(mapCopy);
     userActivityStateMap = v8->_userActivityStateMap;
     v8->_userActivityStateMap = v9;
 

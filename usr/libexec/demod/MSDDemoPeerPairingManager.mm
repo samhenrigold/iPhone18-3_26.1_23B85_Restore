@@ -29,29 +29,31 @@
 - (void)preservePairedPeersData
 {
   v3 = +[NSFileManager defaultManager];
-  v4 = sub_100063A54();
+  v4 = sub_100063A54(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: Preserving paired peers data from system.", buf, 2u);
   }
 
-  if ([v3 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data"])
+  v5 = [v3 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data"];
+  if (v5)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: Deleting existing pairing data file.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: Deleting existing pairing data file.", buf, 2u);
     }
 
-    v16 = 0;
-    v6 = [v3 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" error:&v16];
-    v7 = v16;
-    if ((v6 & 1) == 0)
+    v20 = 0;
+    v7 = [v3 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" error:&v20];
+    v8 = v20;
+    v9 = v8;
+    if ((v7 & 1) == 0)
     {
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100063A54(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_1000D0624();
       }
@@ -60,14 +62,14 @@
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
   _readPairedPeersIntoData = [(MSDDemoPeerPairingManager *)self _readPairedPeersIntoData];
   if (!_readPairedPeersIntoData)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = sub_100063A54(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1000D0740();
     }
@@ -75,38 +77,38 @@
     goto LABEL_19;
   }
 
-  v10 = +[MSDCryptoHandler sharedInstance];
-  v11 = [v10 performCryptoWithSecretKeyOnData:_readPairedPeersIntoData isDecipher:0];
+  v12 = +[MSDCryptoHandler sharedInstance];
+  v13 = [v12 performCryptoWithSecretKeyOnData:_readPairedPeersIntoData isDecipher:0];
 
-  if (!v11)
+  if (!v13)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = sub_100063A54(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1000D0704();
     }
 
 LABEL_19:
-    v11 = 0;
+    v13 = 0;
 LABEL_23:
 
-    v13 = v7;
+    v16 = v9;
     goto LABEL_14;
   }
 
-  v15 = v7;
-  v12 = [v11 writeToFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" options:0 error:&v15];
-  v13 = v15;
+  v19 = v9;
+  v15 = [v13 writeToFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" options:0 error:&v19];
+  v16 = v19;
 
-  if ((v12 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v18 = sub_100063A54(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_1000D0694();
     }
 
-    v7 = v13;
+    v9 = v16;
     goto LABEL_23;
   }
 
@@ -117,61 +119,63 @@ LABEL_14:
 {
   v3 = +[MSDTargetDevice sharedInstance];
   v4 = +[NSFileManager defaultManager];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: Restoring paired peers data to system.", buf, 2u);
   }
 
-  if (([v4 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data"] & 1) == 0)
+  v6 = [v4 fileExistsAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data"];
+  if ((v6 & 1) == 0)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100063A54(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: No encrypted paired peers data file found.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: No encrypted paired peers data file found.", buf, 2u);
     }
 
+    v14 = 0;
     v11 = 0;
-    v9 = 0;
-    v6 = 0;
+    v7 = 0;
     goto LABEL_13;
   }
 
-  v14 = 0;
-  v6 = [NSData dataWithContentsOfFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" options:0 error:&v14];
-  v7 = v14;
-  if (v6)
+  v18 = 0;
+  v7 = [NSData dataWithContentsOfFile:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" options:0 error:&v18];
+  v8 = v18;
+  v9 = v8;
+  if (v7)
   {
-    v8 = +[MSDCryptoHandler sharedInstance];
-    v9 = [v8 performCryptoWithSecretKeyOnData:v6 isDecipher:1];
+    v10 = +[MSDCryptoHandler sharedInstance];
+    v11 = [v10 performCryptoWithSecretKeyOnData:v7 isDecipher:1];
 
-    if (v9)
+    if (v11)
     {
-      [(MSDDemoPeerPairingManager *)self _restorePairedPeersFromData:v9];
+      [(MSDDemoPeerPairingManager *)self _restorePairedPeersFromData:v11];
     }
 
     else
     {
-      sub_1000D077C();
+      sub_1000D077C(v12);
     }
   }
 
   else
   {
-    sub_1000D07D8();
-    v9 = 0;
+    sub_1000D07D8(v8);
+    v11 = 0;
   }
 
-  v13 = v7;
-  v10 = [v4 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" error:&v13];
-  v11 = v13;
+  v17 = v9;
+  v13 = [v4 removeItemAtPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/PairingRecords.data" error:&v17];
+  v14 = v17;
 
-  if ((v10 & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1000D0624();
     }
@@ -184,7 +188,7 @@ LABEL_13:
 {
   dCopy = d;
   nameCopy = name;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138543618;
@@ -204,7 +208,7 @@ LABEL_13:
 
   else
   {
-    sub_1000D0870();
+    sub_1000D0870(0);
   }
 }
 
@@ -212,7 +216,7 @@ LABEL_13:
 {
   peerCopy = peer;
   completionCopy = completion;
-  v8 = sub_100063A54();
+  v8 = sub_100063A54(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138543362;
@@ -222,60 +226,61 @@ LABEL_13:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v29 = 0x3032000000;
-  v30 = sub_100041278;
-  v31 = sub_100041288;
-  v32 = 0;
+  v30 = 0x3032000000;
+  v31 = sub_100041278;
+  v32 = sub_100041288;
+  v33 = 0;
   v9 = [(MSDDemoPeerPairingManager *)self _findPairedPeerWithUUID:peerCopy];
   if (v9)
   {
     v10 = dispatch_semaphore_create(0);
     pairingManager = [(MSDDemoPeerPairingManager *)self pairingManager];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_100041290;
-    v23[3] = &unk_10016ABC8;
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_100041290;
+    v24[3] = &unk_10016ABC8;
     p_buf = &buf;
     v12 = v9;
-    v24 = v12;
+    v25 = v12;
     peerCopy = v10;
-    v25 = peerCopy;
-    [pairingManager removePairedPeer:v12 options:4 completion:v23];
+    v26 = peerCopy;
+    [pairingManager removePairedPeer:v12 options:4 completion:v24];
 
     v14 = dispatch_time(0, 5000000000);
-    if (dispatch_semaphore_wait(peerCopy, v14))
+    v15 = dispatch_semaphore_wait(peerCopy, v14);
+    if (v15)
     {
-      v15 = sub_100063A54();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = sub_100063A54(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1000D08CC();
       }
 
-      v16 = (*(&buf + 1) + 40);
+      v17 = (*(&buf + 1) + 40);
       obj = *(*(&buf + 1) + 40);
-      v17 = [NSString stringWithFormat:@"Timeout 5 seconds to remove peer '%@'", v12];
-      sub_1000C13D8(&obj, 3727741111, @"Peer removal timeout", v17);
-      objc_storeStrong(v16, obj);
+      v18 = [NSString stringWithFormat:@"Timeout 5 seconds to remove peer '%@'", v12];
+      sub_1000C13D8(&obj, 3727741111, @"Peer removal timeout", v18);
+      objc_storeStrong(v17, obj);
     }
 
-    v18 = v24;
+    v19 = v25;
   }
 
   else
   {
-    v19 = sub_100063A54();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       sub_1000D0954();
     }
 
-    v20 = *(&buf + 1);
-    v27 = *(*(&buf + 1) + 40);
+    v21 = *(&buf + 1);
+    v28 = *(*(&buf + 1) + 40);
     peerCopy = [NSString stringWithFormat:@"Failed to find peer with ID '%@'", peerCopy];
-    sub_1000C13D8(&v27, 3727741104, @"Cannot find specified demo peer.", peerCopy);
-    v21 = v27;
-    v18 = *(v20 + 40);
-    *(v20 + 40) = v21;
+    sub_1000C13D8(&v28, 3727741104, @"Cannot find specified demo peer.", peerCopy);
+    v22 = v28;
+    v19 = *(v21 + 40);
+    *(v21 + 40) = v22;
   }
 
   completionCopy[2](completionCopy, *(*(&buf + 1) + 40));
@@ -327,129 +332,133 @@ LABEL_13:
 - (id)_getAllPairedPeers
 {
   v3 = dispatch_semaphore_create(0);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_100041278;
-  v23 = sub_100041288;
-  v24 = 0;
-  v16 = 0;
-  v17[0] = &v16;
-  v17[1] = 0x3032000000;
-  v17[2] = sub_100041278;
-  v17[3] = sub_100041288;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_100041278;
+  v25 = sub_100041288;
+  v26 = 0;
   v18 = 0;
-  if ([(MSDDemoPeerPairingManager *)self _setupPairingManagerIfNeeded])
+  v19[0] = &v18;
+  v19[1] = 0x3032000000;
+  v19[2] = sub_100041278;
+  v19[3] = sub_100041288;
+  v20 = 0;
+  _setupPairingManagerIfNeeded = [(MSDDemoPeerPairingManager *)self _setupPairingManagerIfNeeded];
+  if (_setupPairingManagerIfNeeded)
   {
     pairingManager = [(MSDDemoPeerPairingManager *)self pairingManager];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100041814;
-    v12[3] = &unk_10016ABF0;
-    v14 = &v19;
-    v15 = &v16;
-    v5 = v3;
-    v13 = v5;
-    [pairingManager getPairedPeersWithOptions:134 completion:v12];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100041814;
+    v14[3] = &unk_10016ABF0;
+    v16 = &v21;
+    v17 = &v18;
+    v6 = v3;
+    v15 = v6;
+    [pairingManager getPairedPeersWithOptions:134 completion:v14];
 
-    v6 = dispatch_time(0, 5000000000);
-    if (dispatch_semaphore_wait(v5, v6))
+    v7 = dispatch_time(0, 5000000000);
+    v8 = dispatch_semaphore_wait(v6, v7);
+    if (v8)
     {
-      v10 = sub_100063A54();
-      sub_1000D0B0C(v10, &v25);
+      v12 = sub_100063A54(v8);
+      sub_1000D0B0C(v12, &v27);
     }
 
     else
     {
-      if (v20[5])
+      if (v22[5])
       {
 
-        v7 = v20[5];
+        v9 = v22[5];
         goto LABEL_5;
       }
 
-      v11 = sub_100063A54();
-      sub_1000D0B6C(v11, v17, &v25);
+      v13 = sub_100063A54(0);
+      sub_1000D0B6C(v13, v19, &v27);
     }
   }
 
   else
   {
-    v9 = sub_100063A54();
-    sub_1000D0AB8(v9);
+    v11 = sub_100063A54(_setupPairingManagerIfNeeded);
+    sub_1000D0AB8(v11);
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_5:
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v7;
+  return v9;
 }
 
 - (BOOL)_savePairedPeer:(id)peer
 {
   peerCopy = peer;
   v5 = dispatch_semaphore_create(0);
-  v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = sub_100041278;
-  v18[3] = sub_100041288;
   v19 = 0;
-  if ([(MSDDemoPeerPairingManager *)self _setupPairingManagerIfNeeded])
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_100041278;
+  v23 = sub_100041288;
+  v24 = 0;
+  _setupPairingManagerIfNeeded = [(MSDDemoPeerPairingManager *)self _setupPairingManagerIfNeeded];
+  if (_setupPairingManagerIfNeeded)
   {
     pairingManager = [(MSDDemoPeerPairingManager *)self pairingManager];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100041AC0;
-    v14[3] = &unk_100169E68;
-    v16 = &v17;
-    v7 = v5;
-    v15 = v7;
-    [pairingManager savePairedPeer:peerCopy options:5 completion:v14];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100041AC0;
+    v16[3] = &unk_100169E68;
+    v18 = &v19;
+    v8 = v5;
+    v17 = v8;
+    [pairingManager savePairedPeer:peerCopy options:5 completion:v16];
 
-    v8 = dispatch_time(0, 5000000000);
-    if (dispatch_semaphore_wait(v7, v8))
+    v9 = dispatch_time(0, 5000000000);
+    v10 = dispatch_semaphore_wait(v8, v9);
+    if (v10)
     {
-      v12 = sub_100063A54();
-      sub_1000D0C54(v12, &v20);
-      v13 = v20;
+      v14 = sub_100063A54(v10);
+      sub_1000D0C54(v14, &v25);
+      v15 = v25;
     }
 
     else
     {
-      if (!*(v18[0] + 40))
+      if (!v20[5])
       {
-        v9 = 1;
+        v11 = 1;
 LABEL_5:
-        v10 = v15;
+        v12 = v17;
         goto LABEL_6;
       }
 
-      v13 = sub_100063A54();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = sub_100063A54(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1000D0CB4(peerCopy, v18);
+        sub_1000D0CB4();
       }
     }
 
-    v9 = 0;
+    v11 = 0;
     goto LABEL_5;
   }
 
-  v10 = sub_100063A54();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = sub_100063A54(_setupPairingManagerIfNeeded);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     sub_1000D0C18();
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_6:
 
-  _Block_object_dispose(&v17, 8);
-  return v9;
+  _Block_object_dispose(&v19, 8);
+  return v11;
 }
 
 - (void)_restorePairedPeersFromData:(id)data
@@ -474,15 +483,16 @@ LABEL_6:
       v10 = *v18;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        v11 = 0;
+        do
         {
           if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          v13 = sub_100063A54();
+          v12 = *(*(&v17 + 1) + 8 * v11);
+          v13 = sub_100063A54(v8);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             detailedDescription = [v12 detailedDescription];
@@ -491,13 +501,16 @@ LABEL_6:
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "MSDDemoPeerPairingManager: Saving paired peer: %{public}@", buf, 0xCu);
           }
 
-          [(MSDDemoPeerPairingManager *)self _savePairedPeer:v12];
+          v8 = [(MSDDemoPeerPairingManager *)self _savePairedPeer:v12];
+          ++v11;
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v9 = v8;
       }
 
-      while (v9);
+      while (v8);
     }
 
     v6 = v15;
@@ -506,7 +519,7 @@ LABEL_6:
 
   else
   {
-    sub_1000D0D30();
+    sub_1000D0D30(v5);
   }
 }
 
@@ -575,36 +588,37 @@ LABEL_12:
   if (_getAllPairedPeers)
   {
     [_getAllPairedPeers enumerateObjectsUsingBlock:&stru_10016AC30];
-    v9 = 0;
-    v4 = [NSKeyedArchiver archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v9];
-    v5 = v9;
+    v10 = 0;
+    v4 = [NSKeyedArchiver archivedDataWithRootObject:v3 requiringSecureCoding:1 error:&v10];
+    v5 = v10;
+    v6 = v5;
     if (v4)
     {
-      v6 = v4;
-      v7 = v5;
-      v5 = v6;
+      v7 = v4;
+      v8 = v6;
+      v6 = v7;
     }
 
     else
     {
-      v7 = sub_100063A54();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = sub_100063A54(v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v11 = v5;
-        _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "MSDDemoPeerPairingManager: Failed to archive paired peers: %{public}@", buf, 0xCu);
+        v12 = v6;
+        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "MSDDemoPeerPairingManager: Failed to archive paired peers: %{public}@", buf, 0xCu);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 @end

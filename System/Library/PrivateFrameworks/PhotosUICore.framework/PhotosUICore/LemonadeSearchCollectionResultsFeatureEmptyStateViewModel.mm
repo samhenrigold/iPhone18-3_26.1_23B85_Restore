@@ -42,7 +42,7 @@
   swift_beginAccess();
   v7 = *v6;
   v8 = *(v6 + 1);
-  sub_1A3C66EE8(v7);
+  sub_1A3C66EE8(v7, v8);
 
   if (v7)
   {

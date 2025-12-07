@@ -23,63 +23,65 @@
 
 - (id)bundleIdentifiersNotAllowed
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   p_path = &self->_path;
   if (self->_path)
   {
     v3 = objc_autoreleasePoolPush();
     v4 = objc_alloc(MEMORY[0x1E695DEF0]);
     v5 = *p_path;
-    v43 = 0;
-    v6 = [v4 initWithContentsOfFile:v5 options:1 error:&v43];
-    v7 = v43;
+    v47 = 0;
+    v6 = [v4 initWithContentsOfFile:v5 options:1 error:&v47];
+    v7 = v47;
     objc_autoreleasePoolPop(v3);
     if (v6)
     {
-      v42 = 0;
-      v8 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v42];
-      v9 = v42;
+      v46 = 0;
+      v9 = [MEMORY[0x1E696AE40] propertyListWithData:v6 options:0 format:0 error:&v46];
+      v10 = v46;
 
-      if (v8)
+      if (v9)
       {
         objc_opt_class();
-        if (objc_opt_isKindOfClass())
+        isKindOfClass = objc_opt_isKindOfClass();
+        if (isKindOfClass)
         {
-          v40 = 0u;
-          v41 = 0u;
-          v38 = 0u;
-          v39 = 0u;
-          v8 = v8;
-          v10 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
-          if (v10)
+          v44 = 0u;
+          v45 = 0u;
+          v42 = 0u;
+          v43 = 0u;
+          v9 = v9;
+          v13 = [v9 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          if (v13)
           {
-            v11 = v10;
-            v12 = *v39;
+            v14 = v13;
+            v15 = *v43;
             while (2)
             {
-              for (i = 0; i != v11; ++i)
+              for (i = 0; i != v14; ++i)
               {
-                if (*v39 != v12)
+                if (*v43 != v15)
                 {
-                  objc_enumerationMutation(v8);
+                  objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v38 + 1) + 8 * i);
+                v17 = *(*(&v42 + 1) + 8 * i);
                 objc_opt_class();
-                if ((objc_opt_isKindOfClass() & 1) == 0)
+                v18 = objc_opt_isKindOfClass();
+                if ((v18 & 1) == 0)
                 {
-                  v30 = __atxlog_handle_default();
-                  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+                  v34 = __atxlog_handle_default(v18);
+                  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
                   {
-                    [(ATXAppDisplayIdentifiersDenyList *)v14 bundleIdentifiersNotAllowed:v30];
+                    [(ATXAppDisplayIdentifiersDenyList *)v17 bundleIdentifiersNotAllowed:v34];
                   }
 
                   goto LABEL_29;
                 }
               }
 
-              v11 = [v8 countByEnumeratingWithState:&v38 objects:v44 count:16];
-              if (v11)
+              v14 = [v9 countByEnumeratingWithState:&v42 objects:v48 count:16];
+              if (v14)
               {
                 continue;
               }
@@ -88,40 +90,40 @@
             }
           }
 
-          v15 = [MEMORY[0x1E695DFD8] setWithArray:{v8, v38}];
+          v19 = [MEMORY[0x1E695DFD8] setWithArray:{v9, v42}];
           goto LABEL_30;
         }
 
-        v23 = __atxlog_handle_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v27 = __atxlog_handle_default(isKindOfClass);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          [(ATXAppDisplayIdentifiersDenyList *)p_path bundleIdentifiersNotAllowed:v23];
+          [(ATXAppDisplayIdentifiersDenyList *)p_path bundleIdentifiersNotAllowed:v27];
         }
       }
 
       else
       {
-        v16 = __atxlog_handle_default();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = __atxlog_handle_default(v11);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [(ATXAppDisplayIdentifiersDenyList *)v9 bundleIdentifiersNotAllowed:v16];
+          [(ATXAppDisplayIdentifiersDenyList *)v10 bundleIdentifiersNotAllowed:v20];
         }
       }
 
 LABEL_29:
-      v15 = 0;
+      v19 = 0;
     }
 
     else
     {
-      v8 = __atxlog_handle_default();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_default(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(ATXAppDisplayIdentifiersDenyList *)p_path bundleIdentifiersNotAllowed];
       }
 
-      v15 = 0;
-      v9 = v7;
+      v19 = 0;
+      v10 = v7;
     }
 
 LABEL_30:
@@ -129,16 +131,16 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  v9 = __atxlog_handle_default();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = __atxlog_handle_default(self);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [(ATXAppDisplayIdentifiersDenyList *)v9 bundleIdentifiersNotAllowed];
+    [(ATXAppDisplayIdentifiersDenyList *)v10 bundleIdentifiersNotAllowed];
   }
 
-  v15 = 0;
+  v19 = 0;
 LABEL_31:
 
-  return v15;
+  return v19;
 }
 
 - (void)bundleIdentifiersNotAllowed

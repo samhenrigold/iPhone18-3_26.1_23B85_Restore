@@ -800,9 +800,10 @@ LABEL_29:
           v131 = v130;
           v133 = v132;
           memset(&m, 0, sizeof(m));
-          currentModelToScreenExifOrientation = [doodlePath currentModelToScreenExifOrientation];
-          v135 = CGRectGetMidX(v250);
-          [AKGeometryHelper affineTransformForExifOrientation:currentModelToScreenExifOrientation aboutCenter:v135, CGRectGetMidY(v250)];
+          [doodlePath currentModelToScreenExifOrientation];
+          v134 = CGRectGetMidX(v250);
+          v135 = CGRectGetMidY(v250);
+          objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, v134, v135);
           v248 = m;
           memset(&v249, 0, sizeof(v249));
           CGAffineTransformInvert(&v249, &v248);
@@ -909,7 +910,8 @@ LABEL_29:
         v68 = CGRectGetMidX(v250);
         v69 = CGRectGetMidY(v250);
         memset(&m, 0, sizeof(m));
-        +[AKGeometryHelper affineTransformForExifOrientation:aboutCenter:](AKGeometryHelper, "affineTransformForExifOrientation:aboutCenter:", [doodlePath currentModelToScreenExifOrientation], v68, v69);
+        [doodlePath currentModelToScreenExifOrientation];
+        objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, v68, v69);
         v248 = m;
         memset(&v249, 0, sizeof(v249));
         CGAffineTransformInvert(&v249, &v248);
@@ -991,7 +993,7 @@ LABEL_43:
       v86 = (v77 + v82) * 0.5;
       [result rotation];
       memset(&m, 0, sizeof(m));
-      [AKGeometryHelper rotationTransformAroundPoint:v86 withAngle:(v79 + v85) * 0.5, v87 * 3.14159265 / -180.0];
+      objc_msgSend_rotationTransformAroundPoint_withAngle_(AKGeometryHelper, v86, (v79 + v85) * 0.5, v87 * 3.14159265 / -180.0);
       v257.origin.x = m.tx + v79 * m.c + m.a * v77;
       v257.origin.y = m.ty + v79 * m.d + m.b * v77;
       v257.size.width = m.tx + v239 * m.c + m.a * v244 - v257.origin.x;
@@ -1236,7 +1238,7 @@ LABEL_44:
   y = center.y;
   x = center.x;
   v9 = [[AKShapeToCHRecognitionResult alloc] initWith:764018 result:0];
-  [AKGeometryHelper affineTransformForExifOrientation:4 aboutCenter:x, y, 0, 0, 0, 0, 0, 0];
+  objc_msgSend_affineTransformForExifOrientation_aboutCenter_(AKGeometryHelper, x, y, 0, 0, 0, 0, 0, 0);
   v10 = MEMORY[0x245CAE590](path, &v18);
   v11 = [MEMORY[0x277D75208] bezierPathWithCGPath:v10];
   CGPathRelease(v10);

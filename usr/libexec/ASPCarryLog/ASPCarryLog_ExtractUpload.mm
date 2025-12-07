@@ -36,6 +36,7 @@
 - (void)_removePendingUploadFilePath;
 - (void)_saveLastUploadFilePath:(id)path;
 - (void)_savePendingUploadFilePath:(id)path;
+- (void)_setUploadInfoWithSpdState:(unsigned int)state;
 - (void)_tryExtractUploadSpd;
 - (void)_updateLastExtractTime;
 - (void)_updateUploadInfoWithContentPath:(id)path contentSize:(unint64_t)size;
@@ -56,113 +57,63 @@
   if (v17)
   {
     v18 = +[NSFileManager defaultManager];
-    fileManager = v17->_fileManager;
-    v17->_fileManager = v18;
+    v19 = *(v17 + 3);
+    *(v17 + 3) = v18;
 
-    objc_storeStrong(&v17->_nandDriver, driver);
-    objc_storeStrong(&v17->_uploadDriver, uploadDriver);
-    objc_storeStrong(&v17->_stateMgr, manager);
-    objc_storeStrong(&v17->_workDir, directory);
-    v20 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"iolog_spd.iolog"];
-    spdFilePath = v17->_spdFilePath;
-    v17->_spdFilePath = v20;
+    objc_storeStrong(v17 + 4, driver);
+    objc_storeStrong(v17 + 5, uploadDriver);
+    objc_storeStrong(v17 + 6, manager);
+    objc_storeStrong(v17 + 7, directory);
+    v20 = [*(v17 + 7) stringByAppendingPathComponent:@"iolog_spd.iolog"];
+    v21 = *(v17 + 11);
+    *(v17 + 11) = v20;
 
-    v22 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"tar_in_process"];
-    tarInProgressDir = v17->_tarInProgressDir;
-    v17->_tarInProgressDir = v22;
+    v22 = [*(v17 + 7) stringByAppendingPathComponent:@"tar_in_process"];
+    v23 = *(v17 + 12);
+    *(v17 + 12) = v22;
 
-    v24 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"iolog.iolog"];
-    iologPath = v17->_iologPath;
-    v17->_iologPath = v24;
+    v24 = [*(v17 + 7) stringByAppendingPathComponent:@"iolog.iolog"];
+    v25 = *(v17 + 13);
+    *(v17 + 13) = v24;
 
-    v26 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"nandcounters.plist"];
-    nandcounterPath = v17->_nandcounterPath;
-    v17->_nandcounterPath = v26;
+    v26 = [*(v17 + 7) stringByAppendingPathComponent:@"nandcounters.plist"];
+    v27 = *(v17 + 14);
+    *(v17 + 14) = v26;
 
-    v28 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"nandstats.txt"];
-    nandstatsPath = v17->_nandstatsPath;
-    v17->_nandstatsPath = v28;
+    v28 = [*(v17 + 7) stringByAppendingPathComponent:@"nandstats.txt"];
+    v29 = *(v17 + 15);
+    *(v17 + 15) = v28;
 
-    v30 = [(NSString *)v17->_workDir stringByAppendingPathComponent:@"iolog_converted.iolog"];
-    convertedIologPath = v17->_convertedIologPath;
-    v17->_convertedIologPath = v30;
+    v30 = [*(v17 + 7) stringByAppendingPathComponent:@"iolog_converted.iolog"];
+    v31 = *(v17 + 16);
+    *(v17 + 16) = v30;
 
-    _getPendingUploadFile = [(ASPCarryLog_ExtractUpload *)v17 _getPendingUploadFile];
-    pendingUploadFile = v17->_pendingUploadFile;
-    v17->_pendingUploadFile = _getPendingUploadFile;
+    _getPendingUploadFile = [v17 _getPendingUploadFile];
+    v33 = *(v17 + 17);
+    *(v17 + 17) = _getPendingUploadFile;
 
-    v17->_isInternalBuild = build;
-    xpcActivityMgr = v17->_xpcActivityMgr;
-    v17->_xpcActivityMgr = 0;
+    v17[8] = build;
+    v34 = *(v17 + 23);
+    *(v17 + 23) = 0;
 
-    v17->_isIOLogEnableNeeded = 0;
-    v17->_isPeriodicSpd = 0;
-    v35 = [(StateMgr *)v17->_stateMgr getValueForKey:@"current_tasking_info" expectedType:2];
+    v17[11] = 0;
+    v17[9] = 0;
+    v35 = [*(v17 + 6) getValueForKey:@"current_tasking_info" expectedType:2];
     v36 = v35;
-    if (!v35 || !validateCurTaskingInfo(v35))
+    if (!v35 || !validateCurTaskingInfo(v35) || (([v36 objectForKeyedSubscript:@"id"], v37 = objc_claimAutoreleasedReturnValue(), v38 = *(v17 + 8), *(v17 + 8) = v37, v38, objc_msgSend(v36, "objectForKeyedSubscript:", @"device_id"), v39 = objc_claimAutoreleasedReturnValue(), v40 = *(v17 + 9), *(v17 + 9) = v39, v40, objc_msgSend(v36, "objectForKeyedSubscript:", @"endtime"), v41 = objc_claimAutoreleasedReturnValue(), v42 = *(v17 + 10), *(v17 + 10) = v41, v42, objc_msgSend(v36, "objectForKeyedSubscript:", @"upload_size_limit_bytes"), v43 = objc_claimAutoreleasedReturnValue(), *(v17 + 22) = objc_msgSend(v43, "unsignedLongValue"), v43, +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@_%@", @"aspcarry_uploadinfo", *(v17 + 8)), v44 = objc_claimAutoreleasedReturnValue(), v45 = *(v17 + 18), *(v17 + 18) = v44, v45, objc_msgSend(v17, "stateMgr"), v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "uploadInfoKey"), v47 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "getValueForKey:expectedType:", v47, 2), v48 = objc_claimAutoreleasedReturnValue(), v49 = *(v17 + 19), *(v17 + 19) = v48, v49, v47, v46, *(v17 + 3) = objc_msgSend(v17, "_getSpdState"), *(v17 + 4) = objc_msgSend(v17, "_getUploadIdx"), *(v17 + 21) = objc_msgSend(v17, "_getlastTotalUploadSize"), !objc_msgSend(v17, "_getDiskSpaceFlag")) ? (LOBYTE(v50) = 0) : (v50 = !diskFreeSpaceBelowLimit(0x40000000uLL)), (v17[10] = v50, *(v17 + 5) = objc_msgSend(v17, "_getNumB2BZipErrors"), objc_msgSend(v17, "_getNextSpdExtractTime"), v51 = objc_claimAutoreleasedReturnValue(), v52 = *(v17 + 20), *(v17 + 20) = v51, v52, (*(v17 + 4) & 0x80000000) != 0) || *(v17 + 21) == -1))
     {
-      goto LABEL_9;
-    }
+      v53 = *(v17 + 8);
+      *(v17 + 8) = 0;
 
-    v37 = [v36 objectForKeyedSubscript:@"id"];
-    taskingId = v17->_taskingId;
-    v17->_taskingId = v37;
+      v54 = *(v17 + 9);
+      *(v17 + 9) = 0;
 
-    v39 = [v36 objectForKeyedSubscript:@"device_id"];
-    deviceId = v17->_deviceId;
-    v17->_deviceId = v39;
-
-    v41 = [v36 objectForKeyedSubscript:@"endtime"];
-    endTimeStr = v17->_endTimeStr;
-    v17->_endTimeStr = v41;
-
-    v43 = [v36 objectForKeyedSubscript:@"upload_size_limit_bytes"];
-    v17->_uploadSizeLimit = [v43 unsignedLongValue];
-
-    v44 = [NSString stringWithFormat:@"%@_%@", @"aspcarry_uploadinfo", v17->_taskingId];
-    uploadInfoKey = v17->_uploadInfoKey;
-    v17->_uploadInfoKey = v44;
-
-    stateMgr = [(ASPCarryLog_ExtractUpload *)v17 stateMgr];
-    uploadInfoKey = [(ASPCarryLog_ExtractUpload *)v17 uploadInfoKey];
-    v48 = [stateMgr getValueForKey:uploadInfoKey expectedType:2];
-    uploadInfo = v17->_uploadInfo;
-    v17->_uploadInfo = v48;
-
-    v17->_spdState = [(ASPCarryLog_ExtractUpload *)v17 _getSpdState];
-    v17->_uploadIdx = [(ASPCarryLog_ExtractUpload *)v17 _getUploadIdx];
-    v17->_lastTotalUploadSize = [(ASPCarryLog_ExtractUpload *)v17 _getlastTotalUploadSize];
-    if ([(ASPCarryLog_ExtractUpload *)v17 _getDiskSpaceFlag])
-    {
-      v50 = !diskFreeSpaceBelowLimit(0x40000000uLL);
-    }
-
-    else
-    {
-      LOBYTE(v50) = 0;
-    }
-
-    v17->_isEnoughDiskSpace = v50;
-    v17->_numB2BZipErrors = [(ASPCarryLog_ExtractUpload *)v17 _getNumB2BZipErrors];
-    _getNextSpdExtractTime = [(ASPCarryLog_ExtractUpload *)v17 _getNextSpdExtractTime];
-    nextSpdExtractTime = v17->_nextSpdExtractTime;
-    v17->_nextSpdExtractTime = _getNextSpdExtractTime;
-
-    if (v17->_uploadIdx < 0 || v17->_lastTotalUploadSize == -1)
-    {
-LABEL_9:
-      v53 = v17->_taskingId;
-      v17->_taskingId = 0;
-
-      v54 = v17->_deviceId;
-      v17->_deviceId = 0;
-
-      v17->_lastTotalUploadSize = -1;
-      v17->_uploadSizeLimit = -1;
-      v17->_isEnoughDiskSpace = 1;
-      *&v17->_spdState = 0xFFFFFFFF00000000;
-      v55 = v17->_nextSpdExtractTime;
-      v17->_nextSpdExtractTime = 0;
+      *(v17 + 21) = -1;
+      *(v17 + 22) = -1;
+      v17[10] = 1;
+      *(v17 + 12) = 0xFFFFFFFF00000000;
+      v55 = *(v17 + 20);
+      *(v17 + 20) = 0;
     }
 
     v56 = v17;
@@ -360,6 +311,48 @@ LABEL_9:
   }
 
   return v4;
+}
+
+- (void)_setUploadInfoWithSpdState:(unsigned int)state
+{
+  v3 = *&state;
+  v5 = [NSMutableDictionary alloc];
+  v18[0] = @"fileidx";
+  v6 = [NSNumber numberWithInt:[(ASPCarryLog_ExtractUpload *)self uploadIdx]];
+  v19[0] = v6;
+  v18[1] = @"total_upload_size";
+  v7 = [NSNumber numberWithUnsignedLongLong:[(ASPCarryLog_ExtractUpload *)self lastTotalUploadSize]];
+  v19[1] = v7;
+  v18[2] = @"enough_disk_space";
+  v8 = [NSNumber numberWithBool:[(ASPCarryLog_ExtractUpload *)self isEnoughDiskSpace]];
+  v19[2] = v8;
+  v18[3] = @"num_b2b_zip_errors";
+  v9 = [NSNumber numberWithInt:[(ASPCarryLog_ExtractUpload *)self numB2BZipErrors]];
+  v19[3] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
+  v11 = [v5 initWithDictionary:v10];
+
+  if (v3)
+  {
+    v12 = [NSNumber numberWithUnsignedInt:v3];
+    [v11 setObject:v12 forKeyedSubscript:@"spd_state"];
+  }
+
+  if ([(ASPCarryLog_ExtractUpload *)self isInternalBuild])
+  {
+    nextSpdExtractTime = [(ASPCarryLog_ExtractUpload *)self nextSpdExtractTime];
+
+    if (nextSpdExtractTime)
+    {
+      nextSpdExtractTime2 = [(ASPCarryLog_ExtractUpload *)self nextSpdExtractTime];
+      v15 = DateTimeToStr(nextSpdExtractTime2);
+      [v11 setObject:v15 forKeyedSubscript:@"next_spd_extraction_time"];
+    }
+  }
+
+  stateMgr = [(ASPCarryLog_ExtractUpload *)self stateMgr];
+  uploadInfoKey = [(ASPCarryLog_ExtractUpload *)self uploadInfoKey];
+  [stateMgr setValue:v11 forKey:uploadInfoKey];
 }
 
 - (void)_internalSetNextSpdExtractionTime
@@ -1399,22 +1392,19 @@ LABEL_9:
   }
 
   nextSpdExtractTime = [(ASPCarryLog_ExtractUpload *)self nextSpdExtractTime];
-  if (!nextSpdExtractTime)
+  if (nextSpdExtractTime)
   {
-    goto LABEL_4;
+    v4 = nextSpdExtractTime;
+    v5 = +[NSDate now];
+    nextSpdExtractTime2 = [(ASPCarryLog_ExtractUpload *)self nextSpdExtractTime];
+    v7 = [v5 compare:nextSpdExtractTime2];
+
+    if (v7 != 1)
+    {
+      return 0;
+    }
   }
 
-  v4 = nextSpdExtractTime;
-  v5 = +[NSDate now];
-  nextSpdExtractTime2 = [(ASPCarryLog_ExtractUpload *)self nextSpdExtractTime];
-  v7 = [v5 compare:nextSpdExtractTime2];
-
-  if (v7 != 1)
-  {
-    return 0;
-  }
-
-LABEL_4:
   v8 = oslog;
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {

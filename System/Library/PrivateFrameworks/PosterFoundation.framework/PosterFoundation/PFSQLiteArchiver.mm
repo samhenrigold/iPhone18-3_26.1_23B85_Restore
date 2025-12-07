@@ -1,4 +1,5 @@
 @interface PFSQLiteArchiver
++ (id)archiverForDatabaseAtURL:(id)l sqliteOptions:(int)options dataProtectionClass:(unint64_t)class error:(id *)error;
 - (BOOL)access:(id)access error:(id *)error;
 - (BOOL)archiveObject:(id)object error:(id *)error;
 - (BOOL)archiveObjects:(id)objects error:(id *)error;
@@ -9,16 +10,43 @@
 - (BOOL)setupForDescriptor:(id)descriptor forClass:(Class)class error:(id *)error;
 - (BOOL)updateObject:(id)object error:(id *)error;
 - (PFSQLiteArchiver)init;
+- (id)_connectionQueue_cleanupQueryCache;
 - (id)initWithDatabaseConnection:(char)connection shouldInvalidateOnDealloc:(void *)dealloc error:;
 - (id)objectsOfClass:(Class)class column:(id)column predicate:(id)predicate limitOffset:(id)offset orderedBy:(id)by error:(id *)error;
 - (id)unarchiveObjectsOfClass:(Class)class error:(id *)error;
 - (id)unarchiveObjectsOfClass:(Class)class predicate:(id)predicate error:(id *)error;
 - (id)unarchiveObjectsOfClass:(Class)class predicate:(id)predicate limitOffset:(id)offset orderedBy:(id)by error:(id *)error;
-- (uint64_t)_connectionQueue_cleanupQueryCache;
 - (void)dealloc;
 @end
 
 @implementation PFSQLiteArchiver
+
++ (id)archiverForDatabaseAtURL:(id)l sqliteOptions:(int)options dataProtectionClass:(unint64_t)class error:(id *)error
+{
+  v8 = *&options;
+  lCopy = l;
+  v10 = [[PFSQLiteDatabaseConnection alloc] initWithFileURL:lCopy options:v8 dataProtectionClass:class error:error];
+
+  v12 = PFLogSQLite(v11);
+  [(PFSQLiteDatabaseConnection *)v10 setLoggingCategory:v12];
+
+  if (v10)
+  {
+    v15 = 0;
+    v13 = [[PFSQLiteArchiver alloc] initWithDatabaseConnection:v10 shouldInvalidateOnDealloc:1 error:&v15];
+    if (error)
+    {
+      *error = v15;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
+}
 
 - (id)initWithDatabaseConnection:(char)connection shouldInvalidateOnDealloc:(void *)dealloc error:
 {
@@ -275,49 +303,48 @@ BOOL __54__PFSQLiteArchiver_setupForDescriptor_forClass_error___block_invoke(uin
   return error;
 }
 
-- (uint64_t)_connectionQueue_cleanupQueryCache
+- (id)_connectionQueue_cleanupQueryCache
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    queue = [*(result + 32) queue];
+    queue = [result[4] queue];
     BSDispatchQueueAssert();
 
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
-    objectEnumerator = [*(v1 + 24) objectEnumerator];
-    v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
+    objectEnumerator = [v1[3] objectEnumerator];
+    v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(objectEnumerator);
           }
 
-          sqlite3_finalize([*(*(&v9 + 1) + 8 * v7++) pointerValue]);
+          sqlite3_finalize([*(*(&v8 + 1) + 8 * v7++) pointerValue]);
         }
 
         while (v5 != v7);
-        v5 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
     }
 
-    result = [*(v1 + 24) removeAllObjects];
+    return [v1[3] removeAllObjects];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -8,7 +8,7 @@ int main(int argc, const char **argv, const char **envp)
     {
 LABEL_3:
       dump(0);
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
     v11 = argc - optind;
@@ -17,19 +17,19 @@ LABEL_32:
     if (v11 == 1)
     {
       get(*v12);
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    goto LABEL_162;
+    goto LABEL_158;
   }
 
+  v49 = 0;
+  v50 = 0;
   v54 = 0;
-  v55 = 0;
-  v59 = 0;
   v6 = 0;
   v7 = 0;
-  v56 = 0;
-  v57 = 0;
+  v51 = 0;
+  v52 = 0;
   v8 = 0;
   v9 = 0;
   v10 = 0;
@@ -48,7 +48,7 @@ LABEL_32:
         {
           if (v5 != 73)
           {
-            goto LABEL_162;
+            goto LABEL_158;
           }
 
           if (argc >= 3)
@@ -74,19 +74,19 @@ LABEL_32:
               err(1, "socket");
             }
 
-            memset(v63, 0, sizeof(v63));
+            memset(v58, 0, sizeof(v58));
             __strlcpy_chk();
-            v64 = v14;
-            if (ioctl(s, 0xC0186955uLL, v63) < 0)
+            v59 = v14;
+            if (ioctl(s, 0xC0186955uLL, v58) < 0)
             {
-              err(1, "ioctl (SIOCSDEFIFACE_IN6)", v53);
+              err(1, "ioctl (SIOCSDEFIFACE_IN6)", v48);
             }
 
             close(s);
           }
 
           getdefif ();
-          goto LABEL_159;
+          goto LABEL_155;
         }
 
         v7 = 1;
@@ -97,7 +97,7 @@ LABEL_32:
         repeat = atoi(optarg);
         if (repeat < 0)
         {
-          goto LABEL_162;
+          goto LABEL_158;
         }
 
 LABEL_19:
@@ -108,7 +108,7 @@ LABEL_19:
       {
         if (v5 != 72)
         {
-          goto LABEL_162;
+          goto LABEL_158;
         }
 
         v8 = 1;
@@ -134,7 +134,7 @@ LABEL_19:
         case 'u':
         case 'v':
         case 'y':
-          goto LABEL_162;
+          goto LABEL_158;
         case 'c':
           cflag = 1;
           break;
@@ -144,38 +144,38 @@ LABEL_19:
         case 'f':
           if (argc != 3)
           {
-            goto LABEL_162;
+            goto LABEL_158;
           }
 
           file(argv[2]);
-          goto LABEL_159;
+          goto LABEL_155;
         case 'i':
           ifinfo(argc - optind, &argv[optind]);
-          goto LABEL_159;
+          goto LABEL_155;
         case 'l':
           v6 = 1;
           break;
         case 'p':
-          v57 = 1;
+          v52 = 1;
           break;
         case 'r':
-          v56 = 1;
+          v51 = 1;
           break;
         case 's':
-          HIDWORD(v55) = 1;
+          HIDWORD(v50) = 1;
           break;
         case 't':
           tflag = 1;
           break;
         case 'w':
-          LODWORD(v55) = 1;
+          LODWORD(v50) = 1;
           break;
         case 'x':
           v6 = 1;
-          v59 = 1;
+          v54 = 1;
           break;
         case 'z':
-          HIDWORD(v54) = 1;
+          HIDWORD(v49) = 1;
           break;
         default:
           if (v5 != 82)
@@ -183,14 +183,14 @@ LABEL_19:
             if (v5 == 87 && argc == 3)
             {
               write_cga_parameters(argv[2]);
-              goto LABEL_159;
+              goto LABEL_155;
             }
 
-LABEL_162:
+LABEL_158:
             usage();
           }
 
-          LODWORD(v54) = 1;
+          LODWORD(v49) = 1;
           break;
       }
     }
@@ -208,65 +208,65 @@ LABEL_162:
     {
       if (v11 != 1)
       {
-        goto LABEL_162;
+        goto LABEL_158;
       }
 
       delete(*v12);
-LABEL_159:
+LABEL_155:
       exit(0);
     }
 
-    if (v57)
+    if (v52)
     {
       plist();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    if (v56)
+    if (v51)
     {
       rtrlist();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    if (HIDWORD(v55))
+    if (HIDWORD(v50))
     {
       if ((v11 - 5) > 0xFFFFFFFC)
       {
-        v47 = set(v11, v12) != 0;
-        exit(v47);
+        v45 = set(v11, v12) != 0;
+        exit(v45);
       }
 
-      goto LABEL_162;
+      goto LABEL_158;
     }
 
     if (v8)
     {
       harmonize_rtr();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
     if (v7)
     {
       pfx_flush();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    if (v54)
+    if (v49)
     {
       rtr_flush();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    if (v55)
+    if (v50)
     {
       read_cga_parameters();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
-    if (HIDWORD(v54))
+    if (HIDWORD(v49))
     {
       rtilist();
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
     goto LABEL_32;
@@ -277,13 +277,13 @@ LABEL_159:
     goto LABEL_3;
   }
 
-  v61.tv_sec = 0;
-  *&v61.tv_usec = 0;
+  v56.tv_sec = 0;
+  *&v56.tv_usec = 0;
   v16 = &so_mask;
   if (((tflag | cflag) & 1) == 0)
   {
     printf("%-*.*s %-*.*s %*.*s %-9.9s %-9.9s %2s %4s %4s", 39, 39, "Neighbor", 17, 17, "Linklayer Address", 6, 6, "Netif", "Expire(O)", "Expire(I)", "St", "Flgs", "Prbs");
-    if (v59)
+    if (v54)
     {
       printf(" %-7.7s %-7.7s %-7.7s", "RSSI", "LQM", "NPM");
     }
@@ -291,36 +291,36 @@ LABEL_159:
     putchar(10);
   }
 
-  v62 = 0;
-  *v63 = xmmword_100004350;
-  v64 = 0x40000000009;
-  if (sysctl(v63, 6u, 0, &v62, 0, 0) < 0)
+  v57 = 0;
+  *v58 = xmmword_100004350;
+  v59 = 0x40000000009;
+  if (sysctl(v58, 6u, 0, &v57, 0, 0) < 0)
   {
-LABEL_147:
-    err(1, "sysctl(PF_ROUTE estimate)", v49);
+LABEL_143:
+    err(1, "sysctl(PF_ROUTE estimate)", v47);
   }
 
   while (1)
   {
-    if (v62)
+    if (v57)
     {
-      v17 = malloc_type_malloc(v62, 0xA27986FCuLL);
+      v17 = malloc_type_malloc(v57, 0xA27986FCuLL);
       if (!v17)
       {
         errx(1, "malloc");
       }
 
       v18 = v17;
-      if (sysctl(v63, 6u, v17, &v62, 0, 0) < 0)
+      if (sysctl(v58, 6u, v17, &v57, 0, 0) < 0)
       {
-        err(1, "sysctl(PF_ROUTE, NET_RT_FLAGS)", v49);
+        err(1, "sysctl(PF_ROUTE, NET_RT_FLAGS)", v47);
       }
 
-      v58 = v18;
-      if (v62 >= 1)
+      v53 = v18;
+      if (v57 >= 1)
       {
         v19 = v18;
-        v20 = v18 + v62;
+        v20 = v18 + v57;
         do
         {
           v21 = (v19 + 68);
@@ -331,23 +331,23 @@ LABEL_147:
             v23 = 4;
           }
 
-          v24 = &v21->sa_len + v23;
+          v24 = v21 + v23;
           if (*(&v21->sa_family + v23) != 18)
           {
-            goto LABEL_141;
+            goto LABEL_137;
           }
 
           v25 = *(v19 + 144);
           if (v25 == 255)
           {
-            goto LABEL_141;
+            goto LABEL_137;
           }
 
           if (v25 == 254 && (*(v19 + 145) & 0xC0) == 0x80)
           {
             if (!*(v19 + 40))
             {
-              *(v19 + 40) = *(v24 + 1);
+              *(v19 + 40) = *(v24 + 2);
             }
 
             v19[73] = 0;
@@ -371,13 +371,13 @@ LABEL_147:
               delete(host_buf);
             }
 
-            goto LABEL_141;
+            goto LABEL_137;
           }
 
-          gettimeofday(&v61, 0);
+          gettimeofday(&v56, 0);
           if (tflag == 1)
           {
-            printf("%02d:%02d:%02d.%06u ", SLODWORD(v61.tv_sec) % 86400 / 3600, (((34953 * (SLODWORD(v61.tv_sec) % 86400 % 3600)) >> 16) >> 5) + (((SLODWORD(v61.tv_sec) % 86400 % 3600 + ((-30583 * (SLODWORD(v61.tv_sec) % 86400 % 3600)) >> 16)) & 0x8000) >> 15), SLODWORD(v61.tv_sec) % 86400 % 60, v61.tv_usec);
+            printf("%02d:%02d:%02d.%06u ", SLODWORD(v56.tv_sec) % 86400 / 3600, (((34953 * (SLODWORD(v56.tv_sec) % 86400 % 3600)) >> 16) >> 5) + (((SLODWORD(v56.tv_sec) % 86400 % 3600 + ((-30583 * (SLODWORD(v56.tv_sec) % 86400 % 3600)) >> 16)) & 0x8000) >> 15), SLODWORD(v56.tv_sec) % 86400 % 60, v56.tv_usec);
           }
 
           v27 = strlen(host_buf);
@@ -403,7 +403,7 @@ LABEL_147:
             v30 = 56 - v28;
           }
 
-          v31 = if_indextoname(*(v24 + 1), ifix_buf);
+          v31 = if_indextoname(*(v24 + 2), ifix_buf);
           if (v31)
           {
             v32 = v31;
@@ -431,9 +431,9 @@ LABEL_147:
           {
             v36 = "expired";
             v15 = &so_mask;
-            if (v35 > v61.tv_sec)
+            if (v35 > v56.tv_sec)
             {
-              sec2str(v35 - v61.tv_sec);
+              sec2str(v35 - v56.tv_sec);
               v36 = sec2str_result;
             }
           }
@@ -448,9 +448,9 @@ LABEL_147:
           if (*(v19 + 24) && (v37 = *(v19 + 14)) != 0)
           {
             v38 = "expired";
-            if (v37 > v61.tv_sec)
+            if (v37 > v56.tv_sec)
             {
-              sec2str(v37 - v61.tv_sec);
+              sec2str(v37 - v56.tv_sec);
               v38 = sec2str_result;
             }
           }
@@ -461,7 +461,7 @@ LABEL_147:
           }
 
           printf(" %-9.9s", v38);
-          v39 = getnbrinfo(v19 + 9, *(v24 + 1), 1);
+          v39 = getnbrinfo(v19 + 9, *(v24 + 2), 1);
           v40 = v39;
           if (v39)
           {
@@ -473,7 +473,6 @@ LABEL_147:
             }
 
             printf(v42);
-            v43 = *(v40 + 10);
             LODWORD(v40) = *(v40 + 8);
           }
 
@@ -486,20 +485,11 @@ LABEL_147:
           putchar(32);
           if ((v19[8] & 4) != 0)
           {
-            v44 = &v24[*v24];
-            if (!*(v44 + 2) && !*(v44 + 3) && !*(v44 + 4))
-            {
-              *(v44 + 5);
-            }
-
-            *v44;
-            *(v19 + 2);
             snprintf(__str, 8uLL, "%s%s%s%s");
           }
 
           else
           {
-            *(v19 + 2);
             snprintf(__str, 8uLL, "%s%s");
           }
 
@@ -507,17 +497,17 @@ LABEL_147:
           if (v40)
           {
             printf(" %4d", v40);
-            if (!v59)
+            if (!v54)
             {
-              goto LABEL_140;
+              goto LABEL_136;
             }
           }
 
           else
           {
-            if (!v59)
+            if (!v54)
             {
-              goto LABEL_140;
+              goto LABEL_136;
             }
 
             printf(" %-4.4s", "none");
@@ -530,72 +520,69 @@ LABEL_147:
 
           else
           {
-            v50 = *(v19 + 30);
             printf(" %7d");
           }
 
-          v45 = *(v19 + 31);
-          if (v45 > 49)
+          v43 = *(v19 + 31);
+          if (v43 > 49)
           {
-            if (v45 == 50 || v45 == 100)
+            if (v43 == 50 || v43 == 100)
             {
-LABEL_131:
+LABEL_127:
               printf(" %-7.7s");
-              goto LABEL_132;
+              goto LABEL_128;
             }
           }
 
-          else if (v45 >= 0xFFFFFFFE)
+          else if (v43 >= 0xFFFFFFFE)
           {
-            goto LABEL_131;
+            goto LABEL_127;
           }
 
-          v51 = *(v19 + 31);
           printf(" %7d");
-LABEL_132:
-          v46 = *(v19 + 32);
-          if (v46 > 69)
+LABEL_128:
+          v44 = *(v19 + 32);
+          if (v44 > 69)
           {
-            if (v46 == 70 || v46 == 100)
+            if (v44 == 70 || v44 == 100)
             {
-LABEL_139:
+LABEL_135:
               printf(" %-7.7s");
-              goto LABEL_140;
+              goto LABEL_136;
             }
           }
 
-          else if (v46 == -1 || v46 == 30)
+          else if (v44 == -1 || v44 == 30)
           {
-            goto LABEL_139;
+            goto LABEL_135;
           }
 
-          v52 = *(v19 + 32);
           printf(" %7d");
-LABEL_140:
+LABEL_136:
           putchar(10);
-LABEL_141:
+LABEL_137:
           v19 = (v19 + *v19);
         }
 
         while (v19 < v20);
       }
 
-      free(v58);
+      free(v53);
       v16 = &so_mask;
     }
 
     if (!v16[24])
     {
-      goto LABEL_159;
+      goto LABEL_155;
     }
 
     putchar(10);
     sleep(v16[24]);
-    *v63 = xmmword_100004350;
-    v64 = 0x40000000009;
-    if (sysctl(v63, 6u, 0, &v62, 0, 0) < 0)
+    *v58 = xmmword_100004350;
+    v59 = 0x40000000009;
+    if (sysctl(v58, 6u, 0, &v57, 0, 0) < 0)
     {
-      goto LABEL_147;
+      goto LABEL_143;
     }
   }
 }
@@ -1060,8 +1047,8 @@ uint64_t write_cga_parameters(const char *a1)
 
 void dump(void *a1)
 {
-  v36.tv_sec = 0;
-  *&v36.tv_usec = 0;
+  v34.tv_sec = 0;
+  *&v34.tv_usec = 0;
   v2 = &so_mask;
   if ((tflag & 1) == 0 && (cflag & 1) == 0)
   {
@@ -1069,11 +1056,11 @@ void dump(void *a1)
   }
 
   size = 0;
-  *v39 = xmmword_100004350;
-  v40 = 0x40000000002;
-  if (sysctl(v39, 6u, 0, &size, 0, 0) < 0)
+  *v37 = xmmword_100004350;
+  v38 = 0x40000000002;
+  if (sysctl(v37, 6u, 0, &size, 0, 0) < 0)
   {
-LABEL_76:
+LABEL_72:
     dump_cold_4();
   }
 
@@ -1090,8 +1077,8 @@ LABEL_76:
         dump_cold_3();
       }
 
-      v35 = v6;
-      if (sysctl(v39, 6u, v6, &size, 0, 0) < 0)
+      v33 = v6;
+      if (sysctl(v37, 6u, v6, &size, 0, 0) < 0)
       {
         dump_cold_2();
       }
@@ -1099,8 +1086,8 @@ LABEL_76:
       v7 = v2;
       if (size >= 1)
       {
-        v8 = v35;
-        v9 = v35 + size;
+        v8 = v33;
+        v9 = v33 + size;
         do
         {
           v10 = (v8 + 46);
@@ -1111,10 +1098,10 @@ LABEL_76:
             v12 = 4;
           }
 
-          v13 = &v10->sa_len + v12;
+          v13 = v10 + v12;
           if (*(&v10->sa_family + v12) != 18)
           {
-            goto LABEL_70;
+            goto LABEL_66;
           }
 
           if (a1)
@@ -1158,10 +1145,10 @@ LABEL_32:
 
                 else
                 {
-                  gettimeofday(&v36, 0);
+                  gettimeofday(&v34, 0);
                   if (tflag == 1)
                   {
-                    printf("%02d:%02d:%02d.%06u ", SLODWORD(v36.tv_sec) % 86400 / 3600, (((34953 * (SLODWORD(v36.tv_sec) % 86400 % 3600)) >> 16) >> 5) + (((SLODWORD(v36.tv_sec) % 86400 % 3600 + ((-30583 * (SLODWORD(v36.tv_sec) % 86400 % 3600)) >> 16)) & 0x8000) >> 15), SLODWORD(v36.tv_sec) % 86400 % 60, v36.tv_usec);
+                    printf("%02d:%02d:%02d.%06u ", SLODWORD(v34.tv_sec) % 86400 / 3600, (((34953 * (SLODWORD(v34.tv_sec) % 86400 % 3600)) >> 16) >> 5) + (((SLODWORD(v34.tv_sec) % 86400 % 3600 + ((-30583 * (SLODWORD(v34.tv_sec) % 86400 % 3600)) >> 16)) & 0x8000) >> 15), SLODWORD(v34.tv_sec) % 86400 % 60, v34.tv_usec);
                   }
 
                   v18 = strlen(v5);
@@ -1187,7 +1174,7 @@ LABEL_32:
                     v21 = 56 - v19;
                   }
 
-                  v22 = if_indextoname(*(v13 + 1), ifix_buf);
+                  v22 = if_indextoname(*(v13 + 2), ifix_buf);
                   v23 = v5;
                   if (v22)
                   {
@@ -1212,12 +1199,12 @@ LABEL_32:
 
                   ether_str(v13);
                   printf("%-*.*s %-*.*s %*.*s", v19, v19, v23, v21, v21, &ether_str_ebuf, v26, v26, v24);
-                  v27 = getnbrinfo((v8 + 50), *(v13 + 1), 1);
+                  v27 = getnbrinfo((v8 + 50), *(v13 + 2), 1);
                   v28 = v27;
                   if (v27)
                   {
                     v29 = *(v27 + 12);
-                    if (v29 <= v36.tv_sec)
+                    if (v29 <= v34.tv_sec)
                     {
                       v14 = v29 == 0;
                       v30 = "expired";
@@ -1229,7 +1216,7 @@ LABEL_32:
 
                     else
                     {
-                      sec2str(v29 - v36.tv_sec);
+                      sec2str(v29 - v34.tv_sec);
                       v30 = sec2str_result;
                     }
 
@@ -1244,7 +1231,6 @@ LABEL_32:
                     }
 
                     printf(v32);
-                    v33 = *(v28 + 10);
                     LODWORD(v28) = *(v28 + 8);
                   }
 
@@ -1258,20 +1244,11 @@ LABEL_32:
                   putchar(32);
                   if ((v8[6] & 4) != 0)
                   {
-                    v34 = &v13[*v13];
-                    if (!*(v34 + 2) && !*(v34 + 3) && !*(v34 + 4))
-                    {
-                      *(v34 + 5);
-                    }
-
-                    *v34;
-                    *(v8 + 2);
                     snprintf(__str, 8uLL, "%s%s%s%s");
                   }
 
                   else
                   {
-                    *(v8 + 2);
                     snprintf(__str, 8uLL, "%s%s");
                   }
 
@@ -1285,12 +1262,12 @@ LABEL_32:
                   v5 = v23;
                 }
 
-                goto LABEL_70;
+                goto LABEL_66;
               }
 
               if (!*(v8 + 29))
               {
-                *(v8 + 29) = *(v13 + 1);
+                *(v8 + 29) = *(v13 + 2);
               }
 
               v8[51] = 0;
@@ -1307,7 +1284,7 @@ LABEL_32:
             }
           }
 
-LABEL_70:
+LABEL_66:
           v8 = (v8 + *v8);
         }
 
@@ -1315,7 +1292,7 @@ LABEL_70:
       }
 
       v2 = v7;
-      free(v35);
+      free(v33);
       v3 = &so_mask;
     }
 
@@ -1326,11 +1303,11 @@ LABEL_70:
 
     putchar(10);
     sleep(v3[24]);
-    *v39 = xmmword_100004350;
-    v40 = 0x40000000002;
-    if (sysctl(v39, 6u, 0, &size, 0, 0) < 0)
+    *v37 = xmmword_100004350;
+    v38 = 0x40000000002;
+    if (sysctl(v37, 6u, 0, &size, 0, 0) < 0)
     {
-      goto LABEL_76;
+      goto LABEL_72;
     }
   }
 }
@@ -1416,10 +1393,10 @@ void delete(const char *a1)
 
 void plist()
 {
-  *v28 = xmmword_100004380;
-  *&v25.tv_usec = 0;
+  *v26 = xmmword_100004380;
+  *&v23.tv_usec = 0;
   size = 0;
-  v25.tv_sec = 0;
+  v23.tv_sec = 0;
   if (nflag)
   {
     v0 = 34;
@@ -1430,7 +1407,7 @@ void plist()
     v0 = 32;
   }
 
-  if (sysctl(v28, 4u, 0, &size, 0, 0) < 0)
+  if (sysctl(v26, 4u, 0, &size, 0, 0) < 0)
   {
     plist_cold_1();
   }
@@ -1441,28 +1418,28 @@ void plist()
     plist_cold_2();
   }
 
-  v22 = v1;
-  if (sysctl(v28, 4u, v1, &size, 0, 0) < 0)
+  v20 = v1;
+  if (sysctl(v26, 4u, v1, &size, 0, 0) < 0)
   {
     plist_cold_1();
   }
 
   if (size >= 1)
   {
-    v2 = v22;
-    v23 = v22 + size;
+    v2 = v20;
+    v21 = v20 + size;
     do
     {
       v3 = *v2[4].sa_data;
-      if (getnameinfo(v2, v2->sa_len, v27, 0x401u, 0, 0, 34))
+      if (getnameinfo(v2, v2->sa_len, v25, 0x401u, 0, 0, 34))
       {
         __strlcpy_chk();
       }
 
       v4 = v2[1].sa_data[11];
       v5 = if_indextoname(*&v2[4].sa_len, ifix_buf);
-      printf("%s/%d if=%s\n", v27, v4, v5);
-      gettimeofday(&v25, 0);
+      printf("%s/%d if=%s\n", v25, v4, v5);
+      gettimeofday(&v23, 0);
       v6 = "A";
       if ((v2[1].sa_data[10] & 2) == 0)
       {
@@ -1514,7 +1491,6 @@ void plist()
 
       else
       {
-        v20 = *&v2[2].sa_len;
         printf(" vltime=%ld");
       }
 
@@ -1525,17 +1501,16 @@ void plist()
 
       else
       {
-        v21 = *&v2[2].sa_data[6];
         printf(", pltime=%ld");
       }
 
       v14 = *&v2[3].sa_len;
-      v24 = v3;
+      v22 = v3;
       if (v14)
       {
-        if (v14 >= v25.tv_sec)
+        if (v14 >= v23.tv_sec)
         {
-          sec2str(v14 - v25.tv_sec);
+          sec2str(v14 - v23.tv_sec);
           printf(", expire=%s");
         }
 
@@ -1561,12 +1536,12 @@ void plist()
           v16 = (v2 + 72);
           do
           {
-            if (getnameinfo(v16, v16->sa_len, v27, 0x401u, 0, 0, v0))
+            if (getnameinfo(v16, v16->sa_len, v25, 0x401u, 0, 0, v0))
             {
               __strlcpy_chk();
             }
 
-            printf("    %s", v27);
+            printf("    %s", v25);
             v17 = &v16->sa_data[6];
             v18 = getnbrinfo(v17, *&v2[4].sa_len, 0);
             if (v18)
@@ -1601,13 +1576,13 @@ void plist()
         puts("  No advertising router");
       }
 
-      v2 = (v2 + 28 * v24 + 72);
+      v2 = (v2 + 28 * v22 + 72);
     }
 
-    while (v2 < v23);
+    while (v2 < v21);
   }
 
-  free(v22);
+  free(v20);
 }
 
 void rtrlist()

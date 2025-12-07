@@ -21,13 +21,15 @@
 - (id)newUncachedIOHandleWithURL:(id)l compressionType:(int64_t)type error:(id *)error;
 - (id)newUncachedIOHandleWithURL:(id)l error:(id *)error;
 - (unint64_t)currentAllocatedSize;
-- (unint64_t)maxBufferLength;
 - (unint64_t)recommendedMaxWorkingSetSize;
 - (void)_purgeDevice;
 - (void)dealloc;
 - (void)deallocBufferSubData:(id)data heapIndex:(signed __int16)index bufferIndex:(signed __int16)bufferIndex bufferOffset:(unint64_t)offset length:(unint64_t)length;
 - (void)kickCleanupQueue;
+- (void)releaseFenceIndex:(unsigned int)index;
+- (void)setComputePipelineStateCommandShmemSize:(unsigned int)size;
 - (void)setHwResourcePool:(id *)pool count:(int)count;
+- (void)setSegmentListShmemSize:(unsigned int)size;
 - (void)updateResourcePoolPurgeability;
 @end
 
@@ -116,11 +118,32 @@ void __27__MTLIOAccelDevice_dealloc__block_invoke(uint64_t a1)
   dispatch_release(v4);
 }
 
+- (void)setSegmentListShmemSize:(unsigned int)size
+{
+  if (self->_storageCreateParams.segmentListShmemPool->_priv.shmemSize < size)
+  {
+    v4 = [[MTLIOAccelDeviceShmemPool alloc] initWithDevice:self resourceClass:objc_opt_class() shmemSize:*&size options:0];
+
+    self->_storageCreateParams.segmentListShmemPool = v4;
+  }
+}
+
+- (void)setComputePipelineStateCommandShmemSize:(unsigned int)size
+{
+  p_storageCreateParams = &self->_storageCreateParams;
+  if (self->_storageCreateParams.kernelCommandShmemPool->_priv.shmemSize < size)
+  {
+    v4 = [[MTLIOAccelDeviceShmemPool alloc] initWithDevice:self resourceClass:objc_opt_class() shmemSize:*&size options:0];
+
+    p_storageCreateParams->kernelCommandShmemPool = v4;
+  }
+}
+
 - (MTLIOAccelDevice)initWithAcceleratorPort:(unsigned int)port
 {
-  v10.receiver = self;
-  v10.super_class = MTLIOAccelDevice;
-  v4 = [(_MTLDevice *)&v10 init];
+  v7.receiver = self;
+  v7.super_class = MTLIOAccelDevice;
+  v4 = [(_MTLDevice *)&v7 init];
   if (v4)
   {
     v5 = IOAccelDeviceCreateWithAPIProperty();
@@ -137,13 +160,10 @@ LABEL_7:
     IOObjectRetain(port);
     v4->_storageCreateParams.hwResourcePools = 0;
     v4->_storageCreateParams.var0 = 0;
-    deviceRef = v4->_deviceRef;
     IOAccelDeviceGetConfig64();
-    v7 = v4->_deviceRef;
     IOAccelDeviceGetSharedMemorySize();
     v4->_videoRam = 0;
     v4->_textureRam = 0;
-    v8 = v4->_deviceRef;
     v4->super._globalTraceObjectID = IOAccelDeviceGetGlobalTraceObjectID();
     if (**MEMORY[0x1E69A8488])
     {
@@ -161,10 +181,9 @@ LABEL_7:
 
 - (BOOL)lazyInitialize
 {
-  deviceRef = self->_deviceRef;
-  v4 = IOAccelSharedCreate();
-  self->_sharedRef = v4;
-  if (v4)
+  v3 = IOAccelSharedCreate();
+  self->_sharedRef = v3;
+  if (v3)
   {
     self->_storageCreateParams.akResourceListPool = [[MTLResourceListPool alloc] initWithResourceListCapacity:1024];
     self->_storageCreateParams.akPrivateResourceListPool = [[MTLResourceListPool alloc] initWithResourceListCapacity:256];
@@ -173,32 +192,32 @@ LABEL_7:
     self->_segmentByteThreshold = 0;
     self->_device_dispatch_queue = dispatch_queue_create("com.Metal.DeviceDispatchQueue", 0);
     MTLIOAccelCommandBufferStoragePoolCreate(self);
-    self->_commandBufferStoragePool = v4;
-    if (v4)
+    self->_commandBufferStoragePool = v3;
+    if (v3)
     {
-      v5 = dispatch_queue_create("com.Metal.DeviceCleaupQueue", 0);
-      self->_device_pool_cleanup_queue = v5;
-      self->_device_pool_cleanup_source = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v5);
+      v4 = dispatch_queue_create("com.Metal.DeviceCleaupQueue", 0);
+      self->_device_pool_cleanup_queue = v4;
+      self->_device_pool_cleanup_source = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v4);
       self->_device_pool_cleanup_scheduled = 0;
-      v9[0] = 0;
-      v9[1] = v9;
-      v9[2] = 0x3052000000;
-      v9[3] = __Block_byref_object_copy__4;
-      v9[4] = __Block_byref_object_dispose__4;
-      v9[5] = self;
+      v8[0] = 0;
+      v8[1] = v8;
+      v8[2] = 0x3052000000;
+      v8[3] = __Block_byref_object_copy__4;
+      v8[4] = __Block_byref_object_dispose__4;
+      v8[5] = self;
       device_pool_cleanup_source = self->_device_pool_cleanup_source;
       handler[0] = MEMORY[0x1E69E9820];
       handler[1] = 3221225472;
       handler[2] = __34__MTLIOAccelDevice_lazyInitialize__block_invoke;
       handler[3] = &unk_1E6EEB598;
-      handler[4] = v9;
+      handler[4] = v8;
       dispatch_source_set_event_handler(device_pool_cleanup_source, handler);
-      _Block_object_dispose(v9, 8);
-      LOBYTE(v4) = 1;
+      _Block_object_dispose(v8, 8);
+      LOBYTE(v3) = 1;
     }
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setHwResourcePool:(id *)pool count:(int)count
@@ -363,7 +382,7 @@ void __102__MTLIOAccelDevice_allocBufferSubDataWithLength_options_alignment_heap
       v4 = *(v3 + 8 * v2);
       if (v4)
       {
-        if (MTLRangeAllocatorAllocate(v3 + 40 * v2 + 512, *(a1 + 72), (*(*(a1 + 48) + 8) + 24), *(a1 + 80)))
+        if (MTLRangeAllocatorAllocate((v3 + 40 * v2 + 512), *(a1 + 72), (*(*(a1 + 48) + 8) + 24), *(a1 + 80)))
         {
           *(*(*(a1 + 56) + 8) + 40) = v4;
           break;
@@ -397,7 +416,7 @@ LABEL_11:
       v7 = *(a1 + 96);
       v8 = *(a1 + 32) + 760 + 3336 * *(a1 + 96);
       ++*(v8 + 3328);
-      if ((MTLRangeAllocatorAllocate(*(a1 + 32) + 760 + 3336 * v7 + 40 * *(*(*(a1 + 40) + 8) + 24) + 512, *(a1 + 72), (*(*(a1 + 48) + 8) + 24), *(a1 + 80)) & 1) == 0)
+      if ((MTLRangeAllocatorAllocate((*(a1 + 32) + 760 + 3336 * v7 + 40 * *(*(*(a1 + 40) + 8) + 24) + 512), *(a1 + 72), (*(*(a1 + 48) + 8) + 24), *(a1 + 80)) & 1) == 0)
       {
         *(*(a1 + 32) + 760 + 3336 * *(a1 + 96) + 8 * *(*(*(a1 + 40) + 8) + 24)) = 0;
         v9 = *(a1 + 32) + 760 + 3336 * *(a1 + 96);
@@ -498,26 +517,25 @@ MTLIOAccelFence *__28__MTLIOAccelDevice_newFence__block_invoke(uint64_t a1, uint
       v12 = 256;
     }
 
-    v13 = *(v9 + 640);
     FenceMemory = IOAccelSharedAllocateFenceMemory();
     if (FenceMemory != v12)
     {
-      __28__MTLIOAccelDevice_newFence__block_invoke_cold_1(FenceMemory, v15, v16, v17, v18, v19, v20, v21);
+      __28__MTLIOAccelDevice_newFence__block_invoke_cold_1(FenceMemory, v14, v15, v16, v17, v18, v19, v20);
     }
 
-    v22 = *(a1 + 32);
-    v23 = *(v22 + 54176);
-    *(v22 + 54184) = malloc_type_realloc(*(v22 + 54184), 8 * (v12 >> 6), 0x100004000313F17uLL);
-    bzero((*(*(a1 + 32) + 54184) + 8 * v23), 8 * ((v12 >> 6) - v23));
-    v24 = *(a1 + 32);
-    if (!*(v24 + 54168))
+    v21 = *(a1 + 32);
+    v22 = *(v21 + 54176);
+    *(v21 + 54184) = malloc_type_realloc(*(v21 + 54184), 8 * (v12 >> 6), 0x100004000313F17uLL);
+    bzero((*(*(a1 + 32) + 54184) + 8 * v22), 8 * ((v12 >> 6) - v22));
+    v23 = *(a1 + 32);
+    if (!*(v23 + 54168))
     {
-      **(v24 + 54184) |= 1uLL;
+      **(v23 + 54184) |= 1uLL;
       *(*(a1 + 32) + 54164) = 1;
-      v24 = *(a1 + 32);
+      v23 = *(a1 + 32);
     }
 
-    *(v24 + 54168) = v12;
+    *(v23 + 54168) = v12;
     *(*(a1 + 32) + 54176) = v12 >> 6;
     v9 = *(a1 + 32);
     v10 = *(v9 + 54164);
@@ -529,48 +547,65 @@ MTLIOAccelFence *__28__MTLIOAccelDevice_newFence__block_invoke(uint64_t a1, uint
     __28__MTLIOAccelDevice_newFence__block_invoke_cold_2(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v25 = *(v9 + 54172);
-  v26 = *(v9 + 54176);
-  if (v25 >= v26)
+  v24 = *(v9 + 54172);
+  v25 = *(v9 + 54176);
+  if (v24 >= v25)
   {
-    v27 = 0;
+    v26 = 0;
   }
 
   else
   {
     while (1)
     {
-      v27 = *(*(v9 + 54184) + 8 * v25);
-      if (v27 != -1)
+      v26 = *(*(v9 + 54184) + 8 * v24);
+      if (v26 != -1)
       {
         break;
       }
 
-      if (v26 == ++v25)
+      if (v25 == ++v24)
       {
-        v27 = -1;
-        LODWORD(v25) = *(v9 + 54176);
+        v26 = -1;
+        LODWORD(v24) = *(v9 + 54176);
         break;
       }
     }
   }
 
-  if (v25 >= v11)
+  if (v24 >= v11)
   {
     __28__MTLIOAccelDevice_newFence__block_invoke_cold_3(a1, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  *(v9 + 54172) = v25;
-  v28 = __clz(__rbit64(~v27));
-  result = [[MTLIOAccelFence alloc] initWithDevice:*(a1 + 32) fenceIndex:(v28 + (v25 << 6))];
+  *(v9 + 54172) = v24;
+  v27 = __clz(__rbit64(~v26));
+  result = [[MTLIOAccelFence alloc] initWithDevice:*(a1 + 32) fenceIndex:(v27 + (v24 << 6))];
   *(*(*(a1 + 40) + 8) + 40) = result;
   if (*(*(*(a1 + 40) + 8) + 40))
   {
-    *(*(*(a1 + 32) + 54184) + 8 * v25) = (1 << v28) | v27;
+    *(*(*(a1 + 32) + 54184) + 8 * v24) = (1 << v27) | v26;
     ++*(*(a1 + 32) + 54164);
   }
 
   return result;
+}
+
+- (void)releaseFenceIndex:(unsigned int)index
+{
+  if (!index || self->_fenceMaximumCount <= index)
+  {
+    [(MTLIOAccelDevice *)self releaseFenceIndex:a2, *&index, v3, v4, v5, v6, v7];
+  }
+
+  device_dispatch_queue = self->_device_dispatch_queue;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __38__MTLIOAccelDevice_releaseFenceIndex___block_invoke;
+  v9[3] = &unk_1E6EEB8C8;
+  indexCopy = index;
+  v9[4] = self;
+  dispatch_sync(device_dispatch_queue, v9);
 }
 
 uint64_t __38__MTLIOAccelDevice_releaseFenceIndex___block_invoke(uint64_t result)
@@ -604,7 +639,6 @@ uint64_t __38__MTLIOAccelDevice_releaseFenceIndex___block_invoke(uint64_t result
 
 - (unint64_t)currentAllocatedSize
 {
-  sharedRef = self->_sharedRef;
   if (IOAccelSharedGetAllocatedSize())
   {
     return 0;
@@ -638,13 +672,6 @@ uint64_t __38__MTLIOAccelDevice_releaseFenceIndex___block_invoke(uint64_t result
   v5 = [_MTLIOAccelMTLEvent alloc];
 
   return [(_MTLIOAccelMTLEvent *)v5 initWithDevice:self options:options];
-}
-
-- (unint64_t)maxBufferLength
-{
-  deviceRef = self->_deviceRef;
-  IOAccelDeviceGetMaxResourceSize();
-  return 0;
 }
 
 - (void)kickCleanupQueue

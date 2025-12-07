@@ -3,6 +3,7 @@
 - (BOOL)_accessibilityAlternateActionForURL:(id)l;
 - (BOOL)_accessibilityLoadURL:(id)l;
 - (BOOL)_accessibilityWebSearchResultsActive;
+- (BOOL)_iosAccessibilityPerformAction:(int)action withValue:(id)value fencePort:(unsigned int)port;
 - (id)_accessibilityActiveURL;
 - (id)_accessibilityMainBrowserController;
 - (id)_accessibilityRetrieveWebViewForSearchResults;
@@ -36,38 +37,38 @@
 
 - (id)_accessibilityMainBrowserController
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v25 = 0;
+  v26 = *MEMORY[0x29EDCA608];
+  v24 = 0;
   v2 = [*MEMORY[0x29EDC8008] safeValueForKey:@"_browserWindowController"];
   v3 = __UIAccessibilitySafeClass();
 
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = [v3 safeArrayForKey:@"browserControllers"];
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v20 = v3;
-    v7 = *v22;
+    v19 = v3;
+    v7 = *v21;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
-        v25 = 0;
+        v9 = *(*(&v20 + 1) + 8 * i);
+        v24 = 0;
         objc_opt_class();
         v10 = [v9 safeValueForKey:@"rootViewController"];
         v11 = __UIAccessibilityCastAsClass();
 
-        if (v25 == 1)
+        if (v24 == 1)
         {
           goto LABEL_19;
         }
@@ -80,9 +81,9 @@
 
         if (window == keyWindow)
         {
-          v25 = 0;
+          v24 = 0;
           v17 = __UIAccessibilitySafeClass();
-          if (v25 == 1)
+          if (v24 == 1)
           {
 LABEL_19:
             abort();
@@ -94,7 +95,7 @@ LABEL_19:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v6)
       {
         continue;
@@ -105,7 +106,7 @@ LABEL_19:
 
     v16 = 0;
 LABEL_14:
-    v3 = v20;
+    v3 = v19;
   }
 
   else
@@ -113,34 +114,32 @@ LABEL_14:
     v16 = 0;
   }
 
-  v18 = *MEMORY[0x29EDCA608];
-
   return v16;
 }
 
 - (BOOL)_accessibilityWebSearchResultsActive
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = AXUIApplicationWindows();
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v13 != v5)
+      if (*v12 != v5)
       {
         objc_enumerationMutation(v2);
       }
 
-      firstResponder = [*(*(&v12 + 1) + 8 * v6) firstResponder];
+      firstResponder = [*(*(&v11 + 1) + 8 * v6) firstResponder];
       v8 = 1;
       v9 = [firstResponder _accessibilityFindAncestor:&__block_literal_global_1 startWithSelf:1];
 
@@ -151,7 +150,7 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -168,7 +167,6 @@ LABEL_9:
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -259,10 +257,7 @@ uint64_t __72__SafariUIApplicationAccessibility__accessibilityWebSearchResultsAc
 
 uint64_t __72__SafariUIApplicationAccessibility__accessibilityAlternateActionForURL___block_invoke(uint64_t a1)
 {
-  v2 = [NSClassFromString(&cfstr_Tabdocument.isa) urlForExternalURL:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [NSClassFromString(&cfstr_Tabdocument.isa) urlForExternalURL:*(a1 + 32)];
 
   return MEMORY[0x2A1C71028]();
 }
@@ -286,17 +281,41 @@ uint64_t __72__SafariUIApplicationAccessibility__accessibilityAlternateActionFor
   return v5;
 }
 
-uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke(uint64_t result)
+- (BOOL)_iosAccessibilityPerformAction:(int)action withValue:(id)value fencePort:(unsigned int)port
 {
-  v1 = *(result + 40);
+  if ((action - 4202) > 0xFFFFFFFD)
+  {
+    _getScribbleController = [(SafariUIApplicationAccessibility *)self _getScribbleController];
+    v7 = _getScribbleController;
+    v5 = _getScribbleController != 0;
+    if (_getScribbleController)
+    {
+      v9 = _getScribbleController;
+      AXPerformSafeBlock();
+    }
+  }
+
+  else
+  {
+    v10.receiver = self;
+    v10.super_class = SafariUIApplicationAccessibility;
+    return [(SafariUIApplicationAccessibility *)&v10 _iosAccessibilityPerformAction:*&action withValue:value fencePort:*&port];
+  }
+
+  return v5;
+}
+
+void *__87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_withValue_fencePort___block_invoke(void *result)
+{
+  v1 = *(result + 10);
   if (v1 == 4201)
   {
-    return [*(result + 32) _setSelectedElement:0];
+    return [*(result + 4) _setSelectedElement:0];
   }
 
   if (v1 == 4200)
   {
-    return [*(result + 32) _hideSelectedElement];
+    return [*(result + 4) _hideSelectedElement];
   }
 
   return result;
@@ -304,7 +323,7 @@ uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_w
 
 - (id)_iosAccessibilityAttributeValue:(int64_t)value forParameter:(id)parameter
 {
-  v69 = *MEMORY[0x29EDCA608];
+  v67 = *MEMORY[0x29EDCA608];
   parameterCopy = parameter;
   if (value == 94100)
   {
@@ -315,95 +334,94 @@ uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_w
       v8 = v7;
       v10 = v9;
       _getScribbleController = [(SafariUIApplicationAccessibility *)self _getScribbleController];
-      v35 = _getScribbleController;
+      v33 = _getScribbleController;
       if (_getScribbleController)
       {
-        v63 = 0;
-        v64 = &v63;
-        v65 = 0x2020000000;
-        v66 = 0;
+        v61 = 0;
+        v62 = &v61;
+        v63 = 0x2020000000;
+        v64 = 0;
         *buf = 0;
-        v58 = buf;
-        v59 = 0x3032000000;
-        v60 = __Block_byref_object_copy__0;
-        v61 = __Block_byref_object_dispose__0;
-        v62 = 0;
-        v48 = MEMORY[0x29EDCA5F8];
-        v49 = 3221225472;
-        v50 = __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forParameter___block_invoke;
-        v51 = &unk_29F2D7C80;
+        v56 = buf;
+        v57 = 0x3032000000;
+        v58 = __Block_byref_object_copy__0;
+        v59 = __Block_byref_object_dispose__0;
+        v60 = 0;
+        v46 = MEMORY[0x29EDCA5F8];
+        v47 = 3221225472;
+        v48 = __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forParameter___block_invoke;
+        v49 = &unk_29F2D7C80;
         v12 = _getScribbleController;
-        v55 = v8;
-        v56 = v10;
-        v52 = v12;
-        v53 = buf;
-        v54 = &v63;
+        v53 = v8;
+        v54 = v10;
+        v50 = v12;
+        v51 = buf;
+        v52 = &v61;
         AXPerformSafeBlock();
-        v13 = *MEMORY[0x29EDB8FC0];
-        while ((v64[3] & 1) == 0)
+        while ((v62[3] & 1) == 0)
         {
           CFRunLoopGetCurrent();
           CFRunLoopRunSpecific();
         }
 
-        if (*(v58 + 5))
+        if (*(v56 + 5))
         {
-          v40 = MEMORY[0x29EDCA5F8];
-          v41 = 3221225472;
-          v42 = __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forParameter___block_invoke_418;
-          v43 = &unk_29F2D7CA8;
-          v44 = v12;
-          v45 = v8;
-          v46 = v10;
+          v38 = MEMORY[0x29EDCA5F8];
+          v39 = 3221225472;
+          v40 = __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forParameter___block_invoke_418;
+          v41 = &unk_29F2D7CA8;
+          v42 = v12;
+          v43 = v8;
+          v44 = v10;
           AXPerformSafeBlock();
 
-          [*(v58 + 5) safeArrayForKey:@"targetedElements"];
-          v38 = 0u;
-          v39 = 0u;
+          [*(v56 + 5) safeArrayForKey:@"targetedElements"];
           v36 = 0u;
-          v16 = v37 = 0u;
-          v17 = 0;
-          v18 = [v16 countByEnumeratingWithState:&v36 objects:v68 count:16];
-          if (v18)
+          v37 = 0u;
+          v34 = 0u;
+          v15 = v35 = 0u;
+          v16 = 0;
+          v17 = [v15 countByEnumeratingWithState:&v34 objects:v66 count:16];
+          if (v17)
           {
-            v19 = *v37;
+            v18 = *v35;
             do
             {
-              v20 = 0;
-              v21 = v17;
+              v19 = 0;
+              v20 = v16;
               do
               {
-                if (*v37 != v19)
+                if (*v35 != v18)
                 {
-                  objc_enumerationMutation(v16);
+                  objc_enumerationMutation(v15);
                 }
 
-                v33 = [*(*(&v36 + 1) + 8 * v20) safeStringForKey:{@"screenReaderText", v33, v34}];
-                v34 = @"__AXStringForVariablesSentinel";
-                v17 = __UIAXStringForVariables();
+                v31 = [*(*(&v34 + 1) + 8 * v19) safeStringForKey:{@"screenReaderText", v31, v32}];
+                v32 = @"__AXStringForVariablesSentinel";
+                v16 = __UIAXStringForVariables();
 
-                ++v20;
-                v21 = v17;
+                ++v19;
+                v20 = v16;
               }
 
-              while (v18 != v20);
-              v18 = [v16 countByEnumeratingWithState:&v36 objects:v68 count:16, v33, @"__AXStringForVariablesSentinel"];
+              while (v17 != v19);
+              v17 = [v15 countByEnumeratingWithState:&v34 objects:v66 count:16, v31, @"__AXStringForVariablesSentinel"];
             }
 
-            while (v18);
+            while (v17);
           }
 
-          if ([v17 length])
+          if ([v16 length])
           {
-            [*(v58 + 5) safeCGRectForKey:@"geometry"];
-            v23 = v22;
-            v25 = v24;
-            v27 = v26;
-            v29 = v28;
+            [*(v56 + 5) safeCGRectForKey:@"geometry"];
+            v22 = v21;
+            v24 = v23;
+            v26 = v25;
+            v28 = v27;
             dictionary = [MEMORY[0x29EDB8E00] dictionary];
-            [dictionary setObject:v17 forKey:@"AXScribbleRenderedTextKey"];
-            v30 = [MEMORY[0x29EDBA168] valueWithRect:{v23, v25, v27, v29}];
-            [dictionary setObject:v30 forKey:@"AXScribbleGeometryKey"];
+            [dictionary setObject:v16 forKey:@"AXScribbleRenderedTextKey"];
+            v29 = [MEMORY[0x29EDBA168] valueWithRect:{v22, v24, v26, v28}];
+            [dictionary setObject:v29 forKey:@"AXScribbleGeometryKey"];
           }
 
           else
@@ -414,18 +432,18 @@ uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_w
 
         else
         {
-          v16 = AXLogAppAccessibility();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v15 = AXLogAppAccessibility();
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            *v47 = 0;
-            _os_log_impl(&dword_29BFE7000, v16, OS_LOG_TYPE_DEFAULT, "[Scribble] no element found at point", v47, 2u);
+            *v45 = 0;
+            _os_log_impl(&dword_29BFE7000, v15, OS_LOG_TYPE_DEFAULT, "[Scribble] no element found at point", v45, 2u);
           }
 
           dictionary = 0;
         }
 
         _Block_object_dispose(buf, 8);
-        _Block_object_dispose(&v63, 8);
+        _Block_object_dispose(&v61, 8);
       }
 
       else
@@ -436,11 +454,11 @@ uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_w
 
     else
     {
-      v15 = AXLogAppAccessibility();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = AXLogAppAccessibility();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_29BFE7000, v15, OS_LOG_TYPE_DEFAULT, "[Scribble] attribute value is not an NSValue", buf, 2u);
+        _os_log_impl(&dword_29BFE7000, v14, OS_LOG_TYPE_DEFAULT, "[Scribble] attribute value is not an NSValue", buf, 2u);
       }
 
       dictionary = 0;
@@ -449,12 +467,10 @@ uint64_t __87__SafariUIApplicationAccessibility__iosAccessibilityPerformAction_w
 
   else
   {
-    v67.receiver = self;
-    v67.super_class = SafariUIApplicationAccessibility;
-    dictionary = [(SafariUIApplicationAccessibility *)&v67 _iosAccessibilityAttributeValue:value forParameter:parameterCopy];
+    v65.receiver = self;
+    v65.super_class = SafariUIApplicationAccessibility;
+    dictionary = [(SafariUIApplicationAccessibility *)&v65 _iosAccessibilityAttributeValue:value forParameter:parameterCopy];
   }
-
-  v31 = *MEMORY[0x29EDCA608];
 
   return dictionary;
 }
@@ -472,15 +488,15 @@ void __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forP
 
 void __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forParameter___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v6 = a2;
   v7 = a3;
   v8 = AXLogAppAccessibility();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_29BFE7000, v8, OS_LOG_TYPE_DEFAULT, "[Scribble] error getting element at point: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_29BFE7000, v8, OS_LOG_TYPE_DEFAULT, "[Scribble] error getting element at point: %@", &v9, 0xCu);
   }
 
   if (v6)
@@ -489,8 +505,6 @@ void __81__SafariUIApplicationAccessibility__iosAccessibilityAttributeValue_forP
   }
 
   *(*(*(a1 + 40) + 8) + 24) = 1;
-
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_getScribbleController

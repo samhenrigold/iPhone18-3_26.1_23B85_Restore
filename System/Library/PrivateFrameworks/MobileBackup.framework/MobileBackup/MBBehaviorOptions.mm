@@ -12,6 +12,10 @@
 - (int)_getIntOptionForKey:(id)key defaultValue:(int)value;
 - (void)_setPref:(id)pref forKey:(id)key;
 - (void)_startListeningForNotifications;
+- (void)setShouldKeepFileSystemSnapshotAfterBackupSuccess:(BOOL)success;
+- (void)setSnapshotAfterForegroundRestore:(BOOL)restore;
+- (void)setUseABC:(BOOL)c;
+- (void)setUseBackgroundOperationsForBackup:(BOOL)backup;
 @end
 
 @implementation MBBehaviorOptions
@@ -39,69 +43,68 @@
 
 void __52__MBBehaviorOptions__startListeningForNotifications__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v2 = MBGetDefaultLog();
+  v25 = *MEMORY[0x1E69E9840];
+  v2 = MBGetDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_1DEB5D000, v2, OS_LOG_TYPE_INFO, "Looks like our prefs changed. Reloading.", buf, 2u);
-    _MBLog(@"I ", "Looks like our prefs changed. Reloading.", v3, v4, v5, v6, v7, v8, v20);
+    _MBLog(@"I ", "Looks like our prefs changed. Reloading.");
   }
 
   CFPreferencesSynchronize(@"com.apple.MobileBackup.BehaviorOptions", @"mobile", *MEMORY[0x1E695E898]);
   *buf = 0;
-  v26 = buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__0;
-  v29 = __Block_byref_object_dispose__0;
-  v30 = 0;
-  v9 = [*(a1 + 32) cachedPrefsQueue];
+  v19 = buf;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__0;
+  v22 = __Block_byref_object_dispose__0;
+  v23 = 0;
+  v3 = [*(a1 + 32) cachedPrefsQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __52__MBBehaviorOptions__startListeningForNotifications__block_invoke_183;
   block[3] = &unk_1E8684708;
   block[4] = *(a1 + 32);
   block[5] = buf;
-  dispatch_sync(v9, block);
+  dispatch_sync(v3, block);
 
-  v10 = objc_opt_new();
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v11 = [*(v26 + 5) allKeys];
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v31 count:16];
-  if (v12)
+  v4 = objc_opt_new();
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v5 = [*(v19 + 5) allKeys];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v24 count:16];
+  if (v6)
   {
-    v13 = *v21;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v13)
+        if (*v14 != v7)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v5);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
-        v16 = [*(v26 + 5) objectForKeyedSubscript:v15];
-        v17 = [*(a1 + 32) _behaviorOptionForKey:v15];
-        v18 = [v16 isEqual:v17];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [*(v19 + 5) objectForKeyedSubscript:v9];
+        v11 = [*(a1 + 32) _behaviorOptionForKey:v9];
+        v12 = [v10 isEqual:v11];
 
-        if ((v18 & 1) == 0)
+        if ((v12 & 1) == 0)
         {
-          [v10 addObject:v15];
+          [v4 addObject:v9];
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v31 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v24 count:16];
     }
 
-    while (v12);
+    while (v6);
   }
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __52__MBBehaviorOptions__startListeningForNotifications__block_invoke_183(uint64_t a1)
@@ -232,45 +235,44 @@ void __37__MBBehaviorOptions__setPref_forKey___block_invoke(uint64_t a1)
 - (id)_getNumberOptionForKey:(id)key
 {
   keyCopy = key;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy__0;
-  v18 = __Block_byref_object_dispose__0;
-  v19 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__0;
+  v17 = __Block_byref_object_dispose__0;
+  v18 = 0;
   cachedPrefsQueue = [(MBBehaviorOptions *)self cachedPrefsQueue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __44__MBBehaviorOptions__getNumberOptionForKey___block_invoke;
   block[3] = &unk_1E8684780;
-  v13 = &v14;
+  v12 = &v13;
   block[4] = self;
   v6 = keyCopy;
-  v12 = v6;
+  v11 = v6;
   dispatch_sync(cachedPrefsQueue, block);
 
-  v7 = v15[5];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = v15[5];
+    v7 = v14[5];
   }
 
-  v9 = v8;
+  v8 = v7;
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  return v9;
+  return v8;
 }
 
 void __44__MBBehaviorOptions__getNumberOptionForKey___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) cachedPrefs];
   v3 = [v2 objectForKeyedSubscript:*(a1 + 40)];
   v4 = *(*(a1 + 48) + 8);
@@ -287,41 +289,38 @@ void __44__MBBehaviorOptions__getNumberOptionForKey___block_invoke(uint64_t a1)
     if (*(*(*(a1 + 48) + 8) + 40))
     {
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
 LABEL_8:
-        v21 = *(*(*(a1 + 48) + 8) + 40);
-        v22 = [*(a1 + 32) cachedPrefs];
-        [v22 setObject:v21 forKeyedSubscript:*(a1 + 40)];
+        v16 = *(*(*(a1 + 48) + 8) + 40);
+        v17 = [*(a1 + 32) cachedPrefs];
+        [v17 setObject:v16 forKeyedSubscript:*(a1 + 40)];
 
-        goto LABEL_9;
+        return;
       }
 
-      v9 = MBGetDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = MBGetDefaultLog(isKindOfClass);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v10 = *(a1 + 40);
-        v11 = *(*(*(a1 + 48) + 8) + 40);
+        v11 = *(a1 + 40);
+        v12 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138412546;
-        v26 = v10;
-        v27 = 2112;
-        v28 = v11;
-        _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_ERROR, "For key %@, found value %@ which was not a NSNumber.  Ignoring.", buf, 0x16u);
-        v24 = *(*(*(a1 + 48) + 8) + 40);
-        _MBLog(@"E ", "For key %@, found value %@ which was not a NSNumber.  Ignoring.", v12, v13, v14, v15, v16, v17, *(a1 + 40));
+        v19 = v11;
+        v20 = 2112;
+        v21 = v12;
+        _os_log_impl(&dword_1DEB5D000, v10, OS_LOG_TYPE_ERROR, "For key %@, found value %@ which was not a NSNumber.  Ignoring.", buf, 0x16u);
+        _MBLog(@"E ", "For key %@, found value %@ which was not a NSNumber.  Ignoring.", *(a1 + 40), *(*(*(a1 + 48) + 8) + 40));
       }
     }
 
-    v18 = [MEMORY[0x1E695DFB0] null];
-    v19 = *(*(a1 + 48) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
+    v13 = [MEMORY[0x1E695DFB0] null];
+    v14 = *(*(a1 + 48) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
     goto LABEL_8;
   }
-
-LABEL_9:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_getBoolOptionForKey:(id)key defaultValue:(BOOL)value
@@ -447,10 +446,7 @@ LABEL_9:
 
 uint64_t __57__MBBehaviorOptions__getStringOptionForKey_defaultValue___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _getStringOptionLockedForKey:*(a1 + 40) defaultValue:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _getStringOptionLockedForKey:*(a1 + 40) defaultValue:*(a1 + 48)];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -522,6 +518,30 @@ void __56__MBBehaviorOptions__getArrayOptionForKey_defaultValue___block_invoke(u
     v13 = [*(a1 + 32) cachedPrefs];
     [v13 setObject:v12 forKeyedSubscript:*(a1 + 40)];
   }
+}
+
+- (void)setUseBackgroundOperationsForBackup:(BOOL)backup
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:backup];
+  [(MBBehaviorOptions *)self _setPref:v4 forKey:@"UseBackgroundOperationsForBackupKey"];
+}
+
+- (void)setShouldKeepFileSystemSnapshotAfterBackupSuccess:(BOOL)success
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:success];
+  [(MBBehaviorOptions *)self _setPref:v4 forKey:@"KeepDailySnapshots"];
+}
+
+- (void)setSnapshotAfterForegroundRestore:(BOOL)restore
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:restore];
+  [(MBBehaviorOptions *)self _setPref:v4 forKey:@"SnapshotAfterForegroundRestore"];
+}
+
+- (void)setUseABC:(BOOL)c
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:c];
+  [(MBBehaviorOptions *)self _setPref:v4 forKey:@"UseABC"];
 }
 
 @end

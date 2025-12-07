@@ -432,9 +432,9 @@ LABEL_9:
   return p_frameInspectorDictionary_sFrameInspectorDictionary;
 }
 
-id __56__TSDDefaultRenderingObjects_p_frameInspectorDictionary__block_invoke()
+id __56__TSDDefaultRenderingObjects_p_frameInspectorDictionary__block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = [MEMORY[0x277CBEA90] dataWithContentsOfFile:objc_msgSend(TSDBundle() options:"pathForResource:ofType:inDirectory:" error:{@"FrameInspectorLayoutInfo", @"plist", @"Frames", 2, 0}];
+  result = [MEMORY[0x277CBEA90] dataWithContentsOfFile:objc_msgSend(TSDBundle(a1 options:a2) error:{"pathForResource:ofType:inDirectory:", @"FrameInspectorLayoutInfo", @"plist", @"Frames", 2, 0}];
   if (result)
   {
     result = [MEMORY[0x277CCAC58] propertyListWithData:result options:0 format:0 error:0];

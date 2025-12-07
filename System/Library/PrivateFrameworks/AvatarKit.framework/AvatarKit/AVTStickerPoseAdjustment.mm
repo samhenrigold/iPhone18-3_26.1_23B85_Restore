@@ -10,7 +10,7 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = AVTPresetCategoryToString(self->_presetCategory);
-  v6 = [v3 stringWithFormat:@"<%@ %p | %@ %@ → %@>", v4, self, v5, self->_presetIdentifier, self->_pose];
+  v6 = [v3 stringWithFormat:v4, self, v5, self->_presetIdentifier, self->_pose];
 
   return v6;
 }
@@ -22,22 +22,22 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [avatarCopy presetForCategory:self->_presetCategory];
-    identifier = [v8 identifier];
-    v10 = [identifier isEqualToString:self->_presetIdentifier];
+    v7 = [avatarCopy presetForCategory:?];
+    identifier = [v7 identifier];
+    v9 = [identifier isEqualToString:?];
 
-    if (v10)
+    if (v9)
     {
-      v11 = [poseCopy poseByMergingPose:self->_pose];
+      v10 = [poseCopy poseByMergingPose:?];
 
       goto LABEL_6;
     }
   }
 
-  v11 = poseCopy;
+  v10 = poseCopy;
 LABEL_6:
 
-  return v11;
+  return v10;
 }
 
 @end

@@ -27,7 +27,7 @@
 
   else
   {
-    v12 = CKFrameworkBundle();
+    v12 = CKFrameworkBundle(0);
     v11 = [v12 localizedStringForKey:@"SOMEONE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
@@ -40,7 +40,7 @@
 
   else
   {
-    v16 = CKFrameworkBundle();
+    v16 = CKFrameworkBundle(0);
     v15 = [v16 localizedStringForKey:@"SOMEONE" value:&stru_1F04268F8 table:@"ChatKit"];
   }
 
@@ -54,27 +54,27 @@
       if (balloonBundleID)
       {
         mEMORY[0x1E69A5AD0] = [MEMORY[0x1E69A5AD0] sharedInstance];
-        v25 = [mEMORY[0x1E69A5AD0] dataSourceClassForBundleID:balloonBundleID];
+        v26 = [mEMORY[0x1E69A5AD0] dataSourceClassForBundleID:balloonBundleID];
 
-        if (v25)
+        if (v26)
         {
-          v21 = [v25 previewSummaryForPluginBundle:balloonBundleID];
+          v21 = [v26 previewSummaryForPluginBundle:balloonBundleID];
         }
 
         else
         {
-          v35 = CKFrameworkBundle();
-          v21 = [v35 localizedStringForKey:@"A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+          v37 = CKFrameworkBundle(v27);
+          v21 = [v37 localizedStringForKey:@"A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
         }
       }
 
       else
       {
-        v33 = CKFrameworkBundle();
-        v21 = [v33 localizedStringForKey:@"A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+        v35 = CKFrameworkBundle(v24);
+        v21 = [v35 localizedStringForKey:@"A_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-        v34 = IMLogHandleForCategory();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v36 = IMLogHandleForCategory();
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           [(CKMessageActionChatItem *)self loadTranscriptText];
         }
@@ -87,7 +87,7 @@
 
       goto LABEL_24;
     case 1:
-      v18 = CKFrameworkBundle();
+      v18 = CKFrameworkBundle(1);
       v19 = v18;
       v20 = @"VIDEO_SAVE_ACTION";
 LABEL_12:
@@ -99,22 +99,22 @@ LABEL_12:
       }
 
 LABEL_24:
-      v36 = CKFrameworkBundle();
-      v26 = v36;
+      v38 = CKFrameworkBundle(actionType);
+      v28 = v38;
       if (handle)
       {
-        [v36 localizedStringForKey:@"MESSAGE_SAVE_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+        [v38 localizedStringForKey:@"MESSAGE_SAVE_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
       }
 
       else
       {
-        [v36 localizedStringForKey:@"MESSAGE_SAVE_YOU_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+        [v38 localizedStringForKey:@"MESSAGE_SAVE_YOU_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
       }
-      v27 = ;
-      CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v27, v37, v38, v39, v40, v41, v11);
+      v29 = ;
+      CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v29, v39, v40, v41, v42, v43, v11);
       goto LABEL_28;
     case 0:
-      v18 = CKFrameworkBundle();
+      v18 = CKFrameworkBundle(0);
       v19 = v18;
       v20 = @"AUDIO_SAVE_ACTION";
       goto LABEL_12;
@@ -127,12 +127,12 @@ LABEL_24:
   }
 
 LABEL_18:
-  v26 = CKFrameworkBundle();
-  v27 = [v26 localizedStringForKey:@"MESSAGE_YOU_SAVE_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-  CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v27, v28, v29, v30, v31, v32, v21);
-  v42 = LABEL_28:;
+  v28 = CKFrameworkBundle(actionType);
+  v29 = [v28 localizedStringForKey:@"MESSAGE_YOU_SAVE_ACTION_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+  CKAttributedFormatString(transcriptRegularFontAttributes, transcriptEmphasizedFontAttributes, v29, v30, v31, v32, v33, v34, v21);
+  v44 = LABEL_28:;
 
-  return v42;
+  return v44;
 }
 
 - (int64_t)actionType

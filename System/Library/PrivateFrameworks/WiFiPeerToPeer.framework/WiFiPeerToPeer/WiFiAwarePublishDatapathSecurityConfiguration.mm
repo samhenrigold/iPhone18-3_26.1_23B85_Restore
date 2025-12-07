@@ -95,17 +95,17 @@ LABEL_9:
 
 - (WiFiAwarePublishDatapathSecurityConfiguration)initWithPMK:(id)k andPMKID:(id)d
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   kCopy = k;
   dCopy = d;
-  v18.receiver = self;
-  v18.super_class = WiFiAwarePublishDatapathSecurityConfiguration;
-  v8 = [(WiFiAwarePublishDatapathSecurityConfiguration *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = WiFiAwarePublishDatapathSecurityConfiguration;
+  v8 = [(WiFiAwarePublishDatapathSecurityConfiguration *)&v17 init];
   if (v8)
   {
     v9 = [kCopy copy];
-    v19[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     pmkList = v8->_pmkList;
     v8->_pmkList = v10;
 
@@ -120,7 +120,6 @@ LABEL_9:
     v8->_pairingConfiguration = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -425,28 +424,28 @@ LABEL_14:
 
 - (id)description
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   pmkList = [(WiFiAwarePublishDatapathSecurityConfiguration *)self pmkList];
-  v5 = [pmkList countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v5 = [pmkList countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v28;
+    v7 = *v27;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v7)
+        if (*v27 != v7)
         {
           objc_enumerationMutation(pmkList);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
         if ([string length])
         {
           [string appendString:{@", "}];
@@ -455,32 +454,32 @@ LABEL_14:
         [string appendFormat:@"%@", v9];
       }
 
-      v6 = [pmkList countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v6 = [pmkList countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v6);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   passphraseList = [(WiFiAwarePublishDatapathSecurityConfiguration *)self passphraseList];
-  v11 = [passphraseList countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v11 = [passphraseList countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(passphraseList);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * j);
+        v15 = *(*(&v22 + 1) + 8 * j);
         if ([string length])
         {
           [string appendString:{@", "}];
@@ -489,7 +488,7 @@ LABEL_14:
         [string appendFormat:@"%@", v15];
       }
 
-      v12 = [passphraseList countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v12 = [passphraseList countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v12);
@@ -517,8 +516,6 @@ LABEL_14:
   }
 
   v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"<%@>", string];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

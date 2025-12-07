@@ -25,7 +25,7 @@
   v12 = v11;
 
   [(NSLock *)self->super.super._inspectablePropertiesLock unlock];
-  Node = PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, &v15);
+  PVInputHGNodeMap<unsigned int>::GetNode(inputs, 0, &v15);
   if (fabsf(v12) >= 0.0001)
   {
     v14 = HGObject::operator new(0x1A0uLL);
@@ -33,7 +33,7 @@
     (*(*v14 + 120))(v14, 0, v15);
     (*(*v14 + 96))(v14, 0, v12, v12, v12, v12);
     *v9 = v14;
-    Node = v15;
+    v13 = v15;
     if (v15)
     {
       return (*(*v15 + 24))(v15);
@@ -45,7 +45,7 @@
     *v9 = v15;
   }
 
-  return Node;
+  return v13;
 }
 
 @end

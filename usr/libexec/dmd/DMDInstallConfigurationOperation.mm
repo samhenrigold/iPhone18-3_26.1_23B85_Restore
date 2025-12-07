@@ -434,47 +434,47 @@ LABEL_12:
   v7 = +[NSMutableDictionary dictionary];
   v8 = +[NSMutableDictionary dictionary];
   v9 = MCRestrictedBoolKey;
-  v88 = v5;
+  v86 = v5;
   [v4 setObject:v5 forKeyedSubscript:MCRestrictedBoolKey];
   v10 = MCRestrictedValueKey;
-  v87 = v6;
+  v85 = v6;
   [v4 setObject:v6 forKeyedSubscript:MCRestrictedValueKey];
   v11 = MCIntersectionKey;
-  v81 = v7;
+  v79 = v7;
   [v4 setObject:v7 forKeyedSubscript:MCIntersectionKey];
   v12 = MCUnionKey;
-  v71 = v4;
-  v76 = v8;
+  v69 = v4;
+  v74 = v8;
   [v4 setObject:v8 forKeyedSubscript:MCUnionKey];
   v13 = +[MCRestrictionManager sharedManager];
   defaultRestrictions = [v13 defaultRestrictions];
 
   v15 = [defaultRestrictions objectForKeyedSubscript:v9];
-  v74 = [defaultRestrictions objectForKeyedSubscript:v10];
-  v73 = [defaultRestrictions objectForKeyedSubscript:v11];
-  v70 = defaultRestrictions;
-  v72 = [defaultRestrictions objectForKeyedSubscript:v12];
+  v72 = [defaultRestrictions objectForKeyedSubscript:v10];
+  v71 = [defaultRestrictions objectForKeyedSubscript:v11];
+  v68 = defaultRestrictions;
+  v70 = [defaultRestrictions objectForKeyedSubscript:v12];
+  v109 = 0u;
+  v110 = 0u;
   v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  v114 = 0u;
   obj = v15;
-  v16 = [obj countByEnumeratingWithState:&v111 objects:v136 count:16];
+  v16 = [obj countByEnumeratingWithState:&v109 objects:v134 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v112;
+    v18 = *v110;
     v19 = MCRestrictedBoolValueKey;
     while (2)
     {
       for (i = 0; i != v17; i = i + 1)
       {
-        if (*v112 != v18)
+        if (*v110 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v111 + 1) + 8 * i);
+        v21 = *(*(&v109 + 1) + 8 * i);
         v22 = +[DMDInstallConfigurationOperation excludedBoolRestrictions];
         v23 = [v22 containsObject:v21];
 
@@ -485,9 +485,9 @@ LABEL_12:
           {
             if ((objc_opt_respondsToSelector() & 1) == 0)
             {
-              v134 = DMFInvalidParameterErrorKey;
-              v135 = @"key";
-              v27 = [NSDictionary dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+              v132 = DMFInvalidParameterErrorKey;
+              v133 = @"key";
+              v27 = [NSDictionary dictionaryWithObjects:&v133 forKeys:&v132 count:1];
               v28 = DMFErrorWithCodeAndUserInfo();
 
               if (v28)
@@ -507,12 +507,12 @@ LABEL_12:
             }
 
             [mCMutableDeepCopy setObject:v24 forKey:v19];
-            [v88 setObject:mCMutableDeepCopy forKey:v21];
+            [v86 setObject:mCMutableDeepCopy forKey:v21];
           }
         }
       }
 
-      v17 = [obj countByEnumeratingWithState:&v111 objects:v136 count:16];
+      v17 = [obj countByEnumeratingWithState:&v109 objects:v134 count:16];
       if (v17)
       {
         continue;
@@ -523,36 +523,36 @@ LABEL_12:
   }
 
 LABEL_17:
-  v109 = 0u;
-  v110 = 0u;
   v107 = 0u;
   v108 = 0u;
-  v29 = v74;
-  v30 = [v29 countByEnumeratingWithState:&v107 objects:v133 count:16];
+  v105 = 0u;
+  v106 = 0u;
+  v29 = v72;
+  v30 = [v29 countByEnumeratingWithState:&v105 objects:v131 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v108;
+    v32 = *v106;
     v33 = MCRestrictedValueValueKey;
     while (2)
     {
       for (j = 0; j != v31; j = j + 1)
       {
-        if (*v108 != v32)
+        if (*v106 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v35 = *(*(&v107 + 1) + 8 * j);
+        v35 = *(*(&v105 + 1) + 8 * j);
         v36 = [payloadCopy objectForKey:{v35, errorCopy}];
         if (v36)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v131 = DMFInvalidParameterErrorKey;
-            v132 = @"key";
-            v39 = [NSDictionary dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+            v129 = DMFInvalidParameterErrorKey;
+            v130 = @"key";
+            v39 = [NSDictionary dictionaryWithObjects:&v130 forKeys:&v129 count:1];
             v28 = DMFErrorWithCodeAndUserInfo();
 
             if (v28)
@@ -572,11 +572,11 @@ LABEL_17:
           }
 
           [mCMutableDeepCopy2 setObject:v36 forKey:v33];
-          [v87 setObject:mCMutableDeepCopy2 forKey:v35];
+          [v85 setObject:mCMutableDeepCopy2 forKey:v35];
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v107 objects:v133 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v105 objects:v131 count:16];
       if (v31)
       {
         continue;
@@ -587,36 +587,36 @@ LABEL_17:
   }
 
 LABEL_31:
-  v105 = 0u;
-  v106 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v82 = v73;
-  v85 = [v82 countByEnumeratingWithState:&v103 objects:v130 count:16];
-  if (v85)
+  v101 = 0u;
+  v102 = 0u;
+  v80 = v71;
+  v83 = [v80 countByEnumeratingWithState:&v101 objects:v128 count:16];
+  if (v83)
   {
-    v83 = *v104;
-    v75 = DMFInvalidParameterErrorKey;
-    v77 = MCIntersectionValuesKey;
+    v81 = *v102;
+    v73 = DMFInvalidParameterErrorKey;
+    v75 = MCIntersectionValuesKey;
     while (2)
     {
-      for (k = 0; k != v85; k = k + 1)
+      for (k = 0; k != v83; k = k + 1)
       {
-        if (*v104 != v83)
+        if (*v102 != v81)
         {
-          objc_enumerationMutation(v82);
+          objc_enumerationMutation(v80);
         }
 
-        v41 = *(*(&v103 + 1) + 8 * k);
+        v41 = *(*(&v101 + 1) + 8 * k);
         v42 = [payloadCopy objectForKeyedSubscript:{v41, errorCopy}];
         if (v42)
         {
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v123 = v75;
-            v124 = @"key";
-            v52 = [NSDictionary dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+            v121 = v73;
+            v122 = @"key";
+            v51 = [NSDictionary dictionaryWithObjects:&v122 forKeys:&v121 count:1];
             v28 = DMFErrorWithCodeAndUserInfo();
 
             if (v28)
@@ -627,32 +627,31 @@ LABEL_31:
             goto LABEL_53;
           }
 
-          v101 = 0u;
-          v102 = 0u;
           v99 = 0u;
           v100 = 0u;
+          v97 = 0u;
+          v98 = 0u;
           v43 = v42;
-          v44 = [v43 countByEnumeratingWithState:&v99 objects:v129 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v97 objects:v127 count:16];
           if (v44)
           {
             v45 = v44;
-            v46 = *v100;
+            v46 = *v98;
             while (2)
             {
-              for (m = 0; m != v45; m = m + 1)
+              for (m = 0; m != v45; ++m)
               {
-                if (*v100 != v46)
+                if (*v98 != v46)
                 {
                   objc_enumerationMutation(v43);
                 }
 
-                v48 = *(*(&v99 + 1) + 8 * m);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v127 = v75;
-                  v128 = @"key";
-                  v49 = [NSDictionary dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+                  v125 = v73;
+                  v126 = @"key";
+                  v48 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v125 count:1];
                   v28 = DMFErrorWithCodeAndUserInfo();
 
                   if (v28)
@@ -666,7 +665,7 @@ LABEL_74:
                 }
               }
 
-              v45 = [v43 countByEnumeratingWithState:&v99 objects:v129 count:16];
+              v45 = [v43 countByEnumeratingWithState:&v97 objects:v127 count:16];
               if (v45)
               {
                 continue;
@@ -677,16 +676,16 @@ LABEL_74:
           }
 
 LABEL_48:
-          v50 = [(DMDInstallConfigurationOperation *)self _intersectionFeatureForPayloadRestrictionKey:v41];
-          v125 = v77;
-          v126 = v43;
-          v51 = [NSDictionary dictionaryWithObjects:&v126 forKeys:&v125 count:1];
-          [v81 setObject:v51 forKeyedSubscript:v50];
+          v49 = [(DMDInstallConfigurationOperation *)self _intersectionFeatureForPayloadRestrictionKey:v41];
+          v123 = v75;
+          v124 = v43;
+          v50 = [NSDictionary dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+          [v79 setObject:v50 forKeyedSubscript:v49];
         }
       }
 
-      v85 = [v82 countByEnumeratingWithState:&v103 objects:v130 count:16];
-      if (v85)
+      v83 = [v80 countByEnumeratingWithState:&v101 objects:v128 count:16];
+      if (v83)
       {
         continue;
       }
@@ -696,49 +695,49 @@ LABEL_48:
   }
 
 LABEL_53:
-  v97 = 0u;
-  v98 = 0u;
   v95 = 0u;
   v96 = 0u;
-  v82 = v72;
-  v86 = [v82 countByEnumeratingWithState:&v95 objects:v122 count:16];
-  if (!v86)
+  v93 = 0u;
+  v94 = 0u;
+  v80 = v70;
+  v84 = [v80 countByEnumeratingWithState:&v93 objects:v120 count:16];
+  if (!v84)
   {
 LABEL_73:
 
 LABEL_79:
-    v64 = v71;
-    v67 = v71;
+    v62 = v69;
+    v65 = v69;
     v28 = 0;
-    v65 = v70;
+    v63 = v68;
     goto LABEL_80;
   }
 
-  v84 = *v96;
-  v78 = DMFInvalidParameterErrorKey;
-  v80 = MCUnionValuesKey;
+  v82 = *v94;
+  v76 = DMFInvalidParameterErrorKey;
+  v78 = MCUnionValuesKey;
 LABEL_55:
-  v53 = 0;
+  v52 = 0;
   while (1)
   {
-    if (*v96 != v84)
+    if (*v94 != v82)
     {
-      objc_enumerationMutation(v82);
+      objc_enumerationMutation(v80);
     }
 
-    v54 = *(*(&v95 + 1) + 8 * v53);
-    v55 = [payloadCopy objectForKeyedSubscript:{v54, errorCopy}];
-    if (v55)
+    v53 = *(*(&v93 + 1) + 8 * v52);
+    v54 = [payloadCopy objectForKeyedSubscript:{v53, errorCopy}];
+    if (v54)
     {
       break;
     }
 
 LABEL_71:
 
-    if (++v53 == v86)
+    if (++v52 == v84)
     {
-      v86 = [v82 countByEnumeratingWithState:&v95 objects:v122 count:16];
-      if (v86)
+      v84 = [v80 countByEnumeratingWithState:&v93 objects:v120 count:16];
+      if (v84)
       {
         goto LABEL_55;
       }
@@ -750,36 +749,35 @@ LABEL_71:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v93 = 0u;
-    v94 = 0u;
     v91 = 0u;
     v92 = 0u;
-    v43 = v55;
-    v56 = [v43 countByEnumeratingWithState:&v91 objects:v121 count:16];
-    if (v56)
+    v89 = 0u;
+    v90 = 0u;
+    v43 = v54;
+    v55 = [v43 countByEnumeratingWithState:&v89 objects:v119 count:16];
+    if (v55)
     {
-      v57 = v56;
-      v58 = *v92;
+      v56 = v55;
+      v57 = *v90;
 LABEL_62:
-      v59 = 0;
+      v58 = 0;
       while (1)
       {
-        if (*v92 != v58)
+        if (*v90 != v57)
         {
           objc_enumerationMutation(v43);
         }
 
-        v60 = *(*(&v91 + 1) + 8 * v59);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           break;
         }
 
-        if (v57 == ++v59)
+        if (v56 == ++v58)
         {
-          v57 = [v43 countByEnumeratingWithState:&v91 objects:v121 count:16];
-          if (v57)
+          v56 = [v43 countByEnumeratingWithState:&v89 objects:v119 count:16];
+          if (v56)
           {
             goto LABEL_62;
           }
@@ -788,9 +786,9 @@ LABEL_62:
         }
       }
 
-      v119 = v78;
-      v120 = @"key";
-      v61 = [NSDictionary dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+      v117 = v76;
+      v118 = @"key";
+      v59 = [NSDictionary dictionaryWithObjects:&v118 forKeys:&v117 count:1];
       v28 = DMFErrorWithCodeAndUserInfo();
 
       if (v28)
@@ -804,17 +802,17 @@ LABEL_62:
 LABEL_68:
     }
 
-    v117 = v80;
-    v118 = v43;
-    v62 = [NSDictionary dictionaryWithObjects:&v118 forKeys:&v117 count:1];
-    [v76 setObject:v62 forKeyedSubscript:v54];
+    v115 = v78;
+    v116 = v43;
+    v60 = [NSDictionary dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+    [v74 setObject:v60 forKeyedSubscript:v53];
 
     goto LABEL_71;
   }
 
-  v115 = v78;
-  v116 = @"key";
-  v63 = [NSDictionary dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+  v113 = v76;
+  v114 = @"key";
+  v61 = [NSDictionary dictionaryWithObjects:&v114 forKeys:&v113 count:1];
   v28 = DMFErrorWithCodeAndUserInfo();
 
   if (!v28)
@@ -823,23 +821,23 @@ LABEL_68:
   }
 
 LABEL_76:
-  v65 = v70;
-  v64 = v71;
+  v63 = v68;
+  v62 = v69;
   if (errorCopy)
   {
-    v66 = v28;
-    v67 = 0;
+    v64 = v28;
+    v65 = 0;
     *errorCopy = v28;
   }
 
   else
   {
-    v67 = 0;
+    v65 = 0;
   }
 
 LABEL_80:
 
-  return v67;
+  return v65;
 }
 
 - (id)_applyHeuristicsToRestrictions:(id)restrictions error:(id *)error

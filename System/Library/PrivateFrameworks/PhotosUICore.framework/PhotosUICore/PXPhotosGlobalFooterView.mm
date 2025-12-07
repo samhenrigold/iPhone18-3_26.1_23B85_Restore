@@ -181,32 +181,32 @@ void __76__PXPhotosGlobalFooterView_textView_primaryActionForTextItem_defaultAct
   }
 }
 
-uint64_t __62__PXPhotosGlobalFooterView__performActionFromView_sourceRect___block_invoke(uint64_t a1)
+uint64_t __62__PXPhotosGlobalFooterView__performActionFromView_sourceRect___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = PLUserStatusUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = PLUserStatusUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) actionTitle];
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User confirmed action with title: %{public}@", &v5, 0xCu);
+    v4 = [*(a1 + 32) actionTitle];
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User confirmed action with title: %{public}@", &v6, 0xCu);
   }
 
   *(*(a1 + 40) + 608) = 0;
   return (*(*(a1 + 48) + 16))();
 }
 
-void __62__PXPhotosGlobalFooterView__performActionFromView_sourceRect___block_invoke_396(uint64_t a1)
+void __62__PXPhotosGlobalFooterView__performActionFromView_sourceRect___block_invoke_396(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = PLUserStatusUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = PLUserStatusUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) actionTitle];
-    v4 = 138543362;
-    v5 = v3;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "User dismissed action with title: %{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) actionTitle];
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "User dismissed action with title: %{public}@", &v5, 0xCu);
   }
 
   *(*(a1 + 40) + 608) = 0;
@@ -541,12 +541,12 @@ LABEL_26:
       [(UITextView *)self->_subtitle2TextView setHidden:0];
     }
 
-    [viewModel actionStyle];
-    [viewModel useBlankActionSeparator];
-    v7 = self->_subtitle2TextView;
+    v7 = [viewModel actionStyle] == 2;
+    useBlankActionSeparator = [viewModel useBlankActionSeparator];
+    v9 = self->_subtitle2TextView;
     actionTitle = [viewModel actionTitle];
     labelColor = [(PXPhotosGlobalFooterView *)self labelColor];
-    _ConfigureSubtitleTextView(v7, subtitle2, actionTitle, labelColor, 1, 0);
+    _ConfigureSubtitleTextView(v9, subtitle2, actionTitle, labelColor, 1, 0, v7, 0, useBlankActionSeparator);
   }
 
   [(UITextView *)subtitle2TextView setHidden:1];
@@ -578,12 +578,12 @@ LABEL_26:
     }
 
     subtitle1Style = [v6 subtitle1Style];
-    [viewModel actionStyle];
-    [viewModel useBlankActionSeparator];
-    [viewModel showBadge];
-    v9 = self->_subtitle1TextView;
+    v9 = [viewModel actionStyle] == 2;
+    useBlankActionSeparator = [viewModel useBlankActionSeparator];
+    showBadge = [viewModel showBadge];
+    v12 = self->_subtitle1TextView;
     labelColor = [(PXPhotosGlobalFooterView *)self labelColor];
-    _ConfigureSubtitleTextView(v9, subtitle1, v7, labelColor, 0, subtitle1Style);
+    _ConfigureSubtitleTextView(v12, subtitle1, v7, labelColor, 0, subtitle1Style, v9, showBadge, useBlankActionSeparator);
   }
 
   [(UITextView *)subtitle1TextView setHidden:1];

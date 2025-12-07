@@ -64,24 +64,22 @@
 
 - (void)turnOnLocationServicesPressed:(id)pressed
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   getLogger = [(PSUICellularDataPlanListGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [pressedCopy URL];
-    v10 = 136315394;
-    v11 = "[PSUICellularDataPlanListGroup turnOnLocationServicesPressed:]";
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[PSUICellularDataPlanListGroup turnOnLocationServicesPressed:]";
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
   }
 
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
   v8 = [pressedCopy URL];
   [defaultWorkspace openSensitiveURL:v8 withOptions:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -211,8 +209,8 @@
       _Block_object_dispose(&v95, 8);
       if (!v30)
       {
-        dlerror();
-        abort_report_np();
+        v78 = dlerror();
+        abort_report_np("%s", v78);
         __break(1u);
       }
 
@@ -332,8 +330,6 @@
     }
   }
 
-  v77 = *MEMORY[0x277D85DE8];
-
   return v84;
 }
 
@@ -364,7 +360,7 @@
 
 - (void)addNewPlanPressed:(id)pressed
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   v5 = +[PSUICellularPlanManagerCache sharedInstance];
   isCarrierItemFlowSupported = [v5 isCarrierItemFlowSupported];
@@ -414,10 +410,10 @@
       {
         [pressedCopy setProperty:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277D3FF38]];
         [(PSUICellularDataPlanListGroup *)self _showSpinner:1];
-        v28 = *MEMORY[0x277D49548];
+        v27 = *MEMORY[0x277D49548];
         v19 = [MEMORY[0x277CCABB0] numberWithInteger:3];
-        v29[0] = v19;
-        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+        v28[0] = v19;
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
 
         v21 = [MEMORY[0x277D49530] flowWithOptions:v20];
         flow = self->_flow;
@@ -426,14 +422,14 @@
         [(TSSIMSetupFlow *)self->_flow setDelegate:self];
         objc_initWeak(&buf, self);
         v23 = self->_flow;
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __51__PSUICellularDataPlanListGroup_addNewPlanPressed___block_invoke;
-        v25[3] = &unk_279BA9EC8;
-        objc_copyWeak(&v26, &buf);
-        v25[4] = self;
-        [(TSSIMSetupFlow *)v23 firstViewController:v25];
-        objc_destroyWeak(&v26);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __51__PSUICellularDataPlanListGroup_addNewPlanPressed___block_invoke;
+        v24[3] = &unk_279BA9EC8;
+        objc_copyWeak(&v25, &buf);
+        v24[4] = self;
+        [(TSSIMSetupFlow *)v23 firstViewController:v24];
+        objc_destroyWeak(&v25);
         objc_destroyWeak(&buf);
       }
     }
@@ -448,8 +444,6 @@
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PSUICellularDataPlanListGroup_addNewPlanPressed___block_invoke(uint64_t a1, void *a2)
@@ -484,23 +478,21 @@ void __51__PSUICellularDataPlanListGroup_addNewPlanPressed___block_invoke(uint64
 
 - (void)selectPlanWithSpecifier:(id)specifier
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   userInfo = [specifier userInfo];
   item = [userInfo item];
   getLogger = [(PSUICellularDataPlanListGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[PSUICellularDataPlanListGroup selectPlanWithSpecifier:]";
-    v11 = 2112;
-    v12 = item;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s selected plan %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[PSUICellularDataPlanListGroup selectPlanWithSpecifier:]";
+    v10 = 2112;
+    v11 = item;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s selected plan %@", &v8, 0x16u);
   }
 
   v7 = +[PSUICellularPlanManagerCache sharedInstance];
   [v7 setSelectedPlanItem:item];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
@@ -689,29 +681,29 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
 
 - (id)_populateAliasesFromDataPlans:(id)plans
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   plansCopy = plans;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   obj = plansCopy;
-  v5 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+  v5 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v69;
+    v7 = *v68;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v69 != v7)
+        if (*v68 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v68 + 1) + 8 * i);
+        v9 = *(*(&v67 + 1) + 8 * i);
         name = [v9 name];
         v11 = [name length];
 
@@ -750,66 +742,66 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
         [v19 addObject:v9];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v68 objects:v75 count:16];
+      v6 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
     }
 
     while (v6);
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v20 = dictionary;
-  v21 = [v20 countByEnumeratingWithState:&v64 objects:v74 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v63 objects:v73 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v65;
+    v23 = *v64;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v65 != v23)
+        if (*v64 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [v20 objectForKeyedSubscript:*(*(&v64 + 1) + 8 * j)];
+        v25 = [v20 objectForKeyedSubscript:*(*(&v63 + 1) + 8 * j)];
         [v25 sortUsingComparator:&__block_literal_global_127];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v64 objects:v74 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v63 objects:v73 count:16];
     }
 
     while (v22);
   }
 
   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   v27 = v20;
-  v28 = [v27 countByEnumeratingWithState:&v60 objects:v73 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v59 objects:v72 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v61;
-    v51 = *v61;
-    v52 = v27;
+    v30 = *v60;
+    v50 = *v60;
+    v51 = v27;
     do
     {
       v31 = 0;
-      v53 = v29;
+      v52 = v29;
       do
       {
-        if (*v61 != v30)
+        if (*v60 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v60 + 1) + 8 * v31);
+        v32 = *(*(&v59 + 1) + 8 * v31);
         v33 = [v27 objectForKeyedSubscript:v32];
         v34 = [v33 count];
 
@@ -825,17 +817,17 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
 
         else
         {
-          v58 = 0u;
-          v59 = 0u;
-          v56 = 0u;
           v57 = 0u;
+          v58 = 0u;
+          v55 = 0u;
+          v56 = 0u;
           v38 = [v27 objectForKeyedSubscript:v32];
-          v39 = [(SCCellularPlanItem *)v38 countByEnumeratingWithState:&v56 objects:v72 count:16];
+          v39 = [(SCCellularPlanItem *)v38 countByEnumeratingWithState:&v55 objects:v71 count:16];
           if (v39)
           {
             v40 = v39;
-            v55 = v31;
-            v41 = *v57;
+            v54 = v31;
+            v41 = *v56;
             v42 = 1;
             do
             {
@@ -843,12 +835,12 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
               v44 = v42;
               do
               {
-                if (*v57 != v41)
+                if (*v56 != v41)
                 {
                   objc_enumerationMutation(v38);
                 }
 
-                v45 = *(*(&v56 + 1) + 8 * v43);
+                v45 = *(*(&v55 + 1) + 8 * v43);
                 v42 = (v44 + 1);
                 v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ - %d", v32, v44];
                 v47 = [[SCCellularPlanItem alloc] initWithAlias:v45 alias:v46];
@@ -859,14 +851,14 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
               }
 
               while (v40 != v43);
-              v40 = [(SCCellularPlanItem *)v38 countByEnumeratingWithState:&v56 objects:v72 count:16];
+              v40 = [(SCCellularPlanItem *)v38 countByEnumeratingWithState:&v55 objects:v71 count:16];
             }
 
             while (v40);
-            v30 = v51;
-            v27 = v52;
-            v29 = v53;
-            v31 = v55;
+            v30 = v50;
+            v27 = v51;
+            v29 = v52;
+            v31 = v54;
           }
         }
 
@@ -874,14 +866,13 @@ void __47__PSUICellularDataPlanListGroup__showWifiAlert__block_invoke_2(uint64_t
       }
 
       while (v31 != v29);
-      v29 = [v27 countByEnumeratingWithState:&v60 objects:v73 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v59 objects:v72 count:16];
     }
 
     while (v29);
   }
 
   v48 = [v26 copy];
-  v49 = *MEMORY[0x277D85DE8];
 
   return v48;
 }

@@ -7,6 +7,7 @@
 - (id)citiesByEnforcingSizeLimitOnResults:(id)results;
 - (id)prepareLocalCitiesForReconciliation:(id)reconciliation isInitialSync:(BOOL)sync;
 - (id)reconcileCloudCities:(id)cities withLocal:(id)local isInitialSync:(BOOL)sync;
+- (void)_synchronize:(BOOL)_synchronize;
 - (void)cloudCitiesChangedExternally:(id)externally;
 - (void)purgeLegacyCloudCities;
 - (void)saveCitiesToCloud:(id)cloud;
@@ -83,7 +84,7 @@
 
 - (void)setSyncDelegate:(id)delegate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   WeakRetained = objc_loadWeakRetained(&self->_syncDelegate);
 
@@ -93,18 +94,16 @@
     v6 = WALogForCategory(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = delegateCopy;
-      _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] CloudPreferences setting syncDelegate to %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = delegateCopy;
+      _os_log_impl(&dword_272ACF000, v6, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] CloudPreferences setting syncDelegate to %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)citiesByEnforcingSizeLimitOnResults:(id)results
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   if ([resultsCopy count] <= 0x14)
   {
@@ -117,22 +116,20 @@
     v5 = WALogForCategory(5);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] City list exceeds size limit after sync, dropping %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] City list exceeds size limit after sync, dropping %@", &v8, 0xCu);
     }
 
     v6 = [resultsCopy subarrayWithRange:{0, 20}];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (BOOL)areCloudCities:(id)cities equalToLocalCities:(id)localCities
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   v6 = [localCities na_filter:&__block_literal_global_7_0];
   v7 = [v6 copy];
@@ -174,17 +171,16 @@
     v15 = WALogForCategory(5);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412546;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_272ACF000, v15, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Cloud and local cities arrays are different lengths.\nConverted cloud cities: %@\nConverted local cities: %@\n", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_272ACF000, v15, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Cloud and local cities arrays are different lengths.\nConverted cloud cities: %@\nConverted local cities: %@\n", &v17, 0x16u);
     }
 
     v14 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -234,14 +230,14 @@
 
 - (void)updateLocalStoreWithRemoteChanges:(id)changes
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   v5 = WALogForCategory(5);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = changesCopy;
-    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Updating local store with reconciled changes: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = changesCopy;
+    _os_log_impl(&dword_272ACF000, v5, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Updating local store with reconciled changes: %@", &v8, 0xCu);
   }
 
   localPreferences = [(WeatherCloudPreferences *)self localPreferences];
@@ -249,14 +245,12 @@
 
   syncDelegate = [(WeatherCloudPreferences *)self syncDelegate];
   [syncDelegate ubiquitousDefaultsDidChange:changesCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)reconcileCloudCities:(id)cities withLocal:(id)local isInitialSync:(BOOL)sync
 {
   syncCopy = sync;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   citiesCopy = cities;
   localCopy = local;
   v10 = WALogForCategory(5);
@@ -264,7 +258,7 @@
   {
     v11 = [citiesCopy na_map:&__block_literal_global_13_0];
     *buf = 138412290;
-    v37 = v11;
+    v36 = v11;
     _os_log_impl(&dword_272ACF000, v10, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Preparing to reconcile local data with cities from cloud: %@", buf, 0xCu);
   }
 
@@ -309,35 +303,35 @@ LABEL_11:
     if (syncCopy)
     {
       v20 = [(WeatherCloudPreferences *)self prepareLocalCitiesForReconciliation:localCopy isInitialSync:1];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialSync___block_invoke_19;
-      v34[3] = &unk_279E68380;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialSync___block_invoke_19;
+      v33[3] = &unk_279E68380;
       v21 = v19;
-      v35 = v21;
-      [v20 na_each:v34];
+      v34 = v21;
+      [v20 na_each:v33];
       v22 = WALogForCategory(5);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v20;
+        v36 = v20;
         _os_log_impl(&dword_272ACF000, v22, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Initial sync - merging data from cloud with local cities: %@", buf, 0xCu);
       }
 
-      v29 = MEMORY[0x277D85DD0];
-      v30 = 3221225472;
-      v31 = __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialSync___block_invoke_21;
-      v32 = &unk_279E68358;
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialSync___block_invoke_21;
+      v31 = &unk_279E68358;
       v23 = v20;
-      v33 = v23;
-      v24 = [v21 na_filter:&v29];
-      [array addObjectsFromArray:{v23, v29, v30, v31, v32}];
+      v32 = v23;
+      v24 = [v21 na_filter:&v28];
+      [array addObjectsFromArray:{v23, v28, v29, v30, v31}];
       [array addObjectsFromArray:v24];
       v25 = WALogForCategory(5);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = array;
+        v36 = array;
         _os_log_impl(&dword_272ACF000, v25, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] Initial sync - merge results: %@", buf, 0xCu);
       }
 
@@ -372,7 +366,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  v27 = *MEMORY[0x277D85DE8];
 
   return _defaultCities;
 }
@@ -469,6 +462,53 @@ uint64_t __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialS
   return v10;
 }
 
+- (void)_synchronize:(BOOL)_synchronize
+{
+  _synchronizeCopy = _synchronize;
+  v20 = *MEMORY[0x277D85DE8];
+  cloudStore = [(WeatherCloudPreferences *)self cloudStore];
+  v6 = [cloudStore objectForKey:@"CloudCities_v2.0"];
+
+  localPreferences = [(WeatherCloudPreferences *)self localPreferences];
+  loadSavedCities = [localPreferences loadSavedCities];
+
+  v9 = WALogForCategory(5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = [v6 valueForKeyPath:*MEMORY[0x277D7B200]];
+    v16 = 136315394;
+    v17 = "[WeatherCloudPreferences _synchronize:]";
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_INFO, "%s Cloud cities: %@", &v16, 0x16u);
+  }
+
+  v11 = WALogForCategory(5);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  {
+    v12 = [loadSavedCities valueForKeyPath:@"name"];
+    v16 = 136315394;
+    v17 = "[WeatherCloudPreferences _synchronize:]";
+    v18 = 2112;
+    v19 = v12;
+    _os_log_impl(&dword_272ACF000, v11, OS_LOG_TYPE_INFO, "%s Local cities: %@", &v16, 0x16u);
+  }
+
+  if (![(WeatherCloudPreferences *)self areCloudCities:v6 equalToLocalCities:loadSavedCities])
+  {
+    v13 = WALogForCategory(5);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_272ACF000, v13, OS_LOG_TYPE_DEFAULT, "[WeatherKVS] New cloud data detected after synchronizing", &v16, 2u);
+    }
+
+    v14 = [(WeatherCloudPreferences *)self prepareLocalCitiesForReconciliation:loadSavedCities isInitialSync:_synchronizeCopy];
+    v15 = [(WeatherCloudPreferences *)self reconcileCloudCities:v6 withLocal:v14 isInitialSync:_synchronizeCopy];
+    [(WeatherCloudPreferences *)self updateLocalStoreWithRemoteChanges:v15];
+  }
+}
+
 - (void)setCloudStoreCities:(id)cities
 {
   v5 = [cities na_filter:&__block_literal_global_28];
@@ -478,7 +518,7 @@ uint64_t __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialS
 
 - (void)saveCitiesToCloud:(id)cloud
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = [cloud na_filter:&__block_literal_global_30];
   if ([(WeatherCloudPreferences *)self shouldWriteCitiesToCloud:v4])
   {
@@ -491,13 +531,13 @@ uint64_t __72__WeatherCloudPreferences_reconcileCloudCities_withLocal_isInitialS
     v7 = WALogForCategory(5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v4;
+      v11 = 138412290;
+      v12 = v4;
       v8 = "[WeatherKVS] Saved cities to cloud store: %@";
       v9 = v7;
       v10 = 12;
 LABEL_6:
-      _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, v8, &v12, v10);
+      _os_log_impl(&dword_272ACF000, v9, OS_LOG_TYPE_DEFAULT, v8, &v11, v10);
     }
   }
 
@@ -506,15 +546,13 @@ LABEL_6:
     v7 = WALogForCategory(5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v11) = 0;
       v8 = "[WeatherKVS] Skipping cloud save request - cloud already matches local.";
       v9 = v7;
       v10 = 2;
       goto LABEL_6;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldWriteCitiesToCloud:(id)cloud

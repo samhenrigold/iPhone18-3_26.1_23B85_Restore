@@ -28,36 +28,36 @@
 
 - (id)loadMostRecentMessagePTasks
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [(IMDMessagePTaskXPCStore *)self _networkCall_IMDMessagePTaskSelectWithLimit:100];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = [objc_alloc(MEMORY[0x277D18EC8]) initWithStoreDictionary:*(*(&v11 + 1) + 8 * v7)];
+        v8 = [objc_alloc(MEMORY[0x277D18EC8]) initWithStoreDictionary:*(*(&v10 + 1) + 8 * v7)];
         [v3 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -65,16 +65,13 @@
 
   if (v2)
   {
-    result = v3;
+    return v3;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)updateTaskFlagsForPTask:(id)task

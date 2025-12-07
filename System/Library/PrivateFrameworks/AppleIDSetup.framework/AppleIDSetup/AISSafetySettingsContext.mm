@@ -19,7 +19,6 @@
   selfCopy = self;
   sub_24075A864();
   MEMORY[0x245CC5E60](0xD000000000000025, 0x8000000240788000);
-  v5 = *(&selfCopy->super.isa + OBJC_IVAR___AISSafetySettingsContext_flowType);
   sub_24075A994();
   MEMORY[0x245CC5E60](32032, 0xE200000000000000);
 

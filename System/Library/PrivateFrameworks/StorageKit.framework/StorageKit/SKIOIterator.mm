@@ -7,7 +7,7 @@
 
 - (SKIOIterator)initWithClassName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   existing = 0;
   v5 = *MEMORY[0x277CD2898];
@@ -28,7 +28,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = nameCopy;
+      v13 = nameCopy;
       _os_log_impl(&dword_26BBB8000, v8, OS_LOG_TYPE_ERROR, "Cannot find IO object of class %@", buf, 0xCu);
     }
 
@@ -41,13 +41,12 @@
     selfCopy = self;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (unsigned)copyNextObject
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [(SKIOIterator *)self setAttempt:0];
   if ([(SKIOIterator *)self attempt]> 0x3E7)
   {
@@ -55,13 +54,12 @@ LABEL_5:
     v4 = SKGetOSLog();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6[0] = 67109120;
-      v6[1] = 1000;
-      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "IOKit iterator invalidated %d time(s)", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = 1000;
+      _os_log_impl(&dword_26BBB8000, v4, OS_LOG_TYPE_ERROR, "IOKit iterator invalidated %d time(s)", v5, 8u);
     }
 
-LABEL_8:
-    result = 0;
+    return 0;
   }
 
   else
@@ -76,7 +74,7 @@ LABEL_8:
 
       if (IOIteratorIsValid([(SKIOObject *)self ioObj]))
       {
-        goto LABEL_8;
+        return 0;
       }
 
       [(SKIOIterator *)self setAttempt:[(SKIOIterator *)self attempt]+ 1];
@@ -88,7 +86,6 @@ LABEL_8:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

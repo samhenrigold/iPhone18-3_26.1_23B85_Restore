@@ -34,14 +34,14 @@
 - (LSBundleRecordUpdater)initWithBundleIdentifier:(id)identifier preferPlaceholder:(BOOL)placeholder
 {
   placeholderCopy = placeholder;
-  v26 = *MEMORY[0x1E69E9840];
-  v23 = 0;
-  obj = 0;
-  v22 = 0;
-  identifierCopy = identifier;
+  v27 = *MEMORY[0x1E69E9840];
   v24 = 0;
-  inited = _LSContextInitReturningError(&obj, &v24);
-  v8 = v24;
+  obj = 0;
+  v23 = 0;
+  identifierCopy = identifier;
+  v25 = 0;
+  inited = _LSContextInitReturningError(&obj, &v25);
+  v8 = v25;
   if (inited)
   {
     if (placeholderCopy)
@@ -55,7 +55,7 @@
     }
 
     memset(buf, 0, 32);
-    if (_LSBundleFindWithInfoAndNo_IOFilter(&obj, 0, identifierCopy, 0, buf, 2, v9, 0, 0, &v23, &v22, 0))
+    if (_LSBundleFindWithInfoAndNo_IOFilter(&obj, 0, identifierCopy, 0, buf, 2, v9, 0, 0, &v24, &v23, 0))
     {
       v10 = 0;
       v11 = 1;
@@ -76,43 +76,42 @@ LABEL_9:
   v14 = v10;
   if (v11)
   {
-    v15 = [(LSBundleRecordUpdater *)self initWithDatabase:obj bundleUnit:v23 bundleData:v22];
+    v15 = [(LSBundleRecordUpdater *)self initWithDatabase:obj bundleUnit:v24 bundleData:v23];
     v16 = v15;
     if (v15)
     {
       objc_storeStrong(&v15->_context.db, obj);
       v16->_hasContext = 1;
-      v17 = _LSDefaultLog();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = _LSDefaultLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = *(v22 + 172);
+        v19 = *(v23 + 172);
         *buf = 138412546;
         *&buf[4] = identifierCopy;
         *&buf[12] = 2048;
-        *&buf[14] = v18;
-        _os_log_impl(&dword_18162D000, v17, OS_LOG_TYPE_DEFAULT, "Created bundleRecordUpdater for app %@. flags=%llx", buf, 0x16u);
+        *&buf[14] = v19;
+        _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Created bundleRecordUpdater for app %@. flags=%llx", buf, 0x16u);
       }
 
       goto LABEL_18;
     }
 
-    _LSContextDestroy(&obj);
+    v20 = _LSContextDestroy(&obj);
   }
 
   else
   {
   }
 
-  v17 = _LSDefaultLog();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = _LSDefaultLog(v20);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [(LSBundleRecordUpdater *)identifierCopy initWithBundleIdentifier:v14 preferPlaceholder:v17];
+    [(LSBundleRecordUpdater *)identifierCopy initWithBundleIdentifier:v14 preferPlaceholder:v18];
   }
 
   v16 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -440,51 +439,51 @@ LABEL_73:
 
 - (BOOL)parsePersonas:(id)personas error:(id *)error
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   personasCopy = personas;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(personasCopy, "count")}];
-  memset(&v55, 0, sizeof(v55));
-  std::vector<unsigned int>::reserve(&v55, [personasCopy count]);
-  v53 = 0u;
-  v54 = 0u;
+  memset(&v52, 0, sizeof(v52));
+  std::vector<unsigned int>::reserve(&v52, [personasCopy count]);
+  v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = personasCopy;
-  v6 = [obj countByEnumeratingWithState:&v51 objects:v64 count:16];
+  v6 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
   selfCopy = self;
   if (v6)
   {
     v7 = 0;
-    v8 = *v52;
+    v8 = *v49;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v52 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v51 + 1) + 8 * i);
+        v10 = *(*(&v48 + 1) + 8 * i);
         v11 = [(_LSPersonaWithAttributes *)v10 personaType]== 3;
         personaUniqueString = [(_LSPersonaWithAttributes *)v10 personaUniqueString];
         [v5 addObject:personaUniqueString];
 
         personaType = [(_LSPersonaWithAttributes *)v10 personaType];
-        end = v55.__end_;
-        if (v55.__end_ >= v55.__end_cap_.__value_)
+        end = v52.__end_;
+        if (v52.__end_ >= v52.__end_cap_.__value_)
         {
-          begin = v55.__begin_;
-          v17 = v55.__end_ - v55.__begin_;
-          v18 = v55.__end_ - v55.__begin_;
+          begin = v52.__begin_;
+          v17 = v52.__end_ - v52.__begin_;
+          v18 = v52.__end_ - v52.__begin_;
           v19 = v18 + 1;
           if ((v18 + 1) >> 62)
           {
             std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
           }
 
-          v20 = v55.__end_cap_.__value_ - v55.__begin_;
-          if ((v55.__end_cap_.__value_ - v55.__begin_) >> 1 > v19)
+          v20 = v52.__end_cap_.__value_ - v52.__begin_;
+          if ((v52.__end_cap_.__value_ - v52.__begin_) >> 1 > v19)
           {
             v19 = v20 >> 1;
           }
@@ -498,16 +497,16 @@ LABEL_73:
 
           if (v22)
           {
-            std::allocator<unsigned int>::allocate_at_least[abi:nn200100](&v55, v22);
+            std::allocator<unsigned int>::allocate_at_least[abi:nn200100](&v52, v22);
           }
 
           *(4 * v18) = personaType;
           v15 = (4 * v18 + 4);
           memcpy(0, begin, v17);
-          v23 = v55.__begin_;
-          v55.__begin_ = 0;
-          v55.__end_ = v15;
-          v55.__end_cap_.__value_ = 0;
+          v23 = v52.__begin_;
+          v52.__begin_ = 0;
+          v52.__end_ = v15;
+          v52.__end_cap_.__value_ = 0;
           if (v23)
           {
             operator delete(v23);
@@ -516,15 +515,15 @@ LABEL_73:
 
         else
         {
-          *v55.__end_ = personaType;
+          *v52.__end_ = personaType;
           v15 = end + 1;
         }
 
         v7 |= v11;
-        v55.__end_ = v15;
+        v52.__end_ = v15;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v51 objects:v64 count:16];
+      v6 = [obj countByEnumeratingWithState:&v48 objects:v61 count:16];
     }
 
     while (v6);
@@ -557,24 +556,24 @@ LABEL_73:
   p_appContainerAlias = &p_bundleData->appContainerAlias;
   p_bundleData->appContainerAlias = v28;
   _LSDatabaseDisposeStringArray(self->super._db, appContainerAlias);
-  v30 = *&p_bundleData->revision;
-  if (v55.__end_ == v55.__begin_)
+  if (v52.__end_ == v52.__begin_)
   {
-    v31 = 0;
+    v30 = 0;
   }
 
   else
   {
     [(_LSDatabase *)self->super._db store];
-    v31 = _CSArrayCreate();
+    v30 = _CSArrayCreate();
   }
 
-  *&p_bundleData->revision = v31;
+  *&p_bundleData->revision = v30;
   [(_LSDatabase *)self->super._db store];
   _CSArrayDispose();
-  if (![obj count] || *p_appContainerAlias && *&p_bundleData->revision)
+  v31 = [obj count];
+  if (!v31 || *p_appContainerAlias && *&p_bundleData->revision)
   {
-    v32 = _LSRegistrationLog();
+    v32 = _LSRegistrationLog(v31);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       bundleID = self->_bundleID;
@@ -586,207 +585,201 @@ LABEL_73:
     *&p_bundleData->base.flags &= ~0x20u;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v57 = 0x4812000000;
-    v58 = __Block_byref_object_copy__11;
-    v59 = __Block_byref_object_dispose__11;
-    v60 = &unk_1818533FF;
-    v62 = 0;
-    v63 = 0;
+    v54 = 0x4812000000;
+    v55 = __Block_byref_object_copy__11;
+    v56 = __Block_byref_object_dispose__11;
+    v57 = &unk_1818533FF;
+    v59 = 0;
+    v60 = 0;
     __p = 0;
     [(_LSDatabase *)self->super._db store];
-    libraryPath = p_bundleData->libraryPath;
     _CSArrayEnumerateAllValues();
     selfCopy2 = self;
-    v36 = *(*(&buf + 1) + 48);
-    for (j = *(*(&buf + 1) + 56); v36 != j; selfCopy2 = selfCopy)
+    v35 = *(*(&buf + 1) + 48);
+    for (j = *(*(&buf + 1) + 56); v35 != j; selfCopy2 = selfCopy)
     {
-      v38 = *v36;
       [(_LSDatabase *)selfCopy2->super._db store];
       _CSStringRelease();
-      ++v36;
+      v35 += 4;
     }
 
     _Block_object_dispose(&buf, 8);
     if (__p)
     {
-      v62 = __p;
+      v59 = __p;
       operator delete(__p);
     }
 
-    v39 = 0;
-    v40 = 1;
+    v37 = 0;
+    v38 = 1;
   }
 
   else
   {
-    v41 = _LSDefaultLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v39 = _LSDefaultLog(v31);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      [(LSBundleRecordUpdater *)&p_bundleData->appContainerAlias parsePersonas:v41 error:?];
+      [(LSBundleRecordUpdater *)&p_bundleData->appContainerAlias parsePersonas:v39 error:?];
     }
 
     *p_appContainerAlias = 0;
-    v42 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -41, 0, "[LSBundleRecordUpdater parsePersonas:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSBundleRecordUpdater.mm", 309);
-    v39 = v42;
-    if (v47)
+    v40 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -41, 0, "[LSBundleRecordUpdater parsePersonas:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSBundleRecordUpdater.mm", 309);
+    v37 = v40;
+    if (v44)
     {
-      v43 = v42;
-      v40 = 0;
-      *v47 = v39;
+      v41 = v40;
+      v38 = 0;
+      *v44 = v37;
     }
 
     else
     {
-      v40 = 0;
+      v38 = 0;
     }
   }
 
-  if (v55.__begin_)
+  if (v52.__begin_)
   {
-    v55.__end_ = v55.__begin_;
-    operator delete(v55.__begin_);
+    v52.__end_ = v52.__begin_;
+    operator delete(v52.__begin_);
   }
 
-  v44 = *MEMORY[0x1E69E9840];
-  return v40;
+  return v38;
 }
 
-void __45__LSBundleRecordUpdater_parsePersonas_error___block_invoke(uint64_t a1, uint64_t a2, int a3)
+void __45__LSBundleRecordUpdater_parsePersonas_error___block_invoke(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v41 = a3;
-  v4 = std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>((*(a1 + 32) + 600), &v41);
+  v54 = *MEMORY[0x1E69E9840];
+  v38 = a3;
+  v4 = std::__hash_table<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSApplicationRecord * {__strong}>>>::find<unsigned int>((*(a1 + 32) + 600), &v38);
+  v5 = v4;
   if (!v4)
   {
-    v5 = _LSGetPlugin(*(*(a1 + 32) + 8), v41);
-    if (v5)
+    v4 = _LSGetPlugin(*(*(a1 + 32) + 8), v38);
+    if (v4)
     {
       v6 = *(a1 + 32);
-      *buf = v41;
-      v7 = v5[11];
-      v8 = v5[12];
-      v9 = v5[13];
-      *(v56 + 12) = *(v5 + 220);
-      v56[0] = v9;
-      v55 = v8;
-      v54 = v7;
-      v10 = v5[7];
-      v11 = v5[8];
-      v12 = v5[9];
-      v53 = v5[10];
-      v52 = v12;
-      v51 = v11;
-      v50 = v10;
-      v13 = v5[3];
-      v14 = v5[4];
-      v15 = v5[5];
-      v49 = v5[6];
-      v48 = v15;
-      v47 = v14;
-      v46 = v13;
-      v17 = *v5;
-      v16 = v5[1];
-      v45 = v5[2];
-      v43 = v17;
-      v44 = v16;
-      v4 = std::__hash_table<std::__hash_value_type<unsigned int,LSPluginData>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSPluginData>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSPluginData>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSPluginData>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,LSPluginData>>((v6 + 600), buf);
+      *buf = v38;
+      v7 = v4[11];
+      v8 = v4[12];
+      v9 = v4[13];
+      *(v53 + 12) = *(v4 + 220);
+      v53[0] = v9;
+      v52 = v8;
+      v51 = v7;
+      v10 = v4[7];
+      v11 = v4[8];
+      v12 = v4[9];
+      v50 = v4[10];
+      v49 = v12;
+      v48 = v11;
+      v47 = v10;
+      v13 = v4[3];
+      v14 = v4[4];
+      v15 = v4[5];
+      v46 = v4[6];
+      v45 = v15;
+      v44 = v14;
+      v43 = v13;
+      v17 = *v4;
+      v16 = v4[1];
+      v42 = v4[2];
+      v40 = v17;
+      v41 = v16;
+      v4 = std::__hash_table<std::__hash_value_type<unsigned int,LSPluginData>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,LSPluginData>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,LSPluginData>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,LSPluginData>>>::__emplace_unique_key_args<unsigned int,std::pair<unsigned int,LSPluginData>>((v6 + 600), buf, buf);
+      v5 = v4;
     }
 
     else
     {
-      v4 = 0;
+      v5 = 0;
     }
   }
 
-  v18 = _LSRegistrationLog();
+  v18 = _LSRegistrationLog(v4);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = *(v4 + 8);
     [(_LSDatabase *)*(*(a1 + 32) + 8) store];
-    v20 = _CSStringCopyCFString();
+    v19 = _CSStringCopyCFString();
     *buf = 138412290;
-    *&v43 = v20;
+    *&v40 = v19;
     _os_log_impl(&dword_18162D000, v18, OS_LOG_TYPE_DEFAULT, "Rolling UUID on %@ and marking not eligible for redaction", buf, 0xCu);
   }
 
-  v21 = *(v4 + 60);
-  _LSBindableDeactivate(*(*(a1 + 32) + 8), v41);
-  v22 = *(*(a1 + 40) + 8);
-  v24 = v22[7];
-  v23 = v22[8];
-  if (v24 >= v23)
+  _LSBindableDeactivate(*(*(a1 + 32) + 8), v38, 0xBu, *(v5 + 60), 0);
+  v20 = *(*(a1 + 40) + 8);
+  v22 = v20[7];
+  v21 = v20[8];
+  if (v22 >= v21)
   {
-    v26 = v22[6];
-    v27 = v24 - v26;
-    v28 = (v24 - v26) >> 2;
-    v29 = v28 + 1;
-    if ((v28 + 1) >> 62)
+    v24 = v20[6];
+    v25 = v22 - v24;
+    v26 = (v22 - v24) >> 2;
+    v27 = v26 + 1;
+    if ((v26 + 1) >> 62)
     {
       std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
     }
 
-    v30 = v23 - v26;
-    if (v30 >> 1 > v29)
+    v28 = v21 - v24;
+    if (v28 >> 1 > v27)
     {
-      v29 = v30 >> 1;
+      v27 = v28 >> 1;
     }
 
-    v31 = v30 >= 0x7FFFFFFFFFFFFFFCLL;
-    v32 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v31)
+    v29 = v28 >= 0x7FFFFFFFFFFFFFFCLL;
+    v30 = 0x3FFFFFFFFFFFFFFFLL;
+    if (!v29)
     {
-      v32 = v29;
+      v30 = v27;
     }
 
-    if (v32)
+    if (v30)
     {
-      std::allocator<unsigned int>::allocate_at_least[abi:nn200100]((v22 + 6), v32);
+      std::allocator<unsigned int>::allocate_at_least[abi:nn200100]((v20 + 6), v30);
     }
 
-    v33 = (v24 - v26) >> 2;
-    v34 = (4 * v28);
-    v35 = (4 * v28 - 4 * v33);
-    *v34 = *(v4 + 60);
-    v25 = v34 + 1;
-    memcpy(v35, v26, v27);
-    v36 = v22[6];
-    v22[6] = v35;
-    v22[7] = v25;
-    v22[8] = 0;
-    if (v36)
+    v31 = (v22 - v24) >> 2;
+    v32 = (4 * v26);
+    v33 = (4 * v26 - 4 * v31);
+    *v32 = *(v5 + 60);
+    v23 = v32 + 1;
+    memcpy(v33, v24, v25);
+    v34 = v20[6];
+    v20[6] = v33;
+    v20[7] = v23;
+    v20[8] = 0;
+    if (v34)
     {
-      operator delete(v36);
+      operator delete(v34);
     }
   }
 
   else
   {
-    *v24 = *(v4 + 60);
-    v25 = v24 + 4;
+    *v22 = *(v5 + 60);
+    v23 = v22 + 4;
   }
 
-  v22[7] = v25;
-  v37 = *(*(a1 + 32) + 8);
-  v38 = [MEMORY[0x1E696AFB0] UUID];
-  v39 = [v38 UUIDString];
-  *(v4 + 60) = _LSDatabaseCreateStringForCFString(v37, v39, 0);
+  v20[7] = v23;
+  v35 = *(*(a1 + 32) + 8);
+  v36 = [MEMORY[0x1E696AFB0] UUID];
+  v37 = [v36 UUIDString];
+  *(v5 + 60) = _LSDatabaseCreateStringForCFString(v35, v37, 0);
 
-  *(v4 + 184) &= ~0x20u;
-  v40 = *MEMORY[0x1E69E9840];
+  *(v5 + 184) &= ~0x20u;
 }
 
 - (BOOL)updateBundleRecord:(id *)record
 {
-  v22 = 0;
+  v16 = 0;
   *&self->_bundleData.appStoreToolsBuildVersion = _LSDatabaseGetSequenceNumber(self->super._db) + 1;
   self->_bundleData.localizedNameWithContext[0] = CFAbsoluteTimeGetCurrent();
-  db = self->super._db;
   _LSDatabaseSetSequenceNumber();
   [(_LSDatabase *)self->super._db store];
-  v6 = *([(_LSDatabase *)self->super._db schema]+ 4);
-  bundleID = self->_bundleID;
-  v8 = _CSStoreWriteToUnit();
-  for (i = &self->_modifiedPlugins; ; _LSBindableActivate(self->super._db, i->__table_.__first_node_.__next_))
+  [(_LSDatabase *)self->super._db schema];
+  v6 = _CSStoreWriteToUnit();
+  for (i = &self->_modifiedPlugins; ; _LSBindableActivate(self->super._db, LODWORD(i->__table_.__first_node_.__next_), 0xBu, LODWORD(i[6].__table_.__bucket_list_.__ptr_), _LSPluginComparePriority_BindableComparitor, 0))
   {
     i = i->__table_.__bucket_list_.__ptr_;
     if (!i)
@@ -795,41 +788,38 @@ void __45__LSBundleRecordUpdater_parsePersonas_error___block_invoke(uint64_t a1,
     }
 
     [(_LSDatabase *)self->super._db store];
-    v10 = *([(_LSDatabase *)self->super._db schema]+ 1588);
-    next_low = LODWORD(i->__table_.__first_node_.__next_);
+    [(_LSDatabase *)self->super._db schema];
     _CSStoreWriteToUnit();
-    ptr_low = LODWORD(i[6].__table_.__bucket_list_.__ptr_);
   }
 
-  if (v8)
+  if (v6)
   {
     if (self->_modifiedPlugins.__table_.__size_ != *&self->_modifiedPlugins.__table_.__max_load_factor_)
     {
-      v13 = +[LSApplicationRestrictionsManager sharedInstance];
-      v14 = [(LSApplicationRestrictionsManager *)v13 willRestrictedStateOfBundleWithRatingRank:*&self->_modifiedPlugins.__table_.__max_load_factor_ changeOnUpdateToRatingRank:?];
+      v8 = +[LSApplicationRestrictionsManager sharedInstance];
+      v9 = [(LSApplicationRestrictionsManager *)v8 willRestrictedStateOfBundleWithRatingRank:*&self->_modifiedPlugins.__table_.__max_load_factor_ changeOnUpdateToRatingRank:?];
 
-      if (v14)
+      if (v9)
       {
-        exactIdentifier = self->_bundleData.base.exactIdentifier;
         [(_LSDatabase *)self->super._db store];
-        v16 = _CSStringCopyCFString();
-        v21 = self->super._db;
-        v17 = [MEMORY[0x1E695DFD8] setWithObject:v16];
-        v18 = +[LSApplicationRestrictionsManager sharedInstance];
-        defaultStateProvider = [(LSApplicationRestrictionsManager *)v18 defaultStateProvider];
-        _LSServer_SendStateChangedNotificationsForBundlesWithIdentifiers(&v21, v17, defaultStateProvider);
+        v10 = _CSStringCopyCFString();
+        v15 = self->super._db;
+        v11 = [MEMORY[0x1E695DFD8] setWithObject:v10];
+        v12 = +[LSApplicationRestrictionsManager sharedInstance];
+        defaultStateProvider = [(LSApplicationRestrictionsManager *)v12 defaultStateProvider];
+        _LSServer_SendStateChangedNotificationsForBundlesWithIdentifiers(&v15, v11, defaultStateProvider);
       }
     }
 
-    _LSDatabaseCommit(self->super._db);
+    _LSDatabaseCommit(self->super._db, v5);
   }
 
   else if (record)
   {
-    *record = v22;
+    *record = v16;
   }
 
-  return v8 != 0;
+  return v6 != 0;
 }
 
 - (BOOL)checkNeedsUpdateForiTunesMetadata:(id)metadata SINFo:(id)fo placeholderMetadata:(id)placeholderMetadata
@@ -887,23 +877,20 @@ LABEL_13:
 
 - (void)initWithBundleIdentifier:(NSObject *)a3 preferPlaceholder:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, a2, a3, "could not make bundle record updater for %@: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_18162D000, a2, a3, "could not make bundle record updater for %@: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)parsePersonas:(NSObject *)a3 error:.cold.1(unsigned int *a1, _DWORD *a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  *v4 = 134218240;
-  *&v4[4] = *a1;
-  *&v4[12] = 2048;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_1_0(&dword_18162D000, a2, a3, "failed to allocate personas (%llx) or persona types (%llx) CSArray", *v4, *&v4[8]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 134218240;
+  *&v3[4] = *a1;
+  *&v3[12] = 2048;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_1_0(&dword_18162D000, a2, a3, "failed to allocate personas (%llx) or persona types (%llx) CSArray", *v3, *&v3[8]);
 }
 
 @end

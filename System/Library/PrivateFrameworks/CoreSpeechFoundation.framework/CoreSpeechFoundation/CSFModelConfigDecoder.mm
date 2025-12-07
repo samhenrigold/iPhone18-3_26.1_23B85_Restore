@@ -48,24 +48,24 @@ LABEL_6:
 
 + (id)decodeJsonFromFile:(id)file
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:file];
   if (v3)
   {
-    v11 = 0;
-    v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v11];
-    v5 = v11;
+    v10 = 0;
+    v4 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v3 options:0 error:&v10];
+    v5 = v10;
     if (v5)
     {
       v6 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v13 = "+[CSFModelConfigDecoder decodeJsonFromFile:]";
-        v14 = 2114;
-        v15 = v3;
-        v16 = 2114;
-        v17 = v5;
+        v12 = "+[CSFModelConfigDecoder decodeJsonFromFile:]";
+        v13 = 2114;
+        v14 = v3;
+        v15 = 2114;
+        v16 = v5;
         _os_log_error_impl(&dword_1DDA4B000, v6, OS_LOG_TYPE_ERROR, "%s ERR: read metafile %{public}@ failed with %{public}@ - defaulting to NO", buf, 0x20u);
       }
 
@@ -84,16 +84,14 @@ LABEL_6:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "+[CSFModelConfigDecoder decodeJsonFromFile:]";
-      v14 = 2114;
-      v15 = 0;
+      v12 = "+[CSFModelConfigDecoder decodeJsonFromFile:]";
+      v13 = 2114;
+      v14 = 0;
       _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s ERR: metaData is nil, defaulting to NO for %{public}@", buf, 0x16u);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

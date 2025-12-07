@@ -1,236 +1,3 @@
-BOOL ___ZN2KB30ChooseTopQualityAutocorrection38case_sens_position_of_first_differenceERKNS_6StringERKNSt3__16vectorIjNS4_9allocatorIjEEEES3__block_invoke(uint64_t a1, UChar32 *a2, UChar32 *a3)
-{
-  if (*a2 != *a3)
-  {
-    v7 = MEMORY[0x2318BF180]();
-    if (v7 != MEMORY[0x2318BF180](*a2) || u_isupper(*a3) && u_islower(*a2))
-    {
-      result = 0;
-      goto LABEL_7;
-    }
-
-    if (u_islower(*a3))
-    {
-      if (u_isupper(*a2))
-      {
-        v8 = *(*(*(a1 + 32) + 8) + 40);
-        if (v8 < *(*(a1 + 40) + 8))
-        {
-          result = (*v8 & 0x10) == 0;
-          goto LABEL_7;
-        }
-      }
-    }
-  }
-
-  result = 1;
-LABEL_7:
-  *(*(*(a1 + 32) + 8) + 40) += 4;
-  return result;
-}
-
-void __alignmentConfidence_block_invoke()
-{
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_28400C198;
-  v3[1] = &unk_28400C1B0;
-  v4[0] = @"none";
-  v4[1] = @"low";
-  v3[2] = &unk_28400C1C8;
-  v3[3] = &unk_28400C1E0;
-  v4[2] = @"mid";
-  v4[3] = @"high";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
-  v1 = alignmentConfidence_map;
-  alignmentConfidence_map = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-id payloadForText(void *a1, void *a2, void *a3)
-{
-  v52[5] = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v6 = a3;
-  v7 = a2;
-  v50 = [@"length" stringByAppendingString:v7];
-  v51[0] = v50;
-  v8 = MEMORY[0x277CCABB0];
-  v9 = [v5 length];
-  if (v9 >= 9)
-  {
-    v10 = 9;
-  }
-
-  else
-  {
-    v10 = 7;
-  }
-
-  if (v9 >= 7)
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 5;
-  }
-
-  if (v9 < 5)
-  {
-    v11 = v9;
-  }
-
-  if (v9 >= 3)
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = 1;
-  }
-
-  if (v9 >= 1)
-  {
-    v13 = v12;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v49 = [v8 numberWithInt:v13];
-  v52[0] = v49;
-  v48 = [@"capitalization" stringByAppendingString:v7];
-  v51[1] = v48;
-  v14 = v5;
-  v15 = v6;
-  v16 = [v14 capitalizedStringWithLocale:v15];
-  v17 = [v16 isEqualToString:v14];
-
-  if (v17)
-  {
-    v18 = @"initial";
-  }
-
-  else
-  {
-    v19 = [v14 uppercaseStringWithLocale:v15];
-    v20 = [v19 isEqualToString:v14];
-
-    if (v20)
-    {
-      v18 = @"upper";
-    }
-
-    else
-    {
-      v21 = [v14 lowercaseStringWithLocale:v15];
-      v22 = [v21 isEqualToString:v14];
-
-      if (v22)
-      {
-        v18 = @"lower";
-      }
-
-      else
-      {
-        v18 = @"other";
-      }
-    }
-  }
-
-  v47 = v18;
-  v52[1] = v47;
-  v23 = [@"diacritics" stringByAppendingString:v7];
-  v51[2] = v23;
-  v24 = MEMORY[0x277CCABB0];
-  v25 = v14;
-  v26 = [v25 stringByFoldingWithOptions:128 locale:v15];
-  v27 = [v26 isEqualToString:v25];
-
-  v28 = [v24 numberWithBool:v27 ^ 1u];
-  v52[2] = v28;
-  v29 = [@"punctuation" stringByAppendingString:v7];
-  v51[3] = v29;
-  v30 = MEMORY[0x277CCABB0];
-  v31 = v25;
-  if ([v31 length] >= 3)
-  {
-    v33 = [v31 substringWithRange:{1, objc_msgSend(v31, "length") - 2}];
-    v34 = [MEMORY[0x277CCA900] punctuationCharacterSet];
-    v35 = [v33 rangeOfCharacterFromSet:v34];
-
-    v32 = v35 != 0x7FFFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v32 = 0;
-  }
-
-  v36 = [v30 numberWithBool:v32];
-  v52[3] = v36;
-  v37 = [@"multiword" stringByAppendingString:v7];
-
-  v51[4] = v37;
-  v38 = MEMORY[0x277CCABB0];
-  v39 = MEMORY[0x277CCA900];
-  v40 = v31;
-  v41 = [v39 whitespaceCharacterSet];
-  v42 = [v40 rangeOfCharacterFromSet:v41];
-
-  v43 = [v38 numberWithBool:v42 != 0x7FFFFFFFFFFFFFFFLL];
-  v52[4] = v43;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:5];
-
-  v45 = *MEMORY[0x277D85DE8];
-
-  return v44;
-}
-
-id mergeDicts(void *a1)
-{
-  v16 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = [MEMORY[0x277CBEB38] dictionary];
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v12;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v12 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        [v2 addEntriesFromDictionary:{*(*(&v11 + 1) + 8 * i), v11}];
-      }
-
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v5);
-  }
-
-  v8 = [v2 copy];
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
-}
-
 float KB::ContinuousPathDetector::Parameters::user_value_for_key(const __CFString *this, const __CFString *a2, float a3, float a4, float a5)
 {
   v8 = CFPreferencesCopyAppValue(this, @"com.apple.keyboard");
@@ -472,9 +239,9 @@ uint64_t _doesStringContainDiacritics(void *a1)
 {
   v1 = [a1 decomposedStringWithCanonicalMapping];
   v2 = [v1 stringByApplyingTransform:*MEMORY[0x277CBE760] reverse:0];
-  v3 = [v1 isEqualToString:v2];
+  isEqualToString = objc_msgSend_isEqualToString_(v1);
 
-  return v3 ^ 1u;
+  return isEqualToString ^ 1u;
 }
 
 BOOL _doesWordEntryContainApostrophe(void *a1, char a2)
@@ -526,7 +293,7 @@ uint64_t _doesWordEntryHaveLeftHandContext(void *a1)
     {
       v6 = [v1 documentState];
       v7 = [v6 contextBeforeInput];
-      v8 = [v7 isEqualToString:&stru_283FDFAF8] ^ 1;
+      v8 = objc_msgSend_isEqualToString_(v7) ^ 1;
     }
 
     else
@@ -548,7 +315,7 @@ __CFString *_capitalizationForStringUsingLocale(void *a1, void *a2)
   v3 = a2;
   v4 = [a1 decomposedStringWithCanonicalMapping];
   v5 = [v4 lowercaseStringWithLocale:v3];
-  if ([v4 isEqualToString:v5])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     v6 = kTIACRACapitalizationLower;
   }
@@ -557,7 +324,7 @@ __CFString *_capitalizationForStringUsingLocale(void *a1, void *a2)
   {
     v7 = [v4 capitalizedStringWithLocale:v3];
 
-    if ([v4 isEqualToString:v7])
+    if (objc_msgSend_isEqualToString_(v4))
     {
       v6 = kTIACRACapitalizationTitle;
       v5 = v7;
@@ -567,9 +334,9 @@ __CFString *_capitalizationForStringUsingLocale(void *a1, void *a2)
     {
       v5 = [v4 uppercaseStringWithLocale:v3];
 
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
       v6 = kTIACRACapitalizationMixed;
-      if (v8)
+      if (isEqualToString)
       {
         v6 = kTIACRACapitalizationUpper;
       }
@@ -693,7 +460,7 @@ id _secondaryInputModeForTypingSession(void *a1)
 
 id _capitalizationForWordEntry(void *a1, char a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 keyboardState];
   v5 = [v4 inputMode];
@@ -705,9 +472,9 @@ id _capitalizationForWordEntry(void *a1, char a2)
     v8 = IXADefaultLogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s A valid locale could not be determined from the keyboard state in context for the supplied word entry.", "_capitalizationForWordEntry"];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s A valid locale could not be determined from the keyboard state in context for the supplied word entry.", "_capitalizationForWordEntry"];
       *buf = 138412290;
-      v16 = v14;
+      v15 = v13;
       _os_log_error_impl(&dword_22CA55000, v8, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
     }
   }
@@ -724,8 +491,6 @@ id _capitalizationForWordEntry(void *a1, char a2)
   }
 
   v11 = _capitalizationForStringUsingLocale(v10, v7);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -814,7 +579,7 @@ unint64_t _wordLengthBucketForWordEntry(void *a1, char a2)
 
 __CFString *_inputModalityForWordEntry(void *a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 acceptedCandidate];
   v5 = [v4 isContinuousPathConversion];
@@ -850,39 +615,39 @@ LABEL_21:
     goto LABEL_7;
   }
 
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = [v3 allKeyboardInputsM];
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (!v12)
+  v10 = [v3 allKeyboardInputsM];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (!v11)
   {
 LABEL_18:
 
     goto LABEL_21;
   }
 
-  v13 = v12;
-  v14 = *v17;
+  v12 = v11;
+  v13 = *v16;
 LABEL_12:
-  v15 = 0;
+  v14 = 0;
   while (1)
   {
-    if (*v17 != v14)
+    if (*v16 != v13)
     {
-      objc_enumerationMutation(v11);
+      objc_enumerationMutation(v10);
     }
 
-    if ([*(*(&v16 + 1) + 8 * v15) isBackspace])
+    if ([*(*(&v15 + 1) + 8 * v14) isBackspace])
     {
       break;
     }
 
-    if (v13 == ++v15)
+    if (v12 == ++v14)
     {
-      v13 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
-      if (v13)
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      if (v12)
       {
         goto LABEL_12;
       }
@@ -901,7 +666,6 @@ LABEL_7:
   v7 = *v6;
   v8 = *v6;
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1001,7 +765,7 @@ id _addGenericMetadataToPayloadFromKeyboardSession(void *a1, void *a2)
 
 id _revisionMetricPayloadFromOriginalAndRevisedWordEntries(void *a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1191,12 +955,12 @@ LABEL_21:
     v30 = IXADefaultLogFacility();
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
-      v48 = MEMORY[0x277CCACA8];
-      v51 = [v22 acceptedCandidate];
-      v49 = [v51 input];
-      v50 = [v48 stringWithFormat:@"%s Autocorrection of %@ -> %@", "_revisionMetricPayloadFromOriginalAndRevisedWordEntries", v22, v49];
+      v47 = MEMORY[0x277CCACA8];
+      v50 = [v22 acceptedCandidate];
+      v48 = [v50 input];
+      v49 = [v47 stringWithFormat:@"%s Autocorrection of %@ -> %@", "_revisionMetricPayloadFromOriginalAndRevisedWordEntries", v22, v48];
       *buf = 138412290;
-      v53 = v50;
+      v52 = v49;
       _os_log_debug_impl(&dword_22CA55000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -1272,14 +1036,12 @@ LABEL_34:
     v44 = IXADefaultLogFacility();
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
-      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s originalWordEntry: %@, revisedWordEntry:%@, isAutocorrected: %d, isDeleted: %d, payload: %@", "_revisionMetricPayloadFromOriginalAndRevisedWordEntries", v3, v4, v13, objc_msgSend(v42, "deleted"), v5];
+      v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s originalWordEntry: %@, revisedWordEntry:%@, isAutocorrected: %d, isDeleted: %d, payload: %@", "_revisionMetricPayloadFromOriginalAndRevisedWordEntries", v3, v4, v13, objc_msgSend(v42, "deleted"), v5];
       *buf = 138412290;
-      v53 = v47;
+      v52 = v46;
       _os_log_debug_impl(&dword_22CA55000, v44, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1318,16 +1080,16 @@ id _allUserEditEventIndexesForSession(void *a1)
 
 id _allNonEditEventIndexesForSession(void *a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v32 = v1;
+  v31 = v1;
   v3 = [v1 userActionHistory];
-  v30 = objc_alloc_init(MEMORY[0x277CCAB58]);
+  v29 = objc_alloc_init(MEMORY[0x277CCAB58]);
   if ([v3 count])
   {
     v4 = 0;
-    v31 = v2;
+    v30 = v2;
     while (1)
     {
       v5 = [v3 objectAtIndexedSubscript:v4];
@@ -1362,14 +1124,14 @@ LABEL_26:
     }
 
     v9 = v6;
-    v10 = [v32 sessionParams];
+    v10 = [v31 sessionParams];
     v11 = [v10 wordSeparator];
 
     v12 = [v9 acceptedCandidate];
 
     v13 = [v12 input];
 
-    v14 = [v11 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
     v15 = v9;
     v16 = [v15 acceptedString];
     v17 = [v16 length];
@@ -1377,9 +1139,9 @@ LABEL_26:
     if (v17)
     {
 
-      v2 = v31;
+      v2 = v30;
       v18 = v15;
-      if (v14)
+      if (isEqualToString)
       {
         goto LABEL_26;
       }
@@ -1387,29 +1149,29 @@ LABEL_26:
 
     else
     {
-      v29 = v14;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
+      v28 = isEqualToString;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v19 = [v15 allKeyboardInputs];
-      v20 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v20)
       {
         v21 = v20;
-        v28 = v15;
+        v27 = v15;
         v22 = 0;
-        v23 = *v34;
+        v23 = *v33;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v34 != v23)
+            if (*v33 != v23)
             {
               objc_enumerationMutation(v19);
             }
 
-            if ([*(*(&v33 + 1) + 8 * i) isBackspace])
+            if ([*(*(&v32 + 1) + 8 * i) isBackspace])
             {
               --v22;
             }
@@ -1420,14 +1182,14 @@ LABEL_26:
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v32 objects:v36 count:16];
         }
 
         while (v21);
 
-        v18 = v28;
-        v2 = v31;
-        if (v29)
+        v18 = v27;
+        v2 = v30;
+        if (v28)
         {
           goto LABEL_26;
         }
@@ -1441,9 +1203,9 @@ LABEL_26:
       else
       {
 
-        v2 = v31;
+        v2 = v30;
         v18 = v15;
-        if (v14)
+        if (isEqualToString)
         {
           goto LABEL_26;
         }
@@ -1458,16 +1220,14 @@ LABEL_26:
 LABEL_9:
     if ([v18 origin] != 2)
     {
-      [v30 addIndex:v4];
+      [v29 addIndex:v4];
     }
 
     goto LABEL_26;
   }
 
 LABEL_28:
-  v25 = [v30 copy];
-
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = [v29 copy];
 
   return v25;
 }
@@ -1509,9 +1269,9 @@ LABEL_10:
               {
                 v8 = v7;
                 v9 = [v8 acceptedString];
-                v10 = [v5 isEqualToString:v9];
+                isEqualToString = objc_msgSend_isEqualToString_(v5);
 
-                if (v10)
+                if (isEqualToString)
                 {
                   break;
                 }
@@ -1697,30 +1457,30 @@ void ___analyzeNonEditEvents_block_invoke(uint64_t a1, uint64_t a2)
 
 id _analyzeDeletedOriginalWordEvents(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = [v3 originalWords];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         if ([v11 deleted])
         {
           v12 = [v11 allEdits];
@@ -1738,43 +1498,42 @@ id _analyzeDeletedOriginalWordEvents(void *a1, void *a2)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v5 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
 
 id _analyzeUserCursorMovementEditEvents(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = _allUserCursorMovementEditEventsAndAssociatedWordEntriesForSession(a1);
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         if ([v8 count] == 2)
         {
           v9 = [v8 objectAtIndexedSubscript:0];
@@ -1784,14 +1543,13 @@ id _analyzeUserCursorMovementEditEvents(void *a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
 
   v12 = [v2 copy];
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1950,20 +1708,20 @@ uint64_t KB::InputSegmentFilter::word_is_acceptable_for_input(KB::InputSegmentFi
 
 uint64_t KB::InputSegmentFilter::string_preserves_surface_form_features(uint64_t a1, unsigned __int16 *a2, unsigned __int16 *a3, _BYTE *a4, std::vector<unsigned int> *a5)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v10 = *(a2 + 1);
-  v38 = a2 + 8;
+  v37 = a2 + 8;
   if (!v10)
   {
     v10 = a2 + 8;
   }
 
-  *&v43 = v10;
+  *&v42 = v10;
   v11 = *a2;
-  DWORD2(v43) = 0;
-  HIDWORD(v43) = v11;
+  DWORD2(v42) = 0;
+  HIDWORD(v42) = v11;
   c[0] = 0;
-  KB::String::iterator::initialize(&v43);
+  KB::String::iterator::initialize(&v42);
   v12 = *(a3 + 1);
   if (!v12)
   {
@@ -1976,9 +1734,9 @@ uint64_t KB::InputSegmentFilter::string_preserves_surface_form_features(uint64_t
   *&buf[12] = v13;
   *&buf[16] = 0;
   KB::String::iterator::initialize(buf);
-  v42[0] = *&buf[16];
-  v41 = *buf;
-  v42[1] = 0;
+  v41[0] = *&buf[16];
+  v40 = *buf;
+  v41[1] = 0;
   if (a5)
   {
     v14 = a3[2];
@@ -1991,8 +1749,8 @@ uint64_t KB::InputSegmentFilter::string_preserves_surface_form_features(uint64_t
     std::vector<unsigned int>::reserve(a5, v14);
   }
 
-  v15 = v42[0];
-  if (!v42[0])
+  v15 = v41[0];
+  if (!v41[0])
   {
     v17 = 0;
 LABEL_80:
@@ -2014,12 +1772,12 @@ LABEL_80:
           std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
         }
 
-        KB::String::iterator::operator++(&v43);
+        KB::String::iterator::operator++(&v42);
         v28 = c[0];
       }
 
       while (c[0]);
-      if (v42[0])
+      if (v41[0])
       {
         if (TICanLogMessageAtLevel_onceToken != -1)
         {
@@ -2029,54 +1787,54 @@ LABEL_80:
         v31 = TIOSLogFacility();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v34 = *(a2 + 1);
-          if (!v34)
+          v33 = *(a2 + 1);
+          if (!v33)
           {
-            v34 = v38;
+            v33 = v37;
           }
 
           if (*a2)
           {
-            v35 = v34;
+            v34 = v33;
           }
 
           else
           {
-            v35 = "";
+            v34 = "";
           }
 
-          v36 = *(a3 + 1);
-          if (!v36)
+          v35 = *(a3 + 1);
+          if (!v35)
           {
-            v36 = (a3 + 8);
+            v35 = a3 + 8;
           }
 
           if (*a3)
           {
-            v37 = v36;
+            v36 = v35;
           }
 
           else
           {
-            v37 = "";
+            v36 = "";
           }
 
           *buf = 136315906;
           *&buf[4] = "string_preserves_surface_form_features";
           *&buf[12] = 2080;
-          *&buf[14] = v35;
+          *&buf[14] = v34;
           *&buf[22] = 2080;
-          v46 = v37;
-          v47 = 1024;
-          v48 = v17;
+          v45 = v36;
+          v46 = 1024;
+          v47 = v17;
           _os_log_debug_impl(&dword_22CA55000, v31, OS_LOG_TYPE_DEBUG, "%s warning: string_preserves_surface_form_features([%s], [%s]) iterated %d times without reaching end of input", buf, 0x26u);
         }
       }
 
-      v29 = 1;
+      return 1;
     }
 
-    goto LABEL_93;
+    return v29;
   }
 
   v16 = c[0];
@@ -2095,9 +1853,9 @@ LABEL_80:
       break;
     }
 
-    if (KB::character_is_free_insertion(v16) && ((*(*a1 + 32))(a1, c[0], v42[0], 0) & 1) == 0)
+    if (KB::character_is_free_insertion(v16) && ((*(*a1 + 32))(a1, c[0], v41[0], 0) & 1) == 0)
     {
-      KB::String::iterator::operator++(&v43);
+      KB::String::iterator::operator++(&v42);
       if (a5)
       {
         *buf = -1;
@@ -2112,33 +1870,33 @@ LABEL_80:
 
     else
     {
-      if ((*(*a1 + 64))(a1, v42[0]))
+      if ((*(*a1 + 64))(a1, v41[0]))
       {
-        *buf = v43;
+        *buf = v42;
         *&buf[16] = *c;
         KB::String::iterator::operator++(buf);
         if ((*(*a1 + 56))(a1, *&buf[16]))
         {
-          v18 = v42[0];
+          v18 = v41[0];
           v19 = c[0];
-          v39 = v43;
-          v40 = *c;
-          KB::String::iterator::operator++(&v39);
-          if ((*(*a1 + 40))(a1, v18, v19, v40))
+          v38 = v42;
+          v39 = *c;
+          KB::String::iterator::operator++(&v38);
+          if ((*(*a1 + 40))(a1, v18, v19, v39))
           {
             if (a5)
             {
-              *buf = v42[1];
+              *buf = v41[1];
               std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
-              *buf = v42[1];
+              *buf = v41[1];
               std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
             }
 
-            ++v42[1];
-            KB::String::iterator::operator++(&v41);
+            ++v41[1];
+            KB::String::iterator::operator++(&v40);
             for (i = 3; i > 1; --i)
             {
-              KB::String::iterator::operator++(&v43);
+              KB::String::iterator::operator++(&v42);
             }
 
             goto LABEL_38;
@@ -2146,60 +1904,48 @@ LABEL_80:
         }
       }
 
-      if (KB::character_is_free_insertion(v42[0]) || ((*(*a1 + 64))(a1, v42[0]) & 1) != 0 || (*(*a1 + 48))(a1, v42[0]))
+      if (KB::character_is_free_insertion(v41[0]) || ((*(*a1 + 64))(a1, v41[0]) & 1) != 0 || (*(*a1 + 48))(a1, v41[0]))
       {
-        LOBYTE(v39) = 0;
-        if (!(*(*a1 + 32))(a1, c[0], v42[0], &v39))
+        LOBYTE(v38) = 0;
+        if (!(*(*a1 + 32))(a1, c[0], v41[0], &v38))
         {
-          goto LABEL_92;
+          return 0;
         }
 
-        if (a4 && (v39 & 1) != 0)
+        if (a4 && (v38 & 1) != 0)
         {
           *a4 = 1;
         }
 
-        KB::String::iterator::operator++(&v43);
+        KB::String::iterator::operator++(&v42);
         if (a5)
         {
-          *buf = v42[1];
+          *buf = v41[1];
           std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
         }
 
 LABEL_32:
-        ++v42[1];
-        v21 = &v41;
+        ++v41[1];
+        v21 = &v40;
 LABEL_33:
         KB::String::iterator::operator++(v21);
         goto LABEL_38;
       }
 
-      *buf = v41;
-      *&buf[16] = *v42;
+      *buf = v40;
+      *&buf[16] = *v41;
       KB::String::iterator::operator++(buf);
-      if (((*(*a1 + 56))(a1, *&buf[16]) & 1) == 0)
+      if (((*(*a1 + 56))(a1, *&buf[16]) & 1) == 0 && (v38 = v40, v39 = *v41, KB::String::iterator::operator++(&v38), v39 != 39) && v39 != 8217 || !(*(*a1 + 64))(a1, c[0]) || (v22 = c[0], v23 = v41[0], *buf = v40, *&buf[16] = *v41, KB::String::iterator::operator++(buf), !(*(*a1 + 40))(a1, v22, v23, *&buf[16])))
       {
-        v39 = v41;
-        v40 = *v42;
-        KB::String::iterator::operator++(&v39);
-        if (v40 != 39 && v40 != 8217)
-        {
-          goto LABEL_51;
-        }
-      }
-
-      if (!(*(*a1 + 64))(a1, c[0]) || (v22 = c[0], v23 = v42[0], *buf = v41, *&buf[16] = *v42, KB::String::iterator::operator++(buf), !(*(*a1 + 40))(a1, v22, v23, *&buf[16])))
-      {
-LABEL_51:
         if ((c[0] | 0x20) != 0x20)
         {
           goto LABEL_54;
         }
 
-        if (v42[0] != 32)
+        if (v41[0] != 32)
         {
-          *buf = v41;
-          *&buf[16] = *v42;
+          *buf = v40;
+          *&buf[16] = *v41;
           KB::String::iterator::operator++(buf);
           if (*&buf[16] == 32)
           {
@@ -2225,14 +1971,14 @@ LABEL_54:
         {
           if (a5)
           {
-            *buf = v42[1];
+            *buf = v41[1];
             std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
           }
 
           for (j = 3; j > 1; --j)
           {
-            ++v42[1];
-            KB::String::iterator::operator++(&v41);
+            ++v41[1];
+            KB::String::iterator::operator++(&v40);
           }
 
           if (!a4)
@@ -2243,13 +1989,13 @@ LABEL_54:
 
         else
         {
-          LOBYTE(v39) = 0;
-          if (!(*(*a1 + 32))(a1, c[0], v42[0], &v39))
+          LOBYTE(v38) = 0;
+          if (!(*(*a1 + 32))(a1, c[0], v41[0], &v38))
           {
-            goto LABEL_92;
+            return 0;
           }
 
-          if (a4 && (v39 & 1) != 0)
+          if (a4 && (v38 & 1) != 0)
           {
             *a4 = 1;
           }
@@ -2257,13 +2003,13 @@ LABEL_54:
           v26 = c[0];
           if (a5 && c[0])
           {
-            *buf = v42[1];
+            *buf = v41[1];
             std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
             v26 = c[0];
           }
 
-          ++v42[1];
-          KB::String::iterator::operator++(&v41);
+          ++v41[1];
+          KB::String::iterator::operator++(&v40);
           v27 = (*(*a1 + 64))(a1, v26);
           if (!a4 || !v27)
           {
@@ -2273,28 +2019,28 @@ LABEL_54:
 
         *a4 = 1;
 LABEL_74:
-        v21 = &v43;
+        v21 = &v42;
         goto LABEL_33;
       }
 
-      KB::String::iterator::operator++(&v43);
+      KB::String::iterator::operator++(&v42);
       if (a5)
       {
-        *buf = v42[1];
+        *buf = v41[1];
         std::vector<unsigned int>::push_back[abi:nn200100](a5, buf);
       }
 
       for (k = 3; k > 1; --k)
       {
-        ++v42[1];
-        KB::String::iterator::operator++(&v41);
+        ++v41[1];
+        KB::String::iterator::operator++(&v40);
       }
     }
 
 LABEL_38:
     ++v17;
-    v15 = v42[0];
-    if (!v42[0])
+    v15 = v41[0];
+    if (!v41[0])
     {
       goto LABEL_80;
     }
@@ -2306,20 +2052,16 @@ LABEL_38:
 LABEL_78:
   while (!KB::character_is_free_insertion(v15))
   {
-    ++v42[1];
-    KB::String::iterator::operator++(&v41);
-    v15 = v42[0];
-    if (!v42[0])
+    ++v41[1];
+    KB::String::iterator::operator++(&v40);
+    v15 = v41[0];
+    if (!v41[0])
     {
       goto LABEL_80;
     }
   }
 
-LABEL_92:
-  v29 = 0;
-LABEL_93:
-  v32 = *MEMORY[0x277D85DE8];
-  return v29;
+  return 0;
 }
 
 void KB::LayoutBasedInputSegmentFilter::swap_case(KB::LayoutBasedInputSegmentFilter *this, UChar32 c)
@@ -2333,22 +2075,22 @@ void KB::LayoutBasedInputSegmentFilter::swap_case(KB::LayoutBasedInputSegmentFil
   JUMPOUT(0x2318BF1A0);
 }
 
-BOOL KB::LayoutBasedInputSegmentFilter::allows_substitution(KB::LayoutBasedInputSegmentFilter *this, KB *a2, uint64_t a3, BOOL *a4)
+uint64_t KB::LayoutBasedInputSegmentFilter::allows_substitution(atomic_uint **this, KB *a2, uint64_t a3, BOOL *a4)
 {
-  if (a2 != a3 && (*(*this + 72))(this, a3) != a2)
+  if (a2 != a3 && (*(*this + 9))(this, a3) != a2)
   {
-    TI::Favonius::KeyboardLayout::key_for_char(*(this + 2), a2, &v17);
+    TI::Favonius::KeyboardLayout::key_for_char(&v17, this[2], a2);
     v9 = v17;
-    v10 = *(this + 2);
+    v10 = this[2];
     if (!v17)
     {
-      v11 = (*(*this + 72))(this, a2);
-      TI::Favonius::KeyboardLayout::key_for_char(v10, v11, &v18);
+      v11 = (*(*this + 9))(this, a2);
+      TI::Favonius::KeyboardLayout::key_for_char(&v18, v10, v11);
       v9 = v18;
-      v10 = *(this + 2);
+      v10 = this[2];
     }
 
-    TI::Favonius::KeyboardLayout::key_for_char(v10, a3, &v17);
+    TI::Favonius::KeyboardLayout::key_for_char(&v17, v10, a3);
     v13 = v17;
     if (v17)
     {
@@ -2357,7 +2099,16 @@ BOOL KB::LayoutBasedInputSegmentFilter::allows_substitution(KB::LayoutBasedInput
 LABEL_8:
         if (v13)
         {
-          v8 = (v9 == v13 || !KB::operator==((v9 + 40), (v13 + 40)) || (*(*this + 80))(this, a2, a3)) && KB::substitution_allowed(a2, a3, a4, v12);
+          if (v9 == v13 || !KB::operator==(v9 + 20, v13 + 20) || (*(*this + 10))(this, a2, a3))
+          {
+            v8 = KB::substitution_allowed(a2, a3, a4, v12);
+          }
+
+          else
+          {
+            v8 = 0;
+          }
+
           WTF::RefCounted<TI::Favonius::Key>::deref(v13);
         }
 
@@ -2375,9 +2126,9 @@ LABEL_19:
 
     else
     {
-      v14 = *(this + 2);
-      v15 = (*(*this + 72))(this, a3);
-      TI::Favonius::KeyboardLayout::key_for_char(v14, v15, &v18);
+      v14 = this[2];
+      v15 = (*(*this + 9))(this, a3);
+      TI::Favonius::KeyboardLayout::key_for_char(&v18, v14, v15);
       v13 = v18;
       if (v9)
       {
@@ -2469,7 +2220,7 @@ BOOL KB::AccentKeyInputSegmentFilter::character_has_accent_key_accent(KB::Accent
   return has_diacritic;
 }
 
-BOOL KB::AccentKeyInputSegmentFilter::allows_substitution(KB::AccentKeyInputSegmentFilter *this, KB *a2, uint64_t a3, BOOL *a4)
+uint64_t KB::AccentKeyInputSegmentFilter::allows_substitution(KB::AccentKeyInputSegmentFilter *this, KB *a2, uint64_t a3, BOOL *a4)
 {
   if (KB::String::contains((this + 16), a2) && KB::String::contains((this + 16), a3))
   {
@@ -2479,7 +2230,7 @@ BOOL KB::AccentKeyInputSegmentFilter::allows_substitution(KB::AccentKeyInputSegm
   return KB::substitution_allowed(a2, a3, a4, v8);
 }
 
-uint64_t KB::AccentKeyInputSegmentFilter::letter_combines_with_selective_modifier(KB::AccentKeyInputSegmentFilter *this, unsigned int a2, unsigned int a3)
+uint64_t KB::AccentKeyInputSegmentFilter::letter_combines_with_selective_modifier(KB::AccentKeyInputSegmentFilter *this, uint64_t a2, uint64_t a3)
 {
   if (KB::String::contains((this + 16), a3))
   {
@@ -2604,11 +2355,8 @@ uint64_t __Block_byref_object_copy__23692(uint64_t result, uint64_t a2)
 
 uint64_t __KeyboardSettingsFeedbackLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   KeyboardSettingsFeedbackLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2619,7 +2367,7 @@ uint64_t __Block_byref_object_copy__23863(uint64_t result, uint64_t a2)
   return result;
 }
 
-void *KB::Alignment::operator*(void *a1, void *a2, uint64_t *a3)
+uint64_t *KB::Alignment::operator*(uint64_t *a1, void *a2, uint64_t *a3)
 {
   result = std::vector<unsigned int>::vector[abi:nn200100](a1, a2);
   v5 = *result;
@@ -2956,29 +2704,29 @@ void TIAddressBookFindRecordsMatchingRecipientsAsync(void *a1, void *a2)
 
 void divideRecipientsIntoEmailAddressesAndPhoneNumbers(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = [v12 hasPrefix:@"mailto:"];
         v14 = v6;
         if ((v13 & 1) == 0)
@@ -3002,13 +2750,11 @@ void divideRecipientsIntoEmailAddressesAndPhoneNumbers(void *a1, void *a2, void 
         [v14 addObject:v12];
       }
 
-      v9 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 id __GetAddressBookLookupQueue()
@@ -3032,32 +2778,32 @@ void __TIAddressBookFindRecordsMatchingRecipientsAsync_block_invoke(uint64_t a1)
 
 id recordsFromAddressBookMatchingRecipients(void *a1, void *a2, void *a3)
 {
-  v57[1] = *MEMORY[0x277D85DE8];
-  v45 = a1;
+  v56[1] = *MEMORY[0x277D85DE8];
+  v44 = a1;
   v5 = a2;
-  v41 = a3;
-  v44 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v41, "count") + objc_msgSend(v5, "count")}];
+  v40 = a3;
+  v43 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v40, "count") + objc_msgSend(v5, "count")}];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+  v6 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v51;
+    v8 = *v50;
     v9 = *MEMORY[0x277CBD018];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v51 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v50 + 1) + 8 * i);
+        v11 = *(*(&v49 + 1) + 8 * i);
         v12 = v11;
         if ([v11 hasPrefix:@"mailto:"])
         {
@@ -3078,48 +2824,48 @@ id recordsFromAddressBookMatchingRecipients(void *a1, void *a2, void *a3)
         }
 
         v18 = MEMORY[0x277CBDA58];
-        v19 = v45;
+        v19 = v44;
         v20 = [v18 predicateForContactsMatchingEmailAddress:v12];
-        v57[0] = v9;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
-        v54 = 0;
-        v22 = [v19 unifiedContactsMatchingPredicate:v20 keysToFetch:v21 error:&v54];
+        v56[0] = v9;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
+        v53 = 0;
+        v22 = [v19 unifiedContactsMatchingPredicate:v20 keysToFetch:v21 error:&v53];
 
         v23 = recordsFromAddressBookUIDs(v19, v22);
 
         if (v23)
         {
-          [v44 setObject:v23 forKey:v11];
+          [v43 setObject:v23 forKey:v11];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+      v7 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
     }
 
     while (v7);
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v42 = v41;
-  v24 = [v42 countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v41 = v40;
+  v24 = [v41 countByEnumeratingWithState:&v45 objects:v54 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v47;
+    v26 = *v46;
     v27 = *MEMORY[0x277CBD018];
     do
     {
       for (j = 0; j != v25; ++j)
       {
-        if (*v47 != v26)
+        if (*v46 != v26)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
         }
 
-        v29 = *(*(&v46 + 1) + 8 * j);
+        v29 = *(*(&v45 + 1) + 8 * j);
         v30 = v29;
         if ([v29 hasPrefix:@"tel:"])
         {
@@ -3128,67 +2874,65 @@ id recordsFromAddressBookMatchingRecipients(void *a1, void *a2, void *a3)
 
         v31 = MEMORY[0x277CBDA58];
         v32 = MEMORY[0x277CBDB70];
-        v33 = v45;
+        v33 = v44;
         v34 = [v32 phoneNumberWithStringValue:v30];
         v35 = [v31 predicateForContactsMatchingPhoneNumber:v34];
 
-        v57[0] = v27;
-        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:1];
-        v54 = 0;
-        v37 = [v33 unifiedContactsMatchingPredicate:v35 keysToFetch:v36 error:&v54];
+        v56[0] = v27;
+        v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:1];
+        v53 = 0;
+        v37 = [v33 unifiedContactsMatchingPredicate:v35 keysToFetch:v36 error:&v53];
 
         v38 = recordsFromAddressBookUIDs(v33, v37);
 
         if (v38)
         {
-          [v44 setObject:v38 forKey:v29];
+          [v43 setObject:v38 forKey:v29];
         }
       }
 
-      v25 = [v42 countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v25 = [v41 countByEnumeratingWithState:&v45 objects:v54 count:16];
     }
 
     while (v25);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
-  return v44;
+  return v43;
 }
 
 id recordsFromAddressBookUIDs(void *a1, void *a2)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v30[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v26;
+    v11 = *v25;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = [*(*(&v25 + 1) + 8 * i) identifier];
-        v24 = 0;
-        v14 = [v3 unifiedContactWithIdentifier:v13 keysToFetch:v6 error:&v24];
-        v15 = v24;
+        v13 = [*(*(&v24 + 1) + 8 * i) identifier];
+        v23 = 0;
+        v14 = [v3 unifiedContactWithIdentifier:v13 keysToFetch:v6 error:&v23];
+        v15 = v23;
 
         if (v14)
         {
@@ -3224,7 +2968,7 @@ id recordsFromAddressBookUIDs(void *a1, void *a2)
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v9)
       {
         continue;
@@ -3241,14 +2985,12 @@ id recordsFromAddressBookUIDs(void *a1, void *a2)
 
 LABEL_19:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 id TIAddressBookFindRecordsMatchingRecipients(void *a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v1 = a1;
   p_cache = TICoreAnalyticsEventDispatcher.cache;
   if (TICanLogMessageAtLevel_onceToken != -1)
@@ -3261,10 +3003,10 @@ id TIAddressBookFindRecordsMatchingRecipients(void *a1)
     v3 = TIOSLogFacility();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Lookup record(s) for %lu recipient(s)", "TIAddressBookFindRecordsMatchingRecipients", objc_msgSend(v1, "count")];
-      LODWORD(v39) = 138412290;
-      *(&v39 + 4) = v24;
-      _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", &v39, 0xCu);
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Lookup record(s) for %lu recipient(s)", "TIAddressBookFindRecordsMatchingRecipients", objc_msgSend(v1, "count")];
+      LODWORD(v38) = 138412290;
+      *(&v38 + 4) = v23;
+      _os_log_debug_impl(&dword_22CA55000, v3, OS_LOG_TYPE_DEBUG, "%@", &v38, 0xCu);
     }
   }
 
@@ -3272,81 +3014,79 @@ id TIAddressBookFindRecordsMatchingRecipients(void *a1)
   v5 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v1, "count")}];
   divideRecipientsIntoEmailAddressesAndPhoneNumbers(v1, v4, v5);
   v6 = objc_alloc_init(MEMORY[0x277CCA928]);
-  *&v39 = 0;
-  *(&v39 + 1) = &v39;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__24212;
-  v42 = __Block_byref_object_dispose__24213;
-  v43 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 0;
+  *&v38 = 0;
+  *(&v38 + 1) = &v38;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__24212;
+  v41 = __Block_byref_object_dispose__24213;
+  v42 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   v7 = objc_alloc_init(MEMORY[0x277CBDAB8]);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __TIAddressBookFindRecordsMatchingRecipients_block_invoke;
-  v26[3] = &unk_278733848;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __TIAddressBookFindRecordsMatchingRecipients_block_invoke;
+  v25[3] = &unk_278733848;
   v8 = v7;
-  v27 = v8;
+  v26 = v8;
   v9 = v4;
-  v28 = v9;
+  v27 = v9;
   v10 = v5;
-  v29 = v10;
+  v28 = v10;
   v11 = v6;
-  v30 = v11;
-  v31 = &v33;
-  v32 = &v39;
-  [v8 requestAccessForEntityType:0 completionHandler:v26];
+  v29 = v11;
+  v30 = &v32;
+  v31 = &v38;
+  [v8 requestAccessForEntityType:0 completionHandler:v25];
   v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:120.0];
   [v11 lock];
-  if ((v34[3] & 1) == 0)
+  if ((v33[3] & 1) == 0)
   {
-    v16 = 0x277CCA000uLL;
+    v15 = 0x277CCA000uLL;
     do
     {
       if (([v11 waitUntilDate:v12] & 1) == 0)
       {
-        *(v34 + 24) = 1;
+        *(v33 + 24) = 1;
         if (p_cache[367] != -1)
         {
           dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
         }
 
-        v17 = TIOSLogFacility();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v16 = TIOSLogFacility();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          [*(v16 + 3240) stringWithFormat:@"%s CONTACTS: Timeout while waiting for access to database", "TIAddressBookFindRecordsMatchingRecipients"];
-          v25 = v8;
-          v18 = v10;
-          v19 = p_cache;
-          v20 = v9;
-          v21 = v1;
-          v23 = v22 = v16;
+          [*(v15 + 3240) stringWithFormat:@"%s CONTACTS: Timeout while waiting for access to database", "TIAddressBookFindRecordsMatchingRecipients"];
+          v24 = v8;
+          v17 = v10;
+          v18 = p_cache;
+          v19 = v9;
+          v20 = v1;
+          v22 = v21 = v15;
           *buf = 138412290;
-          v38 = v23;
-          _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+          v37 = v22;
+          _os_log_debug_impl(&dword_22CA55000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
-          v16 = v22;
-          v1 = v21;
-          v9 = v20;
-          p_cache = v19;
-          v10 = v18;
-          v8 = v25;
+          v15 = v21;
+          v1 = v20;
+          v9 = v19;
+          p_cache = v18;
+          v10 = v17;
+          v8 = v24;
         }
       }
     }
 
-    while (*(v34 + 24) != 1);
+    while (*(v33 + 24) != 1);
   }
 
   [v11 unlock];
-  v13 = *(*(&v39 + 1) + 40);
+  v13 = *(*(&v38 + 1) + 40);
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
-
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
   return v13;
 }
@@ -3360,7 +3100,7 @@ uint64_t __Block_byref_object_copy__24212(uint64_t result, uint64_t a2)
 
 void __TIAddressBookFindRecordsMatchingRecipients_block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -3372,9 +3112,9 @@ void __TIAddressBookFindRecordsMatchingRecipients_block_invoke(uint64_t a1, int 
     v6 = TIOSLogFacility();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Could not access database: %@", "TIAddressBookFindRecordsMatchingRecipients_block_invoke", v5];
+      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Could not access database: %@", "TIAddressBookFindRecordsMatchingRecipients_block_invoke", v5];
       *buf = 138412290;
-      v16 = v12;
+      v15 = v11;
       _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -3401,9 +3141,9 @@ LABEL_10:
       v9 = TIOSLogFacility();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Timeout before access handler completed", "TIAddressBookFindRecordsMatchingRecipients_block_invoke"];
+        v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Timeout before access handler completed", "TIAddressBookFindRecordsMatchingRecipients_block_invoke"];
         *buf = 138412290;
-        v16 = v13;
+        v15 = v12;
         _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -3416,9 +3156,9 @@ LABEL_10:
       v10 = TIOSLogFacility();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Retrieved %lu record(s) from database", "TIAddressBookFindRecordsMatchingRecipients_block_invoke", objc_msgSend(v7, "count")];
+        v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CONTACTS: Retrieved %lu record(s) from database", "TIAddressBookFindRecordsMatchingRecipients_block_invoke", objc_msgSend(v7, "count")];
         *buf = 138412290;
-        v16 = v14;
+        v15 = v13;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -3429,8 +3169,6 @@ LABEL_10:
 
   [*(a1 + 56) broadcast];
   [*(a1 + 56) unlock];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id TIAddressBookFindRecordsMatchingRecipientsOnMainThread(void *a1)
@@ -3474,7 +3212,7 @@ id TIAddressBookFindRecordsMatchingRecipientsOnMainThread(void *a1)
 
 void __TIAddressBookFindRecordsMatchingRecipientsOnMainThread_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -3486,9 +3224,9 @@ void __TIAddressBookFindRecordsMatchingRecipientsOnMainThread_block_invoke(uint6
     v5 = TIOSLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Could not open address book on main thread: %@", "TIAddressBookFindRecordsMatchingRecipientsOnMainThread_block_invoke", v4];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Could not open address book on main thread: %@", "TIAddressBookFindRecordsMatchingRecipientsOnMainThread_block_invoke", v4];
       *buf = 138412290;
-      v12 = v10;
+      v11 = v9;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -3502,8 +3240,6 @@ void __TIAddressBookFindRecordsMatchingRecipientsOnMainThread_block_invoke(uint6
   }
 
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id TIAddressBookGetMeCardWithKeys(void *a1, uint64_t a2)
@@ -3516,59 +3252,55 @@ id TIAddressBookGetMeCardWithKeys(void *a1, uint64_t a2)
 
 id TIAddressBookGetMeCard(void *a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBDAC8];
   v2 = a1;
   v3 = [v1 descriptorForRequiredKeys];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   v5 = TIAddressBookGetMeCardWithKeys(v2, v4);
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 id TIAddressBookGetArrayOfMeCardEmailAddresses(void *a1)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v18[0] = *MEMORY[0x277CBCFC0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = *MEMORY[0x277CBCFC0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v3 = TIAddressBookGetMeCardWithKeys(v1, v2);
 
   v4 = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = [v3 emailAddresses];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v13 + 1) + 8 * i) value];
+        v10 = [*(*(&v12 + 1) + 8 * i) value];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -3598,7 +3330,7 @@ void __TIGetMeCardAsync_block_invoke(uint64_t a1)
 
 void __TIGetMeCardAsync_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (v4)
   {
@@ -3610,9 +3342,9 @@ void __TIGetMeCardAsync_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
     v5 = TIOSLogFacility();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to open address book for Me card: %@", "TIGetMeCardAsync_block_invoke_2", v4];
+      v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Failed to open address book for Me card: %@", "TIGetMeCardAsync_block_invoke_2", v4];
       *buf = 138412290;
-      v11 = v9;
+      v10 = v8;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -3625,15 +3357,13 @@ void __TIGetMeCardAsync_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
     v7 = TIAddressBookGetMeCard(*(a1 + 32));
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void KB::CollatorWrapper::sortkey_for_string_with_root_collator(KB::CollatorWrapper *this@<X0>, _WORD *a2@<X8>)
 {
-  v5 = _icu_root_collator();
+  v4 = _icu_root_collator();
 
-  _sortkey_for_string_with_collator(a2, this, v5);
+  _sortkey_for_string_with_collator(a2, this, v4);
 }
 
 void _sortkey_for_string_with_collator(_WORD *a1, KB::String *this, uint64_t a3)
@@ -3748,36 +3478,32 @@ uint64_t std::shared_ptr<UCollator>::~shared_ptr[abi:nn200100](uint64_t a1)
 
 uint64_t KB::CollatorWrapper::sortkey_compare_strings_with_root_collator(KB::CollatorWrapper *this, const KB::String *a2, const KB::String *a3)
 {
-  _icu_root_collator();
+  v5 = _icu_root_collator();
 
-  return _sortkey_compare_strings_with_collator(this, a2);
+  return _sortkey_compare_strings_with_collator(this, a2, v5);
 }
 
-uint64_t _sortkey_compare_strings_with_collator(unsigned __int16 *a1, unsigned __int16 *a2)
+uint64_t _sortkey_compare_strings_with_collator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *a1;
-  *(a1 + 1);
-  v3 = *a2;
-  *(a2 + 1);
-  v4 = ucol_strcollUTF8();
-  if (v4)
+  v3 = ucol_strcollUTF8();
+  if (v3)
   {
-    v5 = -1;
+    v4 = -1;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  if (v4 == 1)
+  if (v3 == 1)
   {
     return 1;
   }
 
   else
   {
-    return v5;
+    return v4;
   }
 }
 
@@ -3875,16 +3601,16 @@ uint64_t KB::CollatorWrapper::sortkey_compare_strings(KB::CollatorWrapper **this
 
   else
   {
-    _icu_root_collator();
+    v8 = _icu_root_collator();
 
-    return _sortkey_compare_strings_with_collator(a2, a3);
+    return _sortkey_compare_strings_with_collator(a2, a3, v8);
   }
 }
 
-BOOL KB::CollatorWrapper::sortkey_starts_with(KB::CollatorWrapper *this, _LXLexicon *a2, _LXLexicon *a3)
+BOOL KB::CollatorWrapper::sortkey_starts_with(KB::CollatorWrapper **this, _LXLexicon *a2, _LXLexicon *a3)
 {
-  KB::CollatorWrapper::sortkey_for_string(this, a2, &v8);
-  KB::CollatorWrapper::sortkey_for_string(this, a3, &v7);
+  KB::CollatorWrapper::sortkey_for_string(&v8, this, a2);
+  KB::CollatorWrapper::sortkey_for_string(&v7, this, a3);
   v5 = KB::ByteString::starts_with(&v8, &v7);
   if (v7.var0.var0.var0 >= 0xFu && v7.var0.var0.var1)
   {
@@ -3940,17 +3666,16 @@ void *get_file_path_for_bundle_resource(const __CFString *a1, const __CFString *
 void TI::CP::ScoreComponentSerializer::serialize_point(TI::CP::ScoreComponentSerializer *this, CGPoint a2)
 {
   y = a2.y;
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"x";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"x";
   v4 = [MEMORY[0x277CCABB0] numberWithDouble:a2.x];
-  v8[1] = @"y";
-  v9[0] = v4;
+  v7[1] = @"y";
+  v8[0] = v4;
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:y];
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   *this = v6;
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __Block_byref_object_copy__24466(uint64_t result, uint64_t a2)
@@ -3974,33 +3699,32 @@ void __Block_byref_object_dispose__24467(uint64_t a1)
 
 void ___ZNK2KB18LexiconWrapperBase16entry_for_stringERKNS_6StringE_block_invoke(uint64_t a1, const void *a2, _BYTE *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  KB::Word::Word(v11, a2, *(a1 + 48));
-  KB::Word::capitalized_string(v11, v9);
-  v6 = KB::String::equal(v9, *(a1 + 40), 1);
-  if (v10)
+  v13 = *MEMORY[0x277D85DE8];
+  KB::Word::Word(v12, a2, *(a1 + 48));
+  KB::Word::capitalized_string(&v10, v12);
+  v8 = KB::String::equal(&v10, *(a1 + 40), 1, v6, v7);
+  if (v11)
   {
-    v7 = v9[6] == 1;
+    v9 = BYTE6(v10) == 1;
   }
 
   else
   {
-    v7 = 0;
+    v9 = 0;
   }
 
-  if (v7)
+  if (v9)
   {
-    free(v10);
+    free(v11);
   }
 
-  if (v6)
+  if (v8)
   {
     KB::retain_ptr<__CFDictionary const*>::operator=((*(*(a1 + 32) + 8) + 40), a2);
     *a3 = 1;
   }
 
-  KB::Word::~Word(v11);
-  v8 = *MEMORY[0x277D85DE8];
+  KB::Word::~Word(v12);
 }
 
 KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::Candidate *a2, size_t *a3)
@@ -4054,7 +3778,7 @@ void KB::Candidate::compute_string(KB::Candidate *this)
     v3 = 240 * *this;
     do
     {
-      KB::String::append(this + 444, v2);
+      KB::String::append((this + 888), v2);
       v2 = (v2 + 240);
       v3 -= 240;
     }
@@ -4063,7 +3787,7 @@ void KB::Candidate::compute_string(KB::Candidate *this)
   }
 }
 
-unsigned __int16 *KB::Candidate::append(unsigned __int16 *this, size_t *a2)
+KB::String *KB::Candidate::append(KB::String *this, size_t *a2)
 {
   if (!*a2)
   {
@@ -4071,15 +3795,15 @@ unsigned __int16 *KB::Candidate::append(unsigned __int16 *this, size_t *a2)
   }
 
   v3 = this;
-  if (!this[444])
+  if (!*(this + 444))
   {
     KB::Candidate::compute_string(this);
   }
 
   v4 = *v3;
-  if (*v3 != *(v3 + 16))
+  if (*v3 != *(v3 + 2))
   {
-    v10 = *(v3 + 8);
+    v10 = *(v3 + 1);
     v11 = a2;
 LABEL_24:
     KB::Word::Word((v10 + 240 * v4), v11);
@@ -4088,7 +3812,7 @@ LABEL_24:
   }
 
   v5 = v4 + 1;
-  v6 = *(v3 + 8);
+  v6 = *(v3 + 1);
   if (v6 <= a2 && v6 + 240 * v4 > a2)
   {
     v7 = a2 - v6;
@@ -4113,7 +3837,7 @@ LABEL_24:
     }
 
     WTF::Vector<KB::Word,3ul>::reserveCapacity(v3, v9);
-    v10 = *(v3 + 8);
+    v10 = *(v3 + 1);
     v11 = &v7[v10];
     if (!v10)
     {
@@ -4144,7 +3868,7 @@ LABEL_24:
   }
 
   WTF::Vector<KB::Word,3ul>::reserveCapacity(v3, v13);
-  v10 = *(v3 + 8);
+  v10 = *(v3 + 1);
   v11 = a2;
   if (v10)
   {
@@ -4155,16 +3879,16 @@ LABEL_23:
 
 LABEL_25:
   this = KB::String::append((v3 + 888), a2);
-  if (*(v3 + 944) >= 0xFu)
+  if (*(v3 + 472) >= 0xFu)
   {
-    this = *(v3 + 952);
+    this = *(v3 + 119);
     if (this)
     {
       this = MEMORY[0x2318BE250](this, 0x1000C8077774924);
     }
   }
 
-  *(v3 + 944) = 0;
+  *(v3 + 472) = 0;
   return this;
 }
 
@@ -4289,7 +4013,7 @@ void KB::Candidate::~Candidate(KB::Candidate *this)
 
 KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a2, unsigned int a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   *this = 0;
   *(this + 1) = this + 24;
   *(this + 2) = 3;
@@ -4316,40 +4040,40 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a
   *(this + 964) = 0;
   *(this + 61) = 0u;
   *(this + 248) = 0;
-  KB::word_ranges(a2, 1, &v27);
+  KB::word_ranges(&v26, a2, 1);
   v6 = *(a2 + 1);
   if (!v6)
   {
     v6 = a2 + 16;
   }
 
-  *&v32 = v6;
+  *&v31 = v6;
   v7 = *a2;
-  DWORD2(v32) = 0;
-  HIDWORD(v32) = v7;
-  LODWORD(v33) = 0;
-  KB::String::iterator::initialize(&v32);
-  v26[0] = v33;
-  v25 = v32;
-  v26[1] = 0;
-  v8 = v28;
-  __p = v27;
-  if (v27 != v28)
+  DWORD2(v31) = 0;
+  HIDWORD(v31) = v7;
+  LODWORD(v32) = 0;
+  KB::String::iterator::initialize(&v31);
+  v25[0] = v32;
+  v24 = v31;
+  v25[1] = 0;
+  v8 = v27;
+  __p = v26;
+  if (v26 != v27)
   {
-    v9 = v27;
+    v9 = v26;
     do
     {
       v10 = *v9;
       v11 = v9[1];
-      while (v26[1] < v10)
+      while (v25[1] < v10)
       {
-        KB::String::String(v29, v26[0]);
-        KB::Word::Word(&v32, v29, &kTITokenIDUNK, 0);
-        KB::Candidate::append(this, &v32);
-        KB::Word::~Word(&v32);
-        if (v31)
+        KB::String::String(v28, v25[0]);
+        KB::Word::Word(&v31, v28, &kTITokenIDUNK, 0);
+        KB::Candidate::append(this, &v31);
+        KB::Word::~Word(&v31);
+        if (v30)
         {
-          v12 = v30 == 1;
+          v12 = v29 == 1;
         }
 
         else
@@ -4359,35 +4083,35 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a
 
         if (v12)
         {
-          free(v31);
+          free(v30);
         }
 
         v13 = *(this + 1) + 240 * *this;
         *(v13 - 108) |= 0x4000000u;
-        ++v26[1];
-        KB::String::iterator::operator++(&v25);
+        ++v25[1];
+        KB::String::iterator::operator++(&v24);
       }
 
-      v23 = v25;
-      v24 = *v26;
-      std::__advance[abi:nn200100]<KB::String::iterator>(&v23, v11);
-      KB::String::String(v29, &v25, &v23);
-      v22.lexicon_id = a3;
-      v22.word_id = 0;
-      KB::Word::Word(&v32, v29, &v22, 0);
-      KB::Candidate::append(this, &v32);
-      KB::Word::~Word(&v32);
-      if (v31 && v30 == 1)
+      v22 = v24;
+      v23 = *v25;
+      std::__advance[abi:nn200100]<KB::String::iterator>(&v22, v11);
+      KB::String::String(v28, &v24, &v22);
+      v21.lexicon_id = a3;
+      v21.word_id = 0;
+      KB::Word::Word(&v31, v28, &v21, 0);
+      KB::Candidate::append(this, &v31);
+      KB::Word::~Word(&v31);
+      if (v30 && v29 == 1)
       {
-        free(v31);
+        free(v30);
       }
 
       if ((v11 & 0x80000000) != 0)
       {
         do
         {
-          --v26[1];
-          KB::String::iterator::operator--(&v25);
+          --v25[1];
+          KB::String::iterator::operator--(&v24);
         }
 
         while (!__CFADD__(v11++, 1));
@@ -4398,8 +4122,8 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a
         v14 = v11 + 1;
         do
         {
-          ++v26[1];
-          KB::String::iterator::operator++(&v25);
+          ++v25[1];
+          KB::String::iterator::operator++(&v24);
           --v14;
         }
 
@@ -4421,29 +4145,29 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a
       v18 = a2 + 16;
     }
 
-    *&v32 = v18;
-    DWORD2(v32) = v17;
-    HIDWORD(v32) = v17;
-    LODWORD(v33) = 0;
-    KB::String::iterator::initialize(&v32);
-    if (DWORD2(v25) == DWORD2(v32))
+    *&v31 = v18;
+    DWORD2(v31) = v17;
+    HIDWORD(v31) = v17;
+    LODWORD(v32) = 0;
+    KB::String::iterator::initialize(&v31);
+    if (DWORD2(v24) == DWORD2(v31))
     {
       break;
     }
 
-    KB::String::String(v29, v26[0]);
-    KB::Word::Word(&v32, v29, &kTITokenIDUNK, 0);
-    KB::Candidate::append(this, &v32);
-    KB::Word::~Word(&v32);
-    if (v31 && v30 == 1)
+    KB::String::String(v28, v25[0]);
+    KB::Word::Word(&v31, v28, &kTITokenIDUNK, 0);
+    KB::Candidate::append(this, &v31);
+    KB::Word::~Word(&v31);
+    if (v30 && v29 == 1)
     {
-      free(v31);
+      free(v30);
     }
 
     v16 = *(this + 1) + 240 * *this;
     *(v16 - 108) |= 0x4000000u;
-    ++v26[1];
-    KB::String::iterator::operator++(&v25);
+    ++v25[1];
+    KB::String::iterator::operator++(&v24);
   }
 
   if (__p)
@@ -4451,7 +4175,6 @@ KB::Candidate *KB::Candidate::Candidate(KB::Candidate *this, const KB::String *a
     operator delete(__p);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -4546,25 +4269,25 @@ uint64_t KB::Candidate::length(KB::Candidate *this)
   return result;
 }
 
-void KB::Candidate::capitalized_string(KB::Candidate *this@<X0>, uint64_t a2@<X8>)
+void KB::Candidate::capitalized_string(uint64_t *__return_ptr a1@<X8>, KB::Candidate *this@<X0>)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  *a2 = 0x100000;
-  *(a2 + 4) = 0;
-  *(a2 + 6) = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  *a1 = 0x100000;
+  *(a1 + 2) = 0;
+  *(a1 + 6) = 0;
+  a1[1] = 0;
+  *(a1 + 16) = 0;
   if (*this)
   {
     v3 = *(this + 1);
     v4 = 240 * *this;
     do
     {
-      KB::Word::capitalized_string(v3, v7);
-      KB::String::append(a2, v7);
-      if (v8)
+      KB::Word::capitalized_string(&v6, v3);
+      KB::String::append(a1, &v6);
+      if (v7)
       {
-        v5 = v7[6] == 1;
+        v5 = BYTE6(v6) == 1;
       }
 
       else
@@ -4574,7 +4297,7 @@ void KB::Candidate::capitalized_string(KB::Candidate *this@<X0>, uint64_t a2@<X8
 
       if (v5)
       {
-        free(v8);
+        free(v7);
       }
 
       v3 = (v3 + 240);
@@ -4583,8 +4306,6 @@ void KB::Candidate::capitalized_string(KB::Candidate *this@<X0>, uint64_t a2@<X8
 
     while (v4);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t KB::Candidate::sort_key(KB::Candidate *this, uint64_t a2)
@@ -4674,7 +4395,7 @@ void KB::Candidate::custom_capitalization(std::vector<unsigned int>::size_type *
       if (end >= value)
       {
         v13 = end - begin;
-        v14 = (end - begin) >> 2;
+        v14 = end - begin;
         v15 = v14 + 1;
         if ((v14 + 1) >> 62)
         {
@@ -4718,8 +4439,7 @@ void KB::Candidate::custom_capitalization(std::vector<unsigned int>::size_type *
 
       else
       {
-        *end = v11;
-        end += 4;
+        *end++ = v11;
       }
 
       v9 -= 240;
@@ -4754,7 +4474,7 @@ void *KB::Candidate::clear_custom_capitalization(void *this)
 
 void KB::Candidate::commit_custom_capitalization(KB::Candidate *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (*this)
   {
     v2 = *(this + 1);
@@ -4763,11 +4483,11 @@ void KB::Candidate::commit_custom_capitalization(KB::Candidate *this)
     {
       if (*(v2 + 30))
       {
-        KB::Word::capitalized_string(v2, v6);
-        KB::String::operator=(v2, v6);
-        if (v7)
+        KB::Word::capitalized_string(&v5, v2);
+        KB::String::operator=(v2, &v5);
+        if (v6)
         {
-          v4 = v6[6] == 1;
+          v4 = BYTE6(v5) == 1;
         }
 
         else
@@ -4777,7 +4497,7 @@ void KB::Candidate::commit_custom_capitalization(KB::Candidate *this)
 
         if (v4)
         {
-          free(v7);
+          free(v6);
         }
       }
 
@@ -4789,7 +4509,6 @@ void KB::Candidate::commit_custom_capitalization(KB::Candidate *this)
   }
 
   KB::String::clear((this + 888));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 float KB::Candidate::partial_prob(KB::Candidate *this)
@@ -4942,52 +4661,52 @@ BOOL KB::Candidate::should_predict(KB::Candidate *this)
   return v1 == v2;
 }
 
-uint64_t KB::Candidate::num_words_matching_input(void *a1, void *a2, uint64_t a3)
+uint64_t KB::Candidate::num_words_matching_input(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = 0;
+  v8 = 0;
   do
   {
-    v7 = v6;
-    if (*a2 <= v6)
+    v9 = v8;
+    if (*a2 <= v8)
     {
       break;
     }
 
-    if (*a1 <= v6)
+    if (*a1 <= v8)
     {
       break;
     }
 
-    v8 = KB::Word::matches_input((a1[1] + 240 * v6), (a2[1] + 240 * v6), a3);
-    v6 = v7 + 1;
+    v10 = KB::Word::matches_input((a1[1] + 240 * v8), (a2[1] + 240 * v8), a3, a4, a5);
+    v8 = v9 + 1;
   }
 
-  while ((v8 & 1) != 0);
-  return v7;
+  while ((v10 & 1) != 0);
+  return v9;
 }
 
-uint64_t KB::Candidate::num_words_preserving_input(void *a1, void *a2, uint64_t a3)
+uint64_t KB::Candidate::num_words_preserving_input(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v6 = 0;
+  v8 = 0;
   do
   {
-    v7 = v6;
-    if (*a2 <= v6)
+    v9 = v8;
+    if (*a2 <= v8)
     {
       break;
     }
 
-    if (*a1 <= v6)
+    if (*a1 <= v8)
     {
       break;
     }
 
-    v8 = KB::Word::preserves_input((a1[1] + 240 * v6), (a2[1] + 240 * v6), a3);
-    v6 = v7 + 1;
+    v10 = KB::Word::preserves_input((a1[1] + 240 * v8), (a2[1] + 240 * v8), a3, a4, a5);
+    v8 = v9 + 1;
   }
 
-  while ((v8 & 1) != 0);
-  return v7;
+  while ((v10 & 1) != 0);
+  return v9;
 }
 
 uint64_t KB::Candidate::space_count(uint64_t this)
@@ -5750,15 +5469,13 @@ BOOL KB::Candidate::has_vulgar_word(KB::Candidate *this, unsigned int a2)
 
 BOOL KB::Candidate::every_vulgar_word_is_allowlisted(void *a1, void *a2, void *a3, unsigned int a4)
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = a1;
     if (*a1 == a4)
     {
-LABEL_63:
-      result = 1;
-      goto LABEL_70;
+      return 1;
     }
 
     v5 = a3;
@@ -5769,71 +5486,71 @@ LABEL_63:
     while (1)
     {
       *buf = 0x100000;
-      *v61 = 0;
-      v61[2] = 0;
-      *&v61[4] = 0;
-      v62 = 0;
-      v63[0] = 0;
-      v64 = 0x3F80000000000000;
-      v65 = 1065353216;
-      v66 = 0x100000;
+      *v59 = 0;
+      v59[2] = 0;
+      *&v59[4] = 0;
+      v60 = 0;
+      v61[0] = 0;
+      v62 = 0x3F80000000000000;
+      v63 = 1065353216;
+      v64 = 0x100000;
+      v65 = 0;
+      v66 = 0;
       v67 = 0;
       v68 = 0;
-      v69 = 0;
-      v70 = 0;
-      *&v71 = _D9;
-      DWORD2(v71) = 0;
-      *(&v74 + 1) = 0;
-      v72 = 0u;
-      v73 = 0u;
-      LODWORD(v74) = 0;
-      v75 = 0x100000;
+      *&v69 = _D9;
+      DWORD2(v69) = 0;
+      *(&v72 + 1) = 0;
+      v70 = 0u;
+      v71 = 0u;
+      LODWORD(v72) = 0;
+      v73 = 0x100000;
+      v74 = 0;
+      v75 = 0;
       v76 = 0;
       v77 = 0;
       v78 = 0;
-      v79 = 0;
-      v80 = 0;
-      memset(v81, 0, sizeof(v81));
-      v82 = 1065353216;
+      memset(v79, 0, sizeof(v79));
+      v80 = 1065353216;
       v13 = *(v7 + 104);
-      KB::Word::lowercased_string(v7, &v58);
-      v14 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(v5, &v58);
-      if (*(&v58 + 1) && BYTE6(v58) == 1)
+      KB::Word::lowercased_string(&v56, v7);
+      v15 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(v5, &v56, v14);
+      if (*(&v56 + 1) && BYTE6(v56) == 1)
       {
-        free(*(&v58 + 1));
+        free(*(&v56 + 1));
       }
 
-      v41 = v7;
-      if (v14)
+      v39 = v7;
+      if (v15)
       {
-        KB::Word::lowercased_string(v7, &v58);
-        v57.__r_.__value_.__r.__words[0] = &v58;
-        v15 = std::__hash_table<std::__hash_value_type<KB::String,KB::Word>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Word>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v5, &v58);
-        KB::String::operator=(buf, (v15 + 6));
-        KB::ByteString::operator=(v63, v15 + 40);
-        v64 = v15[12];
-        v65 = *(v15 + 26);
-        KB::String::operator=(&v66, (v15 + 14));
-        v16 = *(v15 + 10);
-        v71 = *(v15 + 9);
-        v72 = v16;
-        v17 = *(v15 + 12);
-        v73 = *(v15 + 11);
-        v74 = v17;
-        KB::String::operator=(&v75, (v15 + 26));
-        v80 = *(v15 + 240);
-        if (buf != (v15 + 6))
+        KB::Word::lowercased_string(&v56, v7);
+        v55.__r_.__value_.__r.__words[0] = &v56;
+        v16 = std::__hash_table<std::__hash_value_type<KB::String,KB::Word>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Word>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(v5, &v56, &v55);
+        KB::String::operator=(buf, (v16 + 6));
+        KB::ByteString::operator=(v61, v16 + 10);
+        v62 = v16[12];
+        v63 = *(v16 + 26);
+        KB::String::operator=(&v64, (v16 + 14));
+        v17 = *(v16 + 10);
+        v69 = *(v16 + 9);
+        v70 = v17;
+        v18 = *(v16 + 12);
+        v71 = *(v16 + 11);
+        v72 = v18;
+        KB::String::operator=(&v73, (v16 + 26));
+        v78 = *(v16 + 240);
+        if (buf != (v16 + 6))
         {
-          v82 = *(v15 + 70);
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v81, v15[33]);
+          v80 = *(v16 + 70);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v79, v16[33]);
         }
 
-        if (*(&v58 + 1) && BYTE6(v58) == 1)
+        if (*(&v56 + 1) && BYTE6(v56) == 1)
         {
-          free(*(&v58 + 1));
+          free(*(&v56 + 1));
         }
 
-        if ((v13 & 0x8000000) != 0 && (v41[107] & 0x40) != 0 || (BYTE11(v71) & 0x40) != 0)
+        if ((v13 & 0x8000000) != 0 && (v39[107] & 0x40) != 0 || (BYTE11(v69) & 0x40) != 0)
         {
           goto LABEL_68;
         }
@@ -5856,90 +5573,87 @@ LABEL_63:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          LODWORD(v58) = 136315138;
-          *(&v58 + 4) = "every_vulgar_word_is_allowlisted";
-          _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Cannot read vulgar word usage database because current app ID is NULL", &v58, 0xCu);
+          LODWORD(v56) = 136315138;
+          *(&v56 + 4) = "every_vulgar_word_is_allowlisted";
+          _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Cannot read vulgar word usage database because current app ID is NULL", &v56, 0xCu);
         }
 
 LABEL_68:
         KB::Word::~Word(buf);
-LABEL_69:
-        result = 0;
-        goto LABEL_70;
-      }
-
-      v47 = 0;
-      v48 = 0;
-      v49 = 0;
-      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(&v47, v6[2], v6[3], 0xAAAAAAAAAAAAAAABLL * ((v6[3] - v6[2]) >> 3));
-      v18 = buf;
-      if ((v13 & 0x8000000) != 0)
-      {
-        v18 = v41;
-      }
-
-      v19 = TILocaleIdentifierForLexiconID(*(v18 + 34));
-      KB::Word::capitalized_string(v41, &v58);
-      v20 = *(&v58 + 1);
-      if (!*(&v58 + 1))
-      {
-        v20 = &v59;
-      }
-
-      if (v58)
-      {
-        v21 = v20;
-      }
-
-      else
-      {
-        v21 = "";
+        return 0;
       }
 
       v45 = 0;
       v46 = 0;
-      v44 = 0;
-      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(&v44, v47, v48, 0xAAAAAAAAAAAAAAABLL * ((v48 - v47) >> 3));
-      v43 = v45;
-      if (v45 != v44)
+      v47 = 0;
+      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(&v45, v6[2], v6[3], 0xAAAAAAAAAAAAAAABLL * ((v6[3] - v6[2]) >> 3));
+      v19 = buf;
+      if ((v13 & 0x8000000) != 0)
       {
-        v42 = v19;
-        v22 = v44 + 24;
+        v19 = v39;
+      }
+
+      v20 = TILocaleIdentifierForLexiconID(*(v19 + 34));
+      KB::Word::capitalized_string(&v56, v39);
+      v21 = *(&v56 + 1);
+      if (!*(&v56 + 1))
+      {
+        v21 = &v57;
+      }
+
+      if (v56)
+      {
+        v22 = v21;
+      }
+
+      else
+      {
+        v22 = "";
+      }
+
+      v43 = 0;
+      v44 = 0;
+      v42 = 0;
+      std::vector<std::string>::__init_with_size[abi:nn200100]<std::string*,std::string*>(&v42, v45, v46, 0xAAAAAAAAAAAAAAABLL * ((v46 - v45) >> 3));
+      v41 = v43;
+      if (v43 != v42)
+      {
+        v40 = v20;
+        v23 = v42 + 24;
         while (1)
         {
-          if (*(v22 - 1) < 0)
+          if (*(v23 - 1) < 0)
           {
-            std::string::__init_copy_ctor_external(&v57, *(v22 - 24), *(v22 - 16));
+            std::string::__init_copy_ctor_external(&v55, *(v23 - 24), *(v23 - 16));
           }
 
           else
           {
-            v57 = *(v22 - 24);
+            v55 = *(v23 - 24);
           }
 
-          v23 = v6;
-          v24 = *v6;
-          v25 = v21;
-          std::string::basic_string[abi:nn200100]<0>(__p, v21);
-          KB::cf_string(__p, &v56);
-          v27 = v56;
-          v26 = v57.__r_.__value_.__r.__words[0];
-          v28 = SHIBYTE(v57.__r_.__value_.__r.__words[2]);
-          if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v24 = v6;
+          v25 = v22;
+          std::string::basic_string[abi:nn200100]<0>(__p, v22);
+          KB::cf_string(__p, &v54);
+          v27 = v54;
+          v26 = v55.__r_.__value_.__r.__words[0];
+          v28 = SHIBYTE(v55.__r_.__value_.__r.__words[2]);
+          if ((v55.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v29 = &v57;
+            v29 = &v55;
           }
 
           else
           {
-            v29 = v57.__r_.__value_.__r.__words[0];
+            v29 = v55.__r_.__value_.__r.__words[0];
           }
 
-          std::string::basic_string[abi:nn200100]<0>(v51, v29);
-          KB::cf_string(v51, &v53);
-          v30 = v53;
-          options_with_word_locale(v50, v42);
-          v31 = *v50;
+          std::string::basic_string[abi:nn200100]<0>(v49, v29);
+          KB::cf_string(v49, &v51);
+          v30 = v51;
+          options_with_word_locale(v48, v40);
+          v31 = *v48;
           CanAutocorrect = LXVulgarWordUsageDatabaseCanAutocorrect();
           v33 = CanAutocorrect != 0;
           if (v31)
@@ -5952,7 +5666,7 @@ LABEL_69:
             CFRelease(v30);
           }
 
-          if (v52 < 0)
+          if (v50 < 0)
           {
             break;
           }
@@ -5963,12 +5677,12 @@ LABEL_69:
           }
 
 LABEL_42:
-          if (v55 < 0)
+          if (v53 < 0)
           {
             operator delete(__p[0]);
           }
 
-          v6 = v23;
+          v6 = v24;
           if (v28 < 0)
           {
             operator delete(v26);
@@ -5976,9 +5690,9 @@ LABEL_42:
 
           if (CanAutocorrect)
           {
-            _ZF = v22 == v43;
-            v22 += 24;
-            v21 = v25;
+            _ZF = v23 == v41;
+            v23 += 24;
+            v22 = v25;
             if (!_ZF)
             {
               continue;
@@ -5988,7 +5702,7 @@ LABEL_42:
           goto LABEL_58;
         }
 
-        operator delete(v51[0]);
+        operator delete(v49[0]);
         if (!v27)
         {
           goto LABEL_42;
@@ -5999,38 +5713,40 @@ LABEL_41:
         goto LABEL_42;
       }
 
-      v34 = *v6;
-      std::string::basic_string[abi:nn200100]<0>(&v57, v21);
-      KB::cf_string(&v57, __p);
-      v35 = __p[0];
-      options_with_word_locale(v51, v19);
-      v36 = v51[0];
+      std::string::basic_string[abi:nn200100]<0>(&v55, v22);
+      KB::cf_string(&v55, __p);
+      v34 = __p[0];
+      options_with_word_locale(v49, v20);
+      v35 = v49[0];
       v33 = LXVulgarWordUsageDatabaseCanAutocorrect() != 0;
-      if (v36)
-      {
-        CFRelease(v36);
-      }
-
       if (v35)
       {
         CFRelease(v35);
       }
 
-      if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+      if (v34)
       {
-        operator delete(v57.__r_.__value_.__l.__data_);
+        CFRelease(v34);
+      }
+
+      if (SHIBYTE(v55.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v55.__r_.__value_.__l.__data_);
       }
 
 LABEL_58:
-      v57.__r_.__value_.__r.__words[0] = &v44;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v57);
-      if (*(&v58 + 1) && BYTE6(v58) == 1)
+      v55.__r_.__value_.__r.__words[0] = &v42;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v55);
+      if (*(&v56 + 1))
       {
-        free(*(&v58 + 1));
+        if (BYTE6(v56) == 1)
+        {
+          free(*(&v56 + 1));
+        }
       }
 
-      *&v58 = &v47;
-      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v58);
+      *&v56 = &v45;
+      std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&v56);
       v4 = a1;
       v5 = a3;
       if (!v33)
@@ -6040,10 +5756,10 @@ LABEL_58:
 
 LABEL_62:
       KB::Word::~Word(buf);
-      v7 = (v41 + 240);
-      if (v41 + 240 == (v4[1] + 240 * *v4))
+      v7 = (v39 + 240);
+      if (v39 + 240 == (v4[1] + 240 * *v4))
       {
-        goto LABEL_63;
+        return 1;
       }
     }
   }
@@ -6052,101 +5768,97 @@ LABEL_62:
   if (result)
   {
     *buf = 136315138;
-    *v61 = "every_vulgar_word_is_allowlisted";
+    *v59 = "every_vulgar_word_is_allowlisted";
     _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Cannot read vulgar word usage database because it has not been provided", buf, 0xCu);
-    goto LABEL_69;
+    return 0;
   }
 
-LABEL_70:
-  v38 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 BOOL KB::Candidate::every_vulgar_word_is_allowlisted_somewhere(void *a1, uint64_t *a2, void *a3, unsigned int a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (*a1 == a4)
     {
-LABEL_37:
-      result = 1;
-      goto LABEL_42;
+      return 1;
     }
 
-    v7 = a1[1] + 240 * a4 + 136;
+    v6 = a1[1] + 240 * a4 + 136;
     __asm { FMOV            V9.2S, #1.0 }
 
     while (1)
     {
       *buf = 0x100000;
-      *v38 = 0;
-      v38[2] = 0;
-      *&v38[4] = 0;
-      v39 = 0;
-      v40[0] = 0;
-      v41 = 0x3F80000000000000;
-      v42 = 1065353216;
-      v43 = 0x100000;
+      *v36 = 0;
+      v36[2] = 0;
+      *&v36[4] = 0;
+      v37 = 0;
+      v38[0] = 0;
+      v39 = 0x3F80000000000000;
+      v40 = 1065353216;
+      v41 = 0x100000;
+      v42 = 0;
+      v43 = 0;
       v44 = 0;
       v45 = 0;
-      v46 = 0;
-      v47 = 0;
-      *&v48 = _D9;
-      DWORD2(v48) = 0;
-      *(&v51 + 1) = 0;
-      v49 = 0u;
-      v50 = 0u;
-      LODWORD(v51) = 0;
-      v52 = 0x100000;
+      *&v46 = _D9;
+      DWORD2(v46) = 0;
+      *(&v49 + 1) = 0;
+      v47 = 0u;
+      v48 = 0u;
+      LODWORD(v49) = 0;
+      v50 = 0x100000;
+      v51 = 0;
+      v52 = 0;
       v53 = 0;
       v54 = 0;
       v55 = 0;
-      v56 = 0;
-      v57 = 0;
-      memset(v58, 0, sizeof(v58));
-      v59 = 1065353216;
-      v13 = *(v7 - 32);
-      KB::Word::lowercased_string((v7 - 136), &v34);
-      v14 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a3, &v34);
-      if (v35 && BYTE6(v34) == 1)
+      memset(v56, 0, sizeof(v56));
+      v57 = 1065353216;
+      v12 = *(v6 - 32);
+      KB::Word::lowercased_string(&v32, (v6 - 136));
+      v14 = std::__hash_table<std::__hash_value_type<KB::String,unsigned long>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,unsigned long>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,unsigned long>>>::find<KB::String>(a3, &v32, v13);
+      if (v33 && BYTE6(v32) == 1)
       {
-        free(v35);
+        free(v33);
       }
 
       if (v14)
       {
-        KB::Word::lowercased_string((v7 - 136), &v34);
-        __p[0] = &v34;
-        v15 = std::__hash_table<std::__hash_value_type<KB::String,KB::Word>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Word>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(a3, &v34);
+        KB::Word::lowercased_string(&v32, (v6 - 136));
+        __p[0] = &v32;
+        v15 = std::__hash_table<std::__hash_value_type<KB::String,KB::Word>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,KB::Word>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,KB::Word>>>::__emplace_unique_key_args<KB::String,std::piecewise_construct_t const&,std::tuple<KB::String&&>,std::tuple<>>(a3, &v32, __p);
         KB::String::operator=(buf, (v15 + 6));
-        KB::ByteString::operator=(v40, v15 + 40);
-        v41 = v15[12];
-        v42 = *(v15 + 26);
-        KB::String::operator=(&v43, (v15 + 14));
+        KB::ByteString::operator=(v38, v15 + 10);
+        v39 = v15[12];
+        v40 = *(v15 + 26);
+        KB::String::operator=(&v41, (v15 + 14));
         v16 = *(v15 + 10);
-        v48 = *(v15 + 9);
-        v49 = v16;
+        v46 = *(v15 + 9);
+        v47 = v16;
         v17 = *(v15 + 12);
-        v50 = *(v15 + 11);
-        v51 = v17;
-        KB::String::operator=(&v52, (v15 + 26));
-        v57 = *(v15 + 240);
+        v48 = *(v15 + 11);
+        v49 = v17;
+        KB::String::operator=(&v50, (v15 + 26));
+        v55 = *(v15 + 240);
         if (buf != (v15 + 6))
         {
-          v59 = *(v15 + 70);
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v58, v15[33]);
+          v57 = *(v15 + 70);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned long long,void *> *>>(v56, v15[33]);
         }
 
-        if (v35 && BYTE6(v34) == 1)
+        if (v33 && BYTE6(v32) == 1)
         {
-          free(v35);
+          free(v33);
         }
 
-        if ((v13 & 0x8000000) == 0)
+        if ((v12 & 0x8000000) == 0)
         {
-          v18 = &v50 + 2;
-          if ((BYTE11(v48) & 0x40) != 0)
+          v18 = &v48 + 2;
+          if ((BYTE11(v46) & 0x40) != 0)
           {
             goto LABEL_40;
           }
@@ -6154,25 +5866,25 @@ LABEL_37:
           goto LABEL_21;
         }
 
-        if ((*(v7 - 29) & 0x40) != 0)
+        if ((*(v6 - 29) & 0x40) != 0)
         {
           goto LABEL_40;
         }
 
-        v19 = BYTE11(v48);
+        v19 = BYTE11(v46);
       }
 
       else
       {
-        if ((v13 & 0x8000000) == 0)
+        if ((v12 & 0x8000000) == 0)
         {
           goto LABEL_36;
         }
 
-        v19 = *(v7 - 29);
+        v19 = *(v6 - 29);
       }
 
-      v18 = v7;
+      v18 = v6;
       if ((v19 & 0x40) != 0)
       {
         goto LABEL_40;
@@ -6180,14 +5892,14 @@ LABEL_37:
 
 LABEL_21:
       v20 = TILocaleIdentifierForLexiconID(*v18);
-      KB::Word::capitalized_string((v7 - 136), &v34);
-      v21 = v35;
-      if (!v35)
+      KB::Word::capitalized_string(&v32, (v6 - 136));
+      v21 = v33;
+      if (!v33)
       {
-        v21 = &v36;
+        v21 = &v34;
       }
 
-      if (v34)
+      if (v32)
       {
         v22 = v21;
       }
@@ -6197,49 +5909,49 @@ LABEL_21:
         v22 = "";
       }
 
-      v23 = *a2;
       std::string::basic_string[abi:nn200100]<0>(__p, v22);
-      KB::cf_string(__p, &v33);
-      v24 = v33;
-      options_with_word_locale(v30, v20);
-      v25 = *v30;
+      KB::cf_string(__p, &v31);
+      v23 = v31;
+      options_with_word_locale(v28, v20);
+      v24 = *v28;
       CanAutocorrectSomewhere = LXVulgarWordUsageDatabaseCanAutocorrectSomewhere();
-      if (v25)
-      {
-        CFRelease(v25);
-      }
-
       if (v24)
       {
         CFRelease(v24);
       }
 
-      if (v32 < 0)
+      if (v23)
+      {
+        CFRelease(v23);
+      }
+
+      if (v30 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v35 && BYTE6(v34) == 1)
+      if (v33)
       {
-        free(v35);
+        if (BYTE6(v32) == 1)
+        {
+          free(v33);
+        }
       }
 
       if (!CanAutocorrectSomewhere)
       {
 LABEL_40:
         KB::Word::~Word(buf);
-LABEL_41:
-        result = 0;
-        goto LABEL_42;
+        return 0;
       }
 
 LABEL_36:
       KB::Word::~Word(buf);
-      v27 = v7 + 104;
-      v7 += 240;
-      if (v27 == a1[1] + 240 * *a1)
+      v26 = v6 + 104;
+      v6 += 240;
+      if (v26 == a1[1] + 240 * *a1)
       {
-        goto LABEL_37;
+        return 1;
       }
     }
   }
@@ -6248,13 +5960,11 @@ LABEL_36:
   if (result)
   {
     *buf = 136315138;
-    *v38 = "every_vulgar_word_is_allowlisted_somewhere";
+    *v36 = "every_vulgar_word_is_allowlisted_somewhere";
     _os_log_error_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s  Cannot read vulgar word usage database because it has not been provided", buf, 0xCu);
-    goto LABEL_41;
+    return 0;
   }
 
-LABEL_42:
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6475,12 +6185,12 @@ BOOL KB::Candidate::does_word_begin_at_position(KB::Candidate *this, int a2)
 
 void KB::Candidate::append_debug_data(KB::Candidate *this, __CFString *a2, int a3, const KB::String *a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v49 = 0x100000;
+  v53 = *MEMORY[0x277D85DE8];
+  v48 = 0x100000;
+  v49 = 0;
   v50 = 0;
   v51 = 0;
   v52 = 0;
-  v53 = 0;
   if (*this)
   {
     v8 = *(*(this + 1) + 240 * *this - 88);
@@ -6510,15 +6220,15 @@ void KB::Candidate::append_debug_data(KB::Candidate *this, __CFString *a2, int a
 
   if (a3)
   {
-    v43 = a4 + 16;
-    KB::Candidate::capitalized_string(this, &v48);
-    size = v48.__r_.__value_.__l.__size_;
-    if (!v48.__r_.__value_.__l.__size_)
+    v42 = a4 + 16;
+    KB::Candidate::capitalized_string(&v47, this);
+    size = v47.__r_.__value_.__l.__size_;
+    if (!v47.__r_.__value_.__l.__size_)
     {
-      size = &v48.__r_.__value_.__s.__data_[16];
+      size = &v47.__r_.__value_.__s.__data_[16];
     }
 
-    if (LOWORD(v48.__r_.__value_.__l.__data_))
+    if (LOWORD(v47.__r_.__value_.__l.__data_))
     {
       v13 = size;
     }
@@ -6555,14 +6265,14 @@ void KB::Candidate::append_debug_data(KB::Candidate *this, __CFString *a2, int a
       v22 = off_2787339C0[v21];
     }
 
-    KB::String::String(v44, v22);
-    v29 = v46;
-    if (!v46)
+    KB::String::String(v43, v22);
+    v29 = v45;
+    if (!v45)
     {
-      v29 = v47;
+      v29 = v46;
     }
 
-    if (v44[0])
+    if (v43[0])
     {
       v30 = v29;
     }
@@ -6572,21 +6282,21 @@ void KB::Candidate::append_debug_data(KB::Candidate *this, __CFString *a2, int a
       v30 = "";
     }
 
-    KB::String::append_format(&v49, "%s[%s] ln(omega) %.3f = [%.3f*(W %.3f + T %.3f) + G %.3f] %s %lu %s\n", v11, v13, v15, v16, v17, v18, v19, v20, v8, v30);
-    if (v46 && v45 == 1)
+    KB::String::append_format(&v48, "%s[%s] ln(omega) %.3f = [%.3f*(W %.3f + T %.3f) + G %.3f] %s %lu %s\n", v11, v13, v15, v16, v17, v18, v19, v20, v8, v30);
+    if (v45 && v44 == 1)
     {
-      free(v46);
+      free(v45);
     }
 
-    v31 = v48.__r_.__value_.__l.__size_;
-    v10 = v43;
-    if (!v48.__r_.__value_.__l.__size_)
+    v31 = v47.__r_.__value_.__l.__size_;
+    v10 = v42;
+    if (!v47.__r_.__value_.__l.__size_)
     {
       goto LABEL_50;
     }
 
 LABEL_48:
-    if (v48.__r_.__value_.__s.__data_[6] == 1)
+    if (v47.__r_.__value_.__s.__data_[6] == 1)
     {
       free(v31);
     }
@@ -6594,14 +6304,14 @@ LABEL_48:
     goto LABEL_50;
   }
 
-  KB::Candidate::capitalized_string(this, &v48);
-  v23 = v48.__r_.__value_.__l.__size_;
-  if (!v48.__r_.__value_.__l.__size_)
+  KB::Candidate::capitalized_string(&v47, this);
+  v23 = v47.__r_.__value_.__l.__size_;
+  if (!v47.__r_.__value_.__l.__size_)
   {
-    v23 = &v48.__r_.__value_.__s.__data_[16];
+    v23 = &v47.__r_.__value_.__s.__data_[16];
   }
 
-  if (LOWORD(v48.__r_.__value_.__l.__data_))
+  if (LOWORD(v47.__r_.__value_.__l.__data_))
   {
     v24 = v23;
   }
@@ -6624,14 +6334,14 @@ LABEL_48:
     v28 = off_2787339C0[v27];
   }
 
-  KB::String::String(v44, v28);
-  v32 = v46;
-  if (!v46)
+  KB::String::String(v43, v28);
+  v32 = v45;
+  if (!v45)
   {
-    v32 = v47;
+    v32 = v46;
   }
 
-  if (v44[0])
+  if (v43[0])
   {
     v33 = v32;
   }
@@ -6641,26 +6351,26 @@ LABEL_48:
     v33 = "";
   }
 
-  KB::String::append_format(&v49, "%s[%s] ln(omega) %.3f %lu %s\n", v11, v24, v26, v8, v33);
-  if (v46 && v45 == 1)
+  KB::String::append_format(&v48, "%s[%s] ln(omega) %.3f %lu %s\n", v11, v24, v26, v8, v33);
+  if (v45 && v44 == 1)
   {
-    free(v46);
+    free(v45);
   }
 
-  v31 = v48.__r_.__value_.__l.__size_;
-  if (v48.__r_.__value_.__l.__size_)
+  v31 = v47.__r_.__value_.__l.__size_;
+  if (v47.__r_.__value_.__l.__size_)
   {
     goto LABEL_48;
   }
 
 LABEL_50:
-  v34 = v52;
-  if (!v52)
+  v34 = v51;
+  if (!v51)
   {
-    v34 = &v53;
+    v34 = &v52;
   }
 
-  if (v49)
+  if (v48)
   {
     v35 = v34;
   }
@@ -6679,12 +6389,12 @@ LABEL_50:
       v37 = 240 * *this;
       do
       {
-        KB::String::String(&v48, a4);
-        KB::String::append(&v48, "\t", 0xFFFFuLL);
-        KB::Word::append_debug_data(v36, a2, &v48);
-        if (v48.__r_.__value_.__l.__size_)
+        KB::String::String(&v47, a4);
+        KB::String::append(&v47, "\t", 0xFFFFuLL);
+        KB::Word::append_debug_data(v36, a2, &v47);
+        if (v47.__r_.__value_.__l.__size_)
         {
-          v38 = v48.__r_.__value_.__s.__data_[6] == 1;
+          v38 = v47.__r_.__value_.__s.__data_[6] == 1;
         }
 
         else
@@ -6694,7 +6404,7 @@ LABEL_50:
 
         if (v38)
         {
-          free(v48.__r_.__value_.__l.__size_);
+          free(v47.__r_.__value_.__l.__size_);
         }
 
         v36 = (v36 + 240);
@@ -6729,28 +6439,29 @@ LABEL_50:
 
   if (*(this + 943) < 0)
   {
-    std::string::__init_copy_ctor_external(&v48, *(this + 115), *(this + 116));
+    std::string::__init_copy_ctor_external(&v47, *(this + 115), *(this + 116));
   }
 
   else
   {
-    v48 = *(this + 920);
+    v47 = *(this + 920);
   }
 
-  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v48.__r_.__value_.__l.__data_);
+    operator delete(v47.__r_.__value_.__l.__data_);
   }
 
-  if (v52 && v51 == 1)
+  if (v51)
   {
-    free(v52);
+    if (v50 == 1)
+    {
+      free(v51);
+    }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
-void KB::Candidate::token_ids_as_string(KB::Candidate *this@<X0>, uint64_t a2@<X8>)
+void KB::Candidate::token_ids_as_string(uint64_t *__return_ptr a1@<X8>, KB::Candidate *this@<X0>)
 {
   v14 = *MEMORY[0x277D85DE8];
   v10 = 0;
@@ -6765,15 +6476,15 @@ void KB::Candidate::token_ids_as_string(KB::Candidate *this@<X0>, uint64_t a2@<X
       v6 = TILocaleIdentifierForLexiconID(*v5);
       if (v6)
       {
-        v7 = v6;
+        v8 = v6;
       }
 
       else
       {
-        v7 = "";
+        v8 = "";
       }
 
-      KB::String::format("%s:%d", &v11, v7, *(v5 + 4));
+      KB::String::format(&v11, "%s:%d", v7, v8, *(v5 + 4));
       std::vector<KB::String>::push_back[abi:nn200100](&v9, &v11);
       if (v12 && BYTE6(v11) == 1)
       {
@@ -6793,7 +6504,7 @@ void KB::Candidate::token_ids_as_string(KB::Candidate *this@<X0>, uint64_t a2@<X
   v12 = ", ";
   LODWORD(v11) = 1048578;
   v13 = 0;
-  KB::string_join(v3, *(&v3 + 1), &v11, a2);
+  KB::string_join(a1, v3, *(&v3 + 1), &v11);
   if (v12 && BYTE6(v11) == 1)
   {
     free(v12);
@@ -6801,7 +6512,6 @@ void KB::Candidate::token_ids_as_string(KB::Candidate *this@<X0>, uint64_t a2@<X
 
   v11 = &v9;
   std::vector<KB::String>::__destroy_vector::operator()[abi:nn200100](&v11);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void KB::Candidate::add_sources_info(KB::Candidate *this, const __CFString *a2, const __CFDictionary *a3)
@@ -6842,7 +6552,7 @@ uint64_t *KB::CandidateCollection::scale_scores(uint64_t *this, float a2)
   return this;
 }
 
-BOOL KB::CandidateCollection::contains_secondary_language_candidates(KB::CandidateCollection *this, int *a2, unsigned int a3)
+BOOL KB::CandidateCollection::contains_secondary_language_candidates(KB::CandidateCollection *this, int *a2, int a3)
 {
   v3 = *this;
   v4 = 0x1CAC083126E978D5 * ((*(this + 1) - *this) >> 3);
@@ -6926,12 +6636,12 @@ void KB::CandidateCollection::sort(KB::CandidateCollection *this)
 
 void std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(uint64_t *a1, KB::Candidate *a2, uint64_t a3, char a4)
 {
-  v223 = *MEMORY[0x277D85DE8];
+  v222 = *MEMORY[0x277D85DE8];
 LABEL_2:
-  v218 = (a2 - 1000);
-  v215 = (a2 - 3000);
-  v216 = (a2 - 2000);
-  v214 = (a2 - 992);
+  v217 = (a2 - 1000);
+  v214 = (a2 - 3000);
+  v215 = (a2 - 2000);
+  v213 = (a2 - 992);
   v7 = a1;
   while (1)
   {
@@ -6943,413 +6653,125 @@ LABEL_2:
       switch(v9)
       {
         case 3uLL:
-          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 1000), v218);
-          goto LABEL_409;
+          std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 125), v217);
+          return;
         case 4uLL:
-          std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 1000), (v7 + 2000), v218);
-          goto LABEL_409;
+          std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 125), v7 + 500, v217);
+          return;
         case 5uLL:
-          std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 1000), (v7 + 2000), (v7 + 3000), v218);
-          goto LABEL_409;
+          std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, (v7 + 125), v7 + 500, v7 + 750, v217);
+          return;
+      }
+    }
+
+    else
+    {
+      if (v9 < 2)
+      {
+        return;
       }
 
-      goto LABEL_10;
+      if (v9 == 2)
+      {
+        if (*(a2 - 64) != *(v7 + 186))
+        {
+          goto LABEL_407;
+        }
+
+        v151 = *v217;
+        if (*v217)
+        {
+          v152 = 240 * v151;
+          v153 = *v213;
+          while ((*(v153 + 105) & 1) == 0)
+          {
+            v153 += 240;
+            v152 -= 240;
+            if (!v152)
+            {
+              goto LABEL_407;
+            }
+          }
+        }
+
+        else
+        {
+          v153 = *v213;
+        }
+
+        if (v153 == *v213 + 240 * v151)
+        {
+          goto LABEL_407;
+        }
+
+        v205 = *v7;
+        if (*v7)
+        {
+          v206 = 240 * v205;
+          v207 = v7[1];
+          while ((*(v207 + 105) & 1) == 0)
+          {
+            v207 += 240;
+            v206 -= 240;
+            if (!v206)
+            {
+              goto LABEL_407;
+            }
+          }
+        }
+
+        else
+        {
+          v207 = v7[1];
+        }
+
+        if (v207 != v7[1] + 240 * v205 && (v208 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v217)), v210 = v209, v211 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v210 & 1) != 0) && (v212 & 1) != 0)
+        {
+          if (v208 <= v211)
+          {
+            return;
+          }
+        }
+
+        else
+        {
+LABEL_407:
+          if (*(a2 - 64) <= *(v7 + 186))
+          {
+            return;
+          }
+        }
+
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v7, v217);
+        return;
+      }
     }
 
-    if (v9 < 2)
-    {
-      goto LABEL_409;
-    }
-
-    if (v9 == 2)
-    {
-      break;
-    }
-
-LABEL_10:
     if (v8 <= 23999)
     {
-      if (a4)
-      {
-        if (v7 == a2)
-        {
-          goto LABEL_409;
-        }
-
-        v154 = (v7 + 1000);
-        if ((v7 + 1000) == a2)
-        {
-          goto LABEL_409;
-        }
-
-        v155 = v7;
-        while (1)
-        {
-          v156 = v155;
-          v155 = v154;
-          if (*(v156 + 1744) != *(v156 + 744))
-          {
-            goto LABEL_319;
-          }
-
-          v157 = *v154;
-          if (*v154)
-          {
-            v158 = 240 * v157;
-            v159 = *(v156 + 1008);
-            while ((*(v159 + 105) & 1) == 0)
-            {
-              v159 += 240;
-              v158 -= 240;
-              if (!v158)
-              {
-                goto LABEL_319;
-              }
-            }
-          }
-
-          else
-          {
-            v159 = *(v156 + 1008);
-          }
-
-          if (v159 == *(v156 + 1008) + 240 * v157)
-          {
-            goto LABEL_319;
-          }
-
-          v160 = *v156;
-          if (*v156)
-          {
-            v161 = 240 * v160;
-            v162 = *(v156 + 8);
-            while ((*(v162 + 105) & 1) == 0)
-            {
-              v162 += 240;
-              v161 -= 240;
-              if (!v161)
-              {
-                goto LABEL_319;
-              }
-            }
-          }
-
-          else
-          {
-            v162 = *(v156 + 8);
-          }
-
-          if (v162 != *(v156 + 8) + 240 * v160 && (v163 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v154)), v165 = v164, v166 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v156)), (v165 & 1) != 0) && (v167 & 1) != 0)
-          {
-            if (v163 > v166)
-            {
-              goto LABEL_320;
-            }
-          }
-
-          else
-          {
-LABEL_319:
-            if (*(v156 + 1744) > *(v156 + 744))
-            {
-LABEL_320:
-              KB::Candidate::Candidate(&v220, v155);
-              v168 = v155;
-              while (1)
-              {
-                v169 = v168;
-                v168 = v156;
-                KB::Candidate::operator=(v169, v156);
-                if (v156 == v7)
-                {
-                  break;
-                }
-
-                v156 -= 1000;
-                if (v222 != *(v168 - 64))
-                {
-                  goto LABEL_341;
-                }
-
-                if (v220)
-                {
-                  v170 = 240 * v220;
-                  v171 = v221;
-                  while ((*(v171 + 105) & 1) == 0)
-                  {
-                    v171 += 240;
-                    v170 -= 240;
-                    if (!v170)
-                    {
-                      goto LABEL_341;
-                    }
-                  }
-                }
-
-                else
-                {
-                  v171 = v221;
-                }
-
-                if (v171 == v221 + 240 * v220)
-                {
-                  goto LABEL_341;
-                }
-
-                v172 = *v156;
-                if (*v156)
-                {
-                  v173 = 240 * v172;
-                  v174 = *(v168 - 124);
-                  while ((*(v174 + 105) & 1) == 0)
-                  {
-                    v174 += 240;
-                    v173 -= 240;
-                    if (!v173)
-                    {
-                      goto LABEL_341;
-                    }
-                  }
-                }
-
-                else
-                {
-                  v174 = *(v168 - 124);
-                }
-
-                if (v174 != *(v168 - 124) + 240 * v172 && (v175 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220)), v177 = v176, v178 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v168 - 125))), (v177 & 1) != 0) && (v179 & 1) != 0)
-                {
-                  if (v175 <= v178)
-                  {
-                    goto LABEL_344;
-                  }
-                }
-
-                else
-                {
-LABEL_341:
-                  if (v222 <= *(v168 - 64))
-                  {
-                    goto LABEL_344;
-                  }
-                }
-              }
-
-              v168 = v7;
-LABEL_344:
-              KB::Candidate::operator=(v168, &v220);
-              KB::Candidate::~Candidate(&v220);
-            }
-          }
-
-          v154 = (v155 + 1000);
-          if ((v155 + 1000) == a2)
-          {
-            goto LABEL_409;
-          }
-        }
-      }
-
-      if (v7 == a2)
-      {
-        goto LABEL_409;
-      }
-
-      v180 = (v7 + 1000);
-      if ((v7 + 1000) == a2)
-      {
-        goto LABEL_409;
-      }
-
-      while (1)
-      {
-        v181 = a1;
-        a1 = v180;
-        if (*(v181 + 436) != *(v181 + 186))
-        {
-          goto LABEL_369;
-        }
-
-        v182 = *v180;
-        if (*v180)
-        {
-          v183 = 240 * v182;
-          v184 = v181[126];
-          while ((*(v184 + 105) & 1) == 0)
-          {
-            v184 += 240;
-            v183 -= 240;
-            if (!v183)
-            {
-              goto LABEL_369;
-            }
-          }
-        }
-
-        else
-        {
-          v184 = v181[126];
-        }
-
-        if (v184 == v181[126] + 240 * v182)
-        {
-          goto LABEL_369;
-        }
-
-        v185 = *v181;
-        if (*v181)
-        {
-          v186 = 240 * v185;
-          v187 = v181[1];
-          while ((*(v187 + 105) & 1) == 0)
-          {
-            v187 += 240;
-            v186 -= 240;
-            if (!v186)
-            {
-              goto LABEL_369;
-            }
-          }
-        }
-
-        else
-        {
-          v187 = v181[1];
-        }
-
-        if (v187 != v181[1] + 240 * v185 && (v188 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v180)), v190 = v189, v191 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v181)), (v190 & 1) != 0) && (v192 & 1) != 0)
-        {
-          if (v188 > v191)
-          {
-            goto LABEL_370;
-          }
-        }
-
-        else
-        {
-LABEL_369:
-          if (*(v181 + 436) > *(v181 + 186))
-          {
-LABEL_370:
-            KB::Candidate::Candidate(&v220, a1);
-            v193 = a1;
-            do
-            {
-              while (1)
-              {
-                v194 = v193;
-                v193 = v181;
-                KB::Candidate::operator=(v194, v181);
-                v181 -= 125;
-                if (v222 != *(v193 - 64))
-                {
-                  break;
-                }
-
-                if (v220)
-                {
-                  v195 = 240 * v220;
-                  v196 = v221;
-                  while ((*(v196 + 105) & 1) == 0)
-                  {
-                    v196 += 240;
-                    v195 -= 240;
-                    if (!v195)
-                    {
-                      goto LABEL_390;
-                    }
-                  }
-                }
-
-                else
-                {
-                  v196 = v221;
-                }
-
-                if (v196 == v221 + 240 * v220)
-                {
-                  break;
-                }
-
-                v197 = *v181;
-                if (*v181)
-                {
-                  v198 = 240 * v197;
-                  v199 = *(v193 - 124);
-                  while ((*(v199 + 105) & 1) == 0)
-                  {
-                    v199 += 240;
-                    v198 -= 240;
-                    if (!v198)
-                    {
-                      goto LABEL_390;
-                    }
-                  }
-                }
-
-                else
-                {
-                  v199 = *(v193 - 124);
-                }
-
-                if (v199 == *(v193 - 124) + 240 * v197)
-                {
-                  break;
-                }
-
-                v200 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
-                v202 = v201;
-                v203 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v181));
-                if ((v202 & 1) == 0 || (v204 & 1) == 0)
-                {
-                  break;
-                }
-
-                if (v200 <= v203)
-                {
-                  goto LABEL_391;
-                }
-              }
-
-LABEL_390:
-              ;
-            }
-
-            while (v222 > *(v193 - 64));
-LABEL_391:
-            KB::Candidate::operator=(v193, &v220);
-            KB::Candidate::~Candidate(&v220);
-          }
-        }
-
-        v180 = (a1 + 125);
-        if (a1 + 125 == a2)
-        {
-          goto LABEL_409;
-        }
-      }
+      break;
     }
 
     if (!a3)
     {
       std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,KB::Candidate *>(v7, a2, a2);
-      goto LABEL_409;
+      return;
     }
 
     v10 = v9 >> 1;
-    v11 = (v7 + 1000 * (v9 >> 1));
+    v11 = &v7[125 * (v9 >> 1)];
     if (v8 < 0x1F401)
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v11, v7, v218);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v11, v7, v217);
     }
 
     else
     {
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, v11, v218);
-      v12 = 1000 * v10;
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>((v7 + 1000), (v12 + v7 - 1000), v216);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>((v7 + 2000), (v7 + 1000 + v12), v215);
-      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>((v12 + v7 - 1000), v11, (v7 + 1000 + v12));
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(v7, v11, v217);
+      v12 = 125 * v10;
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>((v7 + 125), &v7[v12 - 125], v215);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>((v7 + 250), &v7[v12 + 125], v214);
+      std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(&v7[v12 - 125], v11, &v7[v12 + 125]);
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v7, v11);
     }
 
@@ -7359,16 +6781,16 @@ LABEL_391:
       goto LABEL_41;
     }
 
-    if (*(v7 - 256) != *(v7 + 744))
+    if (*(v7 - 64) != *(v7 + 186))
     {
       goto LABEL_40;
     }
 
-    v13 = *(v7 - 1000);
+    v13 = *(v7 - 125);
     if (v13)
     {
       v14 = 240 * v13;
-      v15 = *(v7 - 992);
+      v15 = *(v7 - 124);
       while ((*(v15 + 105) & 1) == 0)
       {
         v15 += 240;
@@ -7382,10 +6804,10 @@ LABEL_391:
 
     else
     {
-      v15 = *(v7 - 992);
+      v15 = *(v7 - 124);
     }
 
-    if (v15 == *(v7 - 992) + 240 * v13)
+    if (v15 == *(v7 - 124) + 240 * v13)
     {
       goto LABEL_40;
     }
@@ -7394,7 +6816,7 @@ LABEL_391:
     if (*v7)
     {
       v17 = 240 * v16;
-      v18 = *(v7 + 8);
+      v18 = v7[1];
       while ((*(v18 + 105) & 1) == 0)
       {
         v18 += 240;
@@ -7408,10 +6830,10 @@ LABEL_391:
 
     else
     {
-      v18 = *(v7 + 8);
+      v18 = v7[1];
     }
 
-    if (v18 != *(v7 + 8) + 240 * v16 && (v19 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v7 - 1000))), v21 = v20, v22 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v21 & 1) != 0) && (v23 & 1) != 0)
+    if (v18 != v7[1] + 240 * v16 && (v19 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v7 - 125))), v21 = v20, v22 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v21 & 1) != 0) && (v23 & 1) != 0)
     {
       if (v19 > v22)
       {
@@ -7419,16 +6841,16 @@ LABEL_391:
       }
 
 LABEL_34:
-      KB::Candidate::Candidate(&v220, v7);
-      if (v222 != *(a2 - 64))
+      KB::Candidate::Candidate(&v219, v7);
+      if (v221 != *(a2 - 64))
       {
         goto LABEL_196;
       }
 
-      if (v220)
+      if (v219)
       {
-        v24 = 240 * v220;
-        v25 = v221;
+        v24 = 240 * v219;
+        v25 = v220;
         while ((*(v25 + 105) & 1) == 0)
         {
           v25 += 240;
@@ -7442,19 +6864,19 @@ LABEL_34:
 
       else
       {
-        v25 = v221;
+        v25 = v220;
       }
 
-      if (v25 == v221 + 240 * v220)
+      if (v25 == v220 + 240 * v219)
       {
         goto LABEL_196;
       }
 
-      v86 = *v218;
-      if (*v218)
+      v86 = *v217;
+      if (*v217)
       {
         v87 = 240 * v86;
-        v88 = *v214;
+        v88 = *v213;
         while ((*(v88 + 105) & 1) == 0)
         {
           v88 += 240;
@@ -7468,32 +6890,32 @@ LABEL_34:
 
       else
       {
-        v88 = *v214;
+        v88 = *v213;
       }
 
-      if (v88 == *v214 + 240 * v86 || (v89 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220)), v91 = v90, v92 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v218)), (v91 & 1) == 0) || (v93 & 1) == 0)
+      if (v88 == *v213 + 240 * v86 || (v89 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219)), v91 = v90, v92 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v217)), (v91 & 1) == 0) || (v93 & 1) == 0)
       {
 LABEL_196:
-        if (v222 > *(a2 - 64))
+        if (v221 > *(a2 - 64))
         {
           goto LABEL_197;
         }
 
 LABEL_173:
-        v7 += 1000;
+        v7 += 125;
         v94 = a1;
         while (v7 < a2)
         {
           v95 = v7;
-          if (v222 != *(v94 + 436))
+          if (v221 != *(v94 + 436))
           {
             goto LABEL_194;
           }
 
-          if (v220)
+          if (v219)
           {
-            v96 = 240 * v220;
-            v97 = v221;
+            v96 = 240 * v219;
+            v97 = v220;
             while ((*(v97 + 105) & 1) == 0)
             {
               v97 += 240;
@@ -7507,10 +6929,10 @@ LABEL_173:
 
           else
           {
-            v97 = v221;
+            v97 = v220;
           }
 
-          if (v97 == v221 + 240 * v220)
+          if (v97 == v220 + 240 * v219)
           {
             goto LABEL_194;
           }
@@ -7536,7 +6958,7 @@ LABEL_173:
             v100 = v94[126];
           }
 
-          if (v100 != v94[126] + 240 * v98 && (v101 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220)), v103 = v102, v104 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v103 & 1) != 0) && (v105 & 1) != 0)
+          if (v100 != v94[126] + 240 * v98 && (v101 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219)), v103 = v102, v104 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v103 & 1) != 0) && (v105 & 1) != 0)
           {
             if (v101 > v104)
             {
@@ -7547,13 +6969,13 @@ LABEL_173:
           else
           {
 LABEL_194:
-            if (v222 > *(v94 + 436))
+            if (v221 > *(v94 + 436))
             {
               goto LABEL_217;
             }
           }
 
-          v7 += 1000;
+          v7 += 125;
           v94 = v95;
         }
 
@@ -7571,16 +6993,16 @@ LABEL_197:
         while (1)
         {
           v106 = v7;
-          v7 += 1000;
-          if (v222 != *(v106 + 1744))
+          v7 += 125;
+          if (v221 != *(v106 + 436))
           {
             break;
           }
 
-          if (v220)
+          if (v219)
           {
-            v107 = 240 * v220;
-            v108 = v221;
+            v107 = 240 * v219;
+            v108 = v220;
             while ((*(v108 + 105) & 1) == 0)
             {
               v108 += 240;
@@ -7594,19 +7016,19 @@ LABEL_197:
 
           else
           {
-            v108 = v221;
+            v108 = v220;
           }
 
-          if (v108 == v221 + 240 * v220)
+          if (v108 == v220 + 240 * v219)
           {
             break;
           }
 
-          v109 = *(v106 + 1000);
+          v109 = v106[125];
           if (v109)
           {
             v110 = 240 * v109;
-            v111 = *(v106 + 1008);
+            v111 = v106[126];
             while ((*(v111 + 105) & 1) == 0)
             {
               v111 += 240;
@@ -7620,15 +7042,15 @@ LABEL_197:
 
           else
           {
-            v111 = *(v106 + 1008);
+            v111 = v106[126];
           }
 
-          if (v111 == *(v106 + 1008) + 240 * v109)
+          if (v111 == v106[126] + 240 * v109)
           {
             break;
           }
 
-          v112 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+          v112 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
           v114 = v113;
           v115 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7));
           if ((v114 & 1) == 0 || (v116 & 1) == 0)
@@ -7646,7 +7068,7 @@ LABEL_216:
         ;
       }
 
-      while (v222 <= *(v106 + 1744));
+      while (v221 <= *(v106 + 436));
 LABEL_217:
       v117 = a2;
       if (v7 < a2)
@@ -7658,15 +7080,15 @@ LABEL_217:
           {
             v118 = v117;
             v117 = (v117 - 1000);
-            if (v222 != *(v118 - 64))
+            if (v221 != *(v118 - 64))
             {
               break;
             }
 
-            if (v220)
+            if (v219)
             {
-              v119 = 240 * v220;
-              v120 = v221;
+              v119 = 240 * v219;
+              v120 = v220;
               while ((*(v120 + 105) & 1) == 0)
               {
                 v120 += 240;
@@ -7680,10 +7102,10 @@ LABEL_217:
 
             else
             {
-              v120 = v221;
+              v120 = v220;
             }
 
-            if (v120 == v221 + 240 * v220)
+            if (v120 == v220 + 240 * v219)
             {
               break;
             }
@@ -7714,7 +7136,7 @@ LABEL_217:
               break;
             }
 
-            v124 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+            v124 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
             v126 = v125;
             v127 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v117));
             if ((v126 & 1) == 0 || (v128 & 1) == 0)
@@ -7732,7 +7154,7 @@ LABEL_238:
           ;
         }
 
-        while (v222 > *(v118 - 64));
+        while (v221 > *(v118 - 64));
       }
 
 LABEL_281:
@@ -7744,16 +7166,16 @@ LABEL_281:
           while (1)
           {
             v129 = v7;
-            v7 += 1000;
-            if (v222 != *(v129 + 1744))
+            v7 += 125;
+            if (v221 != *(v129 + 436))
             {
               break;
             }
 
-            if (v220)
+            if (v219)
             {
-              v130 = 240 * v220;
-              v131 = v221;
+              v130 = 240 * v219;
+              v131 = v220;
               while ((*(v131 + 105) & 1) == 0)
               {
                 v131 += 240;
@@ -7767,19 +7189,19 @@ LABEL_281:
 
             else
             {
-              v131 = v221;
+              v131 = v220;
             }
 
-            if (v131 == v221 + 240 * v220)
+            if (v131 == v220 + 240 * v219)
             {
               break;
             }
 
-            v132 = *(v129 + 1000);
+            v132 = v129[125];
             if (v132)
             {
               v133 = 240 * v132;
-              v134 = *(v129 + 1008);
+              v134 = v129[126];
               while ((*(v134 + 105) & 1) == 0)
               {
                 v134 += 240;
@@ -7793,15 +7215,15 @@ LABEL_281:
 
             else
             {
-              v134 = *(v129 + 1008);
+              v134 = v129[126];
             }
 
-            if (v134 == *(v129 + 1008) + 240 * v132)
+            if (v134 == v129[126] + 240 * v132)
             {
               break;
             }
 
-            v135 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+            v135 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
             v137 = v136;
             v138 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7));
             if ((v137 & 1) == 0 || (v139 & 1) == 0)
@@ -7819,7 +7241,7 @@ LABEL_260:
           ;
         }
 
-        while (v222 <= *(v129 + 1744));
+        while (v221 <= *(v129 + 436));
         do
         {
 LABEL_261:
@@ -7827,15 +7249,15 @@ LABEL_261:
           {
             v140 = v117;
             v117 = (v117 - 1000);
-            if (v222 != *(v140 - 64))
+            if (v221 != *(v140 - 64))
             {
               break;
             }
 
-            if (v220)
+            if (v219)
             {
-              v141 = 240 * v220;
-              v142 = v221;
+              v141 = 240 * v219;
+              v142 = v220;
               while ((*(v142 + 105) & 1) == 0)
               {
                 v142 += 240;
@@ -7849,10 +7271,10 @@ LABEL_261:
 
             else
             {
-              v142 = v221;
+              v142 = v220;
             }
 
-            if (v142 == v221 + 240 * v220)
+            if (v142 == v220 + 240 * v219)
             {
               break;
             }
@@ -7883,7 +7305,7 @@ LABEL_261:
               break;
             }
 
-            v146 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+            v146 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
             v148 = v147;
             v149 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v117));
             if ((v148 & 1) == 0 || (v150 & 1) == 0)
@@ -7901,30 +7323,30 @@ LABEL_280:
           ;
         }
 
-        while (v222 > *(v140 - 64));
+        while (v221 > *(v140 - 64));
       }
 
-      if ((v7 - 1000) != a1)
+      if (v7 - 125 != a1)
       {
-        KB::Candidate::operator=(a1, (v7 - 1000));
+        KB::Candidate::operator=(a1, v7 - 125);
       }
 
-      KB::Candidate::operator=((v7 - 1000), &v220);
-      KB::Candidate::~Candidate(&v220);
+      KB::Candidate::operator=(v7 - 125, &v219);
+      KB::Candidate::~Candidate(&v219);
       a4 = 0;
     }
 
     else
     {
 LABEL_40:
-      if (*(v7 - 256) <= *(v7 + 744))
+      if (*(v7 - 64) <= *(v7 + 186))
       {
         goto LABEL_34;
       }
 
 LABEL_41:
-      v219 = a3;
-      KB::Candidate::Candidate(&v220, v7);
+      v218 = a3;
+      KB::Candidate::Candidate(&v219, v7);
       v26 = v7;
       do
       {
@@ -7932,7 +7354,7 @@ LABEL_41:
         {
           v27 = v26;
           v26 = (v26 + 1000);
-          if (*(v27 + 436) != v222)
+          if (*(v27 + 436) != v221)
           {
             break;
           }
@@ -7963,10 +7385,10 @@ LABEL_41:
             break;
           }
 
-          if (v220)
+          if (v219)
           {
-            v31 = 240 * v220;
-            v32 = v221;
+            v31 = 240 * v219;
+            v32 = v220;
             while ((*(v32 + 105) & 1) == 0)
             {
               v32 += 240;
@@ -7980,17 +7402,17 @@ LABEL_41:
 
           else
           {
-            v32 = v221;
+            v32 = v220;
           }
 
-          if (v32 == v221 + 240 * v220)
+          if (v32 == v220 + 240 * v219)
           {
             break;
           }
 
           v33 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v26));
           v35 = v34;
-          v36 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+          v36 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
           if ((v35 & 1) == 0 || (v37 & 1) == 0)
           {
             break;
@@ -8006,7 +7428,7 @@ LABEL_61:
         ;
       }
 
-      while (*(v27 + 436) > v222);
+      while (*(v27 + 436) > v221);
 LABEL_62:
       v38 = a2;
       if (v27 == v7)
@@ -8019,7 +7441,7 @@ LABEL_62:
             {
               v50 = a2;
               a2 = (a2 - 1000);
-              if (*(v50 - 64) != v222)
+              if (*(v50 - 64) != v221)
               {
                 break;
               }
@@ -8050,10 +7472,10 @@ LABEL_62:
                 break;
               }
 
-              if (v220)
+              if (v219)
               {
-                v54 = 240 * v220;
-                v55 = v221;
+                v54 = 240 * v219;
+                v55 = v220;
                 while ((*(v55 + 105) & 1) == 0)
                 {
                   v55 += 240;
@@ -8067,17 +7489,17 @@ LABEL_62:
 
               else
               {
-                v55 = v221;
+                v55 = v220;
               }
 
-              if (v55 == v221 + 240 * v220)
+              if (v55 == v220 + 240 * v219)
               {
                 break;
               }
 
               v56 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(a2));
               v58 = v57;
-              v59 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+              v59 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
               if ((v58 & 1) == 0 || (v60 & 1) == 0)
               {
                 break;
@@ -8090,7 +7512,7 @@ LABEL_62:
             }
 
 LABEL_105:
-            v61 = *(v50 - 64) > v222 || v26 >= a2;
+            v61 = *(v50 - 64) > v221 || v26 >= a2;
           }
 
           while (!v61);
@@ -8105,7 +7527,7 @@ LABEL_105:
           {
             v39 = a2;
             a2 = (a2 - 1000);
-            if (*(v39 - 64) != v222)
+            if (*(v39 - 64) != v221)
             {
               break;
             }
@@ -8136,10 +7558,10 @@ LABEL_105:
               break;
             }
 
-            if (v220)
+            if (v219)
             {
-              v43 = 240 * v220;
-              v44 = v221;
+              v43 = 240 * v219;
+              v44 = v220;
               while ((*(v44 + 105) & 1) == 0)
               {
                 v44 += 240;
@@ -8153,17 +7575,17 @@ LABEL_105:
 
             else
             {
-              v44 = v221;
+              v44 = v220;
             }
 
-            if (v44 == v221 + 240 * v220)
+            if (v44 == v220 + 240 * v219)
             {
               break;
             }
 
             v45 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(a2));
             v47 = v46;
-            v48 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+            v48 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
             if ((v47 & 1) == 0 || (v49 & 1) == 0)
             {
               break;
@@ -8179,7 +7601,7 @@ LABEL_82:
           ;
         }
 
-        while (*(v39 - 64) <= v222);
+        while (*(v39 - 64) <= v221);
       }
 
 LABEL_110:
@@ -8195,17 +7617,17 @@ LABEL_110:
             while (1)
             {
               v63 = v7;
-              v7 += 1000;
-              if (*(v63 + 1744) != v222)
+              v7 += 125;
+              if (*(v63 + 436) != v221)
               {
                 break;
               }
 
-              v64 = *(v63 + 1000);
+              v64 = v63[125];
               if (v64)
               {
                 v65 = 240 * v64;
-                v66 = *(v63 + 1008);
+                v66 = v63[126];
                 while ((*(v66 + 105) & 1) == 0)
                 {
                   v66 += 240;
@@ -8219,18 +7641,18 @@ LABEL_110:
 
               else
               {
-                v66 = *(v63 + 1008);
+                v66 = v63[126];
               }
 
-              if (v66 == *(v63 + 1008) + 240 * v64)
+              if (v66 == v63[126] + 240 * v64)
               {
                 break;
               }
 
-              if (v220)
+              if (v219)
               {
-                v67 = 240 * v220;
-                v68 = v221;
+                v67 = 240 * v219;
+                v68 = v220;
                 while ((*(v68 + 105) & 1) == 0)
                 {
                   v68 += 240;
@@ -8244,17 +7666,17 @@ LABEL_110:
 
               else
               {
-                v68 = v221;
+                v68 = v220;
               }
 
-              if (v68 == v221 + 240 * v220)
+              if (v68 == v220 + 240 * v219)
               {
                 break;
               }
 
               v69 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7));
               v71 = v70;
-              v72 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+              v72 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
               if ((v71 & 1) == 0 || (v73 & 1) == 0)
               {
                 break;
@@ -8270,7 +7692,7 @@ LABEL_132:
             ;
           }
 
-          while (*(v63 + 1744) > v222);
+          while (*(v63 + 436) > v221);
           do
           {
 LABEL_133:
@@ -8278,7 +7700,7 @@ LABEL_133:
             {
               v74 = v62;
               v62 -= 125;
-              if (*(v74 - 64) != v222)
+              if (*(v74 - 64) != v221)
               {
                 break;
               }
@@ -8309,10 +7731,10 @@ LABEL_133:
                 break;
               }
 
-              if (v220)
+              if (v219)
               {
-                v78 = 240 * v220;
-                v79 = v221;
+                v78 = 240 * v219;
+                v79 = v220;
                 while ((*(v79 + 105) & 1) == 0)
                 {
                   v79 += 240;
@@ -8326,17 +7748,17 @@ LABEL_133:
 
               else
               {
-                v79 = v221;
+                v79 = v220;
               }
 
-              if (v79 == v221 + 240 * v220)
+              if (v79 == v220 + 240 * v219)
               {
                 break;
               }
 
               v80 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v62));
               v82 = v81;
-              v83 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v220));
+              v83 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
               if ((v82 & 1) == 0 || (v84 & 1) == 0)
               {
                 break;
@@ -8352,7 +7774,7 @@ LABEL_152:
             ;
           }
 
-          while (*(v74 - 64) <= v222);
+          while (*(v74 - 64) <= v221);
 LABEL_153:
           ;
         }
@@ -8360,119 +7782,395 @@ LABEL_153:
         while (v7 < v62);
       }
 
-      if ((v7 - 1000) != a1)
+      if (v7 - 125 != a1)
       {
-        KB::Candidate::operator=(a1, (v7 - 1000));
+        KB::Candidate::operator=(a1, v7 - 125);
       }
 
-      KB::Candidate::operator=((v7 - 1000), &v220);
-      KB::Candidate::~Candidate(&v220);
+      KB::Candidate::operator=(v7 - 125, &v219);
+      KB::Candidate::~Candidate(&v219);
       v61 = v26 >= a2;
       a2 = v38;
-      a3 = v219;
-      if (v61)
+      a3 = v218;
+      if (!v61)
       {
-        v85 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(a1, (v7 - 1000));
-        if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(v7, v38))
-        {
-          a2 = (v7 - 1000);
-          if (v85)
-          {
-            goto LABEL_409;
-          }
-
-          goto LABEL_2;
-        }
-
-        if (!v85)
-        {
-          goto LABEL_160;
-        }
+        goto LABEL_160;
       }
 
-      else
+      v85 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(a1, v7 - 1000);
+      if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(v7, v38))
+      {
+        a2 = (v7 - 125);
+        if (v85)
+        {
+          return;
+        }
+
+        goto LABEL_2;
+      }
+
+      if ((v85 & 1) == 0)
       {
 LABEL_160:
-        std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(a1, v7 - 1000, v219, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,false>(a1, (v7 - 125), v218, a4 & 1);
         a4 = 0;
       }
     }
   }
 
-  if (*(a2 - 64) != *(v7 + 744))
+  if ((a4 & 1) == 0)
   {
-    goto LABEL_407;
-  }
-
-  v151 = *v218;
-  if (*v218)
-  {
-    v152 = 240 * v151;
-    v153 = *v214;
-    while ((*(v153 + 105) & 1) == 0)
+    if (v7 == a2)
     {
-      v153 += 240;
-      v152 -= 240;
-      if (!v152)
+      return;
+    }
+
+    v180 = v7 + 125;
+    if (v7 + 125 == a2)
+    {
+      return;
+    }
+
+    while (1)
+    {
+      v181 = a1;
+      a1 = v180;
+      if (*(v181 + 436) != *(v181 + 186))
       {
-        goto LABEL_407;
+        goto LABEL_369;
+      }
+
+      v182 = *v180;
+      if (*v180)
+      {
+        v183 = 240 * v182;
+        v184 = v181[126];
+        while ((*(v184 + 105) & 1) == 0)
+        {
+          v184 += 240;
+          v183 -= 240;
+          if (!v183)
+          {
+            goto LABEL_369;
+          }
+        }
+      }
+
+      else
+      {
+        v184 = v181[126];
+      }
+
+      if (v184 == v181[126] + 240 * v182)
+      {
+        goto LABEL_369;
+      }
+
+      v185 = *v181;
+      if (*v181)
+      {
+        v186 = 240 * v185;
+        v187 = v181[1];
+        while ((*(v187 + 105) & 1) == 0)
+        {
+          v187 += 240;
+          v186 -= 240;
+          if (!v186)
+          {
+            goto LABEL_369;
+          }
+        }
+      }
+
+      else
+      {
+        v187 = v181[1];
+      }
+
+      if (v187 != v181[1] + 240 * v185 && (v188 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v180)), v190 = v189, v191 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v181)), (v190 & 1) != 0) && (v192 & 1) != 0)
+      {
+        if (v188 > v191)
+        {
+          goto LABEL_370;
+        }
+      }
+
+      else
+      {
+LABEL_369:
+        if (*(v181 + 436) > *(v181 + 186))
+        {
+LABEL_370:
+          KB::Candidate::Candidate(&v219, a1);
+          v193 = a1;
+          do
+          {
+            while (1)
+            {
+              v194 = v193;
+              v193 = v181;
+              KB::Candidate::operator=(v194, v181);
+              v181 -= 125;
+              if (v221 != *(v193 - 64))
+              {
+                break;
+              }
+
+              if (v219)
+              {
+                v195 = 240 * v219;
+                v196 = v220;
+                while ((*(v196 + 105) & 1) == 0)
+                {
+                  v196 += 240;
+                  v195 -= 240;
+                  if (!v195)
+                  {
+                    goto LABEL_390;
+                  }
+                }
+              }
+
+              else
+              {
+                v196 = v220;
+              }
+
+              if (v196 == v220 + 240 * v219)
+              {
+                break;
+              }
+
+              v197 = *v181;
+              if (*v181)
+              {
+                v198 = 240 * v197;
+                v199 = *(v193 - 124);
+                while ((*(v199 + 105) & 1) == 0)
+                {
+                  v199 += 240;
+                  v198 -= 240;
+                  if (!v198)
+                  {
+                    goto LABEL_390;
+                  }
+                }
+              }
+
+              else
+              {
+                v199 = *(v193 - 124);
+              }
+
+              if (v199 == *(v193 - 124) + 240 * v197)
+              {
+                break;
+              }
+
+              v200 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219));
+              v202 = v201;
+              v203 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v181));
+              if ((v202 & 1) == 0 || (v204 & 1) == 0)
+              {
+                break;
+              }
+
+              if (v200 <= v203)
+              {
+                goto LABEL_391;
+              }
+            }
+
+LABEL_390:
+            ;
+          }
+
+          while (v221 > *(v193 - 64));
+LABEL_391:
+          KB::Candidate::operator=(v193, &v219);
+          KB::Candidate::~Candidate(&v219);
+        }
+      }
+
+      v180 = a1 + 125;
+      if (a1 + 125 == a2)
+      {
+        return;
       }
     }
   }
 
-  else
+  if (v7 != a2)
   {
-    v153 = *v214;
-  }
-
-  if (v153 == *v214 + 240 * v151)
-  {
-    goto LABEL_407;
-  }
-
-  v205 = *v7;
-  if (*v7)
-  {
-    v206 = 240 * v205;
-    v207 = *(v7 + 8);
-    while ((*(v207 + 105) & 1) == 0)
+    v154 = (v7 + 125);
+    if (v7 + 125 != a2)
     {
-      v207 += 240;
-      v206 -= 240;
-      if (!v206)
+      v155 = v7;
+      do
       {
-        goto LABEL_407;
+        v156 = v155;
+        v155 = v154;
+        if (*(v156 + 1744) != *(v156 + 744))
+        {
+          goto LABEL_319;
+        }
+
+        v157 = *v154;
+        if (*v154)
+        {
+          v158 = 240 * v157;
+          v159 = *(v156 + 1008);
+          while ((*(v159 + 105) & 1) == 0)
+          {
+            v159 += 240;
+            v158 -= 240;
+            if (!v158)
+            {
+              goto LABEL_319;
+            }
+          }
+        }
+
+        else
+        {
+          v159 = *(v156 + 1008);
+        }
+
+        if (v159 == *(v156 + 1008) + 240 * v157)
+        {
+          goto LABEL_319;
+        }
+
+        v160 = *v156;
+        if (*v156)
+        {
+          v161 = 240 * v160;
+          v162 = *(v156 + 8);
+          while ((*(v162 + 105) & 1) == 0)
+          {
+            v162 += 240;
+            v161 -= 240;
+            if (!v161)
+            {
+              goto LABEL_319;
+            }
+          }
+        }
+
+        else
+        {
+          v162 = *(v156 + 8);
+        }
+
+        if (v162 != *(v156 + 8) + 240 * v160 && (v163 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v154)), v165 = v164, v166 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v156)), (v165 & 1) != 0) && (v167 & 1) != 0)
+        {
+          if (v163 > v166)
+          {
+            goto LABEL_320;
+          }
+        }
+
+        else
+        {
+LABEL_319:
+          if (*(v156 + 1744) > *(v156 + 744))
+          {
+LABEL_320:
+            KB::Candidate::Candidate(&v219, v155);
+            v168 = v155;
+            while (1)
+            {
+              v169 = v168;
+              v168 = v156;
+              KB::Candidate::operator=(v169, v156);
+              if (v156 == v7)
+              {
+                break;
+              }
+
+              v156 -= 1000;
+              if (v221 != *(v168 - 64))
+              {
+                goto LABEL_341;
+              }
+
+              if (v219)
+              {
+                v170 = 240 * v219;
+                v171 = v220;
+                while ((*(v171 + 105) & 1) == 0)
+                {
+                  v171 += 240;
+                  v170 -= 240;
+                  if (!v170)
+                  {
+                    goto LABEL_341;
+                  }
+                }
+              }
+
+              else
+              {
+                v171 = v220;
+              }
+
+              if (v171 == v220 + 240 * v219)
+              {
+                goto LABEL_341;
+              }
+
+              v172 = *v156;
+              if (*v156)
+              {
+                v173 = 240 * v172;
+                v174 = *(v168 - 124);
+                while ((*(v174 + 105) & 1) == 0)
+                {
+                  v174 += 240;
+                  v173 -= 240;
+                  if (!v173)
+                  {
+                    goto LABEL_341;
+                  }
+                }
+              }
+
+              else
+              {
+                v174 = *(v168 - 124);
+              }
+
+              if (v174 != *(v168 - 124) + 240 * v172 && (v175 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v219)), v177 = v176, v178 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v168 - 125))), (v177 & 1) != 0) && (v179 & 1) != 0)
+              {
+                if (v175 <= v178)
+                {
+                  goto LABEL_344;
+                }
+              }
+
+              else
+              {
+LABEL_341:
+                if (v221 <= *(v168 - 64))
+                {
+                  goto LABEL_344;
+                }
+              }
+            }
+
+            v168 = v7;
+LABEL_344:
+            KB::Candidate::operator=(v168, &v219);
+            KB::Candidate::~Candidate(&v219);
+          }
+        }
+
+        v154 = (v155 + 1000);
       }
+
+      while ((v155 + 1000) != a2);
     }
   }
-
-  else
-  {
-    v207 = *(v7 + 8);
-  }
-
-  if (v207 != *(v7 + 8) + 240 * v205 && (v208 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v218)), v210 = v209, v211 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v7)), (v210 & 1) != 0) && (v212 & 1) != 0)
-  {
-    if (v208 <= v211)
-    {
-      goto LABEL_409;
-    }
-
-LABEL_408:
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v7, v218);
-  }
-
-  else
-  {
-LABEL_407:
-    if (*(a2 - 64) > *(v7 + 744))
-    {
-      goto LABEL_408;
-    }
-  }
-
-LABEL_409:
-  v213 = *MEMORY[0x277D85DE8];
 }
 
 void std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(KB::Candidate *a1, KB::Candidate *this, float *a3)
@@ -9349,9 +9047,9 @@ LABEL_80:
   std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, a2);
 }
 
-void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,KB::Candidate *>(uint64_t a1, KB::Candidate *this, uint64_t *a3)
+void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,KB::Candidate *>(KB::Candidate *a1, KB::Candidate *this, uint64_t *a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   if (a1 != this)
   {
     v4 = this;
@@ -9377,7 +9075,7 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
       v10 = v4;
       while (1)
       {
-        if (*(v10 + 186) == *(a1 + 744))
+        if (*(v10 + 186) == *(a1 + 186))
         {
           v11 = *v10;
           if (*v10)
@@ -9406,7 +9104,7 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
             if (*a1)
             {
               v15 = 240 * v14;
-              v16 = *(a1 + 8);
+              v16 = *(a1 + 1);
               while ((*(v16 + 105) & 1) == 0)
               {
                 v16 += 240;
@@ -9420,10 +9118,10 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
 
             else
             {
-              v16 = *(a1 + 8);
+              v16 = *(a1 + 1);
             }
 
-            if (v16 != *(a1 + 8) + 240 * v14)
+            if (v16 != *(a1 + 1) + 240 * v14)
             {
               v17 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v10));
               v19 = v18;
@@ -9437,7 +9135,7 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
         }
 
 LABEL_26:
-        if (*(v10 + 186) > *(a1 + 744))
+        if (*(v10 + 186) > *(a1 + 186))
         {
           goto LABEL_27;
         }
@@ -9467,9 +9165,9 @@ LABEL_29:
       v22 = 0x1CAC083126E978D5 * (v5 >> 3);
       do
       {
-        v67 = v4;
+        v66 = v4;
         v23 = a1;
-        KB::Candidate::Candidate(v69, a1);
+        KB::Candidate::Candidate(v68, a1);
         v24 = 0;
         do
         {
@@ -9560,15 +9258,15 @@ LABEL_54:
         }
 
         while (v24 <= ((v22 - 2) >> 1));
-        v4 = v67 - 125;
-        if (v23 == v67 - 125)
+        v4 = v66 - 125;
+        if (v23 == v66 - 125)
         {
-          KB::Candidate::operator=(v23, v69);
+          KB::Candidate::operator=(v23, v68);
           goto LABEL_102;
         }
 
-        KB::Candidate::operator=(v23, v67 - 125);
-        KB::Candidate::operator=(v4, v69);
+        KB::Candidate::operator=(v23, v66 - 125);
+        KB::Candidate::operator=(v4, v68);
         v40 = v23 - a1 + 1000;
         if (v40 < 1001)
         {
@@ -9576,8 +9274,8 @@ LABEL_54:
         }
 
         v41 = (0x1CAC083126E978D5 * (v40 >> 3) - 2) >> 1;
-        v42 = a1 + 1000 * v41;
-        if (*(v42 + 744) != *(v23 + 744))
+        v42 = (a1 + 1000 * v41);
+        if (*(v42 + 186) != *(v23 + 744))
         {
           goto LABEL_77;
         }
@@ -9586,7 +9284,7 @@ LABEL_54:
         if (*v42)
         {
           v44 = 240 * v43;
-          v45 = *(v42 + 8);
+          v45 = v42[1];
           while ((*(v45 + 105) & 1) == 0)
           {
             v45 += 240;
@@ -9600,10 +9298,10 @@ LABEL_54:
 
         else
         {
-          v45 = *(v42 + 8);
+          v45 = v42[1];
         }
 
-        if (v45 == *(v42 + 8) + 240 * v43)
+        if (v45 == v42[1] + 240 * v43)
         {
           goto LABEL_77;
         }
@@ -9640,13 +9338,13 @@ LABEL_54:
         else
         {
 LABEL_77:
-          if (*(v42 + 744) <= *(v23 + 744))
+          if (*(v42 + 186) <= *(v23 + 744))
           {
             goto LABEL_102;
           }
         }
 
-        KB::Candidate::Candidate(&v70, v23);
+        KB::Candidate::Candidate(&v69, v23);
         do
         {
           v54 = v42;
@@ -9657,8 +9355,8 @@ LABEL_77:
           }
 
           v41 = (v41 - 1) >> 1;
-          v42 = a1 + 1000 * v41;
-          if (*(v42 + 744) != v72)
+          v42 = (a1 + 1000 * v41);
+          if (*(v42 + 186) != v71)
           {
             goto LABEL_98;
           }
@@ -9667,7 +9365,7 @@ LABEL_77:
           if (*v42)
           {
             v56 = 240 * v55;
-            v57 = *(v42 + 8);
+            v57 = v42[1];
             while ((*(v57 + 105) & 1) == 0)
             {
               v57 += 240;
@@ -9681,18 +9379,18 @@ LABEL_77:
 
           else
           {
-            v57 = *(v42 + 8);
+            v57 = v42[1];
           }
 
-          if (v57 == *(v42 + 8) + 240 * v55)
+          if (v57 == v42[1] + 240 * v55)
           {
             goto LABEL_98;
           }
 
-          if (v70)
+          if (v69)
           {
-            v58 = 240 * v70;
-            v59 = v71;
+            v58 = 240 * v69;
+            v59 = v70;
             while ((*(v59 + 105) & 1) == 0)
             {
               v59 += 240;
@@ -9706,10 +9404,10 @@ LABEL_77:
 
           else
           {
-            v59 = v71;
+            v59 = v70;
           }
 
-          if (v59 != v71 + 240 * v70 && (v60 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((a1 + 1000 * v41))), v62 = v61, v63 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v70)), (v62 & 1) != 0) && (v64 & 1) != 0)
+          if (v59 != v70 + 240 * v69 && (v60 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((a1 + 1000 * v41))), v62 = v61, v63 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v69)), (v62 & 1) != 0) && (v64 & 1) != 0)
           {
             v65 = v60 <= v63;
           }
@@ -9717,30 +9415,28 @@ LABEL_77:
           else
           {
 LABEL_98:
-            v65 = *(v42 + 744) <= v72;
+            v65 = *(v42 + 186) <= v71;
           }
 
           v23 = v54;
         }
 
         while (!v65);
-        KB::Candidate::operator=(v54, &v70);
-        KB::Candidate::~Candidate(&v70);
+        KB::Candidate::operator=(v54, &v69);
+        KB::Candidate::~Candidate(&v69);
 LABEL_102:
-        KB::Candidate::~Candidate(v69);
+        KB::Candidate::~Candidate(v68);
         v65 = v22-- <= 2;
       }
 
       while (!v65);
     }
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(float *a1, uint64_t *a2)
+uint64_t std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(float *a1, char *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v4 = 0x1CAC083126E978D5 * ((a2 - a1) >> 3);
   if (v4 > 2)
   {
@@ -9748,13 +9444,13 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::C
     {
       case 3:
         std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(a1, (a1 + 250), a2 - 250);
-        goto LABEL_82;
+        return 1;
       case 4:
         std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(a1, (a1 + 250), a1 + 500, a2 - 250);
-        goto LABEL_82;
+        return 1;
       case 5:
         std::__sort5[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(a1, (a1 + 250), a1 + 500, a1 + 750, a2 - 250);
-        goto LABEL_82;
+        return 1;
     }
   }
 
@@ -9762,12 +9458,12 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::C
   {
     if (v4 < 2)
     {
-      goto LABEL_82;
+      return 1;
     }
 
     if (v4 == 2)
     {
-      v5 = a2 - 125;
+      v5 = (a2 - 1000);
       if (*(a2 - 64) == a1[186])
       {
         v6 = *v5;
@@ -9816,14 +9512,14 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::C
 
           if (v37 != *(a1 + 1) + 240 * v35)
           {
-            v39 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((a2 - 125)));
+            v39 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((a2 - 1000)));
             v41 = v40;
             v42 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(a1));
             if (v41 & 1) != 0 && (v43)
             {
               if (v39 <= v42)
               {
-                goto LABEL_82;
+                return 1;
               }
 
               goto LABEL_81;
@@ -9839,30 +9535,28 @@ LABEL_81:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, a2 - 125);
       }
 
-LABEL_82:
-      v38 = 1;
-      goto LABEL_83;
+      return 1;
     }
   }
 
-  v9 = (a1 + 500);
+  v9 = a1 + 500;
   std::__sort3[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *,0>(a1, (a1 + 250), a1 + 500);
-  v10 = (a1 + 750);
+  v10 = a1 + 750;
   if (a1 + 750 == a2)
   {
-    goto LABEL_82;
+    return 1;
   }
 
   v11 = 0;
   while (1)
   {
-    if (*(v10 + 744) == *(v9 + 744))
+    if (v10[186] == v9[186])
     {
       v12 = *v10;
       if (*v10)
       {
         v13 = 240 * v12;
-        v14 = *(v10 + 8);
+        v14 = *(v10 + 1);
         while ((*(v14 + 105) & 1) == 0)
         {
           v14 += 240;
@@ -9876,16 +9570,16 @@ LABEL_82:
 
       else
       {
-        v14 = *(v10 + 8);
+        v14 = *(v10 + 1);
       }
 
-      if (v14 != *(v10 + 8) + 240 * v12)
+      if (v14 != *(v10 + 1) + 240 * v12)
       {
         v15 = *v9;
         if (*v9)
         {
           v16 = 240 * v15;
-          v17 = *(v9 + 8);
+          v17 = *(v9 + 1);
           while ((*(v17 + 105) & 1) == 0)
           {
             v17 += 240;
@@ -9899,10 +9593,10 @@ LABEL_82:
 
         else
         {
-          v17 = *(v9 + 8);
+          v17 = *(v9 + 1);
         }
 
-        if (v17 != *(v9 + 8) + 240 * v15)
+        if (v17 != *(v9 + 1) + 240 * v15)
         {
           v18 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v10));
           v20 = v19;
@@ -9916,17 +9610,17 @@ LABEL_82:
     }
 
 LABEL_36:
-    if (*(v10 + 744) > *(v9 + 744))
+    if (v10[186] > v9[186])
     {
       goto LABEL_37;
     }
 
 LABEL_63:
     v9 = v10;
-    v10 += 1000;
+    v10 += 250;
     if (v10 == a2)
     {
-      goto LABEL_82;
+      return 1;
     }
   }
 
@@ -9936,7 +9630,7 @@ LABEL_63:
   }
 
 LABEL_37:
-  KB::Candidate::Candidate(&v46, v10);
+  KB::Candidate::Candidate(&v45, v10);
   v23 = v10;
   while (1)
   {
@@ -9948,16 +9642,16 @@ LABEL_37:
       break;
     }
 
-    v9 -= 1000;
-    if (v48 != *(v23 - 64))
+    v9 -= 250;
+    if (v47 != *(v23 - 64))
     {
       goto LABEL_58;
     }
 
-    if (v46)
+    if (v45)
     {
-      v25 = 240 * v46;
-      v26 = v47;
+      v25 = 240 * v45;
+      v26 = v46;
       while ((*(v26 + 105) & 1) == 0)
       {
         v26 += 240;
@@ -9971,10 +9665,10 @@ LABEL_37:
 
     else
     {
-      v26 = v47;
+      v26 = v46;
     }
 
-    if (v26 == v47 + 240 * v46)
+    if (v26 == v46 + 240 * v45)
     {
       goto LABEL_58;
     }
@@ -10000,7 +9694,7 @@ LABEL_37:
       v29 = *(v23 - 124);
     }
 
-    if (v29 != *(v23 - 124) + 240 * v27 && (v30 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v46)), v32 = v31, v33 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v23 - 125))), (v32 & 1) != 0) && (v34 & 1) != 0)
+    if (v29 != *(v23 - 124) + 240 * v27 && (v30 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v45)), v32 = v31, v33 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp((v23 - 125))), (v32 & 1) != 0) && (v34 & 1) != 0)
     {
       if (v30 <= v33)
       {
@@ -10011,7 +9705,7 @@ LABEL_37:
     else
     {
 LABEL_58:
-      if (v48 <= *(v23 - 64))
+      if (v47 <= *(v23 - 64))
       {
         goto LABEL_61;
       }
@@ -10020,34 +9714,32 @@ LABEL_58:
 
   v23 = a1;
 LABEL_61:
-  KB::Candidate::operator=(v23, &v46);
+  KB::Candidate::operator=(v23, &v45);
   if (++v11 != 8)
   {
-    KB::Candidate::~Candidate(&v46);
+    KB::Candidate::~Candidate(&v45);
     goto LABEL_63;
   }
 
-  v38 = v10 + 1000 == a2;
-  KB::Candidate::~Candidate(&v46);
-LABEL_83:
-  v44 = *MEMORY[0x277D85DE8];
+  v38 = v10 + 250 == a2;
+  KB::Candidate::~Candidate(&v45);
   return v38;
 }
 
 void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort(void)::$_0 &,KB::Candidate *>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   v3 = a2 - 2;
   if (a2 < 2)
   {
-    goto LABEL_90;
+    return;
   }
 
   v4 = a3;
   v6 = v3 >> 1;
   if ((v3 >> 1) < 0x1CAC083126E978D5 * ((a3 - a1) >> 3))
   {
-    goto LABEL_90;
+    return;
   }
 
   v8 = (0x395810624DD2F1AALL * ((a3 - a1) >> 3)) | 1;
@@ -10185,7 +9877,7 @@ LABEL_25:
   {
     if (v28 > v31)
     {
-      goto LABEL_90;
+      return;
     }
   }
 
@@ -10194,11 +9886,11 @@ LABEL_25:
 LABEL_44:
     if (v9[186] > *(v4 + 744))
     {
-      goto LABEL_90;
+      return;
     }
   }
 
-  KB::Candidate::Candidate(&v60, v4);
+  KB::Candidate::Candidate(&v59, v4);
   do
   {
     v33 = v9;
@@ -10284,7 +9976,7 @@ LABEL_66:
       }
     }
 
-    if (v9[186] != v62)
+    if (v9[186] != v61)
     {
       goto LABEL_87;
     }
@@ -10315,10 +10007,10 @@ LABEL_66:
       goto LABEL_87;
     }
 
-    if (v60)
+    if (v59)
     {
-      v51 = 240 * v60;
-      v52 = v61;
+      v51 = 240 * v59;
+      v52 = v60;
       while ((*(v52 + 105) & 1) == 0)
       {
         v52 += 240;
@@ -10332,10 +10024,10 @@ LABEL_66:
 
     else
     {
-      v52 = v61;
+      v52 = v60;
     }
 
-    if (v52 != v61 + 240 * v60 && (v53 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v9)), v55 = v54, v56 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v60)), (v55 & 1) != 0) && (v57 & 1) != 0)
+    if (v52 != v60 + 240 * v59 && (v53 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(v9)), v55 = v54, v56 = COERCE_DOUBLE(KB::Candidate::named_entity_timestamp(&v59)), (v55 & 1) != 0) && (v57 & 1) != 0)
     {
       v58 = v53 <= v56;
     }
@@ -10343,153 +10035,155 @@ LABEL_66:
     else
     {
 LABEL_87:
-      v58 = v9[186] <= v62;
+      v58 = v9[186] <= v61;
     }
 
     v4 = v33;
   }
 
   while (v58);
-  KB::Candidate::operator=(v33, &v60);
-  KB::Candidate::~Candidate(&v60);
-LABEL_90:
-  v59 = *MEMORY[0x277D85DE8];
+  KB::Candidate::operator=(v33, &v59);
+  KB::Candidate::~Candidate(&v59);
 }
 
-void KB::CandidateCollection::sort_by_word_score(KB::CandidateCollection *this)
+float KB::CandidateCollection::sort_by_word_score(KB::CandidateCollection *this, float a2)
 {
-  v1 = *(this + 1);
-  v2 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v1 - *this) >> 3));
-  if (v1 == *this)
+  v2 = *(this + 1);
+  v3 = 126 - 2 * __clz(0x1CAC083126E978D5 * ((v2 - *this) >> 3));
+  if (v2 == *this)
   {
-    v3 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v3 = v2;
+    v4 = v3;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(*this, v1, v3, 1);
+  return std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(*this, v2, v4, 1, a2);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(uint64_t a1, uint64_t *a2, uint64_t a3, char a4)
+float std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(unint64_t a1, uint64_t *a2, uint64_t a3, char a4, float result)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
 LABEL_2:
-  v75 = (a2 - 156);
-  v76 = a2 - 125;
-  v74 = (a2 - 281);
-  v8 = a1;
+  v73 = (a2 - 156);
+  v74 = a2 - 125;
+  v72 = (a2 - 281);
+  v9 = a1;
   while (1)
   {
-    a1 = v8;
-    v9 = a2 - v8;
-    v10 = 0x1CAC083126E978D5 * ((a2 - v8) >> 3);
-    if (v10 <= 2)
+    a1 = v9;
+    v10 = a2 - v9;
+    v11 = 0x1CAC083126E978D5 * ((a2 - v9) >> 3);
+    if (v11 <= 2)
     {
-      if (v10 < 2)
+      if (v11 < 2)
       {
-        goto LABEL_143;
+        return result;
       }
 
-      if (v10 == 2)
+      if (v11 == 2)
       {
-        if (*(a2 - 62) <= *(v8 + 752))
+        result = *(a2 - 62);
+        if (result <= *(v9 + 752))
         {
-          goto LABEL_143;
+          return result;
         }
 
 LABEL_111:
-        v60 = v8;
+        v60 = v9;
 LABEL_112:
         v61 = a2 - 125;
 LABEL_113:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v60, v61);
-        goto LABEL_143;
+        return result;
       }
 
       goto LABEL_10;
     }
 
-    if (v10 == 3)
+    if (v11 == 3)
     {
       break;
     }
 
-    if (v10 == 4)
+    if (v11 == 4)
     {
-      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(v8, v8 + 1000, v8 + 2000, v76);
-      goto LABEL_143;
+      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(v9, v9 + 1000, v9 + 2000, v74);
+      return result;
     }
 
-    if (v10 == 5)
+    if (v11 == 5)
     {
-      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(v8, v8 + 1000, v8 + 2000, v8 + 3000);
-      if (*(a2 - 62) <= *(v8 + 3752))
+      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(v9, v9 + 1000, v9 + 2000, v9 + 3000);
+      result = *(a2 - 62);
+      if (result <= *(v9 + 3752))
       {
-        goto LABEL_143;
+        return result;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v8 + 3000), v76);
-      if (*(v8 + 3752) <= *(v8 + 2752))
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v9 + 3000), v74);
+      result = *(v9 + 3752);
+      if (result <= *(v9 + 2752))
       {
-        goto LABEL_143;
+        return result;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v8 + 2000), (v8 + 3000));
-      if (*(v8 + 2752) <= *(v8 + 1752))
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v9 + 2000), (v9 + 3000));
+      result = *(v9 + 2752);
+      if (result <= *(v9 + 1752))
       {
-        goto LABEL_143;
+        return result;
       }
 
-      v56 = (v8 + 1000);
-      v57 = (v8 + 2000);
+      v57 = (v9 + 1000);
+      v58 = (v9 + 2000);
       goto LABEL_131;
     }
 
 LABEL_10:
-    if (v9 <= 23999)
+    if (v10 <= 23999)
     {
       if (a4)
       {
-        if (v8 != a2)
+        if (v9 != a2)
         {
-          v62 = v8 + 1000;
-          if ((v8 + 1000) != a2)
+          v62 = v9 + 1000;
+          if ((v9 + 1000) != a2)
           {
             v63 = 0;
-            v64 = v8;
+            v64 = v9;
             do
             {
-              v65 = *(v64 + 1752);
-              v66 = *(v64 + 752);
+              result = *(v64 + 1752);
+              v65 = *(v64 + 752);
               v64 = v62;
-              if (v65 > v66)
+              if (result > v65)
               {
-                KB::Candidate::Candidate(v77, v62);
-                v67 = v63;
+                KB::Candidate::Candidate(v75, v62);
+                v66 = v63;
                 while (1)
                 {
-                  KB::Candidate::operator=((v8 + v67 + 1000), (v8 + v67));
-                  if (!v67)
+                  KB::Candidate::operator=((v9 + v66 + 1000), (v9 + v66));
+                  if (!v66)
                   {
                     break;
                   }
 
-                  v68 = *(v8 + v67 - 248);
-                  v67 -= 1000;
-                  if (v78 <= v68)
+                  v67 = *(v9 + v66 - 248);
+                  v66 -= 1000;
+                  if (v76 <= v67)
                   {
-                    v69 = (v8 + v67 + 1000);
+                    v68 = (v9 + v66 + 1000);
                     goto LABEL_125;
                   }
                 }
 
-                v69 = v8;
+                v68 = v9;
 LABEL_125:
-                KB::Candidate::operator=(v69, v77);
-                KB::Candidate::~Candidate(v77);
+                KB::Candidate::operator=(v68, v75);
+                KB::Candidate::~Candidate(v75);
               }
 
               v62 = v64 + 1000;
@@ -10501,56 +10195,57 @@ LABEL_125:
         }
       }
 
-      else if (v8 != a2)
+      else if (v9 != a2)
       {
-        v70 = v8 + 1000;
-        while (v70 != a2)
+        v69 = (v9 + 1000);
+        while (v69 != a2)
         {
-          v71 = v70;
-          if (*(a1 + 1752) > *(a1 + 752))
+          v70 = v69;
+          result = *(a1 + 1752);
+          if (result > *(a1 + 752))
           {
-            KB::Candidate::Candidate(v77, v70);
+            KB::Candidate::Candidate(v75, v69);
             do
             {
-              v72 = a1;
+              v71 = a1;
               KB::Candidate::operator=((a1 + 1000), a1);
               a1 -= 1000;
             }
 
-            while (v78 > *(v72 - 62));
-            KB::Candidate::operator=(v72, v77);
-            KB::Candidate::~Candidate(v77);
+            while (v76 > *(v71 - 62));
+            KB::Candidate::operator=(v71, v75);
+            KB::Candidate::~Candidate(v75);
           }
 
-          v70 = v71 + 1000;
-          a1 = v71;
+          v69 = (v70 + 1000);
+          a1 = v70;
         }
       }
 
-      goto LABEL_143;
+      return result;
     }
 
     if (!a3)
     {
-      std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,KB::Candidate *>(v8, a2, a2);
-      goto LABEL_143;
+      std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,KB::Candidate *>(v9, a2, a2);
+      return result;
     }
 
-    v11 = v10 >> 1;
-    v12 = v8 + 1000 * (v10 >> 1);
-    v13 = *(a2 - 62);
-    if (v9 >= 0x1F401)
+    v12 = v11 >> 1;
+    v13 = v9 + 1000 * (v11 >> 1);
+    v14 = *(a2 - 62);
+    if (v10 >= 0x1F401)
     {
-      v14 = *(v12 + 752);
-      if (v14 <= *(a1 + 752))
+      v15 = *(v13 + 752);
+      if (v15 <= *(a1 + 752))
       {
-        if (v13 > v14)
+        if (v14 > v15)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v12, v76);
-          if (*(v12 + 752) > *(a1 + 752))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v13, v74);
+          if (*(v13 + 752) > *(a1 + 752))
           {
-            v15 = a1;
-            v16 = v12;
+            v16 = a1;
+            v17 = v13;
             goto LABEL_26;
           }
         }
@@ -10558,36 +10253,36 @@ LABEL_125:
 
       else
       {
-        v15 = a1;
-        if (v13 > v14)
+        v16 = a1;
+        if (v14 > v15)
         {
           goto LABEL_17;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v12);
-        if (*(a2 - 62) > *(v12 + 752))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v13);
+        if (*(a2 - 62) > *(v13 + 752))
         {
-          v15 = v12;
+          v16 = v13;
 LABEL_17:
-          v16 = a2 - 125;
+          v17 = a2 - 125;
 LABEL_26:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v15, v16);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v16, v17);
         }
       }
 
-      v20 = a1 + 1000 * v11;
-      v21 = v20 - 1000;
-      v22 = *(v20 - 248);
-      v23 = *v75;
-      if (v22 <= *(a1 + 1752))
+      v21 = a1 + 1000 * v12;
+      v22 = v21 - 1000;
+      v23 = *(v21 - 248);
+      v24 = *v73;
+      if (v23 <= *(a1 + 1752))
       {
-        if (v23 > v22)
+        if (v24 > v23)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v21, a2 - 250);
-          if (*(v21 + 752) > *(a1 + 1752))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v22, a2 - 250);
+          if (*(v22 + 752) > *(a1 + 1752))
           {
-            v24 = (a1 + 1000);
-            v25 = v21;
+            v25 = (a1 + 1000);
+            v26 = v22;
             goto LABEL_39;
           }
         }
@@ -10595,36 +10290,36 @@ LABEL_26:
 
       else
       {
-        v24 = (a1 + 1000);
-        if (v23 > v22)
+        v25 = (a1 + 1000);
+        if (v24 > v23)
         {
           goto LABEL_31;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v24, v21);
-        if (*v75 > *(v21 + 752))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v25, v22);
+        if (*v73 > *(v22 + 752))
         {
-          v24 = v21;
+          v25 = v22;
 LABEL_31:
-          v25 = a2 - 250;
+          v26 = a2 - 250;
 LABEL_39:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v24, v25);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v25, v26);
         }
       }
 
-      v26 = a1 + 1000 * v11;
-      v27 = v26 + 1000;
-      v28 = *(v26 + 1752);
-      v29 = *v74;
-      if (v28 <= *(a1 + 2752))
+      v27 = a1 + 1000 * v12;
+      v28 = v27 + 1000;
+      v29 = *(v27 + 1752);
+      v30 = *v72;
+      if (v29 <= *(a1 + 2752))
       {
-        if (v29 > v28)
+        if (v30 > v29)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v27, a2 - 375);
-          if (*(v27 + 752) > *(a1 + 2752))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v28, a2 - 375);
+          if (*(v28 + 752) > *(a1 + 2752))
           {
-            v30 = (a1 + 2000);
-            v31 = v27;
+            v31 = (a1 + 2000);
+            v32 = v28;
             goto LABEL_48;
           }
         }
@@ -10632,34 +10327,34 @@ LABEL_39:
 
       else
       {
-        v30 = (a1 + 2000);
-        if (v29 > v28)
+        v31 = (a1 + 2000);
+        if (v30 > v29)
         {
           goto LABEL_44;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v30, v27);
-        if (*v74 > *(v27 + 752))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v31, v28);
+        if (*v72 > *(v28 + 752))
         {
-          v30 = v27;
+          v31 = v28;
 LABEL_44:
-          v31 = a2 - 375;
+          v32 = a2 - 375;
 LABEL_48:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v30, v31);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v31, v32);
         }
       }
 
-      v32 = *(v12 + 752);
-      v33 = *(v27 + 752);
-      if (v32 <= *(v21 + 752))
+      v33 = *(v13 + 752);
+      v34 = *(v28 + 752);
+      if (v33 <= *(v22 + 752))
       {
-        if (v33 > v32)
+        if (v34 > v33)
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v12, v27);
-          if (*(v12 + 752) > *(v21 + 752))
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v13, v28);
+          if (*(v13 + 752) > *(v22 + 752))
           {
-            v34 = v21;
-            v35 = v12;
+            v35 = v22;
+            v36 = v13;
             goto LABEL_57;
           }
         }
@@ -10667,282 +10362,283 @@ LABEL_48:
 
       else
       {
-        v34 = v21;
-        if (v33 > v32)
+        v35 = v22;
+        if (v34 > v33)
         {
           goto LABEL_53;
         }
 
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v21, v12);
-        if (*(v27 + 752) > *(v12 + 752))
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v22, v13);
+        if (*(v28 + 752) > *(v13 + 752))
         {
-          v34 = v12;
+          v35 = v13;
 LABEL_53:
-          v35 = v27;
+          v36 = v28;
 LABEL_57:
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v34, v35);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v35, v36);
         }
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v12);
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v13);
       goto LABEL_59;
     }
 
-    v17 = *(a1 + 752);
-    if (v17 <= *(v12 + 752))
+    v18 = *(a1 + 752);
+    if (v18 <= *(v13 + 752))
     {
-      if (v13 <= v17)
+      if (v14 <= v18)
       {
         goto LABEL_59;
       }
 
-      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v76);
-      if (*(a1 + 752) <= *(v12 + 752))
+      std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v74);
+      if (*(a1 + 752) <= *(v13 + 752))
       {
         goto LABEL_59;
       }
 
-      v18 = v12;
-      v19 = a1;
+      v19 = v13;
+      v20 = a1;
     }
 
     else
     {
-      v18 = v12;
-      if (v13 <= v17)
+      v19 = v13;
+      if (v14 <= v18)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v12, a1);
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v13, a1);
         if (*(a2 - 62) <= *(a1 + 752))
         {
           goto LABEL_59;
         }
 
-        v18 = a1;
+        v19 = a1;
       }
 
-      v19 = a2 - 125;
+      v20 = a2 - 125;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v18, v19);
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v19, v20);
 LABEL_59:
     --a3;
     if ((a4 & 1) != 0 || *(a1 - 248) > *(a1 + 752))
     {
-      KB::Candidate::Candidate(v77, a1);
-      v36 = a1;
+      KB::Candidate::Candidate(v75, a1);
+      v37 = a1;
       do
       {
-        v37 = v36;
-        v36 += 125;
+        v38 = v37;
+        v37 += 1000;
       }
 
-      while (*(v37 + 1752) > v78);
-      v38 = a2;
-      if (v37 == a1)
+      while (*(v38 + 1752) > v76);
+      v39 = a2;
+      if (v38 == a1)
       {
-        v41 = a2;
-        while (v36 < v41)
+        v42 = a2;
+        while (v37 < v42)
         {
-          v39 = v41 - 125;
-          v42 = *(v41 - 62);
-          v41 -= 125;
-          if (v42 > v78)
+          v40 = v42 - 125;
+          v43 = *(v42 - 62);
+          v42 -= 125;
+          if (v43 > v76)
           {
             goto LABEL_71;
           }
         }
 
-        v39 = v41;
+        v40 = v42;
       }
 
       else
       {
         do
         {
-          v39 = v38 - 125;
-          v40 = *(v38 - 62);
-          v38 -= 125;
+          v40 = v39 - 125;
+          v41 = *(v39 - 62);
+          v39 -= 125;
         }
 
-        while (v40 <= v78);
+        while (v41 <= v76);
       }
 
 LABEL_71:
-      if (v36 < v39)
+      if (v37 < v40)
       {
-        v43 = v39;
-        v44 = v36;
+        v44 = v40;
+        v45 = v37;
         do
         {
-          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v44, v43);
+          std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v45, v44);
           do
           {
-            v37 = v44;
-            v44 += 125;
+            v38 = v45;
+            v45 += 125;
           }
 
-          while (*(v37 + 1752) > v78);
+          while (*(v38 + 1752) > v76);
           do
           {
-            v45 = *(v43 - 62);
-            v43 -= 125;
+            v46 = *(v44 - 62);
+            v44 -= 125;
           }
 
-          while (v45 <= v78);
+          while (v46 <= v76);
         }
 
-        while (v44 < v43);
+        while (v45 < v44);
       }
 
-      if (v37 != a1)
+      if (v38 != a1)
       {
-        KB::Candidate::operator=(a1, v37);
+        KB::Candidate::operator=(a1, v38);
       }
 
-      KB::Candidate::operator=(v37, v77);
-      KB::Candidate::~Candidate(v77);
-      if (v36 < v39)
+      KB::Candidate::operator=(v38, v75);
+      KB::Candidate::~Candidate(v75);
+      if (v37 < v40)
       {
         goto LABEL_82;
       }
 
-      v46 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(a1, v37);
-      v8 = v37 + 1000;
-      if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(v37 + 1000, a2))
+      v47 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(a1, v38);
+      v9 = v38 + 1000;
+      if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(v38 + 1000, a2))
       {
-        a2 = v37;
-        if (!v46)
+        a2 = v38;
+        if (!v47)
         {
           goto LABEL_2;
         }
 
-        goto LABEL_143;
+        return result;
       }
 
-      if (!v46)
+      if (!v47)
       {
 LABEL_82:
-        std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(a1, v37, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,false>(a1, v38, a3, a4 & 1, result);
         a4 = 0;
-        v8 = v37 + 1000;
+        v9 = v38 + 1000;
       }
     }
 
     else
     {
-      KB::Candidate::Candidate(v77, a1);
-      if (v78 <= *(a2 - 62))
+      KB::Candidate::Candidate(v75, a1);
+      if (v76 <= *(a2 - 62))
       {
-        v49 = a1 + 1000;
+        v50 = a1 + 1000;
         do
         {
-          v8 = v49;
-          if (v49 >= a2)
+          v9 = v50;
+          if (v50 >= a2)
           {
             break;
           }
 
-          v50 = *(v49 + 752);
-          v49 += 1000;
+          v51 = *(v50 + 752);
+          v50 += 1000;
         }
 
-        while (v78 <= v50);
+        while (v76 <= v51);
       }
 
       else
       {
-        v47 = a1;
+        v48 = a1;
         do
         {
-          v8 = v47 + 1000;
-          v48 = *(v47 + 1752);
-          v47 += 1000;
+          v9 = v48 + 1000;
+          v49 = *(v48 + 1752);
+          v48 += 1000;
         }
 
-        while (v78 <= v48);
+        while (v76 <= v49);
       }
 
-      v51 = a2;
-      if (v8 < a2)
+      v52 = a2;
+      if (v9 < a2)
       {
-        v52 = a2;
+        v53 = a2;
         do
         {
-          v51 = v52 - 125;
-          v53 = *(v52 - 62);
+          v52 = v53 - 125;
+          v54 = *(v53 - 62);
+          v53 -= 125;
+        }
+
+        while (v76 > v54);
+      }
+
+      while (v9 < v52)
+      {
+        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v9, v52);
+        do
+        {
+          v55 = *(v9 + 1752);
+          v9 += 1000;
+        }
+
+        while (v76 <= v55);
+        do
+        {
+          v56 = *(v52 - 62);
           v52 -= 125;
         }
 
-        while (v78 > v53);
+        while (v76 > v56);
       }
 
-      while (v8 < v51)
+      if (v9 - 1000 != a1)
       {
-        std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v8, v51);
-        do
-        {
-          v54 = *(v8 + 1752);
-          v8 += 1000;
-        }
-
-        while (v78 <= v54);
-        do
-        {
-          v55 = *(v51 - 62);
-          v51 -= 125;
-        }
-
-        while (v78 > v55);
+        KB::Candidate::operator=(a1, (v9 - 1000));
       }
 
-      if (v8 - 1000 != a1)
-      {
-        KB::Candidate::operator=(a1, (v8 - 1000));
-      }
-
-      KB::Candidate::operator=((v8 - 1000), v77);
-      KB::Candidate::~Candidate(v77);
+      KB::Candidate::operator=((v9 - 1000), v75);
+      KB::Candidate::~Candidate(v75);
       a4 = 0;
     }
   }
 
-  v58 = *(v8 + 1752);
+  result = *(v9 + 1752);
   v59 = *(a2 - 62);
-  if (v58 > *(v8 + 752))
+  if (result > *(v9 + 752))
   {
-    if (v59 > v58)
+    if (v59 > result)
     {
       goto LABEL_111;
     }
 
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v8, (v8 + 1000));
-    if (*(a2 - 62) > *(v8 + 1752))
+    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v9, (v9 + 1000));
+    result = *(a2 - 62);
+    if (result > *(v9 + 1752))
     {
-      v60 = (v8 + 1000);
+      v60 = (v9 + 1000);
       goto LABEL_112;
     }
 
-    goto LABEL_143;
+    return result;
   }
 
-  if (v59 <= v58)
+  if (v59 <= result)
   {
-    goto LABEL_143;
+    return result;
   }
 
-  v56 = (v8 + 1000);
-  v57 = a2 - 125;
+  v57 = (v9 + 1000);
+  v58 = a2 - 125;
 LABEL_131:
-  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v56, v57);
-  if (*(v8 + 1752) > *(v8 + 752))
+  std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(v57, v58);
+  result = *(v9 + 1752);
+  if (result > *(v9 + 752))
   {
-    v61 = (v8 + 1000);
-    v60 = v8;
+    v61 = (v9 + 1000);
+    v60 = v9;
     goto LABEL_113;
   }
 
-LABEL_143:
-  v73 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 void std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -11001,7 +10697,7 @@ LABEL_10:
 
 void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,KB::Candidate *>(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a1 != a2)
   {
     v4 = a2;
@@ -11044,7 +10740,7 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
       v12 = 0x1CAC083126E978D5 * (v6 >> 3);
       do
       {
-        KB::Candidate::Candidate(v28, a1);
+        KB::Candidate::Candidate(v27, a1);
         v13 = 0;
         v14 = a1;
         do
@@ -11081,13 +10777,13 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
         v4 -= 125;
         if (v16 == v4)
         {
-          KB::Candidate::operator=(v16, v28);
+          KB::Candidate::operator=(v16, v27);
         }
 
         else
         {
           KB::Candidate::operator=(v16, v4);
-          KB::Candidate::operator=(v4, v28);
+          KB::Candidate::operator=(v4, v27);
           v20 = v16 - a1 + 1000;
           if (v20 >= 1001)
           {
@@ -11095,7 +10791,7 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
             v22 = a1 + 1000 * v21;
             if (*(v22 + 752) > *(v16 + 752))
             {
-              KB::Candidate::Candidate(v29, v16);
+              KB::Candidate::Candidate(v28, v16);
               do
               {
                 v23 = v22;
@@ -11110,14 +10806,14 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
                 v16 = v23;
               }
 
-              while (*(v22 + 752) > v30);
-              KB::Candidate::operator=(v23, v29);
-              KB::Candidate::~Candidate(v29);
+              while (*(v22 + 752) > v29);
+              KB::Candidate::operator=(v23, v28);
+              KB::Candidate::~Candidate(v28);
             }
           }
         }
 
-        KB::Candidate::~Candidate(v28);
+        KB::Candidate::~Candidate(v27);
         v26 = __OFSUB__(v12, 2);
         v24 = v12 == 2;
         v25 = v12 - 2 < 0;
@@ -11127,20 +10823,18 @@ void std::__partial_sort[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateColle
       while (!(v25 ^ v26 | v24));
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(uint64_t a1, uint64_t a2)
 {
   v3 = a1;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = 0x1CAC083126E978D5 * ((a2 - a1) >> 3);
   if (v4 <= 2)
   {
     if (v4 < 2)
     {
-      goto LABEL_47;
+      return 1;
     }
 
     if (v4 == 2)
@@ -11152,10 +10846,10 @@ LABEL_24:
         a1 = v3;
 LABEL_31:
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, v5);
-        goto LABEL_47;
+        return 1;
       }
 
-      goto LABEL_47;
+      return 1;
     }
 
 LABEL_16:
@@ -11176,7 +10870,7 @@ LABEL_36:
           {
             if (*(v14 + 752) > *(v10 + 752))
             {
-              KB::Candidate::Candidate(v23, v14);
+              KB::Candidate::Candidate(v22, v14);
               v17 = v15;
               while (1)
               {
@@ -11188,7 +10882,7 @@ LABEL_36:
 
                 v18 = *(v3 + v17 + 1752);
                 v17 -= 1000;
-                if (v24 <= v18)
+                if (v23 <= v18)
                 {
                   v19 = (v3 + v17 + 3000);
                   goto LABEL_44;
@@ -11197,15 +10891,15 @@ LABEL_36:
 
               v19 = v3;
 LABEL_44:
-              KB::Candidate::operator=(v19, v23);
+              KB::Candidate::operator=(v19, v22);
               if (++v16 == 8)
               {
                 v20 = v14 + 1000 == a2;
-                KB::Candidate::~Candidate(v23);
-                goto LABEL_48;
+                KB::Candidate::~Candidate(v22);
+                return v20;
               }
 
-              KB::Candidate::~Candidate(v23);
+              KB::Candidate::~Candidate(v22);
             }
 
             v10 = v14;
@@ -11213,12 +10907,12 @@ LABEL_44:
             v14 += 1000;
             if (v14 == a2)
             {
-              goto LABEL_47;
+              return 1;
             }
           }
         }
 
-        goto LABEL_47;
+        return 1;
       }
 
       v13 = (v3 + 1000);
@@ -11250,7 +10944,7 @@ LABEL_44:
     if (v4 == 4)
     {
       std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(a1, a1 + 1000, a1 + 2000, a2 - 1000);
-      goto LABEL_47;
+      return 1;
     }
 
     if (v4 != 5)
@@ -11261,19 +10955,19 @@ LABEL_44:
     std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *,0>(a1, a1 + 1000, a1 + 2000, a1 + 3000);
     if (*(a2 - 248) <= *(v3 + 3752))
     {
-      goto LABEL_47;
+      return 1;
     }
 
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v3 + 3000), (a2 - 1000));
     if (*(v3 + 3752) <= *(v3 + 2752))
     {
-      goto LABEL_47;
+      return 1;
     }
 
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>((v3 + 2000), (v3 + 3000));
     if (*(v3 + 2752) <= *(v3 + 1752))
     {
-      goto LABEL_47;
+      return 1;
     }
 
     v6 = (v3 + 1000);
@@ -11290,7 +10984,7 @@ LABEL_44:
       std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:nn200100]<KB::Candidate *&,KB::Candidate *&>(a1, (a1 + 1000));
       if (*(a2 - 248) <= *(v3 + 1752))
       {
-        goto LABEL_47;
+        return 1;
       }
 
       a1 = v3 + 1000;
@@ -11313,16 +11007,12 @@ LABEL_22:
     }
   }
 
-LABEL_47:
-  v20 = 1;
-LABEL_48:
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return 1;
 }
 
 void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollection::sort_by_word_score(void)::$_0 &,KB::Candidate *>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2 - 2;
   if (a2 >= 2)
   {
@@ -11340,7 +11030,7 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollecti
 
       if (*(v9 + 752) <= *(a3 + 752))
       {
-        KB::Candidate::Candidate(v14, a3);
+        KB::Candidate::Candidate(v13, a3);
         do
         {
           v10 = v9;
@@ -11363,14 +11053,12 @@ void std::__sift_down[abi:nn200100]<std::_ClassicAlgPolicy,KB::CandidateCollecti
           v4 = v10;
         }
 
-        while (*(v9 + 752) <= v15);
-        KB::Candidate::operator=(v10, v14);
-        KB::Candidate::~Candidate(v14);
+        while (*(v9 + 752) <= v14);
+        KB::Candidate::operator=(v10, v13);
+        KB::Candidate::~Candidate(v13);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void KB::CandidateCollection::normalize_scores(float32x2_t **this)
@@ -11409,7 +11097,7 @@ void KB::CandidateCollection::normalize_scores(float32x2_t **this)
 
 unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollection *this@<X0>, uint64_t a2@<X8>)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   *a2 = 0x100000;
   *(a2 + 4) = 0;
   *(a2 + 6) = 0;
@@ -11423,11 +11111,11 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
     v6 = 1;
     do
     {
-      KB::Candidate::capitalized_string((v4 + 1000 * v5), v21);
-      KB::String::append(a2, v21);
-      if (v23)
+      KB::Candidate::capitalized_string(&v20, (v4 + 1000 * v5));
+      KB::String::append(a2, &v20);
+      if (v21)
       {
-        v7 = v22 == 1;
+        v7 = BYTE6(v20) == 1;
       }
 
       else
@@ -11437,7 +11125,7 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
 
       if (v7)
       {
-        free(v23);
+        free(v21);
       }
 
       v4 = *this;
@@ -11463,11 +11151,11 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
     v11 = 1;
     do
     {
-      KB::Candidate::capitalized_string((v9 + 1000 * v10), v21);
-      KB::String::append(a2, v21);
-      if (v23)
+      KB::Candidate::capitalized_string(&v20, (v9 + 1000 * v10));
+      KB::String::append(a2, &v20);
+      if (v21)
       {
-        v12 = v22 == 1;
+        v12 = BYTE6(v20) == 1;
       }
 
       else
@@ -11477,7 +11165,7 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
 
       if (v12)
       {
-        free(v23);
+        free(v21);
       }
 
       v9 = *(this + 6);
@@ -11503,11 +11191,11 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
     v16 = 1;
     do
     {
-      KB::Candidate::capitalized_string((v14 + 1000 * v15), v21);
-      KB::String::append(a2, v21);
-      if (v23)
+      KB::Candidate::capitalized_string(&v20, (v14 + 1000 * v15));
+      KB::String::append(a2, &v20);
+      if (v21)
       {
-        v17 = v22 == 1;
+        v17 = BYTE6(v20) == 1;
       }
 
       else
@@ -11517,7 +11205,7 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
 
       if (v17)
       {
-        free(v23);
+        free(v21);
       }
 
       v14 = *(this + 9);
@@ -11535,9 +11223,7 @@ unsigned __int16 *KB::CandidateCollection::debug_data@<X0>(KB::CandidateCollecti
     while (v18 > v15);
   }
 
-  result = KB::String::append(a2, "}}", 0xFFFFuLL);
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return KB::String::append(a2, "}}", 0xFFFFuLL);
 }
 
 uint64_t KB::CandidateCollection::addOnlySupplementalCandidates(uint64_t result, uint64_t a2)
@@ -11816,16 +11502,16 @@ void _GLOBAL__sub_I_TIKeyboardInputManager_mm()
 
 void _GLOBAL__sub_I_TIMutatingCandidateFilters_cpp()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   __cxa_atexit(KB::LikelihoodInfo::~LikelihoodInfo, &KB::k_invalid_likelihood_value, &dword_22CA55000);
   std::string::basic_string[abi:nn200100]<0>(v2, "u");
-  std::string::basic_string[abi:nn200100]<0>(v4, "you");
-  std::string::basic_string[abi:nn200100]<0>(v5, "o");
-  std::string::basic_string[abi:nn200100]<0>(v6, "oh");
+  std::string::basic_string[abi:nn200100]<0>(v3, "you");
+  std::string::basic_string[abi:nn200100]<0>(v4, "o");
+  std::string::basic_string[abi:nn200100]<0>(v5, "oh");
   KB::RescoreShortWords::short_word_map = 0u;
   *&qword_280FACC78 = 0u;
   dword_280FACC88 = 1065353216;
-  if ((v3 & 0x80u) == 0)
+  if (v2[2] >= 0)
   {
     v0 = v2;
   }
@@ -11835,9 +11521,9 @@ void _GLOBAL__sub_I_TIMutatingCandidateFilters_cpp()
     v0 = v2[0];
   }
 
-  if ((v3 & 0x80u) == 0)
+  if (v2[2] >= 0)
   {
-    v1 = v3;
+    v1 = HIBYTE(v2[2]);
   }
 
   else
@@ -11942,6 +11628,16 @@ CFRange CFStringTokenizerGetCurrentTokenRange(CFStringTokenizerRef tokenizer)
   v1 = MEMORY[0x28210FEB8](tokenizer);
   result.length = v2;
   result.location = v1;
+  return result;
+}
+
+CGRect CGRectUnion(CGRect r1, CGRect r2)
+{
+  MEMORY[0x282111618](r1.origin, *&r1.origin.y, r1.size, *&r1.size.height, r2.origin, *&r2.origin.y, r2.size, *&r2.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
   return result;
 }
 

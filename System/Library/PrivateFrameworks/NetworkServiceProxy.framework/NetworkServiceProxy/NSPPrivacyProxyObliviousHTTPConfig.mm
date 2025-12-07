@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)obliviousHTTPTypeAsString:(int)string;
 - (int)StringAsObliviousHTTPType:(id)type;
 - (int)obliviousHTTPType;
 - (unint64_t)hash;
@@ -45,6 +46,21 @@
   }
 }
 
+- (id)obliviousHTTPTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7A309F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsObliviousHTTPType:(id)type
 {
   typeCopy = type;
@@ -85,35 +101,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSMutableArray *)self->_obliviousTargets count])
   {
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_obliviousTargets, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = self->_obliviousTargets;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -162,42 +178,39 @@
     [dictionary setObject:transparencyInternalProof forKey:@"transparencyInternalProof"];
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
   v5 = self->_obliviousTargets;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -211,7 +224,6 @@
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    obliviousHTTPType = self->_obliviousHTTPType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -229,8 +241,6 @@
   {
     PBDataWriterWriteDataField();
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -280,32 +290,32 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v6 = self->_obliviousTargets;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v22 + 1) + 8 * i) copyWithZone:{zone, v22}];
+        v11 = [*(*(&v21 + 1) + 8 * i) copyWithZone:{zone, v21}];
         [v5 addObliviousTargets:v11];
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
@@ -321,7 +331,7 @@
     *(v5 + 56) |= 1u;
   }
 
-  v14 = [(NSData *)self->_transparencyKeyBundle copyWithZone:zone, v22];
+  v14 = [(NSData *)self->_transparencyKeyBundle copyWithZone:zone, v21];
   v15 = *(v5 + 40);
   *(v5 + 40) = v14;
 
@@ -333,7 +343,6 @@
   v19 = *(v5 + 32);
   *(v5 + 32) = v18;
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -363,7 +372,6 @@
     }
   }
 
-  v7 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_obliviousHTTPType != *(equalCopy + 4))
@@ -375,7 +383,7 @@
   else if (*(equalCopy + 56))
   {
 LABEL_17:
-    v11 = 0;
+    v10 = 0;
     goto LABEL_18;
   }
 
@@ -397,17 +405,17 @@ LABEL_17:
   transparencyInternalProof = self->_transparencyInternalProof;
   if (transparencyInternalProof | *(equalCopy + 4))
   {
-    v11 = [(NSData *)transparencyInternalProof isEqual:?];
+    v10 = [(NSData *)transparencyInternalProof isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v10 = 1;
   }
 
 LABEL_18:
 
-  return v11;
+  return v10;
 }
 
 - (unint64_t)hash
@@ -431,31 +439,31 @@ LABEL_18:
 
 - (void)mergeFrom:(id)from
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   fromCopy = from;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = *(fromCopy + 3);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(NSPPrivacyProxyObliviousHTTPConfig *)self addObliviousTargets:*(*(&v11 + 1) + 8 * i), v11];
+        [(NSPPrivacyProxyObliviousHTTPConfig *)self addObliviousTargets:*(*(&v10 + 1) + 8 * i), v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -486,8 +494,6 @@ LABEL_18:
   {
     [(NSPPrivacyProxyObliviousHTTPConfig *)self setTransparencyInternalProof:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

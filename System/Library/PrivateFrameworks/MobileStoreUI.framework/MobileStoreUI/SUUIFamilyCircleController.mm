@@ -166,6 +166,12 @@ void __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke(
 
 void __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_2(uint64_t a1)
 {
+  v27[0] = 0;
+  v27[1] = v27;
+  v27[2] = 0x3032000000;
+  v27[3] = __Block_byref_object_copy__70;
+  v27[4] = __Block_byref_object_dispose__70;
+  v28 = 0;
   v25[0] = 0;
   v25[1] = v25;
   v25[2] = 0x3032000000;
@@ -184,56 +190,50 @@ void __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_
   v21[3] = __Block_byref_object_copy__70;
   v21[4] = __Block_byref_object_dispose__70;
   v22 = 0;
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = __Block_byref_object_copy__70;
-  v19[4] = __Block_byref_object_dispose__70;
-  v20 = 0;
   v2 = dispatch_semaphore_create(0);
   v3 = dispatch_semaphore_create(0);
   v4 = objc_alloc_init(MEMORY[0x277D69B00]);
   [v4 setAuthenticationPromptStyle:*(a1 + 48)];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_49;
-  v15[3] = &unk_2798FC330;
-  v17 = v25;
-  v18 = v23;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_49;
+  v17[3] = &unk_2798FC330;
+  v19 = v27;
+  v20 = v25;
   v5 = v2;
-  v16 = v5;
-  [v4 startWithResponseBlock:v15];
-  v6 = SUUIFamilyCircleFramework();
-  v7 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Fafetchfamilyc.isa, v6));
+  v18 = v5;
+  v6 = [v4 startWithResponseBlock:v17];
+  v8 = SUUIFamilyCircleFramework(v6, v7);
+  v9 = objc_alloc_init(SUUIWeakLinkedClassForString(&cfstr_Fafetchfamilyc.isa, v8));
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_2_54;
+  v13[3] = &unk_2798FC358;
+  v15 = v23;
+  v16 = v21;
+  v10 = v3;
+  v14 = v10;
+  [v9 startRequestWithCompletionHandler:v13];
+  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
+  dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
   v11[0] = MEMORY[0x277D85DD0];
   v11[1] = 3221225472;
-  v11[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_2_54;
-  v11[3] = &unk_2798FC358;
-  v13 = v21;
-  v14 = v19;
-  v8 = v3;
-  v12 = v8;
-  [v7 startRequestWithCompletionHandler:v11];
-  dispatch_semaphore_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
-  dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_3;
-  v9[3] = &unk_2798FC380;
-  v9[4] = *(a1 + 32);
-  objc_copyWeak(&v10, (a1 + 40));
-  v9[5] = v25;
-  v9[6] = v23;
-  v9[7] = v21;
-  v9[8] = v19;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-  objc_destroyWeak(&v10);
+  v11[2] = __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_3;
+  v11[3] = &unk_2798FC380;
+  v11[4] = *(a1 + 32);
+  objc_copyWeak(&v12, (a1 + 40));
+  v11[5] = v27;
+  v11[6] = v25;
+  v11[7] = v23;
+  v11[8] = v21;
+  dispatch_async(MEMORY[0x277D85CD0], v11);
+  objc_destroyWeak(&v12);
 
-  _Block_object_dispose(v19, 8);
   _Block_object_dispose(v21, 8);
-
   _Block_object_dispose(v23, 8);
+
   _Block_object_dispose(v25, 8);
+  _Block_object_dispose(v27, 8);
 }
 
 void __57__SUUIFamilyCircleController__reloadDataWithPromptStyle___block_invoke_49(uint64_t a1, void *a2, void *a3)

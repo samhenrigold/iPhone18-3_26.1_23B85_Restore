@@ -884,7 +884,7 @@ LABEL_33:
           v6 = v17;
         }
 
-        pkdMessageTraceInstall(v7);
+        pkdMessageTraceInstall();
         ++v5;
       }
 
@@ -984,7 +984,7 @@ LABEL_33:
 
         if (v20 != nullPlugIn)
         {
-          pkdMessageTraceUninstall(v20);
+          pkdMessageTraceUninstall();
         }
 
         ++v8;
@@ -1036,28 +1036,30 @@ LABEL_33:
 - (void)findPlugInWithUUID:(void *)a1 discoveryUUID:extensionPointCache:.cold.1(void *a1)
 {
   v1 = [a1 UUIDString];
-  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "LaunchServices cannot find plugin with UUID: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "LaunchServices cannot find plugin with UUID: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)findPlugInAtPath:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "LaunchServices cannot find plugin at path: [%@]", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "LaunchServices cannot find plugin at path: [%@]", v4, v5, v6, v7);
 }
 
 - (void)addPlugIn:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "Registering plugin at [%@] failed", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "Registering plugin at [%@] failed", v4, v5, v6, v7);
 }
 
 - (void)removePlugIn:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 path];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "Unregistering plugin at [%@] failed", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_0, v2, v3, "Unregistering plugin at [%@] failed", v4, v5, v6, v7);
 }
 
 @end

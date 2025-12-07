@@ -3,6 +3,7 @@
 + (id)entryWithImage:(id)image;
 + (id)placeholderEntryWithSize:(CGSize)size;
 + (id)systemCombinedEntry;
++ (void)systemCombinedEntry;
 - (BOOL)isEqual:(id)equal;
 - (CGSize)_calculatedContentSize;
 - (CGSize)contentSize;
@@ -12,7 +13,13 @@
 - (UIEdgeInsets)contentEdgeInsets;
 - (UIImage)entryImage;
 - (unint64_t)hash;
+- (void)contentSize;
+- (void)entryAttributedString;
+- (void)entryImage;
+- (void)hash;
 - (void)setTintColor:(id)color;
+- (void)size;
+- (void)tintColor;
 @end
 
 @implementation SKUIIndexBarEntry
@@ -303,6 +310,78 @@
   result.left = left;
   result.top = top;
   return result;
+}
+
++ (void)entryWithAttributedString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntry entryWithAttributedString:]";
+}
+
++ (void)entryWithImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntry entryWithImage:]";
+}
+
++ (void)placeholderEntryWithSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntry placeholderEntryWithSize:]";
+}
+
++ (void)systemCombinedEntry
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIIndexBarEntry systemCombinedEntry]";
+}
+
+- (void)hash
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry hash]";
+}
+
+- (void)isEqual:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry isEqual:]";
+}
+
+- (void)contentSize
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry contentSize]";
+}
+
+- (void)entryAttributedString
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry entryAttributedString]";
+}
+
+- (void)entryImage
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry entryImage]";
+}
+
+- (void)setTintColor:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry setTintColor:]";
+}
+
+- (void)size
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry size]";
+}
+
+- (void)tintColor
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIIndexBarEntry tintColor]";
 }
 
 @end

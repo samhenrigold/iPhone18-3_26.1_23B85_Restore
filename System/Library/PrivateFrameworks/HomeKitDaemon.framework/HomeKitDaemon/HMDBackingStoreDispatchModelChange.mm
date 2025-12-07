@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -15,15 +15,14 @@
   {
     v6 = HMFGetLogIdentifier();
     modelChange = [(HMDBackingStoreDispatchModelChange *)selfCopy modelChange];
-    v9 = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = modelChange;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@MODEL CHANGE: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v6;
+    v10 = 2112;
+    v11 = modelChange;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@MODEL CHANGE: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDBackingStoreDispatchModelChange)initWithModelChange:(id)change

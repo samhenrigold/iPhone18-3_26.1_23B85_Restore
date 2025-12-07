@@ -356,7 +356,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for MarkupContainerViewController();
+  v9.super_class = type metadata accessor for MarkupContainerViewController(0);
   v4 = v9.receiver;
   changeCopy = change;
   v6 = [(PPKMarkupContainerViewController *)&v9 traitCollectionDidChange:changeCopy];
@@ -390,7 +390,7 @@
   }
 
   MarkupContainerViewController.load(fromData:with:placeholderImage:completionHandler:)(v14, v16, withCopy, imageCopy, v18, v17);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v18);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v18, v17);
   outlined consume of Data._Representation(v14, v16);
 }
 
@@ -418,7 +418,7 @@
   imageCopy = image;
   selfCopy = self;
   MarkupContainerViewController.load(fromURL:with:placeholderImage:completionHandler:)(v13, with, image, v14, v15);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v14);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v14, v15);
 
   (*(v11 + 8))(v13, v10);
 }
@@ -471,7 +471,7 @@
 
 - (void)writeTo:(NSURL *)to imageType:(UTType *)type embeddingSourceImageAndEditModel:(BOOL)model options:(NSDictionary *)options completionHandler:(id)handler
 {
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v13 - 8);
   v15 = &v25 - v14;
   v16 = _Block_copy(handler);
@@ -938,7 +938,7 @@
 {
   viewCopy = view;
   subviews = [viewCopy subviews];
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIView, 0x1E69DD250);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v5 >> 62)

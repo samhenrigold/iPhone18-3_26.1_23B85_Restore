@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)pdpTypeAsString:(int)string;
+- (id)primaryDnsTypeAsString:(int)string;
+- (id)secondaryDnsTypeAsString:(int)string;
 - (int)StringAsPdpType:(id)type;
 - (int)StringAsPrimaryDnsType:(id)type;
 - (int)StringAsSecondaryDnsType:(id)type;
@@ -63,6 +66,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)pdpTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318FC0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPdpType:(id)type
@@ -144,6 +162,21 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)primaryDnsTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318FC0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPrimaryDnsType:(id)type
 {
   typeCopy = type;
@@ -221,6 +254,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)secondaryDnsTypeAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100318FC0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSecondaryDnsType:(id)type
@@ -405,14 +453,12 @@
   has = self->_has;
   if (has)
   {
-    cid = self->_cid;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    nsapi = self->_nsapi;
     PBDataWriterWriteUint32Field();
   }
 
@@ -423,7 +469,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    pdpType = self->_pdpType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -434,7 +479,6 @@
 
   if ((*&self->_has & 8) != 0)
   {
-    primaryDnsType = self->_primaryDnsType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -445,7 +489,6 @@
 
   if ((*&self->_has & 0x10) != 0)
   {
-    secondaryDnsType = self->_secondaryDnsType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -456,7 +499,6 @@
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isAddrIratMobile = self->_isAddrIratMobile;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -598,7 +640,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 72);
   if (has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_cid != *(equalCopy + 4))
@@ -636,7 +677,6 @@
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 72);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 72) & 4) == 0 || self->_pdpType != *(equalCopy + 8))
@@ -661,7 +701,6 @@
     has = self->_has;
   }
 
-  v10 = *(equalCopy + 72);
   if ((has & 8) != 0)
   {
     if ((*(equalCopy + 72) & 8) == 0 || self->_primaryDnsType != *(equalCopy + 12))
@@ -686,7 +725,6 @@
     has = self->_has;
   }
 
-  v12 = *(equalCopy + 72);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 72) & 0x10) == 0 || self->_secondaryDnsType != *(equalCopy + 16))
@@ -711,7 +749,7 @@
     has = self->_has;
   }
 
-  v14 = (*(equalCopy + 72) & 0x20) == 0;
+  v10 = (*(equalCopy + 72) & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 72) & 0x20) != 0)
@@ -729,17 +767,17 @@
         goto LABEL_41;
       }
 
-      v14 = 1;
+      v10 = 1;
       goto LABEL_42;
     }
 
 LABEL_41:
-    v14 = 0;
+    v10 = 0;
   }
 
 LABEL_42:
 
-  return v14;
+  return v10;
 }
 
 - (unint64_t)hash

@@ -2,52 +2,30 @@
 + (int64_t)compareDataProtectionClassTarget:(id)target withExisting:(id)existing;
 - (BOOL)checkAppContainerProtection:(BOOL *)protection error:(id *)error;
 - (BOOL)expectOpenWithError:(id *)error;
-- (BOOL)invalid;
-- (BOOL)isOpen;
-- (BOOL)openLazily;
 - (BOOL)openWithError:(id *)error;
 - (BOOL)registerAppContainerForProtectionWithError:(id *)error;
 - (BOOL)removeXattr:(id)xattr error:(id *)error;
+- (BOOL)setPermissions:(unsigned __int16)permissions andOwner:(id)owner error:(id *)error;
 - (BOOL)setXattr:(id)xattr valueAsNumber:(id)number error:(id *)error;
 - (BOOL)setXattr:(id)xattr valueAsString:(id)string error:(id *)error;
 - (BOOL)setXattr:(id)xattr valueAsUUID:(id)d error:(id *)error;
 - (BOOL)withOpenFileDoBlock:(id)block;
 - (MCMFileHandle)initWithPath:(id)path relativeToFileHandle:(id)handle direction:(unint64_t)direction symlinks:(unint64_t)symlinks createMode:(unsigned __int16)mode createDPClass:(id)class openLazily:(BOOL)lazily;
-- (MCMFileHandle_Private)relativeToFileHandle;
-- (NSError)openError;
-- (NSNumber)createDPClass;
 - (NSString)description;
-- (NSString)path;
 - (id)copyValueAsNumberFromXattr:(id)xattr error:(id *)error;
 - (id)copyValueAsStringFromXattr:(id)xattr maxLength:(unint64_t)length error:(id *)error;
 - (id)copyValueAsUUIDFromXattr:(id)xattr error:(id *)error;
 - (int)_computeFlags;
 - (int)_openAbsolute;
 - (int)_openRelative;
-- (int)fd;
-- (int)flags;
-- (unint64_t)direction;
-- (unint64_t)symlinks;
 - (unsigned)_computeMode;
-- (unsigned)createMode;
 - (void)close;
 - (void)dealloc;
-- (void)setFd:(int)fd;
-- (void)setInvalid:(BOOL)invalid;
-- (void)setOpen:(BOOL)open;
 - (void)setOpenError:(id)error;
 - (void)setRelativeToFileHandle:(id)handle;
 @end
 
 @implementation MCMFileHandle
-
-- (int)fd
-{
-  result = self->_fd;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
 
 - (int)_computeFlags
 {
@@ -71,62 +49,17 @@
 
   if (symlinks == 1)
   {
-    result = v5;
+    return v5;
   }
 
   else
   {
-    result = v3;
+    return v3;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)isOpen
-{
-  result = self->_open;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)openLazily
-{
-  result = self->_openLazily;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSError)openError
-{
-  result = self->_openError;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMFileHandle_Private)relativeToFileHandle
-{
-  result = self->_relativeToFileHandle;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)invalid
-{
-  result = self->_invalid;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (int)_openAbsolute
 {
-  v14 = *MEMORY[0x1E69E9840];
   [(MCMFileHandle *)self _computeMode];
   createDPClass = [(MCMFileHandle *)self createDPClass];
 
@@ -148,7 +81,6 @@
     v10 = v11([path fileSystemRepresentation], -[MCMFileHandle flags](self, "flags"));
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -156,129 +88,44 @@
 {
   if ((self->_flags & 0x200) != 0)
   {
-    result = self->_createMode;
+    return self->_createMode;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSNumber)createDPClass
-{
-  result = self->_createDPClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (NSString)path
-{
-  result = self->_path;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (int)flags
-{
-  result = self->_flags;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [(MCMFileHandle *)self close];
-  v4.receiver = self;
-  v4.super_class = MCMFileHandle;
-  [(MCMFileHandle *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = MCMFileHandle;
+  [(MCMFileHandle *)&v3 dealloc];
 }
 
 - (void)close
 {
-  v5 = *MEMORY[0x1E69E9840];
   if ([(MCMFileHandle *)self isOpen])
   {
     (*(*MEMORY[0x1E69E9988] + 152))([(MCMFileHandle *)self fd]);
     [(MCMFileHandle *)self setOpen:0];
-    v3 = *MEMORY[0x1E69E9840];
 
     [(MCMFileHandle *)self setInvalid:1];
   }
-
-  else
-  {
-    v4 = *MEMORY[0x1E69E9840];
-  }
-}
-
-- (void)setInvalid:(BOOL)invalid
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_invalid = invalid;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setOpen:(BOOL)open
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_open = open;
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOpenError:(id)error
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_openError = &self->_openError;
 
   objc_storeStrong(p_openError, error);
 }
 
-- (void)setFd:(int)fd
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_fd = fd;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (unsigned)createMode
-{
-  result = self->_createMode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)symlinks
-{
-  result = self->_symlinks;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)direction
-{
-  result = self->_direction;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)setRelativeToFileHandle:(id)handle
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_relativeToFileHandle = &self->_relativeToFileHandle;
 
   objc_storeStrong(p_relativeToFileHandle, handle);
@@ -286,11 +133,11 @@
 
 - (int)_openRelative
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   relativeToFileHandle = [(MCMFileHandle *)self relativeToFileHandle];
-  v20[0] = 0;
-  v4 = [relativeToFileHandle expectOpenWithError:v20];
-  v5 = v20[0];
+  v19[0] = 0;
+  v4 = [relativeToFileHandle expectOpenWithError:v19];
+  v5 = v19[0];
 
   if (!v4)
   {
@@ -323,28 +170,24 @@
     v15 = v16(v17, [path fileSystemRepresentation], -[MCMFileHandle flags](self, "flags"));
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (NSString)description
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return [(MCMFileHandle *)self path];
 }
 
 - (BOOL)expectOpenWithError:(id *)error
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([(MCMFileHandle *)self isOpen])
   {
     v5 = 0;
     v6 = 1;
 LABEL_8:
 
-    v7 = *MEMORY[0x1E69E9840];
     return v6;
   }
 
@@ -356,9 +199,9 @@ LABEL_8:
 
   else if ([(MCMFileHandle *)self openLazily])
   {
-    v9[0] = 0;
-    v6 = [(MCMFileHandle *)self openWithError:v9];
-    v5 = v9[0];
+    v8[0] = 0;
+    v6 = [(MCMFileHandle *)self openWithError:v8];
+    v5 = v8[0];
     if (error)
     {
       if (!v6)
@@ -379,10 +222,10 @@ LABEL_8:
 
 - (BOOL)registerAppContainerForProtectionWithError:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  v16[0] = 0;
-  v5 = [(MCMFileHandle *)self expectOpenWithError:v16];
-  v6 = v16[0];
+  v15[1] = *MEMORY[0x1E69E9840];
+  v15[0] = 0;
+  v5 = [(MCMFileHandle *)self expectOpenWithError:v15];
+  v6 = v15[0];
   if (v5)
   {
     v7 = (*(*MEMORY[0x1E69E99A0] + 64))(self->_fd);
@@ -402,13 +245,13 @@ LABEL_8:
       goto LABEL_11;
     }
 
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __60__MCMFileHandle_registerAppContainerForProtectionWithError___block_invoke;
-    v14[3] = &unk_1E86B0618;
-    v14[4] = self;
-    v15 = v7;
-    v10 = __60__MCMFileHandle_registerAppContainerForProtectionWithError___block_invoke(v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __60__MCMFileHandle_registerAppContainerForProtectionWithError___block_invoke;
+    v13[3] = &unk_1E86B0618;
+    v13[4] = self;
+    v14 = v7;
+    v10 = __60__MCMFileHandle_registerAppContainerForProtectionWithError___block_invoke(v13);
 
     v6 = v10;
   }
@@ -427,53 +270,50 @@ LABEL_8:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 id __60__MCMFileHandle_registerAppContainerForProtectionWithError___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"sandbox_register_app_container() failed on path [%s]: error = (%d) %s", objc_msgSend(*(*(a1 + 32) + 24), "fileSystemRepresentation"), *(a1 + 40), strerror(*(a1 + 40))];
-  v9[0] = @"FunctionName";
+  v8[0] = @"FunctionName";
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle registerAppContainerForProtectionWithError:]_block_invoke"];
-  v10[0] = v3;
-  v10[1] = &unk_1F5A76828;
+  v9[0] = v3;
+  v9[1] = &unk_1F5A76828;
   v4 = *MEMORY[0x1E696A578];
-  v9[1] = @"SourceFileLine";
-  v9[2] = v4;
-  v10[2] = v2;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8[1] = @"SourceFileLine";
+  v8[2] = v4;
+  v9[2] = v2;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 40) userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (BOOL)checkAppContainerProtection:(BOOL *)protection error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v18 = 0;
+  v18 = *MEMORY[0x1E69E9840];
   v17 = 0;
-  v7 = [(MCMFileHandle *)self expectOpenWithError:&v17];
-  v8 = v17;
+  v16 = 0;
+  v7 = [(MCMFileHandle *)self expectOpenWithError:&v16];
+  v8 = v16;
   if (!v7)
   {
     goto LABEL_4;
   }
 
-  v9 = (**MEMORY[0x1E69E99A0])(self->_fd, &v18 + 1, &v18);
+  v9 = (**MEMORY[0x1E69E99A0])(self->_fd, &v17 + 1, &v17);
   if (v9)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke;
-    v15[3] = &unk_1E86B0618;
-    v15[4] = self;
-    v16 = v9;
-    v10 = __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke(v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke;
+    v14[3] = &unk_1E86B0618;
+    v14[4] = self;
+    v15 = v9;
+    v10 = __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke(v14);
 
     v8 = v10;
 LABEL_4:
@@ -494,44 +334,41 @@ LABEL_4:
 
   if (protection)
   {
-    *protection = HIBYTE(v18);
+    *protection = HIBYTE(v17);
   }
 
   v12 = 1;
 LABEL_10:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 id __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke(uint64_t a1)
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"sandbox_check_protected_app_container() failed on path [%s]: error = %{darwin.errno}d", objc_msgSend(*(*(a1 + 32) + 24), "fileSystemRepresentation"), *(a1 + 40)];
-  v9[0] = @"FunctionName";
+  v8[0] = @"FunctionName";
   v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle checkAppContainerProtection:error:]_block_invoke"];
-  v10[0] = v3;
-  v10[1] = &unk_1F5A76810;
+  v9[0] = v3;
+  v9[1] = &unk_1F5A76810;
   v4 = *MEMORY[0x1E696A578];
-  v9[1] = @"SourceFileLine";
-  v9[2] = v4;
-  v10[2] = v2;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
+  v8[1] = @"SourceFileLine";
+  v8[2] = v4;
+  v9[2] = v2;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 40) userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (BOOL)removeXattr:(id)xattr error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
-  v19[0] = 0;
-  v7 = [(MCMFileHandle *)self expectOpenWithError:v19];
-  v8 = v19[0];
+  v18[0] = 0;
+  v7 = [(MCMFileHandle *)self expectOpenWithError:v18];
+  v8 = v18[0];
   if (!v7)
   {
     goto LABEL_6;
@@ -547,14 +384,14 @@ id __51__MCMFileHandle_checkAppContainerProtection_error___block_invoke(uint64_t
   v10 = 1;
   if (v9 && v9 != 93)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __35__MCMFileHandle_removeXattr_error___block_invoke;
-    v15[3] = &unk_1E86B05A0;
-    v16 = xattrCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __35__MCMFileHandle_removeXattr_error___block_invoke;
+    v14[3] = &unk_1E86B05A0;
+    v15 = xattrCopy;
     selfCopy = self;
-    v18 = v9;
-    v11 = __35__MCMFileHandle_removeXattr_error___block_invoke(v15);
+    v17 = v9;
+    v11 = __35__MCMFileHandle_removeXattr_error___block_invoke(v14);
 
     v8 = v11;
 LABEL_6:
@@ -573,65 +410,58 @@ LABEL_6:
 
 LABEL_10:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 id __35__MCMFileHandle_removeXattr_error___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) path];
   v5 = [v2 initWithFormat:@"Could not clear xattr [%@] from [%@]; error = %{darwin.errno}d", v3, v4, *(a1 + 48)];
 
-  v12[0] = @"FunctionName";
+  v11[0] = @"FunctionName";
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle removeXattr:error:]_block_invoke"];
-  v13[0] = v6;
-  v13[1] = &unk_1F5A767F8;
+  v12[0] = v6;
+  v12[1] = &unk_1F5A767F8;
   v7 = *MEMORY[0x1E696A578];
-  v12[1] = @"SourceFileLine";
-  v12[2] = v7;
-  v13[2] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[1] = @"SourceFileLine";
+  v11[2] = v7;
+  v12[2] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 48) userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (BOOL)setXattr:(id)xattr valueAsNumber:(id)number error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
   stringValue = [number stringValue];
   LOBYTE(error) = [(MCMFileHandle *)self setXattr:xattrCopy valueAsString:stringValue error:error];
 
-  v10 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (BOOL)setXattr:(id)xattr valueAsUUID:(id)d error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
   uUIDString = [d UUIDString];
   LOBYTE(error) = [(MCMFileHandle *)self setXattr:xattrCopy valueAsString:uUIDString error:error];
 
-  v10 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (BOOL)setXattr:(id)xattr valueAsString:(id)string error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
   stringCopy = string;
-  v25[0] = 0;
-  v10 = [(MCMFileHandle *)self expectOpenWithError:v25];
-  v11 = v25[0];
+  v24[0] = 0;
+  v10 = [(MCMFileHandle *)self expectOpenWithError:v24];
+  v11 = v24[0];
   if (v10)
   {
     uTF8String = [stringCopy UTF8String];
@@ -642,15 +472,15 @@ id __35__MCMFileHandle_removeXattr_error___block_invoke(uint64_t a1)
       goto LABEL_9;
     }
 
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke;
-    v20[3] = &unk_1E86B05F0;
-    v21 = xattrCopy;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke;
+    v19[3] = &unk_1E86B05F0;
+    v20 = xattrCopy;
     selfCopy = self;
-    v23 = stringCopy;
-    v24 = v14;
-    v15 = __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke(v20);
+    v22 = stringCopy;
+    v23 = v14;
+    v15 = __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke(v19);
 
     v11 = v15;
   }
@@ -669,42 +499,39 @@ id __35__MCMFileHandle_removeXattr_error___block_invoke(uint64_t a1)
 
 LABEL_9:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 id __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) path];
   v5 = [v2 initWithFormat:@"Could not set xattr [%@] on [%@] to [%@]; error = %{darwin.errno}d", v3, v4, *(a1 + 48), *(a1 + 56)];
 
-  v12[0] = @"FunctionName";
+  v11[0] = @"FunctionName";
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle setXattr:valueAsString:error:]_block_invoke"];
-  v13[0] = v6;
-  v13[1] = &unk_1F5A767E0;
+  v12[0] = v6;
+  v12[1] = &unk_1F5A767E0;
   v7 = *MEMORY[0x1E696A578];
-  v12[1] = @"SourceFileLine";
-  v12[2] = v7;
-  v13[2] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[1] = @"SourceFileLine";
+  v11[2] = v7;
+  v12[2] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 56) userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)copyValueAsNumberFromXattr:(id)xattr error:(id *)error
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
-  v20[0] = 0;
-  v7 = [(MCMFileHandle *)self copyValueAsStringFromXattr:xattrCopy maxLength:20 error:v20];
-  v8 = v20[0];
+  v19[0] = 0;
+  v7 = [(MCMFileHandle *)self copyValueAsStringFromXattr:xattrCopy maxLength:20 error:v19];
+  v8 = v19[0];
   if (v7)
   {
     __endptr = 0;
@@ -720,14 +547,14 @@ id __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke(uint64_t a1)
 
     else
     {
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke;
-      v15[3] = &unk_1E86B05C8;
-      v16 = xattrCopy;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke;
+      v14[3] = &unk_1E86B05C8;
+      v15 = xattrCopy;
       selfCopy = self;
-      v18 = v7;
-      v10 = __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke(v15);
+      v17 = v7;
+      v10 = __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke(v14);
 
       v11 = 0;
       v8 = v10;
@@ -755,42 +582,39 @@ id __46__MCMFileHandle_setXattr_valueAsString_error___block_invoke(uint64_t a1)
 
 LABEL_11:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 id __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) path];
   v5 = [v2 initWithFormat:@"Xattr [%@] on [%@] was not a number; value = [%@]", v3, v4, *(a1 + 48)];
 
-  v12[0] = @"FunctionName";
+  v11[0] = @"FunctionName";
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle copyValueAsNumberFromXattr:error:]_block_invoke"];
-  v13[0] = v6;
-  v13[1] = &unk_1F5A767C8;
+  v12[0] = v6;
+  v12[1] = &unk_1F5A767C8;
   v7 = *MEMORY[0x1E696A578];
-  v12[1] = @"SourceFileLine";
-  v12[2] = v7;
-  v13[2] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[1] = @"SourceFileLine";
+  v11[2] = v7;
+  v12[2] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)copyValueAsUUIDFromXattr:(id)xattr error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
-  v19[0] = 0;
-  v7 = [(MCMFileHandle *)self copyValueAsStringFromXattr:xattrCopy maxLength:36 error:v19];
-  v8 = v19[0];
+  v18[0] = 0;
+  v7 = [(MCMFileHandle *)self copyValueAsStringFromXattr:xattrCopy maxLength:36 error:v18];
+  v8 = v18[0];
   if (v7)
   {
     v9 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v7];
@@ -800,14 +624,14 @@ id __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke(uint64_t 
       goto LABEL_8;
     }
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke;
-    v15[3] = &unk_1E86B05C8;
-    v16 = xattrCopy;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke;
+    v14[3] = &unk_1E86B05C8;
+    v15 = xattrCopy;
     selfCopy = self;
-    v18 = v7;
-    v11 = __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke(v15);
+    v17 = v7;
+    v11 = __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke(v14);
 
     v8 = v11;
   }
@@ -826,31 +650,28 @@ id __50__MCMFileHandle_copyValueAsNumberFromXattr_error___block_invoke(uint64_t 
 
 LABEL_8:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 id __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) path];
   v5 = [v2 initWithFormat:@"Xattr [%@] on [%@] was not a UUID; value = [%@]", v3, v4, *(a1 + 48)];
 
-  v12[0] = @"FunctionName";
+  v11[0] = @"FunctionName";
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle copyValueAsUUIDFromXattr:error:]_block_invoke"];
-  v13[0] = v6;
-  v13[1] = &unk_1F5A767B0;
+  v12[0] = v6;
+  v12[1] = &unk_1F5A767B0;
   v7 = *MEMORY[0x1E696A578];
-  v12[1] = @"SourceFileLine";
-  v12[2] = v7;
-  v13[2] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[1] = @"SourceFileLine";
+  v11[2] = v7;
+  v12[2] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -859,10 +680,10 @@ id __48__MCMFileHandle_copyValueAsUUIDFromXattr_error___block_invoke(uint64_t a1
 {
   __s[1] = *MEMORY[0x1E69E9840];
   xattrCopy = xattr;
-  v24 = 0;
+  v23 = 0;
   __s[0] = 0;
-  v9 = [(MCMFileHandle *)self expectOpenWithError:&v24];
-  v10 = v24;
+  v9 = [(MCMFileHandle *)self expectOpenWithError:&v23];
+  v10 = v23;
   if (!v9)
   {
     v12 = 0;
@@ -898,18 +719,18 @@ LABEL_12:
   {
     if (*__error() != 93)
     {
-      v18 = *__error();
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __60__MCMFileHandle_copyValueAsStringFromXattr_maxLength_error___block_invoke;
-      v20[3] = &unk_1E86B05A0;
-      v21 = xattrCopy;
+      v17 = *__error();
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __60__MCMFileHandle_copyValueAsStringFromXattr_maxLength_error___block_invoke;
+      v19[3] = &unk_1E86B05A0;
+      v20 = xattrCopy;
       selfCopy = self;
-      v23 = v18;
-      v19 = __60__MCMFileHandle_copyValueAsStringFromXattr_maxLength_error___block_invoke(v20);
+      v22 = v17;
+      v18 = __60__MCMFileHandle_copyValueAsStringFromXattr_maxLength_error___block_invoke(v19);
 
       v14 = 0;
-      v10 = v19;
+      v10 = v18;
       if (!error)
       {
         goto LABEL_15;
@@ -944,100 +765,155 @@ LABEL_15:
     memset_s(__s, 8uLL, 0, 8uLL);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 id __60__MCMFileHandle_copyValueAsStringFromXattr_maxLength_error___block_invoke(uint64_t a1)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
+  v12[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) path];
   v5 = [v2 initWithFormat:@"Could not read xattr [%@] from [%@]; error = %{darwin.errno}d", v3, v4, *(a1 + 48)];
 
-  v12[0] = @"FunctionName";
+  v11[0] = @"FunctionName";
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle copyValueAsStringFromXattr:maxLength:error:]_block_invoke"];
-  v13[0] = v6;
-  v13[1] = &unk_1F5A76798;
+  v12[0] = v6;
+  v12[1] = &unk_1F5A76798;
   v7 = *MEMORY[0x1E696A578];
-  v12[1] = @"SourceFileLine";
-  v12[2] = v7;
-  v13[2] = v5;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v11[1] = @"SourceFileLine";
+  v11[2] = v7;
+  v12[2] = v5;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   v9 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 48) userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
+- (BOOL)setPermissions:(unsigned __int16)permissions andOwner:(id)owner error:(id *)error
+{
+  permissionsCopy = permissions;
+  v24[1] = *MEMORY[0x1E69E9840];
+  ownerCopy = owner;
+  v24[0] = 0;
+  v9 = [(MCMFileHandle *)self expectOpenWithError:v24];
+  v10 = v24[0];
+  if (v9)
+  {
+    v11 = MEMORY[0x1E69E9988];
+    if ((*(*MEMORY[0x1E69E9988] + 208))([(MCMFileHandle *)self fd], permissionsCopy) && (v12 = *__error()) != 0)
+    {
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke;
+      v21[3] = &unk_1E86B0578;
+      v21[4] = self;
+      v23 = permissionsCopy;
+      v22 = v12;
+      v13 = __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke(v21);
+    }
+
+    else
+    {
+      if (!ownerCopy || !(*(*v11 + 224))(-[MCMFileHandle fd](self, "fd"), [ownerCopy UID], objc_msgSend(ownerCopy, "primaryGID")) || (v14 = *__error()) == 0)
+      {
+        v16 = 1;
+        goto LABEL_14;
+      }
+
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke_26;
+      v18[3] = &unk_1E86B05A0;
+      v18[4] = self;
+      v19 = ownerCopy;
+      v20 = v14;
+      v13 = __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke_26(v18);
+
+      v10 = v19;
+    }
+
+    v10 = v13;
+  }
+
+  if (error)
+  {
+    v15 = v10;
+    v16 = 0;
+    *error = v10;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+LABEL_14:
+
+  return v16;
+}
+
 id __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = [*(a1 + 32) path];
   v4 = [v2 initWithFormat:@"Could not chmod [%@] to [0%o]; error = %{darwin.errno}d", v3, *(a1 + 44), *(a1 + 40)];
 
-  v11[0] = @"FunctionName";
+  v10[0] = @"FunctionName";
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle setPermissions:andOwner:error:]_block_invoke"];
-  v12[0] = v5;
-  v12[1] = &unk_1F5A76768;
+  v11[0] = v5;
+  v11[1] = &unk_1F5A76768;
   v6 = *MEMORY[0x1E696A578];
-  v11[1] = @"SourceFileLine";
-  v11[2] = v6;
-  v12[2] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[1] = @"SourceFileLine";
+  v10[2] = v6;
+  v11[2] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 40) userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 id __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke_26(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = [*(a1 + 32) path];
   v4 = [v2 initWithFormat:@"Could not chown [%@] to [%@]; error = %{darwin.errno}d", v3, *(a1 + 40), *(a1 + 48)];
 
-  v11[0] = @"FunctionName";
+  v10[0] = @"FunctionName";
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle setPermissions:andOwner:error:]_block_invoke"];
-  v12[0] = v5;
-  v12[1] = &unk_1F5A76780;
+  v11[0] = v5;
+  v11[1] = &unk_1F5A76780;
   v6 = *MEMORY[0x1E696A578];
-  v11[1] = @"SourceFileLine";
-  v11[2] = v6;
-  v12[2] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[1] = @"SourceFileLine";
+  v10[2] = v6;
+  v11[2] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*(a1 + 48) userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BOOL)withOpenFileDoBlock:(id)block
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v10[0] = 0;
-  v5 = [(MCMFileHandle *)self openWithError:v10];
-  v6 = v10[0];
+  v9[0] = 0;
+  v5 = [(MCMFileHandle *)self openWithError:v9];
+  v6 = v9[0];
   v7 = v5 & blockCopy[2](blockCopy, v6);
   [(MCMFileHandle *)self close];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (BOOL)openWithError:(id *)error
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   if (![(MCMFileHandle *)self isOpen])
   {
     if ([(MCMFileHandle *)self invalid])
@@ -1066,12 +942,12 @@ id __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke_26(uint64_t 
       self->_fd = _openRelative;
       if (_openRelative < 0)
       {
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __31__MCMFileHandle_openWithError___block_invoke;
-        v12[3] = &unk_1E86B0B98;
-        v12[4] = self;
-        v8 = __31__MCMFileHandle_openWithError___block_invoke(v12);
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __31__MCMFileHandle_openWithError___block_invoke;
+        v11[3] = &unk_1E86B0B98;
+        v11[4] = self;
+        v8 = __31__MCMFileHandle_openWithError___block_invoke(v11);
         [(MCMFileHandle *)self setOpenError:v8];
       }
 
@@ -1091,44 +967,40 @@ id __47__MCMFileHandle_setPermissions_andOwner_error___block_invoke_26(uint64_t 
     }
   }
 
-  result = [(MCMFileHandle *)self isOpen];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(MCMFileHandle *)self isOpen];
 }
 
 id __31__MCMFileHandle_openWithError___block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E696AEC0]);
   v3 = [*(a1 + 32) path];
   v4 = [v2 initWithFormat:@"Failed to open [%@] with [%@]", v3, *(a1 + 32)];
 
-  v11[0] = @"FunctionName";
+  v10[0] = @"FunctionName";
   v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[MCMFileHandle openWithError:]_block_invoke"];
-  v12[0] = v5;
-  v12[1] = &unk_1F5A76750;
+  v11[0] = v5;
+  v11[1] = &unk_1F5A76750;
   v6 = *MEMORY[0x1E696A578];
-  v11[1] = @"SourceFileLine";
-  v11[2] = v6;
-  v12[2] = v4;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v10[1] = @"SourceFileLine";
+  v10[2] = v6;
+  v11[2] = v4;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   v8 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:*__error() userInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (MCMFileHandle)initWithPath:(id)path relativeToFileHandle:(id)handle direction:(unint64_t)direction symlinks:(unint64_t)symlinks createMode:(unsigned __int16)mode createDPClass:(id)class openLazily:(BOOL)lazily
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   handleCopy = handle;
   classCopy = class;
-  v26.receiver = self;
-  v26.super_class = MCMFileHandle;
-  v19 = [(MCMFileHandle *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = MCMFileHandle;
+  v19 = [(MCMFileHandle *)&v25 init];
   v20 = v19;
   if (v19)
   {
@@ -1156,43 +1028,35 @@ id __31__MCMFileHandle_openWithError___block_invoke(uint64_t a1)
     }
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 + (int64_t)compareDataProtectionClassTarget:(id)target withExisting:(id)existing
 {
-  v11 = *MEMORY[0x1E69E9840];
   existingCopy = existing;
   intValue = [target intValue];
   intValue2 = [existingCopy intValue];
 
-  if ((intValue2 | intValue) <= 7 && intValue - 5 >= 2)
+  if ((intValue2 | intValue) > 7 || intValue - 5 < 2)
   {
-    v9 = MCMCompareDataProtectionClassTarget_kDataProtectionClassPrecedence[intValue2];
-    if ((intValue2 - 5) < 2)
-    {
-      v9 = 2;
-    }
+    return 0;
+  }
 
-    if (MCMCompareDataProtectionClassTarget_kDataProtectionClassPrecedence[intValue] <= v9)
-    {
-      result = 2;
-    }
+  v9 = MCMCompareDataProtectionClassTarget_kDataProtectionClassPrecedence[intValue2];
+  if ((intValue2 - 5) < 2)
+  {
+    v9 = 2;
+  }
 
-    else
-    {
-      result = 1;
-    }
+  if (MCMCompareDataProtectionClassTarget_kDataProtectionClassPrecedence[intValue] <= v9)
+  {
+    return 2;
   }
 
   else
   {
-    result = 0;
+    return 1;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 @end

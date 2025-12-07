@@ -34,60 +34,56 @@
 
 - (BOOL)insertDataObjects:(const void *)objects atLoiUUID:(const uuid *)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   if (*objects == *(objects + 1))
   {
-    inserted = 1;
+    return 1;
   }
 
-  else
+  dbStore = [(ULStore *)self dbStore];
+  v8 = (*(dbStore->var0 + 8))(dbStore);
+  managedObjectContext = [(ULStore *)self managedObjectContext];
+  v14 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
+
+  if (!v14)
   {
-    dbStore = [(ULStore *)self dbStore];
-    v8 = (*(dbStore->var0 + 8))(dbStore);
-    managedObjectContext = [(ULStore *)self managedObjectContext];
-    v15 = [v8 fetchLoiManagedObjectWithUUID:d withManagedObjectContext:managedObjectContext];
-
-    if (!v15)
+    if (onceToken_MicroLocation_Default != -1)
     {
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULRapportStore insertDataObjects:atLoiUUID:];
-      }
-
-      v10 = logObject_MicroLocation_Default;
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        operator new();
-      }
-
-      if (onceToken_MicroLocation_Default != -1)
-      {
-        [ULRapportStore insertDataObjects:atLoiUUID:];
-      }
-
-      v11 = logObject_MicroLocation_Default;
-      if (os_signpost_enabled(v11))
-      {
-        operator new();
-      }
+      [ULRapportStore insertDataObjects:atLoiUUID:];
     }
 
-    v17[0] = &unk_286A56A10;
-    v17[1] = &v15;
-    v17[2] = &selfCopy;
-    v17[3] = v17;
-    inserted = ULDBUtils::insertDataObjects<ULRapportDO,ULRapportMO>(self, objects, v17);
-    std::__function::__value_func<ULRapportMO * ()(ULRapportDO const&)>::~__value_func[abi:ne200100](v17);
+    v10 = logObject_MicroLocation_Default;
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      operator new();
+    }
+
+    if (onceToken_MicroLocation_Default != -1)
+    {
+      [ULRapportStore insertDataObjects:atLoiUUID:];
+    }
+
+    v11 = logObject_MicroLocation_Default;
+    if (os_signpost_enabled(v11))
+    {
+      operator new();
+    }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
+  v16[0] = &unk_286A56A10;
+  v16[1] = &v14;
+  v16[2] = &selfCopy;
+  v16[3] = v16;
+  inserted = ULDBUtils::insertDataObjects<ULRapportDO,ULRapportMO>(self, objects, v16);
+  std::__function::__value_func<ULRapportMO * ()(ULRapportDO const&)>::~__value_func[abi:ne200100](v16);
+
   return inserted;
 }
 
 - (vector<ULRapportDO,)fetchRapportEntriesAtLoiFromTime:(ULRapportStore *)self toTime:(SEL)time loiGroupId:(double)id
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v11 = +[ULDefaultsSingleton shared];
   defaultsDictionary = [v11 defaultsDictionary];
 
@@ -95,56 +91,53 @@
   v14 = [defaultsDictionary objectForKey:v13];
   if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    unsignedIntValue = [v14 unsignedIntValue];
+    [v14 unsignedIntValue];
   }
 
   else
   {
-    unsignedIntValue = [&unk_286A71B08 unsignedIntValue];
+    [&unk_286A71B08 unsignedIntValue];
   }
-
-  v16 = unsignedIntValue;
 
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
-  v17 = objc_autoreleasePoolPush();
+  v15 = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
   if (*(a6 + 16) == 1)
   {
-    v19 = objc_alloc(MEMORY[0x277CCAD78]);
+    v17 = objc_alloc(MEMORY[0x277CCAD78]);
     if ((*(a6 + 16) & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    v20 = [v19 initWithUUIDBytes:a6];
-    uUIDString = [v20 UUIDString];
+    v18 = [v17 initWithUUIDBytes:a6];
+    uUIDString = [v18 UUIDString];
 
-    v22 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"loi", @"loiGroupId", uUIDString];
-    [array addObject:v22];
+    v20 = [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.%K = %@", @"loi", @"loiGroupId", uUIDString];
+    [array addObject:v20];
   }
 
-  v23 = MEMORY[0x277CCAC30];
-  v24 = [MEMORY[0x277CCABB0] numberWithDouble:id];
-  v25 = [MEMORY[0x277CCABB0] numberWithDouble:a5];
-  v26 = [v23 predicateWithFormat:@"%K > %@ && %K <= %@", @"generationTimestamp", v24, @"generationTimestamp", v25];
-  [array addObject:v26];
+  v21 = MEMORY[0x277CCAC30];
+  v22 = [MEMORY[0x277CCABB0] numberWithDouble:id];
+  v23 = [MEMORY[0x277CCABB0] numberWithDouble:a5];
+  v24 = [v21 predicateWithFormat:@"%K > %@ && %K <= %@", @"generationTimestamp", v22, @"generationTimestamp", v23];
+  [array addObject:v24];
 
-  v27 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
-  v34[0] = v27;
-  v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
-  [(ULRapportStore *)self _fetchRapportsByAndPredicates:array sortDescriptors:v28 andLimit:v16];
-  std::vector<ULRapportDO>::__vdeallocate(&retstr->var0);
-  *&retstr->var0 = v31;
-  retstr->var2 = v32;
-  v32 = 0;
-  v31 = 0uLL;
-  v33 = &v31;
-  std::vector<ULRapportDO>::__destroy_vector::operator()[abi:ne200100](&v33);
+  v25 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"generationTimestamp" ascending:0];
+  v31[0] = v25;
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  objc_msgSend__fetchRapportsByAndPredicates_sortDescriptors_andLimit_(self);
+  std::vector<ULRapportDO>::__vdeallocate(retstr);
+  *&retstr->var0 = v28;
+  retstr->var2 = v29;
+  v29 = 0;
+  v28 = 0uLL;
+  v30 = &v28;
+  std::vector<ULRapportDO>::__destroy_vector::operator()[abi:ne200100](&v30);
 
-  objc_autoreleasePoolPop(v17);
-  v30 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v15);
   return result;
 }
 

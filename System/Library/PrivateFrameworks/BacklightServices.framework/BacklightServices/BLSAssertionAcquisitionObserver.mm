@@ -49,8 +49,8 @@
     *(self + 16) = 0;
 
     os_unfair_lock_unlock((self + 8));
-    v11 = bls_assertions_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = bls_assertions_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       explanation = [v7 explanation];
       bls_loggingString = [successCopy bls_loggingString];
@@ -64,13 +64,11 @@
       assertionCopy = assertion;
       v23 = 2114;
       v24 = bls_loggingString;
-      _os_log_debug_impl(&dword_21FE25000, v11, OS_LOG_TYPE_DEBUG, "%p completed acquisition for assertion:%p:%{public}@ with success:%{BOOL}u error:%{public}@", &v15, 0x30u);
+      _os_log_debug_impl(&dword_21FE25000, v12, OS_LOG_TYPE_DEBUG, "%p completed acquisition for assertion:%p:%{public}@ with success:%{BOOL}u error:%{public}@", &v15, 0x30u);
     }
 
     (v9)[2](v9, assertion, successCopy);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

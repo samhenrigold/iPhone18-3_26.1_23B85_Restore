@@ -11,9 +11,9 @@
 - (SCLSuppressSchoolModeAssertionClient)initWithConnection:(id)connection
 {
   connectionCopy = connection;
-  v17.receiver = self;
-  v17.super_class = SCLSuppressSchoolModeAssertionClient;
-  v6 = [(SCLSuppressSchoolModeAssertionClient *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = SCLSuppressSchoolModeAssertionClient;
+  v6 = [(SCLSuppressSchoolModeAssertionClient *)&v18 init];
   v7 = v6;
   if (v6)
   {
@@ -25,29 +25,30 @@
 
     v10 = [connectionCopy valueForEntitlement:0x2876232C8];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) != 0 && [v10 BOOLValue])
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) != 0 && (isKindOfClass = [v10 BOOLValue], isKindOfClass))
     {
       v7->_entitled = 1;
     }
 
     else
     {
-      v11 = scl_framework_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = scl_framework_log(isKindOfClass);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(SCLSuppressSchoolModeAssertionClient *)connectionCopy initWithConnection:v11];
+        [(SCLSuppressSchoolModeAssertionClient *)connectionCopy initWithConnection:v12];
       }
     }
 
     objc_initWeak(&location, v7);
-    v12 = v7->_connection;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __59__SCLSuppressSchoolModeAssertionClient_initWithConnection___block_invoke;
-    v14[3] = &unk_279B6C3A8;
-    objc_copyWeak(&v15, &location);
-    [(NSXPCConnection *)v12 setInvalidationHandler:v14];
-    objc_destroyWeak(&v15);
+    v13 = v7->_connection;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __59__SCLSuppressSchoolModeAssertionClient_initWithConnection___block_invoke;
+    v15[3] = &unk_279B6C3A8;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)v13 setInvalidationHandler:v15];
+    objc_destroyWeak(&v16);
     objc_destroyWeak(&location);
   }
 
@@ -113,11 +114,10 @@ void __59__SCLSuppressSchoolModeAssertionClient_initWithConnection___block_invok
 
 - (void)initWithConnection:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Client %@ is not entitled to acquire suppression assertions", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Client %@ is not entitled to acquire suppression assertions", &v2, 0xCu);
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface UANetworkReplayRendevousHandler
+- (BOOL)listenForIncomingConnections:(id)connections port:(int)port type:(id)type;
 - (BOOL)resume;
 - (BOOL)scanForPeersOfType:(id)type domain:(id)domain;
 - (BOOL)suspend;
@@ -211,19 +212,8 @@
   }
 
   name2 = [(UANetworkReplayRendevousHandler *)self name];
-  if (!name2)
+  if (!name2 || (v16 = name2, -[UANetworkReplayRendevousHandler name](self, "name"), v17 = objc_claimAutoreleasedReturnValue(), [serviceCopy name], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "isEqual:", v18), v18, v17, v16, (v19 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v16 = name2;
-  name3 = [(UANetworkReplayRendevousHandler *)self name];
-  name4 = [serviceCopy name];
-  v19 = [name3 isEqual:name4];
-
-  if ((v19 & 1) == 0)
-  {
-LABEL_7:
     v20 = [UANetworkReplayController alloc];
     manager = [(UACornerActionManagerHandler *)self manager];
     v22 = [(UANetworkReplayController *)v20 initWithManager:manager service:serviceCopy];
@@ -233,6 +223,104 @@ LABEL_7:
   }
 
   objc_autoreleasePoolPop(v10);
+}
+
+- (BOOL)listenForIncomingConnections:(id)connections port:(int)port type:(id)type
+{
+  v6 = *&port;
+  connectionsCopy = connections;
+  typeCopy = type;
+  v10 = objc_autoreleasePoolPush();
+  v11 = sub_100001A30(0);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  {
+    name = self->name;
+    *buf = 138543874;
+    v31 = name;
+    v32 = 2114;
+    v33 = typeCopy;
+    v34 = 2048;
+    v35 = v6;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "NETWORK: name=%{public}@ type=%{public}@ port=%ld", buf, 0x20u);
+  }
+
+  listeningService = [(UANetworkReplayRendevousHandler *)self listeningService];
+
+  if (listeningService)
+  {
+    listeningService2 = [(UANetworkReplayRendevousHandler *)self listeningService];
+    [listeningService2 stop];
+
+    [(UANetworkReplayRendevousHandler *)self setListeningService:0];
+  }
+
+  if (connectionsCopy)
+  {
+    [(UANetworkReplayRendevousHandler *)self setName:connectionsCopy];
+  }
+
+  else
+  {
+    v15 = +[NSUUID UUID];
+    uUIDString = [v15 UUIDString];
+    v17 = [NSString stringWithFormat:@"Handoff:%@", uUIDString];
+    [(UANetworkReplayRendevousHandler *)self setName:v17];
+  }
+
+  v18 = sub_100001A30(0);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    name = [(UANetworkReplayRendevousHandler *)self name];
+    *buf = 138543874;
+    v31 = name;
+    v32 = 2114;
+    v33 = typeCopy;
+    v34 = 2048;
+    v35 = v6;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "NETWORK: Setting up mDNS listener for connections, name=%{public}@ type=%{public}@ port=%ld", buf, 0x20u);
+  }
+
+  v20 = [NSNetService alloc];
+  if (typeCopy)
+  {
+    v21 = typeCopy;
+  }
+
+  else
+  {
+    v21 = @"_handoff._tcp.";
+  }
+
+  name2 = [(UANetworkReplayRendevousHandler *)self name];
+  if (name2)
+  {
+    name3 = [(UANetworkReplayRendevousHandler *)self name];
+  }
+
+  else
+  {
+    name3 = &stru_1000C67D0;
+  }
+
+  v24 = [v20 initWithDomain:@"local" type:v21 name:name3 port:v6];
+  [(UANetworkReplayRendevousHandler *)self setListeningService:v24];
+
+  if (name2)
+  {
+  }
+
+  listeningService3 = [(UANetworkReplayRendevousHandler *)self listeningService];
+  [listeningService3 setDelegate:self];
+
+  listeningService4 = [(UANetworkReplayRendevousHandler *)self listeningService];
+  v27 = +[NSRunLoop mainRunLoop];
+  [listeningService4 scheduleInRunLoop:v27 forMode:NSRunLoopCommonModes];
+
+  listeningService5 = [(UANetworkReplayRendevousHandler *)self listeningService];
+  [listeningService5 publishWithOptions:3];
+
+  objc_autoreleasePoolPop(v10);
+  return 1;
 }
 
 - (void)netServiceWillPublish:(id)publish

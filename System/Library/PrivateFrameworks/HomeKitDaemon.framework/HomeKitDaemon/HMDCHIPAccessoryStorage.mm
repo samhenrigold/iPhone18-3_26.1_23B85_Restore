@@ -112,14 +112,14 @@
     [array addObject:v38];
   }
 
-  v39 = [array copy];
+  v39 = objc_msgSend_copy(array);
 
   return v39;
 }
 
 - (HMDCHIPAccessoryStorage)initWithCoder:(id)coder
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMDCHIPAccessoryStorage *)self init];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCAS.ck.nodeID"];
@@ -135,9 +135,9 @@
   [(HMDCHIPAccessoryStorage *)v5 setAttributeDatabase:v9];
 
   v10 = MEMORY[0x277CBEB98];
-  v20[0] = objc_opt_class();
-  v20[1] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = objc_opt_class();
+  v19[1] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"HMCAS.ck.pairings"];
   [(HMDCHIPAccessoryStorage *)v5 setPairings:v13];
@@ -153,7 +153,6 @@
   v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMCAS.ck.supportedLinkLayerTypes"];
 
   [(HMDCHIPAccessoryStorage *)v5 setSupportedLinkLayerTypes:v17];
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -272,76 +271,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_14;
-  }
-
-  nodeID = [(HMDCHIPAccessoryStorage *)self nodeID];
-  nodeID2 = [v6 nodeID];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_14;
-  }
-
-  vendorID = [(HMDCHIPAccessoryStorage *)self vendorID];
-  vendorID2 = [v6 vendorID];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_14;
-  }
-
-  productID = [(HMDCHIPAccessoryStorage *)self productID];
-  productID2 = [v6 productID];
-  v15 = HMFEqualObjects();
-
-  if (!v15)
-  {
-    goto LABEL_14;
-  }
-
-  attributeDatabase = [(HMDCHIPAccessoryStorage *)self attributeDatabase];
-  attributeDatabase2 = [v6 attributeDatabase];
-  v18 = HMFEqualObjects();
-
-  if (!v18)
-  {
-    goto LABEL_14;
-  }
-
-  wedSupport = [(HMDCHIPAccessoryStorage *)self wedSupport];
-  if (wedSupport != [v6 wedSupport])
-  {
-    goto LABEL_14;
-  }
-
-  extendedMACAddress = [(HMDCHIPAccessoryStorage *)self extendedMACAddress];
-  extendedMACAddress2 = [v6 extendedMACAddress];
-  v22 = HMFEqualObjects();
-
-  if (!v22)
-  {
-    goto LABEL_14;
-  }
-
-  softwareVersionNumber = [(HMDCHIPAccessoryStorage *)self softwareVersionNumber];
-  softwareVersionNumber2 = [v6 softwareVersionNumber];
-  v25 = HMFEqualObjects();
-
-  if (!v25)
-  {
-    goto LABEL_14;
-  }
-
-  supportedLinkLayerTypes = [(HMDCHIPAccessoryStorage *)self supportedLinkLayerTypes];
-  supportedLinkLayerTypes2 = [v6 supportedLinkLayerTypes];
-  v28 = HMFEqualObjects();
-
-  if (v28)
+  if (v6 && (-[HMDCHIPAccessoryStorage nodeID](self, "nodeID"), v7 = objc_claimAutoreleasedReturnValue(), [v6 nodeID], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMDCHIPAccessoryStorage vendorID](self, "vendorID"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "vendorID"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMDCHIPAccessoryStorage productID](self, "productID"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "productID"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && (-[HMDCHIPAccessoryStorage attributeDatabase](self, "attributeDatabase"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "attributeDatabase"), v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18) && (v19 = -[HMDCHIPAccessoryStorage wedSupport](self, "wedSupport"), v19 == objc_msgSend(v6, "wedSupport")) && (-[HMDCHIPAccessoryStorage extendedMACAddress](self, "extendedMACAddress"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "extendedMACAddress"), v21 = objc_claimAutoreleasedReturnValue(), v22 = HMFEqualObjects(), v21, v20, v22) && (-[HMDCHIPAccessoryStorage softwareVersionNumber](self, "softwareVersionNumber"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "softwareVersionNumber"), v24 = objc_claimAutoreleasedReturnValue(), v25 = HMFEqualObjects(), v24, v23, v25) && (-[HMDCHIPAccessoryStorage supportedLinkLayerTypes](self, "supportedLinkLayerTypes"), v26 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "supportedLinkLayerTypes"), v27 = objc_claimAutoreleasedReturnValue(), v28 = HMFEqualObjects(), v27, v26, v28))
   {
     pairings = [(HMDCHIPAccessoryStorage *)self pairings];
     pairings2 = [v6 pairings];
@@ -350,7 +280,6 @@
 
   else
   {
-LABEL_14:
     v31 = 0;
   }
 
@@ -417,7 +346,7 @@ LABEL_14:
 
 - (BOOL)updateUsingAccessoryModel:(id)model
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   setProperties = [modelCopy setProperties];
   if (![setProperties containsObject:@"chipNodeID"])
@@ -445,13 +374,13 @@ LABEL_7:
     v11 = HMFGetLogIdentifier();
     nodeID2 = [(HMDCHIPAccessoryStorage *)selfCopy nodeID];
     chipNodeID2 = [modelCopy chipNodeID];
-    v102 = 138543874;
-    v103 = v11;
-    v104 = 2112;
-    v105 = nodeID2;
-    v106 = 2112;
-    v107 = chipNodeID2;
-    _os_log_impl(&dword_229538000, chipNodeID, OS_LOG_TYPE_INFO, "%{public}@Updating storage node ID from %@ to %@", &v102, 0x20u);
+    v101 = 138543874;
+    v102 = v11;
+    v103 = 2112;
+    v104 = nodeID2;
+    v105 = 2112;
+    v106 = chipNodeID2;
+    _os_log_impl(&dword_229538000, chipNodeID, OS_LOG_TYPE_INFO, "%{public}@Updating storage node ID from %@ to %@", &v101, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -503,13 +432,13 @@ LABEL_19:
       v23 = HMFGetLogIdentifier();
       vendorID3 = [(HMDCHIPAccessoryStorage *)selfCopy2 vendorID];
       chipVendorID2 = [modelCopy chipVendorID];
-      v102 = 138543874;
-      v103 = v23;
-      v104 = 2112;
-      v105 = vendorID3;
-      v106 = 2112;
-      v107 = chipVendorID2;
-      _os_log_impl(&dword_229538000, chipNodeID, OS_LOG_TYPE_INFO, "%{public}@Updating storage vendor ID from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v23;
+      v103 = 2112;
+      v104 = vendorID3;
+      v105 = 2112;
+      v106 = chipVendorID2;
+      _os_log_impl(&dword_229538000, chipNodeID, OS_LOG_TYPE_INFO, "%{public}@Updating storage vendor ID from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -563,13 +492,13 @@ LABEL_31:
       v34 = HMFGetLogIdentifier();
       productID3 = [(HMDCHIPAccessoryStorage *)selfCopy3 productID];
       chipProductID2 = [modelCopy chipProductID];
-      v102 = 138543874;
-      v103 = v34;
-      v104 = 2112;
-      v105 = productID3;
-      v106 = 2112;
-      v107 = chipProductID2;
-      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Updating storage product ID from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v34;
+      v103 = 2112;
+      v104 = productID3;
+      v105 = 2112;
+      v106 = chipProductID2;
+      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Updating storage product ID from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v31);
@@ -600,13 +529,13 @@ LABEL_32:
       v44 = HMFGetLogIdentifier();
       attributeDatabase2 = [(HMDCHIPAccessoryStorage *)selfCopy4 attributeDatabase];
       chipAttributeDatabase2 = [modelCopy chipAttributeDatabase];
-      v102 = 138543874;
-      v103 = v44;
-      v104 = 2112;
-      v105 = attributeDatabase2;
-      v106 = 2112;
-      v107 = chipAttributeDatabase2;
-      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Updating storage attribute database from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v44;
+      v103 = 2112;
+      v104 = attributeDatabase2;
+      v105 = 2112;
+      v106 = chipAttributeDatabase2;
+      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@Updating storage attribute database from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v41);
@@ -636,13 +565,13 @@ LABEL_38:
       v54 = HMFGetLogIdentifier();
       pairings2 = [(HMDCHIPAccessoryStorage *)selfCopy5 pairings];
       chipPairings2 = [modelCopy chipPairings];
-      v102 = 138543874;
-      v103 = v54;
-      v104 = 2112;
-      v105 = pairings2;
-      v106 = 2112;
-      v107 = chipPairings2;
-      _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Updating storage pairings from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v54;
+      v103 = 2112;
+      v104 = pairings2;
+      v105 = 2112;
+      v106 = chipPairings2;
+      _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Updating storage pairings from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v51);
@@ -675,13 +604,13 @@ LABEL_44:
       chipWEDSupport2 = [modelCopy chipWEDSupport];
       [chipWEDSupport2 BOOLValue];
       v67 = HMFBooleanToString();
-      v102 = 138543874;
-      v103 = v64;
-      v104 = 2112;
-      v105 = v65;
-      v106 = 2112;
-      v107 = v67;
-      _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Updating storage WED support from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v64;
+      v103 = 2112;
+      v104 = v65;
+      v105 = 2112;
+      v106 = v67;
+      _os_log_impl(&dword_229538000, v63, OS_LOG_TYPE_INFO, "%{public}@Updating storage WED support from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v61);
@@ -711,13 +640,13 @@ LABEL_50:
       v75 = HMFGetLogIdentifier();
       extendedMACAddress2 = [(HMDCHIPAccessoryStorage *)selfCopy7 extendedMACAddress];
       chipExtendedMACAddress2 = [modelCopy chipExtendedMACAddress];
-      v102 = 138543874;
-      v103 = v75;
-      v104 = 2112;
-      v105 = extendedMACAddress2;
-      v106 = 2112;
-      v107 = chipExtendedMACAddress2;
-      _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Updating storage eMAC Address from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v75;
+      v103 = 2112;
+      v104 = extendedMACAddress2;
+      v105 = 2112;
+      v106 = chipExtendedMACAddress2;
+      _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Updating storage eMAC Address from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v72);
@@ -747,13 +676,13 @@ LABEL_56:
       v85 = HMFGetLogIdentifier();
       softwareVersionNumber2 = [(HMDCHIPAccessoryStorage *)selfCopy8 softwareVersionNumber];
       matterSoftwareVersionNumber2 = [modelCopy matterSoftwareVersionNumber];
-      v102 = 138543874;
-      v103 = v85;
-      v104 = 2112;
-      v105 = softwareVersionNumber2;
-      v106 = 2112;
-      v107 = matterSoftwareVersionNumber2;
-      _os_log_impl(&dword_229538000, v84, OS_LOG_TYPE_INFO, "%{public}@Updating accessory software version number from %@ to %@", &v102, 0x20u);
+      v101 = 138543874;
+      v102 = v85;
+      v103 = 2112;
+      v104 = softwareVersionNumber2;
+      v105 = 2112;
+      v106 = matterSoftwareVersionNumber2;
+      _os_log_impl(&dword_229538000, v84, OS_LOG_TYPE_INFO, "%{public}@Updating accessory software version number from %@ to %@", &v101, 0x20u);
     }
 
     objc_autoreleasePoolPop(v82);
@@ -798,13 +727,13 @@ LABEL_72:
         v97 = HMFGetLogIdentifier();
         supportedLinkLayerTypes5 = [(HMDCHIPAccessoryStorage *)selfCopy9 supportedLinkLayerTypes];
         supportedLinkLayerTypes6 = [modelCopy supportedLinkLayerTypes];
-        v102 = 138543874;
-        v103 = v97;
-        v104 = 2112;
-        v105 = supportedLinkLayerTypes5;
-        v106 = 2112;
-        v107 = supportedLinkLayerTypes6;
-        _os_log_impl(&dword_229538000, v96, OS_LOG_TYPE_INFO, "%{public}@Updating matter accessory supported link layer types from %@ to %@", &v102, 0x20u);
+        v101 = 138543874;
+        v102 = v97;
+        v103 = 2112;
+        v104 = supportedLinkLayerTypes5;
+        v105 = 2112;
+        v106 = supportedLinkLayerTypes6;
+        _os_log_impl(&dword_229538000, v96, OS_LOG_TYPE_INFO, "%{public}@Updating matter accessory supported link layer types from %@ to %@", &v101, 0x20u);
       }
 
       objc_autoreleasePoolPop(v94);
@@ -817,7 +746,6 @@ LABEL_72:
 
 LABEL_73:
 
-  v100 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -852,7 +780,7 @@ LABEL_73:
   softwareVersionNumber = [(HMDCHIPAccessoryStorage *)self softwareVersionNumber];
   [dictionary setObject:softwareVersionNumber forKeyedSubscript:@"softwareVersionNumber"];
 
-  v15 = [dictionary copy];
+  v15 = objc_msgSend_copy(dictionary);
 
   return v15;
 }
@@ -871,10 +799,9 @@ LABEL_73:
 
 void __38__HMDCHIPAccessoryStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_77917;
-  logCategory__hmf_once_v11_77917 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_77917;
+  logCategory__hmf_once_v11_77917 = v0;
 }
 
 @end

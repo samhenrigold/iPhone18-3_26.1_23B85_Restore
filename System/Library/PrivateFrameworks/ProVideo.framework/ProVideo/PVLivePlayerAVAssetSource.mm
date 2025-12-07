@@ -33,7 +33,7 @@
     asset = v8->_asset;
     if (asset)
     {
-      [(AVAsset *)asset duration];
+      objc_msgSend_duration(asset);
       asset = v7->_asset;
     }
 
@@ -191,7 +191,7 @@ LABEL_16:
     v6 = v5;
     v16 = 0uLL;
     v17 = 0;
-    [(PVLivePlayerAVAssetSource *)self itemTimeForHostTime:time];
+    objc_msgSend_itemTimeForHostTime_(self, time);
     v7 = [PVImageBuffer imageWithCVPixelBuffer:v6];
     v14 = v16;
     v15 = v17;
@@ -245,7 +245,7 @@ LABEL_16:
     v15 = 0;
     if (v8)
     {
-      [v8 itemTimeForHostTime:time];
+      objc_msgSend_itemTimeForHostTime_(v8, time);
     }
 
     v12 = v14;
@@ -334,7 +334,7 @@ LABEL_8:
   v8 = v6;
   if (v6)
   {
-    [v6 itemTimeForHostTime:a4];
+    objc_msgSend_itemTimeForHostTime_(v6, a4);
   }
 
   else
@@ -397,7 +397,7 @@ LABEL_8:
   v16 = v35[5];
   if (v16)
   {
-    [v16 timeRange];
+    objc_msgSend_timeRange(v16);
     v15 = v35;
   }
 

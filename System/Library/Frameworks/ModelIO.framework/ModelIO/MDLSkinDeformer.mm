@@ -1,7 +1,6 @@
 @interface MDLSkinDeformer
 - (MDLSkinDeformer)initWithJointPaths:(__n128)paths jointBindTransforms:(__n128)transforms count:(__n128)count meshBindTransform:(uint64_t)transform;
 - (MDLSkinDeformer)initWithJointPaths:(__n128)paths jointBindTransforms:(__n128)transforms meshBindTransform:(__n128)transform;
-- (__n128)meshBindTransform;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)copyJointBindTransformsInto:(id *)into maxCount:(unint64_t)count;
 @end
@@ -10,104 +9,95 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = objc_msgSend_allocWithZone_(MDLSkinDeformer, a2, zone);
+  v13 = objc_msgSend_allocWithZone_(MDLSkinDeformer, a2, zone, v3, v8, v9, v10, v11, v4, v5, v6, v7);
   jointPaths = self->_jointPaths;
   jointBindTransforms = self->_jointBindTransforms;
-  v7 = *&self[1].super.isa;
-  v8 = *&self[1]._jointBindTransforms;
-  v9 = *&self[2].super.isa;
-  v10 = *&self[2]._jointBindTransforms;
+  v16 = *&self[1].super.isa;
+  v17 = *&self[1]._jointBindTransforms;
+  v18 = *&self[2].super.isa;
+  v19 = *&self[2]._jointBindTransforms;
 
-  return MEMORY[0x2821F9670](v4, sel_initWithJointPaths_jointBindTransforms_meshBindTransform_, jointPaths);
+  return MEMORY[0x2821F9670](v13, sel_initWithJointPaths_jointBindTransforms_meshBindTransform_, jointPaths, jointBindTransforms, v16, v17, v18, v19);
 }
 
 - (MDLSkinDeformer)initWithJointPaths:(__n128)paths jointBindTransforms:(__n128)transforms meshBindTransform:(__n128)transform
 {
   v10 = a7;
   v11 = a8;
-  v27.receiver = self;
-  v27.super_class = MDLSkinDeformer;
-  v14 = [(MDLSkinDeformer *)&v27 init];
-  if (v14)
+  v45.receiver = self;
+  v45.super_class = MDLSkinDeformer;
+  v19 = [(MDLSkinDeformer *)&v45 init];
+  if (v19)
   {
-    v15 = objc_msgSend_copy(v10, v12, v13);
-    jointPaths = v14->_jointPaths;
-    v14->_jointPaths = v15;
+    v24 = objc_msgSend_copy(v10, v12, v13, v14, v20, v21, v22, v23, v15, v16, v17, v18);
+    jointPaths = v19->_jointPaths;
+    v19->_jointPaths = v24;
 
-    v19 = objc_msgSend_copy(v11, v17, v18);
-    jointBindTransforms = v14->_jointBindTransforms;
-    v14->_jointBindTransforms = v19;
+    v37 = objc_msgSend_copy(v11, v26, v27, v28, v33, v34, v35, v36, v29, v30, v31, v32);
+    jointBindTransforms = v19->_jointBindTransforms;
+    v19->_jointBindTransforms = v37;
 
-    *&v14[1].super.isa = a2;
-    *&v14[1]._jointBindTransforms = paths;
-    *&v14[2].super.isa = transforms;
-    *&v14[2]._jointBindTransforms = transform;
-    v21 = v14;
+    *&v19[1].super.isa = a2;
+    *&v19[1]._jointBindTransforms = paths;
+    *&v19[2].super.isa = transforms;
+    *&v19[2]._jointBindTransforms = transform;
+    v39 = v19;
   }
 
-  return v14;
+  return v19;
 }
 
 - (MDLSkinDeformer)initWithJointPaths:(__n128)paths jointBindTransforms:(__n128)transforms count:(__n128)count meshBindTransform:(uint64_t)transform
 {
   v12 = a7;
-  v30.receiver = self;
-  v30.super_class = MDLSkinDeformer;
-  v15 = [(MDLSkinDeformer *)&v30 init];
-  if (!v15)
+  v56.receiver = self;
+  v56.super_class = MDLSkinDeformer;
+  v20 = [(MDLSkinDeformer *)&v56 init];
+  if (!v20)
   {
     goto LABEL_5;
   }
 
-  if (objc_msgSend_count(v12, v13, v14) != a9)
+  if (objc_msgSend_count(v12, v13, v14, v15, v21, v22, v23, v24, v16, v17, v18, v19) != a9)
   {
     NSLog(&cfstr_JointpathCount.isa);
 LABEL_5:
-    v24 = 0;
+    v50 = 0;
     goto LABEL_6;
   }
 
-  v18 = objc_msgSend_copy(v12, v16, v17);
-  jointPaths = v15->_jointPaths;
-  v15->_jointPaths = v18;
+  v36 = objc_msgSend_copy(v12, v25, v26, v27, v32, v33, v34, v35, v28, v29, v30, v31);
+  jointPaths = v20->_jointPaths;
+  v20->_jointPaths = v36;
 
-  v20 = objc_alloc(MEMORY[0x277CBEA90]);
-  v22 = objc_msgSend_initWithBytes_length_(v20, v21, a8, a9 << 6);
-  jointBindTransforms = v15->_jointBindTransforms;
-  v15->_jointBindTransforms = v22;
+  v38 = objc_alloc(MEMORY[0x277CBEA90]);
+  v48 = objc_msgSend_initWithBytes_length_(v38, v39, a8, a9 << 6, v44, v45, v46, v47, v40, v41, v42, v43);
+  jointBindTransforms = v20->_jointBindTransforms;
+  v20->_jointBindTransforms = v48;
 
-  *&v15[1].super.isa = a2;
-  *&v15[1]._jointBindTransforms = paths;
-  *&v15[2].super.isa = transforms;
-  *&v15[2]._jointBindTransforms = count;
-  v24 = v15;
+  *&v20[1].super.isa = a2;
+  *&v20[1]._jointBindTransforms = paths;
+  *&v20[2].super.isa = transforms;
+  *&v20[2]._jointBindTransforms = count;
+  v50 = v20;
 LABEL_6:
 
-  return v24;
+  return v50;
 }
 
 - (unint64_t)copyJointBindTransformsInto:(id *)into maxCount:(unint64_t)count
 {
-  v7 = objc_msgSend_length(self->_jointBindTransforms, a2, into);
-  v10 = v7 >> 6;
-  if (v7 >> 6 > count)
+  v15 = objc_msgSend_length(self->_jointBindTransforms, a2, into, count, v8, v9, v10, v11, v4, v5, v6, v7);
+  v27 = v15 >> 6;
+  if (v15 >> 6 > count)
   {
-    NSLog(&cfstr_Jointbindtrans.isa, count, v7 >> 6);
+    NSLog(&cfstr_Jointbindtrans.isa, count, v15 >> 6);
   }
 
-  v11 = objc_msgSend_bytes(self->_jointBindTransforms, v8, v9);
-  v14 = objc_msgSend_length(self->_jointBindTransforms, v12, v13);
-  memcpy(into, v11, v14);
-  return v10;
-}
-
-- (__n128)meshBindTransform
-{
-  result = *(self + 32);
-  v2 = *(self + 48);
-  v3 = *(self + 64);
-  v4 = *(self + 80);
-  return result;
+  v28 = objc_msgSend_bytes(self->_jointBindTransforms, v16, v17, v18, v23, v24, v25, v26, v19, v20, v21, v22);
+  v40 = objc_msgSend_length(self->_jointBindTransforms, v29, v30, v31, v36, v37, v38, v39, v32, v33, v34, v35);
+  memcpy(into, v28, v40);
+  return v27;
 }
 
 @end

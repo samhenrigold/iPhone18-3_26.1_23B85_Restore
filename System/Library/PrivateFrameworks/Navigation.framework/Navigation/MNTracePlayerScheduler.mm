@@ -47,7 +47,7 @@
 
 - (void)_update
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   p_nextTimelineStream = &self->_nextTimelineStream;
   position = self->_position;
   [(MNTracePlayerTimelineStream *)self->_nextTimelineStream nextUpdatePosition];
@@ -56,28 +56,28 @@
     [(MNTracePlayerTimelineStream *)*p_nextTimelineStream triggerNextUpdate];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = self->_timelineStreams;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v20;
     v11 = 978307200.0;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         [v13 nextUpdatePosition];
         if (v14 < v11)
         {
@@ -89,7 +89,7 @@
         }
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -110,8 +110,6 @@
       [(MNTracePlayerScheduler *)self _update];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pause
@@ -193,39 +191,37 @@ void __32__MNTracePlayerScheduler_resume__block_invoke(uint64_t a1)
 
 - (void)setPosition:(double)position
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   self->_position = position;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_timelineStreams;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) jumpToPosition:{position, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) jumpToPosition:{position, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

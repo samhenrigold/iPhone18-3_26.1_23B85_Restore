@@ -18,16 +18,16 @@
   return v3;
 }
 
-void __77__VNPersonSegmentationGeneratorLearnedMatting_outputMaskBlobNameToRequestKey__block_invoke()
+void __77__VNPersonSegmentationGeneratorLearnedMatting_outputMaskBlobNameToRequestKey__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = VNPersonSegmentationGeneratorLearnedMattingOutputBlobNameMask;
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  v5[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v3 = +[VNPersonSegmentationGeneratorLearnedMatting outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
-  +[VNPersonSegmentationGeneratorLearnedMatting outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v2;
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = VNPersonSegmentationGeneratorLearnedMattingOutputBlobNameMask;
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = +[VNPersonSegmentationGeneratorLearnedMatting outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey;
+  +[VNPersonSegmentationGeneratorLearnedMatting outputMaskBlobNameToRequestKey]::outputMaskBlobNameToRequestKey = v4;
 }
 
 + (id)outputMaskBlobNames

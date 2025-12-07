@@ -24,35 +24,33 @@
 
 void __32__HMDMatterPathModel_properties__block_invoke(uint64_t a1)
 {
-  v15[5] = *MEMORY[0x277D85DE8];
+  v14[5] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v13.receiver = *(a1 + 32);
-  v13.super_class = &OBJC_METACLASS___HMDMatterPathModel;
-  v2 = objc_msgSendSuper2(&v13, sel_properties);
+  v12.receiver = *(a1 + 32);
+  v12.super_class = &OBJC_METACLASS___HMDMatterPathModel;
+  v2 = objc_msgSendSuper2(&v12, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_160327;
   properties__properties_160327 = v3;
 
   v5 = properties__properties_160327;
-  v14[0] = @"endpointID";
+  v13[0] = @"endpointID";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v15[0] = v6;
-  v14[1] = @"clusterID";
+  v14[0] = v6;
+  v13[1] = @"clusterID";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v15[1] = v7;
-  v14[2] = @"attributeID";
+  v14[1] = v7;
+  v13[2] = @"attributeID";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v15[2] = v8;
-  v14[3] = @"commandID";
+  v14[2] = v8;
+  v13[3] = @"commandID";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v15[3] = v9;
-  v14[4] = @"eventID";
+  v14[3] = v9;
+  v13[4] = @"eventID";
   v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v15[4] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
+  v14[4] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:5];
   [v5 addEntriesFromDictionary:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cd_populateParentRelationshipInContext:(id)context error:(id *)error

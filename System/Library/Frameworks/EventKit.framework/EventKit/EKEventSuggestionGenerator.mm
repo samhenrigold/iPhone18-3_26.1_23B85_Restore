@@ -35,7 +35,7 @@
 
 - (void)_generateEventSuggestionsAsynchronouslyFromString:(id)string defaultSuggestionVisibility:(unint64_t)visibility options:(unint64_t)options defaultCalendar:(id)calendar referenceDate:(id)date initialEvent:(id)event pasteboardItemProvider:(id)provider handler:(id)self0
 {
-  v143 = *MEMORY[0x1E69E9840];
+  v142 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   calendarCopy = calendar;
   dateCopy = date;
@@ -48,29 +48,29 @@
   [(EKEventSuggestionGenerator *)self setLastDefaultResult:0];
   [(EKEventSuggestionGenerator *)self setLastDefaultReminderResult:0];
   [(EKEventSuggestionGenerator *)self setLastResults:MEMORY[0x1E695E0F0]];
-  v111 = eventCopy;
+  v110 = eventCopy;
   v20 = eventCopy == 0;
   if ((options & 0x40) != 0)
   {
     eventStore = [calendarCopy eventStore];
     reminderIntegrationCalendar = [eventStore reminderIntegrationCalendar];
 
-    v110 = reminderIntegrationCalendar;
-    v108 = reminderIntegrationCalendar != 0;
+    v109 = reminderIntegrationCalendar;
+    v107 = reminderIntegrationCalendar != 0;
   }
 
   else
   {
-    v110 = 0;
-    v108 = 0;
+    v109 = 0;
+    v107 = 0;
   }
 
   v23 = stringCopy;
   v24 = v23;
-  v106 = visibility == 1;
+  v105 = visibility == 1;
   if (visibility > 1)
   {
-    v114 = 0;
+    v113 = 0;
     v27 = 0;
     v26 = v23;
   }
@@ -80,7 +80,7 @@
     v25 = [EKEventTimeDetector resultDictionaryForString:v23 referenceDate:dateCopy ignoreDurationForApproximateTime:(options >> 1) & 1];
     v26 = [v25 objectForKeyedSubscript:@"EKEventTimeDetectorResultTitleKey"];
 
-    v114 = v25;
+    v113 = v25;
     v27 = [v25 objectForKeyedSubscript:@"EKEventTimeDetectorResultStartDateKey"];
   }
 
@@ -91,7 +91,7 @@
     v29 = visibility == 1 && v27 != 0;
   }
 
-  v113 = v26;
+  v112 = v26;
   if ((options & 0x10) != 0)
   {
     v32 = 1;
@@ -103,12 +103,12 @@
   if (v29 || v31)
   {
 LABEL_20:
-    v104 = v27;
-    v112 = v24;
+    v103 = v27;
+    v111 = v24;
     v35 = calendarCopy;
     v36 = (options >> 2) & 1;
     v37 = (options | v20) & 1;
-    v109 = providerCopy;
+    v108 = providerCopy;
     v38 = (options >> 3) & 1;
     v39 = (options >> 5) & 1;
     queryQueue = [(EKEventSuggestionGenerator *)self queryQueue];
@@ -117,42 +117,42 @@ LABEL_20:
     block[2] = __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke;
     block[3] = &unk_1E78004D0;
     block[4] = self;
-    v41 = v114;
-    v126 = v41;
-    v134 = v39;
-    v102 = dateCopy;
-    v127 = v102;
-    v135 = v108;
-    v105 = v35;
+    v41 = v113;
+    v125 = v41;
+    v133 = v39;
+    v101 = dateCopy;
+    v126 = v101;
+    v134 = v107;
+    v104 = v35;
     v42 = v35;
-    v24 = v112;
+    v24 = v111;
     v43 = v42;
-    v128 = v42;
-    v136 = v37;
-    v129 = v113;
-    v137 = v36;
-    v33 = v111;
-    v130 = v111;
-    v138 = v106;
-    v107 = v112;
-    v131 = v107;
-    v139 = v29;
-    v103 = handlerCopy;
-    v133 = v103;
-    v140 = v32;
-    v141 = v38;
-    providerCopy = v109;
-    v132 = v109;
+    v127 = v42;
+    v135 = v37;
+    v128 = v112;
+    v136 = v36;
+    v33 = v110;
+    v129 = v110;
+    v137 = v105;
+    v106 = v111;
+    v130 = v106;
+    v138 = v29;
+    v102 = handlerCopy;
+    v132 = v102;
+    v139 = v32;
+    v140 = v38;
+    providerCopy = v108;
+    v131 = v108;
     dispatch_async(queryQueue, block);
 
     if (!v29)
     {
       [(EKEventSuggestionGenerator *)self setLastDefaultResult:0];
-      calendarCopy = v105;
+      calendarCopy = v104;
       goto LABEL_37;
     }
 
-    v100 = v43;
+    v99 = v43;
     v44 = [v41 objectForKeyedSubscript:@"EKEventTimeDetectorResultTitleKey"];
     v45 = [v41 objectForKeyedSubscript:@"EKEventTimeDetectorResultStartDateKey"];
     v46 = [v41 objectForKeyedSubscript:@"EKEventTimeDetectorResultEndDateKey"];
@@ -166,7 +166,7 @@ LABEL_20:
     v52 = [[EKAutocompleteSearchResult alloc] initWithSource:1];
     [(EKAutocompleteSearchResult *)v52 setApproximateTime:bOOLValue2];
     [(EKAutocompleteSearchResult *)v52 setTitle:v44];
-    v101 = v47;
+    v100 = v47;
     if (v47)
     {
       [(EKAutocompleteSearchResult *)v52 setTimeZone:v47];
@@ -178,9 +178,9 @@ LABEL_20:
       [(EKAutocompleteSearchResult *)v52 setTimeZone:defaultTimeZone];
     }
 
-    calendarCopy = v105;
+    calendarCopy = v104;
     [(EKAutocompleteSearchResult *)v52 setAllDay:((v45 | v46) != 0) & bOOLValue];
-    providerCopy = v109;
+    providerCopy = v108;
     if (v45)
     {
       [(EKAutocompleteSearchResult *)v52 setStartDate:v45];
@@ -188,8 +188,8 @@ LABEL_20:
       {
 LABEL_27:
         [(EKAutocompleteSearchResult *)v52 setEndDate:v46];
-        [(EKAutocompleteSearchResult *)v52 setCalendar:v100];
-        -[EKAutocompleteSearchResult setCalendarColor:](v52, "setCalendarColor:", [v100 CGColor]);
+        [(EKAutocompleteSearchResult *)v52 setCalendar:v99];
+        -[EKAutocompleteSearchResult setCalendarColor:](v52, "setCalendarColor:", [v99 CGColor]);
         [(EKEventSuggestionGenerator *)self setLastDefaultResult:v52];
         goto LABEL_35;
       }
@@ -201,7 +201,7 @@ LABEL_27:
       [mEMORY[0x1E6992FB0] defaultEventDuration];
       v56 = v55;
 
-      if (v102)
+      if (v101)
       {
         autoupdatingCurrentCalendar = [MEMORY[0x1E695DEE8] autoupdatingCurrentCalendar];
         v58 = [MEMORY[0x1E695DF10] CalComponentForHours:9];
@@ -210,10 +210,10 @@ LABEL_27:
         v61 = [autoupdatingCurrentCalendar dateFromComponents:v58];
         v62 = v60;
         v44 = v59;
-        v63 = [v62 dateWithDatePartFromDate:v102 timePartFromDate:v61 inCalendar:autoupdatingCurrentCalendar];
+        v63 = [v62 dateWithDatePartFromDate:v101 timePartFromDate:v61 inCalendar:autoupdatingCurrentCalendar];
         [(EKAutocompleteSearchResult *)v52 setStartDate:v63];
 
-        providerCopy = v109;
+        providerCopy = v108;
       }
 
       else
@@ -237,10 +237,10 @@ LABEL_27:
     v68 = [startDate dateByAddingTimeInterval:v66];
     [(EKAutocompleteSearchResult *)v52 setEndDate:v68];
 
-    [(EKAutocompleteSearchResult *)v52 setCalendar:v100];
-    -[EKAutocompleteSearchResult setCalendarColor:](v52, "setCalendarColor:", [v100 CGColor]);
+    [(EKAutocompleteSearchResult *)v52 setCalendar:v99];
+    -[EKAutocompleteSearchResult setCalendarColor:](v52, "setCalendarColor:", [v99 CGColor]);
     [(EKEventSuggestionGenerator *)self setLastDefaultResult:v52];
-    if (v108)
+    if (v107)
     {
       v69 = [[EKAutocompleteSearchResult alloc] initWithSource:1];
       title = [(EKAutocompleteSearchResult *)v52 title];
@@ -262,10 +262,10 @@ LABEL_27:
       {
         [(EKAutocompleteSearchResult *)v69 startDate];
       }
-      v99 = ;
-      [(EKAutocompleteSearchResult *)v69 setEndDate:v99];
+      v98 = ;
+      [(EKAutocompleteSearchResult *)v69 setEndDate:v98];
 
-      [(EKAutocompleteSearchResult *)v69 setCalendar:v110];
+      [(EKAutocompleteSearchResult *)v69 setCalendar:v109];
       goto LABEL_36;
     }
 
@@ -274,10 +274,10 @@ LABEL_35:
 LABEL_36:
     [(EKEventSuggestionGenerator *)self setLastDefaultReminderResult:v69];
 
-    v24 = v112;
+    v24 = v111;
 LABEL_37:
     lastDefaultResult = [(EKEventSuggestionGenerator *)self lastDefaultResult];
-    v34 = v113;
+    v34 = v112;
     if (lastDefaultResult)
     {
       v74 = 1;
@@ -295,17 +295,17 @@ LABEL_37:
     {
 LABEL_67:
       v96 = dispatch_time(0, 500000000);
-      v117[0] = MEMORY[0x1E69E9820];
-      v117[1] = 3221225472;
-      v117[2] = __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2_30;
-      v117[3] = &unk_1E77FD7A0;
-      v118 = v107;
+      v116[0] = MEMORY[0x1E69E9820];
+      v116[1] = 3221225472;
+      v116[2] = __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2_30;
+      v116[3] = &unk_1E77FD7A0;
+      v117 = v106;
       selfCopy = self;
-      v120 = v103;
+      v119 = v102;
       v97 = MEMORY[0x1E69E96A0];
-      dispatch_after(v96, MEMORY[0x1E69E96A0], v117);
+      dispatch_after(v96, MEMORY[0x1E69E96A0], v116);
 
-      v27 = v104;
+      v27 = v103;
       goto LABEL_68;
     }
 
@@ -355,21 +355,21 @@ LABEL_50:
             }
           }
 
-          v123 = 0u;
-          v124 = 0u;
-          v121 = 0u;
           v122 = 0u;
+          v123 = 0u;
+          v120 = 0u;
+          v121 = 0u;
           lastResults5 = [(EKEventSuggestionGenerator *)self lastResults];
-          v92 = [lastResults5 countByEnumeratingWithState:&v121 objects:v142 count:16];
+          v92 = [lastResults5 countByEnumeratingWithState:&v120 objects:v141 count:16];
           if (v92)
           {
             v93 = v92;
-            v94 = *v122;
+            v94 = *v121;
             do
             {
               for (i = 0; i != v93; ++i)
               {
-                if (*v122 != v94)
+                if (*v121 != v94)
                 {
                   objc_enumerationMutation(lastResults5);
                 }
@@ -381,22 +381,22 @@ LABEL_50:
 
                 else
                 {
-                  [v80 addObject:*(*(&v121 + 1) + 8 * i)];
+                  [v80 addObject:*(*(&v120 + 1) + 8 * i)];
                 }
               }
 
-              v93 = [lastResults5 countByEnumeratingWithState:&v121 objects:v142 count:16];
+              v93 = [lastResults5 countByEnumeratingWithState:&v120 objects:v141 count:16];
             }
 
             while (v93);
           }
 
-          v33 = v111;
+          v33 = v110;
         }
 
         [(EKEventSuggestionGenerator *)self setLastResults:v80];
 
-        v24 = v112;
+        v24 = v111;
         goto LABEL_67;
       }
     }
@@ -421,11 +421,9 @@ LABEL_50:
   }
 
   (*(handlerCopy + 2))(handlerCopy, MEMORY[0x1E695E0F0], 1);
-  v33 = v111;
-  v34 = v113;
+  v33 = v110;
+  v34 = v112;
 LABEL_68:
-
-  v98 = *MEMORY[0x1E69E9840];
 }
 
 void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke(uint64_t a1)
@@ -503,31 +501,31 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
 
 void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_14(uint64_t a1)
 {
-  v86 = *MEMORY[0x1E69E9840];
-  v64 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(*(*(a1 + 96) + 8) + 40), "count")}];
-  v59 = objc_opt_new();
-  *(&v58 + 1) = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultStartDateKey"];
-  *&v58 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultEndDateKey"];
-  v57 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultTimeZoneKey"];
+  v85 = *MEMORY[0x1E69E9840];
+  v63 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(*(*(a1 + 96) + 8) + 40), "count")}];
+  v58 = objc_opt_new();
+  *(&v57 + 1) = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultStartDateKey"];
+  *&v57 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultEndDateKey"];
+  v56 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultTimeZoneKey"];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultAllDayKey"];
-  v56 = [v2 BOOLValue];
+  v55 = [v2 BOOLValue];
 
   v3 = [*(a1 + 32) objectForKeyedSubscript:@"EKEventTimeDetectorResultTimeIsApproximateKey"];
   v4 = [v3 BOOLValue];
 
   v5 = *(a1 + 104);
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   obj = *(*(*(a1 + 96) + 8) + 40);
-  v6 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+  v6 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = v5 & v4;
-    v9 = *v81;
-    if (v57)
+    v9 = *v80;
+    if (v56)
     {
       v10 = v5 & v4;
     }
@@ -537,8 +535,8 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
       v10 = 1;
     }
 
-    v63 = v10;
-    if (*(&v58 + 1))
+    v62 = v10;
+    if (*(&v57 + 1))
     {
       v11 = v5 & v4;
     }
@@ -548,8 +546,8 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
       v11 = 1;
     }
 
-    v62 = v11;
-    if (v58)
+    v61 = v11;
+    if (v57)
     {
       v12 = v5 & v4;
     }
@@ -559,23 +557,23 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
       v12 = 1;
     }
 
-    if (v58 == 0)
+    if (v57 == 0)
     {
       v8 = 1;
     }
 
-    v60 = v8;
-    v61 = v12;
+    v59 = v8;
+    v60 = v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v81 != v9)
+        if (*v80 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v80 + 1) + 8 * i);
+        v14 = *(*(&v79 + 1) + 8 * i);
         v15 = v14;
         if ([v14 source] == 4)
         {
@@ -586,14 +584,14 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
         v17 = [v15 source];
         if (v17 != 2)
         {
-          if ((v63 & 1) == 0)
+          if ((v62 & 1) == 0)
           {
-            [v15 setTimeZone:v57];
+            [v15 setTimeZone:v56];
           }
 
-          if ((v60 & 1) == 0)
+          if ((v59 & 1) == 0)
           {
-            [v15 setAllDay:v56];
+            [v15 setAllDay:v55];
           }
 
           v18 = [v15 endDate];
@@ -601,7 +599,7 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
           [v18 timeIntervalSinceDate:v19];
           v21 = v20;
 
-          if (v62)
+          if (v61)
           {
             v22 = *(a1 + 40);
             if (v22)
@@ -622,10 +620,10 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
 
           else
           {
-            [v15 setStartDate:*(&v58 + 1)];
+            [v15 setStartDate:*(&v57 + 1)];
           }
 
-          if (v61)
+          if (v60)
           {
             v28 = [v15 startDate];
             v29 = [v28 dateByAddingTimeInterval:v21];
@@ -634,7 +632,7 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
 
           else
           {
-            [v15 setEndDate:v58];
+            [v15 setEndDate:v57];
           }
         }
 
@@ -657,29 +655,29 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
             [v15 setCalendarColor:{objc_msgSend(v31, "CGColor")}];
           }
 
-          [v64 addObject:v14];
+          [v63 addObject:v14];
           v32 = [v15 title];
           v33 = [v32 hasPrefixCaseAndDiacriticInsensitive:*(a1 + 56)];
 
           if (v33)
           {
-            [v59 addObject:v14];
+            [v58 addObject:v14];
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+      v7 = [obj countByEnumeratingWithState:&v79 objects:v84 count:16];
     }
 
     while (v7);
   }
 
   v34 = objc_opt_new();
-  if (*(a1 + 107) == 1 && [v64 count] >= 4)
+  if (*(a1 + 107) == 1 && [v63 count] >= 4)
   {
     v35 = MEMORY[0x1E695DF70];
-    v36 = [v59 array];
-    v37 = [v36 subarrayWithRange:{0, fmin(objc_msgSend(v59, "count"), 3.0)}];
+    v36 = [v58 array];
+    v37 = [v36 subarrayWithRange:{0, fmin(objc_msgSend(v58, "count"), 3.0)}];
     v38 = [v35 arrayWithArray:v37];
 
 LABEL_49:
@@ -687,55 +685,55 @@ LABEL_49:
   }
 
   v39 = MEMORY[0x1E695DF70];
-  v40 = [v59 array];
-  v41 = [v40 subarrayWithRange:{0, fmin(objc_msgSend(v59, "count"), 7.0)}];
+  v40 = [v58 array];
+  v41 = [v40 subarrayWithRange:{0, fmin(objc_msgSend(v58, "count"), 7.0)}];
   v38 = [v39 arrayWithArray:v41];
 
-  v42 = [v64 count];
-  if (v42 > [v59 count] && objc_msgSend(v38, "count") <= 6)
+  v42 = [v63 count];
+  if (v42 > [v58 count] && objc_msgSend(v38, "count") <= 6)
   {
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2;
-    v77[3] = &unk_1E7800430;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2;
+    v76[3] = &unk_1E7800430;
     v38 = v38;
-    v78 = v38;
-    v79 = v59;
-    [v64 enumerateObjectsUsingBlock:v77];
+    v77 = v38;
+    v78 = v58;
+    [v63 enumerateObjectsUsingBlock:v76];
 
-    v36 = v78;
+    v36 = v77;
     goto LABEL_49;
   }
 
 LABEL_50:
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   v43 = v38;
-  v44 = [v43 countByEnumeratingWithState:&v73 objects:v84 count:16];
+  v44 = [v43 countByEnumeratingWithState:&v72 objects:v83 count:16];
   if (v44)
   {
     v45 = v44;
-    v46 = *v74;
+    v46 = *v73;
     do
     {
       for (j = 0; j != v45; ++j)
       {
-        if (*v74 != v46)
+        if (*v73 != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v73 + 1) + 8 * j);
+        v48 = *(*(&v72 + 1) + 8 * j);
         v49 = *(a1 + 64);
-        if (!v49 || [*(*(&v73 + 1) + 8 * j) isDifferentEnoughFromInitialEvent:v49 consideringTimeProperties:*(a1 + 108)])
+        if (!v49 || [*(*(&v72 + 1) + 8 * j) isDifferentEnoughFromInitialEvent:v49 consideringTimeProperties:*(a1 + 108)])
         {
           [v34 addObject:v48];
         }
       }
 
-      v45 = [v43 countByEnumeratingWithState:&v73 objects:v84 count:16];
+      v45 = [v43 countByEnumeratingWithState:&v72 objects:v83 count:16];
     }
 
     while (v45);
@@ -754,16 +752,14 @@ LABEL_50:
   v51 = *(a1 + 72);
   v52 = *(a1 + 80);
   v53 = *(a1 + 88);
-  v67 = v51;
-  v68 = v52;
-  v71 = *(a1 + 109);
-  v72 = *(a1 + 105);
-  v69 = v34;
-  v70 = v53;
+  v66 = v51;
+  v67 = v52;
+  v70 = *(a1 + 109);
+  v71 = *(a1 + 105);
+  v68 = v34;
+  v69 = v53;
   v54 = v34;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v55 = *MEMORY[0x1E69E9840];
 }
 
 void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -877,7 +873,7 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
 + (void)adjustTimeForUIAndApplyToAutocompleteResults:(id)results usingCurrentStartDate:(id)date currentEndDate:(id)endDate timeImplicitlySet:(BOOL)set calendar:(id)calendar
 {
   setCopy = set;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   dateCopy = date;
   endDateCopy = endDate;
@@ -890,8 +886,8 @@ void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFr
   }
 
   date = [MEMORY[0x1E695DF00] date];
-  v38 = endDateCopy;
-  v36 = v16;
+  v37 = endDateCopy;
+  v35 = v16;
   if (!setCopy)
   {
 LABEL_7:
@@ -909,10 +905,10 @@ LABEL_7:
 
     if (v21 == date)
     {
-      v34 = [MEMORY[0x1E695DF00] dateWithDatePartFromDate:date timePartFromDate:dateCopy inCalendar:0];
+      v33 = [MEMORY[0x1E695DF00] dateWithDatePartFromDate:date timePartFromDate:dateCopy inCalendar:0];
 
       v18 = 0;
-      dateCopy = v34;
+      dateCopy = v33;
       goto LABEL_8;
     }
 
@@ -924,36 +920,36 @@ LABEL_8:
   aBlock[1] = 3221225472;
   aBlock[2] = __139__EKEventSuggestionGenerator_adjustTimeForUIAndApplyToAutocompleteResults_usingCurrentStartDate_currentEndDate_timeImplicitlySet_calendar___block_invoke;
   aBlock[3] = &unk_1E78004F8;
-  v48 = setCopy;
-  v49 = v18;
+  v47 = setCopy;
+  v48 = v18;
   dateCopy = dateCopy;
-  v45 = dateCopy;
-  v35 = date;
-  v46 = v35;
-  v37 = calendarCopy;
-  v47 = calendarCopy;
+  v44 = dateCopy;
+  v34 = date;
+  v45 = v34;
+  v36 = calendarCopy;
+  v46 = calendarCopy;
   v22 = _Block_copy(aBlock);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v39 = resultsCopy;
+  v38 = resultsCopy;
   v23 = resultsCopy;
-  v24 = [v23 countByEnumeratingWithState:&v40 objects:v50 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v39 objects:v49 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v41;
+    v26 = *v40;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v41 != v26)
+        if (*v40 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v40 + 1) + 8 * i);
+        v28 = *(*(&v39 + 1) + 8 * i);
         if ([v28 source] != 2 && objc_msgSend(v28, "source") != 1)
         {
           if ([v28 source] == 4)
@@ -976,102 +972,97 @@ LABEL_8:
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v40 objects:v50 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v39 objects:v49 count:16];
     }
 
     while (v25);
   }
 
-  endDateCopy = v38;
-  resultsCopy = v39;
-  v16 = v36;
-  calendarCopy = v37;
+  endDateCopy = v37;
+  resultsCopy = v38;
+  v16 = v35;
+  calendarCopy = v36;
 LABEL_22:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __139__EKEventSuggestionGenerator_adjustTimeForUIAndApplyToAutocompleteResults_usingCurrentStartDate_currentEndDate_timeImplicitlySet_calendar___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = a2;
-  v3 = [v19 endDate];
-  v4 = [v19 startDate];
+  v18 = a2;
+  v3 = [v18 endDate];
+  v4 = [v18 startDate];
   [v3 timeIntervalSinceDate:v4];
   v6 = v5;
 
-  v7 = *(a1 + 57);
   if (*(a1 + 56))
   {
     if ((*(a1 + 57) & 1) == 0)
     {
-      v8 = MEMORY[0x1E695DF00];
-      v9 = *(a1 + 32);
-      v10 = [v19 startDate];
-      v11 = [v8 dateWithDatePartFromDate:v9 timePartFromDate:v10 inCalendar:0];
+      v7 = MEMORY[0x1E695DF00];
+      v8 = *(a1 + 32);
+      v9 = [v18 startDate];
+      v10 = [v7 dateWithDatePartFromDate:v8 timePartFromDate:v9 inCalendar:0];
 
-      if (([v19 allDay] & 1) == 0)
+      if (([v18 allDay] & 1) == 0)
       {
-        v12 = [*(a1 + 40) laterDate:v11];
-        v13 = *(a1 + 40);
+        v11 = [*(a1 + 40) laterDate:v10];
+        v12 = *(a1 + 40);
 
-        if (v12 == v13)
+        if (v11 == v12)
         {
-          v14 = [v11 dateByAddingDays:1 inCalendar:*(a1 + 48)];
+          v13 = [v10 dateByAddingDays:1 inCalendar:*(a1 + 48)];
 
-          v11 = v14;
+          v10 = v13;
         }
       }
 
-      v15 = [v11 dateByAddingTimeInterval:v6];
-      [v19 setStartDate:v11];
+      v14 = [v10 dateByAddingTimeInterval:v6];
+      [v18 setStartDate:v10];
       goto LABEL_10;
     }
 
 LABEL_9:
-    v16 = MEMORY[0x1E695DF00];
-    v17 = *(a1 + 32);
-    v18 = [v19 startDate];
-    v11 = [v16 dateWithDatePartFromDate:v17 timePartFromDate:v18 inCalendar:0];
+    v15 = MEMORY[0x1E695DF00];
+    v16 = *(a1 + 32);
+    v17 = [v18 startDate];
+    v10 = [v15 dateWithDatePartFromDate:v16 timePartFromDate:v17 inCalendar:0];
 
-    [v19 setStartDate:v11];
-    v15 = [v11 dateByAddingTimeInterval:v6];
+    [v18 setStartDate:v10];
+    v14 = [v10 dateByAddingTimeInterval:v6];
 LABEL_10:
-    [v19 setEndDate:v15];
+    [v18 setEndDate:v14];
 
     goto LABEL_11;
   }
 
-  if ((*(a1 + 57) & 1) != 0 || [v19 allDay])
+  if ((*(a1 + 57) & 1) != 0 || [v18 allDay])
   {
     goto LABEL_9;
   }
 
-  [v19 setStartDate:*(a1 + 32)];
-  v11 = [*(a1 + 32) dateByAddingTimeInterval:v6];
-  [v19 setEndDate:v11];
+  [v18 setStartDate:*(a1 + 32)];
+  v10 = [*(a1 + 32) dateByAddingTimeInterval:v6];
+  [v18 setEndDate:v10];
 LABEL_11:
 }
 
 void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_14_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 count];
   v6 = *(a2 + 72);
-  v8[0] = 67109378;
-  v8[1] = v5;
-  v9 = 2112;
-  v10 = v6;
-  _os_log_debug_impl(&dword_1A805E000, a3, OS_LOG_TYPE_DEBUG, "Finished with %d suggestions for query %@", v8, 0x12u);
-  v7 = *MEMORY[0x1E69E9840];
+  v7[0] = 67109378;
+  v7[1] = v5;
+  v8 = 2112;
+  v9 = v6;
+  _os_log_debug_impl(&dword_1A805E000, a3, OS_LOG_TYPE_DEBUG, "Finished with %d suggestions for query %@", v7, 0x12u);
 }
 
 void __190__EKEventSuggestionGenerator__generateEventSuggestionsAsynchronouslyFromString_defaultSuggestionVisibility_options_defaultCalendar_referenceDate_initialEvent_pasteboardItemProvider_handler___block_invoke_2_22_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "EventSuggestionGenerator Error when searching with EKAutocompleteSearch: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "EventSuggestionGenerator Error when searching with EKAutocompleteSearch: %@", &v2, 0xCu);
 }
 
 @end

@@ -98,7 +98,7 @@ void __130__PXZoomablePhotosViewModelSynchronization_updateZoomablePhotosViewMod
   {
     if (v3)
     {
-      [v3 zoomState];
+      objc_msgSend_zoomState(v3);
       v29 = v30;
     }
 
@@ -156,7 +156,7 @@ void __111__PXZoomablePhotosViewModelSynchronization_updatePhotosViewModel_fromZ
     v8 = *(a1 + 32);
     if (v8)
     {
-      [v8 zoomState];
+      objc_msgSend_zoomState(v8, 0, 0);
       v8 = *(a1 + 32);
     }
 

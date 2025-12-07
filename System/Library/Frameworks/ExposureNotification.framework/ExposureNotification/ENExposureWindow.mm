@@ -14,11 +14,11 @@
   {
     if (!error)
     {
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-LABEL_29:
-    ENErrorF(2);
+    ENErrorF(2, "super init failed");
+LABEL_30:
     *error = v20 = 0;
     goto LABEL_25;
   }
@@ -27,10 +27,11 @@ LABEL_29:
   {
     if (!error)
     {
-      goto LABEL_30;
+      goto LABEL_31;
     }
 
-    goto LABEL_29;
+    ENErrorF(2, "XPC non-dict");
+    goto LABEL_30;
   }
 
   v24 = 0;
@@ -42,13 +43,13 @@ LABEL_29:
 
   else if (v8 == 5)
   {
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   v30 = 0.0;
   if (!CUXPCDecodeDouble())
   {
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   if (v30 != 0.0)
@@ -67,7 +68,7 @@ LABEL_29:
 
   else if (v11 == 5)
   {
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   v24 = 0;
@@ -79,7 +80,7 @@ LABEL_29:
 
   else if (v12 == 5)
   {
-    goto LABEL_30;
+    goto LABEL_31;
   }
 
   v24 = 0;
@@ -92,7 +93,7 @@ LABEL_29:
 
   if (v13 == 5)
   {
-LABEL_30:
+LABEL_31:
     v20 = 0;
     goto LABEL_25;
   }
@@ -186,7 +187,7 @@ BOOL __44__ENExposureWindow_initWithXPCObject_error___block_invoke(uint64_t a1, 
 
 - (void)encodeWithXPCObject:(id)object
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v5 = objectCopy;
   if (self->_calibrationConfidence)
@@ -227,32 +228,32 @@ BOOL __44__ENExposureWindow_initWithXPCObject_error___block_invoke(uint64_t a1, 
   if (v12)
   {
     v13 = xpc_array_create(0, 0);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v14 = self->_scanInstances;
-    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v15 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v22 + 1) + 8 * i);
+          v19 = *(*(&v21 + 1) + 8 * i);
           v20 = xpc_dictionary_create(0, 0, 0);
-          [v19 encodeWithXPCObject:{v20, v22}];
+          [v19 encodeWithXPCObject:{v20, v21}];
           xpc_array_set_value(v13, 0xFFFFFFFFFFFFFFFFLL, v20);
         }
 
-        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v16 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v16);
@@ -260,70 +261,88 @@ BOOL __44__ENExposureWindow_initWithXPCObject_error___block_invoke(uint64_t a1, 
 
     xpc_dictionary_set_value(v5, "scanInst", v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
-  NSAppendPrintF_safe();
-  v20 = 0;
-  date = self->_date;
-  NSAppendPrintF_safe();
-  v3 = v20;
+  v26 = 0;
+  NSAppendPrintF_safe(&v26, "ENExposureWindow");
+  v3 = v26;
+  v25 = v3;
+  NSAppendPrintF_safe(&v25, ", Date %@", self->_date);
+  v4 = v25;
 
+  v24 = v4;
   diagnosisReportType = self->_diagnosisReportType;
-  if (diagnosisReportType <= 5)
+  if (diagnosisReportType > 5)
   {
-    v5 = off_278A4B280[diagnosisReportType];
-  }
-
-  NSAppendPrintF_safe();
-  v6 = v3;
-
-  infectiousness = self->_infectiousness;
-  if (infectiousness <= 2)
-  {
-    v8 = off_278A4B2B0[infectiousness];
-  }
-
-  NSAppendPrintF_safe();
-  v9 = v6;
-
-  calibrationConfidence = self->_calibrationConfidence;
-  if (calibrationConfidence <= 3)
-  {
-    v11 = off_278A4B2C8[calibrationConfidence];
-  }
-
-  NSAppendPrintF_safe();
-  v12 = v9;
-
-  variantOfConcernType = self->_variantOfConcernType;
-  if (variantOfConcernType > 4)
-  {
-    v14 = "?";
+    v6 = "?";
   }
 
   else
   {
-    v14 = off_278A4B2E8[variantOfConcernType];
+    v6 = off_278A4B280[diagnosisReportType];
   }
 
-  v19 = v14;
-  NSAppendPrintF_safe();
-  v15 = v12;
+  NSAppendPrintF_safe(&v24, ", Type %s", v6);
+  v7 = v24;
 
-  [(NSArray *)self->_scanInstances count];
-  NSAppendPrintF_safe();
-  v16 = v15;
+  v23 = v7;
+  infectiousness = self->_infectiousness;
+  if (infectiousness > 2)
+  {
+    v9 = "?";
+  }
 
-  return v15;
+  else
+  {
+    v9 = off_278A4B2B0[infectiousness];
+  }
+
+  NSAppendPrintF_safe(&v23, ", Inft %s", v9);
+  v10 = v23;
+
+  v22 = v10;
+  calibrationConfidence = self->_calibrationConfidence;
+  if (calibrationConfidence > 3)
+  {
+    v12 = "?";
+  }
+
+  else
+  {
+    v12 = off_278A4B2C8[calibrationConfidence];
+  }
+
+  NSAppendPrintF_safe(&v22, ", CalC %s", v12);
+  v13 = v22;
+
+  v21 = v13;
+  variantOfConcernType = self->_variantOfConcernType;
+  if (variantOfConcernType > 4)
+  {
+    v15 = "?";
+  }
+
+  else
+  {
+    v15 = off_278A4B2E8[variantOfConcernType];
+  }
+
+  NSAppendPrintF_safe(&v21, ", VofC %s", v15);
+  v16 = v21;
+
+  v20 = v16;
+  NSAppendPrintF_safe(&v20, ", ScnI %d", [(NSArray *)self->_scanInstances count]);
+  v17 = v20;
+  v18 = v20;
+
+  return v17;
 }
 
 void __44__ENExposureWindow_initWithXPCObject_error___block_invoke_cold_1()
 {
-  ENErrorF(15);
+  ENErrorF(15, "ENScanInstance non-dict");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);
@@ -332,7 +351,7 @@ void __44__ENExposureWindow_initWithXPCObject_error___block_invoke_cold_1()
 
 void __44__ENExposureWindow_initWithXPCObject_error___block_invoke_cold_2()
 {
-  ENErrorF(12);
+  ENErrorF(12, "ENScanInstance init XPC failed");
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
   v1 = *(v0 + 40);

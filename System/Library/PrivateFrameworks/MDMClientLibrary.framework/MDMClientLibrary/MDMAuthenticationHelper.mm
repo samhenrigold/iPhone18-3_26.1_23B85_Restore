@@ -160,28 +160,26 @@ void __76__MDMAuthenticationHelper_enrollmentMethodFromAuthenticateString_outPar
 
 + (void)performExchangeMAIDForBearerTokenAtURL:(id)l rmAccountIdentifier:(id)identifier anchorCertificateRefs:(id)refs completionHandler:(id)handler
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   identifierCopy = identifier;
   lCopy = l;
   v11 = objc_opt_new();
-  v19[0] = @"method";
+  v18[0] = @"method";
   v12 = +[MDMMAIDBearerTokenAuthenticator authenticationMethod];
-  v20[0] = v12;
-  v19[1] = @"url";
+  v19[0] = v12;
+  v18[1] = @"url";
   absoluteString = [lCopy absoluteString];
 
-  v20[1] = absoluteString;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __126__MDMAuthenticationHelper_performExchangeMAIDForBearerTokenAtURL_rmAccountIdentifier_anchorCertificateRefs_completionHandler___block_invoke;
-  v17[3] = &unk_278856CD0;
-  v18 = handlerCopy;
+  v19[1] = absoluteString;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __126__MDMAuthenticationHelper_performExchangeMAIDForBearerTokenAtURL_rmAccountIdentifier_anchorCertificateRefs_completionHandler___block_invoke;
+  v16[3] = &unk_278856CD0;
+  v17 = handlerCopy;
   v15 = handlerCopy;
-  [v11 refreshTokenWithAuthParams:v14 accountID:identifierCopy completionHandler:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [v11 refreshTokenWithAuthParams:v14 accountID:identifierCopy completionHandler:v16];
 }
 
 void __126__MDMAuthenticationHelper_performExchangeMAIDForBearerTokenAtURL_rmAccountIdentifier_anchorCertificateRefs_completionHandler___block_invoke(uint64_t a1, void *a2)

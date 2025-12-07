@@ -19,13 +19,13 @@
   decorator = self->_decorator;
   self->_decorator = 0;
 
-  children = [(TUILayout *)self children];
+  v5 = objc_msgSend_children(self);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_38DBC;
   v6[3] = &unk_25ECF8;
   v6[4] = self;
-  [children enumerateObjectsUsingBlock:v6];
+  [v5 enumerateObjectsUsingBlock:v6];
 }
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
@@ -43,7 +43,7 @@
     v7 = 0x200007FC00000;
   }
 
-  v8 = [(TUILayout *)self box];
+  v8 = objc_msgSend_box(self);
   [v8 padding];
   if (v9 <= -3.40282347e38)
   {
@@ -108,10 +108,10 @@
   v6 = v5;
   [(TUILayout *)self->_content setContainingWidth:v4];
   [(TUILayout *)self->_content setContainingHeight:v6];
-  [(TUILayout *)self->_content validateLayout];
+  objc_msgSend_validateLayout(self->_content);
   [(TUILayout *)self->_decorator setContainingWidth:v4];
   [(TUILayout *)self->_decorator setContainingHeight:v6];
-  [(TUILayout *)self->_decorator validateLayout];
+  objc_msgSend_validateLayout(self->_decorator);
   __p = 0;
   v10 = 0;
   v11 = 0;
@@ -141,7 +141,7 @@
 
   else
   {
-    model = [(TUILayout *)self model];
+    v7 = objc_msgSend_model(self);
     [contextCopy contentsScale];
     v9 = v8;
     v10 = [contextCopy renderModelForLayout:self->_content kind:6];
@@ -154,7 +154,7 @@
     v39 = v16;
     v40 = v14;
     v41 = v12;
-    identifier = [model identifier];
+    identifier = [v7 identifier];
     [(TUILayout *)self computedNaturalSize];
     v23 = TUISizeRoundedForScale(v21, v22, v9);
     v25 = v24;
@@ -164,9 +164,9 @@
     [(TUILayout *)self->_decorator computedOrigin];
     v31 = v30;
     v33 = v32;
-    [model padding];
+    [v7 padding];
     v35 = v34;
-    [model gradientWidth];
+    [v7 gradientWidth];
     v37 = [TUIOverlayFadeView renderModelWithIdentifier:identifier size:v10 content:v19 contentOrigin:[(TUILayout *)self computedLayoutDirection] contentErasableInsets:v23 overlay:v25 overlayOrigin:v27 padding:v29 gradientWidth:v41 layoutDirection:v40, v39, v18, v31, v33, v35, v36];
   }
 

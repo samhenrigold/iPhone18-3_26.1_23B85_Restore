@@ -250,9 +250,9 @@
 
           v44 = *(*(&v215 + 1) + 8 * j);
           _content = [(_UILabelConfiguration *)v44 _content];
-          v46 = [_content isEqualToString:0x1EFB32ED0];
+          isEqualToString = objc_msgSend_isEqualToString_(_content);
 
-          if (v46)
+          if (isEqualToString)
           {
             [v44 center];
             *&v47 = (v47 - MidX) * (v47 - MidX) + (v48 - v39) * (v48 - v39);
@@ -1029,7 +1029,7 @@ LABEL_149:
     v77 = 0u;
     if (attributesCopy)
     {
-      [attributesCopy transform3D];
+      objc_msgSend_transform3D(attributesCopy);
       v25 = 0uLL;
     }
 
@@ -1041,7 +1041,7 @@ LABEL_149:
     v71 = v25;
     v68 = v25;
     v69 = v25;
-    [v9 transform3D];
+    objc_msgSend_transform3D(v9);
     [attributesCopy alpha];
     v27 = v26;
     [v9 alpha];

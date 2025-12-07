@@ -2,6 +2,7 @@
 + (BOOL)isValidAddressDictionary:(id)dictionary;
 + (id)addressComponentValueWithLocationField:(unsigned __int8)field forAddress:(id)address duetEvent:(id)event;
 + (id)addressDictionaryFromAttributeSet:(id)set;
++ (id)formattedAddressWithLocationField:(unsigned __int8)field address:(id)address duetEvent:(id)event shortStyle:(BOOL)style;
 + (id)formattedCityAndStateWithCity:(id)city state:(id)state;
 + (id)formattedStreetNameWithThoroughfare:(id)thoroughfare subThoroughfare:(id)subThoroughfare;
 + (id)postalAddressFromAttributeSet:(id)set;
@@ -13,7 +14,7 @@
 
 + (id)addressDictionaryFromAttributeSet:(id)set
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   setCopy = set;
   v4 = objc_opt_new();
   v5 = [objc_opt_class() postalAddressFromAttributeSet:setCopy];
@@ -21,12 +22,12 @@
 
   if ([v6 length])
   {
-    v27[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     [v4 setObject:v7 forKeyedSubscript:@"FormattedAddressLines"];
   }
 
-  v26 = v6;
+  v25 = v6;
   subThoroughfare = [setCopy subThoroughfare];
   v9 = PPCollapseWhitespaceAndStrip();
 
@@ -95,8 +96,28 @@
 
   v23 = v22;
 
-  v24 = *MEMORY[0x277D85DE8];
   return v22;
+}
+
++ (id)formattedAddressWithLocationField:(unsigned __int8)field address:(id)address duetEvent:(id)event shortStyle:(BOOL)style
+{
+  styleCopy = style;
+  fieldCopy = field;
+  eventCopy = event;
+  addressCopy = address;
+  v11 = objc_opt_class();
+  if (fieldCopy == 1)
+  {
+    [v11 singleLineFormattedAddressWithPostalAddress:addressCopy shortStyle:styleCopy];
+  }
+
+  else
+  {
+    [v11 addressComponentValueWithLocationField:fieldCopy forAddress:addressCopy duetEvent:eventCopy];
+  }
+  v12 = ;
+
+  return v12;
 }
 
 + (id)postalAddressFromAttributeSet:(id)set

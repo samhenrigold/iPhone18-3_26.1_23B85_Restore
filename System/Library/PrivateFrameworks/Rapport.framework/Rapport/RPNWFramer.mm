@@ -1,8 +1,10 @@
 @interface RPNWFramer
++ (BOOL)writeControlOnFramer:(id)framer type:(int)type error:(unsigned __int8)error token:(id)token;
 + (BOOL)writeDataOnFramer:(id)framer data:(id)data;
 + (const)controlCodeToString:(int)string;
 + (void)setupDaemonFramer:(id)framer token:(id)token receiveHandler:(id)handler closeHandler:(id)closeHandler;
 + (void)startConnection:(id)connection token:(id)token;
++ (void)writeErrorOnFramer:(id)framer token:(id)token error:(unsigned __int8)error;
 @end
 
 @implementation RPNWFramer
@@ -18,6 +20,47 @@
   {
     return off_1E7C93138[string];
   }
+}
+
++ (BOOL)writeControlOnFramer:(id)framer type:(int)type error:(unsigned __int8)error token:(id)token
+{
+  v8 = *&type;
+  framerCopy = framer;
+  tokenCopy = token;
+  if (framerCopy)
+  {
+    if (v8 == 1)
+    {
+      v11 = 320017171;
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    async_block[0] = MEMORY[0x1E69E9820];
+    async_block[1] = 3221225472;
+    async_block[2] = __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke;
+    async_block[3] = &unk_1E7C92FD0;
+    v14 = framerCopy;
+    v16 = v8;
+    errorCopy = error;
+    v18 = 0;
+    v19 = v11;
+    v20 = 0;
+    errorCopy2 = error;
+    v15 = tokenCopy;
+    v21 = v8;
+    nw_framer_async(v14, async_block);
+  }
+
+  else if (gLogCategory_RPNWFramer <= 30 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
+  {
+    [RPNWFramer writeControlOnFramer:tokenCopy type:v8 error:error token:?];
+  }
+
+  return framerCopy != 0;
 }
 
 void __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke(uint64_t a1)
@@ -67,7 +110,7 @@ void __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke(uint6
   {
     if (gLogCategory_RPNWFramer <= 30 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
     {
-      +[RPNWFramer writeDataOnFramer:data:];
+      [RPNWFramer writeDataOnFramer:framerCopy data:?];
     }
 
     v11[0] = MEMORY[0x1E69E9820];
@@ -97,7 +140,7 @@ void __37__RPNWFramer_writeDataOnFramer_data___block_invoke(uint64_t a1)
   nw_framer_write_output(*(a1 + 40), v3, v2);
   if (gLogCategory_RPNWFramer <= 30 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
   {
-    __37__RPNWFramer_writeDataOnFramer_data___block_invoke_cold_2();
+    __37__RPNWFramer_writeDataOnFramer_data___block_invoke_cold_2(v2);
   }
 }
 
@@ -107,10 +150,23 @@ void __37__RPNWFramer_writeDataOnFramer_data___block_invoke(uint64_t a1)
   tokenCopy = token;
   if (gLogCategory_RPNWFramer <= 30 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
   {
-    +[RPNWFramer startConnection:token:];
+    [RPNWFramer startConnection:tokenCopy token:?];
   }
 
   [RPNWFramer writeControlOnFramer:connectionCopy type:1 error:0 token:tokenCopy];
+}
+
++ (void)writeErrorOnFramer:(id)framer token:(id)token error:(unsigned __int8)error
+{
+  errorCopy = error;
+  framerCopy = framer;
+  tokenCopy = token;
+  if (gLogCategory_RPNWFramer <= 30 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_RPNWFramer, "+[RPNWFramer writeErrorOnFramer:token:error:]", 30, "%@ Sending error (%d) to client app connection\n", tokenCopy, errorCopy);
+  }
+
+  [RPNWFramer writeControlOnFramer:framerCopy type:2 error:errorCopy token:tokenCopy];
 }
 
 + (void)setupDaemonFramer:(id)framer token:(id)token receiveHandler:(id)handler closeHandler:(id)closeHandler
@@ -157,50 +213,47 @@ void __37__RPNWFramer_writeDataOnFramer_data___block_invoke(uint64_t a1)
 
 uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v3 = a2;
   while (1)
   {
     do
     {
-      v7 = *(a1 + 64);
-      if (*(*(v7 + 8) + 24))
+      v4 = *(a1 + 64);
+      if (*(*(v4 + 8) + 24))
       {
         break;
       }
 
-      v27 = 0;
-      v28 = &v27;
-      v29 = 0x3010000000;
-      v30 = "";
-      v31 = 0;
-      v32 = 0;
+      v21 = 0;
+      v22 = &v21;
+      v23 = 0x3010000000;
+      v24 = "";
+      v25 = 0;
+      v26 = 0;
       parse[0] = MEMORY[0x1E69E9820];
       parse[1] = 3221225472;
       parse[2] = __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_2;
       parse[3] = &unk_1E7C92FF8;
-      v26 = 16;
-      parse[4] = &v27;
-      parse[5] = v7;
-      v25 = *(a1 + 72);
-      if (!nw_framer_parse_input(v6, 0x10uLL, 0x10uLL, 0, parse))
+      v20 = 16;
+      parse[4] = &v21;
+      parse[5] = v4;
+      v19 = *(a1 + 72);
+      if (!nw_framer_parse_input(v3, 0x10uLL, 0x10uLL, 0, parse))
       {
-        _Block_object_dispose(&v27, 8);
-        v14 = 16;
+        _Block_object_dispose(&v21, 8);
+        v12 = 16;
         goto LABEL_36;
       }
 
       if (gLogCategory_RPNWFramer <= 40 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
       {
-        v8 = [RPNWFramer controlCodeToString:*(*(*(a1 + 72) + 8) + 24), v16, v17, v18, v19];
-        v9 = *(v28 + 33);
-        v18 = strerror(*(v28 + 33));
-        v19 = *(*(*(a1 + 80) + 8) + 24);
-        v16 = v8;
-        v17 = v9;
-        LogPrintF();
+        v5 = [RPNWFramer controlCodeToString:*(*(*(a1 + 72) + 8) + 24)];
+        v6 = *(v22 + 33);
+        v7 = strerror(v6);
+        LogPrintF(&gLogCategory_RPNWFramer, "+[RPNWFramer setupDaemonFramer:token:receiveHandler:closeHandler:]_block_invoke", 40, "Daemon RX framer msg header={%s error: %d (%s), length: %zu}", v5, v6, v7, *(*(*(a1 + 80) + 8) + 24));
       }
 
-      _Block_object_dispose(&v27, 8);
+      _Block_object_dispose(&v21, 8);
     }
 
     while ((*(*(*(a1 + 64) + 8) + 24) & 1) == 0);
@@ -224,7 +277,7 @@ uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___
         nw_framer_mark_failed_with_error(*(a1 + 40), 57);
       }
 
-      (*(*(a1 + 56) + 16))(*(a1 + 56), v3, v4, v5);
+      (*(*(a1 + 56) + 16))();
       goto LABEL_35;
     }
 
@@ -238,18 +291,18 @@ uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___
       __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_cold_2();
     }
 
-    v10 = *(a1 + 80);
-    v11 = *(*(v10 + 8) + 24);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3;
-    v20[3] = &unk_1E7C93020;
-    v22 = v10;
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 64);
-    v21 = v12;
-    v23 = v13;
-    if (!nw_framer_parse_input(v6, 1uLL, v11, 0, v20))
+    v8 = *(a1 + 80);
+    v9 = *(*(v8 + 8) + 24);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3;
+    v14[3] = &unk_1E7C93020;
+    v16 = v8;
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 64);
+    v15 = v10;
+    v17 = v11;
+    if (!nw_framer_parse_input(v3, 1uLL, v9, 0, v14))
     {
       if (gLogCategory_RPNWFramer <= 40 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
       {
@@ -257,7 +310,7 @@ uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___
       }
 
 LABEL_35:
-      v14 = 0;
+      v12 = 0;
       goto LABEL_36;
     }
   }
@@ -267,11 +320,11 @@ LABEL_35:
     __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_cold_4();
   }
 
-  v14 = 0;
+  v12 = 0;
   *(*(*(a1 + 64) + 8) + 24) = 0;
 LABEL_36:
 
-  return v14;
+  return v12;
 }
 
 uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_2(void *a1, _OWORD *a2, unint64_t a3)
@@ -288,7 +341,7 @@ uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___
   return a1[8];
 }
 
-unint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3(void *a1, uint64_t a2, unint64_t a3)
+uint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3(void *a1, uint64_t a2, unint64_t a3)
 {
   if (!a2)
   {
@@ -300,7 +353,7 @@ unint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler__
   {
     if (gLogCategory_RPNWFramer <= 40 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
     {
-      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3_cold_1();
+      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3_cold_1(v3);
     }
 
     (*(a1[4] + 16))();
@@ -312,7 +365,7 @@ unint64_t __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler__
   {
     if (gLogCategory_RPNWFramer <= 40 && (gLogCategory_RPNWFramer != -1 || _LogCategory_Initialize()))
     {
-      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3_cold_2();
+      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_3_cold_2(v3);
     }
 
     (*(a1[4] + 16))();
@@ -341,17 +394,27 @@ void __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___bloc
     v5 = v2;
     if (gLogCategory_RPNWFramer != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_5_cold_1();
+      __66__RPNWFramer_setupDaemonFramer_token_receiveHandler_closeHandler___block_invoke_5_cold_1(v3);
       v3 = v5;
     }
   }
 }
 
-+ (uint64_t)writeControlOnFramer:(unsigned __int8)a3 type:error:token:.cold.1(uint64_t a1, uint64_t a2, unsigned __int8 a3)
++ (uint64_t)writeControlOnFramer:(unsigned __int8)a3 type:error:token:.cold.1(__CFString *a1, uint64_t a2, unsigned __int8 a3)
 {
-  [RPNWFramer controlCodeToString:a2];
-  strerror(a3);
-  return LogPrintF();
+  if (a1)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = &stru_1F2ED6FB8;
+  }
+
+  v5 = [RPNWFramer controlCodeToString:a2];
+  v6 = strerror(a3);
+  return LogPrintF(&gLogCategory_RPNWFramer, "+[RPNWFramer writeControlOnFramer:type:error:token:]", 30, "%@ Framer is not set, failed to to write CTRL message %s, error=%d (%s) on framer", v4, v5, a3, v6);
 }
 
 uint64_t __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke_cold_1(uint64_t a1, unsigned __int8 *a2, void **a3, void *a4)
@@ -361,16 +424,22 @@ uint64_t __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke_c
     v7 = *(a1 + 40);
   }
 
-  [RPNWFramer controlCodeToString:*(a1 + 64)];
-  strerror(*a2);
-  v8 = *a3;
-  v9 = MEMORY[0x1E696AD60];
-  v10 = v8;
-  v11 = objc_alloc_init(v9);
-  *a4 = v11;
-  [v11 appendFormat:@"%p", v10];
+  else
+  {
+    v7 = &stru_1F2ED6FB8;
+  }
 
-  return LogPrintF();
+  v8 = [RPNWFramer controlCodeToString:*(a1 + 64)];
+  v9 = *a2;
+  v10 = strerror(v9);
+  v11 = *a3;
+  v12 = MEMORY[0x1E696AD60];
+  v13 = v11;
+  v14 = objc_alloc_init(v12);
+  *a4 = v14;
+  [v14 appendFormat:@"%p", v13];
+
+  return LogPrintF(&gLogCategory_RPNWFramer, "+[RPNWFramer writeControlOnFramer:type:error:token:]_block_invoke", 30, "%@ Wrote CTRL message %s, error=%d (%s) on framer=%@\n", v7, v8, v9, v10, v14);
 }
 
 uint64_t __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke_cold_2(uint64_t a1, void **a2, void *a3)
@@ -380,15 +449,20 @@ uint64_t __52__RPNWFramer_writeControlOnFramer_type_error_token___block_invoke_c
     v5 = *(a1 + 40);
   }
 
-  [RPNWFramer controlCodeToString:*(a1 + 64)];
-  v6 = *a2;
-  v7 = MEMORY[0x1E696AD60];
-  v8 = v6;
-  v9 = objc_alloc_init(v7);
-  *a3 = v9;
-  [v9 appendFormat:@"%p", v8];
+  else
+  {
+    v5 = &stru_1F2ED6FB8;
+  }
 
-  return LogPrintF();
+  v6 = [RPNWFramer controlCodeToString:*(a1 + 64)];
+  v7 = *a2;
+  v8 = MEMORY[0x1E696AD60];
+  v9 = v7;
+  v10 = objc_alloc_init(v8);
+  *a3 = v10;
+  [v10 appendFormat:@"%p", v9];
+
+  return LogPrintF(&gLogCategory_RPNWFramer, "+[RPNWFramer writeControlOnFramer:type:error:token:]_block_invoke", 30, "%@ Wrote CTRL message %s on framer=%@\n", v5, v6, v10);
 }
 
 @end

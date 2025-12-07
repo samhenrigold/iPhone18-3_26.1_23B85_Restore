@@ -7,6 +7,7 @@
 - (id)sourcesViewControllerForPrimaryProfile:(BOOL)profile restorationSourceBundleIdentifier:(id)identifier;
 - (id)specifiers;
 - (void)_submitScribeAnalyticEvent;
+- (void)addHealthRecordsSpecifier:(BOOL)specifier;
 - (void)addSharedDataSpecifiersWithIdentifiers:(id)identifiers;
 - (void)configureHealthChecklistItemInSpecifiers:(id)specifiers;
 - (void)configureHealthRecordsItemInSpecifiers:(id)specifiers;
@@ -25,6 +26,9 @@
 - (void)showProfileCharacteristics:(id)characteristics;
 - (void)showSharedProfileHealthSettings:(id)settings;
 - (void)showSources:(id)sources;
+- (void)showSourcesForPrimaryProfile:(BOOL)profile animated:(BOOL)animated restorationSourceBundleIdentifier:(id)identifier completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewIsAppearing:(BOOL)appearing;
 @end
 
 @implementation HKHealthSettingsController
@@ -65,6 +69,31 @@
   }
 
   return v9;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HKHealthSettingsController;
+  [(HKHealthSettingsController *)&v7 viewDidAppear:appear];
+  v4 = MEMORY[0x277CBEBC0];
+  internalHealthSettingsURLString = [MEMORY[0x277D0FD48] internalHealthSettingsURLString];
+  v6 = [v4 URLWithString:internalHealthSettingsURLString];
+  [(HKHealthSettingsController *)self donateWithDeepLink:v6 andTitle:0];
+}
+
+- (void)viewIsAppearing:(BOOL)appearing
+{
+  v6.receiver = self;
+  v6.super_class = HKHealthSettingsController;
+  [(HKHealthSettingsController *)&v6 viewIsAppearing:appearing];
+  pendingURLDictionary = self->_pendingURLDictionary;
+  if (pendingURLDictionary)
+  {
+    [(HKHealthSettingsController *)self handleURL:pendingURLDictionary withCompletion:0];
+    v5 = self->_pendingURLDictionary;
+    self->_pendingURLDictionary = 0;
+  }
 }
 
 - (id)specifiers
@@ -298,7 +327,7 @@ id __55__HKHealthSettingsController_handleURL_withCompletion___block_invoke(uint
 
 - (void)configureHealthChecklistItemInSpecifiers:(id)specifiers
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   specifiersCopy = specifiers;
   v5 = [specifiersCopy specifierForID:@"HEALTH_CHECKLIST_GROUP"];
   v6 = [specifiersCopy specifierForID:@"HEALTH_CHECKLIST_ITEM"];
@@ -312,9 +341,9 @@ id __55__HKHealthSettingsController_handleURL_withCompletion___block_invoke(uint
 
     if ((healthAppHiddenOrNotInstalled & 1) != 0 || !isHealthChecklistAvailable)
     {
-      v15[0] = v5;
-      v15[1] = v6;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+      v14[0] = v5;
+      v14[1] = v6;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
       [specifiersCopy removeObjectsInArray:v13];
     }
 
@@ -342,13 +371,11 @@ id __55__HKHealthSettingsController_handleURL_withCompletion___block_invoke(uint
   {
     [specifiersCopy removeObject:v6];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createSharedHealthDataSpecifiersWithProfileIdentifiers:(id)identifiers
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (identifiersCopy && [identifiersCopy count])
@@ -356,30 +383,30 @@ id __55__HKHealthSettingsController_handleURL_withCompletion___block_invoke(uint
     v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v7 = [v6 localizedStringForKey:@"SHARED_DATA_GROUP_TITLE" value:&stru_28641BB60 table:@"Localizable-tinker"];
 
-    v20 = v7;
-    v19 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"HealthSettingsTinkerProfileSpecifierID" name:v7];
+    v19 = v7;
+    v18 = [MEMORY[0x277D3FAD8] groupSpecifierWithID:@"HealthSettingsTinkerProfileSpecifierID" name:v7];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v21 = identifiersCopy;
+    v20 = identifiersCopy;
     obj = identifiersCopy;
-    v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       v11 = *MEMORY[0x277D3FD80];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = [[HKHealthSettingsProfile alloc] initWithProfileIdentifier:*(*(&v23 + 1) + 8 * i)];
+          v13 = [[HKHealthSettingsProfile alloc] initWithProfileIdentifier:*(*(&v22 + 1) + 8 * i)];
           v14 = MEMORY[0x277D3FAD8];
           localizedName = [(HKHealthSettingsProfile *)v13 localizedName];
           v16 = [v14 preferenceSpecifierNamed:localizedName target:self set:0 get:0 detail:0 cell:1 edit:0];
@@ -390,19 +417,17 @@ id __55__HKHealthSettingsController_handleURL_withCompletion___block_invoke(uint
           [v5 addObject:v16];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v9);
     }
 
     [v5 sortUsingComparator:&__block_literal_global];
-    [v5 insertObject:v19 atIndex:0];
+    [v5 insertObject:v18 atIndex:0];
 
-    identifiersCopy = v21;
+    identifiersCopy = v20;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -568,6 +593,40 @@ uint64_t __67__HKHealthSettingsController_fetchHealthRecordsDataWithCompletion__
   }
 }
 
+- (void)addHealthRecordsSpecifier:(BOOL)specifier
+{
+  if (self->_healthRecordsSpecifier)
+  {
+    v3 = !specifier;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (!v3)
+  {
+    specifiers = [(HKHealthSettingsController *)self specifiers];
+    v6 = [specifiers specifierForID:@"SOURCES_ITEM"];
+
+    if (v6)
+    {
+      [(HKHealthSettingsController *)self insertSpecifier:self->_healthRecordsSpecifier afterSpecifier:v6 animated:0];
+    }
+
+    else
+    {
+      _HKInitializeLogging();
+      v7 = *MEMORY[0x277CCC2C0];
+      if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_FAULT))
+      {
+        [(HKHealthSettingsController *)v7 addHealthRecordsSpecifier:?];
+      }
+    }
+  }
+}
+
 - (id)_getLastDataSourceInSpecifiers:(id)specifiers
 {
   specifiersCopy = specifiers;
@@ -720,6 +779,25 @@ void __62__HKHealthSettingsController_makePopToHealthControllerHandler__block_in
   [(HKHealthSettingsController *)self showSourcesForPrimaryProfile:isPrimaryProfile animated:1 restorationSourceBundleIdentifier:0 completion:0];
 }
 
+- (void)showSourcesForPrimaryProfile:(BOOL)profile animated:(BOOL)animated restorationSourceBundleIdentifier:(id)identifier completion:(id)completion
+{
+  profileCopy = profile;
+  completionCopy = completion;
+  v11 = [(HKHealthSettingsController *)self sourcesViewControllerForPrimaryProfile:profileCopy restorationSourceBundleIdentifier:identifier];
+  [v11 setSettingsNavigationDonatingDelegate:self];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __113__HKHealthSettingsController_showSourcesForPrimaryProfile_animated_restorationSourceBundleIdentifier_completion___block_invoke;
+  v14[3] = &unk_2796E53D8;
+  v14[4] = self;
+  v15 = v11;
+  animatedCopy = animated;
+  v16 = completionCopy;
+  v12 = completionCopy;
+  v13 = v11;
+  [AuthenticationHelper authenticateWithCompletion:v14];
+}
+
 void __113__HKHealthSettingsController_showSourcesForPrimaryProfile_animated_restorationSourceBundleIdentifier_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
@@ -819,22 +897,20 @@ void __113__HKHealthSettingsController_showSourcesForPrimaryProfile_animated_res
 
 - (void)addSharedDataSpecifiersWithIdentifiers:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 specifiers];
-  OUTLINED_FUNCTION_1(&dword_251E77000, v5, v6, "HKHealthSettingsController is expecting to insert SHARED_DATA_GROUP_TITLE after SOURCES_ITEM, however the latter is not currently present in self.specifiers. Have: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_1(&dword_251E77000, v5, v6, "HKHealthSettingsController is expecting to insert SHARED_DATA_GROUP_TITLE after SOURCES_ITEM, however the latter is not currently present in self.specifiers. Have: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)addHealthRecordsSpecifier:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 specifiers];
-  OUTLINED_FUNCTION_1(&dword_251E77000, v5, v6, "HKHealthSettingsController is expecting to insert HEALTH_RECORDS_ITEM after SOURCES_ITEM, however the latter is not currently present in self.specifiers. Have: %{public}@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_1(&dword_251E77000, v5, v6, "HKHealthSettingsController is expecting to insert HEALTH_RECORDS_ITEM after SOURCES_ITEM, however the latter is not currently present in self.specifiers. Have: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

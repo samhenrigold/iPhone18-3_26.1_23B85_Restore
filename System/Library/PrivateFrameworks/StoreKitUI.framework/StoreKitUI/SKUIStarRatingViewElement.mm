@@ -33,7 +33,7 @@
     v15 = [elementCopy getAttribute:@"type"];
     if (v15)
     {
-      if ([@"large" isEqualToString:v15])
+      if (objc_msgSend_isEqualToString_(@"large"))
       {
         v16 = 2;
 LABEL_13:
@@ -41,20 +41,20 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      if (![@"large" isEqualToString:v15])
+      if (!objc_msgSend_isEqualToString_(@"large"))
       {
 LABEL_14:
         v17 = [elementCopy getAttribute:@"disabled"];
         if (v17)
         {
-          if ([@"yes" isEqualToString:v17])
+          if (objc_msgSend_isEqualToString_(@"yes"))
           {
             LOBYTE(v18) = 0;
           }
 
           else
           {
-            v18 = [@"true" isEqualToString:v17] ^ 1;
+            v18 = objc_msgSend_isEqualToString_(@"true") ^ 1;
           }
 
           v11->_enabled = v18;

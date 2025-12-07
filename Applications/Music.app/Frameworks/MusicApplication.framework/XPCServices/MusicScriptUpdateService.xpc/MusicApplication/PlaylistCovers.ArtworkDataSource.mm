@@ -18,29 +18,29 @@
 
 - (void)loadRepresentationForArtworkCatalog:(MPArtworkCatalog *)catalog completionHandler:(id)handler
 {
-  v7 = sub_100003ABC(&qword_1006014F0);
-  __chkstk_darwin(v7 - 8);
-  v9 = &v17 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = catalog;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_1004BC4B4();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  sub_100003ABC(&qword_1006014F0, &qword_1004C9B00);
+  __chkstk_darwin();
+  v8 = &v16 - v7;
+  v9 = _Block_copy(handler);
+  v10 = swift_allocObject();
+  v10[2] = catalog;
+  v10[3] = v9;
+  v10[4] = self;
+  v11 = sub_1004BC4B4();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v12 = swift_allocObject();
+  v12[2] = 0;
+  v12[3] = 0;
+  v12[4] = &unk_1004D5558;
+  v12[5] = v10;
   v13 = swift_allocObject();
   v13[2] = 0;
   v13[3] = 0;
-  v13[4] = &unk_1004D5558;
-  v13[5] = v11;
-  v14 = swift_allocObject();
-  v14[2] = 0;
-  v14[3] = 0;
-  v14[4] = &unk_1004D5568;
-  v14[5] = v13;
+  v13[4] = &unk_1004D5568;
+  v13[5] = v12;
   catalogCopy = catalog;
   selfCopy = self;
-  sub_100222194(0, 0, v9, &unk_1004D5578, v14);
+  sub_100222194(0, 0, v8, &unk_1004D5578, v13);
 }
 
 - (id)visualIdenticalityIdentifierForCatalog:(id)catalog
@@ -50,27 +50,28 @@
   sub_1004BD284();
   swift_unknownObjectRelease();
 
-  type metadata accessor for PlaylistCovers.ArtworkToken();
+  type metadata accessor for PlaylistCovers.ArtworkToken(v5, v6);
   if (swift_dynamicCast())
   {
-    v5 = v7;
+    v7 = v9;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 - (_TtCO9MusicCore14PlaylistCovers17ArtworkDataSource)init
 {
   v3 = OBJC_IVAR____TtCO9MusicCore14PlaylistCovers17ArtworkDataSource_cache;
-  *(&self->super.isa + v3) = [objc_allocWithZone(NSCache) init];
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for PlaylistCovers.ArtworkDataSource();
-  return [(PlaylistCovers.ArtworkDataSource *)&v5 init];
+  v4 = [objc_allocWithZone(NSCache) init];
+  *(&self->super.isa + v3) = v4;
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for PlaylistCovers.ArtworkDataSource(v4, v5);
+  return [(PlaylistCovers.ArtworkDataSource *)&v7 init];
 }
 
 @end

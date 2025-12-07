@@ -352,10 +352,10 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
     array4 = [MEMORY[0x1E695DF70] array];
     v11 = [(PLManagedObject *)PLManagedAsset entityInManagedObjectContext:self];
     [(PLManagedObjectContext *)self _getInsertedIDs:array deletedIDs:array2 changedIDs:array3 adjustedIDs:array4 ofEntityKind:v11 fromRemoteContextDidSaveObjectIDsNotification:notificationCopy];
-    v12 = [array count];
-    v13 = [array2 count] + v12;
-    v14 = v13 + [array3 count];
-    if (v14 + [array4 count])
+    v12 = objc_msgSend_count(array);
+    v13 = objc_msgSend_count(array2) + v12;
+    v14 = v13 + objc_msgSend_count(array3);
+    if (v14 + objc_msgSend_count(array4))
     {
       concurrencyType = [(PLManagedObjectContext *)self concurrencyType];
       if (concurrencyType == *MEMORY[0x1E695D708])
@@ -385,85 +385,81 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
 
 - (void)_getInsertedIDs:(id)ds deletedIDs:(id)iDs changedIDs:(id)changedIDs adjustedIDs:(id)adjustedIDs ofEntityKind:(id)kind fromRemoteContextDidSaveObjectIDsNotification:(id)notification
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   iDsCopy = iDs;
   changedIDsCopy = changedIDs;
   adjustedIDsCopy = adjustedIDs;
   kindCopy = kind;
   userInfo = [notification userInfo];
-  v36 = [userInfo objectForKeyedSubscript:@"PLUpdatedAttributesByObjectIDKey"];
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v34 = [userInfo objectForKeyedSubscript:@"PLUpdatedAttributesByObjectIDKey"];
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = +[PLManagedObjectContext changeNotificationObjectIDKeys];
-  v32 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v32)
+  v31 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  if (v31)
   {
-    v30 = *v48;
-    v14 = *MEMORY[0x1E695D320];
-    v40 = *MEMORY[0x1E695D2F0];
-    v39 = *MEMORY[0x1E695D4C8];
-    v34 = *MEMORY[0x1E695D460];
+    v29 = *v44;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v48 != v30)
+        if (*v44 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = v15;
-        v16 = *(*(&v47 + 1) + 8 * v15);
-        v43 = 0u;
-        v44 = 0u;
-        v45 = 0u;
-        v46 = 0u;
-        v17 = [userInfo objectForKey:v16];
-        v18 = [v17 countByEnumeratingWithState:&v43 objects:v51 count:16];
-        if (v18)
+        v32 = v14;
+        v15 = *(*(&v43 + 1) + 8 * v14);
+        v39 = 0u;
+        v40 = 0u;
+        v41 = 0u;
+        v42 = 0u;
+        v16 = [userInfo objectForKey:v15];
+        v17 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        if (v17)
         {
-          v19 = v18;
-          v20 = *v44;
+          v18 = v17;
+          v19 = *v40;
           do
           {
-            for (i = 0; i != v19; ++i)
+            for (i = 0; i != v18; ++i)
             {
-              if (*v44 != v20)
+              if (*v40 != v19)
               {
-                objc_enumerationMutation(v17);
+                objc_enumerationMutation(v16);
               }
 
-              v22 = *(*(&v43 + 1) + 8 * i);
-              entity = [v22 entity];
-              v24 = [entity isKindOfEntity:kindCopy];
+              v21 = *(*(&v39 + 1) + 8 * i);
+              v22 = objc_msgSend_entity(v21);
+              v23 = [v22 isKindOfEntity:kindCopy];
 
-              if (v24)
+              if (v23)
               {
-                if (v25 = [v16 isEqualToString:v14], v26 = dsCopy, (v25) || (v27 = objc_msgSend(v16, "isEqualToString:", v40), v26 = iDsCopy, (v27) || ((objc_msgSend(v16, "isEqualToString:", v39) & 1) != 0 || objc_msgSend(v16, "isEqualToString:", v34)) && (objc_msgSend(changedIDsCopy, "addObject:", v22), v28 = -[PLManagedObjectContext _adjustmentTimestampChangedChangedAttribute:from:](self, "_adjustmentTimestampChangedChangedAttribute:from:", v22, v36), v26 = adjustedIDsCopy, v28))
+                if (isEqualToString = objc_msgSend_isEqualToString_(v15), v25 = dsCopy, (isEqualToString) || (v26 = objc_msgSend_isEqualToString_(v15), v25 = iDsCopy, (v26) || ((objc_msgSend_isEqualToString_(v15) & 1) != 0 || objc_msgSend_isEqualToString_(v15)) && ([changedIDsCopy addObject:v21], v27 = -[PLManagedObjectContext _adjustmentTimestampChangedChangedAttribute:from:](self, "_adjustmentTimestampChangedChangedAttribute:from:", v21, v34), v25 = adjustedIDsCopy, v27))
                 {
-                  [v26 addObject:v22];
+                  [v25 addObject:v21];
                 }
               }
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v43 objects:v51 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v39 objects:v47 count:16];
           }
 
-          while (v19);
+          while (v18);
         }
 
-        v15 = v33 + 1;
+        v14 = v32 + 1;
       }
 
-      while (v33 + 1 != v32);
-      v32 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
+      while (v32 + 1 != v31);
+      v31 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 }
 
@@ -473,19 +469,19 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
   attributeCopy = attribute;
   fromCopy = from;
   v7 = +[PLManagedAsset entityName];
-  entity = [attributeCopy entity];
-  name = [entity name];
-  v10 = [v7 isEqualToString:name];
+  v8 = objc_msgSend_entity(attributeCopy);
+  name = [v8 name];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v10)
+  if (isEqualToString)
   {
     v11 = [fromCopy objectForKeyedSubscript:attributeCopy];
     unsignedLongLongValue = [v11 unsignedLongLongValue];
 
     v19[0] = @"adjustmentTimestamp";
     v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-    entity2 = [attributeCopy entity];
-    name2 = [entity2 name];
+    v14 = objc_msgSend_entity(attributeCopy);
+    name2 = [v14 name];
     v16 = [PLPropertyIndexMapping indexValueForAttributeNames:v13 entity:name2];
 
     v17 = (v16 & unsignedLongLongValue) != 0;
@@ -684,7 +680,7 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
   [v25 addObjectsFromArray:array2];
   [v25 addObjectsFromArray:array4];
   v100 = array4;
-  v98 = -[PLManagedObjectContext _tooManyAssetChangesToHandle:](self, "_tooManyAssetChangesToHandle:", [array4 count]);
+  v98 = [(PLManagedObjectContext *)self _tooManyAssetChangesToHandle:objc_msgSend_count(array4)];
   v113 = 0u;
   v114 = 0u;
   v115 = 0u;
@@ -708,8 +704,8 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
         }
 
         v32 = *(*(&v113 + 1) + 8 * i);
-        entity = [v32 entity];
-        v34 = [entity isKindOfEntity:v12];
+        v33 = objc_msgSend_entity(v32);
+        v34 = [v33 isKindOfEntity:v12];
 
         if (v34)
         {
@@ -757,7 +753,7 @@ void __49__PLManagedObjectContext_updateTransactionAuthor__block_invoke(uint64_t
         v42 = *(*(&v109 + 1) + 8 * v41);
         if ([v42 isLibrary])
         {
-          if ([v106 count])
+          if (objc_msgSend_count(v106))
           {
             goto LABEL_25;
           }
@@ -884,7 +880,7 @@ LABEL_28:
         }
 
         dictionary = [MEMORY[0x1E695DF90] dictionary];
-        if ([v99 count] || objc_msgSend(v107, "count") || objc_msgSend(v101, "count") || objc_msgSend(v68, "count"))
+        if (objc_msgSend_count(v99) || objc_msgSend_count(v107) || objc_msgSend_count(v101) || objc_msgSend_count(v68))
         {
           v108[0] = MEMORY[0x1E69E9820];
           v108[1] = 3221225472;
@@ -892,44 +888,44 @@ LABEL_28:
           v108[3] = &unk_1E7568370;
           v108[4] = self;
           v78 = _Block_copy(v108);
-          if ([v99 count])
+          if (objc_msgSend_count(v99))
           {
             v79 = v78[2](v78, v99, 1);
-            if ([v79 count])
+            if (objc_msgSend_count(v79))
             {
               [dictionary setObject:v79 forKey:@"insertedAssetGroups"];
             }
           }
 
-          if ([v107 count])
+          if (objc_msgSend_count(v107))
           {
             v80 = v78[2](v78, v107, 0);
-            if ([v80 count])
+            if (objc_msgSend_count(v80))
             {
               [dictionary setObject:v80 forKey:@"updatedAssetGroups"];
             }
           }
 
-          if ([v101 count])
+          if (objc_msgSend_count(v101))
           {
             v81 = v78[2](v78, v101, 0);
-            if ([v81 count])
+            if (objc_msgSend_count(v81))
             {
               [dictionary setObject:v81 forKey:@"deletedAssetGroups"];
             }
           }
 
-          if ([v68 count])
+          if (objc_msgSend_count(v68))
           {
             v82 = v78[2](v78, v68, 0);
-            if ([v82 count])
+            if (objc_msgSend_count(v82))
             {
               [dictionary setObject:v82 forKey:@"updatedAssets"];
             }
           }
         }
 
-        if (v91 || [dictionary count])
+        if (v91 || objc_msgSend_count(dictionary))
         {
           if (+[PLManagedObjectContext assetsLibraryLoggingEnabled])
           {
@@ -1010,7 +1006,7 @@ void __75__PLManagedObjectContext__notifyALAssetsLibraryWithChanges_usingObjectI
         v16 = v15;
         if (v15)
         {
-          v17 = [v15 entity];
+          v17 = objc_msgSend_entity(v15);
           v18 = v17;
           if (v8 && [v17 isKindOfEntity:*(a1 + 32)] && ((v19 = v8, (*(a1 + 56) & 1) != 0) || (v20 = objc_msgSend(v18, "isKindOfEntity:", *(a1 + 40)), v19 = v8, !v20)) || v9 && (v21 = objc_msgSend(v18, "isKindOfEntity:", *(a1 + 48)), v19 = v9, v21))
           {
@@ -1033,7 +1029,7 @@ id __75__PLManagedObjectContext__notifyALAssetsLibraryWithChanges_usingObjectIDs
 {
   v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v5)];
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
@@ -1131,18 +1127,18 @@ LABEL_19:
         }
 
         v10 = *(*(&v38 + 1) + 8 * i);
-        entity = [v10 entity];
-        superentity = [entity superentity];
+        v11 = objc_msgSend_entity(v10);
+        superentity = [v11 superentity];
 
         if (superentity)
         {
           do
           {
-            superentity2 = [entity superentity];
+            superentity2 = [v11 superentity];
 
             v13Superentity = [superentity2 superentity];
 
-            entity = superentity2;
+            v11 = superentity2;
           }
 
           while (v13Superentity);
@@ -1150,7 +1146,7 @@ LABEL_19:
 
         else
         {
-          superentity2 = entity;
+          superentity2 = v11;
         }
 
         array2 = [strongToStrongObjectsMapTable objectForKey:superentity2];
@@ -1507,9 +1503,9 @@ LABEL_19:
         }
 
         v9 = *(*(&v17 + 1) + 8 * i);
-        entity = [v9 entity];
+        v10 = objc_msgSend_entity(v9);
         v11 = [(PLManagedObject *)PLPerson entityInManagedObjectContext:self];
-        v12 = [entity isKindOfEntity:v11];
+        v12 = [v10 isKindOfEntity:v11];
 
         if (v12)
         {
@@ -1520,7 +1516,7 @@ LABEL_19:
         else
         {
           v14 = [(PLManagedObject *)PLDetectedFace entityInManagedObjectContext:self];
-          v15 = [entity isKindOfEntity:v14];
+          v15 = [v10 isKindOfEntity:v14];
 
           if (!v15)
           {
@@ -1569,7 +1565,7 @@ LABEL_11:
 
       objectID2 = [saveCopy changedValues];
       allKeys = [objectID2 allKeys];
-      if ([allKeys count])
+      if (objc_msgSend_count(allKeys))
       {
         objectID3 = [saveCopy objectID];
         [(PLManagedObjectContext *)self _recordChangedKeys:allKeys forObjectID:objectID3];
@@ -1817,7 +1813,7 @@ LABEL_32:
         self->_workerTypesForBackgroundJobProcessing = 0;
       }
 
-      if ([(NSMutableSet *)self->_backgroundWorkItemIdentifiers count])
+      if (objc_msgSend_count(self->_backgroundWorkItemIdentifiers))
       {
         [(NSMutableSet *)self->_backgroundWorkItemIdentifiers removeAllObjects];
       }
@@ -2341,7 +2337,7 @@ uint64_t __46__PLManagedObjectContext__directPerformBlock___block_invoke(uint64_
     v14 = v13;
     if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v15 = [v12 count];
+      v15 = objc_msgSend_count(v12);
       *buf = 134217984;
       v19 = v15;
       _os_signpost_emit_with_name_impl(&dword_19BF1F000, v14, OS_SIGNPOST_INTERVAL_END, v9, "ImportantPhotosFetch", "%tu", buf, 0xCu);
@@ -2381,7 +2377,7 @@ uint64_t __46__PLManagedObjectContext__directPerformBlock___block_invoke(uint64_
     [(PLManagedObjectContext *)v14 setMergePolicy:v18];
     v19 = objc_alloc(MEMORY[0x1E695DF90]);
     v20 = PLAllCloudDeletionKeys();
-    v21 = [v19 initWithCapacity:{objc_msgSend(v20, "count")}];
+    v21 = [v19 initWithCapacity:objc_msgSend_count(v20)];
     uuidsForCloudDeletion = v14->_uuidsForCloudDeletion;
     v14->_uuidsForCloudDeletion = v21;
 
@@ -2938,7 +2934,7 @@ BOOL __75__PLManagedObjectContext_loadingPersistentStoreWithReason_error_workBlo
   v35[1] = v10;
   v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
 
-  [v11 count];
+  objc_msgSend_count(v11);
   v12 = 0;
   v13 = 0;
   do
@@ -2954,7 +2950,7 @@ BOOL __75__PLManagedObjectContext_loadingPersistentStoreWithReason_error_workBlo
       goto LABEL_11;
     }
 
-    if ([v11 count] <= v12 || !objc_msgSend(self, "_shouldRetryNewPersistentStoreCoordinatorWithError:", v13))
+    if (objc_msgSend_count(v11) <= v12 || ![self _shouldRetryNewPersistentStoreCoordinatorWithError:v13])
     {
       break;
     }
@@ -2980,7 +2976,7 @@ BOOL __75__PLManagedObjectContext_loadingPersistentStoreWithReason_error_workBlo
     usleep((v18 * 1000000.0));
   }
 
-  while ([v11 count] > v12++);
+  while (objc_msgSend_count(v11) > v12++);
   v21 = v13;
   v22 = v21;
   if (error)

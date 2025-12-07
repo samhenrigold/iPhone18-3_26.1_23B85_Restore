@@ -34,11 +34,11 @@
 
 - (NSDate)expirationDate
 {
-  v3 = VSSharedSAMLParserController();
+  v3 = VSSharedSAMLParserController(self);
   body = [(VSSAMLAuthenticationToken *)self body];
-  v10 = 0;
-  v5 = [v3 parseCachedResponse:body error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v3 parseCachedResponse:body error:&v11];
+  v6 = v11;
 
   if (v5)
   {
@@ -47,8 +47,8 @@
 
   else
   {
-    v8 = VSErrorLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VSSAMLAuthenticationToken expirationDate];
     }
@@ -61,11 +61,11 @@
 
 - (BOOL)isValid
 {
-  v3 = VSSharedSAMLParserController();
+  v3 = VSSharedSAMLParserController(self);
   body = [(VSSAMLAuthenticationToken *)self body];
-  v10 = 0;
-  v5 = [v3 parseCachedResponse:body error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v3 parseCachedResponse:body error:&v11];
+  v6 = v11;
 
   if (v5)
   {
@@ -74,8 +74,8 @@
 
   else
   {
-    v8 = VSErrorLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = VSErrorLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [VSSAMLAuthenticationToken expirationDate];
     }
@@ -99,49 +99,49 @@
 
   if (simulatedExpirationDate)
   {
-    v9 = VSDefaultLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = VSDefaultLogObject(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23AB8E000, v9, OS_LOG_TYPE_DEFAULT, "Simulate expired token enabled, will return augmented token body.", buf, 2u);
+      _os_log_impl(&dword_23AB8E000, v10, OS_LOG_TYPE_DEFAULT, "Simulate expired token enabled, will return augmented token body.", buf, 2u);
     }
 
-    v10 = VSSharedSAMLParserController();
+    v12 = VSSharedSAMLParserController(v11);
     if (!v7)
     {
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:@"The currentBody parameter must not be nil."];
     }
 
-    v21 = 0;
-    v11 = [v10 parseCachedResponse:v7 error:&v21];
-    v12 = v21;
+    v24 = 0;
+    v13 = [v12 parseCachedResponse:v7 error:&v24];
+    v14 = v24;
 
-    if (v11)
+    if (v13)
     {
-      v13 = MEMORY[0x277CBEAA8];
-      v14 = v11;
-      distantPast = [v13 distantPast];
-      [v14 setAuthenticationTTL:distantPast];
+      v16 = MEMORY[0x277CBEAA8];
+      v17 = v13;
+      distantPast = [v16 distantPast];
+      [v17 setAuthenticationTTL:distantPast];
 
-      v16 = [v14 xmlString:0];
+      v19 = [v17 xmlString:0];
 
-      v17 = [VSOptional optionalWithObject:v16];
-      v18 = [v17 unwrapWithFallback:&stru_284DD5B48];
+      v20 = [VSOptional optionalWithObject:v19];
+      v21 = [v20 unwrapWithFallback:&stru_284DD5B48];
 
       goto LABEL_12;
     }
 
-    v19 = VSErrorLogObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = VSErrorLogObject(v15);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [VSSAMLAuthenticationToken body];
     }
   }
 
-  v18 = v7;
+  v21 = v7;
 LABEL_12:
 
-  return v18;
+  return v21;
 }
 
 - (void)setBody:(id)body

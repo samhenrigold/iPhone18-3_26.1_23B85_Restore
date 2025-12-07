@@ -9,7 +9,7 @@
 - (_TtC20ProductPageExtension20ProductTapToRateView)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC20ProductPageExtension20ProductTapToRateView_rateAction;
-  v5 = sub_10000A5D4(&qword_100947408);
+  v5 = sub_10000A5D4(&qword_100947408, qword_1007895B8);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension20ProductTapToRateView_isSingleColumn) = 0;
   result = sub_10077156C();

@@ -49,14 +49,14 @@
 - (id)query
 {
   selfCopy = self;
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   matchingPairs = [(PLAggregateEntry *)self matchingPairs];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   [array addObject:@"ID"];
   v6 = MEMORY[0x1E696AEC0];
   entryKey = [(PLAggregateEntry *)selfCopy entryKey];
-  v47 = matchingPairs;
+  v46 = matchingPairs;
   v8 = [v6 stringWithFormat:@"(SELECT ID FROM '%@' WHERE %@)", entryKey, matchingPairs];
   [array2 addObject:v8];
 
@@ -79,53 +79,53 @@
 
     if (v18)
     {
-      v45 = array2;
+      v44 = array2;
       otherAggregateKeys3 = [(PLAggregateEntry *)selfCopy otherAggregateKeys];
       v20 = [otherAggregateKeys3 componentsJoinedByString:{@", "}];
-      v46 = array;
+      v45 = array;
       [array addObject:v20];
 
       array3 = [MEMORY[0x1E695DF70] array];
+      v47 = 0u;
       v48 = 0u;
       v49 = 0u;
       v50 = 0u;
-      v51 = 0u;
       otherAggregateKeys4 = [(PLAggregateEntry *)selfCopy otherAggregateKeys];
-      v23 = [otherAggregateKeys4 countByEnumeratingWithState:&v48 objects:v52 count:16];
+      v23 = [otherAggregateKeys4 countByEnumeratingWithState:&v47 objects:v51 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v49;
+        v25 = *v48;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v49 != v25)
+            if (*v48 != v25)
             {
               objc_enumerationMutation(otherAggregateKeys4);
             }
 
-            v27 = *(*(&v48 + 1) + 8 * i);
+            v27 = *(*(&v47 + 1) + 8 * i);
             v28 = MEMORY[0x1E696AEC0];
             [(PLAggregateEntry *)selfCopy entryKey];
             v30 = v29 = selfCopy;
-            v31 = [v28 stringWithFormat:@"COALESCE((SELECT %@ FROM '%@' WHERE %@), 0)", v27, v30, v47];
+            v31 = [v28 stringWithFormat:@"COALESCE((SELECT %@ FROM '%@' WHERE %@), 0)", v27, v30, v46];
             [array3 addObject:v31];
 
             selfCopy = v29;
           }
 
-          v24 = [otherAggregateKeys4 countByEnumeratingWithState:&v48 objects:v52 count:16];
+          v24 = [otherAggregateKeys4 countByEnumeratingWithState:&v47 objects:v51 count:16];
         }
 
         while (v24);
       }
 
       v32 = [array3 componentsJoinedByString:{@", "}];
-      array2 = v45;
-      [v45 addObject:v32];
+      array2 = v44;
+      [v44 addObject:v32];
 
-      array = v46;
+      array = v45;
     }
   }
 
@@ -133,7 +133,7 @@
   [array addObject:aggregateKey];
 
   v34 = MEMORY[0x1E696AEC0];
-  v35 = [(PLAggregateEntry *)selfCopy aggregateOperationWithMatchingPairs:v47];
+  v35 = [(PLAggregateEntry *)selfCopy aggregateOperationWithMatchingPairs:v46];
   [(PLAggregateEntry *)selfCopy aggregateValue];
   v37 = [v34 stringWithFormat:@"COALESCE(%@, %f)", v35, v36];
   [array2 addObject:v37];
@@ -144,35 +144,33 @@
   v41 = [array2 componentsJoinedByString:{@", "}];
   v42 = [v38 stringWithFormat:@"            INSERT OR REPLACE INTO '%@'             (%@)             VALUES (%@)", entryKey2, v40, v41];;
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return v42;
 }
 
 - (void)setMatchingKeyToValue:(id)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   valueCopy = value;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [(NSMutableDictionary *)valueCopy allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [(NSMutableDictionary *)valueCopy objectForKeyedSubscript:v9];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -182,7 +180,7 @@
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -190,34 +188,32 @@
 
   matchingKeyToValue = self->_matchingKeyToValue;
   self->_matchingKeyToValue = valueCopy;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)matchingPairs
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = [(PLAggregateEntry *)self matchingKeyToValue];
-  v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = MEMORY[0x1E696AEC0];
         matchingKeyToValue = [(PLAggregateEntry *)self matchingKeyToValue];
         v11 = [matchingKeyToValue objectForKeyedSubscript:v8];
@@ -225,15 +221,13 @@
         [array addObject:v12];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
 
   v13 = [array componentsJoinedByString:@" AND "];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

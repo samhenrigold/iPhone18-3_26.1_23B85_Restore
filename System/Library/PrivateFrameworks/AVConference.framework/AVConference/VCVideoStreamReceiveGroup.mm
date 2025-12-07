@@ -331,7 +331,7 @@ LABEL_13:
 
 - (void)resetPerfTimers
 {
-  v3 = micro();
+  v3 = micro(self, a2);
   self->super.super._creationTime = v3;
   self->super.super._firstMediaPacketTime = v3;
   VCPerfTimingUtilsSetStartForKeyOnceWithTime(self->super.super._perfTimers, 16, self->super.super._creationTime);
@@ -717,7 +717,7 @@ LABEL_14:
   }
 }
 
-uint64_t __70__VCVideoStreamReceiveGroup_setVideoStreamDelegate_delegateFunctions___block_invoke(uint64_t a1)
+void *__70__VCVideoStreamReceiveGroup_setVideoStreamDelegate_delegateFunctions___block_invoke(uint64_t a1)
 {
   v41 = *MEMORY[0x1E69E9840];
   v37 = 0u;
@@ -815,7 +815,7 @@ LABEL_16:
           [(__CFString *)v9 setVideoStreamDelegate:*(a1 + 40) delegateFunctions:a1 + 48];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -841,7 +841,7 @@ LABEL_16:
   dispatch_async(stateQueue, v3);
 }
 
-uint64_t __68__VCVideoStreamReceiveGroup_endSensitiveContentAnalyzerInterruption__block_invoke(uint64_t a1)
+void *__68__VCVideoStreamReceiveGroup_endSensitiveContentAnalyzerInterruption__block_invoke(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v7 = 0u;
@@ -864,7 +864,8 @@ uint64_t __68__VCVideoStreamReceiveGroup_endSensitiveContentAnalyzerInterruption
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) endSensitiveContentAnalyzerInterruption];
+        [*(*(&v7 + 1) + 8 * v5) endSensitiveContentAnalyzerInterruption];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -880,7 +881,7 @@ uint64_t __68__VCVideoStreamReceiveGroup_endSensitiveContentAnalyzerInterruption
 
 - (id)willStart
 {
-  self->_startTime = micro();
+  self->_startTime = micro(self, a2);
   self->_poorConnectionTotalLength = 0.0;
   [(VCVideoStreamReceiveGroup *)self resetDidReceiveFirstFrame];
   [(VCVideoStreamReceiveGroup *)self resetPerfTimers];
@@ -1106,7 +1107,7 @@ LABEL_28:
     v41 = v24;
     v26 = &v37;
 LABEL_36:
-    [v2 enumerateKeysAndObjectsUsingBlock:{v26, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, *buf, *&buf[16], v43, v44}];
+    [v2 enumerateKeysAndObjectsUsingBlock:{v26, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, *buf, *&buf[8], v43, v44}];
     goto LABEL_37;
   }
 
@@ -1182,7 +1183,7 @@ LABEL_37:
   }
 }
 
-uint64_t __48__VCVideoStreamReceiveGroup_setActiveStreamIDs___block_invoke_31(uint64_t a1, void *a2, void *a3, _BYTE *a4)
+void *__48__VCVideoStreamReceiveGroup_setActiveStreamIDs___block_invoke_31(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v32 = *MEMORY[0x1E69E9840];
   v8 = *(a1 + 32);
@@ -1253,7 +1254,7 @@ LABEL_28:
     }
   }
 
-  result = [a2 isEqual:{*(*(a1 + 32) + 440), *v28, *&v28[16], v29, v30, v31}];
+  result = [a2 isEqual:{*(*(a1 + 32) + 440), *v28, *&v28[8], v29, v30, v31}];
   if (result)
   {
     return result;
@@ -1476,7 +1477,7 @@ LABEL_24:
   }
 
 LABEL_25:
-  [a3 setTargetStreamID:{a2, *v23, *&v23[16], v24, v25, v26}];
+  [a3 setTargetStreamID:{a2, *v23, *&v23[8], v24, v25, v26}];
   *(*(a1 + 32) + 505) = 0;
   return [*(a1 + 32) setOptedInStreamID:a2];
 }
@@ -1484,7 +1485,7 @@ LABEL_25:
 - (void)setMediaSuspended:(BOOL)suspended forStreamToken:(id)token
 {
   suspendedCopy = suspended;
-  v6 = VCRemoteVideoManager_DefaultManager();
+  v6 = VCRemoteVideoManager_DefaultManager(self, a2);
   unsignedIntValue = [token unsignedIntValue];
 
   [v6 remoteVideoDidSuspend:suspendedCopy streamToken:unsignedIntValue];
@@ -1551,18 +1552,18 @@ void __50__VCVideoStreamReceiveGroup_setRemoteVideoPaused___block_invoke_2(uint6
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __51__VCVideoStreamReceiveGroup_setRemoteVideoEnabled___block_invoke(uint64_t result)
+unsigned __int8 *__51__VCVideoStreamReceiveGroup_setRemoteVideoEnabled___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 616) != v2)
   {
     v3 = result;
     *(v1 + 616) = v2;
-    [*(result + 32) updateVideoExpected];
-    [*(v3 + 32) setIsRemoteMediaStalled:*(*(v3 + 32) + 485)];
-    result = *(v3 + 32);
-    if ((*(result + 616) & 1) == 0)
+    [*(result + 4) updateVideoExpected];
+    [*(v3 + 4) setIsRemoteMediaStalled:*(*(v3 + 4) + 485)];
+    result = *(v3 + 4);
+    if ((result[616] & 1) == 0)
     {
 
       return [result resetDidReceiveFirstFrame];
@@ -1586,7 +1587,7 @@ uint64_t __51__VCVideoStreamReceiveGroup_setRemoteVideoEnabled___block_invoke(ui
 - (void)setVideoDegraded:(BOOL)degraded duration:(double)duration
 {
   degradedCopy = degraded;
-  v33 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -1601,14 +1602,14 @@ uint64_t __51__VCVideoStreamReceiveGroup_setRemoteVideoEnabled___block_invoke(ui
       goto LABEL_12;
     }
 
-    *v29 = 136315906;
-    *&v29[4] = v8;
-    *&v29[12] = 2080;
-    *&v29[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
-    *&v29[22] = 1024;
-    LODWORD(v30) = 456;
-    WORD2(v30) = 1024;
-    *(&v30 + 6) = degradedCopy;
+    *v33 = 136315906;
+    *&v33[4] = v8;
+    *&v33[12] = 2080;
+    *&v33[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
+    *&v33[22] = 1024;
+    LODWORD(v34) = 456;
+    WORD2(v34) = 1024;
+    *(&v34 + 6) = degradedCopy;
     v10 = " [%s] %s:%d videoDegraded=%d";
     v11 = v9;
     v12 = 34;
@@ -1631,23 +1632,23 @@ uint64_t __51__VCVideoStreamReceiveGroup_setRemoteVideoEnabled___block_invoke(ui
     v14 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      *v29 = 136316418;
-      *&v29[4] = v13;
-      *&v29[12] = 2080;
-      *&v29[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
-      *&v29[22] = 1024;
-      LODWORD(v30) = 456;
-      WORD2(v30) = 2112;
-      *(&v30 + 6) = v7;
-      HIWORD(v30) = 2048;
+      *v33 = 136316418;
+      *&v33[4] = v13;
+      *&v33[12] = 2080;
+      *&v33[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
+      *&v33[22] = 1024;
+      LODWORD(v34) = 456;
+      WORD2(v34) = 2112;
+      *(&v34 + 6) = v7;
+      HIWORD(v34) = 2048;
       selfCopy2 = self;
-      LOWORD(v32) = 1024;
-      *(&v32 + 2) = degradedCopy;
+      LOWORD(v36) = 1024;
+      *(&v36 + 2) = degradedCopy;
       v10 = " [%s] %s:%d %@(%p) videoDegraded=%d";
       v11 = v14;
       v12 = 54;
 LABEL_11:
-      _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v29, v12);
+      _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v33, v12);
     }
   }
 
@@ -1676,24 +1677,24 @@ LABEL_12:
     {
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v20 = VRTraceErrorLogLevelToCSTR();
-        v21 = *MEMORY[0x1E6986650];
+        v24 = VRTraceErrorLogLevelToCSTR();
+        v25 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(&self->_isVideoDegraded + 1);
-          *v29 = 136315906;
-          *&v29[4] = v20;
-          *&v29[12] = 2080;
-          *&v29[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
-          *&v29[22] = 1024;
-          LODWORD(v30) = 470;
-          WORD2(v30) = 1024;
-          *(&v30 + 6) = v22;
-          v23 = " [%s] %s:%d Ignoring setVideoDegraded=%d with same value";
-          v24 = v21;
-          v25 = 34;
+          v26 = *(&self->_isVideoDegraded + 1);
+          *v33 = 136315906;
+          *&v33[4] = v24;
+          *&v33[12] = 2080;
+          *&v33[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
+          *&v33[22] = 1024;
+          LODWORD(v34) = 470;
+          WORD2(v34) = 1024;
+          *(&v34 + 6) = v26;
+          v27 = " [%s] %s:%d Ignoring setVideoDegraded=%d with same value";
+          v28 = v25;
+          v29 = 34;
 LABEL_38:
-          _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, v23, v29, v25);
+          _os_log_impl(&dword_1DB56E000, v28, OS_LOG_TYPE_DEFAULT, v27, v33, v29);
         }
       }
     }
@@ -1712,26 +1713,26 @@ LABEL_38:
 
       if (VRTraceGetErrorLogLevelForModule() >= 5)
       {
-        v26 = VRTraceErrorLogLevelToCSTR();
-        v27 = *MEMORY[0x1E6986650];
+        v30 = VRTraceErrorLogLevelToCSTR();
+        v31 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(&self->_isVideoDegraded + 1);
-          *v29 = 136316418;
-          *&v29[4] = v26;
-          *&v29[12] = 2080;
-          *&v29[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
-          *&v29[22] = 1024;
-          LODWORD(v30) = 470;
-          WORD2(v30) = 2112;
-          *(&v30 + 6) = v17;
-          HIWORD(v30) = 2048;
+          v32 = *(&self->_isVideoDegraded + 1);
+          *v33 = 136316418;
+          *&v33[4] = v30;
+          *&v33[12] = 2080;
+          *&v33[14] = "[VCVideoStreamReceiveGroup setVideoDegraded:duration:]";
+          *&v33[22] = 1024;
+          LODWORD(v34) = 470;
+          WORD2(v34) = 2112;
+          *(&v34 + 6) = v17;
+          HIWORD(v34) = 2048;
           selfCopy2 = self;
-          LOWORD(v32) = 1024;
-          *(&v32 + 2) = v28;
-          v23 = " [%s] %s:%d %@(%p) Ignoring setVideoDegraded=%d with same value";
-          v24 = v27;
-          v25 = 54;
+          LOWORD(v36) = 1024;
+          *(&v36 + 2) = v32;
+          v27 = " [%s] %s:%d %@(%p) Ignoring setVideoDegraded=%d with same value";
+          v28 = v31;
+          v29 = 54;
           goto LABEL_38;
         }
       }
@@ -1741,9 +1742,10 @@ LABEL_38:
   else
   {
     streamToken = [(VCMediaStreamGroup *)self streamToken];
-    if (![+[VCDefaults forceDisableVideoDegraded] sharedInstance]
+    forceDisableVideoDegraded = [+[VCDefaults sharedInstance](VCDefaults forceDisableVideoDegraded];
+    if ((forceDisableVideoDegraded & 1) == 0)
     {
-      [VCRemoteVideoManager_DefaultManager() remoteVideoDidDegrade:degradedCopy streamToken:streamToken];
+      [VCRemoteVideoManager_DefaultManager(forceDisableVideoDegraded v20)];
     }
 
     if (self->_isVideoDegradedStartTime != 0.0 && *(&self->_isVideoDegraded + 1) && !degradedCopy)
@@ -1752,15 +1754,15 @@ LABEL_38:
     }
 
     *(&self->_isVideoDegraded + 1) = degradedCopy;
-    [(VCNetworkFeedbackController *)self->super.super._networkFeedbackController reportImmediateWRMMetric:0 value:degradedCopy, *v29, *&v29[16], v30, selfCopy2, v32, v33];
-    kdebug_trace();
-    v19 = 0.0;
+    [(VCNetworkFeedbackController *)self->super.super._networkFeedbackController reportImmediateWRMMetric:0 value:degradedCopy, *v33, *&v33[8], v34, selfCopy2, v36, v37];
+    v21 = kdebug_trace();
+    v23 = 0.0;
     if (*(&self->_isVideoDegraded + 1))
     {
-      v19 = micro();
+      v23 = micro(v21, v22);
     }
 
-    self->_isVideoDegradedStartTime = v19;
+    self->_isVideoDegradedStartTime = v23;
   }
 }
 
@@ -1885,7 +1887,7 @@ LABEL_15:
   }
 }
 
-uint64_t __63__VCVideoStreamReceiveGroup_setShouldEnableMLEnhance_streamID___block_invoke(uint64_t a1)
+void *__63__VCVideoStreamReceiveGroup_setShouldEnableMLEnhance_streamID___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -1908,7 +1910,8 @@ uint64_t __63__VCVideoStreamReceiveGroup_setShouldEnableMLEnhance_streamID___blo
           objc_enumerationMutation(v2);
         }
 
-        [objc_msgSend(*(*(&v8 + 1) + 8 * v6++) "stream")];
+        [objc_msgSend(*(*(&v8 + 1) + 8 * v6) "stream")];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -2131,7 +2134,7 @@ LABEL_17:
     }
   }
 
-  [*(a1 + 40) streamGroup:*(a1 + 32) didRequestRedundancy:{*(*(a1 + 32) + 528), *v13, *&v13[16], v14, v15, v16}];
+  [*(a1 + 40) streamGroup:*(a1 + 32) didRequestRedundancy:{*(*(a1 + 32) + 528), *v13, *&v13[8], v14, v15, v16}];
   CFRelease(*(a1 + 40));
 }
 
@@ -2141,7 +2144,7 @@ LABEL_17:
   v7[0] = 0;
   v7[1] = v7;
   v7[2] = 0x2020000000;
-  v7[3] = micro();
+  v7[3] = micro(self, a2);
   stateQueue = self->super.super._stateQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -2310,12 +2313,13 @@ LABEL_12:
 
 - (void)updateVideoExpected
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   isVideoExpected = self->_isVideoExpected;
   if (isVideoExpected != [(VCVideoStreamReceiveGroup *)self isVideoExpected])
   {
-    self->_isVideoExpected = [(VCVideoStreamReceiveGroup *)self isVideoExpected];
-    self->_lastVideoExpectationSwitch = micro();
+    isVideoExpected = [(VCVideoStreamReceiveGroup *)self isVideoExpected];
+    self->_isVideoExpected = isVideoExpected;
+    self->_lastVideoExpectationSwitch = micro(isVideoExpected, v5);
     networkFeedbackController = self->super.super._networkFeedbackController;
     if (networkFeedbackController)
     {
@@ -2324,46 +2328,46 @@ LABEL_12:
 
     else if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v5 = VRTraceErrorLogLevelToCSTR();
-      v6 = *MEMORY[0x1E6986650];
+      v7 = VRTraceErrorLogLevelToCSTR();
+      v8 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v18 = v5;
-        v19 = 2080;
-        v20 = "[VCVideoStreamReceiveGroup updateVideoExpected]";
-        v21 = 1024;
-        v22 = 604;
-        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d networkFeedbackController is nil in VCVideoStreamReceiveGroup", buf, 0x1Cu);
+        v20 = v7;
+        v21 = 2080;
+        v22 = "[VCVideoStreamReceiveGroup updateVideoExpected]";
+        v23 = 1024;
+        v24 = 604;
+        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d networkFeedbackController is nil in VCVideoStreamReceiveGroup", buf, 0x1Cu);
       }
     }
 
+    v17 = 0u;
+    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
     mediaStreams = self->super.super._mediaStreams;
-    v8 = [(NSArray *)mediaStreams countByEnumeratingWithState:&v13 objects:v12 count:16];
-    if (v8)
+    v10 = [(NSArray *)mediaStreams countByEnumeratingWithState:&v15 objects:v14 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v10 = *v14;
+      v11 = v10;
+      v12 = *v16;
       do
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v14 != v10)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(mediaStreams);
           }
 
-          [*(*(&v13 + 1) + 8 * i) setVideoExpected:self->_isVideoExpected];
+          [*(*(&v15 + 1) + 8 * i) setVideoExpected:self->_isVideoExpected];
         }
 
-        v9 = [(NSArray *)mediaStreams countByEnumeratingWithState:&v13 objects:v12 count:16];
+        v11 = [(NSArray *)mediaStreams countByEnumeratingWithState:&v15 objects:v14 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
   }
 }
@@ -2395,7 +2399,7 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v8 = micro();
+  v8 = micro(self, a2);
   self = selfCopy;
   if (v8 - selfCopy->_lastVideoExpectationSwitch > 10.0)
   {
@@ -2495,7 +2499,7 @@ LABEL_26:
   dispatch_async(stateQueue, block);
 }
 
-uint64_t __71__VCVideoStreamReceiveGroup_vcMediaStream_remoteMediaStalled_duration___block_invoke(uint64_t a1)
+void *__71__VCVideoStreamReceiveGroup_vcMediaStream_remoteMediaStalled_duration___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setIsRemoteMediaStalled:*(a1 + 56) duration:*(a1 + 48)];
   result = [*(a1 + 32) checkForExtendedPoorConnectionWithStallDuration:*(a1 + 48)];
@@ -2609,7 +2613,7 @@ void __89__VCVideoStreamReceiveGroup_vcMediaStream_requestKeyFrameGenerationWith
   v27 = *MEMORY[0x1E69E9840];
   if (*(&self->_isVideoDegraded + 1) && self->_isVideoExpected && (self->super._optedInStreamID || self->super._receivingEndToEndStream))
   {
-    v5 = micro();
+    v5 = micro(self, a2);
     lastRecordedExtendedPoorConnection = self->_lastRecordedExtendedPoorConnection;
     v7 = lastRecordedExtendedPoorConnection != 0.0;
     if (v5 - lastRecordedExtendedPoorConnection > 30.0)
@@ -2915,13 +2919,13 @@ LABEL_18:
     {
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[16]}];
+        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[8]}];
       }
 
       VRTraceErrorLogLevelToCSTR();
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[16]}];
+        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[8]}];
       }
 
       OUTLINED_FUNCTION_1_0();
@@ -2948,14 +2952,14 @@ LABEL_18:
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
       {
-        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[16]}];
+        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[8]}];
       }
 
       v20 = VRTraceErrorLogLevelToCSTR();
       v21 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[16]}];
+        return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[8]}];
       }
 
       *v22 = 136316418;
@@ -2976,7 +2980,7 @@ LABEL_18:
     }
 
     _os_log_error_impl(v14, v15, v16, v17, v18, v19);
-    return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[16]}];
+    return [MEMORY[0x1E696ABC0] AVConferenceServiceError:32000 detailCode:0 description:{v11, *v22, *&v22[8]}];
   }
 
   [(VCRedundancyControllerVideo *)v3 setStatisticsID:self->super.super._idsParticipantID];
@@ -3036,16 +3040,17 @@ LABEL_18:
 
 - (void)checkAndReportRegressedPoorConnectionPercentage
 {
-  v30 = *MEMORY[0x1E69E9840];
-  if ([(VCMediaStreamGroup *)self streamGroupID]== 1667329381 && !self->_poorConnectionPercentageRegressedFromTelemetrySymptomReported)
+  v32 = *MEMORY[0x1E69E9840];
+  streamGroupID = [(VCMediaStreamGroup *)self streamGroupID];
+  if (streamGroupID == 1667329381 && !self->_poorConnectionPercentageRegressedFromTelemetrySymptomReported)
   {
     if (self->_poorConnectionPercentageABCReportingThreshold)
     {
-      v3 = micro();
-      v4 = v3 - self->_isVideoDegradedStartTime + self->_poorConnectionTotalLength;
-      self->_poorConnectionTotalLength = v4;
-      v5 = (v4 * 10000.0 / (v3 - self->_startTime));
-      if (self->_poorConnectionPercentageABCReportingThreshold < v5)
+      v5 = micro(streamGroupID, v4);
+      v6 = v5 - self->_isVideoDegradedStartTime + self->_poorConnectionTotalLength;
+      self->_poorConnectionTotalLength = v6;
+      v7 = (v6 * 10000.0 / (v5 - self->_startTime));
+      if (self->_poorConnectionPercentageABCReportingThreshold < v7)
       {
         if (objc_opt_class() == self)
         {
@@ -3054,38 +3059,38 @@ LABEL_18:
             goto LABEL_16;
           }
 
-          v7 = VRTraceErrorLogLevelToCSTR();
-          v8 = *MEMORY[0x1E6986650];
+          v9 = VRTraceErrorLogLevelToCSTR();
+          v10 = *MEMORY[0x1E6986650];
           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_16;
           }
 
-          v20 = 136316162;
-          v21 = v7;
-          v22 = 2080;
-          OUTLINED_FUNCTION_7_26();
+          v22 = 136316162;
           v23 = v9;
-          *v24 = v5;
-          *&v24[4] = v9;
-          *&v24[6] = v10;
-          v11 = &dword_1DB56E000;
-          v12 = " [%s] %s:%d PoorConnectionPercentage=%d >= ReportingThresholdFromTelemetry=%d";
-          v13 = &v20;
-          v14 = v8;
-          v15 = 40;
+          v24 = 2080;
+          OUTLINED_FUNCTION_7_26();
+          v25 = v11;
+          *v26 = v7;
+          *&v26[4] = v11;
+          *&v26[6] = v12;
+          v13 = &dword_1DB56E000;
+          v14 = " [%s] %s:%d PoorConnectionPercentage=%d >= ReportingThresholdFromTelemetry=%d";
+          v15 = &v22;
+          v16 = v10;
+          v17 = 40;
         }
 
         else
         {
           if (objc_opt_respondsToSelector())
           {
-            v6 = [(VCVideoStreamReceiveGroup *)self performSelector:sel_logPrefix];
+            v8 = [(VCVideoStreamReceiveGroup *)self performSelector:sel_logPrefix];
           }
 
           else
           {
-            v6 = &stru_1F570E008;
+            v8 = &stru_1F570E008;
           }
 
           if (VRTraceGetErrorLogLevelForModule() < 6)
@@ -3093,29 +3098,29 @@ LABEL_18:
             goto LABEL_16;
           }
 
-          v16 = VRTraceErrorLogLevelToCSTR();
+          v18 = VRTraceErrorLogLevelToCSTR();
           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_16;
           }
 
-          v20 = 136316674;
-          v21 = v16;
-          v22 = 2080;
+          v22 = 136316674;
+          v23 = v18;
+          v24 = 2080;
           OUTLINED_FUNCTION_7_26();
-          v23 = 2112;
-          *v24 = v6;
-          *&v24[8] = 2048;
+          v25 = 2112;
+          *v26 = v8;
+          *&v26[8] = 2048;
           selfCopy = self;
-          v26 = v17;
-          v27 = v5;
-          v28 = v17;
-          v29 = v18;
+          v28 = v19;
+          v29 = v7;
+          v30 = v19;
+          v31 = v20;
           OUTLINED_FUNCTION_5_1();
-          v15 = 60;
+          v17 = 60;
         }
 
-        _os_log_impl(v11, v14, OS_LOG_TYPE_DEFAULT, v12, v13, v15);
+        _os_log_impl(v13, v16, OS_LOG_TYPE_DEFAULT, v14, v15, v17);
 LABEL_16:
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
         CFDictionarySetValue(Mutable, @"SymptomReporterOptionalKeySessionID", self->super.super._sessionUUID);

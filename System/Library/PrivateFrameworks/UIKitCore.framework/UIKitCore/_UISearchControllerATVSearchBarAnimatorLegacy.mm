@@ -760,7 +760,7 @@
       v42 = view3;
       if (view3)
       {
-        [view3 transform];
+        objc_msgSend_transform(view3);
       }
 
       else
@@ -1178,7 +1178,7 @@ LABEL_44:
   v13 = view;
   if (view)
   {
-    [view transform];
+    objc_msgSend_transform(view);
   }
 
   else
@@ -1448,7 +1448,7 @@ LABEL_31:
     v13 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
     }
 
     else
@@ -1893,7 +1893,7 @@ LABEL_30:
       v78 = _suggestionView;
       if (view5)
       {
-        [view5 transform];
+        objc_msgSend_transform(view5);
       }
 
       else

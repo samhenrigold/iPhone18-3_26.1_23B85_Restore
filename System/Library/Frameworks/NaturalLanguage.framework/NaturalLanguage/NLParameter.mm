@@ -185,7 +185,7 @@ LABEL_11:
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   parameterType = [(NLParameter *)self parameterType];
   v4 = @"Integral";
   if (!parameterType)
@@ -193,32 +193,30 @@ LABEL_11:
     v4 = @"Continuous";
   }
 
-  v14[0] = @"Name";
+  v13[0] = @"Name";
   v5 = v4;
   name = [(NLParameter *)self name];
-  v15[0] = name;
-  v15[1] = v5;
-  v14[1] = @"ParameterType";
-  v14[2] = @"MinimumValue";
+  v14[0] = name;
+  v14[1] = v5;
+  v13[1] = @"ParameterType";
+  v13[2] = @"MinimumValue";
   v7 = MEMORY[0x1E696AD98];
   [(NLParameter *)self minimumValue];
   v8 = [v7 numberWithDouble:?];
-  v15[2] = v8;
-  v14[3] = @"MaximumValue";
+  v14[2] = v8;
+  v13[3] = @"MaximumValue";
   v9 = MEMORY[0x1E696AD98];
   [(NLParameter *)self maximumValue];
   v10 = [v9 numberWithDouble:?];
-  v15[3] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[3] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }
 
 - (id)_initWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -280,22 +278,21 @@ LABEL_15:
     if (error)
     {
       v17 = MEMORY[0x1E696ABC0];
-      v21 = *MEMORY[0x1E696A578];
-      v22[0] = @"Invalid parameter bundle";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696A578];
+      v21[0] = @"Invalid parameter bundle";
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       *error = [v17 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:1 userInfo:v18];
     }
 
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (id)_hyperTuneDictionary
 {
-  v18[5] = *MEMORY[0x1E69E9840];
+  v17[5] = *MEMORY[0x1E69E9840];
   parameterType = [(NLParameter *)self parameterType];
   v4 = MEMORY[0x1E69B27B8];
   if (parameterType)
@@ -304,29 +301,27 @@ LABEL_15:
   }
 
   v5 = *v4;
-  v17[0] = *MEMORY[0x1E69B27B0];
+  v16[0] = *MEMORY[0x1E69B27B0];
   v6 = v5;
   name = [(NLParameter *)self name];
   v8 = *MEMORY[0x1E69B27C8];
-  v18[0] = name;
-  v18[1] = v6;
+  v17[0] = name;
+  v17[1] = v6;
   v9 = *MEMORY[0x1E69B27A8];
-  v17[1] = v8;
-  v17[2] = v9;
+  v16[1] = v8;
+  v16[2] = v9;
   v10 = MEMORY[0x1E696AD98];
   [(NLParameter *)self minimumValue];
   v11 = [v10 numberWithDouble:?];
-  v18[2] = v11;
-  v17[3] = *MEMORY[0x1E69B27A0];
+  v17[2] = v11;
+  v16[3] = *MEMORY[0x1E69B27A0];
   v12 = MEMORY[0x1E696AD98];
   [(NLParameter *)self maximumValue];
   v13 = [v12 numberWithDouble:?];
-  v17[4] = *MEMORY[0x1E69B2798];
-  v18[3] = v13;
-  v18[4] = &unk_1F10D1340;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69B2798];
+  v17[3] = v13;
+  v17[4] = &unk_1F10D1340;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
 
   return v14;
 }

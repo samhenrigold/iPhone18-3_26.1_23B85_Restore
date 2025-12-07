@@ -27,7 +27,7 @@
 
 - (void)insertCredentialFrom:(FKAccountPaymentInformationACH *)from bankName:(NSString *)name completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280, &unk_1B7808CA0);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

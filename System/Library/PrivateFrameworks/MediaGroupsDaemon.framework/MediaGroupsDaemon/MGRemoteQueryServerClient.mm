@@ -96,37 +96,35 @@
 
 void __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke(uint64_t a1)
 {
-  v7 = 0;
-  v8 = &v7;
-  v9 = 0x2020000000;
-  v10 = 0;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
+  v9 = 0;
   if ([*(a1 + 32) invalidated])
   {
-    v8[3] = 3;
+    v7[3] = 3;
   }
 
   else
   {
     v2 = *(a1 + 32);
-    v4[0] = MEMORY[0x277D85DD0];
-    v4[1] = 3221225472;
-    v4[2] = __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke_2;
-    v4[3] = &unk_27989EEA8;
-    v4[4] = v2;
-    v5 = *(a1 + 40);
-    v6 = &v7;
-    [v2 _withTransactionsLock:v4];
-
-    v3 = v8[3];
+    v3[0] = MEMORY[0x277D85DD0];
+    v3[1] = 3221225472;
+    v3[2] = __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke_2;
+    v3[3] = &unk_27989EEA8;
+    v3[4] = v2;
+    v4 = *(a1 + 40);
+    v5 = &v6;
+    [v2 _withTransactionsLock:v3];
   }
 
   (*(*(a1 + 48) + 16))();
-  _Block_object_dispose(&v7, 8);
+  _Block_object_dispose(&v6, 8);
 }
 
 void __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) transactions];
   v3 = [v2 count];
 
@@ -135,13 +133,13 @@ void __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke_
     v5 = MGLogForCategory(5);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
-      v9 = 134218242;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v8;
-      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p server client concurrency rejecting %@", &v9, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = *(a1 + 40);
+      v8 = 134218242;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_error_impl(&dword_25863A000, v5, OS_LOG_TYPE_ERROR, "%p server client concurrency rejecting %@", &v8, 0x16u);
     }
 
     v4 = 2;
@@ -154,7 +152,6 @@ void __57__MGRemoteQueryServerClient_addNewConnection_completion___block_invoke_
   }
 
   *(*(*(a1 + 48) + 8) + 24) = v4;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)transactionCount
@@ -183,7 +180,7 @@ void __45__MGRemoteQueryServerClient_transactionCount__block_invoke(uint64_t a1)
 
 - (void)_invalidate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (![(MGRemoteQueryServerClient *)self invalidated])
   {
     v3 = MGLogForCategory(5);
@@ -195,17 +192,15 @@ void __45__MGRemoteQueryServerClient_transactionCount__block_invoke(uint64_t a1)
     }
 
     [(MGRemoteQueryServerClient *)self setInvalidated:1];
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = __40__MGRemoteQueryServerClient__invalidate__block_invoke;
-    v5[3] = &unk_27989ED90;
-    v5[4] = self;
-    [(MGRemoteQueryServerClient *)self _withTransactionsLock:v5];
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 3221225472;
+    v4[2] = __40__MGRemoteQueryServerClient__invalidate__block_invoke;
+    v4[3] = &unk_27989ED90;
+    v4[4] = self;
+    [(MGRemoteQueryServerClient *)self _withTransactionsLock:v4];
     [(MGRemoteQueryServerClient *)self _timerCancel];
     [(MGRemoteQueryServerClient *)self _invalidated];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __40__MGRemoteQueryServerClient__invalidate__block_invoke(uint64_t a1)
@@ -217,7 +212,7 @@ void __40__MGRemoteQueryServerClient__invalidate__block_invoke(uint64_t a1)
 
 - (void)_transactionAdd:(id)add
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   addCopy = add;
   dispatchQueue = [(MGRemoteQueryServerClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
@@ -228,13 +223,13 @@ void __40__MGRemoteQueryServerClient__invalidate__block_invoke(uint64_t a1)
     v6 = MGLogForCategory(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134218242;
+      v16 = 134218242;
       selfCopy3 = self;
-      v19 = 2112;
-      v20 = addCopy;
+      v18 = 2112;
+      v19 = addCopy;
       v7 = "%p server client invalidated, not adding %@";
 LABEL_12:
-      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, v7, &v17, 0x16u);
+      _os_log_error_impl(&dword_25863A000, v6, OS_LOG_TYPE_ERROR, v7, &v16, 0x16u);
       goto LABEL_6;
     }
 
@@ -249,10 +244,10 @@ LABEL_12:
     v6 = MGLogForCategory(5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = 134218242;
+      v16 = 134218242;
       selfCopy3 = self;
-      v19 = 2112;
-      v20 = addCopy;
+      v18 = 2112;
+      v19 = addCopy;
       v7 = "%p server client exceeded limit, not adding %@";
       goto LABEL_12;
     }
@@ -274,62 +269,60 @@ LABEL_6:
   v15 = MGLogForCategory(5);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 134218754;
+    v16 = 134218754;
     selfCopy3 = self;
-    v19 = 2048;
-    v20 = [v14 count];
-    v21 = 2048;
-    v22 = v12;
-    v23 = 2112;
-    v24 = addCopy;
-    _os_log_debug_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEBUG, "%p server client now %lu transactions after adding %p with connection %@", &v17, 0x2Au);
+    v18 = 2048;
+    v19 = [v14 count];
+    v20 = 2048;
+    v21 = v12;
+    v22 = 2112;
+    v23 = addCopy;
+    _os_log_debug_impl(&dword_25863A000, v15, OS_LOG_TYPE_DEBUG, "%p server client now %lu transactions after adding %p with connection %@", &v16, 0x2Au);
   }
 
 LABEL_10:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transactionRemove:(id)remove
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   dispatchQueue = [(MGRemoteQueryServerClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__MGRemoteQueryServerClient__transactionRemove___block_invoke;
-  v10[3] = &unk_27989EEA8;
-  v10[4] = self;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__MGRemoteQueryServerClient__transactionRemove___block_invoke;
+  v9[3] = &unk_27989EEA8;
+  v9[4] = self;
   v6 = removeCopy;
-  v11 = v6;
-  v12 = &v13;
-  [(MGRemoteQueryServerClient *)self _withTransactionsLock:v10];
+  v10 = v6;
+  v11 = &v12;
+  [(MGRemoteQueryServerClient *)self _withTransactionsLock:v9];
   v7 = MGLogForCategory(5);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v9 = v14[3];
+    v8 = v13[3];
     *buf = 134218496;
     selfCopy = self;
-    v19 = 2048;
-    v20 = v9;
-    v21 = 2048;
-    v22 = v6;
+    v18 = 2048;
+    v19 = v8;
+    v20 = 2048;
+    v21 = v6;
     _os_log_debug_impl(&dword_25863A000, v7, OS_LOG_TYPE_DEBUG, "%p server client now %lu transactions after removing %p", buf, 0x20u);
   }
 
   [(MGRemoteQueryServerClient *)self _delegateNotifyLostTransaction];
-  if (!v14[3])
+  if (!v13[3])
   {
     [(MGRemoteQueryServerClient *)self _invalidate];
   }
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v12, 8);
 }
 
 void __48__MGRemoteQueryServerClient__transactionRemove___block_invoke(uint64_t a1)
@@ -433,7 +426,7 @@ void __39__MGRemoteQueryServerClient__timerInit__block_invoke(uint64_t a1)
 
 - (void)_timerFired
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatchQueue = [(MGRemoteQueryServerClient *)self dispatchQueue];
   dispatch_assert_queue_V2(dispatchQueue);
 
@@ -443,17 +436,15 @@ void __39__MGRemoteQueryServerClient__timerInit__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       peer = [(MGRemoteQueryServerClient *)self peer];
-      v7 = 134218242;
+      v6 = 134218242;
       selfCopy = self;
-      v9 = 2112;
-      v10 = peer;
-      _os_log_error_impl(&dword_25863A000, v4, OS_LOG_TYPE_ERROR, "%p watchdog fired, terminating communication with peer %@", &v7, 0x16u);
+      v8 = 2112;
+      v9 = peer;
+      _os_log_error_impl(&dword_25863A000, v4, OS_LOG_TYPE_ERROR, "%p watchdog fired, terminating communication with peer %@", &v6, 0x16u);
     }
 
     [(MGRemoteQueryServerClient *)self _invalidate];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_delegateNotifyLostTransaction
@@ -502,46 +493,45 @@ void __39__MGRemoteQueryServerClient__timerInit__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __65__MGRemoteQueryServerClient_transaction_receivedTimeoutInterval___block_invoke(uint64_t result)
+id *__65__MGRemoteQueryServerClient_transaction_receivedTimeoutInterval___block_invoke(id *result)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if (*(result + 48))
+  v18 = *MEMORY[0x277D85DE8];
+  if (result[6])
   {
     v1 = result;
-    result = [*(result + 32) timeout];
-    if (result != *(v1 + 48))
+    result = [result[4] timeout];
+    if (result != v1[6])
     {
-      result = [*(v1 + 32) _transactionExists:*(v1 + 40)];
+      result = [v1[4] _transactionExists:v1[5]];
       if (result)
       {
         v2 = MGLogForCategory(5);
         if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
         {
-          v4 = *(v1 + 32);
-          v5 = *(v1 + 48);
-          v6 = [v4 timeout];
-          v7 = *(v1 + 40);
-          v8 = [*(v1 + 32) peer];
-          v9 = 134219010;
-          v10 = v4;
-          v11 = 2048;
-          v12 = v5;
-          v13 = 2048;
-          v14 = v6;
-          v15 = 2048;
-          v16 = v7;
-          v17 = 2112;
-          v18 = v8;
-          _os_log_debug_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEBUG, "%p updating timeout interval to %lu from %lu via %p for %@", &v9, 0x34u);
+          v3 = v1[4];
+          v4 = v1[6];
+          v5 = [v3 timeout];
+          v6 = v1[5];
+          v7 = [v1[4] peer];
+          v8 = 134219010;
+          v9 = v3;
+          v10 = 2048;
+          v11 = v4;
+          v12 = 2048;
+          v13 = v5;
+          v14 = 2048;
+          v15 = v6;
+          v16 = 2112;
+          v17 = v7;
+          _os_log_debug_impl(&dword_25863A000, v2, OS_LOG_TYPE_DEBUG, "%p updating timeout interval to %lu from %lu via %p for %@", &v8, 0x34u);
         }
 
-        [*(v1 + 32) setTimeout:*(v1 + 48)];
-        result = [*(v1 + 32) _timerReschedule];
+        [v1[4] setTimeout:v1[6]];
+        return [v1[4] _timerReschedule];
       }
     }
   }
 
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -559,7 +549,7 @@ uint64_t __65__MGRemoteQueryServerClient_transaction_receivedTimeoutInterval___b
   dispatch_async(dispatchQueue, v7);
 }
 
-uint64_t __57__MGRemoteQueryServerClient_transactionActivityOccurred___block_invoke(uint64_t a1)
+void *__57__MGRemoteQueryServerClient_transactionActivityOccurred___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _transactionExists:*(a1 + 40)];
   if (result)

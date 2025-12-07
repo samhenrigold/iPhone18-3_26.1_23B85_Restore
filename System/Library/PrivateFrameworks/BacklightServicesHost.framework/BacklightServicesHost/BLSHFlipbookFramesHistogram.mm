@@ -2,7 +2,7 @@
 + (BLSHFlipbookFramesHistogram)histogramWithReferenceDate:(id)date flipbookFrames:(id)frames;
 + (BLSHFlipbookFramesHistogram)histogramWithReferenceDate:(id)date iteratePresentationDatesBlock:(id)block;
 - (id)description;
-- (uint64_t)initWithTotalCount:(void *)count averagePresentationTimeFromNow:(uint64_t)now medianPresentationTimeFromNow:(uint64_t)fromNow presentationTimeHistogram:(uint64_t)histogram intervalUntilFirstFrame:(void *)frame presentationDuration:(double)duration memoryUsage:(double)usage averageMemoryUsage:(double)self0 medianMemoryUsage:(double)self1 memoryUsageHistogram:(float)self2 lowestAPL:(float)self3 averageAPL:(float)self4 medianAPL:(float)self5 highestAPL:(uint64_t)self6 lowestAPLDimming:(int)self7 averageAPLDimming:(int)self8 medianAPLDimming:(int)self9 highestAPLDimming:(int)aPLDimming;
+- (id)initWithTotalCount:(void *)count averagePresentationTimeFromNow:(void *)now medianPresentationTimeFromNow:(void *)fromNow presentationTimeHistogram:(void *)histogram intervalUntilFirstFrame:(void *)frame presentationDuration:(double)duration memoryUsage:(double)usage averageMemoryUsage:(double)self0 medianMemoryUsage:(double)self1 memoryUsageHistogram:(float)self2 lowestAPL:(float)self3 averageAPL:(float)self4 medianAPL:(float)self5 highestAPL:(uint64_t)self6 lowestAPLDimming:(int)self7 averageAPLDimming:(int)self8 medianAPLDimming:(int)self9 highestAPLDimming:(int)aPLDimming;
 - (unsigned)count1to2Min;
 - (unsigned)count2to3Min;
 - (unsigned)count3to4Min;
@@ -17,35 +17,35 @@
 
 + (BLSHFlipbookFramesHistogram)histogramWithReferenceDate:(id)date flipbookFrames:(id)frames
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   framesCopy = frames;
-  v75 = [framesCopy count];
+  v74 = [framesCopy count];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
   array = [MEMORY[0x277CBEB18] array];
-  memset(v95, 0, sizeof(v95));
-  array2 = [MEMORY[0x277CBEB18] array];
   memset(v94, 0, sizeof(v94));
+  array2 = [MEMORY[0x277CBEB18] array];
+  memset(v93, 0, sizeof(v93));
   array3 = [MEMORY[0x277CBEB18] array];
   array4 = [MEMORY[0x277CBEB18] array];
   autoupdatingCurrentCalendar = [MEMORY[0x277CBEA80] autoupdatingCurrentCalendar];
+  v88 = 0u;
   v89 = 0u;
   v90 = 0u;
   v91 = 0u;
-  v92 = 0u;
   obj = framesCopy;
-  v85 = [obj countByEnumeratingWithState:&v89 objects:v93 count:16];
+  v84 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
   v8 = 0;
   v9 = 0;
-  if (v85)
+  if (v84)
   {
-    v77 = *v90;
+    v76 = *v89;
     v10 = 0.0;
     v11 = 0.0;
-    v87 = 6;
+    v86 = 6;
     v12 = 3.4028e38;
-    v86 = 0.0;
+    v85 = 0.0;
     v13 = 0.0;
     v14 = 3.4028e38;
     v15 = 0.0;
@@ -56,16 +56,16 @@
       v18 = distantFuture;
       do
       {
-        if (*v90 != v77)
+        if (*v89 != v76)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v89 + 1) + 8 * v16);
+        v19 = *(*(&v88 + 1) + 8 * v16);
         bls_specifier = [v19 bls_specifier];
         presentationDate = [bls_specifier presentationDate];
 
-        v88 = [v18 earlierDate:presentationDate];
+        v87 = [v18 earlierDate:presentationDate];
 
         distantPast = [v17 laterDate:presentationDate];
 
@@ -101,14 +101,14 @@
           minute = 15;
         }
 
-        ++*(v95 + minute);
-        v29 = v87;
-        if (minute > v87)
+        ++*(v94 + minute);
+        v29 = v86;
+        if (minute > v86)
         {
           v29 = minute;
         }
 
-        v87 = v29;
+        v86 = v29;
         memoryUsage = [v19 memoryUsage];
         v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:memoryUsage];
         [array2 addObject:v31];
@@ -135,7 +135,7 @@
           v35 = v34;
         }
 
-        ++*(v94 + v35);
+        ++*(v93 + v35);
         if (v35 > v27)
         {
           v27 = v35;
@@ -163,7 +163,7 @@
         v41 = [MEMORY[0x277CCABB0] numberWithFloat:?];
         [array4 addObject:v41];
 
-        v86 = v86 + v40;
+        v85 = v85 + v40;
         if (v40 < v12)
         {
           v12 = v40;
@@ -179,23 +179,23 @@
 
         ++v16;
         v17 = distantPast;
-        distantFuture = v88;
-        v18 = v88;
+        distantFuture = v87;
+        v18 = v87;
       }
 
-      while (v85 != v16);
-      v85 = [obj countByEnumeratingWithState:&v89 objects:v93 count:16];
+      while (v84 != v16);
+      v84 = [obj countByEnumeratingWithState:&v88 objects:v92 count:16];
     }
 
-    while (v85);
+    while (v84);
   }
 
   else
   {
     v11 = 0.0;
-    v87 = 6;
+    v86 = 6;
     v12 = 3.4028e38;
-    v86 = 0.0;
+    v85 = 0.0;
     v13 = 0.0;
     v14 = 3.4028e38;
     v15 = 0.0;
@@ -203,21 +203,21 @@
   }
 
   [distantPast timeIntervalSinceDate:distantFuture];
-  v74 = v42;
+  v73 = v42;
   [distantFuture timeIntervalSinceDate:dateCopy];
-  v72 = v43;
-  v78 = [array sortedArrayUsingSelector:sel_compare_];
-  [v78 bls_doubleMedian];
-  v71 = v44;
-  v45 = v10 / v75;
-  if (!v75)
+  v71 = v43;
+  v77 = [array sortedArrayUsingSelector:sel_compare_];
+  [v77 bls_doubleMedian];
+  v70 = v44;
+  v45 = v10 / v74;
+  if (!v74)
   {
     v45 = 0.0;
   }
 
-  v69 = v45;
-  v73 = [array2 sortedArrayUsingSelector:sel_compare_];
-  bls_unsignedIntegerMedian = [v73 bls_unsignedIntegerMedian];
+  v68 = v45;
+  v72 = [array2 sortedArrayUsingSelector:sel_compare_];
+  bls_unsignedIntegerMedian = [v72 bls_unsignedIntegerMedian];
   v46 = [array3 count];
   if (v46)
   {
@@ -243,7 +243,7 @@
     v54 = [array4 sortedArrayUsingSelector:sel_compare_];
     [v54 bls_doubleMedian];
     v56 = v55;
-    v57 = v86 / v53;
+    v57 = v85 / v53;
   }
 
   else
@@ -254,33 +254,31 @@
     v56 = NAN;
   }
 
-  v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:v87];
+  v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:v86];
   v59 = 0;
   do
   {
-    v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v95 + v59)];
+    v60 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v94 + v59)];
     [v58 addObject:v60];
 
     ++v59;
   }
 
-  while (v59 <= v87);
+  while (v59 <= v86);
   v61 = [MEMORY[0x277CBEB18] arrayWithCapacity:v8];
   for (i = 0; i <= v8; ++i)
   {
-    v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v94 + i)];
+    v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(v93 + i)];
     [v61 addObject:v63];
   }
 
   v64 = [BLSHFlipbookFramesHistogram alloc];
-  v66 = [(BLSHFlipbookFramesHistogram *)v64 initWithTotalCount:v75 averagePresentationTimeFromNow:v58 medianPresentationTimeFromNow:v9 presentationTimeHistogram:v9 / v75 intervalUntilFirstFrame:bls_unsignedIntegerMedian presentationDuration:v61 memoryUsage:v69 averageMemoryUsage:v71 medianMemoryUsage:v72 memoryUsageHistogram:v74 lowestAPL:v14 averageAPL:v51 medianAPL:v50 highestAPL:v13 lowestAPLDimming:v65 averageAPLDimming:SLODWORD(v12) medianAPLDimming:SLODWORD(v57) highestAPLDimming:SLODWORD(v56), SLODWORD(v11)];
-
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = [(BLSHFlipbookFramesHistogram *)&v64->super.isa initWithTotalCount:v74 averagePresentationTimeFromNow:v58 medianPresentationTimeFromNow:v9 presentationTimeHistogram:(v9 / v74) intervalUntilFirstFrame:bls_unsignedIntegerMedian presentationDuration:v61 memoryUsage:v68 averageMemoryUsage:v70 medianMemoryUsage:v71 memoryUsageHistogram:v73 lowestAPL:v14 averageAPL:v51 medianAPL:v50 highestAPL:v13 lowestAPLDimming:v65 averageAPLDimming:SLODWORD(v12) medianAPLDimming:SLODWORD(v57) highestAPLDimming:SLODWORD(v56), SLODWORD(v11)];
 
   return v66;
 }
 
-- (uint64_t)initWithTotalCount:(void *)count averagePresentationTimeFromNow:(uint64_t)now medianPresentationTimeFromNow:(uint64_t)fromNow presentationTimeHistogram:(uint64_t)histogram intervalUntilFirstFrame:(void *)frame presentationDuration:(double)duration memoryUsage:(double)usage averageMemoryUsage:(double)self0 medianMemoryUsage:(double)self1 memoryUsageHistogram:(float)self2 lowestAPL:(float)self3 averageAPL:(float)self4 medianAPL:(float)self5 highestAPL:(uint64_t)self6 lowestAPLDimming:(int)self7 averageAPLDimming:(int)self8 medianAPLDimming:(int)self9 highestAPLDimming:(int)aPLDimming
+- (id)initWithTotalCount:(void *)count averagePresentationTimeFromNow:(void *)now medianPresentationTimeFromNow:(void *)fromNow presentationTimeHistogram:(void *)histogram intervalUntilFirstFrame:(void *)frame presentationDuration:(double)duration memoryUsage:(double)usage averageMemoryUsage:(double)self0 medianMemoryUsage:(double)self1 memoryUsageHistogram:(float)self2 lowestAPL:(float)self3 averageAPL:(float)self4 medianAPL:(float)self5 highestAPL:(uint64_t)self6 lowestAPLDimming:(int)self7 averageAPLDimming:(int)self8 medianAPLDimming:(int)self9 highestAPLDimming:(int)aPLDimming
 {
   countCopy = count;
   frameCopy = frame;
@@ -297,24 +295,24 @@
     self = v37;
     if (v37)
     {
-      *(v37 + 5) = a2;
+      v37[5] = a2;
       *(v37 + 6) = duration;
       *(v37 + 7) = usage;
       objc_storeStrong(v37 + 8, count);
-      *(self + 72) = memoryUsage;
-      *(self + 80) = medianMemoryUsage;
-      *(self + 88) = now;
-      *(self + 96) = fromNow;
-      *(self + 104) = histogram;
-      objc_storeStrong((self + 112), frame);
-      *(self + 8) = usageHistogram;
-      *(self + 12) = l;
-      *(self + 16) = pL;
-      *(self + 20) = aPL;
-      *(self + 24) = dimming;
-      *(self + 28) = lDimming;
-      *(self + 32) = pLDimming;
-      *(self + 36) = aPLDimming;
+      *(self + 9) = memoryUsage;
+      *(self + 10) = medianMemoryUsage;
+      self[11] = now;
+      self[12] = fromNow;
+      self[13] = histogram;
+      objc_storeStrong(self + 14, frame);
+      *(self + 2) = usageHistogram;
+      *(self + 3) = l;
+      *(self + 4) = pL;
+      *(self + 5) = aPL;
+      *(self + 6) = dimming;
+      *(self + 7) = lDimming;
+      *(self + 8) = pLDimming;
+      *(self + 9) = aPLDimming;
     }
   }
 
@@ -324,7 +322,7 @@
 + (BLSHFlipbookFramesHistogram)histogramWithReferenceDate:(id)date iteratePresentationDatesBlock:(id)block
 {
   v4 = [BLSHFlipbookFramesHistogram alloc];
-  v6 = [(BLSHFlipbookFramesHistogram *)v4 initWithTotalCount:&unk_28338DF00 averagePresentationTimeFromNow:0 medianPresentationTimeFromNow:0 presentationTimeHistogram:0 intervalUntilFirstFrame:MEMORY[0x277CBEBF8] presentationDuration:0.0 memoryUsage:0.0 averageMemoryUsage:0.0 medianMemoryUsage:0.0 memoryUsageHistogram:NAN lowestAPL:NAN averageAPL:NAN medianAPL:NAN highestAPL:v5 lowestAPLDimming:2143289344 averageAPLDimming:2143289344 medianAPLDimming:2143289344 highestAPLDimming:2143289344];
+  v6 = [(BLSHFlipbookFramesHistogram *)&v4->super.isa initWithTotalCount:&unk_28338DF00 averagePresentationTimeFromNow:0 medianPresentationTimeFromNow:0 presentationTimeHistogram:0 intervalUntilFirstFrame:MEMORY[0x277CBEBF8] presentationDuration:0.0 memoryUsage:0.0 averageMemoryUsage:0.0 medianMemoryUsage:0.0 memoryUsageHistogram:NAN lowestAPL:NAN averageAPL:NAN medianAPL:NAN highestAPL:v5 lowestAPLDimming:2143289344 averageAPLDimming:2143289344 medianAPLDimming:2143289344 highestAPLDimming:2143289344];
 
   return v6;
 }
@@ -528,7 +526,7 @@ id __42__BLSHFlipbookFramesHistogram_description__block_invoke_4(uint64_t a1, ui
   return v5;
 }
 
-uint64_t __80__BLSHFlipbookFramesHistogram_stream_appendRawHistogram_withLabel_headingBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__80__BLSHFlipbookFramesHistogram_stream_appendRawHistogram_withLabel_headingBlock___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 unsignedIntegerValue];
   if (result)
@@ -544,7 +542,7 @@ uint64_t __80__BLSHFlipbookFramesHistogram_stream_appendRawHistogram_withLabel_h
   return result;
 }
 
-uint64_t __80__BLSHFlipbookFramesHistogram_stream_appendRawHistogram_withLabel_headingBlock___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__80__BLSHFlipbookFramesHistogram_stream_appendRawHistogram_withLabel_headingBlock___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 unsignedIntegerValue];
   if (result)

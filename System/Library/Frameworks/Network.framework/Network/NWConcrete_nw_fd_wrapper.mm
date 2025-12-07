@@ -44,7 +44,7 @@
     v6 = __nwlog_obj();
     *buf = 136446210;
     v18 = "[NWConcrete_nw_fd_wrapper initWithFileDescriptor:]";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v14 = 0;

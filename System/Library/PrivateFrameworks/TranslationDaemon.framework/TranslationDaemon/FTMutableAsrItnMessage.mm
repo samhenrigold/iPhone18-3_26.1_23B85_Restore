@@ -110,25 +110,17 @@
 
 + (Class)session_message_mutableClassForType:(int64_t)type
 {
-  if (type == 1)
+  if (type == 1 || type == 2)
   {
-    v4 = off_2789B47B0;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (type == 2)
+  else
   {
-    v4 = off_2789B47B8;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 + (int64_t)session_message_typeForMutableObject:(id)object

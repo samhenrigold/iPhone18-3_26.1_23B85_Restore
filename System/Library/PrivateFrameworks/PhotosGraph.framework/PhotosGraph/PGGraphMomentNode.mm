@@ -64,8 +64,11 @@
 + (id)interestingWithAlternateJunkingFilter;
 + (id)pathFromTargetNodeDomain:(unsigned __int16)domain;
 + (id)pathToTargetNodeDomain:(unsigned __int16)domain;
++ (id)poiWithNonzeroConfidenceOfMomentWithHasLegacyWeights:(BOOL)weights;
 + (id)propertiesWithMoment:(id)moment;
 + (id)reliableMeaningOfMoment;
++ (id)roiWithNonzeroConfidenceOfMomentWithHasLegacyWeights:(BOOL)weights;
++ (id)significantPartOfDayOfMomentWithHasLegacyWeights:(BOOL)weights;
 + (id)smartInterestingFilter;
 + (id)specialPOIOfMoment;
 + (id)timeBasedPropertiesWithMoment:(id)moment;
@@ -494,18 +497,18 @@ void __37__PGGraphMomentNode_sameMonthMoments__block_invoke_2(void *a1, uint64_t
 
 - (id)sameWeekendMoments
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   if ([(PGGraphMomentNode *)self isWeekend])
   {
-    v46 = v3;
+    v45 = v3;
     graph = [(MANode *)self graph];
     v5 = [graph localDatesForMomentNode:self];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v57 objects:v63 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v56 objects:v62 count:16];
     if (!v6)
     {
       goto LABEL_51;
@@ -514,33 +517,33 @@ void __37__PGGraphMomentNode_sameMonthMoments__block_invoke_2(void *a1, uint64_t
     v7 = v6;
     selfCopy = self;
     v8 = 0;
-    v9 = *v58;
+    v9 = *v57;
     v10 = 0.0;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v58 != v9)
+        if (*v57 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v57 + 1) + 8 * i);
-        v55 = 0;
-        v56 = 0.0;
-        [MEMORY[0x277D276A8] closestWeekendLocalStartDate:&v55 interval:&v56 afterDate:{v12, selfCopy}];
-        v13 = v55;
+        v12 = *(*(&v56 + 1) + 8 * i);
+        v54 = 0;
+        v55 = 0.0;
+        [MEMORY[0x277D276A8] closestWeekendLocalStartDate:&v54 interval:&v55 afterDate:{v12, selfCopy}];
+        v13 = v54;
         v14 = v13;
-        if (!v8 || v56 < v10)
+        if (!v8 || v55 < v10)
         {
           v15 = v13;
 
-          v10 = v56;
+          v10 = v55;
           v8 = v15;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v57 objects:v63 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v56 objects:v62 count:16];
     }
 
     while (v7);
@@ -559,39 +562,39 @@ void __37__PGGraphMomentNode_sameMonthMoments__block_invoke_2(void *a1, uint64_t
         do
         {
           v22 = [graph localDatesForMomentNode:v21];
+          v50 = 0u;
           v51 = 0u;
           v52 = 0u;
           v53 = 0u;
-          v54 = 0u;
           v23 = v22;
-          v24 = [v23 countByEnumeratingWithState:&v51 objects:v62 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v50 objects:v61 count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v52;
+            v26 = *v51;
             v27 = 1;
             do
             {
               for (j = 0; j != v25; ++j)
               {
-                if (*v52 != v26)
+                if (*v51 != v26)
                 {
                   objc_enumerationMutation(v23);
                 }
 
-                if ([*(*(&v51 + 1) + 8 * j) compare:v18] == -1)
+                if ([*(*(&v50 + 1) + 8 * j) compare:v18] == -1)
                 {
                   v27 = 0;
                 }
 
                 else if ([v21 isWeekend])
                 {
-                  [v46 addObject:v21];
+                  [v45 addObject:v21];
                   goto LABEL_28;
                 }
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v51 objects:v62 count:16];
+              v25 = [v23 countByEnumeratingWithState:&v50 objects:v61 count:16];
             }
 
             while (v25);
@@ -626,31 +629,31 @@ LABEL_28:
         do
         {
           v32 = [graph localDatesForMomentNode:v31];
+          v46 = 0u;
           v47 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v50 = 0u;
           v33 = v32;
-          v34 = [v33 countByEnumeratingWithState:&v47 objects:v61 count:16];
+          v34 = [v33 countByEnumeratingWithState:&v46 objects:v60 count:16];
           if (v34)
           {
             v35 = v34;
             v36 = 0;
-            v37 = *v48;
+            v37 = *v47;
             while (2)
             {
               for (k = 0; k != v35; ++k)
               {
-                if (*v48 != v37)
+                if (*v47 != v37)
                 {
                   objc_enumerationMutation(v33);
                 }
 
-                if ([*(*(&v47 + 1) + 8 * k) compare:v19] != 1)
+                if ([*(*(&v46 + 1) + 8 * k) compare:v19] != 1)
                 {
                   if ([v31 isWeekend])
                   {
-                    [v46 addObject:v31];
+                    [v45 addObject:v31];
                     v36 = 1;
                     goto LABEL_46;
                   }
@@ -659,7 +662,7 @@ LABEL_28:
                 }
               }
 
-              v35 = [v33 countByEnumeratingWithState:&v47 objects:v61 count:16];
+              v35 = [v33 countByEnumeratingWithState:&v46 objects:v60 count:16];
               if (v35)
               {
                 continue;
@@ -689,8 +692,8 @@ LABEL_46:
         while (nextMomentNode2);
       }
 
-      v3 = v46;
-      v40 = v46;
+      v3 = v45;
+      v40 = v45;
     }
 
     else
@@ -705,58 +708,56 @@ LABEL_51:
     v41 = v3;
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)lastWeekendMoments
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   graph = [(MANode *)self graph];
   v5 = [graph localDatesForMomentNode:self];
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v32[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v31[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
   v8 = [v5 sortedArrayUsingDescriptors:v7];
 
   if ([v8 count])
   {
     firstObject = [v8 firstObject];
     *buf = 0;
-    v29 = 0;
-    [MEMORY[0x277D276A8] nextWeekendLocalStartDate:&v29 interval:buf options:4 afterDate:firstObject];
-    v10 = [MEMORY[0x277D27690] dateByAddingDays:-1 toDate:v29];
+    v28 = 0;
+    [MEMORY[0x277D276A8] nextWeekendLocalStartDate:&v28 interval:buf options:4 afterDate:firstObject];
+    v10 = [MEMORY[0x277D27690] dateByAddingDays:-1 toDate:v28];
     previousMomentNode = [(PGGraphMomentNode *)self previousMomentNode];
     if (previousMomentNode)
     {
       v12 = previousMomentNode;
-      v24 = firstObject;
+      v23 = firstObject;
       do
       {
         v13 = [graph localDatesForMomentNode:v12];
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
         v14 = v13;
-        v15 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v26;
+          v17 = *v25;
           v18 = 1;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v26 != v17)
+              if (*v25 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              if ([*(*(&v25 + 1) + 8 * i) compare:v10] == -1)
+              if ([*(*(&v24 + 1) + 8 * i) compare:v10] == -1)
               {
                 v18 = 0;
               }
@@ -768,7 +769,7 @@ LABEL_51:
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v25 objects:v30 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v24 objects:v29 count:16];
           }
 
           while (v16);
@@ -793,7 +794,7 @@ LABEL_17:
 
       while (previousMomentNode2);
 
-      firstObject = v24;
+      firstObject = v23;
     }
   }
 
@@ -809,8 +810,6 @@ LABEL_17:
       _os_log_error_impl(&dword_22F0FC000, firstObject, OS_LOG_TYPE_ERROR, "No date node for moment node %@", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -835,7 +834,7 @@ LABEL_17:
 - (id)connectedEventsWithTargetDomain:(unsigned __int16)domain
 {
   domainCopy = domain;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(PGGraphMomentNode *)self domain]== domain)
   {
     v5 = [MEMORY[0x277CBEB98] setWithObject:self];
@@ -856,9 +855,9 @@ LABEL_17:
 
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412290;
+        v13 = 138412290;
         selfCopy = self;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Moment node has no highlight node: %@", &v14, 0xCu);
+        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Moment node has no highlight node: %@", &v13, 0xCu);
       }
 
       v7 = [MEMORY[0x277CBEB98] set];
@@ -874,15 +873,13 @@ LABEL_17:
 
     if (os_log_type_enabled(loggingConnection2, OS_LOG_TYPE_ERROR))
     {
-      v14 = 67109120;
+      v13 = 67109120;
       LODWORD(selfCopy) = domainCopy;
-      _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "Unsupported target domain: %u", &v14, 8u);
+      _os_log_error_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_ERROR, "Unsupported target domain: %u", &v13, 8u);
     }
 
     v5 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -935,10 +932,9 @@ void __42__PGGraphMomentNode_reliableMeaningLabels__block_invoke(uint64_t a1, vo
 
 - (id)eventEnrichmentSortedMomentNodes
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -957,7 +953,7 @@ void __42__PGGraphMomentNode_reliableMeaningLabels__block_invoke(uint64_t a1, vo
 
 - (id)keywordsForRelatedType:(unint64_t)type focusOnNodes:(id)nodes
 {
-  v48[6] = *MEMORY[0x277D85DE8];
+  v47[6] = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
@@ -986,62 +982,60 @@ void __42__PGGraphMomentNode_reliableMeaningLabels__block_invoke(uint64_t a1, vo
     v19 = [(PGGraphNodeCollection *)PGGraphMeNodeCollection nodesInGraph:graph];
     anyNode = [v19 anyNode];
 
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke;
-    v43[3] = &unk_2788876C0;
-    v44 = nodesCopy;
-    v45 = anyNode;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke;
+    v42[3] = &unk_2788876C0;
+    v43 = nodesCopy;
+    v44 = anyNode;
     v21 = array;
-    v46 = v21;
+    v45 = v21;
     v22 = anyNode;
-    [(PGGraphMomentNode *)self enumeratePersonEdgesAndNodesUsingBlock:v43];
+    [(PGGraphMomentNode *)self enumeratePersonEdgesAndNodesUsingBlock:v42];
     v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"[All Persons] %lu", -[PGGraphMomentNode totalNumberOfPersons](self, "totalNumberOfPersons")];
     [v21 addObject:v23];
 
     v17 = "MusicKitRequestFactory";
   }
 
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = *(v17 + 256);
-  v35[2] = __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_2;
-  v35[3] = &unk_2788877B8;
-  v41 = array6;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = *(v17 + 256);
+  v34[2] = __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_2;
+  v34[3] = &unk_2788877B8;
+  v40 = array6;
   typeCopy = type;
-  v36 = nodesCopy;
-  v37 = array2;
-  v38 = array3;
-  v39 = array4;
-  v40 = array5;
+  v35 = nodesCopy;
+  v36 = array2;
+  v37 = array3;
+  v38 = array4;
+  v39 = array5;
   v24 = array6;
   v25 = array5;
   v26 = array4;
   v27 = array3;
   v28 = array2;
   v29 = nodesCopy;
-  [(MANode *)self enumerateNeighborEdgesAndNodesThroughOutEdgesUsingBlock:v35];
-  v47[0] = &unk_284484458;
-  v47[1] = &unk_284484470;
-  v48[0] = array;
-  v48[1] = v28;
-  v47[2] = &unk_284484488;
-  v47[3] = &unk_2844844A0;
-  v48[2] = v27;
-  v48[3] = v26;
-  v47[4] = &unk_2844844B8;
-  v47[5] = &unk_2844844D0;
-  v48[4] = v25;
-  v48[5] = v24;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:6];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [(MANode *)self enumerateNeighborEdgesAndNodesThroughOutEdgesUsingBlock:v34];
+  v46[0] = &unk_284484458;
+  v46[1] = &unk_284484470;
+  v47[0] = array;
+  v47[1] = v28;
+  v46[2] = &unk_284484488;
+  v46[3] = &unk_2844844A0;
+  v47[2] = v27;
+  v47[3] = v26;
+  v46[4] = &unk_2844844B8;
+  v46[5] = &unk_2844844D0;
+  v47[4] = v25;
+  v47[5] = v24;
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:6];
 
   return v30;
 }
 
 void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -1060,8 +1054,8 @@ void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke(
       if ([v13 count])
       {
         v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-        v20[0] = v14;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+        v19[0] = v14;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
         v16 = [v13 sortedArrayUsingDescriptors:v15];
 
         v17 = [v16 componentsJoinedByString:@"/"];
@@ -1073,8 +1067,6 @@ void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke(
     [v10 appendFormat:@" (%0.2f)", v18];
     [*(a1 + 48) addObject:v10];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1351,29 +1343,29 @@ void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_
 
 - (int64_t)_compareToMomentNode:(id)node withSortDescriptors:(id)descriptors
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   descriptorsCopy = descriptors;
-  v8 = [descriptorsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [descriptorsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     while (2)
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(descriptorsCopy);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * v11) compareObject:self toObject:{nodeCopy, v16}];
+        v12 = [*(*(&v15 + 1) + 8 * v11) compareObject:self toObject:{nodeCopy, v15}];
         if (v12)
         {
           v13 = v12;
@@ -1384,7 +1376,7 @@ void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_
       }
 
       while (v9 != v11);
-      v9 = [descriptorsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [descriptorsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -1397,23 +1389,22 @@ void __57__PGGraphMomentNode_keywordsForRelatedType_focusOnNodes___block_invoke_
   v13 = 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)laterMomentNode:(id)node
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   selfCopy = self;
   if (nodeCopy)
   {
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
     v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:{1, v6}];
-    v14[1] = v7;
+    v13[1] = v7;
     v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-    v14[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
 
     if ([(PGGraphMomentNode *)selfCopy _compareToMomentNode:nodeCopy withSortDescriptors:v9]== -1)
     {
@@ -1430,24 +1421,22 @@ LABEL_11:
     selfCopy = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (id)earlierMomentNode:(id)node
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   selfCopy = self;
   if (nodeCopy)
   {
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:1];
     v7 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:{1, v6}];
-    v14[1] = v7;
+    v13[1] = v7;
     v8 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-    v14[2] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+    v13[2] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
 
     if ([(PGGraphMomentNode *)selfCopy _compareToMomentNode:nodeCopy withSortDescriptors:v9]== 1)
     {
@@ -1463,8 +1452,6 @@ LABEL_11:
 
     selfCopy = v11;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -1489,88 +1476,84 @@ LABEL_11:
 
 - (id)alternativeMeaningLabelsIncludingParents
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   alternativeMeaningLabels = [(PGGraphMomentNode *)self alternativeMeaningLabels];
   v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:alternativeMeaningLabels];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = alternativeMeaningLabels;
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __61__PGGraphMomentNode_alternativeMeaningLabelsIncludingParents__block_invoke;
-        v12[3] = &unk_278887698;
-        v13 = v3;
-        [PGGraph traverseParentMeaningsForMeaningLabel:v8 usingBlock:v12];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __61__PGGraphMomentNode_alternativeMeaningLabelsIncludingParents__block_invoke;
+        v11[3] = &unk_278887698;
+        v12 = v3;
+        [PGGraph traverseParentMeaningsForMeaningLabel:v8 usingBlock:v11];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)meaningLabelsIncludingParents
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   meaningLabels = [(PGGraphMomentNode *)self meaningLabels];
   v3 = [objc_alloc(MEMORY[0x277CBEB58]) initWithSet:meaningLabels];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   obj = meaningLabels;
-  v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v12[0] = MEMORY[0x277D85DD0];
-        v12[1] = 3221225472;
-        v12[2] = __50__PGGraphMomentNode_meaningLabelsIncludingParents__block_invoke;
-        v12[3] = &unk_278887698;
-        v13 = v3;
-        [PGGraph traverseParentMeaningsForMeaningLabel:v8 usingBlock:v12];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __50__PGGraphMomentNode_meaningLabelsIncludingParents__block_invoke;
+        v11[3] = &unk_278887698;
+        v12 = v3;
+        [PGGraph traverseParentMeaningsForMeaningLabel:v8 usingBlock:v11];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [obj countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1859,10 +1842,10 @@ void __32__PGGraphMomentNode_seasonNodes__block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-uint64_t __41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(uint64_t result, void *a2, _BYTE *a3)
+_BYTE *__41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(_BYTE *result, void *a2, _BYTE *a3)
 {
   v4 = result;
-  if (*(result + 40))
+  if (result[40])
   {
     v5 = 1;
   }
@@ -1873,8 +1856,8 @@ uint64_t __41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(uint64_t res
     v5 = result ^ 1;
   }
 
-  *(*(*(v4 + 32) + 8) + 24) = v5;
-  *a3 = *(*(*(v4 + 32) + 8) + 24);
+  *(*(*(v4 + 4) + 8) + 24) = v5;
+  *a3 = *(*(*(v4 + 4) + 8) + 24);
   return result;
 }
 
@@ -1889,10 +1872,9 @@ uint64_t __41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(uint64_t res
 
 - (id)eventSortedMomentNodes
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = self;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = self;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -1907,10 +1889,10 @@ uint64_t __41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(uint64_t res
 
 - (void)enumerateConsolidatedAddressesUsingBlock:(id)block
 {
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v4 = objc_autoreleasePoolPush();
-  v57 = 0;
+  v56 = 0;
   preciseAddressEdges = [(PGGraphMomentNode *)self preciseAddressEdges];
   v6 = [preciseAddressEdges count];
   if (v6)
@@ -1923,36 +1905,36 @@ uint64_t __41__PGGraphMomentNode_hasPeopleCountingMe___block_invoke(uint64_t res
       v11 = v10;
       v12 = [PGConsolidatedAddress alloc];
       targetNode = [(PGConsolidatedAddress *)anyObject targetNode];
-      v60[0] = anyObject;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:1];
+      v59[0] = anyObject;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:1];
       v15 = [(PGConsolidatedAddress *)v12 initWithAddressNode:targetNode addressEdgesSortedByTime:v14 centerCoordinates:v9, v11];
 
-      blockCopy[2](blockCopy, v15, &v57);
+      blockCopy[2](blockCopy, v15, &v56);
 LABEL_30:
 
       goto LABEL_31;
     }
 
     v16 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestampUTCStart" ascending:1];
-    v59 = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+    v58 = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
     v18 = [preciseAddressEdges sortedArrayUsingDescriptors:v17];
 
-    v56 = 0uLL;
+    v55 = 0uLL;
     v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     anyObject = v18;
-    v20 = [(PGConsolidatedAddress *)anyObject countByEnumeratingWithState:&v52 objects:v58 count:16];
+    v20 = [(PGConsolidatedAddress *)anyObject countByEnumeratingWithState:&v51 objects:v57 count:16];
     if (v20)
     {
       v21 = v20;
-      v47 = preciseAddressEdges;
-      v48 = v4;
+      v46 = preciseAddressEdges;
+      v47 = v4;
       v15 = 0;
-      v50 = *v53;
+      v49 = *v52;
       v22 = 0.0;
       v23 = 0.0;
       do
@@ -1961,15 +1943,15 @@ LABEL_30:
         do
         {
           v25 = v23;
-          if (*v53 != v50)
+          if (*v52 != v49)
           {
             objc_enumerationMutation(anyObject);
           }
 
-          v26 = *(*(&v52 + 1) + 8 * v24);
+          v26 = *(*(&v51 + 1) + 8 * v24);
           v27 = objc_autoreleasePoolPush();
           v28 = v27;
-          if (v57 == 1)
+          if (v56 == 1)
           {
             objc_autoreleasePoolPop(v27);
             goto LABEL_22;
@@ -1979,8 +1961,8 @@ LABEL_30:
           [v26 timestampUTCEnd];
           v23 = v30;
           [v26 photoCoordinate];
-          *&v51 = v31;
-          *(&v51 + 1) = v32;
+          *&v50 = v31;
+          *(&v50 + 1) = v32;
           [v26 relevance];
           v34 = v33;
           if (v15)
@@ -1989,19 +1971,19 @@ LABEL_30:
             {
               [v19 addObject:v26];
               CLSCentroidForCoordinates();
-              *&v56 = v41;
-              *(&v56 + 1) = v42;
+              *&v55 = v41;
+              *(&v55 + 1) = v42;
               v22 = v22 + v34;
             }
 
             else
             {
               v37 = [PGConsolidatedAddress alloc];
-              v38 = [(PGConsolidatedAddress *)v37 initWithAddressNode:v15 addressEdgesSortedByTime:v19 centerCoordinates:v56];
-              blockCopy[2](blockCopy, v38, &v57);
+              v38 = [(PGConsolidatedAddress *)v37 initWithAddressNode:v15 addressEdgesSortedByTime:v19 centerCoordinates:v55];
+              blockCopy[2](blockCopy, v38, &v56);
               v39 = targetNode2;
 
-              v56 = v51;
+              v55 = v50;
               v40 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v26, 0}];
 
               v19 = v40;
@@ -2013,7 +1995,7 @@ LABEL_30:
           else
           {
             v15 = targetNode2;
-            v56 = v51;
+            v55 = v50;
             [v19 addObject:v26];
             v22 = v34;
           }
@@ -2023,7 +2005,7 @@ LABEL_30:
         }
 
         while (v21 != v24);
-        v43 = [(PGConsolidatedAddress *)anyObject countByEnumeratingWithState:&v52 objects:v58 count:16];
+        v43 = [(PGConsolidatedAddress *)anyObject countByEnumeratingWithState:&v51 objects:v57 count:16];
         v21 = v43;
       }
 
@@ -2032,21 +2014,21 @@ LABEL_22:
 
       if (!v15)
       {
-        preciseAddressEdges = v47;
-        v4 = v48;
+        preciseAddressEdges = v46;
+        v4 = v47;
         goto LABEL_29;
       }
 
-      preciseAddressEdges = v47;
-      v4 = v48;
-      if (![v19 count] || v57)
+      preciseAddressEdges = v46;
+      v4 = v47;
+      if (![v19 count] || v56)
       {
         goto LABEL_29;
       }
 
       v44 = [PGConsolidatedAddress alloc];
-      v45 = [(PGConsolidatedAddress *)v44 initWithAddressNode:v15 addressEdgesSortedByTime:v19 centerCoordinates:v56];
-      blockCopy[2](blockCopy, v45, &v57);
+      v45 = [(PGConsolidatedAddress *)v44 initWithAddressNode:v15 addressEdgesSortedByTime:v19 centerCoordinates:v55];
+      blockCopy[2](blockCopy, v45, &v56);
     }
 
     else
@@ -2062,7 +2044,6 @@ LABEL_29:
 LABEL_31:
 
   objc_autoreleasePoolPop(v4);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumeratePreciseAddressNodesUsingBlock:(id)block
@@ -2469,11 +2450,11 @@ LABEL_8:
 
 - (MAFloatVector)clipFeatureVector
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   encodedCLIPFeatureVector = self->_encodedCLIPFeatureVector;
-  v13 = 0;
-  v4 = [PGMomentIngestCLIPFeatureVectorExtractor decodeEncodedCLIPFeatureVector:encodedCLIPFeatureVector withError:&v13];
-  v5 = v13;
+  v12 = 0;
+  v4 = [PGMomentIngestCLIPFeatureVectorExtractor decodeEncodedCLIPFeatureVector:encodedCLIPFeatureVector withError:&v12];
+  v5 = v12;
   if (v4)
   {
     if ([v4 count])
@@ -2498,40 +2479,36 @@ LABEL_8:
     {
       localIdentifier = self->_localIdentifier;
       *buf = 138412290;
-      v15 = localIdentifier;
+      v14 = localIdentifier;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error decoding CLIP Feature for moment %@", buf, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (NSDictionary)jsonDescription
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"type";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"type";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   localIdentifier = self->_localIdentifier;
-  v10[0] = v4;
-  v10[1] = localIdentifier;
-  v9[1] = @"localIdentifier";
-  v9[2] = @"name";
-  v10[2] = self->_name;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = v4;
+  v9[1] = localIdentifier;
+  v8[1] = @"localIdentifier";
+  v8[2] = @"name";
+  v9[2] = self->_name;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (id)propertyForKey:(id)key
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([keyCopy isEqualToString:@"name"])
   {
@@ -2581,10 +2558,10 @@ LABEL_14:
 
   if ([keyCopy isEqualToString:@"tnop"])
   {
-    v12 = MEMORY[0x277CCABB0];
+    v11 = MEMORY[0x277CCABB0];
     numberOfAssetsInExtendedCuration = *(self + 37);
 LABEL_21:
-    v6 = [v12 numberWithUnsignedInteger:numberOfAssetsInExtendedCuration];
+    v6 = [v11 numberWithUnsignedInteger:numberOfAssetsInExtendedCuration];
     goto LABEL_15;
   }
 
@@ -2603,10 +2580,10 @@ LABEL_21:
 
   if ([keyCopy isEqualToString:@"cnt"])
   {
-    v12 = MEMORY[0x277CCABB0];
-    v14 = 68;
+    v11 = MEMORY[0x277CCABB0];
+    v13 = 68;
 LABEL_28:
-    numberOfAssetsInExtendedCuration = *(&self->super.super.super.super.isa + v14);
+    numberOfAssetsInExtendedCuration = *(&self->super.super.super.super.isa + v13);
     goto LABEL_21;
   }
 
@@ -2618,30 +2595,30 @@ LABEL_28:
 
   if ([keyCopy isEqualToString:@"nawp"])
   {
-    v12 = MEMORY[0x277CCABB0];
-    v14 = 64;
+    v11 = MEMORY[0x277CCABB0];
+    v13 = 64;
     goto LABEL_28;
   }
 
   if ([keyCopy isEqualToString:@"intng"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 4) & 1;
 LABEL_39:
-    v6 = [v15 numberWithBool:happensAtSensitiveLocation];
+    v6 = [v14 numberWithBool:happensAtSensitiveLocation];
     goto LABEL_15;
   }
 
   if ([keyCopy isEqualToString:@"intngaj"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 5) & 1;
     goto LABEL_39;
   }
 
   if ([keyCopy isEqualToString:@"sintng"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 6) & 1;
     goto LABEL_39;
   }
@@ -2655,28 +2632,28 @@ LABEL_39:
 
   if ([keyCopy isEqualToString:@"cbsa"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 2) & 1;
     goto LABEL_39;
   }
 
   if ([keyCopy isEqualToString:@"hghthnmprv"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = *(self + 76) & 1;
     goto LABEL_39;
   }
 
   if ([keyCopy isEqualToString:@"asswis"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 1) & 1;
     goto LABEL_39;
   }
 
   if ([keyCopy isEqualToString:@"cnja"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = (*(self + 76) >> 3) & 1;
     goto LABEL_39;
   }
@@ -2697,36 +2674,34 @@ LABEL_39:
 
   if ([keyCopy isEqualToString:@"extc"])
   {
-    v12 = MEMORY[0x277CCABB0];
+    v11 = MEMORY[0x277CCABB0];
     numberOfAssetsInExtendedCuration = self->_numberOfAssetsInExtendedCuration;
     goto LABEL_21;
   }
 
   if ([keyCopy isEqualToString:@"hasl"])
   {
-    v15 = MEMORY[0x277CCABB0];
+    v14 = MEMORY[0x277CCABB0];
     happensAtSensitiveLocation = self->_happensAtSensitiveLocation;
     goto LABEL_39;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    v17 = 138412290;
-    v18 = keyCopy;
-    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphMomentNode.", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = keyCopy;
+    _os_log_fault_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Unsupported property '%@' accessed on PGGraphMomentNode.", &v16, 0xCu);
   }
 
   v9 = 0;
 LABEL_16:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)changingPropertiesWithProperties:(id)properties
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   propertyDictionary = [(PGGraphMomentNode *)self propertyDictionary];
   v6 = [propertyDictionary isEqual:propertiesCopy];
@@ -2743,11 +2718,11 @@ LABEL_16:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412546;
-        v15 = v8;
-        v16 = 2112;
+        v13 = 138412546;
+        v14 = v8;
+        v15 = 2112;
         selfCopy = self;
-        _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Trying to merge local identifier %@ into moment node %@", &v14, 0x16u);
+        _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Trying to merge local identifier %@ into moment node %@", &v13, 0x16u);
       }
 
       v7 = MEMORY[0x277CBEC10];
@@ -2768,105 +2743,101 @@ LABEL_16:
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)propertyDictionary
 {
-  v32[24] = *MEMORY[0x277D85DE8];
+  v31[24] = *MEMORY[0x277D85DE8];
   name = self->_name;
   if (!name)
   {
     name = &stru_2843F5C58;
   }
 
-  v31[0] = @"name";
-  v31[1] = @"clipfeature";
+  v30[0] = @"name";
+  v30[1] = @"clipfeature";
   encodedCLIPFeatureVector = self->_encodedCLIPFeatureVector;
   if (!encodedCLIPFeatureVector)
   {
     encodedCLIPFeatureVector = &stru_2843F5C58;
   }
 
-  v32[0] = name;
-  v32[1] = encodedCLIPFeatureVector;
-  v31[2] = @"utcs";
-  v30 = [MEMORY[0x277CCABB0] numberWithDouble:self->_universalStartTimestamp];
-  v32[2] = v30;
-  v31[3] = @"utce";
-  v29 = [MEMORY[0x277CCABB0] numberWithDouble:self->_universalEndTimestamp];
-  v32[3] = v29;
-  v31[4] = @"tzs";
-  v28 = [MEMORY[0x277CCABB0] numberWithDouble:self->_localStartTimestamp];
-  v32[4] = v28;
-  v31[5] = @"tze";
-  v27 = [MEMORY[0x277CCABB0] numberWithDouble:self->_localEndTimestamp];
-  v32[5] = v27;
-  v31[6] = @"tnop";
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 37)];
-  v32[6] = v26;
-  v31[7] = @"inhbtscr";
+  v31[0] = name;
+  v31[1] = encodedCLIPFeatureVector;
+  v30[2] = @"utcs";
+  v29 = [MEMORY[0x277CCABB0] numberWithDouble:self->_universalStartTimestamp];
+  v31[2] = v29;
+  v30[3] = @"utce";
+  v28 = [MEMORY[0x277CCABB0] numberWithDouble:self->_universalEndTimestamp];
+  v31[3] = v28;
+  v30[4] = @"tzs";
+  v27 = [MEMORY[0x277CCABB0] numberWithDouble:self->_localStartTimestamp];
+  v31[4] = v27;
+  v30[5] = @"tze";
+  v26 = [MEMORY[0x277CCABB0] numberWithDouble:self->_localEndTimestamp];
+  v31[5] = v26;
+  v30[6] = @"tnop";
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 37)];
+  v31[6] = v25;
+  v30[7] = @"inhbtscr";
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:self->_inhabitationScore];
-  v25 = v5;
+  v24 = v5;
   localIdentifier = self->_localIdentifier;
   if (!localIdentifier)
   {
     localIdentifier = &stru_2843F5C58;
   }
 
-  v32[7] = v5;
-  v32[8] = localIdentifier;
-  v31[8] = @"lclid";
-  v31[9] = @"cnt";
-  v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 17)];
-  v32[9] = v24;
-  v31[10] = @"sharingComposition";
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:self->_sharingComposition];
-  v32[10] = v23;
-  v31[11] = @"nawp";
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 16)];
-  v32[11] = v22;
-  v31[12] = @"intng";
-  v21 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 4) & 1];
-  v32[12] = v21;
-  v31[13] = @"intngaj";
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 5) & 1];
-  v32[13] = v20;
-  v31[14] = @"sintng";
-  v19 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 6) & 1];
-  v32[14] = v19;
-  v31[15] = @"cntsc";
+  v31[7] = v5;
+  v31[8] = localIdentifier;
+  v30[8] = @"lclid";
+  v30[9] = @"cnt";
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 17)];
+  v31[9] = v23;
+  v30[10] = @"sharingComposition";
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:self->_sharingComposition];
+  v31[10] = v22;
+  v30[11] = @"nawp";
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 16)];
+  v31[11] = v21;
+  v30[12] = @"intng";
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 4) & 1];
+  v31[12] = v20;
+  v30[13] = @"intngaj";
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 5) & 1];
+  v31[13] = v19;
+  v30[14] = @"sintng";
+  v18 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 6) & 1];
+  v31[14] = v18;
+  v30[15] = @"cntsc";
   v7 = [MEMORY[0x277CCABB0] numberWithDouble:self->_contentScore];
-  v32[15] = v7;
-  v31[16] = @"cbsa";
+  v31[15] = v7;
+  v30[16] = @"cbsa";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 2) & 1];
-  v32[16] = v8;
-  v31[17] = @"hghthnmprv";
+  v31[16] = v8;
+  v30[17] = @"hghthnmprv";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:*(self + 76) & 1];
-  v32[17] = v9;
-  v31[18] = @"asswis";
+  v31[17] = v9;
+  v30[18] = @"asswis";
   v10 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 1) & 1];
-  v32[18] = v10;
-  v31[19] = @"cnja";
+  v31[18] = v10;
+  v30[19] = @"cnja";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:(*(self + 76) >> 3) & 1];
-  v32[19] = v11;
-  v31[20] = @"spr";
+  v31[19] = v11;
+  v30[20] = @"spr";
   v12 = [MEMORY[0x277CCABB0] numberWithDouble:self->_scenesProcessedRatio];
-  v32[20] = v12;
-  v31[21] = @"fpr";
+  v31[20] = v12;
+  v30[21] = @"fpr";
   v13 = [MEMORY[0x277CCABB0] numberWithDouble:self->_facesProcessedRatio];
-  v32[21] = v13;
-  v31[22] = @"extc";
+  v31[21] = v13;
+  v30[22] = @"extc";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfAssetsInExtendedCuration];
-  v32[22] = v14;
-  v31[23] = @"hasl";
+  v31[22] = v14;
+  v30[23] = @"hasl";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:self->_happensAtSensitiveLocation];
-  v32[23] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:24];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v31[23] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:24];
 
   return v16;
 }
@@ -2879,250 +2850,148 @@ LABEL_16:
   {
     v6 = [v5 objectForKeyedSubscript:@"lclid"];
     v7 = v6;
-    if (v6 && ![v6 isEqual:self->_localIdentifier])
+    v39 = 0;
+    if (!v6 || [v6 isEqual:self->_localIdentifier])
     {
-      goto LABEL_53;
-    }
 
-    v8 = [v5 objectForKeyedSubscript:@"name"];
-    v7 = v8;
-    if (v8)
-    {
-      if (![v8 isEqual:self->_name])
+      v8 = [v5 objectForKeyedSubscript:@"name"];
+      v7 = v8;
+      if (!v8 || [v8 isEqual:self->_name])
       {
-        goto LABEL_53;
+
+        v9 = [v5 objectForKeyedSubscript:@"clipfeature"];
+        v7 = v9;
+        if (!v9 || [v9 isEqual:self->_encodedCLIPFeatureVector])
+        {
+
+          v10 = [v5 objectForKeyedSubscript:@"utcs"];
+          v7 = v10;
+          if (!v10 || ([v10 doubleValue], v11 == self->_universalStartTimestamp))
+          {
+
+            v12 = [v5 objectForKeyedSubscript:@"utce"];
+            v7 = v12;
+            if (!v12 || ([v12 doubleValue], v13 == self->_universalEndTimestamp))
+            {
+
+              v14 = [v5 objectForKeyedSubscript:@"tzs"];
+              v7 = v14;
+              if (!v14 || ([v14 doubleValue], v15 == self->_localStartTimestamp))
+              {
+
+                v16 = [v5 objectForKeyedSubscript:@"tze"];
+                v7 = v16;
+                if (!v16 || ([v16 doubleValue], v17 == self->_localEndTimestamp))
+                {
+
+                  v18 = [v5 objectForKeyedSubscript:@"tnop"];
+                  v7 = v18;
+                  if (!v18 || [v18 unsignedIntegerValue] == *(self + 37))
+                  {
+
+                    v19 = [v5 objectForKeyedSubscript:@"inhbtscr"];
+                    v7 = v19;
+                    if (!v19 || ([v19 doubleValue], v20 == self->_inhabitationScore))
+                    {
+
+                      v21 = [v5 objectForKeyedSubscript:@"cnt"];
+                      v7 = v21;
+                      if (!v21 || [v21 unsignedIntegerValue] == *(self + 17))
+                      {
+
+                        v22 = [v5 objectForKeyedSubscript:@"sharingComposition"];
+                        v7 = v22;
+                        if (!v22 || [v22 unsignedShortValue] == self->_sharingComposition)
+                        {
+
+                          v23 = [v5 objectForKeyedSubscript:@"nawp"];
+                          v7 = v23;
+                          if (!v23 || [v23 unsignedIntegerValue] == *(self + 16))
+                          {
+
+                            v24 = [v5 objectForKeyedSubscript:@"intng"];
+                            v7 = v24;
+                            if (!v24 || [v24 BOOLValue] != ((*(self + 76) & 0x10) == 0))
+                            {
+
+                              v25 = [v5 objectForKeyedSubscript:@"intngaj"];
+                              v7 = v25;
+                              if (!v25 || [v25 BOOLValue] != ((*(self + 76) & 0x20) == 0))
+                              {
+
+                                v26 = [v5 objectForKeyedSubscript:@"sintng"];
+                                v7 = v26;
+                                if (!v26 || [v26 BOOLValue] != ((*(self + 76) & 0x40) == 0))
+                                {
+
+                                  v27 = [v5 objectForKeyedSubscript:@"cntsc"];
+                                  v7 = v27;
+                                  if (!v27 || ([v27 doubleValue], v28 == self->_contentScore))
+                                  {
+
+                                    v29 = [v5 objectForKeyedSubscript:@"cbsa"];
+                                    v7 = v29;
+                                    if (!v29 || [v29 BOOLValue] != ((*(self + 76) & 4) == 0))
+                                    {
+
+                                      v30 = [v5 objectForKeyedSubscript:@"hghthnmprv"];
+                                      v7 = v30;
+                                      if (!v30 || [v30 BOOLValue] == (*(self + 76) & 1))
+                                      {
+
+                                        v31 = [v5 objectForKeyedSubscript:@"asswis"];
+                                        v7 = v31;
+                                        if (!v31 || [v31 BOOLValue] != ((*(self + 76) & 2) == 0))
+                                        {
+
+                                          v32 = [v5 objectForKeyedSubscript:@"cnja"];
+                                          v7 = v32;
+                                          if (!v32 || [v32 BOOLValue] != ((*(self + 76) & 8) == 0))
+                                          {
+
+                                            v33 = [v5 objectForKeyedSubscript:@"spr"];
+                                            v7 = v33;
+                                            if (!v33 || ([v33 doubleValue], v34 == self->_scenesProcessedRatio))
+                                            {
+
+                                              v35 = [v5 objectForKeyedSubscript:@"fpr"];
+                                              v7 = v35;
+                                              if (!v35 || ([v35 doubleValue], v36 == self->_facesProcessedRatio))
+                                              {
+
+                                                v37 = [v5 objectForKeyedSubscript:@"extc"];
+                                                v7 = v37;
+                                                if (!v37 || [v37 unsignedIntegerValue] == self->_numberOfAssetsInExtendedCuration)
+                                                {
+
+                                                  v38 = [v5 objectForKeyedSubscript:@"hasl"];
+                                                  v7 = v38;
+                                                  if (!v38 || self->_happensAtSensitiveLocation == [v38 BOOLValue])
+                                                  {
+                                                    v39 = 1;
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"clipfeature"];
-    v7 = v9;
-    if (v9)
-    {
-      if (![v9 isEqual:self->_encodedCLIPFeatureVector])
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"utcs"];
-    v7 = v10;
-    if (v10)
-    {
-      [v10 doubleValue];
-      if (v11 != self->_universalStartTimestamp)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"utce"];
-    v7 = v12;
-    if (v12)
-    {
-      [v12 doubleValue];
-      if (v13 != self->_universalEndTimestamp)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v14 = [v5 objectForKeyedSubscript:@"tzs"];
-    v7 = v14;
-    if (v14)
-    {
-      [v14 doubleValue];
-      if (v15 != self->_localStartTimestamp)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v16 = [v5 objectForKeyedSubscript:@"tze"];
-    v7 = v16;
-    if (v16)
-    {
-      [v16 doubleValue];
-      if (v17 != self->_localEndTimestamp)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v18 = [v5 objectForKeyedSubscript:@"tnop"];
-    v7 = v18;
-    if (v18)
-    {
-      if ([v18 unsignedIntegerValue] != *(self + 37))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v19 = [v5 objectForKeyedSubscript:@"inhbtscr"];
-    v7 = v19;
-    if (v19)
-    {
-      [v19 doubleValue];
-      if (v20 != self->_inhabitationScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v21 = [v5 objectForKeyedSubscript:@"cnt"];
-    v7 = v21;
-    if (v21)
-    {
-      if ([v21 unsignedIntegerValue] != *(self + 17))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v22 = [v5 objectForKeyedSubscript:@"sharingComposition"];
-    v7 = v22;
-    if (v22)
-    {
-      if ([v22 unsignedShortValue] != self->_sharingComposition)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v23 = [v5 objectForKeyedSubscript:@"nawp"];
-    v7 = v23;
-    if (v23)
-    {
-      if ([v23 unsignedIntegerValue] != *(self + 16))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v24 = [v5 objectForKeyedSubscript:@"intng"];
-    v7 = v24;
-    if (v24)
-    {
-      if ([v24 BOOLValue] == ((*(self + 76) & 0x10) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v25 = [v5 objectForKeyedSubscript:@"intngaj"];
-    v7 = v25;
-    if (v25)
-    {
-      if ([v25 BOOLValue] == ((*(self + 76) & 0x20) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v26 = [v5 objectForKeyedSubscript:@"sintng"];
-    v7 = v26;
-    if (v26)
-    {
-      if ([v26 BOOLValue] == ((*(self + 76) & 0x40) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v27 = [v5 objectForKeyedSubscript:@"cntsc"];
-    v7 = v27;
-    if (v27)
-    {
-      [v27 doubleValue];
-      if (v28 != self->_contentScore)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v29 = [v5 objectForKeyedSubscript:@"cbsa"];
-    v7 = v29;
-    if (v29)
-    {
-      if ([v29 BOOLValue] == ((*(self + 76) & 4) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v30 = [v5 objectForKeyedSubscript:@"hghthnmprv"];
-    v7 = v30;
-    if (v30)
-    {
-      if ([v30 BOOLValue] != (*(self + 76) & 1))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v31 = [v5 objectForKeyedSubscript:@"asswis"];
-    v7 = v31;
-    if (v31)
-    {
-      if ([v31 BOOLValue] == ((*(self + 76) & 2) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v32 = [v5 objectForKeyedSubscript:@"cnja"];
-    v7 = v32;
-    if (v32)
-    {
-      if ([v32 BOOLValue] == ((*(self + 76) & 8) == 0))
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v33 = [v5 objectForKeyedSubscript:@"spr"];
-    v7 = v33;
-    if (v33)
-    {
-      [v33 doubleValue];
-      if (v34 != self->_scenesProcessedRatio)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v35 = [v5 objectForKeyedSubscript:@"fpr"];
-    v7 = v35;
-    if (v35)
-    {
-      [v35 doubleValue];
-      if (v36 != self->_facesProcessedRatio)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v37 = [v5 objectForKeyedSubscript:@"extc"];
-    v7 = v37;
-    if (v37)
-    {
-      if ([v37 unsignedIntegerValue] != self->_numberOfAssetsInExtendedCuration)
-      {
-        goto LABEL_53;
-      }
-    }
-
-    v38 = [v5 objectForKeyedSubscript:@"hasl"];
-    v7 = v38;
-    if (v38 && self->_happensAtSensitiveLocation != [v38 BOOLValue])
-    {
-LABEL_53:
-      v39 = 0;
-    }
-
-    else
-    {
-      v39 = 1;
     }
   }
 
@@ -3314,82 +3183,72 @@ LABEL_53:
 
 + (MARelation)momentWithOnlySharedAssetsOfMoment
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"sharingComposition";
-  v9[0] = &unk_2844844E8;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"sharingComposition";
+  v8[0] = &unk_2844844E8;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [v2 filterBySettingProperties:v3];
 
   relation = [v4 relation];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return relation;
 }
 
 + (MARelation)momentWithOnlyPrivateAssetsOfMoment
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"sharingComposition";
-  v9[0] = &unk_284484500;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"sharingComposition";
+  v8[0] = &unk_284484500;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [v2 filterBySettingProperties:v3];
 
   relation = [v4 relation];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return relation;
 }
 
 + (MARelation)momentWithPrivateAndSharedAssetsOfMoment
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"sharingComposition";
-  v9[0] = &unk_284484518;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"sharingComposition";
+  v8[0] = &unk_284484518;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v4 = [v2 filterBySettingProperties:v3];
 
   relation = [v4 relation];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return relation;
 }
 
 + (MARelation)momentWithSharedAssetsOfMoment
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v9 = @"sharingComposition";
+  v8 = @"sharingComposition";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:2 value:&unk_284484500];
-  v10[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v2 filterBySettingProperties:v4];
 
   relation = [v5 relation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return relation;
 }
 
 + (MARelation)momentWithPrivateAssetsOfMoment
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v9 = @"sharingComposition";
+  v8 = @"sharingComposition";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:2 value:&unk_2844844E8];
-  v10[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v5 = [v2 filterBySettingProperties:v4];
 
   relation = [v5 relation];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return relation;
 }
@@ -3404,21 +3263,19 @@ LABEL_53:
 
 + (MARelation)cityOfMoment
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   filter = [self filter];
   relation = [filter relation];
   v5 = +[PGGraphLocationEdge filter];
   outRelation = [v5 outRelation];
   transitiveClosure = [outRelation transitiveClosure];
-  v14[1] = transitiveClosure;
+  v13[1] = transitiveClosure;
   v8 = +[PGGraphLocationCityNode filter];
   relation2 = [v8 relation];
-  v14[2] = relation2;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
+  v13[2] = relation2;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
   v11 = [v2 chain:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -3433,17 +3290,15 @@ LABEL_53:
 
 + (MARelation)meaningHierarchyOfMoment
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   meaningOfMoment = [self meaningOfMoment];
-  v10[0] = meaningOfMoment;
+  v9[0] = meaningOfMoment;
   v4 = +[PGGraphMeaningNode parentMeaningOfMeaning];
   optionalStep = [v4 optionalStep];
-  v10[1] = optionalStep;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = optionalStep;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v2 chain:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3512,6 +3367,14 @@ LABEL_53:
   return outRelation;
 }
 
++ (id)significantPartOfDayOfMomentWithHasLegacyWeights:(BOOL)weights
+{
+  v3 = [PGGraphPartOfDayEdge significantFilterWithLegacyWeights:weights];
+  outRelation = [v3 outRelation];
+
+  return outRelation;
+}
+
 + (MARelation)significantPartOfDayOfMoment
 {
   v2 = +[PGGraphPartOfDayEdge significantFilter];
@@ -3570,24 +3433,22 @@ LABEL_53:
 
 + (MARelation)personPhysicallyPresentInMoment
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphPeoplePersonIsAroundEdge filter];
   inRelation = [v3 inRelation];
-  v15[0] = inRelation;
+  v14[0] = inRelation;
   v5 = +[PGGraphPersonProximityEdge filter];
   inRelation2 = [v5 inRelation];
-  v15[1] = inRelation2;
+  v14[1] = inRelation2;
   v7 = +[PGGraphPersonPresentEdge filter];
   inRelation3 = [v7 inRelation];
-  v15[2] = inRelation3;
+  v14[2] = inRelation3;
   v9 = +[PGGraphAuthorEdge filter];
   inRelation4 = [v9 inRelation];
-  v15[3] = inRelation4;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
+  v14[3] = inRelation4;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
   v12 = [v2 union:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -3618,18 +3479,16 @@ LABEL_53:
 
 + (MARelation)personExcludingMeInMoment
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphPersonPresentEdge filter];
   inRelation = [v3 inRelation];
-  v11[0] = inRelation;
+  v10[0] = inRelation;
   v5 = +[PGGraphPersonNode filterExcludingMe];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3690,6 +3549,14 @@ LABEL_53:
   return outRelation;
 }
 
++ (id)poiWithNonzeroConfidenceOfMomentWithHasLegacyWeights:(BOOL)weights
+{
+  v3 = [PGGraphPOIEdge filterAboveConfidence:weights hasLegacyWeights:0.0];
+  outRelation = [v3 outRelation];
+
+  return outRelation;
+}
+
 + (MARelation)poiWithNonzeroConfidenceOfMoment
 {
   v2 = [PGGraphPOIEdge filterAboveConfidence:0.0];
@@ -3702,6 +3569,14 @@ LABEL_53:
 {
   v2 = +[PGGraphPOIEdge filter];
   outRelation = [v2 outRelation];
+
+  return outRelation;
+}
+
++ (id)roiWithNonzeroConfidenceOfMomentWithHasLegacyWeights:(BOOL)weights
+{
+  v3 = [PGGraphROIEdge filterAboveConfidence:weights hasLegacyWeights:0.0];
+  outRelation = [v3 outRelation];
 
   return outRelation;
 }
@@ -3724,36 +3599,32 @@ LABEL_53:
 
 + (MARelation)weekendOfMoment
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphPartOfWeekEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphWeekendNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (MARelation)weekdayOfMoment
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphPartOfWeekEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphWeekdayNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3776,18 +3647,16 @@ LABEL_53:
 
 + (MARelation)dateOfMoment
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphDateEdge filter];
   outRelation = [v3 outRelation];
-  v11[0] = outRelation;
+  v10[0] = outRelation;
   v5 = +[PGGraphDateNode filter];
   relation = [v5 relation];
-  v11[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v2 chain:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3810,17 +3679,15 @@ LABEL_53:
 
 + (MARelation)preciseAddressOfMoment
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D22C90];
   v3 = +[PGGraphMomentNode addressOfMoment];
-  v10[0] = v3;
+  v9[0] = v3;
   v4 = +[PGGraphAddressNode preciseFilter];
   relation = [v4 relation];
-  v10[1] = relation;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[1] = relation;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v7 = [v2 chain:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3828,7 +3695,7 @@ LABEL_53:
 + (id)inclusivePathToTargetNodeDomain:(unsigned __int16)domain withName:(id)name
 {
   domainCopy = domain;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (domainCopy == 102)
   {
@@ -3861,14 +3728,12 @@ LABEL_53:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = domainCopy;
+    v13 = domainCopy;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", buf, 8u);
   }
 
   v8 = 0;
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -3876,7 +3741,7 @@ LABEL_13:
 + (id)inclusivePathFromTargetNodeDomain:(unsigned __int16)domain withName:(id)name
 {
   domainCopy = domain;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (domainCopy == 102)
   {
@@ -3909,99 +3774,79 @@ LABEL_13:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 67109120;
-    v14 = domainCopy;
+    v13 = domainCopy;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", buf, 8u);
   }
 
   v8 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)pathToTargetNodeDomain:(unsigned __int16)domain
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (domain == 100)
   {
-    result = &stru_2843F5C58;
+    return &stru_2843F5C58;
   }
 
-  else
+  domainCopy = domain;
+  if (domain == 102)
   {
-    domainCopy = domain;
-    if (domain == 102)
-    {
-      result = @"<-[:CONTAINS]-(:Highlight)";
-    }
-
-    else
-    {
-      v5 = +[PGLogging sharedLogging];
-      loggingConnection = [v5 loggingConnection];
-
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v8[0] = 67109120;
-        v8[1] = domainCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", v8, 8u);
-      }
-
-      result = 0;
-    }
+    return @"<-[:CONTAINS]-(:Highlight)";
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = +[PGLogging sharedLogging];
+  loggingConnection = [v5 loggingConnection];
+
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v7[0] = 67109120;
+    v7[1] = domainCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", v7, 8u);
+  }
+
+  return 0;
 }
 
 + (id)pathFromTargetNodeDomain:(unsigned __int16)domain
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (domain == 100)
   {
-    result = &stru_2843F5C58;
+    return &stru_2843F5C58;
   }
 
-  else
+  domainCopy = domain;
+  if (domain == 102)
   {
-    domainCopy = domain;
-    if (domain == 102)
-    {
-      result = @"(:Highlight)-[:CONTAINS]->";
-    }
-
-    else
-    {
-      v5 = +[PGLogging sharedLogging];
-      loggingConnection = [v5 loggingConnection];
-
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v8[0] = 67109120;
-        v8[1] = domainCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", v8, 8u);
-      }
-
-      result = 0;
-    }
+    return @"(:Highlight)-[:CONTAINS]->";
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = +[PGLogging sharedLogging];
+  loggingConnection = [v5 loggingConnection];
+
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v7[0] = 67109120;
+    v7[1] = domainCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Unsupported target event domain: %u", v7, 8u);
+  }
+
+  return 0;
 }
 
 + (id)firstAndLastMomentNodesInMomentNodes:(id)nodes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [nodesCopy countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v4 = [nodesCopy countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (!v4)
   {
     v7 = 0;
@@ -4013,20 +3858,20 @@ LABEL_13:
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v8 = *v17;
+  v8 = *v16;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(nodesCopy);
       }
 
-      v10 = *(*(&v16 + 1) + 8 * i);
+      v10 = *(*(&v15 + 1) + 8 * i);
       if (v6)
       {
-        v11 = [*(*(&v16 + 1) + 8 * i) earlierMomentNode:v6];
+        v11 = [*(*(&v15 + 1) + 8 * i) earlierMomentNode:v6];
 
         v6 = v11;
         if (v7)
@@ -4051,21 +3896,19 @@ LABEL_8:
       v7 = v10;
     }
 
-    v5 = [nodesCopy countByEnumeratingWithState:&v16 objects:v21 count:16];
+    v5 = [nodesCopy countByEnumeratingWithState:&v15 objects:v20 count:16];
   }
 
   while (v5);
   v13 = MEMORY[0x277CBEBF8];
   if (v6 && v7)
   {
-    v20[0] = v6;
-    v20[1] = v7;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v6;
+    v19[1] = v7;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   }
 
 LABEL_17:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -4112,82 +3955,80 @@ LABEL_17:
 
 + (id)contentBasedPropertiesWithMoment:(id)moment
 {
-  v32[18] = *MEMORY[0x277D85DE8];
-  v31[0] = @"clipfeature";
+  v31[18] = *MEMORY[0x277D85DE8];
+  v30[0] = @"clipfeature";
   momentCopy = moment;
   encodedCLIPFeatureVector = [momentCopy encodedCLIPFeatureVector];
-  v32[0] = encodedCLIPFeatureVector;
-  v31[1] = @"cnt";
-  v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "numberOfItems")}];
-  v32[1] = v29;
-  v31[2] = @"nawp";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "numberOfItemsWithPersons")}];
-  v32[2] = v28;
-  v31[3] = @"intng";
-  v27 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isInteresting")}];
-  v32[3] = v27;
-  v31[4] = @"intngaj";
-  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isInterestingWithAlternateJunking")}];
-  v32[4] = v26;
-  v31[5] = @"sintng";
-  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isSmartInteresting")}];
-  v32[5] = v25;
-  v31[6] = @"cntsc";
+  v31[0] = encodedCLIPFeatureVector;
+  v30[1] = @"cnt";
+  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "numberOfItems")}];
+  v31[1] = v28;
+  v30[2] = @"nawp";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "numberOfItemsWithPersons")}];
+  v31[2] = v27;
+  v30[3] = @"intng";
+  v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isInteresting")}];
+  v31[3] = v26;
+  v30[4] = @"intngaj";
+  v25 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isInterestingWithAlternateJunking")}];
+  v31[4] = v25;
+  v30[5] = @"sintng";
+  v24 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "isSmartInteresting")}];
+  v31[5] = v24;
+  v30[6] = @"cntsc";
   v4 = MEMORY[0x277CCABB0];
   [momentCopy contentScore];
-  v24 = [v4 numberWithDouble:?];
-  v32[6] = v24;
-  v31[7] = @"cbsa";
-  v23 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "containsBetterScoringAsset")}];
-  v32[7] = v23;
-  v31[8] = @"hghthnmprv";
-  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "hasHigherThanImprovedAssets")}];
-  v32[8] = v22;
-  v31[9] = @"asswis";
+  v23 = [v4 numberWithDouble:?];
+  v31[6] = v23;
+  v30[7] = @"cbsa";
+  v22 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "containsBetterScoringAsset")}];
+  v31[7] = v22;
+  v30[8] = @"hghthnmprv";
+  v21 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "hasHigherThanImprovedAssets")}];
+  v31[8] = v21;
+  v30[9] = @"asswis";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "hasAssetsWithInterestingScenes")}];
-  v32[9] = v5;
-  v31[10] = @"cnja";
+  v31[9] = v5;
+  v30[10] = @"cnja";
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "containsNonJunkAssets")}];
-  v32[10] = v6;
-  v31[11] = @"spr";
+  v31[10] = v6;
+  v30[11] = @"spr";
   v7 = MEMORY[0x277CCABB0];
   [momentCopy scenesProcessedRatio];
   v8 = [v7 numberWithDouble:?];
-  v32[11] = v8;
-  v31[12] = @"fpr";
+  v31[11] = v8;
+  v30[12] = @"fpr";
   v9 = MEMORY[0x277CCABB0];
   [momentCopy facesProcessedRatio];
   v10 = [v9 numberWithDouble:?];
-  v32[12] = v10;
-  v31[13] = @"extc";
+  v31[12] = v10;
+  v30[13] = @"extc";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "numberOfAssetsInExtendedCuration")}];
-  v32[13] = v11;
-  v31[14] = @"sharingComposition";
+  v31[13] = v11;
+  v30[14] = @"sharingComposition";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(momentCopy, "sharingComposition")}];
-  v32[14] = v12;
-  v31[15] = @"hasl";
+  v31[14] = v12;
+  v30[15] = @"hasl";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(momentCopy, "happensAtSensitiveLocation")}];
-  v32[15] = v13;
-  v31[16] = @"tnop";
+  v31[15] = v13;
+  v30[16] = @"tnop";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(momentCopy, "totalNumberOfPersons")}];
-  v32[16] = v14;
-  v31[17] = @"inhbtscr";
+  v31[16] = v14;
+  v30[17] = @"inhbtscr";
   v15 = MEMORY[0x277CCABB0];
   [momentCopy inhabitationScore];
   v17 = v16;
 
   v18 = [v15 numberWithDouble:v17];
-  v32[17] = v18;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:18];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v31[17] = v18;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:18];
 
   return v19;
 }
 
 + (id)timeBasedPropertiesWithMoment:(id)moment
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   momentCopy = moment;
   if (timeBasedPropertiesWithMoment__onceToken != -1)
   {
@@ -4197,36 +4038,36 @@ LABEL_17:
   localStartDate = [momentCopy localStartDate];
   if (localStartDate)
   {
-    v21 = [timeBasedPropertiesWithMoment__momentNameDateFormatter stringFromDate:localStartDate];
-    v24[0] = v21;
-    v23[0] = @"name";
-    v23[1] = @"utcs";
+    v20 = [timeBasedPropertiesWithMoment__momentNameDateFormatter stringFromDate:localStartDate];
+    v23[0] = v20;
+    v22[0] = @"name";
+    v22[1] = @"utcs";
     v5 = MEMORY[0x277CCABB0];
     universalStartDate = [momentCopy universalStartDate];
     [universalStartDate timeIntervalSince1970];
     v6 = [v5 numberWithDouble:?];
-    v24[1] = v6;
-    v23[2] = @"utce";
+    v23[1] = v6;
+    v22[2] = @"utce";
     v7 = MEMORY[0x277CCABB0];
     universalEndDate = [momentCopy universalEndDate];
     [universalEndDate timeIntervalSince1970];
     v9 = [v7 numberWithDouble:?];
-    v24[2] = v9;
-    v23[3] = @"tzs";
+    v23[2] = v9;
+    v22[3] = @"tzs";
     v10 = MEMORY[0x277CCABB0];
     localStartDate2 = [momentCopy localStartDate];
     [localStartDate2 timeIntervalSince1970];
     v12 = [v10 numberWithDouble:?];
-    v24[3] = v12;
-    v23[4] = @"tze";
+    v23[3] = v12;
+    v22[4] = @"tze";
     v13 = MEMORY[0x277CCABB0];
     localEndDate = [momentCopy localEndDate];
     [localEndDate timeIntervalSince1970];
     v15 = [v13 numberWithDouble:?];
-    v24[4] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
+    v23[4] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:5];
 
-    loggingConnection = v21;
+    loggingConnection = v20;
   }
 
   else
@@ -4237,14 +4078,12 @@ LABEL_17:
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = momentCopy;
+      v25 = momentCopy;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Cannot insert moment %@: localStartDate returned nil", buf, 0xCu);
     }
 
     v16 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -4262,7 +4101,7 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
 
 + (id)propertiesWithMoment:(id)moment
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   momentCopy = moment;
   uuid = [momentCopy uuid];
   if (!uuid)
@@ -4271,9 +4110,9 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
     uuid = [uUID UUIDString];
   }
 
-  v13 = @"lclid";
-  v14[0] = uuid;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"lclid";
+  v13[0] = uuid;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v8 = [v7 mutableCopy];
 
   v9 = [self timeBasedPropertiesWithMoment:momentCopy];
@@ -4282,7 +4121,6 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
   v10 = [self contentBasedPropertiesWithMoment:momentCopy];
 
   [v8 addEntriesFromDictionary:v10];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -4302,66 +4140,58 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
 
 + (id)contentScoreSortDescriptors
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"contentScore" ascending:0];
   v3 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalStartDate" ascending:{1, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-  v8[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)filterEnoughFacesProcessed
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"fpr";
+  v7 = @"fpr";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:6 value:&unk_2844871C8];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)filterEnoughScenesProcessed
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"spr";
+  v7 = @"spr";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:6 value:&unk_2844871C8];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (id)filterHappeningAtSensitiveLocation
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v7 = @"hasl";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"hasl";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)filterWithUniversalDateInterval:(id)interval
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   startDate = [intervalCopy startDate];
   [startDate timeIntervalSince1970];
@@ -4381,21 +4211,19 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
   v15 = [v13 initWithComparator:6 value:v14];
 
   v16 = objc_alloc(MEMORY[0x277D22C78]);
-  v21[0] = @"utcs";
-  v21[1] = @"utce";
-  v22[0] = v12;
-  v22[1] = v15;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v20[0] = @"utcs";
+  v20[1] = @"utce";
+  v21[0] = v12;
+  v21[1] = v15;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
   v18 = [v16 initWithLabel:@"Moment" domain:100 properties:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)filterWithLocalDateInterval:(id)interval
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   startDate = [intervalCopy startDate];
   [startDate timeIntervalSince1970];
@@ -4415,120 +4243,104 @@ void __51__PGGraphMomentNode_timeBasedPropertiesWithMoment___block_invoke()
   v15 = [v13 initWithComparator:6 value:v14];
 
   v16 = objc_alloc(MEMORY[0x277D22C78]);
-  v21[0] = @"tzs";
-  v21[1] = @"tze";
-  v22[0] = v12;
-  v22[1] = v15;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v20[0] = @"tzs";
+  v20[1] = @"tze";
+  v21[0] = v12;
+  v21[1] = v15;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
   v18 = [v16 initWithLabel:@"Moment" domain:100 properties:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (id)filterWithTotalNumberOfPersonsGreaterThanOrEqualTo:(unint64_t)to
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"tnop";
+  v11 = @"tnop";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:to];
   v7 = [v5 initWithComparator:6 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)filterWithUUID:(id)d
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   filter = [self filter];
-  v10 = @"lclid";
-  v11[0] = dCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"lclid";
+  v10[0] = dCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)filterWithUUIDs:(id)ds
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   filter = [self filter];
-  v10 = @"lclid";
-  v11[0] = dsCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"lclid";
+  v10[0] = dsCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [filter filterBySettingProperties:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (id)smartInterestingFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C78]);
-  v7 = @"sintng";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"sintng";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 initWithLabel:@"Moment" domain:100 properties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)interestingWithAlternateJunkingFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C78]);
-  v7 = @"intngaj";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"intngaj";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 initWithLabel:@"Moment" domain:100 properties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (id)interestingFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C78]);
-  v7 = @"intng";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"intng";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 initWithLabel:@"Moment" domain:100 properties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 + (MANodeFilter)filterEncodedCLIPFeatureVectorNotEmpty
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = +[PGGraphMomentNode filter];
-  v8 = @"clipfeature";
+  v7 = @"clipfeature";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:2 value:&stru_2843F5C58];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

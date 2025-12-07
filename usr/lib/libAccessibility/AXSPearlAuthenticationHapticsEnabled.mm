@@ -3,7 +3,7 @@
 
 @implementation AXSPearlAuthenticationHapticsEnabled
 
-uint64_t ___AXSPearlAuthenticationHapticsEnabled_block_invoke()
+void *___AXSPearlAuthenticationHapticsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

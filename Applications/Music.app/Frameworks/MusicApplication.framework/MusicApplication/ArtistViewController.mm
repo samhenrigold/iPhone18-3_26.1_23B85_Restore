@@ -50,18 +50,18 @@
 {
   appearCopy = appear;
   ObjectType = swift_getObjectType();
-  v6 = type metadata accessor for MetricsEvent.Page(0);
-  __chkstk_darwin(v6 - 8);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12.receiver = self;
-  v12.super_class = ObjectType;
+  type metadata accessor for MetricsEvent.Page(0);
+  __chkstk_darwin();
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11.receiver = self;
+  v11.super_class = ObjectType;
   selfCopy = self;
-  [(VerticalStackViewController *)&v12 viewDidAppear:appearCopy];
-  v10 = *MetricsReportingController.shared.unsafeMutableAddressor();
-  v11 = MetricsEvent.Page.libraryArtistDetail.unsafeMutableAddressor();
-  sub_1EC1F8(v11, v8, type metadata accessor for MetricsEvent.Page);
-  (*(&stru_68.reloff + (swift_isaMask & *v10)))(v8, 0, 0, 0, 0, 0);
-  sub_1EC260(v8, type metadata accessor for MetricsEvent.Page);
+  [(VerticalStackViewController *)&v11 viewDidAppear:appearCopy];
+  v9 = *MetricsReportingController.shared.unsafeMutableAddressor();
+  v10 = MetricsEvent.Page.libraryArtistDetail.unsafeMutableAddressor();
+  sub_1EC1F8(v10, v7, type metadata accessor for MetricsEvent.Page);
+  (*(&stru_68.reloff + (swift_isaMask & *v9)))(v7, 0, 0, 0, 0, 0);
+  sub_1EC260(v7, type metadata accessor for MetricsEvent.Page);
 }
 
 - (void)viewDidLayoutSubviews
@@ -74,7 +74,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_1EB768();
+  sub_1EB768(v5);
 }
 
 - (void)traitCollectionDidChange:(id)change

@@ -177,7 +177,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t sandbox_check(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check(int a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v23 = a2;
   sandbox_operation_fixup(&v23);
@@ -197,7 +197,7 @@ uint64_t sandbox_check(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, ui
   return sandbox_check_common(v12, a3, &a9);
 }
 
-uint64_t sandbox_operation_fixup(uint64_t *a1)
+const char *sandbox_operation_fixup(const char **a1)
 {
   result = *a1;
   if (result)
@@ -205,7 +205,7 @@ uint64_t sandbox_operation_fixup(uint64_t *a1)
     result = strcmp(result, "iokit-open");
     if (!result)
     {
-      result = sandbox_warn();
+      result = sandbox_warn("sandbox operation %s is obsolete; replace with %s", "iokit-open", "iokit-open-user-client");
       *a1 = "iokit-open-user-client";
     }
   }
@@ -213,7 +213,7 @@ uint64_t sandbox_operation_fixup(uint64_t *a1)
   return result;
 }
 
-uint64_t sandbox_check_by_audit_token(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check_by_audit_token(uint64_t a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v23 = 0;
   v24 = a2;
@@ -237,14 +237,7 @@ uint64_t sandbox_check_by_audit_token(uint64_t a1, uint64_t a2, int a3, uint64_t
   return sandbox_check_common(&v13, a3, &a9);
 }
 
-uint64_t sandbox_container_path_for_audit_token(uint64_t a1)
-{
-  v2 = *(a1 + 20);
-  v3 = *(a1 + 28);
-  return __sandbox_ms();
-}
-
-uint64_t sandbox_get_container_expected(_BYTE *a1, _BYTE *a2)
+uint64_t sandbox_get_container_expected(BOOL *a1, BOOL *a2)
 {
   if (__sandbox_ms())
   {
@@ -265,7 +258,7 @@ uint64_t sandbox_get_container_expected(_BYTE *a1, _BYTE *a2)
   return result;
 }
 
-uint64_t sandbox_container_path_for_pid(int a1)
+uint64_t sandbox_container_path_for_pid(pid_t a1, uint64_t a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -275,17 +268,8 @@ uint64_t sandbox_container_path_for_pid(int a1)
   return __sandbox_ms();
 }
 
-void *sandbox_extension_issue_file_to_process(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
-{
-  v4 = *(a4 + 20);
-  v5 = *(a4 + 28);
-  return _sandbox_extension_issue(a1, 0, a2, a3);
-}
-
 uint64_t sandbox_reference_retain_by_audit_token(uint64_t a1)
 {
-  v2 = *(a1 + 20);
-  v3 = *(a1 + 28);
   if (__sandbox_ms())
   {
     return -1;
@@ -297,10 +281,10 @@ uint64_t sandbox_reference_retain_by_audit_token(uint64_t a1)
   }
 }
 
-void *_sandbox_extension_issue(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
+void *_sandbox_extension_issue(uint64_t a1, unsigned int a2, uint64_t a3, char a4, int a5, unsigned int a6)
 {
-  v5 = malloc_type_malloc(0x3FF0uLL, 0xD4D356C0uLL);
-  if (v5)
+  v7 = malloc_type_malloc(0x3FF0uLL, 0xD4D356C0uLL);
+  if (v7)
   {
     if (a4)
     {
@@ -309,14 +293,14 @@ void *_sandbox_extension_issue(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 
     else if (__sandbox_ms())
     {
-      v6 = *__error();
-      free(v5);
-      v5 = 0;
-      *__error() = v6;
+      v8 = *__error();
+      free(v7);
+      v7 = 0;
+      *__error() = v8;
     }
   }
 
-  return v5;
+  return v7;
 }
 
 uint64_t sandbox_extension_consume(const char *a1)
@@ -383,61 +367,63 @@ LABEL_9:
   return 0;
 }
 
-void *sandbox_extension_issue_mach_to_process(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
-{
-  v4 = *(a4 + 20);
-  v5 = *(a4 + 28);
-  return _sandbox_extension_issue(a1, 1, a2, a3);
-}
-
 uint64_t rootless_check_protected_flag(const char *a1, const char *a2, int a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  memset(&v10, 0, sizeof(v10));
-  result = stat(a1, &v10);
+  v11 = *MEMORY[0x29EDCA608];
+  memset(&v9, 0, sizeof(v9));
+  result = stat(a1, &v9);
   if (!result)
   {
     if (a3 == 0x80000 && is_path_on_authenticated_root_volume(a1))
     {
-      v10.st_flags |= 0x80000u;
+      v9.st_flags |= 0x80000u;
     }
 
-    if ((v10.st_flags & a3) == 0)
+    if ((v9.st_flags & a3) == 0)
     {
-      goto LABEL_10;
+      return 1;
     }
 
-    if (!a2)
+    if (a2)
     {
-      result = 0;
-      goto LABEL_12;
+      memset(value, 0, sizeof(value));
+      v7 = getxattr(a1, "com.apple.rootless", value, 0x80uLL, 0, 0);
+      if (v7 < 1)
+      {
+        return 1;
+      }
+
+      v8 = v7;
+      if (v7 != strlen(a2))
+      {
+        return 1;
+      }
+
+      result = memcmp(a2, value, v8);
+      if (result)
+      {
+        return 1;
+      }
     }
 
-    memset(value, 0, sizeof(value));
-    v7 = getxattr(a1, "com.apple.rootless", value, 0x80uLL, 0, 0);
-    if (v7 < 1 || (v8 = v7, v7 != strlen(a2)) || (result = memcmp(a2, value, v8), result))
+    else
     {
-LABEL_10:
-      result = 1;
+      return 0;
     }
   }
 
-LABEL_12:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 BOOL _sandbox_in_a_container()
 {
-  v4 = *MEMORY[0x29EDCA608];
-  bzero(v3, 0x400uLL);
+  v3 = *MEMORY[0x29EDCA608];
+  bzero(v2, 0x400uLL);
   v0 = getpid();
-  result = sandbox_container_path_for_pid(v0) == 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  return sandbox_container_path_for_pid(v0, v2, 1024) == 0;
 }
 
-uint64_t rootless_trusted_by_self_token(unsigned int a1, int a2)
+uint64_t rootless_trusted_by_self_token(int a1, int a2)
 {
   v4 = trusted_storage_classes_0;
   if (trusted_storage_classes_0)
@@ -460,7 +446,7 @@ uint64_t rootless_trusted_by_self_token(unsigned int a1, int a2)
   return (1 << a2) | 0x80000000;
 }
 
-uint64_t rootless_check_trusted_internal(const char *a1, unsigned int a2, uint64_t a3)
+uint64_t rootless_check_trusted_internal(const char *a1, int a2, uint64_t a3)
 {
   if (a1)
   {
@@ -469,69 +455,69 @@ uint64_t rootless_check_trusted_internal(const char *a1, unsigned int a2, uint64
       return 0;
     }
 
-    v15 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v38 = 0;
-    v37 = xmmword_299E4E478;
-    v27 = 0;
-    v25 = 0u;
-    v26 = 0u;
-    if (fgetattrlist(a2, &v37, &v25, 0x28uLL, 0))
+    v28 = 0;
+    v27 = xmmword_299E4E478;
+    v17 = 0;
+    v15 = 0u;
+    v16 = 0u;
+    if (fgetattrlist(a2, &v27, &v15, 0x28uLL, 0))
     {
       v7 = *__error();
       v8 = __error();
-      strerror(*v8);
-      rootless_log(7, "fgetattrlist failed: #%d: %s", v9, v10, v11, v12, v13, v14, v7);
+      v9 = strerror(*v8);
+      rootless_log(7, "fgetattrlist failed: #%d: %s", v7, v9);
     }
 
-    else if ((BYTE5(v25) & 0x40) != 0 && (BYTE11(v25) & 2) != 0)
+    else if ((BYTE5(v15) & 0x40) != 0 && (BYTE11(v15) & 2) != 0)
     {
-      v42 = 0x20000000000;
-      v41 = xmmword_299E4E490;
-      v40 = 0;
-      v39 = 0;
-      if (fgetattrlist(a2, &v41, &v39, 0xCuLL, 0x20u))
+      v32 = 0x20000000000;
+      v31 = xmmword_299E4E490;
+      v30 = 0;
+      v29 = 0;
+      if (fgetattrlist(a2, &v31, &v29, 0xCuLL, 0x20u))
       {
-        v17 = *__error();
-        v18 = __error();
-        strerror(*v18);
-        rootless_log(7, "fgetattrlist failed: #%d: %s", v19, v20, v21, v22, v23, v24, v17);
+        v12 = *__error();
+        v13 = __error();
+        v14 = strerror(*v13);
+        rootless_log(7, "fgetattrlist failed: #%d: %s", v12, v14);
         return 0;
       }
 
-      if ((v39 & 0x2000000000) == 0)
+      if ((v29 & 0x2000000000) == 0)
       {
         return 0;
       }
     }
 
-    v15 = 240;
+    v10 = 240;
   }
 
-  *&v41 = 0;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0;
-  *&v25 = &v41;
-  *(&v25 + 1) = 1;
-  v30 = a3;
-  v16 = a2;
+  *&v31 = 0;
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0;
+  *&v15 = &v31;
+  *(&v15 + 1) = 1;
+  v20 = a3;
+  v11 = a2;
   if (a1)
   {
-    v16 = a1;
+    v11 = a1;
   }
 
-  *&v26 = "file-write-data";
-  *(&v26 + 1) = v15;
-  v27 = v16;
-  v28 = 536870917;
+  *&v16 = "file-write-data";
+  *(&v16 + 1) = v10;
+  v17 = v11;
+  v18 = 536870917;
   if (__sandbox_ms())
   {
     return 0xFFFFFFFFLL;
@@ -539,22 +525,23 @@ uint64_t rootless_check_trusted_internal(const char *a1, unsigned int a2, uint64
 
   else
   {
-    return v41 != 1;
+    return v31 != 1;
   }
 }
 
-void rootless_log(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void rootless_log(uint64_t a1, const char *a2, ...)
 {
-  v9[0] = 0;
-  v9[1] = &a9;
-  vasprintf(v9, a2, &a9);
-  if (!v9[0])
+  va_start(va, a2);
+  v2[0] = 0;
+  va_copy(&v2[1], va);
+  vasprintf(v2, a2, va);
+  if (!v2[0])
   {
     rootless_register_trusted_storage_class_cold_1();
   }
 
   _simple_asl_log();
-  free(v9[0]);
+  free(v2[0]);
 }
 
 double sandbox_spawnattrs_init(uint64_t a1)
@@ -587,16 +574,9 @@ uint64_t sandbox_spawnattrs_setprofilename(uint64_t a1, char *__s)
   return result;
 }
 
-void *sandbox_extension_issue_generic_to_process(uint64_t a1, char a2, uint64_t a3)
-{
-  v3 = *(a3 + 20);
-  v4 = *(a3 + 28);
-  return _sandbox_extension_issue(a1, 3, 0, a2);
-}
-
 uint64_t sandbox_init_with_parameters(void *a1, uint64_t a2, void *a3, char **a4)
 {
-  v36[0] = 0;
+  v35[0] = 0;
   if (a4)
   {
     v7 = a4;
@@ -604,7 +584,7 @@ uint64_t sandbox_init_with_parameters(void *a1, uint64_t a2, void *a3, char **a4
 
   else
   {
-    v7 = v36;
+    v7 = v35;
   }
 
   *v7 = 0;
@@ -678,9 +658,9 @@ LABEL_36:
           if (a2 == 4)
           {
 LABEL_22:
-            v36[2] = 0;
-            v36[3] = 0;
-            v36[1] = a1;
+            v35[2] = 0;
+            v35[3] = 0;
+            v35[1] = a1;
             v21 = __sandbox_ms();
             if (v21)
             {
@@ -768,15 +748,14 @@ LABEL_40:
 LABEL_41:
   if (*v7)
   {
-    v35 = *v7;
-    sandbox_warn();
+    sandbox_warn("sandbox initialization failed: %s", *v7);
   }
 
-  if (v7 == v36)
+  if (v7 == v35)
   {
-    if (v36[0] != internal_error)
+    if (v35[0] != internal_error)
     {
-      free(v36[0]);
+      free(v35[0]);
     }
   }
 
@@ -789,14 +768,14 @@ LABEL_41:
   return v21;
 }
 
-uint64_t sandbox_warn()
+uint64_t sandbox_warn(const char *a1, ...)
 {
   _simple_salloc();
   _simple_vsprintf();
   _simple_string();
   _simple_asl_log();
-  _simple_string();
-  _simple_dprintf();
+  v1 = _simple_string();
+  _simple_dprintf(2, "%s\n", v1);
   return _simple_sfree();
 }
 
@@ -808,7 +787,7 @@ void sandbox_free_error(char *errorbuf)
   }
 }
 
-uint64_t sandbox_check_with_attribution(int a1, uint64_t a2, uint64_t a3, _DWORD *a4, uint64_t a5, int a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check_with_attribution(int a1, uint64_t a2, uint64_t a3, _DWORD *a4, const char *a5, int a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v26 = a5;
   v27 = a3;
@@ -839,7 +818,7 @@ uint64_t sandbox_check_with_attribution(int a1, uint64_t a2, uint64_t a3, _DWORD
   return result;
 }
 
-uint64_t sandbox_check_by_uniqueid(int a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check_by_uniqueid(int a1, uint64_t a2, const char *a3, int a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v25 = a3;
   sandbox_operation_fixup(&v25);
@@ -861,8 +840,9 @@ uint64_t sandbox_check_by_uniqueid(int a1, uint64_t a2, uint64_t a3, int a4, uin
   return sandbox_check_common(v13, a4, &a9);
 }
 
-uint64_t sandbox_check_self_signal_target(unsigned int a1, uint64_t a2, int a3)
+uint64_t sandbox_check_self_signal_target(uint64_t a1, uint64_t a2, int a3)
 {
+  v5 = a1;
   v23 = 0u;
   v24 = 0u;
   v21 = 0u;
@@ -880,7 +860,7 @@ uint64_t sandbox_check_self_signal_target(unsigned int a1, uint64_t a2, int a3)
   v7 = *(a2 + 28);
   *&v22 = v6;
   *(&v22 + 1) = v7;
-  return sandbox_check_signal_target_internal(v15, a3 & 0x81FFFFED | 0x12, v8, v9, v10, v11, v12, v13, a1);
+  return sandbox_check_signal_target_internal(v15, a3 & 0x81FFFFED | 0x12, v8, v9, v10, v11, v12, v13, v5);
 }
 
 uint64_t sandbox_check_process_signal_target(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -905,48 +885,40 @@ uint64_t sandbox_check_process_signal_target(uint64_t a1, unsigned int a2, uint6
   return sandbox_check_signal_target_internal(v11, a4 & 0x81FFFFED | 0x12, a3, a4, a5, a6, a7, a8, a2);
 }
 
-uint64_t sandbox_query_approval_policy_for_path(uint64_t a1, uint64_t a2, char **a3)
+uint64_t sandbox_query_approval_policy_for_path(const char *a1, uint64_t a2, char **a3)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   memset(__s1, 0, sizeof(__s1));
-  v7 = a1;
-  sandbox_operation_fixup(&v7);
+  v6 = a1;
+  sandbox_operation_fixup(&v6);
   getpid();
   if (__sandbox_ms())
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  if (a3)
   {
-    if (a3)
+    if (strstr(__s1, "-telemetry-"))
     {
-      if (strstr(__s1, "-telemetry-"))
-      {
-        v5 = 0;
-      }
-
-      else
-      {
-        v5 = strdup(__s1);
-      }
-
-      *a3 = v5;
+      v5 = 0;
     }
 
-    result = 0;
+    else
+    {
+      v5 = strdup(__s1);
+    }
+
+    *a3 = v5;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
-uint64_t sandbox_query_user_intent_for_process_with_audit_token(uint64_t a1, uint64_t a2, int a3, uint64_t a4, _BYTE *a5)
+uint64_t sandbox_query_user_intent_for_process_with_audit_token(uint64_t a1, const char *a2, unsigned int a3, uint64_t a4, BOOL *a5)
 {
-  v11 = a2;
-  sandbox_operation_fixup(&v11);
-  v9 = *(a1 + 20);
-  v10 = *(a1 + 28);
+  v8 = a2;
+  sandbox_operation_fixup(&v8);
   if ((a3 & 0x81FFFFFE) != 0)
   {
     *__error() = 22;
@@ -966,29 +938,27 @@ uint64_t sandbox_query_user_intent_for_process_with_audit_token(uint64_t a1, uin
   return 0;
 }
 
-uint64_t sandbox_check_finder_automation_for_path(uint64_t a1, uint64_t a2, int a3)
+uint64_t sandbox_check_finder_automation_for_path(uint64_t a1, const char *a2, int a3)
 {
   if (a3)
   {
-    sandbox_warn();
+    sandbox_warn("%s: unsupported flags: %u", "sandbox_check_finder_automation_for_path", a3);
     abort();
   }
 
-  v6 = *(a1 + 20);
-  v7 = *(a1 + 28);
   if ((__sandbox_ms() & 0x80000000) == 0)
   {
     return 1;
   }
 
-  v4 = __error();
-  strerror(*v4);
-  v5 = *__error();
-  sandbox_warn();
+  v5 = __error();
+  v6 = strerror(*v5);
+  v7 = __error();
+  sandbox_warn("%s: failed for %s: %s (%d)", "sandbox_check_finder_automation_for_path", a2, v6, *v7);
   return 0;
 }
 
-uint64_t sandbox_check_bulk(uint64_t a1, uint64_t a2, int a3)
+uint64_t sandbox_check_bulk(uint64_t a1, const char *a2, unsigned int a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
   v7 = a2;
   if ((a3 & 0x81FFFFFF) != 0)
@@ -1002,8 +972,6 @@ uint64_t sandbox_check_bulk(uint64_t a1, uint64_t a2, int a3)
   }
 
   sandbox_operation_fixup(&v7);
-  v5 = *(a1 + 20);
-  v6 = *(a1 + 28);
   if (__sandbox_ms())
   {
     return 0xFFFFFFFFLL;
@@ -1015,7 +983,7 @@ uint64_t sandbox_check_bulk(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t sandbox_check_by_reference(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+uint64_t sandbox_check_by_reference(uint64_t a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v24 = a2;
   sandbox_operation_fixup(&v24);
@@ -1036,55 +1004,41 @@ uint64_t sandbox_check_by_reference(uint64_t a1, uint64_t a2, int a3, uint64_t a
   return sandbox_check_common(&v12, a3, &a9);
 }
 
-uint64_t sandbox_set_container_path_for_audit_token(uint64_t a1)
-{
-  v2 = *(a1 + 20);
-  v3 = *(a1 + 28);
-  return __sandbox_ms();
-}
-
 void *sandbox_extension_issue_file_to_self(uint64_t a1, uint64_t a2, char a3)
 {
-  getpid();
+  v6 = getpid();
 
-  return _sandbox_extension_issue(a1, 0, a2, a3);
+  return _sandbox_extension_issue(a1, 0, a2, a3, v6, 0);
 }
 
-void *sandbox_extension_issue_iokit_registry_entry_class_to_process(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
-{
-  v4 = *(a4 + 20);
-  v5 = *(a4 + 28);
-  return _sandbox_extension_issue(a1, 2, a2, a3);
-}
-
-void *sandbox_extension_issue_related_file_to_process(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, __int128 *a6)
+void *sandbox_extension_issue_related_file_to_process(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, unsigned int a5, __int128 *a6)
 {
   v12 = *(a6 + 5);
   v13 = *(a6 + 7);
-  v39 = 0;
-  v40 = a4;
-  v38 = 0;
-  sandbox_operation_fixup(&v40);
-  *&v26 = &v38;
-  *(&v26 + 1) = v12;
-  *&v27 = v40;
-  *(&v27 + 1) = 1;
-  v30 = v13;
+  v37 = 0;
+  v38 = a4;
+  v36 = 0;
+  sandbox_operation_fixup(&v38);
+  *&v24 = &v36;
+  *(&v24 + 1) = v12;
+  *&v25 = v38;
+  *(&v25 + 1) = 1;
+  v28 = v13;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = &v39;
+  v32 = &v37;
   v14 = 1107296258;
   if ((a5 & 0x40000000) != 0)
   {
     v14 = 1107296259;
   }
 
+  v33 = 0uLL;
+  v34 = 0uLL;
   v35 = 0uLL;
-  v36 = 0uLL;
-  v37 = 0uLL;
-  v28 = a2;
-  v29 = v14 | (a5 >> 25) & 8 | (a5 >> 23) & 0x10;
+  v26 = a2;
+  v27 = v14 | (a5 >> 25) & 8 | (a5 >> 23) & 0x10;
   if ((a5 & 0x81FFFFFE) != 0)
   {
     *__error() = 22;
@@ -1096,41 +1050,34 @@ void *sandbox_extension_issue_related_file_to_process(uint64_t a1, uint64_t a2, 
     return 0;
   }
 
-  if (v38)
+  if (v36)
   {
     goto LABEL_8;
   }
 
-  if (v39)
+  if (v37)
   {
-    goto LABEL_10;
+    return _sandbox_extension_issue(a1, 0, a3, 2, *(a6 + 5), *(a6 + 7));
   }
 
-  v24 = a6[1];
-  v26 = *a6;
-  v27 = v24;
-  v25 = sandbox_check_by_audit_token(&v26, a4, a5 | 0x20000001, v15, v16, v17, v18, v19, a3);
-  if (v25 < 0)
+  v22 = a6[1];
+  v24 = *a6;
+  v25 = v22;
+  v23 = sandbox_check_by_audit_token(&v24, a4, a5 | 0x20000001, v15, v16, v17, v18, v19, a3);
+  if (v23 < 0)
   {
     return 0;
   }
 
-  if (v25)
+  if (!v23)
   {
+    return _sandbox_extension_issue(a1, 0, a3, 2, *(a6 + 5), *(a6 + 7));
+  }
+
 LABEL_8:
-    v21 = __error();
-    result = 0;
-    *v21 = 1;
-  }
-
-  else
-  {
-LABEL_10:
-    v22 = *(a6 + 5);
-    v23 = *(a6 + 7);
-    return _sandbox_extension_issue(a1, 0, a3, 2);
-  }
-
+  v21 = __error();
+  result = 0;
+  *v21 = 1;
   return result;
 }
 
@@ -1154,7 +1101,7 @@ uint64_t sandbox_spawnattrs_setcontainer(uint64_t a1, char *__s)
   return result;
 }
 
-void *sandbox_message_filter_query(int a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
+void *sandbox_message_filter_query(int a1, const char *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9)
 {
   v31 = 0;
   v32 = a2;
@@ -1240,8 +1187,6 @@ uint64_t sandbox_check_message_filter_string(uint64_t a1, uint64_t a2, uint64_t 
     return 0;
   }
 
-  v8 = *(a1 + 20);
-  v9 = *(a1 + 28);
   if ((a4 & 0x40000000) != 0)
   {
     a4 &= ~0x40000000u;
@@ -1249,7 +1194,7 @@ uint64_t sandbox_check_message_filter_string(uint64_t a1, uint64_t a2, uint64_t 
 
   if (a4)
   {
-    sandbox_warn();
+    sandbox_warn("unsupported flags passed to %s: 0x%0x", "sandbox_check_message_filter_string", a4);
     v5 = __error();
     v6 = 45;
 LABEL_8:
@@ -1265,15 +1210,13 @@ LABEL_8:
   return 0;
 }
 
-uint64_t sandbox_check_message_filter_integer(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t sandbox_check_message_filter_integer(uint64_t a1, uint64_t a2, uint64_t a3, int a4, unsigned int a5)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v5 = *(a1 + 20);
-  v6 = *(a1 + 28);
   if ((a4 & 0x40000000) != 0)
   {
     a4 &= ~0x40000000u;
@@ -1281,7 +1224,7 @@ uint64_t sandbox_check_message_filter_integer(uint64_t a1, uint64_t a2, uint64_t
 
   if (a4)
   {
-    sandbox_warn();
+    sandbox_warn("unsupported flags passed to %s: 0x%0x", "sandbox_check_message_filter_integer", a4);
     *__error() = 45;
   }
 
@@ -1297,7 +1240,7 @@ uint64_t sandbox_message_filter_retain(uint64_t a1)
 {
   if (a1 && __sandbox_ms())
   {
-    sandbox_message_filter_retain_cold_1();
+    sandbox_message_filter_retain_cold_1(a1);
   }
 
   return a1;
@@ -1307,13 +1250,14 @@ uint64_t sandbox_message_filter_release(uint64_t result)
 {
   if (result)
   {
+    v1 = result;
     result = __sandbox_ms();
     if (result)
     {
-      v1 = *__error();
-      v2 = __error();
-      strerror(*v2);
-      return sandbox_warn();
+      v2 = *__error();
+      v3 = __error();
+      v4 = strerror(*v3);
+      return sandbox_warn("%s failed on message filter #%llu: %d (%s)", "sandbox_message_filter_release", v1, v2, v4);
     }
   }
 
@@ -1370,7 +1314,6 @@ uint64_t sandbox_register_erm_initialization_callback(const void *a1)
 BOOL sandbox_enable_state_flag(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 20);
-  v6 = *(a2 + 28);
   if (MEMORY[0xFFFFFC342] && (!v2 || v2 == getpid()))
   {
     v3 = atomic_exchange(&registered_state_flag_callback, &__block_literal_global);
@@ -1394,7 +1337,7 @@ BOOL sandbox_enable_state_flag(uint64_t a1, uint64_t a2)
   return __sandbox_ms() == 0;
 }
 
-uint64_t sandbox_apply_bytecode(uint64_t a1, int a2, char *__s)
+uint64_t sandbox_apply_bytecode(uint64_t a1, uint64_t a2, char *__s)
 {
   if (a1)
   {
@@ -1413,7 +1356,7 @@ uint64_t sandbox_apply_bytecode(uint64_t a1, int a2, char *__s)
   }
 }
 
-uint64_t sandbox_check_storage_class()
+uint64_t sandbox_check_storage_class(int a1, uint64_t a2, uint64_t a3)
 {
   if (__sandbox_ms())
   {
@@ -1426,9 +1369,10 @@ uint64_t sandbox_check_storage_class()
   }
 }
 
-uint64_t _sandbox_register_app_bundle_1(uint64_t a1, uint64_t a2)
+uint64_t _sandbox_register_app_bundle_1(uint64_t a1, _UNKNOWN **a2)
 {
-  result = _sandbox_register_app_bundle_0();
+  v3 = a1;
+  result = _sandbox_register_app_bundle_0(a1);
   if (!result)
   {
     if (!a2)
@@ -1436,10 +1380,12 @@ uint64_t _sandbox_register_app_bundle_1(uint64_t a1, uint64_t a2)
       return 0;
     }
 
-    result = _sandbox_register_exception_common();
+    v5 = a2 == &kSandboxAppBundlePlatformTeamId ? 0 : a2;
+    result = _sandbox_register_exception_common("sandbox_register_app_bundle_exception", v3, 1u, 2 * (a2 == &kSandboxAppBundlePlatformTeamId), v5, 0);
     if (!result)
     {
-      result = _sandbox_register_exception_common();
+      v6 = a2 == &kSandboxAppBundlePlatformTeamId ? 3 : 1;
+      result = _sandbox_register_exception_common("sandbox_register_app_bundle_package_exception", v3, 1u, v6, v5, 0);
       if (!result)
       {
         return 0;
@@ -1450,7 +1396,7 @@ uint64_t _sandbox_register_app_bundle_1(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t _sandbox_register_app_bundle_0()
+uint64_t _sandbox_register_app_bundle_0(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1461,7 +1407,7 @@ uint64_t _sandbox_register_app_bundle_0()
   return result;
 }
 
-uint64_t sandbox_unregister_app_bundle()
+uint64_t sandbox_unregister_app_bundle(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1472,21 +1418,67 @@ uint64_t sandbox_unregister_app_bundle()
   return result;
 }
 
-uint64_t _sandbox_register_exception_common()
+uint64_t sandbox_register_app_bundle_exception(uint64_t a1, const char *a2, const char *a3)
 {
+  if (a2 == &kSandboxAppBundlePlatformTeamId)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = a2;
+  }
+
+  return _sandbox_register_exception_common("sandbox_register_app_bundle_exception", a1, 1u, 2 * (a2 == &kSandboxAppBundlePlatformTeamId), v3, a3);
+}
+
+uint64_t _sandbox_register_exception_common(const char *a1, int a2, unsigned int a3, uint64_t a4, const char *a5, const char *a6)
+{
+  v8 = a4;
   if (!__sandbox_ms())
   {
     return 0;
   }
 
-  v0 = __error();
-  v1 = *v0;
-  strerror(*v0);
-  sandbox_warn();
-  return v1;
+  v10 = __error();
+  v11 = *v10;
+  if ((v8 & 2) != 0)
+  {
+    a5 = "(platform)";
+  }
+
+  v12 = strerror(*v10);
+  sandbox_warn("%s failed for team-id=%s, signing-id=%s: #%d (%s)", a1, a5, a6, v11, v12);
+  return v11;
 }
 
-uint64_t sandbox_register_app_container()
+uint64_t sandbox_register_app_bundle_package_exception(int a1, const char *a2, const char *a3)
+{
+  if (a2 == &kSandboxAppBundlePlatformTeamId)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = a2;
+  }
+
+  if (a2 == &kSandboxAppBundlePlatformTeamId)
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  return _sandbox_register_exception_common("sandbox_register_app_bundle_package_exception", a1, 1u, v4, v3, a3);
+}
+
+uint64_t sandbox_register_app_container(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1497,7 +1489,7 @@ uint64_t sandbox_register_app_container()
   return result;
 }
 
-uint64_t sandbox_unregister_app_container()
+uint64_t sandbox_unregister_app_container(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1508,7 +1500,7 @@ uint64_t sandbox_unregister_app_container()
   return result;
 }
 
-uint64_t sandbox_check_protected_app_container(uint64_t a1, _BYTE *a2, _BYTE *a3)
+uint64_t sandbox_check_protected_app_container(int a1, _BYTE *a2, BOOL *a3)
 {
   result = __sandbox_ms();
   if (result)
@@ -1521,7 +1513,47 @@ uint64_t sandbox_check_protected_app_container(uint64_t a1, _BYTE *a2, _BYTE *a3
   return result;
 }
 
-uint64_t sandbox_register_sync_root()
+uint64_t sandbox_register_app_container_exception(int a1, const char *a2, const char *a3)
+{
+  if (a2 == &kSandboxAppContainerPlatformTeamId)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = a2;
+  }
+
+  return _sandbox_register_exception_common("sandbox_register_app_container_exception", a1, 2u, 2 * (a2 == &kSandboxAppContainerPlatformTeamId), v3, a3);
+}
+
+uint64_t sandbox_register_app_container_package_exception(int a1, const char *a2, const char *a3)
+{
+  if (a2 == &kSandboxAppContainerPlatformTeamId)
+  {
+    v3 = 0;
+  }
+
+  else
+  {
+    v3 = a2;
+  }
+
+  if (a2 == &kSandboxAppContainerPlatformTeamId)
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  return _sandbox_register_exception_common("sandbox_register_app_container_package_exception", a1, 2u, v4, v3, a3);
+}
+
+uint64_t sandbox_register_sync_root(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1532,7 +1564,7 @@ uint64_t sandbox_register_sync_root()
   return result;
 }
 
-uint64_t sandbox_register_disk_image_backing_store()
+uint64_t sandbox_register_disk_image_backing_store(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1543,7 +1575,7 @@ uint64_t sandbox_register_disk_image_backing_store()
   return result;
 }
 
-uint64_t sandbox_unregister_disk_image_backing_store()
+uint64_t sandbox_unregister_disk_image_backing_store(int a1)
 {
   result = __sandbox_ms();
   if (result)
@@ -1643,93 +1675,74 @@ uint64_t sandbox_consume_mach_extension(const char *a1, void *a2)
 
 uint64_t rootless_mkdir_protected(const char *a1, mode_t a2, void *a3, __uint32_t a4)
 {
-  v48 = *MEMORY[0x29EDCA608];
-  bzero(v47, 0x400uLL);
-  memset(&v31, 0, sizeof(v31));
-  memset(&v30, 0, sizeof(v30));
-  if (dirname_r(a1, v47))
+  v42 = *MEMORY[0x29EDCA608];
+  bzero(v41, 0x400uLL);
+  memset(&v25, 0, sizeof(v25));
+  memset(&v24, 0, sizeof(v24));
+  if (dirname_r(a1, v41))
   {
-    v8 = open(v47, 1074790400);
+    v8 = open(v41, 1074790400);
     if ((v8 & 0x80000000) == 0)
     {
       v9 = v8;
-      if (fstat(v8, &v31) < 0)
+      if (fstat(v8, &v25) < 0 || (v39 = 0u, memset(v40, 0, sizeof(v40)), v37 = 0u, v38 = 0u, v35 = 0u, v36 = 0u, v33 = 0u, v34 = 0u, v31 = 0u, v32 = 0u, v29 = 0u, v30 = 0u, v27 = 0u, v28 = 0u, *v26 = 0u, !basename_r(a1, v26)) || (v10 = mkdirat(v9, v26, a2)) != 0 && ((v11 = __error(), a4 != 0x100000) || *v11 != 17))
       {
-        goto LABEL_19;
-      }
-
-      v45 = 0u;
-      memset(v46, 0, sizeof(v46));
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
-      v34 = 0u;
-      *v32 = 0u;
-      if (!basename_r(a1, v32) || (v10 = mkdirat(v9, v32, a2)) != 0 && ((v11 = __error(), a4 != 0x100000) || *v11 != 17))
-      {
-LABEL_19:
-        v21 = *__error();
+        v15 = *__error();
         goto LABEL_20;
       }
 
-      v12 = openat(v9, v32, 1611661312);
+      v12 = openat(v9, v26, 1611661312);
       v13 = v12;
-      if ((v12 & 0x80000000) == 0 && (fstat(v12, &v30) & 0x80000000) == 0)
+      if ((v12 & 0x80000000) == 0 && (fstat(v12, &v24) & 0x80000000) == 0)
       {
-        if (v30.st_dev != v31.st_dev)
+        if (v24.st_dev != v25.st_dev)
         {
-          v24 = "%s: failed: %s not on same filesystem as parent";
-          v25 = 3;
+          v20 = a1;
+          v17 = "%s: failed: %s not on same filesystem as parent";
+          v18 = 3;
           goto LABEL_24;
         }
 
-        v20 = &unk_299E4EAD7;
+        v14 = &unk_299E4EAD7;
         if (a3)
         {
-          v20 = a3;
+          v14 = a3;
         }
 
-        v28 = v13;
-        v29 = v20;
+        v22 = v13;
+        v23 = v14;
         if (!__sandbox_ms() && !fchflags(v13, a4))
         {
-          memset(&v27, 0, sizeof(v27));
+          memset(&v21, 0, sizeof(v21));
           close(v13);
-          v26 = openat(v9, v32, 1611661312);
-          v13 = v26;
-          if ((v26 & 0x80000000) == 0 && (fstat(v26, &v27) & 0x80000000) == 0)
+          v19 = openat(v9, v26, 1611661312);
+          v13 = v19;
+          if ((v19 & 0x80000000) == 0 && (fstat(v19, &v21) & 0x80000000) == 0)
           {
-            if (v27.st_dev == v30.st_dev && v27.st_ino == v30.st_ino)
+            if (v21.st_dev == v24.st_dev && v21.st_ino == v24.st_ino)
             {
-              if ((a4 & ~v27.st_flags) == 0)
+              if ((a4 & ~v21.st_flags) == 0)
               {
                 close(v9);
                 close(v13);
-                result = 0;
-                goto LABEL_22;
+                return 0;
               }
 
-              v24 = "%s: failed: %s not protected";
+              v20 = a1;
+              v17 = "%s: failed: %s not protected";
             }
 
             else
             {
-              v24 = "%s: failed: %s moved before protection";
+              v20 = a1;
+              v17 = "%s: failed: %s moved before protection";
             }
 
-            v25 = 1;
+            v18 = 1;
 LABEL_24:
-            rootless_log(v25, v24, v14, v15, v16, v17, v18, v19, "rootless_mkdir_protected");
+            rootless_log(v18, v17, "rootless_mkdir_protected", v20);
             *__error() = 89;
-            v21 = *__error();
+            v15 = *__error();
             if (v10)
             {
 LABEL_26:
@@ -1742,7 +1755,7 @@ LABEL_26:
         }
       }
 
-      v21 = *__error();
+      v15 = *__error();
       if (v10)
       {
         if ((v13 & 0x80000000) != 0)
@@ -1754,7 +1767,7 @@ LABEL_26:
       }
 
 LABEL_25:
-      unlinkat(v9, v32, 2176);
+      unlinkat(v9, v26, 2176);
       if ((v13 & 0x80000000) == 0)
       {
         goto LABEL_26;
@@ -1766,67 +1779,59 @@ LABEL_20:
     }
   }
 
-  v21 = *__error();
+  v15 = *__error();
 LABEL_21:
-  *__error() = v21;
-  result = 0xFFFFFFFFLL;
-LABEL_22:
-  v23 = *MEMORY[0x29EDCA608];
-  return result;
+  *__error() = v15;
+  return 0xFFFFFFFFLL;
 }
 
-uint64_t rootless_convert_to_datavault(const char *a1)
+uint64_t rootless_convert_to_datavault(const char *a1, uint64_t a2)
 {
-  v53[2] = *MEMORY[0x29EDCA608];
-  v2 = open(a1, 256);
-  if (v2 == -1)
+  v21[2] = *MEMORY[0x29EDCA608];
+  v3 = open(a1, 256);
+  if (v3 == -1)
   {
-    v12 = __error();
-    strerror(*v12);
-    rootless_log(3, "%s: open(%s): %s", v13, v14, v15, v16, v17, v18, "rootless_convert_to_datavault");
-    goto LABEL_6;
+    v8 = __error();
+    v9 = strerror(*v8);
+    rootless_log(3, "%s: open(%s): %s", "rootless_convert_to_datavault", a1, v9);
+    return 0xFFFFFFFFLL;
   }
 
-  v3 = v2;
+  v4 = v3;
   if (__sandbox_ms())
   {
-    v4 = "%s: rootless_set_storage_class(%s): %s";
+    v5 = "%s: rootless_set_storage_class(%s): %s";
 LABEL_4:
-    v5 = __error();
-    strerror(*v5);
-    rootless_log(3, v4, v6, v7, v8, v9, v10, v11, "rootless_convert_to_datavault");
-    close(v3);
-LABEL_6:
-    v19 = 0xFFFFFFFFLL;
-    goto LABEL_7;
+    v6 = __error();
+    v7 = strerror(*v6);
+    rootless_log(3, v5, "rootless_convert_to_datavault", a1, v7);
+    close(v4);
+    return 0xFFFFFFFFLL;
   }
 
-  v53[0] = a1;
-  v53[1] = 0;
-  v22 = fts_open(v53, 84, 0);
-  if (!v22)
+  v21[0] = a1;
+  v21[1] = 0;
+  v12 = fts_open(v21, 84, 0);
+  if (!v12)
   {
-    v4 = "%s: fts_open(%s): %s";
+    v5 = "%s: fts_open(%s): %s";
     goto LABEL_4;
   }
 
-  v23 = v22;
-  v24 = fts_read(v22);
-  if (v24)
+  v13 = v12;
+  v14 = fts_read(v12);
+  if (v14)
   {
-    v31 = v24;
+    v15 = v14;
     do
     {
-      fts_info = v31->fts_info;
+      fts_info = v15->fts_info;
       if (fts_info > 6)
       {
         if (fts_info == 10 || fts_info == 7)
         {
 LABEL_25:
-          fts_errno = v31->fts_errno;
-          fts_path = v31->fts_path;
-          v50 = v31->fts_info;
-          rootless_log(3, "%s: bad fts entity %d:%d at %s", v25, v26, v27, v28, v29, v30, "rootless_convert_to_datavault");
+          rootless_log(3, "%s: bad fts entity %d:%d at %s");
           goto LABEL_26;
         }
       }
@@ -1844,52 +1849,49 @@ LABEL_25:
         }
       }
 
-      st_flags = v31->fts_statp->st_flags;
-      if ((st_flags & 0x80) == 0 && lchflags(v31->fts_accpath, st_flags | 0x80))
+      st_flags = v15->fts_statp->st_flags;
+      if ((st_flags & 0x80) == 0 && lchflags(v15->fts_accpath, st_flags | 0x80))
       {
-        v42 = v31->fts_path;
-        v43 = __error();
-        strerror(*v43);
-        rootless_log(3, "%s: lchflags(%s): %s", v44, v45, v46, v47, v48, v49, "rootless_convert_to_datavault");
+        v20 = __error();
+        strerror(*v20);
+        rootless_log(3, "%s: lchflags(%s): %s");
 LABEL_26:
-        v19 = 0xFFFFFFFFLL;
+        v10 = 0xFFFFFFFFLL;
         goto LABEL_28;
       }
 
 LABEL_21:
-      v31 = fts_read(v23);
+      v15 = fts_read(v13);
     }
 
-    while (v31);
+    while (v15);
   }
 
   if (*__error())
   {
-    v35 = __error();
-    strerror(*v35);
-    rootless_log(3, "%s: fts_read: %s", v36, v37, v38, v39, v40, v41, "rootless_convert_to_datavault");
+    v19 = __error();
+    strerror(*v19);
+    rootless_log(3, "%s: fts_read: %s");
     goto LABEL_26;
   }
 
-  v19 = 0;
+  v10 = 0;
 LABEL_28:
-  close(v3);
-  fts_close(v23);
-LABEL_7:
-  v20 = *MEMORY[0x29EDCA608];
-  return v19;
+  close(v4);
+  fts_close(v13);
+  return v10;
 }
 
-uint64_t rootless_remove_in_favor_of_static_storage_class(const char *a1, int a2)
+uint64_t rootless_remove_in_favor_of_static_storage_class(const char *a1, unsigned int a2)
 {
-  v63[2] = *MEMORY[0x29EDCA608];
+  v24[2] = *MEMORY[0x29EDCA608];
   v4 = open(a1, 256);
   if (v4 == -1)
   {
-    v14 = __error();
-    strerror(*v14);
-    rootless_log(3, "%s: open(%s): %s", v15, v16, v17, v18, v19, v20, "rootless_remove_in_favor_of_static_storage_class");
-    goto LABEL_6;
+    v9 = __error();
+    v10 = strerror(*v9);
+    rootless_log(3, "%s: open(%s): %s", "rootless_remove_in_favor_of_static_storage_class", a1, v10);
+    return 0xFFFFFFFFLL;
   }
 
   v5 = v4;
@@ -1898,39 +1900,34 @@ uint64_t rootless_remove_in_favor_of_static_storage_class(const char *a1, int a2
     v6 = "%s: rootless_check_clear_storage_class(%s): %s";
 LABEL_4:
     v7 = __error();
-    strerror(*v7);
-    rootless_log(3, v6, v8, v9, v10, v11, v12, v13, "rootless_remove_in_favor_of_static_storage_class");
+    v8 = strerror(*v7);
+    rootless_log(3, v6, "rootless_remove_in_favor_of_static_storage_class", a1, v8);
     close(v5);
-LABEL_6:
-    v21 = 0xFFFFFFFFLL;
-    goto LABEL_7;
+    return 0xFFFFFFFFLL;
   }
 
-  v63[0] = a1;
-  v63[1] = 0;
-  v24 = fts_open(v63, 84, 0);
-  if (!v24)
+  v24[0] = a1;
+  v24[1] = 0;
+  v13 = fts_open(v24, 84, 0);
+  if (!v13)
   {
     v6 = "%s: fts_open(%s): %s";
     goto LABEL_4;
   }
 
-  v25 = v24;
-  v26 = fts_read(v24);
-  if (v26)
+  v14 = v13;
+  v15 = fts_read(v13);
+  if (v15)
   {
-    v33 = v26;
+    v16 = v15;
     do
     {
-      fts_info = v33->fts_info;
+      fts_info = v16->fts_info;
       if (fts_info > 3)
       {
         if (fts_info == 4 || fts_info == 10 || fts_info == 7)
         {
-          fts_errno = v33->fts_errno;
-          fts_path = v33->fts_path;
-          v60 = v33->fts_info;
-          rootless_log(3, "%s: bad fts entity %d:%d at %s", v27, v28, v29, v30, v31, v32, "rootless_remove_in_favor_of_static_storage_class");
+          rootless_log(3, "%s: bad fts entity %d:%d at %s");
           goto LABEL_32;
         }
       }
@@ -1940,48 +1937,45 @@ LABEL_6:
         goto LABEL_23;
       }
 
-      st_flags = v33->fts_statp->st_flags;
-      if ((st_flags & a2) != 0 && lchflags(v33->fts_accpath, st_flags & ~a2))
+      st_flags = v16->fts_statp->st_flags;
+      if ((st_flags & a2) != 0 && lchflags(v16->fts_accpath, st_flags & ~a2))
       {
-        v52 = v33->fts_path;
-        v53 = __error();
-        strerror(*v53);
-        rootless_log(3, "%s: lchflags(%s): %s", v54, v55, v56, v57, v58, v59, "rootless_remove_in_favor_of_static_storage_class");
+        v23 = __error();
+        strerror(*v23);
+        rootless_log(3, "%s: lchflags(%s): %s");
 LABEL_32:
-        v21 = 0xFFFFFFFFLL;
+        v11 = 0xFFFFFFFFLL;
         goto LABEL_33;
       }
 
 LABEL_23:
-      v33 = fts_read(v25);
+      v16 = fts_read(v14);
     }
 
-    while (v33);
+    while (v16);
   }
 
   if (*__error())
   {
-    v38 = __error();
-    strerror(*v38);
-    rootless_log(3, "%s: fts_read: %s", v39, v40, v41, v42, v43, v44, "rootless_remove_in_favor_of_static_storage_class");
+    v21 = __error();
+    strerror(*v21);
+    rootless_log(3, "%s: fts_read: %s");
     goto LABEL_32;
   }
 
   if (__sandbox_ms())
   {
-    v45 = __error();
-    strerror(*v45);
-    rootless_log(3, "%s: rootless_clear_storage_class(%s): %s", v46, v47, v48, v49, v50, v51, "rootless_remove_in_favor_of_static_storage_class");
+    v22 = __error();
+    strerror(*v22);
+    rootless_log(3, "%s: rootless_clear_storage_class(%s): %s");
     goto LABEL_32;
   }
 
-  v21 = 0;
+  v11 = 0;
 LABEL_33:
   close(v5);
-  fts_close(v25);
-LABEL_7:
-  v22 = *MEMORY[0x29EDCA608];
-  return v21;
+  fts_close(v14);
+  return v11;
 }
 
 uint64_t rootless_restricted_environment()
@@ -1997,7 +1991,7 @@ uint64_t rootless_restricted_environment()
   }
 }
 
-uint64_t rootless_protected_volume()
+uint64_t rootless_protected_volume(uint64_t a1)
 {
   if (__sandbox_ms())
   {
@@ -2010,7 +2004,7 @@ uint64_t rootless_protected_volume()
   }
 }
 
-uint64_t rootless_protected_volume_fd()
+uint64_t rootless_protected_volume_fd(int a1)
 {
   if (__sandbox_ms())
   {
@@ -2067,7 +2061,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t rootless_verify_trusted_by_self_token(unsigned int a1, char a2)
+uint64_t rootless_verify_trusted_by_self_token(uint64_t a1, uint64_t a2)
 {
   if ((a1 & 0x80000000) == 0)
   {
@@ -2079,46 +2073,46 @@ uint64_t rootless_verify_trusted_by_self_token(unsigned int a1, char a2)
 
 BOOL is_path_on_authenticated_root_volume(const char *a1)
 {
-  v22 = 0;
-  v21 = xmmword_299E4E478;
-  v20 = 0;
-  memset(v19, 0, sizeof(v19));
-  if (getattrlist(a1, &v21, v19, 0x28uLL, 0))
+  v12 = 0;
+  v11 = xmmword_299E4E478;
+  v10 = 0;
+  memset(v9, 0, sizeof(v9));
+  if (getattrlist(a1, &v11, v9, 0x28uLL, 0))
   {
     v2 = *__error();
     v3 = __error();
-    strerror(*v3);
-    rootless_log(7, "getattrlist failed for %s: #%d: %s", v4, v5, v6, v7, v8, v9, a1);
+    v4 = strerror(*v3);
+    rootless_log(7, "getattrlist failed for %s: #%d: %s", a1, v2, v4);
     return 0;
   }
 
-  if ((BYTE5(v19[0]) & 0x40) == 0 || (BYTE11(v19[0]) & 2) == 0)
+  if ((BYTE5(v9[0]) & 0x40) == 0 || (BYTE11(v9[0]) & 2) == 0)
   {
     return 0;
   }
 
-  v26 = 0x20000000000;
-  v25 = xmmword_299E4E490;
-  v24 = 0;
-  v23 = 0;
-  if (!getattrlist(a1, &v25, &v23, 0xCuLL, 0x20u))
+  v16 = 0x20000000000;
+  v15 = xmmword_299E4E490;
+  v14 = 0;
+  v13 = 0;
+  if (!getattrlist(a1, &v15, &v13, 0xCuLL, 0x20u))
   {
-    return (v23 & 0x2000000000) == 0;
+    return (v13 & 0x2000000000) == 0;
   }
 
-  v11 = *__error();
-  v12 = __error();
-  strerror(*v12);
-  rootless_log(7, "getattrlist failed: #%d: %s", v13, v14, v15, v16, v17, v18, v11);
+  v6 = *__error();
+  v7 = __error();
+  v8 = strerror(*v7);
+  rootless_log(7, "getattrlist failed: #%d: %s", v6, v8);
   return 1;
 }
 
-void sandbox_message_filter_retain_cold_1()
+void sandbox_message_filter_retain_cold_1(uint64_t a1)
 {
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
-  sandbox_warn();
+  v2 = *__error();
+  v3 = __error();
+  v4 = strerror(*v3);
+  sandbox_warn("%s failed on message filter #%llu: %d (%s)", "sandbox_message_filter_retain", a1, v2, v4);
   abort();
 }
 

@@ -20,7 +20,7 @@
       v15 = nr_daemon_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100105A48();
+        sub_100105A48(self);
       }
 
       goto LABEL_10;
@@ -42,7 +42,7 @@ LABEL_11:
       v15 = nr_daemon_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_1001059B4();
+        sub_1001059B4(self);
       }
 
 LABEL_10:

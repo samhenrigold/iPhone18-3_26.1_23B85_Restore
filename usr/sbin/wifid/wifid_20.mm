@@ -1,567 +1,3 @@
-void sub_100172698()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: bssid is not present in Steering Dictionary", "__WiFiManagerBssSteerCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001726F8()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: Unable to copy known network", "__WiFiManagerBssSteerCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172758(void *a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: %@ does not  exist", "__WiFiManagerBssSteerCallback", *a1}];
-  }
-
-  objc_autoreleasePoolPop(v2);
-}
-
-void sub_1001727C0()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: Channel not present", "__WiFiManagerBssSteerCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172820()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: Known networks cache is Null!", "__WiFiManagerBssSteerCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172880()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: Failed to get steering request type\n", "__WiFiManagerBssSteerCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001728E0()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: deviceManager is NULL!", "__WiFiManagerP2pThreadCoexEventCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_10017294C()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: manager is NULL!", "__WiFiManagerP2pThreadCoexEventCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001729B8()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: SSID is NULL!", "__WiFiManagerCreateColocatedNetworkGroup"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172A24()
-{
-  sub_10000D798();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v6 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:"[NWTRANSIT]: Network %@ meets Colocated Privacy Guidelines"];
-  }
-
-  objc_autoreleasePoolPop(v6);
-  *(v5 + 2672) = 1;
-  if (sub_100021720(v5))
-  {
-    v7 = *v1;
-  }
-
-  else
-  {
-    if (v3)
-    {
-      sub_1000084B8();
-      return;
-    }
-
-    v8 = objc_autoreleasePoolPush();
-    if (off_100298C40)
-    {
-      [off_100298C40 WFLog:3 message:"[NWTRANSIT]: Invalidate Colocated Cache"];
-    }
-
-    objc_autoreleasePoolPop(v8);
-    if (*v1)
-    {
-      CFRelease(*v1);
-      *v1 = 0;
-    }
-
-    *(v5 + 2672) = 0;
-    *(v5 + 2680) = 0;
-  }
-
-  sub_1000084B8();
-
-  sub_10016A1F0();
-}
-
-void sub_100172B20()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null manager", "__WiFiManagerColocatedCacheEventCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-uint64_t sub_100172B8C(uint64_t a1, uint64_t a2)
-{
-  v3 = sub_10015E160();
-  result = 1;
-  if (v3 && a2)
-  {
-    v5 = sub_100011328();
-    if (CFStringCompare(v5, v6, v7) && (v8 = sub_100011328(), CFStringCompare(v8, v9, v10)) && (v11 = sub_100011328(), CFStringCompare(v11, v12, v13)) && (v14 = sub_100011328(), CFStringCompare(v14, v15, v16)) && (v17 = sub_100011328(), CFStringCompare(v17, v18, v19)))
-    {
-      v20 = sub_100011580();
-      v22 = sub_1000C8018(v20, v21, 0);
-      v23 = objc_autoreleasePoolPush();
-      if (v22)
-      {
-        if (off_100298C40)
-        {
-          [off_100298C40 WFLog:3 message:{"%s WiFiCC : Successfully initilaized country to HW on boot : %@", "__WiFiManagerUpdateCountryOnInitCallback", a2}];
-        }
-      }
-
-      else if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{"%s WiFiCC : Unable to initialize country to HW on boot : %@", "__WiFiManagerUpdateCountryOnInitCallback", a2}];
-      }
-    }
-
-    else
-    {
-      v23 = objc_autoreleasePoolPush();
-      if (off_100298C40)
-      {
-        [off_100298C40 WFLog:3 message:{" WiFiCC : User Defaults does not have valid country code ", v24, v25}];
-      }
-    }
-
-    objc_autoreleasePoolPop(v23);
-    return 0;
-  }
-
-  return result;
-}
-
-void sub_100172CCC()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null manager", "__WiFiManagerUpdateCountryOnInitCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172D38()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null manager", "__WiFiManagerPeerCountryEventCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172DA4()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: manager is null", "__WiFiManagerStopMonitoringSessionBasedApplication"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-uint64_t sub_100172E10()
-{
-  sub_100008C40();
-  Current = CFAbsoluteTimeGetCurrent();
-  v2 = CFDateCreate(kCFAllocatorDefault, Current);
-  if (v2)
-  {
-    v3 = v2;
-    v4 = sub_10001EDA0();
-    sub_1000A0170(v4, v5, v3);
-    CFRelease(v3);
-  }
-
-  v6 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    v10 = sub_10000A878(v0);
-    [sub_10000FC2C() WFLog:v10 message:?];
-  }
-
-  objc_autoreleasePoolPop(v6);
-  v7 = sub_100011580();
-
-  return sub_100159BD0(v7, v8, 6);
-}
-
-void sub_100172EC8()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null payload", "__WiFiManagerEventCoalesceUndispatchedEventData"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172F34()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null serializedEventData", "__WiFiManagerEventCoalesceUndispatchedEventData"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100172FA0()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: Unable to get pending clients", "__WiFiManagerEventIsRateDispatchable"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173000()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null eventDict", "__WiFiManagerEventIsRateDispatchable"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173060(void *a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: null manager", "__WiFiManagerEventCopyCoalescedUndispatchedEventData"}];
-  }
-
-  objc_autoreleasePoolPop(v2);
-  *a1 = 0;
-}
-
-void sub_1001730C8(uint64_t a1, unsigned int *a2, uint64_t a3)
-{
-  v6 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s - Usb Removal Usb Host Notification for %@ seqNum %d Total %d\n", "__WiFiManagerhandleNotificationForService", a3, *(a1 + 2692), *a2}];
-  }
-
-  objc_autoreleasePoolPop(v6);
-}
-
-id sub_100173148()
-{
-  sub_10001131C();
-  v3 = *(v2 + 2736);
-  [NSNumber numberWithUnsignedLongLong:*v4];
-  result = [sub_10000757C() objectForKeyedSubscript:?];
-  if (result)
-  {
-    v6 = result;
-    v7 = *(v1 + 2736);
-    [NSNumber numberWithUnsignedLongLong:*v0];
-    [sub_1000305C4() removeObjectForKey:?];
-    result = [v6 unsignedIntValue];
-    if (result)
-    {
-      return IOObjectRelease(result);
-    }
-  }
-
-  return result;
-}
-
-void sub_1001731BC()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: nil manager queue.", "__WiFiManagerFrontBoardDisplayCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173228()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: null manager.", "__WiFiManagerFrontBoardDisplayCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173294()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:"FrontBoard Display Layout is Null!"];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001732EC(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: IORegistryEntryCreateCFProperties failed with error %d", "__WiFiManagerGetBatteryLevel", a1}];
-  }
-
-  objc_autoreleasePoolPop(v2);
-}
-
-void sub_100173350(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, result %d", "__WiFiManagerBluetoothServiceCallback", a1}];
-  }
-
-  objc_autoreleasePoolPop(v2);
-}
-
-void sub_1001733C0()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, invalid userData type", "__WiFiManagerBluetoothServiceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_10017342C()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: manager queue null", "__WiFiManagerBluetoothServiceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173498()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, null userData", "__WiFiManagerBluetoothServiceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173504(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, result %d", "__WiFiManagerBluetoothLocalDeviceCallback", a1}];
-  }
-
-  objc_autoreleasePoolPop(v2);
-}
-
-void sub_100173574()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, invalid userData type", "__WiFiManagerBluetoothLocalDeviceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001735E0()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: manager queue null", "__WiFiManagerBluetoothLocalDeviceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_10017364C()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:{"%s: BT callback failure, null userData", "__WiFiManagerBluetoothLocalDeviceCallback"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001736B8()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: user auto join is not disabled, location update not required", "__WiFiManagerUserAutoJoinDisabledLocationUpdate"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173724()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: user auto join is not waiting on a location update", "__WiFiManagerUserAutoJoinDisabledLocationUpdate"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173790()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: manager is NULL", "__WiFiManagerUserAutoJoinDisabledLocationUpdate"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001737FC(uint64_t a1, const __CFArray **a2)
-{
-  v7 = [objc_msgSend(*(a1 + 1792) "latestLocation")];
-  v3 = sub_100095274();
-  v5 = [v4 isLocationValid:v3 uptoSeconds:? isHighAccuracy:?];
-  [WiFiLocationManager logLocation:v7 addPrefixString:@"__WiFiManagerLocationManagerCallback"];
-  v6 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: isValid %d", "__WiFiManagerLocationManagerCallback_block_invoke", v5 != 0}];
-  }
-
-  objc_autoreleasePoolPop(v6);
-  sub_100169E08(*a2, v7);
-  [+[WiFiXPCManager sharedXPCManager](WiFiXPCManager "sharedXPCManager")];
-}
-
-void sub_1001738E4()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: [MOTION] this device does not support motion data", "-[WiFiManagerMotionServices init]"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_100173950()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:4 message:"motionStateChangeCb is NULL!"];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
-void sub_1001739A8()
-{
-  v0 = objc_autoreleasePoolPush();
-  if (off_100298C40)
-  {
-    [off_100298C40 WFLog:3 message:{"%s: motionServices is null", "WiFiManagerMotionServicesInitialize"}];
-  }
-
-  objc_autoreleasePoolPop(v0);
-}
-
 void sub_100173A14()
 {
   v0 = objc_autoreleasePoolPush();
@@ -672,11 +108,10 @@ void sub_100173EAC(int a1, mach_msg_header_t *a2, int a3, CFTypeRef cf)
   }
 
   CFRetain(cf);
-  v6 = *(cf + 3);
   Typed = CFAllocatorAllocateTyped();
   if (Typed)
   {
-    v8 = Typed;
+    v7 = Typed;
     msgh_remote_port = a2->msgh_remote_port;
     *Typed = a2->msgh_bits & 0x1F;
     *(Typed + 4) = 36;
@@ -687,30 +122,30 @@ void sub_100173EAC(int a1, mach_msg_header_t *a2, int a3, CFTypeRef cf)
       *Typed = 0;
       *(Typed + 8) = 0;
       *(Typed + 32) = 0;
-      v10 = (Typed + 32);
-      v11 = *(cf + 12);
-      if (v11)
+      v9 = (Typed + 32);
+      v10 = *(cf + 12);
+      if (v10)
       {
-        v11(cf, *(cf + 13));
+        v10(cf, *(cf + 13));
       }
     }
 
     else
     {
-      v12 = NDR_record;
+      v11 = NDR_record;
       *(Typed + 32) = -303;
-      v10 = (Typed + 32);
-      *(Typed + 24) = v12;
-      v13 = *(cf + 10);
-      if (v13)
+      v9 = (Typed + 32);
+      *(Typed + 24) = v11;
+      v12 = *(cf + 10);
+      if (v12)
       {
-        v13(cf, a2, Typed, *(cf + 11));
+        v12(cf, a2, Typed, *(cf + 11));
       }
     }
 
-    if ((v8->msgh_bits & 0x80000000) == 0 && *v10)
+    if ((v7->msgh_bits & 0x80000000) == 0 && *v9)
     {
-      if (*v10 == -305)
+      if (*v9 == -305)
       {
         goto LABEL_18;
       }
@@ -719,32 +154,32 @@ void sub_100173EAC(int a1, mach_msg_header_t *a2, int a3, CFTypeRef cf)
       mach_msg_destroy(a2);
     }
 
-    if (v8->msgh_remote_port)
+    if (v7->msgh_remote_port)
     {
-      if ((v8->msgh_bits & 0x1F) == 0x12)
+      if ((v7->msgh_bits & 0x1F) == 0x12)
       {
-        v14 = 1;
+        v13 = 1;
       }
 
       else
       {
-        v14 = 17;
+        v13 = 17;
       }
 
-      if ((mach_msg(v8, v14, v8->msgh_size, 0, 0, 0, 0) - 268435459) > 1)
+      if ((mach_msg(v7, v13, v7->msgh_size, 0, 0, 0, 0) - 268435459) > 1)
       {
         goto LABEL_18;
       }
     }
 
-    else if ((v8->msgh_bits & 0x80000000) == 0)
+    else if ((v7->msgh_bits & 0x80000000) == 0)
     {
       goto LABEL_18;
     }
 
-    mach_msg_destroy(v8);
+    mach_msg_destroy(v7);
 LABEL_18:
-    CFAllocatorDeallocate(0, v8);
+    CFAllocatorDeallocate(0, v7);
   }
 
   CFRelease(cf);
@@ -1178,7 +613,7 @@ const void *sub_100174C78(const void *result)
   return result;
 }
 
-uint64_t sub_100174CBC(int a1)
+uint64_t sub_100174CBC(unsigned int a1)
 {
   if (a1 < 1)
   {
@@ -2218,7 +1653,7 @@ void sub_100176200()
   sub_1000113F8();
 }
 
-void sub_10017630C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int valuePtr, unsigned int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+void sub_10017630C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, int valuePtr, int a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   sub_10000FC44();
   a22 = v23;
@@ -2936,19 +2371,16 @@ CFIndex sub_100177228(CFIndex result)
       for (i = 0; i < result; ++i)
       {
         v3 = sub_1000086AC();
-        ValueAtIndex = CFArrayGetValueAtIndex(v3, v4);
-        if (ValueAtIndex)
+        if (CFArrayGetValueAtIndex(v3, v4))
         {
-          v6 = ValueAtIndex;
-          v7 = objc_autoreleasePoolPush();
+          v5 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            v8 = v6[2];
             sub_10001EC70();
-            [v9 WFLog:? message:?];
+            [v6 WFLog:? message:?];
           }
 
-          objc_autoreleasePoolPop(v7);
+          objc_autoreleasePoolPop(v5);
         }
 
         result = CFArrayGetCount(v1);
@@ -3061,7 +2493,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_100177510(const __CFArray *a1, uint64_t a2)
+CFIndex sub_100177510(const __CFArray *a1, uint64_t a2)
 {
   v2 = -1;
   if (a1 && a2 && CFArrayGetCount(a1) >= 1)
@@ -3561,7 +2993,7 @@ LABEL_5:
   return v2;
 }
 
-uint64_t sub_100177FFC(uint64_t result)
+BOOL sub_100177FFC(_BOOL8 result)
 {
   if (result)
   {
@@ -4688,7 +4120,7 @@ uint64_t sub_10017A048(uint64_t a1, char a2, BOOL *a3)
     result = sub_10000A604(a1);
     if (!result)
     {
-      result = sub_1000227F8(a1);
+      result = sub_1000227F8(a1, v8);
       v7 = (result | a2 & 0xC) != 0;
       goto LABEL_3;
     }
@@ -4791,7 +4223,7 @@ void sub_10017A418()
 
 CFStringRef sub_10017A484(const __CFDictionary **a1, unsigned int *a2, CFStringRef *a3)
 {
-  v5 = sub_100014000(a1);
+  v5 = sub_100014000(a1, a2);
   if (v5)
   {
     CFNumberGetValue(v5, kCFNumberSInt32Type, a2);
@@ -4975,13 +4407,14 @@ void sub_10017ACE8()
   sub_100010944();
 }
 
-uint64_t sub_10017AE6C(uint64_t a1, int a2, int a3, const void *a4, __CFDictionary *a5, CFOptionFlags a6, const void *a7)
+uint64_t sub_10017AE6C(uint64_t a1, uint64_t a2, uint64_t a3, const void *a4, __CFDictionary *a5, CFOptionFlags a6, const void *a7)
 {
   if (!a5)
   {
     return 0;
   }
 
+  v9 = a2;
   add_explicit = atomic_fetch_add_explicit(dword_100297B50, 1u, memory_order_relaxed);
   v11 = add_explicit + 1;
   v12 = sub_10017B3AC(a1, a2, a3, a4, a7, add_explicit + 1);
@@ -5009,7 +4442,7 @@ uint64_t sub_10017AE6C(uint64_t a1, int a2, int a3, const void *a4, __CFDictiona
     CFDictionarySetValue(a5, SBUserNotificationAlertMessageDelimiterKey, &stru_1002680F8);
   }
 
-  if (a2)
+  if (v9)
   {
     goto LABEL_18;
   }
@@ -5131,7 +4564,6 @@ LABEL_10:
         v24 = objc_autoreleasePoolPush();
         if (off_100298C40)
         {
-          v26 = *(v23 + 40);
           [off_100298C40 WFLog:3 message:"Dispatching EAP Trust panel(%d)"];
         }
 
@@ -5191,7 +4623,7 @@ uint64_t sub_10017B3AC(uint64_t a1, int a2, int a3, const void *a4, const void *
   return v12;
 }
 
-uint64_t sub_10017B480(uint64_t a1, const void *a2, uint64_t a3, CFDictionaryRef *a4, int a5)
+uint64_t sub_10017B480(uint64_t a1, const void *a2, uint64_t a3, CFDictionaryRef *a4, uint64_t a5)
 {
   if (!a4 || !sub_10009F2A4(a4))
   {
@@ -5441,32 +4873,8 @@ LABEL_57:
       v69 = sub_1000113AC();
       v72 = CFArrayCreateMutable(v69, v70, v71);
       v73 = v72;
-      if (!v72)
+      if (!v72 || (!v65 ? (CFArrayAppendValue(v72, @"Username"), v75 = @"Password") : (v74 = sub_10010E234(@"WIFI_USERNAME_TEXT_TITLE"), CFArrayAppendValue(v73, v74), v75 = sub_10010E234(@"WIFI_PASSWORD_TEXT_TITLE")), CFArrayAppendValue(v73, v75), v76 = sub_10000D80C(), CFDictionarySetValue(v76, v77, v73), v78 = sub_1000113AC(), (v81 = CFArrayCreateMutable(v78, v79, v80)) == 0))
       {
-        goto LABEL_83;
-      }
-
-      if (v65)
-      {
-        v74 = sub_10010E234(@"WIFI_USERNAME_TEXT_TITLE");
-        CFArrayAppendValue(v73, v74);
-        v75 = sub_10010E234(@"WIFI_PASSWORD_TEXT_TITLE");
-      }
-
-      else
-      {
-        CFArrayAppendValue(v72, @"Username");
-        v75 = @"Password";
-      }
-
-      CFArrayAppendValue(v73, v75);
-      v76 = sub_10000D80C();
-      CFDictionarySetValue(v76, v77, v73);
-      v78 = sub_1000113AC();
-      v81 = CFArrayCreateMutable(v78, v79, v80);
-      if (!v81)
-      {
-LABEL_83:
         v88 = 0;
         v89 = 0;
         goto LABEL_75;
@@ -5621,7 +5029,6 @@ void sub_10017BB30()
     v21 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v23 = *(v20 + 40);
       [off_100298C40 WFLog:3 message:"Dispatching Join Failure Captive Notification(%d)"];
     }
 
@@ -5706,7 +5113,6 @@ void sub_10017BD58()
     v21 = objc_autoreleasePoolPush();
     if (off_100298C40)
     {
-      v23 = *(v20 + 40);
       [off_100298C40 WFLog:3 message:"Dispatching Join Failure Notification(%d)"];
     }
 
@@ -5727,7 +5133,7 @@ LABEL_14:
   sub_100010944();
 }
 
-uint64_t sub_10017BF80(uint64_t a1, uint64_t a2, int a3, void *a4, CFDictionaryRef theDict)
+uint64_t sub_10017BF80(uint64_t a1, const void *a2, int a3, void *a4, CFDictionaryRef theDict)
 {
   if (!a4)
   {
@@ -6345,7 +5751,9 @@ void sub_10017D27C()
   sub_10001131C();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   *v0 = v1;
@@ -6371,7 +5779,9 @@ void sub_10017D3D4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6381,7 +5791,9 @@ void sub_10017D470()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null password", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null password", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6391,7 +5803,9 @@ void sub_10017D50C()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6402,7 +5816,9 @@ void sub_10017D5A8()
   sub_10001131C();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   *v0 = v1;
@@ -6412,7 +5828,9 @@ void sub_10017D648()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6422,7 +5840,9 @@ void sub_10017D6E4()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6433,7 +5853,9 @@ void sub_10017D780()
   sub_10001131C();
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, 2u);
+    LODWORD(v7) = 136315138;
+    *(&v7 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v2, "%s: error: empty ssid hash", v3, v4, v5, v6, v7, DWORD2(v7));
   }
 
   *v0 = v1;
@@ -6443,7 +5865,9 @@ void sub_10017D820()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: error: empty ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6453,7 +5877,9 @@ void sub_10017D8BC()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "__WiFiSecurityRemovePasswordFromPasswordBackup_block_invoke";
+    sub_100008410(&_mh_execute_header, &_os_log_default, v0, "%s: null ssid", v1, v2, v3, v4, v5, DWORD2(v5));
   }
 
   sub_100024F40();
@@ -6678,9 +6104,8 @@ LABEL_10:
       if (off_100298C40)
       {
         sub_10000715C(v4);
-        v7 = *v0;
         sub_1000A9B08();
-        [sub_10000FC2C() WFLog:v9 message:v10];
+        [sub_10000FC2C() WFLog:v8 message:v9];
       }
     }
 
@@ -6689,8 +6114,8 @@ LABEL_10:
       v5 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
-        v11 = sub_10000715C(v4);
-        [sub_100011424() WFLog:"kern_return_t _wifi_manager_get_nanclient_assoc_status(mach_port_t message:{int *)", v11}];
+        v10 = sub_10000715C(v4);
+        [sub_100011424() WFLog:"kern_return_t _wifi_manager_get_nanclient_assoc_status(mach_port_t message:{int *)", v10}];
       }
     }
 
@@ -6856,9 +6281,8 @@ LABEL_10:
       if (off_100298C40)
       {
         sub_10000715C(v4);
-        v7 = *v0;
         sub_1000A9B08();
-        [sub_10000FC2C() WFLog:v9 message:v10];
+        [sub_10000FC2C() WFLog:v8 message:v9];
       }
     }
 
@@ -6867,8 +6291,8 @@ LABEL_10:
       v5 = objc_autoreleasePoolPush();
       if (off_100298C40)
       {
-        v11 = sub_10000715C(v4);
-        [sub_100011424() WFLog:"kern_return_t _wifi_manager_get_mis_state(mach_port_t message:{int *)", v11}];
+        v10 = sub_10000715C(v4);
+        [sub_100011424() WFLog:"kern_return_t _wifi_manager_get_mis_state(mach_port_t message:{int *)", v10}];
       }
     }
 
@@ -9730,7 +9154,6 @@ LABEL_13:
           v48 = objc_autoreleasePoolPush();
           if (off_100298C40)
           {
-            v51 = *v25;
             [off_100298C40 WFLog:4 message:"Unable to set ranging identifier(%d). deviceManager=%p"];
           }
 
@@ -9762,4 +9185,574 @@ LABEL_23:
   sub_100017CC0(v49, v50);
   sub_100017CC0(v29, v27);
   sub_10001091C();
+}
+
+void sub_100182094()
+{
+  sub_10000FDC0();
+  v2 = v1;
+  v4 = v3;
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  *v1 = -3900;
+  v13 = sub_10000FFF0();
+  v14 = sub_10001D1E8(v13);
+  if (v14)
+  {
+    v15 = v14;
+    if (sub_100010038(v14))
+    {
+      if (sub_100017AC4(v12, v10))
+      {
+        v17 = sub_1000A9AEC();
+        v19 = sub_100010040(v17, v18);
+        v29 = v10;
+        if (v19)
+        {
+          v20 = v19;
+          v21 = sub_100017AC4(v8, v6);
+          if (v21)
+          {
+            v22 = v21;
+            sub_100008BF8(0x28u);
+            v23 = objc_autoreleasePoolPush();
+            if (off_100298C40)
+            {
+              sub_10000715C(v15);
+              [sub_100008C8C() WFLog:? message:?];
+            }
+
+            objc_autoreleasePoolPop(v23);
+            *v2 = 0;
+            v24 = sub_10002CF28(v15);
+            if ((v24 & 0x10) != 0)
+            {
+              v27 = objc_autoreleasePoolPush();
+              if (off_100298C40)
+              {
+                [off_100298C40 WFLog:4 message:{"Already ranging, will not queue request."}];
+              }
+
+              objc_autoreleasePoolPop(v27);
+              sub_100059E7C(v15, v20, v0, 0, 37);
+            }
+
+            else
+            {
+              v25 = v24;
+              sub_10002D0CC(v15, v24 | 0x10);
+              v26 = sub_1000CF254(v20, v0, v22, sub_1000A981C, v15, v4);
+              *v2 = v26;
+              if (v26)
+              {
+                sub_10002D0CC(v15, v25);
+              }
+
+              else
+              {
+                CFRetain(v15);
+              }
+            }
+
+            CFRelease(v22);
+          }
+        }
+
+        else
+        {
+          v28 = objc_autoreleasePoolPush();
+          if (off_100298C40)
+          {
+            [off_100298C40 WFLog:4 message:"%s: unable to find device manager for interface %@"];
+          }
+
+          objc_autoreleasePoolPop(v28);
+        }
+
+        CFRelease(v0);
+        v10 = v29;
+      }
+    }
+
+    else
+    {
+      v16 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        sub_10000715C(v15);
+        sub_1000A9BA0();
+      }
+
+      objc_autoreleasePoolPop(v16);
+    }
+
+    CFRelease(v15);
+  }
+
+  sub_100017CC0(v12, v10);
+  sub_100017CC0(v8, v6);
+  sub_100008690();
+}
+
+uint64_t sub_100182300()
+{
+  v1 = sub_10001095C();
+  v2 = sub_10001D1E8(v1);
+  if (v2)
+  {
+    v3 = v2;
+    if (sub_100010038(v2))
+    {
+      v5 = sub_100029A10(v3);
+      if (v5)
+      {
+        sub_100085C9C(v5, v0);
+      }
+    }
+
+    else
+    {
+      v4 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        v7 = sub_10000715C(v3);
+        [sub_100011424() WFLog:"kern_return_t _wifi_manager_set_thermal_index(mach_port_t message:{int)", v7}];
+      }
+
+      objc_autoreleasePoolPop(v4);
+    }
+
+    CFRelease(v3);
+  }
+
+  return 0;
+}
+
+uint64_t sub_1001823AC()
+{
+  sub_100008C40();
+  *v1 = 100;
+  v2 = sub_10000FFF0();
+  v3 = sub_10001D1E8(v2);
+  if (v3)
+  {
+    v4 = v3;
+    if (sub_100010038(v3))
+    {
+      v6 = sub_100029A10(v4);
+      if (v6)
+      {
+        *v0 = sub_100085B58(v6);
+      }
+    }
+
+    else
+    {
+      v5 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        v8 = sub_10000715C(v4);
+        [sub_100011424() WFLog:"kern_return_t _wifi_manager_get_thermal_index(mach_port_t message:{int *)", v8}];
+      }
+
+      objc_autoreleasePoolPop(v5);
+    }
+
+    CFRelease(v4);
+  }
+
+  return 0;
+}
+
+void sub_100182464(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, int a13, int a14, CFTypeRef cf, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
+{
+  sub_10000FDC0();
+  a26 = v27;
+  a27 = v28;
+  v30 = v29;
+  v32 = v31;
+  v34 = v33;
+  v36 = v35;
+  v38 = v37;
+  sub_10000DB74();
+  cf = 0;
+  *v39 = 0;
+  *v40 = 0;
+  *v41 = -3900;
+  v42 = sub_10000FFF0();
+  v43 = sub_10001D1E8(v42);
+  if (!v43)
+  {
+    goto LABEL_18;
+  }
+
+  v44 = v43;
+  if (sub_100010038(v43))
+  {
+    v46 = sub_100015EC4();
+    v48 = sub_100017AC4(v46, v47);
+    v49 = v36;
+    v50 = v48;
+    v58 = v49;
+    v51 = sub_100017AC4(v38, v49);
+    v52 = v51;
+    if (v50 && v51)
+    {
+      v57 = v38;
+      v53 = sub_100010040(v44, v50);
+      v54 = objc_autoreleasePoolPush();
+      if (v53)
+      {
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:3 message:"%s: received debug request: %@"];
+        }
+
+        objc_autoreleasePoolPop(v54);
+        *v30 = sub_1000CF704(v53, v50, v52, &cf);
+        v38 = v57;
+        if (cf)
+        {
+          sub_100017C18(cf, v34, v32);
+        }
+      }
+
+      else
+      {
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:4 message:"%s: unable to find device manager for interface %@"];
+        }
+
+        objc_autoreleasePoolPop(v54);
+        v38 = v57;
+      }
+    }
+
+    else if (!v50)
+    {
+LABEL_14:
+      v36 = v58;
+      if (v52)
+      {
+        CFRelease(v52);
+      }
+
+      goto LABEL_16;
+    }
+
+    CFRelease(v50);
+    goto LABEL_14;
+  }
+
+  v45 = objc_autoreleasePoolPush();
+  if (off_100298C40)
+  {
+    sub_10000715C(v44);
+    [sub_100008C8C() WFLog:? message:?];
+  }
+
+  objc_autoreleasePoolPop(v45);
+LABEL_16:
+  CFRelease(v44);
+  if (cf)
+  {
+    CFRelease(cf);
+    cf = 0;
+  }
+
+LABEL_18:
+  v55 = sub_100015EC4();
+  sub_100017CC0(v55, v56);
+  sub_100017CC0(v38, v36);
+  sub_100008690();
+}
+
+void sub_100182654()
+{
+  sub_1000086C4();
+  sub_10000842C();
+  v7 = sub_100017AA0(v2, v3, v4, v5, v6);
+  v8 = sub_10000D824(v7);
+  if (v8)
+  {
+    v9 = v8;
+    if (sub_100010038(v8))
+    {
+      v11 = sub_100029DC0();
+      if (sub_100017AC4(v11, v12))
+      {
+        v13 = sub_100021D64();
+        v14 = sub_100010040(v13, v0);
+        if (v14 && (v15 = sub_1000C8ED8(v14, v0)) != 0)
+        {
+          sub_10001DB90(v15);
+          CFRelease(v0);
+          v16 = v1;
+        }
+
+        else
+        {
+          v16 = v0;
+        }
+
+        CFRelease(v16);
+      }
+    }
+
+    else
+    {
+      v10 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        sub_10000715C(v9);
+        [sub_1000A9AFC() WFLog:? message:?];
+      }
+
+      objc_autoreleasePoolPop(v10);
+    }
+
+    CFRelease(v9);
+  }
+
+  v17 = sub_100029DC0();
+  sub_100017CC0(v17, v18);
+  sub_100010944();
+}
+
+void sub_100182744()
+{
+  sub_1000086C4();
+  v1 = v0;
+  sub_1000075A4();
+  *v2 = -3900;
+  v3 = sub_10000FFF0();
+  v4 = sub_10002A0AC(v3);
+  if (v4)
+  {
+    v5 = v4;
+    if ((sub_100010038(v4) & 1) == 0)
+    {
+      v6 = objc_autoreleasePoolPush();
+      v7 = off_100298C40;
+      if (off_100298C40)
+      {
+        sub_10000715C(v5);
+        [v7 WFLog:4 message:"%s Client %@ has no entitlement"];
+      }
+
+      objc_autoreleasePoolPop(v6);
+LABEL_13:
+      CFRelease(v5);
+      goto LABEL_14;
+    }
+
+    v8 = sub_100015EC4();
+    v10 = sub_100017AC4(v8, v9);
+    v11 = sub_100029DC0();
+    v13 = sub_100017AC4(v11, v12);
+    v14 = v13;
+    if (v10 && v13)
+    {
+      v15 = sub_10001EDAC();
+      v17 = sub_100010040(v15, v16);
+      if (v17)
+      {
+        *v1 = sub_1000D05A4(v17, v14);
+      }
+
+      else
+      {
+        v22 = objc_autoreleasePoolPush();
+        if (off_100298C40)
+        {
+          [off_100298C40 WFLog:4 message:"%s: unable to find device manager for interface %@"];
+        }
+
+        objc_autoreleasePoolPop(v22);
+      }
+    }
+
+    else if (!v10)
+    {
+LABEL_11:
+      if (v14)
+      {
+        CFRelease(v14);
+      }
+
+      goto LABEL_13;
+    }
+
+    CFRelease(v10);
+    goto LABEL_11;
+  }
+
+LABEL_14:
+  v18 = sub_100015EC4();
+  sub_100017CC0(v18, v19);
+  v20 = sub_100029DC0();
+  sub_100017CC0(v20, v21);
+  sub_100010944();
+}
+
+void sub_100182894()
+{
+  sub_10000D798();
+  sub_10000842C();
+  v1 = sub_10000FFF0();
+  v2 = sub_10000D824(v1);
+  if (v2)
+  {
+    v3 = v2;
+    if (sub_100029A10(v2))
+    {
+      v4 = sub_100010938();
+      if (sub_100010038(v4))
+      {
+        v6 = sub_100029DC0();
+        sub_100017AC4(v6, v7);
+        v8 = sub_1000A9ADC();
+        sub_100083E8C(v8);
+        if (v0)
+        {
+          CFRelease(v0);
+        }
+      }
+
+      else
+      {
+        v5 = objc_autoreleasePoolPush();
+        if (off_100298C40)
+        {
+          sub_10000715C(v3);
+          [sub_1000A9AFC() WFLog:? message:?];
+        }
+
+        objc_autoreleasePoolPop(v5);
+      }
+    }
+
+    CFRelease(v3);
+  }
+
+  v9 = sub_100029DC0();
+  sub_100017CC0(v9, v10);
+  sub_1000084B8();
+}
+
+void sub_100182960()
+{
+  sub_10000D798();
+  sub_10000842C();
+  v1 = sub_10000FFF0();
+  v2 = sub_10000D824(v1);
+  if (v2)
+  {
+    v3 = v2;
+    if (sub_100010038(v2))
+    {
+      if (sub_100029A10(v3))
+      {
+        v5 = sub_1000214F4();
+        if (sub_100182A2C(v5, v6))
+        {
+          sub_1000A9ADC();
+          sub_10015F778();
+          CFRelease(v0);
+        }
+      }
+    }
+
+    else
+    {
+      v4 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        sub_10000715C(v3);
+        [sub_1000A9AFC() WFLog:? message:?];
+      }
+
+      objc_autoreleasePoolPop(v4);
+    }
+
+    CFRelease(v3);
+  }
+
+  v7 = sub_100029DC0();
+  sub_100017CC0(v7, v8);
+  sub_1000084B8();
+}
+
+const __CFDictionary *sub_100182A2C(UInt8 *a1, CFIndex length)
+{
+  v2 = sub_100017AC4(a1, length);
+  v3 = v2;
+  if (v2 && (v4 = CFGetTypeID(v2), v4 == CFDictionaryGetTypeID()))
+  {
+    sub_10013BF0C(kCFAllocatorDefault, v3);
+    v5 = sub_100011430();
+    CFRelease(v5);
+    v3 = 0;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v4)
+  {
+    return v4;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+void sub_100182AA0()
+{
+  sub_10000D798();
+  sub_10000842C();
+  v1 = sub_10000FFF0();
+  v2 = sub_10000D824(v1);
+  if (v2)
+  {
+    v3 = v2;
+    if (sub_100010038(v2))
+    {
+      if (sub_100029A10(v3))
+      {
+        v5 = sub_1000214F4();
+        if (sub_100182A2C(v5, v6))
+        {
+          sub_1000A9ADC();
+          sub_10015F960();
+          CFRelease(v0);
+        }
+      }
+    }
+
+    else
+    {
+      v4 = objc_autoreleasePoolPush();
+      if (off_100298C40)
+      {
+        sub_10000715C(v3);
+        [sub_1000A9AFC() WFLog:? message:?];
+      }
+
+      objc_autoreleasePoolPop(v4);
+    }
+
+    CFRelease(v3);
+  }
+
+  v7 = sub_100029DC0();
+  sub_100017CC0(v7, v8);
+  sub_1000084B8();
 }

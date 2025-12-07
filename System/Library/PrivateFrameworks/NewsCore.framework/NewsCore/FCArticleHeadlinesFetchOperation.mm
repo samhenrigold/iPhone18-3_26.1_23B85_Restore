@@ -112,7 +112,7 @@ void __62__FCArticleHeadlinesFetchOperation_fetchConfigWithCompletion___block_in
 
 - (id)fetchRecordsWithCompletion:(id)completion
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   articleIDs = [(FCArticleHeadlinesFetchOperation *)self articleIDs];
   v6 = objc_alloc_init(FCRecordChainFetchOperation);
@@ -120,16 +120,16 @@ void __62__FCArticleHeadlinesFetchOperation_fetchConfigWithCompletion___block_in
   [(FCRecordChainFetchOperation *)v6 setContext:context];
 
   [(FCRecordChainFetchOperation *)v6 setTopLevelRecordIDs:articleIDs];
-  v25[0] = @"Article";
-  v24[0] = @"sourceChannelTagID";
-  v24[1] = @"parentIssueID";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
-  v26[0] = v8;
-  v26[1] = MEMORY[0x1E695E0F0];
-  v25[1] = @"Tag";
-  v25[2] = @"Issue";
-  v26[2] = MEMORY[0x1E695E0F0];
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:3];
+  v24[0] = @"Article";
+  v23[0] = @"sourceChannelTagID";
+  v23[1] = @"parentIssueID";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v25[0] = v8;
+  v25[1] = MEMORY[0x1E695E0F0];
+  v24[1] = @"Tag";
+  v24[2] = @"Issue";
+  v25[2] = MEMORY[0x1E695E0F0];
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
   [(FCRecordChainFetchOperation *)v6 setLinkKeysByRecordType:v9];
 
   v10 = objc_opt_new();
@@ -178,25 +178,23 @@ void __62__FCArticleHeadlinesFetchOperation_fetchConfigWithCompletion___block_in
   }
 
   [v12 setMaximumCachedAge:?];
-  v22[0] = @"Article";
-  v22[1] = @"Tag";
-  v23[0] = v10;
-  v23[1] = v12;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v21[0] = @"Article";
+  v21[1] = @"Tag";
+  v22[0] = v10;
+  v22[1] = v12;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
   [(FCRecordChainFetchOperation *)v6 setCachePoliciesByRecordType:v14];
 
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __63__FCArticleHeadlinesFetchOperation_fetchRecordsWithCompletion___block_invoke;
-  v19[3] = &unk_1E7C378E8;
-  v19[4] = self;
-  v20 = articleIDs;
-  v21 = completionCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __63__FCArticleHeadlinesFetchOperation_fetchRecordsWithCompletion___block_invoke;
+  v18[3] = &unk_1E7C378E8;
+  v18[4] = self;
+  v19 = articleIDs;
+  v20 = completionCopy;
   v15 = completionCopy;
   v16 = articleIDs;
-  [(FCRecordChainFetchOperation *)v6 setRecordChainCompletionHandler:v19];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(FCRecordChainFetchOperation *)v6 setRecordChainCompletionHandler:v18];
 
   return v6;
 }

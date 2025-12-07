@@ -74,15 +74,15 @@
 
 - (void)_resetOnboarding
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v5 = v13;
+    v12 = objc_opt_class();
+    v5 = v12;
     _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Resetting onboarding", buf, 0xCu);
   }
 
@@ -91,14 +91,12 @@
   healthStore = [(WDAtrialFibrillationInternalSettingsViewController *)self healthStore];
   v9 = [v6 initWithFeatureIdentifier:v7 healthStore:healthStore];
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__block_invoke;
-  v11[3] = &unk_2796E6CC8;
-  v11[4] = self;
-  [v9 resetOnboardingWithCompletion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__block_invoke;
+  v10[3] = &unk_2796E6CC8;
+  v10[4] = self;
+  [v9 resetOnboardingWithCompletion:v10];
 }
 
 void __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__block_invoke(uint64_t a1, char a2, void *a3)
@@ -153,31 +151,29 @@ void __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__
 
 - (void)_deleteAllNotifications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v5 = v13;
+    v12 = objc_opt_class();
+    v5 = v12;
     _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting all notifications", buf, 0xCu);
   }
 
   [(WDAtrialFibrillationInternalSettingsViewController *)self setDeletingSamples:1];
   healthStore = [(WDAtrialFibrillationInternalSettingsViewController *)self healthStore];
   atrialFibrillationEventType = [MEMORY[0x277CCD0C0] atrialFibrillationEventType];
-  v11 = atrialFibrillationEventType;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __77__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifications__block_invoke;
-  v10[3] = &unk_2796E6CC8;
-  v10[4] = self;
-  [healthStore deleteAllSamplesWithTypes:v8 sourceBundleIdentifier:0 options:2 completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = atrialFibrillationEventType;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __77__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifications__block_invoke;
+  v9[3] = &unk_2796E6CC8;
+  v9[4] = self;
+  [healthStore deleteAllSamplesWithTypes:v8 sourceBundleIdentifier:0 options:2 completion:v9];
 }
 
 void __77__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifications__block_invoke(uint64_t a1, char a2, void *a3)
@@ -203,34 +199,32 @@ void __77__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifica
 
 - (void)_deleteAllNotificationsAndTachograms
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v14 = objc_opt_class();
-    v5 = v14;
+    v13 = objc_opt_class();
+    v5 = v13;
     _os_log_impl(&dword_251E85000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting all atrial fibrillation event and tachogram samples", buf, 0xCu);
   }
 
   atrialFibrillationEventType = [MEMORY[0x277CCD0C0] atrialFibrillationEventType];
-  v12[0] = atrialFibrillationEventType;
+  v11[0] = atrialFibrillationEventType;
   heartbeatSeriesType = [MEMORY[0x277CCD920] heartbeatSeriesType];
-  v12[1] = heartbeatSeriesType;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = heartbeatSeriesType;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   [(WDAtrialFibrillationInternalSettingsViewController *)self setDeletingSamples:1];
   healthStore = [(WDAtrialFibrillationInternalSettingsViewController *)self healthStore];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __90__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotificationsAndTachograms__block_invoke;
-  v11[3] = &unk_2796E6CC8;
-  v11[4] = self;
-  [healthStore deleteAllSamplesWithTypes:v8 sourceBundleIdentifier:0 options:2 completion:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __90__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotificationsAndTachograms__block_invoke;
+  v10[3] = &unk_2796E6CC8;
+  v10[4] = self;
+  [healthStore deleteAllSamplesWithTypes:v8 sourceBundleIdentifier:0 options:2 completion:v10];
 }
 
 void __90__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotificationsAndTachograms__block_invoke(uint64_t a1, char a2, void *a3)
@@ -283,7 +277,7 @@ void __90__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifica
 
 void __67__WDAtrialFibrillationInternalSettingsViewController__addNewSample__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -291,17 +285,16 @@ void __67__WDAtrialFibrillationInternalSettingsViewController__addNewSample__blo
     v6 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = objc_opt_class();
-      v10 = *(a1 + 40);
-      v11 = v9;
-      v12 = [v10 UUID];
-      v22 = 138543618;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v12;
-      _os_log_impl(&dword_251E85000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Saved AFib event with UUID %{public}@", &v22, 0x16u);
+      v7 = v6;
+      v8 = objc_opt_class();
+      v9 = *(a1 + 40);
+      v10 = v8;
+      v11 = [v9 UUID];
+      v18 = 138543618;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v11;
+      _os_log_impl(&dword_251E85000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Saved AFib event with UUID %{public}@", &v18, 0x16u);
 
 LABEL_9:
     }
@@ -310,41 +303,37 @@ LABEL_9:
   else
   {
     _HKInitializeLogging();
-    v13 = *MEMORY[0x277CCC2D8];
-    v14 = os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT);
+    v12 = *MEMORY[0x277CCC2D8];
+    v13 = os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v14)
+      if (v13)
       {
-        v15 = *(a1 + 32);
-        v8 = v13;
-        v16 = objc_opt_class();
-        v17 = v16;
-        v18 = [v5 localizedDescription];
-        v22 = 138543618;
-        v23 = v16;
-        v24 = 2114;
-        v25 = v18;
-        _os_log_impl(&dword_251E85000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to save AFib event with error: %{public}@", &v22, 0x16u);
+        v7 = v12;
+        v14 = objc_opt_class();
+        v15 = v14;
+        v16 = [v5 localizedDescription];
+        v18 = 138543618;
+        v19 = v14;
+        v20 = 2114;
+        v21 = v16;
+        _os_log_impl(&dword_251E85000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to save AFib event with error: %{public}@", &v18, 0x16u);
 
         goto LABEL_9;
       }
     }
 
-    else if (v14)
+    else if (v13)
     {
-      v19 = *(a1 + 32);
-      v8 = v13;
-      v22 = 138543362;
-      v23 = objc_opt_class();
-      v20 = v23;
-      _os_log_impl(&dword_251E85000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to save AFib event", &v22, 0xCu);
+      v7 = v12;
+      v18 = 138543362;
+      v19 = objc_opt_class();
+      v17 = v19;
+      _os_log_impl(&dword_251E85000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Failed to save AFib event", &v18, 0xCu);
 
       goto LABEL_9;
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_featureAvailabilityStatusString
@@ -660,46 +649,34 @@ LABEL_18:
 
 void __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error resetting IRN onboarding: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%{public}@: Error resetting IRN onboarding: %{public}@", v7, v8, v9, v10);
 }
 
 void __70__WDAtrialFibrillationInternalSettingsViewController__resetOnboarding__block_invoke_303_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error deleting last analyzed sample date: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%{public}@: Error deleting last analyzed sample date: %{public}@", v7, v8, v9, v10);
 }
 
 void __77__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotifications__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error deleting atrial fibrillation event samples: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%{public}@: Error deleting atrial fibrillation event samples: %{public}@", v7, v8, v9, v10);
 }
 
 void __90__WDAtrialFibrillationInternalSettingsViewController__deleteAllNotificationsAndTachograms__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_251E85000, v6, v7, "%{public}@: Error deleting atrial fibrillation event and tachogram samples: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_251E85000, v5, v6, "%{public}@: Error deleting atrial fibrillation event and tachogram samples: %{public}@", v7, v8, v9, v10);
 }
 
 @end

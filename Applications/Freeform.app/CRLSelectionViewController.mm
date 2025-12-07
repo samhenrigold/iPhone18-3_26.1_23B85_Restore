@@ -8,7 +8,7 @@
 
 - (NSArray)decoratorOverlayRenderables
 {
-  sub_100006370(0, &qword_101A00020);
+  sub_100006370(0, &qword_101A00020, off_10182F790);
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -19,7 +19,7 @@
   selfCopy = self;
   sub_100912174();
 
-  sub_100006370(0, &qword_1019F6D00);
+  sub_100006370(0, &qword_1019F6D00, UIView_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

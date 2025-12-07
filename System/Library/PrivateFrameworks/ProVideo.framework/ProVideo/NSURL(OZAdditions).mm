@@ -1,5 +1,5 @@
 @interface NSURL(OZAdditions)
-+ (uint64_t)motionDocURLFromMotionBundleURL:()OZAdditions;
++ (NSURL)motionDocURLFromMotionBundleURL:()OZAdditions;
 - (BOOL)isEditableMotionProjectURL:()OZAdditions;
 - (id)OZ_imageSequenceURLs;
 - (uint64_t)OZ_isImageSequenceURL;
@@ -112,7 +112,7 @@
   return v11;
 }
 
-+ (uint64_t)motionDocURLFromMotionBundleURL:()OZAdditions
++ (NSURL)motionDocURLFromMotionBundleURL:()OZAdditions
 {
   v3 = [[PCMotionBundle alloc] initWithURL:a3];
   projectFileURL = [(PCMotionBundle *)v3 projectFileURL];

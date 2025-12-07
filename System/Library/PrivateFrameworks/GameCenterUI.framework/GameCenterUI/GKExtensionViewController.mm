@@ -560,7 +560,7 @@ void __44__GKExtensionViewController_hostObjectProxy__block_invoke(uint64_t a1, 
 {
   v4 = MEMORY[0x277CCAAC8];
   clientCopy = client;
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(clientCopy);
   v12 = 0;
   v7 = [v4 unarchivedObjectOfClasses:v6 fromData:clientCopy error:&v12];
 

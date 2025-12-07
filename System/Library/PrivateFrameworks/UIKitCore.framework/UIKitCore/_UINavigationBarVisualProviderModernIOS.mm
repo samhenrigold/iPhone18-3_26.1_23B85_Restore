@@ -1962,7 +1962,7 @@ LABEL_6:
     tintColor = [(UIView *)self->_contentView tintColor];
     [(UIView *)v8 setTintColor:tintColor];
 
-    if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_BarCustomizationDebugEnabled, @"BarCustomizationDebugEnabled") & 1) == 0 && byte_1EA95E154)
+    if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_BarCustomizationDebugEnabled, @"BarCustomizationDebugEnabled") && byte_1EA95E154)
     {
       v10 = +[UIColor redColor];
       cGColor = [v10 CGColor];
@@ -2107,9 +2107,9 @@ LABEL_6:
                   v19 = v13;
                   _customizationIdentifier = [v13 _customizationIdentifier];
                   identifier = [v18 identifier];
-                  v22 = [_customizationIdentifier isEqual:identifier];
+                  isEqual = objc_msgSend_isEqual_(_customizationIdentifier);
 
-                  if (v22)
+                  if (isEqual)
                   {
                     v13 = v19;
                     [v18 setCollapsed:{objc_msgSend(v19, "isDisplayingRepresentativeItem")}];
@@ -2364,9 +2364,9 @@ LABEL_19:
 
           v11 = *(*(&v15 + 1) + 8 * i);
           _customizationIdentifier = [v11 _customizationIdentifier];
-          v13 = [_customizationIdentifier isEqual:identifierCopy];
+          isEqual = objc_msgSend_isEqual_(_customizationIdentifier);
 
-          if (v13)
+          if (isEqual)
           {
             v8 = v11;
             goto LABEL_12;
@@ -2481,7 +2481,7 @@ LABEL_28:
     else
     {
       v38 = v8;
-      if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceOOPRename, @"ForceOOPRename") & 1) != 0 || !byte_1EA95E15C)
+      if (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceOOPRename, @"ForceOOPRename") || !byte_1EA95E15C)
       {
         v31 = [_UINavigationBarTitleRenamerSession alloc];
         title = [item title];
@@ -2890,10 +2890,10 @@ LABEL_41:
 
       if (v52)
       {
-        v54 = [v51 isEqual:v52];
+        isEqual = objc_msgSend_isEqual_(v51);
 
         _barTitleData = v132;
-        if (v54)
+        if (isEqual)
         {
 LABEL_63:
           [(_UINavigationBarContentView *)self->_contentView setLeadingItemsSupplementBackItem:leftItemsSupplementBackButton];
@@ -2921,7 +2921,7 @@ LABEL_63:
 
             if (v62 && v63)
             {
-              v65 = [v62 isEqual:v63];
+              v65 = objc_msgSend_isEqual_(v62);
 
               _barTitleData = v132;
               if (v65)
@@ -3132,7 +3132,7 @@ LABEL_91:
                       v97 = 1;
                       if (v100 && title3)
                       {
-                        v97 = [title3 isEqual:v100] ^ 1;
+                        v97 = objc_msgSend_isEqual_(title3) ^ 1;
                       }
                     }
 
@@ -5581,9 +5581,9 @@ LABEL_12:
     {
       if (v17 && v18)
       {
-        v20 = [v17 isEqual:v18];
+        isEqual = objc_msgSend_isEqual_(v17);
 
-        if (v20)
+        if (isEqual)
         {
           goto LABEL_14;
         }
@@ -6538,9 +6538,9 @@ LABEL_9:
 
         else
         {
-          v11 = [v7 isEqual:v8];
+          isEqual = objc_msgSend_isEqual_(v7);
 
-          if (v11)
+          if (isEqual)
           {
             goto LABEL_13;
           }
@@ -7001,7 +7001,7 @@ LABEL_17:
     goto LABEL_13;
   }
 
-  if ([pathCopy isEqualToString:@"opacity"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     viewUsingEaseInCurve = [(_UINavigationBarTransitionContext *)self->_transitionContext viewUsingEaseInCurve];
 
@@ -7294,9 +7294,9 @@ LABEL_9:
 - (id)valueForUndefinedKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"backdropGroupName"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
-    UIKVCAccessProhibited(keyCopy, @"UINavigationBar");
+    UIKVCAccessProhibited(keyCopy, @"UINavigationBar", 1179648);
 
     v5 = 0;
   }
@@ -7315,9 +7315,9 @@ LABEL_9:
 {
   valueCopy = value;
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"backdropGroupName"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
-    UIKVCAccessProhibited(keyCopy, @"UINavigationBar");
+    UIKVCAccessProhibited(keyCopy, @"UINavigationBar", 1179648);
   }
 
   else

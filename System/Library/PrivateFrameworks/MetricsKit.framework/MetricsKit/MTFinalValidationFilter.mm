@@ -7,29 +7,29 @@
 
 - (void)validateFields:(id)fields
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   allKeys = [fieldsCopy allKeys];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v5 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v35;
+    v7 = *v34;
     do
     {
       v8 = 0;
       do
       {
-        if (*v35 != v7)
+        if (*v34 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v34 + 1) + 8 * v8);
+        v9 = *(*(&v33 + 1) + 8 * v8);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -59,18 +59,16 @@
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v6);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)apply:(id)apply
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   applyCopy = apply;
   metricsKit = [(MTObject *)self metricsKit];
   config = [metricsKit config];
@@ -78,26 +76,24 @@
 
   if (applyCopy && sources)
   {
-    v21[0] = sources;
-    v21[1] = applyCopy;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = sources;
+    v20[1] = applyCopy;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v15 = [MTPromise promiseWithAll:v14];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __33__MTFinalValidationFilter_apply___block_invoke;
-    v20[3] = &unk_2798CD3E0;
-    v20[4] = self;
-    v16 = [v15 thenWithBlock:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __33__MTFinalValidationFilter_apply___block_invoke;
+    v19[3] = &unk_2798CD3E0;
+    v19[4] = self;
+    v16 = [v15 thenWithBlock:v19];
   }
 
   else
   {
-    v17 = MTError(301, 0, v8, v9, v10, v11, v12, v13, v20[0]);
+    v17 = MTError(301, 0, v8, v9, v10, v11, v12, v13, v19[0]);
     v16 = [MTPromise promiseWithError:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

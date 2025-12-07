@@ -277,20 +277,18 @@ LABEL_6:
 
 - (id)_errorForUnsupportedNode:(id)node
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   nodeCopy = node;
   objectTypeErrorDescription = [(REScriptASTObjectBuilder *)self objectTypeErrorDescription];
   v7 = [v4 stringWithFormat:@"Unsupported expression found when creating %@", objectTypeErrorDescription];
 
-  v13 = @"REErrorTokenKey";
+  v12 = @"REErrorTokenKey";
   token = [nodeCopy token];
 
-  v14[0] = token;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = token;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = RECreateErrorWithCodeMessageAndUseInfo(209, v7, v9);
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

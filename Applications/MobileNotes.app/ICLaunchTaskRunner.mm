@@ -9,7 +9,7 @@
 + (id)runImmediateLaunchTasks:(id)tasks delegate:(id)delegate completionHandler:(id)handler
 {
   v6 = _Block_copy(handler);
-  sub_10015DA04(&qword_1006C2168);
+  sub_10015DA04(&qword_1006C2168, &unk_10053E428);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v8 = swift_allocObject();
   *(v8 + 16) = v6;

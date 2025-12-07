@@ -31,22 +31,21 @@
 
 - (WBSFetchedCloudTabDeviceOrCloseRequest)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"uuidString"];
   v6 = MEMORY[0x1E695DFD8];
+  v12 = objc_opt_class();
   v13 = objc_opt_class();
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
-  v17 = objc_opt_class();
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:5];
-  v8 = [v6 setWithArray:{v7, v13, v14, v15, v16}];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:5];
+  v8 = [v6 setWithArray:{v7, v12, v13, v14, v15}];
 
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"deviceOrCloseRequestDictionary"];
 
   v10 = [(WBSFetchedCloudTabDeviceOrCloseRequest *)self initWithUUIDString:v5 deviceOrCloseRequestDictionary:v9];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

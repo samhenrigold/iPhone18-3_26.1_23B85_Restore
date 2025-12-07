@@ -7,7 +7,7 @@
 - (ARImageTrackingTechnique)initWithReferenceImages:(id)images maximumNumberOfTrackedImages:(int64_t)trackedImages deterministicMode:(BOOL)mode
 {
   imagesCopy = images;
-  v8 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.ARImageTrackingTechnique");
+  v8 = ARCreateFixedPriorityDispatchQueue("com.apple.arkit.ARImageTrackingTechnique", 4294967285);
   v12.receiver = self;
   v12.super_class = ARImageTrackingTechnique;
   v9 = [(ARImageDetectionTechnique *)&v12 initWithReferenceImages:imagesCopy maximumNumberOfTrackedImages:trackedImages continuousDetection:0 processingQueue:v8];

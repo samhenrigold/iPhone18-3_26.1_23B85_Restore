@@ -1,5602 +1,20 @@
-uint64_t sub_2575C3678()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3754()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3830()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C390C()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C39E8()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3AC4()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3BA0()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3C7C()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575C3D58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  result = sub_2575C3EE0(a1, a2, a3, a4);
-  if (!v4)
-  {
-    sub_2575C40D4(a1, a2, a3, a4);
-    sub_2575C42C8(a1, a2, a3, a4);
-    sub_2575C44BC(a1, a2, a3, a4);
-    sub_2575C46B0(a1, a2, a3, a4);
-    sub_2575C48A4(a1, a2, a3, a4);
-    sub_2575C4A98(a1, a2, a3, a4);
-    sub_2575C4C8C(a1, a2, a3, a4);
-    sub_2575C4E80(a1, a2, a3, a4);
-    sub_2575C5074(a1, a2, a3, a4);
-    sub_2575C5268(a1, a2, a3, a4);
-    sub_2575C545C(a1, a2, a3, a4);
-    sub_2575C5650(a1, a2, a3, a4);
-    sub_2575C5844(a1, a2, a3, a4);
-    return sub_2575C5A38(a1, a2, a3, a4);
-  }
-
-  return result;
-}
-
-uint64_t sub_2575C3EE0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C40D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C42C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C44BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C46B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C48A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C4A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C4C8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C4E80(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C5074(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C5268(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C545C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C5650(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C5844(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C5A38(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-void sub_2575C5C58()
-{
-  OUTLINED_FUNCTION_31();
-  v295 = v1;
-  v2 = OUTLINED_FUNCTION_273_0();
-  v293 = type metadata accessor for Proto_WeightParams(v2);
-  v3 = OUTLINED_FUNCTION_4(v293);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_12_1();
-  v292 = v6;
-  v294 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA30, &qword_2577673D8);
-  v7 = OUTLINED_FUNCTION_4(v294);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_25_0();
-  v253 = v10;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v11);
-  OUTLINED_FUNCTION_167();
-  v256 = v12;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v13);
-  OUTLINED_FUNCTION_167();
-  v259 = v14;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_167();
-  v262 = v16;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_167();
-  v266 = v18;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_167();
-  v265 = v20;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v21);
-  OUTLINED_FUNCTION_167();
-  v269 = v22;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v23);
-  OUTLINED_FUNCTION_167();
-  v272 = v24;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v25);
-  OUTLINED_FUNCTION_167();
-  v275 = v26;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v27);
-  OUTLINED_FUNCTION_167();
-  v278 = v28;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v29);
-  OUTLINED_FUNCTION_167();
-  v281 = v30;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v31);
-  OUTLINED_FUNCTION_167();
-  v284 = v32;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v33);
-  OUTLINED_FUNCTION_167();
-  v288 = v34;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v35);
-  OUTLINED_FUNCTION_167();
-  v291 = v36;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v37);
-  OUTLINED_FUNCTION_134_0();
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v39 = OUTLINED_FUNCTION_13(v38);
-  v41 = *(v40 + 64);
-  MEMORY[0x28223BE20](v39);
-  OUTLINED_FUNCTION_25_0();
-  v250[1] = v42;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v43);
-  OUTLINED_FUNCTION_167();
-  v251 = v44;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v45);
-  OUTLINED_FUNCTION_167();
-  v252 = v46;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v47);
-  OUTLINED_FUNCTION_167();
-  v254 = v48;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v49);
-  OUTLINED_FUNCTION_167();
-  v255 = v50;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v51);
-  OUTLINED_FUNCTION_167();
-  v257 = v52;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v53);
-  OUTLINED_FUNCTION_167();
-  v258 = v54;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v55);
-  OUTLINED_FUNCTION_167();
-  v260 = v56;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v57);
-  OUTLINED_FUNCTION_167();
-  v261 = v58;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v59);
-  OUTLINED_FUNCTION_167();
-  v264 = v60;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v61);
-  OUTLINED_FUNCTION_167();
-  v263 = v62;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v63);
-  OUTLINED_FUNCTION_167();
-  v268 = v64;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v65);
-  OUTLINED_FUNCTION_167();
-  v267 = v66;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v67);
-  OUTLINED_FUNCTION_167();
-  v271 = v68;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v69);
-  OUTLINED_FUNCTION_167();
-  v270 = v70;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v71);
-  OUTLINED_FUNCTION_167();
-  v274 = v72;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_167();
-  v273 = v74;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v75);
-  OUTLINED_FUNCTION_167();
-  v277 = v76;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v77);
-  OUTLINED_FUNCTION_167();
-  v276 = v78;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v79);
-  OUTLINED_FUNCTION_167();
-  v280 = v80;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v81);
-  OUTLINED_FUNCTION_167();
-  v279 = v82;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v83);
-  OUTLINED_FUNCTION_167();
-  v283 = v84;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v85);
-  OUTLINED_FUNCTION_167();
-  v282 = v86;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v87);
-  OUTLINED_FUNCTION_167();
-  v286 = v88;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v89);
-  OUTLINED_FUNCTION_167();
-  v285 = v90;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v91);
-  OUTLINED_FUNCTION_167();
-  v287 = v92;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v93);
-  OUTLINED_FUNCTION_167();
-  v289 = v94;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v95);
-  OUTLINED_FUNCTION_167();
-  v290 = v96;
-  OUTLINED_FUNCTION_158();
-  MEMORY[0x28223BE20](v97);
-  OUTLINED_FUNCTION_260_0();
-  MEMORY[0x28223BE20](v98);
-  v100 = v250 - v99;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  sub_257487308();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v101 = *(v294 + 48);
-  sub_257487308();
-  v102 = v293;
-  sub_257487308();
-  OUTLINED_FUNCTION_35_2(v0);
-  if (v103)
-  {
-
-    sub_2574695E4(v100, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v0 + v101);
-    if (!v103)
-    {
-      goto LABEL_10;
-    }
-
-    sub_2574695E4(v0, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_389_0();
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v0 + v101);
-    if (v103)
-    {
-
-      v104 = v100;
-LABEL_9:
-      sub_2574695E4(v104, &qword_27F87A1A0, &qword_257745750);
-      OUTLINED_FUNCTION_4_10();
-      sub_257609BCC();
-LABEL_10:
-      v105 = v0;
-LABEL_87:
-      sub_2574695E4(v105, &qword_27F87FA30, &qword_2577673D8);
-      goto LABEL_88;
-    }
-
-    OUTLINED_FUNCTION_54_2();
-    sub_257609B78();
-
-    OUTLINED_FUNCTION_167_1();
-    sub_257598490();
-    v107 = v106;
-    sub_257609BCC();
-    sub_2574695E4(v100, &qword_27F87A1A0, &qword_257745750);
-    sub_257609BCC();
-    sub_2574695E4(v0, &qword_27F87A1A0, &qword_257745750);
-    if ((v107 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v108 = v290;
-  sub_257487308();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v109 = *(v294 + 48);
-  v110 = v291;
-  sub_257487308();
-  sub_257487308();
-  OUTLINED_FUNCTION_35_2(v110);
-  if (v103)
-  {
-    sub_2574695E4(v108, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v110 + v109);
-    if (v103)
-    {
-      sub_2574695E4(v110, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_22;
-    }
-
-LABEL_20:
-    v105 = v110;
-    goto LABEL_87;
-  }
-
-  sub_257487308();
-  OUTLINED_FUNCTION_35_2(v110 + v109);
-  if (v111)
-  {
-    sub_2574695E4(v108, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-    goto LABEL_20;
-  }
-
-  sub_257609B78();
-  sub_257598490();
-  v112 = v110;
-  v114 = v113;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  v115 = OUTLINED_FUNCTION_277();
-  sub_2574695E4(v115, v116, &qword_257745750);
-  sub_257609BCC();
-  sub_2574695E4(v112, &qword_27F87A1A0, &qword_257745750);
-  if ((v114 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_22:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v117 = v287;
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_182_1();
-  v118 = v288;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v117, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v118);
-    if (!v103)
-    {
-      goto LABEL_86;
-    }
-
-    sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v118);
-    if (v119)
-    {
-      sub_2574695E4(v117, &qword_27F87A1A0, &qword_257745750);
-      OUTLINED_FUNCTION_4_10();
-LABEL_85:
-      sub_257609BCC();
-      goto LABEL_86;
-    }
-
-    sub_257609B78();
-    OUTLINED_FUNCTION_415();
-    sub_257598490();
-    v121 = v120;
-    OUTLINED_FUNCTION_3_15();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v122, v123, v124);
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v125, v126, v127);
-    if ((v121 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v128 = v286;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v129 = *(v294 + 48);
-  v118 = v284;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v128, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v118 + v129);
-    if (!v103)
-    {
-      goto LABEL_86;
-    }
-
-    sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v118 + v129);
-    if (v130)
-    {
-      v131 = v286;
-      goto LABEL_84;
-    }
-
-    sub_257609B78();
-    OUTLINED_FUNCTION_188_1();
-    sub_257598490();
-    v128 = v132;
-    OUTLINED_FUNCTION_3_15();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v133, v134, v135);
-    OUTLINED_FUNCTION_288();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v136, v137, v138);
-    if ((v128 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v139 = v283;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_181_1();
-  v118 = v281;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_180_1();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v139, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (!v103)
-    {
-      goto LABEL_86;
-    }
-
-    sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (v140)
-    {
-      v131 = v283;
-      goto LABEL_84;
-    }
-
-    OUTLINED_FUNCTION_282_0();
-    OUTLINED_FUNCTION_188_1();
-    sub_257598490();
-    v128 = v141;
-    OUTLINED_FUNCTION_3_15();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v142, v143, v144);
-    OUTLINED_FUNCTION_288();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v145, v146, v147);
-    if ((v128 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v148 = v280;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_181_1();
-  v118 = v278;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_180_1();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v148, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (!v103)
-    {
-      goto LABEL_86;
-    }
-
-    sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (v149)
-    {
-      v131 = v280;
-      goto LABEL_84;
-    }
-
-    OUTLINED_FUNCTION_282_0();
-    OUTLINED_FUNCTION_188_1();
-    sub_257598490();
-    v128 = v150;
-    OUTLINED_FUNCTION_3_15();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v151, v152, v153);
-    OUTLINED_FUNCTION_288();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v154, v155, v156);
-    if ((v128 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v157 = v277;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_181_1();
-  v118 = v275;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_180_1();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v157, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (!v103)
-    {
-      goto LABEL_86;
-    }
-
-    sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  else
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (v158)
-    {
-      v131 = v277;
-      goto LABEL_84;
-    }
-
-    OUTLINED_FUNCTION_282_0();
-    OUTLINED_FUNCTION_188_1();
-    sub_257598490();
-    v128 = v159;
-    OUTLINED_FUNCTION_3_15();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v160, v161, v162);
-    OUTLINED_FUNCTION_288();
-    sub_257609BCC();
-    OUTLINED_FUNCTION_153_0();
-    sub_2574695E4(v163, v164, v165);
-    if ((v128 & 1) == 0)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v166 = v274;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_181_1();
-  v118 = v272;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_180_1();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (!v103)
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (!v167)
-    {
-      OUTLINED_FUNCTION_282_0();
-      OUTLINED_FUNCTION_188_1();
-      sub_257598490();
-      v128 = v168;
-      OUTLINED_FUNCTION_3_15();
-      sub_257609BCC();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v169, v170, v171);
-      OUTLINED_FUNCTION_288();
-      sub_257609BCC();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v172, v173, v174);
-      if ((v128 & 1) == 0)
-      {
-        goto LABEL_88;
-      }
-
-      goto LABEL_76;
-    }
-
-    v131 = v274;
-LABEL_84:
-    sub_2574695E4(v131, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    goto LABEL_85;
-  }
-
-  sub_2574695E4(v166, &qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_35_2(v118 + v128);
-  if (!v103)
-  {
-    goto LABEL_86;
-  }
-
-  sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-LABEL_76:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v175 = v271;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_181_1();
-  v118 = v269;
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_180_1();
-  OUTLINED_FUNCTION_35_2(v118);
-  if (v103)
-  {
-    sub_2574695E4(v175, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_35_2(v118 + v128);
-    if (v103)
-    {
-      sub_2574695E4(v118, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_91;
-    }
-
-LABEL_86:
-    v105 = v118;
-    goto LABEL_87;
-  }
-
-  sub_257487308();
-  OUTLINED_FUNCTION_35_2(v118 + v128);
-  if (v176)
-  {
-    v131 = v271;
-    goto LABEL_84;
-  }
-
-  OUTLINED_FUNCTION_282_0();
-  OUTLINED_FUNCTION_188_1();
-  sub_257598490();
-  v178 = v177;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v179, v180, v181);
-  OUTLINED_FUNCTION_288();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v182, v183, v184);
-  if ((v178 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_91:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_186_1();
-  OUTLINED_FUNCTION_296_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v185 = *(v294 + 48);
-  v0 = v265;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_35_2(v0);
-  if (v103)
-  {
-    sub_2574695E4(v268, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_155(v0 + v185, 1, v102);
-    if (v103)
-    {
-      sub_2574695E4(v0, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_100;
-    }
-
-    goto LABEL_10;
-  }
-
-  sub_257487308();
-  OUTLINED_FUNCTION_155(v0 + v185, 1, v102);
-  if (v186)
-  {
-    v104 = v268;
-    goto LABEL_9;
-  }
-
-  sub_257609B78();
-  OUTLINED_FUNCTION_188_1();
-  sub_257598490();
-  v188 = v187;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v189, v190, v191);
-  OUTLINED_FUNCTION_320_0();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v192, v193, v194);
-  if ((v188 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_100:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v195 = *(v294 + 48);
-  v196 = v266;
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_278_0();
-  OUTLINED_FUNCTION_65(v196);
-  if (v103)
-  {
-    sub_2574695E4(v264, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_65(v266 + v195);
-    if (v103)
-    {
-      sub_2574695E4(v266, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_111;
-    }
-
-LABEL_108:
-    v199 = v266;
-LABEL_140:
-    sub_2574695E4(v199, &qword_27F87FA30, &qword_2577673D8);
-    goto LABEL_88;
-  }
-
-  v197 = v266;
-  sub_257487308();
-  OUTLINED_FUNCTION_65(v197 + v195);
-  if (v198)
-  {
-    sub_2574695E4(v264, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-    goto LABEL_108;
-  }
-
-  OUTLINED_FUNCTION_281_0();
-  OUTLINED_FUNCTION_406();
-  sub_257598490();
-  v201 = v200;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v202, v203, v204);
-  OUTLINED_FUNCTION_319_0();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v205, v206, v207);
-  if ((v201 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_111:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_182_1();
-  v208 = v262;
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_227_0();
-  OUTLINED_FUNCTION_65(v208);
-  if (v103)
-  {
-    sub_2574695E4(v260, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v262);
-    if (v103)
-    {
-      sub_2574695E4(v262, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_121;
-    }
-
-    goto LABEL_119;
-  }
-
-  v209 = v262;
-  sub_257487308();
-  OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v209);
-  if (v210)
-  {
-    sub_2574695E4(v260, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-LABEL_119:
-    v199 = v262;
-    goto LABEL_140;
-  }
-
-  OUTLINED_FUNCTION_281_0();
-  OUTLINED_FUNCTION_406();
-  sub_257598490();
-  v212 = v211;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v213, v214, v215);
-  OUTLINED_FUNCTION_319_0();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v216, v217, v218);
-  if ((v212 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_121:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_182_1();
-  v219 = v259;
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_227_0();
-  OUTLINED_FUNCTION_65(v219);
-  if (v103)
-  {
-    sub_2574695E4(v257, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v259);
-    if (v103)
-    {
-      sub_2574695E4(v259, &qword_27F87A1A0, &qword_257745750);
-      goto LABEL_131;
-    }
-
-    goto LABEL_129;
-  }
-
-  v220 = v259;
-  sub_257487308();
-  OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v220);
-  if (v221)
-  {
-    sub_2574695E4(v257, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-LABEL_129:
-    v199 = v259;
-    goto LABEL_140;
-  }
-
-  OUTLINED_FUNCTION_281_0();
-  OUTLINED_FUNCTION_406();
-  sub_257598490();
-  v223 = v222;
-  OUTLINED_FUNCTION_3_15();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v224, v225, v226);
-  OUTLINED_FUNCTION_319_0();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_153_0();
-  sub_2574695E4(v227, v228, v229);
-  if ((v223 & 1) == 0)
-  {
-    goto LABEL_88;
-  }
-
-LABEL_131:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_182_1();
-  v230 = v256;
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_227_0();
-  OUTLINED_FUNCTION_65(v230);
-  if (!v103)
-  {
-    v231 = v256;
-    sub_257487308();
-    OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v231);
-    if (!v232)
-    {
-      OUTLINED_FUNCTION_281_0();
-      OUTLINED_FUNCTION_406();
-      sub_257598490();
-      v234 = v233;
-      OUTLINED_FUNCTION_3_15();
-      sub_257609BCC();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v235, v236, v237);
-      OUTLINED_FUNCTION_319_0();
-      sub_257609BCC();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v238, v239, v240);
-      if (v234)
-      {
-        goto LABEL_143;
-      }
-
-LABEL_88:
-
-      goto LABEL_89;
-    }
-
-    sub_2574695E4(v254, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-    goto LABEL_139;
-  }
-
-  sub_2574695E4(v254, &qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v256);
-  if (!v103)
-  {
-LABEL_139:
-    v199 = v256;
-    goto LABEL_140;
-  }
-
-  sub_2574695E4(v256, &qword_27F87A1A0, &qword_257745750);
-LABEL_143:
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_182_1();
-  v241 = v253;
-  OUTLINED_FUNCTION_185_1();
-  OUTLINED_FUNCTION_227_0();
-  OUTLINED_FUNCTION_65(v241);
-  if (!v103)
-  {
-    v242 = v253;
-    sub_257487308();
-    OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v242);
-    if (!v243)
-    {
-      OUTLINED_FUNCTION_281_0();
-      sub_257598490();
-
-      OUTLINED_FUNCTION_3_15();
-      sub_257609BCC();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v244, v245, v246);
-      OUTLINED_FUNCTION_413_0();
-      OUTLINED_FUNCTION_153_0();
-      sub_2574695E4(v247, v248, v249);
-      goto LABEL_89;
-    }
-
-    sub_2574695E4(v251, &qword_27F87A1A0, &qword_257745750);
-    OUTLINED_FUNCTION_4_10();
-    sub_257609BCC();
-LABEL_151:
-    sub_2574695E4(v253, &qword_27F87FA30, &qword_2577673D8);
-    goto LABEL_89;
-  }
-
-  sub_2574695E4(v251, &qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_65(&OBJC_IVAR____TtCV20MLModelSpecification30Proto_Convolution3DLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__customPaddingLeft + v253);
-  if (!v103)
-  {
-    goto LABEL_151;
-  }
-
-  sub_2574695E4(v253, &qword_27F87A1A0, &qword_257745750);
-LABEL_89:
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2575C7A3C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EDB0, type metadata accessor for Proto_LSTMWeightParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575C7ADC(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575C7BA4()
-{
-  sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575C7C64()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E94E0);
-  __swift_project_value_buffer(v0, qword_27F8E94E0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257745520;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "inputVectorSize";
-  *(v6 + 8) = 15;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "outputVectorSize";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 10;
-  *v12 = "activations";
-  *(v12 + 1) = 11;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 15;
-  *v14 = "params";
-  *(v14 + 1) = 6;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 20;
-  *v16 = "weightParams";
-  *(v16 + 1) = 12;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 100;
-  *v18 = "reverseInput";
-  *(v18 + 1) = 12;
-  v18[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-void sub_2575C7F24()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    v1 = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(v1)
-    {
-      case 100:
-        OUTLINED_FUNCTION_10_7();
-        sub_257743274();
-        break;
-      case 2:
-        goto LABEL_14;
-      case 10:
-        OUTLINED_FUNCTION_216_0();
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C9F04();
-        break;
-      case 15:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C8028();
-        break;
-      case 20:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C80DC();
-        break;
-      case 1:
-LABEL_14:
-        OUTLINED_FUNCTION_10_7();
-        sub_2577433B4();
-        break;
-    }
-  }
-}
-
-uint64_t sub_2575C8028()
-{
-  v0 = *(type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0) + 36);
-  type metadata accessor for Proto_LSTMParams(0);
-  sub_2575FB760(&qword_27F87DEE0, type metadata accessor for Proto_LSTMParams);
-  return sub_2577433D4();
-}
-
-uint64_t sub_2575C80DC()
-{
-  v0 = *(type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0) + 40);
-  type metadata accessor for Proto_LSTMWeightParams(0);
-  sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-  return sub_2577433D4();
-}
-
-void sub_2575C8190()
-{
-  OUTLINED_FUNCTION_188_0();
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), sub_257743554(), !v0))
-  {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), sub_257743554(), !v0))
-    {
-      if (!*(*(v1 + 16) + 16) || (type metadata accessor for Proto_ActivationParams(0), OUTLINED_FUNCTION_95_2(), sub_2575FB760(v2, v3), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v0))
-      {
-        v4 = OUTLINED_FUNCTION_3_9();
-        sub_2575C82A0(v4, v5, v6, v7);
-        if (!v0)
-        {
-          v8 = OUTLINED_FUNCTION_3_9();
-          sub_2575C8480(v8, v9, v10, v11);
-          if (*(v1 + 24) == 1)
-          {
-            OUTLINED_FUNCTION_12_8();
-            sub_2577434B4();
-          }
-
-          v12 = *(type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0) + 32);
-          OUTLINED_FUNCTION_7_5();
-        }
-      }
-    }
-  }
-
-  OUTLINED_FUNCTION_187_0();
-}
-
-uint64_t sub_2575C82A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA40, &qword_257752538);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Proto_LSTMParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0) + 36);
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87CA40, &qword_257752538);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87DEE0, type metadata accessor for Proto_LSTMParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575C8480(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA48, &unk_257752540);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Proto_LSTMWeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0) + 40);
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87CA48, &unk_257752540);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-void _s20MLModelSpecification13NeuralNetworkV5LayerV28UnidirectionalLSTMParametersV2eeoiySbAG_AGtFZ_0()
-{
-  OUTLINED_FUNCTION_31();
-  v8 = OUTLINED_FUNCTION_118_1();
-  v9 = type metadata accessor for Proto_LSTMWeightParams(v8);
-  v10 = OUTLINED_FUNCTION_4(v9);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20](v10);
-  OUTLINED_FUNCTION_12_1();
-  v58 = v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA48, &unk_257752540);
-  OUTLINED_FUNCTION_13(v14);
-  v16 = *(v15 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_198();
-  v59 = v18;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA60, &qword_257767410);
-  OUTLINED_FUNCTION_41_4(v19);
-  v21 = *(v20 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v22);
-  OUTLINED_FUNCTION_32_3();
-  v23 = type metadata accessor for Proto_LSTMParams(0);
-  v24 = OUTLINED_FUNCTION_4(v23);
-  v26 = *(v25 + 64);
-  MEMORY[0x28223BE20](v24);
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_227();
-  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA40, &qword_257752538);
-  OUTLINED_FUNCTION_13(v27);
-  v29 = *(v28 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v30);
-  OUTLINED_FUNCTION_157_0();
-  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA68, &unk_257767418);
-  OUTLINED_FUNCTION_42_4(v31);
-  v33 = *(v32 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v34);
-  OUTLINED_FUNCTION_262_0();
-  if (*v1 != *v0 || *(v1 + 8) != *(v0 + 8) || (sub_257480228(*(v1 + 16), *(v0 + 16)) & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-  v57 = v2;
-  v56 = type metadata accessor for Proto_UniDirectionalLSTMLayerParams(0);
-  v35 = v56[9];
-  v36 = *(v3 + 48);
-  sub_257487308();
-  sub_257487308();
-  OUTLINED_FUNCTION_34_0(v7);
-  if (v37)
-  {
-    OUTLINED_FUNCTION_34_0(v7 + v36);
-    if (v37)
-    {
-      sub_2574695E4(v7, &qword_27F87CA40, &qword_257752538);
-      goto LABEL_14;
-    }
-
-LABEL_12:
-    v38 = &qword_27F87FA68;
-    v39 = &unk_257767418;
-    v40 = v7;
-LABEL_24:
-    sub_2574695E4(v40, v38, v39);
-    goto LABEL_25;
-  }
-
-  OUTLINED_FUNCTION_405();
-  sub_257487308();
-  OUTLINED_FUNCTION_34_0(v7 + v36);
-  if (v37)
-  {
-    OUTLINED_FUNCTION_177_0();
-    sub_257609BCC();
-    goto LABEL_12;
-  }
-
-  OUTLINED_FUNCTION_215_0();
-  sub_257609B78();
-  v41 = sub_2575C1B9C(v4, v6);
-  sub_257609BCC();
-  OUTLINED_FUNCTION_194();
-  sub_257609BCC();
-  sub_2574695E4(v7, &qword_27F87CA40, &qword_257752538);
-  if ((v41 & 1) == 0)
-  {
-    goto LABEL_25;
-  }
-
-LABEL_14:
-  v42 = v56[10];
-  v43 = *(v5 + 48);
-  OUTLINED_FUNCTION_317_0();
-  sub_257487308();
-  OUTLINED_FUNCTION_317_0();
-  sub_257487308();
-  OUTLINED_FUNCTION_42_0(v57);
-  if (!v37)
-  {
-    sub_257487308();
-    OUTLINED_FUNCTION_42_0(v57 + v43);
-    if (!v44)
-    {
-      sub_257609B78();
-      v46 = *(v9 + 20);
-      if (*(v59 + v46) == *(v58 + v46))
-      {
-        goto LABEL_29;
-      }
-
-      v47 = *(v59 + v46);
-
-      OUTLINED_FUNCTION_167_1();
-      sub_2575C5C58();
-      v49 = v48;
-
-      if (v49)
-      {
-LABEL_29:
-        sub_2577431B4();
-        OUTLINED_FUNCTION_1_16();
-        sub_2575FB760(v50, v51);
-        v52 = sub_257743644();
-        sub_257609BCC();
-        sub_257609BCC();
-        sub_2574695E4(v57, &qword_27F87CA48, &unk_257752540);
-        if ((v52 & 1) == 0)
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_30;
-      }
-
-      sub_257609BCC();
-      sub_257609BCC();
-      v38 = &qword_27F87CA48;
-      v39 = &unk_257752540;
-      goto LABEL_23;
-    }
-
-    sub_257609BCC();
-LABEL_22:
-    v38 = &qword_27F87FA60;
-    v39 = &qword_257767410;
-LABEL_23:
-    v40 = v57;
-    goto LABEL_24;
-  }
-
-  OUTLINED_FUNCTION_42_0(v57 + v43);
-  if (!v37)
-  {
-    goto LABEL_22;
-  }
-
-  sub_2574695E4(v57, &qword_27F87CA48, &unk_257752540);
-LABEL_30:
-  if (*(v1 + 24) == *(v0 + 24))
-  {
-    v53 = v56[8];
-    sub_2577431B4();
-    OUTLINED_FUNCTION_1_16();
-    sub_2575FB760(v54, v55);
-    v45 = OUTLINED_FUNCTION_19_3();
-    goto LABEL_26;
-  }
-
-LABEL_25:
-  v45 = 0;
-LABEL_26:
-  OUTLINED_FUNCTION_65_0(v45);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2575C8C1C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EF50, type metadata accessor for Proto_UniDirectionalLSTMLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575C8CBC(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DEB0, type metadata accessor for Proto_UniDirectionalLSTMLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575C8D84()
-{
-  sub_2575FB760(&qword_27F87DEB0, type metadata accessor for Proto_UniDirectionalLSTMLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575C8E04()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E94F8);
-  __swift_project_value_buffer(v0, qword_27F8E94F8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257745520;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "inputVectorSize";
-  *(v6 + 8) = 15;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "outputVectorSize";
-  *(v10 + 8) = 16;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 10;
-  *v12 = "activationsForwardLSTM";
-  *(v12 + 1) = 22;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 11;
-  *v14 = "activationsBackwardLSTM";
-  *(v14 + 1) = 23;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 15;
-  *v16 = "params";
-  *(v16 + 1) = 6;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 20;
-  *v18 = "weightParams";
-  *(v18 + 1) = 12;
-  v18[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-void sub_2575C90C8()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    v1 = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(v1)
-    {
-      case 20:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C931C();
-        break;
-      case 2:
-        goto LABEL_14;
-      case 10:
-        OUTLINED_FUNCTION_216_0();
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C9F04();
-        break;
-      case 11:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C91C8();
-        break;
-      case 15:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C9268();
-        break;
-      case 1:
-LABEL_14:
-        OUTLINED_FUNCTION_10_7();
-        sub_2577433B4();
-        break;
-    }
-  }
-}
-
-uint64_t sub_2575C91C8()
-{
-  type metadata accessor for Proto_ActivationParams(0);
-  sub_2575FB760(&qword_27F87E510, type metadata accessor for Proto_ActivationParams);
-  return sub_2577433C4();
-}
-
-uint64_t sub_2575C9268()
-{
-  v0 = *(type metadata accessor for Proto_BiDirectionalLSTMLayerParams(0) + 40);
-  type metadata accessor for Proto_LSTMParams(0);
-  sub_2575FB760(&qword_27F87DEE0, type metadata accessor for Proto_LSTMParams);
-  return sub_2577433D4();
-}
-
-uint64_t sub_2575C931C()
-{
-  type metadata accessor for Proto_LSTMWeightParams(0);
-  sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-  return sub_2577433C4();
-}
-
-void sub_2575C93BC()
-{
-  OUTLINED_FUNCTION_188_0();
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), sub_257743554(), !v0))
-  {
-    if (!v1[1] || (OUTLINED_FUNCTION_12_11(), sub_257743554(), !v0))
-    {
-      if (!*(v1[2] + 16) || (type metadata accessor for Proto_ActivationParams(0), OUTLINED_FUNCTION_95_2(), sub_2575FB760(v2, v3), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v0))
-      {
-        if (!*(v1[3] + 16) || (type metadata accessor for Proto_ActivationParams(0), OUTLINED_FUNCTION_95_2(), sub_2575FB760(v4, v5), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v0))
-        {
-          v6 = OUTLINED_FUNCTION_3_9();
-          sub_2575C9558(v6, v7, v8, v9);
-          if (!v0)
-          {
-            if (*(v1[4] + 16))
-            {
-              type metadata accessor for Proto_LSTMWeightParams(0);
-              sub_2575FB760(&qword_27F87DEC8, type metadata accessor for Proto_LSTMWeightParams);
-              OUTLINED_FUNCTION_55_0();
-              OUTLINED_FUNCTION_27_4();
-              sub_257743564();
-            }
-
-            v10 = *(type metadata accessor for Proto_BiDirectionalLSTMLayerParams(0) + 36);
-            OUTLINED_FUNCTION_7_5();
-          }
-        }
-      }
-    }
-  }
-
-  OUTLINED_FUNCTION_187_0();
-}
-
-uint64_t sub_2575C9558(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA40, &qword_257752538);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Proto_LSTMParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_BiDirectionalLSTMLayerParams(0) + 40);
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87CA40, &qword_257752538);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87DEE0, type metadata accessor for Proto_LSTMParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-void _s20MLModelSpecification13NeuralNetworkV5LayerV27BidirectionalLSTMParametersV2eeoiySbAG_AGtFZ_0()
-{
-  OUTLINED_FUNCTION_31();
-  v4 = OUTLINED_FUNCTION_0_0();
-  v5 = type metadata accessor for Proto_LSTMParams(v4);
-  v6 = OUTLINED_FUNCTION_42_4(v5);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_7_6();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA40, &qword_257752538);
-  OUTLINED_FUNCTION_13(v9);
-  v11 = *(v10 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_75_0();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA68, &unk_257767418);
-  OUTLINED_FUNCTION_41_4(v13);
-  v15 = *(v14 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v16);
-  OUTLINED_FUNCTION_32_3();
-  OUTLINED_FUNCTION_338_0();
-  if (!v23)
-  {
-    goto LABEL_19;
-  }
-
-  OUTLINED_FUNCTION_330_0();
-  if (!v23)
-  {
-    goto LABEL_19;
-  }
-
-  v17 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257480228(v17, v18) & 1) == 0)
-  {
-    goto LABEL_19;
-  }
-
-  v19 = OUTLINED_FUNCTION_182_0();
-  if ((sub_257480228(v19, v20) & 1) == 0)
-  {
-    goto LABEL_19;
-  }
-
-  v34 = type metadata accessor for Proto_BiDirectionalLSTMLayerParams(0);
-  v21 = *(v34 + 40);
-  v22 = *(v3 + 48);
-  OUTLINED_FUNCTION_149_1();
-  OUTLINED_FUNCTION_129_1();
-  OUTLINED_FUNCTION_65(v2);
-  if (v23)
-  {
-    OUTLINED_FUNCTION_65(v2 + v22);
-    if (v23)
-    {
-      sub_2574695E4(v2, &qword_27F87CA40, &qword_257752538);
-      goto LABEL_17;
-    }
-
-LABEL_15:
-    sub_2574695E4(v2, &qword_27F87FA68, &unk_257767418);
-LABEL_19:
-    v33 = 0;
-    goto LABEL_20;
-  }
-
-  OUTLINED_FUNCTION_277();
-  sub_257487308();
-  OUTLINED_FUNCTION_65(v2 + v22);
-  if (v23)
-  {
-    OUTLINED_FUNCTION_168_1();
-    sub_257609BCC();
-    goto LABEL_15;
-  }
-
-  OUTLINED_FUNCTION_215_0();
-  sub_257609B78();
-  v24 = OUTLINED_FUNCTION_360();
-  v26 = sub_2575C1B9C(v24, v25);
-  sub_257609BCC();
-  OUTLINED_FUNCTION_357_0();
-  sub_2574695E4(v2, &qword_27F87CA40, &qword_257752538);
-  if ((v26 & 1) == 0)
-  {
-    goto LABEL_19;
-  }
-
-LABEL_17:
-  v27 = *(v1 + 32);
-  v28 = *(v0 + 32);
-  sub_25748066C();
-  if ((v29 & 1) == 0)
-  {
-    goto LABEL_19;
-  }
-
-  v30 = *(v34 + 36);
-  sub_2577431B4();
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v31, v32);
-  v33 = OUTLINED_FUNCTION_4_2();
-LABEL_20:
-  OUTLINED_FUNCTION_65_0(v33);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2575C99F4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EDB8, type metadata accessor for Proto_BiDirectionalLSTMLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575C9A94(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE98, type metadata accessor for Proto_BiDirectionalLSTMLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575C9B5C()
-{
-  sub_2575FB760(&qword_27F87DE98, type metadata accessor for Proto_BiDirectionalLSTMLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575C9BDC()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9510);
-  __swift_project_value_buffer(v0, qword_27F8E9510);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257744E70;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 10;
-  *v6 = "className";
-  *(v6 + 8) = 9;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 20;
-  *v10 = "weights";
-  *(v10 + 8) = 7;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 30;
-  *v12 = "parameters";
-  *(v12 + 1) = 10;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 40;
-  *v14 = "description";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-void sub_2575C9E24()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    v1 = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(v1)
-    {
-      case 40:
-        goto LABEL_11;
-      case 20:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C9F04();
-        break;
-      case 30:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575C9F6C();
-        break;
-      case 10:
-LABEL_11:
-        OUTLINED_FUNCTION_10_7();
-        sub_257743394();
-        break;
-    }
-  }
-}
-
-void sub_2575C9F04()
-{
-  OUTLINED_FUNCTION_165_0();
-  OUTLINED_FUNCTION_243_0();
-  v0 = OUTLINED_FUNCTION_396_0();
-  v1(v0);
-  v2 = OUTLINED_FUNCTION_131_0();
-  sub_2575FB760(v2, v3);
-  OUTLINED_FUNCTION_162_0();
-  OUTLINED_FUNCTION_166_0();
-}
-
-uint64_t sub_2575C9F6C()
-{
-  sub_257743184();
-  type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue(0);
-  sub_2575FB760(&qword_27F87DE60, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue);
-  sub_2575FB760(&qword_27F87DE68, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue);
-  return sub_257743214();
-}
-
-uint64_t sub_2575CA064()
-{
-  OUTLINED_FUNCTION_2_7();
-  v4 = *v1;
-  v5 = v1[1];
-  OUTLINED_FUNCTION_1_6();
-  if (!v6 || (OUTLINED_FUNCTION_3_10(), result = sub_257743534(), (v0 = v2) == 0))
-  {
-    if (!*(v3[2] + 16) || (type metadata accessor for Proto_WeightParams(0), sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), result = sub_257743564(), (v0 = v2) == 0))
-    {
-      if (!*(v3[3] + 16) || (sub_257743184(), type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue(0), sub_2575FB760(&qword_27F87DE60, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue), sub_2575FB760(&qword_27F87DE68, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue), v2 = v0, result = sub_257743434(), !v0))
-      {
-        v8 = v3[4];
-        v9 = v3[5];
-        OUTLINED_FUNCTION_1_6();
-        if (!v10 || (OUTLINED_FUNCTION_3_10(), result = sub_257743534(), !v2))
-        {
-          v11 = *(type metadata accessor for Proto_CustomLayerParams(0) + 32);
-          return OUTLINED_FUNCTION_7_5();
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CA338(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F758, type metadata accessor for Proto_CustomLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CA3D8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE80, type metadata accessor for Proto_CustomLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CA4A0()
-{
-  sub_2575FB760(&qword_27F87DE80, type metadata accessor for Proto_CustomLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CA520()
-{
-  result = MEMORY[0x259C64E90](0xD000000000000016, 0x800000025777F7D0);
-  qword_27F8E9528 = 0xD000000000000017;
-  unk_27F8E9530 = 0x800000025777DF60;
-  return result;
-}
-
-uint64_t sub_2575CA594()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9538);
-  __swift_project_value_buffer(v0, qword_27F8E9538);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257744000;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 10;
-  *v6 = "doubleValue";
-  *(v6 + 8) = 11;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 20;
-  *v10 = "stringValue";
-  *(v10 + 8) = 11;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 30;
-  *v12 = "intValue";
-  *(v12 + 1) = 8;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 40;
-  *v14 = "longValue";
-  *(v14 + 1) = 9;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 50;
-  *v16 = "BOOLValue";
-  *(v16 + 1) = 9;
-  v16[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575CA818()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 50:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575CAB3C();
-        break;
-      case 20:
-        v9 = OUTLINED_FUNCTION_6_8();
-        sub_2575CA8EC(v9, v10);
-        break;
-      case 30:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575CA9BC();
-        break;
-      case 40:
-        v3 = OUTLINED_FUNCTION_6_8();
-        v8 = 3;
-LABEL_12:
-        sub_2575CAA78(v3, v4, v5, v6, v7, v8);
-        break;
-      case 10:
-        v3 = OUTLINED_FUNCTION_6_8();
-        v8 = 0;
-        goto LABEL_12;
-    }
-  }
-}
-
-uint64_t sub_2575CA8EC(uint64_t a1, uint64_t a2)
-{
-  result = sub_257743384();
-  if (v2)
-  {
-  }
-
-  if (v8)
-  {
-    if (*(a2 + 16) == 255)
-    {
-      v5 = -1;
-    }
-
-    else
-    {
-      sub_257743244();
-      v5 = *(a2 + 16);
-    }
-
-    v6 = *a2;
-    v7 = *(a2 + 8);
-    *a2 = 0;
-    *(a2 + 8) = v8;
-    *(a2 + 16) = 1;
-    return sub_25760A304(v6, v7, v5);
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CAA78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t *, uint64_t, uint64_t), char a6)
-{
-  v14 = 0;
-  v15 = 1;
-  result = a5(&v14, a3, a4);
-  if (!v6 && (v15 & 1) == 0)
-  {
-    v10 = v14;
-    if (*(a2 + 16) == 255)
-    {
-      v11 = -1;
-    }
-
-    else
-    {
-      OUTLINED_FUNCTION_194();
-      sub_257743244();
-      v11 = *(a2 + 16);
-    }
-
-    v12 = *a2;
-    v13 = *(a2 + 8);
-    *a2 = v10;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = a6;
-    return sub_25760A304(v12, v13, v11);
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CABF8()
-{
-  OUTLINED_FUNCTION_5_8();
-  switch(*(v0 + 16))
-  {
-    case 0:
-      v2 = OUTLINED_FUNCTION_5_10();
-      result = sub_2574AF7D8(v2);
-      goto LABEL_7;
-    case 1:
-      v7 = OUTLINED_FUNCTION_5_10();
-      result = sub_2574AF818(v7);
-      goto LABEL_7;
-    case 2:
-      v5 = OUTLINED_FUNCTION_5_10();
-      result = sub_2574AF85C(v5);
-      goto LABEL_7;
-    case 3:
-      v6 = OUTLINED_FUNCTION_5_10();
-      result = sub_2574AF898(v6);
-      goto LABEL_7;
-    case 4:
-      v4 = OUTLINED_FUNCTION_5_10();
-      result = sub_2574AF8D4(v4);
-LABEL_7:
-      if (!v1)
-      {
-        goto LABEL_8;
-      }
-
-      return result;
-    default:
-LABEL_8:
-      v8 = v0 + *(type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue(0) + 20);
-      OUTLINED_FUNCTION_10_7();
-      return sub_257743194();
-  }
-}
-
-uint64_t sub_2575CACC4()
-{
-  OUTLINED_FUNCTION_267();
-  v3 = *(v2 + 16);
-  v5 = *(v4 + 16);
-  if (v3 == 255)
-  {
-    if (v5 == 255)
-    {
-LABEL_4:
-      v6 = type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue(0);
-      OUTLINED_FUNCTION_95_0(v6);
-      sub_2577431B4();
-      OUTLINED_FUNCTION_1_16();
-      sub_2575FB760(v7, v8);
-      return OUTLINED_FUNCTION_4_2() & 1;
-    }
-  }
-
-  else if (v5 != 255 && (sub_257533068(*v1, v1[1], v3, *v0, v0[1], v5) & 1) != 0)
-  {
-    goto LABEL_4;
-  }
-
-  return 0;
-}
-
-uint64_t sub_2575CADC0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F880, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CAE60(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE60, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CAF28()
-{
-  sub_2575FB760(&qword_27F87DE60, type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CB058(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED80, type metadata accessor for Proto_TransposeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CB0F8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE48, type metadata accessor for Proto_TransposeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CB1C0()
-{
-  sub_2575FB760(&qword_27F87DE48, type metadata accessor for Proto_TransposeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CB280()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9568);
-  __swift_project_value_buffer(v0, qword_27F8E9568);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577503A0;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "transposeA";
-  *(v6 + 8) = 10;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "transposeB";
-  *(v10 + 8) = 10;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 5;
-  *v12 = "weightMatrixFirstDimension";
-  *(v12 + 1) = 26;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 6;
-  *v14 = "weightMatrixSecondDimension";
-  *(v14 + 1) = 27;
-  v14[16] = 2;
-  v9();
-  v15 = (v5 + 4 * v2);
-  v16 = v15 + v1[14];
-  *v15 = 7;
-  *v16 = "hasBias";
-  *(v16 + 1) = 7;
-  v16[16] = 2;
-  v9();
-  v17 = (v5 + 5 * v2);
-  v18 = v17 + v1[14];
-  *v17 = 8;
-  *v18 = "weights";
-  *(v18 + 1) = 7;
-  v18[16] = 2;
-  v9();
-  v19 = (v5 + 6 * v2);
-  v20 = v19 + v1[14];
-  *v19 = 9;
-  *v20 = "bias";
-  *(v20 + 1) = 4;
-  v20[16] = 2;
-  v9();
-  v21 = (v5 + 7 * v2);
-  v22 = v21 + v1[14];
-  *v21 = 10;
-  *v22 = "int8DynamicQuantize";
-  *(v22 + 1) = 19;
-  v22[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575CB5F8()
-{
-  *(v0 + 16) = 0;
-  *(v0 + 24) = 0;
-  *(v0 + 32) = 0;
-  *(v0 + 40) = 0;
-  v1 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__weights;
-  v2 = type metadata accessor for Proto_WeightParams(0);
-  __swift_storeEnumTagSinglePayload(v0 + v1, 1, 1, v2);
-  __swift_storeEnumTagSinglePayload(v0 + OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__bias, 1, 1, v2);
-  *(v0 + OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize) = 0;
-  return v0;
-}
-
-void sub_2575CB67C()
-{
-  OUTLINED_FUNCTION_31();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_13(v3);
-  v5 = *(v4 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_74_0();
-  *(v0 + 16) = 0;
-  *(v0 + 40) = 0;
-  *(v0 + 32) = 0;
-  *(v0 + 24) = 0;
-  v7 = type metadata accessor for Proto_WeightParams(0);
-  OUTLINED_FUNCTION_44();
-  __swift_storeEnumTagSinglePayload(v8, v9, v10, v7);
-  v11 = OUTLINED_FUNCTION_79_1(OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__bias);
-  __swift_storeEnumTagSinglePayload(v11, v12, v13, v7);
-  v17 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize;
-  *(v0 + OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize) = 0;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  LOBYTE(v7) = *(v2 + 16);
-  OUTLINED_FUNCTION_447();
-  *(v0 + 16) = v7;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  LOBYTE(v7) = *(v2 + 17);
-  OUTLINED_FUNCTION_447();
-  *(v0 + 17) = v7;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v14 = *(v2 + 24);
-  OUTLINED_FUNCTION_447();
-  *(v0 + 24) = v14;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  v15 = *(v2 + 32);
-  OUTLINED_FUNCTION_250_0();
-  *(v0 + 32) = v15;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  LOBYTE(v15) = *(v2 + 40);
-  OUTLINED_FUNCTION_447();
-  *(v0 + 40) = v15;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  sub_257487308();
-  OUTLINED_FUNCTION_143_1();
-  swift_beginAccess();
-  sub_25751BB28();
-  swift_endAccess();
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_148_1();
-  sub_257487308();
-  OUTLINED_FUNCTION_143_1();
-  swift_beginAccess();
-  sub_25751BB28();
-  swift_endAccess();
-  v16 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize;
-  OUTLINED_FUNCTION_76_1();
-  swift_beginAccess();
-  LOBYTE(v16) = *(v2 + v16);
-
-  OUTLINED_FUNCTION_447();
-  *(v0 + v17) = v16;
-  OUTLINED_FUNCTION_372();
-  OUTLINED_FUNCTION_35();
-}
-
-void sub_2575CB948()
-{
-  sub_25759B3F4(319, &qword_27F87BFC0, type metadata accessor for Proto_WeightParams, MEMORY[0x277D83D88]);
-  if (v1 <= 0x3F)
-  {
-    v2 = *(v0 - 8) + 64;
-    swift_updateClassMetadata2();
-  }
-}
-
-void sub_2575CBA2C()
-{
-  while (1)
-  {
-    v1 = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(v1)
-    {
-      case 1:
-        sub_2575CBBA4();
-        break;
-      case 2:
-        sub_2575CBC28();
-        break;
-      case 5:
-        sub_2575CBCAC();
-        break;
-      case 6:
-        sub_2575CBD08();
-        break;
-      case 7:
-        sub_2575CBD5C();
-        break;
-      case 8:
-        sub_2575CBDB8();
-        break;
-      case 9:
-        sub_2575CBE94();
-        break;
-      case 10:
-        sub_2575CBF70();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-uint64_t sub_2575CBBA4()
-{
-  swift_beginAccess();
-  sub_257743274();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575CBC28()
-{
-  swift_beginAccess();
-  sub_257743274();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575CBCAC()
-{
-  OUTLINED_FUNCTION_147_0();
-  OUTLINED_FUNCTION_82_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_64_1();
-  sub_2577433B4();
-  return OUTLINED_FUNCTION_306_0();
-}
-
-void sub_2575CBD08()
-{
-  OUTLINED_FUNCTION_404_0();
-  OUTLINED_FUNCTION_70_2();
-  OUTLINED_FUNCTION_82_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_111_1();
-  v0();
-  OUTLINED_FUNCTION_306_0();
-  OUTLINED_FUNCTION_405_0();
-}
-
-uint64_t sub_2575CBD5C()
-{
-  OUTLINED_FUNCTION_147_0();
-  OUTLINED_FUNCTION_82_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_64_1();
-  sub_257743274();
-  return OUTLINED_FUNCTION_306_0();
-}
-
-uint64_t sub_2575CBDB8()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-uint64_t sub_2575CBE94()
-{
-  swift_beginAccess();
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_2577433D4();
-  return swift_endAccess();
-}
-
-void sub_2575CBF70()
-{
-  OUTLINED_FUNCTION_404_0();
-  OUTLINED_FUNCTION_147_0();
-  v1 = *v0;
-  OUTLINED_FUNCTION_82_1();
-  swift_beginAccess();
-  OUTLINED_FUNCTION_64_1();
-  sub_257743274();
-  OUTLINED_FUNCTION_306_0();
-  OUTLINED_FUNCTION_405_0();
-}
-
-uint64_t sub_2575CBFC8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  swift_beginAccess();
-  if (*(a1 + 16) != 1 || (result = sub_2577434B4(), !v4))
-  {
-    swift_beginAccess();
-    if (*(a1 + 17) != 1 || (result = sub_2577434B4(), !v4))
-    {
-      swift_beginAccess();
-      if (!*(a1 + 24) || (result = sub_257743554(), !v4))
-      {
-        swift_beginAccess();
-        if (!*(a1 + 32) || (result = sub_257743554(), !v4))
-        {
-          swift_beginAccess();
-          if (*(a1 + 40) != 1 || (result = sub_2577434B4(), !v4))
-          {
-            result = sub_2575CC1C8(a1, a2, a3, a4);
-            if (!v4)
-            {
-              sub_2575CC3BC(a1, a2, a3, a4);
-              v10 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize;
-              result = swift_beginAccess();
-              if (*(a1 + v10) == 1)
-              {
-                return sub_2577434B4();
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CC1C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575CC3BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v11[5] = a4;
-  v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v11 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  swift_beginAccess();
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-uint64_t sub_2575CC5DC(uint64_t a1, uint64_t a2)
-{
-  v41 = type metadata accessor for Proto_WeightParams(0);
-  v4 = *(*(v41 - 8) + 64);
-  MEMORY[0x28223BE20](v41);
-  v39 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA30, &qword_2577673D8);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6);
-  v40 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v37 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v15 = MEMORY[0x28223BE20](v14);
-  v17 = &v37 - v16;
-  v18 = MEMORY[0x28223BE20](v15);
-  MEMORY[0x28223BE20](v18);
-  v20 = &v37 - v19;
-  swift_beginAccess();
-  v21 = *(a1 + 16);
-  swift_beginAccess();
-  if (v21 != *(a2 + 16))
-  {
-    goto LABEL_20;
-  }
-
-  swift_beginAccess();
-  v22 = *(a1 + 17);
-  swift_beginAccess();
-  if (v22 != *(a2 + 17))
-  {
-    goto LABEL_20;
-  }
-
-  swift_beginAccess();
-  v23 = *(a1 + 24);
-  swift_beginAccess();
-  if (v23 != *(a2 + 24))
-  {
-    goto LABEL_20;
-  }
-
-  swift_beginAccess();
-  v24 = *(a1 + 32);
-  swift_beginAccess();
-  if (v24 != *(a2 + 32))
-  {
-    goto LABEL_20;
-  }
-
-  swift_beginAccess();
-  v25 = *(a1 + 40);
-  swift_beginAccess();
-  if (v25 != *(a2 + 40))
-  {
-    goto LABEL_20;
-  }
-
-  swift_beginAccess();
-  sub_257487308();
-  v38 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__weights;
-  swift_beginAccess();
-  v26 = *(v6 + 48);
-  sub_257487308();
-  v38 = v26;
-  sub_257487308();
-  v27 = v41;
-  if (__swift_getEnumTagSinglePayload(v11, 1, v41) == 1)
-  {
-
-    sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
-    if (__swift_getEnumTagSinglePayload(&v11[v38], 1, v27) != 1)
-    {
-LABEL_18:
-      sub_2574695E4(v11, &qword_27F87FA30, &qword_2577673D8);
-      goto LABEL_19;
-    }
-
-    sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
-    goto LABEL_12;
-  }
-
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(&v11[v38], 1, v27) == 1)
-  {
-
-    sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
-LABEL_17:
-    sub_257609BCC();
-    goto LABEL_18;
-  }
-
-  sub_257609B78();
-
-  sub_257598490();
-  LODWORD(v38) = v28;
-  sub_257609BCC();
-  sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
-  sub_257609BCC();
-  sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
-  if (v38)
-  {
-LABEL_12:
-    swift_beginAccess();
-    sub_257487308();
-    swift_beginAccess();
-    v29 = *(v6 + 48);
-    v11 = v40;
-    sub_257487308();
-    sub_257487308();
-    v30 = v41;
-    if (__swift_getEnumTagSinglePayload(v11, 1, v41) == 1)
-    {
-      sub_2574695E4(v17, &qword_27F87A1A0, &qword_257745750);
-      if (__swift_getEnumTagSinglePayload(&v11[v29], 1, v30) == 1)
-      {
-        sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
-LABEL_23:
-        v35 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize;
-        swift_beginAccess();
-        LOBYTE(v35) = *(a1 + v35);
-
-        v36 = OBJC_IVAR____TtCV20MLModelSpecification30Proto_BatchedMatMulLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__int8DynamicQuantize;
-        swift_beginAccess();
-        LOBYTE(v36) = *(a2 + v36);
-
-        v31 = v35 ^ v36 ^ 1;
-        return v31 & 1;
-      }
-
-      goto LABEL_18;
-    }
-
-    sub_257487308();
-    if (__swift_getEnumTagSinglePayload(&v11[v29], 1, v30) != 1)
-    {
-      sub_257609B78();
-      sub_257598490();
-      v34 = v33;
-      sub_257609BCC();
-      sub_2574695E4(v17, &qword_27F87A1A0, &qword_257745750);
-      sub_257609BCC();
-      sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
-      if (v34)
-      {
-        goto LABEL_23;
-      }
-
-      goto LABEL_19;
-    }
-
-    sub_2574695E4(v17, &qword_27F87A1A0, &qword_257745750);
-    goto LABEL_17;
-  }
-
-LABEL_19:
-
-LABEL_20:
-  v31 = 0;
-  return v31 & 1;
-}
-
-uint64_t sub_2575CCE80(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7C0, type metadata accessor for Proto_BatchedMatMulLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CCF20(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE30, type metadata accessor for Proto_BatchedMatMulLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CCFE8()
-{
-  sub_2575FB760(&qword_27F87DE30, type metadata accessor for Proto_BatchedMatMulLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CD0A8()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9580);
-  __swift_project_value_buffer(v0, qword_27F8E9580);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "axis";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "interleave";
-  *(v10 + 1) = 10;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575CD2E8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F718, type metadata accessor for Proto_ConcatNDLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CD388(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE18, type metadata accessor for Proto_ConcatNDLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CD450()
-{
-  sub_2575FB760(&qword_27F87DE18, type metadata accessor for Proto_ConcatNDLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CD5A4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED90, type metadata accessor for Proto_SoftmaxNDLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CD644(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DE00, type metadata accessor for Proto_SoftmaxNDLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CD70C()
-{
-  sub_2575FB760(&qword_27F87DE00, type metadata accessor for Proto_SoftmaxNDLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CD894(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED50, type metadata accessor for Proto_ReverseLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CD934(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87A270, type metadata accessor for Proto_ReverseLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CD9FC()
-{
-  sub_2575FB760(&qword_27F87A270, type metadata accessor for Proto_ReverseLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CDABC()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E95C8);
-  __swift_project_value_buffer(v0, qword_27F8E95C8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "batchAxis";
-  *(v6 + 8) = 9;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "sequenceAxis";
-  *(v10 + 1) = 12;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-void sub_2575CDC84()
-{
-  OUTLINED_FUNCTION_165_0();
-  v3 = v2;
-  v5 = v4;
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_12_8(), v5(), !v0))
-  {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_8(), v5(), !v0))
-    {
-      v6 = *(v3(0) + 24);
-      OUTLINED_FUNCTION_7_5();
-    }
-  }
-
-  OUTLINED_FUNCTION_166_0();
-}
-
-uint64_t sub_2575CDDA8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED58, type metadata accessor for Proto_ReverseSeqLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CDE48(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87A278, type metadata accessor for Proto_ReverseSeqLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CDF10()
-{
-  sub_2575FB760(&qword_27F87A278, type metadata accessor for Proto_ReverseSeqLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CDFBC()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E95E0);
-  __swift_project_value_buffer(v0, qword_27F8E95E0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "shape";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "data";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575CE184()
-{
-  v0 = *(type metadata accessor for Proto_LoadConstantNDLayerParams(0) + 24);
-  type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  return sub_2577433D4();
-}
-
-void sub_2575CE238()
-{
-  OUTLINED_FUNCTION_102_0();
-  v2 = v1;
-  v4 = v3;
-  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_8_6(), sub_2577434A4(), !v0))
-  {
-    v5 = OUTLINED_FUNCTION_3_9();
-    v4(v5);
-    if (!v0)
-    {
-      v6 = *(v2(0) + 20);
-      OUTLINED_FUNCTION_7_5();
-    }
-  }
-
-  OUTLINED_FUNCTION_103_0();
-}
-
-uint64_t sub_2575CE2B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v12 - v6;
-  v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_LoadConstantNDLayerParams(0) + 24);
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
-  {
-    return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
-  }
-
-  sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
-  sub_257743574();
-  return sub_257609BCC();
-}
-
-void sub_2575CE4B0()
-{
-  OUTLINED_FUNCTION_31();
-  v6 = v5;
-  v7 = OUTLINED_FUNCTION_0_0();
-  v8 = type metadata accessor for Proto_WeightParams(v7);
-  v9 = OUTLINED_FUNCTION_42_4(v8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  OUTLINED_FUNCTION_7_6();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  OUTLINED_FUNCTION_13(v12);
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_75_0();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA30, &qword_2577673D8);
-  OUTLINED_FUNCTION_41_4(v16);
-  v18 = *(v17 + 64);
-  OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_32_3();
-  if ((sub_257487374(*v1, *v0) & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v20 = *(v6(0) + 24);
-  v21 = *(v4 + 48);
-  OUTLINED_FUNCTION_149_1();
-  OUTLINED_FUNCTION_129_1();
-  OUTLINED_FUNCTION_65(v2);
-  if (v22)
-  {
-    OUTLINED_FUNCTION_65(v2 + v21);
-    if (v22)
-    {
-      sub_2574695E4(v2, &qword_27F87A1A0, &qword_257745750);
-LABEL_14:
-      OUTLINED_FUNCTION_372_0();
-      OUTLINED_FUNCTION_1_16();
-      sub_2575FB760(v24, v25);
-      v23 = OUTLINED_FUNCTION_4_2();
-      goto LABEL_12;
-    }
-
-    goto LABEL_10;
-  }
-
-  OUTLINED_FUNCTION_277();
-  sub_257487308();
-  OUTLINED_FUNCTION_65(v2 + v21);
-  if (v22)
-  {
-    sub_257609BCC();
-LABEL_10:
-    sub_2574695E4(v2, &qword_27F87FA30, &qword_2577673D8);
-    goto LABEL_11;
-  }
-
-  sub_257609B78();
-  OUTLINED_FUNCTION_360();
-  sub_257598490();
-  OUTLINED_FUNCTION_213_0();
-  sub_257609BCC();
-  OUTLINED_FUNCTION_357_0();
-  sub_2574695E4(v2, &qword_27F87A1A0, &qword_257745750);
-  if (v3)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_11:
-  v23 = 0;
-LABEL_12:
-  OUTLINED_FUNCTION_65_0(v23);
-  OUTLINED_FUNCTION_35();
-}
-
-uint64_t sub_2575CE7CC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F820, type metadata accessor for Proto_LoadConstantNDLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CE86C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DDD0, type metadata accessor for Proto_LoadConstantNDLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CE934()
-{
-  sub_2575FB760(&qword_27F87DDD0, type metadata accessor for Proto_LoadConstantNDLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CEA74(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED60, type metadata accessor for Proto_FillLikeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CEB14(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87A280, type metadata accessor for Proto_FillLikeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CEBDC()
-{
-  sub_2575FB760(&qword_27F87A280, type metadata accessor for Proto_FillLikeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CEC88()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9610);
-  __swift_project_value_buffer(v0, qword_27F8E9610);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "value";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "targetShape";
-  *(v10 + 1) = 11;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575CEE50()
-{
-  OUTLINED_FUNCTION_100_1();
-  while (1)
-  {
-    OUTLINED_FUNCTION_194();
-    result = sub_257743234();
-    if (v1 || (v7 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2)
-    {
-      v0(v3 + 8, v5, v4);
-    }
-
-    else if (result == 1)
-    {
-      v8 = OUTLINED_FUNCTION_144_0();
-      v2(v8);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CEED0()
-{
-  OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_267_0();
-  if (!v1 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
-  {
-    OUTLINED_FUNCTION_285_0();
-    if (!v3 || (OUTLINED_FUNCTION_12_11(), result = sub_2577434A4(), !v0))
-    {
-      v4 = *(type metadata accessor for Proto_FillStaticLayerParams(0) + 24);
-      return OUTLINED_FUNCTION_7_5();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CEFC8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED68, type metadata accessor for Proto_FillStaticLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CF068(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87A288, type metadata accessor for Proto_FillStaticLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CF130()
-{
-  sub_2575FB760(&qword_27F87A288, type metadata accessor for Proto_FillStaticLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CF1CC()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 1)
-    {
-      OUTLINED_FUNCTION_53();
-      sub_2577432E4();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575CF290(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87ED70, type metadata accessor for Proto_FillDynamicLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CF330(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87A290, type metadata accessor for Proto_FillDynamicLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CF3F8()
-{
-  sub_2575FB760(&qword_27F87A290, type metadata accessor for Proto_FillDynamicLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CF4CC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EE10, type metadata accessor for Proto_WhereBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CF56C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DD88, type metadata accessor for Proto_WhereBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CF634()
-{
-  sub_2575FB760(&qword_27F87DD88, type metadata accessor for Proto_WhereBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CF6D8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F888, type metadata accessor for Proto_SinLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CF778(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DD68, type metadata accessor for Proto_SinLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CF840()
-{
-  sub_2575FB760(&qword_27F87DD68, type metadata accessor for Proto_SinLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CF8E4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F890, type metadata accessor for Proto_CosLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CF984(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DD48, type metadata accessor for Proto_CosLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CFA4C()
-{
-  sub_2575FB760(&qword_27F87DD48, type metadata accessor for Proto_CosLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CFAF0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F898, type metadata accessor for Proto_TanLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CFB90(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DD28, type metadata accessor for Proto_TanLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CFC58()
-{
-  sub_2575FB760(&qword_27F87DD28, type metadata accessor for Proto_TanLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CFCFC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8A0, type metadata accessor for Proto_AsinLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CFD9C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DD08, type metadata accessor for Proto_AsinLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575CFE64()
-{
-  sub_2575FB760(&qword_27F87DD08, type metadata accessor for Proto_AsinLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575CFF08(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8A8, type metadata accessor for Proto_AcosLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575CFFA8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DCE8, type metadata accessor for Proto_AcosLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0070()
-{
-  sub_2575FB760(&qword_27F87DCE8, type metadata accessor for Proto_AcosLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0114(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8B0, type metadata accessor for Proto_AtanLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D01B4(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DCC8, type metadata accessor for Proto_AtanLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D027C()
-{
-  sub_2575FB760(&qword_27F87DCC8, type metadata accessor for Proto_AtanLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0320(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8B8, type metadata accessor for Proto_SinhLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D03C0(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DCA8, type metadata accessor for Proto_SinhLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0488()
-{
-  sub_2575FB760(&qword_27F87DCA8, type metadata accessor for Proto_SinhLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D052C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8C0, type metadata accessor for Proto_CoshLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D05CC(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DC88, type metadata accessor for Proto_CoshLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0694()
-{
-  sub_2575FB760(&qword_27F87DC88, type metadata accessor for Proto_CoshLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0738(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8C8, type metadata accessor for Proto_TanhLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D07D8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DC68, type metadata accessor for Proto_TanhLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D08A0()
-{
-  sub_2575FB760(&qword_27F87DC68, type metadata accessor for Proto_TanhLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0944(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8D0, type metadata accessor for Proto_AsinhLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D09E4(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DC48, type metadata accessor for Proto_AsinhLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0AAC()
-{
-  sub_2575FB760(&qword_27F87DC48, type metadata accessor for Proto_AsinhLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0B50(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8D8, type metadata accessor for Proto_AcoshLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D0BF0(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DC28, type metadata accessor for Proto_AcoshLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0CB8()
-{
-  sub_2575FB760(&qword_27F87DC28, type metadata accessor for Proto_AcoshLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0D5C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8E0, type metadata accessor for Proto_AtanhLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D0DFC(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DC08, type metadata accessor for Proto_AtanhLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D0EC4()
-{
-  sub_2575FB760(&qword_27F87DC08, type metadata accessor for Proto_AtanhLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D0F68(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EF38, type metadata accessor for Proto_PowBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D1008(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DBF0, type metadata accessor for Proto_PowBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D10D0()
-{
-  sub_2575FB760(&qword_27F87DBF0, type metadata accessor for Proto_PowBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1174(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F8E8, type metadata accessor for Proto_Exp2LayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D1214(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DBD0, type metadata accessor for Proto_Exp2LayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D12DC()
-{
-  sub_2575FB760(&qword_27F87DBD0, type metadata accessor for Proto_Exp2LayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1380(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EE68, type metadata accessor for Proto_WhereNonZeroLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D1420(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DBB8, type metadata accessor for Proto_WhereNonZeroLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D14E8()
-{
-  sub_2575FB760(&qword_27F87DBB8, type metadata accessor for Proto_WhereNonZeroLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1564()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E97C0);
-  __swift_project_value_buffer(v0, qword_27F8E97C0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "numLower";
-  *(v6 + 8) = 8;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "numUpper";
-  *(v10 + 1) = 8;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D172C()
-{
-  OUTLINED_FUNCTION_18_4();
-  while (1)
-  {
-    OUTLINED_FUNCTION_294();
-    result = sub_257743234();
-    if (v1 || (v3 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2 || result == 1)
-    {
-      OUTLINED_FUNCTION_148_1();
-      v0();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D1828(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F150, type metadata accessor for Proto_MatrixBandPartLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D18C8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DBA0, type metadata accessor for Proto_MatrixBandPartLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D1990()
-{
-  sub_2575FB760(&qword_27F87DBA0, type metadata accessor for Proto_MatrixBandPartLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1AE4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F160, type metadata accessor for Proto_UpperTriangularLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D1B84(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB88, type metadata accessor for Proto_UpperTriangularLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D1C4C()
-{
-  sub_2575FB760(&qword_27F87DB88, type metadata accessor for Proto_UpperTriangularLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1DA0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F158, type metadata accessor for Proto_LowerTriangularLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D1E40(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB70, type metadata accessor for Proto_LowerTriangularLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D1F08()
-{
-  sub_2575FB760(&qword_27F87DB70, type metadata accessor for Proto_LowerTriangularLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D1FDC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EFD0, type metadata accessor for Proto_BroadcastToLikeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D207C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB58, type metadata accessor for Proto_BroadcastToLikeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2144()
-{
-  sub_2575FB760(&qword_27F87DB58, type metadata accessor for Proto_BroadcastToLikeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D2270(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EFD8, type metadata accessor for Proto_BroadcastToStaticLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2310(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB40, type metadata accessor for Proto_BroadcastToStaticLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D23D8()
-{
-  sub_2575FB760(&qword_27F87DB40, type metadata accessor for Proto_BroadcastToStaticLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D24C0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EFE0, type metadata accessor for Proto_BroadcastToDynamicLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2560(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB28, type metadata accessor for Proto_BroadcastToDynamicLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2628()
-{
-  sub_2575FB760(&qword_27F87DB28, type metadata accessor for Proto_BroadcastToDynamicLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D26CC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EDA8, type metadata accessor for Proto_AddBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D276C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB10, type metadata accessor for Proto_AddBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2834()
-{
-  sub_2575FB760(&qword_27F87DB10, type metadata accessor for Proto_AddBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D28D8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EE50, type metadata accessor for Proto_MaxBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2978(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DB00, type metadata accessor for Proto_MaxBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2A40()
-{
-  sub_2575FB760(&qword_27F87DB00, type metadata accessor for Proto_MaxBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D2AE4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EE48, type metadata accessor for Proto_MinBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2B84(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DAE8, type metadata accessor for Proto_MinBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2C4C()
-{
-  sub_2575FB760(&qword_27F87DAE8, type metadata accessor for Proto_MinBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D2CF0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EF30, type metadata accessor for Proto_ModBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2D90(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DAD0, type metadata accessor for Proto_ModBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D2E58()
-{
-  sub_2575FB760(&qword_27F87DAD0, type metadata accessor for Proto_ModBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D2EFC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EF48, type metadata accessor for Proto_FloorDivBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D2F9C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DAB8, type metadata accessor for Proto_FloorDivBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3064()
-{
-  sub_2575FB760(&qword_27F87DAB8, type metadata accessor for Proto_FloorDivBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D3108(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F710, type metadata accessor for Proto_SubtractBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D31A8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DAA0, type metadata accessor for Proto_SubtractBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3270()
-{
-  sub_2575FB760(&qword_27F87DAA0, type metadata accessor for Proto_SubtractBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D3314(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EFB8, type metadata accessor for Proto_MultiplyBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D33B4(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA88, type metadata accessor for Proto_MultiplyBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D347C()
-{
-  sub_2575FB760(&qword_27F87DA88, type metadata accessor for Proto_MultiplyBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D3520(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EF40, type metadata accessor for Proto_DivideBroadcastableLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D35C0(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA78, type metadata accessor for Proto_DivideBroadcastableLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3688()
-{
-  sub_2575FB760(&qword_27F87DA78, type metadata accessor for Proto_DivideBroadcastableLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D37AC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F018, type metadata accessor for Proto_GatherLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D384C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA60, type metadata accessor for Proto_GatherLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3914()
-{
-  sub_2575FB760(&qword_27F87DA60, type metadata accessor for Proto_GatherLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D39C0()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9928);
-  __swift_project_value_buffer(v0, qword_27F8E9928);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "axis";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "mode";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D3C54(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EEE0, type metadata accessor for Proto_ScatterLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D3CF4(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA50, type metadata accessor for Proto_ScatterLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3DBC()
-{
-  sub_2575FB760(&qword_27F87DA50, type metadata accessor for Proto_ScatterLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D3E90(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F020, type metadata accessor for Proto_GatherNDLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D3F30(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA40, type metadata accessor for Proto_GatherNDLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D3FF8()
-{
-  sub_2575FB760(&qword_27F87DA40, type metadata accessor for Proto_GatherNDLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV19ScatterNDParametersV2eeoiySbAG_AGtFZ_0()
-{
-  OUTLINED_FUNCTION_267();
-  OUTLINED_FUNCTION_387_0(v0, v1);
-  if (*(v4 + 8) == 1)
-  {
-    switch(v3)
-    {
-      case 1:
-        if (v2 == 1)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      case 2:
-        if (v2 == 2)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      case 3:
-        if (v2 == 3)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      case 4:
-        if (v2 == 4)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      case 5:
-        if (v2 == 5)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      case 6:
-        if (v2 == 6)
-        {
-          goto LABEL_6;
-        }
-
-        return 0;
-      default:
-        if (v2)
-        {
-          return 0;
-        }
-
-        goto LABEL_6;
-    }
-  }
-
-  if (v2 != v3)
-  {
-    return 0;
-  }
-
-LABEL_6:
-  v6 = type metadata accessor for Proto_ScatterNDLayerParams(0);
-  OUTLINED_FUNCTION_95_0(v6);
-  sub_2577431B4();
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v7, v8);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
-uint64_t sub_2575D42A8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EEF0, type metadata accessor for Proto_ScatterNDLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D4348(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA30, type metadata accessor for Proto_ScatterNDLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D4410()
-{
-  sub_2575FB760(&qword_27F87DA30, type metadata accessor for Proto_ScatterNDLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D4538(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F028, type metadata accessor for Proto_GatherAlongAxisLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D45D8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA20, type metadata accessor for Proto_GatherAlongAxisLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D46A0()
-{
-  sub_2575FB760(&qword_27F87DA20, type metadata accessor for Proto_GatherAlongAxisLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D474C()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9988);
-  __swift_project_value_buffer(v0, qword_27F8E9988);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "axis";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "mode";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D4914()
-{
-  OUTLINED_FUNCTION_100_1();
-  while (1)
-  {
-    OUTLINED_FUNCTION_194();
-    result = sub_257743234();
-    if (v1 || (v4 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 2)
-    {
-      OUTLINED_FUNCTION_167_1();
-      OUTLINED_FUNCTION_353_0();
-      v0();
-    }
-
-    else if (result == 1)
-    {
-      v5 = OUTLINED_FUNCTION_144_0();
-      v2(v5);
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D4990(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
-{
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v4))
-  {
-    if (!*(v5 + 8) || (v8 = *(v5 + 16), OUTLINED_FUNCTION_184_1(), sub_257609DC4(), OUTLINED_FUNCTION_27_4(), result = sub_2577434C4(), !v4))
-    {
-      v9 = *(a4(0) + 24);
-      return OUTLINED_FUNCTION_7_5();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D4A3C(uint64_t *a1, uint64_t *a2)
-{
-  OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_267();
-  v5 = *(v4 + 8);
-  v7 = *(v6 + 8);
-  if (*(v6 + 16) == 1)
-  {
-    switch(v7)
-    {
-      case 1:
-        if (v5 == 1)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      case 2:
-        if (v5 == 2)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      case 3:
-        if (v5 == 3)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      case 4:
-        if (v5 == 4)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      case 5:
-        if (v5 == 5)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      case 6:
-        if (v5 == 6)
-        {
-          goto LABEL_8;
-        }
-
-        return 0;
-      default:
-        if (v5)
-        {
-          return 0;
-        }
-
-        goto LABEL_8;
-    }
-  }
-
-  if (v5 != v7)
-  {
-    return 0;
-  }
-
-LABEL_8:
-  v9 = v3(0);
-  OUTLINED_FUNCTION_308_0(v9);
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v10, v11);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
-uint64_t sub_2575D4BB0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87EEF8, type metadata accessor for Proto_ScatterAlongAxisLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D4C50(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA10, type metadata accessor for Proto_ScatterAlongAxisLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D4D18()
-{
-  sub_2575FB760(&qword_27F87DA10, type metadata accessor for Proto_ScatterAlongAxisLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D4E6C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F010, type metadata accessor for Proto_StackLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D4F0C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87DA00, type metadata accessor for Proto_StackLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D4FD4()
-{
-  sub_2575FB760(&qword_27F87DA00, type metadata accessor for Proto_StackLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D5130(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F038, type metadata accessor for Proto_RankPreservingReshapeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D51D0(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D9F0, type metadata accessor for Proto_RankPreservingReshapeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D5298()
-{
-  sub_2575FB760(&qword_27F87D9F0, type metadata accessor for Proto_RankPreservingReshapeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D5358()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E99D0);
-  __swift_project_value_buffer(v0, qword_27F8E99D0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "value";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "padAmounts";
-  *(v10 + 1) = 10;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "padToGivenOutputSizeMode";
-  *(v12 + 1) = 24;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D5560()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(result)
-    {
-      case 3:
-        OUTLINED_FUNCTION_112_1();
-        sub_257743274();
-        break;
-      case 2:
-        OUTLINED_FUNCTION_89_2();
-        sub_257743354();
-        break;
-      case 1:
-        OUTLINED_FUNCTION_53();
-        sub_2577432E4();
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D55DC()
-{
-  OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_267_0();
-  if (!v1 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
-  {
-    OUTLINED_FUNCTION_285_0();
-    if (!v3 || (OUTLINED_FUNCTION_12_11(), result = sub_2577434A4(), !v0))
-    {
-      OUTLINED_FUNCTION_388_0();
-      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v0))
-      {
-        v5 = *(type metadata accessor for Proto_ConstantPaddingLayerParams(0) + 28);
-        return OUTLINED_FUNCTION_7_5();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D567C(float *a1, int *a2)
-{
-  OUTLINED_FUNCTION_164_1(a1, a2);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_267();
-  if ((sub_257487374(*(v3 + 8), *(v4 + 8)) & 1) == 0)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_246_0();
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v6 = type metadata accessor for Proto_ConstantPaddingLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v6);
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v7, v8);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
-uint64_t sub_2575D5758(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F000, type metadata accessor for Proto_ConstantPaddingLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D57F8(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D9D8, type metadata accessor for Proto_ConstantPaddingLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D58C0()
-{
-  sub_2575FB760(&qword_27F87D9D8, type metadata accessor for Proto_ConstantPaddingLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D5940()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E99E8);
-  __swift_project_value_buffer(v0, qword_27F8E99E8);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "mean";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "stdDev";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D5BBC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7C8, type metadata accessor for Proto_RandomNormalLikeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D5C5C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D9C0, type metadata accessor for Proto_RandomNormalLikeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D5D24()
-{
-  sub_2575FB760(&qword_27F87D9C0, type metadata accessor for Proto_RandomNormalLikeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D5DD0()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A00);
-  __swift_project_value_buffer(v0, qword_27F8E9A00);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257744E70;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "mean";
-  *(v10 + 8) = 4;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "stdDev";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "outputShape";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D6084(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7D0, type metadata accessor for Proto_RandomNormalStaticLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D6124(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D9A8, type metadata accessor for Proto_RandomNormalStaticLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D61EC()
-{
-  sub_2575FB760(&qword_27F87D9A8, type metadata accessor for Proto_RandomNormalStaticLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D6298()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A18);
-  __swift_project_value_buffer(v0, qword_27F8E9A18);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "mean";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "stdDev";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-void sub_2575D64A0()
-{
-  OUTLINED_FUNCTION_188_0();
-  v2 = v1;
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), sub_257743504(), !v0))
-  {
-    OUTLINED_FUNCTION_284();
-    if (!v3 || (OUTLINED_FUNCTION_64_1(), sub_2577434E4(), !v0))
-    {
-      v4.n128_f32[0] = OUTLINED_FUNCTION_309_0();
-      if (!v5 || (OUTLINED_FUNCTION_64_1(), sub_2577434E4(), !v0))
-      {
-        v6 = *(v2(0, v4) + 28);
-        OUTLINED_FUNCTION_7_5();
-      }
-    }
-  }
-
-  OUTLINED_FUNCTION_187_0();
-}
-
-uint64_t sub_2575D65B8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7D8, type metadata accessor for Proto_RandomNormalDynamicLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D6658(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D990, type metadata accessor for Proto_RandomNormalDynamicLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D6720()
-{
-  sub_2575FB760(&qword_27F87D990, type metadata accessor for Proto_RandomNormalDynamicLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D67CC()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A30);
-  __swift_project_value_buffer(v0, qword_27F8E9A30);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "minVal";
-  *(v10 + 1) = 6;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "maxVal";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D6A44(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7E0, type metadata accessor for Proto_RandomUniformLikeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D6AE4(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D978, type metadata accessor for Proto_RandomUniformLikeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D6BAC()
-{
-  sub_2575FB760(&qword_27F87D978, type metadata accessor for Proto_RandomUniformLikeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D6C58()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A48);
-  __swift_project_value_buffer(v0, qword_27F8E9A48);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257744E70;
-  v5 = v4 + v3;
-  v6 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "minVal";
-  *(v10 + 8) = 6;
-  *(v10 + 16) = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "maxVal";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  v13 = (v5 + 3 * v2);
-  v14 = v13 + v1[14];
-  *v13 = 4;
-  *v14 = "outputShape";
-  *(v14 + 1) = 11;
-  v14[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D6E98()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      return result;
-    }
-
-    switch(result)
-    {
-      case 1:
-        OUTLINED_FUNCTION_53();
-        sub_257743324();
-        break;
-      case 2:
-      case 3:
-        OUTLINED_FUNCTION_10_7();
-        sub_2577432E4();
-        break;
-      case 4:
-        OUTLINED_FUNCTION_112_1();
-        sub_257743354();
-        break;
-      default:
-        continue;
-    }
-  }
-}
-
-void sub_2575D6F34()
-{
-  OUTLINED_FUNCTION_188_0();
-  v2 = v1;
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), sub_257743504(), !v0))
-  {
-    OUTLINED_FUNCTION_284();
-    if (!v3 || (OUTLINED_FUNCTION_64_1(), sub_2577434E4(), !v0))
-    {
-      OUTLINED_FUNCTION_309_0();
-      if (!v4 || (OUTLINED_FUNCTION_64_1(), sub_2577434E4(), !v0))
-      {
-        OUTLINED_FUNCTION_307_0();
-        if (!v5 || (OUTLINED_FUNCTION_12_8(), sub_2577434A4(), !v0))
-        {
-          v6 = *(v2(0) + 32);
-          OUTLINED_FUNCTION_7_5();
-        }
-      }
-    }
-  }
-
-  OUTLINED_FUNCTION_187_0();
-}
-
-uint64_t sub_2575D6FF4(uint64_t *a1, uint64_t *a2)
-{
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_119_0(v2, v3);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_172_0();
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v6 = v5;
-  v7 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257487374(v7, v8) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v9 = v6(0);
-  OUTLINED_FUNCTION_189_0(v9);
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v10, v11);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
-uint64_t sub_2575D70FC(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7E8, type metadata accessor for Proto_RandomUniformStaticLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D719C(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D960, type metadata accessor for Proto_RandomUniformStaticLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D7264()
-{
-  sub_2575FB760(&qword_27F87D960, type metadata accessor for Proto_RandomUniformStaticLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D7310()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A60);
-  __swift_project_value_buffer(v0, qword_27F8E9A60);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "minVal";
-  *(v10 + 1) = 6;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "maxVal";
-  *(v12 + 1) = 6;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D7514()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 3 || result == 2)
-    {
-      OUTLINED_FUNCTION_10_7();
-      sub_2577432E4();
-    }
-
-    else if (result == 1)
-    {
-      OUTLINED_FUNCTION_53();
-      sub_257743324();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D758C(uint64_t *a1, uint64_t *a2)
-{
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_119_0(v2, v3);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v6 = OUTLINED_FUNCTION_172_0();
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v7 = v5(0, v6);
-  OUTLINED_FUNCTION_327_0(v7);
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
-uint64_t sub_2575D7684(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7F0, type metadata accessor for Proto_RandomUniformDynamicLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D7724(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D948, type metadata accessor for Proto_RandomUniformDynamicLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D77EC()
-{
-  sub_2575FB760(&qword_27F87D948, type metadata accessor for Proto_RandomUniformDynamicLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D7898()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A78);
-  __swift_project_value_buffer(v0, qword_27F8E9A78);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_257743FF0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "prob";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D7AD4(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_2575FB760(&qword_27F87F7F8, type metadata accessor for Proto_RandomBernoulliLikeLayerParams);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t sub_2575D7B74(uint64_t a1)
-{
-  v2 = sub_2575FB760(&qword_27F87D930, type metadata accessor for Proto_RandomBernoulliLikeLayerParams);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t sub_2575D7C3C()
-{
-  sub_2575FB760(&qword_27F87D930, type metadata accessor for Proto_RandomBernoulliLikeLayerParams);
-
-  return sub_257743424();
-}
-
-uint64_t sub_2575D7CE8()
-{
-  v0 = sub_2577435B4();
-  __swift_allocate_value_buffer(v0, qword_27F8E9A90);
-  __swift_project_value_buffer(v0, qword_27F8E9A90);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_2577442C0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "seed";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x277D21870];
-  v8 = sub_257743584();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "prob";
-  *(v10 + 1) = 4;
-  v10[16] = 2;
-  v9();
-  v11 = (v5 + 2 * v2);
-  v12 = v11 + v1[14];
-  *v11 = 3;
-  *v12 = "outputShape";
-  *(v12 + 1) = 11;
-  v12[16] = 2;
-  v9();
-  return sub_257743594();
-}
-
-uint64_t sub_2575D7EF0()
-{
-  OUTLINED_FUNCTION_5_9();
-  while (1)
-  {
-    OUTLINED_FUNCTION_222();
-    result = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(result)
-    {
-      case 3:
-        OUTLINED_FUNCTION_112_1();
-        sub_257743354();
-        break;
-      case 2:
-        OUTLINED_FUNCTION_89_2();
-        sub_2577432E4();
-        break;
-      case 1:
-        OUTLINED_FUNCTION_53();
-        sub_257743324();
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D7F6C()
-{
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v0))
-  {
-    OUTLINED_FUNCTION_284();
-    if (!v2 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
-    {
-      OUTLINED_FUNCTION_307_0();
-      if (!v3 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434A4(), !v0))
-      {
-        v4 = *(type metadata accessor for Proto_RandomBernoulliStaticLayerParams(0) + 28);
-        return OUTLINED_FUNCTION_7_5();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_2575D8004(uint64_t *a1, uint64_t *a2)
-{
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  OUTLINED_FUNCTION_119_0(v2, v3);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257487374(v5, v6) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = type metadata accessor for Proto_RandomBernoulliStaticLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v7);
-  OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
-}
-
 uint64_t sub_2575D80D8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F800, type metadata accessor for Proto_RandomBernoulliStaticLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F800, type metadata accessor for Proto_RandomBernoulliStaticLayerParams, &unk_257758370);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D8178(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D918, type metadata accessor for Proto_RandomBernoulliStaticLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D918, type metadata accessor for Proto_RandomBernoulliStaticLayerParams, &unk_257761718);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D8240()
+uint64_t sub_2575D8240(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D918, type metadata accessor for Proto_RandomBernoulliStaticLayerParams);
+  sub_2575FB760(&qword_27F87D918, type metadata accessor for Proto_RandomBernoulliStaticLayerParams, &unk_257761718);
 
   return sub_257743424();
 }
@@ -5668,7 +86,7 @@ void sub_2575D84EC()
     v3.n128_f32[0] = OUTLINED_FUNCTION_284();
     if (!v4 || (OUTLINED_FUNCTION_64_1(), sub_2577434E4(), !v0))
     {
-      v5 = *(v2(0, v3) + 24);
+      v2(0, v3);
       OUTLINED_FUNCTION_7_5();
     }
   }
@@ -5676,44 +94,44 @@ void sub_2575D84EC()
   OUTLINED_FUNCTION_187_0();
 }
 
-uint64_t sub_2575D8570(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575D8570()
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v4)
+  OUTLINED_FUNCTION_104_0();
+  if (!v1)
   {
     return 0;
   }
 
-  v6 = OUTLINED_FUNCTION_119_0(v2, v3);
-  if (!v4)
+  v3 = OUTLINED_FUNCTION_119_0(v0);
+  if (!v1)
   {
     return 0;
   }
 
-  v7 = v5(0, v6);
-  OUTLINED_FUNCTION_308_0(v7);
+  v2(0, v3);
+  OUTLINED_FUNCTION_308_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v6 = sub_2575FB760(v4, v5, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v6) & 1;
 }
 
 uint64_t sub_2575D8660(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F808, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F808, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams, &unk_257758280);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D8700(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D900, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D900, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams, &unk_2577616A0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D87C8()
+uint64_t sub_2575D87C8(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D900, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams);
+  sub_2575FB760(&qword_27F87D900, type metadata accessor for Proto_RandomBernoulliDynamicLayerParams, &unk_2577616A0);
 
   return sub_257743424();
 }
@@ -5803,20 +221,20 @@ uint64_t sub_2575D8AF4()
   }
 }
 
-uint64_t sub_2575D8B9C()
+uint64_t sub_2575D8B9C(uint64_t a1)
 {
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v0))
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v1))
   {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743504(), !v0))
+    if (!*(v2 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743504(), !v1))
     {
       OUTLINED_FUNCTION_388_0();
-      if (!v3 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v0))
+      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v1))
       {
-        if (!*(v1 + 20) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
+        if (!*(v2 + 20) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v1))
         {
-          if (!*(v1 + 24) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
+          if (!*(v2 + 24) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v1))
           {
-            v4 = *(type metadata accessor for Proto_CategoricalDistributionLayerParams(0) + 36);
+            type metadata accessor for Proto_CategoricalDistributionLayerParams(0);
             return OUTLINED_FUNCTION_7_5();
           }
         }
@@ -5827,56 +245,56 @@ uint64_t sub_2575D8B9C()
   return result;
 }
 
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV33CategoricalDistributionParametersV2eeoiySbAG_AGtFZ_0(uint64_t *a1, uint64_t *a2)
+uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV33CategoricalDistributionParametersV2eeoiySbAG_AGtFZ_0()
 {
-  v4 = OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v6)
+  OUTLINED_FUNCTION_104_0();
+  if (!v2)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v4, v5);
-  if (!v6)
+  OUTLINED_FUNCTION_65_2();
+  if (!v2)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_246_0();
-  if (!v6)
+  if (!v2)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_329_0();
-  if (!v6 || *(v3 + 24) != *(v2 + 24))
+  if (!v2 || *(v1 + 24) != *(v0 + 24))
   {
     return 0;
   }
 
-  v7 = type metadata accessor for Proto_CategoricalDistributionLayerParams(0);
-  OUTLINED_FUNCTION_409_0(v7);
+  type metadata accessor for Proto_CategoricalDistributionLayerParams(0);
+  OUTLINED_FUNCTION_409_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v5 = sub_2575FB760(v3, v4, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v5) & 1;
 }
 
 uint64_t sub_2575D8D60(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F810, type metadata accessor for Proto_CategoricalDistributionLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F810, type metadata accessor for Proto_CategoricalDistributionLayerParams, &unk_257758190);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D8E00(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D8E8, type metadata accessor for Proto_CategoricalDistributionLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D8E8, type metadata accessor for Proto_CategoricalDistributionLayerParams, &unk_257761628);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D8EC8()
+uint64_t sub_2575D8EC8(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D8E8, type metadata accessor for Proto_CategoricalDistributionLayerParams);
+  sub_2575FB760(&qword_27F87D8E8, type metadata accessor for Proto_CategoricalDistributionLayerParams, &unk_257761628);
 
   return sub_257743424();
 }
@@ -5920,21 +338,21 @@ uint64_t sub_2575D8F48()
 
 uint64_t sub_2575D91CC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDC0, type metadata accessor for Proto_ReduceL1LayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDC0, type metadata accessor for Proto_ReduceL1LayerParams, &unk_2577580A0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D926C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D8D0, type metadata accessor for Proto_ReduceL1LayerParams);
+  v2 = sub_2575FB760(&qword_27F87D8D0, type metadata accessor for Proto_ReduceL1LayerParams, &unk_257765570);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D9334()
+uint64_t sub_2575D9334(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D8D0, type metadata accessor for Proto_ReduceL1LayerParams);
+  sub_2575FB760(&qword_27F87D8D0, type metadata accessor for Proto_ReduceL1LayerParams, &unk_257765570);
 
   return sub_257743424();
 }
@@ -5987,7 +405,7 @@ void sub_2575D95E8()
     {
       if (*(v1 + 9) != 1 || (OUTLINED_FUNCTION_12_8(), sub_2577434B4(), !v0))
       {
-        v5 = *(v3(0) + 28);
+        v3(0);
         OUTLINED_FUNCTION_7_5();
       }
     }
@@ -5998,21 +416,21 @@ void sub_2575D95E8()
 
 uint64_t sub_2575D970C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDC8, type metadata accessor for Proto_ReduceL2LayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDC8, type metadata accessor for Proto_ReduceL2LayerParams, &unk_257757FB0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D97AC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D8B8, type metadata accessor for Proto_ReduceL2LayerParams);
+  v2 = sub_2575FB760(&qword_27F87D8B8, type metadata accessor for Proto_ReduceL2LayerParams, &unk_2577654F8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D9874()
+uint64_t sub_2575D9874(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D8B8, type metadata accessor for Proto_ReduceL2LayerParams);
+  sub_2575FB760(&qword_27F87D8B8, type metadata accessor for Proto_ReduceL2LayerParams, &unk_2577654F8);
 
   return sub_257743424();
 }
@@ -6056,21 +474,21 @@ uint64_t sub_2575D9920()
 
 uint64_t sub_2575D9BA4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDD0, type metadata accessor for Proto_ReduceMaxLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDD0, type metadata accessor for Proto_ReduceMaxLayerParams, &unk_257757EC0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575D9C44(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D8A0, type metadata accessor for Proto_ReduceMaxLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D8A0, type metadata accessor for Proto_ReduceMaxLayerParams, &unk_257765480);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575D9D0C()
+uint64_t sub_2575D9D0C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D8A0, type metadata accessor for Proto_ReduceMaxLayerParams);
+  sub_2575FB760(&qword_27F87D8A0, type metadata accessor for Proto_ReduceMaxLayerParams, &unk_257765480);
 
   return sub_257743424();
 }
@@ -6114,21 +532,21 @@ uint64_t sub_2575D9DB8()
 
 uint64_t sub_2575DA03C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDD8, type metadata accessor for Proto_ReduceMinLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDD8, type metadata accessor for Proto_ReduceMinLayerParams, &unk_257757DD0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DA0DC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D888, type metadata accessor for Proto_ReduceMinLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D888, type metadata accessor for Proto_ReduceMinLayerParams, &unk_257765408);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DA1A4()
+uint64_t sub_2575DA1A4(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D888, type metadata accessor for Proto_ReduceMinLayerParams);
+  sub_2575FB760(&qword_27F87D888, type metadata accessor for Proto_ReduceMinLayerParams, &unk_257765408);
 
   return sub_257743424();
 }
@@ -6172,21 +590,21 @@ uint64_t sub_2575DA250()
 
 uint64_t sub_2575DA4D4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDE0, type metadata accessor for Proto_ReduceSumLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDE0, type metadata accessor for Proto_ReduceSumLayerParams, &unk_257757CE0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DA574(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D870, type metadata accessor for Proto_ReduceSumLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D870, type metadata accessor for Proto_ReduceSumLayerParams, &unk_257765390);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DA63C()
+uint64_t sub_2575DA63C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D870, type metadata accessor for Proto_ReduceSumLayerParams);
+  sub_2575FB760(&qword_27F87D870, type metadata accessor for Proto_ReduceSumLayerParams, &unk_257765390);
 
   return sub_257743424();
 }
@@ -6230,21 +648,21 @@ uint64_t sub_2575DA6E8()
 
 uint64_t sub_2575DA96C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDE8, type metadata accessor for Proto_ReduceProdLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDE8, type metadata accessor for Proto_ReduceProdLayerParams, &unk_257757BF0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DAA0C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D858, type metadata accessor for Proto_ReduceProdLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D858, type metadata accessor for Proto_ReduceProdLayerParams, &unk_257765318);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DAAD4()
+uint64_t sub_2575DAAD4(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D858, type metadata accessor for Proto_ReduceProdLayerParams);
+  sub_2575FB760(&qword_27F87D858, type metadata accessor for Proto_ReduceProdLayerParams, &unk_257765318);
 
   return sub_257743424();
 }
@@ -6288,21 +706,21 @@ uint64_t sub_2575DAB80()
 
 uint64_t sub_2575DAE04(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDF0, type metadata accessor for Proto_ReduceMeanLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDF0, type metadata accessor for Proto_ReduceMeanLayerParams, &unk_257757B00);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DAEA4(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D840, type metadata accessor for Proto_ReduceMeanLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D840, type metadata accessor for Proto_ReduceMeanLayerParams, &unk_2577652A0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DAF6C()
+uint64_t sub_2575DAF6C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D840, type metadata accessor for Proto_ReduceMeanLayerParams);
+  sub_2575FB760(&qword_27F87D840, type metadata accessor for Proto_ReduceMeanLayerParams, &unk_2577652A0);
 
   return sub_257743424();
 }
@@ -6346,21 +764,21 @@ uint64_t sub_2575DB018()
 
 uint64_t sub_2575DB29C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EDF8, type metadata accessor for Proto_ReduceLogSumLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EDF8, type metadata accessor for Proto_ReduceLogSumLayerParams, &unk_257757A10);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DB33C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D828, type metadata accessor for Proto_ReduceLogSumLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D828, type metadata accessor for Proto_ReduceLogSumLayerParams, &unk_257765228);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DB404()
+uint64_t sub_2575DB404(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D828, type metadata accessor for Proto_ReduceLogSumLayerParams);
+  sub_2575FB760(&qword_27F87D828, type metadata accessor for Proto_ReduceLogSumLayerParams, &unk_257765228);
 
   return sub_257743424();
 }
@@ -6404,21 +822,21 @@ uint64_t sub_2575DB4B0()
 
 uint64_t sub_2575DB734(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EE00, type metadata accessor for Proto_ReduceSumSquareLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EE00, type metadata accessor for Proto_ReduceSumSquareLayerParams, &unk_257757920);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DB7D4(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D810, type metadata accessor for Proto_ReduceSumSquareLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D810, type metadata accessor for Proto_ReduceSumSquareLayerParams, &unk_2577651B0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DB89C()
+uint64_t sub_2575DB89C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D810, type metadata accessor for Proto_ReduceSumSquareLayerParams);
+  sub_2575FB760(&qword_27F87D810, type metadata accessor for Proto_ReduceSumSquareLayerParams, &unk_2577651B0);
 
   return sub_257743424();
 }
@@ -6460,176 +878,176 @@ uint64_t sub_2575DB948()
   return sub_257743594();
 }
 
-uint64_t sub_2575DBB50(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void))
+uint64_t sub_2575DBB50(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v6 = OUTLINED_FUNCTION_7_8(a1, a2);
-  if ((sub_257487374(v6, v7) & 1) == 0 || *(v4 + 8) != *(v3 + 8) || *(v4 + 9) != *(v3 + 9))
+  OUTLINED_FUNCTION_7_8(a1);
+  if ((sub_257487374() & 1) == 0 || *(v4 + 8) != *(v3 + 8) || *(v4 + 9) != *(v3 + 9))
   {
     return 0;
   }
 
-  v9 = a3(0);
-  OUTLINED_FUNCTION_327_0(v9);
+  a3(0);
+  OUTLINED_FUNCTION_327_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v10, v11);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v9 = sub_2575FB760(v7, v8, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v9) & 1;
 }
 
 uint64_t sub_2575DBC68(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EE08, type metadata accessor for Proto_ReduceLogSumExpLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EE08, type metadata accessor for Proto_ReduceLogSumExpLayerParams, &unk_257757830);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DBD08(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D7F8, type metadata accessor for Proto_ReduceLogSumExpLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D7F8, type metadata accessor for Proto_ReduceLogSumExpLayerParams, &unk_257765138);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DBDD0()
+uint64_t sub_2575DBDD0(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D7F8, type metadata accessor for Proto_ReduceLogSumExpLayerParams);
+  sub_2575FB760(&qword_27F87D7F8, type metadata accessor for Proto_ReduceLogSumExpLayerParams, &unk_257765138);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DBF2C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EE80, type metadata accessor for Proto_ExpandDimsLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EE80, type metadata accessor for Proto_ExpandDimsLayerParams, &unk_257757740);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DBFCC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D7E0, type metadata accessor for Proto_ExpandDimsLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D7E0, type metadata accessor for Proto_ExpandDimsLayerParams, &unk_257764B20);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DC094()
+uint64_t sub_2575DC094(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D7E0, type metadata accessor for Proto_ExpandDimsLayerParams);
+  sub_2575FB760(&qword_27F87D7E0, type metadata accessor for Proto_ExpandDimsLayerParams, &unk_257764B20);
 
   return sub_257743424();
 }
 
-uint64_t sub_2575DC170(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575DC170(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v2)
+  OUTLINED_FUNCTION_104_0();
+  if (!v3)
   {
     return 0;
   }
 
-  v3 = OUTLINED_FUNCTION_0_0();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_95_0(v5);
+  v4 = OUTLINED_FUNCTION_0_0();
+  v5(v4);
+  OUTLINED_FUNCTION_95_0();
   sub_2577431B4();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v6, v7);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v8 = sub_2575FB760(v6, v7, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v8) & 1;
 }
 
 uint64_t sub_2575DC27C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EFE8, type metadata accessor for Proto_FlattenTo2DLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EFE8, type metadata accessor for Proto_FlattenTo2DLayerParams, &unk_257757690);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DC31C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D7D0, type metadata accessor for Proto_FlattenTo2DLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D7D0, type metadata accessor for Proto_FlattenTo2DLayerParams, &unk_257763950);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DC3E4()
+uint64_t sub_2575DC3E4(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D7D0, type metadata accessor for Proto_FlattenTo2DLayerParams);
+  sub_2575FB760(&qword_27F87D7D0, type metadata accessor for Proto_FlattenTo2DLayerParams, &unk_257763950);
 
   return sub_257743424();
 }
 
-uint64_t sub_2575DC4AC(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t (*a4)(void))
+uint64_t sub_2575DC4AC(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
 {
-  v5 = OUTLINED_FUNCTION_7_8(a1, a2);
+  v5 = OUTLINED_FUNCTION_7_8(a1);
   if ((v6(v5) & 1) == 0)
   {
     return 0;
   }
 
-  v7 = a4(0);
-  OUTLINED_FUNCTION_95_0(v7);
+  a4(0);
+  OUTLINED_FUNCTION_95_0();
   sub_2577431B4();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v9 = sub_2575FB760(v7, v8, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v9) & 1;
 }
 
 uint64_t sub_2575DC5C4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F120, type metadata accessor for Proto_ReshapeStaticLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F120, type metadata accessor for Proto_ReshapeStaticLayerParams, &unk_2577575A0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DC664(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D7B8, type metadata accessor for Proto_ReshapeStaticLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D7B8, type metadata accessor for Proto_ReshapeStaticLayerParams, &unk_257762D20);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DC72C()
+uint64_t sub_2575DC72C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D7B8, type metadata accessor for Proto_ReshapeStaticLayerParams);
+  sub_2575FB760(&qword_27F87D7B8, type metadata accessor for Proto_ReshapeStaticLayerParams, &unk_257762D20);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DC814(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EFF0, type metadata accessor for Proto_ReshapeLikeLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EFF0, type metadata accessor for Proto_ReshapeLikeLayerParams, &unk_2577574B0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DC8B4(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D7A0, type metadata accessor for Proto_ReshapeLikeLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D7A0, type metadata accessor for Proto_ReshapeLikeLayerParams, &unk_2577638D8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DC97C()
+uint64_t sub_2575DC97C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D7A0, type metadata accessor for Proto_ReshapeLikeLayerParams);
+  sub_2575FB760(&qword_27F87D7A0, type metadata accessor for Proto_ReshapeLikeLayerParams, &unk_2577638D8);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DCA20(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EFF8, type metadata accessor for Proto_ReshapeDynamicLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EFF8, type metadata accessor for Proto_ReshapeDynamicLayerParams, &unk_2577573C0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DCAC0(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D788, type metadata accessor for Proto_ReshapeDynamicLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D788, type metadata accessor for Proto_ReshapeDynamicLayerParams, &unk_257763860);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DCB88()
+uint64_t sub_2575DCB88(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D788, type metadata accessor for Proto_ReshapeDynamicLayerParams);
+  sub_2575FB760(&qword_27F87D788, type metadata accessor for Proto_ReshapeDynamicLayerParams, &unk_257763860);
 
   return sub_257743424();
 }
@@ -6664,14 +1082,14 @@ uint64_t sub_2575DCC04()
   return sub_257743594();
 }
 
-uint64_t sub_2575DCDCC()
+uint64_t sub_2575DCDCC(uint64_t a1)
 {
-  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_8_6(), result = sub_257743484(), !v0))
+  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_8_6(), result = sub_257743484(), !v1))
   {
     OUTLINED_FUNCTION_349_0();
-    if (!v2 || (OUTLINED_FUNCTION_12_11(), result = sub_2577434B4(), !v0))
+    if (!v3 || (OUTLINED_FUNCTION_12_11(), result = sub_2577434B4(), !v1))
     {
-      v3 = *(type metadata accessor for Proto_SqueezeLayerParams(0) + 24);
+      type metadata accessor for Proto_SqueezeLayerParams(0);
       return OUTLINED_FUNCTION_7_5();
     }
   }
@@ -6679,38 +1097,38 @@ uint64_t sub_2575DCDCC()
   return result;
 }
 
-uint64_t sub_2575DCE48(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575DCE48(uint64_t a1)
 {
-  v4 = OUTLINED_FUNCTION_7_8(a1, a2);
-  if ((sub_257487374(v4, v5) & 1) == 0 || *(v3 + 8) != *(v2 + 8))
+  OUTLINED_FUNCTION_7_8(a1);
+  if ((sub_257487374() & 1) == 0 || *(v2 + 8) != *(v1 + 8))
   {
     return 0;
   }
 
-  v7 = type metadata accessor for Proto_SqueezeLayerParams(0);
-  OUTLINED_FUNCTION_308_0(v7);
+  type metadata accessor for Proto_SqueezeLayerParams(0);
+  OUTLINED_FUNCTION_308_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v6 = sub_2575FB760(v4, v5, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v6) & 1;
 }
 
 uint64_t sub_2575DCF60(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EEC0, type metadata accessor for Proto_SqueezeLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EEC0, type metadata accessor for Proto_SqueezeLayerParams, &unk_2577572D0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DD000(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D770, type metadata accessor for Proto_SqueezeLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D770, type metadata accessor for Proto_SqueezeLayerParams, &unk_257764850);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DD0C8()
+uint64_t sub_2575DD0C8(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D770, type metadata accessor for Proto_SqueezeLayerParams);
+  sub_2575FB760(&qword_27F87D770, type metadata accessor for Proto_SqueezeLayerParams, &unk_257764850);
 
   return sub_257743424();
 }
@@ -6784,16 +1202,16 @@ uint64_t sub_2575DD350()
   return result;
 }
 
-uint64_t sub_2575DD3CC()
+uint64_t sub_2575DD3CC(uint64_t a1)
 {
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v0))
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v1))
   {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v0))
+    if (!*(v2 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v1))
     {
       OUTLINED_FUNCTION_388_0();
-      if (!v3 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v0))
+      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v1))
       {
-        v4 = *(type metadata accessor for Proto_TopKLayerParams(0) + 28);
+        type metadata accessor for Proto_TopKLayerParams(0);
         return OUTLINED_FUNCTION_7_5();
       }
     }
@@ -6802,15 +1220,15 @@ uint64_t sub_2575DD3CC()
   return result;
 }
 
-uint64_t sub_2575DD460(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575DD460(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
+  OUTLINED_FUNCTION_104_0();
   if (!v4)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v2, v3);
+  OUTLINED_FUNCTION_65_2();
   if (!v4)
   {
     return 0;
@@ -6822,30 +1240,30 @@ uint64_t sub_2575DD460(uint64_t *a1, uint64_t *a2)
     return 0;
   }
 
-  v6 = type metadata accessor for Proto_TopKLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v6);
+  type metadata accessor for Proto_TopKLayerParams(0);
+  OUTLINED_FUNCTION_327_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v7, v8);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v8 = sub_2575FB760(v6, v7, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v8) & 1;
 }
 
 uint64_t sub_2575DD530(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F750, type metadata accessor for Proto_TopKLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F750, type metadata accessor for Proto_TopKLayerParams, &unk_2577571E0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DD5D0(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D758, type metadata accessor for Proto_TopKLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D758, type metadata accessor for Proto_TopKLayerParams, &unk_257762000);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DD698()
+uint64_t sub_2575DD698(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D758, type metadata accessor for Proto_TopKLayerParams);
+  sub_2575FB760(&qword_27F87D758, type metadata accessor for Proto_TopKLayerParams, &unk_257762000);
 
   return sub_257743424();
 }
@@ -6889,7 +1307,7 @@ void sub_2575DD8E0()
     OUTLINED_FUNCTION_349_0();
     if (!v3 || (OUTLINED_FUNCTION_12_11(), sub_2577434B4(), !v0))
     {
-      v4 = *(v2(0) + 24);
+      v2(0);
       OUTLINED_FUNCTION_7_5();
     }
   }
@@ -6899,21 +1317,21 @@ void sub_2575DD8E0()
 
 uint64_t sub_2575DD9D8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EE60, type metadata accessor for Proto_ArgMaxLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EE60, type metadata accessor for Proto_ArgMaxLayerParams, &unk_2577570F0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DDA78(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D740, type metadata accessor for Proto_ArgMaxLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D740, type metadata accessor for Proto_ArgMaxLayerParams, &unk_257764D00);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DDB40()
+uint64_t sub_2575DDB40(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D740, type metadata accessor for Proto_ArgMaxLayerParams);
+  sub_2575FB760(&qword_27F87D740, type metadata accessor for Proto_ArgMaxLayerParams, &unk_257764D00);
 
   return sub_257743424();
 }
@@ -6950,21 +1368,21 @@ uint64_t sub_2575DDBEC()
 
 uint64_t sub_2575DDE2C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EE58, type metadata accessor for Proto_ArgMinLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EE58, type metadata accessor for Proto_ArgMinLayerParams, &unk_257757000);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DDECC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D728, type metadata accessor for Proto_ArgMinLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D728, type metadata accessor for Proto_ArgMinLayerParams, &unk_257764D78);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DDF94()
+uint64_t sub_2575DDF94(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D728, type metadata accessor for Proto_ArgMinLayerParams);
+  sub_2575FB760(&qword_27F87D728, type metadata accessor for Proto_ArgMinLayerParams, &unk_257764D78);
 
   return sub_257743424();
 }
@@ -7006,16 +1424,16 @@ uint64_t sub_2575DE040()
   return sub_257743594();
 }
 
-uint64_t sub_2575DE248()
+uint64_t sub_2575DE248(uint64_t a1)
 {
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v0))
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v1))
   {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v0))
+    if (!*(v2 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v1))
     {
       OUTLINED_FUNCTION_307_0();
-      if (!v3 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434A4(), !v0))
+      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434A4(), !v1))
       {
-        v4 = *(type metadata accessor for Proto_SplitNDLayerParams(0) + 28);
+        type metadata accessor for Proto_SplitNDLayerParams(0);
         return OUTLINED_FUNCTION_7_5();
       }
     }
@@ -7024,134 +1442,134 @@ uint64_t sub_2575DE248()
   return result;
 }
 
-uint64_t sub_2575DE2D8(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575DE2D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
+  OUTLINED_FUNCTION_104_0();
   if (!v4)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v2, v3);
+  OUTLINED_FUNCTION_65_2();
   if (!v4)
   {
     return 0;
   }
 
-  v5 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257487374(v5, v6) & 1) == 0)
+  OUTLINED_FUNCTION_269_0();
+  if ((sub_257487374() & 1) == 0)
   {
     return 0;
   }
 
-  v7 = type metadata accessor for Proto_SplitNDLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v7);
+  type metadata accessor for Proto_SplitNDLayerParams(0);
+  OUTLINED_FUNCTION_327_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v7 = sub_2575FB760(v5, v6, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v7) & 1;
 }
 
 uint64_t sub_2575DE3C0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F780, type metadata accessor for Proto_SplitNDLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F780, type metadata accessor for Proto_SplitNDLayerParams, &unk_257756F10);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DE460(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D710, type metadata accessor for Proto_SplitNDLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D710, type metadata accessor for Proto_SplitNDLayerParams, &unk_257761D30);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DE528()
+uint64_t sub_2575DE528(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D710, type metadata accessor for Proto_SplitNDLayerParams);
+  sub_2575FB760(&qword_27F87D710, type metadata accessor for Proto_SplitNDLayerParams, &unk_257761D30);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DE5D0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F8F0, type metadata accessor for Proto_CeilLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F8F0, type metadata accessor for Proto_CeilLayerParams, &unk_257756DE8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DE670(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D6F8, type metadata accessor for Proto_CeilLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D6F8, type metadata accessor for Proto_CeilLayerParams, &unk_257756E20);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DE738()
+uint64_t sub_2575DE738(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D6F8, type metadata accessor for Proto_CeilLayerParams);
+  sub_2575FB760(&qword_27F87D6F8, type metadata accessor for Proto_CeilLayerParams, &unk_257756E20);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DE7DC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F8F8, type metadata accessor for Proto_RoundLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F8F8, type metadata accessor for Proto_RoundLayerParams, &unk_257756C80);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DE87C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D6D8, type metadata accessor for Proto_RoundLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D6D8, type metadata accessor for Proto_RoundLayerParams, &unk_257756CB8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DE944()
+uint64_t sub_2575DE944(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D6D8, type metadata accessor for Proto_RoundLayerParams);
+  sub_2575FB760(&qword_27F87D6D8, type metadata accessor for Proto_RoundLayerParams, &unk_257756CB8);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DE9E8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F900, type metadata accessor for Proto_FloorLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F900, type metadata accessor for Proto_FloorLayerParams, &unk_257756B18);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DEA88(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D6B8, type metadata accessor for Proto_FloorLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D6B8, type metadata accessor for Proto_FloorLayerParams, &unk_257756B50);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DEB50()
+uint64_t sub_2575DEB50(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D6B8, type metadata accessor for Proto_FloorLayerParams);
+  sub_2575FB760(&qword_27F87D6B8, type metadata accessor for Proto_FloorLayerParams, &unk_257756B50);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575DEBF4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F908, type metadata accessor for Proto_SignLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F908, type metadata accessor for Proto_SignLayerParams, &unk_2577569B0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DEC94(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D698, type metadata accessor for Proto_SignLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D698, type metadata accessor for Proto_SignLayerParams, &unk_2577569E8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DED5C()
+uint64_t sub_2575DED5C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D698, type metadata accessor for Proto_SignLayerParams);
+  sub_2575FB760(&qword_27F87D698, type metadata accessor for Proto_SignLayerParams, &unk_2577569E8);
 
   return sub_257743424();
 }
@@ -7188,21 +1606,21 @@ uint64_t sub_2575DEDD8()
 
 uint64_t sub_2575DF01C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87ED98, type metadata accessor for Proto_ClipLayerParams);
+  v4 = sub_2575FB760(&qword_27F87ED98, type metadata accessor for Proto_ClipLayerParams, &unk_2577568C0);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DF0BC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D680, type metadata accessor for Proto_ClipLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D680, type metadata accessor for Proto_ClipLayerParams, &unk_2577657C8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DF184()
+uint64_t sub_2575DF184(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D680, type metadata accessor for Proto_ClipLayerParams);
+  sub_2575FB760(&qword_27F87D680, type metadata accessor for Proto_ClipLayerParams, &unk_2577657C8);
 
   return sub_257743424();
 }
@@ -7297,23 +1715,23 @@ uint64_t sub_2575DF4F0()
   }
 }
 
-uint64_t sub_2575DF598()
+uint64_t sub_2575DF598(uint64_t a1)
 {
-  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_8_6(), result = sub_257743484(), !v0))
+  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_8_6(), result = sub_257743484(), !v1))
   {
     OUTLINED_FUNCTION_285_0();
-    if (!v3 || (OUTLINED_FUNCTION_12_11(), result = sub_257743454(), !v0))
+    if (!v4 || (OUTLINED_FUNCTION_12_11(), result = sub_257743454(), !v1))
     {
       OUTLINED_FUNCTION_307_0();
-      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v0))
+      if (!v5 || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v1))
       {
-        if (!*(v1[3] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v0))
+        if (!*(v2[3] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v1))
         {
-          if (!*(v1[4] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v0))
+          if (!*(v2[4] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v1))
           {
-            if (!*(v1[5] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v0))
+            if (!*(v2[5] + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v1))
             {
-              v5 = *(type metadata accessor for Proto_SliceStaticLayerParams(0) + 40);
+              type metadata accessor for Proto_SliceStaticLayerParams(0);
               return OUTLINED_FUNCTION_7_5();
             }
           }
@@ -7325,56 +1743,56 @@ uint64_t sub_2575DF598()
   return result;
 }
 
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV21SliceStaticParametersV2eeoiySbAG_AGtFZ_0(uint64_t *a1, uint64_t *a2)
+uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV21SliceStaticParametersV2eeoiySbAG_AGtFZ_0(uint64_t a1)
 {
-  v4 = OUTLINED_FUNCTION_7_8(a1, a2);
-  if ((sub_257487374(v4, v5) & 1) == 0)
+  OUTLINED_FUNCTION_7_8(a1);
+  if ((sub_257487374() & 1) == 0)
   {
     return 0;
   }
 
-  v6 = OUTLINED_FUNCTION_393_0();
-  if ((sub_257479C08(v6, v7) & 1) == 0)
+  v3 = OUTLINED_FUNCTION_393_0();
+  if ((sub_257479C08(v3, v4) & 1) == 0)
   {
     return 0;
   }
 
-  v8 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257487374(v8, v9) & 1) == 0)
+  OUTLINED_FUNCTION_269_0();
+  if ((sub_257487374() & 1) == 0)
   {
     return 0;
   }
 
-  v10 = OUTLINED_FUNCTION_182_0();
-  if ((sub_257479C08(v10, v11) & 1) == 0 || (sub_257487374(*(v3 + 32), *(v2 + 32)) & 1) == 0 || (sub_257479C08(*(v3 + 40), *(v2 + 40)) & 1) == 0)
+  v5 = OUTLINED_FUNCTION_182_0();
+  if ((sub_257479C08(v5, v6) & 1) == 0 || (sub_257487374() & 1) == 0 || (sub_257479C08(*(v2 + 40), *(v1 + 40)) & 1) == 0)
   {
     return 0;
   }
 
-  v12 = *(type metadata accessor for Proto_SliceStaticLayerParams(0) + 40);
+  type metadata accessor for Proto_SliceStaticLayerParams(0);
   sub_2577431B4();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v13, v14);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v9 = sub_2575FB760(v7, v8, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v9) & 1;
 }
 
 uint64_t sub_2575DF79C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EF18, type metadata accessor for Proto_SliceStaticLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EF18, type metadata accessor for Proto_SliceStaticLayerParams, &unk_257756810);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DF83C(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D670, type metadata accessor for Proto_SliceStaticLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D670, type metadata accessor for Proto_SliceStaticLayerParams, &unk_257764418);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575DF904()
+uint64_t sub_2575DF904(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D670, type metadata accessor for Proto_SliceStaticLayerParams);
+  sub_2575FB760(&qword_27F87D670, type metadata accessor for Proto_SliceStaticLayerParams, &unk_257764418);
 
   return sub_257743424();
 }
@@ -7461,21 +1879,21 @@ uint64_t sub_2575DFC04()
   }
 }
 
-uint64_t sub_2575DFCA4()
+uint64_t sub_2575DFCA4(uint64_t a1)
 {
-  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_12_11(), result = sub_257743454(), !v0))
+  if (!*(OUTLINED_FUNCTION_6_15() + 16) || (OUTLINED_FUNCTION_12_11(), result = sub_257743454(), !v1))
   {
     OUTLINED_FUNCTION_285_0();
-    if (!v3 || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v0))
+    if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v1))
     {
       OUTLINED_FUNCTION_307_0();
-      if (!v4 || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v0))
+      if (!v5 || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v1))
       {
-        if (!*(*(v1 + 24) + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v0))
+        if (!*(*(v2 + 24) + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743484(), !v1))
         {
-          if (!*(*(v1 + 32) + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v0))
+          if (!*(*(v2 + 32) + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743454(), !v1))
           {
-            v5 = *(type metadata accessor for Proto_SliceDynamicLayerParams(0) + 36);
+            type metadata accessor for Proto_SliceDynamicLayerParams(0);
             return OUTLINED_FUNCTION_7_5();
           }
         }
@@ -7486,78 +1904,74 @@ uint64_t sub_2575DFCA4()
   return result;
 }
 
-uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV22SliceDynamicParametersV2eeoiySbAG_AGtFZ_0(uint64_t *a1, uint64_t *a2)
+uint64_t _s20MLModelSpecification13NeuralNetworkV5LayerV22SliceDynamicParametersV2eeoiySbAG_AGtFZ_0(uint64_t a1)
 {
-  v4 = OUTLINED_FUNCTION_7_8(a1, a2);
-  if ((sub_257479C08(v4, v5) & 1) == 0)
+  v3 = OUTLINED_FUNCTION_7_8(a1);
+  if ((sub_257479C08(v3, v4) & 1) == 0)
   {
     return 0;
   }
 
-  v6 = OUTLINED_FUNCTION_393_0();
-  if ((sub_257487374(v6, v7) & 1) == 0)
+  OUTLINED_FUNCTION_393_0();
+  if ((sub_257487374() & 1) == 0)
   {
     return 0;
   }
 
-  v8 = OUTLINED_FUNCTION_269_0();
-  if ((sub_257479C08(v8, v9) & 1) == 0)
+  v5 = OUTLINED_FUNCTION_269_0();
+  if ((sub_257479C08(v5, v6) & 1) == 0)
   {
     return 0;
   }
 
-  v10 = OUTLINED_FUNCTION_182_0();
-  if ((sub_257487374(v10, v11) & 1) == 0 || (sub_257479C08(*(v3 + 32), *(v2 + 32)) & 1) == 0)
+  OUTLINED_FUNCTION_182_0();
+  if ((sub_257487374() & 1) == 0 || (sub_257479C08(*(v2 + 32), *(v1 + 32)) & 1) == 0)
   {
     return 0;
   }
 
-  v12 = type metadata accessor for Proto_SliceDynamicLayerParams(0);
-  OUTLINED_FUNCTION_409_0(v12);
+  type metadata accessor for Proto_SliceDynamicLayerParams(0);
+  OUTLINED_FUNCTION_409_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v13, v14);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v9 = sub_2575FB760(v7, v8, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v9) & 1;
 }
 
-uint64_t sub_2575DFE44(uint64_t a1)
+uint64_t sub_2575DFE44()
 {
-  v1 = *(a1 + 36);
-  v2 = sub_2577431B4();
-  OUTLINED_FUNCTION_4(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_77_0();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_77_0();
 
-  return v6(v5);
+  return v1(v0);
 }
 
-uint64_t sub_2575DFEA8(uint64_t a1, uint64_t a2)
+uint64_t sub_2575DFEA8()
 {
-  v2 = *(a2 + 36);
-  v3 = sub_2577431B4();
-  OUTLINED_FUNCTION_4(v3);
-  v5 = *(v4 + 40);
-  v6 = OUTLINED_FUNCTION_311_0();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
 
-  return v7(v6);
+  return v1(v0);
 }
 
 uint64_t sub_2575DFF40(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EF20, type metadata accessor for Proto_SliceDynamicLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EF20, type metadata accessor for Proto_SliceDynamicLayerParams, &unk_257756720);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575DFFE0(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D658, type metadata accessor for Proto_SliceDynamicLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D658, type metadata accessor for Proto_SliceDynamicLayerParams, &unk_2577643A0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E00A8()
+uint64_t sub_2575E00A8(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D658, type metadata accessor for Proto_SliceDynamicLayerParams);
+  sub_2575FB760(&qword_27F87D658, type metadata accessor for Proto_SliceDynamicLayerParams, &unk_2577643A0);
 
   return sub_257743424();
 }
@@ -7586,42 +2000,42 @@ uint64_t sub_2575E0144()
 
 uint64_t sub_2575E0234(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87ED48, type metadata accessor for Proto_TileLayerParams);
+  v4 = sub_2575FB760(&qword_27F87ED48, type metadata accessor for Proto_TileLayerParams, &unk_257756630);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E02D4(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87A268, type metadata accessor for Proto_TileLayerParams);
+  v2 = sub_2575FB760(&qword_27F87A268, type metadata accessor for Proto_TileLayerParams, &unk_257765C78);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E039C()
+uint64_t sub_2575E039C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87A268, type metadata accessor for Proto_TileLayerParams);
+  sub_2575FB760(&qword_27F87A268, type metadata accessor for Proto_TileLayerParams, &unk_257765C78);
 
   return sub_257743424();
 }
 
 uint64_t sub_2575E0484(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F910, type metadata accessor for Proto_GetShapeLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F910, type metadata accessor for Proto_GetShapeLayerParams, &unk_2577564C8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E0524(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D628, type metadata accessor for Proto_GetShapeLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D628, type metadata accessor for Proto_GetShapeLayerParams, &unk_257756500);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E05EC()
+uint64_t sub_2575E05EC(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D628, type metadata accessor for Proto_GetShapeLayerParams);
+  sub_2575FB760(&qword_27F87D628, type metadata accessor for Proto_GetShapeLayerParams, &unk_257756500);
 
   return sub_257743424();
 }
@@ -7631,28 +2045,28 @@ uint64_t sub_2575E0674()
   OUTLINED_FUNCTION_0_0();
   sub_2577431B4();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v0, v1);
-  OUTLINED_FUNCTION_44_1();
-  return OUTLINED_FUNCTION_266_0() & 1;
+  sub_2575FB760(v0, v1, MEMORY[0x277D216D0]);
+  v2 = OUTLINED_FUNCTION_44_1();
+  return OUTLINED_FUNCTION_266_0(v2, v3, v4, v5) & 1;
 }
 
 uint64_t sub_2575E06F4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F918, type metadata accessor for Proto_ErfLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F918, type metadata accessor for Proto_ErfLayerParams, &unk_257756360);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E0794(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D608, type metadata accessor for Proto_ErfLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D608, type metadata accessor for Proto_ErfLayerParams, &unk_257756398);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E085C()
+uint64_t sub_2575E085C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D608, type metadata accessor for Proto_ErfLayerParams);
+  sub_2575FB760(&qword_27F87D608, type metadata accessor for Proto_ErfLayerParams, &unk_257756398);
 
   return sub_257743424();
 }
@@ -7667,19 +2081,18 @@ uint64_t sub_2575E08F4()
   __swift_project_value_buffer(v6, v5);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
   v7 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
-  v8 = *(*v7 + 72);
-  v9 = (*(*v7 + 80) + 32) & ~*(*v7 + 80);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_2577442B0;
-  v11 = v10 + v9 + v7[14];
-  *(v10 + v9) = v3;
-  *v11 = v1;
-  *(v11 + 8) = v0;
-  *(v11 + 16) = 2;
-  v12 = *MEMORY[0x277D21870];
-  v13 = sub_257743584();
-  OUTLINED_FUNCTION_4(v13);
-  (*(v14 + 104))(v11, v12);
+  v8 = (*(*v7 + 80) + 32) & ~*(*v7 + 80);
+  v9 = swift_allocObject();
+  *(v9 + 16) = xmmword_2577442B0;
+  v10 = v9 + v8 + v7[14];
+  *(v9 + v8) = v3;
+  *v10 = v1;
+  *(v10 + 8) = v0;
+  *(v10 + 16) = 2;
+  v11 = *MEMORY[0x277D21870];
+  sub_257743584();
+  OUTLINED_FUNCTION_4();
+  (*(v12 + 104))(v10, v11);
   return sub_257743594();
 }
 
@@ -7709,38 +2122,38 @@ uint64_t sub_2575E0A5C()
 uint64_t sub_2575E0B20()
 {
   OUTLINED_FUNCTION_267();
-  OUTLINED_FUNCTION_386_0(v0, v1);
-  if (v4)
+  OUTLINED_FUNCTION_386_0();
+  if (v2)
   {
-    if (v3)
+    if (v1)
     {
-      if (v3 == 1)
+      if (v1 == 1)
       {
-        if (v2 == 1)
+        if (v0 == 1)
         {
 LABEL_8:
-          v5 = type metadata accessor for Proto_GeluLayerParams(0);
-          OUTLINED_FUNCTION_95_0(v5);
+          type metadata accessor for Proto_GeluLayerParams(0);
+          OUTLINED_FUNCTION_95_0();
           sub_2577431B4();
           OUTLINED_FUNCTION_1_16();
-          sub_2575FB760(v6, v7);
-          return OUTLINED_FUNCTION_4_2() & 1;
+          v5 = sub_2575FB760(v3, v4, MEMORY[0x277D216D0]);
+          return OUTLINED_FUNCTION_4_2(v5) & 1;
         }
       }
 
-      else if (v2 == 2)
+      else if (v0 == 2)
       {
         goto LABEL_8;
       }
     }
 
-    else if (!v2)
+    else if (!v0)
     {
       goto LABEL_8;
     }
   }
 
-  else if (v2 == v3)
+  else if (v0 == v1)
   {
     goto LABEL_8;
   }
@@ -7750,21 +2163,21 @@ LABEL_8:
 
 uint64_t sub_2575E0C84(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F7A8, type metadata accessor for Proto_GeluLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F7A8, type metadata accessor for Proto_GeluLayerParams, &unk_257756270);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E0D24(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D5F0, type metadata accessor for Proto_GeluLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D5F0, type metadata accessor for Proto_GeluLayerParams, &unk_257761BC8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E0DEC()
+uint64_t sub_2575E0DEC(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D5F0, type metadata accessor for Proto_GeluLayerParams);
+  sub_2575FB760(&qword_27F87D5F0, type metadata accessor for Proto_GeluLayerParams, &unk_257761BC8);
 
   return sub_257743424();
 }
@@ -7877,7 +2290,7 @@ uint64_t sub_2575E130C()
       OUTLINED_FUNCTION_284();
       if (!v4 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
       {
-        v5 = *(type metadata accessor for Proto_RangeStaticLayerParams(0) + 28);
+        type metadata accessor for Proto_RangeStaticLayerParams(0);
         return OUTLINED_FUNCTION_7_5();
       }
     }
@@ -7886,50 +2299,50 @@ uint64_t sub_2575E130C()
   return result;
 }
 
-uint64_t sub_2575E13B4(float *a1, int *a2)
+uint64_t sub_2575E13B4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_164_1(a1, a2);
-  if (!v4)
+  OUTLINED_FUNCTION_164_1(a1);
+  if (!v5)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_83_1(v2, v3);
-  if (!v4)
+  OUTLINED_FUNCTION_83_1(v4);
+  if (!v5)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_334_0();
-  if (!v4)
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = type metadata accessor for Proto_RangeStaticLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v5);
+  type metadata accessor for Proto_RangeStaticLayerParams(0);
+  OUTLINED_FUNCTION_327_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v6, v7);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v8 = sub_2575FB760(v6, v7, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v8) & 1;
 }
 
 uint64_t sub_2575E1484(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F138, type metadata accessor for Proto_RangeStaticLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F138, type metadata accessor for Proto_RangeStaticLayerParams, &unk_257756198);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E1524(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D5E0, type metadata accessor for Proto_RangeStaticLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D5E0, type metadata accessor for Proto_RangeStaticLayerParams, &unk_257762C30);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E15EC()
+uint64_t sub_2575E15EC(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D5E0, type metadata accessor for Proto_RangeStaticLayerParams);
+  sub_2575FB760(&qword_27F87D5E0, type metadata accessor for Proto_RangeStaticLayerParams, &unk_257762C30);
 
   return sub_257743424();
 }
@@ -7988,21 +2401,21 @@ uint64_t sub_2575E1834()
 
 uint64_t sub_2575E1928(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F140, type metadata accessor for Proto_RangeDynamicLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F140, type metadata accessor for Proto_RangeDynamicLayerParams, &unk_2577560A8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E19C8(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D5C8, type metadata accessor for Proto_RangeDynamicLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D5C8, type metadata accessor for Proto_RangeDynamicLayerParams, &unk_257762BB8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E1A90()
+uint64_t sub_2575E1A90(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D5C8, type metadata accessor for Proto_RangeDynamicLayerParams);
+  sub_2575FB760(&qword_27F87D5C8, type metadata accessor for Proto_RangeDynamicLayerParams, &unk_257762BB8);
 
   return sub_257743424();
 }
@@ -8076,15 +2489,15 @@ uint64_t sub_2575E1D44()
   return result;
 }
 
-uint64_t sub_2575E1DD8()
+uint64_t sub_2575E1DD8(uint64_t a1)
 {
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v0))
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v1))
   {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v0))
+    if (!*(v2 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743554(), !v1))
     {
-      if (!*(v1 + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743554(), !v0))
+      if (!*(v2 + 16) || (OUTLINED_FUNCTION_12_8(), result = sub_257743554(), !v1))
       {
-        v3 = *(type metadata accessor for Proto_SlidingWindowsLayerParams(0) + 28);
+        type metadata accessor for Proto_SlidingWindowsLayerParams(0);
         return OUTLINED_FUNCTION_7_5();
       }
     }
@@ -8093,15 +2506,15 @@ uint64_t sub_2575E1DD8()
   return result;
 }
 
-uint64_t sub_2575E1E68(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575E1E68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
+  OUTLINED_FUNCTION_104_0();
   if (!v4)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v2, v3);
+  OUTLINED_FUNCTION_65_2();
   if (!v4)
   {
     return 0;
@@ -8113,30 +2526,30 @@ uint64_t sub_2575E1E68(uint64_t *a1, uint64_t *a2)
     return 0;
   }
 
-  v5 = type metadata accessor for Proto_SlidingWindowsLayerParams(0);
-  OUTLINED_FUNCTION_327_0(v5);
+  type metadata accessor for Proto_SlidingWindowsLayerParams(0);
+  OUTLINED_FUNCTION_327_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v6, v7);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v7 = sub_2575FB760(v5, v6, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v7) & 1;
 }
 
 uint64_t sub_2575E1F4C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EF28, type metadata accessor for Proto_SlidingWindowsLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EF28, type metadata accessor for Proto_SlidingWindowsLayerParams, &unk_257755FB8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E1FEC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D5B0, type metadata accessor for Proto_SlidingWindowsLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D5B0, type metadata accessor for Proto_SlidingWindowsLayerParams, &unk_257764328);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E20B4()
+uint64_t sub_2575E20B4(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D5B0, type metadata accessor for Proto_SlidingWindowsLayerParams);
+  sub_2575FB760(&qword_27F87D5B0, type metadata accessor for Proto_SlidingWindowsLayerParams, &unk_257764328);
 
   return sub_257743424();
 }
@@ -8199,30 +2612,31 @@ uint64_t sub_2575E23A4()
 uint64_t sub_2575E2420(uint64_t a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   *(v1 + 16) = MEMORY[0x277D84F90];
   *(v1 + 24) = 0;
-  v5 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
-  v6 = type metadata accessor for Proto_WeightParams(0);
-  __swift_storeEnumTagSinglePayload(v1 + v5, 1, 1, v6);
-  __swift_storeEnumTagSinglePayload(v1 + OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta, 1, 1, v6);
+  v4 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
+  v5 = type metadata accessor for Proto_WeightParams(0);
+  __swift_storeEnumTagSinglePayload(v1 + v4, 1, 1, v5);
+  __swift_storeEnumTagSinglePayload(v1 + OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta, 1, 1, v5);
   swift_beginAccess();
-  v7 = *(a1 + 16);
+  v6 = *(a1 + 16);
   swift_beginAccess();
-  *(v1 + 16) = v7;
+  *(v1 + 16) = v6;
   swift_beginAccess();
-  v8 = *(a1 + 24);
+  v7 = *(a1 + 24);
   swift_beginAccess();
-  *(v1 + 24) = v8;
+  *(v1 + 24) = v7;
+  v8 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
   swift_beginAccess();
-  sub_257487308();
+  sub_257487308(a1 + v8);
   swift_beginAccess();
 
   sub_25751BB28();
   swift_endAccess();
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta;
   swift_beginAccess();
-  sub_257487308();
+  sub_257487308(a1 + v9);
 
   swift_beginAccess();
   sub_25751BB28();
@@ -8232,46 +2646,44 @@ uint64_t sub_2575E2420(uint64_t a1)
 
 uint64_t sub_2575E2654()
 {
-  v1 = *(v0 + 16);
 
   sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma, &qword_27F87A1A0, &qword_257745750);
   sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta, &qword_27F87A1A0, &qword_257745750);
   return v0;
 }
 
-void sub_2575E2704()
+void sub_2575E2704(uint64_t a1)
 {
   sub_25759B3F4(319, &qword_27F87BFC0, type metadata accessor for Proto_WeightParams, MEMORY[0x277D83D88]);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void sub_2575E27E0()
+void sub_2575E27E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   while (1)
   {
-    v1 = sub_257743234();
-    if (v0 || (v2 & 1) != 0)
+    v9 = sub_257743234();
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
 
-    switch(v1)
+    switch(v9)
     {
       case 1:
-        sub_2575E28E8();
+        sub_2575E28E8(a2, a1, a3, a4, MEMORY[0x277D21758]);
         break;
       case 2:
-        sub_2575E293C();
+        sub_2575E293C(a2, a1, a3, a4, MEMORY[0x277D21778]);
         break;
       case 3:
-        sub_2575E2990();
+        sub_2575E2990(a2, a1, a3, a4);
         break;
       case 4:
-        sub_2575E2A6C();
+        sub_2575E2A6C(a2, a1, a3, a4);
         break;
       default:
         continue;
@@ -8279,44 +2691,44 @@ void sub_2575E27E0()
   }
 }
 
-void sub_2575E28E8()
+void sub_2575E28E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_404_0();
   OUTLINED_FUNCTION_70_2();
   OUTLINED_FUNCTION_82_1();
   swift_beginAccess();
   OUTLINED_FUNCTION_111_1();
-  v0();
-  OUTLINED_FUNCTION_306_0();
+  v6 = v5();
+  OUTLINED_FUNCTION_306_0(v6);
   OUTLINED_FUNCTION_405_0();
 }
 
-void sub_2575E293C()
+void sub_2575E293C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   OUTLINED_FUNCTION_404_0();
   OUTLINED_FUNCTION_70_2();
   OUTLINED_FUNCTION_82_1();
   swift_beginAccess();
   OUTLINED_FUNCTION_111_1();
-  v0();
-  OUTLINED_FUNCTION_306_0();
+  v6 = v5();
+  OUTLINED_FUNCTION_306_0(v6);
   OUTLINED_FUNCTION_405_0();
 }
 
-uint64_t sub_2575E2990()
+uint64_t sub_2575E2990(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
+  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams, &unk_2577624B0);
   sub_2577433D4();
   return swift_endAccess();
 }
 
-uint64_t sub_2575E2A6C()
+uint64_t sub_2575E2A6C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   type metadata accessor for Proto_WeightParams(0);
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
+  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams, &unk_2577624B0);
   sub_2577433D4();
   return swift_endAccess();
 }
@@ -8324,7 +2736,7 @@ uint64_t sub_2575E2A6C()
 uint64_t sub_2575E2B48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
-  if (!*(*(a1 + 16) + 16) || (v9 = *(a1 + 16), , sub_257743484(), result = , !v4))
+  if (!*(*(a1 + 16) + 16) || (, sub_257743484(), result = , !v4))
   {
     swift_beginAccess();
     if (!*(a1 + 24) || (result = sub_2577434E4(), !v4))
@@ -8344,22 +2756,21 @@ uint64_t sub_2575E2C58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11[5] = a4;
   v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = v11 - v6;
   v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
   swift_beginAccess();
-  sub_257487308();
+  sub_257487308(a1 + v9);
   if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
     return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
   }
 
   sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
+  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams, &unk_2577624B0);
   sub_257743574();
   return sub_257609BCC();
 }
@@ -8368,94 +2779,91 @@ uint64_t sub_2575E2E4C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v11[5] = a4;
   v11[0] = a3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = v11 - v6;
   v8 = type metadata accessor for Proto_WeightParams(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta;
   swift_beginAccess();
-  sub_257487308();
+  sub_257487308(a1 + v9);
   if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
   {
     return sub_2574695E4(v7, &qword_27F87A1A0, &qword_257745750);
   }
 
   sub_257609B78();
-  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams);
+  sub_2575FB760(&qword_27F87E2D0, type metadata accessor for Proto_WeightParams, &unk_2577624B0);
   sub_257743574();
   return sub_257609BCC();
 }
 
 BOOL sub_2575E306C(uint64_t a1, uint64_t a2)
 {
-  v40 = type metadata accessor for Proto_WeightParams(0);
-  v4 = *(*(v40 - 8) + 64);
-  MEMORY[0x28223BE20](v40);
-  v6 = v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA30, &qword_2577673D8);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = v37 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v14 - 8);
-  v18 = v37 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x28223BE20](v16);
-  v39 = v37 - v20;
-  v21 = MEMORY[0x28223BE20](v19);
-  MEMORY[0x28223BE20](v21);
-  v23 = v37 - v22;
+  v41 = type metadata accessor for Proto_WeightParams(0);
+  MEMORY[0x28223BE20](v41);
+  v5 = v38 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA30, &qword_2577673D8);
+  v7 = MEMORY[0x28223BE20](v6);
+  v9 = v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = v38 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A1A0, &qword_257745750);
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v15 = v38 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x28223BE20](v13);
+  v40 = v38 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v18);
+  v20 = v38 - v19;
   swift_beginAccess();
-  v24 = *(a1 + 16);
   swift_beginAccess();
-  if ((sub_257487374(v24, *(a2 + 16)) & 1) == 0)
+  if ((sub_257487374() & 1) == 0)
   {
     return 0;
   }
 
   swift_beginAccess();
-  v25 = *(a1 + 24);
+  v21 = *(a1 + 24);
   swift_beginAccess();
-  if (v25 != *(a2 + 24))
+  if (v21 != *(a2 + 24))
   {
     return 0;
   }
 
-  v37[0] = v18;
-  v37[1] = v6;
-  v38 = v11;
+  v38[0] = v15;
+  v38[1] = v5;
+  v39 = v9;
+  v22 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
   swift_beginAccess();
-  sub_257487308();
+  sub_257487308(a1 + v22);
+  v23 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__gamma;
   swift_beginAccess();
-  v26 = *(v7 + 48);
-  sub_257487308();
-  sub_257487308();
-  v27 = v40;
-  if (__swift_getEnumTagSinglePayload(v13, 1, v40) == 1)
+  v24 = *(v6 + 48);
+  sub_257487308(v20);
+  sub_257487308(a2 + v23);
+  v25 = v41;
+  if (__swift_getEnumTagSinglePayload(v11, 1, v41) == 1)
   {
 
-    sub_2574695E4(v23, &qword_27F87A1A0, &qword_257745750);
-    if (__swift_getEnumTagSinglePayload(&v13[v26], 1, v27) == 1)
+    sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
+    if (__swift_getEnumTagSinglePayload(&v11[v24], 1, v25) == 1)
     {
-      sub_2574695E4(v13, &qword_27F87A1A0, &qword_257745750);
+      sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
       goto LABEL_11;
     }
 
     goto LABEL_8;
   }
 
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(&v13[v26], 1, v27) == 1)
+  sub_257487308(v11);
+  if (__swift_getEnumTagSinglePayload(&v11[v24], 1, v25) == 1)
   {
 
-    sub_2574695E4(v23, &qword_27F87A1A0, &qword_257745750);
+    sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
     sub_257609BCC();
 LABEL_8:
-    sub_2574695E4(v13, &qword_27F87FA30, &qword_2577673D8);
+    sub_2574695E4(v11, &qword_27F87FA30, &qword_2577673D8);
 LABEL_9:
 
     return 0;
@@ -8464,50 +2872,53 @@ LABEL_9:
   sub_257609B78();
 
   sub_257598490();
-  v29 = v28;
+  v27 = v26;
   sub_257609BCC();
-  sub_2574695E4(v23, &qword_27F87A1A0, &qword_257745750);
+  sub_2574695E4(v20, &qword_27F87A1A0, &qword_257745750);
   sub_257609BCC();
-  sub_2574695E4(v13, &qword_27F87A1A0, &qword_257745750);
-  if ((v29 & 1) == 0)
+  sub_2574695E4(v11, &qword_27F87A1A0, &qword_257745750);
+  if ((v27 & 1) == 0)
   {
     goto LABEL_9;
   }
 
 LABEL_11:
+  v28 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta;
   swift_beginAccess();
-  v30 = v39;
-  sub_257487308();
+  v29 = v40;
+  sub_257487308(a1 + v28);
+  v30 = OBJC_IVAR____TtCV20MLModelSpecification35Proto_LayerNormalizationLayerParamsP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__beta;
   swift_beginAccess();
-  v31 = *(v7 + 48);
-  v32 = v38;
-  sub_257487308();
-  v33 = v40;
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v32, 1, v33) != 1)
+  v31 = *(v6 + 48);
+  v32 = v39;
+  sub_257487308(v29);
+  v33 = a2 + v30;
+  v34 = v41;
+  sub_257487308(v33);
+  if (__swift_getEnumTagSinglePayload(v32, 1, v34) != 1)
   {
-    sub_257487308();
-    if (__swift_getEnumTagSinglePayload(v32 + v31, 1, v33) == 1)
+    sub_257487308(v32);
+    if (__swift_getEnumTagSinglePayload(v32 + v31, 1, v34) == 1)
     {
 
-      sub_2574695E4(v30, &qword_27F87A1A0, &qword_257745750);
+      sub_2574695E4(v29, &qword_27F87A1A0, &qword_257745750);
       sub_257609BCC();
       goto LABEL_16;
     }
 
     sub_257609B78();
     sub_257598490();
-    v36 = v35;
+    v37 = v36;
 
     sub_257609BCC();
-    sub_2574695E4(v30, &qword_27F87A1A0, &qword_257745750);
+    sub_2574695E4(v29, &qword_27F87A1A0, &qword_257745750);
     sub_257609BCC();
     sub_2574695E4(v32, &qword_27F87A1A0, &qword_257745750);
-    return (v36 & 1) != 0;
+    return (v37 & 1) != 0;
   }
 
-  sub_2574695E4(v30, &qword_27F87A1A0, &qword_257745750);
-  if (__swift_getEnumTagSinglePayload(v32 + v31, 1, v33) != 1)
+  sub_2574695E4(v29, &qword_27F87A1A0, &qword_257745750);
+  if (__swift_getEnumTagSinglePayload(v32 + v31, 1, v34) != 1)
   {
 LABEL_16:
     sub_2574695E4(v32, &qword_27F87FA30, &qword_2577673D8);
@@ -8520,21 +2931,21 @@ LABEL_16:
 
 uint64_t sub_2575E3884(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EED8, type metadata accessor for Proto_LayerNormalizationLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EED8, type metadata accessor for Proto_LayerNormalizationLayerParams, &unk_257755EC8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E3924(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D598, type metadata accessor for Proto_LayerNormalizationLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D598, type metadata accessor for Proto_LayerNormalizationLayerParams, &unk_2577646E8);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E39EC()
+uint64_t sub_2575E39EC(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D598, type metadata accessor for Proto_LayerNormalizationLayerParams);
+  sub_2575FB760(&qword_27F87D598, type metadata accessor for Proto_LayerNormalizationLayerParams, &unk_2577646E8);
 
   return sub_257743424();
 }
@@ -8630,7 +3041,7 @@ uint64_t sub_2575E3D8C()
         OUTLINED_FUNCTION_388_0();
         if (!v5 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v0))
         {
-          v6 = *(type metadata accessor for Proto_NonMaximumSuppressionLayerParams(0) + 32);
+          type metadata accessor for Proto_NonMaximumSuppressionLayerParams(0);
           return OUTLINED_FUNCTION_7_5();
         }
       }
@@ -8640,56 +3051,56 @@ uint64_t sub_2575E3D8C()
   return result;
 }
 
-uint64_t sub_2575E3E50(float *a1, int *a2)
+uint64_t sub_2575E3E50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_164_1(a1, a2);
-  if (!v4)
+  OUTLINED_FUNCTION_164_1(a1);
+  if (!v5)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_83_1(v2, v3);
-  if (!v4)
+  OUTLINED_FUNCTION_83_1(v4);
+  if (!v5)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_330_0();
-  if (!v4)
+  if (!v5)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_246_0();
-  if (!v4)
+  if (!v5)
   {
     return 0;
   }
 
-  v6 = type metadata accessor for Proto_NonMaximumSuppressionLayerParams(0);
-  OUTLINED_FUNCTION_189_0(v6);
+  type metadata accessor for Proto_NonMaximumSuppressionLayerParams(0);
+  OUTLINED_FUNCTION_189_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v7, v8);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v9 = sub_2575FB760(v7, v8, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v9) & 1;
 }
 
 uint64_t sub_2575E3F28(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F760, type metadata accessor for Proto_NonMaximumSuppressionLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F760, type metadata accessor for Proto_NonMaximumSuppressionLayerParams, &unk_257755DD8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E3FC8(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D580, type metadata accessor for Proto_NonMaximumSuppressionLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D580, type metadata accessor for Proto_NonMaximumSuppressionLayerParams, &unk_257761F10);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E4090()
+uint64_t sub_2575E4090(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D580, type metadata accessor for Proto_NonMaximumSuppressionLayerParams);
+  sub_2575FB760(&qword_27F87D580, type metadata accessor for Proto_NonMaximumSuppressionLayerParams, &unk_257761F10);
 
   return sub_257743424();
 }
@@ -8746,44 +3157,44 @@ uint64_t sub_2575E42D8()
   return result;
 }
 
-uint64_t sub_2575E4338(float *a1, int *a2)
+uint64_t sub_2575E4338(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_164_1(a1, a2);
-  if (!v4)
+  OUTLINED_FUNCTION_164_1(a1);
+  if (!v5)
   {
     return 0;
   }
 
-  v6 = OUTLINED_FUNCTION_83_1(v2, v3);
-  if (!v4)
+  v7 = OUTLINED_FUNCTION_83_1(v4);
+  if (!v5)
   {
     return 0;
   }
 
-  v7 = v5(0, v6);
-  OUTLINED_FUNCTION_308_0(v7);
+  v6(0, v7);
+  OUTLINED_FUNCTION_308_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v10 = sub_2575FB760(v8, v9, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v10) & 1;
 }
 
 uint64_t sub_2575E4430(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F0B0, type metadata accessor for Proto_ClampedReLULayerParams);
+  v4 = sub_2575FB760(&qword_27F87F0B0, type metadata accessor for Proto_ClampedReLULayerParams, &unk_257755CE8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E44D0(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D568, type metadata accessor for Proto_ClampedReLULayerParams);
+  v2 = sub_2575FB760(&qword_27F87D568, type metadata accessor for Proto_ClampedReLULayerParams, &unk_2577633B0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E4598()
+uint64_t sub_2575E4598(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D568, type metadata accessor for Proto_ClampedReLULayerParams);
+  sub_2575FB760(&qword_27F87D568, type metadata accessor for Proto_ClampedReLULayerParams, &unk_2577633B0);
 
   return sub_257743424();
 }
@@ -8846,44 +3257,44 @@ uint64_t sub_2575E480C()
   return result;
 }
 
-uint64_t sub_2575E4884(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575E4884(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OUTLINED_FUNCTION_104_0(a1, a2);
-  if (!v2)
+  OUTLINED_FUNCTION_104_0();
+  if (!v4)
   {
     return 0;
   }
 
   OUTLINED_FUNCTION_267();
-  if (*(v4 + 8) != *(v5 + 8))
+  if (*(v6 + 8) != *(v7 + 8))
   {
     return 0;
   }
 
-  v7 = v3(0);
-  OUTLINED_FUNCTION_308_0(v7);
+  v5(0);
+  OUTLINED_FUNCTION_308_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v8, v9);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v11 = sub_2575FB760(v9, v10, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v11) & 1;
 }
 
 uint64_t sub_2575E4984(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87F770, type metadata accessor for Proto_ArgSortLayerParams);
+  v4 = sub_2575FB760(&qword_27F87F770, type metadata accessor for Proto_ArgSortLayerParams, &unk_257755BF8);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E4A24(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D550, type metadata accessor for Proto_ArgSortLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D550, type metadata accessor for Proto_ArgSortLayerParams, &unk_257761E20);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E4AEC()
+uint64_t sub_2575E4AEC(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D550, type metadata accessor for Proto_ArgSortLayerParams);
+  sub_2575FB760(&qword_27F87D550, type metadata accessor for Proto_ArgSortLayerParams, &unk_257761E20);
 
   return sub_257743424();
 }
@@ -8940,44 +3351,44 @@ uint64_t sub_2575E4D60()
   return result;
 }
 
-uint64_t sub_2575E4DC0(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575E4DC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
+  OUTLINED_FUNCTION_104_0();
   if (!v4)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v2, v3);
+  OUTLINED_FUNCTION_65_2();
   if (!v4)
   {
     return 0;
   }
 
-  v6 = v5(0);
-  OUTLINED_FUNCTION_308_0(v6);
+  v5(0);
+  OUTLINED_FUNCTION_308_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v7, v8);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v8 = sub_2575FB760(v6, v7, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v8) & 1;
 }
 
 uint64_t sub_2575E4EE4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EF10, type metadata accessor for Proto_SliceBySizeLayerParams);
+  v4 = sub_2575FB760(&qword_27F87EF10, type metadata accessor for Proto_SliceBySizeLayerParams, &unk_257755B08);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E4F84(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87D538, type metadata accessor for Proto_SliceBySizeLayerParams);
+  v2 = sub_2575FB760(&qword_27F87D538, type metadata accessor for Proto_SliceBySizeLayerParams, &unk_257764490);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E504C()
+uint64_t sub_2575E504C(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87D538, type metadata accessor for Proto_SliceBySizeLayerParams);
+  sub_2575FB760(&qword_27F87D538, type metadata accessor for Proto_SliceBySizeLayerParams, &unk_257764490);
 
   return sub_257743424();
 }
@@ -9091,23 +3502,23 @@ void sub_2575E5440()
         sub_257453C54();
         break;
       case 10:
-        OUTLINED_FUNCTION_6_8();
-        sub_2575E5588();
+        v5 = OUTLINED_FUNCTION_6_8();
+        sub_2575E5588(v5, v6, v7, v8);
         break;
       default:
         switch(v1)
         {
           case 100:
-            v7 = OUTLINED_FUNCTION_6_10();
-            sub_2575E563C(v7, v8, v9, v10);
+            v13 = OUTLINED_FUNCTION_6_10();
+            sub_2575E563C(v13, v14, v15, v16);
             break;
           case 101:
-            v3 = OUTLINED_FUNCTION_6_10();
-            sub_2575E5B40(v3, v4, v5, v6);
+            v9 = OUTLINED_FUNCTION_6_10();
+            sub_2575E5B40(v9, v10, v11, v12);
             break;
           case 200:
-            OUTLINED_FUNCTION_6_8();
-            sub_2575E6044();
+            v3 = OUTLINED_FUNCTION_6_8();
+            sub_2575E6044(v3, v4);
             break;
         }
 
@@ -9116,47 +3527,43 @@ void sub_2575E5440()
   }
 }
 
-uint64_t sub_2575E5588()
+uint64_t sub_2575E5588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 44);
+  type metadata accessor for Proto_NeuralNetworkClassifier(0);
   type metadata accessor for Proto_NetworkUpdateParameters(0);
-  sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters);
+  sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters, &unk_257755618);
   return sub_2577433D4();
 }
 
 uint64_t sub_2575E563C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v35 = a3;
-  v36 = a4;
-  v37 = a2;
+  v31 = a3;
+  v32 = a4;
+  v33 = a2;
   v5 = type metadata accessor for Proto_StringVector(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v33 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v29 - v11;
-  v13 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A878, &unk_257748700);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v29 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v29 - v21;
-  __swift_storeEnumTagSinglePayload(&v29 - v21, 1, 1, v5);
-  v29 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
-  v30 = a1;
-  sub_257487308();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v32 = v13;
+  v6 = MEMORY[0x28223BE20](v5);
+  v29 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A878, &unk_257748700);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v25 - v17;
+  __swift_storeEnumTagSinglePayload(&v25 - v17, 1, 1, v5);
+  v25 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
+  v26 = a1;
+  sub_257487308(a1 + v25);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v28 = v11;
   if (EnumTagSinglePayload == 1)
   {
-    sub_2574695E4(v12, &qword_27F87CA28, &unk_2577700F0);
+    sub_2574695E4(v10, &qword_27F87CA28, &unk_2577700F0);
   }
 
   else
@@ -9170,28 +3577,28 @@ uint64_t sub_2575E563C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     else
     {
-      sub_2574695E4(v22, &qword_27F87A878, &unk_257748700);
+      sub_2574695E4(v18, &qword_27F87A878, &unk_257748700);
       sub_257609B78();
       sub_257609B78();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
     }
   }
 
-  sub_2575FB760(&qword_27F87A748, type metadata accessor for Proto_StringVector);
-  v23 = v34;
+  sub_2575FB760(&qword_27F87A748, type metadata accessor for Proto_StringVector, &unk_257747E64);
+  v19 = v30;
   sub_2577433D4();
-  if (v23)
+  if (v19)
   {
-    v24 = v22;
-    return sub_2574695E4(v24, &qword_27F87A878, &unk_257748700);
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87A878, &unk_257748700);
   }
 
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
   {
-    sub_2574695E4(v22, &qword_27F87A878, &unk_257748700);
-    v24 = v20;
-    return sub_2574695E4(v24, &qword_27F87A878, &unk_257748700);
+    sub_2574695E4(v18, &qword_27F87A878, &unk_257748700);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87A878, &unk_257748700);
   }
 
   sub_257609B78();
@@ -9200,49 +3607,45 @@ uint64_t sub_2575E563C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_257743244();
   }
 
-  v26 = v32;
-  sub_2574695E4(v22, &qword_27F87A878, &unk_257748700);
-  v28 = v29;
-  v27 = v30;
-  sub_2574695E4(v30 + v29, &qword_27F87CA28, &unk_2577700F0);
+  v22 = v28;
+  sub_2574695E4(v18, &qword_27F87A878, &unk_257748700);
+  v24 = v25;
+  v23 = v26;
+  sub_2574695E4(v26 + v25, &qword_27F87CA28, &unk_2577700F0);
   sub_257609B78();
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27 + v28, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v23 + v24, 0, 1, v22);
 }
 
 uint64_t sub_2575E5B40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v35 = a3;
-  v36 = a4;
-  v37 = a2;
+  v31 = a3;
+  v32 = a4;
+  v33 = a2;
   v5 = type metadata accessor for Proto_Int64Vector(0);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5);
-  v33 = &v29 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v29 - v11;
-  v13 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  MEMORY[0x28223BE20](v15);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A880, &qword_25774AFD0);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v16 - 8);
-  v20 = &v29 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v29 - v21;
-  __swift_storeEnumTagSinglePayload(&v29 - v21, 1, 1, v5);
-  v29 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
-  v30 = a1;
-  sub_257487308();
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v12, 1, v13);
-  v32 = v13;
+  v6 = MEMORY[0x28223BE20](v5);
+  v29 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A880, &qword_25774AFD0);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v25 - v17;
+  __swift_storeEnumTagSinglePayload(&v25 - v17, 1, 1, v5);
+  v25 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
+  v26 = a1;
+  sub_257487308(a1 + v25);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v28 = v11;
   if (EnumTagSinglePayload == 1)
   {
-    sub_2574695E4(v12, &qword_27F87CA28, &unk_2577700F0);
+    sub_2574695E4(v10, &qword_27F87CA28, &unk_2577700F0);
   }
 
   else
@@ -9251,10 +3654,10 @@ uint64_t sub_2575E5B40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_257609B78();
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      sub_2574695E4(v22, &qword_27F87A880, &qword_25774AFD0);
+      sub_2574695E4(v18, &qword_27F87A880, &qword_25774AFD0);
       sub_257609B78();
       sub_257609B78();
-      __swift_storeEnumTagSinglePayload(v22, 0, 1, v5);
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
     }
 
     else
@@ -9263,21 +3666,21 @@ uint64_t sub_2575E5B40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     }
   }
 
-  sub_2575FB760(&qword_281537E60, type metadata accessor for Proto_Int64Vector);
-  v23 = v34;
+  sub_2575FB760(&qword_281537E60, type metadata accessor for Proto_Int64Vector, &unk_257747CFC);
+  v19 = v30;
   sub_2577433D4();
-  if (v23)
+  if (v19)
   {
-    v24 = v22;
-    return sub_2574695E4(v24, &qword_27F87A880, &qword_25774AFD0);
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87A880, &qword_25774AFD0);
   }
 
-  sub_257487308();
-  if (__swift_getEnumTagSinglePayload(v20, 1, v5) == 1)
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
   {
-    sub_2574695E4(v22, &qword_27F87A880, &qword_25774AFD0);
-    v24 = v20;
-    return sub_2574695E4(v24, &qword_27F87A880, &qword_25774AFD0);
+    sub_2574695E4(v18, &qword_27F87A880, &qword_25774AFD0);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87A880, &qword_25774AFD0);
   }
 
   sub_257609B78();
@@ -9286,14 +3689,14 @@ uint64_t sub_2575E5B40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_257743244();
   }
 
-  v26 = v32;
-  sub_2574695E4(v22, &qword_27F87A880, &qword_25774AFD0);
-  v28 = v29;
-  v27 = v30;
-  sub_2574695E4(v30 + v29, &qword_27F87CA28, &unk_2577700F0);
+  v22 = v28;
+  sub_2574695E4(v18, &qword_27F87A880, &qword_25774AFD0);
+  v24 = v25;
+  v23 = v26;
+  sub_2574695E4(v26 + v25, &qword_27F87CA28, &unk_2577700F0);
   sub_257609B78();
   swift_storeEnumTagMultiPayload();
-  return __swift_storeEnumTagSinglePayload(v27 + v28, 0, 1, v26);
+  return __swift_storeEnumTagSinglePayload(v23 + v24, 0, 1, v22);
 }
 
 void sub_2575E60A8()
@@ -9302,58 +3705,52 @@ void sub_2575E60A8()
   OUTLINED_FUNCTION_2_7();
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
   OUTLINED_FUNCTION_13(v3);
-  v5 = *(v4 + 64);
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_32_4();
-  if (!*(*v0 + 16) || (type metadata accessor for Proto_NeuralNetworkLayer(0), OUTLINED_FUNCTION_205_0(), sub_2575FB760(v7, v8), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v1))
+  if (!*(*v0 + 16) || (type metadata accessor for Proto_NeuralNetworkLayer(0), OUTLINED_FUNCTION_205_0(), sub_2575FB760(v5, v6, &unk_257762528), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v1))
   {
-    if (!*(*(v2 + 8) + 16) || (type metadata accessor for Proto_NeuralNetworkPreprocessing(0), OUTLINED_FUNCTION_92_1(), sub_2575FB760(v9, v10), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v1))
+    if (!*(v2[1] + 16) || (type metadata accessor for Proto_NeuralNetworkPreprocessing(0), OUTLINED_FUNCTION_92_1(), sub_2575FB760(v7, v8, &unk_2577660B0), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v1))
     {
-      if (!*(v2 + 16) || (v34 = *(v2 + 24), sub_257609C20(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v1))
+      if (!v2[2] || (sub_257609C20(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v1))
       {
-        if (!*(v2 + 32) || (v35 = *(v2 + 40), sub_257609C74(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v1))
+        if (!v2[4] || (sub_257609C74(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v1))
         {
-          v11 = OUTLINED_FUNCTION_3_9();
-          sub_2575E6300(v11, v12, v13, v14);
+          v9 = OUTLINED_FUNCTION_3_9();
+          sub_2575E6300(v9, v10, v11, v12);
           if (!v1)
           {
-            v15 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
-            v16 = v15[8];
-            OUTLINED_FUNCTION_375_0();
-            v17 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
-            v18 = OUTLINED_FUNCTION_171_1();
-            OUTLINED_FUNCTION_155(v18, v19, v17);
-            if (!v20)
+            v13 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
+            OUTLINED_FUNCTION_375_0(*(v13 + 32));
+            v14 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
+            v15 = OUTLINED_FUNCTION_171_1();
+            OUTLINED_FUNCTION_155(v15, v16, v14);
+            if (!v17)
             {
               OUTLINED_FUNCTION_389_0();
               if (swift_getEnumCaseMultiPayload() == 1)
               {
-                v21 = OUTLINED_FUNCTION_3_9();
-                sub_2575E6700(v21, v22, v23, v24);
+                v18 = OUTLINED_FUNCTION_3_9();
+                sub_2575E6700(v18, v19, v20, v21);
               }
 
               else
               {
-                v25 = OUTLINED_FUNCTION_3_9();
-                sub_2575E64E0(v25, v26, v27, v28);
+                v22 = OUTLINED_FUNCTION_3_9();
+                sub_2575E64E0(v22, v23, v24, v25);
               }
 
               OUTLINED_FUNCTION_59_1();
               sub_257609BCC();
             }
 
-            v29 = (v2 + v15[9]);
-            v30 = *v29;
-            v31 = v29[1];
             OUTLINED_FUNCTION_1_6();
-            if (v32)
+            if (v26)
             {
               OUTLINED_FUNCTION_3_10();
               sub_257743534();
             }
 
-            v33 = v15[10];
             OUTLINED_FUNCTION_7_5();
           }
         }
@@ -9367,41 +3764,37 @@ void sub_2575E60A8()
 
 uint64_t sub_2575E6300(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v12 - v6;
+  v11[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
   updated = type metadata accessor for Proto_NetworkUpdateParameters(0);
-  v9 = *(*(updated - 8) + 64);
   MEMORY[0x28223BE20](updated);
-  v10 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 44);
-  sub_257487308();
+  v9 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
+  sub_257487308(a1 + *(v9 + 44));
   if (__swift_getEnumTagSinglePayload(v7, 1, updated) == 1)
   {
     return sub_2574695E4(v7, &qword_27F87C788, &unk_257751EA0);
   }
 
   sub_257609B78();
-  sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters);
+  sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters, &unk_257755618);
   sub_257743574();
   return sub_257609BCC();
 }
 
 uint64_t sub_2575E64E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v13 - v6;
+  v12[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v12 - v6;
   v8 = type metadata accessor for Proto_StringVector(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
-  sub_257487308();
-  v11 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v11) == 1)
+  v9 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
+  sub_257487308(a1 + *(v9 + 32));
+  v10 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
   {
     result = sub_2574695E4(v7, &qword_27F87CA28, &unk_2577700F0);
   }
@@ -9411,7 +3804,7 @@ uint64_t sub_2575E64E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (swift_getEnumCaseMultiPayload() != 1)
     {
       sub_257609B78();
-      sub_2575FB760(&qword_27F87A748, type metadata accessor for Proto_StringVector);
+      sub_2575FB760(&qword_27F87A748, type metadata accessor for Proto_StringVector, &unk_257747E64);
       sub_257743574();
       return sub_257609BCC();
     }
@@ -9425,18 +3818,16 @@ uint64_t sub_2575E64E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_2575E6700(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v13 - v6;
+  v12[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v12 - v6;
   v8 = type metadata accessor for Proto_Int64Vector(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
-  v10 = *(type metadata accessor for Proto_NeuralNetworkClassifier(0) + 32);
-  sub_257487308();
-  v11 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
-  if (__swift_getEnumTagSinglePayload(v7, 1, v11) == 1)
+  v9 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
+  sub_257487308(a1 + *(v9 + 32));
+  v10 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
   {
     result = sub_2574695E4(v7, &qword_27F87CA28, &unk_2577700F0);
   }
@@ -9446,7 +3837,7 @@ uint64_t sub_2575E6700(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     if (swift_getEnumCaseMultiPayload() == 1)
     {
       sub_257609B78();
-      sub_2575FB760(&qword_281537E60, type metadata accessor for Proto_Int64Vector);
+      sub_2575FB760(&qword_281537E60, type metadata accessor for Proto_Int64Vector, &unk_257747CFC);
       sub_257743574();
       return sub_257609BCC();
     }
@@ -9463,128 +3854,110 @@ void _s20MLModelSpecification23NeuralNetworkClassifierV2eeoiySbAC_ACtFZ_0()
   OUTLINED_FUNCTION_31();
   v8 = OUTLINED_FUNCTION_118_1();
   v9 = type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels(v8);
-  v10 = OUTLINED_FUNCTION_4(v9);
-  v12 = *(v11 + 64);
+  OUTLINED_FUNCTION_4();
   MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_12_1();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
-  OUTLINED_FUNCTION_13(v13);
-  v15 = *(v14 + 64);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87CA28, &unk_2577700F0);
+  OUTLINED_FUNCTION_13(v11);
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v16);
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_198();
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA98, &unk_257767458);
-  OUTLINED_FUNCTION_41_4(v17);
-  v19 = *(v18 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA98, &unk_257767458);
+  OUTLINED_FUNCTION_41_4();
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v20);
+  MEMORY[0x28223BE20](v13);
   OUTLINED_FUNCTION_75_0();
   updated = type metadata accessor for Proto_NetworkUpdateParameters(0);
-  v22 = OUTLINED_FUNCTION_4(updated);
-  v24 = *(v23 + 64);
-  MEMORY[0x28223BE20](v22);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v15);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_227();
-  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
-  OUTLINED_FUNCTION_13(v25);
-  v27 = *(v26 + 64);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
+  OUTLINED_FUNCTION_13(v16);
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v28);
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_32_3();
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA90, &qword_257767450);
-  OUTLINED_FUNCTION_42_4(v29);
-  v31 = *(v30 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA90, &qword_257767450);
+  OUTLINED_FUNCTION_42_4();
   OUTLINED_FUNCTION_29();
-  MEMORY[0x28223BE20](v32);
+  MEMORY[0x28223BE20](v18);
   OUTLINED_FUNCTION_262_0();
-  v33 = *v1;
-  v34 = *v0;
-  sub_25747D3D0();
-  if ((v35 & 1) == 0)
+  sub_25747D3D0(*v1, *v0);
+  if ((v19 & 1) == 0)
   {
     goto LABEL_44;
   }
 
-  v36 = v1[1];
-  v37 = v0[1];
   sub_25747D424();
-  if ((v38 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     goto LABEL_44;
   }
 
-  v39 = v1[2];
-  v40 = *(v1 + 24);
-  v41 = v0[2];
-  v42 = *(v0 + 24);
   OUTLINED_FUNCTION_224();
-  if (v47)
+  if (v25)
   {
-    v44 = v46;
+    v22 = v24;
   }
 
-  if (v45 == 1)
+  if (v23 == 1)
   {
-    if (v43)
+    if (v21)
     {
-      if (v44 != 1)
+      if (v22 != 1)
       {
         goto LABEL_44;
       }
     }
 
-    else if (v44)
+    else if (v22)
     {
       goto LABEL_44;
     }
   }
 
-  else if (v44 != v43)
+  else if (v22 != v21)
   {
     goto LABEL_44;
   }
 
-  v48 = v1[4];
-  v49 = *(v1 + 40);
-  v50 = v0[4];
-  v51 = *(v0 + 40);
   OUTLINED_FUNCTION_224();
-  if (v56)
+  if (v30)
   {
-    v53 = v55;
+    v27 = v29;
   }
 
-  if (v54 == 1)
+  if (v28 == 1)
   {
-    if (v52)
+    if (v26)
     {
-      if (v53 != 1)
+      if (v27 != 1)
       {
         goto LABEL_44;
       }
     }
 
-    else if (v53)
+    else if (v27)
     {
       goto LABEL_44;
     }
   }
 
-  else if (v53 != v52)
+  else if (v27 != v26)
   {
     goto LABEL_44;
   }
 
-  v83 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
-  v84 = v83[11];
-  v57 = *(v4 + 48);
-  sub_257487308();
-  sub_257487308();
+  v58 = type metadata accessor for Proto_NeuralNetworkClassifier(0);
+  v59 = *(v58 + 44);
+  v31 = *(v4 + 48);
+  sub_257487308(v1 + v59);
+  sub_257487308(v0 + v59);
   OUTLINED_FUNCTION_42_0(v7);
-  if (v58)
+  if (v33)
   {
-    OUTLINED_FUNCTION_42_0(v7 + v57);
-    if (v58)
+    OUTLINED_FUNCTION_42_0(v7 + v31);
+    if (v33)
     {
       sub_2574695E4(v7, &qword_27F87C788, &unk_257751EA0);
       goto LABEL_34;
@@ -9593,79 +3966,77 @@ void _s20MLModelSpecification23NeuralNetworkClassifierV2eeoiySbAC_ACtFZ_0()
     goto LABEL_29;
   }
 
-  OUTLINED_FUNCTION_406();
-  sub_257487308();
-  OUTLINED_FUNCTION_42_0(v7 + v57);
-  if (v58)
+  v32 = OUTLINED_FUNCTION_406();
+  sub_257487308(v32);
+  OUTLINED_FUNCTION_42_0(v7 + v31);
+  if (v33)
   {
     sub_257609BCC();
 LABEL_29:
-    v59 = &qword_27F87FA90;
-    v60 = &qword_257767450;
+    v34 = &qword_27F87FA90;
+    v35 = &qword_257767450;
 LABEL_30:
-    v61 = v7;
+    v36 = v7;
 LABEL_43:
-    sub_2574695E4(v61, v59, v60);
+    sub_2574695E4(v36, v34, v35);
     goto LABEL_44;
   }
 
   sub_257609B78();
-  v62 = *(updated + 20);
-  v63 = *(v2 + v62);
-  v64 = *(v6 + v62);
-  if (v63 != v64)
+  v37 = *(updated + 20);
+  v38 = *(v2 + v37);
+  v39 = *(v6 + v37);
+  if (v38 != v39)
   {
-    v65 = *(v2 + v62);
 
-    v85 = sub_2575F419C(v63, v64);
+    v60 = sub_2575F419C(v38, v39);
 
-    if (!v85)
+    if (!v60)
     {
       sub_257609BCC();
       sub_257609BCC();
-      v59 = &qword_27F87C788;
-      v60 = &unk_257751EA0;
+      v34 = &qword_27F87C788;
+      v35 = &unk_257751EA0;
       goto LABEL_30;
     }
   }
 
-  v66 = sub_2577431B4();
+  v40 = sub_2577431B4();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v67, v68);
+  sub_2575FB760(v41, v42, MEMORY[0x277D216D0]);
   sub_257743644();
   OUTLINED_FUNCTION_220_0();
   sub_257609BCC();
   OUTLINED_FUNCTION_264();
   sub_257609BCC();
   sub_2574695E4(v7, &qword_27F87C788, &unk_257751EA0);
-  if ((v66 & 1) == 0)
+  if ((v40 & 1) == 0)
   {
     goto LABEL_44;
   }
 
 LABEL_34:
-  v69 = v83[8];
-  v70 = *(v5 + 48);
+  v43 = *(v5 + 48);
   OUTLINED_FUNCTION_325_0();
-  sub_257487308();
+  sub_257487308(v44);
   OUTLINED_FUNCTION_325_0();
-  sub_257487308();
+  sub_257487308(v45);
   OUTLINED_FUNCTION_155(v3, 1, v9);
-  if (!v58)
+  if (!v33)
   {
-    sub_257487308();
-    OUTLINED_FUNCTION_155(v3 + v70, 1, v9);
-    if (!v71)
+    sub_257487308(v3);
+    OUTLINED_FUNCTION_155(v3 + v43, 1, v9);
+    if (!v46)
     {
       sub_257609B78();
       OUTLINED_FUNCTION_367();
       sub_257533468();
-      v74 = v73;
+      v49 = v48;
       sub_257609BCC();
       OUTLINED_FUNCTION_415();
       sub_257609BCC();
       sub_2574695E4(v3, &qword_27F87CA28, &unk_2577700F0);
-      if ((v74 & 1) == 0)
+      if ((v49 & 1) == 0)
       {
         goto LABEL_44;
       }
@@ -9678,79 +4049,74 @@ LABEL_34:
     goto LABEL_42;
   }
 
-  OUTLINED_FUNCTION_155(v3 + v70, 1, v9);
-  if (!v58)
+  OUTLINED_FUNCTION_155(v3 + v43, 1, v9);
+  if (!v33)
   {
 LABEL_42:
-    v59 = &qword_27F87FA98;
-    v60 = &unk_257767458;
-    v61 = v3;
+    v34 = &qword_27F87FA98;
+    v35 = &unk_257767458;
+    v36 = v3;
     goto LABEL_43;
   }
 
   sub_2574695E4(v3, &qword_27F87CA28, &unk_2577700F0);
 LABEL_47:
-  v75 = v83[9];
-  v76 = *(v1 + v75);
-  v77 = *(v1 + v75 + 8);
-  v78 = (v0 + v75);
-  v79 = v76 == *v78 && v77 == v78[1];
-  if (v79 || (sub_257743994() & 1) != 0)
+  v50 = *(v58 + 36);
+  v51 = *(v1 + v50);
+  v52 = *(v1 + v50 + 8);
+  v53 = (v0 + v50);
+  v54 = v51 == *v53 && v52 == v53[1];
+  if (v54 || (sub_257743994() & 1) != 0)
   {
-    v80 = v83[10];
     sub_2577431B4();
     OUTLINED_FUNCTION_1_16();
-    sub_2575FB760(v81, v82);
-    v72 = OUTLINED_FUNCTION_19_3();
+    v57 = sub_2575FB760(v55, v56, MEMORY[0x277D216D0]);
+    v47 = OUTLINED_FUNCTION_19_3(v57);
     goto LABEL_45;
   }
 
 LABEL_44:
-  v72 = 0;
+  v47 = 0;
 LABEL_45:
-  OUTLINED_FUNCTION_65_0(v72);
+  OUTLINED_FUNCTION_65_0(v47);
   OUTLINED_FUNCTION_35();
 }
 
-uint64_t sub_2575E6F50(uint64_t a1)
+uint64_t sub_2575E6F50()
 {
-  v1 = *(a1 + 40);
-  v2 = sub_2577431B4();
-  OUTLINED_FUNCTION_4(v2);
-  v4 = *(v3 + 16);
-  v5 = OUTLINED_FUNCTION_77_0();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_77_0();
 
-  return v6(v5);
+  return v1(v0);
 }
 
-uint64_t sub_2575E6FB4(uint64_t a1, uint64_t a2)
+uint64_t sub_2575E6FB4()
 {
-  v2 = *(a2 + 40);
-  v3 = sub_2577431B4();
-  OUTLINED_FUNCTION_4(v3);
-  v5 = *(v4 + 40);
-  v6 = OUTLINED_FUNCTION_311_0();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
 
-  return v7(v6);
+  return v1(v0);
 }
 
 uint64_t sub_2575E704C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_2575FB760(&qword_27F87EF70, type metadata accessor for Proto_NeuralNetworkClassifier);
+  v4 = sub_2575FB760(&qword_27F87EF70, type metadata accessor for Proto_NeuralNetworkClassifier, &unk_257755A18);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t sub_2575E70EC(uint64_t a1)
 {
-  v2 = sub_2575FB760(&qword_27F87BAF8, type metadata accessor for Proto_NeuralNetworkClassifier);
+  v2 = sub_2575FB760(&qword_27F87BAF8, type metadata accessor for Proto_NeuralNetworkClassifier, &unk_257763FE0);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t sub_2575E71B4()
+uint64_t sub_2575E71B4(uint64_t a1, uint64_t a2)
 {
-  sub_2575FB760(&qword_27F87BAF8, type metadata accessor for Proto_NeuralNetworkClassifier);
+  sub_2575FB760(&qword_27F87BAF8, type metadata accessor for Proto_NeuralNetworkClassifier, &unk_257763FE0);
 
   return sub_257743424();
 }
@@ -9832,18 +4198,18 @@ uint64_t sub_2575E7474()
   }
 }
 
-uint64_t sub_2575E7510()
+uint64_t sub_2575E7510(uint64_t a1)
 {
-  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743554(), !v0))
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743554(), !v1))
   {
-    if (!*(v1 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743504(), !v0))
+    if (!*(v2 + 8) || (OUTLINED_FUNCTION_12_11(), result = sub_257743504(), !v1))
     {
       OUTLINED_FUNCTION_379_0();
-      if (!v3 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
+      if (!v4 || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v1))
       {
-        if (!*(v1 + 20) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v0))
+        if (!*(v2 + 20) || (OUTLINED_FUNCTION_64_1(), result = sub_2577434E4(), !v1))
         {
-          v4 = *(type metadata accessor for Proto_OneHotLayerParams(0) + 32);
+          type metadata accessor for Proto_OneHotLayerParams(0);
           return OUTLINED_FUNCTION_7_5();
         }
       }
@@ -9853,15 +4219,15 @@ uint64_t sub_2575E7510()
   return result;
 }
 
-uint64_t sub_2575E75C8(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2575E75C8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = OUTLINED_FUNCTION_104_0(a1, a2);
+  OUTLINED_FUNCTION_104_0();
   if (!v4)
   {
     return 0;
   }
 
-  OUTLINED_FUNCTION_65_2(v2, v3);
+  OUTLINED_FUNCTION_65_2();
   if (!v4)
   {
     return 0;
@@ -9879,9 +4245,5382 @@ uint64_t sub_2575E75C8(uint64_t *a1, uint64_t *a2)
     return 0;
   }
 
-  v5 = type metadata accessor for Proto_OneHotLayerParams(0);
-  OUTLINED_FUNCTION_189_0(v5);
+  type metadata accessor for Proto_OneHotLayerParams(0);
+  OUTLINED_FUNCTION_189_0();
   OUTLINED_FUNCTION_1_16();
-  sub_2575FB760(v6, v7);
-  return OUTLINED_FUNCTION_4_2() & 1;
+  v7 = sub_2575FB760(v5, v6, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v7) & 1;
+}
+
+uint64_t sub_2575E76A0(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F768, type metadata accessor for Proto_OneHotLayerParams, &unk_257755928);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575E7740(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D510, type metadata accessor for Proto_OneHotLayerParams, &unk_257761E98);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575E7808(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D510, type metadata accessor for Proto_OneHotLayerParams, &unk_257761E98);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575E7888()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9EC8);
+  __swift_project_value_buffer(v0, qword_27F8E9EC8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_2577442C0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "axis";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "excludeFinalSum";
+  *(v10 + 1) = 15;
+  v10[16] = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "reverse";
+  *(v12 + 1) = 7;
+  v12[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575E7A90()
+{
+  OUTLINED_FUNCTION_18_4();
+  while (1)
+  {
+    OUTLINED_FUNCTION_294();
+    result = sub_257743234();
+    if (v1 || (v3 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 3 || result == 2)
+    {
+      OUTLINED_FUNCTION_148_1();
+      sub_257743274();
+    }
+
+    else if (result == 1)
+    {
+      OUTLINED_FUNCTION_148_1();
+      v0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575E7B18(uint64_t a1)
+{
+  if (!OUTLINED_FUNCTION_6_15() || (OUTLINED_FUNCTION_8_6(), result = sub_257743504(), !v1))
+  {
+    OUTLINED_FUNCTION_349_0();
+    if (!v4 || (OUTLINED_FUNCTION_12_11(), result = sub_2577434B4(), !v1))
+    {
+      if (*(v2 + 9) != 1 || (OUTLINED_FUNCTION_12_8(), result = sub_2577434B4(), !v1))
+      {
+        type metadata accessor for Proto_CumSumLayerParams(0);
+        return OUTLINED_FUNCTION_7_5();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575E7BB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  OUTLINED_FUNCTION_104_0();
+  if (!v6)
+  {
+    return 0;
+  }
+
+  OUTLINED_FUNCTION_267();
+  if (*(v7 + 8) != *(v8 + 8) || *(v5 + 9) != *(v4 + 9))
+  {
+    return 0;
+  }
+
+  type metadata accessor for Proto_CumSumLayerParams(0);
+  OUTLINED_FUNCTION_327_0();
+  OUTLINED_FUNCTION_1_16();
+  v12 = sub_2575FB760(v10, v11, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v12) & 1;
+}
+
+uint64_t sub_2575E7C94()
+{
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_77_0();
+
+  return v1(v0);
+}
+
+uint64_t sub_2575E7CF8()
+{
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
+
+  return v1(v0);
+}
+
+uint64_t sub_2575E7DA4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87EE70, type metadata accessor for Proto_CumSumLayerParams, &unk_257755838);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575E7E44(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D4F8, type metadata accessor for Proto_CumSumLayerParams, &unk_257764C10);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575E7F0C(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D4F8, type metadata accessor for Proto_CumSumLayerParams, &unk_257764C10);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575E7F8C()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9EE0);
+  __swift_project_value_buffer(v0, qword_27F8E9EE0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_257744000;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "layers";
+  *(v6 + 8) = 6;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "preprocessing";
+  *(v10 + 8) = 13;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 5;
+  *v12 = "arrayInputShapeMapping";
+  *(v12 + 1) = 22;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 6;
+  *v14 = "imageInputShapeMapping";
+  *(v14 + 1) = 22;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 10;
+  *v16 = "updateParams";
+  *(v16 + 1) = 12;
+  v16[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+void sub_2575E820C()
+{
+  OUTLINED_FUNCTION_102_0();
+  v2 = v1;
+  v4 = v3;
+  while (1)
+  {
+    v5 = sub_257743234();
+    if (v0 || (v6 & 1) != 0)
+    {
+      break;
+    }
+
+    switch(v5)
+    {
+      case 1:
+        OUTLINED_FUNCTION_113_0();
+        sub_2575E8334();
+        break;
+      case 2:
+        OUTLINED_FUNCTION_113_0();
+        sub_2575E839C();
+        break;
+      case 5:
+        v7 = OUTLINED_FUNCTION_113_0();
+        v4(v7);
+        break;
+      case 6:
+        v8 = OUTLINED_FUNCTION_113_0();
+        v2(v8);
+        break;
+      case 10:
+        OUTLINED_FUNCTION_113_0();
+        sub_2575E8414();
+        break;
+      default:
+        continue;
+    }
+  }
+
+  OUTLINED_FUNCTION_103_0();
+}
+
+void sub_2575E8334()
+{
+  OUTLINED_FUNCTION_165_0();
+  v2 = v1;
+  OUTLINED_FUNCTION_243_0();
+  v3 = OUTLINED_FUNCTION_396_0();
+  v4(v3);
+  v5 = OUTLINED_FUNCTION_131_0();
+  v7 = sub_2575FB760(v5, v6, v2);
+  OUTLINED_FUNCTION_162_0(v0, v8, v7);
+  OUTLINED_FUNCTION_166_0();
+}
+
+uint64_t sub_2575E839C()
+{
+  OUTLINED_FUNCTION_147_0();
+  type metadata accessor for Proto_NeuralNetworkPreprocessing(0);
+  OUTLINED_FUNCTION_92_1();
+  sub_2575FB760(v0, v1, &unk_2577660B0);
+  OUTLINED_FUNCTION_12_10();
+  return sub_2577433C4();
+}
+
+void sub_2575E8414()
+{
+  OUTLINED_FUNCTION_188_0();
+  OUTLINED_FUNCTION_147_0();
+  v0(0);
+  type metadata accessor for Proto_NetworkUpdateParameters(0);
+  OUTLINED_FUNCTION_202();
+  sub_2575FB760(v1, v2, &unk_257755618);
+  OUTLINED_FUNCTION_12_10();
+  sub_2577433D4();
+  OUTLINED_FUNCTION_187_0();
+}
+
+void sub_2575E849C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void))
+{
+  OUTLINED_FUNCTION_2_7();
+  if (!*(*v5 + 16) || (type metadata accessor for Proto_NeuralNetworkLayer(0), OUTLINED_FUNCTION_205_0(), sub_2575FB760(v9, v10, &unk_257762528), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v6))
+  {
+    if (!*(v7[1] + 16) || (type metadata accessor for Proto_NeuralNetworkPreprocessing(0), OUTLINED_FUNCTION_92_1(), sub_2575FB760(v11, v12, &unk_2577660B0), OUTLINED_FUNCTION_55_0(), OUTLINED_FUNCTION_27_4(), sub_257743564(), !v6))
+    {
+      if (!v7[2] || (OUTLINED_FUNCTION_184_1(), sub_257609C20(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v6))
+      {
+        if (!v7[4] || (OUTLINED_FUNCTION_184_1(), sub_257609C74(), OUTLINED_FUNCTION_27_4(), sub_2577434C4(), !v6))
+        {
+          OUTLINED_FUNCTION_3_9();
+          sub_2575E863C();
+          if (!v6)
+          {
+            a5(0);
+            OUTLINED_FUNCTION_7_5();
+          }
+        }
+      }
+    }
+  }
+}
+
+void sub_2575E863C()
+{
+  OUTLINED_FUNCTION_165_0();
+  OUTLINED_FUNCTION_303_0(v3, v4, v5, v6);
+  v7 = OUTLINED_FUNCTION_277();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(v7, v8);
+  OUTLINED_FUNCTION_13(v9);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_32_4();
+  updated = type metadata accessor for Proto_NetworkUpdateParameters(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_3();
+  v13 = OUTLINED_FUNCTION_14();
+  v14 = v2(v13);
+  OUTLINED_FUNCTION_399_0(*(v14 + 36));
+  v15 = OUTLINED_FUNCTION_171_1();
+  OUTLINED_FUNCTION_155(v15, v16, updated);
+  if (v17)
+  {
+    sub_2574695E4(v1, &qword_27F87C788, &unk_257751EA0);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_367();
+    sub_257609B78();
+    OUTLINED_FUNCTION_202();
+    v20 = sub_2575FB760(v18, v19, &unk_257755618);
+    OUTLINED_FUNCTION_403_0(v0, 10, v21, v20);
+    OUTLINED_FUNCTION_66_0();
+    sub_257609BCC();
+  }
+
+  OUTLINED_FUNCTION_166_0();
+}
+
+void sub_2575E87B0()
+{
+  OUTLINED_FUNCTION_31();
+  v7 = v6;
+  v8 = OUTLINED_FUNCTION_118_1();
+  updated = type metadata accessor for Proto_NetworkUpdateParameters(v8);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_3();
+  OUTLINED_FUNCTION_12_6();
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
+  OUTLINED_FUNCTION_13(v11);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_74_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87FA90, &qword_257767450);
+  OUTLINED_FUNCTION_41_4();
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v13);
+  OUTLINED_FUNCTION_32_3();
+  sub_25747D3D0(*v1, *v0);
+  if ((v14 & 1) == 0)
+  {
+    goto LABEL_31;
+  }
+
+  sub_25747D424();
+  if ((v15 & 1) == 0)
+  {
+    goto LABEL_31;
+  }
+
+  OUTLINED_FUNCTION_224();
+  if (v20)
+  {
+    v17 = v19;
+  }
+
+  if (v18 == 1)
+  {
+    if (v16)
+    {
+      if (v17 != 1)
+      {
+        goto LABEL_31;
+      }
+    }
+
+    else if (v17)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  else if (v17 != v16)
+  {
+    goto LABEL_31;
+  }
+
+  OUTLINED_FUNCTION_224();
+  if (v25)
+  {
+    v22 = v24;
+  }
+
+  if (v23 == 1)
+  {
+    if (v21)
+    {
+      if (v22 != 1)
+      {
+        goto LABEL_31;
+      }
+    }
+
+    else if (v22)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  else if (v22 != v21)
+  {
+    goto LABEL_31;
+  }
+
+  v7(0);
+  v26 = *(v5 + 48);
+  OUTLINED_FUNCTION_66();
+  sub_257487308(v27);
+  OUTLINED_FUNCTION_129_1();
+  OUTLINED_FUNCTION_42_0(v2);
+  if (v29)
+  {
+    OUTLINED_FUNCTION_42_0(v2 + v26);
+    if (v29)
+    {
+      sub_2574695E4(v2, &qword_27F87C788, &unk_257751EA0);
+LABEL_36:
+      sub_2577431B4();
+      OUTLINED_FUNCTION_1_16();
+      v41 = sub_2575FB760(v39, v40, MEMORY[0x277D216D0]);
+      v32 = OUTLINED_FUNCTION_19_3(v41);
+      goto LABEL_32;
+    }
+
+    goto LABEL_29;
+  }
+
+  v28 = OUTLINED_FUNCTION_264();
+  sub_257487308(v28);
+  OUTLINED_FUNCTION_42_0(v2 + v26);
+  if (v29)
+  {
+    sub_257609BCC();
+LABEL_29:
+    v30 = &qword_27F87FA90;
+    v31 = &qword_257767450;
+LABEL_30:
+    sub_2574695E4(v2, v30, v31);
+    goto LABEL_31;
+  }
+
+  sub_257609B78();
+  if (*(v4 + *(updated + 20)) != *(v3 + *(updated + 20)))
+  {
+
+    v33 = OUTLINED_FUNCTION_287_0();
+    v35 = sub_2575F419C(v33, v34);
+
+    if (!v35)
+    {
+      sub_257609BCC();
+      OUTLINED_FUNCTION_412_0();
+      v30 = &qword_27F87C788;
+      v31 = &unk_257751EA0;
+      goto LABEL_30;
+    }
+  }
+
+  v36 = sub_2577431B4();
+  OUTLINED_FUNCTION_1_16();
+  sub_2575FB760(v37, v38, MEMORY[0x277D216D0]);
+  OUTLINED_FUNCTION_294();
+  sub_257743644();
+  OUTLINED_FUNCTION_220_0();
+  sub_257609BCC();
+  sub_257609BCC();
+  sub_2574695E4(v2, &qword_27F87C788, &unk_257751EA0);
+  if (v36)
+  {
+    goto LABEL_36;
+  }
+
+LABEL_31:
+  v32 = 0;
+LABEL_32:
+  OUTLINED_FUNCTION_65_0(v32);
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2575E8BAC()
+{
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
+
+  return v1(v0);
+}
+
+uint64_t sub_2575E8C98(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F148, type metadata accessor for Proto_NeuralNetworkRegressor, &unk_257755748);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575E8D38(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87BAE0, type metadata accessor for Proto_NeuralNetworkRegressor, &unk_257762B40);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575E8E00(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87BAE0, type metadata accessor for Proto_NeuralNetworkRegressor, &unk_257762B40);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575E8EAC()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9EF8);
+  __swift_project_value_buffer(v0, qword_27F8E9EF8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_257744000;
+  v5 = v4 + v3;
+  v6 = v4 + v3 + v1[14];
+  *(v4 + v3) = 1;
+  *v6 = "lossLayers";
+  *(v6 + 8) = 10;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "optimizer";
+  *(v10 + 8) = 9;
+  *(v10 + 16) = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "epochs";
+  *(v12 + 1) = 6;
+  v12[16] = 2;
+  v9();
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 10;
+  *v14 = "shuffle";
+  *(v14 + 1) = 7;
+  v14[16] = 2;
+  v9();
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 20;
+  *v16 = "seed";
+  *(v16 + 1) = 4;
+  v16[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575E9164(uint64_t a1, void (*a2)(void), uint64_t (*a3)(void), uint64_t *a4)
+{
+  a2(0);
+  OUTLINED_FUNCTION_89_1();
+  swift_allocObject();
+  result = a3();
+  *a4 = result;
+  return result;
+}
+
+uint64_t sub_2575E91B4()
+{
+  *(v0 + 16) = MEMORY[0x277D84F90];
+  v1 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  v2 = type metadata accessor for Proto_Optimizer(0);
+  __swift_storeEnumTagSinglePayload(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  v4 = type metadata accessor for Proto_Int64Parameter(0);
+  __swift_storeEnumTagSinglePayload(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  v6 = type metadata accessor for Proto_BoolParameter(0);
+  __swift_storeEnumTagSinglePayload(v0 + v5, 1, 1, v6);
+  __swift_storeEnumTagSinglePayload(v0 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed, 1, 1, v4);
+  return v0;
+}
+
+uint64_t sub_2575E9274(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F928, &qword_257767330);
+  MEMORY[0x28223BE20](v4 - 8);
+  v20[1] = v20 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+  MEMORY[0x28223BE20](v6 - 8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F938, &qword_257767338);
+  MEMORY[0x28223BE20](v7 - 8);
+  *(v1 + 16) = MEMORY[0x277D84F90];
+  v8 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  v9 = type metadata accessor for Proto_Optimizer(0);
+  __swift_storeEnumTagSinglePayload(v1 + v8, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  v11 = type metadata accessor for Proto_Int64Parameter(0);
+  __swift_storeEnumTagSinglePayload(v1 + v10, 1, 1, v11);
+  v12 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  v13 = type metadata accessor for Proto_BoolParameter(0);
+  __swift_storeEnumTagSinglePayload(v1 + v12, 1, 1, v13);
+  v20[0] = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed;
+  __swift_storeEnumTagSinglePayload(v1 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed, 1, 1, v11);
+  swift_beginAccess();
+  v14 = *(a1 + 16);
+  swift_beginAccess();
+  *(v1 + 16) = v14;
+  v15 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  swift_beginAccess();
+  sub_257487308(a1 + v15);
+  swift_beginAccess();
+
+  sub_25751BB28();
+  swift_endAccess();
+  v16 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  swift_beginAccess();
+  sub_257487308(a1 + v16);
+  swift_beginAccess();
+  sub_25751BB28();
+  swift_endAccess();
+  v17 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  swift_beginAccess();
+  sub_257487308(a1 + v17);
+  swift_beginAccess();
+  sub_25751BB28();
+  swift_endAccess();
+  v18 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed;
+  swift_beginAccess();
+  sub_257487308(a1 + v18);
+
+  swift_beginAccess();
+  sub_25751BB28();
+  swift_endAccess();
+  return v2;
+}
+
+uint64_t sub_2575E964C()
+{
+
+  sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer, &qword_27F87F938, &qword_257767338);
+  sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs, &qword_27F87BD30, &unk_2577504D0);
+  sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle, &qword_27F87F928, &qword_257767330);
+  sub_2574695E4(v0 + OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed, &qword_27F87BD30, &unk_2577504D0);
+  return v0;
+}
+
+uint64_t sub_2575E9714(uint64_t (*a1)(void))
+{
+  v1 = a1();
+  v2 = *(*v1 + 48);
+  v3 = *(*v1 + 52);
+
+  return MEMORY[0x2821FE8D8](v1, v2, v3);
+}
+
+void sub_2575E9794(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87C2A8, type metadata accessor for Proto_Optimizer, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_281537CA0, type metadata accessor for Proto_Int64Parameter, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_27F87C2B0, type metadata accessor for Proto_BoolParameter, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_updateClassMetadata2();
+      }
+    }
+  }
+}
+
+void __swift_store_extra_inhabitant_index_494Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_155_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_255_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+uint64_t sub_2575E9BA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
+{
+  v6 = OUTLINED_FUNCTION_270_0();
+  result = v7(v6);
+  if (v9 <= 0x3F)
+  {
+    result = a5(319);
+    if (v10 <= 0x3F)
+    {
+      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+      return OUTLINED_FUNCTION_97_0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575E9C88(uint64_t a1)
+{
+  v1 = sub_2577431B4();
+  if (v2 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87C348, type metadata accessor for Proto_DoubleParameter, MEMORY[0x277D83D88]);
+    v1 = v3;
+    if (v4 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_281537CA0, type metadata accessor for Proto_Int64Parameter, MEMORY[0x277D83D88]);
+      if (v6 > 0x3F)
+      {
+        return v5;
+      }
+
+      else
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return v1;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_529Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v2 + 84) == v0)
+  {
+    v3 = OUTLINED_FUNCTION_72_0();
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C330, &qword_2577513E8);
+    OUTLINED_FUNCTION_18_3();
+    if (*(v5 + 84) == v0)
+    {
+      OUTLINED_FUNCTION_117_0();
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+      OUTLINED_FUNCTION_96_0();
+    }
+
+    v3 = v1 + v6;
+  }
+
+  return __swift_getEnumTagSinglePayload(v3, v0, v4);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_530Tm()
+{
+  OUTLINED_FUNCTION_156_0();
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v1 + 84) == v0)
+  {
+    OUTLINED_FUNCTION_55_0();
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C330, &qword_2577513E8);
+    OUTLINED_FUNCTION_18_3();
+    if (*(v2 + 84) == v0)
+    {
+      OUTLINED_FUNCTION_122_0();
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+      OUTLINED_FUNCTION_255_0();
+    }
+  }
+
+  OUTLINED_FUNCTION_59_0();
+
+  return __swift_storeEnumTagSinglePayload(v3, v4, v5, v6);
+}
+
+uint64_t sub_2575E9F88(uint64_t a1)
+{
+  v1 = sub_2577431B4();
+  if (v2 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87C348, type metadata accessor for Proto_DoubleParameter, MEMORY[0x277D83D88]);
+    v1 = v3;
+    if (v4 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_281537CA0, type metadata accessor for Proto_Int64Parameter, MEMORY[0x277D83D88]);
+      if (v6 > 0x3F)
+      {
+        return v5;
+      }
+
+      else
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return v1;
+}
+
+uint64_t sub_2575EA13C(uint64_t a1)
+{
+  result = sub_2577431B4();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_806Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v1)
+  {
+    return OUTLINED_FUNCTION_7_7(*(v0 + 16));
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  v3 = OUTLINED_FUNCTION_61_0();
+
+  return __swift_getEnumTagSinglePayload(v3, v4, v5);
+}
+
+void __swift_store_extra_inhabitant_index_807Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_304_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_274_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+void sub_2575EAB24(uint64_t a1)
+{
+  OUTLINED_FUNCTION_40_4(a1, &qword_27F87A348, MEMORY[0x277D84D38]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_779Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v1)
+  {
+    return OUTLINED_FUNCTION_7_7(*(v0 + 16));
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  v3 = OUTLINED_FUNCTION_84_2();
+
+  return __swift_getEnumTagSinglePayload(v3, v4, v5);
+}
+
+void __swift_store_extra_inhabitant_index_780Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_304_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_256_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+void sub_2575EADCC(uint64_t a1)
+{
+  OUTLINED_FUNCTION_40_4(a1, &qword_27F87A348, MEMORY[0x277D84D38]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+void sub_2575EB008(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87C5E0, type metadata accessor for Proto_WeightParams, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2575EB0E4(319);
+    if (v2 <= 0x3F)
+    {
+      sub_2577431B4();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_2575EB0E4(uint64_t a1)
+{
+  if (!qword_27F87C5E8)
+  {
+    type metadata accessor for Proto_CustomLayerParams.CustomLayerParamValue(255);
+    v1 = sub_2577435E4();
+    if (!v2)
+    {
+      atomic_store(v1, &qword_27F87C5E8);
+    }
+  }
+}
+
+void sub_2575EB1BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = OUTLINED_FUNCTION_270_0();
+  sub_2575ED254(v5, v6, v7, v8);
+  if (v9 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_302_0();
+    sub_2577431B4();
+    if (v10 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t sub_2575EB244(uint64_t a1, unsigned int a2)
+{
+  if (a2)
+  {
+    if (a2 >= 0xFC && *(a1 + 17))
+    {
+      v2 = *a1 + 251;
+    }
+
+    else
+    {
+      v3 = *(a1 + 16);
+      if (v3 <= 4)
+      {
+        v2 = -1;
+      }
+
+      else
+      {
+        v2 = v3 ^ 0xFF;
+      }
+    }
+  }
+
+  else
+  {
+    v2 = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t sub_2575EB284(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFB)
+  {
+    *(result + 16) = 0;
+    *result = a2 - 252;
+    *(result + 8) = 0;
+    if (a3 >= 0xFC)
+    {
+      *(result + 17) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFC)
+    {
+      *(result + 17) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = -a2;
+    }
+  }
+
+  return result;
+}
+
+void sub_2575EB5D0()
+{
+  OUTLINED_FUNCTION_345_0();
+  OUTLINED_FUNCTION_40_4(v0, v1, v2);
+  if (v3 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_302_0();
+    sub_2577431B4();
+    if (v4 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_315_0();
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+void sub_2575EB878(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A348, MEMORY[0x277D84D38], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87C700, type metadata accessor for Proto_PoolingLayerParams.OneOf_PoolingPaddingType, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      sub_2577431B4();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_2575EC394(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87C908, type metadata accessor for Proto_PaddingLayerParams.OneOf_PaddingType, MEMORY[0x277D83D88]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_27F87C910, type metadata accessor for Proto_BorderAmounts, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t sub_2575EC510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t), uint64_t (*a6)(uint64_t))
+{
+  v8 = OUTLINED_FUNCTION_270_0();
+  result = v9(v8);
+  if (v11 <= 0x3F)
+  {
+    result = a5(319);
+    if (v12 <= 0x3F)
+    {
+      v13 = OUTLINED_FUNCTION_302_0();
+      result = a6(v13);
+      if (v14 <= 0x3F)
+      {
+        OUTLINED_FUNCTION_315_0();
+        swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+        return OUTLINED_FUNCTION_97_0();
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_2575EC76C(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A348, MEMORY[0x277D84D38], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_2575ECB6C(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87C790, type metadata accessor for Proto_NeuralNetworkLayer, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87C798, type metadata accessor for Proto_NeuralNetworkPreprocessing, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_2815376D0, type metadata accessor for Proto_NeuralNetworkClassifier.OneOf_ClassLabels, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_2577431B4();
+        if (v4 <= 0x3F)
+        {
+          sub_25759B3F4(319, &qword_2815376E8, type metadata accessor for Proto_NetworkUpdateParameters, MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            swift_cvw_initStructMetadataWithLayoutString();
+          }
+        }
+      }
+    }
+  }
+}
+
+void sub_2575ECDAC(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A348, MEMORY[0x277D84D38], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2575ED254(319, &qword_27F87A658, MEMORY[0x277D83A90], MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_2577431B4();
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_2575ECF10(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87CA60, type metadata accessor for Proto_ActivationParams, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_27F87CA68, type metadata accessor for Proto_LSTMParams, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_25759B3F4(319, &qword_27F87CA70, type metadata accessor for Proto_LSTMWeightParams, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t sub_2575ED154(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87B160, MEMORY[0x277D839B0], MEMORY[0x277D83940]);
+  v2 = v1;
+  if (v3 <= 0x3F)
+  {
+    sub_2575ED254(319, &qword_27F87A660, MEMORY[0x277D84A28], MEMORY[0x277D83940]);
+    if (v5 > 0x3F)
+    {
+      return v4;
+    }
+
+    else
+    {
+      v2 = sub_2577431B4();
+      if (v6 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return v2;
+}
+
+void sub_2575ED254(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
+    {
+      atomic_store(v5, a2);
+    }
+  }
+}
+
+uint64_t sub_2575ED2EC(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A660, MEMORY[0x277D84A28], MEMORY[0x277D83940]);
+  v2 = v1;
+  if (v3 <= 0x3F)
+  {
+    sub_2575ED254(319, &qword_27F87B160, MEMORY[0x277D839B0], MEMORY[0x277D83940]);
+    if (v5 > 0x3F)
+    {
+      return v4;
+    }
+
+    else
+    {
+      v2 = sub_2577431B4();
+      if (v6 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+        return 0;
+      }
+    }
+  }
+
+  return v2;
+}
+
+void sub_2575ED690(uint64_t a1)
+{
+  OUTLINED_FUNCTION_40_4(a1, &qword_27F87A660, MEMORY[0x277D84A28]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_315_0();
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_902Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_173_1();
+
+  return __swift_getEnumTagSinglePayload(v0, v1, v2);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_903Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_115_0();
+
+  return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
+}
+
+uint64_t sub_2575ED8B4()
+{
+  result = sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_985Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v1)
+  {
+    return OUTLINED_FUNCTION_7_7(*v0);
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  OUTLINED_FUNCTION_96_0();
+  v4 = OUTLINED_FUNCTION_13_2(v3);
+
+  return __swift_getEnumTagSinglePayload(v4, v5, v6);
+}
+
+void __swift_store_extra_inhabitant_index_986Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_200_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_255_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+void sub_2575EDA7C(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A658, MEMORY[0x277D83A90], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_893Tm()
+{
+  OUTLINED_FUNCTION_264_0();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_238_0();
+    v3 = (v1 + v2) & 0x7FFFFFFF;
+    if (v4)
+    {
+      return (v3 + 1);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_77_1();
+    OUTLINED_FUNCTION_96_0();
+    v7 = OUTLINED_FUNCTION_13_2(v6);
+
+    return __swift_getEnumTagSinglePayload(v7, v8, v9);
+  }
+}
+
+void __swift_store_extra_inhabitant_index_894Tm()
+{
+  OUTLINED_FUNCTION_107_0();
+  if (v2)
+  {
+    *(v1 + 8) = v0 + 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_255_0();
+    v4 = OUTLINED_FUNCTION_48_1(v3);
+
+    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_797Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_173_1();
+
+  return __swift_getEnumTagSinglePayload(v0, v1, v2);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_798Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_115_0();
+
+  return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
+}
+
+uint64_t sub_2575EDE68()
+{
+  result = sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+void sub_2575EDF88(uint64_t a1)
+{
+  OUTLINED_FUNCTION_40_4(a1, &qword_27F87A660, MEMORY[0x277D84A28]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1828Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v1)
+  {
+    return OUTLINED_FUNCTION_7_7(*v0);
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  v3 = OUTLINED_FUNCTION_84_2();
+
+  return __swift_getEnumTagSinglePayload(v3, v4, v5);
+}
+
+void __swift_store_extra_inhabitant_index_1829Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_200_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_256_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_511Tm()
+{
+  OUTLINED_FUNCTION_267();
+  __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_18_3();
+  if (*(v3 + 84) == v0)
+  {
+    v4 = OUTLINED_FUNCTION_72_0();
+  }
+
+  else
+  {
+    sub_2577431B4();
+    v4 = OUTLINED_FUNCTION_24_5();
+  }
+
+  return __swift_getEnumTagSinglePayload(v4, v0, v5);
+}
+
+uint64_t sub_2575EE424(uint64_t a1)
+{
+  result = type metadata accessor for Proto_ActivationLinear(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for Proto_ActivationReLU(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for Proto_ActivationLeakyReLU(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for Proto_ActivationThresholdedReLU(319);
+        if (v5 <= 0x3F)
+        {
+          result = type metadata accessor for Proto_ActivationPReLU(319);
+          if (v6 <= 0x3F)
+          {
+            result = type metadata accessor for Proto_ActivationTanh(319);
+            if (v7 <= 0x3F)
+            {
+              result = type metadata accessor for Proto_ActivationScaledTanh(319);
+              if (v8 <= 0x3F)
+              {
+                result = type metadata accessor for Proto_ActivationSigmoid(319);
+                if (v9 <= 0x3F)
+                {
+                  result = type metadata accessor for Proto_ActivationSigmoidHard(319);
+                  if (v10 <= 0x3F)
+                  {
+                    result = type metadata accessor for Proto_ActivationELU(319);
+                    if (v11 <= 0x3F)
+                    {
+                      result = type metadata accessor for Proto_ActivationSoftsign(319);
+                      if (v12 <= 0x3F)
+                      {
+                        result = type metadata accessor for Proto_ActivationSoftplus(319);
+                        if (v13 <= 0x3F)
+                        {
+                          result = type metadata accessor for Proto_ActivationParametricSoftplus(319);
+                          if (v14 <= 0x3F)
+                          {
+                            swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+                            return 0;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_2575EE5BC(uint64_t a1)
+{
+  sub_25759B3F4(319, &qword_27F87CA60, type metadata accessor for Proto_ActivationParams, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87CCB0, type metadata accessor for Proto_LSTMWeightParams, MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      sub_2577431B4();
+      if (v3 <= 0x3F)
+      {
+        sub_25759B3F4(319, &qword_27F87CA68, type metadata accessor for Proto_LSTMParams, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t sub_2575EE738(uint64_t a1)
+{
+  result = sub_2577431B4();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void sub_2575EEA20()
+{
+  OUTLINED_FUNCTION_382_0();
+  OUTLINED_FUNCTION_270_0();
+  sub_2577431B4();
+  if (v0 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_52_2();
+    OUTLINED_FUNCTION_272_0();
+    sub_25759B3F4(v1, v2, v3, v4);
+    if (v5 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t sub_2575EEAC4(uint64_t a1)
+{
+  result = type metadata accessor for Proto_ConvolutionLayerParams(319);
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for Proto_PoolingLayerParams(319);
+    if (v3 <= 0x3F)
+    {
+      result = type metadata accessor for Proto_ActivationParams(319);
+      if (v4 <= 0x3F)
+      {
+        result = type metadata accessor for Proto_InnerProductLayerParams(319);
+        if (v5 <= 0x3F)
+        {
+          result = type metadata accessor for Proto_EmbeddingLayerParams(319);
+          if (v6 <= 0x3F)
+          {
+            result = type metadata accessor for Proto_BatchnormLayerParams(319);
+            if (v7 <= 0x3F)
+            {
+              result = type metadata accessor for Proto_MeanVarianceNormalizeLayerParams(319);
+              if (v8 <= 0x3F)
+              {
+                result = type metadata accessor for Proto_L2NormalizeLayerParams(319);
+                if (v9 <= 0x3F)
+                {
+                  result = type metadata accessor for Proto_SoftmaxLayerParams(319);
+                  if (v10 <= 0x3F)
+                  {
+                    result = type metadata accessor for Proto_LRNLayerParams(319);
+                    if (v11 <= 0x3F)
+                    {
+                      result = type metadata accessor for Proto_CropLayerParams(319);
+                      if (v12 <= 0x3F)
+                      {
+                        result = type metadata accessor for Proto_PaddingLayerParams(319);
+                        if (v13 <= 0x3F)
+                        {
+                          result = type metadata accessor for Proto_UpsampleLayerParams(319);
+                          if (v14 <= 0x3F)
+                          {
+                            result = type metadata accessor for Proto_ResizeBilinearLayerParams(319);
+                            if (v15 <= 0x3F)
+                            {
+                              result = type metadata accessor for Proto_CropResizeLayerParams(319);
+                              if (v16 <= 0x3F)
+                              {
+                                result = type metadata accessor for Proto_UnaryFunctionLayerParams(319);
+                                if (v17 <= 0x3F)
+                                {
+                                  result = type metadata accessor for Proto_AddLayerParams(319);
+                                  if (v18 <= 0x3F)
+                                  {
+                                    result = type metadata accessor for Proto_MultiplyLayerParams(319);
+                                    if (v19 <= 0x3F)
+                                    {
+                                      result = type metadata accessor for Proto_AverageLayerParams(319);
+                                      if (v20 <= 0x3F)
+                                      {
+                                        result = type metadata accessor for Proto_ScaleLayerParams(319);
+                                        if (v21 <= 0x3F)
+                                        {
+                                          result = type metadata accessor for Proto_BiasLayerParams(319);
+                                          if (v22 <= 0x3F)
+                                          {
+                                            result = type metadata accessor for Proto_MaxLayerParams(319);
+                                            if (v23 <= 0x3F)
+                                            {
+                                              result = type metadata accessor for Proto_MinLayerParams(319);
+                                              if (v24 <= 0x3F)
+                                              {
+                                                result = type metadata accessor for Proto_DotProductLayerParams(319);
+                                                if (v25 <= 0x3F)
+                                                {
+                                                  result = type metadata accessor for Proto_ReduceLayerParams(319);
+                                                  if (v26 <= 0x3F)
+                                                  {
+                                                    result = type metadata accessor for Proto_LoadConstantLayerParams(319);
+                                                    if (v27 <= 0x3F)
+                                                    {
+                                                      result = type metadata accessor for Proto_ReshapeLayerParams(319);
+                                                      if (v28 <= 0x3F)
+                                                      {
+                                                        result = type metadata accessor for Proto_FlattenLayerParams(319);
+                                                        if (v29 <= 0x3F)
+                                                        {
+                                                          result = type metadata accessor for Proto_PermuteLayerParams(319);
+                                                          if (v30 <= 0x3F)
+                                                          {
+                                                            result = type metadata accessor for Proto_ConcatLayerParams(319);
+                                                            if (v31 <= 0x3F)
+                                                            {
+                                                              result = type metadata accessor for Proto_SplitLayerParams(319);
+                                                              if (v32 <= 0x3F)
+                                                              {
+                                                                result = type metadata accessor for Proto_SequenceRepeatLayerParams(319);
+                                                                if (v33 <= 0x3F)
+                                                                {
+                                                                  result = type metadata accessor for Proto_ReorganizeDataLayerParams(319);
+                                                                  if (v34 <= 0x3F)
+                                                                  {
+                                                                    result = type metadata accessor for Proto_SliceLayerParams(319);
+                                                                    if (v35 <= 0x3F)
+                                                                    {
+                                                                      result = type metadata accessor for Proto_SimpleRecurrentLayerParams(319);
+                                                                      if (v36 <= 0x3F)
+                                                                      {
+                                                                        result = type metadata accessor for Proto_GRULayerParams(319);
+                                                                        if (v37 <= 0x3F)
+                                                                        {
+                                                                          result = type metadata accessor for Proto_UniDirectionalLSTMLayerParams(319);
+                                                                          if (v38 <= 0x3F)
+                                                                          {
+                                                                            result = type metadata accessor for Proto_BiDirectionalLSTMLayerParams(319);
+                                                                            if (v39 <= 0x3F)
+                                                                            {
+                                                                              result = type metadata accessor for Proto_CustomLayerParams(319);
+                                                                              if (v40 <= 0x3F)
+                                                                              {
+                                                                                result = type metadata accessor for Proto_CopyLayerParams(319);
+                                                                                if (v41 <= 0x3F)
+                                                                                {
+                                                                                  result = type metadata accessor for Proto_BranchLayerParams(319);
+                                                                                  if (v42 <= 0x3F)
+                                                                                  {
+                                                                                    result = type metadata accessor for Proto_LoopLayerParams(319);
+                                                                                    if (v43 <= 0x3F)
+                                                                                    {
+                                                                                      result = type metadata accessor for Proto_LoopBreakLayerParams(319);
+                                                                                      if (v44 <= 0x3F)
+                                                                                      {
+                                                                                        result = type metadata accessor for Proto_LoopContinueLayerParams(319);
+                                                                                        if (v45 <= 0x3F)
+                                                                                        {
+                                                                                          result = type metadata accessor for Proto_RangeStaticLayerParams(319);
+                                                                                          if (v46 <= 0x3F)
+                                                                                          {
+                                                                                            result = type metadata accessor for Proto_RangeDynamicLayerParams(319);
+                                                                                            if (v47 <= 0x3F)
+                                                                                            {
+                                                                                              result = type metadata accessor for Proto_ClipLayerParams(319);
+                                                                                              if (v48 <= 0x3F)
+                                                                                              {
+                                                                                                result = type metadata accessor for Proto_CeilLayerParams(319);
+                                                                                                if (v49 <= 0x3F)
+                                                                                                {
+                                                                                                  result = type metadata accessor for Proto_FloorLayerParams(319);
+                                                                                                  if (v50 <= 0x3F)
+                                                                                                  {
+                                                                                                    result = type metadata accessor for Proto_SignLayerParams(319);
+                                                                                                    if (v51 <= 0x3F)
+                                                                                                    {
+                                                                                                      result = type metadata accessor for Proto_RoundLayerParams(319);
+                                                                                                      if (v52 <= 0x3F)
+                                                                                                      {
+                                                                                                        result = type metadata accessor for Proto_Exp2LayerParams(319);
+                                                                                                        if (v53 <= 0x3F)
+                                                                                                        {
+                                                                                                          result = type metadata accessor for Proto_SinLayerParams(319);
+                                                                                                          if (v54 <= 0x3F)
+                                                                                                          {
+                                                                                                            result = type metadata accessor for Proto_CosLayerParams(319);
+                                                                                                            if (v55 <= 0x3F)
+                                                                                                            {
+                                                                                                              result = type metadata accessor for Proto_TanLayerParams(319);
+                                                                                                              if (v56 <= 0x3F)
+                                                                                                              {
+                                                                                                                result = type metadata accessor for Proto_AsinLayerParams(319);
+                                                                                                                if (v57 <= 0x3F)
+                                                                                                                {
+                                                                                                                  result = type metadata accessor for Proto_AcosLayerParams(319);
+                                                                                                                  if (v58 <= 0x3F)
+                                                                                                                  {
+                                                                                                                    result = type metadata accessor for Proto_AtanLayerParams(319);
+                                                                                                                    if (v59 <= 0x3F)
+                                                                                                                    {
+                                                                                                                      result = type metadata accessor for Proto_SinhLayerParams(319);
+                                                                                                                      if (v60 <= 0x3F)
+                                                                                                                      {
+                                                                                                                        result = type metadata accessor for Proto_CoshLayerParams(319);
+                                                                                                                        if (v61 <= 0x3F)
+                                                                                                                        {
+                                                                                                                          result = type metadata accessor for Proto_TanhLayerParams(319);
+                                                                                                                          if (v62 <= 0x3F)
+                                                                                                                          {
+                                                                                                                            result = type metadata accessor for Proto_AsinhLayerParams(319);
+                                                                                                                            if (v63 <= 0x3F)
+                                                                                                                            {
+                                                                                                                              result = type metadata accessor for Proto_AcoshLayerParams(319);
+                                                                                                                              if (v64 <= 0x3F)
+                                                                                                                              {
+                                                                                                                                result = type metadata accessor for Proto_AtanhLayerParams(319);
+                                                                                                                                if (v65 <= 0x3F)
+                                                                                                                                {
+                                                                                                                                  result = type metadata accessor for Proto_ErfLayerParams(319);
+                                                                                                                                  if (v66 <= 0x3F)
+                                                                                                                                  {
+                                                                                                                                    result = type metadata accessor for Proto_GeluLayerParams(319);
+                                                                                                                                    if (v67 <= 0x3F)
+                                                                                                                                    {
+                                                                                                                                      result = type metadata accessor for Proto_EqualLayerParams(319);
+                                                                                                                                      if (v68 <= 0x3F)
+                                                                                                                                      {
+                                                                                                                                        result = type metadata accessor for Proto_NotEqualLayerParams(319);
+                                                                                                                                        if (v69 <= 0x3F)
+                                                                                                                                        {
+                                                                                                                                          result = type metadata accessor for Proto_LessThanLayerParams(319);
+                                                                                                                                          if (v70 <= 0x3F)
+                                                                                                                                          {
+                                                                                                                                            result = type metadata accessor for Proto_LessEqualLayerParams(319);
+                                                                                                                                            if (v71 <= 0x3F)
+                                                                                                                                            {
+                                                                                                                                              result = type metadata accessor for Proto_GreaterThanLayerParams(319);
+                                                                                                                                              if (v72 <= 0x3F)
+                                                                                                                                              {
+                                                                                                                                                result = type metadata accessor for Proto_GreaterEqualLayerParams(319);
+                                                                                                                                                if (v73 <= 0x3F)
+                                                                                                                                                {
+                                                                                                                                                  result = type metadata accessor for Proto_LogicalOrLayerParams(319);
+                                                                                                                                                  if (v74 <= 0x3F)
+                                                                                                                                                  {
+                                                                                                                                                    result = type metadata accessor for Proto_LogicalXorLayerParams(319);
+                                                                                                                                                    if (v75 <= 0x3F)
+                                                                                                                                                    {
+                                                                                                                                                      result = type metadata accessor for Proto_LogicalNotLayerParams(319);
+                                                                                                                                                      if (v76 <= 0x3F)
+                                                                                                                                                      {
+                                                                                                                                                        result = type metadata accessor for Proto_LogicalAndLayerParams(319);
+                                                                                                                                                        if (v77 <= 0x3F)
+                                                                                                                                                        {
+                                                                                                                                                          result = type metadata accessor for Proto_ModBroadcastableLayerParams(319);
+                                                                                                                                                          if (v78 <= 0x3F)
+                                                                                                                                                          {
+                                                                                                                                                            result = type metadata accessor for Proto_MinBroadcastableLayerParams(319);
+                                                                                                                                                            if (v79 <= 0x3F)
+                                                                                                                                                            {
+                                                                                                                                                              result = type metadata accessor for Proto_MaxBroadcastableLayerParams(319);
+                                                                                                                                                              if (v80 <= 0x3F)
+                                                                                                                                                              {
+                                                                                                                                                                result = type metadata accessor for Proto_AddBroadcastableLayerParams(319);
+                                                                                                                                                                if (v81 <= 0x3F)
+                                                                                                                                                                {
+                                                                                                                                                                  result = type metadata accessor for Proto_PowBroadcastableLayerParams(319);
+                                                                                                                                                                  if (v82 <= 0x3F)
+                                                                                                                                                                  {
+                                                                                                                                                                    result = type metadata accessor for Proto_DivideBroadcastableLayerParams(319);
+                                                                                                                                                                    if (v83 <= 0x3F)
+                                                                                                                                                                    {
+                                                                                                                                                                      result = type metadata accessor for Proto_FloorDivBroadcastableLayerParams(319);
+                                                                                                                                                                      if (v84 <= 0x3F)
+                                                                                                                                                                      {
+                                                                                                                                                                        result = type metadata accessor for Proto_MultiplyBroadcastableLayerParams(319);
+                                                                                                                                                                        if (v85 <= 0x3F)
+                                                                                                                                                                        {
+                                                                                                                                                                          result = type metadata accessor for Proto_SubtractBroadcastableLayerParams(319);
+                                                                                                                                                                          if (v86 <= 0x3F)
+                                                                                                                                                                          {
+                                                                                                                                                                            result = type metadata accessor for Proto_TileLayerParams(319);
+                                                                                                                                                                            if (v87 <= 0x3F)
+                                                                                                                                                                            {
+                                                                                                                                                                              result = type metadata accessor for Proto_StackLayerParams(319);
+                                                                                                                                                                              if (v88 <= 0x3F)
+                                                                                                                                                                              {
+                                                                                                                                                                                result = type metadata accessor for Proto_GatherLayerParams(319);
+                                                                                                                                                                                if (v89 <= 0x3F)
+                                                                                                                                                                                {
+                                                                                                                                                                                  result = type metadata accessor for Proto_ScatterLayerParams(319);
+                                                                                                                                                                                  if (v90 <= 0x3F)
+                                                                                                                                                                                  {
+                                                                                                                                                                                    result = type metadata accessor for Proto_GatherNDLayerParams(319);
+                                                                                                                                                                                    if (v91 <= 0x3F)
+                                                                                                                                                                                    {
+                                                                                                                                                                                      result = type metadata accessor for Proto_ScatterNDLayerParams(319);
+                                                                                                                                                                                      if (v92 <= 0x3F)
+                                                                                                                                                                                      {
+                                                                                                                                                                                        result = type metadata accessor for Proto_SoftmaxNDLayerParams(319);
+                                                                                                                                                                                        if (v93 <= 0x3F)
+                                                                                                                                                                                        {
+                                                                                                                                                                                          result = type metadata accessor for Proto_GatherAlongAxisLayerParams(319);
+                                                                                                                                                                                          if (v94 <= 0x3F)
+                                                                                                                                                                                          {
+                                                                                                                                                                                            result = type metadata accessor for Proto_ScatterAlongAxisLayerParams(319);
+                                                                                                                                                                                            if (v95 <= 0x3F)
+                                                                                                                                                                                            {
+                                                                                                                                                                                              result = type metadata accessor for Proto_ReverseLayerParams(319);
+                                                                                                                                                                                              if (v96 <= 0x3F)
+                                                                                                                                                                                              {
+                                                                                                                                                                                                result = type metadata accessor for Proto_ReverseSeqLayerParams(319);
+                                                                                                                                                                                                if (v97 <= 0x3F)
+                                                                                                                                                                                                {
+                                                                                                                                                                                                  result = type metadata accessor for Proto_SplitNDLayerParams(319);
+                                                                                                                                                                                                  if (v98 <= 0x3F)
+                                                                                                                                                                                                  {
+                                                                                                                                                                                                    result = type metadata accessor for Proto_ConcatNDLayerParams(319);
+                                                                                                                                                                                                    if (v99 <= 0x3F)
+                                                                                                                                                                                                    {
+                                                                                                                                                                                                      result = type metadata accessor for Proto_TransposeLayerParams(319);
+                                                                                                                                                                                                      if (v100 <= 0x3F)
+                                                                                                                                                                                                      {
+                                                                                                                                                                                                        result = type metadata accessor for Proto_SliceStaticLayerParams(319);
+                                                                                                                                                                                                        if (v101 <= 0x3F)
+                                                                                                                                                                                                        {
+                                                                                                                                                                                                          result = type metadata accessor for Proto_SliceDynamicLayerParams(319);
+                                                                                                                                                                                                          if (v102 <= 0x3F)
+                                                                                                                                                                                                          {
+                                                                                                                                                                                                            result = type metadata accessor for Proto_SlidingWindowsLayerParams(319);
+                                                                                                                                                                                                            if (v103 <= 0x3F)
+                                                                                                                                                                                                            {
+                                                                                                                                                                                                              result = type metadata accessor for Proto_TopKLayerParams(319);
+                                                                                                                                                                                                              if (v104 <= 0x3F)
+                                                                                                                                                                                                              {
+                                                                                                                                                                                                                result = type metadata accessor for Proto_ArgMinLayerParams(319);
+                                                                                                                                                                                                                if (v105 <= 0x3F)
+                                                                                                                                                                                                                {
+                                                                                                                                                                                                                  result = type metadata accessor for Proto_ArgMaxLayerParams(319);
+                                                                                                                                                                                                                  if (v106 <= 0x3F)
+                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                    result = type metadata accessor for Proto_EmbeddingNDLayerParams(319);
+                                                                                                                                                                                                                    if (v107 <= 0x3F)
+                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                      result = type metadata accessor for Proto_BatchedMatMulLayerParams(319);
+                                                                                                                                                                                                                      if (v108 <= 0x3F)
+                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                        result = type metadata accessor for Proto_GetShapeLayerParams(319);
+                                                                                                                                                                                                                        if (v109 <= 0x3F)
+                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                          result = type metadata accessor for Proto_LoadConstantNDLayerParams(319);
+                                                                                                                                                                                                                          if (v110 <= 0x3F)
+                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                            result = type metadata accessor for Proto_FillLikeLayerParams(319);
+                                                                                                                                                                                                                            if (v111 <= 0x3F)
+                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                              result = type metadata accessor for Proto_FillStaticLayerParams(319);
+                                                                                                                                                                                                                              if (v112 <= 0x3F)
+                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                result = type metadata accessor for Proto_FillDynamicLayerParams(319);
+                                                                                                                                                                                                                                if (v113 <= 0x3F)
+                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                  result = type metadata accessor for Proto_BroadcastToLikeLayerParams(319);
+                                                                                                                                                                                                                                  if (v114 <= 0x3F)
+                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                    result = type metadata accessor for Proto_BroadcastToStaticLayerParams(319);
+                                                                                                                                                                                                                                    if (v115 <= 0x3F)
+                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                      result = type metadata accessor for Proto_BroadcastToDynamicLayerParams(319);
+                                                                                                                                                                                                                                      if (v116 <= 0x3F)
+                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                        result = type metadata accessor for Proto_SqueezeLayerParams(319);
+                                                                                                                                                                                                                                        if (v117 <= 0x3F)
+                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                          result = type metadata accessor for Proto_ExpandDimsLayerParams(319);
+                                                                                                                                                                                                                                          if (v118 <= 0x3F)
+                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                            result = type metadata accessor for Proto_FlattenTo2DLayerParams(319);
+                                                                                                                                                                                                                                            if (v119 <= 0x3F)
+                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                              result = type metadata accessor for Proto_ReshapeLikeLayerParams(319);
+                                                                                                                                                                                                                                              if (v120 <= 0x3F)
+                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                result = type metadata accessor for Proto_ReshapeStaticLayerParams(319);
+                                                                                                                                                                                                                                                if (v121 <= 0x3F)
+                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                  result = type metadata accessor for Proto_ReshapeDynamicLayerParams(319);
+                                                                                                                                                                                                                                                  if (v122 <= 0x3F)
+                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                    result = type metadata accessor for Proto_RankPreservingReshapeLayerParams(319);
+                                                                                                                                                                                                                                                    if (v123 <= 0x3F)
+                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                      result = type metadata accessor for Proto_ConstantPaddingLayerParams(319);
+                                                                                                                                                                                                                                                      if (v124 <= 0x3F)
+                                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                                        result = type metadata accessor for Proto_RandomNormalLikeLayerParams(319);
+                                                                                                                                                                                                                                                        if (v125 <= 0x3F)
+                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                          result = type metadata accessor for Proto_RandomNormalStaticLayerParams(319);
+                                                                                                                                                                                                                                                          if (v126 <= 0x3F)
+                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                            result = type metadata accessor for Proto_RandomNormalDynamicLayerParams(319);
+                                                                                                                                                                                                                                                            if (v127 <= 0x3F)
+                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                              result = type metadata accessor for Proto_RandomUniformLikeLayerParams(319);
+                                                                                                                                                                                                                                                              if (v128 <= 0x3F)
+                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                result = type metadata accessor for Proto_RandomUniformStaticLayerParams(319);
+                                                                                                                                                                                                                                                                if (v129 <= 0x3F)
+                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                  result = type metadata accessor for Proto_RandomUniformDynamicLayerParams(319);
+                                                                                                                                                                                                                                                                  if (v130 <= 0x3F)
+                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                    result = type metadata accessor for Proto_RandomBernoulliLikeLayerParams(319);
+                                                                                                                                                                                                                                                                    if (v131 <= 0x3F)
+                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                      result = type metadata accessor for Proto_RandomBernoulliStaticLayerParams(319);
+                                                                                                                                                                                                                                                                      if (v132 <= 0x3F)
+                                                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                                                        result = type metadata accessor for Proto_RandomBernoulliDynamicLayerParams(319);
+                                                                                                                                                                                                                                                                        if (v133 <= 0x3F)
+                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                          result = type metadata accessor for Proto_CategoricalDistributionLayerParams(319);
+                                                                                                                                                                                                                                                                          if (v134 <= 0x3F)
+                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                            result = type metadata accessor for Proto_ReduceL1LayerParams(319);
+                                                                                                                                                                                                                                                                            if (v135 <= 0x3F)
+                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                              result = type metadata accessor for Proto_ReduceL2LayerParams(319);
+                                                                                                                                                                                                                                                                              if (v136 <= 0x3F)
+                                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                                result = type metadata accessor for Proto_ReduceMaxLayerParams(319);
+                                                                                                                                                                                                                                                                                if (v137 <= 0x3F)
+                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                  result = type metadata accessor for Proto_ReduceMinLayerParams(319);
+                                                                                                                                                                                                                                                                                  if (v138 <= 0x3F)
+                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                    result = type metadata accessor for Proto_ReduceSumLayerParams(319);
+                                                                                                                                                                                                                                                                                    if (v139 <= 0x3F)
+                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                      result = type metadata accessor for Proto_ReduceProdLayerParams(319);
+                                                                                                                                                                                                                                                                                      if (v140 <= 0x3F)
+                                                                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                                                                        result = type metadata accessor for Proto_ReduceMeanLayerParams(319);
+                                                                                                                                                                                                                                                                                        if (v141 <= 0x3F)
+                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                          result = type metadata accessor for Proto_ReduceLogSumLayerParams(319);
+                                                                                                                                                                                                                                                                                          if (v142 <= 0x3F)
+                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                            result = type metadata accessor for Proto_ReduceSumSquareLayerParams(319);
+                                                                                                                                                                                                                                                                                            if (v143 <= 0x3F)
+                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                              result = type metadata accessor for Proto_ReduceLogSumExpLayerParams(319);
+                                                                                                                                                                                                                                                                                              if (v144 <= 0x3F)
+                                                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                                                result = type metadata accessor for Proto_WhereNonZeroLayerParams(319);
+                                                                                                                                                                                                                                                                                                if (v145 <= 0x3F)
+                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                  result = type metadata accessor for Proto_MatrixBandPartLayerParams(319);
+                                                                                                                                                                                                                                                                                                  if (v146 <= 0x3F)
+                                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                                    result = type metadata accessor for Proto_LowerTriangularLayerParams(319);
+                                                                                                                                                                                                                                                                                                    if (v147 <= 0x3F)
+                                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                                      result = type metadata accessor for Proto_UpperTriangularLayerParams(319);
+                                                                                                                                                                                                                                                                                                      if (v148 <= 0x3F)
+                                                                                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                                                                                        result = type metadata accessor for Proto_WhereBroadcastableLayerParams(319);
+                                                                                                                                                                                                                                                                                                        if (v149 <= 0x3F)
+                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                          result = type metadata accessor for Proto_LayerNormalizationLayerParams(319);
+                                                                                                                                                                                                                                                                                                          if (v150 <= 0x3F)
+                                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                                            result = type metadata accessor for Proto_NonMaximumSuppressionLayerParams(319);
+                                                                                                                                                                                                                                                                                                            if (v151 <= 0x3F)
+                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                              result = type metadata accessor for Proto_OneHotLayerParams(319);
+                                                                                                                                                                                                                                                                                                              if (v152 <= 0x3F)
+                                                                                                                                                                                                                                                                                                              {
+                                                                                                                                                                                                                                                                                                                result = type metadata accessor for Proto_CumSumLayerParams(319);
+                                                                                                                                                                                                                                                                                                                if (v153 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                {
+                                                                                                                                                                                                                                                                                                                  result = type metadata accessor for Proto_ClampedReLULayerParams(319);
+                                                                                                                                                                                                                                                                                                                  if (v154 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                  {
+                                                                                                                                                                                                                                                                                                                    result = type metadata accessor for Proto_ArgSortLayerParams(319);
+                                                                                                                                                                                                                                                                                                                    if (v155 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                    {
+                                                                                                                                                                                                                                                                                                                      result = type metadata accessor for Proto_Pooling3DLayerParams(319);
+                                                                                                                                                                                                                                                                                                                      if (v156 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                      {
+                                                                                                                                                                                                                                                                                                                        result = type metadata accessor for Proto_GlobalPooling3DLayerParams(319);
+                                                                                                                                                                                                                                                                                                                        if (v157 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                        {
+                                                                                                                                                                                                                                                                                                                          result = type metadata accessor for Proto_SliceBySizeLayerParams(319);
+                                                                                                                                                                                                                                                                                                                          if (v158 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                          {
+                                                                                                                                                                                                                                                                                                                            result = type metadata accessor for Proto_Convolution3DLayerParams(319);
+                                                                                                                                                                                                                                                                                                                            if (v159 <= 0x3F)
+                                                                                                                                                                                                                                                                                                                            {
+                                                                                                                                                                                                                                                                                                                              swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+                                                                                                                                                                                                                                                                                                                              return 0;
+                                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                              }
+                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                          }
+                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                      }
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                }
+                                                                                                                                                                                                              }
+                                                                                                                                                                                                            }
+                                                                                                                                                                                                          }
+                                                                                                                                                                                                        }
+                                                                                                                                                                                                      }
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                  }
+                                                                                                                                                                                                }
+                                                                                                                                                                                              }
+                                                                                                                                                                                            }
+                                                                                                                                                                                          }
+                                                                                                                                                                                        }
+                                                                                                                                                                                      }
+                                                                                                                                                                                    }
+                                                                                                                                                                                  }
+                                                                                                                                                                                }
+                                                                                                                                                                              }
+                                                                                                                                                                            }
+                                                                                                                                                                          }
+                                                                                                                                                                        }
+                                                                                                                                                                      }
+                                                                                                                                                                    }
+                                                                                                                                                                  }
+                                                                                                                                                                }
+                                                                                                                                                              }
+                                                                                                                                                            }
+                                                                                                                                                          }
+                                                                                                                                                        }
+                                                                                                                                                      }
+                                                                                                                                                    }
+                                                                                                                                                  }
+                                                                                                                                                }
+                                                                                                                                              }
+                                                                                                                                            }
+                                                                                                                                          }
+                                                                                                                                        }
+                                                                                                                                      }
+                                                                                                                                    }
+                                                                                                                                  }
+                                                                                                                                }
+                                                                                                                              }
+                                                                                                                            }
+                                                                                                                          }
+                                                                                                                        }
+                                                                                                                      }
+                                                                                                                    }
+                                                                                                                  }
+                                                                                                                }
+                                                                                                              }
+                                                                                                            }
+                                                                                                          }
+                                                                                                        }
+                                                                                                      }
+                                                                                                    }
+                                                                                                  }
+                                                                                                }
+                                                                                              }
+                                                                                            }
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575EFFC0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  OUTLINED_FUNCTION_270_0();
+  result = sub_2577431B4();
+  if (v4 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_493Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v1)
+  {
+    return OUTLINED_FUNCTION_7_7(*(v0 + 8));
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  OUTLINED_FUNCTION_96_0();
+  v4 = OUTLINED_FUNCTION_13_2(v3);
+
+  return __swift_getEnumTagSinglePayload(v4, v5, v6);
+}
+
+void sub_2575F02B0(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A348, MEMORY[0x277D84D38], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_27F87CF78, type metadata accessor for Proto_SamplingMode, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        sub_25759B3F4(319, &qword_27F87CF80, type metadata accessor for Proto_BoxCoordinatesMode, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_851Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_173_1();
+
+  return __swift_getEnumTagSinglePayload(v0, v1, v2);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_852Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_115_0();
+
+  return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
+}
+
+uint64_t __swift_get_extra_inhabitant_index_743Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v2)
+  {
+    return OUTLINED_FUNCTION_7_7(*v1);
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v4 + 84) == v0)
+  {
+    OUTLINED_FUNCTION_117_0();
+  }
+
+  else
+  {
+    v6 = OUTLINED_FUNCTION_222();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v6, v7);
+    OUTLINED_FUNCTION_96_0();
+  }
+
+  v8 = OUTLINED_FUNCTION_13_2(v5);
+
+  return __swift_getEnumTagSinglePayload(v8, v9, v10);
+}
+
+void __swift_store_extra_inhabitant_index_744Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v1)
+  {
+    OUTLINED_FUNCTION_200_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_392_0();
+    sub_2577431B4();
+    OUTLINED_FUNCTION_18_3();
+    if (*(v2 + 84) == v0)
+    {
+      OUTLINED_FUNCTION_122_0();
+    }
+
+    else
+    {
+      v4 = OUTLINED_FUNCTION_222();
+      __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+      OUTLINED_FUNCTION_255_0();
+    }
+
+    v6 = OUTLINED_FUNCTION_48_1(v3);
+
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  }
+}
+
+void sub_2575F06E0()
+{
+  OUTLINED_FUNCTION_382_0();
+  OUTLINED_FUNCTION_40_4(v0, &qword_27F87A348, MEMORY[0x277D84D38]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_52_2();
+      OUTLINED_FUNCTION_272_0();
+      sub_25759B3F4(v3, v4, v5, v6);
+      if (v7 <= 0x3F)
+      {
+        OUTLINED_FUNCTION_315_0();
+        OUTLINED_FUNCTION_78_0();
+        swift_cvw_initStructMetadataWithLayoutString();
+        OUTLINED_FUNCTION_97_0();
+      }
+    }
+  }
+}
+
+void sub_2575F0820(uint64_t a1)
+{
+  sub_2575ED254(319, &qword_27F87A658, MEMORY[0x277D83A90], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    sub_2577431B4();
+    if (v2 <= 0x3F)
+    {
+      sub_25759B3F4(319, &qword_27F87CFE0, type metadata accessor for Proto_QuantizationParams, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1489Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_173_1();
+
+  return __swift_getEnumTagSinglePayload(v0, v1, v2);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_1490Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_115_0();
+
+  return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
+}
+
+uint64_t sub_2575F0AA0()
+{
+  result = sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_indexTm_1()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v4)
+  {
+    return OUTLINED_FUNCTION_7_7(*(v0 + 8));
+  }
+
+  v6 = v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+  OUTLINED_FUNCTION_18_3();
+  if (*(v7 + 84) == v6)
+  {
+    OUTLINED_FUNCTION_117_0();
+  }
+
+  else
+  {
+    sub_2577431B4();
+    OUTLINED_FUNCTION_96_0();
+  }
+
+  v9 = OUTLINED_FUNCTION_13_2(v8);
+
+  return __swift_getEnumTagSinglePayload(v9, v10, v11);
+}
+
+void __swift_store_extra_inhabitant_indexTm_1()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v1)
+  {
+    OUTLINED_FUNCTION_155_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_156_0();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+    OUTLINED_FUNCTION_18_3();
+    if (*(v4 + 84) == v0)
+    {
+      OUTLINED_FUNCTION_122_0();
+    }
+
+    else
+    {
+      sub_2577431B4();
+      OUTLINED_FUNCTION_255_0();
+    }
+
+    v6 = OUTLINED_FUNCTION_48_1(v5);
+
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+  }
+}
+
+void sub_2575F0D48()
+{
+  OUTLINED_FUNCTION_345_0();
+  v0 = OUTLINED_FUNCTION_52_2();
+  sub_25759B3F4(v0, v1, v2, v3);
+  if (v4 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_302_0();
+    sub_2577431B4();
+    if (v5 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_315_0();
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1711Tm()
+{
+  OUTLINED_FUNCTION_264_0();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_238_0();
+    v3 = (v1 + v2) & 0x7FFFFFFF;
+    if (v4)
+    {
+      return (v3 + 1);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_77_1();
+    OUTLINED_FUNCTION_117_0();
+    v7 = OUTLINED_FUNCTION_13_2(v6);
+
+    return __swift_getEnumTagSinglePayload(v7, v8, v9);
+  }
+}
+
+void __swift_store_extra_inhabitant_index_1712Tm()
+{
+  OUTLINED_FUNCTION_107_0();
+  if (v2)
+  {
+    *v1 = v0 + 1;
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_122_0();
+    v4 = OUTLINED_FUNCTION_48_1(v3);
+
+    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+  }
+}
+
+uint64_t sub_2575F0EEC()
+{
+  result = sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1078Tm(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  OUTLINED_FUNCTION_376();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v7 + 84) != a2)
+  {
+    return OUTLINED_FUNCTION_7_7(*(v3 + *(a3 + 20)));
+  }
+
+  return __swift_getEnumTagSinglePayload(v3, a2, v6);
+}
+
+uint64_t sub_2575F102C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
+{
+  OUTLINED_FUNCTION_270_0();
+  result = sub_2577431B4();
+  if (v6 <= 0x3F)
+  {
+    v7 = OUTLINED_FUNCTION_302_0();
+    result = a4(v7);
+    if (v8 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      return OUTLINED_FUNCTION_97_0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1174Tm()
+{
+  OUTLINED_FUNCTION_52_1();
+  if (v2)
+  {
+    return OUTLINED_FUNCTION_7_7(*v1);
+  }
+
+  OUTLINED_FUNCTION_77_1();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v4 + 84) == v0)
+  {
+    OUTLINED_FUNCTION_271_0();
+  }
+
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
+    OUTLINED_FUNCTION_290_0();
+  }
+
+  v6 = OUTLINED_FUNCTION_13_2(v5);
+
+  return __swift_getEnumTagSinglePayload(v6, v7, v8);
+}
+
+void __swift_store_extra_inhabitant_index_1175Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v1)
+  {
+    OUTLINED_FUNCTION_200_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_156_0();
+    sub_2577431B4();
+    OUTLINED_FUNCTION_18_3();
+    if (*(v2 + 84) == v0)
+    {
+      OUTLINED_FUNCTION_274_0();
+    }
+
+    else
+    {
+      __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C788, &unk_257751EA0);
+      OUTLINED_FUNCTION_295_0();
+    }
+
+    v4 = OUTLINED_FUNCTION_48_1(v3);
+
+    __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+  }
+}
+
+void sub_2575F1220()
+{
+  sub_25759B3F4(319, &qword_27F87C790, type metadata accessor for Proto_NeuralNetworkLayer, MEMORY[0x277D83940]);
+  if (v0 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87C798, type metadata accessor for Proto_NeuralNetworkPreprocessing, MEMORY[0x277D83940]);
+    if (v1 <= 0x3F)
+    {
+      sub_2577431B4();
+      if (v2 <= 0x3F)
+      {
+        sub_25759B3F4(319, &qword_2815376E8, type metadata accessor for Proto_NetworkUpdateParameters, MEMORY[0x277D83D88]);
+        if (v3 <= 0x3F)
+        {
+          OUTLINED_FUNCTION_78_0();
+          swift_cvw_initStructMetadataWithLayoutString();
+          OUTLINED_FUNCTION_97_0();
+        }
+      }
+    }
+  }
+}
+
+void sub_2575F1398(uint64_t a1)
+{
+  sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    sub_25759B3F4(319, &qword_27F87CD48, type metadata accessor for Proto_NeuralNetwork, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t __swift_get_extra_inhabitant_index_770Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_173_1();
+
+  return __swift_getEnumTagSinglePayload(v0, v1, v2);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_771Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  v0 = OUTLINED_FUNCTION_115_0();
+
+  return __swift_storeEnumTagSinglePayload(v0, v1, v2, v3);
+}
+
+uint64_t sub_2575F154C()
+{
+  result = sub_2577431B4();
+  if (v1 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_315_0();
+    OUTLINED_FUNCTION_78_0();
+    swift_cvw_initStructMetadataWithLayoutString();
+    return OUTLINED_FUNCTION_97_0();
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_1300Tm()
+{
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v1 + 84) == v0)
+  {
+    v2 = OUTLINED_FUNCTION_72_0();
+  }
+
+  else
+  {
+    v4 = OUTLINED_FUNCTION_222();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+    v2 = OUTLINED_FUNCTION_24_5();
+  }
+
+  return __swift_getEnumTagSinglePayload(v2, v0, v3);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_1301Tm()
+{
+  OUTLINED_FUNCTION_392_0();
+  OUTLINED_FUNCTION_267();
+  sub_2577431B4();
+  OUTLINED_FUNCTION_18_3();
+  if (*(v1 + 84) == v0)
+  {
+    OUTLINED_FUNCTION_55_0();
+  }
+
+  else
+  {
+    v2 = OUTLINED_FUNCTION_222();
+    __swift_instantiateConcreteTypeFromMangledNameV2(v2, v3);
+    OUTLINED_FUNCTION_24_5();
+  }
+
+  OUTLINED_FUNCTION_59_0();
+
+  return __swift_storeEnumTagSinglePayload(v4, v5, v6, v7);
+}
+
+void sub_2575F1728()
+{
+  OUTLINED_FUNCTION_382_0();
+  OUTLINED_FUNCTION_270_0();
+  sub_2577431B4();
+  if (v0 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_52_2();
+    OUTLINED_FUNCTION_272_0();
+    sub_25759B3F4(v1, v2, v3, v4);
+    if (v5 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+void __swift_store_extra_inhabitant_index_977Tm()
+{
+  OUTLINED_FUNCTION_4_7();
+  if (v0)
+  {
+    OUTLINED_FUNCTION_200_0();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_143_0();
+    OUTLINED_FUNCTION_122_0();
+    v2 = OUTLINED_FUNCTION_48_1(v1);
+
+    __swift_storeEnumTagSinglePayload(v2, v3, v4, v5);
+  }
+}
+
+void sub_2575F1864(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = OUTLINED_FUNCTION_270_0();
+  sub_25759B3F4(v5, v6, v7, v8);
+  if (v9 <= 0x3F)
+  {
+    OUTLINED_FUNCTION_302_0();
+    sub_2577431B4();
+    if (v10 <= 0x3F)
+    {
+      OUTLINED_FUNCTION_78_0();
+      swift_cvw_initStructMetadataWithLayoutString();
+      OUTLINED_FUNCTION_97_0();
+    }
+  }
+}
+
+unint64_t sub_2575F18E4()
+{
+  result = qword_27F87D0B8;
+  if (!qword_27F87D0B8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D0B8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F196C()
+{
+  result = qword_27F87D0D0;
+  if (!qword_27F87D0D0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D0D0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F19C4()
+{
+  result = qword_27F87D0D8;
+  if (!qword_27F87D0D8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D0D8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1A1C()
+{
+  result = qword_27F87D0E0;
+  if (!qword_27F87D0E0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D0E0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1AA4()
+{
+  result = qword_27F87D0F8;
+  if (!qword_27F87D0F8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D0F8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1AFC()
+{
+  result = qword_27F87D100;
+  if (!qword_27F87D100)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D100);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1B54()
+{
+  result = qword_27F87D108;
+  if (!qword_27F87D108)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D108);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1BDC()
+{
+  result = qword_27F87D120;
+  if (!qword_27F87D120)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D120);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1C34()
+{
+  result = qword_27F87D128;
+  if (!qword_27F87D128)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D128);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1C8C()
+{
+  result = qword_27F87D130;
+  if (!qword_27F87D130)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D130);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1D14()
+{
+  result = qword_27F87D148;
+  if (!qword_27F87D148)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D148);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1D6C()
+{
+  result = qword_27F87D150;
+  if (!qword_27F87D150)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D150);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1DC4()
+{
+  result = qword_27F87D158;
+  if (!qword_27F87D158)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D158);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1E4C()
+{
+  result = qword_27F87D170;
+  if (!qword_27F87D170)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D170);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1EA4()
+{
+  result = qword_27F87D178;
+  if (!qword_27F87D178)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D178);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1EFC()
+{
+  result = qword_27F87D180;
+  if (!qword_27F87D180)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D180);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1F84()
+{
+  result = qword_27F87D198;
+  if (!qword_27F87D198)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D198);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F1FDC()
+{
+  result = qword_27F87D1A0;
+  if (!qword_27F87D1A0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1A0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2034()
+{
+  result = qword_27F87D1A8;
+  if (!qword_27F87D1A8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1A8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F20BC()
+{
+  result = qword_27F87D1C0;
+  if (!qword_27F87D1C0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1C0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2114()
+{
+  result = qword_27F87D1C8;
+  if (!qword_27F87D1C8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1C8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F216C()
+{
+  result = qword_27F87D1D0;
+  if (!qword_27F87D1D0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1D0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F21F4()
+{
+  result = qword_27F87D1E8;
+  if (!qword_27F87D1E8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1E8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F224C()
+{
+  result = qword_27F87D1F0;
+  if (!qword_27F87D1F0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1F0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F22A4()
+{
+  result = qword_27F87D1F8;
+  if (!qword_27F87D1F8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D1F8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F232C()
+{
+  result = qword_27F87D210;
+  if (!qword_27F87D210)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D210);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2384()
+{
+  result = qword_27F87D218;
+  if (!qword_27F87D218)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D218);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F23DC()
+{
+  result = qword_27F87D220;
+  if (!qword_27F87D220)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D220);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2464()
+{
+  result = qword_27F87D238;
+  if (!qword_27F87D238)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D238);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F24BC()
+{
+  result = qword_27F87D240;
+  if (!qword_27F87D240)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D240);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2514()
+{
+  result = qword_27F87D248;
+  if (!qword_27F87D248)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D248);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F259C()
+{
+  result = qword_27F87D260;
+  if (!qword_27F87D260)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D260);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F25F4()
+{
+  result = qword_27F87D268;
+  if (!qword_27F87D268)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D268);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F264C()
+{
+  result = qword_27F87D270;
+  if (!qword_27F87D270)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D270);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F26D4()
+{
+  result = qword_27F87D288;
+  if (!qword_27F87D288)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D288);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F272C()
+{
+  result = qword_27F87D290;
+  if (!qword_27F87D290)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D290);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2784()
+{
+  result = qword_27F87D298;
+  if (!qword_27F87D298)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D298);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F280C()
+{
+  result = qword_27F87D2B0;
+  if (!qword_27F87D2B0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2B0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2864()
+{
+  result = qword_27F87D2B8;
+  if (!qword_27F87D2B8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2B8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F28BC()
+{
+  result = qword_27F87D2C0;
+  if (!qword_27F87D2C0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2C0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2944()
+{
+  result = qword_27F87D2D8;
+  if (!qword_27F87D2D8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2D8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F299C()
+{
+  result = qword_27F87D2E0;
+  if (!qword_27F87D2E0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2E0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F29F4()
+{
+  result = qword_27F87D2E8;
+  if (!qword_27F87D2E8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D2E8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2A7C()
+{
+  result = qword_27F87D300;
+  if (!qword_27F87D300)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D300);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2AD4()
+{
+  result = qword_27F87D308;
+  if (!qword_27F87D308)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D308);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2B2C()
+{
+  result = qword_27F87D310;
+  if (!qword_27F87D310)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D310);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2BB4()
+{
+  result = qword_27F87D328;
+  if (!qword_27F87D328)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D328);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2C0C()
+{
+  result = qword_27F87D330;
+  if (!qword_27F87D330)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D330);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2C64()
+{
+  result = qword_27F87D338;
+  if (!qword_27F87D338)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D338);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2CEC()
+{
+  result = qword_27F87D350;
+  if (!qword_27F87D350)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D350);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2D44()
+{
+  result = qword_27F87D358;
+  if (!qword_27F87D358)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D358);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2D9C()
+{
+  result = qword_27F87D360;
+  if (!qword_27F87D360)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D360);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2E24()
+{
+  result = qword_27F87D378;
+  if (!qword_27F87D378)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D378);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2E7C()
+{
+  result = qword_27F87D380;
+  if (!qword_27F87D380)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D380);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2ED4()
+{
+  result = qword_27F87D388;
+  if (!qword_27F87D388)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D388);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2F5C()
+{
+  result = qword_27F87D3A0;
+  if (!qword_27F87D3A0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3A0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F2FB4()
+{
+  result = qword_27F87D3A8;
+  if (!qword_27F87D3A8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3A8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F300C()
+{
+  result = qword_27F87D3B0;
+  if (!qword_27F87D3B0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3B0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F3094()
+{
+  result = qword_27F87D3C8;
+  if (!qword_27F87D3C8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3C8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F30EC()
+{
+  result = qword_27F87D3D0;
+  if (!qword_27F87D3D0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3D0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F3144()
+{
+  result = qword_27F87D3D8;
+  if (!qword_27F87D3D8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3D8);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F31CC()
+{
+  result = qword_27F87D3F0;
+  if (!qword_27F87D3F0)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3F0);
+  }
+
+  return result;
+}
+
+unint64_t sub_2575F3224()
+{
+  result = qword_27F87D3F8;
+  if (!qword_27F87D3F8)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &qword_27F87D3F8);
+  }
+
+  return result;
+}
+
+void sub_2575F3278()
+{
+  OUTLINED_FUNCTION_165_0();
+  v2 = v1;
+  v9 = v3;
+  v5 = v4;
+  v7 = *(v6(0) + 20);
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v5(0);
+    OUTLINED_FUNCTION_89_1();
+    swift_allocObject();
+    v8 = OUTLINED_FUNCTION_71_0();
+    *(v0 + v7) = v9(v8);
+  }
+
+  OUTLINED_FUNCTION_313_0();
+  OUTLINED_FUNCTION_291_0();
+  v2();
+  OUTLINED_FUNCTION_166_0();
+}
+
+uint64_t sub_2575F3324(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  while (1)
+  {
+    result = sub_257743234();
+    if (v4 || (v10 & 1) != 0)
+    {
+      return result;
+    }
+
+    switch(result)
+    {
+      case 1:
+        sub_2575F3428(a2, a1, a3, a4);
+        break;
+      case 2:
+        sub_2575F34F4(a2, a1, a3, a4);
+        break;
+      case 3:
+        sub_2575F35D0(a2, a1, a3, a4);
+        break;
+      case 4:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 9:
+        continue;
+      case 10:
+        sub_2575F36AC(a2, a1, a3, a4);
+        break;
+      default:
+        if (result == 20)
+        {
+          sub_2575F3788(a2, a1, a3, a4);
+        }
+
+        break;
+    }
+  }
+}
+
+uint64_t sub_2575F3428(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Proto_LossLayer(0);
+  sub_2575FB760(&qword_27F87D4A8, type metadata accessor for Proto_LossLayer, &unk_2577554B0);
+  sub_2577433C4();
+  return swift_endAccess();
+}
+
+uint64_t sub_2575F34F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Proto_Optimizer(0);
+  sub_2575FB760(&qword_27F87D448, type metadata accessor for Proto_Optimizer, &unk_257755078);
+  sub_2577433D4();
+  return swift_endAccess();
+}
+
+uint64_t sub_2575F35D0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Proto_Int64Parameter(0);
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  sub_2577433D4();
+  return swift_endAccess();
+}
+
+uint64_t sub_2575F36AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Proto_BoolParameter(0);
+  sub_2575FB760(&qword_27F87F930, type metadata accessor for Proto_BoolParameter, &unk_257768288);
+  sub_2577433D4();
+  return swift_endAccess();
+}
+
+uint64_t sub_2575F3788(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  type metadata accessor for Proto_Int64Parameter(0);
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  sub_2577433D4();
+  return swift_endAccess();
+}
+
+uint64_t sub_2575F3864(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  swift_beginAccess();
+  if (!*(*(a1 + 16) + 16) || (type metadata accessor for Proto_LossLayer(0), sub_2575FB760(&qword_27F87D4A8, type metadata accessor for Proto_LossLayer, &unk_2577554B0), , sub_257743564(), result = , !v4))
+  {
+    result = sub_2575F39CC(a1, a2, a3, a4);
+    if (!v4)
+    {
+      sub_2575F3BC0(a1, a2, a3, a4);
+      sub_2575F3DB4(a1, a2, a3, a4);
+      return sub_2575F3FA8(a1, a2, a3, a4);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575F39CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[5] = a4;
+  v11[0] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F938, &qword_257767338);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_Optimizer(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  swift_beginAccess();
+  sub_257487308(a1 + v9);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87F938, &qword_257767338);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87D448, type metadata accessor for Proto_Optimizer, &unk_257755078);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+uint64_t sub_2575F3BC0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[5] = a4;
+  v11[0] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_Int64Parameter(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  swift_beginAccess();
+  sub_257487308(a1 + v9);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87BD30, &unk_2577504D0);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+uint64_t sub_2575F3DB4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[5] = a4;
+  v11[0] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F928, &qword_257767330);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_BoolParameter(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  swift_beginAccess();
+  sub_257487308(a1 + v9);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87F928, &qword_257767330);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87F930, type metadata accessor for Proto_BoolParameter, &unk_257768288);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+uint64_t sub_2575F3FA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[5] = a4;
+  v11[0] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_Int64Parameter(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed;
+  swift_beginAccess();
+  sub_257487308(a1 + v9);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87BD30, &unk_2577504D0);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+BOOL sub_2575F419C(uint64_t a1, uint64_t a2)
+{
+  v81 = type metadata accessor for Proto_BoolParameter(0);
+  MEMORY[0x28223BE20](v81);
+  v75 = &v72 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F940, &unk_257767340);
+  MEMORY[0x28223BE20](v80);
+  v82 = &v72 - v5;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F928, &qword_257767330);
+  v7 = MEMORY[0x28223BE20](v6 - 8);
+  v77 = &v72 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v89 = &v72 - v9;
+  v88 = type metadata accessor for Proto_Int64Parameter(0);
+  MEMORY[0x28223BE20](v88);
+  v78 = &v72 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BED8, &qword_2577510C8);
+  v11 = MEMORY[0x28223BE20](v87);
+  v76 = &v72 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11);
+  v86 = &v72 - v13;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+  v15 = MEMORY[0x28223BE20](v14 - 8);
+  v74 = &v72 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x28223BE20](v15);
+  v79 = &v72 - v18;
+  v19 = MEMORY[0x28223BE20](v17);
+  v83 = &v72 - v20;
+  MEMORY[0x28223BE20](v19);
+  v85 = &v72 - v21;
+  v22 = type metadata accessor for Proto_Optimizer(0);
+  MEMORY[0x28223BE20](v22);
+  v84 = &v72 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F948, &qword_257767350);
+  MEMORY[0x28223BE20](v24);
+  v26 = &v72 - v25;
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F938, &qword_257767338);
+  v28 = MEMORY[0x28223BE20](v27 - 8);
+  MEMORY[0x28223BE20](v28);
+  v30 = &v72 - v29;
+  swift_beginAccess();
+  swift_beginAccess();
+
+  sub_257482CE4();
+  v32 = v31;
+
+  if ((v32 & 1) == 0)
+  {
+    goto LABEL_27;
+  }
+
+  v90 = a2;
+  v33 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  swift_beginAccess();
+  v73 = a1;
+  sub_257487308(a1 + v33);
+  v34 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__optimizer;
+  swift_beginAccess();
+  v35 = *(v24 + 48);
+  sub_257487308(v30);
+  sub_257487308(v90 + v34);
+  if (__swift_getEnumTagSinglePayload(v26, 1, v22) == 1)
+  {
+    sub_2574695E4(v30, &qword_27F87F938, &qword_257767338);
+    if (__swift_getEnumTagSinglePayload(&v26[v35], 1, v22) == 1)
+    {
+      sub_2574695E4(v26, &qword_27F87F938, &qword_257767338);
+      v36 = v73;
+      goto LABEL_10;
+    }
+
+LABEL_8:
+    sub_2574695E4(v26, &qword_27F87F948, &qword_257767350);
+    goto LABEL_27;
+  }
+
+  sub_257487308(v26);
+  if (__swift_getEnumTagSinglePayload(&v26[v35], 1, v22) == 1)
+  {
+    sub_2574695E4(v30, &qword_27F87F938, &qword_257767338);
+    sub_257609BCC();
+    goto LABEL_8;
+  }
+
+  sub_257609B78();
+  sub_2575F86BC();
+  v38 = v37;
+  sub_257609BCC();
+  sub_2574695E4(v30, &qword_27F87F938, &qword_257767338);
+  sub_257609BCC();
+  sub_2574695E4(v26, &qword_27F87F938, &qword_257767338);
+  v36 = v73;
+  if ((v38 & 1) == 0)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_10:
+  v39 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  swift_beginAccess();
+  v40 = v85;
+  sub_257487308(v36 + v39);
+  v41 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__epochs;
+  swift_beginAccess();
+  v42 = v87;
+  v43 = *(v87 + 48);
+  v44 = v86;
+  sub_257487308(v40);
+  sub_257487308(v90 + v41);
+  v45 = v88;
+  if (__swift_getEnumTagSinglePayload(v44, 1, v88) == 1)
+  {
+    sub_2574695E4(v40, &qword_27F87BD30, &unk_2577504D0);
+    EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v44 + v43, 1, v45);
+    v47 = v89;
+    if (EnumTagSinglePayload == 1)
+    {
+      sub_2574695E4(v44, &qword_27F87BD30, &unk_2577504D0);
+      goto LABEL_17;
+    }
+
+LABEL_15:
+    v49 = &qword_27F87BED8;
+    v50 = &qword_2577510C8;
+    v51 = v44;
+LABEL_26:
+    sub_2574695E4(v51, v49, v50);
+    goto LABEL_27;
+  }
+
+  sub_257487308(v44);
+  v48 = __swift_getEnumTagSinglePayload(v44 + v43, 1, v45);
+  v47 = v89;
+  if (v48 == 1)
+  {
+    sub_2574695E4(v40, &qword_27F87BD30, &unk_2577504D0);
+    sub_257609BCC();
+    goto LABEL_15;
+  }
+
+  sub_257609B78();
+  LODWORD(v84) = sub_257615594();
+  sub_257609BCC();
+  sub_2574695E4(v40, &qword_27F87BD30, &unk_2577504D0);
+  sub_257609BCC();
+  sub_2574695E4(v44, &qword_27F87BD30, &unk_2577504D0);
+  if ((v84 & 1) == 0)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_17:
+  v52 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  swift_beginAccess();
+  sub_257487308(v36 + v52);
+  v53 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__shuffle;
+  swift_beginAccess();
+  v54 = *(v80 + 48);
+  v55 = v82;
+  sub_257487308(v47);
+  v56 = v55;
+  sub_257487308(v90 + v53);
+  v57 = v81;
+  if (__swift_getEnumTagSinglePayload(v55, 1, v81) != 1)
+  {
+    v64 = v55;
+    v65 = v77;
+    sub_257487308(v64);
+    if (__swift_getEnumTagSinglePayload(v56 + v54, 1, v57) == 1)
+    {
+      sub_2574695E4(v47, &qword_27F87F928, &qword_257767330);
+      sub_257609BCC();
+      goto LABEL_25;
+    }
+
+    v67 = v75;
+    sub_257609B78();
+    v68 = v56;
+    if (*v65 != *v67)
+    {
+      sub_257609BCC();
+      sub_2574695E4(v89, &qword_27F87F928, &qword_257767330);
+      sub_257609BCC();
+      v51 = v56;
+      v49 = &qword_27F87F928;
+      v50 = &qword_257767330;
+      goto LABEL_26;
+    }
+
+    sub_2577431B4();
+    sub_2575FB760(&qword_27F879B68, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v69 = sub_257743644();
+    sub_257609BCC();
+    sub_2574695E4(v89, &qword_27F87F928, &qword_257767330);
+    sub_257609BCC();
+    v70 = v68;
+    v59 = v79;
+    sub_2574695E4(v70, &qword_27F87F928, &qword_257767330);
+    if (v69)
+    {
+      goto LABEL_20;
+    }
+
+LABEL_27:
+
+    return 0;
+  }
+
+  sub_2574695E4(v47, &qword_27F87F928, &qword_257767330);
+  v58 = __swift_getEnumTagSinglePayload(v55 + v54, 1, v57);
+  v59 = v79;
+  if (v58 != 1)
+  {
+LABEL_25:
+    v49 = &qword_27F87F940;
+    v50 = &unk_257767340;
+    v51 = v56;
+    goto LABEL_26;
+  }
+
+  sub_2574695E4(v55, &qword_27F87F928, &qword_257767330);
+LABEL_20:
+  v60 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed;
+  swift_beginAccess();
+  sub_257487308(v36 + v60);
+  v61 = OBJC_IVAR____TtCV20MLModelSpecification29Proto_NetworkUpdateParametersP33_FEBA7ED9F351FA7751CD6B489714AC0A13_StorageClass__seed;
+  swift_beginAccess();
+  v62 = *(v42 + 48);
+  v63 = v76;
+  sub_257487308(v59);
+  sub_257487308(v90 + v61);
+  if (__swift_getEnumTagSinglePayload(v63, 1, v45) == 1)
+  {
+
+    sub_2574695E4(v59, &qword_27F87BD30, &unk_2577504D0);
+    if (__swift_getEnumTagSinglePayload(v63 + v62, 1, v45) == 1)
+    {
+      sub_2574695E4(v63, &qword_27F87BD30, &unk_2577504D0);
+      return 1;
+    }
+
+    goto LABEL_34;
+  }
+
+  sub_257487308(v63);
+  if (__swift_getEnumTagSinglePayload(v63 + v62, 1, v45) == 1)
+  {
+
+    sub_2574695E4(v79, &qword_27F87BD30, &unk_2577504D0);
+    sub_257609BCC();
+LABEL_34:
+    sub_2574695E4(v63, &qword_27F87BED8, &qword_2577510C8);
+    return 0;
+  }
+
+  sub_257609B78();
+  v71 = sub_257615594();
+
+  sub_257609BCC();
+  sub_2574695E4(v79, &qword_27F87BD30, &unk_2577504D0);
+  sub_257609BCC();
+  sub_2574695E4(v63, &qword_27F87BD30, &unk_2577504D0);
+  return (v71 & 1) != 0;
+}
+
+uint64_t sub_2575F51D4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F920, type metadata accessor for Proto_NetworkUpdateParameters, &unk_2577555E0);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575F5274(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters, &unk_257755618);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575F533C(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D4C8, type metadata accessor for Proto_NetworkUpdateParameters, &unk_257755618);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575F53FC()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9F10);
+  __swift_project_value_buffer(v0, qword_27F8E9F10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_2577442C0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "name";
+  *(v6 + 8) = 4;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 10;
+  *v10 = "categoricalCrossEntropyLossLayer";
+  *(v10 + 1) = 32;
+  v10[16] = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 11;
+  *v12 = "meanSquaredErrorLossLayer";
+  *(v12 + 1) = 25;
+  v12[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575F5608()
+{
+  OUTLINED_FUNCTION_100_1();
+  while (1)
+  {
+    OUTLINED_FUNCTION_194();
+    result = sub_257743234();
+    if (v1 || (v4 & 1) != 0)
+    {
+      break;
+    }
+
+    switch(result)
+    {
+      case 11:
+        OUTLINED_FUNCTION_353_0();
+        v0();
+        break;
+      case 10:
+        OUTLINED_FUNCTION_353_0();
+        v2();
+        break;
+      case 1:
+        OUTLINED_FUNCTION_144_0();
+        sub_257743394();
+        break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575F56A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v31 = a3;
+  v32 = a4;
+  v33 = a2;
+  v5 = type metadata accessor for Proto_CategoricalCrossEntropyLossLayer(0);
+  v6 = MEMORY[0x28223BE20](v5);
+  v29 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F978, &qword_257767380);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v25 - v17;
+  __swift_storeEnumTagSinglePayload(&v25 - v17, 1, 1, v5);
+  v25 = *(type metadata accessor for Proto_LossLayer(0) + 20);
+  v26 = a1;
+  sub_257487308(a1 + v25);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v28 = v11;
+  if (EnumTagSinglePayload == 1)
+  {
+    sub_2574695E4(v10, &qword_27F879C48, &qword_257744560);
+  }
+
+  else
+  {
+    sub_257609B78();
+    sub_257609B78();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_257609BCC();
+    }
+
+    else
+    {
+      sub_2574695E4(v18, &qword_27F87F978, &qword_257767380);
+      sub_257609B78();
+      sub_257609B78();
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
+    }
+  }
+
+  sub_2575FB760(&qword_27F87D488, type metadata accessor for Proto_CategoricalCrossEntropyLossLayer, &unk_257755348);
+  v19 = v30;
+  sub_2577433D4();
+  if (v19)
+  {
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87F978, &qword_257767380);
+  }
+
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
+  {
+    sub_2574695E4(v18, &qword_27F87F978, &qword_257767380);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87F978, &qword_257767380);
+  }
+
+  sub_257609B78();
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_257743244();
+  }
+
+  v22 = v28;
+  sub_2574695E4(v18, &qword_27F87F978, &qword_257767380);
+  v24 = v25;
+  v23 = v26;
+  sub_2574695E4(v26 + v25, &qword_27F879C48, &qword_257744560);
+  sub_257609B78();
+  swift_storeEnumTagMultiPayload();
+  return __swift_storeEnumTagSinglePayload(v23 + v24, 0, 1, v22);
+}
+
+uint64_t sub_2575F5BAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v31 = a3;
+  v32 = a4;
+  v33 = a2;
+  v5 = type metadata accessor for Proto_MeanSquaredErrorLossLayer(0);
+  v6 = MEMORY[0x28223BE20](v5);
+  v29 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F980, &qword_257767388);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v25 - v17;
+  __swift_storeEnumTagSinglePayload(&v25 - v17, 1, 1, v5);
+  v25 = *(type metadata accessor for Proto_LossLayer(0) + 20);
+  v26 = a1;
+  sub_257487308(a1 + v25);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v28 = v11;
+  if (EnumTagSinglePayload == 1)
+  {
+    sub_2574695E4(v10, &qword_27F879C48, &qword_257744560);
+  }
+
+  else
+  {
+    sub_257609B78();
+    sub_257609B78();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_2574695E4(v18, &qword_27F87F980, &qword_257767388);
+      sub_257609B78();
+      sub_257609B78();
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
+    }
+
+    else
+    {
+      sub_257609BCC();
+    }
+  }
+
+  sub_2575FB760(&qword_27F87D468, type metadata accessor for Proto_MeanSquaredErrorLossLayer, &unk_2577551E0);
+  v19 = v30;
+  sub_2577433D4();
+  if (v19)
+  {
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87F980, &qword_257767388);
+  }
+
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
+  {
+    sub_2574695E4(v18, &qword_27F87F980, &qword_257767388);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87F980, &qword_257767388);
+  }
+
+  sub_257609B78();
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_257743244();
+  }
+
+  v22 = v28;
+  sub_2574695E4(v18, &qword_27F87F980, &qword_257767388);
+  v24 = v25;
+  v23 = v26;
+  sub_2574695E4(v26 + v25, &qword_27F879C48, &qword_257744560);
+  sub_257609B78();
+  swift_storeEnumTagMultiPayload();
+  return __swift_storeEnumTagSinglePayload(v23 + v24, 0, 1, v22);
+}
+
+void sub_2575F60B0()
+{
+  OUTLINED_FUNCTION_102_0();
+  OUTLINED_FUNCTION_2_7();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  OUTLINED_FUNCTION_13(v1);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v2);
+  OUTLINED_FUNCTION_32_4();
+  OUTLINED_FUNCTION_1_6();
+  if (!v3 || (OUTLINED_FUNCTION_3_10(), sub_257743534(), !v0))
+  {
+    v4 = type metadata accessor for Proto_LossLayer(0);
+    OUTLINED_FUNCTION_375_0(*(v4 + 20));
+    v5 = type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(0);
+    v6 = OUTLINED_FUNCTION_171_1();
+    OUTLINED_FUNCTION_155(v6, v7, v5);
+    if (v8)
+    {
+      goto LABEL_8;
+    }
+
+    OUTLINED_FUNCTION_311();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      v9 = OUTLINED_FUNCTION_3_9();
+      sub_2575F63E4(v9, v10, v11, v12);
+    }
+
+    else
+    {
+      v13 = OUTLINED_FUNCTION_3_9();
+      sub_2575F61C4(v13, v14, v15, v16);
+    }
+
+    OUTLINED_FUNCTION_58_0();
+    sub_257609BCC();
+    if (!v0)
+    {
+LABEL_8:
+      OUTLINED_FUNCTION_7_5();
+    }
+  }
+
+  OUTLINED_FUNCTION_82_0();
+  OUTLINED_FUNCTION_103_0();
+}
+
+uint64_t sub_2575F61C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v12 - v6;
+  v8 = type metadata accessor for Proto_CategoricalCrossEntropyLossLayer(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for Proto_LossLayer(0);
+  sub_257487308(a1 + *(v9 + 20));
+  v10 = type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
+  {
+    result = sub_2574695E4(v7, &qword_27F879C48, &qword_257744560);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      sub_257609B78();
+      sub_2575FB760(&qword_27F87D488, type metadata accessor for Proto_CategoricalCrossEntropyLossLayer, &unk_257755348);
+      sub_257743574();
+      return sub_257609BCC();
+    }
+
+    result = sub_257609BCC();
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2575F63E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v12[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v12 - v6;
+  v8 = type metadata accessor for Proto_MeanSquaredErrorLossLayer(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for Proto_LossLayer(0);
+  sub_257487308(a1 + *(v9 + 20));
+  v10 = type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v10) == 1)
+  {
+    result = sub_2574695E4(v7, &qword_27F879C48, &qword_257744560);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_257609B78();
+      sub_2575FB760(&qword_27F87D468, type metadata accessor for Proto_MeanSquaredErrorLossLayer, &unk_2577551E0);
+      sub_257743574();
+      return sub_257609BCC();
+    }
+
+    result = sub_257609BCC();
+  }
+
+  __break(1u);
+  return result;
+}
+
+void sub_2575F6604()
+{
+  OUTLINED_FUNCTION_31();
+  v4 = OUTLINED_FUNCTION_0_0();
+  type metadata accessor for Proto_LossLayer.OneOf_LossLayerType(v4);
+  OUTLINED_FUNCTION_42_4();
+  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_7_6();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C48, &qword_257744560);
+  OUTLINED_FUNCTION_13(v6);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_75_0();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F879C50, &qword_257744568);
+  OUTLINED_FUNCTION_41_4();
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v8);
+  OUTLINED_FUNCTION_32_3();
+  v9 = *v1 == *v0 && v1[1] == v0[1];
+  if (!v9 && (sub_257743994() & 1) == 0)
+  {
+    goto LABEL_15;
+  }
+
+  v10 = type metadata accessor for Proto_LossLayer(0);
+  OUTLINED_FUNCTION_335_0(v10);
+  OUTLINED_FUNCTION_149_1();
+  OUTLINED_FUNCTION_129_1();
+  OUTLINED_FUNCTION_65(v2);
+  if (v9)
+  {
+    OUTLINED_FUNCTION_65(v2 + v3);
+    if (v9)
+    {
+      sub_2574695E4(v2, &qword_27F879C48, &qword_257744560);
+LABEL_17:
+      OUTLINED_FUNCTION_321_0();
+      OUTLINED_FUNCTION_1_16();
+      v18 = sub_2575FB760(v16, v17, MEMORY[0x277D216D0]);
+      v13 = OUTLINED_FUNCTION_4_2(v18);
+      goto LABEL_18;
+    }
+
+    goto LABEL_14;
+  }
+
+  v11 = OUTLINED_FUNCTION_277();
+  sub_257487308(v11);
+  OUTLINED_FUNCTION_65(v2 + v3);
+  if (v12)
+  {
+    OUTLINED_FUNCTION_58_0();
+    sub_257609BCC();
+LABEL_14:
+    sub_2574695E4(v2, &qword_27F879C50, &qword_257744568);
+    goto LABEL_15;
+  }
+
+  OUTLINED_FUNCTION_254_0();
+  OUTLINED_FUNCTION_360();
+  sub_257533840();
+  v15 = v14;
+  sub_257609BCC();
+  OUTLINED_FUNCTION_357_0();
+  sub_2574695E4(v2, &qword_27F879C48, &qword_257744560);
+  if (v15)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_15:
+  v13 = 0;
+LABEL_18:
+  OUTLINED_FUNCTION_65_0(v13);
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2575F68F4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F970, type metadata accessor for Proto_LossLayer, &unk_257755478);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575F6994(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D4A8, type metadata accessor for Proto_LossLayer, &unk_2577554B0);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575F6A5C(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D4A8, type metadata accessor for Proto_LossLayer, &unk_2577554B0);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575F6ADC()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9F28);
+  __swift_project_value_buffer(v0, qword_27F8E9F28);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_257743FF0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "input";
+  *(v6 + 8) = 5;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "target";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575F6D18(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F988, type metadata accessor for Proto_CategoricalCrossEntropyLossLayer, &unk_257755310);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575F6DB8(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D488, type metadata accessor for Proto_CategoricalCrossEntropyLossLayer, &unk_257755348);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575F6E80(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D488, type metadata accessor for Proto_CategoricalCrossEntropyLossLayer, &unk_257755348);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575F6F2C()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9F40);
+  __swift_project_value_buffer(v0, qword_27F8E9F40);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_257743FF0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "input";
+  *(v6 + 8) = 5;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "target";
+  *(v10 + 1) = 6;
+  v10[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575F70F4()
+{
+  OUTLINED_FUNCTION_5_9();
+  while (1)
+  {
+    OUTLINED_FUNCTION_222();
+    result = sub_257743234();
+    if (v0 || (v2 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 2 || result == 1)
+    {
+      OUTLINED_FUNCTION_10_7();
+      sub_257743394();
+    }
+  }
+
+  return result;
+}
+
+void sub_2575F7154()
+{
+  OUTLINED_FUNCTION_188_0();
+  v2 = v1;
+  OUTLINED_FUNCTION_2_7();
+  OUTLINED_FUNCTION_1_6();
+  if (!v3 || (OUTLINED_FUNCTION_3_10(), sub_257743534(), !v0))
+  {
+    OUTLINED_FUNCTION_1_6();
+    if (!v4 || (OUTLINED_FUNCTION_3_10(), sub_257743534(), !v0))
+    {
+      v2(0);
+      OUTLINED_FUNCTION_7_5();
+    }
+  }
+
+  OUTLINED_FUNCTION_187_0();
+}
+
+uint64_t sub_2575F71E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  OUTLINED_FUNCTION_267();
+  OUTLINED_FUNCTION_380_0(v6);
+  v9 = v9 && v7 == v8;
+  if (!v9 && (sub_257743994() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v10 = *(v4 + 16) == *(v3 + 16) && *(v4 + 24) == *(v3 + 24);
+  if (!v10 && (sub_257743994() & 1) == 0)
+  {
+    return 0;
+  }
+
+  a3(0);
+  OUTLINED_FUNCTION_308_0();
+  OUTLINED_FUNCTION_1_16();
+  v13 = sub_2575FB760(v11, v12, MEMORY[0x277D216D0]);
+  return OUTLINED_FUNCTION_4_2(v13) & 1;
+}
+
+uint64_t sub_2575F72D8()
+{
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
+
+  return v1(v0);
+}
+
+uint64_t sub_2575F736C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F990, type metadata accessor for Proto_MeanSquaredErrorLossLayer, &unk_2577551A8);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575F740C(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D468, type metadata accessor for Proto_MeanSquaredErrorLossLayer, &unk_2577551E0);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575F74D4(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D468, type metadata accessor for Proto_MeanSquaredErrorLossLayer, &unk_2577551E0);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575F7580()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9F58);
+  __swift_project_value_buffer(v0, qword_27F8E9F58);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_257743FF0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 10;
+  *v6 = "sgdOptimizer";
+  *(v6 + 8) = 12;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 11;
+  *v10 = "adamOptimizer";
+  *(v10 + 1) = 13;
+  v10[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+uint64_t sub_2575F774C()
+{
+  OUTLINED_FUNCTION_5_9();
+  while (1)
+  {
+    OUTLINED_FUNCTION_222();
+    result = sub_257743234();
+    if (v0 || (v2 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 11)
+    {
+      v7 = OUTLINED_FUNCTION_6_10();
+      sub_2575F7CA8(v7, v8, v9, v10);
+    }
+
+    else if (result == 10)
+    {
+      v3 = OUTLINED_FUNCTION_6_10();
+      sub_2575F77B0(v3, v4, v5, v6);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_2575F77B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v30 = a3;
+  v31 = a4;
+  v32 = a2;
+  v5 = type metadata accessor for Proto_SGDOptimizer(0);
+  v6 = MEMORY[0x28223BE20](v5);
+  v28 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C300, &qword_2577513B8);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v24 - v9;
+  v11 = type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F9A0, &qword_257767390);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v24 - v17;
+  __swift_storeEnumTagSinglePayload(&v24 - v17, 1, 1, v5);
+  v25 = a1;
+  sub_257487308(a1);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v27 = v11;
+  if (EnumTagSinglePayload == 1)
+  {
+    sub_2574695E4(v10, &qword_27F87C300, &qword_2577513B8);
+  }
+
+  else
+  {
+    sub_257609B78();
+    sub_257609B78();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_257609BCC();
+    }
+
+    else
+    {
+      sub_2574695E4(v18, &qword_27F87F9A0, &qword_257767390);
+      sub_257609B78();
+      sub_257609B78();
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
+    }
+  }
+
+  sub_2575FB760(&qword_27F87D428, type metadata accessor for Proto_SGDOptimizer, &unk_257754F10);
+  v19 = v29;
+  sub_2577433D4();
+  if (v19)
+  {
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87F9A0, &qword_257767390);
+  }
+
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
+  {
+    sub_2574695E4(v18, &qword_27F87F9A0, &qword_257767390);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87F9A0, &qword_257767390);
+  }
+
+  sub_257609B78();
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_257743244();
+  }
+
+  v22 = v27;
+  sub_2574695E4(v18, &qword_27F87F9A0, &qword_257767390);
+  v23 = v25;
+  sub_2574695E4(v25, &qword_27F87C300, &qword_2577513B8);
+  sub_257609B78();
+  swift_storeEnumTagMultiPayload();
+  return __swift_storeEnumTagSinglePayload(v23, 0, 1, v22);
+}
+
+uint64_t sub_2575F7CA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v30 = a3;
+  v31 = a4;
+  v32 = a2;
+  v5 = type metadata accessor for Proto_AdamOptimizer(0);
+  v6 = MEMORY[0x28223BE20](v5);
+  v28 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C300, &qword_2577513B8);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v24 - v9;
+  v11 = type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v12);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F9A8, &qword_257767398);
+  v14 = MEMORY[0x28223BE20](v13 - 8);
+  v16 = &v24 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v18 = &v24 - v17;
+  __swift_storeEnumTagSinglePayload(&v24 - v17, 1, 1, v5);
+  v25 = a1;
+  sub_257487308(a1);
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v10, 1, v11);
+  v27 = v11;
+  if (EnumTagSinglePayload == 1)
+  {
+    sub_2574695E4(v10, &qword_27F87C300, &qword_2577513B8);
+  }
+
+  else
+  {
+    sub_257609B78();
+    sub_257609B78();
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_2574695E4(v18, &qword_27F87F9A8, &qword_257767398);
+      sub_257609B78();
+      sub_257609B78();
+      __swift_storeEnumTagSinglePayload(v18, 0, 1, v5);
+    }
+
+    else
+    {
+      sub_257609BCC();
+    }
+  }
+
+  sub_2575FB760(&qword_27F87D408, type metadata accessor for Proto_AdamOptimizer, &unk_257754DA8);
+  v19 = v29;
+  sub_2577433D4();
+  if (v19)
+  {
+    v20 = v18;
+    return sub_2574695E4(v20, &qword_27F87F9A8, &qword_257767398);
+  }
+
+  sub_257487308(v18);
+  if (__swift_getEnumTagSinglePayload(v16, 1, v5) == 1)
+  {
+    sub_2574695E4(v18, &qword_27F87F9A8, &qword_257767398);
+    v20 = v16;
+    return sub_2574695E4(v20, &qword_27F87F9A8, &qword_257767398);
+  }
+
+  sub_257609B78();
+  if (EnumTagSinglePayload != 1)
+  {
+    sub_257743244();
+  }
+
+  v22 = v27;
+  sub_2574695E4(v18, &qword_27F87F9A8, &qword_257767398);
+  v23 = v25;
+  sub_2574695E4(v25, &qword_27F87C300, &qword_2577513B8);
+  sub_257609B78();
+  swift_storeEnumTagMultiPayload();
+  return __swift_storeEnumTagSinglePayload(v23, 0, 1, v22);
+}
+
+void sub_2575F81A0()
+{
+  OUTLINED_FUNCTION_102_0();
+  OUTLINED_FUNCTION_5_8();
+  v1 = OUTLINED_FUNCTION_311();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
+  OUTLINED_FUNCTION_13(v3);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v4);
+  OUTLINED_FUNCTION_157_0();
+  OUTLINED_FUNCTION_313_0();
+  OUTLINED_FUNCTION_66();
+  sub_257487308(v5);
+  v6 = type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(0);
+  OUTLINED_FUNCTION_67_1(v6);
+  if (v7)
+  {
+    goto LABEL_6;
+  }
+
+  OUTLINED_FUNCTION_201();
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    v8 = OUTLINED_FUNCTION_5_10();
+    sub_2575F84A8(v8, v9, v10, v11);
+  }
+
+  else
+  {
+    v12 = OUTLINED_FUNCTION_5_10();
+    sub_2575F8294(v12, v13, v14, v15);
+  }
+
+  OUTLINED_FUNCTION_91_2();
+  sub_257609BCC();
+  if (!v0)
+  {
+LABEL_6:
+    type metadata accessor for Proto_Optimizer(0);
+    OUTLINED_FUNCTION_10_7();
+    sub_257743194();
+  }
+
+  OUTLINED_FUNCTION_82_0();
+  OUTLINED_FUNCTION_103_0();
+}
+
+uint64_t sub_2575F8294(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C300, &qword_2577513B8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_SGDOptimizer(0);
+  MEMORY[0x28223BE20](v8);
+  sub_257487308(a1);
+  v9 = type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
+  {
+    result = sub_2574695E4(v7, &qword_27F87C300, &qword_2577513B8);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      sub_257609B78();
+      sub_2575FB760(&qword_27F87D428, type metadata accessor for Proto_SGDOptimizer, &unk_257754F10);
+      sub_257743574();
+      return sub_257609BCC();
+    }
+
+    result = sub_257609BCC();
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t sub_2575F84A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C300, &qword_2577513B8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_AdamOptimizer(0);
+  MEMORY[0x28223BE20](v8);
+  sub_257487308(a1);
+  v9 = type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(0);
+  if (__swift_getEnumTagSinglePayload(v7, 1, v9) == 1)
+  {
+    result = sub_2574695E4(v7, &qword_27F87C300, &qword_2577513B8);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      sub_257609B78();
+      sub_2575FB760(&qword_27F87D408, type metadata accessor for Proto_AdamOptimizer, &unk_257754DA8);
+      sub_257743574();
+      return sub_257609BCC();
+    }
+
+    result = sub_257609BCC();
+  }
+
+  __break(1u);
+  return result;
+}
+
+void sub_2575F86BC()
+{
+  OUTLINED_FUNCTION_31();
+  v2 = OUTLINED_FUNCTION_0_0();
+  type metadata accessor for Proto_Optimizer.OneOf_OptimizerType(v2);
+  OUTLINED_FUNCTION_42_4();
+  MEMORY[0x28223BE20](v3);
+  OUTLINED_FUNCTION_7_6();
+  v4 = OUTLINED_FUNCTION_201();
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(v4, v5);
+  OUTLINED_FUNCTION_13(v6);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v7);
+  OUTLINED_FUNCTION_75_0();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87F950, &qword_257767358);
+  OUTLINED_FUNCTION_13(v8);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v9);
+  OUTLINED_FUNCTION_32_3();
+  v11 = *(v10 + 56);
+  v12 = OUTLINED_FUNCTION_188_1();
+  OUTLINED_FUNCTION_344_0(v12);
+  OUTLINED_FUNCTION_344_0(v0);
+  OUTLINED_FUNCTION_65(v1);
+  if (v14)
+  {
+    OUTLINED_FUNCTION_65(v1 + v11);
+    if (v14)
+    {
+      sub_2574695E4(v1, &qword_27F87C300, &qword_2577513B8);
+LABEL_12:
+      type metadata accessor for Proto_Optimizer(0);
+      OUTLINED_FUNCTION_95_0();
+      sub_2577431B4();
+      OUTLINED_FUNCTION_1_16();
+      v20 = sub_2575FB760(v18, v19, MEMORY[0x277D216D0]);
+      v15 = OUTLINED_FUNCTION_4_2(v20);
+      goto LABEL_13;
+    }
+
+    goto LABEL_9;
+  }
+
+  v13 = OUTLINED_FUNCTION_277();
+  sub_257487308(v13);
+  OUTLINED_FUNCTION_65(v1 + v11);
+  if (v14)
+  {
+    OUTLINED_FUNCTION_91_2();
+    sub_257609BCC();
+LABEL_9:
+    sub_2574695E4(v1, &qword_27F87F950, &qword_257767358);
+    goto LABEL_10;
+  }
+
+  sub_257609B78();
+  OUTLINED_FUNCTION_360();
+  sub_257533DA8();
+  v17 = v16;
+  sub_257609BCC();
+  OUTLINED_FUNCTION_144_0();
+  sub_257609BCC();
+  sub_2574695E4(v1, &qword_27F87C300, &qword_2577513B8);
+  if (v17)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_10:
+  v15 = 0;
+LABEL_13:
+  OUTLINED_FUNCTION_65_0(v15);
+  OUTLINED_FUNCTION_35();
+}
+
+uint64_t sub_2575F8944()
+{
+  sub_2577431B4();
+  OUTLINED_FUNCTION_4();
+  v0 = OUTLINED_FUNCTION_311_0();
+
+  return v1(v0);
+}
+
+uint64_t sub_2575F89DC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_2575FB760(&qword_27F87F998, type metadata accessor for Proto_Optimizer, &unk_257755040);
+
+  return MEMORY[0x28217E230](a1, a2, v4);
+}
+
+uint64_t sub_2575F8A7C(uint64_t a1)
+{
+  v2 = sub_2575FB760(&qword_27F87D448, type metadata accessor for Proto_Optimizer, &unk_257755078);
+
+  return MEMORY[0x28217E428](a1, v2);
+}
+
+uint64_t sub_2575F8B44(uint64_t a1, uint64_t a2)
+{
+  sub_2575FB760(&qword_27F87D448, type metadata accessor for Proto_Optimizer, &unk_257755078);
+
+  return sub_257743424();
+}
+
+uint64_t sub_2575F8BC4()
+{
+  v0 = sub_2577435B4();
+  __swift_allocate_value_buffer(v0, qword_27F8E9F70);
+  __swift_project_value_buffer(v0, qword_27F8E9F70);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A378, &unk_257746410);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87A380, &unk_257745F40) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_2577442C0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "learningRate";
+  *(v6 + 8) = 12;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x277D21870];
+  v8 = sub_257743584();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "miniBatchSize";
+  *(v10 + 1) = 13;
+  v10[16] = 2;
+  v9();
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "momentum";
+  *(v12 + 1) = 8;
+  v12[16] = 2;
+  v9();
+  return sub_257743594();
+}
+
+void sub_2575F8DCC()
+{
+  OUTLINED_FUNCTION_5_9();
+  while (1)
+  {
+    OUTLINED_FUNCTION_222();
+    v1 = sub_257743234();
+    if (v0 || (v2 & 1) != 0)
+    {
+      break;
+    }
+
+    switch(v1)
+    {
+      case 3:
+        OUTLINED_FUNCTION_6_8();
+        sub_2575F8FC4();
+        break;
+      case 2:
+        v7 = OUTLINED_FUNCTION_6_8();
+        sub_2575F8F10(v7, v8, v9, v10);
+        break;
+      case 1:
+        v3 = OUTLINED_FUNCTION_6_8();
+        sub_2575F8E5C(v3, v4, v5, v6);
+        break;
+    }
+  }
+}
+
+uint64_t sub_2575F8E5C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Proto_SGDOptimizer(0);
+  type metadata accessor for Proto_DoubleParameter(0);
+  sub_2575FB760(&qword_27F87F9B8, type metadata accessor for Proto_DoubleParameter, &unk_257768558);
+  return sub_2577433D4();
+}
+
+uint64_t sub_2575F8F10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Proto_SGDOptimizer(0);
+  type metadata accessor for Proto_Int64Parameter(0);
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  return sub_2577433D4();
+}
+
+void sub_2575F8FC4()
+{
+  OUTLINED_FUNCTION_188_0();
+  OUTLINED_FUNCTION_147_0();
+  v0(0);
+  type metadata accessor for Proto_DoubleParameter(0);
+  OUTLINED_FUNCTION_217_0();
+  sub_2575FB760(v1, v2, &unk_257768558);
+  OUTLINED_FUNCTION_12_10();
+  sub_2577433D4();
+  OUTLINED_FUNCTION_187_0();
+}
+
+void sub_2575F904C()
+{
+  OUTLINED_FUNCTION_111_0();
+  v1 = OUTLINED_FUNCTION_4_5();
+  sub_2575F90B8(v1, v2, v3, v4);
+  if (!v0)
+  {
+    v5 = OUTLINED_FUNCTION_4_5();
+    sub_2575F9298(v5, v6, v7, v8);
+    OUTLINED_FUNCTION_4_5();
+    sub_2575F9478();
+    OUTLINED_FUNCTION_222();
+    sub_257743194();
+  }
+}
+
+uint64_t sub_2575F90B8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87C330, &qword_2577513E8);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_DoubleParameter(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for Proto_SGDOptimizer(0);
+  sub_257487308(a1 + *(v9 + 20));
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87C330, &qword_2577513E8);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87F9B8, type metadata accessor for Proto_DoubleParameter, &unk_257768558);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+uint64_t sub_2575F9298(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v11[1] = a4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F87BD30, &unk_2577504D0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = v11 - v6;
+  v8 = type metadata accessor for Proto_Int64Parameter(0);
+  MEMORY[0x28223BE20](v8);
+  v9 = type metadata accessor for Proto_SGDOptimizer(0);
+  sub_257487308(a1 + *(v9 + 24));
+  if (__swift_getEnumTagSinglePayload(v7, 1, v8) == 1)
+  {
+    return sub_2574695E4(v7, &qword_27F87BD30, &unk_2577504D0);
+  }
+
+  sub_257609B78();
+  sub_2575FB760(&qword_27F87BE80, type metadata accessor for Proto_Int64Parameter, &unk_2577686C0);
+  sub_257743574();
+  return sub_257609BCC();
+}
+
+void sub_2575F9478()
+{
+  OUTLINED_FUNCTION_165_0();
+  OUTLINED_FUNCTION_303_0(v3, v4, v5, v6);
+  v7 = OUTLINED_FUNCTION_277();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(v7, v8);
+  OUTLINED_FUNCTION_13(v9);
+  OUTLINED_FUNCTION_29();
+  MEMORY[0x28223BE20](v10);
+  OUTLINED_FUNCTION_32_4();
+  v11 = type metadata accessor for Proto_DoubleParameter(0);
+  OUTLINED_FUNCTION_4();
+  MEMORY[0x28223BE20](v12);
+  OUTLINED_FUNCTION_3();
+  v13 = OUTLINED_FUNCTION_14();
+  v14 = v2(v13);
+  OUTLINED_FUNCTION_399_0(*(v14 + 28));
+  v15 = OUTLINED_FUNCTION_171_1();
+  OUTLINED_FUNCTION_155(v15, v16, v11);
+  if (v17)
+  {
+    sub_2574695E4(v1, &qword_27F87C330, &qword_2577513E8);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_367();
+    sub_257609B78();
+    OUTLINED_FUNCTION_217_0();
+    v20 = sub_2575FB760(v18, v19, &unk_257768558);
+    OUTLINED_FUNCTION_403_0(v0, 3, v21, v20);
+    OUTLINED_FUNCTION_18_7();
+    sub_257609BCC();
+  }
+
+  OUTLINED_FUNCTION_166_0();
 }

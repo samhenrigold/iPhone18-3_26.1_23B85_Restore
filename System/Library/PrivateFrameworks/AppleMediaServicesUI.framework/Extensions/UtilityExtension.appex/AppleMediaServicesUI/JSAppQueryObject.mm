@@ -18,7 +18,7 @@
 {
   idsCopy = ids;
   selfCopy = self;
-  v6 = sub_10001138C();
+  v6 = sub_10001138C(idsCopy);
 
   return v6;
 }
@@ -27,7 +27,7 @@
 {
   idsCopy = ids;
   selfCopy = self;
-  v6 = sub_100011CD8();
+  v6 = sub_100011CD8(idsCopy);
 
   return v6;
 }

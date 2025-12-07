@@ -20,7 +20,7 @@ void __47___UIContextMenuView_setPreferredMenuMaterial___block_invoke(uint64_t a
 void __34___UIContextMenuView_visibleMenus__block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v3 = [a2 menu];
+  v3 = objc_msgSend_menu(a2);
   [v2 addObject:v3];
 }
 
@@ -332,7 +332,7 @@ void __52___UIContextMenuView__handleHoverGestureRecognizer___block_invoke(uint6
     v20 = [v19 displayedMenu];
     v21 = [v18 indexPathForElement:v20];
 
-    if ([v17 isEqual:v21])
+    if (objc_msgSend_isEqual_(v17))
     {
 
 LABEL_9:

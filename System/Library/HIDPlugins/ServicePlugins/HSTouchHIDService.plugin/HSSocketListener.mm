@@ -117,47 +117,9 @@ void __55__HSSocketListener_initWithSocket_queue_clientHandler___block_invoke_28
 
 - (void)_handleNewClient
 {
-  dispatch_assert_queue_V2(*(self + 1));
-  std::mutex::lock((self + 24));
-  if (*(self + 11))
-  {
-    while (1)
-    {
-      v3 = HSUtil::FileDescriptor::fd(*(self + 11));
-      v4 = accept(v3, 0, 0);
-      v5 = v4;
-      if (v4 != -1)
-      {
-        break;
-      }
-
-      if (*__error() != 4)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    if ((v4 & 0x80000000) == 0)
-    {
-      std::mutex::unlock((self + 24));
-      v6 = *(self + 2);
-      *v7 = &off_1093A0;
-      v8 = &off_1093D0;
-      v9 = v5;
-      (*(v6 + 16))();
-      HSUtil::FileDescriptor::~FileDescriptor(v7);
-      return;
-    }
-
-LABEL_7:
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSSocketListener.mm", v7);
-    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-    {
-      [HSSocketListener _handleNewClient];
-    }
-  }
-
-  std::mutex::unlock((self + 24));
+  v5 = 136315906;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (id).cxx_construct
@@ -169,6 +131,20 @@ LABEL_7:
   *(self + 5) = 0u;
   *(self + 6) = 0u;
   return self;
+}
+
+- (void)initWithSocket:queue:clientHandler:.cold.1()
+{
+  v5 = 136315906;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
+}
+
+- (void)initWithSocket:queue:clientHandler:.cold.2()
+{
+  v5 = 136315906;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

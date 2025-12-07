@@ -1,5 +1,6 @@
 @interface MPSCounterStatistics
 - (BOOL)haveConvergedOn:(unint64_t)on;
+- (MPSCounterStatistics)initWithCounters:(id)counters withExtraRequestedCounter:(id)counter forWorkload:(id)workload userSpecifiedIterations:(BOOL)iterations includingBlitSamples:(BOOL)samples;
 - (NSArray)getRawData;
 - (counterStats_t)getCounterResults;
 - (id)getGeneralStatistics;
@@ -64,6 +65,23 @@
       while (self->_numberOfEncodersInCurrentWorkload + 2 > v22);
     }
   }
+}
+
+- (MPSCounterStatistics)initWithCounters:(id)counters withExtraRequestedCounter:(id)counter forWorkload:(id)workload userSpecifiedIterations:(BOOL)iterations includingBlitSamples:(BOOL)samples
+{
+  samplesCopy = samples;
+  iterationsCopy = iterations;
+  v15.receiver = self;
+  v15.super_class = MPSCounterStatistics;
+  v12 = [(MPSCounterStatistics *)&v15 init];
+  if (objc_msgSend_countEncodersInWorkload_withExtraRequestedCounter_forStatistics_userSpecifiedIterations_includingBlitSamples_(counters, v13, workload, counter, v12, iterationsCopy, samplesCopy))
+  {
+    NSLog(&cfstr_Mpscounterstat.isa);
+
+    return 0;
+  }
+
+  return v12;
 }
 
 - (id)initializeWithPassList:(id)list numberOfEncodersInCurrentWorkload:(unint64_t)workload numEncodesPerCommandBuffer:(unint64_t)buffer extraRequestedCounter:(id)counter userSpecifiedIterations:(BOOL)iterations vendor:(unint64_t)vendor useGRC:(BOOL)c
@@ -680,12 +698,12 @@ LABEL_10:
   numberOfEncodersInCurrentWorkload = self->_numberOfEncodersInCurrentWorkload;
   if (on == 2)
   {
-    v10 = 136;
+    v7 = 136;
   }
 
   else if (on == 1)
   {
-    v10 = 128;
+    v7 = 128;
   }
 
   else
@@ -698,210 +716,203 @@ LABEL_10:
     if (self->_vendor == 3)
     {
       selfCopy = self;
-      off_2814650E0("NVIDIA resets their cycle counter every encoder so total cycles are not trustworthy", a2, 0, v3, v4, v5, v6, v7);
+      off_2814650E0("NVIDIA resets their cycle counter every encoder so total cycles are not trustworthy", a2);
       self = selfCopy;
     }
 
-    v10 = 120;
+    v7 = 120;
   }
 
-  v11 = objc_msgSend_objectAtIndexedSubscript_(*(&self->super.isa + v10), a2, numberOfEncodersInCurrentWorkload + 1, v3, v4);
+  v8 = objc_msgSend_objectAtIndexedSubscript_(*(&self->super.isa + v7), a2, numberOfEncodersInCurrentWorkload + 1, v3, v4);
 
-  return objc_msgSend_hasConverged(v11, v12, v13, v14, v15);
+  return objc_msgSend_hasConverged(v8, v9, v10, v11, v12);
 }
 
 - (void)printCounterResults
 {
-  off_2814650E0("\nCounter Statistics Collected\n", a2, v2, v3, v4, v5, v6, v7);
+  off_2814650E0("\nCounter Statistics Collected\n", a2);
   numberOfEncodersInCurrentWorkload = self->_numberOfEncodersInCurrentWorkload;
   if (numberOfEncodersInCurrentWorkload)
   {
-    v12 = 0;
+    v6 = 0;
     selfCopy = self;
-    for (i = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v9, 0, v10, v11); ; i = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v9, v12, v10, v11))
+    for (i = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v3, 0, v4, v5); ; i = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v3, v6, v4, v5))
     {
-      objc_msgSend_mean(i, v14, v15, v16, v17);
-      v72 = v71;
-      v76 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v73, v12, v74, v75);
-      objc_msgSend_mean(v76, v77, v78, v79, v80);
-      v82 = v81;
-      v86 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v83, v12, v84, v85);
-      objc_msgSend_mean(v86, v87, v88, v89, v90);
-      off_2814650E0("==============================================================================\n", v91, v92, v93, v94, v95, v96, v97);
+      objc_msgSend_mean(i, v8, v9, v10, v11);
+      v33 = v32;
+      v37 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v34, v6, v35, v36);
+      objc_msgSend_mean(v37, v38, v39, v40, v41);
+      v43 = v42;
+      v47 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v44, v6, v45, v46);
+      objc_msgSend_mean(v47, v48, v49, v50, v51);
+      off_2814650E0("==============================================================================\n");
       if (self->_useInterposer)
       {
-        v105 = objc_msgSend_allEncoders(self->_infoCapture, v98, v99, v100, v101);
-        v109 = objc_msgSend_objectAtIndexedSubscript_(v105, v106, v12, v107, v108);
-        v114 = objc_msgSend_encoderLabel(v109, v110, v111, v112, v113);
-        v119 = objc_msgSend_UTF8String(v114, v115, v116, v117, v118);
-        printf("encoderName: %s\n", v119);
-        v124 = objc_msgSend_allEncoders(self->_infoCapture, v120, v121, v122, v123);
-        v128 = objc_msgSend_objectAtIndexedSubscript_(v124, v125, v12, v126, v127);
-        v133 = objc_msgSend_dispatches(v128, v129, v130, v131, v132);
-        if (objc_msgSend_count(v133, v134, v135, v136, v137))
+        v56 = objc_msgSend_allEncoders(self->_infoCapture, v52, v53, v54, v55);
+        v60 = objc_msgSend_objectAtIndexedSubscript_(v56, v57, v6, v58, v59);
+        v65 = objc_msgSend_encoderLabel(v60, v61, v62, v63, v64);
+        v70 = objc_msgSend_UTF8String(v65, v66, v67, v68, v69);
+        printf("encoderName: %s\n", v70);
+        v75 = objc_msgSend_allEncoders(self->_infoCapture, v71, v72, v73, v74);
+        v79 = objc_msgSend_objectAtIndexedSubscript_(v75, v76, v6, v77, v78);
+        v84 = objc_msgSend_dispatches(v79, v80, v81, v82, v83);
+        if (objc_msgSend_count(v84, v85, v86, v87, v88))
         {
-          v138 = 0;
+          v93 = 0;
           do
           {
-            v165 = objc_msgSend_allEncoders(self->_infoCapture, v98, v99, v100, v101);
-            v166 = v12;
-            v170 = objc_msgSend_objectAtIndexedSubscript_(v165, v167, v12, v168, v169);
-            v175 = objc_msgSend_dispatches(v170, v171, v172, v173, v174);
-            v179 = objc_msgSend_objectAtIndexedSubscript_(v175, v176, v138, v177, v178);
-            v184 = objc_msgSend_computePipelineStateLabel(v179, v180, v181, v182, v183);
-            v189 = objc_msgSend_UTF8String(v184, v185, v186, v187, v188);
-            printf("\tdispatch %lu : computePipelineStateLabel: %s\n", v138, v189);
-            if (v179)
+            v120 = objc_msgSend_allEncoders(self->_infoCapture, v89, v90, v91, v92);
+            v121 = v6;
+            v125 = objc_msgSend_objectAtIndexedSubscript_(v120, v122, v6, v123, v124);
+            v130 = objc_msgSend_dispatches(v125, v126, v127, v128, v129);
+            v134 = objc_msgSend_objectAtIndexedSubscript_(v130, v131, v93, v132, v133);
+            v139 = objc_msgSend_computePipelineStateLabel(v134, v135, v136, v137, v138);
+            v144 = objc_msgSend_UTF8String(v139, v140, v141, v142, v143);
+            printf("\tdispatch %lu : computePipelineStateLabel: %s\n", v93, v144);
+            if (v134)
             {
-              objc_msgSend_threadgroupsPerGrid(v179, v190, v191, v192, v193);
-              v142 = v508;
-              objc_msgSend_threadgroupsPerGrid(v179, v194, v195, v196, v197);
-              v141 = v507;
-              objc_msgSend_threadgroupsPerGrid(v179, v198, v199, v200, v201);
-              v143 = v506;
-              objc_msgSend_threadsPerThreadgroup(v179, v202, v203, v204, v205);
-              v140 = v505;
-              objc_msgSend_threadsPerThreadgroup(v179, v206, v207, v208, v209);
-              v144 = v504;
-              objc_msgSend_threadsPerThreadgroup(v179, v210, v211, v212, v213);
-              v139 = v503;
-              objc_msgSend_threadsPerThreadgroup(v179, v214, v215, v216, v217);
-              objc_msgSend_threadsPerThreadgroup(v179, v218, v219, v220, v221);
-              objc_msgSend_threadsPerThreadgroup(v179, v222, v223, v224, v225);
-              v145 = v501 * v502 * v500;
+              objc_msgSend_threadgroupsPerGrid(v134, v145, v146, v147, v148);
+              v97 = v344;
+              objc_msgSend_threadgroupsPerGrid(v134, v149, v150, v151, v152);
+              v96 = v343;
+              objc_msgSend_threadgroupsPerGrid(v134, v153, v154, v155, v156);
+              v98 = v342;
+              objc_msgSend_threadsPerThreadgroup(v134, v157, v158, v159, v160);
+              v95 = v341;
+              objc_msgSend_threadsPerThreadgroup(v134, v161, v162, v163, v164);
+              v99 = v340;
+              objc_msgSend_threadsPerThreadgroup(v134, v165, v166, v167, v168);
+              v94 = v339;
+              objc_msgSend_threadsPerThreadgroup(v134, v169, v170, v171, v172);
+              objc_msgSend_threadsPerThreadgroup(v134, v173, v174, v175, v176);
+              objc_msgSend_threadsPerThreadgroup(v134, v177, v178, v179, v180);
+              v100 = v337 * v338 * v336;
             }
 
             else
             {
-              v139 = 0;
-              v140 = 0;
-              v141 = 0;
-              v142 = 0;
-              v143 = 0;
-              v144 = 0;
-              v145 = 0;
-              v508 = 0;
-              v507 = 0;
-              v506 = 0;
-              v505 = 0;
-              v504 = 0;
-              v503 = 0;
-              v502 = 0;
-              v501 = 0;
-              v500 = 0;
+              v94 = 0;
+              v95 = 0;
+              v96 = 0;
+              v97 = 0;
+              v98 = 0;
+              v99 = 0;
+              v100 = 0;
+              v344 = 0;
+              v343 = 0;
+              v342 = 0;
+              v341 = 0;
+              v340 = 0;
+              v339 = 0;
+              v338 = 0;
+              v337 = 0;
+              v336 = 0;
             }
 
-            v146 = objc_msgSend_threadsgroupMemoryLength(v179, v190, v191, v192, v193);
-            printf("\tthreadgroupsPerGrid {%lu x %lu x %lu} threadsPerThreadgroup {%lu x %lu x %lu} totalThreads: %lu threadgroupMemoryLength: %lu\n", v142, v141, v143, v140, v144, v139, v145, v146);
-            ++v138;
+            v101 = objc_msgSend_threadsgroupMemoryLength(v134, v145, v146, v147, v148);
+            printf("\tthreadgroupsPerGrid {%lu x %lu x %lu} threadsPerThreadgroup {%lu x %lu x %lu} totalThreads: %lu threadgroupMemoryLength: %lu\n", v97, v96, v98, v95, v99, v94, v100, v101);
+            ++v93;
             self = selfCopy;
-            v151 = objc_msgSend_allEncoders(selfCopy->_infoCapture, v147, v148, v149, v150);
-            v12 = v166;
-            v155 = objc_msgSend_objectAtIndexedSubscript_(v151, v152, v166, v153, v154);
-            v160 = objc_msgSend_dispatches(v155, v156, v157, v158, v159);
+            v106 = objc_msgSend_allEncoders(selfCopy->_infoCapture, v102, v103, v104, v105);
+            v6 = v121;
+            v110 = objc_msgSend_objectAtIndexedSubscript_(v106, v107, v121, v108, v109);
+            v115 = objc_msgSend_dispatches(v110, v111, v112, v113, v114);
           }
 
-          while (v138 < objc_msgSend_count(v160, v161, v162, v163, v164));
+          while (v93 < objc_msgSend_count(v115, v116, v117, v118, v119));
         }
       }
 
-      off_2814650E0("encoder: %lu cycle count: %f\n", v98, v99, v100, v101, v102, v103, v104, v12, *&v82);
-      v18 = off_2814650E0;
-      v22 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v19, v12, v20, v21);
-      objc_msgSend_standardDeviationOfMean(v22, v23, v24, v25, v26);
-      v18("encoder: %lu cycle count standard deviation: %f\n", v27, v28, v29, v30, v31, v32, v33, v12);
-      off_2814650E0("encoder: %lu time: %f ms\n", v34, v35, v36, v37, v38, v39, v40, v12);
-      v41 = off_2814650E0;
-      v45 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v42, v12, v43, v44);
-      objc_msgSend_standardDeviationOfMean(v45, v46, v47, v48, v49);
-      v41("encoder: %lu time standard deviation: %f ms\n", v50, v51, v52, v53, v54, v55, v56, v12);
-      v493 = v82 / v72 * 0.000000001;
-      off_2814650E0("Mean frequency %f GHz\n", v57, v58, v59, v60, v61, v62, v63, SLOBYTE(v493));
-      off_2814650E0("==============================================================================\n", v64, v65, v66, v67, v68, v69, v70);
-      if (++v12 == numberOfEncodersInCurrentWorkload)
+      off_2814650E0("encoder: %lu cycle count: %f\n", v6, v43);
+      v12 = off_2814650E0;
+      v16 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v13, v6, v14, v15);
+      objc_msgSend_standardDeviationOfMean(v16, v17, v18, v19, v20);
+      v12("encoder: %lu cycle count standard deviation: %f\n", v6, v21 + v21);
+      off_2814650E0("encoder: %lu time: %f ms\n", v6, v33 * 1000.0);
+      v22 = off_2814650E0;
+      v26 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v23, v6, v24, v25);
+      objc_msgSend_standardDeviationOfMean(v26, v27, v28, v29, v30);
+      v22("encoder: %lu time standard deviation: %f ms\n", v6, v31 + v31);
+      off_2814650E0("Mean frequency %f GHz\n", v43 / v33 * 0.000000001);
+      off_2814650E0("==============================================================================\n");
+      if (++v6 == numberOfEncodersInCurrentWorkload)
       {
         break;
       }
     }
   }
 
-  v226 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v9, numberOfEncodersInCurrentWorkload, v10, v11);
-  objc_msgSend_mean(v226, v227, v228, v229, v230);
-  v232 = v231;
-  v236 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v233, numberOfEncodersInCurrentWorkload, v234, v235);
-  objc_msgSend_mean(v236, v237, v238, v239, v240);
-  v242 = v241;
-  v246 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v243, numberOfEncodersInCurrentWorkload, v244, v245);
-  objc_msgSend_mean(v246, v247, v248, v249, v250);
+  v181 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v3, numberOfEncodersInCurrentWorkload, v4, v5);
+  objc_msgSend_mean(v181, v182, v183, v184, v185);
+  v187 = v186;
+  v191 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v188, numberOfEncodersInCurrentWorkload, v189, v190);
+  objc_msgSend_mean(v191, v192, v193, v194, v195);
+  v197 = v196;
+  v201 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v198, numberOfEncodersInCurrentWorkload, v199, v200);
+  objc_msgSend_mean(v201, v202, v203, v204, v205);
   if (self->_vendor == 3)
   {
     NSLog(&cfstr_NvidiaResetsTh.isa);
   }
 
-  off_2814650E0("==============================================================================\n", v251, v252, v253, v254, v255, v256, v257);
-  v258 = off_2814650E0;
-  v262 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v259, numberOfEncodersInCurrentWorkload, v260, v261);
-  v267 = objc_msgSend_numberOfSamples(v262, v263, v264, v265, v266);
-  v258("outer iterations : %lu inner iterations : %lu\n", v268, v269, v270, v271, v272, v273, v274, v267 / self->_numEncodesPerCommandBuffer);
-  off_2814650E0("Workload total with overhead cycle count: %f\n", v275, v276, v277, v278, v279, v280, v281, SLOBYTE(v242));
-  v282 = off_2814650E0;
-  v286 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v283, numberOfEncodersInCurrentWorkload, v284, v285);
-  objc_msgSend_standardDeviationOfMean(v286, v287, v288, v289, v290);
-  v292 = v291 + v291;
-  v282("Workload total with overhead cycle count standard deviation: %f\n", v293, v294, v295, v296, v297, v298, v299, SLOBYTE(v292));
-  v494 = v232 * 1000.0;
-  off_2814650E0("Workload total with overhead time: %f ms\n", v300, v301, v302, v303, v304, v305, v306, SLOBYTE(v494));
-  v307 = off_2814650E0;
-  v311 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v308, numberOfEncodersInCurrentWorkload, v309, v310);
-  objc_msgSend_standardDeviationOfMean(v311, v312, v313, v314, v315);
-  v317 = v316 + v316;
-  v307("Workload total with overhead time standard deviation: %f ms\n", v318, v319, v320, v321, v322, v323, v324, SLOBYTE(v317));
-  v495 = v242 / v232 * 0.000000001;
-  off_2814650E0("Mean frequency %f GHz\n", v325, v326, v327, v328, v329, v330, v331, SLOBYTE(v495));
-  off_2814650E0("==============================================================================\n\n", v332, v333, v334, v335, v336, v337, v338);
-  v342 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v339, numberOfEncodersInCurrentWorkload + 1, v340, v341);
-  objc_msgSend_mean(v342, v343, v344, v345, v346);
-  v348 = v347;
-  v352 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v349, numberOfEncodersInCurrentWorkload + 1, v350, v351);
-  objc_msgSend_mean(v352, v353, v354, v355, v356);
-  v358 = v357;
-  v362 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v359, numberOfEncodersInCurrentWorkload + 1, v360, v361);
-  objc_msgSend_mean(v362, v363, v364, v365, v366);
-  off_2814650E0("Workload total Without overhead cycle count: %f\n", v367, v368, v369, v370, v371, v372, v373, SLOBYTE(v358));
-  v374 = off_2814650E0;
-  v378 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v375, numberOfEncodersInCurrentWorkload + 1, v376, v377);
-  objc_msgSend_standardDeviationOfMean(v378, v379, v380, v381, v382);
-  v384 = v383 + v383;
-  v374("Workload total Without overhead cycle count standard deviation: %f\n", v385, v386, v387, v388, v389, v390, v391, SLOBYTE(v384));
-  v496 = v348 * 1000.0;
-  off_2814650E0("Workload total Without overhead time: %f ms\n", v392, v393, v394, v395, v396, v397, v398, SLOBYTE(v496));
-  v399 = off_2814650E0;
-  v403 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v400, numberOfEncodersInCurrentWorkload + 1, v401, v402);
-  objc_msgSend_standardDeviationOfMean(v403, v404, v405, v406, v407);
-  v409 = v408 + v408;
-  v399("Workload total Without overhead time standard deviation: %f ms\n", v410, v411, v412, v413, v414, v415, v416, SLOBYTE(v409));
-  v497 = v358 / v348 * 0.000000001;
-  off_2814650E0("Mean frequency %f GHz\n", v417, v418, v419, v420, v421, v422, v423, SLOBYTE(v497));
-  off_2814650E0("==============================================================================\n\n", v424, v425, v426, v427, v428, v429, v430);
-  v431 = off_2814650E0;
-  inited = objc_msgSend_InitTime(self->_generalContainer, v432, v433, v434, v435);
-  objc_msgSend_mean(inited, v437, v438, v439, v440);
-  v442 = v441 * 1000.0;
-  v447 = objc_msgSend_EncodeTime(self->_generalContainer, v443, v444, v445, v446);
-  objc_msgSend_mean(v447, v448, v449, v450, v451);
-  v456 = objc_msgSend_QueueTime(self->_generalContainer, v452, v453, v454, v455);
-  objc_msgSend_mean(v456, v457, v458, v459, v460);
-  v465 = objc_msgSend_WallClockTime(self->_generalContainer, v461, v462, v463, v464);
-  objc_msgSend_mean(v465, v466, v467, v468, v469);
-  v431("Counter Overhead involved :\n\nMean Init Time  : %f ms\nMean Encode Time: %f ms\nMean Queue Time: %f ms\nMean WallClock Time: %f ms\n", v470, v471, v472, v473, v474, v475, v476, SLOBYTE(v442));
+  off_2814650E0("==============================================================================\n");
+  v206 = off_2814650E0;
+  v210 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v207, numberOfEncodersInCurrentWorkload, v208, v209);
+  v215 = objc_msgSend_numberOfSamples(v210, v211, v212, v213, v214);
+  v206("outer iterations : %lu inner iterations : %lu\n", v215 / self->_numEncodesPerCommandBuffer, self->_numEncodesPerCommandBuffer);
+  off_2814650E0("Workload total with overhead cycle count: %f\n", v197);
+  v216 = off_2814650E0;
+  v220 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v217, numberOfEncodersInCurrentWorkload, v218, v219);
+  objc_msgSend_standardDeviationOfMean(v220, v221, v222, v223, v224);
+  v216("Workload total with overhead cycle count standard deviation: %f\n", v225 + v225);
+  off_2814650E0("Workload total with overhead time: %f ms\n", v187 * 1000.0);
+  v226 = off_2814650E0;
+  v230 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v227, numberOfEncodersInCurrentWorkload, v228, v229);
+  objc_msgSend_standardDeviationOfMean(v230, v231, v232, v233, v234);
+  v226("Workload total with overhead time standard deviation: %f ms\n", v235 + v235);
+  off_2814650E0("Mean frequency %f GHz\n", v197 / v187 * 0.000000001);
+  off_2814650E0("==============================================================================\n\n");
+  v239 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v236, numberOfEncodersInCurrentWorkload + 1, v237, v238);
+  objc_msgSend_mean(v239, v240, v241, v242, v243);
+  v245 = v244;
+  v249 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v246, numberOfEncodersInCurrentWorkload + 1, v247, v248);
+  objc_msgSend_mean(v249, v250, v251, v252, v253);
+  v255 = v254;
+  v259 = objc_msgSend_objectAtIndexedSubscript_(self->_extraCounterStatistics, v256, numberOfEncodersInCurrentWorkload + 1, v257, v258);
+  objc_msgSend_mean(v259, v260, v261, v262, v263);
+  off_2814650E0("Workload total Without overhead cycle count: %f\n", v255);
+  v264 = off_2814650E0;
+  v268 = objc_msgSend_objectAtIndexedSubscript_(self->_cycleCounterStatistics, v265, numberOfEncodersInCurrentWorkload + 1, v266, v267);
+  objc_msgSend_standardDeviationOfMean(v268, v269, v270, v271, v272);
+  v264("Workload total Without overhead cycle count standard deviation: %f\n", v273 + v273);
+  off_2814650E0("Workload total Without overhead time: %f ms\n", v245 * 1000.0);
+  v274 = off_2814650E0;
+  v278 = objc_msgSend_objectAtIndexedSubscript_(self->_timingCounterStatistics, v275, numberOfEncodersInCurrentWorkload + 1, v276, v277);
+  objc_msgSend_standardDeviationOfMean(v278, v279, v280, v281, v282);
+  v274("Workload total Without overhead time standard deviation: %f ms\n", v283 + v283);
+  off_2814650E0("Mean frequency %f GHz\n", v255 / v245 * 0.000000001);
+  off_2814650E0("==============================================================================\n\n");
+  v284 = off_2814650E0;
+  inited = objc_msgSend_InitTime(self->_generalContainer, v285, v286, v287, v288);
+  objc_msgSend_mean(inited, v290, v291, v292, v293);
+  v295 = v294 * 1000.0;
+  v300 = objc_msgSend_EncodeTime(self->_generalContainer, v296, v297, v298, v299);
+  objc_msgSend_mean(v300, v301, v302, v303, v304);
+  v306 = v305 * 1000.0;
+  v311 = objc_msgSend_QueueTime(self->_generalContainer, v307, v308, v309, v310);
+  objc_msgSend_mean(v311, v312, v313, v314, v315);
+  v317 = v316 * 1000.0;
+  v322 = objc_msgSend_WallClockTime(self->_generalContainer, v318, v319, v320, v321);
+  objc_msgSend_mean(v322, v323, v324, v325, v326);
+  v284("Counter Overhead involved :\n\nMean Init Time  : %f ms\nMean Encode Time: %f ms\nMean Queue Time: %f ms\nMean WallClock Time: %f ms\n", v295, v306, v317, v327 * 1000.0);
   if (self->_useInterposer)
   {
-    v484 = off_2814650E0;
-    v485 = objc_msgSend_numberOfDispatches(self->_infoCapture, v477, v478, v479, v480);
-    v484("\nTotal number of dispatches = %lu\n", v486, v487, v488, v489, v490, v491, v492, v485);
+    v332 = off_2814650E0;
+    v333 = objc_msgSend_numberOfDispatches(self->_infoCapture, v328, v329, v330, v331);
+    v332("\nTotal number of dispatches = %lu\n", v333);
   }
 
-  off_2814650E0("==============================================================================\n\n", v477, v478, v479, v480, v481, v482, v483);
+  off_2814650E0("==============================================================================\n\n");
 }
 
 - (unint64_t)numberOfDispatches

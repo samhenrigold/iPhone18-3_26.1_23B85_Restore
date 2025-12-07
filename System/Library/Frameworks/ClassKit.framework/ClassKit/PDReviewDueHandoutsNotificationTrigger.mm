@@ -133,79 +133,77 @@
   handoutsCopy = handouts;
   database = [(PDUserNotificationTrigger *)self database];
   v6 = &sqlite3_bind_blob_ptr;
-  v7 = &CLSLogAsset_ptr;
-  v8 = [NSBundle bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:@"NOTIFICATION_TEACHER_REVIEW_HANDOUT_TITLE" value:&stru_100206880 table:@"ClassKit"];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_TEACHER_REVIEW_HANDOUT_TITLE" value:&stru_100206880 table:@"ClassKit"];
 
   if ([handoutsCopy count] == 1)
   {
     firstObject = [handoutsCopy firstObject];
-    v11 = [NSBundle bundleForClass:objc_opt_class()];
-    v12 = [v11 localizedStringForKey:@"NOTIFICATION_TEACHER_REVIEW_HANDOUT_MESSAGE_FORMAT" value:&stru_100206880 table:@"ClassKit"];
+    v10 = [NSBundle bundleForClass:objc_opt_class()];
+    v11 = [v10 localizedStringForKey:@"NOTIFICATION_TEACHER_REVIEW_HANDOUT_MESSAGE_FORMAT" value:&stru_100206880 table:@"ClassKit"];
     title = [firstObject title];
-    v14 = [NSString stringWithFormat:v12, title];
+    v13 = [NSString stringWithFormat:v11, title];
 
-    v15 = sub_10012F04C([PDUserNotificationData alloc], 3, v9, v14);
+    v14 = sub_10012F04C([PDUserNotificationData alloc], 3, v8, v13);
     objectID = [firstObject objectID];
-    if (v15)
+    if (v14)
     {
-      objc_setProperty_nonatomic_copy(v15, v16, objectID, 24);
+      objc_setProperty_nonatomic_copy(v14, v15, objectID, 24);
     }
 
-    v19 = [(PDUserNotificationTrigger *)self classIDFromHandout:firstObject];
-    if (v15)
+    v18 = [(PDUserNotificationTrigger *)self classIDFromHandout:firstObject];
+    if (v14)
     {
-      objc_setProperty_nonatomic_copy(v15, v18, v19, 32);
+      objc_setProperty_nonatomic_copy(v14, v17, v18, 32);
     }
   }
 
   else if ([handoutsCopy count] < 2)
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v38 = 0u;
-    v39 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v20 = handoutsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v36 objects:v40 count:16];
-    if (v21)
+    v34 = 0u;
+    v35 = 0u;
+    v19 = handoutsCopy;
+    v20 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v20)
     {
-      v22 = v21;
-      v35 = v9;
+      v21 = v20;
+      v33 = v8;
+      v22 = 0;
       v23 = 0;
-      v24 = 0;
-      v25 = *v37;
+      v24 = *v35;
       while (2)
       {
-        for (i = 0; i != v22; i = i + 1)
+        for (i = 0; i != v21; i = i + 1)
         {
-          if (*v37 != v25)
+          if (*v35 != v24)
           {
-            objc_enumerationMutation(v20);
+            objc_enumerationMutation(v19);
           }
 
-          objectID2 = [*(*(&v36 + 1) + 8 * i) objectID];
-          v28 = sub_100176270(database, objectID2);
+          objectID2 = [*(*(&v34 + 1) + 8 * i) objectID];
+          v27 = sub_100176270(database, objectID2);
 
-          v23 |= !v28;
-          v24 |= v28;
-          if (v23 & 1) != 0 && (v24)
+          v22 |= v27 ^ 1;
+          v23 |= v27;
+          if (v22 & 1) != 0 && (v23)
           {
 
-            v29 = @"NOTIFICATION_TEACHER_REVIEW_HANDOUTS_AND_ASSESSMENTS_MESSAGE_FORMAT";
-            v9 = v35;
+            v28 = @"NOTIFICATION_TEACHER_REVIEW_HANDOUTS_AND_ASSESSMENTS_MESSAGE_FORMAT";
+            v8 = v33;
             v6 = &sqlite3_bind_blob_ptr;
-            v7 = &CLSLogAsset_ptr;
             goto LABEL_23;
           }
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v36 objects:v40 count:16];
-        if (v22)
+        v21 = [v19 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        if (v21)
         {
           continue;
         }
@@ -213,12 +211,11 @@
         break;
       }
 
-      v9 = v35;
+      v8 = v33;
       v6 = &sqlite3_bind_blob_ptr;
-      v7 = &CLSLogAsset_ptr;
-      if (v24)
+      if (v23)
       {
-        v29 = @"NOTIFICATION_TEACHER_REVIEW_ASSESSMENTS_MESSAGE_FORMAT";
+        v28 = @"NOTIFICATION_TEACHER_REVIEW_ASSESSMENTS_MESSAGE_FORMAT";
         goto LABEL_23;
       }
     }
@@ -227,17 +224,16 @@
     {
     }
 
-    v29 = @"NOTIFICATION_TEACHER_REVIEW_HANDOUTS_MESSAGE_FORMAT";
+    v28 = @"NOTIFICATION_TEACHER_REVIEW_HANDOUTS_MESSAGE_FORMAT";
 LABEL_23:
-    v30 = v7[99];
-    v31 = [v6[450] bundleForClass:objc_opt_class()];
-    v32 = [v31 localizedStringForKey:v29 value:&stru_100206880 table:@"ClassKit"];
-    v33 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", v32, [v20 count]);
+    v29 = [v6[450] bundleForClass:objc_opt_class()];
+    v30 = [v29 localizedStringForKey:v28 value:&stru_100206880 table:@"ClassKit"];
+    v31 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", v30, [v19 count]);
 
-    v15 = sub_10012F04C([PDUserNotificationData alloc], 3, v9, v33);
+    v14 = sub_10012F04C([PDUserNotificationData alloc], 3, v8, v31);
   }
 
-  return v15;
+  return v14;
 }
 
 @end

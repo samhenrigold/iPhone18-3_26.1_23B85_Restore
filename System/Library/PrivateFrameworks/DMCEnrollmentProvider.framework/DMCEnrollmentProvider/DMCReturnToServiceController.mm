@@ -376,7 +376,7 @@ void __100__DMCReturnToServiceController__fetchAndInstallMDMProfileIfNeededWithC
           _os_log_impl(&dword_247E7D000, v15, OS_LOG_TYPE_INFO, "MDM profile exists.", buf, 2u);
         }
 
-        (v7)[2](v7, v14, a1[6]);
+        v7[2](v7, v14, a1[6]);
       }
 
       else

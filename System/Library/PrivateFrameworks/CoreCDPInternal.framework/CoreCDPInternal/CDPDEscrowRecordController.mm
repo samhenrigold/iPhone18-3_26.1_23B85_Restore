@@ -20,17 +20,23 @@
 - (void)_checkFirstUsableRecordForDeviceFromSource:(int64_t)source completion:(id)completion;
 - (void)_continueSilentEscrowRecordRepairWithState:(unint64_t)state completion:(id)completion;
 - (void)_determineEligibilityForSilentRepairWithCompletion:(id)completion;
+- (void)_deviceCircleStatusUsingCache:(BOOL)cache completion:(id)completion;
 - (void)_deviceEscrowRecordStateUsingAccountsHealthCheckCache:(id)cache;
+- (void)_deviceEscrowRecordStateUsingCache:(BOOL)cache completion:(id)completion;
+- (void)_escrowRecordStateForDevice:(id)device usingCache:(BOOL)cache completion:(id)completion;
 - (void)_fetchAllEscrowRecordsFromSource:(int64_t)source completion:(id)completion;
 - (void)_isEscrowRecordRepairPermitted;
 - (void)_performSilentEscrowRecordRepairWithCompletion:(id)completion;
 - (void)_reauthenticateAndPerformEscrowCheckWithIsBackground:(BOOL)background completion:(id)completion;
+- (void)_shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion;
 - (void)_tlkRecoveryViewsForRecord:(id)record usingCache:(BOOL)cache completion:(id)completion;
 - (void)circleController:(id)controller secureBackupRecordsArePresentWithCompletion:(id)completion;
+- (void)escrowCheckWithIsBackground:(BOOL)background completion:(id)completion;
 - (void)generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource:(int64_t)source withCompletion:(id)completion;
 - (void)performSilentEscrowRecordRepairWithCompletion:(id)completion;
 - (void)promptForAdoptionOfMultipleICSCWithCompletion:(id)completion;
 - (void)promptForLocalSecretWithCompletion:(id)completion;
+- (void)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion;
 @end
 
 @implementation CDPDEscrowRecordController
@@ -101,6 +107,19 @@
   return v9;
 }
 
+- (void)shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  completionCopy = completion;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __89__CDPDEscrowRecordController_shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke;
+  v8[3] = &unk_278E24F88;
+  v9 = completionCopy;
+  v7 = completionCopy;
+  [(CDPDEscrowRecordController *)self _shouldPerformSilentEscrowRecordRepairUsingCache:cacheCopy completion:v8];
+}
+
 uint64_t __89__CDPDEscrowRecordController_shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = *(a1 + 32);
@@ -110,6 +129,22 @@ uint64_t __89__CDPDEscrowRecordController_shouldPerformSilentEscrowRecordRepairU
   }
 
   return result;
+}
+
+- (void)escrowCheckWithIsBackground:(BOOL)background completion:(id)completion
+{
+  backgroundCopy = background;
+  completionCopy = completion;
+  octagonTrustProxy = self->_octagonTrustProxy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __69__CDPDEscrowRecordController_escrowCheckWithIsBackground_completion___block_invoke;
+  v9[3] = &unk_278E24FB0;
+  v11 = backgroundCopy;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(CDPDOctagonTrustProxy *)octagonTrustProxy escrowCheckWithIsBackground:backgroundCopy completion:v9];
 }
 
 void __69__CDPDEscrowRecordController_escrowCheckWithIsBackground_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -203,7 +238,7 @@ void __76__CDPDEscrowRecordController_performSilentEscrowRecordRepairWithComplet
 
 - (BOOL)updateLastSilentEscrowRecordRepairAttemptDate:(id)date error:(id *)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   isInternalBuild = [MEMORY[0x277CE4560] isInternalBuild];
   v8 = _CDPLogSystem();
@@ -212,11 +247,11 @@ void __76__CDPDEscrowRecordController_performSilentEscrowRecordRepairWithComplet
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
+      v12 = 138412546;
       selfCopy = self;
-      v15 = 2112;
-      v16 = dateCopy;
-      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "%@: Attempting to update the last silent escrow record repair attempt date (%@)", &v13, 0x16u);
+      v14 = 2112;
+      v15 = dateCopy;
+      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "%@: Attempting to update the last silent escrow record repair attempt date (%@)", &v12, 0x16u);
     }
 
     v10 = [(CDPDEscrowRecordController *)self _setLastEscrowRepairAttemptDate:dateCopy error:error];
@@ -241,8 +276,37 @@ void __76__CDPDEscrowRecordController_performSilentEscrowRecordRepairWithComplet
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+- (void)_shouldPerformSilentEscrowRecordRepairUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  completionCopy = completion;
+  if ([MEMORY[0x277CFD560] isSEPBasedICSCHealingEnabled])
+  {
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __90__CDPDEscrowRecordController__shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke;
+    v12[3] = &unk_278E24E58;
+    v13 = completionCopy;
+    v7 = completionCopy;
+    [(CDPDEscrowRecordController *)self _deviceCircleStatusUsingCache:cacheCopy completion:v12];
+    v8 = v13;
+  }
+
+  else
+  {
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __90__CDPDEscrowRecordController__shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke_2;
+    v10[3] = &unk_278E25000;
+    v10[4] = self;
+    v11 = completionCopy;
+    v9 = completionCopy;
+    [(CDPDEscrowRecordController *)self _deviceEscrowRecordStateUsingCache:cacheCopy completion:v10];
+    v8 = v11;
+  }
 }
 
 uint64_t __90__CDPDEscrowRecordController__shouldPerformSilentEscrowRecordRepairUsingCache_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -294,15 +358,15 @@ uint64_t __90__CDPDEscrowRecordController__shouldPerformSilentEscrowRecordRepair
 
 - (BOOL)_shouldPerformSilentRepairForEscrowRecordState:(unint64_t)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
+    v10 = 138412546;
     selfCopy7 = self;
-    v13 = 2048;
+    v12 = 2048;
     stateCopy = state;
-    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%@: Determining if silent repair should be performed for state (%lu)", &v11, 0x16u);
+    _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%@: Determining if silent repair should be performed for state (%lu)", &v10, 0x16u);
   }
 
   if (![(CDPDEscrowRecordController *)self _isEscrowRecordRepairPermitted])
@@ -314,14 +378,14 @@ LABEL_13:
       LOBYTE(v5) = 0;
 LABEL_14:
 
-      goto LABEL_15;
+      return v5 & 1;
     }
 
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy7 = self;
     v8 = "%@: Silent repair should not be performed due to rate limiting";
 LABEL_12:
-    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
+    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, v8, &v10, 0xCu);
     goto LABEL_13;
   }
 
@@ -331,7 +395,7 @@ LABEL_12:
     {
       if (state != 1)
       {
-        goto LABEL_15;
+        return v5 & 1;
       }
 
       v6 = _CDPLogSystem();
@@ -340,7 +404,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v11 = 138412290;
+      v10 = 138412290;
       selfCopy7 = self;
       v8 = "%@: Silent repair should not be performed for viable state";
     }
@@ -353,7 +417,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v11 = 138412290;
+      v10 = 138412290;
       selfCopy7 = self;
       v8 = "%@: Silent repair should not be performed for unknown state";
     }
@@ -367,7 +431,7 @@ LABEL_12:
       v6 = _CDPLogSystem();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
+        v10 = 138412290;
         selfCopy7 = self;
         v7 = "%@: Silent repair should be performed for not found state";
         goto LABEL_22;
@@ -381,11 +445,11 @@ LABEL_23:
       v6 = _CDPLogSystem();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412546;
+        v10 = 138412546;
         selfCopy7 = self;
-        v13 = 1024;
+        v12 = 1024;
         LODWORD(stateCopy) = v5;
-        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "%@: Silent repair can be perfomed for non viable state (%{BOOL}d)", &v11, 0x12u);
+        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "%@: Silent repair can be perfomed for non viable state (%{BOOL}d)", &v10, 0x12u);
       }
 
       goto LABEL_14;
@@ -393,19 +457,17 @@ LABEL_23:
       v6 = _CDPLogSystem();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
+        v10 = 138412290;
         selfCopy7 = self;
         v7 = "%@: Silent burn recovery can be perfomed for missing circle state";
 LABEL_22:
-        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
+        _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
         goto LABEL_23;
       }
 
       goto LABEL_23;
   }
 
-LABEL_15:
-  v9 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
@@ -442,7 +504,7 @@ uint64_t __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithCo
 
 void __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, int a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v5 = _CDPLogSystem();
@@ -450,31 +512,27 @@ void __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithComple
     {
       v6 = *(a1 + 32);
       *buf = 138412546;
-      v16 = v6;
-      v17 = 2048;
-      v18 = a2;
+      v13 = v6;
+      v14 = 2048;
+      v15 = a2;
       _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%@: Proceeding with silent escrow record repair for state (%lu)", buf, 0x16u);
     }
 
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithCompletion___block_invoke_52;
-    v12[3] = &unk_278E25050;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithCompletion___block_invoke_52;
+    v9[3] = &unk_278E25050;
     v7 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    v14 = a2;
-    [v7 _beginSilentEscrowRecordRepairWithState:a2 completion:v12];
-
-    v8 = *MEMORY[0x277D85DE8];
+    v10 = *(a1 + 40);
+    v11 = a2;
+    [v7 _beginSilentEscrowRecordRepairWithState:a2 completion:v9];
   }
 
   else
   {
-    v9 = *(a1 + 40);
-    v10 = *(*(a1 + 40) + 16);
-    v11 = *MEMORY[0x277D85DE8];
+    v8 = *(*(a1 + 40) + 16);
 
-    v10();
+    v8();
   }
 }
 
@@ -503,7 +561,7 @@ void __77__CDPDEscrowRecordController__performSilentEscrowRecordRepairWithComple
 
 void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -556,26 +614,26 @@ void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalD
         v24 = _CDPLogSystem();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v35 = v15;
+          v34 = v15;
           v25 = v17;
           v26 = v23;
           v27 = v22;
           v28 = *(a1 + 32);
           v29 = [v19 recordId];
           *buf = 138544387;
-          v37 = v28;
+          v36 = v28;
           v22 = v27;
           v23 = v26;
           v17 = v25;
-          v15 = v35;
-          v38 = 2160;
-          v39 = 1752392040;
-          v40 = 2112;
-          v41 = v29;
-          v42 = 2112;
-          v43 = v22;
-          v44 = 2117;
-          v45 = v23;
+          v15 = v34;
+          v37 = 2160;
+          v38 = 1752392040;
+          v39 = 2112;
+          v40 = v29;
+          v41 = 2112;
+          v42 = v22;
+          v43 = 2117;
+          v44 = v23;
           _os_log_impl(&dword_24510B000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@: Processing device escrow record with id: %{mask.hash}@ (name: '%@', serial: %{sensitive}@)", buf, 0x34u);
         }
 
@@ -593,7 +651,7 @@ void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalD
         v32 = _CDPLogSystem();
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource_withCompletion___block_invoke_cold_2((a1 + 32));
+          __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource_withCompletion___block_invoke_cold_2();
         }
 
         v33 = *(a1 + 40);
@@ -606,13 +664,11 @@ void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalD
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_firstUsableRecordForCurrentPeerWithSerialNumber:(id)number fromRecords:(id)records
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   recordsCopy = records;
   v7 = _CDPLogSystem();
@@ -638,12 +694,12 @@ void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalD
     [CDPDEscrowRecordController _firstUsableRecordForCurrentPeerWithSerialNumber:fromRecords:];
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v9 = recordsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (!v10)
   {
 LABEL_40:
@@ -652,18 +708,18 @@ LABEL_40:
   }
 
   v11 = v10;
-  v32 = recordsCopy;
-  v12 = *v39;
+  v31 = recordsCopy;
+  v12 = *v38;
 LABEL_9:
   v13 = 0;
   while (1)
   {
-    if (*v39 != v12)
+    if (*v38 != v12)
     {
       objc_enumerationMutation(v9);
     }
 
-    v14 = *(*(&v38 + 1) + 8 * v13);
+    v14 = *(*(&v37 + 1) + 8 * v13);
     serialNumber = [v14 serialNumber];
     v16 = [serialNumber isEqualToString:numberCopy];
 
@@ -676,10 +732,10 @@ LABEL_9:
         serialNumber2 = [v14 serialNumber];
         *buf = 138543875;
         selfCopy4 = self;
-        v46 = 2117;
-        v47 = serialNumber2;
-        v48 = 2117;
-        v49 = numberCopy;
+        v45 = 2117;
+        v46 = serialNumber2;
+        v47 = 2117;
+        v48 = numberCopy;
         _os_log_error_impl(&dword_24510B000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Skipping record with serial number (%{sensitive}@). This device has a serial number of (%{sensitive}@)", buf, 0x20u);
       }
 
@@ -688,7 +744,7 @@ LABEL_9:
 
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [(CDPDEscrowRecordController *)v42 _firstUsableRecordForCurrentPeerWithSerialNumber:v18 fromRecords:?];
+      [(CDPDEscrowRecordController *)v41 _firstUsableRecordForCurrentPeerWithSerialNumber:v18 fromRecords:?];
     }
 
     label = [v14 label];
@@ -706,10 +762,10 @@ LABEL_9:
       label2 = [v14 label];
       *buf = 138543874;
       selfCopy4 = self;
-      v46 = 2160;
-      v47 = 1752392040;
-      v48 = 2112;
-      v49 = label2;
+      v45 = 2160;
+      v46 = 1752392040;
+      v47 = 2112;
+      v48 = label2;
       v23 = v18;
       v24 = "%{public}@: Skipping record with incorrect label %{mask.hash}@";
       goto LABEL_35;
@@ -719,7 +775,7 @@ LABEL_32:
 
     if (v11 == ++v13)
     {
-      v27 = [v9 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v27 = [v9 countByEnumeratingWithState:&v37 objects:v49 count:16];
       v11 = v27;
       if (!v27)
       {
@@ -733,7 +789,7 @@ LABEL_32:
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    [(CDPDEscrowRecordController *)&v36 _firstUsableRecordForCurrentPeerWithSerialNumber:v37 fromRecords:v18];
+    [(CDPDEscrowRecordController *)&v35 _firstUsableRecordForCurrentPeerWithSerialNumber:v36 fromRecords:v18];
   }
 
   if ([v14 hasRecordStatus] && objc_msgSend(v14, "recordStatus") == 1)
@@ -744,10 +800,10 @@ LABEL_32:
       label2 = [v14 recordId];
       *buf = 138543874;
       selfCopy4 = self;
-      v46 = 2160;
-      v47 = 1752392040;
-      v48 = 2112;
-      v49 = label2;
+      v45 = 2160;
+      v46 = 1752392040;
+      v47 = 2112;
+      v48 = label2;
       v23 = v18;
       v24 = "%{public}@: Record %{mask.hash}@ has invalid status.";
 LABEL_35:
@@ -762,7 +818,7 @@ LABEL_35:
   v26 = _CDPLogSystem();
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    [(CDPDEscrowRecordController *)&v34 _firstUsableRecordForCurrentPeerWithSerialNumber:v35 fromRecords:v26];
+    [(CDPDEscrowRecordController *)&v33 _firstUsableRecordForCurrentPeerWithSerialNumber:v34 fromRecords:v26];
   }
 
   if (![v14 hasRecordViability] || objc_msgSend(v14, "recordViability") != 1 && objc_msgSend(v14, "recordViability"))
@@ -773,10 +829,10 @@ LABEL_35:
       label2 = [v14 recordId];
       *buf = 138543874;
       selfCopy4 = self;
-      v46 = 2160;
-      v47 = 1752392040;
-      v48 = 2112;
-      v49 = label2;
+      v45 = 2160;
+      v46 = 1752392040;
+      v47 = 2112;
+      v48 = label2;
       v23 = v18;
       v24 = "%{public}@: Record %{mask.hash}@ is not partially or fully viable. Skipping update.";
       goto LABEL_35;
@@ -793,17 +849,15 @@ LABEL_35:
 
   v28 = v14;
 LABEL_44:
-  recordsCopy = v32;
+  recordsCopy = v31;
 LABEL_45:
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 - (void)_determineEligibilityForSilentRepairWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   context = [(CDPDEscrowRecordController *)self context];
   isLocalSecretCached = [context isLocalSecretCached];
@@ -812,13 +866,13 @@ LABEL_45:
   {
     if ([(CDPDEscrowRecordController *)self _isEscrowRecordRepairPermitted])
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCompletion___block_invoke;
-      v13[3] = &unk_278E25078;
-      v13[4] = self;
-      v14 = completionCopy;
-      [(CDPDEscrowRecordController *)self _shouldPerformSilentEscrowRecordRepairUsingCache:1 completion:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCompletion___block_invoke;
+      v12[3] = &unk_278E25078;
+      v12[4] = self;
+      v13 = completionCopy;
+      [(CDPDEscrowRecordController *)self _shouldPerformSilentEscrowRecordRepairUsingCache:1 completion:v12];
 
       goto LABEL_13;
     }
@@ -860,13 +914,11 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCompletion___block_invoke(uint64_t a1, uint64_t a2, char a3, void *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = v7;
   if ((a3 & 1) != 0 || [v7 code] == 51 && (objc_msgSend(v8, "domain"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", @"com.apple.security.trustedpeers.container"), v11, v12))
@@ -875,9 +927,9 @@ void __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v15 = 138412290;
-      v16 = v10;
-      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "%@: Double checking if silent escrow record repair should be performed (using network)", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "%@: Double checking if silent escrow record repair should be performed (using network)", &v14, 0xCu);
     }
 
     [*(a1 + 32) _shouldPerformSilentEscrowRecordRepairUsingCache:0 completion:*(a1 + 40)];
@@ -891,16 +943,14 @@ void __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCo
       (*(v13 + 16))(v13, a2, 0, v8);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isEscrowRecordRepairPermitted
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v3 = [(CDPDEscrowRecordController *)self _lastEscrowRepairAttemptDate:&v15];
-  v4 = v15;
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v3 = [(CDPDEscrowRecordController *)self _lastEscrowRepairAttemptDate:&v14];
+  v4 = v14;
   if (v4)
   {
     v5 = _CDPLogSystem();
@@ -921,8 +971,8 @@ void __81__CDPDEscrowRecordController__determineEligibilityForSilentRepairWithCo
     {
       *buf = 138412546;
       selfCopy4 = self;
-      v18 = 2112;
-      v19 = v3;
+      v17 = 2112;
+      v18 = v3;
       _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "%@: Fetched last escrow repair attempt date (%@)", buf, 0x16u);
     }
 
@@ -965,13 +1015,12 @@ LABEL_16:
   v6 = 1;
 LABEL_18:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)_isEligibleForEscrowRecordOperationsWithError:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   context = [(CDPDEscrowRecordController *)self context];
   altDSID = [context altDSID];
   v7 = [(CDPDEscrowRecordController *)self _getAccountRepresentationForAltDSID:altDSID];
@@ -983,13 +1032,13 @@ LABEL_18:
     {
       context2 = [(CDPDEscrowRecordController *)self context];
       altDSID2 = [context2 altDSID];
-      v19 = 138412802;
+      v18 = 138412802;
       selfCopy3 = self;
-      v21 = 2160;
-      v22 = 1752392040;
-      v23 = 2112;
-      v24 = altDSID2;
-      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record for unknown account with altDSID (%{mask.hash}@)", &v19, 0x20u);
+      v20 = 2160;
+      v21 = 1752392040;
+      v22 = 2112;
+      v23 = altDSID2;
+      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record for unknown account with altDSID (%{mask.hash}@)", &v18, 0x20u);
     }
 
     if (!error)
@@ -1006,9 +1055,9 @@ LABEL_18:
     v15 = _CDPLogSystem();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
+      v18 = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "%@: Will not determine escrow record state for device without local secret (not eligible)", &v19, 0xCu);
+      _os_log_impl(&dword_24510B000, v15, OS_LOG_TYPE_DEFAULT, "%@: Will not determine escrow record state for device without local secret (not eligible)", &v18, 0xCu);
     }
 
     if (!error)
@@ -1031,11 +1080,11 @@ LABEL_17:
     v16 = _CDPLogSystem();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412546;
+      v18 = 138412546;
       selfCopy3 = self;
-      v21 = 2048;
-      v22 = circleStatus;
-      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record state for device not in circle (%lu)", &v19, 0x16u);
+      v20 = 2048;
+      v21 = circleStatus;
+      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record state for device not in circle (%lu)", &v18, 0x16u);
     }
 
     if (error)
@@ -1052,13 +1101,12 @@ LABEL_18:
   v10 = 1;
 LABEL_19:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_deviceEscrowRecordStateUsingAccountsHealthCheckCache:(id)cache
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
   context = [(CDPDEscrowRecordController *)self context];
   altDSID = [context altDSID];
@@ -1092,25 +1140,25 @@ LABEL_19:
           v19 = "non-viable or not found";
         }
 
-        v23 = 138412546;
+        v22 = 138412546;
         selfCopy2 = self;
-        v25 = 2080;
-        v26 = v19;
-        _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "%@: Used precomputed escrowRecordHealthCheckFailureCount bit and determined escrow record state is %s.", &v23, 0x16u);
+        v24 = 2080;
+        v25 = v19;
+        _os_log_impl(&dword_24510B000, v18, OS_LOG_TYPE_DEFAULT, "%@: Used precomputed escrowRecordHealthCheckFailureCount bit and determined escrow record state is %s.", &v22, 0x16u);
       }
 
       if (intValue < 1)
       {
-        v21 = _CDPLogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v20 = _CDPLogSystem();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           [CDPDEscrowRecordController _deviceEscrowRecordStateUsingAccountsHealthCheckCache:];
         }
 
         if (cacheCopy)
         {
-          v22 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5324];
-          cacheCopy[2](cacheCopy, 0, v22);
+          v21 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5324];
+          cacheCopy[2](cacheCopy, 0, v21);
         }
       }
 
@@ -1143,13 +1191,13 @@ LABEL_19:
     {
       context2 = [(CDPDEscrowRecordController *)self context];
       altDSID2 = [context2 altDSID];
-      v23 = 138412802;
+      v22 = 138412802;
       selfCopy2 = self;
-      v25 = 2160;
-      v26 = 1752392040;
-      v27 = 2112;
-      v28 = altDSID2;
-      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record for unknown account with altDSID (%{mask.hash}@)", &v23, 0x20u);
+      v24 = 2160;
+      v25 = 1752392040;
+      v26 = 2112;
+      v27 = altDSID2;
+      _os_log_impl(&dword_24510B000, v11, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record for unknown account with altDSID (%{mask.hash}@)", &v22, 0x20u);
     }
 
     if (cacheCopy)
@@ -1162,13 +1210,207 @@ LABEL_13:
 LABEL_22:
     }
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)_deviceEscrowRecordStateUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v43 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  context = [(CDPDEscrowRecordController *)self context];
+  altDSID = [context altDSID];
+  v9 = [(CDPDEscrowRecordController *)self _getAccountRepresentationForAltDSID:altDSID];
+
+  if (!v9)
+  {
+    v16 = _CDPLogSystem();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      context2 = [(CDPDEscrowRecordController *)self context];
+      altDSID2 = [context2 altDSID];
+      *buf = 138412802;
+      selfCopy6 = self;
+      v39 = 2160;
+      v40 = 1752392040;
+      v41 = 2112;
+      v42 = altDSID2;
+      _os_log_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record for unknown account with altDSID (%{mask.hash}@)", buf, 0x20u);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_26;
+    }
+
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = -5108;
+LABEL_24:
+    v11 = [v19 cdp_errorWithCode:v20];
+    completionCopy[2](completionCopy, 0, v11);
+LABEL_25:
+
+    goto LABEL_26;
+  }
+
+  if (![(CDPDEscrowRecordController *)self _hasLocalSecret])
+  {
+    v21 = _CDPLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy6 = self;
+      _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, "%@: Will not determine escrow record state for device without local secret (not eligible)", buf, 0xCu);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_26;
+    }
+
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = -5500;
+    goto LABEL_24;
+  }
+
+  if ([v9 isSilentEscrowRecordRepairEnabledV2])
+  {
+    v36 = 0;
+    v10 = [(CDPDEscrowRecordController *)self _combinedCircleStatusUsingCache:cacheCopy error:&v36];
+    v11 = v36;
+    if ([v9 isSilentBurnCDPRepairEnabled])
+    {
+      if ([MEMORY[0x277CFD560] isSilentBurnInMiniBuddyEnabled])
+      {
+        context3 = [(CDPDEscrowRecordController *)self context];
+        type = [context3 type];
+
+        if (type == 10 && v10 != 1)
+        {
+          v14 = _CDPLogSystem();
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            selfCopy6 = self;
+            _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "%@: Device not in circle; will try a silent burn recovery...", buf, 0xCu);
+          }
+
+          if (completionCopy)
+          {
+            v15 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5403 underlyingError:v11];
+            completionCopy[2](completionCopy, 4, v15);
+          }
+
+          goto LABEL_25;
+        }
+      }
+    }
+
+    else
+    {
+      v23 = _CDPLogSystem();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        selfCopy6 = self;
+        _os_log_impl(&dword_24510B000, v23, OS_LOG_TYPE_DEFAULT, "%@: Cannot perform silent burn in mini-buddy due to server-side disablement", buf, 0xCu);
+      }
+    }
+
+    if (cacheCopy)
+    {
+      [(CDPDEscrowRecordController *)self _deviceEscrowRecordStateUsingAccountsHealthCheckCache:completionCopy];
+    }
+
+    else if ([MEMORY[0x277CFD560] shouldValidatePasscodeGenerations])
+    {
+      circleController = [(CDPDEscrowRecordController *)self circleController];
+      peerID = [circleController peerID];
+
+      if (peerID)
+      {
+        secureBackupController = [(CDPDEscrowRecordController *)self secureBackupController];
+        isSimulateNonViableEscrowRecordEnabled = [secureBackupController isSimulateNonViableEscrowRecordEnabled];
+
+        if (isSimulateNonViableEscrowRecordEnabled)
+        {
+          v28 = _CDPLogSystem();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            selfCopy6 = self;
+            _os_log_impl(&dword_24510B000, v28, OS_LOG_TYPE_DEFAULT, "%@: Simulating escrow record as non-viable record only for testing", buf, 0xCu);
+          }
+
+          if (completionCopy)
+          {
+            completionCopy[2](completionCopy, 3, 0);
+          }
+        }
+
+        else
+        {
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke;
+          v34[3] = &unk_278E250C8;
+          v34[4] = self;
+          v35 = completionCopy;
+          [(CDPDEscrowRecordController *)self generateEscrowRecordStatusReportForLocalDeviceUsingCache:0 withCompletion:v34];
+        }
+      }
+
+      else
+      {
+        v29 = _CDPLogSystem();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          [CDPDEscrowRecordController _deviceEscrowRecordStateUsingCache:completion:];
+        }
+
+        if (completionCopy)
+        {
+          v30 = [MEMORY[0x277CCA9B8] cdp_errorWithCode:-5309];
+          completionCopy[2](completionCopy, 4, v30);
+        }
+      }
+    }
+
+    else
+    {
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62;
+      v31[3] = &unk_278E250F0;
+      v31[4] = self;
+      v32 = completionCopy;
+      v33 = 0;
+      [(CDPDEscrowRecordController *)self _checkAllRecordsForCurrentDeviceUsingCache:0 completion:v31];
+    }
+
+    goto LABEL_25;
+  }
+
+  v22 = _CDPLogSystem();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    selfCopy6 = self;
+    _os_log_impl(&dword_24510B000, v22, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine escrow record state due to server-side disablement", buf, 0xCu);
+  }
+
+  if (completionCopy)
+  {
+    v19 = MEMORY[0x277CCA9B8];
+    v20 = -5004;
+    goto LABEL_24;
+  }
+
+LABEL_26:
 }
 
 void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _CDPLogSystem();
@@ -1177,7 +1419,7 @@ void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_complet
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_cold_1(a1);
+      __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_cold_1();
     }
 
     v9 = *(a1 + 40);
@@ -1192,23 +1434,23 @@ void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_complet
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v19 = [v5 deviceViability];
-      v11 = [v19 recordId];
+      v18 = [v5 deviceViability];
+      v11 = [v18 recordId];
       v12 = [v5 deviceViability];
       v13 = [v12 localViability];
       v14 = [v5 deviceViability];
       [v14 localViability];
       v15 = CDPEscrowRecordStateString();
       *buf = 138413314;
-      v21 = v10;
-      v22 = 2160;
-      v23 = 1752392040;
-      v24 = 2112;
-      v25 = v11;
-      v26 = 1024;
-      v27 = v13;
-      v28 = 2114;
-      v29 = v15;
+      v20 = v10;
+      v21 = 2160;
+      v22 = 1752392040;
+      v23 = 2112;
+      v24 = v11;
+      v25 = 1024;
+      v26 = v13;
+      v27 = 2114;
+      v28 = v15;
       _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "%@: Report indicates that the current device's most viable record is: (%{mask.hash}@ with state: %d (%{public}@)", buf, 0x30u);
     }
 
@@ -1219,13 +1461,11 @@ void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_complet
       (*(v16 + 16))(v16, [v17 localViability], 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1233,7 +1473,7 @@ void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_complet
     v7 = _CDPLogSystem();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62_cold_1(a1);
+      __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62_cold_1();
     }
 
     v8 = *(a1 + 40);
@@ -1255,11 +1495,11 @@ LABEL_6:
       {
         v12 = *(a1 + 32);
         v13 = [v5 recordID];
-        v17 = 138412546;
-        v18 = v12;
-        v19 = 2112;
-        v20 = v13;
-        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Determed that current device has an existing escrow record (%@)", &v17, 0x16u);
+        v16 = 138412546;
+        v17 = v12;
+        v18 = 2112;
+        v19 = v13;
+        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Determed that current device has an existing escrow record (%@)", &v16, 0x16u);
       }
 
       [*(a1 + 32) _escrowRecordStateForDevice:v5 usingCache:*(a1 + 48) completion:*(a1 + 40)];
@@ -1269,22 +1509,154 @@ LABEL_6:
     {
       if (v11)
       {
-        v15 = *(a1 + 32);
-        v17 = 138412290;
-        v18 = v15;
-        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Existing escrow record for current device could not be found", &v17, 0xCu);
+        v14 = *(a1 + 32);
+        v16 = 138412290;
+        v17 = v14;
+        _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Existing escrow record for current device could not be found", &v16, 0xCu);
       }
 
-      v16 = *(a1 + 40);
-      if (v16)
+      v15 = *(a1 + 40);
+      if (v15)
       {
-        v9 = *(v16 + 16);
+        v9 = *(v15 + 16);
         goto LABEL_6;
       }
     }
   }
+}
 
-  v14 = *MEMORY[0x277D85DE8];
+- (void)_deviceCircleStatusUsingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v30 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  context = [(CDPDEscrowRecordController *)self context];
+  altDSID = [context altDSID];
+  v9 = [(CDPDEscrowRecordController *)self _getAccountRepresentationForAltDSID:altDSID];
+
+  if (!v9)
+  {
+    v14 = _CDPLogSystem();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      context2 = [(CDPDEscrowRecordController *)self context];
+      altDSID2 = [context2 altDSID];
+      *buf = 138412802;
+      selfCopy5 = self;
+      v26 = 2160;
+      v27 = 1752392040;
+      v28 = 2112;
+      v29 = altDSID2;
+      _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "%@: Cannot determine circle status for unknown account with altDSID (%{mask.hash}@)", buf, 0x20u);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_30;
+    }
+
+    v17 = MEMORY[0x277CCA9B8];
+    v18 = -5108;
+LABEL_28:
+    v13 = [v17 cdp_errorWithCode:v18];
+    completionCopy[2](completionCopy, 0, v13);
+LABEL_29:
+
+    goto LABEL_30;
+  }
+
+  if (![(CDPDEscrowRecordController *)self _hasLocalSecret])
+  {
+    v19 = _CDPLogSystem();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy5 = self;
+      _os_log_impl(&dword_24510B000, v19, OS_LOG_TYPE_DEFAULT, "%@: Will not determine circle status for device without local secret (not eligible)", buf, 0xCu);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_30;
+    }
+
+    v17 = MEMORY[0x277CCA9B8];
+    v18 = -5500;
+    goto LABEL_28;
+  }
+
+  if (![(CDPDEscrowRecordController *)self _isEscrowRecordRepairPermitted])
+  {
+    v20 = _CDPLogSystem();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy5 = self;
+      _os_log_impl(&dword_24510B000, v20, OS_LOG_TYPE_DEFAULT, "%@: Cannot silently repair circle status due to rate limiting", buf, 0xCu);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_30;
+    }
+
+    v17 = MEMORY[0x277CCA9B8];
+    v18 = -5203;
+    goto LABEL_28;
+  }
+
+  if (([v9 isSilentBurnCDPRepairEnabled] & 1) == 0)
+  {
+    v21 = _CDPLogSystem();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      selfCopy5 = self;
+      _os_log_impl(&dword_24510B000, v21, OS_LOG_TYPE_DEFAULT, "%@: Cannot perform silent burn in mini-buddy due to server-side disablement", buf, 0xCu);
+    }
+
+    if (!completionCopy)
+    {
+      goto LABEL_30;
+    }
+
+    v17 = MEMORY[0x277CCA9B8];
+    v18 = -1;
+    goto LABEL_28;
+  }
+
+  context3 = [(CDPDEscrowRecordController *)self context];
+  type = [context3 type];
+
+  if (type == 10)
+  {
+    v23 = 0;
+    v12 = [(CDPDEscrowRecordController *)self _combinedCircleStatusUsingCache:cacheCopy error:&v23];
+    v13 = v23;
+    if (completionCopy)
+    {
+      completionCopy[2](completionCopy, v12, v13);
+    }
+
+    goto LABEL_29;
+  }
+
+  v22 = _CDPLogSystem();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    selfCopy5 = self;
+    _os_log_impl(&dword_24510B000, v22, OS_LOG_TYPE_DEFAULT, "%@: Minibuddy silent burn ineligible for context type", buf, 0xCu);
+  }
+
+  if (completionCopy)
+  {
+    v17 = MEMORY[0x277CCA9B8];
+    v18 = -5004;
+    goto LABEL_28;
+  }
+
+LABEL_30:
 }
 
 - (void)_checkAllRecordsForCurrentDeviceUsingCache:(BOOL)cache completion:(id)completion
@@ -1338,9 +1710,40 @@ void __84__CDPDEscrowRecordController__checkAllRecordsForCurrentDeviceUsingCache
   }
 }
 
+- (void)_escrowRecordStateForDevice:(id)device usingCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  v23 = *MEMORY[0x277D85DE8];
+  deviceCopy = device;
+  completionCopy = completion;
+  v10 = _CDPLogSystem();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412802;
+    selfCopy = self;
+    v19 = 2112;
+    v20 = deviceCopy;
+    v21 = 1024;
+    v22 = cacheCopy;
+    _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Checking if device (%@) is missing TLK recoverability using cache (%{BOOL}d)", buf, 0x1Cu);
+  }
+
+  record = [deviceCopy record];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __80__CDPDEscrowRecordController__escrowRecordStateForDevice_usingCache_completion___block_invoke;
+  v14[3] = &unk_278E25140;
+  v14[4] = self;
+  v15 = deviceCopy;
+  v16 = completionCopy;
+  v12 = completionCopy;
+  v13 = deviceCopy;
+  [(CDPDEscrowRecordController *)self _tlkRecoveryViewsForRecord:record usingCache:cacheCopy completion:v14];
+}
+
 void __80__CDPDEscrowRecordController__escrowRecordStateForDevice_usingCache_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v6 isRecordNotViableError])
@@ -1350,13 +1753,13 @@ void __80__CDPDEscrowRecordController__escrowRecordStateForDevice_usingCache_com
     {
       v8 = *(a1 + 32);
       v9 = [*(a1 + 40) recordID];
-      v22 = 138412802;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v9;
-      v26 = 2112;
-      v27 = v6;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Checking TLK recoverability for escrow record (%@) exposed its non viableness (%@)", &v22, 0x20u);
+      v21 = 138412802;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2112;
+      v26 = v6;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Checking TLK recoverability for escrow record (%@) exposed its non viableness (%@)", &v21, 0x20u);
     }
 
 LABEL_4:
@@ -1375,43 +1778,43 @@ LABEL_11:
 
   if (!v6)
   {
-    v15 = [*(a1 + 32) secureBackupController];
-    v16 = [v15 isSimulateNonViableEscrowRecordEnabled];
+    v14 = [*(a1 + 32) secureBackupController];
+    v15 = [v14 isSimulateNonViableEscrowRecordEnabled];
 
     v7 = _CDPLogSystem();
-    v17 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (!v16)
+    v16 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    if (!v15)
     {
-      if (v17)
+      if (v16)
       {
-        v19 = *(a1 + 32);
-        v20 = [*(a1 + 40) recordID];
-        v22 = 138412802;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v5;
-        _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Checked TLK recoverability for escrow record (%@) and found views (%@)", &v22, 0x20u);
+        v18 = *(a1 + 32);
+        v19 = [*(a1 + 40) recordID];
+        v21 = 138412802;
+        v22 = v18;
+        v23 = 2112;
+        v24 = v19;
+        v25 = 2112;
+        v26 = v5;
+        _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Checked TLK recoverability for escrow record (%@) and found views (%@)", &v21, 0x20u);
       }
 
       [v5 count];
-      v21 = *(a1 + 48);
-      if (v21)
+      v20 = *(a1 + 48);
+      if (v20)
       {
-        v11 = *(v21 + 16);
+        v11 = *(v20 + 16);
         goto LABEL_11;
       }
 
       goto LABEL_12;
     }
 
-    if (v17)
+    if (v16)
     {
-      v18 = *(a1 + 32);
-      v22 = 138412290;
-      v23 = v18;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Simulating escrow record as non-viable record only for testing", &v22, 0xCu);
+      v17 = *(a1 + 32);
+      v21 = 138412290;
+      v22 = v17;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Simulating escrow record as non-viable record only for testing", &v21, 0xCu);
     }
 
     goto LABEL_4;
@@ -1431,14 +1834,12 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tlkRecoveryViewsForRecord:(id)record usingCache:(BOOL)cache completion:(id)completion
 {
   cacheCopy = cache;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   completionCopy = completion;
   v10 = _CDPLogSystem();
@@ -1447,12 +1848,12 @@ LABEL_12:
     recordId = [recordCopy recordId];
     *buf = 138544130;
     selfCopy = self;
-    v22 = 2160;
-    v23 = 1752392040;
-    v24 = 2112;
-    v25 = recordId;
-    v26 = 1024;
-    v27 = cacheCopy;
+    v21 = 2160;
+    v22 = 1752392040;
+    v23 = 2112;
+    v24 = recordId;
+    v25 = 1024;
+    v26 = cacheCopy;
     _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Checking for recoverable TLK views in record (%{mask.hash}@) is missing TLK recoverability using cache (%{BOOL}d)", buf, 0x26u);
   }
 
@@ -1461,27 +1862,25 @@ LABEL_12:
 
   accountInfoFetchSetupDictionary = [v13 accountInfoFetchSetupDictionary];
   octagonTrustProxy = [(CDPDEscrowRecordController *)self octagonTrustProxy];
-  v19 = 0;
-  v16 = [octagonTrustProxy tlkRecoverabilityForEscrow:accountInfoFetchSetupDictionary record:recordCopy source:cacheCopy error:&v19];
-  v17 = v19;
+  v18 = 0;
+  v16 = [octagonTrustProxy tlkRecoverabilityForEscrow:accountInfoFetchSetupDictionary record:recordCopy source:cacheCopy error:&v18];
+  v17 = v18;
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy, v16, v17);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginSilentEscrowRecordRepairWithState:(unint64_t)state completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke;
   aBlock[3] = &unk_278E25168;
-  v16 = completionCopy;
+  v15 = completionCopy;
   stateCopy = state;
   aBlock[4] = self;
   v7 = completionCopy;
@@ -1515,13 +1914,11 @@ LABEL_12:
     context2 = [(CDPDEscrowRecordController *)self context];
     [context2 reauthenticateUserWithCompletion:v8];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   v7 = v6;
@@ -1532,13 +1929,13 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
       v8 = *(a1 + 32);
       v9 = [v8 context];
       v10 = [v9 passwordEquivToken];
-      v14 = 138412802;
-      v15 = v8;
-      v16 = 2160;
-      v17 = 1752392040;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Context is authenticated and has PET (%{mask.hash}@}", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v8;
+      v15 = 2160;
+      v16 = 1752392040;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "%@: Context is authenticated and has PET (%{mask.hash}@}", &v13, 0x20u);
     }
 
     [*(a1 + 32) _continueSilentEscrowRecordRepairWithState:*(a1 + 48) completion:*(a1 + 40)];
@@ -1548,7 +1945,7 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke_cold_1(a1);
+      __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke_cold_1();
     }
 
     v11 = *(a1 + 40);
@@ -1558,13 +1955,11 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
       (*(v11 + 16))(v11, 0, v12);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueSilentEscrowRecordRepairWithState:(unint64_t)state completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   date = [MEMORY[0x277CBEAA8] date];
   v8 = _CDPLogSystem();
@@ -1572,14 +1967,14 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
   {
     *buf = 138412546;
     selfCopy2 = self;
-    v29 = 2112;
-    v30 = date;
+    v28 = 2112;
+    v29 = date;
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "%@: Attempting to set the current date (%@) as last escrow repair attempt date", buf, 0x16u);
   }
 
-  v26 = 0;
-  v9 = [(CDPDEscrowRecordController *)self _setLastEscrowRepairAttemptDate:date error:&v26];
-  v10 = v26;
+  v25 = 0;
+  v9 = [(CDPDEscrowRecordController *)self _setLastEscrowRepairAttemptDate:date error:&v25];
+  v10 = v25;
   v11 = _CDPLogSystem();
   v12 = v11;
   if (v9)
@@ -1588,21 +1983,21 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v29 = 2112;
-      v30 = date;
+      v28 = 2112;
+      v29 = date;
       _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "%@: Successfully saved current date (%@) as last escrow repair attempt date, proceeding with silent repair attempt", buf, 0x16u);
     }
 
     if (state == 4)
     {
       _cdpStateMachineWithNilUIProvider = [(CDPDEscrowRecordController *)self _cdpStateMachineWithNilUIProvider];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke;
-      v24[3] = &unk_278E24AE8;
-      v24[4] = self;
-      v25 = completionCopy;
-      [_cdpStateMachineWithNilUIProvider repairCloudDataProtectionStateWithCompletion:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke;
+      v23[3] = &unk_278E24AE8;
+      v23[4] = self;
+      v24 = completionCopy;
+      [_cdpStateMachineWithNilUIProvider repairCloudDataProtectionStateWithCompletion:v23];
     }
 
     else
@@ -1623,13 +2018,13 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
 
       [(CDPDSecureBackupContext *)v14 setNonViableRequiresRepair:state == 3];
       secureBackupController = [(CDPDEscrowRecordController *)self secureBackupController];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69;
-      v22[3] = &unk_278E24AE8;
-      v22[4] = self;
-      v23 = completionCopy;
-      [secureBackupController enableSecureBackupWithContext:v14 completion:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69;
+      v21[3] = &unk_278E24AE8;
+      v21[4] = self;
+      v22 = completionCopy;
+      [secureBackupController enableSecureBackupWithContext:v14 completion:v21];
     }
   }
 
@@ -1645,25 +2040,23 @@ void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_co
       (*(completionCopy + 2))(completionCopy, 0, v10);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 1024;
-    v13 = a2;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "%@: silent repair with state machine completed with result: %{BOOL}d error: %@", &v10, 0x1Cu);
+    v9 = 138412802;
+    v10 = v7;
+    v11 = 1024;
+    v12 = a2;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEFAULT, "%@: silent repair with state machine completed with result: %{BOOL}d error: %@", &v9, 0x1Cu);
   }
 
   v8 = *(a1 + 40);
@@ -1671,8 +2064,6 @@ void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69(uint64_t a1, uint64_t a2, void *a3)
@@ -1697,7 +2088,7 @@ void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState
   v9 = _CDPLogSystem();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69_cold_1(a1);
+    __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69_cold_1();
   }
 
 LABEL_8:
@@ -1724,7 +2115,7 @@ LABEL_8:
 
 void __84__CDPDEscrowRecordController__checkFirstUsableRecordForDeviceFromSource_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1756,19 +2147,19 @@ void __84__CDPDEscrowRecordController__checkFirstUsableRecordForDeviceFromSource
     {
       v14 = *(a1 + 32);
       v15 = *(a1 + 48);
-      v23 = 138413059;
-      v24 = v14;
-      v25 = 2117;
-      v26 = v10;
-      v27 = 2050;
-      v28 = v15;
-      v29 = 2117;
-      v30 = v11;
+      v22 = 138413059;
+      v23 = v14;
+      v24 = 2117;
+      v25 = v10;
+      v26 = 2050;
+      v27 = v15;
+      v28 = 2117;
+      v29 = v11;
       v16 = "%@: First usable record matching the serial number (%{sensitive}@) with source (%{public}ld) is (%{sensitive}@)";
       v17 = v12;
       v18 = 42;
 LABEL_11:
-      _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, v16, &v23, v18);
+      _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, v16, &v22, v18);
     }
   }
 
@@ -1776,12 +2167,12 @@ LABEL_11:
   {
     v19 = *(a1 + 32);
     v20 = *(a1 + 48);
-    v23 = 138412803;
-    v24 = v19;
-    v25 = 2117;
-    v26 = v10;
-    v27 = 2050;
-    v28 = v20;
+    v22 = 138412803;
+    v23 = v19;
+    v24 = 2117;
+    v25 = v10;
+    v26 = 2050;
+    v27 = v20;
     v16 = "%@: Could not find a record matching serial number (%{sensitive}@) with source (%{public}ld).";
     v17 = v12;
     v18 = 32;
@@ -1795,12 +2186,11 @@ LABEL_11:
   }
 
 LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAllEscrowRecordsFromSource:(int64_t)source completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   secureBackupController = [(CDPDEscrowRecordController *)self secureBackupController];
   configuration = [secureBackupController configuration];
@@ -1812,29 +2202,27 @@ LABEL_15:
     v11 = [CDPDSecureBackupController _sanitizedInfoDictionary:accountInfoFetchSetupDictionary];
     *buf = 138412802;
     selfCopy = self;
-    v19 = 2048;
+    v18 = 2048;
     sourceCopy = source;
-    v21 = 2112;
-    v22 = v11;
+    v20 = 2112;
+    v21 = v11;
     _os_log_impl(&dword_24510B000, v10, OS_LOG_TYPE_DEFAULT, "%@: Fetching all escrow records from source (%ld) with account info (%@)", buf, 0x20u);
   }
 
   octagonTrustProxy = self->_octagonTrustProxy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke;
-  v15[3] = &unk_278E251B8;
-  v15[4] = self;
-  v16 = completionCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke;
+  v14[3] = &unk_278E251B8;
+  v14[4] = self;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [(CDPDOctagonTrustProxy *)octagonTrustProxy fetchAllEscrowRecords:accountInfoFetchSetupDictionary source:source completion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  [(CDPDOctagonTrustProxy *)octagonTrustProxy fetchAllEscrowRecords:accountInfoFetchSetupDictionary source:source completion:v14];
 }
 
 void __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _CDPLogSystem();
@@ -1843,7 +2231,7 @@ void __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completio
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke_cold_1(a1);
+      __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke_cold_1();
     }
 
     v9 = *(a1 + 40);
@@ -1860,11 +2248,11 @@ LABEL_10:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(a1 + 32);
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "%@: Successfully fetched all escrow records (%@)", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "%@: Successfully fetched all escrow records (%@)", &v13, 0x16u);
     }
 
     v12 = *(a1 + 40);
@@ -1874,8 +2262,6 @@ LABEL_10:
       goto LABEL_10;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lastEscrowRepairAttemptDateDescriptor
@@ -1894,12 +2280,12 @@ LABEL_10:
 
 - (id)_lastEscrowRepairAttemptDate:(id *)date
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   _lastEscrowRepairAttemptDateDescriptor = [(CDPDEscrowRecordController *)self _lastEscrowRepairAttemptDateDescriptor];
   keychainManager = [(CDPDEscrowRecordController *)self keychainManager];
-  v22 = 0;
-  v7 = [keychainManager keychainItemForDescriptor:_lastEscrowRepairAttemptDateDescriptor error:&v22];
-  v8 = v22;
+  v21 = 0;
+  v7 = [keychainManager keychainItemForDescriptor:_lastEscrowRepairAttemptDateDescriptor error:&v21];
+  v8 = v21;
 
   value = [v7 value];
   if ([v8 code] == -25300 && (objc_msgSend(v8, "domain"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isEqualToString:", *MEMORY[0x277CCA590]), v10, v11))
@@ -1909,8 +2295,8 @@ LABEL_10:
     {
       *buf = 138412546;
       selfCopy = self;
-      v25 = 2112;
-      v26 = v8;
+      v24 = 2112;
+      v25 = v8;
       _os_log_impl(&dword_24510B000, v12, OS_LOG_TYPE_DEFAULT, "%@: Last escrow repair attempt date not found in keychain (%@)", buf, 0x16u);
     }
   }
@@ -1919,9 +2305,9 @@ LABEL_10:
   {
     if (value)
     {
-      v21 = 0;
-      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:value error:&v21];
-      v14 = v21;
+      v20 = 0;
+      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:value error:&v20];
+      v14 = v20;
       v15 = v14;
       if (v14)
       {
@@ -1957,8 +2343,6 @@ LABEL_10:
 
   v17 = 0;
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2025,21 +2409,21 @@ LABEL_16:
 - (unint64_t)_combinedCircleStatusUsingCache:(BOOL)cache error:(id *)error
 {
   cacheCopy = cache;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   circleProxy = [(CDPDEscrowRecordController *)self circleProxy];
   v8 = circleProxy;
   if (cacheCopy)
   {
-    v19 = 0;
-    v9 = &v19;
-    v10 = [circleProxy combinedCachedCircleStatus:&v19];
+    v18 = 0;
+    v9 = &v18;
+    v10 = [circleProxy combinedCachedCircleStatus:&v18];
   }
 
   else
   {
-    v18 = 0;
-    v9 = &v18;
-    v10 = [circleProxy combinedCircleStatus:&v18];
+    v17 = 0;
+    v9 = &v17;
+    v10 = [circleProxy combinedCircleStatus:&v17];
   }
 
   v11 = v10;
@@ -2053,10 +2437,10 @@ LABEL_16:
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v22 = 1024;
-      *v23 = cacheCopy;
-      *&v23[4] = 2112;
-      *&v23[6] = v12;
+      v21 = 1024;
+      *v22 = cacheCopy;
+      *&v22[4] = 2112;
+      *&v22[6] = v12;
       _os_log_error_impl(&dword_24510B000, v14, OS_LOG_TYPE_ERROR, "%@: Failed to retrieve combined circle status using cache (%{BOOL}d) with error (%@)", buf, 0x1Cu);
     }
 
@@ -2073,15 +2457,14 @@ LABEL_16:
     {
       *buf = 138412802;
       selfCopy2 = self;
-      v22 = 2048;
-      *v23 = v11;
-      *&v23[8] = 1024;
-      *&v23[10] = cacheCopy;
+      v21 = 2048;
+      *v22 = v11;
+      *&v22[8] = 1024;
+      *&v22[10] = cacheCopy;
       _os_log_impl(&dword_24510B000, v14, OS_LOG_TYPE_DEFAULT, "%@: Retrieved combined circle status (%lu) using cache (%{BOOL}d)", buf, 0x1Cu);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -2151,55 +2534,6 @@ LABEL_16:
   return hasLocalSecret;
 }
 
-- (void)initWithContext:circleProxy:octagonTrustProxy:secureBackupProxy:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_24510B000, v0, v1, "Expected valid context (%@) with non-null DSID and altDSID", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_reauthenticateAndPerformEscrowCheckWithIsBackground:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Silent auth requested for escrow check with isBackground: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateLastSilentEscrowRecordRepairAttemptDate:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_24510B000, v0, v1, "%@: Unexpected request to remove last silent escrow record repair attempt date", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource_withCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to check all records with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalDeviceUsingFetchSource_withCompletion___block_invoke_cold_2(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v2, v3, "%{public}@: There are no usable records for the local device matching serial number (%{sensitive}@)");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_firstUsableRecordForCurrentPeerWithSerialNumber:fromRecords:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Beginning account escrow record evaluation to find viable escrow records matching this device's serial number: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_firstUsableRecordForCurrentPeerWithSerialNumber:(os_log_t)log fromRecords:.cold.3(uint8_t *buf, void *a2, os_log_t log)
 {
   *buf = 138412290;
@@ -2223,135 +2557,83 @@ void __108__CDPDEscrowRecordController_generateEscrowRecordStatusReportForLocalD
 
 - (void)_firstUsableRecordForCurrentPeerWithSerialNumber:(void *)a1 fromRecords:.cold.6(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = [a1 recordId];
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Returning record %{mask.hash}@ because it is partially or fully viable.", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v1 = [a1 recordId];
+  *v8 = 141558274;
+  *&v8[4] = 1752392040;
+  *&v8[12] = 2112;
+  *&v8[14] = v1;
+  OUTLINED_FUNCTION_8(&dword_24510B000, v2, v3, "Returning record %{mask.hash}@ because it is partially or fully viable.", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 - (void)_firstUsableRecordForCurrentPeerWithSerialNumber:(void *)a1 fromRecords:.cold.7(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Exiting early from usable records check. AllRecordsCount=(%lu), serialNumber=(%@)", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_24510B000, v1, v2, "Exiting early from usable records check. AllRecordsCount=(%lu), serialNumber=(%@)", v3, v4, v5, v6);
 }
 
 - (void)_isEscrowRecordRepairPermitted
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to fetch keychain value for last escrow repair attempt date with error (%@)");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_deviceEscrowRecordStateUsingAccountsHealthCheckCache:.cold.1()
+void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "%@: escrowRecordHealthCheckFailureCountKey = 0, indicating that we have a healthy escrow record for the device. MiniBuddy should not have attempted the repair. Please use the eligibility SPI shouldPerformSilentEscrowRecordRepairWithContext before attempting the repair.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deviceEscrowRecordStateUsingAccountsHealthCheckCache:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "%@: escrowRecordHealthCheckFailureCountKey is not available in Accounts DB cache. Maybe the account health check was never run.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_deviceEscrowRecordStateUsingCache:completion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "%@: Cannot silently repair escrow record for current device with nil peerID", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v1, v2, "%@: Failed to determine if device already has escrow record with error (%{public}@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to determine if device already has escrow record with error (%{public}@)");
 }
 
-void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62_cold_1(uint64_t a1)
+void __76__CDPDEscrowRecordController__deviceEscrowRecordStateUsingCache_completion___block_invoke_62_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v1, v2, "%@: Failed to determine if device already has escrow record with error (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to determine if device already has escrow record with error (%@)");
 }
 
 void __80__CDPDEscrowRecordController__escrowRecordStateForDevice_usingCache_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) recordID];
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to check TLK recoverability for record with ID (%@)", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to check TLK recoverability for record with ID (%@)", &v5, 0x16u);
 }
 
-void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke_cold_1(uint64_t a1)
+void __81__CDPDEscrowRecordController__beginSilentEscrowRecordRepairWithState_completion___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v1, v2, "%@: Unable to continue silent escrow record repair due to auth error (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Unable to continue silent escrow record repair due to auth error (%@)");
 }
 
 - (void)_continueSilentEscrowRecordRepairWithState:completion:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to set last escrow repair attempt date in keychain with error (%@)");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69_cold_1(uint64_t a1)
+void __84__CDPDEscrowRecordController__continueSilentEscrowRecordRepairWithState_completion___block_invoke_69_cold_1()
 {
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v1, v2, "%@: Failed to repair the non-viable escrow record as the request was dropped by escrow proxy with error (%@)");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to repair the non-viable escrow record as the request was dropped by escrow proxy with error (%@)");
 }
 
-void __84__CDPDEscrowRecordController__checkFirstUsableRecordForDeviceFromSource_completion___block_invoke_cold_1()
+void __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to check all records with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__CDPDEscrowRecordController__fetchAllEscrowRecordsFromSource_completion___block_invoke_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_5_1(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_5_1(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_2(&dword_24510B000, v1, v2, "%@: Failed to fetch all escrow records with error (%{public}@)");
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)promptForLocalSecretWithCompletion:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_24510B000, v0, v1, "%@: Prompting for local secret is not supported in this flow", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_2(&dword_24510B000, v0, v1, "%@: Failed to fetch all escrow records with error (%{public}@)");
 }
 
 @end

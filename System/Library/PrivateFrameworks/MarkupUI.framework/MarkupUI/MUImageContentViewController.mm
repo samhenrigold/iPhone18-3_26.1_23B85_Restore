@@ -1597,155 +1597,155 @@ void __83__MUImageContentViewController_viewWillTransitionToSize_withTransitionC
   superview = [scrollView superview];
   [scrollView frame];
   [superview convertRect:0 toView:?];
+  v24 = v23;
+  v26 = v25;
   v28 = v27;
   v30 = v29;
-  v32 = v31;
-  v34 = v33;
 
-  v88.origin.x = v28;
-  v88.origin.y = v30;
-  v88.size.width = v32;
-  v88.size.height = v34;
-  v71 = -(duration - CGRectGetMaxY(v88));
-  v67 = *MEMORY[0x277CBF398];
-  v70 = *(MEMORY[0x277CBF398] + 8);
-  v69 = *(MEMORY[0x277CBF398] + 16);
-  v68 = *(MEMORY[0x277CBF398] + 24);
+  v84.origin.x = v24;
+  v84.origin.y = v26;
+  v84.size.width = v28;
+  v84.size.height = v30;
+  v67 = -(duration - CGRectGetMaxY(v84));
+  v63 = *MEMORY[0x277CBF398];
+  v66 = *(MEMORY[0x277CBF398] + 8);
+  v65 = *(MEMORY[0x277CBF398] + 16);
+  v64 = *(MEMORY[0x277CBF398] + 24);
   [scrollView bounds];
   [scrollView convertRect:0 toView:?];
-  x = v89.origin.x;
-  y = v89.origin.y;
-  width = v89.size.width;
-  height = v89.size.height;
-  v94.origin.x = view;
-  v94.origin.y = duration;
-  v94.size.width = curve;
-  v94.size.height = a9;
-  if (CGRectIntersectsRect(v89, v94))
+  x = v85.origin.x;
+  y = v85.origin.y;
+  width = v85.size.width;
+  height = v85.size.height;
+  v90.origin.x = view;
+  v90.origin.y = duration;
+  v90.size.width = curve;
+  v90.size.height = a9;
+  if (CGRectIntersectsRect(v85, v90))
   {
-    v90.origin.x = x;
-    v90.origin.y = y;
-    v90.size.width = width;
-    v90.size.height = height;
-    v95.origin.x = view;
-    v95.origin.y = duration;
-    v95.size.width = curve;
-    v95.size.height = a9;
-    v91 = CGRectIntersection(v90, v95);
-    v64 = height - (CGRectGetHeight(v91) + 0.0);
+    v86.origin.x = x;
+    v86.origin.y = y;
+    v86.size.width = width;
+    v86.size.height = height;
+    v91.origin.x = view;
+    v91.origin.y = duration;
+    v91.size.width = curve;
+    v91.size.height = a9;
+    v87 = CGRectIntersection(v86, v91);
+    v60 = height - (CGRectGetHeight(v87) + 0.0);
     [scrollView convertRect:0 fromView:{a13, a14, a15, a16}];
-    rect2a = v39;
+    rect2a = v35;
+    v37 = v36;
+    v39 = v38;
     v41 = v40;
-    v43 = v42;
-    v45 = v44;
-    v92.origin.x = x + 0.0;
-    v92.size.height = v64;
-    v92.origin.y = y + 0.0;
-    v92.size.width = width;
-    v96.origin.x = a13;
-    v96.origin.y = a14;
-    v96.size.width = a15;
-    v96.size.height = a16;
-    v46 = CGRectContainsRect(v92, v96);
-    v47 = v68;
-    v48 = v69;
-    if (!v46)
+    v88.origin.x = x + 0.0;
+    v88.size.height = v60;
+    v88.origin.y = y + 0.0;
+    v88.size.width = width;
+    v92.origin.x = a13;
+    v92.origin.y = a14;
+    v92.size.width = a15;
+    v92.size.height = a16;
+    v42 = CGRectContainsRect(v88, v92);
+    v43 = v64;
+    v44 = v65;
+    if (!v42)
     {
-      v47 = v45;
-      v48 = v43;
+      v43 = v41;
+      v44 = v39;
     }
 
-    v49 = v70;
-    if (!v46)
+    v45 = v66;
+    if (!v42)
     {
-      v49 = v41;
+      v45 = v37;
     }
 
-    v50 = v67;
-    if (!v46)
+    v46 = v63;
+    if (!v42)
     {
-      v50 = rect2a;
+      v46 = rect2a;
     }
   }
 
   else
   {
-    v47 = v68;
-    v48 = v69;
-    v49 = v70;
-    v50 = v67;
+    v43 = v64;
+    v44 = v65;
+    v45 = v66;
+    v46 = v63;
   }
 
   [scrollView contentInset];
-  v52 = v51;
+  v48 = v47;
   [scrollView _contentScrollInset];
+  v50 = v49;
+  v52 = v51;
   v54 = v53;
-  v56 = v55;
-  v58 = v57;
-  if (v52 >= v71)
+  if (v48 >= v67)
   {
-    v59 = 0.0;
+    v55 = 0.0;
   }
 
   else
   {
-    v59 = v71 - v52;
+    v55 = v67 - v48;
   }
 
-  v93.origin.x = v50;
-  v93.origin.y = v49;
-  v93.size.width = v48;
-  v93.size.height = v47;
-  if (CGRectIsNull(v93))
+  v89.origin.x = v46;
+  v89.origin.y = v45;
+  v89.size.width = v44;
+  v89.size.height = v43;
+  if (CGRectIsNull(v89))
   {
-    if (v59 <= 0.0)
+    if (v55 <= 0.0)
     {
-      [scrollView _setContentScrollInset:{v54, v56, v59, v58}];
+      [scrollView _setContentScrollInset:{v50, v52, v55, v54}];
       goto LABEL_21;
     }
 
-    v60 = dispatch_time(0, (a17 * 1000000000.0));
+    v56 = dispatch_time(0, (a17 * 1000000000.0));
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __152__MUImageContentViewController_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_inOverlayView_withAnimationDuration_curve___block_invoke_2;
     block[3] = &unk_27986E880;
-    v73 = scrollView;
-    v74 = v54;
-    v75 = v56;
-    v76 = v59;
-    v77 = v58;
-    dispatch_after(v60, MEMORY[0x277D85CD0], block);
-    v61 = v73;
+    v69 = scrollView;
+    v70 = v50;
+    v71 = v52;
+    v72 = v55;
+    v73 = v54;
+    dispatch_after(v56, MEMORY[0x277D85CD0], block);
+    v57 = v69;
   }
 
   else
   {
     if ((a12 - 1) >= 3)
     {
-      v62 = 4;
+      v58 = 4;
     }
 
     else
     {
-      v62 = ((a12 - 1) << 16) + 65540;
+      v58 = ((a12 - 1) << 16) + 65540;
     }
 
-    v63 = MEMORY[0x277D75D18];
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __152__MUImageContentViewController_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_inOverlayView_withAnimationDuration_curve___block_invoke;
-    v78[3] = &unk_27986E858;
-    v79 = scrollView;
-    v80 = v54;
-    v81 = v56;
-    v82 = v59;
-    v83 = v58;
-    v84 = v50;
-    v85 = v49;
-    v86 = v48;
-    v87 = v47;
-    [v63 animateWithDuration:v62 delay:v78 options:0 animations:a17 completion:0.0];
-    v61 = v79;
+    v59 = MEMORY[0x277D75D18];
+    v74[0] = MEMORY[0x277D85DD0];
+    v74[1] = 3221225472;
+    v74[2] = __152__MUImageContentViewController_adjustScrollViewToAccomodateKeyboardStartingFrame_endingFrame_annotationFrame_inOverlayView_withAnimationDuration_curve___block_invoke;
+    v74[3] = &unk_27986E858;
+    v75 = scrollView;
+    v76 = v50;
+    v77 = v52;
+    v78 = v55;
+    v79 = v54;
+    v80 = v46;
+    v81 = v45;
+    v82 = v44;
+    v83 = v43;
+    [v59 animateWithDuration:v58 delay:v74 options:0 animations:a17 completion:0.0];
+    v57 = v75;
   }
 
 LABEL_21:

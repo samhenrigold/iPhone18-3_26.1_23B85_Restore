@@ -91,7 +91,7 @@ void __67__SBHProxiedApplicationPlaceholderAccessibility_accessibilityLabel__blo
 
 - (id)accessibilityHint
 {
-  v3 = AXSBHIconManagerFromSharedIconController();
+  v3 = AXSBHIconManagerFromSharedIconController(self, a2);
   v4 = [v3 safeBoolForKey:@"isEditing"];
 
   if (v4)

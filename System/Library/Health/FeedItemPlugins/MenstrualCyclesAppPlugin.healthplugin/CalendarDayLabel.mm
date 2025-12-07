@@ -29,7 +29,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_29DEAB85C();
+  sub_29DEAB85C(selfCopy, v2);
 }
 
 - (_TtC24MenstrualCyclesAppPlugin16CalendarDayLabel)initWithCoder:(id)coder

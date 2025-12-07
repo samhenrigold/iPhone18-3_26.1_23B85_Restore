@@ -1,4 +1,5 @@
 @interface TRIStandardPaths
++ (id)pathsForUser:(unsigned int)user;
 + (id)schemaVersionFile;
 + (id)sharedPaths;
 + (id)sharedPathsForSystem;
@@ -8,9 +9,11 @@
 - (id)_trialSystemRootDir;
 - (id)_trialSystemRootDirWithError:(id *)error;
 - (id)_versionSpecificStorageDir;
+- (id)_versionSpecificStorageDirUsingGlobal:(BOOL)global;
 - (id)_versionSpecificSystemStorageDir;
 - (id)activeLowLevelFactorsFile;
 - (id)allowEnvVarDefaultLevelsDir;
+- (id)assetStoreUsingGlobal:(BOOL)global;
 - (id)containerDir;
 - (id)databaseDir;
 - (id)decryptionKeyDirForAppleInternal:(BOOL)internal;
@@ -21,11 +24,13 @@
 - (id)logDir;
 - (id)namespaceDescriptorsDefaultDir;
 - (id)namespaceDescriptorsDevOverrideDir;
+- (id)namespaceDescriptorsDirUsingGlobal:(BOOL)global;
 - (id)namespaceDescriptorsExperimentDir;
 - (id)namespaceDescriptorsPathForLayer:(unint64_t)layer;
 - (id)subjectDataFile;
 - (id)systemDataFile;
 - (id)systemInteropDirectory;
+- (id)treatmentsDirUsingGlobal:(BOOL)global;
 - (id)trialRootDir;
 - (id)trialRootDirWithError:(id *)error;
 - (id)trialVolume;
@@ -94,7 +99,7 @@ void __31__TRIStandardPaths_sharedPaths__block_invoke()
 
 - (id)namespaceDescriptorsDefaultDir
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v6 = [standardUserDefaults stringForKey:@"com.apple.triald.namespacedescriptor.path"];
@@ -105,7 +110,7 @@ void __31__TRIStandardPaths_sharedPaths__block_invoke()
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v6;
+      v18 = v6;
       _os_log_impl(&dword_22EA6B000, v7, OS_LOG_TYPE_DEFAULT, "Overriding namespaceDescriptorsDefaultDir to %@", buf, 0xCu);
     }
 
@@ -130,15 +135,14 @@ void __31__TRIStandardPaths_sharedPaths__block_invoke()
     }
 
     v12 = MEMORY[0x277CCACA8];
-    v17[0] = firstObject;
-    v17[1] = @"Trial";
-    v17[2] = @"NamespaceDescriptors";
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+    v16[0] = firstObject;
+    v16[1] = @"Trial";
+    v16[2] = @"NamespaceDescriptors";
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
     v8 = [v12 pathWithComponents:v13];
   }
 
   objc_autoreleasePoolPop(v4);
-  v14 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -167,20 +171,18 @@ void __31__TRIStandardPaths_sharedPaths__block_invoke()
 
 - (id)_pathErrorWithDescription:(id)description
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
   v4 = *MEMORY[0x277CCA050];
-  v13 = *MEMORY[0x277CCA450];
+  v12 = *MEMORY[0x277CCA450];
   v5 = MEMORY[0x277CCA8D8];
   descriptionCopy = description;
   mainBundle = [v5 mainBundle];
   v8 = [mainBundle localizedStringForKey:descriptionCopy value:&stru_28435FC98 table:0];
 
-  v14[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [v3 errorWithDomain:v4 code:4 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -199,16 +201,16 @@ void __31__TRIStandardPaths_sharedPaths__block_invoke()
 
 - (id)_trialSystemRootDirWithError:(id *)error
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   if (!geteuid())
   {
     firstObject = @"/var/mobile/Library";
 LABEL_11:
     v11 = MEMORY[0x277CCACA8];
-    v18[0] = @"/private";
-    v18[1] = firstObject;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[0] = @"/private";
+    v17[1] = firstObject;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     v13 = [v11 pathWithComponents:v12];
 
     v14 = [v13 stringByAppendingPathComponent:@"Trial"];
@@ -229,9 +231,9 @@ LABEL_12:
     if (_realHomeDirectory)
     {
       v8 = MEMORY[0x277CCACA8];
-      v19[0] = _realHomeDirectory;
-      v19[1] = @"Library";
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+      v18[0] = _realHomeDirectory;
+      v18[1] = @"Library";
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
       firstObject = [v8 pathWithComponents:v9];
     }
 
@@ -254,17 +256,16 @@ LABEL_12:
 
   if (error)
   {
-    v17 = [(TRIStandardPaths *)self _pathErrorWithDescription:@"library path is nil"];
+    v16 = [(TRIStandardPaths *)self _pathErrorWithDescription:@"library path is nil"];
     v14 = 0;
     v13 = *error;
-    *error = v17;
+    *error = v16;
     goto LABEL_12;
   }
 
   v14 = 0;
 LABEL_13:
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -299,7 +300,7 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
 - (id)trialRootDirWithError:(id *)error
 {
   errorCopy = error;
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   if (self->_container)
   {
     v5 = self->_containerPath;
@@ -307,10 +308,10 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
     {
       v6 = v5;
       v7 = MEMORY[0x277CCACA8];
-      v29[0] = v5;
-      v29[1] = @"Library";
-      v29[2] = @"Trial";
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+      v28[0] = v5;
+      v28[1] = @"Library";
+      v28[2] = @"Trial";
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
       errorCopy = [v7 pathWithComponents:v8];
     }
 
@@ -351,21 +352,19 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
       }
 
       *buf = 138413058;
-      v22 = v16;
-      v23 = 2048;
+      v21 = v16;
+      v22 = 2048;
       selfCopy = self;
-      v25 = 2112;
-      v26 = v18;
-      v27 = 2112;
-      v28 = errorCopy;
+      v24 = 2112;
+      v25 = v18;
+      v26 = 2112;
+      v27 = errorCopy;
       _os_log_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_DEFAULT, "%@ %p %@: using Trial root dir %@", buf, 0x2Au);
       if (container)
       {
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return errorCopy;
 }
@@ -380,17 +379,17 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
 
 - (id)volumeForDirectory:(id)directory
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
-  memset(&v12, 0, 512);
-  if (statfs([directoryCopy UTF8String], &v12))
+  memset(&v11, 0, 512);
+  if (statfs([directoryCopy UTF8String], &v11))
   {
     v4 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = directoryCopy;
-      _os_log_error_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_ERROR, "Could not resolve the volume for directory: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = directoryCopy;
+      _os_log_error_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_ERROR, "Could not resolve the volume for directory: %@", &v7, 0xCu);
     }
 
     v5 = 0;
@@ -398,19 +397,17 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
 
   else
   {
-    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12.f_mntonname];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v11.f_mntonname];
     v4 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v8 = 138412546;
-      v9 = v5;
-      v10 = 2112;
-      v11 = directoryCopy;
-      _os_log_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_INFO, "Found the following volume: %@ for the given directory: %@", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = v5;
+      v9 = 2112;
+      v10 = directoryCopy;
+      _os_log_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_INFO, "Found the following volume: %@ for the given directory: %@", &v7, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -446,6 +443,14 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
 {
   currentHandler = [MEMORY[0x277CCA890] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"TRIPaths.m" lineNumber:321 description:@"Invalid invocation of [TRIPaths sharedPathsForSystem:] Should call [TRIPaths sharedPaths]"];
+
+  return +[TRIStandardPaths sharedPaths];
+}
+
++ (id)pathsForUser:(unsigned int)user
+{
+  currentHandler = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler handleFailureInMethod:a2 object:self file:@"TRIPaths.m" lineNumber:333 description:@"Invalid invocation of [TRIPaths pathsForUser:] Should call [TRIPaths sharedPaths]"];
 
   return +[TRIStandardPaths sharedPaths];
 }
@@ -497,6 +502,19 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
   return v6;
 }
 
+- (id)_versionSpecificStorageDirUsingGlobal:(BOOL)global
+{
+  globalCopy = global;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(TRIStandardPaths *)self trialRootDirUsingGlobal:globalCopy];
+  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"v%u", self->_schemaVersion];
+  v8 = [v6 stringByAppendingPathComponent:v7];
+
+  objc_autoreleasePoolPop(v5);
+
+  return v8;
+}
+
 - (id)logDir
 {
   v2 = objc_autoreleasePoolPush();
@@ -520,6 +538,18 @@ void __49__TRIStandardPaths__trialSystemRootDirWithError___block_invoke()
   objc_autoreleasePoolPop(v3);
 
   return v5;
+}
+
+- (id)namespaceDescriptorsDirUsingGlobal:(BOOL)global
+{
+  globalCopy = global;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(TRIStandardPaths *)self trialRootDirUsingGlobal:globalCopy];
+  v7 = [v6 stringByAppendingPathComponent:@"NamespaceDescriptors"];
+
+  objc_autoreleasePoolPop(v5);
+
+  return v7;
 }
 
 - (id)namespaceDescriptorsPathForLayer:(unint64_t)layer
@@ -581,6 +611,18 @@ LABEL_10:
   return v5;
 }
 
+- (id)treatmentsDirUsingGlobal:(BOOL)global
+{
+  globalCopy = global;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(TRIStandardPaths *)self trialRootDirUsingGlobal:globalCopy];
+  v7 = [v6 stringByAppendingPathComponent:@"Treatments"];
+
+  objc_autoreleasePoolPop(v5);
+
+  return v7;
+}
+
 - (id)experimentsDir
 {
   v3 = objc_autoreleasePoolPush();
@@ -601,6 +643,18 @@ LABEL_10:
   objc_autoreleasePoolPop(v3);
 
   return v5;
+}
+
+- (id)assetStoreUsingGlobal:(BOOL)global
+{
+  globalCopy = global;
+  v5 = objc_autoreleasePoolPush();
+  v6 = [(TRIStandardPaths *)self _versionSpecificStorageDirUsingGlobal:globalCopy];
+  v7 = [v6 stringByAppendingPathComponent:@"AssetStore"];
+
+  objc_autoreleasePoolPop(v5);
+
+  return v7;
 }
 
 - (id)decryptionKeyDirForAppleInternal:(BOOL)internal

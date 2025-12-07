@@ -19,9 +19,9 @@
 {
   assetCopy = asset;
   profileCopy = profile;
-  v13.receiver = self;
-  v13.super_class = BKAudiobookPreviewHelper;
-  v9 = [(BKAudiobookPreviewHelper *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = BKAudiobookPreviewHelper;
+  v9 = [(BKAudiobookPreviewHelper *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -29,12 +29,13 @@
     objc_storeStrong(&v10->__lockupProfile, profile);
   }
 
-  if (![(BKAudiobookPreviewHelper *)v10 _valid])
+  _valid = [(BKAudiobookPreviewHelper *)v10 _valid];
+  if ((_valid & 1) == 0)
   {
-    v11 = sub_1001B9CD0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_1001B9CD0(_valid);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_10078ECCC(v11);
+      sub_10078ECCC(v12);
     }
 
     v10 = 0;

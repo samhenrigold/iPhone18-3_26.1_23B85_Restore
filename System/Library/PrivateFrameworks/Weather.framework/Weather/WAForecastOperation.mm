@@ -149,7 +149,7 @@ void __27__WAForecastOperation_main__block_invoke(uint64_t a1, void *a2, void *a
 
 void __27__WAForecastOperation_main__block_invoke_30(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v55[1] = *MEMORY[0x277D85DE8];
+  v54[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -165,9 +165,9 @@ LABEL_3:
   if (!*(*(*(a1 + 48) + 8) + 40) || ([v7 currentObservations], v12 = objc_claimAutoreleasedReturnValue(), v12, !v12))
   {
     v13 = [*(a1 + 32) city];
-    v54 = *MEMORY[0x277CCA450];
-    v55[0] = @"A successful todayRequestHandler callback should always have valid location and conditions set";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
+    v53 = *MEMORY[0x277CCA450];
+    v54[0] = @"A successful todayRequestHandler callback should always have valid location and conditions set";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     v10 = WAErrorWithCode(0, 0, v13, v14);
 
     if (v10)
@@ -211,12 +211,12 @@ LABEL_3:
   [v32 setCurrentConditions:v31];
 
   v33 = [v7 dailyForecastedConditions];
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __27__WAForecastOperation_main__block_invoke_2;
-  v53[3] = &unk_279E683F8;
-  v53[4] = *(a1 + 48);
-  v10 = [v33 na_map:v53];
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __27__WAForecastOperation_main__block_invoke_2;
+  v52[3] = &unk_279E683F8;
+  v52[4] = *(a1 + 48);
+  v10 = [v33 na_map:v52];
 
   v34 = objc_loadWeakRetained((a1 + 56));
   [v34 setDailyForecasts:v10];
@@ -230,17 +230,17 @@ LABEL_3:
   v40 = [v39 valueForComponent:*MEMORY[0x277D7B368]];
 
   v41 = [v7 hourlyForecastedConditions];
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __27__WAForecastOperation_main__block_invoke_3;
-  v49[3] = &unk_279E68420;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __27__WAForecastOperation_main__block_invoke_3;
+  v48[3] = &unk_279E68420;
   v42 = *(a1 + 48);
-  v51 = v40;
-  v52 = v42;
-  v50 = v37;
+  v50 = v40;
+  v51 = v42;
+  v49 = v37;
   v43 = v40;
   WeakRetained = v37;
-  v44 = [v41 na_map:v49];
+  v44 = [v41 na_map:v48];
 
   v45 = objc_loadWeakRetained((a1 + 56));
   [v45 setHourlyForecasts:v44];
@@ -256,8 +256,6 @@ LABEL_3:
 
 LABEL_10:
   dispatch_group_leave(*(a1 + 40));
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -311,39 +309,39 @@ LABEL_10:
 
 - (void)_determineSunriseAndSunset
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   currentWeatherConditions = [(WAForecastOperation *)self currentWeatherConditions];
   v4 = *MEMORY[0x277D7B310];
   v5 = [currentWeatherConditions valueForComponent:*MEMORY[0x277D7B310]];
   date = [v5 date];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   selfCopy = self;
   obj = [(WAForecastOperation *)self dailyForecastConditions];
-  v6 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
-  v36 = v4;
+  v6 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v35 = v4;
   if (v6)
   {
     v7 = v6;
     v8 = 0;
     v9 = 0;
-    v10 = *v41;
+    v10 = *v40;
     v11 = *MEMORY[0x277D7B360];
     v12 = *MEMORY[0x277D7B368];
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v41 != v10)
+      if (*v40 != v10)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v40 + 1) + 8 * v13);
-      v15 = [v14 valueForComponent:{v11, v36}];
+      v14 = *(*(&v39 + 1) + 8 * v13);
+      v15 = [v14 valueForComponent:{v11, v35}];
       date2 = [v15 date];
 
       if (!v9 && date2)
@@ -389,7 +387,7 @@ LABEL_3:
 
       if (v7 == ++v13)
       {
-        v7 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v7 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -409,7 +407,7 @@ LABEL_3:
   [(WAForecastOperation *)selfCopy setSunset:v8];
   [(WAForecastOperation *)selfCopy setSunrise:v9];
   currentWeatherConditions2 = [(WAForecastOperation *)selfCopy currentWeatherConditions];
-  v22 = [currentWeatherConditions2 valueForComponent:v36];
+  v22 = [currentWeatherConditions2 valueForComponent:v35];
   date4 = [v22 date];
   [date4 timeIntervalSince1970];
   v25 = v24;
@@ -444,9 +442,7 @@ LABEL_3:
     v34 = v32;
   }
 
-  [(WAForecastOperation *)selfCopy setIsDay:v34, v36];
-
-  v35 = *MEMORY[0x277D85DE8];
+  [(WAForecastOperation *)selfCopy setIsDay:v34, v35];
 }
 
 - (void)_mapReferralLinks
@@ -549,11 +545,10 @@ LABEL_3:
 
 - (void)_needsGeolocation
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Executing Geocode for reason: Timezone lacks freshness. (%@)", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_272ACF000, a2, OS_LOG_TYPE_ERROR, "Executing Geocode for reason: Timezone lacks freshness. (%@)", &v2, 0xCu);
 }
 
 @end

@@ -1,27 +1,25 @@
 uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
   v8 = type metadata accessor for LSKDestinationDevice.Delivery(0);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8 - 8);
-  v76 = &v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v10);
-  v75 = &v71 - v13;
-  v14 = MEMORY[0x28223BE20](v12);
-  v80 = &v71 - v15;
-  MEMORY[0x28223BE20](v14);
-  v79 = &v71 - v16;
-  v83 = type metadata accessor for LSKDestinationDevice(0);
-  v17 = *(*(v83 - 8) + 64);
-  v18 = MEMORY[0x28223BE20](v83);
-  v81 = &v71 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v68 = v65 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x28223BE20](v9);
+  v67 = v65 - v12;
+  v13 = MEMORY[0x28223BE20](v11);
+  v72 = v65 - v14;
+  MEMORY[0x28223BE20](v13);
+  v71 = v65 - v15;
+  v75 = type metadata accessor for LSKDestinationDevice(0);
+  v16 = MEMORY[0x28223BE20](v75);
+  v73 = v65 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = MEMORY[0x28223BE20](v16);
+  v70 = v65 - v19;
   v20 = MEMORY[0x28223BE20](v18);
-  v78 = &v71 - v21;
-  v22 = MEMORY[0x28223BE20](v20);
-  v82 = &v71 - v23;
-  result = MEMORY[0x28223BE20](v22);
-  v26 = &v71 - v25;
-  v28 = *(v27 + 72);
-  if (!v28)
+  v74 = v65 - v21;
+  result = MEMORY[0x28223BE20](v20);
+  v24 = v65 - v23;
+  v26 = *(v25 + 72);
+  if (!v26)
   {
     __break(1u);
 LABEL_88:
@@ -31,24 +29,24 @@ LABEL_89:
     return result;
   }
 
-  if (a2 - a1 == 0x8000000000000000 && v28 == -1)
+  if (a2 - a1 == 0x8000000000000000 && v26 == -1)
   {
     goto LABEL_88;
   }
 
-  v29 = a3 - a2;
-  if (a3 - a2 == 0x8000000000000000 && v28 == -1)
+  v27 = a3 - a2;
+  if (a3 - a2 == 0x8000000000000000 && v26 == -1)
   {
     goto LABEL_89;
   }
 
-  v30 = (a2 - a1) / v28;
-  v86 = a1;
-  v85 = a4;
-  if (v30 >= v29 / v28)
+  v28 = (a2 - a1) / v26;
+  v78 = a1;
+  v77 = a4;
+  if (v28 >= v27 / v26)
   {
-    v32 = v29 / v28 * v28;
-    if (a4 < a2 || a2 + v32 <= a4)
+    v30 = v27 / v26 * v26;
+    if (a4 < a2 || a2 + v30 <= a4)
     {
       swift_arrayInitWithTakeFrontToBack();
     }
@@ -58,151 +56,149 @@ LABEL_89:
       swift_arrayInitWithTakeBackToFront();
     }
 
-    v49 = a4 + v32;
-    if (v32 >= 1)
+    v45 = a4 + v30;
+    if (v30 >= 1)
     {
-      v72 = v76 + 8;
-      v73 = v75 + 8;
-      v50 = -v28;
-      v51 = a4 + v32;
-      v74 = a4;
-      v82 = -v28;
+      v65[1] = v68 + 8;
+      v65[2] = v67 + 8;
+      v46 = -v26;
+      v47 = a4 + v30;
+      v66 = a4;
+      v74 = -v26;
       do
       {
-        v71 = v49;
-        v52 = a2 + v50;
-        v79 = a2;
-        v80 = a2 + v50;
+        v65[0] = v45;
+        v48 = a2 + v46;
+        v71 = a2;
+        v72 = a2 + v46;
         while (1)
         {
           if (a2 <= a1)
           {
-            v86 = a2;
-            v84 = v71;
+            v78 = a2;
+            v76 = v65[0];
             goto LABEL_86;
           }
 
-          v53 = a3;
-          v77 = v49;
-          v54 = v51 + v50;
-          v55 = v78;
-          outlined init with copy of LSKDestinationDevice(v51 + v50, v78, type metadata accessor for LSKDestinationDevice);
-          outlined init with copy of LSKDestinationDevice(v52, v81, type metadata accessor for LSKDestinationDevice);
-          v56 = v55 + *(v83 + 28);
-          v57 = v75;
-          outlined init with copy of LSKDestinationDevice(v56, v75, type metadata accessor for LSKDestinationDevice.Delivery);
-          v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMd, &_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMR);
-          v59 = *(*(v58 - 8) + 48);
-          v60 = v59(v57, 3, v58);
+          v49 = a3;
+          v69 = v45;
+          v50 = v47 + v46;
+          v51 = v70;
+          outlined init with copy of LSKDestinationDevice(v47 + v46, v70, type metadata accessor for LSKDestinationDevice);
+          outlined init with copy of LSKDestinationDevice(v48, v73, type metadata accessor for LSKDestinationDevice);
+          v52 = v51 + *(v75 + 28);
+          v53 = v67;
+          outlined init with copy of LSKDestinationDevice(v52, v67, type metadata accessor for LSKDestinationDevice.Delivery);
+          v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMd, &_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMR);
+          v55 = *(*(v54 - 8) + 48);
+          v56 = v55(v53, 3, v54);
+          if (v56 > 1)
+          {
+            v58 = v56 == 2 ? 3 : 0;
+          }
+
+          else if (v56)
+          {
+            v58 = 2;
+          }
+
+          else
+          {
+
+            v57 = type metadata accessor for Date();
+            (*(*(v57 - 8) + 8))(v67, v57);
+            v58 = 1;
+          }
+
+          v59 = v68;
+          outlined init with copy of LSKDestinationDevice(v73 + *(v75 + 28), v68, type metadata accessor for LSKDestinationDevice.Delivery);
+          v60 = v55(v59, 3, v54);
           if (v60 > 1)
           {
-            v63 = v60 == 2 ? 3 : 0;
-          }
-
-          else if (v60)
-          {
-            v63 = 2;
+            v63 = v74;
+            v62 = v60 == 2 ? 3 : 0;
+            v64 = v66;
           }
 
           else
           {
-            v61 = *(v73 + *(v58 + 48));
-
-            v62 = type metadata accessor for Date();
-            (*(*(v62 - 8) + 8))(v75, v62);
-            v63 = 1;
-          }
-
-          v64 = v76;
-          outlined init with copy of LSKDestinationDevice(v81 + *(v83 + 28), v76, type metadata accessor for LSKDestinationDevice.Delivery);
-          v65 = v59(v64, 3, v58);
-          if (v65 > 1)
-          {
-            v69 = v82;
-            v68 = v65 == 2 ? 3 : 0;
-            v70 = v74;
-          }
-
-          else
-          {
-            if (v65)
+            if (v60)
             {
-              v68 = 2;
+              v62 = 2;
             }
 
             else
             {
-              v66 = *(v72 + *(v58 + 48));
 
-              v67 = type metadata accessor for Date();
-              (*(*(v67 - 8) + 8))(v76, v67);
-              v68 = 1;
+              v61 = type metadata accessor for Date();
+              (*(*(v61 - 8) + 8))(v68, v61);
+              v62 = 1;
             }
 
-            v70 = v74;
-            v69 = v82;
+            v64 = v66;
+            v63 = v74;
           }
 
-          a3 = v53 + v69;
-          outlined destroy of LSKDestinationDevice(v81, type metadata accessor for LSKDestinationDevice);
-          outlined destroy of LSKDestinationDevice(v78, type metadata accessor for LSKDestinationDevice);
-          if (v63 < v68)
+          a3 = v49 + v63;
+          outlined destroy of LSKDestinationDevice(v73, type metadata accessor for LSKDestinationDevice);
+          outlined destroy of LSKDestinationDevice(v70, type metadata accessor for LSKDestinationDevice);
+          if (v58 < v62)
           {
             break;
           }
 
-          v49 = v54;
-          v52 = v80;
-          if (v53 < v51 || a3 >= v51)
+          v45 = v50;
+          v48 = v72;
+          if (v49 < v47 || a3 >= v47)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v53 != v51)
+          else if (v49 != v47)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          v51 = v54;
-          v50 = v82;
-          a2 = v79;
-          if (v54 <= v70)
+          v47 = v50;
+          v46 = v74;
+          a2 = v71;
+          if (v50 <= v64)
           {
             goto LABEL_84;
           }
         }
 
-        a2 = v80;
-        if (v53 < v79 || a3 >= v79)
+        a2 = v72;
+        if (v49 < v71 || a3 >= v71)
         {
           swift_arrayInitWithTakeFrontToBack();
-          v49 = v77;
+          v45 = v69;
         }
 
         else
         {
-          v49 = v77;
-          if (v53 != v79)
+          v45 = v69;
+          if (v49 != v71)
           {
             swift_arrayInitWithTakeBackToFront();
           }
         }
 
-        v50 = v82;
+        v46 = v74;
       }
 
-      while (v51 > v70);
+      while (v47 > v64);
     }
 
 LABEL_84:
-    v86 = a2;
-    v84 = v49;
+    v78 = a2;
+    v76 = v45;
   }
 
   else
   {
-    v31 = v30 * v28;
-    if (a4 < a1 || a1 + v31 <= a4)
+    v29 = v28 * v26;
+    if (a4 < a1 || a1 + v29 <= a4)
     {
       swift_arrayInitWithTakeFrontToBack();
     }
@@ -212,130 +208,128 @@ LABEL_84:
       swift_arrayInitWithTakeBackToFront();
     }
 
-    v81 = a4 + v31;
-    v84 = a4 + v31;
-    if (v31 >= 1 && a2 < a3)
+    v73 = a4 + v29;
+    v76 = a4 + v29;
+    if (v29 >= 1 && a2 < a3)
     {
-      v75 = v80 + 8;
-      v76 = v79 + 8;
-      v77 = a3;
-      v78 = v28;
+      v67 = v72 + 8;
+      v68 = v71 + 8;
+      v69 = a3;
+      v70 = v26;
       do
       {
-        outlined init with copy of LSKDestinationDevice(a2, v26, type metadata accessor for LSKDestinationDevice);
-        v34 = a4;
-        outlined init with copy of LSKDestinationDevice(a4, v82, type metadata accessor for LSKDestinationDevice);
-        v35 = v79;
-        outlined init with copy of LSKDestinationDevice(&v26[*(v83 + 28)], v79, type metadata accessor for LSKDestinationDevice.Delivery);
-        v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMd, &_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMR);
-        v37 = *(*(v36 - 8) + 48);
-        v38 = v37(v35, 3, v36);
-        v39 = a2;
-        if (v38 > 1)
+        outlined init with copy of LSKDestinationDevice(a2, v24, type metadata accessor for LSKDestinationDevice);
+        v32 = a4;
+        outlined init with copy of LSKDestinationDevice(a4, v74, type metadata accessor for LSKDestinationDevice);
+        v33 = v71;
+        outlined init with copy of LSKDestinationDevice(&v24[*(v75 + 28)], v71, type metadata accessor for LSKDestinationDevice.Delivery);
+        v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMd, &_s10Foundation4DateV19earliestNextAttempt_SS16errorDescriptiontMR);
+        v35 = *(*(v34 - 8) + 48);
+        v36 = v35(v33, 3, v34);
+        v37 = a2;
+        if (v36 > 1)
         {
-          if (v38 == 2)
+          if (v36 == 2)
           {
-            v42 = 3;
+            v39 = 3;
           }
 
           else
           {
-            v42 = 0;
+            v39 = 0;
           }
         }
 
-        else if (v38)
+        else if (v36)
         {
-          v42 = 2;
+          v39 = 2;
         }
 
         else
         {
-          v40 = *(v76 + *(v36 + 48));
 
-          v41 = type metadata accessor for Date();
-          (*(*(v41 - 8) + 8))(v79, v41);
-          v42 = 1;
+          v38 = type metadata accessor for Date();
+          (*(*(v38 - 8) + 8))(v71, v38);
+          v39 = 1;
         }
 
-        v43 = v80;
-        outlined init with copy of LSKDestinationDevice(v82 + *(v83 + 28), v80, type metadata accessor for LSKDestinationDevice.Delivery);
-        v44 = v37(v43, 3, v36);
-        if (v44 > 1)
+        v40 = v72;
+        outlined init with copy of LSKDestinationDevice(v74 + *(v75 + 28), v72, type metadata accessor for LSKDestinationDevice.Delivery);
+        v41 = v35(v40, 3, v34);
+        if (v41 > 1)
         {
-          v45 = v78;
-          if (v44 == 2)
+          v42 = v70;
+          if (v41 == 2)
           {
-            v48 = 3;
+            v44 = 3;
           }
 
           else
           {
-            v48 = 0;
+            v44 = 0;
           }
         }
 
         else
         {
-          v45 = v78;
-          if (v44)
+          v42 = v70;
+          if (v41)
           {
-            v48 = 2;
+            v44 = 2;
           }
 
           else
           {
-            v46 = *(v75 + *(v36 + 48));
 
-            v47 = type metadata accessor for Date();
-            (*(*(v47 - 8) + 8))(v80, v47);
-            v48 = 1;
+            v43 = type metadata accessor for Date();
+            (*(*(v43 - 8) + 8))(v72, v43);
+            v44 = 1;
           }
         }
 
-        outlined destroy of LSKDestinationDevice(v82, type metadata accessor for LSKDestinationDevice);
-        outlined destroy of LSKDestinationDevice(v26, type metadata accessor for LSKDestinationDevice);
-        if (v42 >= v48)
+        outlined destroy of LSKDestinationDevice(v74, type metadata accessor for LSKDestinationDevice);
+        outlined destroy of LSKDestinationDevice(v24, type metadata accessor for LSKDestinationDevice);
+        if (v39 >= v44)
         {
-          a4 += v45;
-          a2 = v39;
-          if (a1 < v34 || a1 >= a4)
+          a4 += v42;
+          a2 = v37;
+          if (a1 < v32 || a1 >= a4)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (a1 != v34)
+          else if (a1 != v32)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          v85 = v34 + v45;
+          v77 = v32 + v42;
         }
 
         else
         {
-          a2 = v39 + v45;
-          if (a1 < v39 || a1 >= a2)
+          a2 = v37 + v42;
+          if (a1 < v37 || a1 >= a2)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (a1 != v39)
+          else if (a1 != v37)
           {
             swift_arrayInitWithTakeBackToFront();
           }
         }
 
-        a1 += v45;
-        v86 = a1;
+        a1 += v42;
+        v78 = a1;
       }
 
-      while (a4 < v81 && a2 < v77);
+      while (a4 < v73 && a2 < v69);
     }
   }
 
 LABEL_86:
-  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v86, &v85, &v84);
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v78, &v77, &v76);
   return 1;
 }
 
@@ -360,7 +354,6 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -420,17 +413,14 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
 
 void type metadata completion function for LSKPublishedStatus(void *a1)
 {
-  v2 = a1[2];
-  v1 = a1[3];
-  v3 = a1[4];
-  type metadata accessor for LSKKey();
-  if (v4 <= 0x3F)
+  type metadata accessor for LSKKey(319, a1[2], a1[3], a1[4]);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Optional();
-    if (v5 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for [LSKDestinationDevice]();
-      if (v6 <= 0x3F)
+      type metadata accessor for [LSKDestinationDevice](319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -800,15 +790,15 @@ LABEL_38:
   }
 }
 
-void type metadata accessor for [LSKDestinationDevice]()
+void type metadata accessor for [LSKDestinationDevice](uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [LSKDestinationDevice])
   {
     type metadata accessor for LSKDestinationDevice(255);
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [LSKDestinationDevice]);
+      atomic_store(v1, &lazy cache variable for type metadata for [LSKDestinationDevice]);
     }
   }
 }
@@ -816,35 +806,33 @@ void type metadata accessor for [LSKDestinationDevice]()
 uint64_t LSKPublishedStatusSequence.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
   v12 = *(a4 - 8);
-  v13 = *(v12 + 64);
-  v14 = (*(v12 + 80) + 48) & ~*(v12 + 80);
-  v15 = swift_allocObject();
-  *(v15 + 2) = a2;
-  *(v15 + 3) = a3;
-  *(v15 + 4) = a4;
-  *(v15 + 5) = a5;
-  result = (*(v12 + 32))(&v15[v14], a1, a4);
+  v13 = (*(v12 + 80) + 48) & ~*(v12 + 80);
+  v14 = swift_allocObject();
+  *(v14 + 2) = a2;
+  *(v14 + 3) = a3;
+  *(v14 + 4) = a4;
+  *(v14 + 5) = a5;
+  result = (*(v12 + 32))(&v14[v13], a1, a4);
   *a6 = partial apply for closure #1 in LSKPublishedStatusSequence.init<A>(_:);
-  a6[1] = v15;
+  a6[1] = v14;
   return result;
 }
 
 void *closure #1 in LSKPublishedStatusSequence.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
   v12 = *(a4 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20](a1);
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness();
-  v16 = swift_allocBox();
-  (*(v12 + 16))(v15, a1, a4);
+  v15 = swift_allocBox();
+  (*(v12 + 16))(v14, a1, a4);
   dispatch thunk of AsyncSequence.makeAsyncIterator()();
   result = swift_allocObject();
   result[2] = a2;
   result[3] = a3;
   result[4] = a4;
   result[5] = a5;
-  result[6] = v16;
+  result[6] = v15;
   *a6 = &async function pointer to partial apply for closure #1 in closure #1 in LSKPublishedStatusSequence.init<A>(_:);
   a6[1] = result;
   return result;
@@ -867,27 +855,19 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance LSKPub
   return LSKPublishedStatusSequence.AsyncIterator.next()(a1);
 }
 
-uint64_t LSKPublishedStatusSequence.makeAsyncIterator()()
-{
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  return v1();
-}
-
 uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance LSKPublishedStatusSequence<A, B>()
 {
   LSKPublishedStatusSequence.makeAsyncIterator()();
-  v1 = *(v0 + 8);
 }
 
-uint64_t type metadata instantiation function for LSKPublishedStatusSequence()
+uint64_t type metadata instantiation function for LSKPublishedStatusSequence(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for LSKPublishedStatusSequence.AsyncIterator()
+uint64_t type metadata instantiation function for LSKPublishedStatusSequence.AsyncIterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -928,10 +908,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance LSKSta
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LSKStatusOptions.DeviceType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LSKStatusOptions.DeviceType.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized LSKStatusOptions.DeviceType.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized LSKStatusOptions.DeviceType.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -994,67 +974,62 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t LSKStatusOptions.DeviceType.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO12TvCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO12TvCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v30 = *(v3 - 8);
-  v31 = v3;
-  v4 = *(v30 + 64);
+  v25 = *(v3 - 8);
+  v26 = v3;
   MEMORY[0x28223BE20](v3);
-  v29 = &v23 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v27 = *(v6 - 8);
-  v28 = v6;
-  v7 = *(v27 + 64);
-  MEMORY[0x28223BE20](v6);
-  v26 = &v23 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v24 = *(v9 - 8);
-  v25 = v9;
-  v10 = *(v24 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v23 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v23 - v16;
-  v18 = *v1;
-  v19 = a1[4];
+  v24 = &v18 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v22 = *(v5 - 8);
+  v23 = v5;
+  MEMORY[0x28223BE20](v5);
+  v21 = &v18 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v19 = *(v7 - 8);
+  v20 = v7;
+  MEMORY[0x28223BE20](v7);
+  v9 = &v18 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v18 - v12;
+  v14 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.CodingKeys and conformance LSKStatusOptions.DeviceType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v18)
+  if (v14)
   {
-    if (v18 == 1)
+    if (v14 == 1)
     {
-      v33 = 1;
+      v28 = 1;
       lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.MacCodingKeys and conformance LSKStatusOptions.DeviceType.MacCodingKeys();
-      v12 = v26;
+      v9 = v21;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v21 = v27;
-      v20 = v28;
+      v16 = v22;
+      v15 = v23;
     }
 
     else
     {
-      v34 = 2;
+      v29 = 2;
       lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.TvCodingKeys and conformance LSKStatusOptions.DeviceType.TvCodingKeys();
-      v12 = v29;
+      v9 = v24;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v21 = v30;
-      v20 = v31;
+      v16 = v25;
+      v15 = v26;
     }
   }
 
   else
   {
-    v32 = 0;
+    v27 = 0;
     lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.N301CodingKeys and conformance LSKStatusOptions.DeviceType.N301CodingKeys();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v21 = v24;
-    v20 = v25;
+    v16 = v19;
+    v15 = v20;
   }
 
-  (*(v21 + 8))(v12, v20);
-  return (*(v14 + 8))(v17, v13);
+  (*(v16 + 8))(v9, v15);
+  return (*(v11 + 8))(v13, v10);
 }
 
 unint64_t lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.CodingKeys and conformance LSKStatusOptions.DeviceType.CodingKeys()
@@ -1212,108 +1187,102 @@ Swift::Int LSKStatusOptions.DeviceType.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t LSKStatusOptions.DeviceType.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t LSKStatusOptions.DeviceType.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v42 = a2;
+  v35 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO12TvCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO12TvCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v38 = *(v3 - 8);
-  v39 = v3;
-  v4 = *(v38 + 64);
+  v31 = *(v3 - 8);
+  v32 = v3;
   MEMORY[0x28223BE20](v3);
-  v41 = &v35 - v5;
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v37 = *(v40 - 8);
-  v6 = *(v37 + 64);
-  MEMORY[0x28223BE20](v40);
-  v8 = &v35 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v36 = *(v9 - 8);
-  v10 = *(v36 + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = &v35 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v35 - v16;
-  v18 = a1[3];
-  v19 = a1[4];
-  v44 = a1;
-  __swift_project_boxed_opaque_existential_1(a1, v18);
+  v34 = &v28 - v4;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO13MacCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v30 = *(v33 - 8);
+  MEMORY[0x28223BE20](v33);
+  v6 = &v28 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO14N301CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v29 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v9 = &v28 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10DeviceTypeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v28 - v12;
+  v14 = a1[3];
+  v37 = a1;
+  __swift_project_boxed_opaque_existential_1(a1, v14);
   lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.CodingKeys and conformance LSKStatusOptions.DeviceType.CodingKeys();
-  v20 = v43;
+  v15 = v36;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v20)
+  if (!v15)
   {
-    v35 = v9;
-    v43 = v14;
-    v22 = v41;
-    v21 = v42;
-    v23 = v17;
-    v24 = KeyedDecodingContainer.allKeys.getter();
-    v25 = (2 * *(v24 + 16)) | 1;
-    v45 = v24;
-    v46 = v24 + 32;
-    v47 = 0;
-    v48 = v25;
-    v26 = specialized Collection<>.popFirst()();
-    if (v26 == 3 || v47 != v48 >> 1)
+    v28 = v7;
+    v36 = v11;
+    v17 = v34;
+    v16 = v35;
+    v18 = KeyedDecodingContainer.allKeys.getter();
+    v19 = (2 * *(v18 + 16)) | 1;
+    v38 = v18;
+    v39 = v18 + 32;
+    v40 = 0;
+    v41 = v19;
+    v20 = specialized Collection<>.popFirst()();
+    if (v20 == 3 || v40 != v41 >> 1)
     {
-      v28 = type metadata accessor for DecodingError();
+      v22 = type metadata accessor for DecodingError();
       swift_allocError();
-      v30 = v29;
-      v31 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-      *v30 = &type metadata for LSKStatusOptions.DeviceType;
+      v24 = v23;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+      *v24 = &type metadata for LSKStatusOptions.DeviceType;
       KeyedDecodingContainer.codingPath.getter();
       DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-      (*(*(v28 - 8) + 104))(v30, *MEMORY[0x277D84160], v28);
+      (*(*(v22 - 8) + 104))(v24, *MEMORY[0x277D84160], v22);
       swift_willThrow();
-      (*(v43 + 8))(v23, v13);
+      (*(v36 + 8))(v13, v10);
       swift_unknownObjectRelease();
     }
 
     else
     {
-      v49 = v26;
-      if (v26)
+      v42 = v20;
+      if (v20)
       {
-        if (v26 == 1)
+        if (v20 == 1)
         {
-          v50 = 1;
+          v43 = 1;
           lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.MacCodingKeys and conformance LSKStatusOptions.DeviceType.MacCodingKeys();
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          v27 = v43;
-          (*(v37 + 8))(v8, v40);
-          (*(v27 + 8))(v17, v13);
+          v21 = v36;
+          (*(v30 + 8))(v6, v33);
+          (*(v21 + 8))(v13, v10);
         }
 
         else
         {
-          v50 = 2;
+          v43 = 2;
           lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.TvCodingKeys and conformance LSKStatusOptions.DeviceType.TvCodingKeys();
-          v33 = v22;
+          v26 = v17;
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          v34 = v43;
-          (*(v38 + 8))(v33, v39);
-          (*(v34 + 8))(v17, v13);
+          v27 = v36;
+          (*(v31 + 8))(v26, v32);
+          (*(v27 + 8))(v13, v10);
         }
       }
 
       else
       {
-        v50 = 0;
+        v43 = 0;
         lazy protocol witness table accessor for type LSKStatusOptions.DeviceType.N301CodingKeys and conformance LSKStatusOptions.DeviceType.N301CodingKeys();
         KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-        (*(v36 + 8))(v12, v35);
-        (*(v43 + 8))(v17, v13);
+        (*(v29 + 8))(v9, v28);
+        (*(v36 + 8))(v13, v10);
       }
 
       swift_unknownObjectRelease();
-      *v21 = v49;
+      *v16 = v42;
     }
   }
 
-  return __swift_destroy_boxed_opaque_existential_1(v44);
+  return __swift_destroy_boxed_opaque_existential_1(v37);
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LSKStatusOptions.Scope.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -1367,22 +1336,19 @@ uint64_t LSKStatusOptions.Scope.encode(to:)(void *a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v14 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v14 - v10;
-  v12 = a1[4];
+  v5 = &v11 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v11 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.CodingKeys and conformance LSKStatusOptions.Scope.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.SameAccountCodingKeys and conformance LSKStatusOptions.Scope.SameAccountCodingKeys();
   KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  (*(v3 + 8))(v6, v2);
-  return (*(v8 + 8))(v11, v7);
+  (*(v3 + 8))(v5, v2);
+  return (*(v7 + 8))(v9, v6);
 }
 
 unint64_t lazy protocol witness table accessor for type LSKStatusOptions.Scope.CodingKeys and conformance LSKStatusOptions.Scope.CodingKeys()
@@ -1471,19 +1437,16 @@ Swift::Int LSKStatusOptions.Scope.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t LSKStatusOptions.Scope.init(from:)(uint64_t *a1)
+uint64_t LSKStatusOptions.Scope.init(from:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v29 = *(v3 - 8);
-  v4 = *(v29 + 64);
+  v25 = *(v3 - 8);
   MEMORY[0x28223BE20](v3);
-  v6 = &v23 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v24 = *(v7 - 8);
-  v8 = *(v24 + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v23 - v9;
-  v11 = a1[4];
+  v5 = &v19 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v20 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v19 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.CodingKeys and conformance LSKStatusOptions.Scope.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -1492,64 +1455,61 @@ uint64_t LSKStatusOptions.Scope.init(from:)(uint64_t *a1)
     goto LABEL_6;
   }
 
-  v23 = a1;
-  v12 = v29;
-  v13 = v24;
-  v14 = KeyedDecodingContainer.allKeys.getter();
-  v15 = (2 * *(v14 + 16)) | 1;
-  v25 = v14;
-  v26 = v14 + 32;
-  v27 = 0;
-  v28 = v15;
-  if (specialized Collection<>.popFirst()() || v27 != v28 >> 1)
+  v19 = a1;
+  v9 = v25;
+  v10 = v20;
+  v11 = KeyedDecodingContainer.allKeys.getter();
+  v12 = (2 * *(v11 + 16)) | 1;
+  v21 = v11;
+  v22 = v11 + 32;
+  v23 = 0;
+  v24 = v12;
+  if (specialized Collection<>.popFirst()() || v23 != v24 >> 1)
   {
-    v16 = v7;
-    v17 = type metadata accessor for DecodingError();
+    v13 = v6;
+    v14 = type metadata accessor for DecodingError();
     swift_allocError();
-    v19 = v18;
-    v20 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v19 = &type metadata for LSKStatusOptions.Scope;
+    v16 = v15;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v16 = &type metadata for LSKStatusOptions.Scope;
     KeyedDecodingContainer.codingPath.getter();
     DecodingError.Context.init(codingPath:debugDescription:underlyingError:)();
-    (*(*(v17 - 8) + 104))(v19, *MEMORY[0x277D84160], v17);
+    (*(*(v14 - 8) + 104))(v16, *MEMORY[0x277D84160], v14);
     swift_willThrow();
-    (*(v13 + 8))(v10, v16);
+    (*(v10 + 8))(v8, v13);
     swift_unknownObjectRelease();
-    a1 = v23;
+    a1 = v19;
 LABEL_6:
-    v22 = a1;
-    return __swift_destroy_boxed_opaque_existential_1(v22);
+    v18 = a1;
+    return __swift_destroy_boxed_opaque_existential_1(v18);
   }
 
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.SameAccountCodingKeys and conformance LSKStatusOptions.Scope.SameAccountCodingKeys();
   KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  (*(v12 + 8))(v6, v3);
-  (*(v13 + 8))(v10, v7);
+  (*(v9 + 8))(v5, v3);
+  (*(v10 + 8))(v8, v6);
   swift_unknownObjectRelease();
-  v22 = v23;
-  return __swift_destroy_boxed_opaque_existential_1(v22);
+  v18 = v19;
+  return __swift_destroy_boxed_opaque_existential_1(v18);
 }
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance LSKStatusOptions.Scope(void *a1)
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO21SameAccountCodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v14 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7);
-  v11 = &v14 - v10;
-  v12 = a1[4];
+  v5 = &v11 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV5ScopeO10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
+  v7 = *(v6 - 8);
+  MEMORY[0x28223BE20](v6);
+  v9 = &v11 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.CodingKeys and conformance LSKStatusOptions.Scope.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   lazy protocol witness table accessor for type LSKStatusOptions.Scope.SameAccountCodingKeys and conformance LSKStatusOptions.Scope.SameAccountCodingKeys();
   KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-  (*(v3 + 8))(v6, v2);
-  return (*(v8 + 8))(v11, v7);
+  (*(v3 + 8))(v5, v2);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t static LSKStatusOptions.== infix(_:_:)(uint64_t result, uint64_t *a2)
@@ -1585,20 +1545,17 @@ uint64_t static LSKStatusOptions.== infix(_:_:)(uint64_t result, uint64_t *a2)
   return result;
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance LSKStatusOptions.CodingKeys()
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance LSKStatusOptions.CodingKeys()
 {
   if (*v0)
   {
-    result = 0xD000000000000014;
+    return 0xD000000000000014;
   }
 
   else
   {
-    result = 0x65706F6373;
+    return 0x65706F6373;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LSKStatusOptions.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
@@ -1653,27 +1610,25 @@ uint64_t LSKStatusOptions.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedEncodingContainerVy14LocalStatusKit16LSKStatusOptionsV10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = v12 - v7;
-  v9 = *v1;
-  v10 = a1[4];
+  v7 = v10 - v6;
+  v8 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.CodingKeys and conformance LSKStatusOptions.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = 0;
+  v12 = 0;
   lazy protocol witness table accessor for type LSKStatusOptions.Scope and conformance LSKStatusOptions.Scope();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
   if (!v2)
   {
-    v12[1] = v9;
-    v13 = 1;
+    v10[1] = v8;
+    v11 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14LocalStatusKit16LSKStatusOptionsV10DeviceTypeOGMd, &_sSay14LocalStatusKit16LSKStatusOptionsV10DeviceTypeOGMR);
-    lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](&lazy protocol witness table cache variable for type [LSKStatusOptions.DeviceType] and conformance <A> [A], lazy protocol witness table accessor for type LSKStatusOptions.DeviceType and conformance LSKStatusOptions.DeviceType);
+    lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](&lazy protocol witness table cache variable for type [LSKStatusOptions.DeviceType] and conformance <A> [A], lazy protocol witness table accessor for type LSKStatusOptions.DeviceType and conformance LSKStatusOptions.DeviceType, MEMORY[0x277D83948]);
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
 unint64_t lazy protocol witness table accessor for type LSKStatusOptions.CodingKeys and conformance LSKStatusOptions.CodingKeys()
@@ -1834,28 +1789,26 @@ Swift::Int LSKStatusOptions.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t LSKStatusOptions.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t LSKStatusOptions.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMd, &_ss22KeyedDecodingContainerVy14LocalStatusKit16LSKStatusOptionsV10CodingKeys33_9B023BE778905B7ABFF7B860756E3625LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = v12 - v8;
-  v10 = a1[4];
+  v8 = v10 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type LSKStatusOptions.CodingKeys and conformance LSKStatusOptions.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v14 = 0;
+    v12 = 0;
     lazy protocol witness table accessor for type LSKStatusOptions.Scope and conformance LSKStatusOptions.Scope();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14LocalStatusKit16LSKStatusOptionsV10DeviceTypeOGMd, &_sSay14LocalStatusKit16LSKStatusOptionsV10DeviceTypeOGMR);
-    v13 = 1;
-    lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](&lazy protocol witness table cache variable for type [LSKStatusOptions.DeviceType] and conformance <A> [A], lazy protocol witness table accessor for type LSKStatusOptions.DeviceType and conformance LSKStatusOptions.DeviceType);
+    v11 = 1;
+    lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](&lazy protocol witness table cache variable for type [LSKStatusOptions.DeviceType] and conformance <A> [A], lazy protocol witness table accessor for type LSKStatusOptions.DeviceType and conformance LSKStatusOptions.DeviceType, MEMORY[0x277D83978]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v6 + 8))(v9, v5);
-    *a2 = v12[1];
+    (*(v6 + 8))(v8, v5);
+    *a2 = v10[1];
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
@@ -1863,21 +1816,19 @@ uint64_t LSKStatusOptions.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance LSKStatusOptions()
 {
-  v2 = *v0;
   Hasher.init(_seed:)();
   LSKStatusOptions.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LSKStatusOptions()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance LSKStatusOptions(uint64_t a1)
 {
-  v2 = *v0;
   Hasher.init(_seed:)();
   LSKStatusOptions.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [LSKStatusOptions.DeviceType] and conformance <A> [A](unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2122,22 +2073,21 @@ uint64_t *protocol witness for SetAlgebra.update(with:) in conformance LSKTarget
   return result;
 }
 
-uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, uint64_t a2)
+uint64_t specialized Set._Variant.insert(_:)(void *a1, uint64_t a2)
 {
   v5 = *v2;
-  v6 = *(*v2 + 40);
   Hasher.init(_seed:)();
   MEMORY[0x259C5BAD0](a2);
-  v7 = Hasher._finalize()();
-  v8 = -1 << *(v5 + 32);
-  v9 = v7 & ~v8;
-  if ((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9))
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(v5 + 32);
+  v8 = v6 & ~v7;
+  if ((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8))
   {
-    v10 = ~v8;
-    while (*(*(v5 + 48) + 8 * v9) != a2)
+    v9 = ~v7;
+    while (*(*(v5 + 48) + 8 * v8) != a2)
     {
-      v9 = (v9 + 1) & v10;
-      if (((*(v5 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
+      v8 = (v8 + 1) & v9;
+      if (((*(v5 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
       {
         goto LABEL_5;
       }
@@ -2149,11 +2099,10 @@ uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, uint64_t a2)
   else
   {
 LABEL_5:
-    v11 = *v2;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v14 = *v2;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, v9, isUniquelyReferenced_nonNull_native);
-    *v2 = v14;
+    v12 = *v2;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(a2, v8, isUniquelyReferenced_nonNull_native);
+    *v2 = v12;
     result = 1;
   }
 
@@ -2246,124 +2195,117 @@ uint64_t storeEnumTagSinglePayload for LSKTargetDeviceFlags(uint64_t result, int
   return result;
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo13IDSDeviceTypeVGMd, &_ss11_SetStorageCySo13IDSDeviceTypeVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v28 = v2;
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      v19 = *(v6 + 40);
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
       Hasher.init(_seed:)();
-      MEMORY[0x259C5BAD0](v18);
+      MEMORY[0x259C5BAD0](v17);
       result = Hasher._finalize()();
-      v20 = -1 << *(v6 + 32);
-      v21 = result & ~v20;
-      v22 = v21 >> 6;
-      if (((-1 << v21) & ~*(v13 + 8 * (v21 >> 6))) == 0)
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
       {
-        v23 = 0;
-        v24 = (63 - v20) >> 6;
-        while (++v22 != v24 || (v23 & 1) == 0)
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
         {
-          v25 = v22 == v24;
-          if (v22 == v24)
+          v23 = v20 == v22;
+          if (v20 == v22)
           {
-            v22 = 0;
+            v20 = 0;
           }
 
-          v23 |= v25;
-          v26 = *(v13 + 8 * v22);
-          if (v26 != -1)
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
           {
-            v14 = __clz(__rbit64(~v26)) + (v22 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
+LABEL_30:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v21) & ~*(v13 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v18;
-      ++*(v6 + 16);
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
     }
 
-    v16 = v7;
+    v15 = v6;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         __break(1u);
-        goto LABEL_32;
+        goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
       }
     }
 
-    v27 = 1 << *(v3 + 32);
-    if (v27 >= 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      bzero((v3 + 56), ((v27 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v3 + 56), ((v25 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v27;
+      *v7 = -1 << v25;
     }
 
-    v2 = v28;
+    v2 = v1;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -2395,21 +2337,20 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2,
   }
 
   v8 = *v3;
-  v9 = *(*v3 + 40);
   Hasher.init(_seed:)();
   MEMORY[0x259C5BAD0](a1);
-  v10 = Hasher._finalize()();
-  v11 = -1 << *(v8 + 32);
-  a2 = v10 & ~v11;
+  v9 = Hasher._finalize()();
+  v10 = -1 << *(v8 + 32);
+  a2 = v9 & ~v10;
   if ((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
-    v12 = ~v11;
-    v13 = v10 & ~v11;
+    v11 = ~v10;
+    v12 = v9 & ~v10;
     type metadata accessor for IDSDeviceType();
-    a2 = v13;
+    a2 = v12;
     while (*(*(v8 + 48) + 8 * a2) != a1)
     {
-      a2 = (a2 + 1) & v12;
+      a2 = (a2 + 1) & v11;
       if (((*(v8 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) == 0)
       {
         goto LABEL_12;
@@ -2420,15 +2361,15 @@ void specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t a1, unint64_t a2,
   }
 
 LABEL_12:
-  v14 = *v3;
+  v13 = *v3;
   *(*v3 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  *(*(v14 + 48) + 8 * a2) = a1;
-  v15 = *(v14 + 16);
-  v16 = __OFADD__(v15, 1);
-  v17 = v15 + 1;
-  if (!v16)
+  *(*(v13 + 48) + 8 * a2) = a1;
+  v14 = *(v13 + 16);
+  v15 = __OFADD__(v14, 1);
+  v16 = v14 + 1;
+  if (!v15)
   {
-    *(v14 + 16) = v17;
+    *(v13 + 16) = v16;
     return;
   }
 
@@ -2510,116 +2451,109 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo13IDSDeviceTypeVGMd, &_ss11_SetStorageCySo13IDSDeviceTypeVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v26 = v2;
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    while (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    while (v9)
     {
-      v14 = __clz(__rbit64(v10));
-      v10 &= v10 - 1;
-LABEL_17:
-      v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-      v18 = *(v6 + 40);
+      v13 = __clz(__rbit64(v9));
+      v9 &= v9 - 1;
+LABEL_15:
+      v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
       Hasher.init(_seed:)();
-      MEMORY[0x259C5BAD0](v17);
+      MEMORY[0x259C5BAD0](v16);
       result = Hasher._finalize()();
-      v19 = -1 << *(v6 + 32);
-      v20 = result & ~v19;
-      v21 = v20 >> 6;
-      if (((-1 << v20) & ~*(v12 + 8 * (v20 >> 6))) == 0)
+      v17 = -1 << *(v5 + 32);
+      v18 = result & ~v17;
+      v19 = v18 >> 6;
+      if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
       {
-        v22 = 0;
-        v23 = (63 - v19) >> 6;
-        while (++v21 != v23 || (v22 & 1) == 0)
+        v20 = 0;
+        v21 = (63 - v17) >> 6;
+        while (++v19 != v21 || (v20 & 1) == 0)
         {
-          v24 = v21 == v23;
-          if (v21 == v23)
+          v22 = v19 == v21;
+          if (v19 == v21)
           {
-            v21 = 0;
+            v19 = 0;
           }
 
-          v22 |= v24;
-          v25 = *(v12 + 8 * v21);
-          if (v25 != -1)
+          v20 |= v22;
+          v23 = *(v11 + 8 * v19);
+          if (v23 != -1)
           {
-            v13 = __clz(__rbit64(~v25)) + (v21 << 6);
-            goto LABEL_9;
+            v12 = __clz(__rbit64(~v23)) + (v19 << 6);
+            goto LABEL_7;
           }
         }
 
-        goto LABEL_30;
+        goto LABEL_28;
       }
 
-      v13 = __clz(__rbit64((-1 << v20) & ~*(v12 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
-      *(*(v6 + 48) + 8 * v13) = v17;
-      ++*(v6 + 16);
+      v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
+      *(*(v5 + 48) + 8 * v12) = v16;
+      ++*(v5 + 16);
     }
 
-    v15 = v7;
+    v14 = v6;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         break;
       }
 
-      if (v7 >= v11)
+      if (v6 >= v10)
       {
 
-        v2 = v26;
-        goto LABEL_28;
+        v2 = v1;
+        goto LABEL_26;
       }
 
-      v16 = *(v3 + 56 + 8 * v7);
-      ++v15;
-      if (v16)
+      v15 = *(v3 + 56 + 8 * v6);
+      ++v14;
+      if (v15)
       {
-        v14 = __clz(__rbit64(v16));
-        v10 = (v16 - 1) & v16;
-        goto LABEL_17;
+        v13 = __clz(__rbit64(v15));
+        v9 = (v15 - 1) & v15;
+        goto LABEL_15;
       }
     }
 
     __break(1u);
-LABEL_30:
+LABEL_28:
     __break(1u);
   }
 
   else
   {
 
-LABEL_28:
-    *v2 = v6;
+LABEL_26:
+    *v2 = v5;
   }
 
   return result;

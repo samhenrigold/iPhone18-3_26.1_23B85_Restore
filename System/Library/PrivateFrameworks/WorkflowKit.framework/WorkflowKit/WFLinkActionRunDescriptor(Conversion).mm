@@ -6,8 +6,8 @@
 
 - (void)createWorkflowWithEnvironment:()Conversion database:completionHandler:
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v55 = a4;
+  v61 = *MEMORY[0x1E69E9840];
+  v53 = a4;
   v8 = a5;
   action = [self action];
   identifier = [self identifier];
@@ -18,86 +18,85 @@
   shortcutsActionMetadata = [metadata shortcutsActionMetadata];
   dictionaryRepresentation = [shortcutsActionMetadata dictionaryRepresentation];
 
-  v52 = dictionaryRepresentation;
-  v53 = action;
+  v50 = dictionaryRepresentation;
+  v51 = action;
   if (dictionaryRepresentation)
   {
     v16 = [dictionaryRepresentation objectForKeyedSubscript:@"IdentifierOverrideKey"];
     if (v16 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v46 = a3;
-      v48 = metadata;
-      v49 = identifier;
-      v50 = v8;
-      v47 = v16;
+      v44 = a3;
+      v46 = metadata;
+      v47 = identifier;
+      v48 = v8;
+      v45 = v16;
 
-      v60 = 0u;
-      v61 = 0u;
       v58 = 0u;
       v59 = 0u;
+      v56 = 0u;
+      v57 = 0u;
       parameters = [action parameters];
-      v18 = [parameters countByEnumeratingWithState:&v58 objects:v62 count:16];
+      v18 = [parameters countByEnumeratingWithState:&v56 objects:v60 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v59;
+        v20 = *v57;
         v21 = 0x1E69AC000uLL;
-        v54 = parameters;
+        v52 = parameters;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v59 != v20)
+            if (*v57 != v20)
             {
               objc_enumerationMutation(parameters);
             }
 
-            value = [*(*(&v58 + 1) + 8 * i) value];
+            value = [*(*(&v56 + 1) + 8 * i) value];
             v23Value = [value value];
 
             if (v23Value)
             {
-              v25 = *(v21 + 2000);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v26 = v21;
-                v27 = v13;
+                v25 = v21;
+                v26 = v13;
                 identifier2 = [(WFWorkflow *)v23Value identifier];
                 instanceIdentifier = [identifier2 instanceIdentifier];
-                v57 = 0;
-                v30 = [v55 serializedParametersForAppEntityIdentifier:instanceIdentifier error:&v57];
-                v31 = v57;
+                v55 = 0;
+                v29 = [v53 serializedParametersForAppEntityIdentifier:instanceIdentifier error:&v55];
+                v30 = v55;
 
-                if (v31)
+                if (v30)
                 {
-                  v8 = v50;
-                  (v50)[2](v50, 0, v31);
+                  v8 = v48;
+                  (v48)[2](v48, 0, v30);
 
-                  v42 = v47;
-                  metadata = v48;
-                  compositeIdentifier = v47;
-                  v44 = v53;
-                  v41 = v54;
-                  identifier = v49;
-                  v13 = v27;
+                  v41 = v45;
+                  metadata = v46;
+                  compositeIdentifier = v45;
+                  v43 = v51;
+                  v40 = v52;
+                  identifier = v47;
+                  v13 = v26;
                   goto LABEL_27;
                 }
 
-                v13 = v27;
-                if (v30)
+                v13 = v26;
+                if (v29)
                 {
-                  v32 = [MEMORY[0x1E696ACD0] unarchiveObjectWithData:v30];
-                  [v27 addEntriesFromDictionary:v32];
+                  v31 = [MEMORY[0x1E696ACD0] unarchiveObjectWithData:v29];
+                  [v26 addEntriesFromDictionary:v31];
                 }
 
-                v21 = v26;
-                parameters = v54;
+                v21 = v25;
+                parameters = v52;
               }
             }
           }
 
-          v19 = [parameters countByEnumeratingWithState:&v58 objects:v62 count:16];
+          v19 = [parameters countByEnumeratingWithState:&v56 objects:v60 count:16];
           if (v19)
           {
             continue;
@@ -107,12 +106,12 @@
         }
       }
 
-      compositeIdentifier = v47;
-      identifier = v49;
-      v8 = v50;
-      action = v53;
-      metadata = v48;
-      a3 = v46;
+      compositeIdentifier = v45;
+      identifier = v47;
+      v8 = v48;
+      action = v51;
+      metadata = v46;
+      a3 = v44;
     }
 
     else
@@ -120,32 +119,32 @@
     }
   }
 
-  v33 = +[WFActionRegistry sharedRegistry];
-  v34 = [v33 createActionWithIdentifier:compositeIdentifier serializedParameters:0 forceLocalActionsOnly:1];
+  v32 = +[WFActionRegistry sharedRegistry];
+  v33 = [v32 createActionWithIdentifier:compositeIdentifier serializedParameters:0 forceLocalActionsOnly:1];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35 = WFLinkActionSerializedParametersForWFAction(v34, action, metadata);
-    v36 = a3;
-    v37 = [v35 mutableCopy];
+    v34 = WFLinkActionSerializedParametersForWFAction(v33, action, metadata);
+    v35 = a3;
+    v36 = [v34 mutableCopy];
 
-    v13 = v37;
-    a3 = v36;
+    v13 = v36;
+    a3 = v35;
   }
 
-  v38 = [v34 copyWithSerializedParameters:v13];
+  v37 = [v33 copyWithSerializedParameters:v13];
 
-  v39 = [WFWorkflow alloc];
-  v40 = objc_opt_new();
-  v56 = 0;
-  v23Value = [(WFWorkflow *)v39 initWithRecord:v40 reference:0 storageProvider:0 migrateIfNecessary:0 environment:a3 error:&v56];
-  v41 = v56;
+  v38 = [WFWorkflow alloc];
+  v39 = objc_opt_new();
+  v54 = 0;
+  v23Value = [(WFWorkflow *)v38 initWithRecord:v39 reference:0 storageProvider:0 migrateIfNecessary:0 environment:a3 error:&v54];
+  v40 = v54;
 
   if (v23Value)
   {
-    v42 = v38;
-    [(WFWorkflow *)v23Value addAction:v38];
+    v41 = v37;
+    [(WFWorkflow *)v23Value addAction:v37];
     if ([selfCopy isAutoShortcut])
     {
       [(WFWorkflow *)v23Value setSource:@"ShortcutSourceAppShortcut"];
@@ -159,14 +158,12 @@
 
   else
   {
-    (v8)[2](v8, 0, v41);
-    v42 = v38;
+    (v8)[2](v8, 0, v40);
+    v41 = v37;
   }
 
-  v44 = v53;
+  v43 = v51;
 LABEL_27:
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 @end

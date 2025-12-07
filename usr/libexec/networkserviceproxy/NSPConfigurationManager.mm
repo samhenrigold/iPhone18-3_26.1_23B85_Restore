@@ -10,6 +10,7 @@
 - (unint64_t)configurationSubscriberPoliciesCount;
 - (unint64_t)getPrivacyProxyAccountType;
 - (void)clearResetDate;
+- (void)configurationEnabled:(BOOL)enabled;
 - (void)copyProxyInfo:(id)info;
 - (void)dealloc;
 - (void)handlePathChange:(id)change;
@@ -18,6 +19,12 @@
 - (void)resetConfigurationManager;
 - (void)setConfigurationTrialVersion:(int64_t)version;
 - (void)setGeohashOverride:(id)override;
+- (void)setGeohashSharingPreference:(BOOL)preference;
+- (void)setInProcessFlowDivert:(BOOL)divert;
+- (void)setPreferredPathRoutingEnabled:(BOOL)enabled;
+- (void)setPrivateAccessTokensAllowTools:(BOOL)tools;
+- (void)setPrivateAccessTokensEnabled:(BOOL)enabled;
+- (void)setProxyAccountType:(unint64_t)type unlimited:(BOOL)unlimited;
 - (void)setProxyTrafficState:(unint64_t)state proxyTraffic:(unint64_t)traffic;
 - (void)setResetDate:(id)date;
 - (void)setup;
@@ -2170,17 +2177,7 @@ LABEL_379:
                 v278 = dohURL;
                 v279 = dohURL2;
                 v280 = v279;
-                if (v278 | v279 && (!v278 || !v279 || ![v278 isEqual:v279]))
-                {
-                  goto LABEL_331;
-                }
-
-                obliviousDoHConfig = [v269 obliviousDoHConfig];
-                obliviousDoHConfig2 = [v275 obliviousDoHConfig];
-                v278 = obliviousDoHConfig;
-                v283 = obliviousDoHConfig2;
-                v280 = v283;
-                if (!(v278 | v283) || v278 && v283 && [v278 isEqual:v283])
+                if ((!(v278 | v279) || v278 && v279 && [v278 isEqual:v279]) && ((v280, v278, v280, v278, objc_msgSend(v269, "obliviousDoHConfig"), v281 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v275, "obliviousDoHConfig"), v282 = objc_claimAutoreleasedReturnValue(), v278 = v281, v283 = v282, v280 = v283, !(v278 | v283)) || v278 && v283 && objc_msgSend(v278, "isEqual:", v283)))
                 {
 
                   weight3 = [v269 weight];
@@ -2189,7 +2186,6 @@ LABEL_379:
 
                 else
                 {
-LABEL_331:
                 }
               }
 
@@ -3544,6 +3540,38 @@ LABEL_156:
   }
 }
 
+- (void)configurationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  enabled = [(NSPConfigurationManager *)self enabled];
+  bOOLValue = [enabled BOOLValue];
+
+  if (bOOLValue != enabledCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:enabledCopy];
+    [v9 setEnabled:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
+}
+
 - (void)setResetDate:(id)date
 {
   dateCopy = date;
@@ -3852,6 +3880,140 @@ LABEL_55:
   return v29;
 }
 
+- (void)setProxyAccountType:(unint64_t)type unlimited:(BOOL)unlimited
+{
+  if (type)
+  {
+    unlimitedCopy = unlimited;
+    if (self)
+    {
+      configuration = self->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v8 = configuration;
+    proxyAccountType = [(NSPConfiguration *)v8 proxyAccountType];
+    if ([proxyAccountType unsignedIntegerValue] == type)
+    {
+      if (self)
+      {
+        v10 = self->_configuration;
+      }
+
+      else
+      {
+        v10 = 0;
+      }
+
+      proxyAccountUnlimited = [(NSPConfiguration *)v10 proxyAccountUnlimited];
+      bOOLValue = [proxyAccountUnlimited BOOLValue];
+
+      if (bOOLValue == unlimitedCopy)
+      {
+        return;
+      }
+    }
+
+    else
+    {
+    }
+
+    if (self)
+    {
+      v13 = self->_configuration;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v20 = [(NSPConfiguration *)v13 copy];
+    v14 = [NSNumber numberWithUnsignedInteger:type];
+    [v20 setProxyAccountType:v14];
+
+    v15 = [NSNumber numberWithBool:unlimitedCopy];
+    [v20 setProxyAccountUnlimited:v15];
+
+    if (type == 2)
+    {
+      if (self)
+      {
+        v17 = self->_configuration;
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      userPreferredTier = [(NSPConfiguration *)v17 userPreferredTier];
+    }
+
+    else
+    {
+      if (type != 1)
+      {
+LABEL_19:
+        [(NSPConfigurationManager *)self updateConfiguration:v20];
+
+        return;
+      }
+
+      userPreferredTier = [NSNumber numberWithUnsignedInteger:1];
+    }
+
+    v18 = userPreferredTier;
+    [v20 setUserTier:userPreferredTier];
+
+    goto LABEL_19;
+  }
+
+  v19 = nplog_obj();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315138;
+    v22 = "[NSPConfigurationManager setProxyAccountType:unlimited:]";
+    _os_log_fault_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, "%s called with null proxyAccountType", buf, 0xCu);
+  }
+}
+
+- (void)setGeohashSharingPreference:(BOOL)preference
+{
+  preferenceCopy = preference;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  geohashSharingEnabledStatus = [(NSPConfigurationManager *)self geohashSharingEnabledStatus];
+  bOOLValue = [geohashSharingEnabledStatus BOOLValue];
+
+  if (bOOLValue != preferenceCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:preferenceCopy];
+    [v9 setGeohashSharingEnabledStatus:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
+}
+
 - (BOOL)getGeohashSharingPreference
 {
   if (self)
@@ -3922,6 +4084,70 @@ LABEL_55:
 LABEL_12:
 }
 
+- (void)setPreferredPathRoutingEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  preferredPathRoutingEnabledStatus = [(NSPConfigurationManager *)self preferredPathRoutingEnabledStatus];
+  bOOLValue = [preferredPathRoutingEnabledStatus BOOLValue];
+
+  if (bOOLValue != enabledCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:enabledCopy];
+    [v9 setPreferredPathRoutingEnabledStatus:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
+}
+
+- (void)setPrivateAccessTokensEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  privateAccessTokensEnabledStatus = [(NSPConfigurationManager *)self privateAccessTokensEnabledStatus];
+  bOOLValue = [privateAccessTokensEnabledStatus BOOLValue];
+
+  if (bOOLValue != enabledCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:enabledCopy];
+    [v9 setPrivateAccessTokensEnabledStatus:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
+}
+
 - (BOOL)getPrivateAccessTokensEnabled
 {
   if (self)
@@ -3933,6 +4159,70 @@ LABEL_12:
   bOOLValue = [privateAccessTokensEnabledStatus BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setPrivateAccessTokensAllowTools:(BOOL)tools
+{
+  toolsCopy = tools;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  privateAccessTokensAllowTools = [(NSPConfigurationManager *)self privateAccessTokensAllowTools];
+  bOOLValue = [privateAccessTokensAllowTools BOOLValue];
+
+  if (bOOLValue != toolsCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:toolsCopy];
+    [v9 setPrivateAccessTokensAllowTools:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
+}
+
+- (void)setInProcessFlowDivert:(BOOL)divert
+{
+  divertCopy = divert;
+  selfCopy = self;
+  if (self)
+  {
+    self = self->_configuration;
+  }
+
+  inProcessFlowDivert = [(NSPConfigurationManager *)self inProcessFlowDivert];
+  bOOLValue = [inProcessFlowDivert BOOLValue];
+
+  if (bOOLValue != divertCopy)
+  {
+    if (selfCopy)
+    {
+      configuration = selfCopy->_configuration;
+    }
+
+    else
+    {
+      configuration = 0;
+    }
+
+    v9 = [(NSPConfiguration *)configuration copy];
+    v8 = [NSNumber numberWithBool:divertCopy];
+    [v9 setInProcessFlowDivert:v8];
+
+    [(NSPConfigurationManager *)selfCopy updateConfiguration:v9];
+  }
 }
 
 - (unint64_t)getPrivacyProxyAccountType

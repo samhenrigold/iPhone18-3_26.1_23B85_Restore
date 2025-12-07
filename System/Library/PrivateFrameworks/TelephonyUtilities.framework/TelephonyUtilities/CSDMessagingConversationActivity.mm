@@ -310,7 +310,7 @@
   policyCopy = policy;
   if ((policy - 1) >= 2)
   {
-    v4 = sub_100004778();
+    v4 = sub_100004778(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 134217984;
@@ -449,88 +449,85 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_identifierUUIDString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_applicationContext)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_activityIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_metadata)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_activityContext)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_originatorHandle)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    updatedDateEpochTime = self->_updatedDateEpochTime;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_fallbackApplicationName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_activityMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    isSystemActivity = self->_isSystemActivity;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    timestampAsTimeIntervalSinceReferenceDate = self->_timestampAsTimeIntervalSinceReferenceDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_fromHandle)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -756,7 +753,6 @@
     }
   }
 
-  v12 = *(equalCopy + 108);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 108) & 2) == 0 || self->_updatedDateEpochTime != *(equalCopy + 2))
@@ -785,7 +781,6 @@
     }
   }
 
-  v15 = *(equalCopy + 108);
   if ((*&self->_has & 4) == 0)
   {
     if ((*(equalCopy + 108) & 4) == 0)
@@ -794,7 +789,7 @@
     }
 
 LABEL_39:
-    v18 = 0;
+    v15 = 0;
     goto LABEL_40;
   }
 
@@ -803,7 +798,6 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v16 = *(equalCopy + 104);
   if (self->_isSystemActivity)
   {
     if ((*(equalCopy + 104) & 1) == 0)
@@ -834,17 +828,17 @@ LABEL_27:
   fromHandle = self->_fromHandle;
   if (fromHandle | *(equalCopy + 9))
   {
-    v18 = [(CSDMessagingHandle *)fromHandle isEqual:?];
+    v15 = [(CSDMessagingHandle *)fromHandle isEqual:?];
   }
 
   else
   {
-    v18 = 1;
+    v15 = 1;
   }
 
 LABEL_40:
 
-  return v18;
+  return v15;
 }
 
 - (unint64_t)hash

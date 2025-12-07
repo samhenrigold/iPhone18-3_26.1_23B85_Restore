@@ -38,22 +38,20 @@
 
 - (NSArray)contactEventTriggers
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   contactEventTrigger = [(INAddTasksIntent *)self contactEventTrigger];
 
   if (contactEventTrigger)
   {
     contactEventTrigger2 = [(INAddTasksIntent *)self contactEventTrigger];
-    v8[0] = contactEventTrigger2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = contactEventTrigger2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -67,8 +65,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[5] = *MEMORY[0x1E69E9840];
-  v17[0] = @"targetTaskList";
+  v17[5] = *MEMORY[0x1E69E9840];
+  v16[0] = @"targetTaskList";
   targetTaskList = [(INAddTasksIntent *)self targetTaskList];
   null = targetTaskList;
   if (!targetTaskList)
@@ -76,8 +74,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
-  v17[1] = @"taskTitles";
+  v17[0] = null;
+  v16[1] = @"taskTitles";
   taskTitles = [(INAddTasksIntent *)self taskTitles];
   null2 = taskTitles;
   if (!taskTitles)
@@ -85,8 +83,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v17[2] = @"spatialEventTrigger";
+  v17[1] = null2;
+  v16[2] = @"spatialEventTrigger";
   spatialEventTrigger = [(INAddTasksIntent *)self spatialEventTrigger];
   null3 = spatialEventTrigger;
   if (!spatialEventTrigger)
@@ -94,8 +92,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null3;
-  v17[3] = @"temporalEventTrigger";
+  v17[2] = null3;
+  v16[3] = @"temporalEventTrigger";
   temporalEventTrigger = [(INAddTasksIntent *)self temporalEventTrigger];
   null4 = temporalEventTrigger;
   if (!temporalEventTrigger)
@@ -103,8 +101,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null4;
-  v17[4] = @"priority";
+  v17[3] = null4;
+  v16[4] = @"priority";
   priority = [(INAddTasksIntent *)self priority];
   v12 = @"unknown";
   if (priority == INTaskPriorityFlagged)
@@ -118,8 +116,8 @@
   }
 
   v13 = v12;
-  v18[4] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
+  v17[4] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:5];
 
   if (!temporalEventTrigger)
   {
@@ -136,8 +134,6 @@
   if (!targetTaskList)
   {
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

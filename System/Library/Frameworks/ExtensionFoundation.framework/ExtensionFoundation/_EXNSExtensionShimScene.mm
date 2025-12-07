@@ -17,14 +17,12 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v10 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_3();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)makePrincipalObjectForExtension:(id)extension
@@ -39,40 +37,43 @@
   sessionCopy = session;
   extension = [sessionCopy extension];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = _EXDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v7 = _EXDefaultLog(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      [_EXNSExtensionShimScene connectToSession:];
+      [(_EXNSExtensionShimScene *)extension connectToSession:v7];
     }
 
     __break(1u);
     goto LABEL_13;
   }
 
-  v5 = [(_EXNSExtensionShimScene *)self makePrincipalObjectForExtension:extension];
-  v6 = [_EXNSExtensionContextShimImplementation makeContextWithSceneSession:sessionCopy];
+  v6 = [(_EXNSExtensionShimScene *)self makePrincipalObjectForExtension:extension];
+  v7 = [_EXNSExtensionContextShimImplementation makeContextWithSceneSession:sessionCopy];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v8 = objc_opt_isKindOfClass();
+  if ((v8 & 1) == 0)
   {
 LABEL_13:
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v14 = _EXDefaultLog(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [_EXNSExtensionShimScene connectToSession:];
+      [(_EXNSExtensionShimScene *)v7 connectToSession:v14];
     }
 
     goto LABEL_19;
   }
 
-  v7 = objc_opt_class();
-  if (v7 == objc_opt_class())
+  v9 = objc_opt_class();
+  v10 = objc_opt_class();
+  if (v9 == v10)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v14 = _EXDefaultLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [_EXNSExtensionShimScene connectToSession:];
+      [(_EXNSExtensionShimScene *)v7 connectToSession:v14];
     }
 
     goto LABEL_19;
@@ -80,12 +81,13 @@ LABEL_13:
 
   _sharedExtensionContextVendor = [MEMORY[0x1E696B0F8] _sharedExtensionContextVendor];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v12 = objc_opt_isKindOfClass();
+  if ((v12 & 1) == 0)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v14 = _EXDefaultLog(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [_EXNSExtensionShimScene connectToSession:];
+      [(_EXNSExtensionShimScene *)_sharedExtensionContextVendor connectToSession:v14];
     }
 
 LABEL_19:
@@ -94,13 +96,13 @@ LABEL_19:
     return;
   }
 
-  [_sharedExtensionContextVendor _addExtensionContext:v6];
-  [(_EXNSExtensionShimScene *)self setContext:v6];
-  internalImplementation = [v6 internalImplementation];
-  [internalImplementation set__principalObject:v5];
-  if ([v5 conformsToProtocol:&unk_1EF2ABFF8])
+  [_sharedExtensionContextVendor _addExtensionContext:v7];
+  [(_EXNSExtensionShimScene *)self setContext:v7];
+  internalImplementation = [v7 internalImplementation];
+  [internalImplementation set__principalObject:v6];
+  if ([v6 conformsToProtocol:&unk_1EF2ABFF8])
   {
-    [v5 beginRequestWithExtensionContext:v6];
+    [v6 beginRequestWithExtensionContext:v7];
   }
 }
 
@@ -124,53 +126,45 @@ LABEL_19:
   return v8;
 }
 
-- (void)connectToSession:.cold.1()
+- (void)connectToSession:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v10 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_3_3(&dword_1847D1000, v2, v3, "%s - %s:%d: Unexpected extension class '%@'", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_3(&dword_1847D1000, v4, v5, "%s - %s:%d: Unexpected extension class '%@'", v6, v7, v8, v9, v10);
 }
 
-- (void)connectToSession:.cold.2()
+- (void)connectToSession:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v10 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_3();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)connectToSession:.cold.3()
+- (void)connectToSession:(uint64_t)a1 .cold.3(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v10 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_3();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-- (void)connectToSession:.cold.4()
+- (void)connectToSession:(uint64_t)a1 .cold.4(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v10 = 136315906;
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_3();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

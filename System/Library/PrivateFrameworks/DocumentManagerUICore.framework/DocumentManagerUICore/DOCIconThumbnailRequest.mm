@@ -8,13 +8,13 @@
 
 - (DOCIconThumbnailRequest)initWithNode:(id)node descriptor:(id)descriptor thumbnailGenerator:(id)generator
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   descriptorCopy = descriptor;
   generatorCopy = generator;
-  v43.receiver = self;
-  v43.super_class = DOCIconThumbnailRequest;
-  v12 = [(DOCIconThumbnailRequest *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = DOCIconThumbnailRequest;
+  v12 = [(DOCIconThumbnailRequest *)&v42 init];
   if (v12)
   {
     nodeURL = [nodeCopy nodeURL];
@@ -35,9 +35,9 @@
         displayName = [nodeCopy displayName];
         nodeURL2 = [nodeCopy nodeURL];
         *buf = 138412546;
-        v45 = displayName;
-        v46 = 2112;
-        v47 = nodeURL2;
+        v44 = displayName;
+        v45 = 2112;
+        v46 = nodeURL2;
         _os_log_impl(&dword_249CE0000, v16, OS_LOG_TYPE_DEFAULT, "DOCIconThumbnailRequest: requesting thumbnail from URL for %@: %@", buf, 0x16u);
       }
 
@@ -75,9 +75,9 @@
         displayName2 = [nodeCopy displayName];
         fpfs_fpItem2 = [nodeCopy fpfs_fpItem];
         *buf = 138412546;
-        v45 = displayName2;
-        v46 = 2112;
-        v47 = fpfs_fpItem2;
+        v44 = displayName2;
+        v45 = 2112;
+        v46 = fpfs_fpItem2;
         _os_log_impl(&dword_249CE0000, v30, OS_LOG_TYPE_DEFAULT, "DOCIconThumbnailRequest: requesting thumbnail from FPItem for %@: %@", buf, 0x16u);
       }
 
@@ -103,7 +103,6 @@ LABEL_15:
     objc_storeWeak(&v12->_thumbnailGenerator, generatorCopy);
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

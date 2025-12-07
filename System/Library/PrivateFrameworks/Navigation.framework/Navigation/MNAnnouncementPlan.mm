@@ -40,28 +40,28 @@ uint64_t __32__MNAnnouncementPlan_sortEvents__block_invoke(uint64_t a1, void *a2
 
 - (id)nextConflict
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   plannedEvents = [(MNAnnouncementPlan *)self plannedEvents];
-  v4 = [plannedEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v4 = [plannedEvents countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v26;
+    v7 = *v25;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(plannedEvents);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         if ([v9 includeInPlan])
         {
           if (v6)
@@ -88,9 +88,9 @@ uint64_t __32__MNAnnouncementPlan_sortEvents__block_invoke(uint64_t a1, void *a2
                 event = [v9 event];
                 stepIndex = [event stepIndex];
                 *buf = 67109378;
-                v30 = stepIndex;
-                v31 = 2112;
-                v32 = v19;
+                v29 = stepIndex;
+                v30 = 2112;
+                v31 = v19;
                 _os_log_impl(&dword_1D311E000, v20, OS_LOG_TYPE_DEFAULT, "Found announcement conflict in step %d: %@", buf, 0x12u);
               }
 
@@ -104,7 +104,7 @@ uint64_t __32__MNAnnouncementPlan_sortEvents__block_invoke(uint64_t a1, void *a2
         }
       }
 
-      v5 = [plannedEvents countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v5 = [plannedEvents countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v5)
       {
         continue;
@@ -122,40 +122,38 @@ uint64_t __32__MNAnnouncementPlan_sortEvents__block_invoke(uint64_t a1, void *a2
   v19 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   plannedEvents = [(MNAnnouncementPlan *)self plannedEvents];
   v5 = [v3 stringWithFormat:@"%d events", objc_msgSend(plannedEvents, "count")];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   plannedEvents2 = [(MNAnnouncementPlan *)self plannedEvents];
-  v7 = [plannedEvents2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [plannedEvents2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v5;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(plannedEvents2);
         }
 
-        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\n  %@", *(*(&v15 + 1) + 8 * v10)];
+        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\n  %@", *(*(&v14 + 1) + 8 * v10)];
         v5 = [v11 stringByAppendingString:v12];
 
         ++v10;
@@ -163,53 +161,51 @@ LABEL_18:
       }
 
       while (v8 != v10);
-      v8 = [plannedEvents2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [plannedEvents2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (MNAnnouncementPlan)initWithEvents:(id)events distance:(double)distance speed:(double)speed durations:(id)durations
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   durationsCopy = durations;
-  v33.receiver = self;
-  v33.super_class = MNAnnouncementPlan;
-  v13 = [(MNAnnouncementPlan *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = MNAnnouncementPlan;
+  v13 = [(MNAnnouncementPlan *)&v32 init];
   v14 = v13;
   if (v13)
   {
     objc_storeStrong(&v13->_events, events);
     v14->_distance = distance;
     v14->_speed = speed;
-    v28 = v14;
+    v27 = v14;
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(eventsCopy, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v16 = eventsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v30;
+      v19 = *v29;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v30 != v19)
+          if (*v29 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v29 + 1) + 8 * i);
+          v21 = *(*(&v28 + 1) + 8 * i);
           uniqueID = [v21 uniqueID];
           v23 = [durationsCopy objectForKeyedSubscript:uniqueID];
 
@@ -220,20 +216,19 @@ LABEL_18:
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v18);
     }
 
-    v14 = v28;
-    plannedEvents = v28->_plannedEvents;
-    v28->_plannedEvents = v15;
+    v14 = v27;
+    plannedEvents = v27->_plannedEvents;
+    v27->_plannedEvents = v15;
 
-    [(MNAnnouncementPlan *)v28 sortEvents];
+    [(MNAnnouncementPlan *)v27 sortEvents];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

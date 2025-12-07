@@ -149,37 +149,36 @@ uint64_t __40__AAURLSession_sharedPinningOnlySession__block_invoke()
     pendingSessionOperations = v10->_pendingSessionOperations;
     v10->_pendingSessionOperations = v17;
 
-    v19 = _AALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _AALogSystem(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = @"NO";
+      v21 = @"NO";
       requiresSigning = v10->_requiresSigning;
       if (v10->_requiresUrlCache)
       {
-        v22 = @"YES";
+        v23 = @"YES";
       }
 
       else
       {
-        v22 = @"NO";
+        v23 = @"NO";
       }
 
       *buf = 138412802;
       if (requiresSigning)
       {
-        v20 = @"YES";
+        v21 = @"YES";
       }
 
-      v27 = v22;
+      v27 = v23;
       v28 = 2112;
-      v29 = v20;
+      v29 = v21;
       v30 = 2112;
-      v31 = v20;
-      _os_log_impl(&dword_1B6F6A000, v19, OS_LOG_TYPE_DEFAULT, "AAURLSession initiated with _requiresUrlCache: %@, _requiresSigning: %@, _requiresICSSPinning: %@", buf, 0x20u);
+      v31 = v21;
+      _os_log_impl(&dword_1B6F6A000, v20, OS_LOG_TYPE_DEFAULT, "AAURLSession initiated with _requiresUrlCache: %@, _requiresSigning: %@, _requiresICSSPinning: %@", buf, 0x20u);
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -265,7 +264,7 @@ uint64_t __40__AAURLSession_sharedPinningOnlySession__block_invoke()
 
   [AAURLSession dataTaskWithURL:completion:];
 LABEL_3:
-  v9 = _AALogSystem();
+  v9 = _AALogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [AAURLSession dataTaskWithURL:completion:];
@@ -495,8 +494,8 @@ LABEL_3:
   v9 = [_AAURLSessionOperation operationWithCompletion:v8];
   [(NSMutableDictionary *)self->_pendingSessionOperations setObject:v9 forKeyedSubscript:taskCopy];
 
-  v10 = _AALogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = _AALogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [AAURLSession _sessionQueue_enqueueTask:completion:];
   }
@@ -544,26 +543,27 @@ LABEL_3:
   v13 = errorCopy;
   if ((v12 != 0) != (v13 == 0))
   {
-    v17 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Invalid exclusivity not satisfying: response ^ error" userInfo:0];
-    objc_exception_throw(v17);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Invalid exclusivity not satisfying: response ^ error" userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v14 = v13;
 
   dispatch_assert_queue_V2(self->_sessionQueue);
   v15 = [(NSMutableDictionary *)self->_pendingSessionOperations aaf_removeObjectForKey:taskCopy];
+  v16 = v15;
   if (!v15)
   {
     [AAURLSession _sessionQueue_dequeueTask:a2 withResponse:self error:taskCopy];
   }
 
-  v16 = _AALogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+  v17 = _AALogSystem(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     [AAURLSession _sessionQueue_dequeueTask:withResponse:error:];
   }
 
-  [v15 invokeCompletionWithResponse:v12 error:v14];
+  [v16 invokeCompletionWithResponse:v12 error:v14];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
@@ -721,14 +721,6 @@ LABEL_3:
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-- (void)dataTaskWithURL:completion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "Creating data task with URL: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)dataTaskWithRequest:completion:.cold.1()
 {
   OUTLINED_FUNCTION_0_4();
@@ -809,14 +801,6 @@ LABEL_3:
   [v0 handleFailureInMethod:@"completion" object:? file:? lineNumber:? description:?];
 }
 
-- (void)_sessionQueue_enqueueTask:completion:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "Enqueued dataTask %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_sessionQueue_updateTask:withData:.cold.1()
 {
   OUTLINED_FUNCTION_0_4();
@@ -845,14 +829,6 @@ LABEL_3:
 {
   v6 = [MEMORY[0x1E696AAA8] currentHandler];
   [v6 handleFailureInMethod:a1 object:a2 file:@"AAURLSession.m" lineNumber:405 description:{@"Failed to find handler for task: %@", a3}];
-}
-
-- (void)_sessionQueue_dequeueTask:withResponse:error:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4_0(&dword_1B6F6A000, v0, v1, "Dequeued dataTask %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)URLSession:dataTask:didReceiveData:.cold.1()

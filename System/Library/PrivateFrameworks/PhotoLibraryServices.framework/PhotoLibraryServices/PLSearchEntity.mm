@@ -94,9 +94,9 @@
       v6 = equalCopy;
       label = [(PLSearchEntity *)self label];
       label2 = [(PLSearchEntity *)v6 label];
-      v9 = [label isEqualToString:label2];
+      isEqualToString = objc_msgSend_isEqualToString_(label);
 
-      if (v9 && (-[PLSearchEntity identifier](self, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), -[PLSearchEntity identifier](v6, "identifier"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v10 isEqualToString:v11], v11, v10, v12) && (v13 = -[PLSearchEntity type](self, "type"), v13 == -[PLSearchEntity type](v6, "type")) && (-[PLSearchEntity rankingScore](self, "rankingScore"), v15 = v14, -[PLSearchEntity rankingScore](v6, "rankingScore"), vabdd_f64(v15, v16) <= 0.00000011920929) && (-[PLSearchEntity synonymsString](self, "synonymsString"), v17 = objc_claimAutoreleasedReturnValue(), -[PLSearchEntity synonymsString](v6, "synonymsString"), v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v17, (v17 != 0) != v19))
+      if (isEqualToString && ([(PLSearchEntity *)self identifier], v10 = objc_claimAutoreleasedReturnValue(), [(PLSearchEntity *)v6 identifier], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend_isEqualToString_(v10), v11, v10, v12) && (v13 = [(PLSearchEntity *)self type], v13 == [(PLSearchEntity *)v6 type]) && ([(PLSearchEntity *)self rankingScore], v15 = v14, [(PLSearchEntity *)v6 rankingScore], vabdd_f64(v15, v16) <= 0.00000011920929) && ([(PLSearchEntity *)self synonymsString], v17 = objc_claimAutoreleasedReturnValue(), [(PLSearchEntity *)v6 synonymsString], v18 = objc_claimAutoreleasedReturnValue(), v19 = v18 == 0, v18, v17, (v17 != 0) != v19))
       {
         synonymsString = [(PLSearchEntity *)self synonymsString];
 
@@ -104,7 +104,7 @@
         {
           synonymsString2 = [(PLSearchEntity *)self synonymsString];
           synonymsString3 = [(PLSearchEntity *)v6 synonymsString];
-          v23 = [synonymsString2 isEqualToString:synonymsString3];
+          v23 = objc_msgSend_isEqualToString_(synonymsString2);
         }
 
         else
@@ -380,7 +380,7 @@ LABEL_7:
 - (void)setSynonyms:(id)synonyms
 {
   synonymsCopy = synonyms;
-  if ([synonymsCopy count])
+  if (objc_msgSend_count(synonymsCopy))
   {
     v4 = [PLSearchEntity synonymsStringFromSynonyms:synonymsCopy];
   }
@@ -419,7 +419,7 @@ LABEL_7:
     v5 = [sourceNode valueWithCode:3005 createIfMissing:1];
 
     stringValue = [v5 stringValue];
-    if (([stringValue isEqualToString:identifierCopy] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(stringValue) & 1) == 0)
     {
       [v5 setStringValue:identifierCopy];
       [(PLSearchEntity *)self _updateChangeFlagForProperties];
@@ -614,7 +614,7 @@ LABEL_8:
     if (!identifier)
     {
 LABEL_9:
-      v16 = 0;
+      isEqualToString = 0;
       goto LABEL_14;
     }
   }
@@ -626,28 +626,28 @@ LABEL_9:
 
   label2 = [(PLSearchEntity *)self label];
   v13 = label2;
-  if (label2 == labelCopy || [label2 isEqualToString:labelCopy])
+  if (label2 == labelCopy || objc_msgSend_isEqualToString_(label2))
   {
     identifier2 = [(PLSearchEntity *)self identifier];
     v15 = identifier2;
     if (identifier2 == identifierCopy)
     {
-      v16 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v16 = [identifier2 isEqualToString:identifierCopy];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier2);
     }
   }
 
   else
   {
-    v16 = 0;
+    isEqualToString = 0;
   }
 
 LABEL_14:
-  return v16;
+  return isEqualToString;
 }
 
 - (id)_insertRelationEdgeForPerson:(id)person relationType:(signed __int16)type confidence:(double)confidence
@@ -1115,9 +1115,9 @@ LABEL_47:
             if (integerValue4 == integerValue3)
             {
               personUUID = [targetPerson personUUID];
-              v63 = [personUUID isEqualToString:v51];
+              isEqualToString = objc_msgSend_isEqualToString_(personUUID);
 
-              if (v63)
+              if (isEqualToString)
               {
                 [v77 deleteObject:v57];
 
@@ -1273,7 +1273,7 @@ LABEL_24:
   [PLSearchEntity _removeAllPersonRelationEdgesFromNode:sourceNode];
 
 LABEL_3:
-  if ([v9 count])
+  if (objc_msgSend_count(v9))
   {
     v69[0] = MEMORY[0x1E69E9820];
     v69[1] = 3221225472;
@@ -1623,12 +1623,12 @@ LABEL_17:
 
   v17 = v25;
   v18 = v24;
-  if ([v17 count] >= 2)
+  if (objc_msgSend_count(v17) >= 2)
   {
     v19 = PLBackendGetLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v20 = [v17 count];
+      v20 = objc_msgSend_count(v17);
       *buf = 138413058;
       v27 = labelCopy;
       v28 = 2114;
@@ -2083,52 +2083,52 @@ LABEL_23:
 + (int)searchEntityNameCodeFromKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"synonymsString"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3001;
   }
 
-  else if ([keyCopy isEqualToString:@"searchEntityLabel"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3000;
   }
 
-  else if ([keyCopy isEqualToString:@"searchEntityIdentifier"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3002;
   }
 
-  else if ([keyCopy isEqualToString:@"searchEntityType"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3003;
   }
 
-  else if ([keyCopy isEqualToString:@"rankingScore"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3004;
   }
 
-  else if ([keyCopy isEqualToString:@"Confidence"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3500;
   }
 
-  else if ([keyCopy isEqualToString:@"RelationType"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3501;
   }
 
-  else if ([keyCopy isEqualToString:@"RelationTypeConfidence"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3502;
   }
 
-  else if ([keyCopy isEqualToString:@"DateIntervalStart"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3503;
   }
 
-  else if ([keyCopy isEqualToString:@"DateIntervalEnd"])
+  else if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = 3504;
   }
@@ -2861,7 +2861,7 @@ LABEL_10:
     }
   }
 
-  if ([v17 count])
+  if (objc_msgSend_count(v17))
   {
     v20 = MEMORY[0x1E695D5E0];
     v21 = +[PLGraphEdge entityName];
@@ -3266,7 +3266,7 @@ LABEL_10:
                 if (v42)
                 {
                   [v57 deleteObject:v38];
-                  if ([v33 count] == 1)
+                  if (objc_msgSend_count(v33) == 1)
                   {
                     sourceNode2 = [v38 sourceNode];
                     v44 = [(PLGraphNodeContainer *)PLSearchEntity newNodeContainerWithNode:sourceNode2];
@@ -3480,7 +3480,7 @@ LABEL_10:
             v13 = [v9 objectForKeyedSubscript:v12];
             v14 = [v8 objectForKeyedSubscript:@"label"];
             v15 = [v13 objectForKeyedSubscript:@"searchEntityLabel"];
-            if (v14 != v15 && ![v14 isEqualToString:v15])
+            if (v14 != v15 && !objc_msgSend_isEqualToString_(v14))
             {
               goto LABEL_19;
             }
@@ -3488,7 +3488,7 @@ LABEL_10:
             v30 = v12;
             v16 = [v8 objectForKeyedSubscript:@"identifier"];
             v17 = [v13 objectForKeyedSubscript:@"searchEntityIdentifier"];
-            if (v16 != v17 && ![v16 isEqualToString:v17])
+            if (v16 != v17 && !objc_msgSend_isEqualToString_(v16))
             {
 
 LABEL_19:

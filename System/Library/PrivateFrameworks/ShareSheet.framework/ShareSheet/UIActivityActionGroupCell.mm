@@ -843,15 +843,15 @@ LABEL_8:
     v13 = MEMORY[0x1E6979320];
     v14 = *v12;
     titleSlotView5 = [v13 objectForSlot:{-[UIActivityActionGroupCell titleSlotID](self, "titleSlotID")}];
-    v16 = _ShareSheetDeviceScreenScale();
+    v17 = _ShareSheetDeviceScreenScale(titleSlotView5, v16);
     titleSlotView = [(UIActivityActionGroupCell *)self titleSlotView];
     layer = [titleSlotView layer];
-    [layer setContentsScale:v16];
+    [layer setContentsScale:v17];
 
-    v19 = _ShareSheetDeviceScreenScale();
+    v22 = _ShareSheetDeviceScreenScale(v20, v21);
     titleSlotView2 = [(UIActivityActionGroupCell *)self titleSlotView];
     layer2 = [titleSlotView2 layer];
-    [layer2 setRasterizationScale:v19];
+    [layer2 setRasterizationScale:v22];
 
     titleSlotView3 = [(UIActivityActionGroupCell *)self titleSlotView];
     layer3 = [titleSlotView3 layer];
@@ -871,27 +871,27 @@ LABEL_8:
 
   if (titleSlotID)
   {
-    v26 = 1.0;
+    v29 = 1.0;
   }
 
   else
   {
-    v26 = 0.0;
+    v29 = 0.0;
   }
 
   titleSlotView6 = [(UIActivityActionGroupCell *)self titleSlotView];
-  [titleSlotView6 setAlpha:v26];
+  [titleSlotView6 setAlpha:v29];
 }
 
 - (void)_updateTitleHeight
 {
   [(NSLayoutConstraint *)self->_titleLabelHeightAnchor constant];
   v4 = v3;
-  [(UIActivityActionGroupCell *)self platterTextHeight];
-  v6 = v5 / _ShareSheetDeviceScreenScale();
-  [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setConstant:v6];
-  [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setActive:v6 > 0.0];
-  if (vabdd_f64(v4, v6) >= 0.00000011920929)
+  platterTextHeight = [(UIActivityActionGroupCell *)self platterTextHeight];
+  v8 = v7 / _ShareSheetDeviceScreenScale(platterTextHeight, v6);
+  [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setConstant:v8];
+  [(NSLayoutConstraint *)self->_titleLabelHeightAnchor setActive:v8 > 0.0];
+  if (vabdd_f64(v4, v8) >= 0.00000011920929)
   {
 
     [(UIActivityActionGroupCell *)self setNeedsLayout];

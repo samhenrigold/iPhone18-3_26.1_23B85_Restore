@@ -273,9 +273,9 @@
 
 - (void)layoutSubviews
 {
-  v25.receiver = self;
-  v25.super_class = PKPeerPaymentMessagesAmountStepperView;
-  [(PKPeerPaymentMessagesAmountStepperView *)&v25 layoutSubviews];
+  v29.receiver = self;
+  v29.super_class = PKPeerPaymentMessagesAmountStepperView;
+  [(PKPeerPaymentMessagesAmountStepperView *)&v29 layoutSubviews];
   [(PKPeerPaymentMessagesAmountStepperView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -283,11 +283,11 @@
   v10 = v9;
   [(UILabel *)self->_amountLabel setFrame:?];
   v11 = PKIsPad();
-  v26.origin.x = v4;
-  v26.origin.y = v6;
-  v26.size.width = v8;
-  v26.size.height = v10;
-  v12 = fmin(CGRectGetHeight(v26), 50.0);
+  v30.origin.x = v4;
+  v30.origin.y = v6;
+  v30.size.width = v8;
+  v30.size.height = v10;
+  v12 = fmin(CGRectGetHeight(v30), 50.0);
   if (v11)
   {
     v13 = 0.0;
@@ -298,40 +298,42 @@
     v13 = 44.0;
   }
 
-  v27.origin.x = v4;
-  v27.origin.y = v6;
-  v27.size.width = v8;
-  v27.size.height = v10;
-  remainder = CGRectInset(v27, v13, 0.0);
+  v31.origin.x = v4;
+  v31.origin.y = v6;
+  v31.size.width = v8;
+  v31.size.height = v10;
+  remainder = CGRectInset(v31, v13, 0.0);
   memset(&slice, 0, sizeof(slice));
-  memset(&v22, 0, sizeof(v22));
+  memset(&v26, 0, sizeof(v26));
   CGRectDivide(remainder, &slice, &remainder, v12, CGRectMinXEdge);
-  CGRectDivide(remainder, &v22, &remainder, v12, CGRectMaxXEdge);
+  CGRectDivide(remainder, &v26, &remainder, v12, CGRectMaxXEdge);
   [(UIView *)self->_centerView setFrame:remainder.origin.x, remainder.origin.y, remainder.size.width, remainder.size.height];
   [(UIView *)self->_centerView bounds];
-  v29 = CGRectInset(v28, 6.0, 0.0);
-  x = v29.origin.x;
-  y = v29.origin.y;
-  width = v29.size.width;
-  height = v29.size.height;
+  v33 = CGRectInset(v32, 6.0, 0.0);
+  x = v33.origin.x;
+  y = v33.origin.y;
+  width = v33.size.width;
+  height = v33.size.height;
   [(UILabel *)self->_compactAmountLabel setFrame:?];
   MinX = CGRectGetMinX(slice);
-  v30.origin.x = x;
-  v30.origin.y = y;
-  v30.size.width = width;
-  v30.size.height = height;
-  [(UIButton *)self->_minusButton setFrame:MinX, CGRectGetMidY(v30) - v12 * 0.5, v12, v12];
+  v34.origin.x = x;
+  v34.origin.y = y;
+  v34.size.width = width;
+  v34.size.height = height;
+  [(UIButton *)self->_minusButton setFrame:MinX, CGRectGetMidY(v34) - v12 * 0.5, v12, v12];
   minusButton = self->_minusButton;
-  PKFloatRoundToPixel();
+  v20.n128_f64[0] = v12 * 0.5;
+  PKFloatRoundToPixel(v20, v21);
   [(UIButton *)minusButton _setContinuousCornerRadius:?];
-  v20 = CGRectGetMinX(v22);
-  v31.origin.x = x;
-  v31.origin.y = y;
-  v31.size.width = width;
-  v31.size.height = height;
-  [(UIButton *)self->_plusButton setFrame:v20, CGRectGetMidY(v31) - v12 * 0.5, v12, v12];
+  v22 = CGRectGetMinX(v26);
+  v35.origin.x = x;
+  v35.origin.y = y;
+  v35.size.width = width;
+  v35.size.height = height;
+  [(UIButton *)self->_plusButton setFrame:v22, CGRectGetMidY(v35) - v12 * 0.5, v12, v12];
   plusButton = self->_plusButton;
-  PKFloatRoundToPixel();
+  v24.n128_f64[0] = v12 * 0.5;
+  PKFloatRoundToPixel(v24, v25);
   [(UIButton *)plusButton _setContinuousCornerRadius:?];
 }
 

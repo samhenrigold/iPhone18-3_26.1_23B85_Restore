@@ -56,26 +56,8 @@
 
   os_unfair_lock_lock(&self->_lock);
   intermissionDeadline = [(SHStreamingSessionDriver *)self intermissionDeadline];
-  if (intermissionDeadline)
+  if (intermissionDeadline && (v13 = intermissionDeadline, [MEMORY[0x277CBEAA8] date], v14 = objc_claimAutoreleasedReturnValue(), -[SHStreamingSessionDriver intermissionDeadline](self, "intermissionDeadline"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "laterDate:", v15), v16 = objc_claimAutoreleasedReturnValue(), -[SHStreamingSessionDriver intermissionDeadline](self, "intermissionDeadline"), v17 = objc_claimAutoreleasedReturnValue(), v17, v16, v15, v14, v13, v16 == v17) || (-[SHStreamingSessionDriver signatureBuffer](self, "signatureBuffer"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "flow:time:", flowCopy, timeCopy), v18, !-[SHStreamingSessionDriver canPerformMatch](self, "canPerformMatch")))
   {
-    v13 = intermissionDeadline;
-    date = [MEMORY[0x277CBEAA8] date];
-    intermissionDeadline2 = [(SHStreamingSessionDriver *)self intermissionDeadline];
-    v16 = [date laterDate:intermissionDeadline2];
-    intermissionDeadline3 = [(SHStreamingSessionDriver *)self intermissionDeadline];
-
-    if (v16 == intermissionDeadline3)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  signatureBuffer2 = [(SHStreamingSessionDriver *)self signatureBuffer];
-  [signatureBuffer2 flow:flowCopy time:timeCopy];
-
-  if (![(SHStreamingSessionDriver *)self canPerformMatch])
-  {
-LABEL_8:
     os_unfair_lock_unlock(&self->_lock);
   }
 
@@ -99,7 +81,7 @@ LABEL_8:
   currentSignatureCopy = currentSignature;
   v34 = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
-  v13 = sh_log_object();
+  v13 = sh_log_object(signatureCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v28 = 134218496;
@@ -118,13 +100,13 @@ LABEL_8:
 
   if ((v16 & 1) == 0)
   {
-    signatureBuffer3 = sh_log_object();
+    signatureBuffer3 = sh_log_object(v17);
     if (os_log_type_enabled(signatureBuffer3, OS_LOG_TYPE_ERROR))
     {
-      v22 = [signatureCopy _ID];
+      v23 = [signatureCopy _ID];
       matchingSignatureID2 = [(SHStreamingSessionDriver *)self matchingSignatureID];
       v28 = 138412546;
-      retryCopy = *&v22;
+      retryCopy = *&v23;
       v30 = 2112;
       offsetCopy = *&matchingSignatureID2;
       _os_log_impl(&dword_230F52000, signatureBuffer3, OS_LOG_TYPE_ERROR, "StreamingSessionDriver received a response for signature %@ it was not expecting, it was expecting %@", &v28, 0x16u);
@@ -147,8 +129,8 @@ LABEL_8:
   [(SHStreamingSessionDriver *)self setCurrentRequiredDuration:retry];
   if (intermission > 0.0)
   {
-    v20 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:intermission];
-    [(SHStreamingSessionDriver *)self setIntermissionDeadline:v20];
+    v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:intermission];
+    [(SHStreamingSessionDriver *)self setIntermissionDeadline:v21];
 
     signatureBuffer3 = [(SHStreamingSessionDriver *)self signatureBuffer];
     [signatureBuffer3 reset];
@@ -177,8 +159,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)canPerformMatch

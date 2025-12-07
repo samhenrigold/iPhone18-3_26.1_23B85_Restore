@@ -8,7 +8,7 @@
 
 + (void)reportDownloadMetrics:(id)metrics
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   if ([metricsCopy endMetrics])
   {
@@ -47,11 +47,11 @@
                 {
                   languages2 = [voice languages];
                   firstObject3 = [languages2 firstObject];
-                  v29 = 138412546;
-                  v30 = firstObject3;
-                  v31 = 2112;
-                  v32 = name;
-                  _os_log_impl(&dword_272850000, v22, OS_LOG_TYPE_DEFAULT, "OOB subscription completion observed with %@ %@", &v29, 0x16u);
+                  v28 = 138412546;
+                  v29 = firstObject3;
+                  v30 = 2112;
+                  v31 = name;
+                  _os_log_impl(&dword_272850000, v22, OS_LOG_TYPE_DEFAULT, "OOB subscription completion observed with %@ %@", &v28, 0x16u);
                 }
 
                 v25 = +[VSPreferencesInterface defaultInstance];
@@ -70,8 +70,6 @@
     dictionaryMetrics2 = [metricsCopy dictionaryMetrics];
     [self reportEvent:@"com.apple.voiceservices.download" payload:dictionaryMetrics2];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (void)reportInstrumentMetrics:(id)metrics
@@ -82,7 +80,7 @@
 
 + (void)reportEvent:(id)event payload:(id)payload
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   payloadCopy = payload;
   v7 = AnalyticsSendEventLazy();
@@ -93,7 +91,7 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v12 = eventCopy;
+      v11 = eventCopy;
       _os_log_debug_impl(&dword_272850000, v9, OS_LOG_TYPE_DEBUG, "Successfully reportEvent with domain '%@'", buf, 0xCu);
     }
   }
@@ -101,11 +99,9 @@
   else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v12 = eventCopy;
+    v11 = eventCopy;
     _os_log_error_impl(&dword_272850000, v9, OS_LOG_TYPE_ERROR, "CoreAnalytics eventName:%@ not sent. Event name must not be in current config", buf, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

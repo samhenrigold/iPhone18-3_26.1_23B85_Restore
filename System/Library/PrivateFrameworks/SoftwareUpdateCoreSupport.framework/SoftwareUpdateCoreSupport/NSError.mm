@@ -124,11 +124,10 @@ void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_2(uint64_t
 
 void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) objectAtIndexedSubscript:?];
-  LOBYTE(v6) = objc_opt_isKindOfClass();
+  v6 = [*(a1 + 40) objectAtIndexedSubscript:a3];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  if (v6)
+  if (isKindOfClass)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a4 = 1;
@@ -164,11 +163,10 @@ void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_4(uint64_t
 
 void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) objectAtIndexedSubscript:?];
-  LOBYTE(v6) = objc_opt_isKindOfClass();
+  v6 = [*(a1 + 40) objectAtIndexedSubscript:a3];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  if (v6)
+  if (isKindOfClass)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a4 = 1;
@@ -214,11 +212,10 @@ void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_6(uint64_t
 
 void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) objectAtIndexedSubscript:?];
-  LOBYTE(v6) = objc_opt_isKindOfClass();
+  v6 = [*(a1 + 40) objectAtIndexedSubscript:a3];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  if (v6)
+  if (isKindOfClass)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a4 = 1;
@@ -227,11 +224,10 @@ void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_7(uint64_t
 
 void __47__NSError_SUCoreError___checkedIsSafeUserInfo___block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 32);
-  v7 = [*(a1 + 40) objectAtIndexedSubscript:?];
-  LOBYTE(v6) = objc_opt_isKindOfClass();
+  v6 = [*(a1 + 40) objectAtIndexedSubscript:a3];
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  if (v6)
+  if (isKindOfClass)
   {
     *(*(*(a1 + 48) + 8) + 24) = 1;
     *a4 = 1;

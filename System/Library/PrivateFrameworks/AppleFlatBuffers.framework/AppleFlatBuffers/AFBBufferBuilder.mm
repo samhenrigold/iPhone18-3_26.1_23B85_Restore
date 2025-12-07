@@ -108,11 +108,11 @@
 
 - (AFBBufferBuilder)initWithConfig:(const Config *)config path:(id)path protectionClass:(int)class capacity:(unint64_t)capacity error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v15.receiver = self;
-  v15.super_class = AFBBufferBuilder;
-  v11 = [(AFBBufferBuilder *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = AFBBufferBuilder;
+  v11 = [(AFBBufferBuilder *)&v14 init];
   if (v11)
   {
     if (pathCopy)
@@ -136,7 +136,6 @@
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -158,17 +157,17 @@
 
 - (AFBBufferBuilder)initWithFileAtPath:(id)path protection:(id)protection capacity:(unint64_t)capacity error:(id *)error
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   protectionCopy = protection;
   if ([protectionCopy isEqualToString:*MEMORY[0x277CCA190]])
   {
     v12 = 1;
 LABEL_9:
-    v19 = 0;
-    v20 = 0x4000;
-    v21 = 0;
-    self = [(AFBBufferBuilder *)self initWithConfig:&v19 path:pathCopy protectionClass:v12 capacity:capacity error:error];
+    v18 = 0;
+    v19 = 0x4000;
+    v20 = 0;
+    self = [(AFBBufferBuilder *)self initWithConfig:&v18 path:pathCopy protectionClass:v12 capacity:capacity error:error];
     selfCopy = self;
     goto LABEL_10;
   }
@@ -192,20 +191,19 @@ LABEL_9:
   }
 
   protectionCopy = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unrecognized file protection: %@", protectionCopy];
-  v22 = *MEMORY[0x277CCA450];
-  v23[0] = protectionCopy;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-  v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"AFBErrorDomain" code:1 userInfo:v17];
+  v21 = *MEMORY[0x277CCA450];
+  v22[0] = protectionCopy;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+  v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"AFBErrorDomain" code:1 userInfo:v16];
   if (error)
   {
-    v18 = v18;
-    *error = v18;
+    v17 = v17;
+    *error = v17;
   }
 
   selfCopy = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -263,7 +261,7 @@ LABEL_10:
 
 - (BOOL)finalizeWithSelector:(SEL)selector allocatorBufferAddr:(void *)addr size:(unint64_t)size error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   firstError = [(AFBBufferBuilder *)self firstError];
 
   if (firstError)
@@ -276,7 +274,7 @@ LABEL_10:
 
     else
     {
-      v12 = 0;
+      return 0;
     }
   }
 
@@ -292,11 +290,11 @@ LABEL_10:
       {
         v14 = objc_alloc(MEMORY[0x277CCA9B8]);
         v15 = __errnum;
-        v24 = *MEMORY[0x277CCA450];
+        v23 = *MEMORY[0x277CCA450];
         v16 = objc_alloc(MEMORY[0x277CCACA8]);
         __errnum = [v16 initWithFormat:@"%s (errno %d)", strerror(__errnum), __errnum];
-        v25[0] = __errnum;
-        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v24[0] = __errnum;
+        v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
         v19 = [v14 initWithDomain:*MEMORY[0x277CCA5B8] code:v15 userInfo:v18];
 
         if (error)
@@ -309,11 +307,10 @@ LABEL_10:
 
     else
     {
-      v12 = 1;
+      return 1;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -332,16 +329,16 @@ LABEL_10:
 
 - (id)createVectorOfBoolWithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -365,28 +362,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 1uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<BOOL>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) BOOLValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<BOOL>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) BOOLValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -395,23 +392,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfBoolWithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -449,22 +443,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfBoolWithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfBoolWithCArray:(const BOOL *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -503,22 +494,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfBoolWithCArray:(const BOOL *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -555,23 +543,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfBoolWithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfBoolWithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -600,11 +586,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<BOOL>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<BOOL>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -614,23 +600,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfBoolWithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -667,23 +650,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfBoolWithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfInt8WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -707,28 +688,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 1uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) intValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) intValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -737,23 +718,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfInt8WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -791,22 +769,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfInt8WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt8WithCArray:(const char *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -845,22 +820,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt8WithCArray:(const char *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -897,23 +869,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfInt8WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfInt8WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -942,11 +912,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -956,23 +926,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt8WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1009,23 +976,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfInt8WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfUInt8WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1049,28 +1014,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 1uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) intValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) intValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -1079,23 +1044,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfUInt8WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1133,22 +1095,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfUInt8WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt8WithCArray:(const char *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1187,22 +1146,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt8WithCArray:(const char *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1239,23 +1195,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfUInt8WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfUInt8WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1284,11 +1238,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<signed char>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -1298,23 +1252,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt8WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1351,24 +1302,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfUInt8WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfUInt8WithData:(id)data
 {
-  v16 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v6 = objc_autoreleasePoolPush();
   if (!dataCopy)
   {
-    v12 = objc_alloc(MEMORY[0x277CCACA8]);
-    v13 = NSStringFromSelector(a2);
-    v14 = [v12 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v13, @"data"];
+    v11 = objc_alloc(MEMORY[0x277CCACA8]);
+    v12 = NSStringFromSelector(a2);
+    v13 = [v11 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v12, @"data"];
 
-    v15 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v14 userInfo:0];
-    objc_exception_throw(v15);
+    v14 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v13 userInfo:0];
+    objc_exception_throw(v14);
   }
 
   v7 = v6;
@@ -1387,24 +1335,21 @@ LABEL_10:
 
   objc_autoreleasePoolPop(v7);
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt8WithData:(id)data alignment:(unint64_t)alignment
 {
-  v18 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v8 = objc_autoreleasePoolPush();
   if (!dataCopy)
   {
-    v14 = objc_alloc(MEMORY[0x277CCACA8]);
-    v15 = NSStringFromSelector(a2);
-    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"data"];
+    v13 = objc_alloc(MEMORY[0x277CCACA8]);
+    v14 = NSStringFromSelector(a2);
+    v15 = [v13 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v14, @"data"];
 
-    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
-    objc_exception_throw(v17);
+    v16 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v15 userInfo:0];
+    objc_exception_throw(v16);
   }
 
   v9 = v8;
@@ -1423,23 +1368,21 @@ LABEL_10:
 
   objc_autoreleasePoolPop(v9);
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfInt16WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1463,28 +1406,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 2uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) intValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) intValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -1493,23 +1436,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfInt16WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1547,22 +1487,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfInt16WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt16WithCArray:(const signed __int16 *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1601,22 +1538,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt16WithCArray:(const signed __int16 *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1653,23 +1587,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfInt16WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfInt16WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1698,11 +1630,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -1712,23 +1644,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt16WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1765,23 +1694,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfInt16WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfUInt16WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1805,28 +1732,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 2uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) intValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) intValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -1835,23 +1762,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfUInt16WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1889,22 +1813,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfUInt16WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt16WithCArray:(const unsigned __int16 *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1943,22 +1864,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt16WithCArray:(const unsigned __int16 *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -1995,23 +1913,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfUInt16WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfUInt16WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2040,11 +1956,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<short>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -2054,23 +1970,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt16WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2107,23 +2020,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfUInt16WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfInt32WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2147,28 +2058,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 4uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) intValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) intValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -2177,23 +2088,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfInt32WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2231,22 +2139,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfInt32WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt32WithCArray:(const int *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2285,22 +2190,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt32WithCArray:(const int *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2337,23 +2239,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfInt32WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfInt32WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2382,11 +2282,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -2396,23 +2296,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt32WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2449,23 +2346,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfInt32WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfUInt32WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2489,28 +2384,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 4uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) unsignedIntValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) unsignedIntValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -2519,23 +2414,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfUInt32WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2573,22 +2465,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfUInt32WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt32WithCArray:(const unsigned int *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2627,22 +2516,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt32WithCArray:(const unsigned int *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2679,23 +2565,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfUInt32WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfUInt32WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2724,11 +2608,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<int>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -2738,23 +2622,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt32WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2791,23 +2672,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfUInt32WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfInt64WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2831,28 +2710,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 8uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) longLongValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) longLongValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -2861,23 +2740,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfInt64WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2915,22 +2791,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfInt64WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt64WithCArray:(const int64_t *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -2969,22 +2842,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt64WithCArray:(const int64_t *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3021,23 +2891,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfInt64WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfInt64WithCount:(unint64_t)count block:(id)block
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3066,11 +2934,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -3080,23 +2948,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfInt64WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3133,23 +2998,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfInt64WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfUInt64WithArray:(id)array
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3173,28 +3036,28 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 8uLL);
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, [*(*(&v19 + 1) + 8 * i) unsignedLongLongValue]);
+          apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, [*(*(&v18 + 1) + 8 * i) unsignedLongLongValue]);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
@@ -3203,23 +3066,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfUInt64WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3257,22 +3117,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfUInt64WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt64WithCArray:(const unint64_t *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3311,22 +3168,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt64WithCArray:(const unint64_t *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3363,23 +3217,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfUInt64WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfUInt64WithCount:(unint64_t)count block:(id)block
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3408,11 +3260,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0;
+        v18[0] = 0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<long long>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -3422,23 +3274,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfUInt64WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3475,23 +3324,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfUInt64WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfFloat32WithArray:(id)array
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3515,29 +3362,29 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 4uLL);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          [*(*(&v20 + 1) + 8 * i) floatValue];
+          [*(*(&v19 + 1) + 8 * i) floatValue];
           apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<float>(p_fbbStorage, v13);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -3546,23 +3393,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfFloat32WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3600,22 +3444,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfFloat32WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat32WithCArray:(const float *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3654,22 +3495,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat32WithCArray:(const float *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3706,23 +3544,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfFloat32WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfFloat32WithCount:(unint64_t)count block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3751,11 +3587,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0.0;
+        v18[0] = 0.0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<float>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<float>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -3765,23 +3601,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat32WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3818,23 +3651,21 @@ LABEL_10:
     v11 = [(AFBBufferBuilder *)self createVectorOfFloat32WithCount:count block:blockCopy];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)createVectorOfFloat64WithArray:(id)array
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3858,29 +3689,29 @@ LABEL_10:
     }
 
     apple::aiml::flatbuffers2::FlatBufferBuilder::StartVector(p_fbbStorage, [arrayCopy count], 8uLL);
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     reverseObjectEnumerator = [arrayCopy reverseObjectEnumerator];
-    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
-      v11 = *v21;
+      v11 = *v20;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          [*(*(&v20 + 1) + 8 * i) doubleValue];
+          [*(*(&v19 + 1) + 8 * i) doubleValue];
           apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<double>(p_fbbStorage, v13);
         }
 
-        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v10);
@@ -3889,23 +3720,20 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, objc_msgSend(arrayCopy, "count"))}];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)createVectorOfFloat64WithArray:(id)array alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3943,22 +3771,19 @@ LABEL_10:
     v9 = [(AFBBufferBuilder *)self createVectorOfFloat64WithArray:arrayCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat64WithCArray:(const double *)array count:(unint64_t)count
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"array"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -3997,22 +3822,19 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat64WithCArray:(const double *)array count:(unint64_t)count alignment:(unint64_t)alignment
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (!array)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"array"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"array"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4049,23 +3871,21 @@ LABEL_10:
     v10 = [(AFBBufferBuilder *)self createVectorOfFloat64WithCArray:array count:count];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)createVectorOfFloat64WithCount:(unint64_t)count block:(id)block
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"block"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4094,11 +3914,11 @@ LABEL_10:
       v11 = count - 1;
       do
       {
-        v19[0] = 0.0;
+        v18[0] = 0.0;
         v12 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v11, v19);
+        blockCopy[2](blockCopy, v11, v18);
         objc_autoreleasePoolPop(v12);
-        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<double>(p_fbbStorage, v19[0]);
+        apple::aiml::flatbuffers2::FlatBufferBuilder::PushElement<double>(p_fbbStorage, v18[0]);
         --v11;
       }
 
@@ -4108,23 +3928,20 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::EndVector(p_fbbStorage, count)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)createVectorOfFloat64WithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!blockCopy)
   {
-    v16 = objc_alloc(MEMORY[0x277CCACA8]);
-    v17 = NSStringFromSelector(a2);
-    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"block"];
+    v15 = objc_alloc(MEMORY[0x277CCACA8]);
+    v16 = NSStringFromSelector(a2);
+    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"block"];
 
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
-    objc_exception_throw(v19);
+    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4160,8 +3977,6 @@ LABEL_10:
     apple::aiml::flatbuffers2::FlatBufferBuilder::ForceVectorAlignment(p_fbbStorage, count, 8, alignmentCopy);
     v11 = [(AFBBufferBuilder *)self createVectorOfFloat64WithCount:count block:blockCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -4224,15 +4039,14 @@ LABEL_10:
 
 - (id)createStringWithCString:(const char *)string alignment:(unint64_t)alignment
 {
-  v19 = *MEMORY[0x277D85DE8];
   if (!string)
   {
-    v15 = objc_alloc(MEMORY[0x277CCACA8]);
-    v16 = NSStringFromSelector(a2);
-    v17 = [v15 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v16, @"cString"];
+    v14 = objc_alloc(MEMORY[0x277CCACA8]);
+    v15 = NSStringFromSelector(a2);
+    v16 = [v14 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v15, @"cString"];
 
-    v18 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v17 userInfo:0];
-    objc_exception_throw(v18);
+    v17 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v16 userInfo:0];
+    objc_exception_throw(v17);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4270,8 +4084,6 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(p_fbbStorage, string, v11)}];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -4296,16 +4108,15 @@ LABEL_10:
 
 - (id)createStringWithData:(id)data alignment:(unint64_t)alignment
 {
-  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
-    v17 = objc_alloc(MEMORY[0x277CCACA8]);
-    v18 = NSStringFromSelector(a2);
-    v19 = [v17 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v18, @"data"];
+    v16 = objc_alloc(MEMORY[0x277CCACA8]);
+    v17 = NSStringFromSelector(a2);
+    v18 = [v16 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v17, @"data"];
 
-    v20 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v19 userInfo:0];
-    objc_exception_throw(v20);
+    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v18 userInfo:0];
+    objc_exception_throw(v19);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4346,8 +4157,6 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:String];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
@@ -4362,16 +4171,16 @@ LABEL_10:
 
 - (id)createVectorOfStringWithArray:(id)array alignment:(unint64_t)alignment
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (!arrayCopy)
   {
-    v46 = objc_alloc(MEMORY[0x277CCACA8]);
-    v47 = NSStringFromSelector(a2);
-    v48 = [v46 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v47, @"array"];
+    v45 = objc_alloc(MEMORY[0x277CCACA8]);
+    v46 = NSStringFromSelector(a2);
+    v47 = [v45 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v46, @"array"];
 
-    v49 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v48 userInfo:0];
-    objc_exception_throw(v49);
+    v48 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v47 userInfo:0];
+    objc_exception_throw(v48);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4395,8 +4204,8 @@ LABEL_10:
     }
 
     __src = 0;
+    v50 = 0;
     v51 = 0;
-    v52 = 0;
     std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::reserve(&__src, [arrayCopy count]);
     v11 = [arrayCopy count];
     if (self)
@@ -4418,32 +4227,32 @@ LABEL_10:
       v18 = uTF8String;
       if (!uTF8String)
       {
-        v42 = objc_alloc(MEMORY[0x277CCACA8]);
-        v43 = NSStringFromSelector(a2);
-        v44 = [v42 initWithFormat:@"%@: string is not valid unicode: %@", v43, v15];
+        v41 = objc_alloc(MEMORY[0x277CCACA8]);
+        v42 = NSStringFromSelector(a2);
+        v43 = [v41 initWithFormat:@"%@: string is not valid unicode: %@", v42, v15];
 
-        v45 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v44 userInfo:0];
-        objc_exception_throw(v45);
+        v44 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v43 userInfo:0];
+        objc_exception_throw(v44);
       }
 
       v19 = strlen(uTF8String);
       apple::aiml::flatbuffers2::FlatBufferBuilder::ForceStringAlignment(p_fbbStorage, v19, alignmentCopy);
       v20 = strlen(v18);
       String = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(p_fbbStorage, v18, v20);
-      v22 = v51;
-      if (v51 >= v52)
+      v22 = v50;
+      if (v50 >= v51)
       {
         v24 = __src;
-        v25 = v51 - __src;
-        v26 = (v51 - __src) >> 2;
+        v25 = v50 - __src;
+        v26 = (v50 - __src) >> 2;
         v27 = v26 + 1;
         if ((v26 + 1) >> 62)
         {
           std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::__throw_length_error[abi:ne200100]();
         }
 
-        v28 = v52 - __src;
-        if ((v52 - __src) >> 1 > v27)
+        v28 = v51 - __src;
+        if ((v51 - __src) >> 1 > v27)
         {
           v27 = v28 >> 1;
         }
@@ -4465,8 +4274,8 @@ LABEL_10:
         memcpy(0, v24, v25);
         v31 = __src;
         __src = 0;
-        v51 = v23;
-        v52 = 0;
+        v50 = v23;
+        v51 = 0;
         if (v31)
         {
           operator delete(v31);
@@ -4475,19 +4284,19 @@ LABEL_10:
 
       else
       {
-        *v51 = String;
+        *v50 = String;
         v23 = (v22 + 4);
       }
 
-      v51 = v23;
+      v50 = v23;
 
       objc_autoreleasePoolPop(v14);
     }
 
     v32 = __src;
-    v33 = v51;
-    v34 = v51 - 4;
-    if (__src != v51 && v34 > __src)
+    v33 = v50;
+    v34 = v50 - 4;
+    if (__src != v50 && v34 > __src)
     {
       v36 = __src + 4;
       do
@@ -4517,12 +4326,10 @@ LABEL_10:
     v9 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(p_fbbStorage, v39, v38 >> 2)}];
     if (__src)
     {
-      v51 = __src;
+      v50 = __src;
       operator delete(__src);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -4538,18 +4345,18 @@ LABEL_10:
 
 - (id)createVectorOfStringWithCount:(unint64_t)count alignment:(unint64_t)alignment block:(id)block
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v53 = blockCopy;
+  v52 = blockCopy;
   if (!blockCopy)
   {
-    v48 = a2;
-    v49 = objc_alloc(MEMORY[0x277CCACA8]);
-    v50 = NSStringFromSelector(v48);
-    v51 = [v49 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v50, @"block"];
+    v47 = a2;
+    v48 = objc_alloc(MEMORY[0x277CCACA8]);
+    v49 = NSStringFromSelector(v47);
+    v50 = [v48 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v49, @"block"];
 
-    v52 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v51 userInfo:0];
-    objc_exception_throw(v52);
+    v51 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v50 userInfo:0];
+    objc_exception_throw(v51);
   }
 
   v10 = blockCopy;
@@ -4574,8 +4381,8 @@ LABEL_10:
     }
 
     __src = 0;
+    v54 = 0;
     v55 = 0;
-    v56 = 0;
     std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::reserve(&__src, count);
     if (self)
     {
@@ -4596,32 +4403,32 @@ LABEL_10:
       v20 = uTF8String;
       if (!uTF8String)
       {
-        v44 = objc_alloc(MEMORY[0x277CCACA8]);
-        v45 = NSStringFromSelector(a2);
-        v46 = [v44 initWithFormat:@"%@: string is not valid unicode: %@", v45, v17];
+        v43 = objc_alloc(MEMORY[0x277CCACA8]);
+        v44 = NSStringFromSelector(a2);
+        v45 = [v43 initWithFormat:@"%@: string is not valid unicode: %@", v44, v17];
 
-        v47 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v46 userInfo:0];
-        objc_exception_throw(v47);
+        v46 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v45 userInfo:0];
+        objc_exception_throw(v46);
       }
 
       v21 = strlen(uTF8String);
       apple::aiml::flatbuffers2::FlatBufferBuilder::ForceStringAlignment(p_fbbStorage, v21, alignmentCopy);
       v22 = strlen(v20);
       String = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(p_fbbStorage, v20, v22);
-      v24 = v55;
-      if (v55 >= v56)
+      v24 = v54;
+      if (v54 >= v55)
       {
         v26 = __src;
-        v27 = v55 - __src;
-        v28 = (v55 - __src) >> 2;
+        v27 = v54 - __src;
+        v28 = (v54 - __src) >> 2;
         v29 = v28 + 1;
         if ((v28 + 1) >> 62)
         {
           std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::__throw_length_error[abi:ne200100]();
         }
 
-        v30 = v56 - __src;
-        if ((v56 - __src) >> 1 > v29)
+        v30 = v55 - __src;
+        if ((v55 - __src) >> 1 > v29)
         {
           v29 = v30 >> 1;
         }
@@ -4643,31 +4450,31 @@ LABEL_10:
         memcpy(0, v26, v27);
         v33 = __src;
         __src = 0;
-        v55 = v25;
-        v56 = 0;
+        v54 = v25;
+        v55 = 0;
         if (v33)
         {
           operator delete(v33);
         }
 
-        v10 = v53;
+        v10 = v52;
       }
 
       else
       {
-        *v55 = String;
+        *v54 = String;
         v25 = (v24 + 4);
       }
 
-      v55 = v25;
+      v54 = v25;
 
       objc_autoreleasePoolPop(v16);
     }
 
     v34 = __src;
-    v35 = v55;
-    v36 = v55 - 4;
-    if (__src != v55 && v36 > __src)
+    v35 = v54;
+    v36 = v54 - 4;
+    if (__src != v54 && v36 > __src)
     {
       v38 = __src + 4;
       do
@@ -4697,28 +4504,26 @@ LABEL_10:
     v12 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(p_fbbStorage, v41, v40 >> 2)}];
     if (__src)
     {
-      v55 = __src;
+      v54 = __src;
       operator delete(__src);
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)createVectorOfStringWithOffsets:(id)offsets
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   offsetsCopy = offsets;
   if (!offsetsCopy)
   {
-    v34 = objc_alloc(MEMORY[0x277CCACA8]);
-    v35 = NSStringFromSelector(a2);
-    v36 = [v34 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v35, @"offsets"];
+    v33 = objc_alloc(MEMORY[0x277CCACA8]);
+    v34 = NSStringFromSelector(a2);
+    v35 = [v33 initWithFormat:@"%@: Invalid parameter not satisfying: %@ != nil", v34, @"offsets"];
 
-    v37 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v36 userInfo:0];
-    objc_exception_throw(v37);
+    v36 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:v35 userInfo:0];
+    objc_exception_throw(v36);
   }
 
   [(AFBBufferBuilder *)self throwIfFinalizedWithSelector:a2];
@@ -4732,46 +4537,46 @@ LABEL_10:
   else
   {
     selfCopy = self;
-    v40 = offsetsCopy;
+    v39 = offsetsCopy;
     __src = 0;
+    v45 = 0;
     v46 = 0;
-    v47 = 0;
     std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::reserve(&__src, [offsetsCopy count]);
     context = objc_autoreleasePoolPush();
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     reverseObjectEnumerator = [offsetsCopy reverseObjectEnumerator];
-    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v41 objects:v48 count:16];
+    v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v47 count:16];
     if (v9)
     {
-      v10 = *v42;
+      v10 = *v41;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v42 != v10)
+          if (*v41 != v10)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          v12 = *(*(&v41 + 1) + 8 * i);
+          v12 = *(*(&v40 + 1) + 8 * i);
           unsignedIntValue = [v12 unsignedIntValue];
-          v14 = v46;
-          if (v46 >= v47)
+          v14 = v45;
+          if (v45 >= v46)
           {
             v16 = __src;
-            v17 = v46 - __src;
-            v18 = (v46 - __src) >> 2;
+            v17 = v45 - __src;
+            v18 = (v45 - __src) >> 2;
             v19 = v18 + 1;
             if ((v18 + 1) >> 62)
             {
               std::vector<apple::aiml::flatbuffers2::Offset<apple::aiml::flatbuffers2::String>>::__throw_length_error[abi:ne200100]();
             }
 
-            v20 = v47 - __src;
-            if ((v47 - __src) >> 1 > v19)
+            v20 = v46 - __src;
+            if ((v46 - __src) >> 1 > v19)
             {
               v19 = v20 >> 1;
             }
@@ -4796,8 +4601,8 @@ LABEL_10:
             memcpy(0, v16, v17);
             v22 = __src;
             __src = 0;
-            v46 = v15;
-            v47 = 0;
+            v45 = v15;
+            v46 = 0;
             if (v22)
             {
               operator delete(v22);
@@ -4806,14 +4611,14 @@ LABEL_10:
 
           else
           {
-            *v46 = unsignedIntValue;
+            *v45 = unsignedIntValue;
             v15 = (v14 + 4);
           }
 
-          v46 = v15;
+          v45 = v15;
         }
 
-        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v41 objects:v48 count:16];
+        v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v40 objects:v47 count:16];
       }
 
       while (v9);
@@ -4821,12 +4626,12 @@ LABEL_10:
 
     objc_autoreleasePoolPop(context);
     v23 = __src;
-    v24 = v46;
-    offsetsCopy = v40;
-    if (__src != v46)
+    v24 = v45;
+    offsetsCopy = v39;
+    if (__src != v45)
     {
-      v25 = v46 - 4;
-      if (v46 - 4 > __src)
+      v25 = v45 - 4;
+      if (v45 - 4 > __src)
       {
         v26 = __src + 4;
         do
@@ -4867,12 +4672,10 @@ LABEL_10:
     v7 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedInt:{apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(p_fbbStorage, v31, v30 >> 2)}];
     if (__src)
     {
-      v46 = __src;
+      v45 = __src;
       operator delete(__src);
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

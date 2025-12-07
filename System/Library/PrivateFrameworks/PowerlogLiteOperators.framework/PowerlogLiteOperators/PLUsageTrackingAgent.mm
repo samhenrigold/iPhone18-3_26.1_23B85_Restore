@@ -18,48 +18,44 @@
 
 + (id)entryEventIntervalDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"UsageTime";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"UsageTime";
   v2 = +[PLUsageTrackingAgent entryEventIntervalDefinitionUsageTime];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventIntervalDefinitionUsageTime
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v18[0] = *MEMORY[0x277D3F4E8];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v17[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F580];
-  v16[0] = *MEMORY[0x277D3F568];
-  v16[1] = v2;
-  v17[0] = &unk_282C1C1C8;
-  v17[1] = MEMORY[0x277CBEC38];
-  v16[2] = *MEMORY[0x277D3F4A0];
-  v17[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
-  v19[0] = v3;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"timestampEnd";
+  v15[0] = *MEMORY[0x277D3F568];
+  v15[1] = v2;
+  v16[0] = &unk_282C1C1C8;
+  v16[1] = MEMORY[0x277CBEC38];
+  v15[2] = *MEMORY[0x277D3F4A0];
+  v16[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v18[0] = v3;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"timestampEnd";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198] commonTypeDict_DateFormat];
-  v15[0] = commonTypeDict_DateFormat;
-  v14[1] = @"bundleID";
+  v14[0] = commonTypeDict_DateFormat;
+  v13[1] = @"bundleID";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat_withBundleID = [mEMORY[0x277D3F198]2 commonTypeDict_StringFormat_withBundleID];
-  v15[1] = commonTypeDict_StringFormat_withBundleID;
-  v14[2] = @"screenTime";
+  v14[1] = commonTypeDict_StringFormat_withBundleID;
+  v13[2] = @"screenTime";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v15[2] = commonTypeDict_IntegerFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_IntegerFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
   return v11;
 }
@@ -136,16 +132,16 @@
 
 void __49__PLUsageTrackingAgent_logEventIntervalUsageTime__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v7 = a5;
   if (v7)
   {
     v8 = PLLogUsageTracking();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v9, 0xCu);
     }
   }
 
@@ -153,22 +149,20 @@ void __49__PLUsageTrackingAgent_logEventIntervalUsageTime__block_invoke(uint64_t
   {
     [*(a1 + 32) logEntriesFromUsageReports:a2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PLUsageTrackingAgent_logEventIntervalUsageTime__block_invoke_34(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v7 = a5;
   if (v7)
   {
     v8 = PLLogUsageTracking();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "%@", &v9, 0xCu);
     }
   }
 
@@ -176,13 +170,11 @@ void __49__PLUsageTrackingAgent_logEventIntervalUsageTime__block_invoke_34(uint6
   {
     [*(a1 + 32) logEntriesFromUsageReports:a2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEntriesFromUsageReports:(id)reports
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   reportsCopy = reports;
   v5 = reportsCopy;
   if (reportsCopy && [reportsCopy count])
@@ -196,34 +188,32 @@ void __49__PLUsageTrackingAgent_logEventIntervalUsageTime__block_invoke_34(uint6
 
     v7 = objc_opt_new();
     v8 = [(PLOperator *)PLUsageTrackingAgent entryKeyForType:*MEMORY[0x277D3F5D8] andName:@"UsageTime"];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __51__PLUsageTrackingAgent_logEntriesFromUsageReports___block_invoke;
-    v18 = &unk_27825D3B0;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __51__PLUsageTrackingAgent_logEntriesFromUsageReports___block_invoke;
+    v17 = &unk_27825D3B0;
     v9 = v8;
-    v19 = v9;
+    v18 = v9;
     v10 = v7;
-    v20 = v10;
-    [v5 enumerateObjectsUsingBlock:&v15];
+    v19 = v10;
+    [v5 enumerateObjectsUsingBlock:&v14];
     v11 = PLLogUsageTracking();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [v10 count];
+      v13 = [v10 count];
       *buf = 134217984;
-      v24 = v14;
+      v23 = v13;
       _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "Logging %lu UT reports", buf, 0xCu);
     }
 
     if ([v10 count])
     {
-      v21 = v9;
-      v22 = v10;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = v9;
+      v21 = v10;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       [(PLOperator *)self logEntries:v12 withGroupID:v9];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __51__PLUsageTrackingAgent_logEntriesFromUsageReports___block_invoke(uint64_t a1, void *a2)

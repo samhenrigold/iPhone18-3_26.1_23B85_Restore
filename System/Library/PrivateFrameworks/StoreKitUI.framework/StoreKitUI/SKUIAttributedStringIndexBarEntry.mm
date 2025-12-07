@@ -148,8 +148,9 @@ LABEL_8:
 - (void)_invalidateSynthesizedAttributedString
 {
   self->_hasValidSynthesizedAttributedString = 0;
+  synthesizedAttributedString = self->_synthesizedAttributedString;
   self->_synthesizedAttributedString = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, synthesizedAttributedString);
 }
 
 - (id)_synthesizedAttributedString
@@ -191,6 +192,12 @@ LABEL_8:
   v17 = self->_synthesizedAttributedString;
 
   return v17;
+}
+
+- (void)initWithAttributedString:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAttributedStringIndexBarEntry initWithAttributedString:]";
 }
 
 @end

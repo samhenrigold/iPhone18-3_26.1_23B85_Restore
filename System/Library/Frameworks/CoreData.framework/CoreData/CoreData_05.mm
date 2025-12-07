@@ -1,58 +1,27 @@
-void _NSCoreDataCanonical(sqlite3_context *a1, int a2, sqlite3_value **a3)
+void _NSCoreDataLikeBridge(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  if (a2 == 1)
-  {
-    v4 = sqlite3_value_text(*a3);
-    if (v4)
-    {
-      v5 = -[objc_class newStringFrom:usingUnicodeTransforms:](NSClassFromString(@"_NSPredicateOperatorUtilities"), "newStringFrom:usingUnicodeTransforms:", [MEMORY[0x1E696AEC0] stringWithUTF8String:v4], 387);
-      sqlite3_result_text(a1, [v5 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
-    }
-
-    else
-    {
-
-      sqlite3_result_null(a1);
-    }
-  }
-
-  else
-  {
-
-    sqlite3_result_error(a1, "NSCoreDataCanonical: requires one argument", 1);
-  }
-}
-
-void _NSCoreDataMatchesBridge(sqlite3_context *a1, int a2, sqlite3_value **a3)
-{
-  v52 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (a2 != 3)
   {
-    v8 = *MEMORY[0x1E69E9840];
-    v7 = "NSCoreDataMatches: requres 3 arguments (value, pattern, variant)";
+    v6 = "NSCoreDataLike: requres 3 arguments (value, pattern, variant)";
     goto LABEL_5;
   }
 
   v5 = sqlite3_value_int(a3[2]);
   if (v5 >= 4)
   {
-    v6 = *MEMORY[0x1E69E9840];
-    v7 = "NSCoreDataMatches: variant must be an integer in the range [0,3]";
+    v6 = "NSCoreDataLike: variant must be an integer in the range [0,3]";
 LABEL_5:
 
-    sqlite3_result_error(a1, v7, 1);
+    sqlite3_result_error(a1, v6, 1);
     return;
   }
 
-  v9 = v5;
-  v10 = sqlite3_value_text(*a3);
-  v11 = sqlite3_value_text(a3[1]);
-  if (v10 && (v12 = v11) != 0)
+  v7 = v5;
+  v8 = sqlite3_value_text(*a3);
+  v9 = sqlite3_value_text(a3[1]);
+  if (v8 && (v10 = v9) != 0)
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
     v44 = 0u;
@@ -81,39 +50,254 @@ LABEL_5:
     v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v13 = _PFStackAllocatorCreate(&v20, 1024);
-    v14 = *MEMORY[0x1E695E498];
-    v15 = CFStringCreateWithCStringNoCopy(v13, v10, 0x8000100u, *MEMORY[0x1E695E498]);
-    v16 = CFStringCreateWithCStringNoCopy(v13, v12, 0x8000100u, v14);
-    v17 = sqlite3_user_data(a1);
-    if (!*v17)
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v11 = _PFStackAllocatorCreate(&v16, 1024);
+    v12 = *MEMORY[0x1E695E498];
+    v13 = CFStringCreateWithCStringNoCopy(v11, v8, 0x8000100u, *MEMORY[0x1E695E498]);
+    v14 = CFStringCreateWithCStringNoCopy(v11, v10, 0x8000100u, v12);
+    v15 = sqlite3_user_data(a1);
+    if (!*v15)
     {
-      *v17 = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:0];
-      v17[1] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:1];
-      v17[2] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:2];
-      v17[3] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:3];
+      *v15 = [MEMORY[0x1E696AE20] operatorWithType:7 modifier:0 options:0];
+      v15[1] = [MEMORY[0x1E696AE20] operatorWithType:7 modifier:0 options:1];
+      v15[2] = [MEMORY[0x1E696AE20] operatorWithType:7 modifier:0 options:2];
+      v15[3] = [MEMORY[0x1E696AE20] operatorWithType:7 modifier:0 options:3];
     }
 
-    sqlite3_result_int(a1, [v17[v9] performOperationUsingObject:v15 andObject:v16]);
-    if (*(&v21 + 1))
+    sqlite3_result_int(a1, [v15[v7] performOperationUsingObject:v13 andObject:v14]);
+    if (*(&v17 + 1))
     {
-      if (v15)
+      if (v13)
       {
-        CFRelease(v15);
+        CFRelease(v13);
       }
 
-      if (v16)
+      if (v14)
       {
-        CFRelease(v16);
+        CFRelease(v14);
       }
     }
-
-    v18 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v19 = *MEMORY[0x1E69E9840];
+
+    sqlite3_result_int(a1, 0);
+  }
+}
+
+void _NSCoreDataStringSearch(sqlite3_context *a1, int a2, sqlite3_value **a3)
+{
+  v46 = *MEMORY[0x1E69E9840];
+  if (a2 == 4)
+  {
+    v5 = sqlite3_value_text(*a3);
+    v6 = sqlite3_value_text(a3[1]);
+    v7 = sqlite3_value_int(a3[2]);
+    if (sqlite3_value_int(a3[3]))
+    {
+      v8 = [MEMORY[0x1E696AE18] retainedLocale];
+      if (!v5)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+      if (!v5)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    if (v6)
+    {
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      v9 = _PFStackAllocatorCreate(&v14, 1024);
+      v10 = *MEMORY[0x1E695E498];
+      v11 = CFStringCreateWithCStringNoCopy(v9, v5, 0x8000100u, *MEMORY[0x1E695E498]);
+      v12 = CFStringCreateWithCStringNoCopy(v9, v6, 0x8000100u, v10);
+      v48.length = CFStringGetLength(v11);
+      v48.location = 0;
+      v13 = CFStringFindWithOptionsAndLocale(v11, v12, v48, v7, v8, 0) != 0;
+      sqlite3_result_int(a1, v13);
+      if (*(&v15 + 1))
+      {
+        if (v11)
+        {
+          CFRelease(v11);
+        }
+
+        if (v12)
+        {
+          CFRelease(v12);
+        }
+      }
+
+      goto LABEL_16;
+    }
+
+LABEL_15:
+    sqlite3_result_int(a1, 0);
+LABEL_16:
+    if (v8)
+    {
+      CFRelease(v8);
+    }
+
+    return;
+  }
+
+  sqlite3_result_error(a1, "NSCoreStringSearch: requires 4 arguments (string1, string2, flags, localized)", 1);
+}
+
+void _NSCoreDataCanonical(sqlite3_context *a1, int a2, sqlite3_value **a3)
+{
+  if (a2 == 1)
+  {
+    v4 = sqlite3_value_text(*a3);
+    if (v4)
+    {
+      v5 = -[objc_class newStringFrom:usingUnicodeTransforms:](NSClassFromString(@"_NSPredicateOperatorUtilities"), "newStringFrom:usingUnicodeTransforms:", [MEMORY[0x1E696AEC0] stringWithUTF8String:v4], 387);
+      sqlite3_result_text(a1, [v5 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+    }
+
+    else
+    {
+
+      sqlite3_result_null(a1);
+    }
+  }
+
+  else
+  {
+
+    sqlite3_result_error(a1, "NSCoreDataCanonical: requires one argument", 1);
+  }
+}
+
+void _NSCoreDataMatchesBridge(sqlite3_context *a1, int a2, sqlite3_value **a3)
+{
+  v48 = *MEMORY[0x1E69E9840];
+  if (a2 != 3)
+  {
+    v6 = "NSCoreDataMatches: requres 3 arguments (value, pattern, variant)";
+    goto LABEL_5;
+  }
+
+  v5 = sqlite3_value_int(a3[2]);
+  if (v5 >= 4)
+  {
+    v6 = "NSCoreDataMatches: variant must be an integer in the range [0,3]";
+LABEL_5:
+
+    sqlite3_result_error(a1, v6, 1);
+    return;
+  }
+
+  v7 = v5;
+  v8 = sqlite3_value_text(*a3);
+  v9 = sqlite3_value_text(a3[1]);
+  if (v8 && (v10 = v9) != 0)
+  {
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v11 = _PFStackAllocatorCreate(&v16, 1024);
+    v12 = *MEMORY[0x1E695E498];
+    v13 = CFStringCreateWithCStringNoCopy(v11, v8, 0x8000100u, *MEMORY[0x1E695E498]);
+    v14 = CFStringCreateWithCStringNoCopy(v11, v10, 0x8000100u, v12);
+    v15 = sqlite3_user_data(a1);
+    if (!*v15)
+    {
+      *v15 = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:0];
+      v15[1] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:1];
+      v15[2] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:2];
+      v15[3] = [MEMORY[0x1E696AE20] operatorWithType:6 modifier:0 options:3];
+    }
+
+    sqlite3_result_int(a1, [v15[v7] performOperationUsingObject:v13 andObject:v14]);
+    if (*(&v17 + 1))
+    {
+      if (v13)
+      {
+        CFRelease(v13);
+      }
+
+      if (v14)
+      {
+        CFRelease(v14);
+      }
+    }
+  }
+
+  else
+  {
 
     sqlite3_result_int(a1, 0);
   }
@@ -254,7 +438,7 @@ LABEL_15:
   [(NSSQLiteConnection *)v5 derivedAttributeUpdatedRowInTable:v6 withEntityID:v7 primaryKey:v8 columnName:v10 newValue:v13];
 }
 
-void _NSPersistentHistoryBatchDeleteUpdateTriggerDataBlobOperator(sqlite3_context *a1, int a2, uint64_t a3)
+void _NSPersistentHistoryBatchDeleteUpdateTriggerDataBlobOperator(sqlite3_context *a1, unsigned int a2, uint64_t a3)
 {
   if (a2 < 1)
   {
@@ -309,30 +493,42 @@ void _NSPersistentHistoryBatchDeleteUpdateTriggerDataBlobOperator(sqlite3_contex
 
 void _NSCoreDataDATriggerMergeableString(sqlite3_context *a1, int a2, sqlite3_value **a3)
 {
-  v45 = *MEMORY[0x1E69E9840];
-  if (a2 == 5)
+  v41 = *MEMORY[0x1E69E9840];
+  if (a2 != 5)
   {
-    if (sqlite3_value_type(a3[4]) == 4)
+    v21 = "_NSCoreDataDATriggerMergeableString: requires five arguments";
+LABEL_14:
+
+    sqlite3_result_error(a1, v21, 1);
+    return;
+  }
+
+  if (sqlite3_value_type(a3[4]) != 4)
+  {
+    if (sqlite3_value_type(a3[4]) == 5)
     {
-      v5 = sqlite3_user_data(a1);
-      v6 = sqlite3_value_text(*a3);
-      v7 = sqlite3_value_int64(a3[1]);
-      v8 = sqlite3_value_text(a3[3]);
-      if (!v6)
-      {
-        goto LABEL_12;
-      }
 
-      v9 = v8;
-      if (!v8)
-      {
-        goto LABEL_12;
-      }
+      sqlite3_result_null(a1);
+      return;
+    }
 
+    v21 = "_NSCoreDataDATriggerMergeableString: requires a transformable blob";
+    goto LABEL_14;
+  }
+
+  v5 = sqlite3_user_data(a1);
+  v6 = sqlite3_value_text(*a3);
+  v7 = sqlite3_value_int64(a3[1]);
+  v8 = sqlite3_value_text(a3[3]);
+  if (v6)
+  {
+    v9 = v8;
+    if (v8)
+    {
       v10 = objc_alloc(MEMORY[0x1E695DEF0]);
       v11 = sqlite3_value_blob(a3[4]);
       v12 = [v10 initWithBytes:v11 length:sqlite3_value_bytes(a3[4])];
-      v40 = 0;
+      v36 = 0;
       v13 = _sqlCoreLookupSQLEntityForEntityID([objc_msgSend(v5 "adapter")], v7);
       v14 = v13;
       if (v13)
@@ -360,109 +556,88 @@ void _NSCoreDataDATriggerMergeableString(sqlite3_context *a1, int a2, sqlite3_va
       if (v18)
       {
         v19 = [+[_PFRoutines unarchiveCylicGraphObjectOfClasses:fromData:error:](_PFRoutines objc_msgSend(MEMORY[0x1E695DFD8]];
-        if (!v40)
+        if (!v36)
         {
           v20 = v19;
           sqlite3_result_text(a1, [v19 UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
 
-LABEL_12:
-          v21 = *MEMORY[0x1E69E9840];
           return;
         }
 
-        v30 = objc_autoreleasePoolPush();
+        v26 = objc_autoreleasePoolPush();
         if (!_NSCoreDataIsOSLogEnabled(1))
         {
           goto LABEL_39;
         }
 
-        v31 = _pflogging_catastrophic_mode;
+        v27 = _pflogging_catastrophic_mode;
         LogStream = _PFLogGetLogStream(1);
-        v33 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-        if (v31)
+        v29 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+        if (v27)
         {
-          if (v33)
+          if (v29)
           {
             *buf = 138412290;
-            v44 = v40;
+            v40 = v36;
             goto LABEL_38;
           }
         }
 
-        else if (v33)
+        else if (v29)
         {
           *buf = 138412290;
-          v44 = v40;
+          v40 = v36;
 LABEL_38:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Mergeable transformer failed with an error while trying to save a mergeable value, %@.\n", buf, 0xCu);
         }
 
 LABEL_39:
-        _NSCoreDataLog_console(1, "Mergeable transformer failed with an error while trying to save a mergeable value, %@.", v40);
-        objc_autoreleasePoolPop(v30);
-        v38 = MEMORY[0x1E695DF30];
-        v39 = *MEMORY[0x1E695D930];
-        v41 = *MEMORY[0x1E696AA08];
-        v42 = v40;
-        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-        v36 = @"Mergeable transformer failed with an error while trying to save a mergeable value.";
-        v34 = v38;
-        v35 = v39;
+        _NSCoreDataLog_console(1, "Mergeable transformer failed with an error while trying to save a mergeable value, %@.", v36);
+        objc_autoreleasePoolPop(v26);
+        v34 = MEMORY[0x1E695DF30];
+        v35 = *MEMORY[0x1E695D930];
+        v37 = *MEMORY[0x1E696AA08];
+        v38 = v36;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+        v32 = @"Mergeable transformer failed with an error while trying to save a mergeable value.";
+        v30 = v34;
+        v31 = v35;
 LABEL_40:
-        objc_exception_throw([v34 exceptionWithName:v35 reason:v36 userInfo:v37]);
+        objc_exception_throw([v30 exceptionWithName:v31 reason:v32 userInfo:v33]);
       }
 
-      v26 = objc_autoreleasePoolPush();
+      v22 = objc_autoreleasePoolPush();
       if (_NSCoreDataIsOSLogEnabled(1))
       {
-        v27 = _pflogging_catastrophic_mode;
-        v28 = _PFLogGetLogStream(1);
-        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-        if (v27)
+        v23 = _pflogging_catastrophic_mode;
+        v24 = _PFLogGetLogStream(1);
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+        if (v23)
         {
-          if (v29)
+          if (v25)
           {
             *buf = 0;
             goto LABEL_34;
           }
         }
 
-        else if (v29)
+        else if (v25)
         {
           *buf = 0;
 LABEL_34:
-          _os_log_error_impl(&dword_18565F000, v28, OS_LOG_TYPE_ERROR, "CoreData: error: Mergeable transformer class name is nil while trying to save a mergeable value.\n", buf, 2u);
+          _os_log_error_impl(&dword_18565F000, v24, OS_LOG_TYPE_ERROR, "CoreData: error: Mergeable transformer class name is nil while trying to save a mergeable value.\n", buf, 2u);
         }
       }
 
       _NSCoreDataLog_console(1, "Mergeable transformer class name is nil while trying to save a mergeable value.");
-      objc_autoreleasePoolPop(v26);
-      v34 = MEMORY[0x1E695DF30];
-      v35 = *MEMORY[0x1E695D930];
-      v36 = @"Mergeable transformer class name is nil while trying to save a mergeable value.";
-      v37 = 0;
+      objc_autoreleasePoolPop(v22);
+      v30 = MEMORY[0x1E695DF30];
+      v31 = *MEMORY[0x1E695D930];
+      v32 = @"Mergeable transformer class name is nil while trying to save a mergeable value.";
+      v33 = 0;
       goto LABEL_40;
     }
-
-    if (sqlite3_value_type(a3[4]) == 5)
-    {
-      v24 = *MEMORY[0x1E69E9840];
-
-      sqlite3_result_null(a1);
-      return;
-    }
-
-    v25 = *MEMORY[0x1E69E9840];
-    v23 = "_NSCoreDataDATriggerMergeableString: requires a transformable blob";
   }
-
-  else
-  {
-    v22 = *MEMORY[0x1E69E9840];
-    v23 = "_NSCoreDataDATriggerMergeableString: requires five arguments";
-  }
-
-  sqlite3_result_error(a1, v23, 1);
 }
 
 uint64_t NSSQLiteRegisterMigrationFunctions(sqlite3 *a1, void *pApp)
@@ -519,7 +694,7 @@ void _NSPersistentHistoryMigrateUpdates(sqlite3_context *a1, uint64_t a2, sqlite
   v18 = [_NSPersistentHistoryChange _updatedPropertiesForEntity:v12 andData:v10];
   if ([(__CFSet *)v18 count])
   {
-    v19 = [(__CFSet *)v18 valueForKey:@"name"];
+    v19 = objc_msgSend_valueForKey_(v18);
   }
 
   else
@@ -552,46 +727,46 @@ LABEL_13:
 
 void _NSCoreDataCaseSwitch(sqlite3_context *a1, int a2, sqlite3_value **a3, int a4)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   if (a2 == 1)
   {
     v6 = sqlite3_value_text(*a3);
     if (v6)
     {
       v7 = v6;
-      v50 = 0u;
-      v51 = 0u;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
-      v44 = 0u;
+      v48 = 0u;
       v45 = 0u;
-      v42 = 0u;
+      v46 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
-      v38 = 0u;
+      v42 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
-      v20 = 0u;
+      v24 = 0u;
       v21 = 0u;
-      v8 = _PFStackAllocatorCreate(&v20, 1024);
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      v8 = _PFStackAllocatorCreate(&v17, 1024);
       Mutable = CFStringCreateMutable(v8, 0);
       CFStringAppendCString(Mutable, v7, 0x8000100u);
       if (a4)
@@ -604,12 +779,12 @@ void _NSCoreDataCaseSwitch(sqlite3_context *a1, int a2, sqlite3_value **a3, int 
         CFStringLowercase(Mutable, 0);
       }
 
-      v12 = [(__CFString *)Mutable lengthOfBytesUsingEncoding:4];
-      v13 = v12 + 1;
+      v10 = [(__CFString *)Mutable lengthOfBytesUsingEncoding:4];
+      v11 = v10 + 1;
       Length = CFStringGetLength(Mutable);
-      if (v12 + 1 >= 1024)
+      if (v10 + 1 >= 1024)
       {
-        p_buffer = malloc_type_malloc(v12 + 2, 0x100004077774924uLL);
+        p_buffer = malloc_type_malloc(v10 + 2, 0x100004077774924uLL);
       }
 
       else
@@ -618,18 +793,18 @@ void _NSCoreDataCaseSwitch(sqlite3_context *a1, int a2, sqlite3_value **a3, int 
       }
 
       usedBufLen = 0;
-      v54.location = 0;
-      v54.length = Length;
-      CFStringGetBytes(Mutable, v54, 0x8000100u, 0, 0, p_buffer, v13, &usedBufLen);
-      v16 = usedBufLen;
-      if (usedBufLen >= v13)
+      v51.location = 0;
+      v51.length = Length;
+      CFStringGetBytes(Mutable, v51, 0x8000100u, 0, 0, p_buffer, v11, &usedBufLen);
+      v14 = usedBufLen;
+      if (usedBufLen >= v11)
       {
-        v16 = v13;
+        v14 = v11;
       }
 
-      p_buffer[v16] = 0;
+      p_buffer[v14] = 0;
       sqlite3_result_text(a1, p_buffer, -1, 0xFFFFFFFFFFFFFFFFLL);
-      if (*(&v21 + 1))
+      if (*(&v18 + 1))
       {
         if (Mutable)
         {
@@ -639,20 +814,17 @@ void _NSCoreDataCaseSwitch(sqlite3_context *a1, int a2, sqlite3_value **a3, int 
 
       else
       {
-        *(&v20 + 1) = v20;
+        *(&v17 + 1) = v17;
       }
 
-      if (v13 >= 1024)
+      if (v11 >= 1024)
       {
         free(p_buffer);
       }
-
-      v17 = *MEMORY[0x1E69E9840];
     }
 
     else
     {
-      v11 = *MEMORY[0x1E69E9840];
 
       sqlite3_result_null(a1);
     }
@@ -660,7 +832,6 @@ void _NSCoreDataCaseSwitch(sqlite3_context *a1, int a2, sqlite3_value **a3, int 
 
   else
   {
-    v10 = *MEMORY[0x1E69E9840];
 
     sqlite3_result_error(a1, "NSCoreDataTo(Uppercase|Lowercase): requires one argument", 1);
   }
@@ -709,10 +880,11 @@ void sub_18585E368(void *exc_buf, int a2)
   JUMPOUT(0x18585E360);
 }
 
-void sub_18585ED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_18585ED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -723,41 +895,41 @@ void sub_1858602E0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_185860984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_185860984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858617E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858617E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_185861EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_185861EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_185862AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_185862AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
 void *bufferResultSetRealloc(void *ptr, size_t *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = *a2 + 7;
   if (v4 >= 0x4000)
   {
@@ -781,31 +953,30 @@ void *bufferResultSetRealloc(void *ptr, size_t *a2)
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
-      v12 = 134217984;
-      v13 = v5;
-      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: bufferResultSetRealloc failed to realloc buffer to %ld bytes\n", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v5;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: bufferResultSetRealloc failed to realloc buffer to %ld bytes\n", &v11, 0xCu);
     }
 
-    v10 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v12 = 134217984;
-      v13 = v5;
-      _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: bufferResultSetRealloc failed to realloc buffer to %ld bytes", &v12, 0xCu);
+      v11 = 134217984;
+      v12 = v5;
+      _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: bufferResultSetRealloc failed to realloc buffer to %ld bytes", &v11, 0xCu);
     }
 
-    v11 = [_NSCoreDataException exceptionWithName:134183 code:@"realloc failed" reason:0 userInfo:?];
-    objc_exception_throw(v11);
+    v10 = [_NSCoreDataException exceptionWithName:134183 code:@"realloc failed" reason:0 userInfo:?];
+    objc_exception_throw(v10);
   }
 
   *a2 = v5;
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void *bufferResultSetAllocateWithVMMemory(unint64_t a1, int a2)
+void *bufferResultSetAllocateWithVMMemory(vm_size_t a1, int a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if (a1 <= 0x800)
   {
     v3 = 0xFFFFLL;
@@ -905,9 +1076,9 @@ void *bufferResultSetAllocateWithVMMemory(unint64_t a1, int a2)
       {
 LABEL_27:
         *buf = 134218240;
-        v27 = v3;
-        v28 = 1024;
-        v29 = v11;
+        v26 = v3;
+        v27 = 1024;
+        v28 = v11;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: *** vm_allocate(size=%lld) failed (error code=%d)\n\n", buf, 0x12u);
       }
     }
@@ -915,8 +1086,7 @@ LABEL_27:
 LABEL_28:
     _NSCoreDataLog_console(1, "*** vm_allocate(size=%lld) failed (error code=%d)\n", v3, v11);
     objc_autoreleasePoolPop(v12);
-    v5 = 0;
-    goto LABEL_29;
+    return 0;
   }
 
   v21 = address;
@@ -935,23 +1105,21 @@ LABEL_28:
   *(v5 + 9) = 0;
   *v5 = 0;
   v5[9] += 8;
-LABEL_29:
-  v23 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 BOOL bufferResultSetNonPurgeable(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 40) & 0x10) != 0)
   {
-    v11 = 0;
-    v3 = MEMORY[0x1865FAA60](*MEMORY[0x1E69E9A60], *(a1 + 64), 0, &v11);
+    v10 = 0;
+    v3 = MEMORY[0x1865FAA60](*MEMORY[0x1E69E9A60], *(a1 + 64), 0, &v10);
     v1 = v3 == 0;
     if (!v3)
     {
       *(a1 + 40) &= ~0x20u;
-      goto LABEL_11;
+      return v1;
     }
 
     v4 = v3;
@@ -974,22 +1142,19 @@ BOOL bufferResultSetNonPurgeable(uint64_t a1)
       {
 LABEL_12:
         *buf = 138412546;
-        v13 = a1;
-        v14 = 1024;
-        v15 = v4;
+        v12 = a1;
+        v13 = 1024;
+        v14 = v4;
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: %@ bufferResultSetNonPurgeable failed to set vm buffer as non-purgeable: %d\n", buf, 0x12u);
       }
     }
 
     _NSCoreDataLog_console(1, "%@ bufferResultSetNonPurgeable failed to set vm buffer as non-purgeable: %d", a1, v4);
     objc_autoreleasePoolPop(v5);
-    goto LABEL_11;
+    return v1;
   }
 
-  v1 = 0;
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
-  return v1;
+  return 0;
 }
 
 void *bufferResultSetAllocateWithBuffer(uint64_t a1, uint64_t a2)
@@ -1024,69 +1189,63 @@ void *bufferResultSetAllocateWithBuffer(uint64_t a1, uint64_t a2)
 
 BOOL bufferResultSetPurgeable(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if ((*(a1 + 40) & 0x50) == 0x10)
+  v15 = *MEMORY[0x1E69E9840];
+  if ((*(a1 + 40) & 0x50) != 0x10)
   {
-    v11 = 1;
-    v2 = MEMORY[0x1865FAA60](*MEMORY[0x1E69E9A60], *(a1 + 64), 0, &v11);
-    v3 = v2 == 0;
-    if (v2)
-    {
-      v4 = v2;
-      v5 = objc_autoreleasePoolPush();
-      _pflogInitialize(1);
-      if (_pflogging_enable_oslog >= 1)
-      {
-        v6 = _pflogging_catastrophic_mode;
-        LogStream = _PFLogGetLogStream(1);
-        v8 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
-        if (v6)
-        {
-          if (v8)
-          {
-            goto LABEL_12;
-          }
-        }
+    return 0;
+  }
 
-        else if (v8)
+  v10 = 1;
+  v2 = MEMORY[0x1865FAA60](*MEMORY[0x1E69E9A60], *(a1 + 64), 0, &v10);
+  v3 = v2 == 0;
+  if (v2)
+  {
+    v4 = v2;
+    v5 = objc_autoreleasePoolPush();
+    _pflogInitialize(1);
+    if (_pflogging_enable_oslog >= 1)
+    {
+      v6 = _pflogging_catastrophic_mode;
+      LogStream = _PFLogGetLogStream(1);
+      v8 = os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR);
+      if (v6)
+      {
+        if (v8)
         {
-LABEL_12:
-          *buf = 138412546;
-          v13 = a1;
-          v14 = 1024;
-          v15 = v4;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: %@ bufferResultSetPurgeable failed to set vm buffer as purgeable: %d\n", buf, 0x12u);
+          goto LABEL_12;
         }
       }
 
-      _NSCoreDataLog_console(1, "%@ bufferResultSetPurgeable failed to set vm buffer as purgeable: %d", a1, v4);
-      objc_autoreleasePoolPop(v5);
-      goto LABEL_11;
+      else if (v8)
+      {
+LABEL_12:
+        *buf = 138412546;
+        v12 = a1;
+        v13 = 1024;
+        v14 = v4;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: %@ bufferResultSetPurgeable failed to set vm buffer as purgeable: %d\n", buf, 0x12u);
+      }
     }
 
-    *(a1 + 40) |= 0x20u;
+    _NSCoreDataLog_console(1, "%@ bufferResultSetPurgeable failed to set vm buffer as purgeable: %d", a1, v4);
+    objc_autoreleasePoolPop(v5);
+    return v3;
   }
 
-  else
-  {
-    v3 = 0;
-  }
-
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
+  *(a1 + 40) |= 0x20u;
   return v3;
 }
 
 unsigned int *setMultiColumnValueDictionary(id *a1, uint64_t a2, uint64_t a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   object = snapshot_get_object(a1, *a2);
   v7 = object;
   v8 = [*(a2 + 16) propertyDescription];
   if (!object)
   {
     v9 = [objc_msgSend(*(a2 + 16) "propertyDescription")];
-    v20 = a3;
+    v19 = a3;
     if (v9)
     {
       do
@@ -1106,27 +1265,27 @@ unsigned int *setMultiColumnValueDictionary(id *a1, uint64_t a2, uint64_t a3)
     v11 = -[NSKnownKeysMappingStrategy initForKeys:]([NSKnownKeysMappingStrategy alloc], "initForKeys:", [objc_msgSend(v10 "elements")]);
     object = [[NSKnownKeysDictionary alloc] initWithSearchStrategy:v11];
 
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = [v10 elements];
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         v16 = 0;
         do
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * v16);
+          v17 = *(*(&v20 + 1) + 8 * v16);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1137,19 +1296,17 @@ unsigned int *setMultiColumnValueDictionary(id *a1, uint64_t a2, uint64_t a3)
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v14);
     }
 
-    a3 = v20;
+    a3 = v19;
   }
 
   [(NSKnownKeysDictionary *)object setValue:a3 forKeyPath:[(NSPropertyDescription *)v8 _elementPath]];
-  result = snapshot_set_object(a1, *a2, object);
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return snapshot_set_object(a1, *a2, object);
 }
 
 void setMultiColumnValueNullFlag(id *a1, unsigned int *a2)
@@ -1162,35 +1319,35 @@ void setMultiColumnValueNullFlag(id *a1, unsigned int *a2)
   }
 }
 
-uint64_t _createKnownKeysDictionaryForMultiColumnValue(__CFString *a1, void *a2)
+void *_createKnownKeysDictionaryForMultiColumnValue(__CFString *a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = [(__CFString *)a1 elements];
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v4 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * v9++), "name")}];
+        [v4 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * v9++), "name")}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
@@ -1204,51 +1361,49 @@ uint64_t _createKnownKeysDictionaryForMultiColumnValue(__CFString *a1, void *a2)
     [a2 setValue:v11 forKeyPath:-[NSPropertyDescription _elementPath](a1)];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = [(__CFString *)a1 elements];
-  result = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  result = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (result)
   {
     v14 = result;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
+        v17 = *(*(&v18 + 1) + 8 * v16);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           _createKnownKeysDictionaryForMultiColumnValue(v17, a2);
         }
 
-        ++v16;
+        v16 = v16 + 1;
       }
 
       while (v14 != v16);
-      result = [v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      result = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
       v14 = result;
     }
 
     while (result);
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t _fireFaultsOnBackgroundThread(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 24);
   v3 = *v2;
   v4 = v2[1];
@@ -1303,8 +1458,69 @@ uint64_t _fireFaultsOnBackgroundThread(uint64_t a1)
     while (v7);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return 0;
+}
+
+void sub_1858652CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9)
+{
+  if (a2)
+  {
+    v10 = objc_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v11 = v10;
+      LogStream = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+      {
+        v16 = [v11 userInfo];
+        LODWORD(a9) = 138412546;
+        *(&a9 + 4) = v11;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v16;
+        _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: exception %@ raised processing result of multi-threaded fetch while prepopulating objects (%@)\n", &a9, 0x16u);
+      }
+
+      v13 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      {
+        v17 = [v11 userInfo];
+        LODWORD(a9) = 138412546;
+        *(&a9 + 4) = v11;
+        WORD6(a9) = 2112;
+        *(&a9 + 14) = v17;
+        _os_log_fault_impl(&dword_18565F000, v13, OS_LOG_TYPE_FAULT, "CoreData: exception %@ raised processing result of multi-threaded fetch while prepopulating objects (%@)", &a9, 0x16u);
+      }
+    }
+
+    else
+    {
+      v14 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        LOWORD(a9) = 0;
+        _os_log_error_impl(&dword_18565F000, v14, OS_LOG_TYPE_ERROR, "CoreData: fault: unidentifiable processing result of multi-threaded fetch while prepopulating objects\n", &a9, 2u);
+      }
+
+      v15 = _PFLogGetLogStream(17);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+      {
+        LOWORD(a9) = 0;
+        _os_log_fault_impl(&dword_18565F000, v15, OS_LOG_TYPE_FAULT, "CoreData: unidentifiable processing result of multi-threaded fetch while prepopulating objects", &a9, 2u);
+      }
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x185865288);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1858696D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t _deallocateSQLRowCacheOnBackgroundThread(uint64_t a1)
@@ -1431,12 +1647,12 @@ void sub_185870E80(void *a1)
   JUMPOUT(0x185870DE4);
 }
 
-void sub_1858710E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1858710E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   objc_end_catch();
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 88), 8);
+  _Block_object_dispose((v17 - 88), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1547,16 +1763,16 @@ void sub_185873C8C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_185874120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_185874120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1642,41 +1858,40 @@ void sub_185874988(uint64_t a1, int a2)
   JUMPOUT(0x18587493CLL);
 }
 
-uint64_t _PFModelMapTotalEntityCountForModel(void *a1)
+char *_PFModelMapTotalEntityCountForModel(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[_PFModelMap ancillaryModelFactoryClasses];
   v3 = [objc_msgSend(a1 "entities")];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v3 += [*(*(&v10 + 1) + 8 * v7++) ancillaryEntityCount];
+        v3 += [*(*(&v9 + 1) + 8 * v7++) ancillaryEntityCount];
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -1691,7 +1906,7 @@ void sub_18587C2A8(_Unwind_Exception *exc_buf, int a2)
   _Unwind_Resume(exc_buf);
 }
 
-uint64_t _PFCoreDataProcessInstanceUUID()
+uint64_t _PFCoreDataProcessInstanceUUID(uint64_t a1, uint64_t a2)
 {
   result = qword_1ED4BE848;
   if (!qword_1ED4BE848)
@@ -1793,9 +2008,9 @@ void sub_18587FD40(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_185882E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_185882E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1855,11 +2070,11 @@ void sub_1858889B0(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_18588B2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18588B2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2035,11 +2250,11 @@ void sub_18589D474(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_18589D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_18589D984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 96), 8);
+  _Block_object_dispose((v22 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2078,7 +2293,7 @@ void sub_1858A74A8(void *a1)
   objc_exception_rethrow();
 }
 
-uint64_t preserveOrderKeysByForwardSkip(unsigned int *a1, int a2, int a3, char a4)
+uint64_t preserveOrderKeysByForwardSkip(unsigned int *a1, unsigned int a2, int a3, char a4)
 {
   if (a2 < 1)
   {
@@ -2133,7 +2348,7 @@ uint64_t preserveOrderKeysByForwardSkip(unsigned int *a1, int a2, int a3, char a
   return result;
 }
 
-uint64_t preserveOrderKeysByReverseSkip(uint64_t a1, int a2, int a3, char a4)
+uint64_t preserveOrderKeysByReverseSkip(uint64_t a1, unsigned int a2, int a3, char a4)
 {
   if (a2 < 1)
   {
@@ -2230,19 +2445,19 @@ void _PF_SnowLeopard_CFDictionaryDestroy(void **a1)
 
 uint64_t _PF_SnowLeopard_CFStringHashNSString(__CFString *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Length = CFStringGetLength(a1);
   v3 = Length;
-  v4 = v10;
+  v4 = v9;
   if (Length >= 97)
   {
-    [(__CFString *)a1 getCharacters:v10 range:0, 32];
-    [(__CFString *)a1 getCharacters:&v11 range:(Length >> 1) - 16, 32];
-    [(__CFString *)a1 getCharacters:&v12 range:Length - 32, 32];
-    v5 = &v13;
-    v6 = &v13;
+    [(__CFString *)a1 getCharacters:v9 range:0, 32];
+    [(__CFString *)a1 getCharacters:&v10 range:(Length >> 1) - 16, 32];
+    [(__CFString *)a1 getCharacters:&v11 range:Length - 32, 32];
+    v5 = &v12;
+    v6 = &v12;
 LABEL_5:
-    v4 = v10;
+    v4 = v9;
     do
     {
       v3 = 16974593 * *v4 + 67503105 * v3 + 66049 * v4[1] + 257 * v4[2] + v4[3];
@@ -2253,11 +2468,11 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  [(__CFString *)a1 getCharacters:v10 range:0, Length];
-  v5 = &v10[Length];
+  [(__CFString *)a1 getCharacters:v9 range:0, Length];
+  v5 = &v9[Length];
   if ((Length & 0xFFFFFFFFFFFFFFFCLL) >= 1)
   {
-    v6 = &v10[Length & 0xFFFFFFFFFFFFFFFCLL];
+    v6 = &v9[Length & 0xFFFFFFFFFFFFFFFCLL];
     goto LABEL_5;
   }
 
@@ -2268,7 +2483,6 @@ LABEL_9:
     v3 = 257 * v3 + v7;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return (v3 << (Length & 0x1F)) + v3;
 }
 
@@ -2585,12 +2799,12 @@ LABEL_36:
   free(v9);
 }
 
-unint64_t _PF_SnowLeopard_CFBasicHashAddValue(unint64_t result, unint64_t a2, __CFString *a3, uint64_t a4)
+unsigned int *_PF_SnowLeopard_CFBasicHashAddValue(unsigned int *result, unsigned int *a2, __CFString *a3, uint64_t a4)
 {
   v6 = result;
   v7 = 0;
-  ++*(result + 18);
-  v8 = *(result + 8);
+  ++*(result + 9);
+  v8 = result[2];
   while (1)
   {
     v9 = _PF_SnowLeopard_CFBasicHashTableCapacities[v7];
@@ -2609,10 +2823,10 @@ unint64_t _PF_SnowLeopard_CFBasicHashAddValue(unint64_t result, unint64_t a2, __
   v10 = (v8 + 1);
   if (v9 >= v10)
   {
-    v11 = *(result + 24);
+    v11 = *(result + 3);
     if (*(v11 + 8 * a2) == -1)
     {
-      --*(result + 16);
+      --*(result + 8);
     }
   }
 
@@ -2631,7 +2845,7 @@ unint64_t _PF_SnowLeopard_CFBasicHashAddValue(unint64_t result, unint64_t a2, __
   return result;
 }
 
-unint64_t _PF_SnowLeopard_CFBasicHashSetValue(unsigned int *a1, __CFString *a2, uint64_t a3)
+unsigned int *_PF_SnowLeopard_CFBasicHashSetValue(unsigned int *a1, __CFString *a2, uint64_t a3)
 {
   v8 = 0u;
   v9 = 0u;
@@ -2858,11 +3072,143 @@ void sub_1858B2BF8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_1858B49F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1858B49F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+void sub_1858B57D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, id location, uint64_t a13, uint64_t a14, __int128 buf)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  if (a2 != 2)
+  {
+    objc_begin_catch(a1);
+    JUMPOUT(0x1858B5730);
+  }
+
+  v16 = objc_begin_catch(a1);
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    LogStream = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v16;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Something has gone badly awry initializing the XPC connection pool: %@\n", &buf, 0xCu);
+    }
+
+    v23 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    {
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v16;
+      v24 = "CoreData: Something has gone badly awry initializing the XPC connection pool: %@";
+      v25 = v23;
+      v26 = 12;
+LABEL_27:
+      _os_log_fault_impl(&dword_18565F000, v25, OS_LOG_TYPE_FAULT, v24, &buf, v26);
+    }
+
+LABEL_28:
+    if (!*(v15 + 48) && ![*(v15 + 16) count])
+    {
+
+      *(v15 + 16) = 0;
+      *(v15 + 8) = 0;
+      v30 = *(v15 + 32);
+      if (v30)
+      {
+        dispatch_release(v30);
+      }
+
+      *(v15 + 32) = 0;
+    }
+
+    objc_exception_rethrow();
+  }
+
+  v17 = [v16 errorObjectWithUserInfo:0];
+  v18 = v17;
+  v19 = objc_autoreleasePoolPush();
+  if (_NSCoreDataIsOSLogEnabled(1))
+  {
+    if (_pflogging_catastrophic_mode)
+    {
+      v20 = _PFLogGetLogStream(1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        if (v17)
+        {
+          v27 = v17;
+        }
+
+        else
+        {
+          v27 = @"<null error>";
+        }
+
+        LODWORD(buf) = 138412546;
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v27;
+        goto LABEL_21;
+      }
+    }
+
+    else
+    {
+      v20 = _PFLogGetLogStream(1);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        if (v17)
+        {
+          v21 = v17;
+        }
+
+        else
+        {
+          v21 = @"<null error>";
+        }
+
+        LODWORD(buf) = 138412546;
+        WORD6(buf) = 2112;
+        *(&buf + 14) = v21;
+LABEL_21:
+        _os_log_error_impl(&dword_18565F000, v20, OS_LOG_TYPE_ERROR, "CoreData: error: NSXPCStoreConnectionManager failed to initialize any connections for store at %@ with error = %@\n", &buf, 0x16u);
+      }
+    }
+  }
+
+  _NSCoreDataLog_console(1, "NSXPCStoreConnectionManager failed to initialize any connections for store at %@ with error = %@");
+  objc_autoreleasePoolPop(v19);
+
+  if (!objc_loadWeak(&location))
+  {
+    v28 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(buf) = 0;
+      _os_log_error_impl(&dword_18565F000, v28, OS_LOG_TYPE_ERROR, "CoreData: fault: NSXPCStoreConnectionManager: xpc store parameter deallocated during initialization ?!\n", &buf, 2u);
+    }
+
+    v29 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    {
+      LOWORD(buf) = 0;
+      v24 = "CoreData: NSXPCStoreConnectionManager: xpc store parameter deallocated during initialization ?!";
+      v25 = v29;
+      v26 = 2;
+      goto LABEL_27;
+    }
+  }
+
+  goto LABEL_28;
 }
 
 void sub_1858B5AD8(uint64_t a1, int a2)
@@ -3039,9 +3385,9 @@ void sub_1858B6558(uint64_t a1, int a2)
   objc_terminate();
 }
 
-void sub_1858B6650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858B6650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3190,11 +3536,11 @@ void sub_1858BAACC(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_1858BD5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858BD5DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3202,11 +3548,11 @@ void sub_1858BE1F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
 {
   if (a2)
   {
-    objc_destroyWeak((v73 + 40));
-    objc_destroyWeak((v72 + 32));
-    objc_destroyWeak((v71 + 32));
-    objc_destroyWeak((v70 + 32));
-    objc_destroyWeak((v69 + 32));
+    objc_destroyWeak((v69 + 40));
+    objc_destroyWeak((v68 + 32));
+    objc_destroyWeak((v67 + 32));
+    objc_destroyWeak((v66 + 32));
+    objc_destroyWeak((v65 + 32));
     objc_destroyWeak(&location);
     _Block_object_dispose(&STACK[0x250], 8);
     _Block_object_dispose(&STACK[0x280], 8);
@@ -3253,7 +3599,8 @@ void sub_1858BFA10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     v42 = *(v32 + 3776);
     [v41 domain];
     [v41 code];
-    -[NSCloudKitMirroringDelegate tearDown:](v30, [v42 stringWithFormat:@"Error %@:%ld"]);
+    v43 = objc_msgSend_stringWithFormat_(v42);
+    [(NSCloudKitMirroringDelegate *)v30 tearDown:v43];
     JUMPOUT(0x1858BF9C8);
   }
 
@@ -3261,9 +3608,9 @@ void sub_1858BFA10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1858C110C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858C110C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3292,9 +3639,9 @@ void sub_1858C4F00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1858C518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858C518C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3367,41 +3714,42 @@ void sub_1858C736C(_Unwind_Exception *exc_buf, int a2)
   _Unwind_Resume(exc_buf);
 }
 
-void sub_1858C75B4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1858C75B4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 64), 8);
+  _Block_object_dispose((v18 - 64), 8);
   objc_begin_catch(a1);
   JUMPOUT(0x1858C7534);
 }
 
-void sub_1858C7B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858C7B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858C7DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1858C7DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v14 - 120), 8);
+  _Block_object_dispose((v21 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858C853C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858C853C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858C8A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1858C8A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3412,52 +3760,93 @@ void sub_1858C8F78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1858CA8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1858CA8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v15 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
-  _Block_object_dispose(va2, 8);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1858CBEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
-  va_start(va, a13);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1858CF480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
-{
-  _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1858CFE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
-{
+  va_start(va2, a13);
   va_start(va1, a13);
   va_start(va, a13);
   v14 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v21 = va_arg(va2, void);
+  v23 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
+  _Block_object_dispose(va2, 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1858CBEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 128), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1858CD644(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, __int128 buf, __int128 a38)
+{
+  if (a2 == 1)
+  {
+    v39 = objc_begin_catch(exception_object);
+    v40 = objc_autoreleasePoolPush();
+    Stream = __PFCloudKitLoggingGetStream();
+    v42 = Stream;
+    if (__ckLoggingOverride == 17)
+    {
+      v43 = OS_LOG_TYPE_FAULT;
+    }
+
+    else
+    {
+      v43 = OS_LOG_TYPE_ERROR;
+    }
+
+    if (os_log_type_enabled(Stream, v43))
+    {
+      v44 = *(v38 + 56);
+      LODWORD(buf) = 136315906;
+      *(&buf + 4) = "[NSCloudKitMirroringDelegate _recoverUnknownItemRecordIDs:forStore:inMonitor:]_block_invoke";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 2952;
+      WORD1(a38) = 2112;
+      *(&a38 + 4) = v44;
+      WORD6(a38) = 2112;
+      *(&a38 + 14) = v39;
+      _os_log_impl(&dword_18565F000, v42, v43, "CoreData+CloudKit: %s(%d): %@: Unknown Item error recovery failed due to an unhandled exception: %@", &buf, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v40);
+    objc_end_catch();
+    JUMPOUT(0x1858CD608);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1858CF480(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1858CFE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3511,23 +3900,24 @@ void sub_1858D1A14(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_1858D1DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1858D1DB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858D260C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1858D260C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
+  va_start(va, a38);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a39, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3652,11 +4042,12 @@ void sub_1858D5F08(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_1858D664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1858D664C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3715,94 +4106,140 @@ void sub_1858D8BD8(uint64_t a1, int a2)
   JUMPOUT(0x1858D8B84);
 }
 
-void sub_1858D9EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1858D939C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, __int128 buf)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  if (a2 == 2)
+  {
+    v22 = objc_begin_catch(a1);
+    LogStream = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      v25 = *(v21 + 40);
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v25;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v22;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: %@ - Exception thrown during incremental import: %@\n", &buf, 0x16u);
+    }
+
+    v24 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    {
+      v26 = *(v21 + 40);
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v26;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v22;
+      _os_log_fault_impl(&dword_18565F000, v24, OS_LOG_TYPE_FAULT, "CoreData: %@ - Exception thrown during incremental import: %@", &buf, 0x16u);
+    }
+
+    objc_end_catch();
+  }
+
+  else
+  {
+    objc_begin_catch(a1);
+  }
+
+  JUMPOUT(0x1858D92E0);
+}
+
+void sub_1858D9EE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DA028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1858DA028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DA658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1858DA658(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DA970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1858DA970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DAA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858DAA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DAB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1858DAB6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DC8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1858DC8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DD358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53)
+void sub_1858DD358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
 {
+  va_start(va, a52);
   _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a53, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DE2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1858DE2C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a37, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DEEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1858DEEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858DF664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1858DF664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3876,15 +4313,15 @@ void sub_1858E7700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1858E7D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1858E7D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858E83F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_1858E83F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a2)
   {
@@ -3948,11 +4385,12 @@ void sub_1858EB22C(uint64_t a1, int a2)
   JUMPOUT(0x1858EB278);
 }
 
-void sub_1858EB240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1858EB240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3987,11 +4425,11 @@ void sub_1858EC860(void *a1, int a2)
   JUMPOUT(0x1858EC858);
 }
 
-void sub_1858ECEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1858ECEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 80), 8);
+  _Block_object_dispose((v20 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4017,7 +4455,7 @@ void sub_1858EDDBC(void *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7
   JUMPOUT(0x1858EDDA0);
 }
 
-uint64_t recordIDComparator_block_invoke(uint64_t a1, void *a2, void *a3)
+void *recordIDComparator_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   result = [objc_msgSend(a2 "recordName")];
   if (!result)
@@ -4035,26 +4473,28 @@ uint64_t recordIDComparator_block_invoke(uint64_t a1, void *a2, void *a3)
   return result;
 }
 
-void sub_1858F0014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1858F0014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a39, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_1858F2418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858F2C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47)
+void sub_1858F2C70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, ...)
 {
+  va_start(va, a46);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a47, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -4079,43 +4519,43 @@ void sub_1858F8B28(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1858F95D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858F95D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858F9D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858F9D24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858F9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1858F9E4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1858FB5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1858FB5D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4203,9 +4643,9 @@ void sub_185900C00()
   JUMPOUT(0x185900C0CLL);
 }
 
-void sub_1859010EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1859010EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4347,7 +4787,7 @@ void sub_185907748(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_185907D24(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30)
+void sub_185907D24(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   if (a2 == 1)
   {
@@ -4369,37 +4809,187 @@ void sub_185907D24(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
   _Unwind_Resume(exc_buf);
 }
 
-void sub_1859083BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_1859083BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18590884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_18590884C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_185908F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_185908F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a39, 8);
   _Block_object_dispose(&a16, 8);
   _Block_object_dispose(&a22, 8);
   _Unwind_Resume(a1);
+}
+
+void sub_185909920(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, __int128 buf, int a34, __int16 a35, __int16 a36, uint64_t a37, __int128 a38, uint64_t a39)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exc_buf);
+  }
+
+  if (a2 == 3)
+  {
+    v40 = objc_begin_catch(exc_buf);
+    v41 = MEMORY[0x1E696ABC0];
+    a39 = @"NSUnderlyingException";
+    a27 = v40;
+    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a27 forKeys:&a39 count:1];
+    [v41 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v42];
+    LogStream = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      v56 = [v40 userInfo];
+      v57 = *(v39 + 24);
+      if (v57)
+      {
+        v58 = *(v57 + 8);
+        v57 = *(v57 + 16);
+      }
+
+      else
+      {
+        v58 = 0;
+      }
+
+      LODWORD(buf) = 138413058;
+      *(&buf + 4) = v40;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v56;
+      a36 = 2112;
+      a37 = v58;
+      LOWORD(a38) = 2112;
+      *(&a38 + 2) = v57;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Exception caught during execution of migration statement for cloudkit metadata tables %@ with userInfo %@\n%@\n%@\n", &buf, 0x2Au);
+    }
+
+    v44 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_13;
+    }
+
+    v45 = [v40 userInfo];
+    v46 = *(v39 + 24);
+    if (v46)
+    {
+      v47 = *(v46 + 8);
+      v46 = *(v46 + 16);
+    }
+
+    else
+    {
+      v47 = 0;
+    }
+
+    LODWORD(buf) = 138413058;
+    *(&buf + 4) = v40;
+    WORD6(buf) = 2112;
+    *(&buf + 14) = v45;
+    a36 = 2112;
+    a37 = v47;
+    LOWORD(a38) = 2112;
+    *(&a38 + 2) = v46;
+    v48 = "CoreData: Exception caught during execution of migration statement for cloudkit metadata tables %@ with userInfo %@\n%@\n%@";
+    v49 = v44;
+    v50 = 42;
+  }
+
+  else
+  {
+    if (a2 != 2)
+    {
+      objc_begin_catch(exc_buf);
+LABEL_29:
+      JUMPOUT(0x18590967CLL);
+    }
+
+    v51 = objc_begin_catch(exc_buf);
+    v52 = MEMORY[0x1E696ABC0];
+    a31 = *MEMORY[0x1E696A588];
+    a32 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]);
+    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&a32 forKeys:&a31 count:1];
+    [v52 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v53];
+    v54 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    {
+      v59 = *(v39 + 24);
+      if (v59)
+      {
+        v60 = *(v59 + 8);
+        v59 = *(v59 + 16);
+      }
+
+      else
+      {
+        v60 = 0;
+      }
+
+      LODWORD(buf) = 138412802;
+      *(&buf + 4) = v51;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v60;
+      a36 = 2112;
+      a37 = v59;
+      _os_log_error_impl(&dword_18565F000, v54, OS_LOG_TYPE_ERROR, "CoreData: fault: Exception caught during execution of migration statement for cloudkit metadata tables %@\n%@\n%@\n", &buf, 0x20u);
+    }
+
+    v55 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+    {
+LABEL_13:
+      objc_end_catch();
+      goto LABEL_29;
+    }
+
+    v61 = *(v39 + 24);
+    if (v61)
+    {
+      v62 = *(v61 + 8);
+      v61 = *(v61 + 16);
+    }
+
+    else
+    {
+      v62 = 0;
+    }
+
+    LODWORD(buf) = 138412802;
+    *(&buf + 4) = v51;
+    WORD6(buf) = 2112;
+    *(&buf + 14) = v62;
+    a36 = 2112;
+    a37 = v61;
+    v48 = "CoreData: Exception caught during execution of migration statement for cloudkit metadata tables %@\n%@\n%@";
+    v49 = v55;
+    v50 = 32;
+  }
+
+  _os_log_fault_impl(&dword_18565F000, v49, OS_LOG_TYPE_FAULT, v48, &buf, v50);
+  goto LABEL_13;
 }
 
 void sub_185909CF4(uint64_t a1, int a2)
@@ -4411,6 +5001,80 @@ void sub_185909CF4(uint64_t a1, int a2)
   }
 
   JUMPOUT(0x1859099B4);
+}
+
+void sub_18590A134(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, __int128 buf)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exc_buf);
+  }
+
+  if (a2 == 3)
+  {
+    v31 = objc_begin_catch(exc_buf);
+    LogStream = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+    {
+      v41 = [v31 userInfo];
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v31;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v41;
+      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Exception caught during cleanup of cloudkit metadata primary keys %@ with userInfo %@\n", &buf, 0x16u);
+    }
+
+    v33 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_12;
+    }
+
+    v34 = [v31 userInfo];
+    LODWORD(buf) = 138412546;
+    *(&buf + 4) = v31;
+    WORD6(buf) = 2112;
+    *(&buf + 14) = v34;
+    v35 = "CoreData: Exception caught during cleanup of cloudkit metadata primary keys %@ with userInfo %@";
+    v36 = v33;
+    v37 = 22;
+  }
+
+  else
+  {
+    if (a2 != 2)
+    {
+      objc_begin_catch(exc_buf);
+LABEL_16:
+      JUMPOUT(0x18590A0ACLL);
+    }
+
+    v38 = objc_begin_catch(exc_buf);
+    v39 = _PFLogGetLogStream(17);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    {
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v38;
+      _os_log_error_impl(&dword_18565F000, v39, OS_LOG_TYPE_ERROR, "CoreData: fault: Exception caught during cleanup of cloudkit metadata primary keys %@\n", &buf, 0xCu);
+    }
+
+    v40 = _PFLogGetLogStream(17);
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    {
+LABEL_12:
+      objc_end_catch();
+      goto LABEL_16;
+    }
+
+    LODWORD(buf) = 138412290;
+    *(&buf + 4) = v38;
+    v35 = "CoreData: Exception caught during cleanup of cloudkit metadata primary keys %@";
+    v36 = v40;
+    v37 = 12;
+  }
+
+  _os_log_fault_impl(&dword_18565F000, v36, OS_LOG_TYPE_FAULT, v35, &buf, v37);
+  goto LABEL_12;
 }
 
 void sub_18590A368(uint64_t a1, int a2)
@@ -4603,36 +5267,36 @@ void sub_18590DB68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void sub_18590F7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18590F7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 NSBatchInsertResult *_executeBatchInsertRequest(uint64_t a1)
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   v2 = [a1 persistentStoreRequest];
   v3 = v2;
-  v56 = v2;
+  v55 = v2;
   if (!a1)
   {
-    v51 = [v2 _secureOperation];
+    v50 = [v2 _secureOperation];
     v8 = [v3 resultType];
-    v52 = [0 mergePolicy];
+    v51 = [0 mergePolicy];
     v4 = 0;
     v7 = 0;
-    v55 = 0;
-    v10 = v52 == NSMergeByPropertyObjectTrumpMergePolicy;
-    if (!v51)
+    v54 = 0;
+    v10 = v51 == NSMergeByPropertyObjectTrumpMergePolicy;
+    if (!v50)
     {
       goto LABEL_10;
     }
 
 LABEL_5:
     [(NSSQLiteConnection *)v4 setSecureDeleteMode:?];
-    v55 = 1;
+    v54 = 1;
     if (!a1)
     {
       goto LABEL_10;
@@ -4662,7 +5326,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v55 = 0;
+  v54 = 0;
 LABEL_8:
   v11 = *(a1 + 8);
   if (v11)
@@ -4673,15 +5337,15 @@ LABEL_8:
 LABEL_10:
   [(NSSQLiteConnection *)v4 beginTransaction];
   v12 = (v8 == 1) | v7;
-  v53 = v7;
-  if ((v8 == 1) | v7 & 1 && (!a1 ? (v13 = 0) : (v13 = -[NSSQLBatchOperationRequestContext createObjectIDCaptureStatementsForDrop:](a1, 0)), v67 = 0u, v68 = 0u, v65 = 0u, v66 = 0u, (v14 = [v13 countByEnumeratingWithState:&v65 objects:v75 count:16]) != 0))
+  v52 = v7;
+  if ((v8 == 1) | v7 & 1 && (!a1 ? (v13 = 0) : (v13 = -[NSSQLBatchOperationRequestContext createObjectIDCaptureStatementsForDrop:](a1, 0)), v66 = 0u, v67 = 0u, v64 = 0u, v65 = 0u, (v14 = [v13 countByEnumeratingWithState:&v64 objects:v74 count:16]) != 0))
   {
-    v15 = *v66;
+    v15 = *v65;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v66 != v15)
+        if (*v65 != v15)
         {
           objc_enumerationMutation(v13);
         }
@@ -4690,7 +5354,7 @@ LABEL_10:
         v17 = 1;
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v65 objects:v75 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v64 objects:v74 count:16];
     }
 
     while (v14);
@@ -4711,23 +5375,23 @@ LABEL_10:
     v18 = 0;
   }
 
-  v54 = v8;
-  v19 = _sqlCoreLookupSQLEntityForEntityDescription(v18, [v56 entity]);
-  if ([v56 objectsToInsert])
+  v53 = v8;
+  v19 = _sqlCoreLookupSQLEntityForEntityDescription(v18, [v55 entity]);
+  if ([v55 objectsToInsert])
   {
-    v20 = -[NSSQLiteConnection insertArray:forEntity:includeOnConflict:](v4, [v56 objectsToInsert], v19, v10);
+    v20 = -[NSSQLiteConnection insertArray:forEntity:includeOnConflict:](v4, [v55 objectsToInsert], v19, v10);
     goto LABEL_30;
   }
 
-  if ([v56 dictionaryHandler])
+  if ([v55 dictionaryHandler])
   {
-    v20 = -[NSSQLiteConnection insertDictionaryBlock:forEntity:includeOnConflict:](v4, [v56 dictionaryHandler], v19, v10);
+    v20 = -[NSSQLiteConnection insertDictionaryBlock:forEntity:includeOnConflict:](v4, [v55 dictionaryHandler], v19, v10);
     goto LABEL_30;
   }
 
-  if ([v56 managedObjectHandler])
+  if ([v55 managedObjectHandler])
   {
-    v20 = -[NSSQLiteConnection insertManagedObjectBlock:forEntity:includeOnConflict:](v4, [v56 managedObjectHandler], v19, v10);
+    v20 = -[NSSQLiteConnection insertManagedObjectBlock:forEntity:includeOnConflict:](v4, [v55 managedObjectHandler], v19, v10);
 LABEL_30:
     v21 = v20;
     if (v12)
@@ -4760,7 +5424,7 @@ LABEL_31:
 
   v23 = [(NSSQLiteConnection *)v4 gatherObjectIDsFromTable:v22];
   v24 = v23;
-  if (v53 && [v23 count])
+  if (v52 && [v23 count])
   {
     [(NSSQLiteConnection *)v4 processInsertRequest:a1];
     if (!a1)
@@ -4783,19 +5447,19 @@ LABEL_38:
   }
 
 LABEL_39:
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
-  v27 = [v26 countByEnumeratingWithState:&v61 objects:v74 count:16];
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v27 = [v26 countByEnumeratingWithState:&v60 objects:v73 count:16];
   if (v27)
   {
-    v28 = *v62;
+    v28 = *v61;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v62 != v28)
+        if (*v61 != v28)
         {
           objc_enumerationMutation(v26);
         }
@@ -4803,7 +5467,7 @@ LABEL_39:
         [(NSSQLiteConnection *)v4 prepareAndExecuteSQLStatement:?];
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v61 objects:v74 count:16];
+      v27 = [v26 countByEnumeratingWithState:&v60 objects:v73 count:16];
     }
 
     while (v27);
@@ -4829,7 +5493,7 @@ LABEL_49:
             if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              LODWORD(v70) = v33;
+              LODWORD(v69) = v33;
               _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Batch insert failed to generate a post transaction query generation with error %d\n", buf, 8u);
             }
 
@@ -4837,7 +5501,7 @@ LABEL_49:
             if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
             {
               *buf = 67109120;
-              LODWORD(v70) = v33;
+              LODWORD(v69) = v33;
               _os_log_fault_impl(&dword_18565F000, v35, OS_LOG_TYPE_FAULT, "CoreData: Batch insert failed to generate a post transaction query generation with error %d", buf, 8u);
             }
           }
@@ -4887,12 +5551,12 @@ LABEL_49:
     }
   }
 
-  if (v54 == 2)
+  if (v53 == 2)
   {
     v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v21];
   }
 
-  if (![v56 resultType])
+  if (![v55 resultType])
   {
     v30 = [MEMORY[0x1E696AD98] numberWithBool:1];
   }
@@ -4907,7 +5571,7 @@ LABEL_49:
     v40 = 0;
   }
 
-  [(NSSQLiteConnection *)v40 _performPostSaveTasks:v55 andForceFullVacuum:0];
+  [(NSSQLiteConnection *)v40 _performPostSaveTasks:v54 andForceFullVacuum:0];
   if (a1 && (v41 = *(a1 + 8)) != 0)
   {
     [*(v41 + 216) unlock];
@@ -4924,19 +5588,19 @@ LABEL_49:
   if (v17)
   {
     v43 = a1 ? [(NSSQLBatchOperationRequestContext *)a1 createObjectIDCaptureStatementsForDrop:?]: 0;
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
-    v44 = [v43 countByEnumeratingWithState:&v57 objects:v73 count:16];
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
+    v44 = [v43 countByEnumeratingWithState:&v56 objects:v72 count:16];
     if (v44)
     {
-      v45 = *v58;
+      v45 = *v57;
       do
       {
         for (k = 0; k != v44; ++k)
         {
-          if (*v58 != v45)
+          if (*v57 != v45)
           {
             objc_enumerationMutation(v43);
           }
@@ -4944,50 +5608,44 @@ LABEL_49:
           [(NSSQLiteConnection *)v4 prepareAndExecuteSQLStatement:?];
         }
 
-        v44 = [v43 countByEnumeratingWithState:&v57 objects:v73 count:16];
+        v44 = [v43 countByEnumeratingWithState:&v56 objects:v72 count:16];
       }
 
       while (v44);
     }
   }
 
-  if (v55)
+  if (v54)
   {
     [(NSSQLiteConnection *)v4 setSecureDeleteMode:?];
   }
 
   if (v30)
   {
-    result = -[NSBatchInsertResult initWithResultType:andObject:]([NSBatchInsertResult alloc], "initWithResultType:andObject:", [v56 resultType], v30);
+    return -[NSBatchInsertResult initWithResultType:andObject:]([NSBatchInsertResult alloc], "initWithResultType:andObject:", [v55 resultType], v30);
   }
 
-  else
+  v48 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
   {
-    v48 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/Persistence/sqlcore/NSSQLCore_Functions.m";
-      v71 = 1024;
-      v72 = 752;
-      _os_log_error_impl(&dword_18565F000, v48, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
-    }
-
-    v49 = _PFLogGetLogStream(17);
-    if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
-    {
-      *buf = 136315394;
-      v70 = "/Library/Caches/com.apple.xbs/Sources/Persistence/sqlcore/NSSQLCore_Functions.m";
-      v71 = 1024;
-      v72 = 752;
-      _os_log_fault_impl(&dword_18565F000, v49, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-    }
-
-    result = 0;
+    *buf = 136315394;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/sqlcore/NSSQLCore_Functions.m";
+    v70 = 1024;
+    v71 = 752;
+    _os_log_error_impl(&dword_18565F000, v48, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
   }
 
-  v50 = *MEMORY[0x1E69E9840];
-  return result;
+  v49 = _PFLogGetLogStream(17);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315394;
+    v69 = "/Library/Caches/com.apple.xbs/Sources/Persistence/sqlcore/NSSQLCore_Functions.m";
+    v70 = 1024;
+    v71 = 752;
+    _os_log_fault_impl(&dword_18565F000, v49, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
+  }
+
+  return 0;
 }
 
 void sub_18591064C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint8_t buf, int a42, int a43, __int16 a44)
@@ -5049,66 +5707,66 @@ void sub_185910AA0(uint64_t a1, int a2)
   JUMPOUT(0x185910A98);
 }
 
-uint64_t _deleteExternalDataReferences(void *a1)
+void *_deleteExternalDataReferences(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  result = [a1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  result = [a1 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(a1);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) _deleteExternalReferenceFromPermanentLocation];
+        [*(*(&v6 + 1) + 8 * v5) _deleteExternalReferenceFromPermanentLocation];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [a1 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      result = [a1 countByEnumeratingWithState:&v6 objects:v10 count:16];
       v3 = result;
     }
 
     while (result);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-uint64_t _deleteFileBackedFutures(void *a1)
+void *_deleteFileBackedFutures(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  result = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  result = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v11;
+    v4 = *v10;
     do
     {
       v5 = 0;
       do
       {
-        if (*v11 != v4)
+        if (*v10 != v4)
         {
           objc_enumerationMutation(a1);
         }
 
-        v6 = *(*(&v10 + 1) + 8 * v5);
+        v6 = *(*(&v9 + 1) + 8 * v5);
         if (v6)
         {
           v7 = *(v6 + 8);
@@ -5121,18 +5779,17 @@ uint64_t _deleteFileBackedFutures(void *a1)
 
         v8 = [v7 path];
         [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [a1 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      result = [a1 countByEnumeratingWithState:&v9 objects:v13 count:16];
       v3 = result;
     }
 
     while (result);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5198,9 +5855,8 @@ CFMutableArrayRef _rowsForConflictDetection(void *a1, void *a2, uint64_t a3)
     while (v10);
   }
 
-  result = -[NSSQLiteConnection copyRawIntegerRowsForSQL:](a3, [MEMORY[0x1E696AEC0] stringWithFormat:@"SELECT %@, %@ FROM %@ WHERE %@ IN (%@) ORDER BY %@", @"Z_PK", @"Z_OPT", v17, @"Z_PK", v8, @"Z_PK"]);
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v15 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], @"Z_PK", @"Z_OPT", v17, @"Z_PK", v8, @"Z_PK");
+  return [(NSSQLiteConnection *)a3 copyRawIntegerRowsForSQL:v15];
 }
 
 uint64_t compareManagedObjectsBySQLPKs(void *a1, void *a2)
@@ -5224,7 +5880,7 @@ uint64_t compareManagedObjectsBySQLPKs(void *a1, void *a2)
   }
 }
 
-uint64_t _newConflictRecordForObject(void *a1, void *a2, unint64_t a3, int a4)
+NSMergeConflict *_newConflictRecordForObject(void *a1, void *a2, unint64_t a3, int a4)
 {
   v8 = _newObjectGraphStyleForSQLRow(a2, a1);
   v9 = _newObjectGraphStyleForSQLRow(a3, a1);
@@ -5259,46 +5915,46 @@ uint64_t _newConflictRecordForObject(void *a1, void *a2, unint64_t a3, int a4)
   return v13;
 }
 
-void *_performExhaustiveOptimisticLockingDetectionForSaveRequest(uint64_t a1, void *a2, int a3)
+void *_performExhaustiveOptimisticLockingDetectionForSaveRequest(NSSQLObjectFaultRequestContext *a1, void *a2, int a3)
 {
   v4 = a1;
-  v82 = *MEMORY[0x1E69E9840];
-  if (a1 && (a1 = *(a1 + 96)) != 0 && (v5 = *(a1 + 8)) != 0)
+  v81 = *MEMORY[0x1E69E9840];
+  if (a1 && (a1 = a1->_fetchRequest) != 0 && (sqlCore = a1->super._sqlCore) != 0)
   {
-    v6 = *(v5 + 32);
+    options = sqlCore->super._options;
   }
 
   else
   {
-    v6 = 0;
+    options = 0;
   }
 
   v7 = [(NSSQLSavePlan *)a1 newObjectsForExhaustiveLockConflictDetection];
-  if (v6)
+  if (options)
   {
     if ([a2 count])
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
-      v8 = [a2 countByEnumeratingWithState:&v70 objects:v75 count:16];
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v8 = [a2 countByEnumeratingWithState:&v69 objects:v74 count:16];
       if (v8)
       {
-        v9 = *v71;
+        v9 = *v70;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v71 != v9)
+            if (*v70 != v9)
             {
               objc_enumerationMutation(a2);
             }
 
-            [v7 addObject:{objc_msgSend(v6, "objectWithID:", *(*(&v70 + 1) + 8 * i))}];
+            [v7 addObject:{-[NSDictionary objectWithID:](options, "objectWithID:", *(*(&v69 + 1) + 8 * i))}];
           }
 
-          v8 = [a2 countByEnumeratingWithState:&v70 objects:v75 count:16];
+          v8 = [a2 countByEnumeratingWithState:&v69 objects:v74 count:16];
         }
 
         while (v8);
@@ -5306,25 +5962,25 @@ void *_performExhaustiveOptimisticLockingDetectionForSaveRequest(uint64_t a1, vo
     }
   }
 
-  v64 = [MEMORY[0x1E695DFA8] set];
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
+  v63 = [MEMORY[0x1E695DFA8] set];
   v67 = 0u;
-  v11 = [a2 countByEnumeratingWithState:&v66 objects:v74 count:16];
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v11 = [a2 countByEnumeratingWithState:&v65 objects:v73 count:16];
   if (v11)
   {
-    v12 = *v67;
+    v12 = *v66;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v67 != v12)
+        if (*v66 != v12)
         {
           objc_enumerationMutation(a2);
         }
 
-        v14 = *(*(&v66 + 1) + 8 * j);
+        v14 = *(*(&v65 + 1) + 8 * j);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -5333,58 +5989,58 @@ void *_performExhaustiveOptimisticLockingDetectionForSaveRequest(uint64_t a1, vo
 
         if (v14)
         {
-          [v64 addObject:v14];
+          [v63 addObject:v14];
         }
       }
 
-      v11 = [a2 countByEnumeratingWithState:&v66 objects:v74 count:16];
+      v11 = [a2 countByEnumeratingWithState:&v65 objects:v73 count:16];
     }
 
     while (v11);
   }
 
-  v60 = [v4 rowCache];
+  v59 = [(NSSQLStoreRequestContext *)v4 rowCache];
   if (v4)
   {
-    v53 = *(v4 + 24);
+    connection = v4->super._connection;
   }
 
   else
   {
-    v53 = 0;
+    connection = 0;
   }
 
   v15 = [v7 count];
-  v58 = [MEMORY[0x1E695DF70] array];
+  v57 = [MEMORY[0x1E695DF70] array];
   if (v15)
   {
-    v55 = [_PFRoutines _groupObjectsByRootEntity:v7];
-    v54 = [v55 count];
-    if (v54)
+    v54 = [_PFRoutines _groupObjectsByRootEntity:v7];
+    v53 = [v54 count];
+    if (v53)
     {
       cf = 0;
       v16 = 0;
       while (1)
       {
-        v56 = v16;
-        v63 = [objc_msgSend(v55 "objectAtIndex:{"sortedArrayUsingFunction:context:", compareManagedObjectsBySQLPKs, 0}")];
+        v55 = v16;
+        v62 = [objc_msgSend(v54 "objectAtIndex:{"sortedArrayUsingFunction:context:", compareManagedObjectsBySQLPKs, 0}")];
         if (cf)
         {
           CFRelease(cf);
         }
 
-        v17 = v4 ? *(v4 + 8) : 0;
-        cf = _rowsForConflictDetection(v17, v63, v53);
+        v17 = v4 ? v4->super._sqlCore : 0;
+        cf = _rowsForConflictDetection(v17, v62, connection);
         Count = CFArrayGetCount(cf);
-        v62 = [v63 count];
-        if (v62)
+        v61 = [v62 count];
+        if (v61)
         {
           break;
         }
 
 LABEL_117:
-        v16 = v56 + 1;
-        if (v56 + 1 == v54)
+        v16 = v55 + 1;
+        if (v55 + 1 == v53)
         {
           if (cf)
           {
@@ -5410,7 +6066,7 @@ LABEL_117:
           ValueAtIndex = CFArrayGetValueAtIndex(cf, idx);
         }
 
-        v21 = [v63 objectAtIndex:v18];
+        v21 = [v62 objectAtIndex:v18];
         v22 = [v21 objectID];
         v23 = [(NSSQLSaveChangesRequestContext *)v4 originalRowForObjectID:v22];
         if (!v23)
@@ -5419,12 +6075,12 @@ LABEL_117:
           v25 = v24;
           if (v24)
           {
-            *(v24 + 104) = 1;
+            v24->_forConflictAnalysis = 1;
           }
 
           if (v4)
           {
-            v26 = *(v4 + 24);
+            v26 = v4->super._connection;
           }
 
           else
@@ -5433,12 +6089,12 @@ LABEL_117:
           }
 
           [(NSSQLStoreRequestContext *)v24 setConnection:v26];
-          [(NSSQLStoreRequestContext *)v25 setQueryGenerationToken:?];
+          [(NSSQLStoreRequestContext *)&v25->super.super.isa setQueryGenerationToken:?];
           v27 = _executeObjectFaultRequest(v25);
           v23 = v27;
           if (v4 && v27)
           {
-            [*(v4 + 136) setObject:v27 forKey:v22];
+            [(NSSQLiteConnection *)v4[1].super._connection setObject:v27 forKey:v22];
           }
 
           [(NSSQLStoreRequestContext *)v25 setConnection:?];
@@ -5450,7 +6106,7 @@ LABEL_117:
         }
 
         v34 = _newConflictRecordForObject(v21, v23, 0, 0);
-        [(NSPersistentStoreCache *)v60 forgetRowForObjectID:v22];
+        [(NSPersistentStoreCache *)v59 forgetRowForObjectID:v22];
         if ([(NSSQLStoreRequestContext *)v4 debugLogLevel]< 2)
         {
           if ([(NSSQLStoreRequestContext *)v4 debugLogLevel]>= 1)
@@ -5465,7 +6121,7 @@ LABEL_117:
                 if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v77 = v22;
+                  v76 = v22;
                   _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Optimistic locking failure for %@.  Row was deleted.\n", buf, 0xCu);
                 }
               }
@@ -5476,7 +6132,7 @@ LABEL_117:
                 if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v77 = v22;
+                  v76 = v22;
                   _os_log_impl(&dword_18565F000, v44, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: Optimistic locking failure for %@.  Row was deleted.\n", buf, 0xCu);
                 }
               }
@@ -5509,9 +6165,9 @@ LABEL_117:
               if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v77 = v22;
-                v78 = 2112;
-                v79 = v23;
+                v76 = v22;
+                v77 = 2112;
+                v78 = v23;
                 _os_log_error_impl(&dword_18565F000, v38, OS_LOG_TYPE_ERROR, "CoreData: error: Optimistic locking failure for %@.  Row was deleted.  Original row = %@ New Row = <deleted>\n", buf, 0x16u);
               }
             }
@@ -5522,9 +6178,9 @@ LABEL_117:
               if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v77 = v22;
-                v78 = 2112;
-                v79 = v23;
+                v76 = v22;
+                v77 = 2112;
+                v78 = v23;
                 _os_log_impl(&dword_18565F000, v42, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: Optimistic locking failure for %@.  Row was deleted.  Original row = %@ New Row = <deleted>\n", buf, 0x16u);
               }
             }
@@ -5553,7 +6209,7 @@ LABEL_111:
         }
 
 LABEL_110:
-        [v58 addObject:v34];
+        [v57 addObject:v34];
 
         if (!v46)
         {
@@ -5562,7 +6218,7 @@ LABEL_110:
 
 LABEL_112:
         objc_autoreleasePoolPop(v19);
-        if (v62 == ++v18)
+        if (v61 == ++v18)
         {
           goto LABEL_117;
         }
@@ -5579,7 +6235,7 @@ LABEL_112:
         v29 = 0;
       }
 
-      if (v29 == ValueAtIndex[1] && ![v64 containsObject:{objc_msgSend(v23, "objectID")}])
+      if (v29 == ValueAtIndex[1] && ![v63 containsObject:{objc_msgSend(v23, "objectID")}])
       {
         goto LABEL_111;
       }
@@ -5588,12 +6244,12 @@ LABEL_112:
       v31 = v30;
       if (v30)
       {
-        *(v30 + 104) = 1;
+        v30->_forConflictAnalysis = 1;
       }
 
       if (v4)
       {
-        v32 = *(v4 + 24);
+        v32 = v4->super._connection;
       }
 
       else
@@ -5602,7 +6258,7 @@ LABEL_112:
       }
 
       [(NSSQLStoreRequestContext *)v30 setConnection:v32];
-      [(NSSQLStoreRequestContext *)v31 setQueryGenerationToken:?];
+      [(NSSQLStoreRequestContext *)&v31->super.super.isa setQueryGenerationToken:?];
       v33 = _executeObjectFaultRequest(v31);
       [(NSSQLStoreRequestContext *)v31 setConnection:?];
 
@@ -5624,7 +6280,7 @@ LABEL_112:
             if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v77 = v22;
+              v76 = v22;
               _os_log_error_impl(&dword_18565F000, v41, OS_LOG_TYPE_ERROR, "CoreData: error: Optimistic locking failure for %@.  Row was updated.\n", buf, 0xCu);
             }
           }
@@ -5635,7 +6291,7 @@ LABEL_112:
             if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v77 = v22;
+              v76 = v22;
               _os_log_impl(&dword_18565F000, v49, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: Optimistic locking failure for %@.  Row was updated.\n", buf, 0xCu);
             }
           }
@@ -5666,11 +6322,11 @@ LABEL_112:
             if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412802;
-              v77 = v22;
-              v78 = 2112;
-              v79 = v23;
-              v80 = 2112;
-              v81 = v33;
+              v76 = v22;
+              v77 = 2112;
+              v78 = v23;
+              v79 = 2112;
+              v80 = v33;
               _os_log_error_impl(&dword_18565F000, v36, OS_LOG_TYPE_ERROR, "CoreData: error: Optimistic locking failure for %@.  Row was updated.  Original row = %@ New Row = %@\n", buf, 0x20u);
             }
           }
@@ -5681,11 +6337,11 @@ LABEL_112:
             if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v77 = v22;
-              v78 = 2112;
-              v79 = v23;
-              v80 = 2112;
-              v81 = v33;
+              v76 = v22;
+              v77 = 2112;
+              v78 = v23;
+              v79 = 2112;
+              v80 = v33;
               _os_log_impl(&dword_18565F000, v47, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: Optimistic locking failure for %@.  Row was updated.  Original row = %@ New Row = %@\n", buf, 0x20u);
             }
           }
@@ -5717,18 +6373,15 @@ LABEL_109:
   }
 
 LABEL_122:
-  if ([v58 count])
+  if ([v57 count])
   {
-    result = v58;
+    return v57;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-  v52 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 void sub_185911A58()
@@ -5768,38 +6421,38 @@ uint64_t ___prefetchRelationshipKeys_block_invoke(uint64_t a1, void *a2, void *a
 _PFResultArray *_prepareBufferedDictionaryResult(void *a1, uint64_t a2)
 {
   v3 = a1;
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   if (![a1 count])
   {
-    goto LABEL_40;
+    return NSArray_EmptyArray;
   }
 
-  v43 = a2;
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
+  v42 = a2;
   v51 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (!v4)
   {
-    goto LABEL_40;
+    return NSArray_EmptyArray;
   }
 
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v8 = *v51;
+  v8 = *v50;
   v9 = 0x1EA8C5000uLL;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v51 != v8)
+      if (*v50 != v8)
       {
         objc_enumerationMutation(v3);
       }
 
-      v11 = *(*(*(&v50 + 1) + 8 * i) + 24);
+      v11 = *(*(*(&v49 + 1) + 8 * i) + 24);
       v12 = *(v11 + 32);
       if (!v12)
       {
@@ -5839,119 +6492,112 @@ LABEL_14:
       v6 += v16;
     }
 
-    v5 = [v3 countByEnumeratingWithState:&v50 objects:v55 count:16];
+    v5 = [v3 countByEnumeratingWithState:&v49 objects:v54 count:16];
   }
 
   while (v5);
-  if (v7)
+  if (!v7)
   {
-    v19 = v6 + 8;
-    v20 = v19 + 4 * v7;
-    if (v20 <= 0x400)
-    {
-      v20 = 1024;
-    }
+    return NSArray_EmptyArray;
+  }
 
-    v21 = v20 + 7;
-    v22 = _PF_Private_Malloc_Zone;
-    if (!_PF_Private_Malloc_Zone)
-    {
-      v22 = malloc_default_zone();
-    }
+  v19 = v6 + 8;
+  v20 = v19 + 4 * v7;
+  if (v20 <= 0x400)
+  {
+    v20 = 1024;
+  }
 
-    v41 = v21;
-    v23 = malloc_type_zone_calloc(v22, 1uLL, v21 & 0xFFFFFFFF8, 0xCB0F0E53uLL);
-    *v23 = v7;
-    v23[1] = v19;
-    v42 = v23;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v45 = [v3 countByEnumeratingWithState:&v46 objects:v54 count:16];
-    if (v45)
+  v21 = v20 + 7;
+  v22 = _PF_Private_Malloc_Zone;
+  if (!_PF_Private_Malloc_Zone)
+  {
+    v22 = malloc_default_zone();
+  }
+
+  v40 = v21;
+  v23 = malloc_type_zone_calloc(v22, 1uLL, v21 & 0xFFFFFFFF8, 0xCB0F0E53uLL);
+  *v23 = v7;
+  v23[1] = v19;
+  v41 = v23;
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v44 = [v3 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v44)
+  {
+    v24 = (v41 + 8);
+    v25 = (v41 + v19);
+    v43 = *v46;
+    do
     {
-      v24 = (v42 + 8);
-      v25 = (v42 + v19);
-      v44 = *v47;
+      v26 = 0;
       do
       {
-        v26 = 0;
-        do
+        if (*v46 != v43)
         {
-          if (*v47 != v44)
-          {
-            objc_enumerationMutation(v3);
-          }
-
-          v27 = v3;
-          v28 = *(*(&v46 + 1) + 8 * v26);
-          if (v28)
-          {
-            v29 = *(v28 + *(v9 + 696));
-          }
-
-          else
-          {
-            v29 = 0;
-          }
-
-          v30 = v9;
-          if (*(v29 + 32))
-          {
-            v31 = 0;
-            do
-            {
-              v32 = *(*(v29 + 48) + 8 * v31);
-              v33 = *v32;
-              v34 = (v32[1] - 8);
-              v35 = v32 + 2;
-              memcpy(v24, v32 + 2, v34);
-              if (v33 == 1)
-              {
-                *v25 = v34;
-                v36 = 4;
-              }
-
-              else
-              {
-                v36 = (4 * v33);
-                memcpy(v25, v35 + v34, v36);
-              }
-
-              v24 += v34;
-              v25 = (v25 + v36);
-              ++v31;
-            }
-
-            while (v31 < *(v29 + 32));
-          }
-
-          ++v26;
-          v3 = v27;
-          v9 = v30;
+          objc_enumerationMutation(v3);
         }
 
-        while (v26 != v45);
-        v37 = [v27 countByEnumeratingWithState:&v46 objects:v54 count:16];
-        v45 = v37;
+        v27 = v3;
+        v28 = *(*(&v45 + 1) + 8 * v26);
+        if (v28)
+        {
+          v29 = *(v28 + *(v9 + 696));
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        v30 = v9;
+        if (*(v29 + 32))
+        {
+          v31 = 0;
+          do
+          {
+            v32 = *(*(v29 + 48) + 8 * v31);
+            v33 = *v32;
+            v34 = (v32[1] - 8);
+            v35 = v32 + 2;
+            memcpy(v24, v32 + 2, v34);
+            if (v33 == 1)
+            {
+              *v25 = v34;
+              v36 = 4;
+            }
+
+            else
+            {
+              v36 = (4 * v33);
+              memcpy(v25, v35 + v34, v36);
+            }
+
+            v24 += v34;
+            v25 = (v25 + v36);
+            ++v31;
+          }
+
+          while (v31 < *(v29 + 32));
+        }
+
+        ++v26;
+        v3 = v27;
+        v9 = v30;
       }
 
-      while (v37);
+      while (v26 != v44);
+      v37 = [v27 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v44 = v37;
     }
 
-    v38 = bufferResultSetAllocateWithBuffer(v41 & 0xFFFFFFFF8, v42);
-    result = _prepareLargeDictionaryResults(v38, v43, 0);
+    while (v37);
   }
 
-  else
-  {
-LABEL_40:
-    result = NSArray_EmptyArray;
-  }
-
-  v40 = *MEMORY[0x1E69E9840];
-  return result;
+  v38 = bufferResultSetAllocateWithBuffer(v40 & 0xFFFFFFFF8, v41);
+  return _prepareLargeDictionaryResults(v38, v42, 0);
 }
 
 Class initCloudKitCKContainerOptions()
@@ -5976,7 +6622,7 @@ Class initCloudKitCKRecordZone()
 
   result = objc_getClass("CKRecordZone");
   qword_1ED4BEC10 = result;
-  getCloudKitCKRecordZoneClass[0] = CloudKitCKRecordZoneFunction;
+  getCloudKitCKRecordZoneClass = CloudKitCKRecordZoneFunction;
   return result;
 }
 
@@ -6067,7 +6713,7 @@ Class initCloudKitCKDatabaseSubscription()
 
   result = objc_getClass("CKDatabaseSubscription");
   qword_1ED4BEC60 = result;
-  getCloudKitCKDatabaseSubscriptionClass[0] = CloudKitCKDatabaseSubscriptionFunction;
+  getCloudKitCKDatabaseSubscriptionClass = CloudKitCKDatabaseSubscriptionFunction;
   return result;
 }
 
@@ -6262,7 +6908,7 @@ uint64_t initCloudKitCKRecordZoneDefaultName()
 
   result = *dlsym(_MergedGlobals_92, "CKRecordZoneDefaultName");
   qword_1ED4BED38 = result;
-  getCloudKitCKRecordZoneDefaultName[0] = CKRecordZoneDefaultNameCloudKitFunction;
+  getCloudKitCKRecordZoneDefaultName = CKRecordZoneDefaultNameCloudKitFunction;
   return result;
 }
 
@@ -6313,21 +6959,21 @@ uint64_t initCKDatabaseScopeString(uint64_t a1)
   }
 
   v2 = dlsym(_MergedGlobals_92, "CKDatabaseScopeString");
-  softLinkCKDatabaseScopeString[0] = v2;
+  softLinkCKDatabaseScopeString = v2;
 
-  return (v2)(a1);
+  return v2(a1);
 }
 
-void sub_185913D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_185913D48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_185914420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_185914420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6363,11 +7009,12 @@ uint64_t _readCompositeAttributeIntoShellFromBytes(uint64_t a1, uint64_t a2, uni
   return AttributeIntoShellFromBytes;
 }
 
-void sub_1859164F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1859164F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6405,16 +7052,14 @@ void sub_18591884C(_Unwind_Exception *exception_object, int a2)
 
 void __LoadRunningBoardServices_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   LoadRunningBoardServices_frameworkLibrary = dlopen("/System/Library/PrivateFrameworks/RunningBoardServices.framework/RunningBoardServices", 2);
   if (!LoadRunningBoardServices_frameworkLibrary && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
   {
-    v1 = 136315138;
-    v2 = dlerror();
-    _os_log_fault_impl(&dword_18565F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "### Failed to Soft Link: /System/Library/PrivateFrameworks/RunningBoardServices.framework/RunningBoardServices\n%s", &v1, 0xCu);
+    v0 = 136315138;
+    v1 = dlerror();
+    _os_log_fault_impl(&dword_18565F000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "### Failed to Soft Link: /System/Library/PrivateFrameworks/RunningBoardServices.framework/RunningBoardServices\n%s", &v0, 0xCu);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 Class initRunningBoardServicesRBSAssertion()
@@ -6502,5 +7147,13 @@ CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCo
   v3 = MEMORY[0x1EEDB7958](theString, stringToFind, compareOptions);
   result.length = v4;
   result.location = v3;
+  return result;
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  v4 = MEMORY[0x1EEE66EC8](p, aSel, isRequiredMethod, isInstanceMethod);
+  result.types = v5;
+  result.name = v4;
   return result;
 }

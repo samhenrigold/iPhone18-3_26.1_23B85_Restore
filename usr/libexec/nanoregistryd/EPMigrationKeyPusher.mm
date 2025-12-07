@@ -240,66 +240,49 @@
   v8 = [(EPKey *)self->_key key];
   v9 = sub_1000FDEB0(v8);
 
-  if (!v9)
+  if (v9 && (-[EPMigrationKeyPusher keyChannel](self, "keyChannel"), (v10 = objc_claimAutoreleasedReturnValue()) != 0) && (v11 = v10, -[EPMigrationKeyPusher keyChannel](self, "keyChannel"), v12 = objc_claimAutoreleasedReturnValue(), [v12 defaultPairedDevice], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isConnected"), v13, v12, v11, v14))
   {
-    goto LABEL_9;
-  }
+    v16 = sub_1000034AC(v15);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-  keyChannel = [(EPMigrationKeyPusher *)self keyChannel];
-  if (!keyChannel)
-  {
-    goto LABEL_9;
-  }
-
-  v11 = keyChannel;
-  keyChannel2 = [(EPMigrationKeyPusher *)self keyChannel];
-  defaultPairedDevice = [keyChannel2 defaultPairedDevice];
-  isConnected = [defaultPairedDevice isConnected];
-
-  if (isConnected)
-  {
-    v15 = sub_1000034AC();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-
-    if (v16)
+    if (v17)
     {
-      v17 = sub_1000034AC();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_1000034AC(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         sHA256Data = [v9 SHA256Data];
-        v19 = [sHA256Data base64EncodedStringWithOptions:0];
-        v20 = [v19 substringToIndex:6];
+        v21 = [sHA256Data base64EncodedStringWithOptions:0];
+        v22 = [v21 substringToIndex:6];
         *buf = 138412290;
-        v31 = v20;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "EPMigrationKeyPusher: sendKeyWithRemoteObject sending key data digest %@", buf, 0xCu);
+        v33 = v22;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "EPMigrationKeyPusher: sendKeyWithRemoteObject sending key data digest %@", buf, 0xCu);
       }
     }
 
-    keyChannel3 = [(EPMigrationKeyPusher *)self keyChannel];
-    v22 = [(EPKey *)self->_key key];
-    v23 = sub_1000FDEC4(v22);
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3221225472;
-    v27[2] = sub_1000166A8;
-    v27[3] = &unk_100175D80;
-    v27[4] = self;
-    v28 = watchCopy;
-    v29 = completionCopy;
-    [keyChannel3 sendMigrationSetKeyRequestToBTUUID:v28 withKey:v9 withRevision:v23 withResponseBlock:v27];
+    keyChannel = [(EPMigrationKeyPusher *)self keyChannel];
+    v24 = [(EPKey *)self->_key key];
+    v25 = sub_1000FDEC4(v24);
+    v29[0] = _NSConcreteStackBlock;
+    v29[1] = 3221225472;
+    v29[2] = sub_1000166A8;
+    v29[3] = &unk_100175D80;
+    v29[4] = self;
+    v30 = watchCopy;
+    v31 = completionCopy;
+    [keyChannel sendMigrationSetKeyRequestToBTUUID:v30 withKey:v9 withRevision:v25 withResponseBlock:v29];
   }
 
   else
   {
-LABEL_9:
-    v24 = nr_daemon_log();
-    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
+    v26 = nr_daemon_log();
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
 
-    if (v25)
+    if (v27)
     {
-      v26 = nr_daemon_log();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v28 = nr_daemon_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        sub_1000FD710(v9 == 0, self, v26);
+        sub_1000FD710(v9 == 0, self, v28);
       }
     }
 
@@ -338,38 +321,24 @@ LABEL_9:
 
   v4 = [EPMigrationKeyPusher prefsKeyForPairingID:?];
   v5 = [(NRPreferences *)self->_prefs objectForKeyedSubscript:v4];
-  if (!v5)
+  v12 = 1;
+  if (v5)
   {
-    goto LABEL_7;
-  }
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      [v5 doubleValue];
+      v7 = v6;
+      v8 = +[NSDate date];
+      [v8 timeIntervalSinceReferenceDate];
+      v10 = v9;
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  [v5 doubleValue];
-  v7 = v6;
-  v8 = +[NSDate date];
-  [v8 timeIntervalSinceReferenceDate];
-  v10 = v9;
-
-  v11 = v7 - v10 + 86400.0;
-  if (v11 < -86400.0)
-  {
-    goto LABEL_7;
-  }
-
-  if (v11 < 86400.0)
-  {
-    v12 = 0;
-  }
-
-  else
-  {
-LABEL_7:
-    v12 = 1;
+      v11 = v7 - v10 + 86400.0;
+      if (v11 >= -86400.0 && v11 < 86400.0)
+      {
+        v12 = 0;
+      }
+    }
   }
 
   return v12;

@@ -13,7 +13,7 @@
 
 - (int64_t)outcome
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C550F30C();
   MEMORY[0x1E69E5920](self);
   return v4;
@@ -21,14 +21,14 @@
 
 - (void)setOutcome:(int64_t)outcome
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C550F3C8(outcome);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSString)stage
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v4 = sub_1C550F648();
   MEMORY[0x1E69E5920](self);
 
@@ -37,15 +37,15 @@
 
 - (void)setStage:(id)stage
 {
-  MEMORY[0x1E69E5928](stage);
-  MEMORY[0x1E69E5928](self);
-  sub_1C550F720(stage);
+  MEMORY[0x1E69E5928](stage, a2);
+  MEMORY[0x1E69E5928](self, v4);
+  sub_1C550F720(stage, v5);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSDictionary)info
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v6 = sub_1C550FA48();
   MEMORY[0x1E69E5920](self);
   if (v6)
@@ -65,27 +65,27 @@
 
 - (void)setInfo:(id)info
 {
-  MEMORY[0x1E69E5928](info);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](info, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (info)
   {
-    v3 = sub_1C5596444();
+    v4 = sub_1C5596444();
     MEMORY[0x1E69E5920](info);
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  sub_1C550FB88(v4);
+  sub_1C550FB88(v5);
   MEMORY[0x1E69E5920](self);
 }
 
 - (NSError)error
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   v6 = sub_1C550FE78();
   MEMORY[0x1E69E5920](self);
   if (v6)
@@ -105,8 +105,8 @@
 
 - (void)setError:(id)error
 {
-  MEMORY[0x1E69E5928](error);
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](error, a2);
+  MEMORY[0x1E69E5928](self, v3);
   if (error)
   {
     errorCopy = error;

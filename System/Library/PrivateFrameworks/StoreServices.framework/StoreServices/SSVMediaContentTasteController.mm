@@ -64,11 +64,11 @@
 
 void __38__SSVMediaContentTasteController_init__block_invoke(uint64_t a1, int a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   state64 = 0;
@@ -80,44 +80,47 @@ void __38__SSVMediaContentTasteController_init__block_invoke(uint64_t a1, int a2
     v4 = +[SSLogConfig sharedConfig];
   }
 
-  v5 = [v4 shouldLog];
+  LODWORD(v5) = [v4 shouldLog];
   v6 = [v4 shouldLogToDisk];
   v7 = [v4 OSLogObject];
   v8 = v7;
   if (v6)
   {
-    v5 |= 2u;
+    LODWORD(v5) = v5 | 2;
   }
 
-  if (!os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (!v5)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
   v11 = WeakRetained[3];
-  v37 = 138412802;
-  v38 = v10;
-  v39 = 2048;
-  v40 = state64;
-  v41 = 2048;
-  v42 = v11;
-  LODWORD(v35) = 32;
-  v34 = &v37;
-  v12 = _os_log_send_and_compose_impl();
+  v36 = 138412802;
+  v37 = v10;
+  v38 = 2048;
+  v39 = state64;
+  v40 = 2048;
+  v41 = v11;
+  v12 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, v8, 1, "[%@] Received items did change notification with revision ID: %llu, current revisionID: %llu", &v36, 32);
 
   if (v12)
   {
-    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v37, v35}];
+    v8 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog(v4, @"%@", v13, v14, v15, v16, v17, v18, v8);
-LABEL_11:
+LABEL_12:
   }
 
   if (WeakRetained[7])
@@ -128,16 +131,21 @@ LABEL_11:
       v19 = +[SSLogConfig sharedConfig];
     }
 
-    v20 = [v19 shouldLog];
+    LODWORD(v20) = [v19 shouldLog];
     v21 = [v19 shouldLogToDisk];
     v22 = [v19 OSLogObject];
     v23 = v22;
     if (v21)
     {
-      v20 |= 2u;
+      LODWORD(v20) = v20 | 2;
     }
 
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -147,26 +155,26 @@ LABEL_11:
       v24 = objc_opt_class();
       v25 = NSStringFromClass(v24);
       v26 = WeakRetained[7];
-      v37 = 138412546;
-      v38 = v25;
-      v39 = 2048;
-      v40 = v26;
-      LODWORD(v35) = 22;
-      v27 = _os_log_send_and_compose_impl();
+      v36 = 138412546;
+      v37 = v25;
+      v38 = 2048;
+      v39 = v26;
+      LODWORD(v34) = 22;
+      v27 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, v23, 1, "[%@] Defering refresh due to in-progress request count: %lli", &v36, v34);
 
       if (!v27)
       {
-LABEL_23:
+LABEL_25:
 
-        goto LABEL_27;
+        goto LABEL_29;
       }
 
-      v23 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:{4, &v37, v35}];
+      v23 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
       free(v27);
       SSFileLog(v19, @"%@", v28, v29, v30, v31, v32, v33, v23);
     }
 
-    goto LABEL_23;
+    goto LABEL_25;
   }
 
   if (WeakRetained[3] < state64 || state64 == 0xFFFFFFFF)
@@ -174,7 +182,7 @@ LABEL_23:
     [WeakRetained _refreshContentTasteItems];
   }
 
-LABEL_27:
+LABEL_29:
 }
 
 - (void)dealloc
@@ -941,7 +949,7 @@ void __84__SSVMediaContentTasteController__scheduleContentTasteUpdateOperationFo
   dispatch_async(v6, block);
 }
 
-uint64_t __84__SSVMediaContentTasteController__scheduleContentTasteUpdateOperationForFailedItems__block_invoke_4(uint64_t a1)
+void *__84__SSVMediaContentTasteController__scheduleContentTasteUpdateOperationForFailedItems__block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) _retryOperationForItemUpdates:*(a1 + 40) finishedWithError:*(a1 + 48)];
   *(*(a1 + 32) + 40) = 0;
@@ -1003,27 +1011,27 @@ void __79__SSVMediaContentTasteController__sendUpdateWithItemUpdates_completionH
   }
 }
 
-uint64_t __79__SSVMediaContentTasteController__sendUpdateWithItemUpdates_completionHandler___block_invoke_2(uint64_t result)
+id *__79__SSVMediaContentTasteController__sendUpdateWithItemUpdates_completionHandler___block_invoke_2(id *result)
 {
   v1 = result;
-  if (!*(result + 32))
+  if (!result[4])
   {
-    v2 = *(result + 40);
+    v2 = result[5];
     if (v2)
     {
-      result = [*(result + 48) _handleContentTasteItemsUpdateResponse:v2 allowNotifications:0];
+      result = [result[6] _handleContentTasteItemsUpdateResponse:v2 allowNotifications:0];
     }
   }
 
-  v3 = *(v1 + 48);
-  v4 = *(v3 + 56);
+  v3 = v1[6];
+  v4 = v3[7];
   v5 = v4 < 1;
   v6 = v4 - 1;
   if (!v5)
   {
-    *(v3 + 56) = v6;
-    result = *(v1 + 48);
-    if (!*(result + 56) && *(result + 32) > *(result + 24))
+    v3[7] = v6;
+    result = v1[6];
+    if (!result[7] && result[4] > result[3])
     {
 
       return [result _refreshContentTasteItems];

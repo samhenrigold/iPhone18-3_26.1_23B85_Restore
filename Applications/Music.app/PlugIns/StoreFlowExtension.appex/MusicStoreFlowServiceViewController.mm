@@ -5,6 +5,8 @@
 - (MusicStoreFlowServiceViewController)initWithCoder:(id)coder;
 - (MusicStoreFlowServiceViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (NSString)description;
+- (void)_didFinishLoadingWithSuccess:(BOOL)success error:(id)error;
+- (void)_dismissCloudServiceSetupViewControllerAnimated:(BOOL)animated completion:(id)completion;
 - (void)_loadStorePageViewControllerWithCloudServiceSetupURL:(id)l;
 - (void)_reloadWithCloudServiceSetupURL:(id)l forReloadContext:(id)context;
 - (void)_requestCloudServiceSetupURLFromActiveReloadContextWithCompletionHandler:(id)handler;
@@ -14,7 +16,12 @@
 - (void)handleSafariScriptURL:(id)l;
 - (void)reloadWithContext:(id)context;
 - (void)storeFlowScriptingClientController:(id)controller overrideCreditCardPresentationWithCompletion:(id)completion;
+- (void)storeFlowScriptingClientController:(id)controller requestsDismissingSafariViewControllerAnimated:(BOOL)animated completion:(id)completion;
+- (void)storeFlowScriptingClientController:(id)controller requestsDismissingViewController:(id)viewController animated:(BOOL)animated completion:(id)completion;
+- (void)storeFlowScriptingClientController:(id)controller requestsPresentingSafariViewControllerWithURL:(id)l animated:(BOOL)animated completion:(id)completion;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MusicStoreFlowServiceViewController
@@ -102,6 +109,24 @@
   [v3 storeFlowServiceViewControllerDidLoad:self];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MusicStoreFlowServiceViewController;
+  [(MusicStoreFlowServiceViewController *)&v5 viewWillAppear:appear];
+  v4 = +[MusicStoreFlowScriptingClientController sharedScriptingClientController];
+  [v4 storeFlowServiceViewControllerWillAppear:self];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MusicStoreFlowServiceViewController;
+  [(MusicStoreFlowServiceViewController *)&v5 viewDidDisappear:disappear];
+  v4 = +[MusicStoreFlowScriptingClientController sharedScriptingClientController];
+  [v4 storeFlowServiceViewControllerDidDisappear:self];
+}
+
 - (void)applyConfiguration:(id)configuration
 {
   configurationCopy = configuration;
@@ -151,6 +176,25 @@
   [_remoteViewControllerProxy overrideCreditCardPresentationWithCompletion:completionCopy];
 }
 
+- (void)storeFlowScriptingClientController:(id)controller requestsDismissingViewController:(id)viewController animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  viewControllerCopy = viewController;
+  completionCopy = completion;
+  v10 = [objc_opt_class() _rootViewControllerForViewController:viewControllerCopy];
+  v11 = [objc_opt_class() _rootViewControllerForViewController:self];
+
+  if (v10 == v11)
+  {
+    [(MusicStoreFlowServiceViewController *)self _dismissCloudServiceSetupViewControllerAnimated:animatedCopy completion:completionCopy];
+  }
+
+  else
+  {
+    [viewControllerCopy dismissViewControllerAnimated:animatedCopy completion:completionCopy];
+  }
+}
+
 - (BOOL)storeFlowScriptingClientController:(id)controller requestsPresentingViewController:(id)viewController animated:(BOOL)animated
 {
   viewControllerCopy = viewController;
@@ -179,6 +223,35 @@
   [(MusicStoreFlowServiceViewController *)v10 presentViewController:viewControllerCopy animated:1 completion:0];
 
   return 1;
+}
+
+- (void)storeFlowScriptingClientController:(id)controller requestsDismissingSafariViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  _remoteViewControllerProxy = [(MusicStoreFlowServiceViewController *)self _remoteViewControllerProxy];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100003248;
+  v10[3] = &unk_10000C4F8;
+  v11 = completionCopy;
+  v9 = completionCopy;
+  [_remoteViewControllerProxy dismissSafariViewControllerAnimated:animatedCopy completion:v10];
+}
+
+- (void)storeFlowScriptingClientController:(id)controller requestsPresentingSafariViewControllerWithURL:(id)l animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  lCopy = l;
+  _remoteViewControllerProxy = [(MusicStoreFlowServiceViewController *)self _remoteViewControllerProxy];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100003330;
+  v13[3] = &unk_10000C4F8;
+  v14 = completionCopy;
+  v12 = completionCopy;
+  [_remoteViewControllerProxy presentSafariViewControllerWithURL:lCopy animated:animatedCopy completion:v13];
 }
 
 + (id)_cloudServiceSetupURLForAction:(id)action queryItems:(id)items bagDictionary:(id)dictionary
@@ -375,6 +448,40 @@
   }
 
   return v5;
+}
+
+- (void)_didFinishLoadingWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  if (!successCopy)
+  {
+    [(MusicStoreFlowServiceViewController *)self _dismissCloudServiceSetupViewControllerAnimated:1 completion:0];
+  }
+
+  _remoteViewControllerProxy = [(MusicStoreFlowServiceViewController *)self _remoteViewControllerProxy];
+  [_remoteViewControllerProxy didFinishLoadingWithSuccess:successCopy error:errorCopy];
+}
+
+- (void)_dismissCloudServiceSetupViewControllerAnimated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  completionCopy = completion;
+  _remoteViewControllerProxy = [(MusicStoreFlowServiceViewController *)self _remoteViewControllerProxy];
+  if (_remoteViewControllerProxy)
+  {
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100003C4C;
+    v8[3] = &unk_10000C4F8;
+    v9 = completionCopy;
+    [_remoteViewControllerProxy dismissCloudServiceSetupViewControllerAnimated:animatedCopy completion:v8];
+  }
+
+  else
+  {
+    [(MusicStoreFlowServiceViewController *)self dismissViewControllerAnimated:animatedCopy completion:completionCopy];
+  }
 }
 
 - (void)_loadStorePageViewControllerWithCloudServiceSetupURL:(id)l

@@ -14,19 +14,20 @@
 
 - (id)_init
 {
-  v6.receiver = self;
-  v6.super_class = CSDaemon;
-  v2 = [(CSDaemon *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = CSDaemon;
+  v2 = [(CSDaemon *)&v7 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = getMainQueue();
-    mainQueue = v2->_mainQueue;
-    v2->_mainQueue = v3;
+    v4 = getMainQueue(v2);
+    mainQueue = v3->_mainQueue;
+    v3->_mainQueue = v4;
 
-    *&v2->_powerStatusNotifyToken = -1;
+    *&v3->_powerStatusNotifyToken = -1;
   }
 
-  return v2;
+  return v3;
 }
 
 + (id)_sharedInstance
@@ -50,9 +51,9 @@ uint64_t __27__CSDaemon__sharedInstance__block_invoke()
 
 - (void)_start
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1(&dword_243DC3000, a2, a3, "notify_register_dispatch(displayStatus) failed %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_2_1(&dword_243DC3000, a2, a3, "notify_register_dispatch(displayStatus) failed %d", a5, a6, a7, a8, v8);
 }
 
 void __18__CSDaemon__start__block_invoke(uint64_t a1)
@@ -73,7 +74,7 @@ void __18__CSDaemon__start__block_invoke_5(uint64_t a1, int token)
 
 void __18__CSDaemon__start__block_invoke_6(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   state64 = 0;
   v2 = *(a1 + 32);
   v3 = +[CSContextStore sharedInstance];
@@ -93,7 +94,7 @@ void __18__CSDaemon__start__block_invoke_6(uint64_t a1)
   {
     v10 = [*(a1 + 32) restrictionsManager];
     *buf = 138412290;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&dword_243DC3000, v9, OS_LOG_TYPE_INFO, "Created restrictionsManager: %@", buf, 0xCu);
   }
 
@@ -119,8 +120,6 @@ void __18__CSDaemon__start__block_invoke_6(uint64_t a1)
       [*(a1 + 32) handleDisplayStateChanged:state64];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldRunSafeguards
@@ -261,9 +260,9 @@ void __66__CSDaemon_updateContextForIdentifier_withState_withRestrictions___bloc
 
 void __18__CSDaemon__start__block_invoke_6_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_1(&dword_243DC3000, a2, a3, "Failed %d to get initial Display state", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_2_1(&dword_243DC3000, a2, a3, "Failed %d to get initial Display state", a5, a6, a7, a8, v8);
 }
 
 @end

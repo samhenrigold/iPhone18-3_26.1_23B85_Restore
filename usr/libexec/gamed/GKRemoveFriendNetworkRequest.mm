@@ -13,12 +13,10 @@
 
 - (id)postBody
 {
-  v5 = @"player-id";
   friendID = [(GKRemoveFriendNetworkRequest *)self friendID];
-  v6 = friendID;
-  v3 = [NSDictionary dictionaryWithObjects:&v6 forKeys:&v5 count:1];
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  return v3;
+  return v2;
 }
 
 - (GKRemoveFriendNetworkRequest)initWithTask:(id)task

@@ -9,24 +9,26 @@
 
 - (id)sbf_cropImageWithRect:()SBFImageSizing outputSize:preservingAspectRatio:canUseIOSurface:
 {
+  v42 = a7.n128_f64[0];
+  v43 = a6.n128_f64[0];
   v17 = *MEMORY[0x1E695EFF8];
   v18 = *(MEMORY[0x1E695EFF8] + 8);
   [self size];
-  v51.size.width = v19;
-  v51.size.height = v20;
-  v46.origin.x = a2;
-  v46.origin.y = a3;
-  v46.size.width = a4;
-  v46.size.height = a5;
-  v51.origin.x = v17;
-  v51.origin.y = v18;
-  v21 = CGRectEqualToRect(v46, v51);
-  v22 = a5 == a7 && a4 == a6;
+  v52.size.width = v19;
+  v52.size.height = v20;
   v47.origin.x = a2;
   v47.origin.y = a3;
   v47.size.width = a4;
   v47.size.height = a5;
-  if (CGRectIsEmpty(v47) || v21 && v22 || (BSFloatLessThanOrEqualToFloat() & 1) != 0 || BSFloatLessThanOrEqualToFloat())
+  v52.origin.x = v17;
+  v52.origin.y = v18;
+  v21 = CGRectEqualToRect(v47, v52);
+  v22 = a5 == v42 && a4 == v43;
+  v48.origin.x = a2;
+  v48.origin.y = a3;
+  v48.size.width = a4;
+  v48.size.height = a5;
+  if (CGRectIsEmpty(v48) || v21 && v22 || (BSFloatLessThanOrEqualToFloat() & 1) != 0 || BSFloatLessThanOrEqualToFloat())
   {
     selfCopy = self;
     goto LABEL_9;
@@ -34,32 +36,33 @@
 
   [self scale];
   v26 = v25;
-  memset(&v44, 0, sizeof(v44));
-  CGAffineTransformMakeScale(&v44, v25, v25);
-  v43 = v44;
-  v48.origin.x = a2;
-  v48.origin.y = a3;
-  v48.size.width = a4;
-  v48.size.height = a5;
-  v49 = CGRectApplyAffineTransform(v48, &v43);
-  x = v49.origin.x;
-  y = v49.origin.y;
-  width = v49.size.width;
-  height = v49.size.height;
+  memset(&v45, 0, sizeof(v45));
+  CGAffineTransformMakeScale(&v45, v25, v25);
+  v44 = v45;
+  v49.origin.x = a2;
+  v49.origin.y = a3;
+  v49.size.width = a4;
+  v49.size.height = a5;
+  v50 = CGRectApplyAffineTransform(v49, &v44);
+  x = v50.origin.x;
+  y = v50.origin.y;
+  width = v50.size.width;
+  height = v50.size.height;
   if (!a10)
   {
     goto LABEL_22;
   }
 
-  v43.a = 0.0;
-  v31 = SBFCreateIOSurfaceForImage(self, &v43, 1);
+  v44.a = 0.0;
+  v31 = SBFCreateIOSurfaceForImage(self, &v44, 1);
   v32 = v31;
   if (v31)
   {
-    v33 = __SBFCreateCroppedIOSurface(v31, x, y, width, height);
-    if (v33)
+    v33 = vmlaq_n_f64(vmulq_n_f64(*&v45.c, v42), *&v45.a, v43);
+    v34 = __SBFCreateCroppedIOSurface(v31, x, y, width, height, v33.f64[0], v33.f64[1]);
+    if (v34)
     {
-      selfCopy = [MEMORY[0x1E69DCAB8] sbf_imageWithIOSurface:v33 scale:0 orientation:v26];
+      selfCopy = [MEMORY[0x1E69DCAB8] sbf_imageWithIOSurface:v34 scale:0 orientation:v26];
     }
 
     else
@@ -73,7 +76,7 @@
     selfCopy = 0;
   }
 
-  if (*&v43.a)
+  if (*&v44.a)
   {
     CGImageBlockSetRelease();
   }
@@ -81,19 +84,19 @@
   if (!selfCopy)
   {
 LABEL_22:
-    v34 = SBLogCommon();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = SBLogCommon();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v43.a) = 0;
-      _os_log_impl(&dword_1BEA11000, v34, OS_LOG_TYPE_DEFAULT, "Falling back to cropping/resizing on CPU", &v43, 2u);
+      LOWORD(v44.a) = 0;
+      _os_log_impl(&dword_1BEA11000, v35, OS_LOG_TYPE_DEFAULT, "Falling back to cropping/resizing on CPU", &v44, 2u);
     }
 
     sbf_CGImageBackedImage = [self sbf_CGImageBackedImage];
-    v36 = sbf_CGImageBackedImage;
+    v37 = sbf_CGImageBackedImage;
     if (v21)
     {
       selfCopy = 0;
-      v37 = 0;
+      v38 = 0;
       if (v22)
       {
         goto LABEL_32;
@@ -103,18 +106,18 @@ LABEL_22:
     else
     {
       cGImage = [sbf_CGImageBackedImage CGImage];
-      v50.origin.x = x;
-      v50.origin.y = y;
-      v50.size.width = width;
-      v50.size.height = height;
-      v37 = CGImageCreateWithImageInRect(cGImage, v50);
-      selfCopy = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v37 scale:0 orientation:v26];
+      v51.origin.x = x;
+      v51.origin.y = y;
+      v51.size.width = width;
+      v51.size.height = height;
+      v38 = CGImageCreateWithImageInRect(cGImage, v51);
+      selfCopy = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v38 scale:0 orientation:v26];
       if (v22)
       {
 LABEL_32:
-        if (v37)
+        if (v38)
         {
-          CGImageRelease(v37);
+          CGImageRelease(v38);
         }
 
         goto LABEL_9;
@@ -123,17 +126,17 @@ LABEL_32:
 
     if (selfCopy)
     {
-      v39 = selfCopy;
+      v40 = selfCopy;
     }
 
     else
     {
-      v39 = v36;
+      v40 = v37;
     }
 
-    v40 = [v39 sbf_resizeImageToSize:a9 preservingAspectRatio:{a6, a7}];
+    v41 = [v40 sbf_resizeImageToSize:a9 preservingAspectRatio:{v43, v42}];
 
-    selfCopy = v40;
+    selfCopy = v41;
     goto LABEL_32;
   }
 

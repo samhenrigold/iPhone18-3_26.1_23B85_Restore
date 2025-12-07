@@ -161,7 +161,7 @@
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_base)
   {
@@ -198,33 +198,32 @@
     PBDataWriterWriteStringField();
   }
 
-  v24 = 0u;
-  v25 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_zoneUniqueIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v23 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
         PBDataWriterWriteStringField();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -255,44 +254,41 @@
     PBDataWriterWriteStringField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
+  v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v11 = self->_zoneNames;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
-  if (v12)
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_zoneNames;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v19;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        if (*v19 != v14)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v18 + 1) + 8 * v15);
         PBDataWriterWriteStringField();
-        ++v15;
+        ++v14;
       }
 
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   if (self->_homeName)
   {
     PBDataWriterWriteStringField();
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyTo:(id)to
@@ -396,7 +392,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(BMPBHomeKitClientBase *)self->_base copyWithZone:zone];
   v7 = v5[4];
@@ -426,34 +422,34 @@
   v19 = v5[10];
   v5[10] = v18;
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v20 = self->_zoneUniqueIdentifiers;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v51;
+    v23 = *v50;
     do
     {
       v24 = 0;
       do
       {
-        if (*v51 != v23)
+        if (*v50 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v50 + 1) + 8 * v24) copyWithZone:zone];
+        v25 = [*(*(&v49 + 1) + 8 * v24) copyWithZone:zone];
         [v5 addZoneUniqueIdentifiers:v25];
 
         ++v24;
       }
 
       while (v22 != v24);
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v22);
@@ -479,34 +475,34 @@
   v35 = v5[9];
   v5[9] = v34;
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v36 = self->_zoneNames;
-  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v46 objects:v54 count:16];
+  v37 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v45 objects:v53 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v47;
+    v39 = *v46;
     do
     {
       v40 = 0;
       do
       {
-        if (*v47 != v39)
+        if (*v46 != v39)
         {
           objc_enumerationMutation(v36);
         }
 
-        v41 = [*(*(&v46 + 1) + 8 * v40) copyWithZone:{zone, v46}];
+        v41 = [*(*(&v45 + 1) + 8 * v40) copyWithZone:{zone, v45}];
         [v5 addZoneNames:v41];
 
         ++v40;
       }
 
       while (v38 != v40);
-      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v38 = [(NSMutableArray *)v36 countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
     while (v38);
@@ -516,64 +512,13 @@
   v43 = v5[6];
   v5[6] = v42;
 
-  v44 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_32;
-  }
-
-  base = self->_base;
-  if (base | equalCopy[4])
-  {
-    if (![(BMPBHomeKitClientBase *)base isEqual:?])
-    {
-      goto LABEL_32;
-    }
-  }
-
-  accessoryUniqueIdentifier = self->_accessoryUniqueIdentifier;
-  if (accessoryUniqueIdentifier | equalCopy[3] && ![(NSString *)accessoryUniqueIdentifier isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  accessoryState = self->_accessoryState;
-  if (accessoryState | equalCopy[2] && ![(BMPBAccessoryState *)accessoryState isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  serviceUniqueIdentifier = self->_serviceUniqueIdentifier;
-  if (serviceUniqueIdentifier | equalCopy[13] && ![(NSString *)serviceUniqueIdentifier isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  serviceType = self->_serviceType;
-  if (serviceType | equalCopy[12] && ![(NSString *)serviceType isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  characteristicType = self->_characteristicType;
-  if (characteristicType | equalCopy[5] && ![(NSString *)characteristicType isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  serviceGroupUniqueIdentifier = self->_serviceGroupUniqueIdentifier;
-  if (serviceGroupUniqueIdentifier | equalCopy[10] && ![(NSString *)serviceGroupUniqueIdentifier isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  if (((zoneUniqueIdentifiers = self->_zoneUniqueIdentifiers, !(zoneUniqueIdentifiers | equalCopy[15])) || [(NSMutableArray *)zoneUniqueIdentifiers isEqual:?]) && ((roomUniqueIdentifier = self->_roomUniqueIdentifier, !(roomUniqueIdentifier | equalCopy[8])) || [(NSString *)roomUniqueIdentifier isEqual:?]) && ((accessoryName = self->_accessoryName, !(accessoryName | equalCopy[1])) || [(NSString *)accessoryName isEqual:?]) && ((serviceName = self->_serviceName, !(serviceName | equalCopy[11])) || [(NSString *)serviceName isEqual:?]) && ((roomName = self->_roomName, !(roomName | equalCopy[7])) || [(NSString *)roomName isEqual:?]) && ((serviceGroupName = self->_serviceGroupName, !(serviceGroupName | equalCopy[9])) || [(NSString *)serviceGroupName isEqual:?]) && ((zoneNames = self->_zoneNames, !(zoneNames | equalCopy[14])) || [(NSMutableArray *)zoneNames isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((base = self->_base, !(base | equalCopy[4])) || -[BMPBHomeKitClientBase isEqual:](base, "isEqual:")) && ((accessoryUniqueIdentifier = self->_accessoryUniqueIdentifier, !(accessoryUniqueIdentifier | equalCopy[3])) || -[NSString isEqual:](accessoryUniqueIdentifier, "isEqual:")) && ((accessoryState = self->_accessoryState, !(accessoryState | equalCopy[2])) || -[BMPBAccessoryState isEqual:](accessoryState, "isEqual:")) && ((serviceUniqueIdentifier = self->_serviceUniqueIdentifier, !(serviceUniqueIdentifier | equalCopy[13])) || -[NSString isEqual:](serviceUniqueIdentifier, "isEqual:")) && ((serviceType = self->_serviceType, !(serviceType | equalCopy[12])) || -[NSString isEqual:](serviceType, "isEqual:")) && ((characteristicType = self->_characteristicType, !(characteristicType | equalCopy[5])) || -[NSString isEqual:](characteristicType, "isEqual:")) && ((serviceGroupUniqueIdentifier = self->_serviceGroupUniqueIdentifier, !(serviceGroupUniqueIdentifier | equalCopy[10])) || -[NSString isEqual:](serviceGroupUniqueIdentifier, "isEqual:")) && ((zoneUniqueIdentifiers = self->_zoneUniqueIdentifiers, !(zoneUniqueIdentifiers | equalCopy[15])) || -[NSMutableArray isEqual:](zoneUniqueIdentifiers, "isEqual:")) && ((roomUniqueIdentifier = self->_roomUniqueIdentifier, !(roomUniqueIdentifier | equalCopy[8])) || -[NSString isEqual:](roomUniqueIdentifier, "isEqual:")) && ((accessoryName = self->_accessoryName, !(accessoryName | equalCopy[1])) || -[NSString isEqual:](accessoryName, "isEqual:")) && ((serviceName = self->_serviceName, !(serviceName | equalCopy[11])) || -[NSString isEqual:](serviceName, "isEqual:")) && ((roomName = self->_roomName, !(roomName | equalCopy[7])) || -[NSString isEqual:](roomName, "isEqual:")) && ((serviceGroupName = self->_serviceGroupName, !(serviceGroupName | equalCopy[9])) || -[NSString isEqual:](serviceGroupName, "isEqual:")) && ((zoneNames = self->_zoneNames, !(zoneNames | equalCopy[14])) || -[NSMutableArray isEqual:](zoneNames, "isEqual:")))
   {
     homeName = self->_homeName;
     if (homeName | equalCopy[6])
@@ -589,7 +534,6 @@
 
   else
   {
-LABEL_32:
     v20 = 0;
   }
 
@@ -617,7 +561,7 @@ LABEL_32:
 
 - (void)mergeFrom:(id)from
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   base = self->_base;
   v6 = *(fromCopy + 4);
@@ -674,29 +618,29 @@ LABEL_32:
     [(BMPBHomeKitClientAccessoryControlEvent *)self setServiceGroupUniqueIdentifier:?];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v9 = *(fromCopy + 15);
-  v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v25;
+    v12 = *v24;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v25 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(BMPBHomeKitClientAccessoryControlEvent *)self addZoneUniqueIdentifiers:*(*(&v24 + 1) + 8 * i)];
+        [(BMPBHomeKitClientAccessoryControlEvent *)self addZoneUniqueIdentifiers:*(*(&v23 + 1) + 8 * i)];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
     while (v11);
@@ -727,29 +671,29 @@ LABEL_32:
     [(BMPBHomeKitClientAccessoryControlEvent *)self setServiceGroupName:?];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v14 = *(fromCopy + 14);
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(BMPBHomeKitClientAccessoryControlEvent *)self addZoneNames:*(*(&v20 + 1) + 8 * j), v20];
+        [(BMPBHomeKitClientAccessoryControlEvent *)self addZoneNames:*(*(&v19 + 1) + 8 * j), v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v16);
@@ -759,8 +703,6 @@ LABEL_32:
   {
     [(BMPBHomeKitClientAccessoryControlEvent *)self setHomeName:?];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

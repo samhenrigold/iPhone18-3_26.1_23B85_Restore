@@ -35,26 +35,26 @@
   dispatch_assert_queue_V2(*(self + 32));
   if (!*(self + 40))
   {
-    objc_setProperty_nonatomic_copy(self, v10, dataCopy, 40);
-    v11 = *(self + 16);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke;
-    v20 = &unk_279AF5480;
+    objc_setProperty_nonatomic_copy(self, v11, dataCopy, 40);
+    v12 = *(self + 16);
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke;
+    v21 = &unk_279AF5480;
     selfCopy = self;
-    v12 = dataCopy;
-    v22 = v12;
-    [(RMConnectionEndpoint *)v11 requestStreamWithMessage:v7 data:messageCopy errorHandler:&v17];
-    v13 = *(self + 56);
-    v14 = [[RMConnectionClientCachedMessage alloc] initWithName:v7 data:messageCopy streamingCallback:v12];
-    [v13 addObject:{v14, v17, v18, v19, v20, selfCopy}];
+    v13 = dataCopy;
+    v23 = v13;
+    [(RMConnectionEndpoint *)v12 requestStreamWithMessage:v7 data:messageCopy errorHandler:&v18];
+    v14 = *(self + 56);
+    v15 = [[RMConnectionClientCachedMessage alloc] initWithName:v7 data:messageCopy streamingCallback:v13];
+    [v14 addObject:{v15, v18, v19, v20, v21, selfCopy}];
 
 LABEL_4:
     return;
   }
 
-  v15 = [RMConnectionClient requestStreamingWithMessage:data:callback:];
-  __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke(v15, v16);
+  v16 = [RMConnectionClient requestStreamingWithMessage:v10 data:? callback:?];
+  __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke(v16, v17);
 }
 
 void __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke(uint64_t a1, void *a2)
@@ -78,7 +78,7 @@ void __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_
   dispatch_assert_queue_V2(self->_queue);
   for (i = self->_endpoint; i != interruptedCopy; i = 0)
   {
-    [RMConnectionClient endpointWasInterrupted:];
+    [RMConnectionClient endpointWasInterrupted:interruptedCopy];
 LABEL_8:
     [RMConnectionClient endpointWasInterrupted:];
   }
@@ -104,7 +104,7 @@ LABEL_8:
 
   if (endpoint != invalidatedCopy)
   {
-    [RMConnectionClient endpointWasInvalidated:];
+    [RMConnectionClient endpointWasInvalidated:v5];
 LABEL_13:
     _CLLogObjectForCategory_ConnectionClient_Default_cold_1();
     goto LABEL_9;
@@ -125,21 +125,21 @@ LABEL_13:
   }
 
 LABEL_9:
-  v6 = logObject_ConnectionClient_Default;
+  v7 = logObject_ConnectionClient_Default;
   if (os_log_type_enabled(logObject_ConnectionClient_Default, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_DEBUG, "Connection invalidated, setting up the reconnection timer", buf, 2u);
+    _os_log_impl(&dword_261A9A000, v7, OS_LOG_TYPE_DEBUG, "Connection invalidated, setting up the reconnection timer", buf, 2u);
   }
 
-  v7 = self->_queue;
-  v8 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v7);
-  [(RMConnectionEndpoint *)self setPriorityBoostReplyMessage:v8];
+  v8 = self->_queue;
+  v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v8);
+  [(RMConnectionEndpoint *)self setPriorityBoostReplyMessage:v9];
 
   self->_connectionTimerDelay = 4;
-  v9 = self->_connectionTimer;
-  v10 = dispatch_time(0, 4000000000);
-  dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
+  v10 = self->_connectionTimer;
+  v11 = dispatch_time(0, 4000000000);
+  dispatch_source_set_timer(v10, v11, 0xFFFFFFFFFFFFFFFFLL, 0);
 
   connectionTimer = self->_connectionTimer;
   handler[0] = MEMORY[0x277D85DD0];
@@ -189,38 +189,38 @@ LABEL_7:
 
 - (void)replayCache
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (self)
   {
     OUTLINED_FUNCTION_5_1(self);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v2 = *(v1 + 56);
-    v3 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (!v3)
     {
       v5 = v2;
 LABEL_31:
 
-      goto LABEL_32;
+      return;
     }
 
     v4 = v3;
     v5 = 0;
-    v6 = *v25;
+    v6 = *v24;
     do
     {
       v7 = 0;
       do
       {
-        if (*v25 != v6)
+        if (*v24 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v24 + 1) + 8 * v7);
+        v8 = *(*(&v23 + 1) + 8 * v7);
         if (v8 && *(v8 + 24))
         {
           v9 = v8;
@@ -249,7 +249,7 @@ LABEL_31:
             }
 
             *buf = 138412290;
-            v29 = v12;
+            v28 = v12;
             v13 = v11;
             _os_log_impl(&dword_261A9A000, v13, OS_LOG_TYPE_DEFAULT, "Sending cached message %@", buf, 0xCu);
           }
@@ -275,7 +275,7 @@ LABEL_31:
       }
 
       while (v4 != v7);
-      v17 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v17 = [v2 countByEnumeratingWithState:&v23 objects:v29 count:16];
       v4 = v17;
     }
 
@@ -304,9 +304,6 @@ LABEL_31:
       goto LABEL_31;
     }
   }
-
-LABEL_32:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect
@@ -366,7 +363,7 @@ LABEL_32:
 
 - (void)sendMessage:(void *)message withData:(void *)data reply:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   messageCopy = message;
   dataCopy = data;
@@ -384,17 +381,17 @@ LABEL_32:
       [(RMConnectionEndpoint *)v10 sendMessage:v7 withData:messageCopy];
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v11 = *(self + 56);
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
@@ -402,12 +399,12 @@ LABEL_32:
         v14 += v13;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v18 = *(*(&v22 + 1) + 8 * v16);
+          v18 = *(*(&v21 + 1) + 8 * v16);
           if (v18)
           {
             v19 = *(v18 + 8);
@@ -418,7 +415,7 @@ LABEL_32:
             v19 = 0;
           }
 
-          if ([v19 isEqualToString:{v7, v22}])
+          if ([v19 isEqualToString:{v7, v21}])
           {
 
             [*(self + 56) removeObjectAtIndex:v17];
@@ -430,7 +427,7 @@ LABEL_32:
         }
 
         while (v13 != v16);
-        v20 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v20 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
         v13 = v20;
       }
 
@@ -439,8 +436,6 @@ LABEL_32:
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendCachedMessage:(void *)message withData:
@@ -489,21 +484,21 @@ LABEL_19:
 
 - (void)stopStreaming
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self)
   {
     [(RMConnectionClient *)self stopStreamingInternal];
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v2 = *(self + 56);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v12;
+      v6 = *v11;
       while (2)
       {
         v7 = 0;
@@ -511,12 +506,12 @@ LABEL_19:
         v5 += v4;
         do
         {
-          if (*v12 != v6)
+          if (*v11 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * v7);
+          v9 = *(*(&v10 + 1) + 8 * v7);
           if (v9)
           {
             v9 = *(v9 + 24);
@@ -525,8 +520,8 @@ LABEL_19:
           if (v9)
           {
 
-            [*(self + 56) removeObjectAtIndex:{v8, v11}];
-            goto LABEL_14;
+            [*(self + 56) removeObjectAtIndex:{v8, v10}];
+            return;
           }
 
           ++v8;
@@ -534,7 +529,7 @@ LABEL_19:
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v4)
         {
           continue;
@@ -544,9 +539,6 @@ LABEL_19:
       }
     }
   }
-
-LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -620,7 +612,7 @@ void __39__RMConnectionClient_handleDaemonStart__block_invoke(uint64_t a1)
 
 void __39__RMConnectionClient_handleDaemonStart__block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -630,81 +622,75 @@ void __39__RMConnectionClient_handleDaemonStart__block_invoke_2(uint64_t a1)
   v3 = *(a1 + 32);
   if (v2)
   {
-    v16 = *MEMORY[0x277D85DE8];
 
     [(RMConnectionEndpoint *)v3 setPriorityBoostReplyMessage:?];
   }
 
-  else
+  else if (v3 && *(v3 + 64))
   {
-    if (v3 && *(v3 + 64))
+    v4 = *(a1 + 32);
+    if (v4)
     {
-      v4 = *(a1 + 32);
-      if (v4)
+      *(v4 + 72) *= 2;
+      v5 = *(a1 + 32);
+      if (v5)
       {
-        *(v4 + 72) *= 2;
-        v5 = *(a1 + 32);
-        if (v5)
+        if (*(v5 + 72) >= 0x81uLL)
         {
-          if (*(v5 + 72) >= 0x81uLL)
-          {
-            *(v5 + 72) = 128;
-          }
+          *(v5 + 72) = 128;
         }
       }
-
-      if (onceToken_ConnectionClient_Default != -1)
-      {
-        dispatch_once(&onceToken_ConnectionClient_Default, &__block_literal_global_3);
-      }
-
-      v6 = logObject_ConnectionClient_Default;
-      if (os_log_type_enabled(logObject_ConnectionClient_Default, OS_LOG_TYPE_DEBUG))
-      {
-        v8 = *(a1 + 32);
-        if (v8)
-        {
-          v8 = *(v8 + 72);
-        }
-
-        v17 = 134217984;
-        v18 = v8;
-        _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_DEBUG, "Connection still invalid, next reconnection attempt will be in %lu seconds", &v17, 0xCu);
-      }
-
-      v9 = *(a1 + 32);
-      if (v9)
-      {
-        objc_setProperty_nonatomic_copy(v9, v7, 0, 40);
-        v10 = *(a1 + 32);
-        if (v10)
-        {
-          v10 = v10[8];
-        }
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
-      v11 = *(a1 + 32);
-      if (v11)
-      {
-        v12 = 1000000000 * *(v11 + 72);
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      v13 = v10;
-      v14 = dispatch_time(0, v12);
-      dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
 
-    v15 = *MEMORY[0x277D85DE8];
+    if (onceToken_ConnectionClient_Default != -1)
+    {
+      dispatch_once(&onceToken_ConnectionClient_Default, &__block_literal_global_3);
+    }
+
+    v6 = logObject_ConnectionClient_Default;
+    if (os_log_type_enabled(logObject_ConnectionClient_Default, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = *(a1 + 32);
+      if (v8)
+      {
+        v8 = *(v8 + 72);
+      }
+
+      v15 = 134217984;
+      v16 = v8;
+      _os_log_impl(&dword_261A9A000, v6, OS_LOG_TYPE_DEBUG, "Connection still invalid, next reconnection attempt will be in %lu seconds", &v15, 0xCu);
+    }
+
+    v9 = *(a1 + 32);
+    if (v9)
+    {
+      objc_setProperty_nonatomic_copy(v9, v7, 0, 40);
+      v10 = *(a1 + 32);
+      if (v10)
+      {
+        v10 = v10[8];
+      }
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v11 = *(a1 + 32);
+    if (v11)
+    {
+      v12 = 1000000000 * *(v11 + 72);
+    }
+
+    else
+    {
+      v12 = 0;
+    }
+
+    v13 = v10;
+    v14 = dispatch_time(0, v12);
+    dispatch_source_set_timer(v13, v14, 0xFFFFFFFFFFFFFFFFLL, 0);
   }
 }
 
@@ -753,32 +739,31 @@ void __39__RMConnectionClient_handleDaemonStart__block_invoke_2(uint64_t a1)
   }
 }
 
-- (uint64_t)requestStreamingWithMessage:data:callback:.cold.1()
+- (uint64_t)requestStreamingWithMessage:(uint64_t)a1 data:callback:.cold.1(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _CLLogObjectForCategory_ConnectionClient_Default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v1, v2, "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v25, v26, v27, v28);
   }
 
-  v7 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_signpost_enabled(v7))
+  v9 = _CLLogObjectForCategory_ConnectionClient_Default(v8);
+  if (os_signpost_enabled(v9))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v8, v9, v10, "Stream requested while one is already present", "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v10, v11, v12, "Stream requested while one is already present", "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v25, v26, v27, v28);
   }
 
-  v13 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = _CLLogObjectForCategory_ConnectionClient_Default(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v14, v15, "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v17, v18, "{msg%{public}.0s:Stream requested while one is already present, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v25, v26, v27, v28);
   }
 
-  v20 = abort_report_np();
-  return __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke_cold_1(v20);
+  v23 = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/Common/RMConnectionClient.m", 168, "[RMConnectionClient requestStreamingWithMessage:data:callback:]");
+  return __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke_cold_1(v23);
 }
 
 uint64_t __64__RMConnectionClient_requestStreamingWithMessage_data_callback___block_invoke_cold_1(uint64_t a1)
@@ -816,60 +801,58 @@ uint64_t __64__RMConnectionClient_requestStreamingWithMessage_data_callback___bl
   return result;
 }
 
-- (uint64_t)endpointWasInterrupted:.cold.2()
+- (uint64_t)endpointWasInterrupted:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _CLLogObjectForCategory_ConnectionClient_Default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v1, v2, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v25, v26, v27, v28);
   }
 
-  v7 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_signpost_enabled(v7))
+  v9 = _CLLogObjectForCategory_ConnectionClient_Default(v8);
+  if (os_signpost_enabled(v9))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v8, v9, v10, "Received interruption event for an unmanaged endpoint", "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v10, v11, v12, "Received interruption event for an unmanaged endpoint", "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v25, v26, v27, v28);
   }
 
-  v13 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = _CLLogObjectForCategory_ConnectionClient_Default(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v14, v15, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v17, v18, "{msg%{public}.0s:Received interruption event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v25, v26, v27, v28);
   }
 
-  v20 = abort_report_np();
-  return [RMConnectionClient endpointWasInvalidated:v20];
+  v23 = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/Common/RMConnectionClient.m", 256, "[RMConnectionClient endpointWasInterrupted:]");
+  return [RMConnectionClient endpointWasInvalidated:v23];
 }
 
-- (uint64_t)endpointWasInvalidated:.cold.2()
+- (void)endpointWasInvalidated:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v0 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = _CLLogObjectForCategory_ConnectionClient_Default(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_261A9A000, v1, v2, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_2(&dword_261A9A000, v2, v3, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26);
   }
 
-  v7 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_signpost_enabled(v7))
+  v9 = _CLLogObjectForCategory_ConnectionClient_Default(v8);
+  if (os_signpost_enabled(v9))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_261A9A000, v8, v9, v10, "Received invalidation event for an unmanaged endpoint", "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_1(&dword_261A9A000, v10, v11, v12, "Received invalidation event for an unmanaged endpoint", "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v23, v24, v25, v26);
   }
 
-  v13 = _CLLogObjectForCategory_ConnectionClient_Default();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = _CLLogObjectForCategory_ConnectionClient_Default(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_261A9A000, v14, v15, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v22, v23, v24, v25, v26);
+    OUTLINED_FUNCTION_3(&dword_261A9A000, v17, v18, "{msg%{public}.0s:Received invalidation event for an unmanaged endpoint, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  v20 = abort_report_np();
-  return [RMInternalServiceClient parseSpiErrorReply:v20 forMessage:?];
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/RelativeMotion/Common/RMConnectionClient.m", 263, "[RMConnectionClient endpointWasInvalidated:]");
+  [RMInternalServiceClient parseSpiErrorReply:forMessage:];
 }
 
 @end

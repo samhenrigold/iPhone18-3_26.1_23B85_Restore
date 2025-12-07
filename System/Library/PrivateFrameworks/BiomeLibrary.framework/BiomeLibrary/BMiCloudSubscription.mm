@@ -16,7 +16,7 @@
 
 + (id)columns
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mlServerScore" dataType:1 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalQuota" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:3 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalUsed" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:3 convertedType:0];
@@ -25,17 +25,15 @@
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"commerceQuotaInBytes" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:3 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"iCloudSubscriptionEventType" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:4 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"displayEntry" dataType:0 requestOnly:0 fieldNumber:8 protoDataType:4 convertedType:0];
-  v13[0] = v2;
-  v13[1] = v3;
-  v13[2] = v4;
-  v13[3] = v5;
-  v13[4] = v6;
-  v13[5] = v7;
-  v13[6] = v8;
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[0] = v2;
+  v12[1] = v3;
+  v12[2] = v4;
+  v12[3] = v5;
+  v12[4] = v6;
+  v12[5] = v7;
+  v12[6] = v8;
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }
@@ -47,28 +45,7 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    if (-[BMiCloudSubscription hasMlServerScore](self, "hasMlServerScore") || [v5 hasMlServerScore])
-    {
-      if (![(BMiCloudSubscription *)self hasMlServerScore])
-      {
-        goto LABEL_35;
-      }
-
-      if (![v5 hasMlServerScore])
-      {
-        goto LABEL_35;
-      }
-
-      [(BMiCloudSubscription *)self mlServerScore];
-      v7 = v6;
-      [v5 mlServerScore];
-      if (v7 != v8)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    if ((!-[BMiCloudSubscription hasTotalQuota](self, "hasTotalQuota") && ![v5 hasTotalQuota] || -[BMiCloudSubscription hasTotalQuota](self, "hasTotalQuota") && objc_msgSend(v5, "hasTotalQuota") && (v9 = -[BMiCloudSubscription totalQuota](self, "totalQuota"), v9 == objc_msgSend(v5, "totalQuota"))) && (!-[BMiCloudSubscription hasTotalUsed](self, "hasTotalUsed") && !objc_msgSend(v5, "hasTotalUsed") || -[BMiCloudSubscription hasTotalUsed](self, "hasTotalUsed") && objc_msgSend(v5, "hasTotalUsed") && (v10 = -[BMiCloudSubscription totalUsed](self, "totalUsed"), v10 == objc_msgSend(v5, "totalUsed"))) && (!-[BMiCloudSubscription hasTotalAvailable](self, "hasTotalAvailable") && !objc_msgSend(v5, "hasTotalAvailable") || -[BMiCloudSubscription hasTotalAvailable](self, "hasTotalAvailable") && objc_msgSend(v5, "hasTotalAvailable") && (v11 = -[BMiCloudSubscription totalAvailable](self, "totalAvailable"), v11 == objc_msgSend(v5, "totalAvailable"))) && (!-[BMiCloudSubscription hasBundleQuotaInBytes](self, "hasBundleQuotaInBytes") && !objc_msgSend(v5, "hasBundleQuotaInBytes") || -[BMiCloudSubscription hasBundleQuotaInBytes](self, "hasBundleQuotaInBytes") && objc_msgSend(v5, "hasBundleQuotaInBytes") && (v12 = -[BMiCloudSubscription bundleQuotaInBytes](self, "bundleQuotaInBytes"), v12 == objc_msgSend(v5, "bundleQuotaInBytes"))) && (!-[BMiCloudSubscription hasCommerceQuotaInBytes](self, "hasCommerceQuotaInBytes") && !objc_msgSend(v5, "hasCommerceQuotaInBytes") || -[BMiCloudSubscription hasCommerceQuotaInBytes](self, "hasCommerceQuotaInBytes") && objc_msgSend(v5, "hasCommerceQuotaInBytes") && (v13 = -[BMiCloudSubscription commerceQuotaInBytes](self, "commerceQuotaInBytes"), v13 == objc_msgSend(v5, "commerceQuotaInBytes"))) && (v14 = -[BMiCloudSubscription iCloudSubscriptionEventType](self, "iCloudSubscriptionEventType"), v14 == objc_msgSend(v5, "iCloudSubscriptionEventType")))
+    if ((!-[BMiCloudSubscription hasMlServerScore](self, "hasMlServerScore") && ![v5 hasMlServerScore] || -[BMiCloudSubscription hasMlServerScore](self, "hasMlServerScore") && objc_msgSend(v5, "hasMlServerScore") && (-[BMiCloudSubscription mlServerScore](self, "mlServerScore"), v7 = v6, objc_msgSend(v5, "mlServerScore"), v7 == v8)) && (!-[BMiCloudSubscription hasTotalQuota](self, "hasTotalQuota") && !objc_msgSend(v5, "hasTotalQuota") || -[BMiCloudSubscription hasTotalQuota](self, "hasTotalQuota") && objc_msgSend(v5, "hasTotalQuota") && (v9 = -[BMiCloudSubscription totalQuota](self, "totalQuota"), v9 == objc_msgSend(v5, "totalQuota"))) && (!-[BMiCloudSubscription hasTotalUsed](self, "hasTotalUsed") && !objc_msgSend(v5, "hasTotalUsed") || -[BMiCloudSubscription hasTotalUsed](self, "hasTotalUsed") && objc_msgSend(v5, "hasTotalUsed") && (v10 = -[BMiCloudSubscription totalUsed](self, "totalUsed"), v10 == objc_msgSend(v5, "totalUsed"))) && (!-[BMiCloudSubscription hasTotalAvailable](self, "hasTotalAvailable") && !objc_msgSend(v5, "hasTotalAvailable") || -[BMiCloudSubscription hasTotalAvailable](self, "hasTotalAvailable") && objc_msgSend(v5, "hasTotalAvailable") && (v11 = -[BMiCloudSubscription totalAvailable](self, "totalAvailable"), v11 == objc_msgSend(v5, "totalAvailable"))) && (!-[BMiCloudSubscription hasBundleQuotaInBytes](self, "hasBundleQuotaInBytes") && !objc_msgSend(v5, "hasBundleQuotaInBytes") || -[BMiCloudSubscription hasBundleQuotaInBytes](self, "hasBundleQuotaInBytes") && objc_msgSend(v5, "hasBundleQuotaInBytes") && (v12 = -[BMiCloudSubscription bundleQuotaInBytes](self, "bundleQuotaInBytes"), v12 == objc_msgSend(v5, "bundleQuotaInBytes"))) && (!-[BMiCloudSubscription hasCommerceQuotaInBytes](self, "hasCommerceQuotaInBytes") && !objc_msgSend(v5, "hasCommerceQuotaInBytes") || -[BMiCloudSubscription hasCommerceQuotaInBytes](self, "hasCommerceQuotaInBytes") && objc_msgSend(v5, "hasCommerceQuotaInBytes") && (v13 = -[BMiCloudSubscription commerceQuotaInBytes](self, "commerceQuotaInBytes"), v13 == objc_msgSend(v5, "commerceQuotaInBytes"))) && (v14 = -[BMiCloudSubscription iCloudSubscriptionEventType](self, "iCloudSubscriptionEventType"), v14 == objc_msgSend(v5, "iCloudSubscriptionEventType")))
     {
       displayEntry = [(BMiCloudSubscription *)self displayEntry];
       v16 = displayEntry == [v5 displayEntry];
@@ -76,7 +53,6 @@
 
     else
     {
-LABEL_35:
       v16 = 0;
     }
   }
@@ -91,7 +67,7 @@ LABEL_35:
 
 - (id)jsonDictionary
 {
-  v30[8] = *MEMORY[0x1E69E9840];
+  v29[8] = *MEMORY[0x1E69E9840];
   if (![(BMiCloudSubscription *)self hasMlServerScore]|| ([(BMiCloudSubscription *)self mlServerScore], fabs(v3) == INFINITY))
   {
     v5 = 0;
@@ -127,22 +103,22 @@ LABEL_35:
 
   if ([(BMiCloudSubscription *)self hasTotalAvailable])
   {
-    v28 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMiCloudSubscription totalAvailable](self, "totalAvailable")}];
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-  if ([(BMiCloudSubscription *)self hasBundleQuotaInBytes])
-  {
-    v27 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMiCloudSubscription bundleQuotaInBytes](self, "bundleQuotaInBytes")}];
+    v27 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMiCloudSubscription totalAvailable](self, "totalAvailable")}];
   }
 
   else
   {
     v27 = 0;
+  }
+
+  if ([(BMiCloudSubscription *)self hasBundleQuotaInBytes])
+  {
+    v26 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMiCloudSubscription bundleQuotaInBytes](self, "bundleQuotaInBytes")}];
+  }
+
+  else
+  {
+    v26 = 0;
   }
 
   if ([(BMiCloudSubscription *)self hasCommerceQuotaInBytes])
@@ -157,76 +133,76 @@ LABEL_35:
 
   v9 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMiCloudSubscription iCloudSubscriptionEventType](self, "iCloudSubscriptionEventType")}];
   v10 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMiCloudSubscription displayEntry](self, "displayEntry")}];
-  v29[0] = @"mlServerScore";
+  v28[0] = @"mlServerScore";
   null = v5;
   if (!v5)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null;
-  v30[0] = null;
-  v29[1] = @"totalQuota";
+  v23 = null;
+  v29[0] = null;
+  v28[1] = @"totalQuota";
   null2 = v6;
   if (!v6)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null2;
-  v30[1] = null2;
-  v29[2] = @"totalUsed";
+  v22 = null2;
+  v29[1] = null2;
+  v28[2] = @"totalUsed";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = v5;
-  v22 = null3;
-  v30[2] = null3;
-  v29[3] = @"totalAvailable";
-  null4 = v28;
-  if (!v28)
+  v25 = v5;
+  v21 = null3;
+  v29[2] = null3;
+  v28[3] = @"totalAvailable";
+  null4 = v27;
+  if (!v27)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = v6;
-  v30[3] = null4;
-  v29[4] = @"bundleQuotaInBytes";
-  null5 = v27;
-  if (!v27)
+  v24 = v6;
+  v29[3] = null4;
+  v28[4] = @"bundleQuotaInBytes";
+  null5 = v26;
+  if (!v26)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = null5;
-  v29[5] = @"commerceQuotaInBytes";
+  v29[4] = null5;
+  v28[5] = @"commerceQuotaInBytes";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[5] = null6;
-  v29[6] = @"iCloudSubscriptionEventType";
+  v29[5] = null6;
+  v28[6] = @"iCloudSubscriptionEventType";
   null7 = v9;
   if (!v9)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[6] = null7;
-  v29[7] = @"displayEntry";
+  v29[6] = null7;
+  v28[7] = @"displayEntry";
   null8 = v10;
   if (!v10)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[7] = null8;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:8];
+  v29[7] = null8;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
   if (v10)
   {
     if (v9)
@@ -258,24 +234,24 @@ LABEL_38:
 LABEL_51:
 
 LABEL_39:
-  if (!v27)
+  if (!v26)
   {
   }
 
-  if (!v28)
+  if (!v27)
   {
   }
 
   if (v7)
   {
-    if (v25)
+    if (v24)
     {
       goto LABEL_45;
     }
 
 LABEL_53:
 
-    if (v26)
+    if (v25)
     {
       goto LABEL_46;
     }
@@ -283,13 +259,13 @@ LABEL_53:
     goto LABEL_54;
   }
 
-  if (!v25)
+  if (!v24)
   {
     goto LABEL_53;
   }
 
 LABEL_45:
-  if (v26)
+  if (v25)
   {
     goto LABEL_46;
   }
@@ -297,14 +273,13 @@ LABEL_45:
 LABEL_54:
 
 LABEL_46:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
 - (BMiCloudSubscription)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v89[1] = *MEMORY[0x1E69E9840];
+  v88[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"mlServerScore"];
   errorCopy = error;
@@ -327,10 +302,10 @@ LABEL_4:
 
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         v24 = *MEMORY[0x1E698F240];
-        v86 = *MEMORY[0x1E696A578];
+        v85 = *MEMORY[0x1E696A578];
         v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalQuota"];
-        v87 = v25;
-        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+        v86 = v25;
+        v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
         v27 = v23;
         v11 = v26;
         v10 = 0;
@@ -360,45 +335,45 @@ LABEL_4:
           goto LABEL_69;
         }
 
-        v71 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v70 = objc_alloc(MEMORY[0x1E696ABC0]);
         v29 = *MEMORY[0x1E698F240];
-        v84 = *MEMORY[0x1E696A578];
+        v83 = *MEMORY[0x1E696A578];
         v30 = v10;
         v31 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v58 = objc_opt_class();
+        v57 = objc_opt_class();
         v32 = v31;
         v10 = v30;
-        v73 = [v32 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v58, @"totalUsed"];
-        v85 = v73;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+        v72 = [v32 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v57, @"totalUsed"];
+        v84 = v72;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
         v34 = v29;
         v35 = v33;
         v25 = 0;
         v22 = 0;
-        *errorCopy = [v71 initWithDomain:v34 code:2 userInfo:v33];
+        *errorCopy = [v70 initWithDomain:v34 code:2 userInfo:v33];
 LABEL_68:
 
 LABEL_69:
         goto LABEL_70;
       }
 
-      v62 = v9;
+      v61 = v9;
       v12 = v7;
       selfCopy2 = self;
-      v70 = v11;
+      v69 = v11;
     }
 
     else
     {
-      v62 = v9;
+      v61 = v9;
       v12 = v7;
       selfCopy2 = self;
-      v70 = 0;
+      v69 = 0;
     }
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"totalAvailable"];
-    v60 = v11;
-    v65 = v14;
+    v59 = v11;
+    v64 = v14;
     if (v14 && (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -406,49 +381,49 @@ LABEL_69:
       {
         if (!error)
         {
-          v73 = 0;
+          v72 = 0;
           v22 = 0;
-          v25 = v70;
+          v25 = v69;
           self = selfCopy2;
           v7 = v12;
-          v9 = v62;
-          v35 = v65;
+          v9 = v61;
+          v35 = v64;
           goto LABEL_68;
         }
 
         v36 = objc_alloc(MEMORY[0x1E696ABC0]);
         v37 = v10;
         v38 = *MEMORY[0x1E698F240];
-        v82 = *MEMORY[0x1E696A578];
+        v81 = *MEMORY[0x1E696A578];
         errorCopy2 = error;
-        v68 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalAvailable"];
-        v83 = v68;
-        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalAvailable"];
+        v82 = v67;
+        v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
         v40 = v36;
-        v11 = v60;
+        v11 = v59;
         v41 = v38;
         v10 = v37;
-        v73 = 0;
+        v72 = 0;
         v22 = 0;
         *errorCopy2 = [v40 initWithDomain:v41 code:2 userInfo:v16];
-        v25 = v70;
+        v25 = v69;
         self = selfCopy2;
         v7 = v12;
-        v9 = v62;
+        v9 = v61;
         goto LABEL_67;
       }
 
-      v73 = v15;
+      v72 = v15;
     }
 
     else
     {
-      v73 = 0;
+      v72 = 0;
     }
 
     v16 = [dictionaryCopy objectForKeyedSubscript:@"bundleQuotaInBytes"];
     self = selfCopy2;
-    v67 = v8;
+    v66 = v8;
     if (v16)
     {
       objc_opt_class();
@@ -456,12 +431,12 @@ LABEL_69:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         objc_opt_class();
-        v9 = v62;
+        v9 = v61;
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (!errorCopy)
           {
-            v68 = 0;
+            v67 = 0;
             v22 = 0;
             goto LABEL_66;
           }
@@ -469,33 +444,33 @@ LABEL_69:
           v42 = objc_alloc(MEMORY[0x1E696ABC0]);
           v43 = v10;
           v44 = *MEMORY[0x1E698F240];
-          v80 = *MEMORY[0x1E696A578];
-          v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"bundleQuotaInBytes"];
-          v81 = v66;
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+          v79 = *MEMORY[0x1E696A578];
+          v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"bundleQuotaInBytes"];
+          v80 = v65;
+          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
           v45 = v42;
-          v11 = v60;
+          v11 = v59;
           v46 = v44;
           v10 = v43;
-          v68 = 0;
+          v67 = 0;
           v22 = 0;
           *errorCopy = [v45 initWithDomain:v46 code:2 userInfo:v17];
 LABEL_65:
 
-          v8 = v67;
+          v8 = v66;
 LABEL_66:
-          v25 = v70;
+          v25 = v69;
 LABEL_67:
 
-          v35 = v65;
+          v35 = v64;
           goto LABEL_68;
         }
 
-        v68 = v16;
+        v67 = v16;
 LABEL_24:
         v17 = [dictionaryCopy objectForKeyedSubscript:@"commerceQuotaInBytes"];
         selfCopy3 = self;
-        v61 = v10;
+        v60 = v10;
         if (v17 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           objc_opt_class();
@@ -503,29 +478,29 @@ LABEL_24:
           {
             if (!errorCopy)
             {
-              v66 = 0;
+              v65 = 0;
               v22 = 0;
               goto LABEL_65;
             }
 
             v47 = objc_alloc(MEMORY[0x1E696ABC0]);
             v48 = *MEMORY[0x1E698F240];
-            v78 = *MEMORY[0x1E696A578];
+            v77 = *MEMORY[0x1E696A578];
             v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"commerceQuotaInBytes"];
-            v79 = v19;
-            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-            v66 = 0;
+            v78 = v19;
+            v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+            v65 = 0;
             v22 = 0;
             *errorCopy = [v47 initWithDomain:v48 code:2 userInfo:v18];
             goto LABEL_64;
           }
 
-          v66 = v17;
+          v65 = v17;
         }
 
         else
         {
-          v66 = 0;
+          v65 = 0;
         }
 
         v18 = [dictionaryCopy objectForKeyedSubscript:@"iCloudSubscriptionEventType"];
@@ -549,16 +524,16 @@ LABEL_24:
                 goto LABEL_64;
               }
 
-              v63 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v54 = *MEMORY[0x1E698F240];
-              v76 = *MEMORY[0x1E696A578];
+              v62 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v53 = *MEMORY[0x1E698F240];
+              v75 = *MEMORY[0x1E696A578];
               v50 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"iCloudSubscriptionEventType"];
-              v77 = v50;
-              v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-              v55 = [v63 initWithDomain:v54 code:2 userInfo:v49];
+              v76 = v50;
+              v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+              v54 = [v62 initWithDomain:v53 code:2 userInfo:v49];
               v19 = 0;
               v22 = 0;
-              *errorCopy = v55;
+              *errorCopy = v54;
               goto LABEL_63;
             }
 
@@ -589,13 +564,13 @@ LABEL_24:
             {
               if (errorCopy)
               {
-                v64 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v59 = *MEMORY[0x1E698F240];
-                v74 = *MEMORY[0x1E696A578];
-                v56 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"displayEntry"];
-                v75 = v56;
-                v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
-                *errorCopy = [v64 initWithDomain:v59 code:2 userInfo:v57];
+                v63 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v58 = *MEMORY[0x1E698F240];
+                v73 = *MEMORY[0x1E696A578];
+                v55 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"displayEntry"];
+                v74 = v55;
+                v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+                *errorCopy = [v63 initWithDomain:v58 code:2 userInfo:v56];
               }
 
               v50 = 0;
@@ -614,27 +589,27 @@ LABEL_24:
           v50 = 0;
         }
 
-        v22 = -[BMiCloudSubscription initWithMlServerScore:totalQuota:totalUsed:totalAvailable:bundleQuotaInBytes:commerceQuotaInBytes:iCloudSubscriptionEventType:displayEntry:](selfCopy3, "initWithMlServerScore:totalQuota:totalUsed:totalAvailable:bundleQuotaInBytes:commerceQuotaInBytes:iCloudSubscriptionEventType:displayEntry:", v67, v61, v70, v73, v68, v66, __PAIR64__([v50 intValue], objc_msgSend(v19, "intValue")));
+        v22 = -[BMiCloudSubscription initWithMlServerScore:totalQuota:totalUsed:totalAvailable:bundleQuotaInBytes:commerceQuotaInBytes:iCloudSubscriptionEventType:displayEntry:](selfCopy3, "initWithMlServerScore:totalQuota:totalUsed:totalAvailable:bundleQuotaInBytes:commerceQuotaInBytes:iCloudSubscriptionEventType:displayEntry:", v66, v60, v69, v72, v67, v65, __PAIR64__([v50 intValue], objc_msgSend(v19, "intValue")));
         selfCopy3 = v22;
 LABEL_63:
 
 LABEL_64:
         self = selfCopy3;
-        v11 = v60;
-        v10 = v61;
+        v11 = v59;
+        v10 = v60;
         goto LABEL_65;
       }
 
-      v68 = 0;
+      v67 = 0;
     }
 
     else
     {
-      v68 = 0;
+      v67 = 0;
       v7 = v12;
     }
 
-    v9 = v62;
+    v9 = v61;
     goto LABEL_24;
   }
 
@@ -649,10 +624,10 @@ LABEL_64:
   {
     v20 = objc_alloc(MEMORY[0x1E696ABC0]);
     v21 = *MEMORY[0x1E698F240];
-    v88 = *MEMORY[0x1E696A578];
+    v87 = *MEMORY[0x1E696A578];
     v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mlServerScore"];
-    v89[0] = v10;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v89 forKeys:&v88 count:1];
+    v88[0] = v10;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1];
     v8 = 0;
     v22 = 0;
     *errorCopy = [v20 initWithDomain:v21 code:2 userInfo:v9];
@@ -665,7 +640,6 @@ LABEL_70:
   v22 = 0;
 LABEL_71:
 
-  v52 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -683,43 +657,35 @@ LABEL_71:
   toCopy = to;
   if (self->_hasMlServerScore)
   {
-    mlServerScore = self->_mlServerScore;
     PBDataWriterWriteDoubleField();
   }
 
   if (self->_hasTotalQuota)
   {
-    totalQuota = self->_totalQuota;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasTotalUsed)
   {
-    totalUsed = self->_totalUsed;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasTotalAvailable)
   {
-    totalAvailable = self->_totalAvailable;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasBundleQuotaInBytes)
   {
-    bundleQuotaInBytes = self->_bundleQuotaInBytes;
     PBDataWriterWriteInt64Field();
   }
 
   if (self->_hasCommerceQuotaInBytes)
   {
-    commerceQuotaInBytes = self->_commerceQuotaInBytes;
     PBDataWriterWriteInt64Field();
   }
 
-  iCloudSubscriptionEventType = self->_iCloudSubscriptionEventType;
   PBDataWriterWriteUint32Field();
-  displayEntry = self->_displayEntry;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1347,26 +1313,24 @@ LABEL_132:
 
 + (id)protoFields
 {
-  v13[8] = *MEMORY[0x1E69E9840];
+  v12[8] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mlServerScore" number:1 type:0 subMessageClass:0];
-  v13[0] = v2;
+  v12[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalQuota" number:2 type:3 subMessageClass:0];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalUsed" number:3 type:3 subMessageClass:0];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalAvailable" number:4 type:3 subMessageClass:0];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"bundleQuotaInBytes" number:5 type:3 subMessageClass:0];
-  v13[4] = v6;
+  v12[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"commerceQuotaInBytes" number:6 type:3 subMessageClass:0];
-  v13[5] = v7;
+  v12[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"iCloudSubscriptionEventType" number:7 type:4 subMessageClass:0];
-  v13[6] = v8;
+  v12[6] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"displayEntry" number:8 type:4 subMessageClass:0];
-  v13[7] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:8];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v12[7] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
 
   return v10;
 }

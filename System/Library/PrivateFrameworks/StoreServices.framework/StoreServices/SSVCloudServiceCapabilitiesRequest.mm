@@ -11,108 +11,110 @@
 {
   v44 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(blockCopy, v5) && _os_feature_enabled_impl())
   {
-    v5 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v5)
+    v6 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v6)
     {
-      v5 = +[SSLogConfig sharedConfig];
+      v6 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v5 shouldLog];
-    if ([v5 shouldLogToDisk])
+    shouldLog = [v6 shouldLog];
+    if ([v6 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      v8 = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      v8 = shouldLog;
     }
 
-    oSLogObject = [v5 OSLogObject];
+    oSLogObject = [v6 OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v9 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v9 = v7 & 2;
+      v10 = v8 & 2;
     }
 
-    if (v9)
+    if (v10)
     {
       v38 = 136446210;
       v39 = "[SSVCloudServiceCapabilitiesRequest startWithResponseBlock:]";
-      LODWORD(v35) = 12;
-      v34 = &v38;
-      v10 = _os_log_send_and_compose_impl();
 
-      if (!v10)
+      if (!v11)
       {
 LABEL_15:
 
         goto LABEL_16;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v38, v35}];
-      free(v10);
-      SSFileLog(v5, @"%@", v11, v12, v13, v14, v15, v16, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
+      free(v11);
+      SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
     }
 
     goto LABEL_15;
   }
 
 LABEL_16:
-  v17 = +[SSLogConfig sharedStoreServicesConfig];
-  if (!v17)
+  v18 = +[SSLogConfig sharedStoreServicesConfig];
+  if (!v18)
   {
-    v17 = +[SSLogConfig sharedConfig];
+    v18 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v17 shouldLog];
-  if ([v17 shouldLogToDisk])
+  shouldLog2 = [v18 shouldLog];
+  if ([v18 shouldLogToDisk])
   {
-    v19 = shouldLog2 | 2;
+    LODWORD(v20) = shouldLog2 | 2;
   }
 
   else
   {
-    v19 = shouldLog2;
+    LODWORD(v20) = shouldLog2;
   }
 
-  oSLogObject2 = [v17 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v18 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v19 &= 2u;
+    v20 = v20;
   }
 
-  if (!v19)
+  else
   {
-    goto LABEL_26;
+    v20 &= 2u;
   }
 
-  v21 = objc_opt_class();
-  v22 = *(&self->super._usesTaskCompletionAssertions + 1);
-  v23 = MEMORY[0x1E696AF00];
-  v24 = v21;
-  callStackSymbols = [v23 callStackSymbols];
+  if (!v20)
+  {
+    goto LABEL_27;
+  }
+
+  v22 = objc_opt_class();
+  v23 = *(&self->super._usesTaskCompletionAssertions + 1);
+  v24 = MEMORY[0x1E696AF00];
+  v25 = v22;
+  callStackSymbols = [v24 callStackSymbols];
   v38 = 138543874;
-  v39 = v21;
+  v39 = v22;
   v40 = 1024;
-  v41 = v22;
+  v41 = v23;
   v42 = 2114;
   v43 = callStackSymbols;
   LODWORD(v35) = 28;
-  v26 = _os_log_send_and_compose_impl();
+  v27 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 1, "%{public}@: Calling for capabilities. Allows privacy acknowledgement prompt: %{BOOL}d. callStack = %{public}@", &v38, v35);
 
-  if (v26)
+  if (v27)
   {
-    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v38, v35}];
-    free(v26);
-    SSFileLog(v17, @"%@", v27, v28, v29, v30, v31, v32, oSLogObject2);
-LABEL_26:
+    oSLogObject2 = [MEMORY[0x1E696AEC0] stringWithCString:v27 encoding:4];
+    free(v27);
+    SSFileLog(v18, @"%@", v28, v29, v30, v31, v32, v33, oSLogObject2);
+LABEL_27:
   }
 
   v36[0] = MEMORY[0x1E69E9820];
@@ -121,7 +123,7 @@ LABEL_26:
   v36[3] = &unk_1E84ABEF0;
   v36[4] = self;
   v37 = blockCopy;
-  v33 = blockCopy;
+  v34 = blockCopy;
   [(SSRequest *)self _startWithMessageID:175 messageBlock:v36];
 }
 

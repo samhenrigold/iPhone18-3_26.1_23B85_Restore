@@ -8,15 +8,18 @@
 - (int64_t)_pinnedBlockIndex;
 - (void)_updateSeparators;
 - (void)addConversationSearchOverlay;
+- (void)addHeaderBlock:(id)block animated:(BOOL)animated;
 - (void)displayMessageUsingViewModel:(id)model;
 - (void)drawRect:(CGRect)rect forViewPrintFormatter:(id)formatter;
 - (void)insertHeaderBlock:(id)block atIndex:(unint64_t)index animated:(BOOL)animated;
+- (void)insertHeaderBlock:(id)block before:(id)before animated:(BOOL)animated;
 - (void)layoutSubviews;
 - (void)removeAllHeaderBlocksAnimated:(BOOL)animated;
 - (void)removeConversationSearchOverlay;
 - (void)removeHeaderBlock:(id)block animated:(BOOL)animated;
 - (void)setBounds:(CGRect)bounds;
 - (void)setDisplayMetrics:(id)metrics;
+- (void)setHeaderBlocks:(id)blocks animated:(BOOL)animated;
 - (void)setMessageFlags:(unint64_t)flags conversationFlags:(unint64_t)conversationFlags;
 - (void)setPinnedBlock:(id)block;
 @end
@@ -203,10 +206,18 @@ void __26__MFMessageHeaderView_log__block_invoke(uint64_t a1)
   return result;
 }
 
+- (void)addHeaderBlock:(id)block animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  blockCopy = block;
+  headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
+  -[MFMessageHeaderView insertHeaderBlock:atIndex:animated:](self, "insertHeaderBlock:atIndex:animated:", blockCopy, [headerBlocks count], animatedCopy);
+}
+
 - (void)insertHeaderBlock:(id)block atIndex:(unint64_t)index animated:(BOOL)animated
 {
   animatedCopy = animated;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
   v10 = [headerBlocks containsObject:blockCopy];
@@ -249,12 +260,12 @@ void __26__MFMessageHeaderView_log__block_invoke(uint64_t a1)
       [(MFMessageHeaderView *)self layoutIfNeeded];
       [MEMORY[0x277CCAAD0] deactivateConstraints:v19];
       [(MFMessageHeaderView *)self insertArrangedSubview:blockCopy atIndex:index];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __58__MFMessageHeaderView_insertHeaderBlock_atIndex_animated___block_invoke;
-      v25[3] = &unk_2781816C0;
-      v25[4] = self;
-      [(MFMessageHeaderView *)self _layoutAnimatedBlock:v25 completion:0];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __58__MFMessageHeaderView_insertHeaderBlock_atIndex_animated___block_invoke;
+      v24[3] = &unk_2781816C0;
+      v24[4] = self;
+      [(MFMessageHeaderView *)self _layoutAnimatedBlock:v24 completion:0];
     }
 
     else
@@ -269,16 +280,14 @@ void __26__MFMessageHeaderView_log__block_invoke(uint64_t a1)
       viewModel3 = [(MFMessageHeaderView *)self viewModel];
       itemID = [viewModel3 itemID];
       *buf = 138412802;
-      v27 = v21;
-      v28 = 2048;
-      v29 = blockCopy;
-      v30 = 2114;
-      v31 = itemID;
+      v26 = v21;
+      v27 = 2048;
+      v28 = blockCopy;
+      v29 = 2114;
+      v30 = itemID;
       _os_log_impl(&dword_2149C9000, v20, OS_LOG_TYPE_DEFAULT, "Inserting headerView block <%@: %p> for itemID: %{public}@", buf, 0x20u);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeHeaderBlock:(id)block animated:(BOOL)animated
@@ -334,39 +343,154 @@ uint64_t __50__MFMessageHeaderView_removeHeaderBlock_animated___block_invoke(uin
 
 - (void)removeAllHeaderBlocksAnimated:(BOOL)animated
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(MFMessageHeaderView *)self setPinnedBlock:0];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
-  v5 = [headerBlocks countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [headerBlocks countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(headerBlocks);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 removeFromSuperview];
         [(MFMessageHeaderView *)self removeArrangedSubview:v8];
       }
 
-      v5 = [headerBlocks countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [headerBlocks countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   [(NSMutableArray *)self->_headerBlocks removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
+}
+
+- (void)insertHeaderBlock:(id)block before:(id)before animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  blockCopy = block;
+  beforeCopy = before;
+  if (!blockCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"MFMessageHeaderView.m" lineNumber:215 description:{@"Invalid parameter not satisfying: %@", @"newBlock"}];
+  }
+
+  headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
+  v11 = [headerBlocks indexOfObject:beforeCopy];
+  if ([headerBlocks indexOfObject:blockCopy] != 0x7FFFFFFFFFFFFFFFLL)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"MFMessageHeaderView.m" lineNumber:219 description:@"newBlock cannot exist in headerBlocks."];
+  }
+
+  if (v11 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [(MFMessageHeaderView *)self addHeaderBlock:blockCopy animated:animatedCopy];
+  }
+
+  else
+  {
+    [(MFMessageHeaderView *)self insertHeaderBlock:blockCopy atIndex:v11 animated:animatedCopy];
+  }
+}
+
+- (void)setHeaderBlocks:(id)blocks animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v29 = *MEMORY[0x277D85DE8];
+  blocksCopy = blocks;
+  if (([(NSMutableArray *)self->_headerBlocks isEqualToArray:blocksCopy]& 1) == 0)
+  {
+    if ([(NSMutableArray *)self->_headerBlocks count])
+    {
+      v7 = [blocksCopy differenceFromArray:self->_headerBlocks];
+      removals = [v7 removals];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __48__MFMessageHeaderView_setHeaderBlocks_animated___block_invoke;
+      v21[3] = &unk_278182308;
+      v21[4] = self;
+      v22 = animatedCopy;
+      [removals enumerateObjectsWithOptions:2 usingBlock:v21];
+
+      v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
+      insertions = [v7 insertions];
+      v10 = [insertions countByEnumeratingWithState:&v17 objects:v27 count:16];
+      if (v10)
+      {
+        v11 = *v18;
+        do
+        {
+          v12 = 0;
+          do
+          {
+            if (*v18 != v11)
+            {
+              objc_enumerationMutation(insertions);
+            }
+
+            v13 = [blocksCopy objectAtIndexedSubscript:{objc_msgSend(*(*(&v17 + 1) + 8 * v12), "index")}];
+            [(MFMessageHeaderView *)self addHeaderBlock:v13 animated:animatedCopy];
+
+            ++v12;
+          }
+
+          while (v10 != v12);
+          v10 = [insertions countByEnumeratingWithState:&v17 objects:v27 count:16];
+        }
+
+        while (v10);
+      }
+    }
+
+    else
+    {
+      v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
+      v7 = blocksCopy;
+      v14 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      if (v14)
+      {
+        v15 = *v24;
+        do
+        {
+          v16 = 0;
+          do
+          {
+            if (*v24 != v15)
+            {
+              objc_enumerationMutation(v7);
+            }
+
+            [(MFMessageHeaderView *)self addHeaderBlock:*(*(&v23 + 1) + 8 * v16++) animated:animatedCopy];
+          }
+
+          while (v14 != v16);
+          v14 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        }
+
+        while (v14);
+      }
+    }
+  }
 }
 
 void __48__MFMessageHeaderView_setHeaderBlocks_animated___block_invoke(uint64_t a1, void *a2)
@@ -426,40 +550,40 @@ LABEL_6:
 
 - (id)_animationConstraintsForBlockAtIndex:(unint64_t)index
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   if (index)
   {
     headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
     v6 = [headerBlocks objectAtIndexedSubscript:index - 1];
 
-    v25 = v6;
+    v24 = v6;
     [v6 bottomAnchor];
   }
 
   else
   {
-    v25 = 0;
+    v24 = 0;
     [(MFMessageHeaderView *)self topAnchor];
   }
-  v24 = ;
+  v23 = ;
   headerBlocks2 = [(MFMessageHeaderView *)self headerBlocks];
   v8 = [headerBlocks2 objectAtIndexedSubscript:index];
 
   bottomAnchor = [v8 bottomAnchor];
-  v9 = [bottomAnchor constraintEqualToAnchor:v24];
-  v26[0] = v9;
+  v9 = [bottomAnchor constraintEqualToAnchor:v23];
+  v25[0] = v9;
   leadingAnchor = [v8 leadingAnchor];
   leadingAnchor2 = [(MFMessageHeaderView *)self leadingAnchor];
   v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v26[1] = v12;
+  v25[1] = v12;
   trailingAnchor = [v8 trailingAnchor];
   trailingAnchor2 = [(MFMessageHeaderView *)self trailingAnchor];
   v15 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v26[2] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+  v25[2] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
   v17 = [v16 mutableCopy];
 
-  backgroundColor = [v25 backgroundColor];
+  backgroundColor = [v24 backgroundColor];
   LOBYTE(trailingAnchor) = [backgroundColor mf_isTranslucent];
 
   if (trailingAnchor)
@@ -469,14 +593,12 @@ LABEL_6:
     [v17 addObject:v20];
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)displayMessageUsingViewModel:(id)model
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   viewModel = [(MFMessageHeaderView *)self viewModel];
 
@@ -489,38 +611,38 @@ LABEL_6:
       v7 = objc_opt_class();
       itemID = [modelCopy itemID];
       *buf = 138412802;
-      v20 = v7;
-      v21 = 2048;
+      v19 = v7;
+      v20 = 2048;
       selfCopy = self;
-      v23 = 2114;
-      v24 = itemID;
+      v22 = 2114;
+      v23 = itemID;
       _os_log_impl(&dword_2149C9000, v6, OS_LOG_TYPE_DEFAULT, "<%@: %p> Setting up view model for itemID: %{public}@", buf, 0x20u);
     }
 
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
-    v10 = [headerBlocks countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v10 = [headerBlocks countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v10)
     {
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         v12 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(headerBlocks);
           }
 
-          [*(*(&v14 + 1) + 8 * v12++) displayMessageUsingViewModel:modelCopy];
+          [*(*(&v13 + 1) + 8 * v12++) displayMessageUsingViewModel:modelCopy];
         }
 
         while (v10 != v12);
-        v10 = [headerBlocks countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [headerBlocks countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -528,8 +650,6 @@ LABEL_6:
 
     [(MFMessageHeaderView *)self setNeedsLayout];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMessageFlags:(unint64_t)flags conversationFlags:(unint64_t)conversationFlags
@@ -561,31 +681,31 @@ void __57__MFMessageHeaderView_setMessageFlags_conversationFlags___block_invoke(
 
 - (void)setDisplayMetrics:(id)metrics
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   if (![(MFMessageDisplayMetrics *)self->_displayMetrics isEqual:metricsCopy])
   {
     objc_storeStrong(&self->_displayMetrics, metrics);
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     headerBlocks = [(MFMessageHeaderView *)self headerBlocks];
-    v7 = [headerBlocks countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [headerBlocks countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         v9 = 0;
         do
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(headerBlocks);
           }
 
-          v10 = *(*(&v13 + 1) + 8 * v9);
+          v10 = *(*(&v12 + 1) + 8 * v9);
           displayMetrics = [(MFMessageHeaderView *)self displayMetrics];
           [v10 setDisplayMetrics:displayMetrics];
 
@@ -593,7 +713,7 @@ void __57__MFMessageHeaderView_setMessageFlags_conversationFlags___block_invoke(
         }
 
         while (v7 != v9);
-        v7 = [headerBlocks countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [headerBlocks countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -602,8 +722,6 @@ void __57__MFMessageHeaderView_setMessageFlags_conversationFlags___block_invoke(
     [(MFMessageHeaderView *)self setNeedsUpdateConstraints];
     [(MFMessageHeaderView *)self setNeedsLayout];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSeparators

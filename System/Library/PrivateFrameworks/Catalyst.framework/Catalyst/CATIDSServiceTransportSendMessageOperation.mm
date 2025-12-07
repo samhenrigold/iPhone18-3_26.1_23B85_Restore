@@ -24,7 +24,7 @@ void __55___CATIDSServiceTransportSendMessageOperation_sendData__block_invoke(ui
   v4 = v3;
   v8 = v4;
   v5 = v7;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(v5);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_4;

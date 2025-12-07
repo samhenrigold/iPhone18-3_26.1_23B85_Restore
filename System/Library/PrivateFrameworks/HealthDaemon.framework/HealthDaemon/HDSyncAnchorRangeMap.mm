@@ -15,40 +15,40 @@
 
 - (HDSyncAnchorRangeMap)initWithCodableSyncAnchorRangeMap:(id)map error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   mapCopy = map;
-  v34.receiver = self;
-  v34.super_class = HDSyncAnchorRangeMap;
-  v7 = [(HDSyncAnchorRangeMap *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HDSyncAnchorRangeMap;
+  v7 = [(HDSyncAnchorRangeMap *)&v33 init];
   if (!v7)
   {
     goto LABEL_23;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   anchorRanges = [mapCopy anchorRanges];
-  v9 = [anchorRanges countByEnumeratingWithState:&v30 objects:v37 count:16];
+  v9 = [anchorRanges countByEnumeratingWithState:&v29 objects:v36 count:16];
   if (!v9)
   {
     goto LABEL_22;
   }
 
   v10 = v9;
-  v11 = *v31;
+  v11 = *v30;
   do
   {
     v12 = 0;
     do
     {
-      if (*v31 != v11)
+      if (*v30 != v11)
       {
         objc_enumerationMutation(anchorRanges);
       }
 
-      v13 = *(*(&v30 + 1) + 8 * v12);
+      v13 = *(*(&v29 + 1) + 8 * v12);
       if (![v13 hasStartAnchor] || !objc_msgSend(v13, "hasEndAnchor") || !objc_msgSend(v13, "hasEntityType"))
       {
         v27 = @"Codable sync anchor range %@ does not contain all required fields.";
@@ -102,7 +102,7 @@ LABEL_16:
         v23 = v22;
         entityType = [v13 entityType];
         *buf = 134217984;
-        v36 = entityType;
+        v35 = entityType;
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "Codable sync anchor range contains invalid sync entity type (%lld) which will be ignored.", buf, 0xCu);
       }
 
@@ -111,7 +111,7 @@ LABEL_17:
     }
 
     while (v10 != v12);
-    v25 = [anchorRanges countByEnumeratingWithState:&v30 objects:v37 count:16];
+    v25 = [anchorRanges countByEnumeratingWithState:&v29 objects:v36 count:16];
     v10 = v25;
   }
 
@@ -122,7 +122,6 @@ LABEL_23:
   v26 = v7;
 LABEL_27:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
@@ -272,29 +271,29 @@ uint64_t __75__HDSyncAnchorRangeMap_enumerateAnchorRangesAndEntityIdentifiersWit
 
 - (id)description
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = self->_anchorRangesByEntityIdentifier;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       v8 = 0;
       do
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * v8);
+        v9 = *(*(&v21 + 1) + 8 * v8);
         v10 = [(NSMutableDictionary *)self->_anchorRangesByEntityIdentifier objectForKeyedSubscript:v9];
         if (v10)
         {
@@ -315,7 +314,7 @@ uint64_t __75__HDSyncAnchorRangeMap_enumerateAnchorRangesAndEntityIdentifiersWit
       }
 
       while (v6 != v8);
-      v14 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v14 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
       v6 = v14;
     }
 
@@ -323,13 +322,11 @@ uint64_t __75__HDSyncAnchorRangeMap_enumerateAnchorRangesAndEntityIdentifiersWit
   }
 
   v15 = MEMORY[0x277CCACA8];
-  v21.receiver = self;
-  v21.super_class = HDSyncAnchorRangeMap;
-  v16 = [(HDSyncAnchorRangeMap *)&v21 description];
+  v20.receiver = self;
+  v20.super_class = HDSyncAnchorRangeMap;
+  v16 = [(HDSyncAnchorRangeMap *)&v20 description];
   v17 = [v3 componentsJoinedByString:{@", "}];
   v18 = [v15 stringWithFormat:@"<%@ %@>", v16, v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -369,30 +366,30 @@ LABEL_7:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   [coderCopy encodeObject:self->_anchorRangesByEntityIdentifier forKey:@"AnchorRangesByEntityIdentifier"];
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = self->_anchorRangesByEntityIdentifier;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         schemaIdentifier = [v10 schemaIdentifier];
 
         if (!schemaIdentifier)
@@ -403,30 +400,29 @@ LABEL_7:
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   [coderCopy encodeObject:v4 forKey:@"AnchorRangesByObjectType"];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSyncAnchorRangeMap)initWithCoder:(id)coder
 {
-  v37[3] = *MEMORY[0x277D85DE8];
+  v36[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v34.receiver = self;
-  v34.super_class = HDSyncAnchorRangeMap;
-  v5 = [(HDSyncAnchorRangeMap *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = HDSyncAnchorRangeMap;
+  v5 = [(HDSyncAnchorRangeMap *)&v33 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v37[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:3];
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v36[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"AnchorRangesByEntityIdentifier"];
@@ -436,38 +432,38 @@ LABEL_7:
     if (!v5->_anchorRangesByEntityIdentifier)
     {
       v11 = MEMORY[0x277CBEB98];
-      v36[0] = objc_opt_class();
-      v36[1] = objc_opt_class();
-      v36[2] = objc_opt_class();
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
+      v35[0] = objc_opt_class();
+      v35[1] = objc_opt_class();
+      v35[2] = objc_opt_class();
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
       v13 = [v11 setWithArray:v12];
-      v29 = coderCopy;
+      v28 = coderCopy;
       v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"AnchorRangesByObjectType"];
 
       v15 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v16 = v5->_anchorRangesByEntityIdentifier;
       v5->_anchorRangesByEntityIdentifier = v15;
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v17 = v14;
-      v18 = [v17 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v31;
+        v20 = *v30;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v31 != v20)
+            if (*v30 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v30 + 1) + 8 * i);
+            v22 = *(*(&v29 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -484,17 +480,16 @@ LABEL_7:
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
         while (v19);
       }
 
-      coderCopy = v29;
+      coderCopy = v28;
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -3,6 +3,7 @@
 - (_INPBEnergyValue)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)unitAsString:(int)string;
 - (int)StringAsUnit:(id)unit;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -199,25 +200,23 @@ LABEL_16:
   toCopy = to;
   if ([(_INPBEnergyValue *)self hasMagnitude])
   {
-    magnitude = self->_magnitude;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBEnergyValue *)self hasUnit])
   {
-    unit = self->_unit;
     PBDataWriterWriteInt32Field();
   }
 
   valueMetadata = [(_INPBEnergyValue *)self valueMetadata];
 
-  v7 = toCopy;
+  v5 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBEnergyValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v7 = toCopy;
+    v5 = toCopy;
   }
 }
 
@@ -257,6 +256,21 @@ LABEL_16:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)unitAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7287348 + string);
   }
 
   return v4;

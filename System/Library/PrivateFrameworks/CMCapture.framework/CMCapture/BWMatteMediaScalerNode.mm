@@ -1,9 +1,9 @@
 @interface BWMatteMediaScalerNode
 + (void)initialize;
 - (BWMatteMediaScalerNode)initWithBasePoolCapacity:(int)capacity;
+- (id)mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:;
 - (uint64_t)_outputDimensionsForAttachedMediaKey:(unint64_t)key attachedMediaMainImageDownscalingFactor:(unint64_t)factor primaryMediaWidth:(float)width primaryMediaHeight:requestedWidth:requestedHeight:zoomWithoutUpscalingEnabled:aspectRatio:inputDimensions:;
 - (uint64_t)_zoomAttachedMedia:(CMAttachmentBearerRef)target sampleBuffer:;
-- (uint64_t)mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:;
 - (void)_purgeResourcesLeavingThemForMediaToProcess:(uint64_t)process;
 - (void)_rebuildBufferPoolForAttachedMediaKey:(float)key attachedMediaMainImageDownscalingFactor:(uint64_t)factor inputDimensions:(uint64_t)dimensions outputDimensions:(void *)outputDimensions settings:;
 - (void)dealloc;
@@ -167,7 +167,7 @@
   [(BWNode *)&v8 didReachEndOfDataForConfigurationID:d input:input];
 }
 
-- (uint64_t)mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:
+- (id)mainImageDownscalingFactorForAttachedMediaKey:(void *)key attachedMediaMetadata:
 {
   if (result)
   {
@@ -175,7 +175,7 @@
     result = [objc_msgSend(key objectForKeyedSubscript:{*off_1E798A788), "floatValue"}];
     if (*(v4 + 177) != 1 || v5 == 0.0)
     {
-      v6 = [*(v4 + 144) objectForKeyedSubscript:a2];
+      v6 = [v4[18] objectForKeyedSubscript:a2];
 
       return [v6 floatValue];
     }
@@ -191,7 +191,7 @@
     [a2 count];
     array = [MEMORY[0x1E695DF70] array];
     v5 = *(process + 160);
-    v13 = OUTLINED_FUNCTION_4_2(array, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, 0);
+    v13 = OUTLINED_FUNCTION_4_2(array, v6, v7, v8, v9, v10, v11, v12, v27, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57);
     if (v13)
     {
       v14 = v13;
@@ -213,7 +213,7 @@
           }
         }
 
-        v14 = OUTLINED_FUNCTION_4_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v59);
+        v14 = OUTLINED_FUNCTION_4_2(v18, v19, v20, v21, v22, v23, v24, v25, v28, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58);
       }
 
       while (v14);
@@ -237,7 +237,7 @@
   v6 = MEMORY[0x1E695FF58];
   if (*MEMORY[0x1E695FF58] == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822149677);
   }
 
   if (!buffer || (ImageBuffer = CMSampleBufferGetImageBuffer(buffer)) == 0 || (v8 = ImageBuffer, Width = CVPixelBufferGetWidth(ImageBuffer), Height = CVPixelBufferGetHeight(v8), !CMGetAttachment(buffer, *off_1E798A3C8, 0)) || (v11 = CMGetAttachment(buffer, @"StillSettings", 0)) == 0)
@@ -255,6 +255,8 @@
   v13 = Width | (Height << 32);
   if (dword_1EB58E4E0)
   {
+    HIDWORD(v53) = 0;
+    BYTE3(v53) = 0;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     OUTLINED_FUNCTION_2_4();
@@ -269,40 +271,36 @@
 
   else
   {
-    selfCopy = self;
     v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:{0x1F21AABB0, @"PersonSemanticsHair", @"PersonSemanticsSkin", @"PersonSemanticsTeeth", @"PersonSemanticsGlasses", 0}];
     v18 = [MEMORY[0x1E695DF70] arrayWithArray:v17];
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v26 = OUTLINED_FUNCTION_3_9(v18, v19, v20, v21, v22, v23, v24, v25);
+    memset(v55, 0, sizeof(v55));
+    v26 = OUTLINED_FUNCTION_3_9(v18, v19, v20, v21, v22, v23, v24, v25, v41, v43, v44, v46, v48, v50, self, v53);
     if (v26)
     {
       v27 = v26;
-      v28 = *v44;
+      v28 = **&v55[1];
       do
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v44 != v28)
+          if (**&v55[1] != v28)
           {
             objc_enumerationMutation(v17);
           }
 
-          v30 = *(*(&v43 + 1) + 8 * i);
-          AttachedMedia = [v30 isEqualToString:@"PrimaryFormat"];
-          if ((AttachedMedia & 1) == 0)
+          v30 = *(*(&v55[0] + 1) + 8 * i);
+          isEqualToString = objc_msgSend_isEqualToString_(v30);
+          if ((isEqualToString & 1) == 0)
           {
-            AttachedMedia = BWSampleBufferGetAttachedMedia(buffer, v30);
-            if (!AttachedMedia)
+            isEqualToString = BWSampleBufferGetAttachedMedia(buffer, v30);
+            if (!isEqualToString)
             {
-              AttachedMedia = [v18 removeObject:v30];
+              isEqualToString = [v18 removeObject:v30];
             }
           }
         }
 
-        v27 = OUTLINED_FUNCTION_3_9(AttachedMedia, v32, v33, v34, v35, v36, v37, v38);
+        v27 = OUTLINED_FUNCTION_3_9(isEqualToString, v32, v33, v34, v35, v36, v37, v38, v40, v42, v45, v47, v49, v51, v52, v54);
       }
 
       while (v27);
@@ -310,7 +308,7 @@
 
     v16 = [v18 copy];
     v6 = MEMORY[0x1E695FF58];
-    self = selfCopy;
+    self = v52;
   }
 
   if (![v16 count])
@@ -345,7 +343,7 @@ LABEL_32:
 LABEL_35:
   if (*v6 == 1)
   {
-    OUTLINED_FUNCTION_5_14();
+    OUTLINED_FUNCTION_5_14(822149678);
   }
 }
 
@@ -564,30 +562,31 @@ LABEL_20:
 
   if (width == 0.0)
   {
-    if ([*(self + 152) objectForKeyedSubscript:a2])
+    if ([*(self + 152) objectForKeyedSubscript:{a2, factor}])
     {
-      v11 = MEMORY[0x1E695F060];
+      v12 = MEMORY[0x1E695F060];
       size = *MEMORY[0x1E695F060];
       CGSizeMakeWithDictionaryRepresentation([*(self + 152) objectForKeyedSubscript:a2], &size);
-      if (size.width != *v11 || size.height != v11[1])
+      if (size.width != *v12 || size.height != v12[1])
       {
         width = size.width;
-        v8 = size.height << 32;
-        return v8 | width;
+        v9 = size.height << 32;
+        return v9 | width;
       }
 
-      FigDebugAssert3();
+      v15 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v15, v5, *&size.width, *&size.height, v17, v18, v19, v20);
     }
 
 LABEL_11:
-    v8 = 0;
+    v9 = 0;
     width = 0;
-    return v8 | width;
+    return v9 | width;
   }
 
   width = FigCaptureRoundFloatToMultipleOf(2, key / width);
-  v8 = FigCaptureRoundFloatToMultipleOf(2, factor / width) << 32;
-  return v8 | width;
+  v9 = FigCaptureRoundFloatToMultipleOf(2, factor / width) << 32;
+  return v9 | width;
 }
 
 - (void)_rebuildBufferPoolForAttachedMediaKey:(float)key attachedMediaMainImageDownscalingFactor:(uint64_t)factor inputDimensions:(uint64_t)dimensions outputDimensions:(void *)outputDimensions settings:

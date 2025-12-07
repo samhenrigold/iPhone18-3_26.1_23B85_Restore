@@ -49,21 +49,21 @@
 
 - (FCAVAssetFactoryType)avAssetFactory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   avAssetFactory = self->_avAssetFactory;
   if (!avAssetFactory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_avAssetFactory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_avAssetFactory"];
       *buf = 136315906;
-      v8 = "[FCContentContext avAssetFactory]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 631;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext avAssetFactory]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 631;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       avAssetFactory = self->_avAssetFactory;
@@ -74,8 +74,6 @@
       avAssetFactory = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return avAssetFactory;
 }
@@ -90,33 +88,10 @@
 
 - (id)news_core_ConfigurationManager
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationManager = self->_configurationManager;
-  if (configurationManager)
+  if (configurationManager || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"], *buf = 136315906, v8 = "-[FCContentContext news_core_ConfigurationManager]", v9 = 2080, v10 = "FCContentContext.m", v11 = 1024, v12 = 605, v13 = 2114, v14 = v6, _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u), v6, (configurationManager = self->_configurationManager) != 0))
   {
-    goto LABEL_12;
-  }
-
-  if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"];
-  *buf = 136315906;
-  v9 = "[FCContentContext news_core_ConfigurationManager]";
-  v10 = 2080;
-  v11 = "FCContentContext.m";
-  v12 = 1024;
-  v13 = 605;
-  v14 = 2114;
-  v15 = v7;
-  _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  configurationManager = self->_configurationManager;
-  if (configurationManager)
-  {
-LABEL_12:
     if ([(FCCoreConfigurationManager *)configurationManager conformsToProtocol:&unk_1F2E7AD38])
     {
       v3 = configurationManager;
@@ -130,32 +105,29 @@ LABEL_12:
 
   else
   {
-LABEL_6:
     v3 = 0;
   }
 
-  result = v3;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3;
 }
 
 - (FCContentContextInternal)internalContentContext
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   internalContentContext = self->_internalContentContext;
   if (!internalContentContext)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_internalContentContext"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_internalContentContext"];
       *buf = 136315906;
-      v8 = "[FCContentContext internalContentContext]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 798;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext internalContentContext]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 798;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       internalContentContext = self->_internalContentContext;
@@ -167,40 +139,15 @@ LABEL_6:
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return internalContentContext;
 }
 
 - (FCNewsAppConfigurationManager)appConfigurationManager
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationManager = self->_configurationManager;
-  if (configurationManager)
+  if (configurationManager || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"], *buf = 136315906, v8 = "-[FCContentContext appConfigurationManager]", v9 = 2080, v10 = "FCContentContext.m", v11 = 1024, v12 = 598, v13 = 2114, v14 = v6, _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u), v6, (configurationManager = self->_configurationManager) != 0))
   {
-    goto LABEL_12;
-  }
-
-  if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"];
-  *buf = 136315906;
-  v9 = "[FCContentContext appConfigurationManager]";
-  v10 = 2080;
-  v11 = "FCContentContext.m";
-  v12 = 1024;
-  v13 = 598;
-  v14 = 2114;
-  v15 = v7;
-  _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  configurationManager = self->_configurationManager;
-  if (configurationManager)
-  {
-LABEL_12:
     if ([(FCCoreConfigurationManager *)configurationManager conformsToProtocol:&unk_1F2E7AD38])
     {
       v3 = configurationManager;
@@ -214,32 +161,29 @@ LABEL_12:
 
   else
   {
-LABEL_6:
     v3 = 0;
   }
 
-  result = v3;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3;
 }
 
 - (FCCoreConfigurationManager)configurationManager
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   configurationManager = self->_configurationManager;
   if (!configurationManager)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"];
       *buf = 136315906;
-      v8 = "[FCContentContext configurationManager]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 592;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext configurationManager]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 592;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       configurationManager = self->_configurationManager;
@@ -250,8 +194,6 @@ LABEL_6:
       configurationManager = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return configurationManager;
 }
@@ -265,21 +207,21 @@ LABEL_6:
 
 - (NSString)contentDirectory
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   contentDirectory = self->_contentDirectory;
   if (!contentDirectory)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_contentDirectory"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_contentDirectory"];
       *buf = 136315906;
-      v8 = "[FCContentContext contentDirectory]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 655;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext contentDirectory]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 655;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       contentDirectory = self->_contentDirectory;
@@ -291,28 +233,26 @@ LABEL_6:
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return contentDirectory;
 }
 
 - (FCTagController)tagController
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   tagController = self->_tagController;
   if (!tagController)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_tagController"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_tagController"];
       *buf = 136315906;
-      v8 = "[FCContentContext tagController]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 643;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext tagController]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 643;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       tagController = self->_tagController;
@@ -324,28 +264,26 @@ LABEL_6:
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return tagController;
 }
 
 - (FCAssetManager)assetManager
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   assetManager = self->_assetManager;
   if (!assetManager)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_assetManager"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_assetManager"];
       *buf = 136315906;
-      v8 = "[FCContentContext assetManager]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 619;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext assetManager]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 619;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       assetManager = self->_assetManager;
@@ -357,28 +295,26 @@ LABEL_6:
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return assetManager;
 }
 
 - (FCAVAssetPrewarming)avAssetPrewarmer
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   avAssetPrewarmer = self->_avAssetPrewarmer;
   if (!avAssetPrewarmer)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_avAssetPrewarmer"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_avAssetPrewarmer"];
       *buf = 136315906;
-      v8 = "[FCContentContext avAssetPrewarmer]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 625;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext avAssetPrewarmer]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 625;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       avAssetPrewarmer = self->_avAssetPrewarmer;
@@ -389,8 +325,6 @@ LABEL_6:
       avAssetPrewarmer = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return avAssetPrewarmer;
 }
@@ -422,21 +356,21 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
 
 - (FCFlintResourceManager)flintResourceManager
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   flintResourceManager = self->_flintResourceManager;
   if (!flintResourceManager)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_flintResourceManager"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_flintResourceManager"];
       *buf = 136315906;
-      v8 = "[FCContentContext flintResourceManager]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 649;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext flintResourceManager]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 649;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       flintResourceManager = self->_flintResourceManager;
@@ -448,28 +382,26 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
   return flintResourceManager;
 }
 
 - (FCArticleController)articleController
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   articleController = self->_articleController;
   if (!articleController)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_articleController"];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_articleController"];
       *buf = 136315906;
-      v8 = "[FCContentContext articleController]";
-      v9 = 2080;
-      v10 = "FCContentContext.m";
-      v11 = 1024;
-      v12 = 637;
-      v13 = 2114;
-      v14 = v6;
+      v7 = "[FCContentContext articleController]";
+      v8 = 2080;
+      v9 = "FCContentContext.m";
+      v10 = 1024;
+      v11 = 637;
+      v12 = 2114;
+      v13 = v5;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       articleController = self->_articleController;
@@ -480,8 +412,6 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       articleController = 0;
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return articleController;
 }
@@ -511,7 +441,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
 
 - (FCContentContext)initWithConfiguration:(id)configuration configurationManager:(id)manager contentHostDirectory:(id)directory networkBehaviorMonitor:(id)monitor networkReachability:(id)reachability desiredHeadlineFieldOptions:(unint64_t)options feedUsage:(int64_t)usage assetKeyManagerDelegate:(id)self0 appActivityMonitor:(id)self1 backgroundTaskable:(id)self2 pptContext:(id)self3
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   managerCopy = manager;
   directoryCopy = directory;
@@ -521,18 +451,18 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
   activityMonitorCopy = activityMonitor;
   taskableCopy = taskable;
   contextCopy = context;
-  v31 = directoryCopy;
+  v30 = directoryCopy;
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
     *buf = 136315906;
-    v38 = "[FCContentContext initWithConfiguration:configurationManager:contentHostDirectory:networkBehaviorMonitor:networkReachability:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
-    v39 = 2080;
-    v40 = "FCContentContext.m";
-    v41 = 1024;
-    v42 = 207;
-    v43 = 2114;
-    v44 = v29;
+    v37 = "[FCContentContext initWithConfiguration:configurationManager:contentHostDirectory:networkBehaviorMonitor:networkReachability:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
+    v38 = 2080;
+    v39 = "FCContentContext.m";
+    v40 = 1024;
+    v41 = 207;
+    v42 = 2114;
+    v43 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -540,16 +470,15 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
   contentContainerIdentifier = [configurationCopy contentContainerIdentifier];
   v26 = -[FCCKContentDatabase initWithContainerIdentifier:productionEnvironment:networkBehaviorMonitor:networkReachability:configurationManager:](v24, "initWithContainerIdentifier:productionEnvironment:networkBehaviorMonitor:networkReachability:configurationManager:", contentContainerIdentifier, [configurationCopy isProductionContentEnvironment], monitorCopy, reachabilityCopy, managerCopy);
 
-  LOBYTE(v30) = 1;
-  v36 = [(FCContentContext *)self initWithConfiguration:configurationCopy configurationManager:managerCopy contentDatabase:v26 contentHostDirectory:v31 networkBehaviorMonitor:monitorCopy networkReachability:reachabilityCopy setupCustomURLProtocols:v30 desiredHeadlineFieldOptions:options feedUsage:usage assetKeyManagerDelegate:delegateCopy appActivityMonitor:activityMonitorCopy backgroundTaskable:taskableCopy pptContext:contextCopy];
+  LOBYTE(v29) = 1;
+  v35 = [(FCContentContext *)self initWithConfiguration:configurationCopy configurationManager:managerCopy contentDatabase:v26 contentHostDirectory:v30 networkBehaviorMonitor:monitorCopy networkReachability:reachabilityCopy setupCustomURLProtocols:v29 desiredHeadlineFieldOptions:options feedUsage:usage assetKeyManagerDelegate:delegateCopy appActivityMonitor:activityMonitorCopy backgroundTaskable:taskableCopy pptContext:contextCopy];
 
-  v27 = *MEMORY[0x1E69E9840];
-  return v36;
+  return v35;
 }
 
 - (FCContentContext)initWithConfiguration:(id)configuration configurationManager:(id)manager contentDatabase:(id)database contentHostDirectory:(id)directory networkBehaviorMonitor:(id)monitor networkReachability:(id)reachability setupCustomURLProtocols:(BOOL)protocols desiredHeadlineFieldOptions:(unint64_t)self0 feedUsage:(int64_t)self1 assetKeyManagerDelegate:(id)self2 appActivityMonitor:(id)self3 backgroundTaskable:(id)self4 pptContext:(id)self5
 {
-  v239 = *MEMORY[0x1E69E9840];
+  v238 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   obj = manager;
   managerCopy = manager;
@@ -564,15 +493,15 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
   contextCopy = context;
   if (!managerCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v196 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager != nil"];
+    v195 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configurationManager != nil"];
     *buf = 136315906;
-    v234 = "[FCContentContext initWithConfiguration:configurationManager:contentDatabase:contentHostDirectory:networkBehaviorMonitor:networkReachability:setupCustomURLProtocols:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
-    v235 = 2080;
-    v236 = "FCContentContext.m";
-    v237 = 1024;
-    *v238 = 244;
-    *&v238[4] = 2114;
-    *&v238[6] = v196;
+    v233 = "[FCContentContext initWithConfiguration:configurationManager:contentDatabase:contentHostDirectory:networkBehaviorMonitor:networkReachability:setupCustomURLProtocols:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
+    v234 = 2080;
+    v235 = "FCContentContext.m";
+    v236 = 1024;
+    *v237 = 244;
+    *&v237[4] = 2114;
+    *&v237[6] = v195;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -580,25 +509,25 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
   v25 = directoryCopy;
   if (!directoryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v197 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
+    v196 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentHostDirectory != nil"];
     *buf = 136315906;
-    v234 = "[FCContentContext initWithConfiguration:configurationManager:contentDatabase:contentHostDirectory:networkBehaviorMonitor:networkReachability:setupCustomURLProtocols:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
-    v235 = 2080;
-    v236 = "FCContentContext.m";
-    v237 = 1024;
-    *v238 = 245;
-    *&v238[4] = 2114;
-    *&v238[6] = v197;
+    v233 = "[FCContentContext initWithConfiguration:configurationManager:contentDatabase:contentHostDirectory:networkBehaviorMonitor:networkReachability:setupCustomURLProtocols:desiredHeadlineFieldOptions:feedUsage:assetKeyManagerDelegate:appActivityMonitor:backgroundTaskable:pptContext:]";
+    v234 = 2080;
+    v235 = "FCContentContext.m";
+    v236 = 1024;
+    *v237 = 245;
+    *&v237[4] = 2114;
+    *&v237[6] = v196;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     v24 = databaseCopy;
   }
 
-  v232.receiver = self;
-  v232.super_class = FCContentContext;
-  v26 = [(FCContentContext *)&v232 init];
+  v231.receiver = self;
+  v231.super_class = FCContentContext;
+  v26 = [(FCContentContext *)&v231 init];
   v27 = v26;
-  v228 = taskableCopy;
+  v227 = taskableCopy;
   if (v26)
   {
     objc_storeStrong(&v26->_contextConfiguration, configuration);
@@ -651,7 +580,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     v27->_avAssetDownloadManager = v48;
 
     v50 = [FCAVAssetResourceLoader alloc];
-    v205 = v34;
+    v204 = v34;
     path4 = [v34 path];
     v52 = [(FCAVAssetResourceLoader *)v50 initWithCacheDirectory:path4 networkReachability:reachabilityCopy2];
     avAssetResourceLoader = v27->_avAssetResourceLoader;
@@ -671,7 +600,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     tabiResourcesContentDirectory = v27->_tabiResourcesContentDirectory;
     v27->_tabiResourcesContentDirectory = path5;
 
-    v204 = v58;
+    v203 = v58;
     path6 = [v58 path];
     tabiResourcesContentDirectoryLegacy = v27->_tabiResourcesContentDirectoryLegacy;
     v27->_tabiResourcesContentDirectoryLegacy = path6;
@@ -681,32 +610,32 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     tabiModelsContentDirectory = v27->_tabiModelsContentDirectory;
     v27->_tabiModelsContentDirectory = path7;
 
-    v203 = v63;
+    v202 = v63;
     path8 = [v63 path];
     tabiModelsContentDirectoryLegacy = v27->_tabiModelsContentDirectoryLegacy;
     v27->_tabiModelsContentDirectoryLegacy = path8;
 
-    v221 = v30;
-    v202 = [v30 URLByAppendingPathComponent:@"tabi-requests" isDirectory:1];
-    path9 = [v202 path];
+    v220 = v30;
+    v201 = [v30 URLByAppendingPathComponent:@"tabi-requests" isDirectory:1];
+    path9 = [v201 path];
     tabiRequestsContentDirectory = v27->_tabiRequestsContentDirectory;
     v27->_tabiRequestsContentDirectory = path9;
 
     v70 = v25;
-    v230[0] = MEMORY[0x1E69E9820];
-    v230[1] = 3221225472;
-    v230[2] = __278__FCContentContext_initWithConfiguration_configurationManager_contentDatabase_contentHostDirectory_networkBehaviorMonitor_networkReachability_setupCustomURLProtocols_desiredHeadlineFieldOptions_feedUsage_assetKeyManagerDelegate_appActivityMonitor_backgroundTaskable_pptContext___block_invoke;
-    v230[3] = &unk_1E7C36EA0;
+    v229[0] = MEMORY[0x1E69E9820];
+    v229[1] = 3221225472;
+    v229[2] = __278__FCContentContext_initWithConfiguration_configurationManager_contentDatabase_contentHostDirectory_networkBehaviorMonitor_networkReachability_setupCustomURLProtocols_desiredHeadlineFieldOptions_feedUsage_assetKeyManagerDelegate_appActivityMonitor_backgroundTaskable_pptContext___block_invoke;
+    v229[3] = &unk_1E7C36EA0;
     v71 = v27;
-    v231 = v71;
-    [FCTaskScheduler scheduleLowPriorityBlock:v230];
+    v230 = v71;
+    [FCTaskScheduler scheduleLowPriorityBlock:v229];
     v72 = [[FCAssetKeyService alloc] initWithConfigurationManager:managerCopy];
     assetKeyService = v71->_assetKeyService;
     v71->_assetKeyService = v72;
 
     v74 = [FCPersistentAssetKeyCache alloc];
     path10 = [v70 path];
-    v76 = [(FCPersistentAssetKeyCache *)&v74->super.isa initWithCacheDirectory:path10 cacheName:@"shared-assets-lru" backgroundTaskable:v228];
+    v76 = [(FCPersistentAssetKeyCache *)&v74->super.isa initWithCacheDirectory:path10 cacheName:@"shared-assets-lru" backgroundTaskable:v227];
     assetKeyCache = v71->_assetKeyCache;
     v71->_assetKeyCache = v76;
 
@@ -724,7 +653,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       v82->_shouldUseSecureConnectionForCKAssetDownloads = useSecureConnectionForAssets;
     }
 
-    v206 = v70;
+    v205 = v70;
     objc_storeStrong(&v71->_assetManager, v82);
     if ([(FCAssetKeyCacheType *)v71->_assetKeyCache conformsToProtocol:&unk_1F2E773E8])
     {
@@ -757,10 +686,10 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       optionsCopy = options;
     }
 
-    v201 = v82;
+    v200 = v82;
     if (objc_opt_respondsToSelector())
     {
-      v89 = v228;
+      v89 = v227;
       if ([configuration articleEmbeddingsEnabled])
       {
         newsPersonalizationConfiguration = [configuration newsPersonalizationConfiguration];
@@ -795,7 +724,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
           optionsCopy = v96;
         }
 
-        v89 = v228;
+        v89 = v227;
 
         v24 = databaseCopy;
       }
@@ -803,7 +732,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
 
     else
     {
-      v89 = v228;
+      v89 = v227;
     }
 
     if (objc_opt_respondsToSelector())
@@ -857,7 +786,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       v109 = v110;
     }
 
-    v210 = [(FCTagRecordSource *)v107 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:FCDesiredTagRecordFieldOptionsWithHeadlineFieldOptions(optionsCopy) desiredTagRecordFieldOptions:v109];
+    v209 = [(FCTagRecordSource *)v107 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:FCDesiredTagRecordFieldOptionsWithHeadlineFieldOptions(optionsCopy) desiredTagRecordFieldOptions:v109];
     [v84 setTagRecordSource:?];
     v111 = [FCSportsEventRecordSource alloc];
     if (objc_opt_respondsToSelector())
@@ -866,7 +795,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       v108 = v112;
     }
 
-    v209 = [(FCRecordSource *)v111 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v108];
+    v208 = [(FCRecordSource *)v111 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v108];
     [v84 setSportsEventRecordSource:?];
     v113 = [FCRecipeRecordSource alloc];
     v114 = objc_opt_respondsToSelector();
@@ -877,7 +806,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       [configuration defaultTTLForRecipeRecords];
     }
 
-    v200 = [(FCRecordSource *)v113 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v116];
+    v199 = [(FCRecordSource *)v113 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v116];
     [v84 setRecipeRecordSource:?];
     v117 = [FCRecipeListRecordSource alloc];
     if (objc_opt_respondsToSelector())
@@ -886,7 +815,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       v115 = v118;
     }
 
-    v199 = [(FCRecordSource *)v117 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v115];
+    v198 = [(FCRecordSource *)v117 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v115];
     [v84 setRecipeListRecordSource:?];
     v119 = [(FCRecordSource *)[FCTagListRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89];
     [v84 setTagListRecordSource:v119];
@@ -906,8 +835,8 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     v125 = [(FCRecordSource *)v121 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v124];
     [v84 setArticleListRecordSource:v125];
 
-    v198 = [(FCRecordSource *)[FCChannelMembershipRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89];
-    v126 = [[FCChannelMembershipController alloc] initWithChannelMembershipRecordSource:v198];
+    v197 = [(FCRecordSource *)[FCChannelMembershipRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89];
+    v126 = [[FCChannelMembershipController alloc] initWithChannelMembershipRecordSource:v197];
     [v84 setChannelMembershipController:v126];
 
     v127 = [(FCRecordSource *)[FCForYouConfigRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89];
@@ -948,7 +877,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       v134 = v139;
     }
 
-    v208 = [(FCRecordSource *)v138 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v134];
+    v207 = [(FCRecordSource *)v138 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v89 defaultTTL:v134];
     [v84 setPuzzleRecordSource:?];
     v140 = [FCPuzzleTypeRecordSource alloc];
     v141 = objc_opt_respondsToSelector();
@@ -958,12 +887,12 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
       [configuration defaultTTLForPuzzleTypeRecords];
     }
 
-    v207 = [(FCRecordSource *)v140 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v228 defaultTTL:v142];
+    v206 = [(FCRecordSource *)v140 initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v227 defaultTTL:v142];
     [v84 setPuzzleTypeRecordSource:?];
-    v143 = [(FCRecordSource *)[FCNotificationItemRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v228];
+    v143 = [(FCRecordSource *)[FCNotificationItemRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v227];
     [v84 setNotificationItemRecordSource:v143];
 
-    v144 = [(FCRecordSource *)[FCNotificationItemListRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v228];
+    v144 = [(FCRecordSource *)[FCNotificationItemListRecordSource alloc] initWithContentDatabase:v24 contentDirectory:path13 appActivityMonitor:activityMonitorCopy backgroundTaskable:v227];
     [v84 setNotificationItemListRecordSource:v144];
 
     assetKeyCache = [(FCContentContext *)v71 assetKeyCache];
@@ -1001,7 +930,7 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
         v155 = ([v154 isEqualToString:@"order_feed"] | isOrderFeedEndpointEnabled) & 1;
       }
 
-      v156 = [[FCFeedDatabase alloc] initWithParentDirectoryURL:v221 usage:usage endpoint:v155];
+      v156 = [[FCFeedDatabase alloc] initWithParentDirectoryURL:v220 usage:usage endpoint:v155];
       [v84 setFeedDatabase:v156];
       v157 = [[FCFeedPrewarmer alloc] initWithContentContext:v71];
       [v84 setFeedPrewarmer:v157];
@@ -1023,11 +952,11 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     v71->_recipeItemFactory = v165;
 
     v24 = databaseCopy;
-    v167 = [[FCTagController alloc] initWithContentDatabase:databaseCopy assetManager:v201 tagRecordSource:v210 configurationManager:managerCopy];
+    v167 = [[FCTagController alloc] initWithContentDatabase:databaseCopy assetManager:v200 tagRecordSource:v209 configurationManager:managerCopy];
     tagController = v71->_tagController;
     v71->_tagController = v167;
 
-    v169 = [[FCSportsEventController alloc] initWithContentDatabase:databaseCopy context:v71 sportsEventRecordSource:v209 tagController:v71->_tagController];
+    v169 = [[FCSportsEventController alloc] initWithContentDatabase:databaseCopy context:v71 sportsEventRecordSource:v208 tagController:v71->_tagController];
     sportsEventController = v71->_sportsEventController;
     v71->_sportsEventController = v169;
 
@@ -1035,13 +964,13 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     articleController = v71->_articleController;
     v71->_articleController = v171;
 
-    v173 = [[FCPuzzleTypeController alloc] initWithContentDatabase:databaseCopy context:v71 assetManager:v201 puzzleTypeRecordSource:v207 configurationManager:managerCopy];
+    v173 = [[FCPuzzleTypeController alloc] initWithContentDatabase:databaseCopy context:v71 assetManager:v200 puzzleTypeRecordSource:v206 configurationManager:managerCopy];
     puzzleTypeController = v71->_puzzleTypeController;
     v71->_puzzleTypeController = v173;
 
     v175 = [FCPuzzleController alloc];
     puzzleTypeController = [(FCContentContext *)v71 puzzleTypeController];
-    v177 = [(FCPuzzleController *)v175 initWithContentDatabase:databaseCopy assetManager:v201 puzzleTypeController:puzzleTypeController puzzleRecordSource:v208 configurationManager:managerCopy];
+    v177 = [(FCPuzzleController *)v175 initWithContentDatabase:databaseCopy assetManager:v200 puzzleTypeController:puzzleTypeController puzzleRecordSource:v207 configurationManager:managerCopy];
     puzzleController = v71->_puzzleController;
     v71->_puzzleController = v177;
 
@@ -1049,9 +978,9 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     flintResourceManager = v71->_flintResourceManager;
     v71->_flintResourceManager = v179;
 
-    if (v201)
+    if (v200)
     {
-      directoryURLForCachedAssets = v201->_directoryURLForCachedAssets;
+      directoryURLForCachedAssets = v200->_directoryURLForCachedAssets;
     }
 
     else
@@ -1066,17 +995,17 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     v71->_supportedCountryNetworkReachabilityRequirement = v182;
 
     [(FCContentContext *)v71 _updateReachabilityGivenRequirements];
-    v25 = v206;
-    taskableCopy = v228;
+    v25 = v205;
+    taskableCopy = v227;
   }
 
   v184 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_INFO))
   {
-    v218 = v184;
+    v217 = v184;
     contentStoreFrontID2 = [(FCContentContext *)v27 contentStoreFrontID];
-    v222 = +[FCAppleAccount sharedAccount];
-    currentStoreFrontID = [v222 currentStoreFrontID];
+    v221 = +[FCAppleAccount sharedAccount];
+    currentStoreFrontID = [v221 currentStoreFrontID];
     internalContentContext = [(FCContentContext *)v27 internalContentContext];
     contentDatabase = [internalContentContext contentDatabase];
     containerIdentifier = [contentDatabase containerIdentifier];
@@ -1086,27 +1015,26 @@ void __33__FCContentContext_prewarmStores__block_invoke(uint64_t a1)
     isProductionEnvironment = [contentDatabase2 isProductionEnvironment];
     v193 = @" not";
     *buf = 138544130;
-    v234 = contentStoreFrontID2;
-    v235 = 2114;
+    v233 = contentStoreFrontID2;
+    v234 = 2114;
     if (isProductionEnvironment)
     {
       v193 = &stru_1F2DC7DC0;
     }
 
-    v236 = currentStoreFrontID;
-    v237 = 2114;
-    *v238 = containerIdentifier;
-    *&v238[8] = 2114;
-    *&v238[10] = v193;
-    _os_log_impl(&dword_1B63EF000, v218, OS_LOG_TYPE_INFO, "Initialized content context with contentStoreFrontID: %{public}@, currentStoreFrontID: %{public}@, containerID: %{public}@%{public}@ in production environment.", buf, 0x2Au);
+    v235 = currentStoreFrontID;
+    v236 = 2114;
+    *v237 = containerIdentifier;
+    *&v237[8] = 2114;
+    *&v237[10] = v193;
+    _os_log_impl(&dword_1B63EF000, v217, OS_LOG_TYPE_INFO, "Initialized content context with contentStoreFrontID: %{public}@, currentStoreFrontID: %{public}@, containerID: %{public}@%{public}@ in production environment.", buf, 0x2Au);
 
     managerCopy = v189;
     v24 = databaseCopy;
 
-    taskableCopy = v228;
+    taskableCopy = v227;
   }
 
-  v194 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -1144,33 +1072,10 @@ void __278__FCContentContext_initWithConfiguration_configurationManager_contentD
 
 - (id)magazinesConfigurationManager
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationManager = self->_configurationManager;
-  if (configurationManager)
+  if (configurationManager || os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) && (v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"], *buf = 136315906, v8 = "-[FCContentContext magazinesConfigurationManager]", v9 = 2080, v10 = "FCContentContext.m", v11 = 1024, v12 = 612, v13 = 2114, v14 = v6, _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u), v6, (configurationManager = self->_configurationManager) != 0))
   {
-    goto LABEL_12;
-  }
-
-  if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "_configurationManager"];
-  *buf = 136315906;
-  v9 = "[FCContentContext magazinesConfigurationManager]";
-  v10 = 2080;
-  v11 = "FCContentContext.m";
-  v12 = 1024;
-  v13 = 612;
-  v14 = 2114;
-  v15 = v7;
-  _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  configurationManager = self->_configurationManager;
-  if (configurationManager)
-  {
-LABEL_12:
     if ([(FCCoreConfigurationManager *)configurationManager conformsToProtocol:&unk_1F2E8A090])
     {
       v3 = configurationManager;
@@ -1184,13 +1089,10 @@ LABEL_12:
 
   else
   {
-LABEL_6:
     v3 = 0;
   }
 
-  result = v3;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3;
 }
 
 - (NSString)contentEnvironmentToken
@@ -1229,148 +1131,147 @@ LABEL_6:
 
 - (id)interestTokenForContentManifest:(id)manifest
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   context = objc_autoreleasePoolPush();
   assetManager = [(FCContentContext *)self assetManager];
   assetURLs = [manifestCopy assetURLs];
-  v35 = [assetManager interestTokenForAssetURLs:assetURLs];
+  v34 = [assetManager interestTokenForAssetURLs:assetURLs];
 
   assetKeyCache = [(FCContentContext *)self assetKeyCache];
   assetWrappingKeyIDs = [manifestCopy assetWrappingKeyIDs];
-  v34 = [assetKeyCache interestTokenForWrappingKeyIDs:assetWrappingKeyIDs];
+  v33 = [assetKeyCache interestTokenForWrappingKeyIDs:assetWrappingKeyIDs];
 
   avAssetCache = [(FCContentContext *)self avAssetCache];
   avAssetIDs = [manifestCopy avAssetIDs];
-  v33 = [avAssetCache interestTokenForAssetIdentifiers:avAssetIDs];
+  v32 = [avAssetCache interestTokenForAssetIdentifiers:avAssetIDs];
 
   avAssetKeyCache = [(FCContentContext *)self avAssetKeyCache];
-  v37 = manifestCopy;
+  v36 = manifestCopy;
   avAssetKeyURIs = [manifestCopy avAssetKeyURIs];
-  v32 = [avAssetKeyCache interestTokenForKeyURIs:avAssetKeyURIs];
+  v31 = [avAssetKeyCache interestTokenForKeyURIs:avAssetKeyURIs];
 
   array = [MEMORY[0x1E695DF70] array];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   internalContentContext = [(FCContentContext *)self internalContentContext];
   recordSources = [internalContentContext recordSources];
 
-  v16 = [recordSources countByEnumeratingWithState:&v45 objects:v49 count:16];
+  v16 = [recordSources countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v46;
+    v18 = *v45;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v46 != v18)
+        if (*v45 != v18)
         {
           objc_enumerationMutation(recordSources);
         }
 
-        v20 = *(*(&v45 + 1) + 8 * i);
-        recordIDs = [v37 recordIDs];
-        v44[0] = MEMORY[0x1E69E9820];
-        v44[1] = 3221225472;
-        v44[2] = __52__FCContentContext_interestTokenForContentManifest___block_invoke;
-        v44[3] = &unk_1E7C38B40;
-        v44[4] = v20;
-        v22 = [recordIDs fc_arrayOfObjectsPassingTest:v44];
+        v20 = *(*(&v44 + 1) + 8 * i);
+        recordIDs = [v36 recordIDs];
+        v43[0] = MEMORY[0x1E69E9820];
+        v43[1] = 3221225472;
+        v43[2] = __52__FCContentContext_interestTokenForContentManifest___block_invoke;
+        v43[3] = &unk_1E7C38B40;
+        v43[4] = v20;
+        v22 = [recordIDs fc_arrayOfObjectsPassingTest:v43];
 
         v23 = [v20 interestTokenForRecordIDs:v22];
         [array addObject:v23];
       }
 
-      v17 = [recordSources countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v17 = [recordSources countByEnumeratingWithState:&v44 objects:v48 count:16];
     }
 
     while (v17);
   }
 
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __52__FCContentContext_interestTokenForContentManifest___block_invoke_2;
-  v38[3] = &unk_1E7C376C8;
-  v39 = v35;
-  v40 = v34;
-  v41 = v33;
-  v42 = v32;
-  v43 = array;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __52__FCContentContext_interestTokenForContentManifest___block_invoke_2;
+  v37[3] = &unk_1E7C376C8;
+  v38 = v34;
+  v39 = v33;
+  v40 = v32;
+  v41 = v31;
+  v42 = array;
   v24 = array;
-  v25 = v32;
-  v26 = v33;
-  v27 = v34;
-  v28 = v35;
-  v29 = [FCInterestToken interestTokenWithRemoveInterestBlock:v38];
+  v25 = v31;
+  v26 = v32;
+  v27 = v33;
+  v28 = v34;
+  v29 = [FCInterestToken interestTokenWithRemoveInterestBlock:v37];
 
   objc_autoreleasePoolPop(context);
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
 
 - (id)convertRecords:(id)records
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   recordsCopy = records;
   v5 = objc_alloc_init(FCHeldRecords);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   internalContentContext = [(FCContentContext *)self internalContentContext];
   recordSources = [internalContentContext recordSources];
 
-  v9 = [recordSources countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v9 = [recordSources countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v47;
+    v11 = *v46;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v47 != v11)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(recordSources);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * i);
+        v13 = *(*(&v45 + 1) + 8 * i);
         recordType = [v13 recordType];
         [dictionary setObject:v13 forKey:recordType];
       }
 
-      v10 = [recordSources countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v10 = [recordSources countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v10);
   }
 
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v16 = recordsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v43;
+    v19 = *v42;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v43 != v19)
+        if (*v42 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v42 + 1) + 8 * j);
+        v21 = *(*(&v41 + 1) + 8 * j);
         recordType2 = [v21 recordType];
         array = [dictionary2 objectForKey:recordType2];
 
@@ -1384,36 +1285,36 @@ LABEL_6:
         [array addObject:v21];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v18);
   }
 
-  v37 = v16;
+  v36 = v16;
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v25 = dictionary2;
-  v26 = [v25 countByEnumeratingWithState:&v38 objects:v50 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v39;
+    v28 = *v38;
     do
     {
       v29 = 0;
       v30 = v5;
       do
       {
-        if (*v39 != v28)
+        if (*v38 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v31 = *(*(&v38 + 1) + 8 * v29);
+        v31 = *(*(&v37 + 1) + 8 * v29);
         v32 = [dictionary objectForKey:v31];
         v33 = [v25 objectForKey:v31];
         v34 = [v32 convertRecords:v33];
@@ -1424,65 +1325,62 @@ LABEL_6:
       }
 
       while (v27 != v29);
-      v27 = [v25 countByEnumeratingWithState:&v38 objects:v50 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v37 objects:v49 count:16];
     }
 
     while (v27);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (int64_t)storageSize
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   assetManager = [(FCContentContext *)self assetManager];
   storageSize = [assetManager storageSize];
 
   avAssetCache = [(FCContentContext *)self avAssetCache];
   v6 = [avAssetCache storageSize] + storageSize;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   internalContentContext = [(FCContentContext *)self internalContentContext];
   recordSources = [internalContentContext recordSources];
 
-  v9 = [recordSources countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [recordSources countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(recordSources);
         }
 
-        v6 += [*(*(&v15 + 1) + 8 * v12++) storageSize];
+        v6 += [*(*(&v14 + 1) + 8 * v12++) storageSize];
       }
 
       while (v10 != v12);
-      v10 = [recordSources countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [recordSources countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)save
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
@@ -1491,29 +1389,29 @@ LABEL_6:
   }
 
   date = [MEMORY[0x1E695DF00] date];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   internalContentContext = [(FCContentContext *)self internalContentContext];
   recordSources = [internalContentContext recordSources];
 
-  v7 = [recordSources countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v7 = [recordSources countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(recordSources);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         [v11 save];
         objc_autoreleasePoolPop(v12);
@@ -1521,7 +1419,7 @@ LABEL_6:
       }
 
       while (v8 != v10);
-      v8 = [recordSources countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v8 = [recordSources countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v8);
@@ -1538,11 +1436,9 @@ LABEL_6:
     v16 = v15;
     fc_millisecondTimeIntervalUntilNow = [date fc_millisecondTimeIntervalUntilNow];
     *buf = 134217984;
-    v24 = fc_millisecondTimeIntervalUntilNow;
+    v23 = fc_millisecondTimeIntervalUntilNow;
     _os_log_impl(&dword_1B63EF000, v16, OS_LOG_TYPE_DEFAULT, "Did force-save record sources and assets in %llums", buf, 0xCu);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ppt_overrideFeedEndpoint:(int64_t)endpoint
@@ -1570,34 +1466,34 @@ LABEL_6:
 
 - (void)enableFlushingWithFlushingThreshold:(unint64_t)threshold exceptForFlusher:(id)flusher
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   flusherCopy = flusher;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __73__FCContentContext_enableFlushingWithFlushingThreshold_exceptForFlusher___block_invoke;
-  v18[3] = &unk_1E7C36D40;
-  v18[4] = self;
-  v7 = [MEMORY[0x1E695DEC8] fc_array:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __73__FCContentContext_enableFlushingWithFlushingThreshold_exceptForFlusher___block_invoke;
+  v17[3] = &unk_1E7C36D40;
+  v17[4] = self;
+  v7 = [MEMORY[0x1E695DEC8] fc_array:v17];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * v11);
+        v12 = *(*(&v13 + 1) + 8 * v11);
         if (v12 != flusherCopy)
         {
           [v12 enableFlushingWithFlushingThreshold:threshold];
@@ -1607,13 +1503,11 @@ LABEL_6:
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v19 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __73__FCContentContext_enableFlushingWithFlushingThreshold_exceptForFlusher___block_invoke(uint64_t a1, void *a2)
@@ -1662,7 +1556,7 @@ void __73__FCContentContext_enableFlushingWithFlushingThreshold_exceptForFlusher
 
 - (void)configurationManagerScienceExperimentFieldsDidChange:(id)change
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   configuration = [change configuration];
   if (objc_opt_respondsToSelector())
   {
@@ -1691,25 +1585,23 @@ void __73__FCContentContext_enableFlushingWithFlushingThreshold_exceptForFlusher
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
     v10 = @"Saving";
-    *v14 = 138412802;
+    *v13 = 138412802;
     if (v8)
     {
       v10 = @"Reading";
     }
 
-    *&v14[4] = v10;
-    v15 = 2114;
-    v16 = engagementCohortsExpField;
-    v17 = 2114;
-    v18 = conversionCohortsExpField;
-    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%@ engagementCohortsExpField: %{public}@ conversionCohortsExpField: %{public}@", v14, 0x20u);
+    *&v13[4] = v10;
+    v14 = 2114;
+    v15 = engagementCohortsExpField;
+    v16 = 2114;
+    v17 = conversionCohortsExpField;
+    _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%@ engagementCohortsExpField: %{public}@ conversionCohortsExpField: %{public}@", v13, 0x20u);
   }
 
   internalContentContext = [(FCContentContext *)self internalContentContext];
   articleRecordSource = [internalContentContext articleRecordSource];
   [articleRecordSource updateEngagementCohortsExpField:engagementCohortsExpField conversionCohortsExpField:conversionCohortsExpField];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (FCBackgroundTaskable)backgroundTaskable

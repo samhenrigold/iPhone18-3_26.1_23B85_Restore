@@ -53,16 +53,16 @@
   if (awdlStrategy)
   {
     awdlStrategy2 = [self awdlStrategy];
-    v4 = *([awdlStrategy2 bytes] + 8);
-    v5 = W5DescriptionForAWDLScheduleState();
+    [awdlStrategy2 bytes];
+    v4 = W5DescriptionForAWDLScheduleState();
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)awdlSyncChannelSequenceString

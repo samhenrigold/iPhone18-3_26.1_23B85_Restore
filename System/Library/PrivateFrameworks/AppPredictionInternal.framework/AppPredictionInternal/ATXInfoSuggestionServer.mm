@@ -73,11 +73,11 @@ void __41__ATXInfoSuggestionServer_sharedInstance__block_invoke()
   return v18;
 }
 
-void __112__ATXInfoSuggestionServer_initWithInfoEngine_rsSuggestionProducer_infoHeuristics_criterionRegistry_xpcListener___block_invoke(uint64_t a1, char a2)
+void __112__ATXInfoSuggestionServer_initWithInfoEngine_rsSuggestionProducer_infoHeuristics_criterionRegistry_xpcListener___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v2 = __atxlog_handle_gi();
+    v2 = __atxlog_handle_gi(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __112__ATXInfoSuggestionServer_initWithInfoEngine_rsSuggestionProducer_infoHeuristics_criterionRegistry_xpcListener___block_invoke_cold_1();
@@ -106,11 +106,11 @@ void __112__ATXInfoSuggestionServer_initWithInfoEngine_rsSuggestionProducer_info
   [(ATXInformationHeuristics *)informationHeuristics refreshResultsForAllHeuristicsWithCompletionHandler:v7];
 }
 
-uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandler___block_invoke(uint64_t a1, char a2)
+uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandler___block_invoke_cold_1();
@@ -122,7 +122,7 @@ uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandl
 
 - (id)_processIncomingSuggestion:(id)suggestion sourceIdentifier:(id)identifier error:(id *)error
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   identifierCopy = identifier;
   if (![(ATXInfoSuggestionCriterionRegistry *)self->_criterionRegistry isSourceIdentifierRegistered:identifierCopy])
@@ -136,9 +136,9 @@ uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandl
       v27 = MEMORY[0x277CCA9B8];
       v28 = v26;
       v29 = [v27 alloc];
-      v44 = *MEMORY[0x277CCA450];
-      v45[0] = v28;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v43 = *MEMORY[0x277CCA450];
+      v44[0] = v28;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
 
       v31 = [v29 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-1 userInfo:v30];
       v32 = v31;
@@ -169,9 +169,9 @@ uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandl
         v18 = MEMORY[0x277CCA9B8];
         v19 = v17;
         v20 = [v18 alloc];
-        v44 = *MEMORY[0x277CCA450];
-        v45[0] = v19;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+        v43 = *MEMORY[0x277CCA450];
+        v44[0] = v19;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
 
         v22 = v20;
         v23 = -5;
@@ -184,9 +184,9 @@ uint64_t __71__ATXInfoSuggestionServer_refreshInfoSuggestionsWithCompletionHandl
         v38 = MEMORY[0x277CCA9B8];
         v19 = v37;
         v39 = [v38 alloc];
-        v44 = *MEMORY[0x277CCA450];
-        v45[0] = v19;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+        v43 = *MEMORY[0x277CCA450];
+        v44[0] = v19;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
 
         v22 = v39;
         v23 = -2;
@@ -217,37 +217,35 @@ LABEL_13:
   v33 = suggestionCopy;
 LABEL_14:
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v33;
 }
 
 - (id)_processIncomingSuggestions:(id)suggestions sourceIdentifier:(id)identifier error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   identifierCopy = identifier;
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = suggestionsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestion:*(*(&v21 + 1) + 8 * i) sourceIdentifier:identifierCopy error:error, v21];
+        v16 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestion:*(*(&v20 + 1) + 8 * i) sourceIdentifier:identifierCopy error:error, v20];
         if (!v16)
         {
 
@@ -259,7 +257,7 @@ LABEL_14:
         [v10 addObject:v16];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v13)
       {
         continue;
@@ -272,8 +270,6 @@ LABEL_14:
   v18 = v10;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
@@ -282,9 +278,10 @@ LABEL_11:
   resetCopy = reset;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v16 = 0;
-  v12 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestions:suggestions sourceIdentifier:identifierCopy error:&v16];
-  v13 = v16;
+  v17 = 0;
+  v12 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestions:suggestions sourceIdentifier:identifierCopy error:&v17];
+  v13 = v17;
+  v14 = v13;
   if (v12)
   {
     engine = self->_engine;
@@ -301,13 +298,13 @@ LABEL_11:
 
   else
   {
-    v15 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = __atxlog_handle_gi(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestionServer _addSuggestions:forSourceIdentifier:needReset:errorHandler:];
     }
 
-    handlerCopy[2](handlerCopy, v13);
+    handlerCopy[2](handlerCopy, v14);
   }
 }
 
@@ -335,16 +332,14 @@ LABEL_11:
     v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
     v15 = [v13 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-1 userInfo:v14];
-    v16 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_gi(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestionServer getSuggestionsForInfoSourceIdentifier:withReply:];
     }
 
     replyCopy[2](replyCopy, 0, v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSuggestionsForInfoSourceIdentifier:(id)identifier errorHandler:(id)handler
@@ -371,82 +366,80 @@ LABEL_11:
     v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
     v15 = [v13 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-1 userInfo:v14];
-    v16 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = __atxlog_handle_gi(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestionServer clearSuggestionsForInfoSourceIdentifier:errorHandler:];
     }
 
     handlerCopy[2](handlerCopy, v15);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overwriteSuggestionsWithProactiveSuggestions:(id)suggestions forClientModelIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v52[1] = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v9 = __atxlog_handle_gi();
+  v9 = __atxlog_handle_gi(handlerCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109378;
     *&buf[4] = [suggestionsCopy count];
-    v49 = 2114;
-    v50 = identifierCopy;
+    v50 = 2114;
+    v51 = identifierCopy;
     _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: receive %d suggestion(s) from ATXClientModel %{public}@", buf, 0x12u);
   }
 
   v10 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(suggestionsCopy, "count")}];
-  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
   v11 = suggestionsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v44 objects:v48 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v44;
+    v14 = *v45;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v14)
+        if (*v45 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v43 + 1) + 8 * i);
+        v16 = *(*(&v44 + 1) + 8 * i);
         v17 = objc_autoreleasePoolPush();
         v18 = [objc_alloc(MEMORY[0x277D42040]) initWithProactiveSuggestion:v16];
         if (!v18)
         {
-          v25 = MEMORY[0x277CCACA8];
-          v26 = v16;
-          v27 = [[v25 alloc] initWithFormat:@"Failed to convert ATXProactiveSuggestion to ATXInfoSuggestion: %@", v26];
+          v26 = MEMORY[0x277CCACA8];
+          v27 = v16;
+          v28 = [[v26 alloc] initWithFormat:@"Failed to convert ATXProactiveSuggestion to ATXInfoSuggestion: %@", v27];
 
-          v28 = MEMORY[0x277CCA9B8];
-          v29 = v27;
-          v30 = [v28 alloc];
-          v51[0] = *MEMORY[0x277CCA450];
-          *buf = v29;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v51 count:1];
+          v29 = MEMORY[0x277CCA9B8];
+          v30 = v28;
+          v31 = [v29 alloc];
+          v52[0] = *MEMORY[0x277CCA450];
+          *buf = v30;
+          v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:v52 count:1];
 
-          v32 = [v30 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-4 userInfo:v31];
-          v33 = __atxlog_handle_gi();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
+          v33 = [v31 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-4 userInfo:v32];
+          v35 = __atxlog_handle_gi(v34);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
           {
             [ATXInfoSuggestionServer overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:];
           }
 
-          v24 = handlerCopy;
-          (*(handlerCopy + 2))(handlerCopy, 0, v32);
+          v25 = handlerCopy;
+          (*(handlerCopy + 2))(handlerCopy, 0, v33);
 
           objc_autoreleasePoolPop(v17);
-          v22 = v11;
+          v23 = v11;
           goto LABEL_20;
         }
 
@@ -458,7 +451,7 @@ LABEL_11:
         objc_autoreleasePoolPop(v17);
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v44 objects:v48 count:16];
       if (v13)
       {
         continue;
@@ -468,92 +461,90 @@ LABEL_11:
     }
   }
 
-  v42 = 0;
-  v21 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestions:v10 sourceIdentifier:identifierCopy error:&v42];
-  v22 = v42;
+  v43 = 0;
+  v21 = [(ATXInfoSuggestionServer *)self _processIncomingSuggestions:v10 sourceIdentifier:identifierCopy error:&v43];
+  v22 = v43;
+  v23 = v22;
   if (v21)
   {
     engine = self->_engine;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke;
-    v38[3] = &unk_2785A0280;
-    v39 = v21;
-    v40 = identifierCopy;
-    v24 = handlerCopy;
-    v41 = handlerCopy;
-    [(ATXInformationEngine *)engine resetSuggestionsTo:v39 forInfoSourceIdentifier:v40 completionHandler:v38];
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke;
+    v39[3] = &unk_2785A0280;
+    v40 = v21;
+    v41 = identifierCopy;
+    v25 = handlerCopy;
+    v42 = handlerCopy;
+    [(ATXInformationEngine *)engine resetSuggestionsTo:v40 forInfoSourceIdentifier:v41 completionHandler:v39];
   }
 
   else
   {
-    v34 = __atxlog_handle_gi();
-    v24 = handlerCopy;
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v36 = __atxlog_handle_gi(v22);
+    v25 = handlerCopy;
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestionServer overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:];
     }
 
-    (*(handlerCopy + 2))(handlerCopy, 0, v22);
+    (*(handlerCopy + 2))(handlerCopy, 0, v23);
   }
 
 LABEL_20:
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+    v13 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v7 = *(a1 + 32);
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v8)
+    v5 = *(a1 + 32);
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
     {
-      v9 = v8;
-      v10 = *v17;
+      v7 = v6;
+      v8 = *v14;
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v10)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v5);
           }
 
-          v12 = [MEMORY[0x277D42040] proactiveSuggestionForInfoSuggestion:*(*(&v16 + 1) + 8 * i) withClientModelId:*(a1 + 40) clientModelVersion:@"1.0" rawScore:0 confidenceCategory:{0.0, v16}];
-          if (!v12)
+          v10 = [MEMORY[0x277D42040] proactiveSuggestionForInfoSuggestion:*(*(&v13 + 1) + 8 * i) withClientModelId:*(a1 + 40) clientModelVersion:@"1.0" rawScore:0 confidenceCategory:{0.0, v13}];
+          if (!v10)
           {
-            v14 = __atxlog_handle_gi();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+            v12 = __atxlog_handle_gi(0);
+            if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
             {
-              __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke_cold_1(v14);
+              __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke_cold_1(v12);
             }
 
             (*(*(a1 + 48) + 16))();
             goto LABEL_17;
           }
 
-          v13 = v12;
-          [v6 addObject:v12];
+          v11 = v10;
+          [v4 addObject:v10];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-        if (v9)
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v7)
         {
           continue;
         }
@@ -564,8 +555,6 @@ void __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions
 
     (*(*(a1 + 48) + 16))();
 LABEL_17:
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -595,16 +584,14 @@ LABEL_17:
     v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
 
     v9 = [v15 initWithDomain:@"ATXInfoSuggestionServerErrorDomain" code:-1 userInfo:v16];
-    v17 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_gi(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXInfoSuggestionServer retrieveAvailableCriterionIdentifiersForSourceIdentifier:reply:];
     }
 
     (replyCopy)[2](replyCopy, 0, v9);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -613,286 +600,269 @@ LABEL_17:
   connectionCopy = connection;
   v6 = *MEMORY[0x277D42120];
   v7 = [connectionCopy valueForEntitlement:*MEMORY[0x277D42120]];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = ATXInfoSuggestionXPCInterface();
-    [connectionCopy setExportedInterface:v8];
+    v9 = ATXInfoSuggestionXPCInterface();
+    [connectionCopy setExportedInterface:v9];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_38_1];
     [connectionCopy setInvalidationHandler:&__block_literal_global_41_1];
-    [connectionCopy resume];
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_gi([connectionCopy resume]);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138543362;
       v14 = connectionCopy;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: accepts XPC connection: %{public}@", &v13, 0xCu);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: accepts XPC connection: %{public}@", &v13, 0xCu);
     }
 
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_gi(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ATXInfoSuggestionServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v9];
+      [(ATXInfoSuggestionServer *)connectionCopy listener:v6 shouldAcceptNewConnection:v10];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
-void __62__ATXInfoSuggestionServer_listener_shouldAcceptNewConnection___block_invoke()
+void __62__ATXInfoSuggestionServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_gi();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v2 = __atxlog_handle_gi(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __62__ATXInfoSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __62__ATXInfoSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_39()
+void __62__ATXInfoSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_39(uint64_t a1, uint64_t a2)
 {
-  v0 = __atxlog_handle_gi();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = __atxlog_handle_gi(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_2263AA000, v0, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: XPC connection invalidated.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_2263AA000, v2, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: XPC connection invalidated.", v3, 2u);
   }
 }
 
 - (void)timelineDidReloadForWidget:(id)widget parentApp:(id)app withEntries:(id)entries completion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   widgetCopy = widget;
   appCopy = app;
   entriesCopy = entries;
   completionCopy = completion;
-  v14 = __atxlog_handle_xpc();
+  v14 = __atxlog_handle_xpc(completionCopy);
   v15 = os_signpost_id_generate(v14);
 
-  v16 = __atxlog_handle_xpc();
-  v17 = v16;
-  v18 = v15 - 1;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v17 = __atxlog_handle_xpc(v16);
+  v18 = v17;
+  v19 = v15 - 1;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "_timelineDidUpdateForWidget", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "_timelineDidUpdateForWidget", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v19 = @"entries";
+  v20 = @"entries";
   if ([entriesCopy count] && objc_msgSend(entriesCopy, "count") <= 1)
   {
-    v19 = @"entry";
+    v20 = @"entry";
   }
 
   spid = v15;
-  v20 = v19;
-  v21 = __atxlog_handle_timeline();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v21 = v20;
+  v22 = __atxlog_handle_timeline(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = [entriesCopy count];
+    v23 = [entriesCopy count];
     *buf = 138413058;
-    v44 = widgetCopy;
-    v45 = 2112;
-    v46 = appCopy;
-    v47 = 2048;
-    v48 = v22;
-    v49 = 2112;
-    v50 = v20;
-    _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: timelineDidReloadForWidget:appBundleId:entries:completion called with widget: %@, appBundleId: %@ and %lu %@", buf, 0x2Au);
+    v45 = widgetCopy;
+    v46 = 2112;
+    v47 = appCopy;
+    v48 = 2048;
+    v49 = v23;
+    v50 = 2112;
+    v51 = v21;
+    _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: timelineDidReloadForWidget:appBundleId:entries:completion called with widget: %@, appBundleId: %@ and %lu %@", buf, 0x2Au);
   }
 
-  v40 = v20;
-  v41 = appCopy;
+  v41 = v21;
+  v42 = appCopy;
 
-  v23 = [ATXTimelineRelevance alloc];
+  v24 = [ATXTimelineRelevance alloc];
   criterionRegistry = self->_criterionRegistry;
   abuseControlConfig = [(ATXInformationEngine *)self->_engine abuseControlConfig];
-  v42 = widgetCopy;
-  v26 = [(ATXTimelineRelevance *)v23 initWithWidget:widgetCopy criterionRegistry:criterionRegistry abuseControlConfig:abuseControlConfig];
+  v43 = widgetCopy;
+  v27 = [(ATXTimelineRelevance *)v24 initWithWidget:widgetCopy criterionRegistry:criterionRegistry abuseControlConfig:abuseControlConfig];
 
-  [(ATXTimelineRelevance *)v26 setDelegate:self->_engine];
-  sourceId = [(ATXTimelineRelevance *)v26 sourceId];
-  v28 = [(ATXInformationEngine *)self->_engine latestInfoSuggestionRelevantNowForSourceId:sourceId];
+  [(ATXTimelineRelevance *)v27 setDelegate:self->_engine];
+  sourceId = [(ATXTimelineRelevance *)v27 sourceId];
+  v29 = [(ATXInformationEngine *)self->_engine latestInfoSuggestionRelevantNowForSourceId:sourceId];
   engine = self->_engine;
-  suggestionIdentifier = [v28 suggestionIdentifier];
+  suggestionIdentifier = [v29 suggestionIdentifier];
   [(ATXInformationEngine *)engine deleteAllSuggestionsForSourceId:sourceId excludingSuggestionId:suggestionIdentifier];
 
-  v31 = [(ATXTimelineRelevance *)v26 infoSuggestionsFromTimelineEntries:entriesCopy latestInfoSuggestionRelevantNow:v28];
-  v32 = @"suggestions";
-  if ([v31 count] <= 1 && objc_msgSend(v31, "count"))
+  v32 = [(ATXTimelineRelevance *)v27 infoSuggestionsFromTimelineEntries:entriesCopy latestInfoSuggestionRelevantNow:v29];
+  v33 = @"suggestions";
+  if ([v32 count] <= 1 && objc_msgSend(v32, "count"))
   {
-    v32 = @"suggestion";
+    v33 = @"suggestion";
   }
 
-  v33 = v32;
-  v34 = __atxlog_handle_timeline();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v34 = v33;
+  v35 = __atxlog_handle_timeline(v34);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v35 = [v31 count];
+    v36 = [v32 count];
     *buf = 134218242;
-    v44 = v35;
-    v45 = 2112;
-    v46 = v33;
-    _os_log_impl(&dword_2263AA000, v34, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: Sending %lu %@ to the InformationEngine", buf, 0x16u);
+    v45 = v36;
+    v46 = 2112;
+    v47 = v34;
+    _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "ATXInfoSuggestionServer: Sending %lu %@ to the InformationEngine", buf, 0x16u);
   }
 
-  [(ATXInformationEngine *)self->_engine insertSuggestions:v31 forInfoSourceIdentifier:sourceId completionHandler:completionCopy];
-  v36 = __atxlog_handle_xpc();
-  v37 = v36;
-  if (v18 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+  [(ATXInformationEngine *)self->_engine insertSuggestions:v32 forInfoSourceIdentifier:sourceId completionHandler:completionCopy];
+  v38 = __atxlog_handle_xpc(v37);
+  v39 = v38;
+  if (v19 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v38))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_2263AA000, v37, OS_SIGNPOST_INTERVAL_END, spid, "_timelineDidUpdateForWidget", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_2263AA000, v39, OS_SIGNPOST_INTERVAL_END, spid, "_timelineDidUpdateForWidget", " enableTelemetry=YES ", buf, 2u);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)informationHeuristics:(id)heuristics didUpdateSuggestions:(id)suggestions forHeuristic:(id)heuristic
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   v8 = [MEMORY[0x277CE8990] sourceIdentifierForHeuristicWithName:heuristic];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = suggestionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       v13 = 0;
       do
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * v13);
-        v15 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:{18, v17}];
+        v14 = *(*(&v16 + 1) + 8 * v13);
+        v15 = [MEMORY[0x277D42070] clientModelIdFromClientModelType:{18, v16}];
         [v14 setClientModelId:v15];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
   [(ATXInfoSuggestionServer *)self resetSuggestionsTo:v9 forInfoSourceIdentifier:v8 errorHandler:&__block_literal_global_56_1];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __83__ATXInfoSuggestionServer_informationHeuristics_didUpdateSuggestions_forHeuristic___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = __atxlog_handle_gi(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      __83__ATXInfoSuggestionServer_informationHeuristics_didUpdateSuggestions_forHeuristic___block_invoke_cold_1(v2, v3);
+      __83__ATXInfoSuggestionServer_informationHeuristics_didUpdateSuggestions_forHeuristic___block_invoke_cold_1(v3, v4);
     }
   }
 }
 
 - (void)_addSuggestions:forSourceIdentifier:needReset:errorHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_25();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSuggestionsForInfoSourceIdentifier:withReply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_25();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearSuggestionsForInfoSourceIdentifier:errorHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_25();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_25();
-  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "ATXInfoSuggestionServer %s: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2263AA000, v0, OS_LOG_TYPE_FAULT, "ATXInfoSuggestionServer %s: %{public}@", v1, 0x16u);
 }
 
 - (void)overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_25();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __115__ATXInfoSuggestionServer_overwriteSuggestionsWithProactiveSuggestions_forClientModelIdentifier_completionHandler___block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[ATXInfoSuggestionServer overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:]_block_invoke";
-  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "ATXInfoSuggestionServer %s: error converting ATXProactiveSuggestion to ATXProactiveSuggestion", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[ATXInfoSuggestionServer overwriteSuggestionsWithProactiveSuggestions:forClientModelIdentifier:completionHandler:]_block_invoke";
+  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "ATXInfoSuggestionServer %s: error converting ATXProactiveSuggestion to ATXProactiveSuggestion", &v1, 0xCu);
 }
 
 - (void)retrieveAvailableCriterionIdentifiersForSourceIdentifier:reply:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_25();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listener:(os_log_t)log shouldAcceptNewConnection:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXInfoSuggestionServer: Rejecting connection %{public}@ without entitlement %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXInfoSuggestionServer: Rejecting connection %{public}@ without entitlement %{public}@", &v3, 0x16u);
 }
 
 void __83__ATXInfoSuggestionServer_informationHeuristics_didUpdateSuggestions_forHeuristic___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Error donating suggestions through heuristics: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Error donating suggestions through heuristics: %{public}@", &v2, 0xCu);
 }
 
 @end

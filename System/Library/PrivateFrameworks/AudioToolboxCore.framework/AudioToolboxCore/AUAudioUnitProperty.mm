@@ -1,5 +1,7 @@
 @interface AUAudioUnitProperty
 + (id)propertyWithKey:(id)key;
++ (id)propertyWithKey:(id)key scope:(unsigned int)scope element:(unsigned int)element;
++ (id)propertyWithKey:(id)key v2propID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element;
 - (AUAudioUnitProperty)initWithCoder:(id)coder;
 - (AUAudioUnitProperty)initWithKey:(id)key;
 - (AUAudioUnitProperty)initWithKey:(id)key scope:(unsigned int)scope element:(unsigned int)element;
@@ -98,6 +100,27 @@
   }
 
   return v7;
+}
+
++ (id)propertyWithKey:(id)key v2propID:(unsigned int)d scope:(unsigned int)scope element:(unsigned int)element
+{
+  v6 = *&element;
+  v7 = *&scope;
+  v8 = *&d;
+  keyCopy = key;
+  v10 = [[AUAudioUnitProperty alloc] initWithKey:keyCopy v2propID:v8 scope:v7 element:v6];
+
+  return v10;
+}
+
++ (id)propertyWithKey:(id)key scope:(unsigned int)scope element:(unsigned int)element
+{
+  v5 = *&element;
+  v6 = *&scope;
+  keyCopy = key;
+  v8 = [[AUAudioUnitProperty alloc] initWithKey:keyCopy scope:v6 element:v5];
+
+  return v8;
 }
 
 + (id)propertyWithKey:(id)key

@@ -40,17 +40,17 @@
 
 - (void)performOperation
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = RCSharedLog();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = RCSharedLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     fallbackURL = [(RCFallbackOperation *)self fallbackURL];
-    v10 = 138543618;
-    v11 = shortOperationDescription;
-    v12 = 2112;
-    v13 = fallbackURL;
-    _os_log_impl(&dword_2179FC000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform operation to fetch config with fallback URL: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = shortOperationDescription;
+    v11 = 2112;
+    v12 = fallbackURL;
+    _os_log_impl(&dword_2179FC000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform operation to fetch config with fallback URL: %@", &v9, 0x16u);
   }
 
   fallbackURL2 = [(RCFallbackOperation *)self fallbackURL];
@@ -58,8 +58,6 @@
   enableExtraLogs = [(RCFallbackOperation *)self enableExtraLogs];
   [(RCFallbackOperation *)self fallbackTimeoutDuration];
   [(RCFallbackOperation *)self _fetchConfigurationWithURL:fallbackURL2 requestKey:requestKey enableExtraLogs:enableExtraLogs fallbackTimeoutDuration:?];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operationWillFinishWithError:(id)error
@@ -102,7 +100,7 @@ void __52__RCFallbackOperation_operationWillFinishWithError___block_invoke(uint6
 
 - (void)_fetchConfigurationWithURL:(id)l requestKey:(id)key enableExtraLogs:(BOOL)logs fallbackTimeoutDuration:(double)duration
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
   v12 = objc_alloc_init(RCURLFetchOperation);
@@ -149,34 +147,31 @@ LABEL_6:
   }
 
 LABEL_7:
-  [(RCURLFetchOperation *)v12 setAdditionalRequestHTTPHeaders:dictionary];
-  v24 = RCSharedLog();
+  v24 = RCSharedLog([(RCURLFetchOperation *)v12 setAdditionalRequestHTTPHeaders:dictionary]);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     *buf = 138543618;
-    v38 = shortOperationDescription;
-    v39 = 2112;
-    v40 = dictionary;
+    v37 = shortOperationDescription;
+    v38 = 2112;
+    v39 = dictionary;
     _os_log_impl(&dword_2179FC000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ sending additional headers with URL fetch operation: %@", buf, 0x16u);
   }
 
 LABEL_10:
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtraLogs_fallbackTimeoutDuration___block_invoke;
-  v32 = &unk_27822F180;
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtraLogs_fallbackTimeoutDuration___block_invoke;
+  v31 = &unk_27822F180;
   selfCopy = self;
-  v34 = lCopy;
-  v35 = keyCopy;
+  v33 = lCopy;
+  v34 = keyCopy;
   logsCopy = logs;
   v26 = keyCopy;
   v27 = lCopy;
-  [(RCURLFetchOperation *)v12 setConfigurationCompletionHandler:&v29];
-  [(RCOperation *)self associateChildOperation:v12, v29, v30, v31, v32, selfCopy];
+  [(RCURLFetchOperation *)v12 setConfigurationCompletionHandler:&v28];
+  [(RCOperation *)self associateChildOperation:v12, v28, v29, v30, v31, selfCopy];
   [(RCOperation *)v12 start];
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtraLogs_fallbackTimeoutDuration___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -216,42 +211,40 @@ void __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtr
       v17 = [*(a1 + 32) configurationResource];
       [v17 setLastFetchedDate:v16];
 
-      v18 = RCSharedLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v19 = RCSharedLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = [*(a1 + 32) shortOperationDescription];
+        v20 = [*(a1 + 32) shortOperationDescription];
         *buf = 138543362;
-        v38 = v19;
-        _os_log_impl(&dword_2179FC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ the config has not changed since we last downloaded it (HTTP 304)", buf, 0xCu);
+        v38 = v20;
+        _os_log_impl(&dword_2179FC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ the config has not changed since we last downloaded it (HTTP 304)", buf, 0xCu);
       }
     }
 
     else
     {
-      v20 = [v11 allHeaderFields];
-      v18 = [v20 objectForKeyedSubscript:@"ETag"];
-
       v21 = [v11 allHeaderFields];
-      v22 = [v21 objectForKeyedSubscript:@"Last-Modified"];
+      v19 = [v21 objectForKeyedSubscript:@"ETag"];
 
-      v23 = *(a1 + 32);
-      v24 = *(a1 + 40);
-      v25 = *(a1 + 48);
-      v26 = *(a1 + 56);
+      v22 = [v11 allHeaderFields];
+      v23 = [v22 objectForKeyedSubscript:@"Last-Modified"];
+
+      v24 = *(a1 + 32);
+      v25 = *(a1 + 40);
+      v26 = *(a1 + 48);
+      v27 = *(a1 + 56);
       v28[0] = MEMORY[0x277D85DD0];
       v28[1] = 3221225472;
       v28[2] = __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtraLogs_fallbackTimeoutDuration___block_invoke_24;
       v28[3] = &unk_27822F158;
-      v28[4] = v23;
+      v28[4] = v24;
       v28[5] = &v29;
-      [v23 _parseFallbackResponse:v9 fallbackURL:v24 requestKey:v25 enableExtraLogs:v26 maxAge:v10 etag:v18 lastModifiedString:v22 completion:v28];
+      [v24 _parseFallbackResponse:v9 fallbackURL:v25 requestKey:v26 enableExtraLogs:v27 maxAge:v10 etag:v19 lastModifiedString:v23 completion:v28];
     }
 
     [*(a1 + 32) finishedPerformingOperationWithError:v30[5]];
     _Block_object_dispose(&v29, 8);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtraLogs_fallbackTimeoutDuration___block_invoke_24(uint64_t a1, uint64_t a2, void *a3)
@@ -266,7 +259,7 @@ void __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtr
 - (void)_parseFallbackResponse:(id)response fallbackURL:(id)l requestKey:(id)key enableExtraLogs:(BOOL)logs maxAge:(id)age etag:(id)etag lastModifiedString:(id)string completion:(id)self0
 {
   logsCopy = logs;
-  v80 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   keyCopy = key;
   ageCopy = age;
@@ -285,140 +278,139 @@ void __101__RCFallbackOperation__fetchConfigurationWithURL_requestKey_enableExtr
     v19 = responseCopy;
   }
 
-  v63 = 0;
-  v55 = v19;
+  v65 = 0;
+  v57 = v19;
   v20 = [MEMORY[0x277CBEAC0] rc_dictionaryFromData:? error:?];
-  v54 = 0;
-  if (v54)
+  v21 = 0;
+  v56 = v21;
+  if (v21)
   {
-    v21 = RCSharedLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = RCSharedLog(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [RCFallbackOperation _parseFallbackResponse:v54 fallbackURL:v21 requestKey:? enableExtraLogs:? maxAge:? etag:? lastModifiedString:? completion:?];
+      [RCFallbackOperation _parseFallbackResponse:v56 fallbackURL:v22 requestKey:? enableExtraLogs:? maxAge:? etag:? lastModifiedString:? completion:?];
     }
   }
 
-  v56 = v20;
+  v58 = v20;
   if (v20)
   {
-    v22 = objc_alloc_init(RCConfigurationResource);
-    [(RCConfigurationResource *)v22 setRequestKey:keyCopy];
-    v52 = v18;
+    v23 = objc_alloc_init(RCConfigurationResource);
+    [(RCConfigurationResource *)v23 setRequestKey:keyCopy];
+    v54 = v18;
     if (v18)
     {
-      [(RCConfigurationResource *)v22 setGzippedConfigurationData:responseCopy];
+      [(RCConfigurationResource *)v23 setGzippedConfigurationData:responseCopy];
     }
 
     else
     {
       rc_gzipDeflate = [responseCopy rc_gzipDeflate];
-      [(RCConfigurationResource *)v22 setGzippedConfigurationData:rc_gzipDeflate];
+      [(RCConfigurationResource *)v23 setGzippedConfigurationData:rc_gzipDeflate];
     }
 
-    v25 = [RCUserSegmentationConfiguration userSegmentationConfigurationWithConfigDict:v56 environment:[(RCFallbackOperation *)self environment]];
-    [(RCConfigurationResource *)v22 setUserSegmentationConfiguration:v25];
+    v26 = [RCUserSegmentationConfiguration userSegmentationConfigurationWithConfigDict:v58 environment:[(RCFallbackOperation *)self environment]];
+    [(RCConfigurationResource *)v23 setUserSegmentationConfiguration:v26];
 
-    [(RCConfigurationResource *)v22 setTreatmentIDs:0];
-    [(RCConfigurationResource *)v22 setSegmentSetIDs:0];
+    [(RCConfigurationResource *)v23 setTreatmentIDs:0];
+    [(RCConfigurationResource *)v23 setSegmentSetIDs:0];
     userID = [(RCFallbackOperation *)self userID];
-    [(RCConfigurationResource *)v22 setUserID:userID];
+    [(RCConfigurationResource *)v23 setUserID:userID];
 
     storefrontID = [(RCFallbackOperation *)self storefrontID];
-    [(RCConfigurationResource *)v22 setStorefrontID:storefrontID];
+    [(RCConfigurationResource *)v23 setStorefrontID:storefrontID];
 
     preferredLanguages = [(RCFallbackOperation *)self preferredLanguages];
-    [(RCConfigurationResource *)v22 setPreferredLanguages:preferredLanguages];
+    [(RCConfigurationResource *)v23 setPreferredLanguages:preferredLanguages];
 
     date = [MEMORY[0x277CBEAA8] date];
-    [(RCConfigurationResource *)v22 setLastFetchedDate:date];
+    [(RCConfigurationResource *)v23 setLastFetchedDate:date];
 
-    [(RCConfigurationResource *)v22 setFallbackMaxAge:ageCopy];
-    v30 = [etagCopy copy];
-    [(RCConfigurationResource *)v22 setEtag:v30];
+    [(RCConfigurationResource *)v23 setFallbackMaxAge:ageCopy];
+    v31 = [etagCopy copy];
+    [(RCConfigurationResource *)v23 setEtag:v31];
 
-    v31 = [stringCopy copy];
-    [(RCConfigurationResource *)v22 setLastModifiedFallbackString:v31];
+    v32 = [stringCopy copy];
+    [(RCConfigurationResource *)v23 setLastModifiedFallbackString:v32];
 
-    v32 = RCSharedLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = RCSharedLog(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription = [(RCOperation *)self shortOperationDescription];
-      [(RCConfigurationResource *)v22 lastFetchedDate];
-      v33 = v48 = self;
-      fallbackMaxAge = [(RCConfigurationResource *)v22 fallbackMaxAge];
-      etag = [(RCConfigurationResource *)v22 etag];
-      [(RCConfigurationResource *)v22 lastModifiedFallbackString];
-      v36 = v50 = completionCopy;
-      [(RCConfigurationResource *)v22 treatmentIDs];
-      v37 = v51 = responseCopy;
-      rc_description = [v37 rc_description];
-      [(RCConfigurationResource *)v22 segmentSetIDs];
-      v39 = v49 = stringCopy;
-      rc_description2 = [v39 rc_description];
+      [(RCConfigurationResource *)v23 lastFetchedDate];
+      v35 = v50 = self;
+      fallbackMaxAge = [(RCConfigurationResource *)v23 fallbackMaxAge];
+      etag = [(RCConfigurationResource *)v23 etag];
+      [(RCConfigurationResource *)v23 lastModifiedFallbackString];
+      v38 = v52 = completionCopy;
+      [(RCConfigurationResource *)v23 treatmentIDs];
+      v39 = v53 = responseCopy;
+      rc_description = [v39 rc_description];
+      [(RCConfigurationResource *)v23 segmentSetIDs];
+      v41 = v51 = stringCopy;
+      rc_description2 = [v41 rc_description];
       *buf = 138545154;
-      v65 = shortOperationDescription;
-      v66 = 2114;
-      v67 = keyCopy;
+      v67 = shortOperationDescription;
       v68 = 2114;
-      v69 = v33;
+      v69 = keyCopy;
       v70 = 2114;
-      v71 = fallbackMaxAge;
+      v71 = v35;
       v72 = 2114;
-      v73 = etag;
+      v73 = fallbackMaxAge;
       v74 = 2114;
-      v75 = v36;
+      v75 = etag;
       v76 = 2114;
-      v77 = rc_description;
+      v77 = v38;
       v78 = 2114;
-      v79 = rc_description2;
-      v41 = rc_description2;
-      _os_log_impl(&dword_2179FC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ fallback: received configuration with requestKey: %{public}@ lastFetchedDate: %{public}@ maxAge: %{public}@ etag: %{public}@ lastModified: %{public}@ treatmentIDs: %{public}@ segmentSetIDs: %{public}@", buf, 0x52u);
+      v79 = rc_description;
+      v80 = 2114;
+      v81 = rc_description2;
+      v43 = rc_description2;
+      _os_log_impl(&dword_2179FC000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@ fallback: received configuration with requestKey: %{public}@ lastFetchedDate: %{public}@ maxAge: %{public}@ etag: %{public}@ lastModified: %{public}@ treatmentIDs: %{public}@ segmentSetIDs: %{public}@", buf, 0x52u);
 
-      stringCopy = v49;
-      responseCopy = v51;
+      stringCopy = v51;
+      responseCopy = v53;
 
-      completionCopy = v50;
-      self = v48;
+      completionCopy = v52;
+      self = v50;
     }
 
     if (logsCopy)
     {
-      v42 = completionCopy;
-      v43 = RCSharedLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v45 = completionCopy;
+      v46 = RCSharedLog(v44);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         shortOperationDescription2 = [(RCOperation *)self shortOperationDescription];
-        v45 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v55 encoding:4];
+        v48 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v57 encoding:4];
         *buf = 138543618;
-        v65 = shortOperationDescription2;
-        v66 = 2112;
-        v67 = v45;
-        _os_log_impl(&dword_2179FC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ CloudKit JSON response: %@", buf, 0x16u);
+        v67 = shortOperationDescription2;
+        v68 = 2112;
+        v69 = v48;
+        _os_log_impl(&dword_2179FC000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@ CloudKit JSON response: %@", buf, 0x16u);
       }
 
-      completionCopy = v42;
+      completionCopy = v45;
     }
 
-    completionCopy[2](completionCopy, v22, 0);
-    v18 = v52;
-    v23 = v54;
+    completionCopy[2](completionCopy, v23, 0);
+    v18 = v54;
+    v24 = v56;
   }
 
   else
   {
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_enableExtraLogs_maxAge_etag_lastModifiedString_completion___block_invoke;
-    v60[3] = &unk_27822F1A8;
-    v23 = v54;
-    v61 = v54;
-    v62 = completionCopy;
-    __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_enableExtraLogs_maxAge_etag_lastModifiedString_completion___block_invoke(v60);
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_enableExtraLogs_maxAge_etag_lastModifiedString_completion___block_invoke;
+    v62[3] = &unk_27822F1A8;
+    v24 = v56;
+    v63 = v56;
+    v64 = completionCopy;
+    __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_enableExtraLogs_maxAge_etag_lastModifiedString_completion___block_invoke(v62);
 
-    v22 = v61;
+    v23 = v63;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_enableExtraLogs_maxAge_etag_lastModifiedString_completion___block_invoke(uint64_t a1)
@@ -440,30 +432,26 @@ void __127__RCFallbackOperation__parseFallbackResponse_fallbackURL_requestKey_en
 
 - (void)validateOperation
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"the fallback operation must have valid URL"];
-  v2 = 136315906;
-  v3 = "[RCFallbackOperation validateOperation]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCFallbackOperation.m";
-  v6 = 1024;
+  v1 = 136315906;
+  v2 = "[RCFallbackOperation validateOperation]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCFallbackOperation.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 - (void)_parseFallbackResponse:(NSObject *)a3 fallbackURL:requestKey:enableExtraLogs:maxAge:etag:lastModifiedString:completion:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 shortOperationDescription];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ parseFallbackResponse - JSON parsing failed with error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ parseFallbackResponse - JSON parsing failed with error: %{public}@", &v6, 0x16u);
 }
 
 @end

@@ -224,7 +224,7 @@ void __35__AVConferencePreview_setDelegate___block_invoke(uint64_t a1)
   v3[3] = &unk_1E85F3778;
   v3[4] = self;
   dispatch_async(avConferencePreviewNotificationQueue, v3);
-  VCPacketFilterGetCMBaseObject("didStartPreview", 2);
+  VCPacketFilterGetCMBaseObject();
 }
 
 uint64_t __38__AVConferencePreview_didStartPreview__block_invoke(uint64_t a1)
@@ -313,7 +313,7 @@ uint64_t __38__AVConferencePreview_didPausePreview__block_invoke(uint64_t a1)
   v3[3] = &unk_1E85F3778;
   v3[4] = self;
   dispatch_async(avConferencePreviewNotificationQueue, v3);
-  VCPacketFilterGetCMBaseObject("didStopPreview", 2);
+  VCPacketFilterGetCMBaseObject();
 }
 
 uint64_t __37__AVConferencePreview_didStopPreview__block_invoke(uint64_t a1)
@@ -2520,7 +2520,7 @@ LABEL_11:
   }
 
   *(*(a1 + 32) + 16) = 0;
-  return [*(*(a1 + 32) + 8) sendMessageAsync:"previewStopPreview" arguments:0 reply:{0, *v12, *&v12[16], v13, v14}];
+  return [*(*(a1 + 32) + 8) sendMessageAsync:"previewStopPreview" arguments:0 reply:{0, *v12, *&v12[8], v13, v14}];
 }
 
 - (BOOL)isPreviewRunning

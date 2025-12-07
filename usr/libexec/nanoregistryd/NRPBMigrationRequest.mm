@@ -36,7 +36,6 @@
 {
   if (*&self->_has)
   {
-    shouldCancel = self->_shouldCancel;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -93,7 +93,7 @@
 
 - (BOOL)hasTimeZoneChange
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   localTimeZone = [(HDHRBloodPressureJournalTimeZoneObserver *)self localTimeZone];
   timeZoneFromDefaults = [(HDHRBloodPressureJournalTimeZoneObserver *)self timeZoneFromDefaults];
   v5 = timeZoneFromDefaults;
@@ -109,11 +109,11 @@
     v7 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138543362;
+      v11 = 138543362;
       selfCopy2 = self;
       v8 = "[%{public}@] No difference in secondsFromGMT.";
 LABEL_8:
-      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, v8, &v12, 0xCu);
+      _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, v8, &v11, 0xCu);
       goto LABEL_9;
     }
 
@@ -131,7 +131,7 @@ LABEL_10:
   v7 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138543362;
+    v11 = 138543362;
     selfCopy2 = self;
     v8 = "[%{public}@] TimeZones are equal.";
     goto LABEL_8;
@@ -142,13 +142,12 @@ LABEL_9:
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)timeZoneDidChange:(id)change
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogBloodPressureJournal();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -167,9 +166,9 @@ LABEL_11:
     heartHealthProfileExtension = [WeakRetained heartHealthProfileExtension];
     bloodPressureJournalNotificationManager = [heartHealthProfileExtension bloodPressureJournalNotificationManager];
 
-    v15 = 0;
-    v9 = [bloodPressureJournalNotificationManager scheduleNotificationsWithReason:4 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [bloodPressureJournalNotificationManager scheduleNotificationsWithReason:4 error:&v14];
+    v10 = v14;
     if (v10)
     {
       _HKInitializeLogging();
@@ -186,8 +185,8 @@ LABEL_11:
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v18 = 1024;
-      v19 = v9;
+      v17 = 1024;
+      v18 = v9;
       _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed schedule notifications: %{BOOL}d", buf, 0x12u);
     }
   }
@@ -202,19 +201,16 @@ LABEL_11:
   {
     didRegenerateNotificationsHandler[2](didRegenerateNotificationsHandler, v9);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timeZoneDidChange:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to schedule notifications: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to schedule notifications: %{public}@", &v3, 0x16u);
 }
 
 @end

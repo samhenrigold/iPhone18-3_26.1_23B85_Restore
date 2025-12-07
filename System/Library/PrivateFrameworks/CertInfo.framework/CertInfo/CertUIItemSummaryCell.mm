@@ -5,6 +5,7 @@
 - (id)_profileImageAppropriateForDevice;
 - (void)_setupCell;
 - (void)_setupConstraints;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation CertUIItemSummaryCell
@@ -246,6 +247,13 @@
   v3 = [currentDevice userInterfaceIdiom] == 1;
 
   return dbl_2433CA2C0[v3];
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = CertUIItemSummaryCell;
+  [(CertUIItemSummaryCell *)&v4 setSelected:selected animated:animated];
 }
 
 @end

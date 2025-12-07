@@ -116,17 +116,18 @@
   section = [path section];
   v7 = [path row];
   v8 = [objc_alloc(MEMORY[0x277D75B48]) initWithStyle:0 reuseIdentifier:0];
+  v10 = v8;
   if (!(section | v7))
   {
-    v9 = TSWPBundle();
+    v11 = TSWPBundle(v8, v9);
     if (v5)
     {
-      v10 = @"New Message";
+      v12 = @"New Message";
     }
 
     else
     {
-      v10 = @"Open";
+      v12 = @"Open";
     }
 
     goto LABEL_8;
@@ -134,23 +135,23 @@
 
   if (!section && v7 == 1)
   {
-    v9 = TSWPBundle();
-    v10 = @"Copy";
+    v11 = TSWPBundle(v8, v9);
+    v12 = @"Copy";
 LABEL_8:
-    [objc_msgSend(v8 "textLabel")];
-    [objc_msgSend(v8 "textLabel")];
+    [objc_msgSend(v10 "textLabel")];
+    [objc_msgSend(v10 "textLabel")];
     goto LABEL_9;
   }
 
   if (section == 1)
   {
     [objc_msgSend(v8 "textLabel")];
-    [v8 setAccessoryType:1];
+    [v10 setAccessoryType:1];
   }
 
 LABEL_9:
-  [TSKPopoverBasedViewController configureTableViewCell:v8];
-  return v8;
+  [TSKPopoverBasedViewController configureTableViewCell:v10];
+  return v10;
 }
 
 - (id)hyperlinkSettingsViewController

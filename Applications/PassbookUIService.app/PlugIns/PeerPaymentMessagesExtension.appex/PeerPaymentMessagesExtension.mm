@@ -380,33 +380,33 @@ LABEL_25:
 LABEL_26:
 }
 
-uint64_t sub_1000047B0(uint64_t a1)
+uint64_t sub_1000047B0(uint64_t a1, uint64_t a2)
 {
-  v2 = PKIDSNormalizedAddress();
-  v3 = *(a1 + 32);
-  v4 = v2;
+  v3 = PKIDSNormalizedAddress();
+  v4 = *(a1 + 32);
   v5 = v3;
-  v6 = v5;
-  if (v4 == v5)
+  v6 = v4;
+  v7 = v6;
+  if (v5 == v6)
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v7 = 0;
-    if (v4 && v5)
+    v8 = 0;
+    if (v5 && v6)
     {
-      v7 = [v4 isEqualToString:v5];
+      v8 = [v5 isEqualToString:v6];
     }
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_100004B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100004B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -552,9 +552,9 @@ void sub_10000534C(uint64_t a1, uint64_t a2, void *a3, void *a4)
     }
 
     *buf = 138543618;
-    v46 = v11;
-    v47 = 2112;
-    v48 = v8;
+    v44 = v11;
+    v45 = 2112;
+    v46 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Peer Payment Messages Extension: performQuoteWithCompletion returned success: %{public}@ error: %@", buf, 0x16u);
   }
 
@@ -583,33 +583,33 @@ void sub_10000534C(uint64_t a1, uint64_t a2, void *a3, void *a4)
   {
     if (!v8)
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
-    v23 = [v8 userInfo];
-    v24 = [v23 objectForKey:NSUnderlyingErrorKey];
+    v22 = [v8 userInfo];
+    v23 = [v22 objectForKey:NSUnderlyingErrorKey];
 
-    v25 = [v24 domain];
-    if ([v25 isEqualToString:PKPeerPaymentWebServiceErrorDomain])
+    v24 = [v23 domain];
+    if ([v24 isEqualToString:PKPeerPaymentWebServiceErrorDomain])
     {
-      v26 = [v24 code];
+      v25 = [v23 code];
 
-      if (v26)
+      if (v25)
       {
 LABEL_21:
         [*(a1 + 40) _handleError:v8];
 
         v14 = 0;
-LABEL_36:
+LABEL_35:
 
-        goto LABEL_37;
+        goto LABEL_36;
       }
 
-      v25 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_SEND_MONEY_GENERIC_ERROR_TITLE");
-      v27 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_SEND_MONEY_GENERIC_ERROR_MESSAGE");
-      v44 = PKDisplayableErrorCustom();
+      v24 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_SEND_MONEY_GENERIC_ERROR_TITLE");
+      v26 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_SEND_MONEY_GENERIC_ERROR_MESSAGE");
+      v42 = PKDisplayableErrorCustom();
 
-      v8 = v44;
+      v8 = v42;
     }
 
     goto LABEL_21;
@@ -620,14 +620,14 @@ LABEL_36:
   if (v17 == 3)
   {
     v18 = [v7 recurringPaymentIdentifier];
-    v28 = +[PKPeerPaymentService sharedInstance];
-    v29 = [*(a1 + 56) recurringPaymentMemo];
-    [v28 updateRecurringPaymentMemo:v29 identifier:v18 completion:0];
+    v27 = +[PKPeerPaymentService sharedInstance];
+    v28 = [*(a1 + 56) recurringPaymentMemo];
+    [v27 updateRecurringPaymentMemo:v28 identifier:v18 completion:0];
 
-    [v28 updateRecurringPaymentsWithCompletion:0];
-LABEL_25:
+    [v27 updateRecurringPaymentsWithCompletion:0];
+LABEL_24:
 
-    goto LABEL_26;
+    goto LABEL_25;
   }
 
   if (v17 == 1)
@@ -644,21 +644,14 @@ LABEL_25:
     if ([v16 length])
     {
       [*(a1 + 56) setMemo:v16];
-      v22 = &PKAggDKeyPeerPaymentBubbleSendWithMemo;
     }
 
-    else
-    {
-      v22 = &PKAggDKeyPeerPaymentBubbleSendWithoutMemo;
-    }
-
-    v30 = *v22;
     PKAnalyticsSendEvent();
     [*(a1 + 56) reportMessageSentWithLocalProperties:*(a1 + 64)];
-    goto LABEL_25;
+    goto LABEL_24;
   }
 
-LABEL_26:
+LABEL_25:
   if ([*(a1 + 40) _peerPaymentParicipantShouldSeeMemoSharingMessageForMemo:v16] && objc_msgSend(*(a1 + 32), "mode") == 1)
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
@@ -666,62 +659,62 @@ LABEL_26:
       sub_100010048();
     }
 
-    v31 = +[NSUserDefaults standardUserDefaults];
-    [v31 setObject:&__kCFBooleanTrue forKey:@"PKPeerPaymentParticipantSharingMemoMessage"];
+    v29 = +[NSUserDefaults standardUserDefaults];
+    [v29 setObject:&__kCFBooleanTrue forKey:@"PKPeerPaymentParticipantSharingMemoMessage"];
   }
 
-  v32 = +[PKMessagesAppSharedContext sharedContext];
-  v33 = [*(a1 + 56) identifier];
-  [v32 removeExternalizedControllerStateDataForMessageIdentifier:v33];
+  v30 = +[PKMessagesAppSharedContext sharedContext];
+  v31 = [*(a1 + 56) identifier];
+  [v30 removeExternalizedControllerStateDataForMessageIdentifier:v31];
 
-  v34 = *(a1 + 40);
-  if (v34[2].info || v34[2].data)
+  v32 = *(a1 + 40);
+  if (v32[2].info || v32[2].data)
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v46 = v34;
+      v44 = v32;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Peer Payment Messages Extension: Controller:%p Invalidating pending request values post successful perform quote.", buf, 0xCu);
     }
 
+    v33 = *(a1 + 40);
+    v34 = *(v33 + 72);
+    *(v33 + 72) = 0;
+
     v35 = *(a1 + 40);
-    v36 = *(v35 + 72);
-    *(v35 + 72) = 0;
+    v36 = *(v35 + 80);
+    *(v35 + 80) = 0;
 
     v37 = *(a1 + 40);
-    v38 = *(v37 + 80);
-    *(v37 + 80) = 0;
+    v38 = *(v37 + 88);
+    *(v37 + 88) = 0;
 
     v39 = *(a1 + 40);
-    v40 = *(v39 + 88);
-    *(v39 + 88) = 0;
-
-    v41 = *(a1 + 40);
-    v24 = *(v41 + 96);
-    *(v41 + 96) = 0;
-    goto LABEL_36;
+    v23 = *(v39 + 96);
+    *(v39 + 96) = 0;
+    goto LABEL_35;
   }
 
-LABEL_37:
+LABEL_36:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v42 = @"NO";
+    v40 = @"NO";
     if (a2)
     {
-      v42 = @"YES";
+      v40 = @"YES";
     }
 
     *buf = 138543618;
-    v46 = v42;
-    v47 = 2112;
-    v48 = v14;
+    v44 = v40;
+    v45 = 2112;
+    v46 = v14;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Peer Payment Messages Extension: Calling payment completion with shouldSend: %{public}@, localizedInvalidationDescription: %@", buf, 0x16u);
   }
 
-  v43 = *(a1 + 72);
-  if (v43)
+  v41 = *(a1 + 72);
+  if (v41)
   {
-    (*(v43 + 16))(v43, a2, v14);
+    (*(v41 + 16))(v41, a2, v14);
   }
 }
 
@@ -1282,39 +1275,38 @@ void sub_10000ABC0(uint64_t a1)
   {
     v2 = *(a1 + 40);
     v3 = *(a1 + 48);
-    v4 = *(a1 + 64);
 
     [v2 _insertRequestMessageWithAmount:v3 requestToken:? completion:?];
     return;
   }
 
-  v12 = *(a1 + 56);
-  v5 = [*(a1 + 56) userInfo];
-  v6 = [v5 objectForKey:NSUnderlyingErrorKey];
+  v11 = *(a1 + 56);
+  v4 = [*(a1 + 56) userInfo];
+  v5 = [v4 objectForKey:NSUnderlyingErrorKey];
 
-  v7 = [v6 domain];
-  if (![v7 isEqualToString:PKPeerPaymentWebServiceErrorDomain])
+  v6 = [v5 domain];
+  if (![v6 isEqualToString:PKPeerPaymentWebServiceErrorDomain])
   {
     goto LABEL_9;
   }
 
-  v8 = [v6 code];
+  v7 = [v5 code];
 
-  if (!v8)
+  if (!v7)
   {
-    v7 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_REQUEST_MONEY_GENERIC_ERROR_TITLE");
-    v9 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_REQUEST_MONEY_GENERIC_ERROR_MESSAGE");
-    v10 = PKDisplayableErrorCustom();
+    v6 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_REQUEST_MONEY_GENERIC_ERROR_TITLE");
+    v8 = PKLocalizedPeerPaymentString(@"PEER_PAYMENT_REQUEST_MONEY_GENERIC_ERROR_MESSAGE");
+    v9 = PKDisplayableErrorCustom();
 
-    v12 = v10;
+    v11 = v9;
 LABEL_9:
   }
 
-  [*(a1 + 40) _handleError:v12];
-  v11 = *(a1 + 64);
-  if (v11)
+  [*(a1 + 40) _handleError:v11];
+  v10 = *(a1 + 64);
+  if (v10)
   {
-    (*(v11 + 16))(v11, 0);
+    (*(v10 + 16))(v10, 0);
   }
 }
 
@@ -1464,21 +1456,20 @@ void sub_10000B6FC(uint64_t a1, int a2)
   }
 }
 
-uint64_t (**sub_10000B7DC(void *a1, uint64_t a2, uint64_t a3))(id, void)
+uint64_t (**sub_10000B7DC(void *a1, uint64_t a2, uint64_t a3))(void *, void)
 {
   if (a3)
   {
     if (a3 == 2)
     {
-      v4 = a1[7];
       (*(a1[7] + 16))();
     }
 
-    v5 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Peer Payment Messages Extension: User does not want to insert payment message.", v11, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Peer Payment Messages Extension: User does not want to insert payment message.", v9, 2u);
     }
 
     result = a1[8];
@@ -1490,13 +1481,12 @@ uint64_t (**sub_10000B7DC(void *a1, uint64_t a2, uint64_t a3))(id, void)
 
   else
   {
-    v7 = a1[6];
     (*(a1[6] + 16))();
-    v8 = a1[4];
-    v9 = a1[5];
-    v10 = a1[8];
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = a1[8];
 
-    return [v8 _insertPaymentMessageWithQuote:v9 completion:v10];
+    return [v6 _insertPaymentMessageWithQuote:v7 completion:v8];
   }
 
   return result;
@@ -1829,7 +1819,7 @@ void sub_10000D12C(uint64_t a1)
 LABEL_6:
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001036C(a1);
+      sub_10001036C();
     }
 
     v5 = *(a1 + 40);
@@ -1913,17 +1903,16 @@ void sub_10000D7F4(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (a3 == 2 && *(a1 + 32))
     {
-      v6 = +[LSApplicationWorkspace defaultWorkspace];
-      [v6 openSensitiveURL:*(a1 + 32) withOptions:0];
+      v5 = +[LSApplicationWorkspace defaultWorkspace];
+      [v5 openSensitiveURL:*(a1 + 32) withOptions:0];
     }
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 }
 
@@ -2211,13 +2200,12 @@ void sub_100010084()
 void sub_1000100F4(uint64_t a1)
 {
   v1 = *(a1 + 40);
-  v2 = *(v1 + 112);
-  v6 = 134218498;
-  v7 = v1;
+  v5 = 134218498;
+  v6 = v1;
   sub_10000FF10();
+  v7 = v2;
   v8 = v3;
-  v9 = v4;
-  _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "PKPeerPaymentMessagesAppViewController: %p; Unable to find recipient for request message with sender address %@, identifiedRecipients: %@", &v6, 0x20u);
+  _os_log_error_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "PKPeerPaymentMessagesAppViewController: %p; Unable to find recipient for request message with sender address %@, identifiedRecipients: %@", &v5, 0x20u);
 }
 
 void sub_10001018C()
@@ -2246,13 +2234,6 @@ void sub_100010330()
   sub_10000FEF8();
   sub_10000FF04();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_10001036C(uint64_t a1)
-{
-  v6 = *(a1 + 40);
-  sub_10000FEE0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1000103E4()

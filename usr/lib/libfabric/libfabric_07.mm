@@ -1,1218 +1,6 @@
-uint64_t xnet_recv_cm_msg(int a1, _WORD *a2)
-{
-  v3 = recv(a1, a2, 0x20uLL, 0);
-  result = 0;
-  if (v3 != 32)
-  {
-    if (fi_log_enabled(&xnet_prov, 0, 3))
-    {
-      v5 = *__error();
-      v6 = __error();
-      fi_log(&xnet_prov, 0, 3, "xnet_recv_cm_msg", 56, "Failed to read cm header, ret: %zd, sockerr: %d\n", v3, *v6);
-      *__error() = v5;
-    }
-
-    a2[1] = 0;
-    if (v3 < 0)
-    {
-      return -*__error();
-    }
-
-    else
-    {
-      return 4294967291;
-    }
-  }
-
-  return result;
-}
-
-uint64_t xnet_handle_cm_msg(int a1, uint64_t a2, int a3)
-{
-  if (*a2 != 3)
-  {
-    if (fi_log_enabled(&xnet_prov, 0, 3))
-    {
-      v8 = *__error();
-      fi_log(&xnet_prov, 0, 3, "xnet_handle_cm_msg", 72, "cm protocol version mismatch\n");
-      goto LABEL_13;
-    }
-
-LABEL_14:
-    result = 4294967254;
-LABEL_18:
-    *(a2 + 2) = 0;
-    return result;
-  }
-
-  v5 = *(a2 + 1);
-  if (v5 != a3 && v5 != 6)
-  {
-    if (fi_log_enabled(&xnet_prov, 0, 3))
-    {
-      v11 = *__error();
-      fi_log(&xnet_prov, 0, 3, "xnet_handle_cm_msg", 80, "unexpected message, expected %d or %d got: %d\n", a3, 6, *(a2 + 1));
-      *__error() = v11;
-    }
-
-    result = 4294967235;
-    goto LABEL_18;
-  }
-
-  if (*(a2 + 2))
-  {
-    v7 = __rev16(*(a2 + 2));
-    if (v7 >= 0x101)
-    {
-      if (fi_log_enabled(&xnet_prov, 0, 3))
-      {
-        v8 = *__error();
-        fi_log(&xnet_prov, 0, 3, "xnet_handle_cm_msg", 90, "cm data size is too large, seg_size: %zu\n");
-LABEL_13:
-        *__error() = v8;
-        goto LABEL_14;
-      }
-
-      goto LABEL_14;
-    }
-
-    v12 = recv(a1, (a2 + 32), v7, 0);
-    if (v12 != v7)
-    {
-      v14 = v12;
-      if (fi_log_enabled(&xnet_prov, 0, 3))
-      {
-        v15 = *__error();
-        v16 = __error();
-        fi_log(&xnet_prov, 0, 3, "xnet_handle_cm_msg", 99, "Failed to read cm data, ret: %zd, sockerr: %d\n", v14, *v16);
-        *__error() = v15;
-      }
-
-      if (v14 < 0)
-      {
-        result = -*__error();
-      }
-
-      else
-      {
-        result = 4294967291;
-      }
-
-      goto LABEL_18;
-    }
-
-    v5 = *(a2 + 1);
-  }
-
-  if (v5 != 6)
-  {
-    return 0;
-  }
-
-  if (fi_log_enabled(&xnet_prov, 2, 3))
-  {
-    v13 = *__error();
-    fi_log(&xnet_prov, 2, 3, "xnet_handle_cm_msg", 107, "Connection refused from remote\n");
-    *__error() = v13;
-  }
-
-  return 4294967235;
-}
-
-uint64_t xnet_req_done_internal(uint64_t a1)
-{
-  v31 = *MEMORY[0x29EDCA608];
-  v30 = 0u;
-  v29 = 0u;
-  v28 = 0u;
-  v27 = 0u;
-  v26 = 0u;
-  v25 = 0u;
-  v24 = 0u;
-  v23 = 0u;
-  v22 = 0u;
-  v21 = 0u;
-  v20 = 0u;
-  v19 = 0u;
-  v18 = 0u;
-  v17 = 0u;
-  v16 = 0u;
-  v15 = 0u;
-  v2 = *(a1 + 18928);
-  v3 = *(v2 + 24);
-  v4 = v3 == 1;
-  if (v3 == 1)
-  {
-    v5 = xnet_hdr_none;
-  }
-
-  else
-  {
-    v5 = xnet_hdr_bswap;
-  }
-
-  v6 = xnet_hdr_bswap_trace;
-  if (v4)
-  {
-    v6 = xnet_hdr_trace;
-  }
-
-  if (!xnet_trace_msg)
-  {
-    v6 = v5;
-  }
-
-  *(a1 + 18944) = v6;
-  v7 = *(v2 + 2);
-  v8 = __rev16(v7);
-  v14[0] = a1;
-  v14[1] = 0;
-  if (v7)
-  {
-    __memcpy_chk();
-  }
-
-  v9 = xnet_eq_write(*(a1 + 112), 2, v14, v8 + 16);
-  if ((v9 & 0x80000000) != 0)
-  {
-    v10 = v9;
-    if (fi_log_enabled(&xnet_prov, 0, 3))
-    {
-      v11 = *__error();
-      fi_log(&xnet_prov, 0, 3, "xnet_req_done_internal", 161, "Error writing to EQ\n");
-      *__error() = v11;
-    }
-  }
-
-  else
-  {
-    if (*(a1 + 9516) != *(a1 + 9512) || *(a1 + 18696))
-    {
-      xnet_req_done_internal_cold_1();
-    }
-
-    *(a1 + 18904) = 4;
-    free(*(a1 + 18928));
-    *(a1 + 18928) = 0;
-    free(*(a1 + 18936));
-    v10 = 0;
-    *(a1 + 18936) = 0;
-  }
-
-  v12 = *MEMORY[0x29EDCA608];
-  return v10;
-}
-
-uint64_t xnet_uring_req_done(uint64_t a1, int a2)
-{
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_uring_req_done_cold_1();
-  }
-
-  v4 = a2;
-  if (a2 < 0)
-  {
-    goto LABEL_9;
-  }
-
-  if (a2 != 32)
-  {
-    v4 = -5;
-LABEL_9:
-    v6 = a2 == -61;
-    v7 = 2 * v6;
-    if (fi_log_enabled(&xnet_prov, 2 * v6, 3))
-    {
-      v8 = *__error();
-      fi_log(&xnet_prov, v7, 3, "xnet_uring_req_done", 229, "Failed to receive connect response\n");
-      *__error() = v8;
-    }
-
-    goto LABEL_11;
-  }
-
-  v4 = xnet_handle_cm_msg(*(a1 + 424), *(a1 + 18928), 1);
-  if (v4)
-  {
-    goto LABEL_9;
-  }
-
-  *(a1 + 18952) = 1;
-  LODWORD(result) = xnet_uring_pollin_add(*(a1 + 80) + 280, *(a1 + 424), 0, a1 + 472);
-  if (!result)
-  {
-    result = xnet_req_done_internal(a1);
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  v4 = result;
-LABEL_11:
-  v9 = *(a1 + 18928);
-  v10 = bswap32(*(v9 + 2)) >> 16;
-
-  return xnet_ep_disable(a1, -v4, (v9 + 32), v10);
-}
-
-void xnet_handle_conn(uint64_t a1, int a2)
-{
-  v34 = *MEMORY[0x29EDCA608];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  memset(v15, 0, sizeof(v15));
-  v4 = *(*(*(a1 + 24) + 64) + 216);
-  if (!(*(v4 + 72))(v4 + 8))
-  {
-    xnet_handle_conn_cold_1();
-  }
-
-  v14 = 0;
-  if (a2)
-  {
-    if (fi_log_enabled(&xnet_prov, 0, 3))
-    {
-      v5 = *__error();
-      fi_log(&xnet_prov, 0, 3, "xnet_handle_conn", 262, "socket error\n");
-      *__error() = v5;
-    }
-
-    goto LABEL_13;
-  }
-
-  v6 = xnet_recv_cm_msg(*(a1 + 32), &v16);
-  if (!v6)
-  {
-    v6 = xnet_handle_cm_msg(*(a1 + 32), &v16, 0);
-  }
-
-  if (v6 != -35)
-  {
-    if (v6)
-    {
-      goto LABEL_13;
-    }
-
-    *&v15[0] = *(a1 + 24);
-    v7 = fi_dupinfo(*(*&v15[0] + 56));
-    *(&v15[0] + 1) = v7;
-    if (!v7)
-    {
-      goto LABEL_13;
-    }
-
-    v8 = v7;
-    v9 = *(*(*(a1 + 24) + 56) + 32);
-    v7[5] = v9;
-    v14 = v9;
-    free(v7[7]);
-    v10 = malloc_type_malloc(v9, 0xF4409356uLL);
-    v8[7] = v10;
-    if (!v10 || getpeername(*(a1 + 32), v10, &v14))
-    {
-LABEL_12:
-      fi_freeinfo(*(&v15[0] + 1));
-LABEL_13:
-      close(*(a1 + 32));
-      free(a1);
-      goto LABEL_14;
-    }
-
-    *(a1 + 36) = *(&v17 + 1) == 1;
-    v8[8] = a1;
-    v12 = __rev16(WORD1(v16));
-    if (WORD1(v16))
-    {
-      __memcpy_chk();
-    }
-
-    if ((xnet_eq_write(*(*(a1 + 24) + 48), 1, v15, v12 + 16) & 0x80000000) != 0)
-    {
-      if (fi_log_enabled(&xnet_prov, 0, 3))
-      {
-        v13 = *__error();
-        fi_log(&xnet_prov, 0, 3, "xnet_handle_conn", 306, "Error writing to EQ\n");
-        *__error() = v13;
-      }
-
-      goto LABEL_12;
-    }
-  }
-
-LABEL_14:
-  v11 = *MEMORY[0x29EDCA608];
-}
-
-uint64_t xnet_connect_done(uint64_t a1)
-{
-  v2 = *(a1 + 80);
-  if (!(*(*(v2 + 496) + 72))(*(v2 + 496) + 8))
-  {
-    xnet_connect_done_cold_2();
-  }
-
-  v8 = 0;
-  v9 = 4;
-  v3 = getsockopt(*(a1 + 424), 0xFFFF, 4103, &v8, &v9);
-  v4 = v8;
-  if (v3 < 0 || v8)
-  {
-    if (v3 < 0)
-    {
-      v4 = *__error();
-    }
-
-    v5 = -v4;
-    if (fi_log_ready(&xnet_prov, 0, 3, &xnet_connect_done_showtime))
-    {
-      v7 = *__error();
-      fi_log(&xnet_prov, 0, 3, "xnet_connect_done", 335, "connection failure (sockerr %d)\n", v5);
-      *__error() = v7;
-    }
-
-    return xnet_ep_disable(a1, -v5, 0, 0);
-  }
-
-  v5 = xnet_send_cm_msg(a1);
-  if (v5)
-  {
-    return xnet_ep_disable(a1, -v5, 0, 0);
-  }
-
-  *(a1 + 18904) = 3;
-  *(a1 + 18952) = 1;
-  result = (*(v2 + 848))(v2 + 824, *(a1 + 424), 1, a1);
-  if (*(v2 + 4984) == 1)
-  {
-    v10 = 0;
-    pthread_mutex_lock((v2 + 552));
-    if (!*(v2 + 624))
-    {
-      if (send(*(v2 + 620), &v10, 1uLL, 0) != 1)
-      {
-        sock_conn_stop_listener_thread_cold_1();
-      }
-
-      ++*(v2 + 624);
-    }
-
-    return pthread_mutex_unlock((v2 + 552));
-  }
-
-  return result;
-}
-
-void xnet_accept_sock(uint64_t a1)
-{
-  if (!(*(*(*(a1 + 64) + 216) + 72))(*(*(a1 + 64) + 216) + 8))
-  {
-    xnet_accept_sock_cold_1();
-  }
-
-  v2 = malloc_type_calloc(1uLL, 0x40uLL, 0x10A0040DECFDE4EuLL);
-  if (v2)
-  {
-    v3 = v2;
-    *v2 = 18;
-    *(v2 + 3) = a1;
-    v4 = *(a1 + 64);
-    *(v2 + 5) = v4 + 464;
-    *(v2 + 6) = v2;
-    *(v2 + 56) = 0;
-    v5 = *(a1 + 72);
-    v6 = (*(v4 + 504))();
-    v7 = v6;
-    if ((v6 & 0x80000000) != 0)
-    {
-      v3[8] = -1;
-      if (v6 == -513)
-      {
-        return;
-      }
-
-      if (v6 != -35 && fi_log_enabled(&xnet_prov, 0, 3))
-      {
-        v9 = -v7;
-        v10 = *__error();
-        fi_log(&xnet_prov, 0, 3, "xnet_accept_sock", 386, "accept error: %d\n", v9);
-        *__error() = v10;
-      }
-    }
-
-    else
-    {
-      v3[8] = v6;
-      if (!xnet_monitor_sock(*(a1 + 64), v6, 1, v3))
-      {
-        return;
-      }
-
-      close(v3[8]);
-    }
-
-    free(v3);
-  }
-
-  else if (fi_log_enabled(&xnet_prov, 0, 3))
-  {
-    v8 = *__error();
-    fi_log(&xnet_prov, 0, 3, "xnet_accept_sock", 365, "cannot allocate memory\n");
-    *__error() = v8;
-  }
-}
-
-uint64_t xnet_recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_4();
-  }
-
-  v10 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (!v10)
-  {
-    goto LABEL_8;
-  }
-
-  v11 = v10;
-  v10[15] = *(a1 + 184);
-  v10[14] = *(a1 + 120);
-  v10[1] = a2;
-  v10[2] = 1;
-  v10[3] = a2;
-  v10[4] = a3;
-  v10[20] = 1026;
-  v10[23] = a6;
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_3();
-  }
-
-  v12 = *(a1 + 18888);
-  if (!v12)
-  {
-    xnet_free_xfer(*(a1 + 80) + 280, v11);
-LABEL_8:
-    v14 = -35;
-    goto LABEL_16;
-  }
-
-  if (*(a1 + 18752))
-  {
-    v13 = *(a1 + 18760);
-  }
-
-  else
-  {
-    v13 = (a1 + 18752);
-  }
-
-  *v13 = v11;
-  *v11 = 0;
-  *(a1 + 18760) = v11;
-  *(a1 + 18888) = v12 - 1;
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_2();
-  }
-
-  if (*(a1 + 18696) && !*(a1 + 18688))
-  {
-    if (*(a1 + 18736) == a1 + 18736)
-    {
-      xnet_recv_cold_1();
-    }
-
-    xnet_progress_rx(a1);
-  }
-
-  v14 = 0;
-LABEL_16:
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v14;
-}
-
-uint64_t xnet_recvv(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
-{
-  if (a4 >= 5)
-  {
-    xnet_recvv_cold_5();
-  }
-
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_4();
-  }
-
-  v10 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (!v10)
-  {
-    goto LABEL_11;
-  }
-
-  v11 = v10;
-  v10[15] = *(a1 + 184);
-  v10[14] = *(a1 + 120);
-  v10[2] = a4;
-  if (a4)
-  {
-    v10[1] = *a2;
-    memcpy(v10 + 3, a2, 16 * a4);
-  }
-
-  v11[20] = 1026;
-  v11[23] = a6;
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_3();
-  }
-
-  v12 = *(a1 + 18888);
-  if (!v12)
-  {
-    xnet_free_xfer(*(a1 + 80) + 280, v11);
-LABEL_11:
-    v14 = -35;
-    goto LABEL_19;
-  }
-
-  if (*(a1 + 18752))
-  {
-    v13 = *(a1 + 18760);
-  }
-
-  else
-  {
-    v13 = (a1 + 18752);
-  }
-
-  *v13 = v11;
-  *v11 = 0;
-  *(a1 + 18760) = v11;
-  *(a1 + 18888) = v12 - 1;
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_2();
-  }
-
-  if (*(a1 + 18696) && !*(a1 + 18688))
-  {
-    if (*(a1 + 18736) == a1 + 18736)
-    {
-      xnet_recv_cold_1();
-    }
-
-    xnet_progress_rx(a1);
-  }
-
-  v14 = 0;
-LABEL_19:
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v14;
-}
-
-uint64_t xnet_recvmsg(uint64_t a1, uint64_t a2, int a3)
-{
-  if (*(a2 + 16) >= 5uLL)
-  {
-    xnet_recvmsg_cold_5();
-  }
-
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_4();
-  }
-
-  v6 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = v6;
-  v6[15] = *(a1 + 184);
-  v6[14] = *(a1 + 120);
-  v8 = *(a2 + 16);
-  v6[2] = v8;
-  if (v8)
-  {
-    v6[1] = **a2;
-    memcpy(v6 + 3, *a2, 16 * v8);
-  }
-
-  v7[20] = a3 & 0x1000000 | 0x402;
-  v7[23] = *(a2 + 32);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_3();
-  }
-
-  v9 = *(a1 + 18888);
-  if (!v9)
-  {
-    xnet_free_xfer(*(a1 + 80) + 280, v7);
-LABEL_11:
-    v11 = -35;
-    goto LABEL_19;
-  }
-
-  if (*(a1 + 18752))
-  {
-    v10 = *(a1 + 18760);
-  }
-
-  else
-  {
-    v10 = (a1 + 18752);
-  }
-
-  *v10 = v7;
-  *v7 = 0;
-  *(a1 + 18760) = v7;
-  *(a1 + 18888) = v9 - 1;
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_recv_cold_2();
-  }
-
-  if (*(a1 + 18696) && !*(a1 + 18688))
-  {
-    if (*(a1 + 18736) == a1 + 18736)
-    {
-      xnet_recv_cold_1();
-    }
-
-    xnet_progress_rx(a1);
-  }
-
-  v11 = 0;
-LABEL_19:
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v11;
-}
-
-uint64_t xnet_send(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v10 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (v10)
-  {
-    v11 = v10;
-    *(v10 + 200) = 3;
-    *(v10 + 204) = 0;
-    v10[14] = *(a1 + 136);
-    *(v10 + 201) = 0;
-    v10[15] = *(a1 + 176);
-    v12 = xnet_max_inject;
-    v13 = a3 + 16;
-    v10[26] = a3 + 16;
-    *(v10 + 206) = 16;
-    v10[3] = (v10 + 25);
-    if (v12 >= a3)
-    {
-      memcpy(v10 + 27, a2, a3);
-      v14 = 1;
-    }
-
-    else
-    {
-      v10[1] = a2;
-      v14 = 2;
-      v13 = 16;
-      v10[5] = a2;
-      v10[6] = a3;
-    }
-
-    *(v11 + 32) = v13;
-    *(v11 + 16) = v14;
-    *(v11 + 184) = a6;
-    *(v11 + 160) = *(a1 + 144) & 0x1000000 | 0x802;
-    if ((*(a1 + 147) & 0x18) != 0)
-    {
-      *(v11 + 202) |= 4u;
-      *(v11 + 168) |= 4u;
-    }
-
-    xnet_tx_queue_insert(a1, v11);
-    v15 = 0;
-  }
-
-  else
-  {
-    v15 = -35;
-  }
-
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v15;
-}
-
-uint64_t xnet_sendv(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v10 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (!v10)
-  {
-    v18 = -35;
-    goto LABEL_16;
-  }
-
-  v11 = v10;
-  *(v10 + 200) = 3;
-  v12 = v10 + 25;
-  *(v10 + 204) = 0;
-  v10[14] = *(a1 + 136);
-  *(v10 + 201) = 0;
-  v10[15] = *(a1 + 176);
-  if (a4 >= 5)
-  {
-    xnet_sendv_cold_1();
-  }
-
-  if (!a4)
-  {
-    v16 = 16;
-    v10[26] = 16;
-    *(v10 + 206) = 16;
-    v10[3] = v12;
-    v17 = xnet_max_inject;
-LABEL_12:
-    ofi_copy_iov_buf(a2, a4, 0, (v10 + 27), v17, 0);
-    *(v11 + 32) = v16;
-    *(v11 + 16) = 1;
-    goto LABEL_13;
-  }
-
-  v13 = 0;
-  v14 = 1;
-  v15 = a4;
-  do
-  {
-    v13 += a2[v14];
-    v14 += 2;
-    --v15;
-  }
-
-  while (v15);
-  v16 = v13 + 16;
-  v10[26] = v13 + 16;
-  *(v10 + 206) = 16;
-  v10[3] = v12;
-  v17 = xnet_max_inject;
-  if (v13 <= xnet_max_inject)
-  {
-    goto LABEL_12;
-  }
-
-  v10[4] = 16;
-  v10[1] = *a2;
-  v10[2] = a4 + 1;
-  memcpy(v10 + 5, a2, 16 * a4);
-LABEL_13:
-  *(v11 + 184) = a6;
-  *(v11 + 160) = *(a1 + 144) & 0x1000000 | 0x802;
-  if ((*(a1 + 147) & 0x18) != 0)
-  {
-    *(v11 + 202) |= 4u;
-    *(v11 + 168) |= 4u;
-  }
-
-  xnet_tx_queue_insert(a1, v11);
-  v18 = 0;
-LABEL_16:
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v18;
-}
-
-uint64_t xnet_sendmsg(uint64_t a1, uint64_t a2, int a3)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v6 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (!v6)
-  {
-    v10 = -35;
-    goto LABEL_19;
-  }
-
-  v7 = v6;
-  *(v6 + 200) = 3;
-  v8 = v6 + 25;
-  *(v6 + 204) = 0;
-  v6[14] = *(a1 + 136);
-  *(v6 + 201) = 0;
-  v6[15] = *(a1 + 176);
-  if ((a3 & 0x20000) != 0)
-  {
-    *(v6 + 101) = 1;
-    v6[27] = *(a2 + 40);
-    v9 = 24;
-  }
-
-  else
-  {
-    v9 = 16;
-  }
-
-  v11 = *(a2 + 16);
-  if (v11 >= 5)
-  {
-    xnet_sendv_cold_1();
-  }
-
-  v12 = *a2;
-  if (!v11)
-  {
-    v6[26] = v9;
-    *(v6 + 206) = v9;
-    v6[3] = v8;
-    v17 = xnet_max_inject;
-    v16 = v9;
-LABEL_15:
-    ofi_copy_iov_buf(v12, v11, 0, &v8[v9 / 8], v17, 0);
-    *(v7 + 32) = v16;
-    *(v7 + 16) = 1;
-    goto LABEL_16;
-  }
-
-  v13 = 0;
-  v14 = 1;
-  v15 = *(a2 + 16);
-  do
-  {
-    v13 += v12[v14];
-    v14 += 2;
-    --v15;
-  }
-
-  while (v15);
-  v16 = v13 + v9;
-  v6[26] = v13 + v9;
-  *(v6 + 206) = v9;
-  v6[3] = v8;
-  v17 = xnet_max_inject;
-  if (v13 <= xnet_max_inject)
-  {
-    goto LABEL_15;
-  }
-
-  v6[4] = v9;
-  v6[1] = *v12;
-  v6[2] = v11 + 1;
-  memcpy(v6 + 5, v12, 16 * v11);
-LABEL_16:
-  *(v7 + 160) = (*(a1 + 160) | a3) & 0x1000000 | 0x802;
-  if ((a3 & 0x18000000) != 0)
-  {
-    *(v7 + 202) |= 4u;
-    *(v7 + 168) |= 4u;
-  }
-
-  *(v7 + 184) = *(a2 + 32);
-  xnet_tx_queue_insert(a1, v7);
-  v10 = 0;
-LABEL_19:
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v10;
-}
-
-uint64_t xnet_inject(void *a1, const void *a2, size_t a3)
-{
-  (*(a1[10] + 384))(a1[10] + 312);
-  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v6 = xnet_alloc_xfer(a1[10] + 280);
-  if (v6)
-  {
-    v7 = v6;
-    *(v6 + 200) = 3;
-    *(v6 + 204) = 0;
-    v6[14] = a1[17];
-    *(v6 + 201) = 0;
-    v6[15] = a1[22];
-    if (xnet_max_inject < a3)
-    {
-      xnet_inject_cold_1();
-    }
-
-    v6[26] = a3 + 16;
-    *(v6 + 206) = 16;
-    v6[3] = (v6 + 25);
-    memcpy(v6 + 27, a2, a3);
-    *(v7 + 32) = a3 + 16;
-    *(v7 + 16) = 1;
-    *(v7 + 168) = 64;
-    *(v7 + 160) = 33556482;
-    xnet_tx_queue_insert(a1, v7);
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = -35;
-  }
-
-  (*(a1[10] + 392))(a1[10] + 312);
-  return v8;
-}
-
-uint64_t xnet_senddata(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v12 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (v12)
-  {
-    v13 = v12;
-    *(v12 + 200) = 3;
-    *(v12 + 204) = 0;
-    v12[14] = *(a1 + 136);
-    *(v12 + 201) = 0;
-    v12[15] = *(a1 + 176);
-    v14 = a3 + 24;
-    *(v12 + 101) = 1;
-    v15 = xnet_max_inject;
-    v12[26] = a3 + 24;
-    v12[27] = a5;
-    *(v12 + 206) = 24;
-    v12[3] = (v12 + 25);
-    if (v15 >= a3)
-    {
-      memcpy(v12 + 28, a2, a3);
-      v16 = 1;
-    }
-
-    else
-    {
-      v12[1] = a2;
-      v16 = 2;
-      v14 = 24;
-      v12[5] = a2;
-      v12[6] = a3;
-    }
-
-    *(v13 + 32) = v14;
-    *(v13 + 16) = v16;
-    *(v13 + 184) = a7;
-    *(v13 + 160) = *(a1 + 144) & 0x1000000 | 0x802;
-    if ((*(a1 + 147) & 0x18) != 0)
-    {
-      *(v13 + 202) = 5;
-      *(v13 + 168) |= 4u;
-    }
-
-    xnet_tx_queue_insert(a1, v13);
-    v17 = 0;
-  }
-
-  else
-  {
-    v17 = -35;
-  }
-
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v17;
-}
-
-uint64_t xnet_injectdata(void *a1, const void *a2, size_t a3, uint64_t a4)
-{
-  (*(a1[10] + 384))(a1[10] + 312);
-  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
-  {
-    xnet_send_cold_2();
-  }
-
-  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v8 = xnet_alloc_xfer(a1[10] + 280);
-  if (v8)
-  {
-    v9 = v8;
-    *(v8 + 200) = 3;
-    *(v8 + 204) = 0;
-    v8[14] = a1[17];
-    *(v8 + 201) = 0;
-    v8[15] = a1[22];
-    *(v8 + 101) = 1;
-    v8[27] = a4;
-    if (xnet_max_inject < a3)
-    {
-      xnet_inject_cold_1();
-    }
-
-    v8[26] = a3 + 24;
-    *(v8 + 206) = 24;
-    v8[3] = (v8 + 25);
-    memcpy(v8 + 28, a2, a3);
-    *(v9 + 32) = a3 + 24;
-    *(v9 + 16) = 1;
-    *(v9 + 168) = 64;
-    *(v9 + 160) = 33556482;
-    xnet_tx_queue_insert(a1, v9);
-    v10 = 0;
-  }
-
-  else
-  {
-    v10 = -35;
-  }
-
-  (*(a1[10] + 392))(a1[10] + 312);
-  return v10;
-}
-
-uint64_t xnet_tsend(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
-{
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_tsend_cold_3();
-  }
-
-  if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
-  {
-    xnet_rma_readmsg_cold_12();
-  }
-
-  v12 = xnet_alloc_xfer(*(a1 + 80) + 280);
-  if (v12)
-  {
-    v13 = v12;
-    *(v12 + 200) = 3;
-    *(v12 + 204) = 0;
-    v12[14] = *(a1 + 136);
-    if (!*(a1 + 18896))
-    {
-      xnet_tsend_cold_1();
-    }
-
-    *(v12 + 201) = 1;
-    v12[15] = *(a1 + 176);
-    v14 = xnet_max_inject;
-    v15 = a3 + 24;
-    v12[26] = a3 + 24;
-    v12[27] = a6;
-    *(v12 + 206) = 24;
-    v12[3] = (v12 + 25);
-    if (v14 >= a3)
-    {
-      memcpy(v12 + 28, a2, a3);
-      v16 = 1;
-    }
-
-    else
-    {
-      v12[1] = a2;
-      v16 = 2;
-      v15 = 24;
-      v12[5] = a2;
-      v12[6] = a3;
-    }
-
-    *(v13 + 32) = v15;
-    *(v13 + 16) = v16;
-    *(v13 + 184) = a7;
-    *(v13 + 160) = *(a1 + 144) & 0x1000000 | 0x808;
-    if ((*(a1 + 147) & 0x18) != 0)
-    {
-      *(v13 + 202) |= 4u;
-      *(v13 + 168) |= 4u;
-    }
-
-    v18 = xnet_rts_check(a1, v13);
-    if (v18)
-    {
-      v17 = v18;
-    }
-
-    else
-    {
-      xnet_tx_queue_insert(a1, v13);
-      v17 = 0;
-    }
-  }
-
-  else
-  {
-    v17 = -35;
-  }
-
-  (*(*(a1 + 80) + 392))(*(a1 + 80) + 312);
-  return v17;
-}
-
 uint64_t xnet_tsendv(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
+  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312, a2, a3, a4, a5);
   if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
   {
     xnet_tsend_cold_3();
@@ -1434,7 +222,7 @@ LABEL_22:
 
 uint64_t xnet_tinject(void *a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5)
 {
-  (*(a1[10] + 384))(a1[10] + 312);
+  (*(a1[10] + 384))(a1[10] + 312, a2, a3, a4);
   if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
   {
     xnet_tsend_cold_3();
@@ -1488,7 +276,7 @@ uint64_t xnet_tinject(void *a1, const void *a2, size_t a3, uint64_t a4, uint64_t
 
 uint64_t xnet_tsenddata(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312);
+  (*(*(a1 + 80) + 384))(*(a1 + 80) + 312, a2, a3, a4, a5, a6);
   if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
   {
     xnet_tsend_cold_3();
@@ -1571,7 +359,7 @@ uint64_t xnet_tsenddata(uint64_t a1, const void *a2, size_t a3, uint64_t a4, uin
 
 uint64_t xnet_tinjectdata(void *a1, const void *a2, size_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  (*(a1[10] + 384))(a1[10] + 312);
+  (*(a1[10] + 384))(a1[10] + 312, a2, a3, a4, a5);
   if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
   {
     xnet_tsend_cold_3();
@@ -1947,7 +735,7 @@ uint64_t xnet_pep_sock_create(uint64_t a1)
 
   if (!xnet_io_uring)
   {
-    xnet_set_zerocopy(*(a1 + 72));
+    xnet_set_zerocopy();
   }
 
   v5 = fi_fd_nonblock(*(a1 + 72));
@@ -2224,16 +1012,16 @@ uint64_t xnet_pep_getname(uint64_t a1, sockaddr *a2, socklen_t *a3)
 
 uint64_t xnet_pep_reject(int a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x29EDCA608];
+  v12 = *MEMORY[0x29EDCA608];
   v5 = a2[8];
   if (v5 == -1)
   {
     goto LABEL_11;
   }
 
-  memset(v12, 0, sizeof(v12));
-  LOWORD(v12[0]) = 1539;
-  WORD1(v12[0]) = bswap32(a4) >> 16;
+  memset(v11, 0, sizeof(v11));
+  LOWORD(v11[0]) = 1539;
+  WORD1(v11[0]) = bswap32(a4) >> 16;
   if (a4)
   {
     __memcpy_chk();
@@ -2241,7 +1029,7 @@ uint64_t xnet_pep_reject(int a1, _DWORD *a2, uint64_t a3, uint64_t a4)
 
   v7 = a4 + 32;
   v8 = v7 >= 0x7FFFFFFF ? 0x7FFFFFFFLL : v7;
-  if (send(v5, v12, v8, 0x80000) != v7 && fi_log_enabled(&xnet_prov, 0, 3))
+  if (send(v5, v11, v8, 0x80000) != v7 && fi_log_enabled(&xnet_prov, 0, 3))
   {
     v9 = *__error();
     fi_log(&xnet_prov, 0, 3, "xnet_pep_reject", 307, "sending of reject message failed\n");
@@ -2254,10 +1042,9 @@ uint64_t xnet_pep_reject(int a1, _DWORD *a2, uint64_t a3, uint64_t a4)
   {
 LABEL_11:
     free(a2);
-    result = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -2561,14 +1348,14 @@ uint64_t xnet_domain_open(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
               *(v10 + 5000) = **(a2 + 88);
               *(v10 + 16) = &xnet_mplex_domain_fi_ops;
               *(v10 + 24) = &xnet_mplex_domain_ops;
-              v12 = &xnet_mplex_domain_fi_ops_mr;
+              v13 = &xnet_mplex_domain_fi_ops_mr;
 LABEL_17:
-              *(v10 + 32) = v12;
+              *(v10 + 32) = v13;
               *a3 = v10;
               return inited;
             }
 
-            ofi_genlock_destroy((v10 + 5016));
+            ofi_genlock_destroy((v10 + 5016), v12);
             inited = 4294967284;
           }
 
@@ -2583,11 +1370,11 @@ LABEL_12:
 
     else
     {
-      v13 = malloc_type_calloc(1uLL, 0x1408uLL, 0x10F204013B6112EuLL);
-      if (v13)
+      v14 = malloc_type_calloc(1uLL, 0x1408uLL, 0x10F204013B6112EuLL);
+      if (v14)
       {
-        v10 = v13;
-        inited = ofi_domain_init(a1, a2, v13, a4, 3);
+        v10 = v14;
+        inited = ofi_domain_init(a1, a2, v14, a4, 3);
         if (!inited)
         {
           inited = xnet_init_progress(v10 + 280, a2);
@@ -2596,7 +1383,7 @@ LABEL_12:
             *(v10 + 5000) = **(a2 + 88);
             *(v10 + 16) = &xnet_domain_fi_ops;
             *(v10 + 24) = &xnet_domain_ops;
-            v12 = &xnet_domain_fi_ops_mr;
+            v13 = &xnet_domain_fi_ops_mr;
             goto LABEL_17;
           }
 
@@ -2675,7 +1462,7 @@ uint64_t xnet_mplex_domain_close(uint64_t a1)
   }
 
   (*(a1 + 5104))(a1 + 5024);
-  ofi_genlock_destroy((a1 + 5016));
+  ofi_genlock_destroy((a1 + 5016), v6);
   ofi_domain_close(a1);
   free(a1);
   return 0;
@@ -2718,7 +1505,7 @@ uint64_t xnet_mplex_mr_regattr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
   v8 = ofi_mr_regattr(a1, a2, a3, a4);
   if (!v8)
   {
-    v15 = 0;
+    v14 = 0;
     v9 = *a4;
     *(*a4 + 16) = &xnet_mplex_mr_fi_ops;
     (*(a1 + 5096))(a1 + 5024);
@@ -2732,7 +1519,7 @@ uint64_t xnet_mplex_mr_regattr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
         goto LABEL_9;
       }
 
-      v11 = xnet_mr_regattr(v10[2], a2, a3, &v15);
+      v11 = xnet_mr_regattr(v10[2], a2, a3, &v14);
     }
 
     while (!v11);
@@ -2740,8 +1527,7 @@ uint64_t xnet_mplex_mr_regattr(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
     if (fi_log_enabled(&xnet_prov, 0, 8))
     {
       v12 = *__error();
-      v13 = *(v9 + 48);
-      fi_log(&xnet_prov, 0, 8, "xnet_mplex_mr_regattr", 200, "Failed to reg mr (%ld) from subdomain (%p)\n", v13, v10[2]);
+      fi_log(&xnet_prov, 0, 8, "xnet_mplex_mr_regattr", 200, "Failed to reg mr (%ld) from subdomain (%p)\n", *(v9 + 48), v10[2]);
       *__error() = v12;
     }
 
@@ -2818,13 +1604,13 @@ uint64_t xnet_mr_close(void *a1)
   return v3;
 }
 
-uint64_t xnet_domain_close(void *a1)
+uint64_t xnet_domain_close(char *a1)
 {
   xnet_del_domain_progress(a1);
   v2 = ofi_domain_close(a1);
   if (!v2)
   {
-    xnet_close_progress(a1 + 280);
+    xnet_close_progress((a1 + 280));
     free(a1);
   }
 
@@ -2999,7 +1785,7 @@ LABEL_22:
 
 void *xnet_match_tag(void *a1, uint64_t a2, uint64_t a3)
 {
-  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
+  if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8, a2))
   {
     xnet_match_tag_cold_1();
   }
@@ -3137,7 +1923,7 @@ void xnet_srx_cleanup(uint64_t a1, uint64_t a2)
 
     if (v4[14])
     {
-      xnet_report_error(v4, 89);
+      xnet_report_error(v4, 0x59u);
     }
 
     xnet_free_xfer(*(a1 + 80) + 280, v4);
@@ -3217,7 +2003,7 @@ BOOL xnet_srx_cancel_rx(uint64_t a1, void *a2, uint64_t a3)
         a2[1] = v8;
       }
 
-      xnet_report_error(v7, 89);
+      xnet_report_error(v7, 0x59u);
       xnet_free_xfer(*(a1 + 80) + 280, v7);
       return v7 != 0;
     }
@@ -3228,7 +2014,7 @@ BOOL xnet_srx_cancel_rx(uint64_t a1, void *a2, uint64_t a3)
 
 uint64_t xnet_srx_recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  (*(*(*(a1 + 80) + 496) + 80))(*(*(a1 + 80) + 496) + 8);
+  (*(*(*(a1 + 80) + 496) + 80))(*(*(a1 + 80) + 496) + 8, a2, a3, a4, a5);
   v10 = xnet_alloc_srx_xfer(a1);
   if (v10)
   {
@@ -3259,7 +2045,7 @@ uint64_t xnet_srx_recvv(uint64_t a1, uint64_t *a2, uint64_t a3, unint64_t a4, ui
     xnet_srx_recvv_cold_1();
   }
 
-  (*(*(*(a1 + 80) + 496) + 80))(*(*(a1 + 80) + 496) + 8);
+  (*(*(*(a1 + 80) + 496) + 80))(*(*(a1 + 80) + 496) + 8, a2, a3);
   v10 = xnet_alloc_srx_xfer(a1);
   if (v10)
   {
@@ -3387,7 +2173,7 @@ uint64_t xnet_srx_msg(void *a1, uint64_t a2)
 
 uint64_t xnet_srx_trecv(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  (*(*(a1[10] + 496) + 80))(*(a1[10] + 496) + 8);
+  (*(*(a1[10] + 496) + 80))(*(a1[10] + 496) + 8, a2, a3, a4);
   v15 = xnet_alloc_srx_xfer(a1);
   if (v15)
   {
@@ -3424,7 +2210,7 @@ uint64_t xnet_srx_trecvv(void *a1, uint64_t *a2, uint64_t a3, unint64_t a4, uint
     xnet_srx_trecvv_cold_1();
   }
 
-  (*(*(a1[10] + 496) + 80))(*(a1[10] + 496) + 8);
+  (*(*(a1[10] + 496) + 80))(*(a1[10] + 496) + 8, a2, a3);
   v15 = xnet_alloc_srx_xfer(a1);
   if (v15)
   {
@@ -3506,8 +2292,8 @@ uint64_t xnet_srx_trecvmsg(void *a1, const void **a2, uint64_t a3)
       v11 = v22;
       if (v22)
       {
-        v12 = (v22 + 200);
-        v13 = *(v22 + 160);
+        v12 = (v22 + 25);
+        v13 = v22[20];
       }
 
       else
@@ -3520,7 +2306,7 @@ uint64_t xnet_srx_trecvmsg(void *a1, const void **a2, uint64_t a3)
       memcpy(v7 + 25, v12, v12[6]);
       if ((a3 & 0xC00000000000000) != 0)
       {
-        v15 = (v11 + 184);
+        v15 = v11 + 23;
         if (!v11)
         {
           v15 = (v23 + 18704);
@@ -3713,7 +2499,7 @@ LABEL_11:
   return result;
 }
 
-void *xnet_search_saved(uint64_t a1, uint64_t a2, int a3)
+uint64_t *xnet_search_saved(uint64_t a1, uint64_t a2, int a3)
 {
   if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8))
   {
@@ -3739,7 +2525,7 @@ void *xnet_search_saved(uint64_t a1, uint64_t a2, int a3)
   return 0;
 }
 
-void *xnet_match_saved(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+uint64_t *xnet_match_saved(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
 {
   if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8))
   {
@@ -3868,21 +2654,21 @@ uint64_t xnet_srx_claim(uint64_t a1, uint64_t a2, uint64_t a3)
     goto LABEL_13;
   }
 
-  v7 = v14 + 200;
+  v7 = v14 + 25;
   if (!v14)
   {
-    v7 = v15 + 18544;
+    v7 = (v15 + 18544);
   }
 
   if (*(v7 + 1) == 5)
   {
-    v8 = 32;
-    if ((*(v7 + 2) & 1) == 0)
+    v8 = 4;
+    if ((*(v7 + 1) & 1) == 0)
     {
-      v8 = 24;
+      v8 = 3;
     }
 
-    v9 = *(v7 + v8);
+    v9 = v7[v8];
     if (v9)
     {
       goto LABEL_11;
@@ -3916,7 +2702,7 @@ LABEL_18:
     return 0;
   }
 
-  v9 = *(v7 + 8) - *(v7 + 6);
+  v9 = v7[1] - *(v7 + 6);
   if (!v9)
   {
     goto LABEL_17;
@@ -3945,7 +2731,7 @@ LABEL_14:
   return 0;
 }
 
-uint64_t xnet_find_msg(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int a5)
+uint64_t xnet_find_msg(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4, int a5)
 {
   v10 = *(a1 + 80);
   if (!(*(*(v10 + 496) + 72))(*(v10 + 496) + 8))
@@ -4317,7 +3103,7 @@ double xnet_ep_flush_all_queues(uint64_t a1)
       }
     }
 
-    xnet_report_error(v7, 89);
+    xnet_report_error(v7, 0x59u);
     xnet_free_xfer(*(a1 + 80) + 280, *(a1 + 18720));
     *(a1 + 18720) = 0;
   }
@@ -4332,7 +3118,7 @@ double xnet_ep_flush_all_queues(uint64_t a1)
   v10 = *(a1 + 18688);
   if (v10 && (*(v10 + 169) & 1) == 0)
   {
-    xnet_report_error(v10, 89);
+    xnet_report_error(v10, 0x59u);
     xnet_free_xfer(*(a1 + 80) + 280, *(a1 + 18688));
   }
 
@@ -4468,7 +3254,7 @@ LABEL_31:
 LABEL_37:
       close(*(v9 + 424));
 LABEL_39:
-      ofi_endpoint_close(v9);
+      ofi_endpoint_close(v9, v26);
       goto LABEL_40;
     }
   }
@@ -4623,7 +3409,7 @@ void xnet_flush_xfer_queue(uint64_t a1, uint64_t *a2, uint64_t a3)
       *a2 = *v6;
     }
 
-    xnet_report_error(v6, 89);
+    xnet_report_error(v6, 0x59u);
     xnet_free_xfer(a1, v6);
   }
 }
@@ -4641,7 +3427,7 @@ LABEL_3:
       v7 = *(v6 + 16);
       if (v7)
       {
-        xnet_report_error(*(v6 + 16), 89);
+        xnet_report_error(*(v6 + 16), 0x59u);
         xnet_free_xfer(a1, v7);
       }
     }
@@ -4684,16 +3470,16 @@ uint64_t xnet_ep_close(uint64_t a1)
 
   free(*(a1 + 18928));
   free(*(a1 + 18936));
-  ofi_endpoint_close(a1);
+  ofi_endpoint_close(a1, v7);
   free(a1);
   return 0;
 }
 
-uint64_t xnet_ep_bind(uint64_t a1, void *a2, unint64_t a3)
+uint64_t xnet_ep_bind(void *a1, atomic_uint *a2, unint64_t a3)
 {
   if (*a2 == 13)
   {
-    result = xnet_add_domain_progress(a2, *(a1 + 80));
+    result = xnet_add_domain_progress(a2, a1[10]);
     if (result)
     {
       return result;
@@ -4702,14 +3488,14 @@ uint64_t xnet_ep_bind(uint64_t a1, void *a2, unint64_t a3)
 
   else if (*a2 == 6)
   {
-    *(a1 + 18896) = a2;
-    if (*(a1 + 18960))
+    a1[2362] = a2;
+    if (a1[2370])
     {
       return 0;
     }
 
     result = 0;
-    *(a1 + 18960) = a2[2074];
+    a1[2370] = *(a2 + 2074);
     return result;
   }
 
@@ -4809,7 +3595,7 @@ uint64_t xnet_ep_cancel(uint64_t a1, uint64_t a2)
         }
 
         ++*(a1 + 18888);
-        xnet_report_error(v6, 89);
+        xnet_report_error(v6, 0x59u);
         xnet_free_xfer(*(a1 + 80) + 280, v6);
       }
 
@@ -4939,40 +3725,39 @@ uint64_t xnet_ep_connect(uint64_t a1, unsigned __int8 *a2, void *__src, size_t _
         *__error() = v16;
       }
 
-      v17 = *(a1 + 424);
-      v18 = (*(*(a1 + 432) + 32))();
-      if (v18 == -513)
+      v17 = (*(*(a1 + 432) + 32))();
+      if (v17 == -513)
       {
         return 0;
       }
 
       else
       {
-        v5 = v18;
-        if (v18 && v18 != -36)
+        v5 = v17;
+        if (v17 && v17 != -36)
         {
           *(a1 + 18904) = 0;
           if (fi_log_enabled(&xnet_prov, 0, 3))
           {
-            v20 = *__error();
-            v21 = fi_strerror(-v5);
-            fi_log(&xnet_prov, 0, 3, "xnet_ep_connect", 316, "connect failure %d(%s)\n", -v5, v21);
-            *__error() = v20;
+            v19 = *__error();
+            v20 = fi_strerror(-v5);
+            fi_log(&xnet_prov, 0, 3, "xnet_ep_connect", 316, "connect failure %d(%s)\n", -v5, v20);
+            *__error() = v19;
           }
         }
 
         else
         {
-          v19 = *(a1 + 80);
-          (*(v19 + 384))(v19 + 312);
+          v18 = *(a1 + 80);
+          (*(v18 + 384))(v18 + 312);
           *(a1 + 18952) = 4;
-          v5 = xnet_monitor_ep(v19 + 280, a1);
-          (*(v19 + 392))(v19 + 312);
+          v5 = xnet_monitor_ep(v18 + 280, a1);
+          (*(v18 + 392))(v18 + 312);
           if (v5)
           {
-            (*(v19 + 384))(v19 + 312);
+            (*(v18 + 384))(v18 + 312);
             xnet_ep_disable(a1, -v5, 0, 0);
-            (*(v19 + 392))(v19 + 312);
+            (*(v18 + 392))(v18 + 312);
           }
         }
       }
@@ -4990,50 +3775,56 @@ uint64_t xnet_ep_connect(uint64_t a1, unsigned __int8 *a2, void *__src, size_t _
 
 uint64_t xnet_ep_accept(uint64_t a1, void *__src, size_t __n)
 {
-  v29 = *MEMORY[0x29EDCA608];
-  if (*(a1 + 424) == -1 || ((v4 = a1 + 0x4000, v5 = *(a1 + 18920), *(a1 + 18904) == 2) ? (v6 = v5 == 0) : (v6 = 1), v6))
+  v28 = *MEMORY[0x29EDCA608];
+  if (*(a1 + 424) == -1)
   {
-    v7 = 4294967274;
-    goto LABEL_8;
+    return 4294967274;
+  }
+
+  v4 = a1 + 0x4000;
+  v5 = *(a1 + 18920);
+  if (*(a1 + 18904) != 2 || v5 == 0)
+  {
+    return 4294967274;
   }
 
   v7 = 4294967274;
-  memset(v28, 0, sizeof(v28));
+  memset(v27, 0, sizeof(v27));
   if (__n <= 0x100 && *v5 == 18)
   {
     *(a1 + 18920) = 0;
-    v11 = *(a1 + 18928);
-    if (!v11)
+    v10 = *(a1 + 18928);
+    if (!v10)
     {
       xnet_ep_accept_cold_2();
     }
 
-    *v11 = 259;
-    *(v11 + 24) = 1;
+    *v10 = 259;
+    *(v10 + 24) = 1;
     if (__n)
     {
       memcpy((*(a1 + 18928) + 32), __src, __n);
       *(*(a1 + 18928) + 2) = bswap32(__n) >> 16;
     }
 
-    v26 = 5;
-    v27 = 1;
+    v25 = 5;
+    v26 = 1;
+    v23 = 2;
     v24 = 2;
-    v25 = 2;
-    v12 = setsockopt(*(a1 + 424), 0xFFFF, 8, &v27, 4u);
-    if (v12)
+    v11 = setsockopt(*(a1 + 424), 0xFFFF, 8, &v26, 4u);
+    if (v11)
     {
-      v13 = v12;
+      v12 = v11;
       if (fi_log_enabled(&xnet_prov, 0, 3))
       {
-        v14 = *__error();
-        fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 187, "set SO_KEEPALIVE failed %d", v13);
-        *__error() = v14;
+        v13 = *__error();
+        fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 187, "set SO_KEEPALIVE failed %d", v12);
+        *__error() = v13;
       }
 
-      v15 = __error();
-      v7 = -*v15;
-      if (!*v15)
+      v14 = __error();
+      v7 = -*v14;
+      if (!*v14)
       {
         goto LABEL_39;
       }
@@ -5041,7 +3832,7 @@ uint64_t xnet_ep_accept(uint64_t a1, void *__src, size_t __n)
       goto LABEL_33;
     }
 
-    if (setsockopt(*(a1 + 424), 6, 16, &v26, 4u))
+    if (setsockopt(*(a1 + 424), 6, 16, &v25, 4u))
     {
       v7 = -*__error();
       if (!fi_log_enabled(&xnet_prov, 0, 3))
@@ -5049,92 +3840,89 @@ uint64_t xnet_ep_accept(uint64_t a1, void *__src, size_t __n)
         goto LABEL_29;
       }
 
-      v16 = *__error();
+      v15 = *__error();
       fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 195, "set TCP_KEEPIDLE failed %d", v7);
 LABEL_28:
-      *__error() = v16;
+      *__error() = v15;
 LABEL_29:
       if (v7)
       {
 LABEL_30:
         if (fi_log_enabled(&xnet_prov, 0, 3))
         {
-          v17 = *__error();
+          v16 = *__error();
           fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 221, "%p KEEPALIVE set keepalive failed %d\n", a1, v7);
-          *__error() = v17;
+          *__error() = v16;
         }
 
         xnet_disable_keepalive(a1);
 LABEL_33:
         if (fi_log_enabled(&xnet_prov, 0, 3))
         {
-          v18 = *__error();
+          v17 = *__error();
           fi_log(&xnet_prov, 0, 3, "xnet_ep_accept", 372, "%p set tcp keepalive failure:%d\n", a1, v7);
-          *__error() = v18;
+          *__error() = v17;
         }
 
-        goto LABEL_8;
+        return v7;
       }
 
 LABEL_39:
-      v20 = xnet_send_cm_msg(a1);
-      if (v20)
+      v19 = xnet_send_cm_msg(a1);
+      if (v19)
       {
-        v7 = v20;
+        return v19;
       }
 
-      else
+      free(*(a1 + 18928));
+      *(a1 + 18928) = 0;
+      *(v4 + 2520) = 4;
+      if (*(a1 + 9516) != *(a1 + 9512) || *(a1 + 18696))
       {
-        free(*(a1 + 18928));
-        *(a1 + 18928) = 0;
-        *(v4 + 2520) = 4;
-        if (*(a1 + 9516) != *(a1 + 9512) || *(a1 + 18696))
+        xnet_ep_accept_cold_1();
+      }
+
+      v20 = *(a1 + 80);
+      (*(v20 + 384))(v20 + 312);
+      *(v4 + 2568) = 1;
+      v7 = xnet_monitor_ep(v20 + 280, a1);
+      (*(v20 + 392))(v20 + 312);
+      if (!v7)
+      {
+        v27[0] = a1;
+        if (__n)
         {
-          xnet_ep_accept_cold_1();
+          __memcpy_chk();
         }
 
-        v21 = *(a1 + 80);
-        (*(v21 + 384))(v21 + 312);
-        *(v4 + 2568) = 1;
-        v7 = xnet_monitor_ep(v21 + 280, a1);
-        (*(v21 + 392))(v21 + 312);
-        if (!v7)
+        v21 = xnet_eq_write(*(a1 + 112), 2, v27, 0x110uLL);
+        if ((v21 & 0x80000000) != 0)
         {
-          v28[0] = a1;
-          if (__n)
+          v7 = v21;
+          if (fi_log_enabled(&xnet_prov, 0, 3))
           {
-            __memcpy_chk();
+            v22 = *__error();
+            fi_log(&xnet_prov, 0, 3, "xnet_ep_accept", 400, "Error writing to EQ\n");
+            *__error() = v22;
           }
+        }
 
-          v22 = xnet_eq_write(*(a1 + 112), 2, v28, 0x110uLL);
-          if ((v22 & 0x80000000) != 0)
-          {
-            v7 = v22;
-            if (fi_log_enabled(&xnet_prov, 0, 3))
-            {
-              v23 = *__error();
-              fi_log(&xnet_prov, 0, 3, "xnet_ep_accept", 400, "Error writing to EQ\n");
-              *__error() = v23;
-            }
-          }
-
-          else
-          {
-            free(v5);
-            v7 = 0;
-          }
+        else
+        {
+          free(v5);
+          return 0;
         }
       }
 
-      goto LABEL_8;
+      return v7;
     }
 
-    if (setsockopt(*(a1 + 424), 6, 257, &v25, 4u))
+    if (setsockopt(*(a1 + 424), 6, 257, &v24, 4u))
     {
       v7 = -*__error();
       if (fi_log_enabled(&xnet_prov, 0, 3))
       {
-        v16 = *__error();
+        v15 = *__error();
         fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 203, "set TCP_KEEPINTVL failed %d");
         goto LABEL_28;
       }
@@ -5142,13 +3930,13 @@ LABEL_39:
 
     else
     {
-      if (!setsockopt(*(a1 + 424), 6, 258, &v24, 4u))
+      if (!setsockopt(*(a1 + 424), 6, 258, &v23, 4u))
       {
         if (fi_log_enabled(&xnet_prov, 2, 3))
         {
-          v19 = *__error();
-          fi_log(&xnet_prov, 2, 3, "xnet_enable_keepalive", 216, "%p KEEPALIVE idle %d intvl %d cnt %d\n", a1, v26, v25, v24);
-          *__error() = v19;
+          v18 = *__error();
+          fi_log(&xnet_prov, 2, 3, "xnet_enable_keepalive", 216, "%p KEEPALIVE idle %d intvl %d cnt %d\n", a1, v25, v24, v23);
+          *__error() = v18;
         }
 
         goto LABEL_39;
@@ -5157,7 +3945,7 @@ LABEL_39:
       v7 = -*__error();
       if (fi_log_enabled(&xnet_prov, 0, 3))
       {
-        v16 = *__error();
+        v15 = *__error();
         fi_log(&xnet_prov, 0, 3, "xnet_enable_keepalive", 211, "set SO_KEEPALIVE failed %d");
         goto LABEL_28;
       }
@@ -5171,8 +3959,6 @@ LABEL_39:
     goto LABEL_39;
   }
 
-LABEL_8:
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
@@ -5260,7 +4046,7 @@ LABEL_9:
     }
 
     xnet_cntr_incerr(a1);
-    xnet_report_error(a1, 265);
+    xnet_report_error(a1, 0x109u);
   }
 
   xnet_free_xfer(v4 + 280, a1);
@@ -5473,7 +4259,7 @@ uint64_t xnet_handle_truncate(void *a1)
   }
 
   xnet_cntr_incerr(a1[2336]);
-  xnet_report_error(v3, 265);
+  xnet_report_error(v3, 0x109u);
   a1[2338] = -1;
   *(v3 + 160) = 0;
   *(v3 + 168) = 1032;
@@ -5502,7 +4288,7 @@ uint64_t xnet_handle_truncate(void *a1)
 
 uint64_t xnet_uring_pollin_add(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8))
+  if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8, a2, a3))
   {
     xnet_uring_pollin_add_cold_1();
   }
@@ -5751,39 +4537,39 @@ LABEL_16:
   }
 }
 
-uint64_t xnet_recv_msg_data(uint64_t a1)
+uint64_t xnet_recv_msg_data(void *a1)
 {
   v9 = 0;
   while (1)
   {
-    if (!(*(*(*(a1 + 80) + 496) + 72))(*(*(a1 + 80) + 496) + 8))
+    if (!(*(*(a1[10] + 496) + 72))(*(a1[10] + 496) + 8))
     {
       xnet_recv_msg_data_cold_2();
     }
 
-    if (!*(a1 + 18680))
+    if (!a1[2335])
     {
       return 0;
     }
 
-    v2 = *(a1 + 18688);
-    v3 = (v2 + 2);
-    result = ofi_bsock_recvv((a1 + 424), (v2 + 3), v2[2], &v9);
+    v2 = a1[2336];
+    v3 = (v2 + 16);
+    result = ofi_bsock_recvv((a1 + 53), (v2 + 24), *(v2 + 16), &v9);
     if ((result & 0x80000000) != 0)
     {
       break;
     }
 
     v5 = v9;
-    v6 = *(a1 + 18680) - v9;
-    *(a1 + 18680) = v6;
+    v6 = a1[2335] - v9;
+    a1[2335] = v6;
     if (!v6)
     {
       return 0;
     }
 
-    ofi_consume_iov(v2 + 3, v3, v5);
-    if (*v3 && v2[4])
+    ofi_consume_iov((v2 + 24), v3, v5);
+    if (*v3 && *(v2 + 32))
     {
       return 4294967261;
     }
@@ -5798,14 +4584,14 @@ uint64_t xnet_recv_msg_data(uint64_t a1)
   if (result == -513)
   {
     v7 = v9;
-    v8 = *(a1 + 18680) - v9;
-    *(a1 + 18680) = v8;
+    v8 = a1[2335] - v9;
+    a1[2335] = v8;
     if (!v8)
     {
       xnet_recv_msg_data_cold_1();
     }
 
-    ofi_consume_iov(v2 + 3, v3, v7);
+    ofi_consume_iov((v2 + 24), v3, v7);
     return 4294966783;
   }
 
@@ -5848,7 +4634,7 @@ uint64_t xnet_progress_rx(uint64_t a1)
       while (1)
       {
         v24 = v3 - v2;
-        result = ofi_bsock_recv((a1 + 424), (a1 + 18544 + v2), &v24);
+        result = ofi_bsock_recv(a1 + 424, (a1 + 18544 + v2), &v24);
         if ((result & 0x80000000) != 0)
         {
           v7 = result;
@@ -6124,7 +4910,7 @@ void xnet_progress_async(uint64_t a1)
 
 uint64_t xnet_uring_cancel(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8))
+  if (!(*(*(a1 + 216) + 72))(*(a1 + 216) + 8, a2))
   {
     xnet_uring_cancel_cold_1();
   }
@@ -6227,7 +5013,7 @@ uint64_t xnet_progress_tx(uint64_t a1)
       }
 
       v29 = 0;
-      result = ofi_bsock_sendv((a1 + 424), (v4 + 24), *(v4 + 16), &v29);
+      result = ofi_bsock_sendv(a1 + 424, (v4 + 24), *(v4 + 16), &v29);
       v6 = result;
       if ((result & 0x80000000) != 0 && result != -512)
       {
@@ -6436,7 +5222,7 @@ LABEL_37:
   }
 
 LABEL_57:
-  result = ofi_bsock_flush((a1 + 424));
+  result = ofi_bsock_flush(a1 + 424);
   if (result != -513)
   {
     v28 = *(a1 + 500) != *(a1 + 496);
@@ -6657,7 +5443,7 @@ uint64_t xnet_progress_all(uint64_t a1)
   return v5(v4 + 8);
 }
 
-uint64_t xnet_trywait(uint64_t a1, uint64_t **a2, int a3)
+uint64_t xnet_trywait(uint64_t a1, uint64_t **a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
@@ -6978,13 +5764,13 @@ LABEL_8:
         attr = ofi_dynpoll_create(a1 + 544, 1, 0);
         if (!attr)
         {
-          v24 = 0;
-          v19 = xnet_buf_size + 320;
-          v20 = xmmword_29ED12D40;
-          v21 = 1024;
-          v22 = 0u;
-          v23 = 0u;
-          attr = ofi_bufpool_create_attr(&v19, (a1 + 368));
+          v27 = 0;
+          v22 = xnet_buf_size + 320;
+          v23 = xmmword_29ED12D40;
+          v24 = 1024;
+          v25 = 0u;
+          v26 = 0u;
+          attr = ofi_bufpool_create_attr(&v22, (a1 + 368));
           if (!attr)
           {
             attr = (*(a1 + 560))(a1 + 544, *(a1 + 336), 1, a1);
@@ -6993,29 +5779,29 @@ LABEL_8:
               if (!xnet_io_uring)
               {
                 attr = 0;
-                v16 = *&off_2A2557E08;
+                v19 = *&off_2A2557E08;
                 *(a1 + 496) = xmmword_2A2557DF8;
-                *(a1 + 512) = v16;
+                *(a1 + 512) = v19;
                 *(a1 + 528) = xmmword_2A2557E18;
-                v17 = unk_2A2557DE8;
+                v20 = unk_2A2557DE8;
                 *(a1 + 464) = xnet_sockapi_socket;
-                *(a1 + 480) = v17;
+                *(a1 + 480) = v20;
                 return attr;
               }
 
-              v13 = malloc_type_calloc(0x80uLL, 8uLL, 0x2004093837F09uLL);
-              *(a1 + 456) = v13;
-              if (v13)
+              v16 = malloc_type_calloc(0x80uLL, 8uLL, 0x2004093837F09uLL);
+              *(a1 + 456) = v16;
+              if (v16)
               {
-                v14 = *&off_2A2557DB8;
+                v17 = *&off_2A2557DB8;
                 *(a1 + 496) = xmmword_2A2557DA8;
-                *(a1 + 512) = v14;
+                *(a1 + 512) = v17;
                 *(a1 + 528) = xmmword_2A2557DC8;
-                v15 = unk_2A2557D98;
+                v18 = unk_2A2557D98;
                 *(a1 + 464) = xnet_sockapi_uring;
-                *(a1 + 480) = v15;
+                *(a1 + 480) = v18;
                 (*(a1 + 576))(a1 + 544, *(a1 + 336));
-                v13 = *(a1 + 456);
+                v16 = *(a1 + 456);
                 attr = 4294967218;
               }
 
@@ -7024,19 +5810,19 @@ LABEL_8:
                 attr = 0;
               }
 
-              free(v13);
+              free(v16);
             }
 
             ofi_bufpool_destroy(*(a1 + 368));
           }
 
-          ofi_dynpoll_close(a1 + 544);
+          ofi_dynpoll_close(a1 + 544, v15);
         }
 
-        ofi_genlock_destroy((a1 + 120));
+        ofi_genlock_destroy((a1 + 120), v14);
       }
 
-      ofi_genlock_destroy((a1 + 24));
+      ofi_genlock_destroy((a1 + 24), v13);
     }
 
     close(*(a1 + 336));
@@ -7101,10 +5887,10 @@ uint64_t xnet_close_progress(uint64_t a1)
     xnet_destroy_uring(a1 + 544);
   }
 
-  ofi_dynpoll_close(a1 + 544);
+  ofi_dynpoll_close(a1 + 544, v2);
   ofi_bufpool_destroy(*(a1 + 368));
-  ofi_genlock_destroy((a1 + 24));
-  ofi_genlock_destroy((a1 + 120));
+  ofi_genlock_destroy((a1 + 24), v3);
+  ofi_genlock_destroy((a1 + 120), v4);
   close(*(a1 + 336));
   close(*(a1 + 340));
 
@@ -7429,7 +6215,7 @@ uint64_t xnet_handle_read_req(uint64_t a1)
     v9 = (v3 + 48);
     while (1)
     {
-      v10 = ofi_mr_verify(*(a1 + 80) + 232, *(v8 + 8), v8, *(v8 + 16), 4096);
+      v10 = ofi_mr_verify((*(a1 + 80) + 232), *(v8 + 8), v8, *(v8 + 16), 4096);
       if (v10)
       {
         break;
@@ -7553,7 +6339,7 @@ uint64_t xnet_handle_write(uint64_t a1)
     v10 = (v3 + 32);
     while (1)
     {
-      v11 = ofi_mr_verify(*(a1 + 80) + 232, *(v9 + 8), v9, *(v9 + 16), 0x2000);
+      v11 = ofi_mr_verify((*(a1 + 80) + 232), *(v9 + 8), v9, *(v9 + 16), 0x2000);
       if (v11)
       {
         break;
@@ -7851,7 +6637,7 @@ uint64_t ofi_sockapi_accept_socket(int a1, int a2, sockaddr *a3, socklen_t *a4)
   return result;
 }
 
-ssize_t ofi_sockapi_send_socket(int a1, int a2, void *a3, unint64_t a4, int a5)
+ssize_t ofi_sockapi_send_socket(int a1, int a2, void *a3, size_t a4, int a5)
 {
   if (a4 >= 0x7FFFFFFF)
   {
@@ -7891,7 +6677,7 @@ ssize_t ofi_sockapi_send_socket(int a1, int a2, void *a3, unint64_t a4, int a5)
   return result;
 }
 
-ssize_t ofi_sockapi_sendv_socket(int a1, int a2, void *a3, uint64_t a4, int a5)
+ssize_t ofi_sockapi_sendv_socket(int a1, int a2, uint64_t a3, uint64_t a4, int a5)
 {
   result = ofi_sendv_socket(a2, a3, a4, a5);
   if (result < 0)
@@ -7921,7 +6707,7 @@ ssize_t ofi_sockapi_sendv_socket(int a1, int a2, void *a3, uint64_t a4, int a5)
   return result;
 }
 
-ssize_t ofi_sockapi_recv_socket(int a1, int a2, void *a3, unint64_t a4, int a5)
+ssize_t ofi_sockapi_recv_socket(int a1, int a2, void *a3, size_t a4, int a5)
 {
   if (a4 >= 0x7FFFFFFF)
   {
@@ -7950,7 +6736,7 @@ ssize_t ofi_sockapi_recv_socket(int a1, int a2, void *a3, unint64_t a4, int a5)
   return result;
 }
 
-ssize_t ofi_sockapi_recvv_socket(int a1, int a2, void *a3, uint64_t a4, int a5)
+ssize_t ofi_sockapi_recvv_socket(int a1, int a2, uint64_t a3, uint64_t a4, int a5)
 {
   result = ofi_recvv_socket(a2, a3, a4, a5);
   if (result <= 0)
@@ -8110,38 +6896,38 @@ uint64_t hook_eq_open(uint64_t a1, __int128 *a2, void *a3, uint64_t a4)
   return hook_eq_init(a1, a2, a3, a4, v8);
 }
 
-uint64_t *hook_to_fabric(uint64_t *result)
+uint64_t *hook_to_fabric(uint64_t *result, uint64_t a2)
 {
-  v1 = *result;
+  v2 = *result;
   if (*result <= 8)
   {
-    if (v1 > 2)
+    if (v2 > 2)
     {
-      if ((v1 - 3) < 5)
+      if ((v2 - 3) < 5)
       {
-        v2 = result[11];
+        v3 = result[11];
 LABEL_20:
-        v3 = (v2 + 48);
-        return *v3;
+        v4 = (v3 + 48);
+        return *v4;
       }
 
-      if (v1 != 8)
+      if (v2 != 8)
       {
 LABEL_25:
         hook_to_fabric_cold_1();
       }
 
 LABEL_19:
-      v2 = result[5];
+      v3 = result[5];
       goto LABEL_20;
     }
 
-    if (v1 == 1)
+    if (v2 == 1)
     {
       return result;
     }
 
-    if (v1 != 2)
+    if (v2 != 2)
     {
       goto LABEL_25;
     }
@@ -8149,16 +6935,16 @@ LABEL_19:
     goto LABEL_14;
   }
 
-  if (v1 > 13)
+  if (v2 > 13)
   {
-    if (v1 <= 15)
+    if (v2 <= 15)
     {
       goto LABEL_19;
     }
 
-    if (v1 != 16)
+    if (v2 != 16)
     {
-      if (v1 != 17)
+      if (v2 != 17)
       {
         goto LABEL_25;
       }
@@ -8167,24 +6953,24 @@ LABEL_19:
     }
 
 LABEL_23:
-    v3 = result + 5;
-    return *v3;
+    v4 = result + 5;
+    return *v4;
   }
 
-  if (v1 > 11)
+  if (v2 > 11)
   {
-    if (v1 == 12)
+    if (v2 == 12)
     {
-      v2 = result[6];
+      v3 = result[6];
       goto LABEL_20;
     }
 
     goto LABEL_23;
   }
 
-  if (v1 != 9)
+  if (v2 != 9)
   {
-    if (v1 != 11)
+    if (v2 != 11)
     {
       goto LABEL_25;
     }
@@ -8193,8 +6979,8 @@ LABEL_23:
   }
 
 LABEL_14:
-  v3 = result + 6;
-  return *v3;
+  v4 = result + 6;
+  return *v4;
 }
 
 uint64_t hook_to_hfid(void *a1)
@@ -8259,20 +7045,20 @@ uint64_t hook_close(uint64_t *a1)
     return 4294967274;
   }
 
-  v3 = v2;
-  v4 = hook_to_fabric(a1)[8];
-  if (!v4)
+  v4 = v2;
+  v5 = hook_to_fabric(a1, v3)[8];
+  if (!v5)
   {
     return 4294967274;
   }
 
-  v5 = *(v4 + 8 * *a1 + 240);
-  if (v5)
+  v6 = *(v5 + 8 * *a1 + 240);
+  if (v6)
   {
-    v5(a1);
+    v6(a1);
   }
 
-  result = (*(*(v3 + 16) + 8))(v3);
+  result = (*(*(v4 + 16) + 8))(v4);
   if (!result)
   {
     free(a1);
@@ -8593,7 +7379,7 @@ uint64_t hook_poll_open(uint64_t a1, uint64_t a2, void *a3)
   return v7;
 }
 
-uint64_t hook_trywait(uint64_t a1, void **a2, int a3)
+uint64_t hook_trywait(uint64_t a1, void **a2, unsigned int a3)
 {
   if (a3 < 1)
   {
@@ -9096,7 +7882,7 @@ uint64_t coll_domain_close(void *a1)
 
 uint64_t coll_av_open(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v21 = 0;
+  v18 = 0;
   if (!a2 || (*(a2 + 45) & 8) == 0)
   {
     if (fi_log_enabled(&coll_prov, 0, 0))
@@ -9129,50 +7915,50 @@ LABEL_9:
     return 4294967284;
   }
 
-  v15 = v11;
-  v20[1] = 8;
-  LODWORD(v21) = 0;
-  v16 = *(a1 + 220) - 1;
-  if (v16 >= 4)
+  v12 = v11;
+  v17[1] = 8;
+  LODWORD(v18) = 0;
+  v13 = *(a1 + 220) - 1;
+  if (v13 >= 4)
   {
     if (fi_log_enabled(&core_prov, 0, 0))
     {
-      v18 = *__error();
+      v15 = *__error();
       fi_log(&core_prov, 0, 0, "ofi_sizeof_addr_format", 738, "Unsupported address format\n");
-      v19 = __error();
-      v17 = 0;
-      *v19 = v18;
+      v16 = __error();
+      v14 = 0;
+      *v16 = v15;
     }
 
     else
     {
-      v17 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v17 = qword_29ED12DD8[v16];
+    v14 = qword_29ED12DD8[v13];
   }
 
-  v20[0] = v17;
+  v17[0] = v14;
   if (!*a2)
   {
     *a2 = 2;
   }
 
-  v7 = ofi_av_init(a1, a2, v20, v15, a4, v12, v13, v14);
+  v7 = ofi_av_init(a1, a2, v17, v12, a4);
   if (v7)
   {
-    free(v15);
+    free(v12);
   }
 
   else
   {
-    v15[41] = a4[1];
-    v15[2] = &coll_av_fi_ops;
-    v15[3] = &coll_av_ops;
-    *a3 = v15;
+    v12[41] = a4[1];
+    v12[2] = &coll_av_fi_ops;
+    v12[3] = &coll_av_ops;
+    *a3 = v12;
   }
 
   return v7;
@@ -9300,7 +8086,6 @@ LABEL_20:
           }
 
           v21 = *__error();
-          v23 = v10[3].__sig;
           fi_log(*(*&v10->__opaque[24] + 144), 0, 5, "coll_av_set", 248, "AV set size (%zu) not large enough\n");
           goto LABEL_23;
         }
@@ -9624,8 +8409,6 @@ LABEL_10:
   }
 
   *(v12[1] + (v13 >> 3)) &= ~(1 << (v13 & 7));
-  v15 = *(a1 + 24);
-  v16 = *(a1 + 8);
   if ((*(*(*(v3 + 160) + 24) + 24))() < 0 && fi_log_enabled(*(*(v2[10] + 56) + 136), 0, 2))
   {
     v14 = *__error();
@@ -9641,49 +8424,48 @@ LABEL_10:
 
 void coll_collective_comp(int *a1)
 {
-  v2 = *(a1 + 1);
-  v3 = *(a1 + 2);
-  if ((*(*(*(*(v3 + 136) + 344) + 24) + 8))() && fi_log_enabled(*(*(*(v3 + 80) + 56) + 136), 0, 2))
+  v2 = *(a1 + 2);
+  if ((*(*(*(*(v2 + 136) + 344) + 24) + 8))() && fi_log_enabled(*(*(*(v2 + 80) + 56) + 136), 0, 2))
   {
-    v4 = *__error();
-    fi_log(*(*(*(v3 + 80) + 56) + 136), 0, 2, "coll_collective_comp", 732, "collective - cq write failed\n");
-    *__error() = v4;
+    v3 = *__error();
+    fi_log(*(*(*(v2 + 80) + 56) + 136), 0, 2, "coll_collective_comp", 732, "collective - cq write failed\n");
+    *__error() = v3;
   }
 
-  v5 = *a1;
-  if (*a1 == 2 || v5 == 5)
+  v4 = *a1;
+  if (*a1 == 2 || v4 == 5)
   {
-    v7 = 12;
+    v6 = 12;
   }
 
   else
   {
-    if (v5 != 3)
+    if (v4 != 3)
     {
       return;
     }
 
     free(*(a1 + 6));
-    v7 = 16;
+    v6 = 16;
   }
 
-  v8 = *&a1[v7];
+  v7 = *&a1[v6];
 
-  free(v8);
+  free(v7);
 }
 
-void coll_ep_progress(uint64_t a1)
+void coll_ep_progress(uint64_t result)
 {
-  v1 = *(a1 + 408);
+  v1 = *(result + 408);
   if (!v1)
   {
     return;
   }
 
-  v3 = (a1 + 408);
+  v3 = (result + 408);
   while (1)
   {
-    if (v1 == *(a1 + 416))
+    if (v1 == *(result + 416))
     {
       *v3 = 0;
       v3[1] = 0;
@@ -9743,8 +8525,8 @@ void coll_ep_progress(uint64_t a1)
     }
 
 LABEL_22:
-    coll_progress_work(a1, v4);
-    v1 = *(a1 + 408);
+    coll_progress_work(result, v4);
+    v1 = *(result + 408);
     if (!v1)
     {
       return;
@@ -9758,12 +8540,12 @@ LABEL_22:
 
   if (*v3)
   {
-    v3 = *(a1 + 416);
+    v3 = *(result + 416);
   }
 
   *v3 = v1;
   *v1 = 0;
-  *(a1 + 416) = v1;
+  *(result + 416) = v1;
 }
 
 uint64_t coll_process_xfer_item(uint64_t a1)
@@ -9867,4 +8649,1177 @@ LABEL_13:
   *v13 = v7;
   *v7 = 0;
   *(a1 + 416) = v7;
+}
+
+uint64_t coll_join_collective(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5)
+{
+  if ((a3 & 0x40) == 0)
+  {
+    return 4294967218;
+  }
+
+  v11 = *a2;
+  v10 = a2[1];
+  if (v10 == -1)
+  {
+    (*(*(v11 + 32) + 128))(*(v11 + 32) + 56);
+    v12 = *(v11 + 32);
+    v13 = *(v12 + 168);
+    if (!v13)
+    {
+      coll_join_collective_cold_1();
+    }
+
+    v10 = v13 + 64;
+    (*(v12 + 136))(v12 + 56);
+  }
+
+  v14 = malloc_type_calloc(1uLL, 0x38uLL, 0x10A004006E814FCuLL);
+  if (!v14)
+  {
+    return 4294967284;
+  }
+
+  v15 = v14;
+  *v14 = 19;
+  v14[1] = a5;
+  v14[2] = &util_coll_fi_ops;
+  v14[3] = v14;
+  atomic_fetch_add((v11 + 120), 1u);
+  v14[4] = v11;
+  coll_find_local_rank(a1, v14);
+  coll_find_local_rank(a1, v10);
+  op = coll_create_op(a1, v10, 0, a3, a5, coll_join_comp);
+  if (op)
+  {
+    v17 = op;
+    *(op + 6) = v15;
+    v18 = malloc_type_calloc(0x20uLL, 1uLL, 0x14C108E5uLL);
+    *(v17 + 64) = v18;
+    if (v18)
+    {
+      *(v17 + 56) = 256;
+      v19 = malloc_type_calloc(0x20uLL, 1uLL, 0x14C108E5uLL);
+      *(v17 + 80) = v19;
+      if (v19)
+      {
+        *(v17 + 72) = 256;
+        v20 = **(a1 + 400) >> 3;
+        if ((**(a1 + 400) & 7) != 0)
+        {
+          LODWORD(v20) = v20 + 1;
+        }
+
+        v21 = coll_do_allreduce(v17, *(*(a1 + 400) + 8), *(v17 + 64), v19, v20, 1, 7);
+        if (v21)
+        {
+          v6 = v21;
+        }
+
+        else
+        {
+          v6 = coll_sched_comp(v17);
+          if (!v6)
+          {
+            coll_progress_work(a1, v17);
+            *a4 = v15;
+            return v6;
+          }
+        }
+
+        free(*(v17 + 80));
+        *(v17 + 80) = 0;
+      }
+
+      else
+      {
+        v6 = 4294967284;
+      }
+
+      free(*(v17 + 64));
+    }
+
+    else
+    {
+      v6 = 4294967284;
+    }
+
+    free(v17);
+  }
+
+  else
+  {
+    v6 = 4294967284;
+  }
+
+  (*(v15[2] + 8))(v15);
+  return v6;
+}
+
+uint64_t coll_find_local_rank(uint64_t a1, uint64_t a2)
+{
+  result = (*(*(*(*(*(a2 + 32) + 32) + 328) + 24) + 16))();
+  *(a2 + 40) = -1;
+  if (result != -1)
+  {
+    v4 = *(a2 + 32);
+    v5 = *(v4 + 48);
+    if (v5)
+    {
+      v6 = 0;
+      v7 = *(v4 + 40);
+      while (*(v7 + 8 * v6) != result)
+      {
+        if (v5 == ++v6)
+        {
+          return result;
+        }
+      }
+
+      *(a2 + 40) = v6;
+    }
+  }
+
+  return result;
+}
+
+_DWORD *coll_create_op(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  result = malloc_type_calloc(1uLL, 0x68uLL, 0x10B20408FBB428BuLL);
+  if (result)
+  {
+    v13 = *(a2 + 50);
+    *(a2 + 50) = v13 + 1;
+    v14 = *(a2 + 48);
+    *result = a3;
+    result[1] = v13 | (v14 << 16);
+    *(result + 1) = a5;
+    *(result + 2) = a1;
+    *(result + 11) = a6;
+    *(result + 12) = a4;
+    *(result + 3) = a2;
+    *(result + 4) = result + 8;
+    *(result + 5) = result + 8;
+  }
+
+  return result;
+}
+
+uint64_t coll_do_allreduce(uint64_t a1, const void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v7 = a7;
+  v8 = a6;
+  v14 = *(a1 + 24);
+  v15 = *(v14 + 40);
+  v16 = *(*(v14 + 32) + 48);
+  v17 = 2 << ~__clz(v16 - 1);
+  if (v16 < 2)
+  {
+    v17 = v16;
+  }
+
+  v26 = v17 >> (v17 > v16);
+  v18 = v16 - v26;
+  v19 = ofi_datatype_size(a6);
+  memcpy(a3, a2, v19 * a5);
+  if (v15 >= 2 * v18)
+  {
+    v25 = v7;
+    v21 = v15 - v18;
+LABEL_8:
+    if (v21 == -1 || v26 < 2)
+    {
+LABEL_12:
+      if (v15 >= 2 * v18)
+      {
+        return 0;
+      }
+
+      if (v15)
+      {
+        result = coll_sched_send(a1, v15 - 1, a3, a5, v8, 1);
+        if (result)
+        {
+          return result;
+        }
+
+        return 0;
+      }
+
+LABEL_14:
+      result = coll_sched_recv(a1, v15 | 1, a3, a5, v8, 1);
+      if (result)
+      {
+        return result;
+      }
+
+      return 0;
+    }
+
+    v23 = 1;
+    while (1)
+    {
+      v24 = (v23 ^ v21) < v18 ? 2 * (v23 ^ v21) + 1 : (v23 ^ v21) + v18;
+      result = coll_sched_recv(a1, v24, a4, a5, v8, 0);
+      if (result)
+      {
+        return result;
+      }
+
+      result = coll_sched_send(a1, v24, a3, a5, v8, 1);
+      if (result)
+      {
+        return result;
+      }
+
+      if (v24 >= v15)
+      {
+        result = coll_sched_reduce(a1, a3, a4, a5, v8, v25);
+        if (result)
+        {
+          return result;
+        }
+
+        result = coll_sched_copy(a1, a4, a3, a5, v8);
+        if (result)
+        {
+          return result;
+        }
+      }
+
+      else
+      {
+        result = coll_sched_reduce(a1, a4, a3, a5, v8, v25);
+        if (result)
+        {
+          return result;
+        }
+      }
+
+      v23 *= 2;
+      if (v23 >= v26)
+      {
+        goto LABEL_12;
+      }
+    }
+  }
+
+  if ((v15 & 1) == 0)
+  {
+    result = coll_sched_send(a1, v15 | 1, a3, a5, v8, 1);
+    if (result)
+    {
+      return result;
+    }
+
+    goto LABEL_14;
+  }
+
+  result = coll_sched_recv(a1, v15 - 1, a4, a5, v8, 1);
+  if (!result)
+  {
+    result = coll_sched_reduce(a1, a4, a3, a5, v8, v7);
+    if (!result)
+    {
+      v25 = v7;
+      v21 = v15 >> 1;
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t coll_sched_comp(uint64_t a1)
+{
+  v2 = malloc_type_calloc(1uLL, 0x30uLL, 0x102004063BC1FCFuLL);
+  if (!v2)
+  {
+    return 4294967284;
+  }
+
+  v3 = v2;
+  result = 0;
+  v5 = *(a1 + 40);
+  v6 = *v5;
+  v3[1] = *v5;
+  ++v3;
+  v3[3] = 4;
+  *(v3 + 8) = 1;
+  v3[1] = v5;
+  v3[2] = a1;
+  *(v6 + 8) = v3;
+  *v5 = v3;
+  return result;
+}
+
+uint64_t coll_ep_barrier2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  op = coll_create_op(a1, a2, 1, a3, a4, coll_collective_comp);
+  if (!op)
+  {
+    return -12;
+  }
+
+  v6 = op;
+  v10 = ~*(*(op + 3) + 40);
+  v7 = coll_do_allreduce(op, &v10, op + 12, (op + 14), 1, 7, 7);
+  if (v7 || (v7 = coll_sched_comp(v6)) != 0)
+  {
+    v8 = v7;
+    free(v6);
+    return v8;
+  }
+
+  else
+  {
+    coll_progress_work(a1, v6);
+    return 0;
+  }
+}
+
+uint64_t coll_ep_allreduce(uint64_t a1, const void *a2, size_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, unsigned int a9, uint64_t a10, uint64_t a11)
+{
+  op = coll_create_op(a1, a7, 2, a10, a11, coll_collective_comp);
+  if (!op)
+  {
+    return -12;
+  }
+
+  v17 = op;
+  *(op + 7) = ofi_datatype_size(a8) * a3;
+  v18 = ofi_datatype_size(a8);
+  v19 = malloc_type_calloc(a3, v18, 0x2CDEF784uLL);
+  *(v17 + 48) = v19;
+  if (v19)
+  {
+    v20 = coll_do_allreduce(v17, a2, a5, v19, a3, a8, a9);
+    if (!v20)
+    {
+      v20 = coll_sched_comp(v17);
+      if (!v20)
+      {
+        coll_progress_work(a1, v17);
+        return 0;
+      }
+    }
+
+    v21 = v20;
+    free(*(v17 + 48));
+    v22 = v21;
+  }
+
+  else
+  {
+    v22 = -12;
+  }
+
+  free(v17);
+  return v22;
+}
+
+uint64_t coll_ep_allgather(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  op = coll_create_op(a1, a7, 4, a9, a10, coll_collective_comp);
+  if (!op)
+  {
+    return -12;
+  }
+
+  v16 = op;
+  v17 = coll_do_allgather(op, a2, a5, a3, a8);
+  if (v17 || (v17 = coll_sched_comp(v16)) != 0)
+  {
+    v18 = v17;
+    free(v16);
+    return v18;
+  }
+
+  else
+  {
+    coll_progress_work(a1, v16);
+    return 0;
+  }
+}
+
+uint64_t coll_do_allgather(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5 = a5;
+  v10 = *(*(a1 + 24) + 40);
+  v11 = ofi_datatype_size(a5);
+  v12 = v11 * a4;
+  v13 = *(*(*(a1 + 24) + 32) + 48);
+  result = coll_sched_copy(a1, a2, a3 + v11 * a4 * v10, a4, v5);
+  if (!result)
+  {
+    if (v13 < 2)
+    {
+      return 0;
+    }
+
+    else
+    {
+      v19 = (v10 + 1) % v13;
+      v15 = v13 - 1;
+      v16 = (v13 - 1 + v10) % v13;
+      v17 = v16;
+      while (1)
+      {
+        v18 = a3 + v10 * v12;
+        v10 = v17;
+        result = coll_sched_send(a1, v19, v18, a4, v5, 0);
+        if (result)
+        {
+          break;
+        }
+
+        result = coll_sched_recv(a1, v16, a3 + v10 * v12, a4, v5, 1);
+        if (result)
+        {
+          break;
+        }
+
+        v17 = (v13 - 1 + v10) % v13;
+        if (!--v15)
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t coll_ep_scatter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, unsigned int a9, uint64_t a10, uint64_t a11)
+{
+  op = coll_create_op(a1, a7, 5, a10, a11, coll_collective_comp);
+  if (!op)
+  {
+    return -12;
+  }
+
+  v17 = op;
+  v18 = coll_do_scatter(op, a2, a5, op + 6, a3, a8, a9);
+  if (v18 || (v18 = coll_sched_comp(v17)) != 0)
+  {
+    v19 = v18;
+    free(v17);
+    return v19;
+  }
+
+  else
+  {
+    coll_progress_work(a1, v17);
+    return 0;
+  }
+}
+
+uint64_t coll_do_scatter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, unint64_t a6, uint64_t a7)
+{
+  v7 = a7;
+  v12 = *(*(a1 + 24) + 32);
+  v13 = *(*(a1 + 24) + 40);
+  v14 = *(v12 + 48);
+  v15 = v13 - a6;
+  if (v13 >= a6)
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    v16 = *(v12 + 48);
+  }
+
+  v17 = ofi_datatype_size(a7);
+  if (!a5)
+  {
+    return 0;
+  }
+
+  v18 = v17;
+  v19 = v16 + v15;
+  if (v19)
+  {
+    v20 = (v19 & 1) == 0;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  if (v20)
+  {
+    v22 = 1 << (ofi_lsb(v19) - 1);
+    if (v22 + v19 > v14)
+    {
+      v22 = v14 - v19;
+    }
+
+    v21 = v22 * a5;
+    v23 = ofi_datatype_size(v7);
+    v24 = malloc_type_malloc(v21 * v23, 0x4722DF4AuLL);
+    *a4 = v24;
+    if (!v24)
+    {
+      return 4294967284;
+    }
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  v25 = v18 * a5;
+  if (v13 != a6)
+  {
+    goto LABEL_18;
+  }
+
+  v21 = v14 * a5;
+  if (!a6)
+  {
+    goto LABEL_18;
+  }
+
+  v26 = v18 * a5;
+  v27 = ofi_datatype_size(v7);
+  v28 = malloc_type_malloc(v27 * v21, 0x8CEF68DAuLL);
+  *a4 = v28;
+  if (!v28)
+  {
+    return 4294967284;
+  }
+
+  result = coll_sched_copy(a1, a2 + v26 * a6, v28, (v14 - a6) * a5, v7);
+  if (result)
+  {
+    return result;
+  }
+
+  result = coll_sched_copy(a1, a2, *a4 + v26 * (v14 - a6), a6 * a5, v7);
+  v25 = v26;
+  if (result)
+  {
+    return result;
+  }
+
+LABEL_18:
+  v30 = 1;
+  if (v14 < 2)
+  {
+    goto LABEL_27;
+  }
+
+  while ((v30 & v19) == 0)
+  {
+    v30 *= 2;
+    if (v30 >= v14)
+    {
+      goto LABEL_27;
+    }
+  }
+
+  v42 = v25;
+  v31 = v13 - v30;
+  v32 = v14 & ((v13 - v30) >> 63);
+  if (v19)
+  {
+    v34 = v32 + v31;
+    v35 = a1;
+    v33 = a3;
+    v36 = a5;
+  }
+
+  else
+  {
+    v33 = *a4;
+    v34 = v32 + v31;
+    v35 = a1;
+    v36 = v21;
+  }
+
+  result = coll_sched_recv(v35, v34, v33, v36, v7, 1);
+  v25 = v42;
+  if (!result)
+  {
+LABEL_27:
+    if (a6 || v13)
+    {
+      a2 = *a4;
+    }
+
+    if (v30 >= 2)
+    {
+      do
+      {
+        v37 = v30 >> 1;
+        if (v19 + (v30 >> 1) < v14)
+        {
+          v38 = v21 - v37 * a5;
+          if (v21 == v37 * a5)
+          {
+            coll_do_scatter_cold_1();
+          }
+
+          v39 = v37 + v13 >= v14 ? v14 : 0;
+          v40 = v25;
+          result = coll_sched_send(a1, v37 + v13 - v39, a2 + v37 * v25, v38, v7, 1);
+          v25 = v40;
+          v21 = v37 * a5;
+          if (result)
+          {
+            return result;
+          }
+        }
+
+        v41 = v30 > 3;
+        v30 >>= 1;
+      }
+
+      while (v41);
+    }
+
+    if ((v19 & 1) == 0)
+    {
+      result = coll_sched_copy(a1, a2, a3, a5, v7);
+      if (result)
+      {
+        return result;
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t coll_ep_broadcast(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  op = coll_create_op(a1, a5, 3, a8, a9, coll_collective_comp);
+  if (!op)
+  {
+    return -12;
+  }
+
+  v15 = op;
+  v16 = *(*(op[3] + 32) + 48);
+  v17 = (a3 + v16 - 1) / v16;
+  v18 = v17 * *(op[3] + 40);
+  if (v18 > a3 && v18 - a3 > v17)
+  {
+    v17 = 0;
+  }
+
+  v19 = ofi_datatype_size(a7);
+  v20 = malloc_type_malloc(v19 * v17, 0x9B71AD6DuLL);
+  v15[6] = v20;
+  if (v20)
+  {
+    v21 = coll_do_scatter(v15, a2, v20, v15 + 8, v17, a6, a7);
+    if (!v21)
+    {
+      v21 = coll_do_allgather(v15, v15[6], a2, v17, a7);
+      if (!v21)
+      {
+        v21 = coll_sched_comp(v15);
+        if (!v21)
+        {
+          coll_progress_work(a1, v15);
+          return 0;
+        }
+      }
+    }
+
+    v22 = v21;
+    free(v15[6]);
+    v23 = v22;
+  }
+
+  else
+  {
+    v23 = -12;
+  }
+
+  free(v15);
+  return v23;
+}
+
+uint64_t coll_peer_xfer_complete(uint64_t a1, uint64_t *a2)
+{
+  v2 = *a2;
+  *(v2 + 36) = 2;
+  coll_progress_work(*(*(v2 + 24) + 16), *(v2 + 24));
+  return 0;
+}
+
+uint64_t coll_query_collective(uint64_t a1, unsigned int a2, uint64_t a3)
+{
+  if (!a3)
+  {
+    return 4294967274;
+  }
+
+  if (*(a3 + 32))
+  {
+    return 4294967274;
+  }
+
+  result = 4294967218;
+  if (a2 <= 7)
+  {
+    if (((1 << a2) & 0x93) != 0)
+    {
+      goto LABEL_7;
+    }
+
+    if (a2 == 3 && *a3 <= 9u)
+    {
+      v6 = *(*(a1 + 280) + 24);
+      if (!v6)
+      {
+        return 4294967218;
+      }
+
+      if (*v6 < 0x49uLL)
+      {
+        return 4294967218;
+      }
+
+      v7 = v6[9];
+      if (!v7)
+      {
+        return 4294967218;
+      }
+
+      result = v7();
+      if (!result)
+      {
+LABEL_7:
+        result = 0;
+        *(a3 + 24) = 0x7FFFFFFFLL;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t coll_close(void *a1)
+{
+  atomic_fetch_add((a1[4] + 120), 0xFFFFFFFF);
+  free(a1);
+  return 0;
+}
+
+uint64_t coll_sched_send(uint64_t a1, int a2, uint64_t a3, int a4, int a5, int a6)
+{
+  v12 = malloc_type_calloc(1uLL, 0x50uLL, 0x10A00400124DEBBuLL);
+  if (!v12)
+  {
+    return 4294967284;
+  }
+
+  v13 = v12;
+  result = 0;
+  v15 = *(a1 + 40);
+  v16 = *v15;
+  v13[1] = *v15;
+  ++v13;
+  v13[3] = 0;
+  *(v13 + 8) = a6;
+  v13[7] = *(a1 + 4) | (*(*(a1 + 24) + 40) << 32);
+  v13[5] = a3;
+  *(v13 + 12) = a4;
+  *(v13 + 13) = a5;
+  *(v13 + 16) = a2;
+  v13[1] = v15;
+  v13[2] = a1;
+  *(v16 + 8) = v13;
+  *v15 = v13;
+  return result;
+}
+
+uint64_t coll_sched_recv(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
+{
+  v12 = malloc_type_calloc(1uLL, 0x50uLL, 0x10A00400124DEBBuLL);
+  if (!v12)
+  {
+    return 4294967284;
+  }
+
+  v13 = v12;
+  result = 0;
+  v15 = *(a1 + 40);
+  v16 = *v15;
+  v13[1] = *v15;
+  ++v13;
+  v13[3] = 1;
+  *(v13 + 8) = a6;
+  v13[7] = *(a1 + 4) | (a2 << 32);
+  v13[5] = a3;
+  *(v13 + 12) = a4;
+  *(v13 + 13) = a5;
+  *(v13 + 16) = a2;
+  v13[1] = v15;
+  v13[2] = a1;
+  *(v16 + 8) = v13;
+  *v15 = v13;
+  return result;
+}
+
+uint64_t coll_sched_reduce(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6)
+{
+  v12 = malloc_type_calloc(1uLL, 0x50uLL, 0x10A004083DCD24BuLL);
+  if (!v12)
+  {
+    return 4294967284;
+  }
+
+  v13 = v12;
+  result = 0;
+  v15 = *(a1 + 40);
+  v16 = *v15;
+  v13[1] = *v15;
+  *(++v13 + 8) = 1;
+  v13[3] = 2;
+  v13[5] = a2;
+  v13[6] = a3;
+  *(v13 + 14) = a4;
+  *(v13 + 15) = a5;
+  *(v13 + 16) = a6;
+  v13[1] = v15;
+  v13[2] = a1;
+  *(v16 + 8) = v13;
+  *v15 = v13;
+  return result;
+}
+
+uint64_t coll_sched_copy(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+{
+  v10 = malloc_type_calloc(1uLL, 0x48uLL, 0x10A0040850C52B4uLL);
+  if (!v10)
+  {
+    return 4294967284;
+  }
+
+  v11 = v10;
+  result = 0;
+  v13 = *(a1 + 40);
+  v14 = *v13;
+  v11[1] = *v13;
+  *(++v11 + 8) = 1;
+  v11[3] = 3;
+  v11[5] = a2;
+  v11[6] = a3;
+  *(v11 + 14) = a4;
+  *(v11 + 15) = a5;
+  v11[1] = v13;
+  v11[2] = a1;
+  *(v14 + 8) = v11;
+  *v13 = v11;
+  return result;
+}
+
+uint64_t coll_endpoint(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 && (*(a2 + 20) & 0x10) != 0)
+  {
+    if (a4 && *a4 > 0x1FuLL)
+    {
+      v11 = malloc_type_calloc(1uLL, 0x1C0uLL, 0x10A204006CFF159uLL);
+      if (!v11)
+      {
+        return 4294967284;
+      }
+
+      v12 = v11;
+      v13 = fi_dupinfo(a2);
+      v12[53] = v13;
+      if (v13 && (v14 = fi_dupinfo(*(a4 + 8)), (v12[54] = v14) != 0))
+      {
+        v12[55] = *(a4 + 16);
+        v7 = ofi_endpoint_init(a1, &coll_util_prov, a2, v12, a4, coll_ep_progress);
+        if (!v7)
+        {
+          *(a4 + 24) = &coll_ep_peer_xfer_ops;
+          *a3 = v12;
+          v12[2] = &coll_ep_fi_ops;
+          *(*a3 + 24) = &coll_ops_ep;
+          *(*a3 + 32) = &coll_ops_cm;
+          *(*a3 + 72) = &coll_ops_collective;
+          return v7;
+        }
+      }
+
+      else
+      {
+        v7 = 4294967284;
+      }
+
+      fi_freeinfo(v12[54]);
+      fi_freeinfo(v12[53]);
+      free(v12);
+      return v7;
+    }
+
+    if (fi_log_enabled(&coll_prov, 0, 0))
+    {
+      v5 = *__error();
+      fi_log(&coll_prov, 0, 0, "coll_endpoint", 132, "Invalid peer transfer context\n");
+      goto LABEL_9;
+    }
+  }
+
+  else if (fi_log_enabled(&coll_prov, 0, 0))
+  {
+    v5 = *__error();
+    fi_log(&coll_prov, 0, 0, "coll_endpoint", 126, "FI_PEER_TRANSFER mode required\n");
+LABEL_9:
+    *__error() = v5;
+  }
+
+  return 4294967274;
+}
+
+uint64_t coll_ep_close(void **a1, uint64_t a2)
+{
+  ofi_endpoint_close(a1, a2);
+  fi_freeinfo(a1[54]);
+  fi_freeinfo(a1[53]);
+  free(a1);
+  return 0;
+}
+
+uint64_t coll_ep_ctrl(uint64_t a1, int a2)
+{
+  if (a2 == 6)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 4294967218;
+  }
+}
+
+uint64_t ofi_coll_eq_open(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  if (!a2 || (*(a2 + 13) & 8) == 0)
+  {
+    if (fi_log_enabled(&coll_prov, 0, 0))
+    {
+      v5 = *__error();
+      fi_log(&coll_prov, 0, 0, "ofi_coll_eq_open", 75, "FI_PEER flag required\n");
+LABEL_9:
+      *__error() = v5;
+      return 4294967274;
+    }
+
+    return 4294967274;
+  }
+
+  if (!a4 || *a4 <= 0xFuLL)
+  {
+    if (fi_log_enabled(&coll_prov, 0, 0))
+    {
+      v5 = *__error();
+      fi_log(&coll_prov, 0, 0, "ofi_coll_eq_open", 80, "invalid peer EQ context\n");
+      goto LABEL_9;
+    }
+
+    return 4294967274;
+  }
+
+  v11 = malloc_type_calloc(1uLL, 0xA8uLL, 0x10E00408C7392CEuLL);
+  if (!v11)
+  {
+    return 4294967284;
+  }
+
+  v12 = v11;
+  v11[20] = a4[1];
+  v7 = ofi_eq_init(a1, a2, v11, a4);
+  if (v7)
+  {
+    free(v12);
+  }
+
+  else
+  {
+    *a3 = v12;
+    v12[2] = &coll_eq_fi_ops;
+    *(*a3 + 24) = &coll_eq_ops;
+  }
+
+  return v7;
+}
+
+uint64_t coll_eq_close(void *a1)
+{
+  v2 = ofi_eq_cleanup(a1);
+  if (!v2)
+  {
+    free(a1);
+  }
+
+  return v2;
+}
+
+uint64_t ofi_copy_iov_buf(uint64_t a1, unint64_t a2, unint64_t a3, uint64_t a4, size_t a5, int a6)
+{
+  v6 = 0;
+  if (a2)
+  {
+    v7 = a5;
+    if (a5)
+    {
+      v6 = 0;
+      v11 = (a1 + 8);
+      v12 = 1;
+      while (1)
+      {
+        v13 = *v11;
+        if (a3 > *v11)
+        {
+          a3 -= *v11;
+          goto LABEL_17;
+        }
+
+        if (v13 - a3 >= v7)
+        {
+          v14 = v7;
+        }
+
+        else
+        {
+          v14 = v13 - a3;
+        }
+
+        v7 -= v14;
+        if (v13 == a3)
+        {
+          a3 = 0;
+          goto LABEL_17;
+        }
+
+        v15 = *(v11 - 1);
+        if (!a6)
+        {
+          break;
+        }
+
+        if (a6 == 1)
+        {
+          v16 = (v15 + a3);
+          v17 = (a4 + v6);
+LABEL_15:
+          memcpy(v16, v17, v14);
+        }
+
+        a3 = 0;
+        v6 += v14;
+LABEL_17:
+        if (v12 < a2)
+        {
+          ++v12;
+          v11 += 2;
+          if (v7)
+          {
+            continue;
+          }
+        }
+
+        return v6;
+      }
+
+      v16 = (a4 + v6);
+      v17 = (v15 + a3);
+      goto LABEL_15;
+    }
+  }
+
+  return v6;
+}
+
+void *ofi_consume_iov_desc(void *__dst, char *a2, uint64_t *a3, unint64_t a4)
+{
+  v4 = *a3;
+  if (!*a3)
+  {
+    ofi_consume_iov_desc_cold_2();
+  }
+
+  v5 = a4;
+  v8 = __dst;
+  v9 = 0;
+  v10 = 1;
+  v11 = *a3;
+  do
+  {
+    v9 += __dst[v10];
+    v10 += 2;
+    --v11;
+  }
+
+  while (v11);
+  if (v9 < a4)
+  {
+    ofi_consume_iov_desc_cold_1();
+  }
+
+  v12 = v4 - 1;
+  if (v4 == 1)
+  {
+    if (__dst[1] == a4)
+    {
+      *a3 = 0;
+      return __dst;
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+    v14 = a2;
+    while (1)
+    {
+      v15 = __dst[v13 + 1];
+      v16 = v5 >= v15;
+      v17 = v5 - v15;
+      if (!v16)
+      {
+        break;
+      }
+
+      v14 += 8;
+      *a3 = v12;
+      v13 += 2;
+      --v12;
+      v5 = v17;
+      if (v12 == -1)
+      {
+        return __dst;
+      }
+    }
+
+    if (v13 * 8)
+    {
+      __dst = memmove(__dst, &__dst[v13], 16 * v4 - v13 * 8);
+      if (a2)
+      {
+        __dst = memmove(a2, v14, 8 * *a3);
+      }
+    }
+  }
+
+  v18 = v8[1] - v5;
+  *v8 += v5;
+  v8[1] = v18;
+  return __dst;
 }

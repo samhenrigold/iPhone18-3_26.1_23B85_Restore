@@ -6,7 +6,7 @@
 
 - (id)contentsForContext:()MNInstructions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   composedRoute = [self composedRoute];
   v6 = [composedRoute legIndexForStepIndex:{objc_msgSend(self, "stepIndex")}];
   legs = [composedRoute legs];
@@ -23,14 +23,14 @@
       v12 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v17 = 136315650;
-        v18 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
-        v19 = 2080;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
-        v21 = 1024;
-        v22 = 398;
+        v16 = 136315650;
+        v17 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
+        v18 = 2080;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
+        v20 = 1024;
+        v21 = 398;
 LABEL_11:
-        _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v17, 0x1Cu);
+        _os_log_impl(&dword_1D311E000, v12, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v16, 0x1Cu);
       }
     }
 
@@ -40,7 +40,7 @@ LABEL_11:
       {
         if (a3 == 1 || a3 == 3)
         {
-          v16 = [MNSignInstructionContents contentsWithStep:self destination:destination];
+          v15 = [MNSignInstructionContents contentsWithStep:self destination:destination];
         }
 
         else
@@ -53,31 +53,31 @@ LABEL_11:
               goto LABEL_12;
             }
 
-            v17 = 136315650;
-            v18 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
-            v19 = 2080;
-            v20 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
-            v21 = 1024;
-            v22 = 419;
+            v16 = 136315650;
+            v17 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
+            v18 = 2080;
+            v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
+            v20 = 1024;
+            v21 = 419;
             goto LABEL_11;
           }
 
-          v16 = [MNListInstructionContents contentsWithStep:self];
+          v15 = [MNListInstructionContents contentsWithStep:self];
         }
 
-        v13 = v16;
+        v13 = v15;
         goto LABEL_13;
       }
 
       v12 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v17 = 136315650;
-        v18 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
-        v19 = 2080;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
-        v21 = 1024;
-        v22 = 404;
+        v16 = 136315650;
+        v17 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
+        v18 = 2080;
+        v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
+        v20 = 1024;
+        v21 = 404;
         goto LABEL_11;
       }
     }
@@ -93,19 +93,17 @@ LABEL_13:
   v10 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315650;
-    v18 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
-    v19 = 2080;
-    v20 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
-    v21 = 1024;
-    v22 = 389;
-    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v17, 0x1Cu);
+    v16 = 136315650;
+    v17 = "[GEOComposedRouteStep(MNInstructions) contentsForContext:]";
+    v18 = 2080;
+    v19 = "/Library/Caches/com.apple.xbs/Sources/Navigation/Instructions/MNInstructions.m";
+    v20 = 1024;
+    v21 = 389;
+    _os_log_impl(&dword_1D311E000, v10, OS_LOG_TYPE_ERROR, "*** Assertion failure in %s, %s:%d: Hit an unreachable code path", &v16, 0x1Cu);
   }
 
   v13 = 0;
 LABEL_14:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

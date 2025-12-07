@@ -116,29 +116,28 @@
 + (id)decodeSyncObjectWithData:(id)data
 {
   v4 = sub_38F8(&unk_8FA00, &qword_7A740);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v18 - v6;
+  v6 = &v17 - v5;
   dataCopy = data;
-  v9 = sub_748C8();
-  v11 = v10;
+  v8 = sub_748C8();
+  v10 = v9;
 
-  v12 = _s31InferenceRecordContainerWrapperCMa();
-  v13 = objc_allocWithZone(v12);
-  v14 = sub_74D78();
-  sub_398C(v9, v11);
-  sub_479D0(&qword_8F178, &type metadata accessor for InferenceRecord);
+  v11 = _s31InferenceRecordContainerWrapperCMa(0);
+  v12 = objc_allocWithZone(v11);
+  v13 = sub_74D78();
+  sub_398C(v8, v10);
+  sub_479D0(&qword_8F178, &type metadata accessor for InferenceRecord, &protocol conformance descriptor for InferenceRecord);
   sub_74F88();
-  (*(*(v14 - 8) + 56))(v7, 0, 1, v14);
-  sub_477F8(v7, &v13[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecord]);
-  v15 = &v13[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecordData];
-  *v15 = v9;
-  v15[1] = v11;
-  v19.receiver = v13;
-  v19.super_class = v12;
-  v16 = objc_msgSendSuper2(&v19, "init");
+  (*(*(v13 - 8) + 56))(v6, 0, 1, v13);
+  sub_477F8(v6, &v12[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecord]);
+  v14 = &v12[OBJC_IVAR____TtCC25FitnessIntelligencePlugin30InferenceRecordContainerEntityP33_B585107B97BC3D4BB109E3030F1DB06531InferenceRecordContainerWrapper_inferenceRecordData];
+  *v14 = v8;
+  v14[1] = v10;
+  v18.receiver = v12;
+  v18.super_class = v11;
+  v15 = objc_msgSendSuper2(&v18, "init");
 
-  return v16;
+  return v15;
 }
 
 @end

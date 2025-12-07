@@ -331,7 +331,7 @@
   v68 = 0u;
   v65 = 0u;
   v66 = 0u;
-  [(HKGraphSeries *)self selectedPathRange];
+  objc_msgSend_selectedPathRange(self);
   v53[0] = MEMORY[0x1E69E9820];
   v53[1] = 3221225472;
   v53[2] = __119__HKStackedBarSeries_drawWithBlockCoordinates_visibleBarCount_pointTransform_context_axisRect_seriesRenderingDelegate___block_invoke;

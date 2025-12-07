@@ -19,35 +19,36 @@
 - (AVTSplashScreenViewController)initWithDefaultConfiguration
 {
   v3 = objc_alloc_init(AVTSplashScreenConfiguration);
-  v4 = AVTAvatarUIBundle();
+  v4 = AVTAvatarUIBundle(v3);
   v5 = [v4 localizedStringForKey:@"MEMOJI_SPLASH_TITLE" value:&stru_1F39618F0 table:@"Localized"];
   [(AVTSplashScreenConfiguration *)v3 setTitleString:v5];
 
-  LODWORD(v4) = AVTUIIsFacetrackingSupported();
-  v6 = AVTAvatarUIBundle();
-  v7 = v6;
+  v8 = AVTUIIsFacetrackingSupported(v6, v7);
+  LODWORD(v4) = v8;
+  v9 = AVTAvatarUIBundle(v8);
+  v10 = v9;
   if (v4)
   {
-    v8 = @"MEMOJI_SPLASH_SUBTITLE";
+    v11 = @"MEMOJI_SPLASH_SUBTITLE";
   }
 
   else
   {
-    v8 = @"MEMOJI_SPLASH_SUBTITLE_NO_FACE_TRACKING";
+    v11 = @"MEMOJI_SPLASH_SUBTITLE_NO_FACE_TRACKING";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F39618F0 table:@"Localized"];
-  [(AVTSplashScreenConfiguration *)v3 setSubTitleString:v9];
+  v12 = [v9 localizedStringForKey:v11 value:&stru_1F39618F0 table:@"Localized"];
+  [(AVTSplashScreenConfiguration *)v3 setSubTitleString:v12];
 
-  v10 = AVTAvatarUIBundle();
-  v11 = [v10 localizedStringForKey:@"MEMOJI_SPLASH_CREATE_YOURS" value:&stru_1F39618F0 table:@"Localized"];
-  [(AVTSplashScreenConfiguration *)v3 setButtonString:v11];
+  v14 = AVTAvatarUIBundle(v13);
+  v15 = [v14 localizedStringForKey:@"MEMOJI_SPLASH_CREATE_YOURS" value:&stru_1F39618F0 table:@"Localized"];
+  [(AVTSplashScreenConfiguration *)v3 setButtonString:v15];
 
-  v12 = AVTAvatarEditorSplashVideo();
-  [(AVTSplashScreenConfiguration *)v3 setPrimaryPlayerItem:v12];
+  v17 = AVTAvatarEditorSplashVideo(v16);
+  [(AVTSplashScreenConfiguration *)v3 setPrimaryPlayerItem:v17];
 
-  v13 = [(AVTSplashScreenViewController *)self initWithConfiguration:v3];
-  return v13;
+  v18 = [(AVTSplashScreenViewController *)self initWithConfiguration:v3];
+  return v18;
 }
 
 - (AVTSplashScreenViewController)initWithConfiguration:(id)configuration

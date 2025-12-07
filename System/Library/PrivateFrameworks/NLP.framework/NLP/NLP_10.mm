@@ -632,7 +632,7 @@ LABEL_42:
       }
 
       v31 = (*a3 + 24 * v6);
-      v32 = -1431655765 * ((v31[1] - *v31) >> 4);
+      v32 = -1431655765 * ((*(v31 + 1) - *v31) >> 4);
       if (MaximumLayerSize < v32)
       {
         v32 = MaximumLayerSize;
@@ -800,21 +800,21 @@ void sub_22CDB9024(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t NLHindiTransliterator::addSpecialCandidates(uint64_t a1, uint64_t a2)
+uint64_t NLHindiTransliterator::addSpecialCandidates(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a2 + 23);
+  v3 = *(a2 + 23);
   if ((*(a2 + 23) & 0x80000000) == 0)
   {
-    if (v2 != 2)
+    if (v3 != 2)
     {
       result = 0;
       goto LABEL_22;
     }
 
-    v3 = a2;
+    v4 = a2;
     if (*a2 == 26994)
     {
-      v4 = a2;
+      v5 = a2;
       goto LABEL_19;
     }
 
@@ -828,19 +828,19 @@ uint64_t NLHindiTransliterator::addSpecialCandidates(uint64_t a1, uint64_t a2)
 
   if (*(a2 + 8) == 2)
   {
-    v3 = *a2;
+    v4 = *a2;
 LABEL_9:
-    if (*v3 != 30066)
+    if (*v4 != 30066)
     {
       result = 0;
-      if ((v2 & 0x80) != 0)
+      if ((v3 & 0x80) != 0)
       {
         goto LABEL_24;
       }
 
 LABEL_22:
-      v6 = a2;
-      if (v2 != 2)
+      v7 = a2;
+      if (v3 != 2)
       {
         return result;
       }
@@ -849,27 +849,27 @@ LABEL_22:
     }
 
 LABEL_13:
-    if ((v2 & 0x80) != 0)
+    if ((v3 & 0x80) != 0)
     {
       if (*(a2 + 8) != 2)
       {
         goto LABEL_20;
       }
 
-      v4 = *a2;
+      v5 = *a2;
     }
 
     else
     {
-      v4 = a2;
-      if (v2 != 2)
+      v5 = a2;
+      if (v3 != 2)
       {
         goto LABEL_20;
       }
     }
 
 LABEL_19:
-    if (*v4 == 26994)
+    if (*v5 == 26994)
     {
       operator new();
     }
@@ -885,9 +885,9 @@ LABEL_24:
     return result;
   }
 
-  v6 = *a2;
+  v7 = *a2;
 LABEL_26:
-  if (*v6 == 28015)
+  if (*v7 == 28015)
   {
     operator new();
   }
@@ -895,9 +895,9 @@ LABEL_26:
   return result;
 }
 
-void sub_22CDB9564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18)
+void sub_22CDB9564(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, void *__p, uint64_t a18)
 {
-  MEMORY[0x2318C0600](v18, 0x1012C40B0087DDBLL);
+  MEMORY[0x2318C0600](v18, 0x1012C40B0087DDBLL, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -1380,19 +1380,19 @@ void sub_22CDBA0B4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_BYTE *NLArabicTransliterator::getTargetDigit@<X0>(unsigned int a1@<W1>, _BYTE *a2@<X8>)
+void *NLArabicTransliterator::getTargetDigit@<X0>(unsigned int a1@<W1>, void *a2@<X8>)
 {
   if (a1 > 9)
   {
-    v3 = "";
+    v2 = "";
   }
 
   else
   {
-    v3 = off_2787404F8[a1];
+    v2 = off_2787404F8[a1];
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, v3);
+  return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
 void NLArabicTransliterator::addDynamicMapping(uint64_t a1, uint64_t a2)
@@ -2034,7 +2034,7 @@ void NLUrduCharLanguageModeler::NLUrduCharLanguageModeler(NLUrduCharLanguageMode
   }
 }
 
-double NLUrduCharLanguageModeler::logProbability(uint64_t a1)
+double NLUrduCharLanguageModeler::logProbability(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!*(a1 + 8))
   {
@@ -2094,36 +2094,36 @@ void NL::NumericConverter::~NumericConverter(NL::NumericConverter *this)
   }
 }
 
-const __CFLocale *NL::NumericConverter::locale@<X0>(NL::NumericConverter *this@<X0>, char *a2@<X8>)
+const __CFLocale *NL::NumericConverter::locale@<X0>(NL::NumericConverter *this@<X0>, uint64_t a2@<X8>)
 {
   result = *(*this + 8);
   if (result)
   {
     Value = CFLocaleGetValue(result, *MEMORY[0x277CBEED0]);
 
-    return getUTF8StringFromCFString(Value, a2);
+    return getUTF8StringFromCFString(a2, Value);
   }
 
   else
   {
-    a2[23] = 2;
+    *(a2 + 23) = 2;
     strcpy(a2, "en");
   }
 
   return result;
 }
 
-void NL::NumericConverter::numericValueForTypeWithValues(NL::ParserContext **this@<X0>, const __CFString *a2@<X1>, CFDictionaryRef theDict@<X2>, void *a4@<X8>)
+void NL::NumericConverter::numericValueForTypeWithValues(uint64_t *__return_ptr a1@<X8>, NL::ParserContext **this@<X0>, const __CFString *a3@<X1>, CFDictionaryRef theDict@<X2>)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  if (!a2 || !theDict)
+  v24 = *MEMORY[0x277D85DE8];
+  if (!a3 || !theDict)
   {
-    *a4 = 0;
-    a4[1] = 0;
-    goto LABEL_34;
+    *a1 = 0;
+    a1[1] = 0;
+    return;
   }
 
-  v22 = 0;
+  v21 = 0;
   if (CFDictionaryContainsKey(theDict, @"DIGITS"))
   {
     v8 = @"DIGITS";
@@ -2135,7 +2135,7 @@ void NL::NumericConverter::numericValueForTypeWithValues(NL::ParserContext **thi
     {
       Value = CFDictionaryGetValue(theDict, @"SPELLED");
       v10 = copyTranslatedRomanNumberFromChineseNumberString(Value);
-      v22 = v10;
+      v21 = v10;
       if (v10)
       {
         goto LABEL_8;
@@ -2164,17 +2164,17 @@ LABEL_6:
   if (Value)
   {
     v10 = CFRetain(Value);
-    v22 = v10;
+    v21 = v10;
   }
 
 LABEL_8:
-  MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a2);
+  MutableCopy = CFStringCreateMutableCopy(*MEMORY[0x277CBECE8], 0, a3);
   cf = MutableCopy;
   if (MutableCopy)
   {
-    v26.length = CFStringGetLength(a2);
-    v26.location = 0;
-    CFStringFindAndReplace(MutableCopy, @"Value", @"Unit", v26, 0);
+    v25.length = CFStringGetLength(a3);
+    v25.location = 0;
+    CFStringFindAndReplace(MutableCopy, @"Value", @"Unit", v25, 0);
     if (!CFDictionaryContainsKey(theDict, MutableCopy))
     {
       goto LABEL_19;
@@ -2184,8 +2184,8 @@ LABEL_8:
     v13 = v12;
     if (!v12)
     {
-      *a4 = 0;
-      a4[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
 LABEL_30:
       if (cf)
       {
@@ -2210,23 +2210,23 @@ LABEL_19:
 
     for (i = 0; i != 5; ++i)
     {
-      if (CFStringHasPrefix(a2, NL::NumericConverter::numericValueForTypeWithValues(__CFString const*,__CFDictionary const*)const::intTypes[i]))
+      if (CFStringHasPrefix(a3, NL::NumericConverter::numericValueForTypeWithValues(__CFString const*,__CFDictionary const*)const::intTypes[i]))
       {
-        getUTF8StringFromCFString(v14, keys);
-        UTF8StringFromCFString = getUTF8StringFromCFString(v10, __p);
+        getUTF8StringFromCFString(keys, v14);
+        UTF8StringFromCFString = getUTF8StringFromCFString(__p, v10);
         NL::NumericConverter::numericIntForType(UTF8StringFromCFString, v17, __p);
       }
     }
 
-    getUTF8StringFromCFString(v14, keys);
-    getUTF8StringFromCFString(v10, __p);
-    NL::NumericConverter::numericDoubleForType(this, keys, __p, a4);
-    if (v20 < 0)
+    getUTF8StringFromCFString(keys, v14);
+    getUTF8StringFromCFString(__p, v10);
+    NL::NumericConverter::numericDoubleForType(this, keys, a1);
+    if (v19 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v24 < 0)
+    if (v23 < 0)
     {
       operator delete(keys[0]);
     }
@@ -2234,16 +2234,13 @@ LABEL_19:
     goto LABEL_30;
   }
 
-  *a4 = 0;
-  a4[1] = 0;
+  *a1 = 0;
+  a1[1] = 0;
 LABEL_32:
-  if (v22)
+  if (v21)
   {
-    CFRelease(v22);
+    CFRelease(v21);
   }
-
-LABEL_34:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22CDBB458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, const void *a16, const void *a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
@@ -2330,45 +2327,40 @@ LABEL_21:
   operator new();
 }
 
-void NL::NumericConverter::numericDoubleForType(NL::NumericConverter *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+void NL::NumericConverter::numericDoubleForType(NL::NumericConverter *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   *pErrorCode = 0;
-  if (*(a3 + 23) < 0)
-  {
-    v7 = *(a3 + 8);
-  }
-
   MEMORY[0x28223BE20]();
-  v11 = (&v27 - v10);
-  v12 = *(v9 + 23);
-  if (v12 >= 0)
+  v9 = (&v24 - v8);
+  v10 = *(v7 + 23);
+  if (v10 >= 0)
   {
-    v13 = v9;
+    v11 = v7;
   }
 
   else
   {
-    v13 = *v9;
+    v11 = *v7;
   }
 
-  if (v12 >= 0)
+  if (v10 >= 0)
   {
-    v14 = *(v9 + 23);
+    v12 = *(v7 + 23);
   }
 
   else
   {
-    v14 = *(v9 + 8);
+    v12 = *(v7 + 8);
   }
 
-  u_strFromUTF8(v11, v8, pErrorCode, v13, v14, &pErrorCode[1]);
-  v11[pErrorCode[0]] = 0;
-  NL::NumericConverter::locale(a1, &v27);
-  v15 = unum_open();
-  if (v28 < 0)
+  u_strFromUTF8(v9, v6, pErrorCode, v11, v12, &pErrorCode[1]);
+  v9[pErrorCode[0]] = 0;
+  NL::NumericConverter::locale(a1, &v24);
+  v13 = unum_open();
+  if (v25 < 0)
   {
-    operator delete(v27);
+    operator delete(v24);
   }
 
   if (pErrorCode[1] < U_ILLEGAL_ARGUMENT_ERROR)
@@ -2377,92 +2369,92 @@ void NL::NumericConverter::numericDoubleForType(NL::NumericConverter *a1@<X0>, u
     unum_close();
     if (pErrorCode[1] >= U_ILLEGAL_ARGUMENT_ERROR)
     {
-      goto LABEL_15;
+      goto LABEL_13;
     }
 
-    v17 = *(a2 + 23);
-    if (v17 >= 0)
+    v14 = *(a2 + 23);
+    if (v14 >= 0)
     {
-      v18 = a2;
+      v15 = a2;
     }
 
     else
     {
-      v18 = *a2;
+      v15 = *a2;
     }
 
-    if (v17 >= 0)
+    if (v14 >= 0)
     {
-      v19 = *(a2 + 23);
+      v16 = *(a2 + 23);
     }
 
     else
     {
-      v19 = *(a2 + 8);
+      v16 = *(a2 + 8);
     }
 
-    if (v19 < 4)
+    if (v16 < 4)
     {
-      goto LABEL_41;
+      goto LABEL_39;
     }
 
-    v20 = (v18 + v19);
-    v21 = v19;
-    v22 = v18;
+    v17 = (v15 + v16);
+    v18 = v16;
+    v19 = v15;
     while (1)
     {
-      v23 = memchr(v22, 70, v21 - 3);
-      if (!v23)
+      v20 = memchr(v19, 70, v18 - 3);
+      if (!v20)
       {
-        goto LABEL_30;
+        goto LABEL_28;
       }
 
-      if (*v23 == 1952802118)
+      if (*v20 == 1952802118)
       {
         break;
       }
 
-      v22 = v23 + 1;
-      v21 = v20 - v22;
-      if (v20 - v22 < 4)
+      v19 = v20 + 1;
+      v18 = v17 - v19;
+      if (v17 - v19 < 4)
       {
-        goto LABEL_30;
+        goto LABEL_28;
       }
     }
 
-    if (v23 == v20 || (v23 - v18) == -1)
+    if (v20 == v17 || (v20 - v15) == -1)
     {
-LABEL_30:
-      if (v19 < 6)
+LABEL_28:
+      if (v16 < 6)
       {
-        goto LABEL_41;
+        goto LABEL_39;
       }
 
-      v24 = v18;
+      v21 = v15;
       while (1)
       {
-        v25 = memchr(v24, 73, v19 - 5);
-        if (!v25)
+        v22 = memchr(v21, 73, v16 - 5);
+        if (!v22)
         {
-          goto LABEL_41;
+          goto LABEL_39;
         }
 
-        if (*v25 == 1751346761 && v25[2] == 29541)
+        if (*v22 == 1751346761 && v22[2] == 29541)
         {
           break;
         }
 
-        v24 = v25 + 1;
-        v19 = v20 - v24;
-        if (v20 - v24 < 6)
+        v21 = v22 + 1;
+        v16 = v17 - v21;
+        if (v17 - v21 < 6)
         {
-          goto LABEL_41;
+          goto LABEL_39;
         }
       }
 
-      if (v25 == v20 || (v25 - v18) == -1)
+      if (v22 == v17 || (v22 - v15) == -1)
       {
-LABEL_41:
+LABEL_39:
         if (std::string::find[abi:ne200100](a2, "Meters", 0) == -1 && std::string::find[abi:ne200100](a2, "Centimeters", 0) == -1 && std::string::find[abi:ne200100](a2, "Seconds", 0) == -1 && std::string::find[abi:ne200100](a2, "Minutes", 0) == -1 && std::string::find[abi:ne200100](a2, "Hours", 0) == -1 && std::string::find[abi:ne200100](a2, "Bytes", 0) == -1 && std::string::find[abi:ne200100](a2, "Kilobytes", 0) == -1 && std::string::find[abi:ne200100](a2, "Megabytes", 0) == -1)
         {
           std::string::find[abi:ne200100](a2, "Gigabytes", 0);
@@ -2473,15 +2465,14 @@ LABEL_41:
     operator new();
   }
 
-  if (v15)
+  if (v13)
   {
     unum_close();
   }
 
-LABEL_15:
-  *a4 = 0;
-  a4[1] = 0;
-  v16 = *MEMORY[0x277D85DE8];
+LABEL_13:
+  *a3 = 0;
+  a3[1] = 0;
 }
 
 void sub_22CDBBB4C(_Unwind_Exception *exception_object)
@@ -2743,38 +2734,38 @@ void sub_22CDBC280(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_22CDBC4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_22CDBC4C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void SearchParser::~SearchParser(SearchParser *this)
+void SearchParser::~SearchParser(const void **this)
 {
   nlp::CFScopedPtr<__CFDictionary const*>::reset(this + 14, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(this + 13, 0);
-  v2 = *(this + 12);
+  v2 = this[12];
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
-  v3 = *(this + 10);
+  v3 = this[10];
   if (v3)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   std::unique_ptr<NL::ParseBuilder>::reset[abi:ne200100](this + 8, 0);
-  v4 = *(this + 7);
+  v4 = this[7];
   if (v4)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
   std::unique_ptr<NL::ParserResources>::reset[abi:ne200100](this + 5, 0);
-  v5 = *(this + 4);
+  v5 = this[4];
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -2825,9 +2816,9 @@ void SearchParser::setLocale(SearchParser *this, const __CFLocale *a2)
   }
 }
 
-void sub_22CDBC6CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDBC6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFURL const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -2865,9 +2856,9 @@ void SearchParser::addInput(SearchParser *this, CFTypeRef cf)
   }
 }
 
-void sub_22CDBC7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CDBC7AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3018,26 +3009,26 @@ void SearchParser::reset(SearchParser *this)
   }
 }
 
-void sub_22CDBC9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CDBC9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFLocale const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void *SearchParser::getFormatter@<X0>(void *result@<X0>, int a2@<W1>, void *a3@<X8>)
+void SearchParser::getFormatter(void *a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   if ((a2 - 1) <= 1)
   {
-    v4 = result[11];
+    v4 = a1[11];
     if (!v4)
     {
       std::allocate_shared[abi:ne200100]<NL::SpotlightParseFormatter,std::allocator<NL::SpotlightParseFormatter>,std::shared_ptr<NL::ParserContext> &,std::shared_ptr<NL::QueryTokenizer> &,0>();
     }
 
-    v5 = result[12];
+    v5 = a1[12];
     if (!v5)
     {
       goto LABEL_10;
@@ -3048,13 +3039,13 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v4 = result[9];
+  v4 = a1[9];
   if (!v4)
   {
     std::allocate_shared[abi:ne200100]<NL::ParseFormatter,std::allocator<NL::ParseFormatter>,std::shared_ptr<NL::ParserContext> &,std::shared_ptr<NL::QueryTokenizer> &,0>();
   }
 
-  v5 = result[10];
+  v5 = a1[10];
   if (v5)
   {
     goto LABEL_9;
@@ -3063,26 +3054,25 @@ LABEL_9:
 LABEL_10:
   *a3 = v4;
   a3[1] = v5;
-  return result;
 }
 
-void SearchParser::parse(uint64_t a1, int a2, uint64_t a3)
+void SearchParser::parse(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  if (*(a1 + 120) != a2 || *(a1 + 124) != a3 || *(a1 + 128) == 1)
+  if (*(a1 + 120) != __PAIR64__(a3, a2) || *(a1 + 128) == 1)
   {
     nlp::CFScopedPtr<__CFDictionary const*>::reset((a1 + 112), 0);
     SearchParser::getFormatter(a1, a2, &v15);
     v6 = v15;
     if (!v15)
     {
-      goto LABEL_16;
+      goto LABEL_15;
     }
 
     if (!SearchParser::hasResources(a1))
     {
       v10 = (*(*v6 + 24))(v6, a3);
       nlp::CFScopedPtr<__CFDictionary const*>::reset((a1 + 112), v10);
-      goto LABEL_16;
+      goto LABEL_15;
     }
 
     *(a1 + 120) = a2;
@@ -3098,7 +3088,7 @@ void SearchParser::parse(uint64_t a1, int a2, uint64_t a3)
         v13 = v8;
         v14 = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        goto LABEL_12;
+        goto LABEL_11;
       }
     }
 
@@ -3106,7 +3096,7 @@ void SearchParser::parse(uint64_t a1, int a2, uint64_t a3)
     {
       v13 = *v7;
       v14 = 0;
-LABEL_12:
+LABEL_11:
       v11 = (*(*v6 + 16))(v6, &v13, a3);
       nlp::CFScopedPtr<__CFDictionary const*>::reset((a1 + 112), v11);
       if (v14)
@@ -3116,17 +3106,17 @@ LABEL_12:
 
       if (!v9)
       {
-        goto LABEL_16;
+        goto LABEL_15;
       }
 
-      goto LABEL_15;
+      goto LABEL_14;
     }
 
     v12 = (*(*v6 + 24))(v6, a3);
     nlp::CFScopedPtr<__CFDictionary const*>::reset((a1 + 112), v12);
     if (!v9)
     {
-LABEL_16:
+LABEL_15:
       if (v16)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v16);
@@ -3135,9 +3125,9 @@ LABEL_16:
       return;
     }
 
-LABEL_15:
+LABEL_14:
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    goto LABEL_16;
+    goto LABEL_15;
   }
 }
 
@@ -3188,8 +3178,8 @@ void SearchParser::enumerateDateRangeDisplaySuggestions(uint64_t a1, CFDictionar
 
   v11 = copyCurrentCalendar(*(*(a1 + 24) + 8));
   v22 = v11;
-  NL::DateFormatter::DateFormatter(v17);
-  v12 = NL::DateFormatter::copyDisplayStringWithStartAndEndDateForRange(v17, Value, valuePtr, v8, v23);
+  NL::DateFormatter::DateFormatter(&v17, (a1 + 24));
+  v12 = NL::DateFormatter::copyDisplayStringWithStartAndEndDateForRange(&v17, Value, valuePtr, v8, v23);
   if (v12)
   {
     (*(a3 + 16))(a3, v12, &v25);
@@ -3218,7 +3208,7 @@ void SearchParser::enumerateDateRangeDisplaySuggestions(uint64_t a1, CFDictionar
 
   if (v14 || v15)
   {
-    v16 = NL::DateFormatter::copyDisplayStringForDates(v17, Value, v8);
+    v16 = NL::DateFormatter::copyDisplayStringForDates(&v17, Value, v8);
     if (v12)
     {
       CFRelease(v12);
@@ -3272,15 +3262,15 @@ LABEL_28:
   }
 }
 
-void sub_22CDBCEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22CDBCEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, const void *);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, const void *);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
   NL::DateFormatter::~DateFormatter(va);
   nlp::CFScopedPtr<__CFCalendar *>::reset(va1, 0);
   _Unwind_Resume(a1);
@@ -3301,118 +3291,119 @@ void NL::DateFormatter::~DateFormatter(const void **this)
 void SearchParser::enumerateDateDisplaySuggestions(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v31 = *(a1 + 24);
-  v32 = v4;
+  v5 = (a1 + 24);
+  v32 = *(a1 + 24);
+  v33 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  NL::DateConverter::DateConverter(&v33, &v31);
-  if (v32)
+  NL::DateConverter::DateConverter(&v34, &v32);
+  if (v33)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
   }
 
-  NL::DateFormatter::DateFormatter(&v26);
-  v5 = 0;
+  NL::DateFormatter::DateFormatter(&v27, v5);
   v6 = 0;
+  v7 = 0;
   cf = 0;
-  v25 = 0;
-  v23 = 0;
+  v26 = 0;
+  v24 = 0;
   do
   {
-    NL::DateConverter::datePeriodForRelativeDate(off_278740570[v5], &keys);
-    v7 = keys;
+    NL::DateConverter::datePeriodForRelativeDate(off_278740570[v6], &keys);
+    v8 = keys;
     keys = 0;
-    v25 = v7;
-    if (!v6)
+    v26 = v8;
+    if (!v7)
     {
-      v6 = v7;
-      if (!v7)
+      v7 = v8;
+      if (!v8)
       {
         goto LABEL_16;
       }
 
 LABEL_12:
-      v9 = NL::DateFormatter::copyDisplayForDate(&v26, v6, 0, 0);
+      v10 = NL::DateFormatter::copyDisplayForDate(&v27, v7, 0, 0);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      cf = v9;
-      if (v9)
+      cf = v10;
+      if (v10)
       {
-        (*(a3 + 16))(a3, v9, &v23);
+        (*(a3 + 16))(a3, v10, &v24);
       }
 
       goto LABEL_16;
     }
 
-    NL::DatePeriod::~DatePeriod(v6);
+    NL::DatePeriod::~DatePeriod(v7);
     MEMORY[0x2318C0600]();
-    v8 = keys;
+    v9 = keys;
     keys = 0;
-    if (v8)
+    if (v9)
     {
-      NL::DatePeriod::~DatePeriod(v8);
+      NL::DatePeriod::~DatePeriod(v9);
       MEMORY[0x2318C0600]();
     }
 
-    v6 = v25;
-    if (v25)
+    v7 = v26;
+    if (v26)
     {
       goto LABEL_12;
     }
 
 LABEL_16:
-    ++v5;
+    ++v6;
   }
 
-  while (v5 != 8);
-  v10 = 0;
+  while (v6 != 8);
+  v11 = 0;
   keys = @"DIGITS";
-  v11 = *MEMORY[0x277CBECE8];
-  v12 = MEMORY[0x277CBF138];
-  v13 = MEMORY[0x277CBF150];
+  v12 = *MEMORY[0x277CBECE8];
+  v13 = MEMORY[0x277CBF138];
+  v14 = MEMORY[0x277CBF150];
   do
   {
-    v14 = 1u;
+    v15 = 1u;
     do
     {
-      v15 = off_2787405B0[v14];
-      values = CFStringCreateWithFormat(v11, 0, @"%ld", v10);
-      v20 = CFDictionaryCreate(v11, &keys, &values, 1, v12, v13);
-      NL::DateConverter::datePeriodForValues(v15, v20, &v19);
-      v16 = v19;
-      v19 = 0;
-      v25 = v16;
-      if (v6)
+      v16 = off_2787405B0[v15];
+      values = CFStringCreateWithFormat(v12, 0, @"%ld", v11);
+      v21 = CFDictionaryCreate(v12, &keys, &values, 1, v13, v14);
+      NL::DateConverter::datePeriodForValues(v16, v21, &v20);
+      v17 = v20;
+      v20 = 0;
+      v26 = v17;
+      if (v7)
       {
-        NL::DatePeriod::~DatePeriod(v6);
+        NL::DatePeriod::~DatePeriod(v7);
         MEMORY[0x2318C0600]();
-        v17 = v19;
-        v19 = 0;
-        if (v17)
+        v18 = v20;
+        v20 = 0;
+        if (v18)
         {
-          NL::DatePeriod::~DatePeriod(v17);
+          NL::DatePeriod::~DatePeriod(v18);
           MEMORY[0x2318C0600]();
         }
       }
 
-      v6 = v25;
-      v18 = NL::DateFormatter::copyDisplayForDate(&v26, v25, 0, 0);
+      v7 = v26;
+      v19 = NL::DateFormatter::copyDisplayForDate(&v27, v26, 0, 0);
       if (cf)
       {
         CFRelease(cf);
       }
 
-      cf = v18;
-      (*(a3 + 16))(a3, v18, &v23);
-      if (v20)
+      cf = v19;
+      (*(a3 + 16))(a3, v19, &v24);
+      if (v21)
       {
-        CFRelease(v20);
+        CFRelease(v21);
       }
 
       if (values)
@@ -3420,21 +3411,27 @@ LABEL_16:
         CFRelease(values);
       }
 
-      ++v14;
+      ++v15;
     }
 
-    while (v14 != 4);
-    ++v10;
+    while (v15 != 4);
+    ++v11;
   }
 
-  while (v10 != 6);
-  if (v18)
+  while (v11 != 6);
+  if (v19)
   {
-    CFRelease(v18);
+    CFRelease(v19);
   }
 
-  NL::DatePeriod::~DatePeriod(v6);
+  NL::DatePeriod::~DatePeriod(v7);
   MEMORY[0x2318C0600]();
+  if (v31)
+  {
+    CFRelease(v31);
+  }
+
+  v31 = 0;
   if (v30)
   {
     CFRelease(v30);
@@ -3449,18 +3446,12 @@ LABEL_16:
   v29 = 0;
   if (v28)
   {
-    CFRelease(v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
   }
 
-  v28 = 0;
-  if (v27)
+  if (v35)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
-  }
-
-  if (v34)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
   }
 }
 
@@ -3695,13 +3686,13 @@ void NLSearchParserSetString(uint64_t a1, const __CFString *a2)
   }
 }
 
-void NLSearchParserSetDate(uint64_t a1, CFTypeRef cf2)
+void NLSearchParserSetDate(uint64_t result, CFTypeRef cf2)
 {
-  if (a1)
+  if (result)
   {
     if (cf2)
     {
-      v3 = *(a1 + 24);
+      v3 = *(result + 24);
       if (v3)
       {
         NL::ParserResources::setDate(*(v3 + 40), cf2);
@@ -3777,44 +3768,51 @@ CFStringRef NLSearchParseCandidateCopyDescription(uint64_t a1)
 
 __CFArray *NLSearchParseCandidateCopyRankingTerms(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  if (a1 && (v1 = *(a1 + 24)) != 0 && (v2 = *(v1 + 24)) != 0)
+  v10[1] = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    Count = CFDictionaryGetCount(*(v1 + 24));
-    MEMORY[0x28223BE20]();
-    v5 = (v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-    if (v4 >= 0x200)
-    {
-      v6 = 512;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v6 = v4;
-    }
+  v1 = *(a1 + 24);
+  if (!v1)
+  {
+    return 0;
+  }
 
-    bzero(v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
-    CFDictionaryGetKeysAndValues(v2, v5, 0);
-    Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], Count, MEMORY[0x277CBF128]);
-    if (Count >= 1)
-    {
-      for (i = 0; i != Count; ++i)
-      {
-        CFArrayInsertValueAtIndex(Mutable, i, v5[i]);
-      }
-    }
+  v2 = *(v1 + 24);
+  if (!v2)
+  {
+    return 0;
+  }
 
-    v12.location = 0;
-    v12.length = Count;
-    CFArraySortValues(Mutable, v12, compareRankTerms, v2);
+  Count = CFDictionaryGetCount(*(v1 + 24));
+  MEMORY[0x28223BE20]();
+  v5 = (v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  if (v4 >= 0x200)
+  {
+    v6 = 512;
   }
 
   else
   {
-    Mutable = 0;
+    v6 = v4;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  bzero(v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v6);
+  CFDictionaryGetKeysAndValues(v2, v5, 0);
+  Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], Count, MEMORY[0x277CBF128]);
+  if (Count >= 1)
+  {
+    for (i = 0; i != Count; ++i)
+    {
+      CFArrayInsertValueAtIndex(Mutable, i, v5[i]);
+    }
+  }
+
+  v11.location = 0;
+  v11.length = Count;
+  CFArraySortValues(Mutable, v11, compareRankTerms, v2);
   return Mutable;
 }
 
@@ -4044,7 +4042,7 @@ void std::__shared_ptr_emplace<NL::SpotlightParseFormatter>::~__shared_ptr_empla
   JUMPOUT(0x2318C0600);
 }
 
-void std::allocator<NL::SpotlightParseFormatter>::construct[abi:ne200100]<NL::SpotlightParseFormatter,std::shared_ptr<NL::ParserContext> &,std::shared_ptr<NL::QueryTokenizer> &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+void std::allocator<NL::SpotlightParseFormatter>::construct[abi:ne200100]<NL::SpotlightParseFormatter,std::shared_ptr<NL::ParserContext> &,std::shared_ptr<NL::QueryTokenizer> &>(uint64_t a1, NL::SpotlightParseFormatter *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = a3[1];
   v8 = *a3;
@@ -4167,134 +4165,130 @@ const void **std::unique_ptr<NL::DatePeriod>::reset[abi:ne200100](const void ***
 
 id dateComponentsForDate(void *a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (a1)
+  v16 = *MEMORY[0x277D85DE8];
+  if (!a1)
   {
-    v2 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-    v12 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v3 = [a1 allKeys];
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v4)
+    return 0;
+  }
+
+  v2 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v3 = [a1 allKeys];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v12;
+    do
     {
-      v5 = v4;
-      v6 = *v13;
-      do
+      for (i = 0; i != v5; ++i)
       {
-        for (i = 0; i != v5; ++i)
+        if (*v12 != v6)
         {
-          if (*v13 != v6)
-          {
-            objc_enumerationMutation(v3);
-          }
-
-          v8 = *(*(&v12 + 1) + 8 * i);
-          v9 = [objc_msgSend(a1 objectForKey:{v8), "intValue"}];
-          if ([v8 isEqualToString:@"d"])
-          {
-            [v2 setDay:v9];
-          }
-
-          else if ([v8 isEqualToString:@"E"])
-          {
-            [v2 setWeekday:v9];
-          }
-
-          else if ([v8 isEqualToString:@"F"])
-          {
-            [v2 setWeekdayOrdinal:v9];
-          }
-
-          else if ([v8 isEqualToString:@"M"])
-          {
-            [v2 setMonth:v9];
-          }
-
-          else if ([v8 isEqualToString:@"y"])
-          {
-            [v2 setYear:v9];
-          }
-
-          else if ([v8 isEqualToString:@"W"])
-          {
-            [v2 setWeekOfMonth:v9];
-          }
-
-          else if ([v8 isEqualToString:@"w"])
-          {
-            [v2 setWeekOfYear:v9];
-          }
-
-          else if ([v8 isEqualToString:@"Y"])
-          {
-            [v2 setYearForWeekOfYear:v9];
-          }
-
-          else if ([v8 isEqualToString:@"H"])
-          {
-            [v2 setHour:v9];
-          }
-
-          else if ([v8 isEqualToString:@"m"])
-          {
-            [v2 setMinute:v9];
-          }
-
-          else if ([v8 isEqualToString:@"s"])
-          {
-            [v2 setSecond:v9];
-          }
+          objc_enumerationMutation(v3);
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = [objc_msgSend(a1 objectForKey:{v8), "intValue"}];
+        if ([v8 isEqualToString:@"d"])
+        {
+          [v2 setDay:v9];
+        }
+
+        else if ([v8 isEqualToString:@"E"])
+        {
+          [v2 setWeekday:v9];
+        }
+
+        else if ([v8 isEqualToString:@"F"])
+        {
+          [v2 setWeekdayOrdinal:v9];
+        }
+
+        else if ([v8 isEqualToString:@"M"])
+        {
+          [v2 setMonth:v9];
+        }
+
+        else if ([v8 isEqualToString:@"y"])
+        {
+          [v2 setYear:v9];
+        }
+
+        else if ([v8 isEqualToString:@"W"])
+        {
+          [v2 setWeekOfMonth:v9];
+        }
+
+        else if ([v8 isEqualToString:@"w"])
+        {
+          [v2 setWeekOfYear:v9];
+        }
+
+        else if ([v8 isEqualToString:@"Y"])
+        {
+          [v2 setYearForWeekOfYear:v9];
+        }
+
+        else if ([v8 isEqualToString:@"H"])
+        {
+          [v2 setHour:v9];
+        }
+
+        else if ([v8 isEqualToString:@"m"])
+        {
+          [v2 setMinute:v9];
+        }
+
+        else if ([v8 isEqualToString:@"s"])
+        {
+          [v2 setSecond:v9];
+        }
       }
 
-      while (v5);
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
+
+    while (v5);
   }
 
-  else
-  {
-    v2 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_22CDBEDD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22CDBEDD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22CDBEEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22CDBEEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22CDBF064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22CDBF064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22CDBF518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22CDBF518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22CDBF99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22CDBF99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4488,21 +4482,21 @@ LABEL_11:
   return StringWithDate;
 }
 
-void sub_22CDBFF30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDBFF30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void *);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v5 = va_arg(va2, const void *);
+  v6 = va_arg(va2, const void *);
   nlp::CFScopedPtr<__CFDate const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
   _Unwind_Resume(a1);
 }
 
-__CFBundle *NL::DateFormatter::copyDisplayStringForStartAndEndDateAndFreqComponents(NL::DateFormatter *this, __CFCalendar *a2, const __CFLocale *a3, const __CFDate *a4, const NL::DateComponents *a5, const NL::DateComponents *a6, const __CFString *a7)
+__CFBundle *NL::DateFormatter::copyDisplayStringForStartAndEndDateAndFreqComponents(__CFDateFormatter **this, __CFCalendar *a2, const __CFLocale *a3, const __CFDate *a4, const NL::DateComponents *a5, const NL::DateComponents *a6, const __CFString *a7)
 {
   BundleWithIdentifier = 0;
   if (a2)
@@ -4600,30 +4594,30 @@ LABEL_20:
   return BundleWithIdentifier;
 }
 
-void sub_22CDC01E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_22CDC01E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va4, a3);
-  va_start(va3, a3);
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, const void *);
+  va_start(va4, a5);
+  va_start(va3, a5);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v7 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v9 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v9 = va_arg(va3, const void *);
+  v11 = va_arg(va3, const void *);
   va_copy(va4, va3);
-  v11 = va_arg(va4, const void *);
+  v13 = va_arg(va4, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va3, 0);
   NL::DatePeriod::~DatePeriod(va4);
-  nlp::CFScopedPtr<__CFArray const*>::reset((v3 - 88), 0);
+  nlp::CFScopedPtr<__CFArray const*>::reset((v5 - 88), 0);
   _Unwind_Resume(a1);
 }
 
-__CFDateFormatter **NL::DateFormatter::copyDisplayForDate(__CFDateFormatter **this, const NL::DatePeriod *a2, int a3, int a4)
+__CFDateFormatter **NL::DateFormatter::copyDisplayForDate(__CFDateFormatter **this, const NL::DatePeriod *a2, unsigned int a3, int a4)
 {
   if (*(a2 + 1))
   {
@@ -4935,7 +4929,7 @@ void sub_22CDC08F4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__CFBundle *NL::DateFormatter::copyDisplayStringForEveryOrdinalISODateComponents(NL::DateFormatter *this, __CFCalendar *a2, const __CFLocale *a3, const __CFDate *a4, const NL::DateComponents *a5, const __CFString *a6)
+__CFBundle *NL::DateFormatter::copyDisplayStringForEveryOrdinalISODateComponents(__CFDateFormatter **this, __CFCalendar *a2, const __CFLocale *a3, const __CFDate *a4, const NL::DateComponents *a5, const __CFString *a6)
 {
   BundleWithIdentifier = 0;
   if (a2)
@@ -5051,22 +5045,22 @@ LABEL_23:
   return BundleWithIdentifier;
 }
 
-void sub_22CDC0CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CDC0CC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va3, a4);
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, const void *);
+  va_start(va3, a7);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v9 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v8 = va_arg(va2, const void *);
+  v11 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v10 = va_arg(va3, const void *);
+  v13 = va_arg(va3, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
   NL::DatePeriod::~DatePeriod(va3);
-  nlp::CFScopedPtr<__CFArray const*>::reset((v4 - 72), 0);
+  nlp::CFScopedPtr<__CFArray const*>::reset((v7 - 72), 0);
   _Unwind_Resume(a1);
 }
 
@@ -5097,9 +5091,9 @@ CFStringRef NL::DateFormatter::copyISODisplayForDateComponents(NL::DateFormatter
   return StringWithDate;
 }
 
-void sub_22CDC0E28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDC0E28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFDate const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5290,14 +5284,14 @@ LABEL_33:
   return Copy;
 }
 
-void sub_22CDC11C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CDC11C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, const void *);
+  va_start(va2, a7);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v7 = va_arg(va2, const void *);
+  v10 = va_arg(va2, const void *);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va1, 0);
   nlp::CFScopedPtr<__CFString const*>::reset(va2, 0);
@@ -5345,9 +5339,9 @@ CFStringRef NL::DateFormatter::copyDisplayStringForDates(NL::DateFormatter *this
   return Copy;
 }
 
-void sub_22CDC1394(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDC1394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5476,9 +5470,9 @@ __CFDictionary *NL::DateFormatter::copyComponentsForDateComponents(NL::DateForma
   return Mutable;
 }
 
-void sub_22CDC1720(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDC1720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -5534,14 +5528,15 @@ uint64_t NLBranchGetLocation(uint64_t a1)
 
 uint64_t NLBranchGetTokenSpan(uint64_t a1)
 {
-  if (!a1)
+  if (a1)
+  {
+    return *(a1 + 14);
+  }
+
+  else
   {
     return -1;
   }
-
-  result = *(a1 + 14);
-  v3 = *(a1 + 16);
-  return result;
 }
 
 uint64_t NLBranchGetScore(uint64_t result)
@@ -6014,9 +6009,9 @@ uint64_t NLGraphStructureSetGrammar(uint64_t result, uint64_t *a2)
   return result;
 }
 
-void sub_22CDC1F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22CDC1F40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6049,57 +6044,60 @@ uint64_t NLGraphStructureUpdate(uint64_t result)
   return result;
 }
 
-void NLGraphStructureStackAdd(uint64_t a1, int a2, int a3, __int16 a4)
+void NLGraphStructureStackAdd(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (a1)
+  if (result)
   {
-    gssSetNode(a1, a3, a4, 0, 0, 1, 0);
-    if (a2)
+    v4 = a3;
+    v5 = a2;
+    gssSetNode(result, a3, a4, 0, 0, 1, 0);
+    if (v5)
     {
-      v8 = gssSetNodeWithNode(a1, a2, v7, 1, 0, 0);
-      if (NL::SearchGrammar::isInferred(*(a1 + 80), a2) && (v8 & 0x80000000) == 0 && *a1 > v8)
+      v8 = gssSetNodeWithNode(result, v5, v7, 1, 0, 0);
+      if (NL::SearchGrammar::isInferred(*(result + 80), v5) && (v8 & 0x80000000) == 0 && *result > v8)
       {
-        v9 = *(a1 + 8);
+        v9 = *(result + 8);
         if (v9)
         {
           *(v9 + 28 * v8) |= 8u;
         }
       }
 
-      if (*(a1 + 56))
+      if (*(result + 56))
       {
-        v10 = *(a1 + 72);
-        if (v10 + 1 >= a3)
+        v10 = *(result + 72);
+        if (v10 + 1 >= v4)
         {
-          isCombinable = NL::SearchGrammar::isCombinable(*(a1 + 80), a2);
+          isCombinable = NL::SearchGrammar::isCombinable(*(result + 80), v5);
           v11 = isCombinable;
-          if (v10 < a3 && !isCombinable && *(a1 + 56))
+          if (v10 < v4 && !isCombinable && *(result + 56))
           {
             v16 = 0;
             do
             {
-              if (*(*(a1 + 64) + 4 * v16) >= *a1)
+              v17 = *(*(result + 64) + 4 * v16);
+              if (v17 >= *result)
               {
-                v17 = -1;
+                v18 = 0xFFFFFFFFLL;
               }
 
               else
               {
-                v17 = *(*(a1 + 64) + 4 * v16);
+                v18 = v17;
               }
 
-              gssCombinableShift(a1, v17, v8);
+              gssCombinableShift(result, v18, v8);
               ++v16;
             }
 
-            while (v16 < *(a1 + 56));
+            while (v16 < *(result + 56));
           }
         }
 
         else
         {
-          v11 = NL::SearchGrammar::isCombinable(*(a1 + 80), a2);
-          gssPopStack(a1);
+          v11 = NL::SearchGrammar::isCombinable(*(result + 80), v5);
+          gssPopStack(result);
         }
 
         if (v11)
@@ -6108,39 +6106,39 @@ void NLGraphStructureStackAdd(uint64_t a1, int a2, int a3, __int16 a4)
         }
       }
 
-      else if (NL::SearchGrammar::isCombinable(*(a1 + 80), a2))
+      else if (NL::SearchGrammar::isCombinable(*(result + 80), v5))
       {
 LABEL_28:
-        *(a1 + 72) = a3;
-        v20 = MEMORY[0x277D85DD0];
-        v21 = 0x40000000;
-        v18 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke;
-        v19 = &__block_descriptor_tmp_15_2;
+        *(result + 72) = v4;
+        v21 = MEMORY[0x277D85DD0];
+        v22 = 0x40000000;
+        v19 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke;
+        v20 = &__block_descriptor_tmp_15_2;
 LABEL_32:
-        v22 = v18;
         v23 = v19;
-        v24 = a1;
+        v24 = v20;
+        v25 = result;
 LABEL_34:
-        gssShift(a1, v8, &v20);
+        gssShift(result, v8, &v21);
         return;
       }
 
       v12 = 0;
-      v13 = *(a1 + 56);
-      if (a3 && *(a1 + 40))
+      v13 = *(result + 56);
+      if (v4 && *(result + 40))
       {
-        if (*(a1 + 56))
+        if (*(result + 56))
         {
-          v14 = *(a1 + 72);
-          if (v14 != a3)
+          v14 = *(result + 72);
+          if (v14 != v4)
           {
             v12 = 0;
             goto LABEL_30;
           }
         }
 
-        gssCombine(a1, v8, 0);
-        v13 = *(a1 + 56);
+        gssCombine(result, v8, 0);
+        v13 = *(result + 56);
         v12 = 1;
       }
 
@@ -6149,24 +6147,24 @@ LABEL_34:
         goto LABEL_33;
       }
 
-      v14 = *(a1 + 72);
+      v14 = *(result + 72);
 LABEL_30:
-      if (v14 < a3)
+      if (v14 < v4)
       {
-        v20 = MEMORY[0x277D85DD0];
-        v21 = 0x40000000;
-        v18 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_2;
-        v19 = &__block_descriptor_tmp_16_1;
+        v21 = MEMORY[0x277D85DD0];
+        v22 = 0x40000000;
+        v19 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_2;
+        v20 = &__block_descriptor_tmp_16_1;
         goto LABEL_32;
       }
 
 LABEL_33:
-      v20 = MEMORY[0x277D85DD0];
-      v21 = 0x40000000;
-      v22 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_3;
-      v23 = &__block_descriptor_tmp_17_1;
-      v24 = a1;
-      v25 = v12;
+      v21 = MEMORY[0x277D85DD0];
+      v22 = 0x40000000;
+      v23 = ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_3;
+      v24 = &__block_descriptor_tmp_17_1;
+      v25 = result;
+      v26 = v12;
       goto LABEL_34;
     }
   }
@@ -6199,7 +6197,7 @@ __CFArray *NLGraphStructureStackCopyParsesWithCallback(uint64_t a1, uint64_t a2,
         v11 = NLParseCreate(0);
         v10 = 0;
         v12 = -1;
-        v9 = -1;
+        v9 = 0xFFFFFFFFLL;
       }
 
       else
@@ -6388,8 +6386,9 @@ double gssSetNode(uint64_t a1, __int16 a2, __int16 a3, int a4, int a5, int a6, i
   return result;
 }
 
-uint64_t gssSetNodeWithNode(uint64_t a1, int a2, unsigned int a3, int a4, unsigned int a5, int *a6)
+uint64_t gssSetNodeWithNode(uint64_t a1, int a2, unsigned int a3, int a4, uint64_t a5, int *a6)
 {
+  v7 = a5;
   if ((a3 & 0x80000000) != 0 || *a1 <= a3)
   {
     v11 = -1;
@@ -6406,12 +6405,12 @@ uint64_t gssSetNodeWithNode(uint64_t a1, int a2, unsigned int a3, int a4, unsign
   gssSetNode(a1, v11, v12, a2, a5, 0, a4);
   v14 = (*(a1 + 8) + 28 * v13);
   v14[5] = a3;
-  if (a5)
+  if (v7)
   {
-    gssRefsResize(a1, a5);
+    gssRefsResize(a1, v7);
     v14[4] = *(a1 + 16);
     v15 = *(a1 + 32);
-    v16 = a5;
+    v16 = v7;
     do
     {
       v17 = *a6++;
@@ -6530,15 +6529,16 @@ LABEL_25:
   _Block_object_dispose(v11, 8);
 }
 
-void sub_22CDC29BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22CDC29BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t gssCombinableShift(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t gssCombinableShift(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v17 = 0;
   v18 = &v17;
   v19 = 0x2000000000;
@@ -6568,7 +6568,7 @@ uint64_t gssCombinableShift(uint64_t a1, unsigned int a2, uint64_t a3)
     }
 
     v22 = 0;
-    __gssNodeReduce(a1, a2, a3, &v21, &v22);
+    __gssNodeReduce(a1, v4, a3, v21, &v22);
     v10 = v22;
     *(v18 + 24) = v22;
     if ((v10 & 1) != 0 || !NL::SearchGrammar::hasExpansions(*(a1 + 80), v9))
@@ -6584,7 +6584,7 @@ uint64_t gssCombinableShift(uint64_t a1, unsigned int a2, uint64_t a3)
       v15[3] = &unk_278740848;
       v15[4] = &v17;
       v15[5] = a1;
-      v16 = a2;
+      v16 = v4;
       gssShift(a1, a3, v15);
       v11 = 1;
     }
@@ -6598,9 +6598,9 @@ uint64_t gssCombinableShift(uint64_t a1, unsigned int a2, uint64_t a3)
   return v13 & 1;
 }
 
-void sub_22CDC2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22CDC2B58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6615,7 +6615,7 @@ uint64_t gssCombine(uint64_t result, uint64_t a2, _BYTE *a3)
     {
       v7 = *(*(v5 + 48) + 4 * v6);
       v9 = 0;
-      result = __gssNodeReduce(v5, v7, a2, &v8, &v9);
+      result = __gssNodeReduce(v5, v7, a2, v8, &v9);
       if (a3)
       {
         if (v9)
@@ -6707,17 +6707,18 @@ uint64_t ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_2(uint64_t a1, ui
     v5 = 0;
     do
     {
-      if (*(*(result + 64) + 4 * v5) >= *result)
+      v6 = *(*(result + 64) + 4 * v5);
+      if (v6 >= *result)
       {
-        v6 = -1;
+        v7 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v6 = *(*(result + 64) + 4 * v5);
+        v7 = v6;
       }
 
-      gssCombinableShift(result, v6, a2);
+      gssCombinableShift(result, v7, a2);
       ++v5;
       result = *(a1 + 32);
     }
@@ -6728,17 +6729,16 @@ uint64_t ___ZL6gssAddP22_NLGraphStructureStackjll_block_invoke_2(uint64_t a1, ui
   return result;
 }
 
-void gssMerge(uint64_t a1, uint64_t a2, int a3)
+void gssMerge(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
-  v4 = a2;
   v6 = 0;
   if (a3)
   {
     gssCombine(a1, a2, &v6);
   }
 
-  gssExpand(a1, v4, &v6, 0, v3);
+  gssExpand(a1, a2, &v6, 0, v3);
 }
 
 void *gssRefsResize(void *result, int a2)
@@ -6759,7 +6759,7 @@ void *gssRefsResize(void *result, int a2)
   return result;
 }
 
-uint64_t gssNodeHasRHS(uint64_t a1, unsigned int a2)
+uint64_t gssNodeHasRHS(unsigned int *a1, unsigned int a2)
 {
   if ((a2 & 0x80000000) != 0)
   {
@@ -6772,7 +6772,7 @@ uint64_t gssNodeHasRHS(uint64_t a1, unsigned int a2)
     return 0;
   }
 
-  v5 = *(a1 + 8);
+  v5 = *(a1 + 1);
   if (!v5)
   {
     return 0;
@@ -6817,7 +6817,7 @@ uint64_t gssNodeHasRHS(uint64_t a1, unsigned int a2)
   return 1;
 }
 
-void ___ZL11gssPopStackP22_NLGraphStructureStack_block_invoke_2(uint64_t a1, unsigned int a2)
+void ___ZL11gssPopStackP22_NLGraphStructureStack_block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
   v3 = 0;
@@ -7088,12 +7088,12 @@ LABEL_9:
 
     if ((a2 & 0x80000000) != 0 || *a1 <= a2 || (v10 = *(*(a1 + 8) + 28 * a2 + 20), (v10 & 0x80000000) != 0))
     {
-      v10 = 0xFFFFFFFFLL;
+      v10 = -1;
     }
 
     if ((a3 & 0x80000000) != 0 || *a1 <= a3 || (v11 = *(*(a1 + 8) + 28 * a3 + 20), (v11 & 0x80000000) != 0))
     {
-      v11 = 0xFFFFFFFFLL;
+      v11 = -1;
     }
 
     result = gssNodesAreEqual(a1, v10, v11);
@@ -7172,7 +7172,6 @@ uint64_t ___ZL8gssShiftP22_NLGraphStructureStackiU13block_pointerFviPbE_block_in
     }
   }
 
-  v15 = *(*(a1 + 40) + 8);
   result = (*(*(a1 + 32) + 16))();
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
@@ -7182,8 +7181,9 @@ uint64_t ___ZL8gssShiftP22_NLGraphStructureStackiU13block_pointerFviPbE_block_in
   return result;
 }
 
-void gssExpand(uint64_t a1, unsigned int a2, _BYTE *a3, char a4, char a5)
+void gssExpand(uint64_t a1, uint64_t a2, _BYTE *a3, char a4, char a5)
 {
+  v8 = a2;
   v10 = 0;
   if (a1 && (a2 & 0x80000000) == 0)
   {
@@ -7206,7 +7206,7 @@ void gssExpand(uint64_t a1, unsigned int a2, _BYTE *a3, char a4, char a5)
 
   if (*a3 == 1 && (NL::SearchGrammar::hasExpansions(*(a1 + 80), v10) & 1) == 0 && v10 != 1 && (*a3 & 1) == 0)
   {
-    gssAddState(a1, a2);
+    gssAddState(a1, v8);
   }
 
   v11[0] = MEMORY[0x277D85DD0];
@@ -7217,7 +7217,7 @@ void gssExpand(uint64_t a1, unsigned int a2, _BYTE *a3, char a4, char a5)
   v11[4] = a1;
   v11[5] = a3;
   v13 = a4;
-  gssShift(a1, a2, v11);
+  gssShift(a1, v8, v11);
 }
 
 _DWORD *gssAddState(uint64_t a1, int a2)
@@ -7242,24 +7242,22 @@ _DWORD *gssAddState(uint64_t a1, int a2)
   return result;
 }
 
-uint64_t ___ZL9gssExpandP22_NLGraphStructureStackiPbbb_block_invoke(uint64_t result, uint64_t a2)
+void ___ZL9gssExpandP22_NLGraphStructureStackiPbbb_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = result;
-  if (*(result + 48) == 1)
+  if (*(a1 + 48) == 1)
   {
-    result = gssCombine(*(result + 32), a2, *(result + 40));
+    gssCombine(*(a1 + 32), a2, *(a1 + 40));
   }
 
-  if ((**(v3 + 40) & 1) == 0)
+  v4 = *(a1 + 40);
+  if ((*v4 & 1) == 0)
   {
-    v4 = *(v3 + 32);
-    v5 = *(v3 + 49);
-    v6 = *(v3 + 48);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 49);
+    v7 = *(a1 + 48);
 
-    return gssExpand(v4, a2);
+    gssExpand(v5, a2, v4, v6, v7);
   }
-
-  return result;
 }
 
 _WORD *NLBranchCreate(__int16 a1, char a2)
@@ -7292,7 +7290,7 @@ void NLBranchAddNode(uint64_t a1, int a2, int a3)
   }
 }
 
-void gssVisitState(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t *a5, unsigned int a6, uint64_t a7, void (*a8)(uint64_t, CFArrayRef *, CFArrayRef *, uint64_t))
+void gssVisitState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, unsigned int a6, uint64_t a7, void (*a8)(uint64_t, CFArrayRef *, CFArrayRef *, uint64_t))
 {
   v8 = a2;
   if ((a2 & 0x80000000) != 0 || *a1 <= a2)
@@ -7353,7 +7351,7 @@ LABEL_32:
               gssNodeGetMaxIndex(a1, v17, &v65);
               v63 = v21;
               v64 = v65 - v21 + 1;
-              v29 = gssVisitState(a1, v17, a3, v27, &v63, 1, a7, a8);
+              gssVisitState(a1, v17, a3, v27, &v63, 1u, a7, a8);
               branchRelease(v29, v27);
             }
 
@@ -7365,14 +7363,14 @@ LABEL_38:
           v30 = NLBranchCopy(a4);
           v31 = gssNodeGetScore(a1, v17);
           NLBranchAddNode(v30, v19, v31);
-          v32 = gssVisitState(a1, v17, a3, v30, a5, a6, a7, a8);
+          gssVisitState(a1, v17, a3, v30, a5, a6, a7, a8);
           branchRelease(v32, v30);
           if (*a1 <= v17 || (v33 = *(a1 + 8)) == 0 || (*(v33 + 28 * v17) & 2) == 0)
           {
             v34 = NLBranchCreate(v21, 0);
             v35 = gssNodeGetScore(a1, v17);
             NLBranchAddNode(v34, v19, v35);
-            v36 = gssVisitState(a1, v17, a3, v34, a5, a6, a7, a8);
+            gssVisitState(a1, v17, a3, v34, a5, a6, a7, a8);
             branchRelease(v36, v34);
           }
 
@@ -7458,7 +7456,7 @@ LABEL_56:
               gssNodeGetMaxIndex(a1, v41, &v65);
               v63 = v45;
               v64 = v65 - v45 + 1;
-              v55 = gssVisitState(a1, v41, a3, v53, &v63, 1, a7, a8);
+              gssVisitState(a1, v41, a3, v53, &v63, 1u, a7, a8);
               branchRelease(v55, v53);
               LOBYTE(a6) = 0;
             }
@@ -7468,13 +7466,13 @@ LABEL_56:
               v47 = NLBranchCopy(a4);
               v48 = gssNodeGetScore(a1, v41);
               NLBranchAddNode(v47, v43, v48);
-              v49 = gssVisitState(a1, v41, a3, v47, a5, a6 & 1, a7, a8);
+              gssVisitState(a1, v41, a3, v47, a5, a6 & 1, a7, a8);
               branchRelease(v49, v47);
               v50 = NLBranchCreate(v45, 0);
               v51 = gssNodeGetScore(a1, v41);
               NLBranchAddNode(v50, v43, v51);
               v8 = v56;
-              v52 = gssVisitState(a1, v41, a3, v50, a5, a6 & 1, a7, a8);
+              gssVisitState(a1, v41, a3, v50, a5, a6 & 1, a7, a8);
               branchRelease(v52, v50);
             }
           }
@@ -7713,7 +7711,7 @@ uint64_t gssNodeGetMaxIndex(uint64_t result, unsigned int a2, int *a3)
         *a3 = v8;
         if (*result <= a2 || (v9 = *(v5 + 28 * a2 + 20), (v9 & 0x80000000) != 0))
         {
-          v9 = 0xFFFFFFFFLL;
+          v9 = -1;
         }
 
         result = gssNodeGetMaxIndex(result, v9, a3);
@@ -7765,11 +7763,11 @@ void NLCompositeTransliterator::NLCompositeTransliterator(NLCompositeTranslitera
   operator new();
 }
 
-void sub_22CDC46F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, const void *a11)
+void sub_22CDC46F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, const void *a12)
 {
   __cxa_free_exception(v13);
   applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(&a10);
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a11);
+  applesauce::CF::DictionaryRef::~DictionaryRef(&a12);
   nlp::CFScopedPtr<__EmojiLocaleDataWrapper const*>::reset((v11 + 40), 0);
   v15 = *(v11 + 32);
   *(v11 + 32) = 0;
@@ -7915,88 +7913,87 @@ unint64_t NLCompositeTransliterator::updateCandidatesWithEmojiCandidates(uint64_
   }
 
   NLAbstractOrthographyConvertor::~NLAbstractOrthographyConvertor(**a2);
-  if (*(v4 + 23) < 0)
+  if (*(v3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v28, *v4, *(v4 + 1));
+    std::string::__init_copy_ctor_external(&v26, *v3, *(v3 + 1));
   }
 
   else
   {
-    v5 = *v4;
-    v28.__r_.__value_.__r.__words[2] = *(v4 + 2);
-    *&v28.__r_.__value_.__l.__data_ = v5;
+    v4 = *v3;
+    v26.__r_.__value_.__r.__words[2] = *(v3 + 2);
+    *&v26.__r_.__value_.__l.__data_ = v4;
   }
 
+  v23 = 0;
+  v24 = 0;
   v25 = 0;
-  v26 = 0;
-  v27 = 0;
   for (i = *a2; i != *(a2 + 8); ++i)
   {
     TransliteratedWord = NLTransliterationCandidate::getTransliteratedWord(*i);
     CFStringFromString = createCFStringFromString(TransliteratedWord);
-    v24 = CFStringFromString;
-    v10 = *(a1 + 40);
+    v22 = CFStringFromString;
     EmojiTokensForString = CEMEmojiLocaleDataCreateEmojiTokensForString();
-    v23 = EmojiTokensForString;
+    v21 = EmojiTokensForString;
     if (EmojiTokensForString)
     {
       for (j = 0; j < CFArrayGetCount(EmojiTokensForString); ++j)
       {
         CFArrayGetValueAtIndex(EmojiTokensForString, j);
         String = CEMEmojiTokenGetString();
-        getUTF8StringFromCFString(String, &__p);
-        std::vector<std::string>::push_back[abi:ne200100](&v25, &__p);
-        if (SHIBYTE(v22) < 0)
+        getUTF8StringFromCFString(&__p, String);
+        std::vector<std::string>::push_back[abi:ne200100](&v23, &__p);
+        if (SHIBYTE(v20) < 0)
         {
           operator delete(__p);
         }
       }
 
-      if (v25 != v26)
+      if (v23 != v24)
       {
         __p = 0uLL;
-        v22 = 0;
-        v14 = *(v25 + 23);
-        if (v14 >= 0)
+        v20 = 0;
+        v12 = *(v23 + 23);
+        if (v12 >= 0)
         {
-          v15 = *(v25 + 23);
+          v13 = *(v23 + 23);
         }
 
         else
         {
-          v15 = v25[1];
+          v13 = v23[1];
         }
 
-        v16 = *(v25 + 23);
-        v17 = v16;
-        if (v16 < 0)
+        v14 = *(v23 + 23);
+        v15 = v14;
+        if (v14 < 0)
         {
-          v16 = v25[1];
+          v14 = v23[1];
         }
 
-        if (v15 == v16)
+        if (v13 == v14)
         {
-          if (v14 >= 0)
+          if (v12 >= 0)
           {
-            v18 = v25;
+            v16 = v23;
           }
 
           else
           {
-            v18 = *v25;
+            v16 = *v23;
           }
 
-          if (v17 >= 0)
+          if (v15 >= 0)
           {
-            v19 = v25;
+            v17 = v23;
           }
 
           else
           {
-            v19 = *v25;
+            v17 = *v23;
           }
 
-          memcmp(v18, v19, v15);
+          memcmp(v16, v17, v13);
         }
 
         operator new();
@@ -8011,15 +8008,15 @@ unint64_t NLCompositeTransliterator::updateCandidatesWithEmojiCandidates(uint64_
     }
   }
 
-  v6 = 0xAAAAAAAAAAAAAAABLL * (v26 - v25);
-  *&__p = &v25;
+  v5 = 0xAAAAAAAAAAAAAAABLL * (v24 - v23);
+  *&__p = &v23;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
-  if (SHIBYTE(v28.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v28.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 
-  return v6;
+  return v5;
 }
 
 void sub_22CDC4D88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, __int16 *__p, __int16 *a12, int a13, __int16 a14, char a15, char a16, const void *a17, const void *a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -8084,20 +8081,20 @@ void NLCompositeTransliterator::trimCandidatesToSize(uint64_t a1, uint64_t *a2, 
   }
 }
 
-void std::vector<NLTransliterationCandidate *>::resize(void *a1, unint64_t a2)
+void std::vector<NLTransliterationCandidate *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<NLTransliterationCandidate *>::__append(a1, a2 - v2);
+    std::vector<NLTransliterationCandidate *>::__append(result, a2 - v2);
   }
 }
 
@@ -8326,40 +8323,40 @@ void sub_22CDC52E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void NLCompositeTransliterator::getTransliterationCandidates(uint64_t **a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, std::string *a5@<X8>)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  NLOSSignPostgetTransliterationCandidates::NLOSSignPostgetTransliterationCandidates(&v44);
+  v53 = *MEMORY[0x277D85DE8];
+  NLOSSignPostgetTransliterationCandidates::NLOSSignPostgetTransliterationCandidates(v46, a2);
   a5->__r_.__value_.__r.__words[0] = 0;
   a5->__r_.__value_.__l.__size_ = 0;
   a5->__r_.__value_.__r.__words[2] = 0;
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v43, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&v45, *a3, *(a3 + 8));
   }
 
   else
   {
-    v43 = *a3;
+    v45 = *a3;
   }
 
-  v10 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v10 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v11 = (&v43 + HIBYTE(v43.__r_.__value_.__r.__words[2]));
-  }
-
-  else
-  {
-    v11 = (v43.__r_.__value_.__r.__words[0] + v43.__r_.__value_.__l.__size_);
-  }
-
-  if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v12 = &v43;
+    v11 = (&v45 + HIBYTE(v45.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    v12 = v43.__r_.__value_.__r.__words[0];
+    v11 = (v45.__r_.__value_.__r.__words[0] + v45.__r_.__value_.__l.__size_);
+  }
+
+  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v12 = &v45;
+  }
+
+  else
+  {
+    v12 = v45.__r_.__value_.__r.__words[0];
   }
 
   if (v12 != v11)
@@ -8371,63 +8368,63 @@ void NLCompositeTransliterator::getTransliterationCandidates(uint64_t **a1@<X0>,
     }
 
     while (v12 != v11);
-    v10 = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+    v10 = HIBYTE(v45.__r_.__value_.__r.__words[2]);
   }
 
   if (v10 < 0)
   {
-    std::string::__init_copy_ctor_external(&v46, v43.__r_.__value_.__l.__data_, v43.__r_.__value_.__l.__size_);
-    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+    std::string::__init_copy_ctor_external(&v48, v45.__r_.__value_.__l.__data_, v45.__r_.__value_.__l.__size_);
+    if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v43.__r_.__value_.__l.__data_);
+      operator delete(v45.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    v46 = v43;
+    v48 = v45;
   }
 
-  v43 = v46;
-  NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(*a1, &v43, &v41);
-  NLCompositeTransliteratorException::exceptionCandidatesForInput(a1[1], a3, &v39);
-  v13 = v39;
-  v14 = v40;
-  if (v39 == v40)
+  v45 = v48;
+  NLCompositeTransliteratorSeq2Seq::seq2SeqCandidatesForInput(*a1, &v45, &v43);
+  NLCompositeTransliteratorException::exceptionCandidatesForInput(a1[1], a3, &v41);
+  v13 = v41;
+  v14 = v42;
+  if (v41 == v42)
   {
-    NLCompositeTransliteratorException::exceptionCandidatesForInput(a1[1], &v43, &v46);
-    std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(&v39, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_, (v46.__r_.__value_.__l.__size_ - v46.__r_.__value_.__r.__words[0]) >> 3);
-    if (v46.__r_.__value_.__r.__words[0])
+    NLCompositeTransliteratorException::exceptionCandidatesForInput(a1[1], &v45, &v48);
+    std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(&v41, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_, (v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0]) >> 3);
+    if (v48.__r_.__value_.__r.__words[0])
     {
-      v46.__r_.__value_.__l.__size_ = v46.__r_.__value_.__r.__words[0];
-      operator delete(v46.__r_.__value_.__l.__data_);
+      v48.__r_.__value_.__l.__size_ = v48.__r_.__value_.__r.__words[0];
+      operator delete(v48.__r_.__value_.__l.__data_);
     }
 
-    v13 = v39;
-    v14 = v40;
+    v13 = v41;
+    v14 = v42;
   }
 
   if (v13 == v14)
   {
-    NLCompositeTransliteratorLexicon::lexiconCandidatesForInput(a1[2], &v43, &v46);
-    if (v46.__r_.__value_.__l.__size_ == v46.__r_.__value_.__r.__words[0])
+    NLCompositeTransliteratorLexicon::lexiconCandidatesForInput(a1[2], &v45, &v48);
+    if (v48.__r_.__value_.__l.__size_ == v48.__r_.__value_.__r.__words[0])
     {
-      if (&v41 != a5)
+      if (&v43 != a5)
       {
-        std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(a5, v41, v42, (v42 - v41) >> 3);
+        std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(a5, v43, v44, (v44 - v43) >> 3);
       }
     }
 
     else
     {
-      if (&v46 != a5)
+      if (&v48 != a5)
       {
-        std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(a5, v46.__r_.__value_.__l.__data_, v46.__r_.__value_.__l.__size_, (v46.__r_.__value_.__l.__size_ - v46.__r_.__value_.__r.__words[0]) >> 3);
+        std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(a5, v48.__r_.__value_.__l.__data_, v48.__r_.__value_.__l.__size_, (v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0]) >> 3);
       }
 
-      v18 = v41;
-      v19 = v42;
-      if (v41 != v42)
+      v18 = v43;
+      v19 = v44;
+      if (v43 != v44)
       {
         do
         {
@@ -8463,24 +8460,24 @@ void NLCompositeTransliterator::getTransliterationCandidates(uint64_t **a1@<X0>,
     }
 
     NLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, a5, a2);
-    if (v46.__r_.__value_.__r.__words[0])
+    if (v48.__r_.__value_.__r.__words[0])
     {
-      v46.__r_.__value_.__l.__size_ = v46.__r_.__value_.__r.__words[0];
-      operator delete(v46.__r_.__value_.__l.__data_);
+      v48.__r_.__value_.__l.__size_ = v48.__r_.__value_.__r.__words[0];
+      operator delete(v48.__r_.__value_.__l.__data_);
     }
   }
 
   else
   {
-    if (&v39 != a5)
+    if (&v41 != a5)
     {
       std::vector<NLTextSlot *>::__assign_with_size[abi:ne200100]<NLTextSlot **,NLTextSlot **>(a5, v13, v14, (v14 - v13) >> 3);
     }
 
-    NLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, &v41, a2);
-    v15 = v41;
-    v16 = v42;
-    if (v41 != v42)
+    NLCompositeTransliterator::assignLanguageModelScoreToCandidates(a1, &v43, a2);
+    v15 = v43;
+    v16 = v44;
+    if (v43 != v44)
     {
       do
       {
@@ -8522,7 +8519,7 @@ void NLCompositeTransliterator::getTransliterationCandidates(uint64_t **a1@<X0>,
     {
       TransliteratedWord = NLTransliterationCandidate::getTransliteratedWord(*v21);
       CFStringFromString = createCFStringFromString(TransliteratedWord);
-      v46.__r_.__value_.__r.__words[0] = CFStringFromString;
+      v48.__r_.__value_.__r.__words[0] = CFStringFromString;
       if ((*(*a1[4] + 16))(a1[4], CFStringFromString, 0, 0))
       {
         ++v21;
@@ -8581,71 +8578,70 @@ void NLCompositeTransliterator::getTransliterationCandidates(uint64_t **a1@<X0>,
 
   NLCompositeTransliterator::trimCandidatesToSize(updated, a5, v28);
   NLCompositeTransliterator::setIsInVocabularyforCandidates(a1, a5);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v46);
-  v29 = a5->__r_.__value_.__r.__words[0];
-  v30 = a5->__r_.__value_.__l.__size_;
-  if (a5->__r_.__value_.__l.__data_ != v30)
+  v29 = std::ostringstream::basic_ostringstream[abi:ne200100](&v48);
+  v31 = a5->__r_.__value_.__r.__words[0];
+  v32 = a5->__r_.__value_.__l.__size_;
+  if (a5->__r_.__value_.__r.__words[0] != v32)
   {
-    v31 = MEMORY[0x277D82680];
+    v33 = MEMORY[0x277D82680];
     do
     {
-      v32 = *v29;
-      v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v46, "<", 1);
-      v34 = operator<<(v33, v32);
-      v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, ">", 1);
-      std::ios_base::getloc((v35 + *(*v35 - 24)));
-      v36 = std::locale::use_facet(&v45, v31);
-      (v36->__vftable[2].~facet_0)(v36, 10);
-      std::locale::~locale(&v45);
+      v34 = *v31;
+      v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v48, "<", 1);
+      v36 = operator<<(v35, v34);
+      v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ">", 1);
+      std::ios_base::getloc((v37 + *(*v37 - 24)));
+      v38 = std::locale::use_facet(&v47, v33);
+      (v38->__vftable[2].~facet_0)(v38, 10);
+      std::locale::~locale(&v47);
       std::ostream::put();
-      std::ostream::flush();
-      ++v29;
+      v29 = std::ostream::flush();
+      ++v31;
     }
 
-    while (v29 != v30);
+    while (v31 != v32);
   }
 
-  v37 = _nlpDefaultLog();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  v39 = _nlpDefaultLog(v29, v30);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
   {
     std::stringbuf::str();
-    NLCompositeTransliterator::getTransliterationCandidates(&v45, buf, v37);
+    NLCompositeTransliterator::getTransliterationCandidates(&v47, buf, v39);
   }
 
-  v46.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82828];
-  *(v46.__r_.__value_.__r.__words + *(v46.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82828] + 24);
-  v46.__r_.__value_.__l.__size_ = MEMORY[0x277D82878] + 16;
-  if (v48 < 0)
+  v48.__r_.__value_.__r.__words[0] = *MEMORY[0x277D82828];
+  *(v48.__r_.__value_.__r.__words + *(v48.__r_.__value_.__r.__words[0] - 24)) = *(MEMORY[0x277D82828] + 24);
+  v48.__r_.__value_.__l.__size_ = MEMORY[0x277D82878] + 16;
+  if (v50 < 0)
   {
     operator delete(__p);
   }
 
-  v46.__r_.__value_.__l.__size_ = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(&v46.__r_.__value_.__r.__words[2]);
+  v48.__r_.__value_.__l.__size_ = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(&v48.__r_.__value_.__r.__words[2]);
   std::ostream::~ostream();
-  MEMORY[0x2318C0570](&v49);
-  if (v39)
-  {
-    v40 = v39;
-    operator delete(v39);
-  }
-
+  MEMORY[0x2318C0570](&v51);
   if (v41)
   {
     v42 = v41;
     operator delete(v41);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (v43)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    v44 = v43;
+    operator delete(v43);
   }
 
-  NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(&v44);
-  v38 = *MEMORY[0x277D85DE8];
+  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v45.__r_.__value_.__l.__data_);
+  }
+
+  NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(v46, v40);
 }
 
-void sub_22CDC5A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, os_signpost_id_t a22, std::locale a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
+void sub_22CDC5A10(_Unwind_Exception *a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, std::locale a23, uint64_t a24, uint64_t a25, void *__p, uint64_t a27)
 {
   if (__p)
   {
@@ -8675,7 +8671,7 @@ void sub_22CDC5A10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(v29);
   }
 
-  NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(&a22);
+  NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(&a22, a2);
   _Unwind_Resume(a1);
 }
 
@@ -8749,34 +8745,35 @@ void applesauce::CF::DictionaryRef::~DictionaryRef(const void **this)
   }
 }
 
-void NLOSSignPostgetTransliterationCandidates::NLOSSignPostgetTransliterationCandidates(NLOSSignPostgetTransliterationCandidates *this)
+void NLOSSignPostgetTransliterationCandidates::NLOSSignPostgetTransliterationCandidates(NLOSSignPostgetTransliterationCandidates *this, uint64_t a2)
 {
-  v2 = _nlpSignpostLog();
-  *this = os_signpost_id_make_with_pointer(v2, this);
-  v3 = _nlpSignpostLog();
-  v4 = *this;
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = os_signpost_id_make_with_pointer(v3, this);
+  *this = v4;
+  v6 = _nlpSignpostLog(v4, v5);
+  v7 = *this;
   if ((*this - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v8 = v6;
+    if (os_signpost_enabled(v6))
+    {
+      *v9 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v7, "getTransliterationCandidates", &unk_22CDFA99D, v9, 2u);
+    }
+  }
+}
+
+void NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(os_signpost_id_t *this, uint64_t a2)
+{
+  v3 = _nlpSignpostLog(this, a2);
+  v4 = *this;
+  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
     v5 = v3;
     if (os_signpost_enabled(v3))
     {
       *v6 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v4, "getTransliterationCandidates", &unk_22CDFA99D, v6, 2u);
-    }
-  }
-}
-
-void NLOSSignPostgetTransliterationCandidates::~NLOSSignPostgetTransliterationCandidates(os_signpost_id_t *this)
-{
-  v2 = _nlpSignpostLog();
-  v3 = *this;
-  if (*this - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-  {
-    v4 = v2;
-    if (os_signpost_enabled(v2))
-    {
-      *v5 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v4, OS_SIGNPOST_INTERVAL_END, v3, "getTransliterationCandidates", &unk_22CDFA99D, v5, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22CD0B000, v5, OS_SIGNPOST_INTERVAL_END, v4, "getTransliterationCandidates", &unk_22CDFA99D, v6, 2u);
     }
   }
 }
@@ -8792,7 +8789,7 @@ void nlp::CFScopedPtr<__EmojiLocaleDataWrapper const*>::reset(const void **a1, c
   *a1 = a2;
 }
 
-char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLTransliterationCandidate **>,std::__wrap_iter<NLTransliterationCandidate **>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100]<std::__wrap_iter<NLTransliterationCandidate **>,std::__wrap_iter<NLTransliterationCandidate **>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -8801,8 +8798,8 @@ char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 3)
   {
     v11 = *a1;
@@ -8840,23 +8837,24 @@ char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100
     v35 = (8 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 8;
       *v35++ = v36;
       v34 -= 8;
     }
 
     while (v34);
-    memcpy((v33 + 8 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 8 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 8 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 8 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -8871,14 +8869,14 @@ char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100
   {
     v29 = &__dst[8 * a5];
     v30 = (v10 - 8 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[8 * a5], __dst, v10 - v29);
@@ -8893,11 +8891,11 @@ char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[8 * a5];
@@ -8917,7 +8915,7 @@ char *std::vector<NLTransliterationCandidate *>::__insert_with_size[abi:ne200100
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[8 * a5], v5, v21 - v22);
@@ -8999,7 +8997,7 @@ void std::vector<NLTransliterationCandidate *>::__append(uint64_t a1, unint64_t 
   }
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(NLTransliterationCandidate **a1, NLTransliterationCandidate **a2, unint64_t a3, NLTransliterationCandidate **a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(NLTransliterationCandidate **a1, NLTransliterationCandidate **a2, unint64_t a3, NLTransliterationCandidate **a4, int64_t a5)
 {
   if (a3 >= 2)
   {
@@ -9026,7 +9024,7 @@ void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assign
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(a1, v24, v25, a4);
         v26 = &v22[v23];
-        std::__stable_sort_move<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&v6[8 * (a3 >> 1)], a2, a3 - (a3 >> 1), v26);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&v6[a3 >> 1], a2, a3 - (a3 >> 1), v26);
         v27 = &v22[a3];
         v28 = v26;
         while (v28 != v27)
@@ -9046,15 +9044,13 @@ void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assign
 
           v22 += v30 <= v31;
           v28 += v30 > v31;
-          *v6 = *v32;
-          v6 += 8;
+          *v6++ = *v32;
           if (v22 == v26)
           {
             while (v28 != v27)
             {
               v34 = *v28++;
-              *v6 = v34;
-              v6 += 8;
+              *v6++ = v34;
             }
 
             return;
@@ -9064,17 +9060,16 @@ void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assign
         while (v22 != v26)
         {
           v33 = *v22++;
-          *v6 = v33;
-          v6 += 8;
+          *v6++ = v33;
         }
       }
 
       else
       {
         std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(a1, v24, v25, a4, a5);
-        std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&v6[8 * (a3 >> 1)], a2, a3 - (a3 >> 1), v22, a5);
+        std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&v6[a3 >> 1], a2, a3 - (a3 >> 1), v22, a5);
 
-        std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(v6, &v6[8 * (a3 >> 1)], a2, a3 >> 1, a3 - (a3 >> 1), v22, a5);
+        std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(v6, &v6[a3 >> 1], a2, a3 >> 1, a3 - (a3 >> 1), v22, a5);
       }
     }
 
@@ -9096,18 +9091,18 @@ void std::__stable_sort<std::_ClassicAlgPolicy,NLCompositeTransliterator::assign
             v17 = v12;
             while (1)
             {
-              *&v6[v17 + 8] = *&v6[v17];
+              *(v6 + v17 + 8) = *(v6 + v17);
               if (!v17)
               {
                 break;
               }
 
-              v18 = *&v6[v17 - 8];
+              v18 = *(v6 + v17 - 8);
               v19 = NLTransliterationCandidate::getTotalScore(v16);
               v17 -= 8;
               if (v19 <= NLTransliterationCandidate::getTotalScore(v18))
               {
-                v20 = &v6[v17 + 8];
+                v20 = (v6 + v17 + 8);
                 goto LABEL_16;
               }
             }
@@ -9261,7 +9256,7 @@ LABEL_9:
   }
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(char *a1, NLTransliterationCandidate **a2, NLTransliterationCandidate **a3, uint64_t a4, uint64_t a5, NLTransliterationCandidate **a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(NLTransliterationCandidate **a1, NLTransliterationCandidate **a2, NLTransliterationCandidate **a3, uint64_t a4, uint64_t a5, NLTransliterationCandidate **a6, uint64_t a7)
 {
   v71 = a5;
   if (a5)
@@ -9277,7 +9272,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assi
       v14 = -a4;
       while (1)
       {
-        v15 = *&a1[v13];
+        v15 = a1[v13 / 8];
         TotalScore = NLTransliterationCandidate::getTotalScore(*a2);
         if (TotalScore > NLTransliterationCandidate::getTotalScore(v15))
         {
@@ -9295,20 +9290,20 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assi
       v19 = v71;
       v69 = a6;
       v70 = a3;
-      v67 = &a1[v13];
+      v67 = &a1[v13 / 8];
       v68 = a7;
       if (-v14 >= v71)
       {
         if (v14 == -1)
         {
-          v63 = *&a1[v13];
-          *&a1[v13] = *a2;
+          v63 = a1[v13 / 8];
+          a1[v13 / 8] = *a2;
           *a2 = v63;
           return;
         }
 
         v28 = v18 / 2;
-        v29 = &a1[8 * (v18 / 2)];
+        v29 = &a1[v18 / 2];
         v30 = a3;
         v21 = a2;
         if (a2 != v30)
@@ -9357,7 +9352,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assi
         if (a2 - a1 != v13)
         {
           v23 = (a2 - a1 - v13) >> 3;
-          v22 = &a1[v13];
+          v22 = &a1[v13 / 8];
           do
           {
             v24 = &v22[8 * (v23 >> 1)];
@@ -9412,7 +9407,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assi
         v46 = v41;
         a7 = v68;
         a6 = v69;
-        std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&a1[v13], v45, v42, v46, v43, v69, v68);
+        std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assignLanguageModelScoreToCandidates(std::vector<NLTransliterationCandidate *> &,std::vector<std::string> const&)::$_2 &,std::__wrap_iter<NLTransliterationCandidate **>>(&a1[v13 / 8], v45, v42, v46, v43, v69, v68);
         a1 = v44;
       }
 
@@ -9457,8 +9452,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,NLCompositeTransliterator::assi
 
           a2 += v60 > v61;
           a6 += v60 <= v61;
-          *a1 = *v62;
-          a1 += 8;
+          *a1++ = *v62;
           if (v56 == a6)
           {
             return;
@@ -9635,9 +9629,9 @@ void std::shared_ptr<NL::SharedCFType::Wrapper>::shared_ptr[abi:ne200100]<NL::Sh
   operator new();
 }
 
-void sub_22CDC6D90(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CDC6D90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<NL::SharedCFType::Wrapper>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }

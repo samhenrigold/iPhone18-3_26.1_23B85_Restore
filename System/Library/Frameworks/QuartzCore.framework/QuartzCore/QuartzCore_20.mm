@@ -105,7 +105,7 @@ uint64_t CA::Render::ImageQueue::set_client_port(uint64_t this, mach_port_name_t
   return this;
 }
 
-void *CA::Render::ShapeLayer::encode(CA::Render::ShapeLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::ShapeLayer::encode(CA::Render::ShapeLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   CA::Render::Encoder::encode_object(a2, *(this + 2));
@@ -265,7 +265,7 @@ void CA::Render::Context::remove_image_queue(CA::Render::Context *this, CA::Rend
   }
 }
 
-void *CA::Render::Path::encode(CA::Render::Path *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::Path::encode(CA::Render::Path *this, CA::Render::Encoder *a2)
 {
   v4 = (*(this + 3) >> 8) & 0xFFFFFE;
   v5 = *(a2 + 4);
@@ -384,37 +384,37 @@ void CA::Render::ShapeLayer::~ShapeLayer(CA::Render::ShapeLayer *this, const CA:
   v3 = *(this + 19);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   v4 = *(this + 18);
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v4 + 16))(v4);
+    (*(*v4 + 16))(v4, a2);
   }
 
   v5 = *(this + 16);
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v5 + 16))(v5);
+    (*(*v5 + 16))(v5, a2);
   }
 
   v6 = *(this + 10);
   if (v6 && atomic_fetch_add(v6 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v6 + 16))(v6);
+    (*(*v6 + 16))(v6, a2);
   }
 
   v7 = *(this + 6);
   if (v7 && atomic_fetch_add(v7 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v7 + 16))(v7);
+    (*(*v7 + 16))(v7, a2);
   }
 
   v8 = *(this + 2);
   if (v8 && atomic_fetch_add(v8 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v8 + 16))(v8);
+    (*(*v8 + 16))(v8, a2);
   }
 
   --dword_1ED4EAB04;
@@ -437,7 +437,7 @@ void CA::Render::ShapeLayer::~ShapeLayer(CA::Render::ShapeLayer *this, const CA:
   malloc_zone_free(v3, this);
 }
 
-void *CA::Render::ImageQueue::encode(CA::Render::ImageQueue *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::ImageQueue::encode(CA::Render::ImageQueue *this, CA::Render::Encoder *a2)
 {
   CA::Render::Encoder::encode_object(a2, *(this + 2));
   v4 = *(this + 111);
@@ -1067,7 +1067,7 @@ uint64_t class_substitutions(void)
   return [v0 initWithObjectsAndKeys:{v1, @"LKState", v2, @"LKStateAddAnimation", v3, @"LKStateAddElement", v4, @"LKStateElement", v5, @"LKStateRemoveAnimation", v6, @"LKStateRemoveElement", v7, @"LKStateSetValue", v8, @"LKStateSetProperty", v9, @"LKStateTransition", objc_opt_class(), @"LKStateTransitionElement", 0}];
 }
 
-void *CA::Render::SDFElementLayer::encode(CA::Render::SDFElementLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::SDFElementLayer::encode(CA::Render::SDFElementLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(this + 16);
@@ -1861,7 +1861,7 @@ LABEL_17:
   return v34;
 }
 
-void *CA::Render::SDFLayer::encode(CA::Render::SDFLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::SDFLayer::encode(CA::Render::SDFLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   CA::Render::Encoder::encode_data(a2, this + 24, 0x70uLL);
@@ -2079,7 +2079,7 @@ CA::OGL::Context *CA::OGL::render_subclass(CA::OGL::Renderer &,CA::OGL::Layer co
       v30.i64[0] = 1.0;
       v33 = CA::OGL::transform_filter_bits(v32, v27, v28, v30, v29);
       v34.i64[0] = 1.0;
-      v36 = CA::OGL::rect_filter_bits(v32, v33, v35, v38, v37, v34, 1.0);
+      v36 = CA::OGL::rect_filter_bits(v32, v33, v38, v37, v34, 1.0, v35);
       v40.i64[0] = &v48;
       v40.i64[1] = v32;
       v41 = v36;
@@ -2103,27 +2103,27 @@ uint64_t CA::Render::Context::set_layer_id(uint64_t this, uint64_t a2)
     v4 = CA::Render::Context::root_layer_handle(this);
     if (v4)
     {
-      v7 = *(v4 + 2);
-      if (v7)
+      v9 = *(v4 + 2);
+      if (v9)
       {
-        v8 = *(v7 + 152);
-        if (v8)
+        v10 = *(v9 + 152);
+        if (v10)
         {
-          CA::Render::Context::invalidate(v3, v8 + 15, v6);
-          *&v8[13] |= 8uLL;
+          CA::Render::Context::invalidate(v3, v10 + 15, v6, v7, v8);
+          *&v10[13] |= 8uLL;
         }
       }
     }
 
     if (a2)
     {
-      v9 = CA::Render::Context::lookup_object(*(v3 + 136), *(v3 + 148), a2, 0, 30, 0);
-      if (v9)
+      v11 = CA::Render::Context::lookup_object(*(v3 + 136), *(v3 + 148), a2, 0, 30, 0);
+      if (v11)
       {
-        v10 = *(v9 + 152);
-        if (v10)
+        v12 = *(v11 + 152);
+        if (v12)
         {
-          *(v10 + 104) |= 2uLL;
+          *(v12 + 104) |= 2uLL;
         }
       }
     }
@@ -2153,7 +2153,7 @@ uint64_t CA::Render::Context::set_layer_id(uint64_t this, uint64_t a2)
 
 void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3, const float *a4, const float *a5)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v9 = *this;
   if (this[15].i8[0])
   {
@@ -2169,7 +2169,7 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
   {
     v11 = this[4].i16[0];
     v12 = v11;
-    v13 = &this[1];
+    v13 = this + 1;
     v14 = this + 11;
     v15 = &this[(v11 & 1) + 11];
     if (v12 < 0)
@@ -2180,17 +2180,17 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
     v16 = *v15;
     v17 = *(*v15 + 48);
     v18 = *(*v15 + 52);
-    v40[0] = v17;
-    v40[1] = v18;
+    v47[0] = v17;
+    v47[1] = v18;
     CA::OGL::Context::bind_surface(*this, v16, 0, 1u, 1, 0.0);
     v19 = 0;
     v20 = *(*(v9 + 16) + 96);
-    v38 = 0uLL;
-    v39 = 0;
+    v45 = 0uLL;
+    v46 = 0;
     v21 = -2;
     do
     {
-      *(&v38 + v19 * 4) = vmul_f32(*&a4[v19], v20);
+      *(&v45 + v19 * 4) = vmul_f32(*&a4[v19], v20);
       v21 += 2;
       v19 += 2;
     }
@@ -2202,18 +2202,18 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
       v22 = a4[5];
     }
 
-    CA::OGL::BlurState::process_edges(this, v22 + v22, a2, a3, v40);
+    CA::OGL::BlurState::process_edges(this, v22 + v22, a2, a3, v47);
     *(*(v9 + 16) + 16) = 31;
     v23 = v9 + 1386;
     if ((*(*v9 + 1072))(v9))
     {
-      *(v9 + 160) = v38;
-      *(v9 + 176) = v39;
+      *(v9 + 160) = v45;
+      *(v9 + 176) = v46;
       *(v9 + 144) = 0;
       *(v9 + 112) = v23;
       *(v9 + 120) = xmmword_183E20E50;
-      v37 = 0;
-      CA::OGL::PingPongState::render_pass(this, v17, v18, 0, &v37, a2, a3, 0.0, 0.0);
+      v44 = 0;
+      CA::OGL::PingPongState::render_pass(this, v17, v18, 0, &v44, a2, a3, 0.0, 0.0);
       CA::OGL::Context::array_flush(v9);
     }
 
@@ -2224,8 +2224,8 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
       *(v9 + 112) = v23;
       *(v9 + 120) = 0;
       *(v9 + 128) = 512;
-      v37 = 0x340E340E340E340ELL;
-      CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v37, a2, a3, 0.0, 0.0);
+      v44 = 0x340E340E340E340ELL;
+      CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v44, a2, a3, 0.0, 0.0);
       CA::OGL::Context::array_flush(v9);
       *(*(v9 + 16) + 497) |= 1u;
       *(*(v9 + 16) + 496) = 12;
@@ -2254,10 +2254,10 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
         __asm { FCVT            H0, S0 }
 
         v33 = 0x1000100010001 * _S0;
-        v37 = v33;
-        CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v37, a2, a3, -*(v24 - 1), -*v24);
-        v37 = v33;
-        CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v37, a2, a3, *(v24 - 1), *v24);
+        v44 = v33;
+        CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v44, a2, a3, -*(v24 - 1), -*v24);
+        v44 = v33;
+        CA::OGL::PingPongState::render_pass(this, v17, v18, 1, &v44, a2, a3, *(v24 - 1), *v24);
         v25 += 4;
         v24 += 2;
       }
@@ -2266,7 +2266,7 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
       CA::OGL::Context::array_flush(v9);
       *(*(v9 + 16) + 497) &= ~1u;
       v14 = this + 11;
-      v13 = &this[1];
+      v13 = this + 1;
     }
 
     v34 = this[4].i16[0];
@@ -2279,7 +2279,7 @@ void CA::OGL::BlurState::downsample_blur_2(float32x2_t *this, float a2, float a3
 
     CA::OGL::Context::unbind_surface(*this, *v36, 0);
     *(*(v9 + 16) + 16) = 0;
-    CA::OGL::Context::pop_surface(*this);
+    CA::OGL::Context::pop_surface(*this, v37, v38, v39, v40, v41, v42, v43);
     ++this[4].i16[0];
   }
 }
@@ -2321,7 +2321,7 @@ IMP cons_CALayer_kCAValueCopiedPointer(int a1, int a2)
   return imp_implementationWithBlock(v2);
 }
 
-uint64_t CARenderServerGetDirtyFrameCountByIndex(mach_port_name_t a1, unsigned int a2)
+uint64_t CARenderServerGetDirtyFrameCountByIndex(uint64_t a1, unsigned int a2)
 {
   v2 = CARenderServerCopyDictionaryByIndex(a1, a2);
   if (!v2)
@@ -2506,8 +2506,8 @@ uint64_t CA::GainMapGenerator::Element::gain(float32x2_t *this, float32_t a2, fl
     {
       if (this[9].i8[4] == 1)
       {
-        v19 = fminf(v17.f32[0], v17.f32[1]);
-        v20 = fmaxf(v17.f32[0], v17.f32[1]);
+        v19 = fminf(*v17.i32, *&v17.i32[1]);
+        v20 = fmaxf(*v17.i32, *&v17.i32[1]);
         v21 = v19 / v20;
         v22 = v20 == 0.0;
         v23 = 0.0;
@@ -2592,7 +2592,7 @@ LABEL_37:
     v24.i32[1] = v11.i32[1];
     v24.i32[0] = this[2].i32[0];
     v25 = vmul_f32(v24, v24);
-    v13 = (v11.f32[0] - sqrtf(vsub_f32(v25, vdup_lane_s32(v25, 1)).f32[0]));
+    v13 = (*v11.i32 - sqrtf(vsub_f32(v25, vdup_lane_s32(v25, 1)).f32[0]));
     goto LABEL_13;
   }
 
@@ -2750,7 +2750,7 @@ void CA::Render::SecureIndicatorLayer::~SecureIndicatorLayer(CA::Render::SecureI
   }
 }
 
-void *CA::Render::MatchPropertyAnimation::encode(void **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::MatchPropertyAnimation::encode(void **this, CA::Render::Encoder *a2)
 {
   CA::Render::MatchAnimation::encode(this, a2);
 
@@ -2819,7 +2819,7 @@ uint64_t CA::OGL::GaussianBlurFilter::opaque_shape(CA::OGL::GaussianBlurFilter *
   return result;
 }
 
-void *CA::Render::SecureIndicatorLayer::encode(CA::Render::SecureIndicatorLayer *this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::SecureIndicatorLayer::encode(CA::Render::SecureIndicatorLayer *this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(this + 4);
@@ -2862,26 +2862,32 @@ void *CA::Render::SecureIndicatorLayer::encode(CA::Render::SecureIndicatorLayer 
 
 uint64_t CA::OGL::MetalContext::emit_new_render_pipeline(CA::OGL::MetalContext *this, NSString *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   add = atomic_fetch_add(CA::OGL::MetalContext::_next_pipeline_id, 1u);
   if (x_log_get_metal_pipelines(void)::once != -1)
   {
     dispatch_once(&x_log_get_metal_pipelines(void)::once, &__block_literal_global_4_8625);
   }
 
-  v4 = x_log_get_metal_pipelines(void)::log;
+  v5 = x_log_get_metal_pipelines(void)::log;
   result = os_signpost_enabled(x_log_get_metal_pipelines(void)::log);
   if (result)
   {
-    v7 = (*(this + 692) & 1 | 2u);
+    v8 = (*(this + 692) & 1 | 2u);
     *__str = 0;
-    result = CA::OGL::MetalContext::format_new_pipeline_flags_string(v7, __str, v6);
+    result = CA::OGL::MetalContext::format_new_pipeline_flags_string(v8, __str, v7);
     if (add)
     {
-      result = os_signpost_enabled(v4);
+      result = os_signpost_enabled(v5);
       if (result)
       {
-        return _os_signpost_emit_unreliably_with_name_impl();
+        v9 = 138543874;
+        v10 = a2;
+        v11 = 2082;
+        v12 = __str;
+        v13 = 1026;
+        v14 = add;
+        return _os_signpost_emit_unreliably_with_name_impl(&dword_183AA6000, v5, 0, add, "NewRenderPipeline", "pipeline=%{public, name=pipeline, signpost.telemetry:string1}@ flags=%{public, name=flags, signpost.telemetry:string2}s order=%{public, name=order, signpost.telemetry:number1}u enableTelemetry=YES ", &v9, 28);
       }
     }
   }
@@ -2944,7 +2950,7 @@ void CA::OGL::Context::release_surface_async(uint64_t a1, uint64_t a2)
   os_unfair_lock_unlock((a1 + 712));
 }
 
-uint64_t ___ZL23CALayerDecodeAnimationsP7CALayerP7NSCoder_block_invoke()
+void *___ZL23CALayerDecodeAnimationsP7CALayerP7NSCoder_block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DFD8]);
   v1 = objc_opt_class();
@@ -2953,29 +2959,29 @@ uint64_t ___ZL23CALayerDecodeAnimationsP7CALayerP7NSCoder_block_invoke()
   return result;
 }
 
-uint64_t CAObject_validateArrayOfClass(void *a1)
+uint64_t CAObject_validateArrayOfClass(void *a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v10 = 0u;
   v11 = 0u;
-  v8 = 0u;
+  v12 = 0u;
   v9 = 0u;
-  v2 = [a1 countByEnumeratingWithState:&v8 objects:v7 count:16];
-  if (v2)
+  v10 = 0u;
+  v3 = [a1 countByEnumeratingWithState:&v9 objects:v8 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v9;
+    v4 = v3;
+    v5 = *v10;
 LABEL_4:
-    v5 = 0;
+    v6 = 0;
     while (1)
     {
-      if (*v9 != v4)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(a1);
       }
@@ -2985,11 +2991,11 @@ LABEL_4:
         return 0;
       }
 
-      if (v3 == ++v5)
+      if (v4 == ++v6)
       {
-        v3 = [a1 countByEnumeratingWithState:&v8 objects:v7 count:16];
+        v4 = [a1 countByEnumeratingWithState:&v9 objects:v8 count:16];
         result = 1;
-        if (v3)
+        if (v4)
         {
           goto LABEL_4;
         }
@@ -3292,7 +3298,7 @@ LABEL_75:
   return v17;
 }
 
-BOOL CA::WindowServer::IOMFBDisplay::change_update_seed(CA::WindowServer::IOMFBDisplay *this, int a2)
+BOOL CA::WindowServer::IOMFBDisplay::change_update_seed(CA::WindowServer::IOMFBDisplay *this, unsigned int a2)
 {
   pthread_mutex_lock((this + 25848));
   v4 = this + 48 * *(this + 6459) + 25912;
@@ -3393,7 +3399,7 @@ void sub_183BC70B8(_Unwind_Exception *exception_object)
 
 void CA::OGL::Context::variable_blur_surface(uint64_t a1, _DWORD *a2, uint64_t a3, uint32x2_t *a4, float64x2_t *a5, uint64_t a6, float a7, float a8, float a9, uint64_t a10, uint64_t *a11)
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88[2] = *MEMORY[0x1E69E9840];
   if (BYTE6(xmmword_1ED4E97EC) == 1)
   {
     PerfHud = CA::OGL::GetPerfHud(a1);
@@ -3454,7 +3460,8 @@ void CA::OGL::Context::variable_blur_surface(uint64_t a1, _DWORD *a2, uint64_t a
   v72 = v24;
   *(*(a1 + 16) + 16) = 41;
   CA::OGL::Context::bind_surface(a1, v28, 0, 1u, 1, 0.0);
-  v88 = 0uLL;
+  v88[0] = 0;
+  v88[1] = 0;
   v77 = a3;
   v73 = a11;
   if (!a4)
@@ -3467,7 +3474,7 @@ void CA::OGL::Context::variable_blur_surface(uint64_t a1, _DWORD *a2, uint64_t a
     goto LABEL_19;
   }
 
-  v31 = CA::OGL::Context::bind_image(a1, 1u, a4, 256, 1u, 1, 2, 0, 0.0, &v88, 0);
+  v31 = CA::OGL::Context::bind_image(a1, 1u, a4, 256, 1u, 1, 2, 0, 0.0, v88, 0);
   if (!v31)
   {
 LABEL_19:
@@ -3972,10 +3979,12 @@ CA::Render::GradientLayer *CA::Render::GradientLayer::GradientLayer(CA::Render::
   ++dword_1ED4EAA88;
   *v4 = &unk_1EF204CF8;
   CA::Render::Gradient::Gradient((v4 + 16), a2);
-  *v12 = 0uLL;
+  v12[0] = 0.0;
+  v12[1] = 0.0;
   CA::Render::Decoder::decode_cgfloat(a2, v12, 2);
   *(this + 72) = *v12;
-  *v12 = 0uLL;
+  v12[0] = 0.0;
+  v12[1] = 0.0;
   CA::Render::Decoder::decode_cgfloat(a2, v12, 2);
   *(this + 88) = *v12;
   *(this + 26) = CA::Render::Decoder::decode_atom(a2);
@@ -3986,7 +3995,7 @@ CA::Render::GradientLayer *CA::Render::GradientLayer::GradientLayer(CA::Render::
   *(this + 8) = 0u;
   if ((*(this + 13) & 8) != 0)
   {
-    v7 = CA::Render::Decoder::decode_object(a2, 6, &CA::Render::texture_types);
+    v7 = CA::Render::Decoder::decode_object(a2, 6, CA::Render::texture_types);
     v8 = *v6;
     *v6 = v7;
     if (v8)
@@ -4127,7 +4136,7 @@ CA::Render::Gradient *CA::Render::Gradient::Gradient(CA::Render::Gradient *this,
   return this;
 }
 
-BOOL CA::OGL::detach_contents(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7)
+BOOL CA::OGL::detach_contents(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v148 = *MEMORY[0x1E69E9840];
   if (a3)
@@ -4237,6 +4246,8 @@ LABEL_11:
     goto LABEL_12;
   }
 
+  v20 = a6;
+  v21 = a7;
   v136 = *a1;
   if ((v19 & 9) != 0 && (*(a2 + 40) & 0xF00) != 0)
   {
@@ -4385,7 +4396,7 @@ LABEL_58:
 
   v35 = *(a3 + 12);
   v36 = v31 ^ (v35 >> 11) & 1 ^ (*(a5 + 308) >> 11) & 1 ^ 1;
-  if (!a6 && v32 < 1.0 || !a7 && v32 > 1.0)
+  if (!v20 && v32 < 1.0 || !v21 && v32 > 1.0)
   {
     v36 |= 8u;
   }
@@ -4607,7 +4618,7 @@ LABEL_58:
 
       *(*(v136 + 16) + 8) = v91;
       v139 = 0u;
-      v140 = 0u;
+      *v140 = 0u;
       *v92.i8 = CA::OGL::Context::raster_round_rect(buf, *a1, (a5 + 40));
       if (*&buf[8] <= *&buf[12])
       {
@@ -4637,8 +4648,8 @@ LABEL_58:
         v97 = 1.79769313e308;
       }
 
-      *&v140 = v97;
-      *(&v140 + 1) = v98;
+      v140[0] = v97;
+      v140[1] = v98;
       *buf = &v139;
       *&buf[8] = &CA::identity_transform;
       *&buf[16] = 0u;
@@ -4670,17 +4681,17 @@ LABEL_58:
             v125 = *v139.i64;
             if ((v117 & 0x2000) != 0)
             {
-              v127 = *&v140;
-              v126 = *&v139.i64[1] + vcvtd_n_f64_u32(v123, 5uLL) * *(&v140 + 1);
-              v128 = *(&v140 + 1) * 0.015625;
+              v127 = v140[0];
+              v126 = *&v139.i64[1] + vcvtd_n_f64_u32(v123, 5uLL) * v140[1];
+              v128 = v140[1] * 0.015625;
             }
 
             else
             {
               v126 = *&v139.i64[1];
-              v125 = *v139.i64 + v124 * 0.03125 * *&v140;
-              v127 = *&v140 * 0.015625;
-              v128 = *(&v140 + 1);
+              v125 = *v139.i64 + v124 * 0.03125 * v140[0];
+              v127 = v140[0] * 0.015625;
+              v128 = v140[1];
             }
 
             v138[0] = *&v125;
@@ -4806,7 +4817,7 @@ LABEL_16:
 
   if (v9 && v11)
   {
-    (*(*v9 + 56))(v9, v11, 0);
+    (*(*v9 + 56))(v9, v11, 0, a4, a5, a6, a7);
   }
 
   else if (!v11)
@@ -4859,7 +4870,7 @@ void CA::Render::Decoder::decode_cgfloat(CA::Render::Decoder *this, double *__ds
   }
 }
 
-BOOL CA::WindowServer::IOMFBDisplay::detach_layer(CA::WindowServer::IOMFBDisplay *this, CA::Render::Handle *a2, int a3, atomic_uint *a4, CA::WindowServer::Surface *a5, int32x4_t *a6, Rect *a7, const CA::Rect *a8, double a9, double a10, double a11, float64x2_t a12, double a13, float64x2_t a14, float64x2_t a15, int32x4_t a16, unsigned int *a17)
+BOOL CA::WindowServer::IOMFBDisplay::detach_layer(CA::WindowServer::IOMFBDisplay *this, CA::Render::Handle *a2, int a3, atomic_uint *a4, CA::WindowServer::Surface *a5, float64x2_t *a6, Rect *a7, Rect *a8, double a9, double a10, double a11, float64x2_t a12, double d4_0, float64x2_t a14, float64x2_t a15, int32x4_t a16, unsigned int *a13)
 {
   v21 = a2;
   v262 = *MEMORY[0x1E69E9840];
@@ -5015,8 +5026,8 @@ BOOL CA::WindowServer::IOMFBDisplay::detach_layer(CA::WindowServer::IOMFBDisplay
     v34 = 24;
   }
 
-  v50 = &a6[1];
-  v51 = &a6[1].i64[1];
+  v50 = a6 + 1;
+  v51 = &a6[1].f64[1];
   v52 = v23;
   if ((v23 & 0x48) == 8)
   {
@@ -5180,10 +5191,10 @@ BOOL CA::WindowServer::IOMFBDisplay::detach_layer(CA::WindowServer::IOMFBDisplay
       {
         if ((v52 & 0x40) != 0 || (v89 = a5, *&v27[20].isa == *v38) && (v89 = a5, *&v27[21].isa == *&v38[1]) && (v89 = a5, *&v27[22].isa == *&v38[2]) && (v89 = a5, *&v27[23].isa == *&v38[3]) && (v89 = a5, *&v27[16].isa == v85->f64[0]) && (v89 = a5, *&v27[17].isa == *v86) && (v89 = a5, *&v27[18].isa == v50->f64[0]) && (v89 = a5, *&v27[19].isa == *v51) && (v89 = a5, *&v27[12].isa == *a7) && (v89 = a5, *&v27[13].isa == *v32) && (v89 = a5, *&v27[14].isa == *v30) && (v89 = a5, *&v27[15].isa == *v31))
         {
-          if (a17)
+          if (a13)
           {
             v26 = 0;
-            *a17 = HIDWORD(v27[5].isa);
+            *a13 = HIDWORD(v27[5].isa);
             goto LABEL_124;
           }
 
@@ -5437,7 +5448,7 @@ LABEL_274:
 LABEL_296:
             CA::Rect::round_center(&v27[24]);
             CA::Rect::round_center(&v27[28]);
-            v163 = a17;
+            v163 = a13;
             if (v220)
             {
               *v159 = 0.0;
@@ -5564,7 +5575,7 @@ LABEL_289:
         }
 
 LABEL_281:
-        v163 = a17;
+        v163 = a13;
         goto LABEL_299;
       }
 
@@ -6510,12 +6521,12 @@ uint64_t draw_rects(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return MEMORY[0x1EEDB93B0](v18, a2, a3, a4, a5, a6);
 }
 
-_DWORD *CA::OGL::QuadNode::retain_surface(CA::OGL::QuadNode *this, float *a2, unsigned int a3)
+_DWORD *CA::OGL::QuadNode::retain_surface(CA::OGL::QuadNode *this, float *a2, uint64_t a3)
 {
   v3 = *(this + 10);
   if ((*(v3 + 144) & 0x1F) == 0 && *(v3 + 96) == 0.0 && *(v3 + 104) == 0.0 && (*(this + 239) & 2) != 0)
   {
-    return (*(**(this + 3) + 80))(*(this + 3), a2);
+    return (*(**(this + 3) + 80))(*(this + 3), a2, a3);
   }
 
   else
@@ -6803,7 +6814,7 @@ uint64_t _XUpdateClient(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t CA::Render::Path::new_path(uint64_t a1, unsigned int a2, unsigned __int8 *a3, unsigned int a4, double *a5, int a6)
+uint64_t CA::Render::Path::new_path(uint64_t a1, int a2, unsigned __int8 *a3, unsigned int a4, double *a5, int a6)
 {
   if (!a1 || !CA::Render::Path::_path_table)
   {
@@ -8117,8 +8128,9 @@ int8x16_t CA::Render::MatchPropertyAnimation::create_dependence(int8x16_t *this,
   return result;
 }
 
-char *get_unused_drawable(uint64_t a1, unsigned int a2, int a3, int a4)
+char *get_unused_drawable(uint64_t a1, uint64_t a2, int a3, int a4)
 {
+  v5 = a2;
   v72 = *MEMORY[0x1E69E9840];
   v7 = *(a1 + 56);
   if (!v7)
@@ -8161,8 +8173,8 @@ LABEL_108:
       v26 = *(a1 + 296);
       v56 = *(a1 + 16);
       v57 = *(a1 + 224);
-      v27 = (a2 & 0xFFFFFFFD) == 1 ? v19 : v20;
-      v28 = (a2 & 0xFFFFFFFD) == 1 ? v20 : v19;
+      v27 = (v5 & 0xFFFFFFFD) == 1 ? v19 : v20;
+      v28 = (v5 & 0xFFFFFFFD) == 1 ? v20 : v19;
       v29 = (v21 & 0x40) != 0 ? 6 : 0;
       iosurface_with_pixel_format = CA::Render::create_iosurface_with_pixel_format(v22, v27, v28, v29 | (v21 >> 6) & 2 | (MEMORY[0xFFFFFC020] >> 9) & 4, v24, @"CAMetalLayer Display Drawable", v23);
       if (iosurface_with_pixel_format)
@@ -8174,20 +8186,20 @@ LABEL_108:
         *(v9 + 2) = v19;
         v54 = v22;
         *(v9 + 3) = v22;
-        *(v9 + 2) = v62;
-        *(v9 + 4) = v24;
-        *(v9 + 5) = v25;
-        *(v9 + 8) = v31;
-        *(v9 + 11) = 0;
-        *(v9 + 12) = 0;
-        *(v9 + 10) = v61;
-        v9[128] = a2;
+        v9[2] = v62;
+        v9[4] = v24;
+        v9[5] = v25;
+        v9[8] = v31;
+        v9[11] = 0;
+        v9[12] = 0;
+        v9[10] = v61;
+        *(v9 + 128) = v5;
         *(v9 + 129) = (v21 >> 6) | (v55 >> 8) | *(v9 + 129) & 0xF840 | 0x20;
         drawable_set_colorspace(v9, space);
         drawable_set_edr_metadata(v9, v60);
-        *(v9 + 15) = v59;
-        drawable_texture = allocate_drawable_texture(v61, v31, v20, v19, v62, 0, a2, (v21 >> 6) & 1, @"CAMetalLayer Display Drawable", v25, v57);
-        *(v9 + 9) = drawable_texture;
+        v9[15] = v59;
+        drawable_texture = allocate_drawable_texture(v61, v31, v20, v19, v62, 0, v5, (v21 >> 6) & 1, @"CAMetalLayer Display Drawable", v25, v57);
+        v9[9] = drawable_texture;
         if (drawable_texture)
         {
           if (!v55)
@@ -8319,32 +8331,32 @@ LABEL_108:
           _os_log_error_impl(&dword_183AA6000, v35, OS_LOG_TYPE_ERROR, "Failed to allocate MTLTexture for %ux%u %c%c%c%c IOSurface(%#x)", buf, 0x2Cu);
         }
 
-        v36 = *(v9 + 8);
+        v36 = v9[8];
         if (v36)
         {
           CFRelease(v36);
         }
 
-        v37 = *(v9 + 9);
+        v37 = v9[9];
         if (v37)
         {
-          v38 = *(*(v9 + 7) + 224);
+          v38 = *(v9[7] + 224);
           if (v38)
           {
             [v38 removeAllocation:?];
-            [*(*(v9 + 7) + 224) commit];
-            v37 = *(v9 + 9);
+            [*(v9[7] + 224) commit];
+            v37 = v9[9];
           }
 
-          *(v9 + 9) = 0;
+          v9[9] = 0;
         }
 
-        *(v9 + 11) = 0;
-        v39 = *(v9 + 13);
+        v9[11] = 0;
+        v39 = v9[13];
         if (v39)
         {
           CGColorSpaceRelease(v39);
-          *(v9 + 13) = 0;
+          v9[13] = 0;
         }
 
         free(v9);
@@ -8363,14 +8375,14 @@ LABEL_108:
       goto LABEL_8;
     }
 
-    if (*(v9 + 11))
+    if (v9[11])
     {
       update_shared_event_value_wait(v9);
-      v10 = [*(v9 + 11) signaledValue] < *(v9 + 12);
+      v10 = [v9[11] signaledValue] < v9[12];
       goto LABEL_9;
     }
 
-    v11 = *(v9 + 8);
+    v11 = v9[8];
     if (v11)
     {
       v10 = IOSurfaceIsInUse(v11) != 0;
@@ -8383,12 +8395,12 @@ LABEL_8:
     }
 
 LABEL_9:
-    if (*(v9 + 1) == *(a1 + 120) && *(v9 + 2) == *(a1 + 124) && *(v9 + 3) == *(a1 + 64) && *(v9 + 2) == *(a1 + 96))
+    if (*(v9 + 1) == *(a1 + 120) && *(v9 + 2) == *(a1 + 124) && *(v9 + 3) == *(a1 + 64) && v9[2] == *(a1 + 96))
     {
       v12 = *(v9 + 129);
       v13 = *(a1 + 296);
       v14 = ((v13 >> 6) & 1) == (v12 & 1) && ((v13 >> 7) & 1) == ((v12 >> 1) & 1);
-      if (v14 && *(v9 + 10) == *(a1 + 72) && v9[128] == a2 && *(v9 + 4) == *(a1 + 280) && *(v9 + 5) == *(a1 + 288) && ((v13 >> 17) & 1) == ((v12 >> 9) & 1))
+      if (v14 && v9[10] == *(a1 + 72) && *(v9 + 128) == v5 && v9[4] == *(a1 + 280) && v9[5] == *(a1 + 288) && ((v13 >> 17) & 1) == ((v12 >> 9) & 1))
       {
         v15 = (v12 & 0x20) != 0 ? 0 : a3;
         if (((v15 | v10) & 1) == 0)
@@ -8408,7 +8420,7 @@ LABEL_9:
   }
 
   v16 = *(a1 + 256);
-  v17 = *(v9 + 13);
+  v17 = v9[13];
   if (v16 && v17)
   {
     if (!CFEqual(v17, v16))
@@ -8434,7 +8446,7 @@ LABEL_92:
   }
 
   v50 = *(a1 + 264);
-  v51 = *(v9 + 14);
+  v51 = v9[14];
   if (v50 && v51)
   {
     if (![(CAEDRMetadata *)v51 isEqual:*(a1 + 264)])
@@ -8451,16 +8463,16 @@ LABEL_99:
     v49 = 1;
   }
 
-  v52 = *(v9 + 15);
+  v52 = v9[15];
   if (v52 != [*(a1 + 24) toneMapMode])
   {
-    *(v9 + 15) = [*(a1 + 24) toneMapMode];
+    v9[15] = [*(a1 + 24) toneMapMode];
     v49 = 1;
   }
 
   if ((*(v9 + 129) & 0x400) != 0)
   {
-    v53 = *(v9 + 8);
+    v53 = v9[8];
     *buf = 0;
     IOSurfaceSetPurgeable(v53, 0, buf);
     *(v9 + 129) &= ~0x400u;
@@ -8844,25 +8856,25 @@ uint64_t CA::Render::anonymous namespace::image_format_from_component_type(int a
   }
 }
 
-void drawable_set_colorspace(_CAMetalDrawablePrivate *a1, CGColorSpaceRef space)
+void drawable_set_colorspace(void *result, CGColorSpaceRef space)
 {
-  if (a1)
+  if (result)
   {
-    if (!space && a1->var10)
+    if (!space && result[8])
     {
       IOSurfaceSetBulkAttachments2();
     }
 
-    if (a1->var15 != space)
+    if (result[13] != space)
     {
       CGColorSpaceRetain(space);
-      CGColorSpaceRelease(a1->var15);
-      a1->var15 = space;
-      var10 = a1->var10;
-      if (var10)
+      CGColorSpaceRelease(result[13]);
+      result[13] = space;
+      v5 = result[8];
+      if (v5)
       {
 
-        CA::Render::iosurface_set_colorspace(var10, space, v4);
+        CA::Render::iosurface_set_colorspace(v5, space, v4);
       }
     }
   }
@@ -8934,28 +8946,29 @@ void *allocate_drawable_texture(void *a1, __IOSurface *a2, unsigned int a3, unsi
   return v23;
 }
 
-void *CA::Render::anonymous namespace::create_image_by_copying(CA::Render::_anonymous_namespace_ *a1, unsigned int a2, CGColorSpace *a3, uint64_t a4, uint64_t a5, unint64_t a6, CA::Render *a7, __int16 a8)
+void *CA::Render::anonymous namespace::create_image_by_copying(CA::Render::_anonymous_namespace_ *a1, uint64_t a2, CGColorSpace *a3, uint64_t a4, uint64_t a5, unint64_t a6, CA::Render *a7, __int16 a8, unsigned int a9)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if ((a8 & 0x200) == 0)
   {
-    v8 = a8;
-    v14 = a1;
+    v9 = a8;
+    v13 = a2;
+    v15 = a1;
     kdebug_trace();
-    memset(v45, 0, sizeof(v45));
-    v43 = 0;
+    memset(v46, 0, sizeof(v46));
     v44 = 0;
-    if (!v16 || (v17 = v16, (v41 = CA::Render::aligned_malloc(v44, &v43, 0)) == 0))
+    v45 = 0;
+    if (!v17 || (v18 = v17, (v42 = CA::Render::aligned_malloc(v45, &v44, 0)) == 0))
     {
-      v21 = 0;
+      v22 = 0;
 LABEL_33:
       kdebug_trace();
-      return v21;
+      return v22;
     }
 
     if (a7 > 0x25)
     {
-      v18 = 0;
+      v19 = 0;
       if (a5)
       {
         goto LABEL_6;
@@ -8964,29 +8977,29 @@ LABEL_33:
 
     else
     {
-      v18 = dword_183E22690[a7];
+      v19 = dword_183E22690[a7];
       if (a5)
       {
 LABEL_6:
-        v19 = v41;
+        v20 = v42;
         CGBlt_copyBytes();
 LABEL_28:
-        if (v17 != 1)
+        if (v18 != 1)
         {
         }
 
-        v32 = v43;
-        MEMORY[0x1865EC180](*MEMORY[0x1E69E9A60], v19, v43, 1, 1);
-        v33 = CA::Render::Image::new_image(a7, a1, a2, v17, a3, v19, v45, CA::Render::aligned_free, v32, v36);
-        v21 = v33;
-        if (v33)
+        v33 = v44;
+        MEMORY[0x1865EC180](*MEMORY[0x1E69E9A60], v20, v44, 1, 1);
+        v34 = CA::Render::Image::new_image(a7, a1, v13, v18, a3, v20, v46, CA::Render::aligned_free, v33, v37);
+        v22 = v34;
+        if (v34)
         {
-          *(v33 + 3) |= 0x1000000u;
+          *(v34 + 3) |= 0x1000000u;
         }
 
         else
         {
-          CA::Render::aligned_free(v19, v32, v34);
+          CA::Render::aligned_free(v20, v33, v35);
         }
 
         goto LABEL_33;
@@ -8994,61 +9007,61 @@ LABEL_28:
     }
 
     CGAccessSessionCreate();
-    v22 = v18 * v14;
-    v23 = a6 - v22;
-    v24 = *&v45[0] - v22;
-    if (a6 - v22 <= *&v45[0] - v22)
+    v23 = v19 * v15;
+    v24 = a6 - v23;
+    v25 = *&v46[0] - v23;
+    if (a6 - v23 <= *&v46[0] - v23)
     {
-      v22 = a6;
+      v23 = a6;
     }
 
-    v39 = v22;
-    v40 = *&v45[0] - v18 * v14;
-    if (v23 <= v24)
-    {
-      v25 = 0;
-    }
-
-    else
-    {
-      v25 = (a6 - v18 * v14);
-    }
-
-    v36 = v25;
-    v38 = a6 - v18 * v14;
-    if (v23 <= v24)
-    {
-      v26 = a6 - v18 * v14;
-    }
-
-    else
+    v40 = v23;
+    v41 = *&v46[0] - v19 * v15;
+    if (v24 <= v25)
     {
       v26 = 0;
     }
 
-    if (a2)
+    else
     {
-      v27 = v41;
-      v37 = v40 - v26;
-      v28 = a2;
+      v26 = (a6 - v19 * v15);
+    }
+
+    v37 = v26;
+    v39 = a6 - v19 * v15;
+    if (v24 <= v25)
+    {
+      v27 = a6 - v19 * v15;
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    if (v13)
+    {
+      v28 = v42;
+      v38 = v41 - v27;
+      v29 = v13;
       while (1)
       {
-        v29 = v39;
-        if (v39)
+        v30 = v40;
+        if (v40)
         {
           break;
         }
 
 LABEL_23:
-        v31 = v28 - 1;
-        if (v38 > v40 && v28 != 1)
+        v32 = v29 - 1;
+        if (v39 > v41 && v29 != 1)
         {
           CGAccessSessionSkipForward();
         }
 
-        v27 = (v27 + v37);
-        --v28;
-        if (!v31)
+        v28 = (v28 + v38);
+        --v29;
+        if (!v32)
         {
           goto LABEL_27;
         }
@@ -9057,14 +9070,14 @@ LABEL_23:
       while (1)
       {
         Bytes = CGAccessSessionGetBytes();
-        if (Bytes - 1 >= v29)
+        if (Bytes - 1 >= v30)
         {
           break;
         }
 
-        v27 = (v27 + Bytes);
-        v29 -= Bytes;
-        if (!v29)
+        v28 = (v28 + Bytes);
+        v30 -= Bytes;
+        if (!v30)
         {
           goto LABEL_23;
         }
@@ -9073,7 +9086,7 @@ LABEL_23:
 
 LABEL_27:
     CGAccessSessionRelease();
-    v19 = v41;
+    v20 = v42;
     goto LABEL_28;
   }
 
@@ -9637,7 +9650,7 @@ BOOL CA::Context::Generic::is_deferring(CA::Context::Generic *this)
   return v2;
 }
 
-void *CA::Render::ReplicatorLayer::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
+CA::Render::Encoder *CA::Render::ReplicatorLayer::encode(const CA::Render::Object **this, CA::Render::Encoder *a2)
 {
   CA::Render::Object::encode(this, a2);
   v4 = *(this + 4);
@@ -9674,7 +9687,7 @@ void CA::Render::ReplicatorLayer::~ReplicatorLayer(CA::Render::ReplicatorLayer *
   v3 = *(this + 3);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAF0;
@@ -9699,7 +9712,7 @@ void CA::Render::ReplicatorLayer::~ReplicatorLayer(CA::Render::ReplicatorLayer *
   v3 = *(this + 3);
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
-    (*(*v3 + 16))(v3);
+    (*(*v3 + 16))(v3, a2);
   }
 
   --dword_1ED4EAAF0;
@@ -9887,7 +9900,7 @@ LABEL_126:
         do
         {
           v134 = *v7;
-          v133 = v7[1];
+          v133 = *(v7 + 1);
           v7 = v92;
           v135 = *v133;
           if (*v133 < *v134)
@@ -9903,7 +9916,7 @@ LABEL_126:
             *v92 = v133;
           }
 
-          v92 = v7 + 1;
+          v92 = (v7 + 1);
         }
 
         while (v7 + 1 != a2);
@@ -10372,7 +10385,7 @@ LABEL_77:
     {
       if (v52 >= **v8)
       {
-        v67 = v9 + 1;
+        v67 = (v9 + 1);
         do
         {
           v9 = v67;
@@ -10381,7 +10394,7 @@ LABEL_77:
             break;
           }
 
-          ++v67;
+          v67 += 8;
         }
 
         while (v52 >= **v9);

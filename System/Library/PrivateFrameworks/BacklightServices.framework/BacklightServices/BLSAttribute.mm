@@ -57,15 +57,13 @@
 
 - (id)errorForMissingEntitlement:(id)entitlement inSource:(id)source
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
+  v9 = *MEMORY[0x277CCA450];
   entitlement = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ missing entitlement:%@", source, entitlement];
-  v11[0] = entitlement;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = entitlement;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v4 errorWithDomain:@"com.apple.BacklightServices" code:21 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -73,47 +71,49 @@
 - (BLSAttribute)initWithXPCDictionary:(id)dictionary
 {
   selfCopy = self;
-  if ([(BLSAttribute *)self isMemberOfClass:objc_opt_class()])
+  v4 = [(BLSAttribute *)self isMemberOfClass:objc_opt_class()];
+  if (v4)
   {
-    v4 = bls_assertions_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = bls_assertions_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [BLSAttribute initWithXPCDictionary:v4];
+      [BLSAttribute initWithXPCDictionary:v5];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     selfCopy = [(BLSAttribute *)selfCopy init];
-    v5 = selfCopy;
+    v6 = selfCopy;
   }
 
-  return v5;
+  return v6;
 }
 
 - (BLSAttribute)initWithCoder:(id)coder
 {
   selfCopy = self;
-  if ([(BLSAttribute *)self isMemberOfClass:objc_opt_class()])
+  v4 = [(BLSAttribute *)self isMemberOfClass:objc_opt_class()];
+  if (v4)
   {
-    v4 = bls_assertions_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = bls_assertions_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [BLSAttribute initWithXPCDictionary:v4];
+      [BLSAttribute initWithXPCDictionary:v5];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     selfCopy = [(BLSAttribute *)selfCopy init];
-    v5 = selfCopy;
+    v6 = selfCopy;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

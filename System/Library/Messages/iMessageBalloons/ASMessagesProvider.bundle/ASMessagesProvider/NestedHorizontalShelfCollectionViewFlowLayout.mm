@@ -29,14 +29,14 @@
   v6 = offset.y;
   v7 = offset.x;
   selfCopy = self;
-  sub_61080C(v7, v6, x, y);
-  v10 = v9;
-  v12 = v11;
+  sub_61080C(v7, v6, x, y, selfCopy, v9);
+  v11 = v10;
+  v13 = v12;
 
-  v13 = v10;
-  v14 = v12;
-  result.y = v14;
-  result.x = v13;
+  v14 = v11;
+  v15 = v13;
+  result.y = v15;
+  result.x = v14;
   return result;
 }
 

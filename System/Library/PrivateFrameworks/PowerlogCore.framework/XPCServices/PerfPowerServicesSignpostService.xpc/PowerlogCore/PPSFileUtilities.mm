@@ -17,26 +17,26 @@
     label->var0 |= 0x10005uLL;
     v7 = open([purgeableCopy fileSystemRepresentation], 0);
     v8 = v7;
-    if (v7 < 0)
+    if ((v7 & 0x80000000) != 0)
     {
-      v11 = PPSLogAPFS();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = PPSLogAPFS(v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v19 = *&label->var2;
-        *v23 = *&label->var0;
-        *&v23[16] = v19;
-        *&v23[32] = *&label->var4;
-        v13 = [PPSFileUtilities _debugStringForPurgeableLabel:v23];
-        v20 = strerror(v8);
-        *v23 = 138413058;
-        *&v23[4] = v6;
-        *&v23[12] = 2112;
-        *&v23[14] = v13;
-        *&v23[22] = 1024;
-        *&v23[24] = v8;
-        *&v23[28] = 2080;
-        *&v23[30] = v20;
-        v16 = "Failed to open file handle for '%@' to apply purgeable status: '%@' (error %d = '%s')";
+        v20 = *&label->var2;
+        *v24 = *&label->var0;
+        *&v24[16] = v20;
+        *&v24[32] = *&label->var4;
+        v14 = [PPSFileUtilities _debugStringForPurgeableLabel:v24];
+        v21 = strerror(v8);
+        *v24 = 138413058;
+        *&v24[4] = v6;
+        *&v24[12] = 2112;
+        *&v24[14] = v14;
+        *&v24[22] = 1024;
+        *&v24[24] = v8;
+        *&v24[28] = 2080;
+        *&v24[30] = v21;
+        v17 = "Failed to open file handle for '%@' to apply purgeable status: '%@' (error %d = '%s')";
         goto LABEL_16;
       }
     }
@@ -44,77 +44,77 @@
     else
     {
       v9 = ffsctl(v7, 0xC0304A6FuLL, label, 0);
-      close(v8);
-      v10 = PPSLogAPFS();
-      v11 = v10;
+      v10 = close(v8);
+      v11 = PPSLogAPFS(v10);
+      v12 = v11;
       if (!v9)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          v21 = *&label->var2;
-          *v23 = *&label->var0;
-          *&v23[16] = v21;
-          *&v23[32] = *&label->var4;
-          v22 = [PPSFileUtilities _debugStringForPurgeableLabel:v23];
-          *v23 = 138412546;
-          *&v23[4] = v6;
-          *&v23[12] = 2112;
-          *&v23[14] = v22;
-          _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Marked file '%@' as purgeable with label: '%@'", v23, 0x16u);
+          v22 = *&label->var2;
+          *v24 = *&label->var0;
+          *&v24[16] = v22;
+          *&v24[32] = *&label->var4;
+          v23 = [PPSFileUtilities _debugStringForPurgeableLabel:v24];
+          *v24 = 138412546;
+          *&v24[4] = v6;
+          *&v24[12] = 2112;
+          *&v24[14] = v23;
+          _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Marked file '%@' as purgeable with label: '%@'", v24, 0x16u);
         }
 
-        v17 = 1;
+        v18 = 1;
         goto LABEL_13;
       }
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v12 = *&label->var2;
-        *v23 = *&label->var0;
-        *&v23[16] = v12;
-        *&v23[32] = *&label->var4;
-        v13 = [PPSFileUtilities _debugStringForPurgeableLabel:v23];
-        v14 = __error();
-        v15 = strerror(*v14);
-        *v23 = 138413058;
-        *&v23[4] = v6;
-        *&v23[12] = 2112;
-        *&v23[14] = v13;
-        *&v23[22] = 1024;
-        *&v23[24] = v9;
-        *&v23[28] = 2080;
-        *&v23[30] = v15;
-        v16 = "Failed to mark file '%@' as purgeable with label: '%@' (error %d = '%s')";
+        v13 = *&label->var2;
+        *v24 = *&label->var0;
+        *&v24[16] = v13;
+        *&v24[32] = *&label->var4;
+        v14 = [PPSFileUtilities _debugStringForPurgeableLabel:v24];
+        v15 = __error();
+        v16 = strerror(*v15);
+        *v24 = 138413058;
+        *&v24[4] = v6;
+        *&v24[12] = 2112;
+        *&v24[14] = v14;
+        *&v24[22] = 1024;
+        *&v24[24] = v9;
+        *&v24[28] = 2080;
+        *&v24[30] = v16;
+        v17 = "Failed to mark file '%@' as purgeable with label: '%@' (error %d = '%s')";
 LABEL_16:
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, v16, v23, 0x26u);
+        _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, v17, v24, 0x26u);
       }
     }
 
-    v17 = 0;
+    v18 = 0;
 LABEL_13:
 
     goto LABEL_14;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_14:
 
-  return v17;
+  return v18;
 }
 
 + (BOOL)markAsPurgeable:(id)purgeable urgency:(unint64_t)urgency startDate:(id)date
 {
-  v11 = 0u;
-  v12 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v9 = 0u;
   purgeableCopy = purgeable;
-  [PPSFileUtilities _purgeableLabelWithUrgency:urgency startDate:date];
-  v9[0] = v10;
-  v9[1] = v11;
-  v9[2] = v12;
-  LOBYTE(date) = [PPSFileUtilities markAsPurgeable:purgeableCopy label:v9];
+  objc_msgSend__purgeableLabelWithUrgency_startDate_(PPSFileUtilities);
+  v8[0] = v9;
+  v8[1] = v10;
+  v8[2] = v11;
+  v6 = [PPSFileUtilities markAsPurgeable:purgeableCopy label:v8];
 
-  return date;
+  return v6;
 }
 
 + (BOOL)supportsEnhancedAPFS

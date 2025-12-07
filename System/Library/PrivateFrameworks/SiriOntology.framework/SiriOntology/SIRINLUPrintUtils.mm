@@ -7,17 +7,17 @@
 
 + (id)indentArray:(id)array numSpaces:(int64_t)spaces
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = array;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = @"[\n";
     do
     {
@@ -25,12 +25,12 @@
       v9 = v7;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [*(*(&v19 + 1) + 8 * v8) description];
+        v10 = [*(*(&v18 + 1) + 8 * v8) description];
         v11 = [SIRINLUPrintUtils indentLines:v10 numSpaces:2];
 
         v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@\n", v11];
@@ -41,7 +41,7 @@
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -54,8 +54,6 @@
 
   v13 = [(__CFString *)v7 stringByAppendingString:@"]"];
   v14 = [SIRINLUPrintUtils indentLines:v13 numSpaces:spaces];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

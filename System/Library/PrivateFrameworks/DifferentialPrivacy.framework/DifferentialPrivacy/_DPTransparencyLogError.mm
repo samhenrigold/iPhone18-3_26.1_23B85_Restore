@@ -7,17 +7,16 @@
 
 - (_DPTransparencyLogError)initWithCode:(int64_t)code description:(id)description
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277CCA450];
-  v14[0] = description;
+  v13[1] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277CCA450];
+  v13[0] = description;
   v6 = MEMORY[0x277CBEAC0];
   descriptionCopy = description;
-  v8 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v12.receiver = self;
-  v12.super_class = _DPTransparencyLogError;
-  v9 = [(_DPTransparencyLogError *)&v12 initWithDomain:@"com.apple.DifferentialPrivacy.DPTransparencyLogCreatorError" code:code userInfo:v8];
+  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11.receiver = self;
+  v11.super_class = _DPTransparencyLogError;
+  v9 = [(_DPTransparencyLogError *)&v11 initWithDomain:@"com.apple.DifferentialPrivacy.DPTransparencyLogCreatorError" code:code userInfo:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

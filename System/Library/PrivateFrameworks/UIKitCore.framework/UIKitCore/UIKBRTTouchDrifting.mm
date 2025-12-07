@@ -27,7 +27,7 @@ uint64_t __50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke(uin
   return [a3 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke_2(uint64_t a1, void *a2)
+void *__50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 touchTime];
@@ -50,7 +50,7 @@ uint64_t __50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke_3(u
   return [a3 enumerateObjectsUsingBlock:v4];
 }
 
-uint64_t __50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke_4(uint64_t a1, void *a2)
+void *__50___UIKBRTTouchDrifting__updateDriftWithTouchInfo___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 touchTime];
@@ -190,7 +190,7 @@ void __68___UIKBRTTouchDrifting__updateDriftForFingers_leftHand_newestTouch___bl
   [v6 enumerateObjectsUsingBlock:v10];
 }
 
-uint64_t __68___UIKBRTTouchDrifting__updateDriftForFingers_leftHand_newestTouch___block_invoke_4(uint64_t a1, void *a2)
+void *__68___UIKBRTTouchDrifting__updateDriftForFingers_leftHand_newestTouch___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 setIgnoreTouch:0];
   ++*(*(*(a1 + 32) + 8) + 24);

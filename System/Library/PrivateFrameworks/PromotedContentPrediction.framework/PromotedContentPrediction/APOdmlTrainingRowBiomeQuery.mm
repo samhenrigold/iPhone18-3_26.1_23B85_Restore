@@ -11,15 +11,15 @@
 - (APOdmlTrainingRowBiomeQuery)initWithRecipe:(id)recipe
 {
   recipeCopy = recipe;
-  v10.receiver = self;
-  v10.super_class = APOdmlTrainingRowBiomeQuery;
-  v5 = [(APOdmlTrainingRowBiomeQuery *)&v10 init];
+  v8.receiver = self;
+  v8.super_class = APOdmlTrainingRowBiomeQuery;
+  v5 = [(APOdmlTrainingRowBiomeQuery *)&v8 init];
   if (v5)
   {
     v6 = objc_alloc_init(APOdmlBiomeSQLQuery);
-    objc_msgSend_setRawQuery_(v5, v7, v6);
+    [(APOdmlTrainingRowBiomeQuery *)v5 setRawQuery:v6];
 
-    objc_msgSend_setRecipe_(v5, v8, recipeCopy);
+    [(APOdmlTrainingRowBiomeQuery *)v5 setRecipe:recipeCopy];
   }
 
   return v5;
@@ -27,179 +27,182 @@
 
 - (id)makeQuery
 {
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = sub_260EF0150;
-  v60 = sub_260EF0160;
-  v61 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, v2);
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = sub_260EF0150;
-  v54 = sub_260EF0160;
-  v55 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5);
-  v6 = BiomeLibrary();
-  v9 = objc_msgSend_AdPlatforms(v6, v7, v8);
-  v12 = objc_msgSend_ODML(v9, v10, v11);
-  v15 = objc_msgSend_TrainingRows(v12, v13, v14);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = sub_260EF0150;
+  v35 = sub_260EF0160;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = sub_260EF0150;
+  v29 = sub_260EF0160;
+  array = [MEMORY[0x277CBEB18] array];
+  v3 = BiomeLibrary();
+  adPlatforms = [v3 AdPlatforms];
+  oDML = [adPlatforms ODML];
+  trainingRows = [oDML TrainingRows];
 
-  v18 = objc_msgSend_publisher(v15, v16, v17);
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = sub_260EF0240;
-  v49[3] = &unk_279AC68F8;
-  v49[4] = self;
-  v49[5] = &v56;
-  v20 = objc_msgSend_sinkWithCompletion_receiveInput_(v18, v19, &unk_287367720, v49);
+  publisher = [trainingRows publisher];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_260EF0240;
+  v24[3] = &unk_279AC68F8;
+  v24[4] = self;
+  v24[5] = &v31;
+  v8 = [publisher sinkWithCompletion:&unk_287367720 receiveInput:v24];
 
-  v21 = MEMORY[0x277CBEB98];
-  v24 = objc_msgSend_recipe(self, v22, v23);
-  v27 = objc_msgSend_coreMLRecipe(v24, v25, v26);
-  v30 = objc_msgSend_inputNames(v27, v28, v29);
-  v32 = objc_msgSend_setWithArray_(v21, v31, v30);
+  v9 = MEMORY[0x277CBEB98];
+  recipe = [(APOdmlTrainingRowBiomeQuery *)self recipe];
+  coreMLRecipe = [recipe coreMLRecipe];
+  inputNames = [coreMLRecipe inputNames];
+  v13 = [v9 setWithArray:inputNames];
 
-  v33 = v57[5];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = sub_260EF02C8;
-  v46[3] = &unk_279AC6920;
-  v46[4] = self;
-  v34 = v32;
-  v47 = v34;
-  v48 = &v50;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v33, v35, v46);
-  v36 = objc_opt_class();
-  v37 = v51[5];
-  v40 = objc_msgSend_recipe(self, v38, v39);
-  objc_msgSend_validateRows_recipe_(v36, v41, v37, v40);
+  v14 = v32[5];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = sub_260EF02C8;
+  v21[3] = &unk_279AC6920;
+  v21[4] = self;
+  v15 = v13;
+  v22 = v15;
+  v23 = &v25;
+  [v14 enumerateKeysAndObjectsUsingBlock:v21];
+  v16 = objc_opt_class();
+  v17 = v26[5];
+  recipe2 = [(APOdmlTrainingRowBiomeQuery *)self recipe];
+  [v16 validateRows:v17 recipe:recipe2];
 
-  v44 = objc_msgSend_copy(v51[5], v42, v43);
-  _Block_object_dispose(&v50, 8);
+  v19 = [v26[5] copy];
+  _Block_object_dispose(&v25, 8);
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v31, 8);
 
-  return v44;
+  return v19;
 }
 
 + (void)combineRecords:(id)records andSaveTo:(id)to
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   toCopy = to;
-  v9 = objc_msgSend_adamID(recordsCopy, v7, v8);
+  adamID = [recordsCopy adamID];
 
-  if (!v9)
+  if (!adamID)
   {
-    v24 = OdmlLogForCategory(0xCuLL);
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    dictionaryRepresentation = OdmlLogForCategory(0xCuLL);
+    if (!os_log_type_enabled(dictionaryRepresentation, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
 
-    v82 = 138412290;
-    v83 = objc_opt_class();
-    v67 = v83;
-    _os_log_impl(&dword_260ECB000, v24, OS_LOG_TYPE_ERROR, "[%@] Invalid training row. No Adam ID provided.", &v82, 0xCu);
+    v33 = 138412290;
+    v34 = objc_opt_class();
+    recordID2 = v34;
+    _os_log_impl(&dword_260ECB000, dictionaryRepresentation, OS_LOG_TYPE_ERROR, "[%@] Invalid training row. No Adam ID provided.", &v33, 0xCu);
 LABEL_20:
 
     goto LABEL_21;
   }
 
-  v12 = objc_msgSend_allKeys(toCopy, v10, v11);
-  v15 = objc_msgSend_recordID(recordsCopy, v13, v14);
-  v17 = objc_msgSend_containsObject_(v12, v16, v15);
+  allKeys = [toCopy allKeys];
+  recordID = [recordsCopy recordID];
+  v10 = [allKeys containsObject:recordID];
 
-  if (!v17)
+  if (!v10)
   {
-    v24 = objc_msgSend_dictionaryRepresentation(recordsCopy, v18, v19);
-    v67 = objc_msgSend_recordID(recordsCopy, v74, v75);
-    objc_msgSend_setObject_forKeyedSubscript_(toCopy, v76, v24, v67);
+    dictionaryRepresentation = [recordsCopy dictionaryRepresentation];
+    recordID2 = [recordsCopy recordID];
+    [toCopy setObject:dictionaryRepresentation forKeyedSubscript:recordID2];
     goto LABEL_20;
   }
 
-  v20 = objc_msgSend_recordID(recordsCopy, v18, v19);
-  v22 = objc_msgSend_objectForKeyedSubscript_(toCopy, v21, v20);
-  v24 = objc_msgSend_objectForKeyedSubscript_(v22, v23, @"AdRecords");
+  recordID3 = [recordsCopy recordID];
+  v12 = [toCopy objectForKeyedSubscript:recordID3];
+  dictionaryRepresentation = [v12 objectForKeyedSubscript:@"AdRecords"];
 
-  v27 = objc_msgSend_allKeys(v24, v25, v26);
-  v30 = objc_msgSend_adamID(recordsCopy, v28, v29);
-  v32 = objc_msgSend_containsObject_(v27, v31, v30);
+  allKeys2 = [dictionaryRepresentation allKeys];
+  adamID2 = [recordsCopy adamID];
+  v16 = [allKeys2 containsObject:adamID2];
 
-  if (!v32)
+  if (!v16)
   {
-    v67 = objc_msgSend_dictionaryRepresentation(recordsCopy, v33, v34);
-    v70 = objc_msgSend_objectForKeyedSubscript_(v67, v77, @"AdRecords");
-    v72 = objc_msgSend_adamID(recordsCopy, v78, v79);
-    objc_msgSend_setObject_forKeyedSubscript_(v24, v80, v70, v72);
+    recordID2 = [recordsCopy dictionaryRepresentation];
+    adamID8 = [recordID2 objectForKeyedSubscript:@"AdRecords"];
+    adamID3 = [recordsCopy adamID];
+    v29 = dictionaryRepresentation;
+    v32 = adamID8;
+    v31 = adamID3;
     goto LABEL_19;
   }
 
-  if (objc_msgSend_impressed(recordsCopy, v33, v34))
+  if ([recordsCopy impressed])
   {
-    v37 = objc_msgSend_adamID(recordsCopy, v35, v36);
-    v39 = objc_msgSend_objectForKeyedSubscript_(v24, v38, v37);
-    objc_msgSend_setObject_forKeyedSubscript_(v39, v40, MEMORY[0x277CBEC38], @"Impressed");
+    adamID4 = [recordsCopy adamID];
+    v18 = [dictionaryRepresentation objectForKeyedSubscript:adamID4];
+    [v18 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"Impressed"];
   }
 
-  if (objc_msgSend_tapped(recordsCopy, v35, v36))
+  if ([recordsCopy tapped])
   {
-    v43 = objc_msgSend_adamID(recordsCopy, v41, v42);
-    v45 = objc_msgSend_objectForKeyedSubscript_(v24, v44, v43);
-    objc_msgSend_setObject_forKeyedSubscript_(v45, v46, MEMORY[0x277CBEC38], @"Tapped");
+    adamID5 = [recordsCopy adamID];
+    v20 = [dictionaryRepresentation objectForKeyedSubscript:adamID5];
+    [v20 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"Tapped"];
   }
 
-  if (objc_msgSend_dupe(recordsCopy, v41, v42))
+  if ([recordsCopy dupe])
   {
-    v49 = objc_msgSend_adamID(recordsCopy, v47, v48);
-    v51 = objc_msgSend_objectForKeyedSubscript_(v24, v50, v49);
-    objc_msgSend_setObject_forKeyedSubscript_(v51, v52, MEMORY[0x277CBEC38], @"Dupe");
+    adamID6 = [recordsCopy adamID];
+    v22 = [dictionaryRepresentation objectForKeyedSubscript:adamID6];
+    [v22 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"Dupe"];
   }
 
-  if (objc_msgSend_installed(recordsCopy, v47, v48))
+  if ([recordsCopy installed])
   {
-    v55 = objc_msgSend_adamID(recordsCopy, v53, v54);
-    v57 = objc_msgSend_objectForKeyedSubscript_(v24, v56, v55);
-    objc_msgSend_setObject_forKeyedSubscript_(v57, v58, MEMORY[0x277CBEC38], @"AppInstalled");
+    adamID7 = [recordsCopy adamID];
+    v24 = [dictionaryRepresentation objectForKeyedSubscript:adamID7];
+    [v24 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"AppInstalled"];
   }
 
-  if (objc_msgSend_hasErrorCode(recordsCopy, v53, v54))
+  if ([recordsCopy hasErrorCode])
   {
-    objc_msgSend_errorCode(recordsCopy, v59, v60);
-    if (v63 != 0)
+    [recordsCopy errorCode];
+    if (v25 != 0)
     {
-      v64 = MEMORY[0x277CCABB0];
-      objc_msgSend_errorCode(recordsCopy, v61, v62);
-      v67 = objc_msgSend_numberWithDouble_(v64, v65, v66);
-      v70 = objc_msgSend_adamID(recordsCopy, v68, v69);
-      v72 = objc_msgSend_objectForKeyedSubscript_(v24, v71, v70);
-      objc_msgSend_setObject_forKeyedSubscript_(v72, v73, v67, @"rerankingErrorCode");
+      v26 = MEMORY[0x277CCABB0];
+      [recordsCopy errorCode];
+      recordID2 = [v26 numberWithDouble:?];
+      adamID8 = [recordsCopy adamID];
+      v29 = [dictionaryRepresentation objectForKeyedSubscript:adamID8];
+      adamID3 = v29;
+      v31 = @"rerankingErrorCode";
+      v32 = recordID2;
 LABEL_19:
+      [(__CFString *)v29 setObject:v32 forKeyedSubscript:v31];
 
       goto LABEL_20;
     }
   }
 
 LABEL_21:
-
-  v81 = *MEMORY[0x277D85DE8];
 }
 
 + (void)trainingRowsFromBiomeEvent:(id)event recordID:(id)d requiredFeatures:(id)features andSaveTo:(id)to
 {
   dCopy = d;
   toCopy = to;
-  v12 = objc_msgSend_trainingRowsFromDESRecord_featuresRequired_(APOdmlTrainingSetBuilder, v11, event, features);
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = sub_260EF0830;
-  v16[3] = &unk_279AC6948;
-  v13 = dCopy;
-  v17 = v13;
-  objc_msgSend_enumerateObjectsUsingBlock_(v12, v14, v16);
-  if (v12)
+  v11 = [APOdmlTrainingSetBuilder trainingRowsFromDESRecord:event featuresRequired:features];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = sub_260EF0830;
+  v13[3] = &unk_279AC6948;
+  v12 = dCopy;
+  v14 = v12;
+  [v11 enumerateObjectsUsingBlock:v13];
+  if (v11)
   {
-    objc_msgSend_addObjectsFromArray_(toCopy, v15, v12);
+    [toCopy addObjectsFromArray:v11];
   }
 }
 
@@ -208,17 +211,17 @@ LABEL_21:
   recipeCopy = recipe;
   v6 = MEMORY[0x277CCAB58];
   rowsCopy = rows;
-  v10 = objc_msgSend_indexSet(v6, v8, v9);
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = sub_260EF09AC;
-  v18 = &unk_279AC6970;
-  v19 = recipeCopy;
-  v20 = v10;
-  v11 = v10;
-  v12 = recipeCopy;
-  objc_msgSend_enumerateObjectsUsingBlock_(rowsCopy, v13, &v15);
-  objc_msgSend_removeObjectsAtIndexes_(rowsCopy, v14, v11, v15, v16, v17, v18);
+  indexSet = [v6 indexSet];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = sub_260EF09AC;
+  v14 = &unk_279AC6970;
+  v15 = recipeCopy;
+  v16 = indexSet;
+  v9 = indexSet;
+  v10 = recipeCopy;
+  [rowsCopy enumerateObjectsUsingBlock:&v11];
+  [rowsCopy removeObjectsAtIndexes:{v9, v11, v12, v13, v14}];
 }
 
 @end

@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)eventTypeAsString:(int)string;
+- (id)lastEventTypeAsString:(int)string;
 - (int)StringAsEventType:(id)type;
 - (int)StringAsLastEventType:(id)type;
 - (int)eventType;
@@ -43,6 +45,21 @@
   {
     return 0;
   }
+}
+
+- (id)eventTypeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54608[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEventType:(id)type
@@ -112,6 +129,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)lastEventTypeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E54638[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLastEventType:(id)type
@@ -251,14 +283,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    isSleepAlarm = self->_isSleepAlarm;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    eventType = self->_eventType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -269,7 +299,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    lastEventType = self->_lastEventType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -345,7 +374,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 28);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 28) & 4) == 0)
@@ -353,7 +381,6 @@
       goto LABEL_21;
     }
 
-    v7 = *(equalCopy + 24);
     if (self->_isSleepAlarm)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -396,12 +423,12 @@
     }
 
 LABEL_21:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
 LABEL_16:
-  v9 = (*(equalCopy + 28) & 2) == 0;
+  v7 = (*(equalCopy + 28) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_lastEventType != *(equalCopy + 5))
@@ -409,12 +436,12 @@ LABEL_16:
       goto LABEL_21;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

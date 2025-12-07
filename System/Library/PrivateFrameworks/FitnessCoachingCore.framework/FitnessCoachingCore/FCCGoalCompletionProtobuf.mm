@@ -73,33 +73,31 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v7 = toCopy;
   if (*&self->_has)
   {
-    activitySummaryIndex = self->_activitySummaryIndex;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   if (self->_identifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v7;
   }
 
   p_completedGoalTypes = &self->_completedGoalTypes;
   if (p_completedGoalTypes->count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = p_completedGoalTypes->list[v7];
       PBDataWriterWriteInt32Field();
-      toCopy = v9;
-      ++v7;
+      toCopy = v7;
+      ++v6;
     }
 
-    while (v7 < p_completedGoalTypes->count);
+    while (v6 < p_completedGoalTypes->count);
   }
 }
 
@@ -159,7 +157,6 @@
     goto LABEL_10;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_activitySummaryIndex != *(equalCopy + 4))

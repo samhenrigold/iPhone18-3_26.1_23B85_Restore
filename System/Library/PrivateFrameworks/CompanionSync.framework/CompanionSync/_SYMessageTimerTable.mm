@@ -292,38 +292,36 @@
 
 - (void)cancelAllTimers
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   allValues = [(NSMutableDictionary *)self->_bySeqno allValues];
-  v3 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        dispatch_source_cancel(*(*(&v8 + 1) + 8 * v6++));
+        dispatch_source_cancel(*(*(&v7 + 1) + 8 * v6++));
       }
 
       while (v4 != v6);
-      v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)timerCount

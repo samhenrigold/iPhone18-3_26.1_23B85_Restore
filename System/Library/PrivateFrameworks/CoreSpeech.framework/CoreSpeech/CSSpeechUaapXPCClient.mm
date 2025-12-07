@@ -21,16 +21,16 @@
 
 - (void)invalidate
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   connection = self->_connection;
   if (connection)
   {
     v4 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[CSSpeechUaapXPCClient invalidate]";
-      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Invalidating CSSpeechUaapXPCClient", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[CSSpeechUaapXPCClient invalidate]";
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s Invalidating CSSpeechUaapXPCClient", &v6, 0xCu);
       connection = self->_connection;
     }
 
@@ -38,8 +38,6 @@
     v5 = self->_connection;
     self->_connection = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDatapackUpdate
@@ -49,42 +47,40 @@
   values = xpc_uint64_create(4uLL);
   v3 = xpc_dictionary_create(keys, &values, 1uLL);
   xpc_connection_send_message(self->_connection, v3);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerMultilingualUaapApp:(id)app withAssetFiles:(id)files completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   appCopy = app;
   filesCopy = files;
   completionCopy = completion;
   empty = xpc_dictionary_create_empty();
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke;
-  v24[3] = &unk_2784C4A28;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke;
+  v23[3] = &unk_2784C4A28;
   v12 = empty;
-  v25 = v12;
-  [filesCopy enumerateKeysAndObjectsUsingBlock:v24];
+  v24 = v12;
+  [filesCopy enumerateKeysAndObjectsUsingBlock:v23];
   *keys = xmmword_2784C4A48;
   v13 = appCopy;
   values[0] = xpc_string_create([appCopy UTF8String]);
   v14 = v12;
   values[1] = v14;
-  *v27 = xmmword_2784C4A58;
-  v26[0] = xpc_uint64_create(3uLL);
-  v26[1] = xpc_dictionary_create(keys, values, 2uLL);
-  v15 = xpc_dictionary_create(v27, v26, 2uLL);
+  *v26 = xmmword_2784C4A58;
+  v25[0] = xpc_uint64_create(3uLL);
+  v25[1] = xpc_dictionary_create(keys, values, 2uLL);
+  v15 = xpc_dictionary_create(v26, v25, 2uLL);
   connection = self->_connection;
   queue = self->_queue;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke_3;
-  v22[3] = &unk_2784C6A48;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke_3;
+  v21[3] = &unk_2784C6A48;
   v18 = completionCopy;
-  v23 = v18;
-  xpc_connection_send_message_with_reply(connection, v15, queue, v22);
+  v22 = v18;
+  xpc_connection_send_message_with_reply(connection, v15, queue, v21);
 
   for (i = 1; i != -1; --i)
   {
@@ -93,8 +89,6 @@
   for (j = 1; j != -1; --j)
   {
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -118,7 +112,7 @@ void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_comp
 
 void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, "errorDomain");
   if (string)
@@ -127,10 +121,10 @@ void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_comp
     v6 = xpc_dictionary_get_string(v3, "errorMessage");
     v7 = MEMORY[0x277CCA9B8];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
-    v13 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     string = [v7 errorWithDomain:v8 code:int64 userInfo:v10];
   }
 
@@ -139,8 +133,6 @@ void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_comp
   {
     (*(v11 + 16))(v11, string);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_completion___block_invoke_2(uint64_t a1, id a2)
@@ -153,40 +145,40 @@ void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_comp
 
 - (void)registerUaapApp:(id)app forLocale:(id)locale withAssetFiles:(id)files completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   appCopy = app;
   localeCopy = locale;
   filesCopy = files;
   completionCopy = completion;
   empty = xpc_array_create_empty();
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke;
-  v28[3] = &unk_2784C49E8;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke;
+  v27[3] = &unk_2784C49E8;
   v15 = empty;
-  v29 = v15;
-  [filesCopy enumerateObjectsUsingBlock:v28];
+  v28 = v15;
+  [filesCopy enumerateObjectsUsingBlock:v27];
   *keys = xmmword_2784C4A08;
-  v34 = "locale";
+  v33 = "locale";
   v16 = appCopy;
   values[0] = xpc_string_create([appCopy UTF8String]);
   v17 = v15;
   values[1] = v17;
   v18 = localeCopy;
   values[2] = xpc_string_create([localeCopy UTF8String]);
-  *v31 = xmmword_2784C4A58;
-  v30[0] = xpc_uint64_create(2uLL);
-  v30[1] = xpc_dictionary_create(keys, values, 3uLL);
-  v19 = xpc_dictionary_create(v31, v30, 2uLL);
+  *v30 = xmmword_2784C4A58;
+  v29[0] = xpc_uint64_create(2uLL);
+  v29[1] = xpc_dictionary_create(keys, values, 3uLL);
+  v19 = xpc_dictionary_create(v30, v29, 2uLL);
   connection = self->_connection;
   queue = self->_queue;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke_2;
-  v26[3] = &unk_2784C6A48;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke_2;
+  v25[3] = &unk_2784C6A48;
   v22 = completionCopy;
-  v27 = v22;
-  xpc_connection_send_message_with_reply(connection, v19, queue, v26);
+  v26 = v22;
+  xpc_connection_send_message_with_reply(connection, v19, queue, v25);
 
   for (i = 1; i != -1; --i)
   {
@@ -195,8 +187,6 @@ void __79__CSSpeechUaapXPCClient_registerMultilingualUaapApp_withAssetFiles_comp
   for (j = 2; j != -1; --j)
   {
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke(uint64_t a1, id a2)
@@ -209,7 +199,7 @@ void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_comple
 
 void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, "errorDomain");
   if (string)
@@ -218,10 +208,10 @@ void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_comple
     v6 = xpc_dictionary_get_string(v3, "errorMessage");
     v7 = MEMORY[0x277CCA9B8];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
-    v13 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     string = [v7 errorWithDomain:v8 code:int64 userInfo:v10];
   }
 
@@ -230,42 +220,40 @@ void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_comple
   {
     (*(v11 + 16))(v11, string);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerUaapApp:(id)app withAssetFiles:(id)files completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   appCopy = app;
   filesCopy = files;
   completionCopy = completion;
   empty = xpc_array_create_empty();
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke;
-  v24[3] = &unk_2784C49E8;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke;
+  v23[3] = &unk_2784C49E8;
   v12 = empty;
-  v25 = v12;
-  [filesCopy enumerateObjectsUsingBlock:v24];
+  v24 = v12;
+  [filesCopy enumerateObjectsUsingBlock:v23];
   *keys = xmmword_2784C4A48;
   v13 = appCopy;
   values[0] = xpc_string_create([appCopy UTF8String]);
   v14 = v12;
   values[1] = v14;
-  *v27 = xmmword_2784C4A58;
-  v26[0] = xpc_uint64_create(1uLL);
-  v26[1] = xpc_dictionary_create(keys, values, 2uLL);
-  v15 = xpc_dictionary_create(v27, v26, 2uLL);
+  *v26 = xmmword_2784C4A58;
+  v25[0] = xpc_uint64_create(1uLL);
+  v25[1] = xpc_dictionary_create(keys, values, 2uLL);
+  v15 = xpc_dictionary_create(v26, v25, 2uLL);
   connection = self->_connection;
   queue = self->_queue;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke_2;
-  v22[3] = &unk_2784C6A48;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke_2;
+  v21[3] = &unk_2784C6A48;
   v18 = completionCopy;
-  v23 = v18;
-  xpc_connection_send_message_with_reply(connection, v15, queue, v22);
+  v22 = v18;
+  xpc_connection_send_message_with_reply(connection, v15, queue, v21);
 
   for (i = 1; i != -1; --i)
   {
@@ -274,8 +262,6 @@ void __77__CSSpeechUaapXPCClient_registerUaapApp_forLocale_withAssetFiles_comple
   for (j = 1; j != -1; --j)
   {
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke(uint64_t a1, id a2)
@@ -288,7 +274,7 @@ void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___blo
 
 void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   string = xpc_dictionary_get_string(v3, "errorDomain");
   if (string)
@@ -297,10 +283,10 @@ void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___blo
     v6 = xpc_dictionary_get_string(v3, "errorMessage");
     v7 = MEMORY[0x277CCA9B8];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
-    v13 = *MEMORY[0x277CCA450];
+    v12 = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
-    v14[0] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     string = [v7 errorWithDomain:v8 code:int64 userInfo:v10];
   }
 
@@ -309,13 +295,11 @@ void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___blo
   {
     (*(v11 + 16))(v11, string);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConnectionError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -326,25 +310,23 @@ void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___blo
     {
       if (v6)
       {
-        v11 = 136315138;
-        v12 = "[CSSpeechUaapXPCClient _handleConnectionError:]";
-        _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s CSSpeechUaapXPCClient listener disconnected", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[CSSpeechUaapXPCClient _handleConnectionError:]";
+        _os_log_error_impl(&dword_222E4D000, v5, OS_LOG_TYPE_ERROR, "%s CSSpeechUaapXPCClient listener disconnected", &v10, 0xCu);
       }
     }
 
     else if (v6)
     {
-      v9 = *MEMORY[0x277D86400];
-      v10 = v5;
-      v11 = 136315394;
-      v12 = "[CSSpeechUaapXPCClient _handleConnectionError:]";
-      v13 = 2080;
-      string = xpc_dictionary_get_string(errorCopy, v9);
-      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s CSSpeechUaapXPCConnection error: %s", &v11, 0x16u);
+      v8 = *MEMORY[0x277D86400];
+      v9 = v5;
+      v10 = 136315394;
+      v11 = "[CSSpeechUaapXPCClient _handleConnectionError:]";
+      v12 = 2080;
+      string = xpc_dictionary_get_string(errorCopy, v8);
+      _os_log_error_impl(&dword_222E4D000, v9, OS_LOG_TYPE_ERROR, "%s CSSpeechUaapXPCConnection error: %s", &v10, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (CSSpeechUaapXPCClient)init
@@ -382,7 +364,7 @@ void __67__CSSpeechUaapXPCClient_registerUaapApp_withAssetFiles_completion___blo
 
 void __29__CSSpeechUaapXPCClient_init__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -398,11 +380,11 @@ void __29__CSSpeechUaapXPCClient_init__block_invoke(uint64_t a1, void *a2)
     v5 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[CSSpeechUaapXPCClient init]_block_invoke";
+      v8 = 136315138;
+      v9 = "[CSSpeechUaapXPCClient init]_block_invoke";
       v6 = "%s CSSpeechUaapXPCClient got an event it can't handle";
 LABEL_7:
-      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_222E4D000, v5, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
     }
   }
 
@@ -411,16 +393,14 @@ LABEL_7:
     v5 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[CSSpeechUaapXPCClient init]_block_invoke";
+      v8 = 136315138;
+      v9 = "[CSSpeechUaapXPCClient init]_block_invoke";
       v6 = "%s CSSpeechUaapXPCClient received an empty connection event";
       goto LABEL_7;
     }
   }
 
 LABEL_9:
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

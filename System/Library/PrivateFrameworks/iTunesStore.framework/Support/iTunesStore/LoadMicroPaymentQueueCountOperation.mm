@@ -30,15 +30,21 @@
     shouldLog = [v14 shouldLog];
     if ([v14 shouldLogToDisk])
     {
-      v16 = shouldLog | 2;
+      LODWORD(v16) = shouldLog | 2;
     }
 
     else
     {
-      v16 = shouldLog;
+      LODWORD(v16) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v14 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v16;
+    }
+
+    else
     {
       v16 &= 2u;
     }
@@ -49,15 +55,13 @@
       v24 = objc_opt_class();
       v25 = 2112;
       clientIdentity = [(MicroPaymentQueueRequest *)request clientIdentity];
-      LODWORD(v21) = 22;
-      v20 = &v23;
-      v17 = _os_log_send_and_compose_impl();
-      if (v17)
+      v18 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Throttling queue check for client: %@", &v23, 22);
+      if (v18)
       {
-        v18 = v17;
-        v19 = [NSString stringWithCString:v17 encoding:4, &v23, v21];
-        free(v18);
-        v20 = v19;
+        v19 = v18;
+        v20 = [NSString stringWithCString:v18 encoding:4];
+        free(v19);
+        v21 = v20;
         SSFileLog();
       }
     }
@@ -73,7 +77,7 @@
     v13 = v22;
   }
 
-  [(LoadMicroPaymentQueueCountOperation *)self setError:v13, v20];
+  [(LoadMicroPaymentQueueCountOperation *)self setError:v13, v21];
   [(LoadMicroPaymentQueueCountOperation *)self setSuccess:v12];
 }
 
@@ -85,13 +89,13 @@
   [v6 setDelegate:self];
   if (!v6)
   {
-    v17 = 0;
+    v18 = 0;
     if (!error)
     {
-      return v17;
+      return v18;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v7 = objc_alloc_init(DaemonProtocolDataProvider);
@@ -109,60 +113,64 @@
   shouldLog = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog | 2;
+    LODWORD(v11) = shouldLog | 2;
   }
 
   else
   {
-    v11 = shouldLog;
+    LODWORD(v11) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v9 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (v11)
   {
-    v12 = objc_opt_class();
+    v13 = objc_opt_class();
     uRLBagKey = [(LoadMicroPaymentQueueCountOperation *)self URLBagKey];
     v22 = 138412802;
-    v23 = v12;
+    v23 = v13;
     v24 = 2112;
     v25 = uRLBagKey;
     v26 = 2112;
     v27 = request;
-    LODWORD(v20) = 32;
-    v19 = &v22;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v15 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running %@ request: %@", &v22, 32);
+    if (v15)
     {
-      v15 = v14;
-      v16 = [NSString stringWithCString:v14 encoding:4, &v22, v20];
-      free(v15);
-      v19 = v16;
+      v16 = v15;
+      v17 = [NSString stringWithCString:v15 encoding:4];
+      free(v16);
+      v20 = v17;
       SSFileLog();
     }
   }
 
-  if ([(LoadMicroPaymentQueueCountOperation *)self runSubOperation:v6 returningError:&v21, v19])
+  if ([(LoadMicroPaymentQueueCountOperation *)self runSubOperation:v6 returningError:&v21, v20])
   {
-    v17 = [(LoadMicroPaymentQueueCountOperation *)self _setCountWithResponse:[(DaemonProtocolDataProvider *)v7 output] error:&v21];
+    v18 = [(LoadMicroPaymentQueueCountOperation *)self _setCountWithResponse:[(DaemonProtocolDataProvider *)v7 output] error:&v21];
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
   [v6 setDelegate:0];
   if (error)
   {
-LABEL_18:
+LABEL_19:
     *error = v21;
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)_setCountWithResponse:(id)response error:(id *)error
@@ -171,13 +179,13 @@ LABEL_18:
   isKindOfClass = objc_opt_isKindOfClass();
   if ((isKindOfClass & 1) == 0)
   {
-    v12 = ISError();
+    v13 = ISError();
     if (!error)
     {
       return isKindOfClass & 1;
     }
 
-    goto LABEL_15;
+    goto LABEL_16;
   }
 
   v8 = [response objectForKey:@"download-queue-item-count"];
@@ -191,12 +199,9 @@ LABEL_18:
     }
 
     shouldLog = [v9 shouldLog];
-    v11 = [v9 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
-    {
-      v11 &= 2u;
-    }
-
+    LODWORD(v11) = [v9 shouldLogToDisk] ? shouldLog | 2 : shouldLog;
+    oSLogObject = [v9 OSLogObject];
+    v11 = os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO) ? v11 : v11 & 2u;
     if (v11)
     {
       v16 = 138412802;
@@ -205,26 +210,25 @@ LABEL_18:
       v19 = v8;
       v20 = 2112;
       uRLBagKey = [(LoadMicroPaymentQueueCountOperation *)self URLBagKey];
-      LODWORD(v15) = 32;
-      v12 = _os_log_send_and_compose_impl();
-      if (!v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Server claims %@ items for %@", &v16, 32);
+      if (!v13)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v13 = v12;
-      [NSString stringWithCString:v12 encoding:4, &v16, v15];
-      free(v13);
+      v14 = v13;
+      [NSString stringWithCString:v13 encoding:4];
+      free(v14);
       SSFileLog();
     }
   }
 
-  v12 = 0;
-LABEL_14:
+  v13 = 0;
+LABEL_15:
   if (error)
   {
-LABEL_15:
-    *error = v12;
+LABEL_16:
+    *error = v13;
   }
 
   return isKindOfClass & 1;

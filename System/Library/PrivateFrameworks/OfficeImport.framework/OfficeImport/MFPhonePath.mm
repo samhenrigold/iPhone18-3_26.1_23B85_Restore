@@ -130,7 +130,7 @@
     v7 = getCurrentTransform;
     if (getCurrentTransform)
     {
-      [getCurrentTransform getTransformMatrix];
+      objc_msgSend_getTransformMatrix(getCurrentTransform);
     }
 
     else
@@ -168,7 +168,7 @@
     v7 = getCurrentTransform;
     if (getCurrentTransform)
     {
-      [getCurrentTransform getTransformMatrix];
+      objc_msgSend_getTransformMatrix(getCurrentTransform);
     }
 
     else
@@ -208,7 +208,7 @@
     v9 = getCurrentTransform;
     if (getCurrentTransform)
     {
-      [getCurrentTransform getTransformMatrix];
+      objc_msgSend_getTransformMatrix(getCurrentTransform);
     }
 
     else

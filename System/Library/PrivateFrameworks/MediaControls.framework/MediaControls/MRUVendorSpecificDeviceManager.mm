@@ -205,15 +205,15 @@ void __73__MRUVendorSpecificDeviceManager_initWithAppBundleID_serviceIdentifiers
     v8 = self->_deviceMap;
     identifier2 = [deviceCopy identifier];
     v10 = [(NSMutableDictionary *)v8 objectForKeyedSubscript:identifier2];
-    state = [v10 state];
+    v11 = objc_msgSend_state(v10);
   }
 
   else
   {
-    state = 0;
+    v11 = 0;
   }
 
-  return state;
+  return v11;
 }
 
 - (BOOL)isGroupingAvailableForDevice:(id)device
@@ -249,9 +249,9 @@ void __73__MRUVendorSpecificDeviceManager_initWithAppBundleID_serviceIdentifiers
             }
 
             v14 = [(NSMutableDictionary *)self->_deviceMap objectForKeyedSubscript:*(*(&v18 + 1) + 8 * i), v18];
-            state = [v14 state];
+            v15 = objc_msgSend_state(v14);
 
-            if (state == 20)
+            if (v15 == 20)
             {
               v16 = 1;
               v8 = v9;
@@ -465,12 +465,12 @@ LABEL_22:
     [v24 removeObject:identifier9];
   }
 
-  state = [withCopy state];
-  if (state <= 19)
+  v31 = objc_msgSend_state(withCopy);
+  if (v31 <= 19)
   {
-    if (state)
+    if (v31)
     {
-      v32 = state == 10;
+      v32 = v31 == 10;
       v33 = withCopy;
       if (!v32)
       {
@@ -500,7 +500,7 @@ LABEL_22:
     goto LABEL_20;
   }
 
-  if (state == 20)
+  if (v31 == 20)
   {
     v50 = self->_activatingDeviceMap;
     identifier12 = [withCopy identifier];
@@ -520,7 +520,7 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v32 = state == 30;
+  v32 = v31 == 30;
   v33 = withCopy;
   if (v32)
   {
@@ -602,49 +602,50 @@ LABEL_11:
 
 - (void)resolverAddNativeRoutes:(id)routes
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   routesCopy = routes;
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v5 = [routesCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v20 = 0u;
+  v5 = [routesCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v17;
+    v8 = *v18;
     *&v6 = 138412546;
-    v15 = v6;
+    v16 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(routesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         routeUID = [v10 routeUID];
         if (routeUID)
         {
-          if ([(MRUVendorSpecificDeviceManager *)self resolverAddNativeRoute:v10 forRouteUID:routeUID])
+          v12 = [(MRUVendorSpecificDeviceManager *)self resolverAddNativeRoute:v10 forRouteUID:routeUID];
+          if (v12)
           {
             [(NSMutableSet *)self->_mutableResolverManagedAirPlayRouteIDs addObject:routeUID];
           }
 
           else
           {
-            v12 = MCLogCategoryDeviceAccess();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v13 = MCLogCategoryDeviceAccess(v12);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               routeName = [v10 routeName];
               dnsNames = [v10 dnsNames];
-              *buf = v15;
-              v21 = routeName;
-              v22 = 2112;
-              v23 = dnsNames;
-              _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "Resolver: not able to find a proper dnsName for route: %@, its DNS Names are: %@", buf, 0x16u);
+              *buf = v16;
+              v22 = routeName;
+              v23 = 2112;
+              v24 = dnsNames;
+              _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "Resolver: not able to find a proper dnsName for route: %@, its DNS Names are: %@", buf, 0x16u);
             }
 
             [(NSMutableSet *)self->_mutableResolverManagedAirPlayRouteIDs removeObject:routeUID];
@@ -652,7 +653,7 @@ LABEL_11:
         }
       }
 
-      v7 = [routesCopy countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v7 = [routesCopy countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v7);
@@ -702,121 +703,123 @@ LABEL_11:
 
 - (BOOL)resolverAddNativeRoute:(id)route forRouteUID:(id)d
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   routeCopy = route;
   dCopy = d;
   v8 = routeCopy;
   [v8 dnsNames];
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v9 = v57 = 0u;
-  v41 = [v9 countByEnumeratingWithState:&v54 objects:v62 count:16];
-  if (v41)
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v9 = v60 = 0u;
+  v44 = [v9 countByEnumeratingWithState:&v57 objects:v65 count:16];
+  if (v44)
   {
     selfCopy = self;
-    v42 = *v55;
+    v45 = *v58;
     v10 = 0x1E6999000uLL;
-    v38 = v8;
-    v40 = v9;
+    v41 = v8;
+    v43 = v9;
     while (2)
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v44; ++i)
       {
-        if (*v55 != v42)
+        if (*v58 != v45)
         {
           objc_enumerationMutation(v9);
         }
 
-        v12 = *(*(&v54 + 1) + 8 * i);
-        if ([v12 containsString:@"_airplay._tcp"])
+        v12 = *(*(&v57 + 1) + 8 * i);
+        v13 = [v12 containsString:@"_airplay._tcp"];
+        if (v13)
         {
-          v13 = MCLogCategoryDeviceAccess();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = MCLogCategoryDeviceAccess(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v61 = v12;
-            _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "dnsName: %@", buf, 0xCu);
+            v64 = v12;
+            _os_log_impl(&dword_1A20FC000, v14, OS_LOG_TYPE_DEFAULT, "dnsName: %@", buf, 0xCu);
           }
 
-          v14 = objc_alloc_init(*(v10 + 3688));
-          [v14 setAirplayDeviceID:dCopy];
-          v15 = [v12 componentsSeparatedByString:@"\x1E"];
-          v50 = 0u;
-          v51 = 0u;
-          v52 = 0u;
+          v15 = objc_alloc_init(*(v10 + 3688));
+          [v15 setAirplayDeviceID:dCopy];
+          v16 = [v12 componentsSeparatedByString:@"\x1E"];
           v53 = 0u;
-          obj = v15;
-          v16 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
-          if (v16)
+          v54 = 0u;
+          v55 = 0u;
+          v56 = 0u;
+          obj = v16;
+          v17 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+          if (v17)
           {
-            v17 = v16;
-            v44 = *v51;
-            v39 = dCopy;
+            v18 = v17;
+            v47 = *v54;
+            v42 = dCopy;
             do
             {
-              for (j = 0; j != v17; ++j)
+              for (j = 0; j != v18; ++j)
               {
-                if (*v51 != v44)
+                if (*v54 != v47)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v19 = *(*(&v50 + 1) + 8 * j);
-                if (([v19 containsString:@":"] & 1) != 0 || !objc_msgSend(v19, "containsString:", @".local."))
+                v20 = *(*(&v53 + 1) + 8 * j);
+                v21 = [v20 containsString:@":"];
+                if ((v21 & 1) != 0 || (v21 = [v20 containsString:@".local."], !v21))
                 {
-                  v21 = MCLogCategoryDeviceAccess();
-                  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+                  v23 = MCLogCategoryDeviceAccess(v21);
+                  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412290;
-                    v61 = v19;
-                    _os_log_impl(&dword_1A20FC000, v21, OS_LOG_TYPE_DEFAULT, "AirPlay DNSName Parsing: Skip wrong string: %@", buf, 0xCu);
+                    v64 = v20;
+                    _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEFAULT, "AirPlay DNSName Parsing: Skip wrong string: %@", buf, 0xCu);
                   }
                 }
 
                 else
                 {
-                  v20 = [v19 componentsSeparatedByString:@"%"];
-                  v46 = 0u;
-                  v47 = 0u;
-                  v48 = 0u;
+                  v22 = [v20 componentsSeparatedByString:@"%"];
                   v49 = 0u;
-                  v21 = v20;
-                  v22 = [v21 countByEnumeratingWithState:&v46 objects:v58 count:16];
-                  if (v22)
+                  v50 = 0u;
+                  v51 = 0u;
+                  v52 = 0u;
+                  v23 = v22;
+                  v24 = [v23 countByEnumeratingWithState:&v49 objects:v61 count:16];
+                  if (v24)
                   {
-                    v23 = v22;
-                    v24 = *v47;
+                    v25 = v24;
+                    v26 = *v50;
                     while (2)
                     {
-                      for (k = 0; k != v23; ++k)
+                      for (k = 0; k != v25; ++k)
                       {
-                        if (*v47 != v24)
+                        if (*v50 != v26)
                         {
-                          objc_enumerationMutation(v21);
+                          objc_enumerationMutation(v23);
                         }
 
-                        v26 = *(*(&v46 + 1) + 8 * k);
-                        if ([v26 containsString:@".local."])
+                        v28 = *(*(&v49 + 1) + 8 * k);
+                        if ([v28 containsString:@".local."])
                         {
-                          [v14 setBonjourFullName:v26];
-                          [v14 setProtocolTypeString:@"com.apple.airplay"];
-                          v8 = v38;
-                          routeName = [v38 routeName];
-                          [v14 setName:routeName];
+                          [v15 setBonjourFullName:v28];
+                          [v15 setProtocolTypeString:@"com.apple.airplay"];
+                          v8 = v41;
+                          routeName = [v41 routeName];
+                          [v15 setName:routeName];
 
-                          dCopy = v39;
-                          v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-AirPlay", v39];
-                          [v14 setIdentifier:v31];
+                          dCopy = v42;
+                          v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-AirPlay", v42];
+                          [v15 setIdentifier:v34];
 
-                          [(DADeviceResolver *)selfCopy->_resolver addEndpoint:v14];
-                          v9 = v40;
+                          [(DADeviceResolver *)selfCopy->_resolver addEndpoint:v15];
+                          v9 = v43;
                           goto LABEL_35;
                         }
                       }
 
-                      v23 = [v21 countByEnumeratingWithState:&v46 objects:v58 count:16];
-                      if (v23)
+                      v25 = [v23 countByEnumeratingWithState:&v49 objects:v61 count:16];
+                      if (v25)
                       {
                         continue;
                       }
@@ -829,57 +832,58 @@ LABEL_11:
                 }
               }
 
-              v17 = [obj countByEnumeratingWithState:&v50 objects:v59 count:16];
-              dCopy = v39;
+              v18 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
+              dCopy = v42;
             }
 
-            while (v17);
+            while (v18);
           }
 
-          v9 = v40;
+          v9 = v43;
         }
 
         else
         {
-          v27 = [v12 componentsSeparatedByString:@":"];
-          v14 = [v27 objectAtIndexedSubscript:0];
+          v29 = [v12 componentsSeparatedByString:@":"];
+          v15 = [v29 objectAtIndexedSubscript:0];
 
-          uTF8String = [v14 UTF8String];
-          v45 = 0;
-          if (inet_pton(2, uTF8String, &v45) >= 1)
+          uTF8String = [v15 UTF8String];
+          v48 = 0;
+          v31 = inet_pton(2, uTF8String, &v48);
+          if (v31 >= 1)
           {
-            v33 = MCLogCategoryDeviceAccess();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+            v36 = MCLogCategoryDeviceAccess(v31);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v61 = v14;
-              _os_log_impl(&dword_1A20FC000, v33, OS_LOG_TYPE_DEFAULT, "found IPv4 address: %@", buf, 0xCu);
+              v64 = v15;
+              _os_log_impl(&dword_1A20FC000, v36, OS_LOG_TYPE_DEFAULT, "found IPv4 address: %@", buf, 0xCu);
             }
 
-            v34 = objc_alloc_init(*(v10 + 3688));
-            [v34 setAirplayDeviceID:dCopy];
-            [v34 setProtocolTypeString:@"com.apple.airplay"];
-            v8 = v38;
-            routeName2 = [v38 routeName];
-            [v34 setName:routeName2];
+            v37 = objc_alloc_init(*(v10 + 3688));
+            [v37 setAirplayDeviceID:dCopy];
+            [v37 setProtocolTypeString:@"com.apple.airplay"];
+            v8 = v41;
+            routeName2 = [v41 routeName];
+            [v37 setName:routeName2];
 
             dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-AirPlay", dCopy];
-            [v34 setIdentifier:dCopy];
+            [v37 setIdentifier:dCopy];
 
-            [v34 setIpv4String:v14];
-            [(DADeviceResolver *)selfCopy->_resolver addEndpoint:v34];
+            [v37 setIpv4String:v15];
+            [(DADeviceResolver *)selfCopy->_resolver addEndpoint:v37];
 
 LABEL_35:
-            v29 = 1;
+            v32 = 1;
             goto LABEL_37;
           }
         }
       }
 
-      v29 = 0;
-      v8 = v38;
-      v41 = [v9 countByEnumeratingWithState:&v54 objects:v62 count:16];
-      if (v41)
+      v32 = 0;
+      v8 = v41;
+      v44 = [v9 countByEnumeratingWithState:&v57 objects:v65 count:16];
+      if (v44)
       {
         continue;
       }
@@ -890,12 +894,12 @@ LABEL_35:
 
   else
   {
-    v29 = 0;
+    v32 = 0;
   }
 
 LABEL_37:
 
-  return v29;
+  return v32;
 }
 
 - (void)resolverRemoveNativeRouteforRouteUID:(id)d
@@ -911,9 +915,9 @@ LABEL_37:
 
 - (void)connectToDevice:(id)device
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v22 = deviceCopy;
+  v23 = deviceCopy;
   if ([deviceCopy supportsGrouping])
   {
     groupableDeviceIDs = self->_groupableDeviceIDs;
@@ -927,43 +931,43 @@ LABEL_37:
     v8 = 0;
   }
 
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
   devices = [(MRUVendorSpecificDeviceManager *)self devices];
-  v10 = [devices countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v10 = [devices countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v28;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v28 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(devices);
         }
 
-        v14 = *(*(&v27 + 1) + 8 * i);
-        if ([v14 state] == 10 || objc_msgSend(v14, "state") == 20)
+        v14 = *(*(&v28 + 1) + 8 * i);
+        if (objc_msgSend_state(v14) == 10 || objc_msgSend_state(v14) == 20)
         {
           identifier2 = [v14 identifier];
           v16 = [v8 containsObject:identifier2];
 
           if ((v16 & 1) == 0)
           {
-            v17 = MCLogCategoryDeviceAccess();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            v18 = MCLogCategoryDeviceAccess(v17);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              [v14 state];
-              v18 = DADeviceStateToString();
+              objc_msgSend_state(v14);
+              v19 = DADeviceStateToString();
               *buf = 138412546;
-              v32 = v18;
-              v33 = 2112;
-              v34 = v14;
-              _os_log_impl(&dword_1A20FC000, v17, OS_LOG_TYPE_DEFAULT, "Automatically unselecting %@ vendor specific device: %@", buf, 0x16u);
+              v33 = v19;
+              v34 = 2112;
+              v35 = v14;
+              _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "Automatically unselecting %@ vendor specific device: %@", buf, 0x16u);
             }
 
             [(DADiscovery *)self->_discovery setState:30 device:v14 completionHandler:&__block_literal_global_39];
@@ -971,30 +975,30 @@ LABEL_37:
         }
       }
 
-      v11 = [devices countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v11 = [devices countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v11);
   }
 
   discovery = self->_discovery;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_40;
-  v23[3] = &unk_1E76641F8;
-  v24 = v22;
-  v25 = v8;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_40;
+  v24[3] = &unk_1E76641F8;
+  v25 = v23;
+  v26 = v8;
   selfCopy = self;
-  v20 = v8;
-  v21 = v22;
-  [(DADiscovery *)discovery getAuthorizedDevices:v23];
+  v21 = v8;
+  v22 = v23;
+  [(DADiscovery *)discovery getAuthorizedDevices:v24];
 }
 
 void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke(uint64_t a1, void *a2)
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1005,55 +1009,56 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke(uint64_
 
 void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_40(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDeviceAccess();
+  v4 = MCLogCategoryDeviceAccess(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v29 = [v3 count];
-    v30 = 2112;
-    v31 = v3;
+    v32 = [v3 count];
+    v33 = 2112;
+    v34 = v3;
     _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%lu authorized devices to unselect first, %@", buf, 0x16u);
   }
 
-  v25 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v27 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v24;
+    v9 = *v27;
     *&v7 = 138412290;
-    v22 = v7;
+    v25 = v7;
     do
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
-        if ([v11 state] == 25 && (objc_msgSend(v11, "identifier"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "identifier"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, (v14 & 1) == 0))
+        v11 = *(*(&v26 + 1) + 8 * v10);
+        v12 = objc_msgSend_state(v11, v25, v26);
+        if (v12 == 25 && ([v11 identifier], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "identifier"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, v13, (v15 & 1) == 0))
         {
-          v16 = *(a1 + 40);
-          v17 = [v11 identifier];
-          LOBYTE(v16) = [v16 containsObject:v17];
+          v17 = *(a1 + 40);
+          v18 = [v11 identifier];
+          LOBYTE(v17) = [v17 containsObject:v18];
 
-          if ((v16 & 1) == 0)
+          if ((v17 & 1) == 0)
           {
-            v18 = MCLogCategoryDeviceAccess();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+            v20 = MCLogCategoryDeviceAccess(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v22;
-              v29 = v11;
-              _os_log_impl(&dword_1A20FC000, v18, OS_LOG_TYPE_DEFAULT, "Automatically unselecting authorized vendor specific device: %@", buf, 0xCu);
+              *buf = v25;
+              v32 = v11;
+              _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "Automatically unselecting authorized vendor specific device: %@", buf, 0xCu);
             }
 
             [*(*(a1 + 48) + 32) setState:30 device:v11 completionHandler:&__block_literal_global_43];
@@ -1062,12 +1067,12 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_40(uint
 
         else
         {
-          v15 = MCLogCategoryDeviceAccess();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v16 = MCLogCategoryDeviceAccess(v12);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v22;
-            v29 = v11;
-            _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "Did not unselect authorized device: %@", buf, 0xCu);
+            *buf = v25;
+            v32 = v11;
+            _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "Did not unselect authorized device: %@", buf, 0xCu);
           }
         }
 
@@ -1075,20 +1080,20 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_40(uint
       }
 
       while (v8 != v10);
-      v19 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
-      v8 = v19;
+      v21 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = v21;
     }
 
-    while (v19);
+    while (v21);
   }
 
-  v20 = MCLogCategoryDeviceAccess();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v23 = MCLogCategoryDeviceAccess(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = *(a1 + 32);
+    v24 = *(a1 + 32);
     *buf = 138412290;
-    v29 = v21;
-    _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "Connecting to picked device: %@", buf, 0xCu);
+    v32 = v24;
+    _os_log_impl(&dword_1A20FC000, v23, OS_LOG_TYPE_DEFAULT, "Connecting to picked device: %@", buf, 0xCu);
   }
 
   [*(*(a1 + 48) + 32) setState:10 device:*(a1 + 32) completionHandler:&__block_literal_global_46];
@@ -1098,7 +1103,7 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_41(uint
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1111,7 +1116,7 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_44(uint
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1123,7 +1128,7 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_44(uint
 - (void)disconnectAllDevices
 {
   v18 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1157,7 +1162,7 @@ void __50__MRUVendorSpecificDeviceManager_connectToDevice___block_invoke_44(uint
         }
 
         v10 = *(*(&v11 + 1) + 8 * i);
-        if ([v10 state] == 10 || objc_msgSend(v10, "state") == 20)
+        if (objc_msgSend_state(v10) == 10 || objc_msgSend_state(v10) == 20)
         {
           [(DADiscovery *)self->_discovery setState:30 device:v10 completionHandler:&__block_literal_global_50];
         }
@@ -1194,7 +1199,7 @@ void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke(uin
         }
 
         v11 = *(*(&v15 + 1) + 8 * i);
-        if ([v11 state] == 25)
+        if (objc_msgSend_state(v11) == 25)
         {
           v12 = *(*(a1 + 32) + 32);
           v13[0] = MEMORY[0x1E69E9820];
@@ -1216,7 +1221,7 @@ void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke(uin
 void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke_2(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = MCLogCategoryDeviceAccess();
+  v2 = MCLogCategoryDeviceAccess(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -1230,7 +1235,7 @@ void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke_48(
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1249,15 +1254,15 @@ void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke_48(
 
 - (void)setDevice:(id)device picked:(BOOL)picked
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
-  v6 = MCLogCategoryDeviceAccess();
+  v6 = MCLogCategoryDeviceAccess(deviceCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     name = [deviceCopy name];
-    v14 = 138412290;
-    v15 = name;
-    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "setting picked for device: %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = name;
+    _os_log_impl(&dword_1A20FC000, v6, OS_LOG_TYPE_DEFAULT, "setting picked for device: %@", &v15, 0xCu);
   }
 
   deviceMap = self->_deviceMap;
@@ -1266,28 +1271,28 @@ void __54__MRUVendorSpecificDeviceManager_disconnectAllDevices__block_invoke_48(
 
   if (!v10)
   {
-    v12 = MCLogCategoryDeviceAccess();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = MCLogCategoryDeviceAccess(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "Picked device from UI is not found in the device map, some discrepancy happened", &v14, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "Picked device from UI is not found in the device map, some discrepancy happened", &v15, 2u);
     }
 
     goto LABEL_15;
   }
 
-  state = [v10 state];
-  if (state > 19)
+  v12 = objc_msgSend_state(v10);
+  if (v12 > 19)
   {
-    if (state == 20)
+    if (v12 == 20)
     {
       [(DADiscovery *)self->_discovery setState:30 device:v10 completionHandler:&__block_literal_global_52];
       goto LABEL_18;
     }
 
-    if (state != 25)
+    if (v12 != 25)
     {
-      if (state != 30)
+      if (v12 != 30)
       {
         goto LABEL_18;
       }
@@ -1300,22 +1305,22 @@ LABEL_16:
     goto LABEL_18;
   }
 
-  if (!state)
+  if (!v12)
   {
     goto LABEL_16;
   }
 
-  if (state == 10)
+  if (v12 == 10)
   {
 LABEL_13:
-    v12 = MCLogCategoryDeviceAccess();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = MCLogCategoryDeviceAccess(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      [v10 state];
-      v13 = DADeviceStateToString();
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "Not sending the pick event again because device is already in a pending state: %@", &v14, 0xCu);
+      objc_msgSend_state(v10);
+      v14 = DADeviceStateToString();
+      v15 = 138412290;
+      v16 = v14;
+      _os_log_impl(&dword_1A20FC000, v13, OS_LOG_TYPE_DEFAULT, "Not sending the pick event again because device is already in a pending state: %@", &v15, 0xCu);
     }
 
 LABEL_15:
@@ -1328,7 +1333,7 @@ void __51__MRUVendorSpecificDeviceManager_setDevice_picked___block_invoke(uint64
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = MCLogCategoryDeviceAccess();
+  v3 = MCLogCategoryDeviceAccess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1339,111 +1344,117 @@ void __51__MRUVendorSpecificDeviceManager_setDevice_picked___block_invoke(uint64
 
 - (void)handleResolverEvent:(id)event
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   eventType = [eventCopy eventType];
   switch(eventType)
   {
     case '*':
       device = [eventCopy device];
-      v26 = MCLogCategoryDeviceAccess();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v28 = MCLogCategoryDeviceAccess(device);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         endpoints = [device endpoints];
         *buf = 138412546;
-        v38 = device;
-        v39 = 2048;
-        v40 = [endpoints count];
-        _os_log_impl(&dword_1A20FC000, v26, OS_LOG_TYPE_DEFAULT, "Resolver - device changed %@, %lu endpoints", buf, 0x16u);
+        v40 = device;
+        v41 = 2048;
+        v42 = [endpoints count];
+        _os_log_impl(&dword_1A20FC000, v28, OS_LOG_TYPE_DEFAULT, "Resolver - device changed %@, %lu endpoints", buf, 0x16u);
       }
 
       goto LABEL_24;
     case ')':
-      device = [eventCopy device];
-      if (device)
+      device2 = [eventCopy device];
+      device = device2;
+      if (device2)
       {
-        v22 = MCLogCategoryDeviceAccess();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v24 = MCLogCategoryDeviceAccess(device2);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           endpoints2 = [device endpoints];
           *buf = 138412546;
-          v38 = device;
-          v39 = 2048;
-          v40 = [endpoints2 count];
-          _os_log_impl(&dword_1A20FC000, v22, OS_LOG_TYPE_DEFAULT, "Resolver - device lost %@, %lu endpoints", buf, 0x16u);
+          v40 = device;
+          v41 = 2048;
+          v42 = [endpoints2 count];
+          _os_log_impl(&dword_1A20FC000, v24, OS_LOG_TYPE_DEFAULT, "Resolver - device lost %@, %lu endpoints", buf, 0x16u);
         }
 
         coalescedDeviceMap = self->_coalescedDeviceMap;
         identifier = [device identifier];
         [(NSMutableDictionary *)coalescedDeviceMap setObject:0 forKeyedSubscript:identifier];
 
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __54__MRUVendorSpecificDeviceManager_handleResolverEvent___block_invoke_56;
-        v30[3] = &unk_1E7663898;
-        v30[4] = self;
-        dispatch_async(MEMORY[0x1E69E96A0], v30);
+        v32[0] = MEMORY[0x1E69E9820];
+        v32[1] = 3221225472;
+        v32[2] = __54__MRUVendorSpecificDeviceManager_handleResolverEvent___block_invoke_56;
+        v32[3] = &unk_1E7663898;
+        v32[4] = self;
+        dispatch_async(MEMORY[0x1E69E96A0], v32);
       }
 
       goto LABEL_24;
     case '(':
-      device2 = [eventCopy device];
-      device = device2;
-      if (device2)
+      device3 = [eventCopy device];
+      device = device3;
+      if (device3)
       {
         selfCopy = self;
         v8 = self->_coalescedDeviceMap;
-        identifier2 = [device2 identifier];
+        identifier2 = [device3 identifier];
         [(NSMutableDictionary *)v8 setObject:device forKeyedSubscript:identifier2];
 
-        v10 = MCLogCategoryDeviceAccess();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = MCLogCategoryDeviceAccess(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           endpoints3 = [device endpoints];
           *buf = 138412546;
-          v38 = device;
-          v39 = 2048;
-          v40 = [endpoints3 count];
-          _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "Resolver - device found %@, %lu endpoints", buf, 0x16u);
+          v40 = device;
+          v41 = 2048;
+          v42 = [endpoints3 count];
+          _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "Resolver - device found %@, %lu endpoints", buf, 0x16u);
         }
 
+        v36 = 0u;
+        v37 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v32 = 0u;
-        v33 = 0u;
-        v29 = device;
+        v31 = device;
         endpoints4 = [device endpoints];
         allValues = [endpoints4 allValues];
 
-        v14 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v14)
+        v15 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+        if (v15)
         {
-          v15 = v14;
-          v16 = *v33;
+          v16 = v15;
+          v17 = *v35;
           do
           {
-            for (i = 0; i != v15; ++i)
+            v18 = 0;
+            do
             {
-              if (*v33 != v16)
+              if (*v35 != v17)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              v18 = *(*(&v32 + 1) + 8 * i);
-              v19 = MCLogCategoryDeviceAccess();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+              v19 = *(*(&v34 + 1) + 8 * v18);
+              v20 = MCLogCategoryDeviceAccess(v15);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
-                name = [v18 name];
-                identifier3 = [v18 identifier];
+                name = [v19 name];
+                identifier3 = [v19 identifier];
                 *buf = 138412546;
-                v38 = name;
-                v39 = 2112;
-                v40 = identifier3;
-                _os_log_impl(&dword_1A20FC000, v19, OS_LOG_TYPE_DEFAULT, "Resolver - endpoint: %@, %@", buf, 0x16u);
+                v40 = name;
+                v41 = 2112;
+                v42 = identifier3;
+                _os_log_impl(&dword_1A20FC000, v20, OS_LOG_TYPE_DEFAULT, "Resolver - endpoint: %@, %@", buf, 0x16u);
               }
+
+              ++v18;
             }
 
-            v15 = [allValues countByEnumeratingWithState:&v32 objects:v36 count:16];
+            while (v16 != v18);
+            v15 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+            v16 = v15;
           }
 
           while (v15);
@@ -1455,7 +1466,7 @@ void __51__MRUVendorSpecificDeviceManager_setDevice_picked___block_invoke(uint64
         block[3] = &unk_1E7663898;
         block[4] = selfCopy;
         dispatch_async(MEMORY[0x1E69E96A0], block);
-        device = v29;
+        device = v31;
       }
 
 LABEL_24:
@@ -1491,7 +1502,7 @@ void __54__MRUVendorSpecificDeviceManager_handleResolverEvent___block_invoke_56(
   {
     if (eventType == 10)
     {
-      v43 = MCLogCategoryDeviceAccess();
+      v43 = MCLogCategoryDeviceAccess(10);
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         discoveredDevices = [(DADiscovery *)self->_discovery discoveredDevices];
@@ -1545,11 +1556,11 @@ void __54__MRUVendorSpecificDeviceManager_handleResolverEvent___block_invoke_56(
       }
 
       discoveredDevices2 = device;
-      v14 = MCLogCategoryDeviceAccess();
+      v14 = MCLogCategoryDeviceAccess(device);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         name = [discoveredDevices2 name];
-        [discoveredDevices2 state];
+        objc_msgSend_state(discoveredDevices2);
         v16 = DADeviceStateToString();
         *buf = 138412546;
         v66 = name;
@@ -1577,11 +1588,11 @@ LABEL_46:
       }
 
       discoveredDevices2 = device2;
-      v18 = MCLogCategoryDeviceAccess();
+      v18 = MCLogCategoryDeviceAccess(device2);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         name2 = [discoveredDevices2 name];
-        [discoveredDevices2 state];
+        objc_msgSend_state(discoveredDevices2);
         v20 = DADeviceStateToString();
         *buf = 138412546;
         v66 = name2;
@@ -1601,11 +1612,11 @@ LABEL_46:
       }
 
       v22 = device3;
-      v23 = MCLogCategoryDeviceAccess();
+      v23 = MCLogCategoryDeviceAccess(device3);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         name3 = [v22 name];
-        [v22 state];
+        objc_msgSend_state(v22);
         v25 = DADeviceStateToString();
         *buf = 138412546;
         v66 = name3;
@@ -1689,7 +1700,7 @@ LABEL_49:
 
       break;
     case '<':
-      v6 = MCLogCategoryDeviceAccess();
+      v6 = MCLogCategoryDeviceAccess(60);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;

@@ -11,6 +11,7 @@
 - (id)_queue_handleSavedRecords:(id)records forContact:(id)contact error:(id *)error;
 - (id)_relationshipFromContact:(id)contact;
 - (id)_remoteRelationshipFromContact:(id)contact;
+- (id)insertPlaceholderRelationshipEvent:(unsigned __int16)event friendUUID:(id)d;
 - (void)_contactStoreDidChangeNotification:(id)notification;
 - (void)_insertInviteForContact:(id)contact destination:(id)destination serviceIdentifier:(id)identifier;
 - (void)_processActivityDataPreview:(id)preview friendUUID:(id)d;
@@ -22,6 +23,9 @@
 - (void)_queue_processEndRelationshipIfNeededForPreviousRemoteRelationship:(id)relationship newRemoteRelationship:(id)remoteRelationship contact:(id)contact xpcActivity:(id)activity cloudKitGroup:(id)group processGroup:(id)processGroup;
 - (void)_queue_processRemoteRelationships:(id)relationships activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)_queue_reconcileCloudKitRelationships:(id)relationships;
+- (void)_queue_removeFriendWithUUID:(id)d eventType:(unsigned __int16)type activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
+- (void)_queue_removeLegacyFriendWithUUID:(id)d eventType:(unsigned __int16)type activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
+- (void)_queue_removePlaceholderRelationshipBeganForContactWithUUID:(id)d success:(BOOL)success;
 - (void)_queue_saveRelationship:(id)relationship contact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)_queue_saveRelationship:(id)relationship contact:(id)contact extraRecordsToSave:(id)save extraRecordIDsToDelete:(id)delete activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)_queue_saveRelationship:(id)relationship contact:(id)contact withExtraRecords:(id)records activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
@@ -56,6 +60,7 @@
 - (void)setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion;
 - (void)setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d eventType:(unsigned __int16)type cloudKitGroup:(id)group completion:(id)completion;
 - (void)setMuteEnabled:(BOOL)enabled forFriendWithUUID:(id)d completion:(id)completion;
+- (void)updateRelationshipWithCompetitionEvent:(unsigned __int16)event friendUUID:(id)d activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)updateRelationshipsForCurrentFeatureSupportWithActivity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 @end
 
@@ -63,10 +68,10 @@
 
 - (ASRelationshipManager)initWithIsWatch:(BOOL)watch
 {
-  v37[2] = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = ASRelationshipManager;
-  v3 = [(ASRelationshipManager *)&v33 init];
+  v36[2] = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = ASRelationshipManager;
+  v3 = [(ASRelationshipManager *)&v32 init];
   if (v3)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBDAC0]);
@@ -97,46 +102,45 @@
     placeholderFriendshipBeganTokens = v3->_placeholderFriendshipBeganTokens;
     v3->_placeholderFriendshipBeganTokens = v16;
 
-    v35 = *MEMORY[0x277CE9340];
-    v18 = [[ASIDSMessageCenter alloc] initWithServiceIdentifier:v35];
-    v37[0] = v18;
-    v36 = *MEMORY[0x277CE9348];
-    v19 = [[ASIDSMessageCenter alloc] initWithServiceIdentifier:v36];
-    v37[1] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v35 count:2];
+    v34 = *MEMORY[0x277CE9340];
+    v18 = [[ASIDSMessageCenter alloc] initWithServiceIdentifier:v34];
+    v36[0] = v18;
+    v35 = *MEMORY[0x277CE9348];
+    v19 = [[ASIDSMessageCenter alloc] initWithServiceIdentifier:v35];
+    v36[1] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v34 count:2];
     messageCenters = v3->_messageCenters;
     v3->_messageCenters = v20;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     allValues = [(NSDictionary *)v3->_messageCenters allValues];
-    v23 = [allValues countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v23 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v30;
+      v25 = *v29;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v30 != v25)
+          if (*v29 != v25)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [*(*(&v29 + 1) + 8 * i) setDelegate:v3];
+          [*(*(&v28 + 1) + 8 * i) setDelegate:v3];
         }
 
-        v24 = [allValues countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v24 = [allValues countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v24);
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -218,33 +222,33 @@
 
 - (void)beginReceivingMessages
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(ASRelationshipManager *)self _processPersistedMessagesIfNeeded];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   allValues = [(NSDictionary *)self->_messageCenters allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) beginReceivingMessages];
+        [*(*(&v9 + 1) + 8 * v7++) beginReceivingMessages];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -252,38 +256,36 @@
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__contactStoreDidChangeNotification_ name:*MEMORY[0x277CBD140] object:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endReceivingMessages
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allValues = [(NSDictionary *)self->_messageCenters allValues];
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) endReceivingMessages];
+        [*(*(&v9 + 1) + 8 * v7++) endReceivingMessages];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -291,8 +293,6 @@
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self name:*MEMORY[0x277CBD140] object:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActivityDataVisible:(BOOL)visible toFriendWithUUID:(id)d completion:(id)completion
@@ -312,27 +312,27 @@
 
   v11 = [(ASRelationshipManager *)self insertPlaceholderRelationshipEvent:v10 friendUUID:dCopy];
   objc_copyWeak(&to, &self->_contactsManager);
-  v12 = ASCloudKitGroupUserActionExplicit();
+  v13 = ASCloudKitGroupUserActionExplicit(v12);
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __76__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_completion___block_invoke;
-  v18[3] = &unk_278C4DC30;
-  objc_copyWeak(&v24, &to);
-  v14 = v11;
-  v19 = v14;
-  v15 = completionCopy;
-  v23 = v15;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __76__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_completion___block_invoke;
+  v19[3] = &unk_278C4DC30;
+  objc_copyWeak(&v25, &to);
+  v15 = v11;
+  v20 = v15;
+  v16 = completionCopy;
+  v24 = v16;
   selfCopy = self;
-  v16 = dCopy;
-  v21 = v16;
-  v26 = visibleCopy;
-  v25 = v10;
-  v17 = v12;
+  v17 = dCopy;
   v22 = v17;
-  [WeakRetained fetchAllChangesWithPriority:2 activity:0 group:v17 completion:v18];
+  v27 = visibleCopy;
+  v26 = v10;
+  v18 = v13;
+  v23 = v18;
+  [WeakRetained fetchAllChangesWithPriority:2 activity:0 group:v18 completion:v19];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&to);
 }
 
@@ -463,7 +463,7 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -473,9 +473,9 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
     v6 = *(a1 + 66);
     v7 = *(a1 + 32);
     *buf = 67109378;
-    v24 = v6;
-    v25 = 2114;
-    v26 = v7;
+    v23 = v6;
+    v24 = 2114;
+    v25 = v7;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager setting activity data visibility to %{BOOL}d for friend with UUID: %{public}@", buf, 0x12u);
   }
 
@@ -487,20 +487,20 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
   if (v9 && *(a1 + 66) != [v10 isActivityDataVisible])
   {
     v12 = objc_loadWeakRetained((*(a1 + 40) + 24));
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_340;
-    v15[3] = &unk_278C4DD70;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_340;
+    v14[3] = &unk_278C4DD70;
     v13 = *(a1 + 48);
-    v15[4] = *(a1 + 40);
-    v16 = v11;
-    v17 = *(a1 + 48);
-    v22 = *(a1 + 66);
-    v21 = *(a1 + 64);
-    v18 = v9;
-    v19 = v3;
-    v20 = *(a1 + 56);
-    [v12 fetchOrCreateActivityDataShareWithGroup:v13 activity:0 completion:v15];
+    v14[4] = *(a1 + 40);
+    v15 = v11;
+    v16 = *(a1 + 48);
+    v21 = *(a1 + 66);
+    v20 = *(a1 + 64);
+    v17 = v9;
+    v18 = v3;
+    v19 = *(a1 + 56);
+    [v12 fetchOrCreateActivityDataShareWithGroup:v13 activity:0 completion:v14];
   }
 
   else
@@ -514,8 +514,6 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
     v3[2](v3);
     (*(*(a1 + 56) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_340(uint64_t a1, char a2, void *a3, void *a4)
@@ -550,22 +548,22 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
   if (*(a1 + 98) == 1 && !*(a1 + 32))
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 24));
-    v4 = [*(a1 + 48) cloudKitAddress];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_3_342;
-    v6[3] = &unk_278C4DD20;
-    v6[4] = *(a1 + 40);
-    v5 = *(a1 + 56);
-    v7 = *(a1 + 64);
-    v14 = *(a1 + 99);
-    v8 = *(a1 + 48);
-    v13 = *(a1 + 96);
-    v9 = *(a1 + 72);
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 80);
-    v12 = *(a1 + 88);
-    [WeakRetained fetchShareParticipantWithCloudKitAddress:v4 group:v5 completion:v6];
+    v3 = [*(a1 + 48) cloudKitAddress];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_3_342;
+    v5[3] = &unk_278C4DD20;
+    v5[4] = *(a1 + 40);
+    v4 = *(a1 + 56);
+    v6 = *(a1 + 64);
+    v13 = *(a1 + 99);
+    v7 = *(a1 + 48);
+    v12 = *(a1 + 96);
+    v8 = *(a1 + 72);
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 80);
+    v11 = *(a1 + 88);
+    [WeakRetained fetchShareParticipantWithCloudKitAddress:v3 group:v4 completion:v5];
   }
 
   else
@@ -577,7 +575,6 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
     }
 
     (*(*(a1 + 80) + 16))();
-    v2 = *(a1 + 32);
     (*(*(a1 + 88) + 16))();
   }
 }
@@ -612,62 +609,62 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4_343(uint64_t a1)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 106) == 1 && !*(a1 + 32))
   {
-    v5 = [*(a1 + 40) participants];
-    v6 = MEMORY[0x277CCAC30];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_5;
-    v21[3] = &unk_278C4DCA8;
-    v22 = *(a1 + 48);
-    v7 = [v6 predicateWithBlock:v21];
-    v8 = [v5 filteredArrayUsingPredicate:v7];
-    v9 = [v8 firstObject];
+    v3 = [*(a1 + 40) participants];
+    v4 = MEMORY[0x277CCAC30];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_5;
+    v19[3] = &unk_278C4DCA8;
+    v20 = *(a1 + 48);
+    v5 = [v4 predicateWithBlock:v19];
+    v6 = [v3 filteredArrayUsingPredicate:v5];
+    v7 = [v6 firstObject];
 
-    if (v9)
+    if (v7)
     {
       if (*(a1 + 107))
       {
-        v10 = 2;
+        v8 = 2;
       }
 
       else
       {
-        v10 = 1;
+        v8 = 1;
       }
 
-      [v9 setPermission:v10];
+      [v7 setPermission:v8];
       [*(a1 + 56) insertEventWithType:*(a1 + 104)];
-      v12 = *(a1 + 56);
-      v11 = *(a1 + 64);
-      v13 = *(a1 + 72);
-      v23[0] = *(a1 + 40);
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_6;
-      v18[3] = &unk_278C4DCD0;
-      v15 = *(a1 + 80);
-      v19 = *(a1 + 88);
-      v20 = *(a1 + 96);
-      [v11 _queue_saveRelationship:v12 contact:v13 withExtraRecords:v14 activity:0 cloudKitGroup:v15 completion:v18];
+      v10 = *(a1 + 56);
+      v9 = *(a1 + 64);
+      v11 = *(a1 + 72);
+      v21[0] = *(a1 + 40);
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_6;
+      v16[3] = &unk_278C4DCD0;
+      v13 = *(a1 + 80);
+      v17 = *(a1 + 88);
+      v18 = *(a1 + 96);
+      [v9 _queue_saveRelationship:v10 contact:v11 withExtraRecords:v12 activity:0 cloudKitGroup:v13 completion:v16];
 
-      v16 = v19;
+      v14 = v17;
     }
 
     else
     {
       ASLoggingInitialize();
-      v17 = *MEMORY[0x277CE9008];
+      v15 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
       {
-        __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4_343_cold_2(a1, v17);
+        __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4_343_cold_2(a1, v15);
       }
 
       (*(*(a1 + 88) + 16))();
-      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:8 userInfo:0];
+      v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:8 userInfo:0];
       (*(*(a1 + 96) + 16))();
     }
   }
@@ -682,11 +679,8 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
     }
 
     (*(*(a1 + 88) + 16))();
-    v3 = *(a1 + 32);
     (*(*(a1 + 96) + 16))();
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_6(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -781,19 +775,19 @@ void __69__ASRelationshipManager_setMuteEnabled_forFriendWithUUID_completion___b
   {
     if (*(a1 + 66) != [v10 isMuteEnabled])
     {
-      [v11 insertEventWithType:*(a1 + 64)];
-      v15 = *(a1 + 40);
-      v16 = ASCloudKitGroupUserActionExplicit();
+      v15 = [v11 insertEventWithType:*(a1 + 64)];
+      v16 = *(a1 + 40);
+      v17 = ASCloudKitGroupUserActionExplicit(v15);
       v19[0] = MEMORY[0x277D85DD0];
       v19[1] = 3221225472;
       v19[2] = __69__ASRelationshipManager_setMuteEnabled_forFriendWithUUID_completion___block_invoke_352;
       v19[3] = &unk_278C4DDE8;
-      v17 = *(a1 + 48);
+      v18 = *(a1 + 48);
       v19[4] = *(a1 + 40);
-      v20 = v17;
+      v20 = v18;
       v21 = v3;
       v22 = *(a1 + 56);
-      [v15 _queue_saveRelationship:v11 contact:v9 activity:0 cloudKitGroup:v16 completion:v19];
+      [v16 _queue_saveRelationship:v11 contact:v9 activity:0 cloudKitGroup:v17 completion:v19];
 
       goto LABEL_13;
     }
@@ -826,7 +820,6 @@ void __69__ASRelationshipManager_setMuteEnabled_forFriendWithUUID_completion___b
   _NotifyOnMainQueue(0, v13, *(a1 + 56));
 
 LABEL_13:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ASRelationshipManager_setMuteEnabled_forFriendWithUUID_completion___block_invoke_352(uint64_t a1, char a2, void *a3)
@@ -861,7 +854,7 @@ void __57__ASRelationshipManager_removeFriendWithUUID_completion___block_invoke(
 {
   v2 = a1[4];
   v3 = a1[5];
-  v4 = ASCloudKitGroupUserActionExplicit();
+  v4 = ASCloudKitGroupUserActionExplicit(a1);
   [v2 _queue_removeFriendWithUUID:v3 eventType:4 activity:0 cloudKitGroup:v4 completion:a1[6]];
 }
 
@@ -884,6 +877,38 @@ void __57__ASRelationshipManager_removeFriendWithUUID_completion___block_invoke(
   v15 = groupCopy;
   v16 = dCopy;
   dispatch_async(serialQueue, block);
+}
+
+- (void)updateRelationshipWithCompetitionEvent:(unsigned __int16)event friendUUID:(id)d activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
+{
+  eventCopy = event;
+  dCopy = d;
+  activityCopy = activity;
+  groupCopy = group;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_contactsManager);
+  v17 = [WeakRetained contactWithUUID:dCopy];
+
+  if ([v17 cloudType] == 1)
+  {
+    v18 = objc_loadWeakRetained(&self->_secureCloudDelegate);
+    [v18 relationshipManager:self updateActiveFriendWithUUID:dCopy eventType:eventCopy cloudKitGroup:groupCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __109__ASRelationshipManager_updateRelationshipWithCompetitionEvent_friendUUID_activity_cloudKitGroup_completion___block_invoke;
+    v19[3] = &unk_278C4DE60;
+    v19[4] = self;
+    v20 = dCopy;
+    v23 = completionCopy;
+    v24 = eventCopy;
+    v21 = activityCopy;
+    v22 = groupCopy;
+    [(ASRelationshipManager *)self _performBlockWaitingForFriendshipBeganForFriendWithUUID:v20 block:v19];
+  }
 }
 
 void __109__ASRelationshipManager_updateRelationshipWithCompetitionEvent_friendUUID_activity_cloudKitGroup_completion___block_invoke(uint64_t a1)
@@ -971,8 +996,8 @@ void __109__ASRelationshipManager_updateRelationshipWithCompetitionEvent_friendU
 
 void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v29 = a2;
+  v41 = *MEMORY[0x277D85DE8];
+  v28 = a2;
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
@@ -985,26 +1010,26 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
   v5 = [WeakRetained contacts];
 
   v6 = [MEMORY[0x277CBEB98] set];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
+    v10 = *v33;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         v13 = [*(a1 + 32) _relationshipFromContact:v12];
         if (ASRelationshipNeedsSupportedFeaturesUpdate())
         {
@@ -1016,9 +1041,9 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
             v16 = [v13 UUID];
             v17 = [v12 displayName];
             *buf = 138543618;
-            v38 = v16;
-            v39 = 2112;
-            v40 = v17;
+            v37 = v16;
+            v38 = 2112;
+            v39 = v17;
             _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "Relationship requires supported feature update: %{public}@ - %@", buf, 0x16u);
           }
 
@@ -1029,7 +1054,7 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v9);
@@ -1053,15 +1078,15 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
     v24 = objc_loadWeakRetained((*(a1 + 32) + 24));
     v25 = *(a1 + 40);
     v26 = *(a1 + 48);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2;
-    v30[3] = &unk_278C4D690;
-    v30[4] = *(a1 + 32);
-    v31 = *(a1 + 56);
-    v27 = v29;
-    v32 = v29;
-    [v24 saveRecordsIntoPrivateDatabase:v23 priority:2 activity:v25 group:v26 completion:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2;
+    v29[3] = &unk_278C4D690;
+    v29[4] = *(a1 + 32);
+    v30 = *(a1 + 56);
+    v27 = v28;
+    v31 = v28;
+    [v24 saveRecordsIntoPrivateDatabase:v23 priority:2 activity:v25 group:v26 completion:v29];
   }
 
   else
@@ -1073,11 +1098,9 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
     }
 
     _NotifyOnMainQueue(1, 0, *(a1 + 56));
-    v27 = v29;
-    v29[2](v29);
+    v27 = v28;
+    v28[2](v28);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_354(uint64_t a1, void *a2)
@@ -1091,36 +1114,36 @@ id __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithA
 
 void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2(uint64_t a1, int a2, void *a3, uint64_t a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a3;
   if (!v7 && a2)
   {
-    v25 = a2;
+    v24 = a2;
     v8 = MEMORY[0x277CE9118];
     v9 = [MEMORY[0x277CBEB98] setWithArray:a4];
     v10 = [v8 relationshipsWithRelationshipAndEventRecords:v9];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v27;
+      v14 = *v26;
       v15 = MEMORY[0x277CE9008];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v14)
+          if (*v26 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
+          v17 = *(*(&v25 + 1) + 8 * i);
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
           v19 = [v17 UUID];
           v20 = [WeakRetained contactWithUUID:v19];
@@ -1140,30 +1163,28 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
             v23 = *v15;
             if (os_log_type_enabled(*v15, OS_LOG_TYPE_ERROR))
             {
-              __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2_cold_1(&v30, v23, v17, &v31);
+              __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2_cold_1(&v29, v23, v17, &v30);
             }
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v13);
     }
 
     v7 = 0;
-    LOBYTE(a2) = v25;
+    LOBYTE(a2) = v24;
   }
 
   _NotifyOnMainQueue(a2, v7, *(a1 + 40));
   (*(*(a1 + 48) + 16))();
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendInviteToPersonWithDestination:(id)destination callerID:(id)d serviceIdentifier:(id)identifier completion:(id)completion
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   destinationCopy = destination;
   dCopy = d;
   identifierCopy = identifier;
@@ -1174,9 +1195,9 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = destinationCopy;
-    v28 = 2114;
-    v29 = identifierCopy;
+    v26 = destinationCopy;
+    v27 = 2114;
+    v28 = identifierCopy;
     _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "RelationshipManager starting invite flow for person with destination: %@, serviceIdentifier: %{public}@", buf, 0x16u);
   }
 
@@ -1203,14 +1224,12 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
     block[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke;
     block[3] = &unk_278C4E010;
     block[4] = self;
-    v22 = destinationCopy;
-    v23 = identifierCopy;
-    v25 = completionCopy;
-    v24 = dCopy;
+    v21 = destinationCopy;
+    v22 = identifierCopy;
+    v24 = completionCopy;
+    v23 = dCopy;
     dispatch_async(serialQueue, block);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke(id *a1)
@@ -1250,26 +1269,24 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
   v10 = objc_loadWeakRetained(a1[4] + 4);
   v11 = [v10 savePlaceholderContact:v6];
 
-  v12 = ASCloudKitGroupSharingSetup();
-  v13 = objc_loadWeakRetained(a1[4] + 3);
+  v13 = ASCloudKitGroupSharingSetup(v12);
+  v14 = objc_loadWeakRetained(a1[4] + 3);
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
   v18[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_361;
   v18[3] = &unk_278C4DFE8;
   v18[4] = a1[4];
-  v19 = v12;
+  v19 = v13;
   v20 = v11;
   v25 = a1[8];
   v21 = a1[5];
   v22 = v6;
   v23 = a1[6];
   v24 = a1[7];
-  v14 = v6;
-  v15 = v11;
-  v16 = v12;
-  [v13 fetchCloudKitAddressWithCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = v6;
+  v16 = v11;
+  v17 = v13;
+  [v14 fetchCloudKitAddressWithCompletion:v18];
 }
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_361(uint64_t a1, void *a2)
@@ -1339,7 +1356,7 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -1351,8 +1368,8 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-  v36[0] = *(a1 + 40);
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = *(a1 + 40);
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   v8 = [WeakRetained contactWithDestinations:v7];
 
   ASLoggingInitialize();
@@ -1415,8 +1432,7 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
     [v12 setHandshakeToken:v14];
 
     [v12 setInviterCloudKitAddress:*(a1 + 72)];
-    [v12 setInviterCallerID:*(a1 + 80)];
-    v15 = _DeviceBuildNumber();
+    v15 = _DeviceBuildNumber([v12 setInviterCallerID:*(a1 + 80)]);
     [v12 setInviterBuildNumber:v15];
 
     v16 = objc_loadWeakRetained((*(a1 + 32) + 56));
@@ -1428,29 +1444,27 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
     v18 = [*(a1 + 32) _relationshipFromContact:v8];
     v19 = *(a1 + 32);
     v20 = *(a1 + 88);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_363;
-    v26[3] = &unk_278C4DF70;
-    v26[4] = v19;
-    v27 = *(a1 + 64);
-    v33 = v3;
-    v34 = *(a1 + 96);
-    v28 = *(a1 + 40);
-    v29 = *(a1 + 56);
-    v30 = v12;
-    v31 = v8;
-    v32 = *(a1 + 88);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_363;
+    v25[3] = &unk_278C4DF70;
+    v25[4] = v19;
+    v26 = *(a1 + 64);
+    v32 = v3;
+    v33 = *(a1 + 96);
+    v27 = *(a1 + 40);
+    v28 = *(a1 + 56);
+    v29 = v12;
+    v30 = v8;
+    v31 = *(a1 + 88);
     v21 = v12;
-    [v19 _queue_saveRelationshipAndFetchOrCreateShares:v18 contact:v31 cloudKitGroup:v20 completion:v26];
+    [v19 _queue_saveRelationshipAndFetchOrCreateShares:v18 contact:v30 cloudKitGroup:v20 completion:v25];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_363(uint64_t a1, char a2, void *a3, uint64_t a4, uint64_t a5, void *a6)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a6;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
@@ -1470,42 +1484,40 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
     {
       v13 = *(a1 + 48);
       *buf = 138412290;
-      v34 = v13;
+      v33 = v13;
       _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "RelationshipManager donating address to IDS %@", buf, 0xCu);
     }
 
     v14 = [*(*(a1 + 32) + 160) objectForKeyedSubscript:*(a1 + 56)];
-    v32 = *(a1 + 48);
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_364;
-    v24[3] = &unk_278C4DF48;
+    v31 = *(a1 + 48);
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_364;
+    v23[3] = &unk_278C4DF48;
     v16 = *(a1 + 88);
     v17 = *(a1 + 96);
-    v25 = *(a1 + 64);
-    v26 = *(a1 + 48);
-    v27 = v14;
-    v28 = *(a1 + 32);
-    v29 = v10;
+    v24 = *(a1 + 64);
+    v25 = *(a1 + 48);
+    v26 = v14;
+    v27 = *(a1 + 32);
+    v28 = v10;
     v18 = *(a1 + 72);
     v19 = *(a1 + 80);
     *&v20 = v18;
     *(&v20 + 1) = v19;
     *&v21 = v16;
     *(&v21 + 1) = v17;
-    v31 = v21;
-    v30 = v20;
+    v30 = v21;
+    v29 = v20;
     v22 = v14;
-    [v22 donateAddresses:v15 completion:v24];
+    [v22 donateAddresses:v15 completion:v23];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_364(uint64_t a1, char a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -1524,33 +1536,31 @@ void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serv
       v9 = [v7 handshakeToken];
       v10 = *(a1 + 40);
       *buf = 138412546;
-      v26 = v9;
-      v27 = 2112;
-      v28 = v10;
+      v25 = v9;
+      v26 = 2112;
+      v27 = v10;
       _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "RelationshipManager sending invite with token %@ to destination: %@", buf, 0x16u);
     }
 
     v11 = *(a1 + 48);
     v12 = *(a1 + 32);
     v13 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_365;
-    v20[3] = &unk_278C4DF20;
-    v19 = *(a1 + 56);
-    v14 = *(&v19 + 1);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_365;
+    v19[3] = &unk_278C4DF20;
+    v18 = *(a1 + 56);
+    v14 = *(&v18 + 1);
     v15 = *(a1 + 72);
     v16 = *(a1 + 80);
     *&v17 = v15;
     *(&v17 + 1) = v16;
-    v21 = v19;
-    v22 = v17;
-    v23 = *(a1 + 88);
-    v24 = *(a1 + 96);
-    [v11 sendInviteRequest:v12 toDestinations:v13 completion:v20];
+    v20 = v18;
+    v21 = v17;
+    v22 = *(a1 + 88);
+    v23 = *(a1 + 96);
+    [v11 sendInviteRequest:v12 toDestinations:v13 completion:v19];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ASRelationshipManager_sendInviteToPersonWithDestination_callerID_serviceIdentifier_completion___block_invoke_365(uint64_t a1, char a2, void *a3)
@@ -1683,7 +1693,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -1692,7 +1702,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
   {
     v6 = *(a1 + 32);
     *buf = 138543362;
-    v42 = v6;
+    v41 = v6;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager preparing to accept invite from friend with UUID: %{public}@", buf, 0xCu);
   }
 
@@ -1743,8 +1753,7 @@ LABEL_15:
     [v15 setHandshakeToken:v16];
 
     [v15 setResponseCode:1];
-    [v15 setInviteeCloudKitAddress:*(a1 + 48)];
-    v17 = _DeviceBuildNumber();
+    v17 = _DeviceBuildNumber([v15 setInviteeCloudKitAddress:*(a1 + 48)]);
     [v15 setInviteeBuildNumber:v17];
 
     v18 = objc_loadWeakRetained((*(a1 + 40) + 56));
@@ -1761,25 +1770,25 @@ LABEL_15:
     v23 = [*(*(a1 + 40) + 160) objectForKeyedSubscript:v14];
     [v9 insertEventWithType:2];
     v24 = [v22 allObjects];
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_371;
-    v31[3] = &unk_278C4E100;
-    v30 = *(a1 + 32);
-    v25 = v30.i64[0];
-    v32 = vextq_s8(v30, v30, 8uLL);
-    v38 = v3;
-    v39 = *(a1 + 56);
-    v33 = v9;
-    v34 = v15;
-    v40 = 1;
-    v35 = v22;
-    v36 = v23;
-    v37 = v8;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_371;
+    v30[3] = &unk_278C4E100;
+    v29 = *(a1 + 32);
+    v25 = v29.i64[0];
+    v31 = vextq_s8(v29, v29, 8uLL);
+    v37 = v3;
+    v38 = *(a1 + 56);
+    v32 = v9;
+    v33 = v15;
+    v39 = 1;
+    v34 = v22;
+    v35 = v23;
+    v36 = v8;
     v26 = v23;
     v27 = v22;
     v28 = v15;
-    [v26 donateAddresses:v24 completion:v31];
+    [v26 donateAddresses:v24 completion:v30];
 
 LABEL_16:
     goto LABEL_17;
@@ -1796,8 +1805,6 @@ LABEL_16:
   [*(a1 + 40) _queue_removePlaceholderRelationshipBeganForContactWithUUID:*(a1 + 32) success:0];
   v3[2](v3);
 LABEL_17:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_371(uint64_t a1, char a2, void *a3)
@@ -1837,7 +1844,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 {
   if (*(a1 + 120) == 1 && !*(a1 + 32))
   {
-    v5 = ASCloudKitGroupSharingSetup();
+    v5 = ASCloudKitGroupSharingSetup(a1);
     v6 = *(a1 + 40);
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
@@ -1879,7 +1886,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_3_373(uint64_t a1, char a2, void *a3, void *a4, void *a5)
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -1893,24 +1900,24 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 
   else
   {
-    v29 = [*(a1 + 48) cloudKitAddress];
-    v39[0] = v10;
-    v39[1] = v11;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
-    v28 = *(a1 + 56);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_4;
-    v30[3] = &unk_278C4E088;
+    v28 = [*(a1 + 48) cloudKitAddress];
+    v38[0] = v10;
+    v38[1] = v11;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    v27 = *(a1 + 56);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_4;
+    v29[3] = &unk_278C4E088;
     v13 = *(a1 + 40);
-    v30[4] = *(a1 + 32);
-    v31 = v13;
+    v29[4] = *(a1 + 32);
+    v30 = v13;
     v14 = *(a1 + 96);
     v15 = *(a1 + 104);
-    v32 = v10;
-    v33 = v11;
+    v31 = v10;
+    v32 = v11;
     v16 = *(a1 + 64);
-    v38 = *(a1 + 112);
+    v37 = *(a1 + 112);
     v17 = *(a1 + 72);
     v18 = *(a1 + 80);
     v19 = *(a1 + 88);
@@ -1918,25 +1925,23 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
     *(&v20 + 1) = v19;
     *&v21 = v16;
     *(&v21 + 1) = v17;
-    v34 = v21;
-    v35 = v20;
+    v33 = v21;
+    v34 = v20;
     v22 = *(a1 + 48);
     v23 = *(a1 + 56);
     *&v24 = v22;
     *(&v24 + 1) = v23;
     *&v25 = v14;
     *(&v25 + 1) = v15;
-    v37 = v25;
-    v36 = v24;
-    [v12 _queue_addPersonWithCloudKitAddress:v29 toShares:v27 cloudKitGroup:v28 completion:v30];
+    v36 = v25;
+    v35 = v24;
+    [v12 _queue_addPersonWithCloudKitAddress:v28 toShares:v26 cloudKitGroup:v27 completion:v29];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_4(uint64_t a1, char a2, void *a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -1967,36 +1972,34 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
       v15 = [v13 handshakeToken];
       v16 = *(a1 + 72);
       *buf = 134218498;
-      v33 = v12;
-      v34 = 2112;
-      v35 = v15;
-      v36 = 2112;
-      v37 = v16;
+      v32 = v12;
+      v33 = 2112;
+      v34 = v15;
+      v35 = 2112;
+      v36 = v16;
       _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "RelationshipManager sending invite response %ld with token %@ to %@", buf, 0x20u);
     }
 
     v18 = *(a1 + 72);
     v17 = *(a1 + 80);
     v19 = *(a1 + 64);
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_375;
-    v26[3] = &unk_278C4E060;
-    v25 = *(a1 + 32);
-    v20 = *(&v25 + 1);
-    v30 = *(a1 + 112);
-    v31 = *(a1 + 120);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_375;
+    v25[3] = &unk_278C4E060;
+    v24 = *(a1 + 32);
+    v20 = *(&v24 + 1);
+    v29 = *(a1 + 112);
+    v30 = *(a1 + 120);
     v21 = *(a1 + 88);
     v22 = *(a1 + 96);
     *&v23 = v21;
     *(&v23 + 1) = v22;
-    v27 = v25;
-    v28 = v23;
-    v29 = *(a1 + 104);
-    [v17 sendInviteResponse:v19 toDestinations:v18 fromAddress:0 completion:v26];
+    v26 = v24;
+    v27 = v23;
+    v28 = *(a1 + 104);
+    [v17 sendInviteResponse:v19 toDestinations:v18 fromAddress:0 completion:v25];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_375(uint64_t a1, char a2, void *a3)
@@ -2067,7 +2070,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 
 - (void)sendWithdrawInviteRequestToFriendWithUUID:(id)d completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   ASLoggingInitialize();
@@ -2076,7 +2079,7 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = dCopy;
+    v22 = dCopy;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "RelationshipManager attempting to withdraw invite request to friend with UUID: %{public}@", buf, 0xCu);
   }
 
@@ -2094,16 +2097,16 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
       {
 LABEL_14:
         serialQueue = self->_serialQueue;
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __78__ASRelationshipManager_sendWithdrawInviteRequestToFriendWithUUID_completion___block_invoke;
-        v18[3] = &unk_278C4E1A0;
-        v18[4] = self;
-        v19 = dCopy;
-        v20 = v12;
-        v21 = completionCopy;
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __78__ASRelationshipManager_sendWithdrawInviteRequestToFriendWithUUID_completion___block_invoke;
+        v17[3] = &unk_278C4E1A0;
+        v17[4] = self;
+        v18 = dCopy;
+        v19 = v12;
+        v20 = completionCopy;
         v15 = v12;
-        dispatch_async(serialQueue, v18);
+        dispatch_async(serialQueue, v17);
 
         goto LABEL_15;
       }
@@ -2143,15 +2146,13 @@ LABEL_14:
   v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:3 userInfo:0];
   _NotifyOnMainQueue(0, v15, completionCopy);
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ASRelationshipManager_sendWithdrawInviteRequestToFriendWithUUID_completion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v4 = ASCloudKitGroupSharingSetup();
+  v4 = ASCloudKitGroupSharingSetup(a1);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __78__ASRelationshipManager_sendWithdrawInviteRequestToFriendWithUUID_completion___block_invoke_2;
@@ -2229,9 +2230,9 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
     v9 = [*(a1 + 40) _relationshipFromContact:v8];
     if ([v9 isAwaitingInviteResponse])
     {
-      [v9 insertEventWithType:7];
-      v10 = *(a1 + 40);
-      v11 = ASCloudKitGroupSharingSetup();
+      v10 = [v9 insertEventWithType:7];
+      v11 = *(a1 + 40);
+      v12 = ASCloudKitGroupSharingSetup(v10);
       v17[0] = MEMORY[0x277D85DD0];
       v17[1] = 3221225472;
       v17[2] = __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completion___block_invoke_380;
@@ -2241,22 +2242,22 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
       v19 = *(a1 + 48);
       v20 = v3;
       v21 = *(a1 + 56);
-      [v10 _queue_saveRelationship:v9 contact:v18 activity:0 cloudKitGroup:v11 completion:v17];
+      [v11 _queue_saveRelationship:v9 contact:v18 activity:0 cloudKitGroup:v12 completion:v17];
     }
 
     else
     {
       ASLoggingInitialize();
-      v13 = *v4;
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = *v4;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completion___block_invoke_cold_1(v13);
+        __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completion___block_invoke_cold_1(v14);
       }
 
-      v14 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:4 userInfo:0];
-      _NotifyOnMainQueue(0, v14, *(a1 + 56));
-      v15 = objc_loadWeakRetained((*(a1 + 40) + 32));
-      [v15 removePlaceholderContactWithToken:*(a1 + 48)];
+      v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:4 userInfo:0];
+      _NotifyOnMainQueue(0, v15, *(a1 + 56));
+      v16 = objc_loadWeakRetained((*(a1 + 40) + 32));
+      [v16 removePlaceholderContactWithToken:*(a1 + 48)];
 
       v3[2](v3);
     }
@@ -2272,13 +2273,11 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
 
     v9 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.ActivitySharing.RelationshipManager" code:3 userInfo:0];
     _NotifyOnMainQueue(0, v9, *(a1 + 56));
-    v12 = objc_loadWeakRetained((*(a1 + 40) + 32));
-    [v12 removePlaceholderContactWithToken:*(a1 + 48)];
+    v13 = objc_loadWeakRetained((*(a1 + 40) + 32));
+    [v13 removePlaceholderContactWithToken:*(a1 + 48)];
 
     v3[2](v3);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completion___block_invoke_380(uint64_t a1, int a2, void *a3)
@@ -2302,7 +2301,7 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
 
 - (void)messageCenter:(id)center didReceiveInviteRequest:(id)request fromSenderAddress:(id)address receiverAddress:(id)receiverAddress messageHandledCompletion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   requestCopy = request;
   addressCopy = address;
@@ -2317,11 +2316,11 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
     inviterCloudKitAddress = [requestCopy inviterCloudKitAddress];
     inviterCallerID = [requestCopy inviterCallerID];
     *buf = 138412802;
-    v38 = addressCopy;
-    v39 = 2112;
-    v40 = inviterCloudKitAddress;
-    v41 = 2112;
-    v42 = inviterCallerID;
+    v37 = addressCopy;
+    v38 = 2112;
+    v39 = inviterCloudKitAddress;
+    v40 = 2112;
+    v41 = inviterCallerID;
     _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "RelationshipManager received invite request from %@, cloudKitAddress=%@, callerID=%@", buf, 0x20u);
   }
 
@@ -2334,29 +2333,29 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
     inviterBuildNumber = [requestCopy inviterBuildNumber];
     inviterVersion = [requestCopy inviterVersion];
     *buf = 138412802;
-    v38 = handshakeToken;
-    v39 = 2114;
-    v40 = inviterBuildNumber;
-    v41 = 1024;
-    LODWORD(v42) = inviterVersion;
+    v37 = handshakeToken;
+    v38 = 2114;
+    v39 = inviterBuildNumber;
+    v40 = 1024;
+    LODWORD(v41) = inviterVersion;
     _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "RelationshipManager invite info: handshakeToken=%@, buildNumber=%{public}@, version=%d", buf, 0x1Cu);
   }
 
   if ([(ASRelationshipManager *)self _appIsInstalled])
   {
     WeakRetained = objc_loadWeakRetained(&self->_gatewayManager);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke;
-    v31[3] = &unk_278C4E268;
-    v36 = completionCopy;
-    v31[4] = self;
-    v32 = requestCopy;
-    v33 = addressCopy;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke;
+    v30[3] = &unk_278C4E268;
+    v35 = completionCopy;
+    v30[4] = self;
+    v31 = requestCopy;
+    v32 = addressCopy;
     v27 = centerCopy;
-    v34 = centerCopy;
-    v35 = receiverAddressCopy;
-    [WeakRetained gatewayStatusWithCompletion:v31];
+    v33 = centerCopy;
+    v34 = receiverAddressCopy;
+    [WeakRetained gatewayStatusWithCompletion:v30];
   }
 
   else
@@ -2372,8 +2371,6 @@ void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completio
 
     (*(completionCopy + 2))(completionCopy, 1);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke(id *a1, int a2, int a3, char a4, void *a5)
@@ -2458,7 +2455,7 @@ LABEL_17:
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_381(uint64_t a1)
 {
-  v2 = ASCloudKitGroupSharingSetup();
+  v2 = ASCloudKitGroupSharingSetup(a1);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
@@ -2483,37 +2480,36 @@ void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSend
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v9 = *(a1 + 80);
-    v10 = *(*(a1 + 80) + 16);
+    v9 = *(*(a1 + 80) + 16);
 
-    v10();
+    v9();
   }
 
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3;
-    v12[3] = &unk_278C4E218;
-    v11 = *(a1 + 32);
-    v4 = *(v11 + 80);
-    v5 = *(&v11 + 1);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3;
+    v11[3] = &unk_278C4E218;
+    v10 = *(a1 + 32);
+    v4 = *(v10 + 80);
+    v5 = *(&v10 + 1);
     v6 = *(a1 + 48);
-    v17 = *(a1 + 80);
+    v16 = *(a1 + 80);
     v7 = *(a1 + 56);
     *&v8 = v6;
     *(&v8 + 1) = v7;
-    v13 = v11;
-    v14 = v8;
-    v15 = *(a1 + 64);
-    v16 = *(a1 + 72);
-    [v4 performTransaction:v12];
+    v12 = v10;
+    v13 = v8;
+    v14 = *(a1 + 64);
+    v15 = *(a1 + 72);
+    [v4 performTransaction:v11];
   }
 }
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = (a1 + 40);
   v5 = (a1 + 32);
@@ -2601,7 +2597,7 @@ void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSend
     v31 = [v6 relationshipStorage];
     v32 = [v31 legacyRemoteRelationship];
     [v32 insertEventWithType:1];
-    v45 = v31;
+    v44 = v31;
     [v31 setLegacyRemoteRelationship:v32];
     v33 = [v6 relationshipStorage];
     [v33 setLegacyRemoteRelationship:v32];
@@ -2623,7 +2619,7 @@ LABEL_22:
         if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v54 = v36;
+          v53 = v36;
           _os_log_impl(&dword_23E5E3000, v42, OS_LOG_TYPE_DEFAULT, "RelationshipManager already notified for invite request at %@; not notifying again", buf, 0xCu);
         }
 
@@ -2646,20 +2642,20 @@ LABEL_22:
 
     [v10 insertEventWithType:100 timestamp:v36];
     v38 = *(a1 + 32);
-    v44 = *(a1 + 72);
-    v46[0] = MEMORY[0x277D85DD0];
-    v46[1] = 3221225472;
-    v46[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_384;
-    v46[3] = &unk_278C4E1F0;
-    v51 = v3;
-    v52 = *(a1 + 80);
+    v43 = *(a1 + 72);
+    v45[0] = MEMORY[0x277D85DD0];
+    v45[1] = 3221225472;
+    v45[2] = __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_384;
+    v45[3] = &unk_278C4E1F0;
+    v50 = v3;
+    v51 = *(a1 + 80);
     v39 = v10;
     v40 = *(a1 + 32);
-    v47 = v39;
-    v48 = v40;
-    v49 = v6;
-    v50 = *(a1 + 40);
-    [v38 _queue_saveRelationshipAndFetchOrCreateShares:v39 contact:v49 cloudKitGroup:v44 completion:v46];
+    v46 = v39;
+    v47 = v40;
+    v48 = v6;
+    v49 = *(a1 + 40);
+    [v38 _queue_saveRelationshipAndFetchOrCreateShares:v39 contact:v48 cloudKitGroup:v43 completion:v45];
 
 LABEL_25:
 LABEL_26:
@@ -2678,8 +2674,6 @@ LABEL_26:
   (*(*(a1 + 80) + 16))();
   v3[2](v3);
 LABEL_27:
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_384(uint64_t a1, char a2, uint64_t a3)
@@ -2814,9 +2808,10 @@ uint64_t __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_from
     _os_log_impl(&dword_23E5E3000, v20, OS_LOG_TYPE_DEFAULT, "RelationshipManager response info: handshakeToken=%@, buildNumber=%{public}@, version=%d", buf, 0x1Cu);
   }
 
-  if ([(ASRelationshipManager *)self _appIsInstalled])
+  _appIsInstalled = [(ASRelationshipManager *)self _appIsInstalled];
+  if (_appIsInstalled)
   {
-    v24 = ASCloudKitGroupSharingSetup();
+    v25 = ASCloudKitGroupSharingSetup(_appIsInstalled);
     WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
     v29[0] = MEMORY[0x277D85DD0];
     v29[1] = 3221225472;
@@ -2825,57 +2820,54 @@ uint64_t __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_from
     v34 = completionCopy;
     v29[4] = self;
     v30 = responseCopy;
-    v31 = v24;
+    v31 = v25;
     v32 = centerCopy;
     v33 = addressCopy;
-    v26 = v24;
-    [WeakRetained fetchAllChangesWithPriority:2 activity:0 group:v26 completion:v29];
+    v27 = v25;
+    [WeakRetained fetchAllChangesWithPriority:2 activity:0 group:v27 completion:v29];
   }
 
   else
   {
     ASLoggingInitialize();
-    v27 = *v15;
+    v28 = *v15;
     if (os_log_type_enabled(*v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E5E3000, v27, OS_LOG_TYPE_DEFAULT, "RelationshipManager not processing response because activity app is not installed, persisting for later delivery", buf, 2u);
+      _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "RelationshipManager not processing response because activity app is not installed, persisting for later delivery", buf, 2u);
     }
 
     (*(completionCopy + 2))(completionCopy, 1);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v9 = *(a1 + 72);
-    v10 = *(*(a1 + 72) + 16);
+    v9 = *(*(a1 + 72) + 16);
 
-    v10();
+    v9();
   }
 
   else
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2;
-    v12[3] = &unk_278C4E330;
-    v11 = *(a1 + 32);
-    v4 = *(v11 + 80);
-    v5 = *(&v11 + 1);
-    v16 = *(a1 + 72);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2;
+    v11[3] = &unk_278C4E330;
+    v10 = *(a1 + 32);
+    v4 = *(v10 + 80);
+    v5 = *(&v10 + 1);
+    v15 = *(a1 + 72);
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
     *&v8 = v6;
     *(&v8 + 1) = v7;
-    v13 = v11;
-    v14 = v8;
-    v15 = *(a1 + 64);
-    [v4 performTransaction:v12];
+    v12 = v10;
+    v13 = v8;
+    v14 = *(a1 + 64);
+    [v4 performTransaction:v11];
   }
 }
 
@@ -2980,7 +2972,7 @@ LABEL_16:
     v17 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3(a1 + 5, v17);
+      __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3((a1 + 5), v17);
     }
 
     (*(a1[9] + 2))();
@@ -2992,7 +2984,7 @@ LABEL_17:
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_387(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5)
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   v9 = a4;
   v10 = a5;
   if (a3 || (a2 & 1) == 0)
@@ -3005,50 +2997,47 @@ void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSen
   {
     v11 = *(a1 + 32);
     v12 = [*(a1 + 40) inviteeCloudKitAddress];
-    v35[0] = v9;
-    v35[1] = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+    v34[0] = v9;
+    v34[1] = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
     v14 = *(a1 + 48);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_388;
-    v27[3] = &unk_278C4E2E0;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_388;
+    v26[3] = &unk_278C4E2E0;
     v15 = *(a1 + 88);
     v16 = *(a1 + 96);
-    v26 = *(a1 + 32);
-    v17 = *(&v26 + 1);
+    v25 = *(a1 + 32);
+    v17 = *(&v25 + 1);
     v18 = *(a1 + 56);
     v19 = *(a1 + 64);
     *&v20 = v18;
     *(&v20 + 1) = v19;
-    v28 = v26;
-    v29 = v20;
-    v30 = *(a1 + 48);
-    v31 = v9;
-    v32 = v10;
+    v27 = v25;
+    v28 = v20;
+    v29 = *(a1 + 48);
+    v30 = v9;
+    v31 = v10;
     v21 = *(a1 + 72);
     v22 = *(a1 + 80);
     *&v23 = v21;
     *(&v23 + 1) = v22;
     *&v24 = v15;
     *(&v24 + 1) = v16;
-    v33 = v23;
-    v34 = v24;
-    [v11 _queue_addPersonWithCloudKitAddress:v12 toShares:v13 cloudKitGroup:v14 completion:v27];
+    v32 = v23;
+    v33 = v24;
+    [v11 _queue_addPersonWithCloudKitAddress:v12 toShares:v13 cloudKitGroup:v14 completion:v26];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_388(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v11 = *(a1 + 104);
     (*(*(a1 + 104) + 16))();
-    v12 = *(*(a1 + 112) + 16);
+    v11 = *(*(a1 + 112) + 16);
 
-    v12();
+    v11();
   }
 
   else
@@ -3058,23 +3047,23 @@ void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSen
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
     v8 = *(a1 + 64);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3;
-    v13[3] = &unk_278C4E2B8;
-    v22 = *(a1 + 104);
-    v23 = *(a1 + 112);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3;
+    v12[3] = &unk_278C4E2B8;
+    v21 = *(a1 + 104);
+    v22 = *(a1 + 112);
     v9 = *(a1 + 40);
     v10 = *(a1 + 32);
-    v14 = v9;
-    v15 = v10;
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 64);
-    v18 = *(a1 + 72);
-    v19 = *(a1 + 80);
-    v20 = *(a1 + 88);
-    v21 = *(a1 + 96);
-    [v4 _queue_acceptShares:v5 forRelationship:v6 contact:v7 cloudKitGroup:v8 completion:v13];
+    v13 = v9;
+    v14 = v10;
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 64);
+    v17 = *(a1 + 72);
+    v18 = *(a1 + 80);
+    v19 = *(a1 + 88);
+    v20 = *(a1 + 96);
+    [v4 _queue_acceptShares:v5 forRelationship:v6 contact:v7 cloudKitGroup:v8 completion:v12];
   }
 }
 
@@ -3121,12 +3110,11 @@ void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSen
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_4(uint64_t a1, char a2, uint64_t a3)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   (*(*(a1 + 88) + 16))();
   if (a3 || (a2 & 1) == 0)
   {
     v18 = *(*(a1 + 96) + 16);
-    v19 = *MEMORY[0x277D85DE8];
 
     v18();
   }
@@ -3169,52 +3157,50 @@ void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSen
 
       else
       {
-        v20 = *(a1 + 56);
-        v21 = [*(a1 + 64) UUID];
-        [v20 _queue_insertPlaceholderFriendshipDidBeginForContactWithUUID:v21];
+        v19 = *(a1 + 56);
+        v20 = [*(a1 + 64) UUID];
+        [v19 _queue_insertPlaceholderFriendshipDidBeginForContactWithUUID:v20];
       }
 
       WeakRetained = objc_loadWeakRetained((*(a1 + 56) + 48));
       [WeakRetained updateFitnessAppBadgeCount];
 
       ASLoggingInitialize();
-      v23 = *v14;
+      v22 = *v14;
       if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "RelationshipManager accept received and processed, notify via BB", buf, 2u);
+        _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "RelationshipManager accept received and processed, notify via BB", buf, 2u);
       }
 
-      v24 = objc_loadWeakRetained((*(a1 + 56) + 40));
-      [v24 showInviteAcceptResponseFrom:*(a1 + 64)];
+      v23 = objc_loadWeakRetained((*(a1 + 56) + 40));
+      [v23 showInviteAcceptResponseFrom:*(a1 + 64)];
     }
 
-    v25 = *(a1 + 56);
-    v26 = [*(a1 + 48) activityDataPreview];
-    v27 = [*(a1 + 64) UUID];
-    [v25 _processActivityDataPreview:v26 friendUUID:v27];
+    v24 = *(a1 + 56);
+    v25 = [*(a1 + 48) activityDataPreview];
+    v26 = [*(a1 + 64) UUID];
+    [v24 _processActivityDataPreview:v25 friendUUID:v26];
 
     ASLoggingInitialize();
-    v28 = *v14;
+    v27 = *v14;
     if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = v28;
-      v30 = [v11 handshakeToken];
+      v28 = v27;
+      v29 = [v11 handshakeToken];
       *buf = 138412290;
-      v37 = v30;
-      _os_log_impl(&dword_23E5E3000, v29, OS_LOG_TYPE_DEFAULT, "RelationshipManager sending finalize handshake with token: %@", buf, 0xCu);
+      v35 = v29;
+      _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "RelationshipManager sending finalize handshake with token: %@", buf, 0xCu);
     }
 
-    v31 = *(a1 + 72);
-    v32 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 80)];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_390;
-    v34[3] = &unk_278C4C178;
-    v35 = *(a1 + 96);
-    [v31 sendFinalizeHandshake:v11 toDestinations:v32 completion:v34];
-
-    v33 = *MEMORY[0x277D85DE8];
+    v30 = *(a1 + 72);
+    v31 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 80)];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_390;
+    v32[3] = &unk_278C4C178;
+    v33 = *(a1 + 96);
+    [v30 sendFinalizeHandshake:v11 toDestinations:v31 completion:v32];
   }
 }
 
@@ -3282,9 +3268,9 @@ void __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_from
       v15 = [v11 UUID];
       [v13 _processActivityDataPreview:v14 friendUUID:v15];
 
-      v16 = ASCloudKitGroupSharingSetup();
-      v17 = a1[5];
-      v18 = [a1[4] inviterShareLocations];
+      v17 = ASCloudKitGroupSharingSetup(v16);
+      v18 = a1[5];
+      v19 = [a1[4] inviterShareLocations];
       v22[0] = MEMORY[0x277D85DD0];
       v22[1] = 3221225472;
       v22[2] = __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_391;
@@ -3293,9 +3279,9 @@ void __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_from
       v23 = v11;
       v25 = a1[6];
       v26 = v3;
-      v24 = v16;
-      v19 = v16;
-      [v17 _queue_acceptShares:v18 forRelationship:v12 contact:v23 cloudKitGroup:v19 completion:v22];
+      v24 = v17;
+      v20 = v17;
+      [v18 _queue_acceptShares:v19 forRelationship:v12 contact:v23 cloudKitGroup:v20 completion:v22];
     }
 
     else
@@ -3314,17 +3300,15 @@ void __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_from
   else
   {
     ASLoggingInitialize();
-    v20 = *v4;
+    v21 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_ERROR))
     {
-      __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3(a1 + 4, v20);
+      __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3((a1 + 4), v21);
     }
 
     (*(a1[6] + 2))();
     v3[2](v3);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_391(uint64_t a1, char a2, uint64_t a3, void *a4)
@@ -3403,7 +3387,7 @@ uint64_t __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_
 {
   requestCopy = request;
   completionCopy = completion;
-  v11 = ASCloudKitGroupSharingSetup();
+  v11 = ASCloudKitGroupSharingSetup(completionCopy);
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
@@ -3421,10 +3405,9 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v7 = *(a1 + 48);
-    v8 = *(*(a1 + 48) + 16);
+    v7 = *(*(a1 + 48) + 16);
 
-    v8();
+    v7();
   }
 
   else
@@ -3437,15 +3420,15 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
     block[2] = __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2;
     block[3] = &unk_278C4BA30;
     block[4] = v5;
-    v10 = v4;
-    v11 = *(a1 + 48);
+    v9 = v4;
+    v10 = *(a1 + 48);
     dispatch_async(v6, block);
   }
 }
 
 void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2(id *a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [a1[5] handshakeToken];
   v4 = [v2 _contactWithIncomingHandshakeToken:v3];
@@ -3460,9 +3443,9 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
     v9 = [v7 handshakeToken];
     v10 = [v4 displayName];
     *buf = 138412546;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v10;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v10;
     _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "RelationshipManager received withdraw invite, token: %@, person: %@", buf, 0x16u);
   }
 
@@ -3485,7 +3468,7 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v27 = v12;
+        v26 = v12;
         _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "RelationshipManager current state is %{public}@", buf, 0xCu);
       }
 
@@ -3500,17 +3483,17 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
 
     v16 = a1[4];
     v17 = [v12 UUID];
-    v18 = ASCloudKitGroupSharingSetup();
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_392;
-    v23[3] = &unk_278C4E178;
+    v18 = ASCloudKitGroupSharingSetup(v17);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_392;
+    v22[3] = &unk_278C4E178;
     v19 = a1[6];
     v20 = a1[4];
-    v25 = v19;
-    v23[4] = v20;
-    v24 = v4;
-    [v16 _queue_removeFriendWithUUID:v17 eventType:102 activity:0 cloudKitGroup:v18 completion:v23];
+    v24 = v19;
+    v22[4] = v20;
+    v23 = v4;
+    [v16 _queue_removeFriendWithUUID:v17 eventType:102 activity:0 cloudKitGroup:v18 completion:v22];
   }
 
   else
@@ -3525,8 +3508,6 @@ void __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_
 
     (*(a1[6] + 2))();
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_392(void *a1, int a2, uint64_t a3)
@@ -3560,7 +3541,7 @@ uint64_t __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequ
 - (void)cloudKitManager:(id)manager didReceiveNewRelationships:(id)relationships fromRecordZoneWithID:(id)d moreComing:(BOOL)coming changesProcessedHandler:(id)handler
 {
   comingCopy = coming;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   handlerCopy = handler;
   ASLoggingInitialize();
@@ -3568,50 +3549,48 @@ uint64_t __130__ASRelationshipManager_messageCenter_didReceiveWithdrawInviteRequ
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v23 = comingCopy;
+    v22 = comingCopy;
     _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "RelationshipManager received new relationship records from CloudKit, more coming: %{BOOL}d", buf, 8u);
   }
 
   transactionQueue = self->_transactionQueue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __124__ASRelationshipManager_cloudKitManager_didReceiveNewRelationships_fromRecordZoneWithID_moreComing_changesProcessedHandler___block_invoke;
-  v17[3] = &unk_278C4E380;
-  v18 = relationshipsCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __124__ASRelationshipManager_cloudKitManager_didReceiveNewRelationships_fromRecordZoneWithID_moreComing_changesProcessedHandler___block_invoke;
+  v16[3] = &unk_278C4E380;
+  v17 = relationshipsCopy;
   selfCopy = self;
-  v21 = comingCopy;
-  v20 = handlerCopy;
+  v20 = comingCopy;
+  v19 = handlerCopy;
   v14 = handlerCopy;
   v15 = relationshipsCopy;
-  [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v17];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v16];
 }
 
 void __124__ASRelationshipManager_cloudKitManager_didReceiveNewRelationships_fromRecordZoneWithID_moreComing_changesProcessedHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v22 = a2;
+  v31 = *MEMORY[0x277D85DE8];
+  v21 = a2;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v24;
+    v6 = *v23;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v24 != v6)
+        if (*v23 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * i);
+        v8 = *(*(&v22 + 1) + 8 * i);
         v9 = [v8 systemFieldsOnlyRecord];
         v10 = [v9 recordID];
 
@@ -3624,9 +3603,9 @@ void __124__ASRelationshipManager_cloudKitManager_didReceiveNewRelationships_fro
           if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v28 = v10;
-            v29 = 2112;
-            v30 = v8;
+            v27 = v10;
+            v28 = 2112;
+            v29 = v8;
             _os_log_error_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_ERROR, "RelationshipManager received multiple local relationships on a single record ID: %@, relationship: %@", buf, 0x16u);
           }
         }
@@ -3653,7 +3632,7 @@ void __124__ASRelationshipManager_cloudKitManager_didReceiveNewRelationships_fro
 LABEL_13:
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v5);
@@ -3671,9 +3650,7 @@ LABEL_13:
   }
 
   (*(*(a1 + 48) + 16))();
-  v22[2](v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  v21[2](v21);
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewRemoteRelationships:(id)relationships fromRecordZoneWithID:(id)d moreComing:(BOOL)coming activity:(id)activity cloudKitGroup:(id)group changesProcessedHandler:(id)handler
@@ -3710,7 +3687,7 @@ LABEL_13:
 
 void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) firstObject];
   if ([*(a1 + 32) count] >= 2)
@@ -3721,27 +3698,27 @@ void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationshi
       __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke_cold_1();
     }
 
-    v24 = v3;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
+    v23 = v3;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v5 = *(a1 + 32);
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v28;
+      v8 = *v27;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v10 = *(*(&v26 + 1) + 8 * i);
           v11 = [v10 timestampForMostRecentRelationshipEvent];
           v12 = [v4 timestampForMostRecentRelationshipEvent];
           v13 = [v11 compare:v12];
@@ -3754,13 +3731,13 @@ void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationshi
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v7);
     }
 
-    v3 = v24;
+    v3 = v23;
   }
 
   v15 = *(*(a1 + 40) + 112);
@@ -3779,12 +3756,12 @@ void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationshi
     v19 = [MEMORY[0x277CBEAC0] dictionaryWithDictionary:v18[14]];
     v20 = *(a1 + 48);
     v21 = *(a1 + 56);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke_393;
-    v25[3] = &unk_278C4B228;
-    v26 = *(a1 + 64);
-    [v18 _queue_processRemoteRelationships:v19 activity:v20 cloudKitGroup:v21 completion:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke_393;
+    v24[3] = &unk_278C4B228;
+    v25 = *(a1 + 64);
+    [v18 _queue_processRemoteRelationships:v19 activity:v20 cloudKitGroup:v21 completion:v24];
 
     [*(*(a1 + 40) + 112) removeAllObjects];
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 48));
@@ -3792,8 +3769,6 @@ void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationshi
   }
 
   v3[2](v3);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke_393(uint64_t a1)
@@ -3811,7 +3786,7 @@ uint64_t __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelatio
 
 - (void)notificationManager:(id)manager didReceiveActionResponse:(int64_t)response fromContactWithUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   ASLoggingInitialize();
   v8 = MEMORY[0x277CE9008];
@@ -3841,13 +3816,13 @@ uint64_t __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelatio
 
       else
       {
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __90__ASRelationshipManager_notificationManager_didReceiveActionResponse_fromContactWithUUID___block_invoke;
-        v16[3] = &unk_278C4C308;
-        v16[4] = self;
-        v17 = v11;
-        [(ASRelationshipManager *)self acceptInviteRequestFromFriendWithUUID:dCopy completion:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __90__ASRelationshipManager_notificationManager_didReceiveActionResponse_fromContactWithUUID___block_invoke;
+        v15[3] = &unk_278C4C308;
+        v15[4] = self;
+        v16 = v11;
+        [(ASRelationshipManager *)self acceptInviteRequestFromFriendWithUUID:dCopy completion:v15];
       }
     }
   }
@@ -3860,8 +3835,6 @@ uint64_t __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelatio
       [ASRelationshipManager notificationManager:didReceiveActionResponse:fromContactWithUUID:];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __90__ASRelationshipManager_notificationManager_didReceiveActionResponse_fromContactWithUUID___block_invoke(uint64_t a1, char a2, uint64_t a3)
@@ -3933,15 +3906,82 @@ void __58__ASRelationshipManager__processPersistedMessagesIfNeeded__block_invoke
   }
 }
 
+- (void)_queue_removeFriendWithUUID:(id)d eventType:(unsigned __int16)type activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
+{
+  typeCopy = type;
+  dCopy = d;
+  activityCopy = activity;
+  groupCopy = group;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  if (ASSecureCloudEnabled())
+  {
+    serialQueue = self->_serialQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __97__ASRelationshipManager__queue_removeFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke;
+    block[3] = &unk_278C4DE10;
+    block[4] = self;
+    v18 = dCopy;
+    v21 = typeCopy;
+    v19 = groupCopy;
+    v20 = completionCopy;
+    dispatch_async(serialQueue, block);
+  }
+
+  else
+  {
+    [(ASRelationshipManager *)self _queue_removeLegacyFriendWithUUID:dCopy eventType:typeCopy activity:activityCopy cloudKitGroup:groupCopy completion:completionCopy];
+  }
+}
+
 void __97__ASRelationshipManager__queue_removeFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 152));
   [WeakRetained relationshipManager:*(a1 + 32) removeFriendWithUUID:*(a1 + 40) eventType:*(a1 + 64) cloudKitGroup:*(a1 + 48) completion:*(a1 + 56)];
 }
 
+- (void)_queue_removeLegacyFriendWithUUID:(id)d eventType:(unsigned __int16)type activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
+{
+  typeCopy = type;
+  dCopy = d;
+  activityCopy = activity;
+  groupCopy = group;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  ASLoggingInitialize();
+  v16 = *MEMORY[0x277CE9008];
+  if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "RelationshipManager ending friendship, checking for existing relationship began placeholders", buf, 2u);
+  }
+
+  [(ASRelationshipManager *)self _queue_removePlaceholderRelationshipBeganForContactWithUUID:dCopy success:0];
+  v17 = [(ASRelationshipManager *)self insertPlaceholderRelationshipEvent:typeCopy friendUUID:dCopy];
+  transactionQueue = self->_transactionQueue;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke;
+  v24[3] = &unk_278C4D138;
+  v25 = dCopy;
+  selfCopy = self;
+  v31 = typeCopy;
+  v27 = v17;
+  v28 = activityCopy;
+  v29 = groupCopy;
+  v30 = completionCopy;
+  v19 = groupCopy;
+  v20 = activityCopy;
+  v21 = completionCopy;
+  v22 = v17;
+  v23 = dCopy;
+  [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v24];
+}
+
 void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -3950,7 +3990,7 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
   {
     v6 = *(a1 + 32);
     *buf = 138543362;
-    v44 = v6;
+    v43 = v6;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager ending friendship with friend with UUID: %{public}@", buf, 0xCu);
   }
 
@@ -3971,24 +4011,24 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
       }
     }
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_397;
-    v32[3] = &unk_278C4E3F8;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_397;
+    v31[3] = &unk_278C4E3F8;
     v11 = v9;
-    v42 = *(a1 + 80);
+    v41 = *(a1 + 80);
     v12 = *(a1 + 40);
-    v33 = v11;
-    v34 = v12;
-    v35 = v8;
-    v36 = *(a1 + 56);
-    v37 = *(a1 + 64);
-    v38 = *(a1 + 48);
+    v32 = v11;
+    v33 = v12;
+    v34 = v8;
+    v35 = *(a1 + 56);
+    v36 = *(a1 + 64);
+    v37 = *(a1 + 48);
     v13 = v3;
-    v40 = v13;
-    v41 = *(a1 + 72);
-    v39 = *(a1 + 32);
-    v14 = MEMORY[0x23EF0EB00](v32);
+    v39 = v13;
+    v40 = *(a1 + 72);
+    v38 = *(a1 + 32);
+    v14 = MEMORY[0x23EF0EB00](v31);
     v15 = [v11 cloudKitAddress];
 
     ASLoggingInitialize();
@@ -4001,25 +4041,25 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
         v18 = v16;
         v19 = [v11 cloudKitAddress];
         *buf = 138412290;
-        v44 = v19;
+        v43 = v19;
         _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "RelationshipManager removing contact with cloudKitAddress %@ from activity data share", buf, 0xCu);
       }
 
       v20 = objc_loadWeakRetained((*(a1 + 40) + 24));
       v22 = *(a1 + 56);
       v21 = *(a1 + 64);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_398;
-      v25[3] = &unk_278C4E470;
-      v25[4] = *(a1 + 40);
-      v26 = v11;
-      v27 = *(a1 + 64);
-      v28 = *(a1 + 48);
-      v29 = v13;
-      v30 = *(a1 + 72);
-      v31 = v14;
-      [v20 fetchOrCreateActivityDataShareWithGroup:v21 activity:v22 completion:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_398;
+      v24[3] = &unk_278C4E470;
+      v24[4] = *(a1 + 40);
+      v25 = v11;
+      v26 = *(a1 + 64);
+      v27 = *(a1 + 48);
+      v28 = v13;
+      v29 = *(a1 + 72);
+      v30 = v14;
+      [v20 fetchOrCreateActivityDataShareWithGroup:v21 activity:v22 completion:v24];
     }
 
     else
@@ -4049,8 +4089,6 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
     v3[2](v3);
     _NotifyOnMainQueue(0, v11, *(a1 + 72));
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_397(uint64_t a1)
@@ -4103,7 +4141,7 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
 
 void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_398(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = v8;
@@ -4111,19 +4149,19 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
     v11 = [*(a1 + 40) cloudKitAddress];
-    v21[0] = v9;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_2_399;
-    v16[3] = &unk_278C4E448;
-    v16[4] = *(a1 + 32);
+    v20[0] = v9;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_2_399;
+    v15[3] = &unk_278C4E448;
+    v15[4] = *(a1 + 32);
     v13 = *(a1 + 48);
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 64);
-    v19 = *(a1 + 72);
-    v20 = *(a1 + 80);
-    [WeakRetained removeParticipantWithCloudKitAddress:v11 fromShares:v12 group:v13 completion:v16];
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 64);
+    v18 = *(a1 + 72);
+    v19 = *(a1 + 80);
+    [WeakRetained removeParticipantWithCloudKitAddress:v11 fromShares:v12 group:v13 completion:v15];
   }
 
   else
@@ -4140,8 +4178,6 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
     (*(*(a1 + 64) + 16))();
     _NotifyOnMainQueue(0, v7, *(a1 + 72));
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_2_399(uint64_t a1, char a2, void *a3)
@@ -4171,10 +4207,9 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
 {
   if (*(a1 + 80) == 1 && !*(a1 + 32))
   {
-    v3 = *(a1 + 72);
-    v4 = *(*(a1 + 72) + 16);
+    v3 = *(*(a1 + 72) + 16);
 
-    v4();
+    v3();
   }
 
   else
@@ -4182,7 +4217,7 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
     ASLoggingInitialize();
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_3_400_cold_1(a1);
+      __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_3_400_cold_1();
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 32));
@@ -4195,11 +4230,11 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
 
 - (id)_contactWithInviteRequest:(id)request fromSender:(id)sender
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   senderCopy = sender;
-  v35[0] = senderCopy;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+  v34[0] = senderCopy;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
   inviterCloudKitAddress = [requestCopy inviterCloudKitAddress];
 
   if (inviterCloudKitAddress)
@@ -4229,8 +4264,8 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
     v30 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      *v33 = 0;
-      _os_log_impl(&dword_23E5E3000, v30, OS_LOG_TYPE_DEFAULT, "RelationshipManager couldn't find match, creating new contact", v33, 2u);
+      *v32 = 0;
+      _os_log_impl(&dword_23E5E3000, v30, OS_LOG_TYPE_DEFAULT, "RelationshipManager couldn't find match, creating new contact", v32, 2u);
     }
 
     v26 = objc_loadWeakRetained(&self->_contactsManager);
@@ -4254,30 +4289,28 @@ void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_ac
       v24 = *MEMORY[0x277CE9008];
       if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a match, but the cloudKit address was different", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "RelationshipManager found a match, but the cloudKit address was different", v32, 2u);
       }
 
       ASLoggingInitialize();
       v25 = *v23;
       if (os_log_type_enabled(*v23, OS_LOG_TYPE_DEFAULT))
       {
-        *v33 = 0;
-        _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "RelationshipManager creating a new contact for this unique cloudKit address", v33, 2u);
+        *v32 = 0;
+        _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "RelationshipManager creating a new contact for this unique cloudKit address", v32, 2u);
       }
 
       v26 = objc_loadWeakRetained(&self->_contactsManager);
       inviterCloudKitAddress5 = [requestCopy inviterCloudKitAddress];
-      v34 = inviterCloudKitAddress5;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+      v33 = inviterCloudKitAddress5;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
       v29 = [v26 createContactWithDestinations:v28];
 
 LABEL_16:
       v16 = v29;
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -4344,7 +4377,7 @@ uint64_t __68__ASRelationshipManager__contactWithRemoteRelationshipRecordZoneID_
 
 - (void)_insertInviteForContact:(id)contact destination:(id)destination serviceIdentifier:(id)identifier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   identifierCopy = identifier;
   destinationCopy = destination;
@@ -4367,11 +4400,11 @@ uint64_t __68__ASRelationshipManager__contactWithRemoteRelationshipRecordZoneID_
     {
       v16 = v15;
       outgoingHandshakeToken2 = [v11 outgoingHandshakeToken];
-      *v24 = 138412290;
-      *&v24[4] = outgoingHandshakeToken2;
+      *v23 = 138412290;
+      *&v23[4] = outgoingHandshakeToken2;
       v18 = "RelationshipManager outgoing handshake token already exists for this person: %@";
 LABEL_6:
-      _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, v18, v24, 0xCu);
+      _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, v18, v23, 0xCu);
     }
   }
 
@@ -4387,19 +4420,27 @@ LABEL_6:
     {
       v16 = v21;
       outgoingHandshakeToken2 = [v11 outgoingHandshakeToken];
-      *v24 = 138412290;
-      *&v24[4] = outgoingHandshakeToken2;
+      *v23 = 138412290;
+      *&v23[4] = outgoingHandshakeToken2;
       v18 = "RelationshipManager creating new outgoing handshake token: %@";
       goto LABEL_6;
     }
   }
 
-  [v11 insertEventWithType:{1, *v24}];
+  [v11 insertEventWithType:{1, *v23, *&v23[8]}];
   relationshipStorage = [contactCopy relationshipStorage];
   [relationshipStorage setLegacyRelationship:v11];
   [contactCopy setRelationshipStorage:relationshipStorage];
+}
 
-  v23 = *MEMORY[0x277D85DE8];
+- (id)insertPlaceholderRelationshipEvent:(unsigned __int16)event friendUUID:(id)d
+{
+  eventCopy = event;
+  dCopy = d;
+  WeakRetained = objc_loadWeakRetained(&self->_contactsManager);
+  v8 = ASInsertPlaceholderRelationshipEventForFriend(eventCopy, dCopy, WeakRetained, &unk_2850F5138);
+
+  return v8;
 }
 
 - (void)removePlaceholderRelationshipEventWithToken:(id)token
@@ -4407,6 +4448,15 @@ LABEL_6:
   tokenCopy = token;
   WeakRetained = objc_loadWeakRetained(&self->_contactsManager);
   ASRemovePlaceholderForToken(tokenCopy, WeakRetained);
+}
+
+- (void)_queue_removePlaceholderRelationshipBeganForContactWithUUID:(id)d success:(BOOL)success
+{
+  successCopy = success;
+  serialQueue = self->_serialQueue;
+  dCopy = d;
+  dispatch_assert_queue_V2(serialQueue);
+  [(ASRelationshipFinalizationStore *)self->_finalizingStore removePlaceholderWithContactUUID:dCopy shouldNotify:successCopy];
 }
 
 - (id)_contactWithUUIDPreferringPlaceholders:(id)placeholders
@@ -4594,39 +4644,39 @@ id __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGrou
 
 void __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGroup_activity_completion___block_invoke_2(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (!v7 && a2)
   {
-    v30 = a2;
+    v29 = a2;
     v9 = MEMORY[0x277CE9118];
-    v29 = v8;
+    v28 = v8;
     v10 = [MEMORY[0x277CBEB98] setWithArray:v8];
     v11 = [v9 relationshipsWithRelationshipAndEventRecords:v10];
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v37;
+      v15 = *v36;
       v16 = MEMORY[0x277CE9008];
       do
       {
         v17 = 0;
         do
         {
-          if (*v37 != v15)
+          if (*v36 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v36 + 1) + 8 * v17);
+          v18 = *(*(&v35 + 1) + 8 * v17);
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
           v20 = [v18 UUID];
           v21 = [WeakRetained contactWithUUID:v20];
@@ -4646,7 +4696,7 @@ void __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGr
             v24 = *v16;
             if (os_log_type_enabled(*v16, OS_LOG_TYPE_ERROR))
             {
-              __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2_cold_1(&v40, v24, v18, &v41);
+              __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWithActivity_cloudKitGroup_completion___block_invoke_2_cold_1(&v39, v24, v18, &v40);
             }
           }
 
@@ -4654,15 +4704,15 @@ void __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGr
         }
 
         while (v14 != v17);
-        v14 = [v12 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
       while (v14);
     }
 
     v7 = 0;
-    LOBYTE(a2) = v30;
-    v8 = v29;
+    LOBYTE(a2) = v29;
+    v8 = v28;
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -4670,16 +4720,14 @@ void __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGr
   block[2] = __96__ASRelationshipManager_saveRelationships_extraRecordsToSave_cloudKitGroup_activity_completion___block_invoke_410;
   block[3] = &unk_278C4E560;
   v25 = *(a1 + 40);
-  v33 = v8;
-  v34 = v25;
-  v35 = a2;
-  v32 = v7;
+  v32 = v8;
+  v33 = v25;
+  v34 = a2;
+  v31 = v7;
   v26 = v8;
   v27 = v7;
   dispatch_async(MEMORY[0x277D85CD0], block);
   (*(*(a1 + 48) + 16))();
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)saveRelationshipAndFetchOrCreateShares:(id)shares contact:(id)contact cloudKitGroup:(id)group completion:(id)completion
@@ -5230,16 +5278,16 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
     v3 = *(a1 + 56);
     v4 = *(a1 + 64);
     v5 = *(a1 + 72);
-    v6 = ASCloudKitGroupSharingSetup();
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_414;
-    v8[3] = &unk_278C4E650;
-    v7 = *(a1 + 96);
-    v10 = *(a1 + 80);
-    v11 = v7;
-    v9 = *(a1 + 48);
-    [v3 _queue_saveRelationship:v4 contact:v5 activity:0 cloudKitGroup:v6 completion:v8];
+    v7 = ASCloudKitGroupSharingSetup(v6);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_414;
+    v9[3] = &unk_278C4E650;
+    v8 = *(a1 + 96);
+    v11 = *(a1 + 80);
+    v12 = v8;
+    v10 = *(a1 + 48);
+    [v3 _queue_saveRelationship:v4 contact:v5 activity:0 cloudKitGroup:v7 completion:v9];
   }
 
   else
@@ -5247,7 +5295,7 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
     ASLoggingInitialize();
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_cold_1(a1);
+      __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_cold_1();
     }
 
     objc_storeStrong((*(*(a1 + 80) + 8) + 40), *(a1 + 32));
@@ -5257,7 +5305,7 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
 
 void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_414(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   ASLoggingInitialize();
@@ -5266,9 +5314,9 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
   {
     v9 = v8;
     v10 = [v7 UUID];
-    v18 = 138543362;
-    v19 = v10;
-    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "RelationshipManager successfully saved relationship record in CloudKit for UUID %{public}@", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v10;
+    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "RelationshipManager successfully saved relationship record in CloudKit for UUID %{public}@", &v17, 0xCu);
   }
 
   v11 = *(*(a1 + 40) + 8);
@@ -5282,7 +5330,6 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
   v16 = v7;
 
   dispatch_group_leave(*(a1 + 32));
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_415(uint64_t a1, char a2, void *a3, void *a4, void *a5, void *a6)
@@ -5325,32 +5372,32 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
 
 void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_416(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (*(a1 + 120) == 1 && !*(a1 + 32) && (v2 = (a1 + 40), *(a1 + 40)))
   {
     ASLoggingInitialize();
-    v5 = *MEMORY[0x277CE9008];
+    v4 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 48);
-      v7 = v5;
-      v8 = [v6 UUID];
+      v5 = *(a1 + 48);
+      v6 = v4;
+      v7 = [v5 UUID];
       *buf = 138543362;
-      v19 = v8;
-      _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "RelationshipManager successfully saved relationship record for share in CloudKit for UUID %{public}@", buf, 0xCu);
+      v18 = v7;
+      _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "RelationshipManager successfully saved relationship record for share in CloudKit for UUID %{public}@", buf, 0xCu);
     }
 
-    v9 = *(a1 + 56);
-    v10 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 64)];
-    v11 = [v10 setByAddingObjectsFromArray:*(a1 + 72)];
-    v12 = *(a1 + 80);
-    v13 = *(*(a1 + 96) + 8);
-    obj = *(v13 + 40);
-    v14 = [v9 _queue_handleSavedRecords:v11 forContact:v12 error:&obj];
-    objc_storeStrong((v13 + 40), obj);
-    v15 = *(*(a1 + 104) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v8 = *(a1 + 56);
+    v9 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 64)];
+    v10 = [v9 setByAddingObjectsFromArray:*(a1 + 72)];
+    v11 = *(a1 + 80);
+    v12 = *(*(a1 + 96) + 8);
+    obj = *(v12 + 40);
+    v13 = [v8 _queue_handleSavedRecords:v10 forContact:v11 error:&obj];
+    objc_storeStrong((v12 + 40), obj);
+    v14 = *(*(a1 + 104) + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
 
     v3 = 112;
   }
@@ -5360,7 +5407,7 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
     ASLoggingInitialize();
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_416_cold_1(a1);
+      __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_416_cold_1();
     }
 
     v2 = (a1 + 32);
@@ -5369,7 +5416,6 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
 
   objc_storeStrong((*(*(a1 + v3) + 8) + 40), *v2);
   dispatch_group_leave(*(a1 + 88));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_418(void *a1)
@@ -5399,10 +5445,7 @@ void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_
       }
     }
 
-    v6 = *(*(a1[8] + 8) + 40);
-    v7 = *(*(a1[9] + 8) + 40);
-    v8 = *(*(a1[7] + 8) + 40);
-    v9 = v3;
+    v6 = v3;
     (*(v5 + 16))(v5, v4);
   }
 }
@@ -5484,7 +5527,7 @@ void __108__ASRelationshipManager__queue_saveRelationship_contact_withExtraRecor
 
 - (void)_queue_saveRelationship:(id)relationship contact:(id)contact extraRecordsToSave:(id)save extraRecordIDsToDelete:(id)delete activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   relationshipCopy = relationship;
   saveCopy = save;
   completionCopy = completion;
@@ -5521,28 +5564,26 @@ void __108__ASRelationshipManager__queue_saveRelationship_contact_withExtraRecor
 
   if (saveCopy)
   {
-    v36[0] = v26;
-    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+    v35[0] = v26;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
     v28 = [v27 arrayByAddingObjectsFromArray:saveCopy];
   }
 
   else
   {
-    v35 = v26;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+    v34 = v26;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __133__ASRelationshipManager__queue_saveRelationship_contact_extraRecordsToSave_extraRecordIDsToDelete_activity_cloudKitGroup_completion___block_invoke;
-  v32[3] = &unk_278C4D340;
-  v32[4] = self;
-  v33 = completionCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __133__ASRelationshipManager__queue_saveRelationship_contact_extraRecordsToSave_extraRecordIDsToDelete_activity_cloudKitGroup_completion___block_invoke;
+  v31[3] = &unk_278C4D340;
+  v31[4] = self;
+  v32 = completionCopy;
   v30 = completionCopy;
-  [WeakRetained saveRecordsIntoPrivateDatabase:v28 recordIDsToDelete:deleteCopy priority:2 activity:activityCopy group:groupCopy completion:v32];
-
-  v31 = *MEMORY[0x277D85DE8];
+  [WeakRetained saveRecordsIntoPrivateDatabase:v28 recordIDsToDelete:deleteCopy priority:2 activity:activityCopy group:groupCopy completion:v31];
 }
 
 void __133__ASRelationshipManager__queue_saveRelationship_contact_extraRecordsToSave_extraRecordIDsToDelete_activity_cloudKitGroup_completion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -5577,7 +5618,7 @@ uint64_t __133__ASRelationshipManager__queue_saveRelationship_contact_extraRecor
 
 - (void)_queue_addPersonWithCloudKitAddress:(id)address toShares:(id)shares cloudKitGroup:(id)group completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
   serialQueue = self->_serialQueue;
@@ -5589,21 +5630,19 @@ uint64_t __133__ASRelationshipManager__queue_saveRelationship_contact_extraRecor
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = addressCopy;
+    v21 = addressCopy;
     _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "RelationshipManager adding person with cloudKitAddress %@ to my shares", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke;
-  v19[3] = &unk_278C4BA08;
-  v19[4] = self;
-  v20 = completionCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke;
+  v18[3] = &unk_278C4BA08;
+  v18[4] = self;
+  v19 = completionCopy;
   v17 = completionCopy;
-  [WeakRetained addParticipantWithCloudKitAddress:addressCopy toShares:sharesCopy group:groupCopy completion:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [WeakRetained addParticipantWithCloudKitAddress:addressCopy toShares:sharesCopy group:groupCopy completion:v18];
 }
 
 void __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -5626,11 +5665,11 @@ uint64_t __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShare
   if (*(a1 + 48) == 1 && !*(a1 + 32))
   {
     ASLoggingInitialize();
-    v5 = *MEMORY[0x277CE9008];
+    v3 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager succesfully added person to shares", v6, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "RelationshipManager succesfully added person to shares", v4, 2u);
     }
   }
 
@@ -5639,18 +5678,16 @@ uint64_t __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShare
     ASLoggingInitialize();
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke_2_cold_1(a1);
+      __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke_2_cold_1();
     }
   }
 
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_queue_acceptShares:(id)shares forRelationship:(id)relationship contact:(id)contact cloudKitGroup:(id)group completion:(id)completion
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   relationshipCopy = relationship;
   contactCopy = contact;
   completionCopy = completion;
@@ -5667,39 +5704,37 @@ uint64_t __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShare
 
   v23 = [v21 URLWithString:relationshipShareURL];
 
-  v43[0] = v20;
-  v43[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v42[0] = v20;
+  v42[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
   ASLoggingInitialize();
   v25 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = v24;
+    v41 = v24;
     _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "RelationshipManager accepting shares: %@", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke;
-  v34[3] = &unk_278C4E7B8;
-  v34[4] = self;
-  v35 = v24;
-  v39 = contactCopy;
-  v40 = completionCopy;
-  v36 = relationshipCopy;
-  v37 = v20;
-  v38 = v23;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke;
+  v33[3] = &unk_278C4E7B8;
+  v33[4] = self;
+  v34 = v24;
+  v38 = contactCopy;
+  v39 = completionCopy;
+  v35 = relationshipCopy;
+  v36 = v20;
+  v37 = v23;
   v27 = contactCopy;
   v28 = v23;
   v29 = v20;
   v30 = relationshipCopy;
   v31 = completionCopy;
   v32 = v24;
-  [WeakRetained acceptSharesWithURLs:v32 cloudKitGroup:groupCopy completion:v34];
-
-  v33 = *MEMORY[0x277D85DE8];
+  [WeakRetained acceptSharesWithURLs:v32 cloudKitGroup:groupCopy completion:v33];
 }
 
 void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -5733,38 +5768,35 @@ void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_clo
   if (*(a1 + 104) == 1 && !*(a1 + 32))
   {
     ASLoggingInitialize();
-    v4 = *MEMORY[0x277CE9008];
+    v2 = *MEMORY[0x277CE9008];
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "RelationshipManager success accepting shares", v17, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "RelationshipManager success accepting shares", v12, 2u);
     }
 
-    v5 = [*(a1 + 56) objectForKeyedSubscript:*(a1 + 64)];
-    v6 = [*(a1 + 56) objectForKeyedSubscript:*(a1 + 72)];
-    v7 = [v5 recordID];
-    [*(a1 + 48) setRemoteActivityDataShareID:v7];
+    v3 = [*(a1 + 56) objectForKeyedSubscript:*(a1 + 64)];
+    v4 = [*(a1 + 56) objectForKeyedSubscript:*(a1 + 72)];
+    v5 = [v3 recordID];
+    [*(a1 + 48) setRemoteActivityDataShareID:v5];
 
-    v8 = [v6 recordID];
-    [*(a1 + 48) setRemoteRelationshipShareID:v8];
+    v6 = [v4 recordID];
+    [*(a1 + 48) setRemoteRelationshipShareID:v6];
 
-    v9 = *(a1 + 80);
-    if (!v9)
+    v7 = *(a1 + 80);
+    if (!v7)
     {
       WeakRetained = objc_loadWeakRetained((*(a1 + 88) + 32));
-      v11 = [*(a1 + 48) UUID];
-      v9 = [WeakRetained contactWithUUID:v11];
+      v9 = [*(a1 + 48) UUID];
+      v7 = [WeakRetained contactWithUUID:v9];
     }
 
-    v12 = [*(a1 + 80) relationshipStorage];
-    [v12 setLegacyRelationship:*(a1 + 48)];
-    [v9 setRelationshipStorage:v12];
-    v13 = objc_loadWeakRetained((*(a1 + 88) + 32));
-    [v13 saveContact:v9];
+    v10 = [*(a1 + 80) relationshipStorage];
+    [v10 setLegacyRelationship:*(a1 + 48)];
+    [v7 setRelationshipStorage:v10];
+    v11 = objc_loadWeakRetained((*(a1 + 88) + 32));
+    [v11 saveContact:v7];
 
-    v14 = *(a1 + 104);
-    v15 = *(a1 + 32);
-    v16 = *(a1 + 48);
     (*(*(a1 + 96) + 16))();
   }
 
@@ -5773,27 +5805,25 @@ void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_clo
     ASLoggingInitialize();
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_ERROR))
     {
-      __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke_2_cold_1(a1);
+      __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke_2_cold_1();
     }
 
-    v2 = *(a1 + 32);
-    v3 = *(a1 + 48);
     (*(*(a1 + 96) + 16))();
   }
 }
 
 - (void)_queue_reconcileCloudKitRelationships:(id)relationships
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   dispatch_assert_queue_V2(self->_serialQueue);
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = relationshipsCopy;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager reconciling new cloudKit relationships %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = relationshipsCopy;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager reconciling new cloudKit relationships %@", &v19, 0xCu);
   }
 
   v7 = ASFilterInvalidCloudKitRelationships(relationshipsCopy, v6);
@@ -5817,13 +5847,11 @@ void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_clo
 
   v18 = objc_loadWeakRetained(&self->_contactsManager);
   ASReconcileRelationshipsAgainstAddressBook(v12, v18);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_processRemoteRelationships:(id)relationships activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   relationshipsCopy = relationships;
   activityCopy = activity;
   groupCopy = group;
@@ -5836,26 +5864,26 @@ void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_clo
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = relationshipsCopy;
+    v30 = relationshipsCopy;
     _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "RelationshipManager processing remote relationships %@", buf, 0xCu);
   }
 
   v17 = dispatch_group_create();
   WeakRetained = objc_loadWeakRetained(&self->_contactsManager);
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke;
-  v25[3] = &unk_278C4E858;
-  v25[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke;
+  v24[3] = &unk_278C4E858;
+  v24[4] = self;
   v19 = relationshipsCopy;
-  v26 = v19;
+  v25 = v19;
   v20 = activityCopy;
-  v27 = v20;
+  v26 = v20;
   v21 = groupCopy;
-  v28 = v21;
+  v27 = v21;
   v22 = v17;
-  v29 = v22;
-  [WeakRetained setContactsUsingTransaction:v25];
+  v28 = v22;
+  [WeakRetained setContactsUsingTransaction:v24];
 
   ASLoggingInitialize();
   v23 = *v15;
@@ -5866,61 +5894,59 @@ void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_clo
   }
 
   dispatch_group_notify(v22, self->_serialQueue, completionCopy);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 id __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke(uint64_t a1)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
   v3 = [WeakRetained contacts];
 
   v4 = [MEMORY[0x277CBEB38] dictionary];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v43;
+    v8 = *v42;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v43 != v8)
+        if (*v42 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v41 + 1) + 8 * i);
         v11 = [v10 UUID];
         [v4 setObject:v10 forKeyedSubscript:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v7);
   }
 
-  v32 = v5;
+  v31 = v5;
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2;
-  v37[3] = &unk_278C4E830;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2;
+  v36[3] = &unk_278C4E830;
   v12 = *(a1 + 40);
-  v37[4] = *(a1 + 32);
+  v36[4] = *(a1 + 32);
   v13 = v4;
-  v38 = v13;
-  v39 = *(a1 + 48);
-  v40 = *(a1 + 56);
-  v41 = *(a1 + 64);
-  [v12 enumerateKeysAndObjectsUsingBlock:v37];
+  v37 = v13;
+  v38 = *(a1 + 48);
+  v39 = *(a1 + 56);
+  v40 = *(a1 + 64);
+  [v12 enumerateKeysAndObjectsUsingBlock:v36];
   ASLoggingInitialize();
   v14 = MEMORY[0x277CE9008];
   v15 = *MEMORY[0x277CE9008];
@@ -5930,26 +5956,26 @@ id __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudK
     _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "Finished processing remote relationships, with updated contacts:", buf, 2u);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v16 = [v13 allValues];
-  v17 = [v16 countByEnumeratingWithState:&v33 objects:v50 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v32 objects:v49 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v34;
+    v19 = *v33;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v33 + 1) + 8 * j);
+        v21 = *(*(&v32 + 1) + 8 * j);
         ASLoggingInitialize();
         v22 = *v14;
         if (os_log_type_enabled(*v14, OS_LOG_TYPE_DEFAULT))
@@ -5958,31 +5984,29 @@ id __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudK
           v24 = [v21 displayName];
           v25 = [v21 relationshipStorage];
           *buf = 138412546;
-          v47 = v24;
-          v48 = 2112;
-          v49 = v25;
+          v46 = v24;
+          v47 = 2112;
+          v48 = v25;
           _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "%@ -> %@", buf, 0x16u);
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v33 objects:v50 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v32 objects:v49 count:16];
     }
 
     while (v18);
   }
 
   v26 = MEMORY[0x277CBEB98];
-  v27 = [v31 allValues];
+  v27 = [v30 allValues];
   v28 = [v26 setWithArray:v27];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
 
 void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (ASSecureCloudEnabled())
@@ -6036,13 +6060,13 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
   if (v12)
   {
     v17 = [v12 relationshipStorage];
-    v62 = [v17 relationshipForCloudType:{objc_msgSend(v6, "cloudType")}];
+    v61 = [v17 relationshipForCloudType:{objc_msgSend(v6, "cloudType")}];
 
     v18 = [v12 relationshipStorage];
     v19 = [v18 remoteRelationshipForCloudType:{objc_msgSend(v6, "cloudType")}];
 
     v20 = [v12 relationshipStorage];
-    v61 = [v20 primaryRemoteRelationship];
+    v60 = [v20 primaryRemoteRelationship];
 
     v21 = [v12 relationshipStorage];
     [v21 updateRemoteRelationship:v6 cloudType:{objc_msgSend(v6, "cloudType")}];
@@ -6107,15 +6131,15 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
     }
 
     v33 = [v12 relationshipStorage];
-    v60 = [v33 primaryRelationship];
+    v59 = [v33 primaryRelationship];
 
-    v34 = [v62 cloudType];
-    if (v34 != [v60 cloudType])
+    v34 = [v61 cloudType];
+    if (v34 != [v59 cloudType])
     {
       v38 = [v19 cloudType];
-      v39 = [v61 cloudType];
+      v39 = [v60 cloudType];
       v40 = [v19 secureCloudNeedsRepair];
-      if ([v62 isFriendshipActive] && (v41 = v38 == v39, !objc_msgSend(v6, "cloudType")) && ((v41 | v40) & 1) != 0)
+      if ([v61 isFriendshipActive] && (v41 = v38 == v39, !objc_msgSend(v6, "cloudType")) && ((v41 | v40) & 1) != 0)
       {
         ASLoggingInitialize();
         v42 = *v25;
@@ -6124,15 +6148,15 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
           *buf = 138413058;
           *&buf[4] = v6;
           *&buf[12] = 2112;
-          *&buf[14] = v62;
+          *&buf[14] = v61;
           *&buf[22] = 2112;
-          v71 = v60;
-          LOWORD(v72) = 2112;
-          *(&v72 + 2) = v61;
+          v70 = v59;
+          LOWORD(v71) = 2112;
+          *(&v71 + 2) = v60;
           _os_log_impl(&dword_23E5E3000, v42, OS_LOG_TYPE_DEFAULT, "RelationshipManager received non primary relationship to process (NEW: %@\nLOCAL: %@\nPRIMARY: %@\nPRIMARY REMOTE: %@)", buf, 0x2Au);
         }
 
-        [*(a1 + 32) _queue_processEndRelationshipIfNeededForPreviousRemoteRelationship:v19 newRemoteRelationship:v6 contact:v12 xpcActivity:*(a1 + 48) cloudKitGroup:*(a1 + 56) processGroup:{*(a1 + 64), v60}];
+        [*(a1 + 32) _queue_processEndRelationshipIfNeededForPreviousRemoteRelationship:v19 newRemoteRelationship:v6 contact:v12 xpcActivity:*(a1 + 48) cloudKitGroup:*(a1 + 56) processGroup:{*(a1 + 64), v59}];
       }
 
       else
@@ -6144,9 +6168,9 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
           *buf = 138412802;
           *&buf[4] = v6;
           *&buf[12] = 2112;
-          *&buf[14] = v62;
+          *&buf[14] = v61;
           *&buf[22] = 2112;
-          v71 = v60;
+          v70 = v59;
           _os_log_impl(&dword_23E5E3000, v43, OS_LOG_TYPE_DEFAULT, "RelationshipManager not processing remote relationship, not primary (NEW: %@\nLOCAL: %@\nPRIMARY: %@)", buf, 0x20u);
         }
       }
@@ -6154,7 +6178,7 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
       goto LABEL_56;
     }
 
-    if ([v62 isFriendshipActive])
+    if ([v61 isFriendshipActive])
     {
       [*(a1 + 32) _queue_processEndRelationshipIfNeededForPreviousRemoteRelationship:v19 newRemoteRelationship:v6 contact:v12 xpcActivity:*(a1 + 48) cloudKitGroup:*(a1 + 56) processGroup:*(a1 + 64)];
       if (([v19 isFriendshipActive] & 1) == 0 && objc_msgSend(v6, "isFriendshipActive"))
@@ -6187,7 +6211,7 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
       if (ASSecureCloudEnabled())
       {
 LABEL_47:
-        if ((([v62 hasOutgoingSecureCloudUpgradeRequest] & 1) != 0 || objc_msgSend(v62, "secureCloudUpgradeCompleted")) && objc_msgSend(v6, "secureCloudUpgradeFailed"))
+        if ((([v61 hasOutgoingSecureCloudUpgradeRequest] & 1) != 0 || objc_msgSend(v61, "secureCloudUpgradeCompleted")) && objc_msgSend(v6, "secureCloudUpgradeFailed"))
         {
           ASLoggingInitialize();
           v50 = *v25;
@@ -6197,17 +6221,17 @@ LABEL_47:
             _os_log_impl(&dword_23E5E3000, v50, OS_LOG_TYPE_DEFAULT, "RelationshipManager determined upgrade failed remotely, updating local relationship", buf, 2u);
           }
 
-          [v62 insertEventWithType:302];
+          [v61 insertEventWithType:302];
           dispatch_group_enter(*(a1 + 64));
           v51 = *(a1 + 32);
           v52 = *(a1 + 48);
           v53 = *(a1 + 56);
-          v68[0] = MEMORY[0x277D85DD0];
-          v68[1] = 3221225472;
-          v68[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_424;
-          v68[3] = &unk_278C4E7E0;
-          v69 = *(a1 + 64);
-          [v51 _queue_saveRelationship:v62 contact:v12 activity:v52 cloudKitGroup:v53 completion:v68];
+          v67[0] = MEMORY[0x277D85DD0];
+          v67[1] = 3221225472;
+          v67[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_424;
+          v67[3] = &unk_278C4E7E0;
+          v68 = *(a1 + 64);
+          [v51 _queue_saveRelationship:v61 contact:v12 activity:v52 cloudKitGroup:v53 completion:v67];
         }
       }
     }
@@ -6216,22 +6240,22 @@ LABEL_53:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v71 = __Block_byref_object_copy__13;
-    *&v72 = __Block_byref_object_dispose__13;
-    *(&v72 + 1) = v19;
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2020000000;
-    v67 = 0;
+    v70 = __Block_byref_object_copy__13;
+    *&v71 = __Block_byref_object_dispose__13;
+    *(&v71 + 1) = v19;
+    v63 = 0;
+    v64 = &v63;
+    v65 = 0x2020000000;
+    v66 = 0;
     v54 = [*(*&buf[8] + 40) currentRelationshipEventAnchor];
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2_425;
-    v63[3] = &unk_278C4E808;
-    v63[4] = buf;
-    v63[5] = &v64;
-    [v6 traverseRelationshipHistoryStartingAtEventWithAnchor:v54 + 1 block:v63];
-    if (*(v65 + 24) == 1)
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2_425;
+    v62[3] = &unk_278C4E808;
+    v62[4] = buf;
+    v62[5] = &v63;
+    [v6 traverseRelationshipHistoryStartingAtEventWithAnchor:v54 + 1 block:v62];
+    if (*(v64 + 24) == 1)
     {
       v55 = objc_loadWeakRetained((*(a1 + 32) + 16));
       v56 = [v12 UUID];
@@ -6242,7 +6266,7 @@ LABEL_53:
       [v57 removeUnusedTemplatesForFriendWithUUID:v58];
     }
 
-    _Block_object_dispose(&v64, 8);
+    _Block_object_dispose(&v63, 8);
     _Block_object_dispose(buf, 8);
 
 LABEL_56:
@@ -6266,31 +6290,27 @@ LABEL_57:
   }
 
 LABEL_58:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_421(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager handled relationship began on secure cloud %{BOOL}d, %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "RelationshipManager handled relationship began on secure cloud %{BOOL}d, %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2_425(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -6298,9 +6318,9 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
-    v11 = 134217984;
-    v12 = [v3 currentRelationshipEventAnchor];
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "RelationshipManager traversing new events at anchor %lu", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [v3 currentRelationshipEventAnchor];
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "RelationshipManager traversing new events at anchor %lu", &v10, 0xCu);
   }
 
   if (_IsRelationshipTransitioningToInactive(*(*(*(a1 + 32) + 8) + 40), v3))
@@ -6309,8 +6329,8 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
     v7 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "RelationshipManager detected a friendship that was ended remotely, local activity data should be deleted", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "RelationshipManager detected a friendship that was ended remotely, local activity data should be deleted", &v10, 2u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -6319,13 +6339,11 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
   v8 = *(*(a1 + 32) + 8);
   v9 = *(v8 + 40);
   *(v8 + 40) = v3;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_processEndRelationshipIfNeededForPreviousRemoteRelationship:(id)relationship newRemoteRelationship:(id)remoteRelationship contact:(id)contact xpcActivity:(id)activity cloudKitGroup:(id)group processGroup:(id)processGroup
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   activityCopy = activity;
   groupCopy = group;
@@ -6349,7 +6367,7 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
   if (os_log_type_enabled(*v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v31 = hasIncomingInviteRequest;
+    v30 = hasIncomingInviteRequest;
     _os_log_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_DEFAULT, "RelationshipManager checking if another invite flow is in progress: %d", buf, 8u);
   }
 
@@ -6365,15 +6383,13 @@ void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_clou
 
     dispatch_group_enter(processGroupCopy);
     uUID = [contactCopy UUID];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __161__ASRelationshipManager__queue_processEndRelationshipIfNeededForPreviousRemoteRelationship_newRemoteRelationship_contact_xpcActivity_cloudKitGroup_processGroup___block_invoke;
-    v28[3] = &unk_278C4C218;
-    v29 = processGroupCopy;
-    [(ASRelationshipManager *)self _queue_removeFriendWithUUID:uUID eventType:104 activity:activityCopy cloudKitGroup:groupCopy completion:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __161__ASRelationshipManager__queue_processEndRelationshipIfNeededForPreviousRemoteRelationship_newRemoteRelationship_contact_xpcActivity_cloudKitGroup_processGroup___block_invoke;
+    v27[3] = &unk_278C4C218;
+    v28 = processGroupCopy;
+    [(ASRelationshipManager *)self _queue_removeFriendWithUUID:uUID eventType:104 activity:activityCopy cloudKitGroup:groupCopy completion:v27];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_contactStoreDidChangeNotification:(id)notification
@@ -6491,7 +6507,7 @@ void __60__ASRelationshipManager__contactStoreDidChangeNotification___block_invo
 
 - (void)friendInviteBulletinManagerDidReceiveActionResponse:(int64_t)response fromContactWithUUID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   ASLoggingInitialize();
   v7 = MEMORY[0x277CE9008];
@@ -6524,27 +6540,27 @@ void __60__ASRelationshipManager__contactStoreDidChangeNotification___block_invo
         if ([v10 cloudType] == 1)
         {
           v14 = objc_loadWeakRetained(&self->_secureCloudDelegate);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __97__ASRelationshipManager_friendInviteBulletinManagerDidReceiveActionResponse_fromContactWithUUID___block_invoke;
-          v19[3] = &unk_278C4C308;
-          v19[4] = self;
-          v20 = v10;
-          [v14 relationshipManager:self acceptedInviteForFriend:dCopy completion:v19];
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __97__ASRelationshipManager_friendInviteBulletinManagerDidReceiveActionResponse_fromContactWithUUID___block_invoke;
+          v18[3] = &unk_278C4C308;
+          v18[4] = self;
+          v19 = v10;
+          [v14 relationshipManager:self acceptedInviteForFriend:dCopy completion:v18];
 
-          v15 = v20;
+          v15 = v19;
         }
 
         else
         {
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __97__ASRelationshipManager_friendInviteBulletinManagerDidReceiveActionResponse_fromContactWithUUID___block_invoke_2;
-          v17[3] = &unk_278C4C308;
-          v17[4] = self;
-          v18 = v10;
-          [(ASRelationshipManager *)self acceptInviteRequestFromFriendWithUUID:dCopy completion:v17];
-          v15 = v18;
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __97__ASRelationshipManager_friendInviteBulletinManagerDidReceiveActionResponse_fromContactWithUUID___block_invoke_2;
+          v16[3] = &unk_278C4C308;
+          v16[4] = self;
+          v17 = v10;
+          [(ASRelationshipManager *)self acceptInviteRequestFromFriendWithUUID:dCopy completion:v16];
+          v15 = v17;
         }
       }
     }
@@ -6558,8 +6574,6 @@ void __60__ASRelationshipManager__contactStoreDidChangeNotification___block_invo
       [ASRelationshipManager notificationManager:didReceiveActionResponse:fromContactWithUUID:];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __97__ASRelationshipManager_friendInviteBulletinManagerDidReceiveActionResponse_fromContactWithUUID___block_invoke(uint64_t a1, char a2, uint64_t a3)
@@ -6619,28 +6633,20 @@ void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventT
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4_343_cold_1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_6() cloudKitAddress];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() cloudKitAddress];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void __100__ASRelationshipManager_setActivityDataVisible_toFriendWithUUID_eventType_cloudKitGroup_completion___block_invoke_4_343_cold_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 56);
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_6() cloudKitAddress];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() cloudKitAddress];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void __69__ASRelationshipManager_setMuteEnabled_forFriendWithUUID_completion___block_invoke_2_cold_1()
@@ -6682,11 +6688,9 @@ void __106__ASRelationshipManager_updateRelationshipsForCurrentFeatureSupportWit
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_3_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completion___block_invoke_3_cold_2()
@@ -6705,28 +6709,22 @@ void __74__ASRelationshipManager_acceptInviteRequestFromFriendWithUUID_completio
 
 void __74__ASRelationshipManager_ignoreInviteRequestFromFriendWithUUID_completion___block_invoke_cold_1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_6() relationshipEvents];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_3_cold_1(uint64_t *a1, void *a2, id *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((v4 + 56));
@@ -6735,13 +6733,10 @@ void __122__ASRelationshipManager_messageCenter_didReceiveInviteRequest_fromSend
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v7, v8, v9, v10, v11, 0xEu);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_1(uint64_t *a1, void *a2, id *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((v4 + 56));
@@ -6750,39 +6745,29 @@ void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSen
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_0_5();
   _os_log_error_impl(v7, v8, v9, v10, v11, 0xEu);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3(uint64_t *a1, void *a2)
+void __123__ASRelationshipManager_messageCenter_didReceiveInviteResponse_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_2_cold_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v3 = *a1;
-  v4 = a2;
-  v5 = [OUTLINED_FUNCTION_6() handshakeToken];
+  v3 = a2;
+  v4 = [OUTLINED_FUNCTION_6() handshakeToken];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void __126__ASRelationshipManager_messageCenter_didReceiveFinalizeHandshake_fromSenderAddress_receiverAddress_messageHandledCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationships_fromRecordZoneWithID_moreComing_activity_cloudKitGroup_changesProcessedHandler___block_invoke_cold_1()
@@ -6794,132 +6779,106 @@ void __153__ASRelationshipManager_cloudKitManager_didReceiveNewRemoteRelationshi
 
 - (void)notificationManager:didReceiveActionResponse:fromContactWithUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __58__ASRelationshipManager__processPersistedMessagesIfNeeded__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_398_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_3_400_cold_1(uint64_t a1)
+void __103__ASRelationshipManager__queue_removeLegacyFriendWithUUID_eventType_activity_cloudKitGroup_completion___block_invoke_3_400_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __84__ASRelationshipManager__queue_fetchSharesForRelationship_cloudKitGroup_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__ASRelationshipManager__queue_fetchSharesForRelationship_cloudKitGroup_completion___block_invoke_411_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_cold_1(uint64_t a1)
+void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_416_cold_1(uint64_t a1)
+void __104__ASRelationshipManager__queue_saveRelationshipAndFetchOrCreateShares_contact_cloudKitGroup_completion___block_invoke_2_416_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __108__ASRelationshipManager__queue_saveRelationship_contact_withExtraRecords_activity_cloudKitGroup_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke_2_cold_1(uint64_t a1)
+void __95__ASRelationshipManager__queue_addPersonWithCloudKitAddress_toShares_cloudKitGroup_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_7(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_7(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke_2_cold_1(uint64_t a1)
+void __94__ASRelationshipManager__queue_acceptShares_forRelationship_contact_cloudKitGroup_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2_cold_1(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 zoneID];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "RelationshipManager unable to find contact with remote relationship zone ID: %@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "RelationshipManager unable to find contact with remote relationship zone ID: %@", v5, 0xCu);
 }
 
 void __93__ASRelationshipManager__queue_processRemoteRelationships_activity_cloudKitGroup_completion___block_invoke_2_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

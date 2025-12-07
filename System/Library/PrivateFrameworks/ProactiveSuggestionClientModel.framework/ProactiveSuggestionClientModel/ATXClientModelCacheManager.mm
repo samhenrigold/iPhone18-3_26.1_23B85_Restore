@@ -37,30 +37,30 @@
 
 void __65__ATXClientModelCacheManager_cachedSuggestionsForAllClientModels__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3[1];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = [v4 allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         v12 = [*(a1 + 32) cachedSuggestionsForClientModel:v10];
         if (v12)
@@ -73,13 +73,11 @@ void __65__ATXClientModelCacheManager_cachedSuggestionsForAllClientModels__block
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (ATXClientModelCacheManager)init
@@ -107,72 +105,67 @@ void __65__ATXClientModelCacheManager_cachedSuggestionsForAllClientModels__block
 
 - (void)addCacheHandlersForExistingClientModelCaches
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   cacheDirectory = [(ATXClientModelCacheManager *)self cacheDirectory];
   v5 = [defaultManager contentsOfDirectoryAtPath:cacheDirectory error:0];
 
   if (v5)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = objc_autoreleasePoolPush();
           v12 = [ATXClientModelCacheFileHandler clientModelIdFromFileName:v10];
           clientModelCacheHandlersLock = self->_clientModelCacheHandlersLock;
-          v17[0] = MEMORY[0x1E69E9820];
-          v17[1] = 3221225472;
-          v17[2] = __74__ATXClientModelCacheManager_addCacheHandlersForExistingClientModelCaches__block_invoke;
-          v17[3] = &unk_1E86A3F18;
-          v17[4] = self;
-          v18 = v12;
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __74__ATXClientModelCacheManager_addCacheHandlersForExistingClientModelCaches__block_invoke;
+          v16[3] = &unk_1E86A3F18;
+          v16[4] = self;
+          v17 = v12;
           v14 = v12;
-          [(_PASLock *)clientModelCacheHandlersLock runWithLockAcquired:v17];
+          [(_PASLock *)clientModelCacheHandlersLock runWithLockAcquired:v16];
 
           objc_autoreleasePoolPop(v11);
         }
 
-        v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __74__ATXClientModelCacheManager_addCacheHandlersForExistingClientModelCaches__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  [*(a1 + 32) addNewCacheHandlerIfNeededGivenExistingCacheHandlersInGuardedData:a2 clientModelId:*(a1 + 40)];
-  v3 = __atxlog_handle_blending();
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_blending([*(a1 + 32) addNewCacheHandlerIfNeededGivenExistingCacheHandlersInGuardedData:a2 clientModelId:*(a1 + 40)]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_impl(&dword_1DEFC4000, v3, OS_LOG_TYPE_DEFAULT, "Blending: Recovered suggestions for Client Model: <<%@>>", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_impl(&dword_1DEFC4000, v3, OS_LOG_TYPE_DEFAULT, "Blending: Recovered suggestions for Client Model: <<%@>>", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cachedSuggestionsForClientModel:(id)model
@@ -256,34 +249,32 @@ void __64__ATXClientModelCacheManager_lastCacheUpdateDateForClientModel___block_
     v9 = [v8 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
     v10 = [v9 code];
 
-    v11 = __atxlog_handle_blending();
-    v12 = v11;
+    v12 = __atxlog_handle_blending(v11);
+    v13 = v12;
     if (v10 == 2)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(a1 + 40);
+        v14 = *(a1 + 40);
         *buf = 138412290;
-        v19 = v13;
-        _os_log_impl(&dword_1DEFC4000, v12, OS_LOG_TYPE_DEFAULT, "There is no client model cache file for clientModelId: %@", buf, 0xCu);
+        v19 = v14;
+        _os_log_impl(&dword_1DEFC4000, v13, OS_LOG_TYPE_DEFAULT, "There is no client model cache file for clientModelId: %@", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __64__ATXClientModelCacheManager_lastCacheUpdateDateForClientModel___block_invoke_cold_1(v7, v12);
+      __64__ATXClientModelCacheManager_lastCacheUpdateDateForClientModel___block_invoke_cold_1(v7, v13);
     }
   }
 
   else
   {
-    v14 = [v6 objectForKeyedSubscript:*MEMORY[0x1E696A350]];
-    v15 = *(*(a1 + 48) + 8);
-    v12 = *(v15 + 40);
-    *(v15 + 40) = v14;
+    v15 = [v6 objectForKeyedSubscript:*MEMORY[0x1E696A350]];
+    v16 = *(*(a1 + 48) + 8);
+    v13 = *(v16 + 40);
+    *(v16 + 40) = v15;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (double)cacheAgeForClientModel:(id)model
@@ -363,11 +354,10 @@ void __54__ATXClientModelCacheManager_updateCachedSuggestions___block_invoke(uin
 
 void __64__ATXClientModelCacheManager_lastCacheUpdateDateForClientModel___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Encountered error getting cache age: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "Encountered error getting cache age: %@", &v2, 0xCu);
 }
 
 @end

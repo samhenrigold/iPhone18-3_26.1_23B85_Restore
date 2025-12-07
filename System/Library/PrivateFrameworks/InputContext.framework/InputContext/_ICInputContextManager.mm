@@ -12,12 +12,14 @@
 - (id)loadLexiconsUsingFilter:(id)filter;
 - (id)searchForMeCardEmailAddresses;
 - (id)searchForMeCardRegions;
+- (id)searchWithTriggers:(id)triggers application:(id)application recipient:(id)recipient localeIdentifier:(id)identifier timeoutInMilliseconds:(int)milliseconds resultLimit:(int)limit error:(id *)error;
 - (void)doInitLexiconManager;
 - (void)doInitPredictionManager;
 - (void)hibernate;
 - (void)initLexiconManager;
 - (void)initPredictionManager;
 - (void)predictedItemSelected:(id)selected;
+- (void)provideLexiconFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style;
 - (void)removeContactObserver:(id)observer;
 - (void)removeNamedEntitiesUpdateObserver:(id)observer;
 - (void)reset;
@@ -113,6 +115,20 @@
   lexiconManager = self->_lexiconManager;
 
   return lexiconManager;
+}
+
+- (id)searchWithTriggers:(id)triggers application:(id)application recipient:(id)recipient localeIdentifier:(id)identifier timeoutInMilliseconds:(int)milliseconds resultLimit:(int)limit error:(id *)error
+{
+  v9 = *&limit;
+  v10 = *&milliseconds;
+  identifierCopy = identifier;
+  recipientCopy = recipient;
+  applicationCopy = application;
+  triggersCopy = triggers;
+  getPredictionManager = [(_ICInputContextManager *)self getPredictionManager];
+  v20 = [getPredictionManager searchWithTriggers:triggersCopy application:applicationCopy recipient:recipientCopy localeIdentifier:identifierCopy timeoutInMilliseconds:v10 resultLimit:v9 error:error];
+
+  return v20;
 }
 
 - (id)lastCachedResultWithInitialCharacters:(id)characters
@@ -237,20 +253,19 @@
 
 - (_ICInputContextManager)initWithPredictionSource:(id)source
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = [(_ICInputContextManager *)self init];
   if (v5)
   {
     v6 = [_ICPredictionManager alloc];
-    v12[0] = sourceCopy;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = sourceCopy;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v8 = [(_ICPredictionManager *)v6 initWithPredictionSources:v7];
     predictionManager = v5->_predictionManager;
     v5->_predictionManager = v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -265,6 +280,17 @@
   }
 
   return v3;
+}
+
+- (void)provideLexiconFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style
+{
+  styleCopy = style;
+  typeCopy = type;
+  stringCopy = string;
+  if (objc_opt_respondsToSelector())
+  {
+    [(_ICLexiconManaging *)self->_lexiconManager provideFeedbackForString:stringCopy type:typeCopy style:styleCopy];
+  }
 }
 
 @end

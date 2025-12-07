@@ -10,11 +10,12 @@
   v2 = *self->provider;
 
   featureNames = [v2 featureNames];
-  static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v4.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v5.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v4.super.isa;
+  return v5.super.isa;
 }
 
 - (id)featureValueForName:(id)name

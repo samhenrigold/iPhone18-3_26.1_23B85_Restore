@@ -769,11 +769,11 @@ uint64_t __59__DOCDownloadProgressView_beginGraduallyIncreasingProgress__block_i
   return [MEMORY[0x277D75D18] animateWithDuration:134 delay:v3 options:v2 animations:5.0 completion:0.0];
 }
 
-uint64_t __59__DOCDownloadProgressView_beginGraduallyIncreasingProgress__block_invoke_3(uint64_t result, int a2)
+id *__59__DOCDownloadProgressView_beginGraduallyIncreasingProgress__block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _setProgress:0 animated:0 completion:0.0];
+    return [result[4] _setProgress:0 animated:0 completion:0.0];
   }
 
   return result;
@@ -999,6 +999,13 @@ uint64_t __66__DOCDownloadProgressView_animateToFullRingAndHideWithCompletion___
   }
 }
 
+- (void)_addToPendingAnimationQueue:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_2493AC000, a2, a3, "%@ | --_addToPendingAnimationQueue--\tqueueing animation.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __55__DOCDownloadProgressView__addToPendingAnimationQueue___block_invoke_cold_1(uint64_t a1, char a2, os_log_t log)
 {
   v8 = *MEMORY[0x277D85DE8];
@@ -1008,6 +1015,20 @@ void __55__DOCDownloadProgressView__addToPendingAnimationQueue___block_invoke_co
   v6 = 1024;
   v7 = a2 & 1;
   _os_log_debug_impl(&dword_2493AC000, log, OS_LOG_TYPE_DEBUG, "%@ | --_addToPendingAnimationQueue--\tResuming queue. Anim finished: %d.", &v4, 0x12u);
+}
+
+void __55__DOCDownloadProgressView__addToPendingAnimationQueue___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_2493AC000, a2, a3, "%@ | --_addToPendingAnimationQueue--\tsuspending queue.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __55__DOCDownloadProgressView__addToPendingAnimationQueue___block_invoke_2_cold_2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_3(&dword_2493AC000, a2, a3, "%@ | --_addToPendingAnimationQueue--\tExecuting animation.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

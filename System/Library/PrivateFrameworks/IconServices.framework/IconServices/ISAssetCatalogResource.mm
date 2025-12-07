@@ -21,9 +21,7 @@
   {
     if ([(ISAssetCatalogResource *)self appearanceVariant]== 3)
     {
-LABEL_3:
-      result = 2;
-      goto LABEL_14;
+      return 2;
     }
 
     if ([(ISAssetCatalogResource *)self appearanceVariant]|| (result = [(ISAssetCatalogResource *)self appearance], result != 1))
@@ -41,27 +39,25 @@ LABEL_3:
 
           if (appearance == 2)
           {
-            goto LABEL_3;
+            return 2;
           }
         }
 
-        v5 = _ISDefaultLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = _ISDefaultLog(v5);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
           v8 = 134218240;
           appearance2 = [(ISAssetCatalogResource *)self appearance];
           v10 = 2048;
           appearanceVariant = [(ISAssetCatalogResource *)self appearanceVariant];
-          _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_DEFAULT, "Unknown appearance configuration. A:%lu, AV:%lu", &v8, 0x16u);
+          _os_log_impl(&dword_1A77B8000, v6, OS_LOG_TYPE_DEFAULT, "Unknown appearance configuration. A:%lu, AV:%lu", &v8, 0x16u);
         }
 
-        result = 0;
+        return 0;
       }
     }
   }
 
-LABEL_14:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -91,10 +87,11 @@ LABEL_14:
     if (error)
     {
       v18 = objc_alloc(MEMORY[0x1E696ABC0]);
-      *error = [v18 initWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:MEMORY[0x1E695E0F8]];
+      nameCopy = [v18 initWithDomain:*MEMORY[0x1E696A768] code:-50 userInfo:MEMORY[0x1E695E0F8]];
+      *error = nameCopy;
     }
 
-    v14 = _ISDefaultLog();
+    v14 = _ISDefaultLog(nameCopy);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       if (error)
@@ -122,7 +119,7 @@ LABEL_14:
   v14 = [objc_alloc(MEMORY[0x1E6999368]) initWithURL:lCopy error:error];
   if (!v14)
   {
-    v20 = _ISDefaultLog();
+    v20 = _ISDefaultLog(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ISAssetCatalogResource assetCatalogResourceWithURL:lCopy imageName:error platform:v20 isAppLike:? error:?];
@@ -204,17 +201,17 @@ LABEL_35:
 
   if (v29 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v30 = _ISDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v31 = _ISDefaultLog(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
-      [ISAssetCatalogResource assetCatalogResourceWithURL:v13 imageName:lCopy platform:v30 isAppLike:? error:?];
+      [ISAssetCatalogResource assetCatalogResourceWithURL:v13 imageName:lCopy platform:v31 isAppLike:? error:?];
     }
 
     if (error)
     {
-      v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v32 = objc_alloc(MEMORY[0x1E696ABC0]);
       v21 = 0;
-      *error = [v31 initWithDomain:*MEMORY[0x1E696A768] code:-2582 userInfo:MEMORY[0x1E695E0F8]];
+      *error = [v32 initWithDomain:*MEMORY[0x1E696A768] code:-2582 userInfo:MEMORY[0x1E695E0F8]];
     }
 
     else
@@ -229,12 +226,11 @@ LABEL_35:
   }
 
 LABEL_36:
-  v32 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
-uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_platform_isAppLike_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_platform_isAppLike_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasPrefix:*(a1 + 32)];
   if (result)
@@ -273,19 +269,18 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
   if (v4)
   {
     image = [v4 image];
-    v7 = *MEMORY[0x1E695E4D0];
     CGImageSetProperty();
-    v8 = objc_alloc(MEMORY[0x1E69A8988]);
+    v7 = objc_alloc(MEMORY[0x1E69A8988]);
     [v5 scale];
-    v9 = [v8 initWithCGImage:image scale:?];
+    v8 = [v7 initWithCGImage:image scale:?];
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)_layoutDirectionFromDevice
@@ -307,32 +302,32 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
 
 - (IFImageBag)imageBag
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   imageBag = self->_imageBag;
   if (!imageBag)
   {
     array = [MEMORY[0x1E695DF70] array];
     v5 = [(NSString *)self->_imageName stringByAppendingPathComponent:@"image"];
     [(CUICatalog *)self->_catalog allImageNames];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    obj = v24 = 0u;
-    v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    obj = v23 = 0u;
+    v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           if ([v10 hasPrefix:v5])
           {
             imageMetadataFromFileName = [v10 imageMetadataFromFileName];
@@ -360,7 +355,7 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v7);
@@ -375,8 +370,6 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
 
     imageBag = self->_imageBag;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return imageBag;
 }
@@ -393,8 +386,8 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
     goto LABEL_5;
   }
 
-  v9 = _ISDefaultLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _ISDefaultLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     imageName = self->_imageName;
     v17 = 138413058;
@@ -405,17 +398,17 @@ uint64_t __89__ISAssetCatalogResource_assetCatalogResourceWithURL_imageName_plat
     v22 = width;
     v23 = 2048;
     scaleCopy2 = scale;
-    _os_log_debug_impl(&dword_1A77B8000, v9, OS_LOG_TYPE_DEBUG, "Looking for resources matching the iconset naming convention. Named: %@ for size: (%f,%f) scale:(%lf)", &v17, 0x2Au);
+    _os_log_debug_impl(&dword_1A77B8000, v10, OS_LOG_TYPE_DEBUG, "Looking for resources matching the iconset naming convention. Named: %@ for size: (%f,%f) scale:(%lf)", &v17, 0x2Au);
   }
 
   imageBag = [(ISAssetCatalogResource *)self imageBag];
-  v11 = [imageBag imageForSize:width scale:{height, scale}];
+  v12 = [imageBag imageForSize:width scale:{height, scale}];
 
-  if (!v11)
+  if (!v12)
   {
 LABEL_5:
-    v12 = _ISDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _ISDefaultLog(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v16 = self->_imageName;
       v17 = 138413058;
@@ -426,15 +419,13 @@ LABEL_5:
       v22 = width;
       v23 = 2048;
       scaleCopy2 = scale;
-      _os_log_error_impl(&dword_1A77B8000, v12, OS_LOG_TYPE_ERROR, "Failed to find a icon resources with named: %@ for size: (%f,%f) scale:(%lf)", &v17, 0x2Au);
+      _os_log_error_impl(&dword_1A77B8000, v13, OS_LOG_TYPE_ERROR, "Failed to find a icon resources with named: %@ for size: (%f,%f) scale:(%lf)", &v17, 0x2Au);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v12;
 }
 
 - (BOOL)hasResourceWithAppearance:(int64_t)appearance appearanceString:(id)string
@@ -478,18 +469,17 @@ LABEL_5:
 
 + (void)assetCatalogResourceWithURL:(os_log_t)log imageName:platform:isAppLike:error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "Unable to find image with name %@ in catalog at URL: %@.", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1A77B8000, log, OS_LOG_TYPE_DEBUG, "Unable to find image with name %@ in catalog at URL: %@.", &v3, 0x16u);
 }
 
 + (void)assetCatalogResourceWithURL:(os_log_t)log imageName:platform:isAppLike:error:.cold.2(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *a2;
@@ -500,12 +490,11 @@ LABEL_5:
     v3 = 0;
   }
 
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Unable to open asset catalog with URL: %@ error: %@.", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_1A77B8000, log, OS_LOG_TYPE_ERROR, "Unable to open asset catalog with URL: %@ error: %@.", &v4, 0x16u);
 }
 
 @end

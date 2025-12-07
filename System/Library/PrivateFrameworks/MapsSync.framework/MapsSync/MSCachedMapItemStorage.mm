@@ -101,20 +101,20 @@
 - (NSString)customName
 {
   selfCopy = self;
-  sub_1B62C3514();
-  v4 = v3;
+  sub_1B62C3514(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setCustomName:(id)name
@@ -138,9 +138,9 @@
 - (NSNumber)latitude
 {
   selfCopy = self;
-  v3 = sub_1B62C3DB4();
+  v4 = sub_1B62C3DB4(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLatitude:(id)latitude
@@ -153,9 +153,9 @@
 - (NSNumber)longitude
 {
   selfCopy = self;
-  v3 = sub_1B62C4250();
+  v4 = sub_1B62C4250(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLongitude:(id)longitude
@@ -168,9 +168,9 @@
 - (GEOMapItemStorage)mapItemStorage
 {
   selfCopy = self;
-  v3 = sub_1B62C476C();
+  v4 = sub_1B62C476C(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setMapItemStorage:(id)storage
@@ -187,9 +187,9 @@
 - (NSNumber)muid
 {
   selfCopy = self;
-  v3 = sub_1B62C55CC();
+  v4 = sub_1B62C55CC(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setMuid:(id)muid
@@ -202,9 +202,9 @@
 - (NSNumber)resultsProvider
 {
   selfCopy = self;
-  v3 = sub_1B62C5A68();
+  v4 = sub_1B62C5A68(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setResultsProvider:(id)provider

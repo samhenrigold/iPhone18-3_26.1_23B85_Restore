@@ -6,9 +6,11 @@
 
 uint64_t __49__NSString_FCAdditions__fc_isValidColorHexString__block_invoke()
 {
-  _MergedGlobals_215 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^#?(([0-9A-F]{2}){3 options:4}|([0-9A-F]){3})$" error:{1, 0}];
+  v0 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"^#?(([0-9A-F]{2}){3 options:4}|([0-9A-F]){3})$" error:{1, 0}];
+  v1 = _MergedGlobals_215;
+  _MergedGlobals_215 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)_NTPBCKIdentifierWithType:(uint64_t)type

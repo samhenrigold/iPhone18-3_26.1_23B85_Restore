@@ -732,7 +732,7 @@ LABEL_48:
   return actionCopy;
 }
 
-NSUInteger __56__AXOutputRequest_addAttributesToAction_fromDictionary___block_invoke(uint64_t a1, NSRange range2)
+void *__56__AXOutputRequest_addAttributesToAction_fromDictionary___block_invoke(uint64_t a1, NSRange range2)
 {
   length = range2.length;
   location = range2.location;

@@ -47,31 +47,30 @@ uint64_t __41__PSUIDevicePasscodeState_sharedInstance__block_invoke()
 
 - (BOOL)isPasscodeSet
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = MKBGetDeviceLockState();
   getLogger = [(PSUIDevicePasscodeState *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 67109120;
-    LODWORD(v10) = v3;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "MKBGetDeviceLockState : %d", &v9, 8u);
+    v8 = 67109120;
+    LODWORD(v9) = v3;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "MKBGetDeviceLockState : %d", &v8, 8u);
   }
 
   getLogger2 = [(PSUIDevicePasscodeState *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEBUG))
   {
-    v8 = "OFF";
+    v7 = "OFF";
     if (v3 < 3)
     {
-      v8 = "ON";
+      v7 = "ON";
     }
 
-    v9 = 136315138;
-    v10 = v8;
-    _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "Passcode : %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = v7;
+    _os_log_debug_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEBUG, "Passcode : %s", &v8, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3 < 3;
 }
 

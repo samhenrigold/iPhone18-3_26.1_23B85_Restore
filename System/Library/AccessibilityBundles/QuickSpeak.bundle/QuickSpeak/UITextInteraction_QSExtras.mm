@@ -7,7 +7,7 @@
 
 - (id)_updatedAccessibilityTextSpeechMenuWithMenu:(id)menu
 {
-  v40[1] = *MEMORY[0x29EDCA608];
+  v39[1] = *MEMORY[0x29EDCA608];
   menuCopy = menu;
   identifier = [menuCopy identifier];
   v6 = [identifier isEqualToString:*MEMORY[0x29EDC81F0]];
@@ -46,21 +46,21 @@
     {
       objc_initWeak(buf, self);
       v18 = MEMORY[0x29EDC7A50];
-      v36[0] = MEMORY[0x29EDCA5F8];
-      v36[1] = 3221225472;
-      v36[2] = __74__UITextInteraction_QSExtras__updatedAccessibilityTextSpeechMenuWithMenu___block_invoke;
-      v36[3] = &unk_29F2F02C0;
-      objc_copyWeak(&v37, buf);
-      v19 = [v18 elementWithProvider:v36];
+      v35[0] = MEMORY[0x29EDCA5F8];
+      v35[1] = 3221225472;
+      v35[2] = __74__UITextInteraction_QSExtras__updatedAccessibilityTextSpeechMenuWithMenu___block_invoke;
+      v35[3] = &unk_29F2F02C0;
+      objc_copyWeak(&v36, buf);
+      v19 = [v18 elementWithProvider:v35];
       v20 = MEMORY[0x29EDC7B60];
       v21 = accessibilityQuickSpeakLocalizedString(@"quickspeak.speak.languages");
       v22 = [MEMORY[0x29EDC7AC8] systemImageNamed:@"play"];
-      v40[0] = v19;
-      v23 = [MEMORY[0x29EDB8D80] arrayWithObjects:v40 count:1];
+      v39[0] = v19;
+      v23 = [MEMORY[0x29EDB8D80] arrayWithObjects:v39 count:1];
       v24 = [v20 menuWithTitle:v21 image:v22 identifier:0 options:0 children:v23];
 
       [array addObject:v24];
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(buf);
     }
 
@@ -88,7 +88,7 @@
     if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v39 = array;
+      v38 = array;
       _os_log_impl(&dword_29C1E5000, v33, OS_LOG_TYPE_INFO, "Did update AX speech items for UIMenu: %@", buf, 0xCu);
     }
 
@@ -99,8 +99,6 @@
   {
     v13 = 0;
   }
-
-  v34 = *MEMORY[0x29EDCA608];
 
   return v13;
 }

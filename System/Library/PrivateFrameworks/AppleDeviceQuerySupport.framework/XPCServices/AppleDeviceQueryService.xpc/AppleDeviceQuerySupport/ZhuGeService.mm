@@ -329,89 +329,88 @@ LABEL_9:
   keysCopy = keys;
   errorCopy = error;
   [(ZhuGeService *)self assertCallerEntitledForService];
-  v36 = keysCopy;
+  v35 = keysCopy;
   if (keysCopy)
   {
     ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkKeys:getValuesAndError:]", 359, @"Begin: bulk query keys", v7, v8, v9, v32);
-    v39 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+    v38 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     v10 = keysCopy;
-    v11 = [v10 countByEnumeratingWithState:&v53 objects:v61 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v52 objects:v60 count:16];
     if (v11)
     {
-      v38 = *v54;
+      v37 = *v53;
       do
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v54 != v38)
+          if (*v53 != v37)
           {
             objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v53 + 1) + 8 * i);
+          v13 = *(*(&v52 + 1) + 8 * i);
           v14 = [v10 objectForKeyedSubscript:v13];
           v15 = [v14 objectForKeyedSubscript:@"Options"];
 
           v16 = [v10 objectForKeyedSubscript:v13];
           v17 = [v16 objectForKeyedSubscript:@"Preferences"];
 
-          v47 = 0;
-          v48 = &v47;
-          v49 = 0x3032000000;
-          v50 = sub_1000082A0;
-          v51 = sub_1000082B0;
-          v52 = 0;
-          v41 = 0;
-          v42 = &v41;
-          v43 = 0x3032000000;
-          v44 = sub_1000082A0;
-          v45 = sub_1000082B0;
           v46 = 0;
+          v47 = &v46;
+          v48 = 0x3032000000;
+          v49 = sub_1000082A0;
+          v50 = sub_1000082B0;
+          v51 = 0;
+          v40 = 0;
+          v41 = &v40;
+          v42 = 0x3032000000;
+          v43 = sub_1000082A0;
+          v44 = sub_1000082B0;
+          v45 = 0;
           domainString = [(ZhuGeService *)self domainString];
           ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkKeys:getValuesAndError:]", 370, @"In bulk query, query key: %@ in %@entrusted way", v18, v19, v20, v13);
 
-          v40[0] = _NSConcreteStackBlock;
-          v40[1] = 3221225472;
-          v40[2] = sub_1000082B8;
-          v40[3] = &unk_100014770;
-          v40[4] = &v47;
-          v40[5] = &v41;
-          [(ZhuGeService *)self setKey:v13 andOptions:v15 andPreferences:v17 getValueAndError:v40];
-          v24 = v48[5];
+          v39[0] = _NSConcreteStackBlock;
+          v39[1] = 3221225472;
+          v39[2] = sub_1000082B8;
+          v39[3] = &unk_100014770;
+          v39[4] = &v46;
+          v39[5] = &v40;
+          [(ZhuGeService *)self setKey:v13 andOptions:v15 andPreferences:v17 getValueAndError:v39];
+          v24 = v47[5];
           if (v24)
           {
-            v57 = @"Value";
-            v58 = v24;
-            [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+            v56 = @"Value";
+            v57 = v24;
+            [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
           }
 
           else
           {
-            v35 = v42[5];
             ZhuGeLog(1040, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkKeys:getValuesAndError:]", 378, @"In bulk query, key %@ failed! Error: %@", v21, v22, v23, v13);
-            v26 = v42[5];
-            v59 = @"Error";
-            v60 = v26;
-            [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+            v26 = v41[5];
+            v58 = @"Error";
+            v59 = v26;
+            [NSDictionary dictionaryWithObjects:&v59 forKeys:&v58 count:1];
           }
           v25 = ;
-          [v39 setObject:v25 forKeyedSubscript:v13];
+          [v38 setObject:v25 forKeyedSubscript:v13];
 
-          _Block_object_dispose(&v41, 8);
-          _Block_object_dispose(&v47, 8);
+          _Block_object_dispose(&v40, 8);
+          _Block_object_dispose(&v46, 8);
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v53 objects:v61 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v52 objects:v60 count:16];
       }
 
       while (v11);
     }
 
-    v30 = v39;
+    v30 = v38;
     v31 = 0;
   }
 
@@ -589,83 +588,82 @@ LABEL_8:
   keysCopy = keys;
   errorCopy = error;
   [(ZhuGeService *)self assertCallerEntitledForService];
-  v32 = keysCopy;
+  v31 = keysCopy;
   if (keysCopy)
   {
     ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkMGKeys:getValuesAndError:]", 522, @"Begin: bulk query MG keys", v7, v8, v9, v28);
-    v35 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+    v34 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(keysCopy, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     obj = keysCopy;
-    v10 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+    v10 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
     if (v10)
     {
-      v11 = *v50;
+      v11 = *v49;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v50 != v11)
+          if (*v49 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v49 + 1) + 8 * i);
-          v43 = 0;
-          v44 = &v43;
-          v45 = 0x3032000000;
-          v46 = sub_1000082A0;
-          v47 = sub_1000082B0;
-          v48 = 0;
-          v37 = 0;
-          v38 = &v37;
-          v39 = 0x3032000000;
-          v40 = sub_1000082A0;
-          v41 = sub_1000082B0;
+          v13 = *(*(&v48 + 1) + 8 * i);
           v42 = 0;
+          v43 = &v42;
+          v44 = 0x3032000000;
+          v45 = sub_1000082A0;
+          v46 = sub_1000082B0;
+          v47 = 0;
+          v36 = 0;
+          v37 = &v36;
+          v38 = 0x3032000000;
+          v39 = sub_1000082A0;
+          v40 = sub_1000082B0;
+          v41 = 0;
           domainString = [(ZhuGeService *)self domainString];
           ZhuGeLog(524544, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkMGKeys:getValuesAndError:]", 531, @"In bulk query, query key: %@ from %@entrusted MG", v14, v15, v16, v13);
 
-          v36[0] = _NSConcreteStackBlock;
-          v36[1] = 3221225472;
-          v36[2] = sub_100008FB0;
-          v36[3] = &unk_100014770;
-          v36[4] = &v43;
-          v36[5] = &v37;
-          [(ZhuGeService *)self setMGKey:v13 getValueAndError:v36];
-          v20 = v44[5];
+          v35[0] = _NSConcreteStackBlock;
+          v35[1] = 3221225472;
+          v35[2] = sub_100008FB0;
+          v35[3] = &unk_100014770;
+          v35[4] = &v42;
+          v35[5] = &v36;
+          [(ZhuGeService *)self setMGKey:v13 getValueAndError:v35];
+          v20 = v43[5];
           if (v20)
           {
-            v53 = @"Value";
-            v54 = v20;
-            [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+            v52 = @"Value";
+            v53 = v20;
+            [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
           }
 
           else
           {
-            v31 = v38[5];
             ZhuGeLog(1040, "/Library/Caches/com.apple.xbs/Sources/ZhuGe_Service/ZhuGeSupport/ZhuGeService/ZhuGeService.m", "[ZhuGeService setBulkMGKeys:getValuesAndError:]", 539, @"In bulk query, MG Key %@ failed! Error: %@", v17, v18, v19, v13);
-            v22 = v38[5];
-            v55 = @"Error";
-            v56 = v22;
-            [NSDictionary dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+            v22 = v37[5];
+            v54 = @"Error";
+            v55 = v22;
+            [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
           }
           v21 = ;
-          [v35 setObject:v21 forKeyedSubscript:v13];
+          [v34 setObject:v21 forKeyedSubscript:v13];
 
-          _Block_object_dispose(&v37, 8);
-          _Block_object_dispose(&v43, 8);
+          _Block_object_dispose(&v36, 8);
+          _Block_object_dispose(&v42, 8);
         }
 
-        v10 = [obj countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v10 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
       }
 
       while (v10);
     }
 
-    v26 = v35;
+    v26 = v34;
     v27 = 0;
   }
 

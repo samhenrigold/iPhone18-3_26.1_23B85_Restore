@@ -1715,7 +1715,7 @@ LABEL_84:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v201 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v201 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWPSOS::ParagraphStylePropertyChangeSetArchive::ByteSizeLong(TSWPSOS::ParagraphStylePropertyChangeSetArchive *this, uint32x4_t a2)
@@ -3611,7 +3611,7 @@ LABEL_267:
   return this;
 }
 
-uint64_t *TSWPSOS::ParagraphStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSWPSOS::ParagraphStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -3624,7 +3624,7 @@ uint64_t *TSWPSOS::ParagraphStylePropertyChangeSetArchive::CopyFrom(uint64_t *th
   return this;
 }
 
-uint64_t *TSWPSOS::ParagraphStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const TSWPSOS::ParagraphStylePropertyChangeSetArchive *a2)
+google::protobuf::UnknownFieldSet *TSWPSOS::ParagraphStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSWPSOS::ParagraphStylePropertyChangeSetArchive *a2)
 {
   if (a2 != this)
   {
@@ -4188,7 +4188,7 @@ uint64_t *TSWPSOS::ShapeStylePropertyChangeSetArchive::default_instance(TSWPSOS:
   return &TSWPSOS::_ShapeStylePropertyChangeSetArchive_default_instance_;
 }
 
-uint64_t *TSWPSOS::ShapeStylePropertyChangeSetArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWPSOS::ShapeStylePropertyChangeSetArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -4199,7 +4199,7 @@ uint64_t *TSWPSOS::ShapeStylePropertyChangeSetArchive::Clear(uint64_t *this)
 
   if (v2)
   {
-    this = TSDSOS::BaseShapeStylePropertyChangeSetArchive::Clear(this[3]);
+    this = TSDSOS::BaseShapeStylePropertyChangeSetArchive::Clear(*(this + 3));
     if ((v2 & 2) == 0)
     {
 LABEL_4:
@@ -4217,7 +4217,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  this = TSWPSOS::SpecColumnsArchive::Clear(*(v1 + 32));
+  this = TSWPSOS::SpecColumnsArchive::Clear(*(v1 + 4));
   if ((v2 & 4) == 0)
   {
 LABEL_5:
@@ -4230,7 +4230,7 @@ LABEL_5:
   }
 
 LABEL_18:
-  this = TSWPSOS::SpecPaddingArchive::Clear(*(v1 + 40));
+  this = TSWPSOS::SpecPaddingArchive::Clear(*(v1 + 5));
   if ((v2 & 8) == 0)
   {
 LABEL_6:
@@ -4240,7 +4240,7 @@ LABEL_6:
     }
 
 LABEL_20:
-    this = TSSSOS::SpecIntegerArchive::Clear(*(v1 + 56));
+    this = TSSSOS::SpecIntegerArchive::Clear(*(v1 + 7));
     if ((v2 & 0x20) == 0)
     {
 LABEL_8:
@@ -4256,7 +4256,7 @@ LABEL_8:
   }
 
 LABEL_19:
-  this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 48));
+  this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 6));
   if ((v2 & 0x10) != 0)
   {
     goto LABEL_20;
@@ -4269,11 +4269,11 @@ LABEL_7:
   }
 
 LABEL_21:
-  this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 64));
+  this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 8));
   if ((v2 & 0x40) != 0)
   {
 LABEL_9:
-    this = TSWPSOS::SpecParagraphStyleArchive::Clear(*(v1 + 72));
+    this = TSWPSOS::SpecParagraphStyleArchive::Clear(*(v1 + 9));
   }
 
 LABEL_10:
@@ -4286,7 +4286,7 @@ LABEL_10:
 
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -4298,36 +4298,36 @@ LABEL_10:
 
 google::protobuf::internal *TSWPSOS::ShapeStylePropertyChangeSetArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v61 = a2;
+  v57 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v61) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v57, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v61 + 1);
-      v8 = *v61;
-      if (*v61 < 0)
+      v7 = (v57 + 1);
+      v8 = *v57;
+      if (*v57 < 0)
       {
         v9 = v8 + (*v7 << 7);
         v8 = v9 - 128;
         if (*v7 < 0)
         {
-          TagFallback = google::protobuf::internal::ReadTagFallback(v61, (v9 - 128));
-          v61 = TagFallback;
+          TagFallback = google::protobuf::internal::ReadTagFallback(v57, (v9 - 128));
+          v57 = TagFallback;
           if (!TagFallback)
           {
             goto LABEL_105;
           }
 
           v7 = TagFallback;
-          v8 = v15;
+          v8 = v14;
           goto LABEL_7;
         }
 
-        v7 = (v61 + 2);
+        v7 = (v57 + 2);
       }
 
-      v61 = v7;
+      v57 = v7;
 LABEL_7:
       switch(v8 >> 3)
       {
@@ -4347,13 +4347,12 @@ LABEL_7:
               v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v12 = MEMORY[0x277CA32F0](v11);
-            LODWORD(v10) = v12;
-            *(a1 + 24) = v12;
-            v7 = v61;
+            v10 = MEMORY[0x277CA32F0](v11);
+            *(a1 + 24) = v10;
+            v7 = v57;
           }
 
-          v13 = sub_276F57508(a3, v10, v7);
+          v12 = sub_276F57508(a3, v10, v7);
           goto LABEL_89;
         case 2u:
           if (v8 != 18)
@@ -4362,21 +4361,21 @@ LABEL_7:
           }
 
           *(a1 + 16) |= 2u;
-          v35 = *(a1 + 32);
-          if (!v35)
+          v32 = *(a1 + 32);
+          if (!v32)
           {
-            v36 = *(a1 + 8);
-            if (v36)
+            v33 = *(a1 + 8);
+            if (v33)
             {
-              v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
+              v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v35 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecColumnsArchive>(v36);
-            *(a1 + 32) = v35;
-            v7 = v61;
+            v32 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecColumnsArchive>(v33);
+            *(a1 + 32) = v32;
+            v7 = v57;
           }
 
-          v13 = sub_276F56808(a3, v35, v7);
+          v12 = sub_276F56808(a3, v32, v7);
           goto LABEL_89;
         case 3u:
           if (v8 != 24)
@@ -4385,21 +4384,21 @@ LABEL_7:
           }
 
           v5 |= 0x80u;
-          v28 = (v7 + 1);
-          v27 = *v7;
-          if ((v27 & 0x8000000000000000) == 0)
+          v26 = (v7 + 1);
+          v25 = *v7;
+          if ((v25 & 0x8000000000000000) == 0)
           {
             goto LABEL_41;
           }
 
-          v29 = *v28;
-          v27 = (v29 << 7) + v27 - 128;
-          if (v29 < 0)
+          v27 = *v26;
+          v25 = (v27 << 7) + v25 - 128;
+          if (v27 < 0)
           {
-            v53 = google::protobuf::internal::VarintParseSlow64(v7, v27);
-            v61 = v53;
-            *(a1 + 80) = v54 != 0;
-            if (!v53)
+            v49 = google::protobuf::internal::VarintParseSlow64(v7, v25);
+            v57 = v49;
+            *(a1 + 80) = v50 != 0;
+            if (!v49)
             {
               goto LABEL_105;
             }
@@ -4407,10 +4406,10 @@ LABEL_7:
 
           else
           {
-            v28 = (v7 + 2);
+            v26 = (v7 + 2);
 LABEL_41:
-            v61 = v28;
-            *(a1 + 80) = v27 != 0;
+            v57 = v26;
+            *(a1 + 80) = v25 != 0;
           }
 
           goto LABEL_90;
@@ -4421,21 +4420,21 @@ LABEL_41:
           }
 
           *(a1 + 16) |= 4u;
-          v30 = *(a1 + 40);
-          if (!v30)
+          v28 = *(a1 + 40);
+          if (!v28)
           {
-            v31 = *(a1 + 8);
-            if (v31)
+            v29 = *(a1 + 8);
+            if (v29)
             {
-              v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
+              v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v30 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecPaddingArchive>(v31);
-            *(a1 + 40) = v30;
-            v7 = v61;
+            v28 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecPaddingArchive>(v29);
+            *(a1 + 40) = v28;
+            v7 = v57;
           }
 
-          v13 = sub_276F568D8(a3, v30, v7);
+          v12 = sub_276F568D8(a3, v28, v7);
           goto LABEL_89;
         case 5u:
           if (v8 != 40)
@@ -4444,21 +4443,21 @@ LABEL_41:
           }
 
           v5 |= 0x100u;
-          v19 = (v7 + 1);
-          v18 = *v7;
-          if ((v18 & 0x8000000000000000) == 0)
+          v18 = (v7 + 1);
+          v17 = *v7;
+          if ((v17 & 0x8000000000000000) == 0)
           {
             goto LABEL_26;
           }
 
-          v20 = *v19;
-          v18 = (v20 << 7) + v18 - 128;
-          if (v20 < 0)
+          v19 = *v18;
+          v17 = (v19 << 7) + v17 - 128;
+          if (v19 < 0)
           {
-            v49 = google::protobuf::internal::VarintParseSlow64(v7, v18);
-            v61 = v49;
-            *(a1 + 81) = v50 != 0;
-            if (!v49)
+            v45 = google::protobuf::internal::VarintParseSlow64(v7, v17);
+            v57 = v45;
+            *(a1 + 81) = v46 != 0;
+            if (!v45)
             {
               goto LABEL_105;
             }
@@ -4466,10 +4465,10 @@ LABEL_41:
 
           else
           {
-            v19 = (v7 + 2);
+            v18 = (v7 + 2);
 LABEL_26:
-            v61 = v19;
-            *(a1 + 81) = v18 != 0;
+            v57 = v18;
+            *(a1 + 81) = v17 != 0;
           }
 
           goto LABEL_90;
@@ -4480,21 +4479,20 @@ LABEL_26:
           }
 
           *(a1 + 16) |= 8u;
-          v24 = *(a1 + 48);
-          if (v24)
+          v23 = *(a1 + 48);
+          if (v23)
           {
             goto LABEL_66;
           }
 
-          v37 = *(a1 + 8);
-          if (v37)
+          v34 = *(a1 + 8);
+          if (v34)
           {
-            v37 = *(v37 & 0xFFFFFFFFFFFFFFFELL);
+            v34 = *(v34 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v38 = MEMORY[0x277CA3300](v37);
-          LODWORD(v24) = v38;
-          *(a1 + 48) = v38;
+          v23 = MEMORY[0x277CA3300](v34);
+          *(a1 + 48) = v23;
           goto LABEL_65;
         case 7u:
           if (v8 != 56)
@@ -4503,21 +4501,21 @@ LABEL_26:
           }
 
           v5 |= 0x200u;
-          v40 = (v7 + 1);
-          v39 = *v7;
-          if ((v39 & 0x8000000000000000) == 0)
+          v36 = (v7 + 1);
+          v35 = *v7;
+          if ((v35 & 0x8000000000000000) == 0)
           {
             goto LABEL_71;
           }
 
-          v41 = *v40;
-          v39 = (v41 << 7) + v39 - 128;
-          if (v41 < 0)
+          v37 = *v36;
+          v35 = (v37 << 7) + v35 - 128;
+          if (v37 < 0)
           {
-            v55 = google::protobuf::internal::VarintParseSlow64(v7, v39);
-            v61 = v55;
-            *(a1 + 82) = v56 != 0;
-            if (!v55)
+            v51 = google::protobuf::internal::VarintParseSlow64(v7, v35);
+            v57 = v51;
+            *(a1 + 82) = v52 != 0;
+            if (!v51)
             {
               goto LABEL_105;
             }
@@ -4525,10 +4523,10 @@ LABEL_26:
 
           else
           {
-            v40 = (v7 + 2);
+            v36 = (v7 + 2);
 LABEL_71:
-            v61 = v40;
-            *(a1 + 82) = v39 != 0;
+            v57 = v36;
+            *(a1 + 82) = v35 != 0;
           }
 
           goto LABEL_90;
@@ -4539,22 +4537,21 @@ LABEL_71:
           }
 
           *(a1 + 16) |= 0x10u;
-          v32 = *(a1 + 56);
-          if (!v32)
+          v30 = *(a1 + 56);
+          if (!v30)
           {
-            v33 = *(a1 + 8);
-            if (v33)
+            v31 = *(a1 + 8);
+            if (v31)
             {
-              v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
+              v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v34 = MEMORY[0x277CA3340](v33);
-            LODWORD(v32) = v34;
-            *(a1 + 56) = v34;
-            v7 = v61;
+            v30 = MEMORY[0x277CA3340](v31);
+            *(a1 + 56) = v30;
+            v7 = v57;
           }
 
-          v13 = sub_276F56188(a3, v32, v7);
+          v12 = sub_276F56188(a3, v30, v7);
           goto LABEL_89;
         case 9u:
           if (v8 != 72)
@@ -4563,21 +4560,21 @@ LABEL_71:
           }
 
           v5 |= 0x400u;
-          v46 = (v7 + 1);
-          v45 = *v7;
-          if ((v45 & 0x8000000000000000) == 0)
+          v42 = (v7 + 1);
+          v41 = *v7;
+          if ((v41 & 0x8000000000000000) == 0)
           {
             goto LABEL_81;
           }
 
-          v47 = *v46;
-          v45 = (v47 << 7) + v45 - 128;
-          if (v47 < 0)
+          v43 = *v42;
+          v41 = (v43 << 7) + v41 - 128;
+          if (v43 < 0)
           {
-            v59 = google::protobuf::internal::VarintParseSlow64(v7, v45);
-            v61 = v59;
-            *(a1 + 83) = v60 != 0;
-            if (!v59)
+            v55 = google::protobuf::internal::VarintParseSlow64(v7, v41);
+            v57 = v55;
+            *(a1 + 83) = v56 != 0;
+            if (!v55)
             {
               goto LABEL_105;
             }
@@ -4585,10 +4582,10 @@ LABEL_71:
 
           else
           {
-            v46 = (v7 + 2);
+            v42 = (v7 + 2);
 LABEL_81:
-            v61 = v46;
-            *(a1 + 83) = v45 != 0;
+            v57 = v42;
+            *(a1 + 83) = v41 != 0;
           }
 
           goto LABEL_90;
@@ -4599,25 +4596,24 @@ LABEL_81:
           }
 
           *(a1 + 16) |= 0x20u;
-          v24 = *(a1 + 64);
-          if (v24)
+          v23 = *(a1 + 64);
+          if (v23)
           {
             goto LABEL_66;
           }
 
-          v25 = *(a1 + 8);
-          if (v25)
+          v24 = *(a1 + 8);
+          if (v24)
           {
-            v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+            v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v26 = MEMORY[0x277CA3300](v25);
-          LODWORD(v24) = v26;
-          *(a1 + 64) = v26;
+          v23 = MEMORY[0x277CA3300](v24);
+          *(a1 + 64) = v23;
 LABEL_65:
-          v7 = v61;
+          v7 = v57;
 LABEL_66:
-          v13 = sub_276F56328(a3, v24, v7);
+          v12 = sub_276F56328(a3, v23, v7);
           goto LABEL_89;
         case 0xBu:
           if (v8 != 88)
@@ -4626,21 +4622,21 @@ LABEL_66:
           }
 
           v5 |= 0x800u;
-          v43 = (v7 + 1);
-          v42 = *v7;
-          if ((v42 & 0x8000000000000000) == 0)
+          v39 = (v7 + 1);
+          v38 = *v7;
+          if ((v38 & 0x8000000000000000) == 0)
           {
             goto LABEL_76;
           }
 
-          v44 = *v43;
-          v42 = (v44 << 7) + v42 - 128;
-          if (v44 < 0)
+          v40 = *v39;
+          v38 = (v40 << 7) + v38 - 128;
+          if (v40 < 0)
           {
-            v57 = google::protobuf::internal::VarintParseSlow64(v7, v42);
-            v61 = v57;
-            *(a1 + 84) = v58 != 0;
-            if (!v57)
+            v53 = google::protobuf::internal::VarintParseSlow64(v7, v38);
+            v57 = v53;
+            *(a1 + 84) = v54 != 0;
+            if (!v53)
             {
               goto LABEL_105;
             }
@@ -4648,10 +4644,10 @@ LABEL_66:
 
           else
           {
-            v43 = (v7 + 2);
+            v39 = (v7 + 2);
 LABEL_76:
-            v61 = v43;
-            *(a1 + 84) = v42 != 0;
+            v57 = v39;
+            *(a1 + 84) = v38 != 0;
           }
 
           goto LABEL_90;
@@ -4662,21 +4658,21 @@ LABEL_76:
           }
 
           *(a1 + 16) |= 0x40u;
-          v16 = *(a1 + 72);
-          if (!v16)
+          v15 = *(a1 + 72);
+          if (!v15)
           {
-            v17 = *(a1 + 8);
-            if (v17)
+            v16 = *(a1 + 8);
+            if (v16)
             {
-              v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
+              v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v16 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecParagraphStyleArchive>(v17);
-            *(a1 + 72) = v16;
-            v7 = v61;
+            v15 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecParagraphStyleArchive>(v16);
+            *(a1 + 72) = v15;
+            v7 = v57;
           }
 
-          v13 = sub_276F570F8(a3, v16, v7);
+          v12 = sub_276F570F8(a3, v15, v7);
           goto LABEL_89;
         case 0xDu:
           if (v8 != 104)
@@ -4685,21 +4681,21 @@ LABEL_76:
           }
 
           v5 |= 0x1000u;
-          v22 = (v7 + 1);
-          v21 = *v7;
-          if ((v21 & 0x8000000000000000) == 0)
+          v21 = (v7 + 1);
+          v20 = *v7;
+          if ((v20 & 0x8000000000000000) == 0)
           {
             goto LABEL_31;
           }
 
-          v23 = *v22;
-          v21 = (v23 << 7) + v21 - 128;
-          if (v23 < 0)
+          v22 = *v21;
+          v20 = (v22 << 7) + v20 - 128;
+          if (v22 < 0)
           {
-            v51 = google::protobuf::internal::VarintParseSlow64(v7, v21);
-            v61 = v51;
-            *(a1 + 85) = v52 != 0;
-            if (!v51)
+            v47 = google::protobuf::internal::VarintParseSlow64(v7, v20);
+            v57 = v47;
+            *(a1 + 85) = v48 != 0;
+            if (!v47)
             {
               goto LABEL_105;
             }
@@ -4707,10 +4703,10 @@ LABEL_76:
 
           else
           {
-            v22 = (v7 + 2);
+            v21 = (v7 + 2);
 LABEL_31:
-            v61 = v22;
-            *(a1 + 85) = v21 != 0;
+            v57 = v21;
+            *(a1 + 85) = v20 != 0;
           }
 
           goto LABEL_90;
@@ -4718,15 +4714,15 @@ LABEL_31:
 LABEL_82:
           if (v8)
           {
-            v48 = (v8 & 7) == 4;
+            v44 = (v8 & 7) == 4;
           }
 
           else
           {
-            v48 = 1;
+            v44 = 1;
           }
 
-          if (v48)
+          if (v44)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -4737,18 +4733,18 @@ LABEL_82:
             sub_276EA4A94((a1 + 8));
           }
 
-          v13 = google::protobuf::internal::UnknownFieldParse();
+          v12 = google::protobuf::internal::UnknownFieldParse();
 LABEL_89:
-          v61 = v13;
-          if (!v13)
+          v57 = v12;
+          if (!v12)
           {
 LABEL_105:
-            v61 = 0;
+            v57 = 0;
             goto LABEL_2;
           }
 
 LABEL_90:
-          if (sub_276EA4A1C(a3, &v61))
+          if (sub_276EA4A1C(a3, &v57, *(a3 + 92)))
           {
             goto LABEL_2;
           }
@@ -4760,7 +4756,7 @@ LABEL_90:
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v61;
+  return v57;
 }
 
 unsigned __int8 *TSWPSOS::ShapeStylePropertyChangeSetArchive::_InternalSerialize(TSWPSOS::ShapeStylePropertyChangeSetArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -5265,7 +5261,7 @@ LABEL_103:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v54 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v54 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWPSOS::ShapeStylePropertyChangeSetArchive::ByteSizeLong(TSWPSOS::ShapeStylePropertyChangeSetArchive *this)
@@ -5730,7 +5726,7 @@ LABEL_46:
   *(this + 4) |= v5;
 }
 
-void TSWPSOS::ShapeStylePropertyChangeSetArchive::CopyFrom(TSWPSOS::ShapeStylePropertyChangeSetArchive *this, const Message *a2)
+void TSWPSOS::ShapeStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -5988,7 +5984,7 @@ uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::default_instance(TSWPS
   return &TSWPSOS::_TOCEntryStylePropertyChangeSetArchive_default_instance_;
 }
 
-uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -5996,7 +5992,7 @@ uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::Clear(uint64_t *this)
   {
     if (v2)
     {
-      this = TSWPSOS::ParagraphStylePropertyChangeSetArchive::Clear(this[3]);
+      this = TSWPSOS::ParagraphStylePropertyChangeSetArchive::Clear(*(this + 3));
       if ((v2 & 2) == 0)
       {
 LABEL_4:
@@ -6014,19 +6010,19 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 32));
+    this = TSSSOS::SpecBoolArchive::Clear(*(v1 + 4));
     if ((v2 & 4) != 0)
     {
 LABEL_5:
-      this = TSWPSOS::SpecCharacterStyleArchive::Clear(*(v1 + 40));
+      this = TSWPSOS::SpecCharacterStyleArchive::Clear(*(v1 + 5));
     }
   }
 
 LABEL_6:
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 40) = 0;
-  *(v3 + 8) = 0;
+  *(v3 + 20) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -6038,15 +6034,15 @@ LABEL_6:
 
 google::protobuf::internal *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
-  v33 = a2;
+  v32 = a2;
   v5 = 0;
-  if ((sub_276EA4A1C(a3, &v33) & 1) == 0)
+  if ((sub_276EA4A1C(a3, &v32, *(a3 + 92)) & 1) == 0)
   {
     while (1)
     {
-      v7 = (v33 + 1);
-      v8 = *v33;
-      if ((*v33 & 0x80000000) == 0)
+      v7 = (v32 + 1);
+      v8 = *v32;
+      if ((*v32 & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -6058,15 +6054,15 @@ google::protobuf::internal *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::_Int
         break;
       }
 
-      TagFallback = google::protobuf::internal::ReadTagFallback(v33, (v9 - 128));
-      v33 = TagFallback;
+      TagFallback = google::protobuf::internal::ReadTagFallback(v32, (v9 - 128));
+      v32 = TagFallback;
       if (!TagFallback)
       {
         goto LABEL_61;
       }
 
       v7 = TagFallback;
-      v8 = v28;
+      v8 = v27;
 LABEL_7:
       v10 = v8 >> 3;
       if (v8 >> 3 <= 2)
@@ -6079,21 +6075,21 @@ LABEL_7:
           }
 
           *(a1 + 16) |= 1u;
-          v24 = *(a1 + 24);
-          if (!v24)
+          v23 = *(a1 + 24);
+          if (!v23)
           {
-            v25 = *(a1 + 8);
-            if (v25)
+            v24 = *(a1 + 8);
+            if (v24)
             {
-              v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+              v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v24 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ParagraphStylePropertyChangeSetArchive>(v25);
-            *(a1 + 24) = v24;
-            v7 = v33;
+            v23 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ParagraphStylePropertyChangeSetArchive>(v24);
+            *(a1 + 24) = v23;
+            v7 = v32;
           }
 
-          v18 = sub_276F575D8(a3, v24, v7);
+          v17 = sub_276F575D8(a3, v23, v7);
         }
 
         else
@@ -6113,18 +6109,17 @@ LABEL_7:
               v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
             }
 
-            v17 = MEMORY[0x277CA3300](v16);
-            LODWORD(v15) = v17;
-            *(a1 + 32) = v17;
-            v7 = v33;
+            v15 = MEMORY[0x277CA3300](v16);
+            *(a1 + 32) = v15;
+            v7 = v32;
           }
 
-          v18 = sub_276F56328(a3, v15, v7);
+          v17 = sub_276F56328(a3, v15, v7);
         }
 
 LABEL_51:
-        v33 = v18;
-        if (!v18)
+        v32 = v17;
+        if (!v17)
         {
           goto LABEL_61;
         }
@@ -6140,28 +6135,28 @@ LABEL_51:
         }
 
         v5 |= 8u;
-        v20 = (v7 + 1);
-        v19 = *v7;
-        if ((v19 & 0x8000000000000000) == 0)
+        v19 = (v7 + 1);
+        v18 = *v7;
+        if ((v18 & 0x8000000000000000) == 0)
         {
           goto LABEL_31;
         }
 
-        v21 = *v20;
-        v19 = (v21 << 7) + v19 - 128;
-        if ((v21 & 0x80000000) == 0)
+        v20 = *v19;
+        v18 = (v20 << 7) + v18 - 128;
+        if ((v20 & 0x80000000) == 0)
         {
-          v20 = (v7 + 2);
+          v19 = (v7 + 2);
 LABEL_31:
-          v33 = v20;
-          *(a1 + 48) = v19 != 0;
+          v32 = v19;
+          *(a1 + 48) = v18 != 0;
           goto LABEL_52;
         }
 
-        v29 = google::protobuf::internal::VarintParseSlow64(v7, v19);
-        v33 = v29;
-        *(a1 + 48) = v30 != 0;
-        if (!v29)
+        v28 = google::protobuf::internal::VarintParseSlow64(v7, v18);
+        v32 = v28;
+        *(a1 + 48) = v29 != 0;
+        if (!v28)
         {
           goto LABEL_61;
         }
@@ -6174,36 +6169,36 @@ LABEL_31:
           if (v8 == 34)
           {
             *(a1 + 16) |= 4u;
-            v22 = *(a1 + 40);
-            if (!v22)
+            v21 = *(a1 + 40);
+            if (!v21)
             {
-              v23 = *(a1 + 8);
-              if (v23)
+              v22 = *(a1 + 8);
+              if (v22)
               {
-                v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
+                v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
               }
 
-              v22 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecCharacterStyleArchive>(v23);
-              *(a1 + 40) = v22;
-              v7 = v33;
+              v21 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::SpecCharacterStyleArchive>(v22);
+              *(a1 + 40) = v21;
+              v7 = v32;
             }
 
-            v18 = sub_276F576A8(a3, v22, v7);
+            v17 = sub_276F576A8(a3, v21, v7);
             goto LABEL_51;
           }
 
 LABEL_44:
           if (v8)
           {
-            v26 = (v8 & 7) == 4;
+            v25 = (v8 & 7) == 4;
           }
 
           else
           {
-            v26 = 1;
+            v25 = 1;
           }
 
-          if (v26)
+          if (v25)
           {
             *(a3 + 80) = v8 - 1;
             goto LABEL_2;
@@ -6214,7 +6209,7 @@ LABEL_44:
             sub_276EA4A94((a1 + 8));
           }
 
-          v18 = google::protobuf::internal::UnknownFieldParse();
+          v17 = google::protobuf::internal::UnknownFieldParse();
           goto LABEL_51;
         }
 
@@ -6237,38 +6232,38 @@ LABEL_44:
         {
           v12 = (v7 + 2);
 LABEL_15:
-          v33 = v12;
+          v32 = v12;
           *(a1 + 49) = v11 != 0;
           goto LABEL_52;
         }
 
-        v31 = google::protobuf::internal::VarintParseSlow64(v7, v11);
-        v33 = v31;
-        *(a1 + 49) = v32 != 0;
-        if (!v31)
+        v30 = google::protobuf::internal::VarintParseSlow64(v7, v11);
+        v32 = v30;
+        *(a1 + 49) = v31 != 0;
+        if (!v30)
         {
 LABEL_61:
-          v33 = 0;
+          v32 = 0;
           goto LABEL_2;
         }
       }
 
 LABEL_52:
-      if (sub_276EA4A1C(a3, &v33))
+      if (sub_276EA4A1C(a3, &v32, *(a3 + 92)))
       {
         goto LABEL_2;
       }
     }
 
-    v7 = (v33 + 2);
+    v7 = (v32 + 2);
 LABEL_6:
-    v33 = v7;
+    v32 = v7;
     goto LABEL_7;
   }
 
 LABEL_2:
   *(a1 + 16) |= v5;
-  return v33;
+  return v32;
 }
 
 unsigned __int8 *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::_InternalSerialize(TSWPSOS::TOCEntryStylePropertyChangeSetArchive *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3)
@@ -6473,7 +6468,7 @@ LABEL_43:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v26 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v26 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWPSOS::TOCEntryStylePropertyChangeSetArchive::ByteSizeLong(TSWPSOS::TOCEntryStylePropertyChangeSetArchive *this, uint32x4_t a2)
@@ -6682,7 +6677,7 @@ LABEL_36:
   return this;
 }
 
-uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const Message *a2)
+google::protobuf::UnknownFieldSet *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {
@@ -6695,7 +6690,7 @@ uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::CopyFrom(uint64_t *thi
   return this;
 }
 
-uint64_t *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::CopyFrom(uint64_t *this, const TSWPSOS::TOCEntryStylePropertyChangeSetArchive *a2)
+google::protobuf::UnknownFieldSet *TSWPSOS::TOCEntryStylePropertyChangeSetArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const TSWPSOS::TOCEntryStylePropertyChangeSetArchive *a2)
 {
   if (a2 != this)
   {
@@ -6908,7 +6903,7 @@ uint64_t *TSWPSOS::StyleDiffArchive::default_instance(TSWPSOS::StyleDiffArchive 
   return &TSWPSOS::_StyleDiffArchive_default_instance_;
 }
 
-uint64_t *TSWPSOS::StyleDiffArchive::Clear(uint64_t *this)
+google::protobuf::UnknownFieldSet *TSWPSOS::StyleDiffArchive::Clear(google::protobuf::UnknownFieldSet *this)
 {
   v1 = this;
   v2 = *(this + 4);
@@ -6925,7 +6920,7 @@ uint64_t *TSWPSOS::StyleDiffArchive::Clear(uint64_t *this)
     }
 
 LABEL_12:
-    this = TSWPSOS::CharacterStylePropertyChangeSetArchive::Clear(*(v1 + 32));
+    this = TSWPSOS::CharacterStylePropertyChangeSetArchive::Clear(*(v1 + 4));
     if ((v2 & 4) == 0)
     {
 LABEL_5:
@@ -6940,7 +6935,7 @@ LABEL_5:
     goto LABEL_13;
   }
 
-  this = TSP::Reference::Clear(this[3]);
+  this = TSP::Reference::Clear(*(this + 3));
   if ((v2 & 2) != 0)
   {
     goto LABEL_12;
@@ -6953,17 +6948,17 @@ LABEL_4:
   }
 
 LABEL_13:
-  this = TSWPSOS::ParagraphStylePropertyChangeSetArchive::Clear(*(v1 + 40));
+  this = TSWPSOS::ParagraphStylePropertyChangeSetArchive::Clear(*(v1 + 5));
   if ((v2 & 8) != 0)
   {
 LABEL_6:
-    this = TSWPSOS::ShapeStylePropertyChangeSetArchive::Clear(*(v1 + 48));
+    this = TSWPSOS::ShapeStylePropertyChangeSetArchive::Clear(*(v1 + 6));
   }
 
 LABEL_7:
   v4 = *(v1 + 8);
   v3 = v1 + 8;
-  *(v3 + 8) = 0;
+  *(v3 + 2) = 0;
   if (v4)
   {
 
@@ -6976,166 +6971,154 @@ LABEL_7:
 google::protobuf::internal *TSWPSOS::StyleDiffArchive::_InternalParse(uint64_t a1, google::protobuf::internal *a2, uint64_t a3)
 {
   v24 = a2;
-  while ((sub_276EA4A1C(a3, &v24) & 1) == 0)
+  for (i = *(a3 + 92); (sub_276EA4A1C(a3, &v24, i) & 1) == 0; i = *(a3 + 92))
   {
-    v5 = (v24 + 1);
-    v6 = *v24;
+    v6 = (v24 + 1);
+    v7 = *v24;
     if ((*v24 & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = v6 + (*v5 << 7);
-    v6 = v7 - 128;
-    if ((*v5 & 0x80000000) == 0)
+    v8 = v7 + (*v6 << 7);
+    v7 = v8 - 128;
+    if ((*v6 & 0x80000000) == 0)
     {
-      v5 = (v24 + 2);
+      v6 = (v24 + 2);
 LABEL_6:
-      v24 = v5;
+      v24 = v6;
       goto LABEL_7;
     }
 
-    TagFallback = google::protobuf::internal::ReadTagFallback(v24, (v7 - 128));
+    TagFallback = google::protobuf::internal::ReadTagFallback(v24, (v8 - 128));
     v24 = TagFallback;
     if (!TagFallback)
     {
       return 0;
     }
 
-    v5 = TagFallback;
-    v6 = v22;
+    v6 = TagFallback;
+    v7 = v22;
 LABEL_7:
-    v8 = v6 >> 3;
-    if (v6 >> 3 > 2)
+    v9 = v7 >> 3;
+    if (v7 >> 3 > 2)
     {
-      if (v8 == 3)
+      if (v9 == 3)
       {
-        if (v6 != 26)
+        if (v7 == 26)
         {
-          goto LABEL_39;
-        }
-
-        *(a1 + 16) |= 4u;
-        v18 = *(a1 + 40);
-        if (!v18)
-        {
-          v19 = *(a1 + 8);
-          if (v19)
+          *(a1 + 16) |= 4u;
+          v18 = *(a1 + 40);
+          if (!v18)
           {
-            v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
+            v19 = *(a1 + 8);
+            if (v19)
+            {
+              v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
+            }
+
+            v18 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ParagraphStylePropertyChangeSetArchive>(v19);
+            *(a1 + 40) = v18;
+            v6 = v24;
           }
 
-          v18 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ParagraphStylePropertyChangeSetArchive>(v19);
-          *(a1 + 40) = v18;
-          v5 = v24;
+          v13 = sub_276F575D8(a3, v18, v6);
+          goto LABEL_46;
         }
-
-        v12 = sub_276F575D8(a3, v18, v5);
       }
 
-      else
+      else if (v9 == 4 && v7 == 34)
       {
-        if (v8 != 4 || v6 != 34)
-        {
-          goto LABEL_39;
-        }
-
         *(a1 + 16) |= 8u;
-        v13 = *(a1 + 48);
-        if (!v13)
+        v14 = *(a1 + 48);
+        if (!v14)
         {
-          v14 = *(a1 + 8);
-          if (v14)
+          v15 = *(a1 + 8);
+          if (v15)
           {
-            v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
+            v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v13 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ShapeStylePropertyChangeSetArchive>(v14);
-          *(a1 + 48) = v13;
-          v5 = v24;
+          v14 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::ShapeStylePropertyChangeSetArchive>(v15);
+          *(a1 + 48) = v14;
+          v6 = v24;
         }
 
-        v12 = sub_276F57778(a3, v13, v5);
+        v13 = sub_276F57778(a3, v14, v6);
+        goto LABEL_46;
       }
     }
 
-    else if (v8 == 1)
+    else if (v9 == 1)
     {
-      if (v6 != 10)
+      if (v7 == 10)
       {
-        goto LABEL_39;
-      }
-
-      *(a1 + 16) |= 1u;
-      v15 = *(a1 + 24);
-      if (!v15)
-      {
-        v16 = *(a1 + 8);
-        if (v16)
+        *(a1 + 16) |= 1u;
+        v16 = *(a1 + 24);
+        if (!v16)
         {
-          v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
+          v17 = *(a1 + 8);
+          if (v17)
+          {
+            v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
+          }
+
+          v16 = MEMORY[0x277CA3250](v17);
+          *(a1 + 24) = v16;
+          v6 = v24;
         }
 
-        v17 = MEMORY[0x277CA3250](v16);
-        LODWORD(v15) = v17;
-        *(a1 + 24) = v17;
-        v5 = v24;
+        v13 = sub_276F4F9E8(a3, v16, v6);
+        goto LABEL_46;
+      }
+    }
+
+    else if (v9 == 2 && v7 == 18)
+    {
+      *(a1 + 16) |= 2u;
+      v11 = *(a1 + 32);
+      if (!v11)
+      {
+        v12 = *(a1 + 8);
+        if (v12)
+        {
+          v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
+        }
+
+        v11 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::CharacterStylePropertyChangeSetArchive>(v12);
+        *(a1 + 32) = v11;
+        v6 = v24;
       }
 
-      v12 = sub_276F4F9E8(a3, v15, v5);
+      v13 = sub_276F56A78(a3, v11, v6);
+      goto LABEL_46;
+    }
+
+    if (v7)
+    {
+      v20 = (v7 & 7) == 4;
     }
 
     else
     {
-      if (v8 != 2 || v6 != 18)
-      {
-LABEL_39:
-        if (v6)
-        {
-          v20 = (v6 & 7) == 4;
-        }
-
-        else
-        {
-          v20 = 1;
-        }
-
-        if (v20)
-        {
-          *(a3 + 80) = v6 - 1;
-          return v24;
-        }
-
-        if ((*(a1 + 8) & 1) == 0)
-        {
-          sub_276EA4A94((a1 + 8));
-        }
-
-        v12 = google::protobuf::internal::UnknownFieldParse();
-        goto LABEL_46;
-      }
-
-      *(a1 + 16) |= 2u;
-      v10 = *(a1 + 32);
-      if (!v10)
-      {
-        v11 = *(a1 + 8);
-        if (v11)
-        {
-          v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
-        }
-
-        v10 = google::protobuf::Arena::CreateMaybeMessage<TSWPSOS::CharacterStylePropertyChangeSetArchive>(v11);
-        *(a1 + 32) = v10;
-        v5 = v24;
-      }
-
-      v12 = sub_276F56A78(a3, v10, v5);
+      v20 = 1;
     }
 
+    if (v20)
+    {
+      *(a3 + 80) = v7 - 1;
+      return v24;
+    }
+
+    if ((*(a1 + 8) & 1) == 0)
+    {
+      sub_276EA4A94((a1 + 8));
+    }
+
+    v13 = google::protobuf::internal::UnknownFieldParse();
 LABEL_46:
-    v24 = v12;
-    if (!v12)
+    v24 = v13;
+    if (!v13)
     {
       return 0;
     }
@@ -7358,7 +7341,7 @@ LABEL_46:
     return a2;
   }
 
-  return MEMORY[0x2821EAC40]((v30 & 0xFFFFFFFFFFFFFFFELL) + 8);
+  return MEMORY[0x2821EAC40]((v30 & 0xFFFFFFFFFFFFFFFELL) + 8, a2, a3);
 }
 
 uint64_t TSWPSOS::StyleDiffArchive::ByteSizeLong(TSWPSOS::StyleDiffArchive *this, uint32x4_t a2)
@@ -7593,7 +7576,7 @@ LABEL_33:
   }
 }
 
-void TSWPSOS::StyleDiffArchive::CopyFrom(TSWPSOS::StyleDiffArchive *this, const Message *a2)
+void TSWPSOS::StyleDiffArchive::CopyFrom(google::protobuf::UnknownFieldSet *this, const Message *a2)
 {
   if (a2 != this)
   {

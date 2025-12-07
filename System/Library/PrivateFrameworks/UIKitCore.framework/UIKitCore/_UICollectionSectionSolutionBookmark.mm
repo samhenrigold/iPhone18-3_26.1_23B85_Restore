@@ -1,8 +1,8 @@
 @interface _UICollectionSectionSolutionBookmark
+- (_UICollectionLayoutSectionDescriptor)memoizedDescriptor;
 - (double)_layoutFrameIncludingContentInsets:(int)insets supplementaries:(char)supplementaries clampingToContainer:;
 - (double)contentInsetsOffset;
 - (double)sectionAuxiliaryContentInsetsOffset;
-- (float64x2_t)memoizedDescriptor;
 - (id)description;
 - (id)initWithSolution:(void *)solution globalFrame:(void *)frame globalPinningFrame:(void *)pinningFrame insetEnvironment:(void *)environment supplementaryInsetEnvironment:(double)insetEnvironment section:(double)section preferredSizes:(double)sizes;
 - (uint64_t)_containerAxis;
@@ -83,12 +83,12 @@
   return v1;
 }
 
-- (float64x2_t)memoizedDescriptor
+- (_UICollectionLayoutSectionDescriptor)memoizedDescriptor
 {
   if (self)
   {
-    v3 = (self + 112);
-    v2 = *(self + 112);
+    v3 = self + 14;
+    v2 = self[14];
     if (v2)
     {
       v4 = v2;
@@ -96,8 +96,8 @@
 
     else
     {
-      v5 = *(self + 16);
-      v6 = *(self + 8);
+      v5 = self[2];
+      v6 = self[1];
       v4 = objc_opt_new();
       layoutAxis = [v6 layoutAxis];
       orthogonalScrollingBehavior = [v5 orthogonalScrollingBehavior];
@@ -118,7 +118,7 @@
       }
 
       v13 = 0.0;
-      v14 = 0.0;
+      v14 = 0;
       if (v9 == 4)
       {
         [v5 interGroupSpacing];
@@ -224,55 +224,55 @@
       v67 = v52;
       if (v4)
       {
-        *&v4[1].f64[0] = v91;
-        *&v4[1].f64[1] = orthogonalScrollingBehavior;
+        v4[2] = v91;
+        v4[3] = orthogonalScrollingBehavior;
         v53 = 1.0;
-        v4[2].f64[0] = v90;
+        v4[4] = v90;
         if (fabs(v32) >= 2.22044605e-16)
         {
           v53 = v32;
         }
 
         v94 = *&v53;
-        *&v4[2].f64[1] = bounce;
-        LOBYTE(v4->f64[1]) = _clipsContentToBounds;
-        BYTE1(v4->f64[1]) = _excludesBoundarySupplementariesFromClipping;
-        v4[3].f64[0] = v85;
+        v4[5] = bounce;
+        *(v4 + 8) = _clipsContentToBounds;
+        *(v4 + 9) = _excludesBoundarySupplementariesFromClipping;
+        v4[6] = v85;
         [v6 orthogonalScrollingPrefetchingUnitVector];
-        v4[5].f64[0] = v54;
-        v4[5].f64[1] = v55;
-        v4[3].f64[1] = v86;
-        v4[4].f64[0] = v87;
-        v4[4].f64[1] = v88;
+        v4[10] = v54;
+        v4[11] = v55;
+        *(v4 + 7) = v86;
+        *(v4 + 8) = v87;
+        v4[9] = v88;
         [v6 orthogonalOffset];
-        v4[6].f64[0] = v56;
-        v4[6].f64[1] = v57;
-        v4[7].f64[0] = v83;
-        v4[7].f64[1] = v82;
-        v4[8].f64[0] = v81;
-        v4[8].f64[1] = v80;
-        v4[9].f64[0] = v79;
-        v4[9].f64[1] = v78;
-        v4[10].f64[0] = v77;
-        v4[10].f64[1] = v76;
+        v4[12] = v56;
+        v4[13] = v57;
+        *(v4 + 14) = v83;
+        v4[15] = v82;
+        v4[16] = v81;
+        v4[17] = v80;
+        *(v4 + 18) = v79;
+        v4[19] = v78;
+        v4[20] = v77;
+        v4[21] = v76;
         v58.f64[0] = v73;
         v58.f64[1] = v71;
         v59.f64[0] = MinX;
         v59.f64[1] = MinY;
         v92 = vdupq_lane_s64(v94, 0);
-        v4[13] = vdivq_f64(vrndaq_f64(vmulq_n_f64(v59, *&v94)), v92);
-        v4[14] = vdivq_f64(vrndaq_f64(vmulq_n_f64(v58, *&v94)), v92);
+        *(v4 + 13) = vdivq_f64(vrndaq_f64(vmulq_n_f64(v59, *&v94)), v92);
+        *(v4 + 14) = vdivq_f64(vrndaq_f64(vmulq_n_f64(v58, *&v94)), v92);
         [v5 contentInsets];
-        v4[11].f64[0] = v60;
-        v4[11].f64[1] = v61;
-        v4[12].f64[0] = v62;
-        v4[12].f64[1] = v63;
+        v4[22] = v60;
+        v4[23] = v61;
+        v4[24] = v62;
+        v4[25] = v63;
         v64.f64[0] = v69;
         v64.f64[1] = v68;
         v65.f64[0] = v72;
         v65.f64[1] = v70;
-        v4[15] = vdivq_f64(vrndaq_f64(vmulq_n_f64(v65, *&v94)), v92);
-        v4[16] = vdivq_f64(vrndaq_f64(vmulq_n_f64(v64, *&v94)), v92);
+        *(v4 + 15) = vdivq_f64(vrndaq_f64(vmulq_n_f64(v65, *&v94)), v92);
+        *(v4 + 16) = vdivq_f64(vrndaq_f64(vmulq_n_f64(v64, *&v94)), v92);
       }
 
       else

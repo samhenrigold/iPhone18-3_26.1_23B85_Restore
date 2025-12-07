@@ -10,29 +10,28 @@
   ObjCClassMetadata = swift_getObjCClassMetadata();
   v5 = type metadata accessor for DiagnosticsConsentProvider(0);
   v6 = v5 - 8;
-  v7 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = _Block_copy(custom);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = _Block_copy(custom);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
   v11 = swift_allocObject();
-  *(v11 + 16) = v10;
-  v12 = swift_allocObject();
-  *(v12 + 16) = sub_1B6AAFDAC;
-  *(v12 + 24) = v11;
+  *(v11 + 16) = sub_1B6AAFDAC;
+  *(v11 + 24) = v10;
 
   sub_1B6AB8E30();
-  v13 = &v9[*(v6 + 28)];
-  *v13 = sub_1B6AB0030;
-  v13[1] = v12;
-  v14 = objc_allocWithZone(ObjCClassMetadata);
-  sub_1B699A394(v9, v14 + OBJC_IVAR___AADiagnosticsConsentProvider_provider, type metadata accessor for DiagnosticsConsentProvider);
-  v17.receiver = v14;
-  v17.super_class = ObjCClassMetadata;
-  v15 = objc_msgSendSuper2(&v17, sel_init);
+  v12 = &v8[*(v6 + 28)];
+  *v12 = sub_1B6AB0030;
+  v12[1] = v11;
+  v13 = objc_allocWithZone(ObjCClassMetadata);
+  sub_1B699A394(v8, v13 + OBJC_IVAR___AADiagnosticsConsentProvider_provider, type metadata accessor for DiagnosticsConsentProvider);
+  v16.receiver = v13;
+  v16.super_class = ObjCClassMetadata;
+  v14 = objc_msgSendSuper2(&v16, sel_init);
 
-  sub_1B6984DF8(v9, type metadata accessor for DiagnosticsConsentProvider);
+  sub_1B6984DF8(v8, type metadata accessor for DiagnosticsConsentProvider);
 
-  return v15;
+  return v14;
 }
 
 - (AADiagnosticsConsentProvider)init

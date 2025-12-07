@@ -82,17 +82,15 @@ LABEL_8:
 
 void __34__STDiagnosticsServiceClient_init__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = +[STLog test];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_DEFAULT, "Failed to connect to ScreenTimeAgent: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_DEFAULT, "Failed to connect to ScreenTimeAgent: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __34__STDiagnosticsServiceClient_init__block_invoke_39()
@@ -875,11 +873,10 @@ void __68__STDiagnosticsServiceClient_killScreenTimeAgent_completionHandler___bl
 
 void __68__STDiagnosticsServiceClient_killScreenTimeAgent_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to communicate with ScreenTimeAgent %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Failed to communicate with ScreenTimeAgent %@", &v2, 0xCu);
 }
 
 @end

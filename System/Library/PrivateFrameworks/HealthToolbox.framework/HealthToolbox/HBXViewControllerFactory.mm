@@ -6,16 +6,26 @@
 - (HBXViewControllerFactory)init;
 - (HBXViewControllerFactory)initWithHealthStore:(id)store;
 - (HKApplicationProviding)applicationProvider;
+- (id)createAppSourcesViewControllerUsingInsetStyling:(BOOL)styling;
+- (id)createBuddyViewControllerWithHealthDetailsLast:(BOOL)last;
+- (id)createChartForTypeIdentifier:(id)identifier startDate:(id)date endDate:(id)endDate minimumSize:(CGSize)size disableXAxis:(BOOL)axis;
 - (id)createClinicalDocumentOverviewViewControllerWithSidebarIdentifier:(id)identifier;
 - (id)createDataSourcesTableViewController:(id)controller;
 - (id)createDeletedSourceMessageViewControllerForSource:(id)source;
+- (id)createDeviceSourcesViewControllerUsingInsetStyling:(BOOL)styling;
+- (id)createDeviceStoredDataViewControllerForDevice:(id)device displayName:(id)name isBluetoothDevice:(BOOL)bluetoothDevice deviceIdentifier:(id)identifier healthStore:(id)store usingInsetStyling:(BOOL)styling;
 - (id)createElectrocardiogramDataMetadataViewControllerWithElectrocardiogram:(id)electrocardiogram dataProvider:(id)provider;
 - (id)createElectrocardiogramListDataProvider;
 - (id)createHKUnitPreferenceController;
 - (id)createInteractiveChartForType:(id)type preferredOverlay:(int64_t)overlay displayDate:(id)date;
 - (id)createInteractiveChartForType:(id)type preferredOverlay:(int64_t)overlay displayDateInterval:(id)interval;
 - (id)createListViewController:(id)controller;
+- (id)createLocalDeviceStoredDataViewControllerForSource:(id)source withHealthStore:(id)store usingInsetStyling:(BOOL)styling;
+- (id)createResearchStudySourcesViewControllerUsingInsetStyling:(BOOL)styling restorationStudyBundleIdentifier:(id)identifier;
+- (id)createSingleAppAuthorizationViewControllerUsingInsetStyling:(BOOL)styling restorationApplicationBundleIdentifier:(id)identifier;
+- (id)createSourcesViewControllerUsingInsetStyling:(BOOL)styling;
 - (id)createUnitPreferencesController:(id)controller;
+- (id)createWatchStoredDataViewControllerForSource:(id)source withHealthStore:(id)store usingInsetStyling:(BOOL)styling;
 - (id)localizedDisplayNameForUnit:(id)unit;
 - (id)localizedPreferredUnitDisplayNameForType:(id)type nameContext:(int64_t)context;
 - (id)localizedUnitDisplayNameForDisplayType:(id)type nameContext:(int64_t)context;
@@ -176,6 +186,44 @@
   return v5;
 }
 
+- (id)createBuddyViewControllerWithHealthDetailsLast:(BOOL)last
+{
+  v3 = [[WDBuddyFlowUserInfoViewController alloc] initWithProfile:self->_profile isLastScreen:last];
+
+  return v3;
+}
+
+- (id)createSourcesViewControllerUsingInsetStyling:(BOOL)styling
+{
+  v3 = [[WDSourcesViewController alloc] initWithProfile:self->_profile usingInsetStyling:styling];
+
+  return v3;
+}
+
+- (id)createAppSourcesViewControllerUsingInsetStyling:(BOOL)styling
+{
+  v3 = [[WDAppSourcesViewController alloc] initWithProfile:self->_profile usingInsetStyling:styling];
+
+  return v3;
+}
+
+- (id)createSingleAppAuthorizationViewControllerUsingInsetStyling:(BOOL)styling restorationApplicationBundleIdentifier:(id)identifier
+{
+  stylingCopy = styling;
+  identifierCopy = identifier;
+  v7 = [[WDAppSourcesViewController alloc] initWithProfile:self->_profile usingInsetStyling:stylingCopy];
+  [(WDSourcesViewController *)v7 setRestorationSourceBundleIdentifier:identifierCopy];
+
+  return v7;
+}
+
+- (id)createDeviceSourcesViewControllerUsingInsetStyling:(BOOL)styling
+{
+  v3 = [[WDDeviceSourcesViewController alloc] initWithProfile:self->_profile usingInsetStyling:styling];
+
+  return v3;
+}
+
 - (void)createDetailViewControllerForSourceModel:(id)model healthStore:(id)store completion:(id)completion
 {
   completionCopy = completion;
@@ -186,12 +234,90 @@
   [objc_opt_class() createDetailViewControllerForSourceModel:modelCopy profile:v10 completion:completionCopy];
 }
 
+- (id)createWatchStoredDataViewControllerForSource:(id)source withHealthStore:(id)store usingInsetStyling:(BOOL)styling
+{
+  stylingCopy = styling;
+  storeCopy = store;
+  sourceCopy = source;
+  v9 = [(HKTableViewController *)[WDWatchStoredDataViewController alloc] initWithUsingInsetStyling:stylingCopy];
+  [(WDSourceStoredDataViewController *)v9 setSource:sourceCopy];
+
+  v10 = [[HBXShimWDProfile alloc] initWithHealthStore:storeCopy];
+  [(WDStoredDataByCategoryViewController *)v9 setProfile:v10];
+
+  return v9;
+}
+
+- (id)createLocalDeviceStoredDataViewControllerForSource:(id)source withHealthStore:(id)store usingInsetStyling:(BOOL)styling
+{
+  stylingCopy = styling;
+  storeCopy = store;
+  sourceCopy = source;
+  v9 = [(HKTableViewController *)[WDLocalDeviceStoredDataViewController alloc] initWithUsingInsetStyling:stylingCopy];
+  [(WDSourceStoredDataViewController *)v9 setSource:sourceCopy];
+
+  v10 = [[HBXShimWDProfile alloc] initWithHealthStore:storeCopy];
+  [(WDStoredDataByCategoryViewController *)v9 setProfile:v10];
+
+  return v9;
+}
+
+- (id)createDeviceStoredDataViewControllerForDevice:(id)device displayName:(id)name isBluetoothDevice:(BOOL)bluetoothDevice deviceIdentifier:(id)identifier healthStore:(id)store usingInsetStyling:(BOOL)styling
+{
+  stylingCopy = styling;
+  bluetoothDeviceCopy = bluetoothDevice;
+  storeCopy = store;
+  identifierCopy = identifier;
+  nameCopy = name;
+  deviceCopy = device;
+  v17 = [(HKTableViewController *)[WDDeviceStoredDataViewController alloc] initWithUsingInsetStyling:stylingCopy];
+  [(WDDeviceStoredDataViewController *)v17 setDevice:deviceCopy];
+
+  [(WDDeviceStoredDataViewController *)v17 setDisplayName:nameCopy];
+  v18 = [[HBXShimWDProfile alloc] initWithHealthStore:storeCopy];
+
+  [(WDStoredDataByCategoryViewController *)v17 setProfile:v18];
+  [(WDStoredDataByCategoryViewController *)v17 setIsBluetoothDevice:bluetoothDeviceCopy];
+  [(WDStoredDataByCategoryViewController *)v17 setDeviceIdentifier:identifierCopy];
+
+  return v17;
+}
+
+- (id)createResearchStudySourcesViewControllerUsingInsetStyling:(BOOL)styling restorationStudyBundleIdentifier:(id)identifier
+{
+  stylingCopy = styling;
+  identifierCopy = identifier;
+  v7 = [[WDResearchStudySourcesViewController alloc] initWithProfile:self->_profile usingInsetStyling:stylingCopy];
+  [(WDSourcesViewController *)v7 setRestorationSourceBundleIdentifier:identifierCopy];
+
+  return v7;
+}
+
 - (id)createDeletedSourceMessageViewControllerForSource:(id)source
 {
   sourceCopy = source;
   v4 = [[WDSourceMessageViewController alloc] initWithStyle:1 source:sourceCopy];
 
   return v4;
+}
+
+- (id)createChartForTypeIdentifier:(id)identifier startDate:(id)date endDate:(id)endDate minimumSize:(CGSize)size disableXAxis:(BOOL)axis
+{
+  axisCopy = axis;
+  height = size.height;
+  width = size.width;
+  identifierCopy = identifier;
+  v14 = 0;
+  if (date && endDate)
+  {
+    v14 = [MEMORY[0x277D12B30] valueRangeWithMinValue:date maxValue:endDate];
+  }
+
+  chartFactory = self->_chartFactory;
+  currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
+  height = [(HKHealthChartFactory *)chartFactory chartForTypeIdentifier:identifierCopy dateRange:v14 minimumSize:axisCopy disableXAxis:currentCalendar currentCalendar:width, height];
+
+  return height;
 }
 
 - (id)createInteractiveChartForType:(id)type preferredOverlay:(int64_t)overlay displayDate:(id)date
@@ -216,7 +342,7 @@
 
 - (id)createClinicalDocumentOverviewViewControllerWithSidebarIdentifier:(id)identifier
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D12828];
   identifierCopy = identifier;
   v6 = [v4 categoryWithID:9];
@@ -227,11 +353,9 @@
   v10 = [v9 localizedStringForKey:@"CLINICAL_DOCUMENTS" value:&stru_28641D9B8 table:*MEMORY[0x277CCC1B0]];
 
   v11 = [WDDocumentOverviewViewController alloc];
-  v16[0] = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v13 = [(WDDocumentOverviewViewController *)v11 initWithDisplayTypes:v12 profile:self->_profile title:v10 category:v6 sidebarIdentifier:identifierCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

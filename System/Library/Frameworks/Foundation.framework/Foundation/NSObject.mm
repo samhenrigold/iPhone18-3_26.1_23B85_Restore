@@ -2162,43 +2162,43 @@ LABEL_32:
 
 - (void)_removeObserver:(id)observer forProperty:(id)property
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   v7 = *(property + 1);
   v8 = _NSKeyValueRetainedObservationInfoForObject(self, v7);
   if (v8)
   {
     v9 = v8;
     v10 = _CFGetTSD();
-    if (v10 && (v11 = v10, *(v10 + 32) == self) && *(v10 + 40) == observer && [*(v10 + 48) isEqualToString:{objc_msgSend(property, "keyPath")}])
+    if (v10 && (v11 = v10, *(v10 + 32) == self) && *(v10 + 40) == observer && (v12 = *(v10 + 48), [property keyPath], objc_msgSend_isEqualToString_(v12)))
     {
-      v13 = *(v11 + 56);
-      v12 = *(v11 + 64);
-      v14 = *(v11 + 72);
+      v14 = *(v11 + 56);
+      v13 = *(v11 + 64);
+      v15 = *(v11 + 72);
     }
 
     else
     {
-      v14 = 0;
-      v12 = 0;
+      v15 = 0;
       v13 = 0;
+      v14 = 0;
     }
 
-    v25[0] = 0;
-    v24 = 0;
-    v15 = _NSKeyValueObservationInfoCreateByRemoving(v9, observer, property, v12, v14 & 1, v13, &v24, v25);
-    if (v25[0])
+    v26[0] = 0;
+    v25 = 0;
+    v16 = _NSKeyValueObservationInfoCreateByRemoving(v9, observer, property, v13, v15 & 1, v14, &v25, v26);
+    if (v26[0])
     {
-      v16 = v15;
-      v17 = v25[0];
-      _NSKeyValueReplaceObservationInfoForObject(self, *(property + 1), v9, v16);
-      [property object:self didRemoveObservance:v25[0] recurse:1];
-      if (!v16)
+      v17 = v16;
+      v18 = v26[0];
+      _NSKeyValueReplaceObservationInfoForObject(self, *(property + 1), v9, v17);
+      [property object:self didRemoveObservance:v26[0] recurse:1];
+      if (!v17)
       {
         Class = object_getClass(self);
-        v21 = *(v7 + 8);
-        if (Class != v21)
+        v22 = *(v7 + 8);
+        if (Class != v22)
         {
-          if (_NSKVOUsesBaseClassObservationInfoImplementationForClass(v21) && ![self _implicitObservationInfo])
+          if (_NSKVOUsesBaseClassObservationInfoImplementationForClass(v22) && ![self _implicitObservationInfo])
           {
             object_setClass(self, *(v7 + 8));
           }
@@ -2211,9 +2211,9 @@ LABEL_32:
     }
 
 LABEL_25:
-    v22 = objc_opt_class();
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"Cannot remove an observer <%@ %p> for the key path %@ from <%@ %p> because it is not registered as an observer.", v22, observer, objc_msgSend(property, "keyPath"), objc_opt_class(), self), 0}];
-    objc_exception_throw(v23);
+    v23 = objc_opt_class();
+    v24 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"Cannot remove an observer <%@ %p> for the key path %@ from <%@ %p> because it is not registered as an observer.", v23, observer, objc_msgSend(property, "keyPath"), objc_opt_class(), self), 0}];
+    objc_exception_throw(v24);
   }
 
   if ((objc_opt_respondsToSelector() & 1) == 0)
@@ -2221,22 +2221,22 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v18 = _CFGetTSD();
-  if (v18)
+  v19 = _CFGetTSD();
+  if (v19)
   {
-    v19 = *(v18 + 8);
-    if (v19)
+    v20 = *(v19 + 8);
+    if (v20)
     {
-      while (*v19 != self)
+      while (*v20 != self)
       {
-        v19 = *(v19 + 16);
-        if (!v19)
+        v20 = *(v20 + 16);
+        if (!v20)
         {
           return;
         }
       }
 
-      *(v19 + 8) = 0;
+      *(v20 + 8) = 0;
     }
   }
 }
@@ -2902,7 +2902,7 @@ LABEL_30:
   free(v24);
 }
 
-uint64_t __98__NSObject_NSKeyValueObservingPrivate___notifyObserversOfChangeFromValuesForKeys_toValuesForKeys___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__98__NSObject_NSKeyValueObservingPrivate___notifyObserversOfChangeFromValuesForKeys_toValuesForKeys___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [*(a1 + 32) objectForKey:a2];
   if (!result)

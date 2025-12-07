@@ -44,7 +44,7 @@
   provider = [(TUDialRequest *)self provider];
   isTelephonyProvider = [provider isTelephonyProvider];
 
-  return isTelephonyProvider && sub_1000015F0() - 1 <= 1 && [(TUDialRequest *)self ttyType]== 0;
+  return isTelephonyProvider && sub_1000015F0(v5) - 1 <= 1 && [(TUDialRequest *)self ttyType]== 0;
 }
 
 - (void)nph_logWithReason:(id)reason indented:(BOOL)indented
@@ -58,7 +58,7 @@
   }
 
   v8 = v7;
-  v9 = sub_100001C24();
+  v9 = sub_100001C24(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138413058;
@@ -76,7 +76,7 @@
 + (void)_logProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = sub_100001C24();
+  v4 = sub_100001C24(providerCopy);
   v5 = v4;
   if (providerCopy)
   {
@@ -137,16 +137,17 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    if ([(TUDialRequest *)self dialType]== 2)
+    dialType = [(TUDialRequest *)self dialType];
+    if (dialType == 2)
     {
       v9 = @"TOP_LEVEL_MENU_ITEM_VOICEMAIL";
       goto LABEL_8;
     }
 
-    v12 = sub_100001C24();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100001C24(dialType);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100009ACC(self, v12);
+      sub_100009ACC(self, v13);
     }
   }
 

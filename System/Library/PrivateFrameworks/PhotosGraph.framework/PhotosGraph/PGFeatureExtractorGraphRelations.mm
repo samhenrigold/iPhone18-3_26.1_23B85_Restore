@@ -12,16 +12,14 @@
 
 - (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = message;
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = message;
   v6 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureExtractorGraphRelations" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

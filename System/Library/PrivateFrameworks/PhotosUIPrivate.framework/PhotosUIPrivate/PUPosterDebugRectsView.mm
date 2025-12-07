@@ -41,7 +41,7 @@
     [(PUPosterDebugRectsView *)self setBounds:?];
     PXRectGetCenter();
     [(PUPosterDebugRectsView *)self setCenter:?];
-    [currentLayoutInfo additionalTransform];
+    objc_msgSend_additionalTransform(currentLayoutInfo);
     v27 = v28;
     [(PUPosterDebugRectsView *)self setTransform:&v27];
     v23 = 0u;

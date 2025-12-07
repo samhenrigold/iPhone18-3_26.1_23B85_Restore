@@ -1189,7 +1189,7 @@ void __44__CSDeviceBlockViewController__attemptErase__block_invoke_cold_1(void *
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Failed attempt to disable FindMy with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Failed attempt to disable FindMy with error: %@", v4, v5, v6, v7);
 }
 
 void __47__CSDeviceBlockViewController__attemptRecovery__block_invoke_cold_1()
@@ -1203,14 +1203,14 @@ void __61__CSDeviceBlockViewController__getUserAccountWithCompletion___block_inv
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Error while getting primary Apple account: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Error while getting primary Apple account: %@", v4, v5, v6, v7);
 }
 
 void __87__CSDeviceBlockViewController__performFMIPAuthenticationForContext_account_completion___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Request to authenticate FindMy IP failed with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_6(&dword_21EB05000, v2, v3, "Request to authenticate FindMy IP failed with error: %@", v4, v5, v6, v7);
 }
 
 @end

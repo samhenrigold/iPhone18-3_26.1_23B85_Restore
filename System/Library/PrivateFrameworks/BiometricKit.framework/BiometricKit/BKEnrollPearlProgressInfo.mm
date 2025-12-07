@@ -111,34 +111,30 @@
 
 - (id)dictionary
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  v9[0] = @"BKEnrollPearlProgressInfo";
-  v8[0] = @"class";
-  v8[1] = @"percentageCompleted";
+  v8[3] = *MEMORY[0x1E69E9840];
+  v8[0] = @"BKEnrollPearlProgressInfo";
+  v7[0] = @"class";
+  v7[1] = @"percentageCompleted";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_percentageCompleted];
-  v8[2] = @"enrollPoses";
+  v7[2] = @"enrollPoses";
   enrolledPoses = self->_enrolledPoses;
-  v9[1] = v3;
-  v9[2] = enrolledPoses;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v3;
+  v8[2] = enrolledPoses;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   return v5;
 }
 
 - (void)initFromEnrollInfo:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_3_2(&dword_1C82AD000, v4, v5, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v6, v7, v8, v9);
   }
 
   *a2 = a1;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

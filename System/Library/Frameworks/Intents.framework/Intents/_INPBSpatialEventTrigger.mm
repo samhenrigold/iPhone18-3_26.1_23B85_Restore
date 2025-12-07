@@ -3,6 +3,8 @@
 - (_INPBSpatialEventTrigger)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)eventAsString:(int)string;
+- (id)mobileSpaceAsString:(int)string;
 - (int)StringAsEvent:(id)event;
 - (int)StringAsMobileSpace:(id)space;
 - (unint64_t)hash;
@@ -19,7 +21,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(_INPBSpatialEventTrigger *)self hasEvent])
   {
@@ -81,30 +83,30 @@
   if ([(NSArray *)self->_suggestedValues count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v11 = self->_suggestedValues;
-    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          dictionaryRepresentation2 = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation2];
         }
 
-        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v13);
@@ -112,8 +114,6 @@
 
     [dictionary setObject:array forKeyedSubscript:@"suggestedValues"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -297,11 +297,10 @@ LABEL_21:
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_INPBSpatialEventTrigger *)self hasEvent])
   {
-    event = self->_event;
     PBDataWriterWriteInt32Field();
   }
 
@@ -315,43 +314,39 @@ LABEL_21:
 
   if ([(_INPBSpatialEventTrigger *)self hasMobileSpace])
   {
-    mobileSpace = self->_mobileSpace;
     PBDataWriterWriteInt32Field();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v9 = self->_suggestedValues;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_suggestedValues;
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v11 = v10;
-    v12 = *v17;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      v13 = 0;
+      v11 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
         PBDataWriterWriteSubmessage();
-        ++v13;
+        ++v11;
       }
 
-      while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v9 != v11);
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v11);
+    while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addSuggestedValues:(id)values
@@ -392,6 +387,29 @@ LABEL_21:
   else
   {
     v4 = [spaceCopy isEqualToString:@"CAR"];
+  }
+
+  return v4;
+}
+
+- (id)mobileSpaceAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"CAR";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_MOBILE_SPACE";
   }
 
   return v4;
@@ -448,6 +466,34 @@ LABEL_21:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)eventAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 20)
+    {
+      v4 = @"DEPART";
+    }
+
+    else if (string == 10)
+    {
+      v4 = @"ARRIVE";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_SPATIAL_EVENT";
   }
 
   return v4;

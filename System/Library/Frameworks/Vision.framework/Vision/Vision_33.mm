@@ -1,35 +1,4 @@
-void sub_1A5E91940(void *a1)
-{
-  objc_begin_catch(a1);
-  os_unfair_lock_unlock(v1 + 4);
-  objc_exception_rethrow();
-}
-
-void sub_1A5E91954(_Unwind_Exception *a1)
-{
-  objc_end_catch();
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1A5E92AE8(_Unwind_Exception *a1)
-{
-  v6 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AltruisticBodyPoseKitLibraryCore(char **a1)
-{
-  if (!AltruisticBodyPoseKitLibraryCore(char **)::frameworkLibrary)
-  {
-    AltruisticBodyPoseKitLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
-  }
-
-  return AltruisticBodyPoseKitLibraryCore(char **)::frameworkLibrary;
-}
-
-uint64_t ___ZL32AltruisticBodyPoseKitLibraryCorePPc_block_invoke()
+uint64_t ___ZL32AltruisticBodyPoseKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AltruisticBodyPoseKitLibraryCore(char **)::frameworkLibrary = result;
@@ -48,7 +17,7 @@ Class ___ZL18getABPKOutputClassv_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ABPKOutput");
     return getABPKInputClass();
   }
 
@@ -79,9 +48,9 @@ id getABPKInputClass(void)
   return v1;
 }
 
-void sub_1A5E93DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A5E93DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -110,9 +79,9 @@ id getABPKCameraParamsClass(void)
   return v1;
 }
 
-void sub_1A5E93E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A5E93E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -128,7 +97,7 @@ void ___ZL24getABPKCameraParamsClassv_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ABPKCameraParams");
     AltruisticBodyPoseKitLibrary();
   }
 }
@@ -140,7 +109,7 @@ void AltruisticBodyPoseKitLibrary(void)
   v1 = v2;
   if (!v0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v2);
     goto LABEL_5;
   }
 
@@ -163,16 +132,16 @@ Class ___ZL17getABPKInputClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ABPKInput");
     return [(VNHumanBodyPose3DDetector *)v3 createRegionOfInterestCrop:v4 options:v11 qosClass:v5 warningRecorder:v6 pixelBuffer:v7 error:v8 progressHandler:v9, v10];
   }
 
   return result;
 }
 
-void sub_1A5E947F4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, ...)
+void sub_1A5E947F4(_Unwind_Exception *a1, uint64_t a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__hash_table<std::__hash_value_type<std::string,std::vector<float>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<float>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<float>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<float>>>>::~__hash_table(va);
 
   _Unwind_Resume(a1);
@@ -204,7 +173,7 @@ uint64_t std::__hash_table<std::__hash_value_type<std::string,std::vector<float>
   return a1;
 }
 
-void Geometry2D_mallocHomo2D(uint64_t a1, int a2)
+void Geometry2D_mallocHomo2D(uint64_t a1, unsigned int a2)
 {
   *a1 = 0u;
   *(a1 + 16) = 0u;
@@ -275,21 +244,21 @@ _OWORD *Geometry2D_cloneHomo2D(_OWORD *result, uint64_t a2)
   return result;
 }
 
-void sub_1A5E94F34(_Unwind_Exception *a1)
+void sub_1A5E94F34(_Unwind_Exception *a1, uint64_t a2, ...)
 {
   std::ostream::~ostream();
-  VNNSDataStreambuf::~VNNSDataStreambuf((v3 - 136));
+  VNNSDataStreambuf::~VNNSDataStreambuf((v4 - 136));
 
   _Unwind_Resume(a1);
 }
 
-void sub_1A5E9531C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1A5E9531C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::unique_ptr<vision::mod::FaceID3Model>::reset[abi:ne200100](va);
   std::istream::~istream();
-  VNNSDataStreambuf::~VNNSDataStreambuf((v11 - 168));
+  VNNSDataStreambuf::~VNNSDataStreambuf((v15 - 168));
 
   _Unwind_Resume(a1);
 }
@@ -397,7 +366,7 @@ void std::__shared_ptr_pointer<vision::mod::FaceID3Model  *>::~__shared_ptr_poin
   JUMPOUT(0x1AC556B00);
 }
 
-void sub_1A5E95F74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, void *a56)
+void sub_1A5E95F74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, void *a56)
 {
   vision::mod::ImageDescriptorBufferFloat32::~ImageDescriptorBufferFloat32(v59);
 
@@ -448,7 +417,7 @@ __n128 __copy_helper_block_ea8_72c47_ZTSN6vision3mod28ImageDescriptorBufferFloat
   *(a1 + 72) = &unk_1F1975D68;
   *(a1 + 88) = 0;
   *(a1 + 96) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 80, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 80), *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 3);
   std::map<long long,int>::map[abi:ne200100]((v4 + 24), a2 + 104);
   v5 = *(a2 + 128);
   v6 = *(a2 + 144);
@@ -493,8 +462,7 @@ __n128 __Block_byref_object_copy__121(__n128 *a1, __n128 *a2)
 {
   result = a2[3];
   a1[3] = result;
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   return result;
 }
 
@@ -530,18 +498,18 @@ void __destroy_helper_block_ea8_48c53_ZTSNSt3__110shared_ptrIN6vision3mod12FaceI
   }
 }
 
-uint64_t __copy_helper_block_ea8_48c53_ZTSNSt3__110shared_ptrIN6vision3mod12FaceID3ModelEEE64c69_ZTSNSt3__110shared_ptrIN6vision3mod28ImageDescriptorBufferFloat32EEE80c39_ZTSNSt3__16vectorIiNS_9allocatorIiEEEE(void *a1, void *a2)
+uint64_t *__copy_helper_block_ea8_48c53_ZTSNSt3__110shared_ptrIN6vision3mod12FaceID3ModelEEE64c69_ZTSNSt3__110shared_ptrIN6vision3mod28ImageDescriptorBufferFloat32EEE80c39_ZTSNSt3__16vectorIiNS_9allocatorIiEEEE(void *a1, uint64_t a2)
 {
-  v2 = a2[7];
-  a1[6] = a2[6];
+  v2 = *(a2 + 56);
+  a1[6] = *(a2 + 48);
   a1[7] = v2;
   if (v2)
   {
     atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v3 = a2[9];
-  a1[8] = a2[8];
+  v3 = *(a2 + 72);
+  a1[8] = *(a2 + 64);
   a1[9] = v3;
   if (v3)
   {
@@ -551,7 +519,7 @@ uint64_t __copy_helper_block_ea8_48c53_ZTSNSt3__110shared_ptrIN6vision3mod12Face
   a1[10] = 0;
   a1[11] = 0;
   a1[12] = 0;
-  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 10), a2[10], a2[11], (a2[11] - a2[10]) >> 2);
+  return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 10, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 2);
 }
 
 void sub_1A5E979BC(_Unwind_Exception *exception_object)
@@ -1036,7 +1004,7 @@ uint64_t ctrTrackerComputation_normedGradient(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-uint64_t ctrTrackerComputation_updateLocation(uint64_t result, uint64_t a2, int a3, int a4, double a5, double a6)
+uint64_t ctrTrackerComputation_updateLocation(uint64_t result, uint64_t a2, int a3, unsigned int a4, double a5, double a6)
 {
   v6 = 0;
   v36 = *MEMORY[0x1E69E9840];
@@ -1708,26 +1676,26 @@ void sub_1A5E9C938(_Unwind_Exception *a1)
 
 id getVCPRequestRevisionPropertyKey(void)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr;
-  v8 = getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr;
+  v9 = getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr;
   if (!getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr)
   {
     v1 = VideoProcessingLibrary();
-    v6[3] = dlsym(v1, "VCPRequestRevisionPropertyKey");
-    getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "VCPRequestRevisionPropertyKey");
+    getVCPRequestRevisionPropertyKeySymbolLoc(void)::ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -1770,7 +1738,7 @@ uint64_t VideoProcessingLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -1805,7 +1773,7 @@ uint64_t VideoProcessingLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -1840,7 +1808,7 @@ uint64_t VideoProcessingLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -1850,16 +1818,16 @@ uint64_t VideoProcessingLibrary()
   return VideoProcessingLibraryCore(char **)::frameworkLibrary;
 }
 
-uint64_t ___ZL26VideoProcessingLibraryCorePPc_block_invoke_18091()
+uint64_t ___ZL26VideoProcessingLibraryCorePPc_block_invoke_18091(uint64_t a1)
 {
   result = _sl_dlopen();
   VideoProcessingLibraryCore(char **)::frameworkLibrary = result;
   return result;
 }
 
-void sub_1A5E9D02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A5E9D02C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -1877,7 +1845,7 @@ Class ___ZL32getVCPHumanPoseImageRequestClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "VCPHumanPoseImageRequest");
     return +[(VNEntityIdentificationModelTrainedModel *)v3];
   }
 
@@ -1917,7 +1885,7 @@ uint64_t vision::mod::ObjectTrackerEx::init(vision::mod::ObjectTrackerEx *this)
   return result;
 }
 
-uint64_t vision::mod::ObjectTrackerEx::track(uint64_t a1, __CVBuffer *a2, uint64_t *a3)
+uint64_t vision::mod::ObjectTrackerEx::track(uint64_t a1, __CVBuffer *a2, unint64_t *a3)
 {
   v364 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
@@ -2503,8 +2471,8 @@ LABEL_107:
       v149.f64[1] = v150.f64[1];
       v351 = v150;
       v352 = v149;
-      tplTrackerResampler_resample(*(v7 + 341240), __p, 0x18u, 24, v7 + 45040, (v7 + 50224), (v7 + 55408), v342, v146, v147);
-      tplTracker_YCbCr2RGB((v7 + 45040), (v7 + 50224), (v7 + 55408), 576, (v7 + 60592), (v7 + 65776), (v7 + 70960));
+      tplTrackerResampler_resample(*(v7 + 341240), __p, 24, 24, v7 + 45040, (v7 + 50224), (v7 + 55408), v342, v146, v147);
+      tplTracker_YCbCr2RGB((v7 + 45040), (v7 + 50224), (v7 + 55408), 0x240u, (v7 + 60592), (v7 + 65776), (v7 + 70960));
       v152 = v7 + 88152;
       tplTracker_computeNormedGradient(v7 + 60592, v7 + 65776, v7 + 70960, 24, 24, v342, v7 + 88152);
       v153 = 0;
@@ -2747,8 +2715,8 @@ LABEL_257:
         v279 = v264 + 42076;
         v280 = v3;
         v281 = 576 * *v265;
-        tplTrackerResampler_resample(*(v264 + 341240), v280, 0x18u, 24, v264 + 45040, (v264 + 50224), (v264 + 55408), (v264 + 45024), *(v264 + 44960), *(v264 + 44964));
-        tplTracker_YCbCr2RGB((v264 + 45040), (v264 + 50224), (v264 + 55408), 576, (v264 + 60592), (v264 + 65776), (v264 + 70960));
+        tplTrackerResampler_resample(*(v264 + 341240), v280, 24, 24, v264 + 45040, (v264 + 50224), (v264 + 55408), (v264 + 45024), *(v264 + 44960), *(v264 + 44964));
+        tplTracker_YCbCr2RGB((v264 + 45040), (v264 + 50224), (v264 + 55408), 0x240u, (v264 + 60592), (v264 + 65776), (v264 + 70960));
         tplTracker_computeTemplateAvgColor(v264, v282);
         tplTracker_computeNormedGradient(v264 + 60592, v264 + 65776, v264 + 70960, 24, 24, (v264 + 45024), v264 + 42076 + v281);
         v283 = *(v264 + 45024);
@@ -3598,8 +3566,8 @@ uint64_t vision::mod::ObjectTrackerEx::setTargetObjects(uint64_t a1, CVPixelBuff
   v43[3] = v39;
   if (tplTrackerResampler_setImage(*(v26 + 341240), pixelBuffer, v43) == 128)
   {
-    tplTrackerResampler_resample(*(v26 + 341240), v12, 0x18u, 24, v26 + 45040, (v26 + 50224), (v26 + 55408), (v26 + 45024), *(&v42 + 1), *&v42);
-    tplTracker_YCbCr2RGB((v26 + 45040), (v26 + 50224), (v26 + 55408), 576, (v26 + 60592), (v26 + 65776), (v26 + 70960));
+    tplTrackerResampler_resample(*(v26 + 341240), v12, 24, 24, v26 + 45040, (v26 + 50224), (v26 + 55408), (v26 + 45024), *(&v42 + 1), *&v42);
+    tplTracker_YCbCr2RGB((v26 + 45040), (v26 + 50224), (v26 + 55408), 0x240u, (v26 + 60592), (v26 + 65776), (v26 + 70960));
     tplTracker_computeNormedGradient(v26 + 60592, v26 + 65776, v26 + 70960, 24, 24, (v26 + 45024), v26 + 8);
     tplTracker_computeTemplateAvgColor(v26, v41);
     tplTracker_computeTemplateStats(v26);
@@ -4183,7 +4151,7 @@ uint64_t tplTracker_IFFT_2D(uint64_t a1, char *a2, void *a3)
   return v3;
 }
 
-void sub_1A5EA1DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __CVBuffer **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *__p, uint64_t a48)
+void sub_1A5EA1DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __CVBuffer **a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *__p, uint64_t a48)
 {
   apple::vision::libraries::autotrace::BitmapToContourEnvironment::~BitmapToContourEnvironment(&a40);
   apple::vision::CVPixelBufferWrapper::BaseAddressLock<1ull>::~BaseAddressLock(&a39);
@@ -4192,7 +4160,7 @@ void sub_1A5EA1DDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t BinSerializer_fseek(FILE *__stream, _BYTE *a2)
+uint64_t BinSerializer_fseek(FILE *__stream, char *a2)
 {
   v3 = *a2;
   if (*a2)
@@ -4242,7 +4210,7 @@ uint64_t BinSerializer_fseek(FILE *__stream, _BYTE *a2)
   return v7;
 }
 
-uint64_t BinSerializer_fgetBlobInfo(FILE *a1, _BYTE *a2, void *a3, _WORD *a4, void *a5, void *a6, void *a7)
+uint64_t BinSerializer_fgetBlobInfo(FILE *a1, char *a2, void *a3, _WORD *a4, void *a5, void *a6, void *a7)
 {
   v14 = MEMORY[0x1AC5576A0]();
   if (a2)
@@ -4280,7 +4248,7 @@ uint64_t BinSerializer_fgetBlobInfo(FILE *a1, _BYTE *a2, void *a3, _WORD *a4, vo
   return v15;
 }
 
-uint64_t BinSerializer_freadInBytes(FILE *__stream, _BYTE *a2, void *a3, size_t *a4)
+uint64_t BinSerializer_freadInBytes(FILE *__stream, char *a2, void *a3, size_t *a4)
 {
   if (!__stream)
   {
@@ -4409,7 +4377,7 @@ LABEL_11:
   return (*v8 + 128) | 0x100;
 }
 
-uint64_t BinSerializer_freadInFloat(FILE *__stream, _BYTE *a2, int a3, float **a4, size_t *a5)
+uint64_t BinSerializer_freadInFloat(FILE *__stream, char *a2, int a3, float **a4, size_t *a5)
 {
   if (!__stream)
   {
@@ -5214,10 +5182,10 @@ LABEL_16:
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t *std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(uint64_t a1, int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -5227,27 +5195,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -5282,7 +5250,7 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     *(a1 + 29) = 0;
     v45 = 1;
     v46 = &v45;
-    v22 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1);
+    v22 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1, &v46);
     if (*(v22 + 63) < 0)
     {
       v22[6] = 12;
@@ -5298,10 +5266,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     strcpy(v23, "landmarks_63");
     v45 = 1;
     v46 = &v45;
-    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1) + 64) = 0;
+    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1, &v46) + 64) = 0;
     v45 = 1;
     v46 = &v45;
-    v33 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1);
+    v33 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46);
     v34 = v33;
     if (*(v33 + 63) < 0)
     {
@@ -5313,10 +5281,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     v34[7] = 0;
     v45 = 1;
     v46 = &v45;
-    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1) + 64) = 0;
+    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46) + 64) = 0;
     v45 = 1;
     v46 = &v45;
-    v35 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1);
+    v35 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46);
     v36 = v35;
     if (*(v35 + 63) < 0)
     {
@@ -5328,10 +5296,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     v36[7] = 0;
     v45 = 1;
     v46 = &v45;
-    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1) + 64) = 0;
+    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46) + 64) = 0;
     v45 = 2;
     v46 = &v45;
-    v37 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2);
+    v37 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46);
     if (*(v37 + 63) < 0)
     {
       v37[6] = 12;
@@ -5347,10 +5315,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     strcpy(v38, "landmarks_76");
     v45 = 2;
     v46 = &v45;
-    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2) + 64) = 1;
+    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46) + 64) = 1;
     v45 = 2;
     v46 = &v45;
-    v39 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2);
+    v39 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46);
     if (*(v39 + 63) < 0)
     {
       v39[6] = 10;
@@ -5366,10 +5334,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     strcpy(v40, "confidence");
     v45 = 2;
     v46 = &v45;
-    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2) + 64) = 0;
+    *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46) + 64) = 0;
     v45 = 2;
     v46 = &v45;
-    v41 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2);
+    v41 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2, &v46);
     if (*(v41 + 63) < 0)
     {
       v41[6] = 9;
@@ -5385,7 +5353,7 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     strcpy(v42, "occlusion");
     v45 = 2;
     v46 = &v45;
-    v19 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2);
+    v19 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2, &v46);
   }
 
   else
@@ -5398,7 +5366,7 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       *(a1 + 29) = 0;
       v45 = 1;
       v46 = &v45;
-      v20 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1);
+      v20 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1, &v46);
       if (*(v20 + 63) < 0)
       {
         v20[6] = 9;
@@ -5414,10 +5382,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       strcpy(v21, "landmarks");
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1, &v46) + 64) = 0;
       v45 = 1;
       v46 = &v45;
-      v24 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1);
+      v24 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46);
       v25 = v24;
       if (*(v24 + 63) < 0)
       {
@@ -5429,10 +5397,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v25[7] = 0;
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46) + 64) = 0;
       v45 = 1;
       v46 = &v45;
-      v26 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1);
+      v26 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46);
       v27 = v26;
       if (*(v26 + 63) < 0)
       {
@@ -5444,10 +5412,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v27[7] = 0;
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v28 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2);
+      v28 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46);
       v29 = v28;
       if (*(v28 + 63) < 0)
       {
@@ -5459,10 +5427,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v29[7] = 0;
       v45 = 2;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v30 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2);
+      v30 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46);
       v31 = v30;
       if (*(v30 + 63) < 0)
       {
@@ -5474,10 +5442,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v31[7] = 0;
       v45 = 2;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v32 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2);
+      v32 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2, &v46);
       v18 = v32;
       if (*(v32 + 63) < 0)
       {
@@ -5499,7 +5467,7 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       *(a1 + 40) = 0;
       v45 = 1;
       v46 = &v45;
-      v7 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1);
+      v7 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(a1 + 48, 1, &v46);
       v8 = v7;
       if (*(v7 + 63) < 0)
       {
@@ -5511,10 +5479,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v8[7] = 0;
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 1, &v46) + 64) = 0;
       v45 = 1;
       v46 = &v45;
-      v9 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1);
+      v9 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46);
       v10 = v9;
       if (*(v9 + 63) < 0)
       {
@@ -5526,10 +5494,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v10[7] = 0;
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 1, &v46) + 64) = 0;
       v45 = 1;
       v46 = &v45;
-      v11 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1);
+      v11 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46);
       v12 = v11;
       if (*(v11 + 63) < 0)
       {
@@ -5541,10 +5509,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v12[7] = 0;
       v45 = 1;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 1, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v13 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2);
+      v13 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46);
       v14 = v13;
       if (*(v13 + 63) < 0)
       {
@@ -5556,10 +5524,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v14[7] = 0;
       v45 = 2;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v4, 2, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v15 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2);
+      v15 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46);
       v16 = v15;
       if (*(v15 + 63) < 0)
       {
@@ -5571,10 +5539,10 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
       v16[7] = 0;
       v45 = 2;
       v46 = &v45;
-      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2) + 64) = 0;
+      *(std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v5, 2, &v46) + 64) = 0;
       v45 = 2;
       v46 = &v45;
-      v17 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2);
+      v17 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2, &v46);
       v18 = v17;
       if (*(v17 + 63) < 0)
       {
@@ -5587,7 +5555,7 @@ uint64_t vision::mod::LandmarkDetectorDNN_Options::LandmarkDetectorDNN_Options(u
     v18[7] = 0;
     v45 = 2;
     v46 = &v45;
-    v19 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2);
+    v19 = std::__tree<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::__map_value_compare<vision::mod::_constellationType,std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>,std::less<vision::mod::_constellationType>,true>,std::allocator<std::__value_type<vision::mod::_constellationType,std::pair<std::string,BOOL>>>>::__emplace_unique_key_args<vision::mod::_constellationType,std::piecewise_construct_t const&,std::tuple<vision::mod::_constellationType&&>,std::tuple<>>(v6, 2, &v46);
   }
 
   *(v19 + 64) = 0;
@@ -5607,7 +5575,7 @@ void sub_1A5EA7610(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void vision::mod::LandmarkDetectorDNN_Options::getBlobNamesOutput(vision::mod::LandmarkDetectorDNN_Options *this)
+void vision::mod::LandmarkDetectorDNN_Options::getBlobNamesOutput(vision::mod::LandmarkDetectorDNN_Options *this, void *a2, int a3)
 {
   *this = 0;
   *(this + 1) = 0;
@@ -5615,13 +5583,9 @@ void vision::mod::LandmarkDetectorDNN_Options::getBlobNamesOutput(vision::mod::L
   operator new();
 }
 
+void sub_1A5EA77D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  vision::mod::LandmarkDetectorDNN_Options::getBlobNamesOutput(this);
-}
-
-void sub_1A5EA77D8(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5674,54 +5638,54 @@ void sub_1A5EA7A18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t vision::mod::FaceIDKmeansParams::serialize()
+uint64_t vision::mod::FaceIDKmeansParams::serialize(uint64_t a1, uint64_t a2)
 {
-  v0 = std::ostream::write();
-  if ((*(v0 + *(*v0 - 24) + 32) & 5) != 0 || (v1 = std::ostream::write(), (*(v1 + *(*v1 - 24) + 32) & 5) != 0))
+  v2 = std::ostream::write();
+  if ((*(v2 + *(*v2 - 24) + 32) & 5) != 0 || (v3 = std::ostream::write(), (*(v3 + *(*v3 - 24) + 32) & 5) != 0))
   {
-    v2 = &CVML_status_IOError;
+    v4 = &CVML_status_IOError;
   }
 
   else
   {
-    v4 = std::ostream::write();
-    v2 = &CVML_status_IOError;
-    if ((*(v4 + *(*v4 - 24) + 32) & 5) == 0)
+    v6 = std::ostream::write();
+    v4 = &CVML_status_IOError;
+    if ((*(v6 + *(*v6 - 24) + 32) & 5) == 0)
     {
-      v5 = std::ostream::write();
-      if ((*(v5 + *(*v5 - 24) + 32) & 5) == 0)
+      v7 = std::ostream::write();
+      if ((*(v7 + *(*v7 - 24) + 32) & 5) == 0)
       {
-        v2 = &CVML_status_ok;
+        v4 = &CVML_status_ok;
       }
     }
   }
 
-  return (*v2 + 128) | 0x1E00;
+  return (*v4 + 128) | 0x1E00;
 }
 
-uint64_t vision::mod::FaceIDKmeansParams::deserialize()
+uint64_t vision::mod::FaceIDKmeansParams::deserialize(uint64_t a1, uint64_t a2)
 {
-  v0 = std::istream::read();
-  if ((*(v0 + *(*v0 - 24) + 32) & 5) != 0 || (v1 = std::istream::read(), (*(v1 + *(*v1 - 24) + 32) & 5) != 0))
+  v2 = std::istream::read();
+  if ((*(v2 + *(*v2 - 24) + 32) & 5) != 0 || (v3 = std::istream::read(), (*(v3 + *(*v3 - 24) + 32) & 5) != 0))
   {
-    v2 = &CVML_status_IOError;
+    v4 = &CVML_status_IOError;
   }
 
   else
   {
-    v4 = std::istream::read();
-    v2 = &CVML_status_IOError;
-    if ((*(v4 + *(*v4 - 24) + 32) & 5) == 0)
+    v6 = std::istream::read();
+    v4 = &CVML_status_IOError;
+    if ((*(v6 + *(*v6 - 24) + 32) & 5) == 0)
     {
-      v5 = std::istream::read();
-      if ((*(v5 + *(*v5 - 24) + 32) & 5) == 0)
+      v7 = std::istream::read();
+      if ((*(v7 + *(*v7 - 24) + 32) & 5) == 0)
       {
-        v2 = &CVML_status_ok;
+        v4 = &CVML_status_ok;
       }
     }
   }
 
-  return (*v2 + 128) | 0x1E00;
+  return (*v4 + 128) | 0x1E00;
 }
 
 double vision::mod::FaceIDModel::FaceIDModel(vision::mod::FaceIDModel *this, int a2, int a3, int a4, int a5, float a6, int a7, int a8)
@@ -5811,76 +5775,68 @@ void *std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_m
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5888,72 +5844,72 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-void *std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(void *a1, unint64_t a2)
+void *std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(float *a1, unint64_t a2, void **a3)
 {
-  v2 = a1[1];
-  if (!*&v2)
+  v3 = *(a1 + 2);
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -5961,44 +5917,44 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
 char *vision::mod::CVMLMatrix<double,16ul>::reset(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6046,32 +6002,32 @@ char *vision::mod::CVMLMatrix<double,16ul>::initialize_(uint64_t a1, uint64_t a2
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(float *a1, int a2, _DWORD **a3)
 {
-  v2 = a1[1];
-  if (!v2)
+  v3 = *(a1 + 1);
+  if (!v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (v2 <= a2)
+    v5 = a2;
+    if (v3 <= a2)
     {
-      v4 = a2 % v2;
+      v5 = a2 % v3;
     }
   }
 
   else
   {
-    v4 = (v2 - 1) & a2;
+    v5 = (v3 - 1) & a2;
   }
 
-  v5 = *(*a1 + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -6079,47 +6035,47 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= v2)
+      if (v8 >= v3)
       {
-        v7 %= v2;
+        v8 %= v3;
       }
     }
 
     else
     {
-      v7 &= v2 - 1;
+      v8 &= v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v6 + 4) != a2)
+  if (*(v7 + 4) != a2)
   {
     goto LABEL_17;
   }
 
-  return v6;
+  return v7;
 }
 
-uint64_t vision::mod::CVMLMatrix<double,16ul>::ptr(void *a1, unint64_t a2)
+unint64_t vision::mod::CVMLMatrix<double,16ul>::ptr(void *a1, unint64_t a2)
 {
   if (a1[2] <= a2)
   {
@@ -6205,7 +6161,7 @@ void sub_1A5EA8E48(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-const void *std::ostringstream::str[abi:ne200100](_BYTE *a1, uint64_t a2)
+void *std::ostringstream::str[abi:ne200100](void *a1, uint64_t a2)
 {
   result = std::stringbuf::view[abi:ne200100](a2 + 8);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6219,13 +6175,13 @@ const void *std::ostringstream::str[abi:ne200100](_BYTE *a1, uint64_t a2)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     result = memmove(a1, result, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return result;
 }
 
@@ -6290,18 +6246,18 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
   }
 }
 
-uint64_t vision::mod::CVMLMatrix<double,16ul>::mean(uint64_t result, void *a2, char a3)
+void *vision::mod::CVMLMatrix<double,16ul>::mean(void *result, void *a2, char a3)
 {
   v4 = result;
   if (a3)
   {
-    result = vision::mod::CVMLVector<double,16ul>::reset(a2, *(result + 24));
+    result = vision::mod::CVMLVector<double,16ul>::reset(a2, result[3]);
     v5 = v4[3];
   }
 
   else
   {
-    v5 = *(result + 24);
+    v5 = result[3];
     if (a2[2] < v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -6323,7 +6279,7 @@ uint64_t vision::mod::CVMLMatrix<double,16ul>::mean(uint64_t result, void *a2, c
         do
         {
           result = vision::mod::CVMLMatrix<double,16ul>::ptr(v4, v8);
-          v9 = v9 + *(result + 8 * v6);
+          v9 = v9 + *&result[v6];
           ++v8;
           v7 = v4[2];
         }
@@ -6346,18 +6302,17 @@ uint64_t vision::mod::CVMLMatrix<double,16ul>::mean(uint64_t result, void *a2, c
   return result;
 }
 
-uint64_t vision::mod::CVMLMatrix<double,16ul>::rowNorms(uint64_t result, void *a2, char a3)
+void vision::mod::CVMLMatrix<double,16ul>::rowNorms(void *a1, void *a2, char a3)
 {
-  v4 = result;
   if (a3)
   {
-    result = vision::mod::CVMLVector<double,16ul>::reset(a2, *(result + 16));
-    v5 = v4[2];
+    vision::mod::CVMLVector<double,16ul>::reset(a2, a1[2]);
+    v5 = a1[2];
   }
 
   else
   {
-    v5 = *(result + 16);
+    v5 = a1[2];
     if (a2[2] < v5)
     {
       exception = __cxa_allocate_exception(0x10uLL);
@@ -6371,15 +6326,13 @@ uint64_t vision::mod::CVMLMatrix<double,16ul>::rowNorms(uint64_t result, void *a
     v6 = 0;
     do
     {
-      vision::mod::CVMLMatrix<double,16ul>::ptr(v4, v6);
-      result = cblas_ddot_NEWLAPACK();
+      vision::mod::CVMLMatrix<double,16ul>::ptr(a1, v6);
+      cblas_ddot_NEWLAPACK();
       *(a2[1] + 8 * a2[3] * v6++) = v7;
     }
 
-    while (v6 < v4[2]);
+    while (v6 < a1[2]);
   }
-
-  return result;
 }
 
 void sub_1A5EA9380(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
@@ -6404,7 +6357,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-uint64_t vision::mod::broadcastAdd<double,16ul>(void *a1, void *a2, int a3, void *a4)
+uint64_t vision::mod::broadcastAdd<double,16ul>(void *a1, void *a2, uint64_t a3, void *a4)
 {
   v5[4] = *MEMORY[0x1E69E9840];
   v5[0] = &unk_1F1973668;
@@ -6413,22 +6366,22 @@ uint64_t vision::mod::broadcastAdd<double,16ul>(void *a1, void *a2, int a3, void
   return std::__function::__value_func<double ()(double,double)>::~__value_func[abi:ne200100](v5);
 }
 
-void sub_1A5EA9454(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1A5EA9454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double,double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, int a4, void *a5)
+void vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, int a4, void *a5)
 {
   v9 = a1[2];
   if (v9 > a5[2] && a1[3] > a5[3])
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::out_of_range::out_of_range[abi:ne200100](exception, "matrix size too small for output");
-    v34 = off_1E77B0718;
-    v35 = MEMORY[0x1E69E5280];
+    v35 = off_1E77B0718;
+    v36 = MEMORY[0x1E69E5280];
     goto LABEL_25;
   }
 
@@ -6439,11 +6392,11 @@ uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, in
     {
       v11 = vision::mod::CVMLMatrix<double,16ul>::ptr(a1, 0);
       v12 = a1[4];
-      result = vision::mod::CVMLMatrix<double,16ul>::ptr(a5, 0);
+      v13 = vision::mod::CVMLMatrix<double,16ul>::ptr(a5, 0);
       v14 = a1[3];
       if (v14)
       {
-        v15 = result;
+        v15 = v13;
         v16 = 0;
         v17 = a1[2];
         v18 = 8 * a5[4];
@@ -6453,11 +6406,11 @@ uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, in
           if (v17)
           {
             v20 = 0;
-            v36 = v11;
+            v37 = v11;
             v21 = v15;
             do
             {
-              result = std::function<double ()(double,double)>::operator()(*(a3 + 24), *v11, *(a2[1] + 8 * a2[3] * v20));
+              std::function<double ()(double,double)>::operator()(*(a3 + 24), *v11, *(a2[1] + 8 * a2[3] * v20));
               *v21 = v22;
               ++v20;
               v17 = a1[2];
@@ -6467,7 +6420,7 @@ uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, in
 
             while (v20 < v17);
             v14 = a1[3];
-            v11 = v36;
+            v11 = v37;
           }
 
           ++v16;
@@ -6478,7 +6431,7 @@ uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, in
         while (v16 < v14);
       }
 
-      return result;
+      return;
     }
 
     goto LABEL_24;
@@ -6489,46 +6442,44 @@ uint64_t vision::mod::broadcast<double,16ul>(void *a1, void *a2, uint64_t a3, in
 LABEL_24:
     exception = __cxa_allocate_exception(0x10uLL);
     std::invalid_argument::invalid_argument[abi:ne200100](exception, "broadcast op: dimension mismatch");
-    v34 = off_1E77B0720;
-    v35 = MEMORY[0x1E69E5298];
+    v35 = off_1E77B0720;
+    v36 = MEMORY[0x1E69E5298];
 LABEL_25:
-    __cxa_throw(exception, v34, v35);
+    __cxa_throw(exception, v35, v36);
   }
 
   v23 = vision::mod::CVMLMatrix<double,16ul>::ptr(a1, 0);
   v24 = a1[4];
-  result = vision::mod::CVMLMatrix<double,16ul>::ptr(a5, 0);
-  v25 = a1[2];
-  if (v25)
+  v25 = vision::mod::CVMLMatrix<double,16ul>::ptr(a5, 0);
+  v26 = a1[2];
+  if (v26)
   {
-    v26 = result;
-    v27 = 0;
-    v28 = a1[3];
-    v29 = 8 * a5[4];
-    v30 = 8 * v24;
+    v27 = v25;
+    v28 = 0;
+    v29 = a1[3];
+    v30 = 8 * a5[4];
+    v31 = 8 * v24;
     do
     {
-      if (v28)
+      if (v29)
       {
-        for (i = 0; i < v28; ++i)
+        for (i = 0; i < v29; ++i)
         {
-          result = std::function<double ()(double,double)>::operator()(*(a3 + 24), *(v23 + 8 * i), *(a2[1] + 8 * a2[3] * i));
-          *(v26 + 8 * i) = v32;
-          v28 = a1[3];
+          std::function<double ()(double,double)>::operator()(*(a3 + 24), *(v23 + 8 * i), *(a2[1] + 8 * a2[3] * i));
+          *(v27 + 8 * i) = v33;
+          v29 = a1[3];
         }
 
-        v25 = a1[2];
+        v26 = a1[2];
       }
 
-      ++v27;
-      v26 += v29;
-      v23 += v30;
+      ++v28;
+      v27 += v30;
+      v23 += v31;
     }
 
-    while (v27 < v25);
+    while (v28 < v26);
   }
-
-  return result;
 }
 
 uint64_t std::__function::__value_func<double ()(double,double)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -6579,29 +6530,17 @@ uint64_t std::__function::__func<void vision::mod::broadcastAdd<double,16ul>(vis
   }
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
-}
-
-{
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
-  if (a2)
-  {
-    std::vector<long long>::__vallocate[abi:ne200100](result, a2);
-  }
-
-  return result;
+  return a1;
 }
 
 void sub_1A5EA9914(_Unwind_Exception *exception_object)
@@ -6702,7 +6641,7 @@ void vision::mod::Kmeans<double,16ul>::labelEstimation_(void *a1, int a2, void *
   *a8 = v24;
 }
 
-uint64_t *std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, uint64_t a6)
+uint64_t *std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(uint64_t *result, uint64_t *a2, uint64_t **a3, unint64_t a4, uint64_t *a5, int64_t a6)
 {
   if (a4 >= 2)
   {
@@ -6727,9 +6666,9 @@ uint64_t *std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<do
       if (a4 <= a6)
       {
         std::__stable_sort_move<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(result, v24, a3, v25, a5);
-        v26 = &v22[8 * v23];
-        result = std::__stable_sort_move<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(&v8[8 * (a4 >> 1)], a2, a3, a4 - (a4 >> 1), v26);
-        v27 = &v22[8 * a4];
+        v26 = &v22[v23];
+        result = std::__stable_sort_move<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(&v8[a4 >> 1], a2, a3, a4 - (a4 >> 1), v26);
+        v27 = &v22[a4];
         v28 = *a3;
         v29 = v26;
         while (v29 != v27)
@@ -6742,17 +6681,15 @@ uint64_t *std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<do
             v30 = *v22;
           }
 
-          v22 += 8 * (v31 <= v32);
+          v22 += v31 <= v32;
           v29 += v31 > v32;
-          *v8 = v30;
-          v8 += 8;
+          *v8++ = v30;
           if (v22 == v26)
           {
             while (v29 != v27)
             {
               v34 = *v29++;
-              *v8 = v34;
-              v8 += 8;
+              *v8++ = v34;
             }
 
             return result;
@@ -6761,19 +6698,17 @@ uint64_t *std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<do
 
         while (v22 != v26)
         {
-          v33 = *v22;
-          v22 += 8;
-          *v8 = v33;
-          v8 += 8;
+          v33 = *v22++;
+          *v8++ = v33;
         }
       }
 
       else
       {
         std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(result, v24, a3, v25, a5, a6);
-        std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(&v8[8 * (a4 >> 1)], a2, a3, a4 - (a4 >> 1), v22, a6);
+        std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(&v8[a4 >> 1], a2, a3, a4 - (a4 >> 1), v22, a6);
 
-        return std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v8, &v8[8 * (a4 >> 1)], a2, a3, a4 >> 1, a4 - (a4 >> 1), v22, a6);
+        return std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v8, &v8[a4 >> 1], a2, a3, a4 >> 1, a4 - (a4 >> 1), v22, a6);
       }
     }
 
@@ -6962,7 +6897,7 @@ LABEL_8:
   return result;
 }
 
-char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(char *result, char *a2, char *a3, uint64_t **a4, uint64_t a5, uint64_t a6, char *a7, uint64_t a8)
+uint64_t *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t **a4, uint64_t a5, uint64_t a6, char *a7, uint64_t a8)
 {
   if (a6)
   {
@@ -6984,7 +6919,7 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
           break;
         }
 
-        v13 += 8;
+        ++v13;
         if (!--a5)
         {
           return result;
@@ -7004,7 +6939,7 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
 
         v16 = a4;
         v25 = a5 / 2;
-        v20 = &v13[8 * (a5 / 2)];
+        v20 = &v13[a5 / 2];
         if (a3 == a2)
         {
           v18 = a2;
@@ -7012,14 +6947,14 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
 
         else
         {
-          v26 = (a3 - a2) >> 3;
+          v26 = a3 - a2;
           v18 = a2;
           do
           {
             v27 = v26 >> 1;
-            v28 = &v18[8 * (v26 >> 1)];
+            v28 = &v18[v26 >> 1];
             v30 = *v28;
-            v29 = v28 + 8;
+            v29 = v28 + 1;
             v26 += ~(v26 >> 1);
             if (*(v14 + 8 * v30) > *(v14 + 8 * *v20))
             {
@@ -7035,14 +6970,14 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
           while (v26);
         }
 
-        v17 = (v18 - a2) >> 3;
+        v17 = v18 - a2;
       }
 
       else
       {
         v16 = a4;
         v17 = v10 / 2;
-        v18 = &a2[8 * (v10 / 2)];
+        v18 = &a2[v10 / 2];
         if (a2 == v13)
         {
           v20 = v13;
@@ -7050,7 +6985,7 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
 
         else
         {
-          v19 = (a2 - v13) >> 3;
+          v19 = a2 - v13;
           v20 = v13;
           do
           {
@@ -7121,8 +7056,7 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
         v44 = v13;
         do
         {
-          v45 = *v44;
-          v44 += 8;
+          v45 = *v44++;
           *v43 = v45;
           v43 += 8;
         }
@@ -7140,9 +7074,8 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
           }
 
           a7 += 8 * (v48 <= v49);
-          a2 += 8 * (v48 > v49);
-          *v13 = v47;
-          v13 += 8;
+          a2 += v48 > v49;
+          *v13++ = v47;
           if (a7 == v43)
           {
             return result;
@@ -7159,8 +7092,7 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
       v39 = a2;
       do
       {
-        v40 = *v39;
-        v39 += 8;
+        v40 = *v39++;
         *v38 = v40;
         v38 += 8;
       }
@@ -7177,12 +7109,10 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
 
         else
         {
-          v42 = *(a2 - 1);
-          a2 -= 8;
+          v42 = *--a2;
         }
 
-        *(a3 - 1) = v42;
-        a3 -= 8;
+        *--a3 = v42;
         if (v38 == a7)
         {
           return result;
@@ -7191,13 +7121,12 @@ char *std::__inplace_merge<std::_ClassicAlgPolicy,void vision::mod::argsort<doub
 
       if (v38 != a7)
       {
-        v50 = -8;
+        v50 = 0x1FFFFFFFFFFFFFFFLL;
         do
         {
           v51 = *(v38 - 1);
           v38 -= 8;
-          *&a3[v50] = v51;
-          v50 -= 8;
+          a3[v50--] = v51;
         }
 
         while (v38 != a7);
@@ -7366,7 +7295,7 @@ LABEL_28:
     vision::mod::CVMLMatrix<double,16ul>::rowNorms(a1, v19, 0);
   }
 
-  vision::mod::matMult<double,16ul>(a1, a2, 1, a3, 0);
+  vision::mod::matMult<double,16ul>(a1, a2, 1, a3, 0, -2.0, 0.0);
   vision::mod::broadcastAdd<double,16ul>(a3, v9, 1, a3);
   vision::mod::broadcastAdd<double,16ul>(a3, v8, 0, a3);
   if (a3[2])
@@ -7433,47 +7362,47 @@ char *vision::mod::CVMLVector<double,16ul>::reset(uint64_t a1, uint64_t a2)
   return vision::mod::CVMLVector<double,16ul>::initialize_(a1, a2);
 }
 
-uint64_t vision::mod::matMult<double,16ul>(void *a1, void *a2, char a3, void *a4, char a5)
+uint64_t vision::mod::matMult<double,16ul>(void *a1, void *a2, char a3, void *a4, char a5, double a6, double a7)
 {
-  v8 = a1[3];
+  v10 = a1[3];
   if (a3)
   {
-    if (v8 == a2[3])
+    if (v10 == a2[3])
     {
-      v9 = 2;
+      v11 = 2;
       goto LABEL_6;
     }
 
 LABEL_14:
     exception = __cxa_allocate_exception(0x10uLL);
     std::invalid_argument::invalid_argument[abi:ne200100](exception, "matrix size mismatch");
-    v15 = off_1E77B0720;
-    v16 = MEMORY[0x1E69E5298];
+    v17 = off_1E77B0720;
+    v18 = MEMORY[0x1E69E5298];
 LABEL_15:
-    __cxa_throw(exception, v15, v16);
+    __cxa_throw(exception, v17, v18);
   }
 
-  if (v8 != a2[2])
+  if (v10 != a2[2])
   {
     goto LABEL_14;
   }
 
-  v9 = 3;
+  v11 = 3;
 LABEL_6:
-  v10 = a1[2];
-  v11 = a2[v9];
+  v12 = a1[2];
+  v13 = a2[v11];
   if (a5)
   {
-    vision::mod::CVMLMatrix<double,16ul>::reset(a4, v10, v11);
+    vision::mod::CVMLMatrix<double,16ul>::reset(a4, v12, v13);
     goto LABEL_13;
   }
 
-  if (a4[2] < v10 || a4[3] < v11)
+  if (a4[2] < v12 || a4[3] < v13)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::out_of_range::out_of_range[abi:ne200100](exception, "matrix size too small for output");
-    v15 = off_1E77B0718;
-    v16 = MEMORY[0x1E69E5280];
+    v17 = off_1E77B0718;
+    v18 = MEMORY[0x1E69E5280];
     goto LABEL_15;
   }
 
@@ -7650,7 +7579,7 @@ void vision::mod::FaceIDModel::createPrintsDictionary_(uint64_t a1, vision::mod:
   v59 = v5;
   syslog(5, "FaceID: labels=%lu printDSize=%d num_prints=%d dimensionality=%d", *(a1 + 208), v5, v10, v11);
   LOBYTE(v65) = 0;
-  std::vector<BOOL>::vector(&v78, v10);
+  std::vector<BOOL>::vector(&v78, v10, &v65);
   v12 = *(a1 + 200);
   if (v12)
   {
@@ -7855,7 +7784,7 @@ LABEL_63:
 
       syslog(5, "FaceID: label %d -> %d...%d", v77, v60, v62 + v60 - 1);
       v65 = &v77;
-      v53 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v9 + 224), v77);
+      v53 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v9 + 224), v77, &v65);
       *(v53 + 5) = v60;
       *(v53 + 6) = v62;
       if (v58)
@@ -7921,7 +7850,7 @@ LABEL_56:
         }
 
         v65 = v55;
-        *(&v65 + *(v55 - 24)) = v54;
+        *(&v65 + *(v55 - 3)) = v54;
         v66 = MEMORY[0x1E69E5548] + 16;
         if (v70 < 0)
         {
@@ -8192,9 +8121,9 @@ uint64_t std::__independent_bits_engine<std::linear_congruential_engine<unsigned
   return result;
 }
 
-uint64_t vision::mod::FaceIDModel::buildModel(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
+uint64_t vision::mod::FaceIDModel::buildModel(unint64_t a1, void *a2, uint64_t *a3, uint64_t a4)
 {
-  v376 = *MEMORY[0x1E69E9840];
+  v377 = *MEMORY[0x1E69E9840];
   v4 = a2[12];
   v5 = a2[9];
   if (a2[8])
@@ -8209,7 +8138,7 @@ uint64_t vision::mod::FaceIDModel::buildModel(uint64_t a1, void *a2, uint64_t *a
 
   if (v6 || v5 == 0)
   {
-    syslog(5, "FaceID: invalid image descriptor buffer for training");
+    syslog(5, "FaceID: invalid image descriptor buffer for training", a3, a4);
     return 7804;
   }
 
@@ -8268,11 +8197,11 @@ LABEL_29:
     return v17 | 0x1E00;
   }
 
-  memset(v320, 0, sizeof(v320));
-  v321 = 1065353216;
-  v317 = 0u;
+  memset(v321, 0, sizeof(v321));
+  v322 = 1065353216;
   v318 = 0u;
-  v319 = 1065353216;
+  v319 = 0u;
+  v320 = 1065353216;
   v18 = a2[1];
   v19 = a2[2];
   v20 = (a3[1] - *a3) >> 2;
@@ -8286,9 +8215,9 @@ LABEL_86:
     goto LABEL_428;
   }
 
-  v308 = a1;
-  v309 = a2;
-  v293 = a4;
+  v309 = a1;
+  v310 = a2;
+  v294 = a4;
   if (v19 != v18)
   {
     v22 = 0;
@@ -8299,19 +8228,21 @@ LABEL_86:
       {
         v24 = *(v23 + 6);
         __p.__x_[0] = v24;
-        v25 = *(*a3 + 4 * v22);
-        if (v24 != v25)
+        v25 = *a3;
+        v26 = *(*a3 + 4 * v22);
+        if (v24 != v26)
         {
           if ((v24 & 0x80000000) == 0)
           {
-            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v317, v24);
-            v25 = *(*a3 + 4 * v22);
+            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v318, v24, &__p);
+            v25 = *a3;
+            v26 = *(*a3 + 4 * v22);
           }
 
 LABEL_39:
-          if ((v25 & 0x80000000) == 0)
+          if ((v26 & 0x80000000) == 0)
           {
-            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v317, v25);
+            std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v318, v26, (v25 + 4 * v22));
           }
         }
       }
@@ -8319,8 +8250,9 @@ LABEL_39:
       else
       {
         __p.__x_[0] = -1;
-        v25 = *(*a3 + 4 * v22);
-        if (v25 != -1)
+        v25 = *a3;
+        v26 = *(*a3 + 4 * v22);
+        if (v26 != -1)
         {
           goto LABEL_39;
         }
@@ -8343,30 +8275,30 @@ LABEL_39:
 
   do
   {
-    v55 = *v18;
+    v56 = *v18;
     if (!*&__p.__x_[2])
     {
       goto LABEL_103;
     }
 
-    v56 = vcnt_s8(*&__p.__x_[2]);
-    v56.i16[0] = vaddlv_u8(v56);
-    if (v56.u32[0] > 1uLL)
+    v57 = vcnt_s8(*&__p.__x_[2]);
+    v57.i16[0] = vaddlv_u8(v57);
+    if (v57.u32[0] > 1uLL)
     {
-      v57 = *v18;
-      if (v55 >= *&__p.__x_[2])
+      v58 = *v18;
+      if (v56 >= *&__p.__x_[2])
       {
-        v57 = v55 % *&__p.__x_[2];
+        v58 = v56 % *&__p.__x_[2];
       }
     }
 
     else
     {
-      v57 = (*&__p.__x_[2] - 1) & v55;
+      v58 = (*&__p.__x_[2] - 1) & v56;
     }
 
-    v58 = *(*__p.__x_ + 8 * v57);
-    if (!v58 || (v59 = *v58) == 0)
+    v59 = *(*__p.__x_ + 8 * v58);
+    if (!v59 || (v60 = *v59) == 0)
     {
 LABEL_103:
       operator new();
@@ -8374,39 +8306,39 @@ LABEL_103:
 
     while (1)
     {
-      v60 = v59[1];
-      if (v60 == v55)
+      v61 = v60[1];
+      if (v61 == v56)
       {
         break;
       }
 
-      if (v56.u32[0] > 1uLL)
+      if (v57.u32[0] > 1uLL)
       {
-        if (v60 >= *&__p.__x_[2])
+        if (v61 >= *&__p.__x_[2])
         {
-          v60 %= *&__p.__x_[2];
+          v61 %= *&__p.__x_[2];
         }
       }
 
       else
       {
-        v60 &= *&__p.__x_[2] - 1;
+        v61 &= *&__p.__x_[2] - 1;
       }
 
-      if (v60 != v57)
+      if (v61 != v58)
       {
         goto LABEL_103;
       }
 
 LABEL_102:
-      v59 = *v59;
-      if (!v59)
+      v60 = *v60;
+      if (!v60)
       {
         goto LABEL_103;
       }
     }
 
-    if (v59[2] != v55)
+    if (v60[2] != v56)
     {
       goto LABEL_102;
     }
@@ -8416,36 +8348,36 @@ LABEL_102:
 
   while (v18 != v19);
 LABEL_43:
-  for (i = *(v308 + 2); i; i = *i)
+  for (i = *(v309 + 2); i; i = *i)
   {
     if (*&__p.__x_[2])
     {
-      v27 = i[2];
-      v28 = vcnt_s8(*&__p.__x_[2]);
-      v28.i16[0] = vaddlv_u8(v28);
-      if (v28.u32[0] > 1uLL)
+      v28 = i[2];
+      v29 = vcnt_s8(*&__p.__x_[2]);
+      v29.i16[0] = vaddlv_u8(v29);
+      if (v29.u32[0] > 1uLL)
       {
-        v29 = i[2];
-        if (v27 >= *&__p.__x_[2])
+        v30 = i[2];
+        if (v28 >= *&__p.__x_[2])
         {
-          v29 = v27 % *&__p.__x_[2];
+          v30 = v28 % *&__p.__x_[2];
         }
       }
 
       else
       {
-        v29 = (*&__p.__x_[2] - 1) & v27;
+        v30 = (*&__p.__x_[2] - 1) & v28;
       }
 
-      v30 = *(*__p.__x_ + 8 * v29);
-      if (v30)
+      v31 = *(*__p.__x_ + 8 * v30);
+      if (v31)
       {
-        for (j = *v30; j; j = *j)
+        for (j = *v31; j; j = *j)
         {
-          v32 = j[1];
-          if (v32 == v27)
+          v33 = j[1];
+          if (v33 == v28)
           {
-            if (j[2] == v27)
+            if (j[2] == v28)
             {
               goto LABEL_61;
             }
@@ -8453,20 +8385,20 @@ LABEL_43:
 
           else
           {
-            if (v28.u32[0] > 1uLL)
+            if (v29.u32[0] > 1uLL)
             {
-              if (v32 >= *&__p.__x_[2])
+              if (v33 >= *&__p.__x_[2])
               {
-                v32 %= *&__p.__x_[2];
+                v33 %= *&__p.__x_[2];
               }
             }
 
             else
             {
-              v32 &= *&__p.__x_[2] - 1;
+              v33 &= *&__p.__x_[2] - 1;
             }
 
-            if (v32 != v29)
+            if (v33 != v30)
             {
               break;
             }
@@ -8475,312 +8407,312 @@ LABEL_43:
       }
     }
 
-    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v317, *(i + 6));
+    std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::__emplace_unique_key_args<int,int const&>(&v318, *(i + 6), i + 6);
 LABEL_61:
     ;
   }
 
   if (a2[2] != a2[1])
   {
-    v33 = 0;
     v34 = 0;
+    v35 = 0;
     do
     {
-      v35 = *a3;
-      v361[0] = (*a3 + v33);
-      v36 = std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v320, *(v35 + 4 * v34));
-      v37 = v36;
-      v39 = v36[4];
-      v38 = v36[5];
-      if (v39 >= v38)
+      v36 = *a3;
+      v362[0] = (*a3 + v34);
+      v37 = std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v321, *(v36 + 4 * v35), v362);
+      v38 = v37;
+      v40 = v37[4];
+      v39 = v37[5];
+      if (v40 >= v39)
       {
-        v41 = v36[3];
-        v42 = v39 - v41;
-        v43 = (v39 - v41) >> 2;
-        v44 = v43 + 1;
-        if ((v43 + 1) >> 62)
+        v42 = v37[3];
+        v43 = v40 - v42;
+        v44 = (v40 - v42) >> 2;
+        v45 = v44 + 1;
+        if ((v44 + 1) >> 62)
         {
           std::vector<float>::__throw_length_error[abi:ne200100]();
         }
 
-        v45 = v38 - v41;
-        if (v45 >> 1 > v44)
+        v46 = v39 - v42;
+        if (v46 >> 1 > v45)
         {
-          v44 = v45 >> 1;
+          v45 = v46 >> 1;
         }
 
-        if (v45 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v46 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v46 = 0x3FFFFFFFFFFFFFFFLL;
+          v47 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v46 = v44;
+          v47 = v45;
         }
 
-        if (v46)
+        if (v47)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(v46);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(v47);
         }
 
-        v47 = (v39 - v41) >> 2;
-        v48 = (4 * v43);
-        v49 = (4 * v43 - 4 * v47);
-        *v48 = v34;
-        v40 = v48 + 1;
-        memcpy(v49, v41, v42);
-        v50 = v37[3];
-        v37[3] = v49;
-        v37[4] = v40;
-        v37[5] = 0;
-        if (v50)
+        v48 = (v40 - v42) >> 2;
+        v49 = (4 * v44);
+        v50 = (4 * v44 - 4 * v48);
+        *v49 = v35;
+        v41 = v49 + 1;
+        memcpy(v50, v42, v43);
+        v51 = v38[3];
+        v38[3] = v50;
+        v38[4] = v41;
+        v38[5] = 0;
+        if (v51)
         {
-          operator delete(v50);
+          operator delete(v51);
         }
       }
 
       else
       {
-        *v39 = v34;
-        v40 = v39 + 4;
+        *v40 = v35;
+        v41 = v40 + 4;
       }
 
-      v37[4] = v40;
-      ++v34;
-      v33 += 4;
+      v38[4] = v41;
+      ++v35;
+      v34 += 4;
     }
 
-    while (v34 < (a2[2] - a2[1]) >> 3);
+    while (v35 < (a2[2] - a2[1]) >> 3);
   }
 
   std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&__p);
-  if (!*(&v318 + 1))
+  if (!*(&v319 + 1))
   {
     v15 = 7808;
     goto LABEL_428;
   }
 
-  v356 = 0;
-  v355 = 0;
   v357 = 0;
-  v51 = v308;
-  v53 = (v308 + 200);
-  v52 = *(v308 + 25);
-  if (v52)
+  v356 = 0;
+  v358 = 0;
+  v52 = v309;
+  v54 = (v309 + 200);
+  v53 = *(v309 + 25);
+  if (v53)
   {
-    v54 = 0;
+    v55 = 0;
     do
     {
-      if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(&v317, *(v52 + 4)))
+      if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(&v318, v53[4]))
       {
-        std::vector<int>::push_back[abi:ne200100](&v355, v52 + 4);
-        v54 += *(v52 + 6);
+        std::vector<int>::push_back[abi:ne200100](&v356, v53 + 4);
+        v55 += v53[6];
       }
 
-      v52 = *v52;
+      v53 = *v53;
     }
 
-    while (v52);
+    while (v53);
   }
 
   else
   {
-    v54 = 0;
+    v55 = 0;
   }
 
-  v61 = v318;
-  v62 = v54;
-  if (v318)
+  v62 = v319;
+  v63 = v55;
+  if (v319)
   {
-    v63 = v320[0];
-    v62 = v54;
+    v64 = v321[0];
+    v63 = v55;
     do
     {
-      v64 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v63, *(&v63 + 1), *(v61 + 4));
-      if (v64)
+      v65 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(v64, *(&v64 + 1), *(v62 + 4));
+      if (v65)
       {
-        v65 = (v64[4] - v64[3]) >> 2;
-        if (*(v308 + 10) < v65)
+        v66 = (v65[4] - v65[3]) >> 2;
+        if (*(v309 + 10) < v66)
         {
-          LODWORD(v65) = *(v308 + 10);
+          LODWORD(v66) = *(v309 + 10);
         }
 
-        v62 += v65;
+        v63 += v66;
       }
 
-      v61 = *v61;
+      v62 = *v62;
     }
 
-    while (v61);
+    while (v62);
   }
 
-  v292 = (v308 + 184);
-  if (*(v308 + 3))
+  v293 = (v309 + 184);
+  if (*(v309 + 3))
   {
-    v66 = *(v308 + 2);
-    if (v66)
+    v67 = *(v309 + 2);
+    if (v67)
     {
       do
       {
-        v67 = *v66;
-        operator delete(v66);
-        v66 = v67;
+        v68 = *v67;
+        operator delete(v67);
+        v67 = v68;
       }
 
-      while (v67);
+      while (v68);
     }
 
-    *(v308 + 2) = 0;
-    v68 = *(v308 + 1);
-    if (v68)
+    *(v309 + 2) = 0;
+    v69 = *(v309 + 1);
+    if (v69)
     {
-      for (k = 0; k != v68; ++k)
+      for (k = 0; k != v69; ++k)
       {
-        *(*v308 + 8 * k) = 0;
+        *(*v309 + 8 * k) = 0;
       }
     }
 
-    *(v308 + 3) = 0;
+    *(v309 + 3) = 0;
   }
 
-  v70 = v355;
   v71 = v356;
-  if (v355 == v356)
+  v72 = v357;
+  if (v356 == v357)
   {
 LABEL_129:
-    v77 = v4;
-    vision::mod::CVMLMatrix<double,16ul>::reset(v51 + 136, 0, v4);
-    if (!v54)
+    v78 = v4;
+    vision::mod::CVMLMatrix<double,16ul>::reset(v52 + 136, 0, v4);
+    if (!v55)
     {
-      vision::mod::CVMLMatrix<double,16ul>::reset(v51 + 88, v62, v4);
-      if (*(v51 + 26))
+      vision::mod::CVMLMatrix<double,16ul>::reset(v52 + 88, v63, v4);
+      if (*(v52 + 26))
       {
-        v96 = *v53;
-        if (*v53)
+        v97 = *v54;
+        if (*v54)
         {
           do
           {
-            v97 = *v96;
-            operator delete(v96);
-            v96 = v97;
+            v98 = *v97;
+            operator delete(v97);
+            v97 = v98;
           }
 
-          while (v97);
+          while (v98);
         }
 
-        *(v51 + 25) = 0;
-        v98 = *(v51 + 24);
-        if (v98)
+        *(v52 + 25) = 0;
+        v99 = *(v52 + 24);
+        if (v99)
         {
-          for (m = 0; m != v98; ++m)
+          for (m = 0; m != v99; ++m)
           {
-            *(*v292 + 8 * m) = 0;
+            *(*v293 + 8 * m) = 0;
           }
         }
 
-        v54 = 0;
-        *(v51 + 26) = 0;
+        v55 = 0;
+        *(v52 + 26) = 0;
       }
 
       else
       {
-        v54 = 0;
+        v55 = 0;
       }
 
       v15 = 7808;
       goto LABEL_155;
     }
 
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(&__p, v54, v4);
-    *v361 = 0u;
-    v362 = 0u;
-    v363 = 1065353216;
-    if (*(v51 + 14) == v4 && (v78 = *&__p.__x_[8], *&__p.__x_[8] == *(v51 + 15)))
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(&__p, v55, v4);
+    *v362 = 0u;
+    v363 = 0u;
+    v364 = 1065353216;
+    if (*(v52 + 14) == v4 && (v79 = *&__p.__x_[8], *&__p.__x_[8] == *(v52 + 15)))
     {
-      v315 = v70;
-      for (n = 0; v70 != v71; ++v70)
+      v316 = v71;
+      for (n = 0; v71 != v72; ++v71)
       {
-        v351[0] = v70;
-        v80 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v292, *v70);
-        v81 = vision::mod::CVMLMatrix<double,16ul>::ptr(&__p, n);
-        v82 = vision::mod::CVMLMatrix<double,16ul>::ptr(v308 + 11, *(v80 + 5));
-        memcpy(v81, v82, 8 * *(v308 + 15) * *(v80 + 6));
-        LODWORD(v81) = *(v80 + 6);
-        v351[0] = v70;
-        v83 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v361, *v70);
-        *(v83 + 5) = n;
-        *(v83 + 6) = v81;
-        n += *(v80 + 6);
+        v352[0] = v71;
+        v81 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v293, *v71, v352);
+        v82 = vision::mod::CVMLMatrix<double,16ul>::ptr(&__p, n);
+        v83 = vision::mod::CVMLMatrix<double,16ul>::ptr(v309 + 11, *(v81 + 5));
+        memcpy(v82, v83, 8 * *(v309 + 15) * *(v81 + 6));
+        LODWORD(v82) = *(v81 + 6);
+        v352[0] = v71;
+        v84 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v362, *v71, v352);
+        *(v84 + 5) = n;
+        *(v84 + 6) = v82;
+        n += *(v81 + 6);
       }
 
-      v70 = v315;
-      vision::mod::CVMLMatrix<double,16ul>::reset(v308 + 88, v62, v77);
-      if (n == v54)
+      v71 = v316;
+      vision::mod::CVMLMatrix<double,16ul>::reset(v309 + 88, v63, v78);
+      if (n == v55)
       {
-        if (*(v308 + 15) == v78)
+        if (*(v309 + 15) == v79)
         {
-          v84 = vision::mod::CVMLMatrix<double,16ul>::ptr(v308 + 11, 0);
-          v85 = vision::mod::CVMLMatrix<double,16ul>::ptr(&__p, 0);
-          memcpy(v84, v85, 8 * v78 * *&__p.__x_[4]);
-          v86 = v361[0];
-          v87 = v361[1];
-          *v361 = *(v308 + 184);
-          v89 = *(v308 + 25);
-          v88 = *(v308 + 26);
-          v90 = v362;
-          v91 = *(v308 + 54);
-          v92 = v363;
-          *(v308 + 23) = v86;
-          *(v308 + 24) = v87;
-          *(v308 + 200) = v90;
-          *&v362 = v89;
-          *(&v362 + 1) = v88;
-          *(v308 + 54) = v92;
-          v363 = v91;
-          if (*(&v90 + 1))
+          v85 = vision::mod::CVMLMatrix<double,16ul>::ptr(v309 + 11, 0);
+          v86 = vision::mod::CVMLMatrix<double,16ul>::ptr(&__p, 0);
+          memcpy(v85, v86, 8 * v79 * *&__p.__x_[4]);
+          v87 = v362[0];
+          v88 = v362[1];
+          *v362 = *(v309 + 184);
+          v90 = *(v309 + 25);
+          v89 = *(v309 + 26);
+          v91 = v363;
+          v92 = *(v309 + 54);
+          v93 = v364;
+          *(v309 + 23) = v87;
+          *(v309 + 24) = v88;
+          *(v309 + 200) = v91;
+          *&v363 = v90;
+          *(&v363 + 1) = v89;
+          *(v309 + 54) = v93;
+          v364 = v92;
+          if (*(&v91 + 1))
           {
-            v93 = *(v90 + 8);
-            if ((v87 & (v87 - 1)) != 0)
+            v94 = *(v91 + 8);
+            if ((v88 & (v88 - 1)) != 0)
             {
-              if (v93 >= v87)
+              if (v94 >= v88)
               {
-                v93 %= v87;
+                v94 %= v88;
               }
             }
 
             else
             {
-              v93 &= v87 - 1;
+              v94 &= v88 - 1;
             }
 
-            v86[v93] = v53;
+            v87[v94] = v54;
           }
 
-          if (v88)
+          if (v89)
           {
-            v290 = *(v362 + 8);
-            if ((v361[1] & (v361[1] - 1)) != 0)
+            v291 = *(v363 + 8);
+            if ((v362[1] & (v362[1] - 1)) != 0)
             {
-              if (v290 >= v361[1])
+              if (v291 >= v362[1])
               {
-                v290 %= v361[1];
+                v291 %= v362[1];
               }
             }
 
             else
             {
-              v290 &= v361[1] - 1;
+              v291 &= v362[1] - 1;
             }
 
-            *(v361[0] + v290) = &v362;
+            *(v362[0] + v291) = &v363;
           }
 
-          v94 = &CVML_status_ok;
+          v95 = &CVML_status_ok;
           goto LABEL_141;
         }
 
-        n = v54;
+        n = v55;
         syslog(5, "ERROR: size or stride mismatch");
       }
 
@@ -8796,54 +8728,54 @@ LABEL_129:
       syslog(5, "ERROR: dimension or stride mismatch");
     }
 
-    v94 = &CVML_status_inconsistentState;
-    v54 = n;
+    v95 = &CVML_status_inconsistentState;
+    v55 = n;
 LABEL_141:
-    v95 = *v94;
-    std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v361);
+    v96 = *v95;
+    std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(v362);
     if (LOBYTE(__p.__x_[10]) == 1 && *__p.__x_)
     {
       free(*__p.__x_);
     }
 
-    v15 = (v95 + 128) | 0x1E00;
+    v15 = (v96 + 128) | 0x1E00;
     goto LABEL_155;
   }
 
-  v72 = v355;
+  v73 = v356;
   while (1)
   {
-    v73 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(*&v320[0], *(&v320[0] + 1), *v72);
-    if (!v73)
+    v74 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(*&v321[0], *(&v321[0] + 1), *v73);
+    if (!v74)
     {
       break;
     }
 
-    v74 = v73[3];
-    v75 = v73[4];
-    while (v74 != v75)
+    v75 = v74[3];
+    v76 = v74[4];
+    while (v75 != v76)
     {
-      v76 = *v72;
-      *__p.__x_ = v309[1] + 8 * *v74;
-      *(std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v308, **__p.__x_) + 6) = v76;
-      ++v74;
+      v77 = *v73;
+      *__p.__x_ = v310[1] + 8 * *v75;
+      *(std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v309, **__p.__x_, &__p) + 6) = v77;
+      ++v75;
     }
 
-    ++v72;
-    v51 = v308;
-    if (v72 == v71)
+    ++v73;
+    v52 = v309;
+    if (v73 == v72)
     {
       goto LABEL_129;
     }
   }
 
   syslog(5, "ERROR: incomplete labelInfo");
-  v54 = 0;
+  v55 = 0;
   v15 = 7806;
 LABEL_155:
-  if (v70)
+  if (v71)
   {
-    operator delete(v70);
+    operator delete(v71);
   }
 
   if (v15 != 128)
@@ -8852,182 +8784,182 @@ LABEL_155:
     goto LABEL_428;
   }
 
-  v298 = v54;
-  v100 = v318;
-  if (!v318)
+  v299 = v55;
+  v101 = v319;
+  if (!v319)
   {
     goto LABEL_426;
   }
 
-  v296 = 0;
-  v313 = vdupq_n_s64(2uLL);
+  v297 = 0;
+  v314 = vdupq_n_s64(2uLL);
   while (1)
   {
-    v101 = *(v100 + 4);
-    v102 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(*&v320[0], *(&v320[0] + 1), v101);
-    if (v102)
+    v102 = *(v101 + 4);
+    v103 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(*&v321[0], *(&v321[0] + 1), v102);
+    if (v103)
     {
-      v103 = v102[3];
-      v299 = v102;
-      v104 = v102[4] - v103;
-      if (v104)
+      v104 = v103[3];
+      v300 = v103;
+      v105 = v103[4] - v104;
+      if (v105)
       {
         break;
       }
     }
 
 LABEL_181:
-    v100 = *v100;
-    if (!v100)
+    v101 = *v101;
+    if (!v101)
     {
       goto LABEL_426;
     }
   }
 
-  v332 = v101;
-  v105 = v309[12];
-  v106 = v105;
-  v294 = v100;
-  if (v105 != *(v308 + 14))
+  v333 = v102;
+  v106 = v310[12];
+  v107 = v106;
+  v295 = v101;
+  if (v106 != *(v309 + 14))
   {
-    v121 = "ERROR: dimension mismatch between input data and global dictionary";
+    v122 = "ERROR: dimension mismatch between input data and global dictionary";
     goto LABEL_174;
   }
 
-  v107 = v309[7];
-  v108 = *(v309 + 16);
-  v109 = *(v309 + 18);
-  v110 = v105 << 32;
-  if (*(v308 + 10) >= (v104 >> 2))
+  v108 = v310[7];
+  v109 = *(v310 + 16);
+  v110 = *(v310 + 18);
+  v111 = v106 << 32;
+  if (*(v309 + 10) >= (v105 >> 2))
   {
-    v128 = 0;
-    v129 = 4 * v105;
+    v129 = 0;
+    v130 = 4 * v106;
     do
     {
-      v130 = *(v103 + 4 * v128);
-      v121 = "ERROR: index out of range";
-      v122 = &CVML_status_internalError;
-      if (v130 >= v109 || v130 < 0)
+      v131 = *(v104 + 4 * v129);
+      v122 = "ERROR: index out of range";
+      v123 = &CVML_status_internalError;
+      if (v131 >= v110 || v131 < 0)
       {
         goto LABEL_175;
       }
 
-      v131 = vision::mod::CVMLMatrix<double,16ul>::ptr(v308 + 11, v298 + v128);
-      if (v110)
+      v132 = vision::mod::CVMLMatrix<double,16ul>::ptr(v309 + 11, v299 + v129);
+      if (v111)
       {
-        v132 = (v107 + v130 * v108);
-        v133 = v129;
+        v133 = (v108 + v131 * v109);
+        v134 = v130;
         do
         {
-          v134 = *v132++;
-          *v131++ = v134;
-          v133 -= 4;
+          v135 = *v133++;
+          *v132++ = v135;
+          v134 -= 4;
         }
 
-        while (v133);
+        while (v134);
       }
 
-      ++v128;
-      v103 = v299[3];
-      v135 = v299[4] - v103;
+      ++v129;
+      v104 = v300[3];
+      v136 = v300[4] - v104;
     }
 
-    while (v128 < v135 >> 2);
-    v136 = v332;
-    if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v292, v332))
+    while (v129 < v136 >> 2);
+    v137 = v333;
+    if (!std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v293, v333))
     {
-      v164 = *(v308 + 10);
-      v355 = &v332;
-      v165 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v292, v136);
-      v166 = v135 >> 2;
-      if (v164 < (v135 >> 2))
+      v165 = *(v309 + 10);
+      v356 = &v333;
+      v166 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v293, v137, &v356);
+      v167 = v136 >> 2;
+      if (v165 < (v136 >> 2))
       {
-        LODWORD(v166) = v164;
+        LODWORD(v167) = v165;
       }
 
-      *(v165 + 5) = v298;
-      *(v165 + 6) = v166;
-      v162 = 7808;
+      *(v166 + 5) = v299;
+      *(v166 + 6) = v167;
+      v163 = 7808;
       goto LABEL_411;
     }
 
-    v121 = "ERROR: duplicated labels detected when build sub-dictionary";
+    v122 = "ERROR: duplicated labels detected when build sub-dictionary";
 LABEL_174:
-    v122 = &CVML_status_inconsistentState;
+    v123 = &CVML_status_inconsistentState;
 LABEL_175:
-    syslog(5, v121);
-    v15 = (*v122 + 128) | 0x1E00;
+    syslog(5, v122);
+    v15 = (*v123 + 128) | 0x1E00;
     goto LABEL_176;
   }
 
-  vision::mod::CVMLMatrix<double,16ul>::initialize_(v327, (v104 >> 2), v105);
-  v111 = v299[3];
-  if (v299[4] == v111)
+  vision::mod::CVMLMatrix<double,16ul>::initialize_(v328, (v105 >> 2), v106);
+  v112 = v300[3];
+  if (v300[4] == v112)
   {
-    LODWORD(v120) = 0;
+    LODWORD(v121) = 0;
   }
 
   else
   {
-    v112 = 0;
-    v113 = 4 * v106;
+    v113 = 0;
+    v114 = 4 * v107;
     do
     {
-      v114 = *(v111 + 4 * v112);
-      if (v114 >= v109 || v114 < 0)
+      v115 = *(v112 + 4 * v113);
+      if (v115 >= v110 || v115 < 0)
       {
         syslog(5, "ERROR: index out of range");
-        v163 = 0;
-        v162 = 7808;
+        v164 = 0;
+        v163 = 7808;
         v15 = 7806;
         goto LABEL_407;
       }
 
-      v115 = vision::mod::CVMLMatrix<double,16ul>::ptr(v327, v112);
-      if (v110)
+      v116 = vision::mod::CVMLMatrix<double,16ul>::ptr(v328, v113);
+      if (v111)
       {
-        v116 = (v107 + v114 * v108);
-        v117 = v113;
+        v117 = (v108 + v115 * v109);
+        v118 = v114;
         do
         {
-          v118 = *v116++;
-          *v115++ = v118;
-          v117 -= 4;
+          v119 = *v117++;
+          *v116++ = v119;
+          v118 -= 4;
         }
 
-        while (v117);
+        while (v118);
       }
 
-      ++v112;
-      v111 = v299[3];
-      v119 = v299[4] - v111;
+      ++v113;
+      v112 = v300[3];
+      v120 = v300[4] - v112;
     }
 
-    while (v112 < v119 >> 2);
-    v120 = v119 >> 2;
+    while (v113 < v120 >> 2);
+    v121 = v120 >> 2;
   }
 
-  v137 = *(v308 + 10);
-  if (v137 >= v120)
+  v138 = *(v309 + 10);
+  if (v138 >= v121)
   {
-    v138 = v120;
+    v139 = v121;
   }
 
   else
   {
-    v138 = v137;
+    v139 = v138;
   }
 
-  v139 = *(v308 + 13);
-  if (v139 <= v298 || (v140 = v138, v138 + v298 > v139))
+  v140 = *(v309 + 13);
+  if (v140 <= v299 || (v141 = v139, v139 + v299 > v140))
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "row index out of range");
     goto LABEL_445;
   }
 
-  v141 = *(v308 + 14);
-  if (!v141)
+  v142 = *(v309 + 14);
+  if (!v142)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "col index out of range");
@@ -9036,96 +8968,96 @@ LABEL_445:
     __cxa_throw(exception, off_1E77B0718, MEMORY[0x1E69E5280]);
   }
 
-  v142 = *(v308 + 10);
-  v143 = *(v308 + 16);
-  v144 = *(v308 + 68);
-  v145 = *(v308 + 15);
-  v322[0] = (*(v308 + 12) + 8 * v145 * v298);
-  v322[1] = v322[0];
-  v323 = v138;
-  v324 = v141;
-  v325 = v145;
-  v326 = 0;
-  v295 = v144;
-  if (v144 < 1 || (v303 = HIDWORD(v144), v144 <= 0))
+  v143 = *(v309 + 10);
+  v144 = *(v309 + 16);
+  v145 = *(v309 + 68);
+  v146 = *(v309 + 15);
+  v323[0] = (*(v309 + 12) + 8 * v146 * v299);
+  v323[1] = v323[0];
+  v324 = v139;
+  v325 = v142;
+  v326 = v146;
+  v327 = 0;
+  v296 = v145;
+  if (v145 < 1 || (v304 = HIDWORD(v145), v145 <= 0))
   {
     syslog(5, "ERROR: invalid parameters in kmeans");
-    v162 = 7804;
+    v163 = 7804;
     syslog(5, "ERROR: kmeans error %lu", 7804);
-    v163 = 0;
+    v164 = 0;
     v15 = 7804;
     goto LABEL_404;
   }
 
-  v146 = v329;
-  vision::mod::CVMLVector<double,16ul>::initialize_(&__p, v329);
-  if (*&__p.__x_[4] < v329)
+  v147 = v330;
+  vision::mod::CVMLVector<double,16ul>::initialize_(&__p, v330);
+  if (*&__p.__x_[4] < v330)
   {
-    v289 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v289, "vector length < cols");
-    v289->__vftable = (MEMORY[0x1E69E55B8] + 16);
-    __cxa_throw(v289, off_1E77B0718, MEMORY[0x1E69E5280]);
+    v290 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v290, "vector length < cols");
+    v290->__vftable = (MEMORY[0x1E69E55B8] + 16);
+    __cxa_throw(v290, off_1E77B0718, MEMORY[0x1E69E5280]);
   }
 
-  vision::mod::CVMLMatrix<double,16ul>::mean(v327, &__p, 0);
-  v147 = v329;
-  v148 = *&__p.__x_[2];
-  if (v329)
+  vision::mod::CVMLMatrix<double,16ul>::mean(v328, &__p, 0);
+  v148 = v330;
+  v149 = *&__p.__x_[2];
+  if (v330)
   {
-    v149 = 0;
-    v150 = *&__p.__x_[6];
-    v152 = v327[1];
-    v151 = v328;
-    v153 = v328;
-    v154 = 8 * v330;
+    v150 = 0;
+    v151 = *&__p.__x_[6];
+    v153 = v328[1];
+    v152 = v329;
+    v154 = v329;
+    v155 = 8 * v331;
     do
     {
-      v155 = v150 * v149;
-      if (v151)
+      v156 = v151 * v150;
+      if (v152)
       {
-        v156 = 0.0;
-        v157 = v152;
-        v158 = v151;
+        v157 = 0.0;
+        v158 = v153;
+        v159 = v152;
         do
         {
-          v156 = v156 + (*v157 - v148[v155]) * (*v157 - v148[v155]);
-          v157 = (v157 + v154);
-          --v158;
+          v157 = v157 + (*v158 - v149[v156]) * (*v158 - v149[v156]);
+          v158 = (v158 + v155);
+          --v159;
         }
 
-        while (v158);
+        while (v159);
       }
 
       else
       {
-        v156 = 0.0;
+        v157 = 0.0;
       }
 
-      v148[v155] = v156 / v153;
-      ++v149;
-      ++v152;
+      v149[v156] = v157 / v154;
+      ++v150;
+      ++v153;
     }
 
-    while (v149 != v147);
+    while (v150 != v148);
   }
 
-  if (v146)
+  if (v147)
   {
-    v159 = 8 * v146;
-    v160 = 0.0;
+    v160 = 8 * v147;
+    v161 = 0.0;
     do
     {
-      v161 = *v148++;
-      v160 = v160 + v161;
-      v159 -= 8;
+      v162 = *v149++;
+      v161 = v161 + v162;
+      v160 -= 8;
     }
 
-    while (v159);
+    while (v160);
   }
 
   else
   {
-    v160 = 0.0;
+    v161 = 0.0;
   }
 
   if (LOBYTE(__p.__x_[8]) == 1 && *__p.__x_)
@@ -9133,427 +9065,427 @@ LABEL_445:
     free(*__p.__x_);
   }
 
-  *v343 = 0u;
-  v344 = 0u;
-  v345 = 1;
-  vision::mod::CVMLMatrix<double,16ul>::mean(v327, v343, 1);
+  *v344 = 0u;
+  v345 = 0u;
+  v346 = 1;
+  vision::mod::CVMLMatrix<double,16ul>::mean(v328, v344, 1);
   *__p.__x_ = &unk_1F19735D8;
   *&__p.__x_[6] = &__p;
-  vision::mod::broadcast<double,16ul>(v327, v343, &__p, 0, v327);
+  vision::mod::broadcast<double,16ul>(v328, v344, &__p, 0, v328);
   std::__function::__value_func<double ()(double,double)>::~__value_func[abi:ne200100](&__p);
-  *v340 = 0u;
-  v341 = 0u;
-  v342 = 1;
-  vision::mod::CVMLMatrix<double,16ul>::rowNorms(v327, v340, 1);
-  vision::mod::CVMLMatrix<double,16ul>::initialize_(&v334, v138, v329);
-  v167 = v160 / v146 * v142;
-  v168 = 5489;
+  *v341 = 0u;
+  v342 = 0u;
+  v343 = 1;
+  vision::mod::CVMLMatrix<double,16ul>::rowNorms(v328, v341, 1);
+  vision::mod::CVMLMatrix<double,16ul>::initialize_(&v335, v139, v330);
+  v168 = v161 / v147 * v143;
+  v169 = 5489;
   __p.__x_[0] = 5489;
   for (ii = 1; ii != 624; ++ii)
   {
-    v168 = ii + 1812433253 * (v168 ^ (v168 >> 30));
-    __p.__x_[ii] = v168;
+    v169 = ii + 1812433253 * (v169 ^ (v169 >> 30));
+    __p.__x_[ii] = v169;
   }
 
   __p.__i_ = 0;
-  if ((v143 & 0x80000000) == 0)
+  if ((v144 & 0x80000000) == 0)
   {
-    __p.__x_[0] = v143;
+    __p.__x_[0] = v144;
     for (jj = 1; jj != 624; ++jj)
     {
-      v143 = jj + 1812433253 * (v143 ^ (v143 >> 30));
-      __p.__x_[jj] = v143;
+      v144 = jj + 1812433253 * (v144 ^ (v144 >> 30));
+      __p.__x_[jj] = v144;
     }
 
     __p.__i_ = 0;
   }
 
-  v171 = log(v138);
-  v172 = 0;
-  v301 = v171;
-  LODWORD(v173) = v171 + 2;
-  v174 = v173;
-  if (v173 <= 1)
+  v172 = log(v139);
+  v173 = 0;
+  v302 = v172;
+  LODWORD(v174) = v172 + 2;
+  v175 = v174;
+  if (v174 <= 1)
   {
-    v173 = 1;
+    v174 = 1;
   }
 
   else
   {
-    v173 = v173;
+    v174 = v174;
   }
 
-  v314 = v174;
-  v316 = v173;
-  v302 = 4 * v138;
-  v306 = v138;
-  v307 = 8 * v138;
-  v175 = 1.79769313e308;
-  v310 = v138;
+  v315 = v175;
+  v317 = v174;
+  v303 = 4 * v139;
+  v307 = v139;
+  v308 = 8 * v139;
+  v176 = 1.79769313e308;
+  v311 = v139;
   while (2)
   {
-    v297 = v172;
-    v176 = v328;
+    v298 = v173;
     v177 = v329;
-    LODWORD(v350[0]) = 0;
-    HIDWORD(v350[0]) = v328 - 1;
-    v178 = std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(&__p, v350);
-    v179 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, 0);
-    v180 = vision::mod::CVMLMatrix<double,16ul>::ptr(v327, v178);
-    v181 = 8 * v177;
-    memcpy(v179, v180, 8 * v177);
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(v361, 1, v176);
-    if (!v336)
+    v178 = v330;
+    LODWORD(v351[0]) = 0;
+    HIDWORD(v351[0]) = v329 - 1;
+    v179 = std::uniform_int_distribution<int>::operator()<std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(&__p, v351);
+    v180 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, 0);
+    v181 = vision::mod::CVMLMatrix<double,16ul>::ptr(v328, v179);
+    v182 = 8 * v178;
+    memcpy(v180, v181, 8 * v178);
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(v362, 1, v177);
+    if (!v337)
     {
-      v287 = __cxa_allocate_exception(0x10uLL);
-      std::logic_error::logic_error(v287, "row index out of range");
+      v288 = __cxa_allocate_exception(0x10uLL);
+      std::logic_error::logic_error(v288, "row index out of range");
       goto LABEL_419;
     }
 
-    if (!v337 || v177 > v337)
+    if (!v338 || v178 > v338)
     {
-      v287 = __cxa_allocate_exception(0x10uLL);
-      std::logic_error::logic_error(v287, "col index out of range");
+      v288 = __cxa_allocate_exception(0x10uLL);
+      std::logic_error::logic_error(v288, "col index out of range");
 LABEL_419:
-      v287->__vftable = (MEMORY[0x1E69E55B8] + 16);
-      __cxa_throw(v287, off_1E77B0718, MEMORY[0x1E69E5280]);
+      v288->__vftable = (MEMORY[0x1E69E55B8] + 16);
+      __cxa_throw(v288, off_1E77B0718, MEMORY[0x1E69E5280]);
     }
 
-    v355 = v335;
-    v356 = v335;
-    v357 = 1;
-    v358 = v177;
-    v359 = v338;
-    v360 = 0;
-    vision::mod::euclideanDistances<double,16ul>(&v355, v327, v361, v340);
-    if (v360 == 1 && v355)
+    v356 = v336;
+    v357 = v336;
+    v358 = 1;
+    v359 = v178;
+    v360 = v339;
+    v361 = 0;
+    vision::mod::euclideanDistances<double,16ul>(&v356, v328, v362, v341);
+    if (v361 == 1 && v356)
     {
-      free(v355);
+      free(v356);
     }
 
-    v182 = v361[1];
-    *(v361[1] + v178) = 0;
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(&v355, v314, v177);
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(v351, v314, v176);
-    std::vector<unsigned long>::vector[abi:ne200100](&v347, v314);
-    std::vector<double>::vector[abi:ne200100](&__dst, v176);
-    std::vector<double>::vector[abi:ne200100](&__src, v176);
-    std::vector<double>::vector[abi:ne200100](&v365, v176);
-    if (v138 >= 2)
+    v183 = v362[1];
+    *(v362[1] + v179) = 0;
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(&v356, v315, v178);
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(v352, v315, v177);
+    std::vector<unsigned long>::vector[abi:ne200100](&v348, v315);
+    std::vector<double>::vector[abi:ne200100](&__dst, v177);
+    std::vector<double>::vector[abi:ne200100](&__src, v177);
+    std::vector<double>::vector[abi:ne200100](&v366, v177);
+    if (v139 >= 2)
     {
-      v311 = 1;
+      v312 = 1;
       do
       {
-        v183 = vision::mod::CVMLMatrix<double,16ul>::ptr(v361, 0);
-        v184 = vision::mod::CVMLMatrix<double,16ul>::ptr(v361, 0) + 8 * v176;
-        v185 = v365;
-        if (v183 != v184)
+        v184 = vision::mod::CVMLMatrix<double,16ul>::ptr(v362, 0);
+        v185 = vision::mod::CVMLMatrix<double,16ul>::ptr(v362, 0) + 8 * v177;
+        v186 = v366;
+        if (v184 != v185)
         {
-          v187 = *v183;
-          v186 = v183 + 1;
-          v188 = v187;
-          *v365 = v187;
-          if (v186 != v184)
+          v188 = *v184;
+          v187 = v184 + 1;
+          v189 = v188;
+          *v366 = v188;
+          if (v187 != v185)
           {
-            v189 = v185 + 1;
+            v190 = v186 + 1;
             do
             {
-              v190 = *v186++;
-              v188 = v188 + v190;
-              *v189++ = v188;
+              v191 = *v187++;
+              v189 = v189 + v191;
+              *v190++ = v189;
             }
 
-            while (v186 != v184);
+            while (v187 != v185);
           }
         }
 
-        if (!v185 || !v176)
+        if (!v186 || !v177)
         {
-          v286 = __cxa_allocate_exception(0x10uLL);
-          std::logic_error::logic_error(v286, "empty cumsum vector");
-          v286->__vftable = (MEMORY[0x1E69E55C8] + 16);
-          __cxa_throw(v286, off_1E77B0720, MEMORY[0x1E69E5298]);
+          v287 = __cxa_allocate_exception(0x10uLL);
+          std::logic_error::logic_error(v287, "empty cumsum vector");
+          v287->__vftable = (MEMORY[0x1E69E55C8] + 16);
+          __cxa_throw(v287, off_1E77B0720, MEMORY[0x1E69E5298]);
         }
 
-        if (v314)
+        if (v315)
         {
-          v191 = 0;
-          v192 = v347;
-          v193 = v185[v176 - 1];
+          v192 = 0;
+          v193 = v348;
+          v194 = v186[v177 - 1];
           do
           {
-            v194 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&__p);
             v195 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&__p);
-            if ((v176 & 0x1FFFFFFFFFFFFFFFLL) != 0)
+            v196 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&__p);
+            if ((v177 & 0x1FFFFFFFFFFFFFFFLL) != 0)
             {
-              v196 = v185;
-              v197 = (8 * v176) >> 3;
+              v197 = v186;
+              v198 = (8 * v177) >> 3;
               do
               {
-                v198 = v197 >> 1;
-                v199 = &v196[v197 >> 1];
-                v201 = *v199;
-                v200 = v199 + 1;
-                v197 += ~(v197 >> 1);
-                if (v201 < v193 * (((v195 >> 6) + (v194 >> 5) * 67108864.0) * 1.11022302e-16))
+                v199 = v198 >> 1;
+                v200 = &v197[v198 >> 1];
+                v202 = *v200;
+                v201 = v200 + 1;
+                v198 += ~(v198 >> 1);
+                if (v202 < v194 * (((v196 >> 6) + (v195 >> 5) * 67108864.0) * 1.11022302e-16))
                 {
-                  v196 = v200;
+                  v197 = v201;
                 }
 
                 else
                 {
-                  v197 = v198;
+                  v198 = v199;
                 }
               }
 
-              while (v197);
+              while (v198);
             }
 
             else
             {
-              v196 = v185;
+              v197 = v186;
             }
 
-            v192[v191++] = v196 - v185;
+            v193[v192++] = v197 - v186;
           }
 
-          while (v191 != v314);
-          v181 = 8 * v177;
-          v140 = v306;
-          if (v301 >= -1)
+          while (v192 != v315);
+          v182 = 8 * v178;
+          v141 = v307;
+          if (v302 >= -1)
           {
-            for (kk = 0; kk != v316; ++kk)
+            for (kk = 0; kk != v317; ++kk)
             {
-              v203 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v355, kk);
-              v204 = vision::mod::CVMLMatrix<double,16ul>::ptr(v327, *(v347 + kk));
-              memcpy(v203, v204, 8 * v177);
+              v204 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v356, kk);
+              v205 = vision::mod::CVMLMatrix<double,16ul>::ptr(v328, *(v348 + kk));
+              memcpy(v204, v205, 8 * v178);
             }
           }
         }
 
-        vision::mod::euclideanDistances<double,16ul>(&v355, v327, v351, v340);
-        if (v301 < -1)
+        vision::mod::euclideanDistances<double,16ul>(&v356, v328, v352, v341);
+        if (v302 < -1)
         {
-          v220 = -1;
+          v221 = -1;
         }
 
         else
         {
-          v205 = v347;
-          v206 = v351[1];
-          v207 = 8 * v353;
-          v208 = v351[1];
-          v209 = v316;
+          v206 = v348;
+          v207 = v352[1];
+          v208 = 8 * v354;
+          v209 = v352[1];
+          v210 = v317;
           do
           {
-            v210 = *v205++;
-            *&v208[8 * v210] = 0;
-            v208 += v207;
-            --v209;
+            v211 = *v206++;
+            *&v209[8 * v211] = 0;
+            v209 += v208;
+            --v210;
           }
 
-          while (v209);
-          v211 = 0;
-          LODWORD(v212) = -1;
-          v213 = 1.79769313e308;
+          while (v210);
+          v212 = 0;
+          LODWORD(v213) = -1;
+          v214 = 1.79769313e308;
           do
           {
-            v214 = 0;
-            v215 = __src;
+            v215 = 0;
+            v216 = __src;
             do
             {
-              v216 = v206[v214];
-              if (v216 >= v182[v214])
+              v217 = v207[v215];
+              if (v217 >= v183[v215])
               {
-                v216 = v182[v214];
+                v217 = v183[v215];
               }
 
-              v215[v214++] = v216;
+              v216[v215++] = v217;
             }
 
-            while (v176 != v214);
-            v217 = 0.0;
-            if (v215 != v369)
+            while (v177 != v215);
+            v218 = 0.0;
+            if (v216 != v370)
             {
-              v218 = v215;
+              v219 = v216;
               do
               {
-                v219 = *v218++;
-                v217 = v217 + v219;
+                v220 = *v219++;
+                v218 = v218 + v220;
               }
 
-              while (v218 != v369);
+              while (v219 != v370);
             }
 
-            if (v212 == -1 || v217 < v213 && v213 - v217 > 1.0e-14)
+            if (v213 == -1 || v218 < v214 && v214 - v218 > 1.0e-14)
             {
-              v212 = *(v347 + v211);
-              memcpy(__dst, v215, 8 * v176);
-              v213 = v217;
+              v213 = *(v348 + v212);
+              memcpy(__dst, v216, 8 * v177);
+              v214 = v218;
             }
 
-            ++v211;
-            v206 = (v206 + v207);
+            ++v212;
+            v207 = (v207 + v208);
           }
 
-          while (v211 != v316);
-          v220 = v212;
-          v181 = 8 * v177;
-          v140 = v306;
+          while (v212 != v317);
+          v221 = v213;
+          v182 = 8 * v178;
+          v141 = v307;
         }
 
-        v221 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, v311);
-        v222 = vision::mod::CVMLMatrix<double,16ul>::ptr(v327, v220);
-        memcpy(v221, v222, v181);
-        v223 = vision::mod::CVMLMatrix<double,16ul>::ptr(v361, 0);
-        memcpy(v223, __dst, 8 * v176);
-        ++v311;
+        v222 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, v312);
+        v223 = vision::mod::CVMLMatrix<double,16ul>::ptr(v328, v221);
+        memcpy(v222, v223, v182);
+        v224 = vision::mod::CVMLMatrix<double,16ul>::ptr(v362, 0);
+        memcpy(v224, __dst, 8 * v177);
+        ++v312;
       }
 
-      while (v311 != v310);
+      while (v312 != v311);
     }
 
-    if (v365)
+    if (v366)
     {
-      v366 = v365;
-      operator delete(v365);
+      v367 = v366;
+      operator delete(v366);
     }
 
-    LODWORD(v138) = v310;
+    LODWORD(v139) = v311;
     if (__src)
     {
-      v369 = __src;
+      v370 = __src;
       operator delete(__src);
     }
 
     if (__dst)
     {
-      v371 = __dst;
+      v372 = __dst;
       operator delete(__dst);
     }
 
-    if (v347)
+    if (v348)
     {
-      v348 = v347;
-      operator delete(v347);
+      v349 = v348;
+      operator delete(v348);
     }
 
-    if (v354 == 1 && v351[0])
+    if (v355 == 1 && v352[0])
     {
-      free(v351[0]);
+      free(v352[0]);
     }
 
-    if (v360 == 1 && v355)
+    if (v361 == 1 && v356)
     {
-      free(v355);
+      free(v356);
     }
 
-    if (v364 == 1 && v361[0])
+    if (v365 == 1 && v362[0])
     {
-      free(v361[0]);
+      free(v362[0]);
     }
 
-    v333 = 0.0;
-    v224 = v328;
-    v15 = v329;
-    LODWORD(v374) = -1;
-    std::vector<int>::vector[abi:ne200100](__b, v328);
-    std::vector<double>::vector[abi:ne200100](&v365, v224);
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(v361, v140, v15);
-    vision::mod::CVMLMatrix<double,16ul>::initialize_(&v355, v140, v15);
-    v353 = 0;
-    *v351 = 0u;
-    v352 = 0u;
-    v354 = 1;
-    vision::mod::CVMLMatrix<double,16ul>::reset(v351, v140, v224);
-    LODWORD(v347) = 0;
-    std::vector<int>::vector[abi:ne200100](v350, v140);
-    v333 = 1.79769313e308;
-    vision::mod::CVMLVector<double,16ul>::initialize_(&v347, v140);
-    v225 = 0;
-    v304 = *(&v362 + 1);
-    v305 = v362;
-    v226 = v333;
-    v227 = 1.79769313e308;
+    v334 = 0.0;
+    v225 = v329;
+    v15 = v330;
+    LODWORD(v375) = -1;
+    std::vector<int>::vector[abi:ne200100](__b, v329, &v375);
+    std::vector<double>::vector[abi:ne200100](&v366, v225);
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(v362, v141, v15);
+    vision::mod::CVMLMatrix<double,16ul>::initialize_(&v356, v141, v15);
+    v354 = 0;
+    *v352 = 0u;
+    v353 = 0u;
+    v355 = 1;
+    vision::mod::CVMLMatrix<double,16ul>::reset(v352, v141, v225);
+    LODWORD(v348) = 0;
+    std::vector<int>::vector[abi:ne200100](v351, v141, &v348);
+    v334 = 1.79769313e308;
+    vision::mod::CVMLVector<double,16ul>::initialize_(&v348, v141);
+    v226 = 0;
+    v305 = *(&v363 + 1);
+    v306 = v363;
+    v227 = v334;
+    v228 = 1.79769313e308;
     while (2)
     {
-      if (v305 < v336 || v304 < v337)
+      if (v306 < v337 || v305 < v338)
       {
-        v333 = v226;
-        v284 = __cxa_allocate_exception(0x10uLL);
-        std::logic_error::logic_error(v284, "output matrix size too small");
-        v284->__vftable = (MEMORY[0x1E69E55B8] + 16);
-        __cxa_throw(v284, off_1E77B0718, MEMORY[0x1E69E5280]);
+        v334 = v227;
+        v285 = __cxa_allocate_exception(0x10uLL);
+        std::logic_error::logic_error(v285, "output matrix size too small");
+        v285->__vftable = (MEMORY[0x1E69E55B8] + 16);
+        __cxa_throw(v285, off_1E77B0718, MEMORY[0x1E69E5280]);
       }
 
-      if (v336)
+      if (v337)
       {
-        for (mm = 0; mm < v336; ++mm)
+        for (mm = 0; mm < v337; ++mm)
         {
-          v230 = vision::mod::CVMLMatrix<double,16ul>::ptr(v361, mm);
-          v231 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, mm);
-          memcpy(v230, v231, 8 * v337);
+          v231 = vision::mod::CVMLMatrix<double,16ul>::ptr(v362, mm);
+          v232 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, mm);
+          memcpy(v231, v232, 8 * v338);
         }
       }
 
-      v312 = v225;
-      v346 = 0.0;
-      vision::mod::Kmeans<double,16ul>::labelEstimation_(v327, v138, &v334, v340, v351, __b[0], v365, &v346);
-      v232 = __b[0];
-      v233 = v365;
-      v234 = v350[0];
-      v236 = v328;
-      v235 = v329;
-      bzero(v350[0], v302);
-      v237 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, 0);
-      bzero(v237, v307 * v338);
-      if (v236)
+      v313 = v226;
+      v347 = 0.0;
+      vision::mod::Kmeans<double,16ul>::labelEstimation_(v328, v139, &v335, v341, v352, __b[0], v366, &v347);
+      v233 = __b[0];
+      v234 = v366;
+      v235 = v351[0];
+      v237 = v329;
+      v236 = v330;
+      bzero(v351[0], v303);
+      v238 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, 0);
+      bzero(v238, v308 * v339);
+      if (v237)
       {
-        for (nn = 0; nn != v236; ++nn)
+        for (nn = 0; nn != v237; ++nn)
         {
-          ++v234[v232[nn]];
+          ++v235[v233[nn]];
         }
 
-        for (i1 = 0; i1 != v236; ++i1)
+        for (i1 = 0; i1 != v237; ++i1)
         {
-          v240 = v232[i1];
-          v15 = v234[v240];
-          vision::mod::CVMLMatrix<double,16ul>::ptr(v327, i1);
-          vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, v240);
+          v241 = v233[i1];
+          v15 = v235[v241];
+          vision::mod::CVMLMatrix<double,16ul>::ptr(v328, i1);
+          vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, v241);
           cblas_daxpy_NEWLAPACK();
         }
       }
 
-      v371 = 0;
-      __dst = 0;
       v372 = 0;
+      __dst = 0;
+      v373 = 0;
       LODWORD(__src) = 0;
-      LODWORD(v138) = v310;
-      if (v310 < 1)
+      LODWORD(v139) = v311;
+      if (v311 < 1)
       {
-        v258 = v312;
+        v259 = v313;
         goto LABEL_344;
       }
 
-      v241 = 1;
-      v242 = v310;
+      v242 = 1;
+      v243 = v311;
       do
       {
-        if (!*v234++)
+        if (!*v235++)
         {
           std::vector<int>::push_back[abi:ne200100](&__dst, &__src);
         }
 
-        LODWORD(__src) = v241++;
-        --v242;
+        LODWORD(__src) = v242++;
+        --v243;
       }
 
-      while (v242);
-      v244 = __dst;
-      v245 = v371 - __dst;
-      if (v371 == __dst)
+      while (v243);
+      v245 = __dst;
+      v246 = v372 - __dst;
+      if (v372 == __dst)
       {
-        v258 = v312;
+        v259 = v313;
         if (__dst)
         {
           goto LABEL_343;
@@ -9562,165 +9494,165 @@ LABEL_419:
         goto LABEL_344;
       }
 
-      std::vector<unsigned long>::vector[abi:ne200100](&__src, v236);
-      v246 = __src;
-      v373 = v233;
-      v247 = (__src + 8 * v236);
-      v300 = v245;
-      if (!v236)
+      std::vector<unsigned long>::vector[abi:ne200100](&__src, v237);
+      v247 = __src;
+      v374 = v234;
+      v248 = (__src + 8 * v237);
+      v301 = v246;
+      if (!v237)
       {
-        v256 = 0;
-        v374 = &v373;
+        v257 = 0;
+        v375 = &v374;
 LABEL_334:
-        std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v246, v247, &v374, v236, 0, v256);
+        std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v247, v248, &v375, v237, 0, v257);
         goto LABEL_335;
       }
 
-      v248 = 0;
-      v249 = (8 * v236 - 8) >> 3;
-      v250 = vdupq_n_s64(v249);
-      v251 = (v249 + 2) & 0x3FFFFFFFFFFFFFFELL;
-      v252 = xmmword_1A6027760;
+      v249 = 0;
+      v250 = (8 * v237 - 8) >> 3;
+      v251 = vdupq_n_s64(v250);
+      v252 = (v250 + 2) & 0x3FFFFFFFFFFFFFFELL;
+      v253 = xmmword_1A6027760;
       v15 = MEMORY[0x1E69E5398];
       do
       {
-        v253 = vmovn_s64(vcgeq_u64(v250, v252));
-        if (v253.i8[0])
+        v254 = vmovn_s64(vcgeq_u64(v251, v253));
+        if (v254.i8[0])
         {
-          v246[v248] = v248;
+          v247[v249] = v249;
         }
 
-        if (v253.i8[4])
+        if (v254.i8[4])
         {
-          v246[v248 + 1] = v248 + 1;
+          v247[v249 + 1] = v249 + 1;
         }
 
-        v248 += 2;
-        v252 = vaddq_s64(v252, v313);
+        v249 += 2;
+        v253 = vaddq_s64(v253, v314);
       }
 
-      while (v251 != v248);
-      v374 = &v373;
-      if (v236 < 129)
+      while (v252 != v249);
+      v375 = &v374;
+      if (v237 < 129)
       {
-        v256 = 0;
+        v257 = 0;
         goto LABEL_334;
       }
 
-      v254 = v236;
+      v255 = v237;
       while (1)
       {
-        v255 = operator new(8 * v254, v15);
-        if (v255)
+        v256 = operator new(8 * v255, v15);
+        if (v256)
         {
           break;
         }
 
-        v256 = v254 >> 1;
-        v257 = v254 > 1;
-        v254 >>= 1;
-        if (!v257)
+        v257 = v255 >> 1;
+        v258 = v255 > 1;
+        v255 >>= 1;
+        if (!v258)
         {
           goto LABEL_334;
         }
       }
 
-      v275 = v255;
-      std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v246, v247, &v374, v236, v255, v254);
-      operator delete(v275);
+      v276 = v256;
+      std::__stable_sort<std::_ClassicAlgPolicy,void vision::mod::argsort<double const*>(double const*,double const*,unsigned long *,BOOL)::{lambda(unsigned long,unsigned long)#2} &,unsigned long *>(v247, v248, &v375, v237, v256, v255);
+      operator delete(v276);
 LABEL_335:
-      v259 = 0;
-      v260 = 8 * v235;
-      if ((v300 >> 2) <= 1)
+      v260 = 0;
+      v261 = 8 * v236;
+      if ((v301 >> 2) <= 1)
       {
-        v261 = 1;
+        v262 = 1;
       }
 
       else
       {
-        v261 = v300 >> 2;
+        v262 = v301 >> 2;
       }
 
-      LODWORD(v138) = v310;
+      LODWORD(v139) = v311;
       do
       {
-        v262 = *(__src + v259);
-        v263 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, v244[v259]);
-        v264 = vision::mod::CVMLMatrix<double,16ul>::ptr(v327, v262);
-        memcpy(v263, v264, v260);
-        ++v259;
+        v263 = *(__src + v260);
+        v264 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, v245[v260]);
+        v265 = vision::mod::CVMLMatrix<double,16ul>::ptr(v328, v263);
+        memcpy(v264, v265, v261);
+        ++v260;
       }
 
-      while (v261 != v259);
+      while (v262 != v260);
       if (__src)
       {
-        v369 = __src;
+        v370 = __src;
         operator delete(__src);
       }
 
-      v258 = v312;
+      v259 = v313;
 LABEL_343:
-      operator delete(v244);
+      operator delete(v245);
 LABEL_344:
-      v265 = v346;
-      if (v346 >= v227)
+      v266 = v347;
+      if (v347 >= v228)
       {
-        v140 = v306;
+        v141 = v307;
       }
 
       else
       {
-        v140 = v306;
-        if (v357 < v336 || v358 < v337)
+        v141 = v307;
+        if (v358 < v337 || v359 < v338)
         {
-          v333 = v226;
-          v285 = __cxa_allocate_exception(0x10uLL);
-          std::logic_error::logic_error(v285, "output matrix size too small");
-          v285->__vftable = (MEMORY[0x1E69E55B8] + 16);
-          __cxa_throw(v285, off_1E77B0718, MEMORY[0x1E69E5280]);
+          v334 = v227;
+          v286 = __cxa_allocate_exception(0x10uLL);
+          std::logic_error::logic_error(v286, "output matrix size too small");
+          v286->__vftable = (MEMORY[0x1E69E55B8] + 16);
+          __cxa_throw(v286, off_1E77B0718, MEMORY[0x1E69E5280]);
         }
 
-        if (v336)
+        if (v337)
         {
-          for (i2 = 0; i2 < v336; ++i2)
+          for (i2 = 0; i2 < v337; ++i2)
           {
-            v267 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v355, i2);
-            v268 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, i2);
-            memcpy(v267, v268, 8 * v337);
+            v268 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v356, i2);
+            v269 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, i2);
+            memcpy(v268, v269, 8 * v338);
           }
         }
 
-        v226 = v265;
-        v227 = v265;
+        v227 = v266;
+        v228 = v266;
       }
 
-      vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, 0);
-      vision::mod::CVMLMatrix<double,16ul>::ptr(v361, 0);
+      vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, 0);
+      vision::mod::CVMLMatrix<double,16ul>::ptr(v362, 0);
       cblas_daxpy_NEWLAPACK();
-      vision::mod::CVMLMatrix<double,16ul>::rowNorms(v361, &v347, 0);
-      if (v138)
+      vision::mod::CVMLMatrix<double,16ul>::rowNorms(v362, &v348, 0);
+      if (v139)
       {
-        v269 = v348;
-        v270 = 0.0;
-        v271 = v307;
+        v270 = v349;
+        v271 = 0.0;
+        v272 = v308;
         do
         {
-          v272 = *v269++;
-          v270 = v270 + v272;
-          v271 -= 8;
+          v273 = *v270++;
+          v271 = v271 + v273;
+          v272 -= 8;
         }
 
-        while (v271);
+        while (v272);
       }
 
       else
       {
-        v270 = 0.0;
+        v271 = 0.0;
       }
 
-      v273 = sqrt(v270);
-      v225 = v258 + 1;
-      if (v273 > v167 && v225 != v303)
+      v274 = sqrt(v271);
+      v226 = v259 + 1;
+      if (v274 > v168 && v226 != v304)
       {
         continue;
       }
@@ -9728,42 +9660,42 @@ LABEL_344:
       break;
     }
 
-    v333 = v226;
-    if (v273 > 0.0)
+    v334 = v227;
+    if (v274 > 0.0)
     {
-      vision::mod::Kmeans<double,16ul>::labelEstimation_(v327, v138, &v355, v340, v351, __b[0], v365, &v333);
+      vision::mod::Kmeans<double,16ul>::labelEstimation_(v328, v139, &v356, v341, v352, __b[0], v366, &v334);
     }
 
-    if (v349 == 1 && v347)
+    if (v350 == 1 && v348)
     {
-      free(v347);
+      free(v348);
     }
 
-    if (v350[0])
+    if (v351[0])
     {
-      v350[1] = v350[0];
-      operator delete(v350[0]);
+      v351[1] = v351[0];
+      operator delete(v351[0]);
     }
 
-    if ((v354 & 1) != 0 && v351[0])
+    if ((v355 & 1) != 0 && v352[0])
     {
-      free(v351[0]);
+      free(v352[0]);
     }
 
-    if (v360 == 1 && v355)
+    if (v361 == 1 && v356)
     {
-      free(v355);
+      free(v356);
     }
 
-    if (v364 == 1 && v361[0])
+    if (v365 == 1 && v362[0])
     {
-      free(v361[0]);
+      free(v362[0]);
     }
 
-    if (v365)
+    if (v366)
     {
-      v366 = v365;
-      operator delete(v365);
+      v367 = v366;
+      operator delete(v366);
     }
 
     if (__b[0])
@@ -9772,32 +9704,32 @@ LABEL_344:
       operator delete(__b[0]);
     }
 
-    v276 = v333;
-    if (v333 < v175)
+    v277 = v334;
+    if (v334 < v176)
     {
-      if (v323 < v336 || v324 < v337)
+      if (v324 < v337 || v325 < v338)
       {
-        v288 = __cxa_allocate_exception(0x10uLL);
-        std::logic_error::logic_error(v288, "output matrix size too small");
-        v288->__vftable = (MEMORY[0x1E69E55B8] + 16);
-        __cxa_throw(v288, off_1E77B0718, MEMORY[0x1E69E5280]);
+        v289 = __cxa_allocate_exception(0x10uLL);
+        std::logic_error::logic_error(v289, "output matrix size too small");
+        v289->__vftable = (MEMORY[0x1E69E55B8] + 16);
+        __cxa_throw(v289, off_1E77B0718, MEMORY[0x1E69E5280]);
       }
 
-      if (v336)
+      if (v337)
       {
-        for (i3 = 0; i3 < v336; ++i3)
+        for (i3 = 0; i3 < v337; ++i3)
         {
-          v15 = vision::mod::CVMLMatrix<double,16ul>::ptr(v322, i3);
-          v278 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v334, i3);
-          memcpy(v15, v278, 8 * v337);
+          v15 = vision::mod::CVMLMatrix<double,16ul>::ptr(v323, i3);
+          v279 = vision::mod::CVMLMatrix<double,16ul>::ptr(&v335, i3);
+          memcpy(v15, v279, 8 * v338);
         }
       }
 
-      v175 = v276;
+      v176 = v277;
     }
 
-    v172 = v297 + 1;
-    if (v297 + 1 != v295)
+    v173 = v298 + 1;
+    if (v298 + 1 != v296)
     {
       continue;
     }
@@ -9805,74 +9737,74 @@ LABEL_344:
     break;
   }
 
-  vision::mod::broadcastAdd<double,16ul>(v327, v343, 0, v327);
-  vision::mod::broadcastAdd<double,16ul>(v322, v343, 0, v322);
-  if (v339 == 1 && v334)
+  vision::mod::broadcastAdd<double,16ul>(v328, v344, 0, v328);
+  vision::mod::broadcastAdd<double,16ul>(v323, v344, 0, v323);
+  if (v340 == 1 && v335)
   {
-    free(v334);
+    free(v335);
   }
 
-  if (v342 == 1 && v340[0])
+  if (v343 == 1 && v341[0])
   {
-    free(v340[0]);
+    free(v341[0]);
   }
 
-  if (v345 == 1 && v343[0])
+  if (v346 == 1 && v344[0])
   {
-    free(v343[0]);
+    free(v344[0]);
   }
 
-  v279 = v332;
-  if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v292, v332))
+  v280 = v333;
+  if (std::__hash_table<int,std::hash<int>,std::equal_to<int>,std::allocator<int>>::find<int>(v293, v333))
   {
     syslog(5, "ERROR: duplicated labels detected when build sub-dictionary");
-    v163 = 0;
-    v162 = 7808;
+    v164 = 0;
+    v163 = 7808;
     v15 = 7784;
   }
 
   else
   {
-    *__p.__x_ = &v332;
-    v280 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v292, v279);
-    *(v280 + 5) = v298;
-    *(v280 + 6) = v138;
-    v163 = 1;
-    v162 = 7808;
+    *__p.__x_ = &v333;
+    v281 = std::__hash_table<std::__hash_value_type<int,std::pair<int,int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::pair<int,int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::pair<int,int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::pair<int,int>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v293, v280, &__p);
+    *(v281 + 5) = v299;
+    *(v281 + 6) = v139;
+    v164 = 1;
+    v163 = 7808;
   }
 
 LABEL_404:
-  if (v326 == 1 && v322[0])
+  if (v327 == 1 && v323[0])
   {
-    free(v322[0]);
+    free(v323[0]);
   }
 
 LABEL_407:
-  if (v331 == 1 && v327[0])
+  if (v332 == 1 && v328[0])
   {
-    free(v327[0]);
+    free(v328[0]);
   }
 
-  if (v163)
+  if (v164)
   {
 LABEL_411:
-    v281 = v299[3];
-    if (v299[4] != v281)
+    v282 = v300[3];
+    if (v300[4] != v282)
     {
-      v282 = 0;
+      v283 = 0;
       do
       {
-        v283 = v332;
-        v355 = (v309[1] + 8 * *(v281 + 4 * v282));
-        *(std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v308, *v355) + 6) = v283;
-        ++v282;
-        v281 = v299[3];
+        v284 = v333;
+        v356 = (v310[1] + 8 * *(v282 + 4 * v283));
+        *(std::__hash_table<std::__hash_value_type<long long,int>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,int>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,int>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,int>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(v309, *v356, &v356) + 6) = v284;
+        ++v283;
+        v282 = v300[3];
       }
 
-      while (v282 < (v299[4] - v281) >> 2);
+      while (v283 < (v300[4] - v282) >> 2);
     }
 
-    v15 = v162;
+    v15 = v163;
   }
 
 LABEL_176:
@@ -9882,41 +9814,41 @@ LABEL_176:
     goto LABEL_428;
   }
 
-  v124 = v299[3];
-  v123 = v299[4];
-  v125 = *(v308 + 10);
-  ++v296;
-  v126 = (*(*v293 + 8))(v293);
-  v127 = (v123 - v124) >> 2;
-  if (v125 < v127)
+  v125 = v300[3];
+  v124 = v300[4];
+  v126 = *(v309 + 10);
+  ++v297;
+  v127 = (*(*v294 + 8))(v294);
+  v128 = (v124 - v125) >> 2;
+  if (v126 < v128)
   {
-    LODWORD(v127) = v125;
+    LODWORD(v128) = v126;
   }
 
-  v298 += v127;
-  if (!v126)
+  v299 += v128;
+  if (!v127)
   {
-    v100 = v294;
+    v101 = v295;
     goto LABEL_181;
   }
 
-  if (v296 != DWORD2(v318))
+  if (v297 != DWORD2(v319))
   {
-    vision::mod::FaceIDModel::shrinkD_(v308, v298);
+    vision::mod::FaceIDModel::shrinkD_(v309, v299);
     v15 = 7779;
   }
 
 LABEL_426:
-  if (*(v308 + 13) != v298)
+  if (*(v309 + 13) != v299)
   {
     syslog(5, "ERROR: size mismatch in the end: bad memory access");
     goto LABEL_86;
   }
 
-  vision::mod::FaceIDModel::createPrintsDictionary_(v308, v309, v320);
-  vision::mod::FeatureSignSparseCoder<double,16ul>::initialize(v308 + 264, v308 + 11);
+  vision::mod::FaceIDModel::createPrintsDictionary_(v309, v310, v321);
+  vision::mod::FeatureSignSparseCoder<double,16ul>::initialize(v309 + 264, v309 + 11);
 LABEL_428:
-  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&v317);
-  std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::~__hash_table(v320);
+  std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::~__hash_table(&v318);
+  std::__hash_table<std::__hash_value_type<int,std::vector<int>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::vector<int>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::vector<int>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::vector<int>>>>::~__hash_table(v321);
   return v15;
 }

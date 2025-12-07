@@ -9,16 +9,15 @@
 {
   v3 = sub_23F5881D4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = ANLogWithCategory();
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = ANLogWithCategory();
   sub_23F5881E4();
-  (*(v4 + 32))(self + OBJC_IVAR____TtC14AnnounceDaemon31SiriReferenceResolutionDonation_logger, v7, v3);
-  v9 = type metadata accessor for SiriReferenceResolutionDonation();
-  v11.receiver = self;
-  v11.super_class = v9;
-  return [(SiriReferenceResolutionDonation *)&v11 init];
+  (*(v4 + 32))(self + OBJC_IVAR____TtC14AnnounceDaemon31SiriReferenceResolutionDonation_logger, v6, v3);
+  v8 = type metadata accessor for SiriReferenceResolutionDonation(0);
+  v10.receiver = self;
+  v10.super_class = v8;
+  return [(SiriReferenceResolutionDonation *)&v10 init];
 }
 
 - (void)makePlaybackDonationWithAnnouncementID:(id)d

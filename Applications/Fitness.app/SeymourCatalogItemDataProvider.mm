@@ -39,12 +39,14 @@
 
 - (void)fetchCatalogArtworkForCatalogItemViewModel:(id)model imageSize:(CGSize)size completion:(id)completion
 {
-  v7 = _Block_copy(completion);
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
+  height = size.height;
+  width = size.width;
+  v9 = _Block_copy(completion);
+  v10 = swift_allocObject();
+  *(v10 + 16) = v9;
   modelCopy = model;
   selfCopy = self;
-  sub_100419358(modelCopy, sub_10042BCC0, v8);
+  sub_100419358(modelCopy, sub_10042BCC0, v10, width, height);
 }
 
 - (void)fetchScoreSummaryForWorkout:(id)workout healthStore:(id)store completion:(id)completion

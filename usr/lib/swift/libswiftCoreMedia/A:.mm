@@ -10,7 +10,7 @@
   {
   }
 
-  return result;
+  return v3;
 }
 
 @end

@@ -65,17 +65,24 @@
 
 - (void)startPreviewIfNeeded
 {
-  if ([UIApp alwaysShowLocalVideo] && (objc_msgSend(UIApp, "inCall") & 1) == 0 && (objc_msgSend(UIApp, "isSuspended") & 1) == 0 && !-[PhoneRootViewController shouldHideSelfBlurView](self, "shouldHideSelfBlurView"))
+  if ([UIApp alwaysShowLocalVideo])
   {
-    v3 = sub_100003B9C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (([UIApp inCall] & 1) == 0 && (objc_msgSend(UIApp, "isSuspended") & 1) == 0)
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Starting preview via PhoneRootViewController viewWillAppear", v5, 2u);
-    }
+      shouldHideSelfBlurView = [(PhoneRootViewController *)self shouldHideSelfBlurView];
+      if ((shouldHideSelfBlurView & 1) == 0)
+      {
+        v4 = sub_100003B9C(shouldHideSelfBlurView);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+        {
+          *v6 = 0;
+          _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting preview via PhoneRootViewController viewWillAppear", v6, 2u);
+        }
 
-    localVideoViewController = [(PhoneRootViewController *)self localVideoViewController];
-    [localVideoViewController startPreview];
+        localVideoViewController = [(PhoneRootViewController *)self localVideoViewController];
+        [localVideoViewController startPreview];
+      }
+    }
   }
 }
 
@@ -370,13 +377,14 @@
 {
   if (+[PHRegistrationViewController shouldShowRegistration])
   {
-    if ([UIApp isSuspended])
+    isSuspended = [UIApp isSuspended];
+    if (isSuspended)
     {
-      v3 = sub_100003B9C();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_100003B9C(isSuspended);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Skipping showFaceTimeFirstRunViewIfNeeded since PhoneApp isSuspended.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Skipping showFaceTimeFirstRunViewIfNeeded since PhoneApp isSuspended.", buf, 2u);
       }
     }
 
@@ -430,24 +438,24 @@
 
   if (hasRecentsListViewController)
   {
-    v5 = sub_100003B9C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100003B9C(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_100009A44(v5);
+      sub_100009A44(v6);
     }
   }
 
   if (self->_registrationController)
   {
-    v6 = +[NSNotificationCenter defaultCenter];
-    [v6 removeObserver:self name:UIApplicationDidChangeStatusBarFrameNotification object:0];
-
     v7 = +[NSNotificationCenter defaultCenter];
-    v8 = +[PHOrientationMonitorKeys notificationEvent];
-    [v7 removeObserver:self name:v8 object:0];
+    [v7 removeObserver:self name:UIApplicationDidChangeStatusBarFrameNotification object:0];
 
-    v9 = objc_opt_new();
-    compose = [v9 compose];
+    v8 = +[NSNotificationCenter defaultCenter];
+    v9 = +[PHOrientationMonitorKeys notificationEvent];
+    [v8 removeObserver:self name:v9 object:0];
+
+    v10 = objc_opt_new();
+    compose = [v10 compose];
     [compose setOrientationEventsEnabled:0];
 
     if ([(PHRegistrationViewController *)self->_registrationController isViewLoaded])
@@ -582,25 +590,26 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  if ([UIApp alwaysShowLocalVideo])
+  alwaysShowLocalVideo = [UIApp alwaysShowLocalVideo];
+  if (alwaysShowLocalVideo)
   {
-    v5 = sub_100003B9C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100003B9C(alwaysShowLocalVideo);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Stopping preview via PhoneRootViewController viewDidDisappear", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Stopping preview via PhoneRootViewController viewDidDisappear", buf, 2u);
     }
 
     localVideoViewController = [(PhoneRootViewController *)self localVideoViewController];
     [localVideoViewController stopPreview];
   }
 
-  v7 = +[NSNotificationCenter defaultCenter];
-  [v7 removeObserver:self];
+  v8 = +[NSNotificationCenter defaultCenter];
+  [v8 removeObserver:self];
 
-  v8.receiver = self;
-  v8.super_class = PhoneRootViewController;
-  [(PhoneRootViewController *)&v8 viewDidDisappear:disappearCopy];
+  v9.receiver = self;
+  v9.super_class = PhoneRootViewController;
+  [(PhoneRootViewController *)&v9 viewDidDisappear:disappearCopy];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -621,42 +630,42 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v12.receiver = self;
-  v12.super_class = PhoneRootViewController;
-  [(PhoneRootViewController *)&v12 viewWillAppear:appear];
-  [(PhoneRootViewController *)self startPreviewIfNeeded];
-  v4 = sub_100003B9C();
+  v13.receiver = self;
+  v13.super_class = PhoneRootViewController;
+  [(PhoneRootViewController *)&v13 viewWillAppear:appear];
+  v4 = sub_100003B9C([(PhoneRootViewController *)self startPreviewIfNeeded]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Observing foreground notifications via PhoneRootViewController viewWillAppear", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Observing foreground notifications via PhoneRootViewController viewWillAppear", v12, 2u);
   }
 
   v5 = +[NSNotificationCenter defaultCenter];
   [v5 addObserver:self selector:"handleApplicationWillEnterForegroundNotification:" name:UIApplicationWillEnterForegroundNotification object:0];
 
-  if ([UIApp alwaysShowLocalVideo])
+  alwaysShowLocalVideo = [UIApp alwaysShowLocalVideo];
+  if (alwaysShowLocalVideo)
   {
-    v6 = sub_100003B9C();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100003B9C(alwaysShowLocalVideo);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Observing orientation notifications via PhoneRootViewController viewWillAppear", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Observing orientation notifications via PhoneRootViewController viewWillAppear", v12, 2u);
     }
 
-    v7 = +[NSNotificationCenter defaultCenter];
-    v8 = +[PHOrientationMonitorKeys notificationEvent];
-    [v7 addObserver:self selector:"handleOrientationNotification:" name:v8 object:0];
+    v8 = +[NSNotificationCenter defaultCenter];
+    v9 = +[PHOrientationMonitorKeys notificationEvent];
+    [v8 addObserver:self selector:"handleOrientationNotification:" name:v9 object:0];
 
-    v9 = objc_opt_new();
-    compose = [v9 compose];
+    v10 = objc_opt_new();
+    compose = [v10 compose];
     [compose setOrientationEventsEnabled:1];
   }
 }
 
 - (void)handleApplicationWillEnterForegroundNotification:(id)notification
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -672,36 +681,37 @@
   _screen = [view _screen];
 
   v6 = +[UIScreen mainScreen];
-  if ([UIApp alwaysShowLocalVideo])
+  alwaysShowLocalVideo = [UIApp alwaysShowLocalVideo];
+  if (alwaysShowLocalVideo)
   {
-    v7 = _screen == v6;
+    v8 = _screen == v6;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  if (!v7)
+  if (!v8)
   {
-    v8 = sub_100003B9C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003B9C(alwaysShowLocalVideo);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PhoneRootViewController handleOrientationNotification", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PhoneRootViewController handleOrientationNotification", buf, 2u);
     }
 
-    v9 = objc_opt_new();
-    compose = [v9 compose];
+    v10 = objc_opt_new();
+    compose = [v10 compose];
 
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100037CEC;
-    v12[3] = &unk_10010B008;
-    v12[4] = self;
-    v13 = compose;
-    v11 = compose;
-    [UIView animateWithDuration:v12 animations:0.300000012];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100037CEC;
+    v13[3] = &unk_10010B008;
+    v13[4] = self;
+    v14 = compose;
+    v12 = compose;
+    [UIView animateWithDuration:v13 animations:0.300000012];
   }
 }
 
@@ -716,18 +726,18 @@
 
     if (windowScene)
     {
-      v8 = [monitorCopy makeInterfaceOrientationFrom:objc_msgSend(monitorCopy whenFailing:{"lastValidInterfaceOrientation"), objc_msgSend(windowScene, "interfaceOrientation")}];
+      v9 = [monitorCopy makeInterfaceOrientationFrom:objc_msgSend(monitorCopy whenFailing:{"lastValidInterfaceOrientation"), objc_msgSend(windowScene, "interfaceOrientation")}];
       localVideoViewController = [(PhoneRootViewController *)self localVideoViewController];
-      [localVideoViewController updateViewControllerForOrientation:v8];
+      [localVideoViewController updateViewControllerForOrientation:v9];
     }
 
     else
     {
-      localVideoViewController = sub_100003B9C();
+      localVideoViewController = sub_100003B9C(v8);
       if (os_log_type_enabled(localVideoViewController, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, localVideoViewController, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to orient video view controller because there's no window scene to determine a valid fallback orientation", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, localVideoViewController, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to orient video view controller because there's no window scene to determine a valid fallback orientation", v11, 2u);
       }
     }
   }
@@ -1075,8 +1085,8 @@
     view2 = [localVideoViewController view];
     v14 = *&CGAffineTransformIdentity.c;
     *buf = *&CGAffineTransformIdentity.a;
-    v79 = v14;
-    v80 = *&CGAffineTransformIdentity.tx;
+    v80 = v14;
+    v81 = *&CGAffineTransformIdentity.tx;
     [view2 setTransform:buf];
 
     view3 = [localVideoViewController view];
@@ -1146,10 +1156,10 @@ LABEL_10:
   v29 = objc_opt_new();
   compose = [v29 compose];
 
-  v73[1] = 3221225472;
-  v73[0] = _NSConcreteStackBlock;
-  v73[2] = sub_1000393EC;
-  v73[3] = &unk_10010B6A8;
+  v74[1] = 3221225472;
+  v74[0] = _NSConcreteStackBlock;
+  v74[2] = sub_1000393EC;
+  v74[3] = &unk_10010B6A8;
   if (animatedCopy)
   {
     v31 = 0.300000012;
@@ -1160,35 +1170,35 @@ LABEL_10:
     v31 = 0.0;
   }
 
-  v77 = animatedCopy;
-  v74 = localVideoViewController;
+  v78 = animatedCopy;
+  v75 = localVideoViewController;
   selfCopy = self;
-  v76 = compose;
+  v77 = compose;
   v32 = compose;
   v33 = localVideoViewController;
-  [UIView animateWithDuration:v73 animations:v31];
+  [UIView animateWithDuration:v74 animations:v31];
 
 LABEL_15:
-  if ([UIApp tabBarCanSlide])
+  tabBarCanSlide = [UIApp tabBarCanSlide];
+  if (tabBarCanSlide)
   {
-    [(PhoneRootViewController *)self showContentViewAnimated:0 completionBlock:0];
-    v34 = sub_100003B9C();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100003B9C([(PhoneRootViewController *)self showContentViewAnimated:0 completionBlock:0]);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v35 = "Showing contents view of PhoneRootViewController.";
+      v36 = "Showing contents view of PhoneRootViewController.";
 LABEL_20:
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, v35, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, v36, buf, 2u);
     }
   }
 
   else
   {
-    v34 = sub_100003B9C();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100003B9C(tabBarCanSlide);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v35 = "Skipping showing contents view of PhoneRootViewController.";
+      v36 = "Skipping showing contents view of PhoneRootViewController.";
       goto LABEL_20;
     }
   }
@@ -1212,51 +1222,51 @@ LABEL_20:
       topAnchor = [view11 topAnchor];
       safeAreaLayoutGuide = [view8 safeAreaLayoutGuide];
       topAnchor2 = [safeAreaLayoutGuide topAnchor];
-      v44 = [topAnchor constraintEqualToAnchor:topAnchor2];
-      v82[0] = v44;
+      v45 = [topAnchor constraintEqualToAnchor:topAnchor2];
+      v83[0] = v45;
       view12 = [(UIViewController *)self->_buttonViewController view];
       trailingAnchor = [view12 trailingAnchor];
       trailingAnchor2 = [view8 trailingAnchor];
       [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-10.0];
-      v49 = v48 = view8;
-      v82[1] = v49;
-      v50 = [NSArray arrayWithObjects:v82 count:2];
-      [NSLayoutConstraint activateConstraints:v50];
+      v50 = v49 = view8;
+      v83[1] = v50;
+      v51 = [NSArray arrayWithObjects:v83 count:2];
+      [NSLayoutConstraint activateConstraints:v51];
 
-      view8 = v48;
+      view8 = v49;
     }
 
     dimmingView = [(PhoneRootViewController *)self dimmingView];
     if ([UIApp alwaysShowLocalVideo])
     {
       view13 = [(PHLocalVideoViewController *)self->_localVideoViewController view];
-      v72 = view8;
+      v73 = view8;
       [view13 addSubview:self->_dimmingView];
 
       topAnchor3 = [(UIView *)self->_dimmingView topAnchor];
       view14 = [(PHLocalVideoViewController *)self->_localVideoViewController view];
       topAnchor4 = [view14 topAnchor];
-      v66 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-      v81[0] = v66;
+      v67 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
+      v82[0] = v67;
       bottomAnchor = [(UIView *)self->_dimmingView bottomAnchor];
       view15 = [(PHLocalVideoViewController *)self->_localVideoViewController view];
       bottomAnchor2 = [view15 bottomAnchor];
-      v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-      v81[1] = v53;
+      v54 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+      v82[1] = v54;
       leadingAnchor = [(UIView *)self->_dimmingView leadingAnchor];
       view16 = [(PHLocalVideoViewController *)self->_localVideoViewController view];
       leadingAnchor2 = [view16 leadingAnchor];
-      v57 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-      v81[2] = v57;
+      v58 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+      v82[2] = v58;
       trailingAnchor3 = [(UIView *)self->_dimmingView trailingAnchor];
       view17 = [(PHLocalVideoViewController *)self->_localVideoViewController view];
       trailingAnchor4 = [view17 trailingAnchor];
-      v61 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-      v81[3] = v61;
-      v62 = [NSArray arrayWithObjects:v81 count:4];
-      [NSLayoutConstraint activateConstraints:v62];
+      v62 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+      v82[3] = v62;
+      v63 = [NSArray arrayWithObjects:v82 count:4];
+      [NSLayoutConstraint activateConstraints:v63];
 
-      view8 = v72;
+      view8 = v73;
     }
   }
 }

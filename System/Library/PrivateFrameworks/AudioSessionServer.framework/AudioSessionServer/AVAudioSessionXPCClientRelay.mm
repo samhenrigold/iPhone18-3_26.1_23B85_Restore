@@ -64,8 +64,8 @@
   os_unfair_lock_lock(&self->guarded_impl.mMutex.m_lock);
   if (!self->guarded_impl.mObject.mMessagePending)
   {
-    v3 = _os_crash();
-    [AVAudioSessionRemoteXPCClient initWithServer:v3 process:? delegate:?];
+    _os_crash();
+    [AVAudioSessionRemoteXPCClient initWithServer:process:delegate:];
   }
 
   if (avas::server::DeferredMessageState::SendDeferredMessages(&self->guarded_impl.mObject))

@@ -518,12 +518,12 @@ LABEL_15:
   v8 = metadataCopy;
   if (!metadataCopy)
   {
-    sub_295877FA0(&v161);
+    sub_295877FA0(&v160);
     v111 = 0;
     v69 = 0;
-    v148 = 0;
+    v147 = 0;
 LABEL_59:
-    v155 = v161.i32[0];
+    v154 = v160.i32[0];
     goto LABEL_55;
   }
 
@@ -575,7 +575,7 @@ LABEL_59:
     v29.i32[0] = 1.0;
   }
 
-  v157 = v29;
+  v156 = v29;
   v30 = objc_msgSend_objectForKeyedSubscript_(v8, v26, *MEMORY[0x29EDC03F8], v28);
 
   v34 = 0.0;
@@ -651,7 +651,7 @@ LABEL_29:
 
   _Q2.f32[0] = v14 / v19;
   _Q2.f32[2] = v24 / v19;
-  *self->_anon_40 = vdivq_f32(_Q2, vdupq_lane_s32(v157, 0));
+  *self->_anon_40 = vdivq_f32(_Q2, vdupq_lane_s32(v156, 0));
   v69 = objc_msgSend_objectForKeyedSubscript_(v8, v57, *MEMORY[0x29EDC0630], v59);
   self->_anon_40[272] = objc_msgSend_isEqualToString_(v69, v70, *MEMORY[0x29EDBFF50], v71);
   v72 = *MEMORY[0x29EDC0678];
@@ -699,35 +699,35 @@ LABEL_29:
   *&self->_anon_40[160] = xmmword_2958D59C0;
   *&self->_anon_40[176] = xmmword_2958D59D0;
   *&self->_anon_40[192] = 0x3F80000000000000;
-  v158 = xmmword_2958D59E0;
-  v159 = xmmword_2958D59F0;
+  v157 = xmmword_2958D59E0;
+  v158 = xmmword_2958D59F0;
+  v160 = 0u;
   v161 = 0u;
   v162 = 0u;
-  v163 = 0u;
-  v160 = xmmword_2958D5A00;
+  v159 = xmmword_2958D5A00;
   do
   {
-    *(&v161 + v113) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_2958D5A10, COERCE_FLOAT(*(&v158 + v113))), xmmword_2958D5A20, *(&v158 + v113), 1), xmmword_2958D5A30, *(&v158 + v113), 2);
+    *(&v160 + v113) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_2958D5A10, COERCE_FLOAT(*(&v157 + v113))), xmmword_2958D5A20, *(&v157 + v113), 1), xmmword_2958D5A30, *(&v157 + v113), 2);
     v113 += 16;
   }
 
   while (v113 != 48);
-  v164.columns[0] = v161;
-  v164.columns[1] = v162;
-  v164.columns[2] = v163;
-  *&self->_anon_40[64] = v161;
-  *&self->_anon_40[80] = v164.columns[1];
-  *&self->_anon_40[96] = v164.columns[2];
-  v164.columns[3] = xmmword_2958D5A40;
-  v165 = __invert_f4(v164);
-  *&self->_anon_40[16] = v165.columns[0];
-  *&self->_anon_40[32] = v165.columns[1];
-  *&self->_anon_40[48] = v165.columns[2];
+  v163.columns[0] = v160;
+  v163.columns[1] = v161;
+  v163.columns[2] = v162;
+  *&self->_anon_40[64] = v160;
+  *&self->_anon_40[80] = v163.columns[1];
+  *&self->_anon_40[96] = v163.columns[2];
+  v163.columns[3] = xmmword_2958D5A40;
+  v164 = __invert_f4(v163);
+  *&self->_anon_40[16] = v164.columns[0];
+  *&self->_anon_40[32] = v164.columns[1];
+  *&self->_anon_40[48] = v164.columns[2];
   *&self->_anon_40[200] = 1.0 / *&self->_anon_40[204];
   v114 = MEMORY[0x29EDCA928];
-  v165.columns[1] = *(MEMORY[0x29EDCA928] + 16);
+  v164.columns[1] = *(MEMORY[0x29EDCA928] + 16);
   *&self->_anon_40[112] = *MEMORY[0x29EDCA928];
-  *&self->_anon_40[128] = v165.columns[1];
+  *&self->_anon_40[128] = v164.columns[1];
   *&self->_anon_40[144] = *(v114 + 32);
   *&self->_anon_40[204] = 1065353216;
   *&self->_anon_40[208] = 0x10000;
@@ -746,10 +746,10 @@ LABEL_29:
         *&self->_anon_40[80] = xmmword_2958D5A80;
         *&self->_anon_40[96] = xmmword_2958D5A90;
         *&self->_anon_40[204] = 1065204301;
-        v168 = __invert_f4(*zmmword_2958D5AC0);
-        *&self->_anon_40[16] = v168.columns[0];
-        *&self->_anon_40[32] = v168.columns[1];
-        *&self->_anon_40[48] = v168.columns[2];
+        v167 = __invert_f4(*zmmword_2958D5AC0);
+        *&self->_anon_40[16] = v167.columns[0];
+        *&self->_anon_40[32] = v167.columns[1];
+        *&self->_anon_40[48] = v167.columns[2];
         self->_anon_40[211] = 1;
         break;
       case 2:
@@ -760,16 +760,16 @@ LABEL_29:
         v126.i32[1] = 0;
         v126.i32[2] = 0;
         v126.f32[0] = 1.0 / (1.0 - (v35 / 65535.0));
-        v158 = xmmword_2958D59E0;
-        v159 = xmmword_2958D59F0;
-        v160 = xmmword_2958D5A00;
+        v157 = xmmword_2958D59E0;
+        v158 = xmmword_2958D59F0;
+        v159 = xmmword_2958D5A00;
+        v160 = 0u;
         v161 = 0u;
         v162 = 0u;
-        v163 = 0u;
         do
         {
           v126.f32[3] = -((v35 / 65535.0) * v126.f32[0]);
-          *(&v161 + v125) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v126, COERCE_FLOAT(*(&v158 + v125))), xmmword_2958D5A20, *(&v158 + v125), 1), xmmword_2958D5A30, *(&v158 + v125), 2);
+          *(&v160 + v125) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v126, COERCE_FLOAT(*(&v157 + v125))), xmmword_2958D5A20, *(&v157 + v125), 1), xmmword_2958D5A30, *(&v157 + v125), 2);
           v125 += 16;
         }
 
@@ -783,32 +783,32 @@ LABEL_29:
         v124.i32[1] = 0;
         v124.i32[2] = 0;
         v124.f32[0] = 1.0 / (1.0 - (v35 / 65535.0));
-        v158 = xmmword_2958D59E0;
-        v159 = xmmword_2958D59F0;
-        v160 = xmmword_2958D5A00;
+        v157 = xmmword_2958D59E0;
+        v158 = xmmword_2958D59F0;
+        v159 = xmmword_2958D5A00;
+        v160 = 0u;
         v161 = 0u;
         v162 = 0u;
-        v163 = 0u;
         do
         {
           v124.f32[3] = -((v35 / 65535.0) * v124.f32[0]);
-          *(&v161 + v123) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v124, COERCE_FLOAT(*(&v158 + v123))), xmmword_2958D5A20, *(&v158 + v123), 1), xmmword_2958D5A30, *(&v158 + v123), 2);
+          *(&v160 + v123) = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v124, COERCE_FLOAT(*(&v157 + v123))), xmmword_2958D5A20, *(&v157 + v123), 1), xmmword_2958D5A30, *(&v157 + v123), 2);
           v123 += 16;
         }
 
         while (v123 != 48);
 LABEL_45:
-        v166.columns[0] = v161;
-        v166.columns[1] = v162;
-        v166.columns[2] = v163;
-        *&self->_anon_40[64] = v161;
-        *&self->_anon_40[80] = v166.columns[1];
-        *&self->_anon_40[96] = v166.columns[2];
-        v166.columns[3] = xmmword_2958D5A40;
-        v167 = __invert_f4(v166);
-        *&self->_anon_40[16] = v167.columns[0];
-        *&self->_anon_40[32] = v167.columns[1];
-        *&self->_anon_40[48] = v167.columns[2];
+        v165.columns[0] = v160;
+        v165.columns[1] = v161;
+        v165.columns[2] = v162;
+        *&self->_anon_40[64] = v160;
+        *&self->_anon_40[80] = v165.columns[1];
+        *&self->_anon_40[96] = v165.columns[2];
+        v165.columns[3] = xmmword_2958D5A40;
+        v166 = __invert_f4(v165);
+        *&self->_anon_40[16] = v166.columns[0];
+        *&self->_anon_40[32] = v166.columns[1];
+        *&self->_anon_40[48] = v166.columns[2];
         break;
     }
   }
@@ -817,48 +817,47 @@ LABEL_45:
 
   *&self->_anon_40[200] = _D8;
   self->_anon_40[210] = 0;
-  v128 = *MEMORY[0x29EDC06F0];
   CGRectIfPresent = FigCFDictionaryGetCGRectIfPresent();
-  v132 = objc_msgSend_objectForKeyedSubscript_(v73, v130, *MEMORY[0x29EDC0670], v131);
-  v136 = objc_msgSend_intValue(v132, v133, v134, v135);
+  v131 = objc_msgSend_objectForKeyedSubscript_(v73, v129, *MEMORY[0x29EDC0670], v130);
+  v135 = objc_msgSend_intValue(v131, v132, v133, v134);
 
-  v139 = objc_msgSend_objectForKeyedSubscript_(v73, v137, *MEMORY[0x29EDC0668], v138);
-  v143 = objc_msgSend_intValue(v139, v140, v141, v142);
+  v138 = objc_msgSend_objectForKeyedSubscript_(v73, v136, *MEMORY[0x29EDC0668], v137);
+  v142 = objc_msgSend_intValue(v138, v139, v140, v141);
 
-  v146 = 0;
-  if (CGRectIfPresent && v136 && v143)
+  v145 = 0;
+  if (CGRectIfPresent && v135 && v142)
   {
     __asm { FMOV            V1.2S, #1.0 }
 
-    _D8 = vdiv_f32(_D1, vcvt_f32_u32(__PAIR64__(v143, v136)));
-    v146 = vcvt_f32_f64(vmulq_f64(0, vcvtq_f64_f32(_D8)));
+    _D8 = vdiv_f32(_D1, vcvt_f32_u32(__PAIR64__(v142, v135)));
+    v145 = vcvt_f32_f64(vmulq_f64(0, vcvtq_f64_f32(_D8)));
   }
 
   *&self->_anon_40[224] = _D8;
-  *&self->_anon_40[232] = v146;
+  *&self->_anon_40[232] = v145;
   *&self->_anon_40[240] = 1065353216;
-  v148 = objc_msgSend_objectForKeyedSubscript_(v73, v144, *MEMORY[0x29EDC05A0], v145, 0x3F8000003F800000, 0x3F80000000000000, 1065353216, 1065353216);
+  v147 = objc_msgSend_objectForKeyedSubscript_(v73, v143, *MEMORY[0x29EDC05A0], v144, 0x3F8000003F800000, 0x3F80000000000000, 1065353216, 1065353216);
 
-  if (v148)
+  if (v147)
   {
-    objc_msgSend_floatValue(v148, v149, v150, v151);
-    *&self->_anon_40[240] = v152;
+    objc_msgSend_floatValue(v147, v148, v149, v150);
+    *&self->_anon_40[240] = v151;
   }
 
-  v153 = objc_msgSend_getTextureForPortType_(self->_lscGainsPlist, v149, v69, v151);
+  v152 = objc_msgSend_getTextureForPortType_(self->_lscGainsPlist, v148, v69, v150);
   lscGainsTex = self->_lscGainsTex;
-  self->_lscGainsTex = v153;
+  self->_lscGainsTex = v152;
 
   if (!self->_lscGainsTex)
   {
-    sub_295877F3C(&v161);
+    sub_295877F3C(&v160);
     goto LABEL_59;
   }
 
-  v155 = 0;
+  v154 = 0;
 LABEL_55:
 
-  return v155;
+  return v154;
 }
 
 - (void)_bindYuvBuffer:(__CVBuffer *)buffer toLumaTexture:(id *)texture chromaTexture:(id *)chromaTexture withUsage:(unint64_t)usage

@@ -31,7 +31,7 @@
 {
   directionsCopy = directions;
   completionCopy = completion;
-  v8 = _maps_backgroundStateLog();
+  v8 = _maps_backgroundStateLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -62,7 +62,7 @@
 {
   navigationCopy = navigation;
   completionCopy = completion;
-  v8 = _maps_backgroundStateLog();
+  v8 = _maps_backgroundStateLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 0;

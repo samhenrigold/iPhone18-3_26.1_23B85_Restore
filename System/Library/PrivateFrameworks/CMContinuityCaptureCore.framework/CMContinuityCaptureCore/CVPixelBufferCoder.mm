@@ -37,9 +37,9 @@
 - (CVPixelBufferCoder)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v40.receiver = self;
-  v40.super_class = CVPixelBufferCoder;
-  v5 = [(CVPixelBufferCoder *)&v40 init];
+  v36.receiver = self;
+  v36.super_class = CVPixelBufferCoder;
+  v5 = [(CVPixelBufferCoder *)&v36 init];
   if (!v5)
   {
     v11 = 0;
@@ -49,15 +49,17 @@
   v6 = v5;
   blockBufferOut = 0;
   pixelBufferOut = 0;
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PixelBufferSourceMediaName"];
+  objc_opt_class();
+  v7 = [coderCopy decodeObjectOfClass:? forKey:?];
   mediaName = v6->_mediaName;
   v6->_mediaName = v7;
 
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"PixelBufferSourceMedia"];
+  objc_opt_class();
+  v9 = [coderCopy decodeObjectOfClass:? forKey:?];
   if (v9)
   {
-    v10 = [MEMORY[0x277CBF758] imageWithData:v9];
-    v6->_pixelBuffer = [(CVPixelBufferCoder *)v6 _createPixelBufferForImage:v10 fillWidth:1920 fillHeight:1080];
+    v10 = [MEMORY[0x277CBF758] imageWithData:?];
+    v6->_pixelBuffer = [CVPixelBufferCoder _createPixelBufferForImage:v6 fillWidth:"_createPixelBufferForImage:fillWidth:fillHeight:" fillHeight:?];
 
     v6->_transferSourceMedia = 1;
   }
@@ -65,30 +67,24 @@
   else
   {
     v6->_transferSourceMedia = 0;
-    dataLength = 0;
-    v12 = [coderCopy decodeBytesForKey:@"PixelBufferAtomData" returnedLength:&dataLength];
+    v12 = [coderCopy decodeBytesForKey:? returnedLength:?];
     if (v12)
     {
-      if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v12, dataLength, *MEMORY[0x277CBED00], 0, 0, dataLength, 0, &blockBufferOut) || FigRemote_CreatePixelBufferFromSerializedAtomDataBlockBuffer())
+      if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x277CBECE8], v12, 0, *MEMORY[0x277CBED00], 0, 0, 0, 0, &blockBufferOut) || FigRemote_CreatePixelBufferFromSerializedAtomDataBlockBuffer())
       {
         goto LABEL_31;
       }
 
-      [(CVPixelBufferCoder *)&pixelBufferOut initWithCoder:v6, &v41];
-      v13 = v41;
+      [(CVPixelBufferCoder *)&pixelBufferOut initWithCoder:v6, &v37];
+      v13 = v37;
     }
 
     else
     {
-      v14 = [coderCopy decodeInt64ForKey:@"PixelBufferWidth"];
-      v15 = [coderCopy decodeInt64ForKey:@"PixelBufferHeight"];
-      v16 = [coderCopy decodeInt32ForKey:@"PixelBufferFormat"];
-      v17 = *MEMORY[0x277CC4DE8];
-      v35[0] = *MEMORY[0x277CC4DE0];
-      v35[1] = v17;
-      v36[0] = MEMORY[0x277CBEC38];
-      v36[1] = MEMORY[0x277CBEC10];
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+      v14 = [coderCopy decodeInt64ForKey:?];
+      v15 = [coderCopy decodeInt64ForKey:?];
+      v16 = [coderCopy decodeInt32ForKey:?];
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
       if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], v14, v15, v16, v13, &pixelBufferOut))
       {
         if (pixelBufferOut)
@@ -100,82 +96,83 @@
 
       else if (pixelBufferOut)
       {
-        v32 = v13;
-        v41 = 0;
-        v33 = [coderCopy decodeBytesForKey:@"PixelBufferData" returnedLength:&v41];
-        if (v33)
+        v31 = v13;
+        v37 = 0;
+        v32 = [coderCopy decodeBytesForKey:? returnedLength:?];
+        if (v32)
         {
-          v34 = v41;
-          if (v41)
+          v33 = v37;
+          if (v37)
           {
-            v18 = [coderCopy decodeArrayOfObjectsOfClass:objc_opt_class() forKey:@"PixelBufferLayout"];
-            v19 = [v18 count] >> 1;
-            if (CVPixelBufferGetPlaneCount(pixelBufferOut) == v19)
+            objc_opt_class();
+            v17 = [coderCopy decodeArrayOfObjectsOfClass:? forKey:?];
+            v18 = [v17 count] >> 1;
+            if (CVPixelBufferGetPlaneCount(pixelBufferOut) == v18)
             {
               CVPixelBufferLockBaseAddress(pixelBufferOut, 0);
               if (CVPixelBufferGetPlaneCount(pixelBufferOut))
               {
-                v20 = 0;
+                v19 = 0;
                 while (1)
                 {
-                  v21 = [v18 objectAtIndexedSubscript:2 * v20];
-                  unsignedIntegerValue = [v21 unsignedIntegerValue];
+                  v20 = [v17 objectAtIndexedSubscript:?];
+                  unsignedIntegerValue = [v20 unsignedIntegerValue];
 
-                  v23 = [v18 objectAtIndexedSubscript:(2 * (v20 & 0x3FFFFFFFFFFFFFFFLL)) | 1];
-                  unsignedIntegerValue2 = [v23 unsignedIntegerValue];
+                  v22 = [v17 objectAtIndexedSubscript:?];
+                  unsignedIntegerValue2 = [v22 unsignedIntegerValue];
 
-                  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(pixelBufferOut, v20);
-                  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(pixelBufferOut, v20);
-                  HeightOfPlane = CVPixelBufferGetHeightOfPlane(pixelBufferOut, v20);
+                  BaseAddressOfPlane = CVPixelBufferGetBaseAddressOfPlane(pixelBufferOut, v19);
+                  BytesPerRowOfPlane = CVPixelBufferGetBytesPerRowOfPlane(pixelBufferOut, v19);
+                  HeightOfPlane = CVPixelBufferGetHeightOfPlane(pixelBufferOut, v19);
                   if (unsignedIntegerValue < 1)
                   {
                     break;
                   }
 
-                  if (unsignedIntegerValue > v34)
+                  if (unsignedIntegerValue > v33)
                   {
                     break;
                   }
 
-                  v28 = HeightOfPlane;
-                  v29 = (v33 + unsignedIntegerValue);
-                  if (&v29[HeightOfPlane * unsignedIntegerValue2] > v33 + v34)
+                  v27 = HeightOfPlane;
+                  v28 = &v32[unsignedIntegerValue];
+                  if (&v28[HeightOfPlane * unsignedIntegerValue2] > &v32[v33])
                   {
                     break;
                   }
 
                   if (unsignedIntegerValue2 == BytesPerRowOfPlane)
                   {
-                    memcpy(BaseAddressOfPlane, v29, HeightOfPlane * unsignedIntegerValue2);
+                    memcpy(BaseAddressOfPlane, v28, HeightOfPlane * unsignedIntegerValue2);
                   }
 
                   else
                   {
                     if (unsignedIntegerValue2 >= BytesPerRowOfPlane)
                     {
-                      v30 = BytesPerRowOfPlane;
+                      v29 = BytesPerRowOfPlane;
                     }
 
                     else
                     {
-                      v30 = unsignedIntegerValue2;
+                      v29 = unsignedIntegerValue2;
                     }
 
                     if (HeightOfPlane)
                     {
                       do
                       {
-                        memcpy(BaseAddressOfPlane, v29, v30);
+                        memcpy(BaseAddressOfPlane, v28, v29);
                         BaseAddressOfPlane += BytesPerRowOfPlane;
-                        v29 += unsignedIntegerValue2;
-                        --v28;
+                        v28 += unsignedIntegerValue2;
+                        --v27;
                       }
 
-                      while (v28);
+                      while (v27);
                     }
                   }
 
-                  if (CVPixelBufferGetPlaneCount(pixelBufferOut) <= ++v20)
+                  if (CVPixelBufferGetPlaneCount(pixelBufferOut) <= ++v19)
                   {
                     goto LABEL_27;
                   }
@@ -193,7 +190,7 @@ LABEL_27:
           }
         }
 
-        v13 = v32;
+        v13 = v31;
         v9 = 0;
       }
     }
@@ -232,7 +229,7 @@ LABEL_38:
   {
     lastPathComponent = mediaName;
 LABEL_4:
-    [coderCopy encodeObject:lastPathComponent forKey:@"PixelBufferSourceMediaName"];
+    [coderCopy encodeObject:? forKey:?];
     goto LABEL_5;
   }
 
@@ -245,11 +242,11 @@ LABEL_4:
 LABEL_5:
   if (self->_transferSourceMedia && v6)
   {
-    v9 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v6];
+    v9 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
     v10 = v9;
     if (v9 && [v9 length])
     {
-      [coderCopy encodeObject:v10 forKey:@"PixelBufferSourceMedia"];
+      [coderCopy encodeObject:? forKey:?];
 
       goto LABEL_21;
     }
@@ -257,19 +254,18 @@ LABEL_5:
 
   theBuffer = 0;
   v11 = *MEMORY[0x277CBECE8];
-  pixelBuffer = self->_pixelBuffer;
   if (!FigRemote_CreateSerializedAtomDataBlockBufferForPixelBuffer())
   {
     IsRangeContiguous = CMBlockBufferIsRangeContiguous(theBuffer, 0, 0);
-    v14 = theBuffer;
+    v13 = theBuffer;
     if (IsRangeContiguous)
     {
 LABEL_17:
-      v15 = 0;
+      v14 = 0;
       dataPointerOut = 0;
-      if (!CMBlockBufferGetDataPointer(v14, 0, 0, &v15, &dataPointerOut))
+      if (!CMBlockBufferGetDataPointer(v13, 0, 0, &v14, &dataPointerOut))
       {
-        [coderCopy encodeBytes:dataPointerOut length:v15 forKey:@"PixelBufferAtomData"];
+        [coderCopy encodeBytes:? length:? forKey:?];
       }
 
       goto LABEL_19;
@@ -283,7 +279,7 @@ LABEL_17:
         CFRelease(theBuffer);
       }
 
-      v14 = blockBufferOut;
+      v13 = blockBufferOut;
       theBuffer = blockBufferOut;
       goto LABEL_17;
     }
@@ -335,51 +331,17 @@ LABEL_21:
     v13 = width / v12;
   }
 
-  if (v13 >= 1.0)
+  if (v13 >= 1.0 || (v14 = round(v10 * v13 * 0.5), v10 = v14 + v14, v15 = round(v12 * v13 * 0.5), v12 = v15 + v15, *&v16 = -1, *(&v16 + 1) = -1, *&v23.c = v16, *&v23.tx = v16, *&v23.a = v16, CGAffineTransformMakeScale(&v23, width / v12, height / (v14 + v14)), [(__CVBuffer *)v8 imageByApplyingTransform:?], v17 = objc_claimAutoreleasedReturnValue(), v8, (v8 = v17) != 0))
   {
-    goto LABEL_6;
-  }
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+    v19 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12, v10, 0x34323076u, v18, &pixelBufferOut);
 
-  v14 = round(v10 * v13 * 0.5);
-  v10 = v14 + v14;
-  v15 = round(v12 * v13 * 0.5);
-  v12 = v15 + v15;
-  *&v16 = -1;
-  *(&v16 + 1) = -1;
-  *&v32.c = v16;
-  *&v32.tx = v16;
-  *&v32.a = v16;
-  CGAffineTransformMakeScale(&v32, width / v12, height / (v14 + v14));
-  v31 = v32;
-  v17 = [(__CVBuffer *)v8 imageByApplyingTransform:&v31];
-
-  v8 = v17;
-  if (v17)
-  {
-LABEL_6:
-    v18 = *MEMORY[0x277CC4DE8];
-    v29[0] = *MEMORY[0x277CC4DE0];
-    v29[1] = v18;
-    v30[0] = MEMORY[0x277CBEC38];
-    v30[1] = MEMORY[0x277CBEC10];
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
-    v20 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12, v10, 0x34323076u, v19, &pixelBufferOut);
-
-    if (!v20 && pixelBufferOut)
+    if (!v19 && pixelBufferOut)
     {
-      v21 = *MEMORY[0x277CC4C20];
-      v22 = *MEMORY[0x277CC4D10];
-      v27[0] = *MEMORY[0x277CC4C00];
-      v27[1] = v22;
-      v23 = *MEMORY[0x277CC4D28];
-      v28[0] = v21;
-      v28[1] = v23;
-      v27[2] = *MEMORY[0x277CC4CC0];
-      v28[2] = *MEMORY[0x277CC4CD8];
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:3];
-      CMSetAttachments(pixelBufferOut, v24, 1u);
-      v25 = [MEMORY[0x277CBF740] contextWithOptions:MEMORY[0x277CBEC10]];
-      [v25 render:v8 toCVPixelBuffer:pixelBufferOut];
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:*MEMORY[0x277CC4C00] forKeys:*MEMORY[0x277CC4D10] count:{*MEMORY[0x277CC4CC0], *MEMORY[0x277CC4C20], *MEMORY[0x277CC4D28], *MEMORY[0x277CC4CD8]}];
+      CMSetAttachments(pixelBufferOut, v20, 1u);
+      v21 = [MEMORY[0x277CBF740] contextWithOptions:?];
+      [v21 render:? toCVPixelBuffer:?];
 
       v17 = pixelBufferOut;
       goto LABEL_12;
@@ -402,11 +364,10 @@ LABEL_12:
   return v17;
 }
 
-- (uint64_t)initWithCoder:(uint64_t *)a3 .cold.1(void *a1, void *a2, uint64_t *a3)
+- (void)initWithCoder:(uint64_t *)a3 .cold.1(void *a1, void *a2, uint64_t *a3)
 {
-  v5 = [MEMORY[0x277CBF758] imageWithCVPixelBuffer:*a1];
-  *a3 = v5;
-  result = [a2 _createPixelBufferForImage:v5 fillWidth:1920 fillHeight:1080];
+  *a3 = [MEMORY[0x277CBF758] imageWithCVPixelBuffer:?];
+  result = [a2 _createPixelBufferForImage:? fillWidth:? fillHeight:?];
   a2[2] = result;
   return result;
 }

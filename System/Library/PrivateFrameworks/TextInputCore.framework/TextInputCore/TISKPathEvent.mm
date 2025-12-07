@@ -1,6 +1,7 @@
 @interface TISKPathEvent
 - (BOOL)isMissingATouch;
 - (double)countPathPauses:(id)pauses;
+- (id)init:(id)init candidate:(id)candidate allTouches:(id)touches emojiSearchMode:(BOOL)mode order:(int64_t)order;
 - (void)reportInterKeyTiming:(id)timing previousEvent:(id)event;
 - (void)reportToSession:(id)session;
 @end
@@ -84,15 +85,14 @@ LABEL_8:
     v14 = [v12 numberWithDouble:?];
     [sessionCopy addSample:v14 forKey:kTISKTotalPathLength];
 
-    candidate = self->_candidate;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(TIKeyboardCandidate *)self->_candidate excessPathRatio];
-      if (v16 > 0.0)
+      if (v15 > 0.0)
       {
-        v17 = [MEMORY[0x277CCABB0] numberWithDouble:?];
-        [sessionCopy addSample:v17 forKey:kTISKPathErrorDistanceMetric];
+        v16 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+        [sessionCopy addSample:v16 forKey:kTISKPathErrorDistanceMetric];
       }
     }
   }
@@ -218,6 +218,31 @@ LABEL_8:
   }
 
   return v36;
+}
+
+- (id)init:(id)init candidate:(id)candidate allTouches:(id)touches emojiSearchMode:(BOOL)mode order:(int64_t)order
+{
+  modeCopy = mode;
+  initCopy = init;
+  candidateCopy = candidate;
+  touchesCopy = touches;
+  v21.receiver = self;
+  v21.super_class = TISKPathEvent;
+  v16 = [(TISKEvent *)&v21 init:8 emojiSearchMode:modeCopy order:order];
+  v17 = v16;
+  if (v16)
+  {
+    objc_storeStrong(v16 + 6, init);
+    objc_storeStrong(v17 + 4, candidate);
+    candidate = [candidateCopy candidate];
+    v19 = v17[5];
+    v17[5] = candidate;
+
+    objc_storeStrong(v17 + 7, touches);
+    [v17 setHasTimestamp:1];
+  }
+
+  return v17;
 }
 
 - (BOOL)isMissingATouch

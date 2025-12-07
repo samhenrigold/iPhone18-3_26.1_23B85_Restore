@@ -2288,12 +2288,12 @@ LABEL_26:
     v24.size.height = height;
     v8 = CGRectGetHeight(v24);
     memset(&v22, 0, sizeof(v22));
-    [(LookAroundContainerViewController *)self transformForPIPView:x, y, width, height];
+    objc_msgSend_transformForPIPView_(self, x, y, width, height);
     view = [(LookAroundPIPViewController *)self->_pipViewController view];
     v10 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
     }
 
     else

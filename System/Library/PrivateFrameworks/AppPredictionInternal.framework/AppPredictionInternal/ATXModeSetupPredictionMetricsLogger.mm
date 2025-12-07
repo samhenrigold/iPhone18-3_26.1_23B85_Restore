@@ -75,7 +75,7 @@ uint64_t __88__ATXModeSetupPredictionMetricsLogger_globalAppSessionInterruptions
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __88__ATXModeSetupPredictionMetricsLogger_globalAppSessionInterruptionsCalculatorSinceDate___block_invoke_2(uint64_t a1, void *a2)
@@ -101,93 +101,91 @@ void __88__ATXModeSetupPredictionMetricsLogger_globalAppSessionInterruptionsCalc
 
 - (id)appSessionInterruptionsCalculatorSinceDate:(id)date andForModeSemanticTypes:(id)types
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   typesCopy = types;
   v6 = BiomeLibrary();
   userFocus = [v6 UserFocus];
   inferredMode = [userFocus InferredMode];
 
-  v28 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:dateCopy endDate:0 maxEvents:0 lastN:0 reversed:0];
-  v31 = [inferredMode publisherWithUseCase:*MEMORY[0x277CEBB48] options:?];
+  v27 = [objc_alloc(MEMORY[0x277CF1A50]) initWithStartDate:dateCopy endDate:0 maxEvents:0 lastN:0 reversed:0];
+  v30 = [inferredMode publisherWithUseCase:*MEMORY[0x277CEBB48] options:?];
   v8 = objc_opt_new();
   v9 = MEMORY[0x277CBEAA8];
   [dateCopy timeIntervalSinceReferenceDate];
   v10 = [v9 dateWithTimeIntervalSinceReferenceDate:?];
-  v30 = [v8 appLaunchesSinceDate:v10];
+  v29 = [v8 appLaunchesSinceDate:v10];
 
   v11 = objc_opt_new();
   v12 = objc_opt_new();
   [dateCopy timeIntervalSinceReferenceDate];
   v13 = [v12 publisherFromStartTime:?];
-  v29 = [v11 stripStoreEvent:v13];
+  v28 = [v11 stripStoreEvent:v13];
 
-  v47[0] = v29;
-  v47[1] = v30;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
-  v15 = [v31 orderedMergeWithOthers:v14 comparator:&__block_literal_global_32];
+  v46[0] = v28;
+  v46[1] = v29;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v15 = [v30 orderedMergeWithOthers:v14 comparator:&__block_literal_global_32];
 
-  v44[0] = 0;
-  v44[1] = v44;
-  v44[2] = 0x3032000000;
-  v44[3] = __Block_byref_object_copy__4;
-  v44[4] = __Block_byref_object_dispose__4;
-  v45 = 0;
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x3032000000;
-  v42[3] = __Block_byref_object_copy__4;
-  v42[4] = __Block_byref_object_dispose__4;
-  v43 = 0;
+  v43[0] = 0;
+  v43[1] = v43;
+  v43[2] = 0x3032000000;
+  v43[3] = __Block_byref_object_copy__4;
+  v43[4] = __Block_byref_object_dispose__4;
+  v44 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = __Block_byref_object_copy__4;
+  v41[4] = __Block_byref_object_dispose__4;
+  v42 = 0;
   v16 = objc_opt_new();
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v17 = typesCopy;
-  v18 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v18)
   {
-    v19 = *v39;
+    v19 = *v38;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v39 != v19)
+        if (*v38 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        integerValue = [*(*(&v38 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v37 + 1) + 8 * i) integerValue];
         v22 = objc_opt_new();
         v23 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
         [v16 setObject:v22 forKeyedSubscript:v23];
       }
 
-      v18 = [v17 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
     }
 
     while (v18);
   }
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalculatorSinceDate_andForModeSemanticTypes___block_invoke_2;
-  v37[3] = &unk_278597540;
-  v37[4] = v42;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalculatorSinceDate_andForModeSemanticTypes___block_invoke_3;
-  v34[3] = &unk_278597590;
-  v36 = v44;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalculatorSinceDate_andForModeSemanticTypes___block_invoke_2;
+  v36[3] = &unk_278597540;
+  v36[4] = v41;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalculatorSinceDate_andForModeSemanticTypes___block_invoke_3;
+  v33[3] = &unk_278597590;
+  v35 = v43;
   v24 = v16;
-  v35 = v24;
-  v25 = [v15 sinkWithCompletion:v37 receiveInput:v34];
+  v34 = v24;
+  v25 = [v15 sinkWithCompletion:v36 receiveInput:v33];
 
-  _Block_object_dispose(v42, 8);
-  _Block_object_dispose(v44, 8);
-
-  v26 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v41, 8);
+  _Block_object_dispose(v43, 8);
 
   return v24;
 }
@@ -209,7 +207,7 @@ uint64_t __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalcu
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __106__ATXModeSetupPredictionMetricsLogger_appSessionInterruptionsCalculatorSinceDate_andForModeSemanticTypes___block_invoke_3(uint64_t a1, void *a2)
@@ -308,59 +306,57 @@ LABEL_20:
 
 - (id)getRecommendedAndCandidateAppsInAllowListForSemanticTypes:(id)types
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = typesCopy;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        integerValue = [*(*(&v27 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v26 + 1) + 8 * i) integerValue];
         v11 = objc_opt_new();
         v12 = DNDModeSemanticTypeToString();
         [v4 setObject:v11 forKeyedSubscript:v12];
 
         v13 = objc_opt_new();
         v14 = dispatch_semaphore_create(0);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke;
-        v22[3] = &unk_2785975E0;
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke;
+        v21[3] = &unk_2785975E0;
         v15 = v14;
-        v23 = v15;
-        v24 = v13;
-        v25 = v4;
-        v26 = integerValue;
+        v22 = v15;
+        v23 = v13;
+        v24 = v4;
+        v25 = integerValue;
         v16 = v13;
-        [v5 recommendedAndCandidateAllowedAppsForDNDModeSemanticType:integerValue reply:v22];
+        [v5 recommendedAndCandidateAllowedAppsForDNDModeSemanticType:integerValue reply:v21];
         v17 = v15;
         v18 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v17, v18);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -369,10 +365,11 @@ void __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInA
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke_cold_1();
     }
@@ -380,37 +377,36 @@ void __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInA
 
   else
   {
-    v8 = [v5 recommendedApps];
+    v9 = [v5 recommendedApps];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [v5 recommendedApps];
+      v10 = [v5 recommendedApps];
       v17[0] = MEMORY[0x277D85DD0];
       v17[1] = 3221225472;
       v17[2] = __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke_38;
       v17[3] = &unk_2785975B8;
       v18 = *(a1 + 40);
-      [v9 enumerateObjectsUsingBlock:v17];
+      [v10 enumerateObjectsUsingBlock:v17];
     }
 
-    v10 = [v5 candidateApps];
+    v11 = [v5 candidateApps];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [v5 candidateApps];
+      v12 = [v5 candidateApps];
       v15[0] = MEMORY[0x277D85DD0];
       v15[1] = 3221225472;
       v15[2] = __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke_2;
       v15[3] = &unk_2785975B8;
       v16 = *(a1 + 40);
-      [v11 enumerateObjectsUsingBlock:v15];
+      [v12 enumerateObjectsUsingBlock:v15];
     }
 
-    v13 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v14 = *(a1 + 56);
-    v7 = DNDModeSemanticTypeToString();
-    [v12 setObject:v13 forKey:v7];
+    v14 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v8 = DNDModeSemanticTypeToString();
+    [v13 setObject:v14 forKey:v8];
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -444,59 +440,57 @@ void __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInA
 
 - (id)getRecommendedAndCandidateAppsInDenyListForSemanticTypes:(id)types
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = typesCopy;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        integerValue = [*(*(&v27 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v26 + 1) + 8 * i) integerValue];
         v11 = objc_opt_new();
         v12 = DNDModeSemanticTypeToString();
         [v4 setObject:v11 forKeyedSubscript:v12];
 
         v13 = objc_opt_new();
         v14 = dispatch_semaphore_create(0);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInDenyListForSemanticTypes___block_invoke;
-        v22[3] = &unk_2785975E0;
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInDenyListForSemanticTypes___block_invoke;
+        v21[3] = &unk_2785975E0;
         v15 = v14;
-        v23 = v15;
-        v24 = v13;
-        v25 = v4;
-        v26 = integerValue;
+        v22 = v15;
+        v23 = v13;
+        v24 = v4;
+        v25 = integerValue;
         v16 = v13;
-        [v5 recommendedAndCandidateDeniedAppsForDNDModeSemanticType:integerValue reply:v22];
+        [v5 recommendedAndCandidateDeniedAppsForDNDModeSemanticType:integerValue reply:v21];
         v17 = v15;
         v18 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v17, v18);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -505,10 +499,11 @@ void __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInD
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke_cold_1();
     }
@@ -516,37 +511,36 @@ void __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInD
 
   else
   {
-    v8 = [v5 recommendedApps];
+    v9 = [v5 recommendedApps];
 
-    if (v8)
+    if (v9)
     {
-      v9 = [v5 recommendedApps];
+      v10 = [v5 recommendedApps];
       v17[0] = MEMORY[0x277D85DD0];
       v17[1] = 3221225472;
       v17[2] = __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInDenyListForSemanticTypes___block_invoke_41;
       v17[3] = &unk_2785975B8;
       v18 = *(a1 + 40);
-      [v9 enumerateObjectsUsingBlock:v17];
+      [v10 enumerateObjectsUsingBlock:v17];
     }
 
-    v10 = [v5 candidateApps];
+    v11 = [v5 candidateApps];
 
-    if (v10)
+    if (v11)
     {
-      v11 = [v5 candidateApps];
+      v12 = [v5 candidateApps];
       v15[0] = MEMORY[0x277D85DD0];
       v15[1] = 3221225472;
       v15[2] = __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInDenyListForSemanticTypes___block_invoke_2;
       v15[3] = &unk_2785975B8;
       v16 = *(a1 + 40);
-      [v11 enumerateObjectsUsingBlock:v15];
+      [v12 enumerateObjectsUsingBlock:v15];
     }
 
-    v13 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v14 = *(a1 + 56);
-    v7 = DNDModeSemanticTypeToString();
-    [v12 setObject:v13 forKey:v7];
+    v14 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v8 = DNDModeSemanticTypeToString();
+    [v13 setObject:v14 forKey:v8];
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -584,11 +578,11 @@ void __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInD
   mEMORY[0x277CEB440] = [MEMORY[0x277CEB440] sharedInstance];
   v5 = objc_opt_new();
   v31 = 0;
-  v32[0] = &v31;
-  v32[1] = 0x3032000000;
-  v32[2] = __Block_byref_object_copy__4;
-  v32[3] = __Block_byref_object_dispose__4;
-  v33 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__4;
+  v35 = __Block_byref_object_dispose__4;
+  v36 = 0;
   v6 = BiomeLibrary();
   userFocus = [v6 UserFocus];
   inferredMode = [userFocus InferredMode];
@@ -615,12 +609,12 @@ void __96__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInD
   v17 = v5;
   v29 = v17;
   v18 = [v16 sinkWithCompletion:v30 receiveInput:v28];
-  if (*(v32[0] + 40))
+  if (v32[5])
   {
-    v19 = __atxlog_handle_heuristic();
+    v19 = __atxlog_handle_heuristic(v18);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [ATXModeSetupPredictionMetricsLogger fetchAllRelevantModeSemanticTypesInLastSevenDays:v32];
+      [ATXModeSetupPredictionMetricsLogger fetchAllRelevantModeSemanticTypesInLastSevenDays:];
     }
   }
 
@@ -663,7 +657,7 @@ uint64_t __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticT
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypesInLastSevenDays___block_invoke_3(uint64_t a1, void *a2)
@@ -687,7 +681,7 @@ void __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypes
     v8 = ATXActivityTypeToModeSemanticType();
     if (!v8)
     {
-      v14 = __atxlog_handle_modes();
+      v14 = __atxlog_handle_modes(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypesInLastSevenDays___block_invoke_3_cold_1(v7);
@@ -745,10 +739,9 @@ void __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypes
 
 - (void)logMetrics
 {
-  OUTLINED_FUNCTION_1_6(self, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v1, v2, "ATXModeSetupPredictionMetricsLogger: could not fetch app launch stream with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXModeSetupPredictionMetricsLogger: could not fetch app launch stream with error: %@", v2, v3, v4, v5);
 }
 
 uint64_t __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke(uint64_t a1, void *a2)
@@ -771,7 +764,7 @@ uint64_t __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_59(u
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_62(uint64_t a1, uint64_t a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [v4 mode];
   [v5 semanticType];
@@ -784,26 +777,26 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_62(uint6
     v8 = [*(a1 + 32) objectForKeyedSubscript:v6];
     [v8 setModeIsCreated:1];
 
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = [v4 triggers];
-    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v25 + 1) + 8 * i);
+          v14 = *(*(&v24 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v14 isEnabled])
           {
@@ -812,7 +805,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_62(uint6
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
@@ -841,8 +834,6 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_62(uint6
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_64(uint64_t a1, void *a2)
@@ -1067,7 +1058,7 @@ uint64_t __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_68
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_3(uint64_t a1, void *a2)
@@ -1192,12 +1183,12 @@ LABEL_38:
 
     [v6 modeType];
     BMUserFocusInferredModeTypeToActivity();
-    v18 = ATXActivityTypeToModeSemanticType();
-    v19 = v18;
-    if (!v18)
+    v19 = ATXActivityTypeToModeSemanticType();
+    v20 = v19;
+    if (!v19)
     {
-      v46 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v47 = __atxlog_handle_modes(0);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
       {
         __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypesInLastSevenDays___block_invoke_3_cold_1(v6);
       }
@@ -1205,92 +1196,92 @@ LABEL_38:
       goto LABEL_37;
     }
 
-    [v18 integerValue];
-    v20 = DNDModeSemanticTypeToString();
+    [v19 integerValue];
+    v21 = DNDModeSemanticTypeToString();
     if (*(*(*(a1 + 104) + 8) + 40))
     {
       [v3 timestamp];
-      v22 = v21 - *(*(*(a1 + 112) + 8) + 24);
-      v23 = [*(*(*(a1 + 104) + 8) + 40) isEqualToString:v20];
-      v24 = [v6 isStart];
-      if (v23)
+      v23 = v22 - *(*(*(a1 + 112) + 8) + 24);
+      v24 = [*(*(*(a1 + 104) + 8) + 40) isEqualToString:v21];
+      v25 = [v6 isStart];
+      if (v24)
       {
-        if ((v24 & 1) == 0)
+        if ((v25 & 1) == 0)
         {
-          v25 = MEMORY[0x277CCABB0];
-          v26 = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-          [v26 doubleValue];
-          v28 = [v25 numberWithDouble:v22 + v27];
-          [*(a1 + 32) setObject:v28 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          v26 = MEMORY[0x277CCABB0];
+          v27 = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          [v27 doubleValue];
+          v29 = [v26 numberWithDouble:v23 + v28];
+          [*(a1 + 32) setObject:v29 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
-          v29 = MEMORY[0x277CCABB0];
-          v30 = [*(a1 + 40) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-          v31 = [v29 numberWithInt:{objc_msgSend(v30, "intValue") + 1}];
-          [*(a1 + 40) setObject:v31 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          v30 = MEMORY[0x277CCABB0];
+          v31 = [*(a1 + 40) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          v32 = [v30 numberWithInt:{objc_msgSend(v31, "intValue") + 1}];
+          [*(a1 + 40) setObject:v32 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
           [v3 timestamp];
-          if (v32 > *(a1 + 120))
+          if (v33 > *(a1 + 120))
           {
             [v3 timestamp];
-            v34 = v33 - *(a1 + 120);
-            v35 = MEMORY[0x277CCABB0];
-            v36 = [*(a1 + 48) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-            [v36 doubleValue];
-            if (v22 >= v34)
+            v35 = v34 - *(a1 + 120);
+            v36 = MEMORY[0x277CCABB0];
+            v37 = [*(a1 + 48) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+            [v37 doubleValue];
+            if (v23 >= v35)
             {
-              v38 = v34;
+              v39 = v35;
             }
 
             else
             {
-              v38 = v22;
+              v39 = v23;
             }
 
-            v39 = [v35 numberWithDouble:v38 + v37];
-            [*(a1 + 48) setObject:v39 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+            v40 = [v36 numberWithDouble:v39 + v38];
+            [*(a1 + 48) setObject:v40 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
-            v40 = MEMORY[0x277CCABB0];
-            v41 = [*(a1 + 56) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-            v42 = [v40 numberWithInt:{objc_msgSend(v41, "intValue") + 1}];
-            [*(a1 + 56) setObject:v42 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+            v41 = MEMORY[0x277CCABB0];
+            v42 = [*(a1 + 56) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+            v43 = [v41 numberWithInt:{objc_msgSend(v42, "intValue") + 1}];
+            [*(a1 + 56) setObject:v43 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
           }
         }
 
-        v43 = *(*(a1 + 104) + 8);
-        v44 = *(v43 + 40);
-        *(v43 + 40) = 0;
+        v44 = *(*(a1 + 104) + 8);
+        v45 = *(v44 + 40);
+        *(v44 + 40) = 0;
 
         goto LABEL_36;
       }
 
-      if (v24)
+      if (v25)
       {
-        v47 = MEMORY[0x277CCABB0];
-        v48 = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-        [v48 doubleValue];
-        v50 = [v47 numberWithDouble:v22 + v49];
-        [*(a1 + 32) setObject:v50 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        v48 = MEMORY[0x277CCABB0];
+        v49 = [*(a1 + 32) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        [v49 doubleValue];
+        v51 = [v48 numberWithDouble:v23 + v50];
+        [*(a1 + 32) setObject:v51 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
         [v3 timestamp];
-        if (v51 > *(a1 + 120))
+        if (v52 > *(a1 + 120))
         {
           [v3 timestamp];
-          v53 = v52 - *(a1 + 120);
-          v54 = MEMORY[0x277CCABB0];
-          v55 = [*(a1 + 48) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-          [v55 doubleValue];
-          if (v22 >= v53)
+          v54 = v53 - *(a1 + 120);
+          v55 = MEMORY[0x277CCABB0];
+          v56 = [*(a1 + 48) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          [v56 doubleValue];
+          if (v23 >= v54)
           {
-            v57 = v53;
+            v58 = v54;
           }
 
           else
           {
-            v57 = v22;
+            v58 = v23;
           }
 
-          v58 = [v54 numberWithDouble:v57 + v56];
-          [*(a1 + 48) setObject:v58 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+          v59 = [v55 numberWithDouble:v58 + v57];
+          [*(a1 + 48) setObject:v59 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
         }
       }
     }
@@ -1300,9 +1291,9 @@ LABEL_38:
       goto LABEL_36;
     }
 
-    objc_storeStrong((*(*(a1 + 104) + 8) + 40), v20);
+    objc_storeStrong((*(*(a1 + 104) + 8) + 40), v21);
     [v3 timestamp];
-    *(*(*(a1 + 112) + 8) + 24) = v59;
+    *(*(*(a1 + 112) + 8) + 24) = v60;
 LABEL_36:
 
 LABEL_37:
@@ -1319,18 +1310,18 @@ LABEL_37:
       v6 = [v3 eventBody];
       if ([v6 usageType] == 17 || objc_msgSend(v6, "usageType") == 18)
       {
-        v10 = MEMORY[0x277CCABB0];
-        v11 = [*(a1 + 64) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-        v12 = [v10 numberWithInt:{objc_msgSend(v11, "intValue") + 1}];
-        [*(a1 + 64) setObject:v12 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        v11 = MEMORY[0x277CCABB0];
+        v12 = [*(a1 + 64) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        v13 = [v11 numberWithInt:{objc_msgSend(v12, "intValue") + 1}];
+        [*(a1 + 64) setObject:v13 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
         [v3 timestamp];
-        if (v13 <= *(a1 + 120))
+        if (v14 <= *(a1 + 120))
         {
           goto LABEL_38;
         }
 
-        v14 = 72;
+        v15 = 72;
       }
 
       else
@@ -1340,24 +1331,24 @@ LABEL_37:
           goto LABEL_38;
         }
 
-        v60 = MEMORY[0x277CCABB0];
-        v61 = [*(a1 + 80) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-        v62 = [v60 numberWithInt:{objc_msgSend(v61, "intValue") + 1}];
-        [*(a1 + 80) setObject:v62 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        v61 = MEMORY[0x277CCABB0];
+        v62 = [*(a1 + 80) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+        v63 = [v61 numberWithInt:{objc_msgSend(v62, "intValue") + 1}];
+        [*(a1 + 80) setObject:v63 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
         [v3 timestamp];
-        if (v63 <= *(a1 + 120))
+        if (v64 <= *(a1 + 120))
         {
           goto LABEL_38;
         }
 
-        v14 = 88;
+        v15 = 88;
       }
 
-      v15 = MEMORY[0x277CCABB0];
-      v16 = [*(a1 + v14) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
-      v17 = [v15 numberWithInt:{objc_msgSend(v16, "intValue") + 1}];
-      [*(a1 + v14) setObject:v17 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+      v16 = MEMORY[0x277CCABB0];
+      v17 = [*(a1 + v15) objectForKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
+      v18 = [v16 numberWithInt:{objc_msgSend(v17, "intValue") + 1}];
+      [*(a1 + v15) setObject:v18 forKeyedSubscript:*(*(*(a1 + 104) + 8) + 40)];
 
       goto LABEL_38;
     }
@@ -1365,10 +1356,10 @@ LABEL_37:
 
   else
   {
-    v45 = __atxlog_handle_heuristic();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v46 = __atxlog_handle_heuristic(v10);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_5_cold_1(v3, v45);
+      __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_5_cold_1(v3, v46);
     }
   }
 
@@ -1382,14 +1373,14 @@ uint64_t __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_72(u
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uint64_t a1, void *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v42 = a2;
-  v3 = [v42 eventBody];
+  v47 = *MEMORY[0x277D85DE8];
+  v41 = a2;
+  v3 = [v41 eventBody];
   if ([v3 starting])
   {
     v4 = *(a1 + 32);
@@ -1399,36 +1390,36 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uin
     if (v4)
     {
       ++*(*(*(a1 + 96) + 8) + 24);
-      [v42 timestamp];
+      [v41 timestamp];
       if (v6 > *(a1 + 112))
       {
         ++*(*(*(a1 + 104) + 8) + 24);
       }
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       v7 = *(a1 + 40);
-      v8 = [v7 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v42 objects:v46 count:16];
       if (v8)
       {
         v9 = v8;
         v10 = 0;
         obj = v7;
-        v41 = *v44;
+        v40 = *v43;
         v11 = 0.0;
         v12 = 1;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v44 != v41)
+            if (*v43 != v40)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v43 + 1) + 8 * i);
+            v14 = *(*(&v42 + 1) + 8 * i);
             [v14 integerValue];
             v15 = DNDModeSemanticTypeToString();
             v16 = [*(a1 + 48) atxModeForDNDSemanticType:{objc_msgSend(v14, "integerValue")}];
@@ -1453,7 +1444,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uin
             v26 = [v23 numberWithDouble:v21 + v25];
             [*(a1 + 64) setObject:v26 forKeyedSubscript:v15];
 
-            [v42 timestamp];
+            [v41 timestamp];
             v3 = v18;
             if (v27 > *(a1 + 112))
             {
@@ -1473,7 +1464,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uin
             }
           }
 
-          v9 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+          v9 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
         }
 
         while (v9);
@@ -1488,7 +1479,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uin
         v35 = [v33 numberWithInt:{objc_msgSend(v34, "intValue") + 1}];
         [*(a1 + 80) setObject:v35 forKeyedSubscript:v10];
 
-        [v42 timestamp];
+        [v41 timestamp];
         if (v36 <= *(a1 + 112))
         {
           goto LABEL_23;
@@ -1508,13 +1499,11 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_73(uin
 LABEL_23:
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_74(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [a2 integerValue];
   v6 = DNDModeSemanticTypeToString();
@@ -1527,31 +1516,31 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_74(uint6
   *(*(*(a1 + 56) + 8) + 24) += [v10 intValue];
 
   v11 = [*(a1 + 40) objectForKey:v6];
-  v31 = a1;
-  v32 = v6;
+  v30 = a1;
+  v31 = v6;
   v12 = [*(a1 + 48) objectForKey:v6];
   [v5 countedSetContainingInterruptingAppBundleIds];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  obj = v36 = 0u;
+  v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v35;
+    v17 = *v34;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         if ([v11 containsObject:v19])
         {
           v20 = [v5 countedSetContainingInterruptingAppBundleIds];
@@ -1565,7 +1554,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_74(uint6
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
@@ -1578,27 +1567,25 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_74(uint6
   }
 
   v22 = [MEMORY[0x277CCABB0] numberWithInt:v16];
-  v23 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v23 = [*(v30 + 32) objectForKeyedSubscript:v31];
   [v23 setModeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days:v22];
 
   v24 = [MEMORY[0x277CCABB0] numberWithInt:v15];
-  v25 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v25 = [*(v30 + 32) objectForKeyedSubscript:v31];
   [v25 setModeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days:v24];
 
-  v26 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v26 = [*(v30 + 32) objectForKeyedSubscript:v31];
   v27 = [v26 modeAppInterruptionsCountBasedOnAllowListOfInferredMode7Days];
-  *(*(*(v31 + 64) + 8) + 24) += [v27 intValue];
+  *(*(*(v30 + 64) + 8) + 24) += [v27 intValue];
 
-  v28 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v28 = [*(v30 + 32) objectForKeyedSubscript:v31];
   v29 = [v28 modeAppInterruptionsCountBasedOnDenyListOfInferredMode7Days];
-  *(*(*(v31 + 72) + 8) + 24) += [v29 intValue];
-
-  v30 = *MEMORY[0x277D85DE8];
+  *(*(*(v30 + 72) + 8) + 24) += [v29 intValue];
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_76(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [a2 integerValue];
   v6 = DNDModeSemanticTypeToString();
@@ -1611,31 +1598,31 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_76(uin
   *(*(*(a1 + 56) + 8) + 24) += [v10 intValue];
 
   v11 = [*(a1 + 40) objectForKey:v6];
-  v31 = a1;
-  v32 = v6;
+  v30 = a1;
+  v31 = v6;
   v12 = [*(a1 + 48) objectForKey:v6];
   [v5 countedSetContainingInterruptingAppBundleIds];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  obj = v36 = 0u;
+  v13 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
     v16 = 0;
-    v17 = *v35;
+    v17 = *v34;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         if ([v11 containsObject:v19])
         {
           v20 = [v5 countedSetContainingInterruptingAppBundleIds];
@@ -1649,7 +1636,7 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_76(uin
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v14);
@@ -1662,22 +1649,20 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_2_76(uin
   }
 
   v22 = [MEMORY[0x277CCABB0] numberWithInt:v16];
-  v23 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v23 = [*(v30 + 32) objectForKeyedSubscript:v31];
   [v23 setModeAppInterruptionsCountBasedOnAllowListOfInferredModeToday:v22];
 
   v24 = [MEMORY[0x277CCABB0] numberWithInt:v15];
-  v25 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v25 = [*(v30 + 32) objectForKeyedSubscript:v31];
   [v25 setModeAppInterruptionsCountBasedOnDenyListOfInferredModeToday:v24];
 
-  v26 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v26 = [*(v30 + 32) objectForKeyedSubscript:v31];
   v27 = [v26 modeAppInterruptionsCountBasedOnAllowListOfInferredModeToday];
-  *(*(*(v31 + 64) + 8) + 24) += [v27 intValue];
+  *(*(*(v30 + 64) + 8) + 24) += [v27 intValue];
 
-  v28 = [*(v31 + 32) objectForKeyedSubscript:v32];
+  v28 = [*(v30 + 32) objectForKeyedSubscript:v31];
   v29 = [v28 modeAppInterruptionsCountBasedOnDenyListOfInferredModeToday];
-  *(*(*(v31 + 72) + 8) + 24) += [v29 intValue];
-
-  v30 = *MEMORY[0x277D85DE8];
+  *(*(*(v30 + 72) + 8) + 24) += [v29 intValue];
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_3_80(uint64_t a1, uint64_t a2, void *a3)
@@ -1687,39 +1672,27 @@ void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_3_80(uin
   [v4 logToCoreAnalytics];
 }
 
-void __97__ATXModeSetupPredictionMetricsLogger_getRecommendedAndCandidateAppsInAllowListForSemanticTypes___block_invoke_cold_1()
+- (void)fetchAllRelevantModeSemanticTypesInLastSevenDays:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "Could not get recommended and candidate allowed apps: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchAllRelevantModeSemanticTypesInLastSevenDays:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_1_6(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_1_6(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_0(&dword_2263AA000, v1, v2, "ATXModeSetupPredictionMetricsLogger: Could not fetch inferred mode and computed mode streams with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_2263AA000, v0, v1, "ATXModeSetupPredictionMetricsLogger: Could not fetch inferred mode and computed mode streams with error: %@", v2, v3, v4, v5);
 }
 
 void __88__ATXModeSetupPredictionMetricsLogger_fetchAllRelevantModeSemanticTypesInLastSevenDays___block_invoke_3_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 modeType];
-  OUTLINED_FUNCTION_4_2(&dword_2263AA000, v1, v2, "ATXModeSetupPredictionMetricsLogger: ATXActivityTypeToModeSemanticType returned nil for BMUserFocusInferredModeType %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 modeType];
+  OUTLINED_FUNCTION_4_2(&dword_2263AA000, v1, v2, "ATXModeSetupPredictionMetricsLogger: ATXActivityTypeToModeSemanticType returned nil for BMUserFocusInferredModeType %d", v3, v4, v5, v6, v7);
 }
 
 void __49__ATXModeSetupPredictionMetricsLogger_logMetrics__block_invoke_5_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 eventBody];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionMetricsLogger: Got unexpected event type: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionMetricsLogger: Got unexpected event type: %@", v4, 0xCu);
 }
 
 @end

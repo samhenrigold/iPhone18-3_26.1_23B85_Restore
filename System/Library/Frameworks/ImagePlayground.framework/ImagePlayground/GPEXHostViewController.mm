@@ -2,9 +2,41 @@
 - (_TtC15ImagePlayground22GPEXHostViewController)initWithCoder:(id)coder;
 - (_TtC15ImagePlayground22GPEXHostViewController)initWithConfiguration:(id)configuration;
 - (_TtC15ImagePlayground22GPEXHostViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation GPEXHostViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for GPEXHostViewController();
+  v4 = v9.receiver;
+  [(_EXHostViewController *)&v9 viewWillAppear:appearCopy];
+  view = [v4 view];
+  if (view)
+  {
+    v6 = view;
+    [view setNeedsLayout];
+
+    view2 = [v4 view];
+    if (view2)
+    {
+      v8 = view2;
+      [view2 layoutIfNeeded];
+
+      return;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  __break(1u);
+}
 
 - (_TtC15ImagePlayground22GPEXHostViewController)initWithConfiguration:(id)configuration
 {

@@ -1,6 +1,7 @@
 @interface SKUIGiftTermsAndConditionsSection
 - (id)_headerView;
 - (id)headerViewForTableView:(id)view;
+- (void)_headerView;
 - (void)_termsAction:(id)action;
 @end
 
@@ -137,6 +138,24 @@ LABEL_18:
 LABEL_19:
 
   return headerView;
+}
+
+- (void)headerViewForTableView:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTermsAndConditionsSection headerViewForTableView:]";
+}
+
+- (void)_termsAction:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTermsAndConditionsSection _termsAction:]";
+}
+
+- (void)_headerView
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIGiftTermsAndConditionsSection _headerView]";
 }
 
 @end

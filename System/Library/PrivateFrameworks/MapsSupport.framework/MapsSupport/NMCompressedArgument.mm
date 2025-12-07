@@ -1,6 +1,7 @@
 @interface NMCompressedArgument
 - (BOOL)isEqual:(id)equal;
 - (id)_nm_uncompressedArgument;
+- (id)compressionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -25,6 +26,26 @@
   {
     return 1;
   }
+}
+
+- (id)compressionTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ZLIB";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"BZIP2";
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCompressionType:(id)type
@@ -95,18 +116,17 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    compressionType = self->_compressionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 

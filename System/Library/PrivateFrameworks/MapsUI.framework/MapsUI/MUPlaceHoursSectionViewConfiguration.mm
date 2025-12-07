@@ -35,7 +35,7 @@
 
 + (id)configurationForMessagesMapItem:(id)item
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   _messageBusinessHours = [itemCopy _messageBusinessHours];
@@ -50,8 +50,8 @@
     {
       v11 = [MUBusinessHoursConfiguration alloc];
       _messageBusinessHours2 = [itemCopy _messageBusinessHours];
-      v22[0] = _messageBusinessHours2;
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+      v21[0] = _messageBusinessHours2;
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
       _geoMapItem2 = [itemCopy _geoMapItem];
       _messageLink2 = [_geoMapItem2 _messageLink];
       timeZone2 = [_messageLink2 timeZone];
@@ -66,14 +66,12 @@
 
   v19 = [self configurationForBusinessHours:v5];
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (id)configurationForMapItem:(id)item
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ([itemCopy _hasBusinessHours])
@@ -89,27 +87,27 @@
     [v4 addObject:v8];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v28 = itemCopy;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v27 = itemCopy;
   _linkedServices = [itemCopy _linkedServices];
-  v11 = [_linkedServices countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v11 = [_linkedServices countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(_linkedServices);
         }
 
-        v15 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         businessHours = [v15 businessHours];
         v17 = [businessHours count];
 
@@ -128,15 +126,13 @@
         }
       }
 
-      v12 = [_linkedServices countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v12 = [_linkedServices countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v12);
   }
 
-  v23 = [v27 configurationForBusinessHours:v4];
-
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [v26 configurationForBusinessHours:v4];
 
   return v23;
 }

@@ -88,8 +88,8 @@
 
 - (void)_handleUpdates:(id)updates
 {
-  v137 = *MEMORY[0x1E69E9840];
-  v5 = objc_msgSend_copy(self->fHandler, a2, updates);
+  v139 = *MEMORY[0x1E69E9840];
+  v5 = COERCE_DOUBLE(objc_msgSend_copy(self->fHandler, a2, updates));
   v7 = objc_msgSend_objectForKeyedSubscript_(updates, v6, @"CMErrorMessage");
   v9 = objc_msgSend_objectForKeyedSubscript_(updates, v8, @"CMSkiKeyDataArray");
   if (v7)
@@ -100,15 +100,15 @@
     block[2] = sub_19B7332C0;
     block[3] = &unk_1E7532B90;
     block[4] = v7;
-    block[5] = v5;
+    *&block[5] = v5;
     v12 = MEMORY[0x1E69E96A0];
     v13 = block;
 LABEL_3:
     dispatch_async(v12, v13);
-    goto LABEL_4;
+    return;
   }
 
-  v15 = v9;
+  v14 = v9;
   if (!v9)
   {
     if (qword_1EAFE2790 != -1)
@@ -132,173 +132,173 @@ LABEL_3:
         dispatch_once(&qword_1EAFE2790, &unk_1F0E28BE0);
       }
 
-      LOWORD(v120) = 0;
-      v107 = _os_log_send_and_compose_impl();
+      LOWORD(v122) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27C8, 17, "Unable to parse kCLConnectionMessageSkiDataUpdate message.", &v122, 2);
+      v108 = v107;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CMSkiTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v107);
-      if (v107 != buf)
+      if (v108 != buf)
       {
-        free(v107);
+        free(v108);
       }
     }
 
-    v113[0] = MEMORY[0x1E69E9820];
-    v113[1] = 3221225472;
-    v113[2] = sub_19B733350;
-    v113[3] = &unk_1E7532B40;
-    v113[4] = v5;
+    v115[0] = MEMORY[0x1E69E9820];
+    v115[1] = 3221225472;
+    v115[2] = sub_19B733350;
+    v115[3] = &unk_1E7532B40;
+    *&v115[4] = v5;
     v12 = MEMORY[0x1E69E96A0];
-    v13 = v113;
+    v13 = v115;
     goto LABEL_3;
   }
 
   if (objc_msgSend_count(v9, v10, v11))
   {
-    v108 = v5;
+    v110 = v5;
     if (self->fRunDistanceOffset == -1.0)
     {
-      Object = objc_msgSend_firstObject(v15, v16, v17);
-      objc_msgSend_runDistance(Object, v19, v20);
-      self->fRunDistanceOffset = v21;
-      objc_msgSend_runElevationDescent(Object, v22, v23);
-      self->fRunElevationDescendedOffset = v24;
+      Object = objc_msgSend_firstObject(v14, v15, v16);
+      objc_msgSend_runDistance(Object, v18, v19);
+      self->fRunDistanceOffset = v20;
+      objc_msgSend_runElevationDescent(Object, v21, v22);
+      self->fRunElevationDescendedOffset = v23;
     }
 
-    v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v115 = 0u;
-    v116 = 0u;
+    v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v117 = 0u;
     v118 = 0u;
-    v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(v15, v26, &v115, v136, 16);
-    if (v111)
+    v119 = 0u;
+    v120 = 0u;
+    v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v25, &v117, v138, 16);
+    if (v113)
     {
+      v28 = &OBJC_IVAR___CMRecoverySession_fSessionHrRecovery;
       v29 = &OBJC_IVAR___CMRecoverySession_fSessionHrRecovery;
-      v30 = &OBJC_IVAR___CMRecoverySession_fSessionHrRecovery;
-      v110 = *v116;
-      obj = v15;
+      v112 = *v118;
+      obj = v14;
       do
       {
-        for (i = 0; i != v111; ++i)
+        for (i = 0; i != v113; ++i)
         {
-          if (*v116 != v110)
+          if (*v118 != v112)
           {
             objc_enumerationMutation(obj);
           }
 
-          v32 = *(*(&v115 + 1) + 8 * i);
-          if (*(v29 + 242) != -1)
+          v31 = *(*(&v117 + 1) + 8 * i);
+          if (*(v28 + 242) != -1)
           {
             dispatch_once(&qword_1EAFE2790, &unk_1F0E28BE0);
           }
 
-          v33 = *(v30 + 249);
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v32 = *(v29 + 249);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
             fRunDistanceOffset = self->fRunDistanceOffset;
-            objc_msgSend_runDistance(v32, v34, v35);
-            v38 = v37;
+            objc_msgSend_runDistance(v31, v33, v34);
+            v37 = v36;
             fRunElevationDescendedOffset = self->fRunElevationDescendedOffset;
-            objc_msgSend_runElevationDescent(v32, v40, v41);
+            objc_msgSend_runElevationDescent(v31, v39, v40);
             *buf = 134218752;
-            v129 = fRunDistanceOffset;
-            v130 = 2048;
-            v131 = v38;
+            v131 = fRunDistanceOffset;
             v132 = 2048;
-            v133 = fRunElevationDescendedOffset;
+            v133 = v37;
             v134 = 2048;
-            v135 = v42;
-            _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_DEFAULT, "Delivering update with distance offset %f for record distance %f, elevation offset %f for record elevation %f", buf, 0x2Au);
+            v135 = fRunElevationDescendedOffset;
+            v136 = 2048;
+            v137 = v41;
+            _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_DEFAULT, "Delivering update with distance offset %f for record distance %f, elevation offset %f for record elevation %f", buf, 0x2Au);
           }
 
-          v43 = sub_19B420058();
-          if (*(v43 + 160) > 1 || *(v43 + 164) > 1 || *(v43 + 168) > 1 || *(v43 + 152))
+          v42 = sub_19B420058();
+          if (*(v42 + 160) > 1 || *(v42 + 164) > 1 || *(v42 + 168) > 1 || *(v42 + 152))
           {
             bzero(buf, 0x65CuLL);
-            if (*(v29 + 242) != -1)
+            if (*(v28 + 242) != -1)
             {
               dispatch_once(&qword_1EAFE2790, &unk_1F0E28BE0);
             }
 
-            v48 = *(v30 + 249);
-            v49 = self->fRunDistanceOffset;
-            objc_msgSend_runDistance(v32, v46, v47);
-            v51 = v50;
-            v52 = self->fRunElevationDescendedOffset;
-            objc_msgSend_runElevationDescent(v32, v53, v54);
-            v120 = 134218752;
-            v121 = v49;
-            v122 = 2048;
-            v123 = v51;
+            v47 = *(v29 + 249);
+            v48 = self->fRunDistanceOffset;
+            objc_msgSend_runDistance(v31, v45, v46);
+            v50 = v49;
+            v51 = self->fRunElevationDescendedOffset;
+            objc_msgSend_runElevationDescent(v31, v52, v53);
+            v122 = 134218752;
+            v123 = v48;
             v124 = 2048;
-            v125 = v52;
+            v125 = v50;
             v126 = 2048;
-            v127 = v55;
-            v56 = _os_log_send_and_compose_impl();
-            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSkiTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v56);
+            v127 = v51;
+            v128 = 2048;
+            v129 = v54;
+            LODWORD(v109) = 42;
+            _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v47, 0, "Delivering update with distance offset %f for record distance %f, elevation offset %f for record elevation %f", COERCE_DOUBLE(&v122), v109, v110, *&obj);
+            v56 = v55;
+            sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSkiTrackerInternal _handleUpdates:]", "CoreLocation: %s\n", v55);
             if (v56 != buf)
             {
               free(v56);
             }
           }
 
-          objc_msgSend_runDistance(v32, v44, v45);
+          objc_msgSend_runDistance(v31, v43, v44);
           if (v59 <= self->fRunDistanceOffset)
           {
-            objc_msgSend_runElevationDescent(v32, v57, v58);
+            objc_msgSend_runElevationDescent(v31, v57, v58);
             if (v61 <= self->fRunElevationDescendedOffset)
             {
               continue;
             }
           }
 
-          v112 = [CMSkiData alloc];
-          v64 = v25;
-          v65 = objc_msgSend_recordId(v32, v62, v63);
-          v68 = v30;
-          v69 = objc_msgSend_sourceId(v32, v66, v67);
-          v72 = objc_msgSend_sessionId(v32, v70, v71);
-          started = objc_msgSend_startDate(v32, v73, v74);
-          v78 = objc_msgSend_endDate(v32, v76, v77);
-          objc_msgSend_runDistance(v32, v79, v80);
+          v114 = [CMSkiData alloc];
+          v64 = v24;
+          v65 = objc_msgSend_recordId(v31, v62, v63);
+          v68 = v29;
+          v69 = objc_msgSend_sourceId(v31, v66, v67);
+          v72 = objc_msgSend_sessionId(v31, v70, v71);
+          started = objc_msgSend_startDate(v31, v73, v74);
+          v78 = objc_msgSend_endDate(v31, v76, v77);
+          objc_msgSend_runDistance(v31, v79, v80);
           v82 = v81 - self->fRunDistanceOffset;
-          objc_msgSend_runAvgSpeed(v32, v83, v84);
+          objc_msgSend_runAvgSpeed(v31, v83, v84);
           v86 = v85;
-          objc_msgSend_runMaxSpeed(v32, v87, v88);
+          objc_msgSend_runMaxSpeed(v31, v87, v88);
           v90 = v89;
-          objc_msgSend_runSlope(v32, v91, v92);
+          objc_msgSend_runSlope(v31, v91, v92);
           v94 = v93;
-          objc_msgSend_runElevationDescent(v32, v95, v96);
+          objc_msgSend_runElevationDescent(v31, v95, v96);
           v98 = v65;
-          v25 = v64;
-          v29 = &OBJC_IVAR___CMRecoverySession_fSessionHrRecovery;
+          v24 = v64;
+          v28 = &OBJC_IVAR___CMRecoverySession_fSessionHrRecovery;
           v99 = v69;
-          v30 = v68;
-          v101 = objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_runDistance_runAvgSpeed_runMaxSpeed_runSlope_runElevationDescent_(v112, v100, v98, v99, v72, started, v78, v82, v86, v90, v94, v97 - self->fRunElevationDescendedOffset);
-          objc_msgSend_addObject_(v25, v102, v101);
+          v29 = v68;
+          v101 = objc_msgSend_initWithRecordId_sourceId_sessionId_startDate_endDate_runDistance_runAvgSpeed_runMaxSpeed_runSlope_runElevationDescent_(v114, v100, v98, v99, v72, started, v78, v82, v86, v90, v94, v97 - self->fRunElevationDescendedOffset);
+          objc_msgSend_addObject_(v24, v102, v101);
         }
 
-        v15 = obj;
-        v111 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v60, &v115, v136, 16);
+        v14 = obj;
+        v113 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v60, &v117, v138, 16);
       }
 
-      while (v111);
+      while (v113);
     }
 
-    if (objc_msgSend_count(v25, v27, v28))
+    if (objc_msgSend_count(v24, v26, v27))
     {
-      v114[0] = MEMORY[0x1E69E9820];
-      v114[1] = 3221225472;
-      v114[2] = sub_19B733338;
-      v114[3] = &unk_1E7532B90;
-      v114[4] = v25;
-      v114[5] = v108;
-      dispatch_async(MEMORY[0x1E69E96A0], v114);
+      v116[0] = MEMORY[0x1E69E9820];
+      v116[1] = 3221225472;
+      v116[2] = sub_19B733338;
+      v116[3] = &unk_1E7532B90;
+      v116[4] = v24;
+      *&v116[5] = v110;
+      dispatch_async(MEMORY[0x1E69E96A0], v116);
     }
 
-    self->fMostRecentRecord = objc_msgSend_lastObject(v15, v103, v104);
+    self->fMostRecentRecord = objc_msgSend_lastObject(v14, v103, v104);
   }
-
-LABEL_4:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startLiveUpdatesWithHandler:(id)handler
@@ -337,12 +337,13 @@ LABEL_4:
       dispatch_once(&qword_1EAFE2790, &unk_1F0E28BE0);
     }
 
-    v9 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v9[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE27C8, 0, "[live data] stopping updates", v9, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMSkiTrackerInternal _stopLiveUpdates]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
@@ -353,7 +354,6 @@ LABEL_4:
   block[3] = &unk_1E7532988;
   block[4] = self;
   dispatch_sync(fInternalQueue, block);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

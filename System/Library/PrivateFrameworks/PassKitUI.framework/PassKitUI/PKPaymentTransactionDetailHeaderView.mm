@@ -455,97 +455,131 @@ LABEL_18:
   remainder.origin.y = v10;
   remainder.size.width = v11;
   remainder.size.height = v12;
-  memset(&v29, 0, sizeof(v29));
+  memset(&v77, 0, sizeof(v77));
   if (self->_merchantIcon)
   {
-    CGRectDivide(*&v8, &v29, &remainder, 80.0, CGRectMinYEdge);
+    CGRectDivide(*&v8, &v77, &remainder, 80.0, CGRectMinYEdge);
     if (!self->_isTemplateLayout)
     {
       merchantIconImageView = self->_merchantIconImageView;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UIImageView *)merchantIconImageView setFrame:*&v29.origin, *&v29.size];
+      v14 = PKContentAlignmentMake();
+      v16.n128_u64[0] = *&v77.origin.y;
+      v15.n128_u64[0] = *&v77.origin.x;
+      v18.n128_u64[0] = *&v77.size.height;
+      v17.n128_u64[0] = *&v77.size.width;
+      v19.n128_u64[0] = 0x4054000000000000;
+      v20.n128_u64[0] = 0x4054000000000000;
+      PKSizeAlignedInRect(v14, v19, v20, v15, v16, v17, v18, v21);
+      [(UIImageView *)merchantIconImageView setFrame:?];
     }
 
-    CGRectDivide(remainder, &v29, &remainder, 20.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v77, &remainder, 20.0, CGRectMinYEdge);
     v9 = 100.0;
   }
 
-  if ([(NSString *)self->_amountText length:*&v29.origin])
+  if ([(NSString *)self->_amountText length:*&v77.origin])
   {
     [(UILabel *)self->_amountLabel pkui_sizeThatFits:remainder.size.width, remainder.size.height];
-    v15 = v14;
+    v24 = v23;
     if (!self->_isTemplateLayout)
     {
+      v25 = v22;
       amountLabel = self->_amountLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v27 = PKContentAlignmentMake();
+      v28.n128_u64[0] = *&remainder.origin.x;
+      v29.n128_u64[0] = *&remainder.origin.y;
+      v30.n128_u64[0] = *&remainder.size.width;
+      v31.n128_u64[0] = *&remainder.size.height;
+      v32.n128_u64[0] = v25;
+      v33.n128_f64[0] = v24;
+      PKSizeAlignedInRect(v27, v32, v33, v28, v29, v30, v31, v34);
       [(UILabel *)amountLabel setFrame:?];
     }
 
-    CGRectDivide(remainder, &v29, &remainder, v15, CGRectMinYEdge);
-    v9 = v9 + v15;
+    CGRectDivide(remainder, &v77, &remainder, v24, CGRectMinYEdge);
+    v9 = v9 + v24;
   }
 
   subtitleLabel = self->_subtitleLabel;
   if (subtitleLabel)
   {
     [(UILabel *)subtitleLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v19 = v18;
+    v38 = v37;
     if (!self->_isTemplateLayout)
     {
-      v20 = self->_subtitleLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v20 setFrame:?];
+      v39 = v36;
+      v40 = self->_subtitleLabel;
+      v41 = PKContentAlignmentMake();
+      v42.n128_u64[0] = *&remainder.origin.x;
+      v43.n128_u64[0] = *&remainder.origin.y;
+      v44.n128_u64[0] = *&remainder.size.width;
+      v45.n128_u64[0] = *&remainder.size.height;
+      v46.n128_u64[0] = v39;
+      v47.n128_f64[0] = v38;
+      PKSizeAlignedInRect(v41, v46, v47, v42, v43, v44, v45, v48);
+      [(UILabel *)v40 setFrame:?];
     }
 
-    CGRectDivide(remainder, &v29, &remainder, v19, CGRectMinYEdge);
-    v9 = v9 + v19;
+    CGRectDivide(remainder, &v77, &remainder, v38, CGRectMinYEdge);
+    v9 = v9 + v38;
   }
 
   if (self->_secondaryLabel)
   {
-    CGRectDivide(remainder, &v29, &remainder, 4.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v77, &remainder, 4.0, CGRectMinYEdge);
     [(UILabel *)self->_secondaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v22 = v21;
+    v51 = v50;
     if (!self->_isTemplateLayout)
     {
+      v52 = v49;
       secondaryLabel = self->_secondaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v54 = PKContentAlignmentMake();
+      v55.n128_u64[0] = *&remainder.origin.x;
+      v56.n128_u64[0] = *&remainder.origin.y;
+      v57.n128_u64[0] = *&remainder.size.width;
+      v58.n128_u64[0] = *&remainder.size.height;
+      v59.n128_u64[0] = v52;
+      v60.n128_f64[0] = v51;
+      PKSizeAlignedInRect(v54, v59, v60, v55, v56, v57, v58, v61);
       [(UILabel *)secondaryLabel setFrame:?];
     }
 
-    CGRectDivide(remainder, &v29, &remainder, v22, CGRectMinYEdge);
-    v9 = v9 + v22 + 4.0;
+    CGRectDivide(remainder, &v77, &remainder, v51, CGRectMinYEdge);
+    v9 = v9 + v51 + 4.0;
   }
 
   if (self->_tertiaryLabel)
   {
-    CGRectDivide(remainder, &v29, &remainder, 4.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v77, &remainder, 4.0, CGRectMinYEdge);
     [(UILabel *)self->_tertiaryLabel pkui_sizeThatFits:1 forceWordWrap:remainder.size.width, remainder.size.height];
-    v25 = v24;
+    v64 = v63;
     if (!self->_isTemplateLayout)
     {
+      v65 = v62;
       tertiaryLabel = self->_tertiaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v67 = PKContentAlignmentMake();
+      v68.n128_u64[0] = *&remainder.origin.x;
+      v69.n128_u64[0] = *&remainder.origin.y;
+      v70.n128_u64[0] = *&remainder.size.width;
+      v71.n128_u64[0] = *&remainder.size.height;
+      v72.n128_u64[0] = v65;
+      v73.n128_f64[0] = v64;
+      PKSizeAlignedInRect(v67, v72, v73, v68, v69, v70, v71, v74);
       [(UILabel *)tertiaryLabel setFrame:?];
     }
 
-    CGRectDivide(remainder, &v29, &remainder, v25, CGRectMinYEdge);
-    v9 = v9 + v25 + 4.0;
+    CGRectDivide(remainder, &v77, &remainder, v64, CGRectMinYEdge);
+    v9 = v9 + v64 + 4.0;
   }
 
-  v32.origin.x = x;
-  v32.origin.y = y;
-  v32.size.width = width;
-  v32.size.height = height;
-  v27 = CGRectGetWidth(v32);
-  v28 = v9 + 22.0;
-  result.height = v28;
-  result.width = v27;
+  v80.origin.x = x;
+  v80.origin.y = y;
+  v80.size.width = width;
+  v80.size.height = height;
+  v75 = CGRectGetWidth(v80);
+  v76 = v9 + 22.0;
+  result.height = v76;
+  result.width = v75;
   return result;
 }
 

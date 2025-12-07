@@ -61,33 +61,31 @@
 {
   v7 = type metadata accessor for UUID();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   __chkstk_darwin(v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = _Block_copy(block);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = _Block_copy(block);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v15 = v14;
-  v16 = swift_allocObject();
-  *(v16 + 16) = v12;
+  v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v14 = v13;
+  v15 = swift_allocObject();
+  *(v15 + 16) = v11;
   selfCopy = self;
-  sub_1000A6A44(v11, v13, v15, sub_1000ACDC4, v16);
+  sub_1000A6A44(v10, v12, v14, sub_1000ACDC4, v15);
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)shouldCancelPermissionRequestWithRequestID:(id)d
 {
   v4 = type metadata accessor for UUID();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1000A8218(v8);
+  sub_1000A8218(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)videoStreamIsCleared:(BOOL)cleared forRenderer:(id)renderer

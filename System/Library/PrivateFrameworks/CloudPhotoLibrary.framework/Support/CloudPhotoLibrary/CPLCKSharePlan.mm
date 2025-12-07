@@ -224,20 +224,20 @@
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = sub_1000035AC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = sub_1000035AC(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v17 = dCopy;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Unable to find share todo matching %@/%@", buf, 0x16u);
+        v18 = dCopy;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Unable to find share todo matching %@/%@", buf, 0x16u);
       }
     }
 
-    v13 = +[NSAssertionHandler currentHandler];
-    v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
-    [v13 handleFailureInMethod:a2 object:self file:v14 lineNumber:1384 description:{@"Unable to find share todo matching %@/%@", dCopy, v9}];
+    v14 = +[NSAssertionHandler currentHandler];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCKBatchUploadPlanner.m"];
+    [v14 handleFailureInMethod:a2 object:self file:v15 lineNumber:1384 description:{@"Unable to find share todo matching %@/%@", dCopy, v9}];
 
     abort();
   }
@@ -456,27 +456,28 @@
   }
 
   v10 = v9;
-  if ([(CPLCKShareRecordTodo *)v10 count])
+  v11 = [(CPLCKShareRecordTodo *)v10 count];
+  if (v11)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_1000035AC();
-      if (sub_1000374B8(v11))
+      v12 = sub_1000035AC(v11);
+      if (sub_1000374B8(v12))
       {
         recordID = [recordCopy recordID];
         sub_100021CFC();
         sub_10003746C();
-        _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
+        _os_log_impl(v14, v15, v16, v17, v18, 0x16u);
       }
     }
 
     [recordCopy cpl_updateContributorsOnSharedRecord:v10];
   }
 
-  v18 = self->_currentTodo;
-  if (v18)
+  v19 = self->_currentTodo;
+  if (v19)
   {
-    recordClass = v18->_recordClass;
+    recordClass = v19->_recordClass;
   }
 
   else
@@ -490,9 +491,9 @@
   if (([weakRetained supportsDirectDeletionOfRecordClass:recordClass] & 1) == 0)
   {
     [recordCopy setObject:&__kCFBooleanFalse forKey:@"isExpunged"];
-    v22 = [recordCopy objectForKey:@"isDeleted"];
+    v23 = [recordCopy objectForKey:@"isDeleted"];
 
-    if (!v22)
+    if (!v23)
     {
       [recordCopy setObject:&__kCFBooleanFalse forKey:@"isDeleted"];
     }
@@ -510,26 +511,26 @@
     [recordCopy setObject:0 forKey:@"linkedShareRecordName"];
   }
 
-  v23 = self->_currentTodo;
-  if (v23)
+  v24 = self->_currentTodo;
+  if (v24)
   {
-    v24 = v23->_recordClass;
+    v25 = v24->_recordClass;
   }
 
   else
   {
-    v24 = 0;
+    v25 = 0;
   }
 
-  if ([(objc_class *)v24 isSubclassOfClass:objc_opt_class()])
+  if ([(objc_class *)v25 isSubclassOfClass:objc_opt_class()])
   {
-    v25 = objc_loadWeakRetained(&self->_planner);
-    targetMapping = [v25 targetMapping];
-    v27 = targetMapping;
-    v28 = self->_currentTodo;
-    if (v28)
+    v26 = objc_loadWeakRetained(&self->_planner);
+    targetMapping = [v26 targetMapping];
+    v28 = targetMapping;
+    v29 = self->_currentTodo;
+    if (v29)
     {
-      scopedIdentifier = v28->_scopedIdentifier;
+      scopedIdentifier = v29->_scopedIdentifier;
     }
 
     else
@@ -537,9 +538,9 @@
       scopedIdentifier = 0;
     }
 
-    v30 = [targetMapping targetForRecordWithScopedIdentifier:scopedIdentifier];
+    v31 = [targetMapping targetForRecordWithScopedIdentifier:scopedIdentifier];
 
-    if (v30 && [v30 shouldUploadToOtherRecord])
+    if (v31 && [v31 shouldUploadToOtherRecord])
     {
       [recordCopy setKnownToServer:1];
       [recordCopy setEtag:@"-gateon"];

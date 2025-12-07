@@ -30,7 +30,7 @@
   if (!updatedProductIDs)
   {
     array = [MEMORY[0x1E695DF70] array];
-    v12 = self->_updatedProductIDs;
+    v14 = self->_updatedProductIDs;
     self->_updatedProductIDs = array;
 
     [(NSMutableArray *)self->_updatedProductIDs addObject:dCopy];
@@ -41,30 +41,34 @@
   if (([(NSMutableArray *)updatedProductIDs containsObject:dCopy]& 1) != 0)
   {
 LABEL_8:
-    v13 = 1;
+    v15 = 1;
     goto LABEL_12;
   }
 
   [timeCopy timeIntervalSinceDate:self->_lastUpdateTime];
-  if (v9 >= exp2(([(NSMutableArray *)self->_updatedProductIDs count]- 1)) * 30.0 && [(NSMutableArray *)self->_updatedProductIDs count]<= 3)
+  if (v11 >= exp2(([(NSMutableArray *)self->_updatedProductIDs count]- 1)) * 30.0)
   {
-    [(NSMutableArray *)self->_updatedProductIDs addObject:dCopy];
-    p_lastUpdateTime = &self->_lastUpdateTime;
+    v9 = [(NSMutableArray *)self->_updatedProductIDs count];
+    if (v9 <= 3)
+    {
+      [(NSMutableArray *)self->_updatedProductIDs addObject:dCopy];
+      p_lastUpdateTime = &self->_lastUpdateTime;
 LABEL_7:
-    objc_storeStrong(p_lastUpdateTime, time);
-    goto LABEL_8;
+      objc_storeStrong(p_lastUpdateTime, time);
+      goto LABEL_8;
+    }
   }
 
-  v14 = WBS_LOG_CHANNEL_PREFIXBanners();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXBanners(v9, v10);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    [SFBannerRecord updateProductID:v14 time:?];
+    [SFBannerRecord updateProductID:v16 time:?];
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_12:
 
-  return v13;
+  return v15;
 }
 
 @end

@@ -59,7 +59,7 @@
   lastBag = [v5 lastBag];
   v98 = [lastBag integerForKey:@"ocelot-payout-qualifying-duration-seconds" defaultValue:60];
 
-  v7 = sub_1001E5E74();
+  v7 = sub_1001E5E74(AccountEventCoordinator);
   sub_1001E6814(v7);
   v89 = +[NSMutableArray array];
   v91 = +[NSMutableDictionary dictionary];
@@ -518,7 +518,7 @@ LABEL_80:
 
   if ([v89 count])
   {
-    v86 = sub_10036C90C();
+    v86 = sub_10036C90C(AppUsageDatabaseStore);
     v106[0] = _NSConcreteStackBlock;
     v106[1] = 3221225472;
     v106[2] = sub_1002A6C74;
@@ -531,7 +531,7 @@ LABEL_80:
 
 - (BOOL)shouldCollectMetrics
 {
-  v2 = sub_1003BBF50();
+  v2 = sub_1003BBF50(Device);
   if ([v2 isHRNMode])
   {
     v3 = 0;
@@ -715,7 +715,7 @@ LABEL_31:
   }
 
   v10 = [SQLiteComparisonPredicate predicateWithProperty:@"week_start_time" equalToValue:v6];
-  v11 = sub_10036C90C();
+  v11 = sub_10036C90C(AppUsageDatabaseStore);
   v16[0] = _NSConcreteStackBlock;
   v16[1] = 3221225472;
   v16[2] = sub_1002A735C;

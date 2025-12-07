@@ -230,7 +230,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -250,12 +249,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalDurationMs = self->_totalDurationMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_4:
-    wcdma = self->_wcdma;
     PBDataWriterWriteBOOLField();
   }
 
@@ -265,37 +262,36 @@ LABEL_5:
     PBDataWriterWriteDataField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v7 = self->_stateHists;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_stateHists;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v20;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((v13 & 2) == 0)
+  v11 = self->_has;
+  if ((v11 & 2) == 0)
   {
     if ((*&self->_has & 8) == 0)
     {
@@ -303,7 +299,6 @@ LABEL_5:
     }
 
 LABEL_23:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -313,19 +308,17 @@ LABEL_23:
     goto LABEL_17;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
     goto LABEL_23;
   }
 
 LABEL_16:
-  if ((v13 & 4) != 0)
+  if ((v11 & 4) != 0)
   {
 LABEL_17:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -540,7 +533,6 @@ LABEL_15:
     goto LABEL_22;
   }
 
-  v5 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -574,7 +566,6 @@ LABEL_15:
       goto LABEL_22;
     }
 
-    v10 = *(equalCopy + 56);
     if (self->_wcdma)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -635,7 +626,7 @@ LABEL_15:
     goto LABEL_22;
   }
 
-  v8 = (*(equalCopy + 60) & 4) == 0;
+  v7 = (*(equalCopy + 60) & 4) == 0;
   if ((*&self->_has & 4) == 0)
   {
     goto LABEL_23;
@@ -643,15 +634,15 @@ LABEL_15:
 
   if ((*(equalCopy + 60) & 4) != 0 && self->_psPref == *(equalCopy + 8))
   {
-    v8 = 1;
+    v7 = 1;
     goto LABEL_23;
   }
 
 LABEL_22:
-  v8 = 0;
+  v7 = 0;
 LABEL_23:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

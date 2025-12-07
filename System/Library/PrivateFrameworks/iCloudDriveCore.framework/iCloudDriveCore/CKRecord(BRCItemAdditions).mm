@@ -21,15 +21,15 @@
 
 - (id)brc_lastEditorDeviceName
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [self objectForKeyedSubscript:@"lastEditorName"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = [v2 dataUsingEncoding:4];
-    v16 = 0;
-    v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v16];
-    v5 = v16;
+    v15 = 0;
+    v4 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v3 options:0 error:&v15];
+    v5 = v15;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -54,11 +54,11 @@
         {
           recordID = [self recordID];
           *buf = 138412802;
-          v18 = recordID;
-          v19 = 2112;
-          v20 = v4;
-          v21 = 2112;
-          v22 = v11;
+          v17 = recordID;
+          v18 = 2112;
+          v19 = v4;
+          v20 = 2112;
+          v21 = v11;
           _os_log_fault_impl(&dword_223E7A000, v12, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid lastEditorDeviceName on %@: %@%@", buf, 0x20u);
         }
       }
@@ -75,8 +75,6 @@ LABEL_10:
 
   modifiedByDevice = [self modifiedByDevice];
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return modifiedByDevice;
 }
@@ -199,16 +197,16 @@ LABEL_17:
 
 - (id)brc_lastModifiedUserRecordNameWithCurrentUserRecordName:()BRCItemAdditions personNameComponents:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = [self objectForKeyedSubscript:@"lastEditorName"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v8 = [v7 dataUsingEncoding:4];
-    v33 = 0;
-    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v33];
-    v10 = v33;
+    v32 = 0;
+    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v32];
+    v10 = v32;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -216,7 +214,7 @@ LABEL_17:
       goto LABEL_14;
     }
 
-    v32 = v10;
+    v31 = v10;
     v11 = [v9 objectForKeyedSubscript:@"type"];
     v12 = [v11 isEqualToString:@"user"];
 
@@ -242,52 +240,52 @@ LABEL_17:
             goto LABEL_13;
           }
 
-          v21 = [v9 objectForKeyedSubscript:@"name"];
+          v20 = [v9 objectForKeyedSubscript:@"name"];
           objc_opt_class();
-          v22 = objc_opt_isKindOfClass();
+          v21 = objc_opt_isKindOfClass();
 
-          if ((v22 & 1) == 0)
+          if ((v21 & 1) == 0)
           {
             goto LABEL_13;
           }
 
           v16 = [v9 objectForKeyedSubscript:@"name"];
-          v23 = [v16 objectForKeyedSubscript:@"last"];
+          v22 = [v16 objectForKeyedSubscript:@"last"];
           objc_opt_class();
-          v30 = objc_opt_isKindOfClass();
+          v29 = objc_opt_isKindOfClass();
 
-          if (v30)
+          if (v29)
           {
-            v31 = [v16 objectForKeyedSubscript:@"last"];
+            v30 = [v16 objectForKeyedSubscript:@"last"];
           }
 
           else
           {
-            v31 = 0;
+            v30 = 0;
           }
 
-          v24 = [v16 objectForKeyedSubscript:@"first"];
+          v23 = [v16 objectForKeyedSubscript:@"first"];
           objc_opt_class();
-          v25 = v24;
-          LOBYTE(v24) = objc_opt_isKindOfClass();
+          v24 = v23;
+          LOBYTE(v23) = objc_opt_isKindOfClass();
 
-          if (v24)
+          if (v23)
           {
-            v26 = [v16 objectForKeyedSubscript:@"first"];
+            v25 = [v16 objectForKeyedSubscript:@"first"];
           }
 
           else
           {
-            v26 = 0;
+            v25 = 0;
           }
 
-          if (v26 | v31)
+          if (v25 | v30)
           {
-            v27 = objc_alloc_init(MEMORY[0x277CCAC00]);
-            [v27 setFamilyName:v31];
-            [v27 setGivenName:v26];
-            v28 = v27;
-            *a4 = v27;
+            v26 = objc_alloc_init(MEMORY[0x277CCAC00]);
+            [v26 setFamilyName:v30];
+            [v26 setGivenName:v25];
+            v27 = v26;
+            *a4 = v26;
           }
         }
       }
@@ -300,11 +298,11 @@ LABEL_17:
         {
           recordID = [self recordID];
           *buf = 138412802;
-          v35 = recordID;
-          v36 = 2112;
-          v37 = v9;
-          v38 = 2112;
-          v39 = v16;
+          v34 = recordID;
+          v35 = 2112;
+          v36 = v9;
+          v37 = 2112;
+          v38 = v16;
           _os_log_fault_impl(&dword_223E7A000, v17, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: invalid lastEditorDeviceName on %@: %@%@", buf, 0x20u);
         }
 
@@ -318,7 +316,7 @@ LABEL_17:
     }
 
 LABEL_13:
-    v10 = v32;
+    v10 = v31;
 LABEL_14:
 
     if (recordName)
@@ -331,7 +329,6 @@ LABEL_14:
   recordName = [lastModifiedUserRecordID recordName];
 
 LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
 
   return recordName;
 }
@@ -421,7 +418,7 @@ LABEL_16:
 
 + (id)desiredKeysWithMask:()BRCItemAdditions
 {
-  v27[29] = *MEMORY[0x277D85DE8];
+  v26[29] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&desiredKeysWithMask__lock);
   v4 = desiredKeysWithMask__cache;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:a3];
@@ -436,58 +433,58 @@ LABEL_16:
   array = [MEMORY[0x277CBEB18] array];
   if ((a3 & 0x1010101) != 0)
   {
-    v27[0] = @"encryptedBasename";
-    v27[1] = @"bounceNo";
-    v27[2] = @"extension";
-    v27[3] = @"parent";
-    v27[4] = @"target";
-    v27[5] = @"exactBirthtime";
-    v27[6] = @"birthtime";
-    v27[7] = @"lastOpenTime";
-    v27[8] = @"favoriteRank";
-    v27[9] = @"hiddenExt";
-    v27[10] = @"executable";
-    v27[11] = @"writable";
-    v27[12] = @"exactMtime";
-    v27[13] = @"mtime";
-    v27[14] = @"finderTags";
-    v27[15] = @"restorePath";
-    v27[16] = @"restoreParent";
-    v27[17] = @"targetPath";
-    v27[18] = @"ftags";
-    v27[19] = @"exactSize";
-    v27[20] = @"size";
-    v27[21] = @"shareReference";
+    v26[0] = @"encryptedBasename";
+    v26[1] = @"bounceNo";
+    v26[2] = @"extension";
+    v26[3] = @"parent";
+    v26[4] = @"target";
+    v26[5] = @"exactBirthtime";
+    v26[6] = @"birthtime";
+    v26[7] = @"lastOpenTime";
+    v26[8] = @"favoriteRank";
+    v26[9] = @"hiddenExt";
+    v26[10] = @"executable";
+    v26[11] = @"writable";
+    v26[12] = @"exactMtime";
+    v26[13] = @"mtime";
+    v26[14] = @"finderTags";
+    v26[15] = @"restorePath";
+    v26[16] = @"restoreParent";
+    v26[17] = @"targetPath";
+    v26[18] = @"ftags";
+    v26[19] = @"exactSize";
+    v26[20] = @"size";
+    v26[21] = @"shareReference";
     v7 = *MEMORY[0x277CBC0A0];
-    v27[22] = @"countMetrics";
-    v27[23] = v7;
-    v27[24] = *MEMORY[0x277CBC098];
-    v27[25] = @"childBasehashSalt";
-    v27[26] = @"childBasehashSaltValidationKey";
-    v27[27] = @"saltingState";
-    v27[28] = @"basehashSaltValidationKey";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:29];
+    v26[22] = @"countMetrics";
+    v26[23] = v7;
+    v26[24] = *MEMORY[0x277CBC098];
+    v26[25] = @"childBasehashSalt";
+    v26[26] = @"childBasehashSaltValidationKey";
+    v26[27] = @"saltingState";
+    v26[28] = @"basehashSaltValidationKey";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:29];
     [array addObjectsFromArray:v8];
   }
 
   if ((a3 & 0xC) != 0)
   {
-    v26[0] = @"fileContent";
-    v26[1] = @"bookmarkContent";
-    v26[2] = @"pkgSignature";
-    v26[3] = @"boundaryKey";
-    v26[4] = @"boundaryKeyValidationKey";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
+    v25[0] = @"fileContent";
+    v25[1] = @"bookmarkContent";
+    v25[2] = @"pkgSignature";
+    v25[3] = @"boundaryKey";
+    v25[4] = @"boundaryKeyValidationKey";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
     [array addObjectsFromArray:v9];
   }
 
   if ((a3 & 4) != 0)
   {
-    v25[0] = @"pkgContent";
-    v25[1] = @"pkgManifest";
-    v25[2] = @"pkgXattrs";
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
-    [array addObjectsFromArray:v17];
+    v24[0] = @"pkgContent";
+    v24[1] = @"pkgManifest";
+    v24[2] = @"pkgXattrs";
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+    [array addObjectsFromArray:v16];
 
     if ((a3 & 8) == 0)
     {
@@ -506,10 +503,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v24[0] = @"ignorePkgExtension";
-  v24[1] = @"lastEditorName";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
-  [array addObjectsFromArray:v18];
+  v23[0] = @"ignorePkgExtension";
+  v23[1] = @"lastEditorName";
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  [array addObjectsFromArray:v17];
 
   if ((a3 & 0x10) == 0)
   {
@@ -523,10 +520,10 @@ LABEL_9:
   }
 
 LABEL_22:
-  v23[0] = @"thumb1024";
-  v23[1] = @"thumbQLMetadata";
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-  [array addObjectsFromArray:v19];
+  v22[0] = @"thumb1024";
+  v22[1] = @"thumbQLMetadata";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  [array addObjectsFromArray:v18];
 
   if ((a3 & 0x20) == 0)
   {
@@ -551,11 +548,11 @@ LABEL_11:
     }
 
 LABEL_25:
-    v20 = *MEMORY[0x277CBC140];
-    v22[0] = *MEMORY[0x277CBC148];
-    v22[1] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-    [array addObjectsFromArray:v21];
+    v19 = *MEMORY[0x277CBC140];
+    v21[0] = *MEMORY[0x277CBC148];
+    v21[1] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    [array addObjectsFromArray:v20];
 
     if ((a3 & 0x100) == 0)
     {
@@ -597,8 +594,6 @@ LABEL_14:
   os_unfair_lock_unlock(&desiredKeysWithMask__lock);
 LABEL_17:
   v14 = array;
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -689,50 +684,50 @@ LABEL_17:
 
 - (uint64_t)validateEnhancedDrivePrivacyFieldsWithSession:()BRCItemAdditions error:
 {
-  v77[7] = *MEMORY[0x277D85DE8];
+  v76[7] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_alloc(MEMORY[0x277CFAE60]);
   recordID = [self recordID];
   zoneID = [recordID zoneID];
   v9 = [v6 initWithRecordZoneID:zoneID];
 
-  v55 = v9;
+  v54 = v9;
   v10 = [v5 clientZoneByMangledID:v9];
   enhancedDrivePrivacyEnabled = [v10 enhancedDrivePrivacyEnabled];
 
-  v77[0] = @"xattr";
-  v77[1] = @"pkgManifest";
-  v77[2] = @"fileContent";
-  v77[3] = @"bookmarkContent";
-  v77[4] = @"thumb1024";
-  v77[5] = @"pkgContent";
-  v77[6] = @"pkgXattrs";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:7];
-  v56 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v76[0] = @"xattr";
+  v76[1] = @"pkgManifest";
+  v76[2] = @"fileContent";
+  v76[3] = @"bookmarkContent";
+  v76[4] = @"thumb1024";
+  v76[5] = @"pkgContent";
+  v76[6] = @"pkgXattrs";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:7];
+  v55 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   obj = v12;
-  v13 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v13 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (v13)
   {
     v15 = v13;
-    v16 = *v63;
+    v16 = *v62;
     *&v14 = 138412546;
-    v52 = v14;
+    v51 = v14;
 LABEL_3:
     v17 = 0;
     while (1)
     {
-      if (*v63 != v16)
+      if (*v62 != v16)
       {
         objc_enumerationMutation(obj);
       }
 
-      v18 = *(*(&v62 + 1) + 8 * v17);
+      v18 = *(*(&v61 + 1) + 8 * v17);
       v19 = MEMORY[0x277CBC5A0];
-      v20 = [self objectForKeyedSubscript:{v18, v52}];
+      v20 = [self objectForKeyedSubscript:{v18, v51}];
       LOBYTE(v19) = [v19 _validateCKObject:v20 enhancedDrivePrivacyEnabled:enhancedDrivePrivacyEnabled];
 
       if ((v19 & 1) == 0)
@@ -752,28 +747,28 @@ LABEL_3:
             v22 = [self objectForKeyedSubscript:v18];
             boundaryKey = [v22 boundaryKey];
 
-            if (boundaryKey && ([v56 containsObject:boundaryKey] & 1) == 0)
+            if (boundaryKey && ([v55 containsObject:boundaryKey] & 1) == 0)
             {
-              if ([v56 count])
+              if ([v55 count])
               {
-                v53 = v5;
+                v52 = v5;
                 v24 = brc_bread_crumbs();
                 v25 = brc_default_log();
                 if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
                 {
-                  *buf = v52;
-                  v69 = v18;
-                  v70 = 2112;
-                  v71 = v24;
+                  *buf = v51;
+                  v68 = v18;
+                  v69 = 2112;
+                  v70 = v24;
                   _os_log_fault_impl(&dword_223E7A000, v25, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: %@ has different boundary key then other assets in the record!%@", buf, 0x16u);
                 }
 
-                v5 = v53;
+                v5 = v52;
               }
 
               else
               {
-                [v56 addObject:boundaryKey];
+                [v55 addObject:boundaryKey];
               }
             }
           }
@@ -782,7 +777,7 @@ LABEL_3:
 
       if (v15 == ++v17)
       {
-        v15 = [obj countByEnumeratingWithState:&v62 objects:v76 count:16];
+        v15 = [obj countByEnumeratingWithState:&v61 objects:v75 count:16];
         if (v15)
         {
           goto LABEL_3;
@@ -804,18 +799,18 @@ LABEL_3:
       }
 
       *buf = 138413058;
-      v69 = v18;
-      v70 = 2080;
-      v71 = v37;
+      v68 = v18;
+      v69 = 2080;
+      v70 = v37;
       if (!enhancedDrivePrivacyEnabled)
       {
         v36 = "n't";
       }
 
-      v72 = 2080;
-      v73 = v36;
-      v74 = 2112;
-      v75 = v34;
+      v71 = 2080;
+      v72 = v36;
+      v73 = 2112;
+      v74 = v34;
       _os_log_impl(&dword_223E7A000, v35, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ is%s in mmcsV2 when it should%s be%@", buf, 0x2Au);
     }
 
@@ -836,9 +831,9 @@ LABEL_3:
 
 LABEL_20:
 
-  v67[0] = @"mtime";
-  v67[1] = @"birthtime";
-  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:2];
+  v66[0] = @"mtime";
+  v66[1] = @"birthtime";
+  v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:2];
   if (enhancedDrivePrivacyEnabled)
   {
     v27 = [BRCUserDefaults defaultsForMangledID:0];
@@ -846,26 +841,26 @@ LABEL_20:
 
     if (timestampRoundingAmount > 0x3B)
     {
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v32 = v26;
-      v41 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v41 = [v32 countByEnumeratingWithState:&v57 objects:v65 count:16];
       if (v41)
       {
         v42 = v41;
-        v43 = *v59;
+        v43 = *v58;
         while (2)
         {
           for (i = 0; i != v42; ++i)
           {
-            if (*v59 != v43)
+            if (*v58 != v43)
             {
               objc_enumerationMutation(v32);
             }
 
-            v45 = [self objectForKeyedSubscript:*(*(&v58 + 1) + 8 * i)];
+            v45 = [self objectForKeyedSubscript:*(*(&v57 + 1) + 8 * i)];
             if ([v45 unsignedLongLongValue] % timestampRoundingAmount)
             {
               v46 = brc_bread_crumbs();
@@ -887,7 +882,7 @@ LABEL_20:
             }
           }
 
-          v42 = [v32 countByEnumeratingWithState:&v58 objects:v66 count:16];
+          v42 = [v32 countByEnumeratingWithState:&v57 objects:v65 count:16];
           v33 = 1;
           if (v42)
           {
@@ -924,8 +919,8 @@ LABEL_53:
       [v31 brc_errorInvalidParameter:@"rounding amount" value:v32];
       *a4 = v33 = 0;
 LABEL_54:
-      v39 = v55;
-      v40 = v56;
+      v39 = v54;
+      v40 = v55;
 
       goto LABEL_55;
     }
@@ -939,11 +934,10 @@ LABEL_54:
   }
 
 LABEL_36:
-  v39 = v55;
-  v40 = v56;
+  v39 = v54;
+  v40 = v55;
 LABEL_55:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -986,7 +980,6 @@ LABEL_55:
 
 + (void)rootAppLibraryRecordForAppLibraryID:()BRCItemAdditions zoneID:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -994,36 +987,22 @@ LABEL_55:
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3_2();
-    _os_log_fault_impl(v4, v5, v6, v7, v8, 0x16u);
+    _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_validateCKObject:()BRCItemAdditions enhancedDrivePrivacyEnabled:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateEnhancedDrivePrivacyFieldsWithSession:()BRCItemAdditions error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_15_0(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)validateEnhancedDrivePrivacyFieldsWithSession:()BRCItemAdditions error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: Rounding amount should be at least 1 minute%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -66,14 +66,14 @@ void __77__SiriPresentationStateProvider__setupProviderForSiriPresentationIdenti
 
 void __71__SiriPresentationStateProvider_beginProvidingPresentationStateUpdates__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SiriPresentationStateProvider beginProvidingPresentationStateUpdates]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SiriPresentationStateProvider beginProvidingPresentationStateUpdates]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
   }
 
   [v2 setShouldProvideUpdates:1];
@@ -84,8 +84,6 @@ void __71__SiriPresentationStateProvider_beginProvidingPresentationStateUpdates_
 
     [v2 setUpdatesAvailable:0];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopProvidingPresentationStateUpdatesAndResendLastUpdateOnResumption:(BOOL)resumption
@@ -100,17 +98,17 @@ void __71__SiriPresentationStateProvider_beginProvidingPresentationStateUpdates_
 
 void __102__SiriPresentationStateProvider_stopProvidingPresentationStateUpdatesAndResendLastUpdateOnResumption___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 136315394;
-    v8 = "[SiriPresentationStateProvider stopProvidingPresentationStateUpdatesAndResendLastUpdateOnResumption:]_block_invoke";
-    v9 = 1024;
-    v10 = v5;
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s resendLastUpdateOnResumption: %{BOOL}d", &v7, 0x12u);
+    v6 = 136315394;
+    v7 = "[SiriPresentationStateProvider stopProvidingPresentationStateUpdatesAndResendLastUpdateOnResumption:]_block_invoke";
+    v8 = 1024;
+    v9 = v5;
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s resendLastUpdateOnResumption: %{BOOL}d", &v6, 0x12u);
   }
 
   [v3 setShouldProvideUpdates:0];
@@ -118,8 +116,6 @@ void __102__SiriPresentationStateProvider_stopProvidingPresentationStateUpdatesA
   {
     [v3 setUpdatesAvailable:1];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)barrierWithCompletion:(id)completion
@@ -137,28 +133,27 @@ void __102__SiriPresentationStateProvider_stopProvidingPresentationStateUpdatesA
 
 uint64_t __55__SiriPresentationStateProvider_barrierWithCompletion___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationStateProvider barrierWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationStateProvider barrierWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_dispatchedDiffAndApplyMutatedStatus:(id)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if (([(SASPresentationState *)self->_presentationState isEqual:statusCopy]& 1) == 0)
   {
@@ -167,11 +162,11 @@ uint64_t __55__SiriPresentationStateProvider_barrierWithCompletion___block_invok
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       presentationState = self->_presentationState;
-      v10 = 136315394;
-      v11 = "[SiriPresentationStateProvider _dispatchedDiffAndApplyMutatedStatus:]";
-      v12 = 2112;
-      v13 = presentationState;
-      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s New Presentation State detected %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[SiriPresentationStateProvider _dispatchedDiffAndApplyMutatedStatus:]";
+      v11 = 2112;
+      v12 = presentationState;
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s New Presentation State detected %@", &v9, 0x16u);
     }
 
     [(SiriPresentationStateProvider *)self setUpdatesAvailable:1];
@@ -183,8 +178,6 @@ uint64_t __55__SiriPresentationStateProvider_barrierWithCompletion___block_invok
       [(SiriPresentationStateProvider *)self setUpdatesAvailable:0];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invokeOnDispatchQueue:(id)queue

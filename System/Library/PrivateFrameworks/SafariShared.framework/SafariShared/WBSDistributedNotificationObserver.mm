@@ -271,15 +271,15 @@ uint64_t __71__WBSDistributedNotificationObserver__scheduleTimeoutTimerWithTimeo
   dispatch_async(internalQueue, v7);
 }
 
-uint64_t __62__WBSDistributedNotificationObserver__didReceiveNotification___block_invoke(uint64_t a1)
+void *__62__WBSDistributedNotificationObserver__didReceiveNotification___block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
   if (*(result + 24) == 1)
   {
-    v3 = *(result + 48);
+    v3 = result[6];
     if (v3)
     {
-      result = (*(v3 + 16))(*(result + 48), *(a1 + 40));
+      result = (*(v3 + 16))(result[6], *(a1 + 40));
       if (!result)
       {
         return result;

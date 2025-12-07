@@ -192,7 +192,7 @@
   return result;
 }
 
-uint64_t __38__PRLanguage_localizationForLanguage___block_invoke()
+void *__38__PRLanguage_localizationForLanguage___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"English", @"en", @"en", @"en", @"en_US", @"en_GB", @"en_GB", @"en_CA", @"en_CA", @"en_AU", @"en_AU", @"en_IN", @"en_IN", @"en_SG", @"en_SG", @"en_JP", @"en_JP", @"en_CN", @"en_CN", @"en_NZ", @"en_NZ", @"en_ZA", @"en_ZA", @"fr", @"French", @"fr", @"fr", @"fr", @"fr_FR", @"fr", @"fr_CA", @"fr", @"fr_CH", @"de", @"German", @"de", @"de", @"de", @"de_DE", @"de", @"de_AT", @"de", @"de_CH", @"it", @"Italian", @"it", @"it", @"it", @"it_IT", @"es", @"Spanish", @"es", @"es", @"es", @"es_ES", @"es_MX", @"es_MX", @"pt_BR", @"Portuguese", @"pt_BR", @"pt"}];
   localizationForLanguage__localizationDict = result;
@@ -233,7 +233,7 @@ uint64_t __38__PRLanguage_localizationForLanguage___block_invoke()
   return result;
 }
 
-uint64_t __46__PRLanguage_fallbackLocalizationForLanguage___block_invoke()
+void *__46__PRLanguage_fallbackLocalizationForLanguage___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"English", @"en", @"en", @"en", @"en_US", @"en", @"en_GB", @"en", @"en_CA", @"en", @"en_AU", @"en", @"en_IN", @"en", @"en_SG", @"en", @"en_JP", @"en", @"en_CN", @"en", @"en_NZ", @"en", @"en_ZA", @"fr", @"French", @"fr", @"fr", @"fr", @"fr_FR", @"fr", @"fr_CA", @"fr", @"fr_CH", @"de", @"German", @"de", @"de", @"de", @"de_DE", @"de", @"de_AT", @"de", @"de_CH", @"it", @"Italian", @"it", @"it", @"it", @"it_IT", @"es", @"Spanish", @"es", @"es", @"es", @"es_ES", @"es", @"es_MX", @"pt", @"Portuguese", @"pt", @"pt"}];
   fallbackLocalizationForLanguage__localizationDict = result;
@@ -256,7 +256,7 @@ uint64_t __46__PRLanguage_fallbackLocalizationForLanguage___block_invoke()
   return result;
 }
 
-uint64_t __51__PRLanguage_languageModelLocalizationForLanguage___block_invoke()
+void *__51__PRLanguage_languageModelLocalizationForLanguage___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"English", @"en_US", @"en", @"en_US", @"en_US", @"en_GB", @"en_GB", @"en_CA", @"en_CA", @"en_AU", @"en_AU", @"en_IN", @"en_IN", @"en_SG", @"en_SG", @"en_JP", @"en_JP", @"en_US", @"en_CN", @"en_NZ", @"en_NZ", @"en_ZA", @"en_ZA", @"fr_FR", @"French", @"fr_FR", @"fr", @"fr_FR", @"fr_FR", @"fr_CA", @"fr_CA", @"fr_CH", @"fr_CH", @"fr_BE", @"fr_BE", @"de", @"German", @"de", @"de", @"de", @"de_DE", @"de", @"de_AT", @"de", @"de_CH", @"it", @"Italian", @"it", @"it", @"it", @"it_IT", @"es_ES", @"Spanish", @"es_ES", @"es", @"es_ES", @"es_ES", @"es_MX", @"es_MX", @"pt_BR", @"Portuguese"}];
   languageModelLocalizationForLanguage__localizationDict = result;
@@ -279,7 +279,7 @@ uint64_t __51__PRLanguage_languageModelLocalizationForLanguage___block_invoke()
   return result;
 }
 
-uint64_t __59__PRLanguage_languageModelFallbackLocalizationForLanguage___block_invoke()
+void *__59__PRLanguage_languageModelFallbackLocalizationForLanguage___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"English", @"en", @"en", @"en", @"en_US", @"en", @"en_GB", @"en", @"en_CA", @"en", @"en_AU", @"en", @"en_IN", @"en", @"en_SG", @"en", @"en_JP", @"en", @"en_CN", @"en", @"en_NZ", @"en", @"en_ZA", @"fi", @"Finnish", @"fi", @"fi", @"fi", @"fi_FI", @"fr_FR", @"French", @"fr_FR", @"fr", @"fr_FR", @"fr_FR", @"fr_FR", @"fr_CA", @"fr_FR", @"fr_CH", @"de", @"German", @"de", @"de", @"de", @"de_DE", @"de", @"de_AT", @"de", @"de_CH", @"it", @"Italian", @"it", @"it", @"it", @"it_IT", @"es", @"Spanish", @"es", @"es", @"es", @"es_ES"}];
   languageModelFallbackLocalizationForLanguage__localizationDict = result;
@@ -302,7 +302,7 @@ uint64_t __59__PRLanguage_languageModelFallbackLocalizationForLanguage___block_i
   return result;
 }
 
-uint64_t __39__PRLanguage_textInputModeForLanguage___block_invoke()
+void *__39__PRLanguage_textInputModeForLanguage___block_invoke()
 {
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjectsAndKeys:{@"English", @"en_US", @"en", @"en_US", @"en_US", @"en_GB", @"en_GB", @"en_CA", @"en_CA", @"en_AU", @"en_AU", @"en_IN", @"en_IN", @"en_SG", @"en_SG", @"en_JP", @"en_JP", @"en_US", @"en_CN", @"en_NZ", @"en_NZ", @"en_ZA", @"en_ZA", @"fr_FR", @"French", @"fr_FR", @"fr", @"fr_FR", @"fr_FR", @"fr_CA", @"fr_CA", @"fr_CH", @"fr_CH", @"de_DE", @"German", @"de_DE", @"de", @"de_DE", @"de_DE", @"de_AT", @"de_AT", @"de_CH", @"de_CH", @"it_IT", @"Italian", @"it_IT", @"it", @"it_IT", @"it_IT", @"es_ES", @"Spanish", @"es_ES", @"es", @"es_ES", @"es_ES", @"es_MX", @"es_MX", @"pt_BR", @"Portuguese", @"pt_BR", @"pt"}];
   textInputModeForLanguage__textInputModeDict = result;

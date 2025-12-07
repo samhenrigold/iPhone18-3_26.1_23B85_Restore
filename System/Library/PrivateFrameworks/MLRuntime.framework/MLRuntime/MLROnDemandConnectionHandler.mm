@@ -64,20 +64,18 @@
 
 void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D05600] coreChannel];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_2577CB000, v2, OS_LOG_TYPE_INFO, "%@ cancelling", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_2577CB000, v2, OS_LOG_TYPE_INFO, "%@ cancelling", &v5, 0xCu);
   }
 
   v4 = [*(a1 + 32) xpcConnection];
   [v4 invalidate];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)description
@@ -93,7 +91,7 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
 
 - (void)performTask:(id)task completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   handlerCopy = handler;
   v8 = MEMORY[0x277D05638];
@@ -114,9 +112,9 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
 
     v14 = MEMORY[0x277CCA9B8];
     v15 = *MEMORY[0x277D05640];
-    v20 = *MEMORY[0x277CCA450];
-    v21[0] = v13;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20[0] = v13;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v17 = [v14 errorWithDomain:v15 code:8014 userInfo:v16];
 
     coreChannel = [MEMORY[0x277D05600] coreChannel];
@@ -127,13 +125,11 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
 
     handlerCopy[2](handlerCopy, 0, v17);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performTaskInternal:(id)internal completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   handlerCopy = handler;
   if (handlerCopy)
@@ -143,18 +139,18 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
     if (principalObject)
     {
       pluginPrincipal = self->_pluginPrincipal;
-      v18 = 0;
-      v10 = [(MLROnDemandTaskPerforming *)pluginPrincipal performTask:internalCopy error:&v18];
-      coreChannel2 = v18;
+      v17 = 0;
+      v10 = [(MLROnDemandTaskPerforming *)pluginPrincipal performTask:internalCopy error:&v17];
+      coreChannel2 = v17;
     }
 
     else
     {
       v12 = MEMORY[0x277CCA9B8];
       v13 = *MEMORY[0x277D05640];
-      v19 = *MEMORY[0x277CCA450];
-      v20[0] = @"Invalid principal class.";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x277CCA450];
+      v19[0] = @"Invalid principal class.";
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       coreChannel2 = [v12 errorWithDomain:v13 code:1 userInfo:v14];
 
       v10 = 0;
@@ -191,8 +187,6 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
       [MLROnDemandConnectionHandler performTaskInternal:coreChannel2 completionHandler:?];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)xpcConnection
@@ -204,37 +198,32 @@ void __58__MLROnDemandConnectionHandler_shouldAcceptXPCConnection___block_invoke
 
 - (void)initWithPrincipalObject:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_1();
   v4 = v3;
-  _os_log_fault_impl(&dword_2577CB000, a2, OS_LOG_TYPE_FAULT, "Unsupported principal object type = %@.", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2577CB000, a2, OS_LOG_TYPE_FAULT, "Unsupported principal object type = %@.", v5, 0xCu);
 }
 
 - (void)performTask:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_2577CB000, v0, OS_LOG_TYPE_ERROR, "Fail to performTask: error=%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2577CB000, v0, OS_LOG_TYPE_ERROR, "Fail to performTask: error=%@", v1, 0xCu);
 }
 
 - (void)performTaskInternal:completionHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_2577CB000, v0, OS_LOG_TYPE_ERROR, "Fail to execute task with error=%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2577CB000, v0, OS_LOG_TYPE_ERROR, "Fail to execute task with error=%@", v1, 0xCu);
 }
 
 - (void)performTaskInternal:completionHandler:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_2577CB000, v0, OS_LOG_TYPE_DEBUG, "Return result=%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_2577CB000, v0, OS_LOG_TYPE_DEBUG, "Return result=%@", v1, 0xCu);
 }
 
 @end

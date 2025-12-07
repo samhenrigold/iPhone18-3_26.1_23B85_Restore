@@ -422,10 +422,11 @@ uint64_t __64__MapsSuggestionsSignalPackCache__containsSignalPackForMapItem___bl
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of entries should always be the same as the number of signalPacks", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of entries should always be the same as the number of signalPacks", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
@@ -435,10 +436,11 @@ uint64_t __64__MapsSuggestionsSignalPackCache__containsSignalPackForMapItem___bl
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of mapItems should always be the same as the number of entries", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of mapItems should always be the same as the number of entries", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;
@@ -448,10 +450,11 @@ uint64_t __64__MapsSuggestionsSignalPackCache__containsSignalPackForMapItem___bl
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v10 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of mapItems should always be the same as the number of signalPacks", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_9(&dword_1C5126000, v4, v5, "At %{public}s:%d, %{public}s forbids: %{public}s. The number of mapItems should always be the same as the number of signalPacks", v6, v7, v8, v9, v10);
   }
 
   *a2 = a1;

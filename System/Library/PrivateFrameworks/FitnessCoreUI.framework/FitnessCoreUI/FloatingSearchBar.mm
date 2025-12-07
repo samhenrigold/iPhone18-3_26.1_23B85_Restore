@@ -17,7 +17,7 @@
   }
 
   selfCopy = self;
-  sub_20C3DBF6C();
+  sub_20C3DBF6C(selfCopy);
 }
 
 - (_TtC13FitnessCoreUI17FloatingSearchBar)initWithFrame:(CGRect)frame

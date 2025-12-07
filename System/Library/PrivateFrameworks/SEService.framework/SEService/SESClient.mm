@@ -17,9 +17,9 @@
     +[SESClient sharedClient];
   }
 
-  v0 = sharedClient_sharedClient;
+  v1 = sharedClient_sharedClient;
 
-  return v0;
+  return v1;
 }
 
 void __25__SESClient_sharedClient__block_invoke()
@@ -66,7 +66,6 @@ void __25__SESClient_sharedClient__block_invoke()
       if (!selfCopy[2])
       {
         v144 = SESDefaultLogObject();
-        v145 = *MEMORY[0x1E69E5148];
         v142 = SESCreateAndLogError();
 
         goto LABEL_6;
@@ -74,20 +73,20 @@ void __25__SESClient_sharedClient__block_invoke()
 
       objc_initWeak(location, selfCopy);
       v6 = selfCopy[2];
-      v148[0] = MEMORY[0x1E69E9820];
-      v148[1] = 3221225472;
-      v148[2] = __29__SESClient_connectToService__block_invoke;
-      v148[3] = &unk_1E82D1148;
-      objc_copyWeak(&v149, location);
-      [v6 setInterruptionHandler:v148];
+      v147[0] = MEMORY[0x1E69E9820];
+      v147[1] = 3221225472;
+      v147[2] = __29__SESClient_connectToService__block_invoke;
+      v147[3] = &unk_1E82D1148;
+      objc_copyWeak(&v148, location);
+      [v6 setInterruptionHandler:v147];
 
       v7 = selfCopy[2];
-      v146[0] = MEMORY[0x1E69E9820];
-      v146[1] = 3221225472;
-      v146[2] = __29__SESClient_connectToService__block_invoke_510;
-      v146[3] = &unk_1E82D1148;
-      objc_copyWeak(&v147, location);
-      [v7 setInvalidationHandler:v146];
+      v145[0] = MEMORY[0x1E69E9820];
+      v145[1] = 3221225472;
+      v145[2] = __29__SESClient_connectToService__block_invoke_510;
+      v145[3] = &unk_1E82D1148;
+      objc_copyWeak(&v146, location);
+      [v7 setInvalidationHandler:v145];
 
       v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F476C3D8];
       v9 = MEMORY[0x1E695DFD8];
@@ -322,8 +321,8 @@ void __25__SESClient_sharedClient__block_invoke()
       v141 = selfCopy[2];
       [v141 resume];
 
-      objc_destroyWeak(&v147);
-      objc_destroyWeak(&v149);
+      objc_destroyWeak(&v146);
+      objc_destroyWeak(&v148);
       objc_destroyWeak(location);
     }
 
@@ -340,26 +339,26 @@ LABEL_7:
   return v142;
 }
 
-void __29__SESClient_connectToService__block_invoke(uint64_t a1)
+void __29__SESClient_connectToService__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_ERROR, "Connection interrupted", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_ERROR, "Connection interrupted", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [(SESClient *)WeakRetained connectionResetHandler];
 }
 
-void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
+void __29__SESClient_connectToService__block_invoke_510(uint64_t a1, uint64_t a2)
 {
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_ERROR, "Connection invalidated", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_ERROR, "Connection invalidated", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -370,13 +369,13 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
 {
   if (error)
   {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x3032000000;
-    v15 = __Block_byref_object_copy__3;
-    v16 = __Block_byref_object_dispose__3;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__3;
+    v15 = __Block_byref_object_dispose__3;
     connectToService = [(SESClient *)error connectToService];
-    v4 = v13[5];
+    v4 = v12[5];
     if (v4)
     {
       v5 = 0;
@@ -389,19 +388,18 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
     else
     {
       v6 = error[2];
-      v11[0] = MEMORY[0x1E69E9820];
-      v11[1] = 3221225472;
-      v11[2] = __40__SESClient_remoteObjectProxyWithError___block_invoke;
-      v11[3] = &unk_1E82D1170;
-      v11[4] = &v12;
-      v7 = [v6 remoteObjectProxyWithErrorHandler:v11];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __40__SESClient_remoteObjectProxyWithError___block_invoke;
+      v10[3] = &unk_1E82D1170;
+      v10[4] = &v11;
+      v7 = [v6 remoteObjectProxyWithErrorHandler:v10];
 
-      if (v13[5])
+      if (v12[5])
       {
         if (a2)
         {
           v8 = SESDefaultLogObject();
-          v9 = *MEMORY[0x1E69E5148];
           *a2 = SESCreateAndLogError();
         }
 
@@ -414,7 +412,7 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
       }
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
   else
@@ -429,13 +427,13 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
 {
   if (error)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__3;
-    v17 = __Block_byref_object_dispose__3;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x3032000000;
+    v14 = __Block_byref_object_copy__3;
+    v15 = __Block_byref_object_dispose__3;
     connectToService = [(SESClient *)error connectToService];
-    v4 = v14[5];
+    v4 = v12[5];
     if (v4)
     {
       v5 = 0;
@@ -448,14 +446,14 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
     else
     {
       v6 = error[2];
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __51__SESClient_synchronousRemoteObjectProxyWithError___block_invoke;
-      v12[3] = &unk_1E82D1170;
-      v12[4] = &v13;
-      v7 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v12];
+      v10[0] = MEMORY[0x1E69E9820];
+      v10[1] = 3221225472;
+      v10[2] = __51__SESClient_synchronousRemoteObjectProxyWithError___block_invoke;
+      v10[3] = &unk_1E82D1170;
+      v10[4] = &v11;
+      v7 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v10];
 
-      if (v7 && !v14[5])
+      if (v7 && !v12[5])
       {
         v5 = v7;
       }
@@ -464,9 +462,7 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
       {
         if (a2)
         {
-          v8 = v14[5];
-          v9 = SESDefaultLogObject();
-          v10 = *MEMORY[0x1E69E5148];
+          v8 = SESDefaultLogObject();
           *a2 = SESCreateAndLogError();
         }
 
@@ -474,7 +470,7 @@ void __29__SESClient_connectToService__block_invoke_510(uint64_t a1)
       }
     }
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v11, 8);
   }
 
   else

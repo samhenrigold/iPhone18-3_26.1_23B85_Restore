@@ -298,19 +298,17 @@ LABEL_19:
 
 + (id)nameWithFirstName:(id)name lastName:(id)lastName withRecordId:(id)id origin:(id)origin
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   originCopy = origin;
   idCopy = id;
   lastNameCopy = lastName;
   nameCopy = name;
   v13 = [SGName alloc];
-  v19[0] = nameCopy;
-  v19[1] = lastNameCopy;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+  v18[0] = nameCopy;
+  v18[1] = lastNameCopy;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
   v15 = [v14 _pas_componentsJoinedByString:@" "];
   v16 = [(SGName *)v13 initWithFirstName:nameCopy middleName:0 lastName:lastNameCopy fullName:v15 prefix:0 suffix:0 recordId:idCopy origin:originCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

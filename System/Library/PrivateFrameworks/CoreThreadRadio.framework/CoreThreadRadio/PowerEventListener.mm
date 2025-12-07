@@ -226,7 +226,7 @@ LABEL_19:
 
         break;
       case 9:
-        sendApStateNotification();
+        sendApStateNotification(1);
         v11 = log_get_logging_obg("com.apple.threadradiod", "default");
         if (v11)
         {
@@ -295,7 +295,7 @@ LABEL_19:
         [PowerEventHandler_Rcp init:];
       }
 
-      sendApStateNotification();
+      sendApStateNotification(0);
       if (IOAllowPowerChange(self->_powerNotificationConnection, argument))
       {
         delegate = log_get_logging_obg("com.apple.threadradiod", "default");

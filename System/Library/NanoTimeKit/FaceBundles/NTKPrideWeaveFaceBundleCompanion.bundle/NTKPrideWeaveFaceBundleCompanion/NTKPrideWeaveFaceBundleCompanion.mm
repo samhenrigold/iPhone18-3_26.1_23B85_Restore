@@ -1,9 +1,9 @@
-double noise4x2()
+double noise4x2(__n128 a1, __n128 a2)
 {
   snoise4();
-  v3 = v0;
+  v5 = v2;
   snoise4();
-  return COERCE_DOUBLE(__PAIR64__(v1, v3));
+  return COERCE_DOUBLE(__PAIR64__(v3, v5));
 }
 
 uint64_t sub_1F58(uint64_t a1, void *a2)
@@ -29,7 +29,7 @@ uint64_t sub_1F58(uint64_t a1, void *a2)
   {
     qword_2CC38 = v2;
     qword_2CC40 = [v2 version];
-    qword_2CB30 = 0x3FC0000041000000;
+    qword_2CB30[0] = 0x3FC0000041000000;
     xmmword_2CB40 = vdupq_n_s64(0x3FFCCCCCCCCCCCCDuLL);
     unk_2CB50 = xmmword_1AE80;
     qword_2CB60 = 0x3E19999A3E99999ALL;
@@ -110,9 +110,9 @@ id sub_2604(uint64_t a1)
   return v13;
 }
 
-void sub_2D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2D28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -142,14 +142,13 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_2F34(uint64_t a1, uint64_t a2)
+uint64_t sub_2F34(uint64_t a1)
 {
-  v4 = [*(a1 + 32) contents];
-  v5 = &v4[[*(a1 + 40) currentComputeBufferWidth] * a2];
-  v6 = *(a1 + 56) + (a2 << 6);
-  v7 = *(*(a1 + 48) + 16);
+  [*(a1 + 32) contents];
+  [*(a1 + 40) currentComputeBufferWidth];
+  v2 = *(*(a1 + 48) + 16);
 
-  return v7();
+  return v2();
 }
 
 id sub_3530(uint64_t a1, uint64_t a2)
@@ -189,19 +188,18 @@ id sub_35E0(uint64_t a1, uint64_t a2)
     do
     {
       [*(a1 + 48) noiseSamplePositionForControlPoint:v5 inSpline:a2];
-      v7 = vmul_f32(v6, **(a1 + 56));
       [*(a1 + 48) ampltiudeForControlPoint:v5 ofSpline:a2];
-      v16 = v8;
-      *&v9 = vmul_n_f32(*(*(a1 + 56) + 56), *&v8);
-      v13 = v9;
-      v14 = *(a1 + 32);
+      v14 = v6;
+      *&v7 = vmul_n_f32(*(*(a1 + 56) + 56), *&v6);
+      v11 = v7;
+      v12 = *(a1 + 32);
       snoise4();
-      v15 = v10;
+      v13 = v8;
       snoise4();
-      [*(a1 + 48) setNoise:v5 forControlPoint:a2 inSpline:{COERCE_DOUBLE(vmul_f32(__PAIR64__(v11, v15), *(*(a1 + 56) + 48))), v13, v14}];
-      HIDWORD(v12) = HIDWORD(v16);
-      *&v12 = fminf(*&v16, 2.5);
-      [*(a1 + 48) setAmplitude:v5 forControlPoint:a2 ofSpline:v12];
+      [*(a1 + 48) setNoise:v5 forControlPoint:a2 inSpline:{COERCE_DOUBLE(vmul_f32(__PAIR64__(v9, v13), *(*(a1 + 56) + 48))), v11, v12}];
+      HIDWORD(v10) = HIDWORD(v14);
+      *&v10 = fminf(*&v14, 2.5);
+      [*(a1 + 48) setAmplitude:v5 forControlPoint:a2 ofSpline:v10];
       v5 = (v5 + 1);
       result = [*(a1 + 48) numControlPointsPerSpline];
     }
@@ -212,7 +210,7 @@ id sub_35E0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_39C0()
+uint64_t sub_39C0(uint64_t a1)
 {
 
   return objc_opt_class();
@@ -230,42 +228,39 @@ void sub_50F0(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4)
   v8 = *(*(a1 + 32) + 272) + 320 * a2;
   v9 = *(v8 + 240);
   v10 = *(v8 + 280);
-  v11 = *(v8 + 288);
-  v21 = v11;
-  v22 = *(v8 + 256);
-  v12 = *(v8 + 304);
-  v13 = *(v8 + 308);
+  v18 = *(v8 + 288);
+  v19 = *(v8 + 256);
+  v11 = *(v8 + 304);
+  v12 = *(v8 + 308);
   [*(a1 + 32) processSpline:a2];
-  v23 = 0;
-  v24 = 0;
-  [v9 getControlPoints:&v24 processedPoints:&v23];
+  v20 = 0;
+  v21 = 0;
+  [v9 getControlPoints:&v21 processedPoints:&v20];
   if (*(a1 + 44) >= 1)
   {
-    v14 = 0;
-    v16 = v23;
-    v15 = v24;
+    v13 = 0;
+    v15 = v20;
+    v14 = v21;
     do
     {
-      *&v17 = *(v15 + 8 * v14);
-      *(&v17 + 1) = *(v16 + 8 * v14);
-      *(a4 + 16 * v14++) = v17;
+      *&v16 = *(v14 + 8 * v13);
+      *(&v16 + 1) = *(v15 + 8 * v13);
+      *(a4 + 16 * v13++) = v16;
     }
 
-    while (v14 < *(a1 + 44));
+    while (v13 < *(a1 + 44));
   }
 
-  v18 = *(a1 + 72);
-  v19 = *(*(a1 + 32) + 288);
   CLKInterpolateBetweenFloatsClipped();
-  *&v20 = v20;
-  a3->i32[1] = LODWORD(v20);
-  a3[2] = vmlaq_n_f32(v22, vsubq_f32(v21, v22), *(a1 + 92));
+  *&v17 = v17;
+  a3->i32[1] = LODWORD(v17);
+  a3[2] = vmlaq_n_f32(v19, vsubq_f32(v18, v19), *(a1 + 92));
   a3->i32[0] = *(a1 + 96);
   if (fabsf(*(*(a1 + 32) + 288)) < 0.00000011921)
   {
-    if (v13 < 1)
+    if (v12 < 1)
     {
-      a3->f32[1] = v10 * v12;
+      a3->f32[1] = v10 * v11;
     }
 
     else
@@ -465,17 +460,14 @@ void sub_8D74(id a1)
 
 void sub_9BF8(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 44);
-  v5 = *(a1 + 32);
-  v6 = a3;
+  v3 = a3;
   CLKInterpolateBetweenFloatsClipped();
-  [v6 setAlpha:?];
+  [v3 setAlpha:?];
 }
 
-void sub_A0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_A0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -613,10 +605,11 @@ float computeMaxPeriod(int a1, float a2, float a3)
   return sqrt(v4 * v4 + -1.0) / v3;
 }
 
-void sub_E9A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_E9A4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_EAD0(id a1)
@@ -843,63 +836,59 @@ void sub_11D74(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4)
 {
   v8 = *(*(a1 + 32) + 176) + 704 * a2;
   v9 = *(v8 + 640);
-  v32 = *(v8 + 672);
-  v33 = *(v8 + 656);
-  v10 = *(v8 + 692);
-  v11 = *(v8 + 696);
+  v28 = *(v8 + 672);
+  v29 = *(v8 + 656);
   [*(a1 + 32) processSpline:a2];
-  v34 = 0;
-  v35 = 0;
-  [v9 getControlPoints:&v35 processedPoints:&v34];
+  v30 = 0;
+  v31 = 0;
+  [v9 getControlPoints:&v31 processedPoints:&v30];
   if (*(a1 + 44) >= 1)
   {
-    v12 = 0;
-    v14 = v34;
-    v13 = v35;
+    v10 = 0;
+    v12 = v30;
+    v11 = v31;
     do
     {
-      *&v15 = *(v13 + 8 * v12);
-      *(&v15 + 1) = *(v14 + 8 * v12);
-      *(a4 + 16 * v12++) = v15;
+      *&v13 = *(v11 + 8 * v10);
+      *(&v13 + 1) = *(v12 + 8 * v10);
+      *(a4 + 16 * v10++) = v13;
     }
 
-    while (v12 < *(a1 + 44));
+    while (v10 < *(a1 + 44));
   }
 
   [*(a1 + 32) currentSplineWidth];
-  v17 = v16;
-  a3->f32[1] = v16;
-  v18 = *(*(a1 + 32) + 184);
+  v15 = *&v14;
+  a3->f32[1] = *&v14;
   CLKInterpolateBetweenFloatsClipped();
-  *&v19 = v17 * 0.5 / v19;
-  a3[3].i32[1] = LODWORD(v19);
+  *&v16 = v15 * 0.5 / v16;
+  a3[3].i32[1] = LODWORD(v16);
   [*(a1 + 32) splineColorTransitionFraction];
-  *&v20 = v20;
-  a3[2] = vmlaq_n_f32(v33, vsubq_f32(v32, v33), *&v20);
-  v21 = (*(a1 + 40) - 1);
+  *&v17 = v17;
+  a3[2] = vmlaq_n_f32(v29, vsubq_f32(v28, v29), *&v17);
   CLKInterpolateBetweenFloatsClipped();
-  v23 = v22;
-  v24 = *(a1 + 32);
-  v25 = v24[47];
-  [v24 fadeMultiplier];
-  v27 = v23;
-  v28 = fminf((v25 - v27) + (v25 - v27), 1.0);
-  if (v28 < 0.0)
+  v19 = v18;
+  v20 = *(a1 + 32);
+  v21 = v20[47];
+  [v20 fadeMultiplier];
+  v23 = v19;
+  v24 = fminf((v21 - v23) + (v21 - v23), 1.0);
+  if (v24 < 0.0)
   {
-    v28 = 0.0;
+    v24 = 0.0;
   }
 
-  v29 = pow(*(*(a1 + 32) + 188) * 0.8 + 0.2, 6.0) * (v26 * v28);
-  a3->f32[0] = v29;
-  v30 = *(*(a1 + 32) + 188) * 0.15 + 0.85;
-  v31 = *(a1 + 48);
-  a3->f32[2] = v30;
-  a3->i32[3] = v31;
+  v25 = pow(*(*(a1 + 32) + 188) * 0.8 + 0.2, 6.0) * (v22 * v24);
+  a3->f32[0] = v25;
+  v26 = *(*(a1 + 32) + 188) * 0.15 + 0.85;
+  v27 = *(a1 + 48);
+  a3->f32[2] = v26;
+  a3->i32[3] = v27;
   a3[3].i16[0] = a2;
   a3[1].i32[0] = *(a1 + 64);
   if (*(a1 + 40) - 2 == a2)
   {
-    *(*(a1 + 32) + 236) = v29;
+    *(*(a1 + 32) + 236) = v25;
   }
 }
 
@@ -981,9 +970,9 @@ id sub_12CD0(uint64_t a1)
   return [v2 _updateComplicationColors];
 }
 
-void sub_12FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_12FC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1031,28 +1020,28 @@ void sub_15294(void *a1)
 {
   v1 = [a1 description];
   sub_E9C4();
-  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave render pipeline with error: %@", v4, v5, v6, v7, v8);
+  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave render pipeline with error: %@", v4, v5, v6, v7);
 }
 
 void sub_15318(void *a1)
 {
   v1 = [a1 description];
   sub_E9C4();
-  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave circles pipeline with error: %@", v4, v5, v6, v7, v8);
+  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave circles pipeline with error: %@", v4, v5, v6, v7);
 }
 
 void sub_1539C(void *a1)
 {
   v1 = [a1 description];
   sub_E9C4();
-  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave intersections pipeline with error: %@", v4, v5, v6, v7, v8);
+  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave intersections pipeline with error: %@", v4, v5, v6, v7);
 }
 
 void sub_15420(void *a1)
 {
   v1 = [a1 description];
   sub_E9C4();
-  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave sort pipeline with error: %@", v4, v5, v6, v7, v8);
+  sub_E9A4(&dword_0, v2, v3, "Failed to create pride weave sort pipeline with error: %@", v4, v5, v6, v7);
 }
 
 __float2 __sincosf_stret(float a1)

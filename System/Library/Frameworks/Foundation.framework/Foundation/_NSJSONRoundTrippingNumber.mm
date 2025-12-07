@@ -85,9 +85,8 @@
   }
 
   representation = self->_representation;
-  v7 = *(number + 2);
 
-  return [(NSString *)representation isEqualToString:v7];
+  return objc_msgSend_isEqualToString_(representation);
 }
 
 - (_NSJSONRoundTrippingNumber)initWithCoder:(id)coder

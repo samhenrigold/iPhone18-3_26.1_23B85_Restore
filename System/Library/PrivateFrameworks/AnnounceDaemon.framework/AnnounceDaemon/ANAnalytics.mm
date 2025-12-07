@@ -101,7 +101,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     v24 = assistant2;
     if (assistant2)
     {
-      [assistant2 senderDataForAnnouncement:sentCopy];
+      objc_msgSend_senderDataForAnnouncement_(assistant2);
     }
 
     else
@@ -176,7 +176,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     v17 = assistant2;
     if (assistant2)
     {
-      [assistant2 senderDataForAnnouncement:receivedCopy];
+      objc_msgSend_senderDataForAnnouncement_(assistant2);
     }
 
     else
@@ -282,7 +282,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     v21 = assistant2;
     if (assistant2)
     {
-      [assistant2 senderDataForAnnouncement:playedCopy];
+      objc_msgSend_senderDataForAnnouncement_(assistant2);
     }
 
     else
@@ -345,7 +345,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     v17 = assistant2;
     if (assistant2)
     {
-      [assistant2 senderDataForAnnouncement:playingCopy];
+      objc_msgSend_senderDataForAnnouncement_(assistant2);
     }
 
     else
@@ -389,7 +389,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
 
 - (void)announcementsExpired:(id)expired ofGroupCount:(int64_t)count context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   expiredCopy = expired;
   contextCopy = context;
   if (expiredCopy && [expiredCopy count])
@@ -397,38 +397,38 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     assistant = [(ANAnalytics *)self assistant];
     v11 = [assistant boundGroupCount:count];
 
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v28 = expiredCopy;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v27 = expiredCopy;
     obj = expiredCopy;
-    v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v32;
+      v14 = *v31;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v32 != v14)
+          if (*v31 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * i);
-          v30 = 0u;
+          v16 = *(*(&v30 + 1) + 8 * i);
+          v29 = 0u;
           assistant2 = [(ANAnalytics *)self assistant];
           v18 = assistant2;
           if (assistant2)
           {
-            [assistant2 senderDataForAnnouncement:v16];
+            objc_msgSend_senderDataForAnnouncement_(assistant2);
           }
 
           else
           {
-            v30 = 0u;
+            v29 = 0u;
           }
 
           v19 = objc_opt_new();
@@ -441,7 +441,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
           v22 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
           [v19 setObject:v22 forKeyedSubscript:@"groupCount"];
 
-          v23 = [MEMORY[0x277CCABB0] numberWithInteger:*(&v30 + 1)];
+          v23 = [MEMORY[0x277CCABB0] numberWithInteger:*(&v29 + 1)];
           [v19 setObject:v23 forKeyedSubscript:@"source"];
 
           analyticsPayload = [contextCopy analyticsPayload];
@@ -452,16 +452,14 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
           [system send:@"announcementExpiration" withPayload:v26];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v13 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v13);
     }
 
-    expiredCopy = v28;
+    expiredCopy = v27;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)announcementEntryAgeLimit:(id)limit timeExceeded:(double)exceeded context:(id)context
@@ -475,7 +473,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
     v11 = assistant;
     if (assistant)
     {
-      [assistant senderDataForAnnouncement:limitCopy];
+      objc_msgSend_senderDataForAnnouncement_(assistant);
     }
 
     else
@@ -541,7 +539,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
           v22 = assistant2;
           if (assistant2)
           {
-            [assistant2 senderDataForAnnouncement:v18];
+            objc_msgSend_senderDataForAnnouncement_(assistant2);
           }
 
           else
@@ -642,7 +640,7 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
 
 - (void)dailyReportComplete
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (ANLogHandleAnalytics_once != -1)
   {
     [ANAnalytics dailyReportComplete];
@@ -651,12 +649,10 @@ void __21__ANAnalytics_shared__block_invoke(uint64_t a1)
   v2 = ANLogHandleAnalytics_logger;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 138412290;
-    v5 = &stru_2851BDB18;
-    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily completed daily report.", &v4, 0xCu);
+    v3 = 138412290;
+    v4 = &stru_2851BDB18;
+    _os_log_impl(&dword_23F525000, v2, OS_LOG_TYPE_DEFAULT, "%@AnalyticsDaily completed daily report.", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -13,39 +13,34 @@
 
 - (NSString)serviceName
 {
-  v2 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_serviceName);
-  v3 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_serviceName + 8);
 
-  v4 = sub_1B7CFEA30();
+  v2 = sub_1B7CFEA30();
 
-  return v4;
+  return v2;
 }
 
 - (void)setServiceName:(id)name
 {
   v4 = sub_1B7CFEA60();
   v5 = (self + OBJC_IVAR___IMDSyncChatSliceRecord_serviceName);
-  v6 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_serviceName + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (NSString)ckRecordID
 {
   if (*(self + OBJC_IVAR___IMDSyncChatSliceRecord_ckRecordID + 8))
   {
-    v2 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_ckRecordID);
-    v3 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_ckRecordID + 8);
 
-    v4 = sub_1B7CFEA30();
+    v2 = sub_1B7CFEA30();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setCkRecordID:(id)d
@@ -62,7 +57,6 @@
   }
 
   v6 = (self + OBJC_IVAR___IMDSyncChatSliceRecord_ckRecordID);
-  v7 = *(self + OBJC_IVAR___IMDSyncChatSliceRecord_ckRecordID + 8);
   *v6 = v4;
   v6[1] = v5;
 }

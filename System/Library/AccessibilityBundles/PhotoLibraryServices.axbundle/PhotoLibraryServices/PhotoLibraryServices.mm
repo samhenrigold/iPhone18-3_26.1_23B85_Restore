@@ -2,21 +2,8 @@ id accessibilityCameraUILocalizedString(void *a1)
 {
   v1 = a1;
   v2 = accessibilityCameraUILocalizedString_axBundle;
-  if (accessibilityCameraUILocalizedString_axBundle)
+  if (accessibilityCameraUILocalizedString_axBundle || (v3 = MEMORY[0x29EDB9F48], v4 = _AXSCopyPathForAccessibilityBundle(), [v3 bundleWithPath:v4], v5 = objc_claimAutoreleasedReturnValue(), v6 = accessibilityCameraUILocalizedString_axBundle, accessibilityCameraUILocalizedString_axBundle = v5, v6, v4, (v2 = accessibilityCameraUILocalizedString_axBundle) != 0))
   {
-    goto LABEL_3;
-  }
-
-  v3 = MEMORY[0x29EDB9F48];
-  v4 = _AXSCopyPathForAccessibilityBundle();
-  v5 = [v3 bundleWithPath:v4];
-  v6 = accessibilityCameraUILocalizedString_axBundle;
-  accessibilityCameraUILocalizedString_axBundle = v5;
-
-  v2 = accessibilityCameraUILocalizedString_axBundle;
-  if (accessibilityCameraUILocalizedString_axBundle)
-  {
-LABEL_3:
     v7 = [v2 localizedStringForKey:v1 value:&stru_2A227D818 table:@"CameraUI"];
   }
 

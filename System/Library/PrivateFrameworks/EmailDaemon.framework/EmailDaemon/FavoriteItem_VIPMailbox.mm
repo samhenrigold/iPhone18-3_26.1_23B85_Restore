@@ -68,31 +68,13 @@
   v16.receiver = self;
   v16.super_class = FavoriteItem_VIPMailbox;
   v5 = [(FavoriteItem *)&v16 initWithDictionary:dictionaryCopy];
-  if (!v5)
-  {
-    goto LABEL_3;
-  }
-
-  v6 = +[MFMailMessageLibrary defaultInstance];
-  persistence = [v6 persistence];
-  vipManager = [persistence vipManager];
-
-  v9 = [dictionaryCopy objectForKey:@"VIPIdentifier"];
-  stringValue = [v9 stringValue];
-
-  v11 = [vipManager vipWithIdentifier:stringValue];
-  VIP = v5->_VIP;
-  v5->_VIP = v11;
-
-  v13 = v5->_VIP;
-  if (!v13)
+  if (v5 && (+[MFMailMessageLibrary defaultInstance](MFMailMessageLibrary, "defaultInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 persistence], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "vipManager"), v8 = objc_claimAutoreleasedReturnValue(), v7, v6, objc_msgSend(dictionaryCopy, "objectForKey:", @"VIPIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "stringValue"), v10 = objc_claimAutoreleasedReturnValue(), v9, objc_msgSend(v8, "vipWithIdentifier:", v10), v11 = objc_claimAutoreleasedReturnValue(), VIP = v5->_VIP, v5->_VIP = v11, VIP, v13 = v5->_VIP, v10, v8, !v13))
   {
     v14 = 0;
   }
 
   else
   {
-LABEL_3:
     v14 = v5;
   }
 

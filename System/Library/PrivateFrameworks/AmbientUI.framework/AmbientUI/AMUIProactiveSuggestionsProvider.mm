@@ -47,27 +47,27 @@
 
 - (id)suggestionForStackIdentifier:(id)identifier amongSuggestions:(id)suggestions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   suggestionsCopy = suggestions;
-  v7 = [suggestionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [suggestionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(suggestionsCopy);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         stackIdentifier = [v10 stackIdentifier];
         v12 = [stackIdentifier isEqualToString:identifierCopy];
 
@@ -78,7 +78,7 @@
         }
       }
 
-      v7 = [suggestionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [suggestionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -90,16 +90,14 @@
 
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)processUpdatedPredictions:(id)predictions
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   predictionsCopy = predictions;
-  v4 = AMUILogProactive();
+  v4 = AMUILogProactive(predictionsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -108,90 +106,88 @@ LABEL_11:
 
   currentPredictions = [(AMUIProactiveSuggestionsProvider *)self currentPredictions];
   [(AMUIProactiveSuggestionsProvider *)self setCurrentPredictions:predictionsCopy];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = [(SBIconListModel *)self->_iconListModel iconsOfClass:objc_opt_class()];
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v30;
+    v8 = *v29;
     *&v6 = 138412546;
-    v19 = v6;
+    v18 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v29 + 1) + 8 * i);
+        v10 = *(*(&v28 + 1) + 8 * i);
         uniqueIdentifier = [v10 uniqueIdentifier];
         v12 = [(AMUIProactiveSuggestionsProvider *)self suggestionForStackIdentifier:uniqueIdentifier amongSuggestions:predictionsCopy];
         v13 = [(AMUIProactiveSuggestionsProvider *)self suggestionForStackIdentifier:uniqueIdentifier amongSuggestions:currentPredictions];
-        v14 = AMUILogProactive();
+        v14 = AMUILogProactive(v13);
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v19;
-          v34 = v12;
-          v35 = 2112;
-          v36 = uniqueIdentifier;
+          *buf = v18;
+          v33 = v12;
+          v34 = 2112;
+          v35 = uniqueIdentifier;
           _os_log_impl(&dword_23F38B000, v14, OS_LOG_TYPE_DEFAULT, "Suggestion %@ for stack with identifier: %@", buf, 0x16u);
         }
 
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke;
-        v23[3] = &unk_278C76040;
-        v24 = v12;
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke;
+        v22[3] = &unk_278C76040;
+        v23 = v12;
         selfCopy = self;
-        v26 = v10;
-        v27 = uniqueIdentifier;
-        v28 = v13;
+        v25 = v10;
+        v26 = uniqueIdentifier;
+        v27 = v13;
         v15 = v13;
         v16 = uniqueIdentifier;
         v17 = v12;
-        [v10 performCoalescedDataSourceUpdate:v23];
+        [v10 performCoalescedDataSourceUpdate:v22];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v7 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
-  v37 = objc_opt_new();
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
+  v55 = *MEMORY[0x277D85DE8];
+  v41 = objc_opt_new();
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   obj = [*(a1 + 32) suggestedWidgets];
-  v39 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
-  if (v39)
+  v43 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+  if (v43)
   {
-    v38 = *v43;
+    v42 = *v47;
     *&v2 = 138412290;
-    v35 = v2;
+    v39 = v2;
     do
     {
-      for (i = 0; i != v39; ++i)
+      for (i = 0; i != v43; ++i)
       {
-        if (*v43 != v38)
+        if (*v47 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v42 + 1) + 8 * i);
+        v4 = *(*(&v46 + 1) + 8 * i);
         v5 = *(a1 + 40);
         v6 = *(a1 + 48);
         v7 = [v4 identifier];
@@ -203,126 +199,129 @@ void __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_in
 
         if (v12)
         {
-          v13 = AMUILogProactive();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          v14 = AMUILogProactive(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v35;
-            v47 = v12;
-            _os_log_impl(&dword_23F38B000, v13, OS_LOG_TYPE_DEFAULT, "Skipping adding data source because the suggested widget %@ is already suggested in stack", buf, 0xCu);
+            *buf = v39;
+            v51 = v12;
+            _os_log_impl(&dword_23F38B000, v14, OS_LOG_TYPE_DEFAULT, "Skipping adding data source because the suggested widget %@ is already suggested in stack", buf, 0xCu);
           }
 
-          [v37 addObject:v12];
+          [v41 addObject:v12];
         }
 
         else
         {
-          v14 = [*(a1 + 40) _makeDataSourceForAtxWidget:v4];
-          if (v14)
+          v15 = [*(a1 + 40) _makeDataSourceForAtxWidget:v4];
+          v16 = v15;
+          if (v15)
           {
-            v15 = AMUILogProactive();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v17 = AMUILogProactive(v15);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v35;
-              v47 = v14;
-              _os_log_impl(&dword_23F38B000, v15, OS_LOG_TYPE_DEFAULT, "Adding new suggested widget data source %@", buf, 0xCu);
+              *buf = v39;
+              v51 = v16;
+              _os_log_impl(&dword_23F38B000, v17, OS_LOG_TYPE_DEFAULT, "Adding new suggested widget data source %@", buf, 0xCu);
             }
 
-            v16 = [*(a1 + 40) delegate];
-            v17 = *(a1 + 40);
-            v18 = [v4 chsWidget];
-            v19 = [v18 intent];
-            v20 = *(a1 + 56);
-            v21 = [v4 identifier];
-            [v16 proactiveSuggestionsProvider:v17 willUseIntent:v19 forIconWithIdentifier:v20 widgetUniqueIdentifier:v21];
+            v18 = [*(a1 + 40) delegate];
+            v19 = *(a1 + 40);
+            v20 = [v4 chsWidget];
+            v21 = [v20 intent];
+            v22 = *(a1 + 56);
+            v23 = [v4 identifier];
+            [v18 proactiveSuggestionsProvider:v19 willUseIntent:v21 forIconWithIdentifier:v22 widgetUniqueIdentifier:v23];
 
-            v22 = [*(a1 + 48) allowsSuggestions];
-            v23 = *(a1 + 48);
-            if (v22)
+            v24 = [*(a1 + 48) allowsSuggestions];
+            v25 = *(a1 + 48);
+            if (v24)
             {
-              [v23 addIconDataSource:v14];
+              [v25 addIconDataSource:v16];
             }
 
             else
             {
-              v24 = [v23 activeDataSource];
-              [*(a1 + 48) insertIconDataSource:v14 beforeIconDataSource:v24];
+              v26 = [v25 activeDataSource];
+              [*(a1 + 48) insertIconDataSource:v16 beforeIconDataSource:v26];
             }
 
-            [v37 addObject:v14];
+            [v41 addObject:v16];
           }
         }
       }
 
-      v39 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v43 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
-    while (v39);
+    while (v43);
   }
 
-  v25 = *(a1 + 48);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_15;
-  v40[3] = &unk_278C76018;
-  v26 = v37;
-  v41 = v26;
-  [v25 removeIconDataSourcesPassingTest:v40];
-  if ([*(*(a1 + 40) + 24) isShowingModalInteraction])
+  v27 = *(a1 + 48);
+  v44[0] = MEMORY[0x277D85DD0];
+  v44[1] = 3221225472;
+  v44[2] = __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_15;
+  v44[3] = &unk_278C76018;
+  v28 = v41;
+  v45 = v28;
+  [v27 removeIconDataSourcesPassingTest:v44];
+  v29 = [*(*(a1 + 40) + 24) isShowingModalInteraction];
+  if (v29)
   {
-    v27 = AMUILogProactive();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v30 = AMUILogProactive(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_cold_2(v27);
+      __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_cold_2(v30);
     }
   }
 
   else
   {
-    v28 = [*(a1 + 32) topWidgetIdentifier];
+    v31 = [*(a1 + 32) topWidgetIdentifier];
 
-    if (v28)
+    if (v31)
     {
-      v27 = [*(a1 + 32) topWidgetIdentifier];
-      v29 = [*(a1 + 64) topWidgetIdentifier];
-      if ([v27 isEqual:v29])
+      v30 = [*(a1 + 32) topWidgetIdentifier];
+      v33 = [*(a1 + 64) topWidgetIdentifier];
+      v34 = [v30 isEqual:v33];
+      if (v34)
       {
-        v30 = AMUILogProactive();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v35 = AMUILogProactive(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v47 = v29;
-          v48 = 2112;
-          v49 = v27;
-          _os_log_impl(&dword_23F38B000, v30, OS_LOG_TYPE_DEFAULT, "Skipping active data source update because the old top widget (%@) we had was the same as the new one (%@)", buf, 0x16u);
+          v51 = v33;
+          v52 = 2112;
+          v53 = v30;
+          _os_log_impl(&dword_23F38B000, v35, OS_LOG_TYPE_DEFAULT, "Skipping active data source update because the old top widget (%@) we had was the same as the new one (%@)", buf, 0x16u);
         }
       }
 
       else
       {
-        v30 = [*(a1 + 48) firstIconDataSourceWithUniqueIdentifier:v27];
-        v31 = AMUILogProactive();
-        v32 = v31;
-        if (v30)
+        v35 = [*(a1 + 48) firstIconDataSourceWithUniqueIdentifier:v30];
+        v36 = AMUILogProactive(v35);
+        v37 = v36;
+        if (v35)
         {
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
-            v33 = [*(a1 + 48) activeDataSource];
+            v38 = [*(a1 + 48) activeDataSource];
             *buf = 138412546;
-            v47 = v30;
-            v48 = 2112;
-            v49 = v33;
-            _os_log_impl(&dword_23F38B000, v32, OS_LOG_TYPE_DEFAULT, "Setting active data source to widget %@ (previously: %@)", buf, 0x16u);
+            v51 = v35;
+            v52 = 2112;
+            v53 = v38;
+            _os_log_impl(&dword_23F38B000, v37, OS_LOG_TYPE_DEFAULT, "Setting active data source to widget %@ (previously: %@)", buf, 0x16u);
           }
 
           [*(a1 + 48) setStackChangeReason:2];
-          [*(a1 + 48) setActiveDataSource:v30];
+          [*(a1 + 48) setActiveDataSource:v35];
         }
 
         else
         {
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_cold_1(v27, v32);
+            __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_cold_1(v30, v37);
           }
         }
       }
@@ -330,16 +329,14 @@ void __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_in
 
     else
     {
-      v27 = AMUILogProactive();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v30 = AMUILogProactive(v32);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_23F38B000, v27, OS_LOG_TYPE_DEFAULT, "Skipping active data source update because suggested top widget is nil", buf, 2u);
+        _os_log_impl(&dword_23F38B000, v30, OS_LOG_TYPE_DEFAULT, "Skipping active data source update because suggested top widget is nil", buf, 2u);
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_15(uint64_t a1, void *a2)
@@ -347,9 +344,9 @@ uint64_t __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___bloc
   v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v3 suggestionSource] == 1 && (objc_msgSend(*(a1 + 32), "containsObject:", v3) & 1) == 0)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v3 suggestionSource] == 1 && (v4 = objc_msgSend(*(a1 + 32), "containsObject:", v3), (v4 & 1) == 0))
   {
-    v7 = AMUILogProactive();
+    v7 = AMUILogProactive(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
@@ -357,16 +354,15 @@ uint64_t __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___bloc
       _os_log_impl(&dword_23F38B000, v7, OS_LOG_TYPE_DEFAULT, "Removing suggested widget data source %@ because it's no longer suggested", &v8, 0xCu);
     }
 
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 - (id)_iconDataSourceInIcon:(id)icon withUniqueIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier widgetKind:(id)kind suggestionSource:(int64_t)source
@@ -459,11 +455,10 @@ uint64_t __133__AMUIProactiveSuggestionsProvider__iconDataSourceInIcon_withUniqu
 
 void __62__AMUIProactiveSuggestionsProvider_processUpdatedPredictions___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Suggested top widget not found in stack for widget identifier: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23F38B000, a2, OS_LOG_TYPE_ERROR, "Suggested top widget not found in stack for widget identifier: %@", &v2, 0xCu);
 }
 
 @end

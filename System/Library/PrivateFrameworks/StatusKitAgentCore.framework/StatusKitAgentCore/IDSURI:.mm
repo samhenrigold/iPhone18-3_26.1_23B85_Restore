@@ -9,7 +9,7 @@
   __swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
   if (a2)
   {
-    v3 = a2;
+    v4 = a2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySDySo6IDSURICSo28IDSPayloadVerificationResultCGs5Error_pGMd, &_sScCySDySo6IDSURICSo28IDSPayloadVerificationResultCGs5Error_pGMR);
     CheckedContinuation.resume(throwing:)();
   }

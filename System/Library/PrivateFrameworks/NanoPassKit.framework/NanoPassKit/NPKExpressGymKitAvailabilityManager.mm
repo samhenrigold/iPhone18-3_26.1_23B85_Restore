@@ -39,33 +39,31 @@ void __56__NPKExpressGymKitAvailabilityManager_initWithDelegate___block_invoke(u
   v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained isExpressGymKitAllowed];
-  v3 = pk_General_log();
+  v3 = pk_General_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_General_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_General_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [WeakRetained delegate];
-      v7 = objc_opt_class();
-      v8 = [WeakRetained delegate];
+      v7 = [WeakRetained delegate];
+      v8 = objc_opt_class();
+      v9 = [WeakRetained delegate];
       v11 = 138413058;
       v12 = WeakRetained;
       v13 = 1024;
       v14 = v2;
       v15 = 2112;
-      v16 = v7;
+      v16 = v8;
       v17 = 2048;
-      v18 = v8;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: %@ handling com.apple.nanopasskit.expressGymKitAvailable.didChange notification isAllowed:%d delegate:<%@:%p>", &v11, 0x26u);
+      v18 = v9;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: %@ handling com.apple.nanopasskit.expressGymKitAvailable.didChange notification isAllowed:%d delegate:<%@:%p>", &v11, 0x26u);
     }
   }
 
-  v9 = [WeakRetained delegate];
-  [v9 expressGymKitAvailabilityManager:WeakRetained didChangeIsExpressGymKitAllowed:v2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = [WeakRetained delegate];
+  [v10 expressGymKitAvailabilityManager:WeakRetained didChangeIsExpressGymKitAllowed:v2];
 }
 
 - (void)dealloc
@@ -82,90 +80,87 @@ void __56__NPKExpressGymKitAvailabilityManager_initWithDelegate___block_invoke(u
 
 - (void)allowEnableExpressGymKitWithVisibleViewController:(id)controller completion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   completionCopy = completion;
-  v7 = pk_General_log();
+  v7 = pk_General_log(completionCopy);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_General_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_General_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = controllerCopy;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: requested allow enable express GymKit with view controller:%@", buf, 0xCu);
+      v23 = controllerCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: requested allow enable express GymKit with view controller:%@", buf, 0xCu);
     }
   }
 
-  v10 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/NanoPreferenceBundles/Applications/NanoPassbookBridgeSettings.bundle"];
-  isLoaded = [v10 isLoaded];
-  v12 = pk_General_log();
-  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  v11 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/NanoPreferenceBundles/Applications/NanoPassbookBridgeSettings.bundle"];
+  isLoaded = [v11 isLoaded];
+  v13 = isLoaded;
+  v14 = pk_General_log(isLoaded);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v13)
+  if (v15)
   {
-    v14 = pk_General_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_General_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = v10;
-      v22 = 1024;
-      v23 = isLoaded;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: Found settings bundle:%@ loaded:%d", buf, 0x12u);
+      v23 = v11;
+      v24 = 1024;
+      v25 = v13;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: Found settings bundle:%@ loaded:%d", buf, 0x12u);
     }
   }
 
-  if ((isLoaded & 1) == 0)
+  if ((v13 & 1) == 0)
   {
-    [v10 load];
+    [v11 load];
   }
 
-  v15 = [v10 classNamed:@"NPKPassbookBridgeSettingsController"];
-  if ([(objc_class *)v15 conformsToProtocol:&unk_286CE97F8])
+  v18 = [v11 classNamed:@"NPKPassbookBridgeSettingsController"];
+  if ([(objc_class *)v18 conformsToProtocol:&unk_286CE97F8])
   {
-    v16 = objc_alloc_init(v15);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __100__NPKExpressGymKitAvailabilityManager_allowEnableExpressGymKitWithVisibleViewController_completion___block_invoke;
-    v18[3] = &unk_279944F48;
-    v19 = completionCopy;
-    [v16 allowEnableExpressGymKitWithVisibleViewController:controllerCopy completion:v18];
+    v19 = objc_alloc_init(v18);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __100__NPKExpressGymKitAvailabilityManager_allowEnableExpressGymKitWithVisibleViewController_completion___block_invoke;
+    v20[3] = &unk_279944F48;
+    v21 = completionCopy;
+    [v19 allowEnableExpressGymKitWithVisibleViewController:controllerCopy completion:v20];
   }
 
   else
   {
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"NPKExpressGymKitAvailabilityManagerErrorDomain" code:1 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v16);
+    v19 = [MEMORY[0x277CCA9B8] errorWithDomain:@"NPKExpressGymKitAvailabilityManagerErrorDomain" code:1 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v19);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __100__NPKExpressGymKitAvailabilityManager_allowEnableExpressGymKitWithVisibleViewController_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v6 = pk_General_log();
+  v6 = pk_General_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10[0] = 67109378;
       v10[1] = a2;
       v11 = 2112;
       v12 = v5;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: did allowed enable express GymKit:%d error:%@", v10, 0x12u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: NPKExpressGymKitAvailabilityManager: did allowed enable express GymKit:%d error:%@", v10, 0x12u);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NPKExpressGymKitAvailabilityManagerDelegate)delegate

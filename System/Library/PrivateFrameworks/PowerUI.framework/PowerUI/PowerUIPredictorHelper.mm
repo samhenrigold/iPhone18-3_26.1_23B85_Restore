@@ -41,7 +41,7 @@
 
 + (id)events:(id)events forHourBin:(unint64_t)bin date:(id)date withMaxDuration:(double)duration
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   v11 = MEMORY[0x277CBEA80];
   dateCopy = date;
@@ -49,32 +49,32 @@
   timeZone = [currentCalendar timeZone];
   v15 = [dateCopy dateByAddingTimeInterval:{objc_msgSend(timeZone, "secondsFromGMT")}];
 
-  v35 = v15;
-  v36 = currentCalendar;
-  v34 = [currentCalendar components:32 fromDate:v15];
-  hour = [v34 hour];
+  v34 = v15;
+  v35 = currentCalendar;
+  v33 = [currentCalendar components:32 fromDate:v15];
+  hour = [v33 hour];
   array = [MEMORY[0x277CBEB18] array];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v18 = eventsCopy;
-  v19 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v19)
   {
     v20 = v19;
     v21 = hour / bin;
-    v22 = *v38;
+    v22 = *v37;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v38 != v22)
+        if (*v37 != v22)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v37 + 1) + 8 * i);
+        v24 = *(*(&v36 + 1) + 8 * i);
         startDate = [v24 startDate];
         [self getHourBinID:startDate forHourBin:bin];
         if (v21 == v26)
@@ -103,48 +103,46 @@
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v20);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (id)filterEvents:(id)events startOnSameWeekdayAs:(id)as
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   asCopy = as;
   array = [MEMORY[0x277CBEB18] array];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v22 = asCopy;
-  v21 = [currentCalendar components:512 fromDate:asCopy];
-  weekday = [v21 weekday];
+  v21 = asCopy;
+  v20 = [currentCalendar components:512 fromDate:asCopy];
+  weekday = [v20 weekday];
   context = objc_autoreleasePoolPush();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v10 = eventsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         startDate = [v15 startDate];
         v17 = [currentCalendar components:512 fromDate:startDate];
 
@@ -154,43 +152,42 @@
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v12);
   }
 
   objc_autoreleasePoolPop(context);
-  v18 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (id)getDurationsFromEvents:(id)events withUnit:(double)unit cappedAt:(double)at
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = eventsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v20 + 1) + 8 * i) duration];
+        [*(*(&v19 + 1) + 8 * i) duration];
         v15 = v14 / unit;
         if (v15 >= at)
         {
@@ -211,48 +208,46 @@
         [array addObject:v17];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (double)meanOf:(id)of
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   if ([ofCopy count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v4 = ofCopy;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       v8 = 0.0;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v14 + 1) + 8 * i) doubleValue];
+          [*(*(&v13 + 1) + 8 * i) doubleValue];
           v8 = v8 + v10;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
@@ -271,44 +266,43 @@
     v11 = 0.0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (double)standardDeviationOf:(id)of
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   ofCopy = of;
   v4 = 0.0;
   if ([ofCopy count] >= 2)
   {
     [PowerUIPredictorHelper meanOf:ofCopy];
     v6 = v5;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v7 = ofCopy;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       v11 = 0.0;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v16 + 1) + 8 * i) doubleValue];
+          [*(*(&v15 + 1) + 8 * i) doubleValue];
           v11 = v11 + (v13 - v6) * (v13 - v6);
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -322,7 +316,6 @@
     v4 = sqrt(v11 / ([v7 count] - 1));
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -438,34 +431,34 @@
 
 + (id)getUsageBucketsForEvents:(id)events forDate:(id)date withLog:(id)log
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   dateCopy = date;
   logCopy = log;
-  memset(v57, 0, sizeof(v57));
+  memset(v56, 0, sizeof(v56));
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   obj = eventsCopy;
-  v47 = [eventsCopy countByEnumeratingWithState:&v50 objects:v56 count:16];
-  if (!v47)
+  v46 = [eventsCopy countByEnumeratingWithState:&v49 objects:v55 count:16];
+  if (!v46)
   {
     goto LABEL_27;
   }
 
-  v9 = *v51;
+  v9 = *v50;
   do
   {
     v10 = 0;
     do
     {
-      if (*v51 != v9)
+      if (*v50 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v50 + 1) + 8 * v10);
+      v11 = *(*(&v49 + 1) + 8 * v10);
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
       startDate = [v11 startDate];
       v14 = [currentCalendar components:112 fromDate:startDate];
@@ -486,7 +479,7 @@
         goto LABEL_22;
       }
 
-      v46 = hour2;
+      v45 = hour2;
       startDate3 = [v11 startDate];
       [dateCopy earlierDate:startDate3];
       v23 = v9;
@@ -497,13 +490,13 @@
       v9 = v23;
       if (!v26)
       {
-        if (hour < v46)
+        if (hour < v45)
         {
-          *(v57 + hour) = sqrt((60 - minute)) + *(v57 + hour);
-          if (hour + 1 < v46)
+          *(v56 + hour) = sqrt((60 - minute)) + *(v56 + hour);
+          if (hour + 1 < v45)
           {
-            v27 = ~hour + v46;
-            v28 = v57 + hour + 1;
+            v27 = ~hour + v45;
+            v28 = v56 + hour + 1;
             do
             {
               *v28 = *v28 + 7.74596669;
@@ -515,29 +508,29 @@
           }
 
 LABEL_21:
-          *(v57 + v46) = sqrt(minute2) + *(v57 + v46);
+          *(v56 + v45) = sqrt(minute2) + *(v56 + v45);
           goto LABEL_22;
         }
 
-        if (hour > v46)
+        if (hour > v45)
         {
-          *(v57 + hour) = sqrt((60 - minute)) + *(v57 + hour);
+          *(v56 + hour) = sqrt((60 - minute)) + *(v56 + hour);
           if (hour <= 22)
           {
             v29 = hour + 1;
             do
             {
-              *(v57 + v29) = *(v57 + v29) + 7.74596669;
+              *(v56 + v29) = *(v56 + v29) + 7.74596669;
               ++v29;
             }
 
             while (v29 != 24);
           }
 
-          if (v46 >= 1)
+          if (v45 >= 1)
           {
-            v30 = v57;
-            v31 = v46;
+            v30 = v56;
+            v31 = v45;
             do
             {
               *v30 = *v30 + 7.74596669;
@@ -553,7 +546,7 @@ LABEL_21:
 
         if (minute2 - minute >= 0)
         {
-          *(v57 + hour) = sqrt((minute2 - minute)) + *(v57 + hour);
+          *(v56 + hour) = sqrt((minute2 - minute)) + *(v56 + hour);
         }
       }
 
@@ -562,9 +555,9 @@ LABEL_22:
       ++v10;
     }
 
-    while (v10 != v47);
-    v32 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
-    v47 = v32;
+    while (v10 != v46);
+    v32 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
+    v46 = v32;
   }
 
   while (v32);
@@ -573,9 +566,9 @@ LABEL_27:
   v34 = 0.0;
   do
   {
-    if (*(v57 + v33) > v34)
+    if (*(v56 + v33) > v34)
     {
-      v34 = *(v57 + v33);
+      v34 = *(v56 + v33);
     }
 
     v33 += 8;
@@ -587,7 +580,7 @@ LABEL_27:
   {
     v36 = [MEMORY[0x277CCABB0] numberWithDouble:v34];
     *buf = 138412290;
-    v55 = v36;
+    v54 = v36;
     _os_log_impl(&dword_21B766000, v35, OS_LOG_TYPE_DEFAULT, "maxValue in buckets = %@", buf, 0xCu);
   }
 
@@ -608,7 +601,7 @@ LABEL_27:
     array = [MEMORY[0x277CBEB18] array];
     for (i = 0; i != 192; i += 8)
     {
-      v41 = [MEMORY[0x277CCABB0] numberWithDouble:*(v57 + i) / v34];
+      v41 = [MEMORY[0x277CCABB0] numberWithDouble:*(v56 + i) / v34];
       [array addObject:v41];
     }
 
@@ -616,8 +609,6 @@ LABEL_27:
 
     dateCopy = v38;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -691,38 +682,38 @@ LABEL_27:
 
 + (double)meanEventDuration:(id)duration
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   durationCopy = duration;
   if ([durationCopy count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = durationCopy;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       v8 = 0.0;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           endDate = [v10 endDate];
           startDate = [v10 startDate];
           [endDate timeIntervalSinceDate:startDate];
           v8 = v8 + v13;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
@@ -741,35 +732,34 @@ LABEL_27:
     v14 = 0.0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (void)quantizeValuesInDataFrame:(id)frame forColumn:(id)column withBinWidth:(id)width
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   columnCopy = column;
   widthCopy = width;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v10 = [frameCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [frameCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(frameCopy);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         v15 = MEMORY[0x277CCABB0];
         v16 = [v14 objectForKeyedSubscript:columnCopy];
         [v16 doubleValue];
@@ -780,13 +770,11 @@ LABEL_27:
         [v14 setObject:v21 forKeyedSubscript:columnCopy];
       }
 
-      v11 = [frameCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [frameCopy countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)convertDateToSeconds:(id)seconds
@@ -803,51 +791,149 @@ LABEL_27:
 
 + (id)convertDateTimeColumnToSeconds:(id)seconds inDataFrame:(id)frame
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   secondsCopy = seconds;
   frameCopy = frame;
   v8 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = frameCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v18 + 1) + 8 * i) objectForKey:{secondsCopy, v18}];
+        v14 = [*(*(&v17 + 1) + 8 * i) objectForKey:{secondsCopy, v17}];
         v15 = [self convertDateToSeconds:v14];
         [v8 addObject:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)filterDataFrame:(id)frame withValue:(double)value forColumn:(id)column
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   columnCopy = column;
   v9 = objc_opt_new();
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v10 = frameCopy;
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v21;
+    do
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v21 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        v15 = *(*(&v20 + 1) + 8 * i);
+        v16 = [v15 objectForKeyedSubscript:{columnCopy, v20}];
+        [v16 doubleValue];
+        v18 = vabdd_f64(v17, value);
+
+        if (v18 <= 0.01)
+        {
+          [v9 addObject:v15];
+        }
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v12);
+  }
+
+  return v9;
+}
+
++ (id)filterDataFrame:(id)frame withValueGreaterThan:(double)than andLessThan:(double)lessThan forColumn:(id)column
+{
+  v29 = *MEMORY[0x277D85DE8];
+  frameCopy = frame;
+  columnCopy = column;
+  v11 = objc_opt_new();
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v12 = frameCopy;
+  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v25;
+    do
+    {
+      for (i = 0; i != v14; ++i)
+      {
+        if (*v25 != v15)
+        {
+          objc_enumerationMutation(v12);
+        }
+
+        v17 = *(*(&v24 + 1) + 8 * i);
+        v18 = [v17 objectForKeyedSubscript:{columnCopy, v24}];
+        [v18 doubleValue];
+        if (v19 >= than)
+        {
+          v20 = [v17 objectForKeyedSubscript:columnCopy];
+          [v20 doubleValue];
+          v22 = v21;
+
+          if (v22 < lessThan)
+          {
+            [v11 addObject:v17];
+          }
+        }
+
+        else
+        {
+        }
+      }
+
+      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v14);
+  }
+
+  return v11;
+}
+
++ (id)filterDataFrame:(id)frame forColumn:(id)column withFilterHandler:(id)handler
+{
+  v26 = *MEMORY[0x277D85DE8];
+  frameCopy = frame;
+  columnCopy = column;
+  handlerCopy = handler;
+  v20 = objc_opt_new();
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
@@ -868,110 +954,6 @@ LABEL_27:
         }
 
         v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = [v15 objectForKeyedSubscript:{columnCopy, v21}];
-        [v16 doubleValue];
-        v18 = vabdd_f64(v17, value);
-
-        if (v18 <= 0.01)
-        {
-          [v9 addObject:v15];
-        }
-      }
-
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    }
-
-    while (v12);
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v9;
-}
-
-+ (id)filterDataFrame:(id)frame withValueGreaterThan:(double)than andLessThan:(double)lessThan forColumn:(id)column
-{
-  v30 = *MEMORY[0x277D85DE8];
-  frameCopy = frame;
-  columnCopy = column;
-  v11 = objc_opt_new();
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v12 = frameCopy;
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v13)
-  {
-    v14 = v13;
-    v15 = *v26;
-    do
-    {
-      for (i = 0; i != v14; ++i)
-      {
-        if (*v26 != v15)
-        {
-          objc_enumerationMutation(v12);
-        }
-
-        v17 = *(*(&v25 + 1) + 8 * i);
-        v18 = [v17 objectForKeyedSubscript:{columnCopy, v25}];
-        [v18 doubleValue];
-        if (v19 >= than)
-        {
-          v20 = [v17 objectForKeyedSubscript:columnCopy];
-          [v20 doubleValue];
-          v22 = v21;
-
-          if (v22 < lessThan)
-          {
-            [v11 addObject:v17];
-          }
-        }
-
-        else
-        {
-        }
-      }
-
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    }
-
-    while (v14);
-  }
-
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v11;
-}
-
-+ (id)filterDataFrame:(id)frame forColumn:(id)column withFilterHandler:(id)handler
-{
-  v27 = *MEMORY[0x277D85DE8];
-  frameCopy = frame;
-  columnCopy = column;
-  handlerCopy = handler;
-  v21 = objc_opt_new();
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v10 = frameCopy;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v23;
-    do
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v23 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = *(*(&v22 + 1) + 8 * i);
         v16 = [v15 objectForKey:columnCopy];
 
         if (v16)
@@ -981,59 +963,55 @@ LABEL_27:
 
           if (v18)
           {
-            [v21 addObject:v15];
+            [v20 addObject:v15];
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v20;
 }
 
 + (id)column:(id)column inDataFrame:(id)frame
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   columnCopy = column;
   frameCopy = frame;
   v7 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = frameCopy;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) objectForKey:{columnCopy, v17}];
+        v13 = [*(*(&v16 + 1) + 8 * i) objectForKey:{columnCopy, v16}];
         v14 = [v13 copy];
         [v7 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

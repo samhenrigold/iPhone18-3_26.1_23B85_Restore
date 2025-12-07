@@ -10,7 +10,7 @@
 
 - (void)handleCommand:(id)command withContext:(id)context taskTracker:(id)tracker completion:(id)completion
 {
-  v59[1] = *MEMORY[0x277D85DE8];
+  v58[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   contextCopy = context;
   trackerCopy = tracker;
@@ -26,7 +26,7 @@
   kdebug_trace();
   sayItChildTaskFactory = self->_sayItChildTaskFactory;
   preferences = [(SVXModule *)self->_module preferences];
-  v43 = -[SVXSayItChildTaskProvider createWithCommand:taskTracker:listenAfterSpeakingDisabled:](sayItChildTaskFactory, "createWithCommand:taskTracker:listenAfterSpeakingDisabled:", v14, trackerCopy, [preferences listenAfterSpeakingDisabled]);
+  v42 = -[SVXSayItChildTaskProvider createWithCommand:taskTracker:listenAfterSpeakingDisabled:](sayItChildTaskFactory, "createWithCommand:taskTracker:listenAfterSpeakingDisabled:", v14, trackerCopy, [preferences listenAfterSpeakingDisabled]);
 
   dialogIdentifier = [v14 dialogIdentifier];
   af_IsInternalInstall = [(SVXAFUtilitiesWrapper *)self->_afUtilities af_IsInternalInstall];
@@ -43,16 +43,16 @@
       v20 = &stru_287A1C130;
     }
 
-    v58 = @"dialogIdentifier";
-    v59[0] = v20;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+    v57 = @"dialogIdentifier";
+    v58[0] = v20;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
   }
 
-  v41 = v19;
+  v40 = v19;
   v21 = trackerCopy;
   objc_opt_class();
-  v44 = contextCopy;
-  v45 = dialogIdentifier;
+  v43 = contextCopy;
+  v44 = dialogIdentifier;
   if (objc_opt_isKindOfClass())
   {
     message = contextCopy;
@@ -69,9 +69,9 @@
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v55 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]";
-    v56 = 2112;
-    v57 = v23;
+    v54 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]";
+    v55 = 2112;
+    v56 = v23;
     _os_log_impl(&dword_2695B9000, v25, OS_LOG_TYPE_INFO, "%s preparedSpeakableText = %@", buf, 0x16u);
   }
 
@@ -83,9 +83,9 @@
   if (os_log_type_enabled(*v24, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v55 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]";
-    v56 = 2112;
-    v57 = v28;
+    v54 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]";
+    v55 = 2112;
+    v56 = v28;
     _os_log_impl(&dword_2695B9000, v29, OS_LOG_TYPE_INFO, "%s presynthesizedAudio = %@", buf, 0x16u);
   }
 
@@ -93,70 +93,66 @@
   instrumentationContext = [v21 instrumentationContext];
   context = [v21 context];
   dialogPhase = [context dialogPhase];
-  [(SVXInstrumentationUtilities *)instrumentationUtils emitUUFRSaid:instrumentationContext dialogIdentifier:v45 dialogPhase:dialogPhase];
+  [(SVXInstrumentationUtilities *)instrumentationUtils emitUUFRSaid:instrumentationContext dialogIdentifier:v44 dialogPhase:dialogPhase];
 
   v34 = -[SVXSpeechSynthesisRequest initWithPriority:options:speakableText:speakableContext:localizationKey:presynthesizedAudio:streamID:]([SVXSpeechSynthesisRequest alloc], "initWithPriority:options:speakableText:speakableContext:localizationKey:presynthesizedAudio:streamID:", 2, [v14 canUseServerTTS], v23, 0, 0, v28, 0);
   speechSynthesizer = self->_speechSynthesizer;
-  v51[0] = MEMORY[0x277D85DD0];
-  v51[1] = 3221225472;
-  v51[2] = __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke;
-  v51[3] = &unk_279C68FE8;
-  v52 = v34;
-  v53 = v14;
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke_41;
-  v46[3] = &unk_279C67D78;
-  v47 = v52;
-  v48 = v14;
+  v50[0] = MEMORY[0x277D85DD0];
+  v50[1] = 3221225472;
+  v50[2] = __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke;
+  v50[3] = &unk_279C68FE8;
+  v51 = v34;
+  v52 = v14;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke_41;
+  v45[3] = &unk_279C67D78;
+  v46 = v51;
+  v47 = v14;
   selfCopy = self;
-  v50 = completionCopy;
-  v36 = v52;
+  v49 = completionCopy;
+  v36 = v51;
   v37 = completionCopy;
   v38 = v14;
-  [(SVXSpeechSynthesizer *)speechSynthesizer enqueueRequest:v36 languageCode:0 voiceName:0 gender:0 audioSessionID:0 preparation:v51 finalization:v46 taskTracker:v43 analyticsContext:v41];
-
-  v39 = *MEMORY[0x277D85DE8];
+  [(SVXSpeechSynthesizer *)speechSynthesizer enqueueRequest:v36 languageCode:0 voiceName:0 gender:0 audioSessionID:0 preparation:v50 finalization:v45 taskTracker:v42 analyticsContext:v40];
 }
 
 void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 136315650;
-    v7 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Begin TTS request %@ for %@.", &v6, 0x20u);
+    v5 = 136315650;
+    v6 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_2695B9000, v2, OS_LOG_TYPE_INFO, "%s Begin TTS request %@ for %@.", &v5, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker_completion___block_invoke_41(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v10 = 136315906;
-    v11 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s End TTS request %@ for %@ with result %@.", &v10, 0x2Au);
+    v9 = 136315906;
+    v10 = "[SVXServiceCommandHandlerUISayIt handleCommand:withContext:taskTracker:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, "%s End TTS request %@ for %@ with result %@.", &v9, 0x2Au);
   }
 
   v7 = a1[7];
@@ -165,13 +161,11 @@ void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker
     v8 = [*(a1[6] + 72) toServiceCommandResult:v3];
     (*(v7 + 16))(v7, v8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepareToHandleCommand:(id)command completion:(id)completion
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   objc_opt_class();
@@ -197,9 +191,9 @@ void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker
 
     [v15 registerProvider:v17 forNamespace:*MEMORY[0x277CEF568]];
     message = [v9 message];
-    v37 = 0;
-    v19 = [v15 parseStringWithFormat:message error:&v37];
-    v20 = v37;
+    v36 = 0;
+    v19 = [v15 parseStringWithFormat:message error:&v36];
+    v20 = v36;
 
     if (v20 || ![v17 count])
     {
@@ -213,27 +207,27 @@ void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker
     {
       expressionParsingServiceProvider = self->_expressionParsingServiceProvider;
       v22 = objc_alloc_init(MEMORY[0x277CEF1D8]);
-      v32 = [(_SVXRemoteExpressionParsingServiceProvider *)expressionParsingServiceProvider getWithAceHandler:v22];
+      v31 = [(_SVXRemoteExpressionParsingServiceProvider *)expressionParsingServiceProvider getWithAceHandler:v22];
 
       parseableExpressionFactory = self->_parseableExpressionFactory;
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
       [v9 message];
-      v26 = v33 = v14;
+      v26 = v32 = v14;
       v27 = [(SVXSAUILParseableExpressionProvider *)parseableExpressionFactory createWithAceId:uUIDString context:context expressionString:v26];
 
-      v38[0] = v27;
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __69__SVXServiceCommandHandlerUISayIt_prepareToHandleCommand_completion___block_invoke;
-      v34[3] = &unk_279C67720;
-      v35 = v27;
-      v36 = completionCopy;
+      v37[0] = v27;
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __69__SVXServiceCommandHandlerUISayIt_prepareToHandleCommand_completion___block_invoke;
+      v33[3] = &unk_279C67720;
+      v34 = v27;
+      v35 = completionCopy;
       v29 = v27;
-      [v32 parseExpressions:v28 targetDevice:0 reply:v34];
+      [v31 parseExpressions:v28 targetDevice:0 reply:v33];
 
-      v14 = v33;
+      v14 = v32;
     }
   }
 
@@ -241,8 +235,6 @@ void __84__SVXServiceCommandHandlerUISayIt_handleCommand_withContext_taskTracker
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SVXServiceCommandHandlerUISayIt_prepareToHandleCommand_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)

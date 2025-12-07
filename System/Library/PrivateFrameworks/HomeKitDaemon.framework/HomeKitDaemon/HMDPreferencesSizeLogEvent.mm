@@ -20,7 +20,7 @@
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDPreferencesSizeLogEvent eventTrigger](self, "eventTrigger")}];
   [dictionary setObject:v7 forKeyedSubscript:@"eventTrigger"];
 
-  v8 = [dictionary copy];
+  v8 = objc_msgSend_copy(dictionary);
 
   return v8;
 }

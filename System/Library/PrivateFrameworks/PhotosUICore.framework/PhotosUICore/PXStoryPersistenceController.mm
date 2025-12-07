@@ -382,8 +382,9 @@ LABEL_29:
   }
 }
 
-void __44__PXStoryPersistenceController__updateWrite__block_invoke(uint64_t a1, int a2, void *a3, void *a4)
+void __44__PXStoryPersistenceController__updateWrite__block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v21 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
@@ -404,7 +405,7 @@ void __44__PXStoryPersistenceController__updateWrite__block_invoke(uint64_t a1, 
     *buf = 134218498;
     v16 = v14;
     v17 = 1024;
-    v18 = a2;
+    v18 = v5;
     v19 = 2112;
     v20 = v8;
     _os_log_impl(&dword_1A3C1C000, v12, OS_LOG_TYPE_DEBUG, "Recipe written in %0.3fs with success: %i error: %@", buf, 0x1Cu);

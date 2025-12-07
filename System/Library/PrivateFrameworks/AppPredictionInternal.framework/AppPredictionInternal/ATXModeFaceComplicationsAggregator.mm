@@ -7,7 +7,7 @@
 
 - (id)provideComplicationsForSuggestedFaceType:(int64_t)type environment:(id)environment
 {
-  v35[3] = *MEMORY[0x277D85DE8];
+  v34[3] = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
   if ([MEMORY[0x277D42590] isBetaBuild])
   {
@@ -75,26 +75,24 @@
   allObjects = [v10 allObjects];
   v23 = [allObjects sortedArrayUsingComparator:&__block_literal_global_61];
 
-  v34[0] = &unk_283A55868;
+  v33[0] = &unk_283A55868;
   v24 = objc_opt_new();
-  v35[0] = v24;
-  v34[1] = &unk_283A55880;
+  v34[0] = v24;
+  v33[1] = &unk_283A55880;
   v25 = objc_opt_new();
-  v35[1] = v25;
-  v34[2] = &unk_283A55898;
+  v34[1] = v25;
+  v33[2] = &unk_283A55898;
   v26 = objc_opt_new();
-  v35[2] = v26;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
+  v34[2] = v26;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
 
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggestedFaceType_environment___block_invoke_28;
-  v32[3] = &unk_278599B90;
-  v33 = v27;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggestedFaceType_environment___block_invoke_28;
+  v31[3] = &unk_278599B90;
+  v32 = v27;
   v28 = v27;
-  v29 = [v23 _pas_filteredArrayWithTest:v32];
-
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = [v23 _pas_filteredArrayWithTest:v31];
 
   return v29;
 }
@@ -129,7 +127,7 @@ uint64_t __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggest
     {
       if ([v7 containsObject:v4])
       {
-        v8 = 0;
+        v9 = 0;
 LABEL_11:
 
         goto LABEL_12;
@@ -140,21 +138,21 @@ LABEL_11:
 
     else
     {
-      v9 = __atxlog_handle_lock_screen();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = __atxlog_handle_lock_screen(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggestedFaceType_environment___block_invoke_28_cold_1(v3, v9);
+        __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggestedFaceType_environment___block_invoke_28_cold_1(v3, v10);
       }
     }
 
-    v8 = 1;
+    v9 = 1;
     goto LABEL_11;
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_12:
 
-  return v8;
+  return v9;
 }
 
 - (id)provideLandscapeComplicationsForSuggestedFaceType:(int64_t)type environment:(id)environment
@@ -200,11 +198,10 @@ uint64_t __100__ATXModeFaceComplicationsAggregator_provideLandscapeComplications
 
 void __91__ATXModeFaceComplicationsAggregator_provideComplicationsForSuggestedFaceType_environment___block_invoke_28_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v4 = 134217984;
-  v5 = [a1 widgetFamily];
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unrecognized widget family: %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = [a1 widgetFamily];
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unrecognized widget family: %ld", &v3, 0xCu);
 }
 
 @end

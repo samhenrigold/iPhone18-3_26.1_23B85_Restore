@@ -472,7 +472,6 @@ LABEL_30:
     }
   }
 
-  v11 = *(equalCopy + 124);
   if ((*&self->_has & 0x100) != 0)
   {
     if ((*(equalCopy + 124) & 0x100) == 0 || self->_port != *(equalCopy + 52))
@@ -609,30 +608,30 @@ LABEL_30:
     }
   }
 
-  v26 = self->_has;
-  v27 = *(equalCopy + 124);
-  if ((v26 & 2) != 0)
+  v25 = self->_has;
+  v26 = *(equalCopy + 124);
+  if ((v25 & 2) != 0)
   {
-    if ((v27 & 2) == 0 || self->_creator != *(equalCopy + 3))
+    if ((v26 & 2) == 0 || self->_creator != *(equalCopy + 3))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 2) != 0)
+  else if ((v26 & 2) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((v26 & 0x80) != 0)
+  if ((v25 & 0x80) != 0)
   {
-    if ((v27 & 0x80) == 0 || self->_type != *(equalCopy + 9))
+    if ((v26 & 0x80) == 0 || self->_type != *(equalCopy + 9))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 0x80) != 0)
+  else if ((v26 & 0x80) != 0)
   {
     goto LABEL_88;
   }
@@ -643,62 +642,62 @@ LABEL_30:
     if (![(NSString *)itemDescription isEqual:?])
     {
 LABEL_88:
-      v30 = 0;
+      v29 = 0;
       goto LABEL_89;
     }
 
-    v26 = self->_has;
-    v27 = *(equalCopy + 124);
+    v25 = self->_has;
+    v26 = *(equalCopy + 124);
   }
 
-  if ((v26 & 8) != 0)
+  if ((v25 & 8) != 0)
   {
-    if ((v27 & 8) == 0 || self->_isInvisible != *(equalCopy + 5))
+    if ((v26 & 8) == 0 || self->_isInvisible != *(equalCopy + 5))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 8) != 0)
+  else if ((v26 & 8) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((v26 & 0x10) != 0)
+  if ((v25 & 0x10) != 0)
   {
-    if ((v27 & 0x10) == 0 || self->_isNegative != *(equalCopy + 6))
+    if ((v26 & 0x10) == 0 || self->_isNegative != *(equalCopy + 6))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 0x10) != 0)
+  else if ((v26 & 0x10) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((v26 & 4) != 0)
+  if ((v25 & 4) != 0)
   {
-    if ((v27 & 4) == 0 || self->_customIcon != *(equalCopy + 4))
+    if ((v26 & 4) == 0 || self->_customIcon != *(equalCopy + 4))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 4) != 0)
+  else if ((v26 & 4) != 0)
   {
     goto LABEL_88;
   }
 
-  if ((v26 & 0x40) != 0)
+  if ((v25 & 0x40) != 0)
   {
-    if ((v27 & 0x40) == 0 || self->_scriptCode != *(equalCopy + 8))
+    if ((v26 & 0x40) == 0 || self->_scriptCode != *(equalCopy + 8))
     {
       goto LABEL_88;
     }
   }
 
-  else if ((v27 & 0x40) != 0)
+  else if ((v26 & 0x40) != 0)
   {
     goto LABEL_88;
   }
@@ -706,17 +705,17 @@ LABEL_88:
   alias = self->_alias;
   if (alias | *(equalCopy + 13))
   {
-    v30 = [(NSData *)alias isEqual:?];
+    v29 = [(NSData *)alias isEqual:?];
   }
 
   else
   {
-    v30 = 1;
+    v29 = 1;
   }
 
 LABEL_89:
 
-  return v30;
+  return v29;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -891,171 +890,165 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v8 = toCopy;
   if (self->_accessGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    modificationDate = self->_modificationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v8;
     has = self->_has;
   }
 
   if (has)
   {
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_account)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_protocol)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_server)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if ((*&self->_has & 0x100) != 0)
   {
-    port = self->_port;
     PBDataWriterWriteInt32Field();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_authenticationType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_data)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_path)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_comment)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_label)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_accessibility)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_viewHint)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_securityDomain)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_notes)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_history)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_clientDefined0)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_clientDefined1)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_clientDefined2)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_clientDefined3)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
-  v9 = self->_has;
-  if ((v9 & 2) != 0)
+  v6 = self->_has;
+  if ((v6 & 2) != 0)
   {
-    creator = self->_creator;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
-    v9 = self->_has;
+    toCopy = v8;
+    v6 = self->_has;
   }
 
-  if ((v9 & 0x80) != 0)
+  if ((v6 & 0x80) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   if (self->_itemDescription)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
-  v12 = self->_has;
-  if ((v12 & 8) != 0)
+  v7 = self->_has;
+  if ((v7 & 8) != 0)
   {
-    isInvisible = self->_isInvisible;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
-    v12 = self->_has;
-    if ((v12 & 0x10) == 0)
+    toCopy = v8;
+    v7 = self->_has;
+    if ((v7 & 0x10) == 0)
     {
 LABEL_51:
-      if ((v12 & 4) == 0)
+      if ((v7 & 4) == 0)
       {
         goto LABEL_52;
       }
@@ -1064,19 +1057,18 @@ LABEL_51:
     }
   }
 
-  else if ((v12 & 0x10) == 0)
+  else if ((v7 & 0x10) == 0)
   {
     goto LABEL_51;
   }
 
-  isNegative = self->_isNegative;
   PBDataWriterWriteInt64Field();
-  toCopy = v17;
-  v12 = self->_has;
-  if ((v12 & 4) == 0)
+  toCopy = v8;
+  v7 = self->_has;
+  if ((v7 & 4) == 0)
   {
 LABEL_52:
-    if ((v12 & 0x40) == 0)
+    if ((v7 & 0x40) == 0)
     {
       goto LABEL_54;
     }
@@ -1085,22 +1077,20 @@ LABEL_52:
   }
 
 LABEL_61:
-  customIcon = self->_customIcon;
   PBDataWriterWriteInt64Field();
-  toCopy = v17;
+  toCopy = v8;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_53:
-    scriptCode = self->_scriptCode;
     PBDataWriterWriteInt64Field();
-    toCopy = v17;
+    toCopy = v8;
   }
 
 LABEL_54:
   if (self->_alias)
   {
     PBDataWriterWriteDataField();
-    toCopy = v17;
+    toCopy = v8;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];

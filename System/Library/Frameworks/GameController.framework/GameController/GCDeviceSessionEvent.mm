@@ -35,104 +35,98 @@
 
 - (GCKeyboard)keyboard
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (GCMouse)mouse
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (GCController)controller
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (GCRacingWheel)racingWheel
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (GCSpatialAccessory)spatialAccessory
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (GCStylus)stylus
 {
-  device = self->_device;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = self->_device;
+    device = self->_device;
   }
 
   else
   {
-    v4 = 0;
+    device = 0;
   }
 
-  return v4;
+  return device;
 }
 
 - (id)description

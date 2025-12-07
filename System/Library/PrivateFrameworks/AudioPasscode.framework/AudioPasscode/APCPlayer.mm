@@ -13,6 +13,7 @@
 - (id)createCompatibleConfigForCapabilites:(id)capabilites;
 - (void)setCallbackTimingMSec:(unint64_t)sec;
 - (void)setDispatchQueue:(id)queue;
+- (void)stopSend:(BOOL)send withCompletion:(id)completion;
 - (void)stopSendAfterMinimumLoops:(unint64_t)loops withCompletion:(id)completion;
 - (void)stopSendWithFadeOut:(float)out completion:(id)completion;
 @end
@@ -51,7 +52,7 @@
         v7 = [APCCodecFactory createBestConfigForCapability:*(*(&v12 + 1) + 8 * i)];
         if (v7)
         {
-          v8 = capabilitesCopy;
+          v9 = capabilitesCopy;
           goto LABEL_13;
         }
       }
@@ -66,28 +67,26 @@
     }
   }
 
-  v8 = APCLogObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = APCLogObject(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *v11 = 0;
-    _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_ERROR, "Can't find a codec capability data", v11, 2u);
+    _os_log_impl(&dword_24158E000, v9, OS_LOG_TYPE_ERROR, "Can't find a codec capability data", v11, 2u);
   }
 
   v7 = 0;
 LABEL_13:
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (APCPlayer)initWithListenerCapabilityData:(id)data payloadLength:(unint64_t)length
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v32.receiver = self;
-  v32.super_class = APCPlayer;
-  v7 = [(APCPlayer *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = APCPlayer;
+  v7 = [(APCPlayer *)&v31 init];
   v8 = v7;
   if (!v7)
   {
@@ -140,13 +139,12 @@ LABEL_19:
         v23 = v8->_codecConfig;
         if (v23)
         {
-          [(AUPasscodeCodecConfiguration *)v23 setPayloadLengthBytes:length];
-          v24 = APCLogObject();
+          v24 = APCLogObject([(AUPasscodeCodecConfiguration *)v23 setPayloadLengthBytes:length]);
           if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
           {
             v25 = v8->_codecConfig;
             *buf = 138412290;
-            v34 = v25;
+            v33 = v25;
             _os_log_impl(&dword_24158E000, v24, OS_LOG_TYPE_INFO, "Created codec config from capabilities: %@", buf, 0xCu);
           }
 
@@ -171,7 +169,6 @@ LABEL_10:
   v19 = v8;
 LABEL_21:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -189,31 +186,30 @@ LABEL_21:
     objc_storeStrong(&v6->_codecConfig, configuration);
     if (!v7->_codecConfig)
     {
-      v14 = 0;
+      v15 = 0;
       goto LABEL_8;
     }
 
-    v8 = APCLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = APCLogObject(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       codecConfig = v7->_codecConfig;
       *buf = 138412290;
       v19 = codecConfig;
-      _os_log_impl(&dword_24158E000, v8, OS_LOG_TYPE_INFO, "Created codec config from configuration: %@", buf, 0xCu);
+      _os_log_impl(&dword_24158E000, v9, OS_LOG_TYPE_INFO, "Created codec config from configuration: %@", buf, 0xCu);
     }
 
-    v10 = objc_alloc(MEMORY[0x277CBEA90]);
-    v11 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7->_codecConfig requiringSecureCoding:0 error:0];
-    v12 = [v10 initWithData:v11];
+    v11 = objc_alloc(MEMORY[0x277CBEA90]);
+    v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7->_codecConfig requiringSecureCoding:0 error:0];
+    v13 = [v11 initWithData:v12];
     configurationData = v7->_configurationData;
-    v7->_configurationData = v12;
+    v7->_configurationData = v13;
   }
 
-  v14 = v7;
+  v15 = v7;
 LABEL_8:
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 - (void)setDispatchQueue:(id)queue
@@ -244,13 +240,13 @@ LABEL_8:
     v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v5 = [v4 URLForResource:v3 withExtension:@"wav"];
 
-    v6 = APCLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = APCLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       absoluteString = [v5 absoluteString];
       v10 = 136315138;
       uTF8String = [absoluteString UTF8String];
-      _os_log_impl(&dword_24158E000, v6, OS_LOG_TYPE_INFO, "Carrier Resource path: %s", &v10, 0xCu);
+      _os_log_impl(&dword_24158E000, v7, OS_LOG_TYPE_INFO, "Carrier Resource path: %s", &v10, 0xCu);
     }
   }
 
@@ -258,8 +254,6 @@ LABEL_8:
   {
     v5 = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -279,22 +273,20 @@ LABEL_8:
 
 + (id)carrierAssetIdentifiers
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"WOC";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"WOC";
   v2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v10[0] = v2;
-  v9[1] = @"light";
+  v9[0] = v2;
+  v8[1] = @"light";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v10[1] = v3;
-  v9[2] = @"pingpong";
+  v9[1] = v3;
+  v8[2] = @"pingpong";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
-  v10[2] = v4;
-  v9[3] = @"ring";
+  v9[2] = v4;
+  v8[3] = @"ring";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -320,12 +312,12 @@ LABEL_8:
 
 - (float)preparePayload:(id)payload usingCarrierAsset:(unint64_t)asset error:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v9 = payloadCopy;
-  if (!payloadCopy || (v10 = [payloadCopy length], v10 != -[AUPasscodeCodecConfiguration payloadLengthBytes](self->_codecConfig, "payloadLengthBytes")))
+  if (!payloadCopy || (v10 = [payloadCopy length], payloadCopy = -[AUPasscodeCodecConfiguration payloadLengthBytes](self->_codecConfig, "payloadLengthBytes"), v10 != payloadCopy))
   {
-    v17 = APCLogObject();
+    v17 = APCLogObject(payloadCopy);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       if (v9)
@@ -339,11 +331,11 @@ LABEL_8:
       }
 
       payloadLengthBytes = [(AUPasscodeCodecConfiguration *)self->_codecConfig payloadLengthBytes];
-      v22 = 134218240;
-      v23 = v18;
-      v24 = 2048;
-      v25 = payloadLengthBytes;
-      _os_log_impl(&dword_24158E000, v17, OS_LOG_TYPE_ERROR, "Payload passed to prepare contains %lu bytes, was told we'd send %ld bytes. These must match!", &v22, 0x16u);
+      v21 = 134218240;
+      v22 = v18;
+      v23 = 2048;
+      v24 = payloadLengthBytes;
+      _os_log_impl(&dword_24158E000, v17, OS_LOG_TYPE_ERROR, "Payload passed to prepare contains %lu bytes, was told we'd send %ld bytes. These must match!", &v21, 0x16u);
     }
 
     goto LABEL_13;
@@ -371,7 +363,6 @@ LABEL_13:
   v16 = v15;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -380,50 +371,50 @@ LABEL_14:
   v25 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   lCopy = l;
-  if (!payloadCopy || (v10 = [payloadCopy length], v10 != -[AUPasscodeCodecConfiguration payloadLengthBytes](self->_codecConfig, "payloadLengthBytes")))
+  v10 = lCopy;
+  if (!payloadCopy || (v11 = [payloadCopy length], lCopy = -[AUPasscodeCodecConfiguration payloadLengthBytes](self->_codecConfig, "payloadLengthBytes"), v11 != lCopy))
   {
-    v16 = APCLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = APCLogObject(lCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       if (payloadCopy)
       {
-        v17 = [payloadCopy length];
+        v18 = [payloadCopy length];
       }
 
       else
       {
-        v17 = 0;
+        v18 = 0;
       }
 
       payloadLengthBytes = [(AUPasscodeCodecConfiguration *)self->_codecConfig payloadLengthBytes];
       v21 = 134218240;
-      v22 = v17;
+      v22 = v18;
       v23 = 2048;
       v24 = payloadLengthBytes;
-      _os_log_impl(&dword_24158E000, v16, OS_LOG_TYPE_ERROR, "Payload passed to prepare contains %lu bytes, was told we'd send %ld bytes. These must match!", &v21, 0x16u);
+      _os_log_impl(&dword_24158E000, v17, OS_LOG_TYPE_ERROR, "Payload passed to prepare contains %lu bytes, was told we'd send %ld bytes. These must match!", &v21, 0x16u);
     }
 
     goto LABEL_11;
   }
 
-  v11 = [APCPlayerEngine playerWithAssetURL:lCopy codecConfig:self->_codecConfig payload:payloadCopy error:error];
+  v12 = [APCPlayerEngine playerWithAssetURL:v10 codecConfig:self->_codecConfig payload:payloadCopy error:error];
   playerEngine = self->_playerEngine;
-  self->_playerEngine = v11;
+  self->_playerEngine = v12;
 
-  v13 = self->_playerEngine;
-  if (!v13)
+  v14 = self->_playerEngine;
+  if (!v14)
   {
 LABEL_11:
-    v15 = -1.0;
+    v16 = -1.0;
     goto LABEL_12;
   }
 
-  [(APCPlayerEngine *)v13 evaluateAsset];
-  v15 = v14;
+  [(APCPlayerEngine *)v14 evaluateAsset];
+  v16 = v15;
 LABEL_12:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 - (BOOL)startSendAtTime:(unint64_t)time withBeginning:(id)beginning
@@ -442,6 +433,21 @@ LABEL_12:
   }
 
   return v8;
+}
+
+- (void)stopSend:(BOOL)send withCompletion:(id)completion
+{
+  sendCopy = send;
+  completionCopy = completion;
+  playerEngine = self->_playerEngine;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __37__APCPlayer_stopSend_withCompletion___block_invoke;
+  v9[3] = &unk_278CE1E68;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [(APCPlayerEngine *)playerEngine stopEngine:sendCopy withCompletion:v9];
 }
 
 - (void)stopSendAfterMinimumLoops:(unint64_t)loops withCompletion:(id)completion

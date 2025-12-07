@@ -7,14 +7,14 @@
 
 + (id)detailsControllerWithConversation:(id)conversation delegate:(id)delegate
 {
-  v5 = objc_allocWithZone(type metadata accessor for ModernDetailsController());
+  v6 = objc_allocWithZone(type metadata accessor for ModernDetailsController(0));
   conversationCopy = conversation;
   swift_unknownObjectRetain();
-  v7 = sub_1908F2900(conversationCopy);
+  v8 = sub_1908F2900(conversationCopy, delegate);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (CKModernDetailsControllerFactory)init

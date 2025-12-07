@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)metricTypeAsString:(int)string;
 - (int)StringAsMetricType:(id)type;
 - (int)metricType;
 - (unint64_t)hash;
@@ -44,6 +45,34 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)metricTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 201)
+    {
+      v4 = @"generic_event_type";
+    }
+
+    else if (string == 200)
+    {
+      v4 = @"network_event_type";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"none_type";
+  }
+
+  return v4;
 }
 
 - (int)StringAsMetricType:(id)type
@@ -296,38 +325,36 @@ LABEL_22:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 8) != 0)
   {
-    metricType = self->_metricType;
     PBDataWriterWriteInt32Field();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_deviceInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_cloudkitInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_serverInfo)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    triggers = self->_triggers;
     PBDataWriterWriteUint64Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -346,9 +373,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  reportFrequency = self->_reportFrequency;
   PBDataWriterWriteUint64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -362,9 +388,8 @@ LABEL_12:
   }
 
 LABEL_28:
-  reportFrequencyBase = self->_reportFrequencyBase;
   PBDataWriterWriteUint64Field();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -378,40 +403,38 @@ LABEL_13:
   }
 
 LABEL_29:
-  reportTransportAllowExpensiveAccess = self->_reportTransportAllowExpensiveAccess;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_14:
-    reportTransportAllowPowerNapScheduling = self->_reportTransportAllowPowerNapScheduling;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_15:
   if (self->_reportTransportSourceApplicationBundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_reportTransportSourceApplicationSecondaryIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_networkEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_genericEvent)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 
@@ -643,7 +666,6 @@ LABEL_9:
     goto LABEL_51;
   }
 
-  v5 = *(equalCopy + 100);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 100) & 8) == 0 || self->_metricType != *(equalCopy + 14))
@@ -681,7 +703,6 @@ LABEL_9:
     }
   }
 
-  v9 = *(equalCopy + 100);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 100) & 4) == 0 || self->_triggers != *(equalCopy + 3))
@@ -728,7 +749,6 @@ LABEL_9:
       goto LABEL_51;
     }
 
-    v15 = *(equalCopy + 96);
     if (self->_reportTransportAllowExpensiveAccess)
     {
       if ((*(equalCopy + 96) & 1) == 0)
@@ -756,7 +776,7 @@ LABEL_9:
     }
 
 LABEL_51:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_52;
   }
 
@@ -765,7 +785,6 @@ LABEL_51:
     goto LABEL_51;
   }
 
-  v16 = *(equalCopy + 97);
   if (self->_reportTransportAllowPowerNapScheduling)
   {
     if ((*(equalCopy + 97) & 1) == 0)
@@ -807,17 +826,17 @@ LABEL_32:
   genericEvent = self->_genericEvent;
   if (genericEvent | *(equalCopy + 6))
   {
-    v14 = [(C2MPGenericEvent *)genericEvent isEqual:?];
+    v12 = [(C2MPGenericEvent *)genericEvent isEqual:?];
   }
 
   else
   {
-    v14 = 1;
+    v12 = 1;
   }
 
 LABEL_52:
 
-  return v14;
+  return v12;
 }
 
 - (unint64_t)hash

@@ -9,13 +9,11 @@
 
 - (NSArray)nearbyDeviceIdentifiers
 {
-  v3 = OBJC_IVAR___MRDUserDefaultsLockScreenRoutingProvider_nearbyDeviceIdentifiers;
   swift_beginAccess();
-  v4 = *(self + v3);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setNearbyDeviceIdentifiers:(id)identifiers
@@ -23,7 +21,6 @@
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___MRDUserDefaultsLockScreenRoutingProvider_nearbyDeviceIdentifiers;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

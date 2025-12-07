@@ -5,9 +5,11 @@
 
 uint64_t ___ICQBannerLogSystem_block_invoke()
 {
-  _ICQBannerLogSystem_log = os_log_create("com.apple.iCloudQuota", "banner");
+  v0 = os_log_create("com.apple.iCloudQuota", "banner");
+  v1 = _ICQBannerLogSystem_log;
+  _ICQBannerLogSystem_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

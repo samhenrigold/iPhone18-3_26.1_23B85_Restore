@@ -150,7 +150,7 @@ void __74___UIBacklightEnvironment_transitionTraitsInUpdate_animations_completio
   }
 }
 
-uint64_t __106___UIBacklightEnvironment__performOnChildViewControllersForAlwaysOnTimelines_performBlock_withCompletion___block_invoke(uint64_t a1)
+void *__106___UIBacklightEnvironment__performOnChildViewControllersForAlwaysOnTimelines_performBlock_withCompletion___block_invoke(uint64_t a1)
 {
   if (pthread_main_np() != 1)
   {
@@ -247,7 +247,7 @@ uint64_t __67___UIBacklightEnvironment_environment_performBacklightSceneUpdate__
   return [v4 updateSceneWithFrameSpecifier:0 layout:0 completion:v3];
 }
 
-uint64_t __67___UIBacklightEnvironment_environment_performBacklightSceneUpdate___block_invoke_4(uint64_t a1)
+double __67___UIBacklightEnvironment_environment_performBacklightSceneUpdate___block_invoke_4(uint64_t a1)
 {
   if (pthread_main_np() != 1)
   {
@@ -257,7 +257,8 @@ uint64_t __67___UIBacklightEnvironment_environment_performBacklightSceneUpdate__
 
   [MEMORY[0x1E6979518] commit];
 
-  return kdebug_trace();
+  kdebug_trace();
+  return result;
 }
 
 void __67___UIBacklightEnvironment_environment_performBacklightSceneUpdate___block_invoke_5(uint64_t a1)

@@ -24,7 +24,7 @@
 
   if ([form action])
   {
-    if (([type isEqual:@"search"] & 1) == 0 && objc_msgSend(objc_msgSend(self, "name"), "rangeOfString:options:", @"search", 1) == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(objc_msgSend(self, "idName"), "rangeOfString:options:", @"search", 1) == 0x7FFFFFFFFFFFFFFFLL)
+    if ((objc_msgSend_isEqual_(type) & 1) == 0 && [objc_msgSend(self "name")] == 0x7FFFFFFFFFFFFFFFLL && objc_msgSend(objc_msgSend(self, "idName"), "rangeOfString:options:", @"search", 1) == 0x7FFFFFFFFFFFFFFFLL)
     {
       if ([objc_msgSend(self "title")] == 0x7FFFFFFFFFFFFFFFLL)
       {
@@ -56,14 +56,14 @@ LABEL_13:
     v6 = 0;
   }
 
-  if ([type isEqualToString:@"email"])
+  if (objc_msgSend_isEqualToString_(type))
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v7 = [type isEqualToString:@"url"];
+    isEqualToString = objc_msgSend_isEqualToString_(type);
   }
 
   isSecure = [self isSecure];
@@ -78,7 +78,7 @@ LABEL_13:
     v9 = v9;
   }
 
-  v10 = isSecure | v6 | v7;
+  v10 = isSecure | v6 | isEqualToString;
   if (v10)
   {
     v11 = 0;
@@ -145,7 +145,7 @@ LABEL_13:
   WebThreadLock();
   type = [self type];
 
-  return [type isEqual:@"password"];
+  return objc_msgSend_isEqual_(type);
 }
 
 - (uint64_t)isTextControl
@@ -159,32 +159,32 @@ LABEL_13:
 {
   WebThreadLock();
   type = [self type];
-  v3 = [self getAttribute:@"pattern"];
-  if (v3)
+  v4 = [self getAttribute:@"pattern"];
+  if (v4)
   {
-    v4 = v3;
-    if ([v3 isEqualToString:@"\\d*"] & 1) != 0 || (objc_msgSend(v4, "isEqualToString:", @"[0-9]*"))
+    v5 = v4;
+    if (objc_msgSend_isEqualToString_(v4) & 1) != 0 || (objc_msgSend_isEqualToString_(v5))
     {
       return 4;
     }
   }
 
-  if ([type isEqualToString:@"email"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 7;
   }
 
-  if ([type isEqualToString:@"number"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 2;
   }
 
-  if ([type isEqualToString:@"tel"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 5;
   }
 
-  if ([type isEqualToString:@"url"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     return 3;
   }
@@ -195,9 +195,9 @@ LABEL_13:
 - (uint64_t)setSelectionWithPoint:()UITextInputAdditions
 {
   WebThreadLock();
-  v6 = vcvtd_n_f64_s32([objc_msgSend(objc_msgSend(self "ownerDocument")], 1uLL);
+  v7 = vcvtd_n_f64_s32([objc_msgSend(objc_msgSend(self "ownerDocument")], 1uLL);
 
-  return [self setSelectionWithPoint:a2 inset:{a3, v6}];
+  return [self setSelectionWithPoint:a3 inset:{a4, v7}];
 }
 
 - (uint64_t)isEditing

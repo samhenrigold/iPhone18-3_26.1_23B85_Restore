@@ -4,6 +4,7 @@
 - (id)getBatteryStatus;
 - (void)handleBatteryNotification;
 - (void)startRecording;
+- (void)storeBatteryTemperatureEvent:(int64_t)event pluggedIn:(BOOL)in;
 @end
 
 @implementation _DASBatteryTemperatureRecorder
@@ -294,6 +295,18 @@ LABEL_26:
 
     self->_recentBatteryTemperature = -1000;
   }
+}
+
+- (void)storeBatteryTemperatureEvent:(int64_t)event pluggedIn:(BOOL)in
+{
+  inCopy = in;
+  v7 = [BMDeviceBatteryTemperature alloc];
+  v8 = [NSNumber numberWithInteger:event];
+  v9 = [NSNumber numberWithBool:inCopy];
+  v11 = [v7 initWithTemperature:v8 pluggedIn:v9];
+
+  source = [(BMStream *)self->_temperatureStream source];
+  [source sendEvent:v11];
 }
 
 @end

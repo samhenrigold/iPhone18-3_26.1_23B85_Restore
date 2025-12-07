@@ -17,12 +17,15 @@
   v5 = *((*MEMORY[0x1E69E7D40] & *change) + 0x100);
   changeCopy = change;
 
-  v5(v10, v7);
-  v8 = v10[0];
-  v9 = v10[1];
-  (*self->onTabChange)(v10);
+  v5(v13, v7);
+  v8 = v13[0];
+  v9 = v13[1];
+  v10 = v13[2];
+  v11 = v13[3];
+  v12 = v13[4];
+  (*self->onTabChange)(v13);
 
-  outlined consume of DetailsTab?(v8, v9);
+  outlined consume of DetailsTab?(v8, v9, v10, v11, v12);
 }
 
 @end

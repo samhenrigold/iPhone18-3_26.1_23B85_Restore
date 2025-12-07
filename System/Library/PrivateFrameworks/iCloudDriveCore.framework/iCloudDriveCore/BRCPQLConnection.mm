@@ -47,7 +47,7 @@
 
 - (BOOL)_validateIsRunningWithCorrectPersona
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D77BF8] = [MEMORY[0x277D77BF8] sharedManager];
   br_currentPersonaID = [mEMORY[0x277D77BF8] br_currentPersonaID];
 
@@ -58,13 +58,13 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       assertionPersonaIdentifier = self->_assertionPersonaIdentifier;
-      v11 = 138412802;
-      v12 = br_currentPersonaID;
-      v13 = 2112;
-      v14 = assertionPersonaIdentifier;
-      v15 = 2112;
-      v16 = v6;
-      _os_log_fault_impl(&dword_223E7A000, v7, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Running on the connection with the wrong persona (%@ vs %@)%@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = br_currentPersonaID;
+      v12 = 2112;
+      v13 = assertionPersonaIdentifier;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_fault_impl(&dword_223E7A000, v7, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Running on the connection with the wrong persona (%@ vs %@)%@", &v10, 0x20u);
     }
 
     v5 = 0;
@@ -75,7 +75,6 @@
     v5 = 1;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -133,7 +132,7 @@
 
 void __60__BRCPQLConnection__setErrorHandlerWithDBCorruptionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -143,19 +142,19 @@ void __60__BRCPQLConnection__setErrorHandlerWithDBCorruptionHandler___block_invo
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, 0x90u))
     {
-      *v22 = 138413058;
-      *&v22[4] = v8;
-      *&v22[12] = 2112;
-      *&v22[14] = v7;
-      *&v22[22] = 2112;
-      v23 = v9;
-      LOWORD(v24) = 2112;
-      *(&v24 + 2) = v10;
+      *v21 = 138413058;
+      *&v21[4] = v8;
+      *&v21[12] = 2112;
+      *&v21[14] = v7;
+      *&v21[22] = 2112;
+      v22 = v9;
+      LOWORD(v23) = 2112;
+      *(&v23 + 2) = v10;
       v12 = "[ERROR] Sqlite request %@ failed on %@ with error [%@]%@";
       v13 = v11;
       v14 = 42;
 LABEL_15:
-      _os_log_error_impl(&dword_223E7A000, v13, 0x90u, v12, v22, v14);
+      _os_log_error_impl(&dword_223E7A000, v13, 0x90u, v12, v21, v14);
     }
   }
 
@@ -165,12 +164,12 @@ LABEL_15:
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, 0x90u))
     {
-      *v22 = 138412802;
-      *&v22[4] = v7;
-      *&v22[12] = 2112;
-      *&v22[14] = v9;
-      *&v22[22] = 2112;
-      v23 = v10;
+      *v21 = 138412802;
+      *&v21[4] = v7;
+      *&v21[12] = 2112;
+      *&v21[14] = v9;
+      *&v21[22] = 2112;
+      v22 = v10;
       v12 = "[ERROR] Sqlite failed on %@ with error [%@]%@";
       v13 = v11;
       v14 = 32;
@@ -196,8 +195,6 @@ LABEL_15:
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     (*(v19 + 16))(v19, WeakRetained, v9, &__block_literal_global_1);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BRCPQLConnection__setErrorHandlerWithDBCorruptionHandler___block_invoke_80()
@@ -235,22 +232,21 @@ uint64_t __37__BRCPQLConnection__setLockedHandler__block_invoke(uint64_t a1, voi
   {
     if (v7)
     {
-      v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"(on statement %@)", v7];
+      v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"(on statement %@)", v7];
     }
 
     else
     {
-      v17 = &stru_2837504F0;
+      v16 = &stru_2837504F0;
     }
 
     abc_report_panic_with_signature();
-    [MEMORY[0x277CCACA8] stringWithFormat:@"%@ locked for more than 1 minute %@, aborting...", v6, v17];
-    objc_claimAutoreleasedReturnValue();
+    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ locked for more than 1 minute %@, aborting...", v6, v16];
     v18 = brc_bread_crumbs();
     v19 = brc_default_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1();
+      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(v17);
     }
 
     brc_append_system_info_to_message();
@@ -290,7 +286,6 @@ uint64_t __37__BRCPQLConnection__setLockedHandler__block_invoke(uint64_t a1, voi
   }
 
   usleep(0x2710u);
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -385,15 +380,14 @@ LABEL_20:
   return v14;
 }
 
-void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t *a4)
+void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
 {
-  v5 = *a4;
-  v6 = pql_sqlite3_value_pointer();
-  if (v6)
+  v5 = pql_sqlite3_value_pointer();
+  if (v5)
   {
-    v7 = (*v6)++;
+    v6 = (*v5)++;
 
-    sqlite3_result_int64(a2, v7);
+    sqlite3_result_int64(a2, v6);
   }
 
   else
@@ -403,16 +397,15 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke(u
   }
 }
 
-void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_2(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t *a4)
+void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_2(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
 {
-  v5 = *a4;
-  v6 = pql_sqlite3_value_pointer();
-  if (v6)
+  v5 = pql_sqlite3_value_pointer();
+  if (v5)
   {
-    v7 = *v6 + 1;
-    *v6 = v7;
+    v6 = *v5 + 1;
+    *v5 = v6;
 
-    sqlite3_result_int64(a2, v7);
+    sqlite3_result_int64(a2, v6);
   }
 
   else
@@ -422,15 +415,14 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_2
   }
 }
 
-void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_3(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t *a4)
+void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_3(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
 {
-  v5 = *a4;
-  v6 = pql_sqlite3_value_pointer();
-  if (v6)
+  v5 = pql_sqlite3_value_pointer();
+  if (v5)
   {
-    v7 = (*v6)--;
+    v6 = (*v5)--;
 
-    sqlite3_result_int64(a2, v7);
+    sqlite3_result_int64(a2, v6);
   }
 
   else
@@ -440,16 +432,15 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_3
   }
 }
 
-void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_4(uint64_t a1, sqlite3_context *a2, uint64_t a3, uint64_t *a4)
+void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_4(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
 {
-  v5 = *a4;
-  v6 = pql_sqlite3_value_pointer();
-  if (v6)
+  v5 = pql_sqlite3_value_pointer();
+  if (v5)
   {
-    v7 = *v6 - 1;
-    *v6 = v7;
+    v6 = *v5 - 1;
+    *v5 = v6;
 
-    sqlite3_result_int64(a2, v7);
+    sqlite3_result_int64(a2, v6);
   }
 
   else
@@ -459,23 +450,21 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_4
   }
 }
 
-void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_5(uint64_t a1, uint64_t a2, int a3, uint64_t *a4)
+void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_5(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
   if (a3 <= 0)
   {
     __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_5_cold_1();
   }
 
-  v7 = *a4;
-  v8 = pql_sqlite3_value_object();
-  (v8)[2](v8, a2, (a3 - 1), a4 + 1);
+  v7 = pql_sqlite3_value_object();
+  (v7)[2](v7, a2, (a3 - 1), a4 + 1);
 }
 
 void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_133(uint64_t a1, sqlite3_context *a2, uint64_t a3, sqlite3_value **a4)
 {
-  v6 = *a4;
-  v7 = pql_sqlite3_value_object();
-  if (v7)
+  v6 = pql_sqlite3_value_object();
+  if (v6)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -486,15 +475,15 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_1
 
   if (sqlite3_value_type(*a4) == 1)
   {
-    v8 = [v7 containsIndex:sqlite3_value_int64(a4[1])];
+    v7 = [v6 containsIndex:sqlite3_value_int64(a4[1])];
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  sqlite3_result_int(a2, v8);
+  sqlite3_result_int(a2, v7);
 }
 
 void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_140(uint64_t a1, sqlite3_context *a2, uint64_t a3, void *a4)
@@ -616,7 +605,7 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_6
 
 void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void *a2, sqlite3_stmt *a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = sqlite3_column_count(a3);
   v9 = sqlite3_bind_parameter_count(a3);
@@ -631,7 +620,7 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
       v12 = (8 * v9 + 4 * v8) + (8 * v9 + 4 * v8) * a4 + 150;
       if ((*(a1 + 40) & 1) != 0 || v12 < v10)
       {
-        v27 = brc_bread_crumbs();
+        v26 = brc_bread_crumbs();
         v13 = brc_default_log();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
@@ -647,25 +636,25 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
 
           queryPlanForSQL(v11, v7);
           *buf = 136317442;
-          *v30 = v14;
-          *&v30[8] = 2112;
-          *&v30[10] = v7;
-          *&v30[18] = 1024;
-          *&v30[20] = v9;
-          v31 = 1024;
-          *v32 = v8;
-          *&v32[4] = 2048;
-          *&v32[6] = a4;
-          v33 = 1024;
-          *v34 = v10;
-          *&v34[4] = 2048;
-          *&v34[6] = (8 * v9 + 4 * v8) + (8 * v9 + 4 * v8) * a4 + 150;
-          *&v34[14] = 2080;
-          *&v34[16] = v11;
-          v15 = *&v34[24] = 2112;
-          *&v34[26] = v15;
-          *&v34[34] = 2112;
-          *&v34[36] = v27;
+          *v29 = v14;
+          *&v29[8] = 2112;
+          *&v29[10] = v7;
+          *&v29[18] = 1024;
+          *&v29[20] = v9;
+          v30 = 1024;
+          *v31 = v8;
+          *&v31[4] = 2048;
+          *&v31[6] = a4;
+          v32 = 1024;
+          *v33 = v10;
+          *&v33[4] = 2048;
+          *&v33[6] = (8 * v9 + 4 * v8) + (8 * v9 + 4 * v8) * a4 + 150;
+          *&v33[14] = 2080;
+          *&v33[16] = v11;
+          v15 = *&v33[24] = 2112;
+          *&v33[26] = v15;
+          *&v33[34] = 2112;
+          *&v33[36] = v26;
           _os_log_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] %s %@:\n  binds:    %d\n  columns:  %d\n  rows:     %ld\n  vm steps: %d (max: %lu)\n  sql:      %s\n  %@%@", buf, 0x5Au);
         }
       }
@@ -677,7 +666,7 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
       v12 = v16 * (8 * v9 + 175) + 175;
       if ((*(a1 + 40) & 1) != 0 || v12 < v10)
       {
-        v28 = brc_bread_crumbs();
+        v27 = brc_bread_crumbs();
         v17 = brc_default_log();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
@@ -691,26 +680,26 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
             v18 = "Possible slow statement on";
           }
 
-          v26 = v18;
+          v25 = v18;
           queryPlanForSQL(v11, v7);
           *buf = 136317186;
-          *v30 = v26;
-          *&v30[8] = 2112;
-          *&v30[10] = v7;
-          *&v30[18] = 1024;
-          *&v30[20] = v9;
-          v31 = 2048;
-          *v32 = v16;
-          *&v32[8] = 1024;
-          *&v32[10] = v10;
-          v33 = 2048;
-          *v34 = v16 * (8 * v9 + 175) + 175;
-          *&v34[8] = 2080;
-          *&v34[10] = v11;
-          v19 = *&v34[18] = 2112;
-          *&v34[20] = v19;
-          *&v34[28] = 2112;
-          *&v34[30] = v28;
+          *v29 = v25;
+          *&v29[8] = 2112;
+          *&v29[10] = v7;
+          *&v29[18] = 1024;
+          *&v29[20] = v9;
+          v30 = 2048;
+          *v31 = v16;
+          *&v31[8] = 1024;
+          *&v31[10] = v10;
+          v32 = 2048;
+          *v33 = v16 * (8 * v9 + 175) + 175;
+          *&v33[8] = 2080;
+          *&v33[10] = v11;
+          v19 = *&v33[18] = 2112;
+          *&v33[20] = v19;
+          *&v33[28] = 2112;
+          *&v33[30] = v27;
           _os_log_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEFAULT, "[WARNING] %s %@:\n  binds:    %d\n  changes:  %lld\n  vm steps: %d (max: %lu)\n  sql:      %s\n  %@%@", buf, 0x54u);
         }
 
@@ -725,13 +714,13 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
       if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
       {
         *buf = 67109890;
-        *v30 = v10;
-        *&v30[4] = 2048;
-        *&v30[6] = v12;
-        *&v30[14] = 2080;
-        *&v30[16] = v11;
-        v31 = 2112;
-        *v32 = v20;
+        *v29 = v10;
+        *&v29[4] = 2048;
+        *&v29[6] = v12;
+        *&v29[14] = 2080;
+        *&v29[16] = v11;
+        v30 = 2112;
+        *v31 = v20;
         _os_log_fault_impl(&dword_223E7A000, v21, OS_LOG_TYPE_FAULT, "[CRIT] Significantly too slow SQL statement(vm steps: %u  max:%lu): %s%@", buf, 0x26u);
       }
 
@@ -745,13 +734,11 @@ void __40__BRCPQLConnection_setProfilingEnabled___block_invoke(uint64_t a1, void
         v22 = "(null)";
       }
 
-      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v22, v26}];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:{v22, v25}];
       v24 = [@"Significantly too slow SQL statement: " stringByAppendingString:v23];
       abc_report_assert_with_signature();
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __40__BRCPQLConnection_setProfilingEnabled___block_invoke_188(uint64_t a1, void *a2, sqlite3_stmt *a3)
@@ -764,7 +751,7 @@ uint64_t __40__BRCPQLConnection_setProfilingEnabled___block_invoke_188(uint64_t 
 
 - (BOOL)attachDBAtPath:(id)path as:(id)as error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CCACA8];
   asCopy = as;
   pathCopy = path;
@@ -780,20 +767,20 @@ uint64_t __40__BRCPQLConnection_setProfilingEnabled___block_invoke_188(uint64_t 
       v15 = brc_default_log();
       if (os_log_type_enabled(v15, 0x90u))
       {
-        v19 = "(passed to caller)";
+        v18 = "(passed to caller)";
         *buf = 136315906;
-        v21 = "[BRCPQLConnection attachDBAtPath:as:error:]";
-        v22 = 2080;
+        v20 = "[BRCPQLConnection attachDBAtPath:as:error:]";
+        v21 = 2080;
         if (!error)
         {
-          v19 = "(ignored by caller)";
+          v18 = "(ignored by caller)";
         }
 
-        v23 = v19;
-        v24 = 2112;
-        v25 = lastError;
-        v26 = 2112;
-        v27 = v14;
+        v22 = v18;
+        v23 = 2112;
+        v24 = lastError;
+        v25 = 2112;
+        v26 = v14;
         _os_log_error_impl(&dword_223E7A000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -805,7 +792,6 @@ uint64_t __40__BRCPQLConnection_setProfilingEnabled___block_invoke_188(uint64_t 
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1116,21 +1102,17 @@ uint64_t __60__BRCPQLConnection_scheduleFlushWithCheckpoint_whenFlushed___block_
   {
     if (!self->_batchingPacer)
     {
-      flushInterval = self->_flushInterval;
       serialQueue = [(BRCPQLConnection *)self serialQueue];
-      v8 = br_pacer_create();
+      v7 = br_pacer_create();
       batchingPacer = self->_batchingPacer;
-      self->_batchingPacer = v8;
+      self->_batchingPacer = v7;
 
       objc_initWeak(&location, self);
-      v10 = self->_batchingPacer;
-      objc_copyWeak(&v16, &location);
+      objc_copyWeak(&v12, &location);
       br_pacer_set_event_handler();
-      v11 = self->_batchingPacer;
       br_pacer_resume();
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(&location);
-      v12 = self->_batchingPacer;
     }
 
     br_pacer_signal_at_most_after_min_interval();
@@ -1153,15 +1135,15 @@ LABEL_17:
     changeCount = self->_changeCount;
     if (changeCount)
     {
-      v14 = changeCount <= count;
+      v10 = changeCount <= count;
     }
 
     else
     {
-      v14 = 0;
+      v10 = 0;
     }
 
-    if (!v14 && !self->_flushImmediately)
+    if (!v10 && !self->_flushImmediately)
     {
       if (!self->_batchingPacer)
       {
@@ -1205,7 +1187,7 @@ void __48__BRCPQLConnection__shouldFlushWithChangeCount___block_invoke(uint64_t 
 
 - (BOOL)brc_closeWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_batchingPacer)
   {
     br_pacer_cancel();
@@ -1213,9 +1195,9 @@ void __48__BRCPQLConnection__shouldFlushWithChangeCount___block_invoke(uint64_t 
     self->_batchingPacer = 0;
   }
 
-  v13 = 0;
-  v6 = [(BRCPQLConnection *)self close:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(BRCPQLConnection *)self close:&v12];
+  v7 = v12;
   if ((v6 & 1) == 0)
   {
     v8 = brc_bread_crumbs();
@@ -1224,10 +1206,10 @@ void __48__BRCPQLConnection__shouldFlushWithChangeCount___block_invoke(uint64_t 
     {
       *buf = 138412802;
       selfCopy = self;
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
       _os_log_fault_impl(&dword_223E7A000, v9, OS_LOG_TYPE_FAULT, "[CRIT] error closing connection %@: %@%@", buf, 0x20u);
     }
   }
@@ -1238,26 +1220,24 @@ void __48__BRCPQLConnection__shouldFlushWithChangeCount___block_invoke(uint64_t 
     *error = v7;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)brc_close
 {
-  v9 = 0;
-  v3 = [(BRCPQLConnection *)self brc_closeWithError:&v9];
-  v4 = v9;
+  v10 = 0;
+  v3 = [(BRCPQLConnection *)self brc_closeWithError:&v10];
+  v4 = v10;
   v5 = v4;
   if (!v3)
   {
     abc_report_panic_with_signature();
-    [MEMORY[0x277CCACA8] stringWithFormat:@"error closing connection %@: %@", self, v5];
-    objc_claimAutoreleasedReturnValue();
-    v6 = brc_bread_crumbs();
-    v7 = brc_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"error closing connection %@: %@", self, v5];
+    v7 = brc_bread_crumbs();
+    v8 = brc_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1();
+      __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(v6);
     }
 
     brc_append_system_info_to_message();
@@ -1433,42 +1413,21 @@ void __38__BRCPQLConnection_autovacuumIfNeeded__block_invoke(uint64_t a1)
 
 void __60__BRCPQLConnection__setErrorHandlerWithDBCorruptionHandler___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = v0;
-  _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Got really unexpected error: %@%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Got really unexpected error: %@%@", v2, 0x16u);
 }
 
-void __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1()
+void __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = brc_append_system_info_to_message();
+  v1 = brc_append_system_info_to_message();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7(&dword_223E7A000, v1, v2, "[CRIT] %@%@", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __37__BRCPQLConnection__setLockedHandler__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_registerStaticDBFunctionsWithError:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] _registerStaticDBFunctions failed with %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_223E7A000, v2, v3, "[CRIT] %@%@", v4, v5, v6, v7);
 }
 
 void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_5_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1476,15 +1435,12 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_5
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc >= 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc >= 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_133_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1492,15 +1448,12 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_1
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: !set || [set isKindOfClass:[NSIndexSet class]]%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: !set || [set isKindOfClass:[NSIndexSet class]]%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_6_cold_1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1508,39 +1461,12 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_6
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: argc == 1%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: argc == 1%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchWithExpectedIndex:sql:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] API MISUSE: you need to provide an index%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchWithSlowStatementRadar:sql:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] API MISUSE: you need to provide a radar%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)executeWithExpectedIndex:sql:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_2(&dword_223E7A000, v0, v1, "[CRIT] API MISUSE: you need to an index to use%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disableProfilingForQueriesInBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
@@ -1548,26 +1474,23 @@ void __56__BRCPQLConnection__registerStaticDBFunctionsWithError___block_invoke_6
   if (OUTLINED_FUNCTION_5(v2))
   {
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v4, v5, "[CRIT] Assertion failed: block%@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v3, v4, "[CRIT] Assertion failed: block%@", v5, v6, v7, v8);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldFlushWithChangeCount:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _batchingPacer%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_fault_impl(&dword_223E7A000, v5, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: _batchingPacer%@", &v6, 0xCu);
   }
 
   *a2 = *a1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

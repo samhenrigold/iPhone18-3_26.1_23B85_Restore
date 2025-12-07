@@ -146,7 +146,7 @@
 
 void __34__SSDownloadAsset_copyXPCEncoding__block_invoke(uint64_t a1)
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   SSXPCDictionarySetCFObject(*(a1 + 32), "1", *(*(a1 + 40) + 32));
   SSXPCDictionarySetCFObject(*(a1 + 32), "2", *(*(a1 + 40) + 72));
   v2 = [*(*(a1 + 40) + 32) objectForKeyedSubscript:@"d"];
@@ -183,186 +183,185 @@ void __34__SSDownloadAsset_copyXPCEncoding__block_invoke(uint64_t a1)
     v8 = v7;
   }
 
-  if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  v9 = [v6 OSLogObject];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v9 = v8 & 2;
+    v10 = v8 & 2;
   }
 
-  if (v9)
+  if (v10)
   {
-    v10 = *(*(a1 + 40) + 64);
-    v69 = 134217984;
-    v70 = v10;
-    LODWORD(v67) = 12;
-    v64 = &v69;
-    v11 = _os_log_send_and_compose_impl();
-    if (v11)
+    v11 = *(*(a1 + 40) + 64);
+    v70 = 134217984;
+    v71 = v11;
+    v12 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, v9, 0, "DestinationURL was unspecified; falling back to directory for asset type %ld", &v70);
+    if (v12)
     {
-      v12 = v11;
-      v13 = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v69, v67}];
-      free(v12);
-      SSFileLog(v6, @"%@", v14, v15, v16, v17, v18, v19, v13);
+      v13 = v12;
+      v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:4];
+      free(v13);
+      SSFileLog(v6, @"%@", v15, v16, v17, v18, v19, v20, v14);
     }
   }
 
-  v20 = SSGetFinalizedDirectoryForAssetType(*(*(a1 + 40) + 64));
-  if (v20)
+  v21 = SSGetFinalizedDirectoryForAssetType(*(*(a1 + 40) + 64));
+  if (v21)
   {
-    v21 = [MEMORY[0x1E695DFF8] fileURLWithPath:v20];
-    if (v21)
+    v22 = [MEMORY[0x1E695DFF8] fileURLWithPath:v21];
+    if (v22)
     {
-      v5 = v21;
+      v5 = v22;
 LABEL_18:
-      v68 = 0;
-      if (([objc_msgSend(MEMORY[0x1E696AC08] defaultManager] & 1) == 0)
+      v69 = 0;
+      if (([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
       {
-        v22 = +[SSLogConfig sharedStoreServicesConfig];
-        if (!v22)
+        v23 = +[SSLogConfig sharedStoreServicesConfig];
+        if (!v23)
         {
-          v22 = +[SSLogConfig sharedConfig];
+          v23 = +[SSLogConfig sharedConfig];
         }
 
-        v23 = [v22 shouldLog];
-        if ([v22 shouldLogToDisk])
+        v24 = [v23 shouldLog];
+        if ([v23 shouldLogToDisk])
         {
-          v24 = v23 | 2;
+          v25 = v24 | 2;
         }
 
         else
-        {
-          v24 = v23;
-        }
-
-        if (os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_ERROR))
         {
           v25 = v24;
         }
 
-        else
+        v26 = [v23 OSLogObject];
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          v25 = v24 & 2;
+          v27 = v25;
         }
 
-        if (v25)
+        else
         {
-          v69 = 138543362;
-          v70 = v68;
-          LODWORD(v67) = 12;
-          v65 = &v69;
-          v26 = _os_log_send_and_compose_impl();
-          if (v26)
+          v27 = v25 & 2;
+        }
+
+        if (v27)
+        {
+          v70 = 138543362;
+          v71 = v69;
+          v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_1D48BA000, v26, 16, "%{public}@", &v70, 12);
+          if (v28)
           {
-            v27 = v26;
-            v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v69, v67}];
-            free(v27);
-            SSFileLog(v22, @"%@", v29, v30, v31, v32, v33, v34, v28);
+            v29 = v28;
+            v30 = [MEMORY[0x1E696AEC0] stringWithCString:v28 encoding:4];
+            free(v29);
+            SSFileLog(v23, @"%@", v31, v32, v33, v34, v35, v36, v30);
           }
         }
 
-        v68 = 0;
+        v69 = 0;
       }
 
-      v35 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v35)
+      v37 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v37)
       {
-        v35 = +[SSLogConfig sharedConfig];
+        v37 = +[SSLogConfig sharedConfig];
       }
 
-      v36 = [v35 shouldLog];
-      if ([v35 shouldLogToDisk])
+      v38 = [v37 shouldLog];
+      if ([v37 shouldLogToDisk])
       {
-        v37 = v36 | 2;
-      }
-
-      else
-      {
-        v37 = v36;
-      }
-
-      if (os_log_type_enabled([v35 OSLogObject], OS_LOG_TYPE_INFO))
-      {
-        v38 = v37;
+        v39 = v38 | 2;
       }
 
       else
       {
-        v38 = v37 & 2;
+        v39 = v38;
       }
 
-      if (v38)
+      v40 = [v37 OSLogObject];
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
       {
-        v69 = 138543362;
-        v70 = v5;
-        LODWORD(v67) = 12;
-        v66 = &v69;
-        v39 = _os_log_send_and_compose_impl();
-        if (v39)
+        v41 = v39;
+      }
+
+      else
+      {
+        v41 = v39 & 2;
+      }
+
+      if (v41)
+      {
+        v70 = 138543362;
+        v71 = v5;
+        LODWORD(v68) = 12;
+        v42 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &dword_1D48BA000, v40, 1, "Creating sandbox extension for %{public}@", &v70, v68);
+        if (v42)
         {
-          v40 = v39;
-          v41 = [MEMORY[0x1E696AEC0] stringWithCString:v39 encoding:{4, &v69, v67}];
-          free(v40);
-          SSFileLog(v35, @"%@", v42, v43, v44, v45, v46, v47, v41);
+          v43 = v42;
+          v44 = [MEMORY[0x1E696AEC0] stringWithCString:v42 encoding:4];
+          free(v43);
+          SSFileLog(v37, @"%@", v45, v46, v47, v48, v49, v50, v44);
         }
       }
 
-      v48 = objc_alloc(MEMORY[0x1E696AE98]);
-      v49 = [v48 initWithURL:v5 readonly:0 extensionClass:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", *MEMORY[0x1E69E9BB0])}];
-      v50 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v49 requiringSecureCoding:1 error:&v68];
-      if (v50)
+      v51 = objc_alloc(MEMORY[0x1E696AE98]);
+      v52 = [v51 initWithURL:v5 readonly:0 extensionClass:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", *MEMORY[0x1E69E9BB0])}];
+      v53 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v52 requiringSecureCoding:1 error:&v69];
+      if (v53)
       {
-        SSXPCDictionarySetObject(*(a1 + 32), "3", v50);
+        SSXPCDictionarySetObject(*(a1 + 32), "3", v53);
       }
 
       else
       {
-        v51 = +[SSLogConfig sharedStoreServicesConfig];
-        if (!v51)
+        v54 = +[SSLogConfig sharedStoreServicesConfig];
+        if (!v54)
         {
-          v51 = +[SSLogConfig sharedConfig];
+          v54 = +[SSLogConfig sharedConfig];
         }
 
-        v52 = [v51 shouldLog];
-        if ([v51 shouldLogToDisk])
+        v55 = [v54 shouldLog];
+        if ([v54 shouldLogToDisk])
         {
-          v53 = v52 | 2;
+          v56 = v55 | 2;
         }
 
         else
         {
-          v53 = v52;
+          v56 = v55;
         }
 
-        if (os_log_type_enabled([v51 OSLogObject], OS_LOG_TYPE_ERROR))
+        v57 = [v54 OSLogObject];
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          v54 = v53;
+          v58 = v56;
         }
 
         else
         {
-          v54 = v53 & 2;
+          v58 = v56 & 2;
         }
 
-        if (v54)
+        if (v58)
         {
-          v69 = 138543362;
-          v70 = v68;
-          LODWORD(v67) = 12;
-          v55 = _os_log_send_and_compose_impl();
-          if (v55)
+          v70 = 138543362;
+          v71 = v69;
+          LODWORD(v68) = 12;
+          v59 = _os_log_send_and_compose_impl(v58, 0, 0, 0, &dword_1D48BA000, v57, 16, "%{public}@", &v70, v68);
+          if (v59)
           {
-            v56 = v55;
-            v57 = [MEMORY[0x1E696AEC0] stringWithCString:v55 encoding:{4, &v69, v67}];
-            free(v56);
-            SSFileLog(v51, @"%@", v58, v59, v60, v61, v62, v63, v57);
+            v60 = v59;
+            v61 = [MEMORY[0x1E696AEC0] stringWithCString:v59 encoding:4];
+            free(v60);
+            SSFileLog(v54, @"%@", v62, v63, v64, v65, v66, v67, v61);
           }
         }
 
-        v68 = 0;
+        v69 = 0;
       }
     }
   }

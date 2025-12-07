@@ -50,10 +50,10 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFPredictedActionSetItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   predictionsManager = [(HFPredictedActionSetItemProvider *)self predictionsManager];
   delegate = [predictionsManager delegate];
-  v8 = [v4 initWithHome:home predictionsManagerDelegate:delegate itemCount:{-[HFPredictedActionSetItemProvider itemCount](self, "itemCount")}];
+  v8 = [v4 initWithHome:v5 predictionsManagerDelegate:delegate itemCount:{-[HFPredictedActionSetItemProvider itemCount](self, "itemCount")}];
 
   return v8;
 }
@@ -69,8 +69,8 @@
 
   else
   {
-    home = [(HFPredictedActionSetItemProvider *)self home];
-    overrideValueSource2 = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    overrideValueSource2 = [v5 hf_characteristicValueManager];
   }
 
   return overrideValueSource2;
@@ -209,16 +209,14 @@ id __47__HFPredictedActionSetItemProvider_reloadItems__block_invoke_3(uint64_t a
 
 - (id)invalidationReasons
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFPredictedActionSetItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"actionSet";
-  v8[1] = @"home";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFPredictedActionSetItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"actionSet";
+  v7[1] = @"home";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -260,7 +258,7 @@ id __62__HFPredictedActionSetItemProvider_fetchUserActionPredictions__block_invo
     v7 = v6 - [v3 count];
     if (v7 >= 1)
     {
-      v8 = [v5 home];
+      v8 = objc_msgSend_home(v5);
       v9 = [v8 hf_orderedActionSets];
       v10 = [v9 mutableCopy];
 

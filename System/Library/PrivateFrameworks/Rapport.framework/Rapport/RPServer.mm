@@ -18,6 +18,8 @@
 - (void)setPasswordType:(int)type;
 - (void)setServiceType:(id)type;
 - (void)xpcServerAcceptSession:(id)session completion:(id)completion;
+- (void)xpcServerHidePassword:(unsigned int)password;
+- (void)xpcServerShowPassword:(id)password flags:(unsigned int)flags;
 @end
 
 @implementation RPServer
@@ -41,9 +43,9 @@
 - (RPServer)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = RPServer;
-  v5 = [(RPServer *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = RPServer;
+  v5 = [(RPServer *)&v17 init];
   v6 = v5;
   if (v5)
   {
@@ -63,10 +65,10 @@
       v6->_controlFlags = [v8 decodeInt64ForKey:@"cFl"];
     }
 
-    v17 = 0;
+    v18 = 0;
     if (NSDecodeSInt64RangedIfPresent())
     {
-      v6->_internalAuthFlags = v17;
+      v6->_internalAuthFlags = v18;
     }
 
     v9 = v8;
@@ -76,28 +78,28 @@
     label = v6->_label;
     if (label)
     {
-      v11 = label;
-      [(NSString *)v11 UTF8String];
-      LogCategoryReplaceF();
+      v11 = qword_1EB979F88;
+      v12 = label;
+      LogCategoryReplaceF(&v6->_ucat, "%s-%s", v11, [(NSString *)v12 UTF8String]);
     }
 
     objc_opt_class();
     NSDecodeNSArrayOfClassIfPresent();
-    v17 = 0;
+    v18 = 0;
     if (NSDecodeSInt64RangedIfPresent())
     {
-      v6->_passwordType = v17;
+      v6->_passwordType = v18;
     }
 
-    v12 = v9;
+    v13 = v9;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    v13 = v12;
+    v14 = v13;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    v14 = v6;
+    v15 = v6;
   }
 
   return v6;
@@ -186,61 +188,69 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  serviceType = self->_serviceType;
-  NSAppendPrintF();
-  v4 = 0;
+  v24 = 0;
+  NSAppendPrintF(&v24, "RPServer: ST '%@'", *&level, self->_serviceType);
+  v4 = v24;
   v5 = v4;
   allowedMACAddresses = self->_allowedMACAddresses;
   if (allowedMACAddresses)
   {
-    v20 = v4;
+    v23 = v4;
     v7 = allowedMACAddresses;
-    [(NSArray *)v7 count];
-    NSAppendPrintF();
-    v8 = v20;
+    NSAppendPrintF(&v23, ", Number of MACAddrs %d", [(NSArray *)v7 count]);
+    v8 = v23;
 
     v5 = v8;
   }
 
   if (self->_advertiseDeviceName)
   {
-    NSAppendPrintF();
-    v9 = v5;
+    v22 = v5;
+    NSAppendPrintF(&v22, ", AdvName %s", "yes");
+    v9 = v22;
 
     v5 = v9;
   }
 
-  if (self->_controlFlags)
+  controlFlags = self->_controlFlags;
+  if (controlFlags)
   {
-    controlFlags = self->_controlFlags;
-    NSAppendPrintF();
-    v10 = v5;
+    v21 = v5;
+    NSAppendPrintF(&v21, ", CF %#ll{flags}", controlFlags, &unk_1B6F2ECC7);
+    v11 = v21;
 
-    v5 = v10;
+    v5 = v11;
   }
 
   passwordType = self->_passwordType;
   if (passwordType)
   {
-    if (passwordType <= 0xB)
+    v20 = v5;
+    if (passwordType > 0xB)
     {
-      v12 = off_1E7C94E88[passwordType - 1];
+      v13 = "?";
     }
 
-    NSAppendPrintF();
-    v13 = v5;
+    else
+    {
+      v13 = off_1E7C94E88[passwordType - 1];
+    }
 
-    v5 = v13;
+    NSAppendPrintF(&v20, ", PWType %s", v13);
+    v14 = v20;
+
+    v5 = v14;
   }
 
   pairSetupACL = self->_pairSetupACL;
   if (pairSetupACL)
   {
-    v19 = pairSetupACL;
-    NSAppendPrintF();
-    v15 = v5;
+    v19 = v5;
+    v16 = pairSetupACL;
+    NSAppendPrintF(&v19, ", PSACL %@", v16);
+    v17 = v19;
 
-    v5 = v15;
+    v5 = v17;
   }
 
   return v5;
@@ -274,9 +284,9 @@ BOOL __28__RPServer_setControlFlags___block_invoke(uint64_t a1)
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1EB979F88;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)setPassword:(id)password
@@ -461,7 +471,8 @@ int *__20__RPServer_activate__block_invoke(uint64_t a1)
 
 - (void)_activateWithReactivate:(BOOL)reactivate
 {
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (reactivate)
   {
     if (var0 <= 30)
@@ -476,7 +487,7 @@ int *__20__RPServer_activate__block_invoke(uint64_t a1)
         ucat = self->_ucat;
       }
 
-      goto LABEL_7;
+      LogPrintF(ucat, "[RPServer _activateWithReactivate:]", 30, "Re-activate\n");
     }
   }
 
@@ -489,90 +500,95 @@ int *__20__RPServer_activate__block_invoke(uint64_t a1)
         goto LABEL_11;
       }
 
-      v9 = self->_ucat;
+      ucat = self->_ucat;
     }
 
-LABEL_7:
-    LogPrintF();
+    LogPrintF(ucat, "[RPServer _activateWithReactivate:]", 30, "Activate\n");
   }
 
 LABEL_11:
   [(RPServer *)self _ensureXPCStarted];
   xpcCnx = self->_xpcCnx;
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __36__RPServer__activateWithReactivate___block_invoke;
-  v12[3] = &unk_1E7C94CD8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __36__RPServer__activateWithReactivate___block_invoke;
+  v11[3] = &unk_1E7C94CD8;
   reactivateCopy = reactivate;
-  v12[4] = self;
-  v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v12];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __36__RPServer__activateWithReactivate___block_invoke_2;
-  v10[3] = &unk_1E7C94CD8;
+  v11[4] = self;
+  v8 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v11];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __36__RPServer__activateWithReactivate___block_invoke_2;
+  v9[3] = &unk_1E7C94CD8;
   reactivateCopy2 = reactivate;
-  v10[4] = self;
-  [v8 xpcServerActivate:self completion:v10];
+  v9[4] = self;
+  [v8 xpcServerActivate:self completion:v9];
 }
 
 void __36__RPServer__activateWithReactivate___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v3 = **(*(a1 + 32) + 16);
+  v9 = a2;
+  v3 = *(*(a1 + 32) + 16);
+  v4 = *v3;
   if (*(a1 + 40) == 1)
   {
-    if (v3 > 90)
+    if (v4 > 90)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    if (v3 != -1)
+    v5 = v9;
+    if (v4 != -1)
     {
-      goto LABEL_7;
+      goto LABEL_4;
     }
 
     if (_LogCategory_Initialize())
     {
-      v4 = *(*(a1 + 32) + 16);
-LABEL_7:
-      LogPrintF();
+      v3 = *(*(a1 + 32) + 16);
+      v5 = v9;
+LABEL_4:
+      LogPrintF(v3, "[RPServer _activateWithReactivate:]_block_invoke", 90, "### Re-activate XPC error: %{error}\n", v5);
     }
   }
 
   else
   {
-    if (v3 > 90)
+    if (v4 > 90)
     {
-      goto LABEL_11;
+      goto LABEL_12;
     }
 
-    if (v3 != -1)
+    v6 = v9;
+    if (v4 == -1)
     {
-      goto LABEL_7;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_12;
+      }
+
+      v3 = *(*(a1 + 32) + 16);
+      v6 = v9;
     }
 
-    if (_LogCategory_Initialize())
-    {
-      v7 = *(*(a1 + 32) + 16);
-      goto LABEL_7;
-    }
+    LogPrintF(v3, "[RPServer _activateWithReactivate:]_block_invoke", 90, "### Activate XPC error: %{error}\n", v6);
   }
 
-LABEL_11:
-  v5 = _Block_copy(*(*(a1 + 32) + 144));
-  v6 = v5;
-  if (v5)
+LABEL_12:
+  v7 = _Block_copy(*(*(a1 + 32) + 144));
+  v8 = v7;
+  if (v7)
   {
-    (*(v5 + 2))(v5, v8);
+    (*(v7 + 2))(v7, v9);
   }
 }
 
 void __36__RPServer__activateWithReactivate___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = **(*(a1 + 32) + 16);
-  v12 = v3;
+  v4 = *(*(a1 + 32) + 16);
+  v5 = *v4;
+  v8 = v3;
   if (!v3)
   {
     if (*(a1 + 40))
@@ -589,29 +605,29 @@ void __36__RPServer__activateWithReactivate___block_invoke_2(uint64_t a1, void *
           goto LABEL_22;
         }
 
-        v9 = *(*(a1 + 32) + 16);
+        v4 = *(*(a1 + 32) + 16);
       }
+
+      LogPrintF(v4, "[RPServer _activateWithReactivate:]_block_invoke_2", 30, "Re-activated\n");
+      goto LABEL_22;
     }
 
-    else
+    if (v5 > 30)
     {
-      if (v5 > 30)
+      goto LABEL_22;
+    }
+
+    if (v5 == -1)
+    {
+      if (!_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
 
-      if (v5 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_22;
-        }
-
-        v10 = *(*(a1 + 32) + 16);
-      }
+      v4 = *(*(a1 + 32) + 16);
     }
 
-    LogPrintF();
+    LogPrintF(v4, "[RPServer _activateWithReactivate:]_block_invoke_2", 30, "Activated\n");
     goto LABEL_22;
   }
 
@@ -626,10 +642,10 @@ void __36__RPServer__activateWithReactivate___block_invoke_2(uint64_t a1, void *
           goto LABEL_19;
         }
 
-        v6 = *(*(a1 + 32) + 16);
+        v4 = *(*(a1 + 32) + 16);
       }
 
-      goto LABEL_12;
+      LogPrintF(v4, "[RPServer _activateWithReactivate:]_block_invoke_2", 90, "### Re-activate failed: %{error}\n", v8);
     }
   }
 
@@ -642,19 +658,18 @@ void __36__RPServer__activateWithReactivate___block_invoke_2(uint64_t a1, void *
         goto LABEL_19;
       }
 
-      v11 = *(*(a1 + 32) + 16);
+      v4 = *(*(a1 + 32) + 16);
     }
 
-LABEL_12:
-    LogPrintF();
+    LogPrintF(v4, "[RPServer _activateWithReactivate:]_block_invoke_2", 90, "### Activate failed: %{error}\n", v8);
   }
 
 LABEL_19:
-  v7 = _Block_copy(*(*(a1 + 32) + 144));
-  v8 = v7;
-  if (v7)
+  v6 = _Block_copy(*(*(a1 + 32) + 144));
+  v7 = v6;
+  if (v6)
   {
-    (*(v7 + 2))(v7, v12);
+    (*(v6 + 2))(v6, v8);
   }
 
 LABEL_22:
@@ -664,10 +679,10 @@ LABEL_22:
 {
   if (!self->_xpcCnx)
   {
-    v14[5] = v5;
-    v14[6] = v4;
-    v14[11] = v2;
-    v14[12] = v3;
+    v13[5] = v5;
+    v13[6] = v4;
+    v13[11] = v2;
+    v13[12] = v3;
     v7 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.CompanionLink" options:0];
     xpcCnx = self->_xpcCnx;
     self->_xpcCnx = v7;
@@ -677,29 +692,29 @@ LABEL_22:
     [(NSXPCConnection *)self->_xpcCnx setExportedInterface:v9];
 
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __29__RPServer__ensureXPCStarted__block_invoke;
-    v14[3] = &unk_1E7C92CE8;
-    v14[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v14];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __29__RPServer__ensureXPCStarted__block_invoke_2;
+    v13[2] = __29__RPServer__ensureXPCStarted__block_invoke;
     v13[3] = &unk_1E7C92CE8;
     v13[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v13];
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __29__RPServer__ensureXPCStarted__block_invoke_2;
+    v12[3] = &unk_1E7C92CE8;
+    v12[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v12];
     v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F2EFED18];
     [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v10];
 
     [(NSXPCConnection *)self->_xpcCnx resume];
-    var0 = self->_ucat->var0;
-    if (var0 <= 10)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 10)
     {
-      if (var0 != -1)
+      if (ucat->var0 != -1)
       {
 LABEL_4:
-        LogPrintF();
+        LogPrintF(ucat, "[RPServer _ensureXPCStarted]", 10, "XPC started\n");
         return;
       }
 
@@ -726,13 +741,13 @@ uint64_t __29__RPServer__ensureXPCStarted__block_invoke_2(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 50)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 50)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPServer _interrupted]", 50, "### Interrupted\n");
       goto LABEL_5;
     }
 
@@ -769,40 +784,41 @@ LABEL_5:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __22__RPServer_invalidate__block_invoke(uint64_t result)
+void *__22__RPServer_invalidate__block_invoke(void *result)
 {
-  v5 = *(result + 32);
+  v5 = result[4];
   if (*(v5 + 10))
   {
     return result;
   }
 
+  v11 = v2;
   v12 = v1;
   v6 = result;
   *(v5 + 10) = 1;
-  v7 = *(result + 32);
-  v8 = **(v7 + 16);
-  if (v8 <= 30)
+  v7 = result[4];
+  v8 = *(v7 + 16);
+  if (*v8 <= 30)
   {
-    if (v8 == -1)
+    if (*v8 == -1)
     {
       v9 = _LogCategory_Initialize();
-      v7 = *(v6 + 32);
+      v7 = v6[4];
       if (!v9)
       {
         goto LABEL_6;
       }
 
-      v11 = *(v7 + 16);
+      v8 = *(v7 + 16);
     }
 
-    LogPrintF();
-    v7 = *(v6 + 32);
+    LogPrintF(v8, "[RPServer invalidate]_block_invoke", 30, "Invalidating\n", v2, v12, v3);
+    v7 = v6[4];
   }
 
 LABEL_6:
   [*(v7 + 24) invalidate];
-  v10 = *(v6 + 32);
+  v10 = v6[4];
 
   return [v10 _invalidated];
 }
@@ -839,10 +855,10 @@ LABEL_6:
     self->_promptForPasswordHandler = 0;
 
     self->_invalidateDone = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -852,7 +868,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPServer _invalidated]", 30, "Invalidated\n");
     }
   }
 }
@@ -890,7 +906,8 @@ LABEL_6:
   selfCopy->_changesPending = 0;
   objc_sync_exit(selfCopy);
 
-  var0 = selfCopy->_ucat->var0;
+  ucat = selfCopy->_ucat;
+  var0 = ucat->var0;
   if (!changesPending)
   {
     if (var0 > 10)
@@ -908,7 +925,7 @@ LABEL_6:
       ucat = selfCopy->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[RPServer _update]", 10, "Unchanged server: %@\n", selfCopy);
     return;
   }
 
@@ -921,11 +938,10 @@ LABEL_6:
         goto LABEL_11;
       }
 
-      v6 = selfCopy->_ucat;
+      ucat = selfCopy->_ucat;
     }
 
-    v7 = selfCopy;
-    LogPrintF();
+    LogPrintF(ucat, "[RPServer _update]", 30, "Update server: %@\n", selfCopy);
   }
 
 LABEL_11:
@@ -938,13 +954,13 @@ LABEL_11:
   sessionCopy = session;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPServer xpcServerAcceptSession:completion:]", 30, "Accept session: %@\n", sessionCopy);
       goto LABEL_5;
     }
 
@@ -964,6 +980,68 @@ LABEL_5:
   }
 }
 
+- (void)xpcServerShowPassword:(id)password flags:(unsigned int)flags
+{
+  v4 = *&flags;
+  passwordCopy = password;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
+  {
+    if (ucat->var0 != -1)
+    {
+LABEL_3:
+      LogPrintF(ucat, "[RPServer xpcServerShowPassword:flags:]", 30, "Show password: %#{flags}\n", v4, &unk_1B6F2EF4C);
+      goto LABEL_5;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      ucat = self->_ucat;
+      goto LABEL_3;
+    }
+  }
+
+LABEL_5:
+  v7 = _Block_copy(self->_showPasswordHandler);
+  v8 = v7;
+  if (v7)
+  {
+    (*(v7 + 2))(v7, v4, passwordCopy);
+  }
+}
+
+- (void)xpcServerHidePassword:(unsigned int)password
+{
+  v3 = *&password;
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
+  {
+    if (ucat->var0 != -1)
+    {
+LABEL_3:
+      LogPrintF(ucat, "[RPServer xpcServerHidePassword:]", 30, "Hide password: %#{flags}\n", v3, &unk_1B6F2EF4C);
+      goto LABEL_5;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      ucat = self->_ucat;
+      goto LABEL_3;
+    }
+  }
+
+LABEL_5:
+  v6 = _Block_copy(self->_hidePasswordHandler);
+  if (v6)
+  {
+    v7 = v6;
+    (*(v6 + 2))(v6, v3);
+    v6 = v7;
+  }
+}
+
 int *__20__RPServer_activate__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
   result = *(a1 + 16);
@@ -977,10 +1055,10 @@ int *__20__RPServer_activate__block_invoke_cold_1(uint64_t a1, uint64_t a2)
         return result;
       }
 
-      v4 = *(*a2 + 16);
+      result = *(*a2 + 16);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[RPServer activate]_block_invoke", 30, "Activate when already activated\n");
   }
 
   return result;
@@ -999,10 +1077,10 @@ int *__20__RPServer_activate__block_invoke_cold_2(uint64_t a1, uint64_t a2)
         return result;
       }
 
-      v4 = *(*a2 + 16);
+      result = *(*a2 + 16);
     }
 
-    return LogPrintF();
+    return LogPrintF(result, "[RPServer activate]_block_invoke", 115, "### Activate after invalidate\n");
   }
 
   return result;

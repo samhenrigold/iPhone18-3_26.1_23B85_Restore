@@ -274,7 +274,7 @@
 
 - (NSString)contentProviderTeamID
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = [(ASCLockup *)self featureWithClass:objc_opt_class()];
   v4 = v3;
   if (v3)
@@ -286,28 +286,26 @@
   {
     if (os_variant_has_internal_content())
     {
-      v8 = objc_alloc(MEMORY[0x277CCACA8]);
-      v9 = [(ASCLockup *)self id];
-      v10 = [v8 initWithFormat:@"Lockup for %@ Adam ID does not include Safari extension feature.", v9];
+      v7 = objc_alloc(MEMORY[0x277CCACA8]);
+      v8 = [(ASCLockup *)self id];
+      v9 = [v7 initWithFormat:@"Lockup for %@ Adam ID does not include Safari extension feature.", v8];
 
-      v11 = objc_alloc(MEMORY[0x277CBEAD8]);
-      v12 = *MEMORY[0x277CBE658];
-      v13 = *MEMORY[0x277CCA470];
-      v17[0] = *MEMORY[0x277CCA498];
-      v17[1] = v13;
-      v18[0] = @"Set ASCLockupContextSafariExtension context on lockup request";
-      v18[1] = @"Possibly a mismatching JS version for ASC";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-      v15 = [v11 initWithName:v12 reason:v10 userInfo:v14];
-      v16 = v15;
+      v10 = objc_alloc(MEMORY[0x277CBEAD8]);
+      v11 = *MEMORY[0x277CBE658];
+      v12 = *MEMORY[0x277CCA470];
+      v16[0] = *MEMORY[0x277CCA498];
+      v16[1] = v12;
+      v17[0] = @"Set ASCLockupContextSafariExtension context on lockup request";
+      v17[1] = @"Possibly a mismatching JS version for ASC";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      v14 = [v10 initWithName:v11 reason:v9 userInfo:v13];
+      v15 = v14;
 
-      objc_exception_throw(v15);
+      objc_exception_throw(v14);
     }
 
     contentProviderTeamID = &stru_2835CD1E8;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return contentProviderTeamID;
 }
@@ -340,7 +338,7 @@
 
 - (BOOL)requiresSSOEntitlement
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = [(ASCLockup *)self featureWithClass:objc_opt_class()];
   v4 = v3;
   if (v3)
@@ -352,28 +350,27 @@
   {
     if (os_variant_has_internal_content())
     {
-      v8 = objc_alloc(MEMORY[0x277CCACA8]);
-      v9 = [(ASCLockup *)self id];
-      v10 = [v8 initWithFormat:@"Lockup for %@ Adam ID does not include Single Sign On feature.", v9];
+      v7 = objc_alloc(MEMORY[0x277CCACA8]);
+      v8 = [(ASCLockup *)self id];
+      v9 = [v7 initWithFormat:@"Lockup for %@ Adam ID does not include Single Sign On feature.", v8];
 
-      v11 = objc_alloc(MEMORY[0x277CBEAD8]);
-      v12 = *MEMORY[0x277CBE658];
-      v13 = *MEMORY[0x277CCA470];
-      v17[0] = *MEMORY[0x277CCA498];
-      v17[1] = v13;
-      v18[0] = @"Set ASCLockupContextSingleSignOn context on lockup request";
-      v18[1] = @"Possibly a mismatching JS version for ASC";
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
-      v15 = [v11 initWithName:v12 reason:v10 userInfo:v14];
-      v16 = v15;
+      v10 = objc_alloc(MEMORY[0x277CBEAD8]);
+      v11 = *MEMORY[0x277CBE658];
+      v12 = *MEMORY[0x277CCA470];
+      v16[0] = *MEMORY[0x277CCA498];
+      v16[1] = v12;
+      v17[0] = @"Set ASCLockupContextSingleSignOn context on lockup request";
+      v17[1] = @"Possibly a mismatching JS version for ASC";
+      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+      v14 = [v10 initWithName:v11 reason:v9 userInfo:v13];
+      v15 = v14;
 
-      objc_exception_throw(v15);
+      objc_exception_throw(v14);
     }
 
     requiresSSOEntitlement = 0;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return requiresSSOEntitlement;
 }
 
@@ -894,27 +891,27 @@ LABEL_70:
 
 - (id)featureWithClass:(Class)class
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   features = [(ASCLockup *)self features];
-  v4 = [features countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [features countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(features);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v9 = v8;
@@ -922,7 +919,7 @@ LABEL_70:
         }
       }
 
-      v5 = [features countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [features countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -934,8 +931,6 @@ LABEL_70:
 
   v9 = 0;
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -982,12 +977,11 @@ LABEL_11:
 
 uint64_t __35__ASCLockup_lockupByAddingFeature___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   objc_opt_class();
-  LOBYTE(v2) = objc_opt_isKindOfClass();
+  isKindOfClass = objc_opt_isKindOfClass();
 
-  return v2 & 1;
+  return isKindOfClass & 1;
 }
 
 - (ASCLockup)lockupWithOffer:(id)offer

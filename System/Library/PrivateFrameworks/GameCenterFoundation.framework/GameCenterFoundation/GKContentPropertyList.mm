@@ -65,7 +65,7 @@
 
 - (id)_rootDictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   root = [(GKContentPropertyList *)self root];
   if (!root)
   {
@@ -77,9 +77,9 @@
       v7 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v6];
       if (v7)
       {
-        v18 = 0;
-        root = [MEMORY[0x277CCAC58] propertyListWithData:v7 options:0 format:0 error:&v18];
-        v8 = v18;
+        v17 = 0;
+        root = [MEMORY[0x277CCAC58] propertyListWithData:v7 options:0 format:0 error:&v17];
+        v8 = v17;
         if (!root)
         {
           v9 = os_log_GKGeneral;
@@ -92,7 +92,7 @@
           if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v20 = v8;
+            v19 = v8;
             _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "reading content plist: %@", buf, 0xCu);
           }
         }
@@ -112,7 +112,7 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v20 = v6;
+          v19 = v6;
           _os_log_impl(&dword_227904000, v14, OS_LOG_TYPE_INFO, "can't read file from path: %@", buf, 0xCu);
         }
 
@@ -133,15 +133,13 @@
       {
         bundleID = self->_bundleID;
         *buf = 138412290;
-        v20 = bundleID;
+        v19 = bundleID;
         _os_log_impl(&dword_227904000, v11, OS_LOG_TYPE_INFO, "no bundle for bundleID: %@", buf, 0xCu);
       }
 
       root = 0;
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return root;
 }

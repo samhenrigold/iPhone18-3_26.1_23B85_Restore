@@ -10,19 +10,8 @@ void ___LSOpenResourceOperationDelegateGetXPCInterface_block_invoke()
   _LSOpenResourceOperationDelegateGetXPCInterface::result = v0;
 
   v2 = _LSOpenResourceOperationDelegateGetXPCInterface::result;
-  if (_LSOpenResourceOperationDelegateGetXPCInterface::result)
+  if (_LSOpenResourceOperationDelegateGetXPCInterface::result || ([MEMORY[0x1E696AAA8] currentHandler], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x1E696AEC0], "stringWithUTF8String:", "NSXPCInterface *_LSOpenResourceOperationDelegateGetXPCInterface()_block_invoke"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "handleFailureInFunction:file:lineNumber:description:", v6, @"LSOpenOperation.mm", 138, @"Failed to create XPC interface object."), v6, v5, (v2 = _LSOpenResourceOperationDelegateGetXPCInterface::result) != 0))
   {
-    goto LABEL_2;
-  }
-
-  v5 = [MEMORY[0x1E696AAA8] currentHandler];
-  v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSXPCInterface *_LSOpenResourceOperationDelegateGetXPCInterface()_block_invoke"];
-  [v5 handleFailureInFunction:v6 file:@"LSOpenOperation.mm" lineNumber:138 description:@"Failed to create XPC interface object."];
-
-  v2 = _LSOpenResourceOperationDelegateGetXPCInterface::result;
-  if (_LSOpenResourceOperationDelegateGetXPCInterface::result)
-  {
-LABEL_2:
     [v2 setClass:objc_opt_class() forSelector:sel_openResourceOperation_didFinishCopyingResource_ argumentIndex:0 ofReply:0];
     v3 = _LSOpenResourceOperationDelegateGetXPCInterface::result;
     v4 = objc_opt_class();

@@ -35,20 +35,19 @@
 
 - (id)serializeToDictionary
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v8[0] = @"bits";
+  v7[0] = @"bits";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDTimeBasedFlagDaily bits](self, "bits")}];
-  v9[0] = v3;
-  v8[1] = @"bit0date";
+  v8[0] = v3;
+  v7[1] = @"bit0date";
   bit0Date = [(HMDTimeBasedFlagDaily *)self bit0Date];
-  v8[2] = @"periodicity";
-  v9[1] = bit0Date;
-  v9[2] = &unk_28662A3A0;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
+  v7[2] = @"periodicity";
+  v8[1] = bit0Date;
+  v8[2] = &unk_28662A3A0;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
 
   os_unfair_lock_unlock(&self->_lock);
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -342,19 +341,17 @@ void __54__HMDTimeBasedFlagDaily_initWithContext_dateProvider___block_invoke()
 
 + (id)convertLegacyFlagBits:(id)bits lastSaveTIme:(id)ime
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"bits";
-  v11[1] = @"bit0date";
-  v12[0] = bits;
-  v12[1] = ime;
-  v11[2] = @"periodicity";
-  v12[2] = &unk_28662A3A0;
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"bits";
+  v10[1] = @"bit0date";
+  v11[0] = bits;
+  v11[1] = ime;
+  v10[2] = @"periodicity";
+  v11[2] = &unk_28662A3A0;
   v5 = MEMORY[0x277CBEAC0];
   imeCopy = ime;
   bitsCopy = bits;
-  v8 = [v5 dictionaryWithObjects:v12 forKeys:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v5 dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   return v8;
 }

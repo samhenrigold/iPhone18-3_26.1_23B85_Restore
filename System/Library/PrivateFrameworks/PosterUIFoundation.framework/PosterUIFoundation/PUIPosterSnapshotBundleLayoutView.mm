@@ -277,7 +277,7 @@ void __65__PUIPosterSnapshotBundleLayoutView_setSnapshotBundle_animation___block
   (*(*(a1 + 40) + 16))();
 }
 
-uint64_t __65__PUIPosterSnapshotBundleLayoutView_setSnapshotBundle_animation___block_invoke_3(void *a1)
+void *__65__PUIPosterSnapshotBundleLayoutView_setSnapshotBundle_animation___block_invoke_3(void *a1)
 {
   result = [*(a1[4] + 584) isEqual:a1[5]];
   if (result)

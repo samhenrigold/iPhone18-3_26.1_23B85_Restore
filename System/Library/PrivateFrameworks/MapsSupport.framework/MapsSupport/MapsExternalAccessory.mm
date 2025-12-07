@@ -46,7 +46,7 @@
 + (void)setUsePrivateQueue
 {
   v2 = qword_100075888;
-  v3 = sub_10000333C();
+  v3 = sub_10000333C(self);
   v4 = v3;
   if (v2)
   {
@@ -72,14 +72,14 @@
 - (MapsExternalAccessory)initWithPrivateQueue:(BOOL)queue
 {
   queueCopy = queue;
-  v50.receiver = self;
-  v50.super_class = MapsExternalAccessory;
-  v4 = [(MapsExternalAccessory *)&v50 init];
+  v51.receiver = self;
+  v51.super_class = MapsExternalAccessory;
+  v4 = [(MapsExternalAccessory *)&v51 init];
   v5 = v4;
   v4->_initialising = 1;
   if (queueCopy)
   {
-    v6 = sub_10000333C();
+    v6 = sub_10000333C(v4);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
 LABEL_9:
@@ -114,7 +114,7 @@ LABEL_9:
 LABEL_8:
 
     *buf = 138543362;
-    v54 = v12;
+    v55 = v12;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "[%{public}@] using private dispatch queue", buf, 0xCu);
 
     goto LABEL_9;
@@ -124,99 +124,99 @@ LABEL_8:
   v16 = +[NSOperationQueue mainQueue];
 LABEL_11:
   objc_storeStrong(&v5->_operationQueue, v16);
-  v17 = sub_10000333C();
-  if (!os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = sub_10000333C(v17);
+  if (!os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     goto LABEL_18;
   }
 
-  v18 = v5;
-  v19 = objc_opt_class();
-  v20 = NSStringFromClass(v19);
+  v19 = v5;
+  v20 = objc_opt_class();
+  v21 = NSStringFromClass(v20);
   if (objc_opt_respondsToSelector())
   {
-    v21 = [(MapsExternalAccessory *)v18 performSelector:"accessibilityIdentifier"];
-    v22 = v21;
-    if (v21 && ![v21 isEqualToString:v20])
+    v22 = [(MapsExternalAccessory *)v19 performSelector:"accessibilityIdentifier"];
+    v23 = v22;
+    if (v22 && ![v22 isEqualToString:v21])
     {
-      v23 = [NSString stringWithFormat:@"%@<%p, %@>", v20, v18, v22];
+      v24 = [NSString stringWithFormat:@"%@<%p, %@>", v21, v19, v23];
 
       goto LABEL_17;
     }
   }
 
-  v23 = [NSString stringWithFormat:@"%@<%p>", v20, v18];
+  v24 = [NSString stringWithFormat:@"%@<%p>", v21, v19];
 LABEL_17:
 
   *buf = 138543362;
-  v54 = v23;
-  _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "[%{public}@] registering for EAAccessory notifications", buf, 0xCu);
+  v55 = v24;
+  _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "[%{public}@] registering for EAAccessory notifications", buf, 0xCu);
 
 LABEL_18:
   objc_initWeak(buf, v5);
-  v24 = +[NSNotificationCenter defaultCenter];
-  v48[0] = _NSConcreteStackBlock;
-  v48[1] = 3221225472;
-  v48[2] = sub_100004318;
-  v48[3] = &unk_100064DE0;
-  objc_copyWeak(&v49, buf);
-  v25 = [v24 addObserverForName:EAAccessoryDidConnectNotification object:0 queue:v16 usingBlock:v48];
-  v52[0] = v25;
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_100004374;
-  v46[3] = &unk_100064DE0;
-  objc_copyWeak(&v47, buf);
-  v26 = [v24 addObserverForName:EAAccessoryVehicleDataUpdateNotification object:0 queue:v16 usingBlock:v46];
-  v52[1] = v26;
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_1000043D0;
-  v44[3] = &unk_100064DE0;
-  objc_copyWeak(&v45, buf);
-  v27 = [v24 addObserverForName:EAAccessoryUpdateNotification object:0 queue:v16 usingBlock:v44];
-  v52[2] = v27;
-  v42[0] = _NSConcreteStackBlock;
-  v42[1] = 3221225472;
-  v42[2] = sub_10000442C;
-  v42[3] = &unk_100064DE0;
-  objc_copyWeak(&v43, buf);
-  v28 = [v24 addObserverForName:EAAccessoryDidDisconnectNotification object:0 queue:v16 usingBlock:v42];
-  v52[3] = v28;
-  v29 = [NSArray arrayWithObjects:v52 count:4];
+  v25 = +[NSNotificationCenter defaultCenter];
+  v49[0] = _NSConcreteStackBlock;
+  v49[1] = 3221225472;
+  v49[2] = sub_100004318;
+  v49[3] = &unk_100064DE0;
+  objc_copyWeak(&v50, buf);
+  v26 = [v25 addObserverForName:EAAccessoryDidConnectNotification object:0 queue:v16 usingBlock:v49];
+  v53[0] = v26;
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_100004374;
+  v47[3] = &unk_100064DE0;
+  objc_copyWeak(&v48, buf);
+  v27 = [v25 addObserverForName:EAAccessoryVehicleDataUpdateNotification object:0 queue:v16 usingBlock:v47];
+  v53[1] = v27;
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_1000043D0;
+  v45[3] = &unk_100064DE0;
+  objc_copyWeak(&v46, buf);
+  v28 = [v25 addObserverForName:EAAccessoryUpdateNotification object:0 queue:v16 usingBlock:v45];
+  v53[2] = v28;
+  v43[0] = _NSConcreteStackBlock;
+  v43[1] = 3221225472;
+  v43[2] = sub_10000442C;
+  v43[3] = &unk_100064DE0;
+  objc_copyWeak(&v44, buf);
+  v29 = [v25 addObserverForName:EAAccessoryDidDisconnectNotification object:0 queue:v16 usingBlock:v43];
+  v53[3] = v29;
+  v30 = [NSArray arrayWithObjects:v53 count:4];
   notificationObservers = v5->_notificationObservers;
-  v5->_notificationObservers = v29;
+  v5->_notificationObservers = v30;
 
-  v31 = +[EAAccessoryManager sharedAccessoryManager];
-  [v31 registerForLocalNotifications];
-  v40 = 0u;
+  v32 = +[EAAccessoryManager sharedAccessoryManager];
+  [v32 registerForLocalNotifications];
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  connectedAccessories = [v31 connectedAccessories];
-  v33 = [connectedAccessories countByEnumeratingWithState:&v38 objects:v51 count:16];
-  if (v33)
+  v40 = 0u;
+  connectedAccessories = [v32 connectedAccessories];
+  v34 = [connectedAccessories countByEnumeratingWithState:&v39 objects:v52 count:16];
+  if (v34)
   {
-    v34 = *v39;
+    v35 = *v40;
     while (2)
     {
-      for (i = 0; i != v33; i = i + 1)
+      for (i = 0; i != v34; i = i + 1)
       {
-        if (*v39 != v34)
+        if (*v40 != v35)
         {
           objc_enumerationMutation(connectedAccessories);
         }
 
-        v36 = *(*(&v38 + 1) + 8 * i);
-        if ([v36 supportsCarPlay])
+        v37 = *(*(&v39 + 1) + 8 * i);
+        if ([v37 supportsCarPlay])
         {
-          [(MapsExternalAccessory *)v5 setAccessory:v36];
+          [(MapsExternalAccessory *)v5 setAccessory:v37];
           goto LABEL_28;
         }
       }
 
-      v33 = [connectedAccessories countByEnumeratingWithState:&v38 objects:v51 count:16];
-      if (v33)
+      v34 = [connectedAccessories countByEnumeratingWithState:&v39 objects:v52 count:16];
+      if (v34)
       {
         continue;
       }
@@ -230,10 +230,10 @@ LABEL_28:
   [(MapsExternalAccessory *)v5 _startListenForDebugTestNotifications];
   v5->_initialising = 0;
 
-  objc_destroyWeak(&v43);
-  objc_destroyWeak(&v45);
-  objc_destroyWeak(&v47);
-  objc_destroyWeak(&v49);
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v46);
+  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v50);
 
   objc_destroyWeak(buf);
   return v5;
@@ -506,7 +506,6 @@ LABEL_5:
 
 - (id)identifier
 {
-  v3 = VirtualGarageConfig_EVRoutingUseCarDisplaySimIdentifier[1];
   if (GEOConfigGetBOOL())
   {
     serialNumber = @"CarDisplaySim";
@@ -524,18 +523,18 @@ LABEL_5:
 {
   accessoryCopy = accessory;
   objc_storeStrong(&self->_accessory, accessory);
-  v6 = sub_10000333C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sub_10000333C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = accessoryCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "updating accessory: %@", &v8, 0xCu);
+    v9 = 138412290;
+    v10 = accessoryCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "updating accessory: %@", &v9, 0xCu);
   }
 
   if (accessoryCopy)
   {
-    v7 = [[MapsExternalAccessoryState alloc] initWithAccessory:accessoryCopy];
-    [(MapsExternalAccessory *)self setCurrentState:v7];
+    v8 = [[MapsExternalAccessoryState alloc] initWithAccessory:accessoryCopy];
+    [(MapsExternalAccessory *)self setCurrentState:v8];
   }
 
   else
@@ -547,16 +546,16 @@ LABEL_5:
 - (void)setCurrentState:(id)state
 {
   objc_storeStrong(&self->_currentState, state);
-  v4 = sub_10000333C();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = sub_10000333C(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     accessory = [(MapsExternalAccessory *)self accessory];
     currentState = [(MapsExternalAccessory *)self currentState];
-    v7 = 138412546;
-    v8 = accessory;
-    v9 = 2112;
-    v10 = currentState;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "state updated for accessory: %@\n currentState=%@", &v7, 0x16u);
+    v8 = 138412546;
+    v9 = accessory;
+    v10 = 2112;
+    v11 = currentState;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "state updated for accessory: %@\n currentState=%@", &v8, 0x16u);
   }
 
   [(MapsExternalAccessory *)self _postNotificationIfNeeded];
@@ -700,7 +699,7 @@ LABEL_13:
 {
   nameCopy = name;
   infoCopy = info;
-  v8 = sub_10000333C();
+  v8 = sub_10000333C(infoCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     accessory = [(MapsExternalAccessory *)self accessory];
@@ -755,7 +754,7 @@ LABEL_13:
 {
   if (self->_initialising)
   {
-    v3 = sub_10000333C();
+    v3 = sub_10000333C(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -766,28 +765,29 @@ LABEL_13:
   }
 
   _isCurrentStateEqualLastPostedState = [(MapsExternalAccessory *)self _isCurrentStateEqualLastPostedState];
-  v5 = sub_10000333C();
-  currentState3 = v5;
-  if (!_isCurrentStateEqualLastPostedState)
+  v5 = _isCurrentStateEqualLastPostedState;
+  v6 = sub_10000333C(_isCurrentStateEqualLastPostedState);
+  currentState3 = v6;
+  if (!v5)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       lastPostedState = [(MapsExternalAccessory *)self lastPostedState];
       currentState = [(MapsExternalAccessory *)self currentState];
       *buf = 138412546;
-      v19 = lastPostedState;
-      v20 = 2112;
-      v21 = currentState;
+      v22 = lastPostedState;
+      v23 = 2112;
+      v24 = currentState;
       _os_log_impl(&_mh_execute_header, currentState3, OS_LOG_TYPE_INFO, "posting notification\n lastPostedState=%@\n currentState=%@", buf, 0x16u);
     }
 
-    v9 = sub_10000333C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = sub_10000333C(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       lastPostedState2 = [(MapsExternalAccessory *)self lastPostedState];
       if (lastPostedState2)
       {
-        v11 = lastPostedState2;
+        v13 = lastPostedState2;
         currentState2 = [(MapsExternalAccessory *)self currentState];
 
         if (!currentState2)
@@ -798,24 +798,24 @@ LABEL_16:
 LABEL_17:
 
           currentState3 = [(MapsExternalAccessory *)self currentState];
-          v16 = [currentState3 copy];
-          [(MapsExternalAccessory *)self setLastPostedState:v16];
+          v19 = [currentState3 copy];
+          [(MapsExternalAccessory *)self setLastPostedState:v19];
 
           goto LABEL_18;
         }
 
         currentState4 = [(MapsExternalAccessory *)self currentState];
         lastPostedState3 = [(MapsExternalAccessory *)self lastPostedState];
-        v17 = 0;
-        [currentState4 isEqualToState:lastPostedState3 changedKeys:&v17];
-        v9 = v17;
+        v20 = 0;
+        [currentState4 isEqualToState:lastPostedState3 changedKeys:&v20];
+        v11 = v20;
 
-        v15 = sub_10000333C();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v18 = sub_10000333C(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v19 = v9;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "changedKeys=%@", buf, 0xCu);
+          v22 = v11;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "changedKeys=%@", buf, 0xCu);
         }
       }
     }
@@ -823,7 +823,7 @@ LABEL_17:
     goto LABEL_16;
   }
 
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, currentState3, OS_LOG_TYPE_DEBUG, "no need to post notification (no change)", buf, 2u);
@@ -834,7 +834,7 @@ LABEL_18:
 
 - (void)_disconnectFromVehicle
 {
-  v3 = sub_10000333C();
+  v3 = sub_10000333C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

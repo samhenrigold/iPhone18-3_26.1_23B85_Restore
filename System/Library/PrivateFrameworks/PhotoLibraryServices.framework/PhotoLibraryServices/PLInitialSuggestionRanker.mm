@@ -18,7 +18,7 @@
   v11 = candidatesCopy;
   if (todayCopy)
   {
-    v12 = [candidatesCopy count] - limit;
+    v12 = objc_msgSend_count(candidatesCopy) - limit;
   }
 
   else
@@ -105,7 +105,7 @@
   v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v27 = candidatesCopy;
-  v10 = [candidatesCopy count];
+  v10 = objc_msgSend_count(candidatesCopy);
   for (i = 1; i != 10; ++i)
   {
     v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -139,7 +139,7 @@
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v14];
     v16 = [v28 objectForKeyedSubscript:v15];
 
-    if ([v16 count])
+    if (objc_msgSend_count(v16))
     {
       [v9 addObject:v16];
     }
@@ -184,7 +184,7 @@
         v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
         [v21 sortUsingDescriptors:v24];
 
-        if ([v21 count] > typeCopy)
+        if (objc_msgSend_count(v21) > typeCopy)
         {
           v25 = [v21 subarrayWithRange:{0, typeCopy}];
           [v21 removeAllObjects];
@@ -203,9 +203,9 @@
   return obj;
 }
 
-uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggestionLimit_maxNumberOfSuggestionsPerContentType___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void *__113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggestionLimit_maxNumberOfSuggestionsPerContentType___block_invoke(uint64_t a1, const char *a2, void *a3)
 {
-  result = [a3 count];
+  result = objc_msgSend_count(a3, a2);
   if (result)
   {
     ++*(*(*(a1 + 32) + 8) + 24);
@@ -288,7 +288,7 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
   suggestionTemplateKey = [suggestionTemplate suggestionTemplateKey];
   suggestionTemplateKey2 = [suggestionTemplate2 suggestionTemplateKey];
   v52 = suggestionTemplateKey;
-  if ([suggestionTemplateKey isEqualToString:?])
+  if (objc_msgSend_isEqualToString_(suggestionTemplateKey))
   {
     v10 = 16;
   }
@@ -366,7 +366,7 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
 {
   v75 = *MEMORY[0x1E69E9840];
   candidatesCopy = candidates;
-  if ([candidatesCopy count])
+  if (objc_msgSend_count(candidatesCopy))
   {
     v7 = PLPhotosSearchGetLog();
     v8 = os_signpost_id_generate(v7);
@@ -404,7 +404,7 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
             objc_enumerationMutation(v11);
           }
 
-          v16 = [*(*(&v64 + 1) + 8 * i) count];
+          v16 = objc_msgSend_count(*(*(&v64 + 1) + 8 * i));
           if (v13 <= v16)
           {
             v13 = v16;
@@ -425,7 +425,7 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
 
     v54 = v17;
 
-    v19 = 2 * [v11 count];
+    v19 = 2 * objc_msgSend_count(v11);
     if (v19 < limit)
     {
       v20 = PLSearchBackendInitialSuggestionsGetLog();
@@ -441,7 +441,7 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
       limit = v19;
     }
 
-    v21 = [candidatesCopy count];
+    v21 = objc_msgSend_count(candidatesCopy);
     v55 = 0;
     templateContentType2 = 0;
     v60 = 0;
@@ -462,19 +462,19 @@ uint64_t __113__PLInitialSuggestionRanker__candidateBucketsForCandidates_suggest
     v24 = -1;
     v25 = 0.0;
 LABEL_25:
-    if (!(([v61 count] >= v57) | v55 & 1))
+    if (!((objc_msgSend_count(v61) >= v57) | v55 & 1))
     {
       v26 = 0;
       v55 = 0;
       while (1)
       {
-        if (v26 >= [v11 count])
+        if (v26 >= objc_msgSend_count(v11))
         {
           goto LABEL_25;
         }
 
         v27 = [v11 objectAtIndexedSubscript:v26];
-        if (v63 >= [v27 count])
+        if (v63 >= objc_msgSend_count(v27))
         {
           ++v22;
           goto LABEL_50;
@@ -497,7 +497,7 @@ LABEL_25:
           goto LABEL_49;
         }
 
-        if ([v61 count])
+        if (objc_msgSend_count(v61))
         {
           break;
         }
@@ -508,7 +508,7 @@ LABEL_25:
 LABEL_49:
 
 LABEL_50:
-        if (v26 != [v11 count] - 1)
+        if (v26 != objc_msgSend_count(v11) - 1)
         {
           goto LABEL_63;
         }
@@ -522,7 +522,7 @@ LABEL_50:
         {
           v40 = [v11 objectAtIndexedSubscript:v24];
           v41 = [v40 objectAtIndexedSubscript:v63];
-          if (([v62 containsObject:v41] & 1) != 0 || objc_msgSend(v61, "count") >= v57)
+          if (([v62 containsObject:v41] & 1) != 0 || objc_msgSend_count(v61) >= v57)
           {
             v42 = 0;
           }
@@ -536,7 +536,7 @@ LABEL_50:
           }
         }
 
-        v43 = [v11 count];
+        v43 = objc_msgSend_count(v11);
         v25 = 0.0;
         if ((v42 & 1) != 0 || v43 != v22 && v58 != v43 - v22)
         {
@@ -626,8 +626,8 @@ LABEL_48:
     v46 = PLSearchBackendInitialSuggestionsGetLog();
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = [v61 count];
-      v48 = [candidatesCopy count];
+      v47 = objc_msgSend_count(v61);
+      v48 = objc_msgSend_count(candidatesCopy);
       *buf = 134218498;
       v69 = v47;
       v70 = 2048;

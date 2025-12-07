@@ -76,11 +76,10 @@ void __46__CARActiveNavigationIdentifiersObserver_init__block_invoke(uint64_t a1
 - (void)_setupConnection
 {
   v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.navowners.service" options:4096];
-  v4 = CRCarPlayNavigationOwnerClientInterface();
+  v4 = CRCarPlayNavigationOwnerClientInterface(v3);
   [v3 setExportedInterface:v4];
 
-  [v3 setExportedObject:self];
-  v5 = CRCarPlayNavigationOwnersServiceInterface();
+  v5 = CRCarPlayNavigationOwnersServiceInterface([v3 setExportedObject:self]);
   [v3 setRemoteObjectInterface:v5];
 
   objc_initWeak(&location, self);

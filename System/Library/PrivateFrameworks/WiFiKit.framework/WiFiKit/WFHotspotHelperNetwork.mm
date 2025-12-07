@@ -7,14 +7,14 @@
 
 - (WFHotspotHelperNetwork)initWithSSID:(id)d bundleIdentifier:(id)identifier password:(id)password label:(id)label
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   identifierCopy = identifier;
   passwordCopy = password;
   labelCopy = label;
-  v25.receiver = self;
-  v25.super_class = WFHotspotHelperNetwork;
-  v15 = [(WFHotspotHelperNetwork *)&v25 init];
+  v28.receiver = self;
+  v28.super_class = WFHotspotHelperNetwork;
+  v15 = [(WFHotspotHelperNetwork *)&v28 init];
   v16 = v15;
   if (!v15)
   {
@@ -38,12 +38,13 @@ LABEL_14:
   {
     v17 = WFLogForCategory(0);
     v18 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v17 && os_log_type_enabled(v17, v18))
+    v19 = v18;
+    if (WFCurrentLogLevel(v18, v20) >= 3 && v17 && os_log_type_enabled(v17, v19))
     {
       ssid = v16->_ssid;
       *buf = 138412290;
-      v27 = ssid;
-      _os_log_impl(&dword_273ECD000, v17, v18, "Nil password for hotspot helper network ssid: %@", buf, 0xCu);
+      v30 = ssid;
+      _os_log_impl(&dword_273ECD000, v17, v19, "Nil password for hotspot helper network ssid: %@", buf, 0xCu);
     }
   }
 
@@ -52,15 +53,16 @@ LABEL_14:
   if (!v16->_bundleIdentifier)
   {
     p_super = WFLogForCategory(0);
-    v21 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && p_super && os_log_type_enabled(p_super, v21))
+    v23 = OSLogForWFLogLevel(3uLL);
+    v24 = v23;
+    if (WFCurrentLogLevel(v23, v25) >= 3 && p_super && os_log_type_enabled(p_super, v24))
     {
-      v22 = v16->_ssid;
+      v26 = v16->_ssid;
       *buf = 136315394;
-      v27 = "[WFHotspotHelperNetwork initWithSSID:bundleIdentifier:password:label:]";
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_273ECD000, p_super, v21, "%s: missing bundleIdentifier for %@", buf, 0x16u);
+      v30 = "[WFHotspotHelperNetwork initWithSSID:bundleIdentifier:password:label:]";
+      v31 = 2112;
+      v32 = v26;
+      _os_log_impl(&dword_273ECD000, p_super, v24, "%s: missing bundleIdentifier for %@", buf, 0x16u);
     }
 
     goto LABEL_14;
@@ -68,7 +70,6 @@ LABEL_14:
 
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -90,10 +91,11 @@ LABEL_15:
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_273ECD000, v0, v1, "Missing SSID for hotspot helper network", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_273ECD000, v0, v2, "Missing SSID for hotspot helper network", v4, 2u);
   }
 }
 

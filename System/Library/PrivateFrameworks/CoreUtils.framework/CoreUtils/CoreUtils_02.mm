@@ -1,19 +1,19 @@
-uint64_t HTTPConnectionInitResponseEx(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPConnectionInitResponseEx(void *a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  HTTPHeader_InitResponseEx(*(a1 + 304) + 24, *(a1 + 48), a2, 0, a3, a6, a7, a8);
-  v9 = time(0);
-  v10 = HTTPMakeDateString(v9, v18, 0x40uLL);
-  if (*v10)
+  v9 = *MEMORY[0x1E69E9840];
+  HTTPHeader_InitResponseEx(a1[38] + 24, a1[6], a2, 0, a3);
+  v4 = time(0);
+  v5 = HTTPMakeDateString(v4, v8, 0x40uLL);
+  if (*v5)
   {
-    HTTPHeader_SetField((*(a1 + 304) + 24), "Date", "%s", v11, v12, v13, v14, v15, v10);
+    HTTPHeader_SetField((a1[38] + 24), "Date", "%s", v5);
   }
 
-  v16 = *(a1 + 96);
-  if (!v16 || (result = v16(a1, *(a1 + 304), *(a1 + 40)), !result))
+  v6 = a1[12];
+  if (!v6 || (result = v6(a1, a1[38], a1[5]), !result))
   {
     result = 0;
-    *(*(a1 + 304) + 8528) = 0;
+    *(a1[38] + 8528) = 0;
   }
 
   return result;
@@ -82,9 +82,9 @@ unint64_t chacha20_poly1305_encrypt(uint64_t a1, int8x16_t *a2, unint64_t a3, in
   return v8;
 }
 
-uint64_t HTTPHeader_SetFieldV(char *__s, char *a2, uint64_t a3, const char *a4)
+uint64_t HTTPHeader_SetFieldV(char *__s, char *a2, uint64_t a3, uint64_t a4)
 {
-  v26[1] = a4;
+  v19 = a4;
   result = *(__s + 2119);
   if (!result)
   {
@@ -95,24 +95,27 @@ uint64_t HTTPHeader_SetFieldV(char *__s, char *a2, uint64_t a3, const char *a4)
       goto LABEL_19;
     }
 
-    v25 = 0;
-    v26[0] = 0;
-    if (HTTPGetHeaderField(__s, v6, a2, v26, 0, 0, 0, &v25))
+    v17 = 0;
+    v18 = 0;
+    v16 = 0;
+    if (HTTPGetHeaderField(__s, v6, a2, &v18, 0, 0, 0, &v17))
     {
-      v13 = SNPrintF(&__s[v6], 0x2000 - v6, "%s: %V\r\n", v8, v9, v10, v11, v12, a2);
-      if (v13 >= 1 && v13 < 0x2000 - v6)
+      v16 = v19;
+      v9 = SNPrintF(&__s[v6], 0x2000 - v6, "%s: %V\r\n", a2, a3, &v16);
+      if (v9 >= 1 && v9 < 0x2000 - v6)
       {
-        v15 = v13;
+        v11 = v9;
         result = 0;
-        *(__s + 1024) += v15;
+        *(__s + 1024) += v11;
         return result;
       }
 
       goto LABEL_17;
     }
 
-    v16 = MemPrintF(0, 0, "%s: %V\r\n", v8, v9, v10, v11, v12, a2);
-    if (v16 < 1)
+    v16 = v19;
+    v12 = MemPrintF(0, 0, "%s: %V\r\n", a2, a3, &v16);
+    if (v12 < 1)
     {
       result = 4294960579;
 LABEL_19:
@@ -124,24 +127,25 @@ LABEL_19:
       return result;
     }
 
-    v22 = v6 - (v25 - v26[0]) + v16;
-    if (v22 >> 13)
+    v13 = v6 - (v17 - v18) + v12;
+    if (v13 >> 13)
     {
 LABEL_17:
       result = 4294960545;
       goto LABEL_19;
     }
 
-    v23 = v16;
-    v24 = v26[0] - __s;
-    if ((v25 - v26[0]) != v16)
+    v14 = v12;
+    v15 = v18 - __s;
+    if (v17 - v18 != v12)
     {
-      memmove(&v26[0][v16], v25, v6 - (v25 - __s) + 1);
+      memmove(&v18[v12], v17, v6 - (v17 - __s) + 1);
     }
 
-    MemPrintF(&__s[v24], v23, "%s: %V\r\n", v17, v18, v19, v20, v21, a2);
+    v16 = v19;
+    MemPrintF(&__s[v15], v14, "%s: %V\r\n", a2, a3, &v16);
     result = 0;
-    *(__s + 1024) = v22;
+    *(__s + 1024) = v13;
   }
 
   return result;
@@ -187,9 +191,9 @@ LABEL_8:
   return v1;
 }
 
-uint64_t HTTPMessageWriteMessage(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t), uint64_t a3)
+uint64_t HTTPMessageWriteMessage(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3)
 {
-  result = a2(a1 + 9616, a1 + 9624);
+  result = (a2)(a1 + 9616, a1 + 9624);
   if (result)
   {
     return result;
@@ -248,7 +252,7 @@ uint64_t HTTPMessageWriteMessage(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t)
     *(a1 + 9592) = v9;
     *(a1 + 9624) = 1;
     *(a1 + 9616) = a1 + 9584;
-    result = (a2)(a1 + 9616, a1 + 9624, a3);
+    result = a2(a1 + 9616, a1 + 9624, a3);
     if (!result)
     {
       continue;
@@ -260,7 +264,7 @@ uint64_t HTTPMessageWriteMessage(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t)
   return result;
 }
 
-uint64_t _NetTransportWriteV(const iovec **a1, int *a2, int32x4_t *a3)
+uint64_t _NetTransportWriteV(unint64_t **a1, int *a2, int32x4_t *a3)
 {
   v47 = *MEMORY[0x1E69E9840];
   v4 = a3 + 1024;
@@ -269,7 +273,7 @@ uint64_t _NetTransportWriteV(const iovec **a1, int *a2, int32x4_t *a3)
   v40 = a3 + 1024;
   v41 = &a3[1111].i8[10];
   v7 = *a1;
-  v8 = &(*a1)[*a2];
+  v8 = &(*a1)[2 * *a2];
   i32 = a3[1132].i32;
   v10 = a3[1113].i64[0];
   v38 = &a3[1047].i8[10];
@@ -342,40 +346,40 @@ LABEL_14:
     else
     {
       v18 = v6;
-      p_iov_len = &v7->iov_len;
+      v19 = v7 + 1;
       v20 = v18;
       v21 = 16762;
       while (1)
       {
         v22 = v8;
-        v7 = (p_iov_len - 1);
-        v23 = *(p_iov_len - 1);
+        v7 = v19 - 1;
+        v23 = *(v19 - 1);
         v24 = v41 - v18;
         i64 = a3[1114].i64;
-        if (v41 - v18 < *p_iov_len)
+        if (v41 - v18 < *v19)
         {
           break;
         }
 
-        v26 = chacha20_poly1305_encrypt(i64, v23, *p_iov_len, v20);
-        v27 = p_iov_len + 2;
-        v18 = (v18 + *p_iov_len);
+        v26 = chacha20_poly1305_encrypt(i64, v23, *v19, v20);
+        v27 = v19 + 2;
+        v18 = (v18 + *v19);
         v21 += v26;
         v20 = &a3->i8[v21];
         v8 = v22;
-        v28 = (p_iov_len + 1) >= v22;
-        p_iov_len += 2;
+        v28 = (v19 + 1) >= v22;
+        v19 += 2;
         if (v28)
         {
-          v7 = (v27 - 1);
+          v7 = v27 - 1;
           goto LABEL_22;
         }
       }
 
       v29 = chacha20_poly1305_encrypt(i64, v23, v41 - v18, v20);
-      v30 = *p_iov_len - v24;
-      *(p_iov_len - 1) += v24;
-      *p_iov_len = v30;
+      v30 = *v19 - v24;
+      *(v19 - 1) += v24;
+      *v19 = v30;
       v21 += v29;
       v8 = v22;
 LABEL_22:
@@ -463,53 +467,42 @@ uint64_t SocketWriteData(int a1, const iovec **a2, int *a3)
   return UpdateIOVec(a2, a3, v6);
 }
 
-uint64_t HTTPHeader_InitResponseEx(uint64_t a1, const char *a2, int a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPHeader_InitResponseEx(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v8 = a5;
-  if (a2)
-  {
-    v10 = a2;
-  }
-
-  else
-  {
-    v10 = "HTTP/1.1";
-  }
-
   if (a4)
   {
     if (a5)
     {
-LABEL_6:
-      v11 = SNPrintF(a1, 0x2000, "%s %u %s (%d)\r\n", a4, a5, a6, a7, a8, v10);
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    a4 = HTTPGetReasonPhrase(a3);
-    if (v8)
-    {
+LABEL_3:
+      v7 = SNPrintF(a1, 0x2000, "%s %u %s (%d)\r\n");
       goto LABEL_6;
     }
   }
 
-  v11 = SNPrintF(a1, 0x2000, "%s %u %s\r\n", a4, a5, a6, a7, a8, v10);
-LABEL_9:
-  if (v11 - 0x2000 < 0xFFFFE001)
+  else
   {
-    v12 = 4294960545;
+    HTTPGetReasonPhrase(a3);
+    if (a5)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v7 = SNPrintF(a1, 0x2000, "%s %u %s\r\n");
+LABEL_6:
+  if (v7 - 0x2000 < 0xFFFFE001)
+  {
+    v8 = 4294960545;
   }
 
   else
   {
-    v12 = 0;
-    *(a1 + 0x2000) = v11;
+    v8 = 0;
+    *(a1 + 0x2000) = v7;
   }
 
-  *(a1 + 8476) = v12;
-  return v12;
+  *(a1 + 8476) = v8;
+  return v8;
 }
 
 const char *HTTPGetReasonPhrase(int a1)
@@ -955,7 +948,7 @@ const char *HTTPMakeDateString(time_t a1, char *a2, size_t a3)
   return a2;
 }
 
-uint64_t HTTPMessageSetBody(uint64_t a1, uint64_t a2, const void *a3, size_t size)
+uint64_t HTTPMessageSetBody(uint64_t a1, const char *a2, const void *a3, size_t size)
 {
   result = *(a1 + 8500);
   if (!result)
@@ -973,17 +966,17 @@ uint64_t HTTPMessageSetBody(uint64_t a1, uint64_t a2, const void *a3, size_t siz
     {
       if (a3)
       {
-        v14 = *(a1 + 8520);
-        if (v14 != a3)
+        v9 = *(a1 + 8520);
+        if (v9 != a3)
         {
-          memmove(v14, a3, size);
+          memmove(v9, a3, size);
         }
       }
 
-      HTTPHeader_SetField((a1 + 24), "Content-Length", "%zu", v9, v10, v11, v12, v13, size);
+      HTTPHeader_SetField((a1 + 24), "Content-Length", "%zu", size);
       if (a2)
       {
-        HTTPHeader_SetField((a1 + 24), "Content-Type", "%s", v15, v16, v17, v18, v19, a2);
+        HTTPHeader_SetField((a1 + 24), "Content-Type", "%s", a2);
       }
 
       return 0;
@@ -1023,23 +1016,38 @@ uint64_t HTTPConnectionSendResponse(uint64_t a1)
   return v5;
 }
 
-uint64_t HTTPHeader_InitRequestV(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPHeader_InitRequestV(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = SNPrintF(a1, 0x2000, "%s%n %n%V%n %s\r\n", a4, a5, a6, a7, a8, a3);
-  if (v9 - 0x2000 < 0xFFFFE001)
+  v13[1] = a5;
+  v12 = 0;
+  v13[0] = a5;
+  v11 = 0;
+  if (a2)
+  {
+    v6 = a2;
+  }
+
+  else
+  {
+    v6 = "HTTP/1.1";
+  }
+
+  v7 = SNPrintF(a1, 0x2000, "%s%n %n%V%n %s\r\n", a3, &v12 + 4, &v12, a4, v13, &v11, v6);
+  if (v7 - 0x2000 < 0xFFFFE001)
   {
     result = 4294960545;
   }
 
   else
   {
-    v10 = v9;
+    v8 = v7;
     result = 0;
     *(a1 + 8216) = a1;
-    *(a1 + 8224) = 0;
-    *(a1 + 8240) = a1;
-    *(a1 + 8248) = 0;
-    *(a1 + 0x2000) = v10;
+    v10 = v12;
+    *(a1 + 8224) = SHIDWORD(v12);
+    *(a1 + 8240) = a1 + v10;
+    *(a1 + 8248) = v11 - v10;
+    *(a1 + 0x2000) = v8;
   }
 
   *(a1 + 8476) = result;
@@ -1069,7 +1077,7 @@ uint64_t HTTPMessageSetClientMessageType(uint64_t a1, char *__s1)
 void _HTTPClientRunStateMachine(char *cf, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = (cf + 560);
-  v140 = *MEMORY[0x1E69E9840];
+  v139 = *MEMORY[0x1E69E9840];
   v10 = "void _HTTPClientRunStateMachine(HTTPClientRef)";
   v11 = "Request start: CID 0x%08X, Peer %s, TimeoutSecs %d\n";
   v12 = MEMORY[0x1E69E9710];
@@ -1128,7 +1136,7 @@ LABEL_165:
             if (!*(cf + 26))
             {
               CFRetain(cf);
-              _HTTPClientConnectHandler(*(cf + 50), 0, cf, v111, v112, v113, v114, v115);
+              _HTTPClientConnectHandler(*(cf + 50), 0, cf, v110, v111, v112, v113, v114);
               return;
             }
 
@@ -1136,87 +1144,87 @@ LABEL_165:
             goto LABEL_165;
           }
 
-          v107 = *(cf + 21);
-          v108 = (v107 >> 1) & 0x1F0 | v107 & 0xF | (((v107 >> 10) & 3) << 11) | (v107 >> 1) & 0x4000;
-          v109 = *(v25 + 9632);
-          if (v109 == -1)
+          v106 = *(cf + 21);
+          v107 = (v106 >> 1) & 0x1F0 | v106 & 0xF | (((v106 >> 10) & 3) << 11) | (v106 >> 1) & 0x4000;
+          v108 = *(v25 + 9632);
+          if (v108 == -1)
           {
-            v110 = *(v25 + 9640);
-            if (v110 < 1)
+            v109 = *(v25 + 9640);
+            if (v109 < 1)
             {
-              v116 = *(cf + 36);
-              v117 = v116 < 1;
-              v118 = 1000000000 * v116;
-              if (v117)
+              v115 = *(cf + 36);
+              v116 = v115 < 1;
+              v117 = 1000000000 * v115;
+              if (v116)
               {
-                v109 = -1;
+                v108 = -1;
               }
 
               else
               {
-                v109 = v118;
+                v108 = v117;
               }
             }
 
             else
             {
-              v109 = 1000000000 * v110;
+              v108 = 1000000000 * v109;
             }
           }
 
-          v119 = *(cf + 12);
-          if (*v119 <= 50)
+          v118 = *(cf + 12);
+          if (*v118 <= 50)
           {
-            if (*v119 != -1)
+            if (*v118 != -1)
             {
 LABEL_237:
-              LogPrintF(v119, "void _HTTPClientRunStateMachine(HTTPClientRef)", 0x32u, "Connect start: CID 0x%08X, Peer %s, Flags 0x%X, TimeoutNs %llu\n", a5, a6, a7, a8, *(cf + 42));
-              v107 = *(cf + 21);
+              LogPrintF(v118, "void _HTTPClientRunStateMachine(HTTPClientRef)", 50, "Connect start: CID 0x%08X, Peer %s, Flags 0x%X, TimeoutNs %llu\n", a5, a6, a7, a8, *(cf + 42));
+              v106 = *(cf + 21);
               goto LABEL_239;
             }
 
-            v120 = _LogCategory_Initialize(v119, 0x32u);
-            v107 = *(cf + 21);
-            if (v120)
+            v119 = _LogCategory_Initialize(v118, 0x32u);
+            v106 = *(cf + 21);
+            if (v119)
             {
-              v119 = *(cf + 12);
+              v118 = *(cf + 12);
               goto LABEL_237;
             }
           }
 
 LABEL_239:
-          v138 = 0u;
-          v139 = 0u;
-          v136 = 0u;
           v137 = 0u;
-          v135 = 160;
-          v124 = *(cf + 9);
-          v125 = *(cf + 20);
+          v138 = 0u;
+          v135 = 0u;
+          v136 = 0u;
+          v134 = 160;
+          v123 = *(cf + 9);
+          v124 = *(cf + 20);
+          v125 = v107;
           v126 = v108;
-          v127 = v109;
-          v128 = -1;
-          v129 = *(cf + 184);
-          v130 = _HTTPClientConnectHandler;
-          v131 = cf;
-          v121 = *(cf + 13);
-          v132 = *(cf + 2);
-          v133 = v121;
-          v134 = *(cf + 11);
-          if ((v107 & 0x10000) != 0)
+          v127 = -1;
+          v128 = *(cf + 184);
+          v129 = _HTTPClientConnectHandler;
+          v130 = cf;
+          v120 = *(cf + 13);
+          v131 = *(cf + 2);
+          v132 = v120;
+          v133 = *(cf + 11);
+          if ((v106 & 0x10000) != 0)
           {
             snprintf(__str, 0x20uLL, "CID 0x%08X", *(cf + 42));
-            *&v136 = __str;
-            v108 |= 0x400u;
-            v126 = v108;
+            *&v135 = __str;
+            v107 |= 0x400u;
+            v125 = v107;
           }
 
           if (*(cf + 20))
           {
-            *(&v139 + 1) = *(cf + 20);
-            v126 = v108 | 0x400;
+            *(&v138 + 1) = *(cf + 20);
+            v125 = v107 | 0x400;
           }
 
-          v19 = AsyncConnection_ConnectEx(cf + 22, &v124);
+          v19 = AsyncConnection_ConnectEx(cf + 22, &v123);
           if (!v19)
           {
             CFRetain(cf);
@@ -1277,7 +1285,7 @@ LABEL_58:
               }
 
               v10 = v41;
-              LogPrintF(v40, v41, 0x32u, "Request written: CID 0x%08X, Header %zu bytes, Body %zu bytes%?{end}, Type %'s\n", v36, v37, v38, v39, v43);
+              LogPrintF(v40, v41, 50, "Request written: CID 0x%08X, Header %zu bytes, Body %zu bytes%?{end}, Type %'s\n", v36, v37, v38, v39, v43);
               v11 = v42;
               v12 = MEMORY[0x1E69E9710];
             }
@@ -1419,14 +1427,14 @@ LABEL_179:
             {
               v32 = *(cf + 12);
 LABEL_47:
-              LogPrintF(v32, v10, 0x32u, "Binary received 1: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
+              LogPrintF(v32, v10, 50, "Binary received 1: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
             }
           }
 
-          v93 = *(cf + 6);
-          if (v93)
+          v92 = *(cf + 6);
+          if (v92)
           {
-            v93(*(v27 + 8480), *(v27 + 8520), *(v27 + 8528), *(cf + 4));
+            v92(*(v27 + 8480), *(v27 + 8520), *(v27 + 8528), *(cf + 4));
           }
 
           goto LABEL_179;
@@ -1467,14 +1475,14 @@ LABEL_128:
             {
               v79 = *(cf + 12);
 LABEL_130:
-              LogPrintF(v79, v10, 0x32u, "Event received 1: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
+              LogPrintF(v79, v10, 50, "Event received 1: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
             }
           }
 
-          v95 = *(cf + 7);
-          if (v95)
+          v94 = *(cf + 7);
+          if (v94)
           {
-            v95(v27, *(cf + 4));
+            v94(v27, *(cf + 4));
           }
 
           goto LABEL_179;
@@ -1492,35 +1500,35 @@ LABEL_84:
           if (!_LogCategory_Initialize(v56, 0x32u))
           {
 LABEL_156:
-            if (*(v27 + 8456) != 401 || !*(cf + 6) || !*(cf + 19) || !*(cf + 16) || (v89 = *(v27 + 9560)) == 0 || HTTPHeader_Parse(v89) || (v91 = *(v27 + 9560), *(v91 + 8476) = -6721, *(cf + 68) = *(cf + 6), *(cf + 37) = v91, *(cf + 38) = v30, cf[276] = cf[136] == 0, v92 = *(cf + 16), *(cf + 35) = *(cf + 19), *(cf + 36) = v92, HTTPClientAuthorization_Apply((cf + 272), v90, a3, a4, a5, a6, a7, a8)) || HTTPHeader_Commit(*(v27 + 9560)))
+            if (*(v27 + 8456) != 401 || !*(cf + 6) || !*(cf + 19) || !*(cf + 16) || (v89 = *(v27 + 9560)) == 0 || HTTPHeader_Parse(v89) || (v90 = *(v27 + 9560), *(v90 + 8476) = -6721, *(cf + 68) = *(cf + 6), *(cf + 37) = v90, *(cf + 38) = v30, cf[276] = cf[136] == 0, v91 = *(cf + 16), *(cf + 35) = *(cf + 19), *(cf + 36) = v91, HTTPClientAuthorization_Apply((cf + 272), a2, a3, a4, a5, a6, a7, a8)) || HTTPHeader_Commit(*(v27 + 9560)))
             {
               v26 = 6;
               goto LABEL_165;
             }
 
             memcpy((v27 + 24), *(v27 + 9560), *(*(v27 + 9560) + 0x2000));
-            v99 = *(*(v27 + 9560) + 0x2000);
-            *(v27 + 8216) = v99;
-            v100 = *(v27 + 9552);
-            if (v100)
+            v98 = *(*(v27 + 9560) + 0x2000);
+            *(v27 + 8216) = v98;
+            v99 = *(v27 + 9552);
+            if (v99)
             {
-              free(v100);
-              v99 = *(v27 + 8216);
+              free(v99);
+              v98 = *(v27 + 8216);
             }
 
-            v101 = *(v27 + 9568);
-            *(v27 + 9552) = v101;
-            *(v27 + 8520) = v101;
-            v102 = *(v27 + 9576);
-            *(v27 + 8528) = v102;
+            v100 = *(v27 + 9568);
+            *(v27 + 9552) = v100;
+            *(v27 + 8520) = v100;
+            v101 = *(v27 + 9576);
+            *(v27 + 8528) = v101;
             *(v27 + 9568) = 0u;
             *(v27 + 9584) = v30;
-            *(v27 + 9592) = v99;
+            *(v27 + 9592) = v98;
             *(v27 + 9624) = 1;
-            if (v102)
+            if (v101)
             {
-              *(v27 + 9600) = v101;
-              *(v27 + 9608) = v102;
+              *(v27 + 9600) = v100;
+              *(v27 + 9608) = v101;
               *(v27 + 9624) = 2;
             }
 
@@ -1532,7 +1540,7 @@ LABEL_156:
           v56 = *(cf + 12);
         }
 
-        LogPrintF(v56, v10, 0x32u, "Response received: CID 0x%08X, Header %zu bytes, Body %zu bytes, Status %d\n", a5, a6, a7, a8, *(cf + 42));
+        LogPrintF(v56, v10, 50, "Response received: CID 0x%08X, Header %zu bytes, Body %zu bytes, Status %d\n", a5, a6, a7, a8, *(cf + 42));
         goto LABEL_156;
       }
 
@@ -1573,27 +1581,27 @@ LABEL_156:
                 return;
               }
 
-              v105 = *(cf + 12);
-              if (*v105 <= 40)
+              v104 = *(cf + 12);
+              if (*v104 <= 40)
               {
-                if (*v105 != -1)
+                if (*v104 != -1)
                 {
                   goto LABEL_215;
                 }
 
-                if (_LogCategory_Initialize(v105, 0x28u))
+                if (_LogCategory_Initialize(v104, 0x28u))
                 {
-                  v105 = *(cf + 12);
+                  v104 = *(cf + 12);
 LABEL_215:
-                  LogPrintF(v105, "void _HTTPClientRunStateMachine(HTTPClientRef)", 0x28u, "### Ignoring spurious readability notification\n", a5, a6, a7, a8, v122);
+                  LogPrintF(v104, "void _HTTPClientRunStateMachine(HTTPClientRef)", 40, "### Ignoring spurious readability notification\n", a5, a6, a7, a8, v121);
                 }
               }
 
-              v106 = *(cf + 31);
-              if (v106)
+              v105 = *(cf + 31);
+              if (v105)
               {
                 dispatch_source_cancel(*(cf + 31));
-                dispatch_release(v106);
+                dispatch_release(v105);
                 *(cf + 31) = 0;
               }
 
@@ -1627,10 +1635,10 @@ LABEL_215:
                 if (!_LogCategory_Initialize(v24, 0x32u))
                 {
 LABEL_174:
-                  v94 = *(cf + 6);
-                  if (v94)
+                  v93 = *(cf + 6);
+                  if (v93)
                   {
-                    v94(*(v18 + 8480), *(v18 + 8520), *(v18 + 8528), *(cf + 4));
+                    v93(*(v18 + 8480), *(v18 + 8520), *(v18 + 8528), *(cf + 4));
                   }
 
                   goto LABEL_183;
@@ -1639,7 +1647,7 @@ LABEL_174:
                 v24 = *(cf + 12);
               }
 
-              LogPrintF(v24, v10, 0x32u, "Binary received 2: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
+              LogPrintF(v24, v10, 50, "Binary received 2: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
               goto LABEL_174;
             }
 
@@ -1657,19 +1665,19 @@ LABEL_88:
                 if (!_LogCategory_Initialize(v57, 0x32u))
                 {
 LABEL_183:
-                  v97 = *(cf + 56);
-                  if (v97)
+                  v96 = *(cf + 56);
+                  if (v96)
                   {
-                    CFRelease(v97);
+                    CFRelease(v96);
                     *(cf + 56) = 0;
                   }
 
 LABEL_185:
-                  v98 = *(cf + 31);
-                  if (v98)
+                  v97 = *(cf + 31);
+                  if (v97)
                   {
                     dispatch_source_cancel(*(cf + 31));
-                    dispatch_release(v98);
+                    dispatch_release(v97);
                     *(cf + 31) = 0;
                   }
 
@@ -1679,7 +1687,7 @@ LABEL_185:
                 v57 = *(cf + 12);
               }
 
-              LogPrintF(v57, v10, 0x32u, "Event received 3: CID 0x%08X, Header %zu bytes, Body %zu bytes, ignored\n", a5, a6, a7, a8, *(cf + 42));
+              LogPrintF(v57, v10, 50, "Event received 3: CID 0x%08X, Header %zu bytes, Body %zu bytes, ignored\n", a5, a6, a7, a8, *(cf + 42));
               goto LABEL_183;
             }
 
@@ -1710,7 +1718,7 @@ LABEL_132:
               if (*v80 != -1)
               {
 LABEL_134:
-                LogPrintF(v80, v10, 0x32u, "Event received 2: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
+                LogPrintF(v80, v10, 50, "Event received 2: CID 0x%08X, Header %zu bytes, Body %zu bytes\n", a5, a6, a7, a8, *(cf + 42));
                 goto LABEL_181;
               }
 
@@ -1722,10 +1730,10 @@ LABEL_134:
             }
 
 LABEL_181:
-            v96 = *(cf + 7);
-            if (v96)
+            v95 = *(cf + 7);
+            if (v95)
             {
-              v96(v18, *(cf + 4));
+              v95(v18, *(cf + 4));
             }
 
             goto LABEL_183;
@@ -1733,20 +1741,20 @@ LABEL_181:
 
           if (i == 9)
           {
-            v103 = *(cf + 12);
-            if (*v103 <= 90)
+            v102 = *(cf + 12);
+            if (*v102 <= 90)
             {
-              if (*v103 == -1)
+              if (*v102 == -1)
               {
-                if (!_LogCategory_Initialize(v103, 0x5Au))
+                if (!_LogCategory_Initialize(v102, 0x5Au))
                 {
                   goto LABEL_217;
                 }
 
-                v103 = *(cf + 12);
+                v102 = *(cf + 12);
               }
 
-              LogPrintF(v103, "void _HTTPClientRunStateMachine(HTTPClientRef)", 0x5Au, "### Error state: CID 0x%08X\n", a5, a6, a7, a8, *(cf + 42));
+              LogPrintF(v102, "void _HTTPClientRunStateMachine(HTTPClientRef)", 90, "### Error state: CID 0x%08X\n", a5, a6, a7, a8, *(cf + 42));
             }
 
 LABEL_217:
@@ -1755,20 +1763,20 @@ LABEL_217:
           }
 
 LABEL_209:
-          v104 = *(cf + 12);
-          if (*v104 <= 90)
+          v103 = *(cf + 12);
+          if (*v103 <= 90)
           {
-            if (*v104 == -1)
+            if (*v103 == -1)
             {
-              if (!_LogCategory_Initialize(v104, 0x5Au))
+              if (!_LogCategory_Initialize(v103, 0x5Au))
               {
                 goto LABEL_219;
               }
 
-              v104 = *(cf + 12);
+              v103 = *(cf + 12);
             }
 
-            LogPrintF(v104, "void _HTTPClientRunStateMachine(HTTPClientRef)", 0x5Au, "### Bad state: CID 0x%08X, State %d\n", a5, a6, a7, a8, *(cf + 42));
+            LogPrintF(v103, "void _HTTPClientRunStateMachine(HTTPClientRef)", 90, "### Bad state: CID 0x%08X, State %d\n", a5, a6, a7, a8, *(cf + 42));
           }
 
 LABEL_219:
@@ -1795,7 +1803,7 @@ LABEL_219:
           v44 = *(cf + 42);
         }
 
-        LogPrintF(v45, v10, 0x32u, "Event start: CID 0x%08X, Peer %s\n", a5, a6, a7, a8, v44);
+        LogPrintF(v45, v10, 50, "Event start: CID 0x%08X, Peer %s\n", a5, a6, a7, a8, v44);
 LABEL_92:
         v58 = *(cf + 31);
         if (v58)
@@ -1854,7 +1862,7 @@ LABEL_92:
         v55 = *(v33 + 9712);
         if (v55)
         {
-          v55(v33);
+          v55(v33, a2, a3, a4, a5, a6, a7, a8);
         }
 
         CFRelease(v33);
@@ -1862,7 +1870,7 @@ LABEL_92:
       }
 
       *__str = 0;
-      v46 = (*(cf + 63))(&v124, 16, __str, *(cf + 60));
+      v46 = (*(cf + 63))(&v123, 16, __str, *(cf + 60), a5, a6, a7, a8);
       v47 = _HTTPClientHandleIOError(cf, v46, 1);
       if (v47 == 35)
       {
@@ -1887,7 +1895,7 @@ LABEL_92:
             v49 = *__str;
           }
 
-          LogPrintF(v50, v10, 0x32u, "### Read %zu bytes after connection close\n", a5, a6, a7, a8, v49);
+          LogPrintF(v50, v10, 50, "### Read %zu bytes after connection close\n", a5, a6, a7, a8, v49);
         }
       }
 
@@ -1913,7 +1921,7 @@ LABEL_114:
         v69 = *(cf + 12);
       }
 
-      LogPrintF(v69, v10, 0x32u, "### Error on wait for close: %#m\n", a5, a6, a7, a8, v48);
+      LogPrintF(v69, v10, 50, "### Error on wait for close: %#m\n", a5, a6, a7, a8, v48);
 LABEL_121:
       v70 = *v9;
       if (!*v9)
@@ -1973,7 +1981,7 @@ LABEL_187:
     v17 = *(v15 + 9712);
     if (v17)
     {
-      v17(v15);
+      v17(v15, a2, a3, a4, a5, a6, a7, a8);
     }
 
     CFRelease(v15);
@@ -2002,7 +2010,7 @@ LABEL_187:
       v53 = *(cf + 12);
       v52 = *(cf + 42);
 LABEL_73:
-      LogPrintF(v53, v10, 0x32u, v11, a5, a6, a7, a8, v52);
+      LogPrintF(v53, v10, 50, v11, a5, a6, a7, a8, v52);
     }
   }
 
@@ -2034,7 +2042,7 @@ LABEL_220:
   _HTTPClientErrorHandler(cf, v22, a3, a4, a5, a6, a7, a8);
 }
 
-uint64_t HTTPClientSendMessage(dispatch_queue_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t HTTPClientSendMessage(dispatch_queue_t *a1, uint64_t a2)
 {
   if (!*(a2 + 8216))
   {
@@ -2047,23 +2055,23 @@ LABEL_9:
     return 0;
   }
 
-  v10 = a2 + 24;
+  v4 = a2 + 24;
   if (*(a2 + 8512))
   {
-    HTTPHeader_SetField((a2 + 24), "Connection", "close", a4, a5, a6, a7, a8, v13);
+    HTTPHeader_SetField((a2 + 24), "Connection", "close");
   }
 
   result = HTTPHeader_Commit(a2 + 24);
   if (!result)
   {
-    *(a2 + 9584) = v10;
+    *(a2 + 9584) = v4;
     *(a2 + 9592) = *(a2 + 8216);
     *(a2 + 9624) = 1;
-    v12 = *(a2 + 8528);
-    if (v12)
+    v6 = *(a2 + 8528);
+    if (v6)
     {
       *(a2 + 9600) = *(a2 + 8520);
-      *(a2 + 9608) = v12;
+      *(a2 + 9608) = v6;
       *(a2 + 9624) = 2;
     }
 
@@ -2151,31 +2159,31 @@ LABEL_12:
   return a2;
 }
 
-uint64_t _HTTPClientReadHandler(uint64_t a1)
+void _HTTPClientReadHandler(uint64_t a1)
 {
   dispatch_suspend(*(a1 + 208));
   *(a1 + 216) = 1;
-  v2 = *(a1 + 560);
-  if (v2)
+  v9 = *(a1 + 560);
+  if (v9)
   {
-    v3 = *(v2 + 9644);
-    if (v3 >= 1)
+    v10 = *(v9 + 9644);
+    if (v10 >= 1)
     {
-      v4 = *(a1 + 248);
-      if (v4)
+      v11 = *(a1 + 248);
+      if (v11)
       {
-        v5 = dispatch_time(0, 1000000000 * v3);
-        dispatch_source_set_timer(v4, v5, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
+        v12 = dispatch_time(0, 1000000000 * v10);
+        dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
       }
     }
   }
 
-  if ((*(a1 + 84) & 0x10) != 0 && !v2 && !*(a1 + 172))
+  if ((*(a1 + 84) & 0x10) != 0 && !v9 && !*(a1 + 172))
   {
     *(a1 + 172) = 7;
   }
 
-  return _HTTPClientRunStateMachine(a1);
+  _HTTPClientRunStateMachine(a1, v2, v3, v4, v5, v6, v7, v8);
 }
 
 uint64_t _HTTPUpdateExtraData(uint64_t a1, void *__src, size_t __len)
@@ -2218,7 +2226,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t CryptoHKDF(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9)
+void *CryptoHKDF(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, unint64_t a5, uint64_t a6, uint64_t a7, unint64_t a8, uint64_t a9)
 {
   v12 = a5;
   v32 = *MEMORY[0x1E69E9840];
@@ -2521,7 +2529,7 @@ LABEL_42:
   return 0;
 }
 
-uint64_t AppendPrintF(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t AppendPrintF(const char **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v13[0] = 0;
   v13[1] = &a9;
@@ -2545,252 +2553,251 @@ uint64_t AppendPrintF(void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return v11;
 }
 
-uint64_t PrintFWriteHex(uint64_t (**a1)(const char *, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PrintFWriteHex(uint64_t (**a1)(const char *, uint64_t, void), uint64_t a2, int a3, uint64_t a4, unint64_t a5, unint64_t a6, int a7)
 {
-  v83 = a7;
-  v8 = a4;
-  v86 = 0;
-  v9 = 0;
-  v88 = 0;
-  v97 = *MEMORY[0x1E69E9840];
+  v7 = a4;
+  v31 = 0;
+  v8 = 0;
+  v33 = 0;
+  v42 = *MEMORY[0x1E69E9840];
   if (a5 >= a6)
   {
-    v10 = a6;
+    v9 = a6;
   }
 
   else
   {
-    v10 = a5;
+    v9 = a5;
   }
 
-  v90 = (4 * a3);
-  v11 = &v95;
-  v12 = &v96;
+  v35 = 4 * a3;
+  v10 = &v40;
+  v11 = &v41;
   while (1)
   {
-    v13 = 0;
-    v14 = v10 >= 0x10 ? 16 : v10;
-    v93 = v12;
+    v12 = 0;
+    v13 = v9 >= 0x10 ? 16 : v9;
+    v38 = v11;
     do
     {
-      if (v13 && (v13 & 3) == 0)
+      if (v12 && (v12 & 3) == 0)
       {
-        *v12++ = 32;
+        *v11++ = 32;
       }
 
-      if (v13 >= v14)
+      if (v12 >= v13)
       {
-        v15 = 32;
-        *v12 = 32;
+        v14 = 32;
+        *v11 = 32;
       }
 
       else
       {
-        *v12 = a0123456789abcd[*(v8 + v13) >> 4];
-        v15 = a0123456789abcd[*(v8 + v13) & 0xF];
+        *v11 = a0123456789abcd[*(v7 + v12) >> 4];
+        v14 = a0123456789abcd[*(v7 + v12) & 0xF];
       }
 
-      v12[1] = v15;
-      v12 += 2;
-      ++v13;
+      v11[1] = v14;
+      v11 += 2;
+      ++v12;
     }
 
-    while (v13 != 16);
-    v16 = 0;
-    *v12 = 0;
+    while (v12 != 16);
+    v15 = 0;
+    *v11 = 0;
     do
     {
-      if (v10 <= v16)
+      if (v9 <= v15)
       {
-        LOBYTE(v17) = 32;
+        LOBYTE(v16) = 32;
       }
 
       else
       {
-        v17 = *(v8 + v16);
-        if ((v17 - 32) >= 0x5F)
+        v16 = *(v7 + v15);
+        if ((v16 - 32) >= 0x5F)
         {
-          LOBYTE(v17) = 94;
+          LOBYTE(v16) = 94;
         }
       }
 
-      v94[v16++] = v17;
+      v39[v15++] = v16;
     }
 
-    while (v16 != 16);
-    v94[16] = 0;
+    while (v15 != 16);
+    v39[16] = 0;
     if (a5 > 0x10)
     {
-      if (v8 == a4)
+      if (v7 == a4)
       {
-        v89 = v11;
-        v25 = PrintFCore(a1, "%*s", a3, a4, a5, a6, a7, a8, v90);
-        if ((v25 & 0x80000000) != 0)
+        v34 = v10;
+        v18 = PrintFCore(a1, "%*s", v35, "");
+        if ((v18 & 0x80000000) != 0)
         {
-          return v25;
+          return v18;
         }
 
-        v26 = PrintFCore(a1, "+%04X: %s |%s| (%zu bytes)", v50, v51, v52, v53, v54, v55, 0);
-        if ((v26 & 0x80000000) != 0)
+        v19 = PrintFCore(a1, "+%04X: %s |%s| (%zu bytes)", 0, v38, v39, a5);
+        if ((v19 & 0x80000000) != 0)
         {
-          return v26;
+          return v19;
         }
 
-        v49 = v25 + v9;
+        v24 = v18 + v8;
 LABEL_49:
-        v9 = (v49 + v26);
-        v11 = v89;
+        v8 = (v24 + v19);
+        v10 = v34;
         goto LABEL_50;
       }
 
-      if (*(a2 + 24) < 1 || (*v93 == *v11 ? (v27 = *(v93 + 1) == *(v11 + 1)) : (v27 = 0), v27 ? (v28 = *(v93 + 2) == *(v11 + 2)) : (v28 = 0), v28 ? (v29 = *(v93 + 3) == *(v11 + 3)) : (v29 = 0), !v29))
+      if (*(a2 + 24) < 1 || (*v38 == *v10 ? (v20 = *(v38 + 1) == *(v10 + 1)) : (v20 = 0), v20 ? (v21 = *(v38 + 2) == *(v10 + 2)) : (v21 = 0), v21 ? (v22 = *(v38 + 3) == *(v10 + 3)) : (v22 = 0), !v22))
       {
-        v26 = (*a1)("\n", 1);
-        if ((v26 & 0x80000000) != 0)
+        v19 = (*a1)("\n", 1);
+        if ((v19 & 0x80000000) != 0)
         {
-          return v26;
+          return v19;
         }
 
-        v89 = v11;
-        v36 = v9 + 1;
-        if (v88 >= 1)
+        v34 = v10;
+        v23 = v8 + 1;
+        if (v33 >= 1)
         {
-          v9 = PrintFCore(a1, "%*s", v30, v31, v32, v33, v34, v35, v90);
-          if ((v9 & 0x80000000) != 0)
+          v8 = PrintFCore(a1, "%*s", v35, "");
+          if ((v8 & 0x80000000) != 0)
           {
-            return v9;
+            return v8;
           }
 
-          v26 = PrintFCore(a1, "* (%zu more identical bytes, %zu total)\n", v37, v38, v39, v40, v41, v42, v86);
-          if ((v26 & 0x80000000) != 0)
+          v19 = PrintFCore(a1, "* (%zu more identical bytes, %zu total)\n", v31, v31 + 16);
+          if ((v19 & 0x80000000) != 0)
           {
-            return v26;
+            return v19;
           }
 
-          v88 = 0;
-          v86 = 0;
-          v36 += v9 + v26;
+          v33 = 0;
+          v31 = 0;
+          v23 += v8 + v19;
         }
 
-        v9 = PrintFCore(a1, "%*s", v30, v31, v32, v33, v34, v35, v90);
-        if ((v9 & 0x80000000) != 0)
+        v8 = PrintFCore(a1, "%*s", v35, "");
+        if ((v8 & 0x80000000) != 0)
         {
-          return v9;
+          return v8;
         }
 
-        v26 = PrintFCore(a1, "+%04X: %s |%s|", v43, v44, v45, v46, v47, v48, v8 - a4);
-        if ((v26 & 0x80000000) != 0)
+        v19 = PrintFCore(a1, "+%04X: %s |%s|", v7 - a4, v38, v39);
+        if ((v19 & 0x80000000) != 0)
         {
-          return v26;
+          return v19;
         }
 
-        v49 = v9 + v36;
+        v24 = v8 + v23;
         goto LABEL_49;
       }
 
-      ++v88;
-      v86 += v14;
+      ++v33;
+      v31 += v13;
     }
 
     else
     {
-      v18 = v11;
-      v25 = PrintFCore(a1, "%*s", a3, a4, a5, a6, a7, a8, v90);
-      if ((v25 & 0x80000000) != 0)
+      v17 = v10;
+      v18 = PrintFCore(a1, "%*s", v35, "");
+      if ((v18 & 0x80000000) != 0)
       {
-        return v25;
+        return v18;
       }
 
-      v26 = PrintFCore(a1, "%s |%s| (%zu bytes)", v19, v20, v21, v22, v23, v24, v93);
-      if ((v26 & 0x80000000) != 0)
+      v19 = PrintFCore(a1, "%s |%s| (%zu bytes)", v38, v39, a5);
+      if ((v19 & 0x80000000) != 0)
       {
-        return v26;
+        return v19;
       }
 
-      v9 = (v25 + v9 + v26);
-      v11 = v18;
+      v8 = (v18 + v8 + v19);
+      v10 = v17;
     }
 
 LABEL_50:
-    v10 -= v14;
-    if (!v10)
+    v9 -= v13;
+    if (!v9)
     {
       break;
     }
 
-    v8 += v14;
-    v12 = v11;
-    v11 = v93;
+    v7 += v13;
+    v11 = v10;
+    v10 = v38;
   }
 
-  if (v88 < 1)
+  if (v33 < 1)
   {
-    v56 = a1;
+    v25 = a1;
 LABEL_59:
     if (a5 > a6)
     {
-      v26 = (*v56)("\n", 1, v56);
-      if ((v26 & 0x80000000) != 0)
+      v19 = (*v25)("\n", 1, v25);
+      if ((v19 & 0x80000000) != 0)
       {
-        return v26;
+        return v19;
       }
 
-      v25 = PrintFCore(v56, "%*s", v69, v70, v71, v72, v73, v74, v90);
-      if ((v25 & 0x80000000) != 0)
+      v18 = PrintFCore(v25, "%*s", v35, "");
+      if ((v18 & 0x80000000) != 0)
       {
-        return v25;
+        return v18;
       }
 
-      v26 = PrintFCore(v56, "... %zu more bytes ...", v75, v76, v77, v78, v79, v80, a5 - a6);
-      if ((v26 & 0x80000000) != 0)
+      v19 = PrintFCore(v25, "... %zu more bytes ...", a5 - a6);
+      if ((v19 & 0x80000000) != 0)
       {
-        return v26;
+        return v19;
       }
 
-      v9 = (v9 + v25 + v26 + 1);
+      v8 = (v8 + v18 + v19 + 1);
     }
 
-    if (v83)
+    if (a7)
     {
-      v81 = (*v56)("\n", 1, v56);
-      if (v81 >= 0)
+      v26 = (*v25)("\n", 1, v25);
+      if (v26 >= 0)
       {
-        return (v9 + 1);
+        return (v8 + 1);
       }
 
       else
       {
-        return v81;
+        return v26;
       }
     }
   }
 
   else
   {
-    v56 = a1;
-    v26 = (*a1)("\n", 1, a1);
-    if ((v26 & 0x80000000) != 0)
+    v25 = a1;
+    v19 = (*a1)("\n", 1, a1);
+    if ((v19 & 0x80000000) != 0)
     {
-      return v26;
+      return v19;
     }
 
-    v25 = PrintFCore(a1, "%*s", v57, v58, v59, v60, v61, v62, v90);
-    if ((v25 & 0x80000000) == 0)
+    v18 = PrintFCore(a1, "%*s", v35, "");
+    if ((v18 & 0x80000000) == 0)
     {
-      v26 = PrintFCore(a1, "* (%zu more identical bytes, %zu total)", v63, v64, v65, v66, v67, v68, v86);
-      if ((v26 & 0x80000000) == 0)
+      v19 = PrintFCore(a1, "* (%zu more identical bytes, %zu total)", v31, v31 + 16);
+      if ((v19 & 0x80000000) == 0)
       {
-        v9 = (v9 + v25 + v26 + 1);
+        v8 = (v8 + v18 + v19 + 1);
         goto LABEL_59;
       }
 
-      return v26;
+      return v19;
     }
 
-    return v25;
+    return v18;
   }
 
-  return v9;
+  return v8;
 }
 
 uint64_t UUIDGet(_BYTE *a1)
@@ -2801,13 +2808,13 @@ uint64_t UUIDGet(_BYTE *a1)
   return result;
 }
 
-uint64_t PairingSessionDeriveKey(uint64_t a1)
+uint64_t PairingSessionDeriveKey(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  v2 = *(a1 + 96);
+  v8 = *(a1 + 96);
   result = 4294960561;
-  if (v2 <= 6)
+  if (v8 <= 6)
   {
-    if (((1 << v2) & 6) != 0)
+    if (((1 << v8) & 6) != 0)
     {
       if (*(a1 + 128) != 7 || !*(a1 + 768) || !*(a1 + 776))
       {
@@ -2815,7 +2822,7 @@ uint64_t PairingSessionDeriveKey(uint64_t a1)
       }
     }
 
-    else if (((1 << v2) & 0x18) != 0)
+    else if (((1 << v8) & 0x18) != 0)
     {
       if (*(a1 + 128) != 5)
       {
@@ -2825,7 +2832,7 @@ uint64_t PairingSessionDeriveKey(uint64_t a1)
 
     else
     {
-      if (((1 << v2) & 0x60) == 0)
+      if (((1 << v8) & 0x60) == 0)
       {
         return result;
       }
@@ -2917,7 +2924,7 @@ uint64_t PrintFWriteMultiLineText(uint64_t (**a1)(unsigned __int8 *, int64_t, vo
 
       if (v10 == 13)
       {
-        if ((v9 + 1) < v7 && v9[1] == 10)
+        if (v9 + 1 < v7 && v9[1] == 10)
         {
           v4 = v9 + 2;
           goto LABEL_12;
@@ -3019,38 +3026,38 @@ BOOL CUXPCDecodeObject(void *a1, const char *a2, objc_class *a3, id *a4, void *a
   {
     if (MEMORY[0x193B07A70](v9) == MEMORY[0x1E69E9E80])
     {
-      v16 = [[a3 alloc] initWithXPCObject:v10 error:a5];
-      v17 = v16 != 0;
-      if (v16)
+      v11 = [[a3 alloc] initWithXPCObject:v10 error:a5];
+      v12 = v11 != 0;
+      if (v11)
       {
-        objc_storeStrong(a4, v16);
+        objc_storeStrong(a4, v11);
       }
     }
 
     else if (a5)
     {
-      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-dict type: '%s'", v11, v12, v13, v14, v15, a2);
-      *a5 = v17 = 0;
+      NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-dict type: '%s'", a2);
+      *a5 = v12 = 0;
     }
 
     else
     {
-      v17 = 0;
+      v12 = 0;
     }
   }
 
   else
   {
-    v17 = 1;
+    v12 = 1;
   }
 
-  return v17;
+  return v12;
 }
 
 uint64_t PrintFWriteMaskObject(uint64_t (**a1)(unsigned __int8 *, uint64_t, void), const __CFURL *cf)
 {
   v2 = cf;
-  v59 = 0;
+  v37 = 0;
   TypeID = CFGetTypeID(cf);
   if (TypeID == CFURLGetTypeID())
   {
@@ -3060,430 +3067,430 @@ uint64_t PrintFWriteMaskObject(uint64_t (**a1)(unsigned __int8 *, uint64_t, void
 
   if (TypeID == CFStringGetTypeID())
   {
-    v57 = 0;
-    v58 = 0;
-    v5 = CFStringGetOrCopyCStringUTF8(v2, &v58, &v59, &v57);
+    v35 = 0;
+    v36 = 0;
+    v5 = CFStringGetOrCopyCStringUTF8(v2, &v36, &v37, &v35);
     if (!v5)
     {
-      v10 = v57;
-      v9 = v58;
-      if (v57 < 0x24 || StringToUUIDEx(v58, v57, 1, 0, 0, v6, v7, v8))
+      v7 = v35;
+      v6 = v36;
+      if (v35 < 0x24 || StringToUUIDEx(v36, v35, 1, 0, 0))
       {
-        if (stricmp_prefix(v9, "http://"))
+        if (stricmp_prefix(v6, "http://"))
         {
-          if (!stricmp_prefix(v9, "https://"))
+          if (!stricmp_prefix(v6, "https://"))
           {
             goto LABEL_24;
           }
 
-          if (stricmp_prefix(v9, "mailto:"))
+          if (stricmp_prefix(v6, "mailto:"))
           {
-            if (stricmp_prefix(v9, "file:///"))
+            if (stricmp_prefix(v6, "file:///"))
             {
-              if (stricmp_prefix(v9, "tel:"))
+              if (stricmp_prefix(v6, "tel:"))
               {
-                v17 = *v9;
-                v18 = 1;
-                if ((v17 > 0x2F || ((1 << v17) & 0x881000000000) == 0) && v17 != 126)
+                v8 = *v6;
+                v9 = 1;
+                if ((v8 > 0x2F || ((1 << v8) & 0x881000000000) == 0) && v8 != 126)
                 {
-                  v19 = 0;
-                  v20 = v9;
+                  v10 = 0;
+                  v11 = v6;
                   goto LABEL_27;
                 }
               }
 
               else
               {
-                v18 = 4;
+                v9 = 4;
               }
 
 LABEL_25:
-              v38 = (*a1)(v9, v18, a1);
-              if ((v38 & 0x80000000) != 0)
+              v16 = (*a1)(v6, v9, a1);
+              if ((v16 & 0x80000000) != 0)
               {
-                v19 = 0;
-                goto LABEL_111;
+                v10 = 0;
+                goto LABEL_109;
               }
 
-              v19 = v38;
-              v20 = &v9[v18];
-              v58 = v20;
+              v10 = v16;
+              v11 = &v6[v9];
+              v36 = v11;
 LABEL_27:
-              if (stricmp_prefix(v20, "www."))
+              if (stricmp_prefix(v11, "www."))
               {
-                if (stricmp_prefix(v20, "+1-"))
+                if (stricmp_prefix(v11, "+1-"))
                 {
-                  if (stricmp_prefix(v20, "1-") && stricmp_prefix(v20, "+1"))
+                  if (stricmp_prefix(v11, "1-") && stricmp_prefix(v11, "+1"))
                   {
-                    if (*v20 != 49)
+                    if (*v11 != 49)
                     {
                       goto LABEL_38;
                     }
 
-                    v39 = 1;
+                    v17 = 1;
                   }
 
                   else
                   {
-                    v39 = 2;
+                    v17 = 2;
                   }
                 }
 
                 else
                 {
-                  v39 = 3;
+                  v17 = 3;
                 }
               }
 
               else
               {
-                v39 = 4;
+                v17 = 4;
               }
 
-              v40 = (*a1)(v20, v39, a1);
-              if (v40 < 0)
+              v18 = (*a1)(v11, v17, a1);
+              if (v18 < 0)
               {
-                goto LABEL_111;
+                goto LABEL_109;
               }
 
-              v19 = (v40 + v19);
-              v20 += v39;
-              v58 = v20;
+              v10 = (v18 + v10);
+              v11 += v17;
+              v36 = v11;
 LABEL_38:
-              v41 = &v9[v10];
-              if ((v41 - v20) >= 2)
+              v19 = &v6[v7];
+              if ((v19 - v11) >= 2)
               {
-                v42 = 2;
+                v20 = 2;
               }
 
               else
               {
-                v42 = v41 - v20;
+                v20 = v19 - v11;
               }
 
-              v43 = (*a1)(v20, v42, a1);
-              if (v43 < 0)
+              v21 = (*a1)(v11, v20, a1);
+              if (v21 < 0)
               {
-                goto LABEL_111;
+                goto LABEL_109;
               }
 
-              v19 = (v43 + v19);
-              v44 = &v58[v42];
-              v58 = v44;
-              v45 = (*a1)("*", 1, a1);
-              if (v45 < 0)
+              v10 = (v21 + v10);
+              v22 = &v36[v20];
+              v36 = v22;
+              v23 = (*a1)("*", 1, a1);
+              if (v23 < 0)
               {
-                goto LABEL_111;
+                goto LABEL_109;
               }
 
-              v19 = (v45 + v19);
-              v46 = strchr(v44, 64);
-              v47 = v46;
-              if (v46)
+              v10 = (v23 + v10);
+              v24 = strchr(v22, 64);
+              v25 = v24;
+              if (v24)
               {
-                v48 = (*a1)(v46, 1, a1);
-                if (v48 < 0)
-                {
-                  goto LABEL_111;
-                }
-
-                v19 = (v48 + v19);
-                v44 = v47 + 1;
-                v58 = v47 + 1;
-              }
-
-              v49 = v41 - v44;
-              v57 = v41 - v44;
-              v50 = v41 - v44;
-              if ((v41 - v44) >= 9)
-              {
-                v51 = 9;
-                if (!memicmp(v41 - 9, "gmail.com", 9))
-                {
-                  goto LABEL_99;
-                }
-
-                v50 = v57;
-                if (v57 >= 0xA)
-                {
-                  v51 = 10;
-                  if (!memicmp(&v44[v57 - 10], "icloud.com", 10))
-                  {
-                    goto LABEL_99;
-                  }
-
-                  v50 = v57;
-                }
-
-                if (v50 >= 9)
-                {
-                  v51 = 9;
-                  if (!memicmp(&v44[v50 - 9], "yahoo.com", 9))
-                  {
-                    goto LABEL_99;
-                  }
-
-                  v50 = v57;
-                }
-              }
-
-              if (v50 >= 7)
-              {
-                v51 = 7;
-                if (!memicmp(&v44[v50 - 7], "mac.com", 7))
-                {
-                  goto LABEL_99;
-                }
-
-                v50 = v57;
-              }
-
-              if (v50 >= 6)
-              {
-                v51 = 6;
-                if (!memicmp(&v44[v50 - 6], "me.com", 6))
-                {
-                  goto LABEL_99;
-                }
-
-                v50 = v57;
-                if (v57 >= 9)
-                {
-                  v51 = 9;
-                  if (!memicmp(&v44[v57 - 9], "apple.com", 9))
-                  {
-                    goto LABEL_99;
-                  }
-
-                  v50 = v57;
-                  if (v57 >= 0xF)
-                  {
-                    v51 = 15;
-                    if (!memicmp(&v44[v57 - 15], ".com/index.html", 15))
-                    {
-                      goto LABEL_99;
-                    }
-
-                    v50 = v57;
-                  }
-
-                  if (v50 >= 0xB)
-                  {
-                    v51 = 11;
-                    if (!memicmp(&v44[v50 - 11], "/index.html", 11))
-                    {
-                      goto LABEL_99;
-                    }
-
-                    v50 = v57;
-                  }
-
-                  if (v50 >= 0xA)
-                  {
-                    v51 = 10;
-                    if (!memicmp(&v44[v50 - 10], "index.html", 10))
-                    {
-                      goto LABEL_99;
-                    }
-
-                    v50 = v57;
-                  }
-                }
-              }
-
-              if (v50 >= 5)
-              {
-                v51 = 5;
-                if (!memicmp(&v44[v50 - 5], ".html", 5))
-                {
-                  goto LABEL_99;
-                }
-
-                v50 = v57;
-                if (v57 >= 5)
-                {
-                  v51 = 5;
-                  if (!memicmp(&v44[v57 - 5], ".jpeg", 5))
-                  {
-                    goto LABEL_99;
-                  }
-
-                  v50 = v57;
-                }
-              }
-
-              if (v50 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v50 - 4], ".com", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".net", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".jpg", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".pdf", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".png", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".txt", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 4)
-              {
-                goto LABEL_83;
-              }
-
-              v51 = 4;
-              if (!memicmp(&v44[v57 - 4], ".bin", 4))
-              {
-                goto LABEL_99;
-              }
-
-              if (v57 < 5)
-              {
-LABEL_83:
-                v51 = 0;
-                v52 = 0;
-LABEL_101:
-                if (v49 >= 2)
-                {
-                  v49 = 2;
-                }
-
-                if (v41 == v44)
+                v26 = (*a1)(v24, 1, a1);
+                if (v26 < 0)
                 {
                   goto LABEL_109;
                 }
 
-                if (v47)
-                {
-                  v54 = (*a1)("*", 1, a1);
-                  if (v54 < 0)
-                  {
-                    goto LABEL_111;
-                  }
-
-                  v19 = (v54 + v19);
-                }
-
-                v55 = (*a1)(&v41[-v49], v49, a1);
-                if ((v55 & 0x80000000) == 0)
-                {
-                  v19 = (v55 + v19);
-LABEL_109:
-                  if (v52)
-                  {
-                    v56 = (*a1)(v41, v51, a1);
-                    v19 = (v56 & ~(v56 >> 31)) + v19;
-                  }
-                }
-
-LABEL_111:
-                if (v59)
-                {
-                  free(v59);
-                }
-
-                return v19;
+                v10 = (v26 + v10);
+                v22 = (v25 + 1);
+                v36 = (v25 + 1);
               }
 
-              v51 = 5;
-              if (memicmp(&v44[v57 - 5], " iPad", 5))
+              v27 = v19 - v22;
+              v35 = v19 - v22;
+              v28 = v19 - v22;
+              if ((v19 - v22) >= 9)
               {
-                if (v57 < 7)
+                v29 = 9;
+                if (!memicmp(v19 - 9, "gmail.com", 9))
                 {
-                  goto LABEL_83;
+                  goto LABEL_97;
                 }
 
-                v51 = 7;
-                if (memicmp(&v44[v57 - 7], " iPhone", 7))
+                v28 = v35;
+                if (v35 >= 0xA)
                 {
-                  goto LABEL_83;
+                  v29 = 10;
+                  if (!memicmp(&v22[v35 - 10], "icloud.com", 10))
+                  {
+                    goto LABEL_97;
+                  }
+
+                  v28 = v35;
                 }
 
-                v53 = -7;
-LABEL_100:
-                v41 += v53;
-                v49 = v41 - v44;
-                v52 = 1;
-                goto LABEL_101;
+                if (v28 >= 9)
+                {
+                  v29 = 9;
+                  if (!memicmp(&v22[v28 - 9], "yahoo.com", 9))
+                  {
+                    goto LABEL_97;
+                  }
+
+                  v28 = v35;
+                }
               }
 
+              if (v28 >= 7)
+              {
+                v29 = 7;
+                if (!memicmp(&v22[v28 - 7], "mac.com", 7))
+                {
+                  goto LABEL_97;
+                }
+
+                v28 = v35;
+              }
+
+              if (v28 >= 6)
+              {
+                v29 = 6;
+                if (!memicmp(&v22[v28 - 6], "me.com", 6))
+                {
+                  goto LABEL_97;
+                }
+
+                v28 = v35;
+                if (v35 >= 9)
+                {
+                  v29 = 9;
+                  if (!memicmp(&v22[v35 - 9], "apple.com", 9))
+                  {
+                    goto LABEL_97;
+                  }
+
+                  v28 = v35;
+                  if (v35 >= 0xF)
+                  {
+                    v29 = 15;
+                    if (!memicmp(&v22[v35 - 15], ".com/index.html", 15))
+                    {
+                      goto LABEL_97;
+                    }
+
+                    v28 = v35;
+                  }
+
+                  if (v28 >= 0xB)
+                  {
+                    v29 = 11;
+                    if (!memicmp(&v22[v28 - 11], "/index.html", 11))
+                    {
+                      goto LABEL_97;
+                    }
+
+                    v28 = v35;
+                  }
+
+                  if (v28 >= 0xA)
+                  {
+                    v29 = 10;
+                    if (!memicmp(&v22[v28 - 10], "index.html", 10))
+                    {
+                      goto LABEL_97;
+                    }
+
+                    v28 = v35;
+                  }
+                }
+              }
+
+              if (v28 >= 5)
+              {
+                v29 = 5;
+                if (!memicmp(&v22[v28 - 5], ".html", 5))
+                {
+                  goto LABEL_97;
+                }
+
+                v28 = v35;
+                if (v35 >= 5)
+                {
+                  v29 = 5;
+                  if (!memicmp(&v22[v35 - 5], ".jpeg", 5))
+                  {
+                    goto LABEL_97;
+                  }
+
+                  v28 = v35;
+                }
+              }
+
+              if (v28 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v28 - 4], ".com", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".net", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".jpg", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".pdf", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".png", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".txt", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 4)
+              {
+                goto LABEL_83;
+              }
+
+              v29 = 4;
+              if (!memicmp(&v22[v35 - 4], ".bin", 4))
+              {
+                goto LABEL_97;
+              }
+
+              if (v35 < 5)
+              {
+LABEL_83:
+                v29 = 0;
+                v30 = 0;
 LABEL_99:
-              v53 = -v51;
-              goto LABEL_100;
+                if (v27 >= 2)
+                {
+                  v27 = 2;
+                }
+
+                if (v19 == v22)
+                {
+                  goto LABEL_107;
+                }
+
+                if (v25)
+                {
+                  v32 = (*a1)("*", 1, a1);
+                  if (v32 < 0)
+                  {
+                    goto LABEL_109;
+                  }
+
+                  v10 = (v32 + v10);
+                }
+
+                v33 = (*a1)(&v19[-v27], v27, a1);
+                if ((v33 & 0x80000000) == 0)
+                {
+                  v10 = (v33 + v10);
+LABEL_107:
+                  if (v30)
+                  {
+                    v34 = (*a1)(v19, v29, a1);
+                    v10 = (v34 & ~(v34 >> 31)) + v10;
+                  }
+                }
+
+LABEL_109:
+                if (v37)
+                {
+                  free(v37);
+                }
+
+                return v10;
+              }
+
+              v29 = 5;
+              if (memicmp(&v22[v35 - 5], " iPad", 5))
+              {
+                if (v35 < 7)
+                {
+                  goto LABEL_83;
+                }
+
+                v29 = 7;
+                if (memicmp(&v22[v35 - 7], " iPhone", 7))
+                {
+                  goto LABEL_83;
+                }
+
+                v31 = -7;
+LABEL_98:
+                v19 += v31;
+                v27 = v19 - v22;
+                v30 = 1;
+                goto LABEL_99;
+              }
+
+LABEL_97:
+              v31 = -v29;
+              goto LABEL_98;
             }
 
 LABEL_24:
-            v18 = 8;
+            v9 = 8;
             goto LABEL_25;
           }
         }
 
-        v18 = 7;
+        v9 = 7;
         goto LABEL_25;
       }
 
-      v5 = PrintFCore(a1, "U<%.4s*%.4s>", v11, v12, v13, v14, v15, v16, v9);
+      v5 = PrintFCore(a1, "U<%.4s*%.4s>", v6, &v6[v35 - 4]);
     }
 
-    v19 = v5;
-    goto LABEL_111;
+    v10 = v5;
+    goto LABEL_109;
   }
 
   if (TypeID != CFDataGetTypeID())
   {
-    return PrintFCore(a1, "<<UNSUPPORTED OBJ: %d>>", v21, v22, v23, v24, v25, v26, TypeID);
+    return PrintFCore(a1, "<<UNSUPPORTED OBJ: %d>>");
   }
 
   Length = CFDataGetLength(v2);
@@ -3491,24 +3498,19 @@ LABEL_24:
   {
     if (Length >= 0x80)
     {
-      v34 = 128;
+      v13 = 128;
     }
 
     else
     {
-      v34 = Length;
+      v13 = Length;
     }
 
     BytePtr = CFDataGetBytePtr(v2);
-    v36 = SipHash(qword_191FFB182, BytePtr, v34) & 0xFFFFFF;
+    SipHash(qword_191FFB182, BytePtr, v13);
   }
 
-  else
-  {
-    v36 = 0;
-  }
-
-  return PrintFCore(a1, "H<%06x>", v28, v29, v30, v31, v32, v33, v36);
+  return PrintFCore(a1, "H<%06x>");
 }
 
 unint64_t CFGetHardwareAddress(const __CFString *a1, char *a2, size_t a3, int *a4)
@@ -3684,12 +3686,12 @@ LABEL_38:
 
 uint64_t BonjourDevice_GetInt64(const __CFDictionary *a1, const char *a2, int a3, int *a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v36 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v26 = 0;
   Value = CFDictionaryGetValue(a1, @"txt");
   if (!Value)
   {
-    v32 = -6762;
+    v22 = -6762;
     goto LABEL_38;
   }
 
@@ -3697,7 +3699,7 @@ uint64_t BonjourDevice_GetInt64(const __CFDictionary *a1, const char *a2, int a3
   v9 = CFGetTypeID(Value);
   if (v9 != CFDataGetTypeID())
   {
-    v32 = -6756;
+    v22 = -6756;
     goto LABEL_38;
   }
 
@@ -3707,14 +3709,14 @@ uint64_t BonjourDevice_GetInt64(const __CFDictionary *a1, const char *a2, int a3
   ValuePtr = TXTRecordGetValuePtr(Length, BytePtr, a2, &valueLen);
   if (!ValuePtr)
   {
-    v32 = -6727;
+    v22 = -6727;
     goto LABEL_38;
   }
 
   v13 = valueLen;
   if (valueLen > 0x3FuLL)
   {
-    v32 = -6743;
+    v22 = -6743;
     goto LABEL_38;
   }
 
@@ -3725,15 +3727,15 @@ uint64_t BonjourDevice_GetInt64(const __CFDictionary *a1, const char *a2, int a3
   {
     if (strnicmpx(v14, valueLen, "false") && strnicmpx(v14, valueLen, "no") && strnicmpx(v14, valueLen, "n") && strnicmpx(v14, valueLen, "off") && strnicmpx(v14, valueLen, "0"))
     {
-      HIDWORD(v21) = a3;
-      LODWORD(v21) = a3;
-      v20 = v21 >> 1;
-      if (v20 > 8 || ((0x131u >> v20) & 1) == 0)
+      HIDWORD(v16) = a3;
+      LODWORD(v16) = a3;
+      v15 = v16 >> 1;
+      if (v15 > 8 || ((0x131u >> v15) & 1) == 0)
       {
         goto LABEL_43;
       }
 
-      if (SNScanF(v14, valueLen, off_1E73A2870[v20], v15, v16, v17, v18, v19, &v36) != 1)
+      if (SNScanF(v14, valueLen, off_1E73A2870[v15], &v26) != 1)
       {
         goto LABEL_48;
       }
@@ -3741,64 +3743,64 @@ uint64_t BonjourDevice_GetInt64(const __CFDictionary *a1, const char *a2, int a3
 
     else
     {
-      v36 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    v36 = 1;
+    v26 = 1;
   }
 
-  v22 = strchr(__s, 44);
-  if (!v22)
+  v17 = strchr(__s, 44);
+  if (!v17)
   {
-    v32 = 0;
+    v22 = 0;
     goto LABEL_38;
   }
 
-  v23 = v22;
-  v35 = 0;
-  if (!strnicmpx(v22 + 1, -1, "true") || !strnicmpx(v23 + 1, -1, "yes") || !strnicmpx(v23 + 1, -1, "y") || !strnicmpx(v23 + 1, -1, "on") || !strnicmpx(v23 + 1, -1, "1"))
+  v18 = v17;
+  v25 = 0;
+  if (!strnicmpx(v17 + 1, -1, "true") || !strnicmpx(v18 + 1, -1, "yes") || !strnicmpx(v18 + 1, -1, "y") || !strnicmpx(v18 + 1, -1, "on") || !strnicmpx(v18 + 1, -1, "1"))
   {
-    v31 = 0x100000000;
+    v21 = 0x100000000;
     goto LABEL_36;
   }
 
-  if (!strnicmpx(v23 + 1, -1, "false") || !strnicmpx(v23 + 1, -1, "no") || !strnicmpx(v23 + 1, -1, "n") || !strnicmpx(v23 + 1, -1, "off") || !strnicmpx(v23 + 1, -1, "0"))
+  if (!strnicmpx(v18 + 1, -1, "false") || !strnicmpx(v18 + 1, -1, "no") || !strnicmpx(v18 + 1, -1, "n") || !strnicmpx(v18 + 1, -1, "off") || !strnicmpx(v18 + 1, -1, "0"))
   {
-    v31 = 0;
+    v21 = 0;
     goto LABEL_36;
   }
 
-  HIDWORD(v30) = a3;
-  LODWORD(v30) = a3;
-  v29 = v30 >> 1;
-  if (v29 > 8 || ((0x131u >> v29) & 1) == 0)
+  HIDWORD(v20) = a3;
+  LODWORD(v20) = a3;
+  v19 = v20 >> 1;
+  if (v19 > 8 || ((0x131u >> v19) & 1) == 0)
   {
 LABEL_43:
-    v32 = -6705;
+    v22 = -6705;
     goto LABEL_38;
   }
 
-  if (SNScanF(v23 + 1, 0xFFFFFFFFFFFFFFFFLL, off_1E73A2870[v29], v24, v25, v26, v27, v28, &v35) == 1)
+  if (SNScanF(v18 + 1, 0xFFFFFFFFFFFFFFFFLL, off_1E73A2870[v19], &v25) == 1)
   {
-    v31 = v35 << 32;
+    v21 = v25 << 32;
 LABEL_36:
-    v32 = 0;
-    v36 |= v31;
+    v22 = 0;
+    v26 |= v21;
     goto LABEL_38;
   }
 
 LABEL_48:
-  v32 = -6742;
+  v22 = -6742;
 LABEL_38:
   if (a4)
   {
-    *a4 = v32;
+    *a4 = v22;
   }
 
-  return v36;
+  return v26;
 }
 
 uint64_t TextToHardwareAddress(char *__s, size_t a2, uint64_t a3, _BYTE *a4)
@@ -4018,7 +4020,7 @@ uint64_t _AsyncConnection_Complete(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   return result;
 }
 
-uint64_t StringToSockAddr(unsigned __int8 *a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t StringToSockAddr(char *a1, uint64_t a2, unint64_t a3, void *a4)
 {
   v58 = *MEMORY[0x1E69E9840];
   v55 = 0;
@@ -4084,7 +4086,7 @@ LABEL_10:
   while (2)
   {
     v11 = v15;
-    v8 = v14 + 1;
+    v8 = (v14 + 1);
     v16 = 1;
     while (1)
     {
@@ -4560,7 +4562,7 @@ uint64_t SocketSetBufferSize(int a1, int a2, int a3)
   return result;
 }
 
-uint64_t StringToIPv4Address(unsigned __int8 *a1, _DWORD *a2, int *a3)
+uint64_t StringToIPv4Address(char *a1, _DWORD *a2, int *a3)
 {
   v16 = a1;
   if (!a1)
@@ -5319,7 +5321,7 @@ uint64_t CUXPCDecodeBool(void *a1, const char *a2, BOOL *a3, void *a4)
   {
     *a3 = v8;
 LABEL_7:
-    v17 = 1;
+    v12 = 1;
     goto LABEL_8;
   }
 
@@ -5340,13 +5342,13 @@ LABEL_6:
 
   if (a4)
   {
-    *a4 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-BOOL type: '%s'", v12, v13, v14, v15, v16, a2);
+    *a4 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC non-BOOL type: '%s'", a2);
   }
 
-  v17 = 0;
+  v12 = 0;
 LABEL_8:
 
-  return v17;
+  return v12;
 }
 
 BOOL __CUXPCDecodeNSArrayOfClass_block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -5354,29 +5356,29 @@ BOOL __CUXPCDecodeNSArrayOfClass_block_invoke(uint64_t a1, uint64_t a2, void *a3
   v4 = a3;
   if (MEMORY[0x193B07A70]() == MEMORY[0x1E69E9E80])
   {
-    v10 = objc_alloc(*(a1 + 56));
-    v11 = *(*(a1 + 40) + 8);
-    obj = *(v11 + 40);
-    v12 = [v10 initWithXPCObject:v4 error:&obj];
-    objc_storeStrong((v11 + 40), obj);
-    v13 = v12 != 0;
-    if (v12)
+    v5 = objc_alloc(*(a1 + 56));
+    v6 = *(*(a1 + 40) + 8);
+    obj = *(v6 + 40);
+    v7 = [v5 initWithXPCObject:v4 error:&obj];
+    objc_storeStrong((v6 + 40), obj);
+    v8 = v7 != 0;
+    if (v7)
     {
-      [*(a1 + 32) addObject:v12];
+      [*(a1 + 32) addObject:v7];
     }
   }
 
   else
   {
-    v15 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-dictionary value: '%s'", v5, v6, v7, v8, v9, *(a1 + 48));
-    v16 = *(*(a1 + 40) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v10 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "XPC array non-dictionary value: '%s'", *(a1 + 48));
+    v11 = *(*(a1 + 40) + 8);
+    v12 = *(v11 + 40);
+    *(v11 + 40) = v10;
 
-    v13 = 0;
+    v8 = 0;
   }
 
-  return v13;
+  return v8;
 }
 
 uint64_t SetCurrentThreadPriority(integer_t a1)
@@ -5501,7 +5503,7 @@ uint64_t UpdateIOVec(uint64_t **a1, int *a2, unint64_t a3)
   return 35;
 }
 
-uint64_t MFiSAP_CopyCertificateSerialNumber(uint64_t a1, void *a2, void *a3)
+uint64_t MFiSAP_CopyCertificateSerialNumber(uint64_t a1, uint64_t *a2, unint64_t *a3)
 {
   if (*a1 != 4)
   {
@@ -5593,7 +5595,7 @@ LABEL_12:
   return 4294960554;
 }
 
-void *CFCopyData(const __CFData *a1, size_t *a2, _DWORD *a3)
+void *CFCopyData(const __CFData *a1, uint64_t *a2, _DWORD *a3)
 {
   v5 = a1;
   v19 = 0;
@@ -5756,17 +5758,17 @@ unint64_t UpTicksToNanoseconds(unint64_t a1)
   return (*&UpTicksToNanoseconds_sMultiplier * a1);
 }
 
-uint64_t CFStringAppendV(__CFString *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CFStringAppendV(__CFString *a1, char *a2, uint64_t a3)
 {
   cStr = 0;
-  if ((VASPrintF(&cStr, a2, a3, a4, a5, a6, a7, a8) & 0x80000000) != 0)
+  if ((VASPrintF(&cStr, a2, a3) & 0x80000000) != 0)
   {
     return 4294960596;
   }
 
-  v9 = cStr;
+  v4 = cStr;
   CFStringAppendCString(a1, cStr, 0x8000100u);
-  free(v9);
+  free(v4);
   return 0;
 }
 
@@ -6073,7 +6075,7 @@ LABEL_20:
         if (*v23 != -1)
         {
 LABEL_8:
-          LogPrintF(v23, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)", 0x32u, "NAN data session start: %@\n", v18, v19, v20, v21, v22);
+          LogPrintF(v23, "OSStatus _AsyncConnection_StartNANDataSession(AsyncConnectionRef, CFTypeRef)", 50, "NAN data session start: %@\n", v18, v19, v20, v21, v22);
           goto LABEL_18;
         }
 
@@ -6130,7 +6132,7 @@ LABEL_18:
     if (*v30 != -1)
     {
 LABEL_26:
-      LogPrintF(v30, "OSStatus _AsyncConnection_ConnectStrings(AsyncConnectionRef)", 0x32u, "Connect start: '%s'\n", a5, a6, a7, a8, *(a1 + 16));
+      LogPrintF(v30, "OSStatus _AsyncConnection_ConnectStrings(AsyncConnectionRef)", 50, "Connect start: '%s'\n", a5, a6, a7, a8, *(a1 + 16));
       goto LABEL_30;
     }
 
@@ -6205,14 +6207,15 @@ uint64_t _AsyncConnection_ConnectOne(uint64_t a1, char *__s)
       return 4294960539;
     }
 
-    memset(v58, 0, sizeof(v58));
+    v57 = 0uLL;
     v59 = 0;
-    if (!StringToSockAddr(v2, v58, 0x1CuLL, 0))
+    v58 = 0;
+    if (!StringToSockAddr(v2, &v57, 0x1CuLL, 0))
     {
       v23 = *(a1 + 24);
       if ((*(a1 + 28) & 4) != 0)
       {
-        if (!_AsyncConnection_ReachabilityStart(a1, 0, v58, 0, v23))
+        if (!_AsyncConnection_ReachabilityStart(a1, 0, &v57, 0, v23))
         {
           return 0;
         }
@@ -6220,7 +6223,7 @@ uint64_t _AsyncConnection_ConnectOne(uint64_t a1, char *__s)
         v23 = *(a1 + 24);
       }
 
-      return _AsyncConnection_StartConnect(a1, 0, v58, 0, v23, v11, v12, v13);
+      return _AsyncConnection_StartConnect(a1, 0, &v57, 0, v23, v11, v12, v13);
     }
 
     if (!stristr(v2, "._tcp.") && !stristr(v2, "._udp."))
@@ -6275,7 +6278,7 @@ uint64_t _AsyncConnection_ConnectOne(uint64_t a1, char *__s)
       if (*v26 != -1)
       {
 LABEL_27:
-        LogPrintF(v26, "OSStatus _AsyncConnection_StartSRVQuery(AsyncConnectionRef, const char *, int)", 0x1Eu, "Querying SRV %s\n", v18, v19, v20, v21, v2);
+        LogPrintF(v26, "OSStatus _AsyncConnection_StartSRVQuery(AsyncConnectionRef, const char *, int)", 30, "Querying SRV %s\n", v18, v19, v20, v21, v2);
         goto LABEL_32;
       }
 
@@ -6322,74 +6325,74 @@ LABEL_35:
   {
     v10 = *(a1 + 152);
 LABEL_8:
-    LogPrintF(v10, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 0x32u, "WakeDevice start: %.*s\n", v6, v7, v8, v9, v5);
+    LogPrintF(v10, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 50, "WakeDevice start: %.*s\n", v6, v7, v8, v9, v5);
   }
 
 LABEL_39:
   if (TextToHardwareAddress(v2, v5, 6, v61))
   {
-    v35 = *(a1 + 152);
-    if (*v35 > 90)
+    v34 = *(a1 + 152);
+    if (*v34 > 90)
     {
       return 0;
     }
 
-    if (*v35 == -1)
+    if (*v34 == -1)
     {
-      if (!_LogCategory_Initialize(v35, 0x5Au))
+      if (!_LogCategory_Initialize(v34, 0x5Au))
       {
         return 0;
       }
 
-      v35 = *(a1 + 152);
+      v34 = *(a1 + 152);
     }
 
-    LogPrintF(v35, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 0x5Au, "### WakeDevice failed: %.*s\n", v31, v32, v33, v34, v5);
+    LogPrintF(v34, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 90, "### WakeDevice failed: %.*s\n", v30, v31, v32, v33, v5);
     return 0;
   }
 
-  SNPrintF(name, 32, "%.6a@0.0.0.0", v30, v31, v32, v33, v34, v61);
-  v40 = socket(2, 2, 0);
-  if ((v40 & 0x80000000) == 0)
+  SNPrintF(name, 32, "%.6a@0.0.0.0", COERCE_DOUBLE(v61));
+  v39 = socket(2, 2, 0);
+  if ((v39 & 0x80000000) == 0)
   {
     goto LABEL_50;
   }
 
-  v41 = *(a1 + 152);
-  if (*v41 > 90)
+  v40 = *(a1 + 152);
+  if (*v40 > 90)
   {
     goto LABEL_50;
   }
 
-  if (*v41 == -1)
+  if (*v40 == -1)
   {
-    if (!_LogCategory_Initialize(v41, 0x5Au))
+    if (!_LogCategory_Initialize(v40, 0x5Au))
     {
       goto LABEL_50;
     }
 
-    v41 = *(a1 + 152);
+    v40 = *(a1 + 152);
   }
 
-  LogPrintF(v41, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 0x5Au, "### WakeDevice: create temp socket failed\n", v36, v37, v38, v39, v57);
+  LogPrintF(v40, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 90, "### WakeDevice: create temp socket failed\n", v35, v36, v37, v38, v56);
 LABEL_50:
   v60 = 0;
   getifaddrs(&v60);
-  v46 = v60;
+  v45 = v60;
   if (!v60)
   {
     goto LABEL_79;
   }
 
-  v47 = 0;
+  v46 = 0;
   do
   {
-    if ((v46->ifa_flags & 9) != 1)
+    if ((v45->ifa_flags & 9) != 1)
     {
       goto LABEL_71;
     }
 
-    ifa_dstaddr = v46->ifa_dstaddr;
+    ifa_dstaddr = v45->ifa_dstaddr;
     if (!ifa_dstaddr)
     {
       goto LABEL_71;
@@ -6400,112 +6403,112 @@ LABEL_50:
       goto LABEL_71;
     }
 
-    ifa_name = v46->ifa_name;
+    ifa_name = v45->ifa_name;
     if (!ifa_name)
     {
       goto LABEL_71;
     }
 
-    v50 = if_nametoindex(ifa_name);
-    if (!v50)
+    v49 = if_nametoindex(ifa_name);
+    if (!v49)
     {
       goto LABEL_71;
     }
 
-    v51 = v50;
-    if (v40 < 0 || (v72 = 0u, v73 = 0u, __strlcpy_chk(), ioctl(v40, 0xC020699FuLL, &v72), DWORD1(v73) == 2))
+    v50 = v49;
+    if (v39 < 0 || (v72 = 0u, v73 = 0u, __strlcpy_chk(), ioctl(v39, 0xC020699FuLL, &v72), DWORD1(v73) == 2))
     {
-      v52 = *(a1 + 152);
-      if (*v52 <= 50)
+      v51 = *(a1 + 152);
+      if (*v51 <= 50)
       {
-        if (*v52 == -1)
+        if (*v51 == -1)
         {
-          if (!_LogCategory_Initialize(v52, 0x32u))
+          if (!_LogCategory_Initialize(v51, 0x32u))
           {
             goto LABEL_66;
           }
 
-          v52 = *(a1 + 152);
+          v51 = *(a1 + 152);
         }
 
-        LogPrintF(v52, "OSStatus _AsyncConnection_StartWakeInterface(AsyncConnectionRef, const char *, uint32_t)", 0x32u, "WakeDevice interface: %s, %u\n", v42, v43, v44, v45, name);
+        LogPrintF(v51, "OSStatus _AsyncConnection_StartWakeInterface(AsyncConnectionRef, const char *, uint32_t)", 50, "WakeDevice interface: %s, %u\n", v41, v42, v43, v44, name);
       }
 
 LABEL_66:
-      v54 = malloc_type_calloc(1uLL, 0xB8uLL, 0x10E0040D7525972uLL);
-      if (v54)
+      v53 = malloc_type_calloc(1uLL, 0xB8uLL, 0x10E0040D7525972uLL);
+      if (v53)
       {
-        v55 = v54;
+        v54 = v53;
         ++*a1;
-        *v54 = 1;
-        v54[2] = a1;
-        *(v54 + 15) = -1;
-        if (DNSServiceResolve(v54 + 8, 0x40000u, v51, name, "_wake._tcp", "local.", _AsyncConnection_WakeResolveCallback, v54))
+        *v53 = 1;
+        v53[2] = a1;
+        *(v53 + 15) = -1;
+        if (DNSServiceResolve(v53 + 8, 0x40000u, v50, name, "_wake._tcp", "local.", _AsyncConnection_WakeResolveCallback, v53))
         {
-          _AsyncConnection_ReleaseOperation(v55);
+          _AsyncConnection_ReleaseOperation(v54);
         }
 
         else
         {
-          DNSServiceSetDispatchQueue(v55[8], *(a1 + 112));
-          v55[1] = *(a1 + 88);
-          *(a1 + 88) = v55;
+          DNSServiceSetDispatchQueue(v54[8], *(a1 + 112));
+          v54[1] = *(a1 + 88);
+          *(a1 + 88) = v54;
         }
       }
 
-      ++v47;
+      ++v46;
       goto LABEL_71;
     }
 
-    v53 = *(a1 + 152);
-    if (*v53 > 30)
+    v52 = *(a1 + 152);
+    if (*v52 > 30)
     {
       goto LABEL_71;
     }
 
-    if (*v53 != -1)
+    if (*v52 != -1)
     {
       goto LABEL_64;
     }
 
-    if (_LogCategory_Initialize(v53, 0x1Eu))
+    if (_LogCategory_Initialize(v52, 0x1Eu))
     {
-      v53 = *(a1 + 152);
+      v52 = *(a1 + 152);
 LABEL_64:
-      LogPrintF(v53, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 0x1Eu, "WakeDevice: skiping non-Ethernet-style: %s\n", v42, v43, v44, v45, v46->ifa_name);
+      LogPrintF(v52, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 30, "WakeDevice: skiping non-Ethernet-style: %s\n", v41, v42, v43, v44, v45->ifa_name);
     }
 
 LABEL_71:
-    v46 = v46->ifa_next;
+    v45 = v45->ifa_next;
   }
 
-  while (v46);
+  while (v45);
   if (v60)
   {
     MEMORY[0x193B06880]();
   }
 
-  if (!v47)
+  if (!v46)
   {
 LABEL_79:
-    v56 = *(a1 + 152);
-    if (*v56 <= 90)
+    v55 = *(a1 + 152);
+    if (*v55 <= 90)
     {
-      if (*v56 != -1)
+      if (*v55 != -1)
       {
         goto LABEL_81;
       }
 
-      if (_LogCategory_Initialize(v56, 0x5Au))
+      if (_LogCategory_Initialize(v55, 0x5Au))
       {
-        v56 = *(a1 + 152);
+        v55 = *(a1 + 152);
 LABEL_81:
-        LogPrintF(v56, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 0x5Au, "### WakeDevice with no interfaces: %.*s\n", v42, v43, v44, v45, v5);
+        LogPrintF(v55, "OSStatus _AsyncConnection_StartWakeAll(AsyncConnectionRef, const char *, size_t)", 90, "### WakeDevice with no interfaces: %.*s\n", v41, v42, v43, v44, v5);
       }
     }
   }
 
-  if ((v40 & 0x80000000) == 0 && close(v40))
+  if ((v39 & 0x80000000) == 0 && close(v39))
   {
     if (*__error())
     {
@@ -6582,7 +6585,7 @@ LABEL_20:
         v17 = *(a1 + 152);
       }
 
-      LogPrintF(v17, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x1Eu, "Skipping IPv6 address with NoIPv6: %##a\n", a5, a6, a7, a8, a3);
+      LogPrintF(v17, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 30, "Skipping IPv6 address with NoIPv6: %##a\n", a5, a6, a7, a8, a3);
     }
 
     return 0;
@@ -6643,7 +6646,7 @@ LABEL_20:
       v27 = *(a1 + 152);
     }
 
-    LogPrintF(v27, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x5Au, "AWDLTrafficRegister failed: %#m\n", v24, v25, v26, a8, v22);
+    LogPrintF(v27, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 90, "AWDLTrafficRegister failed: %#m\n", v24, v25, v26, a8, v22);
   }
 
 LABEL_51:
@@ -6662,7 +6665,7 @@ LABEL_51:
         v29 = *(a1 + 152);
       }
 
-      LogPrintF(v29, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x32u, "Skipping %##a (MAC %.6a) due to AWDLTrafficRegister reject: %#m\n", v24, v25, v26, a8, a3);
+      LogPrintF(v29, "OSStatus _AsyncConnection_StartConnect(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 50, "Skipping %##a (MAC %.6a) due to AWDLTrafficRegister reject: %#m\n", v24, v25, v26, a8, a3);
     }
 
 LABEL_58:
@@ -6778,7 +6781,7 @@ uint64_t _AsyncConnection_StartConnectNow(uint64_t a1, uint64_t a2, uint64_t a3,
         v39 = *(a1 + 152);
       }
 
-      LogPrintF(v39, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x32u, "Skipping duplicate connection: %##a", v11, v12, v13, v14, a3);
+      LogPrintF(v39, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 50, "Skipping duplicate connection: %##a", v11, v12, v13, v14, a3);
       return 0;
     }
   }
@@ -6915,7 +6918,7 @@ LABEL_92:
           if (*v37 != -1)
           {
 LABEL_51:
-            LogPrintF(v37, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x5Au, "## SO_RESTRICTIONS failed: 0x%X, %#m", v33, v34, v35, v36, v60);
+            LogPrintF(v37, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 90, "## SO_RESTRICTIONS failed: 0x%X, %#m", v33, v34, v35, v36, v60);
             goto LABEL_65;
           }
 
@@ -6956,7 +6959,7 @@ LABEL_65:
       if (*v46 != -1)
       {
 LABEL_75:
-        LogPrintF(v46, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x32u, "Connecting to %##a, interface %d\n", v42, v43, v44, v45, v22);
+        LogPrintF(v46, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 50, "Connecting to %##a, interface %d\n", v42, v43, v44, v45, v22);
         goto LABEL_77;
       }
 
@@ -7050,7 +7053,7 @@ LABEL_94:
             v58 = *(a1 + 152);
           }
 
-          LogPrintF(v58, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 0x32u, "### Connect failed immediate: %##a, %#m\n", v51, v52, v53, v54, v22);
+          LogPrintF(v58, "OSStatus _AsyncConnection_StartConnectNow(AsyncConnectionRef, AsyncConnectionOperationRef, const void *, uint32_t, int)", 50, "### Connect failed immediate: %##a, %#m\n", v51, v52, v53, v54, v22);
         }
 
 LABEL_98:
@@ -7244,7 +7247,7 @@ uint64_t _chacha20_poly1305_encrypt_all(__int32 *a1, __int32 *a2, uint64_t a3, u
   {
     if (a3 != 8)
     {
-      FatalErrorF("Bad nonce (%zu). Must be 8 or 12.", a1, a3, a4, a5, a6, a7, a8, a3);
+      FatalErrorF("Bad nonce (%zu). Must be 8 or 12.", a3);
     }
 
     chacha20_poly1305_init_64x64(__s, a1, a2);
@@ -7336,15 +7339,15 @@ void CUMetricsLogEx(int *a1, void *a2, void *a3)
   v9 = a3;
   if (*a1 <= 50 && (*a1 != -1 || _LogCategory_Initialize(a1, 0x32u)))
   {
-    LogPrintF(a1, "void CUMetricsLogEx(LogCategory * _Nonnull, NSString * _Nonnull __strong, NSDictionary<NSString *,NSObject *> * _Nonnull __strong)", 0x32u, "MetricLog '%@' : %##@\n", v5, v6, v7, v8, v10);
+    LogPrintF(a1, "void CUMetricsLogEx(LogCategory * _Nonnull, NSString * _Nonnull __strong, NSDictionary<NSString *,NSObject *> * _Nonnull __strong)", 50, "MetricLog '%@' : %##@\n", v5, v6, v7, v8, v10);
   }
 
-  (softLinkAnalyticsSendEvent[0])(v10, v9);
+  softLinkAnalyticsSendEvent(v10, v9);
 }
 
 uint64_t _chacha20_poly1305_decrypt_all(__int32 *a1, __int32 *a2, uint64_t a3, unsigned int *a4, unint64_t a5, int8x16_t *a6, unint64_t a7, int8x16_t *a8, uint64_t a9, uint64_t a10)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   memset(__s, 0, sizeof(__s));
   if (a3 == 12)
   {
@@ -7355,7 +7358,7 @@ uint64_t _chacha20_poly1305_decrypt_all(__int32 *a1, __int32 *a2, uint64_t a3, u
   {
     if (a3 != 8)
     {
-      FatalErrorF("Bad nonce (%zu). Must be 8 or 12.", a1, a3, a4, a5, a6, a7, a8, a3);
+      FatalErrorF("Bad nonce (%zu). Must be 8 or 12.", a3);
     }
 
     chacha20_poly1305_init_64x64(__s, a1, a2);
@@ -7363,7 +7366,7 @@ uint64_t _chacha20_poly1305_decrypt_all(__int32 *a1, __int32 *a2, uint64_t a3, u
 
   if ((a10 - 17) <= 0xFFFFFFFFFFFFFFEFLL)
   {
-    FatalErrorF("Auth tag len (%zu) must be 1-16 bytes", v15, v16, v17, v18, v19, v20, v21, a10);
+    FatalErrorF("Auth tag len (%zu) must be 1-16 bytes", a10);
   }
 
   if (a5)
@@ -7384,32 +7387,32 @@ uint64_t _chacha20_poly1305_decrypt_all(__int32 *a1, __int32 *a2, uint64_t a3, u
     }
   }
 
-  LOWORD(v26) = a5;
-  BYTE2(v26) = BYTE2(a5);
-  HIBYTE(v26) = BYTE3(a5);
-  v27 = BYTE4(a5);
-  v28 = BYTE5(a5);
-  v29 = BYTE6(a5);
-  v30 = HIBYTE(a5);
-  v31 = a7;
-  poly1305_update(&__s[8].u32[2], &v26, 0x10uLL);
-  poly1305_final(&__s[8].i64[1], &v26);
-  v22 = 0;
-  v23 = 0;
+  LOWORD(v19) = a5;
+  BYTE2(v19) = BYTE2(a5);
+  HIBYTE(v19) = BYTE3(a5);
+  v20 = BYTE4(a5);
+  v21 = BYTE5(a5);
+  v22 = BYTE6(a5);
+  v23 = HIBYTE(a5);
+  v24 = a7;
+  poly1305_update(&__s[8].u32[2], &v19, 0x10uLL);
+  poly1305_final(&__s[8].i64[1], &v19);
+  v15 = 0;
+  v16 = 0;
   do
   {
-    v23 |= *(a9 + v22) ^ *(&v26 + v22);
-    ++v22;
+    v16 |= *(a9 + v15) ^ *(&v19 + v15);
+    ++v15;
   }
 
-  while (a10 != v22);
-  if (v23)
+  while (a10 != v15);
+  if (v16)
   {
     return 4294960542;
   }
 
-  v24 = chacha20_update(__s, a6, a7, a8);
-  chacha20_final(__s, (a8 + v24));
+  v17 = chacha20_update(__s, a6, a7, a8);
+  chacha20_final(__s, (a8 + v17));
   return 0;
 }
 
@@ -7442,7 +7445,7 @@ void _AsyncConnection_EventHandler(uint64_t a1)
       v9 = *(*(a1 + 16) + 152);
     }
 
-    LogPrintF(v9, "void _AsyncConnection_EventHandler(void *)", 0x5Au, "DNSServiceProcessResult failed: %#m...Bonjour crashed\n", v4, v5, v6, v7, v8);
+    LogPrintF(v9, "void _AsyncConnection_EventHandler(void *)", 90, "DNSServiceProcessResult failed: %#m...Bonjour crashed\n", v4, v5, v6, v7, v8);
 LABEL_21:
 
     _AsyncConnection_ErrorHandler(a1, v8);
@@ -7541,14 +7544,14 @@ LABEL_31:
       v20 = *(v19 + 152);
     }
 
-    LogPrintF(v20, "void _AsyncConnection_EventHandler(void *)", 0x32u, "### Connect failed: %##a, %#m\n", v13, v14, v15, v16, a1 + 24);
+    LogPrintF(v20, "void _AsyncConnection_EventHandler(void *)", 50, "### Connect failed: %##a, %#m\n", v13, v14, v15, v16, a1 + 24);
   }
 
 LABEL_36:
   v21 = *(a1 + 180);
   if (v21 < *(v19 + 184))
   {
-    started = _AsyncConnection_StartConnectDelayed(v19, a1, v21 + 1, a1 + 24, *(a1 + 52), *(a1 + 56), 1000000 * *(v19 + 180), v16);
+    started = _AsyncConnection_StartConnectDelayed(v19, a1, v21 + 1, (a1 + 24), *(a1 + 52), *(a1 + 56), 1000000 * *(v19 + 180), v16);
     if (started)
     {
       v17 = started;
@@ -7627,7 +7630,7 @@ LABEL_7:
         v12 = *(*(a1 + 16) + 152);
       }
 
-      LogPrintF(v12, "void _AsyncConnection_ConnectHandler(AsyncConnectionOperationRef)", 0x32u, "NoConnect to %##a (Reach=%.2f ms, SRV=%.2f ms, DNS=%.2f ms, Total=%.2f ms)\n", v2, v3, v4, v5, v18);
+      LogPrintF(v12, "void _AsyncConnection_ConnectHandler(AsyncConnectionOperationRef)", 50, "NoConnect to %##a (Reach=%.2f ms, SRV=%.2f ms, DNS=%.2f ms, Total=%.2f ms)\n", v2, v3, v4, v5, v18);
     }
   }
 
@@ -7643,7 +7646,7 @@ LABEL_7:
       v12 = *(*(a1 + 16) + 152);
     }
 
-    LogPrintF(v12, "void _AsyncConnection_ConnectHandler(AsyncConnectionOperationRef)", 0x32u, "Connected to %##a (Reach=%.2f ms, SRV=%.2f ms, DNS=%.2f ms, Connect=%.2f ms, Total=%.2f ms)\n", v2, v3, v4, v5, v18);
+    LogPrintF(v12, "void _AsyncConnection_ConnectHandler(AsyncConnectionOperationRef)", 50, "Connected to %##a (Reach=%.2f ms, SRV=%.2f ms, DNS=%.2f ms, Connect=%.2f ms, Total=%.2f ms)\n", v2, v3, v4, v5, v18);
   }
 
 LABEL_19:
@@ -7737,8 +7740,8 @@ void _HTTPClientConnectHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a
 LABEL_28:
           if ((*(a3 + 85) & 0x10) != 0)
           {
-            v38 = 1;
-            if (setsockopt(v10, 0xFFFF, 4131, &v38, 4u))
+            v41 = 1;
+            if (setsockopt(v10, 0xFFFF, 4131, &v41, 4u))
             {
               if (*__error())
               {
@@ -7767,7 +7770,7 @@ LABEL_28:
                   v27 = *(a3 + 96);
                 }
 
-                LogPrintF(v27, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 0x3Cu, "### Set SO_NOADDRERR failed: %#m", v22, v23, v24, v25, v26);
+                LogPrintF(v27, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 60, "### Set SO_NOADDRERR failed: %#m", v22, v23, v24, v25, v26);
               }
             }
           }
@@ -7788,33 +7791,33 @@ LABEL_53:
           dispatch_source_set_event_handler_f(*(a3 + 224), _HTTPClientWriteHandler);
           dispatch_source_set_cancel_handler_f(*(a3 + 224), _HTTPClientCancelHandler);
           *(a3 + 232) = 1;
-          v34 = (*(a3 + 84) >> 5) & 0x100 | (((*(a3 + 84) >> 14) & 1u) << 15);
-          if (!v34)
+          v37 = (*(a3 + 84) >> 5) & 0x100 | (((*(a3 + 84) >> 14) & 1u) << 15);
+          if (!v37)
           {
             goto LABEL_47;
           }
 
-          v35 = *(a3 + 96);
-          if (*v35 <= 50)
+          v38 = *(a3 + 96);
+          if (*v38 <= 50)
           {
-            if (*v35 != -1)
+            if (*v38 != -1)
             {
 LABEL_43:
-              LogPrintF(v35, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 0x32u, "Configure socket events: CID 0x%08X, events 0x%X", v30, v31, v32, v33, *(a3 + 168));
+              LogPrintF(v38, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 50, "Configure socket events: CID 0x%08X, events 0x%X", v33, v34, v35, v36, *(a3 + 168));
               goto LABEL_45;
             }
 
-            if (_LogCategory_Initialize(v35, 0x32u))
+            if (_LogCategory_Initialize(v38, 0x32u))
             {
-              v35 = *(a3 + 96);
+              v38 = *(a3 + 96);
               goto LABEL_43;
             }
           }
 
 LABEL_45:
-          v36 = dispatch_source_create(MEMORY[0x1E69E9708], v10, v34, *(a3 + 16));
-          *(a3 + 240) = v36;
-          if (v36)
+          v39 = dispatch_source_create(MEMORY[0x1E69E9708], v10, v37, *(a3 + 16));
+          *(a3 + 240) = v39;
+          if (v39)
           {
             ++*(a3 + 204);
             CFRetain(a3);
@@ -7823,26 +7826,26 @@ LABEL_45:
             dispatch_source_set_cancel_handler_f(*(a3 + 240), _HTTPClientCancelHandler);
             dispatch_activate(*(a3 + 240));
 LABEL_47:
-            v37 = *(a3 + 96);
-            if (*v37 <= 50)
+            v40 = *(a3 + 96);
+            if (*v40 <= 50)
             {
-              if (*v37 == -1)
+              if (*v40 == -1)
               {
-                if (!_LogCategory_Initialize(v37, 0x32u))
+                if (!_LogCategory_Initialize(v40, 0x32u))
                 {
                   goto LABEL_51;
                 }
 
-                v37 = *(a3 + 96);
+                v40 = *(a3 + 96);
               }
 
-              LogPrintF(v37, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 0x32u, "Connect success: CID 0x%08X, Peer %s\n", v30, v31, v32, v33, *(a3 + 168));
+              LogPrintF(v40, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 50, "Connect success: CID 0x%08X, Peer %s\n", v33, v34, v35, v36, *(a3 + 168));
             }
 
 LABEL_51:
             *(a3 + 200) = v10;
             *(a3 + 172) = 2;
-            _HTTPClientRunStateMachine(a3);
+            _HTTPClientRunStateMachine(a3, v30, v31, v32, v33, v34, v35, v36);
             goto LABEL_52;
           }
 
@@ -7852,7 +7855,7 @@ LABEL_51:
         v21 = *(a3 + 96);
       }
 
-      LogPrintF(v21, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 0x3Cu, "### Set TCP timeout to %d seconds failed: %#m\n", v17, v18, v19, v20, *(a3 + 144));
+      LogPrintF(v21, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 60, "### Set TCP timeout to %d seconds failed: %#m\n", v17, v18, v19, v20, *(a3 + 144));
       goto LABEL_28;
     }
 
@@ -7875,7 +7878,7 @@ LABEL_5:
   {
     v12 = *(a3 + 96);
 LABEL_7:
-    LogPrintF(v12, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 0x5Au, "Connect failed: CID 0x%08X, Peer %s, %#m\n", a5, a6, a7, a8, *(a3 + 168));
+    LogPrintF(v12, "void _HTTPClientConnectHandler(SocketRef, OSStatus, void *)", 90, "Connect failed: CID 0x%08X, Peer %s, %#m\n", a5, a6, a7, a8, *(a3 + 168));
   }
 
 LABEL_21:
@@ -8104,7 +8107,7 @@ void _HTTPClientErrorHandler(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
       if (*v10 != -1)
       {
 LABEL_4:
-        LogPrintF(v10, "void _HTTPClientErrorHandler(HTTPClientRef, OSStatus)", 0x5Au, "### Error: CID 0x%08X, Peer %s, %#m\n", a5, a6, a7, a8, *(a1 + 168));
+        LogPrintF(v10, "void _HTTPClientErrorHandler(HTTPClientRef, OSStatus)", 90, "### Error: CID 0x%08X, Peer %s, %#m\n", a5, a6, a7, a8, *(a1 + 168));
         goto LABEL_6;
       }
 
@@ -8983,7 +8986,7 @@ uint64_t SocketReadDataEx(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, 
 LABEL_14:
   if (gLogCategory_NetUtils <= 60 && (gLogCategory_NetUtils != -1 || _LogCategory_Initialize(&gLogCategory_NetUtils, 0x3Cu)))
   {
-    LogPrintF(&gLogCategory_NetUtils, "OSStatus SocketReadDataEx(SocketRef, void *, size_t, size_t, size_t *)", 0x3Cu, "SocketReadDataEx, fd %d, min %zu, failed: %#m\n", v12, v13, v14, v15, a1);
+    LogPrintF(&gLogCategory_NetUtils, "OSStatus SocketReadDataEx(SocketRef, void *, size_t, size_t, size_t *)", 60, "SocketReadDataEx, fd %d, min %zu, failed: %#m\n", v12, v13, v14, v15, a1);
   }
 
   return v17;
@@ -9002,7 +9005,7 @@ uint64_t _ChaCha20Poly1305DecryptMessage(uint64_t a1, __int32 *a2, uint64_t a3, 
   }
 }
 
-const char *CFGetData(__CFString *a1, const char *a2, unint64_t a3, void *a4, int *a5)
+char *CFGetData(__CFString *a1, char *a2, unint64_t a3, uint64_t *a4, int *a5)
 {
   v22 = *MEMORY[0x1E69E9840];
   v20 = 0;
@@ -9429,7 +9432,7 @@ uint64_t Base64DecodeCopy(char *__s, size_t a2, void *a3, unint64_t *a4)
   return v11;
 }
 
-const char *CFDictionaryGetData(const __CFDictionary *a1, const void *a2, const char *a3, unint64_t a4, void *a5, int *a6)
+char *CFDictionaryGetData(const __CFDictionary *a1, const void *a2, char *a3, unint64_t a4, uint64_t *a5, int *a6)
 {
   if (a1 && (Value = CFDictionaryGetValue(a1, a2)) != 0)
   {

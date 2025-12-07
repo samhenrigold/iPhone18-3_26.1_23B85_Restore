@@ -10,9 +10,9 @@
 - (LASecret)initWithGenericPassword:(id)password
 {
   passwordCopy = password;
-  v13.receiver = self;
-  v13.super_class = LASecret;
-  v6 = [(LASecret *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = LASecret;
+  v6 = [(LASecret *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -24,8 +24,8 @@
     mEMORY[0x1E696EE90] = [MEMORY[0x1E696EE90] sharedInstance];
     v7->_instanceID = [mEMORY[0x1E696EE90] nextInstanceIDInDomain:@"LASecret"];
 
-    v11 = LA_LOG_2();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = LA_LOG_2(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [(LARightStore *)v7 init];
     }
@@ -36,7 +36,7 @@
 
 - (void)dealloc
 {
-  v3 = LA_LOG_2();
+  v3 = LA_LOG_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(LARightStore *)self dealloc];
@@ -91,7 +91,7 @@ void __35__LASecret_loadDataWithCompletion___block_invoke(uint64_t a1)
 void __35__LASecret_loadDataWithCompletion___block_invoke_2(uint64_t a1)
 {
   v25 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_2();
+  v2 = LA_LOG_2(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
@@ -109,31 +109,31 @@ void __35__LASecret_loadDataWithCompletion___block_invoke_2(uint64_t a1)
 
     if (v7)
     {
-      v15 = LA_LOG_2();
-      v16 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v15, v16))
+      v16 = LA_LOG_2(v8);
+      v17 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v16, v17))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A784E000, v15, v16, "The right associated with this secret was deallocated", buf, 2u);
+        _os_log_impl(&dword_1A784E000, v16, v17, "The right associated with this secret was deallocated", buf, 2u);
       }
 
-      v17 = *(a1 + 40);
-      v18 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this secret was deallocated"];
-      (*(v17 + 16))(v17, 0, v18);
+      v18 = *(a1 + 40);
+      v19 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this secret was deallocated"];
+      (*(v18 + 16))(v18, 0, v19);
     }
 
     else
     {
-      v8 = v5[2];
-      v9 = objc_loadWeakRetained(v5 + 1);
-      v10 = [v9 context];
+      v9 = v5[2];
+      v10 = objc_loadWeakRetained(v5 + 1);
+      v11 = [v10 context];
       v20[0] = MEMORY[0x1E69E9820];
       v20[1] = 3221225472;
       v20[2] = __35__LASecret_loadDataWithCompletion___block_invoke_11;
       v20[3] = &unk_1E77CB9C0;
       objc_copyWeak(&v22, (a1 + 48));
       v21 = *(a1 + 40);
-      [v8 fetchDataWithContext:v10 completion:v20];
+      [v9 fetchDataWithContext:v11 completion:v20];
 
       objc_destroyWeak(&v22);
     }
@@ -141,28 +141,26 @@ void __35__LASecret_loadDataWithCompletion___block_invoke_2(uint64_t a1)
 
   else
   {
-    v11 = LA_LOG_2();
-    v12 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v11, v12))
+    v12 = LA_LOG_2(0);
+    v13 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v12, v13))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v11, v12, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v12, v13, "Operation interrupted", buf, 2u);
     }
 
-    v13 = *(a1 + 40);
-    v14 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v13 + 16))(v13, 0, v14);
+    v14 = *(a1 + 40);
+    v15 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v14 + 16))(v14, 0, v15);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __35__LASecret_loadDataWithCompletion___block_invoke_11(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_2();
+  v7 = LA_LOG_2(v6);
   v8 = v7;
   if (v5)
   {
@@ -189,9 +187,9 @@ void __35__LASecret_loadDataWithCompletion___block_invoke_11(uint64_t a1, void *
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ fetchData finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -199,8 +197,6 @@ void __35__LASecret_loadDataWithCompletion___block_invoke_11(uint64_t a1, void *
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

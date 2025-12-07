@@ -407,11 +407,11 @@ LABEL_4:
   storagesCopy = storages;
   length = range.length;
   location = range.location;
-  v69 = [[TSWPFilteredStorage alloc] initWithStorage:self subRange:location removeRanges:length, [(TSWPStorage *)self deletedRangesInRange:location, length]];
-  v67 = [-[TSWPFilteredStorage string](v69 "string")];
-  [v67 replaceBreaksWithPlainTextVersions];
+  v71 = [[TSWPFilteredStorage alloc] initWithStorage:self subRange:location removeRanges:length, [(TSWPStorage *)self deletedRangesInRange:location, length]];
+  v69 = [-[TSWPFilteredStorage string](v71 "string")];
+  [v69 replaceBreaksWithPlainTextVersions];
   v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v64 = length;
+  v66 = length;
   v11 = [(TSWPStorage *)self attachmentIndexRangeForTextRange:location, length];
   if (v12)
   {
@@ -421,15 +421,15 @@ LABEL_4:
     v16 = 1;
     do
     {
-      v70 = 0x7FFFFFFFFFFFFFFFLL;
-      v17 = [(TSWPStorage *)self attachmentAtAttachmentIndex:v15 + v13 outCharIndex:&v70];
+      v72 = 0x7FFFFFFFFFFFFFFFLL;
+      v17 = [(TSWPStorage *)self attachmentAtAttachmentIndex:v15 + v13 outCharIndex:&v72];
       if (v17)
       {
         v18 = v17;
-        if (![(TSWPStorage *)self hasDeletionInRange:v70, 1])
+        if (![(TSWPStorage *)self hasDeletionInRange:v72, 1])
         {
           v19 = objc_alloc(MEMORY[0x277CCABB0]);
-          v20 = [v19 initWithUnsignedInteger:v70];
+          v20 = [v19 initWithUnsignedInteger:v72];
           v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v18, v20, 0}];
           [v10 addObject:v21];
         }
@@ -442,7 +442,7 @@ LABEL_4:
     while (v22);
   }
 
-  v23 = [(TSWPStorage *)self footnoteRangeForTextRange:location, v64];
+  v23 = [(TSWPStorage *)self footnoteRangeForTextRange:location, v66];
   if (v24)
   {
     v25 = v23;
@@ -451,15 +451,15 @@ LABEL_4:
     v28 = 1;
     do
     {
-      v70 = 0x7FFFFFFFFFFFFFFFLL;
-      v29 = [(TSWPStorage *)self footnoteAtFootnoteIndex:v27 + v25 outCharIndex:&v70];
+      v72 = 0x7FFFFFFFFFFFFFFFLL;
+      v29 = [(TSWPStorage *)self footnoteAtFootnoteIndex:v27 + v25 outCharIndex:&v72];
       if (v29)
       {
         v30 = v29;
-        if (![(TSWPStorage *)self hasDeletionInRange:v70, 1])
+        if (![(TSWPStorage *)self hasDeletionInRange:v72, 1])
         {
           v31 = objc_alloc(MEMORY[0x277CCABB0]);
-          v32 = [v31 initWithUnsignedInteger:v70];
+          v32 = [v31 initWithUnsignedInteger:v72];
           v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v30, v32, 0}];
           [v10 addObject:v33];
         }
@@ -483,7 +483,7 @@ LABEL_4:
     {
       v39 = [v10 objectAtIndexedSubscript:v36];
       v40 = [v39 objectAtIndexedSubscript:0];
-      v41 = -[TSWPFilteredStorage charIndexMappedFromStorage:](v69, "charIndexMappedFromStorage:", [objc_msgSend(v39 objectAtIndexedSubscript:{1), "unsignedIntValue"}]) + v37;
+      v41 = -[TSWPFilteredStorage charIndexMappedFromStorage:](v71, "charIndexMappedFromStorage:", [objc_msgSend(v39 objectAtIndexedSubscript:{1), "unsignedIntValue"}]) + v37;
       if (v41 >= 0x7FFFFFFFFFFFFFFFLL)
       {
         currentHandler = [MEMORY[0x277D6C290] currentHandler];
@@ -523,7 +523,7 @@ LABEL_4:
             }
 
             v46 = [(__CFString *)v45 length];
-            [v67 replaceCharactersInRange:v41 withString:{1, v45}];
+            [v69 replaceCharactersInRange:v41 withString:{1, v45}];
             v37 = v37 + v46 - 1;
             continue;
           }
@@ -558,8 +558,8 @@ LABEL_37:
                 goto LABEL_42;
               }
 
-              v63 = v51;
-              if (!v63)
+              v65 = v51;
+              if (!v65)
               {
                 goto LABEL_42;
               }
@@ -571,7 +571,7 @@ LABEL_52:
               }
 
 LABEL_57:
-              v59 = &stru_287D36338;
+              v61 = &stru_287D36338;
             }
 
             else
@@ -590,7 +590,7 @@ LABEL_42:
                 if (nextObject)
                 {
                   nextObject2 = nextObject;
-                  v63 = 0;
+                  v65 = 0;
                   do
                   {
                     v55 = [nextObject2 length];
@@ -602,14 +602,14 @@ LABEL_42:
                         v57 = v56;
                         if ([v56 length])
                         {
-                          if (v63)
+                          if (v65)
                           {
-                            [v63 appendFormat:@"\n%@", v57];
+                            [v65 appendFormat:@"\n%@", v57];
                           }
 
                           else
                           {
-                            v63 = [v57 mutableCopy];
+                            v65 = [v57 mutableCopy];
                           }
                         }
                       }
@@ -623,46 +623,47 @@ LABEL_42:
                 }
               }
 
-              v63 = 0;
+              v65 = 0;
               if (!v41)
               {
                 goto LABEL_57;
               }
 
 LABEL_53:
-              v58 = IsParagraphBreakingCharacter([v67 characterAtIndex:v41 - 1]);
-              v59 = &stru_287D36338;
-              if (!v58)
+              v58 = [v69 characterAtIndex:v41 - 1];
+              v60 = IsParagraphBreakingCharacter(v58, v59);
+              v61 = &stru_287D36338;
+              if (!v60)
               {
-                v59 = @"\n";
+                v61 = @"\n";
               }
             }
 
-            if (v63)
+            if (v65)
             {
-              v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@", v59, v63, &stru_287D36338];
+              v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@%@", v61, v65, &stru_287D36338];
             }
 
             else
             {
-              v60 = &stru_287D36338;
+              v62 = &stru_287D36338;
             }
 
-            [v67 replaceCharactersInRange:v41 withString:{1, v60}];
-            v37 = v37 + [(__CFString *)v60 length]- 1;
+            [v69 replaceCharactersInRange:v41 withString:{1, v62}];
+            v37 = v37 + [(__CFString *)v62 length]- 1;
 
             continue;
           }
 
 LABEL_32:
-          [v67 deleteCharactersInRange:{v41, 1}];
+          [v69 deleteCharactersInRange:{v41, 1}];
           --v37;
         }
       }
     }
   }
 
-  return v67;
+  return v69;
 }
 
 - (id)nsAttributedSubstringFromRange:(_NSRange)range scale:(double)scale applyChanges:(BOOL)changes includeInlineDrawables:(BOOL)drawables withLayoutParent:(id)parent
@@ -3678,23 +3679,23 @@ LABEL_19:
     v7 = v5;
     v8 = [(TSWPStorage *)self characterAtIndex:v5 + v4 - 1];
     v9 = v8;
-    v10 = IsParagraphBreakingCharacter(v8);
+    v11 = IsParagraphBreakingCharacter(v8, v10);
     if (v9 == 8232)
     {
-      v11 = 1;
+      v12 = 1;
     }
 
     else
     {
-      v11 = v10;
+      v12 = v11;
     }
 
-    v5 = v7 - v11;
+    v5 = v7 - v12;
   }
 
-  v12 = v6;
+  v13 = v6;
   result.length = v5;
-  result.location = v12;
+  result.location = v13;
   return result;
 }
 
@@ -3875,12 +3876,12 @@ LABEL_19:
           *footnotes = 1;
         }
 
-        *&v27 = 0;
-        v15 = 14;
+        *&v29 = 0;
+        v16 = 14;
         goto LABEL_36;
       }
 
-      v14 = v13;
+      v15 = v13;
       if (v13 == 65532)
       {
         if (attachments)
@@ -3888,82 +3889,82 @@ LABEL_19:
           *attachments = 1;
         }
 
-        *&v27 = 0;
-        v15 = -4;
+        *&v29 = 0;
+        v16 = -4;
 LABEL_36:
-        WORD4(v27) = v15;
+        WORD4(v29) = v16;
 LABEL_37:
-        std::vector<std::pair<unsigned long,unsigned short>>::push_back[abi:nn200100](markers, &v27);
+        std::vector<std::pair<unsigned long,unsigned short>>::push_back[abi:nn200100](markers, &v29);
         return;
       }
 
-      if (IsParagraphBreakingCharacter(v13))
+      if (IsParagraphBreakingCharacter(v13, v14))
       {
         if (breaks)
         {
           *breaks = 1;
         }
 
-        *&v27 = 0;
-        WORD4(v27) = v14;
+        *&v29 = 0;
+        WORD4(v29) = v15;
         goto LABEL_37;
       }
     }
 
     else
     {
-      v16 = 0;
       v17 = 0;
+      v18 = 0;
       do
       {
-        if (!v17)
+        if (!v18)
         {
-          v17 = malloc_type_malloc(0x800uLL, 0x1000040BDFB0063uLL);
+          v18 = malloc_type_malloc(0x800uLL, 0x1000040BDFB0063uLL);
         }
 
-        v18 = v16 + 1024;
-        if (v16 + 1024 < lengthCopy2)
+        v19 = v17 + 1024;
+        if (v17 + 1024 < lengthCopy2)
         {
-          lengthCopy2 = v16 + 1024;
+          lengthCopy2 = v17 + 1024;
         }
 
-        v28.location = v16;
-        v28.length = lengthCopy2 - v16;
-        v26 = v17;
-        CFStringGetCharacters(string, v28, v17);
-        if ((lengthCopy2 - v16) >= 1)
+        v30.location = v17;
+        v30.length = lengthCopy2 - v17;
+        v28 = v18;
+        CFStringGetCharacters(string, v30, v18);
+        if ((lengthCopy2 - v17) >= 1)
         {
-          v19 = v26;
+          v21 = v28;
           do
           {
-            if ((IsParagraphBreakingCharacter(*v19) & 1) != 0 || ((v20 = *v19, v20 != 65532) ? (v21 = v20 == 14) : (v21 = 1), v21))
+            if ((IsParagraphBreakingCharacter(*v21, v20) & 1) != 0 || ((v22 = *v21, v22 != 65532) ? (v23 = v22 == 14) : (v23 = 1), v23))
             {
-              if (attachments && (v22 = attachments, *v19 == -4) || footnotes && (v22 = footnotes, *v19 == 14) || breaks && (v23 = IsParagraphBreakingCharacter(*v19), v22 = breaks, v23))
+              if (attachments && (v24 = attachments, *v21 == -4) || footnotes && (v24 = footnotes, *v21 == 14) || breaks && (v25 = IsParagraphBreakingCharacter(*v21, v20), v24 = breaks, v25))
               {
-                *v22 = 1;
+                *v24 = 1;
               }
 
-              *&v27 = v16;
-              WORD4(v27) = *v19;
-              std::vector<std::pair<unsigned long,unsigned short>>::push_back[abi:nn200100](markers, &v27);
+              *&v29 = v17;
+              WORD4(v29) = *v21;
+              std::vector<std::pair<unsigned long,unsigned short>>::push_back[abi:nn200100](markers, &v29);
             }
 
-            ++v16;
-            ++v19;
+            ++v17;
+            ++v21;
           }
 
-          while (lengthCopy2 != v16);
+          while (lengthCopy2 != v17);
         }
 
-        v16 = lengthCopy2;
+        v17 = lengthCopy2;
         lengthCopy2 = length;
-        v17 = v26;
+        v18 = v28;
       }
 
-      while (v18 < length);
-      if (v26)
+      while (v19 < length);
+      if (v28)
       {
-        free(v26);
+        free(v28);
       }
     }
   }
@@ -3972,7 +3973,7 @@ LABEL_37:
 - (void)p_fillMarkers:(void *)markers startingAtCharIndex:(unint64_t)index forCount:(unint64_t)count
 {
   range.location = index;
-  std::vector<unsigned long>::push_back[abi:nn200100](markers, &range);
+  std::vector<unsigned long>::push_back[abi:nn200100](markers, &range.location);
   if (count > (*(markers + 1) - *markers) >> 3)
   {
     v8 = [(NSMutableString *)self->_string length];
@@ -4002,33 +4003,33 @@ LABEL_37:
 
       v12 = v11 - location;
       selfCopy = self;
-      v20.location = location;
-      v20.length = v11 - location;
-      CFStringGetCharacters(self->_string, v20, v9);
+      v21.location = location;
+      v21.length = v11 - location;
+      CFStringGetCharacters(self->_string, v21, v9);
       if ((v11 - location) >= 1)
       {
-        v14 = 0;
         v15 = 0;
-        v16 = location + 1;
+        v16 = 0;
+        v17 = location + 1;
         do
         {
-          while (!IsParagraphBreakingCharacter(v9[v14]))
+          while (!IsParagraphBreakingCharacter(v9[v15], v14))
           {
-            v14 = ++v15;
-            if (v12 <= v15)
+            v15 = ++v16;
+            if (v12 <= v16)
             {
               goto LABEL_19;
             }
           }
 
-          v18 = v16 + v14;
-          std::vector<unsigned long>::push_back[abi:nn200100](markers, &v18);
-          v14 = v15 + 1;
-          v17 = count <= (*(markers + 1) - *markers) >> 3 || v12 <= v14;
-          ++v15;
+          v19 = v17 + v15;
+          std::vector<unsigned long>::push_back[abi:nn200100](markers, &v19);
+          v15 = v16 + 1;
+          v18 = count <= (*(markers + 1) - *markers) >> 3 || v12 <= v15;
+          ++v16;
         }
 
-        while (!v17);
+        while (!v18);
       }
 
 LABEL_19:
@@ -4536,27 +4537,8 @@ LABEL_35:
   result = [(TSWPStorage *)self length];
   if (self)
   {
-    if (result >= provider)
-    {
-      providerCopy = provider;
-    }
 
-    else
-    {
-      providerCopy = result;
-    }
-
-    if (result <= provider)
-    {
-      providerCopy2 = provider;
-    }
-
-    else
-    {
-      providerCopy2 = result;
-    }
-
-    return [(TSWPStorage *)self paragraphEnumeratorForCharRange:providerCopy styleProvider:providerCopy2 - providerCopy, a5];
+    return objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_(self);
   }
 
   else
@@ -4574,7 +4556,7 @@ LABEL_35:
 {
   if (self)
   {
-    return [(TSWPParagraphEnumerator *)self paragraphEnumeratorForCharRange:provider.location styleProvider:provider.length requireHidden:a5, 1];
+    return objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_requireHidden_(self, range, provider.location, provider.length, a5, 1);
   }
 
   *&retstr->var6 = 0;
@@ -4823,7 +4805,7 @@ LABEL_11:
   do
   {
     v9 = [(TSWPStorage *)self textRangeForParagraphAtIndex:v6];
-    if (!v10 || v10 == 1 && IsParagraphBreakingCharacter([(TSWPStorage *)self characterAtIndex:v9]))
+    if (!v10 || v10 == 1 && (v11 = [(TSWPStorage *)self characterAtIndex:v9], IsParagraphBreakingCharacter(v11, v12)))
     {
       ++v8;
     }
@@ -4877,16 +4859,17 @@ LABEL_11:
     {
       v20 = v18 + v19;
       v21 = v18 + v19 - 1;
-      v22 = IsParagraphBreakingCharacter([(TSWPStorage *)self characterAtIndex:v21]);
+      v22 = [(TSWPStorage *)self characterAtIndex:v21];
+      v24 = IsParagraphBreakingCharacter(v22, v23);
       if (v17 == v20)
       {
-        v16 = !selected | v22;
+        v16 = !selected | v24;
         return v16 & 1;
       }
 
       if (!selected)
       {
-        v16 = (v17 == v21) & v22;
+        v16 = (v17 == v21) & v24;
         return v16 & 1;
       }
     }
@@ -4894,8 +4877,8 @@ LABEL_11:
     else
     {
       currentHandler = [MEMORY[0x277D6C290] currentHandler];
-      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPStorage isWholeParagraphsForRange:ignoreAttachmentCharacters:requireParagraphBreakSelected:]"];
-      [currentHandler handleFailureInFunction:v24 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPStorage.mm"), 1604, @"Paragraph should not be zero length"}];
+      v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPStorage isWholeParagraphsForRange:ignoreAttachmentCharacters:requireParagraphBreakSelected:]"];
+      [currentHandler handleFailureInFunction:v26 file:objc_msgSend(MEMORY[0x277CCACA8] lineNumber:"stringWithUTF8String:" description:{"/Library/Caches/com.apple.xbs/Sources/AlderShared/text/TSWPStorage.mm"), 1604, @"Paragraph should not be zero length"}];
     }
 
     v16 = 0;
@@ -4911,36 +4894,36 @@ LABEL_11:
     return 0;
   }
 
-  range = [selection range];
+  [selection range];
   if (self)
   {
-    [(TSWPStorage *)self paragraphEnumeratorAtCharIndex:range styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(self);
   }
 
   else
   {
-    memset(&v12, 0, sizeof(v12));
+    memset(&v13, 0, sizeof(v13));
   }
 
-  v9 = TSWPParagraphEnumerator::paragraphString(&v12);
-  if (![v9 length] || objc_msgSend(v9, "length") == 1 && IsParagraphBreakingCharacter(objc_msgSend(v9, "characterAtIndex:", 0)))
+  v8 = TSWPParagraphEnumerator::paragraphString(&v13);
+  if (![v8 length] || objc_msgSend(v8, "length") == 1 && (v9 = objc_msgSend(v8, "characterAtIndex:", 0), IsParagraphBreakingCharacter(v9, v10)))
   {
     if (range)
     {
-      range->location = TSWPParagraphEnumerator::paragraphTextRange(&v12);
-      range->length = v10;
+      range->location = TSWPParagraphEnumerator::paragraphTextRange(&v13);
+      range->length = v11;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v12);
-  return v8;
+  TSWPParagraphEnumerator::~TSWPParagraphEnumerator(&v13);
+  return v7;
 }
 
 - (_NSRange)whiteSpaceRangeAtCharIndex:(unint64_t)index
@@ -4972,8 +4955,8 @@ LABEL_11:
 
         if (!breaks)
         {
-          v13 = IsParagraphBreakingCharacter(v12);
-          if (v12 == 8232 || (v13 & 1) != 0)
+          v14 = IsParagraphBreakingCharacter(v12, v13);
+          if (v12 == 8232 || (v14 & 1) != 0)
           {
             break;
           }
@@ -4988,46 +4971,46 @@ LABEL_11:
       }
     }
 
-    v14 = v7 + v9;
-    if (v14 > index)
+    v15 = v7 + v9;
+    if (v15 > index)
     {
       while (1)
       {
-        v15 = [(TSWPStorage *)self characterAtIndex:index];
-        if (!IsWhitespaceCharacter(v15))
+        v16 = [(TSWPStorage *)self characterAtIndex:index];
+        if (!IsWhitespaceCharacter(v16))
         {
           break;
         }
 
         if (!breaks)
         {
-          v16 = IsParagraphBreakingCharacter(v15);
-          if (v15 == 8232 || (v16 & 1) != 0)
+          v18 = IsParagraphBreakingCharacter(v16, v17);
+          if (v16 == 8232 || (v18 & 1) != 0)
           {
             break;
           }
         }
 
-        if (v14 == ++index)
+        if (v15 == ++index)
         {
-          index = v14;
+          index = v15;
           break;
         }
       }
     }
 
-    v17 = index - indexCopy2;
+    v19 = index - indexCopy2;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
     indexCopy2 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  v18 = indexCopy2;
-  result.length = v17;
-  result.location = v18;
+  v20 = indexCopy2;
+  result.length = v19;
+  result.location = v20;
   return result;
 }
 
@@ -5080,7 +5063,7 @@ LABEL_11:
   location = whitespace.location;
   if (self)
   {
-    [(TSWPStorage *)self paragraphEnumeratorForCharRange:whitespace.location styleProvider:whitespace.length requireHidden:0, !deleted];
+    objc_msgSend_paragraphEnumeratorForCharRange_styleProvider_requireHidden_(self, a2, whitespace.location, whitespace.length, 0, !deleted);
   }
 
   else
@@ -5119,21 +5102,21 @@ LABEL_11:
     --location;
     v10 = [(NSMutableString *)self->_string characterAtIndex:v9 - 1];
     v11 = v10;
-    v12 = IsParagraphBreakingCharacter(v10);
+    v13 = IsParagraphBreakingCharacter(v10, v12);
   }
 
-  while (v11 != 8232 && v12 == 0);
+  while (v11 != 8232 && v13 == 0);
   for (i = v6 + v8; v5 < i; ++v5)
   {
-    v15 = [(NSMutableString *)self->_string characterAtIndex:v5];
-    v16 = v15;
-    v17 = IsParagraphBreakingCharacter(v15);
-    if (v16 == 8232)
+    v16 = [(NSMutableString *)self->_string characterAtIndex:v5];
+    v17 = v16;
+    v19 = IsParagraphBreakingCharacter(v16, v18);
+    if (v17 == 8232)
     {
       break;
     }
 
-    if (v17)
+    if (v19)
     {
       break;
     }
@@ -5141,27 +5124,27 @@ LABEL_11:
 
   if (v9 <= v5)
   {
-    v18 = v5;
+    v20 = v5;
   }
 
   else
   {
-    v18 = v9;
+    v20 = v9;
   }
 
   if (v9 >= v5)
   {
-    v19 = v5;
+    v21 = v5;
   }
 
   else
   {
-    v19 = v9;
+    v21 = v9;
   }
 
-  v20 = v18 - v19;
-  result.length = v20;
-  result.location = v19;
+  v22 = v20 - v21;
+  result.length = v22;
+  result.location = v21;
   return result;
 }
 
@@ -6433,7 +6416,7 @@ uint64_t __137__TSWPStorage_p_replaceCharactersInLogicalSelection_withString_wit
   length = range.length;
   location = range.location;
   backwardsCopy = backwards;
-  if ((IsParagraphBreakingCharacter(character) & 1) == 0)
+  if ((IsParagraphBreakingCharacter(character, a2) & 1) == 0)
   {
     currentHandler = [MEMORY[0x277D6C290] currentHandler];
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[TSWPStorage rangeOfParagraphBreakingCharacter:backwards:range:]"];
@@ -6815,7 +6798,7 @@ LABEL_13:
 {
   if (self)
   {
-    [(TSWPStorage *)self paragraphEnumeratorAtCharIndex:index styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtCharIndex_styleProvider_(self, a2, index, 0);
   }
 
   else
@@ -6894,7 +6877,7 @@ LABEL_18:
   indexCopy = index;
   if (self)
   {
-    [(TSWPStorage *)self paragraphEnumeratorAtParIndex:index styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtParIndex_styleProvider_(self, a2, index, 0);
   }
 
   else
@@ -7243,49 +7226,49 @@ LABEL_18:
 {
   range2 = range.length;
   location = range.location;
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   result = [(TSWPStorage *)self attributeArrayForKind:13];
   if (result)
   {
     v6 = result;
-    v46[1] = xmmword_26CA66A30;
-    v46[0] = xmmword_26CA66A30;
-    v46[3] = xmmword_26CA66A30;
-    v46[2] = xmmword_26CA66A30;
+    v47[1] = xmmword_26CA66A30;
+    v47[0] = xmmword_26CA66A30;
+    v47[3] = xmmword_26CA66A30;
+    v47[2] = xmmword_26CA66A30;
     v7 = TSWPAttributeArray::effectiveAttributeIndexForCharIndex(result, location);
     var2 = v6->var2;
     if (v7 < var2)
     {
       v8 = v7;
-      v45 = location + range2;
-      v39 = v46 + 8;
-      v40 = 0;
-      v41 = v6;
-      v42 = location;
+      v46 = location + range2;
+      v40 = v47 + 8;
+      v41 = 0;
+      v42 = v6;
+      v43 = location;
       while (1)
       {
-        v48.location = TSWPAttributeArray::rangeForAttributeIndex(v6, v8);
-        v9 = v48.location;
-        length = v48.length;
+        v49.location = TSWPAttributeArray::rangeForAttributeIndex(v6, v8);
+        v9 = v49.location;
+        length = v49.length;
         v11 = *(v6->var4 + 2 * v8 + 1);
-        v49.location = location;
-        v49.length = range2;
-        v12 = NSIntersectionRange(v48, v49).length;
+        v50.location = location;
+        v50.length = range2;
+        v12 = NSIntersectionRange(v49, v50).length;
         if (v11)
         {
           goto LABEL_5;
         }
 
-        v20 = v9 + length >= v45 ? v45 : v9 + length;
+        v20 = v9 + length >= v46 ? v46 : v9 + length;
         if (v9 < v20)
         {
           break;
         }
 
 LABEL_29:
-        v6 = v41;
-        location = v42;
-        if (++v8 >= var2 || v9 + length >= v45)
+        v6 = v42;
+        location = v43;
+        if (++v8 >= var2 || v9 + length >= v46)
         {
           goto LABEL_31;
         }
@@ -7294,11 +7277,11 @@ LABEL_29:
       v21 = v9;
       while (1)
       {
-        v22 = [(TSWPStorage *)self characterAtIndex:v21, v39];
+        v22 = [(TSWPStorage *)self characterAtIndex:v21, v40];
         if (!IsSpecialCharacter(v22))
         {
-          v23 = IsParagraphBreakingCharacter(v22);
-          if (v22 != 8232 && !v23)
+          v24 = IsParagraphBreakingCharacter(v22, v23);
+          if (v22 != 8232 && !v24)
           {
             break;
           }
@@ -7314,8 +7297,8 @@ LABEL_5:
       if (v12)
       {
         v13 = 0;
-        v14 = v39;
-        v15 = v39;
+        v14 = v40;
+        v15 = v40;
         do
         {
           v17 = *v15;
@@ -7326,8 +7309,8 @@ LABEL_5:
             v18 = *(v14 - 1);
             if (v18 == v11 || ([v18 isEqualToString:v11] & 1) != 0)
             {
-              v19 = v40;
-              if (v40 <= v13)
+              v19 = v41;
+              if (v41 <= v13)
               {
                 v19 = v13 + 1;
               }
@@ -7341,60 +7324,50 @@ LABEL_5:
         }
 
         while (v13 != 4);
-        v13 = v40;
-        if (v40 > 3)
+        v13 = v41;
+        if (v41 > 3)
         {
           return 0;
         }
 
-        v19 = v40 + 1;
-        v16 = *(&v46[v40] + 1);
+        v19 = v41 + 1;
+        v16 = *(&v47[v41] + 1);
 LABEL_25:
-        v24 = &v46[v13];
+        v25 = &v47[v13];
         if (v16 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v25 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v25 = v16;
+          v26 = v16;
         }
 
-        *v24 = v11;
-        v24[1] = v25 + v12;
-        v40 = v19;
+        *v25 = v11;
+        v25[1] = v26 + v12;
+        v41 = v19;
       }
 
       goto LABEL_29;
     }
 
 LABEL_31:
-    v26 = 0;
     v27 = 0;
-    v28 = v46 + 1;
-    v29 = 0x7FFFFFFFFFFFFFFFLL;
+    v28 = 0;
+    v29 = v47 + 1;
     v30 = 0x7FFFFFFFFFFFFFFFLL;
+    v31 = 0x7FFFFFFFFFFFFFFFLL;
     do
     {
-      v32 = *v28;
-      v28 += 2;
-      v31 = v32;
-      v34 = v29 == 0x7FFFFFFFFFFFFFFFLL || v31 > v29;
-      v35 = !v34;
-      if (v34)
-      {
-        v36 = v26;
-      }
-
-      else
-      {
-        v36 = v30;
-      }
-
+      v33 = *v29;
+      v29 += 2;
+      v32 = v33;
+      v35 = v30 == 0x7FFFFFFFFFFFFFFFLL || v32 > v30;
+      v36 = !v35;
       if (v35)
       {
-        v37 = v29;
+        v37 = v27;
       }
 
       else
@@ -7402,31 +7375,41 @@ LABEL_31:
         v37 = v31;
       }
 
-      if (v31 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v36)
       {
-        v30 = v36;
-        ++v27;
-        v29 = v37;
+        v38 = v30;
       }
 
-      ++v26;
+      else
+      {
+        v38 = v32;
+      }
+
+      if (v32 != 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v31 = v37;
+        ++v28;
+        v30 = v38;
+      }
+
+      ++v27;
     }
 
-    while (v26 != 4);
-    if (v30 == 0x7FFFFFFFFFFFFFFFLL)
+    while (v27 != 4);
+    if (v31 == 0x7FFFFFFFFFFFFFFFLL)
     {
       return 0;
     }
 
-    v38 = &v46[v30];
-    if (v27 != 1 && v38[1] / range2 < 0.75)
+    v39 = &v47[v31];
+    if (v28 != 1 && v39[1] / range2 < 0.75)
     {
       return 0;
     }
 
     else
     {
-      return *v38;
+      return *v39;
     }
   }
 
@@ -7942,7 +7925,7 @@ LABEL_66:
 {
   if (self)
   {
-    [(TSWPStorage *)self paragraphEnumeratorAtParIndex:index styleProvider:0];
+    objc_msgSend_paragraphEnumeratorAtParIndex_styleProvider_(self, a2, index, 0);
   }
 
   else
@@ -8411,12 +8394,12 @@ LABEL_10:
 - (BOOL)hasColumnBreakAtCharIndex:(unint64_t)index
 {
   v5 = [(TSWPStorage *)self characterAtIndex:?];
-  if ((v5 - 4) < 0xC && ((0x907u >> (v5 - 4)) & 1) != 0 || (v6 = IsParagraphBreakingCharacter(v5)) != 0 && ([(TSWPStorage *)self hasColumnStyleForParagraphBreakAtCharIndex:index]|| (v6 = [(TSWPStorage *)self hasSectionForParagraphBreakAtCharIndex:index]) != 0))
+  if ((v5 - 4) < 0xC && ((0x907u >> (v5 - 4)) & 1) != 0 || (v7 = IsParagraphBreakingCharacter(v5, v6)) != 0 && ([(TSWPStorage *)self hasColumnStyleForParagraphBreakAtCharIndex:index]|| (v7 = [(TSWPStorage *)self hasSectionForParagraphBreakAtCharIndex:index]) != 0))
   {
-    LOBYTE(v6) = 1;
+    LOBYTE(v7) = 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)columnStyleAtCharIndex:(unint64_t)index effectiveRange:(_NSRange *)range
@@ -8516,9 +8499,9 @@ LABEL_10:
   }
 }
 
-uint64_t __34__TSWPStorage_invalidateForStyle___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__34__TSWPStorage_invalidateForStyle___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (*(a1 + 32) == a2 || (result = [objc_msgSend(a2 "referencedStyles")], result))
+  if (*(a1 + 32) == a2 || (result = [objc_msgSend(a2 referencedStyles], result))
   {
     v9 = *(a1 + 40);
 
@@ -9316,7 +9299,7 @@ uint64_t __34__TSWPStorage_invalidateForStyle___block_invoke(uint64_t a1, void *
   }
 }
 
-uint64_t __66__TSWPStorage_enumerateAttachmentsOfClass_inTextRange_usingBlock___block_invoke(uint64_t a1, int a2, int a3, NSRange range2, _BYTE *a5)
+uint64_t __66__TSWPStorage_enumerateAttachmentsOfClass_inTextRange_usingBlock___block_invoke(uint64_t a1, uint64_t a2, int a3, NSRange range2, _BYTE *a5)
 {
   v8 = NSIntersectionRange(*(a1 + 56), range2);
   result = v8.location;
@@ -9903,10 +9886,10 @@ LABEL_10:
   return v5;
 }
 
-uint64_t __74__TSWPStorage_smartFieldsWithAttributeKind_intersectingRange_passingTest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *__74__TSWPStorage_smartFieldsWithAttributeKind_intersectingRange_passingTest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = *(a1 + 32);
-  if (!v7 || (result = (*(v7 + 16))(v7, a2, a5), result))
+  if (!v7 || (result = (*(v7 + 16))(v7, a2, a5, a4), result))
   {
     v9 = *(*(*(a1 + 40) + 8) + 40);
     if (!v9)
@@ -9915,7 +9898,7 @@ uint64_t __74__TSWPStorage_smartFieldsWithAttributeKind_intersectingRange_passin
       v9 = *(*(*(a1 + 40) + 8) + 40);
     }
 
-    return [v9 addObject:a2];
+    return [v9 addObject:{a2, a4, a5}];
   }
 
   return result;
@@ -11059,7 +11042,7 @@ LABEL_9:
     return 0;
   }
 
-  [(TSWPStorage *)self deletedRangeVectorInRange:range.location, range.length];
+  objc_msgSend_deletedRangeVectorInRange_(self, a2, range.location, range.length);
   v3 = v6;
   if (v7 != v6)
   {
@@ -11166,8 +11149,8 @@ LABEL_7:
   if (deletionChangesTable)
   {
     v7 = deletionChangesTable;
-    TSWPAttributeArray::begin(deletionChangesTable, &rangeCopy, &v15);
-    TSWPAttributeArray::end(v7, &rangeCopy, &v13);
+    TSWPAttributeArray::begin(&v15, deletionChangesTable, &rangeCopy);
+    TSWPAttributeArray::end(&v13, v7, &rangeCopy);
     v8 = v16;
     v9 = v14;
     if (v16 != v14)
@@ -11224,8 +11207,8 @@ LABEL_7:
   if (deletionChangesTable)
   {
     v5 = deletionChangesTable;
-    TSWPAttributeArray::end(deletionChangesTable, &rangeCopy, &v14);
-    TSWPAttributeArray::begin(v5, &rangeCopy, &v12);
+    TSWPAttributeArray::end(&v14, deletionChangesTable, &rangeCopy);
+    TSWPAttributeArray::begin(&v12, v5, &rangeCopy);
     v6 = v15;
     if (v15 != v13)
     {
@@ -11778,39 +11761,41 @@ LABEL_13:
     }
 
     v22 = [(TSWPStorage *)self columnStyleAtCharIndex:location effectiveRange:0];
-    if (v22 == [(TSWPStorage *)self columnStyleAtCharIndex:location + 1 effectiveRange:0])
+    v23 = [(TSWPStorage *)self columnStyleAtCharIndex:location + 1 effectiveRange:0];
+    if (v22 == v23)
     {
       goto LABEL_22;
     }
 
-    v23 = TSWPBundle();
+    v25 = TSWPBundle(v23, v24);
     if (v12)
     {
-      v24 = @"Layout Breaks";
+      v26 = @"Layout Breaks";
     }
 
     else
     {
-      v24 = @"Layout Break";
+      v26 = @"Layout Break";
     }
 
-    v20 = [v23 localizedStringForKey:v24 value:&stru_287D36338 table:@"TSText"];
+    v20 = [v25 localizedStringForKey:v26 value:&stru_287D36338 table:@"TSText"];
 LABEL_21:
     v21 = v20;
 LABEL_22:
-    if (([change isInsertion] & 1) == 0)
+    isInsertion = [change isInsertion];
+    if ((isInsertion & 1) == 0)
     {
       goto LABEL_25;
     }
 
     if (v21)
     {
-      v25 = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(), "localizedStringForKey:value:table:", @"Added: %@", &stru_287D36338, @"TSText", v21];
+      v29 = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(isInsertion, v28), "localizedStringForKey:value:table:", @"Added: %@", &stru_287D36338, @"TSText", v21];
       goto LABEL_30;
     }
 
 LABEL_29:
-    v25 = [TSWPBundle() localizedStringForKey:@"Added Text" value:&stru_287D36338 table:@"TSText"];
+    v29 = [TSWPBundle(isInsertion v28)];
     goto LABEL_30;
   }
 
@@ -11823,7 +11808,8 @@ LABEL_29:
     }
   }
 
-  if ([change isInsertion])
+  isInsertion = [change isInsertion];
+  if (isInsertion)
   {
     goto LABEL_29;
   }
@@ -11835,11 +11821,11 @@ LABEL_25:
     v8 = v21;
   }
 
-  v25 = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(), "localizedStringForKey:value:table:", @"Deleted: %@", &stru_287D36338, @"TSText", v8];
+  v29 = [MEMORY[0x277CCACA8] stringWithFormat:objc_msgSend(TSWPBundle(isInsertion, v28), "localizedStringForKey:value:table:", @"Deleted: %@", &stru_287D36338, @"TSText", v8];
 LABEL_30:
-  v26 = [[TSWPChangeDetails alloc] initWithChange:change changeString:v25];
+  v30 = [[TSWPChangeDetails alloc] initWithChange:change changeString:v29];
 
-  return v26;
+  return v30;
 }
 
 - (_NSRange)rangeForTrackedChanges:(id)changes
@@ -12007,8 +11993,8 @@ LABEL_30:
       if (v12)
       {
         v13 = v12;
-        TSWPAttributeArray::begin(v12, &rangeCopy, &v24);
-        TSWPAttributeArray::end(v13, &rangeCopy, v23);
+        TSWPAttributeArray::begin(&v24, v12, &rangeCopy);
+        TSWPAttributeArray::end(v23, v13, &rangeCopy);
         for (i = v25; i != v23[1]; i = ++v25)
         {
           v15 = v24->var4 + 16 * i;

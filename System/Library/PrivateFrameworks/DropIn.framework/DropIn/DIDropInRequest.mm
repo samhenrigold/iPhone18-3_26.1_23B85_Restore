@@ -13,16 +13,16 @@
 
 - (DIDropInRequest)initWithDevice:(id)device
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
-  v5 = DILogHandleDropInRequest();
+  v5 = DILogHandleDropInRequest(deviceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = &stru_285D02BA8;
-    v16 = 2112;
-    v17 = deviceCopy;
-    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Creating Request with device %@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = &stru_285D02BA8;
+    v15 = 2112;
+    v16 = deviceCopy;
+    _os_log_impl(&dword_249DA7000, v5, OS_LOG_TYPE_DEFAULT, "%@Creating Request with device %@", &v13, 0x16u);
   }
 
   homeKitIdentifier = [deviceCopy homeKitIdentifier];
@@ -41,36 +41,34 @@
   connectionManager = [deviceCopy connectionManager];
   v11 = [(DIDropInRequest *)self initWithHandle:v9 connectionManager:connectionManager];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (DIDropInRequest)initWithHandle:(id)handle connectionManager:(id)manager
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   managerCopy = manager;
-  v14.receiver = self;
-  v14.super_class = DIDropInRequest;
-  v9 = [(DIDropInRequest *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = DIDropInRequest;
+  v9 = [(DIDropInRequest *)&v13 init];
   v10 = v9;
   if (v9)
   {
     objc_storeStrong(&v9->_handle, handle);
-    objc_storeWeak(&v10->_connectionManager, managerCopy);
+    v9 = objc_storeWeak(&v10->_connectionManager, managerCopy);
   }
 
-  v11 = DILogHandleDropInRequest();
+  v11 = DILogHandleDropInRequest(v9);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v16 = &stru_285D02BA8;
-    v17 = 2112;
-    v18 = v10;
+    v15 = &stru_285D02BA8;
+    v16 = 2112;
+    v17 = v10;
     _os_log_impl(&dword_249DA7000, v11, OS_LOG_TYPE_DEFAULT, "%@Created Request %@", buf, 0x16u);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

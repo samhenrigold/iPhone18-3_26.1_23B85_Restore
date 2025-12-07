@@ -323,7 +323,7 @@ LABEL_44:
 {
   v1 = [a1 type];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] cannot curate action to a contact not in database %@: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] cannot curate action to a contact not in database %@: %@", v4, v5, v6, v7);
 }
 
 - (void)curateUserAction:(NSObject *)a3 withKeysToFetch:.cold.2(uint64_t a1, void *a2, NSObject *a3)
@@ -343,20 +343,23 @@ LABEL_44:
 {
   v1 = [a1 type];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] curated action %{public}@: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] curated action %{public}@: %@", v4, v5, v6, v7);
 }
 
 - (void)curateUserAction:(void *)a1 withKeysToFetch:.cold.4(void *a1)
 {
-  v7 = [a1 socialProfiles];
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v1, v2, "[User Action Curator] could not find curated labeled value %@ saved in %@", v3, v4, v5, v6, 2u);
+  v1 = [a1 socialProfiles];
+  LODWORD(v8) = 0;
+  WORD2(v8) = 2112;
+  *(&v8 + 6) = v1;
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] could not find curated labeled value %@ saved in %@", v4, v5, v6, v7, 138412546, v8);
 }
 
 - (void)curateUserAction:(void *)a1 withKeysToFetch:.cold.5(void *a1)
 {
   v1 = [a1 type];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] cannot get mutable contact to curate action %{public}@: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_2_0(&dword_1A31E6000, v2, v3, "[User Action Curator] cannot get mutable contact to curate action %{public}@: %@", v4, v5, v6, v7);
 }
 
 @end

@@ -1,8 +1,22 @@
 @interface ChatAssetStatusChangeContext
++ (id)contextWithAssetChangeType:(unsigned int)type isHidden:(BOOL)hidden hasSensitiveContent:(BOOL)content;
 - (int64_t)resolvedGroupActionType;
 @end
 
 @implementation ChatAssetStatusChangeContext
+
++ (id)contextWithAssetChangeType:(unsigned int)type isHidden:(BOOL)hidden hasSensitiveContent:(BOOL)content
+{
+  contentCopy = content;
+  hiddenCopy = hidden;
+  v7 = *&type;
+  v8 = objc_alloc_init(ChatAssetStatusChangeContext);
+  [(ChatAssetStatusChangeContext *)v8 setType:v7];
+  [(ChatAssetStatusChangeContext *)v8 setHidden:hiddenCopy];
+  [(ChatAssetStatusChangeContext *)v8 setHasSensitiveContent:contentCopy];
+
+  return v8;
+}
 
 - (int64_t)resolvedGroupActionType
 {

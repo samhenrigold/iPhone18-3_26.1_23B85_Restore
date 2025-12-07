@@ -23,7 +23,7 @@
   sub_1BE053624();
   swift_unknownObjectRelease();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B900);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD5B900, &unk_1BE10D000);
   swift_dynamicCast();
 
   return v8;

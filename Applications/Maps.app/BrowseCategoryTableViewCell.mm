@@ -29,7 +29,7 @@
 + (NSString)identifier
 {
   swift_getObjCClassMetadata();
-  sub_1000CE6B8(&qword_10190B8F8);
+  sub_1000CE6B8(&qword_10190B8F8, &qword_1011E7958);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 

@@ -1,13 +1,13 @@
-id NCBST_Tinker_log()
+id NCBST_Tinker_log(uint64_t a1)
 {
   if (qword_10E50 != -1)
   {
     sub_5A38();
   }
 
-  v1 = qword_10E48;
+  v2 = qword_10E48;
 
-  return v1;
+  return v2;
 }
 
 void sub_109C(id a1)
@@ -17,16 +17,16 @@ void sub_109C(id a1)
   _objc_release_x1();
 }
 
-id NanoContactsSettingsTinkerBundle()
+id NanoContactsSettingsTinkerBundle(uint64_t a1)
 {
   if (qword_10E60 != -1)
   {
     sub_5A4C();
   }
 
-  v1 = qword_10E58;
+  v2 = qword_10E58;
 
-  return v1;
+  return v2;
 }
 
 void sub_1124(id a1)
@@ -36,16 +36,16 @@ void sub_1124(id a1)
   _objc_release_x1();
 }
 
-id NCABCMS_Tinker_log()
+id NCABCMS_Tinker_log(uint64_t a1)
 {
   if (qword_10E70 != -1)
   {
     sub_5A60();
   }
 
-  v1 = qword_10E68;
+  v2 = qword_10E68;
 
-  return v1;
+  return v2;
 }
 
 void sub_11B0(id a1)
@@ -55,16 +55,16 @@ void sub_11B0(id a1)
   _objc_release_x1();
 }
 
-id NCABCMS_Accounts_log()
+id NCABCMS_Accounts_log(uint64_t a1)
 {
   if (qword_10E80 != -1)
   {
     sub_5A74();
   }
 
-  v1 = qword_10E78;
+  v2 = qword_10E78;
 
-  return v1;
+  return v2;
 }
 
 void sub_1238(id a1)
@@ -85,7 +85,7 @@ void sub_2124(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v5 = NCABCMS_Tinker_log();
+  v5 = NCABCMS_Tinker_log(WeakRetained);
   v6 = v5;
   if (v3)
   {
@@ -112,16 +112,15 @@ void sub_2124(uint64_t a1, void *a2)
 
 void sub_2E80(uint64_t a1)
 {
-  [*(a1 + 32) _removeContactsCountRetryAndTimeoutHandlers_SYNC];
-  v2 = NCABCMS_Tinker_log();
+  v2 = NCABCMS_Tinker_log([*(a1 + 32) _removeContactsCountRetryAndTimeoutHandlers_SYNC]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
-    v14 = 136446466;
-    v15 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
-    v16 = 2114;
-    v17 = v3;
-    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%{public}s - contactsCountSyncStatusRetryTimeoutDate:%{public}@", &v14, 0x16u);
+    v16 = 136446466;
+    v17 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
+    v18 = 2114;
+    v19 = v3;
+    _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "%{public}s - contactsCountSyncStatusRetryTimeoutDate:%{public}@", &v16, 0x16u);
   }
 
   v4 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
@@ -130,46 +129,46 @@ void sub_2E80(uint64_t a1)
 
   if (v6 <= 0.0)
   {
-    v10 = NCABCMS_Tinker_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = NCABCMS_Tinker_log(v7);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
-      v14 = 136446722;
-      v15 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
-      v16 = 2114;
-      v17 = v13;
-      v18 = 2048;
-      v19 = v6;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}s - NO TIMER - contactsCountSyncStatusRetryTimeoutDate:%{public}@, remainingTimeoutSeconds:%0.2f", &v14, 0x20u);
+      v15 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
+      v16 = 136446722;
+      v17 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
+      v18 = 2114;
+      v19 = v15;
+      v20 = 2048;
+      v21 = v6;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s - NO TIMER - contactsCountSyncStatusRetryTimeoutDate:%{public}@, remainingTimeoutSeconds:%0.2f", &v16, 0x20u);
     }
   }
 
   else
   {
     [*(a1 + 32) contactsCountSyncStatusRetryTimeoutInterval];
-    v7 = [NSTimer scheduledTimerWithTimeInterval:*(a1 + 32) target:"__contactsSyncTimeoutTimer:" selector:0 userInfo:0 repeats:?];
-    [*(a1 + 32) setContactsCountSyncStatusRetryTimeoutTimer:v7];
+    v8 = [NSTimer scheduledTimerWithTimeInterval:*(a1 + 32) target:"__contactsSyncTimeoutTimer:" selector:0 userInfo:0 repeats:?];
+    [*(a1 + 32) setContactsCountSyncStatusRetryTimeoutTimer:v8];
 
-    v8 = [NSTimer scheduledTimerWithTimeInterval:*(a1 + 32) target:"__contactsSyncRetryTimer:" selector:0 userInfo:1 repeats:3.0];
-    [*(a1 + 32) setContactsCountSyncStatusRetryTimer:v8];
+    v9 = [NSTimer scheduledTimerWithTimeInterval:*(a1 + 32) target:"__contactsSyncRetryTimer:" selector:0 userInfo:1 repeats:3.0];
+    [*(a1 + 32) setContactsCountSyncStatusRetryTimer:v9];
 
-    v9 = +[NSNotificationCenter defaultCenter];
-    [v9 addObserver:*(a1 + 32) selector:"__contactStoreDidChange:" name:CNContactStoreDidChangeNotification object:0];
+    v10 = +[NSNotificationCenter defaultCenter];
+    [v10 addObserver:*(a1 + 32) selector:"__contactStoreDidChange:" name:CNContactStoreDidChangeNotification object:0];
 
-    v10 = NCABCMS_Tinker_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = NCABCMS_Tinker_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
-      v12 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutTimer];
-      v14 = 136446978;
-      v15 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
-      v16 = 2114;
-      v17 = v11;
-      v18 = 2048;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v12;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}s - SET TIMER - contactsCountSyncStatusRetryTimeoutDate:%{public}@, remainingTimeoutSeconds:%0.2f, contactsCountSyncStatusRetryTimeoutTimer:%{public}@", &v14, 0x2Au);
+      v13 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutDate];
+      v14 = [*(a1 + 32) contactsCountSyncStatusRetryTimeoutTimer];
+      v16 = 136446978;
+      v17 = "[NCABTinkerContactsManagementStateManager _installContactsCountRetryAndTimeoutHandlers]_block_invoke";
+      v18 = 2114;
+      v19 = v13;
+      v20 = 2048;
+      v21 = v6;
+      v22 = 2114;
+      v23 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "%{public}s - SET TIMER - contactsCountSyncStatusRetryTimeoutDate:%{public}@, remainingTimeoutSeconds:%0.2f, contactsCountSyncStatusRetryTimeoutTimer:%{public}@", &v16, 0x2Au);
     }
   }
 }
@@ -188,10 +187,11 @@ void sub_3ACC(uint64_t a1, uint64_t a2, void *a3)
   [WeakRetained _processSTContactManagementState:a2 familyMember:*(a1 + 32) error:v5];
 }
 
-void sub_3FDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3FDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_4154(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -206,48 +206,48 @@ void sub_4180(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = NCBST_Tinker_log();
+  v8 = NCBST_Tinker_log(WeakRetained);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 136446722;
-    v15 = "[NCABSettingsTinkerController init]_block_invoke";
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2114;
-    v19 = v6;
+    v16 = "[NCABSettingsTinkerController init]_block_invoke";
+    v17 = 2112;
+    v18 = v5;
+    v19 = 2114;
+    v20 = v6;
     _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%{public}s - found familyMember: %@, error: %{public}@", buf, 0x20u);
   }
 
-  v9 = NCBST_Tinker_log();
-  v10 = v9;
+  v10 = NCBST_Tinker_log(v9);
+  v11 = v10;
   if (!v5 || v6)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_5F98(v6, v10);
+      sub_5F98(v6, v11);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v15 = "[NCABSettingsTinkerController init]_block_invoke";
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "%{public}s - got familyMember: %@", buf, 0x16u);
+      v16 = "[NCABSettingsTinkerController init]_block_invoke";
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s - got familyMember: %@", buf, 0x16u);
     }
 
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_4380;
-    v11[3] = &unk_C3E0;
-    v12 = WeakRetained;
-    v13 = v5;
-    dispatch_async(&_dispatch_main_q, v11);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_4380;
+    v12[3] = &unk_C3E0;
+    v13 = WeakRetained;
+    v14 = v5;
+    dispatch_async(&_dispatch_main_q, v12);
 
-    v10 = v12;
+    v11 = v13;
   }
 }
 
@@ -261,7 +261,7 @@ void sub_45BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int
 void sub_45E8(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = NCBST_Tinker_log();
+  v5 = NCBST_Tinker_log(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [*(a1 + 32) familyMember];
@@ -282,16 +282,16 @@ void sub_45E8(uint64_t a1, int a2)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-id NCABCSH_ContactCounts_log()
+id NCABCSH_ContactCounts_log(uint64_t a1)
 {
   if (qword_10E90 != -1)
   {
     sub_60B0();
   }
 
-  v1 = qword_10E88;
+  v2 = qword_10E88;
 
-  return v1;
+  return v2;
 }
 
 void sub_53A8(id a1)
@@ -301,16 +301,16 @@ void sub_53A8(id a1)
   _objc_release_x1();
 }
 
-id NCABCSH_Sync_log()
+id NCABCSH_Sync_log(uint64_t a1)
 {
   if (qword_10EA0 != -1)
   {
     sub_60C4();
   }
 
-  v1 = qword_10E98;
+  v2 = qword_10E98;
 
-  return v1;
+  return v2;
 }
 
 void sub_5430(id a1)
@@ -332,20 +332,39 @@ void sub_5A88(void *a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&dword_0, a3, OS_LOG_TYPE_ERROR, "%{public}s - familyMember mismatch; prior: %@, latest: %@", &v6, 0x20u);
 }
 
-void sub_5C38(unsigned int *a1)
+void sub_5B48(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *a1;
-  v3[0] = 136446466;
-  sub_3FF8();
-  _os_log_debug_impl(&dword_0, v2, OS_LOG_TYPE_DEBUG, "%{public}s - returning contactsCountStatus:%d", v3, 0x12u);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NCABTinkerContactsManagementStateManager fetchContactsManagementStateWithCompletionHandler:]";
+  sub_3FDC(&dword_0, a1, a3, "%{public}s - no _familyMember", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void sub_5CBC(unsigned int *a1)
+void sub_5BC0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *a1;
-  v3[0] = 136446466;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NCABTinkerContactsManagementStateManager fetchContactsManagementStateWithCompletionHandler:]";
+  sub_3FDC(&dword_0, a1, a3, "%{public}s - nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_5C38()
+{
+  v1[0] = 136446466;
   sub_3FF8();
-  _os_log_error_impl(&dword_0, v2, OS_LOG_TYPE_ERROR, "%{public}s - unexpected _contactsManagementRequestState: %d; bailing.", v3, 0x12u);
+  _os_log_debug_impl(&dword_0, v0, OS_LOG_TYPE_DEBUG, "%{public}s - returning contactsCountStatus:%d", v1, 0x12u);
+}
+
+void sub_5CBC()
+{
+  v1[0] = 136446466;
+  sub_3FF8();
+  _os_log_error_impl(&dword_0, v0, OS_LOG_TYPE_ERROR, "%{public}s - unexpected _contactsManagementRequestState: %d; bailing.", v1, 0x12u);
+}
+
+void sub_5D40(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[NCABTinkerContactsManagementStateManager _updateContactsManagementState:error:]";
+  sub_3FDC(&dword_0, a1, a3, "%{public}s - got EnableWouldSucceed, but already StateRequestedAutoEnable", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_5DB8(uint64_t a1, uint64_t a2, os_log_t log)

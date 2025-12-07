@@ -111,16 +111,16 @@
   [MEMORY[0x1E696ACD8] activateConstraints:array];
 }
 
-void __58__SUIKSearchResultCollectionViewSectionHeader__commonInit__block_invoke()
+void __58__SUIKSearchResultCollectionViewSectionHeader__commonInit__block_invoke(uint64_t a1)
 {
-  v0 = PSBlankIconImage();
-  [v0 size];
-  _commonInit_iconSize_0 = v1;
-  _commonInit_iconSize_1 = v2;
+  v1 = PSBlankIconImage(a1);
+  [v1 size];
+  _commonInit_iconSize_0 = v2;
+  _commonInit_iconSize_1 = v3;
 
-  v3 = [MEMORY[0x1E69DCC28] subtitleCellConfiguration];
-  v4 = _commonInit_cellConfig;
-  _commonInit_cellConfig = v3;
+  v4 = [MEMORY[0x1E69DCC28] subtitleCellConfiguration];
+  v5 = _commonInit_cellConfig;
+  _commonInit_cellConfig = v4;
 }
 
 - (void)prepareForReuse

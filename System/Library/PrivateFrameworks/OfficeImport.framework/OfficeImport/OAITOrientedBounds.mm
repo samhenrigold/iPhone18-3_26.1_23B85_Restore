@@ -306,7 +306,7 @@
   orientedBoundsCopy = orientedBounds;
   v13 = [self adjustedOrientedBoundsWithOrientedBounds:orientedBoundsCopy logicalBounds:{x, y, width, height}];
 
-  [self transformFromBounds:v13 toOrientedBounds:{x, y, width, height}];
+  objc_msgSend_transformFromBounds_toOrientedBounds_(self, x, y, width, height);
   [boundsCopy bounds];
   v18 = TSUCenterOfRect(v14, v15, v16, v17);
   v20 = v19;
@@ -395,7 +395,7 @@
   boundsCopy = bounds;
   orientedBoundsCopy = orientedBounds;
   memset(&v79, 0, sizeof(v79));
-  [OAITOrientedBounds transformFromBounds:orientedBoundsCopy toOrientedBounds:x, y, width, height];
+  objc_msgSend_transformFromBounds_toOrientedBounds_(OAITOrientedBounds, x, y, width, height);
   [boundsCopy bounds];
   v14 = v13;
   v16 = v15;

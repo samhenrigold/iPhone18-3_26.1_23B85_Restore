@@ -130,20 +130,18 @@ id __43__STDynamicAttributionXPCServerHandle_init__block_invoke()
 
 void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = STSystemStatusLogDynamicAttribution();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138412290;
-      v5 = WeakRetained;
-      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "%@: Connection interrupted", &v4, 0xCu);
+      v3 = 138412290;
+      v4 = WeakRetained;
+      _os_log_impl(&dword_1DA9C2000, v2, OS_LOG_TYPE_DEFAULT, "%@: Connection interrupted", &v3, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9(uint64_t a1)
@@ -270,32 +268,32 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
 
 - (void)subscribeToUpdates:(id)updates
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (!updatesCopy)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"client != nil"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"client != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v14;
-      v19 = 2048;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"STDynamicAttributionXPCServerHandle.m";
-      v23 = 1024;
-      v24 = 130;
-      v25 = 2114;
-      v26 = v11;
+      v20 = 2114;
+      v21 = @"STDynamicAttributionXPCServerHandle.m";
+      v22 = 1024;
+      v23 = 130;
+      v24 = 2114;
+      v25 = v10;
       _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1DA9FF5D0);
@@ -306,7 +304,7 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v6;
+    v15 = v6;
     _os_log_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_DEFAULT, "%@: Activating", buf, 0xCu);
   }
 
@@ -333,38 +331,36 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
   {
     [_lock_remoteProxy subscribeToUpdates];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeFromUpdates:(id)updates
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   updatesCopy = updates;
   if (!updatesCopy)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"client != nil"];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"client != nil"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v14;
-      v19 = 2048;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v13;
+      v18 = 2048;
       selfCopy = self;
-      v21 = 2114;
-      v22 = @"STDynamicAttributionXPCServerHandle.m";
-      v23 = 1024;
-      v24 = 148;
-      v25 = 2114;
-      v26 = v11;
+      v20 = 2114;
+      v21 = @"STDynamicAttributionXPCServerHandle.m";
+      v22 = 1024;
+      v23 = 148;
+      v24 = 2114;
+      v25 = v10;
       _os_log_error_impl(&dword_1DA9C2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x1DA9FF808);
@@ -375,7 +371,7 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v6;
+    v15 = v6;
     _os_log_impl(&dword_1DA9C2000, v7, OS_LOG_TYPE_DEFAULT, "%@: Deactivating", buf, 0xCu);
   }
 
@@ -396,53 +392,49 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentAttributionsDidChange:(id)change
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   os_unfair_lock_lock(&self->_lock);
   v5 = [(NSMutableSet *)self->_lock_clients copy];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) currentAttributionsDidChange:{changeCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) currentAttributionsDidChange:{changeCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didObserveServerLaunch:(id)launch
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = STSystemStatusLogDynamicAttribution();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -469,32 +461,32 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
     os_unfair_lock_unlock(&self->_lock);
     if ([v5 count])
     {
-      v16 = 0u;
-      v17 = 0u;
-      v14 = 0u;
       v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v7 = v5;
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:buf count:16];
+      v8 = [v7 countByEnumeratingWithState:&v13 objects:buf count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v15;
+        v10 = *v14;
         v11 = MEMORY[0x1E695E0F0];
         do
         {
           v12 = 0;
           do
           {
-            if (*v15 != v10)
+            if (*v14 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            [*(*(&v14 + 1) + 8 * v12++) currentAttributionsDidChange:{v11, v14}];
+            [*(*(&v13 + 1) + 8 * v12++) currentAttributionsDidChange:{v11, v13}];
           }
 
           while (v9 != v12);
-          v9 = [v7 countByEnumeratingWithState:&v14 objects:buf count:16];
+          v9 = [v7 countByEnumeratingWithState:&v13 objects:buf count:16];
         }
 
         while (v9);
@@ -503,8 +495,6 @@ void __56__STDynamicAttributionXPCServerHandle__lock_remoteProxy__block_invoke_9
       [_lock_remoteProxy subscribeToUpdates];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

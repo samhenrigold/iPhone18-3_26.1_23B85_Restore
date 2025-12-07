@@ -173,7 +173,7 @@ void __76__MPModelLibraryPlaylistEditChangeRequestOperation__collaborationTrackE
 
 - (void)_loadUpdatedTrackListWithCompletion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   request = [(MPModelLibraryPlaylistEditChangeRequestOperation *)self request];
   playlistEntries = [request playlistEntries];
@@ -208,78 +208,78 @@ LABEL_6:
 
   else
   {
-    v42[0] = 0;
-    v42[1] = v42;
-    v42[2] = 0x3032000000;
-    v42[3] = __Block_byref_object_copy__31598;
-    v42[4] = __Block_byref_object_dispose__31599;
-    v43 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(playlistEntries, "totalItemCount")}];
+    v43[0] = 0;
+    v43[1] = v43;
+    v43[2] = 0x3032000000;
+    v43[3] = __Block_byref_object_copy__31598;
+    v43[4] = __Block_byref_object_dispose__31599;
+    v44 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(playlistEntries, "totalItemCount")}];
     v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v38[0] = 0;
-    v38[1] = v38;
-    v38[2] = 0x4812000000;
-    v38[3] = __Block_byref_object_copy__52;
-    v38[4] = __Block_byref_object_dispose__53;
-    v38[5] = "";
-    v40 = 0;
+    v39[0] = 0;
+    v39[1] = v39;
+    v39[2] = 0x4812000000;
+    v39[3] = __Block_byref_object_copy__52;
+    v39[4] = __Block_byref_object_dispose__53;
+    v39[5] = "";
     v41 = 0;
-    v39 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x4812000000;
-    v32 = __Block_byref_object_copy__54;
-    v33 = __Block_byref_object_dispose__55;
-    v34 = "";
-    v36 = 0;
+    v42 = 0;
+    v40 = 0;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x4812000000;
+    v33 = __Block_byref_object_copy__54;
+    v34 = __Block_byref_object_dispose__55;
+    v35 = "";
     v37 = 0;
-    v35 = 0;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __88__MPModelLibraryPlaylistEditChangeRequestOperation__loadUpdatedTrackListWithCompletion___block_invoke;
-    v24[3] = &unk_1E767B3A0;
-    v25 = playlistEntries;
-    v26 = v38;
-    v27 = &v29;
-    v28 = v42;
-    [v25 enumerateItemIdentifiersUsingBlock:v24];
+    v38 = 0;
+    v36 = 0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __88__MPModelLibraryPlaylistEditChangeRequestOperation__loadUpdatedTrackListWithCompletion___block_invoke;
+    v25[3] = &unk_1E767B3A0;
+    v26 = playlistEntries;
+    v27 = v39;
+    v28 = &v30;
+    v29 = v43;
+    [v26 enumerateItemIdentifiersUsingBlock:v25];
     v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __88__MPModelLibraryPlaylistEditChangeRequestOperation__loadUpdatedTrackListWithCompletion___block_invoke_2;
     aBlock[3] = &unk_1E767B3C8;
-    v22 = v38;
+    v23 = v39;
     v13 = v12;
-    v19 = v13;
+    v20 = v13;
     v14 = v11;
-    v20 = v14;
-    v21 = completionCopy;
-    v23 = v42;
+    v21 = v14;
+    v22 = completionCopy;
+    v24 = v43;
     v15 = _Block_copy(aBlock);
     v16 = v15;
-    if (v30[7] != v30[6])
+    if (v31[7] != v31[6])
     {
       v17 = MEMORY[0x1A58DF9B0]();
-      *&v44 = mlcore::PlaylistItemPropertyPersistentID(v17);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      *&v45 = mlcore::PlaylistItemPropertyPersistentID(v17);
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(v18, &v45, (v31 + 6));
     }
 
     (*(v15 + 2))(v15);
 
-    _Block_object_dispose(&v29, 8);
-    if (v35)
+    _Block_object_dispose(&v30, 8);
+    if (v36)
     {
-      v36 = v35;
-      operator delete(v35);
+      v37 = v36;
+      operator delete(v36);
     }
 
-    _Block_object_dispose(v38, 8);
-    if (v39)
+    _Block_object_dispose(v39, 8);
+    if (v40)
     {
-      v40 = v39;
-      operator delete(v39);
+      v41 = v40;
+      operator delete(v40);
     }
 
-    _Block_object_dispose(v42, 8);
+    _Block_object_dispose(v43, 8);
   }
 }
 
@@ -445,7 +445,7 @@ LABEL_9:
   return v11();
 }
 
-void __88__MPModelLibraryPlaylistEditChangeRequestOperation__loadUpdatedTrackListWithCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
+void __88__MPModelLibraryPlaylistEditChangeRequestOperation__loadUpdatedTrackListWithCompletion___block_invoke_3(uint64_t a1, uint64_t *a2, void *a3)
 {
   v7[7] = *MEMORY[0x1E69E9840];
   v5 = a3;

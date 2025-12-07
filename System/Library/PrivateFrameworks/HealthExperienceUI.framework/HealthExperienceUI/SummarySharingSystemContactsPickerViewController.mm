@@ -37,24 +37,24 @@
 {
   v6 = sub_1BA4A64F8();
   v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = (&v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  sub_1B9F0ADF8(0, &qword_1EDC6B5A0);
+  MEMORY[0x1EEE9AC00](v6, v8);
+  v10 = (&v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  sub_1B9F0ADF8(0, &qword_1EDC6B5A0, 0x1E69E9610);
   contactCopy = contact;
   selfCopy = self;
-  *v9 = sub_1BA4A7308();
-  (*(v7 + 104))(v9, *MEMORY[0x1E69E8020], v6);
+  *v10 = sub_1BA4A7308();
+  (*(v7 + 104))(v10, *MEMORY[0x1E69E8020], v6);
   LOBYTE(contact) = sub_1BA4A6528();
-  (*(v7 + 8))(v9, v6);
+  (*(v7 + 8))(v10, v6);
   if (contact)
   {
-    v12 = selfCopy + OBJC_IVAR____TtC18HealthExperienceUI48SummarySharingSystemContactsPickerViewController_state;
-    v13 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI48SummarySharingSystemContactsPickerViewController_state);
-    *v12 = contactCopy;
-    v14 = v12[8];
-    v12[8] = 1;
-    v15 = contactCopy;
-    sub_1BA1F1484(v13, v14);
+    v13 = selfCopy + OBJC_IVAR____TtC18HealthExperienceUI48SummarySharingSystemContactsPickerViewController_state;
+    v14 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC18HealthExperienceUI48SummarySharingSystemContactsPickerViewController_state);
+    *v13 = contactCopy;
+    v15 = v13[8];
+    v13[8] = 1;
+    v16 = contactCopy;
+    sub_1BA1F1484(v14, v15);
     sub_1BA1EEC70();
   }
 
@@ -66,7 +66,7 @@
 
 - (void)summarySharingEntryStore:(id)store didUpdateReachabilityStatus:(id)status error:(id)error
 {
-  sub_1B9F0ADF8(0, &qword_1EDC6E360);
+  sub_1B9F0ADF8(0, &qword_1EDC6E360, 0x1E696AD98);
   v8 = sub_1BA4A6628();
   storeCopy = store;
   selfCopy = self;

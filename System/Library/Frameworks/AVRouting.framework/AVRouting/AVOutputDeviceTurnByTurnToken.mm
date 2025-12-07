@@ -7,9 +7,9 @@
 
 - (AVOutputDeviceTurnByTurnToken)initWithEndpoint:(OpaqueFigEndpoint *)endpoint
 {
-  v12.receiver = self;
-  v12.super_class = AVOutputDeviceTurnByTurnToken;
-  v4 = [(AVOutputDeviceTurnByTurnToken *)&v12 init];
+  v10.receiver = self;
+  v10.super_class = AVOutputDeviceTurnByTurnToken;
+  v4 = [(AVOutputDeviceTurnByTurnToken *)&v10 init];
   v5 = v4;
   if (v4)
   {
@@ -20,12 +20,10 @@
       if (v6)
       {
         CMBaseObject = FigEndpointGetCMBaseObject();
-        VTable = CMBaseObjectGetVTable();
-        v9 = *(*(VTable + 8) + 56);
-        if (v9)
+        v8 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+        if (v8)
         {
-          v10 = *(VTable + 8) + 56;
-          v9(CMBaseObject, *MEMORY[0x1E6962358], *MEMORY[0x1E695E4D0]);
+          v8(CMBaseObject, *MEMORY[0x1E6962358], *MEMORY[0x1E695E4D0]);
         }
       }
     }
@@ -44,12 +42,10 @@
   if (self->_endpoint)
   {
     CMBaseObject = FigEndpointGetCMBaseObject();
-    VTable = CMBaseObjectGetVTable();
-    v5 = *(*(VTable + 8) + 56);
-    if (v5)
+    v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+    if (v4)
     {
-      v6 = *(VTable + 8) + 56;
-      v5(CMBaseObject, *MEMORY[0x1E6962358], *MEMORY[0x1E695E4C0]);
+      v4(CMBaseObject, *MEMORY[0x1E6962358], *MEMORY[0x1E695E4C0]);
     }
 
     endpoint = self->_endpoint;
@@ -59,9 +55,9 @@
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = AVOutputDeviceTurnByTurnToken;
-  [(AVOutputDeviceTurnByTurnToken *)&v8 dealloc];
+  v6.receiver = self;
+  v6.super_class = AVOutputDeviceTurnByTurnToken;
+  [(AVOutputDeviceTurnByTurnToken *)&v6 dealloc];
 }
 
 @end

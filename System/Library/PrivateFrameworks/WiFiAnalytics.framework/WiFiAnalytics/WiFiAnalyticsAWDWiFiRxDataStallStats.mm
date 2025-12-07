@@ -455,7 +455,6 @@ LABEL_16:
   has = self->_has;
   if (has)
   {
-    healthcheckFaults = self->_healthcheckFaults;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -475,7 +474,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  healthcheckFaultsRtscts = self->_healthcheckFaultsRtscts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -490,7 +488,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  txCtsNoUcast = self->_txCtsNoUcast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -505,7 +502,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  txCtsRxUcast = self->_txCtsRxUcast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -520,7 +516,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  rxMuRts = self->_rxMuRts;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -535,7 +530,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  rxTotalPpdu = self->_rxTotalPpdu;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -550,7 +544,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  rxMuPpdu = self->_rxMuPpdu;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -565,7 +558,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  stallAge = self->_stallAge;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -580,7 +572,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  stallElapsedDur = self->_stallElapsedDur;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -595,7 +586,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  srStallInProgress = self->_srStallInProgress;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -610,7 +600,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  srTimNoUcast = self->_srTimNoUcast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -625,7 +614,6 @@ LABEL_13:
   }
 
 LABEL_30:
-  srRtsCtsNoUcast = self->_srRtsCtsNoUcast;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -640,12 +628,10 @@ LABEL_14:
   }
 
 LABEL_31:
-  srMuRtsNoUcast = self->_srMuRtsNoUcast;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x200) != 0)
   {
 LABEL_15:
-    srTxBlanking = self->_srTxBlanking;
     PBDataWriterWriteUint64Field();
   }
 

@@ -47,10 +47,7 @@
 
 - (void)setEncryptionOperation:(id)operation
 {
-  v4 = [operation copy];
-  cmacOperationInternal = self->_cmacOperationInternal;
-  v6 = cmacOperationInternal[1];
-  cmacOperationInternal[1] = v4;
+  *(self->_cmacOperationInternal + 1) = [operation copy];
 
   MEMORY[0x2821F96F8]();
 }

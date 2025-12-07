@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)newLoadOperation;
 - (void)finishWithResource:(id)resource;
+- (void)newLoadOperation;
 @end
 
 @implementation SKUIItemResourceRequest
@@ -82,6 +83,24 @@
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)finishWithResource:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemResourceRequest finishWithResource:]";
+}
+
+- (void)newLoadOperation
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemResourceRequest newLoadOperation]";
+}
+
+- (void)copyWithZone:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIItemResourceRequest copyWithZone:]";
 }
 
 @end

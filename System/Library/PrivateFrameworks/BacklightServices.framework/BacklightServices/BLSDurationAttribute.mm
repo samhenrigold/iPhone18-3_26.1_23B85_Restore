@@ -46,32 +46,33 @@
 - (BLSDurationAttribute)initWithDuration:(double)duration
 {
   selfCopy = self;
-  if ([(BLSDurationAttribute *)self isMemberOfClass:objc_opt_class()])
+  v5 = [(BLSDurationAttribute *)self isMemberOfClass:objc_opt_class()];
+  if (v5)
   {
-    v5 = bls_assertions_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = bls_assertions_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [BLSDurationAttribute initWithDuration:v5];
+      [BLSDurationAttribute initWithDuration:v6];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v9.receiver = selfCopy;
-    v9.super_class = BLSDurationAttribute;
-    v7 = [(BLSAttribute *)&v9 init];
-    if (v7)
+    v10.receiver = selfCopy;
+    v10.super_class = BLSDurationAttribute;
+    v8 = [(BLSAttribute *)&v10 init];
+    if (v8)
     {
-      v7->_duration = duration;
+      v8->_duration = duration;
     }
 
-    selfCopy = v7;
-    v6 = selfCopy;
+    selfCopy = v8;
+    v7 = selfCopy;
   }
 
-  return v6;
+  return v7;
 }
 
 - (NSString)description

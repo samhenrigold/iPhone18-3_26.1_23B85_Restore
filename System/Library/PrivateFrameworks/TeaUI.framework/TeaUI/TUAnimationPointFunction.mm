@@ -68,15 +68,15 @@
   aBlock[3] = &unk_1E84F3E78;
   aBlock[4] = self;
   v3 = _Block_copy(aBlock);
-  [(TUAnimationPointFunction *)self startValue];
+  objc_msgSend_startValue(self);
   v5 = v4;
-  [(TUAnimationPointFunction *)self endValue];
+  objc_msgSend_endValue(self);
   v7 = v3[2](v3, v5, v6);
   [(TUAnimationPointFunction *)self setXFunction:v7];
 
-  [(TUAnimationPointFunction *)self startValue];
+  objc_msgSend_startValue(self);
   v9 = v8;
-  [(TUAnimationPointFunction *)self endValue];
+  objc_msgSend_endValue(self);
   v10 = (v3[2])(v3, v9);
   [(TUAnimationPointFunction *)self setYFunction:v10];
 }

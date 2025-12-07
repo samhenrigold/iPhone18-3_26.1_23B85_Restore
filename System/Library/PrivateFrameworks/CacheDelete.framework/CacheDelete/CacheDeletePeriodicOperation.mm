@@ -331,7 +331,7 @@ void __48__CacheDeletePeriodicOperation__startOperation___block_invoke(uint64_t 
     }
 
     v6 = [*(a1 + 32) ID];
-    _CacheDeleteAbortWithMessage();
+    _CacheDeleteAbortWithMessage("Periodic callback firing more than once for service %{public}@", v6);
   }
 
   else
@@ -406,7 +406,7 @@ void __48__CacheDeletePeriodicOperation__startOperation___block_invoke_2(uint64_
 void __48__CacheDeletePeriodicOperation__startOperation___block_invoke_3(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (v2 || *(a1 + 40))
+  if (*(a1 + 32) != 0)
   {
     if (!*(*(*(a1 + 56) + 8) + 40))
     {

@@ -1994,7 +1994,7 @@ uint64_t CAHDecCatnipAvc::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void *createCatnipLghDecoder(uint64_t a1)
+CAHDecCatnipLgh *createCatnipLghDecoder(CAVDLghDecoder *a1)
 {
   v2 = operator new(0xC48uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -4401,16 +4401,16 @@ uint64_t CAHDecCatnipLgh::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void av1_fb_rel_cb(uint64_t a1, void *a2)
+void av1_fb_rel_cb(uint64_t result, void *a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 2016);
+    v3 = *(result + 2016);
     if (v3)
     {
       (*(*a2 + 48))(a2, *v3, 0);
 
-      CAVDAvxDecoder::ReleaseDisplayBuffer(a2, a1);
+      CAVDAvxDecoder::ReleaseDisplayBuffer(a2, result);
     }
   }
 }
@@ -4534,7 +4534,7 @@ LABEL_29:
   }
 
   v3 = v2;
-  AV1_Syntax::AV1_Syntax(v2, 0x30000u);
+  AV1_Syntax::AV1_Syntax(v2, 196608);
   *(this + 1890) = v3;
   *(this + 4698) = 0;
   *(this + 4699) = 0;
@@ -4690,7 +4690,7 @@ LABEL_29:
   return 307;
 }
 
-CAHDecIxoraAvx *CAVDAvxDecoder::allocateHwDecoder(CAVDAvxDecoder *this)
+CAHDecTansyAvx *CAVDAvxDecoder::allocateHwDecoder(CAVDAvxDecoder *this)
 {
   v7 = *MEMORY[0x277D85DE8];
   v1 = *(this + 588);
@@ -4851,7 +4851,7 @@ void CAVDAvxDecoder::~CAVDAvxDecoder(CAVDAvxDecoder *this)
   JUMPOUT(0x277CAEC20);
 }
 
-uint64_t CAVDAvxDecoder::VAStartDecode(CAVDAvxDecoder *this, unsigned __int8 *a2, int a3)
+uint64_t CAVDAvxDecoder::VAStartDecode(CAVDAvxDecoder *this, char *a2, unsigned int a3)
 {
   v30 = *MEMORY[0x277D85DE8];
   v6 = this + 36864;
@@ -5999,7 +5999,7 @@ LABEL_13:
   return result;
 }
 
-uint64_t CAVDAvxDecoder::VADecodeFrameHeader(CAVDAvxDecoder *this, unsigned __int8 *a2, int a3, int a4)
+uint64_t CAVDAvxDecoder::VADecodeFrameHeader(CAVDAvxDecoder *this, char *a2, int a3, int a4)
 {
   v22 = *MEMORY[0x277D85DE8];
   v8 = this + 36864;
@@ -7605,7 +7605,7 @@ BOOL CAVDAvxDecoder::GetTileMemInfo(uint64_t a1, uint64_t a2, void *a3, void *a4
   return v5 != 0;
 }
 
-CAHDec *createThymeAvcDecoder(uint64_t a1)
+CAHDecThymeAvc *createThymeAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x3EE0uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -7751,7 +7751,7 @@ uint64_t CAHDecThymeAvc::populateSlices(CAHDecThymeAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecThymeAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, signed int a3)
+uint64_t CAHDecThymeAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   v5 = 0;
   v112 = *MEMORY[0x277D85DE8];
@@ -7784,6 +7784,8 @@ uint64_t CAHDecThymeAvc::populateSliceRegisters(uint64_t a1, _DWORD *a2, signed 
     v16 = 0;
   }
 
+  v96 = a3;
+  v17 = a3;
   v18 = v16 | v15;
   a2[1] = v18;
   if (*(v13 + 24) == 1)
@@ -7917,7 +7919,7 @@ LABEL_20:
   if (v35 <= 1)
   {
     v36 = v6 + 6760;
-    v37 = v12 + 13040 * a3;
+    v37 = v12 + 13040 * v17;
     if (*(v37 + 13032))
     {
       v38 = 0;
@@ -8184,12 +8186,12 @@ LABEL_84:
   v82 = *(v81 + 2504);
   v100 = 0;
   v101 = 0;
-  if (!CAVDAvcDecoder::GetSDataMemInfo(v81, a3, &v101, &v100))
+  if (!CAVDAvcDecoder::GetSDataMemInfo(v81, v96, &v101, &v100))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v83 = 956 * a3;
+  v83 = 956 * v96;
   v84 = v101;
   if (!*v101 && !*(v101 + 152) && !*(v101 + 156))
   {

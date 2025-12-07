@@ -12,10 +12,13 @@
 - (id)exceptionalModesForContactHandle:(id)handle withError:(id *)error;
 - (id)publishStatusKitAvailabilityReturningError:(id *)error;
 - (id)silencedModesForContactHandle:(id)handle withError:(id *)error;
+- (void)_publishStatusKitAvailability:(BOOL)availability activityIdentifier:(id)identifier local:(BOOL)local scheduled:(BOOL)scheduled date:(id)date forced:(BOOL)forced completion:(id)completion;
+- (void)_publishStatusKitCurrentAvailabilityForced:(BOOL)forced override:(int64_t)override completionHandler:(id)handler;
 - (void)_queue_notifyIntentExtensionsOfUserAvailability:(id)availability applicationIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)_queue_notifyIntentExtensionsOfUserAvailability:(id)availability availabilityOverride:(int64_t)override applicationIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (void)_queue_updateAvailabilityKit:(id)kit fromConfiguration:(id)configuration toConfiguration:(id)toConfiguration completionHandler:(id)handler;
 - (void)coordinateUserAvailability:(id)availability fromConfiguration:(id)configuration toConfiguration:(id)toConfiguration completionHandler:(id)handler;
+- (void)coordinateUserAvailabilityUpdateForApplicationIdentifier:(id)identifier forced:(BOOL)forced completionHandler:(id)handler;
 - (void)resumeUpdatingInvitationsForContacts:(id)contacts completionHandler:(id)handler;
 - (void)sendStatusKitInvitationsForContacts:(id)contacts forceAvailabilityPublish:(BOOL)publish completionHandler:(id)handler;
 - (void)suspendWithOverrideSetting:(int64_t)setting completionHandler:(id)handler;
@@ -169,7 +172,7 @@ void __90__DNDSUserAvailabilityCoordinator_resumeUpdatingInvitationsForContacts_
 
 void __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke(void *a1, void *a2, void *a3, void *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -183,26 +186,24 @@ void __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completion
   if (os_log_type_enabled(DNDSLogStateProvider, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v23 = v7;
+    v22 = v7;
     _os_log_impl(&dword_24912E000, v11, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", buf, 0xCu);
   }
 
   v12 = a1[4];
   v13 = *(v12 + 16);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke_18;
-  v18[3] = &unk_278F8A548;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke_18;
+  v17[3] = &unk_278F8A548;
   v15 = a1[5];
   v14 = a1[6];
-  v18[4] = v12;
-  v21 = v14;
-  v19 = v10;
-  v20 = v15;
+  v17[4] = v12;
+  v20 = v14;
+  v18 = v10;
+  v19 = v15;
   v16 = v10;
-  dispatch_async(v13, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(v13, v17);
 }
 
 void __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke_18(uint64_t a1)
@@ -230,10 +231,9 @@ void __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completion
 uint64_t __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke_19(uint64_t a1)
 {
   [*(a1 + 32) suspend];
-  v2 = *(a1 + 40);
-  v3 = *(*(a1 + 48) + 16);
+  v2 = *(*(a1 + 48) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)coordinateUserAvailability:(id)availability fromConfiguration:(id)configuration toConfiguration:(id)toConfiguration completionHandler:(id)handler
@@ -388,38 +388,38 @@ LABEL_24:
 
 id __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfiguration_toConfiguration_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CCA940] setWithArray:a2];
   [v5 addObjectsFromArray:v4];
   v6 = [MEMORY[0x277CBEB58] set];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
-        if ([v7 countForObject:{v12, v16}] == 1)
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if ([v7 countForObject:{v12, v15}] == 1)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -434,8 +434,6 @@ id __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfigu
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -481,7 +479,7 @@ void __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfi
 
 void __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfiguration_toConfiguration_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogStateProvider;
   if (os_log_type_enabled(DNDSLogStateProvider, OS_LOG_TYPE_INFO))
   {
@@ -496,7 +494,7 @@ void __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfi
     v5 = v3;
     v6 = [v4 previousState];
     *buf = 138543362;
-    v20 = v6;
+    v19 = v6;
     _os_log_impl(&dword_24912E000, v5, OS_LOG_TYPE_INFO, "update.previousState: %{public}@", buf, 0xCu);
   }
 
@@ -507,7 +505,7 @@ void __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfi
     v9 = v7;
     v10 = [v8 state];
     *buf = 138543362;
-    v20 = v10;
+    v19 = v10;
     _os_log_impl(&dword_24912E000, v9, OS_LOG_TYPE_INFO, "update.state: %{public}@", buf, 0xCu);
   }
 
@@ -521,15 +519,72 @@ void __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfi
   v12 = *(a1 + 40);
   v13 = [*(a1 + 32) state];
   v14 = [*(a1 + 48) allObjects];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfiguration_toConfiguration_completionHandler___block_invoke_25;
-  v16[3] = &unk_278F8A4A8;
-  v18 = *(a1 + 64);
-  v17 = *(a1 + 56);
-  [v12 _queue_notifyIntentExtensionsOfUserAvailability:v13 applicationIdentifiers:v14 completionHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __114__DNDSUserAvailabilityCoordinator_coordinateUserAvailability_fromConfiguration_toConfiguration_completionHandler___block_invoke_25;
+  v15[3] = &unk_278F8A4A8;
+  v17 = *(a1 + 64);
+  v16 = *(a1 + 56);
+  [v12 _queue_notifyIntentExtensionsOfUserAvailability:v13 applicationIdentifiers:v14 completionHandler:v15];
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+- (void)coordinateUserAvailabilityUpdateForApplicationIdentifier:(id)identifier forced:(BOOL)forced completionHandler:(id)handler
+{
+  forcedCopy = forced;
+  identifierCopy = identifier;
+  handlerCopy = handler;
+  if (self->_active)
+  {
+    v10 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:@"com.apple.MobileSMS" platform:1];
+    v11 = [identifierCopy isEqual:v10];
+
+    if (v11)
+    {
+      v12 = DNDSLogAvailabilityProvider;
+      if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_INFO, "Forcing Messages AvailabilityKit status to available on User Availability coordinator TCC revocation.", buf, 2u);
+      }
+
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke;
+      v21[3] = &unk_278F8A610;
+      v22 = handlerCopy;
+      [(DNDSUserAvailabilityCoordinator *)self _publishStatusKitCurrentAvailabilityForced:forcedCopy override:-1 completionHandler:v21];
+      v13 = v22;
+    }
+
+    else
+    {
+      queue = self->_queue;
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke_31;
+      block[3] = &unk_278F8A660;
+      v20 = forcedCopy;
+      v17 = identifierCopy;
+      selfCopy = self;
+      v19 = handlerCopy;
+      dispatch_async(queue, block);
+
+      v13 = v17;
+    }
+  }
+
+  else
+  {
+    v14 = DNDSLogAvailabilityProvider;
+    if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_INFO, "Skipping availability coordination because User Availability is disabled.", buf, 2u);
+    }
+
+    v13 = [[DNDSUserAvailabilityPublishResult alloc] initWithIdentifier:0 availability:0];
+    (*(handlerCopy + 2))(handlerCopy, v13, 0);
+  }
 }
 
 void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -548,7 +603,7 @@ void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForA
 
 void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke_31(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = DNDSLogAvailabilityProvider;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
   {
@@ -556,7 +611,7 @@ void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForA
     v4 = v2;
     v5 = [v3 bundleID];
     *buf = 138543362;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_24912E000, v4, OS_LOG_TYPE_INFO, "Forcing intent extensions to available on User Availability coordinator TCC revocation. app=%{public}@", buf, 0xCu);
   }
 
@@ -572,16 +627,14 @@ void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForA
 
   v7 = *(a1 + 40);
   v8 = [v7[5] lastCalculatedState];
-  v13 = *(a1 + 32);
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke_33;
-  v11[3] = &unk_278F8A638;
-  v12 = *(a1 + 48);
-  [v7 _queue_notifyIntentExtensionsOfUserAvailability:v8 availabilityOverride:v6 applicationIdentifiers:v9 completionHandler:v11];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = *(a1 + 32);
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke_33;
+  v10[3] = &unk_278F8A638;
+  v11 = *(a1 + 48);
+  [v7 _queue_notifyIntentExtensionsOfUserAvailability:v8 availabilityOverride:v6 applicationIdentifiers:v9 completionHandler:v10];
 }
 
 void __117__DNDSUserAvailabilityCoordinator_coordinateUserAvailabilityUpdateForApplicationIdentifier_forced_completionHandler___block_invoke_33(uint64_t a1, uint64_t a2)
@@ -738,7 +791,7 @@ LABEL_28:
 
 void __116__DNDSUserAvailabilityCoordinator__queue_updateAvailabilityKit_fromConfiguration_toConfiguration_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -750,16 +803,14 @@ void __116__DNDSUserAvailabilityCoordinator__queue_updateAvailabilityKit_fromCon
   v10 = DNDSLogStateProvider;
   if (os_log_type_enabled(DNDSLogStateProvider, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v7;
+    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v13, 0xCu);
   }
 
   v11 = *(a1 + 32);
   v12 = [[DNDSUserAvailabilityPublishResult alloc] initWithIdentifier:v7 availability:v8];
   (*(v11 + 16))(v11, v12);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_didAppAvailabilityChangeForApplicationIdentifier:(id)identifier fromConfiguration:(id)configuration toConfiguration:(id)toConfiguration
@@ -796,37 +847,37 @@ void __116__DNDSUserAvailabilityCoordinator__queue_updateAvailabilityKit_fromCon
 
 - (void)_queue_notifyIntentExtensionsOfUserAvailability:(id)availability availabilityOverride:(int64_t)override applicationIdentifiers:(id)identifiers completionHandler:(id)handler
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   availabilityCopy = availability;
   identifiersCopy = identifiers;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_queue);
   selfCopy = self;
   userAvailabilityTCCApprovedBundleIds = [(DNDSUserAvailabilityTCCProviding *)self->_tccProvider userAvailabilityTCCApprovedBundleIds];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
-  v44 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
-  if (!v44)
+  v43 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
+  if (!v43)
   {
-    v39 = 0;
+    v38 = 0;
     goto LABEL_28;
   }
 
-  v39 = 0;
-  v43 = *v53;
+  v38 = 0;
+  v42 = *v52;
   do
   {
-    for (i = 0; i != v44; ++i)
+    for (i = 0; i != v43; ++i)
     {
-      if (*v53 != v43)
+      if (*v52 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v52 + 1) + 8 * i);
+      v10 = *(*(&v51 + 1) + 8 * i);
       v11 = [MEMORY[0x277CD3A68] appInfoWithApplicationRecord:v10];
       v12 = objc_opt_class();
       v13 = NSStringFromClass(v12);
@@ -865,10 +916,10 @@ void __116__DNDSUserAvailabilityCoordinator__queue_updateAvailabilityKit_fromCon
       bundleIdentifier3 = [v10 bundleIdentifier];
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v59 = 0x3032000000;
-      v60 = __Block_byref_object_copy__3;
-      v61 = __Block_byref_object_dispose__3;
-      v62 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier3];
+      v58 = 0x3032000000;
+      v59 = __Block_byref_object_copy__3;
+      v60 = __Block_byref_object_dispose__3;
+      v61 = [objc_alloc(MEMORY[0x277D058C8]) initWithBundleID:bundleIdentifier3];
       v26 = DNDGrantedUserNotificationsAuthorizationForBundleIdentifier(bundleIdentifier3);
       if ((v21 & v26 & bOOLValue) == 1)
       {
@@ -880,14 +931,14 @@ void __116__DNDSUserAvailabilityCoordinator__queue_updateAvailabilityKit_fromCon
         v28 = identifiersCopy;
         p_buf = &buf;
         overrideCopy = override;
-        v46 = v28;
-        v47 = selfCopy;
-        v48 = availabilityCopy;
-        v49 = v10;
+        v45 = v28;
+        v46 = selfCopy;
+        v47 = availabilityCopy;
+        v48 = v10;
         dispatch_async(extensionLaunchQueue, block);
 
-        ++v39;
-        v29 = v46;
+        ++v38;
+        v29 = v45;
 LABEL_21:
 
         goto LABEL_22;
@@ -899,9 +950,9 @@ LABEL_21:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           bundleIdentifier4 = [v10 bundleIdentifier];
-          *v56 = 138543362;
-          v57 = bundleIdentifier4;
-          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have user availability TCC permission, not launching extension.", v56, 0xCu);
+          *v55 = 138543362;
+          v56 = bundleIdentifier4;
+          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have user availability TCC permission, not launching extension.", v55, 0xCu);
         }
 
         goto LABEL_21;
@@ -913,23 +964,23 @@ LABEL_21:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           bundleIdentifier5 = [v10 bundleIdentifier];
-          *v56 = 138543362;
-          v57 = bundleIdentifier5;
-          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have UN Communication entitlement, not launching extension.", v56, 0xCu);
+          *v55 = 138543362;
+          v56 = bundleIdentifier5;
+          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have UN Communication entitlement, not launching extension.", v55, 0xCu);
         }
 
         goto LABEL_21;
       }
 
-      if ((v26 & 1) == 0)
+      if (!v26)
       {
         v29 = DNDSLogStateProvider;
         if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
         {
           bundleIdentifier6 = [v10 bundleIdentifier];
-          *v56 = 138543362;
-          v57 = bundleIdentifier6;
-          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have UN authorization, not launching extension.", v56, 0xCu);
+          *v55 = 138543362;
+          v56 = bundleIdentifier6;
+          _os_log_impl(&dword_24912E000, v29, OS_LOG_TYPE_INFO, "App (%{public}@) does not have UN authorization, not launching extension.", v55, 0xCu);
         }
 
         goto LABEL_21;
@@ -942,10 +993,10 @@ LABEL_23:
 LABEL_24:
     }
 
-    v44 = [obj countByEnumeratingWithState:&v52 objects:v63 count:16];
+    v43 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
   }
 
-  while (v44);
+  while (v43);
 LABEL_28:
 
   v33 = DNDSLogStateProvider;
@@ -955,14 +1006,12 @@ LABEL_28:
     _os_log_impl(&dword_24912E000, v33, OS_LOG_TYPE_INFO, "Done dispatching launch blocks to _launchQueue", &buf, 2u);
   }
 
-  handlerCopy[2](handlerCopy, v39);
-
-  v34 = *MEMORY[0x277D85DE8];
+  handlerCopy[2](handlerCopy, v38);
 }
 
 void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserAvailability_availabilityOverride_applicationIdentifiers_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = dispatch_semaphore_create(0);
   v3 = *(a1 + 32);
   if (v3 && ![v3 containsObject:*(*(*(a1 + 64) + 8) + 40)])
@@ -972,7 +1021,7 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
     {
       v7 = *(*(*(a1 + 64) + 8) + 40);
       *buf = 138412290;
-      v18 = v7;
+      v17 = v7;
       _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_INFO, "Skipping Intent launch of %@ because relative availability did not change.", buf, 0xCu);
     }
   }
@@ -994,18 +1043,16 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
     }
 
     v11 = [[DNDSUserAvailabilityIntentLauncher alloc] initWithApplicationRecord:*(a1 + 56) available:v5];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserAvailability_availabilityOverride_applicationIdentifiers_completionHandler___block_invoke_2;
-    v15[3] = &unk_278F8A688;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserAvailability_availabilityOverride_applicationIdentifiers_completionHandler___block_invoke_2;
+    v14[3] = &unk_278F8A688;
     v12 = v2;
-    v16 = v12;
-    [(DNDSUserAvailabilityIntentLauncher *)v11 launchIntentExtensionWithCompletion:v15];
+    v15 = v12;
+    [(DNDSUserAvailabilityIntentLauncher *)v11 launchIntentExtensionWithCompletion:v14];
     v13 = dispatch_time(0, 15000000000);
     dispatch_semaphore_wait(v12, v13);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserAvailability_availabilityOverride_applicationIdentifiers_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1022,7 +1069,7 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
 
 - (id)_entitlementRecordForApplicationRecord:(id)record
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   mEMORY[0x277CF0CA8] = [MEMORY[0x277CF0CA8] sharedInstance];
   deviceClass = [mEMORY[0x277CF0CA8] deviceClass];
@@ -1030,29 +1077,29 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
   v6 = recordCopy;
   if (deviceClass == 4)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     obj = [recordCopy applicationExtensionRecords];
-    v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-    v19 = recordCopy;
+    v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v18 = recordCopy;
     v6 = recordCopy;
     if (v7)
     {
       v8 = v7;
-      v9 = *v22;
+      v9 = *v21;
       v6 = recordCopy;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v21 + 1) + 8 * i);
+          v11 = *(*(&v20 + 1) + 8 * i);
           infoDictionary = [v11 infoDictionary];
           v13 = [infoDictionary objectForKey:@"NSExtension" ofClass:objc_opt_class()];
 
@@ -1067,16 +1114,14 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v8);
     }
 
-    recordCopy = v19;
+    recordCopy = v18;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1130,37 +1175,37 @@ void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserA
 void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v2 = dispatch_group_create();
-  v54 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
+  v53 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
+  v78 = 0u;
   v79 = 0u;
   v80 = 0u;
   v81 = 0u;
-  v82 = 0u;
   obj = *(v1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+  v3 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v80;
+    v6 = *v79;
     *&v4 = 138412290;
-    v50 = v4;
-    v52 = v1;
-    v53 = v2;
-    v51 = *v80;
+    v49 = v4;
+    v51 = v1;
+    v52 = v2;
+    v50 = *v79;
     do
     {
       v7 = 0;
-      v56 = v5;
+      v55 = v5;
       do
       {
-        if (*v80 != v6)
+        if (*v79 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v79 + 1) + 8 * v7);
+        v8 = *(*(&v78 + 1) + 8 * v7);
         v9 = objc_alloc_init(MEMORY[0x277D05A30]);
         v10 = [v8 contactIdentifier];
         [v9 setContactIdentifier:v10];
@@ -1194,88 +1239,88 @@ void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_
 
 LABEL_11:
         v18 = *(v1 + 40);
-        v78 = 0;
-        v19 = [v18 exceptionalModesForContactHandle:v9 withError:{&v78, v50}];
-        v20 = v78;
-        v61 = [v19 allowed];
+        v77 = 0;
+        v19 = [v18 exceptionalModesForContactHandle:v9 withError:{&v77, v49}];
+        v20 = v77;
+        v60 = [v19 allowed];
         [v19 silenced];
-        v60 = v59 = v20;
+        v59 = v58 = v20;
         if (v20)
         {
           v21 = DNDSLogStateProvider;
-          v22 = v59;
+          v22 = v58;
           if (os_log_type_enabled(DNDSLogStateProvider, OS_LOG_TYPE_ERROR))
           {
-            *buf = v50;
-            v86 = v59;
+            *buf = v49;
+            v85 = v58;
             _os_log_error_impl(&dword_24912E000, v21, OS_LOG_TYPE_ERROR, "Error getting allowedModesForContactHandle: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v58 = v19;
+          v57 = v19;
           dispatch_group_enter(v2);
           v23 = objc_opt_new();
+          v73 = 0u;
           v74 = 0u;
           v75 = 0u;
           v76 = 0u;
-          v77 = 0u;
           v24 = [v8 phoneNumbers];
-          v25 = [v24 countByEnumeratingWithState:&v74 objects:v84 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v73 objects:v83 count:16];
           if (v25)
           {
             v26 = v25;
-            v27 = *v75;
+            v27 = *v74;
             do
             {
               for (i = 0; i != v26; ++i)
               {
-                if (*v75 != v27)
+                if (*v74 != v27)
                 {
                   objc_enumerationMutation(v24);
                 }
 
-                v29 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:*(*(&v74 + 1) + 8 * i)];
+                v29 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:*(*(&v73 + 1) + 8 * i)];
                 [v23 addObject:v29];
               }
 
-              v26 = [v24 countByEnumeratingWithState:&v74 objects:v84 count:16];
+              v26 = [v24 countByEnumeratingWithState:&v73 objects:v83 count:16];
             }
 
             while (v26);
           }
 
-          v72 = 0u;
-          v73 = 0u;
           v71 = 0u;
+          v72 = 0u;
           v70 = 0u;
+          v69 = 0u;
           v30 = [v8 emailAddresses];
-          v31 = [v30 countByEnumeratingWithState:&v70 objects:v83 count:16];
+          v31 = [v30 countByEnumeratingWithState:&v69 objects:v82 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v71;
+            v33 = *v70;
             do
             {
               for (j = 0; j != v32; ++j)
               {
-                if (*v71 != v33)
+                if (*v70 != v33)
                 {
                   objc_enumerationMutation(v30);
                 }
 
-                v35 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:*(*(&v70 + 1) + 8 * j)];
+                v35 = [objc_alloc(MEMORY[0x277D680C0]) initWithString:*(*(&v69 + 1) + 8 * j)];
                 [v23 addObject:v35];
               }
 
-              v32 = [v30 countByEnumeratingWithState:&v70 objects:v83 count:16];
+              v32 = [v30 countByEnumeratingWithState:&v69 objects:v82 count:16];
             }
 
             while (v32);
           }
 
-          v36 = [objc_alloc(MEMORY[0x277CF0488]) initWithAvailableDuringActivityIdentifiers:v61 unavailableDuringActivityIdentifiers:v60];
+          v36 = [objc_alloc(MEMORY[0x277CF0488]) initWithAvailableDuringActivityIdentifiers:v60 unavailableDuringActivityIdentifiers:v59];
           v37 = [v8 phoneNumbers];
           v38 = [v37 allObjects];
           v39 = [v8 emailAddresses];
@@ -1283,24 +1328,24 @@ LABEL_11:
           v41 = [v38 arrayByAddingObjectsFromArray:v40];
 
           v42 = [[DNDSAvailabilityInvitationRequest alloc] initWithHandles:v41 invitation:v36];
-          [v54 addObject:v42];
+          [v53 addObject:v42];
 
           v43 = [MEMORY[0x277CBEAA8] date];
           v44 = [v36 statusKitInvitationPayloadWithDateCreated:v43];
 
-          v67[0] = MEMORY[0x277D85DD0];
-          v67[1] = 3221225472;
-          v67[2] = __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_57;
-          v67[3] = &unk_278F8A6D8;
-          v1 = v52;
-          v2 = v53;
-          v69 = *(v52 + 56);
-          v68 = v53;
-          [WeakRetained inviteHandlesFromPrimaryAccountHandle:v23 withInvitationPayload:v44 completion:v67];
+          v66[0] = MEMORY[0x277D85DD0];
+          v66[1] = 3221225472;
+          v66[2] = __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_57;
+          v66[3] = &unk_278F8A6D8;
+          v1 = v51;
+          v2 = v52;
+          v68 = *(v51 + 56);
+          v67 = v52;
+          [WeakRetained inviteHandlesFromPrimaryAccountHandle:v23 withInvitationPayload:v44 completion:v66];
 
-          v6 = v51;
-          v5 = v56;
-          v19 = v58;
+          v6 = v50;
+          v5 = v55;
+          v19 = v57;
           v22 = 0;
         }
 
@@ -1308,7 +1353,7 @@ LABEL_11:
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v79 objects:v87 count:16];
+      v5 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
     }
 
     while (v5);
@@ -1320,16 +1365,14 @@ LABEL_11:
   block[1] = 3221225472;
   block[2] = __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_62;
   block[3] = &unk_278F8A728;
-  v66 = *(v1 + 72);
+  v65 = *(v1 + 72);
   block[4] = v45;
-  v62 = *(v1 + 48);
-  v47 = v62;
-  v65 = v62;
-  v64 = v54;
-  v48 = v54;
+  v61 = *(v1 + 48);
+  v47 = v61;
+  v64 = v61;
+  v63 = v53;
+  v48 = v53;
   dispatch_group_notify(v2, v46, block);
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_57(uint64_t a1, void *a2)
@@ -1443,7 +1486,7 @@ LABEL_18:
 
 void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_63(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -1455,9 +1498,9 @@ void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_
   v10 = DNDSLogStateProvider;
   if (os_log_type_enabled(DNDSLogStateProvider, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543362;
-    v15 = v7;
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v7;
+    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v13, 0xCu);
   }
 
   v11 = *(a1 + 40);
@@ -1466,8 +1509,6 @@ void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_
     v12 = [[DNDSUserAvailabilityPublishResult alloc] initWithIdentifier:v7 availability:v8];
     (*(v11 + 16))(v11, v12, *(a1 + 32));
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isLocalUserAvailableForAppId:(id)id modeIdentifier:(id)identifier withError:(id *)error
@@ -1638,7 +1679,7 @@ LABEL_18:
 
 - (BOOL)isTCCUserAvailabilityGrantedForBundleId:(id)id
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   idCopy = id;
   active = self->_active;
   v6 = DNDSLogAvailabilityProvider;
@@ -1647,12 +1688,12 @@ LABEL_18:
   {
     if (v7)
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v10 = "Skipping availability check because User Availability is disabled.";
       v11 = v6;
       v12 = OS_LOG_TYPE_INFO;
 LABEL_10:
-      _os_log_impl(&dword_24912E000, v11, v12, v10, &v16, 2u);
+      _os_log_impl(&dword_24912E000, v11, v12, v10, &v15, 2u);
     }
 
 LABEL_11:
@@ -1662,9 +1703,9 @@ LABEL_11:
 
   if (v7)
   {
-    v16 = 138543362;
-    v17 = idCopy;
-    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_INFO, "Looking up User Availability permission for bundleId: %{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = idCopy;
+    _os_log_impl(&dword_24912E000, v6, OS_LOG_TYPE_INFO, "Looking up User Availability permission for bundleId: %{public}@", &v15, 0xCu);
   }
 
   if (![idCopy length])
@@ -1672,7 +1713,7 @@ LABEL_11:
     v13 = DNDSLogAvailabilityProvider;
     if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
+      LOWORD(v15) = 0;
       v10 = "Empty bundleId passed to isTCCUserAvailabilityGrantedForBundleId";
       v11 = v13;
       v12 = OS_LOG_TYPE_DEFAULT;
@@ -1686,7 +1727,6 @@ LABEL_11:
   v9 = [userAvailabilityTCCApprovedBundleIds containsObject:idCopy];
 
 LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1730,14 +1770,14 @@ LABEL_12:
 
 - (id)exceptionalModesForContactHandle:(id)handle withError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (self->_active)
   {
     configurationProvider = self->_configurationProvider;
-    v40 = 0;
-    v7 = [(DNDSModeConfigurationProviding *)configurationProvider modeConfigurationsWithError:&v40];
-    v8 = v40;
+    v39 = 0;
+    v7 = [(DNDSModeConfigurationProviding *)configurationProvider modeConfigurationsWithError:&v39];
+    v8 = v39;
     v9 = v8;
     if (v8)
     {
@@ -1757,28 +1797,28 @@ LABEL_12:
     else
     {
       v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
-      v32 = v7;
-      v33 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+      v31 = v7;
+      v32 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
       obj = [v7 allValues];
-      v14 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+      v14 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v37;
+        v16 = *v36;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v37 != v16)
+            if (*v36 != v16)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v36 + 1) + 8 * i);
+            v18 = *(*(&v35 + 1) + 8 * i);
             configuration = [v18 configuration];
             senderConfigurationType = [configuration senderConfigurationType];
 
@@ -1791,7 +1831,7 @@ LABEL_12:
             if (senderConfigurationType | v24)
             {
               v26 = senderConfigurationType == 1 && v24 == 1;
-              v25 = v33;
+              v25 = v32;
               if (!v26)
               {
                 continue;
@@ -1804,15 +1844,15 @@ LABEL_12:
             [v25 addObject:uUIDString];
           }
 
-          v15 = [obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v15 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
         }
 
         while (v15);
       }
 
-      v11 = [[DNDSContentHandleExceptionalModesBox alloc] initWithContactHandle:handleCopy allowed:v13 silenced:v33];
+      v11 = [[DNDSContentHandleExceptionalModesBox alloc] initWithContactHandle:handleCopy allowed:v13 silenced:v32];
       v9 = 0;
-      v7 = v32;
+      v7 = v31;
     }
   }
 
@@ -1828,14 +1868,12 @@ LABEL_12:
     v11 = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (BOOL)userAvailabilityInActiveModeForContactHandle:(id)handle withError:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   if (self->_active)
   {
@@ -1880,10 +1918,10 @@ LABEL_12:
 LABEL_20:
       v21 = MEMORY[0x277CCA9B8];
       v22 = *MEMORY[0x277D05840];
-      v27 = *MEMORY[0x277CCA450];
-      v28[0] = @"Calling bundleId does not have permission to read user availability.";
+      v26 = *MEMORY[0x277CCA450];
+      v27[0] = @"Calling bundleId does not have permission to read user availability.";
       v19 = 1;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
       *error = [v21 errorWithDomain:v22 code:1004 userInfo:v23];
 
       goto LABEL_23;
@@ -1897,60 +1935,59 @@ LABEL_20:
   v19 = 1;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
   {
-    *v26 = 0;
+    *v25 = 0;
     v19 = 1;
-    _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_INFO, "Skipping availability check for contact because User Availability is disabled.", v26, 2u);
+    _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_INFO, "Skipping availability check for contact because User Availability is disabled.", v25, 2u);
   }
 
 LABEL_23:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (id)publishStatusKitAvailabilityReturningError:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   if (self->_active)
   {
     *buf = 0;
-    v38 = buf;
-    v39 = 0x3032000000;
-    v40 = __Block_byref_object_copy__3;
-    v41 = __Block_byref_object_dispose__3;
-    v42 = 0;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__3;
-    v35 = __Block_byref_object_dispose__3;
-    v36 = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__3;
-    v29 = __Block_byref_object_dispose__3;
+    v37 = buf;
+    v38 = 0x3032000000;
+    v39 = __Block_byref_object_copy__3;
+    v40 = __Block_byref_object_dispose__3;
+    v41 = 0;
     v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__3;
+    v34 = __Block_byref_object_dispose__3;
+    v35 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__3;
+    v28 = __Block_byref_object_dispose__3;
+    v29 = 0;
     v5 = dispatch_semaphore_create(0);
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __78__DNDSUserAvailabilityCoordinator_publishStatusKitAvailabilityReturningError___block_invoke;
-    v20 = &unk_278F8A778;
-    v22 = buf;
-    v23 = &v31;
-    v24 = &v25;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __78__DNDSUserAvailabilityCoordinator_publishStatusKitAvailabilityReturningError___block_invoke;
+    v19 = &unk_278F8A778;
+    v21 = buf;
+    v22 = &v30;
+    v23 = &v24;
     v6 = v5;
-    v21 = v6;
-    [(DNDSUserAvailabilityCoordinator *)self _publishStatusKitCurrentAvailabilityForced:0 override:-1 completionHandler:&v17];
+    v20 = v6;
+    [(DNDSUserAvailabilityCoordinator *)self _publishStatusKitCurrentAvailabilityForced:0 override:-1 completionHandler:&v16];
     v7 = dispatch_time(0, 5000000000);
     if (dispatch_semaphore_wait(v6, v7))
     {
       if (error)
       {
         v8 = MEMORY[0x277CCA9B8];
-        v43 = *MEMORY[0x277CCA450];
-        v44[0] = @"Call to [SKStatusPublishingService publishStatusRequest:completion:] timed out";
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:{1, v17, v18, v19, v20}];
+        v42 = *MEMORY[0x277CCA450];
+        v43[0] = @"Call to [SKStatusPublishingService publishStatusRequest:completion:] timed out";
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:{1, v16, v17, v18, v19}];
         *error = [v8 errorWithDomain:*MEMORY[0x277D05840] code:1000 userInfo:v9];
       }
 
@@ -1963,18 +2000,18 @@ LABEL_23:
     {
       if (error)
       {
-        *error = v26[5];
+        *error = v25[5];
       }
 
       v10 = [DNDSUserAvailabilityPublishResult alloc];
-      v11 = *(v38 + 5);
-      v12 = v32[5];
+      v11 = *(v37 + 5);
+      v12 = v31[5];
     }
 
-    v14 = [(DNDSUserAvailabilityPublishResult *)v10 initWithIdentifier:v11 availability:v12, v17, v18, v19, v20];
+    v14 = [(DNDSUserAvailabilityPublishResult *)v10 initWithIdentifier:v11 availability:v12, v16, v17, v18, v19];
 
-    _Block_object_dispose(&v25, 8);
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v30, 8);
 
     _Block_object_dispose(buf, 8);
   }
@@ -1991,14 +2028,12 @@ LABEL_23:
     v14 = [[DNDSUserAvailabilityPublishResult alloc] initWithIdentifier:0 availability:0];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 void __78__DNDSUserAvailabilityCoordinator_publishStatusKitAvailabilityReturningError___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -2010,9 +2045,9 @@ void __78__DNDSUserAvailabilityCoordinator_publishStatusKitAvailabilityReturning
   v10 = DNDSLogAvailabilityProvider;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
   {
-    v21 = 138543362;
-    v22 = v7;
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v7;
+    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v20, 0xCu);
   }
 
   v11 = *(*(a1 + 40) + 8);
@@ -2031,12 +2066,212 @@ void __78__DNDSUserAvailabilityCoordinator_publishStatusKitAvailabilityReturning
   v19 = v9;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v20 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_publishStatusKitCurrentAvailabilityForced:(BOOL)forced override:(int64_t)override completionHandler:(id)handler
+{
+  forcedCopy = forced;
+  v38[1] = *MEMORY[0x277D85DE8];
+  handlerCopy = handler;
+  _isTCCUserAvailabilityGrantedForMessages = [(DNDSUserAvailabilityCoordinator *)self _isTCCUserAvailabilityGrantedForMessages];
+  v10 = _isTCCUserAvailabilityGrantedForMessages;
+  if (forcedCopy || _isTCCUserAvailabilityGrantedForMessages)
+  {
+    if (override != -1)
+    {
+      v15 = DNDSLogAvailabilityProvider;
+      if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = MEMORY[0x277CCABB0];
+        v17 = v15;
+        v18 = [v16 numberWithInteger:override];
+        *buf = 138412290;
+        v36 = v18;
+        _os_log_impl(&dword_24912E000, v17, OS_LOG_TYPE_DEFAULT, "Applying override to focus status update: %@", buf, 0xCu);
+      }
+
+      uUIDString = 0;
+      v19 = override != 0;
+      goto LABEL_19;
+    }
+
+    lastCalculatedState = [(DNDSStateProviding *)self->_stateProvider lastCalculatedState];
+    if (![lastCalculatedState isActive])
+    {
+      uUIDString = 0;
+      v19 = 1;
+      goto LABEL_18;
+    }
+
+    configurationProvider = self->_configurationProvider;
+    activeModeIdentifier = [lastCalculatedState activeModeIdentifier];
+    v34 = 0;
+    v23 = [(DNDSModeConfigurationProviding *)configurationProvider modeConfigurationForModeIdentifier:activeModeIdentifier withError:&v34];
+    v24 = v34;
+
+    if (v24)
+    {
+      v25 = DNDSLogAvailabilityProvider;
+      if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_ERROR))
+      {
+        [DNDSUserAvailabilityCoordinator _publishStatusKitCurrentAvailabilityForced:v25 override:lastCalculatedState completionHandler:?];
+      }
+    }
+
+    else
+    {
+      if (v10)
+      {
+        [v23 impactsAvailability];
+        if (DNDResolvedImpactsAvailabilitySetting() == 2)
+        {
+          activeModeIdentifier2 = [lastCalculatedState activeModeIdentifier];
+          v19 = [(DNDSUserAvailabilityCoordinator *)self _isLocalUserAvailableForMessagesWithModeIdentifier:activeModeIdentifier2 withError:0];
+
+          mode = [v23 mode];
+          identifier = [mode identifier];
+          uUIDString = [identifier UUIDString];
+
+          if (![uUIDString length])
+          {
+            v29 = DNDSLogAvailabilityProvider;
+            if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_FAULT))
+            {
+              [DNDSUserAvailabilityCoordinator _publishStatusKitCurrentAvailabilityForced:v29 override:lastCalculatedState completionHandler:?];
+            }
+
+            uUIDString = 0;
+            v19 = 1;
+          }
+        }
+
+        else
+        {
+          v31 = DNDSLogAvailabilityProvider;
+          v19 = 1;
+          if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
+          {
+            v32 = v31;
+            activeModeIdentifier3 = [lastCalculatedState activeModeIdentifier];
+            *buf = 138477827;
+            v36 = activeModeIdentifier3;
+            _os_log_impl(&dword_24912E000, v32, OS_LOG_TYPE_INFO, ".impactsAvailability is disabled for %{private}@", buf, 0xCu);
+          }
+
+          uUIDString = 0;
+        }
+
+        goto LABEL_16;
+      }
+
+      if (forcedCopy)
+      {
+        v30 = DNDSLogAvailabilityProvider;
+        if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_24912E000, v30, OS_LOG_TYPE_DEFAULT, "Forced focus status update indicating not focused due to TCC revocation", buf, 2u);
+        }
+      }
+    }
+
+    uUIDString = 0;
+    v19 = 1;
+LABEL_16:
+
+LABEL_18:
+LABEL_19:
+    [(DNDSUserAvailabilityCoordinator *)self _publishStatusKitAvailability:v19 activityIdentifier:uUIDString local:1 scheduled:0 date:0 forced:forcedCopy completion:handlerCopy];
+    goto LABEL_20;
+  }
+
+  if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_ERROR))
+  {
+    [DNDSUserAvailabilityCoordinator userAvailabilityInActiveModeForContactHandle:withError:];
+  }
+
+  v11 = MEMORY[0x277CCA9B8];
+  v12 = *MEMORY[0x277D05840];
+  v37 = *MEMORY[0x277CCA450];
+  v38[0] = @"Caller does not have permission to trigger publishing user availability.";
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  uUIDString = [v11 errorWithDomain:v12 code:1004 userInfo:v13];
+
+  if (handlerCopy)
+  {
+    (*(handlerCopy + 2))(handlerCopy, 0, 0, uUIDString);
+  }
+
+LABEL_20:
+}
+
+- (void)_publishStatusKitAvailability:(BOOL)availability activityIdentifier:(id)identifier local:(BOOL)local scheduled:(BOOL)scheduled date:(id)date forced:(BOOL)forced completion:(id)completion
+{
+  scheduledCopy = scheduled;
+  localCopy = local;
+  availabilityCopy = availability;
+  v35[1] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dateCopy = date;
+  completionCopy = completion;
+  if (forced || [(DNDSUserAvailabilityCoordinator *)self _isTCCUserAvailabilityGrantedForMessages])
+  {
+    v18 = DNDSLogAvailabilityProvider;
+    if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
+    {
+      v19 = @"UNAVAILABLE";
+      if (availabilityCopy)
+      {
+        v19 = @"AVAILABLE";
+      }
+
+      *buf = 138543618;
+      v31 = v19;
+      v32 = 2114;
+      v33 = identifierCopy;
+      _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_INFO, "Informing availability (%{public}@) for activity %{public}@ to StatusKit", buf, 0x16u);
+    }
+
+    v20 = [objc_alloc(MEMORY[0x277CF0480]) initWithAvailable:availabilityCopy activityIdentifierString:identifierCopy];
+    statusPublishRequest = [v20 statusPublishRequest];
+    [statusPublishRequest setIsSecondaryDeviceRepublish:!localCopy];
+    [statusPublishRequest setIsScheduledRequest:scheduledCopy];
+    [statusPublishRequest setDateCreated:dateCopy];
+    statusService = self->_statusService;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __123__DNDSUserAvailabilityCoordinator__publishStatusKitAvailability_activityIdentifier_local_scheduled_date_forced_completion___block_invoke;
+    v27[3] = &unk_278F8A7A0;
+    v28 = v20;
+    v29 = completionCopy;
+    v23 = v20;
+    [(SKStatusPublishingService *)statusService publishStatusRequest:statusPublishRequest completion:v27];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_ERROR))
+    {
+      [DNDSUserAvailabilityCoordinator userAvailabilityInActiveModeForContactHandle:withError:];
+    }
+
+    v24 = MEMORY[0x277CCA9B8];
+    v25 = *MEMORY[0x277D05840];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = @"Caller does not have permission to trigger publishing user availability.";
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    statusPublishRequest = [v24 errorWithDomain:v25 code:1004 userInfo:v26];
+
+    if (completionCopy)
+    {
+      (*(completionCopy + 2))(completionCopy, 0, 0, statusPublishRequest);
+    }
+  }
 }
 
 void __123__DNDSUserAvailabilityCoordinator__publishStatusKitAvailability_activityIdentifier_local_scheduled_date_forced_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6 && os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_ERROR))
@@ -2047,9 +2282,9 @@ void __123__DNDSUserAvailabilityCoordinator__publishStatusKitAvailability_activi
   v7 = DNDSLogAvailabilityProvider;
   if (os_log_type_enabled(DNDSLogAvailabilityProvider, OS_LOG_TYPE_INFO))
   {
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_24912E000, v7, OS_LOG_TYPE_INFO, "Published status request with identifier: %{public}@", &v9, 0xCu);
   }
 
   v8 = *(a1 + 40);
@@ -2057,8 +2292,6 @@ void __123__DNDSUserAvailabilityCoordinator__publishStatusKitAvailability_activi
   {
     (*(v8 + 16))(v8, v5, *(a1 + 32), v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeUpdatingInvitationsForContacts:completionHandler:.cold.1()
@@ -2077,29 +2310,23 @@ void __123__DNDSUserAvailabilityCoordinator__publishStatusKitAvailability_activi
 
 void __80__DNDSUserAvailabilityCoordinator_suspendWithOverrideSetting_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __145__DNDSUserAvailabilityCoordinator__queue_notifyIntentExtensionsOfUserAvailability_availabilityOverride_applicationIdentifiers_completionHandler___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_forceAvailabilityPublish_completionHandler___block_invoke_57_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userAvailabilityInActiveModeForContactHandle:withError:.cold.1()
@@ -2111,24 +2338,20 @@ void __114__DNDSUserAvailabilityCoordinator_sendStatusKitInvitationsForContacts_
 
 - (void)_publishStatusKitCurrentAvailabilityForced:(void *)a1 override:(void *)a2 completionHandler:.cold.2(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 activeModeIdentifier];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Error getting mode configuration for %{private}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, v3, OS_LOG_TYPE_ERROR, "Error getting mode configuration for %{private}@", v5, 0xCu);
 }
 
 - (void)_publishStatusKitCurrentAvailabilityForced:(void *)a1 override:(void *)a2 completionHandler:.cold.3(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 activeModeIdentifier];
   OUTLINED_FUNCTION_4();
-  _os_log_fault_impl(&dword_24912E000, v3, OS_LOG_TYPE_FAULT, "Unexpected empty identifier UUID or nil mode for modeIdentifier, modeIdentifier=%{private}@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24912E000, v3, OS_LOG_TYPE_FAULT, "Unexpected empty identifier UUID or nil mode for modeIdentifier, modeIdentifier=%{private}@", v5, 0xCu);
 }
 
 @end

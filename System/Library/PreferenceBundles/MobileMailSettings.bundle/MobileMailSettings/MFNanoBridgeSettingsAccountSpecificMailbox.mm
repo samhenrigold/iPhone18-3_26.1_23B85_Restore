@@ -12,7 +12,6 @@
 - (unint64_t)hash;
 - (unint64_t)level;
 - (void)encodeWithCoder:(id)coder;
-- (void)invalidateCachedData;
 @end
 
 @implementation MFNanoBridgeSettingsAccountSpecificMailbox
@@ -57,13 +56,6 @@
   }
 
   return v8;
-}
-
-- (void)invalidateCachedData
-{
-  mailboxUid = self->_mailboxUid;
-  self->_mailboxUid = 0;
-  _objc_release_x1();
 }
 
 - (int64_t)type

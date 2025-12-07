@@ -2,6 +2,7 @@
 - (_TtC10seserviced10UWBSession)init;
 - (void)session:(id)session didInvalidateWithError:(id)error;
 - (void)session:(id)session suspendedWithReason:(int64_t)reason;
+- (void)session:(id)session suspensionReasonEnded:(int64_t)ended isNoLongerSuspended:(BOOL)suspended;
 - (void)sessionDidStartRunning:(id)running;
 @end
 
@@ -34,6 +35,14 @@
   sessionCopy = session;
   selfCopy = self;
   sub_10024E058(reason);
+}
+
+- (void)session:(id)session suspensionReasonEnded:(int64_t)ended isNoLongerSuspended:(BOOL)suspended
+{
+  suspendedCopy = suspended;
+  sessionCopy = session;
+  selfCopy = self;
+  sub_10024E280(ended, suspendedCopy);
 }
 
 @end

@@ -23,10 +23,12 @@
 
   if (v5)
   {
-    [(GKTextStyle *)v5 applyToEditField:self];
+    v9 = v5;
+    appliedStyle = [(GKTextStyle *)v5 applyToEditField:self];
+    v5 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](appliedStyle, v5);
 }
 
 - (void)setBaseStyle:(id)style

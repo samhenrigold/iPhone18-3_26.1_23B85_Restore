@@ -191,7 +191,7 @@
 
   else
   {
-    v3 = CarPlayUIGeneralLogging();
+    v3 = CarPlayUIGeneralLogging(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [(CPUINowPlayingViewController *)v3 reloadData];
@@ -201,7 +201,7 @@
 
 - (void)nowPlayingViewWantsToShowVideo:(id)video
 {
-  v4 = CarPlayUIGeneralLogging();
+  v4 = CarPlayUIGeneralLogging(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -220,21 +220,22 @@
 void __63__CPUINowPlayingViewController_nowPlayingViewWantsToShowVideo___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CarPlayUIGeneralLogging(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __63__CPUINowPlayingViewController_nowPlayingViewWantsToShowVideo___block_invoke_cold_1(v3, v4);
+      __63__CPUINowPlayingViewController_nowPlayingViewWantsToShowVideo___block_invoke_cold_1(v4, v5);
     }
   }
 
   else
   {
-    v5 = [*(a1 + 32) dataSource];
-    v6 = [v5 nowPlayingViewControllerIsPlaying:*(a1 + 32)];
+    v6 = [*(a1 + 32) dataSource];
+    v7 = [v6 nowPlayingViewControllerIsPlaying:*(a1 + 32)];
 
-    if ((v6 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
       [*(a1 + 32) _sendAction:2 withState:2];
     }
@@ -671,7 +672,7 @@ LABEL_24:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __72__CPUINowPlayingViewController_environmentMonitorDidChangeThermalLevel___block_invoke(uint64_t a1)
+void *__72__CPUINowPlayingViewController_environmentMonitorDidChangeThermalLevel___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isViewLoaded];
   if (result)
@@ -978,7 +979,7 @@ void __60__CPUINowPlayingViewController__setStatusBarOverrideActive___block_invo
   v15 = 0u;
   if (dataSource)
   {
-    [dataSource durationSnapshotForNowPlayingViewController:self];
+    objc_msgSend_durationSnapshotForNowPlayingViewController_(dataSource);
   }
 
   v13[0] = v15;
@@ -1004,7 +1005,7 @@ void __60__CPUINowPlayingViewController__setStatusBarOverrideActive___block_invo
 
 - (void)_updatePlayModesState
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   v4 = objc_opt_respondsToSelector();
 
@@ -1128,20 +1129,20 @@ void __60__CPUINowPlayingViewController__setStatusBarOverrideActive___block_invo
   playbackRateButton = [playModeControlView playbackRateButton];
   [playbackRateButton setHidden:v36 ^ 1u];
 
-  v43 = CarPlayUIGeneralLogging();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v44 = CarPlayUIGeneralLogging(v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
-    v44[0] = 67110144;
-    v44[1] = v11;
-    v45 = 1024;
-    v46 = v20;
-    v47 = 1024;
-    v48 = v24;
-    v49 = 1024;
-    v50 = v28;
-    v51 = 1024;
-    v52 = v36;
-    _os_log_impl(&dword_243134000, v43, OS_LOG_TYPE_DEFAULT, "Shuffle: %d Repeat: %d Show CTA: %d Bookmark: %d Change Playback Rate: %d", v44, 0x20u);
+    v45[0] = 67110144;
+    v45[1] = v11;
+    v46 = 1024;
+    v47 = v20;
+    v48 = 1024;
+    v49 = v24;
+    v50 = 1024;
+    v51 = v28;
+    v52 = 1024;
+    v53 = v36;
+    _os_log_impl(&dword_243134000, v44, OS_LOG_TYPE_DEFAULT, "Shuffle: %d Repeat: %d Show CTA: %d Bookmark: %d Change Playback Rate: %d", v45, 0x20u);
   }
 
   [playModeControlView layoutSubviews];
@@ -1189,83 +1190,89 @@ void __60__CPUINowPlayingViewController__setStatusBarOverrideActive___block_invo
     uiTimer2 = [(CPUINowPlayingViewController *)self uiTimer];
     [uiTimer2 invalidate];
 
-    v11 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = CarPlayUIGeneralLogging(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_243134000, v11, OS_LOG_TYPE_DEFAULT, "UI Timer invalidated", buf, 2u);
+      _os_log_impl(&dword_243134000, v13, OS_LOG_TYPE_DEFAULT, "UI Timer invalidated", buf, 2u);
     }
   }
 
-  v12 = CarPlayUIGeneralLogging();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = CarPlayUIGeneralLogging(v10);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_243134000, v12, OS_LOG_TYPE_DEFAULT, "UI Timer created", buf, 2u);
+    _os_log_impl(&dword_243134000, v14, OS_LOG_TYPE_DEFAULT, "UI Timer created", buf, 2u);
   }
 
   objc_initWeak(buf, self);
-  v13 = MEMORY[0x277CBEBB8];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __62__CPUINowPlayingViewController__updateShuffleAndRepeatButtons__block_invoke;
-  v17[3] = &unk_278D9C648;
-  objc_copyWeak(&v20, buf);
-  v14 = shuffleButton;
-  v18 = v14;
-  v15 = repeatButton;
-  v19 = v15;
-  v16 = [v13 scheduledTimerWithTimeInterval:0 repeats:v17 block:0.1];
-  [(CPUINowPlayingViewController *)self setUiTimer:v16];
+  v15 = MEMORY[0x277CBEBB8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __62__CPUINowPlayingViewController__updateShuffleAndRepeatButtons__block_invoke;
+  v19[3] = &unk_278D9C648;
+  objc_copyWeak(&v22, buf);
+  v16 = shuffleButton;
+  v20 = v16;
+  v17 = repeatButton;
+  v21 = v17;
+  v18 = [v15 scheduledTimerWithTimeInterval:0 repeats:v19 block:0.1];
+  [(CPUINowPlayingViewController *)self setUiTimer:v18];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(buf);
 }
 
 void __62__CPUINowPlayingViewController__updateShuffleAndRepeatButtons__block_invoke(id *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
-  if (WeakRetained && [v3 isValid])
+  if (WeakRetained)
   {
-    v5 = CarPlayUIGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v5 = [v3 isValid];
+    if (v5)
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&dword_243134000, v5, OS_LOG_TYPE_DEFAULT, "UI Timer executed", &v12, 2u);
-    }
-
-    v6 = [WeakRetained dataSource];
-    v7 = [v6 shuffleTypeForNowPlayingViewController:WeakRetained];
-
-    if ((v7 != 0) != [a1[4] isSelected])
-    {
-      v8 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v6 = CarPlayUIGeneralLogging(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        v13 = v7 != 0;
-        _os_log_impl(&dword_243134000, v8, OS_LOG_TYPE_DEFAULT, "UI Timer set shuffle selected: %i", &v12, 8u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_243134000, v6, OS_LOG_TYPE_DEFAULT, "UI Timer executed", &v15, 2u);
       }
 
-      [a1[4] setSelected:v7 != 0];
-    }
+      v7 = [WeakRetained dataSource];
+      v8 = [v7 shuffleTypeForNowPlayingViewController:WeakRetained];
 
-    v9 = [WeakRetained dataSource];
-    v10 = [v9 repeatTypeForNowPlayingViewController:WeakRetained];
-
-    if ((v10 != 0) != [a1[5] isSelected])
-    {
-      v11 = CarPlayUIGeneralLogging();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v9 = [a1[4] isSelected];
+      if ((v8 != 0) != v9)
       {
-        v12 = 67109120;
-        v13 = v10 != 0;
-        _os_log_impl(&dword_243134000, v11, OS_LOG_TYPE_DEFAULT, "UI Timer set repeat selected: %i", &v12, 8u);
+        v10 = CarPlayUIGeneralLogging(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        {
+          v15 = 67109120;
+          v16 = v8 != 0;
+          _os_log_impl(&dword_243134000, v10, OS_LOG_TYPE_DEFAULT, "UI Timer set shuffle selected: %i", &v15, 8u);
+        }
+
+        [a1[4] setSelected:v8 != 0];
       }
 
-      [a1[5] setSelected:v10 != 0];
+      v11 = [WeakRetained dataSource];
+      v12 = [v11 repeatTypeForNowPlayingViewController:WeakRetained];
+
+      v13 = [a1[5] isSelected];
+      if ((v12 != 0) != v13)
+      {
+        v14 = CarPlayUIGeneralLogging(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        {
+          v15 = 67109120;
+          v16 = v12 != 0;
+          _os_log_impl(&dword_243134000, v14, OS_LOG_TYPE_DEFAULT, "UI Timer set repeat selected: %i", &v15, 8u);
+        }
+
+        [a1[5] setSelected:v12 != 0];
+      }
     }
   }
 }
@@ -1979,7 +1986,7 @@ LABEL_11:
   controlsCopy = controls;
   layoutCopy = layout;
   v57 = *MEMORY[0x277D85DE8];
-  v6 = CarPlayUIGeneralLogging();
+  v6 = CarPlayUIGeneralLogging(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2319,7 +2326,7 @@ void __96__CPUINowPlayingViewController_nowPlayingAudioFormatController_didChang
 
 - (void)_updateAudioRenderingMode:(int64_t)mode
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if ([(CPUINowPlayingViewController *)self lastRenderingMode]!= mode)
   {
     self->_lastRenderingMode = mode;
@@ -2334,84 +2341,85 @@ void __96__CPUINowPlayingViewController_nowPlayingAudioFormatController_didChang
 
     else
     {
-      traitCollection = [(CPUINowPlayingViewController *)self traitCollection];
+      traitCollection2 = [(CPUINowPlayingViewController *)self traitCollection];
+      traitCollection = traitCollection2;
       if ((mode - 1) < 2)
       {
         v5 = 0;
-        v11 = 0;
+        v12 = 0;
         goto LABEL_13;
       }
 
       if (mode == 4)
       {
-        v10 = @"DolbyAudio";
+        v11 = @"DolbyAudio";
       }
 
       else
       {
         if (mode != 5)
         {
-          v9 = CarPlayUIGeneralLogging();
+          v9 = CarPlayUIGeneralLogging(traitCollection2);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
           {
             [(CPUINowPlayingViewController *)mode _updateAudioRenderingMode:v9];
           }
 
           v5 = 0;
-          v11 = 0;
+          v12 = 0;
           goto LABEL_12;
         }
 
-        v10 = @"DolbyAtmos";
+        v11 = @"DolbyAtmos";
       }
 
-      v9 = CPUIImageNamedWithTraitCollection(v10, traitCollection);
+      v9 = CPUIImageNamedWithTraitCollection(v11, traitCollection);
       v5 = 0;
     }
 
-    v11 = [v9 imageWithRenderingMode:2];
+    v12 = [v9 imageWithRenderingMode:2];
 LABEL_12:
 
 LABEL_13:
-    v34 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
+    v34 = 0u;
     arrangedSubviews = [(UIStackView *)self->_audioSessionRenderingModeView arrangedSubviews];
-    v13 = [arrangedSubviews countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v13)
+    v14 = [arrangedSubviews countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = *v33;
+      v15 = v14;
+      v16 = *v34;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v33 != v15)
+          if (*v34 != v16)
           {
             objc_enumerationMutation(arrangedSubviews);
           }
 
-          v17 = *(*(&v32 + 1) + 8 * i);
-          [(UIStackView *)self->_audioSessionRenderingModeView removeArrangedSubview:v17];
-          [v17 removeFromSuperview];
+          v18 = *(*(&v33 + 1) + 8 * i);
+          [(UIStackView *)self->_audioSessionRenderingModeView removeArrangedSubview:v18];
+          [v18 removeFromSuperview];
         }
 
-        v14 = [arrangedSubviews countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v15 = [arrangedSubviews countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     audioSessionRenderingModeView = self->_audioSessionRenderingModeView;
-    if (v5 | v11)
+    if (v5 | v12)
     {
-      v19 = MEMORY[0x277CBF3A0];
+      v20 = MEMORY[0x277CBF3A0];
       if (!audioSessionRenderingModeView)
       {
-        v20 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
-        v21 = self->_audioSessionRenderingModeView;
-        self->_audioSessionRenderingModeView = v20;
+        v21 = [objc_alloc(MEMORY[0x277D75A68]) initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+        v22 = self->_audioSessionRenderingModeView;
+        self->_audioSessionRenderingModeView = v21;
 
         [(UIStackView *)self->_audioSessionRenderingModeView setTranslatesAutoresizingMaskIntoConstraints:0];
         layer = [(UIStackView *)self->_audioSessionRenderingModeView layer];
@@ -2423,22 +2431,22 @@ LABEL_13:
         [(UIStackView *)self->_audioSessionRenderingModeView setAlpha:0.400000006];
       }
 
-      v23 = MEMORY[0x277CDA5E8];
-      if (v11)
+      v24 = MEMORY[0x277CDA5E8];
+      if (v12)
       {
-        v24 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v11];
+        v25 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:v12];
         whiteColor = [MEMORY[0x277D75348] whiteColor];
-        [v24 setTintColor:whiteColor];
+        [v25 setTintColor:whiteColor];
 
-        [v24 setContentMode:1];
-        v26 = [MEMORY[0x277CD9EA0] filterWithType:*v23];
-        layer2 = [v24 layer];
-        [layer2 setCompositingFilter:v26];
+        [v25 setContentMode:1];
+        v27 = [MEMORY[0x277CD9EA0] filterWithType:*v24];
+        layer2 = [v25 layer];
+        [layer2 setCompositingFilter:v27];
 
-        [(UIStackView *)self->_audioSessionRenderingModeView addArrangedSubview:v24];
+        [(UIStackView *)self->_audioSessionRenderingModeView addArrangedSubview:v25];
         if (v5)
         {
-          [(UIStackView *)self->_audioSessionRenderingModeView setCustomSpacing:v24 afterView:3.0];
+          [(UIStackView *)self->_audioSessionRenderingModeView setCustomSpacing:v25 afterView:3.0];
         }
       }
 
@@ -2447,14 +2455,14 @@ LABEL_13:
         goto LABEL_31;
       }
 
-      audioSessionRenderingModeView = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{*v19, v19[1], v19[2], v19[3]}];
+      audioSessionRenderingModeView = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{*v20, v20[1], v20[2], v20[3]}];
       [(UIStackView *)audioSessionRenderingModeView setText:v5];
-      v28 = [MEMORY[0x277CD9EA0] filterWithType:*v23];
+      v29 = [MEMORY[0x277CD9EA0] filterWithType:*v24];
       layer3 = [(UIStackView *)audioSessionRenderingModeView layer];
-      [layer3 setCompositingFilter:v28];
+      [layer3 setCompositingFilter:v29];
 
-      v30 = [MEMORY[0x277D74300] systemFontOfSize:10.0 weight:*MEMORY[0x277D74418]];
-      [(UIStackView *)audioSessionRenderingModeView setFont:v30];
+      v31 = [MEMORY[0x277D74300] systemFontOfSize:10.0 weight:*MEMORY[0x277D74418]];
+      [(UIStackView *)audioSessionRenderingModeView setFont:v31];
 
       whiteColor2 = [MEMORY[0x277D75348] whiteColor];
       [(UIStackView *)audioSessionRenderingModeView setTextColor:whiteColor2];

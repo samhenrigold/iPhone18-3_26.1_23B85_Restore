@@ -74,16 +74,16 @@
   [pageCopy capsuleHeightForWidth:1 defaultHeight:v10 state:44.0];
   v13 = v12;
 
-  [WeakRetained safeAreaInsets];
-  v15 = v14 + -13.0;
-  HasHomeButton = _SFDeviceHasHomeButton();
-  v17 = 5.0;
+  safeAreaInsets = [WeakRetained safeAreaInsets];
+  v16 = v15 + -13.0;
+  HasHomeButton = _SFDeviceHasHomeButton(safeAreaInsets, v17);
+  v19 = 5.0;
   if (!HasHomeButton)
   {
-    v17 = 0.0;
+    v19 = 0.0;
   }
 
-  [v7 setFrame:{v9, fmax(v15 + v17, 0.0), v11, v13}];
+  [v7 setFrame:{v9, fmax(v16 + v19, 0.0), v11, v13}];
 
   return v7;
 }

@@ -35,7 +35,7 @@
       v6 = 0;
     }
 
-    v14 = [(PushNotificationSoundsSyncOperation *)self _downloadSoundFiles:v6 error:&v17];
+    v15 = [(PushNotificationSoundsSyncOperation *)self _downloadSoundFiles:v6 error:&v17];
   }
 
   else
@@ -49,55 +49,59 @@
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      v10 = objc_opt_class();
+      v11 = objc_opt_class();
       v18 = 138412546;
-      v19 = v10;
+      v19 = v11;
       v20 = 2112;
       v21 = v17;
-      LODWORD(v16) = 22;
-      v15 = &v18;
-      v11 = _os_log_send_and_compose_impl();
-      if (v11)
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not load URL bag: %@", &v18, 22);
+      if (v12)
       {
-        v12 = v11;
-        v13 = [NSString stringWithCString:v11 encoding:4, &v18, v16];
-        free(v12);
-        v15 = v13;
+        v13 = v12;
+        v14 = [NSString stringWithCString:v12 encoding:4];
+        free(v13);
+        v16 = v14;
         SSFileLog();
       }
     }
 
-    v14 = 0;
+    v15 = 0;
   }
 
-  [(PushNotificationSoundsSyncOperation *)self setError:v17, v15];
-  [(PushNotificationSoundsSyncOperation *)self setSuccess:v14];
+  [(PushNotificationSoundsSyncOperation *)self setError:v17, v16];
+  [(PushNotificationSoundsSyncOperation *)self setSuccess:v15];
 }
 
 - (BOOL)_downloadSoundFileWithURL:(id)l name:(id)name cache:(id)cache error:(id *)error
 {
-  v50 = 0;
+  v53 = 0;
   v10 = [[NSURLRequest alloc] initWithURL:l];
   cacheCopy = cache;
   v11 = [cache cachedResponseForRequest:v10];
   if (!v11)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   [objc_msgSend(v11 "response")];
@@ -108,153 +112,167 @@
     v14 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v14 shouldLog];
+  LODWORD(v15) = [v14 shouldLog];
   if ([v14 shouldLogToDisk])
   {
-    shouldLog |= 2u;
+    LODWORD(v15) = v15 | 2;
   }
 
-  if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v14 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    v15 = v15;
   }
 
-  if (shouldLog)
+  else
   {
-    v16 = objc_opt_class();
+    v15 &= 2u;
+  }
+
+  if (v15)
+  {
+    v17 = objc_opt_class();
     +[NSDate timeIntervalSinceReferenceDate];
-    v51 = 138412546;
-    v52 = v16;
-    v53 = 2048;
-    v54 = v13 - v17;
-    LODWORD(v47) = 22;
-    v45 = &v51;
-    v18 = _os_log_send_and_compose_impl();
-    if (v18)
+    v54 = 138412546;
+    v55 = v17;
+    v56 = 2048;
+    v57 = v13 - v18;
+    v19 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Sound file expires in %.2f seconds", &v54, 22);
+    if (v19)
     {
-      v19 = v18;
-      v20 = [NSString stringWithCString:v18 encoding:4, &v51, v47];
-      free(v19);
-      v45 = v20;
+      v20 = v19;
+      v21 = [NSString stringWithCString:v19 encoding:4];
+      free(v20);
+      v48 = v21;
       SSFileLog();
     }
   }
 
   +[NSDate timeIntervalSinceReferenceDate];
-  if (v13 >= v21)
+  if (v13 >= v22)
   {
-    LOBYTE(v32) = 1;
+    LOBYTE(v34) = 1;
   }
 
   else
   {
-LABEL_12:
-    v22 = objc_alloc_init(ISStoreURLOperation);
-    v23 = [[SSMutableURLRequestProperties alloc] initWithURL:l];
-    [v23 setCachePolicy:1];
-    [v22 setRequestProperties:v23];
+LABEL_13:
+    v23 = objc_alloc_init(ISStoreURLOperation);
+    v24 = [[SSMutableURLRequestProperties alloc] initWithURL:l];
+    [v24 setCachePolicy:1];
+    [v23 setRequestProperties:v24];
 
-    v24 = objc_alloc_init(ISHashedDownloadProvider);
-    [v24 setLocalFilePath:{objc_msgSend(+[PushNotificationController soundFilesDirectoryPath](PushNotificationController, "soundFilesDirectoryPath"), "stringByAppendingPathComponent:", name)}];
-    [v24 resetStream];
-    v25 = +[SSLogConfig sharedDaemonConfig];
-    if (!v25)
+    v25 = objc_alloc_init(ISHashedDownloadProvider);
+    [v25 setLocalFilePath:{objc_msgSend(+[PushNotificationController soundFilesDirectoryPath](PushNotificationController, "soundFilesDirectoryPath"), "stringByAppendingPathComponent:", name)}];
+    [v25 resetStream];
+    v26 = +[SSLogConfig sharedDaemonConfig];
+    if (!v26)
     {
-      v25 = +[SSLogConfig sharedConfig];
+      v26 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v25 shouldLog];
-    if ([v25 shouldLogToDisk])
+    LODWORD(v27) = [v26 shouldLog];
+    if ([v26 shouldLogToDisk])
     {
-      shouldLog2 |= 2u;
+      LODWORD(v27) = v27 | 2;
     }
 
-    if (!os_log_type_enabled([v25 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject2 = [v26 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v27 = v27;
     }
 
-    if (shouldLog2)
+    else
     {
-      v27 = objc_opt_class();
-      localFilePath = [v24 localFilePath];
-      v51 = 138412802;
-      v52 = v27;
-      v53 = 2112;
-      v54 = *&l;
-      v55 = 2112;
-      v56 = localFilePath;
-      LODWORD(v47) = 32;
-      v45 = &v51;
-      v29 = _os_log_send_and_compose_impl();
-      if (v29)
+      v27 &= 2u;
+    }
+
+    if (v27)
+    {
+      v29 = objc_opt_class();
+      localFilePath = [v25 localFilePath];
+      v54 = 138412802;
+      v55 = v29;
+      v56 = 2112;
+      v57 = *&l;
+      v58 = 2112;
+      v59 = localFilePath;
+      LODWORD(v50) = 32;
+      v31 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Downloading sound file %@ to %@", &v54, v50);
+      if (v31)
       {
-        v30 = v29;
-        v31 = [NSString stringWithCString:v29 encoding:4, &v51, v47];
-        free(v30);
-        v45 = v31;
+        v32 = v31;
+        v33 = [NSString stringWithCString:v31 encoding:4];
+        free(v32);
+        v48 = v33;
         SSFileLog();
       }
     }
 
-    [v22 setDataProvider:{v24, v45}];
+    [v23 setDataProvider:{v25, v48}];
 
-    v32 = [(PushNotificationSoundsSyncOperation *)self runSubOperation:v22 returningError:&v50];
-    if (v32)
+    v34 = [(PushNotificationSoundsSyncOperation *)self runSubOperation:v23 returningError:&v53];
+    if (v34)
     {
-      v33 = [[NSMutableData alloc] initWithLength:1];
-      v34 = [[NSCachedURLResponse alloc] initWithResponse:objc_msgSend(v22 data:{"response"), v33}];
-      v35 = +[SSLogConfig sharedDaemonConfig];
-      if (!v35)
+      v35 = [[NSMutableData alloc] initWithLength:1];
+      v36 = [[NSCachedURLResponse alloc] initWithResponse:objc_msgSend(v23 data:{"response"), v35}];
+      v37 = +[SSLogConfig sharedDaemonConfig];
+      if (!v37)
       {
-        v35 = +[SSLogConfig sharedConfig];
+        v37 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v35 shouldLog];
-      if ([v35 shouldLogToDisk])
+      LODWORD(v38) = [v37 shouldLog];
+      if ([v37 shouldLogToDisk])
       {
-        shouldLog3 |= 2u;
+        LODWORD(v38) = v38 | 2;
       }
 
-      if (!os_log_type_enabled([v35 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject3 = [v37 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
       {
-        shouldLog3 &= 2u;
+        v38 = v38;
       }
 
-      if (shouldLog3)
+      else
       {
-        v37 = objc_opt_class();
-        [objc_msgSend(v22 "response")];
-        v39 = v38;
+        v38 &= 2u;
+      }
+
+      if (v38)
+      {
+        v40 = objc_opt_class();
+        [objc_msgSend(v23 "response")];
+        v42 = v41;
         +[NSDate timeIntervalSinceReferenceDate];
-        v51 = 138412546;
-        v52 = v37;
-        v53 = 2048;
-        v54 = v39 - v40;
-        LODWORD(v47) = 22;
-        v46 = &v51;
-        v41 = _os_log_send_and_compose_impl();
-        if (v41)
+        v54 = 138412546;
+        v55 = v40;
+        v56 = 2048;
+        v57 = v42 - v43;
+        LODWORD(v50) = 22;
+        v44 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Cache sound file expiring in %.2f seconds", &v54, v50);
+        if (v44)
         {
-          v42 = v41;
-          v43 = [NSString stringWithCString:v41 encoding:4, &v51, v47];
-          free(v42);
-          v46 = v43;
+          v45 = v44;
+          v46 = [NSString stringWithCString:v44 encoding:4];
+          free(v45);
+          v49 = v46;
           SSFileLog();
         }
       }
 
-      [cacheCopy storeCachedResponse:v34 forRequest:{v10, v46}];
+      [cacheCopy storeCachedResponse:v36 forRequest:{v10, v49}];
       [cacheCopy saveMemoryCacheToDisk];
     }
   }
 
   if (error)
   {
-    *error = v50;
+    *error = v53;
   }
 
-  return v32;
+  return v34;
 }
 
 - (BOOL)_downloadSoundFiles:(id)files error:(id *)error
@@ -279,194 +297,203 @@ LABEL_12:
   shouldLog = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v10 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (v12)
   {
-    *v60 = 138412546;
-    *&v60[4] = objc_opt_class();
-    v61 = 2048;
-    v62 = [filesCopy count];
-    LODWORD(v44) = 22;
-    v42 = v60;
-    v13 = _os_log_send_and_compose_impl();
-    if (v13)
+    *v62 = 138412546;
+    *&v62[4] = objc_opt_class();
+    v63 = 2048;
+    v64 = [filesCopy count];
+    v14 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Loading %lu sound files", v62, 22);
+    if (v14)
     {
-      v14 = v13;
-      v15 = [NSString stringWithCString:v13 encoding:4, v60, v44];
-      free(v14);
-      v42 = v15;
+      v15 = v14;
+      v16 = [NSString stringWithCString:v14 encoding:4];
+      free(v15);
+      v44 = v16;
       SSFileLog();
     }
   }
 
-  v16 = filesCopy;
+  v17 = filesCopy;
   if ([filesCopy count])
   {
     _newSoundFileURLCache = [(PushNotificationSoundsSyncOperation *)self _newSoundFileURLCache];
-    v54 = 0u;
-    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v17 = [filesCopy countByEnumeratingWithState:&v54 objects:v59 count:16];
-    if (v17)
+    v58 = 0u;
+    v59 = 0u;
+    v18 = [filesCopy countByEnumeratingWithState:&v56 objects:v61 count:16];
+    if (v18)
     {
-      v18 = v17;
-      v47 = 0;
-      v19 = *v55;
-      v48 = 1;
+      v19 = v18;
+      v49 = 0;
+      v20 = *v57;
+      v50 = 1;
       do
       {
-        for (i = 0; i != v18; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v55 != v19)
+          if (*v57 != v20)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v17);
           }
 
-          v21 = *(*(&v54 + 1) + 8 * i);
+          v22 = *(*(&v56 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v22 = [v21 objectForKey:@"name"];
-            v23 = [v21 objectForKey:@"url"];
+            v23 = [v22 objectForKey:@"name"];
+            v24 = [v22 objectForKey:@"url"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v24 = [[NSURL alloc] initWithString:v23];
-                if (v24)
+                v25 = [[NSURL alloc] initWithString:v24];
+                if (v25)
                 {
-                  v25 = v24;
-                  *v60 = 0;
-                  v48 &= [(PushNotificationSoundsSyncOperation *)self _downloadSoundFileWithURL:v24 name:v22 cache:_newSoundFileURLCache error:v60];
-                  v26 = v47;
-                  if (!v47)
+                  v26 = v25;
+                  *v62 = 0;
+                  v50 &= [(PushNotificationSoundsSyncOperation *)self _downloadSoundFileWithURL:v25 name:v23 cache:_newSoundFileURLCache error:v62];
+                  v27 = v49;
+                  if (!v49)
                   {
-                    v26 = *v60;
+                    v27 = *v62;
                   }
 
-                  v47 = v26;
-                  [v8 removeObject:v22];
+                  v49 = v27;
+                  [v8 removeObject:v23];
                 }
               }
             }
 
-            v16 = filesCopy;
+            v17 = filesCopy;
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v56 objects:v61 count:16];
       }
 
-      while (v18);
+      while (v19);
     }
 
     else
     {
-      v47 = 0;
-      LOBYTE(v48) = 1;
+      v49 = 0;
+      LOBYTE(v50) = 1;
     }
 
-    v28 = v48;
-    v27 = v47;
+    v29 = v50;
+    v28 = v49;
   }
 
   else
   {
-    v27 = 0;
-    v28 = 1;
+    v28 = 0;
+    v29 = 1;
   }
 
-  v29 = +[SSLogConfig sharedDaemonConfig];
-  if (!v29)
+  v30 = +[SSLogConfig sharedDaemonConfig];
+  if (!v30)
   {
-    v29 = +[SSLogConfig sharedConfig];
+    v30 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v29 shouldLog];
-  if ([v29 shouldLogToDisk])
+  shouldLog2 = [v30 shouldLog];
+  if ([v30 shouldLogToDisk])
   {
-    v31 = shouldLog2 | 2;
+    LODWORD(v32) = shouldLog2 | 2;
   }
 
   else
   {
-    v31 = shouldLog2;
+    LODWORD(v32) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v29 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v30 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v31 &= 2u;
+    v32 = v32;
   }
 
-  if (v31)
+  else
   {
-    v32 = objc_opt_class();
-    v33 = [v8 count];
-    *v60 = 138412546;
-    *&v60[4] = v32;
-    v61 = 2048;
-    v62 = v33;
-    LODWORD(v44) = 22;
-    v43 = v60;
-    v34 = _os_log_send_and_compose_impl();
-    if (v34)
+    v32 &= 2u;
+  }
+
+  if (v32)
+  {
+    v34 = objc_opt_class();
+    v35 = [v8 count];
+    *v62 = 138412546;
+    *&v62[4] = v34;
+    v63 = 2048;
+    v64 = v35;
+    LODWORD(v46) = 22;
+    v36 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Removing %lu dead sound files", v62, v46);
+    if (v36)
     {
-      v35 = v34;
-      v36 = [NSString stringWithCString:v34 encoding:4, v60, v44];
-      free(v35);
-      v43 = v36;
+      v37 = v36;
+      v38 = [NSString stringWithCString:v36 encoding:4];
+      free(v37);
+      v45 = v38;
       SSFileLog();
     }
   }
 
+  v54 = 0u;
+  v55 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v37 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:{16, v43}];
-  if (v37)
+  v39 = [v8 countByEnumeratingWithState:&v52 objects:v60 count:{16, v45}];
+  if (v39)
   {
-    v38 = v37;
-    v39 = *v51;
+    v40 = v39;
+    v41 = *v53;
     do
     {
-      for (j = 0; j != v38; j = j + 1)
+      for (j = 0; j != v40; j = j + 1)
       {
-        if (*v51 != v39)
+        if (*v53 != v41)
         {
           objc_enumerationMutation(v8);
         }
 
-        [v6 removeItemAtPath:objc_msgSend(v7 error:{"stringByAppendingPathComponent:", *(*(&v50 + 1) + 8 * j)), 0}];
+        [v6 removeItemAtPath:objc_msgSend(v7 error:{"stringByAppendingPathComponent:", *(*(&v52 + 1) + 8 * j)), 0}];
       }
 
-      v38 = [v8 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v40 = [v8 countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
-    while (v38);
+    while (v40);
   }
 
   if (error)
   {
-    *error = v27;
+    *error = v28;
   }
 
-  return v28 & 1;
+  return v29 & 1;
 }
 
 - (id)_newSoundFileURLCache

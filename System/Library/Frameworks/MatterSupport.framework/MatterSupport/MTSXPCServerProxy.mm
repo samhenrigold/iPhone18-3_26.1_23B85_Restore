@@ -16,6 +16,7 @@
 - (void)removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler;
 - (void)retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler;
 - (void)showRestrictedCharacteristicsAccessWarningAlert;
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation MTSXPCServerProxy
@@ -43,7 +44,7 @@
 
 void __68__MTSXPCServerProxy_showRestrictedCharacteristicsAccessWarningAlert__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -51,15 +52,14 @@ void __68__MTSXPCServerProxy_showRestrictedCharacteristicsAccessWarningAlert__bl
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for showing warning: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for showing warning: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)checkRestrictedCharacteristicsAccessAllowedWithCompletionHandler:(id)handler
@@ -80,7 +80,7 @@ void __68__MTSXPCServerProxy_showRestrictedCharacteristicsAccessWarningAlert__bl
 
 void __86__MTSXPCServerProxy_checkRestrictedCharacteristicsAccessAllowedWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -88,17 +88,15 @@ void __86__MTSXPCServerProxy_checkRestrictedCharacteristicsAccessAllowedWithComp
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for checking allows restricted characteristics access: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for checking allows restricted characteristics access: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler
@@ -120,7 +118,7 @@ void __86__MTSXPCServerProxy_checkRestrictedCharacteristicsAccessAllowedWithComp
 
 void __93__MTSXPCServerProxy_retrievePreferredThreadCredentialsOrCreateWithDataset_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -128,22 +126,38 @@ void __93__MTSXPCServerProxy_retrievePreferredThreadCredentialsOrCreateWithDatas
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for retrieve preferred Thread credentials: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for retrieve preferred Thread credentials: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  dCopy = d;
+  connection = [(MTSXPCServerProxy *)self connection];
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __112__MTSXPCServerProxy_updateThreadCredentialManagementEnabled_forSystemCommissionerPairingUUID_completionHandler___block_invoke;
+  v16 = &unk_278AA1AD0;
+  selfCopy = self;
+  v18 = handlerCopy;
+  v11 = handlerCopy;
+  v12 = [connection remoteObjectProxyWithErrorHandler:&v13];
+
+  [v12 updateThreadCredentialManagementEnabled:enabledCopy forSystemCommissionerPairingUUID:dCopy completionHandler:{v11, v13, v14, v15, v16, selfCopy}];
 }
 
 void __112__MTSXPCServerProxy_updateThreadCredentialManagementEnabled_forSystemCommissionerPairingUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -151,17 +165,15 @@ void __112__MTSXPCServerProxy_updateThreadCredentialManagementEnabled_forSystemC
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for set Thread credential management state: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for set Thread credential management state: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler
@@ -183,7 +195,7 @@ void __112__MTSXPCServerProxy_updateThreadCredentialManagementEnabled_forSystemC
 
 void __79__MTSXPCServerProxy_removeSystemCommissionerPairingWithUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -191,17 +203,15 @@ void __79__MTSXPCServerProxy_removeSystemCommissionerPairingWithUUID_completionH
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove system commissioner pairing: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove system commissioner pairing: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSystemCommissionerPairingsWithCompletionHandler:(id)handler
@@ -222,7 +232,7 @@ void __79__MTSXPCServerProxy_removeSystemCommissionerPairingWithUUID_completionH
 
 void __74__MTSXPCServerProxy_fetchSystemCommissionerPairingsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -230,17 +240,15 @@ void __74__MTSXPCServerProxy_fetchSystemCommissionerPairingsWithCompletionHandle
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for fetch system commissioner pairings: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for fetch system commissioner pairings: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performDeviceSetupUsingRequest:(id)request completionHandler:(id)handler
@@ -262,7 +270,7 @@ void __74__MTSXPCServerProxy_fetchSystemCommissionerPairingsWithCompletionHandle
 
 void __70__MTSXPCServerProxy_performDeviceSetupUsingRequest_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -270,17 +278,15 @@ void __70__MTSXPCServerProxy_performDeviceSetupUsingRequest_completionHandler___
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for performDeviceSetupUsingRequest: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for performDeviceSetupUsingRequest: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readCommissioningWindowStatusForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
@@ -302,7 +308,7 @@ void __70__MTSXPCServerProxy_performDeviceSetupUsingRequest_completionHandler___
 
 void __101__MTSXPCServerProxy_readCommissioningWindowStatusForSystemCommissionerPairingUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -310,17 +316,15 @@ void __101__MTSXPCServerProxy_readCommissioningWindowStatusForSystemCommissioner
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for reading commissioning window status: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for reading commissioning window status: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openCommissioningWindowForSystemCommissionerPairingUUID:(id)d duration:(double)duration completionHandler:(id)handler
@@ -342,7 +346,7 @@ void __101__MTSXPCServerProxy_readCommissioningWindowStatusForSystemCommissioner
 
 void __104__MTSXPCServerProxy_openCommissioningWindowForSystemCommissionerPairingUUID_duration_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -350,17 +354,15 @@ void __104__MTSXPCServerProxy_openCommissioningWindowForSystemCommissionerPairin
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for opening commissioning window: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for opening commissioning window: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
@@ -382,7 +384,7 @@ void __104__MTSXPCServerProxy_openCommissioningWindowForSystemCommissionerPairin
 
 void __95__MTSXPCServerProxy_removeAllDevicePairingsForSystemCommissionerPairingUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -390,17 +392,15 @@ void __95__MTSXPCServerProxy_removeAllDevicePairingsForSystemCommissionerPairing
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove all device pairings: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove all device pairings: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeDevicePairingWithUUID:(id)d forSystemCommissionerPairingUUID:(id)iD completionHandler:(id)handler
@@ -423,7 +423,7 @@ void __95__MTSXPCServerProxy_removeAllDevicePairingsForSystemCommissionerPairing
 
 void __100__MTSXPCServerProxy_removeDevicePairingWithUUID_forSystemCommissionerPairingUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -431,17 +431,15 @@ void __100__MTSXPCServerProxy_removeDevicePairingWithUUID_forSystemCommissionerP
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove device pairing: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for remove device pairing: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDevicePairingsForSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
@@ -463,7 +461,7 @@ void __100__MTSXPCServerProxy_removeDevicePairingWithUUID_forSystemCommissionerP
 
 void __91__MTSXPCServerProxy_fetchDevicePairingsForSystemCommissionerPairingUUID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -471,17 +469,15 @@ void __91__MTSXPCServerProxy_fetchDevicePairingsForSystemCommissionerPairingUUID
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for fetch device pairings: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_239824000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to obtain remote object proxy for fetch device pairings: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (MTSXPCConnection)connection
@@ -532,7 +528,7 @@ void __91__MTSXPCServerProxy_fetchDevicePairingsForSystemCommissionerPairingUUID
 
 void __31__MTSXPCServerProxy_connection__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -542,20 +538,18 @@ void __31__MTSXPCServerProxy_connection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was interrupted", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was interrupted", &v6, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __31__MTSXPCServerProxy_connection__block_invoke_8(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -565,9 +559,9 @@ void __31__MTSXPCServerProxy_connection__block_invoke_8(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was invalidated", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_239824000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Connection to daemon was invalidated", &v6, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -575,8 +569,6 @@ void __31__MTSXPCServerProxy_connection__block_invoke_8(uint64_t a1)
     [(os_unfair_lock_s *)v3 setConnection:0];
     os_unfair_lock_unlock(v3 + 2);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -651,7 +643,6 @@ MTSXPCConnection *__25__MTSXPCServerProxy_init__block_invoke()
 
 uint64_t __32__MTSXPCServerProxy_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v19 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

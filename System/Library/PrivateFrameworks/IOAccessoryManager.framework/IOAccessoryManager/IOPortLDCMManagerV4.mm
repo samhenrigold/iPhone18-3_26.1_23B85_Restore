@@ -22,6 +22,7 @@
 - (void)hideUI;
 - (void)logInfo:(id)info;
 - (void)measureOccupiedWetPortDuration;
+- (void)performLDCMMeasurement:(int)measurement;
 - (void)processBehaviorDictionary:(id)dictionary;
 - (void)showUI;
 - (void)storeWaveform:(char *)waveform withWaveformDataLen:(unint64_t)len;
@@ -163,19 +164,19 @@ uint64_t __42__IOPortLDCMManagerV4_generateLDCMCSVData__block_invoke(uint64_t a1
 
 - (IOPortLDCMManagerV4)initWithParams:(unint64_t)params withDryPollingInterval:(unint64_t)interval withService:(unsigned int)service withNotificationPort:(IONotificationPort *)port withServerRunloop:(__CFRunLoop *)runloop
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   parent = 0;
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __112__IOPortLDCMManagerV4_initWithParams_withDryPollingInterval_withService_withNotificationPort_withServerRunloop___block_invoke;
-  v40[3] = &unk_279793120;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __112__IOPortLDCMManagerV4_initWithParams_withDryPollingInterval_withService_withNotificationPort_withServerRunloop___block_invoke;
+  v39[3] = &unk_279793120;
   selfCopy = self;
-  v41 = selfCopy;
-  v13 = MEMORY[0x259C1ED40](v40);
+  v40 = selfCopy;
+  v13 = MEMORY[0x259C1ED40](v39);
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v39.receiver = selfCopy;
-  v39.super_class = IOPortLDCMManagerV4;
-  v15 = [(IOPortLDCMManagerV4 *)&v39 init];
+  v38.receiver = selfCopy;
+  v38.super_class = IOPortLDCMManagerV4;
+  v15 = [(IOPortLDCMManagerV4 *)&v38 init];
   v16 = v15;
   if (!v15)
   {
@@ -292,7 +293,7 @@ uint64_t __42__IOPortLDCMManagerV4_generateLDCMCSVData__block_invoke(uint64_t a1
   {
     v25 = v16[14];
     *buf = 67109120;
-    v44 = v25;
+    v43 = v25;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Waveform extraction default setting: %d", buf, 8u);
   }
 
@@ -394,7 +395,6 @@ LABEL_45:
 
   v36 = v16;
 
-  v37 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -415,6 +415,122 @@ LABEL_45:
   v5.receiver = self;
   v5.super_class = IOPortLDCMManagerV4;
   [(IOPortLDCMManagerV4 *)&v5 dealloc];
+}
+
+- (void)performLDCMMeasurement:(int)measurement
+{
+  v3 = *&measurement;
+  v18 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v16 = v3;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Beginning LDCM measurement. Reason: %d", buf, 8u);
+  }
+
+  v14 = 55;
+  memset(v17, 0, sizeof(v17));
+  v13 = 1152;
+  bzero(buf, 0x480uLL);
+  if (!self->_waveformExtractionDisabled)
+  {
+    if ([(IOPortLDCMManagerV4 *)self getWaveform:buf])
+    {
+      [IOPortLDCMManagerV4 performLDCMMeasurement:];
+    }
+
+    if (v13 != 1152)
+    {
+      [IOPortLDCMManagerV4 performLDCMMeasurement:];
+    }
+  }
+
+  if ([(IOPortLDCMManagerV4 *)self getData:v17])
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOPortLDCMManagerV4 performLDCMMeasurement:];
+    }
+
+    goto LABEL_34;
+  }
+
+  if (v14 != 55)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [IOPortLDCMManagerV4 performLDCMMeasurement:];
+    }
+
+LABEL_34:
+    v7 = 0;
+    v8 = @"None";
+    goto LABEL_27;
+  }
+
+  v5 = [LDCMMeasurementV4 alloc];
+  v6 = [(LDCMMeasurementV4 *)v5 initWithParams:v17];
+  v7 = v6;
+  if (v3 != 2)
+  {
+    [(IOPortLDCMManagerV4 *)self handleMeasurementResults:[(LDCMMeasurementV4 *)v6 ldcmPortStatus]];
+  }
+
+  v8 = [(IOPortLDCMManagerV4 *)self publishAnalytics:v7 withMeasurementReason:v3 withWaveformRawData:buf withWaveformDataLen:v13];
+  self->_measurementInfoOutputString = [(IOPortLDCMManagerV4 *)self buildMeasurementOutputString:v7 withMeasurementReason:v3 withMeasurementEvent:v8];
+  if (self->_buildType != 2)
+  {
+    [(IOPortLDCMManagerV4 *)self logInfo:v7];
+    [(IOPortLDCMManagerV4 *)self generateLDCMCSVData];
+  }
+
+  if ([(LDCMMeasurementV4 *)v7 ldcmPortStatus]== 1 || self->_behaviorOverrideForcePortWet)
+  {
+    self->_isWet = 1;
+    [(IOPortLDCMManagerV4 *)self setMitigations:1];
+    if (!self->_isReceptacleEmpty)
+    {
+      [(IOPortLDCMManagerV4 *)self measureOccupiedWetPortDuration];
+    }
+  }
+
+  else
+  {
+    if ([(IOPortLDCMManagerV4 *)self checkIsReceptacleEmpty])
+    {
+      [(IOPortLDCMManagerV4 *)self setUserOverride:0];
+      [(IOPortLDCMManagerV4 *)self setMitigations:0];
+    }
+
+    self->_isWet = 0;
+  }
+
+  if (v3 == 1)
+  {
+    [(IOPortLDCMManagerV4 *)self measureOccupiedWetPortDuration];
+  }
+
+  if ([(LDCMMeasurementV4 *)v7 ldcmCompletion]== 2)
+  {
+    [(IOPortLDCMManagerV4 *)self setOvpErrorCount:([(IOPortLDCMManagerV4 *)self ovpErrorCount]+ 1)];
+    if ([(IOPortLDCMManagerV4 *)self ovpErrorCount]>= 0x32 && ![(IOPortLDCMManagerV4 *)self ovpInterruptsDisabled])
+    {
+      [(IOPortLDCMManagerV4 *)self disableOVPInterrupts];
+      [(IOPortLDCMManagerV4 *)self setOvpInterruptsDisabled:1];
+    }
+  }
+
+LABEL_27:
+  v9 = 72;
+  if (!self->_isWet)
+  {
+    v9 = 80;
+  }
+
+  v10 = *(&self->super.isa + v9);
+  timer = self->_timer;
+  v12 = dispatch_walltime(0, v10);
+  dispatch_source_set_timer(timer, v12, 0xFFFFFFFFFFFFFFFFLL, 0);
 }
 
 - (void)handleAttachEvent
@@ -471,11 +587,11 @@ uint64_t __40__IOPortLDCMManagerV4_handleDetachEvent__block_invoke(uint64_t a1)
   dispatch_async(ldcmV4DispatchQueue, v4);
 }
 
-uint64_t __57__IOPortLDCMManagerV4_handleLDCMMitigationsStatusChange___block_invoke(uint64_t result)
+id *__57__IOPortLDCMManagerV4_handleLDCMMitigationsStatusChange___block_invoke(id *result)
 {
   v1 = result;
-  v2 = *(result + 40);
-  *(*(result + 32) + 40) = v2;
+  v2 = *(result + 10);
+  *(result[4] + 10) = v2;
   if (v2 <= 1)
   {
     if (v2)
@@ -488,7 +604,7 @@ uint64_t __57__IOPortLDCMManagerV4_handleLDCMMitigationsStatusChange___block_inv
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Mitigations successful. Showing UI", buf, 2u);
         }
 
-        return [*(v1 + 32) showUI];
+        return [v1[4] showUI];
       }
 
       return result;
@@ -496,7 +612,7 @@ uint64_t __57__IOPortLDCMManagerV4_handleLDCMMitigationsStatusChange___block_inv
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      return [*(v1 + 32) hideUI];
+      return [v1[4] hideUI];
     }
 
     *v8 = 0;
@@ -505,7 +621,7 @@ uint64_t __57__IOPortLDCMManagerV4_handleLDCMMitigationsStatusChange___block_inv
     v5 = v8;
 LABEL_13:
     _os_log_impl(&dword_2548F1000, v3, OS_LOG_TYPE_DEFAULT, v4, v5, 2u);
-    return [*(v1 + 32) hideUI];
+    return [v1[4] hideUI];
   }
 
   if (v2 != 2)
@@ -517,7 +633,7 @@ LABEL_13:
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      return [*(v1 + 32) hideUI];
+      return [v1[4] hideUI];
     }
 
     LOWORD(v7) = 0;
@@ -533,8 +649,8 @@ LABEL_13:
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - WARNING: Mitigations failed!!!", v9, 2u);
   }
 
-  v6 = *(v1 + 32);
-  if (*(v6 + 36) == 1 || *(v6 + 17) == 1)
+  v6 = v1[4];
+  if (*(v6 + 9) == 1 || *(v6 + 17) == 1)
   {
     [v6 showUI];
   }
@@ -577,7 +693,7 @@ LABEL_3:
 
 - (void)logInfo:(id)info
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
@@ -585,25 +701,25 @@ LABEL_3:
     ldcmMitigationsStatus = [infoCopy ldcmMitigationsStatus];
     mitigationsEnabled = self->_mitigationsEnabled;
     overrideEnabled = self->_overrideEnabled;
-    v37 = 67111168;
-    *v38 = ldcmFeatureStatus;
-    *&v38[4] = 1024;
-    *&v38[6] = ldcmMitigationsStatus;
-    LOWORD(v39) = 1024;
-    *(&v39 + 2) = mitigationsEnabled;
-    HIWORD(v39) = 1024;
-    *v40 = overrideEnabled;
-    *&v40[4] = 1024;
-    *&v40[6] = [infoCopy ldcmPortStatus];
-    v41 = 1024;
-    *v42 = [infoCopy ldcmWet];
-    *&v42[4] = 1024;
-    *&v42[6] = [infoCopy ldcmWetStateDuration];
-    v43 = 1024;
+    v36 = 67111168;
+    *v37 = ldcmFeatureStatus;
+    *&v37[4] = 1024;
+    *&v37[6] = ldcmMitigationsStatus;
+    LOWORD(v38) = 1024;
+    *(&v38 + 2) = mitigationsEnabled;
+    HIWORD(v38) = 1024;
+    *v39 = overrideEnabled;
+    *&v39[4] = 1024;
+    *&v39[6] = [infoCopy ldcmPortStatus];
+    v40 = 1024;
+    *v41 = [infoCopy ldcmWet];
+    *&v41[4] = 1024;
+    *&v41[6] = [infoCopy ldcmWetStateDuration];
+    v42 = 1024;
     checkIsReceptacleEmpty = [(IOPortLDCMManagerV4 *)self checkIsReceptacleEmpty];
-    v45 = 1024;
+    v44 = 1024;
     ldcmRREFGated = [infoCopy ldcmRREFGated];
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Feature Status: %x, Mitigations Status: %d, Mitigations Framework State: %d, Override Framework State: %d, Wet Declared %d, Wet Measured: %d, Wet State Duration: %d, Receptacle Empty: %d, RREF Gated: %d", &v37, 0x38u);
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Feature Status: %x, Mitigations Status: %d, Mitigations Framework State: %d, Override Framework State: %d, Wet Declared %d, Wet Measured: %d, Wet State Duration: %d, Receptacle Empty: %d, RREF Gated: %d", &v36, 0x38u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -613,17 +729,17 @@ LABEL_3:
     ldcmMeasurePin = [infoCopy ldcmMeasurePin];
     ldcmCompletion = [infoCopy ldcmCompletion];
     ldcmLowImp = [infoCopy ldcmLowImp];
-    v37 = 67110144;
-    *v38 = previousLDCMPortStatus;
-    *&v38[4] = 1024;
-    *&v38[6] = ldcmPortStatus;
-    LOWORD(v39) = 1024;
-    *(&v39 + 2) = ldcmMeasurePin;
-    HIWORD(v39) = 1024;
-    *v40 = ldcmCompletion;
-    *&v40[4] = 1024;
-    *&v40[6] = ldcmLowImp;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Analytics bitfields - _previousLDCMPortStatus %d, ldcmPortStatus %d, ldcmMeasurePin %d, ldcmCompletion %d, ldcmLowImp %d", &v37, 0x20u);
+    v36 = 67110144;
+    *v37 = previousLDCMPortStatus;
+    *&v37[4] = 1024;
+    *&v37[6] = ldcmPortStatus;
+    LOWORD(v38) = 1024;
+    *(&v38 + 2) = ldcmMeasurePin;
+    HIWORD(v38) = 1024;
+    *v39 = ldcmCompletion;
+    *&v39[4] = 1024;
+    *&v39[6] = ldcmLowImp;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Analytics bitfields - _previousLDCMPortStatus %d, ldcmPortStatus %d, ldcmMeasurePin %d, ldcmCompletion %d, ldcmLowImp %d", &v36, 0x20u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -635,15 +751,15 @@ LABEL_3:
     [infoCopy ldcmCalculatedRes];
     v19 = v18;
     [infoCopy ldcmCalculatedCap];
-    v37 = 134218752;
-    *v38 = v15;
-    *&v38[8] = 2048;
-    v39 = v17;
-    *v40 = 2048;
-    *&v40[2] = v19;
-    v41 = 2048;
-    *v42 = v20;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", &v37, 0x2Au);
+    v36 = 134218752;
+    *v37 = v15;
+    *&v37[8] = 2048;
+    v38 = v17;
+    *v39 = 2048;
+    *&v39[2] = v19;
+    v40 = 2048;
+    *v41 = v20;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", &v36, 0x2Au);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -651,13 +767,13 @@ LABEL_3:
     ldcmWetStateDuration = [infoCopy ldcmWetStateDuration];
     ldcmWetStateTooLong = [infoCopy ldcmWetStateTooLong];
     ldcmWetTooLongLDCMDisabled = [infoCopy ldcmWetTooLongLDCMDisabled];
-    v37 = 67109632;
-    *v38 = ldcmWetStateDuration;
-    *&v38[4] = 1024;
-    *&v38[6] = ldcmWetStateTooLong;
-    LOWORD(v39) = 1024;
-    *(&v39 + 2) = ldcmWetTooLongLDCMDisabled;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - wetStateDuration: %d, wetStateTooLong: %d, wetTooLongLDCMDisabled: %d", &v37, 0x14u);
+    v36 = 67109632;
+    *v37 = ldcmWetStateDuration;
+    *&v37[4] = 1024;
+    *&v37[6] = ldcmWetStateTooLong;
+    LOWORD(v38) = 1024;
+    *(&v38 + 2) = ldcmWetTooLongLDCMDisabled;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - wetStateDuration: %d, wetStateTooLong: %d, wetTooLongLDCMDisabled: %d", &v36, 0x14u);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -669,15 +785,15 @@ LABEL_3:
     [infoCopy ldcmCalTIASNR];
     v29 = v28;
     [infoCopy ldcmCalVoltageSNR];
-    v37 = 134218752;
-    *v38 = v25;
-    *&v38[8] = 2048;
-    v39 = v27;
-    *v40 = 2048;
-    *&v40[2] = v29;
-    v41 = 2048;
-    *v42 = v30;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - MeasureTIASNR: %f, MeasureVoltageSNR: %f, CalTIASNR: %f, CalVoltageSNR: %f", &v37, 0x2Au);
+    v36 = 134218752;
+    *v37 = v25;
+    *&v37[8] = 2048;
+    v38 = v27;
+    *v39 = 2048;
+    *&v39[2] = v29;
+    v40 = 2048;
+    *v41 = v30;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - MeasureTIASNR: %f, MeasureVoltageSNR: %f, CalTIASNR: %f, CalVoltageSNR: %f", &v36, 0x2Au);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -687,21 +803,19 @@ LABEL_3:
     [infoCopy ldcmVoltageGainCorrection];
     v34 = v33;
     [infoCopy ldcmPhaseComp];
-    v37 = 134218496;
-    *v38 = v32;
-    *&v38[8] = 2048;
-    v39 = v34;
-    *v40 = 2048;
-    *&v40[2] = v35;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", &v37, 0x20u);
+    v36 = 134218496;
+    *v37 = v32;
+    *&v37[8] = 2048;
+    v38 = v34;
+    *v39 = 2048;
+    *&v39[2] = v35;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Measurement Data - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", &v36, 0x20u);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)publishAnalytics:(id)analytics withMeasurementReason:(int)reason withWaveformRawData:(char *)data withWaveformDataLen:(unint64_t)len
 {
-  v225 = *MEMORY[0x277D85DE8];
+  v224 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
   v11 = analyticsCopy;
   if (!self->_previousLDCMPortStatus && [analyticsCopy ldcmPortStatus] == 1 && (!objc_msgSend(v11, "ldcmMeasurePin") || objc_msgSend(v11, "ldcmMeasurePin") == 1) && !objc_msgSend(v11, "ldcmCompletion") && !objc_msgSend(v11, "ldcmLowImp"))
@@ -743,8 +857,8 @@ LABEL_3:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v224 = 0;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetOnConnect!!!", v224, 2u);
+        *v223 = 0;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetOnConnect!!!", v223, 2u);
       }
 
       v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.wetOnConnect";
@@ -757,8 +871,8 @@ LABEL_3:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v224 = 0;
-          _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetOnDisconnect!!!", v224, 2u);
+          *v223 = 0;
+          _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetOnDisconnect!!!", v223, 2u);
         }
 
         v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.wetOnDisconnect";
@@ -772,8 +886,8 @@ LABEL_3:
         {
           if (v152)
           {
-            *v224 = 0;
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition!!!", v224, 2u);
+            *v223 = 0;
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition!!!", v223, 2u);
           }
 
           v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.dryToWetTransition";
@@ -783,8 +897,8 @@ LABEL_3:
         {
           if (v152)
           {
-            *v224 = 0;
-            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransitionPortNotEmpty!!!", v224, 2u);
+            *v223 = 0;
+            _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransitionPortNotEmpty!!!", v223, 2u);
           }
 
           v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.dryToWetTransitionPortNotEmpty";
@@ -802,15 +916,15 @@ LABEL_3:
       [v11 ldcmCalculatedRes];
       v197 = v196;
       [v11 ldcmCalculatedCap];
-      *v224 = 134218752;
-      *&v224[4] = v193;
-      *&v224[12] = 2048;
-      *&v224[14] = v195;
-      *&v224[22] = 2048;
-      *&v224[24] = v197;
-      *&v224[32] = 2048;
-      *&v224[34] = v198;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v193;
+      *&v223[12] = 2048;
+      *&v223[14] = v195;
+      *&v223[22] = 2048;
+      *&v223[24] = v197;
+      *&v223[32] = 2048;
+      *&v223[34] = v198;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -820,13 +934,13 @@ LABEL_3:
       [v11 ldcmVoltageAmp];
       v202 = v201;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v200;
-      *&v224[12] = 2048;
-      *&v224[14] = v202;
-      *&v224[22] = 2048;
-      *&v224[24] = v203;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v200;
+      *&v223[12] = 2048;
+      *&v223[14] = v202;
+      *&v223[22] = 2048;
+      *&v223[24] = v203;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -836,13 +950,13 @@ LABEL_3:
       [v11 ldcmMeasureVoltageSNR];
       v207 = v206;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v205;
-      *&v224[12] = 2048;
-      *&v224[14] = v207;
-      *&v224[22] = 2048;
-      *&v224[24] = v208;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v205;
+      *&v223[12] = 2048;
+      *&v223[14] = v207;
+      *&v223[22] = 2048;
+      *&v223[24] = v208;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -854,15 +968,15 @@ LABEL_3:
       [v11 ldcmCalTIASNR];
       v214 = v213;
       [v11 ldcmCalVoltageSNR];
-      *v224 = 134218752;
-      *&v224[4] = v210;
-      *&v224[12] = 2048;
-      *&v224[14] = v212;
-      *&v224[22] = 2048;
-      *&v224[24] = v214;
-      *&v224[32] = 2048;
-      *&v224[34] = v215;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v210;
+      *&v223[12] = 2048;
+      *&v223[14] = v212;
+      *&v223[22] = 2048;
+      *&v223[24] = v214;
+      *&v223[32] = 2048;
+      *&v223[34] = v215;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - dryToWetTransition - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v223, 0x2Au);
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -875,12 +989,12 @@ LABEL_3:
     [v11 ldcmVoltageGainCorrection];
     v219 = v218;
     [v11 ldcmPhaseComp];
-    *v224 = 134218496;
-    *&v224[4] = v217;
-    *&v224[12] = 2048;
-    *&v224[14] = v219;
-    *&v224[22] = 2048;
-    *&v224[24] = v220;
+    *v223 = 134218496;
+    *&v223[4] = v217;
+    *&v223[12] = 2048;
+    *&v223[14] = v219;
+    *&v223[22] = 2048;
+    *&v223[24] = v220;
     v48 = MEMORY[0x277D86220];
     v49 = "LDCM - dryToWetTransition - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f";
     v52 = 32;
@@ -914,8 +1028,8 @@ LABEL_3:
     {
       if (v160)
       {
-        *v224 = 0;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition!!!", v224, 2u);
+        *v223 = 0;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition!!!", v223, 2u);
       }
 
       v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.wetToDryTransition";
@@ -925,8 +1039,8 @@ LABEL_3:
     {
       if (v160)
       {
-        *v224 = 0;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransitionPortNotEmpty!!!", v224, 2u);
+        *v223 = 0;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransitionPortNotEmpty!!!", v223, 2u);
       }
 
       v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.wetToDryTransitionPortNotEmpty";
@@ -935,8 +1049,8 @@ LABEL_3:
     AnalyticsSendEvent();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition!!!", v223, 2u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -948,15 +1062,15 @@ LABEL_3:
       [v11 ldcmCalculatedRes];
       v166 = v165;
       [v11 ldcmCalculatedCap];
-      *v224 = 134218752;
-      *&v224[4] = v162;
-      *&v224[12] = 2048;
-      *&v224[14] = v164;
-      *&v224[22] = 2048;
-      *&v224[24] = v166;
-      *&v224[32] = 2048;
-      *&v224[34] = v167;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v162;
+      *&v223[12] = 2048;
+      *&v223[14] = v164;
+      *&v223[22] = 2048;
+      *&v223[24] = v166;
+      *&v223[32] = 2048;
+      *&v223[34] = v167;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -966,13 +1080,13 @@ LABEL_3:
       [v11 ldcmVoltageAmp];
       v171 = v170;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v169;
-      *&v224[12] = 2048;
-      *&v224[14] = v171;
-      *&v224[22] = 2048;
-      *&v224[24] = v172;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v169;
+      *&v223[12] = 2048;
+      *&v223[14] = v171;
+      *&v223[22] = 2048;
+      *&v223[24] = v172;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -982,13 +1096,13 @@ LABEL_3:
       [v11 ldcmMeasureVoltageSNR];
       v176 = v175;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v174;
-      *&v224[12] = 2048;
-      *&v224[14] = v176;
-      *&v224[22] = 2048;
-      *&v224[24] = v177;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v174;
+      *&v223[12] = 2048;
+      *&v223[14] = v176;
+      *&v223[22] = 2048;
+      *&v223[24] = v177;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1000,15 +1114,15 @@ LABEL_3:
       [v11 ldcmCalTIASNR];
       v183 = v182;
       [v11 ldcmCalVoltageSNR];
-      *v224 = 134218752;
-      *&v224[4] = v179;
-      *&v224[12] = 2048;
-      *&v224[14] = v181;
-      *&v224[22] = 2048;
-      *&v224[24] = v183;
-      *&v224[32] = 2048;
-      *&v224[34] = v184;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v179;
+      *&v223[12] = 2048;
+      *&v223[14] = v181;
+      *&v223[22] = 2048;
+      *&v223[24] = v183;
+      *&v223[32] = 2048;
+      *&v223[34] = v184;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1018,13 +1132,13 @@ LABEL_3:
       [v11 ldcmVoltageGainCorrection];
       v188 = v187;
       [v11 ldcmPhaseComp];
-      *v224 = 134218496;
-      *&v224[4] = v186;
-      *&v224[12] = 2048;
-      *&v224[14] = v188;
-      *&v224[22] = 2048;
-      *&v224[24] = v189;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v186;
+      *&v223[12] = 2048;
+      *&v223[14] = v188;
+      *&v223[22] = 2048;
+      *&v223[24] = v189;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - wetToDryTransition - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v223, 0x20u);
     }
 
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1034,10 +1148,10 @@ LABEL_3:
 
     ldcmWetStateDuration = [v11 ldcmWetStateDuration];
     ldcmWetStateTooLong = [v11 ldcmWetStateTooLong];
-    *v224 = 67109376;
-    *&v224[4] = ldcmWetStateDuration;
-    *&v224[8] = 1024;
-    *&v224[10] = ldcmWetStateTooLong;
+    *v223 = 67109376;
+    *&v223[4] = ldcmWetStateDuration;
+    *&v223[8] = 1024;
+    *&v223[10] = ldcmWetStateTooLong;
     v48 = MEMORY[0x277D86220];
     v49 = "LDCM - wetToDryTransition - WetStateDuration: %d, WetStateTooLong: %d";
     v52 = 14;
@@ -1049,8 +1163,8 @@ LABEL_3:
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - badMeasurement!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - badMeasurement!!!", v223, 2u);
     }
 
     v13 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v11, "ldcmIncompSNRAmpCnt")}];
@@ -1107,17 +1221,17 @@ LABEL_3:
       [v11 ldcmCalTIAAmp];
       v36 = v35;
       [v11 ldcmCalVoltageAmp];
-      *v224 = 67110144;
-      *&v224[4] = ldcmIncompSNRAmpCnt;
-      *&v224[8] = 2048;
-      *&v224[10] = v32;
-      *&v224[18] = 2048;
-      *&v224[20] = v34;
-      *&v224[28] = 2048;
-      *&v224[30] = v36;
-      *&v224[38] = 2048;
-      *&v224[40] = v37;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - IncompSNRAmpCnt: %d, TIACurrentAmp: %f, VoltageAmp: %f, CalTIAAmp: %f, CalVoltageAmp: %f", v224, 0x30u);
+      *v223 = 67110144;
+      *&v223[4] = ldcmIncompSNRAmpCnt;
+      *&v223[8] = 2048;
+      *&v223[10] = v32;
+      *&v223[18] = 2048;
+      *&v223[20] = v34;
+      *&v223[28] = 2048;
+      *&v223[30] = v36;
+      *&v223[38] = 2048;
+      *&v223[40] = v37;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - IncompSNRAmpCnt: %d, TIACurrentAmp: %f, VoltageAmp: %f, CalTIAAmp: %f, CalVoltageAmp: %f", v223, 0x30u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1129,15 +1243,15 @@ LABEL_3:
       [v11 ldcmCalTIASNR];
       v43 = v42;
       [v11 ldcmCalVoltageSNR];
-      *v224 = 134218752;
-      *&v224[4] = v39;
-      *&v224[12] = 2048;
-      *&v224[14] = v41;
-      *&v224[22] = 2048;
-      *&v224[24] = v43;
-      *&v224[32] = 2048;
-      *&v224[34] = v44;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - TIACurrentSNR: %f, VoltageSNR: %f, CalTIASNR: %f, CalVoltageSNR: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v39;
+      *&v223[12] = 2048;
+      *&v223[14] = v41;
+      *&v223[22] = 2048;
+      *&v223[24] = v43;
+      *&v223[32] = 2048;
+      *&v223[34] = v44;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - TIACurrentSNR: %f, VoltageSNR: %f, CalTIASNR: %f, CalVoltageSNR: %f", v223, 0x2Au);
     }
 
     v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.badMeasurement";
@@ -1149,8 +1263,8 @@ LABEL_3:
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ovpError!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ovpError!!!", v223, 2u);
     }
 
     v46 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v11, "ldcmIncompOVPCnt")}];
@@ -1164,8 +1278,8 @@ LABEL_3:
     }
 
     ldcmIncompOVPCnt = [v11 ldcmIncompOVPCnt];
-    *v224 = 67109120;
-    *&v224[4] = ldcmIncompOVPCnt;
+    *v223 = 67109120;
+    *&v223[4] = ldcmIncompOVPCnt;
     v48 = MEMORY[0x277D86220];
     v49 = "LDCM - IncompOVPCnt: %d";
     goto LABEL_31;
@@ -1176,8 +1290,8 @@ LABEL_3:
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmPreempted!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmPreempted!!!", v223, 2u);
     }
 
     v50 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v11, "ldcmIncompTimeoutCnt")}];
@@ -1191,14 +1305,14 @@ LABEL_3:
     }
 
     ldcmIncompTimeoutCnt = [v11 ldcmIncompTimeoutCnt];
-    *v224 = 67109120;
-    *&v224[4] = ldcmIncompTimeoutCnt;
+    *v223 = 67109120;
+    *&v223[4] = ldcmIncompTimeoutCnt;
     v48 = MEMORY[0x277D86220];
     v49 = "LDCM - IncompTimeoutCnt: %d";
 LABEL_31:
     v52 = 8;
 LABEL_32:
-    _os_log_impl(&dword_2548F1000, v48, OS_LOG_TYPE_DEFAULT, v49, v224, v52);
+    _os_log_impl(&dword_2548F1000, v48, OS_LOG_TYPE_DEFAULT, v49, v223, v52);
 LABEL_127:
 
     goto LABEL_128;
@@ -1208,8 +1322,8 @@ LABEL_127:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled!!!", v223, 2u);
     }
 
     v53 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1220,15 +1334,15 @@ LABEL_127:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       ldcmFeatureStatus = [v11 ldcmFeatureStatus];
-      *v224 = 67109120;
-      *&v224[4] = ldcmFeatureStatus;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled - FeatureStatus: %d", v224, 8u);
+      *v223 = 67109120;
+      *&v223[4] = ldcmFeatureStatus;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled - FeatureStatus: %d", v223, 8u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure!!!", v223, 2u);
     }
 
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1253,15 +1367,15 @@ LABEL_127:
       [v11 ldcmCalculatedRes];
       v65 = v64;
       [v11 ldcmCalculatedCap];
-      *v224 = 134218752;
-      *&v224[4] = v61;
-      *&v224[12] = 2048;
-      *&v224[14] = v63;
-      *&v224[22] = 2048;
-      *&v224[24] = v65;
-      *&v224[32] = 2048;
-      *&v224[34] = v66;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v61;
+      *&v223[12] = 2048;
+      *&v223[14] = v63;
+      *&v223[22] = 2048;
+      *&v223[24] = v65;
+      *&v223[32] = 2048;
+      *&v223[34] = v66;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1271,13 +1385,13 @@ LABEL_127:
       [v11 ldcmVoltageAmp];
       v70 = v69;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v68;
-      *&v224[12] = 2048;
-      *&v224[14] = v70;
-      *&v224[22] = 2048;
-      *&v224[24] = v71;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v68;
+      *&v223[12] = 2048;
+      *&v223[14] = v70;
+      *&v223[22] = 2048;
+      *&v223[24] = v71;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1287,13 +1401,13 @@ LABEL_127:
       [v11 ldcmMeasureVoltageSNR];
       v75 = v74;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v73;
-      *&v224[12] = 2048;
-      *&v224[14] = v75;
-      *&v224[22] = 2048;
-      *&v224[24] = v76;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v73;
+      *&v223[12] = 2048;
+      *&v223[14] = v75;
+      *&v223[22] = 2048;
+      *&v223[24] = v76;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1305,15 +1419,15 @@ LABEL_127:
       [v11 ldcmCalTIASNR];
       v82 = v81;
       [v11 ldcmCalVoltageSNR];
-      *v224 = 134218752;
-      *&v224[4] = v78;
-      *&v224[12] = 2048;
-      *&v224[14] = v80;
-      *&v224[22] = 2048;
-      *&v224[24] = v82;
-      *&v224[32] = 2048;
-      *&v224[34] = v83;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v78;
+      *&v223[12] = 2048;
+      *&v223[14] = v80;
+      *&v223[22] = 2048;
+      *&v223[24] = v82;
+      *&v223[32] = 2048;
+      *&v223[34] = v83;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1323,24 +1437,24 @@ LABEL_127:
       [v11 ldcmVoltageGainCorrection];
       v87 = v86;
       [v11 ldcmPhaseComp];
-      *v224 = 134218496;
-      *&v224[4] = v85;
-      *&v224[12] = 2048;
-      *&v224[14] = v87;
-      *&v224[22] = 2048;
-      *&v224[24] = v88;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v85;
+      *&v223[12] = 2048;
+      *&v223[14] = v87;
+      *&v223[22] = 2048;
+      *&v223[24] = v88;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       ldcmWetStateDuration2 = [v11 ldcmWetStateDuration];
       ldcmWetStateTooLong2 = [v11 ldcmWetStateTooLong];
-      *v224 = 67109376;
-      *&v224[4] = ldcmWetStateDuration2;
-      *&v224[8] = 1024;
-      *&v224[10] = ldcmWetStateTooLong2;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - WetStateDuration: %d, WetStateTooLong: %d", v224, 0xEu);
+      *v223 = 67109376;
+      *&v223[4] = ldcmWetStateDuration2;
+      *&v223[8] = 1024;
+      *&v223[10] = ldcmWetStateTooLong2;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - selfTestFailure - WetStateDuration: %d, WetStateTooLong: %d", v223, 0xEu);
     }
 
     v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.selfTestFailure";
@@ -1351,8 +1465,8 @@ LABEL_127:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled!!!", v223, 2u);
     }
 
     v91 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1363,15 +1477,15 @@ LABEL_127:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       ldcmFeatureStatus2 = [v11 ldcmFeatureStatus];
-      *v224 = 67109120;
-      *&v224[4] = ldcmFeatureStatus2;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled - FeatureStatus: %d", v224, 8u);
+      *v223 = 67109120;
+      *&v223[4] = ldcmFeatureStatus2;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - ldcmDisabled - FeatureStatus: %d", v223, 8u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure!!!", v223, 2u);
     }
 
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1396,15 +1510,15 @@ LABEL_127:
       [v11 ldcmCalculatedRes];
       v103 = v102;
       [v11 ldcmCalculatedCap];
-      *v224 = 134218752;
-      *&v224[4] = v99;
-      *&v224[12] = 2048;
-      *&v224[14] = v101;
-      *&v224[22] = 2048;
-      *&v224[24] = v103;
-      *&v224[32] = 2048;
-      *&v224[34] = v104;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v99;
+      *&v223[12] = 2048;
+      *&v223[14] = v101;
+      *&v223[22] = 2048;
+      *&v223[24] = v103;
+      *&v223[32] = 2048;
+      *&v223[34] = v104;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1414,13 +1528,13 @@ LABEL_127:
       [v11 ldcmVoltageAmp];
       v108 = v107;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v106;
-      *&v224[12] = 2048;
-      *&v224[14] = v108;
-      *&v224[22] = 2048;
-      *&v224[24] = v109;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v106;
+      *&v223[12] = 2048;
+      *&v223[14] = v108;
+      *&v223[22] = 2048;
+      *&v223[24] = v109;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - TIACurrentAmp: %f, VoltageAmp: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1430,13 +1544,13 @@ LABEL_127:
       [v11 ldcmMeasureVoltageSNR];
       v113 = v112;
       [v11 ldcmLeakageCurrentAmp];
-      *v224 = 134218496;
-      *&v224[4] = v111;
-      *&v224[12] = 2048;
-      *&v224[14] = v113;
-      *&v224[22] = 2048;
-      *&v224[24] = v114;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v111;
+      *&v223[12] = 2048;
+      *&v223[14] = v113;
+      *&v223[22] = 2048;
+      *&v223[24] = v114;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - MeasureTIASNR: %f, MeasureVoltageSNR: %f, LeakageCurrentAmp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1448,15 +1562,15 @@ LABEL_127:
       [v11 ldcmCalTIASNR];
       v120 = v119;
       [v11 ldcmCalVoltageSNR];
-      *v224 = 134218752;
-      *&v224[4] = v116;
-      *&v224[12] = 2048;
-      *&v224[14] = v118;
-      *&v224[22] = 2048;
-      *&v224[24] = v120;
-      *&v224[32] = 2048;
-      *&v224[34] = v121;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v224, 0x2Au);
+      *v223 = 134218752;
+      *&v223[4] = v116;
+      *&v223[12] = 2048;
+      *&v223[14] = v118;
+      *&v223[22] = 2048;
+      *&v223[24] = v120;
+      *&v223[32] = 2048;
+      *&v223[34] = v121;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - CalTIAAmp: %f, CalVoltageAmp: %f, CalTIASNR: %f, CalVoltageSNR: %f", v223, 0x2Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -1466,24 +1580,24 @@ LABEL_127:
       [v11 ldcmVoltageGainCorrection];
       v125 = v124;
       [v11 ldcmPhaseComp];
-      *v224 = 134218496;
-      *&v224[4] = v123;
-      *&v224[12] = 2048;
-      *&v224[14] = v125;
-      *&v224[22] = 2048;
-      *&v224[24] = v126;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v224, 0x20u);
+      *v223 = 134218496;
+      *&v223[4] = v123;
+      *&v223[12] = 2048;
+      *&v223[14] = v125;
+      *&v223[22] = 2048;
+      *&v223[24] = v126;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - TIAGainCorrection: %f, VoltageGainCorrection: %f, PhaseComp: %f", v223, 0x20u);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       ldcmWetStateDuration3 = [v11 ldcmWetStateDuration];
       ldcmWetStateTooLong3 = [v11 ldcmWetStateTooLong];
-      *v224 = 67109376;
-      *&v224[4] = ldcmWetStateDuration3;
-      *&v224[8] = 1024;
-      *&v224[10] = ldcmWetStateTooLong3;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - WetStateDuration: %d, WetStateTooLong: %d", v224, 0xEu);
+      *v223 = 67109376;
+      *&v223[4] = ldcmWetStateDuration3;
+      *&v223[8] = 1024;
+      *&v223[10] = ldcmWetStateTooLong3;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - referenceMeasurementFailure - WetStateDuration: %d, WetStateTooLong: %d", v223, 0xEu);
     }
 
     v45 = @"com.apple.ioaccessorymanager.ldcm.usbc.referenceMeasurementFailure";
@@ -1495,8 +1609,8 @@ LABEL_127:
     v12 = objc_alloc_init(MEMORY[0x277CBEB38]);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v224 = 0;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - impedanceTooLow!!!", v224, 2u);
+      *v223 = 0;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - impedanceTooLow!!!", v223, 2u);
     }
 
     v129 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v11, "ldcmIncompTimeoutCnt")}];
@@ -1516,14 +1630,14 @@ LABEL_127:
     [v11 ldcmCalculatedRes];
     v135 = v134;
     [v11 ldcmCalculatedCap];
-    *v224 = 134218752;
-    *&v224[4] = v131;
-    *&v224[12] = 2048;
-    *&v224[14] = v133;
-    *&v224[22] = 2048;
-    *&v224[24] = v135;
-    *&v224[32] = 2048;
-    *&v224[34] = v136;
+    *v223 = 134218752;
+    *&v223[4] = v131;
+    *&v223[12] = 2048;
+    *&v223[14] = v133;
+    *&v223[22] = 2048;
+    *&v223[24] = v135;
+    *&v223[32] = 2048;
+    *&v223[34] = v136;
     v48 = MEMORY[0x277D86220];
     v49 = "LDCM - impedanceTooLow - loadImpMag: %f, loadImpPhase: %f, calculatedRes: %f, calculatedCap: %f";
     v52 = 42;
@@ -1539,8 +1653,8 @@ LABEL_128:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v224 = 0;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - WetReplug", v224, 2u);
+        *v223 = 0;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - WetReplug", v223, 2u);
       }
 
       AnalyticsSendEvent();
@@ -1549,13 +1663,12 @@ LABEL_128:
 
   self->_previousLDCMPortStatus = [v11 ldcmPortStatus];
 
-  v222 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
 - (void)storeWaveform:(char *)waveform withWaveformDataLen:(unint64_t)len
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   if (len == 1152)
   {
     if (self->_waveformExtractionDisabled)
@@ -1565,40 +1678,40 @@ LABEL_128:
 
     else
     {
-      v28 = [MEMORY[0x277CBEA90] dataWithBytes:waveform length:1152];
+      v27 = [MEMORY[0x277CBEA90] dataWithBytes:waveform length:1152];
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
       v5 = [defaultManager contentsOfDirectoryAtPath:@"/var/logs/ldcm/" error:0];
 
       v6 = [MEMORY[0x277CCAC30] predicateWithFormat:@"self BEGINSWITH[cd] 'internalWaveformData'"];
-      v27 = v5;
+      v26 = v5;
       v7 = [v5 filteredArrayUsingPredicate:v6];
 
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v34;
+        v11 = *v33;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v34 != v11)
+            if (*v33 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"/var/logs/ldcm/", *(*(&v33 + 1) + 8 * i)];
+            v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"/var/logs/ldcm/", *(*(&v32 + 1) + 8 * i)];
             defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-            v32 = 0;
-            [defaultManager2 removeItemAtPath:v13 error:&v32];
+            v31 = 0;
+            [defaultManager2 removeItemAtPath:v13 error:&v31];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v32 objects:v40 count:16];
         }
 
         while (v10);
@@ -1612,42 +1725,42 @@ LABEL_128:
       [defaultManager3 createFileAtPath:v17 contents:0 attributes:0];
 
       v19 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v17];
-      v31 = 0;
-      v20 = [v19 seekToEndReturningOffset:0 error:&v31];
-      v21 = v31;
+      v30 = 0;
+      v20 = [v19 seekToEndReturningOffset:0 error:&v30];
+      v21 = v30;
       if (v20)
       {
-        v30 = 0;
-        v22 = v28;
-        [v19 writeData:v28 error:&v30];
-        v23 = v30;
+        v29 = 0;
+        v22 = v27;
+        [v19 writeData:v27 error:&v29];
+        v23 = v29;
 
         v21 = v23;
       }
 
       else
       {
-        v22 = v28;
+        v22 = v27;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v38 = "[IOPortLDCMManagerV4 storeWaveform:withWaveformDataLen:]";
-          v39 = 2112;
-          v40 = v21;
+          v37 = "[IOPortLDCMManagerV4 storeWaveform:withWaveformDataLen:]";
+          v38 = 2112;
+          v39 = v21;
           _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s LDCM - Error in seeking to end of file. %@\n", buf, 0x16u);
         }
       }
 
-      v29 = 0;
-      v24 = [v19 closeAndReturnError:&v29];
-      v25 = v29;
+      v28 = 0;
+      v24 = [v19 closeAndReturnError:&v28];
+      v25 = v28;
 
       if ((v24 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v38 = "[IOPortLDCMManagerV4 storeWaveform:withWaveformDataLen:]";
-        v39 = 2112;
-        v40 = v25;
+        v37 = "[IOPortLDCMManagerV4 storeWaveform:withWaveformDataLen:]";
+        v38 = 2112;
+        v39 = v25;
         _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s LDCM - Error in closing file. %@\n", buf, 0x16u);
       }
     }
@@ -1657,13 +1770,11 @@ LABEL_128:
   {
     [IOPortLDCMManagerV4 storeWaveform:withWaveformDataLen:];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)measureOccupiedWetPortDuration
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_isReceptacleEmpty)
   {
     if (measureOccupiedWetPortDuration_currentlyMeasuring)
@@ -1672,11 +1783,11 @@ LABEL_128:
       v4 = llround(-v3);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315394;
-        v10 = "[IOPortLDCMManagerV4 measureOccupiedWetPortDuration]";
-        v11 = 2048;
-        v12 = v4;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s LDCM - Duration of port attached: %ld\n", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[IOPortLDCMManagerV4 measureOccupiedWetPortDuration]";
+        v10 = 2048;
+        v11 = v4;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s LDCM - Duration of port attached: %ld\n", &v8, 0x16u);
       }
 
       v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -1695,16 +1806,14 @@ LABEL_128:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[IOPortLDCMManagerV4 measureOccupiedWetPortDuration]";
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Starting measurement of occupied port\n", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[IOPortLDCMManagerV4 measureOccupiedWetPortDuration]";
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s Starting measurement of occupied port\n", &v8, 0xCu);
     }
 
     self->_portAttachedTime = [MEMORY[0x277CBEAA8] now];
     measureOccupiedWetPortDuration_currentlyMeasuring = 1;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)extractData:(unsigned int *)data :(unint64_t)a4
@@ -1719,15 +1828,13 @@ LABEL_128:
   input[1] = *MEMORY[0x277D85DE8];
   ldcmFeatureConnect = self->_ldcmFeatureConnect;
   input[0] = detected;
-  result = IOConnectCallMethod(ldcmFeatureConnect, 0x3E8u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(ldcmFeatureConnect, 0x3E8u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 - (int)setMitigations:(unsigned __int8)mitigations
 {
   mitigationsCopy = mitigations;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (mitigations && self->_behaviorOverrideDisableMitigations)
   {
     v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
@@ -1736,7 +1843,7 @@ LABEL_128:
     {
       *buf = 0;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Skipping mitigations due to behavior override!", buf, 2u);
-      result = 0;
+      return 0;
     }
   }
 
@@ -1746,15 +1853,14 @@ LABEL_128:
     self->_mitigationsEnabled = mitigations != 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 67109120;
-      v9 = mitigationsCopy;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Setting Mitigations in Port Manager: %d!!!", v8, 8u);
+      *v7 = 67109120;
+      v8 = mitigationsCopy;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Setting Mitigations in Port Manager: %d!!!", v7, 8u);
     }
 
-    result = IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3E9u, buf, 1u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3E9u, buf, 1u, 0, 0, 0, 0, 0, 0);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1771,7 +1877,7 @@ LABEL_128:
     {
       *buf = 0;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Override already enabled, no action taken", buf, 2u);
-      result = 0;
+      return 0;
     }
   }
 
@@ -1786,14 +1892,13 @@ LABEL_128:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = overrideCopy;
+      v8 = overrideCopy;
       _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "LDCM - Setting Override in Port Manager: %d!!!", buf, 8u);
     }
 
-    result = IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3EAu, input, 1u, 0, 0, 0, 0, 0, 0);
+    return IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3EAu, input, 1u, 0, 0, 0, 0, 0, 0);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1802,9 +1907,7 @@ LABEL_128:
   input[1] = *MEMORY[0x277D85DE8];
   ldcmFeatureConnect = self->_ldcmFeatureConnect;
   input[0] = state;
-  result = IOConnectCallMethod(ldcmFeatureConnect, 0x3EBu, input, 1u, 0, 0, 0, 0, 0, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(ldcmFeatureConnect, 0x3EBu, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 - (int)setLDCMMeasurementStatus:(int)status
@@ -1812,9 +1915,7 @@ LABEL_128:
   input[1] = *MEMORY[0x277D85DE8];
   ldcmFeatureConnect = self->_ldcmFeatureConnect;
   input[0] = status;
-  result = IOConnectCallMethod(ldcmFeatureConnect, 0x3ECu, input, 1u, 0, 0, 0, 0, 0, 0);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(ldcmFeatureConnect, 0x3ECu, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 - (int)getData:(char *)outputStruct :(unint64_t *)outputStructCnt
@@ -1822,9 +1923,7 @@ LABEL_128:
   input[1] = *MEMORY[0x277D85DE8];
   ldcmFeatureConnect = self->_ldcmFeatureConnect;
   input[0] = 1;
-  result = IOConnectCallMethod(ldcmFeatureConnect, 0x3EDu, input, 1u, 0, 0, 0, 0, outputStruct, outputStructCnt);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(ldcmFeatureConnect, 0x3EDu, input, 1u, 0, 0, 0, 0, outputStruct, outputStructCnt);
 }
 
 - (int)setWaveformExtractionEnabled:(unsigned __int8)enabled
@@ -1835,13 +1934,11 @@ LABEL_128:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v8 = enabledCopy;
+    v7 = enabledCopy;
     _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - Setting waveform extraction: %d...", buf, 8u);
   }
 
-  result = IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3F1u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return IOConnectCallMethod(self->_ldcmFeatureConnect, 0x3F1u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 - (int)disableOVPInterrupts
@@ -1857,11 +1954,11 @@ LABEL_128:
 
 - (void)showUI
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    LOWORD(v7[0]) = 0;
-    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - Showing UI, if applicable", v7, 2u);
+    LOWORD(v6[0]) = 0;
+    _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - Showing UI, if applicable", v6, 2u);
   }
 
   if (self->_buildType == 1 || self->_behaviorOverrideDisableUI || self->_overrideEnabled)
@@ -1871,13 +1968,13 @@ LABEL_128:
       buildType = self->_buildType;
       behaviorOverrideDisableUI = self->_behaviorOverrideDisableUI;
       overrideEnabled = self->_overrideEnabled;
-      v7[0] = 67109632;
-      v7[1] = buildType;
-      v8 = 1024;
-      v9 = behaviorOverrideDisableUI;
-      v10 = 1024;
-      v11 = overrideEnabled;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - Not showing UI (buildtype: %d override: %d userOverride: %d)", v7, 0x14u);
+      v6[0] = 67109632;
+      v6[1] = buildType;
+      v7 = 1024;
+      v8 = behaviorOverrideDisableUI;
+      v9 = 1024;
+      v10 = overrideEnabled;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - Not showing UI (buildtype: %d override: %d userOverride: %d)", v6, 0x14u);
     }
   }
 
@@ -1887,8 +1984,8 @@ LABEL_128:
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        LOWORD(v7[0]) = 0;
-        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - UI already active, not showing UI", v7, 2u);
+        LOWORD(v6[0]) = 0;
+        _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "LDCM - UI already active, not showing UI", v6, 2u);
       }
     }
 
@@ -1900,8 +1997,6 @@ LABEL_128:
 
     self->_uiActive = 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hideUI
@@ -1993,7 +2088,7 @@ LABEL_128:
 
 - (void)processBehaviorDictionary:(id)dictionary
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
@@ -2036,148 +2131,112 @@ LABEL_128:
     {
       behaviorOverrideDisableMitigations = self->_behaviorOverrideDisableMitigations;
       behaviorOverrideDisableUI = self->_behaviorOverrideDisableUI;
-      v19 = 136315650;
-      v20 = "[IOPortLDCMManagerV4 processBehaviorDictionary:]";
-      v21 = 1024;
-      v22 = behaviorOverrideDisableMitigations;
-      v23 = 1024;
-      v24 = behaviorOverrideDisableUI;
-      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s behavior overrides - mitigations: %d ui: %d", &v19, 0x18u);
+      v18 = 136315650;
+      v19 = "[IOPortLDCMManagerV4 processBehaviorDictionary:]";
+      v20 = 1024;
+      v21 = behaviorOverrideDisableMitigations;
+      v22 = 1024;
+      v23 = behaviorOverrideDisableUI;
+      _os_log_impl(&dword_2548F1000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s behavior overrides - mitigations: %d ui: %d", &v18, 0x18u);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to open LDCM kernel service\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to open LDCM kernel service\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to set up LDCM interrupts interest notification\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to set up LDCM interrupts interest notification\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to get IOPort kernel service\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to get IOPort kernel service\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to set up LDCM attach/detach interest notification\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to set up LDCM attach/detach interest notification\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to create LDCM V4 Timer\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to create LDCM V4 Timer\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to create ldcmV4DispatchQueue\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to create ldcmV4DispatchQueue\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:.cold.9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to initialize IOPortLDCMManagerV4 super\n", v1, v2, v3, v4, 2u);
+    LODWORD(v5) = 136315138;
+    *(&v5 + 4) = "[IOPortLDCMManagerV4 initWithParams:withDryPollingInterval:withService:withNotificationPort:withServerRunloop:]";
+    OUTLINED_FUNCTION_0_2(&dword_2548F1000, MEMORY[0x277D86220], v0, "%s Failed to initialize IOPortLDCMManagerV4 super\n", v1, v2, v3, v4, v5, DWORD2(v5));
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performLDCMMeasurement:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_1();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
-- (void)performLDCMMeasurement:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)performLDCMMeasurement:.cold.2()
 {
-  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = *a1;
     OUTLINED_FUNCTION_1_1();
-    _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)performLDCMMeasurement:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)performLDCMMeasurement:(uint64_t *)a1 .cold.4(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeWaveform:withWaveformDataLen:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_1_1();
-    _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+    _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)storeWaveform:withWaveformDataLen:.cold.2()

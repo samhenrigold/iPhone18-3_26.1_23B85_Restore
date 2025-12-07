@@ -35,7 +35,7 @@
     candidateAccumulatedTimelineWithNextBestTimeline = self->_candidateAccumulatedTimelineWithNextBestTimeline;
     if (candidateAccumulatedTimelineWithNextBestTimeline)
     {
-      [(PXStoryConcreteTimeline *)candidateAccumulatedTimelineWithNextBestTimeline infoForSegmentWithIdentifier:lastSegmentIdentifier];
+      objc_msgSend_infoForSegmentWithIdentifier_(candidateAccumulatedTimelineWithNextBestTimeline);
       v12 = v26;
     }
 
@@ -153,7 +153,7 @@ double __67__PXStoryConcreteTimelineParser__adjustTimeline_andAppendTimeline___b
         *buf = 0u;
         if (scanner)
         {
-          [scanner scanState];
+          objc_msgSend_scanState(scanner);
         }
 
         aBlock[0] = MEMORY[0x1E69E9820];
@@ -255,7 +255,7 @@ double __67__PXStoryConcreteTimelineParser__adjustTimeline_andAppendTimeline___b
     *buf = 0u;
     if (scanner)
     {
-      [scanner scanState];
+      objc_msgSend_scanState(scanner);
     }
 
     v38[0] = MEMORY[0x1E69E9820];

@@ -59,18 +59,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  [itemCopy duration];
+  objc_msgSend_duration(itemCopy);
   v5->_scrubbable = (v25 & 1) == 0;
 
 LABEL_6:
-  [itemCopy duration];
+  objc_msgSend_duration(itemCopy);
   v5->_isEnabled = v24 > 0.0;
-  [itemCopy duration];
+  objc_msgSend_duration(itemCopy);
   *&v5->_durationSnapshot.snapshotTime = v20;
   *&v5->_durationSnapshot.endTime = v21;
   *&v5->_durationSnapshot.elapsedDuration = v22;
   *&v5->_durationSnapshot.isLiveContent = v23;
-  [itemCopy duration];
+  objc_msgSend_duration(itemCopy);
   v10 = v19;
 LABEL_9:
   v5->_isLive = v10;
@@ -99,7 +99,7 @@ LABEL_13:
   v4 = objc_opt_class();
   [(MRUTimeControls *)self startTime];
   v6 = v5;
-  [(MRUTimeControls *)self duration];
+  objc_msgSend_duration(self);
   v8 = @"No";
   if (self->_scrubbable)
   {
@@ -146,7 +146,7 @@ LABEL_13:
       v6 = v5;
       if (v5)
       {
-        [(MRUTimeControls *)v5 durationSnapshot];
+        objc_msgSend_durationSnapshot(v5);
         v7 = v27;
       }
 
@@ -164,9 +164,9 @@ LABEL_13:
         v9 = 0;
       }
 
-      [(MRUTimeControls *)v6 duration];
+      objc_msgSend_duration(v6);
       v14 = v13;
-      [(MRUTimeControls *)self duration];
+      objc_msgSend_duration(self);
       if (v14 != v15)
       {
         v9 = 0;
@@ -174,7 +174,7 @@ LABEL_13:
 
       if (v6)
       {
-        [(MRUTimeControls *)v6 durationSnapshot];
+        objc_msgSend_durationSnapshot(v6);
         v16 = v26;
       }
 
@@ -183,7 +183,7 @@ LABEL_13:
         v16 = 0.0;
       }
 
-      [(MRUTimeControls *)self durationSnapshot];
+      objc_msgSend_durationSnapshot(self);
       if (v16 != v25)
       {
         v9 = 0;
@@ -235,7 +235,7 @@ LABEL_13:
 - (double)startTime
 {
   startTime = self->_durationSnapshot.startTime;
-  [(MRUTimeControls *)self duration];
+  objc_msgSend_duration(self, a2);
   if (startTime < result)
   {
     return startTime;
@@ -256,7 +256,7 @@ LABEL_13:
   v5 = fmax(duration, 0.0);
   [(MRUTimeControls *)self startTime];
   v7 = v6;
-  [(MRUTimeControls *)self duration];
+  objc_msgSend_duration(self);
   if (v5 < result)
   {
     result = v5;
@@ -272,51 +272,51 @@ LABEL_13:
 
 - (void)setElapsedTime:(double)time
 {
-  v16 = *MEMORY[0x1E69E9840];
-  [(MRUTimeControls *)self duration];
-  v6 = v5;
-  v7 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v17 = *MEMORY[0x1E69E9840];
+  v5 = objc_msgSend_duration(self, a2);
+  v7 = v6;
+  v8 = MCLogCategoryDefault(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = self;
     *&buf[12] = 2050;
     *&buf[14] = time;
-    _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ set time to: %{public}f", buf, 0x16u);
+    _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ set time to: %{public}f", buf, 0x16u);
   }
 
-  v8 = fmax(time, 0.0);
-  if (v8 < v6)
+  v9 = fmax(time, 0.0);
+  if (v9 < v7)
   {
-    v6 = v8;
+    v7 = v9;
   }
 
-  v9 = [(MPCPlayerSeekCommand *)self->_seekCommand changePositionToElapsedInterval:v6];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __34__MRUTimeControls_setElapsedTime___block_invoke;
-  v13[3] = &unk_1E7664118;
-  v13[4] = self;
-  *&v13[5] = time;
-  [MEMORY[0x1E69B0848] performRequest:v9 completion:v13];
-  v10 = *&self->_durationSnapshot.startTime;
+  v10 = [(MPCPlayerSeekCommand *)self->_seekCommand changePositionToElapsedInterval:v7];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __34__MRUTimeControls_setElapsedTime___block_invoke;
+  v14[3] = &unk_1E7664118;
+  v14[4] = self;
+  *&v14[5] = time;
+  [MEMORY[0x1E69B0848] performRequest:v10 completion:v14];
+  v11 = *&self->_durationSnapshot.startTime;
   *&buf[16] = self->_durationSnapshot.duration;
-  v14 = *&self->_durationSnapshot.rate;
-  *buf = v10;
+  v15 = *&self->_durationSnapshot.rate;
+  *buf = v11;
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
-  self->_durationSnapshot.snapshotTime = v11;
-  v12 = v14;
+  self->_durationSnapshot.snapshotTime = v12;
+  v13 = v15;
   *&self->_durationSnapshot.startTime = *buf;
   self->_durationSnapshot.duration = *&buf[16];
-  self->_durationSnapshot.elapsedDuration = v6;
-  *&self->_durationSnapshot.rate = v12;
+  self->_durationSnapshot.elapsedDuration = v7;
+  *&self->_durationSnapshot.rate = v13;
 }
 
 void __34__MRUTimeControls_setElapsedTime___block_invoke(uint64_t a1, void *a2)
 {
   v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = MCLogCategoryDefault();
+  v4 = MCLogCategoryDefault(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);

@@ -88,7 +88,7 @@
 
 - (double)computeIntrinsicAspectRatio
 {
-  [(BSUIDailyReadingBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a2);
   width = self->_intrinsicContentSize.width;
   result = 1.0;
   if (width > 0.0)
@@ -210,7 +210,7 @@
 {
   [(BSUIDailyReadingBoxLayout *)self containingWidth];
   v4 = v3;
-  v5 = COERCE_FLOAT([(BSUIDailyReadingBoxLayout *)self specifiedWidth]);
+  v5 = COERCE_FLOAT(objc_msgSend_specifiedWidth(self));
   if (v4 >= v5)
   {
     v6 = v5;
@@ -633,7 +633,7 @@ LABEL_63:
 
 - ($C9FAB8CAB2AF31EF60403A04CE35D411)computeIntrinsicHeight
 {
-  [(BSUIDailyReadingBoxLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   height = self->_intrinsicContentSize.height;
   if (height <= -3.40282347e38)
   {

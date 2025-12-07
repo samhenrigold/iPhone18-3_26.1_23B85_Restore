@@ -1,4 +1,5 @@
 @interface GESSTriMesh
+- (BOOL)getFaceCrossField:(float *)field size:(unint64_t)size type:(int)type;
 - (BOOL)getFaceGroupIDs:(unsigned __int16 *)ds size:(unint64_t)size;
 - (BOOL)getFaceVertexNormalIndices:(unsigned int *)indices size:(unint64_t)size;
 - (BOOL)getFaceVertexUVIndices:(unsigned int *)indices size:(unint64_t)size;
@@ -181,6 +182,14 @@
   FaceGroupIDData = objc_msgSend_getFaceGroupIDData_(self, v10, v9, v11);
 
   return FaceGroupIDData;
+}
+
+- (BOOL)getFaceCrossField:(float *)field size:(unint64_t)size type:(int)type
+{
+  sizeCopy = size;
+  v7 = objc_msgSend_meshImpl(self, a2, field, size, *&type);
+
+  return sub_24BCDB11C(v7, field, sizeCopy, 1);
 }
 
 - (BOOL)setFaceCrossField:(float *)field size:(unint64_t)size

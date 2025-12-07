@@ -16,44 +16,46 @@
 - (void)toggleLowPowerMode;
 - (void)toggleMobileChargeMode;
 - (void)viewDidLoad;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation CCUILowPowerModuleViewController
 
 - (CCUILowPowerModuleViewController)init
 {
-  v10.receiver = self;
-  v10.super_class = CCUILowPowerModuleViewController;
-  v2 = [(CCUILowPowerModuleViewController *)&v10 init];
+  v16.receiver = self;
+  v16.super_class = CCUILowPowerModuleViewController;
+  v2 = [(CCUILowPowerModuleViewController *)&v16 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x29EDC57F8]);
     lowPowerMode = v2->_lowPowerMode;
     v2->_lowPowerMode = v3;
 
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2050000000;
-    v5 = qword_2A1A12990;
-    v15 = qword_2A1A12990;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2050000000;
+    v7 = qword_2A1A12990;
+    v21 = qword_2A1A12990;
     if (!qword_2A1A12990)
     {
-      v11[0] = MEMORY[0x29EDCA5F8];
-      v11[1] = 3221225472;
-      v11[2] = sub_29C9CFFC0;
-      v11[3] = &unk_29F33D060;
-      v11[4] = &v12;
-      sub_29C9CFFC0(v11);
-      v5 = v13[3];
+      v17[0] = MEMORY[0x29EDCA5F8];
+      v17[1] = 3221225472;
+      v17[2] = sub_29C9CFFC0;
+      v17[3] = &unk_29F33D060;
+      v17[4] = &v18;
+      sub_29C9CFFC0(v17, v5, v6);
+      v7 = v19[3];
     }
 
-    v6 = v5;
-    _Block_object_dispose(&v12, 8);
-    v7 = [[v5 alloc] initWithClientName:@"BatteryModule"];
+    v8 = v7;
+    _Block_object_dispose(&v18, 8);
+    v9 = [v7 alloc];
+    v11 = objc_msgSend_initWithClientName_(v9, v10, @"BatteryModule");
     smartChargeClient = v2->_smartChargeClient;
-    v2->_smartChargeClient = v7;
+    v2->_smartChargeClient = v11;
 
-    [(CCUILowPowerModuleViewController *)v2 _observeSystemNotifications];
+    objc_msgSend__observeSystemNotifications(v2, v13, v14);
   }
 
   return v2;
@@ -61,55 +63,68 @@
 
 - (void)dealloc
 {
-  [(CCUILowPowerModuleViewController *)self _unobserveSystemNotifications];
-  v3.receiver = self;
-  v3.super_class = CCUILowPowerModuleViewController;
-  [(CCUILowPowerModuleViewController *)&v3 dealloc];
+  objc_msgSend__unobserveSystemNotifications(self, a2, v2);
+  v4.receiver = self;
+  v4.super_class = CCUILowPowerModuleViewController;
+  [(CCUILowPowerModuleViewController *)&v4 dealloc];
 }
 
 - (void)viewDidLoad
 {
-  v3.receiver = self;
-  v3.super_class = CCUILowPowerModuleViewController;
-  [(CCUIMenuModuleViewController *)&v3 viewDidLoad];
-  [(CCUILowPowerModuleViewController *)self reconfigureView];
-  [(CCUILowPowerModuleViewController *)self refreshStateAnimated:0];
+  v6.receiver = self;
+  v6.super_class = CCUILowPowerModuleViewController;
+  [(CCUIMenuModuleViewController *)&v6 viewDidLoad];
+  objc_msgSend_reconfigureView(self, v3, v4);
+  objc_msgSend_refreshStateAnimated_(self, v5, 0);
+}
+
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  v9.receiver = self;
+  v9.super_class = CCUILowPowerModuleViewController;
+  [(CCUIMenuModuleViewController *)&v9 willTransitionToExpandedContentMode:mode];
+  v6 = objc_msgSend_glyphPackageDescription(self, v4, v5);
+  objc_msgSend_setGlyphPackageDescription_(self, v7, v6);
+
+  objc_msgSend_refreshStateAnimated_(self, v8, 0);
 }
 
 - (void)reconfigureView
 {
-  glyphPackageDescription = [(CCUILowPowerModuleViewController *)self glyphPackageDescription];
-  [(CCUIMenuModuleViewController *)self setGlyphPackageDescription:glyphPackageDescription];
+  v4 = objc_msgSend_glyphPackageDescription(self, a2, v2);
+  objc_msgSend_setGlyphPackageDescription_(self, v5, v4);
 
-  v4 = [MEMORY[0x29EDB9F48] bundleForClass:objc_opt_class()];
-  v5 = [v4 localizedStringForKey:@"CONTROL_CENTER_TITLE" value:&stru_2A23EED98 table:0];
-  [(CCUIMenuModuleViewController *)self setTitle:v5];
+  v6 = MEMORY[0x29EDB9F48];
+  v7 = objc_opt_class();
+  v9 = objc_msgSend_bundleForClass_(v6, v8, v7);
+  v11 = objc_msgSend_localizedStringForKey_value_table_(v9, v10, @"CONTROL_CENTER_TITLE", &stru_2A23EED98, 0);
+  objc_msgSend_setTitle_(self, v12, v11);
 
-  [(CCUIMenuModuleViewController *)self setIndentation:1];
+  objc_msgSend_setIndentation_(self, v13, 1);
 
-  MEMORY[0x2A1C70FE8](self, sel_setUseTrailingCheckmarkLayout_);
+  MEMORY[0x2A1C70FE8](self, sel_setUseTrailingCheckmarkLayout_, 1);
 }
 
 - (void)refreshStateAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v9[0] = MEMORY[0x29EDCA5F8];
-  v9[1] = 3221225472;
-  v9[2] = sub_29C9CF2AC;
-  v9[3] = &unk_29F33CFE8;
-  v9[4] = self;
-  v5 = MEMORY[0x29ED504A0](v9, a2);
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = sub_29C9CF2AC;
+  v14[3] = &unk_29F33CFE8;
+  v14[4] = self;
+  v7 = MEMORY[0x29ED504A0](v14, a2);
   if (animatedCopy)
   {
-    v6 = MEMORY[0x29EDC0CB0];
-    viewIfLoaded = [(CCUILowPowerModuleViewController *)self viewIfLoaded];
-    window = [viewIfLoaded window];
-    [v6 performWithoutAnimationWhileHiddenInWindow:window actions:v5];
+    v8 = MEMORY[0x29EDC0CB0];
+    v9 = objc_msgSend_viewIfLoaded(self, v5, v6);
+    v12 = objc_msgSend_window(v9, v10, v11);
+    objc_msgSend_performWithoutAnimationWhileHiddenInWindow_actions_(v8, v13, v12, v7);
   }
 
   else
   {
-    [MEMORY[0x29EDC7DA0] performWithoutAnimation:v5];
+    objc_msgSend_performWithoutAnimation_(MEMORY[0x29EDC7DA0], v5, v7);
   }
 }
 
@@ -118,59 +133,62 @@
   v5 = MEMORY[0x29EDB9F48];
   handlerCopy = handler;
   itemCopy = item;
-  v8 = [v5 bundleForClass:objc_opt_class()];
-  v9 = [v8 localizedStringForKey:itemCopy value:&stru_2A23EED98 table:0];
+  v8 = objc_opt_class();
+  v10 = objc_msgSend_bundleForClass_(v5, v9, v8);
+  v12 = objc_msgSend_localizedStringForKey_value_table_(v10, v11, itemCopy, &stru_2A23EED98, 0);
 
-  v10 = [objc_alloc(MEMORY[0x29EDC0CE0]) initWithTitle:v9 identifier:v9 handler:handlerCopy];
+  v13 = objc_alloc(MEMORY[0x29EDC0CE0]);
+  v15 = objc_msgSend_initWithTitle_identifier_handler_(v13, v14, v12, v12, handlerCopy);
 
-  return v10;
+  return v15;
 }
 
 - (void)_configureMenu
 {
   objc_initWeak(&location, self);
   v3 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-  v23[0] = MEMORY[0x29EDCA5F8];
-  v23[1] = 3221225472;
-  v23[2] = sub_29C9CF640;
-  v23[3] = &unk_29F33D010;
-  objc_copyWeak(&v24, &location);
-  v4 = [(CCUILowPowerModuleViewController *)self _makeLocalizedMenuItem:@"CONTROL_CENTER_TITLE" handler:v23];
-  [v4 setSelected:{-[CCUILowPowerModuleViewController isSelected](self, "isSelected")}];
-  [v3 addObject:v4];
+  v36[0] = MEMORY[0x29EDCA5F8];
+  v36[1] = 3221225472;
+  v36[2] = sub_29C9CF640;
+  v36[3] = &unk_29F33D010;
+  objc_copyWeak(&v37, &location);
+  v5 = objc_msgSend__makeLocalizedMenuItem_handler_(self, v4, @"CONTROL_CENTER_TITLE", v36);
+  isSelected = objc_msgSend_isSelected(self, v6, v7);
+  objc_msgSend_setSelected_(v5, v9, isSelected);
+  objc_msgSend_addObject_(v3, v10, v5);
   smartChargeClient = self->_smartChargeClient;
-  v22 = 0;
-  v6 = [(PowerUISmartChargeClient *)smartChargeClient isMCMCurrentlyEnabled:&v22];
-  v7 = v22;
-  if (v7)
+  v35 = 0;
+  isMCMCurrentlyEnabled = objc_msgSend_isMCMCurrentlyEnabled_(smartChargeClient, v12, &v35);
+  v16 = v35;
+  if (v16)
   {
-    v8 = *MEMORY[0x29EDC0C88];
+    v17 = *MEMORY[0x29EDC0C88];
     if (os_log_type_enabled(*MEMORY[0x29EDC0C88], OS_LOG_TYPE_ERROR))
     {
-      sub_29C9D01F0(v8, v9, v10, v11, v12, v13, v14, v15);
+      sub_29C9D01F0(v17, v18, v19, v20, v21, v22, v23, v24);
     }
   }
 
   else
   {
-    if ([(CCUILowPowerModuleViewController *)self isEAconnected])
+    if (objc_msgSend_isEAconnected(self, v14, v15))
     {
-      v17 = MEMORY[0x29EDCA5F8];
-      v18 = 3221225472;
-      v19 = sub_29C9CF674;
-      v20 = &unk_29F33D010;
-      objc_copyWeak(&v21, &location);
-      v16 = [(CCUILowPowerModuleViewController *)self _makeLocalizedMenuItem:@"MENU_MCM_DISABLE" handler:&v17];
-      [v16 setSelected:{v6 == 2, v17, v18, v19, v20}];
-      [v3 addObject:v16];
+      v30 = MEMORY[0x29EDCA5F8];
+      v31 = 3221225472;
+      v32 = sub_29C9CF674;
+      v33 = &unk_29F33D010;
+      objc_copyWeak(&v34, &location);
+      v27 = objc_msgSend__makeLocalizedMenuItem_handler_(self, v26, @"MENU_MCM_DISABLE", &v30);
+      objc_msgSend_setSelected_(v27, v28, isMCMCurrentlyEnabled == 2, v30, v31, v32, v33);
+      objc_msgSend_addObject_(v3, v29, v27);
 
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(&v34);
     }
 
-    [(CCUIMenuModuleViewController *)self setMenuItems:v3];
+    objc_msgSend_setMenuItems_(self, v25, v3);
   }
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v37);
   objc_destroyWeak(&location);
 }
 
@@ -186,17 +204,18 @@
   v4 = MEMORY[0x29EDC0CA0];
   v5 = MEMORY[0x29EDB9F48];
   v6 = v3;
-  v7 = [v5 bundleForClass:objc_opt_class()];
-  v8 = [v4 descriptionForPackageNamed:v6 inBundle:v7];
+  v7 = objc_opt_class();
+  v9 = objc_msgSend_bundleForClass_(v5, v8, v7);
+  v11 = objc_msgSend_descriptionForPackageNamed_inBundle_(v4, v10, v6, v9);
 
-  [v8 setFlipsForRightToLeftLayoutDirection:1];
+  objc_msgSend_setFlipsForRightToLeftLayoutDirection_(v11, v12, 1);
 
-  return v8;
+  return v11;
 }
 
 - (id)glyphState
 {
-  if ([(CCUIButtonModuleViewController *)self appearsSelected])
+  if (objc_msgSend_appearsSelected(self, a2, v2))
   {
     return @"enabled";
   }
@@ -211,34 +230,34 @@
 {
   smartChargeClient = self->_smartChargeClient;
   v5 = 0;
-  v3 = [(PowerUISmartChargeClient *)smartChargeClient shouldMCMBeDisplayed:&v5];
-  return (v5 == 0) & v3;
+  shouldMCMBeDisplayed = objc_msgSend_shouldMCMBeDisplayed_(smartChargeClient, a2, &v5);
+  return (v5 == 0) & shouldMCMBeDisplayed;
 }
 
 - (void)_observeSystemNotifications
 {
-  defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
-  [defaultCenter addObserver:self selector:sel__updateState name:*MEMORY[0x29EDB9F00] object:0];
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], a2, v2);
+  objc_msgSend_addObserver_selector_name_object_(v4, v5, self, sel__updateState, *MEMORY[0x29EDB9F00], 0);
 
-  defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
-  v5 = sub_29C9CF92C();
-  [defaultCenter2 addObserver:self selector:sel__updateState name:v5 object:0];
+  v8 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v6, v7);
+  v11 = sub_29C9CF92C(v8, v9, v10);
+  objc_msgSend_addObserver_selector_name_object_(v8, v12, self, sel__updateState, v11, 0);
 
-  defaultCenter3 = [MEMORY[0x29EDBA068] defaultCenter];
-  [defaultCenter3 addObserver:self selector:sel__updateForDarkerSystemColorsChange name:*MEMORY[0x29EDC7EB0] object:0];
+  v16 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v13, v14);
+  objc_msgSend_addObserver_selector_name_object_(v16, v15, self, sel__updateForDarkerSystemColorsChange, *MEMORY[0x29EDC7EB0], 0);
 }
 
 - (void)_unobserveSystemNotifications
 {
-  defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
-  [defaultCenter removeObserver:self name:*MEMORY[0x29EDB9F00] object:0];
+  v4 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], a2, v2);
+  objc_msgSend_removeObserver_name_object_(v4, v5, self, *MEMORY[0x29EDB9F00], 0);
 
-  defaultCenter2 = [MEMORY[0x29EDBA068] defaultCenter];
-  v5 = sub_29C9CF92C();
-  [defaultCenter2 removeObserver:self name:v5 object:0];
+  v8 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v6, v7);
+  v11 = sub_29C9CF92C(v8, v9, v10);
+  objc_msgSend_removeObserver_name_object_(v8, v12, self, v11, 0);
 
-  defaultCenter3 = [MEMORY[0x29EDBA068] defaultCenter];
-  [defaultCenter3 removeObserver:self name:*MEMORY[0x29EDC7EB0] object:0];
+  v16 = objc_msgSend_defaultCenter(MEMORY[0x29EDBA068], v13, v14);
+  objc_msgSend_removeObserver_name_object_(v16, v15, self, *MEMORY[0x29EDC7EB0], 0);
 }
 
 - (void)_updateState
@@ -253,27 +272,27 @@
 
 - (void)toggleLowPowerMode
 {
-  [(CCUILowPowerModuleViewController *)self isSelected];
+  v4 = objc_msgSend_isSelected(self, a2, v2) ^ 1;
 
-  MEMORY[0x2A1C70FE8](self, sel_setLowPowerMode_);
+  MEMORY[0x2A1C70FE8](self, sel_setLowPowerMode_, v4);
 }
 
 - (void)setLowPowerMode:(BOOL)mode
 {
   modeCopy = mode;
-  if ([(CCUILowPowerModuleViewController *)self isSelected]!= mode)
+  if (objc_msgSend_isSelected(self, a2, mode) != mode)
   {
     objc_initWeak(&location, self);
     lowPowerMode = self->_lowPowerMode;
     v6 = *MEMORY[0x29EDC5800];
-    v7[0] = MEMORY[0x29EDCA5F8];
-    v7[1] = 3221225472;
-    v7[2] = sub_29C9CFCC8;
-    v7[3] = &unk_29F33D038;
-    v9 = modeCopy;
-    objc_copyWeak(&v8, &location);
-    [(_PMLowPowerMode *)lowPowerMode setPowerMode:modeCopy fromSource:v6 withCompletion:v7];
-    objc_destroyWeak(&v8);
+    v8[0] = MEMORY[0x29EDCA5F8];
+    v8[1] = 3221225472;
+    v8[2] = sub_29C9CFCC8;
+    v8[3] = &unk_29F33D038;
+    v10 = modeCopy;
+    objc_copyWeak(&v9, &location);
+    objc_msgSend_setPowerMode_fromSource_withCompletion_(lowPowerMode, v7, modeCopy, v6, v8);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(&location);
   }
 }
@@ -281,21 +300,21 @@
 - (void)toggleMobileChargeMode
 {
   smartChargeClient = self->_smartChargeClient;
-  v14 = 0;
-  v4 = [(PowerUISmartChargeClient *)smartChargeClient isMCMCurrentlyEnabled:&v14];
-  v5 = v14;
-  if (v5)
+  v15 = 0;
+  isMCMCurrentlyEnabled = objc_msgSend_isMCMCurrentlyEnabled_(smartChargeClient, a2, &v15);
+  v6 = v15;
+  if (v6)
   {
-    v6 = *MEMORY[0x29EDC0C88];
+    v7 = *MEMORY[0x29EDC0C88];
     if (os_log_type_enabled(*MEMORY[0x29EDC0C88], OS_LOG_TYPE_ERROR))
     {
-      sub_29C9D01F0(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_29C9D01F0(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
   else
   {
-    [(CCUILowPowerModuleViewController *)self setMobileChargeMode:v4 != 1];
+    objc_msgSend_setMobileChargeMode_(self, v5, isMCMCurrentlyEnabled != 1);
   }
 }
 
@@ -306,14 +325,14 @@
   {
     v15 = 0;
     v4 = &v15;
-    [(PowerUISmartChargeClient *)smartChargeClient enableMCM:&v15];
+    objc_msgSend_enableMCM_(smartChargeClient, a2, &v15);
   }
 
   else
   {
     v14 = 0;
     v4 = &v14;
-    [(PowerUISmartChargeClient *)smartChargeClient temporarilyDisableMCM:&v14];
+    objc_msgSend_temporarilyDisableMCM_(smartChargeClient, a2, &v14);
   }
 
   v5 = *v4;

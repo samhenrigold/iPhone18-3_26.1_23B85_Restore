@@ -120,103 +120,103 @@ void __43__PXSectionedLayoutEngine__computeSection___block_invoke_2(id *a1, uint
   sectionCopy = section;
   array = [MEMORY[0x1E695DF70] array];
   [(PXSectionedLayoutEngine *)self seedSize];
-  v11 = v10;
-  v13 = v12;
+  v10 = v9;
+  v12 = v11;
   dataSourceSnapshot = [(PXLayoutEngine *)self dataSourceSnapshot];
   numberOfSections = [dataSourceSnapshot numberOfSections];
   index = [sectionCopy index];
-  v16 = sectionCopy;
-  v64 = 0;
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
+  v15 = sectionCopy;
+  v63 = 0;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v17 = [v16 geometriesWithKind:kind];
-  v18 = v17;
-  if (v17)
+  v56 = 0u;
+  v54 = 0u;
+  v16 = [v15 geometriesWithKind:kind];
+  v17 = v16;
+  if (v16)
   {
-    [v17 geometryAtIndex:index];
+    objc_msgSend_geometryAtIndex_(v16);
   }
 
   else
   {
-    v64 = 0;
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
+    v63 = 0;
     v61 = 0u;
-    v58 = 0u;
+    v62 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
+    v58 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v54 = 0u;
   }
 
-  [v16 frame];
+  [v15 frame];
+  v20 = v18;
   v21 = v19;
-  v22 = v20;
   axis = self->_axis;
-  v24 = 0.0;
+  v23 = 0.0;
   if (axis)
   {
     if (axis == 1)
     {
-      v26 = &v56;
-      v25 = v20;
+      v25 = &v55;
+      v24 = v19;
     }
 
     else
     {
-      v25 = 0.0;
+      v24 = 0.0;
       if (axis != 2)
       {
         goto LABEL_26;
       }
 
-      v26 = &v55 + 1;
-      v13 = v11;
-      v25 = v19;
+      v25 = &v54 + 1;
+      v12 = v10;
+      v24 = v18;
     }
 
-    v24 = v13 * 0.5;
+    v23 = v12 * 0.5;
     if (index)
     {
-      v27 = v25 + *v26 - v24;
-      if (v25 > v27)
+      v26 = v24 + *v25 - v23;
+      if (v24 > v26)
       {
-        v52 = numberOfSections;
-        v28 = index - 1;
+        v51 = numberOfSections;
+        v27 = index - 1;
         do
         {
-          v29 = [(PXSectionedLayoutContent *)self->_layoutContent sectionAtIndex:v28, v52];
-          if (([v29 isAccurate] & 1) == 0)
+          v28 = [(PXSectionedLayoutContent *)self->_layoutContent sectionAtIndex:v27, v51];
+          if (([v28 isAccurate] & 1) == 0)
           {
-            [(PXSectionedLayoutEngine *)self _computeSection:v29];
-            [array insertObject:v29 atIndex:0];
+            [(PXSectionedLayoutEngine *)self _computeSection:v28];
+            [array insertObject:v28 atIndex:0];
           }
 
-          [v29 frame];
-          v32 = self->_axis;
-          if (v32)
+          [v28 frame];
+          v31 = self->_axis;
+          if (v31)
           {
-            if (v32 != 1)
+            if (v31 != 1)
             {
-              v31 = v25;
+              v30 = v24;
             }
 
-            if (v32 == 2)
+            if (v31 == 2)
             {
-              v25 = v30;
+              v24 = v29;
             }
 
             else
             {
-              v25 = v31;
+              v24 = v30;
             }
           }
 
@@ -226,11 +226,11 @@ void __43__PXSectionedLayoutEngine__computeSection___block_invoke_2(id *a1, uint
             [currentHandler handleFailureInMethod:a2 object:self file:@"PXSectionedLayoutEngine.m" lineNumber:334 description:@"axis == PXAxisUndefined"];
           }
 
-          v34 = v28-- != 0;
+          v33 = v27-- != 0;
         }
 
-        while (v34 && v25 > v27);
-        numberOfSections = v52;
+        while (v33 && v24 > v26);
+        numberOfSections = v51;
       }
     }
   }
@@ -240,27 +240,27 @@ void __43__PXSectionedLayoutEngine__computeSection___block_invoke_2(id *a1, uint
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXSectionedLayoutEngine.m" lineNumber:307 description:@"axis == PXAxisUndefined"];
 
-    v25 = 0.0;
+    v24 = 0.0;
   }
 
 LABEL_26:
-  index2 = [v16 index];
-  v37 = self->_axis;
-  v38 = 0.0;
-  if (v37)
+  index2 = [v15 index];
+  v36 = self->_axis;
+  v37 = 0.0;
+  if (v36)
   {
-    if (v37 == 2)
+    if (v36 == 2)
     {
-      v38 = v24 + v21 + *(&v55 + 1);
-      [v16 frame];
-      v25 = v21 + v40;
+      v37 = v23 + v20 + *(&v54 + 1);
+      [v15 frame];
+      v24 = v20 + v39;
     }
 
-    else if (v37 == 1)
+    else if (v36 == 1)
     {
-      v38 = v24 + v22 + *&v56;
-      [v16 frame];
-      v25 = v22 + v39;
+      v37 = v23 + v21 + *&v55;
+      [v15 frame];
+      v24 = v21 + v38;
     }
   }
 
@@ -270,31 +270,31 @@ LABEL_26:
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"PXSectionedLayoutEngine.m" lineNumber:359 description:@"axis == PXAxisUndefined"];
   }
 
-  v42 = numberOfSections - 1;
-  if (index2 < numberOfSections - 1 && v25 < v38)
+  v41 = numberOfSections - 1;
+  if (index2 < numberOfSections - 1 && v24 < v37)
   {
-    v43 = index2 + 1;
+    v42 = index2 + 1;
     do
     {
-      v44 = [(PXSectionedLayoutContent *)self->_layoutContent sectionAtIndex:v43];
-      if (([v44 isAccurate] & 1) == 0)
+      v43 = [(PXSectionedLayoutContent *)self->_layoutContent sectionAtIndex:v42];
+      if (([v43 isAccurate] & 1) == 0)
       {
-        [(PXSectionedLayoutEngine *)self _computeSection:v44];
-        [array addObject:v44];
+        [(PXSectionedLayoutEngine *)self _computeSection:v43];
+        [array addObject:v43];
       }
 
-      [v44 frame];
-      v49 = self->_axis;
-      if (v49)
+      [v43 frame];
+      v48 = self->_axis;
+      if (v48)
       {
-        if (v49 == 2)
+        if (v48 == 2)
         {
-          v25 = v45 + v47;
+          v24 = v44 + v46;
         }
 
-        else if (v49 == 1)
+        else if (v48 == 1)
         {
-          v25 = v46 + v48;
+          v24 = v45 + v47;
         }
       }
 
@@ -304,15 +304,15 @@ LABEL_26:
         [currentHandler4 handleFailureInMethod:a2 object:self file:@"PXSectionedLayoutEngine.m" lineNumber:385 description:@"axis == PXAxisUndefined"];
       }
 
-      if (v43 >= v42)
+      if (v42 >= v41)
       {
         break;
       }
 
-      ++v43;
+      ++v42;
     }
 
-    while (v25 < v38);
+    while (v24 < v37);
   }
 
   return array;

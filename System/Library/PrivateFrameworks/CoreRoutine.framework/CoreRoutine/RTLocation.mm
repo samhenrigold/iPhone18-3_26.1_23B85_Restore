@@ -290,16 +290,8 @@
   locationCopy = location;
   latitude = self->_latitude;
   [locationCopy latitude];
-  if (latitude != v7)
+  if (latitude != v7 || (longitude = self->_longitude, [locationCopy longitude], longitude != v9) || (horizontalUncertainty = self->_horizontalUncertainty, objc_msgSend(locationCopy, "horizontalUncertainty"), horizontalUncertainty != v11) || (altitude = self->_altitude, objc_msgSend(locationCopy, "altitude"), altitude != v13) || (verticalUncertainty = self->_verticalUncertainty, objc_msgSend(locationCopy, "verticalUncertainty"), verticalUncertainty != v15))
   {
-    goto LABEL_15;
-  }
-
-  longitude = self->_longitude;
-  [locationCopy longitude];
-  if (longitude != v9 || (horizontalUncertainty = self->_horizontalUncertainty, [locationCopy horizontalUncertainty], horizontalUncertainty != v11) || (altitude = self->_altitude, objc_msgSend(locationCopy, "altitude"), altitude != v13) || (verticalUncertainty = self->_verticalUncertainty, objc_msgSend(locationCopy, "verticalUncertainty"), verticalUncertainty != v15))
-  {
-LABEL_15:
     v26 = 0;
     goto LABEL_16;
   }

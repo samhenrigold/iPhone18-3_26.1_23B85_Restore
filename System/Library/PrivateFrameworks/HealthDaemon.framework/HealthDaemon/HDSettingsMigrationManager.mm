@@ -70,7 +70,7 @@
 
 - (void)daemonReady:(id)ready
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   v4 = [(NSUserDefaults *)self->_migrationVersionDefaults hk_safeNumberIfExistsForKeyPath:self->_lastMigratedVersionKey error:0];
   currentMigrationVersion = self->_currentMigrationVersion;
@@ -82,8 +82,8 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v17 = 2114;
-      v18 = v4;
+      v16 = 2114;
+      v17 = v4;
       _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Current migration version: %{public}@, no migration needed", buf, 0x16u);
     }
 
@@ -109,24 +109,22 @@
     {
       *buf = 138543618;
       selfCopy2 = self;
-      v17 = 2050;
-      v18 = integerValue;
+      v16 = 2050;
+      v17 = integerValue;
       _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Current migration version: %{public}ld, scheduling migration", buf, 0x16u);
     }
 
     v10 = objc_loadWeakRetained(&self->_profile);
     database = [v10 database];
     queue = self->_queue;
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __42__HDSettingsMigrationManager_daemonReady___block_invoke;
-    v14[3] = &unk_2786138F8;
-    v14[4] = self;
-    v14[5] = integerValue;
-    [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __42__HDSettingsMigrationManager_daemonReady___block_invoke;
+    v13[3] = &unk_2786138F8;
+    v13[4] = self;
+    v13[5] = integerValue;
+    [database performWhenDataProtectedByFirstUnlockIsAvailableOnQueue:queue block:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
@@ -150,29 +148,29 @@ void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
 
 - (void)_queue_performMigrationFromCurrentMigrationVersion:(int64_t)version
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v5 = self->_migrationSteps;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v37 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v36 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v28;
+    v9 = *v27;
     *&v7 = 138543618;
-    v25 = v7;
+    v24 = v7;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
         migrationVersion = [v11 migrationVersion];
         _HKInitializeLogging();
         loggingCategory = self->_loggingCategory;
@@ -181,10 +179,10 @@ void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
         {
           if (v14)
           {
-            *buf = v25;
+            *buf = v24;
             selfCopy4 = self;
-            v33 = 2114;
-            v34 = v11;
+            v32 = 2114;
+            v33 = v11;
             _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping migration step as it has already occurred: %{public}@", buf, 0x16u);
           }
         }
@@ -193,17 +191,17 @@ void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
         {
           if (v14)
           {
-            *buf = v25;
+            *buf = v24;
             selfCopy4 = self;
-            v33 = 2114;
-            v34 = v11;
+            v32 = 2114;
+            v33 = v11;
             _os_log_impl(&dword_228986000, loggingCategory, OS_LOG_TYPE_DEFAULT, "[%{public}@] Performing migration step: %{public}@", buf, 0x16u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_profile);
-          v26 = 0;
-          v16 = [v11 performStepWithProfile:WeakRetained error:&v26];
-          v17 = v26;
+          v25 = 0;
+          v16 = [v11 performStepWithProfile:WeakRetained error:&v25];
+          v17 = v25;
 
           if ((v16 & 1) == 0)
           {
@@ -213,10 +211,10 @@ void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
             {
               *buf = 138543874;
               selfCopy4 = self;
-              v33 = 2114;
-              v34 = v11;
-              v35 = 2114;
-              v36 = v17;
+              v32 = 2114;
+              v33 = v11;
+              v34 = 2114;
+              v35 = v17;
               _os_log_error_impl(&dword_228986000, v22, OS_LOG_TYPE_ERROR, "[%{public}@] Error performing step %{public}@: %{public}@", buf, 0x20u);
             }
 
@@ -232,16 +230,16 @@ void __42__HDSettingsMigrationManager_daemonReady___block_invoke(uint64_t a1)
           v20 = self->_loggingCategory;
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v25;
+            *buf = v24;
             selfCopy4 = self;
-            v33 = 2114;
-            v34 = v11;
+            v32 = 2114;
+            v33 = v11;
             _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Completed migration step: %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v8 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v37 count:16];
+      v8 = [(NSArray *)v5 countByEnumeratingWithState:&v26 objects:v36 count:16];
       if (v8)
       {
         continue;
@@ -256,8 +254,6 @@ LABEL_21:
 
   v23 = objc_loadWeakRetained(&self->_delegate);
   [v23 settingsMigrationManagerDidCompleteMigration:self didRunMigrationSteps:v21];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSettingsMigrationManagerDelegate)delegate

@@ -8,23 +8,29 @@
 
 - (void)setForeignKeyConstraints:(id)constraints
 {
-  self->super._foreignKeyConstraints = [constraints copy];
+  v4 = [constraints copy];
+  foreignKeyConstraints = self->super._foreignKeyConstraints;
+  self->super._foreignKeyConstraints = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, foreignKeyConstraints);
 }
 
 - (void)setColumns:(id)columns
 {
-  self->super._columns = [columns copy];
+  v4 = [columns copy];
+  columns = self->super._columns;
+  self->super._columns = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, columns);
 }
 
 - (void)setName:(id)name
 {
-  self->super._name = [name copy];
+  v4 = [name copy];
+  name = self->super._name;
+  self->super._name = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, name);
 }
 
 @end

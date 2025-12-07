@@ -1,5 +1,6 @@
 @interface JavaUtilProperties_$1
 - (JavaUtilProperties_$1)initWithJavaUtilProperties:(id)properties;
+- (void)charactersWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 - (void)startElementWithNSString:(id)string withNSString:(id)sString withNSString:(id)nSString withOrgXmlSaxAttributes:(id)attributes;
 @end
@@ -30,10 +31,20 @@ LABEL_8:
   JreStrongAssign(&self->key_, v9);
 }
 
+- (void)charactersWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (self->key_)
+  {
+    [(JavaUtilHashtable *)self->this$0_ putWithId:self->key_ withId:[NSString stringWithCharacters:array offset:*&int length:*&withInt]];
+
+    JreStrongAssign(&self->key_, 0);
+  }
+}
+
 - (JavaUtilProperties_$1)initWithJavaUtilProperties:(id)properties
 {
   JreStrongAssign(&self->this$0_, properties);
-  OrgXmlSaxHelpersDefaultHandler_init(self);
+  OrgXmlSaxHelpersDefaultHandler_init();
   return self;
 }
 

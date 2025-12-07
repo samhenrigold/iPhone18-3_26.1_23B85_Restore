@@ -133,7 +133,7 @@
 
   selfCopy = self;
   sub_1B1B0838C(v7, v6);
-  sub_1B1A949B4(v7);
+  sub_1B1A949B4(v7, v6);
 }
 
 @end

@@ -3,6 +3,7 @@
 - (NSArray)zonesToDelete;
 - (void)main;
 - (void)setZonesToDelete:(id)delete;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncDeleteZonesOperation
@@ -47,7 +48,7 @@
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v6 = [deleteCopy copy];
+  v6 = objc_msgSend_copy(deleteCopy);
 
   zonesToDelete = self->_zonesToDelete;
   self->_zonesToDelete = v6;
@@ -57,41 +58,41 @@
 
 - (void)main
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   zonesToDelete = [(HDCloudSyncDeleteZonesOperation *)self zonesToDelete];
   [(HDSynchronousTaskGroup *)self->_taskGroup beginTask];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
   allCKContainers = [repository allCKContainers];
 
   obj = allCKContainers;
-  v6 = [allCKContainers countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v6 = [allCKContainers countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v6)
   {
     v8 = v6;
-    v28 = *v32;
+    v27 = *v31;
     *&v7 = 138544130;
-    v26 = v7;
+    v25 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v32 != v28)
+        if (*v31 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __39__HDCloudSyncDeleteZonesOperation_main__block_invoke;
-        v30[3] = &unk_278616300;
-        v30[4] = v10;
-        v11 = [zonesToDelete hk_filter:{v30, v26}];
+        v10 = *(*(&v30 + 1) + 8 * i);
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __39__HDCloudSyncDeleteZonesOperation_main__block_invoke;
+        v29[3] = &unk_278616300;
+        v29[4] = v10;
+        v11 = [zonesToDelete hk_filter:{v29, v25}];
         if ([v11 count])
         {
           v12 = v11;
@@ -105,14 +106,14 @@
             v16 = v15;
             v17 = [v12 count];
             containerIdentifier = [v13 containerIdentifier];
-            *buf = v26;
+            *buf = v25;
             selfCopy = self;
-            v43 = 2048;
-            v44 = v17;
-            v45 = 2114;
-            v46 = containerIdentifier;
-            v47 = 2114;
-            v48 = v14;
+            v42 = 2048;
+            v43 = v17;
+            v44 = 2114;
+            v45 = containerIdentifier;
+            v46 = 2114;
+            v47 = v14;
             _os_log_impl(&dword_228986000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleting %ld zones in %{public}@: %{public}@", buf, 0x2Au);
           }
 
@@ -120,36 +121,35 @@
           configuration2 = [(HDCloudSyncOperation *)self configuration];
           v21 = [(HDCloudSyncModifyRecordZonesOperation *)v19 initWithConfiguration:configuration2 container:v13 recordZonesToSave:0 recordZoneIDsToDelete:v14];
 
-          v38[0] = MEMORY[0x277D85DD0];
-          v38[1] = 3221225472;
-          v38[2] = __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_305;
-          v38[3] = &unk_278616348;
-          v38[4] = self;
+          v37[0] = MEMORY[0x277D85DD0];
+          v37[1] = 3221225472;
+          v37[2] = __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_305;
+          v37[3] = &unk_278616348;
+          v37[4] = self;
           v22 = v13;
-          v39 = v22;
-          [(HDCloudSyncOperation *)v21 setOnError:v38];
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_307;
-          v35[3] = &unk_278616370;
-          v35[4] = self;
-          v36 = v14;
+          v38 = v22;
+          [(HDCloudSyncOperation *)v21 setOnError:v37];
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_307;
+          v34[3] = &unk_278616370;
+          v34[4] = self;
+          v35 = v14;
           v23 = v22;
-          v37 = v23;
+          v36 = v23;
           v24 = v14;
-          [(HDCloudSyncOperation *)v21 setOnSuccess:v35];
+          [(HDCloudSyncOperation *)v21 setOnSuccess:v34];
           [(HDCloudSyncOperation *)v21 start];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v8 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v8);
   }
 
   [(HDSynchronousTaskGroup *)self->_taskGroup finishTask];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__HDCloudSyncDeleteZonesOperation_main__block_invoke(uint64_t a1, void *a2)
@@ -163,33 +163,31 @@ uint64_t __39__HDCloudSyncDeleteZonesOperation_main__block_invoke(uint64_t a1, v
 
 void __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_305(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = v5;
-    v10 = [v7 containerIdentifier];
-    v11 = 138543874;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v10;
-    v15 = 2114;
-    v16 = v4;
-    _os_log_error_impl(&dword_228986000, v9, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete zones in %{public}@: %{public}@", &v11, 0x20u);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = v5;
+    v9 = [v6 containerIdentifier];
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v4;
+    _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@: Failed to delete zones in %{public}@: %{public}@", &v10, 0x20u);
   }
 
   [*(*(a1 + 32) + 112) failTaskWithError:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_invoke_307(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -199,18 +197,23 @@ uint64_t __58__HDCloudSyncDeleteZonesOperation__deleteZones_container___block_in
     v5 = v2;
     v6 = [v3 count];
     v7 = [*(a1 + 48) containerIdentifier];
-    v10 = 138543874;
-    v11 = v4;
-    v12 = 2048;
-    v13 = v6;
-    v14 = 2114;
-    v15 = v7;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleted %ld zones in %{public}@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v4;
+    v11 = 2048;
+    v12 = v6;
+    v13 = 2114;
+    v14 = v7;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Deleted %ld zones in %{public}@", &v9, 0x20u);
   }
 
-  result = [*(*(a1 + 32) + 112) finishTask];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 112) finishTask];
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

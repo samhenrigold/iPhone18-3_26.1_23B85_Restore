@@ -29,7 +29,7 @@
   p_isa = self->_replacementText;
   if ([(NSString *)self->_replacementText length])
   {
-    if (![(NSString *)self->_replacementText isEqualToString:@" "])
+    if (!objc_msgSend_isEqualToString_(self->_replacementText))
     {
       goto LABEL_6;
     }

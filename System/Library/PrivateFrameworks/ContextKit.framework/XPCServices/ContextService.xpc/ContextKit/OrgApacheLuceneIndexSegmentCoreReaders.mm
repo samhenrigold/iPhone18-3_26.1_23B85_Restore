@@ -49,16 +49,17 @@
     JreThrowNullPointerException();
   }
 
-  if (![(JavaUtilConcurrentAtomicAtomicInteger *)ref decrementAndGet])
+  decrementAndGet = [(JavaUtilConcurrentAtomicAtomicInteger *)ref decrementAndGet];
+  if (!decrementAndGet)
   {
-    v6 = vextq_s8(*&self->fieldsReaderLocal_, *&self->fieldsReaderLocal_, 8uLL);
+    v8 = vextq_s8(*&self->fieldsReaderLocal_, *&self->fieldsReaderLocal_, 8uLL);
     normsProducer = self->normsProducer_;
     fields = self->fields_;
-    v8 = vextq_s8(*&self->fieldsReaderOrig_, *&self->fieldsReaderOrig_, 8uLL);
+    v10 = vextq_s8(*&self->fieldsReaderOrig_, *&self->fieldsReaderOrig_, 8uLL);
     cfsReader = self->cfsReader_;
-    v10 = normsProducer;
-    v5 = [IOSObjectArray arrayWithObjects:&v6 count:7 type:JavaIoCloseable_class_()];
-    OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v5);
+    v12 = normsProducer;
+    v7 = [IOSObjectArray arrayWithObjects:&v8 count:7 type:JavaIoCloseable_class_(decrementAndGet, v5)];
+    OrgApacheLuceneUtilIOUtils_closeWithJavaIoCloseableArray_(v7);
     sub_10003F0AC(self, 0);
   }
 }

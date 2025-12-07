@@ -90,10 +90,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)updateAlarms:(id)alarms completion:(id)completion
@@ -119,10 +119,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)setSleepAlarms:(id)alarms completion:(id)completion
@@ -148,10 +148,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)deleteAlarms:(id)alarms completion:(id)completion
@@ -177,10 +177,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)addTimers:(id)timers completion:(id)completion
@@ -206,10 +206,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)updateTimers:(id)timers completion:(id)completion
@@ -235,10 +235,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)deleteTimers:(id)timers completion:(id)completion
@@ -264,10 +264,10 @@
   v8[4] = v5;
   v8[5] = v7;
   selfCopy = self;
-  sub_1B209192C(v5);
+  sub_1B209192C(v5, v7);
   sub_1B2068230();
 
-  sub_1B1FA6834(v5);
+  sub_1B1FA6834(v5, v7);
 }
 
 - (void)deleteAllTimersWithCompletion:(id)completion
@@ -290,10 +290,10 @@
   v6[3] = v4;
   v6[4] = v5;
   selfCopy = self;
-  sub_1B209192C(v4);
+  sub_1B209192C(v4, v5);
   sub_1B2068230();
 
-  sub_1B1FA6834(v4);
+  sub_1B1FA6834(v4, v5);
 }
 
 - (void)addDurations:(id)durations isFavorite:(BOOL)favorite
@@ -334,10 +334,10 @@
   *(v10 + 40) = v7;
   *(v10 + 48) = v9;
   selfCopy = self;
-  sub_1B209192C(v7);
+  sub_1B209192C(v7, v9);
   sub_1B2068230();
 
-  sub_1B1FA6834(v7);
+  sub_1B1FA6834(v7, v9);
 }
 
 - (void)deleteDuration:(id)duration isFavorite:(BOOL)favorite
@@ -378,10 +378,10 @@
   durationCopy = duration;
   selfCopy = self;
   v13 = durationCopy;
-  sub_1B209192C(v8);
+  sub_1B209192C(v8, v9);
   sub_1B2068230();
 
-  sub_1B1FA6834(v8);
+  sub_1B1FA6834(v8, v9);
 }
 
 - (void)deleteAllDurationsWithCompletion:(id)completion
@@ -404,10 +404,10 @@
   v6[3] = v4;
   v6[4] = v5;
   selfCopy = self;
-  sub_1B209192C(v4);
+  sub_1B209192C(v4, v5);
   sub_1B2068230();
 
-  sub_1B1FA6834(v4);
+  sub_1B1FA6834(v4, v5);
 }
 
 - (void)getAKCAlarmsWithIncludeAttributes:(BOOL)attributes completion:(id)completion

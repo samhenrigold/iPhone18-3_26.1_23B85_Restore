@@ -15,7 +15,7 @@
 - (void)prepareForReuse
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for BaseTodayCardCollectionViewCell();
+  v4.super_class = type metadata accessor for BaseTodayCardCollectionViewCell(0);
   v2 = v4.receiver;
   [(BaseTodayCardCollectionViewCell *)&v4 prepareForReuse];
   v3 = *(v2 + OBJC_IVAR____TtC8AppStore31BaseTodayCardCollectionViewCell_originalSizeCategory);

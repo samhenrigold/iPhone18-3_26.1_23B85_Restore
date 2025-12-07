@@ -55,7 +55,7 @@
 {
   subscriberCopy = subscriber;
   selfCopy = self;
-  DOCNodeObserver.removeSubscriber(_:)();
+  DOCNodeObserver.removeSubscriber(_:)(subscriberCopy);
 }
 
 @end

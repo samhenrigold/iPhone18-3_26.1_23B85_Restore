@@ -97,20 +97,21 @@
       goto LABEL_10;
     }
 
-    v14.receiver = selfCopy;
-    v14.super_class = _NSDataFileBackedFuture;
-    selfCopy = objc_msgSendSuper2(&v14, sel_init);
+    v15.receiver = selfCopy;
+    v15.super_class = _NSDataFileBackedFuture;
+    selfCopy = objc_msgSendSuper2(&v15, sel_init);
     if (selfCopy)
     {
-      v13 = 0;
+      v14 = 0;
       v8 = [objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")];
-      if (!v8 || (v9 = v8, ![v8 valueForKey:@"NSFileSize"]))
+      if (!v8 || (v9 = v8, !objc_msgSend_valueForKey_(v8)))
       {
 
-        objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"No file exists at URL '%@'", a2), 0}]);
+        v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2), 0}];
+        objc_exception_throw(v13);
       }
 
-      if ((selfCopy[3] = [objc_msgSend(v9 valueForKey:{@"NSFileSize", "unsignedIntegerValue"}], v10 = l, selfCopy[4] = v10, selfCopy[1] = objc_msgSend(a2, "URLByAppendingPathComponent:isDirectory:", objc_msgSend(v10, "UUIDString"), 0), selfCopy[2] = d, (v11 = selfCopy[1]) != 0) && (objc_msgSend(v11, "isFileURL") & 1) == 0 || selfCopy[3] >= 0x7FFFFFFFFFFFFFFFuLL)
+      if ((selfCopy[3] = [objc_msgSend_valueForKey_(v9) unsignedIntegerValue], v10 = l, selfCopy[4] = v10, selfCopy[1] = objc_msgSend(a2, "URLByAppendingPathComponent:isDirectory:", objc_msgSend(v10, "UUIDString"), 0), selfCopy[2] = d, (v11 = selfCopy[1]) != 0) && (objc_msgSend(v11, "isFileURL") & 1) == 0 || selfCopy[3] >= 0x7FFFFFFFFFFFFFFFuLL)
       {
 LABEL_10:
 
@@ -125,11 +126,10 @@ LABEL_10:
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  fileURL = self->_fileURL;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"_NSDataFileBackedFuture : <%@, %llu, %@ (%@)>", self->_uuid, self->_fileSize, fileURL, self->_originalFileURL];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_uuid, self->_fileSize, self->_fileURL, self->_originalFileURL);
   objc_autoreleasePoolPop(v3);
 
-  return v5;
+  return v4;
 }
 
 - (NSURL)fileURL
@@ -314,7 +314,7 @@ LABEL_17:
 
 - (void)_underlyingData
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -324,80 +324,75 @@ LABEL_17:
       fileURL = [v1 fileURL];
       if (!fileURL)
       {
-        v6 = MEMORY[0x1E695DF30];
-        v19 = @"URL";
-        v20[0] = @"<null url>";
-        v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
-        objc_exception_throw([v6 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying file for this file backed future has not been downloaded." userInfo:v7]);
+        v5 = MEMORY[0x1E695DF30];
+        v18 = @"URL";
+        v19[0] = @"<null url>";
+        v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+        objc_exception_throw([v5 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying file for this file backed future has not been downloaded." userInfo:v6]);
       }
 
       v3 = fileURL;
       if (([fileURL isFileURL] & 1) == 0)
       {
-        v8 = MEMORY[0x1E695DF30];
-        v17 = @"URL";
-        v18 = v3;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-        objc_exception_throw([v8 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying url for this file backed future is not a file url." userInfo:v9]);
+        v7 = MEMORY[0x1E695DF30];
+        v16 = @"URL";
+        v17 = v3;
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+        objc_exception_throw([v7 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying url for this file backed future is not a file url." userInfo:v8]);
       }
 
-      v14 = 0;
-      v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v3 options:0 error:&v14];
+      v13 = 0;
+      v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v3 options:0 error:&v13];
       v1[5] = v4;
       if (!v4)
       {
-        v10 = *MEMORY[0x1E696AA08];
-        v15[0] = @"URL";
-        v15[1] = v10;
-        v11 = v14;
-        if (!v14)
+        v9 = *MEMORY[0x1E696AA08];
+        v14[0] = @"URL";
+        v14[1] = v9;
+        v10 = v13;
+        if (!v13)
         {
-          v11 = @"<no error>";
+          v10 = @"<no error>";
         }
 
-        v12 = MEMORY[0x1E695DF30];
-        v16[0] = v3;
-        v16[1] = v11;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
-        objc_exception_throw([v12 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying file for this file backed future has not been downloaded." userInfo:v13]);
+        v11 = MEMORY[0x1E695DF30];
+        v15[0] = v3;
+        v15[1] = v10;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+        objc_exception_throw([v11 exceptionWithName:*MEMORY[0x1E695D930] reason:@"Underlying file for this file backed future has not been downloaded." userInfo:v12]);
       }
 
       v1[3] = [v4 length];
-      result = v1[5];
+      return v1[5];
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)_storeMetadata
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  if (self)
+  v5[2] = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v2 = *(self + 48);
-    if (!v2)
-    {
-      v2 = objc_alloc_init(MEMORY[0x1E695DF88]);
-      [v2 appendBytes:"\x03###" length:4];
-      [v2 appendBytes:self + 24 length:8];
-      v6[0] = 0;
-      v6[1] = 0;
-      [*(self + 32) getUUIDBytes:v6];
-      [v2 appendBytes:v6 length:16];
-      v3 = [objc_msgSend(*(self + 8) "lastPathComponent")];
-      [v2 appendBytes:v3 length:strlen(v3)];
-      *(self + 48) = v2;
-    }
+    return 0;
   }
 
-  else
+  v2 = *(self + 48);
+  if (!v2)
   {
-    v2 = 0;
+    v2 = objc_alloc_init(MEMORY[0x1E695DF88]);
+    [v2 appendBytes:"\x03###" length:4];
+    [v2 appendBytes:self + 24 length:8];
+    v5[0] = 0;
+    v5[1] = 0;
+    [*(self + 32) getUUIDBytes:v5];
+    [v2 appendBytes:v5 length:16];
+    v3 = [objc_msgSend(*(self + 8) "lastPathComponent")];
+    [v2 appendBytes:v3 length:strlen(v3)];
+    *(self + 48) = v2;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -417,7 +412,7 @@ LABEL_17:
 
 - (void)_copyToInterimLocation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if (self)
   {
@@ -429,10 +424,10 @@ LABEL_17:
     v4 = 0;
   }
 
-  v13 = 0;
-  if ([defaultManager copyItemAtURL:self->_originalFileURL toURL:v4 error:&v13])
+  v12 = 0;
+  if ([defaultManager copyItemAtURL:self->_originalFileURL toURL:v4 error:&v12])
   {
-    goto LABEL_16;
+    return;
   }
 
   v5 = objc_autoreleasePoolPush();
@@ -446,8 +441,8 @@ LABEL_17:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v18 = 2112;
-        v19 = v13;
+        v17 = 2112;
+        v18 = v12;
         v7 = "CoreData: error: %@: First attempt at moving file to interim location failed: %@\n";
 LABEL_18:
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v7, buf, 0x16u);
@@ -461,8 +456,8 @@ LABEL_18:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v18 = 2112;
-        v19 = v13;
+        v17 = 2112;
+        v18 = v12;
         v7 = "CoreData: warning: %@: First attempt at moving file to interim location failed: %@\n";
         goto LABEL_18;
       }
@@ -479,25 +474,22 @@ LABEL_18:
     v8 = 2;
   }
 
-  _NSCoreDataLog_console(v8, "%@: First attempt at moving file to interim location failed: %@", self, v13);
+  _NSCoreDataLog_console(v8, "%@: First attempt at moving file to interim location failed: %@", self, v12);
   objc_autoreleasePoolPop(v5);
-  if ([v13 code] != 516 || (v13 = 0, !objc_msgSend(defaultManager, "removeItemAtURL:error:", v4, &v13)) || (objc_msgSend(defaultManager, "copyItemAtURL:toURL:error:", self->_originalFileURL, v4, &v13) & 1) == 0)
+  if ([v12 code] != 516 || (v12 = 0, !objc_msgSend(defaultManager, "removeItemAtURL:error:", v4, &v12)) || (objc_msgSend(defaultManager, "copyItemAtURL:toURL:error:", self->_originalFileURL, v4, &v12) & 1) == 0)
   {
-    v10 = MEMORY[0x1E695DF30];
-    v11 = *MEMORY[0x1E695D930];
-    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to copy file from %@ to %@ (%@)", self->_originalFileURL, v4, v13];
-    v14 = *MEMORY[0x1E696AA08];
-    v15 = v13;
-    objc_exception_throw([v10 exceptionWithName:v11 reason:v12 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v15, &v14, 1)}]);
+    v9 = MEMORY[0x1E695DF30];
+    v10 = *MEMORY[0x1E695D930];
+    v11 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_originalFileURL, v4, v12);
+    v13 = *MEMORY[0x1E696AA08];
+    v14 = v12;
+    objc_exception_throw([v9 exceptionWithName:v10 reason:v11 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v14, &v13, 1)}]);
   }
-
-LABEL_16:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_moveToPermanentLocation
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if (self)
   {
@@ -509,8 +501,8 @@ LABEL_16:
     v4 = 0;
   }
 
-  v14 = 0;
-  if ([defaultManager moveItemAtURL:v4 toURL:self->_fileURL error:&v14])
+  v13 = 0;
+  if ([defaultManager moveItemAtURL:v4 toURL:self->_fileURL error:&v13])
   {
     goto LABEL_18;
   }
@@ -526,8 +518,8 @@ LABEL_16:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v21 = 2112;
-        v22 = v14;
+        v20 = 2112;
+        v21 = v13;
         v7 = "CoreData: error: %@: First attempt at moving in to place failed with error: %@\n";
 LABEL_20:
         _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, v7, buf, 0x16u);
@@ -541,8 +533,8 @@ LABEL_20:
       {
         *buf = 138412546;
         selfCopy2 = self;
-        v21 = 2112;
-        v22 = v14;
+        v20 = 2112;
+        v21 = v13;
         v7 = "CoreData: warning: %@: First attempt at moving in to place failed with error: %@\n";
         goto LABEL_20;
       }
@@ -559,25 +551,24 @@ LABEL_20:
     v8 = 2;
   }
 
-  _NSCoreDataLog_console(v8, "%@: First attempt at moving in to place failed with error: %@", self, v14);
+  _NSCoreDataLog_console(v8, "%@: First attempt at moving in to place failed with error: %@", self, v13);
   objc_autoreleasePoolPop(v5);
-  if ([v14 code] != 516 || (v14 = 0, (v9 = objc_msgSend(defaultManager, "attributesOfItemAtPath:error:", -[NSURL path](self->_fileURL, "path"), &v14)) == 0) || objc_msgSend(objc_msgSend(v9, "objectForKey:", *MEMORY[0x1E696A3B8]), "unsignedLongValue") != self->_fileSize && (!objc_msgSend(defaultManager, "removeItemAtURL:error:", self->_fileURL, &v14) || (objc_msgSend(defaultManager, "moveItemAtURL:toURL:error:", v4, self->_fileURL, &v14) & 1) == 0))
+  if ([v13 code] != 516 || (v13 = 0, (v9 = objc_msgSend(defaultManager, "attributesOfItemAtPath:error:", -[NSURL path](self->_fileURL, "path"), &v13)) == 0) || objc_msgSend(objc_msgSend(v9, "objectForKey:", *MEMORY[0x1E696A3B8]), "unsignedLongValue") != self->_fileSize && (!objc_msgSend(defaultManager, "removeItemAtURL:error:", self->_fileURL, &v13) || (objc_msgSend(defaultManager, "moveItemAtURL:toURL:error:", v4, self->_fileURL, &v13) & 1) == 0))
   {
-    v11 = MEMORY[0x1E695DF30];
-    v12 = *MEMORY[0x1E695D930];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to copy file from %@ to %@ (%@)", v4, self->_fileURL, v14];
-    v17 = *MEMORY[0x1E696AA08];
-    v18 = v14;
-    objc_exception_throw([v11 exceptionWithName:v12 reason:v13 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v18, &v17, 1)}]);
+    v10 = MEMORY[0x1E695DF30];
+    v11 = *MEMORY[0x1E695D930];
+    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v4, self->_fileURL, v13);
+    v16 = *MEMORY[0x1E696AA08];
+    v17 = v13;
+    objc_exception_throw([v10 exceptionWithName:v11 reason:v12 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v17, &v16, 1)}]);
   }
 
 LABEL_18:
-  v15 = *MEMORY[0x1E696A370];
-  v16 = [MEMORY[0x1E696AD98] numberWithInteger:292];
-  [defaultManager setAttributes:objc_msgSend(MEMORY[0x1E695DF20] ofItemAtPath:"dictionaryWithObjects:forKeys:count:" error:{&v16, &v15, 1), -[NSURL path](self->_fileURL, "path"), &v14}];
+  v14 = *MEMORY[0x1E696A370];
+  v15 = [MEMORY[0x1E696AD98] numberWithInteger:292];
+  [defaultManager setAttributes:objc_msgSend(MEMORY[0x1E695DF20] ofItemAtPath:"dictionaryWithObjects:forKeys:count:" error:{&v15, &v14, 1), -[NSURL path](self->_fileURL, "path"), &v13}];
 
   self->_originalFileURL = 0;
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)length

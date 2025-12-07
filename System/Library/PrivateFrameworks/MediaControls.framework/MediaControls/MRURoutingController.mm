@@ -62,7 +62,7 @@
 
     CFRelease(v4);
     v8 = [MEMORY[0x1E6970490] _symbolNameForRoute:v7];
-    v9 = _MPAVLog();
+    v9 = _MPAVLog(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = objc_opt_class();
@@ -90,7 +90,7 @@
 
 - (void)selectOutputDevice:(id)device completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   completionCopy = completion;
   deviceID = [deviceCopy deviceID];
@@ -102,26 +102,26 @@
 
     if (v10)
     {
-      v11 = _MPAVLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _MPAVLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = objc_opt_class();
+        v13 = objc_opt_class();
         deviceID2 = [deviceCopy deviceID];
         *buf = 138543618;
-        v19 = v12;
-        v20 = 2114;
-        v21 = deviceID2;
-        _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ start routing to device %{public}@", buf, 0x16u);
+        v20 = v13;
+        v21 = 2114;
+        v22 = deviceID2;
+        _os_log_impl(&dword_1A20FC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ start routing to device %{public}@", buf, 0x16u);
       }
 
       objc_initWeak(buf, self);
-      v14 = MEMORY[0x1E69E96A0];
-      objc_copyWeak(&v17, buf);
-      v15 = deviceCopy;
-      v16 = completionCopy;
+      v15 = MEMORY[0x1E69E96A0];
+      objc_copyWeak(&v18, buf);
+      v16 = deviceCopy;
+      v17 = completionCopy;
       MRMediaRemoteRegisterPairingHandler();
 
-      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(buf);
     }
 
@@ -198,7 +198,7 @@ void __51__MRURoutingController_setOutputDevice_completion___block_invoke(uint64
 - (void)startDetailedDiscovery
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = _MPAVLog();
+  v3 = _MPAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -212,7 +212,7 @@ void __51__MRURoutingController_setOutputDevice_completion___block_invoke(uint64
 - (void)stopDetailedDiscovery
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = _MPAVLog();
+  v3 = _MPAVLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -225,7 +225,7 @@ void __51__MRURoutingController_setOutputDevice_completion___block_invoke(uint64
 
 - (void)pairingHandlerNotification:(id)notification
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E69B1298]];
@@ -235,20 +235,20 @@ void __51__MRURoutingController_setOutputDevice_completion___block_invoke(uint64
   v8 = [userInfo2 objectForKeyedSubscript:@"inputType"];
   integerValue = [v8 integerValue];
 
-  v10 = _MPAVLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _MPAVLog(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = objc_opt_class();
+    v12 = objc_opt_class();
     busyIdentifiers = self->_busyIdentifiers;
     *buf = 138544130;
-    v18 = v11;
-    v19 = 2114;
-    v20 = v6;
-    v21 = 2048;
-    v22 = integerValue;
-    v23 = 2114;
-    v24 = busyIdentifiers;
-    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ received pairing request for %{public}@ | inputType: %li | requests: %{public}@", buf, 0x2Au);
+    v19 = v12;
+    v20 = 2114;
+    v21 = v6;
+    v22 = 2048;
+    v23 = integerValue;
+    v24 = 2114;
+    v25 = busyIdentifiers;
+    _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ received pairing request for %{public}@ | inputType: %li | requests: %{public}@", buf, 0x2Au);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -256,9 +256,9 @@ void __51__MRURoutingController_setOutputDevice_completion___block_invoke(uint64
   block[2] = __51__MRURoutingController_pairingHandlerNotification___block_invoke;
   block[3] = &unk_1E7663EC0;
   block[4] = self;
-  v15 = v6;
-  v16 = integerValue != 1;
-  v13 = v6;
+  v16 = v6;
+  v17 = integerValue != 1;
+  v14 = v6;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
@@ -296,23 +296,24 @@ LABEL_6:
 
 - (void)updateSelectedOutputDevice
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   outputDevice = [(MRUOutputContextController *)self->_outputContextController outputDevice];
-  if (([outputDevice isEqual:self->_selectedOutputDevice] & 1) == 0)
+  v4 = [outputDevice isEqual:self->_selectedOutputDevice];
+  if ((v4 & 1) == 0)
   {
-    v4 = _MPAVLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _MPAVLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = objc_opt_class();
+      v6 = objc_opt_class();
       deviceID = [outputDevice deviceID];
       deviceID2 = [(AVOutputDevice *)self->_selectedOutputDevice deviceID];
-      v9 = 138543874;
-      v10 = v5;
-      v11 = 2114;
-      v12 = deviceID;
-      v13 = 2114;
-      v14 = deviceID2;
-      _os_log_impl(&dword_1A20FC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected output device: %{public}@ | previous: %{public}@", &v9, 0x20u);
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2114;
+      v13 = deviceID;
+      v14 = 2114;
+      v15 = deviceID2;
+      _os_log_impl(&dword_1A20FC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ update selected output device: %{public}@ | previous: %{public}@", &v10, 0x20u);
     }
 
     objc_storeStrong(&self->_selectedOutputDevice, outputDevice);
@@ -326,28 +327,28 @@ LABEL_6:
 
 - (void)updateAvailableOutputDevices
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   availableOutputDevices = [(MRUDiscoverySessionController *)self->_discoverySessionController availableOutputDevices];
-  v5 = [availableOutputDevices countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v5 = [availableOutputDevices countByEnumeratingWithState:&v19 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(availableOutputDevices);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         deviceID = [v9 deviceID];
         if (deviceID)
         {
@@ -361,7 +362,7 @@ LABEL_6:
         }
       }
 
-      v6 = [availableOutputDevices countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v6 = [availableOutputDevices countByEnumeratingWithState:&v19 objects:v27 count:16];
     }
 
     while (v6);
@@ -371,15 +372,15 @@ LABEL_6:
   availableOutputDevices = self->_availableOutputDevices;
   self->_availableOutputDevices = v13;
 
-  v15 = _MPAVLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPAVLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = objc_opt_class();
+    v17 = objc_opt_class();
     *buf = 138543618;
-    v23 = v16;
-    v24 = 2114;
-    v25 = array;
-    _os_log_impl(&dword_1A20FC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ update audio output devices: %{public}@", buf, 0x16u);
+    v24 = v17;
+    v25 = 2114;
+    v26 = array;
+    _os_log_impl(&dword_1A20FC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ update audio output devices: %{public}@", buf, 0x16u);
   }
 
   delegate = [(MRURoutingController *)self delegate];

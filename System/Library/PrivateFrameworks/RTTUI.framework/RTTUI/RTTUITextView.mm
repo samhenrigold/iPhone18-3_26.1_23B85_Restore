@@ -630,25 +630,25 @@ uint64_t __48__RTTUITextView__inlineTTYAbbreviationSelected___block_invoke(uint6
 
   if ((rttInlineAbbreviationBarEnabled & 1) == 0)
   {
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
     v5 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0;
-    v35 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0;
+    v36 = getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0;
     if (!getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0)
     {
-      v27 = MEMORY[0x277D85DD0];
-      v28 = 3221225472;
-      v29 = __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke_0;
-      v30 = &unk_279AE4F10;
-      v31 = &v32;
+      v28 = MEMORY[0x277D85DD0];
+      v29 = 3221225472;
+      v30 = __getAXUIKeyboardIsOnScreenSymbolLoc_block_invoke_0;
+      v31 = &unk_279AE4F10;
+      v32 = &v33;
       v6 = AccessibilityUIUtilitiesLibrary();
-      v33[3] = dlsym(v6, "AXUIKeyboardIsOnScreen");
-      getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0 = *(v31[1] + 24);
-      v5 = v33[3];
+      v34[3] = dlsym(v6, "AXUIKeyboardIsOnScreen");
+      getAXUIKeyboardIsOnScreenSymbolLoc_ptr_0 = *(v32[1] + 24);
+      v5 = v34[3];
     }
 
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v33, 8);
     if (v5)
     {
       if (!v5(v7, v8, v9, v10))
@@ -656,25 +656,25 @@ uint64_t __48__RTTUITextView__inlineTTYAbbreviationSelected___block_invoke(uint6
         goto LABEL_10;
       }
 
-      v32 = 0;
-      v33 = &v32;
-      v34 = 0x2020000000;
+      v33 = 0;
+      v34 = &v33;
+      v35 = 0x2020000000;
       v11 = getAXUIKeyboardScreenFrameSymbolLoc_ptr;
-      v35 = getAXUIKeyboardScreenFrameSymbolLoc_ptr;
+      v36 = getAXUIKeyboardScreenFrameSymbolLoc_ptr;
       if (!getAXUIKeyboardScreenFrameSymbolLoc_ptr)
       {
-        v27 = MEMORY[0x277D85DD0];
-        v28 = 3221225472;
-        v29 = __getAXUIKeyboardScreenFrameSymbolLoc_block_invoke;
-        v30 = &unk_279AE4F10;
-        v31 = &v32;
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __getAXUIKeyboardScreenFrameSymbolLoc_block_invoke;
+        v31 = &unk_279AE4F10;
+        v32 = &v33;
         v12 = AccessibilityUIUtilitiesLibrary();
-        v33[3] = dlsym(v12, "AXUIKeyboardScreenFrame");
-        getAXUIKeyboardScreenFrameSymbolLoc_ptr = *(v31[1] + 24);
-        v11 = v33[3];
+        v34[3] = dlsym(v12, "AXUIKeyboardScreenFrame");
+        getAXUIKeyboardScreenFrameSymbolLoc_ptr = *(v32[1] + 24);
+        v11 = v34[3];
       }
 
-      _Block_object_dispose(&v32, 8);
+      _Block_object_dispose(&v33, 8);
       if (v11)
       {
         v11(v13, v14, v15, v16);
@@ -711,8 +711,8 @@ LABEL_10:
         v18 = AXLogRTT();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_261725000, v18, OS_LOG_TYPE_DEFAULT, "No keyboard on screen, removing predictions", &v27, 2u);
+          LOWORD(v28) = 0;
+          _os_log_impl(&dword_261725000, v18, OS_LOG_TYPE_DEFAULT, "No keyboard on screen, removing predictions", &v28, 2u);
         }
 
         predictionsCollectionView5 = [(RTTUITextView *)self predictionsCollectionView];
@@ -728,9 +728,10 @@ LABEL_13:
       [RTTUIConversationControllerCoordinator registerForCallUpdates:];
     }
 
-    v26 = [RTTUIConversationControllerCoordinator registerForCallUpdates:];
-    _Block_object_dispose(&v32, 8);
-    _Unwind_Resume(v26);
+    [RTTUIConversationControllerCoordinator registerForCallUpdates:];
+    v27 = v26;
+    _Block_object_dispose(&v33, 8);
+    _Unwind_Resume(v27);
   }
 }
 

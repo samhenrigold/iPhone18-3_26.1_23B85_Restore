@@ -50,7 +50,7 @@
     JavaUtilAbstractSet_init(v4, v5);
     JreStrongAssignAndConsume(&JavaUtilCollections_EMPTY_SET_, v4);
     v6 = [JavaUtilCollections_EmptyMap alloc];
-    JavaUtilAbstractMap_init(v6, v7);
+    JavaUtilAbstractMap_init();
     JreStrongAssignAndConsume(&JavaUtilCollections_EMPTY_MAP_, v6);
     atomic_store(1u, JavaUtilCollections__initialized);
   }

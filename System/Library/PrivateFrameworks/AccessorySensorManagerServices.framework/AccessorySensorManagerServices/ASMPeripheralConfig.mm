@@ -19,11 +19,13 @@
 
 - (id)description
 {
-  v4 = [objc_opt_class() description];
-  NSAppendPrintF();
-  v2 = 0;
+  v6 = 0;
+  v2 = [objc_opt_class() description];
+  NSAppendPrintF(&v6, "%@", v2);
+  v3 = v6;
+  v4 = v6;
 
-  return 0;
+  return v3;
 }
 
 @end

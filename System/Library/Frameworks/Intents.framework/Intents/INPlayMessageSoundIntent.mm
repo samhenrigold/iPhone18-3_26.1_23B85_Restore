@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v11[0] = @"soundType";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"soundType";
   soundType = [(INPlayMessageSoundIntent *)self soundType];
   v4 = @"unknown";
   if (soundType == 1)
@@ -32,8 +32,8 @@
   }
 
   v5 = v4;
-  v11[1] = @"messageIdentifier";
-  v12[0] = v5;
+  v10[1] = @"messageIdentifier";
+  v11[0] = v5;
   messageIdentifier = [(INPlayMessageSoundIntent *)self messageIdentifier];
   null = messageIdentifier;
   if (!messageIdentifier)
@@ -41,13 +41,11 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (!messageIdentifier)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

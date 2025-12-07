@@ -11,28 +11,29 @@
 
 - (SBPressPrecedenceArbiter)initWithHomeButtonType:(int64_t)type
 {
-  v12.receiver = self;
-  v12.super_class = SBPressPrecedenceArbiter;
-  v4 = [(SBPressPrecedenceArbiter *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = SBPressPrecedenceArbiter;
+  v4 = [(SBPressPrecedenceArbiter *)&v13 init];
   v5 = v4;
   if (v4)
   {
     v4->_volumeAndLockButtonPriority = -1;
     v4->_homeButtonType = type;
     _shouldArbitrateLockAndVolumeHardwareButtonPriorities = [(SBPressPrecedenceArbiter *)v4 _shouldArbitrateLockAndVolumeHardwareButtonPriorities];
-    v7 = SBLogButtonsCombo();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (_shouldArbitrateLockAndVolumeHardwareButtonPriorities)
+    v7 = _shouldArbitrateLockAndVolumeHardwareButtonPriorities;
+    v8 = SBLogButtonsCombo(_shouldArbitrateLockAndVolumeHardwareButtonPriorities);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v9)
       {
-        *v11 = 0;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "volume/lock precedence arbitration is enabled on this device", v11, 2u);
+        *v12 = 0;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "volume/lock precedence arbitration is enabled on this device", v12, 2u);
       }
 
-      v7 = +[SBAVSystemControllerCache sharedInstance];
-      [v7 addObserver:v5];
-      v5->_isAudioPlayingSomewhere = [v7 isAudioSessionPlaying];
+      v8 = +[SBAVSystemControllerCache sharedInstance];
+      [v8 addObserver:v5];
+      v5->_isAudioPlayingSomewhere = [v8 isAudioSessionPlaying];
       [(SBPressPrecedenceArbiter *)v5 _updateButtonPrioritiesForNotification:0];
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       [defaultCenter addObserver:v5 selector:sel__updateButtonPrioritiesForNotification_ name:*MEMORY[0x277D67A48] object:0];
@@ -43,10 +44,10 @@
       [defaultCenter addObserver:v5 selector:sel__updateButtonPrioritiesForNotification_ name:@"SBApplicationsRegisteredForLockButtonEventsChangedNotification" object:0];
     }
 
-    else if (v8)
+    else if (v9)
     {
-      *v11 = 0;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "volume/lock precedence arbitration is disabled on this device", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "volume/lock precedence arbitration is disabled on this device", v12, 2u);
     }
   }
 
@@ -78,7 +79,7 @@
 {
   v8 = *MEMORY[0x277D85DE8];
   _currentButtonPriority = [(SBPressPrecedenceArbiter *)self _currentButtonPriority];
-  v4 = SBLogButtonsCombo();
+  v4 = SBLogButtonsCombo(_currentButtonPriority);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     if (_currentButtonPriority > 2)

@@ -11,7 +11,10 @@
 + (unint64_t)_ekAccountErrorFromDAValidationErrorCode:(unint64_t)code;
 + (unint64_t)_ekAccountErrorFromSubCalErrorCode:(int64_t)code;
 + (unint64_t)_ekAccountErrorFromURLError:(id)error;
++ (void)_updateStatusForCalendar:(id)calendar lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled;
 + (void)_updateStatusForCalendarWithExternalID:(id)d sourceExternalID:(id)iD lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled;
++ (void)_updateStatusForSource:(id)source lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled;
++ (void)_updateStatusForStoreWithExternalID:(id)d lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled;
 + (void)resetSyncStatusIfNecessaryForStoresOfType:(unint64_t)type;
 + (void)syncEndedForCalendar:(id)calendar withError:(id)error;
 + (void)syncEndedForCalendarWithExternalID:(id)d sourceExternalID:(id)iD withError:(id)error;
@@ -44,48 +47,49 @@
 
 + (void)resetSyncStatusIfNecessaryForStoresOfType:(unint64_t)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if ((DAStoreSyncStatusUpdaterAlreadyResetStatus & 1) == 0)
   {
     DAStoreSyncStatusUpdaterAlreadyResetStatus = 1;
     [self _eventStore];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v15 = v19 = 0u;
-    sources = [v15 sources];
-    v6 = [sources countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v14 = v18 = 0u;
+    sources = [v14 sources];
+    v6 = [sources countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       v9 = *MEMORY[0x277CC5B48];
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(sources);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
-          if ([v11 isSyncing] && ((1 << objc_msgSend(v11, "sourceType")) & type) != 0)
+          v11 = *(*(&v15 + 1) + 8 * i);
+          if ([v11 isSyncing])
           {
-            v12 = [MEMORY[0x277CCA9B8] errorWithDomain:v9 code:1 userInfo:0];
-            date = [MEMORY[0x277CBEAA8] date];
-            [self _updateStatusForSource:v11 lastSyncStartDate:0 lastSyncEndDate:date lastSyncError:v12 canceled:0];
+            if (((1 << [v11 sourceType]) & type) != 0)
+            {
+              v12 = [MEMORY[0x277CCA9B8] errorWithDomain:v9 code:1 userInfo:0];
+              date = [MEMORY[0x277CBEAA8] date];
+              [self _updateStatusForSource:v11 lastSyncStartDate:0 lastSyncEndDate:date lastSyncError:v12 canceled:0];
+            }
           }
         }
 
-        v7 = [sources countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [sources countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_eventStorePurger
@@ -128,6 +132,92 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
   return v3;
 }
 
++ (void)_updateStatusForSource:(id)source lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled
+{
+  canceledCopy = canceled;
+  v44 = *MEMORY[0x277D85DE8];
+  sourceCopy = source;
+  dateCopy = date;
+  endDateCopy = endDate;
+  errorCopy = error;
+  v16 = DALoggingwithCategory();
+  v17 = MEMORY[0x277D03988];
+  v18 = *(MEMORY[0x277D03988] + 5);
+  if (os_log_type_enabled(v16, v18))
+  {
+    sourceIdentifier = [sourceCopy sourceIdentifier];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:canceledCopy];
+    *buf = 138544386;
+    v35 = sourceIdentifier;
+    v36 = 2114;
+    v37 = dateCopy;
+    v38 = 2114;
+    v39 = endDateCopy;
+    v40 = 2114;
+    v41 = v20;
+    v42 = 2112;
+    v43 = errorCopy;
+    _os_log_impl(&dword_24844D000, v16, v18, "Saving sync status for source with identifier %{public}@: lastSyncStartDate = %{public}@, lastSyncEndDate = %{public}@, canceled=%{public}@ lastSyncError = %@", buf, 0x34u);
+
+    v17 = MEMORY[0x277D03988];
+  }
+
+  if (canceledCopy && ([sourceCopy lastSyncEndDate], v21 = objc_claimAutoreleasedReturnValue(), v21, !v21))
+  {
+    v24 = DALoggingwithCategory();
+    if (os_log_type_enabled(v24, v18))
+    {
+      sourceIdentifier2 = [sourceCopy sourceIdentifier];
+      *buf = 138543362;
+      v35 = sourceIdentifier2;
+      _os_log_impl(&dword_24844D000, v24, v18, "Initial sync canceled. Clearing start date for source with identifier %{public}@", buf, 0xCu);
+    }
+
+    [sourceCopy setLastSyncStartDate:0];
+  }
+
+  else
+  {
+    if (dateCopy)
+    {
+      [sourceCopy setLastSyncStartDate:dateCopy];
+    }
+
+    if (endDateCopy)
+    {
+      [sourceCopy setLastSyncEndDate:endDateCopy];
+    }
+
+    if (errorCopy)
+    {
+      v33 = 0;
+      v22 = [self _codeForLastSyncError:errorCopy userInfo:&v33];
+      v23 = v33;
+      [sourceCopy setLastSyncError:v22 userInfo:v23];
+    }
+  }
+
+  eventStore = [sourceCopy eventStore];
+  v32 = 0;
+  v27 = [eventStore saveSource:sourceCopy commit:1 error:&v32];
+  v28 = v32;
+
+  if ((v27 & 1) == 0)
+  {
+    v29 = DALoggingwithCategory();
+    v30 = *(v17 + 3);
+    if (os_log_type_enabled(v29, v30))
+    {
+      sourceIdentifier3 = [sourceCopy sourceIdentifier];
+      *buf = 138412546;
+      v35 = sourceIdentifier3;
+      v36 = 2112;
+      v37 = v28;
+      _os_log_impl(&dword_24844D000, v29, v30, "Failed to save source sync status with source identifier %@. Error = %@", buf, 0x16u);
+    }
+  }
+}
+
 + (unint64_t)_codeForLastSyncError:(id)error userInfo:(id *)info
 {
   errorCopy = error;
@@ -159,6 +249,61 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
   }
 
   return code;
+}
+
++ (void)_updateStatusForStoreWithExternalID:(id)d lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled
+{
+  canceledCopy = canceled;
+  v27 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  dateCopy = date;
+  endDateCopy = endDate;
+  errorCopy = error;
+  if (dCopy)
+  {
+    _eventStore = [self _eventStore];
+    v17 = [_eventStore sourceWithExternalID:dCopy];
+    v18 = DALoggingwithCategory();
+    v19 = *(MEMORY[0x277D03988] + 6);
+    if (os_log_type_enabled(v18, v19))
+    {
+      v23 = 138412546;
+      v24 = errorCopy;
+      v25 = 2114;
+      v26 = dCopy;
+      _os_log_impl(&dword_24844D000, v18, v19, "Updating sync status (%@) for source with externalID %{public}@", &v23, 0x16u);
+    }
+
+    if (v17)
+    {
+      [self _updateStatusForSource:v17 lastSyncStartDate:dateCopy lastSyncEndDate:endDateCopy lastSyncError:errorCopy canceled:canceledCopy];
+    }
+
+    else
+    {
+      v21 = DALoggingwithCategory();
+      v22 = *(MEMORY[0x277D03988] + 3);
+      if (os_log_type_enabled(v21, v22))
+      {
+        v23 = 138543618;
+        v24 = dCopy;
+        v25 = 2112;
+        v26 = errorCopy;
+        _os_log_impl(&dword_24844D000, v21, v22, "Tried to update status for store, but could not get a corresponding EKSource for externalID %{public}@. lastSyncError is %@", &v23, 0x16u);
+      }
+    }
+  }
+
+  else
+  {
+    _eventStore = DALoggingwithCategory();
+    v20 = *(MEMORY[0x277D03988] + 3);
+    if (os_log_type_enabled(_eventStore, v20))
+    {
+      LOWORD(v23) = 0;
+      _os_log_impl(&dword_24844D000, _eventStore, v20, "Tried to update status for store with nil externalID", &v23, 2u);
+    }
+  }
 }
 
 + (void)syncStartedForCalendarWithExternalID:(id)d sourceExternalID:(id)iD
@@ -204,7 +349,7 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
 + (void)_updateStatusForCalendarWithExternalID:(id)d sourceExternalID:(id)iD lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled
 {
   canceledCopy = canceled;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   dateCopy = date;
@@ -212,8 +357,8 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
   errorCopy = error;
   if (dCopy)
   {
-    v28 = canceledCopy;
-    v29 = dateCopy;
+    v27 = canceledCopy;
+    v28 = dateCopy;
     _eventStore = [self _eventStore];
     v20 = [_eventStore sourceWithExternalID:iDCopy];
     v21 = [v20 calendarWithExternalIdentifier:dCopy];
@@ -222,16 +367,16 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
     if (os_log_type_enabled(v22, v23))
     {
       *buf = 138412546;
-      v31 = errorCopy;
-      v32 = 2112;
-      v33 = dCopy;
+      v30 = errorCopy;
+      v31 = 2112;
+      v32 = dCopy;
       _os_log_impl(&dword_24844D000, v22, v23, "Updating sync status (%@) for calendar with externalID %@", buf, 0x16u);
     }
 
     if (v21)
     {
-      dateCopy = v29;
-      [self _updateStatusForCalendar:v21 lastSyncStartDate:v29 lastSyncEndDate:endDateCopy lastSyncError:errorCopy canceled:v28];
+      dateCopy = v28;
+      [self _updateStatusForCalendar:v21 lastSyncStartDate:v28 lastSyncEndDate:endDateCopy lastSyncError:errorCopy canceled:v27];
     }
 
     else
@@ -241,15 +386,15 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
       if (os_log_type_enabled(v25, v26))
       {
         *buf = 138412802;
-        v31 = dCopy;
-        v32 = 2112;
-        v33 = iDCopy;
-        v34 = 2112;
-        v35 = errorCopy;
+        v30 = dCopy;
+        v31 = 2112;
+        v32 = iDCopy;
+        v33 = 2112;
+        v34 = errorCopy;
         _os_log_impl(&dword_24844D000, v25, v26, "Tried to update status for calendar, but could not get a corresponding EKCalendar for externalID %@ in source with external ID %@. lastSyncError is %@", buf, 0x20u);
       }
 
-      dateCopy = v29;
+      dateCopy = v28;
     }
   }
 
@@ -263,21 +408,105 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
       _os_log_impl(&dword_24844D000, _eventStore, v24, "Tried to update status for calendar with nil externalID", buf, 2u);
     }
   }
+}
 
-  v27 = *MEMORY[0x277D85DE8];
++ (void)_updateStatusForCalendar:(id)calendar lastSyncStartDate:(id)date lastSyncEndDate:(id)endDate lastSyncError:(id)error canceled:(BOOL)canceled
+{
+  canceledCopy = canceled;
+  v44 = *MEMORY[0x277D85DE8];
+  calendarCopy = calendar;
+  dateCopy = date;
+  endDateCopy = endDate;
+  errorCopy = error;
+  v16 = DALoggingwithCategory();
+  v17 = MEMORY[0x277D03988];
+  v18 = *(MEMORY[0x277D03988] + 5);
+  if (os_log_type_enabled(v16, v18))
+  {
+    externalID = [calendarCopy externalID];
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:canceledCopy];
+    *buf = 138413314;
+    v35 = externalID;
+    v36 = 2114;
+    v37 = dateCopy;
+    v38 = 2114;
+    v39 = endDateCopy;
+    v40 = 2114;
+    v41 = v20;
+    v42 = 2112;
+    v43 = errorCopy;
+    _os_log_impl(&dword_24844D000, v16, v18, "Saving sync status for calendar with external identifier %@: lastSyncStartDate = %{public}@, lastSyncEndDate = %{public}@, canceled=%{public}@ lastSyncError = %@", buf, 0x34u);
+
+    v17 = MEMORY[0x277D03988];
+  }
+
+  if (canceledCopy && ([calendarCopy lastSyncEndDate], v21 = objc_claimAutoreleasedReturnValue(), v21, !v21))
+  {
+    v24 = DALoggingwithCategory();
+    if (os_log_type_enabled(v24, v18))
+    {
+      externalID2 = [calendarCopy externalID];
+      *buf = 138412290;
+      v35 = externalID2;
+      _os_log_impl(&dword_24844D000, v24, v18, "Initial sync canceled. Clearing start date for calendar with external identifier %@", buf, 0xCu);
+    }
+
+    [calendarCopy setLastSyncStartDate:0];
+  }
+
+  else
+  {
+    if (dateCopy)
+    {
+      [calendarCopy setLastSyncStartDate:dateCopy];
+    }
+
+    if (endDateCopy)
+    {
+      [calendarCopy setLastSyncEndDate:endDateCopy];
+    }
+
+    if (errorCopy)
+    {
+      v33 = 0;
+      v22 = [self _codeForLastSyncError:errorCopy userInfo:&v33];
+      v23 = v33;
+      [calendarCopy setLastSyncError:v22 userInfo:v23];
+    }
+  }
+
+  eventStore = [calendarCopy eventStore];
+  v32 = 0;
+  v27 = [eventStore saveCalendar:calendarCopy commit:1 error:&v32];
+  v28 = v32;
+
+  if ((v27 & 1) == 0)
+  {
+    v29 = DALoggingwithCategory();
+    v30 = *(v17 + 3);
+    if (os_log_type_enabled(v29, v30))
+    {
+      externalID3 = [calendarCopy externalID];
+      *buf = 138412546;
+      v35 = externalID3;
+      v36 = 2112;
+      v37 = v28;
+      _os_log_impl(&dword_24844D000, v29, v30, "Failed to save calendar sync status with calendar external ID %@. Error = %@", buf, 0x16u);
+    }
+  }
 }
 
 + (id)_mappedAccountErrorFromError:(id)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   cal_serializableError = [errorCopy cal_serializableError];
   v6 = cal_serializableError;
   if (cal_serializableError)
   {
-    v12 = *MEMORY[0x277CCA7E8];
-    v13[0] = cal_serializableError;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA7E8];
+    v12[0] = cal_serializableError;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   }
 
   else
@@ -287,8 +516,6 @@ id __45__DAStoreSyncStatusUpdater__eventStorePurger__block_invoke_2()
 
   v8 = [self _accountErrorCodeForNSError:errorCopy];
   v9 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CC5B48] code:v8 userInfo:v7];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

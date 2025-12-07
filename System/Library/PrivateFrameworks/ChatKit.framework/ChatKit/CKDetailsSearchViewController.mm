@@ -192,7 +192,7 @@
     if (!selectButton)
     {
       v5 = objc_alloc(MEMORY[0x1E69DC708]);
-      v6 = CKFrameworkBundle();
+      v6 = CKFrameworkBundle(v5);
       v7 = [v6 localizedStringForKey:@"SELECT" value:&stru_1F04268F8 table:@"ChatKit"];
       v8 = [v5 initWithTitle:v7 style:0 target:self action:sel__selectButtonTapped_];
 
@@ -1213,7 +1213,7 @@ LABEL_11:
   {
     if ([(CKSearchViewController *)self mode]== 3)
     {
-      firstObject = CKFrameworkBundle();
+      firstObject = CKFrameworkBundle(3);
       [firstObject localizedStringForKey:@"DETAILS_INDEXING_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
     }
 
@@ -1809,7 +1809,7 @@ LABEL_7:
     if (!self->_saveButton)
     {
       v12 = objc_alloc(MEMORY[0x1E69DC708]);
-      v13 = CKFrameworkBundle();
+      v13 = CKFrameworkBundle(v12);
       v14 = [v13 localizedStringForKey:@"SEARCH_SAVE" value:&stru_1F04268F8 table:@"ChatKit"];
       v15 = [v12 initWithTitle:v14 style:0 target:self action:sel__saveSelectedAttachments_];
       saveButton = self->_saveButton;
@@ -1819,7 +1819,7 @@ LABEL_7:
     if (!self->_deleteButton)
     {
       v17 = objc_alloc(MEMORY[0x1E69DC708]);
-      v18 = CKFrameworkBundle();
+      v18 = CKFrameworkBundle(v17);
       v19 = [v18 localizedStringForKey:@"DELETE" value:&stru_1F04268F8 table:@"ChatKit"];
       v20 = [v17 initWithTitle:v19 style:0 target:self action:sel__deleteSelectedAttachments_];
       deleteButton = self->_deleteButton;
@@ -1834,7 +1834,7 @@ LABEL_7:
     if (!cancelButton)
     {
       v24 = objc_alloc(MEMORY[0x1E69DC708]);
-      v25 = CKFrameworkBundle();
+      v25 = CKFrameworkBundle(v24);
       v26 = [v25 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
       v27 = [v24 initWithTitle:v26 style:0 target:self action:sel__cancelEditing_];
 
@@ -1978,20 +1978,22 @@ LABEL_14:
 - (void)_deleteAttachmentsAtIndexPaths:(id)paths
 {
   pathsCopy = paths;
-  if (![pathsCopy count])
+  v5 = [pathsCopy count];
+  if (!v5)
   {
     goto LABEL_34;
   }
 
-  v5 = CKFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+  v6 = CKFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
 
   firstObject = [pathsCopy firstObject];
-  v7 = [(CKDetailsSearchViewController *)self _searchControllerForIndexPath:?];
+  v8 = [(CKDetailsSearchViewController *)self _searchControllerForIndexPath:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([pathsCopy count] >= 2)
+    v9 = [pathsCopy count];
+    if (v9 >= 2)
     {
       isKindOfClass = 1;
       goto LABEL_6;
@@ -2002,37 +2004,40 @@ LABEL_14:
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  if ([pathsCopy count] <= 1)
+  v9 = [pathsCopy count];
+  if (v9 <= 1)
   {
     if ((isKindOfClass & 1) == 0)
     {
-      v31 = CKFrameworkBundle();
-      v19 = [v31 localizedStringForKey:@"DELETE_ATTACHMENT" value:&stru_1F04268F8 table:@"ChatKit"];
+      v36 = CKFrameworkBundle(v9);
+      v22 = [v36 localizedStringForKey:@"DELETE_ATTACHMENT" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      if (CKIsRunningInMacCatalyst())
+      v37 = CKIsRunningInMacCatalyst();
+      if (v37)
       {
-        v22 = CKFrameworkBundle();
-        v10 = v22;
-        v23 = @"DELETE_SINGLE_ATTACHMENT";
+        v27 = CKFrameworkBundle(v37);
+        v12 = v27;
+        v28 = @"DELETE_SINGLE_ATTACHMENT";
         goto LABEL_24;
       }
 
 LABEL_35:
-      v30 = 0;
+      v35 = 0;
       goto LABEL_26;
     }
 
 LABEL_13:
-    v21 = CKFrameworkBundle();
-    v19 = [v21 localizedStringForKey:@"DELETE_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
+    v25 = CKFrameworkBundle(v9);
+    v22 = [v25 localizedStringForKey:@"DELETE_LINK" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    if (CKIsRunningInMacCatalyst())
+    v26 = CKIsRunningInMacCatalyst();
+    if (v26)
     {
-      v22 = CKFrameworkBundle();
-      v10 = v22;
-      v23 = @"DELETE_SINGLE_LINK";
+      v27 = CKFrameworkBundle(v26);
+      v12 = v27;
+      v28 = @"DELETE_SINGLE_LINK";
 LABEL_24:
-      v30 = [v22 localizedStringForKey:v23 value:&stru_1F04268F8 table:@"ChatKit"];
+      v35 = [v27 localizedStringForKey:v28 value:&stru_1F04268F8 table:@"ChatKit"];
       goto LABEL_25;
     }
 
@@ -2040,127 +2045,130 @@ LABEL_24:
   }
 
 LABEL_6:
-  v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(pathsCopy, "count")}];
-  v10 = CKLocalizedStringForNumber(v9);
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(pathsCopy, "count")}];
+  v12 = CKLocalizedStringForNumber(v11);
 
-  v11 = MEMORY[0x1E696AEC0];
-  v12 = CKFrameworkBundle();
-  v13 = v12;
+  v13 = MEMORY[0x1E696AEC0];
+  v15 = CKFrameworkBundle(v14);
+  v16 = v15;
   if ((isKindOfClass & 1) == 0)
   {
-    v24 = [v12 localizedStringForKey:@"DELETE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v25 = [v11 stringWithFormat:v24, v10];
+    v29 = [v15 localizedStringForKey:@"DELETE_ATTACHMENTS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v30 = [v13 stringWithFormat:v29, v12];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v28 = @"\u200F";
+      v33 = @"\u200F";
     }
 
     else
     {
-      v28 = @"\u200E";
+      v33 = @"\u200E";
     }
 
-    v19 = [(__CFString *)v28 stringByAppendingString:v25];
+    v22 = [(__CFString *)v33 stringByAppendingString:v30];
 
-    if (CKIsRunningInMacCatalyst())
+    v23 = CKIsRunningInMacCatalyst();
+    if (v23)
     {
-      v20 = @"DELETE_MULTIPLE_ATTACHMENTS";
+      v24 = @"DELETE_MULTIPLE_ATTACHMENTS";
       goto LABEL_20;
     }
 
 LABEL_21:
-    v30 = 0;
+    v35 = 0;
     goto LABEL_25;
   }
 
-  v14 = [v12 localizedStringForKey:@"DELETE_LINKS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v15 = [v11 stringWithFormat:v14, v10];
+  v17 = [v15 localizedStringForKey:@"DELETE_LINKS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v18 = [v13 stringWithFormat:v17, v12];
 
   mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection2 = [mEMORY[0x1E69DC668]2 userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection2 == 1)
   {
-    v18 = @"\u200F";
+    v21 = @"\u200F";
   }
 
   else
   {
-    v18 = @"\u200E";
+    v21 = @"\u200E";
   }
 
-  v19 = [(__CFString *)v18 stringByAppendingString:v15];
+  v22 = [(__CFString *)v21 stringByAppendingString:v18];
 
-  if (!CKIsRunningInMacCatalyst())
+  v23 = CKIsRunningInMacCatalyst();
+  if (!v23)
   {
     goto LABEL_21;
   }
 
-  v20 = @"DELETE_MULTIPLE_LINKS";
+  v24 = @"DELETE_MULTIPLE_LINKS";
 LABEL_20:
-  v29 = CKFrameworkBundle();
-  v30 = [v29 localizedStringForKey:v20 value:&stru_1F04268F8 table:@"ChatKit"];
+  v34 = CKFrameworkBundle(v23);
+  v35 = [v34 localizedStringForKey:v24 value:&stru_1F04268F8 table:@"ChatKit"];
 
 LABEL_25:
 LABEL_26:
-  v43 = v7;
-  if (CKIsRunningInMacCatalyst())
+  v38 = CKIsRunningInMacCatalyst();
+  v50 = v8;
+  if (v38)
   {
-    v32 = CKFrameworkBundle();
-    v33 = [v32 localizedStringForKey:@"DELETE_WARNING" value:&stru_1F04268F8 table:@"ChatKit"];
+    v39 = CKFrameworkBundle(v38);
+    v40 = [v39 localizedStringForKey:@"DELETE_WARNING" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v34 = 1;
+    v41 = 1;
   }
 
   else
   {
-    v34 = 0;
-    v33 = 0;
+    v41 = 0;
+    v40 = 0;
   }
 
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__CKDetailsSearchViewController__deleteAttachmentsAtIndexPaths___block_invoke;
   aBlock[3] = &unk_1E72EB8D0;
-  v50 = pathsCopy;
+  v57 = pathsCopy;
   selfCopy = self;
   selfCopy2 = self;
-  v36 = _Block_copy(aBlock);
-  v37 = [CKAlertController alertControllerWithTitle:v30 message:v33 preferredStyle:v34];
+  v43 = _Block_copy(aBlock);
+  v44 = [CKAlertController alertControllerWithTitle:v35 message:v40 preferredStyle:v41];
   if (!CKIsRunningInMacCatalyst())
   {
-    v38 = v6;
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __64__CKDetailsSearchViewController__deleteAttachmentsAtIndexPaths___block_invoke_2;
-    v47[3] = &unk_1E72EC218;
-    v48 = v36;
-    v39 = [CKAlertAction actionWithTitle:v19 style:2 handler:v47];
-    [v37 addAction:v39];
+    v45 = v7;
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __64__CKDetailsSearchViewController__deleteAttachmentsAtIndexPaths___block_invoke_2;
+    v54[3] = &unk_1E72EC218;
+    v55 = v43;
+    v46 = [CKAlertAction actionWithTitle:v22 style:2 handler:v54];
+    [v44 addAction:v46];
 
-    v6 = v38;
+    v7 = v45;
   }
 
-  v40 = v6;
-  v41 = [CKAlertAction actionWithTitle:v6 style:1 handler:&__block_literal_global_252];
-  [v37 addAction:v41];
+  v47 = v7;
+  v48 = [CKAlertAction actionWithTitle:v7 style:1 handler:&__block_literal_global_252];
+  [v44 addAction:v48];
 
   if (CKIsRunningInMacCatalyst())
   {
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __64__CKDetailsSearchViewController__deleteAttachmentsAtIndexPaths___block_invoke_4;
-    v45[3] = &unk_1E72EC218;
-    v46 = v36;
-    v42 = [CKAlertAction actionWithTitle:v19 style:2 handler:v45];
-    [v37 addAction:v42];
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __64__CKDetailsSearchViewController__deleteAttachmentsAtIndexPaths___block_invoke_4;
+    v52[3] = &unk_1E72EC218;
+    v53 = v43;
+    v49 = [CKAlertAction actionWithTitle:v22 style:2 handler:v52];
+    [v44 addAction:v49];
   }
 
-  [(CKDetailsSearchViewController *)selfCopy2 presentViewController:v37 animated:1 completion:0];
+  [(CKDetailsSearchViewController *)selfCopy2 presentViewController:v44 animated:1 completion:0];
 
 LABEL_34:
 }

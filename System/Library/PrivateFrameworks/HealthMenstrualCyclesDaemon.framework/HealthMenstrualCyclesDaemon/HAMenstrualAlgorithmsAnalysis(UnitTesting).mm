@@ -6,7 +6,7 @@
 
 + (id)hdmc_demoAnalysisWithStartDayIndex:()UnitTesting
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277D0FCD0]);
   [v4 setJulianDayOfWindowStart:(a3 + 5)];
   [v4 setStartProbabilityMean:1.0];
@@ -39,15 +39,13 @@
   [v8 setIrregularBleeding:v7];
   [v8 setProlongedBleeding:v7];
   v9 = objc_alloc_init(MEMORY[0x277D0FC80]);
-  v13[0] = v4;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v4;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v9 setMenstruationPredictions:v10];
 
   [v9 setFertilityPredictions:MEMORY[0x277CBEBF8]];
   [v9 setStats:v6];
   [v9 setDeviationAnalysis:v8];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

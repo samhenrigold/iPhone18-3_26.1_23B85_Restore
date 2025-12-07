@@ -18,101 +18,106 @@
   v49 = 0u;
   v50 = 0u;
   v6 = measurementsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
-  if (v7)
+  value = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
+  v8 = value;
+  if (value)
   {
-    v8 = *v50;
+    v9 = *v50;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v10 = 0;
+      do
       {
-        if (*v50 != v8)
+        if (*v50 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * i);
-        v11 = hws_get_hermit_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+        v11 = *(*(&v49 + 1) + 8 * v10);
+        v12 = hws_get_hermit_log(value);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          [v10 value];
+          [v11 value];
           v28 = v27;
-          date = [v10 date];
+          date = [v11 date];
           *buf = 134545923;
           v61 = v28;
           *v62 = 2114;
           *&v62[2] = date;
-          _os_log_debug_impl(&dword_251282000, v11, OS_LOG_TYPE_DEBUG, "%{sensitive}lf on %{public}@", buf, 0x16u);
+          _os_log_debug_impl(&dword_251282000, v12, OS_LOG_TYPE_DEBUG, "%{sensitive}lf on %{public}@", buf, 0x16u);
         }
 
-        date2 = [v10 date];
+        date2 = [v11 date];
         [date2 timeIntervalSince1970];
-        v14 = v13;
+        v15 = v14;
 
-        [v10 value];
-        v16 = v15;
-        v17 = v54;
+        value = [v11 value];
+        v17 = v16;
+        v18 = v54;
         if (v54 >= v55)
         {
-          v19 = __src;
-          v20 = v54 - __src;
-          v21 = (v54 - __src) >> 4;
-          v22 = v21 + 1;
-          if ((v21 + 1) >> 60)
+          v20 = __src;
+          v21 = v54 - __src;
+          v22 = (v54 - __src) >> 4;
+          v23 = v22 + 1;
+          if ((v22 + 1) >> 60)
           {
             std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
           }
 
-          v23 = v55 - __src;
-          if ((v55 - __src) >> 3 > v22)
+          v24 = v55 - __src;
+          if ((v55 - __src) >> 3 > v23)
           {
-            v22 = v23 >> 3;
+            v23 = v24 >> 3;
           }
 
-          if (v23 >= 0x7FFFFFFFFFFFFFF0)
+          if (v24 >= 0x7FFFFFFFFFFFFFF0)
           {
-            v24 = 0xFFFFFFFFFFFFFFFLL;
+            v25 = 0xFFFFFFFFFFFFFFFLL;
           }
 
           else
           {
-            v24 = v22;
+            v25 = v23;
           }
 
-          if (v24)
+          if (v25)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<HermitNotification::HSReport>>(&__src, v24);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<HermitNotification::HSReport>>(&__src, v25);
           }
 
-          v25 = 16 * v21;
-          *v25 = v14;
-          *(v25 + 8) = v16;
-          v18 = 16 * v21 + 16;
-          memcpy(0, v19, v20);
-          v26 = __src;
+          v26 = 16 * v22;
+          *v26 = v15;
+          *(v26 + 8) = v17;
+          v19 = 16 * v22 + 16;
+          memcpy(0, v20, v21);
+          value = __src;
           __src = 0;
-          v54 = v18;
+          v54 = v19;
           v55 = 0;
-          if (v26)
+          if (value)
           {
-            operator delete(v26);
+            operator delete(value);
           }
         }
 
         else
         {
-          *v54 = v14;
-          *(v17 + 2) = v16;
-          v18 = (v17 + 16);
+          *v54 = v15;
+          *(v18 + 2) = v17;
+          v19 = (v18 + 16);
         }
 
-        v54 = v18;
+        v54 = v19;
+        v10 = v10 + 1;
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      while (v8 != v10);
+      value = [v6 countByEnumeratingWithState:&v49 objects:v63 count:16];
+      v8 = value;
     }
 
-    while (v7);
+    while (value);
   }
 
   HermitNotification::Processor::Processor(v48);
@@ -124,37 +129,37 @@
   [endDate timeIntervalSince1970];
   v35 = v34;
 
-  HermitNotification::Processor::process(buf, v48, &__src, v32, v35);
+  v36 = HermitNotification::Processor::process(buf, v32, v35, v48, &__src);
   if (v62[4] == 1)
   {
     v58[0] = @"alert_status";
-    v36 = [MEMORY[0x277CCABB0] numberWithInt:*buf];
-    v59[0] = v36;
+    v37 = [MEMORY[0x277CCABB0] numberWithInt:*buf];
+    v59[0] = v37;
     v58[1] = @"num_scores";
-    v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v62];
-    v59[1] = v37;
+    v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*v62];
+    v59[1] = v38;
     v58[2] = @"mean_score";
-    LODWORD(v38) = v61;
-    v39 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
-    v59[2] = v39;
+    LODWORD(v39) = v61;
+    v40 = [MEMORY[0x277CCABB0] numberWithFloat:v39];
+    v59[2] = v40;
     v58[3] = @"valid_score_days";
-    v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v61)];
-    v59[3] = v40;
-    v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
+    v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:HIDWORD(v61)];
+    v59[3] = v41;
+    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:4];
   }
 
   else
   {
-    v41 = MEMORY[0x277CBEC10];
+    v42 = MEMORY[0x277CBEC10];
   }
 
-  v42 = *buf;
-  v43 = hws_get_hermit_log();
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+  v43 = *buf;
+  v44 = hws_get_hermit_log(v36);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
   {
     *v56 = 67436801;
-    v57 = v42 == 1;
-    _os_log_impl(&dword_251282000, v43, OS_LOG_TYPE_DEFAULT, "Algs result: %{sensitive}u", v56, 8u);
+    v57 = v43 == 1;
+    _os_log_impl(&dword_251282000, v44, OS_LOG_TYPE_DEFAULT, "Algs result: %{sensitive}u", v56, 8u);
   }
 
   HermitNotification::Processor::~Processor(v48);
@@ -164,9 +169,8 @@
     operator delete(__src);
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-  v45 = v41;
-  v46 = v42 == 1;
+  v45 = v42;
+  v46 = v43 == 1;
   result.var1 = v46;
   result.var0 = v45;
   return result;

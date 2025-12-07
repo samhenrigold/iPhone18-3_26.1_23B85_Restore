@@ -54,10 +54,11 @@
   swift_getKeyPath();
   configurationCopy = configuration;
   selfCopy = self;
-  sub_19A7AB644();
+  sub_19A7AB644(&v9);
 
-  v7 = sub_19A6D51D0(1, configurationCopy, 0, 0);
-  [v8 sendAction_];
+  v7 = v9;
+  v8 = sub_19A6D51D0(1, configurationCopy, 0, 0);
+  [v7 sendAction_];
 }
 
 - (void)didSelectEmoji:(id)emoji indexPath:(id)path
@@ -77,7 +78,7 @@
 
 - (void)didSelectSticker:(id)sticker indexPath:(id)path
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAFCD690, &qword_19A7B6B00);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v17 - v6;
   v8 = sub_19A7A9094();

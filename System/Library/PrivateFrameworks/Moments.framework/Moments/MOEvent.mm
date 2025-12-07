@@ -109,7 +109,12 @@
 - (void)setInteractionMechanisms:(id)mechanisms;
 - (void)setInteractionScoredContact:(id)contact;
 - (void)setInteractions:(id)interactions;
+- (void)setIsFitnessPlusSession:(BOOL)session;
+- (void)setIsGComplete:(BOOL)complete;
+- (void)setIsHighConfidence:(BOOL)confidence;
+- (void)setIsInvalid:(BOOL)invalid;
 - (void)setItemAttributionsCount:(id)count;
+- (void)setItemIsPinned:(BOOL)pinned;
 - (void)setItemRecipients:(id)recipients;
 - (void)setItemSenders:(id)senders;
 - (void)setItemShareDirection:(unint64_t)direction;
@@ -318,9 +323,7 @@ LABEL_21:
     v7 = 128;
   }
 
-  v8 = objc_alloc_init(*v6);
-  v9 = *(&self->super.isa + v7);
-  *(&self->super.isa + v7) = v8;
+  *(&self->super.isa + v7) = objc_alloc_init(*v6);
 
   MEMORY[0x2821F96F8]();
 }
@@ -1360,6 +1363,38 @@ LABEL_21:
   [(MOEventAnalytics *)analyticsEvent setTimeAtHomeSubType:type];
 }
 
+- (void)setIsHighConfidence:(BOOL)confidence
+{
+  confidenceCopy = confidence;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsHighConfidence:confidenceCopy];
+}
+
+- (void)setIsInvalid:(BOOL)invalid
+{
+  invalidCopy = invalid;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsInvalid:invalidCopy];
+}
+
 - (void)setPlaceType:(unint64_t)type
 {
   routineEvent = self->_routineEvent;
@@ -1771,6 +1806,22 @@ LABEL_21:
   }
 
   MEMORY[0x2821F96F8]();
+}
+
+- (void)setIsFitnessPlusSession:(BOOL)session
+{
+  sessionCopy = session;
+  workoutEvent = self->_workoutEvent;
+  if (!workoutEvent)
+  {
+    v6 = objc_alloc_init(MOEventWorkout);
+    v7 = self->_workoutEvent;
+    self->_workoutEvent = v6;
+
+    workoutEvent = self->_workoutEvent;
+  }
+
+  [(MOEventWorkout *)workoutEvent setIsFitnessPlusSession:sessionCopy];
 }
 
 - (void)setSuggestedEventTitle:(id)title
@@ -2221,6 +2272,22 @@ LABEL_21:
   [(MOEventSharedWithYou *)sharedWithYouEvent setItemShareDirection:direction];
 }
 
+- (void)setItemIsPinned:(BOOL)pinned
+{
+  pinnedCopy = pinned;
+  sharedWithYouEvent = self->_sharedWithYouEvent;
+  if (!sharedWithYouEvent)
+  {
+    v6 = objc_alloc_init(MOEventSharedWithYou);
+    v7 = self->_sharedWithYouEvent;
+    self->_sharedWithYouEvent = v6;
+
+    sharedWithYouEvent = self->_sharedWithYouEvent;
+  }
+
+  [(MOEventSharedWithYou *)sharedWithYouEvent setItemIsPinned:pinnedCopy];
+}
+
 - (void)setItemSyndicationStatus:(unint64_t)status
 {
   sharedWithYouEvent = self->_sharedWithYouEvent;
@@ -2410,6 +2477,22 @@ LABEL_21:
   }
 
   MEMORY[0x2821F96F8]();
+}
+
+- (void)setIsGComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  if (!peopleDiscoveryEvent)
+  {
+    v6 = objc_alloc_init(MOEventPeopleDiscovery);
+    v7 = self->_peopleDiscoveryEvent;
+    self->_peopleDiscoveryEvent = v6;
+
+    peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  }
+
+  [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setIsGComplete:completeCopy];
 }
 
 - (void)setGaPR:(int64_t)r
@@ -3257,38 +3340,30 @@ LABEL_5:
 
 - (void)formatAddressWithFormatOption:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)formatLocalityWithFormatOption:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)formatAdministrativeAreaWithFormatOption:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)formatCountryWithFormatOption:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

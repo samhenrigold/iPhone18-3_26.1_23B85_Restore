@@ -2,45 +2,17 @@
 + (BOOL)recoverFromReplaceOperationsWithContext:(id)context error:(id *)error;
 + (Class)incomingMessageClass;
 + (id)_readAndValidateReplaceFileAtUrl:(id)url error:(id *)error;
-+ (unint64_t)command;
 - (BOOL)_writeToDiskReplaceAt:(id)at old:(id)old withNew:(id)new usingStaging:(id)staging toDestination:(id)destination error:(id *)error;
-- (BOOL)asyncReclaim;
 - (BOOL)preflightClientAllowed;
 - (MCMCommandReplaceContainer)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMConcreteContainerIdentity)containerIdentityNew;
-- (MCMConcreteContainerIdentity)containerIdentityOld;
 - (void)execute;
 @end
 
 @implementation MCMCommandReplaceContainer
 
-- (BOOL)asyncReclaim
-{
-  result = self->_asyncReclaim;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMConcreteContainerIdentity)containerIdentityNew
-{
-  result = self->_containerIdentityNew;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMConcreteContainerIdentity)containerIdentityOld
-{
-  result = self->_containerIdentityOld;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (BOOL)_writeToDiskReplaceAt:(id)at old:(id)old withNew:(id)new usingStaging:(id)staging toDestination:(id)destination error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   atCopy = at;
   oldCopy = old;
   newCopy = new;
@@ -52,29 +24,29 @@
   if (oldCopy && newCopy && stagingCopy && destinationCopy)
   {
     errorCopy = error;
-    v40[0] = @"MCMReplaceOperationOldURL";
+    v39[0] = @"MCMReplaceOperationOldURL";
     path = [oldCopy path];
-    v41[0] = path;
-    v40[1] = @"MCMReplaceOperationNewURL";
+    v40[0] = path;
+    v39[1] = @"MCMReplaceOperationNewURL";
     path2 = [newCopy path];
-    v41[1] = path2;
-    v40[2] = @"MCMReplaceOperationStagingURL";
+    v40[1] = path2;
+    v39[2] = @"MCMReplaceOperationStagingURL";
     path3 = [stagingCopy path];
-    v41[2] = path3;
-    v40[3] = @"MCMReplaceOperationDestURL";
-    v37 = destinationCopy;
+    v40[2] = path3;
+    v39[3] = @"MCMReplaceOperationDestURL";
+    v36 = destinationCopy;
     path4 = [destinationCopy path];
-    v41[3] = path4;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:4];
+    v40[3] = path4;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:4];
 
-    v39 = 0;
-    LOBYTE(path4) = [v24 MCM_writeToURL:atCopy withOptions:v19 error:&v39];
-    v25 = v39;
+    v38 = 0;
+    LOBYTE(path4) = [v24 MCM_writeToURL:atCopy withOptions:v19 error:&v38];
+    v25 = v38;
     if (path4)
     {
       v26 = 0;
       v27 = 1;
-      destinationCopy = v37;
+      destinationCopy = v36;
       goto LABEL_16;
     }
 
@@ -84,14 +56,14 @@
     {
       path5 = [atCopy path];
       *buf = 138412546;
-      v43 = path5;
-      v44 = 2112;
-      v45 = v25;
+      v42 = path5;
+      v43 = 2112;
+      v44 = v25;
       _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, "Failed to write replace dictionary to URL %@; error = %@", buf, 0x16u);
     }
 
     error = errorCopy;
-    destinationCopy = v37;
+    destinationCopy = v36;
   }
 
   else
@@ -105,13 +77,13 @@
       path8 = [stagingCopy path];
       [destinationCopy path];
       *buf = 138413058;
-      v43 = path6;
-      v44 = 2112;
-      v45 = path7;
-      v46 = 2112;
-      v47 = path8;
-      v49 = v48 = 2112;
-      v33 = v49;
+      v42 = path6;
+      v43 = 2112;
+      v44 = path7;
+      v45 = 2112;
+      v46 = path8;
+      v48 = v47 = 2112;
+      v32 = v48;
       _os_log_error_impl(&dword_1DF2C3000, v28, OS_LOG_TYPE_ERROR, "Invalid Replace File Info: old: %@, new: %@, staging: %@, dest: %@", buf, 0x2Au);
     }
 
@@ -133,13 +105,12 @@
 
 LABEL_16:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 - (void)execute
 {
-  v258 = *MEMORY[0x1E69E9840];
+  v257 = *MEMORY[0x1E69E9840];
   context = objc_autoreleasePoolPush();
   containerIdentityNew = [(MCMCommandReplaceContainer *)self containerIdentityNew];
   containerIdentityOld = [(MCMCommandReplaceContainer *)self containerIdentityOld];
@@ -154,13 +125,13 @@ LABEL_16:
   managedPathRegistry = [v9 managedPathRegistry];
   containermanagerReplaceOperations = [managedPathRegistry containermanagerReplaceOperations];
 
-  v213 = containermanagerReplaceOperations;
-  v215 = [containermanagerReplaceOperations url];
-  v225 = uuid;
-  v226 = identifier;
-  if (!v215)
+  v212 = containermanagerReplaceOperations;
+  v214 = [containermanagerReplaceOperations url];
+  v224 = uuid;
+  v225 = identifier;
+  if (!v214)
   {
-    v206 = containerClass2;
+    v205 = containerClass2;
     v15 = [[MCMError alloc] initWithErrorType:84];
     v16 = container_log_handle_for_category();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -169,14 +140,14 @@ LABEL_16:
       _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Failed to get url for storing replace operations.", buf, 2u);
     }
 
+    v210 = 0;
     v211 = 0;
-    v212 = 0;
     v17 = 0;
-    v227 = 0;
+    v226 = 0;
     containerRootURL7 = 0;
     v18 = 0;
-    v218 = 0;
-    v222 = 0;
+    v217 = 0;
+    v221 = 0;
     goto LABEL_51;
   }
 
@@ -187,9 +158,9 @@ LABEL_16:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v247 = containerClass2;
-      v248 = 2048;
-      v249 = containerClass;
+      v246 = containerClass2;
+      v247 = 2048;
+      v248 = containerClass;
       v14 = "Can't replace containers of different class types: %ld and %ld";
 LABEL_26:
       _os_log_error_impl(&dword_1DF2C3000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0x16u);
@@ -201,17 +172,17 @@ LABEL_26:
 
   if (!uuid)
   {
-    v206 = containerClass2;
-    v222 = 0;
+    v205 = containerClass2;
+    v221 = 0;
     v26 = 0;
 LABEL_16:
     context = [(MCMCommand *)self context];
     containerCache = [context containerCache];
-    v243 = v26;
-    v29 = [containerCache entryForContainerIdentity:containerIdentityNew error:&v243];
-    v15 = v243;
+    v242 = v26;
+    v29 = [containerCache entryForContainerIdentity:containerIdentityNew error:&v242];
+    v15 = v242;
 
-    v205 = containerIdentityNew;
+    v204 = containerIdentityNew;
     if (v29)
     {
       uuid2 = [v29 uuid];
@@ -220,18 +191,18 @@ LABEL_16:
 
       if (v32)
       {
-        v242 = v15;
-        v212 = v29;
-        v18 = [v29 metadataWithError:&v242];
-        v33 = v242;
+        v241 = v15;
+        v211 = v29;
+        v18 = [v29 metadataWithError:&v241];
+        v33 = v241;
 
         if (v18)
         {
           transient = [v18 transient];
-          if (v222)
+          if (v221)
           {
             containerPath = [v18 containerPath];
-            containerPath2 = [v222 containerPath];
+            containerPath2 = [v221 containerPath];
             v37 = [containerPath isEqual:containerPath2];
 
             if (v37)
@@ -243,23 +214,23 @@ LABEL_16:
               {
                 containerPath3 = [v18 containerPath];
                 *buf = 138412290;
-                v247 = containerPath3;
+                v246 = containerPath3;
                 _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Can't replace the same container at %@", buf, 0xCu);
               }
 
               v17 = 0;
-              v211 = 0;
-              v227 = 0;
+              v210 = 0;
+              v226 = 0;
               containerRootURL7 = 0;
               goto LABEL_50;
             }
           }
 
-          v194 = v33;
+          v193 = v33;
           selfCopy = self;
-          v187 = transient;
-          v204 = identifier2;
-          v41 = v225;
+          v186 = transient;
+          v203 = identifier2;
+          v41 = v224;
           context2 = [(MCMCommand *)self context];
           clientIdentity = [context2 clientIdentity];
           [clientIdentity platform];
@@ -271,9 +242,9 @@ LABEL_16:
           containerRootURL = [containerPath4 containerRootURL];
           lastPathComponent = [containerRootURL lastPathComponent];
 
-          v40 = v226;
-          containerIdentityNew = v205;
-          v211 = lastPathComponent;
+          v40 = v225;
+          containerIdentityNew = v204;
+          v210 = lastPathComponent;
           if (v44)
           {
             v48 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:lastPathComponent];
@@ -288,45 +259,45 @@ LABEL_16:
                 containerRootURL2 = [containerPath5 containerRootURL];
                 path = [containerRootURL2 path];
                 *buf = 138412290;
-                v247 = path;
+                v246 = path;
                 _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Invalid URL (last path component not UUID): %@", buf, 0xCu);
               }
 
               v17 = 0;
-              v227 = 0;
+              v226 = 0;
               containerRootURL7 = 0;
-              v218 = 0;
+              v217 = 0;
               goto LABEL_99;
             }
           }
 
-          containerPath6 = [v222 containerPath];
+          containerPath6 = [v221 containerPath];
           v17 = containerPath6;
-          if (!((v225 == 0) | v44 & 1))
+          if (!((v224 == 0) | v44 & 1))
           {
-            v218 = 0;
-            v83 = containerPath6;
+            v217 = 0;
+            v82 = containerPath6;
             goto LABEL_86;
           }
 
           v50 = objc_opt_class();
-          if ([v222 transient])
+          if ([v221 transient])
           {
             v50 = objc_opt_class();
           }
 
           v51 = [v50 containerPathForUserIdentity:userIdentity containerClass:containerClass containerPathIdentifier:lastPathComponent];
           containerClassPath = [v51 containerClassPath];
-          v241 = 0;
-          v53 = [containerClassPath createIfNecessaryWithError:&v241];
-          v54 = v241;
+          v240 = 0;
+          v53 = [containerClassPath createIfNecessaryWithError:&v240];
+          v54 = v240;
 
-          v218 = v54;
+          v217 = v54;
           if (v53)
           {
 
             v55 = +[MCMFileManager defaultManager];
-            v216 = v51;
+            v215 = v51;
             containerRootURL3 = [v51 containerRootURL];
             v57 = [v55 itemExistsAtURL:containerRootURL3];
 
@@ -335,302 +306,302 @@ LABEL_16:
               v15 = [[MCMError alloc] initWithErrorType:27];
 
               v16 = container_log_handle_for_category();
-              identifier2 = v204;
+              identifier2 = v203;
               if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
-                containerRootURL4 = [(MCMError *)v216 containerRootURL];
+                containerRootURL4 = [(MCMError *)v215 containerRootURL];
                 path2 = [containerRootURL4 path];
                 *buf = 138412290;
-                v247 = path2;
+                v246 = path2;
                 _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Container already exists at %@", buf, 0xCu);
               }
 
-              v227 = 0;
+              v226 = 0;
               containerRootURL7 = 0;
-              v17 = v216;
+              v17 = v215;
               self = selfCopy;
               goto LABEL_51;
             }
 
-            identifier2 = v204;
-            if (!v225)
+            identifier2 = v203;
+            if (!v224)
             {
-              v130 = [(MCMError *)v205 identityByChangingTransient:0];
-              containerIdentity = [v130 containerIdentity];
+              v129 = [(MCMError *)v204 identityByChangingTransient:0];
+              containerIdentity = [v129 containerIdentity];
 
               context3 = [(MCMCommand *)selfCopy context];
               containerCache2 = [context3 containerCache];
-              v240 = v194;
-              v133 = [containerCache2 entryForContainerIdentity:containerIdentity error:&v240];
-              v12 = v240;
+              v239 = v193;
+              v132 = [containerCache2 entryForContainerIdentity:containerIdentity error:&v239];
+              v12 = v239;
 
-              if (v133)
+              if (v132)
               {
-                v134 = [[MCMError alloc] initWithErrorType:27];
+                v133 = [[MCMError alloc] initWithErrorType:27];
 
-                v135 = container_log_handle_for_category();
-                if (os_log_type_enabled(v135, OS_LOG_TYPE_ERROR))
+                v134 = container_log_handle_for_category();
+                if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
                 {
                   identifier3 = [v18 identifier];
-                  transient2 = [v222 transient];
+                  transient2 = [v221 transient];
                   *buf = 138412802;
-                  v247 = identifier3;
-                  v248 = 2048;
-                  v249 = containerClass;
-                  v250 = 1024;
-                  LODWORD(v251) = transient2;
-                  _os_log_error_impl(&dword_1DF2C3000, v135, OS_LOG_TYPE_ERROR, "Container with identifier: %@, class: %ld, transient: %d already exists", buf, 0x1Cu);
+                  v246 = identifier3;
+                  v247 = 2048;
+                  v248 = containerClass;
+                  v249 = 1024;
+                  LODWORD(v250) = transient2;
+                  _os_log_error_impl(&dword_1DF2C3000, v134, OS_LOG_TYPE_ERROR, "Container with identifier: %@, class: %ld, transient: %d already exists", buf, 0x1Cu);
                 }
 
-                v12 = v134;
+                v12 = v133;
               }
 
               else if ([(MCMError *)v12 type]== 21)
               {
 
-                v154 = container_log_handle_for_category();
-                if (os_signpost_enabled(v154))
+                v153 = container_log_handle_for_category();
+                if (os_signpost_enabled(v153))
                 {
                   containerPath7 = [v18 containerPath];
                   containerPathIdentifier = [containerPath7 containerPathIdentifier];
                   identifier4 = [v18 identifier];
                   containerClass3 = [v18 containerClass];
                   *buf = 138478339;
-                  v247 = containerPathIdentifier;
-                  v248 = 2113;
-                  v249 = identifier4;
-                  v250 = 2050;
-                  v251 = containerClass3;
-                  _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v154, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PromotingTransientContainer", " uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu ", buf, 0x20u);
+                  v246 = containerPathIdentifier;
+                  v247 = 2113;
+                  v248 = identifier4;
+                  v249 = 2050;
+                  v250 = containerClass3;
+                  _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v153, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PromotingTransientContainer", " uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu ", buf, 0x20u);
                 }
 
-                v227 = 0;
+                v226 = 0;
                 containerRootURL7 = 0;
                 v12 = 0;
                 self = selfCopy;
-                identifier2 = v204;
+                identifier2 = v203;
                 goto LABEL_131;
               }
 
-              v41 = v225;
-              identifier2 = v204;
+              v41 = v224;
+              identifier2 = v203;
 
-              v227 = 0;
+              v226 = 0;
               containerRootURL7 = 0;
               self = selfCopy;
               goto LABEL_69;
             }
 
-            v83 = v216;
+            v82 = v215;
 LABEL_86:
             uUID = [MEMORY[0x1E696AFB0] UUID];
             uUIDString = [uUID UUIDString];
 
-            containerPath8 = [v222 containerPath];
+            containerPath8 = [v221 containerPath];
             containerRootURL5 = [containerPath8 containerRootURL];
 
             containerPath9 = [v18 containerPath];
             containerRootURL6 = [containerPath9 containerRootURL];
 
-            v88 = MEMORY[0x1E695DFF8];
-            v89 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.plist", uUIDString];
-            v227 = [v88 URLWithString:v89 relativeToURL:v215];
+            v87 = MEMORY[0x1E695DFF8];
+            v88 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.plist", uUIDString];
+            v226 = [v87 URLWithString:v88 relativeToURL:v214];
 
-            v216 = v83;
-            v181 = uUIDString;
-            v90 = [MCMContainerStagingPath stagingContainerPathForDestinationContainerPath:v83 stagingPathIdentifier:uUIDString];
-            containerClassPath2 = [(MCMError *)v90 containerClassPath];
-            v239 = v218;
-            LOBYTE(uUIDString) = [containerClassPath2 createIfNecessaryWithError:&v239];
-            v179 = v239;
+            v215 = v82;
+            v180 = uUIDString;
+            v89 = [MCMContainerStagingPath stagingContainerPathForDestinationContainerPath:v82 stagingPathIdentifier:uUIDString];
+            containerClassPath2 = [(MCMError *)v89 containerClassPath];
+            v238 = v217;
+            LOBYTE(uUIDString) = [containerClassPath2 createIfNecessaryWithError:&v238];
+            v178 = v238;
 
-            v180 = v90;
+            v179 = v89;
             if (uUIDString)
             {
-              containerRootURL7 = [(MCMError *)v90 containerRootURL];
-              v92 = [MCMContainerCacheEntry birthtimeForURL:containerRootURL5];
-              if (v92 | v93)
+              containerRootURL7 = [(MCMError *)v89 containerRootURL];
+              v91 = [MCMContainerCacheEntry birthtimeForURL:containerRootURL5];
+              if (v91 | v92)
               {
-                birthtime = v92;
-                v99 = v93;
+                birthtime = v91;
+                v98 = v92;
                 self = selfCopy;
               }
 
               else
               {
-                v94 = +[MCMFileManager defaultManager];
-                v238 = 0;
-                v95 = [v94 fsNodeOfURL:containerRootURL5 followSymlinks:0 error:&v238];
-                v96 = v238;
+                v93 = +[MCMFileManager defaultManager];
+                v237 = 0;
+                v94 = [v93 fsNodeOfURL:containerRootURL5 followSymlinks:0 error:&v237];
+                v95 = v237;
 
-                if (v95)
+                if (v94)
                 {
-                  birthtime = [v95 birthtime];
-                  v99 = v98;
+                  birthtime = [v94 birthtime];
+                  v98 = v97;
                 }
 
                 else
                 {
-                  v113 = container_log_handle_for_category();
-                  if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+                  v112 = container_log_handle_for_category();
+                  if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v247 = containerRootURL5;
-                    v248 = 2112;
-                    v249 = v96;
-                    _os_log_error_impl(&dword_1DF2C3000, v113, OS_LOG_TYPE_ERROR, "Could not read fs node for old container at [%@] (non-fatal); error = %@", buf, 0x16u);
+                    v246 = containerRootURL5;
+                    v247 = 2112;
+                    v248 = v95;
+                    _os_log_error_impl(&dword_1DF2C3000, v112, OS_LOG_TYPE_ERROR, "Could not read fs node for old container at [%@] (non-fatal); error = %@", buf, 0x16u);
                   }
 
-                  v99 = 0;
+                  v98 = 0;
                   birthtime = 0;
                 }
 
                 self = selfCopy;
               }
 
-              if (birthtime | v99)
+              if (birthtime | v98)
               {
-                [MCMContainerCacheEntry setBirthtime:birthtime forURL:v99, containerRootURL6];
+                [MCMContainerCacheEntry setBirthtime:birthtime forURL:v98, containerRootURL6];
               }
 
-              containerRootURL8 = [(MCMError *)v216 containerRootURL];
-              v237 = v194;
-              v115 = [(MCMCommandReplaceContainer *)self _writeToDiskReplaceAt:v227 old:containerRootURL5 withNew:containerRootURL6 usingStaging:containerRootURL7 toDestination:containerRootURL8 error:&v237];
-              v116 = v237;
+              containerRootURL8 = [(MCMError *)v215 containerRootURL];
+              v236 = v193;
+              v114 = [(MCMCommandReplaceContainer *)self _writeToDiskReplaceAt:v226 old:containerRootURL5 withNew:containerRootURL6 usingStaging:containerRootURL7 toDestination:containerRootURL8 error:&v236];
+              v115 = v236;
 
-              v182 = v116;
-              if (v115)
+              v181 = v115;
+              if (v114)
               {
-                v117 = container_log_handle_for_category();
-                if (os_signpost_enabled(v117))
+                v116 = container_log_handle_for_category();
+                if (os_signpost_enabled(v116))
                 {
-                  containerPath10 = [v222 containerPath];
+                  containerPath10 = [v221 containerPath];
                   containerPathIdentifier2 = [containerPath10 containerPathIdentifier];
-                  identifier5 = [v222 identifier];
-                  containerClass4 = [v222 containerClass];
+                  identifier5 = [v221 identifier];
+                  containerClass4 = [v221 containerClass];
                   containerPath11 = [v18 containerPath];
                   containerPathIdentifier3 = [containerPath11 containerPathIdentifier];
                   identifier6 = [v18 identifier];
                   containerClass5 = [v18 containerClass];
                   *buf = 138479107;
-                  v247 = containerPathIdentifier2;
-                  v248 = 2113;
-                  v249 = identifier5;
-                  v250 = 2050;
-                  v251 = containerClass4;
-                  v252 = 2113;
-                  v253 = containerPathIdentifier3;
-                  v254 = 2113;
-                  v255 = identifier6;
-                  v256 = 2050;
-                  v257 = containerClass5;
-                  _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v117, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReplacingContainer", " uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu  -->  uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu ", buf, 0x3Eu);
+                  v246 = containerPathIdentifier2;
+                  v247 = 2113;
+                  v248 = identifier5;
+                  v249 = 2050;
+                  v250 = containerClass4;
+                  v251 = 2113;
+                  v252 = containerPathIdentifier3;
+                  v253 = 2113;
+                  v254 = identifier6;
+                  v255 = 2050;
+                  v256 = containerClass5;
+                  _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v116, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ReplacingContainer", " uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu  -->  uuid=%{private, signpost.description:attribute}@  identifier=%{private, signpost.description:attribute}@  class=%{public, signpost.description:attribute}llu ", buf, 0x3Eu);
                 }
 
-                v122 = +[MCMFileManager defaultManager];
-                containerPath12 = [v222 containerPath];
+                v121 = +[MCMFileManager defaultManager];
+                containerPath12 = [v221 containerPath];
                 containerRootURL9 = [containerPath12 containerRootURL];
-                v236 = v179;
-                v196 = [v122 moveItemAtURL:containerRootURL9 toURL:containerRootURL7 error:&v236];
-                v218 = v236;
+                v235 = v178;
+                v195 = [v121 moveItemAtURL:containerRootURL9 toURL:containerRootURL7 error:&v235];
+                v217 = v235;
 
-                if (v196)
+                if (v195)
                 {
                   context4 = [(MCMCommand *)self context];
                   containerCache3 = [context4 containerCache];
-                  v235 = v182;
-                  v127 = [containerCache3 removeContainerForUserIdentity:userIdentity2 contentClass:v206 identifier:identifier2 transient:objc_msgSend(v222 error:{"transient"), &v235}];
-                  v12 = v235;
+                  v234 = v181;
+                  v126 = [containerCache3 removeContainerForUserIdentity:userIdentity2 contentClass:v205 identifier:identifier2 transient:objc_msgSend(v221 error:{"transient"), &v234}];
+                  v12 = v234;
 
-                  if (v127)
+                  if (v126)
                   {
-                    v128 = 1;
-                    v41 = v225;
-                    v40 = v226;
-                    v107 = v180;
+                    v127 = 1;
+                    v41 = v224;
+                    v40 = v225;
+                    v106 = v179;
                     goto LABEL_130;
                   }
 
-                  v182 = [[MCMError alloc] initWithErrorType:46];
+                  v181 = [[MCMError alloc] initWithErrorType:46];
 
-                  v106 = container_log_handle_for_category();
-                  v107 = v180;
-                  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                  v105 = container_log_handle_for_category();
+                  v106 = v179;
+                  if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                   {
-                    transient3 = [v222 transient];
+                    transient3 = [v221 transient];
                     *buf = 138412802;
-                    v247 = identifier2;
-                    v248 = 2048;
-                    v249 = v206;
-                    v250 = 1024;
-                    LODWORD(v251) = transient3;
-                    _os_log_error_impl(&dword_1DF2C3000, v106, OS_LOG_TYPE_ERROR, "Failed to remove from cache id: %@, class: %ld, transient: %d", buf, 0x1Cu);
+                    v246 = identifier2;
+                    v247 = 2048;
+                    v248 = v205;
+                    v249 = 1024;
+                    LODWORD(v250) = transient3;
+                    _os_log_error_impl(&dword_1DF2C3000, v105, OS_LOG_TYPE_ERROR, "Failed to remove from cache id: %@, class: %ld, transient: %d", buf, 0x1Cu);
                   }
 
-                  v105 = v218;
+                  v104 = v217;
                 }
 
                 else
                 {
-                  v129 = [[MCMError alloc] initWithErrorType:14];
+                  v128 = [[MCMError alloc] initWithErrorType:14];
 
-                  v106 = container_log_handle_for_category();
-                  v107 = v180;
-                  if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                  v105 = container_log_handle_for_category();
+                  v106 = v179;
+                  if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                   {
-                    containerPath13 = [v222 containerPath];
+                    containerPath13 = [v221 containerPath];
                     containerRootURL10 = [containerPath13 containerRootURL];
                     path3 = [containerRootURL10 path];
                     path4 = [containerRootURL7 path];
                     *buf = 138412546;
-                    v247 = path3;
-                    v248 = 2112;
-                    v249 = path4;
-                    _os_log_error_impl(&dword_1DF2C3000, v106, OS_LOG_TYPE_ERROR, "Failed to move old %@ to staging %@", buf, 0x16u);
+                    v246 = path3;
+                    v247 = 2112;
+                    v248 = path4;
+                    _os_log_error_impl(&dword_1DF2C3000, v105, OS_LOG_TYPE_ERROR, "Failed to move old %@ to staging %@", buf, 0x16u);
                   }
 
-                  v105 = v218;
-                  v182 = v129;
+                  v104 = v217;
+                  v181 = v128;
                 }
 
-                v41 = v225;
-                v40 = v226;
+                v41 = v224;
+                v40 = v225;
               }
 
               else
               {
-                v106 = container_log_handle_for_category();
-                v41 = v225;
-                if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+                v105 = container_log_handle_for_category();
+                v41 = v224;
+                if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412290;
-                  v247 = v116;
-                  _os_log_error_impl(&dword_1DF2C3000, v106, OS_LOG_TYPE_ERROR, "Failed to write replace file: %@", buf, 0xCu);
+                  v246 = v115;
+                  _os_log_error_impl(&dword_1DF2C3000, v105, OS_LOG_TYPE_ERROR, "Failed to write replace file: %@", buf, 0xCu);
                 }
 
-                v40 = v226;
-                v105 = v179;
-                v107 = v180;
+                v40 = v225;
+                v104 = v178;
+                v106 = v179;
               }
             }
 
             else
             {
-              v102 = [MCMError alloc];
-              containerClassPath3 = [(MCMError *)v90 containerClassPath];
+              v101 = [MCMError alloc];
+              containerClassPath3 = [(MCMError *)v89 containerClassPath];
               classURL = [containerClassPath3 classURL];
-              v105 = v179;
-              v182 = [MCMError initWithNSError:v102 url:"initWithNSError:url:defaultErrorType:" defaultErrorType:?];
+              v104 = v178;
+              v181 = [MCMError initWithNSError:v101 url:"initWithNSError:url:defaultErrorType:" defaultErrorType:?];
 
-              v106 = container_log_handle_for_category();
-              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+              v105 = container_log_handle_for_category();
+              if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v107 = v180;
-                v247 = v180;
-                v248 = 2112;
-                v249 = v179;
-                _os_log_error_impl(&dword_1DF2C3000, v106, OS_LOG_TYPE_ERROR, "Failed to create class path dir for %@: %@", buf, 0x16u);
+                v106 = v179;
+                v246 = v179;
+                v247 = 2112;
+                v248 = v178;
+                _os_log_error_impl(&dword_1DF2C3000, v105, OS_LOG_TYPE_ERROR, "Failed to create class path dir for %@: %@", buf, 0x16u);
                 containerRootURL7 = 0;
                 self = selfCopy;
               }
@@ -639,82 +610,82 @@ LABEL_86:
               {
                 containerRootURL7 = 0;
                 self = selfCopy;
-                v107 = v180;
+                v106 = v179;
               }
             }
 
-            v128 = 0;
-            v218 = v105;
-            v12 = v182;
+            v127 = 0;
+            v217 = v104;
+            v12 = v181;
 LABEL_130:
 
-            if ((v128 & 1) == 0)
+            if ((v127 & 1) == 0)
             {
               goto LABEL_53;
             }
 
 LABEL_131:
-            if (v187)
+            if (v186)
             {
-              v136 = [v18 metadataBySettingTransient:0];
+              v135 = [v18 metadataBySettingTransient:0];
 
-              v18 = v136;
-              v137 = v216;
+              v18 = v135;
+              v136 = v215;
             }
 
             else
             {
-              v137 = v216;
-              if (!v222)
+              v136 = v215;
+              if (!v221)
               {
 LABEL_136:
-                v216 = v137;
-                v139 = +[MCMFileManager defaultManager];
+                v215 = v136;
+                v138 = +[MCMFileManager defaultManager];
                 containerPath14 = [v18 containerPath];
                 containerRootURL11 = [containerPath14 containerRootURL];
-                containerRootURL12 = [(MCMError *)v137 containerRootURL];
-                v233 = v218;
-                v185 = [v139 moveItemAtURL:containerRootURL11 toURL:containerRootURL12 error:&v233];
-                v197 = v233;
+                containerRootURL12 = [(MCMError *)v136 containerRootURL];
+                v232 = v217;
+                v184 = [v138 moveItemAtURL:containerRootURL11 toURL:containerRootURL12 error:&v232];
+                v196 = v232;
 
-                if ((v185 & 1) == 0)
+                if ((v184 & 1) == 0)
                 {
-                  v151 = [MCMError alloc];
-                  containerRootURL13 = [(MCMError *)v137 containerRootURL];
-                  v15 = [(MCMError *)v151 initWithNSError:v197 url:containerRootURL13 defaultErrorType:15];
+                  v150 = [MCMError alloc];
+                  containerRootURL13 = [(MCMError *)v136 containerRootURL];
+                  v15 = [(MCMError *)v150 initWithNSError:v196 url:containerRootURL13 defaultErrorType:15];
 
                   v16 = container_log_handle_for_category();
                   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                   {
-                    containerPath15 = [v222 containerPath];
+                    containerPath15 = [v221 containerPath];
                     containerRootURL14 = [containerPath15 containerRootURL];
                     path5 = [containerRootURL14 path];
                     containerPath16 = [v18 containerPath];
                     containerRootURL15 = [containerPath16 containerRootURL];
                     path6 = [containerRootURL15 path];
-                    containerRootURL16 = [(MCMError *)v216 containerRootURL];
+                    containerRootURL16 = [(MCMError *)v215 containerRootURL];
                     path7 = [containerRootURL16 path];
                     *buf = 138412802;
-                    v247 = path5;
-                    v248 = 2112;
-                    v249 = path6;
-                    v250 = 2112;
-                    v251 = path7;
+                    v246 = path5;
+                    v247 = 2112;
+                    v248 = path6;
+                    v249 = 2112;
+                    v250 = path7;
                     _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Failed to replace: %@ with: %@ at: %@", buf, 0x20u);
                   }
 
-                  v17 = v216;
-                  v218 = v197;
+                  v17 = v215;
+                  v217 = v196;
                   goto LABEL_51;
                 }
 
                 context5 = [(MCMCommand *)self context];
                 containerCache4 = [context5 containerCache];
-                v232 = v12;
-                v220 = [containerCache4 removeContainerForUserIdentity:userIdentity contentClass:containerClass identifier:v226 transient:v187 error:&v232];
-                v144 = v232;
+                v231 = v12;
+                v219 = [containerCache4 removeContainerForUserIdentity:userIdentity contentClass:containerClass identifier:v225 transient:v186 error:&v231];
+                v143 = v231;
 
-                if ((v220 & 1) == 0)
+                if ((v219 & 1) == 0)
                 {
                   v15 = [[MCMError alloc] initWithErrorType:46];
 
@@ -723,51 +694,51 @@ LABEL_136:
                   {
                     transient4 = [v18 transient];
                     *buf = 138412802;
-                    v247 = v226;
-                    v248 = 2048;
-                    v249 = containerClass;
-                    v250 = 1024;
-                    LODWORD(v251) = transient4;
+                    v246 = v225;
+                    v247 = 2048;
+                    v248 = containerClass;
+                    v249 = 1024;
+                    LODWORD(v250) = transient4;
                     _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Failed to remove from cache id: %@, class: %ld, transient: %d", buf, 0x1Cu);
                   }
 
-                  v17 = v216;
-                  v218 = v197;
+                  v17 = v215;
+                  v217 = v196;
                   goto LABEL_51;
                 }
 
                 selfCopy2 = self;
-                v146 = [v18 metadataByChangingContainerPath:v216];
+                v145 = [v18 metadataByChangingContainerPath:v215];
 
                 [(MCMCommand *)selfCopy2 context];
-                v148 = v147 = v144;
-                containerCache5 = [v148 containerCache];
-                v231 = v147;
-                v150 = [containerCache5 addContainerMetadata:v146 error:&v231];
-                v12 = v231;
+                v147 = v146 = v143;
+                containerCache5 = [v147 containerCache];
+                v230 = v146;
+                v149 = [containerCache5 addContainerMetadata:v145 error:&v230];
+                v12 = v230;
 
-                if (v150)
+                if (v149)
                 {
-                  v218 = v197;
-                  v18 = v146;
+                  v217 = v196;
+                  v18 = v145;
                   self = selfCopy;
-                  identifier2 = v204;
+                  identifier2 = v203;
 LABEL_52:
-                  v41 = v225;
-                  v40 = v226;
-                  if (!v225)
+                  v41 = v224;
+                  v40 = v225;
+                  if (!v224)
                   {
                     goto LABEL_70;
                   }
 
 LABEL_53:
-                  v208 = v18;
+                  v207 = v18;
                   v58 = containerIdentityNew;
                   if (containerRootURL7)
                   {
-                    v201 = containerIdentityOld;
+                    v200 = containerIdentityOld;
                     v59 = containermanager_copy_global_configuration();
-                    v60 = [v59 isGlobalContainerClass:v206];
+                    v60 = [v59 isGlobalContainerClass:v205];
 
                     if (v60)
                     {
@@ -782,9 +753,9 @@ LABEL_53:
                     selfCopy3 = self;
                     context6 = [(MCMCommand *)self context];
                     containerFactory = [context6 containerFactory];
-                    v230 = v12;
-                    v65 = [containerFactory deleteURL:containerRootURL7 forUserIdentity:v61 error:&v230];
-                    v66 = v230;
+                    v229 = v12;
+                    v65 = [containerFactory deleteURL:containerRootURL7 forUserIdentity:v61 error:&v229];
+                    v66 = v229;
 
                     if ((v65 & 1) == 0)
                     {
@@ -793,9 +764,9 @@ LABEL_53:
                       {
                         path8 = [containerRootURL7 path];
                         *buf = 138412546;
-                        v247 = path8;
-                        v248 = 2112;
-                        v249 = v66;
+                        v246 = path8;
+                        v247 = 2112;
+                        v248 = v66;
                         _os_log_error_impl(&dword_1DF2C3000, v67, OS_LOG_TYPE_ERROR, "Failed to remove staging dir: %@; error = %@", buf, 0x16u);
                       }
 
@@ -806,56 +777,56 @@ LABEL_53:
 
                     v12 = v66;
                     v58 = containerIdentityNew;
-                    v41 = v225;
-                    v40 = v226;
-                    containerIdentityOld = v201;
+                    v41 = v224;
+                    v40 = v225;
+                    containerIdentityOld = v200;
                   }
 
-                  if (v227)
+                  if (v226)
                   {
                     v68 = identifier2;
                     selfCopy4 = self;
                     context7 = [(MCMCommand *)self context];
                     containerFactory2 = [context7 containerFactory];
-                    v229 = v12;
-                    v72 = [containerFactory2 deleteURL:v227 forUserIdentity:0 error:&v229];
-                    v13 = v229;
+                    v228 = v12;
+                    v72 = [containerFactory2 deleteURL:v226 forUserIdentity:0 error:&v228];
+                    v13 = v228;
 
                     if ((v72 & 1) == 0)
                     {
-                      v82 = container_log_handle_for_category();
-                      if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+                      v81 = container_log_handle_for_category();
+                      if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
                       {
-                        path9 = [v227 path];
+                        path9 = [v226 path];
                         *buf = 138412546;
-                        v247 = path9;
-                        v248 = 2112;
-                        v249 = v13;
-                        _os_log_error_impl(&dword_1DF2C3000, v82, OS_LOG_TYPE_ERROR, "Failed to remove replace file: %@; error = %@", buf, 0x16u);
+                        v246 = path9;
+                        v247 = 2112;
+                        v248 = v13;
+                        _os_log_error_impl(&dword_1DF2C3000, v81, OS_LOG_TYPE_ERROR, "Failed to remove replace file: %@; error = %@", buf, 0x16u);
                       }
 
                       v12 = 0;
                       self = selfCopy4;
                       identifier2 = v68;
                       containerIdentityNew = v58;
-                      v18 = v208;
+                      v18 = v207;
                       goto LABEL_35;
                     }
 
                     v12 = v13;
                     self = selfCopy4;
                     identifier2 = v68;
-                    v41 = v225;
-                    v40 = v226;
+                    v41 = v224;
+                    v40 = v225;
                   }
 
                   else
                   {
-                    v227 = 0;
+                    v226 = 0;
                   }
 
                   containerIdentityNew = v58;
-                  v18 = v208;
+                  v18 = v207;
                   goto LABEL_67;
                 }
 
@@ -864,63 +835,63 @@ LABEL_53:
                 v16 = container_log_handle_for_category();
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
                 {
-                  transient5 = [v222 transient];
+                  transient5 = [v221 transient];
                   *buf = 138412802;
-                  v247 = v146;
-                  v248 = 2112;
-                  v17 = v216;
-                  v249 = v216;
-                  v250 = 1024;
-                  LODWORD(v251) = transient5;
+                  v246 = v145;
+                  v247 = 2112;
+                  v17 = v215;
+                  v248 = v215;
+                  v249 = 1024;
+                  LODWORD(v250) = transient5;
                   _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Failed to add to cache: %@, url: %@, transient: %d", buf, 0x1Cu);
                 }
 
                 else
                 {
-                  v17 = v216;
+                  v17 = v215;
                 }
 
-                v18 = v146;
-                v218 = v197;
+                v18 = v145;
+                v217 = v196;
                 goto LABEL_99;
               }
             }
 
-            v234 = v12;
-            v138 = [v18 writeMetadataToDiskWithError:&v234];
-            v15 = v234;
+            v233 = v12;
+            v137 = [v18 writeMetadataToDiskWithError:&v233];
+            v15 = v233;
 
-            if ((v138 & 1) == 0)
+            if ((v137 & 1) == 0)
             {
               v16 = container_log_handle_for_category();
               if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
-                containerPath17 = [v222 containerPath];
+                containerPath17 = [v221 containerPath];
                 containerRootURL17 = [containerPath17 containerRootURL];
                 [containerRootURL17 path];
-                v164 = v137;
-                v165 = v217 = v137;
+                v163 = v136;
+                v164 = v216 = v136;
                 containerPath18 = [v18 containerPath];
                 containerRootURL18 = [containerPath18 containerRootURL];
                 path10 = [containerRootURL18 path];
-                containerRootURL19 = [(MCMError *)v164 containerRootURL];
+                containerRootURL19 = [(MCMError *)v163 containerRootURL];
                 path11 = [containerRootURL19 path];
                 *buf = 138413058;
-                v247 = v165;
-                v248 = 2112;
-                v249 = path10;
-                v250 = 2112;
-                v251 = path11;
-                v252 = 2112;
-                v253 = v15;
+                v246 = v164;
+                v247 = 2112;
+                v248 = path10;
+                v249 = 2112;
+                v250 = path11;
+                v251 = 2112;
+                v252 = v15;
                 _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Failed to write metadata during replace: %@ with: %@ at: %@, error = %@", buf, 0x2Au);
 
-                v17 = v217;
+                v17 = v216;
               }
 
               else
               {
-                v17 = v137;
+                v17 = v136;
               }
 
               goto LABEL_51;
@@ -930,28 +901,28 @@ LABEL_53:
             goto LABEL_136;
           }
 
-          v108 = [MCMError alloc];
+          v107 = [MCMError alloc];
           containerClassPath4 = [v51 containerClassPath];
           [containerClassPath4 classURL];
-          v111 = v110 = v51;
-          v15 = [(MCMError *)v108 initWithNSError:v54 url:v111 defaultErrorType:3];
+          v110 = v109 = v51;
+          v15 = [(MCMError *)v107 initWithNSError:v54 url:v110 defaultErrorType:3];
 
-          v112 = container_log_handle_for_category();
-          if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+          v111 = container_log_handle_for_category();
+          if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v247 = v110;
-            v248 = 2112;
-            v249 = v54;
-            _os_log_error_impl(&dword_1DF2C3000, v112, OS_LOG_TYPE_ERROR, "Failed to create class path dir for %@: %@", buf, 0x16u);
+            v246 = v109;
+            v247 = 2112;
+            v248 = v54;
+            _os_log_error_impl(&dword_1DF2C3000, v111, OS_LOG_TYPE_ERROR, "Failed to create class path dir for %@: %@", buf, 0x16u);
           }
 
-          v227 = 0;
+          v226 = 0;
           containerRootURL7 = 0;
-          v16 = v110;
+          v16 = v109;
 LABEL_99:
           self = selfCopy;
-          identifier2 = v204;
+          identifier2 = v203;
           goto LABEL_51;
         }
 
@@ -962,44 +933,44 @@ LABEL_99:
       {
         v38 = [[MCMError alloc] initWithErrorType:21 category:3];
 
-        v212 = 0;
+        v211 = 0;
         v15 = v38;
       }
     }
 
     else
     {
-      v212 = 0;
+      v211 = 0;
     }
 
     v16 = container_log_handle_for_category();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v247 = containerIdentityNew;
-      v248 = 2112;
-      v249 = v15;
+      v246 = containerIdentityNew;
+      v247 = 2112;
+      v248 = v15;
       _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "No Container with identity: %@; error = %@", buf, 0x16u);
       v17 = 0;
-      v211 = 0;
-      v227 = 0;
+      v210 = 0;
+      v226 = 0;
       containerRootURL7 = 0;
       v18 = 0;
-      v218 = 0;
+      v217 = 0;
       goto LABEL_51;
     }
 
     v17 = 0;
-    v211 = 0;
-    v227 = 0;
+    v210 = 0;
+    v226 = 0;
     containerRootURL7 = 0;
     v18 = 0;
 LABEL_50:
-    v218 = 0;
-    containerIdentityNew = v205;
+    v217 = 0;
+    containerIdentityNew = v204;
 LABEL_51:
 
-    v216 = v17;
+    v215 = v17;
     v12 = v15;
     goto LABEL_52;
   }
@@ -1008,13 +979,13 @@ LABEL_51:
   {
     context8 = [(MCMCommand *)self context];
     containerCache6 = [context8 containerCache];
-    v245 = 0;
-    v13 = [containerCache6 entryForContainerIdentity:containerIdentityOld error:&v245];
-    v12 = v245;
+    v244 = 0;
+    v13 = [containerCache6 entryForContainerIdentity:containerIdentityOld error:&v244];
+    v12 = v244;
 
     if (v13)
     {
-      v206 = containerClass2;
+      v205 = containerClass2;
       selfCopy5 = self;
       uuid4 = [v13 uuid];
       uuid5 = [(MCMError *)containerIdentityOld uuid];
@@ -1022,11 +993,11 @@ LABEL_51:
 
       if (v24)
       {
-        v244 = v12;
-        v25 = [v13 metadataWithError:&v244];
-        v26 = v244;
+        v243 = v12;
+        v25 = [v13 metadataWithError:&v243];
+        v26 = v243;
 
-        v222 = v25;
+        v221 = v25;
         if (v25)
         {
 
@@ -1050,9 +1021,9 @@ LABEL_51:
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v247 = containerIdentityOld;
-      v248 = 2112;
-      v249 = v12;
+      v246 = containerIdentityOld;
+      v247 = 2112;
+      v248 = v12;
       _os_log_error_impl(&dword_1DF2C3000, v39, OS_LOG_TYPE_ERROR, "No Container with identity: %@; error = %@", buf, 0x16u);
     }
 
@@ -1064,26 +1035,26 @@ LABEL_51:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v247 = userIdentity2;
-    v248 = 2112;
-    v249 = userIdentity;
+    v246 = userIdentity2;
+    v247 = 2112;
+    v248 = userIdentity;
     v14 = "Can't replace containers of different personas: %@ and %@";
     goto LABEL_26;
   }
 
 LABEL_34:
-  v218 = 0;
-  v222 = 0;
+  v217 = 0;
+  v221 = 0;
   v18 = 0;
-  v227 = 0;
+  v226 = 0;
   containerRootURL7 = 0;
+  v210 = 0;
   v211 = 0;
-  v212 = 0;
-  v216 = 0;
+  v215 = 0;
 LABEL_35:
 
-  v41 = v225;
-  v40 = v226;
+  v41 = v224;
+  v40 = v225;
 LABEL_67:
   if (![(MCMCommandReplaceContainer *)self asyncReclaim])
   {
@@ -1108,7 +1079,7 @@ LABEL_70:
   if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v247 = v12;
+    v246 = v12;
     _os_log_debug_impl(&dword_1DF2C3000, v76, OS_LOG_TYPE_DEBUG, "Replace; error = %@", buf, 0xCu);
   }
 
@@ -1138,27 +1109,24 @@ LABEL_70:
   [resultPromise completeWithResult:v79];
 
   objc_autoreleasePoolPop(context);
-  v81 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)preflightClientAllowed
 {
-  v7 = *MEMORY[0x1E69E9840];
   context = [(MCMCommand *)self context];
   clientIdentity = [context clientIdentity];
   isAllowedToReplaceContainers = [clientIdentity isAllowedToReplaceContainers];
 
-  v5 = *MEMORY[0x1E69E9840];
   return isAllowedToReplaceContainers;
 }
 
 - (MCMCommandReplaceContainer)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v16.receiver = self;
-  v16.super_class = MCMCommandReplaceContainer;
-  v9 = [(MCMCommand *)&v16 initWithMessage:messageCopy context:context reply:reply];
+  v15.receiver = self;
+  v15.super_class = MCMCommandReplaceContainer;
+  v9 = [(MCMCommand *)&v15 initWithMessage:messageCopy context:context reply:reply];
   if (v9)
   {
     containerIdentityOld = [messageCopy containerIdentityOld];
@@ -1172,19 +1140,18 @@ LABEL_70:
     v9->_asyncReclaim = 1;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (id)_readAndValidateReplaceFileAtUrl:(id)url error:(id *)error
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   urlCopy = url;
-  v54 = 0;
-  v6 = [MEMORY[0x1E695DF90] MCM_dictionaryWithContentsOfURL:urlCopy options:1 error:&v54];
-  v7 = v54;
-  v52 = v7;
-  v53 = urlCopy;
+  v53 = 0;
+  v6 = [MEMORY[0x1E695DF90] MCM_dictionaryWithContentsOfURL:urlCopy options:1 error:&v53];
+  v7 = v53;
+  v51 = v7;
+  v52 = urlCopy;
   if (!v6)
   {
     v10 = [[MCMError alloc] initWithNSError:v7 url:urlCopy defaultErrorType:35];
@@ -1218,7 +1185,7 @@ LABEL_24:
 
     path = [urlCopy path];
     *buf = 138412290;
-    v56 = path;
+    v55 = path;
     _os_log_error_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_ERROR, "Failed to read replace file at URL %@", buf, 0xCu);
 LABEL_32:
 
@@ -1244,7 +1211,7 @@ LABEL_32:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v56 = v8;
+      v55 = v8;
       _os_log_error_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_ERROR, "Bad Data in replace file: %@", buf, 0xCu);
     }
 
@@ -1272,17 +1239,17 @@ LABEL_22:
     }
 
     path = [v8 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
-    v33 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationNewURL"];
-    v34 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
-    v35 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationDestURL"];
+    v32 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationNewURL"];
+    v33 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
+    v34 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationDestURL"];
     *buf = 138413058;
-    v56 = path;
-    v57 = 2112;
-    v58 = v33;
-    v59 = 2112;
-    v60 = v34;
-    v61 = 2112;
-    v62 = v35;
+    v55 = path;
+    v56 = 2112;
+    v57 = v32;
+    v58 = 2112;
+    v59 = v33;
+    v60 = 2112;
+    v61 = v34;
     _os_log_error_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_ERROR, "Invalid replace data: Old: %@, New: %@, Staging: %@, Dest: %@", buf, 0x2Au);
 
     goto LABEL_32;
@@ -1338,24 +1305,24 @@ LABEL_19:
   }
 
   errorCopy = error;
-  v36 = MEMORY[0x1E695DFF8];
-  v37 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
-  v38 = [v36 fileURLWithPath:v37 isDirectory:1];
+  v35 = MEMORY[0x1E695DFF8];
+  v36 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
+  v37 = [v35 fileURLWithPath:v36 isDirectory:1];
 
-  v39 = MEMORY[0x1E695DFF8];
-  v40 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationNewURL"];
-  v24 = [v39 fileURLWithPath:v40 isDirectory:1];
+  v38 = MEMORY[0x1E695DFF8];
+  v39 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationNewURL"];
+  v24 = [v38 fileURLWithPath:v39 isDirectory:1];
 
-  v41 = MEMORY[0x1E695DFF8];
-  v42 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
-  v23 = [v41 fileURLWithPath:v42 isDirectory:1];
+  v40 = MEMORY[0x1E695DFF8];
+  v41 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
+  v23 = [v40 fileURLWithPath:v41 isDirectory:1];
 
-  v43 = MEMORY[0x1E695DFF8];
-  v44 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationDestURL"];
-  v22 = [v43 fileURLWithPath:v44 isDirectory:1];
+  v42 = MEMORY[0x1E695DFF8];
+  v43 = [v8 objectForKeyedSubscript:@"MCMReplaceOperationDestURL"];
+  v22 = [v42 fileURLWithPath:v43 isDirectory:1];
 
   objc_opt_class();
-  v25 = v38;
+  v25 = v37;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_45;
@@ -1373,14 +1340,14 @@ LABEL_46:
       path4 = [v23 path];
       path5 = [v22 path];
       *buf = 138413058;
-      v56 = path2;
-      v57 = 2112;
-      v58 = path3;
-      v59 = 2112;
-      v60 = path4;
-      v61 = 2112;
-      v62 = path5;
-      v49 = path5;
+      v55 = path2;
+      v56 = 2112;
+      v57 = path3;
+      v58 = 2112;
+      v59 = path4;
+      v60 = 2112;
+      v61 = path5;
+      v48 = path5;
       _os_log_error_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_ERROR, "Invalid replace data: Old: %@, New: %@, Staging: %@, Dest: %@", buf, 0x2Au);
     }
 
@@ -1421,15 +1388,15 @@ LABEL_44:
   v27 = v22;
   if (objc_opt_isKindOfClass())
   {
-    v45 = v27;
+    v44 = v27;
   }
 
   else
   {
-    v45 = 0;
+    v44 = 0;
   }
 
-  if (!v45)
+  if (!v44)
   {
     goto LABEL_46;
   }
@@ -1442,14 +1409,12 @@ LABEL_44:
 LABEL_28:
   v30 = [v8 copy];
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 + (BOOL)recoverFromReplaceOperationsWithContext:(id)context error:(id *)error
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v7 = containermanager_copy_global_configuration();
   managedPathRegistry = [v7 managedPathRegistry];
@@ -1459,29 +1424,29 @@ LABEL_28:
   if (v10)
   {
     v11 = +[MCMFileManager defaultManager];
-    v70 = 0;
-    v12 = [v11 urlsForItemsInDirectoryAtURL:v10 error:&v70];
-    v13 = v70;
+    v69 = 0;
+    v12 = [v11 urlsForItemsInDirectoryAtURL:v10 error:&v69];
+    v13 = v69;
 
     if (v12)
     {
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
       v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       containerCache = v12;
-      v66 = [containerCache countByEnumeratingWithState:&v78 objects:v77 count:16];
-      if (v66)
+      v65 = [containerCache countByEnumeratingWithState:&v77 objects:v76 count:16];
+      if (v65)
       {
-        v56 = v12;
+        v55 = v12;
         errorCopy = error;
-        v63 = v13;
-        v58 = v10;
-        v59 = containermanagerReplaceOperations;
-        v60 = contextCopy;
-        v62 = 0;
+        v62 = v13;
+        v57 = v10;
+        v58 = containermanagerReplaceOperations;
+        v59 = contextCopy;
+        v61 = 0;
         v15 = 0;
-        v65 = *v79;
+        v64 = *v78;
         p_superclass = &OBJC_METACLASS___MCMCommandQuery.superclass;
         obj = containerCache;
         selfCopy = self;
@@ -1489,15 +1454,15 @@ LABEL_5:
         v17 = 0;
         while (1)
         {
-          if (*v79 != v65)
+          if (*v78 != v64)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v78 + 1) + 8 * v17);
-          v69 = v15;
-          v19 = [self _readAndValidateReplaceFileAtUrl:v18 error:&v69];
-          v20 = v69;
+          v18 = *(*(&v77 + 1) + 8 * v17);
+          v68 = v15;
+          v19 = [self _readAndValidateReplaceFileAtUrl:v18 error:&v68];
+          v20 = v68;
 
           v21 = container_log_handle_for_category();
           defaultManager = v21;
@@ -1507,9 +1472,9 @@ LABEL_5:
             {
               path = [v18 path];
               *buf = 138412546;
-              v72 = path;
-              v73 = 2112;
-              v74 = v19;
+              v71 = path;
+              v72 = 2112;
+              v73 = v19;
               _os_log_debug_impl(&dword_1DF2C3000, defaultManager, OS_LOG_TYPE_DEBUG, "Doing a replace of %@ with info: %@", buf, 0x16u);
             }
 
@@ -1529,44 +1494,44 @@ LABEL_5:
                   v38 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
                   v39 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
                   *buf = 138412546;
-                  v72 = v38;
-                  v73 = 2112;
-                  v74 = v39;
+                  v71 = v38;
+                  v72 = 2112;
+                  v73 = v39;
                   _os_log_error_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_ERROR, "Recovering from failed replace by moving: %@ to %@", buf, 0x16u);
                 }
 
                 v28 = +[MCMFileManager defaultManager];
                 v29 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
                 v30 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
-                v68 = v63;
-                v31 = [v28 moveItemAtURL:v29 toURL:v30 error:&v68];
-                v32 = v68;
+                v67 = v62;
+                v31 = [v28 moveItemAtURL:v29 toURL:v30 error:&v67];
+                v32 = v67;
 
                 if ((v31 & 1) == 0)
                 {
-                  v49 = [MCMError alloc];
-                  v50 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
-                  v15 = [(MCMError *)v49 initWithNSError:v32 url:v50 defaultErrorType:35];
+                  v48 = [MCMError alloc];
+                  v49 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
+                  v15 = [(MCMError *)v48 initWithNSError:v32 url:v49 defaultErrorType:35];
 
                   v45 = container_log_handle_for_category();
                   if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                   {
-                    v51 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
-                    v52 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
+                    v50 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationStagingURL"];
+                    v51 = [(MCMError *)v19 objectForKeyedSubscript:@"MCMReplaceOperationOldURL"];
                     *buf = 138412802;
-                    v72 = v51;
-                    v73 = 2112;
-                    v74 = v52;
-                    v75 = 2112;
-                    v76 = v32;
+                    v71 = v50;
+                    v72 = 2112;
+                    v73 = v51;
+                    v74 = 2112;
+                    v75 = v32;
                     _os_log_error_impl(&dword_1DF2C3000, v45, OS_LOG_TYPE_ERROR, "Failed to recover replace move: %@ to %@; error = %@", buf, 0x20u);
                   }
 
                   goto LABEL_37;
                 }
 
-                v62 = 1;
-                v63 = v32;
+                v61 = 1;
+                v62 = v32;
                 self = selfCopy;
               }
 
@@ -1579,18 +1544,18 @@ LABEL_5:
           {
             path2 = [v18 path];
             *buf = 138412546;
-            v72 = path2;
-            v73 = 2112;
-            v74 = v20;
+            v71 = path2;
+            v72 = 2112;
+            v73 = v20;
             _os_log_error_impl(&dword_1DF2C3000, defaultManager, OS_LOG_TYPE_ERROR, "Pending replace operation found, but not valid at [%@], ignoring: %@", buf, 0x16u);
           }
 
 LABEL_22:
           v33 = +[MCMCommandContext privileged];
           containerFactory = [v33 containerFactory];
-          v67 = v20;
-          v35 = [containerFactory deleteURL:v18 forUserIdentity:0 error:&v67];
-          v15 = v67;
+          v66 = v20;
+          v35 = [containerFactory deleteURL:v18 forUserIdentity:0 error:&v66];
+          v15 = v66;
 
           if ((v35 & 1) == 0)
           {
@@ -1599,17 +1564,17 @@ LABEL_22:
             {
               path3 = [v18 path];
               *buf = 138412546;
-              v72 = path3;
-              v73 = 2112;
-              v74 = v15;
+              v71 = path3;
+              v72 = 2112;
+              v73 = v15;
               _os_log_error_impl(&dword_1DF2C3000, v45, OS_LOG_TYPE_ERROR, "Failed to remove replace file at %@; error = %@", buf, 0x16u);
             }
 
-            v32 = v63;
+            v32 = v62;
 LABEL_37:
-            containermanagerReplaceOperations = v59;
-            contextCopy = v60;
-            v10 = v58;
+            containermanagerReplaceOperations = v58;
+            contextCopy = v59;
+            v10 = v57;
             v42 = obj;
 
             v41 = 0;
@@ -1617,33 +1582,33 @@ LABEL_37:
             goto LABEL_45;
           }
 
-          if (v66 == ++v17)
+          if (v65 == ++v17)
           {
-            v66 = [obj countByEnumeratingWithState:&v78 objects:v77 count:16];
-            if (v66)
+            v65 = [obj countByEnumeratingWithState:&v77 objects:v76 count:16];
+            if (v65)
             {
               goto LABEL_5;
             }
 
-            if (v62)
+            if (v61)
             {
-              contextCopy = v60;
-              containerCache = [v60 containerCache];
+              contextCopy = v59;
+              containerCache = [v59 containerCache];
               [containerCache flush];
-              v10 = v58;
-              containermanagerReplaceOperations = v59;
-              v13 = v63;
-              v12 = v56;
+              v10 = v57;
+              containermanagerReplaceOperations = v58;
+              v13 = v62;
+              v12 = v55;
               error = errorCopy;
               goto LABEL_42;
             }
 
-            containermanagerReplaceOperations = v59;
-            contextCopy = v60;
+            containermanagerReplaceOperations = v58;
+            contextCopy = v59;
             error = errorCopy;
-            v10 = v58;
-            v13 = v63;
-            v12 = v56;
+            v10 = v57;
+            v13 = v62;
+            v12 = v55;
             if (!errorCopy)
             {
 LABEL_44:
@@ -1687,12 +1652,12 @@ LABEL_43:
       containerCache = container_log_handle_for_category();
       if (os_log_type_enabled(containerCache, OS_LOG_TYPE_ERROR))
       {
-        v54 = [containermanagerReplaceOperations url];
-        path4 = [v54 path];
+        v53 = [containermanagerReplaceOperations url];
+        path4 = [v53 path];
         *buf = 138412546;
-        v72 = path4;
-        v73 = 2112;
-        v74 = v13;
+        v71 = path4;
+        v72 = 2112;
+        v73 = v13;
         _os_log_error_impl(&dword_1DF2C3000, containerCache, OS_LOG_TYPE_ERROR, "Failed to get items at replace URL %@ : %@", buf, 0x16u);
       }
     }
@@ -1721,23 +1686,13 @@ LABEL_42:
   v42 = 0;
 LABEL_45:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v41;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 2;
 }
 
 @end

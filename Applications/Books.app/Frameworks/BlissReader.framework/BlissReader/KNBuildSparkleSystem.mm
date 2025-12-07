@@ -44,7 +44,7 @@
 {
   y = point.y;
   x = point.x;
-  [(KNBuildSparkleSystem *)self duration];
+  objc_msgSend_duration(self, a2);
   v7 = v6;
   v8 = [(KNBuildSparkleSystem *)self direction]== &dword_C + 1 || [(KNBuildSparkleSystem *)self direction]== &dword_C + 2;
   v9 = [(KNBuildSparkleSystem *)self direction]== &dword_C || [(KNBuildSparkleSystem *)self direction]== &dword_C + 1;
@@ -161,7 +161,7 @@
 {
   v4 = [(KNBuildSparkleSystem *)self indexFromPoint:point.x, point.y];
   v5 = v4 / [(KNBuildSparkleSystem *)self particleCount];
-  [(KNBuildSparkleSystem *)self duration];
+  objc_msgSend_duration(self);
   v7 = 0.667 / fmax(v6, 0.75);
   v8 = v5 * (1.0 - v7);
   v9 = v7;

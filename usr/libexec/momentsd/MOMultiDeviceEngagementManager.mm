@@ -439,7 +439,7 @@ uint64_t __70__MOMultiDeviceEngagementManager_eventsBySuggestionIdentifierFrom_t
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v5);
 }
 
 - (id)latestViewedEngagmentDateFrom:(id)from to:(id)to
@@ -799,7 +799,7 @@ uint64_t __75__MOMultiDeviceEngagementManager_eventsLightBySuggestionIdentifierF
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, v5);
 }
 
 - (void)init

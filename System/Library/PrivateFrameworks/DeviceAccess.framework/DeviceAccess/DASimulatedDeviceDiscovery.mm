@@ -34,11 +34,12 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  objc_opt_class();
-  deviceBonjourServiceType = self->_deviceBonjourServiceType;
-  NSAppendPrintF();
+  v7 = 0;
+  v4 = objc_opt_class();
+  NSAppendPrintF(&v7, "%@, BST '%@'", v4, self->_deviceBonjourServiceType);
+  v5 = v7;
 
-  return 0;
+  return v5;
 }
 
 - (void)activate
@@ -52,10 +53,10 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __38__DASimulatedDeviceDiscovery_activate__block_invoke(uint64_t result)
+void *__38__DASimulatedDeviceDiscovery_activate__block_invoke(void *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 4;
+  v1 = result[4];
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
@@ -95,10 +96,10 @@ uint64_t __38__DASimulatedDeviceDiscovery_activate__block_invoke(uint64_t result
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __40__DASimulatedDeviceDiscovery_invalidate__block_invoke(uint64_t result)
+char *__40__DASimulatedDeviceDiscovery_invalidate__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if ((*(v1 + 32) & 1) == 0)
   {
     *(v1 + 32) = 1;
@@ -127,7 +128,7 @@ uint64_t __40__DASimulatedDeviceDiscovery_invalidate__block_invoke(uint64_t resu
     self->_invalidateDone = 1;
     if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DASimulatedDeviceDiscovery _invalidated];
+      [(DASimulatedDeviceDiscovery *)self _invalidated];
     }
   }
 }
@@ -136,42 +137,46 @@ uint64_t __40__DASimulatedDeviceDiscovery_invalidate__block_invoke(uint64_t resu
 {
   if (!self->_bluetoothScanner)
   {
-    v18 = v5;
-    v19 = v4;
-    v20 = v2;
+    v19 = v6;
+    v20 = v5;
     v21 = v3;
-    if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    v22 = v4;
+    selfCopy = self;
+    if (gLogCategory_DASimulatedDeviceDiscovery <= 30)
     {
-      [DASimulatedDeviceDiscovery _bluetoothEnsureStarted];
+      if (gLogCategory_DASimulatedDeviceDiscovery != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(DASimulatedDeviceDiscovery *)self _bluetoothEnsureStarted];
+      }
     }
 
-    v7 = objc_alloc_init(getCBDiscoveryClass());
-    bluetoothScanner = self->_bluetoothScanner;
-    self->_bluetoothScanner = v7;
+    v8 = objc_alloc_init(getCBDiscoveryClass());
+    bluetoothScanner = selfCopy->_bluetoothScanner;
+    selfCopy->_bluetoothScanner = v8;
 
-    [(CBDiscovery *)v7 setDiscoveryFlags:0x1000000800];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke;
-    v15[3] = &unk_278F582C0;
-    v9 = v7;
-    v16 = v9;
-    selfCopy = self;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v15];
+    [(CBDiscovery *)v8 setDiscoveryFlags:0x1000000800];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke;
+    v16[3] = &unk_278F582C0;
+    v10 = v8;
+    v17 = v10;
+    v18 = selfCopy;
+    [(CBDiscovery *)v10 setDeviceFoundHandler:v16];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_2;
+    v13[3] = &unk_278F582C0;
+    v14 = v10;
+    v15 = selfCopy;
+    v11 = v10;
+    [(CBDiscovery *)v11 setDeviceLostHandler:v13];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
-    v12[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_2;
-    v12[3] = &unk_278F582C0;
-    v13 = v9;
-    selfCopy2 = self;
-    v10 = v9;
-    [(CBDiscovery *)v10 setDeviceLostHandler:v12];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3;
-    v11[3] = &unk_278F580C0;
-    v11[4] = self;
-    [(CBDiscovery *)v10 activateWithCompletion:v11];
+    v12[2] = __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3;
+    v12[3] = &unk_278F580C0;
+    v12[4] = selfCopy;
+    [(CBDiscovery *)v11 activateWithCompletion:v12];
   }
 }
 
@@ -207,7 +212,7 @@ void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3(ui
     v6 = v3;
     if (gLogCategory_DASimulatedDeviceDiscovery <= 90 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
     {
-      __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3_cold_1();
+      __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3_cold_1(v6);
     }
 
     [*(*(a1 + 32) + 16) invalidate];
@@ -223,14 +228,18 @@ void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3(ui
 {
   if (self->_bluetoothScanner)
   {
-    if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_DASimulatedDeviceDiscovery <= 30)
     {
-      [DASimulatedDeviceDiscovery _bluetoothEnsureStopped];
+      if (gLogCategory_DASimulatedDeviceDiscovery != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(DASimulatedDeviceDiscovery *)self _bluetoothEnsureStopped];
+      }
     }
 
-    [(CBDiscovery *)self->_bluetoothScanner invalidate];
-    bluetoothScanner = self->_bluetoothScanner;
-    self->_bluetoothScanner = 0;
+    [(CBDiscovery *)selfCopy->_bluetoothScanner invalidate];
+    bluetoothScanner = selfCopy->_bluetoothScanner;
+    selfCopy->_bluetoothScanner = 0;
   }
 }
 
@@ -259,7 +268,7 @@ void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3(ui
   v11 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:40 device:v4];
   if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASimulatedDeviceDiscovery, "[DASimulatedDeviceDiscovery _bluetoothFoundDevice:]", 30, "Bluetooth scanner found: %@, %@", deviceCopy, v11);
   }
 
   v12 = _Block_copy(self->_eventHandler);
@@ -295,7 +304,7 @@ void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3(ui
   v11 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:41 device:v4];
   if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASimulatedDeviceDiscovery, "[DASimulatedDeviceDiscovery _bluetoothLostDevice:]", 30, "Bluetooth scanner lost: %@, %@", deviceCopy, v11);
   }
 
   v12 = _Block_copy(self->_eventHandler);
@@ -357,7 +366,7 @@ void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3(ui
     [(CUBonjourBrowser *)v7 setDeviceChangedHandler:v11];
     if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
     {
-      [DASimulatedDeviceDiscovery _bonjourEnsureStarted];
+      [(DASimulatedDeviceDiscovery *)v10 _bonjourEnsureStarted];
     }
 
     [(CUBonjourBrowser *)v7 activate];
@@ -404,14 +413,18 @@ void *__51__DASimulatedDeviceDiscovery__bonjourEnsureStarted__block_invoke_3(uin
 {
   if (self->_bonjourBrowser)
   {
-    if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_DASimulatedDeviceDiscovery <= 30)
     {
-      [DASimulatedDeviceDiscovery _bonjourEnsureStopped];
+      if (gLogCategory_DASimulatedDeviceDiscovery != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(DASimulatedDeviceDiscovery *)self _bonjourEnsureStopped];
+      }
     }
 
-    [(CUBonjourBrowser *)self->_bonjourBrowser invalidate];
-    bonjourBrowser = self->_bonjourBrowser;
-    self->_bonjourBrowser = 0;
+    [(CUBonjourBrowser *)selfCopy->_bonjourBrowser invalidate];
+    bonjourBrowser = selfCopy->_bonjourBrowser;
+    selfCopy->_bonjourBrowser = 0;
   }
 }
 
@@ -468,7 +481,7 @@ void *__51__DASimulatedDeviceDiscovery__bonjourEnsureStarted__block_invoke_3(uin
   v20 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:40 device:v4];
   if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASimulatedDeviceDiscovery, "[DASimulatedDeviceDiscovery _bonjourFoundDevice:]", 30, "Bonjour browser found: %@, %@", deviceCopy, v20);
   }
 
   v21 = _Block_copy(self->_eventHandler);
@@ -500,7 +513,7 @@ void *__51__DASimulatedDeviceDiscovery__bonjourEnsureStarted__block_invoke_3(uin
   v10 = [(DAEventDevice *)[DADeviceEvent alloc] initWithEventType:41 device:v4];
   if (gLogCategory_DASimulatedDeviceDiscovery <= 30 && (gLogCategory_DASimulatedDeviceDiscovery != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_DASimulatedDeviceDiscovery, "[DASimulatedDeviceDiscovery _bonjourLostDevice:]", 30, "Bonjour browser lost: %@, %@", deviceCopy, v10);
   }
 
   v11 = _Block_copy(self->_eventHandler);
@@ -511,10 +524,10 @@ void *__51__DASimulatedDeviceDiscovery__bonjourEnsureStarted__block_invoke_3(uin
   }
 }
 
-void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3_cold_1()
+void __53__DASimulatedDeviceDiscovery__bluetoothEnsureStarted__block_invoke_3_cold_1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASimulatedDeviceDiscovery, "[DASimulatedDeviceDiscovery _bluetoothEnsureStarted]_block_invoke_3", 90, "### Bluetooth scanner start failed: %@", v1);
 }
 
 @end

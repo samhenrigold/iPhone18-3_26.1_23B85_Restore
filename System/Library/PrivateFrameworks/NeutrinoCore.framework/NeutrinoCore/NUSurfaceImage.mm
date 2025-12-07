@@ -51,7 +51,7 @@ uint64_t __55___NUSurfaceImage_writeTextureRegion_device_withBlock___block_invok
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -60,7 +60,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUTextureTileAdapter *)v4 initWithFrameRect:v15 contentRect:v14 texture:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);
@@ -96,7 +96,7 @@ uint64_t __54___NUSurfaceImage_readTextureRegion_device_withBlock___block_invoke
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -105,7 +105,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUTextureTileAdapter *)v4 initWithFrameRect:v15 contentRect:v14 texture:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);
@@ -140,7 +140,7 @@ uint64_t __48___NUSurfaceImage_writeSurfaceRegion_withBlock___block_invoke_2(voi
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -149,7 +149,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUSurfaceTileAdapter *)v4 initWithFrameRect:v15 contentRect:v14 surface:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);
@@ -184,7 +184,7 @@ uint64_t __47___NUSurfaceImage_readSurfaceRegion_withBlock___block_invoke_2(void
     goto LABEL_5;
   }
 
-  [v5 frameRect];
+  objc_msgSend_frameRect(v5);
   v6 = a1[4];
   if (!v6)
   {
@@ -193,7 +193,7 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  [v6 contentRect];
+  objc_msgSend_contentRect(v6);
 LABEL_6:
   v7 = [(NUSurfaceTileAdapter *)v4 initWithFrameRect:v15 contentRect:v14 surface:v3];
   (*(a1[5] + 16))(a1[5], v7, a1[6], v8, v9, v10, v11, v12);

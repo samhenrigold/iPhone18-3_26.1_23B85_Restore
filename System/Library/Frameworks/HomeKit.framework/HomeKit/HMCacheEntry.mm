@@ -40,7 +40,7 @@
 
 - (HMCacheEntry)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"Data"];
   if (v5)
@@ -59,9 +59,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = HMFGetLogIdentifier();
-        v16 = 138543362;
-        v17 = v13;
-        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive lastModificationDate for HMCacheEntry", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v13;
+        _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive lastModificationDate for HMCacheEntry", &v15, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
@@ -76,16 +76,15 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v10;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive data for HMCacheEntry", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v10;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_ERROR, "%{public}@Unable to unarchive data for HMCacheEntry", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

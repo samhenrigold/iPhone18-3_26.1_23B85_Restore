@@ -262,9 +262,11 @@ uint64_t __68__PEPhotoKitMediaDestination_revertEditsForAsset_completionHandler_
     }
 
     (*(v6 + 16))(v6, v10, v12);
+
+    v5 = v12;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v6, v5);
 }
 
 - (int)saveInternalEditsForAsset:(id)asset usingCompositionController:(id)controller contentEditingOutput:(id)output version:(int64_t)version livePhotoState:(unsigned __int16)state completionHandler:(id)handler

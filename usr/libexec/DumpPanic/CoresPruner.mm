@@ -146,118 +146,117 @@
 
         v15 = *(*(&v51 + 1) + 8 * i);
         userspaceCorefileName = [(CoresPruner *)self userspaceCorefileName];
-        if (!userspaceCorefileName)
+        if (userspaceCorefileName)
         {
-          goto LABEL_11;
+          v17 = userspaceCorefileName;
+          absoluteString = [v15 absoluteString];
+          userspaceCorefileName2 = [(CoresPruner *)self userspaceCorefileName];
+          v20 = [absoluteString containsString:userspaceCorefileName2];
+
+          if (!v20)
+          {
+            continue;
+          }
         }
 
-        v17 = userspaceCorefileName;
-        absoluteString = [v15 absoluteString];
-        userspaceCorefileName2 = [(CoresPruner *)self userspaceCorefileName];
-        v20 = [absoluteString containsString:userspaceCorefileName2];
+        absoluteString2 = [lCopy absoluteString];
+        v22 = [absoluteString2 containsString:@"staged"];
 
-        if (v20)
+        if ((v22 & 1) != 0 || ([v15 absoluteString], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "containsString:", @"staged"), v23, (v24 & 1) == 0))
         {
-LABEL_11:
-          absoluteString2 = [lCopy absoluteString];
-          v22 = [absoluteString2 containsString:@"staged"];
+          absoluteString3 = [v15 absoluteString];
+          v26 = 0;
+          v27 = screenFilesCopy;
+        }
 
-          if ((v22 & 1) != 0 || ([v15 absoluteString], v23 = objc_claimAutoreleasedReturnValue(), v24 = objc_msgSend(v23, "containsString:", @"staged"), v23, (v24 & 1) == 0))
+        else
+        {
+          absoluteString3 = [v15 lastPathComponent];
+          v26 = 1;
+          v27 = v43;
+        }
+
+        v28 = absoluteString3;
+        v29 = objc_opt_new();
+        v30 = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        [v29 setLocale:v30];
+        [v29 setDateFormat:@"yyyy-MM-dd-HHmmss"];
+        lastPathComponent = [v28 lastPathComponent];
+        if ([lastPathComponent containsString:@".core"])
+        {
+          v32 = [v28 rangeOfString:@".core"];
+          if (v32 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            absoluteString3 = [v15 absoluteString];
-            v26 = 0;
-            v27 = screenFilesCopy;
+            _os_assert_log();
+            _os_crash();
+            __break(1u);
+          }
+
+          v33 = v32;
+          v34 = 0;
+          do
+          {
+            v35 = v34;
+            v36 = [lastPathComponent characterAtIndex:v34];
+            if (v33 == v35)
+            {
+              break;
+            }
+
+            v34 = v35 + 1;
+          }
+
+          while (v36 != 46);
+          if (v35 == v33)
+          {
+            v37 = qword_100042B28;
+            if (os_log_type_enabled(qword_100042B28, OS_LOG_TYPE_DEFAULT))
+            {
+LABEL_24:
+              *buf = 138412290;
+              v58 = lastPathComponent;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "unable to parse date from filename %@, skipping", buf, 0xCu);
+            }
+
+LABEL_25:
+            v38 = 0;
           }
 
           else
           {
-            absoluteString3 = [v15 lastPathComponent];
-            v26 = 1;
-            v27 = v43;
+            v39 = [lastPathComponent substringToIndex:v35];
+            v38 = [v29 dateFromString:v39];
           }
 
-          v28 = absoluteString3;
-          v29 = objc_opt_new();
-          v30 = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-          [v29 setLocale:v30];
-          [v29 setDateFormat:@"yyyy-MM-dd-HHmmss"];
-          lastPathComponent = [v28 lastPathComponent];
-          if ([lastPathComponent containsString:@".core"])
+          self = selfCopy;
+          if (v38)
           {
-            v32 = [v28 rangeOfString:@".core"];
-            if (v32 == 0x7FFFFFFFFFFFFFFFLL)
+            v40 = v27;
+            v41 = [v40 objectForKeyedSubscript:v38];
+            if (!v41)
             {
-              _os_assert_log();
-              _os_crash();
-              __break(1u);
+              v41 = objc_opt_new();
             }
 
-            v33 = v32;
-            v34 = 0;
-            do
+            [v41 addObject:v15];
+            [v40 setObject:v41 forKeyedSubscript:v38];
+
+            if ((v26 & 1) == 0)
             {
-              v35 = v34;
-              v36 = [lastPathComponent characterAtIndex:v34];
-              if (v33 == v35)
-              {
-                break;
-              }
-
-              v34 = v35 + 1;
+              [stampsCopy addObject:v38];
             }
-
-            while (v36 != 46);
-            if (v35 == v33)
-            {
-              v37 = qword_100042B28;
-              if (os_log_type_enabled(qword_100042B28, OS_LOG_TYPE_DEFAULT))
-              {
-LABEL_24:
-                *buf = 138412290;
-                v58 = lastPathComponent;
-                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "unable to parse date from filename %@, skipping", buf, 0xCu);
-              }
-
-LABEL_25:
-              v38 = 0;
-            }
-
-            else
-            {
-              v39 = [lastPathComponent substringToIndex:v35];
-              v38 = [v29 dateFromString:v39];
-            }
-
-            self = selfCopy;
-            if (v38)
-            {
-              v40 = v27;
-              v41 = [v40 objectForKeyedSubscript:v38];
-              if (!v41)
-              {
-                v41 = objc_opt_new();
-              }
-
-              [v41 addObject:v15];
-              [v40 setObject:v41 forKeyedSubscript:v38];
-
-              if ((v26 & 1) == 0)
-              {
-                [stampsCopy addObject:v38];
-              }
-            }
-
-            continue;
           }
 
-          v37 = qword_100042B28;
-          if (os_log_type_enabled(qword_100042B28, OS_LOG_TYPE_DEFAULT))
-          {
-            goto LABEL_24;
-          }
-
-          goto LABEL_25;
+          continue;
         }
+
+        v37 = qword_100042B28;
+        if (os_log_type_enabled(qword_100042B28, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_24;
+        }
+
+        goto LABEL_25;
       }
 
       v50 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];

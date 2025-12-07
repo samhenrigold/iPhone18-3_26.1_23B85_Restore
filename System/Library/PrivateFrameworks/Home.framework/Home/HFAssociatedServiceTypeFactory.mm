@@ -21,38 +21,36 @@
 
 void __63__HFAssociatedServiceTypeFactory_associatedServiceTypesSetFor___block_invoke()
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
   v1 = *MEMORY[0x277CD0E40];
-  v18[0] = *MEMORY[0x277CD0EA0];
-  v18[1] = v1;
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = *MEMORY[0x277CD0EA0];
+  v17[1] = v1;
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v3 = [v0 setWithArray:v2];
 
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277CD0F58];
-  v17[0] = *MEMORY[0x277CD0E30];
-  v17[1] = v5;
+  v16[0] = *MEMORY[0x277CD0E30];
+  v16[1] = v5;
   v6 = *MEMORY[0x277CD0E58];
-  v17[2] = *MEMORY[0x277CD0F60];
-  v17[3] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  v16[2] = *MEMORY[0x277CD0F60];
+  v16[3] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
   v8 = [v4 setWithArray:v7];
 
-  v15[0] = *MEMORY[0x277CD0ED0];
+  v14[0] = *MEMORY[0x277CD0ED0];
   v9 = [v3 setByAddingObject:?];
-  v16[0] = v9;
-  v15[1] = *MEMORY[0x277CD0F08];
+  v15[0] = v9;
+  v14[1] = *MEMORY[0x277CD0F08];
   v10 = [v3 setByAddingObject:?];
-  v16[1] = v10;
-  v15[2] = *MEMORY[0x277CD0E20];
+  v15[1] = v10;
+  v14[2] = *MEMORY[0x277CD0E20];
   v11 = [v8 setByAddingObject:?];
-  v16[2] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
   v13 = _MergedGlobals_220;
   _MergedGlobals_220 = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)associatedServiceTypesArrayFor:(id)for

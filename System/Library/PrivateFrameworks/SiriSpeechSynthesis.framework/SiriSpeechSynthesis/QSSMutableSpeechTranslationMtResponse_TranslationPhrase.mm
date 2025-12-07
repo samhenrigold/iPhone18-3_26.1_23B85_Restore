@@ -4,11 +4,18 @@
 - (float)confidence;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)setConfidence:(float)confidence;
+- (void)setLow_confidence:(BOOL)low_confidence;
 - (void)setMeta_info:(id)meta_info;
 - (void)setTranslation_phrase:(id)translation_phrase;
 @end
 
 @implementation QSSMutableSpeechTranslationMtResponse_TranslationPhrase
+
+- (void)setLow_confidence:(BOOL)low_confidence
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:low_confidence];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)low_confidence
 {

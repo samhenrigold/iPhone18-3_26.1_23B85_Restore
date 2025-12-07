@@ -1,4 +1,5 @@
 @interface UNNotificationActionIcon
++ (id)_iconWithImageName:(id)name systemIcon:(BOOL)icon;
 - (BOOL)isEqual:(id)equal;
 - (UNNotificationActionIcon)initWithCoder:(id)coder;
 - (id)_description;
@@ -9,6 +10,15 @@
 @end
 
 @implementation UNNotificationActionIcon
+
++ (id)_iconWithImageName:(id)name systemIcon:(BOOL)icon
+{
+  iconCopy = icon;
+  nameCopy = name;
+  v7 = [[self alloc] _initWithImageName:nameCopy systemIcon:iconCopy];
+
+  return v7;
+}
 
 - (id)_initWithImageName:(id)name systemIcon:(BOOL)icon
 {

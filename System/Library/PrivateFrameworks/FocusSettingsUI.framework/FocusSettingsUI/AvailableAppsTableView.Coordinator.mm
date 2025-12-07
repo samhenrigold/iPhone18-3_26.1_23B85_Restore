@@ -52,15 +52,16 @@ LABEL_7:
   v6 = sub_24BAA7F8C();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_24BAA7F5C();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_24BA3B8FC(viewCopy);
+  sub_24BA3B8FC(viewCopy);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -81,19 +82,20 @@ LABEL_7:
 {
   viewCopy = view;
   selfCopy = self;
-  v6 = sub_24BA3E7C4();
+  sub_24BA3E7C4();
+  v7 = v6;
 
-  if (v6)
+  if (v7)
   {
-    v7 = sub_24BAAA11C();
+    v8 = sub_24BAAA11C();
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section

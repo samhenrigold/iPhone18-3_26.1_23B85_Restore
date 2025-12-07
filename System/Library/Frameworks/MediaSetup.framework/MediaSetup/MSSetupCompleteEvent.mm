@@ -40,27 +40,25 @@
 
 - (id)encoded
 {
-  v13[5] = *MEMORY[0x277D85DE8];
+  v12[5] = *MEMORY[0x277D85DE8];
   [(NSDate *)self->_endTime timeIntervalSinceDate:self->_startTime];
   *&v3 = v3;
-  v12[0] = @"duration";
+  v11[0] = @"duration";
   v4 = [MEMORY[0x277CCABB0] numberWithFloat:v3];
   serviceID = self->_serviceID;
-  v13[0] = v4;
-  v13[1] = serviceID;
-  v12[1] = @"service";
-  v12[2] = @"numberOfHomesAdded";
+  v12[0] = v4;
+  v12[1] = serviceID;
+  v11[1] = @"service";
+  v11[2] = @"numberOfHomesAdded";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfHomeAdded];
-  v13[2] = v6;
-  v12[3] = @"numberOfHomesWithVR";
+  v12[2] = v6;
+  v11[3] = @"numberOfHomesWithVR";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_numberOfHomesWithVR];
-  v13[3] = v7;
-  v12[4] = @"didSwitchAccount";
+  v12[3] = v7;
+  v11[4] = @"didSwitchAccount";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_didSwitchAccount];
-  v13[4] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[4] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
   return v9;
 }

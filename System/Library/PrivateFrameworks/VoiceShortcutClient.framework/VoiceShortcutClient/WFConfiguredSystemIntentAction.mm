@@ -205,15 +205,15 @@ LABEL_7:
 
 - (WFConfiguredSystemIntentAction)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"name"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"intent"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"appShortcutIdentifier"];
   v8 = MEMORY[0x1E695DFD8];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"contextualParameters"];
 
@@ -224,11 +224,10 @@ LABEL_7:
   selfCopy = 0;
   if (v6 && v5)
   {
-    self = [(WFConfiguredSystemIntentAction *)self initWithIntent:v6 named:v5 previewIcon:v12 appShortcutIdentifier:v7 contextualParameters:v11 shortcutsMetadata:v13 colorScheme:v14, v18[0]];
+    self = [(WFConfiguredSystemIntentAction *)self initWithIntent:v6 named:v5 previewIcon:v12 appShortcutIdentifier:v7 contextualParameters:v11 shortcutsMetadata:v13 colorScheme:v14, v17[0]];
     selfCopy = self;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

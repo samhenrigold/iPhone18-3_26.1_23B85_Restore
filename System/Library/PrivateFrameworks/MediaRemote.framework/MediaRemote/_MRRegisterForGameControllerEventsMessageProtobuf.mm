@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)inputModeFlagsAsString:(int)string;
 - (int)StringAsInputModeFlags:(id)flags;
 - (int)inputModeFlags;
 - (unint64_t)hash;
@@ -26,25 +27,40 @@
   }
 }
 
+- (id)inputModeFlagsAsString:(int)string
+{
+  if (string < 5 && ((0x17u >> string) & 1) != 0)
+  {
+    v4 = off_1E76A1E50[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsInputModeFlags:(id)flags
 {
   flagsCopy = flags;
-  if ([flagsCopy isEqualToString:@"None"])
+  if (objc_msgSend_isEqualToString_(flagsCopy))
   {
     v4 = 0;
   }
 
-  else if ([flagsCopy isEqualToString:@"Motion"])
+  else if (objc_msgSend_isEqualToString_(flagsCopy))
   {
     v4 = 1;
   }
 
-  else if ([flagsCopy isEqualToString:@"Buttons"])
+  else if (objc_msgSend_isEqualToString_(flagsCopy))
   {
     v4 = 2;
   }
 
-  else if ([flagsCopy isEqualToString:@"Digitizer"])
+  else if (objc_msgSend_isEqualToString_(flagsCopy))
   {
     v4 = 4;
   }
@@ -95,7 +111,6 @@
 {
   if (*&self->_has)
   {
-    inputModeFlags = self->_inputModeFlags;
     PBDataWriterWriteInt32Field();
   }
 }

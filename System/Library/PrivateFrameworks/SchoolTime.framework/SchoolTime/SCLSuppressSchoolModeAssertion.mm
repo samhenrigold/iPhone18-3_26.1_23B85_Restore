@@ -126,12 +126,12 @@ void __54__SCLSuppressSchoolModeAssertion_initWithExplanation___block_invoke_2(u
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = scl_framework_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = scl_framework_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Acquiring suppression assertion %@", buf, 0xCu);
+    _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring suppression assertion %@", buf, 0xCu);
   }
 
   connection = self->_connection;
@@ -139,10 +139,10 @@ void __54__SCLSuppressSchoolModeAssertion_initWithExplanation___block_invoke_2(u
   v18[1] = 3221225472;
   v18[2] = __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke;
   v18[3] = &unk_279B6C3D0;
-  v8 = handlerCopy;
+  v9 = handlerCopy;
   v18[4] = self;
-  v19 = v8;
-  v9 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v18];
+  v19 = v9;
+  v10 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v18];
   explanation = [(SCLSuppressSchoolModeAssertion *)self explanation];
   UUID = self->_UUID;
   v15[0] = MEMORY[0x277D85DD0];
@@ -150,14 +150,13 @@ void __54__SCLSuppressSchoolModeAssertion_initWithExplanation___block_invoke_2(u
   v15[2] = __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke_2;
   v15[3] = &unk_279B6C3F8;
   v15[4] = self;
-  v12 = v5;
-  v16 = v12;
-  v13 = v8;
-  v17 = v13;
-  [v9 acquireWithExplanation:explanation UUID:UUID completion:v15];
+  v13 = v5;
+  v16 = v13;
+  v14 = v9;
+  v17 = v14;
+  [v10 acquireWithExplanation:explanation UUID:UUID completion:v15];
 
   os_activity_scope_leave(&state);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
@@ -180,67 +179,66 @@ void __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block
     v9.opaque[0] = 0;
     v9.opaque[1] = 0;
     os_activity_scope_enter(*(a1 + 40), &v9);
-    v7 = scl_framework_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = scl_framework_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke_2_cold_1((a1 + 32), v5, v7);
+      __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke_2_cold_1((a1 + 32), v5, v8);
     }
   }
 
-  v8 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
   os_activity_scope_leave(&v9);
 }
 
 - (BOOL)acquireWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = _os_activity_create(&dword_264829000, "Acquire suppression assertion sync", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v5, &state);
-  v6 = scl_framework_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = scl_framework_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
     *(&buf + 4) = self;
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_DEFAULT, "Acquiring suppression assertion %@", &buf, 0xCu);
+    _os_log_impl(&dword_264829000, v7, OS_LOG_TYPE_DEFAULT, "Acquiring suppression assertion %@", &buf, 0xCu);
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__0;
-  v25 = __Block_byref_object_dispose__0;
-  v26 = 0;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__0;
+  v26 = __Block_byref_object_dispose__0;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
   connection = self->_connection;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke;
-  v16[3] = &unk_279B6C420;
-  v16[4] = &buf;
-  v8 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke;
+  v17[3] = &unk_279B6C420;
+  v17[4] = &buf;
+  v9 = [(NSXPCConnection *)connection synchronousRemoteObjectProxyWithErrorHandler:v17];
   explanation = [(SCLSuppressSchoolModeAssertion *)self explanation];
   UUID = self->_UUID;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke_2;
-  v15[3] = &unk_279B6C448;
-  v15[5] = &v17;
-  v15[6] = &buf;
-  v15[4] = self;
-  [v8 acquireWithExplanation:explanation UUID:UUID completion:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke_2;
+  v16[3] = &unk_279B6C448;
+  v16[5] = &v18;
+  v16[6] = &buf;
+  v16[4] = self;
+  [v9 acquireWithExplanation:explanation UUID:UUID completion:v16];
 
-  if ((v18[3] & 1) == 0)
+  if ((v19[3] & 1) == 0)
   {
-    v11 = scl_framework_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = scl_framework_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(SCLSuppressSchoolModeAssertion *)self acquireWithError:v11];
+      [(SCLSuppressSchoolModeAssertion *)self acquireWithError:v13];
     }
   }
 
@@ -249,13 +247,12 @@ void __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block
     *error = *(*(&buf + 1) + 40);
   }
 
-  v12 = *(v18 + 24);
-  _Block_object_dispose(&v17, 8);
+  v14 = *(v19 + 24);
+  _Block_object_dispose(&v18, 8);
   _Block_object_dispose(&buf, 8);
 
   os_activity_scope_leave(&state);
-  v13 = *MEMORY[0x277D85DE8];
-  return v12 & 1;
+  return v14 & 1;
 }
 
 void __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke_2(void *a1, int a2, void *a3)
@@ -273,16 +270,15 @@ void __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke_2(void
 
 - (void)connectionInterrupted
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self & 1;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Suppression connection interrupted - needs reconnect = %{BOOL}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self & 1;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Suppression connection interrupted - needs reconnect = %{BOOL}d", v2, 8u);
 }
 
 - (void)connectionInvalidated
 {
-  v3 = scl_framework_log();
+  v3 = scl_framework_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(SCLSuppressSchoolModeAssertion *)v3 connectionInvalidated];
@@ -295,22 +291,20 @@ void __51__SCLSuppressSchoolModeAssertion_acquireWithError___block_invoke_2(void
 
 void __65__SCLSuppressSchoolModeAssertion_acquireWithInvalidationHandler___block_invoke_2_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_264829000, a2, a3, "Could not acquire assertion - %@ %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_264829000, a2, a3, "Could not acquire assertion - %@ %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)acquireWithError:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = *(*a2 + 40);
-  OUTLINED_FUNCTION_1(&dword_264829000, a2, a3, "Could not acquire assertion - %@ %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = *(*a2 + 40);
+  OUTLINED_FUNCTION_1(&dword_264829000, a2, a3, "Could not acquire assertion - %@ %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

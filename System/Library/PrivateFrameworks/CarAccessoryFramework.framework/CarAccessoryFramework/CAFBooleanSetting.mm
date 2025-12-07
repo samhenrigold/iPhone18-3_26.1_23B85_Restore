@@ -16,7 +16,9 @@
 - (CAFUserVisibleDetailedDescriptionCharacteristic)userVisibleDetailedDescriptionCharacteristic;
 - (NSString)userVisibleDescription;
 - (id)name;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setOn:(BOOL)on;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -123,6 +125,13 @@
   bOOLValue = [onCharacteristic BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setOn:(BOOL)on
+{
+  onCopy = on;
+  onCharacteristic = [(CAFBooleanSetting *)self onCharacteristic];
+  [onCharacteristic setBoolValue:onCopy];
 }
 
 - (CAFUserVisibleDetailedDescriptionCharacteristic)userVisibleDetailedDescriptionCharacteristic
@@ -249,6 +258,101 @@
   v3 = bOOLeanNotificationInfoCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000002"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    onCharacteristic = [(CAFBooleanSetting *)self onCharacteristic];
+    uniqueIdentifier2 = [onCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers BOOLeanSettingService:self didUpdateOn:{-[CAFBooleanSetting on](self, "on")}];
+LABEL_17:
+
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000036000029"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    userVisibleDetailedDescriptionCharacteristic = [(CAFBooleanSetting *)self userVisibleDetailedDescriptionCharacteristic];
+    uniqueIdentifier4 = [userVisibleDetailedDescriptionCharacteristic uniqueIdentifier];
+    v17 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v17)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleDetailedDescription = [(CAFBooleanSetting *)self userVisibleDetailedDescription];
+      [observers BOOLeanSettingService:self didUpdateUserVisibleDetailedDescription:userVisibleDetailedDescription];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000030000005"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    userVisibleDescriptionCharacteristic = [(CAFBooleanSetting *)self userVisibleDescriptionCharacteristic];
+    uniqueIdentifier6 = [userVisibleDescriptionCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      userVisibleDetailedDescription = [(CAFBooleanSetting *)self userVisibleDescription];
+      [observers BOOLeanSettingService:self didUpdateUserVisibleDescription:userVisibleDetailedDescription];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000032"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  bOOLeanNotificationInfoCharacteristic = [(CAFBooleanSetting *)self BOOLeanNotificationInfoCharacteristic];
+  uniqueIdentifier8 = [bOOLeanNotificationInfoCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    userVisibleDetailedDescription = [(CAFBooleanSetting *)self BOOLeanNotificationInfo];
+    [observers BOOLeanSettingService:self didUpdateBooleanNotificationInfo:userVisibleDetailedDescription];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFBooleanSetting;
+  [(CAFAutomakerSetting *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForOn

@@ -40,10 +40,9 @@
 
 - (void)_queue_updateExpirationTimeWithIntervalSinceNow:(double)now
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   BSAbsoluteMachTimeNow();
-  self->_expirationTime = v6 + now;
+  self->_expirationTime = v5 + now;
   if (!self->_timer)
   {
 
@@ -53,7 +52,6 @@
 
 - (void)_queue_invalidate
 {
-  queue = self->_queue;
   BSDispatchQueueAssert();
   [(BSAbsoluteMachTimer *)self->_timer invalidate];
   timer = self->_timer;
@@ -63,7 +61,7 @@
   {
     self->_invalidated = 1;
     [(BKDisplayBrightnessUpdateTransactionManager *)self->_transactionManager _endUpdateTransaction:self];
-    v5 = qword_100126068;
+    v4 = qword_100126068;
     if (qword_100126068 == self)
     {
       qword_100126068 = 0;

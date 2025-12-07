@@ -36,7 +36,7 @@
 {
   if (self->_triggeredBlock)
   {
-    v3 = SBLogSystemAperturePreferencesStackSequencedBehaviors();
+    v3 = SBLogSystemAperturePreferencesStackSequencedBehaviors(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       [(SBSAShakeBehaviorProvider *)v3 removeFromParentProvider];

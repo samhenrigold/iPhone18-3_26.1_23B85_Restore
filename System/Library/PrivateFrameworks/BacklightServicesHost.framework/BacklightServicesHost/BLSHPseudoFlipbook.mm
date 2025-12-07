@@ -7,11 +7,11 @@
 - (BOOL)isPowerSavingEnabled;
 - (NSArray)activeFrames;
 - (id)cancelAllFramesWithError:(id *)error;
-- (uint64_t)lock_cullExpiredFrames;
 - (unint64_t)memoryUsage;
 - (void)collect;
 - (void)init;
 - (void)invalidate;
+- (void)lock_cullExpiredFrames;
 - (void)purge;
 - (void)renderFrameForPresentation:(id)presentation dateSpecifier:(id)specifier onRenderBegin:(id)begin onRenderComplete:(id)complete;
 - (void)set1HzFlipbook:(BOOL)flipbook;
@@ -47,30 +47,30 @@
 
 - (BLSHRenderedFlipbookFrame)frameOnGlass
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = mach_continuous_time();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_lock_activeFrames;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 presentationTime] <= v3)
         {
           v11 = v10;
@@ -79,7 +79,7 @@
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -91,7 +91,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -116,35 +115,35 @@
 
 - (unint64_t)memoryUsage
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   activeFrames = [(BLSHPseudoFlipbook *)self activeFrames];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [activeFrames countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [activeFrames countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(activeFrames);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           v5 += [v8 memoryUsage];
         }
       }
 
-      v4 = [activeFrames countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [activeFrames countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -155,7 +154,6 @@
     v5 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -232,7 +230,7 @@
   os_unfair_lock_unlock(&self->_lock);
   if (!error)
   {
-    [BLSHPseudoFlipbook cancelAllFramesWithError:a2];
+    [(BLSHPseudoFlipbook *)a2 cancelAllFramesWithError:?];
   }
 
   *error = 0;
@@ -242,34 +240,34 @@
 
 - (void)collect
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[self activeFrames] count] == 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[[self activeFrames] count] == 0", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)purge
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[[self activeFrames] count] == 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[[self activeFrames] count] == 0", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -282,20 +280,20 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (uint64_t)lock_cullExpiredFrames
+- (void)lock_cullExpiredFrames
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (result)
   {
     v1 = result;
     v2 = mach_continuous_time();
-    v3 = *(v1 + 16);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __44__BLSHPseudoFlipbook_lock_cullExpiredFrames__block_invoke;
-    v8[3] = &__block_descriptor_40_e44_B32__0___BLSHRenderedFlipbookFrame__8Q16_B24l;
-    v8[4] = v2;
-    result = [v3 indexOfObjectWithOptions:2 passingTest:v8];
+    v3 = *(v1 + 2);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __44__BLSHPseudoFlipbook_lock_cullExpiredFrames__block_invoke;
+    v7[3] = &__block_descriptor_40_e44_B32__0___BLSHRenderedFlipbookFrame__8Q16_B24l;
+    v7[4] = v2;
+    result = [v3 indexOfObjectWithOptions:2 passingTest:v7];
     if (result && result != 0x7FFFFFFFFFFFFFFFLL)
     {
       v5 = result;
@@ -303,17 +301,16 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218240;
-        v10 = v1;
-        v11 = 2048;
-        v12 = v5;
+        v9 = v1;
+        v10 = 2048;
+        v11 = v5;
         _os_log_debug_impl(&dword_21FD11000, v6, OS_LOG_TYPE_DEBUG, "%p culling (%lu) frames", buf, 0x16u);
       }
 
-      result = [*(v1 + 16) removeObjectsInRange:{0, v5}];
+      return [*(v1 + 2) removeObjectsInRange:{0, v5}];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -339,28 +336,27 @@
 
 - (void)init
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218242;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218242;
   selfCopy = self;
-  v5 = 2114;
+  v4 = 2114;
   selfCopy2 = self;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p created %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p created %{public}@", &v2, 0x16u);
 }
 
-- (void)cancelAllFramesWithError:(const char *)a1 .cold.1(const char *a1)
+- (void)cancelAllFramesWithError:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"error != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"error != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

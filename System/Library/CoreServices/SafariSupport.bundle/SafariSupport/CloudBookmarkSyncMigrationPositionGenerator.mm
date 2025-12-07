@@ -230,30 +230,30 @@
   recordNamesCopy = recordNames;
   namesCopy = names;
   nameCopy = name;
-  v32 = +[NSMutableArray array];
+  v38 = +[NSMutableArray array];
   v8 = +[NSMutableArray array];
-  v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v9 = namesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v49 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v41 objects:v55 count:16];
   if (v10)
   {
     v11 = v10;
-    v31 = 0;
+    v37 = 0;
     v12 = 0;
-    v13 = *v36;
+    v13 = *v42;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v36 != v13)
+        if (*v42 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v41 + 1) + 8 * i);
         if ([CKRecord safari_folderTypeForRecordName:v15, recordNamesCopy])
         {
           [v8 addObject:v15];
@@ -261,85 +261,88 @@
 
         else
         {
-          v34 = 0;
-          v16 = [(CloudBookmarkSyncMigrationPositionGenerator *)self _existingPositionForRecordWithName:v15 getIsFolder:&v34];
-          if (v34 == 1)
+          v40 = 0;
+          v16 = [(CloudBookmarkSyncMigrationPositionGenerator *)self _existingPositionForRecordWithName:v15 getIsFolder:&v40];
+          v18 = v16;
+          if (v40 == 1)
           {
-            [v8 addObject:v15];
+            v16 = [v8 addObject:v15];
           }
 
-          if (v16)
+          if (v18)
           {
             if (v12)
             {
-              if ([v12 compare:v16] == -1)
+              v19 = [v12 compare:v18];
+              if (v19 == -1)
               {
-                v19 = v16;
+                v23 = v18;
 
-                v20 = v15;
-                v31 = v20;
-                v12 = v19;
+                v24 = v15;
+                v37 = v24;
+                v12 = v23;
               }
 
               else
               {
-                v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v19, v20);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138544386;
-                  v40 = v15;
-                  v41 = 2114;
-                  v42 = v16;
-                  v43 = 2114;
-                  v44 = v31;
-                  v45 = 2114;
-                  v46 = v12;
+                  v46 = v15;
                   v47 = 2114;
-                  v48 = nameCopy;
-                  _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Found record %{public}@ with position %{public}@ after record %{public}@ with position %{public}@, folder %{public}@ should have been sorted before!", buf, 0x34u);
+                  v48 = v18;
+                  v49 = 2114;
+                  v50 = v37;
+                  v51 = 2114;
+                  v52 = v12;
+                  v53 = 2114;
+                  v54 = nameCopy;
+                  _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Found record %{public}@ with position %{public}@ after record %{public}@ with position %{public}@, folder %{public}@ should have been sorted before!", buf, 0x34u);
                 }
               }
 
-              if ([v32 count])
+              v25 = [v38 count];
+              if (v25)
               {
-                v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+                v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v25, v26);
+                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
                 {
-                  v22 = v21;
-                  v23 = [v32 count];
+                  v28 = v27;
+                  v29 = [v38 count];
                   *buf = 138543618;
-                  v40 = v15;
-                  v41 = 2048;
-                  v42 = v23;
-                  _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Found record with name %{public}@ after %ld records which do not have a position defined yet", buf, 0x16u);
+                  v46 = v15;
+                  v47 = 2048;
+                  v48 = v29;
+                  _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Found record with name %{public}@ after %ld records which do not have a position defined yet", buf, 0x16u);
                 }
               }
             }
 
             else
             {
-              v12 = v16;
+              v12 = v18;
             }
           }
 
           else
           {
-            v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+            v22 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v16, v17);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543618;
-              v40 = v15;
-              v41 = 2114;
-              v42 = nameCopy;
-              _os_log_debug_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Record %{public}@ has no position and needs saving in folder %{public}@", buf, 0x16u);
+              v46 = v15;
+              v47 = 2114;
+              v48 = nameCopy;
+              _os_log_debug_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Record %{public}@ has no position and needs saving in folder %{public}@", buf, 0x16u);
             }
 
-            [v32 addObject:v15];
+            [v38 addObject:v15];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v35 objects:v49 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v41 objects:v55 count:16];
     }
 
     while (v11);
@@ -347,17 +350,17 @@
 
   else
   {
-    v31 = 0;
+    v37 = 0;
     v12 = 0;
   }
 
-  v24 = v8;
+  v30 = v8;
   *recordNamesCopy = v8;
-  v25 = v12;
+  v31 = v12;
   *position = v12;
-  v26 = v32;
+  v32 = v38;
 
-  return v32;
+  return v38;
 }
 
 - (id)_existingPositionForRecordWithName:(id)name getIsFolder:(BOOL *)folder

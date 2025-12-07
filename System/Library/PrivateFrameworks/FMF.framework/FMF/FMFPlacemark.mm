@@ -14,7 +14,7 @@
 
 - (FMFPlacemark)initWithLocality:(id)locality administrativeArea:(id)area country:(id)country state:(id)state streetAddress:(id)address streetName:(id)name
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   localityCopy = locality;
   areaCopy = area;
   countryCopy = country;
@@ -92,18 +92,17 @@
 
     objc_storeStrong(&v21->_streetName, v27);
     locality = v21->_locality;
-    v35[0] = v21->_streetName;
-    v35[1] = locality;
+    v34[0] = v21->_streetName;
+    v34[1] = locality;
     country = v21->_country;
-    v35[2] = v21->_state;
-    v35[3] = country;
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+    v34[2] = v21->_state;
+    v34[3] = country;
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:4];
     v31 = [v30 fm_filter:&__block_literal_global_2];
     formattedAddressLines = v21->_formattedAddressLines;
     v21->_formattedAddressLines = v31;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

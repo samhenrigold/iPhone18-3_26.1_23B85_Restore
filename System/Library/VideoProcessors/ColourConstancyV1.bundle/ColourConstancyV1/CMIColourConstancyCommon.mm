@@ -13,12 +13,12 @@
   v4 = v3;
   gainsCopy = gains;
   v6 = gainsCopy;
-  v19 = 0;
+  v22 = 0;
   if (!gainsCopy)
   {
     sub_14250();
 LABEL_10:
-    v12 = 10;
+    v15 = 10;
     goto LABEL_7;
   }
 
@@ -28,40 +28,40 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  [gainsCopy cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboRGain defaultValue:&v19 found:0.0];
-  if ((v19 & 1) == 0)
+  v7 = [gainsCopy cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboRGain defaultValue:&v22 found:0.0];
+  if ((v22 & 1) == 0)
   {
-    sub_140D0();
+    sub_140D0(v7);
 LABEL_14:
-    v12 = 2;
+    v15 = 2;
     goto LABEL_7;
   }
 
-  v8 = v7;
-  [v6 cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboGGain defaultValue:&v19 found:0.0];
-  if ((v19 & 1) == 0)
+  v9 = v8;
+  v10 = [v6 cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboGGain defaultValue:&v22 found:0.0];
+  if ((v22 & 1) == 0)
   {
-    sub_14130();
+    sub_14130(v10);
     goto LABEL_14;
   }
 
-  v10 = v9;
-  [v6 cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboBGain defaultValue:&v19 found:0.0];
-  if ((v19 & 1) == 0)
+  v12 = v11;
+  v13 = [v6 cmi_floatValueForKey:kFigCaptureStreamMetadata_AWBComboBGain defaultValue:&v22 found:0.0];
+  if ((v22 & 1) == 0)
   {
-    sub_14190();
+    sub_14190(v13);
     goto LABEL_14;
   }
 
-  v12 = 0;
+  v15 = 0;
   __asm { FMOV            V2.4S, #1.0 }
 
-  *&_Q2 = v8 / v10;
-  *(&_Q2 + 2) = v11 / v10;
+  *&_Q2 = v9 / v12;
+  *(&_Q2 + 2) = v14 / v12;
   *v4 = _Q2;
 LABEL_7:
 
-  return v12;
+  return v15;
 }
 
 + (int)getStrobeWhiteBalanceGains:(id)gains metadata:(id)metadata outputVector:
@@ -150,12 +150,12 @@ LABEL_12:
 {
   tCopy = t;
   v6 = tCopy;
-  v13 = 0;
+  v14 = 0;
   if (!tCopy)
   {
     sub_146F0();
 LABEL_9:
-    v10 = 10;
+    v11 = 10;
     goto LABEL_6;
   }
 
@@ -165,41 +165,41 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v7 = [tCopy cmi_intValueForKey:kFigCaptureStreamMetadata_AGC defaultValue:0 found:&v13];
-  if ((v13 & 1) == 0)
+  v7 = [tCopy cmi_intValueForKey:kFigCaptureStreamMetadata_AGC defaultValue:0 found:&v14];
+  if ((v14 & 1) == 0)
   {
-    sub_145C8();
+    sub_145C8(v7);
 LABEL_12:
-    v10 = 2;
+    v11 = 2;
     goto LABEL_6;
   }
 
   v8 = v7;
-  [v6 cmi_doubleValueForKey:kFigCaptureStreamMetadata_ExposureTime defaultValue:&v13 found:0.0];
-  if ((v13 & 1) == 0)
+  v9 = [v6 cmi_doubleValueForKey:kFigCaptureStreamMetadata_ExposureTime defaultValue:&v14 found:0.0];
+  if ((v14 & 1) == 0)
   {
-    sub_1462C();
+    sub_1462C(v9);
     goto LABEL_12;
   }
 
-  v10 = 0;
-  v11 = v9 * vcvts_n_f32_s32(v8, 8uLL) / vcvts_n_f32_s32([v6 cmi_intValueForKey:kFigCaptureStreamMetadata_HRGainDownRatio defaultValue:4096 found:0], 0xCuLL);
-  *result = v11;
+  v11 = 0;
+  v12 = v10 * vcvts_n_f32_s32(v8, 8uLL) / vcvts_n_f32_s32([v6 cmi_intValueForKey:kFigCaptureStreamMetadata_HRGainDownRatio defaultValue:4096 found:0], 0xCuLL);
+  *result = v12;
 LABEL_6:
 
-  return v10;
+  return v11;
 }
 
 + (int)getLensShadingCorrectionMaxGain:(id)gain outputMaxGain:(float *)maxGain
 {
   gainCopy = gain;
   v7 = gainCopy;
-  v11 = 0;
+  v12 = 0;
   if (!gainCopy)
   {
     sub_14810();
 LABEL_8:
-    v9 = 10;
+    v10 = 10;
     goto LABEL_5;
   }
 
@@ -210,22 +210,22 @@ LABEL_8:
   }
 
   LODWORD(v6) = 1.0;
-  [gainCopy cmi_floatValueForKey:kLensShadingCorrectionGainMapParametersKey_GridMaxGain defaultValue:&v11 found:v6];
-  if (v11)
+  v8 = [gainCopy cmi_floatValueForKey:kLensShadingCorrectionGainMapParametersKey_GridMaxGain defaultValue:&v12 found:v6];
+  if (v12)
   {
-    v9 = 0;
-    *maxGain = v8;
+    v10 = 0;
+    *maxGain = v9;
   }
 
   else
   {
-    sub_14750();
-    v9 = 2;
+    sub_14750(v8);
+    v10 = 2;
   }
 
 LABEL_5:
 
-  return v9;
+  return v10;
 }
 
 + (int)getStrobeColourCorrectionMatrix:(id)matrix outputMatrix:(id *)outputMatrix

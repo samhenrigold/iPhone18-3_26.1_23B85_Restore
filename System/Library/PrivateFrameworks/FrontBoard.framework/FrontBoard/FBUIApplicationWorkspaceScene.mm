@@ -1,4 +1,5 @@
 @interface FBUIApplicationWorkspaceScene
+- (FBUIApplicationWorkspaceScene)initWithConnection:(id)connection host:(id)host settings:(id)settings clientSettings:(id)clientSettings fromRemnant:(BOOL)remnant;
 - (id)_workspaceQueue_createWatchdogForProcess:(id)process sceneAction:(unsigned __int8)action transitionContext:(id)context;
 - (void)_workspaceQueue_cancelWatchdogTimer:(id)timer;
 - (void)_workspaceQueue_invalidate;
@@ -8,32 +9,32 @@
 
 - (void)_workspaceQueue_invalidate
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_allWatchdogs;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v10 + 1) + 8 * v7++) invalidate];
+        [*(*(&v9 + 1) + 8 * v7++) invalidate];
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -41,10 +42,28 @@
 
   [(NSMutableSet *)self->_allWatchdogs removeAllObjects];
   [(NSMutableArray *)self->_watchdogStack removeAllObjects];
-  v9.receiver = self;
-  v9.super_class = FBUIApplicationWorkspaceScene;
-  [(FBWorkspaceScene *)&v9 _workspaceQueue_invalidate];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = FBUIApplicationWorkspaceScene;
+  [(FBWorkspaceScene *)&v8 _workspaceQueue_invalidate];
+}
+
+- (FBUIApplicationWorkspaceScene)initWithConnection:(id)connection host:(id)host settings:(id)settings clientSettings:(id)clientSettings fromRemnant:(BOOL)remnant
+{
+  v13.receiver = self;
+  v13.super_class = FBUIApplicationWorkspaceScene;
+  v7 = [(FBWorkspaceScene *)&v13 initWithConnection:connection host:host settings:settings clientSettings:clientSettings fromRemnant:remnant];
+  if (v7)
+  {
+    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    watchdogStack = v7->_watchdogStack;
+    v7->_watchdogStack = v8;
+
+    v10 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    allWatchdogs = v7->_allWatchdogs;
+    v7->_allWatchdogs = v10;
+  }
+
+  return v7;
 }
 
 - (id)_workspaceQueue_createWatchdogForProcess:(id)process sceneAction:(unsigned __int8)action transitionContext:(id)context

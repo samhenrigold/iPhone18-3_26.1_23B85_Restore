@@ -55,11 +55,11 @@
 
 - (COCompanionLinkClient)initWithCompanionLinkClient:(id)client
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   clientCopy = client;
-  v15.receiver = self;
-  v15.super_class = COCompanionLinkClient;
-  v6 = [(COCompanionLinkClient *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = COCompanionLinkClient;
+  v6 = [(COCompanionLinkClient *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -79,33 +79,32 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = v7;
+      v16 = v7;
       _os_log_impl(&dword_244378000, v12, OS_LOG_TYPE_DEFAULT, "%p new link created", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   registeredRequestIDs = [(COCompanionLinkClient *)self registeredRequestIDs];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __32__COCompanionLinkClient_dealloc__block_invoke;
-  v10[3] = &unk_278E16AB0;
-  v10[4] = self;
-  [registeredRequestIDs enumerateObjectsUsingBlock:v10];
-
-  registeredEventIDs = [(COCompanionLinkClient *)self registeredEventIDs];
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
-  v9[2] = __32__COCompanionLinkClient_dealloc__block_invoke_2;
+  v9[2] = __32__COCompanionLinkClient_dealloc__block_invoke;
   v9[3] = &unk_278E16AB0;
   v9[4] = self;
-  [registeredEventIDs enumerateObjectsUsingBlock:v9];
+  [registeredRequestIDs enumerateObjectsUsingBlock:v9];
+
+  registeredEventIDs = [(COCompanionLinkClient *)self registeredEventIDs];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __32__COCompanionLinkClient_dealloc__block_invoke_2;
+  v8[3] = &unk_278E16AB0;
+  v8[4] = self;
+  [registeredEventIDs enumerateObjectsUsingBlock:v8];
 
   factory = [(COCompanionLinkClient *)self factory];
   [factory removeClient:self];
@@ -118,10 +117,9 @@
     _os_log_impl(&dword_244378000, v6, OS_LOG_TYPE_DEFAULT, "%p link destroyed", buf, 0xCu);
   }
 
-  v8.receiver = self;
-  v8.super_class = COCompanionLinkClient;
-  [(COCompanionLinkClient *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = COCompanionLinkClient;
+  [(COCompanionLinkClient *)&v7 dealloc];
 }
 
 - (void)_withLock:(id)lock
@@ -148,7 +146,7 @@
 
 void __46__COCompanionLinkClient_didActivateWithError___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((*(v2 + 24) & 3) == 1)
   {
@@ -165,9 +163,9 @@ void __46__COCompanionLinkClient_didActivateWithError___block_invoke(uint64_t a1
       {
         v9 = *(a1 + 32);
         *buf = 134218240;
-        v23 = v9;
-        v24 = 2048;
-        v25 = [v7 count];
+        v22 = v9;
+        v23 = 2048;
+        v24 = [v7 count];
         _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p did activate with %ld devices", buf, 0x16u);
       }
     }
@@ -179,7 +177,7 @@ void __46__COCompanionLinkClient_didActivateWithError___block_invoke(uint64_t a1
       {
         v12 = *(a1 + 32);
         *buf = 134217984;
-        v23 = v12;
+        v22 = v12;
         _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%p did activate", buf, 0xCu);
       }
 
@@ -187,18 +185,18 @@ void __46__COCompanionLinkClient_didActivateWithError___block_invoke(uint64_t a1
     }
 
     v13 = *(*(a1 + 32) + 16);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __46__COCompanionLinkClient_didActivateWithError___block_invoke_3;
-    v17[3] = &unk_278E18478;
-    v20 = v3;
-    v18 = *(a1 + 40);
-    v19 = v7;
-    v21 = v5;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __46__COCompanionLinkClient_didActivateWithError___block_invoke_3;
+    v16[3] = &unk_278E18478;
+    v19 = v3;
+    v17 = *(a1 + 40);
+    v18 = v7;
+    v20 = v5;
     v14 = v5;
     v15 = v7;
     v10 = v3;
-    dispatch_async(v13, v17);
+    dispatch_async(v13, v16);
   }
 
   else
@@ -208,25 +206,22 @@ void __46__COCompanionLinkClient_didActivateWithError___block_invoke(uint64_t a1
     {
       v11 = *(a1 + 32);
       *buf = 134217984;
-      v23 = v11;
+      v22 = v11;
       _os_log_impl(&dword_244378000, v10, OS_LOG_TYPE_DEFAULT, "%p not activated yet so ignoring underlying activation", buf, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__COCompanionLinkClient_didActivateWithError___block_invoke_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-  v3 = *(a1 + 40);
-  v4[0] = MEMORY[0x277D85DD0];
-  v4[1] = 3221225472;
-  v4[2] = __46__COCompanionLinkClient_didActivateWithError___block_invoke_2;
-  v4[3] = &unk_278E18450;
-  v5 = *(a1 + 56);
-  [v3 enumerateObjectsUsingBlock:v4];
+  v2 = *(a1 + 40);
+  v3[0] = MEMORY[0x277D85DD0];
+  v3[1] = 3221225472;
+  v3[2] = __46__COCompanionLinkClient_didActivateWithError___block_invoke_2;
+  v3[3] = &unk_278E18450;
+  v4 = *(a1 + 56);
+  [v2 enumerateObjectsUsingBlock:v3];
 }
 
 - (void)didInterrupt
@@ -360,7 +355,7 @@ uint64_t __38__COCompanionLinkClient_didDisconnect__block_invoke(uint64_t result
 
 void __38__COCompanionLinkClient_didInvalidate__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if ((*(v2 + 24) & 8) != 0)
   {
@@ -369,7 +364,7 @@ void __38__COCompanionLinkClient_didInvalidate__block_invoke(uint64_t a1)
     {
       v10 = *(a1 + 32);
       *buf = 134217984;
-      v15 = v10;
+      v14 = v10;
       _os_log_impl(&dword_244378000, v9, OS_LOG_TYPE_DEFAULT, "%p did secondary invalidation", buf, 0xCu);
     }
   }
@@ -379,20 +374,20 @@ void __38__COCompanionLinkClient_didInvalidate__block_invoke(uint64_t a1)
     atomic_store(1u, (v2 + 12));
     *(*(a1 + 32) + 24) |= 0xFuLL;
     v3 = [*(a1 + 32) registeredRequestIDs];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __38__COCompanionLinkClient_didInvalidate__block_invoke_2;
-    v13[3] = &unk_278E16AB0;
-    v13[4] = *(a1 + 32);
-    [v3 enumerateObjectsUsingBlock:v13];
-
-    v4 = [*(a1 + 32) registeredEventIDs];
     v12[0] = MEMORY[0x277D85DD0];
     v12[1] = 3221225472;
-    v12[2] = __38__COCompanionLinkClient_didInvalidate__block_invoke_3;
+    v12[2] = __38__COCompanionLinkClient_didInvalidate__block_invoke_2;
     v12[3] = &unk_278E16AB0;
     v12[4] = *(a1 + 32);
-    [v4 enumerateObjectsUsingBlock:v12];
+    [v3 enumerateObjectsUsingBlock:v12];
+
+    v4 = [*(a1 + 32) registeredEventIDs];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __38__COCompanionLinkClient_didInvalidate__block_invoke_3;
+    v11[3] = &unk_278E16AB0;
+    v11[4] = *(a1 + 32);
+    [v4 enumerateObjectsUsingBlock:v11];
 
     v5 = [*(a1 + 32) registeredEventIDs];
     [v5 removeAllObjects];
@@ -405,7 +400,7 @@ void __38__COCompanionLinkClient_didInvalidate__block_invoke(uint64_t a1)
     {
       v8 = *(a1 + 32);
       *buf = 134217984;
-      v15 = v8;
+      v14 = v8;
       _os_log_impl(&dword_244378000, v7, OS_LOG_TYPE_DEFAULT, "%p did invalidate", buf, 0xCu);
     }
 
@@ -415,8 +410,6 @@ void __38__COCompanionLinkClient_didInvalidate__block_invoke(uint64_t a1)
       dispatch_async(*(*(a1 + 32) + 16), v9);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)flags
@@ -499,7 +492,7 @@ uint64_t __44__COCompanionLinkClient_interruptionHandler__block_invoke(uint64_t 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setInterruptionHandler:(id)handler
@@ -553,7 +546,7 @@ uint64_t __44__COCompanionLinkClient_stateUpdatedHandler__block_invoke(uint64_t 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setStateUpdatedHandler:(id)handler
@@ -607,7 +600,7 @@ uint64_t __49__COCompanionLinkClient_errorFlagsChangedHandler__block_invoke(uint
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setErrorFlagsChangedHandler:(id)handler
@@ -661,7 +654,7 @@ uint64_t __42__COCompanionLinkClient_disconnectHandler__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setDisconnectHandler:(id)handler
@@ -715,7 +708,7 @@ uint64_t __44__COCompanionLinkClient_invalidationHandler__block_invoke(uint64_t 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setInvalidationHandler:(id)handler
@@ -769,7 +762,7 @@ uint64_t __43__COCompanionLinkClient_deviceFoundHandler__block_invoke(uint64_t a
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setDeviceFoundHandler:(id)handler
@@ -823,7 +816,7 @@ uint64_t __42__COCompanionLinkClient_deviceLostHandler__block_invoke(uint64_t a1
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setDeviceLostHandler:(id)handler
@@ -877,7 +870,7 @@ uint64_t __50__COCompanionLinkClient_localDeviceUpdatedHandler__block_invoke(uin
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setLocalDeviceUpdatedHandler:(id)handler
@@ -931,7 +924,7 @@ uint64_t __45__COCompanionLinkClient_deviceChangedHandler__block_invoke(uint64_t
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setDeviceChangedHandler:(id)handler
@@ -1053,7 +1046,7 @@ uint64_t __56__COCompanionLinkClient_requestIDRegistrationCompletion__block_invo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)setEventIDRegistrationCompletion:(id)completion
@@ -1152,7 +1145,7 @@ uint64_t __54__COCompanionLinkClient_eventIDRegistrationCompletion__block_invoke
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)localDevice
@@ -1237,15 +1230,44 @@ uint64_t __54__COCompanionLinkClient_eventIDRegistrationCompletion__block_invoke
 
 void __48__COCompanionLinkClient_activateWithCompletion___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if ((*(*(a1 + 32) + 24) & 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  if (*(*(a1 + 32) + 24))
+  {
+    if (!*(a1 + 40))
+    {
+      return;
+    }
+
+    v5 = COCoreLogForCategory(18);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = *(a1 + 32);
+      *buf = 134217984;
+      v14 = v6;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p activating already activated link", buf, 0xCu);
+    }
+
+    v7 = [*(a1 + 32) activationError];
+    v8 = *(*(a1 + 32) + 16);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __48__COCompanionLinkClient_activateWithCompletion___block_invoke_9;
+    v10[3] = &unk_278E159A0;
+    v9 = *(a1 + 40);
+    v11 = v7;
+    v12 = v9;
+    v4 = v7;
+    dispatch_async(v8, v10);
+  }
+
+  else
   {
     v2 = COCoreLogForCategory(18);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
       *buf = 134217984;
-      v15 = v3;
+      v14 = v3;
       _os_log_impl(&dword_244378000, v2, OS_LOG_TYPE_DEFAULT, "%p activating", buf, 0xCu);
     }
 
@@ -1253,39 +1275,7 @@ void __48__COCompanionLinkClient_activateWithCompletion___block_invoke(uint64_t 
     [*(a1 + 32) setActivationHandler:*(a1 + 40)];
     v4 = [*(a1 + 32) factory];
     [v4 activateCompanionLinkClient:*(a1 + 32)];
-LABEL_9:
-
-    goto LABEL_10;
   }
-
-  if (*(a1 + 40))
-  {
-    v5 = COCoreLogForCategory(18);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = *(a1 + 32);
-      *buf = 134217984;
-      v15 = v6;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%p activating already activated link", buf, 0xCu);
-    }
-
-    v7 = [*(a1 + 32) activationError];
-    v8 = *(*(a1 + 32) + 16);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __48__COCompanionLinkClient_activateWithCompletion___block_invoke_9;
-    v11[3] = &unk_278E159A0;
-    v9 = *(a1 + 40);
-    v12 = v7;
-    v13 = v9;
-    v4 = v7;
-    dispatch_async(v8, v11);
-
-    goto LABEL_9;
-  }
-
-LABEL_10:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -1300,7 +1290,7 @@ LABEL_10:
 
 void __35__COCompanionLinkClient_invalidate__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 24);
   v3 = COCoreLogForCategory(18);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -1309,9 +1299,9 @@ void __35__COCompanionLinkClient_invalidate__block_invoke(uint64_t a1)
     if (v4)
     {
       v6 = *(a1 + 32);
-      v8 = 134217984;
-      v9 = v6;
-      _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p ignoring attempt to invalidate", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v6;
+      _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p ignoring attempt to invalidate", &v7, 0xCu);
     }
   }
 
@@ -1320,16 +1310,14 @@ void __35__COCompanionLinkClient_invalidate__block_invoke(uint64_t a1)
     if (v4)
     {
       v5 = *(a1 + 32);
-      v8 = 134217984;
-      v9 = v5;
-      _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p invalidating", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = v5;
+      _os_log_impl(&dword_244378000, v3, OS_LOG_TYPE_DEFAULT, "%p invalidating", &v7, 0xCu);
     }
 
     v3 = [*(a1 + 32) factory];
     [v3 invalidateCompanionLinkClient:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerEventID:(id)d options:(id)options handler:(id)handler

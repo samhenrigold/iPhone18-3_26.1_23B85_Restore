@@ -12,35 +12,35 @@
 
 + (void)sendMessage:(id)message toProtocol:(id)protocol withArguments:(id)arguments
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   protocolCopy = protocol;
   argumentsCopy = arguments;
   [protocolCopy writeMessageBeginWithName:messageCopy type:1 sequenceID:0];
-  v23 = messageCopy;
+  v22 = messageCopy;
   v11 = [messageCopy stringByAppendingString:@"_args"];
   [protocolCopy writeStructBeginWithName:v11];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = argumentsCopy;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         field = [v17 field];
         value = [v17 value];
         name = [field name];
@@ -50,7 +50,7 @@
         [protocolCopy writeFieldEnd];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -61,38 +61,36 @@
   [protocolCopy writeMessageEnd];
   transport = [protocolCopy transport];
   [transport flush];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)writeObject:(id)object ontoProtocol:(id)protocol
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   protocolCopy = protocol;
   structName = [objc_opt_class() structName];
   [protocolCopy writeStructBeginWithName:structName];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   structFields = [objc_opt_class() structFields];
-  v9 = [structFields countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [structFields countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(structFields);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
+        v13 = *(*(&v19 + 1) + 8 * i);
         name = [v13 name];
         v15 = [objectCopy valueForKey:name];
         if (v15)
@@ -114,7 +112,7 @@
         }
       }
 
-      v10 = [structFields countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [structFields countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
@@ -122,63 +120,61 @@
 
   [protocolCopy writeFieldStop];
   [protocolCopy writeStructEnd];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)readMessage:(id)message fromProtocol:(id)protocol withResponseTypes:(id)types
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   protocolCopy = protocol;
   typesCopy = types;
-  v68 = 0;
-  [protocolCopy readMessageBeginReturningName:0 type:&v68 sequenceID:0];
-  if (v68 == 3)
+  v67 = 0;
+  [protocolCopy readMessageBeginReturningName:0 type:&v67 sequenceID:0];
+  if (v67 == 3)
   {
-    v45 = [ENTApplicationException read:protocolCopy];
+    v44 = [ENTApplicationException read:protocolCopy];
     [protocolCopy readMessageEnd];
-    v41 = v45;
+    v40 = v44;
 LABEL_55:
-    objc_exception_throw(v41);
+    objc_exception_throw(v40);
   }
 
-  v46 = messageCopy;
+  v45 = messageCopy;
   array = [MEMORY[0x277CBEB18] array];
   [protocolCopy readStructBeginReturningName:0];
-  v67 = 0;
   v66 = 0;
   v65 = 0;
-  [protocolCopy readFieldBeginReturningName:&v65 type:&v67 fieldID:&v66];
-  for (i = v65; v67; i = v65)
+  v64 = 0;
+  [protocolCopy readFieldBeginReturningName:&v64 type:&v66 fieldID:&v65];
+  for (i = v64; v66; i = v64)
   {
-    v63 = 0u;
-    v64 = 0u;
-    v61 = 0u;
     v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
     v12 = typesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v61 objects:v72 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v60 objects:v71 count:16];
     if (v13)
     {
       v14 = v13;
-      v48 = i;
+      v47 = i;
       v15 = 0;
-      v16 = *v62;
+      v16 = *v61;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v62 != v16)
+          if (*v61 != v16)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v61 + 1) + 8 * j);
+          v18 = *(*(&v60 + 1) + 8 * j);
           index = [v18 index];
-          if (index == v66)
+          if (index == v65)
           {
             type = [v18 type];
-            if (type == v67 || ([v18 type] != 16 ? (v21 = v67 == 11) : (v21 = 1), v21))
+            if (type == v66 || ([v18 type] != 16 ? (v21 = v66 == 11) : (v21 = 1), v21))
             {
               v22 = [self _readValueForField:v18 fromProtocol:protocolCopy];
               if (v22)
@@ -191,17 +187,17 @@ LABEL_55:
 
             else
             {
-              NSLog(&cfstr_SkippingFieldD.isa, v18, v67);
+              NSLog(&cfstr_SkippingFieldD.isa, v18, v66);
             }
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v61 objects:v72 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v60 objects:v71 count:16];
       }
 
       while (v14);
 
-      i = v48;
+      i = v47;
       if (v15)
       {
         goto LABEL_24;
@@ -212,37 +208,37 @@ LABEL_55:
     {
     }
 
-    [ENTProtocolUtil skipType:v67 onProtocol:protocolCopy];
+    [ENTProtocolUtil skipType:v66 onProtocol:protocolCopy];
 LABEL_24:
 
-    v67 = 0;
     v66 = 0;
     v65 = 0;
-    [protocolCopy readFieldBeginReturningName:&v65 type:&v67 fieldID:&v66];
+    v64 = 0;
+    [protocolCopy readFieldBeginReturningName:&v64 type:&v66 fieldID:&v65];
   }
 
   [protocolCopy readStructEnd];
   [protocolCopy readMessageEnd];
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v23 = array;
-  v24 = [v23 countByEnumeratingWithState:&v57 objects:v71 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v56 objects:v70 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v58;
+    v26 = *v57;
     while (2)
     {
       for (k = 0; k != v25; ++k)
       {
-        if (*v58 != v26)
+        if (*v57 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v57 + 1) + 8 * k);
+        v28 = *(*(&v56 + 1) + 8 * k);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -252,7 +248,7 @@ LABEL_24:
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v57 objects:v71 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v56 objects:v70 count:16];
       if (v25)
       {
         continue;
@@ -262,70 +258,70 @@ LABEL_24:
     }
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v29 = v23;
-  v30 = [v29 countByEnumeratingWithState:&v53 objects:v70 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v52 objects:v69 count:16];
   if (v30)
   {
     v31 = v30;
-    v32 = *v54;
+    v32 = *v53;
     do
     {
       for (m = 0; m != v31; ++m)
       {
-        if (*v54 != v32)
+        if (*v53 != v32)
         {
           objc_enumerationMutation(v29);
         }
 
-        v34 = *(*(&v53 + 1) + 8 * m);
+        v34 = *(*(&v52 + 1) + 8 * m);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v41 = v34;
+          v40 = v34;
           goto LABEL_55;
         }
       }
 
-      v31 = [v29 countByEnumeratingWithState:&v53 objects:v70 count:16];
+      v31 = [v29 countByEnumeratingWithState:&v52 objects:v69 count:16];
     }
 
     while (v31);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v35 = typesCopy;
-  v36 = [v35 countByEnumeratingWithState:&v49 objects:v69 count:16];
+  v36 = [v35 countByEnumeratingWithState:&v48 objects:v68 count:16];
   if (v36)
   {
-    v37 = *v50;
+    v37 = *v49;
     do
     {
       for (n = 0; n != v36; n = n + 1)
       {
-        if (*v50 != v37)
+        if (*v49 != v37)
         {
           objc_enumerationMutation(v35);
         }
 
-        if (![objc_msgSend(*(*(&v49 + 1) + 8 * n) "structClass")])
+        if (![objc_msgSend(*(*(&v48 + 1) + 8 * n) "structClass")])
         {
 
-          v42 = [v46 stringByAppendingString:@" failed: unknown result"];
-          v43 = [ENTApplicationException exceptionWithType:5 reason:v42];
-          v44 = v43;
+          v41 = [v45 stringByAppendingString:@" failed: unknown result"];
+          v42 = [ENTApplicationException exceptionWithType:5 reason:v41];
+          v43 = v42;
 
-          objc_exception_throw(v43);
+          objc_exception_throw(v42);
         }
       }
 
-      v36 = [v35 countByEnumeratingWithState:&v49 objects:v69 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v48 objects:v68 count:16];
     }
 
     while (v36);
@@ -333,14 +329,12 @@ LABEL_24:
 
 LABEL_51:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v36;
 }
 
 + (void)_writeValue:(id)value forField:(id)field toProtocol:(id)protocol
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   fieldCopy = field;
   protocolCopy = protocol;
@@ -400,40 +394,40 @@ LABEL_51:
       keyField = [fieldCopy keyField];
       valueField = [fieldCopy valueField];
       [protocolCopy writeMapBeginWithKeyType:objc_msgSend(keyField valueType:"type") size:{objc_msgSend(valueField, "type"), objc_msgSend(valueCopy, "count")}];
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v33 = valueCopy;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v32 = valueCopy;
       v14 = valueCopy;
-      v15 = [v14 countByEnumeratingWithState:&v42 objects:v48 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v41 objects:v47 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v43;
+        v17 = *v42;
         do
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v43 != v17)
+            if (*v42 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v42 + 1) + 8 * i);
+            v19 = *(*(&v41 + 1) + 8 * i);
             [self _writeValue:v19 forField:keyField toProtocol:protocolCopy];
             v20 = [v14 objectForKey:v19];
             [self _writeValue:v20 forField:valueField toProtocol:protocolCopy];
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v42 objects:v48 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v41 objects:v47 count:16];
         }
 
         while (v16);
       }
 
       [protocolCopy writeMapEnd];
-      valueCopy = v33;
+      valueCopy = v32;
     }
 
     goto LABEL_49;
@@ -445,29 +439,29 @@ LABEL_51:
       valueField2 = [fieldCopy valueField];
       [protocolCopy writeSetBeginWithElementType:objc_msgSend(valueField2 size:{"type"), objc_msgSend(valueCopy, "count")}];
       [protocolCopy writeSetEnd];
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       v22 = valueCopy;
-      v23 = [v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v39;
+        v25 = *v38;
         do
         {
           for (j = 0; j != v24; ++j)
           {
-            if (*v39 != v25)
+            if (*v38 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            [self _writeValue:*(*(&v38 + 1) + 8 * j) forField:valueField2 toProtocol:protocolCopy];
+            [self _writeValue:*(*(&v37 + 1) + 8 * j) forField:valueField2 toProtocol:protocolCopy];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v38 objects:v47 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v37 objects:v46 count:16];
         }
 
         while (v24);
@@ -477,29 +471,29 @@ LABEL_51:
     case 15:
       valueField2 = [fieldCopy valueField];
       [protocolCopy writeListBeginWithElementType:objc_msgSend(valueField2 size:{"type"), objc_msgSend(valueCopy, "count")}];
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v27 = valueCopy;
-      v28 = [v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v33 objects:v45 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v35;
+        v30 = *v34;
         do
         {
           for (k = 0; k != v29; ++k)
           {
-            if (*v35 != v30)
+            if (*v34 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            [self _writeValue:*(*(&v34 + 1) + 8 * k) forField:valueField2 toProtocol:protocolCopy];
+            [self _writeValue:*(*(&v33 + 1) + 8 * k) forField:valueField2 toProtocol:protocolCopy];
           }
 
-          v29 = [v27 countByEnumeratingWithState:&v34 objects:v46 count:16];
+          v29 = [v27 countByEnumeratingWithState:&v33 objects:v45 count:16];
         }
 
         while (v29);
@@ -515,50 +509,48 @@ LABEL_48:
   }
 
 LABEL_49:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (void)readFromProtocol:(id)protocol ontoObject:(id)object
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   protocolCopy = protocol;
   objectCopy = object;
   [protocolCopy readStructBeginReturningName:0];
   structFields = [objc_opt_class() structFields];
-  v26 = 0;
-  [protocolCopy readFieldBeginReturningName:0 type:&v26 + 4 fieldID:&v26];
-  while (HIDWORD(v26))
+  v25 = 0;
+  [protocolCopy readFieldBeginReturningName:0 type:&v25 + 4 fieldID:&v25];
+  while (HIDWORD(v25))
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = structFields;
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
 LABEL_4:
       v13 = 0;
       while (1)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * v13);
+        v14 = *(*(&v21 + 1) + 8 * v13);
         index = [v14 index];
-        if (index == v26)
+        if (index == v25)
         {
           break;
         }
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
           if (v11)
           {
             goto LABEL_4;
@@ -576,9 +568,9 @@ LABEL_4:
       }
 
       type = [v16 type];
-      if (type != HIDWORD(v26) && [v16 type] != 16 && HIDWORD(v26) != 11)
+      if (type != HIDWORD(v25) && [v16 type] != 16 && HIDWORD(v25) != 11)
       {
-        NSLog(&cfstr_SkippingFieldD.isa, v16, HIDWORD(v26));
+        NSLog(&cfstr_SkippingFieldD.isa, v16, HIDWORD(v25));
         goto LABEL_19;
       }
 
@@ -595,16 +587,14 @@ LABEL_10:
 
       v16 = 0;
 LABEL_19:
-      [self skipType:HIDWORD(v26) onProtocol:protocolCopy];
+      [self skipType:HIDWORD(v25) onProtocol:protocolCopy];
     }
 
-    v26 = 0;
-    [protocolCopy readFieldBeginReturningName:0 type:&v26 + 4 fieldID:&v26];
+    v25 = 0;
+    [protocolCopy readFieldBeginReturningName:0 type:&v25 + 4 fieldID:&v25];
   }
 
   [protocolCopy readStructEnd];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_readValueForField:(id)field fromProtocol:(id)protocol

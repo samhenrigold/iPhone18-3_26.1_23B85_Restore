@@ -33,7 +33,8 @@
     sub_100126E84(buf, "ElevationVerbose", &v20, 0);
     v7->_verboseLogging = buf[1];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       v7->_workoutContextManager = manager;
     }
@@ -45,24 +46,24 @@
         sub_101908ED8();
       }
 
-      v8 = qword_1025D4418;
+      v10 = qword_1025D4418;
       if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
       {
         Current = CFAbsoluteTimeGetCurrent();
         *buf = 134217984;
         v23 = Current;
-        _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_ERROR, "#altimeter,fail to initialize workout pressure source selector,workout context manager does not exist,timestamp,%f", buf, 0xCu);
+        _os_log_impl(dword_100000000, v10, OS_LOG_TYPE_ERROR, "#altimeter,fail to initialize workout pressure source selector,workout context manager does not exist,timestamp,%f", buf, 0xCu);
       }
 
-      v10 = sub_10000A100(121, 0);
-      if (v10)
+      isKindOfClass = sub_10000A100(121, 0);
+      if (isKindOfClass)
       {
-        sub_101908F00(v10, v11, v12, v13, v14, v15, v16, v17);
+        sub_101908F00(isKindOfClass, v9, v12, v13, v14, v15, v16, v17);
       }
     }
 
     v7->_isPhone = 0;
-    v18 = sub_10001A3E8();
+    v18 = sub_10001A3E8(isKindOfClass, v9);
     v7->_isPhone = (**v18)(v18);
   }
 
@@ -137,99 +138,101 @@
     [(CLWorkoutPressureSourceSelector *)self computeCompanionPressureOffsetData:time];
     if (self->_isSourceOnDevice || self->_companionPressureOffsetData.__engaged_)
     {
-      v9 = self->_dataBuffer + 48 * v8;
-      v10 = v9[1];
-      if (v9[2] != v10)
+      v10 = self->_dataBuffer + 48 * v8;
+      v11 = v10[1];
+      if (v10[2] != v11)
       {
-        v11 = v9[4];
-        v12 = (v10 + 8 * (v11 >> 8));
-        v13 = (*v12 + 16 * v11);
-        v14 = *(v10 + (((v9[5] + v11) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v9 + 40) + v11);
-        if (v13 != v14)
+        v12 = v10[4];
+        v13 = (v11 + 8 * (v12 >> 8));
+        v14 = (*v13 + 16 * v12);
+        v15 = *(v11 + (((v10[5] + v12) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * (*(v10 + 40) + v12);
+        if (v14 != v15)
         {
+          *&v9 = 134219520;
+          v39 = v9;
           while (1)
           {
-            v15 = *v13;
-            v16 = v13[1];
-            if (v16)
+            v16 = *v14;
+            v17 = *(v14 + 1);
+            if (v17)
             {
               break;
             }
 
-            if (*(v15 + 8) > endTime)
+            if (*(*&v16 + 8) > endTime)
             {
-              v47 = 0u;
+              v52 = 0u;
+              v53 = 0u;
+              v50 = 0u;
+              v51 = 0u;
               v48 = 0u;
-              v45 = 0u;
+              v49 = 0u;
               v46 = 0u;
-              v43 = 0u;
+              v47 = 0u;
               v44 = 0u;
-              v41 = 0u;
+              v45 = 0u;
               v42 = 0u;
-              v39 = 0u;
-              v40 = 0u;
-              v37 = 0u;
-              v38 = 0u;
-              v35 = v15;
-              v36 = 0;
-              goto LABEL_14;
+              v43 = 0u;
+              v40 = *v14;
+              v41 = 0;
+              goto LABEL_15;
             }
 
-LABEL_27:
-            v13 += 2;
-            if ((v13 - *v12) == 4096)
+LABEL_28:
+            v14 += 2;
+            if ((v14 - *v13) == 4096)
             {
-              v22 = v12[1];
-              ++v12;
-              v13 = v22;
+              v23 = v13[1];
+              ++v13;
+              v14 = v23;
             }
 
-            if (v13 == v14)
+            if (v14 == v15)
             {
               return;
             }
           }
 
-          atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-          if (*(v15 + 8) > endTime)
+          atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+          if (*(*&v16 + 8) > endTime)
           {
-            v47 = 0u;
+            v52 = 0u;
+            v53 = 0u;
+            v50 = 0u;
+            v51 = 0u;
             v48 = 0u;
-            v45 = 0u;
+            v49 = 0u;
             v46 = 0u;
-            v43 = 0u;
+            v47 = 0u;
             v44 = 0u;
-            v41 = 0u;
+            v45 = 0u;
             v42 = 0u;
-            v39 = 0u;
-            v40 = 0u;
-            v37 = 0u;
-            v38 = 0u;
-            v35 = v15;
-            v36 = v16;
-            atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-LABEL_14:
-            [(CLWorkoutPressureSourceSelector *)self prepareStepCountUpdate:&v35];
-            if (v36)
+            v43 = 0u;
+            v40 = v16;
+            v41 = v17;
+            atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
+LABEL_15:
+            objc_msgSend_prepareStepCountUpdate_(self);
+            if (v41)
             {
-              sub_100008080(v36);
+              sub_100008080(v41);
             }
 
-            v17 = !self->_isPhone && *p_isSourceOnDevice;
-            DWORD2(v39) = v17;
+            v18 = !self->_isPhone && *p_isSourceOnDevice;
+            DWORD2(v44) = v18;
             workoutContextManager = self->_workoutContextManager;
-            v68 = v45;
+            v73 = v50;
+            v74 = v51;
+            v75 = v52;
+            v76 = v53;
             v69 = v46;
             v70 = v47;
             v71 = v48;
-            v64 = v41;
-            v65 = v42;
-            v66 = v43;
-            v67 = v44;
-            *buf = v37;
-            *&buf[16] = v38;
-            *&buf[32] = v39;
-            *&buf[48] = v40;
+            v72 = v49;
+            *buf = v42;
+            *&buf[16] = v43;
+            *&buf[32] = v44;
+            *&buf[48] = v45;
             [(CLContextManagerWorkout *)workoutContextManager feedSelectedStepCountElevation:buf];
             if (self->_verboseLogging)
             {
@@ -238,64 +241,67 @@ LABEL_14:
                 sub_101908ED8();
               }
 
-              v19 = qword_1025D4418;
+              v20 = qword_1025D4418;
               if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_DEFAULT))
               {
                 Current = CFAbsoluteTimeGetCurrent();
-                v21 = *p_isSourceOnDevice;
-                *buf = 134219520;
+                v22 = *p_isSourceOnDevice;
+                *buf = v39;
                 *&buf[4] = Current;
                 *&buf[12] = 2048;
-                *&buf[14] = *(&v37 + 1);
+                *&buf[14] = *(&v42 + 1);
                 *&buf[22] = 1024;
-                *&buf[24] = v38;
+                *&buf[24] = v43;
                 *&buf[28] = 1024;
-                *&buf[30] = DWORD1(v38);
+                *&buf[30] = DWORD1(v43);
                 *&buf[34] = 2048;
-                *&buf[36] = *(&v40 + 2);
+                *&buf[36] = *(&v45 + 2);
                 *&buf[44] = 2048;
-                *&buf[46] = *&v40;
+                *&buf[46] = *&v45;
                 *&buf[54] = 1024;
-                *&buf[56] = v21;
-                _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_DEFAULT, "#altimeter,feed selected step count elevation,now,%f,startTime,%f,ascend,%d,descend,%d,pressure,%f,pressureAmplitude,%f,onDevice,%d", buf, 0x3Cu);
+                *&buf[56] = v22;
+                _os_log_impl(dword_100000000, v20, OS_LOG_TYPE_DEFAULT, "#altimeter,feed selected step count elevation,now,%f,startTime,%f,ascend,%d,descend,%d,pressure,%f,pressureAmplitude,%f,onDevice,%d", buf, 0x3Cu);
               }
 
               if (sub_10000A100(121, 2))
               {
                 sub_101908FF8(buf);
-                v23 = CFAbsoluteTimeGetCurrent();
-                v24 = *p_isSourceOnDevice;
-                v49 = 134219520;
-                v50 = v23;
-                v51 = 2048;
-                v52 = *(&v37 + 1);
-                v53 = 1024;
-                v54 = v38;
-                v55 = 1024;
-                v56 = DWORD1(v38);
-                v57 = 2048;
-                v58 = *(&v40 + 2);
-                v59 = 2048;
-                v60 = *&v40;
-                v61 = 1024;
-                v62 = v24;
-                v25 = _os_log_send_and_compose_impl();
-                sub_100152C7C("Generic", 1, 0, 2, "[CLWorkoutPressureSourceSelector feedStepCountElevationForOnDeviceStartTime:withLastSigElevEndTime:]", "%s\n", v25);
-                if (v25 != buf)
+                v24 = qword_1025D4418;
+                v25 = CFAbsoluteTimeGetCurrent();
+                v26 = *p_isSourceOnDevice;
+                v54 = v39;
+                v55 = v25;
+                v56 = 2048;
+                v57 = *(&v42 + 1);
+                v58 = 1024;
+                v59 = v43;
+                v60 = 1024;
+                v61 = DWORD1(v43);
+                v62 = 2048;
+                v63 = *(&v45 + 2);
+                v64 = 2048;
+                v65 = *&v45;
+                v66 = 1024;
+                v67 = v26;
+                LODWORD(v38) = 60;
+                _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, v24, 0, "#altimeter,feed selected step count elevation,now,%f,startTime,%f,ascend,%d,descend,%d,pressure,%f,pressureAmplitude,%f,onDevice,%d", COERCE_DOUBLE(&v54), v38, v39, DWORD2(v39), v40, *&v41, v42);
+                v28 = v27;
+                sub_100152C7C("Generic", 1, 0, 2, "[CLWorkoutPressureSourceSelector feedStepCountElevationForOnDeviceStartTime:withLastSigElevEndTime:]", "%s\n", v27);
+                if (v28 != buf)
                 {
-                  free(v25);
+                  free(v28);
                 }
               }
             }
 
-            if (!v16)
+            if (!v17)
             {
-              goto LABEL_27;
+              goto LABEL_28;
             }
           }
 
-          sub_100008080(v16);
-          goto LABEL_27;
+          sub_100008080(v17);
+          goto LABEL_28;
         }
       }
     }
@@ -308,20 +314,20 @@ LABEL_14:
       sub_10190903C();
     }
 
-    v26 = qword_1025D4418;
+    v29 = qword_1025D4418;
     if (os_log_type_enabled(qword_1025D4418, OS_LOG_TYPE_ERROR))
     {
-      v27 = *p_isSourceOnDevice;
+      v30 = *p_isSourceOnDevice;
       *buf = 134218240;
       *&buf[4] = time;
       *&buf[12] = 1024;
-      *&buf[14] = v27;
-      _os_log_impl(dword_100000000, v26, OS_LOG_TYPE_ERROR, "#altimeter,feed step count elevation,no data in buffer,timestamp,%f,onDevice,%d", buf, 0x12u);
+      *&buf[14] = v30;
+      _os_log_impl(dword_100000000, v29, OS_LOG_TYPE_ERROR, "#altimeter,feed step count elevation,no data in buffer,timestamp,%f,onDevice,%d", buf, 0x12u);
     }
 
     if (sub_10000A100(121, 0))
     {
-      sub_101909050(p_isSourceOnDevice, v28, v29, v30, v31, v32, v33, v34);
+      sub_101909050(p_isSourceOnDevice, v31, v32, v33, v34, v35, v36, v37);
     }
   }
 }

@@ -16,7 +16,7 @@
 
 + (id)fetchAllVoiceTriggerSecondPassRecognizer:(id)recognizer
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resourcePath = [recognizer resourcePath];
   v4 = [CSAsset getConfigFileNameForAssetType:0];
   v5 = [resourcePath stringByAppendingPathComponent:v4];
@@ -44,38 +44,37 @@ LABEL_6:
 
 LABEL_7:
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [resourcePath stringByAppendingPathComponent:{*(*(&v20 + 1) + 8 * i), v20}];
+        v15 = [resourcePath stringByAppendingPathComponent:{*(*(&v19 + 1) + 8 * i), v19}];
         stringByStandardizingPath = [v15 stringByStandardizingPath];
         [v9 addObject:stringByStandardizingPath];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
 
   v17 = [v9 copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -204,7 +203,7 @@ LABEL_7:
 
 + (id)decodeConfigFrom:(id)from forFirstPassSource:(unint64_t)source
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   v7 = [self categoryForFirstPass:source];
   if (([fromCopy containsCategory:v7] & 1) == 0)
@@ -215,9 +214,9 @@ LABEL_7:
     if (os_log_type_enabled(CSLogCategoryVT, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "+[CSVoiceTriggerSecondPassConfigDecoder decodeConfigFrom:forFirstPassSource:]";
-      v32 = 2114;
-      v33 = @"voiceTriggerSecondPass";
+      v30 = "+[CSVoiceTriggerSecondPassConfigDecoder decodeConfigFrom:forFirstPassSource:]";
+      v31 = 2114;
+      v32 = @"voiceTriggerSecondPass";
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s CategoryKey %{public}@ not found, falling back to default", buf, 0x16u);
     }
   }
@@ -231,19 +230,17 @@ LABEL_7:
   v15 = v14;
   resourcePath = [fromCopy resourcePath];
   v16 = [self decodeConfigFileNDAPI:fromCopy fromCategory:v7];
-  HIDWORD(v28) = [self decodeUseRecognizerCombination:fromCopy fromCategory:v7];
+  HIDWORD(v27) = [self decodeUseRecognizerCombination:fromCopy fromCategory:v7];
   v17 = [self decodeConfigFileRecognizer:fromCopy fromCategory:v7];
   v18 = [self decodeUseKeywordSpotting:fromCopy fromCategory:v7];
   v19 = [CSVoiceTriggerPhraseConfigDecoder decodeConfigFrom:fromCopy category:v7];
   v20 = [self decodeWearerDetectionConfig:fromCopy fromCategory:v7];
   v21 = [self decodeQuasarCheckerResultCutOffCount:fromCopy fromCategory:v7];
-  LOBYTE(v28) = [self decodeuseTimeBasedTriggerLength:fromCopy fromCategory:v7];
+  LOBYTE(v27) = [self decodeuseTimeBasedTriggerLength:fromCopy fromCategory:v7];
   LODWORD(v22) = v11;
   LODWORD(v23) = v13;
   LODWORD(v24) = v15;
-  v25 = [(CSVoiceTriggerSecondPassConfig *)v9 initWithPreTriggerAudioTime:resourcePath prependingAudioTime:v16 trailingAudioTime:HIDWORD(v28) resourcePath:v17 configPathNDAPI:v18 useRecognizerCombination:v19 configPathRecognizer:v22 useKeywordSpotting:v23 phraseConfigs:v24 wearerDetectionConfig:v20 quasarCheckerResultCutOffCount:v21 useTimeBasedTriggerLength:v28];
-
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = [(CSVoiceTriggerSecondPassConfig *)v9 initWithPreTriggerAudioTime:resourcePath prependingAudioTime:v16 trailingAudioTime:HIDWORD(v27) resourcePath:v17 configPathNDAPI:v18 useRecognizerCombination:v19 configPathRecognizer:v22 useKeywordSpotting:v23 phraseConfigs:v24 wearerDetectionConfig:v20 quasarCheckerResultCutOffCount:v21 useTimeBasedTriggerLength:v27];
 
   return v25;
 }

@@ -182,7 +182,7 @@
 
 - (void)featureStatusProviding:(id)providing didUpdateFeatureStatus:(id)status
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   providingCopy = providing;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F0];
@@ -192,52 +192,48 @@
     v8 = objc_opt_class();
     v9 = v8;
     featureIdentifier = [providingCopy featureIdentifier];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2114;
-    v15 = featureIdentifier;
-    _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in feature status for %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2114;
+    v14 = featureIdentifier;
+    _os_log_impl(&dword_258977000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in feature status for %{public}@", &v11, 0x16u);
   }
 
   [(HDMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentsUpdate];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)periodicPromptedAssessmentsManagerDidUpdatePromptedAssessment:(id)assessment
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    *v8 = 138543362;
-    *&v8[4] = objc_opt_class();
-    v6 = *&v8[4];
-    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in periodic prompted assessment", v8, 0xCu);
+    *v7 = 138543362;
+    *&v7[4] = objc_opt_class();
+    v6 = *&v7[4];
+    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in periodic prompted assessment", v7, 0xCu);
   }
 
-  [(HDMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentsUpdate];
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentsUpdate:*v7];
 }
 
 - (void)loggingPatternEscalationsManagerDidUpdatePromptedAssessment:(id)assessment
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    *v8 = 138543362;
-    *&v8[4] = objc_opt_class();
-    v6 = *&v8[4];
-    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in logging pattern escalation", v8, 0xCu);
+    *v7 = 138543362;
+    *&v7[4] = objc_opt_class();
+    v6 = *&v7[4];
+    _os_log_impl(&dword_258977000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Observed change in logging pattern escalation", v7, 0xCu);
   }
 
-  [(HDMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentsUpdate];
-  v7 = *MEMORY[0x277D85DE8];
+  [(HDMHPromptedAssessmentsManager *)self _notifyObserversForPromptedAssessmentsUpdate:*v7];
 }
 
 - (HDProfile)profile

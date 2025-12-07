@@ -157,10 +157,11 @@ void __53__AuthenticationInProgress_runWithCompletionHandler___block_invoke_2(ui
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = LA_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = LA_LOG(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v12 = v6;
       if (v5)
@@ -169,29 +170,27 @@ void __53__AuthenticationInProgress_runWithCompletionHandler___block_invoke_2(ui
       }
 
       v13 = 138543618;
-      v14 = WeakRetained;
+      v14 = v8;
       v15 = 2114;
       v16 = v12;
-      _os_log_debug_impl(&dword_238BBF000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ returned %{public}@", &v13, 0x16u);
+      _os_log_debug_impl(&dword_238BBF000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ returned %{public}@", &v13, 0x16u);
       if (v5)
       {
       }
     }
 
-    [WeakRetained _bypassPreflightCache:0];
-    v9 = *(WeakRetained + 3);
-    if (v9)
+    [v8 _bypassPreflightCache:0];
+    v10 = *(v8 + 3);
+    if (v10)
     {
-      (*(v9 + 16))(v9, v5, v6);
-      v10 = *(WeakRetained + 3);
-      *(WeakRetained + 3) = 0;
+      (*(v10 + 16))(v10, v5, v6);
+      v11 = *(v8 + 3);
+      *(v8 + 3) = 0;
     }
 
-    *(WeakRetained + 64) = 0;
+    *(v8 + 64) = 0;
     (*(*(a1 + 32) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bypassPreflightCache:(BOOL)cache
@@ -244,29 +243,28 @@ LABEL_6:
 {
   v14 = *MEMORY[0x277D85DE8];
   authenticationCopy = authentication;
-  if ([(AuthenticationInProgress *)self shouldEnqueueAuthentication:authenticationCopy])
+  v6 = [(AuthenticationInProgress *)self shouldEnqueueAuthentication:authenticationCopy];
+  if (v6)
   {
     enqueuedAuthentication = self->_enqueuedAuthentication;
     if (enqueuedAuthentication)
     {
-      v7 = [MEMORY[0x277D24060] errorWithCode:*MEMORY[0x277D23E90] subcode:*MEMORY[0x277D23EC0] debugDescription:@"Canceled by another authentication."];
-      [(AuthenticationInProgress *)enqueuedAuthentication cancelWithError:v7];
+      v8 = [MEMORY[0x277D24060] errorWithCode:*MEMORY[0x277D23E90] subcode:*MEMORY[0x277D23EC0] debugDescription:@"Canceled by another authentication."];
+      [(AuthenticationInProgress *)enqueuedAuthentication cancelWithError:v8];
     }
 
-    v8 = LA_LOG();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = LA_LOG(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412546;
       v11 = authenticationCopy;
       v12 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_238BBF000, v8, OS_LOG_TYPE_DEFAULT, "Enqueued %@ after %@", &v10, 0x16u);
+      _os_log_impl(&dword_238BBF000, v9, OS_LOG_TYPE_DEFAULT, "Enqueued %@ after %@", &v10, 0x16u);
     }
 
     objc_storeStrong(&self->_enqueuedAuthentication, authentication);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldEnqueueAuthentication:(id)authentication
@@ -297,24 +295,9 @@ LABEL_6:
   v6 = LACLightweightUIModeFromOptions();
   v7 = *MEMORY[0x277D23F18];
 
-  if (v6 == v7)
+  if (v6 == v7 || !-[AuthenticationInProgress isRunning](self, "isRunning") || ([evaluationCopy options], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", &unk_284B7A898), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "BOOLValue"), v9, v8, (v10 & 1) != 0) || (objc_msgSend(evaluationCopy, "options"), v11 = objc_claimAutoreleasedReturnValue(), v12 = LACLightweightUIModeFromOptions(), v11, v12 != v7))
   {
-    goto LABEL_10;
-  }
-
-  if (![(AuthenticationInProgress *)self isRunning])
-  {
-    goto LABEL_10;
-  }
-
-  options2 = [evaluationCopy options];
-  v9 = [options2 objectForKeyedSubscript:&unk_284B7A898];
-  bOOLValue = [v9 BOOLValue];
-
-  if ((bOOLValue & 1) != 0 || ([evaluationCopy options], v11 = objc_claimAutoreleasedReturnValue(), v12 = LACLightweightUIModeFromOptions(), v11, v12 != v7))
-  {
-LABEL_10:
-    v20 = 0;
+    v21 = 0;
   }
 
   else
@@ -325,25 +308,25 @@ LABEL_10:
     clientInfo2 = [evaluationCopy clientInfo];
     bundleId2 = [clientInfo2 bundleId];
 
-    if (bundleId == bundleId2 || ([bundleId isEqualToString:bundleId2] & 1) != 0)
+    if (bundleId == bundleId2 || (v17 = [bundleId isEqualToString:bundleId2], (v17 & 1) != 0))
     {
-      v17 = LA_LOG();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = LA_LOG(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         clientInfo3 = [evaluationCopy clientInfo];
         bundleId3 = [clientInfo3 bundleId];
         v27 = 138543362;
         v28 = bundleId3;
-        _os_log_impl(&dword_238BBF000, v17, OS_LOG_TYPE_DEFAULT, "Will enqueue authentication by '%{public}@'", &v27, 0xCu);
+        _os_log_impl(&dword_238BBF000, v18, OS_LOG_TYPE_DEFAULT, "Will enqueue authentication by '%{public}@'", &v27, 0xCu);
       }
 
-      v20 = 1;
+      v21 = 1;
     }
 
     else
     {
-      v17 = LA_LOG();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = LA_LOG(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         clientInfo4 = [evaluationCopy clientInfo];
         bundleId4 = [clientInfo4 bundleId];
@@ -353,15 +336,14 @@ LABEL_10:
         v28 = bundleId4;
         v29 = 2114;
         v30 = bundleId5;
-        _os_log_impl(&dword_238BBF000, v17, OS_LOG_TYPE_DEFAULT, "Will not enqueue '%{public}@', PA is '%{public}@'", &v27, 0x16u);
+        _os_log_impl(&dword_238BBF000, v18, OS_LOG_TYPE_DEFAULT, "Will not enqueue '%{public}@', PA is '%{public}@'", &v27, 0x16u);
       }
 
-      v20 = 0;
+      v21 = 0;
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v21;
 }
 
 - (id)shouldDequeueAndRunAfterAuthentication:(id)authentication result:(id)result error:(id)error
@@ -373,45 +355,43 @@ LABEL_10:
 
   if (enqueuedAuthentication == self)
   {
-    v15 = LA_LOG();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    v16 = LA_LOG(v11);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      if (v16)
+      if (v17)
       {
         *buf = 0;
-        _os_log_impl(&dword_238BBF000, v15, OS_LOG_TYPE_DEFAULT, "The enqueued authentication will start because the previous authentication has finished successfully.", buf, 2u);
+        _os_log_impl(&dword_238BBF000, v16, OS_LOG_TYPE_DEFAULT, "The enqueued authentication will start because the previous authentication has finished successfully.", buf, 2u);
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      if (v16)
+      if (v17)
       {
         *buf = 138543618;
         v20 = authenticationCopy;
         v21 = 2114;
         v22 = errorCopy;
-        _os_log_impl(&dword_238BBF000, v15, OS_LOG_TYPE_DEFAULT, "The enqueued authentication will fail with the same error as %{public}@ -> %{public}@", buf, 0x16u);
+        _os_log_impl(&dword_238BBF000, v16, OS_LOG_TYPE_DEFAULT, "The enqueued authentication will fail with the same error as %{public}@ -> %{public}@", buf, 0x16u);
       }
 
-      v14 = errorCopy;
+      v15 = errorCopy;
     }
   }
 
   else
   {
-    v11 = MEMORY[0x277D24060];
-    v12 = *MEMORY[0x277D23E88];
+    v12 = MEMORY[0x277D24060];
+    v13 = *MEMORY[0x277D23E88];
     authenticationCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Inconsistent authentication binding, %@ is not enqueued after %@", self, authenticationCopy];
-    v14 = [v11 errorWithCode:v12 debugDescription:authenticationCopy];
+    v15 = [v12 errorWithCode:v13 debugDescription:authenticationCopy];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v15;
 }
 
 - (LACClientInfo)clientInfo

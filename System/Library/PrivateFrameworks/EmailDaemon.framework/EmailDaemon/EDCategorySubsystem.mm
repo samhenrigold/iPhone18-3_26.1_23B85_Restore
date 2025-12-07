@@ -296,7 +296,7 @@ void __58__EDCategorySubsystem__recategorizeAllMessagesIfNecessary__block_invoke
 
 - (void)recategorizeAllMessagesIfModelVersionChangedFrom:(id)from to:(id)to
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   toCopy = to;
   v8 = [(EDCategorySubsystem *)self _majorAndMinorVersionFrom:fromCopy];
@@ -306,18 +306,16 @@ void __58__EDCategorySubsystem__recategorizeAllMessagesIfNecessary__block_invoke
     v10 = +[EDCategorySubsystem log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412546;
-      v14 = fromCopy;
-      v15 = 2112;
-      v16 = toCopy;
-      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Recategorizing all messages due to model version change from %@ to %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = fromCopy;
+      v14 = 2112;
+      v15 = toCopy;
+      _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Recategorizing all messages due to model version change from %@ to %@", &v12, 0x16u);
     }
 
     categoryPersistence = [(EDCategorySubsystem *)self categoryPersistence];
     [categoryPersistence incrementCategorizationVersion];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_majorAndMinorVersionFrom:(id)from
@@ -342,11 +340,10 @@ void __58__EDCategorySubsystem__recategorizeAllMessagesIfNecessary__block_invoke
 
 void __58__EDCategorySubsystem__recategorizeAllMessagesIfNecessary__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to get categorization version: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to get categorization version: %@", &v2, 0xCu);
 }
 
 @end

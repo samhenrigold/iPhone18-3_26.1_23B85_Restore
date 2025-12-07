@@ -166,7 +166,7 @@ void __82__EKAvailabilityCachedSpanRange_gatherFreshlyCachedSpansBetweenStartDat
 
 - (void)sanitizeAndInsertResults:(id)results inRange:(id)range
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   rangeCopy = range;
   if (!resultsCopy)
@@ -178,8 +178,8 @@ LABEL_10:
     endDate = [rangeCopy endDate];
     v8 = [(EKAvailabilitySpan *)v24 initWithStartDate:startDate endDate:endDate type:v23];
 
-    v28[0] = v8;
-    startDate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
+    v27[0] = v8;
+    startDate2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
     [(EKAvailabilityCachedSpanRange *)self insertSpans:startDate2];
     goto LABEL_11;
   }
@@ -223,46 +223,43 @@ LABEL_10:
   [(EKAvailabilityCachedSpanRange *)self insertSpans:v8];
 
 LABEL_11:
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (id)cachedSpansFromSpans:(id)spans
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = spansCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [EKAvailabilityCachedSpan alloc];
-        v12 = [(EKAvailabilityCachedSpan *)v11 initWithSpan:v10, v15];
+        v12 = [(EKAvailabilityCachedSpan *)v11 initWithSpan:v10, v14];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -281,76 +278,53 @@ LABEL_11:
 
 - (id)mergeSpansOfSameType:(id)type
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   typeCopy = type;
-  v29 = [MEMORY[0x1E695DF70] arrayWithArray:?];
+  v28 = [MEMORY[0x1E695DF70] arrayWithArray:?];
   v4 = 0;
   do
   {
-    v28 = v4;
+    v27 = v4;
     v5 = qword_1A81C3C38[v4];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v6 = typeCopy;
-    v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v32;
+      v10 = *v31;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * i);
+          v12 = *(*(&v30 + 1) + 8 * i);
           if (-[EKAvailabilityCachedSpanRange spanType:isSimilarToSpanType:](self, "spanType:isSimilarToSpanType:", v5, [v12 type]))
           {
-            if (!v9)
+            if (v9 && ([v9 endDate], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "startDate"), v29 = v9, v14 = v8, v15 = v10, v16 = v5, v17 = self, v18 = v6, v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v13, "isAfterDate:", v19), v19, v6 = v18, self = v17, v5 = v16, v10 = v15, v8 = v14, v9 = v29, v13, v20))
             {
-              goto LABEL_13;
-            }
-
-            endDate = [v9 endDate];
-            [v12 startDate];
-            v30 = v9;
-            v14 = v8;
-            v15 = v10;
-            v16 = v5;
-            selfCopy = self;
-            v19 = v18 = v6;
-            v20 = [endDate isAfterDate:v19];
-
-            v6 = v18;
-            self = selfCopy;
-            v5 = v16;
-            v10 = v15;
-            v8 = v14;
-            v9 = v30;
-
-            if (v20)
-            {
-              endDate2 = [v12 endDate];
-              [v30 setEndDate:endDate2];
+              endDate = [v12 endDate];
+              [v29 setEndDate:endDate];
 
               v22 = +[EKAvailabilityUtilities orderForType:](EKAvailabilityUtilities, "orderForType:", [v12 type]);
-              if (v22 > +[EKAvailabilityUtilities orderForType:](EKAvailabilityUtilities, "orderForType:", [v30 type]))
+              if (v22 > +[EKAvailabilityUtilities orderForType:](EKAvailabilityUtilities, "orderForType:", [v29 type]))
               {
-                [v30 setType:{objc_msgSend(v12, "type")}];
+                [v29 setType:{objc_msgSend(v12, "type")}];
               }
 
-              [v29 removeObject:v12];
+              [v28 removeObject:v12];
             }
 
             else
             {
-LABEL_13:
               v23 = v12;
 
               v9 = v23;
@@ -358,7 +332,7 @@ LABEL_13:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v8);
@@ -369,20 +343,18 @@ LABEL_13:
       v9 = 0;
     }
 
-    v4 = v28 + 1;
+    v4 = v27 + 1;
   }
 
-  while (v28 != 2);
-  v24 = [(EKAvailabilityCachedSpanRange *)self cachedSpansFromSpans:v29];
-
-  v25 = *MEMORY[0x1E69E9840];
+  while (v27 != 2);
+  v24 = [(EKAvailabilityCachedSpanRange *)self cachedSpansFromSpans:v28];
 
   return v24;
 }
 
 - (void)insertSpans:(id)spans
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v5 = EKAvailabilityHandle;
   if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
@@ -411,35 +383,35 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v64 = spansCopy;
-  v63 = [spansCopy sortedArrayUsingComparator:&__block_literal_global_31];
+  v63 = spansCopy;
+  v62 = [spansCopy sortedArrayUsingComparator:&__block_literal_global_31];
   v6 = [MEMORY[0x1E695DF70] arrayWithArray:?];
   v7 = objc_opt_new();
+  v71 = 0u;
   v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
   selfCopy = self;
   v8 = self->_cachedSpans;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v72 objects:v77 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v71 objects:v76 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v73;
+    v11 = *v72;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v73 != v11)
+        if (*v72 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        span = [*(*(&v72 + 1) + 8 * i) span];
+        span = [*(*(&v71 + 1) + 8 * i) span];
         [v7 addObject:span];
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v72 objects:v77 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v71 objects:v76 count:16];
     }
 
     while (v10);
@@ -448,7 +420,7 @@ LABEL_35:
   v14 = objc_alloc(MEMORY[0x1E6992F70]);
   firstObject = [v6 firstObject];
   startDate = [firstObject startDate];
-  v62 = v6;
+  v61 = v6;
   lastObject = [v6 lastObject];
   endDate = [lastObject endDate];
   v19 = [v14 initWithStartDate:startDate endDate:endDate];
@@ -460,49 +432,49 @@ LABEL_35:
   endDate2 = [lastObject2 endDate];
   v25 = [v20 initWithStartDate:startDate2 endDate:endDate2];
 
-  v61 = v25;
+  v60 = v25;
   if (!-[NSMutableArray count](selfCopy->_cachedSpans, "count") || [v19 containsRange:v25])
   {
-    v26 = v62;
-    v27 = [(EKAvailabilityCachedSpanRange *)selfCopy mergeSpansOfSameType:v62];
+    v26 = v61;
+    v27 = [(EKAvailabilityCachedSpanRange *)selfCopy mergeSpansOfSameType:v61];
     cachedSpans = selfCopy->_cachedSpans;
     selfCopy->_cachedSpans = v27;
     goto LABEL_33;
   }
 
-  v67 = objc_opt_new();
   v66 = objc_opt_new();
+  v65 = objc_opt_new();
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
   v29 = v7;
-  v30 = [v29 countByEnumeratingWithState:&v68 objects:v76 count:16];
+  v30 = [v29 countByEnumeratingWithState:&v67 objects:v75 count:16];
   if (!v30)
   {
     goto LABEL_32;
   }
 
   v31 = v30;
-  v32 = *v69;
+  v32 = *v68;
   do
   {
     v33 = 0;
     do
     {
-      if (*v69 != v32)
+      if (*v68 != v32)
       {
         objc_enumerationMutation(v29);
       }
 
-      v34 = *(*(&v68 + 1) + 8 * v33);
+      v34 = *(*(&v67 + 1) + 8 * v33);
       endDate3 = [v34 endDate];
       startDate3 = [v19 startDate];
       v37 = [endDate3 CalIsBeforeOrSameAsDate:startDate3];
 
       if (v37)
       {
-        v38 = v67;
+        v38 = v66;
 LABEL_23:
         [(NSMutableArray *)v38 addObject:v34];
         goto LABEL_24;
@@ -514,7 +486,7 @@ LABEL_23:
 
       if (v41)
       {
-        v38 = v66;
+        v38 = v65;
         goto LABEL_23;
       }
 
@@ -531,7 +503,7 @@ LABEL_23:
           startDate8 = [v19 startDate];
           v48 = -[EKAvailabilitySpan initWithStartDate:endDate:type:](v45, "initWithStartDate:endDate:type:", startDate7, startDate8, [v34 type]);
 
-          [(NSMutableArray *)v67 addObject:v48];
+          [(NSMutableArray *)v66 addObject:v48];
         }
 
         endDate5 = [v19 endDate];
@@ -545,7 +517,7 @@ LABEL_23:
           endDate8 = [v34 endDate];
           v55 = -[EKAvailabilitySpan initWithStartDate:endDate:type:](v52, "initWithStartDate:endDate:type:", endDate7, endDate8, [v34 type]);
 
-          [(NSMutableArray *)v66 addObject:v55];
+          [(NSMutableArray *)v65 addObject:v55];
         }
       }
 
@@ -554,26 +526,25 @@ LABEL_24:
     }
 
     while (v31 != v33);
-    v56 = [v29 countByEnumeratingWithState:&v68 objects:v76 count:16];
+    v56 = [v29 countByEnumeratingWithState:&v67 objects:v75 count:16];
     v31 = v56;
   }
 
   while (v56);
 LABEL_32:
 
-  cachedSpans = v67;
-  v26 = v62;
-  [(NSMutableArray *)v67 addObjectsFromArray:v62];
-  [(NSMutableArray *)v67 addObjectsFromArray:v66];
-  v57 = [(EKAvailabilityCachedSpanRange *)selfCopy mergeSpansOfSameType:v67];
+  cachedSpans = v66;
+  v26 = v61;
+  [(NSMutableArray *)v66 addObjectsFromArray:v61];
+  [(NSMutableArray *)v66 addObjectsFromArray:v65];
+  v57 = [(EKAvailabilityCachedSpanRange *)selfCopy mergeSpansOfSameType:v66];
   v58 = selfCopy->_cachedSpans;
   selfCopy->_cachedSpans = v57;
 
 LABEL_33:
-  spansCopy = v64;
+  spansCopy = v63;
 
 LABEL_37:
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __45__EKAvailabilityCachedSpanRange_insertSpans___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -649,7 +620,7 @@ void __38__EKAvailabilityCachedSpanRange_spans__block_invoke(uint64_t a1, void *
 
 + (id)_clampDateRangeForSpans:(id)spans startDate:(id)date endDate:(id)endDate
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   dateCopy = date;
   endDateCopy = endDate;
@@ -696,18 +667,18 @@ void __38__EKAvailabilityCachedSpanRange_spans__block_invoke(uint64_t a1, void *
       v19 = EKAvailabilityHandle;
       if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
       {
-        v40 = v19;
+        v39 = v19;
         startDate2 = [firstObject startDate];
         endDate2 = [lastObject endDate];
         *buf = 138413058;
-        v45 = startDate2;
-        v46 = 2112;
-        v47 = endDate2;
-        v48 = 2112;
-        v49 = dateCopy;
-        v50 = 2112;
-        v51 = endDateCopy;
-        _os_log_debug_impl(&dword_1A805E000, v40, OS_LOG_TYPE_DEBUG, "Clamping date range for spans.  Original start date: [%@].  Original end date: [%@].  New start date: [%@].  New end date: [%@].", buf, 0x2Au);
+        v44 = startDate2;
+        v45 = 2112;
+        v46 = endDate2;
+        v47 = 2112;
+        v48 = dateCopy;
+        v49 = 2112;
+        v50 = endDateCopy;
+        _os_log_debug_impl(&dword_1A805E000, v39, OS_LOG_TYPE_DEBUG, "Clamping date range for spans.  Original start date: [%@].  Original end date: [%@].  New start date: [%@].  New end date: [%@].", buf, 0x2Au);
       }
 
       v20 = v13 - 1;
@@ -743,8 +714,8 @@ void __38__EKAvailabilityCachedSpanRange_spans__block_invoke(uint64_t a1, void *
           [EKAvailabilityCachedSpanRange _clampDateRangeForSpans:v31 startDate:type endDate:?];
         }
 
-        v43 = v30;
-        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
+        v42 = v30;
+        v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
       }
 
       else
@@ -770,54 +741,25 @@ LABEL_24:
     }
   }
 
-  v38 = *MEMORY[0x1E69E9840];
-
   return v12;
-}
-
-- (void)gatherFreshlyCachedSpansBetweenStartDate:endDate:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Gathering freshly cached spans between [%@] and [%@]");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertSpans:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Inserting spans [%@].", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_clampDateRangeForSpans:startDate:endDate:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Clamping date range for spans between [%@] and [%@]");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)_clampDateRangeForSpans:startDate:endDate:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_7();
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, v0, v1, "Clamped the spans.  firstTruncatedSpan: [%@].  lastTruncatedSpan: [%@]");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Inserting spans [%@].", &v2, 0xCu);
 }
 
 + (void)_clampDateRangeForSpans:(void *)a1 startDate:(unint64_t)a2 endDate:.cold.4(void *a1, unint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = EKAvailabilitySpanTypeAsString(a2);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_debug_impl(&dword_1A805E000, v3, OS_LOG_TYPE_DEBUG, "There is only one span.  Created a new span and set its type to: [%@]", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_debug_impl(&dword_1A805E000, v3, OS_LOG_TYPE_DEBUG, "There is only one span.  Created a new span and set its type to: [%@]", &v5, 0xCu);
 }
 
 @end

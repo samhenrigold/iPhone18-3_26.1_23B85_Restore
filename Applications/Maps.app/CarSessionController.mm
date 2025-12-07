@@ -875,8 +875,8 @@ LABEL_25:
   {
     if (v18)
     {
-      configuration = [v15 configuration];
-      automaticSharingContacts = [configuration automaticSharingContacts];
+      v19 = objc_msgSend_configuration(v15);
+      automaticSharingContacts = [v19 automaticSharingContacts];
       v21 = [automaticSharingContacts count];
 
       if (v21)
@@ -888,10 +888,10 @@ LABEL_25:
           _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Adding automatic sharing contacts from planning session to navigation session", &v27, 2u);
         }
 
-        configuration2 = [v15 configuration];
-        automaticSharingContacts2 = [configuration2 automaticSharingContacts];
-        configuration3 = [v18 configuration];
-        sharedTripPrefetchContext = [configuration3 sharedTripPrefetchContext];
+        v23 = objc_msgSend_configuration(v15);
+        automaticSharingContacts2 = [v23 automaticSharingContacts];
+        v25 = objc_msgSend_configuration(v18);
+        sharedTripPrefetchContext = [v25 sharedTripPrefetchContext];
         [sharedTripPrefetchContext setAutomaticSharingContacts:automaticSharingContacts2];
       }
     }

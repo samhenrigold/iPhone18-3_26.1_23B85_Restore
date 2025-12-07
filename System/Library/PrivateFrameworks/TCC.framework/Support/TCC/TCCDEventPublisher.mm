@@ -71,7 +71,7 @@
 - (void)_handleError:(int)error
 {
   v3 = *&error;
-  v4 = tcc_events_log();
+  v4 = tcc_events_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     sub_10005896C(v3, v4);
@@ -85,7 +85,7 @@
   if (descriptorCopy)
   {
     v10 = xpc_copy_description(descriptorCopy);
-    v11 = tcc_events_log();
+    v11 = tcc_events_log(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v13 = "Add";
@@ -113,7 +113,7 @@
 
   else
   {
-    v12 = tcc_events_log();
+    v12 = tcc_events_log(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       sub_1000589F8(action, token, v12);
@@ -177,8 +177,7 @@
 {
   eventCopy = event;
   dispatch_assert_queue_V2(self->_queue);
-  [(NSMutableArray *)self->_pendingEvents addObject:eventCopy];
-  v5 = tcc_events_log();
+  v5 = tcc_events_log([(NSMutableArray *)self->_pendingEvents addObject:eventCopy]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100058B34(eventCopy, v5);
@@ -186,8 +185,7 @@
 
   if ([(NSMutableArray *)self->_pendingEvents count]>= 0x21)
   {
-    [(NSMutableArray *)self->_pendingEvents removeObjectAtIndex:0];
-    v6 = tcc_events_log();
+    v6 = tcc_events_log([(NSMutableArray *)self->_pendingEvents removeObjectAtIndex:0]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_100058BAC(self, v6);
@@ -242,16 +240,16 @@
 
   if (v8)
   {
-    v9 = tcc_events_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = tcc_events_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543874;
-      v11 = eventCopy;
-      v12 = 2114;
-      v13 = subscriberCopy;
-      v14 = 2082;
-      v15 = xpc_strerror();
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Sending %{public}@ to %{public}@ failed with error: %{public}s", &v10, 0x20u);
+      v11 = 138543874;
+      v12 = eventCopy;
+      v13 = 2114;
+      v14 = subscriberCopy;
+      v15 = 2082;
+      v16 = xpc_strerror();
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Sending %{public}@ to %{public}@ failed with error: %{public}s", &v11, 0x20u);
     }
   }
 }

@@ -36,8 +36,7 @@
   v8[3] = &unk_1E7A2ADE8;
   v5 = empty;
   v9 = v5;
-  [(NSMutableDictionary *)queryEntries enumerateKeysAndObjectsUsingBlock:v8];
-  v6 = SRLogCategoryAssets();
+  v6 = SRLogCategoryAssets([(NSMutableDictionary *)queryEntries enumerateKeysAndObjectsUsingBlock:v8]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SRAssetBundleQuery xpcObject];
@@ -122,16 +121,7 @@ void __31__SRAssetBundleQuery_xpcObject__block_invoke_3(uint64_t a1, uint64_t a2
   if ([v13 isResult])
   {
     v6 = [v13 bundleVersion];
-    if (!v6)
-    {
-      goto LABEL_5;
-    }
-
-    v7 = v6;
-    v8 = [v13 bundleVersion];
-    v9 = [v8 version];
-
-    if (v9)
+    if (v6 && (v7 = v6, [v13 bundleVersion], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "version"), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
     {
       v10 = [v13 bundleVersion];
       v11 = [v10 version];
@@ -143,7 +133,6 @@ void __31__SRAssetBundleQuery_xpcObject__block_invoke_3(uint64_t a1, uint64_t a2
 
     else
     {
-LABEL_5:
       xpc_dictionary_set_string(empty, "b", "n");
     }
   }
@@ -155,7 +144,7 @@ LABEL_5:
 {
   objectCopy = object;
   v7 = objectCopy;
-  if (objectCopy && MEMORY[0x1B2705140](objectCopy) == MEMORY[0x1E69E9E50])
+  if (objectCopy && (objectCopy = MEMORY[0x1B2705140](objectCopy), objectCopy == MEMORY[0x1E69E9E50]))
   {
     v17.receiver = self;
     v17.super_class = SRAssetBundleQuery;
@@ -181,7 +170,7 @@ LABEL_5:
 
   else
   {
-    v8 = SRLogCategoryAssets();
+    v8 = SRLogCategoryAssets(objectCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [SRAssetBundleQuery initWithXPCObject:v8 isResult:?];
@@ -197,7 +186,7 @@ uint64_t __49__SRAssetBundleQuery_initWithXPCObject_isResult___block_invoke(uint
 {
   v4 = a3;
   v5 = v4;
-  if (v4 && MEMORY[0x1B2705140](v4) == MEMORY[0x1E69E9E80])
+  if (v4 && (v4 = MEMORY[0x1B2705140](v4), v4 == MEMORY[0x1E69E9E80]))
   {
     int64 = xpc_dictionary_get_int64(v5, "a");
     string = xpc_dictionary_get_string(v5, "l");
@@ -267,7 +256,7 @@ uint64_t __49__SRAssetBundleQuery_initWithXPCObject_isResult___block_invoke(uint
 
   else
   {
-    v6 = SRLogCategoryAssets();
+    v6 = SRLogCategoryAssets(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __49__SRAssetBundleQuery_initWithXPCObject_isResult___block_invoke_cold_1(v6);
@@ -286,7 +275,7 @@ uint64_t __49__SRAssetBundleQuery_initWithXPCObject_isResult___block_invoke(uint
   typesCopy = types;
   if (assetTypeID(typeCopy) == -1)
   {
-    v18 = SRLogCategoryAssets();
+    v18 = SRLogCategoryAssets(-1);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [SRAssetBundleQuery addQueryEntriesForLanguage:assetType:deliveryTypes:];
@@ -331,7 +320,7 @@ uint64_t __49__SRAssetBundleQuery_initWithXPCObject_isResult___block_invoke(uint
 void __73__SRAssetBundleQuery_addQueryEntriesForLanguage_assetType_deliveryTypes___block_invoke(void *a1, void *a2)
 {
   v3 = [a2 unsignedIntegerValue];
-  v4 = SRLogCategoryAssets();
+  v4 = SRLogCategoryAssets(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __73__SRAssetBundleQuery_addQueryEntriesForLanguage_assetType_deliveryTypes___block_invoke_cold_1(a1, v3);
@@ -369,32 +358,25 @@ void __56__SRAssetBundleQuery_enumerateEntriesForLanguage_block___block_invoke(u
 
 - (void)xpcObject
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_1AE58E000, v0, OS_LOG_TYPE_DEBUG, "%zd entries in query", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE58E000, v0, OS_LOG_TYPE_DEBUG, "%zd entries in query", v1, 0xCu);
 }
 
 - (void)addQueryEntriesForLanguage:assetType:deliveryTypes:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1AE58E000, v1, OS_LOG_TYPE_ERROR, "Invalid assetType %@ for %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1AE58E000, v1, OS_LOG_TYPE_ERROR, "Invalid assetType %@ for %@", v2, 0x16u);
 }
 
 void __73__SRAssetBundleQuery_addQueryEntriesForLanguage_assetType_deliveryTypes___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = deliveryTypeString(a2);
+  v2 = deliveryTypeString(a2);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE58E000, v5, v6, "Add query entry (%@, %@, %@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1AE58E000, v3, v4, "Add query entry (%@, %@, %@)", v5, v6, v7, v8);
 }
 
 @end

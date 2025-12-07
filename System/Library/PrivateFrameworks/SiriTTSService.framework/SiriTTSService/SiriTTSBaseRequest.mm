@@ -30,43 +30,41 @@
 - (NSURL)outputPath
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB761F00, &qword_1B1C36480);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v9 - v4;
+  v4 = &v8 - v3;
   sub_1B1B0FC30();
-  v6 = sub_1B1C2C1C8();
-  v7 = 0;
-  if (__swift_getEnumTagSinglePayload(v5, 1, v6) != 1)
+  v5 = sub_1B1C2C1C8();
+  v6 = 0;
+  if (__swift_getEnumTagSinglePayload(v4, 1, v5) != 1)
   {
-    v7 = sub_1B1C2C118();
-    (*(*(v6 - 8) + 8))(v5, v6);
+    v6 = sub_1B1C2C118();
+    (*(*(v5 - 8) + 8))(v4, v5);
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)setOutputPath:(id)path
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB761F00, &qword_1B1C36480);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (path)
   {
     sub_1B1C2C168();
-    v9 = sub_1B1C2C1C8();
-    v10 = 0;
+    v8 = sub_1B1C2C1C8();
+    v9 = 0;
   }
 
   else
   {
-    v9 = sub_1B1C2C1C8();
-    v10 = 1;
+    v8 = sub_1B1C2C1C8();
+    v9 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v8, v10, 1, v9);
+  __swift_storeEnumTagSinglePayload(v7, v9, 1, v8);
   selfCopy = self;
-  sub_1B1B0FD20(v8);
+  sub_1B1B0FD20(v7);
 }
 
 - (id)didReportInstrument

@@ -10,7 +10,9 @@
 - (void)_textFieldDidEnd;
 - (void)confirm:(id)confirm;
 - (void)userDidTapCancel;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation SSConfirmationCodeViewController
@@ -175,6 +177,25 @@
   [view2 addGestureRecognizer:v23];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = SSConfirmationCodeViewController;
+  [(OBBaseWelcomeController *)&v3 viewDidAppear:appear];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = SSConfirmationCodeViewController;
+  [(OBBaseWelcomeController *)&v6 viewWillDisappear:disappear];
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  [WeakRetained receivedResponse];
+
+  v5 = objc_loadWeakRetained(&self->_delegate);
+  [v5 startTimer:1];
+}
+
 - (void)userDidTapCancel
 {
   if (+[TSUtilities inBuddy])
@@ -237,24 +258,24 @@ void __52__SSConfirmationCodeViewController_userDidTapCancel__block_invoke(uint6
 
 - (void)confirm:(id)confirm
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   text = [(UITextField *)self->_codeTextField text];
   confirmationCode = self->_confirmationCode;
   self->_confirmationCode = text;
 
   v6 = [(NSString *)self->_confirmationCode length];
-  delegate = _TSLogDomain();
+  delegate = _TSLogDomain(v6);
   v8 = os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
     if (v8)
     {
       v9 = self->_confirmationCode;
-      v16 = 138412546;
-      v17 = v9;
-      v18 = 2080;
-      v19 = "[SSConfirmationCodeViewController confirm:]";
-      _os_log_impl(&dword_262AA8000, delegate, OS_LOG_TYPE_DEFAULT, "confirmation code:%@ @%s", &v16, 0x16u);
+      v15 = 138412546;
+      v16 = v9;
+      v17 = 2080;
+      v18 = "[SSConfirmationCodeViewController confirm:]";
+      _os_log_impl(&dword_262AA8000, delegate, OS_LOG_TYPE_DEFAULT, "confirmation code:%@ @%s", &v15, 0x16u);
     }
 
     [(UITextField *)self->_codeTextField resignFirstResponder];
@@ -285,12 +306,10 @@ void __52__SSConfirmationCodeViewController_userDidTapCancel__block_invoke(uint6
 
   else if (v8)
   {
-    v16 = 136315138;
-    v17 = "[SSConfirmationCodeViewController confirm:]";
-    _os_log_impl(&dword_262AA8000, delegate, OS_LOG_TYPE_DEFAULT, "No Confirmation Code @%s", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SSConfirmationCodeViewController confirm:]";
+    _os_log_impl(&dword_262AA8000, delegate, OS_LOG_TYPE_DEFAULT, "No Confirmation Code @%s", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)textField:(id)field shouldChangeCharactersInRange:(_NSRange)range replacementString:(id)string

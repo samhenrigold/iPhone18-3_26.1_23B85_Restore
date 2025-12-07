@@ -26,10 +26,10 @@ uint64_t __31__RPStoreManager_sharedManager__block_invoke()
 
 - (void)loadItemDetailsForBundleIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   handlerCopy = handler;
-  v42 = 0;
+  v41 = 0;
   v7 = objc_alloc_init(RPStoreInfo);
   v8 = MEMORY[0x277CEE3F8];
   bagSubProfile = [MEMORY[0x277CEE510] bagSubProfile];
@@ -44,13 +44,13 @@ uint64_t __31__RPStoreManager_sharedManager__block_invoke()
 
   v16 = objc_alloc(MEMORY[0x277CEE510]);
   v17 = [v16 initWithBag:v11 caller:@"com.apple.replayd" keyProfile:*MEMORY[0x277CEE1F0]];
-  v43[0] = identifierCopy;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+  v42[0] = identifierCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
   v19 = [v17 performLookupWithBundleIdentifiers:v18 itemIdentifiers:0];
 
-  v20 = [v19 resultWithError:&v42];
+  v20 = [v19 resultWithError:&v41];
   v21 = v20;
-  if (v42)
+  if (v41)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -60,7 +60,7 @@ uint64_t __31__RPStoreManager_sharedManager__block_invoke()
 
   else
   {
-    v38 = identifierCopy;
+    v37 = identifierCopy;
     allItems = [v20 allItems];
     firstObject = [allItems firstObject];
 
@@ -84,7 +84,7 @@ uint64_t __31__RPStoreManager_sharedManager__block_invoke()
 
     else
     {
-      [MEMORY[0x277CCA8D8] _rpLocalizedAppNameFromBundleID:v38];
+      [MEMORY[0x277CCA8D8] _rpLocalizedAppNameFromBundleID:v37];
     }
     v27 = ;
     [(RPStoreInfo *)v7 setAppName:v27];
@@ -116,30 +116,27 @@ uint64_t __31__RPStoreManager_sharedManager__block_invoke()
       [RPStoreManager loadItemDetailsForBundleIdentifier:completionHandler:];
     }
 
-    identifierCopy = v38;
+    identifierCopy = v37;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __71__RPStoreManager_loadItemDetailsForBundleIdentifier_completionHandler___block_invoke;
   block[3] = &unk_278B61CF8;
-  v40 = v7;
-  v41 = handlerCopy;
+  v39 = v7;
+  v40 = handlerCopy;
   v35 = v7;
   v36 = handlerCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadItemDetailsForBundleIdentifier:(uint64_t *)a1 completionHandler:.cold.1(uint64_t *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = *a1;
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "RPStoreManager::performLookupWithBundleIdentifiers could not complete lookup with error:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "RPStoreManager::performLookupWithBundleIdentifiers could not complete lookup with error:%@", &v2, 0xCu);
 }
 
 @end

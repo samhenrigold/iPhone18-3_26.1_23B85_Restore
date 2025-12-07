@@ -12,7 +12,7 @@
 {
   if ((self & 0x8000000000000000) == 0)
   {
-    return MEMORY[0x1EEE6FDB0]();
+    return MEMORY[0x1EEE6FDB0](self);
   }
 
   return self;
@@ -22,7 +22,7 @@
 {
   if ((self & 0x8000000000000000) == 0)
   {
-    MEMORY[0x1EEE6FDA8]();
+    MEMORY[0x1EEE6FDA8](self);
   }
 }
 

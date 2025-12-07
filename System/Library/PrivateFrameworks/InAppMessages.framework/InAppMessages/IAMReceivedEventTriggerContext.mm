@@ -27,30 +27,13 @@
 - (BOOL)satisfiesPresentationTrigger:(id)trigger
 {
   triggerCopy = trigger;
-  if ([triggerCopy hasKind] && objc_msgSend(triggerCopy, "kind"))
+  if ([triggerCopy hasKind] && objc_msgSend(triggerCopy, "kind") || (objc_msgSend(triggerCopy, "bundleIdentifier"), (v5 = objc_claimAutoreleasedReturnValue()) != 0) && (v6 = v5, objc_msgSend(triggerCopy, "bundleIdentifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", self->_bundleIdentifier), v7, v6, !v8))
   {
-    goto LABEL_6;
-  }
-
-  bundleIdentifier = [triggerCopy bundleIdentifier];
-  if (!bundleIdentifier)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = bundleIdentifier;
-  bundleIdentifier2 = [triggerCopy bundleIdentifier];
-  v8 = [bundleIdentifier2 isEqualToString:self->_bundleIdentifier];
-
-  if (!v8)
-  {
-LABEL_6:
     v11 = 0;
   }
 
   else
   {
-LABEL_5:
     event = self->_event;
     triggerName = [triggerCopy triggerName];
     v11 = [(IAMEventProtocol *)event matchesWithKey:triggerName];

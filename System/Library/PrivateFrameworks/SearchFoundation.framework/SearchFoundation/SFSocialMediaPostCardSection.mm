@@ -130,8 +130,9 @@
   *&v138[24] = v8;
   if ((punchoutPickerTitle != 0) == (punchoutPickerTitle2 == 0))
   {
+    *&v138[16] = 0;
     memset(v136, 0, sizeof(v136));
-    *&v138[8] = 0uLL;
+    *&v138[8] = 0;
     v10 = 0;
     v11 = 0;
     v12 = 0;
@@ -1641,11 +1642,11 @@ LABEL_95:
 
 - (SFSocialMediaPostCardSection)initWithProtobuf:(id)protobuf
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v56.receiver = self;
-  v56.super_class = SFSocialMediaPostCardSection;
-  v5 = [(SFCardSection *)&v56 init];
+  v55.receiver = self;
+  v55.super_class = SFSocialMediaPostCardSection;
+  v5 = [(SFCardSection *)&v55 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -1659,33 +1660,33 @@ LABEL_95:
       v7 = 0;
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v51 objects:v56 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v53;
+      v11 = *v52;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v53 != v11)
+          if (*v52 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v52 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v51 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v51 objects:v56 count:16];
       }
 
       while (v10);
@@ -1832,7 +1833,6 @@ LABEL_95:
     v49 = v5;
   }
 
-  v50 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

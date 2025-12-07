@@ -19,6 +19,7 @@
 - (void)handleTaskCompletion:(id)completion;
 - (void)handleTaskFailure:(unsigned int)failure;
 - (void)parseReceivedData;
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary;
 - (void)start;
 - (void)startProbeTaskWithURL:(id)l;
 @end
@@ -257,6 +258,19 @@ LABEL_7:
 LABEL_9:
 
   return v8;
+}
+
+- (void)sendResponseCode:(unsigned int)code dictionary:(id)dictionary
+{
+  v4 = *&code;
+  dictionaryCopy = dictionary;
+  responseHandler = [(CNCaptiveProber *)self responseHandler];
+
+  if (responseHandler)
+  {
+    responseHandler2 = [(CNCaptiveProber *)self responseHandler];
+    (responseHandler2)[2](responseHandler2, v4, dictionaryCopy);
+  }
 }
 
 - (void)_handleAuthenticationChallenge:(id)challenge task:(id)task completionHandler:(id)handler

@@ -15,11 +15,11 @@
 
 - (HDSPNotificationListener)initWithEnvironment:(id)environment
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v18.receiver = self;
-  v18.super_class = HDSPNotificationListener;
-  v5 = [(HDSPNotificationListener *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = HDSPNotificationListener;
+  v5 = [(HDSPNotificationListener *)&v17 init];
   if (v5)
   {
     v6 = HKSPLogForCategory();
@@ -27,9 +27,9 @@
     {
       v7 = objc_opt_class();
       *buf = 138543618;
-      v20 = v7;
-      v21 = 2048;
-      v22 = v5;
+      v19 = v7;
+      v20 = 2048;
+      v21 = v5;
       v8 = v7;
       _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@.%p] initializing...", buf, 0x16u);
     }
@@ -49,7 +49,6 @@
     v15 = v5;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -156,20 +155,19 @@ void __72__HDSPNotificationListener_unregisterForLaunchNotificationWithName_key_
 
 - (void)startListening
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startListening", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] startListening", &v5, 0xCu);
   }
 
   [(HDSPNotificationListener *)self _registerForStream:@"com.apple.distnoted.matching"];
   [(HDSPNotificationListener *)self _registerForStream:@"com.apple.notifyd.matching"];
   [(HDSPNotificationListener *)self _registerForStream:@"com.apple.alarm"];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForStream:(id)stream
@@ -186,35 +184,32 @@ void __72__HDSPNotificationListener_unregisterForLaunchNotificationWithName_key_
 
 void __47__HDSPNotificationListener__registerForStream___block_invoke(uint64_t a1, xpc_object_t xdict)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithCString:xpc_dictionary_get_string(xdict encoding:{*MEMORY[0x277D86430]), 1}];
   v4 = HKSPLogForCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
     *buf = 138543618;
-    v15 = objc_opt_class();
-    v16 = 2114;
-    v17 = v3;
-    v6 = v15;
+    v13 = objc_opt_class();
+    v14 = 2114;
+    v15 = v3;
+    v5 = v13;
     _os_log_impl(&dword_269B11000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] received notification %{public}@, taking assertion", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 16));
-  v8 = [WeakRetained assertionManager];
-  [v8 takeAssertionWithIdentifier:v3 type:2];
+  v7 = [WeakRetained assertionManager];
+  [v7 takeAssertionWithIdentifier:v3 type:2];
 
-  v9 = *(a1 + 32);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __47__HDSPNotificationListener__registerForStream___block_invoke_306;
-  v12[3] = &unk_279C7B2D0;
-  v12[4] = v9;
-  v13 = v3;
-  v10 = v3;
-  [v9 _handleNotificationWithName:v10 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *(a1 + 32);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __47__HDSPNotificationListener__registerForStream___block_invoke_306;
+  v10[3] = &unk_279C7B2D0;
+  v10[4] = v8;
+  v11 = v3;
+  v9 = v3;
+  [v8 _handleNotificationWithName:v9 completion:v10];
 }
 
 void __47__HDSPNotificationListener__registerForStream___block_invoke_306(uint64_t a1)

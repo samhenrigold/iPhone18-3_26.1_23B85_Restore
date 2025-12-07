@@ -142,23 +142,23 @@ uint64_t getFloat64(const __CFDictionary *a1, const __CFString *a2, double *a3)
 
 uint64_t dictForType(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  TuningPListMgr::TuningPListMgr(v21, "/Library/Audio/Tunings");
-  v19 = PlatformUtilities::CopyHardwareModelShortName(v4);
-  v20 = 1;
-  v17 = CFStringCreateWithCString(0, "ButtonHaptics", 0x600u);
-  v18 = 1;
-  v15 = CFStringCreateWithCString(0, "buttonhapticsconfig", 0x600u);
-  v16 = 1;
-  *buf = &v19;
-  v23 = &v17;
-  v24 = &v15;
-  TuningInSubdirs = TuningPListMgr::loadTuningInSubdirs_(v21, buf, 3u, 2);
-  CACFString::~CACFString(&v15);
-  CACFString::~CACFString(&v17);
+  v24 = *MEMORY[0x277D85DE8];
+  TuningPListMgr::TuningPListMgr(v20, "/Library/Audio/Tunings");
+  v18 = PlatformUtilities::CopyHardwareModelShortName(v4);
+  v19 = 1;
+  v16 = CFStringCreateWithCString(0, "ButtonHaptics", 0x600u);
+  v17 = 1;
+  v14 = CFStringCreateWithCString(0, "buttonhapticsconfig", 0x600u);
+  v15 = 1;
+  *buf = &v18;
+  v22 = &v16;
+  v23 = &v14;
+  TuningInSubdirs = TuningPListMgr::loadTuningInSubdirs_(v20, buf, 3u, 2u);
+  CACFString::~CACFString(&v14);
+  CACFString::~CACFString(&v16);
   if (!TuningInSubdirs)
   {
-    AUPListByName = TuningPListMgr::getAUPListByName(v21, "buttonhapticsconfig");
+    AUPListByName = TuningPListMgr::getAUPListByName(v20, "buttonhapticsconfig");
     if (AUPListByName)
     {
       Dictionary = getDictionary(AUPListByName, @"States");
@@ -244,18 +244,17 @@ LABEL_18:
   }
 
 LABEL_19:
-  CACFString::~CACFString(&v19);
-  TuningPListMgr::~TuningPListMgr(v21);
-  v13 = *MEMORY[0x277D85DE8];
+  CACFString::~CACFString(&v18);
+  TuningPListMgr::~TuningPListMgr(v20);
   return TuningInSubdirs;
 }
 
-void sub_2510D4318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2510D4318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v12 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   CACFString::~CACFString(va);
   TuningPListMgr::~TuningPListMgr(va1);
   _Unwind_Resume(a1);
@@ -263,13 +262,13 @@ void sub_2510D4318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MatchingNotificationHandler(void *a1, io_iterator_t iterator)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = IOIteratorNext(iterator);
   if (v2)
   {
     v3 = v2;
-    memset(v17, 0, sizeof(v17));
-    MEMORY[0x25306A950](v2, v17);
+    memset(v16, 0, sizeof(v16));
+    MEMORY[0x25306A950](v2, v16);
     v4 = MEMORY[0x277D85F48];
     v5 = IOServiceOpen(v3, *MEMORY[0x277D85F48], 0, &gButtonServiceConnection);
     if (v5)
@@ -278,9 +277,9 @@ void MatchingNotificationHandler(void *a1, io_iterator_t iterator)
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v14 = "void MatchingNotificationHandler(void *, io_iterator_t)";
-        v15 = 1024;
-        v16 = v6;
+        v13 = "void MatchingNotificationHandler(void *, io_iterator_t)";
+        v14 = 1024;
+        v15 = v6;
         _os_log_impl(&dword_2510D3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s Unable to open user client err %d", buf, 0x12u);
       }
     }
@@ -297,9 +296,9 @@ void MatchingNotificationHandler(void *a1, io_iterator_t iterator)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v14 = "void MatchingNotificationHandler(void *, io_iterator_t)";
-          v15 = 1024;
-          v16 = v8;
+          v13 = "void MatchingNotificationHandler(void *, io_iterator_t)";
+          v14 = 1024;
+          v15 = v8;
           _os_log_impl(&dword_2510D3000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s failed to send GetNumberOfSupportedAssets err %d", buf, 0x12u);
         }
       }
@@ -314,8 +313,6 @@ void MatchingNotificationHandler(void *a1, io_iterator_t iterator)
       dispatch_async_f(v9, 0, serviceCameUp);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void serviceCameUp(void *a1)
@@ -334,38 +331,38 @@ void applesauce::CF::DictionaryRef::~DictionaryRef(const void **this)
   }
 }
 
-void sub_2510D52C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2510D52C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   CFDictionaryReleaser::~CFDictionaryReleaser(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2510D55F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2510D55F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CFDictionaryReleaser::~CFDictionaryReleaser(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2510D567C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2510D567C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CFDictionaryReleaser::~CFDictionaryReleaser(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2510D5708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2510D5708(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CFDictionaryReleaser::~CFDictionaryReleaser(va);
   _Unwind_Resume(a1);
 }
 
-void sub_2510D5794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2510D5794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CFDictionaryReleaser::~CFDictionaryReleaser(va);
   _Unwind_Resume(a1);
 }
@@ -582,20 +579,17 @@ void sub_2510D5B5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<void const*>::reserve(void *result, unint64_t a2)
+void std::vector<void const*>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<void const*>>(a1, a2);
     }
 
     std::vector<void const*>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__throw_length_error[abi:ne200100](const char *a1)
@@ -746,10 +740,11 @@ void CFDictionaryReleaser::~CFDictionaryReleaser(const void **this)
   }
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Cu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x2Cu);
 }
 
 uint64_t CACFString::operator=(uint64_t a1, uint64_t a2)
@@ -803,7 +798,7 @@ void TuningPListMgr::~TuningPListMgr(TuningPListMgr *this)
   CACFString::~CACFString(this);
 }
 
-uint64_t TuningPListMgr::loadTuningInSubdirs_(uint64_t a1, const __CFString ***a2, unsigned int a3, int a4)
+uint64_t TuningPListMgr::loadTuningInSubdirs_(uint64_t a1, const __CFString ***a2, unsigned int a3, unsigned int a4)
 {
   if (a3 && (v8 = **a2) != 0 && CFStringHasPrefix(v8, @"/"))
   {
@@ -983,12 +978,12 @@ LABEL_45:
   return v24;
 }
 
-void sub_2510D672C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2510D672C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
+  v8 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(va1);
   CACFMutableString::~CACFMutableString(va);
   _Unwind_Resume(a1);
@@ -1008,18 +1003,18 @@ void CACFMutableString::~CACFMutableString(CACFMutableString *this)
 
 void PListLogger::logItemEntry(const __CFString *this, const char *a2, char *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = CFGetTypeID(this);
   if (CFStringGetTypeID() == v7)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    valuePtr = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    valuePtr = 0u;
+    v31 = 0u;
     v8 = *(a3 + 1);
     if (v8)
     {
@@ -1045,100 +1040,97 @@ void PListLogger::logItemEntry(const __CFString *this, const char *a2, char *a3,
   else if (CFNumberGetTypeID() == v7)
   {
     Type = CFNumberGetType(this);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    valuePtr = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v12 = *(a3 + 1);
-    if (v12)
+    v33 = 0u;
+    valuePtr = 0u;
+    v31 = 0u;
+    v11 = *(a3 + 1);
+    if (v11)
     {
-      if (v12 >= 127)
+      if (v11 >= 127)
       {
-        v13 = 127;
+        v12 = 127;
       }
 
       else
       {
-        v13 = v12;
+        v12 = v11;
       }
 
-      memset(&valuePtr + v13 - (v13 - 1) - 1, 32, v13);
+      memset(&valuePtr + v12 - (v12 - 1) - 1, 32, v12);
     }
 
     PListLogger::log(a3, "%s", &valuePtr);
-    if (Type > kCFNumberDoubleType)
+    if (Type <= kCFNumberDoubleType)
     {
-      goto LABEL_55;
+      if (((1 << Type) & 0x3060) != 0)
+      {
+        *&valuePtr = 0;
+        CFNumberGetValue(this, Type, &valuePtr);
+        CFGetRetainCount(this);
+        PListLogger::log(a3, "'%s' | Number(float){%d} | %f\n");
+        return;
+      }
+
+      if (((1 << Type) & 0x82) != 0)
+      {
+        LOBYTE(valuePtr) = 0;
+        CFNumberGetValue(this, Type, &valuePtr);
+        CFGetRetainCount(this);
+        PListLogger::log(a3, "'%s' | Number(SInt8){%d} | 0x%02x\n");
+        return;
+      }
+
+      if (((1 << Type) & 0x104) != 0)
+      {
+        LOWORD(valuePtr) = 0;
+        CFNumberGetValue(this, Type, &valuePtr);
+        CFGetRetainCount(this);
+        PListLogger::log(a3, "'%s' | Number(SInt16){%d} | 0x%04x\n");
+        return;
+      }
     }
 
-    if (((1 << Type) & 0x3060) != 0)
-    {
-      *&valuePtr = 0;
-      CFNumberGetValue(this, Type, &valuePtr);
-      CFGetRetainCount(this);
-      PListLogger::log(a3, "'%s' | Number(float){%d} | %f\n");
-      goto LABEL_8;
-    }
-
-    if (((1 << Type) & 0x82) != 0)
-    {
-      LOBYTE(valuePtr) = 0;
-      CFNumberGetValue(this, Type, &valuePtr);
-      CFGetRetainCount(this);
-      PListLogger::log(a3, "'%s' | Number(SInt8){%d} | 0x%02x\n");
-      goto LABEL_8;
-    }
-
-    if (((1 << Type) & 0x104) == 0)
-    {
-LABEL_55:
-      LODWORD(valuePtr) = 0;
-      CFNumberGetValue(this, Type, &valuePtr);
-      v30 = CFGetRetainCount(this);
-      PListLogger::log(a3, "'%s' | Number(SInt32){%d} | %-6d 0x%08x %c%c%c%c\n", a2, v30);
-      goto LABEL_8;
-    }
-
-    LOWORD(valuePtr) = 0;
+    LODWORD(valuePtr) = 0;
     CFNumberGetValue(this, Type, &valuePtr);
-    CFGetRetainCount(this);
-    PListLogger::log(a3, "'%s' | Number(SInt16){%d} | 0x%04x\n");
+    v29 = CFGetRetainCount(this);
+    PListLogger::log(a3, "'%s' | Number(SInt32){%d} | %-6d 0x%08x %c%c%c%c\n", a2, v29);
   }
 
   else if (CFDictionaryGetTypeID() == v7)
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    valuePtr = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v14 = *(a3 + 1);
-    if (v14)
+    v33 = 0u;
+    valuePtr = 0u;
+    v31 = 0u;
+    v13 = *(a3 + 1);
+    if (v13)
     {
-      if (v14 >= 127)
+      if (v13 >= 127)
       {
-        v15 = 127;
+        v14 = 127;
       }
 
       else
       {
-        v15 = v14;
+        v14 = v13;
       }
 
-      memset(&valuePtr + v15 - (v15 - 1) - 1, 32, v15);
+      memset(&valuePtr + v14 - (v14 - 1) - 1, 32, v14);
     }
 
     PListLogger::log(a3, "%s", &valuePtr);
-    v16 = CFGetRetainCount(this);
+    v15 = CFGetRetainCount(this);
     Count = CFDictionaryGetCount(this);
-    PListLogger::log(a3, "'%s' | Dictionary{%d} | %d key/value pairs\n", a2, v16, Count);
+    PListLogger::log(a3, "'%s' | Dictionary{%d} | %d key/value pairs\n", a2, v15, Count);
     if (!strcmp("aupreset", a2))
     {
       a3[8] = 1;
@@ -1152,80 +1144,79 @@ LABEL_55:
 
   else if (CFArrayGetTypeID() == v7)
   {
-    v18 = CFArrayGetCount(this);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v17 = CFArrayGetCount(this);
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    valuePtr = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v19 = *(a3 + 1);
-    if (v19)
+    v33 = 0u;
+    valuePtr = 0u;
+    v31 = 0u;
+    v18 = *(a3 + 1);
+    if (v18)
     {
-      if (v19 >= 127)
+      if (v18 >= 127)
       {
-        v20 = 127;
+        v19 = 127;
       }
 
       else
       {
-        v20 = v19;
+        v19 = v18;
       }
 
-      memset(&valuePtr + v20 - (v20 - 1) - 1, 32, v20);
+      memset(&valuePtr + v19 - (v19 - 1) - 1, 32, v19);
     }
 
     PListLogger::log(a3, "%s", &valuePtr);
-    v21 = CFGetRetainCount(this);
-    PListLogger::log(a3, "'%s' | Array{%d} | %d ordered objects\n", a2, v21, v18);
-    v22 = *(a3 + 1);
-    *(a3 + 1) = v22 + 4;
-    if (v18 >= 1)
+    v20 = CFGetRetainCount(this);
+    PListLogger::log(a3, "'%s' | Array{%d} | %d ordered objects\n", a2, v20, v17);
+    v21 = *(a3 + 1);
+    *(a3 + 1) = v21 + 4;
+    if (v17 >= 1)
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v17; ++i)
       {
         ValueAtIndex = CFArrayGetValueAtIndex(this, i);
         valuePtr = 0uLL;
         snprintf(&valuePtr, 0x10uLL, "[%u]", i);
-        PListLogger::logItemEntry(ValueAtIndex, &valuePtr, a3, v25);
+        PListLogger::logItemEntry(ValueAtIndex, &valuePtr, a3, v24);
       }
 
-      v22 = *(a3 + 1) - 4;
+      v21 = *(a3 + 1) - 4;
     }
 
-    *(a3 + 1) = v22;
+    *(a3 + 1) = v21;
   }
 
   else if (CFDataGetTypeID() == v7)
   {
-    v37 = 0uLL;
-    v38 = 0uLL;
-    v35 = 0uLL;
     v36 = 0uLL;
-    v33 = 0uLL;
+    v37 = 0uLL;
     v34 = 0uLL;
-    valuePtr = 0uLL;
+    v35 = 0uLL;
     v32 = 0uLL;
-    v26 = *(a3 + 1);
-    if (v26)
+    v33 = 0uLL;
+    valuePtr = 0uLL;
+    v31 = 0uLL;
+    v25 = *(a3 + 1);
+    if (v25)
     {
-      if (v26 >= 127)
+      if (v25 >= 127)
       {
-        v27 = 127;
+        v26 = 127;
       }
 
       else
       {
-        v27 = v26;
+        v26 = v25;
       }
 
-      memset(&valuePtr + v27 - (v27 - 1) - 1, 32, v27);
+      memset(&valuePtr + v26 - (v26 - 1) - 1, 32, v26);
     }
 
     PListLogger::log(a3, "%s", &valuePtr);
-    a3[8];
     CFGetRetainCount(this);
     CFDataGetLength(this);
     PListLogger::log(a3, "'%s' | %sData{%d} | %d bytes\n");
@@ -1233,43 +1224,40 @@ LABEL_55:
 
   else
   {
-    v37 = 0uLL;
-    v38 = 0uLL;
-    v35 = 0uLL;
     v36 = 0uLL;
-    v33 = 0uLL;
+    v37 = 0uLL;
     v34 = 0uLL;
-    valuePtr = 0uLL;
+    v35 = 0uLL;
     v32 = 0uLL;
-    v28 = *(a3 + 1);
-    if (v28)
+    v33 = 0uLL;
+    valuePtr = 0uLL;
+    v31 = 0uLL;
+    v27 = *(a3 + 1);
+    if (v27)
     {
-      if (v28 >= 127)
+      if (v27 >= 127)
       {
-        v29 = 127;
+        v28 = 127;
       }
 
       else
       {
-        v29 = v28;
+        v28 = v27;
       }
 
-      memset(&valuePtr + v29 - (v29 - 1) - 1, 32, v29);
+      memset(&valuePtr + v28 - (v28 - 1) - 1, 32, v28);
     }
 
     PListLogger::log(a3, "%s", &valuePtr);
     PListLogger::log(a3, "'%s' | <unknown type id: %d)>\n");
   }
-
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t PListLogger::logDictEntry(const __CFString *this, PListLogger *a2, const char *a3, void *a4)
+void PListLogger::logDictEntry(const __CFString *this, const __CFString *a2, char *a3, void *a4)
 {
   CStringPtr = CFStringGetCStringPtr(this, 0);
 
-  return PListLogger::logItemEntry(a2, CStringPtr, a3, v7);
+  PListLogger::logItemEntry(a2, CStringPtr, a3, v7);
 }
 
 const void **applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(const void **a1)
@@ -1285,12 +1273,16 @@ const void **applesauce::CF::ObjectRef<__CFDictionary *>::~ObjectRef(const void 
 
 NSObject *TuningPListMgr::getAUPListByName(TuningPListMgr *this, const char *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  if (!*(this + 4) || (v3 = CFStringCreateWithCStringNoCopy(*MEMORY[0x277CBECE8], a2, 0, *MEMORY[0x277CBED00])) == 0)
+  v14 = *MEMORY[0x277D85DE8];
+  if (!*(this + 4))
   {
-LABEL_14:
-    v6 = 0;
-    goto LABEL_15;
+    return 0;
+  }
+
+  v3 = CFStringCreateWithCStringNoCopy(*MEMORY[0x277CBECE8], a2, 0, *MEMORY[0x277CBED00]);
+  if (!v3)
+  {
+    return 0;
   }
 
   v4 = v3;
@@ -1300,9 +1292,9 @@ LABEL_14:
     CFRelease(v4);
     if (atomic_load_explicit(&logSubsystem(void)::onceflag, memory_order_acquire) != -1)
     {
-      *buf = &v10;
-      v11 = buf;
-      std::__call_once(&logSubsystem(void)::onceflag, &v11, std::__call_once_proxy[abi:ne200100]<std::tuple<logSubsystem(void)::$_0 &&>>);
+      *buf = &v9;
+      v10 = buf;
+      std::__call_once(&logSubsystem(void)::onceflag, &v10, std::__call_once_proxy[abi:ne200100]<std::tuple<logSubsystem(void)::$_0 &&>>);
     }
 
     if (logSubsystem(void)::scope)
@@ -1310,7 +1302,7 @@ LABEL_14:
       v6 = *logSubsystem(void)::scope;
       if (!*logSubsystem(void)::scope)
       {
-        goto LABEL_15;
+        return v6;
       }
     }
 
@@ -1323,38 +1315,35 @@ LABEL_14:
     {
       *buf = 136315394;
       *&buf[4] = "TuningPListMgr.cpp";
-      v13 = 1024;
-      v14 = 435;
+      v12 = 1024;
+      v13 = 435;
       _os_log_impl(&dword_2510D3000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d return dictionary is null", buf, 0x12u);
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   CFRelease(v4);
-LABEL_15:
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 CFMutableStringRef PlatformUtilities::CopyHardwareModelShortName(PlatformUtilities *this)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = *MEMORY[0x277CBECE8];
   Mutable = CFStringCreateMutable(*MEMORY[0x277CBECE8], 0);
   if (!Mutable)
   {
-    MutableCopy = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   v3 = Mutable;
-  v15 = 0u;
-  v16 = 0u;
-  *cStr = 0u;
   v14 = 0u;
-  v11 = 64;
-  sysctlbyname("hw.model", cStr, &v11, 0, 0);
+  v15 = 0u;
+  *cStr = 0u;
+  v13 = 0u;
+  v10 = 64;
+  sysctlbyname("hw.model", cStr, &v10, 0, 0);
   CFStringAppendCString(v3, cStr, 0);
   MutableCopy = CFStringCreateMutableCopy(v1, 0, v3);
   CFRelease(v3);
@@ -1371,9 +1360,9 @@ CFMutableStringRef PlatformUtilities::CopyHardwareModelShortName(PlatformUtiliti
     v6 = MGGetProductType();
     if (v6 == 952317141)
     {
-      v11 = CFStringCreateWithCString(0, "u", 0x600u);
-      v12 = 1;
-      CACFString::operator=(cStr, &v11);
+      v10 = CFStringCreateWithCString(0, "u", 0x600u);
+      v11 = 1;
+      CACFString::operator=(cStr, &v10);
     }
 
     else
@@ -1383,34 +1372,33 @@ CFMutableStringRef PlatformUtilities::CopyHardwareModelShortName(PlatformUtiliti
         goto LABEL_16;
       }
 
-      v11 = CFStringCreateWithCString(0, "m", 0x600u);
-      v12 = 1;
-      CACFString::operator=(cStr, &v11);
+      v10 = CFStringCreateWithCString(0, "m", 0x600u);
+      v11 = 1;
+      CACFString::operator=(cStr, &v10);
     }
 
-    CACFString::~CACFString(&v11);
+    CACFString::~CACFString(&v10);
 LABEL_16:
     v7 = *cStr;
     if (*cStr && CFStringHasSuffix(MutableCopy, *cStr))
     {
       Length = CFStringGetLength(MutableCopy);
-      v18.length = CFStringGetLength(v7);
-      v18.location = Length - v18.length;
-      CFStringFindAndReplace(MutableCopy, v7, &stru_28632B830, v18, 1uLL);
+      v17.length = CFStringGetLength(v7);
+      v17.location = Length - v17.length;
+      CFStringFindAndReplace(MutableCopy, v7, &stru_28632B830, v17, 1uLL);
     }
 
     CACFString::~CACFString(cStr);
   }
 
-LABEL_20:
-  v9 = *MEMORY[0x277D85DE8];
   return MutableCopy;
 }
 
-void sub_2510D7208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2510D7208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   CACFString::~CACFString(&a9);
-  CACFString::~CACFString(&a11);
+  CACFString::~CACFString(va);
   _Unwind_Resume(a1);
 }
 

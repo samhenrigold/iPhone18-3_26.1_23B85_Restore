@@ -46,7 +46,7 @@
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_PINS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -72,7 +72,7 @@
 
 + (id)indexingString
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"PINS_INDEXING_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;
@@ -290,51 +290,51 @@ LABEL_7:
     v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v13 withReuseIdentifier:v14 forIndexPath:pathCopy];
 
     v16 = MEMORY[0x1E696AEC0];
-    v17 = CKFrameworkBundle();
-    v18 = [v17 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v19 = [v16 stringWithFormat:v18];
+    v18 = CKFrameworkBundle(v17);
+    v19 = [v18 localizedStringForKey:@"SEE_ALL_LINKS_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v20 = [v16 stringWithFormat:v19];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v22 = @"\u200F";
+      v23 = @"\u200F";
     }
 
     else
     {
-      v22 = @"\u200E";
+      v23 = @"\u200E";
     }
 
-    v23 = [(__CFString *)v22 stringByAppendingString:v19];
+    v24 = [(__CFString *)v23 stringByAppendingString:v20];
 
-    [v15 setTitle:v23];
+    [v15 setTitle:v24];
     sectionIdentifier = [objc_opt_class() sectionIdentifier];
     [v15 setSectionIdentifier:sectionIdentifier];
     goto LABEL_6;
   }
 
-  v25 = +[CKSearchAvatarSupplementryView supplementaryViewType];
-  v26 = [kindCopy isEqualToString:v25];
+  v26 = +[CKSearchAvatarSupplementryView supplementaryViewType];
+  v27 = [kindCopy isEqualToString:v26];
 
-  if (v26)
+  if (v27)
   {
-    v27 = +[CKSearchAvatarSupplementryView supplementaryViewType];
-    v28 = +[CKSearchAvatarSupplementryView reuseIdentifier];
-    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v27 withReuseIdentifier:v28 forIndexPath:pathCopy];
+    v28 = +[CKSearchAvatarSupplementryView supplementaryViewType];
+    v29 = +[CKSearchAvatarSupplementryView reuseIdentifier];
+    v15 = [viewCopy dequeueReusableSupplementaryViewOfKind:v28 withReuseIdentifier:v29 forIndexPath:pathCopy];
 
-    v29 = [pathCopy row];
+    v30 = [pathCopy row];
     results = [(CKSearchController *)self results];
-    v31 = [results count];
+    v32 = [results count];
 
-    if (v29 < v31)
+    if (v30 < v32)
     {
       results2 = [(CKSearchController *)self results];
       sectionIdentifier = [results2 objectAtIndex:{objc_msgSend(pathCopy, "row")}];
 
-      v33 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
-      [v15 setContact:v33];
+      v34 = [CKSpotlightQueryResultUtilities contactForResult:sectionIdentifier];
+      [v15 setContact:v34];
       [v15 setAssociatedResult:sectionIdentifier];
       [v15 setParentContentType:2];
 

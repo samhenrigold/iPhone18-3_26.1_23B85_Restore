@@ -90,7 +90,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SKUIEditorialComponent *)editorial editorialStyle:0];
+    objc_msgSend_editorialStyle(editorial, 0, 0, 0);
   }
 
   if (v7)
@@ -324,7 +324,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SKUIEditorialComponent *)editorial editorialStyle];
+    objc_msgSend_editorialStyle(editorial, 0);
     editorial = self->_editorial;
   }
 
@@ -364,7 +364,7 @@ LABEL_6:
   editorial = self->_editorial;
   if (editorial)
   {
-    [(SKUIEditorialComponent *)editorial editorialStyle:0];
+    objc_msgSend_editorialStyle(editorial, 0, 0);
   }
 
   [(SKUITextLayoutRequest *)v5 setFontWeight:0, v14];

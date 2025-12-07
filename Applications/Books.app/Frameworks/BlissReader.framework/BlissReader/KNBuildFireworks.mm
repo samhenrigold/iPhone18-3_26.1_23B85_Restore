@@ -38,20 +38,21 @@
 
 - (KNBuildFireworks)initWithAnimationContext:(id)context
 {
-  v9.receiver = self;
-  v9.super_class = KNBuildFireworks;
-  v3 = [(KNAnimationEffect *)&v9 initWithAnimationContext:context];
+  v10.receiver = self;
+  v10.super_class = KNBuildFireworks;
+  v3 = [(KNAnimationEffect *)&v10 initWithAnimationContext:context];
+  v4 = v3;
   if (v3)
   {
-    v4 = KNBundle();
-    v5 = [v4 pathForResource:@"Fireworks" ofType:@"parameterGroup"];
+    v5 = KNBundle(v3);
+    v6 = [v5 pathForResource:@"Fireworks" ofType:@"parameterGroup"];
 
-    v6 = [KNAnimParameterGroup parameterGroupForFile:v5];
-    parameterGroup = v3->_parameterGroup;
-    v3->_parameterGroup = v6;
+    v7 = [KNAnimParameterGroup parameterGroupForFile:v6];
+    parameterGroup = v4->_parameterGroup;
+    v4->_parameterGroup = v7;
   }
 
-  return v3;
+  return v4;
 }
 
 - (CGRect)frameOfEffectWithContext:(id)context
@@ -79,7 +80,7 @@
   buildCopy = build;
   contextCopy = context;
   randomGenerator = [contextCopy randomGenerator];
-  [buildCopy duration];
+  objc_msgSend_duration(buildCopy);
   v12 = v11;
   [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"FireworksCount"];
   v14 = v12 * v13;
@@ -110,7 +111,7 @@
     [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"FireworkSizeMax"];
     [randomGenerator doubleBetween:v25 :v26];
     v28 = v27;
-    [contextCopy duration];
+    objc_msgSend_duration(contextCopy);
     v30 = v29;
     direction = [contextCopy direction];
     metalFireworksShader = self->_metalFireworksShader;
@@ -180,7 +181,7 @@ LABEL_16:
     [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"FireworkDurationMax"];
     [randomGenerator doubleBetween:v47 :v48];
     v50 = v49;
-    [contextCopy duration];
+    objc_msgSend_duration(contextCopy);
     v52 = v50 / v51;
     [randomGenerator doubleBetween:0.0 :1.0 - v52];
     HIDWORD(v54) = 0;
@@ -241,10 +242,10 @@ LABEL_24:
   if (!self->_particleTR)
   {
     contextCopy = context;
-    v5 = KNBundle();
-    v16 = [v5 pathForResource:@"KNBuildFireworks" ofType:@"png"];
+    v5 = KNBundle(contextCopy);
+    v17 = [v5 pathForResource:@"KNBuildFireworks" ofType:@"png"];
 
-    v6 = [(KNBuildFireworks *)self p_particleTexturedRectWithPath:v16];
+    v6 = [(KNBuildFireworks *)self p_particleTexturedRectWithPath:v17];
     particleTR = self->_particleTR;
     self->_particleTR = v6;
 
@@ -252,17 +253,17 @@ LABEL_24:
     device = [contextCopy device];
     [(TSDTexturedRectangle *)v8 setupMetalTextureForDevice:device];
 
-    v10 = KNBundle();
-    v11 = [v10 pathForResource:@"KNBuildFireworks_CenterBurst" ofType:@"png"];
+    v11 = KNBundle(v10);
+    v12 = [v11 pathForResource:@"KNBuildFireworks_CenterBurst" ofType:@"png"];
 
-    v12 = [(KNBuildFireworks *)self p_particleTexturedRectWithPath:v11];
+    v13 = [(KNBuildFireworks *)self p_particleTexturedRectWithPath:v12];
     centerBurstTR = self->_centerBurstTR;
-    self->_centerBurstTR = v12;
+    self->_centerBurstTR = v13;
 
-    v14 = self->_centerBurstTR;
+    v15 = self->_centerBurstTR;
     device2 = [contextCopy device];
 
-    [(TSDTexturedRectangle *)v14 setupMetalTextureForDevice:device2];
+    [(TSDTexturedRectangle *)v15 setupMetalTextureForDevice:device2];
   }
 }
 
@@ -330,7 +331,7 @@ LABEL_24:
   self->_frameRect.origin.y = v18;
   self->_frameRect.size.width = v19;
   self->_frameRect.size.height = v20;
-  [(KNAnimationEffect *)self mvpMatrixWithContext:contextCopy];
+  objc_msgSend_mvpMatrixWithContext_(self);
   v21 = *&v62.m33;
   *&self->_baseTransform.m31 = *&v62.m31;
   *&self->_baseTransform.m33 = v21;
@@ -408,7 +409,7 @@ LABEL_24:
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
   }
 
   v60 = v62;
@@ -638,7 +639,7 @@ LABEL_24:
   }
 
   v25 = v15 * 0.001 * v24;
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   v27 = v25 * v26;
   [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"ParticleSizeStart"];
   v29 = v27;
@@ -651,7 +652,7 @@ LABEL_24:
   if (self->_previousPercent > 0.0)
   {
     [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"FireworkDurationMin"];
-    [contextCopy duration];
+    objc_msgSend_duration(contextCopy);
     TSUClamp();
     [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"TrailsFadeOutMin"];
     [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"TrailsFadeOutMax"];
@@ -679,7 +680,7 @@ LABEL_24:
 
   [(KNBuildFireworks *)self p_drawParticleSystemsWithPercent:0 sparkles:contextCopy particleSystemOpacity:v11 context:v13 renderEncoder:1.0];
   [(KNAnimParameterGroup *)self->_parameterGroup valueForConstant:@"FireworkDurationMax"];
-  [contextCopy duration];
+  objc_msgSend_duration(contextCopy);
   TSUClamp();
   [(KNAnimParameterGroup *)self->_parameterGroup valueForAnimationCurve:@"ParticleTransparency" atPercent:?];
   v40 = 1.0 - v39;

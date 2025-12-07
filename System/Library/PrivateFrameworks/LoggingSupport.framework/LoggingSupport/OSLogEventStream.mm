@@ -4,6 +4,7 @@
 - (void)_activateStreamFromTimeIntervalSinceLastBoot:(double)boot;
 - (void)_activateStreamInRange:(os_timesync_range_s *)range useMemEffic:(BOOL)effic catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize;
 - (void)activateStreamFromDate:(id)date;
+- (void)activateStreamFromDate:(id)date catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize;
 - (void)activateStreamFromPosition:(id)position;
 - (void)dealloc;
 - (void)setFilterPredicate:(id)predicate;
@@ -27,20 +28,19 @@
 
 void __47__OSLogEventStream_activateStreamFromPosition___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 96) && *(v1 + 80))
   {
-    v11 = 0;
-    v12 = 0;
+    v9 = 0;
+    v10 = 0;
     v3 = [*(v1 + 88) uniqueIdentifier];
-    [v3 getUUIDBytes:&v11];
+    [v3 getUUIDBytes:&v9];
 
     v4 = [*(a1 + 40) sourceUUID];
-    if (v11 == *v4 && v12 == v4[1])
+    if (v9 == *v4 && v10 == v4[1])
     {
-      v5 = *(*(a1 + 32) + 96);
-      _timesync_range_create_impl();
+      _timesync_range_create_impl(*(*(a1 + 32) + 96), 0, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
 
     _invalidate(*(a1 + 32), 3, *(a1 + 40));
@@ -48,19 +48,17 @@ void __47__OSLogEventStream_activateStreamFromPosition___block_invoke(uint64_t a
 
   else
   {
-    v11 = 0;
-    v12 = 0;
+    v9 = 0;
+    v10 = 0;
     memset(uu, 0, sizeof(uu));
-    v6 = v1;
+    v5 = v1;
     uuid_clear(uu);
-    v7 = [v6[11] uniqueIdentifier];
-    [v7 getUUIDBytes:&v11];
+    v6 = [v5[11] uniqueIdentifier];
+    [v6 getUUIDBytes:&v9];
 
-    v8 = [[OSLogEventStreamPosition alloc] initWithSource:&v11 bootUUID:uu time:0];
-    _invalidate(v6, 9, v8);
+    v7 = [[OSLogEventStreamPosition alloc] initWithSource:&v9 bootUUID:uu time:0];
+    _invalidate(v5, 9, v7);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateStreamFromTimeIntervalSinceLastBoot:(double)boot
@@ -77,26 +75,35 @@ void __47__OSLogEventStream_activateStreamFromPosition___block_invoke(uint64_t a
 
 void __65__OSLogEventStream__activateStreamFromTimeIntervalSinceLastBoot___block_invoke(uint64_t a1)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  if (v1[12] && v1[10])
+  v10[2] = *MEMORY[0x277D85DE8];
+  v2 = *(a1 + 32);
+  v3 = v2[12];
+  if (v3 && v2[10])
   {
-    *(a1 + 40);
-    _timesync_range_create_since_last_boot();
+    v4 = *(a1 + 40);
+    if (v4 <= 0.0)
+    {
+      v5 = 0;
+    }
+
+    else
+    {
+      v5 = (v4 * 1000000000.0);
+    }
+
+    _timesync_range_create_since_last_boot(v3, v5);
   }
 
-  v7[0] = 0;
-  v7[1] = 0;
+  v10[0] = 0;
+  v10[1] = 0;
   memset(uu, 0, sizeof(uu));
-  v2 = v1;
+  v6 = v2;
   uuid_clear(uu);
-  v3 = [v2[11] uniqueIdentifier];
-  [v3 getUUIDBytes:v7];
+  v7 = [v6[11] uniqueIdentifier];
+  [v7 getUUIDBytes:v10];
 
-  v4 = [[OSLogEventStreamPosition alloc] initWithSource:v7 bootUUID:uu time:0];
-  _invalidate(v2, 9, v4);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v8 = [[OSLogEventStreamPosition alloc] initWithSource:v10 bootUUID:uu time:0];
+  _invalidate(v6, 9, v8);
 }
 
 - (void)activateStreamFromDate:(id)date
@@ -105,6 +112,16 @@ void __65__OSLogEventStream__activateStreamFromTimeIntervalSinceLastBoot___block
   dateCopy = date;
   newestDate = [(OSLogEventSource *)source newestDate];
   [(OSLogEventStream *)self _activateStreamFromDate:dateCopy toDate:newestDate useMemEffic:0 catalogCacheSize:0 dataCacheSize:0];
+}
+
+- (void)activateStreamFromDate:(id)date catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize
+{
+  v5 = *&cacheSize;
+  v6 = *&size;
+  source = self->_source;
+  dateCopy = date;
+  newestDate = [(OSLogEventSource *)source newestDate];
+  [(OSLogEventStream *)self _activateStreamFromDate:dateCopy toDate:newestDate useMemEffic:1 catalogCacheSize:v6 dataCacheSize:v5];
 }
 
 - (void)_activateStreamFromDate:(id)date toDate:(id)toDate useMemEffic:(BOOL)effic catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize
@@ -129,53 +146,72 @@ void __65__OSLogEventStream__activateStreamFromTimeIntervalSinceLastBoot___block
 
 void __94__OSLogEventStream__activateStreamFromDate_toDate_useMemEffic_catalogCacheSize_dataCacheSize___block_invoke(id *a1)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   if (v1[12] && v1[10])
   {
     [a1[5] timeIntervalSince1970];
-    if (v3 > 0.0)
+    if (v3 <= 0.0)
+    {
+      v5 = 0;
+    }
+
+    else
     {
       [a1[5] timeIntervalSince1970];
+      v5 = (v4 * 1000000000.0);
     }
 
     if (([a1[4] flags] & 8) != 0)
     {
-      v10 = *(a1[4] + 12);
+      v13 = *(a1[4] + 12);
+      v14 = 0;
+      v12 = v5;
     }
 
     else
     {
       [a1[6] timeIntervalSince1970];
-      if (v8 > 0.0)
+      v10 = v9;
+      v11 = 0.0;
+      if (v10 > 0.0)
       {
         [a1[6] timeIntervalSince1970];
       }
 
-      v9 = *(a1[4] + 12);
+      if (v11 == 0.0)
+      {
+        v12 = -1;
+      }
+
+      else
+      {
+        v12 = (v11 * 1000000000.0);
+      }
+
+      v13 = *(a1[4] + 12);
+      v14 = v5;
     }
 
-    _timesync_range_create_impl();
+    _timesync_range_create_impl(v13, v14, v12, 1);
   }
 
-  v12[0] = 0;
-  v12[1] = 0;
+  v16[0] = 0;
+  v16[1] = 0;
   memset(uu, 0, sizeof(uu));
-  v4 = v1;
+  v6 = v1;
   uuid_clear(uu);
-  v5 = [v4[11] uniqueIdentifier];
-  [v5 getUUIDBytes:v12];
+  v7 = [v6[11] uniqueIdentifier];
+  [v7 getUUIDBytes:v16];
 
-  v6 = [[OSLogEventStreamPosition alloc] initWithSource:v12 bootUUID:uu time:0];
-  _invalidate(v4, 9, v6);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = [[OSLogEventStreamPosition alloc] initWithSource:v16 bootUUID:uu time:0];
+  _invalidate(v6, 9, v8);
 }
 
 - (void)_activateStreamInRange:(os_timesync_range_s *)range useMemEffic:(BOOL)effic catalogCacheSize:(unsigned int)size dataCacheSize:(unsigned int)cacheSize
 {
   efficCopy = effic;
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   streamHandler = [(OSLogEventStreamBase *)self streamHandler];
 
   if (!streamHandler)
@@ -198,18 +234,18 @@ void __94__OSLogEventStream__activateStreamFromDate_toDate_useMemEffic_catalogCa
   compiledPredicate = [(OSLogEventStreamBase *)self compiledPredicate];
   sizeCopy = size;
   cacheSizeCopy = cacheSize;
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
   v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
   v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
   index = self->_index;
   catalogFilter = [(OSLogEventStream *)self catalogFilter];
   v19 = flags2 & 0x40 | flags & 0x20 | (4 * (flags3 & 1)) | flags4 & 2;
@@ -229,27 +265,27 @@ void __94__OSLogEventStream__activateStreamFromDate_toDate_useMemEffic_catalogCa
     v21 = v20;
   }
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_dataCacheSize___block_invoke;
-  v38[3] = &unk_2787AE4E8;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_dataCacheSize___block_invoke;
+  v37[3] = &unk_2787AE4E8;
   v22 = compiledPredicate;
-  v39 = v22;
+  v38 = v22;
   selfCopy = self;
-  v41 = &v44;
-  v42 = &v52;
-  v43 = &v48;
-  [(_OSLogIndex *)index enumerateEntriesInRange:range options:v21 usingCatalogFilter:catalogFilter catalogCacheSize:sizeCopy dataCacheSize:cacheSizeCopy usingBlock:v38];
+  v40 = &v43;
+  v41 = &v51;
+  v42 = &v47;
+  [(_OSLogIndex *)index enumerateEntriesInRange:range options:v21 usingCatalogFilter:catalogFilter catalogCacheSize:sizeCopy dataCacheSize:cacheSizeCopy usingBlock:v37];
 
-  v56[0] = 0;
-  v56[1] = 0;
-  v23 = v53[3];
+  v55[0] = 0;
+  v55[1] = 0;
+  v23 = v52[3];
   uniqueIdentifier = [(OSLogEventSource *)self->_source uniqueIdentifier];
-  [uniqueIdentifier getUUIDBytes:v56];
+  [uniqueIdentifier getUUIDBytes:v55];
 
   v25 = [OSLogEventStreamPosition alloc];
-  v26 = [(OSLogEventStreamPosition *)v25 initWithSource:v56 bootUUID:range->var3[v23] time:v49[3]];
-  v27 = v45[3];
+  v26 = [(OSLogEventStreamPosition *)v25 initWithSource:v55 bootUUID:range->var3[v23] time:v48[3]];
+  v27 = v44[3];
   if (!v27)
   {
     if ([(OSLogEventStreamBase *)self invalidated])
@@ -262,21 +298,18 @@ void __94__OSLogEventStream__activateStreamFromDate_toDate_useMemEffic_catalogCa
       v27 = 5;
     }
 
-    v45[3] = v27;
+    v44[3] = v27;
   }
 
   _invalidate(self, v27, v26);
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
-  _Block_object_dispose(&v52, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v51, 8);
 }
 
 BOOL __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_dataCacheSize___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (!v4 || [v4 evaluateWithObject:v3])
@@ -289,7 +322,6 @@ BOOL __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_
 
   v6 = [*(a1 + 40) invalidated] == 0;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -322,7 +354,7 @@ BOOL __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_
 - (id)_initWithSource:(id)source flags:(unint64_t)flags
 {
   flagsCopy = flags;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v8 = [(OSLogEventStreamBase *)self init];
   v9 = v8;
@@ -339,17 +371,16 @@ BOOL __86__OSLogEventStream__activateStreamInRange_useMemEffic_catalogCacheSize_
       index = v9->_index;
       v9->_index = v13;
 
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __42__OSLogEventStream__initWithSource_flags___block_invoke;
-      v17[3] = &unk_2787AE4C0;
-      v19 = flagsCopy & 1;
-      v18 = v9;
-      [sourceCopy _enumerateIndexFiles:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __42__OSLogEventStream__initWithSource_flags___block_invoke;
+      v16[3] = &unk_2787AE4C0;
+      v18 = flagsCopy & 1;
+      v17 = v9;
+      [sourceCopy _enumerateIndexFiles:v16];
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

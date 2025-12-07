@@ -22,36 +22,18 @@
   startDate = [self startDate];
   v8 = [startDate compare:v6];
 
-  if (v8 == 1)
+  if (v8 == 1 || (v9 = objc_alloc(MEMORY[0x277CCA970]), [self startDate], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "initWithStartDate:endDate:", v10, v6), v10, v12 = objc_alloc(MEMORY[0x277CCA970]), objc_msgSend(self, "startDate"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(self, "endDate"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "initWithStartDate:endDate:", v13, v14), v14, v13, objc_msgSend(v15, "intersectionWithDateInterval:", v11), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration"), v17 = objc_claimAutoreleasedReturnValue(), v16, v15, v11, !v17))
   {
-    goto LABEL_3;
-  }
-
-  v9 = objc_alloc(MEMORY[0x277CCA970]);
-  startDate2 = [self startDate];
-  v11 = [v9 initWithStartDate:startDate2 endDate:v6];
-
-  v12 = objc_alloc(MEMORY[0x277CCA970]);
-  startDate3 = [self startDate];
-  endDate = [self endDate];
-  v15 = [v12 initWithStartDate:startDate3 endDate:endDate];
-
-  v16 = [v15 intersectionWithDateInterval:v11];
-  hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration = [v16 hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration];
-
-  if (!hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration)
-  {
-LABEL_3:
     [MEMORY[0x277CCA9B8] hk_assignError:a4 code:3 format:{@"Unable to truncate date interval %@ to maxEndDate %@", self, v6}];
-    hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration = 0;
+    v17 = 0;
   }
 
-  return hk_hearingSevenDayDoseDateIntervalClampedToMaxDuration;
+  return v17;
 }
 
 - (id)unitTesting_hearingSevenDayDoseCategorySampleWithNow:()HeadphoneSevenDayDose includesPrunableData:error:
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v8 = a3;
   decibelAWeightedSoundPressureLevelUnit = [MEMORY[0x277CCDAB0] decibelAWeightedSoundPressureLevelUnit];
   averageQuantity = [self averageQuantity];
@@ -72,16 +54,16 @@ LABEL_3:
         v17 = HKHeadphoneAudioExposureEventType();
         startDate = [v15 startDate];
         endDate = [v15 endDate];
-        v33[0] = *MEMORY[0x277CCC458];
+        v32[0] = *MEMORY[0x277CCC458];
         averageQuantity2 = [self averageQuantity];
-        v34[0] = averageQuantity2;
-        v33[1] = *MEMORY[0x277CCC450];
+        v33[0] = averageQuantity2;
+        v32[1] = *MEMORY[0x277CCC450];
         duration2 = [self duration];
-        v34[1] = duration2;
-        v33[2] = *MEMORY[0x277CCE068];
+        v33[1] = duration2;
+        v32[2] = *MEMORY[0x277CCE068];
         v18 = [MEMORY[0x277CCABB0] numberWithBool:a4];
-        v34[2] = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+        v33[2] = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
         v20 = [v16 categorySampleWithType:v17 value:1 startDate:startDate endDate:endDate device:0 metadata:v19];
       }
 
@@ -111,8 +93,6 @@ LABEL_3:
 
     v20 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

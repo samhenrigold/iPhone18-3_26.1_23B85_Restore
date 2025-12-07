@@ -13,19 +13,22 @@
 - (void)scrollViewForKeyboardIfNecessary;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation NPHBSCellularFauxCardInfoViewController
 
 - (NPHBSCellularFauxCardInfoViewController)init
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v25.receiver = self;
-  v25.super_class = NPHBSCellularFauxCardInfoViewController;
-  v4 = [(NPHBSCellularFauxCardInfoViewController *)&v25 initWithNibName:@"NPHBSCellularFauxCardInfo" bundle:v3];
+  v24.receiver = self;
+  v24.super_class = NPHBSCellularFauxCardInfoViewController;
+  v4 = [(NPHBSCellularFauxCardInfoViewController *)&v24 initWithNibName:@"NPHBSCellularFauxCardInfo" bundle:v3];
 
   if (v4)
   {
@@ -33,40 +36,39 @@
     tableData = v4->_tableData;
     v4->_tableData = v5;
 
-    v31 = @"TITLE_KEY";
+    v30 = @"TITLE_KEY";
     v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v8 = [v7 localizedStringForKey:@"NPHCELLULAR_CARD_INFO_SMDP_LABEL" value:&stru_285611AE0 table:0];
-    v32[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-    v24 = [v9 mutableCopy];
+    v31[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v23 = [v9 mutableCopy];
 
-    v29 = @"TITLE_KEY";
+    v28 = @"TITLE_KEY";
     v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v11 = [v10 localizedStringForKey:@"NPHCELLULAR_CARD_INFO_ACTIVATION_CODE_LABEL" value:&stru_285611AE0 table:0];
-    v30 = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v13 = [v12 mutableCopy];
 
-    v27[0] = @"TITLE_KEY";
+    v26[0] = @"TITLE_KEY";
     v14 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v15 = [v14 localizedStringForKey:@"NPHCELLULAR_CARD_INFO_CONFIRMATION_CODE_LABEL" value:&stru_285611AE0 table:0];
-    v27[1] = @"PLACEHOLDER_KEY";
-    v28[0] = v15;
+    v26[1] = @"PLACEHOLDER_KEY";
+    v27[0] = v15;
     v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     v17 = [v16 localizedStringForKey:@"NPHCELLULAR_CARD_INFO_CONFIRMATION_CODE_PLACEHOLDER" value:&stru_285611AE0 table:0];
-    v28[1] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    v27[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
     v19 = [v18 mutableCopy];
 
-    v26[0] = v24;
-    v26[1] = v13;
-    v26[2] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+    v25[0] = v23;
+    v25[1] = v13;
+    v25[2] = v19;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
     v21 = v4->_tableData;
     v4->_tableData = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -93,6 +95,31 @@
 
   v7 = objc_loadWeakRetained(&self->_infoTableViewHeightConstraint);
   [v7 setConstant:v6 * 3.0 + -0.5];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = NPHBSCellularFauxCardInfoViewController;
+  [(NPHBSCellularFauxCardInfoViewController *)&v6 viewWillAppear:appear];
+  self->_keyboardSize = *MEMORY[0x277CBF3A8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_keyboardWasShown_ name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 addObserver:self selector:sel_keyboardWillBeHidden_ name:*MEMORY[0x277D76C50] object:0];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = NPHBSCellularFauxCardInfoViewController;
+  [(NPHBSCellularFauxCardInfoViewController *)&v6 viewWillDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277D76BA8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 removeObserver:self name:*MEMORY[0x277D76C50] object:0];
 }
 
 - (void)keyboardWasShown:(id)shown
@@ -181,6 +208,28 @@
       [v38 scrollRectToVisible:1 animated:{v31, v33, v35, v37}];
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = NPHBSCellularFauxCardInfoViewController;
+  [(NPHBSCellularFauxCardInfoViewController *)&v14 viewDidAppear:appear];
+  v4 = objc_alloc(MEMORY[0x277D751E0]);
+  v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v5 localizedStringForKey:@"NPHCELLULAR_CARD_INFO_NEXT" value:&stru_285611AE0 table:0];
+  v7 = [v4 initWithTitle:v6 style:2 target:self action:sel_activatePlan_];
+
+  navigationController = [(NPHBSCellularFauxCardInfoViewController *)self navigationController];
+  navigationBar = [navigationController navigationBar];
+
+  topItem = [navigationBar topItem];
+  [topItem setRightBarButtonItem:v7];
+  v11 = [(NSArray *)self->_tableData objectAtIndexedSubscript:0];
+  v12 = [v11 objectForKeyedSubscript:@"TABLE_CELL_KEY"];
+
+  editableTextField = [v12 editableTextField];
+  [editableTextField becomeFirstResponder];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
@@ -323,8 +372,8 @@ void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke(u
   v7 = [*(*v3 + 1000) objectAtIndexedSubscript:2];
   v8 = [v7 objectForKeyedSubscript:@"VALUE_KEY"];
 
-  v9 = nph_general_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = nph_general_log(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     v22 = "[NPHBSCellularFauxCardInfoViewController activatePlan:]_block_invoke";
@@ -334,25 +383,24 @@ void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke(u
     v26 = v6;
     v27 = 2112;
     v28 = v8;
-    _os_log_impl(&dword_243333000, v9, OS_LOG_TYPE_DEFAULT, "%s - addressField:%@, activationCode:%@, confirmationCode:%@", buf, 0x2Au);
+    _os_log_impl(&dword_243333000, v10, OS_LOG_TYPE_DEFAULT, "%s - addressField:%@, activationCode:%@, confirmationCode:%@", buf, 0x2Au);
   }
 
-  v10 = [MEMORY[0x277CF96D8] sharedManager];
-  v11 = IsCurrentDevicePairing();
-  v12 = +[NPHCellularBridgeUIManager sharedInstance];
-  v13 = [v12 _currentDeviceCSN];
+  v11 = [MEMORY[0x277CF96D8] sharedManager];
+  v12 = IsCurrentDevicePairing();
+  v13 = +[NPHCellularBridgeUIManager sharedInstance];
+  v14 = [v13 _currentDeviceCSN];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v15 = [WeakRetained subscriptionContext];
+  v16 = [WeakRetained subscriptionContext];
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
   v19[2] = __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke_60;
   v19[3] = &unk_278DACA18;
   objc_copyWeak(&v20, (a1 + 40));
   v19[4] = *(a1 + 32);
-  [v10 addNewRemotePlanWithAddress:v18 matchingId:v6 oid:0 confirmationCode:v8 isPairing:v11 withCSN:v13 withContext:v15 userConsent:a2 completion:v19];
+  [v11 addNewRemotePlanWithAddress:v18 matchingId:v6 oid:0 confirmationCode:v8 isPairing:v12 withCSN:v14 withContext:v16 userConsent:a2 completion:v19];
 
   objc_destroyWeak(&v20);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke_60(uint64_t a1, void *a2)
@@ -372,16 +420,16 @@ void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke_6
 
 void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v3 = nph_general_log();
+  v3 = nph_general_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[NPHBSCellularFauxCardInfoViewController activatePlan:]_block_invoke_2";
-    v11 = 2112;
-    v12 = v2;
-    _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s - error:%@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[NPHBSCellularFauxCardInfoViewController activatePlan:]_block_invoke_2";
+    v10 = 2112;
+    v11 = v2;
+    _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s - error:%@", &v8, 0x16u);
   }
 
   if (v2)
@@ -393,8 +441,6 @@ void __56__NPHBSCellularFauxCardInfoViewController_activatePlan___block_invoke_2
 
     [NPHCellularBridgeUIManager presentCellularError:v7 onViewController:*(a1 + 40)];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (UILabel)enterActivationLabel

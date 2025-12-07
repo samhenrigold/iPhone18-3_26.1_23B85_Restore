@@ -43,7 +43,7 @@ void sub_296BC2880(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void IR::HOA2BinauralIRRenderer::flattenIRCoordinateTree(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void IR::HOA2BinauralIRRenderer::flattenIRCoordinateTree(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -67,21 +67,21 @@ void sub_296BC2C10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<float>>::assign(uint64_t *a1, unint64_t a2, char **a3)
+void std::vector<std::vector<float>>::assign(uint64_t **a1, unint64_t a2, char **a3)
 {
   v6 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a2)
   {
     std::vector<std::vector<float>>::__vdeallocate(a1);
     if (a2 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v7 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v7 = 0x5555555555555556 * (a1[2] - *a1);
       if (v7 <= a2)
       {
         v7 = a2;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v8 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -97,7 +97,7 @@ void std::vector<std::vector<float>>::assign(uint64_t *a1, unint64_t a2, char **
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = (a1[1] - v6) >> 3;
+  v9 = a1[1] - v6;
   v10 = 0xAAAAAAAAAAAAAAABLL * v9;
   if (0xAAAAAAAAAAAAAAABLL * v9 >= a2)
   {
@@ -122,7 +122,7 @@ void std::vector<std::vector<float>>::assign(uint64_t *a1, unint64_t a2, char **
   if (a2 <= v10)
   {
     v15 = a1[1];
-    v16 = *a1 + 24 * a2;
+    v16 = &(*a1)[3 * a2];
     if (v15 != v16)
     {
       v17 = a1[1];
@@ -166,21 +166,21 @@ void std::vector<std::vector<float>>::assign(uint64_t *a1, unint64_t a2, char **
   }
 }
 
-void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t a2, char ***a3)
+void std::vector<std::vector<std::vector<float>>>::assign(void ***a1, unint64_t a2, uint64_t *a3)
 {
   v6 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a2)
   {
     std::vector<std::vector<std::vector<float>>>::__vdeallocate(a1);
     if (a2 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v7 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+      v7 = 0x5555555555555556 * (a1[2] - *a1);
       if (v7 <= a2)
       {
         v7 = a2;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
       {
         v8 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -196,7 +196,7 @@ void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = (*(a1 + 8) - v6) >> 3;
+  v9 = a1[1] - v6;
   v10 = 0xAAAAAAAAAAAAAAABLL * v9;
   if (0xAAAAAAAAAAAAAAABLL * v9 >= a2)
   {
@@ -212,7 +212,7 @@ void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t
   {
     if (v6 != a3)
     {
-      std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v6, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * (a3[1] - *a3));
+      std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v6, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
     }
 
     v6 += 3;
@@ -220,8 +220,8 @@ void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t
 
   if (a2 <= v10)
   {
-    v15 = *(a1 + 8);
-    v16 = *a1 + 24 * a2;
+    v15 = a1[1];
+    v16 = &(*a1)[3 * a2];
     while (v15 != v16)
     {
       v15 -= 3;
@@ -229,12 +229,12 @@ void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v17);
     }
 
-    *(a1 + 8) = v16;
+    a1[1] = v16;
   }
 
   else
   {
-    v12 = *(a1 + 8);
+    v12 = a1[1];
     v13 = &v12[3 * (a2 - v10)];
     v14 = 24 * a2 - 24 * v10;
     do
@@ -242,17 +242,17 @@ void std::vector<std::vector<std::vector<float>>>::assign(uint64_t a1, unint64_t
       *v12 = 0;
       v12[1] = 0;
       v12[2] = 0;
-      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v12, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * (a3[1] - *a3));
+      std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(v12, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 3));
       v12 += 3;
       v14 -= 24;
     }
 
     while (v14);
-    *(a1 + 8) = v13;
+    a1[1] = v13;
   }
 }
 
-void std::vector<std::vector<DSPSplitComplex>>::resize(size_t *a1, unint64_t a2, uint64_t *a3)
+void std::vector<std::vector<DSPSplitComplex>>::resize(char **a1, unint64_t a2, uint64_t a3)
 {
   v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
@@ -266,18 +266,18 @@ void std::vector<std::vector<DSPSplitComplex>>::resize(size_t *a1, unint64_t a2,
 
   else if (!v6)
   {
-    v8 = *a1 + 24 * a2;
+    v8 = &(*a1)[24 * a2];
     if (v4 != v8)
     {
       v9 = a1[1];
       do
       {
-        v11 = *(v9 - 24);
+        v11 = *(v9 - 3);
         v9 -= 24;
         v10 = v11;
         if (v11)
         {
-          *(v4 - 16) = v10;
+          *(v4 - 2) = v10;
           operator delete(v10);
         }
 
@@ -419,7 +419,7 @@ void IR::HOA2BinauralIRRenderer::process(uint64_t a1, void **a2, int a3, unsigne
   }
 }
 
-void IR::HOA2BinauralIRRenderer::extractSubNodesFromIRTree(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+void IR::HOA2BinauralIRRenderer::extractSubNodesFromIRTree(uint64_t a1, const void **a2, uint64_t a3, IR::IRCoordinates *a4, int a5)
 {
   if (*(a3 + 16) != *(a3 + 8))
   {
@@ -457,7 +457,7 @@ LABEL_11:
       if (v16 == *(a3 + 40))
       {
         v18 = *a2;
-        v19 = *(a2 + 8);
+        v19 = a2[1];
         if (*a2 != v19)
         {
           while (!IR::IRCoordinates::operator==(v18, a4))
@@ -470,16 +470,16 @@ LABEL_11:
             }
           }
 
-          v19 = *(a2 + 8);
+          v19 = a2[1];
         }
 
         v12 = v13;
         if (v18 == v19)
         {
-          v20 = *(a2 + 16);
+          v20 = a2[2];
           if (v19 >= v20)
           {
-            v24 = (&v19[-*a2] >> 2) * v13;
+            v24 = ((v19 - *a2) >> 2) * v13;
             v25 = v24 + 1;
             if ((v24 + 1) > 0x71C71C71C71C71CLL)
             {
@@ -509,18 +509,18 @@ LABEL_11:
 
             v28 = 36 * v24;
             v29 = *a4;
-            v30 = *(a4 + 16);
-            *(v28 + 32) = *(a4 + 32);
+            v30 = *(a4 + 1);
+            *(v28 + 32) = *(a4 + 8);
             *v28 = v29;
             *(v28 + 16) = v30;
             v23 = 36 * v24 + 36;
-            v31 = *(a2 + 8) - *a2;
+            v31 = a2[1] - *a2;
             v32 = 36 * v24 - v31;
             memcpy((v28 - v31), *a2, v31);
             v33 = *a2;
             *a2 = v32;
-            *(a2 + 8) = v23;
-            *(a2 + 16) = 0;
+            a2[1] = v23;
+            a2[2] = 0;
             if (v33)
             {
               operator delete(v33);
@@ -532,23 +532,23 @@ LABEL_11:
           else
           {
             v21 = *a4;
-            v22 = *(a4 + 16);
-            *(v19 + 8) = *(a4 + 32);
+            v22 = *(a4 + 1);
+            *(v19 + 8) = *(a4 + 8);
             *v19 = v21;
             *(v19 + 1) = v22;
             v23 = (v19 + 36);
           }
 
-          *(a2 + 8) = v23;
+          a2[1] = v23;
         }
       }
 
       else
       {
-        v17 = *(a4 + 16);
+        v17 = *(a4 + 1);
         v34[0] = *a4;
         v34[1] = v17;
-        v35 = *(a4 + 32);
+        v35 = *(a4 + 8);
         IR::HOA2BinauralIRRenderer::extractSubNodesFromIRTree(a1, a2, v16 + 56 * v10, v34, 0);
         v12 = v13;
       }
@@ -560,15 +560,15 @@ LABEL_11:
   }
 }
 
-uint64_t IR::HOA2BinauralIRRenderer::getRefHOAIRCoordinates@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, void *a2@<X8>)
+uint64_t *IR::HOA2BinauralIRRenderer::getRefHOAIRCoordinates@<X0>(uint64_t *a1@<X8>, uint64_t a2@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return std::vector<IR::IRCoordinates>::__init_with_size[abi:ne200100]<IR::IRCoordinates*,IR::IRCoordinates*>(a2, *this, *(this + 1), 0x8E38E38E38E38E39 * ((*(this + 1) - *this) >> 2));
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return std::vector<IR::IRCoordinates>::__init_with_size[abi:ne200100]<IR::IRCoordinates*,IR::IRCoordinates*>(a1, *a2, *(a2 + 8), 0x8E38E38E38E38E39 * ((*(a2 + 8) - *a2) >> 2));
 }
 
-uint64_t IR::HOA2BinauralIRRenderer::getVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, void *a2@<X8>)
+uint64_t *IR::HOA2BinauralIRRenderer::getVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -576,7 +576,7 @@ uint64_t IR::HOA2BinauralIRRenderer::getVariableDimensionsInRefHOAIR@<X0>(IR::HO
   return std::vector<IR::IRCoordinateType>::__init_with_size[abi:ne200100]<IR::IRCoordinateType*,IR::IRCoordinateType*>(a2, *(this + 6), *(this + 7), (*(this + 7) - *(this + 6)) >> 2);
 }
 
-uint64_t IR::HOA2BinauralIRRenderer::getInterpolationMethodForVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, void *a2@<X8>)
+uint64_t *IR::HOA2BinauralIRRenderer::getInterpolationMethodForVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -584,7 +584,7 @@ uint64_t IR::HOA2BinauralIRRenderer::getInterpolationMethodForVariableDimensions
   return std::vector<IR::IRInterpolationMethod>::__init_with_size[abi:ne200100]<IR::IRInterpolationMethod*,IR::IRInterpolationMethod*>(a2, *(this + 12), *(this + 13), (*(this + 13) - *(this + 12)) >> 2);
 }
 
-uint64_t IR::HOA2BinauralIRRenderer::getPeriodForVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, void *a2@<X8>)
+uint64_t *IR::HOA2BinauralIRRenderer::getPeriodForVariableDimensionsInRefHOAIR@<X0>(IR::HOA2BinauralIRRenderer *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -632,7 +632,7 @@ void std::vector<std::vector<std::vector<float>>>::__vdeallocate(void ***a1)
   }
 }
 
-void std::vector<std::vector<std::vector<float>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::vector<float>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -642,21 +642,21 @@ void std::vector<std::vector<std::vector<float>>>::__vallocate[abi:ne200100](uin
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *a1, char **a2, char **a3, unint64_t a4)
+void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t a1, char **a2, char **a3, unint64_t a4)
 {
   v7 = *a1;
-  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) < a4)
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) < a4)
   {
     std::vector<std::vector<float>>::__vdeallocate(a1);
     if (a4 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v8 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+      v8 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
       if (v8 <= a4)
       {
         v8 = a4;
       }
 
-      if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+      if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
       {
         v9 = 0xAAAAAAAAAAAAAAALL;
       }
@@ -672,15 +672,15 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
 
-  v10 = a1[1] - v7;
+  v10 = *(a1 + 8) - v7;
   if (0xAAAAAAAAAAAAAAABLL * (v10 >> 3) >= a4)
   {
     std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(&v19, a2, a3, v7);
     v13 = v12;
-    v14 = a1[1];
+    v14 = *(a1 + 8);
     if (v14 != v12)
     {
-      v15 = a1[1];
+      v15 = *(a1 + 8);
       do
       {
         v17 = *(v15 - 24);
@@ -698,17 +698,17 @@ void std::vector<std::vector<float>>::__assign_with_size[abi:ne200100]<std::vect
       while (v15 != v13);
     }
 
-    a1[1] = v13;
+    *(a1 + 8) = v13;
   }
 
   else
   {
     v11 = std::__copy_impl::operator()[abi:ne200100]<std::vector<float> *,std::vector<float> *,std::vector<float> *>(&v18, a2, (a2 + v10), v7);
-    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, v11, a3, a1[1]);
+    *(a1 + 8) = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(a1, v11, a3, *(a1 + 8));
   }
 }
 
-size_t *std::vector<std::vector<DSPSplitComplex>>::__append(size_t *result, unint64_t a2, uint64_t *a3)
+char **std::vector<std::vector<DSPSplitComplex>>::__append(char **result, unint64_t a2, uint64_t a3)
 {
   v5 = result;
   v7 = result[1];
@@ -724,7 +724,7 @@ size_t *std::vector<std::vector<DSPSplitComplex>>::__append(size_t *result, unin
         *v7 = 0;
         v7[1] = 0;
         v7[2] = 0;
-        result = std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(v7, *a3, a3[1], (a3[1] - *a3) >> 4);
+        result = std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(v7, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 4);
         v7 += 3;
         v13 -= 24;
       }
@@ -772,7 +772,7 @@ size_t *std::vector<std::vector<DSPSplitComplex>>::__append(size_t *result, unin
     v20 = 24 * v8;
     std::__split_buffer<std::vector<DSPSplitComplex>>::__construct_at_end(&v18, a2, a3);
     v14 = v5[1] - *v5;
-    v15 = v19 - v14;
+    v15 = (v19 - v14);
     memcpy((v19 - v14), *v5, v14);
     v16 = *v5;
     *v5 = v15;
@@ -788,17 +788,17 @@ size_t *std::vector<std::vector<DSPSplitComplex>>::__append(size_t *result, unin
   return result;
 }
 
-void sub_296BC3B28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BC3B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__split_buffer<std::vector<DSPSplitComplex>>::__construct_at_end(uint64_t result, uint64_t a2, uint64_t *a3)
+uint64_t *std::__split_buffer<std::vector<DSPSplitComplex>>::__construct_at_end(uint64_t *result, uint64_t a2, uint64_t a3)
 {
   v3 = result;
-  v4 = *(result + 16);
+  v4 = result[2];
   if (a2)
   {
     v6 = &v4[3 * a2];
@@ -808,7 +808,7 @@ uint64_t std::__split_buffer<std::vector<DSPSplitComplex>>::__construct_at_end(u
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      result = std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(v4, *a3, a3[1], (a3[1] - *a3) >> 4);
+      result = std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(v4, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 4);
       v4 += 3;
       v7 -= 24;
     }
@@ -817,11 +817,11 @@ uint64_t std::__split_buffer<std::vector<DSPSplitComplex>>::__construct_at_end(u
     v4 = v6;
   }
 
-  *(v3 + 16) = v4;
+  v3[2] = v4;
   return result;
 }
 
-uint64_t std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<DSPSplitComplex>::__init_with_size[abi:ne200100]<DSPSplitComplex*,DSPSplitComplex*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -843,7 +843,7 @@ void sub_296BC3C2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<DSPSplitComplex>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<DSPSplitComplex>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -853,17 +853,17 @@ void std::vector<DSPSplitComplex>::__vallocate[abi:ne200100](uint64_t a1, unint6
   std::vector<float>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<DSPSplitComplex>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<DSPSplitComplex>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<DSPSplitComplex>::__vallocate[abi:ne200100](result, a2);
+    std::vector<DSPSplitComplex>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296BC3CE0(_Unwind_Exception *exception_object)
@@ -878,7 +878,7 @@ void sub_296BC3CE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<IR::IRCoordinates>::__init_with_size[abi:ne200100]<IR::IRCoordinates*,IR::IRCoordinates*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IR::IRCoordinates>::__init_with_size[abi:ne200100]<IR::IRCoordinates*,IR::IRCoordinates*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -900,7 +900,7 @@ void sub_296BC3D5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IR::IRCoordinates>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<IR::IRCoordinates>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x71C71C71C71C71DLL)
   {
@@ -980,7 +980,7 @@ LABEL_8:
           while (v12 < (v50 - v49) >> 2);
         }
 
-        applesauce::CF::make_DataRef(v39.__begin_, v39.__end_ - v39.__begin_, &cf);
+        applesauce::CF::make_DataRef(&cf, v39.__begin_, v39.__end_ - v39.__begin_);
         std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](v45, &cf);
         if (cf)
         {
@@ -1028,14 +1028,14 @@ LABEL_8:
           while (0xAAAAAAAAAAAAAAABLL * ((v37 - cf) >> 3) > v17);
         }
 
-        applesauce::CF::make_DataRef(__p, v34 - __p, &v31);
+        applesauce::CF::make_DataRef(&v31, __p, v34 - __p);
         std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](v44, &v31);
         if (v31)
         {
           CFRelease(v31);
         }
 
-        applesauce::CF::make_DataRef(v32.__begin_, v32.__end_ - v32.__begin_, &v31);
+        applesauce::CF::make_DataRef(&v31, v32.__begin_, v32.__end_ - v32.__begin_);
         std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](v43, &v31);
         if (v31)
         {
@@ -1074,7 +1074,7 @@ LABEL_8:
       v20 = bswap32(*(v9 + 136));
       v21 = ((((*(*v9 + 232) - *(*v9 + 224)) >> 2) / 3uLL) + 4) >> 1;
       LODWORD(v39.__begin_) = v20;
-      std::vector<unsigned int>::vector[abi:ne200100](&v49, v21);
+      std::vector<unsigned int>::vector[abi:ne200100](&v49, v21, &v39);
       std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(&v40, __dst, v49, v50, (v50 - v49) >> 2);
       if (v49)
       {
@@ -1089,7 +1089,7 @@ LABEL_8:
     while (v6 < ((*(this + 65) - v3) >> 4));
     v30 = (v47 - v46) >> 4;
     applesauce::CF::TypeRefPair::TypeRefPair<char const(&)[18],unsigned int>(&v49, "NumTriangulations", &v30);
-    applesauce::CF::make_DataRef(v40, __dst - v40, &cf);
+    applesauce::CF::make_DataRef(&cf, v40, __dst - v40);
     applesauce::CF::TypeRef::TypeRef(v51, "TriAssignment");
     v22 = cf;
     if (cf)
@@ -1184,16 +1184,16 @@ LABEL_8:
   }
 }
 
-void **IR::IRData::Implementation::flattenVBAPTree(void **result, uint64_t *a2, int a3)
+uint64_t IR::IRData::Implementation::flattenVBAPTree(uint64_t result, uint64_t *a2, int a3)
 {
   v3 = result;
   v4 = *a2;
   v5 = a2[1];
-  if (((result[15] - result[14]) >> 2) - 1 == a3)
+  if (((*(result + 120) - *(result + 112)) >> 2) - 1 == a3)
   {
     while (v4 != v5)
     {
-      result = std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::push_back[abi:ne200100](v3 + 64, (v4 + 32));
+      result = std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::push_back[abi:ne200100]((v3 + 512), (v4 + 32));
       v4 += 120;
     }
   }
@@ -1205,7 +1205,7 @@ void **IR::IRData::Implementation::flattenVBAPTree(void **result, uint64_t *a2, 
     {
       if (*v7 != v7[1])
       {
-        result = IR::IRData::Implementation::flattenVBAPTree(v3, v7, (a3 + 1));
+        result = IR::IRData::Implementation::flattenVBAPTree(v3, v7, a3 + 1);
       }
 
       v8 = v7 + 6;
@@ -1264,7 +1264,7 @@ void **std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::push_back[abi:
 
     v7 = (v12 + 16);
     v14 = result[1] - *result;
-    v15 = v12 - v14;
+    v15 = (v12 - v14);
     memcpy((v12 - v14), *result, v14);
     v16 = *v3;
     *v3 = v15;
@@ -1449,14 +1449,14 @@ uint64_t IR::IRData::Implementation::getTriangleIndicesAndCoordinates(uint64_t a
   return result;
 }
 
-void *std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](void *result, void *a2)
+const void ***std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](const void ***result, const void **a2)
 {
   v3 = result;
   v5 = result[1];
   v4 = result[2];
   if (v5 >= v4)
   {
-    v7 = (v5 - *result) >> 3;
+    v7 = v5 - *result;
     if ((v7 + 1) >> 61)
     {
       std::vector<float>::__throw_length_error[abi:ne200100]();
@@ -1508,14 +1508,14 @@ void *std::vector<applesauce::CF::DataRef>::push_back[abi:ne200100](void *result
   return result;
 }
 
-void sub_296BC4B0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BC4B0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<applesauce::CF::DataRef>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-CFTypeID applesauce::CF::make_DataRef@<X0>(UInt8 *bytes@<X0>, CFIndex length@<X1>, CFDataRef *a3@<X8>)
+uint64_t *applesauce::CF::make_DataRef@<X0>(CFDataRef *__return_ptr a1@<X8>, UInt8 *bytes@<X0>, CFIndex length@<X1>)
 {
   v4 = CFDataCreate(0, bytes, length);
   if (!v4)
@@ -1524,7 +1524,7 @@ CFTypeID applesauce::CF::make_DataRef@<X0>(UInt8 *bytes@<X0>, CFIndex length@<X1
     applesauce::CF::construct_error(exception);
   }
 
-  *a3 = v4;
+  *a1 = v4;
   v5 = CFGetTypeID(v4);
   result = CFDataGetTypeID();
   if (v5 != result)
@@ -1543,7 +1543,7 @@ void sub_296BC4BE4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned int a2, const __CFDictionary **a3, std::vector<unsigned int> *a4, void *a5, void *a6)
+uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned int a2, const __CFDictionary **a3, std::vector<unsigned int> *a4, void *a5, const void **a6)
 {
   v6 = *a3;
   if (!*a3)
@@ -1580,7 +1580,7 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
     MEMORY[0x29C25F8D0](v198, "Could not construct");
   }
 
-  applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(*a3, &v214, &v219, &cf);
+  applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(&v219, &cf, *a3, &v214);
   if (!cf)
   {
     v199 = __cxa_allocate_exception(0x10uLL);
@@ -1640,7 +1640,7 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
   }
 
   v214 = @"TriVertices";
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(v17, &v214, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(&cf, v17, &v214);
   if (v218 != 1)
   {
     v64 = IR::getIRDataLog(v18);
@@ -1679,7 +1679,7 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
     do
     {
       valuePtr = 0;
-      applesauce::CF::at_or<applesauce::CF::DataRef>(v19, v21, &valuePtr, &v219);
+      applesauce::CF::at_or<applesauce::CF::DataRef>(&valuePtr, &v219, v19, v21);
       if (valuePtr)
       {
         CFRelease(valuePtr);
@@ -1969,10 +1969,10 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
 
   v129 = applesauce::CF::DictionaryRef::operator->(v206);
   v214 = @"TriBinLengths";
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(*v129, &v214, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(&cf, *v129, &v214);
   v130 = applesauce::CF::DictionaryRef::operator->(v206);
   v219 = @"TriBinSerial";
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(*v130, &v219, &v214);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,__CFString const*>(&v214, *v130, &v219);
   if (v218 == 1 && v215 == 1)
   {
     applesauce::CF::ArrayRef::ArrayRef(&v219, &cf);
@@ -1987,11 +1987,11 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
       {
         v134 = applesauce::CF::ArrayRef::operator->(&v219);
         v212 = 0;
-        applesauce::CF::at_or<applesauce::CF::DataRef>(*v134, v133, &v212, &v213);
+        applesauce::CF::at_or<applesauce::CF::DataRef>(&v212, &v213, *v134, v133);
         applesauce::CF::DataRef::~DataRef(&v212);
         v135 = applesauce::CF::ArrayRef::operator->(&valuePtr);
         v211 = 0;
-        applesauce::CF::at_or<applesauce::CF::DataRef>(*v135, v133, &v211, &v212);
+        applesauce::CF::at_or<applesauce::CF::DataRef>(&v211, &v212, *v135, v133);
         applesauce::CF::DataRef::~DataRef(&v211);
         v211 = applesauce::CF::DataRef::operator->(&v213);
         v136 = applesauce::CF::DataRef_proxy::get_byte_length(&v211);
@@ -2005,7 +2005,7 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
         }
 
         v139 = v138;
-        std::vector<std::list<int>>::resize((*v204 + 24 * v133), v137);
+        std::vector<std::list<int>>::resize(*v204 + 3 * v133, v137);
         v211 = applesauce::CF::DataRef::operator->(&v213);
         v140 = applesauce::CF::DataRef_proxy::get_raw_data(&v211);
         v211 = applesauce::CF::DataRef::operator->(&v212);
@@ -2013,7 +2013,7 @@ uint64_t IR::IRData::Implementation::loadTriangulationData(uint64_t a1, unsigned
         if (v136 >= 4 && v139 >= 4)
         {
           v142 = bswap32(*v140);
-          v143 = std::__list_imp<int>::clear(*(*v204 + 24 * v133));
+          v143 = std::__list_imp<int>::clear(*(*v204 + 3 * v133));
           if (v142 >= 1)
           {
             operator new();
@@ -2091,25 +2091,25 @@ LABEL_120:
   return v144;
 }
 
-void sub_296BC57EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_296BC57EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va4, a9);
-  va_start(va3, a9);
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, const void *);
+  va_start(va4, a16);
+  va_start(va3, a16);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, const void *);
   va_copy(va2, va1);
-  v13 = va_arg(va2, const void *);
+  v20 = va_arg(va2, const void *);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void);
-  v17 = va_arg(va3, void);
+  v22 = va_arg(va3, void);
+  v24 = va_arg(va3, void);
   va_copy(va4, va3);
-  v18 = va_arg(va4, const void *);
+  v25 = va_arg(va4, const void *);
   applesauce::CF::DataRef::~DataRef(va);
   applesauce::CF::DataRef::~DataRef(va1);
   applesauce::CF::ArrayRef::~ArrayRef(va3);
-  applesauce::CF::ArrayRef::~ArrayRef((v9 - 88));
+  applesauce::CF::ArrayRef::~ArrayRef((v16 - 88));
   std::optional<applesauce::CF::ArrayRef>::~optional(va2);
   std::optional<applesauce::CF::ArrayRef>::~optional(va4);
   _Unwind_Resume(a1);
@@ -2258,9 +2258,9 @@ uint64_t std::optional<applesauce::CF::DataRef>::~optional(uint64_t a1)
   return a1;
 }
 
-void std::vector<std::vector<std::list<int>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::list<int>>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -2280,15 +2280,15 @@ void std::vector<std::vector<std::list<int>>>::resize(uint64_t a1, unint64_t a2)
       std::vector<std::list<int>>::__destroy_vector::operator()[abi:ne200100](&v8);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
-void *std::vector<std::list<int>>::resize(void *result, unint64_t a2)
+uint64_t **std::vector<std::list<int>>::resize(uint64_t **result, unint64_t a2)
 {
   v2 = result;
   v3 = result[1];
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *result) >> 3);
+  v4 = 0xAAAAAAAAAAAAAAABLL * (v3 - *result);
   v5 = a2 >= v4;
   v6 = a2 - v4;
   if (v6 != 0 && v5)
@@ -2299,7 +2299,7 @@ void *std::vector<std::list<int>>::resize(void *result, unint64_t a2)
 
   else if (!v5)
   {
-    v7 = *result + 24 * a2;
+    v7 = &(*result)[3 * a2];
     while (v3 != v7)
     {
       v3 -= 3;
@@ -2312,15 +2312,15 @@ void *std::vector<std::list<int>>::resize(void *result, unint64_t a2)
   return result;
 }
 
-BOOL IR::IRData::Implementation::initVBAPTriangulation(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+BOOL IR::IRData::Implementation::initVBAPTriangulation(uint64_t a1, uint64_t *a2, void *a3, int a4)
 {
   LODWORD(v4) = a4;
   v5 = a1;
   v92 = *MEMORY[0x29EDCA608];
   v6 = (a1 + 512);
   std::vector<std::shared_ptr<IR::VBAPTriangulationKernel>>::clear[abi:ne200100]((a1 + 512));
-  v8 = *(v5 + 272);
-  if (*(v5 + 112) == *(v5 + 120))
+  v8 = v5[34];
+  if (v5[14] == v5[15])
   {
     if (*v8 == v8[1])
     {
@@ -2342,8 +2342,8 @@ BOOL IR::IRData::Implementation::initVBAPTriangulation(uint64_t a1, uint64_t *a2
   }
 
   v4 = v4;
-  v10 = *(v5 + 512);
-  if (v4 >= ((*(v5 + 520) - v10) >> 4))
+  v10 = v5[64];
+  if (v4 >= ((v5[65] - v10) >> 4))
   {
     return 0;
   }
@@ -2565,14 +2565,14 @@ LABEL_90:
         {
           if (v47 < v39)
           {
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v44 - 1);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v44 - 1, v44 - 1);
           }
 
           if (*v44 < v39)
           {
             v48 = (v42 + 8);
 LABEL_59:
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v48);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v48, v48);
           }
         }
 
@@ -2580,7 +2580,7 @@ LABEL_59:
         {
           if (v46 < v39)
           {
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v45);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v45, v44 - 2);
           }
 
           v48 = v44;
@@ -2594,7 +2594,7 @@ LABEL_59:
         {
           if (v46 < v39)
           {
-            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v45);
+            std::__tree<int>::__emplace_unique_key_args<int,int const&>(&v82, v45, v44 - 2);
             v47 = *(v44 - 1);
           }
 
@@ -2626,7 +2626,7 @@ LABEL_59:
 
       v50 = (*(*(*(*v6 + v11) + 112) + 8) - **(*(*v6 + v11) + 112)) >> 2;
       LODWORD(v88) = 0;
-      std::vector<float>::vector[abi:ne200100](buf, v50);
+      std::vector<float>::vector[abi:ne200100](buf, v50, &v88);
       v51 = v82;
       if (v82 != &v83)
       {
@@ -2704,10 +2704,10 @@ LABEL_82:
 
 LABEL_84:
     ++v4;
-    v10 = *(v5 + 512);
+    v10 = v5[64];
   }
 
-  while (v4 < (*(v5 + 520) - v10) >> 4);
+  while (v4 < (v5[65] - v10) >> 4);
   return v76;
 }
 
@@ -2721,7 +2721,7 @@ void sub_296BC68A0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::reserve(void *result, unint64_t a2)
+const void **std::vector<std::unique_ptr<IR::FFTFilterKernel<float>>>::reserve(const void **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 3)
   {
@@ -2780,15 +2780,15 @@ void std::__split_buffer<std::shared_ptr<IR::VBAPTriangulationKernel>>::clear[ab
   }
 }
 
-void std::vector<applesauce::CF::DataRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+void std::vector<applesauce::CF::DataRef>::__swap_out_circular_buffer(const void ***result, void *a2)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  v6 = a2[1] + *a1 - v5;
-  if (v5 != *a1)
+  v4 = *result;
+  v5 = result[1];
+  v6 = (a2[1] + *result - v5);
+  if (v5 != *result)
   {
-    v7 = *a1;
-    v8 = (a2[1] + *a1 - v5);
+    v7 = *result;
+    v8 = (a2[1] + *result - v5);
     do
     {
       *v8++ = *v7;
@@ -2802,18 +2802,18 @@ void std::vector<applesauce::CF::DataRef>::__swap_out_circular_buffer(uint64_t a
     }
 
     while (v4 != v5);
-    v4 = *a1;
+    v4 = *result;
   }
 
   a2[1] = v6;
-  *a1 = v6;
-  *(a1 + 8) = v4;
+  *result = v6;
+  result[1] = v4;
   a2[1] = v4;
-  v9 = *(a1 + 8);
-  *(a1 + 8) = a2[2];
+  v9 = result[1];
+  result[1] = a2[2];
   a2[2] = v9;
-  v10 = *(a1 + 16);
-  *(a1 + 16) = a2[3];
+  v10 = result[2];
+  result[2] = a2[3];
   a2[3] = v10;
   *a2 = a2[1];
 }
@@ -2844,7 +2844,7 @@ uint64_t std::__split_buffer<applesauce::CF::DataRef>::~__split_buffer(uint64_t 
   return a1;
 }
 
-uint64_t std::vector<std::list<int>>::__init_with_size[abi:ne200100]<std::list<int>*,std::list<int>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::list<int>>::__init_with_size[abi:ne200100]<std::list<int>*,std::list<int>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2861,7 +2861,7 @@ void sub_296BC6C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::list<int>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::list<int>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2881,7 +2881,7 @@ void std::allocator<std::list<int>>::allocate_at_least[abi:ne200100](uint64_t a1
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::list<int>>,std::list<int>*,std::list<int>*,std::list<int>*>(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::list<int>>,std::list<int>*,std::list<int>*,std::list<int>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -2919,17 +2919,30 @@ void sub_296BC6D74(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::list<int>::list(void *result, uint64_t a2)
+uint64_t *std::list<int>::list(uint64_t *a1, uint64_t a2)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (*(a2 + 8) != a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
+}
+
+uint64_t *std::vector<unsigned int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<IR::IRCoordinateType>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
 }
 
 void sub_296BC6F38(_Unwind_Exception *exception_object)
@@ -2944,7 +2957,7 @@ void sub_296BC6F38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_iter<unsigned int *>,std::__wrap_iter<unsigned int *>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -2953,8 +2966,8 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 2)
   {
     v11 = *a1;
@@ -2992,23 +3005,24 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v35 = (4 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 4;
       *v35++ = v36;
       v34 -= 4;
     }
 
     while (v34);
-    memcpy((v33 + 4 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 4 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 4 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 4 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -3023,14 +3037,14 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   {
     v29 = &__dst[4 * a5];
     v30 = (v10 - 4 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[4 * a5], __dst, v10 - v29);
@@ -3045,11 +3059,11 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[4 * a5];
@@ -3069,7 +3083,7 @@ char *std::vector<unsigned int>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[4 * a5], v5, v21 - v22);
@@ -3088,7 +3102,7 @@ LABEL_29:
   return v5;
 }
 
-void std::vector<applesauce::CF::DataRef>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<applesauce::CF::DataRef>::__destroy_vector::operator()[abi:ne200100](const void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -3292,12 +3306,12 @@ void std::__split_buffer<std::vector<std::list<int>>>::clear[abi:ne200100](uint6
   }
 }
 
-uint64_t std::vector<std::list<int>>::__append(uint64_t result, unint64_t a2)
+uint64_t **std::vector<std::list<int>>::__append(uint64_t **result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
-  if (0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 3) >= a2)
+  v4 = result[1];
+  v5 = result[2];
+  if (0xAAAAAAAAAAAAAAABLL * (v5 - v4) >= a2)
   {
     if (a2)
     {
@@ -3314,19 +3328,19 @@ uint64_t std::vector<std::list<int>>::__append(uint64_t result, unint64_t a2)
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
   {
-    v6 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *result) >> 3);
+    v6 = 0xAAAAAAAAAAAAAAABLL * (v4 - *result);
     v7 = v6 + a2;
     if (v6 + a2 > 0xAAAAAAAAAAAAAAALL)
     {
       std::vector<float>::__throw_length_error[abi:ne200100]();
     }
 
-    v8 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *result) >> 3);
+    v8 = 0xAAAAAAAAAAAAAAABLL * (v5 - *result);
     if (2 * v8 > v7)
     {
       v7 = 2 * v8;
@@ -3363,13 +3377,13 @@ uint64_t std::vector<std::list<int>>::__append(uint64_t result, unint64_t a2)
 
     while (v12 != 24 * v6 + 24 * a2);
     *&v19 = v11 + 24 * a2;
-    v13 = *(result + 8);
+    v13 = result[1];
     v14 = (v11 + *result - v13);
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<int>>,std::list<int>*>(result, *result, v13, v14);
     v15 = *v3;
     *v3 = v14;
-    v16 = *(v3 + 16);
-    *(v3 + 8) = v19;
+    v16 = v3[2];
+    *(v3 + 1) = v19;
     *&v19 = v15;
     *(&v19 + 1) = v16;
     v17 = v15;
@@ -3380,14 +3394,14 @@ uint64_t std::vector<std::list<int>>::__append(uint64_t result, unint64_t a2)
   return result;
 }
 
-void sub_296BC77B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BC77B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::list<int>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<int>>,std::list<int>*>(uint64_t a1, void *a2, void *a3, uint64_t *a4)
+uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::list<int>>,std::list<int>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   if (a2 != a3)
   {
@@ -3411,7 +3425,7 @@ uint64_t *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<s
   return result;
 }
 
-uint64_t *std::construct_at[abi:ne200100]<std::list<int>,std::list<int>,std::list<int>*>(uint64_t *result, void *a2)
+uint64_t *std::construct_at[abi:ne200100]<std::list<int>,std::list<int>,std::list<int>*>(uint64_t *result, uint64_t *a2)
 {
   *result = result;
   result[1] = result;
@@ -3530,13 +3544,13 @@ void sub_296BC7A54(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(const __CFDictionary *a1@<X0>, const void **a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(void *a1@<X2>, void *a2@<X8>, const __CFDictionary *a3@<X0>, const void **a4@<X1>)
 {
-  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(a1, a2, &cf);
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::NumberRef,__CFString const*>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -3545,7 +3559,7 @@ void applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(const __
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -3554,7 +3568,7 @@ void applesauce::CF::at_or<applesauce::CF::NumberRef,__CFString const*>(const __
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -3589,13 +3603,13 @@ LABEL_6:
   a3[8] = v7;
 }
 
-void applesauce::CF::at_or<applesauce::CF::DataRef>(const __CFArray *a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void applesauce::CF::at_or<applesauce::CF::DataRef>(void *a1@<X2>, void *a2@<X8>, const __CFArray *a3@<X0>, unint64_t a4@<X1>)
 {
-  applesauce::CF::details::at_as<applesauce::CF::DataRef>(a1, a2, &cf);
+  applesauce::CF::details::at_as<applesauce::CF::DataRef>(a3, a4, &cf);
   if (v9 != 1)
   {
-    *a4 = *a3;
-    *a3 = 0;
+    *a2 = *a1;
+    *a1 = 0;
     return;
   }
 
@@ -3604,7 +3618,7 @@ void applesauce::CF::at_or<applesauce::CF::DataRef>(const __CFArray *a1@<X0>, un
   {
     CFRetain(cf);
     v7 = v9;
-    *a4 = v6;
+    *a2 = v6;
     if ((v7 & 1) == 0)
     {
       return;
@@ -3613,7 +3627,7 @@ void applesauce::CF::at_or<applesauce::CF::DataRef>(const __CFArray *a1@<X0>, un
 
   else
   {
-    *a4 = 0;
+    *a2 = 0;
   }
 
   if (cf)
@@ -3684,12 +3698,12 @@ LABEL_6:
   a3[8] = v7;
 }
 
-void std::__shared_ptr_emplace<VBAP>::__shared_ptr_emplace[abi:ne200100]<std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,std::allocator<VBAP>,0>(void *a1, uint64_t *a2, uint64_t *a3, int *a4)
+void std::__shared_ptr_emplace<VBAP>::__shared_ptr_emplace[abi:ne200100]<std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,std::allocator<VBAP>,0>(void *a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, unint64_t a6)
 {
   a1[1] = 0;
   a1[2] = 0;
   *a1 = &unk_2A1DEC000;
-  std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,VBAP*>((a1 + 3), a2, a3, a4);
+  std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,VBAP*>((a1 + 3), a2, a3, a4, a5, a6);
 }
 
 void std::__shared_ptr_emplace<VBAP>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
@@ -3700,13 +3714,13 @@ void std::__shared_ptr_emplace<VBAP>::~__shared_ptr_emplace(std::__shared_weak_c
   JUMPOUT(0x29C25FC20);
 }
 
-void std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,VBAP*>(uint64_t a1, uint64_t *a2, uint64_t *a3, int *a4)
+void std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::vector<int> const&,std::vector<std::list<int>> const&,VBAP*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4, uint64_t a5, unint64_t a6)
 {
-  memset(v8, 0, sizeof(v8));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v8, *a2, a2[1], (a2[1] - *a2) >> 2);
+  memset(v12, 0, sizeof(v12));
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v12, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   memset(__p, 0, sizeof(__p));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *a3, a3[1], (a3[1] - *a3) >> 2);
-  VBAP::VBAP(a1, v8, __p, *a4);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
+  VBAP::VBAP(a1, v12, __p, *a4, a5, a6);
 }
 
 void sub_296BC7F80(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13)
@@ -3724,7 +3738,7 @@ void sub_296BC7F80(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__shared_ptr_emplace<VBAP>::__shared_ptr_emplace[abi:ne200100]<std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::allocator<VBAP>,0>(void *a1, uint64_t *a2, uint64_t *a3, int *a4)
+void std::__shared_ptr_emplace<VBAP>::__shared_ptr_emplace[abi:ne200100]<std::vector<float> &,std::vector<float> &,VBAP::Algorithm,std::allocator<VBAP>,0>(void *a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   a1[1] = 0;
   a1[2] = 0;
@@ -3732,20 +3746,16 @@ void std::__shared_ptr_emplace<VBAP>::__shared_ptr_emplace[abi:ne200100]<std::ve
   std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,VBAP*>((a1 + 3), a2, a3, a4);
 }
 
-void std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,VBAP*>(uint64_t a1, uint64_t *a2, uint64_t *a3, int *a4)
+void std::construct_at[abi:ne200100]<VBAP,std::vector<float> &,std::vector<float> &,VBAP::Algorithm,VBAP*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
-  memset(v15, 0, sizeof(v15));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v15, *a2, a2[1], (a2[1] - *a2) >> 2);
-  memset(v14, 0, sizeof(v14));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, *a3, a3[1], (a3[1] - *a3) >> 2);
+  memset(v11, 0, sizeof(v11));
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v11, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
+  memset(v10, 0, sizeof(v10));
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v10, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   v7 = *a4;
-  __p = 0;
-  v12 = 0;
-  v13 = 0;
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  VBAP::VBAP(a1, v15, v14, v7);
+  memset(__p, 0, sizeof(__p));
+  memset(v8, 0, sizeof(v8));
+  VBAP::VBAP(a1, v11, v10, v7, __p, v8);
 }
 
 void sub_296BC8178(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17)
@@ -3783,48 +3793,48 @@ void std::__tree<int>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2)
+uint64_t *std::__tree<int>::__emplace_unique_key_args<int,int const&>(uint64_t a1, int *a2, _DWORD *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = *(v3 + 28);
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<int>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<int>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -3850,12 +3860,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -3869,22 +3879,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -3918,13 +3928,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4019,7 +4029,7 @@ void sub_296BC86A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t AudioDSP::Core::HeadTracker::Implementation::ConnectRM(id *a1, unsigned int a2)
+uint64_t AudioDSP::Core::HeadTracker::Implementation::ConnectRM(id *a1, int a2)
 {
   v28 = *MEMORY[0x29EDCA608];
   v4 = getRMMediaSessionClass() && [getRMMediaSessionClass() isAvailable] && getRMMediaSessionOptionsClass() != 0;
@@ -4205,9 +4215,9 @@ id getRMMediaSessionClass(void)
   return v1;
 }
 
-void sub_296BC8C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296BC8C04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4236,9 +4246,9 @@ id getRMMediaSessionOptionsClass(void)
   return v1;
 }
 
-void sub_296BC8CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296BC8CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4387,10 +4397,10 @@ LABEL_24:
       {
         v12 = v11 * 3.14159265 / 180.0 * -0.5;
         v13 = __sincosf_stret(v12);
-        v14.vector.i32[0] = 0;
-        v14.vector.i32[2] = 0;
-        v14.vector.i32[1] = LODWORD(v13.__sinval);
-        v14.vector.i32[3] = LODWORD(v13.__cosval);
+        v14.i32[0] = 0;
+        v14.i32[2] = 0;
+        v14.i32[1] = LODWORD(v13.__sinval);
+        v14.i32[3] = LODWORD(v13.__cosval);
         *a2 = v14;
       }
 
@@ -4583,21 +4593,21 @@ void CASmartPreferences::Read(CASmartPreferences *this, const __CFString *a2, co
   CASmartPreferences::AddHandler<BOOL>(this, a2, CASmartPreferences::InterpretBoolean, v4);
 }
 
-void sub_296BC97FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BC97FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void AudioDSP::Core::HeadTracker::HeadTracker(std::string *a1, uint64_t a2, __int16 a3)
+void AudioDSP::Core::HeadTracker::HeadTracker(std::string *a1, const char *a2, __int16 a3)
 {
-  caulk::make_string("%p", &__p, a2);
+  caulk::make_string(&__p, "%p", a2, a2);
   AudioDSP::Core::HeadTracker::HeadTracker(a1, &__p, a3);
 }
 
 {
-  caulk::make_string("%p", &__p, a2);
+  caulk::make_string(&__p, "%p", a2, a2);
   AudioDSP::Core::HeadTracker::HeadTracker(a1, &__p, a3);
 }
 
@@ -4611,46 +4621,46 @@ void sub_296BC987C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void caulk::make_string(caulk *this@<X0>, uint64_t a2@<X8>, ...)
+void caulk::make_string(std::string *__return_ptr a1@<X8>, caulk *this@<X0>, const char *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   v5 = vsnprintf(0, 0, this, va);
   if (v5 <= 0)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
   }
 
   else
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
-    std::string::resize(a2, (v5 + 1), 0);
-    v6 = *(a2 + 23);
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
+    std::string::resize(a1, (v5 + 1), 0);
+    v6 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
     if (v6 >= 0)
     {
-      v7 = a2;
+      v7 = a1;
     }
 
     else
     {
-      v7 = *a2;
+      v7 = a1->__r_.__value_.__r.__words[0];
     }
 
     if (v6 >= 0)
     {
-      v8 = *(a2 + 23);
+      size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      size = a1->__r_.__value_.__l.__size_;
     }
 
-    v9 = vsnprintf(v7, v8, this, va);
-    std::string::resize(a2, v9, 0);
+    v9 = vsnprintf(v7, size, this, va);
+    std::string::resize(a1, v9, 0);
   }
 }
 
@@ -4786,7 +4796,7 @@ pthread_t AudioDSP::Core::HeadTracker::Initialize(uint64_t a1, __int16 a2)
   return AudioDSP::Core::HeadTracker::Implementation::Initialize(v3);
 }
 
-uint64_t AudioDSP::Core::HeadTracker::ConnectRM(uint64_t a1, unsigned int a2)
+uint64_t AudioDSP::Core::HeadTracker::ConnectRM(uint64_t a1, int a2)
 {
   v2 = *(a1 + 24);
   if (*(v2 + 13) == 1)
@@ -5261,7 +5271,7 @@ void RelativeMotionLibrary(void)
   v0 = v1[0];
   if (!RelativeMotionLibraryCore(char **)::frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
@@ -5272,7 +5282,7 @@ LABEL_7:
   }
 }
 
-uint64_t ___ZL25RelativeMotionLibraryCorePPc_block_invoke()
+uint64_t ___ZL25RelativeMotionLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   RelativeMotionLibraryCore(char **)::frameworkLibrary = result;
@@ -5291,7 +5301,7 @@ Class ___ZL29getRMMediaSessionOptionsClassv_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = ___ZL29getRMMediaSessionOptionsClassv_block_invoke_cold_1();
+    ___ZL29getRMMediaSessionOptionsClassv_block_invoke_cold_1();
     return AudioDSP::Core::HeadTracker::Implementation::Implementation(v3, v4, v5);
   }
 
@@ -5349,11 +5359,11 @@ void CASmartPreferences::AddHandler<BOOL>(CASmartPreferences *a1, uint64_t a2, u
   operator new();
 }
 
-void sub_296BCAD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_296BCAD4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v6 + 8);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](v11 + 8);
   _Unwind_Resume(a1);
 }
 
@@ -5429,9 +5439,9 @@ uint64_t std::__function::__func<void CASmartPreferences::AddHandler<BOOL>(__CFS
   return std::__function::__value_func<void ()(BOOL)>::__value_func[abi:ne200100]((a2 + 2), a1 + 16);
 }
 
-void std::__function::__func<void CASmartPreferences::AddHandler<BOOL>(__CFString const*,__CFString const*,BOOL (*)(void const*,BOOL &),std::function<void ()(BOOL)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<BOOL>(__CFString const*,__CFString const*,BOOL (*)(void const*,BOOL &),std::function<void ()(BOOL)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(void *a1)
+void std::__function::__func<void CASmartPreferences::AddHandler<BOOL>(__CFString const*,__CFString const*,BOOL (*)(void const*,BOOL &),std::function<void ()(BOOL)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<BOOL>(__CFString const*,__CFString const*,BOOL (*)(void const*,BOOL &),std::function<void ()(BOOL)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100](a1 + 16);
+  std::__function::__value_func<void ()(BOOL)>::~__value_func[abi:ne200100]((a1 + 16));
 
   operator delete(a1);
 }
@@ -5560,9 +5570,9 @@ caulk::rt_safe_memory_resource *caulk::concurrent::details::rt_message_call<Audi
   return caulk::concurrent::details::rt_message_call<AudioDSP::Core::HeadTracker::Implementation::SetBluetoothLowLatencyMode::$_0,unsigned int &,HeadTrackingMode &,char const*>::rt_cleanup::~rt_cleanup(&v3);
 }
 
-void sub_296BCB3CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BCB3CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   caulk::concurrent::details::rt_message_call<AudioDSP::Core::HeadTracker::Implementation::SetBluetoothLowLatencyMode::$_0,unsigned int &,HeadTrackingMode &,char const*>::rt_cleanup::~rt_cleanup(va);
   _Unwind_Resume(a1);
 }
@@ -5797,19 +5807,20 @@ const UInt8 *applesauce::CF::details::at_key<char const(&)[52]>(const __CFDictio
   return Value;
 }
 
-void sub_296BCB86C(void *a1, uint64_t a2, ...)
+void sub_296BCB86C(void *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(va);
   __cxa_begin_catch(a1);
   __cxa_end_catch();
   JUMPOUT(0x296BCB818);
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 double IR::DataResampler<float>::DataResampler(uint64_t a1, int a2, float a3, float a4)
@@ -5910,8 +5921,9 @@ uint64_t IR::DataResampler<float>::Initialize(uint64_t a1, const __CFDictionary 
   return IR::DataResampler<float>::Initialize(a1, v3);
 }
 
-uint64_t IR::DataResampler<float>::Initialize(uint64_t a1, unsigned int a2)
+uint64_t IR::DataResampler<float>::Initialize(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v29 = *MEMORY[0x29EDCA608];
   *(a1 + 20) = 0;
   if (a2 < 0x80)
@@ -5920,7 +5932,7 @@ uint64_t IR::DataResampler<float>::Initialize(uint64_t a1, unsigned int a2)
     CA::AudioSampleRateConverterBuilder::SetAttribute<double>(v20, *MEMORY[0x29EDBFAD0], *(a1 + 12));
     CA::AudioSampleRateConverterBuilder::SetAttribute<double>(v20, *MEMORY[0x29EDBFAE0], *(a1 + 16));
     CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(v20, *MEMORY[0x29EDBFAD8], 1);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(v20, *MEMORY[0x29EDBFAE8], a2);
+    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(v20, *MEMORY[0x29EDBFAE8], v2);
     CA::AudioSampleRateConverterBuilder::Build(&v18);
     if (v19 == 1)
     {
@@ -6014,7 +6026,7 @@ uint64_t IR::DataResampler<float>::Initialize(uint64_t a1, unsigned int a2)
     v3 = IR::getDataResamplerLog(void)::gLog;
     if (os_log_type_enabled(IR::getDataResamplerLog(void)::gLog, OS_LOG_TYPE_ERROR))
     {
-      IR::DataResampler<float>::Initialize(a2, v3);
+      IR::DataResampler<float>::Initialize(v2, v3);
     }
 
     v4 = 0;
@@ -6034,7 +6046,7 @@ void sub_296BCBED0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t CA::AudioSampleRateConverterBuilder::Build@<X0>(uint64_t a1@<X8>)
+uint64_t *CA::AudioSampleRateConverterBuilder::Build@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   v6 = 0;
   result = AudioSampleRateConverterCreate();
@@ -6108,7 +6120,7 @@ uint64_t IR::DataResampler<float>::Process(uint64_t a1, float *a2, unsigned int 
   {
     v13 = a4;
     v14[0] = a2;
-    v11 = CA::AudioSampleRateConverter::Process(v9, v14, 1, RequiredNumberOfInputFrames, &v13);
+    v11 = CA::AudioSampleRateConverter::Process(v9, v14, 1, RequiredNumberOfInputFrames, &v13, 1, a5);
     if (v11)
     {
       vDSP_vclr(a4, 1, a5);
@@ -6141,8 +6153,8 @@ uint64_t CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(ui
   if (!Mutable)
   {
     _os_assert_log();
-    v5 = _os_crash();
-    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(v5);
+    _os_crash();
+    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder();
   }
 
   *(a1 + 8) = Mutable;
@@ -6185,8 +6197,8 @@ void *CA::AudioSampleRateConverter::AudioSampleRateConverter(void *result, uint6
   if (!a2)
   {
     _os_assert_log();
-    v2 = _os_crash();
-    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(v2);
+    _os_crash();
+    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder();
   }
 
   return result;
@@ -6291,10 +6303,11 @@ LABEL_17:
   return v4;
 }
 
-void sub_296BCC680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, const void *a11)
+void sub_296BCC680(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   applesauce::CF::TypeRef::~TypeRef(&a9);
-  applesauce::CF::ArrayRef::~ArrayRef(&a11);
+  applesauce::CF::ArrayRef::~ArrayRef(va);
   _Unwind_Resume(a1);
 }
 
@@ -6346,10 +6359,10 @@ void sub_296BCC860(_Unwind_Exception *a1)
 void *SincKernelFactorySingleton::instance(SincKernelFactorySingleton *this)
 {
   {
-    SincKernelFactorySingleton::SincKernelFactorySingleton(&SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton);
+    SincKernelFactorySingleton::SincKernelFactorySingleton(SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton);
   }
 
-  return &SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton;
+  return SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton;
 }
 
 uint64_t SincKernelFactorySingleton::ReferenceSincKernel(SincKernelFactory **this, int a2, int a3, double a4, double a5)
@@ -6360,7 +6373,7 @@ uint64_t SincKernelFactorySingleton::ReferenceSincKernel(SincKernelFactory **thi
   return v10;
 }
 
-uint64_t SincKernelFactorySingleton::ReleaseSincKernel(void **a1, uint64_t a2)
+uint64_t SincKernelFactorySingleton::ReleaseSincKernel(void *a1, uint64_t a2)
 {
   caulk::pooled_semaphore_mutex::_lock((a1 + 1));
   SincKernelFactory::ReleaseSincKernel(*a1, a2);
@@ -6481,7 +6494,7 @@ LABEL_13:
 
 LABEL_15:
   SincKernelFactorySingleton::instance(a1);
-  v28 = SincKernelFactorySingleton::ReferenceSincKernel(&SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton, 11, 128, 80.0, 0.9);
+  v28 = SincKernelFactorySingleton::ReferenceSincKernel(SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton, 11, 128, 80.0, 0.9);
   *(v6 + 112) = v28;
   v30 = *(v28 + 16);
   *(v6 + 120) = v30;
@@ -6677,7 +6690,7 @@ uint64_t IR::DelayLine<float>::~DelayLine(uint64_t a1)
   if ((*(a1 + 4) - 5) <= 2)
   {
     SincKernelFactorySingleton::instance(a1);
-    SincKernelFactorySingleton::ReleaseSincKernel(&SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton, *(a1 + 112));
+    SincKernelFactorySingleton::ReleaseSincKernel(SincKernelFactorySingleton::instance(void)::gSincKernelFactorySingleton, *(a1 + 112));
   }
 
   v2 = *(a1 + 304);
@@ -6773,7 +6786,7 @@ uint64_t IR::DelayLine<float>::getLatencyFrames(int a1)
   }
 }
 
-uint64_t IR::DelayLine<float>::setDelay(uint64_t result, unsigned int a2, float a3)
+uint64_t IR::DelayLine<float>::setDelay(uint64_t result, uint64_t a2, float a3)
 {
   if (*(result + 8) <= a2)
   {
@@ -6852,34 +6865,34 @@ void IR::DelayLine<float>::process(float *a1, _DWORD *__src, uint64_t a3, unsign
       *(v5 + 12) = 0;
     }
 
-    v13 = *(v5 + 4);
+    v13 = *(v5 + 1);
     if (v13 <= 3)
     {
       switch(v13)
       {
         case 1:
           v61 = 0;
-          v62 = *(v5 + 16);
-          v63 = *(v5 + 40);
-          v64 = *(v5 + 44);
+          v62 = *(v5 + 2);
+          v63 = *(v5 + 10);
+          v64 = *(v5 + 11);
           do
           {
             *(v62 + 4 * v64) = v7[v61];
             if (v11)
             {
               v65 = 0;
-              v66 = *(v5 + 72);
+              v66 = *(v5 + 9);
               do
               {
                 if (v6 == 2.7183)
                 {
-                  v67 = *(v66 + 4 * v65) + ((*(*(v5 + 48) + 4 * v65) - *(v66 + 4 * v65)) / (v8 - v61));
+                  v67 = *(v66 + 4 * v65) + ((*(*(v5 + 6) + 4 * v65) - *(v66 + 4 * v65)) / (v8 - v61));
                 }
 
                 else
                 {
-                  v68 = *(*(v5 + 48) + 4 * v65);
-                  v67 = v68 + (*(v5 + 96) * (*(v66 + 4 * v65) - v68));
+                  v68 = *(*(v5 + 6) + 4 * v65);
+                  v67 = v68 + (v5[24] * (*(v66 + 4 * v65) - v68));
                 }
 
                 *(v66 + 4 * v65) = v67;
@@ -6909,27 +6922,27 @@ void IR::DelayLine<float>::process(float *a1, _DWORD *__src, uint64_t a3, unsign
           goto LABEL_105;
         case 2:
           v107 = 0;
-          v108 = *(v5 + 16);
-          v109 = *(v5 + 40);
-          v64 = *(v5 + 44);
+          v108 = *(v5 + 2);
+          v109 = *(v5 + 10);
+          v64 = *(v5 + 11);
           do
           {
             *(v108 + 4 * v64) = v7[v107];
             if (v11)
             {
               v110 = 0;
-              v111 = *(v5 + 72);
+              v111 = *(v5 + 9);
               do
               {
                 if (v6 == 2.7183)
                 {
-                  v112 = *(v111 + 4 * v110) + ((*(*(v5 + 48) + 4 * v110) - *(v111 + 4 * v110)) / (v8 - v107));
+                  v112 = *(v111 + 4 * v110) + ((*(*(v5 + 6) + 4 * v110) - *(v111 + 4 * v110)) / (v8 - v107));
                 }
 
                 else
                 {
-                  v113 = *(*(v5 + 48) + 4 * v110);
-                  v112 = v113 + (*(v5 + 96) * (*(v111 + 4 * v110) - v113));
+                  v113 = *(*(v5 + 6) + 4 * v110);
+                  v112 = v113 + (v5[24] * (*(v111 + 4 * v110) - v113));
                 }
 
                 *(v111 + 4 * v110) = v112;
@@ -6960,27 +6973,27 @@ void IR::DelayLine<float>::process(float *a1, _DWORD *__src, uint64_t a3, unsign
           goto LABEL_105;
         case 3:
           v14 = 0;
-          v15 = *(v5 + 16);
-          v16 = *(v5 + 40);
-          v17 = *(v5 + 44);
+          v15 = *(v5 + 2);
+          v16 = *(v5 + 10);
+          v17 = *(v5 + 11);
           do
           {
             *(v15 + 4 * v17) = v7[v14];
             if (v11)
             {
               v18 = 0;
-              v19 = *(v5 + 72);
+              v19 = *(v5 + 9);
               do
               {
                 if (v6 == 2.7183)
                 {
-                  v20 = *(v19 + 4 * v18) + ((*(*(v5 + 48) + 4 * v18) - *(v19 + 4 * v18)) / (v8 - v14));
+                  v20 = *(v19 + 4 * v18) + ((*(*(v5 + 6) + 4 * v18) - *(v19 + 4 * v18)) / (v8 - v14));
                 }
 
                 else
                 {
-                  v21 = *(*(v5 + 48) + 4 * v18);
-                  v20 = v21 + (*(v5 + 96) * (*(v19 + 4 * v18) - v21));
+                  v21 = *(*(v5 + 6) + 4 * v18);
+                  v20 = v21 + (v5[24] * (*(v19 + 4 * v18) - v21));
                 }
 
                 *(v19 + 4 * v18) = v20;
@@ -7012,27 +7025,27 @@ void IR::DelayLine<float>::process(float *a1, _DWORD *__src, uint64_t a3, unsign
 
 LABEL_69:
       v76 = 0;
-      v77 = *(v5 + 16);
-      v78 = *(v5 + 40);
-      v17 = *(v5 + 44);
+      v77 = *(v5 + 2);
+      v78 = *(v5 + 10);
+      v17 = *(v5 + 11);
       do
       {
         *(v77 + 4 * v17) = v7[v76];
         if (v11)
         {
           v79 = 0;
-          v80 = *(v5 + 72);
+          v80 = *(v5 + 9);
           do
           {
             if (v6 == 2.7183)
             {
-              v81 = *(v80 + 4 * v79) + ((*(*(v5 + 48) + 4 * v79) - *(v80 + 4 * v79)) / (v8 - v76));
+              v81 = *(v80 + 4 * v79) + ((*(*(v5 + 6) + 4 * v79) - *(v80 + 4 * v79)) / (v8 - v76));
             }
 
             else
             {
-              v82 = *(*(v5 + 48) + 4 * v79);
-              v81 = v82 + (*(v5 + 96) * (*(v80 + 4 * v79) - v82));
+              v82 = *(*(v5 + 6) + 4 * v79);
+              v81 = v82 + (v5[24] * (*(v80 + 4 * v79) - v82));
             }
 
             *(v80 + 4 * v79) = v81;
@@ -7055,7 +7068,7 @@ LABEL_69:
 
       while (v76 != v8);
 LABEL_79:
-      *(v5 + 44) = v17;
+      *(v5 + 11) = v17;
       return;
     }
 
@@ -7068,27 +7081,27 @@ LABEL_79:
       }
 
       v85 = 0;
-      v86 = *(v5 + 16);
-      v87 = *(v5 + 40);
-      v64 = *(v5 + 44);
+      v86 = *(v5 + 2);
+      v87 = *(v5 + 10);
+      v64 = *(v5 + 11);
       do
       {
         *(v86 + 4 * v64) = v7[v85];
         if (v11)
         {
           v88 = 0;
-          v89 = *(v5 + 72);
+          v89 = *(v5 + 9);
           do
           {
             if (v6 == 2.7183)
             {
-              v90 = *(v89 + 4 * v88) + ((*(*(v5 + 48) + 4 * v88) - *(v89 + 4 * v88)) / (v8 - v85));
+              v90 = *(v89 + 4 * v88) + ((*(*(v5 + 6) + 4 * v88) - *(v89 + 4 * v88)) / (v8 - v85));
             }
 
             else
             {
-              v91 = *(*(v5 + 48) + 4 * v88);
-              v90 = v91 + (*(v5 + 96) * (*(v89 + 4 * v88) - v91));
+              v91 = *(*(v5 + 6) + 4 * v88);
+              v90 = v91 + (v5[24] * (*(v89 + 4 * v88) - v91));
             }
 
             *(v89 + 4 * v88) = v90;
@@ -7121,7 +7134,7 @@ LABEL_79:
 
       while (v85 != v8);
 LABEL_105:
-      *(v5 + 44) = v64;
+      *(v5 + 11) = v64;
       return;
     }
 
@@ -7130,7 +7143,7 @@ LABEL_105:
       if (v13 == 7)
       {
 LABEL_32:
-        v29 = *(v5 + 132);
+        v29 = *(v5 + 33);
         if (v29)
         {
           v30 = v29 - 1;
@@ -7141,12 +7154,12 @@ LABEL_32:
           v30 = 0;
         }
 
-        v179 = *(v5 + 44);
+        v179 = *(v5 + 11);
         MEMORY[0x2A1C7C4A8](a1);
         v183 = v177 - v31;
         if (v11)
         {
-          v32 = *(v5 + 48);
+          v32 = *(v5 + 6);
           v33 = v11;
           v34 = v183;
           do
@@ -7176,17 +7189,17 @@ LABEL_32:
         v177[1] = v177;
         if (v8 <= v12)
         {
-          v106 = *(v5 + 44);
+          v106 = *(v5 + 11);
           if (v106 + v8 >= v12)
           {
             v145 = v12;
             v146 = v12 - v106;
             v147 = 4 * v146;
-            v148 = *(v5 + 16);
+            v148 = *(v5 + 2);
             if (v106 != v145)
             {
               memmove((v148 + 4 * v106), v7, 4 * v146);
-              v148 = *(v5 + 16);
+              v148 = *(v5 + 2);
             }
 
             v149 = 4 * v8;
@@ -7195,7 +7208,7 @@ LABEL_32:
               memmove((v148 + 4 * v30), &v7[v146], v149 - v147);
             }
 
-            *(v5 + 44) += v38 + v30;
+            *(v5 + 11) += v38 + v30;
             if (v178 < v8)
             {
               IR::DelayLine<float>::process();
@@ -7204,23 +7217,23 @@ LABEL_32:
 
           else
           {
-            memmove((*(v5 + 16) + 4 * v106), v7, 4 * v8);
-            *(v5 + 44) += v8;
+            memmove((*(v5 + 2) + 4 * v106), v7, 4 * v8);
+            *(v5 + 11) += v8;
           }
 
           v150 = v184;
           if (v29 >= 2)
           {
-            memmove(*(v5 + 16), (*(v5 + 24) - 4 * v30), 4 * v30);
+            memmove(*(v5 + 2), (*(v5 + 3) - 4 * v30), 4 * v30);
           }
 
           if (v11)
           {
             v151 = 0;
-            v152 = *(v5 + 72);
+            v152 = *(v5 + 9);
             do
             {
-              v153 = *(*(v5 + 48) + 4 * v151);
+              v153 = *(*(v5 + 6) + 4 * v151);
               v154 = *&v183[4 * v151];
               v155 = *(v150 + 8 * v151);
               v156 = *(v152 + 4 * v151);
@@ -7240,7 +7253,7 @@ LABEL_32:
                 v158 = v154 - ((v156 * 1024.0) + (v157 * 0.5));
               }
 
-              v159 = *(v5 + 4);
+              v159 = *(v5 + 1);
               if (v159 == 7)
               {
                 v160 = 8;
@@ -7251,12 +7264,12 @@ LABEL_32:
                 v160 = 1;
               }
 
-              v161 = powf(*(v5 + 96), v160);
+              v161 = powf(v5[24], v160);
               v162 = v158 > 0x20;
               if (v158 >= 0x21 && v160 <= v8)
               {
                 v166 = v161;
-                v167 = *(v5 + 136);
+                v167 = *(v5 + 17);
                 v182 = v151;
                 v168 = *(v167 + 4 * v151);
                 if (v159 == 7)
@@ -7280,7 +7293,7 @@ LABEL_32:
                       IR::DelayLine<float>::process();
                     }
 
-                    v170 = *(v5 + 136);
+                    v170 = *(v5 + 17);
                     LODWORD(v171) = (v154 - *(v170 + 4 * v182)) / (v8 >> v181) + *(v170 + 4 * v182);
                     *(v170 + 4 * v182) = v171;
                   }
@@ -7309,7 +7322,7 @@ LABEL_32:
                     v173 = v154 - v168;
                   }
 
-                  v165 = *(v5 + 40) & (v165 + v160);
+                  v165 = v5[10] & (v165 + v160);
                   v164 = (v8 - v160);
                   v162 = v173 > 0x20;
                   v155 += v160;
@@ -7333,7 +7346,7 @@ LABEL_32:
               {
                 if (v6 == 2.7183)
                 {
-                  LODWORD(v175) = *(*(v5 + 136) + 4 * v151);
+                  LODWORD(v175) = *(*(v5 + 17) + 4 * v151);
                 }
 
                 else
@@ -7355,7 +7368,7 @@ LABEL_32:
                 IR::DelayLine<float>::processPolyphaseQ22_10(v5, v165, v175, v155, v164);
               }
 
-              v152 = *(v5 + 72);
+              v152 = *(v5 + 9);
               *(v152 + 4 * v151++) = v156;
             }
 
@@ -7367,13 +7380,13 @@ LABEL_32:
         {
           v39 = 0;
           v182 = v8;
-          v40 = *(v5 + 44);
+          v40 = *(v5 + 11);
           v41 = v184;
           v181 = v7;
           do
           {
             v42 = v7[v39];
-            v43 = *(v5 + 16);
+            v43 = *(v5 + 2);
             *(v43 + 4 * v40) = v42;
             if (v40 < v30)
             {
@@ -7388,15 +7401,15 @@ LABEL_32:
               {
                 if (v6 == 2.7183)
                 {
-                  v46 = *(v5 + 136);
+                  v46 = *(v5 + 17);
                   LODWORD(v47) = (*&v183[4 * v44] - *(v46 + 4 * v44)) / v45 + *(v46 + 4 * v44);
                 }
 
                 else
                 {
-                  v48 = *(*(v5 + 48) + 4 * v44);
-                  v49 = *(v5 + 72);
-                  v50 = v48 + (*(v5 + 96) * (*(v49 + 4 * v44) - v48));
+                  v48 = *(*(v5 + 6) + 4 * v44);
+                  v49 = *(v5 + 9);
+                  v50 = v48 + (v5[24] * (*(v49 + 4 * v44) - v48));
                   *(v49 + 4 * v44) = v50;
                   v51 = v50 * 1024.0;
                   if (v51 < 0.0)
@@ -7410,23 +7423,23 @@ LABEL_32:
                   }
 
                   v47 = (v51 + (v52 * 0.5));
-                  v46 = *(v5 + 136);
+                  v46 = *(v5 + 17);
                 }
 
                 *(v46 + 4 * v44) = v47;
-                v53 = *(v5 + 128);
+                v53 = *(v5 + 32);
                 v54 = 10 - v53;
                 v55 = v47 + (1 << (9 - v53)) - 512;
                 v56 = (v55 & 0x3FF) >> v54;
-                if (*(v5 + 120) <= v56)
+                if (*(v5 + 30) <= v56)
                 {
                   IR::DelayLine<float>::process();
                 }
 
-                v57 = *(v5 + 132);
-                v58 = (*(v5 + 104) + 4 * v57 * v56);
+                v57 = *(v5 + 33);
+                v58 = (*(v5 + 13) + 4 * v57 * v56);
                 v59 = *(v41 + 8 * v44);
-                v60 = (*(v5 + 16) + 4 * ((v12 - (v30 + (v55 >> 10)) + *(v5 + 44)) & *(v5 + 40)) + 4 * v30);
+                v60 = (*(v5 + 2) + 4 * ((v12 - (v30 + (v55 >> 10)) + *(v5 + 11)) & v5[10]) + 4 * v30);
                 __C = 0.0;
                 vDSP_dotpr(v60, -1, v58, 1, &__C, v57);
                 *(v59 + 4 * v39) = __C;
@@ -7435,13 +7448,13 @@ LABEL_32:
               }
 
               while (v11 != v44);
-              v40 = *(v5 + 44);
+              v40 = *(v5 + 11);
               LODWORD(v8) = v180;
               v7 = v181;
             }
 
-            v40 = *(v5 + 40) & (v40 + 1);
-            *(v5 + 44) = v40;
+            v40 = v5[10] & (v40 + 1);
+            *(v5 + 11) = v40;
             ++v39;
           }
 
@@ -7454,17 +7467,17 @@ LABEL_32:
       goto LABEL_69;
     }
 
-    v104 = *(v5 + 44);
-    v105 = *(v5 + 132) - 1;
+    v104 = *(v5 + 11);
+    v105 = *(v5 + 33) - 1;
     v180 = v8;
     if (v104 + v8 >= v12)
     {
-      v122 = *(v5 + 16);
+      v122 = *(v5 + 2);
       v123 = 4 * (v12 - v104);
       if (v12 != v104)
       {
         memmove((v122 + 4 * v104), v7, 4 * (v12 - v104));
-        v122 = *(v5 + 16);
+        v122 = *(v5 + 2);
       }
 
       v124 = 4 * v8;
@@ -7473,7 +7486,7 @@ LABEL_32:
         memmove((v122 + 4 * v105), &v7[(v12 - v104)], v124 - v123);
       }
 
-      *(v5 + 44) += v8 - v12 + v105;
+      *(v5 + 11) += v8 - v12 + v105;
       a3 = v184;
       if (v12 - v105 <= v8)
       {
@@ -7483,14 +7496,14 @@ LABEL_32:
 
     else
     {
-      memmove((*(v5 + 16) + 4 * v104), v7, 4 * v8);
-      *(v5 + 44) += v8;
+      memmove((*(v5 + 2) + 4 * v104), v7, 4 * v8);
+      *(v5 + 11) += v8;
     }
 
     v125 = v12;
     if (v105)
     {
-      memmove(*(v5 + 16), (*(v5 + 24) - 4 * v105), 4 * v105);
+      memmove(*(v5 + 2), (*(v5 + 3) - 4 * v105), 4 * v105);
     }
 
     if (v11)
@@ -7506,7 +7519,7 @@ LABEL_32:
         {
           while (1)
           {
-            v130 = *(v5 + 304);
+            v130 = *(v5 + 38);
             v131 = *(v130 + 4 * v126);
             if (!v131)
             {
@@ -7523,7 +7536,7 @@ LABEL_32:
               v132 = v129;
             }
 
-            v133 = *(*(v5 + 72) + 4 * v126) * 1024.0;
+            v133 = *(*(v5 + 9) + 4 * v126) * 1024.0;
             if (v133 < 0.0)
             {
               v134 = -1.0;
@@ -7534,8 +7547,8 @@ LABEL_32:
               v134 = 1.0;
             }
 
-            IR::DelayLine<float>::processPolyphaseQ22_10(v5, v104, (v133 + (v134 * 0.5)), *(v5 + 256), v132);
-            v135 = *(*(v5 + 280) + 4 * v126) * 1024.0;
+            IR::DelayLine<float>::processPolyphaseQ22_10(v5, v104, (v133 + (v134 * 0.5)), *(v5 + 32), v132);
+            v135 = *(*(v5 + 35) + 4 * v126) * 1024.0;
             if (v135 < 0.0)
             {
               v136 = -1.0;
@@ -7546,11 +7559,11 @@ LABEL_32:
               v136 = 1.0;
             }
 
-            IR::DelayLine<float>::processPolyphaseQ22_10(v5, v104, (v135 + (v136 * 0.5)), *(v5 + 232), v132);
-            v137 = *(v5 + 184);
-            v138 = ((*(v5 + 192) - v137) >> 2) - *(*(v5 + 304) + 4 * v126);
-            vDSP_vmma((v137 + 4 * v138), 1, *(v5 + 232), 1, (*(v5 + 208) + 4 * v138), 1, *(v5 + 256), 1, __E, 1, v132);
-            *(*(v5 + 304) + 4 * v126) -= v132;
+            IR::DelayLine<float>::processPolyphaseQ22_10(v5, v104, (v135 + (v136 * 0.5)), *(v5 + 29), v132);
+            v137 = *(v5 + 23);
+            v138 = ((*(v5 + 24) - v137) >> 2) - *(*(v5 + 38) + 4 * v126);
+            vDSP_vmma((v137 + 4 * v138), 1, *(v5 + 29), 1, (*(v5 + 26) + 4 * v138), 1, *(v5 + 32), 1, __E, 1, v132);
+            *(*(v5 + 38) + 4 * v126) -= v132;
             v129 = (v129 - v132);
             if (v132 + v104 >= v125)
             {
@@ -7570,16 +7583,16 @@ LABEL_32:
             }
           }
 
-          v140 = *(v5 + 48);
-          v141 = *(v5 + 72);
+          v140 = *(v5 + 6);
+          v141 = *(v5 + 9);
           v142 = *(v141 + 4 * v126);
           if (*(v140 + 4 * v126) == v142)
           {
             break;
           }
 
-          *(v130 + 4 * v126) = (*(v5 + 192) - *(v5 + 184)) >> 2;
-          *(*(v5 + 280) + 4 * v126) = v142;
+          *(v130 + 4 * v126) = (*(v5 + 24) - *(v5 + 23)) >> 2;
+          *(*(v5 + 35) + 4 * v126) = v142;
           *(v141 + 4 * v126) = *(v140 + 4 * v126);
           if (!v129)
           {
@@ -7746,19 +7759,17 @@ void sub_296BCE4DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<SincKernel *>::reserve(void *result, unint64_t a2)
+void std::vector<SincKernel *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::allocator<std::unique_ptr<IR::FFTFilterKernel<float>>>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<std::unique_ptr<IR::FFTFilterKernel<float>>>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<float>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::default_delete<SincKernelFactory>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -8079,18 +8090,18 @@ uint64_t AudioDSP::Core::VBAP::changeSpeakerLocations(void *a1, uint64_t *a2, ui
   }
 }
 
-void AudioDSP::Core::VBAP::Implementation::Implementation(unint64_t *a1, uint64_t *a2, uint64_t *a3, int *a4)
+void AudioDSP::Core::VBAP::Implementation::Implementation(unint64_t *a1, uint64_t a2, uint64_t a3, unsigned int *a4)
 {
   v6 = *a2;
-  v7 = a2[1];
+  v7 = *(a2 + 8);
   v9 = (v7 - v6) >> 2;
   *a1 = v9;
   v10 = (a1 + 1);
   memset(v12, 0, sizeof(v12));
   std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v12, v6, v7, v9);
   memset(__p, 0, sizeof(__p));
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *a3, a3[1], (a3[1] - *a3) >> 2);
-  VBAP::VBAP(v10, v12, __p, *a4);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(__p, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
+  VBAP::VBAP(v10, v12, __p, *a4, (a4 + 2), (a4 + 8));
 }
 
 void IR::getFilePtr(const __CFURL **a1@<X0>, int a2@<W1>, FILE **a3@<X8>)
@@ -8184,9 +8195,9 @@ void IR::getFilePtr(const __CFURL **a1@<X0>, int a2@<W1>, FILE **a3@<X8>)
   }
 }
 
-void IR::getFilePtr(CFTypeRef *this@<X0>, const IR::IRDataAttributes *a2@<X1>, FILE **a3@<X8>)
+void IR::getFilePtr(FILE **__return_ptr a1@<X8>, CFTypeRef *this@<X0>, const IR::IRDataAttributes *a3@<X1>)
 {
-  v3 = a2;
+  v3 = a3;
   v5 = *this;
   if (*this)
   {
@@ -8194,16 +8205,16 @@ void IR::getFilePtr(CFTypeRef *this@<X0>, const IR::IRDataAttributes *a2@<X1>, F
   }
 
   v6 = v5;
-  IR::getFilePtr(&v6, v3, a3);
+  IR::getFilePtr(&v6, v3, a1);
   if (v5)
   {
     CFRelease(v5);
   }
 }
 
-void sub_296BCF1D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BCF1D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::URLRef::~URLRef(va);
   _Unwind_Resume(a1);
 }
@@ -8225,7 +8236,7 @@ void IR::IRDataLoader::Implementation::~Implementation(IR::IRDataLoader::Impleme
   std::recursive_mutex::unlock((this + 88));
   std::__tree<std::__value_type<unsigned int,CA::ChannelLayout>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,CA::ChannelLayout>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,CA::ChannelLayout>>>::destroy(this + 208, *(this + 27));
   std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::~__hash_table(this + 168);
-  IR::PersonalizedIRData::~PersonalizedIRData((this + 160));
+  IR::PersonalizedIRData::~PersonalizedIRData(this + 20);
   std::recursive_mutex::~recursive_mutex((this + 88));
   std::recursive_mutex::~recursive_mutex((this + 24));
   *v4 = this;
@@ -8242,16 +8253,21 @@ void sub_296BCF2E8(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void IR::IRDataLoader::Implementation::load(uint64_t a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, int a4@<W3>, uint64_t *a5@<X8>, float a6@<S0>)
+void IR::IRDataLoader::Implementation::load(uint64_t *a1@<X0>, __CFString *a2@<X1>, uint64_t a3@<X2>, int a4@<W3>, float a6@<S0>, IR::IRData::Implementation ***x8_0@<X8>)
 {
-  IR::getPresetDataAttributes(a3, &v12);
-  v13 = a6;
-  v14 = a4;
-  v11 = 0;
-  IR::IRDataLoader::Implementation::load(a1, a2, &v12, &v11, a5);
+  IR::getPresetDataAttributes(a3, &v13);
+  v14 = a6;
+  v15 = a4;
+  v12 = 0;
+  IR::IRDataLoader::Implementation::load(a1, a2, &v13, &v12, x8_0);
   if (cf)
   {
     CFRelease(cf);
+  }
+
+  if (v17)
+  {
+    CFRelease(v17);
   }
 
   if (v16)
@@ -8259,85 +8275,81 @@ void IR::IRDataLoader::Implementation::load(uint64_t a1@<X0>, uint64_t a2@<X1>, 
     CFRelease(v16);
   }
 
-  if (v15)
+  if (v13)
   {
-    CFRelease(v15);
-  }
-
-  if (v12)
-  {
-    CFRelease(v12);
+    CFRelease(v13);
   }
 }
 
-void sub_296BCF3BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_296BCF3BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   applesauce::CF::DataRef::~DataRef(&a9);
-  IR::IRDataAttributes::~IRDataAttributes(&a10);
+  IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::load(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, const void **a4@<X3>, uint64_t *a5@<X8>)
+void IR::IRDataLoader::Implementation::load(uint64_t *a1@<X0>, __CFString *a2@<X1>, uint64_t a3@<X2>, const void **a4@<X3>, IR::IRData::Implementation ***x8_0@<X8>)
 {
-  std::recursive_mutex::lock((a1 + 24));
-  v10 = *a4;
-  if (v10)
+  std::recursive_mutex::lock((a1 + 3));
+  v11 = *a4;
+  if (v11)
   {
-    CFRetain(v10);
+    CFRetain(v11);
   }
 
-  cf = v10;
-  IR::IRDataLoader::Implementation::loadPrivate(a1, a2, a3, &cf, a5);
+  cf = v11;
+  IR::IRDataLoader::Implementation::loadPrivate(a1, a2, a3, &cf, x8_0);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  v12 = *a1;
-  v11 = *(a1 + 8);
-  if (*a1 != v11)
+  v13 = *a1;
+  v12 = a1[1];
+  if (*a1 != v12)
   {
-    v13 = v12 + 21;
+    v14 = v13 + 21;
     while (1)
     {
-      v14 = *(v13 - 1);
-      if (!v14 || *(v14 + 8) == -1)
+      v15 = *(v14 - 1);
+      if (!v15 || *(v15 + 8) == -1)
       {
         break;
       }
 
-      v15 = v13 == v11;
-      v13 += 21;
-      if (v15)
+      v16 = v14 == v12;
+      v14 += 21;
+      if (v16)
       {
-        v12 = *(a1 + 8);
+        v13 = a1[1];
         goto LABEL_19;
       }
     }
 
-    v12 = v13 - 21;
-    if (v13 - 21 != v11 && v13 != v11)
+    v13 = v14 - 21;
+    if (v14 - 21 != v12 && v14 != v12)
     {
       do
       {
-        v16 = v13[20];
-        if (v16 && *(v16 + 8) != -1)
+        v17 = v14[20];
+        if (v17 && *(v17 + 8) != -1)
         {
-          std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v12, v13);
-          v12 += 21;
+          std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v13, v14);
+          v13 += 21;
         }
 
-        v13 += 21;
+        v14 += 21;
       }
 
-      while (v13 != v11);
-      v11 = *(a1 + 8);
+      while (v14 != v12);
+      v12 = a1[1];
     }
   }
 
 LABEL_19:
-  std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(a1, v12, v11);
-  std::recursive_mutex::unlock((a1 + 24));
+  std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(a1, v13, v12);
+  std::recursive_mutex::unlock((a1 + 3));
 }
 
 void sub_296BCF50C(_Unwind_Exception *a1)
@@ -8352,49 +8364,49 @@ void sub_296BCF50C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::create(float a1, uint64_t a2, uint64_t a3, uint64_t a4, CFTypeRef *a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, char a15, int a16, int a17)
+void IR::IRDataLoader::Implementation::create(uint64_t a1, uint64_t a2, uint64_t a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, int a8, float a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, char a16, uint64_t a17, uint64_t a18)
 {
-  v17 = a17;
-  v18 = a15;
-  v19 = a14;
-  v25 = a1;
-  v24 = a9;
-  v23 = a15;
-  v20 = *a5;
-  if (*a5)
+  v22 = HIDWORD(a17);
+  v23 = a16;
+  v24 = a15;
+  v30 = a10;
+  v29 = a8;
+  v28 = a16;
+  v25 = *a4;
+  if (*a4)
   {
-    CFRetain(*a5);
-    a1 = v25;
-    v19 = a14;
-    v17 = a17;
-    v18 = v23;
+    CFRetain(*a4);
+    a10 = v30;
+    v24 = a15;
+    v22 = HIDWORD(a17);
+    v23 = v28;
   }
 
-  cf = v20;
-  IR::IRDataAttributes::IRDataAttributes(v22, &cf, v19, v18 & 1, v17, 0, a1);
+  cf = v25;
+  IR::IRDataAttributes::IRDataAttributes(v27, &cf, v24, v23 & 1, v22, 0, a10);
   if (cf)
   {
     CFRelease(cf);
   }
 
-  std::allocate_shared[abi:ne200100]<IR::IRData,std::allocator<IR::IRData>,std::vector<std::vector<float>> const&,std::vector<std::vector<float>> const&,std::vector<IR::IRCoordinateType> const&,std::vector<std::vector<float>> const&,float &,unsigned int &,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,applesauce::CF::DictionaryRef const&,std::string const&,unsigned int &,BOOL &,unsigned int &,IR::IRSphericalInterpolation &,std::vector<float> const&,0>();
+  std::allocate_shared[abi:ne200100]<IR::IRData,std::allocator<IR::IRData>,std::vector<std::vector<float>> const&,std::vector<std::vector<float>> const&,std::vector<IR::IRCoordinateType> const&,std::vector<std::vector<float>> const&,float &,unsigned int &,std::vector<float> const&,std::vector<IR::IRInterpolationMethod> const&,applesauce::CF::DictionaryRef const&,std::string const&,unsigned int &,BOOL &,unsigned int &,IR::IRSphericalInterpolation &,std::vector<float> const&,0>(&v31, a3, a5, a6, a7, &v30, &v29, a11, a12, a13, a14, &a15, &v28, &a17, &a17 + 4, a18);
 }
 
-void sub_296BCF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_296BCF6E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
-  if (v14)
+  va_start(va, a21);
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
   IR::IRDataAttributes::~IRDataAttributes(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t IR::IRDataLoader::Implementation::swapLoadedIR(uint64_t a1, float *a2, uint64_t *a3)
+uint64_t IR::IRDataLoader::Implementation::swapLoadedIR(unint64_t *a1, IR::IRDataAttributes *a2, uint64_t *a3)
 {
-  std::recursive_mutex::lock((a1 + 24));
+  std::recursive_mutex::lock((a1 + 3));
   v7 = *a3;
   v6 = a3[1];
   if (v6)
@@ -8403,35 +8415,32 @@ uint64_t IR::IRDataLoader::Implementation::swapLoadedIR(uint64_t a1, float *a2, 
   }
 
   v8 = *a1;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   if (*a1 != v9)
   {
-    while ((IR::IRDataAttributes::operator==(v8, a2) & 1) == 0)
+    while (!IR::IRDataAttributes::operator==(v8, a2))
     {
-      if (a2[2] == 0.0)
+      if (*(a2 + 2) == 0.0 && IR::IRDataAttributes::equalsExceptSampleRate(a2, v8))
       {
-        if (IR::IRDataAttributes::equalsExceptSampleRate(a2, v8))
+        v10 = *(v8 + 160);
+        if (v10)
         {
-          v10 = *(v8 + 160);
-          if (v10)
+          v11 = std::__shared_weak_count::lock(v10);
+          if (v11)
           {
-            v11 = std::__shared_weak_count::lock(v10);
-            if (v11)
+            v12 = v11;
+            v13 = *(v8 + 152);
+            if (v13)
             {
-              v12 = v11;
-              v13 = *(v8 + 152);
-              if (v13)
+              OriginalSampleRate = IR::IRData::getOriginalSampleRate(*(v8 + 152));
+              if (OriginalSampleRate == IR::IRData::getSampleRate(v13))
               {
-                OriginalSampleRate = IR::IRData::getOriginalSampleRate(*(v8 + 152));
-                if (OriginalSampleRate == IR::IRData::getSampleRate(v13))
-                {
-                  std::__shared_weak_count::__release_shared[abi:ne200100](v12);
-                  break;
-                }
+                std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+                break;
               }
-
-              std::__shared_weak_count::__release_shared[abi:ne200100](v12);
             }
+
+            std::__shared_weak_count::__release_shared[abi:ne200100](v12);
           }
         }
       }
@@ -8445,10 +8454,10 @@ uint64_t IR::IRDataLoader::Implementation::swapLoadedIR(uint64_t a1, float *a2, 
     }
   }
 
-  v15 = *(a1 + 8);
+  v15 = a1[1];
   if (v8 == v15)
   {
-    if (v8 >= *(a1 + 16))
+    if (v8 >= a1[2])
     {
       v20 = std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::__emplace_back_slow_path<IR::IRDataAttributes const&,std::shared_ptr<IR::IRData const> const&>(a1, a2, a3);
     }
@@ -8467,7 +8476,7 @@ uint64_t IR::IRDataLoader::Implementation::swapLoadedIR(uint64_t a1, float *a2, 
       v20 = v18 + 168;
     }
 
-    *(a1 + 8) = v20;
+    a1[1] = v20;
     if (v6)
     {
       goto LABEL_16;
@@ -8487,7 +8496,7 @@ LABEL_16:
     }
   }
 
-  std::recursive_mutex::unlock((a1 + 24));
+  std::recursive_mutex::unlock((a1 + 3));
   return 1;
 }
 
@@ -8502,11 +8511,11 @@ void sub_296BCF8CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void IR::IRDataLoader::Implementation::loadPrivate(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t *a5@<X8>)
+void IR::IRDataLoader::Implementation::loadPrivate(unsigned __int8 *a1@<X0>, __CFString *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, IR::IRData::Implementation ***a6@<X8>)
 {
-  v76 = *MEMORY[0x29EDCA608];
-  v63[0] = 0;
-  v63[1] = 0;
+  v77 = *MEMORY[0x29EDCA608];
+  v64[0] = 0;
+  v64[1] = 0;
   if (*a4)
   {
     goto LABEL_15;
@@ -8517,40 +8526,40 @@ void IR::IRDataLoader::Implementation::loadPrivate(uint64_t a1@<X0>, uint64_t a2
     goto LABEL_15;
   }
 
-  v9 = atomic_load((a1 + 152));
-  if (v9)
+  v10 = atomic_load(a1 + 152);
+  if (v10)
   {
     goto LABEL_15;
   }
 
-  v10 = IR::PersonalizedIRData::CheckSupport((a1 + 160), 0);
+  v11 = IR::PersonalizedIRData::CheckSupport(a1 + 20, 0);
   PersonalizedHRTF = IR::IRDataLoader::Implementation::hasFailedToFetchPersonalizedHRTF(a1);
-  v12 = PersonalizedHRTF;
-  v13 = *(a3 + 48);
-  if (PersonalizedHRTF & 1 | ((v10 & 1) == 0))
+  v13 = PersonalizedHRTF;
+  v14 = *(a3 + 48);
+  if (PersonalizedHRTF & 1 | ((v11 & 1) == 0))
   {
 LABEL_5:
     IRDataLog = IR::getIRDataLog(PersonalizedHRTF);
     if (os_log_type_enabled(IRDataLog, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(a2 + 23) >= 0)
+      if (SHIBYTE(a2->data) >= 0)
       {
-        v15 = a2;
+        isa = a2;
       }
 
       else
       {
-        v15 = *a2;
+        isa = a2->isa;
       }
 
-      if (v12)
+      if (v13)
       {
-        v16 = "unavailable";
+        v17 = "unavailable";
       }
 
       else
       {
-        v16 = "disabled";
+        v17 = "disabled";
       }
 
       if (!*a3)
@@ -8559,18 +8568,18 @@ LABEL_5:
         MEMORY[0x29C25F8D0](exception, "Could not construct");
       }
 
-      applesauce::CF::get_filesystem_path(*a3, theString);
+      applesauce::CF::get_filesystem_path(theString, *a3);
       CStringPtr = CFStringGetCStringPtr(theString[0], 0x8000100u);
       *buf = 136316162;
-      *&buf[4] = v15;
+      *&buf[4] = isa;
       *&buf[12] = 2080;
       *&buf[14] = "loadPrivate";
-      v67 = 1024;
-      *v68 = v13;
-      *&v68[4] = 2080;
-      *&v68[6] = v16;
-      v69 = 2080;
-      v70 = CStringPtr;
+      v68 = 1024;
+      *v69 = v14;
+      *&v69[4] = 2080;
+      *&v69[6] = v17;
+      v70 = 2080;
+      v71 = CStringPtr;
       _os_log_impl(&dword_296B9D000, IRDataLog, OS_LOG_TYPE_DEFAULT, "%s%s: Personalized HRIR type %u is %s. Reverting back to generic HRIR: %s.", buf, 0x30u);
       if (theString[0])
       {
@@ -8579,32 +8588,32 @@ LABEL_5:
     }
 
 LABEL_15:
-    IR::IRDataLoader::Implementation::getLoadedIR(a1, a3, 0x100000000, a5);
-    if (*a5)
+    IR::IRDataLoader::Implementation::getLoadedIR(a1, a3, 0x100000000, a6);
+    if (*a6)
     {
-      v19 = IR::getIRDataLog(v18);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v20 = IR::getIRDataLog(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        if (*(a2 + 23) < 0)
+        if (SHIBYTE(a2->data) < 0)
         {
-          a2 = *a2;
+          a2 = a2->isa;
         }
 
         if (!*a3)
         {
-          v58 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x29C25F8D0](v58, "Could not construct");
+          v59 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x29C25F8D0](v59, "Could not construct");
         }
 
-        applesauce::CF::get_filesystem_path(*a3, theString);
-        v20 = CFStringGetCStringPtr(theString[0], 0x8000100u);
+        applesauce::CF::get_filesystem_path(theString, *a3);
+        v21 = CFStringGetCStringPtr(theString[0], 0x8000100u);
         *buf = 136315650;
         *&buf[4] = a2;
         *&buf[12] = 2080;
         *&buf[14] = "loadPrivate";
-        v67 = 2080;
-        *v68 = v20;
-        _os_log_debug_impl(&dword_296B9D000, v19, OS_LOG_TYPE_DEBUG, "%s%s: Fetched IR from cache: %s", buf, 0x20u);
+        v68 = 2080;
+        *v69 = v21;
+        _os_log_debug_impl(&dword_296B9D000, v20, OS_LOG_TYPE_DEBUG, "%s%s: Fetched IR from cache: %s", buf, 0x20u);
         if (theString[0])
         {
           CFRelease(theString[0]);
@@ -8614,45 +8623,45 @@ LABEL_15:
       goto LABEL_82;
     }
 
-    v21 = a5[1];
-    if (v21)
+    v22 = a6[1];
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
     IR::IRDataAttributes::IRDataAttributes(buf, a3);
-    v71 = 0;
+    v72 = 0;
     if (*(a3 + 48))
     {
-      IR::IRDataLoader::Implementation::getLoadedIR(a1, buf, 0, a5);
-      if (*a5)
+      IR::IRDataLoader::Implementation::getLoadedIR(a1, buf, 0, a6);
+      if (*a6)
       {
-        IR::IRDataLoader::Implementation::addIRDataToCache(a1, a2, a3, a5);
-        v23 = IR::getIRDataLog(v22);
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        IR::IRDataLoader::Implementation::addIRDataToCache(a1, a2, a3, a6);
+        v24 = IR::getIRDataLog(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          if (*(a2 + 23) < 0)
+          if (SHIBYTE(a2->data) < 0)
           {
-            a2 = *a2;
+            a2 = a2->isa;
           }
 
-          v24 = applesauce::CF::URLRef::operator->(buf);
-          applesauce::CF::get_filesystem_path(*v24, &v62);
-          v25 = CFStringGetCStringPtr(v62.__r_.__value_.__l.__data_, 0x8000100u);
+          v25 = applesauce::CF::URLRef::operator->(buf);
+          applesauce::CF::get_filesystem_path(&v63, *v25);
+          v26 = CFStringGetCStringPtr(v63.__r_.__value_.__l.__data_, 0x8000100u);
           LODWORD(theString[0]) = 136315650;
           *(theString + 4) = a2;
           WORD2(theString[1]) = 2080;
           *(&theString[1] + 6) = "loadPrivate";
           HIWORD(theString[2]) = 2080;
-          v65 = v25;
-          _os_log_debug_impl(&dword_296B9D000, v23, OS_LOG_TYPE_DEBUG, "%s%s: Fetched IR from cache: %s", theString, 0x20u);
-          applesauce::CF::StringRef::~StringRef(&v62.__r_.__value_.__l.__data_);
+          v66 = v26;
+          _os_log_debug_impl(&dword_296B9D000, v24, OS_LOG_TYPE_DEBUG, "%s%s: Fetched IR from cache: %s", theString, 0x20u);
+          applesauce::CF::StringRef::~StringRef(&v63.__r_.__value_.__l.__data_);
         }
 
 LABEL_74:
-        if (v75)
+        if (v76)
         {
-          CFRelease(v75);
+          CFRelease(v76);
         }
 
         if (cf)
@@ -8660,9 +8669,9 @@ LABEL_74:
           CFRelease(cf);
         }
 
-        if (v72)
+        if (v73)
         {
-          CFRelease(v72);
+          CFRelease(v73);
         }
 
         if (*buf)
@@ -8673,14 +8682,14 @@ LABEL_74:
         goto LABEL_82;
       }
 
-      v26 = a5[1];
-      if (v26)
+      v27 = a6[1];
+      if (v27)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v27);
       }
     }
 
-    if (!cf && (!v74 || ChannelLayoutTagIsHOAWithAnyNumberOfChannels(v74)))
+    if (!cf && (!v75 || (ChannelLayoutTagIsHOAWithAnyNumberOfChannels(v75) & 1) != 0))
     {
       std::allocate_shared[abi:ne200100]<IR::IRData,std::allocator<IR::IRData>,IR::IRDataAttributes &,applesauce::CF::DataRef &,std::vector<float> const&,0>();
     }
@@ -8689,211 +8698,211 @@ LABEL_74:
     IsSupportedHOA = ChannelLayoutTagIsSupportedHOA(AudioChannelLayoutTagPrivate);
     if (!IsSupportedHOA)
     {
-      v40 = IR::getIRDataLog(IsSupportedHOA);
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v41 = IR::getIRDataLog(IsSupportedHOA);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
-        if (*(a2 + 23) >= 0)
+        if (SHIBYTE(a2->data) >= 0)
         {
-          v49 = a2;
+          v50 = a2;
         }
 
         else
         {
-          v49 = *a2;
+          v50 = a2->isa;
         }
 
-        v50 = applesauce::CF::URLRef::operator->(buf);
-        applesauce::CF::get_filesystem_path(*v50, &v62);
-        v51 = CFStringGetCStringPtr(v62.__r_.__value_.__l.__data_, 0x8000100u);
+        v51 = applesauce::CF::URLRef::operator->(buf);
+        applesauce::CF::get_filesystem_path(&v63, *v51);
+        v52 = CFStringGetCStringPtr(v63.__r_.__value_.__l.__data_, 0x8000100u);
         LODWORD(theString[0]) = 136315650;
-        *(theString + 4) = v49;
+        *(theString + 4) = v50;
         WORD2(theString[1]) = 2080;
         *(&theString[1] + 6) = "loadPrivate";
         HIWORD(theString[2]) = 2080;
-        v65 = v51;
-        _os_log_debug_impl(&dword_296B9D000, v40, OS_LOG_TYPE_DEBUG, "%s%s: HOA decoder attributes set, but IR is not HOA; loading without decoding: %s", theString, 0x20u);
-        applesauce::CF::StringRef::~StringRef(&v62.__r_.__value_.__l.__data_);
+        v66 = v52;
+        _os_log_debug_impl(&dword_296B9D000, v41, OS_LOG_TYPE_DEBUG, "%s%s: HOA decoder attributes set, but IR is not HOA; loading without decoding: %s", theString, 0x20u);
+        applesauce::CF::StringRef::~StringRef(&v63.__r_.__value_.__l.__data_);
       }
 
-      v41 = cf;
+      v42 = cf;
       cf = 0;
-      if (v41)
+      if (v42)
       {
-        CFRelease(v41);
+        CFRelease(v42);
       }
 
-      v74 = 0;
-      v61 = 0;
+      v75 = 0;
+      v62 = 0;
       memset(theString, 0, sizeof(theString));
-      IR::IRDataLoader::Implementation::loadPrivate(a1, a2, buf, &v61, theString);
+      IR::IRDataLoader::Implementation::loadPrivate(a1, a2, buf, &v62, theString, a6);
       if (theString[0])
       {
         theString[1] = theString[0];
         operator delete(theString[0]);
       }
 
-      if (v61)
+      if (v62)
       {
-        CFRelease(v61);
+        CFRelease(v62);
       }
 
       goto LABEL_74;
     }
 
-    IR::IRDataLoader::Implementation::loadAndDecode(buf, a1, a2, theString);
-    v29 = *theString;
+    IR::IRDataLoader::Implementation::loadAndDecode(theString, buf, a1, a2);
+    v30 = *theString;
     theString[0] = 0;
     theString[1] = 0;
-    v30 = v63[1];
-    *v63 = v29;
-    if (v30)
+    v31 = v64[1];
+    *v64 = v30;
+    if (v31)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
-      v30 = theString[1];
+      std::__shared_weak_count::__release_shared[abi:ne200100](v31);
+      v31 = theString[1];
       if (theString[1])
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](theString[1]);
       }
 
-      if (v63[0])
+      if (v64[0])
       {
         goto LABEL_38;
       }
     }
 
-    else if (v29)
+    else if (v30)
     {
 LABEL_38:
-      v31 = IR::getIRDataLog(v30);
-      v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-      if (v32)
+      v32 = IR::getIRDataLog(v31);
+      v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+      if (v33)
       {
-        if (*(a2 + 23) >= 0)
+        if (SHIBYTE(a2->data) >= 0)
         {
-          v33 = a2;
+          v34 = a2;
         }
 
         else
         {
-          v33 = *a2;
+          v34 = a2->isa;
         }
 
         if (!*buf)
         {
-          v60 = __cxa_allocate_exception(0x10uLL);
-          MEMORY[0x29C25F8D0](v60, "Could not construct");
+          v61 = __cxa_allocate_exception(0x10uLL);
+          MEMORY[0x29C25F8D0](v61, "Could not construct");
         }
 
-        applesauce::CF::get_filesystem_path(*buf, &v62);
-        v34 = CFStringGetCStringPtr(v62.__r_.__value_.__l.__data_, 0x8000100u);
+        applesauce::CF::get_filesystem_path(&v63, *buf);
+        v35 = CFStringGetCStringPtr(v63.__r_.__value_.__l.__data_, 0x8000100u);
         LODWORD(theString[0]) = 136315650;
-        *(theString + 4) = v33;
+        *(theString + 4) = v34;
         WORD2(theString[1]) = 2080;
         *(&theString[1] + 6) = "loadPrivate";
         HIWORD(theString[2]) = 2080;
-        v65 = v34;
-        _os_log_impl(&dword_296B9D000, v31, OS_LOG_TYPE_DEFAULT, "%s%s: Decoded HOA IR: %s", theString, 0x20u);
-        v32 = v62.__r_.__value_.__r.__words[0];
-        if (v62.__r_.__value_.__r.__words[0])
+        v66 = v35;
+        _os_log_impl(&dword_296B9D000, v32, OS_LOG_TYPE_DEFAULT, "%s%s: Decoded HOA IR: %s", theString, 0x20u);
+        v33 = v63.__r_.__value_.__r.__words[0];
+        if (v63.__r_.__value_.__r.__words[0])
         {
-          CFRelease(v62.__r_.__value_.__l.__data_);
+          CFRelease(v63.__r_.__value_.__l.__data_);
         }
       }
 
-      v35 = IR::getIRDataLog(v32);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v36 = IR::getIRDataLog(v33);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
       {
-        v36 = *(a2 + 23);
-        v37 = *a2;
-        IR::IRDataAttributes::description(buf, 0, &v62);
-        v38 = (v36 >= 0 ? a2 : v37);
-        v39 = (v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v62 : v62.__r_.__value_.__r.__words[0];
+        data_high = SHIBYTE(a2->data);
+        v38 = a2->isa;
+        IR::IRDataAttributes::description(&v63, buf, 0);
+        v39 = data_high >= 0 ? a2 : v38;
+        v40 = (v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v63 : v63.__r_.__value_.__r.__words[0];
         LODWORD(theString[0]) = 136315650;
-        *(theString + 4) = v38;
+        *(theString + 4) = v39;
         WORD2(theString[1]) = 2080;
         *(&theString[1] + 6) = "loadPrivate";
         HIWORD(theString[2]) = 2080;
-        v65 = v39;
-        _os_log_debug_impl(&dword_296B9D000, v35, OS_LOG_TYPE_DEBUG, "%s%s: IR attributes: %s", theString, 0x20u);
-        if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+        v66 = v40;
+        _os_log_debug_impl(&dword_296B9D000, v36, OS_LOG_TYPE_DEBUG, "%s%s: IR attributes: %s", theString, 0x20u);
+        if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v62.__r_.__value_.__l.__data_);
+          operator delete(v63.__r_.__value_.__l.__data_);
         }
       }
 
 LABEL_71:
-      v45 = v63[0];
-      if (v63[0])
+      v46 = v64[0];
+      if (v64[0])
       {
-        IR::IRDataLoader::Implementation::addIRDataToCache(a1, a2, a3, v63);
-        v45 = v63[0];
+        IR::IRDataLoader::Implementation::addIRDataToCache(a1, a2, a3, v64);
+        v46 = v64[0];
       }
 
-      v46 = v63[1];
-      *a5 = v45;
-      a5[1] = v46;
-      v63[0] = 0;
-      v63[1] = 0;
+      v47 = v64[1];
+      *a6 = v46;
+      a6[1] = v47;
+      v64[0] = 0;
+      v64[1] = 0;
       goto LABEL_74;
     }
 
-    v44 = IR::getIRDataLog(v30);
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v45 = IR::getIRDataLog(v31);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      if (*(a2 + 23) >= 0)
+      if (SHIBYTE(a2->data) >= 0)
       {
-        v52 = a2;
+        v53 = a2;
       }
 
       else
       {
-        v52 = *a2;
+        v53 = a2->isa;
       }
 
-      v53 = applesauce::CF::URLRef::operator->(buf);
-      applesauce::CF::get_filesystem_path(*v53, &v62);
-      v54 = CFStringGetCStringPtr(v62.__r_.__value_.__l.__data_, 0x8000100u);
+      v54 = applesauce::CF::URLRef::operator->(buf);
+      applesauce::CF::get_filesystem_path(&v63, *v54);
+      v55 = CFStringGetCStringPtr(v63.__r_.__value_.__l.__data_, 0x8000100u);
       LODWORD(theString[0]) = 136315650;
-      *(theString + 4) = v52;
+      *(theString + 4) = v53;
       WORD2(theString[1]) = 2080;
       *(&theString[1] + 6) = "loadPrivate";
       HIWORD(theString[2]) = 2080;
-      v65 = v54;
-      _os_log_error_impl(&dword_296B9D000, v44, OS_LOG_TYPE_ERROR, "%s%s: Failed to decode HOA IR: %s", theString, 0x20u);
-      applesauce::CF::StringRef::~StringRef(&v62.__r_.__value_.__l.__data_);
+      v66 = v55;
+      _os_log_error_impl(&dword_296B9D000, v45, OS_LOG_TYPE_ERROR, "%s%s: Failed to decode HOA IR: %s", theString, 0x20u);
+      applesauce::CF::StringRef::~StringRef(&v63.__r_.__value_.__l.__data_);
     }
 
     goto LABEL_71;
   }
 
-  IR::IRDataLoader::Implementation::getLoadedIR(a1, a3, v13 | 0x100000000, buf);
-  v42 = v63[1];
-  *v63 = *buf;
+  IR::IRDataLoader::Implementation::getLoadedIR(a1, a3, v14 | 0x100000000, buf);
+  v43 = v64[1];
+  *v64 = *buf;
   if (!*buf)
   {
-    v47 = IR::getIRDataLog(v42);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v48 = IR::getIRDataLog(v43);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
-      if (*(a2 + 23) >= 0)
+      if (SHIBYTE(a2->data) >= 0)
       {
-        v48 = a2;
+        v49 = a2;
       }
 
       else
       {
-        v48 = *a2;
+        v49 = a2->isa;
       }
 
       *buf = 136315650;
-      *&buf[4] = v48;
+      *&buf[4] = v49;
       *&buf[12] = 2080;
       *&buf[14] = "loadPrivate";
-      v67 = 1024;
-      *v68 = v13;
-      _os_log_impl(&dword_296B9D000, v47, OS_LOG_TYPE_DEFAULT, "%s%s: Could not find personalized HRIR type %u in IRDataLoader cache. Searching CFData cache.", buf, 0x1Cu);
+      v68 = 1024;
+      *v69 = v14;
+      _os_log_impl(&dword_296B9D000, v48, OS_LOG_TYPE_DEFAULT, "%s%s: Could not find personalized HRIR type %u in IRDataLoader cache. Searching CFData cache.", buf, 0x1Cu);
     }
 
-    IR::PersonalizedIRData::GetCFData((a1 + 160), v13, 1, buf);
+    IR::PersonalizedIRData::GetCFData(a1 + 20, v14, 1, buf);
     theString[0] = *&buf[8];
     *&buf[8] = 0;
     std::pair<BOOL,applesauce::CF::DataRef>::~pair(buf);
@@ -8915,20 +8924,20 @@ LABEL_71:
         DataSource = IR::PersonalizedIRData::GetDataSource((a1 + 160));
         if (DataSource == 2)
         {
-          *v68 = 0;
-          IR::PersonalizedIRData::RebuildCFDataCache((a1 + 160), buf);
+          *v69 = 0;
+          IR::PersonalizedIRData::RebuildCFDataCache(a1 + 20, buf);
           std::__function::__value_func<void ()(IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](buf);
-          IR::PersonalizedIRData::GetCFData((a1 + 160), v13, 1, buf);
-          v56 = theString[0];
+          IR::PersonalizedIRData::GetCFData(a1 + 20, v14, 1, buf);
+          v57 = theString[0];
           theString[0] = *&buf[8];
-          *&buf[8] = v56;
+          *&buf[8] = v57;
           PersonalizedHRTF = std::pair<BOOL,applesauce::CF::DataRef>::~pair(buf);
         }
 
         else
         {
-          v57 = IR::getIRDataLog(DataSource);
-          PersonalizedHRTF = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
+          v58 = IR::getIRDataLog(DataSource);
+          PersonalizedHRTF = os_log_type_enabled(v58, OS_LOG_TYPE_ERROR);
           if (PersonalizedHRTF)
           {
             IR::IRDataLoader::Implementation::loadPrivate();
@@ -8943,39 +8952,39 @@ LABEL_108:
       std::allocate_shared[abi:ne200100]<IR::IRData,std::allocator<IR::IRData>,IR::IRDataAttributes const&,applesauce::CF::DataRef &,std::vector<float> const&,0>();
     }
 
-    v12 = 1;
+    v13 = 1;
     goto LABEL_5;
   }
 
-  v43 = IR::getIRDataLog(v42);
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+  v44 = IR::getIRDataLog(v43);
+  if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
   {
     IR::IRDataLoader::Implementation::loadPrivate();
   }
 
-  *a5 = *v63;
-  v63[0] = 0;
-  v63[1] = 0;
+  *a6 = *v64;
+  v64[0] = 0;
+  v64[1] = 0;
 LABEL_82:
-  if (v63[1])
+  if (v64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v63[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v64[1]);
   }
 }
 
-void sub_296BD0610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, uint64_t a11, ...)
+void sub_296BD0610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(__p, a11);
+  va_start(__p, a18);
   applesauce::CF::DataRef::~DataRef(__p);
-  if (a9)
+  if (a16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(uint64_t a1, uint64_t *a2, uint64_t *a3)
+IR::IRDataAttributes *std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(uint64_t a1, IR::IRDataAttributes *a2, IR::IRDataAttributes *a3)
 {
   if (a3 != a2)
   {
@@ -9108,13 +9117,13 @@ void IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataLoader::Implementat
   std::recursive_mutex::unlock((this + 24));
 }
 
-void IR::IRDataLoader::Implementation::getLoadedIR(uint64_t a1@<X0>, const IR::IRDataAttributes *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+void IR::IRDataLoader::Implementation::getLoadedIR(void *a1@<X0>, const IR::IRDataAttributes *a2@<X1>, uint64_t a3@<X2>, IR::IRData::Implementation ***a4@<X8>)
 {
   v23 = a3;
   IR::IRDataAttributes::IRDataAttributes(v18, a2);
-  std::recursive_mutex::lock((a1 + 24));
-  v7 = std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>> *>,IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataAttributes const&,std::optional<PersonalizedHRIRType const>)::$_0>(*a1, *(a1 + 8), v18, &v23);
-  v8 = *(a1 + 8);
+  std::recursive_mutex::lock((a1 + 3));
+  v7 = std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>> *>,IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataAttributes const&,std::optional<PersonalizedHRIRType const>)::$_0>(*a1, a1[1], v18, &v23);
+  v8 = a1[1];
   if (v8 != v7)
   {
     goto LABEL_2;
@@ -9132,7 +9141,7 @@ LABEL_2:
   v21 = 0;
   v16 = std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>> *>,IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataAttributes const&,std::optional<PersonalizedHRIRType const>)::$_0>(*a1, v8, v18, &v23);
   v7 = v16;
-  if (*(a1 + 8) == v16)
+  if (a1[1] == v16)
   {
     goto LABEL_2;
   }
@@ -9150,7 +9159,7 @@ LABEL_2:
   }
 
 LABEL_3:
-  if (v7 == *(a1 + 8))
+  if (v7 == a1[1])
   {
     v12 = 0;
     v11 = v9;
@@ -9193,7 +9202,7 @@ LABEL_7:
 LABEL_8:
   if (!v12)
   {
-    v13 = *(a1 + 8);
+    v13 = a1[1];
     if (v7 + 21 != v13)
     {
       do
@@ -9205,7 +9214,7 @@ LABEL_8:
       }
 
       while (v15 != v13);
-      v13 = *(a1 + 8);
+      v13 = a1[1];
       v7 = v14;
     }
 
@@ -9216,13 +9225,13 @@ LABEL_8:
     }
 
     v12 = 0;
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 
 LABEL_22:
   *a4 = v12;
   a4[1] = v11;
-  std::recursive_mutex::unlock((a1 + 24));
+  std::recursive_mutex::unlock((a1 + 3));
   if (cf)
   {
     CFRelease(cf);
@@ -9271,7 +9280,7 @@ void sub_296BD0DA0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>> *>,IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataAttributes const&,std::optional<PersonalizedHRIRType const>)::$_0>(uint64_t a1, uint64_t a2, float *a3, int *a4)
+uint64_t std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>> *>,IR::IRDataLoader::Implementation::getLoadedIR(IR::IRDataAttributes const&,std::optional<PersonalizedHRIRType const>)::$_0>(uint64_t a1, uint64_t a2, IR::IRDataAttributes *a3, int *a4)
 {
   v4 = a1;
   if (a1 != a2)
@@ -9320,7 +9329,7 @@ uint64_t std::find_if[abi:ne200100]<std::__wrap_iter<std::pair<IR::IRDataAttribu
 
       else
       {
-        if (a3[2] != 0.0)
+        if (*(a3 + 2) != 0.0)
         {
           goto LABEL_19;
         }
@@ -9371,7 +9380,7 @@ LABEL_19:
   return v4;
 }
 
-void IR::IRDataLoader::Implementation::addIRDataToCache(uint64_t a1, uint64_t *a2, IR::IRDataAttributes *a3, IR::IRData **a4)
+void IR::IRDataLoader::Implementation::addIRDataToCache(uint64_t a1, uint64_t **a2, IR::IRDataAttributes *a3, IR::IRData **a4)
 {
   v34 = *MEMORY[0x29EDCA608];
   IR::IRDataAttributes::IRDataAttributes(&v23, a3);
@@ -9394,7 +9403,7 @@ void IR::IRDataLoader::Implementation::addIRDataToCache(uint64_t a1, uint64_t *a
       }
 
       v20 = applesauce::CF::URLRef::operator->(&v23);
-      applesauce::CF::get_filesystem_path(*v20, &theString);
+      applesauce::CF::get_filesystem_path(&theString, *v20);
       CStringPtr = CFStringGetCStringPtr(theString, 0x8000100u);
       *buf = 136315650;
       v29 = a2;
@@ -9423,7 +9432,7 @@ void IR::IRDataLoader::Implementation::addIRDataToCache(uint64_t a1, uint64_t *a
   v12 = *(a1 + 8);
   if (*a1 != v12)
   {
-    while ((IR::IRDataAttributes::operator==(v11, &v23) & 1) == 0)
+    while (!IR::IRDataAttributes::operator==(v11, &v23))
     {
       v11 += 21;
       if (v11 == v12)
@@ -9437,7 +9446,7 @@ void IR::IRDataLoader::Implementation::addIRDataToCache(uint64_t a1, uint64_t *a
     {
       for (i = v11 + 21; i != v12; i += 21)
       {
-        if ((IR::IRDataAttributes::operator==(i, &v23) & 1) == 0)
+        if (!IR::IRDataAttributes::operator==(i, &v23))
         {
           std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v11, i);
           v11 += 21;
@@ -9507,9 +9516,9 @@ void IR::IRDataLoader::Implementation::rebuildPersonalizedHRTFCache(IR::IRDataLo
       goto LABEL_14;
     }
 
-    while (!*(v3 + 48))
+    while (!*(v3 + 12))
     {
-      v3 += 168;
+      v3 += 21;
       if (v3 == v4)
       {
         v3 = *(this + 1);
@@ -9519,18 +9528,18 @@ void IR::IRDataLoader::Implementation::rebuildPersonalizedHRTFCache(IR::IRDataLo
 
     if (v3 != v4)
     {
-      v6 = v3 + 168;
-      if ((v3 + 168) != v4)
+      v6 = v3 + 21;
+      if (v3 + 21 != v4)
       {
         do
         {
-          if (!*(v6 + 48))
+          if (!*(v6 + 12))
           {
             std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v3, v6);
-            v3 += 168;
+            v3 += 21;
           }
 
-          v6 += 168;
+          v6 += 21;
         }
 
         while (v6 != v4);
@@ -9553,9 +9562,10 @@ LABEL_14:
   }
 }
 
-void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t a1, int a2, int a3)
+void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
+  v4 = a2;
   v20 = *MEMORY[0x29EDCA608];
   if (!a3)
   {
@@ -9563,7 +9573,7 @@ void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t
   }
 
   std::recursive_mutex::lock((a1 + 88));
-  if (!a2)
+  if (!v4)
   {
     atomic_store(0, (a1 + 152));
   }
@@ -9571,7 +9581,7 @@ void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t
   v7 = *(a1 + 184);
   if (v7)
   {
-    if (a2)
+    if (v4)
     {
       v8 = "Unchanged";
     }
@@ -9593,7 +9603,7 @@ void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t
 
     do
     {
-      if ((a2 != 1 || *(v7 + 10) != 1) && v7[9])
+      if ((v4 != 1 || *(v7 + 10) != 1) && v7[9])
       {
         IRDataLog = IR::getIRDataLog(v6);
         if (os_log_type_enabled(IRDataLog, OS_LOG_TYPE_DEFAULT))
@@ -9615,7 +9625,7 @@ void IR::IRDataLoader::Implementation::executePersonalizedHRTFCallbacks(uint64_t
           _os_log_impl(&dword_296B9D000, IRDataLog, OS_LOG_TYPE_DEFAULT, "%s: Executing client callback with (DataStatus, DataValidity) = (%s, %s) for clientID = %s.", buf, 0x2Au);
         }
 
-        v6 = std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>::operator()((v7 + 6), a2, v3);
+        v6 = std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>::operator()((v7 + 6), v4, v3);
       }
 
       v7 = *v7;
@@ -9673,7 +9683,7 @@ void IR::IRDataLoader::Implementation::addToPersonalizedHRTFCallbackPool(uint64_
 {
   v22 = *MEMORY[0x29EDCA608];
   std::recursive_mutex::lock((a1 + 88));
-  if (std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::find<std::string>((a1 + 168), a2) && (*buf = a2, v8 = std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 168), a2), *(v8 + 10) == a4))
+  if (std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::find<std::string>((a1 + 168), a2) && (*buf = a2, v8 = std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 168), a2, &std::piecewise_construct, buf, &v16), *(v8 + 10) == a4))
   {
     IRDataLog = IR::getIRDataLog(v8);
     if (os_log_type_enabled(IRDataLog, OS_LOG_TYPE_DEFAULT))
@@ -9704,7 +9714,7 @@ void IR::IRDataLoader::Implementation::addToPersonalizedHRTFCallbackPool(uint64_
     *buf = a4;
     std::__function::__value_func<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>::__value_func[abi:ne200100](&buf[8], a3);
     v16 = a2;
-    v11 = std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 168), a2);
+    v11 = std::__hash_table<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 168), a2, &std::piecewise_construct, &v16, &v15);
     std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>>::operator=[abi:ne200100](v11 + 10, buf);
     v12 = std::__function::__value_func<void ()(IR::PersonalizedIRData::DataStatus,IR::PersonalizedIRData::DataValidity)>::~__value_func[abi:ne200100](&buf[8]);
     v13 = IR::getIRDataLog(v12);
@@ -9749,7 +9759,7 @@ _DWORD *std::pair<IR::PersonalizedHRIRCallbackType,std::function<void ()(IR::Per
   return a1;
 }
 
-void IR::IRDataLoader::Implementation::removeFromPersonalizedHRTFCallbackPool(uint64_t a1, const void **a2)
+void IR::IRDataLoader::Implementation::removeFromPersonalizedHRTFCallbackPool(uint64_t a1, uint64_t *a2)
 {
   v10 = *MEMORY[0x29EDCA608];
   std::recursive_mutex::lock((a1 + 88));
@@ -9781,50 +9791,4 @@ uint64_t IR::IRDataLoader::Implementation::getPersonalizedHRTFCacheStatus(IR::IR
   Status = IR::PersonalizedIRData::GetStatus((this + 160));
   std::recursive_mutex::unlock((this + 24));
   return Status;
-}
-
-void IR::IRDataLoader::Implementation::clearPersonalizedIRDataCache(IR::IRDataLoader::Implementation *this)
-{
-  std::recursive_mutex::lock((this + 24));
-  v2 = *this;
-  v3 = *(this + 1);
-  if (*this != v3)
-  {
-    while (!*(v2 + 48))
-    {
-      v2 += 168;
-      if (v2 == v3)
-      {
-        v2 = *(this + 1);
-        goto LABEL_11;
-      }
-    }
-
-    if (v2 != v3)
-    {
-      v4 = v2 + 168;
-      if ((v2 + 168) != v3)
-      {
-        do
-        {
-          if (!*(v4 + 48))
-          {
-            std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>::operator=[abi:ne200100](v2, v4);
-            v2 += 168;
-          }
-
-          v4 += 168;
-        }
-
-        while (v4 != v3);
-        v3 = *(this + 1);
-      }
-    }
-  }
-
-LABEL_11:
-  std::vector<std::pair<IR::IRDataAttributes,std::weak_ptr<IR::IRData const>>>::erase(this, v2, v3);
-  IR::PersonalizedIRData::ClearCache(this + 20);
-
-  std::recursive_mutex::unlock((this + 24));
 }

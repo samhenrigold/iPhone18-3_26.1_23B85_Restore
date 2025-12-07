@@ -113,21 +113,24 @@
 
 - (id)multiPartBoundary
 {
-  if (!self->_multiPartBoundary)
+  multiPartBoundary = self->_multiPartBoundary;
+  if (!multiPartBoundary)
   {
-    v4 = *MEMORY[0x1E695E480];
-    v5 = CFUUIDCreate(*MEMORY[0x1E695E480]);
-    v6 = CFUUIDCreateString(v4, v5);
-    CFRelease(v5);
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"__mIm310v34411-%@__", v6];
+    v10 = *MEMORY[0x1E695E480];
+    v11 = CFUUIDCreate(*MEMORY[0x1E695E480]);
+    v12 = CFUUIDCreateString(v10, v11);
+    CFRelease(v11);
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"__mIm310v34411-%@__", v12];
+    v14 = self->_multiPartBoundary;
+    self->_multiPartBoundary = v13;
+
     multiPartBoundary = self->_multiPartBoundary;
-    self->_multiPartBoundary = v7;
   }
 
-  _SLLog(v2, 6, @"Multipart boundary %@");
-  v9 = self->_multiPartBoundary;
+  _SLLog(v7, 6, @"Multipart boundary %@", v2, v3, v4, v5, v6, multiPartBoundary);
+  v15 = self->_multiPartBoundary;
 
-  return v9;
+  return v15;
 }
 
 - (void)setMultiPartBoundary:(id)boundary
@@ -181,29 +184,29 @@
 
 - (id)multiPartBodyData
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   data = [MEMORY[0x1E695DF88] data];
   selfCopy = self;
   _allParameters = [(SLRequest *)self _allParameters];
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v5 = [_allParameters countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v5 = [_allParameters countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
+    v7 = *v39;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v34 != v7)
+        if (*v39 != v7)
         {
           objc_enumerationMutation(_allParameters);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * i);
+        v9 = *(*(&v38 + 1) + 8 * i);
         v10 = [_allParameters objectForKey:v9];
         v11 = [v10 dataUsingEncoding:4];
         multiPartBoundary = [(SLRequest *)selfCopy multiPartBoundary];
@@ -216,49 +219,49 @@
         }
       }
 
-      v6 = [_allParameters countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v6 = [_allParameters countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v6);
   }
 
-  v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:data encoding:4];
-  _SLLog(v27, 6, @"Body before binaries: %@");
+  v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:data encoding:4];
+  _SLLog(v32, 6, @"Body before binaries: %@", v16, v17, v18, v19, v20, v15);
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v15 = selfCopy->_multiParts;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v37 count:16, v26];
-  if (v16)
+  v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v21 = selfCopy->_multiParts;
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  if (v22)
   {
-    v17 = v16;
-    v18 = *v30;
+    v23 = v22;
+    v24 = *v35;
     do
     {
-      for (j = 0; j != v17; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v30 != v18)
+        if (*v35 != v24)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v21);
         }
 
-        partData2 = [*(*(&v29 + 1) + 8 * j) partData];
+        partData2 = [*(*(&v34 + 1) + 8 * j) partData];
         [data appendData:partData2];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
-    while (v17);
+    while (v23);
   }
 
-  v21 = MEMORY[0x1E696AEC0];
+  v27 = MEMORY[0x1E696AEC0];
   multiPartBoundary2 = [(SLRequest *)selfCopy multiPartBoundary];
-  v23 = [v21 stringWithFormat:@"--%@--\r\n", multiPartBoundary2];
-  v24 = [v23 dataUsingEncoding:4];
-  [data appendData:v24];
+  v29 = [v27 stringWithFormat:@"--%@--\r\n", multiPartBoundary2];
+  v30 = [v29 dataUsingEncoding:4];
+  [data appendData:v30];
 
   return data;
 }
@@ -355,7 +358,7 @@
 
 - (void)_addAuthenticationParameters:(id)parameters
 {
-  v37[7] = *MEMORY[0x1E69E9840];
+  v48[7] = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   if ([(SLService *)self->_service authenticationStyle]== 1)
   {
@@ -405,34 +408,34 @@
 
         if (v22)
         {
-          v36[0] = @"format";
-          v36[1] = @"clientip";
-          v37[0] = @"json";
-          v37[1] = @"0.0.0.0";
-          v36[2] = @"oauth_version";
-          v36[3] = @"scope";
-          v37[2] = @"2.a";
-          v37[3] = @"all";
-          v37[4] = v22;
-          v36[4] = @"oauth_consumer_key";
-          v36[5] = @"access_token";
+          v47[0] = @"format";
+          v47[1] = @"clientip";
+          v48[0] = @"json";
+          v48[1] = @"0.0.0.0";
+          v47[2] = @"oauth_version";
+          v47[3] = @"scope";
+          v48[2] = @"2.a";
+          v48[3] = @"all";
+          v48[4] = v22;
+          v47[4] = @"oauth_consumer_key";
+          v47[5] = @"access_token";
           account6 = [(SLRequest *)self account];
           credential5 = [account6 credential];
           oauthToken4 = [credential5 oauthToken];
-          v37[5] = oauthToken4;
-          v36[6] = @"openid";
+          v48[5] = oauthToken4;
+          v47[6] = @"openid";
           account7 = [(SLRequest *)self account];
           credential6 = [account7 credential];
           oauthRefreshToken2 = [credential6 oauthRefreshToken];
-          v37[6] = oauthRefreshToken2;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:7];
+          v48[6] = oauthRefreshToken2;
+          v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:7];
 
-          [parametersCopy addEntriesFromDictionary:v29];
+          [parametersCopy addEntriesFromDictionary:v34];
         }
 
         else
         {
-          _SLLog(v3, 6, @"Missing credential's consumer key, forfeiting the addition of parameters");
+          _SLLog(v3, 6, @"Missing credential's consumer key, forfeiting the addition of parameters", v23, v24, v25, v26, v27, v45);
         }
 
         goto LABEL_17;
@@ -449,7 +452,7 @@
     account9 = [(SLRequest *)self account];
     credential8 = [account9 credential];
     oauthRefreshToken3 = [credential8 oauthRefreshToken];
-    _SLLog(v3, 6, @"Missing oauthToken (%@) or oauthRefreshToken (%@)");
+    _SLLog(v3, 6, @"Missing oauthToken (%@) or oauthRefreshToken (%@)", v40, v41, v42, v43, v44, oauthToken5);
   }
 
 LABEL_17:
@@ -457,41 +460,41 @@ LABEL_17:
 
 - (id)_parameterString
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   _allParameters = [(SLRequest *)self _allParameters];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __29__SLRequest__parameterString__block_invoke;
-  v37[3] = &unk_1E8175950;
-  v23 = v5;
-  v38 = v23;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __29__SLRequest__parameterString__block_invoke;
+  v47[3] = &unk_1E8175950;
+  v33 = v5;
+  v48 = v33;
   selfCopy = self;
-  v6 = MEMORY[0x1C6917BF0](v37);
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v6 = MEMORY[0x1C6917BF0](v47);
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v7 = _allParameters;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
-    v24 = *v34;
-    v25 = v7;
+    v10 = *v44;
+    v34 = *v44;
+    v35 = v7;
     do
     {
       v11 = 0;
-      v26 = v9;
+      v36 = v9;
       do
       {
-        if (*v34 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * v11);
+        v12 = *(*(&v43 + 1) + 8 * v11);
         v13 = [v7 objectForKey:v12];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -504,56 +507,56 @@ LABEL_17:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = v13;
-            v28 = v11;
-            v31 = 0u;
-            v32 = 0u;
-            v29 = 0u;
-            v30 = 0u;
-            v14 = v13;
-            v15 = [v14 countByEnumeratingWithState:&v29 objects:v40 count:16];
-            if (v15)
+            v37 = v13;
+            v38 = v11;
+            v41 = 0u;
+            v42 = 0u;
+            v39 = 0u;
+            v40 = 0u;
+            v19 = v13;
+            v20 = [v19 countByEnumeratingWithState:&v39 objects:v50 count:16];
+            if (v20)
             {
-              v16 = v15;
-              v17 = *v30;
+              v21 = v20;
+              v22 = *v40;
               do
               {
-                for (i = 0; i != v16; ++i)
+                for (i = 0; i != v21; ++i)
                 {
-                  if (*v30 != v17)
+                  if (*v40 != v22)
                   {
-                    objc_enumerationMutation(v14);
+                    objc_enumerationMutation(v19);
                   }
 
-                  v19 = *(*(&v29 + 1) + 8 * i);
+                  v24 = *(*(&v39 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v6[2](v6, v12, v19);
+                    v6[2](v6, v12, v24);
                   }
 
                   else
                   {
-                    _SLLog(v2, 3, @"Invalid parameter type");
+                    _SLLog(v2, 3, @"Invalid parameter type", v25, v26, v27, v28, v29, v33);
                   }
                 }
 
-                v16 = [v14 countByEnumeratingWithState:&v29 objects:v40 count:16];
+                v21 = [v19 countByEnumeratingWithState:&v39 objects:v50 count:16];
               }
 
-              while (v16);
+              while (v21);
             }
 
-            v10 = v24;
-            v7 = v25;
-            v9 = v26;
-            v13 = v27;
-            v11 = v28;
+            v10 = v34;
+            v7 = v35;
+            v9 = v36;
+            v13 = v37;
+            v11 = v38;
           }
 
           else
           {
-            _SLLog(v2, 3, @"Invalid parameter type");
+            _SLLog(v2, 3, @"Invalid parameter type", v14, v15, v16, v17, v18, v33);
           }
         }
 
@@ -561,16 +564,16 @@ LABEL_17:
       }
 
       while (v11 != v9);
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v9);
   }
 
-  v20 = [v23 sortedArrayUsingSelector:sel_compare_];
-  v21 = [v20 componentsJoinedByString:@"&"];
+  v30 = [v33 sortedArrayUsingSelector:sel_compare_];
+  v31 = [v30 componentsJoinedByString:@"&"];
 
-  return v21;
+  return v31;
 }
 
 void __29__SLRequest__parameterString__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -805,63 +808,63 @@ void __57__SLRequest_dictionaryRepresentationForJSONSerialization__block_invoke(
 
 - (void)performRequestWithHandler:(SLRequestHandler)handler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   v5 = handler;
   preparedURLRequest = [(SLRequest *)self preparedURLRequest];
-  v12 = [preparedURLRequest URL];
-  _SLLog(v3, 7, @"Prepared Request URL: %@");
+  v7 = [preparedURLRequest URL];
+  _SLLog(v3, 7, @"Prepared Request URL: %@", v8, v9, v10, v11, v12, v7);
 
   if (preparedURLRequest)
   {
-    v7 = [v5 copy];
-    v8 = dispatch_queue_create("SLRequest performRequest queue", 0);
+    v18 = [v5 copy];
+    v19 = dispatch_queue_create("SLRequest performRequest queue", 0);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __39__SLRequest_performRequestWithHandler___block_invoke;
     block[3] = &unk_1E81759A0;
-    v14 = preparedURLRequest;
-    v15 = v7;
-    v9 = v7;
-    dispatch_async(v8, block);
+    v25 = preparedURLRequest;
+    v26 = v18;
+    v20 = v18;
+    dispatch_async(v19, block);
 
-    v10 = v14;
+    v21 = v25;
   }
 
   else
   {
-    _SLLog(v3, 3, @"Failed to prepare request");
-    v11 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = @"Could not prepare the URL request.";
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:{1, v12}];
-    v10 = [v11 errorWithDomain:@"SLErrorDomain" code:0 userInfo:v9];
-    (*(v5 + 2))(v5, 0, 0, v10);
+    _SLLog(v3, 3, @"Failed to prepare request", v13, v14, v15, v16, v17, v23);
+    v22 = MEMORY[0x1E696ABC0];
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"Could not prepare the URL request.";
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v21 = [v22 errorWithDomain:@"SLErrorDomain" code:0 userInfo:v20];
+    (*(v5 + 2))(v5, 0, 0, v21);
   }
 }
 
 void __39__SLRequest_performRequestWithHandler___block_invoke(uint64_t a1)
 {
   v3 = *(a1 + 32);
-  v12 = 0;
-  v13 = 0;
-  v4 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v3 returningResponse:&v13 error:&v12];
-  v5 = v13;
-  v6 = v12;
+  v22 = 0;
+  v23 = 0;
+  v4 = [MEMORY[0x1E696AF28] sendSynchronousRequest:v3 returningResponse:&v23 error:&v22];
+  v5 = v23;
+  v6 = v22;
   v7 = [v5 statusCode];
   if (v6)
   {
-    v11 = [v6 localizedDescription];
-    _SLLog(v1, 3, @"Request error: %@");
+    v13 = [v6 localizedDescription];
+    _SLLog(v1, 3, @"Request error: %@", v14, v15, v16, v17, v18, v13);
 
     if (!v5)
     {
-      v8 = [v6 userInfo];
-      v9 = [v8 objectForKey:*MEMORY[0x1E696AA08]];
+      v19 = [v6 userInfo];
+      v20 = [v19 objectForKey:*MEMORY[0x1E696AA08]];
 
-      if (v9)
+      if (v20)
       {
-        v10 = [v9 userInfo];
-        v5 = [v10 objectForKey:*MEMORY[0x1E695AD68]];
+        v21 = [v20 userInfo];
+        v5 = [v21 objectForKey:*MEMORY[0x1E695AD68]];
 
         if (v5)
         {
@@ -878,7 +881,7 @@ void __39__SLRequest_performRequestWithHandler___block_invoke(uint64_t a1)
 
   else if (v7 != 200)
   {
-    _SLLog(v1, 3, @"Request status was %d");
+    _SLLog(v1, 3, @"Request status was %d", v8, v9, v10, v11, v12, v7);
   }
 
   (*(*(a1 + 40) + 16))();
@@ -934,27 +937,25 @@ LABEL_10:
 
   if (v11 > 499)
   {
-    v18 = 0.0;
-    if (v11 != 503 || ![*(a1 + 32) _shouldRetryAfterCount:*(a1 + 48) delay:&v18])
+    v21 = 0.0;
+    if (v11 != 503 || ![*(a1 + 32) _shouldRetryAfterCount:*(a1 + 48) delay:&v21])
     {
       v12 = *(*(a1 + 40) + 16);
       goto LABEL_10;
     }
 
     v15 = [*(a1 + 32) _commandName];
-    v17 = v18;
-    v16 = (*(a1 + 48) + 1);
-    _SLLog(v4, 6, @"(503) %@ retrying:%d of %d delay: %f");
+    _SLLog(v4, 6, @"(503) %@ retrying:%d of %d delay: %f", v16, v17, v18, v19, v20, v15);
 
-    sleep(v18);
-    [*(a1 + 32) performJSONRequestWithHandler:*(a1 + 40) retryCount:{(*(a1 + 48) + 1), v15, v16, 4, *&v17}];
+    sleep(v21);
+    [*(a1 + 32) performJSONRequestWithHandler:*(a1 + 40) retryCount:(*(a1 + 48) + 1)];
   }
 
   else
   {
-    v19 = 0;
-    v13 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v19];
-    v14 = v19;
+    v22 = 0;
+    v13 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v8 options:0 error:&v22];
+    v14 = v22;
     (*(*(a1 + 40) + 16))();
   }
 

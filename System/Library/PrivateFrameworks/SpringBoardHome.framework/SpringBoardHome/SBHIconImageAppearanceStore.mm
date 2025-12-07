@@ -46,9 +46,11 @@
 
 uint64_t __42__SBHIconImageAppearanceStore_defaultIcon__block_invoke()
 {
-  defaultIcon_defaultIcon = objc_alloc_init(SBIcon);
+  v0 = objc_alloc_init(SBIcon);
+  v1 = defaultIcon_defaultIcon;
+  defaultIcon_defaultIcon = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)imageForIcon:(id)icon compatibleWithTraitCollection:(id)collection

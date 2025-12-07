@@ -3,7 +3,9 @@
 - (FTMutableBatchTranslationCacheContainer)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)sentence_count;
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity;
 - (void)setRequest_id:(id)request_id;
+- (void)setSentence_count:(int)sentence_count;
 - (void)setSpans:(id)spans;
 - (void)setTranslated_text:(id)translated_text;
 - (void)setTranslated_text_romanized:(id)translated_text_romanized;
@@ -62,6 +64,12 @@
   return intValue;
 }
 
+- (void)setSentence_count:(int)sentence_count
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&sentence_count];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setTranslated_text_romanized:(id)translated_text_romanized
 {
   v4 = [translated_text_romanized copy];
@@ -74,6 +82,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setContains_masked_profanity:(BOOL)contains_masked_profanity
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:contains_masked_profanity];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 @end

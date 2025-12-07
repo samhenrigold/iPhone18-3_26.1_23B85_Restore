@@ -16,7 +16,7 @@
 
 + (NSArray)writableTypeIdentifiersForItemProvider
 {
-  sub_100058000(&unk_100771E10);
+  sub_100058000(&unk_100771E10, &qword_100634270);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_10062D400;
   if (qword_100767368 != -1)

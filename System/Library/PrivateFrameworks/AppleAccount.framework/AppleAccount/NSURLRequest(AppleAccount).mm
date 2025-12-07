@@ -6,7 +6,7 @@
 
 - (id)aa_HTTPBody
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   hTTPBody = [self HTTPBody];
   v3 = [hTTPBody copy];
 
@@ -29,7 +29,7 @@
       {
         do
         {
-          [v8 appendBytes:v11 length:{objc_msgSend(hTTPBodyStream, "read:maxLength:", v11, 1024)}];
+          [v8 appendBytes:v10 length:{objc_msgSend(hTTPBodyStream, "read:maxLength:", v10, 1024)}];
         }
 
         while (([hTTPBodyStream hasBytesAvailable] & 1) != 0);
@@ -44,8 +44,6 @@
       v4 = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

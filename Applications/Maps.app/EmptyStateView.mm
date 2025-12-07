@@ -68,7 +68,7 @@
   {
     v3 = *(self + OBJC_IVAR____TtC4Maps14EmptyStateView_disclosureAction + 8);
     selfCopy = self;
-    v5 = sub_1000CD9D4(v2);
+    v5 = sub_1000CD9D4(v2, v3);
     v2(v5);
 
     sub_1000D3B90(v2, v3);

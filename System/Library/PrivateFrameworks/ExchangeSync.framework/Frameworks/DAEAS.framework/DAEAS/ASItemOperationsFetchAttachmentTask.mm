@@ -13,7 +13,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (!errorCopy)
@@ -23,10 +23,10 @@
     if (os_log_type_enabled(v14, v15))
     {
       *buf = 138412546;
-      v23 = objc_opt_class();
-      v24 = 2048;
-      v25 = v5;
-      v16 = v23;
+      v22 = objc_opt_class();
+      v23 = 2048;
+      v24 = v5;
+      v16 = v22;
       _os_log_impl(&dword_24A0AC000, v14, v15, "%@ Parsed response with statusCode %ld", buf, 0x16u);
     }
 
@@ -37,15 +37,15 @@
 
     errorCopy = [(ASItemOperationsFetchAttachmentTask *)self writeAttachmentError];
 LABEL_14:
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke;
-    v19[3] = &unk_278FC7B68;
-    v19[4] = self;
-    v21 = v5;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke;
+    v18[3] = &unk_278FC7B68;
+    v18[4] = self;
+    v20 = v5;
     errorCopy = errorCopy;
-    v20 = errorCopy;
-    [(ASTask *)self finishWithError:errorCopy afterDelegateCallout:v19];
+    v19 = errorCopy;
+    [(ASTask *)self finishWithError:errorCopy afterDelegateCallout:v18];
 
     goto LABEL_15;
   }
@@ -61,8 +61,8 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v23 = objc_opt_class();
-    v9 = v23;
+    v22 = objc_opt_class();
+    v9 = v22;
     v10 = "%@ cancelled";
     v11 = v7;
     v12 = v17;
@@ -78,10 +78,10 @@ LABEL_14:
     }
 
     *buf = 138412546;
-    v23 = objc_opt_class();
-    v24 = 2112;
-    v25 = errorCopy;
-    v9 = v23;
+    v22 = objc_opt_class();
+    v23 = 2112;
+    v24 = errorCopy;
+    v9 = v22;
     v10 = "%@ failed: %@";
     v11 = v7;
     v12 = v8;
@@ -99,8 +99,6 @@ LABEL_12:
 LABEL_13:
   [(ASTask *)self setCurrentlyParsingItem:0];
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke(void *a1)
@@ -145,7 +143,7 @@ void __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke(vo
 
 - (BOOL)handleStreamOperation:(int)operation forCodePage:(int)page tag:(int)tag withParentItem:(id)item withData:(char *)data dataLength:(int)length
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   if (operation == 1)
   {
@@ -154,9 +152,9 @@ void __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke(vo
     v15 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v14, v15))
     {
-      v20[0] = 67109120;
-      v20[1] = length;
-      _os_log_impl(&dword_24A0AC000, v14, v15, "Streamed data length %d", v20, 8u);
+      v19[0] = 67109120;
+      v19[1] = length;
+      _os_log_impl(&dword_24A0AC000, v14, v15, "Streamed data length %d", v19, 8u);
     }
 
     objc_opt_class();
@@ -174,13 +172,12 @@ void __55__ASItemOperationsFetchAttachmentTask_finishWithError___block_invoke(vo
     [WeakRetained fetchAttachmentTask:self receivedData:v13 ofContentType:attachmentContentType];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)processContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -274,17 +271,17 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __54__ASItemOperationsFetchAttachmentTask_processContext___block_invoke;
-  v26[3] = &unk_278FC7D98;
-  v26[4] = self;
-  v8 = MEMORY[0x24C2119B0](v26);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __54__ASItemOperationsFetchAttachmentTask_processContext___block_invoke;
+  v25[3] = &unk_278FC7D98;
+  v25[4] = self;
+  v8 = MEMORY[0x24C2119B0](v25);
   5132 = [MEMORY[0x277CCACA8] stringWithFormat:@"ASItemOperationsFetchAttachmentResponse.ASArray.ASItemOperationsFetchAttachmentFetchResult.ASItemOperationsFetchAttachmentProperties.%d", 5132];
-  v27 = 5132;
+  v26 = 5132;
   v10 = MEMORY[0x24C2119B0](v8);
-  v28 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v27 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
 
   currentlyParsingItem3 = [(ASTask *)self currentlyParsingItem];
   taskManager = [(ASTask *)self taskManager];
@@ -302,7 +299,6 @@ LABEL_14:
   v21 = 0;
 LABEL_25:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

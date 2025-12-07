@@ -23,6 +23,8 @@
 - (id)topicIDForTopicName:(id)name locale:(id)locale;
 - (int64_t)closeBarButtonSystemItem;
 - (void)_setContext:(id)context;
+- (void)_showHelpTopicItem:(id)item anchor:(id)anchor allowErrorMessage:(BOOL)message animate:(BOOL)animate;
+- (void)_showWithLoadInfo:(id)info allowErrorMessage:(BOOL)message animate:(BOOL)animate;
 - (void)cleanup;
 - (void)dealloc;
 - (void)dismiss;
@@ -42,6 +44,7 @@
 - (void)registerTraitChanges;
 - (void)removeDDMLoadFailVersion;
 - (void)resetLastScrolledPosition;
+- (void)setShouldDisallowOffSiteRedirects:(BOOL)redirects;
 - (void)setup;
 - (void)setupFullBookView;
 - (void)setupTableContentViewController;
@@ -59,8 +62,10 @@
 - (void)updateHelpBookController;
 - (void)updateLastLoadVersion;
 - (void)updateTOCButton;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HLPHelpViewController
@@ -224,7 +229,7 @@
 
 + (id)helpViewControllerWithURL:(id)l
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v4 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:0];
   scheme = [v4 scheme];
@@ -248,34 +253,34 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v33 = v4;
-  v34 = lCopy;
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
+  v32 = v4;
+  v33 = lCopy;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   queryItems = [v4 queryItems];
-  v9 = [queryItems countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v9 = [queryItems countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (v9)
   {
     v10 = v9;
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
     v11 = 0;
     v12 = 0;
-    v13 = *v39;
+    v13 = *v38;
     bOOLValue = 1;
     do
     {
       v14 = 0;
       do
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(queryItems);
         }
 
-        v15 = *(*(&v38 + 1) + 8 * v14);
+        v15 = *(*(&v37 + 1) + 8 * v14);
         name = [v15 name];
         value = [v15 value];
         if (([name isEqualToString:@"book"] & 1) != 0 || objc_msgSend(name, "isEqualToString:", @"bookId"))
@@ -296,14 +301,14 @@ LABEL_26:
         {
           v20 = value;
 
-          v37 = v20;
+          v36 = v20;
         }
 
         else if ([name isEqualToString:@"version"])
         {
           v21 = value;
 
-          v36 = v21;
+          v35 = v21;
         }
 
         else if ([name isEqualToString:@"platformIndependent"])
@@ -315,7 +320,7 @@ LABEL_26:
       }
 
       while (v10 != v14);
-      v22 = [queryItems countByEnumeratingWithState:&v38 objects:v42 count:16];
+      v22 = [queryItems countByEnumeratingWithState:&v37 objects:v41 count:16];
       v10 = v22;
     }
 
@@ -324,22 +329,22 @@ LABEL_26:
 
   else
   {
+    v35 = 0;
     v36 = 0;
-    v37 = 0;
     v11 = 0;
     v12 = 0;
     bOOLValue = 1;
   }
 
-  v23 = v36;
-  v31 = [(__CFString *)v36 length];
+  v23 = v35;
+  v30 = [(__CFString *)v35 length];
   if ([v12 length])
   {
-    v4 = v33;
-    lCopy = v34;
-    v24 = v37;
+    v4 = v32;
+    lCopy = v33;
+    v24 = v36;
     v26 = bOOLValue;
-    if (!v31)
+    if (!v30)
     {
 
       v23 = @"HLPHelpViewControllerVersionLatest";
@@ -352,11 +357,11 @@ LABEL_26:
   {
     mainUserGuideIdentifier = [objc_opt_class() mainUserGuideIdentifier];
 
-    v4 = v33;
-    lCopy = v34;
-    v24 = v37;
+    v4 = v32;
+    lCopy = v33;
+    v24 = v36;
     v26 = bOOLValue;
-    if (!v31)
+    if (!v30)
     {
       platformVersion = [objc_opt_class() platformVersion];
 
@@ -379,8 +384,6 @@ LABEL_27:
   }
 
   [v27 setPlatformIndependent:v26 & 1];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -552,6 +555,22 @@ LABEL_27:
   [(HLPHelpViewController *)self setup];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HLPHelpViewController;
+  [(HLPHelpViewController *)&v4 viewWillAppear:appear];
+  [(HLPHelpViewController *)self updateHelpBookController];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HLPHelpViewController;
+  [(HLPHelpViewController *)&v4 viewDidAppear:appear];
+  self->_showingHelpTopic = 0;
+}
+
 - (void)viewDidLayoutSubviews
 {
   v4.receiver = self;
@@ -657,6 +676,13 @@ LABEL_27:
   return lastPathComponent;
 }
 
+- (void)setShouldDisallowOffSiteRedirects:(BOOL)redirects
+{
+  redirectsCopy = redirects;
+  v4 = +[HLPURLSessionHandler sharedInstance];
+  [v4 setShouldDisallowOffsiteRedirects:redirectsCopy];
+}
+
 - (BOOL)shouldDisallowOffSiteRedirects
 {
   v2 = +[HLPURLSessionHandler sharedInstance];
@@ -723,7 +749,7 @@ LABEL_27:
 
 - (void)setup
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   if ([standardUserDefaults BOOLForKey:@"HLPHelpBookResetToShowLandingPage"])
   {
@@ -739,25 +765,25 @@ LABEL_27:
   else
   {
     [objc_opt_class() platformIndependentIdentifiers];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v4 = v27 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+    v4 = v26 = 0u;
+    v5 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v25;
+      v7 = *v24;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v24 + 1) + 8 * i);
+          v9 = *(*(&v23 + 1) + 8 * i);
           lowercaseString = [(NSString *)self->_identifier lowercaseString];
           LODWORD(v9) = [lowercaseString hasPrefix:v9];
 
@@ -769,7 +795,7 @@ LABEL_27:
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v23 objects:v29 count:16];
         if (v6)
         {
           continue;
@@ -782,7 +808,7 @@ LABEL_27:
 LABEL_15:
   }
 
-  if ([standardUserDefaults BOOLForKey:{@"HLPHelpBookSupportsDarkMode", v24}])
+  if ([standardUserDefaults BOOLForKey:{@"HLPHelpBookSupportsDarkMode", v23}])
   {
     [(HLPHelpViewController *)self _setSupportsDarkMode:1];
   }
@@ -801,7 +827,7 @@ LABEL_15:
     {
       localHelpBookFileURL = [(HLPHelpViewController *)self localHelpBookFileURL];
       *buf = 138412290;
-      v29 = localHelpBookFileURL;
+      v28 = localHelpBookFileURL;
       _os_log_impl(&dword_2522BC000, v14, OS_LOG_TYPE_DEFAULT, "Local help book URL %@", buf, 0xCu);
     }
 
@@ -818,9 +844,9 @@ LABEL_15:
 
   else if (!self->_fullBookView)
   {
-    v22 = +[HLPCommonDefines HLPBundle];
-    v23 = [v22 localizedStringForKey:@"Help" value:&stru_2864756F0 table:0];
-    [(HLPHelpViewController *)self setTitle:v23];
+    v21 = +[HLPCommonDefines HLPBundle];
+    v22 = [v21 localizedStringForKey:@"Help" value:&stru_2864756F0 table:0];
+    [(HLPHelpViewController *)self setTitle:v22];
   }
 
   if (self->_fullBookView && !self->_displayHelpTopicsOnly)
@@ -861,7 +887,6 @@ LABEL_37:
   [navigationItem2 setScrollEdgeAppearance:v19];
 
   [(HLPHelpViewController *)self registerTraitChanges];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateHelpBookController
@@ -1285,14 +1310,13 @@ LABEL_37:
 
 uint64_t __70__HLPHelpViewController_loadBookWithTitle_identifier_topicID_version___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   [objc_opt_class() updateViewController:*(a1 + 32) title:*(a1 + 40) identifier:*(a1 + 48) version:*(a1 + 56) subpath:0];
   [*(a1 + 32) setup];
   [*(a1 + 32) updateHelpBookController];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 32);
+  v2 = *(a1 + 64);
+  v3 = *(a1 + 32);
 
-  return [v4 setSelectedHelpTopicID:v3];
+  return [v3 setSelectedHelpTopicID:v2];
 }
 
 - (void)loadHelpTopicItem:(id)item
@@ -1528,7 +1552,7 @@ LABEL_28:
     firstObject = [preferredLanguages firstObject];
 
     v7 = [standardUserDefaults objectForKey:@"HLPHelpBookLastLoadedLocale"];
-    if (+[HLPCommonDefines isInternalBuild]&& PingPongClientLibraryCore_0())
+    if (+[HLPCommonDefines isInternalBuild]&& PingPongClientLibraryCore_0(0))
     {
       v106 = 0;
       v107 = &v106;
@@ -2306,17 +2330,15 @@ LABEL_16:
 
 - (void)registerTraitChanges
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __45__HLPHelpViewController_registerTraitChanges__block_invoke;
-  v6[3] = &unk_2797069B8;
-  v6[4] = self;
-  v4 = [(HLPHelpViewController *)self registerForTraitChanges:v3 withHandler:v6];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 3221225472;
+  v5[2] = __45__HLPHelpViewController_registerTraitChanges__block_invoke;
+  v5[3] = &unk_2797069B8;
+  v5[4] = self;
+  v4 = [(HLPHelpViewController *)self registerForTraitChanges:v3 withHandler:v5];
 }
 
 - (void)traitCollectionChangedFrom:(id)from
@@ -2383,9 +2405,149 @@ LABEL_16:
   [(HLPHelpTableOfContentViewController *)self->_tableOfContentViewController loadError];
 }
 
+- (void)_showHelpTopicItem:(id)item anchor:(id)anchor allowErrorMessage:(BOOL)message animate:(BOOL)animate
+{
+  animateCopy = animate;
+  messageCopy = message;
+  v9 = [HLPLoadInfo infoWithTopicItem:item accessType:6 searchTerms:0 anchor:0];
+  [(HLPHelpViewController *)self _showWithLoadInfo:v9 allowErrorMessage:messageCopy animate:animateCopy];
+}
+
+- (void)_showWithLoadInfo:(id)info allowErrorMessage:(BOOL)message animate:(BOOL)animate
+{
+  animateCopy = animate;
+  messageCopy = message;
+  infoCopy = info;
+  helpTopicItem = [infoCopy helpTopicItem];
+  anchor = [infoCopy anchor];
+  if (self->_showingHelpTopic && !self->_fullBookView)
+  {
+    goto LABEL_27;
+  }
+
+  if (!self->_fullBookView)
+  {
+    self->_showingHelpTopic = 1;
+    [(HLPHelpViewController *)self setupTopicViewController];
+    if (self->_displayHelpTopicsOnly)
+    {
+      childViewControllers = [(HLPHelpViewController *)self childViewControllers];
+      v11 = [childViewControllers containsObject:self->_topicViewController];
+
+      if (v11)
+      {
+        goto LABEL_10;
+      }
+
+      view = [(HLPHelpTopicViewController *)self->_topicViewController view];
+      [view setTranslatesAutoresizingMaskIntoConstraints:0];
+
+      [(HLPHelpViewController *)self addChildViewController:self->_topicViewController];
+      view2 = [(HLPHelpViewController *)self view];
+      view3 = [(HLPHelpTopicViewController *)self->_topicViewController view];
+      [view2 addSubview:view3];
+
+      view4 = [(HLPHelpTopicViewController *)self->_topicViewController view];
+      v16 = [MEMORY[0x277CBEBF8] mutableCopy];
+      v17 = _NSDictionaryOfVariableBindings(&cfstr_Topicview.isa, view4, 0);
+      v18 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"H:|[topicView]|" options:0 metrics:0 views:v17];
+      [v16 addObjectsFromArray:v18];
+
+      v19 = [MEMORY[0x277CCAAD0] constraintsWithVisualFormat:@"V:|[topicView]|" options:0 metrics:0 views:v17];
+      [v16 addObjectsFromArray:v19];
+
+      view5 = [(HLPHelpViewController *)self view];
+      [view5 addConstraints:v16];
+
+      [(HLPHelpTopicViewController *)self->_topicViewController didMoveToParentViewController:self];
+    }
+
+    else
+    {
+      navigationController = [(HLPHelpViewController *)self navigationController];
+      topViewController = [navigationController topViewController];
+      topicViewController = self->_topicViewController;
+
+      if (topViewController == topicViewController)
+      {
+        goto LABEL_10;
+      }
+
+      view4 = [(HLPHelpViewController *)self navigationController];
+      [view4 pushViewController:self->_topicViewController animated:animateCopy];
+    }
+
+LABEL_10:
+    if (helpTopicItem && self->_displayHelpTopicsOnly && self->_showTopicNameAsTitle)
+    {
+      name = [helpTopicItem name];
+      v25 = name;
+      if (name)
+      {
+        v26 = name;
+      }
+
+      else
+      {
+        v26 = &stru_2864756F0;
+      }
+
+      [(HLPHelpViewController *)self setTitle:v26];
+    }
+
+    [(HLPHelpTopicViewController *)self->_topicViewController setHideDoneButton:self->_hideDoneButton];
+  }
+
+  [(HLPHelpTopicViewController *)self->_topicViewController setHelpBookController:self->_helpBookController];
+  if ([(HLPHelpBookController *)self->_helpBookController serverType])
+  {
+    identifier = [helpTopicItem identifier];
+    if (identifier)
+    {
+      v28 = identifier;
+      topicPathFormat = [(HLPHelpBookController *)self->_helpBookController topicPathFormat];
+      v30 = [topicPathFormat length];
+
+      if (v30)
+      {
+        v31 = MEMORY[0x277CCACA8];
+        topicPathFormat2 = [(HLPHelpBookController *)self->_helpBookController topicPathFormat];
+        identifier2 = [helpTopicItem identifier];
+        v34 = [v31 stringWithFormat:topicPathFormat2, identifier2];
+
+        v35 = [MEMORY[0x277CBEBC0] URLWithString:v34];
+        [(HLPHelpTopicViewController *)self->_topicViewController setHelpBookURL:v35];
+      }
+    }
+  }
+
+  else
+  {
+    [(HLPHelpTopicViewController *)self->_topicViewController setHelpBookURL:self->_helpBookURL];
+  }
+
+  if ([infoCopy accessType] == -1)
+  {
+    accessType = -1;
+  }
+
+  else
+  {
+    accessType = [infoCopy accessType];
+  }
+
+  searchTerms = [(HLPHelpTableOfContentViewController *)self->_tableOfContentViewController searchTerms];
+  v38 = [HLPLoadInfo infoWithTopicItem:helpTopicItem accessType:accessType searchTerms:searchTerms anchor:anchor];
+
+  [v38 setAnalyticsLogged:{objc_msgSend(infoCopy, "analyticsLogged")}];
+  [(HLPHelpTopicViewController *)self->_topicViewController loadWithInfo:v38 allowErrorMessage:messageCopy];
+
+LABEL_27:
+}
+
 - (id)topicIDForTopicName:(id)name locale:(id)locale
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   localeCopy = locale;
   localHelpBookFileURL = [(HLPHelpViewController *)self localHelpBookFileURL];
@@ -2408,8 +2570,8 @@ LABEL_16:
 
       else
       {
-        v36[0] = localeCopy;
-        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+        v35[0] = localeCopy;
+        v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
         englishLocale = [(HLPHelpLocaleController *)localeListController localeWithPreferredLanguages:v15];
       }
 
@@ -2422,12 +2584,12 @@ LABEL_16:
         if (v18)
         {
           helpItemMap2 = [(HLPHelpBookController *)self->_helpBookController helpItemMap];
-          v35[0] = MEMORY[0x277D85DD0];
-          v35[1] = 3221225472;
-          v35[2] = __52__HLPHelpViewController_topicIDForTopicName_locale___block_invoke;
-          v35[3] = &unk_279706DA8;
-          v35[4] = self;
-          [helpItemMap2 enumerateKeysAndObjectsUsingBlock:v35];
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __52__HLPHelpViewController_topicIDForTopicName_locale___block_invoke;
+          v34[3] = &unk_279706DA8;
+          v34[4] = self;
+          [helpItemMap2 enumerateKeysAndObjectsUsingBlock:v34];
 
 LABEL_15:
           goto LABEL_16;
@@ -2443,20 +2605,20 @@ LABEL_15:
 
       if ([v21 checkResourceIsReachableAndReturnError:0])
       {
-        v31 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v21];
-        v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v31 options:0 error:0];
+        v30 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v21];
+        v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v30 options:0 error:0];
         if ([v22 count])
         {
           v23 = [v22 objectForKeyedSubscript:@"topics"];
           allKeys = [v23 allKeys];
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __52__HLPHelpViewController_topicIDForTopicName_locale___block_invoke_2;
-          v32[3] = &unk_279706DD0;
-          v33 = v23;
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __52__HLPHelpViewController_topicIDForTopicName_locale___block_invoke_2;
+          v31[3] = &unk_279706DD0;
+          v32 = v23;
           selfCopy = self;
           v25 = v23;
-          [allKeys enumerateObjectsUsingBlock:v32];
+          [allKeys enumerateObjectsUsingBlock:v31];
         }
       }
 
@@ -2468,8 +2630,6 @@ LABEL_16:
   v26 = self->_localHelpBookNameIDMap;
   lowercaseString = [nameCopy lowercaseString];
   v28 = [(NSMutableDictionary *)v26 objectForKeyedSubscript:lowercaseString];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

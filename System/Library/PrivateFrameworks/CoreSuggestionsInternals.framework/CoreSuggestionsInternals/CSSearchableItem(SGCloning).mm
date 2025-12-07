@@ -7,7 +7,7 @@
 
 - (id)sg_clone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_getAssociatedObject(self, sel_sg_clonableItemAtIndex_inCodedArray_);
   v3 = v2;
   if (v2)
@@ -27,11 +27,11 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       first2 = [v3 first];
-      v20 = 138412546;
-      v21 = first2;
-      v22 = 2112;
+      v19 = 138412546;
+      v20 = first2;
+      v21 = 2112;
       selfCopy = self;
-      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "expected coded array %@ to give a new instance of %@ but it didn't", &v20, 0x16u);
+      _os_log_fault_impl(&dword_231E60000, v9, OS_LOG_TYPE_FAULT, "expected coded array %@ to give a new instance of %@ but it didn't", &v19, 0x16u);
     }
 
     if (_PASEvaluateLogFaultAndProbCrashCriteria())
@@ -61,7 +61,6 @@
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

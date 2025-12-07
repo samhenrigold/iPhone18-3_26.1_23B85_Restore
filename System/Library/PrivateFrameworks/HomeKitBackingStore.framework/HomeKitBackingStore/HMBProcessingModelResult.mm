@@ -8,14 +8,14 @@
 
 - (id)attributeDescriptions
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   model = [(HMBProcessingModelResult *)self model];
   v5 = [v3 initWithName:@"Model" value:model];
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   options = [(HMBProcessingModelResult *)self options];
   v8 = [v6 initWithName:@"Options" value:options];
-  v16[1] = v8;
+  v15[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   mirrorOutputFuture = [(HMBProcessingModelResult *)self mirrorOutputFuture];
   if (mirrorOutputFuture)
@@ -29,10 +29,8 @@
   }
 
   v12 = [v9 initWithName:@"Mirror Output" value:v11];
-  v16[2] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15[2] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
 
   return v13;
 }

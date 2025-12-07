@@ -150,30 +150,28 @@
 
 - (id)description
 {
-  v7[19] = *MEMORY[0x1E69E9840];
-  v7[0] = @"bundleIdentifier";
-  v7[1] = @"storeItemIdentifier";
-  v7[2] = @"manifestURL";
-  v7[3] = @"personaIdentifier";
-  v7[4] = @"sourceIdentifier";
-  v7[5] = @"originator";
-  v7[6] = @"managementOptions";
-  v7[7] = @"VPNUUIDString";
-  v7[8] = @"cellularSliceUUIDString";
-  v7[9] = @"contentFilterUUIDString";
-  v7[10] = @"DNSProxyUUIDString";
-  v7[11] = @"relayUUIDString";
-  v7[12] = @"associatedDomains";
-  v7[13] = @"associatedDomainsEnableDirectDownloads";
-  v7[14] = @"removable";
-  v7[15] = @"tapToPayScreenLock";
-  v7[16] = @"allowUserToHide";
-  v7[17] = @"allowUserToLock";
-  v7[18] = @"configuration";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:19];
+  v6[19] = *MEMORY[0x1E69E9840];
+  v6[0] = @"bundleIdentifier";
+  v6[1] = @"storeItemIdentifier";
+  v6[2] = @"manifestURL";
+  v6[3] = @"personaIdentifier";
+  v6[4] = @"sourceIdentifier";
+  v6[5] = @"originator";
+  v6[6] = @"managementOptions";
+  v6[7] = @"VPNUUIDString";
+  v6[8] = @"cellularSliceUUIDString";
+  v6[9] = @"contentFilterUUIDString";
+  v6[10] = @"DNSProxyUUIDString";
+  v6[11] = @"relayUUIDString";
+  v6[12] = @"associatedDomains";
+  v6[13] = @"associatedDomainsEnableDirectDownloads";
+  v6[14] = @"removable";
+  v6[15] = @"tapToPayScreenLock";
+  v6[16] = @"allowUserToHide";
+  v6[17] = @"allowUserToLock";
+  v6[18] = @"configuration";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:19];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

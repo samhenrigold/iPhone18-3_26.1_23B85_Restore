@@ -32,21 +32,21 @@
   return v2;
 }
 
-void __49__SCSharingReminderFeatureService_initConnection__block_invoke()
+void __49__SCSharingReminderFeatureService_initConnection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = SCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = SCLogger(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __49__SCSharingReminderFeatureService_initConnection__block_invoke_cold_1(v0);
+    __49__SCSharingReminderFeatureService_initConnection__block_invoke_cold_1(v2);
   }
 }
 
-void __49__SCSharingReminderFeatureService_initConnection__block_invoke_2()
+void __49__SCSharingReminderFeatureService_initConnection__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = SCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v2 = SCLogger(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __49__SCSharingReminderFeatureService_initConnection__block_invoke_2_cold_1(v0);
+    __49__SCSharingReminderFeatureService_initConnection__block_invoke_2_cold_1(v2);
   }
 }
 
@@ -107,20 +107,18 @@ void __49__SCSharingReminderFeatureService_initConnection__block_invoke_2()
 
 void __49__SCSharingReminderFeatureService_initConnection__block_invoke_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.safetycheckd";
-  _os_log_debug_impl(&dword_262556000, log, OS_LOG_TYPE_DEBUG, "@Connection with %@ interrupted.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.safetycheckd";
+  _os_log_debug_impl(&dword_262556000, log, OS_LOG_TYPE_DEBUG, "@Connection with %@ interrupted.", &v1, 0xCu);
 }
 
 void __49__SCSharingReminderFeatureService_initConnection__block_invoke_2_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"com.apple.safetycheckd";
-  _os_log_debug_impl(&dword_262556000, log, OS_LOG_TYPE_DEBUG, "@Connection with %@ invalidated.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"com.apple.safetycheckd";
+  _os_log_debug_impl(&dword_262556000, log, OS_LOG_TYPE_DEBUG, "@Connection with %@ invalidated.", &v1, 0xCu);
 }
 
 @end

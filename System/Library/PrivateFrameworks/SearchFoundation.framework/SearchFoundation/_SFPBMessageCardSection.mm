@@ -19,7 +19,7 @@
 
 - (_SFPBMessageCardSection)initWithFacade:(id)facade
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
   v5 = [(_SFPBMessageCardSection *)self init];
   if (v5)
@@ -35,33 +35,33 @@
       v7 = 0;
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     punchoutOptions2 = [facadeCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v38;
+      v11 = *v37;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v38 != v11)
+          if (*v37 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v37 + 1) + 8 * i)];
+          v13 = [[_SFPBPunchout alloc] initWithFacade:*(*(&v36 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v10);
@@ -163,43 +163,42 @@
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (_SFPBMessageCardSection)initWithDictionary:(id)dictionary
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v48.receiver = self;
-  v48.super_class = _SFPBMessageCardSection;
-  v5 = [(_SFPBMessageCardSection *)&v48 init];
+  v47.receiver = self;
+  v47.super_class = _SFPBMessageCardSection;
+  v5 = [(_SFPBMessageCardSection *)&v47 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"punchoutOptions"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
       v45 = 0u;
+      v46 = 0u;
+      v43 = 0u;
+      v44 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v45;
+        v10 = *v44;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v45 != v10)
+            if (*v44 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v44 + 1) + 8 * i);
+            v12 = *(*(&v43 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -208,7 +207,7 @@
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v44 objects:v49 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v43 objects:v48 count:16];
         }
 
         while (v9);
@@ -247,14 +246,14 @@
 
     v20 = [dictionaryCopy objectForKeyedSubscript:@"hasBottomPadding"];
     objc_opt_class();
-    v43 = v20;
+    v42 = v20;
     if (objc_opt_isKindOfClass())
     {
       -[_SFPBMessageCardSection setHasBottomPadding:](v5, "setHasBottomPadding:", [v20 BOOLValue]);
     }
 
-    v39 = v18;
-    v42 = v6;
+    v38 = v18;
+    v41 = v6;
     v21 = [dictionaryCopy objectForKeyedSubscript:@"type"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -263,7 +262,7 @@
       [(_SFPBMessageCardSection *)v5 setType:v22];
     }
 
-    v41 = v14;
+    v40 = v14;
     v23 = [dictionaryCopy objectForKeyedSubscript:@"separatorStyle"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -271,7 +270,7 @@
       -[_SFPBMessageCardSection setSeparatorStyle:](v5, "setSeparatorStyle:", [v23 intValue]);
     }
 
-    v37 = v21;
+    v36 = v21;
     v24 = [dictionaryCopy objectForKeyedSubscript:@"backgroundColor"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -288,7 +287,7 @@
       [(_SFPBMessageCardSection *)v5 setMessageText:v27];
     }
 
-    v40 = v16;
+    v39 = v16;
     v28 = [dictionaryCopy objectForKeyedSubscript:@"messageStatus"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -296,7 +295,7 @@
       -[_SFPBMessageCardSection setMessageStatus:](v5, "setMessageStatus:", [v28 intValue]);
     }
 
-    v38 = v19;
+    v37 = v19;
     v29 = [dictionaryCopy objectForKeyedSubscript:@"messageServiceType"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -323,7 +322,6 @@
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -363,7 +361,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (self->_audioMessageURL)
   {
@@ -473,26 +471,26 @@
   if ([(NSArray *)self->_punchoutOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v23 = self->_punchoutOptions;
-    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v41;
+      v26 = *v40;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v41 != v26)
+          if (*v40 != v26)
           {
             objc_enumerationMutation(v23);
           }
 
-          dictionaryRepresentation4 = [*(*(&v40 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v39 + 1) + 8 * i) dictionaryRepresentation];
           if (dictionaryRepresentation4)
           {
             [array addObject:dictionaryRepresentation4];
@@ -505,7 +503,7 @@
           }
         }
 
-        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v40 objects:v44 count:16];
+        v25 = [(NSArray *)v23 countByEnumeratingWithState:&v39 objects:v43 count:16];
       }
 
       while (v25);
@@ -550,8 +548,6 @@
     v37 = [type copy];
     [dictionary setObject:v37 forKeyedSubscript:@"type"];
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -857,35 +853,34 @@ LABEL_49:
 
 - (void)writeTo:(id)to
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   toCopy = to;
   punchoutOptions = [(_SFPBMessageCardSection *)self punchoutOptions];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v6 = [punchoutOptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [punchoutOptions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v18;
     do
     {
       v9 = 0;
       do
       {
-        if (*v20 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(punchoutOptions);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [punchoutOptions countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [punchoutOptions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -962,42 +957,32 @@ LABEL_49:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMessageText:(id)text
 {
-  v4 = [text copy];
-  messageText = self->_messageText;
-  self->_messageText = v4;
+  self->_messageText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setType:(id)type
 {
-  v4 = [type copy];
-  type = self->_type;
-  self->_type = v4;
+  self->_type = [type copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerDismissText:(id)text
 {
-  v4 = [text copy];
-  punchoutPickerDismissText = self->_punchoutPickerDismissText;
-  self->_punchoutPickerDismissText = v4;
+  self->_punchoutPickerDismissText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPunchoutPickerTitle:(id)title
 {
-  v4 = [title copy];
-  punchoutPickerTitle = self->_punchoutPickerTitle;
-  self->_punchoutPickerTitle = v4;
+  self->_punchoutPickerTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -1022,9 +1007,7 @@ LABEL_49:
 
 - (void)setPunchoutOptions:(id)options
 {
-  v4 = [options copy];
-  punchoutOptions = self->_punchoutOptions;
-  self->_punchoutOptions = v4;
+  self->_punchoutOptions = [options copy];
 
   MEMORY[0x1EEE66BB8]();
 }

@@ -77,10 +77,11 @@
   v6 = (self + OBJC_IVAR____TtC7FocusUI26ActivityEditViewController_willDisappearBlock);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_24BB493F4(v7);
+  sub_24BB493F4(v7, v8);
 }
 
 - (void)viewDidLoad
@@ -92,17 +93,18 @@
 - (void)viewWillDisappear:(BOOL)disappear
 {
   disappearCopy = disappear;
-  v8.receiver = self;
-  v8.super_class = type metadata accessor for ActivityEditViewController();
-  v4 = v8.receiver;
-  v5 = [(ActivityEditViewController *)&v8 viewWillDisappear:disappearCopy];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for ActivityEditViewController();
+  v4 = v10.receiver;
+  v5 = [(ActivityEditViewController *)&v10 viewWillDisappear:disappearCopy];
   v6 = (*((*MEMORY[0x277D85000] & *v4) + 0x70))(v5);
   if (v6)
   {
-    v7 = v6;
+    v8 = v6;
+    v9 = v7;
     v6(v4);
 
-    sub_24BB493F4(v7);
+    sub_24BB493F4(v8, v9);
   }
 
   else

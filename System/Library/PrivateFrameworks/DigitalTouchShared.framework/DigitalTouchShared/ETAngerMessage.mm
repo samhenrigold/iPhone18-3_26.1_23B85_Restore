@@ -44,7 +44,7 @@
     v7 = v6;
     if (v6 && [(ETPAnger *)v6 hasDuration]&& [(ETPAnger *)v7 hasNormalizedCenterX]&& [(ETPAnger *)v7 hasNormalizedCenterY])
     {
-      [(ETPAnger *)v7 duration];
+      objc_msgSend_duration(v7);
       v5->_duration = v8;
       [(ETPAnger *)v7 normalizedCenterX];
       v10 = v9;
@@ -167,127 +167,127 @@ LABEL_19:
 
 - (void)displayInScene:(id)scene
 {
-  v77[2] = *MEMORY[0x277D85DE8];
+  v78[2] = *MEMORY[0x277D85DE8];
   val = scene;
-  v4 = ETFrameworkBundle();
+  v5 = ETFrameworkBundle(val, v4);
   location = 0;
   p_location = &location;
-  v74 = 0x2020000000;
-  v5 = getSKSetResourceBundleSymbolLoc_ptr_1;
-  v75 = getSKSetResourceBundleSymbolLoc_ptr_1;
+  v75 = 0x2020000000;
+  v6 = getSKSetResourceBundleSymbolLoc_ptr_1;
+  v76 = getSKSetResourceBundleSymbolLoc_ptr_1;
   if (!getSKSetResourceBundleSymbolLoc_ptr_1)
   {
-    *&v68 = MEMORY[0x277D85DD0];
-    *(&v68 + 1) = 3221225472;
-    v69 = __getSKSetResourceBundleSymbolLoc_block_invoke_1;
-    v70 = &unk_278F7A048;
-    v71 = &location;
-    v6 = SpriteKitLibrary_1();
-    p_location[3] = dlsym(v6, "SKSetResourceBundle");
-    getSKSetResourceBundleSymbolLoc_ptr_1 = *(v71[1] + 3);
-    v5 = p_location[3];
+    *&v69 = MEMORY[0x277D85DD0];
+    *(&v69 + 1) = 3221225472;
+    v70 = __getSKSetResourceBundleSymbolLoc_block_invoke_1;
+    v71 = &unk_278F7A048;
+    v72 = &location;
+    v7 = SpriteKitLibrary_1();
+    p_location[3] = dlsym(v7, "SKSetResourceBundle");
+    getSKSetResourceBundleSymbolLoc_ptr_1 = *(v72[1] + 3);
+    v6 = p_location[3];
   }
 
   _Block_object_dispose(&location, 8);
-  if (!v5)
+  if (!v6)
   {
     [ETMessage displayInScene:];
     __break(1u);
   }
 
-  v5(v4);
+  v6(v5);
 
-  v54 = [getSKUniformClass_0() uniformWithName:@"u_shader_time" float:0.0];
+  v55 = [getSKUniformClass_0() uniformWithName:@"u_shader_time" float:0.0];
   location = 0;
   p_location = &location;
-  v74 = 0x2050000000;
-  v7 = getSKTextureClass_softClass_0;
-  v75 = getSKTextureClass_softClass_0;
+  v75 = 0x2050000000;
+  v8 = getSKTextureClass_softClass_0;
+  v76 = getSKTextureClass_softClass_0;
   if (!getSKTextureClass_softClass_0)
   {
-    *&v68 = MEMORY[0x277D85DD0];
-    *(&v68 + 1) = 3221225472;
-    v69 = __getSKTextureClass_block_invoke_0;
-    v70 = &unk_278F7A048;
-    v71 = &location;
-    __getSKTextureClass_block_invoke_0(&v68);
-    v7 = p_location[3];
+    *&v69 = MEMORY[0x277D85DD0];
+    *(&v69 + 1) = 3221225472;
+    v70 = __getSKTextureClass_block_invoke_0;
+    v71 = &unk_278F7A048;
+    v72 = &location;
+    __getSKTextureClass_block_invoke_0(&v69);
+    v8 = p_location[3];
   }
 
-  v8 = v7;
+  v9 = v8;
   _Block_object_dispose(&location, 8);
-  v53 = [v7 textureWithImageNamed:@"angerAtlas"];
-  v52 = [getSKUniformClass_0() uniformWithName:@"u_tex2" texture:v53];
+  v54 = [v8 textureWithImageNamed:@"angerAtlas"];
+  v53 = [getSKUniformClass_0() uniformWithName:@"u_tex2" texture:v54];
   location = 0;
   p_location = &location;
-  v74 = 0x2050000000;
-  v9 = getSKShaderClass_softClass_0;
-  v75 = getSKShaderClass_softClass_0;
+  v75 = 0x2050000000;
+  v10 = getSKShaderClass_softClass_0;
+  v76 = getSKShaderClass_softClass_0;
   if (!getSKShaderClass_softClass_0)
   {
-    *&v68 = MEMORY[0x277D85DD0];
-    *(&v68 + 1) = 3221225472;
-    v69 = __getSKShaderClass_block_invoke_0;
-    v70 = &unk_278F7A048;
-    v71 = &location;
-    __getSKShaderClass_block_invoke_0(&v68);
-    v9 = p_location[3];
+    *&v69 = MEMORY[0x277D85DD0];
+    *(&v69 + 1) = 3221225472;
+    v70 = __getSKShaderClass_block_invoke_0;
+    v71 = &unk_278F7A048;
+    v72 = &location;
+    __getSKShaderClass_block_invoke_0(&v69);
+    v10 = p_location[3];
   }
 
-  v10 = v9;
+  v11 = v10;
   _Block_object_dispose(&location, 8);
-  v55 = [v9 shaderWithFileNamed:@"anger"];
-  v77[0] = v52;
-  v77[1] = v54;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
-  [v55 setUniforms:v11];
+  v56 = [v10 shaderWithFileNamed:@"anger"];
+  v78[0] = v53;
+  v78[1] = v55;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
+  [v56 setUniforms:v12];
 
   [val size];
-  v13 = v12;
+  v14 = v13;
   location = 0;
   p_location = &location;
-  v74 = 0x2050000000;
-  v14 = getSKSpriteNodeClass_softClass_1;
-  v75 = getSKSpriteNodeClass_softClass_1;
+  v75 = 0x2050000000;
+  v15 = getSKSpriteNodeClass_softClass_1;
+  v76 = getSKSpriteNodeClass_softClass_1;
   if (!getSKSpriteNodeClass_softClass_1)
   {
-    *&v68 = MEMORY[0x277D85DD0];
-    *(&v68 + 1) = 3221225472;
-    v69 = __getSKSpriteNodeClass_block_invoke_1;
-    v70 = &unk_278F7A048;
-    v71 = &location;
-    __getSKSpriteNodeClass_block_invoke_1(&v68);
-    v14 = p_location[3];
+    *&v69 = MEMORY[0x277D85DD0];
+    *(&v69 + 1) = 3221225472;
+    v70 = __getSKSpriteNodeClass_block_invoke_1;
+    v71 = &unk_278F7A048;
+    v72 = &location;
+    __getSKSpriteNodeClass_block_invoke_1(&v69);
+    v15 = p_location[3];
   }
 
-  v15 = v14;
+  v16 = v15;
   _Block_object_dispose(&location, 8);
   clearColor = [MEMORY[0x277D75348] clearColor];
   colorSpaceConvertedColor = [clearColor colorSpaceConvertedColor];
-  v18 = fmin(v13, 272.0);
-  v19 = [v14 spriteNodeWithColor:colorSpaceConvertedColor size:{v18, v18 / 272.0 * 340.0}];
+  v19 = fmin(v14, 272.0);
+  v20 = [v15 spriteNodeWithColor:colorSpaceConvertedColor size:{v19, v19 / 272.0 * 340.0}];
   anger = self->_anger;
-  self->_anger = v19;
+  self->_anger = v20;
 
-  [(SKSpriteNode *)self->_anger setShader:v55];
-  v21 = self->_anger;
-  v22 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-  colorSpaceConvertedColor2 = [v22 colorSpaceConvertedColor];
-  [(SKSpriteNode *)v21 setColor:colorSpaceConvertedColor2];
+  [(SKSpriteNode *)self->_anger setShader:v56];
+  v22 = self->_anger;
+  v23 = [MEMORY[0x277D75348] colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
+  colorSpaceConvertedColor2 = [v23 colorSpaceConvertedColor];
+  [(SKSpriteNode *)v22 setColor:colorSpaceConvertedColor2];
 
   [(SKSpriteNode *)self->_anger setColorBlendFactor:1.0];
   [(SKSpriteNode *)self->_anger setBlendMode:1];
   [(ETAngerMessage *)self _updateCenterFromNormalizedPoint:val inScene:self->_normalizedCenter.x, self->_normalizedCenter.y];
   [val size];
-  [(SKSpriteNode *)self->_anger setScale:fmax(v24 / 156.0, 1.0) * 0.5];
+  [(SKSpriteNode *)self->_anger setScale:fmax(v25 / 156.0, 1.0) * 0.5];
   [val addChild:self->_anger];
-  v25 = self->_anger;
-  v26 = [getSKActionClass_1() fadeInWithDuration:0.2];
-  [(SKSpriteNode *)v25 runAction:v26 withKey:@"fade"];
+  v26 = self->_anger;
+  v27 = [getSKActionClass_1() fadeInWithDuration:0.2];
+  [(SKSpriteNode *)v26 runAction:v27 withKey:@"fade"];
 
-  v27 = self->_anger;
-  v28 = [getSKActionClass_1() scaleTo:1.5 duration:0.2];
-  [(SKSpriteNode *)v27 runAction:v28 withKey:@"scale"];
+  v28 = self->_anger;
+  v29 = [getSKActionClass_1() scaleTo:1.5 duration:0.2];
+  [(SKSpriteNode *)v28 runAction:v29 withKey:@"scale"];
 
   if (self->_duration != 0.0)
   {
@@ -296,82 +296,82 @@ LABEL_19:
     if (![(ETMessage *)self isRenderingOffscreen])
     {
       array = [MEMORY[0x277CBEB18] array];
-      v30 = [(NSMutableArray *)self->_points count];
-      if (v30 >= 1)
+      v31 = [(NSMutableArray *)self->_points count];
+      if (v31 >= 1)
       {
-        v31 = 0;
-        v56 = *MEMORY[0x277CBF348];
+        v32 = 0;
+        v57 = *MEMORY[0x277CBF348];
         do
         {
-          v68 = v56;
-          v32 = [(NSMutableArray *)self->_points objectAtIndexedSubscript:v31];
-          [v32 getValue:&v68];
+          v69 = v57;
+          v33 = [(NSMutableArray *)self->_points objectAtIndexedSubscript:v32];
+          [v33 getValue:&v69];
 
-          v66 = 0.0;
-          v33 = [(NSMutableArray *)self->_delays objectAtIndexedSubscript:v31];
-          [v33 getValue:&v66];
+          v67 = 0.0;
+          v34 = [(NSMutableArray *)self->_delays objectAtIndexedSubscript:v32];
+          [v34 getValue:&v67];
 
-          v34 = [getSKActionClass_1() waitForDuration:v66];
-          [array addObject:v34];
+          v35 = [getSKActionClass_1() waitForDuration:v67];
+          [array addObject:v35];
 
           SKActionClass_1 = getSKActionClass_1();
-          v62[0] = MEMORY[0x277D85DD0];
-          v62[1] = 3221225472;
-          v62[2] = __33__ETAngerMessage_displayInScene___block_invoke;
-          v62[3] = &unk_278F7A520;
-          objc_copyWeak(&v63, &location);
-          v65 = v68;
-          objc_copyWeak(&v64, &from);
-          v36 = [SKActionClass_1 runBlock:v62];
-          [array addObject:v36];
+          v63[0] = MEMORY[0x277D85DD0];
+          v63[1] = 3221225472;
+          v63[2] = __33__ETAngerMessage_displayInScene___block_invoke;
+          v63[3] = &unk_278F7A520;
+          objc_copyWeak(&v64, &location);
+          v66 = v69;
+          objc_copyWeak(&v65, &from);
+          v37 = [SKActionClass_1 runBlock:v63];
+          [array addObject:v37];
 
+          objc_destroyWeak(&v65);
           objc_destroyWeak(&v64);
-          objc_destroyWeak(&v63);
-          ++v31;
+          ++v32;
         }
 
-        while (v30 != v31);
+        while (v31 != v32);
       }
 
-      v37 = self->_anger;
-      v38 = [getSKActionClass_1() sequence:array];
-      [(SKSpriteNode *)v37 runAction:v38];
+      v38 = self->_anger;
+      v39 = [getSKActionClass_1() sequence:array];
+      [(SKSpriteNode *)v38 runAction:v39];
 
-      v39 = self->_anger;
-      v40 = getSKActionClass_1();
-      v41 = [getSKActionClass_1() waitForDuration:self->_duration + 0.2];
-      v76[0] = v41;
-      v42 = getSKActionClass_1();
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __33__ETAngerMessage_displayInScene___block_invoke_2;
-      v60[3] = &unk_278F7A468;
-      objc_copyWeak(&v61, &location);
-      v43 = MEMORY[0x277D85CD0];
+      v40 = self->_anger;
+      v41 = getSKActionClass_1();
+      v42 = [getSKActionClass_1() waitForDuration:self->_duration + 0.2];
+      v77[0] = v42;
+      v43 = getSKActionClass_1();
+      v61[0] = MEMORY[0x277D85DD0];
+      v61[1] = 3221225472;
+      v61[2] = __33__ETAngerMessage_displayInScene___block_invoke_2;
+      v61[3] = &unk_278F7A468;
+      objc_copyWeak(&v62, &location);
       v44 = MEMORY[0x277D85CD0];
-      v45 = [v42 runBlock:v60 queue:v43];
-      v76[1] = v45;
-      v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:2];
-      v47 = [v40 sequence:v46];
-      [(SKSpriteNode *)v39 runAction:v47];
+      v45 = MEMORY[0x277D85CD0];
+      v46 = [v43 runBlock:v61 queue:v44];
+      v77[1] = v46;
+      v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
+      v48 = [v41 sequence:v47];
+      [(SKSpriteNode *)v40 runAction:v48];
 
-      objc_destroyWeak(&v61);
+      objc_destroyWeak(&v62);
     }
 
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
 
-  v48 = self->_anger;
-  v49 = getSKActionClass_1();
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __33__ETAngerMessage_displayInScene___block_invoke_3;
-  v58[3] = &unk_278F7A4B8;
-  v59 = v54;
-  v50 = v54;
-  v51 = [v49 customActionWithDuration:v58 actionBlock:10 + 0.2 + 0.2];
-  [(SKSpriteNode *)v48 runAction:v51];
+  v49 = self->_anger;
+  v50 = getSKActionClass_1();
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __33__ETAngerMessage_displayInScene___block_invoke_3;
+  v59[3] = &unk_278F7A4B8;
+  v60 = v55;
+  v51 = v55;
+  v52 = [v50 customActionWithDuration:v59 actionBlock:10 + 0.2 + 0.2];
+  [(SKSpriteNode *)v49 runAction:v52];
 }
 
 void __33__ETAngerMessage_displayInScene___block_invoke(uint64_t a1)

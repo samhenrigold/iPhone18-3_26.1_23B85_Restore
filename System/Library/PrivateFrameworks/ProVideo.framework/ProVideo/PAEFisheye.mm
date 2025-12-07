@@ -95,7 +95,7 @@ LABEL_20:
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, v25);
     }
 
     else
@@ -134,7 +134,7 @@ LABEL_20:
 
   v24 = _Q0;
   [v9 getXValue:&v24 YValue:&v24 + 8 fromParm:3 atFxTime:info->var0.var1];
-  [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:&v24 withImage:input];
+  objc_msgSend_convertRelativeToImageCoordinates_withImage_(self);
   v24 = v22;
   v23 = 0x3FB999999999999ALL;
   [v9 getFloatValue:&v23 fromParm:1 atFxTime:info->var0.var1];
@@ -145,8 +145,8 @@ LABEL_20:
     [input pixelAspect];
   }
 
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
+  objc_msgSend_getInversePixelTransformForImage_(self);
   v14 = [(PAESharedDefaultBase *)self getRenderMode:info->var0.var1];
   if (v14)
   {
@@ -154,7 +154,7 @@ LABEL_20:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v20 = HGObject::operator new(0x220uLL);

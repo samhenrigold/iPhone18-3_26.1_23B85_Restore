@@ -9,8 +9,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_179B1C(appear);
+  sub_179B1C(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -44,7 +45,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_17AEDC();
+  sub_17AEDC(selfCopy);
 }
 
 @end

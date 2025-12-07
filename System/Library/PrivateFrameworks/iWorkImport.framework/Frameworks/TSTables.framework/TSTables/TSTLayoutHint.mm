@@ -59,7 +59,7 @@
 {
   v3 = objc_alloc(objc_opt_class());
   v5 = objc_msgSend_initWithRange_hintId_partitionPosition_maximumSize_effectiveSize_layout_validity_horizontal_(v3, v4, *&self->_cellRange.origin, *&self->_cellRange.size, *&self->_cacheHintID, self->_partitionPosition, 0, self->_isValid, self->_maximumSize.width, self->_maximumSize.height, self->_effectiveSize.width, self->_effectiveSize.height, self->_horizontal);
-  v9 = v5;
+  v8 = v5;
   if (v5)
   {
     objc_storeStrong((v5 + 24), self->_partitioningPass);
@@ -67,15 +67,15 @@
 
   else
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTLayoutHint copyForArchiving]", v7, v8);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTLayoutHint.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 89, 0, "invalid nil value for '%{public}s'", "copy");
+    v9 = MEMORY[0x277D81150];
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTLayoutHint copyForArchiving]", v7);
+    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTLayoutHint.mm", v12);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v14, v10, v13, 89, 0, "invalid nil value for '%{public}s'", "copy");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)overlapsWithSelectionPath:(id)path
@@ -83,57 +83,57 @@
   pathCopy = path;
   if (!pathCopy)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTLayoutHint overlapsWithSelectionPath:]", v5, v6);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTLayoutHint.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 103, 0, "invalid nil value for '%{public}s'", "selectionPath");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[TSTLayoutHint overlapsWithSelectionPath:]", v5);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTLayoutHint.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 103, 0, "invalid nil value for '%{public}s'", "selectionPath");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = sub_2213B62AC;
-  v46[3] = &unk_278464100;
-  v46[4] = self;
-  v19 = pathCopy;
-  v47 = v19;
-  v48 = &unk_2834A6F30;
-  v20 = MEMORY[0x223DA1C10](v46);
-  v29 = objc_msgSend_cellSelection(v19, v21, v22, v23, v24);
-  if (v29)
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = sub_2213B62AC;
+  v38[3] = &unk_278464100;
+  v38[4] = self;
+  v16 = pathCopy;
+  v39 = v16;
+  v40 = &unk_2834A6F30;
+  v17 = MEMORY[0x223DA1C10](v38);
+  v24 = objc_msgSend_cellSelection(v16, v18, v19, v20);
+  if (v24)
   {
-    LOBYTE(v30) = (v20)[2](v20, v29);
+    LOBYTE(v25) = (v17)[2](v17, v24);
   }
 
   else
   {
-    v31 = objc_msgSend_tableNameSelection(v19, v25, v26, v27, v28);
+    v26 = objc_msgSend_tableNameSelection(v16, v21, v22, v23);
 
-    if (v31)
+    if (v26)
     {
-      v32 = objc_opt_class();
-      v40 = objc_msgSend_mostSpecificSelectionOfClass_(v19, v33, v32, v34, v35);
-      if (v40)
+      v27 = objc_opt_class();
+      v33 = objc_msgSend_mostSpecificSelectionOfClass_(v16, v28, v27, v29);
+      if (v33)
       {
-        v30 = objc_msgSend_partitionPosition(self, v36, v37, v38, v39) & 1;
+        v25 = objc_msgSend_partitionPosition(self, v30, v31, v32) & 1;
       }
 
       else
       {
-        LOBYTE(v30) = 0;
+        LOBYTE(v25) = 0;
       }
     }
 
     else
     {
-      v41 = objc_opt_class();
-      v40 = objc_msgSend_mostSpecificSelectionOfClass_(v19, v42, v41, v43, v44);
-      LOBYTE(v30) = v40 != 0;
+      v34 = objc_opt_class();
+      v33 = objc_msgSend_mostSpecificSelectionOfClass_(v16, v35, v34, v36);
+      LOBYTE(v25) = v33 != 0;
     }
   }
 
-  return v30;
+  return v25;
 }
 
 - (TSTLayoutHint)initWithArchive:(const void *)archive
@@ -159,11 +159,11 @@
     v7 = *MEMORY[0x277CBF3A8];
   }
 
-  v20 = v7;
+  v18 = v7;
   if ((v6 & 2) != 0)
   {
     v8 = sub_2211238E0(*(archive + 4));
-    v7 = v20;
+    v7 = v18;
     if ((*(archive + 4) & 1) == 0)
     {
       goto LABEL_9;
@@ -184,25 +184,25 @@ LABEL_9:
 
   v10 = sub_22112397C(*(archive + 3));
   v9 = a2;
-  v7 = v20;
+  v7 = v18;
 LABEL_12:
-  v14 = objc_msgSend_initWithRange_hintId_partitionPosition_maximumSize_effectiveSize_layout_validity_horizontal_(self, a2, v10, v9, v8, *(archive + 15), 0, *(archive + 56), *(v5 + 24), *(v5 + 28), *&v7, *(archive + 57));
-  if (v14)
+  v13 = objc_msgSend_initWithRange_hintId_partitionPosition_maximumSize_effectiveSize_layout_validity_horizontal_(self, a2, v10, v9, v8, *(archive + 15), 0, *(archive + 56), *(v5 + 24), *(v5 + 28), *&v7, *(archive + 57));
+  if (v13)
   {
     if ((*(archive + 16) & 0x80) != 0)
     {
-      objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v11, *(archive + 16), v12, v13);
+      objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v11, *(archive + 16), v12);
     }
 
     else
     {
-      objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v11, 0, v12, v13);
+      objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v11, 0, v12);
     }
-    v15 = ;
-    objc_msgSend_setPartitioningPass_(v14, v16, v15, v17, v18);
+    v14 = ;
+    objc_msgSend_setPartitioningPass_(v13, v15, v14, v16);
   }
 
-  return v14;
+  return v13;
 }
 
 - (void)saveToArchive:(void *)archive
@@ -241,116 +241,116 @@ LABEL_12:
 
   sub_221123904(v9, v10);
   isValid = self->_isValid;
-  v17 = *(archive + 4);
-  *(archive + 4) = v17 | 0x10;
+  v16 = *(archive + 4);
+  *(archive + 4) = v16 | 0x10;
   *(archive + 56) = isValid;
   *(archive + 15) = self->_partitionPosition;
   horizontal = self->_horizontal;
-  v19 = v17 | 0x70;
-  *(archive + 4) = v17 | 0x70;
+  v18 = v16 | 0x70;
+  *(archive + 4) = v16 | 0x70;
   *(archive + 57) = horizontal;
-  if ((v17 & 0x80) != 0)
+  if ((v16 & 0x80) != 0)
   {
     partitioningPass = self->_partitioningPass;
     if (partitioningPass)
     {
-      LODWORD(partitioningPass) = objc_msgSend_unsignedIntValue(partitioningPass, v12, v13, v14, v15);
-      v19 = *(archive + 4) | 0x80;
+      LODWORD(partitioningPass) = objc_msgSend_unsignedIntValue(partitioningPass, v12, v13, v14);
+      v18 = *(archive + 4) | 0x80;
     }
 
     else
     {
-      v19 = v17 | 0xF0;
+      v18 = v16 | 0xF0;
     }
 
     *(archive + 16) = partitioningPass;
   }
 
-  *(archive + 4) = v19 | 4;
-  v21 = *(archive + 5);
-  if (!v21)
+  *(archive + 4) = v18 | 4;
+  v20 = *(archive + 5);
+  if (!v20)
   {
-    v22 = *(archive + 1);
-    if (v22)
+    v21 = *(archive + 1);
+    if (v21)
     {
-      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
+      v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v21 = MEMORY[0x223DA0350](v22);
-    *(archive + 5) = v21;
+    v20 = MEMORY[0x223DA0350](v21);
+    *(archive + 5) = v20;
   }
 
-  v21[2].i32[0] |= 3u;
-  v21[3] = vcvt_f32_f64(self->_maximumSize);
+  v20[2].i32[0] |= 3u;
+  v20[3] = vcvt_f32_f64(self->_maximumSize);
   *(archive + 4) |= 8u;
-  v23 = *(archive + 6);
-  if (!v23)
+  v22 = *(archive + 6);
+  if (!v22)
   {
-    v24 = *(archive + 1);
-    if (v24)
+    v23 = *(archive + 1);
+    if (v23)
     {
-      v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
+      v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v23 = MEMORY[0x223DA0350](v24);
-    *(archive + 6) = v23;
+    v22 = MEMORY[0x223DA0350](v23);
+    *(archive + 6) = v22;
   }
 
-  v23[2].i32[0] |= 3u;
-  v23[3] = vcvt_f32_f64(self->_effectiveSize);
+  v22[2].i32[0] |= 3u;
+  v22[3] = vcvt_f32_f64(self->_effectiveSize);
 }
 
 - (void)invalidate
 {
-  v6 = objc_msgSend_layout(self, a2, v2, v3, v4);
+  v5 = objc_msgSend_layout(self, a2, v2, v3);
 
-  if (v6)
+  if (v5)
   {
-    v11 = objc_msgSend_layout(self, v7, v8, v9, v10);
-    objc_msgSend_invalidate(v11, v12, v13, v14, v15);
+    v9 = objc_msgSend_layout(self, v6, v7, v8);
+    objc_msgSend_invalidate(v9, v10, v11, v12);
   }
 
-  objc_msgSend_setIsValid_(self, v7, 0, v9, v10);
+  objc_msgSend_setIsValid_(self, v6, 0, v8);
 }
 
 - (NSString)description
 {
-  v6 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
-  objc_msgSend_cacheHintID(self, v7, v8, v9, v10);
-  v11 = NSStringFromTSUCellCoord();
-  objc_msgSend_appendFormat_(v6, v12, @"ID: %@ ", v13, v14, v11);
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3);
+  objc_msgSend_cacheHintID(self, v6, v7, v8);
+  v9 = NSStringFromTSUCellCoord();
+  objc_msgSend_appendFormat_(v5, v10, @"ID: %@ ", v11, v9);
 
-  if ((objc_msgSend_cellRange(self, v15, v16, v17, v18) & 0xFFFFFFFFFFFFLL) == 0x7FFF7FFFFFFFLL)
+  if ((objc_msgSend_cellRange(self, v12, v13, v14) & 0xFFFFFFFFFFFFLL) == 0x7FFF7FFFFFFFLL)
   {
-    v22 = @"#REF!:#REF!";
-    objc_msgSend_appendFormat_(v6, v19, @"Range: %@ ", v20, v21, @"#REF!:#REF!");
+    v17 = @"#REF!:#REF!";
+    objc_msgSend_appendFormat_(v5, v15, @"Range: %@ ", v16, @"#REF!:#REF!");
   }
 
   else
   {
-    v22 = @"#REF!:#REF!";
-    if (v19 >> 32 && v19)
+    v17 = @"#REF!:#REF!";
+    if (v15 >> 32 && v15)
     {
-      v23 = MEMORY[0x277CCACA8];
-      v24 = NSStringFromTSUCellCoord();
-      v25 = NSStringFromTSUCellCoord();
-      v22 = objc_msgSend_stringWithFormat_(v23, v26, @"%@:%@", v27, v28, v24, v25);
+      v18 = MEMORY[0x277CCACA8];
+      v19 = NSStringFromTSUCellCoord();
+      v20 = NSStringFromTSUCellCoord();
+      v17 = objc_msgSend_stringWithFormat_(v18, v21, @"%@:%@", v22, v19, v20);
     }
 
-    objc_msgSend_appendFormat_(v6, v19, @"Range: %@ ", v20, v21, v22);
+    objc_msgSend_appendFormat_(v5, v15, @"Range: %@ ", v16, v17);
   }
 
-  if (objc_msgSend_horizontal(self, v29, v30, v31, v32))
+  if (objc_msgSend_horizontal(self, v23, v24, v25))
   {
-    objc_msgSend_appendString_(v6, v33, @"H", v34, v35);
+    objc_msgSend_appendString_(v5, v26, @"H", v27);
   }
 
   else
   {
-    objc_msgSend_appendString_(v6, v33, @"V", v34, v35);
+    objc_msgSend_appendString_(v5, v26, @"V", v27);
   }
 
-  return v6;
+  return v5;
 }
 
 - (TSUCellRect)cellRange

@@ -176,7 +176,7 @@ LABEL_14:
     v10 = v9;
     if ([input imageType] == 3)
     {
-      [(PAESharedDefaultBase *)self getScaleForImage:input];
+      objc_msgSend_getScaleForImage_(self);
       v12 = v26[1];
       v11 = v26[2];
       v26[0] = 0.0;
@@ -185,7 +185,7 @@ LABEL_14:
       {
         if (input)
         {
-          [input heliumRef];
+          objc_msgSend_heliumRef(input, v26[0]);
         }
 
         else
@@ -273,7 +273,7 @@ LABEL_14:
     if (input)
     {
 LABEL_3:
-      [input heliumRef];
+      objc_msgSend_heliumRef(input);
       goto LABEL_6;
     }
   }
@@ -287,7 +287,7 @@ LABEL_3:
     }
   }
 
-  v56 = 0;
+  v56[0] = 0;
 LABEL_6:
   if (bloomCopy)
   {
@@ -311,7 +311,7 @@ LABEL_6:
 
   v29 = HGObject::operator new(0x1A0uLL);
   HgcBloomThreshold::HgcBloomThreshold(v29);
-  (*(*v29 + 120))(v29, 0, v56);
+  (*(*v29 + 120))(v29, 0, v56[0]);
   v30 = threshold / 100.0;
   (*(*v29 + 96))(v29, 0, v28 * v30, v28 * v30, v28 * v30, v28 * v30);
   (*(*v29 + 96))(v29, 1, v27, v27, v27, v27);
@@ -319,8 +319,8 @@ LABEL_6:
   (*(*v29 + 96))(v29, 2, -3.4028e38, 3.4028e38, 0.0, 0.0);
   if (is360Copy)
   {
-    [(PAESharedDefaultBase *)self getInversePixelTransformForImage:render];
-    [(PAESharedDefaultBase *)self getPixelTransformForImage:render];
+    objc_msgSend_getInversePixelTransformForImage_(self);
+    objc_msgSend_getPixelTransformForImage_(self);
     v31 = HGObject::operator new(0x1C0uLL);
     HGNode::HGNode(v31);
     *v31 = &unk_2871D9F38;
@@ -391,7 +391,7 @@ LABEL_6:
       v45 = HGObject::operator new(0x210uLL);
       HGXForm::HGXForm(v45);
       (*(*v45 + 576))(v45, v48);
-      (*(*v45 + 120))(v45, 0, v56);
+      (*(*v45 + 120))(v45, 0, v56[0]);
       v44 = v31;
       if (v31 != v45)
       {
@@ -406,7 +406,7 @@ LABEL_6:
   }
 
   (*(**&v55[0].f64[0] + 120))(*&v55[0].f64[0], 0, v44);
-  (*(**&v55[0].f64[0] + 120))(*&v55[0].f64[0], 1, v56);
+  (*(**&v55[0].f64[0] + 120))(*&v55[0].f64[0], 1, v56[0]);
   if (cropCopy)
   {
     [(PAESharedDefaultBase *)self crop:v55 fromImage:input toImage:render];
@@ -421,9 +421,9 @@ LABEL_6:
 
   (*(*v31 + 24))(v31);
   (*(*v29 + 24))(v29);
-  if (v56)
+  if (v56[0])
   {
-    (*(*v56 + 24))(v56);
+    (*(*v56[0] + 24))(v56[0]);
   }
 
   return 1;

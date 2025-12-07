@@ -56,7 +56,7 @@
   predicateCopy = predicate;
   selfCopy = self;
   sub_1000D9CD0(predicateCopy, v6, v7);
-  sub_1000588AC(v6);
+  sub_1000588AC(v6, v7);
 }
 
 - (void)fetchCommunityIDWithIdentifier:(id)identifier completion:(id)completion
@@ -78,7 +78,7 @@
 
   selfCopy = self;
   sub_1000D9F80(v6, v8, v5, v9);
-  sub_1000588AC(v5);
+  sub_1000588AC(v5, v9);
 }
 
 - (void)storeCommunityIDWithIdentifier:(id)identifier completion:(id)completion
@@ -88,13 +88,19 @@
   v8 = v7;
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v5;
     v5 = sub_1000DAA28;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   selfCopy = self;
   sub_1000DA198(v6, v8, v5);
-  sub_1000588AC(v5);
+  sub_1000588AC(v5, v9);
 }
 
 - (void)setExpiredWithMsCommunityID:(id)d completion:(id)completion
@@ -102,14 +108,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000DAA28;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   dCopy = d;
   selfCopy = self;
   sub_1000DA318(dCopy, v6);
-  sub_1000588AC(v6);
+  sub_1000588AC(v6, v7);
 }
 
 - (void)increaseUsedCountWithMsCommunityID:(id)d completion:(id)completion
@@ -117,14 +129,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_1000DA614;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   dCopy = d;
   selfCopy = self;
   sub_1000DA4A4(dCopy, v6);
-  sub_1000588AC(v6);
+  sub_1000588AC(v6, v7);
 }
 
 @end

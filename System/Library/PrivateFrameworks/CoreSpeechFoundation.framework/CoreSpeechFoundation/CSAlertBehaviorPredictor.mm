@@ -11,11 +11,11 @@
   sCopy = s;
   vibratorCopy = vibrator;
   pCopy = p;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   routeCopy = route;
   playbackRouteCopy = playbackRoute;
-  v39 = routeCopy;
+  v38 = routeCopy;
   v18 = [routeCopy isEqualToString:*MEMORY[0x1E69581C8]];
   v19 = v18;
   v20 = !sCopy || horseman;
@@ -49,17 +49,17 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136316418;
-    v41 = "+[CSAlertBehaviorPredictor predictStartAlertBehaviorFor:avSystemController:hasAOP:supportVibrator:isiOS:isWatchOS:isHorseman:isBridgeOS:recordRoute:playbackRoute:]";
-    v42 = 1026;
+    v40 = "+[CSAlertBehaviorPredictor predictStartAlertBehaviorFor:avSystemController:hasAOP:supportVibrator:isiOS:isWatchOS:isHorseman:isBridgeOS:recordRoute:playbackRoute:]";
+    v41 = 1026;
     forCopy = for;
-    v44 = 2114;
-    v45 = v39;
-    v46 = 2114;
-    v47 = playbackRouteCopy;
-    v48 = 1026;
-    v49 = v19;
-    v50 = 1026;
-    v51 = v25 & 1;
+    v43 = 2114;
+    v44 = v38;
+    v45 = 2114;
+    v46 = playbackRouteCopy;
+    v47 = 1026;
+    v48 = v19;
+    v49 = 1026;
+    v50 = v25 & 1;
     _os_log_impl(&dword_1DDA4B000, v30, OS_LOG_TYPE_DEFAULT, "%s Context(%{public}d) recordRoute(%{public}@) playbackRoute(%{public}@) isRouteToBuiltInMic(%{public}d) isZLLAvailable(%{public}d)", buf, 0x32u);
   }
 
@@ -82,32 +82,32 @@
       {
         if ([playbackRouteCopy isEqualToString:*MEMORY[0x1E69581D8]])
         {
-          v34 = 0;
+          v33 = 0;
         }
 
         else
         {
-          v34 = [playbackRouteCopy isEqualToString:*MEMORY[0x1E69581E8]] ^ 1;
+          v33 = [playbackRouteCopy isEqualToString:*MEMORY[0x1E69581E8]] ^ 1;
         }
 
-        v35 = CSLogContextFacilityCoreSpeech;
+        v34 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v41 = "+[CSAlertBehaviorPredictor predictStartAlertBehaviorFor:avSystemController:hasAOP:supportVibrator:isiOS:isWatchOS:isHorseman:isBridgeOS:recordRoute:playbackRoute:]";
-          v42 = 1026;
-          forCopy = v34;
-          v44 = 1026;
-          LODWORD(v45) = vibratorCopy;
-          _os_log_impl(&dword_1DDA4B000, v35, OS_LOG_TYPE_DEFAULT, "%s isHandsFree = %{public}d hasHaptic = %{public}d", buf, 0x18u);
+          v40 = "+[CSAlertBehaviorPredictor predictStartAlertBehaviorFor:avSystemController:hasAOP:supportVibrator:isiOS:isWatchOS:isHorseman:isBridgeOS:recordRoute:playbackRoute:]";
+          v41 = 1026;
+          forCopy = v33;
+          v43 = 1026;
+          LODWORD(v44) = vibratorCopy;
+          _os_log_impl(&dword_1DDA4B000, v34, OS_LOG_TYPE_DEFAULT, "%s isHandsFree = %{public}d hasHaptic = %{public}d", buf, 0x18u);
         }
 
         if ((vibratorCopy | v25))
         {
-          v36 = 1;
-          if (v34)
+          v35 = 1;
+          if (v33)
           {
-            v36 = 2;
+            v35 = 2;
           }
 
           if (v25)
@@ -117,7 +117,7 @@
 
           else
           {
-            v31 = v36;
+            v31 = v35;
           }
         }
 
@@ -181,7 +181,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 

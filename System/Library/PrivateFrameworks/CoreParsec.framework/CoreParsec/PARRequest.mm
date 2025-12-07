@@ -34,29 +34,29 @@
 
 - (PARRequest)initWithCoder:(id)coder
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = PARRequest;
-  v5 = [(PARRequest *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = PARRequest;
+  v5 = [(PARRequest *)&v31 init];
   if (v5)
   {
     v5->_queryId = [coderCopy decodeInt64ForKey:@"queryId"];
     [coderCopy decodeDoubleForKey:@"scale"];
     v5->_scale = v6;
     v7 = MEMORY[0x1E695DFD8];
-    v34[0] = objc_opt_class();
-    v34[1] = objc_opt_class();
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v33[0] = objc_opt_class();
+    v33[1] = objc_opt_class();
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"queryItems"];
     queryItems = v5->_queryItems;
     v5->_queryItems = v10;
 
     v12 = MEMORY[0x1E695DFD8];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
     v14 = [v12 setWithArray:v13];
     v15 = [coderCopy decodeObjectOfClasses:v14 forKey:@"headerItems"];
     headerItems = v5->_headerItems;
@@ -87,9 +87,9 @@
     queryCommand = v5->_queryCommand;
     v5->_queryCommand = v25;
 
-    v31 = 0;
-    [coderCopy decodeBytesForKey:@"_nwActivityToken" returnedLength:&v31];
-    if (v31 == 16)
+    v30 = 0;
+    [coderCopy decodeBytesForKey:@"_nwActivityToken" returnedLength:&v30];
+    if (v30 == 16)
     {
       v27 = nw_activity_create_from_token();
       nwActivity = v5->_nwActivity;
@@ -97,13 +97,12 @@
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   [coderCopy encodeInt64:self->_queryId forKey:@"queryId"];
   [coderCopy encodeDouble:@"scale" forKey:self->_scale];
@@ -122,15 +121,13 @@
   if (self->_nwActivity)
   {
     *uu = 0;
-    v7 = 0;
+    v6 = 0;
     nw_activity_get_token();
     if (!uuid_is_null(uu))
     {
       [coderCopy encodeBytes:uu length:16 forKey:@"_nwActivityToken"];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (id)summarizeRequestForUrl:(id)url

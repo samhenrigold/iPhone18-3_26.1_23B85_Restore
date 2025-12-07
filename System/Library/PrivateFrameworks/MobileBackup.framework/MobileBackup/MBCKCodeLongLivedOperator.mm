@@ -50,15 +50,15 @@
     if (os_log_type_enabled(responseCallback, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v10 = objc_opt_class();
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v7 = v12;
+      *&buf[4] = objc_opt_class();
+      *&buf[12] = 2112;
+      *&buf[14] = objc_opt_class();
+      v7 = *&buf[14];
       _os_log_impl(&_mh_execute_header, responseCallback, OS_LOG_TYPE_DEFAULT, "Unexpected operation class %@, expected %@", buf, 0x16u);
 
-      objc_opt_class();
-      objc_opt_class();
-      _MBLog();
+      v8 = objc_opt_class();
+      v9 = objc_opt_class();
+      _MBLog(@"Df", "Unexpected operation class %@, expected %@", v8, v9, *buf, *&buf[8]);
     }
   }
 

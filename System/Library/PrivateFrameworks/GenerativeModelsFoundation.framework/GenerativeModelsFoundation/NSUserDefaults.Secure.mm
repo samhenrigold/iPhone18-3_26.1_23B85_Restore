@@ -21,16 +21,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_18E1A7530();
+  v10 = sub_18E1A7530();
+  v12 = v11;
 
-  NSUserDefaults.Secure.set(_:forKey:)(v10);
+  NSUserDefaults.Secure.set(_:forKey:)(v13, v10, v12);
 
-  sub_18E178150(v10, &qword_1EABD0960, &qword_18E1AB550);
+  sub_18E178150(v13, &qword_1EABD0960, &qword_18E1AB550);
 }
 
 - (void)setObject:(id)object forKey:(id)key inDomain:(id)domain
@@ -88,28 +89,27 @@ LABEL_7:
 {
   sub_18E1A7530();
   selfCopy = self;
-  NSUserDefaults.Secure.object(forKey:)(v13);
+  NSUserDefaults.Secure.object(forKey:)(v12);
 
-  v5 = v14;
-  if (v14)
+  v5 = v13;
+  if (v13)
   {
-    v6 = sub_18E158E00(v13, v14);
+    v6 = sub_18E158E00(v12, v13);
     v7 = *(v5 - 8);
-    v8 = *(v7 + 64);
     MEMORY[0x1EEE9AC00](v6, v6);
-    v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v7 + 16))(v10);
-    v11 = sub_18E1A7B80();
-    (*(v7 + 8))(v10, v5);
-    sub_18E158EC4(v13);
+    v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v7 + 16))(v9);
+    v10 = sub_18E1A7B80();
+    (*(v7 + 8))(v9, v5);
+    sub_18E158EC4(v12);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (id)objectForKey:(id)key inDomain:(id)domain
@@ -122,28 +122,27 @@ LABEL_7:
   }
 
   selfCopy = self;
-  NSUserDefaults.Secure.object(forKey:inDomain:)(v18, v6, v8);
+  NSUserDefaults.Secure.object(forKey:inDomain:)(v6, v8, v17);
 
-  v10 = v19;
-  if (v19)
+  v10 = v18;
+  if (v18)
   {
-    v11 = sub_18E158E00(v18, v19);
+    v11 = sub_18E158E00(v17, v18);
     v12 = *(v10 - 8);
-    v13 = *(v12 + 64);
     MEMORY[0x1EEE9AC00](v11, v11);
-    v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v12 + 16))(v15);
-    v16 = sub_18E1A7B80();
-    (*(v12 + 8))(v15, v10);
-    sub_18E158EC4(v18);
+    v14 = v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v12 + 16))(v14);
+    v15 = sub_18E1A7B80();
+    (*(v12 + 8))(v14, v10);
+    sub_18E158EC4(v17);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  return v16;
+  return v15;
 }
 
 - (id)dictionaryRepresentation

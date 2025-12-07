@@ -193,7 +193,6 @@
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 96);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 96) & 2) == 0 || self->_columnLength != *(equalCopy + 21))
@@ -212,7 +211,6 @@
     goto LABEL_24;
   }
 
-  v6 = *(equalCopy + 96);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 96) & 8) == 0 || self->_rowLength != *(equalCopy + 23))
@@ -229,7 +227,7 @@
   if (!PBRepeatedUInt32IsEqual())
   {
 LABEL_24:
-    v7 = 0;
+    v5 = 0;
     goto LABEL_25;
   }
 
@@ -246,7 +244,7 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v7 = (*(equalCopy + 96) & 1) == 0;
+  v5 = (*(equalCopy + 96) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_bucketSize != *(equalCopy + 20))
@@ -254,12 +252,12 @@ LABEL_24:
       goto LABEL_24;
     }
 
-    v7 = 1;
+    v5 = 1;
   }
 
 LABEL_25:
 
-  return v7;
+  return v5;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -380,7 +378,6 @@ LABEL_25:
       v5 = 0;
       do
       {
-        v6 = self->_columnIndices.list[v5];
         PBDataWriterWriteUint32Field();
         ++v5;
       }
@@ -393,7 +390,6 @@ LABEL_25:
 
   if ((*&self->_has & 2) != 0)
   {
-    columnLength = self->_columnLength;
     PBDataWriterWriteUint32Field();
   }
 
@@ -402,15 +398,14 @@ LABEL_25:
     PBDataWriterPlaceMark();
     if (self->_rowIndices.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_rowIndices.list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_rowIndices.count);
+      while (v6 < self->_rowIndices.count);
     }
 
     PBDataWriterRecallMark();
@@ -418,7 +413,6 @@ LABEL_25:
 
   if ((*&self->_has & 8) != 0)
   {
-    rowLength = self->_rowLength;
     PBDataWriterWriteUint32Field();
   }
 
@@ -427,15 +421,14 @@ LABEL_25:
     PBDataWriterPlaceMark();
     if (self->_values.count)
     {
-      v11 = 0;
+      v7 = 0;
       do
       {
-        v12 = self->_values.list[v11];
         PBDataWriterWriteUint32Field();
-        ++v11;
+        ++v7;
       }
 
-      while (v11 < self->_values.count);
+      while (v7 < self->_values.count);
     }
 
     PBDataWriterRecallMark();
@@ -444,14 +437,12 @@ LABEL_25:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    minValue = self->_minValue;
     PBDataWriterWriteFloatField();
     has = self->_has;
   }
 
   if (has)
   {
-    bucketSize = self->_bucketSize;
     PBDataWriterWriteFloatField();
   }
 }

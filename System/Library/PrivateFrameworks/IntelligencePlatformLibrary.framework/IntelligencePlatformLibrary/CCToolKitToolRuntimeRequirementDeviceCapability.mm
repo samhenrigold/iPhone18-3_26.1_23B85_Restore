@@ -214,9 +214,9 @@ LABEL_21:
     {
       v29 = [CCToolKitToolRuntimeRequirementDeviceCapabilityMobileGestalt alloc];
       v30 = CCPBReaderReadDataNoCopy();
-      v44 = 0;
-      v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v44];
-      v9 = v44;
+      v42 = 0;
+      v31 = [(CCItemMessage *)v29 initWithData:v30 error:&v42];
+      v9 = v42;
       mobileGestalt = self->_mobileGestalt;
       self->_mobileGestalt = v31;
 
@@ -284,7 +284,6 @@ LABEL_37:
     {
       v34 = objc_opt_class();
       v35 = NSStringFromClass(v34);
-      v36 = *&v5[*v8];
       v9 = CCSkipFieldErrorForMessage();
     }
   }
@@ -301,24 +300,23 @@ LABEL_42:
     if (!*&v5[*v8])
     {
       v9 = 0;
-      v41 = 1;
+      v39 = 1;
       goto LABEL_46;
     }
 
 LABEL_43:
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
-    v39 = *&v5[*v8];
-    v40 = CCInvalidBufferErrorForMessage();
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
+    v38 = CCInvalidBufferErrorForMessage();
     CCSetError();
 
     v9 = 0;
   }
 
-  v41 = 0;
+  v39 = 0;
 LABEL_46:
 
-  return v41;
+  return v39;
 }
 
 - (CCToolKitToolRuntimeRequirementDeviceCapability)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

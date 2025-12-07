@@ -1,13 +1,13 @@
-id SWFrameworkBundle()
+id SWFrameworkBundle(uint64_t a1)
 {
   if (SWFrameworkBundle_onceToken != -1)
   {
     SWFrameworkBundle_cold_1();
   }
 
-  v1 = SWFrameworkBundle_sBundle;
+  v2 = SWFrameworkBundle_sBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SWFrameworkBundle_block_invoke()
@@ -17,16 +17,16 @@ uint64_t __SWFrameworkBundle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id SWCoreFrameworkBundle()
+id SWCoreFrameworkBundle(uint64_t a1)
 {
   if (SWCoreFrameworkBundle_onceToken != -1)
   {
     SWCoreFrameworkBundle_cold_1();
   }
 
-  v1 = SWCoreFrameworkBundle_sBundle;
+  v2 = SWCoreFrameworkBundle_sBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SWCoreFrameworkBundle_block_invoke()
@@ -43,28 +43,28 @@ void sub_1D2C25F90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id SWFileProviderCollaborationProvidingInterface()
+id SWFileProviderCollaborationProvidingInterface(uint64_t a1)
 {
   if (SWFileProviderCollaborationProvidingInterface_once != -1)
   {
     SWFileProviderCollaborationProvidingInterface_cold_1();
   }
 
-  v1 = SWFileProviderCollaborationProvidingInterface_interface;
+  v2 = SWFileProviderCollaborationProvidingInterface_interface;
 
-  return v1;
+  return v2;
 }
 
-id SWFileProviderCollaborationProvidingInterfaceEntitled()
+id SWFileProviderCollaborationProvidingInterfaceEntitled(uint64_t a1)
 {
   if (SWFileProviderCollaborationProvidingInterfaceEntitled_once != -1)
   {
     SWFileProviderCollaborationProvidingInterfaceEntitled_cold_1();
   }
 
-  v1 = SWFileProviderCollaborationProvidingInterfaceEntitled_interface;
+  v2 = SWFileProviderCollaborationProvidingInterfaceEntitled_interface;
 
-  return v1;
+  return v2;
 }
 
 void SWCollaborationMetadataForDocumentURL(void *a1, void *a2)
@@ -103,24 +103,23 @@ void __SWCollaborationMetadataForDocumentURL_block_invoke(uint64_t a1, void *a2,
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __SWCollaborationMetadataForDocumentURL_block_invoke_2;
-    v9[3] = &unk_1E8412500;
-    v10 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v11 = 0;
-    v12 = v7;
-    v8 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    [v8 collaborationMetadataWithCompletionHandler:*(a1 + 40)];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __SWCollaborationMetadataForDocumentURL_block_invoke_2;
+    v8[3] = &unk_1E8412500;
+    v9 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v10 = 0;
+    v11 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    [v7 collaborationMetadataWithCompletionHandler:*(a1 + 40)];
   }
 }
 
@@ -133,7 +132,6 @@ void __SWCollaborationMetadataForDocumentURL_block_invoke_2(uint64_t a1, void *a
     __SWCollaborationMetadataForDocumentURL_block_invoke_2_cold_1(a1, v3);
   }
 
-  v5 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -159,24 +157,23 @@ void __SWPerformActionForDocumentURL_block_invoke(uint64_t a1, void *a2, uint64_
 {
   if (a3)
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __SWPerformActionForDocumentURL_block_invoke_2;
-    v9[3] = &unk_1E8412500;
-    v10 = *(a1 + 32);
-    v7 = *(a1 + 48);
-    v11 = 0;
-    v12 = v7;
-    v8 = [a2 remoteObjectProxyWithErrorHandler:v9];
-    [v8 performAction:*(a1 + 40) completionHandler:*(a1 + 48)];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __SWPerformActionForDocumentURL_block_invoke_2;
+    v8[3] = &unk_1E8412500;
+    v9 = *(a1 + 32);
+    v6 = *(a1 + 48);
+    v10 = 0;
+    v11 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v8];
+    [v7 performAction:*(a1 + 40) completionHandler:*(a1 + 48)];
   }
 }
 
@@ -189,7 +186,6 @@ void __SWPerformActionForDocumentURL_block_invoke_2(uint64_t a1, void *a2)
     __SWPerformActionForDocumentURL_block_invoke_2_cold_1(a1, v3);
   }
 
-  v5 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 }
 
@@ -237,31 +233,33 @@ void __withServiceProxy_block_invoke(uint64_t a1, void *a2, void *a3)
 
 void __withServiceProxy_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v11 = a2;
   v5 = *(a1 + 32);
   v6 = a3;
-  if ([v5 isEqualToString:@"com.apple.SocialServices.MessagesCollaborationService.Entitled"])
+  v7 = [v5 isEqualToString:@"com.apple.SocialServices.MessagesCollaborationService.Entitled"];
+  if (v7)
   {
-    SWFileProviderCollaborationProvidingInterfaceEntitled();
+    SWFileProviderCollaborationProvidingInterfaceEntitled(v7);
   }
 
   else
   {
-    SWFileProviderCollaborationProvidingInterface();
+    SWFileProviderCollaborationProvidingInterface(v7);
   }
-  v7 = ;
-  [v10 setRemoteObjectInterface:v7];
+  v8 = ;
+  [v11 setRemoteObjectInterface:v8];
 
-  [v10 resume];
-  v8 = *(a1 + 40);
-  v9 = [v10 remoteObjectProxy];
-  (*(v8 + 16))(v8, v9, v6);
+  [v11 resume];
+  v9 = *(a1 + 40);
+  v10 = [v11 remoteObjectProxy];
+  (*(v9 + 16))(v9, v10, v6);
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id getSLCollaborationSigningControllerClass()
@@ -288,31 +286,31 @@ id getSLCollaborationSigningControllerClass()
   return v1;
 }
 
-void sub_1D2C27010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2C27010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSLCollaborationSigningControllerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!SocialLayerLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __SocialLayerLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8412618;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __SocialLayerLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E8412618;
+    v6 = 0;
     SocialLayerLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (SocialLayerLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -320,7 +318,7 @@ Class __getSLCollaborationSigningControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -335,17 +333,13 @@ LABEL_4:
   }
 
   getSLCollaborationSigningControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __SocialLayerLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SocialLayerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -766,31 +760,31 @@ id getSLPersonClass()
   return v1;
 }
 
-void sub_1D2C2D64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1D2C2D64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getSLPersonClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!SocialLayerLibraryCore_frameworkLibrary_0)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __SocialLayerLibraryCore_block_invoke_0;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E8412680;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __SocialLayerLibraryCore_block_invoke_0;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E8412680;
+    v6 = 0;
     SocialLayerLibraryCore_frameworkLibrary_0 = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (SocialLayerLibraryCore_frameworkLibrary_0)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -798,7 +792,7 @@ Class __getSLPersonClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -813,36 +807,33 @@ LABEL_4:
   }
 
   getSLPersonClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __SocialLayerLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SocialLayerLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id SWGeneralTelemetryLogHandle()
+id SWGeneralTelemetryLogHandle(uint64_t a1)
 {
   if (SWGeneralTelemetryLogHandle_onceToken != -1)
   {
     SWGeneralTelemetryLogHandle_cold_1();
   }
 
-  v1 = SWGeneralTelemetryLogHandle_osLog;
+  v2 = SWGeneralTelemetryLogHandle_osLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SWGeneralTelemetryLogHandle_block_invoke()
@@ -852,16 +843,16 @@ uint64_t __SWGeneralTelemetryLogHandle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id SWFrameworkLogHandle()
+id SWFrameworkLogHandle(uint64_t a1)
 {
   if (SWFrameworkLogHandle_onceToken != -1)
   {
     SWFrameworkLogHandle_cold_1();
   }
 
-  v1 = SWFrameworkLogHandle_osLog;
+  v2 = SWFrameworkLogHandle_osLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SWFrameworkLogHandle_block_invoke()
@@ -871,16 +862,16 @@ uint64_t __SWFrameworkLogHandle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id SWShareableContentLogHandle()
+id SWShareableContentLogHandle(uint64_t a1)
 {
   if (SWShareableContentLogHandle_onceToken != -1)
   {
     SWShareableContentLogHandle_cold_1();
   }
 
-  v1 = SWShareableContentLogHandle_osLog;
+  v2 = SWShareableContentLogHandle_osLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __SWShareableContentLogHandle_block_invoke()
@@ -890,7 +881,7 @@ uint64_t __SWShareableContentLogHandle_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t sub_1D2C2FFE4(void *a1)
+id sub_1D2C2FFE4(void *a1)
 {
   sub_1D2C301C8();
   v2 = NSStringFromSelector(sel_collaborationIdentifier);
@@ -951,22 +942,16 @@ void __swiftcall SWCollaborationOption.init(title:identifier:subtitle:selected:r
 
 void __SWCollaborationMetadataForDocumentURL_block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_shortDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1D2C1D000, v5, v6, "[ERROR] Cannot fetch share options for item at %@. Error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1D2C1D000, v5, v6, "[ERROR] Cannot fetch share options for item at %@. Error: %@", v7, v8, v9, v10);
 }
 
 void __SWPerformActionForDocumentURL_block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) fp_shortDescription];
   v4 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1D2C1D000, v5, v6, "[ERROR] Cannot perform share operation for item at %@. Error: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1D2C1D000, v5, v6, "[ERROR] Cannot perform share operation for item at %@. Error: %@", v7, v8, v9, v10);
 }

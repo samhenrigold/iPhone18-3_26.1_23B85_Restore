@@ -115,7 +115,7 @@
 
 - (void)updateDomainItem:(id)item withDomainItemIdentifier:(id)identifier
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   [(BCSPersistentStore *)self beginBatch];
   ppStmt = 0;
@@ -141,19 +141,17 @@
       v14 = ABSLogCommon();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+        v15 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
         *buf = 134218242;
-        v19 = v13;
-        v20 = 2080;
-        v21 = v16;
+        v18 = v13;
+        v19 = 2080;
+        v20 = v15;
         _os_log_error_impl(&dword_242072000, v14, OS_LOG_TYPE_ERROR, "Error while finalizing insert shard item %lu %s", buf, 0x16u);
       }
     }
   }
 
   [(BCSPersistentStore *)self endBatch];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteDomainItemMatching:(id)matching

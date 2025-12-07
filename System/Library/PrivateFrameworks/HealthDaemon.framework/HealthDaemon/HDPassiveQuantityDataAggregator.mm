@@ -30,7 +30,7 @@
 
 - (id)dataObjectsFromSensorDatum:(id)datum error:(id *)error
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCD800];
   quantityType = self->_quantityType;
   datumCopy = datum;
@@ -43,10 +43,8 @@
 
   v13 = [v4 quantitySampleWithType:quantityType quantity:quantity startDate:startDate endDate:endDate metadata:metadata];
 
-  v17[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
 
   return v14;
 }

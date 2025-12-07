@@ -96,7 +96,7 @@ void __78__ASDExtensionRequest_beginRequestForHostContext_XPCInterface_execution
 
 - (void)_onRunQueue_beginRequestForHostContext:(void *)context XPCInterface:(uint64_t)interface retryCount:
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (!self)
   {
@@ -111,9 +111,9 @@ void __78__ASDExtensionRequest_beginRequestForHostContext_XPCInterface_execution
   *(self + 56) = 0;
 
   v10 = *(self + 88);
-  v52 = 0;
-  v11 = [v10 beginExtensionRequestWithOptions:0 inputItems:0 error:&v52];
-  v12 = v52;
+  v51 = 0;
+  v11 = [v10 beginExtensionRequestWithOptions:0 inputItems:0 error:&v51];
+  v12 = v51;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -246,12 +246,12 @@ LABEL_33:
       if (v27)
       {
         objc_initWeak(location, self);
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke;
-        v50[3] = &unk_1E7CDBEC0;
-        objc_copyWeak(&v51, location);
-        v28 = MEMORY[0x1B8CBC4F0](v50);
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke;
+        v49[3] = &unk_1E7CDBEC0;
+        objc_copyWeak(&v50, location);
+        v28 = MEMORY[0x1B8CBC4F0](v49);
         _auxiliaryConnection = [v27 _auxiliaryConnection];
         v30 = [_auxiliaryConnection remoteObjectProxyWithErrorHandler:v28];
         if ([v30 conformsToProtocol:contextCopy])
@@ -272,7 +272,7 @@ LABEL_33:
           }
         }
 
-        objc_destroyWeak(&v51);
+        objc_destroyWeak(&v50);
         objc_destroyWeak(location);
       }
 
@@ -304,8 +304,8 @@ LABEL_45:
       v38 = *(self + 32);
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v55 = __35__ASDExtensionRequest__startTimers__block_invoke;
-      v56 = &unk_1E7CDB930;
+      v54 = __35__ASDExtensionRequest__startTimers__block_invoke;
+      v55 = &unk_1E7CDB930;
       selfCopy = self;
       dispatch_source_set_event_handler(v38, &buf);
       if (*(self + 40) > 0.0)
@@ -355,7 +355,7 @@ LABEL_45:
         block[2] = __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke_9;
         block[3] = &unk_1E7CDB868;
         block[4] = self;
-        v49 = v12;
+        v48 = v12;
         dispatch_async(v45, block);
       }
     }
@@ -364,7 +364,6 @@ LABEL_45:
   }
 
 LABEL_59:
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - ($4DFF52677BE2162B325CDC3F816A46BC)beginRequestForHostContext:(Class)context XPCInterface:(id)interface
@@ -420,7 +419,7 @@ void __63__ASDExtensionRequest_beginRequestForHostContext_XPCInterface___block_i
 
 void __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -429,21 +428,19 @@ void __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterfa
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v12 = v3;
+      v11 = v3;
       _os_log_error_impl(&dword_1B8220000, v5, OS_LOG_TYPE_ERROR, "Remote context error %{public}@", buf, 0xCu);
     }
 
     v6 = WeakRetained[1];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke_6;
-    v8[3] = &unk_1E7CDB868;
-    v9 = WeakRetained;
-    v10 = v3;
-    dispatch_async(v6, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke_6;
+    v7[3] = &unk_1E7CDB868;
+    v8 = WeakRetained;
+    v9 = v3;
+    dispatch_async(v6, v7);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __86__ASDExtensionRequest__onRunQueue_beginRequestForHostContext_XPCInterface_retryCount___block_invoke_6(uint64_t a1)

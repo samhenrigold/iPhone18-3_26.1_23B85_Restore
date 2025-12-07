@@ -2290,7 +2290,7 @@ void __62__AMSPaymentSheetTask__dismissPaymentAuthorizationController___block_in
   [*(a1 + 32) setPaymentAuthorizationController:0];
 }
 
-void __62__AMSPaymentSheetTask__dismissPaymentAuthorizationController___block_invoke_2(uint64_t a1)
+void __62__AMSPaymentSheetTask__dismissPaymentAuthorizationController___block_invoke_2(SEL *a1)
 {
   v19 = *MEMORY[0x1E69E9840];
   v2 = +[AMSUnitTests isRunningUnitTests];
@@ -2312,13 +2312,13 @@ void __62__AMSPaymentSheetTask__dismissPaymentAuthorizationController___block_in
       if (v6)
       {
         v9 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: [%@] %@ ", v8, v9, a1];
       }
 
       else
       {
-        v9 = NSStringFromSelector(*(a1 + 40));
+        v9 = NSStringFromSelector(a1[5]);
         [v7 stringWithFormat:@"%@: %@ ", v8, v9];
       }
       v10 = ;
@@ -2353,13 +2353,13 @@ void __62__AMSPaymentSheetTask__dismissPaymentAuthorizationController___block_in
       if (v12)
       {
         v15 = AMSLogKey();
-        a1 = NSStringFromSelector(*(a1 + 40));
+        a1 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: [%@] %@ ", v14, v15, a1];
       }
 
       else
       {
-        v15 = NSStringFromSelector(*(a1 + 40));
+        v15 = NSStringFromSelector(a1[5]);
         [v13 stringWithFormat:@"%@: %@ ", v14, v15];
       }
       v16 = ;

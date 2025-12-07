@@ -10,9 +10,6 @@
 - (uint64_t)tsu_arrayOfObjectsPassingTest:()TSUAdditions;
 - (uint64_t)tsu_firstObjectPassingTest:()TSUAdditions;
 - (uint64_t)tsu_indexOfSmallestObject;
-- (uint64_t)tsu_makeObjectsPerformSelector:()TSUAdditions withObject:withObject:;
-- (uint64_t)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions;
-- (uint64_t)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions withObject:;
 - (uint64_t)tsu_objectAfterObjectIdenticalTo:()TSUAdditions;
 - (uint64_t)tsu_objectBeforeObjectIdenticalTo:()TSUAdditions;
 - (void)tsu_arrayByFlattening;
@@ -23,6 +20,9 @@
 - (void)tsu_enumerateSnapshotObjectsUsingBlock:()TSUAdditions;
 - (void)tsu_indexesOfObjects:()TSUAdditions;
 - (void)tsu_intersectionWithArray:()TSUAdditions;
+- (void)tsu_makeObjectsPerformSelector:()TSUAdditions withObject:withObject:;
+- (void)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions;
+- (void)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions withObject:;
 - (void)tsu_map:()TSUAdditions;
 @end
 
@@ -217,7 +217,7 @@ LABEL_5:
   return indexSet;
 }
 
-- (uint64_t)tsu_makeObjectsPerformSelector:()TSUAdditions withObject:withObject:
+- (void)tsu_makeObjectsPerformSelector:()TSUAdditions withObject:withObject:
 {
   v18 = *MEMORY[0x277D85DE8];
   v13 = 0u;
@@ -239,7 +239,8 @@ LABEL_5:
           objc_enumerationMutation(self);
         }
 
-        [*(*(&v13 + 1) + 8 * v12++) performSelector:a3 withObject:a4 withObject:a5];
+        [*(*(&v13 + 1) + 8 * v12) performSelector:a3 withObject:a4 withObject:a5];
+        v12 = v12 + 1;
       }
 
       while (v10 != v12);
@@ -253,7 +254,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions withObject:
+- (void)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions withObject:
 {
   v17 = *MEMORY[0x277D85DE8];
   v12 = 0u;
@@ -281,7 +282,7 @@ LABEL_5:
           [v11 performSelector:a3 withObject:a4];
         }
 
-        ++v10;
+        v10 = v10 + 1;
       }
 
       while (v8 != v10);
@@ -295,7 +296,7 @@ LABEL_5:
   return result;
 }
 
-- (uint64_t)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions
+- (void)tsu_makeObjectsPerformSelectorIfImplemented:()TSUAdditions
 {
   v15 = *MEMORY[0x277D85DE8];
   v10 = 0u;
@@ -323,7 +324,7 @@ LABEL_5:
           [v9 performSelector:a3];
         }
 
-        ++v8;
+        v8 = v8 + 1;
       }
 
       while (v6 != v8);

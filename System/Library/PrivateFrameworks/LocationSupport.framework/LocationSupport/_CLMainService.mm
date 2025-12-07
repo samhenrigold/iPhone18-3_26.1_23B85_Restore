@@ -20,10 +20,11 @@
 + (void)becameFatallyBlocked:(id)blocked index:(unint64_t)index
 {
   blockedCopy = blocked;
-  v5 = index + 1;
-  if (v5 < [blockedCopy count])
+  v8 = index + 1;
+  if (v8 < objc_msgSend_count(blockedCopy, v5, v6))
   {
-    [objc_msgSend(blockedCopy objectAtIndexedSubscript:{v5), "becameFatallyBlocked:index:", blockedCopy, v5}];
+    v9 = objc_msgSend_objectAtIndexedSubscript_(blockedCopy, v7, v8);
+    objc_msgSend_becameFatallyBlocked_index_(v9, v10, blockedCopy, v8);
   }
 }
 

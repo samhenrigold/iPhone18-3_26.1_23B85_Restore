@@ -527,7 +527,6 @@ LABEL_56:
             selfCopy = self;
             errorCopy = error;
             v76 = v75 = dataCopy;
-            v77 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v75;
@@ -561,22 +560,21 @@ LABEL_112:
 LABEL_114:
   if (!*&v7[*v10])
   {
-    v81 = 1;
+    v79 = 1;
     goto LABEL_118;
   }
 
 LABEL_115:
-  v78 = objc_opt_class();
-  v11 = NSStringFromClass(v78);
-  v79 = *&v7[*v10];
-  v80 = CCInvalidBufferErrorForMessage();
+  v77 = objc_opt_class();
+  v11 = NSStringFromClass(v77);
+  v78 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_116:
-  v81 = 0;
+  v79 = 0;
 LABEL_118:
 
-  return v81;
+  return v79;
 }
 
 - (CCToolKitToolRestrictionContextTextTypedWith)initWithMultilineAllowed:(id)allowed smartQuotesEnabled:(id)enabled smartDashesEnabled:(id)dashesEnabled keyboardType:(unsigned int)type autocorrectionType:(unsigned int)autocorrectionType capitalizationType:(unsigned int)capitalizationType error:(id *)error

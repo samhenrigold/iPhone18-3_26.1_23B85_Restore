@@ -33,6 +33,7 @@
 - (void)setExternalContentRef:(id)ref;
 - (void)setExternalRepresentation:(id)representation;
 - (void)setFlags:(unint64_t)flags;
+- (void)setIsPlainText:(BOOL)text;
 - (void)setSequenceNumber:(unint64_t)number;
 - (void)setServerIntId:(int64_t)id;
 - (void)setTitle:(id)title;
@@ -58,7 +59,7 @@
 
 - (void)setTitle:(id)title
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   title = [(NoteObject *)self title];
   v6 = [title isEqualToString:titleCopy];
@@ -72,8 +73,8 @@
     if (v9)
     {
       v10 = MEMORY[0x277CC1EF0];
-      v17[0] = v9;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+      v16[0] = v9;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
       [v10 deleteSavedUserActivitiesWithPersistentIdentifiers:v11 completionHandler:&__block_literal_global_2];
     }
   }
@@ -88,8 +89,6 @@
   [(NoteObject *)self willChangeValueForKey:@"title"];
   [(NoteObject *)self setPrimitiveValue:titleCopy forKey:@"title"];
   [(NoteObject *)self didChangeValueForKey:@"title"];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)content
@@ -125,6 +124,12 @@
   v6 = ;
 
   return v6;
+}
+
+- (void)setIsPlainText:(BOOL)text
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:text];
+  [(NoteObject *)self setContentType:v4];
 }
 
 - (BOOL)isPlainText
@@ -494,7 +499,7 @@
 
 - (CSSearchableItemAttributeSet)searchableItemAttributeSet
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   userActivityContentAttributeSet = [(NoteObject *)self userActivityContentAttributeSet];
   v4 = MEMORY[0x277D36228];
   noteAsPlainTextWithoutTitle = [(NoteObject *)self noteAsPlainTextWithoutTitle];
@@ -533,12 +538,10 @@
 
   identifier = [*MEMORY[0x277CE1EB0] identifier];
   identifier2 = [*MEMORY[0x277CE1DA0] identifier];
-  v17[1] = identifier2;
-  v17[2] = @"com.apple.notes.htmlnoteitemprovider";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v16[1] = identifier2;
+  v16[2] = @"com.apple.notes.htmlnoteitemprovider";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
   [userActivityContentAttributeSet setProviderDataTypes:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return userActivityContentAttributeSet;
 }

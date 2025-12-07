@@ -203,7 +203,7 @@
 
 - (void)beginRequiringWarmUpMode
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   warmUpModeRequirementsCount = self->_warmUpModeRequirementsCount;
   self->_warmUpModeRequirementsCount = warmUpModeRequirementsCount + 1;
   if (!warmUpModeRequirementsCount && !self->_isHandlingDisplayRefresh)
@@ -221,69 +221,12 @@
         {
           lastPathComponent = [v6 lastPathComponent];
           callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
-          v13 = 136381443;
-          v14 = "[TKDisplayLinkManager beginRequiringWarmUpMode]";
-          v15 = 2113;
-          v16 = lastPathComponent;
-          v17 = 2049;
-          v18 = 177;
-          v19 = 2113;
-          v20 = callStackSymbols;
-          _os_log_impl(&dword_21C599000, v7, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v13, 0x2Au);
-        }
-      }
-
-      else
-      {
-        v6 = TLLogGeneral();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-        {
-          [TKTonePickerController _pickerRowItemAtIndex:inSectionForItem:];
-        }
-      }
-
-      v10 = TLLogGeneral();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        [TKDisplayLinkManager beginRequiringWarmUpMode];
-      }
-    }
-
-    if (![(NSMutableDictionary *)self->_activeObservers count])
-    {
-      _displayLink = [(TKDisplayLinkManager *)self _displayLink];
-    }
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-- (void)endRequiringWarmUpMode
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = self->_warmUpModeRequirementsCount - 1;
-  self->_warmUpModeRequirementsCount = v2;
-  if (!v2 && !self->_isHandlingDisplayRefresh)
-  {
-    if (self->_hasUpdatedObservers)
-    {
-      v4 = TLLogGeneral();
-      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
-
-      if (v5)
-      {
-        v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibraryUI/Kit/Shared/Embedded/DisplayLink/TKDisplayLinkManager.m"];
-        v7 = TLLogGeneral();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-        {
-          lastPathComponent = [v6 lastPathComponent];
-          callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
           v12 = 136381443;
-          v13 = "[TKDisplayLinkManager endRequiringWarmUpMode]";
+          v13 = "[TKDisplayLinkManager beginRequiringWarmUpMode]";
           v14 = 2113;
           v15 = lastPathComponent;
           v16 = 2049;
-          v17 = 187;
+          v17 = 177;
           v18 = 2113;
           v19 = callStackSymbols;
           _os_log_impl(&dword_21C599000, v7, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v12, 0x2Au);
@@ -308,11 +251,64 @@
 
     if (![(NSMutableDictionary *)self->_activeObservers count])
     {
+      _displayLink = [(TKDisplayLinkManager *)self _displayLink];
+    }
+  }
+}
+
+- (void)endRequiringWarmUpMode
+{
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = self->_warmUpModeRequirementsCount - 1;
+  self->_warmUpModeRequirementsCount = v2;
+  if (!v2 && !self->_isHandlingDisplayRefresh)
+  {
+    if (self->_hasUpdatedObservers)
+    {
+      v4 = TLLogGeneral();
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_INFO);
+
+      if (v5)
+      {
+        v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ToneLibraryUI/Kit/Shared/Embedded/DisplayLink/TKDisplayLinkManager.m"];
+        v7 = TLLogGeneral();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          lastPathComponent = [v6 lastPathComponent];
+          callStackSymbols = [MEMORY[0x277CCACC8] callStackSymbols];
+          v11 = 136381443;
+          v12 = "[TKDisplayLinkManager endRequiringWarmUpMode]";
+          v13 = 2113;
+          v14 = lastPathComponent;
+          v15 = 2049;
+          v16 = 187;
+          v17 = 2113;
+          v18 = callStackSymbols;
+          _os_log_impl(&dword_21C599000, v7, OS_LOG_TYPE_DEFAULT, "*** Assertion failure in %{private}s, %{private}@:%{private}lu.\n%{private}@", &v11, 0x2Au);
+        }
+      }
+
+      else
+      {
+        v6 = TLLogGeneral();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+        {
+          [TKTonePickerController _pickerRowItemAtIndex:inSectionForItem:];
+        }
+      }
+
+      v10 = TLLogGeneral();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        [TKDisplayLinkManager beginRequiringWarmUpMode];
+      }
+    }
+
+    if (![(NSMutableDictionary *)self->_activeObservers count])
+    {
       [(TKDisplayLinkManager *)self _didRemoveLastObserver];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_displayDidRefresh:(id)refresh

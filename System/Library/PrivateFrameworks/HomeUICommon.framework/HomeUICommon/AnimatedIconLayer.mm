@@ -9,7 +9,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_254586504();
+  sub_254586504(selfCopy);
 }
 
 - (_TtC12HomeUICommon17AnimatedIconLayer)init

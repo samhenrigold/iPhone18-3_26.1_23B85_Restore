@@ -19,6 +19,7 @@
 - (id)succinctDescription;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
+- (void)resetDisplayName;
 @end
 
 @implementation SBHWidget
@@ -70,14 +71,14 @@
 
     if (!v5)
     {
-      v9 = SBHBundle();
-      v10 = [v9 localizedStringForKey:@"WAITING_ICON_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
+      v10 = SBHBundle(v6);
+      v11 = [v10 localizedStringForKey:@"WAITING_ICON_LABEL" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
       goto LABEL_9;
     }
 
     localizedName = [v5 localizedName];
-    v7 = localizedName;
+    v8 = localizedName;
     if (localizedName)
     {
       localizedShortName = localizedName;
@@ -88,19 +89,19 @@
       localizedShortName = [v5 localizedShortName];
     }
 
-    v11 = localizedShortName;
+    v12 = localizedShortName;
 
-    v12 = [v11 copy];
-    v13 = self->_displayName;
-    self->_displayName = v12;
+    v13 = [v12 copy];
+    v14 = self->_displayName;
+    self->_displayName = v13;
 
     displayName = self->_displayName;
   }
 
-  v10 = displayName;
+  v11 = displayName;
 LABEL_9:
 
-  return v10;
+  return v11;
 }
 
 - (SBHWidget)initWithUniqueIdentifier:(id)identifier kind:(id)kind extensionBundleIdentifier:(id)bundleIdentifier containerBundleIdentifier:(id)containerBundleIdentifier supportedGridSizeClasses:(id)classes
@@ -206,6 +207,13 @@ LABEL_9:
   v14 = [(SBHWidget *)self initWithUniqueIdentifier:uUIDString kind:kindCopy extensionBundleIdentifier:identifierCopy containerBundleIdentifier:0 supportedGridSizeClasses:classesCopy];
 
   return v14;
+}
+
+- (void)resetDisplayName
+{
+  displayName = self->_displayName;
+  self->_displayName = 0;
+  MEMORY[0x1EEE66BB8](self, displayName);
 }
 
 - (BOOL)matches:(id)matches

@@ -138,12 +138,11 @@ LABEL_6:
 {
   toCopy = to;
   has = self->_has;
-  v10 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    activityType = self->_activityType;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -162,9 +161,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  locationType = self->_locationType;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -178,22 +176,20 @@ LABEL_4:
   }
 
 LABEL_13:
-  wLocationType = self->_wLocationType;
   PBDataWriterWriteInt64Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    wLengthValue = self->_wLengthValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_6:
   if (self->_wLengthUnitString)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -323,7 +319,6 @@ LABEL_6:
     goto LABEL_24;
   }
 
-  v5 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_activityType != *(equalCopy + 1))
@@ -335,7 +330,7 @@ LABEL_6:
   else if (*(equalCopy + 48))
   {
 LABEL_24:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_25;
   }
 
@@ -381,17 +376,17 @@ LABEL_24:
   wLengthUnitString = self->_wLengthUnitString;
   if (wLengthUnitString | *(equalCopy + 5))
   {
-    v7 = [(NSString *)wLengthUnitString isEqual:?];
+    v6 = [(NSString *)wLengthUnitString isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_25:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

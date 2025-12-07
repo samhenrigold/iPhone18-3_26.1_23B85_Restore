@@ -163,73 +163,73 @@ void systemstats_zipper_buffers_foreach_micro(uint64_t a1, unint64_t a2, uint64_
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v48 = 0;
-  v49[0] = &v48;
-  v49[1] = 0x2020000000;
-  v49[2] = 0;
-  v46 = 0;
-  v47[0] = &v46;
-  v47[1] = 0x2020000000;
-  v47[2] = 0;
-  v44 = 0;
-  v45[0] = &v44;
-  v45[1] = 0x2020000000;
-  v45[2] = 0;
-  v42 = 0;
-  v43[0] = &v42;
-  v43[1] = 0x2020000000;
-  v43[2] = 0;
-  v40 = 0;
-  v41[0] = &v40;
-  v41[1] = 0x2020000000;
-  v41[2] = 0;
-  v38 = 0;
-  v39[0] = &v38;
-  v39[1] = 0x2020000000;
-  v39[2] = 0;
-  v36 = 0;
-  v37[0] = &v36;
-  v37[1] = 0x2020000000;
-  v37[2] = 0;
-  v34 = 0;
-  v35[0] = &v34;
-  v35[1] = 0x2020000000;
-  v35[2] = 0;
+  v45 = 0;
+  v46[0] = &v45;
+  v46[1] = 0x2020000000;
+  v46[2] = 0;
+  v43 = 0;
+  v44[0] = &v43;
+  v44[1] = 0x2020000000;
+  v44[2] = 0;
+  v41 = 0;
+  v42[0] = &v41;
+  v42[1] = 0x2020000000;
+  v42[2] = 0;
+  v39 = 0;
+  v40[0] = &v39;
+  v40[1] = 0x2020000000;
+  v40[2] = 0;
+  v37 = 0;
+  v38[0] = &v37;
+  v38[1] = 0x2020000000;
+  v38[2] = 0;
+  v35 = 0;
+  v36[0] = &v35;
+  v36[1] = 0x2020000000;
+  v36[2] = 0;
+  v33 = 0;
+  v34[0] = &v33;
+  v34[1] = 0x2020000000;
+  v34[2] = 0;
+  v31 = 0;
+  v32[0] = &v31;
+  v32[1] = 0x2020000000;
+  v32[2] = 0;
   do
   {
-    if (!*(v49[0] + 24) && !v10 && a2 > v11)
+    if (!*(v46[0] + 24) && !v10 && a2 > v11)
     {
-      v33[0] = MEMORY[0x29EDCA5F8];
-      v33[1] = 3221225472;
-      v33[2] = sub_299934168;
-      v33[3] = &unk_29F2771F0;
-      v33[4] = &v48;
-      v33[5] = &v46;
-      v33[6] = &v44;
-      v33[7] = &v42;
-      v12 = systemstats_foreach_micro(a1 + v11, a2 - v11, v33, 0);
+      v30[0] = MEMORY[0x29EDCA5F8];
+      v30[1] = 3221225472;
+      v30[2] = sub_299934168;
+      v30[3] = &unk_29F2771F0;
+      v30[4] = &v45;
+      v30[5] = &v43;
+      v30[6] = &v41;
+      v30[7] = &v39;
+      v12 = systemstats_foreach_micro(a1 + v11, a2 - v11, v30, 0);
       v10 = v12 == 0;
       v11 += v12;
     }
 
-    v13 = v41[0];
-    if (*(v41[0] + 24) == 0 && !v8 && a4 > v9)
+    v13 = v38[0];
+    if (*(v38[0] + 24) == 0 && !v8 && a4 > v9)
     {
-      v32[0] = MEMORY[0x29EDCA5F8];
-      v32[1] = 3221225472;
-      v32[2] = sub_299934590;
-      v32[3] = &unk_29F2771F0;
-      v32[4] = &v40;
-      v32[5] = &v38;
-      v32[6] = &v36;
-      v32[7] = &v34;
-      v14 = systemstats_foreach_micro(a3 + v9, a4 - v9, v32, 0);
+      v29[0] = MEMORY[0x29EDCA5F8];
+      v29[1] = 3221225472;
+      v29[2] = sub_299934590;
+      v29[3] = &unk_29F2771F0;
+      v29[4] = &v37;
+      v29[5] = &v35;
+      v29[6] = &v33;
+      v29[7] = &v31;
+      v14 = systemstats_foreach_micro(a3 + v9, a4 - v9, v29, 0);
       v8 = v14 == 0;
       v9 += v14;
-      v13 = v41[0];
+      v13 = v38[0];
     }
 
-    v15 = *(v49[0] + 24);
+    v15 = *(v46[0] + 24);
     v16 = *(v13 + 24);
     if (v15)
     {
@@ -238,7 +238,7 @@ void systemstats_zipper_buffers_foreach_micro(uint64_t a1, unint64_t a2, uint64_
         goto LABEL_15;
       }
 
-      if ((*(v15 + 24) & 0x10) != 0 && (*(v16 + 24) & 0x10) != 0 && (v17 = *(*(v47[0] + 24) + 209), v18 = *(*(v39[0] + 24) + 209), v17 != v18))
+      if ((*(v15 + 24) & 0x10) != 0 && (*(v16 + 24) & 0x10) != 0 && (v17 = *(*(v44[0] + 24) + 209), v18 = *(*(v36[0] + 24) + 209), v17 != v18))
       {
         if (v17 < v18)
         {
@@ -253,11 +253,11 @@ void systemstats_zipper_buffers_foreach_micro(uint64_t a1, unint64_t a2, uint64_
         if (v19 < v20 || v19 == v20 && *(v15 + 16) <= *(v16 + 16))
         {
 LABEL_15:
-          v21 = (*(v7 + 2))(v7, *(v49[0] + 24), *(v47[0] + 24), *(v45[0] + 24), *(v43[0] + 24));
-          v22 = v47;
-          v23 = v49;
-          v25 = v43;
-          v24 = v45;
+          v21 = (*(v7 + 2))(v7, *(v46[0] + 24), *(v44[0] + 24), *(v42[0] + 24), *(v40[0] + 24));
+          v22 = v44;
+          v23 = v46;
+          v25 = v40;
+          v24 = v42;
           if ((v21 & 1) == 0)
           {
             break;
@@ -273,15 +273,12 @@ LABEL_15:
       break;
     }
 
-    v26 = *(v39[0] + 24);
-    v27 = *(v37[0] + 24);
-    v28 = *(v35[0] + 24);
-    v29 = (*(v7 + 2))(v7);
-    v22 = v39;
-    v23 = v41;
-    v24 = v37;
-    v25 = v35;
-    if ((v29 & 1) == 0)
+    v26 = (*(v7 + 2))(v7);
+    v22 = v36;
+    v23 = v38;
+    v24 = v34;
+    v25 = v32;
+    if ((v26 & 1) == 0)
     {
       break;
     }
@@ -294,26 +291,27 @@ LABEL_19:
   }
 
   while (v11 < a2 || v9 < a4);
-  _Block_object_dispose(&v34, 8);
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v46, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v45, 8);
 }
 
-void sub_2999340F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
+void sub_2999340F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, ...)
 {
+  va_start(va, a47);
   _Block_object_dispose(&a36, 8);
   _Block_object_dispose(&a40, 8);
   _Block_object_dispose(&a44, 8);
-  _Block_object_dispose(&a48, 8);
-  _Block_object_dispose((v48 - 232), 8);
-  _Block_object_dispose((v48 - 200), 8);
-  _Block_object_dispose((v48 - 168), 8);
-  _Block_object_dispose((v48 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v47 - 232), 8);
+  _Block_object_dispose((v47 - 200), 8);
+  _Block_object_dispose((v47 - 168), 8);
+  _Block_object_dispose((v47 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -329,11 +327,11 @@ uint64_t sub_299934168(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
 uint64_t now_in_absolute_milliseconds()
 {
   v0 = systemstats_mach_absolute_time();
-  v1 = sub_2999345D0();
-  return *v1 * v0 / v1[1];
+  v2 = sub_2999345D0(v0, v1);
+  return *v2 * v0 / v2[1];
 }
 
-unint64_t sub_2999341D4(uint64_t *a1, uint64_t a2)
+unint64_t sub_2999341D4(void *a1, uint64_t a2)
 {
   v4 = now_in_absolute_milliseconds();
   v8.tv_sec = 0;
@@ -357,7 +355,7 @@ unint64_t sub_2999341D4(uint64_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t *sub_299934284(uint64_t a1)
+void *sub_299934284(uint64_t a1)
 {
   v3 = *(a1 + 32);
   result = (a1 + 32);
@@ -371,7 +369,7 @@ uint64_t *sub_299934284(uint64_t a1)
 
 void sub_2999342B4(void *a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -440,11 +438,11 @@ LABEL_11:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v25 = v5;
-        v26 = 1024;
-        v27 = errnum;
-        v28 = 2080;
-        v29 = v20;
+        v24 = v5;
+        v25 = 1024;
+        v26 = errnum;
+        v27 = 2080;
+        v28 = v20;
         _os_log_debug_impl(&dword_299933000, v21, OS_LOG_TYPE_DEBUG, "Read failed for microstackshots for file %@: %d %s", buf, 0x1Cu);
       }
 
@@ -478,8 +476,6 @@ LABEL_23:
   objc_autoreleasePoolPop(v10);
   gzclose(v9);
 LABEL_24:
-
-  v22 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_299934528(uint64_t a1, void *bytes, size_t length)
@@ -500,7 +496,7 @@ uint64_t sub_299934590(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   return 0;
 }
 
-uint64_t *sub_2999345D0()
+uint64_t *sub_2999345D0(uint64_t a1, uint64_t a2)
 {
   if (qword_2A189CA40 != -1)
   {
@@ -524,7 +520,7 @@ unint64_t _systemstats_retried_write(uint64_t a1, void *a2, size_t __nbyte)
     sub_299938B84(v4, a2, __nbyte);
     *(a1 + 112) = vaddq_s64(*(a1 + 112), vdupq_n_s64(v5));
 LABEL_11:
-    nullsub_1(*(a1 + 88));
+    nullsub_1();
     return v5;
   }
 
@@ -567,7 +563,7 @@ BOOL sub_29993471C(void *a1, unint64_t a2, void *a3)
   v3 = a1[22];
   if (a2 < v3)
   {
-    sub_29993B300();
+    sub_29993B300(v3, a2);
   }
 
   v4 = a1[1];
@@ -598,7 +594,7 @@ BOOL sub_29993471C(void *a1, unint64_t a2, void *a3)
   return 1;
 }
 
-uint64_t systemstats_get_pmi_cycle_interval(_BYTE *a1)
+const void *systemstats_get_pmi_cycle_interval(_BYTE *a1)
 {
   microstackshot_cycle_interval_override = systemstats_get_microstackshot_cycle_interval_override();
   if (microstackshot_cycle_interval_override)
@@ -965,7 +961,7 @@ LABEL_43:
 
 uint64_t systemstats_persistence_is_allowed()
 {
-  v12[1] = *MEMORY[0x29EDCA608];
+  v11[1] = *MEMORY[0x29EDCA608];
   v0 = CFPreferencesCopyValue(@"allowMicrostackshotPersistence", @"com.apple.da", @"mobile", *MEMORY[0x29EDB8FA8]);
   if (!v0)
   {
@@ -977,21 +973,21 @@ LABEL_14:
     }
 
     v3 = 1;
-    goto LABEL_17;
+    return v3 & 1;
   }
 
   v1 = v0;
   v2 = CFGetTypeID(v0);
   if (v2 == CFNumberGetTypeID())
   {
-    v12[0] = 0;
-    if (!CFNumberGetValue(v1, kCFNumberSInt64Type, v12))
+    v11[0] = 0;
+    if (!CFNumberGetValue(v1, kCFNumberSInt64Type, v11))
     {
       goto LABEL_11;
     }
 
-    v3 = v12[0];
-    if (v12[0] >= 2uLL)
+    v3 = v11[0];
+    if (v11[0] >= 2uLL)
     {
       goto LABEL_11;
     }
@@ -1023,13 +1019,11 @@ LABEL_11:
   v5 = sub_2999351AC();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    LODWORD(v12[0]) = 67109120;
-    HIDWORD(v12[0]) = v3;
-    _os_log_impl(&dword_299933000, v5, OS_LOG_TYPE_INFO, "allowMicrostackshotPersistence setting: %d", v12, 8u);
+    LODWORD(v11[0]) = 67109120;
+    HIDWORD(v11[0]) = v3;
+    _os_log_impl(&dword_299933000, v5, OS_LOG_TYPE_INFO, "allowMicrostackshotPersistence setting: %d", v11, 8u);
   }
 
-LABEL_17:
-  v10 = *MEMORY[0x29EDCA608];
   return v3 & 1;
 }
 
@@ -1131,7 +1125,7 @@ intptr_t sub_299935450(uint64_t a1)
 
 void get_microstackshots_from_files(const char *a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   v4 = a2;
   v5 = a3;
   v6 = sub_2999351AC();
@@ -1171,15 +1165,15 @@ void get_microstackshots_from_files(const char *a1, void *a2, void *a3)
     }
 
     v12 = xpc_dictionary_get_uint64(v4, "type");
-    v45 = 0;
-    v46 = 0;
-    v43 = 0u;
-    memset(v44, 0, sizeof(v44));
+    v42 = 0;
+    v43 = 0;
+    v40 = 0u;
+    memset(v41, 0, sizeof(v41));
     if (xpc_dictionary_get_BOOL(v4, "currentBoot"))
     {
-      if (_systemstats_read_uuid_from_cookie_path(a1, "current_boot_uuid", &v45, &v43))
+      if (_systemstats_read_uuid_from_cookie_path(a1, "current_boot_uuid", &v42, &v40))
       {
-        v13 = &v43;
+        v13 = &v40;
       }
 
       else
@@ -1200,92 +1194,91 @@ void get_microstackshots_from_files(const char *a1, void *a2, void *a3)
     v8 = 0;
     v12 = 0;
     v13 = 0;
-    v45 = 0;
-    v46 = 0;
-    v43 = 0u;
-    memset(v44, 0, sizeof(v44));
+    v42 = 0;
+    v43 = 0;
+    v40 = 0u;
+    memset(v41, 0, sizeof(v41));
     v11 = -1;
     v14 = -1;
   }
 
-  v38 = 0;
-  v39[0] = &v38;
-  v39[1] = 0x2020000000;
-  v39[2] = 0;
-  v36 = 0;
-  v37[0] = &v36;
-  v37[1] = 0x2020000000;
-  v37[2] = 0;
-  v28[0] = MEMORY[0x29EDCA5F8];
-  v28[1] = 3221225472;
-  v28[2] = sub_2999372F0;
-  v28[3] = &unk_29F277218;
-  v35 = v11;
-  v31 = v14;
-  v32 = v12;
-  v33 = uint64;
-  v34 = v8;
-  v29 = v5;
-  v30 = &v38;
-  v25[0] = MEMORY[0x29EDCA5F8];
-  v25[1] = 3221225472;
-  v25[2] = sub_299934528;
-  v25[3] = &unk_29F277240;
-  v17 = v29;
-  v26 = v17;
-  v27 = &v36;
-  v18 = v28;
-  v19 = v25;
-  v40[0] = MEMORY[0x29EDCA5F8];
-  v40[1] = 3221225472;
-  v40[2] = sub_299935ED8;
-  v40[3] = &unk_29F2772D8;
-  v41 = v18;
-  v42 = v19;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v36[3] = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x2020000000;
+  v35[3] = 0;
+  v27[0] = MEMORY[0x29EDCA5F8];
+  v27[1] = 3221225472;
+  v27[2] = sub_2999372F0;
+  v27[3] = &unk_29F277218;
+  v34 = v11;
+  v30 = v14;
+  v31 = v12;
+  v32 = uint64;
+  v33 = v8;
+  v28 = v5;
+  v29 = v36;
+  v24[0] = MEMORY[0x29EDCA5F8];
+  v24[1] = 3221225472;
+  v24[2] = sub_299934528;
+  v24[3] = &unk_29F277240;
+  v17 = v28;
+  v25 = v17;
+  v26 = v35;
+  v18 = v27;
+  v19 = v24;
+  v37[0] = MEMORY[0x29EDCA5F8];
+  v37[1] = 3221225472;
+  v37[2] = sub_299935ED8;
+  v37[3] = &unk_29F2772D8;
+  v38 = v18;
+  v39 = v19;
   v20 = v19;
   v21 = v18;
-  sub_299935890(a1, v13, uint64, v8, v40);
+  sub_299935890(a1, v13, uint64, v8, v37);
 
   (*(v17 + 2))(v17, 1, 0, 0);
   v22 = sub_2999351AC();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    sub_29993A024(v39, v37);
+    sub_29993A024();
   }
 
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v38, 8);
-
-  v23 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v36, 8);
 }
 
-void sub_299935864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_299935864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_299935890(const char *a1, const char *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v39 = *MEMORY[0x29EDCA608];
+  v38 = *MEMORY[0x29EDCA608];
   v9 = a5;
-  v36 = 15;
-  v37 = "microstackshots";
+  v35 = 15;
+  v36 = "microstackshots";
   v10 = objc_alloc_init(MEMORY[0x29EDB8E00]);
   v11 = objc_alloc_init(MEMORY[0x29EDB8E00]);
-  v30[0] = MEMORY[0x29EDCA5F8];
-  v30[1] = 3221225472;
-  v30[2] = sub_299935DA4;
-  v30[3] = &unk_29F277300;
-  v33 = a1;
-  v34 = a3;
-  v35 = a4;
+  v29[0] = MEMORY[0x29EDCA5F8];
+  v29[1] = 3221225472;
+  v29[2] = sub_299935DA4;
+  v29[3] = &unk_29F277300;
+  v32 = a1;
+  v33 = a3;
+  v34 = a4;
   v12 = v10;
-  v31 = v12;
+  v30 = v12;
   v13 = v11;
-  v32 = v13;
-  _systemstats_enumerate_files(a1, a2, 0, &v37, &v36, 1, v30);
+  v31 = v13;
+  _systemstats_enumerate_files(a1, a2, 0, &v36, &v35, 1, v29);
   v14 = objc_autoreleasePoolPush();
   v15 = [v12 keysSortedByValueUsingSelector:sel_compare_];
   v16 = [v15 firstObject];
@@ -1301,43 +1294,42 @@ void sub_299935890(const char *a1, const char *a2, uint64_t a3, uint64_t a4, voi
     }
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v20 = v15;
-  v21 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v25 objects:v37 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v27;
+    v23 = *v26;
     do
     {
       v24 = 0;
       do
       {
-        if (*v27 != v23)
+        if (*v26 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v9[2](v9, *(*(&v26 + 1) + 8 * v24++));
+        v9[2](v9, *(*(&v25 + 1) + 8 * v24++));
       }
 
       while (v22 != v24);
-      v22 = [v20 countByEnumeratingWithState:&v26 objects:v38 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v25 objects:v37 count:16];
     }
 
     while (v22);
   }
 
   objc_autoreleasePoolPop(v14);
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 void _systemstats_enumerate_files(const char *a1, const char *a2, const char *a3, const char **a4, size_t *a5, uint64_t a6, void *a7)
 {
-  v35 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   v12 = a7;
   if (!a1)
   {
@@ -1348,8 +1340,8 @@ void _systemstats_enumerate_files(const char *a1, const char *a2, const char *a3
   if (v13)
   {
     v14 = v13;
-    v29 = a1;
-    v28 = dirfd(v13);
+    v28 = a1;
+    v27 = dirfd(v13);
     v15 = readdir(v14);
     if (v15)
     {
@@ -1359,7 +1351,7 @@ void _systemstats_enumerate_files(const char *a1, const char *a2, const char *a3
         if (v16->d_type == 8 && v16->d_namlen > 0x27u)
         {
           *in = 0u;
-          memset(v34, 0, sizeof(v34));
+          memset(v33, 0, sizeof(v33));
           __strlcpy_chk();
           memset(uu, 0, sizeof(uu));
           if (!uuid_parse(in, uu) && (!a2 || !strncmp(a2, in, 0x25uLL)) && (!a3 || strncmp(a3, in, 0x25uLL)) && v16->d_name[36] == 46)
@@ -1369,13 +1361,13 @@ void _systemstats_enumerate_files(const char *a1, const char *a2, const char *a3
               goto LABEL_23;
             }
 
-            v26 = a6;
-            v27 = v12;
+            v25 = a6;
+            v26 = v12;
             v17 = 0;
             v18 = a4;
             d_namlen = v16->d_namlen;
-            v24 = v18;
-            v25 = a5;
+            v23 = v18;
+            v24 = a5;
             do
             {
               v21 = *a5++;
@@ -1390,15 +1382,15 @@ void _systemstats_enumerate_files(const char *a1, const char *a2, const char *a3
             }
 
             while (a6);
-            a6 = v26;
-            v12 = v27;
-            a4 = v24;
-            a5 = v25;
+            a6 = v25;
+            v12 = v26;
+            a4 = v23;
+            a5 = v24;
             if (v17)
             {
 LABEL_23:
-              memset(&v31, 0, sizeof(v31));
-              v22 = sub_299935D90(v29, v28, v16->d_name, &v31);
+              memset(&v30, 0, sizeof(v30));
+              v22 = sub_299935D90(v28, v27, v16->d_name, &v30);
               if (v22)
               {
                 if (v22 == -1)
@@ -1409,7 +1401,7 @@ LABEL_23:
 
               else
               {
-                v12[2](v12, v16->d_name, v16->d_namlen, &v31);
+                v12[2](v12, v16->d_name, v16->d_namlen, &v30);
               }
             }
           }
@@ -1428,8 +1420,6 @@ LABEL_23:
   {
     _os_assumes_log();
   }
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299935DA4(uint64_t a1, const char *a2, size_t a3, uint64_t a4)
@@ -1460,11 +1450,11 @@ LABEL_11:
 uint64_t now_in_continuous_milliseconds()
 {
   v0 = systemstats_mach_continuous_time();
-  v1 = sub_2999345D0();
-  return *v1 * v0 / v1[1];
+  v2 = sub_2999345D0(v0, v1);
+  return *v2 * v0 / v2[1];
 }
 
-void *_systemstats_writers()
+void *_systemstats_writers(uint64_t a1, uint64_t a2)
 {
   if (qword_2A189CA48 != -1)
   {
@@ -1494,18 +1484,18 @@ double sub_299935FC0(uint64_t a1, int a2)
   return result;
 }
 
-void sub_299935FDC(void *a1)
+void sub_299935FDC(void *a1, uint64_t a2)
 {
   if (*a1 >= 0x4000uLL)
   {
     sub_299939E78();
   }
 
-  v3 = a1[3];
-  if (v3 != a1 + 4)
+  v4 = a1[3];
+  if (v4 != a1 + 4)
   {
 
-    free(v3);
+    free(v4);
   }
 }
 
@@ -1673,7 +1663,7 @@ void *sub_2999362F4(void *result, size_t *a2, char *__s)
   return result;
 }
 
-uint64_t sub_299936354(uint64_t a1)
+unint64_t sub_299936354(uint64_t a1)
 {
   v2 = *a1 - 4;
   if (*a1 == 4)
@@ -1742,18 +1732,18 @@ double systemstats_create_record(int a1)
 void systemstats_insert_and_dispose_subrecord(size_t *a1, uint64_t a2)
 {
   sub_2999360C0(*(a2 + 16), a1, (*(a2 + 24) + 4), *a2 - 4);
-  sub_299935FDC(a2);
+  sub_299935FDC(a2, v3);
 
   free(a2);
 }
 
-void systemstats_write_and_dispose_record(_BYTE *a1, uint64_t *a2)
+void systemstats_write_and_dispose_record(unsigned __int8 *a1, uint64_t *a2)
 {
   if (a1 && (*a1 & 1) != 0)
   {
     v4 = sub_299936354(a2);
     _systemstats_queued_write(a1, v4, *a2);
-    sub_299935FDC(a2);
+    sub_299935FDC(a2, v5);
 
     free(a2);
   }
@@ -1764,14 +1754,14 @@ void systemstats_write_and_dispose_record(_BYTE *a1, uint64_t *a2)
   }
 }
 
-void systemstats_dispose_record(void *a1)
+void systemstats_dispose_record(void *a1, uint64_t a2)
 {
-  sub_299935FDC(a1);
+  sub_299935FDC(a1, a2);
 
   free(a1);
 }
 
-uint64_t systemstats_write_checkpoint(_BYTE *a1)
+uint64_t systemstats_write_checkpoint(unsigned __int8 *a1)
 {
   v2 = now_in_absolute_milliseconds();
   v3 = malloc_type_malloc(0xA0uLL, 0x10100405638ECB9uLL);
@@ -1785,8 +1775,8 @@ uint64_t systemstats_write_checkpoint(_BYTE *a1)
 
 void systemstats_delete_old_files(const char *a1, const char *a2, char *__s, uint64_t a4, void *a5, char a6)
 {
-  v64 = *MEMORY[0x29EDCA608];
-  v61 = __s;
+  v63 = *MEMORY[0x29EDCA608];
+  v60 = __s;
   if (a1)
   {
     v9 = a1;
@@ -1798,87 +1788,87 @@ void systemstats_delete_old_files(const char *a1, const char *a2, char *__s, uin
   }
 
   v10 = *a5 - 345600;
-  v60 = strlen(__s);
+  v59 = strlen(__s);
   context = objc_autoreleasePoolPush();
   v11 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
   v12 = objc_alloc_init(MEMORY[0x29EDB8E00]);
   v13 = objc_alloc_init(MEMORY[0x29EDB8E00]);
   v14 = objc_alloc_init(MEMORY[0x29EDB8E00]);
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
-  v47[0] = MEMORY[0x29EDCA5F8];
-  v47[1] = 3221225472;
-  v47[2] = sub_299936AF8;
-  v47[3] = &unk_29F277180;
-  v53 = v9;
-  v55 = a6;
-  v35 = v14;
-  v48 = v35;
-  v54 = v10;
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = 0;
+  v46[0] = MEMORY[0x29EDCA5F8];
+  v46[1] = 3221225472;
+  v46[2] = sub_299936AF8;
+  v46[3] = &unk_29F277180;
+  v52 = v9;
+  v54 = a6;
+  v34 = v14;
+  v47 = v34;
+  v53 = v10;
   v15 = v11;
-  v49 = v15;
-  v36 = v12;
-  v50 = v36;
+  v48 = v15;
+  v35 = v12;
+  v49 = v35;
   v16 = v13;
-  v51 = v16;
-  v52 = &v56;
-  _systemstats_enumerate_files(v9, 0, a2, &v61, &v60, 1, v47);
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
+  v50 = v16;
+  v51 = &v55;
+  _systemstats_enumerate_files(v9, 0, a2, &v60, &v59, 1, v46);
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v43 objects:v63 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v42 objects:v62 count:16];
   if (v18)
   {
-    v19 = *v44;
+    v19 = *v43;
     do
     {
       v20 = 0;
       do
       {
-        if (*v44 != v19)
+        if (*v43 != v19)
         {
           objc_enumerationMutation(v17);
         }
 
-        unlink([*(*(&v43 + 1) + 8 * v20++) UTF8String]);
+        unlink([*(*(&v42 + 1) + 8 * v20++) UTF8String]);
       }
 
       while (v18 != v20);
-      v18 = [v17 countByEnumeratingWithState:&v43 objects:v63 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v42 objects:v62 count:16];
     }
 
     while (v18);
   }
 
   v21 = objc_alloc_init(MEMORY[0x29EDB8E20]);
-  [v36 keysSortedByValueUsingSelector:sel_compare_];
+  [v35 keysSortedByValueUsingSelector:sel_compare_];
+  v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
-  v22 = v40 = 0u;
-  v23 = [v22 countByEnumeratingWithState:&v39 objects:v62 count:16];
+  v38 = 0u;
+  v22 = v39 = 0u;
+  v23 = [v22 countByEnumeratingWithState:&v38 objects:v61 count:16];
   if (v23)
   {
     v24 = 4 * a4;
-    v25 = *v40;
+    v25 = *v39;
     do
     {
       v26 = 0;
       do
       {
-        if (*v40 != v25)
+        if (*v39 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v39 + 1) + 8 * v26);
-        if (v57[3] <= v24)
+        v27 = *(*(&v38 + 1) + 8 * v26);
+        if (v56[3] <= v24)
         {
-          v29 = [*(*(&v39 + 1) + 8 * v26) lastPathComponent];
+          v29 = [*(*(&v38 + 1) + 8 * v26) lastPathComponent];
           v31 = [v29 substringToIndex:36];
           [v21 addObject:v31];
         }
@@ -1889,30 +1879,36 @@ void systemstats_delete_old_files(const char *a1, const char *a2, char *__s, uin
           unlink([v27 UTF8String]);
           v29 = [v16 objectForKeyedSubscript:v27];
           v30 = [v29 unsignedIntegerValue];
-          v57[3] -= v30;
+          v56[3] -= v30;
         }
 
         ++v26;
       }
 
       while (v23 != v26);
-      v23 = [v22 countByEnumeratingWithState:&v39 objects:v62 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v38 objects:v61 count:16];
     }
 
     while (v23);
   }
 
-  v37[0] = MEMORY[0x29EDCA5F8];
-  v37[1] = 3221225472;
-  v37[2] = sub_299936C88;
-  v37[3] = &unk_29F2771A8;
+  v36[0] = MEMORY[0x29EDCA5F8];
+  v36[1] = 3221225472;
+  v36[2] = sub_299936C88;
+  v36[3] = &unk_29F2771A8;
   v32 = v21;
-  v38 = v32;
-  [v35 enumerateKeysAndObjectsUsingBlock:v37];
+  v37 = v32;
+  [v34 enumerateKeysAndObjectsUsingBlock:v36];
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v55, 8);
   objc_autoreleasePoolPop(context);
-  v33 = *MEMORY[0x29EDCA608];
+}
+
+void sub_299936AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_299936AF8(uint64_t a1, const char *a2, size_t a3, uint64_t *a4)
@@ -1979,29 +1975,27 @@ LABEL_6:
 
 BOOL _systemstats_get_system_version(char *a1, size_t a2)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v7 = a2;
-  *v8 = 0x4100000001;
-  v4 = sysctl(v8, 2u, a1, &v7, 0, 0);
+  v8 = *MEMORY[0x29EDCA608];
+  v6 = a2;
+  *v7 = 0x4100000001;
+  v4 = sysctl(v7, 2u, a1, &v6, 0, 0);
   if (v4 == -1)
   {
     sub_299939E94();
   }
 
   a1[a2 - 1] = 0;
-  result = v4 == 0;
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return v4 == 0;
 }
 
 uint64_t sub_299936E14(unsigned __int8 *a1)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   *in = 0u;
-  memset(v7, 0, sizeof(v7));
-  v5 = 37;
-  v2 = sysctlbyname("kern.bootsessionuuid", in, &v5, 0, 0);
-  if (v2 || (v7[20] = 0, (v2 = uuid_parse(in, a1)) != 0))
+  memset(v6, 0, sizeof(v6));
+  v4 = 37;
+  v2 = sysctlbyname("kern.bootsessionuuid", in, &v4, 0, 0);
+  if (v2 || (v6[20] = 0, (v2 = uuid_parse(in, a1)) != 0))
   {
     if (v2 == -1)
     {
@@ -2011,7 +2005,6 @@ uint64_t sub_299936E14(unsigned __int8 *a1)
     uuid_generate_random(a1);
   }
 
-  v3 = *MEMORY[0x29EDCA608];
   return 1;
 }
 
@@ -2036,7 +2029,7 @@ unint64_t now_in_wall_milliseconds()
   return result;
 }
 
-uint64_t sub_299936F44(const char *a1, void *a2, size_t a3)
+ssize_t sub_299936F44(const char *a1, void *a2, size_t a3)
 {
   v5 = open(a1, 0);
   if (v5 < 0)
@@ -2236,9 +2229,9 @@ uint64_t sub_2999372F0(uint64_t a1, void *bytes, uint64_t a3, int a4, size_t len
 
 uint64_t systemstats_cpu_hotspot_report_allowed_by_tasking()
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v8 = 0.0;
-  if (!sub_29993752C(@"cpuHotspotReportPercentage", &v8))
+  v10 = *MEMORY[0x29EDCA608];
+  v7 = 0.0;
+  if (!sub_29993752C(@"cpuHotspotReportPercentage", &v7))
   {
 LABEL_9:
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
@@ -2266,7 +2259,7 @@ LABEL_9:
     goto LABEL_17;
   }
 
-  v0 = v8;
+  v0 = v7;
   v1 = sub_2999351AC();
   v2 = v1;
   if (v0 < 0.0 || v0 > 100.0)
@@ -2282,60 +2275,53 @@ LABEL_9:
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v10 = v0;
+    v9 = v0;
     _os_log_impl(&dword_299933000, v2, OS_LOG_TYPE_INFO, "cpuHotspotReportPercentage setting: %.1f", buf, 0xCu);
   }
 
 LABEL_17:
 
-  result = sub_299937688(v0);
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_299937688(v0);
 }
 
 uint64_t sub_29993752C(const __CFString *a1, void *a2)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   v4 = CFPreferencesCopyValue(a1, @"com.apple.da", @"mobile", *MEMORY[0x29EDB8FA8]);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    v6 = CFGetTypeID(v4);
-    if (v6 == CFNumberGetTypeID() && (*v13 = 0, CFNumberGetValue(v5, kCFNumberDoubleType, v13)))
-    {
-      *a2 = *v13;
-      v7 = 1;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v8 = CFGetTypeID(v5);
-      v9 = CFCopyTypeIDDescription(v8);
-      v10 = sub_2999351AC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
-      {
-        *v13 = 138543874;
-        *&v13[4] = a1;
-        v14 = 2114;
-        v15 = v9;
-        v16 = 2114;
-        v17 = v5;
-        _os_log_fault_impl(&dword_299933000, v10, OS_LOG_TYPE_FAULT, "Invalid value for tasking setting %{public}@: (%{public}@)%{public}@", v13, 0x20u);
-      }
-
-      CFRelease(v9);
-      v7 = 0;
-    }
-
-    CFRelease(v5);
+  v5 = v4;
+  v6 = CFGetTypeID(v4);
+  if (v6 == CFNumberGetTypeID() && (*v12 = 0, CFNumberGetValue(v5, kCFNumberDoubleType, v12)))
+  {
+    *a2 = *v12;
+    v7 = 1;
   }
 
   else
   {
+    v8 = CFGetTypeID(v5);
+    v9 = CFCopyTypeIDDescription(v8);
+    v10 = sub_2999351AC();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    {
+      *v12 = 138543874;
+      *&v12[4] = a1;
+      v13 = 2114;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v5;
+      _os_log_fault_impl(&dword_299933000, v10, OS_LOG_TYPE_FAULT, "Invalid value for tasking setting %{public}@: (%{public}@)%{public}@", v12, 0x20u);
+    }
+
+    CFRelease(v9);
     v7 = 0;
   }
 
-  v11 = *MEMORY[0x29EDCA608];
+  CFRelease(v5);
   return v7;
 }
 
@@ -2378,9 +2364,9 @@ uint64_t sub_299937688(double a1)
 
 uint64_t systemstats_io_hotspot_report_allowed_by_tasking()
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v8 = 0.0;
-  if (!sub_29993752C(@"ioHotspotReportPercentage", &v8))
+  v10 = *MEMORY[0x29EDCA608];
+  v7 = 0.0;
+  if (!sub_29993752C(@"ioHotspotReportPercentage", &v7))
   {
 LABEL_9:
     has_internal_diagnostics = os_variant_has_internal_diagnostics();
@@ -2408,7 +2394,7 @@ LABEL_9:
     goto LABEL_17;
   }
 
-  v0 = v8;
+  v0 = v7;
   v1 = sub_2999351AC();
   v2 = v1;
   if (v0 < 0.0 || v0 > 100.0)
@@ -2424,33 +2410,31 @@ LABEL_9:
   if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v10 = v0;
+    v9 = v0;
     _os_log_impl(&dword_299933000, v2, OS_LOG_TYPE_INFO, "cpuHotspotReportPercentage setting: %.1f", buf, 0xCu);
   }
 
 LABEL_17:
 
-  result = sub_299937688(v0);
-  v7 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_299937688(v0);
 }
 
 uint64_t systemstats_copy_microstackshots_to_file(void *a1, int a2)
 {
-  v54 = *MEMORY[0x29EDCA608];
+  v53 = *MEMORY[0x29EDCA608];
   v3 = a1;
   if ((a2 & 0x80000000) == 0)
   {
     if (systemstats_persistence_is_allowed())
     {
       v4 = dispatch_semaphore_create(0);
-      v36[0] = MEMORY[0x29EDCA5F8];
-      v36[1] = 3221225472;
-      v36[2] = sub_299937EE8;
-      v36[3] = &unk_29F277290;
+      v35[0] = MEMORY[0x29EDCA5F8];
+      v35[1] = 3221225472;
+      v35[2] = sub_299937EE8;
+      v35[3] = &unk_29F277290;
       v5 = v4;
-      v37 = v5;
-      if (systemstats_microstackshot_checkpoint_async(v36))
+      v36 = v5;
+      if (systemstats_microstackshot_checkpoint_async(v35))
       {
         v6 = dispatch_time(0, 10000000000);
         v7 = dispatch_semaphore_wait(v5, v6);
@@ -2482,14 +2466,14 @@ uint64_t systemstats_copy_microstackshots_to_file(void *a1, int a2)
         uint64 = xpc_dictionary_get_uint64(v19, "time");
         v22 = xpc_dictionary_get_uint64(v19, "endtime");
         v23 = xpc_dictionary_get_BOOL(v19, "currentBoot");
+        v51 = 0;
         v52 = 0;
-        v53 = 0;
-        v50 = 0u;
-        memset(v51, 0, 21);
+        v49 = 0u;
+        memset(v50, 0, 21);
         if (v23)
         {
-          v24 = &v50;
-          if ((_systemstats_read_uuid_from_cookie_path("/private/var/db/systemstats", "current_boot_uuid", &v52, &v50) & 1) == 0)
+          v24 = &v49;
+          if ((_systemstats_read_uuid_from_cookie_path("/private/var/db/systemstats", "current_boot_uuid", &v51, &v49) & 1) == 0)
           {
             v24 = 0;
           }
@@ -2506,29 +2490,29 @@ uint64_t systemstats_copy_microstackshots_to_file(void *a1, int a2)
         uint64 = 0;
         v22 = 0;
         v24 = 0;
+        v51 = 0;
         v52 = 0;
-        v53 = 0;
-        v50 = 0u;
-        memset(v51, 0, 21);
+        v49 = 0u;
+        memset(v50, 0, 21);
       }
 
       v25 = malloc_type_malloc(0x8000000uLL, 0x29549993uLL);
-      v46 = 0;
-      v47 = &v46;
-      v48 = 0x2020000000;
-      v49 = 1;
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x2020000000;
+      v48 = 1;
       *buf = MEMORY[0x29EDCA5F8];
-      v39 = 3221225472;
-      v40 = sub_299938280;
-      v41 = &unk_29F2773F0;
-      v42 = &v46;
-      v43 = v25;
-      v44 = a2;
-      v45 = 0x8000000;
+      v38 = 3221225472;
+      v39 = sub_299938280;
+      v40 = &unk_29F2773F0;
+      v41 = &v45;
+      v42 = v25;
+      v43 = a2;
+      v44 = 0x8000000;
       sub_299935890("/private/var/db/systemstats", v24, uint64, v22, buf);
       free(v25);
-      v11 = *(v47 + 6);
-      _Block_object_dispose(&v46, 8);
+      v11 = *(v46 + 6);
+      _Block_object_dispose(&v45, 8);
 
       goto LABEL_56;
     }
@@ -2623,22 +2607,22 @@ LABEL_45:
           v31 = v30;
           if (v30)
           {
-            *&v50 = 0;
-            *(&v50 + 1) = &v50;
-            v51[0] = 0x2020000000;
-            LODWORD(v51[1]) = 0;
+            *&v49 = 0;
+            *(&v49 + 1) = &v49;
+            v50[0] = 0x2020000000;
+            LODWORD(v50[1]) = 0;
             *buf = MEMORY[0x29EDCA5F8];
-            v39 = 3221225472;
-            v40 = sub_2999381A0;
-            v41 = &unk_29F277350;
-            v42 = &v50;
-            v43 = v30;
+            v38 = 3221225472;
+            v39 = sub_2999381A0;
+            v40 = &unk_29F277350;
+            v41 = &v49;
+            v42 = v30;
             systemstats_zipper_buffers_foreach_micro(v14, v17, v15, v27, buf);
             gzclose(v31);
             free(v14);
             free(v15);
-            v11 = *(*(&v50 + 1) + 24);
-            _Block_object_dispose(&v50, 8);
+            v11 = *(*(&v49 + 1) + 24);
+            _Block_object_dispose(&v49, 8);
             goto LABEL_55;
           }
 
@@ -2675,8 +2659,14 @@ LABEL_55:
   v11 = 22;
 LABEL_56:
 
-  v34 = *MEMORY[0x29EDCA608];
   return v11;
+}
+
+void sub_299937EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 intptr_t sub_299937EE8(uint64_t a1)
@@ -2787,7 +2777,7 @@ uint64_t sub_2999381A0(uint64_t a1, const void *a2, int a3, int a4, unsigned int
       v6 = sub_2999351AC();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_29993AF28(&errnum);
+        sub_29993AF28();
       }
     }
 
@@ -2796,7 +2786,7 @@ uint64_t sub_2999381A0(uint64_t a1, const void *a2, int a3, int a4, unsigned int
       v6 = sub_2999351AC();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_29993AEA4(&errnum);
+        sub_29993AEA4();
       }
     }
 
@@ -2808,7 +2798,7 @@ uint64_t sub_2999381A0(uint64_t a1, const void *a2, int a3, int a4, unsigned int
 
 void sub_299938280(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x29EDCA608];
+  v43 = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = [v3 UTF8String];
   if (!v4)
@@ -2899,9 +2889,9 @@ LABEL_47:
               *&buf[12] = 2048;
               *&buf[14] = v23;
               *&buf[22] = 2048;
-              v39 = v22;
-              v40 = 1024;
-              v41 = v28;
+              v38 = v22;
+              v39 = 1024;
+              v40 = v28;
               _os_log_error_impl(&dword_299933000, v25, OS_LOG_TYPE_ERROR, "Failed to write microstackshots from file %@, only wrote %ld out of %ld bytes: %{errno}d", buf, 0x26u);
             }
 
@@ -2959,28 +2949,28 @@ LABEL_39:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LODWORD(v39) = 0;
-    v34[0] = MEMORY[0x29EDCA5F8];
-    v34[1] = 3221225472;
-    v34[2] = sub_2999388B0;
-    v34[3] = &unk_29F277378;
-    v37 = v8;
+    LODWORD(v38) = 0;
+    v33[0] = MEMORY[0x29EDCA5F8];
+    v33[1] = 3221225472;
+    v33[2] = sub_2999388B0;
+    v33[3] = &unk_29F277378;
+    v36 = v8;
     v10 = v3;
-    v35 = v10;
-    v36 = buf;
-    v11 = MEMORY[0x29C2A4C70](v34);
-    v32[0] = MEMORY[0x29EDCA5F8];
-    v32[1] = 3221225472;
-    v32[2] = sub_299938AAC;
-    v32[3] = &unk_29F2773A0;
-    v33 = v11;
-    v30[0] = MEMORY[0x29EDCA5F8];
-    v30[1] = 3221225472;
-    v30[2] = sub_299938AC0;
-    v30[3] = &unk_29F2773C8;
-    v12 = v33;
-    v31 = v12;
-    sub_2999342B4(v10, v32, v30);
+    v34 = v10;
+    v35 = buf;
+    v11 = MEMORY[0x29C2A4C70](v33);
+    v31[0] = MEMORY[0x29EDCA5F8];
+    v31[1] = 3221225472;
+    v31[2] = sub_299938AAC;
+    v31[3] = &unk_29F2773A0;
+    v32 = v11;
+    v29[0] = MEMORY[0x29EDCA5F8];
+    v29[1] = 3221225472;
+    v29[2] = sub_299938AC0;
+    v29[3] = &unk_29F2773C8;
+    v12 = v32;
+    v30 = v12;
+    sub_2999342B4(v10, v31, v29);
     v13 = *(*&buf[8] + 24);
     v14 = sub_2999351AC();
     v15 = v14;
@@ -2988,15 +2978,15 @@ LABEL_39:
     {
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        sub_29993AF9C(&buf[8]);
+        sub_29993AF9C();
       }
     }
 
     else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      *v42 = 138412290;
-      v43 = v10;
-      _os_log_impl(&dword_299933000, v15, OS_LOG_TYPE_INFO, "Read 0 bytes from microstackshots file %@", v42, 0xCu);
+      *v41 = 138412290;
+      v42 = v10;
+      _os_log_impl(&dword_299933000, v15, OS_LOG_TYPE_INFO, "Read 0 bytes from microstackshots file %@", v41, 0xCu);
     }
 
     gzclose(v9);
@@ -3016,13 +3006,11 @@ LABEL_39:
   }
 
 LABEL_48:
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 BOOL sub_2999388B0(uint64_t a1, const void *a2, unint64_t a3)
 {
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   if (a3 >> 31)
   {
     sub_29993B2D4();
@@ -3041,13 +3029,13 @@ BOOL sub_2999388B0(uint64_t a1, const void *a2, unint64_t a3)
         v8 = *(a1 + 32);
         v9 = *(*(*(a1 + 40) + 8) + 24);
         *buf = 138413058;
-        v21 = v8;
-        v22 = 1024;
-        v23 = v9;
-        v24 = 1024;
-        v25 = v6;
-        v26 = 1024;
-        LODWORD(v27) = v3;
+        v20 = v8;
+        v21 = 1024;
+        v22 = v9;
+        v23 = 1024;
+        v24 = v6;
+        v25 = 1024;
+        LODWORD(v26) = v3;
         v10 = "Failed to write microstackshots from file %@ after %d bytes, only wrote %d out of %d bytes";
         v11 = v7;
         v12 = 30;
@@ -3066,7 +3054,7 @@ LABEL_10:
         v7 = sub_2999351AC();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          sub_29993B238(a1, &errnum);
+          sub_29993B238();
         }
 
         goto LABEL_13;
@@ -3079,13 +3067,13 @@ LABEL_10:
         v15 = *(a1 + 32);
         v16 = *(*(*(a1 + 40) + 8) + 24);
         *buf = 138413058;
-        v21 = v15;
-        v22 = 1024;
-        v23 = v16;
-        v24 = 1024;
-        v25 = errnum;
-        v26 = 2082;
-        v27 = v14;
+        v20 = v15;
+        v21 = 1024;
+        v22 = v16;
+        v23 = 1024;
+        v24 = errnum;
+        v25 = 2082;
+        v26 = v14;
         v10 = "Unable to gzwrite microstackshots from %@ after %d bytes: %d (%{public}s)";
         v11 = v7;
         v12 = 34;
@@ -3095,14 +3083,11 @@ LABEL_10:
 
 LABEL_13:
 
-    goto LABEL_14;
+    return v6 == v3;
   }
 
   *(*(*(a1 + 40) + 8) + 24) += v3;
-LABEL_14:
-  result = v6 == v3;
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
+  return v6 == v3;
 }
 
 size_t sub_299938B84(int __fd, void *__buf, size_t __nbyte)
@@ -3243,10 +3228,10 @@ void sub_299938E04(uint64_t a1, unsigned int a2, void *a3, char *a4, uint64_t a5
   v28 = *MEMORY[0x29EDCA608];
   if ((*(a1 + 200) & 1) == 0)
   {
-    v11 = *(a1 + 104);
-    if (v11)
+    v10 = *(a1 + 104);
+    if (v10)
     {
-      dispatch_assert_queue_V2(v11);
+      dispatch_assert_queue_V2(v10);
     }
 
     v25 = 0u;
@@ -3261,10 +3246,10 @@ void sub_299938E04(uint64_t a1, unsigned int a2, void *a3, char *a4, uint64_t a5
     v18 = 0u;
     sub_299935FC0(__nbyte, 12);
     sub_2999362F4(1, __nbyte, "systemstats_v1");
-    v12 = now_in_absolute_milliseconds();
-    sub_299936020(2, __nbyte, v12);
-    v13 = now_in_wall_milliseconds();
-    sub_299936020(3, __nbyte, v13);
+    v11 = now_in_absolute_milliseconds();
+    sub_299936020(2, __nbyte, v11);
+    v12 = now_in_wall_milliseconds();
+    sub_299936020(3, __nbyte, v12);
     sub_299936020(4, __nbyte, **(a1 + 8));
     sub_2999360C0(5, __nbyte, (a1 + 24), 0x10uLL);
     if (_systemstats_get_system_version(__s, 0x20uLL))
@@ -3286,16 +3271,16 @@ void sub_299938E04(uint64_t a1, unsigned int a2, void *a3, char *a4, uint64_t a5
     if (a5)
     {
       sub_2999362F4(0xA, __nbyte, a5);
-      v14 = *(a5 + 528);
-      if (v14)
+      v13 = *(a5 + 528);
+      if (v13)
       {
-        sub_299936020(11, __nbyte, v14);
+        sub_299936020(11, __nbyte, v13);
       }
 
-      v15 = *(a5 + 512);
-      if (v15)
+      v14 = *(a5 + 512);
+      if (v14)
       {
-        sub_299936020(12, __nbyte, v15);
+        sub_299936020(12, __nbyte, v14);
       }
 
       sub_299936020(13, __nbyte, *(a5 + 536));
@@ -3309,12 +3294,10 @@ void sub_299938E04(uint64_t a1, unsigned int a2, void *a3, char *a4, uint64_t a5
       sub_299936020(17, __nbyte, *(a5 + 520));
     }
 
-    v16 = sub_299936354(__nbyte);
-    *(a1 + 112) += _systemstats_retried_write(a1, v16, __nbyte[0]);
-    sub_299935FDC(__nbyte);
+    v15 = sub_299936354(__nbyte);
+    *(a1 + 112) += _systemstats_retried_write(a1, v15, __nbyte[0]);
+    sub_299935FDC(__nbyte, v16);
   }
-
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void _systemstats_write_logstarts_queued(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -3337,7 +3320,7 @@ void _systemstats_write_logstarts_queued(uint64_t a1, char a2, uint64_t a3, uint
 
 uint64_t _systemstats_stream_init(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if (*a1 == 1)
   {
     sub_29993B35C();
@@ -3357,7 +3340,7 @@ uint64_t _systemstats_stream_init(uint64_t a1, unsigned int a2, const char *a3, 
   if (result)
   {
     *(a1 + 16) = a4;
-    result = _systemstats_writers();
+    result = _systemstats_writers(result, v9);
     if (a2 - 5 < 0x17 || !a2 || a2 == 3)
     {
       *(a1 + 8) = result + 48 * a2;
@@ -3372,39 +3355,40 @@ uint64_t _systemstats_stream_init(uint64_t a1, unsigned int a2, const char *a3, 
           *(a1 + 120) = 0;
           systemstats_gettimeofday((a1 + 152), 0);
           *(a1 + 168) = now_in_absolute_milliseconds();
-          v9 = (*(*(a1 + 8) + 16) & 7) - 1;
-          if (v9 >= 4)
+          v10 = *(*(a1 + 8) + 16);
+          v11 = (v10 & 7) - 1;
+          if (v11 >= 4)
           {
-            if (!*(*(a1 + 8) + 16))
+            if (!v10)
             {
               sub_299939E78();
             }
 
-            sub_29993B31C();
+            sub_29993B31C(v10);
           }
 
-          v10 = off_29F2774B0[v9];
-          v11 = qword_29993BD78[v9];
-          *(a1 + 192) = v10;
-          *(a1 + 128) = v11;
-          v20 = 0;
+          v12 = off_29F2774B0[v11];
+          v13 = qword_29993BD78[v11];
+          *(a1 + 192) = v12;
+          *(a1 + 128) = v13;
+          v23 = 0;
           memset(out, 0, sizeof(out));
           uuid_unparse((a1 + 24), out);
-          v12 = _systemstats_writers();
-          asprintf(&v20, "%s/%s.%s.XXXXXX%s", v7, out, v12[6 * a2 + 1], v10);
-          *(a1 + 96) = v20;
-          v13 = *(a1 + 8);
-          if ((*(v13 + 42) & 1) == 0)
+          v16 = _systemstats_writers(v14, v15);
+          asprintf(&v23, "%s/%s.%s.XXXXXX%s", v7, out, v16[6 * a2 + 1], v12);
+          *(a1 + 96) = v23;
+          v17 = *(a1 + 8);
+          if ((*(v17 + 42) & 1) == 0)
           {
-            systemstats_delete_old_files(*(a1 + 80), 0, *(v13 + 8), *(v13 + 32), (a1 + 152), (*(v13 + 16) & 8) != 0);
-            v13 = *(a1 + 8);
+            systemstats_delete_old_files(*(a1 + 80), 0, *(v17 + 8), *(v17 + 32), (a1 + 152), (*(v17 + 16) & 8) != 0);
+            v17 = *(a1 + 8);
           }
 
-          sub_299938C78(a1, *(a1 + 168), (a1 + 152), (*(v13 + 16) >> 1) & 1);
+          sub_299938C78(a1, *(a1 + 168), (a1 + 152), (*(v17 + 16) >> 1) & 1);
           if ((*(a1 + 88) & 0x80000000) != 0)
           {
             free(*(a1 + 96));
-            result = 0;
+            return 0;
           }
 
           else
@@ -3416,27 +3400,27 @@ uint64_t _systemstats_stream_init(uint64_t a1, unsigned int a2, const char *a3, 
 
             else
             {
-              v14 = *(a1 + 8);
-              if (*(v14 + 44) == 1)
+              v18 = *(a1 + 8);
+              if (*(v18 + 44) == 1)
               {
                 if (qword_2A14C1B48 != -1)
                 {
                   sub_29993B334();
                 }
 
-                v15 = qword_2A14C1B40;
+                v19 = qword_2A14C1B40;
                 *(a1 + 104) = qword_2A14C1B40;
-                dispatch_retain(v15);
+                dispatch_retain(v19);
               }
 
               else
               {
                 *out = 0;
-                asprintf(out, "com.apple.systemstats.filestream.%s", *(v14 + 8));
-                v16 = *out;
-                v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-                v18 = dispatch_queue_attr_make_with_qos_class(v17, QOS_CLASS_BACKGROUND, 0);
-                *(a1 + 104) = dispatch_queue_create(v16, v18);
+                asprintf(out, "com.apple.systemstats.filestream.%s", *(v18 + 8));
+                v20 = *out;
+                v21 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+                v22 = dispatch_queue_attr_make_with_qos_class(v21, QOS_CLASS_BACKGROUND, 0);
+                *(a1 + 104) = dispatch_queue_create(v20, v22);
                 free(*out);
               }
             }
@@ -3455,7 +3439,6 @@ uint64_t _systemstats_stream_init(uint64_t a1, unsigned int a2, const char *a3, 
     }
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3468,7 +3451,7 @@ dispatch_queue_t sub_299939384()
   return result;
 }
 
-uint64_t _systemstats_stream_teardown(uint64_t a1)
+uint64_t _systemstats_stream_teardown(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -3476,10 +3459,10 @@ uint64_t _systemstats_stream_teardown(uint64_t a1)
   }
 
   free(*(a1 + 96));
-  v2 = *(a1 + 104);
-  if (v2)
+  v3 = *(a1 + 104);
+  if (v3)
   {
-    dispatch_release(v2);
+    dispatch_release(v3);
     *(a1 + 104) = 0;
   }
 
@@ -3530,9 +3513,9 @@ void *_systemstats_stream_create(unsigned int a1, const char *a2, uint64_t a3)
   return v7;
 }
 
-void systemstats_stream_delete(void *a1)
+void systemstats_stream_delete(void *a1, uint64_t a2)
 {
-  _systemstats_stream_teardown(a1);
+  _systemstats_stream_teardown(a1, a2);
 
   free(a1);
 }
@@ -3582,7 +3565,7 @@ uint64_t sub_2999395D4(const char *a1, int a2, int a3)
       if ((v11 & 0x80000000) == 0)
       {
         v8 = v11;
-        (nullsub_1)();
+        nullsub_1();
         goto LABEL_22;
       }
     }
@@ -3607,7 +3590,7 @@ uint64_t sub_2999395D4(const char *a1, int a2, int a3)
         {
           ftruncate(v8, 0);
 LABEL_22:
-          nullsub_1(v8);
+          nullsub_1();
         }
       }
     }
@@ -3722,7 +3705,7 @@ LABEL_17:
             }
 
             sub_299938E04(v31, 1u, v22, v23, 0);
-            _systemstats_stream_teardown(v31);
+            _systemstats_stream_teardown(v31, v24);
           }
 
           goto LABEL_38;
@@ -3735,7 +3718,7 @@ LABEL_38:
         free(v5);
         free(v6);
         free(v7);
-        goto LABEL_39;
+        return v21;
       }
 
       v15 = v14;
@@ -3753,10 +3736,7 @@ LABEL_38:
     goto LABEL_37;
   }
 
-  v21 = 0;
-LABEL_39:
-  v24 = *MEMORY[0x29EDCA608];
-  return v21;
+  return 0;
 }
 
 uint64_t sub_299939AB4(uint64_t a1, uint64_t a2, void *a3, int a4)
@@ -3782,7 +3762,7 @@ uint64_t sub_299939AB4(uint64_t a1, uint64_t a2, void *a3, int a4)
       goto LABEL_6;
     }
 
-    v9 = *__error();
+    __error();
   }
 
   _os_assumes_log();
@@ -3794,60 +3774,60 @@ LABEL_6:
     return 0;
   }
 
-  v10 = strdup(*(a1 + 96));
-  v11 = strlen(*(a1 + 192));
+  v9 = strdup(*(a1 + 96));
+  v10 = strlen(*(a1 + 192));
   if (a4)
   {
-    v12 = strstr(v10, "XXXXXX");
-    v13 = strrchr(v10, 46);
-    v23 = 0;
-    if (v12 && v12 < v13)
+    v11 = strstr(v9, "XXXXXX");
+    v12 = strrchr(v9, 46);
+    v22 = 0;
+    if (v11 && v11 < v12)
     {
-      *v13 = 0;
-      asprintf(&v23, "%s.truncated.%s");
+      *v12 = 0;
+      asprintf(&v22, "%s.truncated.%s");
     }
 
     else
     {
-      asprintf(&v23, "%s.truncated");
+      asprintf(&v22, "%s.truncated");
     }
 
-    v14 = v23;
-    if (v23)
+    v13 = v22;
+    if (v22)
     {
-      free(v10);
-      v11 += 10;
-      v10 = v14;
+      free(v9);
+      v10 += 10;
+      v9 = v13;
     }
   }
 
-  v15 = mkstemps(v10, v11);
-  if (v15 < 0)
+  v14 = mkstemps(v9, v10);
+  if (v14 < 0)
   {
     if (*__error())
     {
       _os_assumes_log();
     }
 
-    free(v10);
+    free(v9);
     return 0;
   }
 
-  if (close(v15) == -1)
+  if (close(v14) == -1)
   {
     sub_299939E94();
   }
 
-  rename(*(a1 + 96), v10, v16);
-  v18 = v17;
-  free(v10);
-  if (!v18)
+  rename(*(a1 + 96), v9, v15);
+  v17 = v16;
+  free(v9);
+  if (!v17)
   {
     if ((*a3 - *(a1 + 152)) < 86401 || (a2 - *(a1 + 168)) < 0x36EE81)
     {
-      v20 = *(a1 + 8);
-      v21 = *(v20 + 32);
-      if (*(a1 + 120) < v21)
+      v19 = *(a1 + 8);
+      v20 = *(v19 + 32);
+      if (*(a1 + 120) < v20)
       {
         return 1;
       }
@@ -3855,21 +3835,21 @@ LABEL_6:
 
     else
     {
-      v20 = *(a1 + 8);
-      v21 = *(v20 + 32);
+      v19 = *(a1 + 8);
+      v20 = *(v19 + 32);
     }
 
-    if (*(v20 + 42))
+    if (*(v19 + 42))
     {
-      v22 = (a1 + 40);
+      v21 = (a1 + 40);
     }
 
     else
     {
-      v22 = 0;
+      v21 = 0;
     }
 
-    systemstats_delete_old_files(*(a1 + 80), v22, *(v20 + 8), v21, a3, (*(v20 + 16) & 8) != 0);
+    systemstats_delete_old_files(*(a1 + 80), v21, *(v19 + 8), v20, a3, (*(v19 + 16) & 8) != 0);
     *(a1 + 152) = *a3;
     *(a1 + 120) = 0;
     *(a1 + 168) = a2;
@@ -3973,23 +3953,21 @@ void sub_299939E78()
 
 void sub_299939EC8(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = *__error();
-  v4[0] = 67109378;
-  v4[1] = v2;
-  v5 = 2080;
-  v6 = a1;
-  _os_log_debug_impl(&dword_299933000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Error reading current build from file with errno %d at path: %s", v4, 0x12u);
-  v3 = *MEMORY[0x29EDCA608];
+  v3[0] = 67109378;
+  v3[1] = v2;
+  v4 = 2080;
+  v5 = a1;
+  _os_log_debug_impl(&dword_299933000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Error reading current build from file with errno %d at path: %s", v3, 0x12u);
 }
 
 void sub_299939F68(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_debug_impl(&dword_299933000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Could not find the file for current build at path: %s", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_debug_impl(&dword_299933000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEBUG, "Could not find the file for current build at path: %s", &v1, 0xCu);
 }
 
 void sub_299939FE8()
@@ -3999,107 +3977,41 @@ void sub_299939FE8()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_29993A024(uint64_t a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v7 = *(*a1 + 24);
-  v8 = *(*a2 + 24);
-  sub_299938B40();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
 void sub_29993A0B8()
 {
-  v5 = *MEMORY[0x29EDCA608];
   sub_299938AE0();
   sub_299938B40();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x20u);
-  v4 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A138()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A1B4(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_fault_impl(&dword_299933000, log, OS_LOG_TYPE_FAULT, "Bad cpuHotspotReportPercentage setting: %.1f", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A230()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A2A8()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_fault_impl(&dword_299933000, log, OS_LOG_TYPE_FAULT, "Bad cpuHotspotReportPercentage setting: %.1f", &v2, 0xCu);
 }
 
 void sub_29993A338()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938B58();
   sub_299938B10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A3AC()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938B58();
   sub_299938B10();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A420(os_log_t log, double a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 134217984;
-  v4 = a2;
-  _os_log_fault_impl(&dword_299933000, log, OS_LOG_TYPE_FAULT, "Bad ioHotspotReportPercentage setting: %.1f", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A49C()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A514()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A590()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B10();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 134217984;
+  v3 = a2;
+  _os_log_fault_impl(&dword_299933000, log, OS_LOG_TYPE_FAULT, "Bad ioHotspotReportPercentage setting: %.1f", &v2, 0xCu);
 }
 
 void sub_29993A604()
@@ -4111,55 +4023,31 @@ void sub_29993A604()
 
 void sub_29993A640()
 {
-  v5 = *MEMORY[0x29EDCA608];
   sub_299938AE0();
   sub_299938B40();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x20u);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A6C0()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938AFC();
   sub_299938B70();
   sub_299938B1C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A734()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938AFC();
   sub_299938B1C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A7B0()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B1C();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993A824()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B1C();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A8AC()
 {
-  v5 = *MEMORY[0x29EDCA608];
   sub_299938AE0();
   sub_299938B40();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x20u);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A92C()
@@ -4171,40 +4059,32 @@ void sub_29993A92C()
 
 void sub_29993A968()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938B4C();
   sub_299938B1C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993A9D8()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993AA5C()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938B4C();
   sub_299938B1C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993AACC()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993AB50()
@@ -4230,31 +4110,25 @@ void sub_29993ABC8()
 
 void sub_29993AC04()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993AC8C()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993AD14()
 {
-  v6 = *MEMORY[0x29EDCA608];
   sub_299938B4C();
   sub_299938B1C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29993AD84()
@@ -4278,92 +4152,58 @@ void sub_29993ADFC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_29993AEA4(unsigned int *a1)
+void sub_29993AEA4()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v1 = *a1;
   sub_299938B34();
   sub_299938B40();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x12u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
-void sub_29993AF28(unsigned int *a1)
+void sub_29993AF28()
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v1 = *a1;
   sub_299938B34();
   sub_299938B1C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
-  v7 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_29993AF9C(uint64_t a1)
+void sub_29993AF9C()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v1 = *(*a1 + 24);
   sub_299938B34();
   sub_299938B40();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x12u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x12u);
 }
 
 void sub_29993B024()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993B0A8()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v0 = *__error();
+  __error();
   sub_299938B34();
   sub_299938AD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x29EDCA608];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_29993B12C()
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v6 = *__error();
+  __error();
   sub_299938AD0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
-void sub_29993B1C4()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  sub_299938B1C();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993B238(uint64_t a1, int *a2)
-{
-  v10 = *MEMORY[0x29EDCA608];
-  v7 = *(a1 + 32);
-  v8 = *(*(*(a1 + 40) + 8) + 24);
-  v9 = *a2;
-  sub_299938B40();
-  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x18u);
-  v6 = *MEMORY[0x29EDCA608];
-}
-
-void sub_29993B300()
+void sub_29993B300(uint64_t a1, uint64_t a2)
 {
   _os_assert_log();
   _os_crash();
   __break(1u);
 }
 
-void sub_29993B31C()
+void sub_29993B31C(uint64_t a1)
 {
   _os_assert_log();
   _os_crash();
@@ -4379,7 +4219,7 @@ void sub_29993B35C()
 
 void sub_29993B378()
 {
-  v0 = *__error();
+  __error();
   _os_assert_log();
   _os_crash();
   __break(1u);

@@ -103,7 +103,7 @@ LABEL_10:
 
 - (id)_createHealthStore
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   v3 = [standardUserDefaults stringForKey:@"HealthProfileIdentifierKey"];
   v4 = MEMORY[0x277CCC2B0];
@@ -126,9 +126,9 @@ LABEL_10:
   {
     v9 = v8;
     v10 = [v7 debugDescription];
-    v15 = 138412290;
-    v16 = v10;
-    _os_log_impl(&dword_251E85000, v9, OS_LOG_TYPE_DEFAULT, "WDProfile: Using healthstore for profile: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v10;
+    _os_log_impl(&dword_251E85000, v9, OS_LOG_TYPE_DEFAULT, "WDProfile: Using healthstore for profile: %@", &v14, 0xCu);
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CCD4D8]);
@@ -147,8 +147,6 @@ LABEL_6:
 
     v11 = objc_alloc_init(MEMORY[0x277CCD4D8]);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

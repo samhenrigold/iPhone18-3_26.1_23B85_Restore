@@ -123,10 +123,10 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  v8 = [(NSArray *)v13 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v13);
 
   v9 = v13;
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_11:
     v11 = v9;

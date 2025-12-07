@@ -53,7 +53,7 @@
   }
 
   v11 = result;
-  result = [(SAMSTypeStats *)*(result + 8) addTask:micro thread:task size:thread errors:size];
+  result = [(SAMSTypeStats *)result[1] addTask:micro thread:task size:thread errors:size];
   v12 = *(a2 + 24);
   if (v12)
   {
@@ -131,13 +131,12 @@ LABEL_8:
   bytes_out_of_order = [(SAMSTypeStats *)self->_total bytes_out_of_order];
   bytes_missing_load_info = [(SAMSTypeStats *)self->_total bytes_missing_load_info];
   bytes_other_data = self->_bytes_other_data;
-  v67 = v4 + bytes_out_of_order + bytes_missing_load_info;
-  v68 = bytes_other_data + self->_bytes_not_microstackshots + v67;
-  v69 = MEMORY[0x1E696AEC0];
+  v66 = v4 + bytes_out_of_order + bytes_missing_load_info;
+  v67 = bytes_other_data + self->_bytes_not_microstackshots + v66;
+  v68 = MEMORY[0x1E696AEC0];
   num_microstackshots_filtered_out = self->_num_microstackshots_filtered_out;
-  v64 = num_microstackshots_filtered_out;
   bytes_not_microstackshots = self->_bytes_not_microstackshots;
-  v63 = [(SAMSTypeStats *)self->_total count];
+  v62 = [(SAMSTypeStats *)self->_total count];
   bytes2 = [(SAMSTypeStats *)self->_total bytes];
   num_load_infos = [(SAMSTypeStats *)self->_total num_load_infos];
   num_frames = [(SAMSTypeStats *)self->_total num_frames];
@@ -147,7 +146,7 @@ LABEL_8:
   bytes_out_of_order2 = [(SAMSTypeStats *)self->_total bytes_out_of_order];
   num_missing_load_info = [(SAMSTypeStats *)self->_total num_missing_load_info];
   bytes_missing_load_info2 = [(SAMSTypeStats *)self->_total bytes_missing_load_info];
-  v53 = [(SAMSTypeStats *)self->_interrupt count];
+  v52 = [(SAMSTypeStats *)self->_interrupt count];
   bytes3 = [(SAMSTypeStats *)self->_interrupt bytes];
   num_load_infos2 = [(SAMSTypeStats *)self->_interrupt num_load_infos];
   num_frames2 = [(SAMSTypeStats *)self->_interrupt num_frames];
@@ -157,7 +156,7 @@ LABEL_8:
   bytes_out_of_order3 = [(SAMSTypeStats *)self->_interrupt bytes_out_of_order];
   num_missing_load_info2 = [(SAMSTypeStats *)self->_interrupt num_missing_load_info];
   bytes_missing_load_info3 = [(SAMSTypeStats *)self->_interrupt bytes_missing_load_info];
-  v43 = [(SAMSTypeStats *)self->_timer count];
+  v42 = [(SAMSTypeStats *)self->_timer count];
   bytes4 = [(SAMSTypeStats *)self->_timer bytes];
   num_load_infos3 = [(SAMSTypeStats *)self->_timer num_load_infos];
   num_frames3 = [(SAMSTypeStats *)self->_timer num_frames];
@@ -167,7 +166,7 @@ LABEL_8:
   bytes_out_of_order4 = [(SAMSTypeStats *)self->_timer bytes_out_of_order];
   num_missing_load_info3 = [(SAMSTypeStats *)self->_timer num_missing_load_info];
   bytes_missing_load_info4 = [(SAMSTypeStats *)self->_timer bytes_missing_load_info];
-  v33 = [(SAMSTypeStats *)self->_io count];
+  v32 = [(SAMSTypeStats *)self->_io count];
   bytes5 = [(SAMSTypeStats *)self->_io bytes];
   num_load_infos4 = [(SAMSTypeStats *)self->_io num_load_infos];
   num_frames4 = [(SAMSTypeStats *)self->_io num_frames];
@@ -177,7 +176,7 @@ LABEL_8:
   bytes_out_of_order5 = [(SAMSTypeStats *)self->_io bytes_out_of_order];
   num_missing_load_info4 = [(SAMSTypeStats *)self->_io num_missing_load_info];
   bytes_missing_load_info5 = [(SAMSTypeStats *)self->_io bytes_missing_load_info];
-  v23 = [(SAMSTypeStats *)self->_pmi count];
+  v22 = [(SAMSTypeStats *)self->_pmi count];
   bytes6 = [(SAMSTypeStats *)self->_pmi bytes];
   num_load_infos5 = [(SAMSTypeStats *)self->_pmi num_load_infos];
   num_frames5 = [(SAMSTypeStats *)self->_pmi num_frames];
@@ -187,7 +186,7 @@ LABEL_8:
   bytes_out_of_order6 = [(SAMSTypeStats *)self->_pmi bytes_out_of_order];
   num_missing_load_info5 = [(SAMSTypeStats *)self->_pmi num_missing_load_info];
   bytes_missing_load_info6 = [(SAMSTypeStats *)self->_pmi bytes_missing_load_info];
-  v13 = [(SAMSTypeStats *)self->_macf count];
+  v12 = [(SAMSTypeStats *)self->_macf count];
   bytes7 = [(SAMSTypeStats *)self->_macf bytes];
   num_load_infos6 = [(SAMSTypeStats *)self->_macf num_load_infos];
   num_frames6 = [(SAMSTypeStats *)self->_macf num_frames];
@@ -207,7 +206,7 @@ LABEL_8:
   [(SAMSTypeStats *)self->_unknown_type bytes_out_of_order];
   [(SAMSTypeStats *)self->_unknown_type num_missing_load_info];
   [(SAMSTypeStats *)self->_unknown_type bytes_missing_load_info];
-  return [v69 stringWithFormat:@"Microstackshot statistics:\n%llu bytes parsed (%llu ms, %llu non-ms, %llu invalid)\n%llu filtered out\n\ntotal     count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\ninterrupt count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\ntimer     count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nio        count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\npmi       count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nmacf      count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nunknown   count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)", v68, v67, bytes_other_data, bytes_not_microstackshots, v64, v63, bytes2, num_load_infos, num_frames, num_duplicate, bytes_duplicate, num_out_of_order, bytes_out_of_order2, num_missing_load_info, bytes_missing_load_info2, v53, bytes3, num_load_infos2, num_frames2, num_duplicate2, bytes_duplicate2, num_out_of_order2, bytes_out_of_order3, num_missing_load_info2, bytes_missing_load_info3, v43, bytes4, num_load_infos3, num_frames3, num_duplicate3, bytes_duplicate3, num_out_of_order3, bytes_out_of_order4, num_missing_load_info3, bytes_missing_load_info4, v33, bytes5, num_load_infos4, num_frames4, num_duplicate4, bytes_duplicate4, num_out_of_order4, bytes_out_of_order5, num_missing_load_info4, bytes_missing_load_info5, v23, bytes6, num_load_infos5, num_frames5, num_duplicate5, bytes_duplicate5, num_out_of_order5, bytes_out_of_order6, num_missing_load_info5, bytes_missing_load_info6, v13, bytes7, num_load_infos6, num_frames6, num_duplicate6];
+  return [v68 stringWithFormat:@"Microstackshot statistics:\n%llu bytes parsed (%llu ms, %llu non-ms, %llu invalid)\n%llu filtered out\n\ntotal     count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\ninterrupt count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\ntimer     count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nio        count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\npmi       count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nmacf      count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)\n\nunknown   count          %llu (%llu bytes)\n          num_load_infos %llu\n          num_frames     %llu\n          duplicate      %llu (%llu bytes)\n          out_of_order   %llu (%llu bytes)\n          no_load_info   %llu (%llu bytes)", v67, v66, bytes_other_data, bytes_not_microstackshots, num_microstackshots_filtered_out, v62, bytes2, num_load_infos, num_frames, num_duplicate, bytes_duplicate, num_out_of_order, bytes_out_of_order2, num_missing_load_info, bytes_missing_load_info2, v52, bytes3, num_load_infos2, num_frames2, num_duplicate2, bytes_duplicate2, num_out_of_order2, bytes_out_of_order3, num_missing_load_info2, bytes_missing_load_info3, v42, bytes4, num_load_infos3, num_frames3, num_duplicate3, bytes_duplicate3, num_out_of_order3, bytes_out_of_order4, num_missing_load_info3, bytes_missing_load_info4, v32, bytes5, num_load_infos4, num_frames4, num_duplicate4, bytes_duplicate4, num_out_of_order4, bytes_out_of_order5, num_missing_load_info4, bytes_missing_load_info5, v22, bytes6, num_load_infos5, num_frames5, num_duplicate5, bytes_duplicate5, num_out_of_order5, bytes_out_of_order6, num_missing_load_info5, bytes_missing_load_info6, v12, bytes7, num_load_infos6, num_frames6, num_duplicate6];
 }
 
 @end

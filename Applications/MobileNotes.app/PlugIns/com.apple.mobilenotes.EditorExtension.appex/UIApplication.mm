@@ -8,29 +8,28 @@
 {
   v9 = sub_10000B344();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin();
-  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(handler);
+  __chkstk_darwin(v9);
+  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(handler);
   sub_10000B314();
-  if (v14)
+  if (v13)
   {
-    v15 = swift_allocObject();
-    *(v15 + 16) = v14;
-    v14 = sub_10000B1D4;
+    v14 = swift_allocObject();
+    *(v14 + 16) = v13;
+    v13 = sub_10000B1D4;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
   viewCopy = view;
   selfCopy = self;
-  sub_100009A2C(viewCopy, v14, v15, v18);
-  sub_10000ADF4(v14);
+  sub_100009A2C(viewCopy, v13, v14, v17);
+  sub_10000ADF4(v13, v14);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 @end

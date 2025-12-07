@@ -1,6 +1,6 @@
 uint64_t _GLOBAL__sub_I_FullSharingImportanceEstimator_cpp()
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   __dst[6] = xmmword_230EED248;
   __dst[7] = unk_230EED258;
   __dst[8] = xmmword_230EED268;
@@ -13,110 +13,110 @@ uint64_t _GLOBAL__sub_I_FullSharingImportanceEstimator_cpp()
   __dst[1] = unk_230EED1F8;
   std::map<Region,double>::map[abi:ne200100](&FullSharingImportanceEstimator::REGION_SIZE_METERS2, __dst, 10);
   __cxa_atexit(std::map<Region,double>::~map[abi:ne200100], &FullSharingImportanceEstimator::REGION_SIZE_METERS2, &dword_230EB5000);
-  v55 = 0x400000001;
-  v56 = 7;
-  v24 = 0;
-  v25 = 0;
+  v53 = 0x400000001;
+  v54 = 7;
   v23 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v23, &v55, &v57, 3uLL);
+  v24 = 0;
+  v22 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v22, &v53, &v55, 3uLL);
   LODWORD(__dst[0]) = 0;
   __dst[1] = 0uLL;
   *(&__dst[0] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(__dst + 8, v23, v24, (v24 - v23) >> 2);
-  v52 = 0x200000000;
-  v53[0] = 4;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(__dst + 1, v22, v23, (v23 - v22) >> 2);
+  v51 = 0x200000000;
+  v52[0] = 4;
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v20, &v52, &v54, 3uLL);
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v19, &v51, &v52[1], 3uLL);
   LODWORD(__dst[2]) = 1;
   __dst[3] = 0uLL;
   *(&__dst[2] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[2] + 8, v20, v21, (v21 - v20) >> 2);
-  v49 = 0x300000001;
-  v50 = 5;
-  v18 = 0;
-  v19 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[2] + 1, v19, v20, (v20 - v19) >> 2);
+  v48 = 0x300000001;
+  v49 = 5;
   v17 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v17, &v49, &v51, 3uLL);
+  v18 = 0;
+  v16 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v16, &v48, &v50, 3uLL);
   LODWORD(__dst[4]) = 2;
   __dst[5] = 0uLL;
   *(&__dst[4] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[4] + 8, v17, v18, (v18 - v17) >> 2);
-  v48 = 0x600000002;
-  v15 = 0;
-  v16 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[4] + 1, v16, v17, (v17 - v16) >> 2);
+  v47 = 0x600000002;
   v14 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v14, &v48, &v49, 2uLL);
+  v15 = 0;
+  v13 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v13, &v47, &v48, 2uLL);
   LODWORD(__dst[6]) = 3;
   __dst[7] = 0uLL;
   *(&__dst[6] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[6] + 8, v14, v15, (v15 - v14) >> 2);
-  v42 = 0x500000000;
-  v43 = 1;
-  v46 = 0;
-  v47 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[6] + 1, v13, v14, (v14 - v13) >> 2);
+  v41 = 0x500000000;
+  v42 = 1;
   v45 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v45, &v42, &v44, 3uLL);
+  v46 = 0;
+  v44 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v44, &v41, &v43, 3uLL);
   LODWORD(__dst[8]) = 4;
   __dst[9] = 0uLL;
   *(&__dst[8] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[8] + 8, v45, v46, (v46 - v45) >> 2);
-  v37 = xmmword_230EED100;
-  v40 = 0;
-  v41 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[8] + 1, v44, v45, (v45 - v44) >> 2);
+  v36 = xmmword_230EED100;
   v39 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v39, &v37, &v38, 4uLL);
+  v40 = 0;
+  v38 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v38, &v36, &v37, 4uLL);
   LODWORD(__dst[10]) = 5;
   __dst[11] = 0uLL;
   *(&__dst[10] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[10] + 8, v39, v40, (v40 - v39) >> 2);
-  v31 = 0x300000005;
-  v32 = 9;
-  v35 = 0;
-  v36 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[10] + 1, v38, v39, (v39 - v38) >> 2);
+  v30 = 0x300000005;
+  v31 = 9;
   v34 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v34, &v31, &v33, 3uLL);
+  v35 = 0;
+  v33 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v33, &v30, &v32, 3uLL);
   LODWORD(__dst[12]) = 6;
   __dst[13] = 0uLL;
   *(&__dst[12] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[12] + 8, v34, v35, (v35 - v34) >> 2);
-  v30 = 0x800000000;
-  v12 = 0;
-  v13 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[12] + 1, v33, v34, (v34 - v33) >> 2);
+  v29 = 0x800000000;
   v11 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v11, &v30, &v31, 2uLL);
+  v12 = 0;
+  v10 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v10, &v29, &v30, 2uLL);
   LODWORD(__dst[14]) = 7;
   __dst[15] = 0uLL;
   *(&__dst[14] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[14] + 8, v11, v12, (v12 - v11) >> 2);
-  v27 = 0x900000007;
-  v28 = 5;
-  v9 = 0;
-  v10 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[14] + 1, v10, v11, (v11 - v10) >> 2);
+  v26 = 0x900000007;
+  v27 = 5;
   v8 = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v8, &v27, &v29, 3uLL);
+  v9 = 0;
+  v7 = 0;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&v7, &v26, &v28, 3uLL);
   LODWORD(__dst[16]) = 8;
   __dst[17] = 0uLL;
   *(&__dst[16] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[16] + 8, v8, v9, (v9 - v8) >> 2);
-  v26 = 0x600000008;
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[16] + 1, v7, v8, (v8 - v7) >> 2);
+  v25 = 0x600000008;
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
   __p = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&__p, &v26, &v27, 2uLL);
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&__p, &v25, &v26, 2uLL);
   LODWORD(__dst[18]) = 9;
   __dst[19] = 0uLL;
   *(&__dst[18] + 1) = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[18] + 8, __p, v6, (v6 - __p) >> 2);
-  std::map<Region,std::vector<Region>>::map[abi:ne200100](FullSharingImportanceEstimator::ADJACENCY_MAP, __dst, 10);
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(&__dst[18] + 1, __p, v5, (v5 - __p) >> 2);
+  std::map<Region,std::vector<Region>>::map[abi:ne200100](&FullSharingImportanceEstimator::ADJACENCY_MAP, __dst, 10);
   v0 = 80;
   do
   {
-    v1 = *&v53[v0];
+    v1 = *&v52[v0];
     if (v1)
     {
-      *(&v55 + v0 * 4) = v1;
+      *(&v53 + v0 * 4) = v1;
       operator delete(v1);
     }
 
@@ -126,65 +126,65 @@ uint64_t _GLOBAL__sub_I_FullSharingImportanceEstimator_cpp()
   while (v0 * 4);
   if (__p)
   {
-    v6 = __p;
+    v5 = __p;
     operator delete(__p);
   }
 
-  if (v8)
+  if (v7)
   {
-    v9 = v8;
-    operator delete(v8);
+    v8 = v7;
+    operator delete(v7);
   }
 
-  if (v11)
+  if (v10)
   {
-    v12 = v11;
-    operator delete(v11);
+    v11 = v10;
+    operator delete(v10);
   }
 
-  if (v34)
+  if (v33)
   {
-    v35 = v34;
-    operator delete(v34);
+    v34 = v33;
+    operator delete(v33);
   }
 
-  if (v39)
+  if (v38)
   {
-    v40 = v39;
-    operator delete(v39);
+    v39 = v38;
+    operator delete(v38);
   }
 
-  if (v45)
+  if (v44)
   {
-    v46 = v45;
-    operator delete(v45);
+    v45 = v44;
+    operator delete(v44);
   }
 
-  if (v14)
+  if (v13)
   {
-    v15 = v14;
-    operator delete(v14);
+    v14 = v13;
+    operator delete(v13);
   }
 
-  if (v17)
+  if (v16)
   {
-    v18 = v17;
-    operator delete(v17);
+    v17 = v16;
+    operator delete(v16);
   }
 
-  if (v20)
+  if (v19)
   {
-    v21 = v20;
-    operator delete(v20);
+    v20 = v19;
+    operator delete(v19);
   }
 
-  if (v23)
+  if (v22)
   {
-    v24 = v23;
-    operator delete(v23);
+    v23 = v22;
+    operator delete(v22);
   }
 
-  __cxa_atexit(std::map<Region,std::vector<Region>>::~map[abi:ne200100], FullSharingImportanceEstimator::ADJACENCY_MAP, &dword_230EB5000);
+  __cxa_atexit(std::map<Region,std::vector<Region>>::~map[abi:ne200100], &FullSharingImportanceEstimator::ADJACENCY_MAP, &dword_230EB5000);
   __dst[6] = xmmword_230EED2E8;
   __dst[7] = unk_230EED2F8;
   __dst[8] = xmmword_230EED308;
@@ -195,14 +195,14 @@ uint64_t _GLOBAL__sub_I_FullSharingImportanceEstimator_cpp()
   __dst[5] = unk_230EED2D8;
   __dst[0] = xmmword_230EED288;
   __dst[1] = unk_230EED298;
-  std::map<Region,double>::map[abi:ne200100](FullSharingImportanceEstimator::IMPORTANCE_MAP, __dst, 10);
-  __cxa_atexit(std::map<Region,double>::~map[abi:ne200100], FullSharingImportanceEstimator::IMPORTANCE_MAP, &dword_230EB5000);
+  std::map<Region,double>::map[abi:ne200100](&FullSharingImportanceEstimator::IMPORTANCE_MAP, __dst, 10);
+  __cxa_atexit(std::map<Region,double>::~map[abi:ne200100], &FullSharingImportanceEstimator::IMPORTANCE_MAP, &dword_230EB5000);
   __dst[0] = xmmword_230EED328;
   *&__dst[1] = 0x600000005;
   qword_280AE61A0 = 0;
   unk_280AE61A8 = 0;
   FullSharingImportanceEstimator::IN_FOV = 0;
-  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&FullSharingImportanceEstimator::IN_FOV, __dst, &__dst[1] + 8, 6uLL);
+  std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(&FullSharingImportanceEstimator::IN_FOV, __dst, &__dst[1] + 2, 6uLL);
   __cxa_atexit(std::vector<Region>::~vector[abi:ne200100], &FullSharingImportanceEstimator::IN_FOV, &dword_230EB5000);
   __dst[0] = xmmword_230EED110;
   qword_280AE6218 = 0;
@@ -213,41 +213,39 @@ uint64_t _GLOBAL__sub_I_FullSharingImportanceEstimator_cpp()
   memcpy(__dst, &unk_230EED340, sizeof(__dst));
   std::map<Region,RegionBoundaries>::map[abi:ne200100](&FullSharingImportanceEstimator::BOUNDARY_MAP, __dst, 10);
   __cxa_atexit(std::map<Region,RegionBoundaries>::~map[abi:ne200100], &FullSharingImportanceEstimator::BOUNDARY_MAP, &dword_230EB5000);
-  v45 = 0x600000003;
-  LODWORD(v46) = 9;
-  std::set<Region>::set[abi:ne200100](&v23, &v45, 3);
+  v44 = 0x600000003;
+  LODWORD(v45) = 9;
+  std::set<Region>::set[abi:ne200100](&v22, &v44, 3);
   LODWORD(__dst[0]) = 0;
-  std::set<Region>::set[abi:ne200100](__dst + 1, &v23);
-  v39 = 0x500000002;
-  LODWORD(v40) = 8;
-  std::set<Region>::set[abi:ne200100](&v20, &v39, 3);
+  std::set<Region>::set[abi:ne200100](__dst + 1, &v22);
+  v38 = 0x500000002;
+  LODWORD(v39) = 8;
+  std::set<Region>::set[abi:ne200100](&v19, &v38, 3);
   LODWORD(__dst[2]) = 1;
-  std::set<Region>::set[abi:ne200100](&__dst[2] + 1, &v20);
-  v34 = 0x400000001;
-  LODWORD(v35) = 7;
-  std::set<Region>::set[abi:ne200100](&v17, &v34, 3);
+  std::set<Region>::set[abi:ne200100](&__dst[2] + 1, &v19);
+  v33 = 0x400000001;
+  LODWORD(v34) = 7;
+  std::set<Region>::set[abi:ne200100](&v16, &v33, 3);
   LODWORD(__dst[4]) = 2;
-  std::set<Region>::set[abi:ne200100](&__dst[4] + 1, &v17);
-  LODWORD(v11) = 0;
-  std::set<Region>::set[abi:ne200100](&v14, &v11, 1);
+  std::set<Region>::set[abi:ne200100](&__dst[4] + 1, &v16);
+  LODWORD(v10) = 0;
+  std::set<Region>::set[abi:ne200100](&v13, &v10, 1);
   LODWORD(__dst[6]) = 3;
-  std::set<Region>::set[abi:ne200100](&__dst[6] + 1, &v14);
-  std::map<CoarseRange,std::set<Region>>::map[abi:ne200100](FullSharingImportanceEstimator::REGIONS_BY_RANGE, __dst, 4);
+  std::set<Region>::set[abi:ne200100](&__dst[6] + 1, &v13);
+  std::map<CoarseRange,std::set<Region>>::map[abi:ne200100](&FullSharingImportanceEstimator::REGIONS_BY_RANGE, __dst, 4);
   for (i = 0; i != -8; i -= 2)
   {
     std::__tree<Region>::destroy(&__dst[i + 6] + 8, *&__dst[i + 7]);
   }
 
-  std::__tree<Region>::destroy(&v14, v15);
-  std::__tree<Region>::destroy(&v17, v18);
-  std::__tree<Region>::destroy(&v20, v21);
-  std::__tree<Region>::destroy(&v23, v24);
-  result = __cxa_atexit(std::map<CoarseRange,std::set<Region>>::~map[abi:ne200100], FullSharingImportanceEstimator::REGIONS_BY_RANGE, &dword_230EB5000);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__tree<Region>::destroy(&v13, v14);
+  std::__tree<Region>::destroy(&v16, v17);
+  std::__tree<Region>::destroy(&v19, v20);
+  std::__tree<Region>::destroy(&v22, v23);
+  return __cxa_atexit(std::map<CoarseRange,std::set<Region>>::~map[abi:ne200100], &FullSharingImportanceEstimator::REGIONS_BY_RANGE, &dword_230EB5000);
 }
 
-void sub_230EB67E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, void *a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
+void sub_230EB67E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, void *a20, void *a21, uint64_t a22, void *a23, void *a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, char a59)
 {
   v62 = v59 + 104;
   v63 = -128;
@@ -266,18 +264,18 @@ void sub_230EB67E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::map<Region,double>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<Region,double>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 16 * a3;
     do
     {
-      std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(a1, v4, a2, a2);
       a2 += 4;
       v6 -= 16;
     }
@@ -288,20 +286,20 @@ void *std::map<Region,double>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(uint64_t **a1, uint64_t *a2, int *a3, _OWORD *a4)
 {
-  v3 = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 8), *a5 < v7))
   {
     v8 = *a2;
@@ -328,7 +326,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -389,7 +387,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -468,7 +466,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -490,7 +488,7 @@ LABEL_48:
   return a4;
 }
 
-uint64_t *std::__tree<Region>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<Region>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -516,12 +514,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -535,22 +533,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -584,13 +582,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -632,7 +630,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Region>::__init_with_size[abi:ne200100]<Region const*,Region const*>(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -664,7 +662,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<Region>>(uint64_t a1,
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<Region>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Region>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -674,7 +672,7 @@ void std::vector<Region>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<Rose::ResponderSuperframeRxPacketInfo>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Region>::__init_with_size[abi:ne200100]<Region*,Region*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -696,9 +694,9 @@ void sub_230EB7090(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_value_compare<Region,std::__value_type<Region,std::vector<Region>>,std::less<Region>,true>,std::allocator<std::__value_type<Region,std::vector<Region>>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,std::vector<Region>> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_value_compare<Region,std::__value_type<Region,std::vector<Region>>,std::less<Region>,true>,std::allocator<std::__value_type<Region,std::vector<Region>>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,std::vector<Region>> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  result = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_value_compare<Region,std::__value_type<Region,std::vector<Region>>,std::less<Region>,true>,std::allocator<std::__value_type<Region,std::vector<Region>>>>::__construct_node<std::pair<Region const,std::vector<Region>> const&>();
@@ -707,18 +705,18 @@ uint64_t std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_va
   return result;
 }
 
-void *std::map<Region,std::vector<Region>>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t std::map<Region,std::vector<Region>>::map[abi:ne200100](uint64_t a1, int *a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_value_compare<Region,std::__value_type<Region,std::vector<Region>>,std::less<Region>,true>,std::allocator<std::__value_type<Region,std::vector<Region>>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,std::vector<Region>> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<Region,std::vector<Region>>,std::__map_value_compare<Region,std::__value_type<Region,std::vector<Region>>,std::less<Region>,true>,std::allocator<std::__value_type<Region,std::vector<Region>>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,std::vector<Region>> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -736,29 +734,29 @@ void sub_230EB723C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<Region,RegionBoundaries>,std::__map_value_compare<Region,std::__value_type<Region,RegionBoundaries>,std::less<Region>,true>,std::allocator<std::__value_type<Region,RegionBoundaries>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,RegionBoundaries> const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<std::__value_type<Region,RegionBoundaries>,std::__map_value_compare<Region,std::__value_type<Region,RegionBoundaries>,std::less<Region>,true>,std::allocator<std::__value_type<Region,RegionBoundaries>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,RegionBoundaries> const&>(uint64_t **a1, uint64_t *a2, int *a3, uint64_t a4)
 {
-  v3 = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-void *std::map<Region,RegionBoundaries>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t std::map<Region,RegionBoundaries>::map[abi:ne200100](uint64_t a1, int *a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a3)
   {
     v6 = 40 * a3;
     do
     {
-      std::__tree<std::__value_type<Region,RegionBoundaries>,std::__map_value_compare<Region,std::__value_type<Region,RegionBoundaries>,std::less<Region>,true>,std::allocator<std::__value_type<Region,RegionBoundaries>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,RegionBoundaries> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<Region,RegionBoundaries>,std::__map_value_compare<Region,std::__value_type<Region,RegionBoundaries>,std::less<Region>,true>,std::allocator<std::__value_type<Region,RegionBoundaries>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,RegionBoundaries> const&>(a1, v4, a2, a2);
       a2 += 10;
       v6 -= 40;
     }
@@ -769,18 +767,19 @@ void *std::map<Region,RegionBoundaries>::map[abi:ne200100](void *a1, int *a2, ui
   return a1;
 }
 
-void *std::set<Region>::set[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::set<Region>::set[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 4 * a3;
     do
     {
-      std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(a1, v4, a2++);
+      std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(a1, v4, a2, a2);
+      ++a2;
       v6 -= 4;
     }
 
@@ -790,20 +789,20 @@ void *std::set<Region>::set[abi:ne200100](void *a1, int *a2, uint64_t a3)
   return a1;
 }
 
-uint64_t std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(void *a1, uint64_t *a2, int *a3)
+uint64_t std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  v3 = *std::__tree<Region>::__find_equal<Region>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<Region>::__find_equal<Region>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
-uint64_t *std::__tree<Region>::__find_equal<Region>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
+uint64_t *std::__tree<Region>::__find_equal<Region>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t *a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -830,7 +829,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -891,7 +890,7 @@ LABEL_17:
 
     else
     {
-      v17 = a1 + 1;
+      v17 = (a1 + 1);
     }
 
 LABEL_29:
@@ -970,7 +969,7 @@ LABEL_29:
 
     else
     {
-      v21 = a1 + 1;
+      v21 = (a1 + 1);
     }
 
 LABEL_48:
@@ -1009,7 +1008,7 @@ uint64_t std::set<Region>::insert[abi:ne200100]<std::__tree_const_iterator<Regio
     v5 = result;
     do
     {
-      result = std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(v5, v5 + 1, v4 + 7);
+      result = std::__tree<Region>::__emplace_hint_unique_key_args<Region,Region const&>(v5, (v5 + 8), v4 + 7, v4 + 7);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -1050,18 +1049,18 @@ void sub_230EB779C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::map<CoarseRange,std::set<Region>>::map[abi:ne200100](void *a1, int *a2, uint64_t a3)
+uint64_t **std::map<CoarseRange,std::set<Region>>::map[abi:ne200100](uint64_t **a1, int *a2, uint64_t a3)
 {
   a1[1] = 0;
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 32 * a3;
     do
     {
-      std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_value_compare<CoarseRange,std::__value_type<CoarseRange,std::set<Region>>,std::less<CoarseRange>,true>,std::allocator<std::__value_type<CoarseRange,std::set<Region>>>>::__emplace_hint_unique_key_args<CoarseRange,std::pair<CoarseRange const,std::set<Region>> const&>(a1, v4, a2);
+      std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_value_compare<CoarseRange,std::__value_type<CoarseRange,std::set<Region>>,std::less<CoarseRange>,true>,std::allocator<std::__value_type<CoarseRange,std::set<Region>>>>::__emplace_hint_unique_key_args<CoarseRange,std::pair<CoarseRange const,std::set<Region>> const&>(a1, v4, a2, a2);
       a2 += 8;
       v6 -= 32;
     }
@@ -1072,9 +1071,9 @@ void *std::map<CoarseRange,std::set<Region>>::map[abi:ne200100](void *a1, int *a
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_value_compare<CoarseRange,std::__value_type<CoarseRange,std::set<Region>>,std::less<CoarseRange>,true>,std::allocator<std::__value_type<CoarseRange,std::set<Region>>>>::__emplace_hint_unique_key_args<CoarseRange,std::pair<CoarseRange const,std::set<Region>> const&>(void *a1, uint64_t *a2, int *a3)
+void *std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_value_compare<CoarseRange,std::__value_type<CoarseRange,std::set<Region>>,std::less<CoarseRange>,true>,std::allocator<std::__value_type<CoarseRange,std::set<Region>>>>::__emplace_hint_unique_key_args<CoarseRange,std::pair<CoarseRange const,std::set<Region>> const&>(uint64_t **a1, uint64_t *a2, int *a3, _DWORD *a4)
 {
-  result = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v5, &v4, a3);
+  result = *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__find_equal<Region>(a1, a2, &v6, &v5, a3);
   if (!result)
   {
     std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_value_compare<CoarseRange,std::__value_type<CoarseRange,std::set<Region>>,std::less<CoarseRange>,true>,std::allocator<std::__value_type<CoarseRange,std::set<Region>>>>::__construct_node<std::pair<CoarseRange const,std::set<Region>> const&>();
@@ -1115,7 +1114,7 @@ uint64_t _GLOBAL__sub_I_BtProximityFilters_cpp()
   return __cxa_atexit(BtProxRayleighFilter::~BtProxRayleighFilter, &rayleighFilter, &dword_230EB5000);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -1129,13 +1128,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1331,7 +1330,7 @@ void sub_230EB8004(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *rose::rangingTriggerTypeToString@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *rose::rangingTriggerTypeToString@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   if (a1)
   {
@@ -1346,7 +1345,7 @@ _BYTE *rose::rangingTriggerTypeToString@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-_BYTE *rose::rangingAcquisitionTypeToString@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *rose::rangingAcquisitionTypeToString@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   if (a1)
   {
@@ -1361,7 +1360,7 @@ _BYTE *rose::rangingAcquisitionTypeToString@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-_BYTE *rose::serviceattributes::attributeToString@<X0>(int a1@<W0>, _BYTE *a2@<X8>)
+void *rose::serviceattributes::attributeToString@<X0>(int a1@<W0>, void *a2@<X8>)
 {
   if (a1 == 100)
   {
@@ -1468,7 +1467,7 @@ void Rose::HelloResponse::AdditionalInfo::~AdditionalInfo(void **this)
   }
 }
 
-uint64_t std::vector<Rose::ResponderSuperframeRxPacketInfo>::__init_with_size[abi:ne200100]<Rose::ResponderSuperframeRxPacketInfo*,Rose::ResponderSuperframeRxPacketInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<Rose::ResponderSuperframeRxPacketInfo>::__init_with_size[abi:ne200100]<Rose::ResponderSuperframeRxPacketInfo*,Rose::ResponderSuperframeRxPacketInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1490,7 +1489,7 @@ void sub_230EBA2BC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<Rose::ResponderSuperframeRxPacketInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<Rose::ResponderSuperframeRxPacketInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1589,52 +1588,52 @@ uint64_t *FullSharingImportanceEstimator::initializeToUnknown(FullSharingImporta
 {
   v13 = 0;
   v14 = &v13;
-  std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v13)[5] = 0x3FE0000000000000;
+  std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v13, &std::piecewise_construct, &v14)[5] = 0x3FE0000000000000;
   v13 = 1;
   v2 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 1;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v2;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v2;
   v13 = 2;
   v3 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 2;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v3;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v3;
   v13 = 3;
   v4 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 3;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v4;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v4;
   v13 = 4;
   v5 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 4;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v5;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v5;
   v13 = 5;
   v6 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 5;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v6;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v6;
   v13 = 6;
   v7 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 6;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v7;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v7;
   v13 = 7;
   v8 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 7;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v8;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v8;
   v13 = 8;
   v9 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 8;
   v14 = &v12;
-  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12) + 5) = v9;
+  *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14) + 5) = v9;
   v13 = 9;
   v10 = *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, &v13) * 0.5 / 452.389342;
   v12 = 9;
   v14 = &v12;
-  result = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12);
+  result = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v12, &std::piecewise_construct, &v14);
   *(result + 5) = v10;
   return result;
 }
@@ -1824,17 +1823,17 @@ double FullSharingImportanceEstimator::timeUpdateInRegionLikelihoods(FullSharing
       {
         do
         {
-          v17 = std::map<Region,double>::at(FullSharingImportanceEstimator::ADJACENCY_MAP, v15 + 8);
+          v17 = std::map<Region,double>::at(&FullSharingImportanceEstimator::ADJACENCY_MAP, v15 + 8);
           v19 = *v17;
           v18 = v17[1];
           while (v19 != v18)
           {
             v31 = v15 + 8;
-            v20 = *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(v10, v15 + 8) + 5);
+            v20 = *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(v10, v15 + 8, &std::piecewise_construct, &v31) + 5);
             v22 = *v17;
             v21 = v17[1];
             v31 = v19;
-            v23 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v29, v19);
+            v23 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v29, v19, &std::piecewise_construct, &v31);
             *(v23 + 5) = v9 * v20 / ((v21 - v22) >> 2) + *(v23 + 5);
             ++v19;
           }
@@ -1919,7 +1918,8 @@ uint64_t *FullSharingImportanceEstimator::incorporateFovDetector(uint64_t *this,
   for (i = qword_280AE61A0; v5 != i; ++v5)
   {
     v7 = v4 * *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, v5) / 75.3982237;
-    this = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>((v2 + 4), v5);
+    v11 = v5;
+    this = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>((v2 + 4), v5, &std::piecewise_construct, &v11);
     *(this + 5) = v7 * *(this + 5);
   }
 
@@ -1927,7 +1927,8 @@ uint64_t *FullSharingImportanceEstimator::incorporateFovDetector(uint64_t *this,
   for (j = qword_280AE6218; v8 != j; ++v8)
   {
     v10 = v3 * *std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, v8) / 376.991118;
-    this = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>((v2 + 4), v8);
+    v11 = v8;
+    this = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>((v2 + 4), v8, &std::piecewise_construct, &v11);
     *(this + 5) = v10 * *(this + 5);
   }
 
@@ -1977,8 +1978,8 @@ LABEL_9:
 LABEL_15:
         v18 = v16 / 0.261799388;
 LABEL_16:
-        v34 = v4 + 32;
-        v19 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v32, v14);
+        v34 = (v4 + 32);
+        v19 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v32, v14, &std::piecewise_construct, &v34);
         v20 = (1.0 - erf(v18 * 0.707106781)) * 0.5;
         v21 = v20 * ((1.0 - erf(v13 * 0.707106781)) * 0.5);
         *(v19 + 5) = v21;
@@ -2063,8 +2064,8 @@ LABEL_25:
           while (v28);
           if (v29 != v33 && v26 >= *(v29 + 8))
           {
-            v34 = v25 + 32;
-            v27 = *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v32, v25 + 8) + 5);
+            v34 = (v25 + 32);
+            v27 = *(std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(&v32, v25 + 8, &std::piecewise_construct, &v34) + 5);
           }
         }
       }
@@ -2116,7 +2117,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
   v5 = 1.0 - erf((12.0 - a2) / 0.2 * 0.707106781);
   v6 = 1.0 - v4;
   LODWORD(v44) = 0;
-  v7 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
+  v7 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
   v8 = v7 + 1;
   v9 = *v7;
   if (*v7 != v7 + 1)
@@ -2136,7 +2137,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
       }
 
       v44 = v9 + 7;
-      v13 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v9 + 7);
+      v13 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v9 + 7, &std::piecewise_construct, &v44);
       *(v13 + 5) = v12 * *(v13 + 5);
       v14 = *(v9 + 1);
       if (v14)
@@ -2171,7 +2172,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
   v17 = v5 * 0.5;
   v18 = 1.0 - v41;
   LODWORD(v44) = 1;
-  v19 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
+  v19 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
   v20 = v19 + 1;
   v21 = *v19;
   v22 = 1.0 - v4;
@@ -2192,7 +2193,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
       }
 
       v44 = v21 + 7;
-      v26 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v21 + 7);
+      v26 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v21 + 7, &std::piecewise_construct, &v44);
       *(v26 + 5) = v25 * *(v26 + 5);
       v27 = *(v21 + 1);
       if (v27)
@@ -2226,7 +2227,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
 
   v29 = 1.0 - v17;
   LODWORD(v44) = 2;
-  v30 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
+  v30 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v44);
   v31 = v30 + 1;
   v32 = *v30;
   if (*v30 != v30 + 1)
@@ -2246,7 +2247,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
       }
 
       v44 = v32 + 7;
-      v36 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v32 + 7);
+      v36 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, v32 + 7, &std::piecewise_construct, &v44);
       *(v36 + 5) = v35 * *(v36 + 5);
       v37 = *(v32 + 1);
       if (v37)
@@ -2280,7 +2281,7 @@ double FullSharingImportanceEstimator::incorporatePreciseRangeOnly(FullSharingIm
 
   v43 = 0;
   v44 = &v43;
-  v39 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v43);
+  v39 = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(this + 32, &v43, &std::piecewise_construct, &v44);
   result = (1.0 - v29) / v22 * *(v39 + 5);
   *(v39 + 5) = result;
   return result;
@@ -2303,7 +2304,7 @@ uint64_t *FullSharingImportanceEstimator::incorporateCoarseRange(uint64_t *resul
     v5 = 0.0;
     do
     {
-      v6 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
+      v6 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
       v9 = v6[1];
       v7 = v6 + 1;
       v8 = v9;
@@ -2331,7 +2332,7 @@ LABEL_10:
         v11 = v7;
       }
 
-      result = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
+      result = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
       v12 = *(v3 + 40);
       v13 = v4 + v12;
       v14 = v5 + v12;
@@ -2380,7 +2381,7 @@ LABEL_10:
   {
     do
     {
-      v19 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
+      v19 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29);
       v22 = v19[1];
       v20 = v19 + 1;
       v21 = v22;
@@ -2408,7 +2409,7 @@ LABEL_30:
         v24 = v20;
       }
 
-      v25 = std::map<Region,double>::at(FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29) + 1;
+      v25 = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGIONS_BY_RANGE, &v29) + 1;
       result = std::map<Region,double>::at(&FullSharingImportanceEstimator::REGION_SIZE_METERS2, v18 + 8);
       if (v24 == v25)
       {
@@ -2548,7 +2549,7 @@ void FullSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, uint64_t
     {
       do
       {
-        *a2 = *a2 + *std::map<Region,double>::at(FullSharingImportanceEstimator::IMPORTANCE_MAP, v5 + 8) * *(v5 + 5) / v6;
+        *a2 = *a2 + *std::map<Region,double>::at(&FullSharingImportanceEstimator::IMPORTANCE_MAP, v5 + 8) * *(v5 + 5) / v6;
         v12 = *(v5 + 1);
         if (v12)
         {
@@ -2591,7 +2592,7 @@ void FullSharingImportanceEstimator::getImportanceEstimate(uint64_t a1, uint64_t
   {
     do
     {
-      v14 = std::map<Region,double>::at(FullSharingImportanceEstimator::IMPORTANCE_MAP, v5 + 8);
+      v14 = std::map<Region,double>::at(&FullSharingImportanceEstimator::IMPORTANCE_MAP, v5 + 8);
       v15 = *(a2 + 8) + (*v14 - *a2) * (*v14 - *a2) * (*(v5 + 5) / v6);
       *(a2 + 8) = v15;
       v16 = *(v5 + 1);
@@ -2707,41 +2708,41 @@ void std::__tree<std::__value_type<CoarseRange,std::set<Region>>,std::__map_valu
   }
 }
 
-uint64_t *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(uint64_t a1, int *a2)
+uint64_t *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_unique_key_args<Region,std::piecewise_construct_t const&,std::tuple<Region&&>,std::tuple<>>(uint64_t a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -2779,7 +2780,7 @@ uint64_t std::map<Region,double>::insert[abi:ne200100]<std::__map_const_iterator
     v5 = result;
     do
     {
-      result = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(v5, v5 + 1, v4 + 8);
+      result = std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_hint_unique_key_args<Region,std::pair<Region const,double> const&>(v5, (v5 + 8), v4 + 8, v4 + 2);
       v6 = *(v4 + 1);
       if (v6)
       {
@@ -2813,15 +2814,15 @@ uint64_t std::map<Region,double>::insert[abi:ne200100]<std::__map_const_iterator
   return result;
 }
 
-uint64_t **std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<Region,double>,std::__tree_node<std::__value_type<Region,double>,void *> *,long>>(uint64_t **result, void *a2, void *a3)
+void *std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<Region,double>,std::__tree_node<std::__value_type<Region,double>,void *> *,long>>(void *result, void *a2, void *a3)
 {
   v5 = result;
   if (result[2])
   {
     v6 = *result;
     v7 = result[1];
-    *result = (result + 1);
-    v7[2] = 0;
+    *result = result + 1;
+    *(v7 + 16) = 0;
     result[1] = 0;
     result[2] = 0;
     if (v6[1])
@@ -2896,23 +2897,23 @@ uint64_t **std::__tree<std::__value_type<Region,double>,std::__map_value_compare
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_multi<std::pair<Region const,double> const&>();
+    std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__emplace_multi<std::pair<Region const,double> const&>(v5, a2 + 2);
   }
 
   return result;
 }
 
-void sub_230EBC0B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_230EBC0B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::_DetachedTreeCache::~_DetachedTreeCache[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__node_insert_multi(uint64_t **a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<Region,double>,std::__map_value_compare<Region,std::__value_type<Region,double>,std::less<Region>,true>,std::allocator<std::__value_type<Region,double>>>::__node_insert_multi(uint64_t a1, uint64_t a2)
 {
-  v3 = a1 + 1;
-  v4 = a1[1];
+  v3 = (a1 + 8);
+  v4 = *(a1 + 8);
   if (v4)
   {
     do
@@ -2942,7 +2943,7 @@ uint64_t std::__tree<std::__value_type<Region,double>,std::__map_value_compare<R
 
   else
   {
-    v5 = a1 + 1;
+    v5 = (a1 + 8);
   }
 
 LABEL_8:
@@ -3061,8 +3062,9 @@ SharingImportanceManager *SharingImportanceManager::handleMeasurements(SharingIm
         operator new();
       }
 
-      v6 = std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, begin);
-      this = (*(**(v6 + 56) + 8))(*(v6 + 56), begin);
+      v8 = begin;
+      v6 = std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v4, begin, &std::piecewise_construct, &v8, &v7);
+      this = (*(*v6[7] + 8))(v6[7], begin);
       begin = (begin + 88);
     }
 
@@ -3072,18 +3074,18 @@ SharingImportanceManager *SharingImportanceManager::handleMeasurements(SharingIm
   return this;
 }
 
-void SharingImportanceManager::getImportanceEstimates(uint64_t a1, uint64_t a2, double a3)
+void SharingImportanceManager::getImportanceEstimates(void *a1, uint64_t **a2, double a3)
 {
   v22 = 0;
   v23 = 0;
   v24 = 0;
-  v6 = (a2 + 8);
-  std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::destroy(a2, *(a2 + 8));
+  v6 = (a2 + 1);
+  std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::destroy(a2, a2[1]);
   *a2 = v6;
-  *(a2 + 16) = 0;
+  a2[2] = 0;
   *v6 = 0;
   v7 = *a1;
-  if (*a1 != a1 + 8)
+  if (*a1 != a1 + 1)
   {
     v17 = vdupq_n_s64(0x7FF4000000000000uLL);
     do
@@ -3098,15 +3100,15 @@ void SharingImportanceManager::getImportanceEstimates(uint64_t a1, uint64_t a2, 
         LODWORD(v21) = 3;
         *(&v21 + 1) = 0x7FF4000000000000;
         (*(*v7[7] + 16))(v7[7], &v18, a3);
-        v25 = v7 + 4;
-        v8 = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v7 + 4);
+        v26 = v7 + 4;
+        v8 = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, v7 + 4, &std::piecewise_construct, &v26, &v25);
         v9 = v19;
         v11 = v20;
         v10 = v21;
-        *(v8 + 56) = v18;
-        *(v8 + 72) = v9;
-        *(v8 + 88) = v11;
-        *(v8 + 104) = v10;
+        *(v8 + 7) = v18;
+        *(v8 + 9) = v9;
+        *(v8 + 11) = v11;
+        *(v8 + 13) = v10;
       }
 
       else
@@ -3141,7 +3143,7 @@ void SharingImportanceManager::getImportanceEstimates(uint64_t a1, uint64_t a2, 
       v7 = v13;
     }
 
-    while (v13 != (a1 + 8));
+    while (v13 != a1 + 1);
     v15 = v22;
     v16 = v23;
     while (v15 != v16)
@@ -3151,15 +3153,15 @@ void SharingImportanceManager::getImportanceEstimates(uint64_t a1, uint64_t a2, 
     }
   }
 
-  SharingHysteresis::mitigateBackForthIssuesIfPossible(a1 + 32, a2, a3);
-  MagicHeadTieHysteresis::mitigateMagicHeadBackForthIssuesIfPossible(a1 + 96, a2, a3);
-  BigHeadTieHysteresis::mitigateBigHeadBackForthIssuesIfPossible((a1 + 184), a2, a3);
+  SharingHysteresis::mitigateBackForthIssuesIfPossible((a1 + 4), a2, a3);
+  MagicHeadTieHysteresis::mitigateMagicHeadBackForthIssuesIfPossible();
+  BigHeadTieHysteresis::mitigateBigHeadBackForthIssuesIfPossible(a1 + 23, a2, a3);
   SharingImportanceManager::quantizeOutputScores(a1, a2);
   v18.i64[0] = &v22;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v18);
 }
 
-void sub_230EBC720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
+void sub_230EBC720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20)
 {
   a11 = &a20;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a11);
@@ -3460,15 +3462,15 @@ BOOL std::less<std::string>::operator()[abi:ne200100](uint64_t a1, const void **
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(uint64_t a1, uint64_t *a2, const void **a3)
@@ -3706,9 +3708,9 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3915,31 +3917,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -3948,173 +3949,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -4155,7 +4156,7 @@ void SharingHysteresis::SharingHysteresis(SharingHysteresis *this)
   *(this + 7) = 0;
 }
 
-void SharingHysteresis::populateCurrentDeviceScores(uint64_t a1, void *a2)
+double SharingHysteresis::populateCurrentDeviceScores(uint64_t a1, void *a2)
 {
   std::vector<SharingHysteresis::DeviceScore>::clear[abi:ne200100]((a1 + 16));
   v7 = *a2;
@@ -4163,25 +4164,25 @@ void SharingHysteresis::populateCurrentDeviceScores(uint64_t a1, void *a2)
   v6 = v7;
   if (v7 != v5)
   {
-    v15 = vdupq_n_s64(0x7FF4000000000000uLL);
+    v16 = vdupq_n_s64(0x7FF4000000000000uLL);
     do
     {
-      memset(&v16, 0, sizeof(v16));
-      v17 = v15;
-      v18 = v15;
-      std::string::operator=(&v16, (v6 + 4));
+      memset(&v17, 0, sizeof(v17));
+      v18 = v16;
+      v19 = v16;
+      std::string::operator=(&v17, (v6 + 4));
       v4.n128_u64[0] = v6[7];
-      v17.i64[0] = v4.n128_u64[0];
-      v17.i64[1] = v4.n128_u64[0];
-      v18 = 0uLL;
+      v18.i64[0] = v4.n128_u64[0];
+      v18.i64[1] = v4.n128_u64[0];
+      v19 = 0uLL;
       if (*(v6 + 72) == 1)
       {
-        std::vector<SharingHysteresis::DeviceScore>::push_back[abi:ne200100](a1 + 16, &v16);
+        std::vector<SharingHysteresis::DeviceScore>::push_back[abi:ne200100]((a1 + 16), &v17);
       }
 
-      if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v16.__r_.__value_.__l.__data_);
+        operator delete(v17.__r_.__value_.__l.__data_);
       }
 
       v8 = v6[1];
@@ -4217,7 +4218,7 @@ void SharingHysteresis::populateCurrentDeviceScores(uint64_t a1, void *a2)
   v11 = *(a1 + 16);
   v12 = *(a1 + 24);
   v13 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v12 - v11) >> 3));
-  v16.__r_.__value_.__r.__words[0] = compareByScore;
+  v17.__r_.__value_.__r.__words[0] = compareByScore;
   if (v12 == v11)
   {
     v14 = 0;
@@ -4228,7 +4229,7 @@ void SharingHysteresis::populateCurrentDeviceScores(uint64_t a1, void *a2)
     v14 = v13;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,false>(v11, v12, &v16, v14, 1, v4);
+  return std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,false>(v11, v12, &v17, v14, 1, v4);
 }
 
 void sub_230EBE7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -4241,10 +4242,10 @@ void sub_230EBE7C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<SharingHysteresis::DeviceScore>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+uint64_t std::vector<SharingHysteresis::DeviceScore>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<SharingHysteresis::DeviceScore>::__emplace_back_slow_path<SharingHysteresis::DeviceScore const&>(a1, a2);
   }
@@ -4255,11 +4256,11 @@ uint64_t std::vector<SharingHysteresis::DeviceScore>::push_back[abi:ne200100](ui
     result = v3 + 56;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-unint64_t SharingHysteresis::getCurrentRank(uint64_t a1, const void **a2)
+uint64_t SharingHysteresis::getCurrentRank(uint64_t a1, const void **a2)
 {
   v2 = *(a1 + 16);
   v3 = *(a1 + 24) - v2;
@@ -5132,21 +5133,21 @@ __n128 std::vector<SharingHysteresis::DeviceScore>::__construct_one_at_end[abi:n
   return result;
 }
 
-uint64_t std::vector<SharingHysteresis::DeviceScore>::__emplace_back_slow_path<SharingHysteresis::DeviceScore const&>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<SharingHysteresis::DeviceScore>::__emplace_back_slow_path<SharingHysteresis::DeviceScore const&>(uint64_t *a1, __int128 *a2)
 {
-  v2 = 0x6DB6DB6DB6DB6DB7 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if ((v2 + 1) > 0x492492492492492)
   {
     std::vector<Rose::ResponderSuperframeRxPacketInfo>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0xDB6DB6DB6DB6DB6ELL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0xDB6DB6DB6DB6DB6ELL * ((a1[2] - *a1) >> 3);
   }
 
-  if ((0x6DB6DB6DB6DB6DB7 * ((*(a1 + 16) - *a1) >> 3)) >= 0x249249249249249)
+  if ((0x6DB6DB6DB6DB6DB7 * ((a1[2] - *a1) >> 3)) >= 0x249249249249249)
   {
     v6 = 0x492492492492492;
   }
@@ -5186,14 +5187,14 @@ uint64_t std::vector<SharingHysteresis::DeviceScore>::__emplace_back_slow_path<S
   *(v7 + 40) = *(a2 + 40);
   *(v7 + 24) = v11;
   *&v20 = v10 + 56;
-  v12 = *(a1 + 8);
+  v12 = a1[1];
   v13 = v9 + *a1 - v12;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<SharingHysteresis::DeviceScore>,SharingHysteresis::DeviceScore*>(a1, *a1, v12, v13);
   v14 = *a1;
   *a1 = v13;
-  v15 = *(a1 + 16);
+  v15 = a1[2];
   v17 = v20;
-  *(a1 + 8) = v20;
+  *(a1 + 1) = v20;
   *&v20 = v14;
   *(&v20 + 1) = v15;
   v18 = v14;
@@ -5202,9 +5203,9 @@ uint64_t std::vector<SharingHysteresis::DeviceScore>::__emplace_back_slow_path<S
   return v17;
 }
 
-void sub_230EBF898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_230EBF898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<SharingHysteresis::DeviceScore>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5325,13 +5326,13 @@ void std::__split_buffer<SharingHysteresis::DeviceScore>::__destruct_at_end[abi:
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,false>(uint64_t *a1, unint64_t a2, uint64_t (**a3)(__int128 *, uint64_t), uint64_t a4, char a5, __n128 a6)
+double std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,false>(uint64_t *result, unint64_t a2, uint64_t (**a3)(__int128 *, uint64_t), uint64_t a4, char a5, __n128 a6)
 {
   v8 = a2;
-  v9 = a1;
+  v9 = result;
   v82 = *MEMORY[0x277D85DE8];
   v74 = a2;
-  v75 = a1;
+  v75 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
@@ -5344,7 +5345,7 @@ LABEL_2:
 
     if (v12 < 2)
     {
-      goto LABEL_100;
+      return a6.n128_f64[0];
     }
 
     if (v12 == 2)
@@ -5358,7 +5359,7 @@ LABEL_2:
         goto LABEL_99;
       }
 
-      goto LABEL_100;
+      return a6.n128_f64[0];
     }
 
 LABEL_10:
@@ -5374,7 +5375,7 @@ LABEL_10:
         std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(v9, v8, a3);
       }
 
-      goto LABEL_100;
+      return a6.n128_f64[0];
     }
 
     if (i == 1)
@@ -5384,7 +5385,7 @@ LABEL_10:
         std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,SharingHysteresis::DeviceScore*>(v9, v8, v8, a3, a6);
       }
 
-      goto LABEL_100;
+      return a6.n128_f64[0];
     }
 
     v13 = v12 >> 1;
@@ -5477,9 +5478,9 @@ LABEL_28:
 
 LABEL_29:
     v9 = v75;
-    v29 = &v75[7 * v13];
+    v29 = v75 + 56 * v13;
     v78 = (v74 - 7);
-    *&v79 = v75 + 7;
+    *&v79 = v75 + 56;
     *v81 = v29 - 56;
     v30 = (*a3)(v29 - 56, v18);
     v31 = (*a3)(v74 - 7, v29 - 56);
@@ -5519,7 +5520,7 @@ LABEL_44:
 
 LABEL_45:
     v78 = v74 - 21;
-    *&v79 = v75 + 14;
+    *&v79 = v75 + 112;
     *v81 = v29 + 56;
     v38 = (*a3)(v29 + 56, v32);
     v39 = (*a3)((v74 - 168), v29 + 56);
@@ -5560,7 +5561,7 @@ LABEL_54:
 LABEL_55:
     v78 = (v29 + 56);
     *&v79 = v29 - 56;
-    *v81 = &v75[7 * v13];
+    *v81 = v75 + 56 * v13;
     v45 = (*a3)(v29, v29 - 56, v40);
     v46 = (*a3)((v29 + 56), v29);
     if (v45)
@@ -5599,10 +5600,10 @@ LABEL_64:
 
 LABEL_65:
     v51 = *v75;
-    *v81 = v75[1];
+    *v81 = *(v75 + 8);
     *&v81[7] = *(v75 + 15);
     v52 = *(v75 + 23);
-    v75[1] = 0;
+    *(v75 + 8) = 0;
     v9[2] = 0;
     *v9 = 0;
     v53 = *(v9 + 5);
@@ -5648,7 +5649,7 @@ LABEL_67:
     {
       if (v58)
       {
-        v75 = v56 + 7;
+        v75 = (v56 + 7);
         v9 = v56 + 7;
         continue;
       }
@@ -5665,7 +5666,7 @@ LABEL_76:
 
     if (v58)
     {
-      goto LABEL_100;
+      return a6.n128_f64[0];
     }
 
     v74 = v56;
@@ -5693,7 +5694,7 @@ LABEL_76:
         v72 = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(&v79, v81);
         if (!(*a3)(v78, *v81, v72))
         {
-          goto LABEL_100;
+          return a6.n128_f64[0];
         }
 
         v67 = v81;
@@ -5706,7 +5707,7 @@ LABEL_76:
     {
       if (!v66)
       {
-        goto LABEL_100;
+        return a6.n128_f64[0];
       }
 
       v71 = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(v81, &v78);
@@ -5714,7 +5715,7 @@ LABEL_76:
 LABEL_93:
       if (!v63)
       {
-        goto LABEL_100;
+        return a6.n128_f64[0];
       }
 
       v67 = &v79;
@@ -5722,15 +5723,15 @@ LABEL_93:
     }
 
 LABEL_99:
-    std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(v67, v70);
-    goto LABEL_100;
+    a6.n128_u64[0] = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(v67, v70).n128_u64[0];
+    return a6.n128_f64[0];
   }
 
   if (v12 == 4)
   {
     v74 = (v8 - 56);
-    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(v9, v9 + 7, v9 + 14, v8 - 56, a3);
-    goto LABEL_100;
+    a6.n128_f64[0] = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(v9, v9 + 7, v9 + 14, v8 - 7, a3);
+    return a6.n128_f64[0];
   }
 
   if (v12 != 5)
@@ -5744,7 +5745,7 @@ LABEL_99:
   *v81 = v9 + 7;
   v76 = v8 - 56;
   v77 = v9 + 21;
-  v59 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(v9, v9 + 7, v9 + 14, (v9 + 21), a3);
+  v59 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(v9, v9 + 7, v9 + 14, v9 + 21, a3);
   if ((*a3)(v8 - 56, v9 + 21, v59))
   {
     v60 = std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(&v77, &v76);
@@ -5760,24 +5761,22 @@ LABEL_99:
     }
   }
 
-LABEL_100:
-  v73 = *MEMORY[0x277D85DE8];
+  return a6.n128_f64[0];
 }
 
 __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHysteresis::DeviceScore *&,SharingHysteresis::DeviceScore *&>(uint64_t **a1, uint64_t *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = *a2;
   v4 = **a1;
-  *v12 = (*a1)[1];
-  *&v12[7] = *(*a1 + 15);
+  *v11 = (*a1)[1];
+  *&v11[7] = *(*a1 + 15);
   v5 = *(*a1 + 23);
   v2[1] = 0;
   v2[2] = 0;
   *v2 = 0;
-  v10 = *(v2 + 3);
-  v11 = *(v2 + 5);
+  v9 = *(v2 + 3);
+  v10 = *(v2 + 5);
   v6 = *(v3 + 16);
   *v2 = *v3;
   v2[2] = v6;
@@ -5792,17 +5791,16 @@ __n128 std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<SharingHys
   }
 
   *v3 = v4;
-  *(v3 + 8) = *v12;
-  *(v3 + 15) = *&v12[7];
+  *(v3 + 8) = *v11;
+  *(v3 + 15) = *&v11[7];
   *(v3 + 23) = v5;
-  result = v10;
-  *(v3 + 24) = v10;
-  *(v3 + 40) = v11;
-  v9 = *MEMORY[0x277D85DE8];
+  result = v9;
+  *(v3 + 24) = v9;
+  *(v3 + 40) = v10;
   return result;
 }
 
-double std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t (**a5)(uint64_t *, uint64_t *))
+double std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(uint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4, unsigned int (**a5)(uint64_t *, uint64_t *, __n128))
 {
   v22 = a2;
   v23 = a1;
@@ -5859,7 +5857,7 @@ LABEL_10:
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(__int128 *a1, __int128 *a2, uint64_t (**a3)(__int128 *, uint64_t))
 {
   if (a1 != a2)
   {
@@ -5888,16 +5886,16 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Sharin
             v13 = a1 + v11;
             if (*(a1 + v11 + 79) < 0)
             {
-              operator delete(*(v13 + 56));
+              operator delete(*(v13 + 7));
             }
 
             *(v13 + 56) = *v13;
-            *(v13 + 72) = *(v13 + 16);
-            *(v13 + 23) = 0;
+            *(v13 + 9) = *(v13 + 2);
+            v13[23] = 0;
             *v13 = 0;
             v14 = *(v13 + 40);
-            *(v13 + 80) = *(v13 + 24);
-            *(v13 + 96) = v14;
+            *(v13 + 5) = *(v13 + 24);
+            *(v13 + 6) = v14;
             if (!v12)
             {
               break;
@@ -5907,7 +5905,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(Sharin
             v11 = v12 - 56;
             if ((v15 & 1) == 0)
             {
-              v16 = a1 + v12;
+              v16 = (a1 + v12);
               goto LABEL_12;
             }
           }
@@ -5921,7 +5919,7 @@ LABEL_12:
 
           v17 = a1 + v12;
           *v16 = v18;
-          *(v16 + 16) = v19;
+          *(v16 + 2) = v19;
           *(v17 + 24) = v20;
           *(v17 + 40) = v21;
         }
@@ -6019,7 +6017,7 @@ void sub_230EC06E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,SharingHysteresis::DeviceScore *,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&)>(uint64_t a1, unint64_t a2, unsigned int (**a3)(void **, __n128))
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,SharingHysteresis::DeviceScore *,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&)>(uint64_t a1, unint64_t a2, uint64_t (**a3)(void **, uint64_t *))
 {
   v22 = a1;
   v21 = a2;
@@ -6030,7 +6028,7 @@ uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   *a1 = 0;
   v19 = *(a1 + 24);
   v20 = *(a1 + 40);
-  if ((*a3)(__p, a2 - 56))
+  if ((*a3)(__p, (a2 - 56)))
   {
     v5 = a1;
     do
@@ -6147,7 +6145,7 @@ void sub_230EC08EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,SharingHysteresis::DeviceScore *,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&)>(uint64_t a1, unint64_t a2, uint64_t (**a3)(void))
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,SharingHysteresis::DeviceScore *,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&)>(uint64_t a1, unint64_t a2, uint64_t (**a3)(__n128))
 {
   v5 = 0;
   v23 = a2;
@@ -6271,7 +6269,7 @@ void sub_230EC0AFC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t *a1, uint64_t *a2, uint64_t (**a3)(uint64_t *, uint64_t *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t *a1, uint64_t *a2, unsigned int (**a3)(uint64_t *, uint64_t *, __n128))
 {
   v40 = a2;
   v41 = a1;
@@ -6319,7 +6317,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         v15 = (*a3)(v45, v36, v25);
         break;
       case 4:
-        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(a1, a1 + 7, a1 + 14, (a2 - 7), a3);
+        std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(a1, a1 + 7, a1 + 14, a2 - 7, a3);
         return 1;
       case 5:
         *&v36 = a1;
@@ -6328,7 +6326,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL 
         v10 = a2 - 7;
         v43 = a1 + 21;
         v42 = a2 - 7;
-        v11 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(a1, a1 + 7, a1 + 14, (a1 + 21), a3);
+        v11 = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,0>(a1, a1 + 7, a1 + 14, a1 + 21, a3);
         if (!(*a3)(v10, a1 + 21, v11))
         {
           return 1;
@@ -6506,7 +6504,7 @@ void sub_230EC0EF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,SharingHysteresis::DeviceScore*>(__int128 *a1, uint64_t *a2, uint64_t *a3, unsigned int (**a4)(int64_t, uint64_t), __n128 a5)
+uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*,SharingHysteresis::DeviceScore*>(__int128 *a1, uint64_t *a2, uint64_t *a3, uint64_t (**a4)(int64_t, __int128 *), __n128 a5)
 {
   v19 = a1;
   if (a1 != a2)
@@ -6570,7 +6568,7 @@ uint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&
   return a3;
 }
 
-__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t a1, unsigned int (**a2)(int64_t, uint64_t), uint64_t a3, __int128 *a4)
+__n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t a1, uint64_t (**a2)(int64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v4 = a3 - 2;
   if (a3 >= 2)
@@ -6580,11 +6578,11 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHy
     if ((v4 >> 1) >= 0x6DB6DB6DB6DB6DB7 * ((a4 - a1) >> 3))
     {
       v10 = (0xDB6DB6DB6DB6DB6ELL * ((a4 - a1) >> 3)) | 1;
-      v11 = (a1 + 56 * v10);
+      v11 = a1 + 56 * v10;
       v12 = 0xDB6DB6DB6DB6DB6ELL * ((a4 - a1) >> 3) + 2;
-      if (v12 < a3 && (*a2)(a1 + 56 * v10, v11 + 56))
+      if (v12 < a3 && (*a2)(a1 + 56 * v10, (v11 + 56)))
       {
-        v11 = (v11 + 56);
+        v11 += 56;
         v10 = v12;
       }
 
@@ -6606,7 +6604,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHy
           }
 
           v15 = *v11;
-          *(v5 + 2) = *(v11 + 2);
+          *(v5 + 2) = *(v11 + 16);
           *v5 = v15;
           *(v11 + 23) = 0;
           *v11 = 0;
@@ -6619,16 +6617,16 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHy
           }
 
           v17 = (2 * v10) | 1;
-          v11 = (a1 + 56 * v17);
+          v11 = a1 + 56 * v17;
           v10 = 2 * v10 + 2;
           if (v10 >= a3)
           {
             v10 = v17;
           }
 
-          else if ((*a2)(a1 + 56 * v17, v11 + 56))
+          else if ((*a2)(a1 + 56 * v17, (v11 + 56)))
           {
-            v11 = (v11 + 56);
+            v11 += 56;
           }
 
           else
@@ -6646,7 +6644,7 @@ __n128 std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHy
         }
 
         v18 = v19;
-        *(v14 + 2) = v20;
+        *(v14 + 16) = v20;
         *v14 = v18;
         result = v21;
         *(v14 + 40) = v22;
@@ -6668,24 +6666,23 @@ void sub_230EC123C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(uint64_t *a1, uint64_t a2, unsigned int (**a3)(uint64_t, uint64_t), uint64_t a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
   if (a4 >= 2)
   {
     v7 = *a1;
-    *v19 = *(a1 + 8);
-    *&v19[7] = *(a1 + 15);
+    *v18 = a1[1];
+    *&v18[7] = *(a1 + 15);
     v8 = *(a1 + 23);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     *a1 = 0;
-    v17 = *(a1 + 24);
-    v18 = *(a1 + 40);
+    v16 = *(a1 + 3);
+    v17 = *(a1 + 5);
     v9 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(a1, a3, a4);
     v10 = v9;
     v11 = (a2 - 56);
-    v12 = *(v9 + 23);
+    v12 = v9[23];
     if (v9 == (a2 - 56))
     {
       if (v12 < 0)
@@ -6694,11 +6691,11 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(SharingHyster
       }
 
       *v10 = v7;
-      *(v10 + 1) = *v19;
-      *(v10 + 15) = *&v19[7];
-      *(v10 + 23) = v8;
-      *(v10 + 24) = v17;
-      *(v10 + 40) = v18;
+      *(v10 + 1) = *v18;
+      *(v10 + 15) = *&v18[7];
+      v10[23] = v8;
+      *(v10 + 24) = v16;
+      *(v10 + 40) = v17;
     }
 
     else
@@ -6716,23 +6713,21 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(SharingHyster
       v14 = *(a2 - 32);
       *(v10 + 40) = *(a2 - 16);
       *(v10 + 24) = v14;
-      v15 = v10 + 56;
+      v15 = (v10 + 56);
       if (*(a2 - 33) < 0)
       {
         operator delete(*v11);
       }
 
       *(a2 - 56) = v7;
-      *(a2 - 48) = *v19;
-      *(a2 - 41) = *&v19[7];
+      *(a2 - 48) = *v18;
+      *(a2 - 41) = *&v18[7];
       *(a2 - 33) = v8;
-      *(a2 - 32) = v17;
-      *(a2 - 16) = v18;
+      *(a2 - 32) = v16;
+      *(a2 - 16) = v17;
       std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(a1, v15, a3, 0x6DB6DB6DB6DB6DB7 * ((v15 - a1) >> 3));
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_230EC13DC(_Unwind_Exception *exception_object)
@@ -6745,21 +6740,21 @@ void sub_230EC13DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(__int128 *a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
+char *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHysteresis::DeviceScore const&,SharingHysteresis::DeviceScore const&),SharingHysteresis::DeviceScore*>(__int128 *a1, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3)
 {
   v6 = 0;
   v7 = (a3 - 2) / 2;
   do
   {
     v8 = a1 + 56 * v6;
-    v9 = (v8 + 56);
+    v9 = v8 + 56;
     v10 = 2 * v6;
     v6 = (2 * v6) | 1;
     v11 = v10 + 2;
     if (v10 + 2 < a3)
     {
-      v12 = (v8 + 112);
-      if ((*a2)(v8 + 56, v8 + 112))
+      v12 = v8 + 112;
+      if ((*a2)((v8 + 56), (v8 + 112)))
       {
         v9 = v12;
         v6 = v11;
@@ -6774,7 +6769,7 @@ __int128 *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(
     v13 = *v9;
     *(a1 + 2) = *(v9 + 2);
     *a1 = v13;
-    *(v9 + 23) = 0;
+    v9[23] = 0;
     *v9 = 0;
     v14 = *(v9 + 24);
     *(a1 + 40) = *(v9 + 40);
@@ -6803,7 +6798,7 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHyst
       *v10 = 0;
       v12 = *(a2 - 16);
       v18 = *(a2 - 32);
-      v19 = v12;
+      *v19 = v12;
       do
       {
         v13 = v9;
@@ -6839,8 +6834,8 @@ double std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(SharingHyst
       *v13 = v16;
       *(v13 + 2) = v17;
       *(v13 + 24) = v18;
-      result = *&v19;
-      *(v13 + 40) = v19;
+      result = v19[0];
+      *(v13 + 40) = *v19;
     }
   }
 
@@ -6955,7 +6950,7 @@ void std::vector<SharingHysteresis::DeviceScore>::__vdeallocate(uint64_t a1)
   }
 }
 
-void std::vector<SharingHysteresis::DeviceScore>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<SharingHysteresis::DeviceScore>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -7009,16 +7004,16 @@ std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocat
   return v4;
 }
 
-id PRGetDeviceModelName()
+id PRGetDeviceModelName(uint64_t a1)
 {
   if (PRGetDeviceModelName::onceToken != -1)
   {
     PRGetDeviceModelName_cold_1();
   }
 
-  v1 = PRGetDeviceModelName::result;
+  v2 = PRGetDeviceModelName::result;
 
-  return v1;
+  return v2;
 }
 
 void __PRGetDeviceModelName_block_invoke()
@@ -7052,16 +7047,16 @@ id PRGetDeviceSerialNumber()
   return v0;
 }
 
-id PRGetBuildVersion()
+id PRGetBuildVersion(uint64_t a1)
 {
   if (PRGetBuildVersion::onceToken != -1)
   {
     PRGetBuildVersion_cold_1();
   }
 
-  v1 = PRGetBuildVersion::result;
+  v2 = PRGetBuildVersion::result;
 
-  return v1;
+  return v2;
 }
 
 void __PRGetBuildVersion_block_invoke()
@@ -7071,16 +7066,16 @@ void __PRGetBuildVersion_block_invoke()
   PRGetBuildVersion::result = v0;
 }
 
-id PRGetDeviceWifiChipset()
+id PRGetDeviceWifiChipset(uint64_t a1)
 {
   if (PRGetDeviceWifiChipset::onceToken != -1)
   {
     PRGetDeviceWifiChipset_cold_1();
   }
 
-  v1 = PRGetDeviceWifiChipset::result;
+  v2 = PRGetDeviceWifiChipset::result;
 
-  return v1;
+  return v2;
 }
 
 void __PRGetDeviceWifiChipset_block_invoke()
@@ -7090,16 +7085,16 @@ void __PRGetDeviceWifiChipset_block_invoke()
   PRGetDeviceWifiChipset::result = v0;
 }
 
-id PRGetDeviceWifiSKU()
+id PRGetDeviceWifiSKU(uint64_t a1)
 {
   if (PRGetDeviceWifiSKU::onceToken != -1)
   {
     PRGetDeviceWifiSKU_cold_1();
   }
 
-  v1 = PRGetDeviceWifiSKU::result;
+  v2 = PRGetDeviceWifiSKU::result;
 
-  return v1;
+  return v2;
 }
 
 void __PRGetDeviceWifiSKU_block_invoke()
@@ -7122,7 +7117,7 @@ void __PRGetDeviceWifiSKU_block_invoke()
   PRGetDeviceWifiSKU::result = v1;
 }
 
-uint64_t PRIsSupportedPlatform()
+uint64_t PRIsSupportedPlatform(uint64_t a1, uint64_t a2)
 {
   if (PRIsSupportedPlatform::onceToken != -1)
   {
@@ -7138,7 +7133,7 @@ void __PRIsSupportedPlatform_block_invoke()
   PRIsSupportedPlatform::supported = [v0 BOOLValue];
 }
 
-uint64_t PRIsInternalBuild()
+uint64_t PRIsInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (PRIsInternalBuild::once != -1)
   {
@@ -7154,7 +7149,7 @@ void __PRIsInternalBuild_block_invoke()
   PRIsInternalBuild::result = [v0 BOOLValue];
 }
 
-uint64_t PRIsNonUIInstall()
+uint64_t PRIsNonUIInstall(uint64_t a1, uint64_t a2)
 {
   if (PRIsNonUIInstall::once != -1)
   {
@@ -7516,7 +7511,7 @@ void sub_230EC2718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 char *PRCommonSerializePrintableState(void *a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_autoreleasePoolPush();
@@ -7525,9 +7520,9 @@ char *PRCommonSerializePrintableState(void *a1, void *a2)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"WARNING: statedump too big (%d > %d)", objc_msgSend(v6, "length"), 0x8000];
     v8 = MEMORY[0x277CCAC58];
-    v17 = v3;
-    v18[0] = v7;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = v3;
+    v17[0] = v7;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v10 = [v8 dataWithPropertyList:v9 format:200 options:0 error:0];
 
     v6 = v10;
@@ -7544,34 +7539,32 @@ char *PRCommonSerializePrintableState(void *a1, void *a2)
   memcpy(v11 + 200, [v6 bytes], objc_msgSend(v6, "length"));
 
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
-  v9 = v3;
-  v10[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = v3;
+  v9[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = PRCommonSerializePrintableState(v3, v5);
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_230EC2AD0(_Unwind_Exception *exception_object)
@@ -7586,7 +7579,7 @@ void sub_230EC2AD0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned char>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -7666,7 +7659,7 @@ void TopScoreTieHysteresis::clearDeviceScores(TopScoreTieHysteresis *this)
   *(v1 - 35) = 0;
 }
 
-void TopScoreTieHysteresis::addDeviceScore(uint64_t a1, std::string *a2, int a3, double a4)
+void TopScoreTieHysteresis::addDeviceScore(uint64_t a1, const std::string *a2, int a3, double a4)
 {
   memset(&__str, 0, sizeof(__str));
   v10 = NAN;
@@ -7679,11 +7672,11 @@ void TopScoreTieHysteresis::addDeviceScore(uint64_t a1, std::string *a2, int a3,
     *(a1 + 13) = 1;
   }
 
-  v12 = a2;
-  v8 = std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 40, &a2->__r_.__value_.__l.__data_);
-  std::string::operator=((v8 + 56), &__str);
-  *(v8 + 80) = v10;
-  *(v8 + 88) = v11;
+  v13 = a2;
+  v8 = std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 40), &a2->__r_.__value_.__l.__data_, &std::piecewise_construct, &v13, &v12);
+  std::string::operator=((v8 + 7), &__str);
+  *(v8 + 10) = v10;
+  *(v8 + 44) = v11;
   if (*(a1 + 32) < v10)
   {
     *(a1 + 32) = v10;
@@ -7826,21 +7819,22 @@ uint64_t TopScoreTieHysteresis::isInTopScoreLayerPreviously(uint64_t a1, const v
 
   else
   {
-    v4 = *(std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 64, a2) + 89);
+    v7 = a2;
+    v4 = *(std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 64), a2, &std::piecewise_construct, &v7, &v6) + 89);
   }
 
   return v4 & 1;
 }
 
-BOOL TopScoreTieHysteresis::isInTopScoreLayer(TopScoreTieHysteresis *this, double a2, double a3)
+BOOL TopScoreTieHysteresis::isInTopScoreLayer(TopScoreTieHysteresis *this, double a2, double a3, uint64_t a4)
 {
-  v3 = *(this + 4);
-  if (v3 < a2)
+  v4 = *(this + 4);
+  if (v4 < a2)
   {
     TopScoreTieHysteresis::isInTopScoreLayer();
   }
 
-  return v3 - a2 <= a3;
+  return v4 - a2 <= a3;
 }
 
 uint64_t TopScoreTieHysteresis::isInTopScoreLayerWithHysteresis(uint64_t a1, uint64_t a2, double a3)
@@ -7963,13 +7957,13 @@ void sub_230EC5EDC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TopScoreTieHysteresis::mitigateTopScoreBackForthIssuesIfPossible(uint64_t a1, void *a2, double a3)
+void TopScoreTieHysteresis::mitigateTopScoreBackForthIssuesIfPossible(uint64_t a1, uint64_t **a2, double a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   TopScoreTieHysteresis::populateDeviceScores(a1, a2);
   std::string::basic_string[abi:ne200100]<0>(__p, "before");
   TopScoreTieHysteresis::logDeviceScores(a1, __p);
-  if (v21 < 0)
+  if (v20 < 0)
   {
     operator delete(__p[0]);
   }
@@ -7992,18 +7986,18 @@ void TopScoreTieHysteresis::mitigateTopScoreBackForthIssuesIfPossible(uint64_t a
         {
           if (*(v8 + 55) < 0)
           {
-            std::string::__init_copy_ctor_external(&v19, v8[4], v8[5]);
+            std::string::__init_copy_ctor_external(&v18, v8[4], v8[5]);
           }
 
           else
           {
-            v19 = *(v8 + 4);
+            v18 = *(v8 + 4);
           }
 
-          *(v8 + 89) = TopScoreTieHysteresis::isInTopScoreLayerWithHysteresis(a1, &v19, *(v8 + 10));
-          if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+          *(v8 + 89) = TopScoreTieHysteresis::isInTopScoreLayerWithHysteresis(a1, &v18, *(v8 + 10));
+          if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v19.__r_.__value_.__l.__data_);
+            operator delete(v18.__r_.__value_.__l.__data_);
           }
         }
 
@@ -8037,41 +8031,41 @@ void TopScoreTieHysteresis::mitigateTopScoreBackForthIssuesIfPossible(uint64_t a
       while (v10 != (a1 + 48));
     }
 
-    TopScoreTieHysteresis::getTopScoreDevices(a1, buf);
+    TopScoreTieHysteresis::getTopScoreDevices(buf, a1);
     v12 = *buf;
     v13 = *&buf[8];
     while (v12 != v13)
     {
       if (*(v12 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v18, *v12, *(v12 + 1));
+        std::string::__init_copy_ctor_external(&v17, *v12, *(v12 + 1));
       }
 
       else
       {
         v14 = *v12;
-        v18.__r_.__value_.__r.__words[2] = *(v12 + 2);
-        *&v18.__r_.__value_.__l.__data_ = v14;
+        v17.__r_.__value_.__r.__words[2] = *(v12 + 2);
+        *&v17.__r_.__value_.__l.__data_ = v14;
       }
 
-      TopScoreTieHysteresis::overwriteOutputScores(a1, a2, &v18);
-      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+      TopScoreTieHysteresis::overwriteOutputScores(a1, a2, &v17);
+      if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v18.__r_.__value_.__l.__data_);
+        operator delete(v17.__r_.__value_.__l.__data_);
       }
 
       v12 = (v12 + 24);
     }
 
-    v22 = buf;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v22);
+    v21 = buf;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v21);
     std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__tree_node<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,void *> *,long>>((a1 + 64), *(a1 + 40), (a1 + 48));
     *(a1 + 24) = *(a1 + 16);
-    std::string::basic_string[abi:ne200100]<0>(v16, "after");
-    TopScoreTieHysteresis::logDeviceScores(a1, v16);
-    if (v17 < 0)
+    std::string::basic_string[abi:ne200100]<0>(v15, "after");
+    TopScoreTieHysteresis::logDeviceScores(a1, v15);
+    if (v16 < 0)
     {
-      operator delete(v16[0]);
+      operator delete(v15[0]);
     }
   }
 
@@ -8084,13 +8078,11 @@ void TopScoreTieHysteresis::mitigateTopScoreBackForthIssuesIfPossible(uint64_t a
       *&buf[4] = v6;
       *&buf[12] = 2048;
       *&buf[14] = a3;
-      v24 = 2048;
-      v25 = 0x3FE0000000000000;
+      v23 = 2048;
+      v24 = 0x3FE0000000000000;
       _os_log_impl(&dword_230EB5000, v7, OS_LOG_TYPE_INFO, "Timestamp out of order too much! P:%f;C:%f;T:%f", buf, 0x20u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void sub_230EC6184(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36)
@@ -8103,9 +8095,9 @@ void sub_230EC6184(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t a2)
+void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t **a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 56);
   if (*(a1 + 8))
   {
@@ -8117,8 +8109,8 @@ void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t a2)
     v5 = "score";
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v34, v5);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v29);
+  std::string::basic_string[abi:ne200100]<0>(v33, v5);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v28);
   v6 = *(a2 + 23);
   if (v6 >= 0)
   {
@@ -8137,34 +8129,34 @@ void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t a2)
 
   else
   {
-    v8 = *(a2 + 8);
+    v8 = a2[1];
   }
 
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, v7, v8);
+  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v7, v8);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ";", 1);
-  if ((v35 & 0x80u) == 0)
+  if ((v34 & 0x80u) == 0)
   {
-    v10 = v34;
+    v10 = v33;
   }
 
   else
   {
-    v10 = v34[0];
+    v10 = v33[0];
   }
 
-  if ((v35 & 0x80u) == 0)
+  if ((v34 & 0x80u) == 0)
   {
-    v11 = v35;
+    v11 = v34;
   }
 
   else
   {
-    v11 = v34[1];
+    v11 = v33[1];
   }
 
-  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, v10, v11);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v10, v11);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ";", 1);
-  v13 = MEMORY[0x23191ED40](&v29, v4);
+  v13 = MEMORY[0x23191ED40](&v28, v4);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, ";", 1);
   v14 = *(a1 + 40);
   if (v14 != (a1 + 48))
@@ -8192,7 +8184,7 @@ void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t a2)
         v17 = *(v14 + 5);
       }
 
-      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v29, v16, v17);
+      v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v28, v16, v17);
       v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ",", 1);
       v20 = MEMORY[0x23191ED30](v19, v14[10]);
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, ";", 1);
@@ -8231,39 +8223,37 @@ void TopScoreTieHysteresis::logDeviceScores(uint64_t a1, uint64_t a2)
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     p_p = &__p;
-    if (v28 < 0)
+    if (v27 < 0)
     {
       p_p = __p;
     }
 
     *buf = 136315138;
-    v37 = p_p;
+    v36 = p_p;
     _os_log_impl(&dword_230EB5000, v24, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
-  if (v28 < 0)
+  if (v27 < 0)
   {
     operator delete(__p);
   }
 
-  v29 = *MEMORY[0x277D82828];
-  *(&v29 + *(v29 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v30 = MEMORY[0x277D82878] + 16;
-  if (v32 < 0)
+  v28 = *MEMORY[0x277D82828];
+  *(&v28 + *(v28 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v29 = MEMORY[0x277D82878] + 16;
+  if (v31 < 0)
   {
-    operator delete(v31[7].__locale_);
+    operator delete(v30[7].__locale_);
   }
 
-  v30 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v31);
+  v29 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v30);
   std::ostream::~ostream();
-  MEMORY[0x23191EE10](&v33);
-  if (v35 < 0)
+  MEMORY[0x23191EE10](&v32);
+  if (v34 < 0)
   {
-    operator delete(v34[0]);
+    operator delete(v33[0]);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void sub_230EC653C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
@@ -8278,23 +8268,23 @@ void sub_230EC653C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-std::__split_buffer<std::string>::pointer TopScoreTieHysteresis::getTopScoreDevices@<X0>(std::__split_buffer<std::string>::pointer this@<X0>, void *a2@<X8>)
+uint64_t *TopScoreTieHysteresis::getTopScoreDevices@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v2 = this[1].__r_.__value_.__r.__words[2];
-  v3 = this + 2;
-  if (v2 != &this[2])
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v2 = this[5];
+  v3 = this + 6;
+  if (v2 != this + 6)
   {
     do
     {
       if (*(v2 + 89) == 1)
       {
-        this = std::vector<std::string>::push_back[abi:ne200100](a2, v2 + 2);
+        this = std::vector<std::string>::push_back[abi:ne200100](a1, (v2 + 32));
       }
 
-      v5 = *(v2 + 1);
+      v5 = *(v2 + 8);
       if (v5)
       {
         do
@@ -8310,7 +8300,7 @@ std::__split_buffer<std::string>::pointer TopScoreTieHysteresis::getTopScoreDevi
       {
         do
         {
-          v6 = *(v2 + 2);
+          v6 = *(v2 + 16);
           v7 = *v6 == v2;
           v2 = v6;
         }
@@ -8327,27 +8317,35 @@ std::__split_buffer<std::string>::pointer TopScoreTieHysteresis::getTopScoreDevi
   return this;
 }
 
-void sub_230EC6624(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_230EC6624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TopScoreTieHysteresis::overwriteOutputScores(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TopScoreTieHysteresis::overwriteOutputScores(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v25 = *MEMORY[0x277D85DE8];
   result = std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::find<std::string>(a2, a3);
-  if (a2 + 8 == result)
+  if (a2 + 1 != result)
   {
-    goto LABEL_16;
-  }
+    v7 = *(a1 + 8);
+    if (v7 != 1)
+    {
+      if (!v7)
+      {
+        v8 = *(a1 + 32);
+        *buf = a3;
+        result = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, buf, &v19);
+        *(result + 56) = v8;
+      }
 
-  v7 = *(a1 + 8);
-  if (v7 == 1)
-  {
+      return result;
+    }
+
     *buf = a3;
-    v9 = *(std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3) + 112);
+    v9 = *(std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, buf, &v19) + 14);
     v10 = *(a1 + 32);
     v11 = *a1;
     v12 = os_log_type_enabled(*a1, OS_LOG_TYPE_INFO);
@@ -8395,25 +8393,14 @@ LABEL_14:
 
     v18 = *(a1 + 32);
     *buf = a3;
-    result = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3);
+    result = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3, &std::piecewise_construct, buf, &v19);
     *(result + 112) = v18;
-    goto LABEL_16;
   }
 
-  if (!v7)
-  {
-    v8 = *(a1 + 32);
-    *buf = a3;
-    result = std::__tree<std::__value_type<std::string,NeighborImportanceEstimate>,std::__map_value_compare<std::string,std::__value_type<std::string,NeighborImportanceEstimate>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NeighborImportanceEstimate>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a2, a3);
-    *(result + 56) = v8;
-  }
-
-LABEL_16:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-_BYTE *TopScoreTieHysteresis::getAttributeName@<X0>(TopScoreTieHysteresis *this@<X0>, _BYTE *a2@<X8>)
+void *TopScoreTieHysteresis::getAttributeName@<X0>(TopScoreTieHysteresis *this@<X0>, void *a2@<X8>)
 {
   if (*(this + 2))
   {
@@ -8472,15 +8459,15 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-uint64_t std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<SharingImportanceEstimator>>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
 uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
@@ -8592,7 +8579,7 @@ uint64_t **std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::Devi
 
   if (a2 != a3)
   {
-    std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_multi<std::pair<std::string const,TopScoreTieHysteresis::DeviceScore> const&>();
+    std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::__map_value_compare<std::string,std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>>>::__emplace_multi<std::pair<std::string const,TopScoreTieHysteresis::DeviceScore> const&>(v5);
   }
 
   return result;
@@ -8664,9 +8651,9 @@ uint64_t std::__tree<std::__value_type<std::string,TopScoreTieHysteresis::Device
   return a1;
 }
 
-void sub_230EC6F54(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_230EC6F54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,TopScoreTieHysteresis::DeviceScore>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8814,16 +8801,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -8846,9 +8833,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_230EC7388(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_230EC7388(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x23191ED10](&a10);
+  MEMORY[0x23191ED10](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -8948,10 +8935,10 @@ void sub_230EC7A90(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_230EC7DBC(_Unwind_Exception *a1, uint64_t a2, std::locale a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
+void sub_230EC7DBC(_Unwind_Exception *a1, uint64_t a2, std::locale a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, std::locale a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a21);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a6, MEMORY[0x277D82818]);
+  va_start(va, a28);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a13, MEMORY[0x277D82818]);
   MEMORY[0x23191EE10](va);
   _Unwind_Resume(a1);
 }
@@ -9014,9 +9001,9 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return std::iostream::~basic_iostream();
 }
 
-void sub_230EC87A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_230EC87A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9038,10 +9025,11 @@ void sub_230ECA074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_230ECF3C8(_Unwind_Exception *a1)
@@ -9059,11 +9047,11 @@ void sub_230ECFCCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_230ECFEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ECFEC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9074,11 +9062,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_230ED00AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_230ED00AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 80), 8);
+  _Block_object_dispose((v13 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9089,7 +9077,7 @@ void BigHeadTieHysteresis::BigHeadTieHysteresis(BigHeadTieHysteresis *this)
   *this = os_log_create("com.apple.proximity.sharingchoice", "BigHeadTieHysteresis");
 }
 
-void BigHeadTieHysteresis::mitigateBigHeadBackForthIssuesIfPossible(os_log_t *a1, void *a2, double a3)
+void BigHeadTieHysteresis::mitigateBigHeadBackForthIssuesIfPossible(NSObject **a1, uint64_t **a2, double a3)
 {
   std::string::basic_string[abi:ne200100]<0>(v28, "A");
   BigHeadTieHysteresis::logBigHeadCandidates(a1, v28, a2, 1);
@@ -9115,9 +9103,9 @@ void BigHeadTieHysteresis::mitigateBigHeadBackForthIssuesIfPossible(os_log_t *a1
   }
 
   NumDevices = TopScoreTieHysteresis::getNumDevices((a1 + 1));
-  v8 = a2 + 1;
+  v8 = (a2 + 1);
   v7 = *a2;
-  if (*a2 == a2 + 1)
+  if (*a2 == (a2 + 1))
   {
     v9 = 0;
   }
@@ -9240,10 +9228,10 @@ void sub_230ED07BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BigHeadTieHysteresis::logBigHeadCandidates(uint64_t result, uint64_t a2, void *a3, int a4)
+NSObject **BigHeadTieHysteresis::logBigHeadCandidates(NSObject **result, uint64_t **a2, void *a3, int a4)
 {
   v6 = result;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v8 = (a3 + 1);
   v7 = *a3;
   if (*a3 == a3 + 1)
@@ -9290,11 +9278,11 @@ uint64_t BigHeadTieHysteresis::logBigHeadCandidates(uint64_t result, uint64_t a2
 LABEL_12:
     if (!a4)
     {
-      goto LABEL_43;
+      return result;
     }
   }
 
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v36);
   v14 = *(a2 + 23);
   if (v14 >= 0)
   {
@@ -9313,12 +9301,12 @@ LABEL_12:
 
   else
   {
-    v16 = *(a2 + 8);
+    v16 = a2[1];
   }
 
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v15, v16);
+  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v15, v16);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, ";", 1);
-  v18 = MEMORY[0x23191ED40](&v37, v9);
+  v18 = MEMORY[0x23191ED40](&v36, v9);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ";", 1);
   v19 = *a3;
   if (*a3 != v8)
@@ -9348,7 +9336,7 @@ LABEL_12:
           v22 = *(v19 + 5);
         }
 
-        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, v21, v22);
+        v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v36, v21, v22);
         v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, ",", 1);
         v25 = MEMORY[0x23191ED30](v24, v19[10]);
         v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v25, ",", 1);
@@ -9393,36 +9381,33 @@ LABEL_12:
   if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
   {
     p_p = &__p;
-    if (v36 < 0)
+    if (v35 < 0)
     {
       p_p = __p;
     }
 
     *buf = 136315138;
-    v43 = p_p;
+    v42 = p_p;
     _os_log_impl(&dword_230EB5000, v32, OS_LOG_TYPE_INFO, "%s", buf, 0xCu);
   }
 
-  if (v36 < 0)
+  if (v35 < 0)
   {
     operator delete(__p);
   }
 
-  v37 = *MEMORY[0x277D82828];
-  *(&v37 + *(v37 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v38 = MEMORY[0x277D82878] + 16;
-  if (v40 < 0)
+  v36 = *MEMORY[0x277D82828];
+  *(&v36 + *(v36 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v37 = MEMORY[0x277D82878] + 16;
+  if (v39 < 0)
   {
-    operator delete(v39[7].__locale_);
+    operator delete(v38[7].__locale_);
   }
 
-  v38 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v39);
+  v37 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v38);
   std::ostream::~ostream();
-  result = MEMORY[0x23191EE10](&v41);
-LABEL_43:
-  v34 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x23191EE10](&v40);
 }
 
 void sub_230ED0B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
@@ -9434,7 +9419,7 @@ void sub_230ED0B9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2 + 1;
   v2 = *a2;
   if (*a2 != a2 + 1)
@@ -9474,7 +9459,7 @@ void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
     while (v9 != v3);
     if (v6)
     {
-      std::string::basic_string[abi:ne200100]<0>(&v31, "NA");
+      std::string::basic_string[abi:ne200100]<0>(&v30, "NA");
       v11 = *a2;
       v12 = NAN;
       if (*a2 != v3)
@@ -9488,7 +9473,7 @@ void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
             v15 = fabs(v14);
             if (v13 > v15)
             {
-              std::string::operator=(&v31, (v11 + 4));
+              std::string::operator=(&v30, (v11 + 4));
               v12 = v14;
               v13 = v15;
             }
@@ -9527,16 +9512,16 @@ void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
       v18 = *a1;
       if (os_log_type_enabled(*a1, OS_LOG_TYPE_INFO))
       {
-        v19 = &v31;
-        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v19 = &v30;
+        if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v19 = v31.__r_.__value_.__r.__words[0];
+          v19 = v30.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136315394;
-        v33 = *&v19;
-        v34 = 2048;
-        v35 = v12;
+        v32 = *&v19;
+        v33 = 2048;
+        v34 = v12;
         _os_log_impl(&dword_230EB5000, v18, OS_LOG_TYPE_INFO, "Big Head Selection: device %s, minAbsoluteAngleDegreesSigned: %f", buf, 0x16u);
       }
 
@@ -9560,11 +9545,11 @@ void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
                 }
 
                 *buf = 134218498;
-                v33 = v21;
-                v34 = 2080;
-                v35 = *&v23;
-                v36 = 2048;
-                v37 = 0x4014000000000000;
+                v32 = v21;
+                v33 = 2080;
+                v34 = *&v23;
+                v35 = 2048;
+                v36 = 0x4014000000000000;
                 _os_log_impl(&dword_230EB5000, v22, OS_LOG_TYPE_INFO, "Big Head Selection: nil out angle %f for device %s as angle diff greater than %f degrees!", buf, 0x20u);
               }
 
@@ -9652,14 +9637,12 @@ void BigHeadTieHysteresis::selectBigHeadCandidates(os_log_t *a1, void *a2)
         __assert_rtn("selectBigHeadCandidates", "BigHeadTieHysteresis.cpp", 105, "numBigHeadCandidates == getNumberOfBigHeadCandidates(output)");
       }
 
-      if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v31.__r_.__value_.__l.__data_);
+        operator delete(v30.__r_.__value_.__l.__data_);
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t BigHeadTieHysteresis::getNumberOfBigHeadCandidates(uint64_t a1, void *a2)
@@ -9710,38 +9693,38 @@ uint64_t BigHeadTieHysteresis::getNumberOfBigHeadCandidates(uint64_t a1, void *a
 
 void BigHeadTieHysteresis::selectTheWinningBigHeadIfPossible(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  TopScoreTieHysteresis::getTopScoreDevices((a1 + 96), &v34);
-  if (v34 != v35)
+  v40 = *MEMORY[0x277D85DE8];
+  TopScoreTieHysteresis::getTopScoreDevices(&v33, (a1 + 96));
+  if (v33 != v34)
   {
     TopScore = TopScoreTieHysteresis::getTopScore((a1 + 96));
-    if (0xAAAAAAAAAAAAAAABLL * ((v35 - v34) >> 3) < 2)
+    if (0xAAAAAAAAAAAAAAABLL * ((v34 - v33) >> 3) < 2)
     {
-      if (*(v34 + 23) < 0)
+      if (*(v33 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v33, *v34, *(v34 + 1));
+        std::string::__init_copy_ctor_external(&v32, *v33, *(v33 + 1));
       }
 
       else
       {
-        v6 = *v34;
-        v33.__r_.__value_.__r.__words[2] = *(v34 + 2);
-        *&v33.__r_.__value_.__l.__data_ = v6;
+        v6 = *v33;
+        v32.__r_.__value_.__r.__words[2] = *(v33 + 2);
+        *&v32.__r_.__value_.__l.__data_ = v6;
       }
 
       v7 = *a1;
       if (os_log_type_enabled(*a1, OS_LOG_TYPE_INFO))
       {
-        v8 = &v33;
-        if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v8 = &v32;
+        if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v8 = v33.__r_.__value_.__r.__words[0];
+          v8 = v32.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136315394;
         *&buf[4] = v8;
-        v37 = 2048;
-        v38 = TopScore;
+        v36 = 2048;
+        v37 = TopScore;
         _os_log_impl(&dword_230EB5000, v7, OS_LOG_TYPE_INFO, "Big Head Selection: selected big head %s with normalized SOI RSSI %f", buf, 0x16u);
       }
 
@@ -9804,13 +9787,13 @@ void BigHeadTieHysteresis::selectTheWinningBigHeadIfPossible(uint64_t a1, void *
               v19 = v10[5];
             }
 
-            size = HIBYTE(v33.__r_.__value_.__r.__words[2]);
-            if ((v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            size = HIBYTE(v32.__r_.__value_.__r.__words[2]);
+            if ((v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
             {
-              size = v33.__r_.__value_.__l.__size_;
+              size = v32.__r_.__value_.__l.__size_;
             }
 
-            if (v19 != size || (v18 >= 0 ? (v21 = v10 + 4) : (v21 = *v17), (v33.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v22 = &v33) : (v22 = v33.__r_.__value_.__r.__words[0]), memcmp(v21, v22, v19)))
+            if (v19 != size || (v18 >= 0 ? (v21 = v10 + 4) : (v21 = *v17), (v32.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? (v22 = &v32) : (v22 = v32.__r_.__value_.__r.__words[0]), memcmp(v21, v22, v19)))
             {
               if (*(v10 + 73) == 1)
               {
@@ -9826,10 +9809,10 @@ void BigHeadTieHysteresis::selectTheWinningBigHeadIfPossible(uint64_t a1, void *
                   v25 = v10[10];
                   *buf = 134218498;
                   *&buf[4] = v25;
-                  v37 = 2080;
-                  v38 = *&v17;
-                  v39 = 2048;
-                  v40 = v24;
+                  v36 = 2080;
+                  v37 = *&v17;
+                  v38 = 2048;
+                  v39 = v24;
                   _os_log_impl(&dword_230EB5000, v23, OS_LOG_TYPE_INFO, "Big Head Selection: nil out angle %f for device %s with normalized SOI RSSI %f", buf, 0x20u);
                 }
 
@@ -9918,9 +9901,9 @@ void BigHeadTieHysteresis::selectTheWinningBigHeadIfPossible(uint64_t a1, void *
         __assert_rtn("selectTheWinningBigHeadIfPossible", "BigHeadTieHysteresis.cpp", 139, "numBigHeadCandidates == getNumberOfBigHeadCandidates(output)");
       }
 
-      if (SHIBYTE(v33.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v33.__r_.__value_.__l.__data_);
+        operator delete(v32.__r_.__value_.__l.__data_);
       }
     }
 
@@ -9936,7 +9919,6 @@ void BigHeadTieHysteresis::selectTheWinningBigHeadIfPossible(uint64_t a1, void *
     }
   }
 
-  *buf = &v34;
+  *buf = &v33;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](buf);
-  v32 = *MEMORY[0x277D85DE8];
 }

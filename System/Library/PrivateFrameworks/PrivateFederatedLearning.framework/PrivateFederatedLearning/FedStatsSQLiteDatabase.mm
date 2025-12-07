@@ -32,18 +32,18 @@
 + (FedStatsSQLiteDatabase)databaseWithURL:(id)l mode:(char)mode error:(id *)error
 {
   modeCopy = mode;
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v10 = [MEMORY[0x277CCACE0] componentsWithURL:lCopy resolvingAgainstBaseURL:1];
-    v38 = 0;
+    v37 = 0;
     if (modeCopy == 97)
     {
       path = [lCopy path];
-      v27 = [defaultManager fileExistsAtPath:path isDirectory:&v38];
+      v27 = [defaultManager fileExistsAtPath:path isDirectory:&v37];
 
       if ((v27 & 1) == 0)
       {
@@ -55,7 +55,7 @@
         goto LABEL_40;
       }
 
-      if (v38 != 1)
+      if (v37 != 1)
       {
         v17 = 33554498;
 LABEL_35:
@@ -66,8 +66,8 @@ LABEL_35:
 
         if (!v32)
         {
-          v35 = [self alloc];
-          v18 = [v35 initWithDatabase:ppDb];
+          v34 = [self alloc];
+          v18 = [v34 initWithDatabase:ppDb];
           goto LABEL_41;
         }
 
@@ -98,7 +98,7 @@ LABEL_35:
       }
 
       path2 = [lCopy path];
-      v12 = [defaultManager fileExistsAtPath:path2 isDirectory:&v38];
+      v12 = [defaultManager fileExistsAtPath:path2 isDirectory:&v37];
 
       if ((v12 & 1) == 0)
       {
@@ -110,7 +110,7 @@ LABEL_35:
         goto LABEL_40;
       }
 
-      if (v38 != 1)
+      if (v37 != 1)
       {
         path3 = [lCopy path];
         v14 = [defaultManager isReadableFileAtPath:path3];
@@ -118,8 +118,8 @@ LABEL_35:
         if (v14)
         {
           uRLByDeletingLastPathComponent = [MEMORY[0x277CCAD18] queryItemWithName:@"nolock" value:@"1"];
-          v39[0] = uRLByDeletingLastPathComponent;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+          v38[0] = uRLByDeletingLastPathComponent;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
           [v10 setQueryItems:v16];
           v17 = 33554497;
 LABEL_33:
@@ -155,14 +155,14 @@ LABEL_40:
     uRLByDeletingLastPathComponent = [uRLByResolvingSymlinksInPath URLByDeletingLastPathComponent];
 
     path4 = [(__CFString *)uRLByDeletingLastPathComponent path];
-    v21 = [defaultManager fileExistsAtPath:path4 isDirectory:&v38];
-    v22 = v38;
+    v21 = [defaultManager fileExistsAtPath:path4 isDirectory:&v37];
+    v22 = v37;
 
     if (v21 && v22)
     {
       v17 = 33554502;
       path5 = [lCopy path];
-      v24 = [defaultManager fileExistsAtPath:path5 isDirectory:&v38];
+      v24 = [defaultManager fileExistsAtPath:path5 isDirectory:&v37];
 
       if (!v24)
       {
@@ -171,11 +171,11 @@ LABEL_34:
         goto LABEL_35;
       }
 
-      if (v38 != 1)
+      if (v37 != 1)
       {
-        v37 = 0;
-        v29 = [defaultManager removeItemAtURL:lCopy error:&v37];
-        v16 = v37;
+        v36 = 0;
+        v29 = [defaultManager removeItemAtURL:lCopy error:&v36];
+        v16 = v36;
         if ((v29 & 1) == 0)
         {
           if (error)
@@ -217,8 +217,6 @@ LABEL_39:
   }
 
 LABEL_42:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

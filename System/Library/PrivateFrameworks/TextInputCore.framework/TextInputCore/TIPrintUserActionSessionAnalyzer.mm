@@ -6,16 +6,16 @@
 
 - (BOOL)analyzeSession:(id)session alignedSession:(id)alignedSession withConfidence:(unint64_t)confidence
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   alignedSessionCopy = alignedSession;
-  v32 = sessionCopy;
+  v31 = sessionCopy;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   userActionHistory = [sessionCopy userActionHistory];
-  v8 = [userActionHistory countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v8 = [userActionHistory countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (!v8)
   {
     v10 = 0;
@@ -24,18 +24,18 @@
 
   v9 = v8;
   v10 = 0;
-  v11 = *v34;
+  v11 = *v33;
   do
   {
     v12 = 0;
     do
     {
-      if (*v34 != v11)
+      if (*v33 != v11)
       {
         objc_enumerationMutation(userActionHistory);
       }
 
-      v13 = *(*(&v33 + 1) + 8 * v12);
+      v13 = *(*(&v32 + 1) + 8 * v12);
       documentState = [v13 documentState];
       contextBeforeInput = [documentState contextBeforeInput];
       printf("%s: ", [contextBeforeInput UTF8String]);
@@ -131,14 +131,13 @@ LABEL_22:
     }
 
     while (v9 != v12);
-    v28 = [userActionHistory countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v28 = [userActionHistory countByEnumeratingWithState:&v32 objects:v36 count:16];
     v9 = v28;
   }
 
   while (v28);
 LABEL_33:
 
-  v29 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

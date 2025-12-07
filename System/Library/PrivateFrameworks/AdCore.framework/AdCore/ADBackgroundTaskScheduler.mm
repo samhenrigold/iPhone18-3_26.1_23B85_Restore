@@ -30,7 +30,6 @@
 
 uint64_t __43__ADBackgroundTaskScheduler_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedInstance__instance_0 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -118,11 +117,11 @@ void __52__ADBackgroundTaskScheduler_unregisterTaskDelegate___block_invoke(uint6
   }
 }
 
-uint64_t __52__ADBackgroundTaskScheduler_unregisterTaskDelegate___block_invoke_2(uint64_t result, uint64_t a2)
+id *__52__ADBackgroundTaskScheduler_unregisterTaskDelegate___block_invoke_2(id *result, id a2)
 {
-  if (*(result + 32) != a2)
+  if (result[4] != a2)
   {
-    return [*(result + 40) addObject:a2];
+    return [result[5] addObject:a2];
   }
 
   return result;
@@ -209,7 +208,7 @@ uint64_t __52__ADBackgroundTaskScheduler_unregisterTaskDelegate___block_invoke_2
   }
 }
 
-uint64_t __54__ADBackgroundTaskScheduler_handleXPCActivity_withID___block_invoke(uint64_t a1, void *a2)
+void *__54__ADBackgroundTaskScheduler_handleXPCActivity_withID___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 runTask:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) |= result;
@@ -267,33 +266,31 @@ void __47__ADBackgroundTaskScheduler_addBackgroundTask___block_invoke(uint64_t a
 
   v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{objc_msgSend(*(a1 + 32), "delay")}];
   v5 = MEMORY[0x277CCACA8];
-  v6 = *(a1 + 40);
-  v7 = objc_opt_class();
-  v8 = [*(a1 + 32) delay];
+  v6 = objc_opt_class();
+  v7 = [*(a1 + 32) delay];
   [v4 timeIntervalSince1970];
-  v10 = v9;
-  v11 = [v4 AD_localDateTimeAsString];
-  v12 = [v5 stringWithFormat:@"[%@]: Scheduling XPC activity request to run in %lld seconds (%.0f - %@): %@", v7, v8, v10, v11, v3];
-  _ADLog(@"LATDLogging", v12, 0);
+  v9 = v8;
+  v10 = [v4 AD_localDateTimeAsString];
+  v11 = [v5 stringWithFormat:@"[%@]: Scheduling XPC activity request to run in %lld seconds (%.0f - %@): %@", v6, v7, v9, v10, v3];
+  _ADLog(@"LATDLogging", v11, 0);
 
-  v13 = [*(a1 + 32) copyBackgroundTaskAgentCriteria];
-  if (v13)
+  v12 = [*(a1 + 32) copyBackgroundTaskAgentCriteria];
+  if (v12)
   {
-    v14 = [*(a1 + 48) UTF8String];
+    v13 = [*(a1 + 48) UTF8String];
     handler[0] = MEMORY[0x277D85DD0];
     handler[1] = 3221225472;
     handler[2] = __47__ADBackgroundTaskScheduler_addBackgroundTask___block_invoke_2;
     handler[3] = &unk_278C55180;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 48);
-    xpc_activity_register(v14, v13, handler);
+    v16 = *(a1 + 32);
+    v17 = *(a1 + 48);
+    xpc_activity_register(v13, v12, handler);
   }
 
   else
   {
-    v15 = *(a1 + 40);
-    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: No criteria for background task activity: %@", objc_opt_class(), *(a1 + 48)];
-    _ADLog(@"LATDLogging", v16, 0);
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: No criteria for background task activity: %@", objc_opt_class(), *(a1 + 48)];
+    _ADLog(@"LATDLogging", v14, 0);
   }
 }
 
@@ -334,9 +331,8 @@ void __47__ADBackgroundTaskScheduler_addBackgroundTask___block_invoke_2(uint64_t
 void __50__ADBackgroundTaskScheduler_cancelBackgroundTask___block_invoke(uint64_t a1)
 {
   xpc_activity_unregister([*(a1 + 32) UTF8String]);
-  v2 = *(a1 + 40);
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Cancelled XPC activity: %@", objc_opt_class(), *(a1 + 32)];
-  _ADLog(@"LATDLogging", v3, 0);
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"[%@]: Cancelled XPC activity: %@", objc_opt_class(), *(a1 + 32)];
+  _ADLog(@"LATDLogging", v2, 0);
 }
 
 - (void)checkOnTask:(id)task

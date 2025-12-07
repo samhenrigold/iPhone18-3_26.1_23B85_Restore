@@ -166,18 +166,18 @@ void __29__CKForceLayoutAnimator_tick__block_invoke_2(double *a1, void *a2)
 
 void __29__CKForceLayoutAnimator_tick__block_invoke_47(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v31 = a2;
-  v3 = [v31 nodes];
-  v4 = [v3 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v30 = a2;
+  v3 = [v30 nodes];
+  v4 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v33;
+    v6 = *v32;
     v7 = 0.0;
     v8 = 0.0;
     v9 = 0.0;
@@ -185,12 +185,12 @@ void __29__CKForceLayoutAnimator_tick__block_invoke_47(uint64_t a1, void *a2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         WeakRetained = objc_loadWeakRetained((*(*(a1 + 40) + 8) + 40));
         WeakRetained[2](WeakRetained, v11);
 
@@ -208,7 +208,7 @@ void __29__CKForceLayoutAnimator_tick__block_invoke_47(uint64_t a1, void *a2)
         v7 = v7 + v15 * v19;
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v5);
@@ -221,11 +221,11 @@ void __29__CKForceLayoutAnimator_tick__block_invoke_47(uint64_t a1, void *a2)
     v9 = 0.0;
   }
 
-  v20 = [v31 point];
+  v20 = [v30 point];
 
   if (v20)
   {
-    v21 = [v31 point];
+    v21 = [v30 point];
     [v21 CGPointValue];
     v23 = v22;
     v25 = v24;
@@ -237,15 +237,13 @@ void __29__CKForceLayoutAnimator_tick__block_invoke_47(uint64_t a1, void *a2)
   }
 
   v27 = [MEMORY[0x277CCABB0] numberWithDouble:v9];
-  [v31 setObject:v27 forKey:@"charge"];
+  [v30 setObject:v27 forKey:@"charge"];
 
   v28 = [MEMORY[0x277CCABB0] numberWithDouble:v8 / v9];
-  [v31 setObject:v28 forKey:@"chargeX"];
+  [v30 setObject:v28 forKey:@"chargeX"];
 
   v29 = [MEMORY[0x277CCABB0] numberWithDouble:v7 / v9];
-  [v31 setObject:v29 forKey:@"chargeY"];
-
-  v30 = *MEMORY[0x277D85DE8];
+  [v30 setObject:v29 forKey:@"chargeY"];
 }
 
 void __29__CKForceLayoutAnimator_tick__block_invoke_2_49(uint64_t a1, void *a2)

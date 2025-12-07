@@ -157,31 +157,11 @@ LABEL_13:
 {
   deviceCopy = device;
   limit_load_to_device_types = [(RSDLocalService *)self limit_load_to_device_types];
-  if (!limit_load_to_device_types)
+  if (!limit_load_to_device_types || (-[RSDLocalService limit_load_to_device_types](self, "limit_load_to_device_types"), v6 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy type]), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "containsObject:", v7), v7, v6, limit_load_to_device_types, v8))
   {
-    goto LABEL_44;
-  }
-
-  limit_load_to_device_types2 = [(RSDLocalService *)self limit_load_to_device_types];
-  v7 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy type]);
-  v8 = [limit_load_to_device_types2 containsObject:v7];
-
-  if (v8)
-  {
-LABEL_44:
     limit_load_from_device_types = [(RSDLocalService *)self limit_load_from_device_types];
-    if (!limit_load_from_device_types)
+    if (!limit_load_from_device_types || (-[RSDLocalService limit_load_from_device_types](self, "limit_load_from_device_types"), v10 = objc_claimAutoreleasedReturnValue(), +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy type]), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "containsObject:", v11), v11, v10, limit_load_from_device_types, (v12 & 1) == 0))
     {
-      goto LABEL_10;
-    }
-
-    limit_load_from_device_types2 = [(RSDLocalService *)self limit_load_from_device_types];
-    v11 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [deviceCopy type]);
-    v12 = [limit_load_from_device_types2 containsObject:v11];
-
-    if ((v12 & 1) == 0)
-    {
-LABEL_10:
       if ([(RSDLocalService *)self entitlement]&& (!strcmp([(RSDLocalService *)self entitlement], "AppleInternal") || !strcmp([(RSDLocalService *)self entitlement], "None-AppleInternal")) && (os_variant_has_internal_content() & 1) != 0 || [(RSDLocalService *)self is_exposed_to_untrusted_devices])
       {
         goto LABEL_11;

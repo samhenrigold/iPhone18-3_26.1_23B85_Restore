@@ -11,7 +11,7 @@
 
 - (void)handleUpdatedSettings:(id)settings mirrorOutputFuture:(id)future
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   futureCopy = future;
   workQueue = [(HMDHomeAIPersonDataInterface *)self workQueue];
@@ -32,17 +32,15 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v14;
-      v18 = 2112;
-      v19 = settingsCopy;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Updated settings could not be converted into HMIExternalPersonManagerSettings: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v14;
+      v17 = 2112;
+      v18 = settingsCopy;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Updated settings could not be converted into HMIExternalPersonManagerSettings: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSettingsWithCompletion:(id)completion
@@ -61,16 +59,16 @@
 
 void __66__HMDHomeAIPhotosPersonDataInterface_fetchSettingsWithCompletion___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Fetching settings", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Fetching settings", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -91,11 +89,11 @@ void __66__HMDHomeAIPhotosPersonDataInterface_fetchSettingsWithCompletion___bloc
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetched settings could not be converted into HMIExternalPersonManagerSettings: %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Fetched settings could not be converted into HMIExternalPersonManagerSettings: %@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -103,8 +101,6 @@ void __66__HMDHomeAIPhotosPersonDataInterface_fetchSettingsWithCompletion___bloc
     v14 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:15];
     (*(v13 + 16))(v13, 0, v14);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -157,10 +153,9 @@ void __66__HMDHomeAIPhotosPersonDataInterface_fetchSettingsWithCompletion___bloc
 
 void __49__HMDHomeAIPhotosPersonDataInterface_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_84585;
-  logCategory__hmf_once_v1_84585 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_84585;
+  logCategory__hmf_once_v1_84585 = v0;
 }
 
 @end

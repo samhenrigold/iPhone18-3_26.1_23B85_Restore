@@ -1,41 +1,3 @@
-uint64_t health_algorithms::get_effective_wavelength<mimosa::WavelengthV2Subpacket>(uint64_t a1, int a2)
-{
-  if (*(a1 + 64))
-  {
-    goto LABEL_2;
-  }
-
-  v4 = (a1 + 20);
-  v3 = 48;
-  while (*v4 != a2)
-  {
-    v4 += 4;
-    v3 -= 8;
-    if (!v3)
-    {
-      v2 = 0;
-      return v3 | v2;
-    }
-  }
-
-  v5 = *(v4 - 1);
-  if (!v5)
-  {
-LABEL_2:
-    v2 = 0;
-    v3 = 0;
-  }
-
-  else
-  {
-    *&v6 = vcvtd_n_f64_u32(v5, 7uLL);
-    v3 = v6;
-    v2 = 0x100000000;
-  }
-
-  return v3 | v2;
-}
-
 void mimosa::PacketV2::~PacketV2(mimosa::PacketV2 *this)
 {
   v2 = *(this + 20);
@@ -125,112 +87,112 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PP
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<5ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<6ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<7ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<8ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<9ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<10ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
-uint64_t std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t *std::__variant_detail::__visitation::__base::__dispatcher<11ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<health_algorithms::PPGProcessor::compute_accel_output(std::variant<mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)1,mimosa::PacketV1,mimosa::PacketV2,mimosa::PacketV3,mimosa::PacketV4,mimosa::PacketV5,mimosa::PacketV6,mimosa::PacketV7,mimosa::PacketV8,mimosa::PacketV9,mimosa::PacketV10,mimosa::PacketV11,mimosa::PacketV12> const&>@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
 {
   *a2 = *(a1 + 56);
   *(a2 + 24) = 0;
   *(a2 + 32) = 0;
   *(a2 + 16) = 0;
-  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>(a2 + 16, *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
+  return std::vector<mimosa::AccelSample>::__init_with_size[abi:ne200100]<mimosa::AccelSample*,mimosa::AccelSample*>((a2 + 16), *(a1 + 72), *(a1 + 80), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 80) - *(a1 + 72)) >> 2));
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<health_algorithms::PPGProcessor::AccelOutputSignal>>(uint64_t a1, unint64_t a2)
@@ -442,16 +404,16 @@ LABEL_19:
   return result;
 }
 
-id hws_get_hermit_log()
+id hws_get_hermit_log(uint64_t a1)
 {
   if (hws_get_hermit_log_onceToken != -1)
   {
     hws_get_hermit_log_cold_1();
   }
 
-  v1 = hws_get_hermit_log_log;
+  v2 = hws_get_hermit_log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __hws_get_hermit_log_block_invoke()
@@ -461,7 +423,7 @@ uint64_t __hws_get_hermit_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_2512A1D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
+void sub_2512A1D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25)
 {
   v29 = v25;
 
@@ -476,20 +438,17 @@ void sub_2512A1D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<HermitNotification::HSReport>::reserve(void *result, unint64_t a2)
+void std::vector<HermitNotification::HSReport>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HermitNotification::HSReport>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HermitNotification::HSReport>>(a1, a2);
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<HermitNotification::HSReport>>(uint64_t a1, unint64_t a2)
@@ -533,14 +492,14 @@ void HermitNotification::Processor::~Processor(HermitNotification::Processor *th
   }
 }
 
-void HermitNotification::Processor::Impl::process(uint64_t *a1@<X1>, uint64_t a2@<X8>, double a3@<D0>, double a4@<D1>)
+void HermitNotification::Processor::Impl::process(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>)
 {
   v47 = *MEMORY[0x277D85DE8];
-  *a2 = 0;
-  *(a2 + 4) = 0;
-  *(a2 + 16) = 0;
-  v5 = a4 - a3;
-  if (a4 - a3 == 2592000.0)
+  *a3 = 0;
+  *(a3 + 4) = 0;
+  *(a3 + 16) = 0;
+  v6 = a5 - a4;
+  if (a5 - a4 == 2592000.0)
   {
     v41 = 0u;
     v42 = 0u;
@@ -548,113 +507,114 @@ void HermitNotification::Processor::Impl::process(uint64_t *a1@<X1>, uint64_t a2
     __src = 0;
     v39 = 0;
     v40 = 0;
-    v7 = *a1;
-    v8 = a1[1];
-    if (*a1 == v8)
+    v8 = *a2;
+    v9 = a2[1];
+    if (*a2 == v9)
     {
       v26 = 0;
-      v9 = 0;
+      v10 = 0;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        v10 = *v7;
-        v11 = *(v7 + 8);
-        v12 = *v7 - a3;
-        if (v12 < 0.0 || v12 >= 2592000.0)
+        v11 = *v8;
+        v12 = *(v8 + 8);
+        v13 = *v8 - a4;
+        if (v13 < 0.0 || v13 >= 2592000.0)
         {
-          hermit_log = hws_get_hermit_log();
-          if (os_log_type_enabled(hermit_log, OS_LOG_TYPE_FAULT))
+          hermit_log = hws_get_hermit_log(a1);
+          a1 = os_log_type_enabled(hermit_log, OS_LOG_TYPE_FAULT);
+          if (a1)
           {
             *buf = 134218240;
-            *&buf[4] = v10;
+            *&buf[4] = v11;
             v45 = 2048;
-            v46 = v11;
+            v46 = v12;
             _os_log_fault_impl(&dword_251282000, hermit_log, OS_LOG_TYPE_FAULT, "Input Hermit Score exceeds analysis window, will be filtered out, Time: %f, Score %f", buf, 0x16u);
           }
         }
 
         else
         {
-          v37 = (v12 / 86400.0);
-          v13 = v39;
+          v37 = (v13 / 86400.0);
+          v14 = v39;
           if (v39 >= v40)
           {
-            v16 = __src;
-            v17 = v39 - __src;
-            v18 = (v39 - __src) >> 2;
-            v19 = v18 + 1;
-            if ((v18 + 1) >> 62)
+            v17 = __src;
+            v18 = v39 - __src;
+            v19 = (v39 - __src) >> 2;
+            v20 = v19 + 1;
+            if ((v19 + 1) >> 62)
             {
               std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
             }
 
-            v20 = v40 - __src;
-            if ((v40 - __src) >> 1 > v19)
+            v21 = v40 - __src;
+            if ((v40 - __src) >> 1 > v20)
             {
-              v19 = v20 >> 1;
+              v20 = v21 >> 1;
             }
 
-            if (v20 >= 0x7FFFFFFFFFFFFFFCLL)
+            if (v21 >= 0x7FFFFFFFFFFFFFFCLL)
             {
-              v21 = 0x3FFFFFFFFFFFFFFFLL;
+              v22 = 0x3FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v21 = v19;
+              v22 = v20;
             }
 
-            if (v21)
-            {
-              std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v21);
-            }
-
-            *(4 * v18) = v11;
-            v14 = 4 * v18 + 4;
-            memcpy(0, v16, v17);
-            v22 = __src;
-            __src = 0;
-            v39 = v14;
-            v40 = 0;
             if (v22)
             {
-              operator delete(v22);
+              std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(&__src, v22);
+            }
+
+            *(4 * v19) = v12;
+            v15 = 4 * v19 + 4;
+            memcpy(0, v17, v18);
+            v23 = __src;
+            __src = 0;
+            v39 = v15;
+            v40 = 0;
+            if (v23)
+            {
+              operator delete(v23);
             }
           }
 
           else
           {
-            *v39 = v11;
-            v14 = (v13 + 1);
+            *v39 = v12;
+            v15 = (v14 + 1);
           }
 
-          v39 = v14;
-          ++v9;
+          v39 = v15;
+          ++v10;
           if (std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::find<int>(&v41, &v37))
           {
             *buf = &v37;
-            v23 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v41, &v37);
-            v24 = *(v23 + 5) + 1;
+            a1 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v41, &v37, &std::piecewise_construct, buf);
+            v24 = *(a1 + 5) + 1;
           }
 
           else
           {
             *buf = &v37;
-            v23 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v41, &v37);
+            a1 = std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&v41, &v37, &std::piecewise_construct, buf);
             v24 = 1;
           }
 
-          *(v23 + 5) = v24;
+          *(a1 + 5) = v24;
         }
 
-        v7 += 16;
+        v8 += 16;
       }
 
-      while (v7 != v8);
+      while (v8 != v9);
       v25 = v42;
       if (v42)
       {
@@ -680,7 +640,7 @@ void HermitNotification::Processor::Impl::process(uint64_t *a1@<X1>, uint64_t a2
             v28 = v28 + v29;
           }
 
-          v32 = v28 / v9;
+          v32 = v28 / v10;
           v31 = v32 >= 1.01;
           goto LABEL_40;
         }
@@ -695,27 +655,28 @@ void HermitNotification::Processor::Impl::process(uint64_t *a1@<X1>, uint64_t a2
     v31 = -9;
     v32 = NAN;
 LABEL_40:
-    *a2 = v31;
+    *a3 = v31;
     v33 = 3.4028e38;
     if ((LODWORD(v32) & 0x7FFFFFFFu) < 0x7F800000)
     {
       v33 = v32;
     }
 
-    *(a2 + 4) = v33;
-    *(a2 + 8) = v26;
-    *(a2 + 12) = v9;
-    *(a2 + 16) = 1;
-    v34 = hws_get_hermit_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    *(a3 + 4) = v33;
+    *(a3 + 8) = v26;
+    *(a3 + 12) = v10;
+    *(a3 + 16) = 1;
+    v34 = hws_get_hermit_log(a1);
+    v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG);
+    if (v35)
     {
       HermitNotification::Processor::Impl::process(v34, v32);
     }
 
-    v35 = hws_get_hermit_log();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+    v36 = hws_get_hermit_log(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
-      HermitNotification::Processor::Impl::process(v31, v35);
+      HermitNotification::Processor::Impl::process(v31, v36);
     }
 
     if (__src)
@@ -725,28 +686,27 @@ LABEL_40:
     }
 
     std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::~__hash_table(&v41);
-    goto LABEL_49;
+    return;
   }
 
-  v30 = hws_get_hermit_log();
+  v30 = hws_get_hermit_log(a1);
   if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
   {
-    HermitNotification::Processor::Impl::process(v30, v5);
+    HermitNotification::Processor::Impl::process(v30, v6);
   }
 
-  *a2 = 2;
-LABEL_49:
-  v36 = *MEMORY[0x277D85DE8];
+  *a3 = 2;
 }
 
-void sub_2512A2440(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15)
+void sub_2512A2440(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (__p)
   {
     operator delete(__p);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::~__hash_table(&a15);
+  std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
 
@@ -827,33 +787,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,int>,std::__unordered_map_hasher<int,std::__hash_value_type<int,int>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,int>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -861,73 +821,70 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void HermitNotification::Processor::Impl::process(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a2 / 86400.0;
-  v5 = 1024;
-  v6 = 30;
-  _os_log_fault_impl(&dword_251282000, log, OS_LOG_TYPE_FAULT, "Defined analysis window is %f and not equal to the analysis window of size %d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a2 / 86400.0;
+  v4 = 1024;
+  v5 = 30;
+  _os_log_fault_impl(&dword_251282000, log, OS_LOG_TYPE_FAULT, "Defined analysis window is %f and not equal to the analysis window of size %d", &v2, 0x12u);
 }
 
 void HermitNotification::Processor::Impl::process(os_log_t log, float a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134545665;
-  v4 = a2;
-  _os_log_debug_impl(&dword_251282000, log, OS_LOG_TYPE_DEBUG, "Mean Hermit Score: %{sensitive}f", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134545665;
+  v3 = a2;
+  _os_log_debug_impl(&dword_251282000, log, OS_LOG_TYPE_DEBUG, "Mean Hermit Score: %{sensitive}f", &v2, 0xCu);
 }
 
 void HermitNotification::Processor::Impl::process(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67436801;
-  v3[1] = a1;
-  _os_log_debug_impl(&dword_251282000, a2, OS_LOG_TYPE_DEBUG, "Hermit Notification Status : %{sensitive}d", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67436801;
+  v2[1] = a1;
+  _os_log_debug_impl(&dword_251282000, a2, OS_LOG_TYPE_DEBUG, "Hermit Notification Status : %{sensitive}d", v2, 8u);
 }
 
 float CinnAlgs::convertImpedance(unsigned __int8 *a1, unsigned int a2)
@@ -1031,13 +988,13 @@ float CinnAlgs::convertAdcAcVolt(uint64_t a1, unsigned int a2, int a3)
   return result;
 }
 
-void mimosa::v2::encode_start_of_stream(uint64_t a1, uint64_t a2)
+void mimosa::v2::encode_start_of_stream(int *a1, uint64_t a2)
 {
   __p = 0;
   v11 = 0;
   v12 = 0;
   std::vector<std::byte>::reserve(&__p, 0x80uLL);
-  std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,std::byte const*>(&__p, __p, mimosa::v2::encode_start_of_stream(mimosa::Metadata const&,std::function<void ()(std::byte const*,unsigned long)>)::start_sequence, &mimosa::OpREv5::n_dce_led_index_map, 8);
+  std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,std::byte const*>(&__p, __p, mimosa::v2::encode_start_of_stream(mimosa::Metadata const&,std::function<void ()(std::byte const*,unsigned long)>)::start_sequence, mimosa::OpREv5::n_dce_led_index_map, 8);
   if ((v11 - __p) > 0xFFFFFFFFFFFFFFFDLL)
   {
     v11 += 2;
@@ -1055,12 +1012,12 @@ void mimosa::v2::encode_start_of_stream(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 12) == 1)
   {
-    mimosa::v2::encode_metadata_kv_pair<unsigned int>(1, (a1 + 8), &__p);
+    mimosa::v2::encode_metadata_kv_pair<unsigned int>(1, a1 + 2, &__p);
   }
 
   if (*(a1 + 32) == 1)
   {
-    mimosa::v2::encode_metadata_kv_pair(2, a1 + 16, &__p);
+    mimosa::v2::encode_metadata_kv_pair(2, (a1 + 4), &__p);
   }
 
   if (*(a1 + 49) == 1)
@@ -1070,24 +1027,24 @@ void mimosa::v2::encode_start_of_stream(uint64_t a1, uint64_t a2)
 
   if (*(a1 + 80) == 1)
   {
-    mimosa::v2::encode_metadata_kv_pair(4, a1 + 56, &__p);
+    mimosa::v2::encode_metadata_kv_pair(4, (a1 + 14), &__p);
   }
 
   if (*(a1 + 112) == 1)
   {
-    mimosa::v2::encode_metadata_kv_pair(5, a1 + 88, &__p);
+    mimosa::v2::encode_metadata_kv_pair(5, (a1 + 22), &__p);
   }
 
   if (*(a1 + 144) == 1)
   {
-    mimosa::v2::encode_metadata_kv_pair(6, a1 + 120, &__p);
+    mimosa::v2::encode_metadata_kv_pair(6, (a1 + 30), &__p);
   }
 
   if (*(a1 + 224) == 1)
   {
     LOBYTE(v13) = 7;
     std::vector<std::byte>::push_back[abi:ne200100](&__p, &v13);
-    mimosa::v2::encode((a1 + 152), &v13);
+    mimosa::v2::encode(&v13, (a1 + 38));
     mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v14 - v13, &__p);
     v4 = v13;
     v5 = v14;
@@ -1114,7 +1071,7 @@ void mimosa::v2::encode_start_of_stream(uint64_t a1, uint64_t a2)
   {
     LOBYTE(v13) = 8;
     std::vector<std::byte>::push_back[abi:ne200100](&__p, &v13);
-    mimosa::v2::encode(a1 + 232);
+    mimosa::v2::encode((a1 + 58));
     mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector<std::byte>>>(v14 - v13, &__p);
     v6 = v13;
     v7 = v14;
@@ -1165,20 +1122,17 @@ void sub_2512A2DD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::byte>::reserve(void *result, unint64_t a2)
+void std::vector<std::byte>::reserve(void *a1, unint64_t a2)
 {
-  if (result[2] - *result < a2)
+  if (a1[2] - *a1 < a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 char *mimosa::v2::encode_metadata_kv_pair<unsigned int>(char a1, int *a2, uint64_t a3)
@@ -1255,40 +1209,48 @@ uint64_t std::function<void ()(std::byte const*,unsigned long)>::operator()(uint
 unsigned __int8 *mimosa::v2::decode_metadata()
 {
   v0 = MEMORY[0x28223BE20]();
-  v59 = *MEMORY[0x277D85DE8];
-  if (v1 < 2 || (v3 = v0, v4 = v0 + 2, v5 = *v0, v33 = v0 + 2, v5 + 2 > v1))
+  v58 = *MEMORY[0x277D85DE8];
+  if (v1 < 2)
   {
-    v6 = 0;
-    goto LABEL_79;
+    return 0;
   }
 
-  v29 = v2;
-  LOBYTE(v35) = 0;
+  v3 = v0;
+  v4 = v0 + 2;
+  v5 = *v0;
+  v32 = v0 + 2;
+  if (v5 + 2 > v1)
+  {
+    return 0;
+  }
+
+  v28 = v2;
+  LOBYTE(v34) = 0;
   v7 = &v4[v5];
-  v36 = 0;
-  LOBYTE(v37) = 0;
-  v38 = 0;
-  LOBYTE(v39[0]) = 0;
-  *v40 = 0;
-  v42 = 0;
-  LOBYTE(v43[0]) = 0;
-  v45 = 0;
-  LOBYTE(v46[0]) = 0;
-  v48 = 0;
-  LOBYTE(v49[0]) = 0;
-  v51 = 0;
-  LOBYTE(v52) = 0;
-  v56 = 0;
-  LOBYTE(v57[0]) = 0;
-  v58 = 0;
-  v32[0] = &v33;
-  v32[1] = &v4[v5];
+  v35 = 0;
+  LOBYTE(v36) = 0;
+  v37 = 0;
+  LOBYTE(v38[0]) = 0;
+  *v39 = 0;
+  v41 = 0;
+  LOBYTE(v42[0]) = 0;
+  v44 = 0;
+  LOBYTE(v45[0]) = 0;
+  v47 = 0;
+  LOBYTE(v48[0]) = 0;
+  v50 = 0;
+  LOBYTE(v51) = 0;
+  v55 = 0;
+  LOBYTE(v56[0]) = 0;
+  v57 = 0;
+  v31[0] = &v32;
+  v31[1] = &v4[v5];
   if (v5)
   {
     while (1)
     {
       v8 = v4 + 1;
-      v33 = v4 + 1;
+      v32 = v4 + 1;
       v9 = *v4;
       if (v9 <= 3)
       {
@@ -1296,9 +1258,9 @@ unsigned __int8 *mimosa::v2::decode_metadata()
         {
           if (v9 == 2)
           {
-            v39[0] = 0;
-            v39[1] = 0;
-            v40[0] = 1;
+            v38[0] = 0;
+            v38[1] = 0;
+            v39[0] = 1;
             v12 = v4 + 17;
             if (v12 > v7)
             {
@@ -1307,7 +1269,7 @@ unsigned __int8 *mimosa::v2::decode_metadata()
 
             for (i = 0; i != 16; ++i)
             {
-              *(v39 + i) = v8[i];
+              *(v38 + i) = v8[i];
             }
           }
 
@@ -1318,9 +1280,9 @@ unsigned __int8 *mimosa::v2::decode_metadata()
               goto LABEL_80;
             }
 
-            *&v40[1] = 0;
-            v41 = 0;
-            v42 = 1;
+            *&v39[1] = 0;
+            v40 = 0;
+            v41 = 1;
             v12 = v4 + 17;
             if (v12 > v7)
             {
@@ -1332,35 +1294,35 @@ LABEL_81:
 
             for (j = 0; j != 16; ++j)
             {
-              v40[j + 1] = v8[j];
+              v39[j + 1] = v8[j];
             }
           }
         }
 
         else if (*v4)
         {
-          v37 = 0;
-          v38 = 1;
+          v36 = 0;
+          v37 = 1;
           v12 = v4 + 5;
           if (v12 > v7)
           {
             goto LABEL_81;
           }
 
-          v37 = *v8;
+          v36 = *v8;
         }
 
         else
         {
-          v35 = 0;
-          v36 = 1;
+          v34 = 0;
+          v35 = 1;
           v12 = v4 + 5;
           if (v12 > v7)
           {
             goto LABEL_81;
           }
 
-          v35 = *v8;
+          v34 = *v8;
         }
 
         goto LABEL_59;
@@ -1375,7 +1337,7 @@ LABEL_81:
       {
         if (v9 == 7)
         {
-          if (v56 == 1)
+          if (v55 == 1)
           {
             if (__p)
             {
@@ -1383,49 +1345,49 @@ LABEL_81:
               operator delete(__p);
             }
 
-            if (v53[1])
+            if (v52[1])
             {
-              v53[2] = v53[1];
-              operator delete(v53[1]);
+              v52[2] = v52[1];
+              operator delete(v52[1]);
             }
 
-            if (v52)
+            if (v51)
             {
-              *(&v52 + 1) = v52;
-              operator delete(v52);
+              *(&v51 + 1) = v51;
+              operator delete(v51);
             }
           }
 
-          v55 = 0;
+          v54 = 0;
           __p = 0u;
-          memset(v53, 0, sizeof(v53));
-          v52 = 0u;
-          v56 = 1;
-          if (v33 == v7)
+          memset(v52, 0, sizeof(v52));
+          v51 = 0u;
+          v55 = 1;
+          if (v32 == v7)
           {
             goto LABEL_81;
           }
 
-          v10 = mimosa::v2::nanite::leb128_decode<unsigned long long,std::byte const*>(v33, v7);
-          v33 = v17;
+          v10 = mimosa::v2::nanite::leb128_decode<unsigned long long,std::byte const*>(v32, v7);
+          v32 = v17;
           mimosa::v2::decode_light_path_semantics(v17, v10, __src);
-          if (v52)
+          if (v51)
           {
-            *(&v52 + 1) = v52;
-            operator delete(v52);
+            *(&v51 + 1) = v51;
+            operator delete(v51);
           }
 
-          v52 = *__src;
-          v53[0] = *&__src[16];
+          v51 = *__src;
+          v52[0] = *&__src[16];
           memset(__src, 0, 24);
-          if (v53[1])
+          if (v52[1])
           {
-            v53[2] = v53[1];
-            operator delete(v53[1]);
+            v52[2] = v52[1];
+            operator delete(v52[1]);
           }
 
-          *&v53[1] = *&__src[24];
-          v53[3] = *&__src[40];
+          *&v52[1] = *&__src[24];
+          v52[3] = *&__src[40];
           memset(&__src[24], 0, 24);
           v18 = __p;
           if (__p)
@@ -1436,7 +1398,7 @@ LABEL_81:
           }
 
           __p = *&__src[48];
-          v55 = *&__src[64];
+          v54 = *&__src[64];
           memset(&__src[48], 0, 24);
           if (v18)
           {
@@ -1458,33 +1420,33 @@ LABEL_81:
             goto LABEL_80;
           }
 
-          bzero(v57, 0x33CuLL);
-          v57[560] = 0;
-          v58 = 1;
+          bzero(v56, 0x33CuLL);
+          v56[560] = 0;
+          v57 = 1;
           if (v8 == v7)
           {
             goto LABEL_81;
           }
 
           v10 = mimosa::v2::nanite::leb128_decode<unsigned long long,std::byte const*>(v8, v7);
-          v33 = v11;
+          v32 = v11;
           mimosa::v2::decode_opre();
-          memcpy(v57, __src, sizeof(v57));
+          memcpy(v56, __src, sizeof(v56));
         }
 
-        v12 = &v33[v10];
+        v12 = &v32[v10];
 LABEL_59:
-        v33 = v12;
+        v32 = v12;
         goto LABEL_60;
       }
 
-      v14 = v49;
-      v15 = &v51;
-      if (v51 == 1)
+      v14 = v48;
+      v15 = &v50;
+      if (v50 == 1)
       {
-        v14 = v49;
-        v15 = &v51;
-        if (v50 < 0)
+        v14 = v48;
+        v15 = &v50;
+        if (v49 < 0)
         {
           goto LABEL_38;
         }
@@ -1495,10 +1457,10 @@ LABEL_39:
       v14->__r_.__value_.__l.__size_ = 0;
       v14->__r_.__value_.__r.__words[2] = 0;
       *v15 = 1;
-      mimosa::v2::decode_metadata(std::byte const*,unsigned long,std::function<BOOL ()(mimosa::Metadata const&)>)::$_1::operator()(v32, v14);
+      mimosa::v2::decode_metadata(std::byte const*,unsigned long,std::function<BOOL ()(mimosa::Metadata const&)>)::$_1::operator()(v31, v14);
 LABEL_60:
-      v4 = v33;
-      if (v33 >= v7)
+      v4 = v32;
+      if (v32 >= v7)
       {
         goto LABEL_61;
       }
@@ -1506,16 +1468,16 @@ LABEL_60:
 
     if (v9 == 4)
     {
-      v15 = &v45;
-      v14 = v43;
-      if (v45 != 1)
+      v15 = &v44;
+      v14 = v42;
+      if (v44 != 1)
       {
         goto LABEL_39;
       }
 
-      v15 = &v45;
-      v14 = v43;
-      if ((v44 & 0x80000000) == 0)
+      v15 = &v44;
+      v14 = v42;
+      if ((v43 & 0x80000000) == 0)
       {
         goto LABEL_39;
       }
@@ -1526,31 +1488,31 @@ LABEL_60:
       if (v9 != 5)
       {
 LABEL_80:
-        v23 = *v4;
-        v24 = __cxa_allocate_exception(0x10uLL);
-        std::to_string(&v30, v23);
-        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("metadata dictionary key ", &v30, &v31);
-        v25 = std::string::append(&v31, " not recognized", 0xFuLL);
-        v26 = *&v25->__r_.__value_.__l.__data_;
-        *&__src[16] = *(&v25->__r_.__value_.__l + 2);
-        *__src = v26;
-        v25->__r_.__value_.__l.__size_ = 0;
-        v25->__r_.__value_.__r.__words[2] = 0;
-        v25->__r_.__value_.__r.__words[0] = 0;
-        MEMORY[0x25306FCE0](v24, __src);
-        __cxa_throw(v24, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+        v22 = *v4;
+        v23 = __cxa_allocate_exception(0x10uLL);
+        std::to_string(&v29, v22);
+        std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("metadata dictionary key ", &v29, &v30);
+        v24 = std::string::append(&v30, " not recognized", 0xFuLL);
+        v25 = *&v24->__r_.__value_.__l.__data_;
+        *&__src[16] = *(&v24->__r_.__value_.__l + 2);
+        *__src = v25;
+        v24->__r_.__value_.__l.__size_ = 0;
+        v24->__r_.__value_.__r.__words[2] = 0;
+        v24->__r_.__value_.__r.__words[0] = 0;
+        MEMORY[0x25306FCE0](v23, __src);
+        __cxa_throw(v23, MEMORY[0x277D82760], MEMORY[0x277D82600]);
       }
 
-      v15 = &v48;
-      v14 = v46;
-      if (v48 != 1)
+      v15 = &v47;
+      v14 = v45;
+      if (v47 != 1)
       {
         goto LABEL_39;
       }
 
-      v15 = &v48;
-      v14 = v46;
-      if ((v47 & 0x80000000) == 0)
+      v15 = &v47;
+      v14 = v45;
+      if ((v46 & 0x80000000) == 0)
       {
         goto LABEL_39;
       }
@@ -1564,20 +1526,20 @@ LABEL_38:
 LABEL_61:
   if (v4 != v7)
   {
-    v28 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v28, "something went wrong while parsing the metadata dictionary");
-    __cxa_throw(v28, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    v27 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v27, "something went wrong while parsing the metadata dictionary");
+    __cxa_throw(v27, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
 
-  v19 = *(v29 + 24);
+  v19 = *(v28 + 24);
   if (!v19)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v19 + 48))(v19, &v35);
-  v20 = v33;
-  if (v56 == 1)
+  (*(*v19 + 48))(v19, &v34);
+  v20 = v32;
+  if (v55 == 1)
   {
     if (__p)
     {
@@ -1585,37 +1547,35 @@ LABEL_61:
       operator delete(__p);
     }
 
-    if (v53[1])
+    if (v52[1])
     {
-      v53[2] = v53[1];
-      operator delete(v53[1]);
+      v52[2] = v52[1];
+      operator delete(v52[1]);
     }
 
-    if (v52)
+    if (v51)
     {
-      *(&v52 + 1) = v52;
-      operator delete(v52);
+      *(&v51 + 1) = v51;
+      operator delete(v51);
     }
   }
 
-  if (v51 == 1 && v50 < 0)
+  if (v50 == 1 && v49 < 0)
   {
-    operator delete(v49[0]);
+    operator delete(v48[0]);
   }
 
-  if (v48 == 1 && v47 < 0)
+  if (v47 == 1 && v46 < 0)
   {
-    operator delete(v46[0]);
+    operator delete(v45[0]);
   }
 
   v6 = (v20 - v3);
-  if (v45 == 1 && v44 < 0)
+  if (v44 == 1 && v43 < 0)
   {
-    operator delete(v43[0]);
+    operator delete(v42[0]);
   }
 
-LABEL_79:
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1651,7 +1611,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void mimosa::v2::decode_metadata(std::byte const*,unsigned long,std::function<BOOL ()(mimosa::Metadata const&)>)::$_1::operator()(unsigned __int8 ***a1, std::string *this)
+void mimosa::v2::decode_metadata(std::byte const*,unsigned long,std::function<BOOL ()(mimosa::Metadata const&)>)::$_1::operator()(unsigned __int8 ****a1, std::string *this)
 {
   v2 = **a1;
   if (v2 == a1[1])
@@ -1659,7 +1619,7 @@ void mimosa::v2::decode_metadata(std::byte const*,unsigned long,std::function<BO
     goto LABEL_13;
   }
 
-  **a1 = v2 + 1;
+  **a1 = (v2 + 1);
   std::string::resize(this, *v2, 0);
   v5 = *a1;
   v6 = **a1;
@@ -1741,13 +1701,13 @@ char *std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,
 
   v10 = *(a1 + 8);
   v9 = *(a1 + 16);
-  if (v9 - v10 >= a5)
+  if ((v9 - v10) >= a5)
   {
     v16 = v10 - __dst;
-    if (v10 - __dst >= a5)
+    if ((v10 - __dst) >= a5)
     {
       v21 = &__dst[a5];
-      v22 = &v10[-a5];
+      v22 = (v10 - a5);
       v23 = *(a1 + 8);
       if (v10 >= a5)
       {
@@ -1782,7 +1742,7 @@ char *std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,
 
       else
       {
-        v18 = &a4[__dst] - __src;
+        v18 = (&a4[__dst] - __src);
         v19 = *(a1 + 8);
         do
         {
@@ -1800,9 +1760,9 @@ char *std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,
       }
 
       v32 = &__dst[a5];
-      v33 = (v18 - a5);
+      v33 = &v18[-a5];
       v34 = v18;
-      if (v18 - a5 < v10)
+      if (&v18[-a5] < v10)
       {
         do
         {
@@ -1829,7 +1789,7 @@ char *std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,
   }
 
   v11 = *a1;
-  v12 = &v10[a5 - *a1];
+  v12 = v10 - *a1 + a5;
   if (v12 < 0)
   {
     std::vector<mimosa::OpticalSampleV1>::__throw_length_error[abi:ne200100]();
@@ -1936,7 +1896,7 @@ void std::vector<std::byte>::__append(char **a1, size_t a2)
   }
 }
 
-void std::vector<std::byte>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<std::byte>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -2019,7 +1979,7 @@ uint64_t mimosa::v2::nanite::leb128_encode<std::back_insert_iterator<std::vector
   return a2;
 }
 
-uint64_t *std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](uint64_t *a1, _BYTE *a2)
+uint64_t *std::back_insert_iterator<std::vector<std::byte>>::operator=[abi:ne200100](uint64_t *a1, char *a2)
 {
   v3 = *a1;
   v5 = *(*a1 + 8);
@@ -2153,7 +2113,7 @@ void *mimosa::v2::decode_opre()
   v2 = v1;
   v3 = v0;
   v5 = v4;
-  v143 = *MEMORY[0x277D85DE8];
+  v142 = *MEMORY[0x277D85DE8];
   v6 = *v0;
   if (v6 > 6)
   {
@@ -2366,11 +2326,11 @@ void *mimosa::v2::decode_opre()
 
       v76 = v48 + 4;
       HIDWORD(__src[100]) = v71[5];
-      bzero(v140, 0x780uLL);
-      mimosa::v2::nanite::Codec<unsigned short,7032ull,2263ull,269ull,36ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>(v69, v71 + v76, v140, &v140[120]);
+      bzero(v139, 0x780uLL);
+      mimosa::v2::nanite::Codec<unsigned short,7032ull,2263ull,269ull,36ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>(v69, v71 + v76, v139, &v139[120]);
       v77 = 0;
       v78 = &__src[21] + 4;
-      v79 = v140;
+      v79 = v139;
       do
       {
         v80 = 0;
@@ -2415,13 +2375,13 @@ void *mimosa::v2::decode_opre()
 
     if (v6 == 9)
     {
-      bzero(v140, 0x8C0uLL);
+      bzero(v139, 0x8C0uLL);
       if (!v2)
       {
         mimosa::v2::decode_opre();
       }
 
-      LOBYTE(v140[0]) = 9;
+      LOBYTE(v139[0]) = 9;
       v96 = v2 - 1;
       v97 = (v3 + 1);
       for (kk = 4; kk != 56; kk += 4)
@@ -2434,7 +2394,7 @@ void *mimosa::v2::decode_opre()
           }
 
           v99 = *v97++;
-          *(v140 + kk) = v99;
+          *(v139 + kk) = v99;
           v96 -= 4;
         }
       }
@@ -2449,7 +2409,7 @@ void *mimosa::v2::decode_opre()
           }
 
           v100 = *v97++;
-          *(v140 + kk) = v100;
+          *(v139 + kk) = v100;
           v96 -= 4;
         }
 
@@ -2467,7 +2427,7 @@ void *mimosa::v2::decode_opre()
           }
 
           v101 = *v97++;
-          *(v140 + kk) = v101;
+          *(v139 + kk) = v101;
           v96 -= 4;
         }
 
@@ -2485,7 +2445,7 @@ void *mimosa::v2::decode_opre()
           }
 
           v102 = *v97++;
-          *(v140 + kk) = v102;
+          *(v139 + kk) = v102;
           v96 -= 4;
         }
 
@@ -2494,14 +2454,14 @@ void *mimosa::v2::decode_opre()
 
       while (kk != 212);
       v103 = 0;
-      v104 = &v140[13] + 4;
+      v104 = &v139[13] + 4;
       do
       {
         for (mm = 0; mm != 32; mm += 4)
         {
           if (mm == 4)
           {
-            DWORD2(v140[2 * v103 + 13]) = 1065353216;
+            DWORD2(v139[2 * v103 + 13]) = 1065353216;
           }
 
           else
@@ -2530,12 +2490,12 @@ void *mimosa::v2::decode_opre()
         }
 
         v108 = *v97++;
-        *(v140 + nn) = v108;
+        *(v139 + nn) = v108;
         v96 -= 4;
       }
 
       v109 = 0;
-      v110 = &v140[82] + 4;
+      v110 = &v139[82] + 4;
       do
       {
         for (i1 = 0; i1 != 32; i1 += 4)
@@ -2559,7 +2519,7 @@ void *mimosa::v2::decode_opre()
 
       while (v109 != 13);
       v113 = 0;
-      v114 = &v140[108] + 4;
+      v114 = &v139[108] + 4;
       do
       {
         v115 = 0;
@@ -2592,7 +2552,7 @@ void *mimosa::v2::decode_opre()
           mimosa::v2::decode_opre();
         }
 
-        *(&v140[134] + v117 * 4 + 4) = v116[v117 + 8];
+        *(&v139[134] + v117 * 4 + 4) = v116[v117 + 8];
         v96 -= 4;
         v118 += 4;
         ++v117;
@@ -2609,7 +2569,7 @@ void *mimosa::v2::decode_opre()
 
         v121 = v119[1];
         ++v119;
-        *(v140 + i2) = v121;
+        *(v139 + i2) = v121;
         v96 -= 4;
         v118 += 4;
       }
@@ -2627,7 +2587,7 @@ void *mimosa::v2::decode_opre()
         v123 = 0;
         v125 = v119[1];
         ++v119;
-        *(&v140[137] + v122 + 1) = v125;
+        *(&v139[137] + v122 + 1) = v125;
         v96 -= 4;
         v118 += 4;
         v122 = 1;
@@ -2639,26 +2599,26 @@ void *mimosa::v2::decode_opre()
         mimosa::v2::decode_opre();
       }
 
-      HIDWORD(v140[138]) = v119[1];
+      HIDWORD(v139[138]) = v119[1];
       if (v96 - 4 <= 0xB)
       {
         mimosa::v2::decode_opre();
       }
 
       v126 = *(v119 + 1);
-      DWORD2(v140[139]) = v119[4];
-      *&v140[139] = v126;
+      DWORD2(v139[139]) = v119[4];
+      *&v139[139] = v126;
       if ((v96 & 0xFFFFFFFFFFFFFFFCLL) == 0x10)
       {
         mimosa::v2::decode_opre();
       }
 
       v127 = v96 + 4;
-      HIDWORD(v140[139]) = v119[5];
+      HIDWORD(v139[139]) = v119[5];
       bzero(__src, 0x780uLL);
-      mimosa::v2::nanite::Codec<unsigned short,20364ull,3828ull,4447ull,62ull,99ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>(v118, v119 + v127, __src, v142);
+      mimosa::v2::nanite::Codec<unsigned short,20364ull,3828ull,4447ull,62ull,99ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>(v118, v119 + v127, __src, v141);
       v128 = 0;
-      v129 = &v140[21] + 4;
+      v129 = &v139[21] + 4;
       v130 = __src;
       do
       {
@@ -2697,7 +2657,7 @@ void *mimosa::v2::decode_opre()
       }
 
       while (v128 != 3);
-      result = memcpy(v5, v140, 0x8C0uLL);
+      result = memcpy(v5, v139, 0x8C0uLL);
       v29 = 3;
       goto LABEL_193;
     }
@@ -2798,10 +2758,10 @@ void *mimosa::v2::decode_opre()
       }
 
       *(&__src[60] + 12) = *(v9 + 13);
-      bzero(v140, 0x500uLL);
-      mimosa::v2::nanite::Codec<unsigned short,24690ull,4458ull,2833ull,17ull,2ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>((v9 + 112), &v9[v8], v140, &v140[80]);
+      bzero(v139, 0x500uLL);
+      mimosa::v2::nanite::Codec<unsigned short,24690ull,4458ull,2833ull,17ull,2ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>((v9 + 112), &v9[v8], v139, &v139[80]);
       v17 = 0;
-      v18 = v140;
+      v18 = v139;
       v19 = 1;
       do
       {
@@ -2841,10 +2801,10 @@ void *mimosa::v2::decode_opre()
       v29 = 4;
 LABEL_193:
       v5[560] = v29;
-      goto LABEL_194;
+      return result;
     }
 
-LABEL_256:
+LABEL_255:
     mimosa::v2::decode_opre();
   }
 
@@ -2962,11 +2922,11 @@ LABEL_256:
       }
 
       DWORD1(__src[106]) = *(v3 + 673);
-      bzero(v140, 0x800uLL);
-      mimosa::v2::nanite::Codec<unsigned short,32860ull,510ull,6330ull,100ull,50ull,180ull,1ull,220ull,1ull,300ull,1ull,290ull,1ull,110ull,1ull,10ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>((v3 + 677), &v3[v2], v140, &v140[128]);
+      bzero(v139, 0x800uLL);
+      mimosa::v2::nanite::Codec<unsigned short,32860ull,510ull,6330ull,100ull,50ull,180ull,1ull,220ull,1ull,300ull,1ull,290ull,1ull,110ull,1ull,10ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>((v3 + 677), &v3[v2], v139, &v139[128]);
       v88 = 0;
       v89 = 0;
-      v90 = v140;
+      v90 = v139;
       v91 = __src;
       do
       {
@@ -2996,128 +2956,128 @@ LABEL_256:
       goto LABEL_193;
     }
 
-    goto LABEL_256;
+    goto LABEL_255;
   }
 
-  bzero(v140, 0x2F4uLL);
+  bzero(v139, 0x2F4uLL);
   if (!v2)
   {
     mimosa::v2::decode_opre();
   }
 
-  LOBYTE(v140[0]) = v6;
+  LOBYTE(v139[0]) = v6;
   if (v2 <= 0x34)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(v140 + 4) = *(v3 + 1);
-  *(&v140[1] + 4) = *(v3 + 17);
-  *(&v140[2] + 4) = *(v3 + 33);
-  DWORD1(v140[3]) = *(v3 + 49);
+  *(v139 + 4) = *(v3 + 1);
+  *(&v139[1] + 4) = *(v3 + 17);
+  *(&v139[2] + 4) = *(v3 + 33);
+  DWORD1(v139[3]) = *(v3 + 49);
   if (v2 - 53 <= 0x33)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(&v140[3] + 8) = *(v3 + 53);
-  *(&v140[4] + 8) = *(v3 + 69);
-  *(&v140[5] + 8) = *(v3 + 85);
-  DWORD2(v140[6]) = *(v3 + 101);
+  *(&v139[3] + 8) = *(v3 + 53);
+  *(&v139[4] + 8) = *(v3 + 69);
+  *(&v139[5] + 8) = *(v3 + 85);
+  DWORD2(v139[6]) = *(v3 + 101);
   if (v2 - 105 <= 0x33)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(&v140[6] + 12) = *(v3 + 105);
-  *(&v140[7] + 12) = *(v3 + 121);
-  *(&v140[8] + 12) = *(v3 + 137);
-  HIDWORD(v140[9]) = *(v3 + 153);
+  *(&v139[6] + 12) = *(v3 + 105);
+  *(&v139[7] + 12) = *(v3 + 121);
+  *(&v139[8] + 12) = *(v3 + 137);
+  HIDWORD(v139[9]) = *(v3 + 153);
   if (v2 - 157 <= 0x33)
   {
     mimosa::v2::decode_opre();
   }
 
-  v140[10] = *(v3 + 157);
-  v140[11] = *(v3 + 173);
-  v140[12] = *(v3 + 189);
-  LODWORD(v140[13]) = *(v3 + 205);
+  v139[10] = *(v3 + 157);
+  v139[11] = *(v3 + 173);
+  v139[12] = *(v3 + 189);
+  LODWORD(v139[13]) = *(v3 + 205);
   if (v2 - 209 <= 0x7F)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(&v140[17] + 4) = *(v3 + 273);
-  *(&v140[18] + 4) = *(v3 + 289);
-  *(&v140[19] + 4) = *(v3 + 305);
-  *(&v140[20] + 4) = *(v3 + 321);
-  *(&v140[16] + 4) = *(v3 + 257);
-  *(&v140[13] + 4) = *(v3 + 209);
-  *(&v140[14] + 4) = *(v3 + 225);
-  *(&v140[15] + 4) = *(v3 + 241);
+  *(&v139[17] + 4) = *(v3 + 273);
+  *(&v139[18] + 4) = *(v3 + 289);
+  *(&v139[19] + 4) = *(v3 + 305);
+  *(&v139[20] + 4) = *(v3 + 321);
+  *(&v139[16] + 4) = *(v3 + 257);
+  *(&v139[13] + 4) = *(v3 + 209);
+  *(&v139[14] + 4) = *(v3 + 225);
+  *(&v139[15] + 4) = *(v3 + 241);
   if (v2 - 337 <= 0xF)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(&v140[33] + 4) = *(v3 + 337);
+  *(&v139[33] + 4) = *(v3 + 337);
   if (v2 - 353 <= 0xCF)
   {
     mimosa::v2::decode_opre();
   }
 
   v30 = *(v3 + 529);
-  v142[10] = *(v3 + 513);
-  v142[11] = v30;
-  v142[12] = *(v3 + 545);
+  v141[10] = *(v3 + 513);
+  v141[11] = v30;
+  v141[12] = *(v3 + 545);
   v31 = *(v3 + 465);
-  v142[6] = *(v3 + 449);
-  v142[7] = v31;
+  v141[6] = *(v3 + 449);
+  v141[7] = v31;
   v32 = *(v3 + 481);
-  v142[9] = *(v3 + 497);
-  v142[8] = v32;
+  v141[9] = *(v3 + 497);
+  v141[8] = v32;
   v33 = *(v3 + 401);
-  v142[2] = *(v3 + 385);
-  v142[3] = v33;
+  v141[2] = *(v3 + 385);
+  v141[3] = v33;
   v34 = *(v3 + 417);
-  v142[5] = *(v3 + 433);
-  v142[4] = v34;
+  v141[5] = *(v3 + 433);
+  v141[4] = v34;
   v35 = *(v3 + 353);
-  v142[1] = *(v3 + 369);
-  v142[0] = v35;
+  v141[1] = *(v3 + 369);
+  v141[0] = v35;
   if (v2 - 561 <= 0x3F)
   {
     mimosa::v2::decode_opre();
   }
 
-  *(&v140[47] + 4) = *(v3 + 561);
-  *(&v140[48] + 4) = *(v3 + 577);
-  *(&v140[49] + 4) = *(v3 + 593);
-  *(&v140[50] + 4) = *(v3 + 609);
+  *(&v139[47] + 4) = *(v3 + 561);
+  *(&v139[48] + 4) = *(v3 + 577);
+  *(&v139[49] + 4) = *(v3 + 593);
+  *(&v139[50] + 4) = *(v3 + 609);
   if (v2 - 625 <= 3)
   {
     mimosa::v2::decode_opre();
   }
 
-  DWORD1(v140[51]) = *(v3 + 625);
+  DWORD1(v139[51]) = *(v3 + 625);
   if (v2 - 629 <= 3)
   {
     mimosa::v2::decode_opre();
   }
 
-  DWORD2(v140[51]) = *(v3 + 629);
+  DWORD2(v139[51]) = *(v3 + 629);
   v36 = mimosa::OpREv5::n_dce_led_index_map;
   for (i6 = 548; i6 != 756; i6 += 16)
   {
     v38 = *v36++;
-    *(v140 + i6) = v142[v38];
+    *(v139 + i6) = v141[v38];
   }
 
   memset(__src, 0, 384);
   mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::decode<std::__wrap_iter<std::byte const*>,unsigned short *>((v3 + 633), &v3[v2], __src, &__src[24]);
   v39 = 0;
   v40 = 0;
-  v41 = &v140[21] + 4;
+  v41 = &v139[21] + 4;
   v42 = __src;
   do
   {
@@ -3142,27 +3102,21 @@ LABEL_256:
   }
 
   while (v39 != 6);
-  result = memcpy(v5, v140, 0x33CuLL);
+  result = memcpy(v5, v139, 0x33CuLL);
   v5[560] = 0;
-LABEL_194:
-  v139 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispatch[abi:ne200100]<std::__variant_detail::__visitation::__variant::__value_visitor<mimosa::v2::encode(std::variant<mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1> const&)::$_0> &&,std::__variant_detail::__base<(std::__variant_detail::_Trait)0,mimosa::OpREv5,mimosa::OpREv6,mimosa::OpREv7,mimosa::OpREv9,mimosa::OpRTv1> const&>@<X0>(uint64_t a1@<X1>, char **a2@<X8>)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   *a2 = 0;
   a2[1] = 0;
   a2[2] = 0;
   std::vector<std::byte>::reserve(a2, 0x33CuLL);
-  LOBYTE(v58) = *a1;
-  std::vector<std::byte>::push_back[abi:ne200100](a2, &v58);
+  LOBYTE(v54) = *a1;
+  std::vector<std::byte>::push_back[abi:ne200100](a2, &v54);
   v4 = 0;
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
   v65 = 0u;
   v66 = 0u;
   v63 = 0u;
@@ -3171,12 +3125,16 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   v62 = 0u;
   v59 = 0u;
   v60 = 0u;
+  v57 = 0u;
   v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v54 = 0u;
   v5 = (a1 + 548);
   do
   {
     v6 = *v5++;
-    *(&v58 + mimosa::OpREv5::n_dce_led_index_map[v4++]) = v6;
+    *(&v54 + mimosa::OpREv5::n_dce_led_index_map[v4++]) = v6;
   }
 
   while (v4 != 13);
@@ -3291,129 +3249,123 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<0ul>::__dispa
   *(v25 - 3) = v30;
   if ((v25 - v7) > 0xFFFFFFFFFFFFFFEFLL)
   {
-    v33 = v25 + 16;
-    a2[1] = v33;
+    v32 = v25 + 16;
+    a2[1] = v32;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x10uLL);
-    v32 = *a2;
-    v33 = a2[1];
+    v32 = a2[1];
   }
 
-  *(v33 - 1) = *(a1 + 532);
-  v34 = *a2;
-  v35 = a2[1] - *a2;
-  if (v35 > 0xFFFFFFFFFFFFFF2FLL)
+  *(v32 - 1) = *(a1 + 532);
+  v33 = *a2;
+  v34 = a2[1] - *a2;
+  if (v34 > 0xFFFFFFFFFFFFFF2FLL)
   {
-    v36 = &v34[v35 + 208];
-    a2[1] = v36;
+    v35 = &v33[v34 + 208];
+    a2[1] = v35;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0xD0uLL);
-    v34 = *a2;
-    v36 = a2[1];
+    v33 = *a2;
+    v35 = a2[1];
   }
 
-  *(v36 - 64) = v67;
-  *(v36 - 48) = v68;
-  *(v36 - 32) = v69;
-  *(v36 - 16) = v70;
-  *(v36 - 128) = v63;
-  *(v36 - 112) = v64;
-  *(v36 - 96) = v65;
-  *(v36 - 80) = v66;
-  *(v36 - 192) = v59;
-  *(v36 - 176) = v60;
-  *(v36 - 160) = v61;
-  *(v36 - 144) = v62;
-  *(v36 - 208) = v58;
-  if ((v36 - v34) > 0xFFFFFFFFFFFFFFBFLL)
+  *(v35 - 64) = v63;
+  *(v35 - 48) = v64;
+  *(v35 - 32) = v65;
+  *(v35 - 16) = v66;
+  *(v35 - 128) = v59;
+  *(v35 - 112) = v60;
+  *(v35 - 96) = v61;
+  *(v35 - 80) = v62;
+  *(v35 - 192) = v55;
+  *(v35 - 176) = v56;
+  *(v35 - 160) = v57;
+  *(v35 - 144) = v58;
+  *(v35 - 208) = v54;
+  if ((v35 - v33) > 0xFFFFFFFFFFFFFFBFLL)
   {
-    v37 = v36 + 64;
-    a2[1] = v37;
+    v36 = v35 + 64;
+    a2[1] = v36;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x40uLL);
-    v34 = *a2;
-    v37 = a2[1];
+    v33 = *a2;
+    v36 = a2[1];
   }
 
-  v38 = *(a1 + 756);
-  v39 = *(a1 + 772);
-  v40 = *(a1 + 804);
-  *(v37 - 32) = *(a1 + 788);
-  *(v37 - 16) = v40;
-  *(v37 - 64) = v38;
-  *(v37 - 48) = v39;
-  if ((v37 - v34) > 0xFFFFFFFFFFFFFFFBLL)
+  v37 = *(a1 + 756);
+  v38 = *(a1 + 772);
+  v39 = *(a1 + 804);
+  *(v36 - 32) = *(a1 + 788);
+  *(v36 - 16) = v39;
+  *(v36 - 64) = v37;
+  *(v36 - 48) = v38;
+  if ((v36 - v33) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    v42 = (v37 + 4);
-    a2[1] = v42;
+    v40 = (v36 + 4);
+    a2[1] = v40;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v41 = *a2;
-    v42 = a2[1];
+    v40 = a2[1];
   }
 
-  *(v42 - 1) = *(a1 + 820);
+  *(v40 - 1) = *(a1 + 820);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v44 = (a2[1] + 4);
-    a2[1] = v44;
+    v41 = (a2[1] + 4);
+    a2[1] = v41;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v43 = *a2;
-    v44 = a2[1];
+    v41 = a2[1];
   }
 
-  v45 = 0;
-  v46 = 0;
-  *(v44 - 4) = *(a1 + 824);
-  v54[0] = 1;
-  v54[1] = a2;
-  v55 = 0;
-  v56 = 0;
-  v47 = a1 + 340;
+  v42 = 0;
+  v43 = 0;
+  *(v41 - 4) = *(a1 + 824);
+  v50[0] = 1;
+  v50[1] = a2;
+  v51 = 0;
+  v52 = 0;
+  v44 = a1 + 340;
   do
   {
-    v48 = 0;
-    v49 = v47;
+    v45 = 0;
+    v46 = v44;
     do
     {
       for (i = 0; i != 192; i += 48)
       {
-        v51 = *(v49 + i);
-        v57 = (2 * (v51 - v46)) ^ ((v51 - v46) >> 15);
-        mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v54, &v57, &v58);
-        v46 = v51;
+        v48 = *(v46 + i);
+        v53 = (2 * (v48 - v43)) ^ ((v48 - v43) >> 15);
+        mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v50, &v53, &v54);
+        v43 = v48;
       }
 
-      ++v48;
-      v49 += 6;
+      ++v45;
+      v46 += 6;
     }
 
-    while (v48 != 8);
-    ++v45;
-    ++v47;
+    while (v45 != 8);
+    ++v42;
+    ++v44;
   }
 
-  while (v45 != 6);
-  result = mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v54);
-  v53 = *MEMORY[0x277D85DE8];
-  return result;
+  while (v42 != 6);
+  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v50);
 }
 
 void sub_2512A583C(_Unwind_Exception *exception_object)
@@ -3434,8 +3386,8 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   a2[1] = 0;
   a2[2] = 0;
   std::vector<std::byte>::reserve(a2, 0x6A8uLL);
-  LOBYTE(v64[0]) = *a1;
-  std::vector<std::byte>::push_back[abi:ne200100](a2, v64);
+  LOBYTE(v60[0]) = *a1;
+  std::vector<std::byte>::push_back[abi:ne200100](a2, v60);
   v4 = *a2;
   v5 = a2[1] - *a2;
   if (v5 > 0xFFFFFFFFFFFFFFCBLL)
@@ -3547,157 +3499,151 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<1ul>::__dispa
   *(v22 - 3) = v27;
   if ((v22 - v4) > 0xFFFFFFFFFFFFFFEFLL)
   {
-    v30 = v22 + 16;
-    a2[1] = v30;
+    v29 = v22 + 16;
+    a2[1] = v29;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x10uLL);
-    v29 = *a2;
-    v30 = a2[1];
+    v29 = a2[1];
   }
 
-  *(v30 - 1) = *(a1 + 1364);
-  v31 = *a2;
-  v32 = a2[1] - *a2;
-  if (v32 > 0xFFFFFFFFFFFFFF2FLL)
+  *(v29 - 1) = *(a1 + 1364);
+  v30 = *a2;
+  v31 = a2[1] - *a2;
+  if (v31 > 0xFFFFFFFFFFFFFF2FLL)
   {
-    v33 = &v31[v32 + 208];
-    a2[1] = v33;
+    v32 = &v30[v31 + 208];
+    a2[1] = v32;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0xD0uLL);
-    v31 = *a2;
-    v33 = a2[1];
+    v30 = *a2;
+    v32 = a2[1];
   }
 
-  *(v33 - 208) = *(a1 + 1380);
-  v34 = *(a1 + 1396);
-  v35 = *(a1 + 1412);
-  v36 = *(a1 + 1444);
-  *(v33 - 160) = *(a1 + 1428);
-  *(v33 - 144) = v36;
-  *(v33 - 192) = v34;
-  *(v33 - 176) = v35;
-  v37 = *(a1 + 1460);
-  v38 = *(a1 + 1476);
-  v39 = *(a1 + 1508);
-  *(v33 - 96) = *(a1 + 1492);
-  *(v33 - 80) = v39;
-  *(v33 - 128) = v37;
-  *(v33 - 112) = v38;
-  v40 = *(a1 + 1524);
-  v41 = *(a1 + 1540);
-  v42 = *(a1 + 1572);
-  *(v33 - 32) = *(a1 + 1556);
-  *(v33 - 16) = v42;
-  *(v33 - 64) = v40;
-  *(v33 - 48) = v41;
-  if ((v33 - v31) > 0xFFFFFFFFFFFFFF9FLL)
+  *(v32 - 208) = *(a1 + 1380);
+  v33 = *(a1 + 1396);
+  v34 = *(a1 + 1412);
+  v35 = *(a1 + 1444);
+  *(v32 - 160) = *(a1 + 1428);
+  *(v32 - 144) = v35;
+  *(v32 - 192) = v33;
+  *(v32 - 176) = v34;
+  v36 = *(a1 + 1460);
+  v37 = *(a1 + 1476);
+  v38 = *(a1 + 1508);
+  *(v32 - 96) = *(a1 + 1492);
+  *(v32 - 80) = v38;
+  *(v32 - 128) = v36;
+  *(v32 - 112) = v37;
+  v39 = *(a1 + 1524);
+  v40 = *(a1 + 1540);
+  v41 = *(a1 + 1572);
+  *(v32 - 32) = *(a1 + 1556);
+  *(v32 - 16) = v41;
+  *(v32 - 64) = v39;
+  *(v32 - 48) = v40;
+  if ((v32 - v30) > 0xFFFFFFFFFFFFFF9FLL)
   {
-    v43 = v33 + 96;
-    a2[1] = v43;
+    v42 = v32 + 96;
+    a2[1] = v42;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x60uLL);
-    v31 = *a2;
-    v43 = a2[1];
+    v30 = *a2;
+    v42 = a2[1];
   }
 
-  v44 = *(a1 + 1604);
-  *(v43 - 96) = *(a1 + 1588);
-  *(v43 - 80) = v44;
-  v45 = *(a1 + 1620);
-  v46 = *(a1 + 1636);
-  v47 = *(a1 + 1668);
-  *(v43 - 32) = *(a1 + 1652);
-  *(v43 - 16) = v47;
-  *(v43 - 64) = v45;
-  *(v43 - 48) = v46;
-  if ((v43 - v31) > 0xFFFFFFFFFFFFFFFBLL)
+  v43 = *(a1 + 1604);
+  *(v42 - 96) = *(a1 + 1588);
+  *(v42 - 80) = v43;
+  v44 = *(a1 + 1620);
+  v45 = *(a1 + 1636);
+  v46 = *(a1 + 1668);
+  *(v42 - 32) = *(a1 + 1652);
+  *(v42 - 16) = v46;
+  *(v42 - 64) = v44;
+  *(v42 - 48) = v45;
+  if ((v42 - v30) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    v49 = (v43 + 4);
-    a2[1] = v49;
+    v47 = (v42 + 4);
+    a2[1] = v47;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v48 = *a2;
-    v49 = a2[1];
+    v47 = a2[1];
   }
 
-  *(v49 - 1) = *(a1 + 1684);
+  *(v47 - 1) = *(a1 + 1684);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFF3)
   {
-    *a2;
-    v51 = (a2[1] + 12);
-    a2[1] = v51;
+    v48 = (a2[1] + 12);
+    a2[1] = v48;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0xCuLL);
-    v50 = *a2;
-    v51 = a2[1];
+    v48 = a2[1];
   }
 
-  v52 = v51;
-  v53 = *(a1 + 1688);
-  *(v52 - 4) = *(a1 + 1696);
-  *(v52 - 12) = v53;
+  v49 = v48;
+  v50 = *(a1 + 1688);
+  *(v49 - 4) = *(a1 + 1696);
+  *(v49 - 12) = v50;
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v55 = (a2[1] + 4);
-    a2[1] = v55;
+    v51 = (a2[1] + 4);
+    a2[1] = v51;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v54 = *a2;
-    v55 = a2[1];
+    v51 = a2[1];
   }
 
-  v56 = 0;
-  v57 = 0;
-  *(v55 - 4) = *(a1 + 1700);
-  v64[0] = 1;
-  v64[1] = a2;
-  v65 = 0;
-  v66 = 0;
-  v58 = a1 + 340;
+  v52 = 0;
+  v53 = 0;
+  *(v51 - 4) = *(a1 + 1700);
+  v60[0] = 1;
+  v60[1] = a2;
+  v61 = 0;
+  v62 = 0;
+  v54 = a1 + 340;
   do
   {
-    v59 = 0;
-    v60 = v58;
+    v55 = 0;
+    v56 = v54;
     do
     {
       for (i = 0; i != 32; ++i)
       {
-        v62 = *(v60 + i);
-        v67 = (2 * (v62 - v57)) ^ ((v62 - v57) >> 15);
-        mimosa::v2::nanite::Codec<unsigned short,32860ull,510ull,6330ull,100ull,50ull,180ull,1ull,220ull,1ull,300ull,1ull,290ull,1ull,110ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v64, &v67, &v68);
-        v57 = v62;
+        v58 = *(v56 + i);
+        v63 = (2 * (v58 - v53)) ^ ((v58 - v53) >> 15);
+        mimosa::v2::nanite::Codec<unsigned short,32860ull,510ull,6330ull,100ull,50ull,180ull,1ull,220ull,1ull,300ull,1ull,290ull,1ull,110ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v60, &v63, &v64);
+        v53 = v58;
       }
 
-      ++v59;
-      v60 += 32;
+      ++v55;
+      v56 += 32;
     }
 
-    while (v59 != 8);
-    ++v56;
-    v58 += 256;
+    while (v55 != 8);
+    ++v52;
+    v54 += 256;
   }
 
-  while (v56 != 4);
-  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v64);
+  while (v52 != 4);
+  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v60);
 }
 
 void sub_2512A5C98(_Unwind_Exception *exception_object)
@@ -3718,27 +3664,25 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
   a2[1] = 0;
   a2[2] = 0;
   std::vector<std::byte>::reserve(a2, 0x6A8uLL);
-  LOBYTE(v58[0]) = *a1;
-  std::vector<std::byte>::push_back[abi:ne200100](a2, v58);
+  LOBYTE(v45[0]) = *a1;
+  std::vector<std::byte>::push_back[abi:ne200100](a2, v45);
   for (i = 0; i != 52; i += 4)
   {
     if (i != 16)
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v6 = (a2[1] + 4);
-        a2[1] = v6;
+        v5 = (a2[1] + 4);
+        a2[1] = v5;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v5 = *a2;
-        v6 = a2[1];
+        v5 = a2[1];
       }
 
-      *(v6 - 4) = *(a1 + 4 + i);
+      *(v5 - 4) = *(a1 + 4 + i);
     }
   }
 
@@ -3748,19 +3692,17 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v9 = (a2[1] + 4);
-        a2[1] = v9;
+        v7 = (a2[1] + 4);
+        a2[1] = v7;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v8 = *a2;
-        v9 = a2[1];
+        v7 = a2[1];
       }
 
-      *(v9 - 4) = *(a1 + 56 + j);
+      *(v7 - 4) = *(a1 + 56 + j);
     }
   }
 
@@ -3770,19 +3712,17 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v12 = (a2[1] + 4);
-        a2[1] = v12;
+        v9 = (a2[1] + 4);
+        a2[1] = v9;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v11 = *a2;
-        v12 = a2[1];
+        v9 = a2[1];
       }
 
-      *(v12 - 4) = *(a1 + 108 + k);
+      *(v9 - 4) = *(a1 + 108 + k);
     }
   }
 
@@ -3792,24 +3732,22 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v15 = (a2[1] + 4);
-        a2[1] = v15;
+        v11 = (a2[1] + 4);
+        a2[1] = v11;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v14 = *a2;
-        v15 = a2[1];
+        v11 = a2[1];
       }
 
-      *(v15 - 4) = *(a1 + 160 + m);
+      *(v11 - 4) = *(a1 + 160 + m);
     }
   }
 
-  v16 = 0;
-  v17 = a1 + 212;
+  v12 = 0;
+  v13 = a1 + 212;
   do
   {
     for (n = 0; n != 32; n += 4)
@@ -3818,32 +3756,75 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
       {
         if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
         {
-          *a2;
-          v20 = (a2[1] + 4);
-          a2[1] = v20;
+          v15 = (a2[1] + 4);
+          a2[1] = v15;
         }
 
         else
         {
           std::vector<std::byte>::__append(a2, 4uLL);
-          v19 = *a2;
-          v20 = a2[1];
+          v15 = a2[1];
         }
 
-        *(v20 - 4) = *(v17 + n);
+        *(v15 - 4) = *(v13 + n);
       }
     }
 
-    ++v16;
-    v17 += 32;
+    ++v12;
+    v13 += 32;
   }
 
-  while (v16 != 4);
+  while (v12 != 4);
   for (ii = 0; ii != 12; ii += 4)
   {
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
+      v17 = (a2[1] + 4);
+      a2[1] = v17;
+    }
+
+    else
+    {
+      std::vector<std::byte>::__append(a2, 4uLL);
+      v17 = a2[1];
+    }
+
+    *(v17 - 4) = *(a1 + 1300 + ii);
+  }
+
+  v18 = 0;
+  v19 = a1 + 1316;
+  do
+  {
+    if (v18 != 4)
+    {
+      for (jj = 0; jj != 16; jj += 4)
+      {
+        if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
+        {
+          v21 = (a2[1] + 4);
+          a2[1] = v21;
+        }
+
+        else
+        {
+          std::vector<std::byte>::__append(a2, 4uLL);
+          v21 = a2[1];
+        }
+
+        *(v21 - 4) = *(v19 + jj);
+      }
+    }
+
+    ++v18;
+    v19 += 16;
+  }
+
+  while (v18 != 13);
+  for (kk = 0; kk != 24; kk += 4)
+  {
+    if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
+    {
       v23 = (a2[1] + 4);
       a2[1] = v23;
     }
@@ -3851,199 +3832,138 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<2ul>::__dispa
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v22 = *a2;
       v23 = a2[1];
     }
 
-    *(v23 - 4) = *(a1 + 1300 + ii);
-  }
-
-  v24 = 0;
-  v25 = a1 + 1316;
-  do
-  {
-    if (v24 != 4)
-    {
-      for (jj = 0; jj != 16; jj += 4)
-      {
-        if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
-        {
-          *a2;
-          v28 = (a2[1] + 4);
-          a2[1] = v28;
-        }
-
-        else
-        {
-          std::vector<std::byte>::__append(a2, 4uLL);
-          v27 = *a2;
-          v28 = a2[1];
-        }
-
-        *(v28 - 4) = *(v25 + jj);
-      }
-    }
-
-    ++v24;
-    v25 += 16;
-  }
-
-  while (v24 != 13);
-  for (kk = 0; kk != 24; kk += 4)
-  {
-    if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
-    {
-      *a2;
-      v31 = (a2[1] + 4);
-      a2[1] = v31;
-    }
-
-    else
-    {
-      std::vector<std::byte>::__append(a2, 4uLL);
-      v30 = *a2;
-      v31 = a2[1];
-    }
-
-    *(v31 - 4) = *(a1 + 1524 + kk);
+    *(v23 - 4) = *(a1 + 1524 + kk);
   }
 
   for (mm = 0; mm != 20; mm += 4)
   {
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v34 = (a2[1] + 4);
-      a2[1] = v34;
+      v25 = (a2[1] + 4);
+      a2[1] = v25;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v33 = *a2;
-      v34 = a2[1];
+      v25 = a2[1];
     }
 
-    *(v34 - 4) = *(a1 + 1548 + mm);
+    *(v25 - 4) = *(a1 + 1548 + mm);
   }
 
-  v35 = 0;
-  v36 = 1;
+  v26 = 0;
+  v27 = 1;
   do
   {
-    v37 = v36;
+    v28 = v27;
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v39 = (a2[1] + 4);
-      a2[1] = v39;
+      v29 = (a2[1] + 4);
+      a2[1] = v29;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v38 = *a2;
-      v39 = a2[1];
+      v29 = a2[1];
     }
 
-    v36 = 0;
-    *(v39 - 4) = *(a1 + 1572 + 4 * v35);
-    v35 = 1;
+    v27 = 0;
+    *(v29 - 4) = *(a1 + 1572 + 4 * v26);
+    v26 = 1;
   }
 
-  while ((v37 & 1) != 0);
+  while ((v28 & 1) != 0);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v41 = (a2[1] + 4);
-    a2[1] = v41;
+    v30 = (a2[1] + 4);
+    a2[1] = v30;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v40 = *a2;
-    v41 = a2[1];
+    v30 = a2[1];
   }
 
-  *(v41 - 4) = *(a1 + 1596);
+  *(v30 - 4) = *(a1 + 1596);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFF3)
   {
-    *a2;
-    v43 = (a2[1] + 12);
-    a2[1] = v43;
+    v31 = (a2[1] + 12);
+    a2[1] = v31;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0xCuLL);
-    v42 = *a2;
-    v43 = a2[1];
+    v31 = a2[1];
   }
 
-  v44 = v43;
-  v45 = *(a1 + 1600);
-  *(v44 - 4) = *(a1 + 1608);
-  *(v44 - 12) = v45;
+  v32 = v31;
+  v33 = *(a1 + 1600);
+  *(v32 - 4) = *(a1 + 1608);
+  *(v32 - 12) = v33;
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v47 = (a2[1] + 4);
-    a2[1] = v47;
+    v34 = (a2[1] + 4);
+    a2[1] = v34;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v46 = *a2;
-    v47 = a2[1];
+    v34 = a2[1];
   }
 
-  v48 = 0;
-  *(v47 - 4) = *(a1 + 1612);
-  v58[0] = 1;
-  v58[1] = a2;
-  v59 = 0;
-  v60 = 0;
-  v49 = a1 + 340;
+  v35 = 0;
+  *(v34 - 4) = *(a1 + 1612);
+  v45[0] = 1;
+  v45[1] = a2;
+  v46 = 0;
+  v47 = 0;
+  v36 = a1 + 340;
   do
   {
-    v50 = 0;
-    v51 = v49;
+    v37 = 0;
+    v38 = v36;
     do
     {
-      v52 = 0;
-      v53 = v51;
+      v39 = 0;
+      v40 = v38;
       do
       {
-        v54 = 0;
-        v55 = 0;
+        v41 = 0;
+        v42 = 0;
         do
         {
-          v56 = *(v53 + v54);
-          v61 = (2 * (v56 - v55)) ^ ((v56 - v55) >> 15);
-          mimosa::v2::nanite::Codec<unsigned short,7032ull,2263ull,269ull,36ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v58, &v61, &v62);
-          v55 = v56;
-          ++v54;
+          v43 = *(v40 + v41);
+          v48 = (2 * (v43 - v42)) ^ ((v43 - v42) >> 15);
+          mimosa::v2::nanite::Codec<unsigned short,7032ull,2263ull,269ull,36ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v45, &v48, &v49);
+          v42 = v43;
+          ++v41;
         }
 
-        while (v54 != 10);
-        ++v52;
-        v53 += 10;
+        while (v41 != 10);
+        ++v39;
+        v40 += 10;
       }
 
-      while (v52 != 8);
-      ++v50;
-      v51 += 80;
+      while (v39 != 8);
+      ++v37;
+      v38 += 80;
     }
 
-    while (v50 != 4);
-    ++v48;
-    v49 += 320;
+    while (v37 != 4);
+    ++v35;
+    v36 += 320;
   }
 
-  while (v48 != 3);
-  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v58);
+  while (v35 != 3);
+  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v45);
 }
 
 void sub_2512A624C(_Unwind_Exception *exception_object)
@@ -4064,27 +3984,25 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
   a2[1] = 0;
   a2[2] = 0;
   std::vector<std::byte>::reserve(a2, 0x918uLL);
-  LOBYTE(v63[0]) = *a1;
-  std::vector<std::byte>::push_back[abi:ne200100](a2, v63);
+  LOBYTE(v49[0]) = *a1;
+  std::vector<std::byte>::push_back[abi:ne200100](a2, v49);
   for (i = 0; i != 52; i += 4)
   {
     if (i != 16)
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v6 = (a2[1] + 4);
-        a2[1] = v6;
+        v5 = (a2[1] + 4);
+        a2[1] = v5;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v5 = *a2;
-        v6 = a2[1];
+        v5 = a2[1];
       }
 
-      *(v6 - 4) = *(a1 + 4 + i);
+      *(v5 - 4) = *(a1 + 4 + i);
     }
   }
 
@@ -4094,19 +4012,17 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v9 = (a2[1] + 4);
-        a2[1] = v9;
+        v7 = (a2[1] + 4);
+        a2[1] = v7;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v8 = *a2;
-        v9 = a2[1];
+        v7 = a2[1];
       }
 
-      *(v9 - 4) = *(a1 + 56 + j);
+      *(v7 - 4) = *(a1 + 56 + j);
     }
   }
 
@@ -4116,19 +4032,17 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v12 = (a2[1] + 4);
-        a2[1] = v12;
+        v9 = (a2[1] + 4);
+        a2[1] = v9;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v11 = *a2;
-        v12 = a2[1];
+        v9 = a2[1];
       }
 
-      *(v12 - 4) = *(a1 + 108 + k);
+      *(v9 - 4) = *(a1 + 108 + k);
     }
   }
 
@@ -4138,24 +4052,22 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v15 = (a2[1] + 4);
-        a2[1] = v15;
+        v11 = (a2[1] + 4);
+        a2[1] = v11;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v14 = *a2;
-        v15 = a2[1];
+        v11 = a2[1];
       }
 
-      *(v15 - 4) = *(a1 + 160 + m);
+      *(v11 - 4) = *(a1 + 160 + m);
     }
   }
 
-  v16 = 0;
-  v17 = a1 + 212;
+  v12 = 0;
+  v13 = a1 + 212;
   do
   {
     for (n = 0; n != 32; n += 4)
@@ -4164,260 +4076,240 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<3ul>::__dispa
       {
         if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
         {
-          *a2;
-          v20 = (a2[1] + 4);
-          a2[1] = v20;
+          v15 = (a2[1] + 4);
+          a2[1] = v15;
         }
 
         else
         {
           std::vector<std::byte>::__append(a2, 4uLL);
-          v19 = *a2;
-          v20 = a2[1];
+          v15 = a2[1];
         }
 
-        *(v20 - 4) = *(v17 + n);
+        *(v15 - 4) = *(v13 + n);
       }
     }
 
-    ++v16;
-    v17 += 32;
+    ++v12;
+    v13 += 32;
   }
 
-  while (v16 != 4);
+  while (v12 != 4);
   for (ii = 0; ii != 12; ii += 4)
   {
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v23 = (a2[1] + 4);
-      a2[1] = v23;
+      v17 = (a2[1] + 4);
+      a2[1] = v17;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v22 = *a2;
-      v23 = a2[1];
+      v17 = a2[1];
     }
 
-    *(v23 - 4) = *(a1 + 1300 + ii);
+    *(v17 - 4) = *(a1 + 1300 + ii);
   }
 
-  v24 = 0;
-  v25 = a1 + 1316;
+  v18 = 0;
+  v19 = a1 + 1316;
   do
   {
-    if (v24 != 4)
+    if (v18 != 4)
     {
       for (jj = 0; jj != 32; jj += 4)
       {
         if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
         {
-          *a2;
-          v28 = (a2[1] + 4);
-          a2[1] = v28;
+          v21 = (a2[1] + 4);
+          a2[1] = v21;
         }
 
         else
         {
           std::vector<std::byte>::__append(a2, 4uLL);
-          v27 = *a2;
-          v28 = a2[1];
+          v21 = a2[1];
         }
 
-        *(v28 - 4) = *(v25 + jj);
+        *(v21 - 4) = *(v19 + jj);
       }
     }
 
-    ++v24;
-    v25 += 32;
+    ++v18;
+    v19 += 32;
   }
 
-  while (v24 != 13);
-  v29 = 0;
-  v30 = a1 + 1732;
+  while (v18 != 13);
+  v22 = 0;
+  v23 = a1 + 1732;
   do
   {
     for (kk = 0; kk != 32; kk += 4)
     {
       if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
       {
-        *a2;
-        v33 = (a2[1] + 4);
-        a2[1] = v33;
+        v25 = (a2[1] + 4);
+        a2[1] = v25;
       }
 
       else
       {
         std::vector<std::byte>::__append(a2, 4uLL);
-        v32 = *a2;
-        v33 = a2[1];
+        v25 = a2[1];
       }
 
-      *(v33 - 4) = *(v30 + kk);
+      *(v25 - 4) = *(v23 + kk);
     }
 
-    ++v29;
-    v30 += 32;
+    ++v22;
+    v23 += 32;
   }
 
-  while (v29 != 4);
+  while (v22 != 4);
   for (mm = 0; mm != 24; mm += 4)
   {
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v36 = (a2[1] + 4);
-      a2[1] = v36;
+      v27 = (a2[1] + 4);
+      a2[1] = v27;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v35 = *a2;
-      v36 = a2[1];
+      v27 = a2[1];
     }
 
-    *(v36 - 4) = *(a1 + 2148 + mm);
+    *(v27 - 4) = *(a1 + 2148 + mm);
   }
 
   for (nn = 0; nn != 20; nn += 4)
   {
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v39 = (a2[1] + 4);
-      a2[1] = v39;
+      v29 = (a2[1] + 4);
+      a2[1] = v29;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v38 = *a2;
-      v39 = a2[1];
+      v29 = a2[1];
     }
 
-    *(v39 - 4) = *(a1 + 2172 + nn);
+    *(v29 - 4) = *(a1 + 2172 + nn);
   }
 
-  v40 = 0;
-  v41 = 1;
+  v30 = 0;
+  v31 = 1;
   do
   {
-    v42 = v41;
+    v32 = v31;
     if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
     {
-      *a2;
-      v44 = (a2[1] + 4);
-      a2[1] = v44;
+      v33 = (a2[1] + 4);
+      a2[1] = v33;
     }
 
     else
     {
       std::vector<std::byte>::__append(a2, 4uLL);
-      v43 = *a2;
-      v44 = a2[1];
+      v33 = a2[1];
     }
 
-    v41 = 0;
-    *(v44 - 4) = *(a1 + 2196 + 4 * v40);
-    v40 = 1;
+    v31 = 0;
+    *(v33 - 4) = *(a1 + 2196 + 4 * v30);
+    v30 = 1;
   }
 
-  while ((v42 & 1) != 0);
+  while ((v32 & 1) != 0);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v46 = (a2[1] + 4);
-    a2[1] = v46;
+    v34 = (a2[1] + 4);
+    a2[1] = v34;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v45 = *a2;
-    v46 = a2[1];
+    v34 = a2[1];
   }
 
-  *(v46 - 4) = *(a1 + 2220);
+  *(v34 - 4) = *(a1 + 2220);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFF3)
   {
-    *a2;
-    v48 = (a2[1] + 12);
-    a2[1] = v48;
+    v35 = (a2[1] + 12);
+    a2[1] = v35;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0xCuLL);
-    v47 = *a2;
-    v48 = a2[1];
+    v35 = a2[1];
   }
 
-  v49 = v48;
-  v50 = *(a1 + 2224);
-  *(v49 - 4) = *(a1 + 2232);
-  *(v49 - 12) = v50;
+  v36 = v35;
+  v37 = *(a1 + 2224);
+  *(v36 - 4) = *(a1 + 2232);
+  *(v36 - 12) = v37;
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
   {
-    *a2;
-    v52 = (a2[1] + 4);
-    a2[1] = v52;
+    v38 = (a2[1] + 4);
+    a2[1] = v38;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 4uLL);
-    v51 = *a2;
-    v52 = a2[1];
+    v38 = a2[1];
   }
 
-  v53 = 0;
-  *(v52 - 4) = *(a1 + 2236);
-  v63[0] = 1;
-  v63[1] = a2;
-  v64 = 0;
-  v65 = 0;
-  v54 = a1 + 340;
+  v39 = 0;
+  *(v38 - 4) = *(a1 + 2236);
+  v49[0] = 1;
+  v49[1] = a2;
+  v50 = 0;
+  v51 = 0;
+  v40 = a1 + 340;
   do
   {
-    v55 = 0;
-    v56 = v54;
+    v41 = 0;
+    v42 = v40;
     do
     {
-      v57 = 0;
-      v58 = v56;
+      v43 = 0;
+      v44 = v42;
       do
       {
-        v59 = 0;
-        v60 = 0;
+        v45 = 0;
+        v46 = 0;
         do
         {
-          v61 = *(v58 + v59);
-          v66 = (2 * (v61 - v60)) ^ ((v61 - v60) >> 15);
-          mimosa::v2::nanite::Codec<unsigned short,20364ull,3828ull,4447ull,62ull,99ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v63, &v66, &v67);
-          v60 = v61;
-          ++v59;
+          v47 = *(v44 + v45);
+          v52 = (2 * (v47 - v46)) ^ ((v47 - v46) >> 15);
+          mimosa::v2::nanite::Codec<unsigned short,20364ull,3828ull,4447ull,62ull,99ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v49, &v52, &v53);
+          v46 = v47;
+          ++v45;
         }
 
-        while (v59 != 10);
-        ++v57;
-        v58 += 10;
+        while (v45 != 10);
+        ++v43;
+        v44 += 10;
       }
 
-      while (v57 != 8);
-      ++v55;
-      v56 += 80;
+      while (v43 != 8);
+      ++v41;
+      v42 += 80;
     }
 
-    while (v55 != 4);
-    ++v53;
-    v54 += 320;
+    while (v41 != 4);
+    ++v39;
+    v40 += 320;
   }
 
-  while (v53 != 3);
-  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v63);
+  while (v39 != 3);
+  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v49);
 }
 
 void sub_2512A6890(_Unwind_Exception *exception_object)
@@ -4438,28 +4330,40 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   a2[1] = 0;
   a2[2] = 0;
   std::vector<std::byte>::reserve(a2, 0x590uLL);
-  LOBYTE(v44[0]) = *a1 + 63;
-  std::vector<std::byte>::push_back[abi:ne200100](a2, v44);
+  LOBYTE(v37[0]) = *a1 + 63;
+  std::vector<std::byte>::push_back[abi:ne200100](a2, v37);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFE7)
   {
-    *a2;
-    v5 = (a2[1] + 24);
-    a2[1] = v5;
+    v4 = (a2[1] + 24);
+    a2[1] = v4;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x18uLL);
-    v4 = *a2;
-    v5 = a2[1];
+    v4 = a2[1];
   }
 
-  v6 = *(a1 + 4);
-  *(v5 - 8) = *(a1 + 20);
-  *(v5 - 24) = v6;
+  v5 = *(a1 + 4);
+  *(v4 - 8) = *(a1 + 20);
+  *(v4 - 24) = v5;
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFE7)
   {
-    *a2;
+    v6 = (a2[1] + 24);
+    a2[1] = v6;
+  }
+
+  else
+  {
+    std::vector<std::byte>::__append(a2, 0x18uLL);
+    v6 = a2[1];
+  }
+
+  v7 = *(a1 + 28);
+  *(v6 - 8) = *(a1 + 44);
+  *(v6 - 24) = v7;
+  if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFE7)
+  {
     v8 = (a2[1] + 24);
     a2[1] = v8;
   }
@@ -4467,49 +4371,29 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
   else
   {
     std::vector<std::byte>::__append(a2, 0x18uLL);
-    v7 = *a2;
     v8 = a2[1];
   }
 
-  v9 = *(a1 + 28);
-  *(v8 - 8) = *(a1 + 44);
+  v9 = *(a1 + 52);
+  *(v8 - 8) = *(a1 + 68);
   *(v8 - 24) = v9;
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFE7)
   {
-    *a2;
-    v11 = (a2[1] + 24);
-    a2[1] = v11;
+    v10 = (a2[1] + 24);
+    a2[1] = v10;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x18uLL);
-    v10 = *a2;
-    v11 = a2[1];
+    v10 = a2[1];
   }
 
-  v12 = *(a1 + 52);
-  *(v11 - 8) = *(a1 + 68);
-  *(v11 - 24) = v12;
-  if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFE7)
-  {
-    *a2;
-    v14 = (a2[1] + 24);
-    a2[1] = v14;
-  }
-
-  else
-  {
-    std::vector<std::byte>::__append(a2, 0x18uLL);
-    v13 = *a2;
-    v14 = a2[1];
-  }
-
-  v15 = 0;
-  v16 = *(a1 + 76);
-  *(v14 - 8) = *(a1 + 92);
-  *(v14 - 24) = v16;
-  v17 = a1 + 100;
+  v11 = 0;
+  v12 = *(a1 + 76);
+  *(v10 - 8) = *(a1 + 92);
+  *(v10 - 24) = v12;
+  v13 = a1 + 100;
   do
   {
     for (i = 0; i != 32; i += 4)
@@ -4518,127 +4402,122 @@ uint64_t std::__variant_detail::__visitation::__base::__dispatcher<4ul>::__dispa
       {
         if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFFBLL)
         {
-          *a2;
-          v20 = (a2[1] + 4);
-          a2[1] = v20;
+          v15 = (a2[1] + 4);
+          a2[1] = v15;
         }
 
         else
         {
           std::vector<std::byte>::__append(a2, 4uLL);
-          v19 = *a2;
-          v20 = a2[1];
+          v15 = a2[1];
         }
 
-        *(v20 - 4) = *(v17 + i);
+        *(v15 - 4) = *(v13 + i);
       }
     }
 
-    ++v15;
-    v17 += 32;
+    ++v11;
+    v13 += 32;
   }
 
-  while (v15 != 4);
+  while (v11 != 4);
   if ((a2[1] - *a2) > 0xFFFFFFFFFFFFFFF7)
   {
-    *a2;
-    v22 = (a2[1] + 8);
-    a2[1] = v22;
+    v16 = (a2[1] + 8);
+    a2[1] = v16;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 8uLL);
-    v21 = *a2;
-    v22 = a2[1];
+    v16 = a2[1];
   }
 
-  *(v22 - 8) = *(a1 + 868);
-  v23 = *a2;
-  v24 = a2[1] - *a2;
-  if (v24 > 0xFFFFFFFFFFFFFF9FLL)
+  *(v16 - 8) = *(a1 + 868);
+  v17 = *a2;
+  v18 = a2[1] - *a2;
+  if (v18 > 0xFFFFFFFFFFFFFF9FLL)
   {
-    v25 = &v23[v24 + 96];
-    a2[1] = v25;
+    v19 = &v17[v18 + 96];
+    a2[1] = v19;
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 0x60uLL);
-    v23 = *a2;
-    v25 = a2[1];
+    v17 = *a2;
+    v19 = a2[1];
   }
 
-  v26 = *(a1 + 892);
-  *(v25 - 96) = *(a1 + 876);
-  *(v25 - 80) = v26;
-  v27 = *(a1 + 908);
-  v28 = *(a1 + 924);
-  v29 = *(a1 + 956);
-  *(v25 - 32) = *(a1 + 940);
-  *(v25 - 16) = v29;
-  *(v25 - 64) = v27;
-  *(v25 - 48) = v28;
-  if ((v25 - v23) > 0xFFFFFFFFFFFFFFF7)
+  v20 = *(a1 + 892);
+  *(v19 - 96) = *(a1 + 876);
+  *(v19 - 80) = v20;
+  v21 = *(a1 + 908);
+  v22 = *(a1 + 924);
+  v23 = *(a1 + 956);
+  *(v19 - 32) = *(a1 + 940);
+  *(v19 - 16) = v23;
+  *(v19 - 64) = v21;
+  *(v19 - 48) = v22;
+  if ((v19 - v17) > 0xFFFFFFFFFFFFFFF7)
   {
-    v31 = v25 + 8;
-    a2[1] = (v25 + 8);
+    v24 = v19 + 8;
+    a2[1] = (v19 + 8);
   }
 
   else
   {
     std::vector<std::byte>::__append(a2, 8uLL);
-    v30 = *a2;
-    v31 = a2[1];
+    v24 = a2[1];
   }
 
-  v32 = 0;
-  *(v31 - 8) = *(a1 + 972);
-  v33 = 1;
-  v44[0] = 1;
-  v44[1] = a2;
-  v45 = 0;
-  v46 = 0;
-  v34 = a1 + 228;
+  v25 = 0;
+  *(v24 - 8) = *(a1 + 972);
+  v26 = 1;
+  v37[0] = 1;
+  v37[1] = a2;
+  v38 = 0;
+  v39 = 0;
+  v27 = a1 + 228;
   do
   {
-    v35 = 0;
-    v36 = v33;
-    v37 = v34 + 320 * v32;
+    v28 = 0;
+    v29 = v26;
+    v30 = v27 + 320 * v25;
     do
     {
-      v38 = 0;
-      v39 = v37;
+      v31 = 0;
+      v32 = v30;
       do
       {
-        v40 = 0;
-        v41 = 0;
+        v33 = 0;
+        v34 = 0;
         do
         {
-          v42 = *(v39 + v40);
-          v47 = (2 * (v42 - v41)) ^ ((v42 - v41) >> 15);
-          mimosa::v2::nanite::Codec<unsigned short,24690ull,4458ull,2833ull,17ull,2ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v44, &v47, &v48);
-          v41 = v42;
-          ++v40;
+          v35 = *(v32 + v33);
+          v40 = (2 * (v35 - v34)) ^ ((v35 - v34) >> 15);
+          mimosa::v2::nanite::Codec<unsigned short,24690ull,4458ull,2833ull,17ull,2ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::encode<unsigned short const*>(v37, &v40, &v41);
+          v34 = v35;
+          ++v33;
         }
 
-        while (v40 != 10);
-        ++v38;
-        v39 += 10;
+        while (v33 != 10);
+        ++v31;
+        v32 += 10;
       }
 
-      while (v38 != 8);
-      ++v35;
-      v37 += 80;
+      while (v31 != 8);
+      ++v28;
+      v30 += 80;
     }
 
-    while (v35 != 4);
-    v33 = 0;
-    v32 = 1;
+    while (v28 != 4);
+    v26 = 0;
+    v25 = 1;
   }
 
-  while ((v36 & 1) != 0);
-  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v44);
+  while ((v29 & 1) != 0);
+  return mimosa::v2::nanite::Codec<unsigned short,9040ull,1230ull,2050ull,130ull,350ull,30ull,130ull,50ull,60ull,10ull,50ull,20ull,50ull,40ull,30ull,30ull,20ull,40ull,1ull,10ull,1ull,40ull,1ull,10ull,1ull,10ull,1ull,1ull,1ull,10ull,1ull,1ull>::Encoder<std::back_insert_iterator<std::vector<std::byte>>>::finalise(v37);
 }
 
 void sub_2512A6C60(_Unwind_Exception *exception_object)
@@ -6384,63 +6263,61 @@ void mimosa::v2::decode_opre()
 
 uint64_t mimosa::v2::SubpacketHeaderState::update(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
   if (*(a1 + 8) == 1)
   {
-    v3 = 2 * *(a1 + 16) - *a1;
+    v2 = 2 * *(a1 + 16) - *a1;
   }
 
   else
   {
     if (*(a1 + 24) == 1)
     {
-      v3 = *(a1 + 16);
+      v2 = *(a1 + 16);
       goto LABEL_7;
     }
 
-    v3 = 0;
+    v2 = 0;
     *(a1 + 24) = 1;
   }
 
-  *(a1 + 16) = v3;
+  *(a1 + 16) = v2;
 LABEL_7:
-  *a1 = v8;
-  *(a1 + 8) = v9;
-  v4 = *(a1 + 32);
-  v5 = v3 + *a2;
-  *(a1 + 16) = v5;
-  *(a1 + 32) = v4 + *(a2 + 8) + 1;
-  v6 = (a2 + 16);
+  *a1 = v7;
+  *(a1 + 8) = v8;
+  v3 = *(a1 + 32);
+  v4 = v2 + *a2;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = v3 + *(a2 + 8) + 1;
+  v5 = (a2 + 16);
   if (!*(a2 + 17))
   {
-    v6 = (a1 + 36);
+    v5 = (a1 + 36);
   }
 
-  *(a1 + 36) = *v6;
-  return v5;
+  *(a1 + 36) = *v5;
+  return v4;
 }
 
 uint64_t mimosa::v2::SubpacketHeaderState::predict(uint64_t this)
 {
-  v1 = *(this + 16);
   if (*(this + 8) == 1)
   {
-    v2 = 2 * *(this + 16) - *this;
+    v1 = 2 * *(this + 16) - *this;
 LABEL_5:
-    *(this + 16) = v2;
+    *(this + 16) = v1;
     goto LABEL_6;
   }
 
   if ((*(this + 24) & 1) == 0)
   {
-    v2 = 0;
+    v1 = 0;
     *(this + 24) = 1;
     goto LABEL_5;
   }
 
 LABEL_6:
-  *this = v3;
-  *(this + 8) = v4;
+  *this = v2;
+  *(this + 8) = v3;
   ++*(this + 32);
   return this;
 }
@@ -6448,40 +6325,39 @@ LABEL_6:
 uint64_t mimosa::v2::SubpacketHeaderState::update@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 16) = 0;
-  v3 = *(result + 16);
   if (*(result + 8) == 1)
   {
-    v4 = 2 * *(result + 16) - *result;
+    v3 = 2 * *(result + 16) - *result;
   }
 
   else
   {
     if (*(result + 24) == 1)
     {
-      v4 = *(result + 16);
+      v3 = *(result + 16);
       goto LABEL_7;
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
-  *(result + 16) = v4;
+  *(result + 16) = v3;
 LABEL_7:
-  *result = v9;
-  *(result + 8) = v10;
-  v5 = (*(result + 32) + 1);
-  v6 = *a2 - v4;
+  *result = v8;
+  *(result + 8) = v9;
+  v4 = (*(result + 32) + 1);
+  v5 = *a2 - v3;
   *(result + 16) = *a2;
   *(result + 24) = 1;
-  v7 = *(a2 + 8);
-  *a3 = v6;
-  *(a3 + 8) = v7 - v5;
-  *(result + 32) = v7;
-  v8 = *(a2 + 12);
-  if (v8 != *(result + 36))
+  v6 = *(a2 + 8);
+  *a3 = v5;
+  *(a3 + 8) = v6 - v4;
+  *(result + 32) = v6;
+  v7 = *(a2 + 12);
+  if (v7 != *(result + 36))
   {
-    *(result + 36) = v8;
-    *(a3 + 16) = v8 | 0x100;
+    *(result + 36) = v7;
+    *(a3 + 16) = v7 | 0x100;
   }
 
   return result;
@@ -6768,7 +6644,7 @@ uint64_t **mimosa::v2::WavelengthV2SubpacketState::update@<X0>(uint64_t a1@<X0>,
   *(a3 + 8) = v8;
   *(a1 + 146) = v7;
   v28 = (a1 + 147);
-  v9 = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147)) + 17);
+  v9 = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147), &std::piecewise_construct, &v28) + 17);
   *(a1 + 147) = v9;
   if (*(a2 + 94))
   {
@@ -6829,7 +6705,7 @@ uint64_t **mimosa::v2::WavelengthV2SubpacketState::update@<X0>(uint64_t a1@<X0>,
       while (v20 != 12);
 LABEL_17:
       v28 = (a1 + 146);
-      *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146)) + 17) = v13;
+      *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146), &std::piecewise_construct, &v28) + 17) = v13;
       goto LABEL_18;
     }
 
@@ -6863,7 +6739,7 @@ LABEL_18:
   do
   {
     v28 = v25;
-    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v25);
+    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v25, &std::piecewise_construct, &v28);
     v27 = *(result + 5) + *(a2 + 24 + v24);
     *(result + 5) = v27;
     *(v25 - 1) = v27;
@@ -6892,7 +6768,7 @@ LABEL_18:
   *(a3 + 16) = v20;
   *(a1 + 146) = v8;
   *&v19 = a1 + 147;
-  *(a1 + 147) = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147)) + 17);
+  *(a1 + 147) = *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 147), &std::piecewise_construct, &v19) + 17);
   v10 = *(a2 + 64);
   if (*(a1 + 144) != v10)
   {
@@ -6931,7 +6807,7 @@ LABEL_9:
     *(a3 + 88) = 1;
     *v9 = v13;
     v21 = (a1 + 146);
-    *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146)) + 17) = v13;
+    *(std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>((a1 + 64), (a1 + 146), &std::piecewise_construct, &v21) + 17) = v13;
   }
 
   v15 = 0;
@@ -6939,7 +6815,7 @@ LABEL_9:
   do
   {
     v21 = v16;
-    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v16);
+    result = std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>((a1 + 104), v16, &std::piecewise_construct, &v21);
     v18 = *(v16 - 1);
     *(v6 + v15) = v18 - *(result + 5);
     *(result + 5) = v18;
@@ -6955,15 +6831,16 @@ uint64_t **mimosa::v2::WavelengthV2SubpacketState::predict(mimosa::v2::Wavelengt
 {
   v1 = this + 147;
   *(this + 146) = *(this + 147);
-  result = std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 8, this + 147);
+  v3 = this + 147;
+  result = std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(this + 8, this + 147, &std::piecewise_construct, &v3);
   *v1 = *(result + 17);
   return result;
 }
 
-uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(char **a1, uint64_t a2, unsigned int a3)
 {
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   if (*a1 == v4)
   {
     v6 = *a1;
@@ -6979,7 +6856,7 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(uint64_t 
       v6 += 12;
       if (v7 == v4)
       {
-        v6 = *(a1 + 8);
+        v6 = a1[1];
         break;
       }
     }
@@ -6996,13 +6873,13 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(uint64_t 
       }
 
       v4 = &v5[v10];
-      *(a1 + 8) = &v5[v10];
+      a1[1] = &v5[v10];
     }
 
-    v11 = *(a1 + 16);
+    v11 = a1[2];
     if (v4 >= v11)
     {
-      v13 = 0xAAAAAAAAAAAAAAABLL * (&v4[-*a1] >> 2);
+      v13 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 2);
       v14 = v13 + 1;
       if (v13 + 1 > 0x1555555555555555)
       {
@@ -7033,14 +6910,14 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(uint64_t 
       v17 = 12 * v13;
       *v17 = a2;
       *(v17 + 8) = a3;
-      v12 = 12 * v13 + 12;
-      v18 = *(a1 + 8) - *a1;
-      v19 = 12 * v13 - v18;
+      v12 = (12 * v13 + 12);
+      v18 = a1[1] - *a1;
+      v19 = (12 * v13 - v18);
       memcpy((v17 - v18), *a1, v18);
       v20 = *a1;
       *a1 = v19;
-      *(a1 + 8) = v12;
-      *(a1 + 16) = 0;
+      a1[1] = v12;
+      a1[2] = 0;
       if (v20)
       {
         operator delete(v20);
@@ -7051,10 +6928,10 @@ uint64_t mimosa::v2::ItemCoder<std::array<unsigned short,6ul>>::encode(uint64_t 
     {
       *v4 = a2;
       *(v4 + 2) = a3;
-      v12 = (v4 + 12);
+      v12 = v4 + 12;
     }
 
-    *(a1 + 8) = v12;
+    a1[1] = v12;
     LODWORD(v6) = -85 * ((v12 - *a1) >> 2) - 1;
     v9 = 1;
   }
@@ -7078,33 +6955,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::array<unsigned s
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned char,unsigned char>,std::__unordered_map_hasher<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::hash<unsigned char>,std::equal_to<unsigned char>,true>,std::__unordered_map_equal<unsigned char,std::__hash_value_type<unsigned char,unsigned char>,std::equal_to<unsigned char>,std::hash<unsigned char>,true>,std::allocator<std::__hash_value_type<unsigned char,unsigned char>>>::__emplace_unique_key_args<unsigned char,std::piecewise_construct_t const&,std::tuple<unsigned char const&>,std::tuple<>>(void *a1, unsigned __int8 *a2, uint64_t a3, _BYTE **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7112,73 +6989,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 16) != v2)
+  if (*(v9 + 16) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2)
+uint64_t **std::__hash_table<std::__hash_value_type<unsigned short,unsigned int>,std::__unordered_map_hasher<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::hash<unsigned short>,std::equal_to<unsigned short>,true>,std::__unordered_map_equal<unsigned short,std::__hash_value_type<unsigned short,unsigned int>,std::equal_to<unsigned short>,std::hash<unsigned short>,true>,std::allocator<std::__hash_value_type<unsigned short,unsigned int>>>::__emplace_unique_key_args<unsigned short,std::piecewise_construct_t const&,std::tuple<unsigned short const&>,std::tuple<>>(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -7186,44 +7063,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 unint64_t mimosa::v2::varint::encode(unint64_t this)
@@ -7338,63 +7215,61 @@ unint64_t mimosa::v2::varint::decode(uint64_t a1)
 
 uint64_t mimosa::v2::ContainerHeaderState::update(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
   if (*(a1 + 8) == 1)
   {
-    v3 = 2 * *(a1 + 16) - *a1;
+    v2 = 2 * *(a1 + 16) - *a1;
   }
 
   else
   {
     if (*(a1 + 24) == 1)
     {
-      v3 = *(a1 + 16);
+      v2 = *(a1 + 16);
       goto LABEL_7;
     }
 
-    v3 = 0;
+    v2 = 0;
     *(a1 + 24) = 1;
   }
 
-  *(a1 + 16) = v3;
+  *(a1 + 16) = v2;
 LABEL_7:
-  *a1 = v8;
-  *(a1 + 8) = v9;
-  v4 = *(a1 + 32);
-  v5 = v3 + *a2;
-  *(a1 + 16) = v5;
-  *(a1 + 32) = v4 + *(a2 + 8) + 1;
-  v6 = (a2 + 16);
+  *a1 = v7;
+  *(a1 + 8) = v8;
+  v3 = *(a1 + 32);
+  v4 = v2 + *a2;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = v3 + *(a2 + 8) + 1;
+  v5 = (a2 + 16);
   if (!*(a2 + 17))
   {
-    v6 = (a1 + 36);
+    v5 = (a1 + 36);
   }
 
-  *(a1 + 36) = *v6;
-  return v5;
+  *(a1 + 36) = *v5;
+  return v4;
 }
 
 uint64_t mimosa::v2::ContainerHeaderState::predict(uint64_t this)
 {
-  v1 = *(this + 16);
   if (*(this + 8) == 1)
   {
-    v2 = 2 * *(this + 16) - *this;
+    v1 = 2 * *(this + 16) - *this;
 LABEL_5:
-    *(this + 16) = v2;
+    *(this + 16) = v1;
     goto LABEL_6;
   }
 
   if ((*(this + 24) & 1) == 0)
   {
-    v2 = 0;
+    v1 = 0;
     *(this + 24) = 1;
     goto LABEL_5;
   }
 
 LABEL_6:
-  *this = v3;
-  *(this + 8) = v4;
+  *this = v2;
+  *(this + 8) = v3;
   ++*(this + 32);
   return this;
 }
@@ -7402,40 +7277,39 @@ LABEL_6:
 uint64_t mimosa::v2::ContainerHeaderState::update@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   *(a3 + 16) = 0;
-  v3 = *(result + 16);
   if (*(result + 8) == 1)
   {
-    v4 = 2 * *(result + 16) - *result;
+    v3 = 2 * *(result + 16) - *result;
   }
 
   else
   {
     if (*(result + 24) == 1)
     {
-      v4 = *(result + 16);
+      v3 = *(result + 16);
       goto LABEL_7;
     }
 
-    v4 = 0;
+    v3 = 0;
   }
 
-  *(result + 16) = v4;
+  *(result + 16) = v3;
 LABEL_7:
-  *result = v9;
-  *(result + 8) = v10;
-  v5 = (*(result + 32) + 1);
-  v6 = *a2 - v4;
+  *result = v8;
+  *(result + 8) = v9;
+  v4 = (*(result + 32) + 1);
+  v5 = *a2 - v3;
   *(result + 16) = *a2;
   *(result + 24) = 1;
-  v7 = *(a2 + 8);
-  *a3 = v6;
-  *(a3 + 8) = v7 - v5;
-  *(result + 32) = v7;
-  v8 = *(a2 + 12);
-  if (v8 != *(result + 36))
+  v6 = *(a2 + 8);
+  *a3 = v5;
+  *(a3 + 8) = v6 - v4;
+  *(result + 32) = v6;
+  v7 = *(a2 + 12);
+  if (v7 != *(result + 36))
   {
-    *(result + 36) = v8;
-    *(a3 + 16) = v8 | 0x100;
+    *(result + 36) = v7;
+    *(a3 + 16) = v7 | 0x100;
   }
 
   return result;
@@ -7570,7 +7444,7 @@ _DWORD *mimosa::v2::PatchDecoder::PatchDecoder(_DWORD *a1, uint64_t a2)
   return a1;
 }
 
-uint64_t mimosa::v2::PatchDecoder::extract_patch@<X0>(mimosa::v2::PatchDecoder *this@<X0>, const byte *a2@<X1>, const byte *a3@<X2>, uint64_t a4@<X8>)
+uint64_t mimosa::v2::PatchDecoder::extract_patch@<X0>(mimosa::v2::PatchDecoder *this@<X0>, byte *a2@<X1>, const byte *a3@<X2>, uint64_t a4@<X8>)
 {
   *(a4 + 240) = 0u;
   *(a4 + 256) = 0u;
@@ -7878,7 +7752,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t mimosa::v2::PatchDecoder::decode(mimosa::v2::PatchDecoder *this, const byte *a2, const byte *a3)
+uint64_t mimosa::v2::PatchDecoder::decode(mimosa::v2::PatchDecoder *this, byte *a2, const byte *a3)
 {
   v6 = mimosa::v2::parse_varint(a2, &a3[a2], a3);
   if (!v7)
@@ -7915,32 +7789,26 @@ uint64_t mimosa::v2::PatchDecoder::decode(mimosa::v2::PatchDecoder *this, const 
 
 unint64_t mimosa::v2::parse_varint(const byte *this, const byte *a2, const byte *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (this >= a2)
   {
-    result = 0;
+    return 0;
+  }
+
+  v6 = 0;
+  __dst = 0;
+  if ((a2 - this) >= 9)
+  {
+    v3 = 9;
   }
 
   else
   {
-    v7 = 0;
-    __dst = 0;
-    if ((a2 - this) >= 9)
-    {
-      v3 = 9;
-    }
-
-    else
-    {
-      v3 = a2 - this;
-    }
-
-    memcpy(&__dst, this, v3);
-    result = mimosa::v2::varint::decode(&__dst);
+    v3 = a2 - this;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  memcpy(&__dst, this, v3);
+  return mimosa::v2::varint::decode(&__dst);
 }
 
 uint64_t std::__variant_detail::__dtor<std::__variant_detail::__traits<mimosa::v2::PacketState::PatchV1,mimosa::v2::PacketState::PatchV2,mimosa::v2::PacketState::PatchV3,mimosa::v2::PacketState::PatchV4,mimosa::v2::PacketState::PatchV5,mimosa::v2::PacketState::PatchV6,mimosa::v2::PacketState::PatchV7,mimosa::v2::PacketState::PatchV8,mimosa::v2::PacketState::PatchV9,mimosa::v2::PacketState::PatchV10,mimosa::v2::PacketState::PatchV11,mimosa::v2::PacketState::PatchV12>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](uint64_t result)
@@ -9138,23 +9006,23 @@ LABEL_92:
   }
 }
 
-void std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::resize(void *a1, unint64_t a2)
+void std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::__append(a1, v4);
+    std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::ADCDelta>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 24 * a2;
+    result[1] = *result + 24 * a2;
   }
 }
 
-void *std::optional<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned char &,void>(uint64_t a1, unsigned __int8 *a2)
+uint64_t *std::optional<std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>>::emplace[abi:ne200100]<unsigned char &,void>(uint64_t a1, unsigned __int8 *a2)
 {
   if (*(a1 + 24) == 1)
   {
@@ -9248,17 +9116,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::v2::OpticalSa
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](result, a2);
+    std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2512AB8D8(_Unwind_Exception *exception_object)
@@ -9273,7 +9141,7 @@ void sub_2512AB8D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::v2::OpticalSamplesV1SubpacketState::Patch::Sample>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x71C71C71C71C71DLL)
   {
@@ -9293,17 +9161,17 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<mimosa::v2::OpticalSa
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::__vallocate[abi:ne200100](result, a2);
+    std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2512ABA20(_Unwind_Exception *exception_object)
@@ -9318,7 +9186,7 @@ void sub_2512ABA20(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<mimosa::v2::AccelSubpacketState::SampleHeader>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x2AAAAAAAAAAAAAABLL)
   {

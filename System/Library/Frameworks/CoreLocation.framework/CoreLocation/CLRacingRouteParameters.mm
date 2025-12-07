@@ -8,53 +8,65 @@
 
 - (CLRacingRouteParameters)initWithRouteMatrixIndexVec:(id)vec racingRouteVariables:(id)variables startPointOnCurrentRoute:(id)route startPointOnReferenceRoute:(id)referenceRoute lastOnRouteDataPoint:(id)point lastProjectedDataPoint:(id)dataPoint routeBoundingBox:(id)box
 {
-  v17.receiver = self;
-  v17.super_class = CLRacingRouteParameters;
-  v15 = [(CLRacingRouteParameters *)&v17 init];
-  if (v15)
+  v38.receiver = self;
+  v38.super_class = CLRacingRouteParameters;
+  v18 = [(CLRacingRouteParameters *)&v38 init];
+  if (v18)
   {
-    v15->_routeMatrixIndexVec = [vec copy];
-    v15->_racingRouteVariables = [variables copy];
-    v15->_startPointOnCurrentRoute = [route copy];
-    v15->_startPointOnReferenceRoute = [referenceRoute copy];
-    v15->_lastOnRouteDataPoint = [point copy];
-    v15->_lastProjectedDataPoint = [dataPoint copy];
-    v15->_routeBoundingBox = [box copy];
+    v18->_routeMatrixIndexVec = objc_msgSend_copy(vec, v15, v16, v17);
+    v18->_racingRouteVariables = objc_msgSend_copy(variables, v19, v20, v21);
+    v18->_startPointOnCurrentRoute = objc_msgSend_copy(route, v22, v23, v24);
+    v18->_startPointOnReferenceRoute = objc_msgSend_copy(referenceRoute, v25, v26, v27);
+    v18->_lastOnRouteDataPoint = objc_msgSend_copy(point, v28, v29, v30);
+    v18->_lastProjectedDataPoint = objc_msgSend_copy(dataPoint, v31, v32, v33);
+    v18->_routeBoundingBox = objc_msgSend_copy(box, v34, v35, v36);
   }
 
-  return v15;
+  return v18;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:-[CLRacingRouteParameters routeMatrixIndexVec](self forKey:{"routeMatrixIndexVec"), @"routeMatrixIndexVec"}];
-  [coder encodeObject:-[CLRacingRouteParameters racingRouteVariables](self forKey:{"racingRouteVariables"), @"racingRouteVariables"}];
-  [coder encodeObject:-[CLRacingRouteParameters startPointOnCurrentRoute](self forKey:{"startPointOnCurrentRoute"), @"startPointOnCurrentRoute"}];
-  [coder encodeObject:-[CLRacingRouteParameters startPointOnReferenceRoute](self forKey:{"startPointOnReferenceRoute"), @"startPointOnReferenceRoute"}];
-  [coder encodeObject:-[CLRacingRouteParameters lastOnRouteDataPoint](self forKey:{"lastOnRouteDataPoint"), @"lastOnRouteDataPoint"}];
-  [coder encodeObject:-[CLRacingRouteParameters lastProjectedDataPoint](self forKey:{"lastProjectedDataPoint"), @"lastProjectedDataPoint"}];
-  routeBoundingBox = [(CLRacingRouteParameters *)self routeBoundingBox];
+  v6 = objc_msgSend_routeMatrixIndexVec(self, a2, coder, v3);
+  objc_msgSend_encodeObject_forKey_(coder, v7, v6, @"routeMatrixIndexVec");
+  v11 = objc_msgSend_racingRouteVariables(self, v8, v9, v10);
+  objc_msgSend_encodeObject_forKey_(coder, v12, v11, @"racingRouteVariables");
+  started = objc_msgSend_startPointOnCurrentRoute(self, v13, v14, v15);
+  objc_msgSend_encodeObject_forKey_(coder, v17, started, @"startPointOnCurrentRoute");
+  v21 = objc_msgSend_startPointOnReferenceRoute(self, v18, v19, v20);
+  objc_msgSend_encodeObject_forKey_(coder, v22, v21, @"startPointOnReferenceRoute");
+  v26 = objc_msgSend_lastOnRouteDataPoint(self, v23, v24, v25);
+  objc_msgSend_encodeObject_forKey_(coder, v27, v26, @"lastOnRouteDataPoint");
+  ProjectedDataPoint = objc_msgSend_lastProjectedDataPoint(self, v28, v29, v30);
+  objc_msgSend_encodeObject_forKey_(coder, v32, ProjectedDataPoint, @"lastProjectedDataPoint");
+  v37 = objc_msgSend_routeBoundingBox(self, v33, v34, v35);
 
-  [coder encodeObject:routeBoundingBox forKey:@"routeBoundingBox"];
+  objc_msgSend_encodeObject_forKey_(coder, v36, v37, @"routeBoundingBox");
 }
 
 - (CLRacingRouteParameters)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v33[2] = *MEMORY[0x1E69E9840];
   v4 = [CLRacingRouteParameters alloc];
   v5 = MEMORY[0x1E695DFD8];
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v6 = [coder decodeObjectOfClasses:objc_msgSend(v5 forKey:{"setWithArray:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 2)), @"routeMatrixIndexVec"}];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"racingRouteVariables"];
-  v8 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"startPointOnCurrentRoute"];
-  v9 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"startPointOnReferenceRoute"];
-  v10 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"lastOnRouteDataPoint"];
-  v11 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"lastProjectedDataPoint"];
-  v12 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"routeBoundingBox"];
-  result = [(CLRacingRouteParameters *)v4 initWithRouteMatrixIndexVec:v6 racingRouteVariables:v7 startPointOnCurrentRoute:v8 startPointOnReferenceRoute:v9 lastOnRouteDataPoint:v10 lastProjectedDataPoint:v11 routeBoundingBox:v12, v15[0]];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v33[0] = objc_opt_class();
+  v33[1] = objc_opt_class();
+  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v33, 2);
+  v10 = objc_msgSend_setWithArray_(v5, v8, v7, v9);
+  v12 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v11, v10, @"routeMatrixIndexVec");
+  v13 = objc_opt_class();
+  v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"racingRouteVariables");
+  v16 = objc_opt_class();
+  v18 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v17, v16, @"startPointOnCurrentRoute");
+  v19 = objc_opt_class();
+  v21 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v20, v19, @"startPointOnReferenceRoute");
+  v22 = objc_opt_class();
+  v24 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v23, v22, @"lastOnRouteDataPoint");
+  v25 = objc_opt_class();
+  v27 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v26, v25, @"lastProjectedDataPoint");
+  v28 = objc_opt_class();
+  v30 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v29, v28, @"routeBoundingBox");
+  return objc_msgSend_initWithRouteMatrixIndexVec_racingRouteVariables_startPointOnCurrentRoute_startPointOnReferenceRoute_lastOnRouteDataPoint_lastProjectedDataPoint_routeBoundingBox_(v4, v31, v12, v15, v18, v21, v24, v27, v30, v33[0]);
 }
 
 @end

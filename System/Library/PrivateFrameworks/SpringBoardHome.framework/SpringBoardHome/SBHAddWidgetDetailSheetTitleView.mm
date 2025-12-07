@@ -45,11 +45,11 @@
     [(SBHAddWidgetDetailSheetTitleView *)v17 addSubview:v17->_imageContainerView];
     v20 = MEMORY[0x1E696ACD8];
     widthAnchor = [(UIView *)v17->_imageContainerView widthAnchor];
-    [(SBHAddWidgetDetailSheetTitleView *)v17 iconImageInfo];
+    objc_msgSend_iconImageInfo(v17);
     v22 = [widthAnchor constraintEqualToConstant:?];
     v68[0] = v22;
     heightAnchor = [(UIView *)v17->_imageContainerView heightAnchor];
-    [(SBHAddWidgetDetailSheetTitleView *)v17 iconImageInfo];
+    objc_msgSend_iconImageInfo(v17);
     v25 = [heightAnchor constraintEqualToConstant:v24];
     v68[1] = v25;
     v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
@@ -131,7 +131,7 @@
 - (CGSize)intrinsicContentSize
 {
   v3 = *MEMORY[0x1E69DE788];
-  [(SBHAddWidgetDetailSheetTitleView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self, a2);
   v5 = v4;
   [(UILabel *)self->_textLabel intrinsicContentSize];
   if (v5 >= v6)

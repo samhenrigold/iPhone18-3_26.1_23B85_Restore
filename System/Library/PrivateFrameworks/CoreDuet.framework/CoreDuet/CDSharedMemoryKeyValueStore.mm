@@ -5,7 +5,7 @@
 
 void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1[5] + 8) + 40), *(a1[4] + 24));
   if (*(*(a1[5] + 8) + 40))
   {
@@ -18,28 +18,28 @@ void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke(void *a1)
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = *(a1[4] + 48);
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
           v12 = *(*(a1[6] + 8) + 40);
-          v13 = [*(a1[4] + 48) objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * v11), v16}];
+          v13 = [*(a1[4] + 48) objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * v11), v15}];
           v14 = [v13 copy];
           [v12 addObject:v14];
 
@@ -47,14 +47,12 @@ void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke(void *a1)
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __46___CDSharedMemoryKeyValueStore_sharedInstance__block_invoke(uint64_t a1)
@@ -77,29 +75,29 @@ uint64_t __35___CDSharedMemoryKeyValueStore_log__block_invoke()
 
 void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke_19(void *a1)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v2 = *(*(a1[6] + 8) + 40);
-  v3 = [v2 countByEnumeratingWithState:&v26 objects:v44 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v25 objects:v43 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
     v6 = 0;
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
         if (v9)
         {
           v10 = [v9[1] length];
@@ -114,7 +112,7 @@ void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke_19(void *a
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v26 objects:v44 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v25 objects:v43 count:16];
     }
 
     while (v4);
@@ -129,10 +127,10 @@ void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke_19(void *a
   v14 = +[_CDSharedMemoryKeyValueStore log];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
-    v17 = a1[4];
-    if (v17)
+    v16 = a1[4];
+    if (v16)
     {
-      Property = objc_getProperty(v17, v15, 24, 1);
+      Property = objc_getProperty(v16, v15, 24, 1);
     }
 
     else
@@ -140,32 +138,30 @@ void __47___CDSharedMemoryKeyValueStore__persistToShMem__block_invoke_19(void *a
       Property = 0;
     }
 
-    v19 = MEMORY[0x1E696AD98];
-    v20 = a1[7];
-    v21 = *(*(a1[6] + 8) + 40);
-    v22 = Property;
-    v23 = [v19 numberWithUnsignedInteger:{objc_msgSend(v21, "count")}];
-    v24 = a1[8];
-    v25 = *(a1[5] + 64);
+    v18 = MEMORY[0x1E696AD98];
+    v19 = a1[7];
+    v20 = *(*(a1[6] + 8) + 40);
+    v21 = Property;
+    v22 = [v18 numberWithUnsignedInteger:{objc_msgSend(v20, "count")}];
+    v23 = a1[8];
+    v24 = *(a1[5] + 64);
 
     *buf = 138544898;
-    v31 = Property;
-    v32 = 2048;
-    v33 = v20;
-    v34 = 2112;
-    v35 = v23;
-    v36 = 2114;
-    v37 = v6;
-    v38 = 2048;
-    v39 = v5;
-    v40 = 2048;
-    v41 = v24;
-    v42 = 2048;
-    v43 = v25;
+    v30 = Property;
+    v31 = 2048;
+    v32 = v19;
+    v33 = 2112;
+    v34 = v22;
+    v35 = 2114;
+    v36 = v6;
+    v37 = 2048;
+    v38 = v5;
+    v39 = 2048;
+    v40 = v23;
+    v41 = 2048;
+    v42 = v24;
     _os_log_fault_impl(&dword_191750000, v14, OS_LOG_TYPE_FAULT, "Shared memory exhausted trying to write %{public}@ (%zuB) - %@ entries (largest %{public}@ (%zuB), %zu/%zuB full", buf, 0x48u);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __50___CDSharedMemoryKeyValueStore_syncPersistToShMem__block_invoke(uint64_t a1)
@@ -176,39 +172,38 @@ void __50___CDSharedMemoryKeyValueStore_syncPersistToShMem__block_invoke(uint64_
   objc_autoreleasePoolPop(v2);
 }
 
-void __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke(uint64_t a1)
+void __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke(uint64_t *a1)
 {
-  v2 = (a1 + 40);
-  v3 = [*(*(a1 + 32) + 48) objectForKeyedSubscript:*(a1 + 40)];
-  if (v3)
+  v2 = [*(a1[4] + 48) objectForKeyedSubscript:a1[5]];
+  if (v2)
   {
-    v7 = v3;
-    [(_CDSerializableKeyedData *)v3 setData:?];
-    if (os_log_type_enabled(*(*(a1 + 32) + 40), OS_LOG_TYPE_DEBUG))
+    v6 = v2;
+    [(_CDSerializableKeyedData *)v2 setData:?];
+    if (os_log_type_enabled(*(a1[4] + 40), OS_LOG_TYPE_DEBUG))
     {
-      __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_1(v2);
+      __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_1();
     }
 
     goto LABEL_6;
   }
 
-  v4 = [_CDSerializableKeyedData alloc];
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v12 = 0;
-  v7 = [(_CDSerializableKeyedData *)&v4->super.isa initWithKey:v5 data:v6 error:&v12];
-  v8 = v12;
-  if (!v8)
+  v3 = [_CDSerializableKeyedData alloc];
+  v4 = a1[5];
+  v5 = a1[6];
+  v11 = 0;
+  v6 = [(_CDSerializableKeyedData *)&v3->super.isa initWithKey:v4 data:v5 error:&v11];
+  v7 = v11;
+  if (!v7)
   {
-    if (os_log_type_enabled(*(*(a1 + 32) + 40), OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(*(a1[4] + 40), OS_LOG_TYPE_DEBUG))
     {
-      __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_2(v2);
+      __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_2();
     }
 
-    v10 = *(*(a1 + 32) + 48);
-    if (v7)
+    v9 = *(a1[4] + 48);
+    if (v6)
     {
-      Property = objc_getProperty(v7, v9, 24, 1);
+      Property = objc_getProperty(v6, v8, 24, 1);
     }
 
     else
@@ -216,13 +211,13 @@ void __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke(uint64_t a
       Property = 0;
     }
 
-    [v10 setObject:v7 forKeyedSubscript:Property];
+    [v9 setObject:v6 forKeyedSubscript:Property];
 LABEL_6:
-    [(_CDSharedMemoryKeyValueStore *)*(a1 + 32) schedulePersistToShMem];
+    [(_CDSharedMemoryKeyValueStore *)a1[4] schedulePersistToShMem];
     goto LABEL_7;
   }
 
-  *(*(*(a1 + 56) + 8) + 24) = 0;
+  *(*(a1[7] + 8) + 24) = 0;
 
 LABEL_7:
 }
@@ -247,7 +242,7 @@ void __50___CDSharedMemoryKeyValueStore_removeDataForKeys___block_invoke(uint64_
 
 void __43___CDSharedMemoryKeyValueStore_dataForKey___block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 48) objectForKeyedSubscript:a1[5]];
   v4 = v2;
   if (v2)
@@ -265,37 +260,17 @@ void __43___CDSharedMemoryKeyValueStore_dataForKey___block_invoke(void *a1)
   v6 = *(a1[4] + 40);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = MEMORY[0x1E696AD98];
-    v9 = a1[5];
-    v10 = *(*(a1[6] + 8) + 40) != 0;
-    v11 = v6;
-    v12 = [v8 numberWithInt:v10];
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = v12;
-    _os_log_debug_impl(&dword_191750000, v11, OS_LOG_TYPE_DEBUG, "Attempt to retrieve data for key %{public}@ (was present = %@)", &v13, 0x16u);
+    v7 = MEMORY[0x1E696AD98];
+    v8 = a1[5];
+    v9 = *(*(a1[6] + 8) + 40) != 0;
+    v10 = v6;
+    v11 = [v7 numberWithInt:v9];
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v11;
+    _os_log_debug_impl(&dword_191750000, v10, OS_LOG_TYPE_DEBUG, "Attempt to retrieve data for key %{public}@ (was present = %@)", &v12, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __47___CDSharedMemoryKeyValueStore_setData_forKey___block_invoke_cold_2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

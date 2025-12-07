@@ -84,7 +84,7 @@
 
 + (id)getCandidateAsString:(id)string
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   candidateIdentifier = [stringCopy candidateIdentifier];
   v5 = [IRLogQEUtility stringPropertyToString:candidateIdentifier];
@@ -95,21 +95,21 @@
   lastUsedDate = [stringCopy lastUsedDate];
   firstSeenDate = [stringCopy firstSeenDate];
   name = [stringCopy name];
-  v36 = v6;
-  v37 = v5;
+  v35 = v6;
+  v36 = v5;
   v12 = [v7 stringWithFormat:@"candidateIdentifier: %@\nlastSeen: %@\nlastUsed: %@\nfirstSeen: %@\nname: %@\nisSameWiFi: %@\n", v5, lastSeenDate, lastUsedDate, firstSeenDate, name, v6];
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
-  v38 = stringCopy;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v37 = stringCopy;
   obj = [stringCopy nodes];
-  v41 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
-  if (v41)
+  v40 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
+  if (v40)
   {
     v13 = &unk_2867690D0;
-    v40 = *v53;
+    v39 = *v52;
     do
     {
       v14 = 0;
@@ -117,37 +117,37 @@
       v16 = v12;
       do
       {
-        if (*v53 != v40)
+        if (*v52 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v52 + 1) + 8 * v14);
+        v17 = *(*(&v51 + 1) + 8 * v14);
         avOutpuDeviceIdentifier = [v17 avOutpuDeviceIdentifier];
-        v47 = [IRLogQEUtility stringPropertyToString:avOutpuDeviceIdentifier];
+        v46 = [IRLogQEUtility stringPropertyToString:avOutpuDeviceIdentifier];
 
         rapportIdentifier = [v17 rapportIdentifier];
-        v51 = [IRLogQEUtility stringPropertyToString:rapportIdentifier];
+        v50 = [IRLogQEUtility stringPropertyToString:rapportIdentifier];
 
         idsIdentifier = [v17 idsIdentifier];
-        v50 = [IRLogQEUtility stringPropertyToString:idsIdentifier];
+        v49 = [IRLogQEUtility stringPropertyToString:idsIdentifier];
 
         avOutputDevice = [v17 avOutputDevice];
         modelID = [avOutputDevice modelID];
-        v49 = [IRLogQEUtility stringPropertyToString:modelID];
+        v48 = [IRLogQEUtility stringPropertyToString:modelID];
 
         avOutputDevice2 = [v17 avOutputDevice];
         deviceName = [avOutputDevice2 deviceName];
-        v48 = [IRLogQEUtility stringPropertyToString:deviceName];
+        v47 = [IRLogQEUtility stringPropertyToString:deviceName];
 
-        v46 = MEMORY[0x277CCACA8];
+        v45 = MEMORY[0x277CCACA8];
         stringValue = [v15 stringValue];
         avOutputDevice3 = [v17 avOutputDevice];
         if (avOutputDevice3)
         {
           avOutputDevice4 = [v17 avOutputDevice];
           v27 = IRAVOutputDeviceTypeToString([avOutputDevice4 deviceType]);
-          v43 = v27;
+          v42 = v27;
         }
 
         else
@@ -160,7 +160,7 @@
         {
           avOutputDevice6 = [v17 avOutputDevice];
           v29 = IRAVOutputDeviceSubTypeToString([avOutputDevice6 deviceSubType]);
-          v42 = v29;
+          v41 = v29;
         }
 
         else
@@ -170,7 +170,7 @@
 
         rapportDevice = [v17 rapportDevice];
         iCloudId = [rapportDevice iCloudId];
-        v32 = [v46 stringWithFormat:@" device%@:\n  avOutpuDeviceIdentifier: %@\n  rapportIdentifier: %@\n  idsIdentifier: %@\n  modelID: %@\n  deviceName: %@\n  deviceType: %@\n  deviceSubType: %@\n  iCloudId: %@\n", stringValue, v47, v51, v50, v49, v48, v27, v29, iCloudId];
+        v32 = [v45 stringWithFormat:@" device%@:\n  avOutpuDeviceIdentifier: %@\n  rapportIdentifier: %@\n  idsIdentifier: %@\n  modelID: %@\n  deviceName: %@\n  deviceType: %@\n  deviceSubType: %@\n  iCloudId: %@\n", stringValue, v46, v50, v49, v48, v47, v27, v29, iCloudId];
 
         if (avOutputDevice5)
         {
@@ -190,19 +190,17 @@
         v16 = v12;
       }
 
-      while (v41 != v14);
-      v41 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+      while (v40 != v14);
+      v40 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
 
   else
   {
     v13 = &unk_2867690D0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -257,34 +255,34 @@
 
 + (id)getContextAsString:(id)string
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   candidateResults = [string candidateResults];
   allObjects = [candidateResults allObjects];
   v5 = [allObjects sortedArrayUsingComparator:&__block_literal_global_19];
 
   string = [MEMORY[0x277CCAB68] string];
   [string appendString:@"{\n"];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v5;
-  v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v27)
   {
-    v27 = *v35;
+    v26 = *v34;
     do
     {
       v7 = 0;
       do
       {
-        if (*v35 != v27)
+        if (*v34 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v7;
-        v8 = *(*(&v34 + 1) + 8 * v7);
+        v28 = v7;
+        v8 = *(*(&v33 + 1) + 8 * v7);
         [string appendString:@"    {\n"];
         candidate = [v8 candidate];
         candidateIdentifier = [candidate candidateIdentifier];
@@ -293,28 +291,28 @@
         classificationDescription = [v8 classificationDescription];
         [string appendFormat:@"        candidateIdentifier: %@, classification: %@, desc: %@\n", candidateIdentifier, v11, classificationDescription];
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         candidate2 = [v8 candidate];
         nodes = [candidate2 nodes];
 
-        v15 = [nodes countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v15 = [nodes countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v31;
+          v17 = *v30;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v31 != v17)
+              if (*v30 != v17)
               {
                 objc_enumerationMutation(nodes);
               }
 
-              v19 = *(*(&v30 + 1) + 8 * i);
+              v19 = *(*(&v29 + 1) + 8 * i);
               name = [v19 name];
               avOutpuDeviceIdentifier = [v19 avOutpuDeviceIdentifier];
               rapportIdentifier = [v19 rapportIdentifier];
@@ -322,25 +320,24 @@
               [string appendFormat:@"        node: name: %@, avOutpuDeviceIdentifier: %@, rapportIdentifier: %@, idsIdentifier: %@\n", name, avOutpuDeviceIdentifier, rapportIdentifier, idsIdentifier];
             }
 
-            v16 = [nodes countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v16 = [nodes countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v16);
         }
 
         [string appendString:@"    \n    }\n"];
-        v7 = v29 + 1;
+        v7 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   [string appendString:@"}\n"];
-  v24 = *MEMORY[0x277D85DE8];
 
   return string;
 }

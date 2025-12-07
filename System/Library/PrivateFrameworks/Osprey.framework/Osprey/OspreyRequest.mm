@@ -41,7 +41,7 @@
 
 - (id)grpcRequestWithBaseURL:(id)l
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = [l URLByAppendingPathComponent:self->_methodName];
   v5 = [MEMORY[0x277CCAB70] requestWithURL:v4];
   [v5 setAllowsCellularAccess:self->_allowsCellularAccess];
@@ -79,8 +79,8 @@
     signedDeviceAuthenticationData = self->_signedDeviceAuthenticationData;
     if (signedDeviceAuthenticationData)
     {
-      v9 = [(NSData *)signedDeviceAuthenticationData base64EncodedStringWithOptions:0];
-      [v5 setValue:v9 forHTTPHeaderField:@"siri-absinthe-token-bin"];
+      v10 = [(NSData *)signedDeviceAuthenticationData base64EncodedStringWithOptions:0];
+      [v5 setValue:v10 forHTTPHeaderField:@"siri-absinthe-token-bin"];
     }
   }
 
@@ -92,19 +92,19 @@
   deviceAuthenticationVersion = self->_deviceAuthenticationVersion;
   if (deviceAuthenticationVersion)
   {
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", -[NSNumber integerValue](deviceAuthenticationVersion, "integerValue")];
-    [v5 setValue:v11 forHTTPHeaderField:@"siri-device-auth-version"];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", -[NSNumber integerValue](deviceAuthenticationVersion, "integerValue")];
+    [v5 setValue:v12 forHTTPHeaderField:@"siri-device-auth-version"];
   }
 
   if (self->_forceHTTPv2)
   {
-    OspreyLoggingInit();
-    v12 = OspreyLogContextRequest;
+    OspreyLoggingInit(deviceAuthenticationVersion, v8);
+    v13 = OspreyLogContextRequest;
     if (os_log_type_enabled(OspreyLogContextRequest, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v25 = "[OspreyRequest grpcRequestWithBaseURL:]";
-      _os_log_impl(&dword_25DDE6000, v12, OS_LOG_TYPE_INFO, "%s Force usage of HTTP/2 for request", buf, 0xCu);
+      v28 = "[OspreyRequest grpcRequestWithBaseURL:]";
+      _os_log_impl(&dword_25DDE6000, v13, OS_LOG_TYPE_INFO, "%s Force usage of HTTP/2 for request", buf, 0xCu);
     }
 
     [v5 _CFURLRequest];
@@ -118,39 +118,39 @@
   }
 
   headers = self->_headers;
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __40__OspreyRequest_grpcRequestWithBaseURL___block_invoke;
-  v22[3] = &unk_2799F1F70;
-  v15 = v5;
-  v23 = v15;
-  [(NSDictionary *)headers enumerateKeysAndObjectsUsingBlock:v22];
-  OspreyLoggingInit();
-  v16 = OspreyLogContextRequest;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __40__OspreyRequest_grpcRequestWithBaseURL___block_invoke;
+  v25[3] = &unk_2799F1F70;
+  v16 = v5;
+  v26 = v16;
+  v17 = [(NSDictionary *)headers enumerateKeysAndObjectsUsingBlock:v25];
+  OspreyLoggingInit(v17, v18);
+  v19 = OspreyLogContextRequest;
   if (os_log_type_enabled(OspreyLogContextRequest, OS_LOG_TYPE_INFO))
   {
     methodName = self->_methodName;
     data = self->_data;
-    v19 = v16;
+    v22 = v19;
     LODWORD(data) = [(NSData *)data length];
-    allHTTPHeaderFields = [v15 allHTTPHeaderFields];
+    allHTTPHeaderFields = [v16 allHTTPHeaderFields];
     *buf = 136315906;
-    v25 = "[OspreyRequest grpcRequestWithBaseURL:]";
-    v26 = 2112;
-    v27 = methodName;
-    v28 = 1024;
-    v29 = data;
-    v30 = 2112;
-    v31 = allHTTPHeaderFields;
-    _os_log_impl(&dword_25DDE6000, v19, OS_LOG_TYPE_INFO, "%s Request method: %@ data_length: %d headers: %@", buf, 0x26u);
+    v28 = "[OspreyRequest grpcRequestWithBaseURL:]";
+    v29 = 2112;
+    v30 = methodName;
+    v31 = 1024;
+    v32 = data;
+    v33 = 2112;
+    v34 = allHTTPHeaderFields;
+    _os_log_impl(&dword_25DDE6000, v22, OS_LOG_TYPE_INFO, "%s Request method: %@ data_length: %d headers: %@", buf, 0x26u);
   }
 
-  return v15;
+  return v16;
 }
 
 void __40__OspreyRequest_grpcRequestWithBaseURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) allHTTPHeaderFields];
@@ -158,19 +158,19 @@ void __40__OspreyRequest_grpcRequestWithBaseURL___block_invoke(uint64_t a1, void
 
   if (v8)
   {
-    OspreyLoggingInit();
-    v9 = OspreyLogContextRequest;
+    OspreyLoggingInit(v9, v10);
+    v11 = OspreyLogContextRequest;
     if (os_log_type_enabled(OspreyLogContextRequest, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315906;
-      v11 = "[OspreyRequest grpcRequestWithBaseURL:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
+      v12 = 136315906;
+      v13 = "[OspreyRequest grpcRequestWithBaseURL:]_block_invoke";
       v14 = 2112;
-      v15 = v8;
+      v15 = v5;
       v16 = 2112;
-      v17 = v6;
-      _os_log_debug_impl(&dword_25DDE6000, v9, OS_LOG_TYPE_DEBUG, "%s Overriding HTTP header: '%@' previous value: '%@' with: '%@'", &v10, 0x2Au);
+      v17 = v8;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_debug_impl(&dword_25DDE6000, v11, OS_LOG_TYPE_DEBUG, "%s Overriding HTTP header: '%@' previous value: '%@' with: '%@'", &v12, 0x2Au);
     }
   }
 

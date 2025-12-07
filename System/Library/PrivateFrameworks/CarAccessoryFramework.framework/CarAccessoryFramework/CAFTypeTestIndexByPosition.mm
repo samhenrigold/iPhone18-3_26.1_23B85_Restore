@@ -9,7 +9,9 @@
 - (NSString)vehicleLayoutKey;
 - (id)name;
 - (int)testInt32;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setTestInt32:(int)int32;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -142,6 +144,13 @@
   return int32Value;
 }
 
+- (void)setTestInt32:(int)int32
+{
+  v3 = *&int32;
+  testInt32Characteristic = [(CAFTypeTestIndexByPosition *)self testInt32Characteristic];
+  [testInt32Characteristic setInt32Value:v3];
+}
+
 - (CAFInt32Range)testInt32Range
 {
   testInt32Characteristic = [(CAFTypeTestIndexByPosition *)self testInt32Characteristic];
@@ -156,6 +165,61 @@
   v3 = testInt32Characteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036000065"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    vehicleLayoutKeyCharacteristic = [(CAFTypeTestIndexByPosition *)self vehicleLayoutKeyCharacteristic];
+    uniqueIdentifier2 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      vehicleLayoutKey = [(CAFTypeTestIndexByPosition *)self vehicleLayoutKey];
+      [observers typeTestIndexByPositionService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+      observers2 = [(CAFService *)self observers];
+      name = [(CAFTypeTestIndexByPosition *)self name];
+      [observers2 typeTestIndexByPositionService:self didUpdateName:name];
+
+LABEL_8:
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers2 = [updateCopy characteristicType];
+  if (![observers2 isEqual:@"0x00000000FF000008"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  testInt32Characteristic = [(CAFTypeTestIndexByPosition *)self testInt32Characteristic];
+  uniqueIdentifier4 = [testInt32Characteristic uniqueIdentifier];
+  v19 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v19)
+  {
+    observers2 = [(CAFService *)self observers];
+    [observers2 typeTestIndexByPositionService:self didUpdateTestInt32:{-[CAFTypeTestIndexByPosition testInt32](self, "testInt32")}];
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v20.receiver = self;
+  v20.super_class = CAFTypeTestIndexByPosition;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForVehicleLayoutKey

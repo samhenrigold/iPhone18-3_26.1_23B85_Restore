@@ -11,18 +11,18 @@
 
 - (id)_EX_objectAtIndex:()ExtensionKitAdditions ofClass:
 {
-  v1 = [self objectAtIndex:?];
+  v4 = [self objectAtIndex:a3];
   if (objc_opt_isKindOfClass())
   {
-    v2 = v1;
+    v5 = v4;
   }
 
   else
   {
-    v2 = 0;
+    v5 = 0;
   }
 
-  return v2;
+  return v5;
 }
 
 - (uint64_t)_EX_dictionaryAtIndex:()ExtensionKitAdditions

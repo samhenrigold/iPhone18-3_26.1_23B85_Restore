@@ -55,7 +55,7 @@
 - (_TtC12PhotosUICore29PhotosDetailsNoLocationWidget)init
 {
   v3 = &self->PXPhotosDetailsWidget_opaque[OBJC_IVAR____TtC12PhotosUICore29PhotosDetailsNoLocationWidget_contextObservation];
-  v4 = type metadata accessor for PhotosDetailsNoLocationWidget();
+  v4 = type metadata accessor for PhotosDetailsNoLocationWidget(self, a2);
   *v3 = 0;
   *(v3 + 1) = 0;
   v6.receiver = self;

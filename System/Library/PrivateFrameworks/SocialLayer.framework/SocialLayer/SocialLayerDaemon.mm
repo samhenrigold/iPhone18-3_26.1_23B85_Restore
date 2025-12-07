@@ -12,11 +12,10 @@
 
 - (void)setupListeners
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Error registering for Apple system language change notification: %d. We will continue without registering, but this will result in localized strings not updating when the system language changes.", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Error registering for Apple system language change notification: %d. We will continue without registering, but this will result in localized strings not updating when the system language changes.", v2, 8u);
 }
 
 void __35__SocialLayerDaemon_setupListeners__block_invoke(uint64_t a1)
@@ -30,7 +29,7 @@ void __35__SocialLayerDaemon_setupListeners__block_invoke(uint64_t a1)
 
 - (void)_appleSystemLanguageDidChange:(id)change
 {
-  v4 = SLDaemonLogHandle();
+  v4 = SLDaemonLogHandle(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [SocialLayerDaemon _appleSystemLanguageDidChange:v4];
@@ -44,12 +43,13 @@ void __35__SocialLayerDaemon_setupListeners__block_invoke(uint64_t a1)
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  if (!SLDConnectionIsEntitled(connectionCopy))
+  IsEntitled = SLDConnectionIsEntitled(connectionCopy);
+  if (!IsEntitled)
   {
-    v10 = SLDaemonLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SLDaemonLogHandle(IsEntitled);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [SocialLayerDaemon listener:connectionCopy shouldAcceptNewConnection:v10];
+      [SocialLayerDaemon listener:connectionCopy shouldAcceptNewConnection:v11];
     }
 
     goto LABEL_7;
@@ -60,15 +60,15 @@ void __35__SocialLayerDaemon_setupListeners__block_invoke(uint64_t a1)
   if (xpcListener != listenerCopy)
   {
 LABEL_7:
-    v9 = 0;
+    v10 = 0;
     goto LABEL_8;
   }
 
   [(SocialLayerDaemon *)self _acceptMainConnection:connectionCopy];
-  v9 = 1;
+  v10 = 1;
 LABEL_8:
 
-  return v9;
+  return v10;
 }
 
 - (void)_acceptMainConnection:(id)connection
@@ -91,16 +91,15 @@ LABEL_8:
   v14 = &unk_2789270F8;
   objc_copyWeak(&v15, &from);
   objc_copyWeak(&v16, &location);
-  [connectionCopy setInvalidationHandler:&v11];
-  v8 = SLDGlobalWorkloop();
+  v8 = SLDGlobalWorkloop([connectionCopy setInvalidationHandler:&v11]);
   [connectionCopy _setQueue:{v8, v11, v12, v13, v14}];
 
-  v9 = SLDaemonLogHandle();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = SLDaemonLogHandle(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
     v20 = connectionCopy;
-    _os_log_impl(&dword_231772000, v9, OS_LOG_TYPE_INFO, "Accepted a new primary client connection: %@", buf, 0xCu);
+    _os_log_impl(&dword_231772000, v10, OS_LOG_TYPE_INFO, "Accepted a new primary client connection: %@", buf, 0xCu);
   }
 
   [connectionCopy resume];
@@ -108,8 +107,6 @@ LABEL_8:
   objc_destroyWeak(&v15);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
@@ -121,7 +118,7 @@ void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
 
 - (void)endpointForServiceNamed:(id)named reply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   namedCopy = named;
   v7 = MEMORY[0x277CCAE80];
   replyCopy = reply;
@@ -130,25 +127,25 @@ void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
   connectionsToServicesTable = [(SocialLayerDaemon *)self connectionsToServicesTable];
   v12 = [connectionsToServicesTable objectForKey:currentConnection];
 
-  if (v10 && v12 && -[objc_class conformsToProtocol:](v10, "conformsToProtocol:", &unk_2846AE6F0) && ([v12 endpointForServiceClass:v10], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v10 && v12 && (v13 = -[objc_class conformsToProtocol:](v10, "conformsToProtocol:", &unk_2846AE6F0), v13) && ([v12 endpointForServiceClass:v10], (v13 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v14 = v13;
-    v15 = SLDaemonLogHandle();
+    v15 = SLDaemonLogHandle(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138412802;
-      v18 = v14;
-      v19 = 2112;
-      v20 = currentConnection;
-      v21 = 2112;
-      v22 = v10;
-      _os_log_debug_impl(&dword_231772000, v15, OS_LOG_TYPE_DEBUG, "Returning endpoint: %@ to client: %@ for service class: %@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = v14;
+      v18 = 2112;
+      v19 = currentConnection;
+      v20 = 2112;
+      v21 = v10;
+      _os_log_debug_impl(&dword_231772000, v15, OS_LOG_TYPE_DEBUG, "Returning endpoint: %@ to client: %@ for service class: %@", &v16, 0x20u);
     }
   }
 
   else
   {
-    v15 = SLDaemonLogHandle();
+    v15 = SLDaemonLogHandle(v13);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(SocialLayerDaemon *)currentConnection endpointForServiceNamed:namedCopy reply:v15];
@@ -158,19 +155,18 @@ void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
   }
 
   replyCopy[2](replyCopy, v14);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_appConnectionInvalidated:(id)invalidated
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   invalidatedCopy = invalidated;
-  v5 = SLDaemonLogHandle();
+  v5 = SLDaemonLogHandle(invalidatedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = invalidatedCopy;
-    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "Primary client connection invalidated: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = invalidatedCopy;
+    _os_log_impl(&dword_231772000, v5, OS_LOG_TYPE_INFO, "Primary client connection invalidated: %@", &v10, 0xCu);
   }
 
   connectionsToServicesTable = [(SocialLayerDaemon *)self connectionsToServicesTable];
@@ -184,8 +180,6 @@ void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
     multiplexesPendingRemoval = [(SocialLayerDaemon *)self multiplexesPendingRemoval];
     [multiplexesPendingRemoval addObject:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)multiplexDidRemoveAllServices:(id)services
@@ -197,22 +191,20 @@ void __43__SocialLayerDaemon__acceptMainConnection___block_invoke(uint64_t a1)
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Primary client connection (%@) does not have the right entitlement.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "Primary client connection (%@) does not have the right entitlement.", &v2, 0xCu);
 }
 
 - (void)endpointForServiceNamed:(os_log_t)log reply:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "Primary client connection (%@) requested endpoint for service (%@), but we could not create one", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_231772000, log, OS_LOG_TYPE_ERROR, "Primary client connection (%@) requested endpoint for service (%@), but we could not create one", &v3, 0x16u);
 }
 
 @end

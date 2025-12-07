@@ -252,22 +252,20 @@
 
 + (id)yogaAndRunningPrototypes
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
   v3 = MEMORY[0x277CCD7E8];
   hourUnit = [MEMORY[0x277CCDAB0] hourUnit];
   v5 = [v3 quantityWithUnit:hourUnit doubleValue:1.0];
   v6 = [v2 workoutPrototypeWithActivityType:57 goalType:2 goal:v5 startTime:0.345486111 duration:3600.0 energyBurned:210.0 distanceWalking:0.0 distanceCycling:0.0];
-  v15[0] = v6;
+  v14[0] = v6;
   v7 = objc_opt_class();
   v8 = MEMORY[0x277CCD7E8];
   mileUnit = [MEMORY[0x277CCDAB0] mileUnit];
   v10 = [v8 quantityWithUnit:mileUnit doubleValue:5.0];
   v11 = [v7 workoutPrototypeWithActivityType:37 goalType:1 goal:v10 startTime:0.440277778 duration:3240.0 energyBurned:545.0 distanceWalking:5.12 distanceCycling:0.0];
-  v15[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v14[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   return v12;
 }

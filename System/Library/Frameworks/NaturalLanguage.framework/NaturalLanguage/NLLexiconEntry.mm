@@ -1,4 +1,5 @@
 @interface NLLexiconEntry
++ (id)entryWithString:(id)string tokenID:(unsigned int)d flags:(unint64_t)flags probability:(double)probability;
 - (NLLexiconEntry)initWithString:(id)string tokenID:(unsigned int)d flags:(unint64_t)flags probability:(double)probability;
 - (id)probabilityInfo;
 @end
@@ -23,6 +24,15 @@
   }
 
   return v11;
+}
+
++ (id)entryWithString:(id)string tokenID:(unsigned int)d flags:(unint64_t)flags probability:(double)probability
+{
+  v8 = *&d;
+  stringCopy = string;
+  v10 = [[NLLexiconEntry alloc] initWithString:stringCopy tokenID:v8 flags:flags probability:probability];
+
+  return v10;
 }
 
 - (id)probabilityInfo

@@ -21,6 +21,8 @@
 - (void)getSIMPasscodeRemainingAttemptsValue;
 - (void)getSIMStatus;
 - (void)presentSIMPasscodeAlert;
+- (void)setSIMLockEnabled:(BOOL)enabled pin:(id)pin;
+- (void)setSIMLockEnabled:(BOOL)enabled pin:(id)pin completion:(id)completion;
 - (void)setSIMPasscodeLockEnabled:(BOOL)enabled;
 - (void)setSIMPasscodeRemainingAttempts:(int64_t)attempts;
 - (void)setSIMStatus:(id)status;
@@ -92,16 +94,16 @@
   [(TPSTelephonyController *)self performAtomicAccessorBlock:v3];
 }
 
-uint64_t __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_invoke(uint64_t result)
+void *__62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_invoke(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   v4 = *(result + 40);
   if (*(v3 + 72) != v4)
   {
     v8 = v1;
     v9 = v2;
     *(v3 + 72) = v4;
-    v5 = *(result + 32);
+    v5 = result[4];
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_invoke_2;
@@ -116,28 +118,28 @@ uint64_t __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___bloc
 
 void __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -150,7 +152,7 @@ void __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_in
           v10 = *(a1 + 32);
           block[4] = v7;
           block[5] = v10;
-          v13 = *(a1 + 40);
+          v12 = *(a1 + 40);
           dispatch_async(v9, block);
         }
 
@@ -158,13 +160,11 @@ void __62__TPSSubscriberTelephonyController_setSIMPasscodeLockEnabled___block_in
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)SIMPasscodeRemainingAttempts
@@ -211,10 +211,10 @@ void __64__TPSSubscriberTelephonyController_SIMPasscodeRemainingAttempts__block_
   [(TPSTelephonyController *)self performAtomicAccessorBlock:v3];
 }
 
-uint64_t __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts___block_invoke(uint64_t result)
+void *__68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts___block_invoke(void *result)
 {
-  v3 = *(result + 32);
-  v4 = *(result + 40);
+  v3 = result[4];
+  v4 = result[5];
   if (*(v3 + 80) != v4)
   {
     v9 = v1;
@@ -224,8 +224,8 @@ uint64_t __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts_
     v6[1] = 3221225472;
     v6[2] = __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts___block_invoke_2;
     v6[3] = &unk_2782E3B10;
-    v5 = *(result + 40);
-    v7 = *(result + 32);
+    v5 = result[5];
+    v7 = result[4];
     v8 = v5;
     return [v7 performAtomicDelegateBlock:v6];
   }
@@ -235,28 +235,28 @@ uint64_t __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts_
 
 void __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -278,13 +278,11 @@ void __68__TPSSubscriberTelephonyController_setSIMPasscodeRemainingAttempts___bl
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)SIMStatus
@@ -345,28 +343,28 @@ void __49__TPSSubscriberTelephonyController_setSIMStatus___block_invoke(uint64_t
 
 void __49__TPSSubscriberTelephonyController_setSIMStatus___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     do
     {
       v6 = 0;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v15 + 1) + 8 * v6);
+        v7 = *(*(&v14 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -380,7 +378,7 @@ void __49__TPSSubscriberTelephonyController_setSIMStatus___block_invoke_2(uint64
           v11 = *(a1 + 40);
           block[4] = v7;
           block[5] = v10;
-          v14 = v11;
+          v13 = v11;
           dispatch_async(v9, block);
         }
 
@@ -388,13 +386,11 @@ void __49__TPSSubscriberTelephonyController_setSIMStatus___block_invoke_2(uint64
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changePIN:(id)n newPin:(id)pin
@@ -417,8 +413,8 @@ void __53__TPSSubscriberTelephonyController_changePIN_newPin___block_invoke(uint
 
     if (v4)
     {
-      v5 = TPSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = TPSLog(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __53__TPSSubscriberTelephonyController_changePIN_newPin___block_invoke_cold_1();
       }
@@ -436,6 +432,22 @@ void __53__TPSSubscriberTelephonyController_changePIN_newPin___block_invoke(uint
   [telephonyClient changePIN:subscriptionContext oldPin:nCopy newPin:pinCopy completion:completionCopy];
 }
 
+- (void)setSIMLockEnabled:(BOOL)enabled pin:(id)pin
+{
+  enabledCopy = enabled;
+  pinCopy = pin;
+  objc_initWeak(&location, self);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __58__TPSSubscriberTelephonyController_setSIMLockEnabled_pin___block_invoke;
+  v7[3] = &unk_2782E3D80;
+  objc_copyWeak(&v8, &location);
+  v9 = enabledCopy;
+  [(TPSSubscriberTelephonyController *)self setSIMLockEnabled:enabledCopy pin:pinCopy completion:v7];
+  objc_destroyWeak(&v8);
+  objc_destroyWeak(&location);
+}
+
 void __58__TPSSubscriberTelephonyController_setSIMLockEnabled_pin___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
@@ -446,13 +458,23 @@ void __58__TPSSubscriberTelephonyController_setSIMLockEnabled_pin___block_invoke
 
     if (v4)
     {
-      v5 = TPSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = TPSLog(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __58__TPSSubscriberTelephonyController_setSIMLockEnabled_pin___block_invoke_cold_1();
       }
     }
   }
+}
+
+- (void)setSIMLockEnabled:(BOOL)enabled pin:(id)pin completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  pinCopy = pin;
+  telephonyClient = [(TPSTelephonyController *)self telephonyClient];
+  subscriptionContext = [(TPSSubscriberTelephonyController *)self subscriptionContext];
+  [telephonyClient saveSIMLockValue:subscriptionContext enabled:enabledCopy pin:pinCopy completion:completionCopy];
 }
 
 - (void)presentSIMPasscodeAlert
@@ -478,8 +500,8 @@ void __59__TPSSubscriberTelephonyController_presentSIMPasscodeAlert__block_invok
 
     if (v4)
     {
-      v5 = TPSLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = TPSLog(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         __59__TPSSubscriberTelephonyController_presentSIMPasscodeAlert__block_invoke_cold_1();
       }
@@ -489,10 +511,10 @@ void __59__TPSSubscriberTelephonyController_presentSIMPasscodeAlert__block_invok
 
 - (id)getSIMPasscodeLockEnabledValue
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  v3 = [(TPSSubscriberTelephonyController *)self getSIMPasscodeLockEnabledValueWithError:&v13];
-  v4 = v13;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v3 = [(TPSSubscriberTelephonyController *)self getSIMPasscodeLockEnabledValueWithError:&v14];
+  v4 = v14;
   v5 = v4;
   if (v4)
   {
@@ -500,24 +522,22 @@ void __59__TPSSubscriberTelephonyController_presentSIMPasscodeAlert__block_invok
 
     if (domain)
     {
-      v7 = TPSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = TPSLog(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v10 = objc_opt_class();
-        v11 = v10;
-        v12 = NSStringFromSelector(a2);
+        v11 = objc_opt_class();
+        v12 = v11;
+        v13 = NSStringFromSelector(a2);
         *buf = 138412802;
-        v15 = v10;
-        v16 = 2112;
-        v17 = v12;
-        v18 = 2112;
-        v19 = v5;
-        _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
+        v16 = v11;
+        v17 = 2112;
+        v18 = v13;
+        v19 = 2112;
+        v20 = v5;
+        _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", buf, 0x20u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -553,10 +573,9 @@ void __63__TPSSubscriberTelephonyController_fetchSIMPasscodeLockEnabled__block_i
 
     if (v6)
     {
-      v7 = TPSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = TPSLog(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
         v10 = objc_opt_class();
         v11 = *(a1 + 40);
         v12 = v10;
@@ -567,12 +586,10 @@ void __63__TPSSubscriberTelephonyController_fetchSIMPasscodeLockEnabled__block_i
         v17 = v13;
         v18 = 2112;
         v19 = v5;
-        _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
+        _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSIMPasscodeLockEnabledWithCompletion:(id)completion
@@ -585,9 +602,9 @@ void __63__TPSSubscriberTelephonyController_fetchSIMPasscodeLockEnabled__block_i
 
 - (id)getSIMPasscodeRemainingAttemptsValue
 {
-  v8 = 0;
-  v2 = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValueWithError:&v8];
-  v3 = v8;
+  v10 = 0;
+  v2 = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValueWithError:&v10];
+  v3 = v10;
   v4 = v3;
   if (v3)
   {
@@ -595,8 +612,8 @@ void __63__TPSSubscriberTelephonyController_fetchSIMPasscodeLockEnabled__block_i
 
     if (domain)
     {
-      v6 = TPSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = TPSLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [TPSSubscriberTelephonyController getSIMPasscodeRemainingAttemptsValue];
       }
@@ -637,10 +654,9 @@ void __69__TPSSubscriberTelephonyController_fetchSIMPasscodeRemainingAttempts__b
 
     if (v6)
     {
-      v7 = TPSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = TPSLog(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
         v10 = objc_opt_class();
         v11 = *(a1 + 40);
         v12 = v10;
@@ -651,12 +667,10 @@ void __69__TPSSubscriberTelephonyController_fetchSIMPasscodeRemainingAttempts__b
         v17 = v13;
         v18 = 2112;
         v19 = v5;
-        _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
+        _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSIMPasscodeRemainingAttemptsWithCompletion:(id)completion
@@ -669,9 +683,9 @@ void __69__TPSSubscriberTelephonyController_fetchSIMPasscodeRemainingAttempts__b
 
 - (id)getSIMStatus
 {
-  v8 = 0;
-  v2 = [(TPSSubscriberTelephonyController *)self getSIMStatusWithError:&v8];
-  v3 = v8;
+  v10 = 0;
+  v2 = [(TPSSubscriberTelephonyController *)self getSIMStatusWithError:&v10];
+  v3 = v10;
   v4 = v3;
   if (v3)
   {
@@ -679,8 +693,8 @@ void __69__TPSSubscriberTelephonyController_fetchSIMPasscodeRemainingAttempts__b
 
     if (domain)
     {
-      v6 = TPSLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v8 = TPSLog(v6, v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [TPSSubscriberTelephonyController getSIMStatus];
       }
@@ -721,10 +735,9 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
 
     if (v6)
     {
-      v7 = TPSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = TPSLog(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(a1 + 32);
         v10 = objc_opt_class();
         v11 = *(a1 + 40);
         v12 = v10;
@@ -735,12 +748,10 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
         v17 = v13;
         v18 = 2112;
         v19 = v5;
-        _os_log_error_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
+        _os_log_error_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_ERROR, "[%@ %@] failed with error %@.", &v14, 0x20u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSIMStatusWithCompletion:(id)completion
@@ -753,7 +764,7 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   statusCopy = status;
   uuid = [changeCopy uuid];
@@ -763,14 +774,14 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
 
   if (v11)
   {
-    v12 = TPSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = TPSLog(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412546;
-      v17 = statusCopy;
-      v18 = 2112;
-      v19 = changeCopy;
-      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "SIM status changed to %@ for subscription context %@.", &v16, 0x16u);
+      v17 = 138412546;
+      v18 = statusCopy;
+      v19 = 2112;
+      v20 = changeCopy;
+      _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "SIM status changed to %@ for subscription context %@.", &v17, 0x16u);
     }
 
     getSIMPasscodeLockEnabledValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeLockEnabledValue];
@@ -781,14 +792,12 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
 
     [(TPSSubscriberTelephonyController *)self setSIMStatus:statusCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simLockSaveRequestDidComplete:(id)complete success:(BOOL)success
 {
   successCopy = success;
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   uuid = [completeCopy uuid];
   subscriptionContext = [(TPSSubscriberTelephonyController *)self subscriptionContext];
@@ -797,20 +806,20 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
 
   if (v10)
   {
-    v11 = TPSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = TPSLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = @"unsuccessful";
+      v14 = @"unsuccessful";
       if (successCopy)
       {
-        v12 = @"successful";
+        v14 = @"successful";
       }
 
       *buf = 138412546;
-      v19 = v12;
-      v20 = 2112;
-      v21 = completeCopy;
-      _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "SIM lock save request was %@ for subscription context %@.", buf, 0x16u);
+      v20 = v14;
+      v21 = 2112;
+      v22 = completeCopy;
+      _os_log_impl(&dword_21B8E9000, v13, OS_LOG_TYPE_DEFAULT, "SIM lock save request was %@ for subscription context %@.", buf, 0x16u);
     }
 
     getSIMPasscodeLockEnabledValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeLockEnabledValue];
@@ -819,42 +828,40 @@ void __50__TPSSubscriberTelephonyController_fetchSIMStatus__block_invoke(uint64_
     getSIMPasscodeRemainingAttemptsValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValue];
     -[TPSSubscriberTelephonyController setSIMPasscodeRemainingAttempts:](self, "setSIMPasscodeRemainingAttempts:", [getSIMPasscodeRemainingAttemptsValue integerValue]);
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_success___block_invoke;
-    v16[3] = &unk_2782E3D58;
-    v16[4] = self;
-    v17 = successCopy;
-    [(TPSController *)self performAtomicDelegateBlock:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_success___block_invoke;
+    v17[3] = &unk_2782E3D58;
+    v17[4] = self;
+    v18 = successCopy;
+    [(TPSController *)self performAtomicDelegateBlock:v17];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_success___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -867,7 +874,7 @@ void __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_succes
           v10 = *(a1 + 32);
           block[4] = v7;
           block[5] = v10;
-          v13 = *(a1 + 40);
+          v12 = *(a1 + 40);
           dispatch_async(v9, block);
         }
 
@@ -875,16 +882,95 @@ void __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_succes
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simPinEntryErrorDidOccur:(id)occur status:(id)status
+{
+  v17 = *MEMORY[0x277D85DE8];
+  occurCopy = occur;
+  uuid = [occurCopy uuid];
+  subscriptionContext = [(TPSSubscriberTelephonyController *)self subscriptionContext];
+  uuid2 = [subscriptionContext uuid];
+  v9 = [uuid isEqual:uuid2];
+
+  if (v9)
+  {
+    v12 = TPSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v16 = occurCopy;
+      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "SIM PIN entry attempt failed for subscription context %@.", buf, 0xCu);
+    }
+
+    getSIMPasscodeRemainingAttemptsValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValue];
+    -[TPSSubscriberTelephonyController setSIMPasscodeRemainingAttempts:](self, "setSIMPasscodeRemainingAttempts:", [getSIMPasscodeRemainingAttemptsValue integerValue]);
+
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke;
+    v14[3] = &unk_2782E3960;
+    v14[4] = self;
+    [(TPSController *)self performAtomicDelegateBlock:v14];
+  }
+}
+
+void __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke(uint64_t a1)
+{
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v2 = [*(a1 + 32) delegateToQueue];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v13;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v13 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(*(&v12 + 1) + 8 * v6);
+        if (objc_opt_respondsToSelector())
+        {
+          v8 = [*(a1 + 32) delegateToQueue];
+          v9 = [v8 objectForKey:v7];
+
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke_2;
+          v11[3] = &unk_2782E39D0;
+          v10 = *(a1 + 32);
+          v11[4] = v7;
+          v11[5] = v10;
+          dispatch_async(v9, v11);
+        }
+
+        ++v6;
+      }
+
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v4);
+  }
+}
+
+- (void)simPukEntryErrorDidOccur:(id)occur status:(id)status
 {
   v16 = *MEMORY[0x277D85DE8];
   occurCopy = occur;
@@ -895,166 +981,77 @@ void __74__TPSSubscriberTelephonyController_simLockSaveRequestDidComplete_succes
 
   if (v9)
   {
-    v10 = TPSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = TPSLog(v10, v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v15 = occurCopy;
-      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "SIM PIN entry attempt failed for subscription context %@.", buf, 0xCu);
+      _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "SIM PUK entry attempt failed for subscription context %@.", buf, 0xCu);
     }
-
-    getSIMPasscodeRemainingAttemptsValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValue];
-    -[TPSSubscriberTelephonyController setSIMPasscodeRemainingAttempts:](self, "setSIMPasscodeRemainingAttempts:", [getSIMPasscodeRemainingAttemptsValue integerValue]);
 
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
-    v13[2] = __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke;
+    v13[2] = __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___block_invoke;
     v13[3] = &unk_2782E3960;
     v13[4] = self;
     [(TPSController *)self performAtomicDelegateBlock:v13];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke(uint64_t a1)
-{
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = *v14;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v14 != v5)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v7 = *(*(&v13 + 1) + 8 * v6);
-        if (objc_opt_respondsToSelector())
-        {
-          v8 = [*(a1 + 32) delegateToQueue];
-          v9 = [v8 objectForKey:v7];
-
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __68__TPSSubscriberTelephonyController_simPinEntryErrorDidOccur_status___block_invoke_2;
-          v12[3] = &unk_2782E39D0;
-          v10 = *(a1 + 32);
-          v12[4] = v7;
-          v12[5] = v10;
-          dispatch_async(v9, v12);
-        }
-
-        ++v6;
-      }
-
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v4);
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)simPukEntryErrorDidOccur:(id)occur status:(id)status
-{
-  v15 = *MEMORY[0x277D85DE8];
-  occurCopy = occur;
-  uuid = [occurCopy uuid];
-  subscriptionContext = [(TPSSubscriberTelephonyController *)self subscriptionContext];
-  uuid2 = [subscriptionContext uuid];
-  v9 = [uuid isEqual:uuid2];
-
-  if (v9)
-  {
-    v10 = TPSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138412290;
-      v14 = occurCopy;
-      _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "SIM PUK entry attempt failed for subscription context %@.", buf, 0xCu);
-    }
-
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___block_invoke;
-    v12[3] = &unk_2782E3960;
-    v12[4] = self;
-    [(TPSController *)self performAtomicDelegateBlock:v12];
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     do
     {
       v6 = 0;
       do
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v13 + 1) + 8 * v6);
+        v7 = *(*(&v12 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
           v9 = [v8 objectForKey:v7];
 
-          v12[0] = MEMORY[0x277D85DD0];
-          v12[1] = 3221225472;
-          v12[2] = __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___block_invoke_2;
-          v12[3] = &unk_2782E39D0;
+          v11[0] = MEMORY[0x277D85DD0];
+          v11[1] = 3221225472;
+          v11[2] = __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___block_invoke_2;
+          v11[3] = &unk_2782E39D0;
           v10 = *(a1 + 32);
-          v12[4] = v7;
-          v12[5] = v10;
-          dispatch_async(v9, v12);
+          v11[4] = v7;
+          v11[5] = v10;
+          dispatch_async(v9, v11);
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simPinChangeRequestDidComplete:(id)complete success:(BOOL)success
 {
   successCopy = success;
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   uuid = [completeCopy uuid];
   subscriptionContext = [(TPSSubscriberTelephonyController *)self subscriptionContext];
@@ -1063,61 +1060,59 @@ void __68__TPSSubscriberTelephonyController_simPukEntryErrorDidOccur_status___bl
 
   if (v10)
   {
-    v11 = TPSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = TPSLog(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = @"unsuccessful";
+      v14 = @"unsuccessful";
       if (successCopy)
       {
-        v12 = @"successful";
+        v14 = @"successful";
       }
 
       *buf = 138412546;
-      v18 = v12;
-      v19 = 2112;
-      v20 = completeCopy;
-      _os_log_impl(&dword_21B8E9000, v11, OS_LOG_TYPE_DEFAULT, "SIM PIN change was %@ for %@.", buf, 0x16u);
+      v19 = v14;
+      v20 = 2112;
+      v21 = completeCopy;
+      _os_log_impl(&dword_21B8E9000, v13, OS_LOG_TYPE_DEFAULT, "SIM PIN change was %@ for %@.", buf, 0x16u);
     }
 
     getSIMPasscodeRemainingAttemptsValue = [(TPSSubscriberTelephonyController *)self getSIMPasscodeRemainingAttemptsValue];
     -[TPSSubscriberTelephonyController setSIMPasscodeRemainingAttempts:](self, "setSIMPasscodeRemainingAttempts:", [getSIMPasscodeRemainingAttemptsValue integerValue]);
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __75__TPSSubscriberTelephonyController_simPinChangeRequestDidComplete_success___block_invoke;
-    v15[3] = &unk_2782E3D58;
-    v15[4] = self;
-    v16 = successCopy;
-    [(TPSController *)self performAtomicDelegateBlock:v15];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __75__TPSSubscriberTelephonyController_simPinChangeRequestDidComplete_success___block_invoke;
+    v16[3] = &unk_2782E3D58;
+    v16[4] = self;
+    v17 = successCopy;
+    [(TPSController *)self performAtomicDelegateBlock:v16];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __75__TPSSubscriberTelephonyController_simPinChangeRequestDidComplete_success___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1 + 32) delegateToQueue];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           v8 = [*(a1 + 32) delegateToQueue];
@@ -1130,7 +1125,7 @@ void __75__TPSSubscriberTelephonyController_simPinChangeRequestDidComplete_succe
           v10 = *(a1 + 32);
           block[4] = v7;
           block[5] = v10;
-          v13 = *(a1 + 40);
+          v12 = *(a1 + 40);
           dispatch_async(v9, block);
         }
 
@@ -1138,79 +1133,58 @@ void __75__TPSSubscriberTelephonyController_simPinChangeRequestDidComplete_succe
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __53__TPSSubscriberTelephonyController_changePIN_newPin___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *(v0 + 32);
-  v2 = objc_opt_class();
-  v3 = OUTLINED_FUNCTION_1_1(v2);
+  v0 = objc_opt_class();
+  v1 = OUTLINED_FUNCTION_1_1(v0);
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __58__TPSSubscriberTelephonyController_setSIMLockEnabled_pin___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v1 = v0;
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((v0 + 32));
-  *(v1 + 40);
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 void __59__TPSSubscriberTelephonyController_presentSIMPasscodeAlert__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
   v1 = v0;
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = *(v0 + 32);
-  v3 = objc_opt_class();
-  v4 = *(v1 + 40);
-  v5 = v3;
-  v12 = NSStringFromSelector(v4);
+  v2 = objc_opt_class();
+  v3 = *(v1 + 40);
+  v4 = v2;
+  v10 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
 }
 
 - (void)getSIMPasscodeRemainingAttemptsValue
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_1(v0);
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSIMStatus
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1_1(v0);
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

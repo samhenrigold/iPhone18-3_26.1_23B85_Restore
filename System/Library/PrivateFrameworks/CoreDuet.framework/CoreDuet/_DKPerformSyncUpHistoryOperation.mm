@@ -63,7 +63,7 @@
 
 - (void)performSyncUpHistory
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v3 = +[_DKSyncSerializer underlyingQueue];
@@ -77,7 +77,7 @@
       objc_claimAutoreleasedReturnValue();
       name = [OUTLINED_FUNCTION_2_18() name];
       OUTLINED_FUNCTION_0_28();
-      OUTLINED_FUNCTION_1_22(&dword_191750000, v17, v18, "%{public}@: Queuing history sync up on transport %{public}@", v19, v20, v21, v22, v40);
+      OUTLINED_FUNCTION_1_22(&dword_191750000, v16, v17, "%{public}@: Queuing history sync up on transport %{public}@", v18, v19, v20, v21);
 
       v5 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
     }
@@ -93,7 +93,7 @@
         objc_claimAutoreleasedReturnValue();
         name2 = [OUTLINED_FUNCTION_2_18() name];
         OUTLINED_FUNCTION_0_28();
-        OUTLINED_FUNCTION_1_22(&dword_191750000, v24, v25, "%{public}@: Creating history sync up subordinate operations on transport %{public}@", v26, v27, v28, v29, v40);
+        OUTLINED_FUNCTION_1_22(&dword_191750000, v23, v24, "%{public}@: Creating history sync up subordinate operations on transport %{public}@", v25, v26, v27, v28);
 
         v5 = &OBJC_IVAR____DKSync2Coordinator__periodicJobInterval;
       }
@@ -121,16 +121,16 @@
       v14 = +[_CDLogging syncChannel];
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        v30 = [objc_opt_class() description];
-        v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
+        v29 = [objc_opt_class() description];
+        v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v9, "count")}];
         name3 = [self[38] name];
-        v40 = 138543874;
-        v41 = v30;
-        v42 = 2112;
-        v43 = v31;
-        v44 = 2114;
-        v45 = name3;
-        _os_log_debug_impl(&dword_191750000, v14, OS_LOG_TYPE_DEBUG, "%{public}@: Done queuing %@ subordinate history sync up operations on transport %{public}@", &v40, 0x20u);
+        v39 = 138543874;
+        v40 = v29;
+        v41 = 2112;
+        v42 = v30;
+        v43 = 2114;
+        v44 = name3;
+        _os_log_debug_impl(&dword_191750000, v14, OS_LOG_TYPE_DEBUG, "%{public}@: Done queuing %@ subordinate history sync up operations on transport %{public}@", &v39, 0x20u);
       }
     }
 
@@ -142,14 +142,12 @@
         objc_claimAutoreleasedReturnValue();
         name4 = [OUTLINED_FUNCTION_2_18() name];
         OUTLINED_FUNCTION_0_28();
-        OUTLINED_FUNCTION_1_22(&dword_191750000, v34, v35, "%{public}@: No peer available for history sync up on transport %{public}@", v36, v37, v38, v39, v40);
+        OUTLINED_FUNCTION_1_22(&dword_191750000, v33, v34, "%{public}@: No peer available for history sync up on transport %{public}@", v35, v36, v37, v38);
       }
 
       [self endOperation];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

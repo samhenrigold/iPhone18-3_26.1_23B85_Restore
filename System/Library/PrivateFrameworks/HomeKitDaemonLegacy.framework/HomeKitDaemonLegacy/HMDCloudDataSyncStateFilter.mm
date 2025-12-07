@@ -33,7 +33,9 @@
 - (void)_stopPopupTimer;
 - (void)_stopResetConfigDisplayTimer;
 - (void)_stopiCloudSwitchPopupTimer;
+- (void)_updateCloudDataSyncState:(BOOL)state;
 - (void)_updateCurrentAccount:(id)account;
+- (void)_updateKeychainSyncEnabled:(BOOL)enabled;
 - (void)dealloc;
 - (void)evaluateMoveToHH2;
 - (void)handleKeychainSyncStateChangedNotification:(id)notification;
@@ -132,7 +134,7 @@ uint64_t __50__HMDCloudDataSyncStateFilter_shouldCloudSyncData__block_invoke(uin
 
 uint64_t __49__HMDCloudDataSyncStateFilter_resetConfiguration__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setServerTokenAvailable:0];
   [*(a1 + 32) setCloudDataSyncCompleted:0];
   v2 = +[HMDDeviceCapabilities deviceCapabilities];
@@ -145,15 +147,13 @@ uint64_t __49__HMDCloudDataSyncStateFilter_resetConfiguration__block_invoke(uint
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@HomeKit configuration got reset, stopping data reset timers", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@HomeKit configuration got reset, stopping data reset timers", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  result = [*(a1 + 32) _stopDataConfigResetTimers];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _stopDataConfigResetTimers];
 }
 
 - (void)updateiCloudAccountActive:(BOOL)active
@@ -168,14 +168,14 @@ uint64_t __49__HMDCloudDataSyncStateFilter_resetConfiguration__block_invoke(uint
   dispatch_sync(queue, v6);
 }
 
-uint64_t __57__HMDCloudDataSyncStateFilter_updateiCloudAccountActive___block_invoke(uint64_t a1)
+void *__57__HMDCloudDataSyncStateFilter_updateiCloudAccountActive___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) iCloudAccountActive];
   if (*(a1 + 40) != result)
   {
-    v10 = 0;
-    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v10];
+    v9 = 0;
+    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v9];
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
     v6 = HMFGetOSLogHandle();
@@ -184,9 +184,9 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateiCloudAccountActive___block_inv
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
       *buf = 138543618;
-      v12 = v7;
-      v13 = 1024;
-      v14 = v8;
+      v11 = v7;
+      v12 = 1024;
+      v13 = v8;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating iCloud account active to %{BOOL}d", buf, 0x12u);
     }
 
@@ -194,16 +194,15 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateiCloudAccountActive___block_inv
     [*(a1 + 32) setICloudAccountActive:*(a1 + 40)];
     if (([*(a1 + 32) iCloudAccountActive] & 1) != 0 || !objc_msgSend(*(a1 + 32), "cloudDataSyncCompleted"))
     {
-      result = [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v10 forcePost:0];
+      return [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v9 forcePost:0];
     }
 
     else
     {
-      result = [*(a1 + 32) _updateCloudDataSyncState:0];
+      return [*(a1 + 32) _updateCloudDataSyncState:0];
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -228,7 +227,7 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateiCloudAccountActive___block_inv
   return selfCopy;
 }
 
-uint64_t __58__HMDCloudDataSyncStateFilter_isLocalDataDecryptionFailed__block_invoke(uint64_t a1)
+void *__58__HMDCloudDataSyncStateFilter_isLocalDataDecryptionFailed__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) localDataDecryptionFailed];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -247,14 +246,14 @@ uint64_t __58__HMDCloudDataSyncStateFilter_isLocalDataDecryptionFailed__block_in
   dispatch_async(queue, v6);
 }
 
-uint64_t __63__HMDCloudDataSyncStateFilter_updateLocalDataDecryptionFailed___block_invoke(uint64_t a1)
+void *__63__HMDCloudDataSyncStateFilter_updateLocalDataDecryptionFailed___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) localDataDecryptionFailed];
   if (*(a1 + 40) != result)
   {
-    v11 = 0;
-    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v11];
+    v10 = 0;
+    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v10];
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
     v6 = HMFGetOSLogHandle();
@@ -269,18 +268,17 @@ uint64_t __63__HMDCloudDataSyncStateFilter_updateLocalDataDecryptionFailed___blo
       }
 
       *buf = 138543618;
-      v13 = v7;
-      v14 = 2080;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2080;
+      v14 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating local data decryption fail state to: %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) setLocalDataDecryptionFailed:*(a1 + 40)];
-    result = [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v11 forcePost:0];
+    return [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v10 forcePost:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -305,7 +303,7 @@ uint64_t __63__HMDCloudDataSyncStateFilter_updateLocalDataDecryptionFailed___blo
   return selfCopy;
 }
 
-uint64_t __58__HMDCloudDataSyncStateFilter_isKeychainSyncSwitchEnabled__block_invoke(uint64_t a1)
+void *__58__HMDCloudDataSyncStateFilter_isKeychainSyncSwitchEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) keychainSyncEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -333,7 +331,7 @@ uint64_t __58__HMDCloudDataSyncStateFilter_isKeychainSyncSwitchEnabled__block_in
   return selfCopy;
 }
 
-uint64_t __52__HMDCloudDataSyncStateFilter_isiCloudSwitchEnabled__block_invoke(uint64_t a1)
+void *__52__HMDCloudDataSyncStateFilter_isiCloudSwitchEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) iCloudSwitchStateEnabled];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -352,14 +350,14 @@ uint64_t __52__HMDCloudDataSyncStateFilter_isiCloudSwitchEnabled__block_invoke(u
   dispatch_sync(queue, v6);
 }
 
-uint64_t __55__HMDCloudDataSyncStateFilter_updateiCloudSwitchState___block_invoke(uint64_t a1)
+void *__55__HMDCloudDataSyncStateFilter_updateiCloudSwitchState___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) iCloudSwitchStateEnabled];
   if (*(a1 + 40) != result)
   {
-    v11 = 0;
-    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v11];
+    v10 = 0;
+    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v10];
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
     v6 = HMFGetOSLogHandle();
@@ -374,18 +372,17 @@ uint64_t __55__HMDCloudDataSyncStateFilter_updateiCloudSwitchState___block_invok
       }
 
       *buf = 138543618;
-      v13 = v7;
-      v14 = 2080;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2080;
+      v14 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating iCloud Switch state to: %senabled", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) setICloudSwitchStateEnabled:*(a1 + 40)];
-    result = [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v11 forcePost:0];
+    return [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v10 forcePost:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -401,14 +398,14 @@ uint64_t __55__HMDCloudDataSyncStateFilter_updateiCloudSwitchState___block_invok
   dispatch_sync(queue, v6);
 }
 
-uint64_t __58__HMDCloudDataSyncStateFilter_updateServerTokenAvailable___block_invoke(uint64_t a1)
+void *__58__HMDCloudDataSyncStateFilter_updateServerTokenAvailable___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) serverTokenAvailable];
   if (*(a1 + 40) != result)
   {
-    v11 = 0;
-    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v11];
+    v10 = 0;
+    v3 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v10];
     v4 = objc_autoreleasePoolPush();
     v5 = *(a1 + 32);
     v6 = HMFGetOSLogHandle();
@@ -423,18 +420,17 @@ uint64_t __58__HMDCloudDataSyncStateFilter_updateServerTokenAvailable___block_in
       }
 
       *buf = 138543618;
-      v13 = v7;
-      v14 = 2080;
-      v15 = v9;
+      v12 = v7;
+      v13 = 2080;
+      v14 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating cloud server token available state to %savailable", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) setServerTokenAvailable:*(a1 + 40)];
-    result = [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v11 forcePost:0];
+    return [*(a1 + 32) _postNotificationForDataSyncInProgress:v3 dataSyncState:v10 forcePost:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -450,7 +446,7 @@ uint64_t __58__HMDCloudDataSyncStateFilter_updateServerTokenAvailable___block_in
   dispatch_sync(queue, v6);
 }
 
-uint64_t __77__HMDCloudDataSyncStateFilter_updateWithoutDataSynCheckServerTokenAvailable___block_invoke(uint64_t a1)
+void *__77__HMDCloudDataSyncStateFilter_updateWithoutDataSynCheckServerTokenAvailable___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) serverTokenAvailable];
   if (*(a1 + 40) != result)
@@ -480,6 +476,48 @@ uint64_t __77__HMDCloudDataSyncStateFilter_updateWithoutDataSynCheckServerTokenA
   os_unfair_lock_unlock(&self->_lock);
 }
 
+- (void)_updateCloudDataSyncState:(BOOL)state
+{
+  stateCopy = state;
+  v18 = *MEMORY[0x277D85DE8];
+  if ([(HMDCloudDataSyncStateFilter *)self cloudDataSyncCompleted]!= state)
+  {
+    v13 = 0;
+    v5 = [(HMDCloudDataSyncStateFilter *)self _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v13];
+    v6 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v8 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v9 = HMFGetLogIdentifier();
+      v10 = v9;
+      v11 = "Sync in progress";
+      if (stateCopy)
+      {
+        v11 = "Sync completed";
+      }
+
+      *buf = 138543618;
+      v15 = v9;
+      v16 = 2080;
+      v17 = v11;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Updating cloud sync state to %s", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v6);
+    [(HMDCloudDataSyncStateFilter *)selfCopy setCloudDataSyncCompleted:stateCopy];
+    if ([(HMDCloudDataSyncStateFilter *)selfCopy cloudDataSyncCompleted])
+    {
+      homeManager = [(HMDCloudDataSyncStateFilter *)selfCopy homeManager];
+      [homeManager assistantSyncDataChanged:@"SyncStateCompleted"];
+
+      [(HMDCloudDataSyncStateFilter *)selfCopy _markHH1FirstCloudSyncComplete];
+    }
+
+    [(HMDCloudDataSyncStateFilter *)selfCopy _postNotificationForDataSyncInProgress:v5 dataSyncState:v13 forcePost:[(HMDCloudDataSyncStateFilter *)selfCopy cloudDataSyncCompleted]];
+  }
+}
+
 - (void)updateCloudDataSyncState:(BOOL)state
 {
   queue = [(HMDMessageFilter *)self queue];
@@ -495,7 +533,7 @@ uint64_t __77__HMDCloudDataSyncStateFilter_updateWithoutDataSynCheckServerTokenA
 - (BOOL)_cloudSyncinProgressCheck:(id)check supressPopup:(BOOL)popup sendCanceledError:(BOOL *)error dataSyncState:(unint64_t *)state
 {
   popupCopy = popup;
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   checkCopy = check;
   if (_cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState__onceToken == -1)
   {
@@ -551,9 +589,9 @@ LABEL_4:
           v74 = HMFGetLogIdentifier();
           name2 = [checkCopy name];
           *buf = 138543618;
-          v88 = v74;
-          v89 = 2112;
-          v90 = name2;
+          v87 = v74;
+          v88 = 2112;
+          v89 = name2;
           _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Allowing the message %@ though Keychain is not enabled", buf, 0x16u);
         }
 
@@ -571,9 +609,9 @@ LABEL_4:
           v77 = HMFGetLogIdentifier();
           name3 = [checkCopy name];
           *buf = 138543618;
-          v88 = v77;
-          v89 = 2112;
-          v90 = name3;
+          v87 = v77;
+          v88 = 2112;
+          v89 = name3;
           _os_log_impl(&dword_2531F8000, v73, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since Keychain is not enabled and there are peers", buf, 0x16u);
 
           v28 = 1;
@@ -603,7 +641,7 @@ LABEL_4:
     {
       v82 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v88 = v82;
+      v87 = v82;
       _os_log_impl(&dword_2531F8000, v81, OS_LOG_TYPE_INFO, "%{public}@Setting data sync state to keychain not enabled", buf, 0xCu);
     }
 
@@ -631,9 +669,9 @@ LABEL_10:
           v26 = HMFGetLogIdentifier();
           name5 = [checkCopy name];
           *buf = 138543618;
-          v88 = v26;
-          v89 = 2112;
-          v90 = name5;
+          v87 = v26;
+          v88 = 2112;
+          v89 = name5;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Allowing message %@ though iCloud Switch is not enabled", buf, 0x16u);
         }
 
@@ -651,9 +689,9 @@ LABEL_10:
           v40 = HMFGetLogIdentifier();
           name6 = [checkCopy name];
           *buf = 138543618;
-          v88 = v40;
-          v89 = 2112;
-          v90 = name6;
+          v87 = v40;
+          v88 = 2112;
+          v89 = name6;
           _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since iCloud Switch is not enabled", buf, 0x16u);
 
           v28 = 1;
@@ -692,7 +730,7 @@ LABEL_84:
       {
         v63 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v88 = v63;
+        v87 = v63;
         _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting dialog about iCloud Switch being required", buf, 0xCu);
       }
 
@@ -706,15 +744,15 @@ LABEL_84:
       v64 = +[HMDUIDialogPresenter sharedUIDialogPresenter];
       objc_initWeak(buf, selfCopy6);
       workQueue = [(HMDMessageFilter *)selfCopy6 workQueue];
-      v85[0] = MEMORY[0x277D85DD0];
-      v85[1] = 3221225472;
-      v85[2] = __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___block_invoke_169;
-      v85[3] = &unk_2797296D8;
-      objc_copyWeak(&v86, buf);
-      v85[4] = selfCopy6;
-      [v64 displayiCloudSwitchWithContext:selfCopy6 queue:workQueue completionHandler:v85];
+      v84[0] = MEMORY[0x277D85DD0];
+      v84[1] = 3221225472;
+      v84[2] = __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___block_invoke_169;
+      v84[3] = &unk_2797296D8;
+      objc_copyWeak(&v85, buf);
+      v84[4] = selfCopy6;
+      [v64 displayiCloudSwitchWithContext:selfCopy6 queue:workQueue completionHandler:v84];
 
-      objc_destroyWeak(&v86);
+      objc_destroyWeak(&v85);
       objc_destroyWeak(buf);
     }
 
@@ -740,9 +778,9 @@ LABEL_84:
           v18 = HMFGetLogIdentifier();
           name8 = [checkCopy name];
           *buf = 138543618;
-          v88 = v18;
-          v89 = 2112;
-          v90 = name8;
+          v87 = v18;
+          v88 = 2112;
+          v89 = name8;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Allowing configuration message (%@) on watch supporting cloud data sync", buf, 0x16u);
         }
 
@@ -768,9 +806,9 @@ LABEL_74:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v88 = v32;
-      v89 = 2112;
-      v90 = checkCopy;
+      v87 = v32;
+      v88 = 2112;
+      v89 = checkCopy;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since server token unavailable and cloud sync not completed and transient devices present", buf, 0x16u);
     }
 
@@ -789,7 +827,7 @@ LABEL_54:
         {
           v47 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v88 = v47;
+          v87 = v47;
           _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Setting data sync state to requiring configuration reset", buf, 0xCu);
         }
       }
@@ -804,7 +842,7 @@ LABEL_54:
         {
           v49 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v88 = v49;
+          v87 = v49;
           _os_log_impl(&dword_2531F8000, v46, OS_LOG_TYPE_INFO, "%{public}@Setting data sync state to waiting for cloud data", buf, 0xCu);
         }
       }
@@ -826,9 +864,9 @@ LABEL_54:
       v37 = HMFGetLogIdentifier();
       name9 = [checkCopy name];
       *buf = 138543618;
-      v88 = v37;
-      v89 = 2112;
-      v90 = name9;
+      v87 = v37;
+      v88 = 2112;
+      v89 = name9;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since signed into cloud, no valid server token", buf, 0x16u);
     }
 
@@ -845,9 +883,9 @@ LABEL_54:
       v42 = HMFGetLogIdentifier();
       name10 = [checkCopy name];
       *buf = 138543618;
-      v88 = v42;
-      v89 = 2112;
-      v90 = name10;
+      v87 = v42;
+      v88 = 2112;
+      v89 = name10;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since signed into cloud, but initial sync is not complete", buf, 0x16u);
     }
 
@@ -864,9 +902,9 @@ LABEL_54:
       v33 = HMFGetLogIdentifier();
       name11 = [checkCopy name];
       *buf = 138543618;
-      v88 = v33;
-      v89 = 2112;
-      v90 = name11;
+      v87 = v33;
+      v88 = 2112;
+      v89 = name11;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since decryption failed", buf, 0x16u);
     }
 
@@ -883,9 +921,9 @@ LABEL_54:
       v35 = HMFGetLogIdentifier();
       name12 = [checkCopy name];
       *buf = 138543618;
-      v88 = v35;
-      v89 = 2112;
-      v90 = name12;
+      v87 = v35;
+      v88 = 2112;
+      v89 = name12;
       _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since local data decryption failed", buf, 0x16u);
     }
 
@@ -910,7 +948,7 @@ LABEL_62:
       {
         v54 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v88 = v54;
+        v87 = v54;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Allowing message due to no key transfer peers available", buf, 0xCu);
       }
 
@@ -943,9 +981,9 @@ LABEL_62:
       v58 = HMFGetLogIdentifier();
       name15 = [checkCopy name];
       *buf = 138543618;
-      v88 = v58;
-      v89 = 2112;
-      v90 = name15;
+      v87 = v58;
+      v88 = 2112;
+      v89 = name15;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Allowing the message %@", buf, 0x16u);
     }
 
@@ -954,13 +992,12 @@ LABEL_62:
 
 LABEL_102:
 
-  v83 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
 void __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___block_invoke_169(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (a2)
   {
@@ -970,9 +1007,9 @@ void __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_s
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Enabling iCloud switch", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Enabling iCloud switch", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -981,26 +1018,22 @@ void __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_s
   }
 
   [WeakRetained _startiCloudSwitchPopupTimer];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___block_invoke()
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = @"kHomeConfigInternalRequestKey";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = @"kHomeConfigInternalRequestKey";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v1 = _cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState__watchAllowedCommands;
   _cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState__watchAllowedCommands = v0;
 
   v2 = MEMORY[0x277CBEB98];
-  v7 = @"kUpdateAccessAllowedWhenLockedRequestKey";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v7 count:1];
+  v6 = @"kUpdateAccessAllowedWhenLockedRequestKey";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:1];
   v4 = [v2 setWithArray:v3];
   v5 = _cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___allowedMessages;
   _cloudSyncinProgressCheck_supressPopup_sendCanceledError_dataSyncState___allowedMessages = v4;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)dataSyncInProgressWithState:(unint64_t *)state withMessage:(id)message
@@ -1029,7 +1062,7 @@ void __102__HMDCloudDataSyncStateFilter__cloudSyncinProgressCheck_supressPopup_s
   return self;
 }
 
-uint64_t __71__HMDCloudDataSyncStateFilter_dataSyncInProgressWithState_withMessage___block_invoke(uint64_t a1)
+void *__71__HMDCloudDataSyncStateFilter_dataSyncInProgressWithState_withMessage___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cloudSyncinProgressCheck:*(a1 + 40) supressPopup:1 sendCanceledError:0 dataSyncState:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1064,7 +1097,7 @@ uint64_t __71__HMDCloudDataSyncStateFilter_dataSyncInProgressWithState_withMessa
 
 void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v2 = +[HMDDeviceCapabilities deviceCapabilities];
   if (![v2 supportsKeychainSync] || !objc_msgSend(*(a1 + 32), "iCloudAccountActive") || objc_msgSend(*(a1 + 32), "keychainSyncEnabled"))
   {
@@ -1072,13 +1105,13 @@ void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_
     goto LABEL_5;
   }
 
-  v29 = [*(a1 + 40) name];
-  v30 = [HMDCloudDataSyncStateFilter isAllowedMessage:v29];
+  v25 = [*(a1 + 40) name];
+  v26 = [HMDCloudDataSyncStateFilter isAllowedMessage:v25];
 
-  if (v30 || ![*(a1 + 32) isKeychainSyncPeerAvailable] || objc_msgSend(*(a1 + 32), "totalHomes") <= 0 && (objc_msgSend(*(a1 + 40), "name"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isEqualToString:", *MEMORY[0x277CD2080]), v31, !v32))
+  if (v26 || ![*(a1 + 32) isKeychainSyncPeerAvailable] || objc_msgSend(*(a1 + 32), "totalHomes") <= 0 && (objc_msgSend(*(a1 + 40), "name"), v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", *MEMORY[0x277CD2080]), v27, !v28))
   {
 LABEL_5:
-    v53 = 0;
+    v49 = 0;
     v3 = [*(a1 + 40) name];
     if ([HMDCloudDataSyncStateFilter isAllowedMessage:v3])
     {
@@ -1086,13 +1119,13 @@ LABEL_5:
 
     else
     {
-      v4 = [*(a1 + 32) _cloudSyncinProgressCheck:*(a1 + 40) supressPopup:0 sendCanceledError:&v53 dataSyncState:0];
+      v4 = [*(a1 + 32) _cloudSyncinProgressCheck:*(a1 + 40) supressPopup:0 sendCanceledError:&v49 dataSyncState:0];
 
       if (v4)
       {
         if (*(a1 + 56))
         {
-          if (v53)
+          if (v49)
           {
             v5 = 23;
           }
@@ -1114,9 +1147,9 @@ LABEL_5:
           v9 = HMFGetLogIdentifier();
           v10 = [*(a1 + 40) name];
           *buf = 138543618;
-          v57 = v9;
-          v58 = 2112;
-          v59 = v10;
+          v53 = v9;
+          v54 = 2112;
+          v55 = v10;
           _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Rejecting message %@ since cloud data sync is in progress", buf, 0x16u);
         }
 
@@ -1134,13 +1167,13 @@ LABEL_5:
           [*(a1 + 32) isCloudDataSyncPeerAvailable];
           v17 = HMFBooleanToString();
           *buf = 138544130;
-          v57 = v14;
+          v53 = v14;
+          v54 = 2112;
+          v55 = v15;
+          v56 = 2112;
+          v57 = v16;
           v58 = 2112;
-          v59 = v15;
-          v60 = 2112;
-          v61 = v16;
-          v62 = 2112;
-          v63 = v17;
+          v59 = v17;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@cloudDataSyncCompleted: %@, serverTokenAvailable: %@, cloudDataSyncPeerAvailable: %@", buf, 0x2Au);
         }
 
@@ -1151,22 +1184,19 @@ LABEL_5:
         if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
         {
           v21 = HMFGetLogIdentifier();
-          v23 = *(a1 + 32);
-          v22 = (a1 + 32);
-          [v23 networkConnectivityAvailable];
+          [*(a1 + 32) networkConnectivityAvailable];
+          v22 = HMFBooleanToString();
+          [*(a1 + 32) iCloudAccountActive];
+          v23 = HMFBooleanToString();
           v24 = HMFBooleanToString();
-          [*v22 iCloudAccountActive];
-          v25 = HMFBooleanToString();
-          v26 = *(*v22 + 37);
-          v27 = HMFBooleanToString();
           *buf = 138544130;
-          v57 = v21;
+          v53 = v21;
+          v54 = 2112;
+          v55 = v22;
+          v56 = 2112;
+          v57 = v23;
           v58 = 2112;
           v59 = v24;
-          v60 = 2112;
-          v61 = v25;
-          v62 = 2112;
-          v63 = v27;
           _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@networkConnectivityAvailable: %@, iCloudAccountActive: %@, decryptionFailed: %@", buf, 0x2Au);
         }
 
@@ -1174,30 +1204,30 @@ LABEL_5:
       }
     }
 
-    goto LABEL_20;
+    return;
   }
 
-  v33 = *(a1 + 32);
-  v34 = +[HMDAppleAccountSettings sharedSettings];
-  [v33 _updateKeychainSyncEnabled:{objc_msgSend(v34, "isKeychainSyncEnabled")}];
+  v29 = *(a1 + 32);
+  v30 = +[HMDAppleAccountSettings sharedSettings];
+  [v29 _updateKeychainSyncEnabled:{objc_msgSend(v30, "isKeychainSyncEnabled")}];
 
   if ([*(a1 + 32) keychainSyncEnabled])
   {
-    v35 = objc_autoreleasePoolPush();
-    v36 = *(a1 + 32);
-    v37 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v31 = objc_autoreleasePoolPush();
+    v32 = *(a1 + 32);
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v38 = HMFGetLogIdentifier();
-      v39 = [*(a1 + 40) name];
+      v34 = HMFGetLogIdentifier();
+      v35 = [*(a1 + 40) name];
       *buf = 138543618;
-      v57 = v38;
-      v58 = 2112;
-      v59 = v39;
-      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@Resampled keychain sync state and it is enabled, accepting message %@", buf, 0x16u);
+      v53 = v34;
+      v54 = 2112;
+      v55 = v35;
+      _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Resampled keychain sync state and it is enabled, accepting message %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v35);
+    objc_autoreleasePoolPop(v31);
     goto LABEL_5;
   }
 
@@ -1207,60 +1237,57 @@ LABEL_5:
   }
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
-  v40 = objc_autoreleasePoolPush();
-  v41 = *(a1 + 32);
-  v42 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v36 = objc_autoreleasePoolPush();
+  v37 = *(a1 + 32);
+  v38 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v43 = HMFGetLogIdentifier();
-    v44 = [*(a1 + 40) name];
+    v39 = HMFGetLogIdentifier();
+    v40 = [*(a1 + 40) name];
     *buf = 138543618;
-    v57 = v43;
-    v58 = 2112;
-    v59 = v44;
-    _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Rejecting message %@ since keychain sync is not enabled", buf, 0x16u);
+    v53 = v39;
+    v54 = 2112;
+    v55 = v40;
+    _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@Rejecting message %@ since keychain sync is not enabled", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v40);
+  objc_autoreleasePoolPop(v36);
   if (([*(a1 + 40) isEntitledForSPIAccess] & 1) == 0 && (objc_msgSend(*(a1 + 32), "keychainSyncRequiredPopShown") & 1) == 0)
   {
-    v45 = objc_autoreleasePoolPush();
-    v46 = *(a1 + 32);
-    v47 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+    v41 = objc_autoreleasePoolPush();
+    v42 = *(a1 + 32);
+    v43 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = HMFGetLogIdentifier();
+      v44 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v57 = v48;
-      _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting dialog about keychain sync being required since we have more than one account", buf, 0xCu);
+      v53 = v44;
+      _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Presenting dialog about keychain sync being required since we have more than one account", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v45);
+    objc_autoreleasePoolPop(v41);
     [*(a1 + 32) setKeychainSyncRequiredPopShown:1];
-    v49 = +[HMDUIDialogPresenter sharedUIDialogPresenter];
+    v45 = +[HMDUIDialogPresenter sharedUIDialogPresenter];
     objc_initWeak(buf, *(a1 + 32));
-    v50 = [*(a1 + 32) name];
-    v51 = *(a1 + 32);
-    v52 = [v51 workQueue];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_invoke_160;
-    v54[3] = &unk_2797296D8;
-    objc_copyWeak(&v55, buf);
-    v54[4] = *(a1 + 32);
-    [v49 displayKeychainSyncForHome:v50 withContext:v51 queue:v52 completionHandler:v54];
+    v46 = [*(a1 + 32) name];
+    v47 = *(a1 + 32);
+    v48 = [v47 workQueue];
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_invoke_160;
+    v50[3] = &unk_2797296D8;
+    objc_copyWeak(&v51, buf);
+    v50[4] = *(a1 + 32);
+    [v45 displayKeychainSyncForHome:v46 withContext:v47 queue:v48 completionHandler:v50];
 
-    objc_destroyWeak(&v55);
+    objc_destroyWeak(&v51);
     objc_destroyWeak(buf);
   }
-
-LABEL_20:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_invoke_160(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (a2)
   {
@@ -1270,9 +1297,9 @@ void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Launching settings for iCloud Keychain", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Launching settings for iCloud Keychain", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -1280,36 +1307,34 @@ void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_
   }
 
   [WeakRetained _startPopupTimer];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCurrentAccount:(id)account
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   accountCopy = account;
   devices = [accountCopy devices];
-  v5 = [devices countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v5 = [devices countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
     v8 = 0;
-    v9 = *v30;
+    v9 = *v29;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(devices);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         if (([v11 isCurrentDevice] & 1) == 0)
         {
           capabilities = [v11 capabilities];
@@ -1329,7 +1354,7 @@ void __64__HMDCloudDataSyncStateFilter_acceptMessage_target_errorReason___block_
         }
       }
 
-      v6 = [devices countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v6 = [devices countByEnumeratingWithState:&v28 objects:v34 count:16];
       if (v6)
       {
         continue;
@@ -1359,7 +1384,7 @@ LABEL_14:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v19;
+        v33 = v19;
         v20 = "%{public}@Keychain sync peers are available";
 LABEL_20:
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, v20, buf, 0xCu);
@@ -1370,7 +1395,7 @@ LABEL_20:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v19;
+      v33 = v19;
       v20 = "%{public}@Keychain sync peers are not available";
       goto LABEL_20;
     }
@@ -1391,7 +1416,7 @@ LABEL_20:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v25;
+        v33 = v25;
         v26 = "%{public}@Cloud data sync peers are available";
 LABEL_28:
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v26, buf, 0xCu);
@@ -1402,7 +1427,7 @@ LABEL_28:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v25;
+      v33 = v25;
       v26 = "%{public}@Cloud data sync peers are not available";
       goto LABEL_28;
     }
@@ -1410,8 +1435,6 @@ LABEL_28:
     objc_autoreleasePoolPop(v21);
     [(HMDCloudDataSyncStateFilter *)selfCopy2 setCloudDataSyncPeerAvailable:v7 & 1];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateCurrentAccount:(id)account
@@ -1450,7 +1473,7 @@ uint64_t __48__HMDCloudDataSyncStateFilter_updateTotalHomes___block_invoke(uint6
 
 - (void)_stopiCloudSwitchPopupTimer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [(HMDCloudDataSyncStateFilter *)self setICloudSwitchRequiredPopShown:0];
   iCloudSwitchPopupTimer = [(HMDCloudDataSyncStateFilter *)self iCloudSwitchPopupTimer];
 
@@ -1462,9 +1485,9 @@ uint64_t __48__HMDCloudDataSyncStateFilter_updateTotalHomes___block_invoke(uint6
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Cancelling iCloud Switch popup shown timer", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Cancelling iCloud Switch popup shown timer", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1473,13 +1496,11 @@ uint64_t __48__HMDCloudDataSyncStateFilter_updateTotalHomes___block_invoke(uint6
 
     [(HMDCloudDataSyncStateFilter *)selfCopy setICloudSwitchPopupTimer:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startiCloudSwitchPopupTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = keychainPopupTimerInterval;
   workQueue = [(HMDMessageFilter *)self workQueue];
   v5 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, workQueue);
@@ -1495,7 +1516,7 @@ uint64_t __48__HMDCloudDataSyncStateFilter_updateTotalHomes___block_invoke(uint6
   handler[1] = 3221225472;
   handler[2] = __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invoke;
   handler[3] = &unk_279732E78;
-  objc_copyWeak(&v16, &location);
+  objc_copyWeak(&v15, &location);
   handler[4] = self;
   dispatch_source_set_event_handler(iCloudSwitchPopupTimer2, handler);
 
@@ -1509,19 +1530,18 @@ uint64_t __48__HMDCloudDataSyncStateFilter_updateTotalHomes___block_invoke(uint6
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting iCloud Switch popup shown timer", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1531,21 +1551,19 @@ void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invok
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@iCloud Switch popup timer fired, resetting last shown flag", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@iCloud Switch popup timer fired, resetting last shown flag", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [WeakRetained _stopiCloudSwitchPopupTimer];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopPopupTimer
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [(HMDCloudDataSyncStateFilter *)self setKeychainSyncRequiredPopShown:0];
   popupTimer = [(HMDCloudDataSyncStateFilter *)self popupTimer];
 
@@ -1557,9 +1575,9 @@ void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Cancelling keychain sync popup shown timer", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Cancelling keychain sync popup shown timer", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1568,13 +1586,11 @@ void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invok
 
     [(HMDCloudDataSyncStateFilter *)selfCopy setPopupTimer:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startPopupTimer
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = keychainPopupTimerInterval;
   workQueue = [(HMDMessageFilter *)self workQueue];
   v5 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, workQueue);
@@ -1590,7 +1606,7 @@ void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invok
   handler[1] = 3221225472;
   handler[2] = __47__HMDCloudDataSyncStateFilter__startPopupTimer__block_invoke;
   handler[3] = &unk_279732E78;
-  objc_copyWeak(&v16, &location);
+  objc_copyWeak(&v15, &location);
   handler[4] = self;
   dispatch_source_set_event_handler(popupTimer2, handler);
 
@@ -1604,19 +1620,18 @@ void __59__HMDCloudDataSyncStateFilter__startiCloudSwitchPopupTimer__block_invok
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v19 = v13;
+    v18 = v13;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Starting keychain sync popup shown timer", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HMDCloudDataSyncStateFilter__startPopupTimer__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -1626,21 +1641,19 @@ void __47__HMDCloudDataSyncStateFilter__startPopupTimer__block_invoke(uint64_t a
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Keychain sync popup timer fired, resetting last shown flag", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Keychain sync popup timer fired, resetting last shown flag", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [WeakRetained _stopPopupTimer];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stallResetConfigDisplayTimer
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   resetConfigDisplayTimer = [(HMDCloudDataSyncStateFilter *)self resetConfigDisplayTimer];
 
   if (!resetConfigDisplayTimer)
@@ -1651,17 +1664,17 @@ void __47__HMDCloudDataSyncStateFilter__startPopupTimer__block_invoke(uint64_t a
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
+      v26 = 138543362;
+      v27 = v24;
       v25 = "%{public}@There is no reset config display timer running?";
 LABEL_14:
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v25, &v27, 0xCu);
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, v25, &v26, 0xCu);
     }
 
 LABEL_15:
 
     objc_autoreleasePoolPop(v21);
-    goto LABEL_16;
+    return;
   }
 
   resetConfigDisplayTimerStartTimestamp = [(HMDCloudDataSyncStateFilter *)self resetConfigDisplayTimerStartTimestamp];
@@ -1674,8 +1687,8 @@ LABEL_15:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v24;
+      v26 = 138543362;
+      v27 = v24;
       v25 = "%{public}@Reset config display timer start time in invalid?";
       goto LABEL_14;
     }
@@ -1695,11 +1708,11 @@ LABEL_15:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v27 = 138543618;
-    v28 = v12;
-    v29 = 2048;
-    v30 = v8;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Stalling the reset config display timer, %lf seconds have passed on this timer", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v12;
+    v28 = 2048;
+    v29 = v8;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Stalling the reset config display timer, %lf seconds have passed on this timer", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -1714,9 +1727,9 @@ LABEL_15:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Remaining period for reset config display timer became less than 0?", &v27, 0xCu);
+      v26 = 138543362;
+      v27 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Remaining period for reset config display timer became less than 0?", &v26, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -1729,9 +1742,6 @@ LABEL_15:
       [(HMDCloudDataSyncStateFilter *)v16 setRemainingResetConfigDisplayPeriod:controllerKeyNotLandingShortCircuitWaitPeriod];
     }
   }
-
-LABEL_16:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearResetConfigDisplayTimer
@@ -1744,27 +1754,26 @@ LABEL_16:
 
 - (void)_stopResetConfigDisplayTimer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping reset config display timer", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping reset config display timer", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCloudDataSyncStateFilter *)selfCopy _clearResetConfigDisplayTimer];
   [(HMDCloudDataSyncStateFilter *)selfCopy setResetConfigDisplayTimeHasElapsed:0];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startResetConfigDisplayTimer
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!+[HMDDeviceCapabilities supportsCustomerReset])
   {
     v13 = objc_autoreleasePoolPush();
@@ -1773,11 +1782,11 @@ LABEL_16:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v22;
+      v42 = 138543362;
+      v43 = v22;
       v23 = "%{public}@Reset config display timer is not valid on this platform";
 LABEL_22:
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v23, &v43, 0xCu);
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v23, &v42, 0xCu);
     }
 
 LABEL_23:
@@ -1811,9 +1820,9 @@ LABEL_23:
         if (v16)
         {
           v17 = HMFGetLogIdentifier();
-          v43 = 138543362;
-          v44 = v17;
-          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer is running but short circuit time is less than current remaining, restarting timer", &v43, 0xCu);
+          v42 = 138543362;
+          v43 = v17;
+          _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer is running but short circuit time is less than current remaining, restarting timer", &v42, 0xCu);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -1830,20 +1839,20 @@ LABEL_23:
 
       if (v16)
       {
-        v41 = HMFGetLogIdentifier();
+        v40 = HMFGetLogIdentifier();
         [(HMDCloudDataSyncStateFilter *)selfCopy2 remainingResetConfigDisplayPeriod];
-        v43 = 138543874;
-        v44 = v41;
-        v45 = 2048;
-        v46 = v42 - v9;
-        v47 = 2048;
-        v48 = controllerKeyNotLandingShortCircuitWaitPeriod;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer is already running and remaining time %lf is less than short circuit time %lu", &v43, 0x20u);
+        v42 = 138543874;
+        v43 = v40;
+        v44 = 2048;
+        v45 = v41 - v9;
+        v46 = 2048;
+        v47 = controllerKeyNotLandingShortCircuitWaitPeriod;
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer is already running and remaining time %lf is less than short circuit time %lu", &v42, 0x20u);
       }
 
 LABEL_24:
       objc_autoreleasePoolPop(v13);
-      goto LABEL_25;
+      return;
     }
 
     v13 = objc_autoreleasePoolPush();
@@ -1852,8 +1861,8 @@ LABEL_24:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v43 = 138543362;
-      v44 = v22;
+      v42 = 138543362;
+      v43 = v22;
       v23 = "%{public}@Reset config display timer is already running, not restarting";
       goto LABEL_22;
     }
@@ -1878,11 +1887,11 @@ LABEL_14:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       v29 = HMFGetLogIdentifier();
-      v43 = 138543618;
-      v44 = v29;
-      v45 = 2048;
-      v46 = v25;
-      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer does not exist, initializing it to %lf", &v43, 0x16u);
+      v42 = 138543618;
+      v43 = v29;
+      v44 = 2048;
+      v45 = v25;
+      _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer does not exist, initializing it to %lf", &v42, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
@@ -1897,11 +1906,11 @@ LABEL_17:
   {
     v33 = HMFGetLogIdentifier();
     [(HMDCloudDataSyncStateFilter *)selfCopy5 remainingResetConfigDisplayPeriod];
-    v43 = 138543618;
-    v44 = v33;
-    v45 = 2048;
-    v46 = v34;
-    _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Starting a timer with %lf seconds to wait for controller key to land", &v43, 0x16u);
+    v42 = 138543618;
+    v43 = v33;
+    v44 = 2048;
+    v45 = v34;
+    _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Starting a timer with %lf seconds to wait for controller key to land", &v42, 0x16u);
   }
 
   objc_autoreleasePoolPop(v30);
@@ -1918,9 +1927,6 @@ LABEL_17:
 
   date2 = [MEMORY[0x277CBEAA8] date];
   [(HMDCloudDataSyncStateFilter *)selfCopy5 setResetConfigDisplayTimerStartTimestamp:date2];
-
-LABEL_25:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)kickResetConfigDisplayTimer
@@ -1956,7 +1962,7 @@ void __58__HMDCloudDataSyncStateFilter_kickResetConfigDisplayTimer__block_invoke
 
 - (void)_stallCloudDataSyncTimer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   cloudDataSyncInProgressTimer = [(HMDCloudDataSyncStateFilter *)self cloudDataSyncInProgressTimer];
 
   if (!cloudDataSyncInProgressTimer)
@@ -1967,17 +1973,17 @@ void __58__HMDCloudDataSyncStateFilter_kickResetConfigDisplayTimer__block_invoke
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v22;
+      v24 = 138543362;
+      v25 = v22;
       v23 = "%{public}@There is no cloud sync timer running?";
 LABEL_13:
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v23, &v25, 0xCu);
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, v23, &v24, 0xCu);
     }
 
 LABEL_14:
 
     objc_autoreleasePoolPop(v19);
-    goto LABEL_15;
+    return;
   }
 
   dataSyncTimerStartTimestamp = [(HMDCloudDataSyncStateFilter *)self dataSyncTimerStartTimestamp];
@@ -1990,8 +1996,8 @@ LABEL_14:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v22;
+      v24 = 138543362;
+      v25 = v22;
       v23 = "%{public}@There is data sync timer timestamp timer running?";
       goto LABEL_13;
     }
@@ -2011,11 +2017,11 @@ LABEL_14:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v25 = 138543618;
-    v26 = v12;
-    v27 = 2048;
-    v28 = v8;
-    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Stalling the cloud data sync timer, %lf seconds have passed on this timer", &v25, 0x16u);
+    v24 = 138543618;
+    v25 = v12;
+    v26 = 2048;
+    v27 = v8;
+    _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Stalling the cloud data sync timer, %lf seconds have passed on this timer", &v24, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -2030,17 +2036,14 @@ LABEL_14:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Remaining period became less than 0?", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Remaining period became less than 0?", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     [(HMDCloudDataSyncStateFilter *)v16 setRemainingDataSyncPeriod:cloudDataSyncInProgressWaitPeriod];
   }
-
-LABEL_15:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetCloudDataSyncTimer
@@ -2053,26 +2056,25 @@ LABEL_15:
 
 - (void)_stopCloudDataSyncTimer
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping cloud data sync timer", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping cloud data sync timer", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCloudDataSyncStateFilter *)selfCopy _resetCloudDataSyncTimer];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startCloudDataSyncTimer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = +[HMDDeviceCapabilities deviceCapabilities];
   supportsKeychainSync = [v3 supportsKeychainSync];
 
@@ -2088,11 +2090,11 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v26 = 138543618;
-        v27 = v10;
-        v28 = 2048;
-        v29 = v6;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Timer does not exist, initializing it to %lf", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v10;
+        v27 = 2048;
+        v28 = v6;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Timer does not exist, initializing it to %lf", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -2106,11 +2108,11 @@ LABEL_15:
     {
       v14 = HMFGetLogIdentifier();
       [(HMDCloudDataSyncStateFilter *)selfCopy2 remainingDataSyncPeriod];
-      v26 = 138543618;
-      v27 = v14;
-      v28 = 2048;
-      v29 = v15;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Starting a timer with %lf seconds to wait for cloud data sync to complete", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v14;
+      v27 = 2048;
+      v28 = v15;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Starting a timer with %lf seconds to wait for cloud data sync to complete", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2137,15 +2139,13 @@ LABEL_15:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
       v24 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v24;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cloud data sync timer is not valid on devices without keychain sync", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v24;
+      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Cloud data sync timer is not valid on devices without keychain sync", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
@@ -2164,7 +2164,7 @@ LABEL_15:
 
 void __44__HMDCloudDataSyncStateFilter_timerDidFire___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) cloudDataSyncInProgressTimer];
 
@@ -2176,44 +2176,46 @@ void __44__HMDCloudDataSyncStateFilter_timerDidFire___block_invoke(uint64_t a1)
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Cloud data sync in progress timer has fired", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Cloud data sync in progress timer has fired", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     [*(a1 + 40) _resetCloudDataSyncTimer];
     *(*(a1 + 40) + 37) = 0;
     v10 = @"kCloudDataSyncTimerExpiredNotification";
-    goto LABEL_9;
   }
 
-  v4 = *(a1 + 32);
-  v5 = [*(a1 + 40) resetConfigDisplayTimer];
-
-  if (v4 == v5)
+  else
   {
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) resetConfigDisplayTimer];
+
+    if (v4 != v5)
+    {
+      return;
+    }
+
     v6 = objc_autoreleasePoolPush();
     v7 = *(a1 + 40);
     v8 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer has fired", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Reset config display timer has fired", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [*(a1 + 40) _clearResetConfigDisplayTimer];
     [*(a1 + 40) setResetConfigDisplayTimeHasElapsed:1];
     v10 = @"kCloudDataSyncInProgressUpdatedNotification";
-LABEL_9:
-    v15 = [MEMORY[0x277CCAB98] defaultCenter];
-    [v15 postNotificationName:v10 object:*(a1 + 40)];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [MEMORY[0x277CCAB98] defaultCenter];
+  [v15 postNotificationName:v10 object:*(a1 + 40)];
 }
 
 - (void)updateNetworkConnectivity:(BOOL)connectivity
@@ -2228,9 +2230,9 @@ LABEL_9:
   dispatch_async(workQueue, v6);
 }
 
-uint64_t __57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_invoke(uint64_t a1)
+void *__57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setNetworkConnectivityAvailable:*(a1 + 40)];
   v2 = *(a1 + 32);
   if (v2[37] == 1 && [v2 keychainSyncEnabled])
@@ -2245,9 +2247,9 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_inv
       if (v7)
       {
         v8 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v8;
-        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Network is reachable now, starting the cloud sync timer", &v19, 0xCu);
+        v17 = 138543362;
+        v18 = v8;
+        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Network is reachable now, starting the cloud sync timer", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -2258,10 +2260,10 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_inv
     {
       if (v7)
       {
-        v18 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v18;
-        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Network is not reachable now, stalling the cloud sync timer", &v19, 0xCu);
+        v16 = HMFGetLogIdentifier();
+        v17 = 138543362;
+        v18 = v16;
+        _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Network is not reachable now, stalling the cloud sync timer", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -2278,17 +2280,16 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_inv
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v13 = *(a1 + 40);
-      v14 = HMFBooleanToString();
+      v13 = HMFBooleanToString();
       [*(a1 + 32) keychainSyncEnabled];
-      v15 = HMFBooleanToString();
-      v19 = 138543874;
-      v20 = v12;
+      v14 = HMFBooleanToString();
+      v17 = 138543874;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
       v21 = 2112;
       v22 = v14;
-      v23 = 2112;
-      v24 = v15;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Network reachability changed to %@ and decryption failed, keychain enabled: %@", &v19, 0x20u);
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Network reachability changed to %@ and decryption failed, keychain enabled: %@", &v17, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -2297,10 +2298,9 @@ uint64_t __57__HMDCloudDataSyncStateFilter_updateNetworkConnectivity___block_inv
   result = [*(a1 + 32) networkConnectivityAvailable];
   if (result)
   {
-    result = [*(a1 + 32) _evaluateMoveToHH2];
+    return [*(a1 + 32) _evaluateMoveToHH2];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2366,7 +2366,7 @@ void __57__HMDCloudDataSyncStateFilter_startDataConfigResetTimers__block_invoke(
 
 void __51__HMDCloudDataSyncStateFilter_setDecryptionFailed___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2[37] == *(a1 + 40))
   {
@@ -2376,12 +2376,11 @@ void __51__HMDCloudDataSyncStateFilter_setDecryptionFailed___block_invoke(uint64
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v7 = *(*(a1 + 32) + 37);
-      v8 = HMFBooleanToString();
+      v7 = HMFBooleanToString();
       *buf = 138543618;
-      v31 = v6;
-      v32 = 2112;
-      v33 = v8;
+      v27 = v6;
+      v28 = 2112;
+      v29 = v7;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Decrypt failed is already set to %@", buf, 0x16u);
     }
 
@@ -2390,73 +2389,69 @@ void __51__HMDCloudDataSyncStateFilter_setDecryptionFailed___block_invoke(uint64
 
   else
   {
-    v29 = 0;
-    v9 = [v2 _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v29];
-    v10 = objc_autoreleasePoolPush();
-    v11 = *(a1 + 32);
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v25 = 0;
+    v8 = [v2 _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v25];
+    v9 = objc_autoreleasePoolPush();
+    v10 = *(a1 + 32);
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v13 = HMFGetLogIdentifier();
-      v14 = *(*(a1 + 32) + 37);
-      v15 = HMFBooleanToString();
-      v16 = *(a1 + 40);
-      v17 = HMFBooleanToString();
-      v18 = HMHomeManagerDataSyncStateToString();
+      v12 = HMFGetLogIdentifier();
+      v13 = HMFBooleanToString();
+      v14 = HMFBooleanToString();
+      v15 = HMHomeManagerDataSyncStateToString();
       *buf = 138544130;
-      v31 = v13;
+      v27 = v12;
+      v28 = 2112;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v14;
       v32 = 2112;
       v33 = v15;
-      v34 = 2112;
-      v35 = v17;
-      v36 = 2112;
-      v37 = v18;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating decrypt fail state from %@ to %@, dataSyncState: %@", buf, 0x2Au);
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating decrypt fail state from %@ to %@, dataSyncState: %@", buf, 0x2Au);
     }
 
-    objc_autoreleasePoolPop(v10);
+    objc_autoreleasePoolPop(v9);
     *(*(a1 + 32) + 37) = *(a1 + 40);
-    [*(a1 + 32) _postNotificationForDataSyncInProgress:v9 dataSyncState:v29 forcePost:0];
+    [*(a1 + 32) _postNotificationForDataSyncInProgress:v8 dataSyncState:v25 forcePost:0];
     if (*(a1 + 40) == 1 && [*(a1 + 32) keychainSyncEnabled])
     {
-      v19 = objc_autoreleasePoolPush();
-      v20 = *(a1 + 32);
-      v21 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v16 = objc_autoreleasePoolPush();
+      v17 = *(a1 + 32);
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v22 = HMFGetLogIdentifier();
+        v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v22;
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Decrypt failed and keychain is enabled, starting data reset timers", buf, 0xCu);
+        v27 = v19;
+        _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Decrypt failed and keychain is enabled, starting data reset timers", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v19);
+      objc_autoreleasePoolPop(v16);
       [*(a1 + 32) _startDataConfigResetTimers];
     }
 
     else
     {
-      v23 = objc_autoreleasePoolPush();
-      v24 = *(a1 + 32);
-      v25 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v20 = objc_autoreleasePoolPush();
+      v21 = *(a1 + 32);
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v26 = HMFGetLogIdentifier();
+        v23 = HMFGetLogIdentifier();
         [*(a1 + 32) keychainSyncEnabled];
-        v27 = HMFBooleanToString();
+        v24 = HMFBooleanToString();
         *buf = 138543618;
-        v31 = v26;
-        v32 = 2112;
-        v33 = v27;
-        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Stopping data reset timers, keychain enabled: %@", buf, 0x16u);
+        v27 = v23;
+        v28 = 2112;
+        v29 = v24;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Stopping data reset timers, keychain enabled: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v23);
+      objc_autoreleasePoolPop(v20);
       [*(a1 + 32) _stopDataConfigResetTimers];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)decryptionFailed
@@ -2500,7 +2495,7 @@ void __51__HMDCloudDataSyncStateFilter_setDecryptionFailed___block_invoke(uint64
 
 void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2529,15 +2524,15 @@ void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke(uin
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v18 = 0x2020000000;
-    v19 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150;
-    v16[3] = &unk_2797296B0;
-    v16[4] = *(a1 + 32);
-    v16[5] = &buf;
-    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
+    v17 = 0x2020000000;
+    v18 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150;
+    v15[3] = &unk_2797296B0;
+    v15[4] = *(a1 + 32);
+    v15[5] = &buf;
+    [v5 hmf_enumerateWithAutoreleasePoolUsingBlock:v15];
     v13 = _Block_copy(*(a1 + 40));
     v14 = v13;
     if (v13)
@@ -2547,13 +2542,11 @@ void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke(uin
 
     _Block_object_dispose(&buf, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 extractObjectChange];
   objc_opt_class();
@@ -2577,23 +2570,21 @@ void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Found : %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Found : %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     ++*(*(*(a1 + 40) + 8) + 24);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCloudZoneReadyNotification:(id)notification
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_UUIDForKey:@"HMDCR.id"];
@@ -2607,11 +2598,11 @@ void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150
     uUIDString = [v6 UUIDString];
     v12 = HMFBooleanToString();
     *buf = 138543874;
-    v22 = v10;
-    v23 = 2112;
-    v24 = uUIDString;
-    v25 = 2112;
-    v26 = v12;
+    v21 = v10;
+    v22 = 2112;
+    v23 = uUIDString;
+    v24 = 2112;
+    v25 = v12;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Cloud manager completed initial fetch for zone %@, didServerTokenChange: %@", buf, 0x20u);
   }
 
@@ -2621,19 +2612,17 @@ void __54__HMDCloudDataSyncStateFilter_totalHomesInCloudZones___block_invoke_150
   block[1] = 3221225472;
   block[2] = __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___block_invoke;
   block[3] = &unk_279734960;
-  v18 = v6;
-  v19 = selfCopy;
-  v20 = userInfo;
+  v17 = v6;
+  v18 = selfCopy;
+  v19 = userInfo;
   v14 = userInfo;
   v15 = v6;
   dispatch_async(workQueue, block);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___block_invoke(uint64_t a1)
+void *__65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -2648,9 +2637,9 @@ uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___b
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v8;
-        _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@home manager zone fetch finished", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v8;
+        _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@home manager zone fetch finished", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
@@ -2666,9 +2655,9 @@ uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___b
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Legacy zone fetch finished", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Legacy zone fetch finished", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -2682,9 +2671,9 @@ uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___b
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543362;
-        v22 = v18;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Legacy zone does not have home data records, home manager zone will not be fetched", &v21, 0xCu);
+        v20 = 138543362;
+        v21 = v18;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Legacy zone does not have home data records, home manager zone will not be fetched", &v20, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -2695,10 +2684,9 @@ uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___b
   result = [*(a1 + 40) isHomeManagerFirstFetchFinished];
   if (result)
   {
-    result = [*(a1 + 40) _evaluateMoveToHH2];
+    return [*(a1 + 40) _evaluateMoveToHH2];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2718,7 +2706,7 @@ uint64_t __65__HMDCloudDataSyncStateFilter__handleCloudZoneReadyNotification___b
 
 void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) hasHH2MigrationAlreadyRequested])
   {
     v2 = objc_autoreleasePoolPush();
@@ -2728,7 +2716,7 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
     {
       v5 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v5;
+      v30 = v5;
       _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@HH2 migration has already been requested. Not requesting again.", buf, 0xCu);
     }
 
@@ -2753,11 +2741,11 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
       v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v7, "count")}];
       v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9 - v10];
       *buf = 138543874;
-      v31 = v14;
-      v32 = 2112;
-      v33 = v15;
-      v34 = 2112;
-      v35 = v16;
+      v30 = v14;
+      v31 = 2112;
+      v32 = v15;
+      v33 = 2112;
+      v34 = v16;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Owned Home Count : %@, Total Shared Home Count: %@", buf, 0x20u);
     }
 
@@ -2773,7 +2761,7 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v31 = v20;
+          v30 = v20;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Not migrating empty owned homes for shared users as they do not have any shared homes right now. This is already covered by the daily overnight migration which has some extra few checks. Please take a look at : fetchIsCurrentUserEligibleForAutoMigrationWithCompletion method", buf, 0xCu);
         }
 
@@ -2783,17 +2771,17 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
       else
       {
         v21 = *(a1 + 40);
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_145;
-        v26[3] = &unk_27972B150;
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_145;
+        v25[3] = &unk_27972B150;
         v22 = v7;
         v23 = *(a1 + 32);
         v24 = *(a1 + 40);
-        v27 = v22;
-        v28 = v23;
-        v29 = v24;
-        [v21 determineEmptyHomesForSharedUsersWithCompletionHandler:v26];
+        v26 = v22;
+        v27 = v23;
+        v28 = v24;
+        [v21 determineEmptyHomesForSharedUsersWithCompletionHandler:v25];
       }
     }
 
@@ -2806,36 +2794,34 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_145(id *a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1[4] count];
   if (v4 == [v3 count])
   {
     v5 = [a1[6] homes];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_146;
-    v20[3] = &unk_2797322A0;
-    v20[4] = a1[5];
-    v21 = v3;
-    v6 = [v5 na_allObjectsPassTest:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_146;
+    v19[3] = &unk_2797322A0;
+    v19[4] = a1[5];
+    v20 = v3;
+    v6 = [v5 na_allObjectsPassTest:v19];
 
     if (v6)
     {
       [a1[5] setHasHH2MigrationAlreadyRequested:1];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_147;
-      v19[3] = &unk_2797359D8;
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_147;
+      v18[3] = &unk_2797359D8;
       v7 = a1[6];
-      v19[4] = a1[5];
-      [v7 autoMigrateToHH2WithCompletionHandler:v19];
+      v18[4] = a1[5];
+      [v7 autoMigrateToHH2WithCompletionHandler:v18];
     }
 
     else
@@ -2847,7 +2833,7 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v23 = v17;
+        v22 = v17;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Not All the homes are ready for HH2 yet. Not auto migrating shared user to HH2", buf, 0xCu);
       }
 
@@ -2866,23 +2852,21 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[4], "count")}];
       v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
       *buf = 138543874;
-      v23 = v11;
-      v24 = 2112;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v13;
+      v22 = v11;
+      v23 = 2112;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v13;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Actual owned homes and empty home map do not agree. Not moving shared user to HH2: [%@ / %@]", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_146(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2897,15 +2881,15 @@ uint64_t __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyO
     v11 = HMFBooleanToString();
     [v3 isUpdatedToHH2];
     v12 = HMFBooleanToString();
-    v19 = 138544130;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v3;
-    v23 = 2112;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v12;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@%@ / is owned home empty: %@ / is shared user updated to HH2: %@", &v19, 0x2Au);
+    v18 = 138544130;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v3;
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v12;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@%@ / is owned home empty: %@ / is shared user updated to HH2: %@", &v18, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2922,13 +2906,12 @@ uint64_t __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyO
     v16 = [v3 isUpdatedToHH2];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwnedHomes__block_invoke_147(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2938,18 +2921,16 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@failed to start auto migration to HH2 with an error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@failed to start auto migration to HH2 with an error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 32) setHasHH2MigrationAlreadyRequested:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes:(BOOL)homes
@@ -2967,9 +2948,9 @@ void __77__HMDCloudDataSyncStateFilter__detectAndMigrateSharedUserWithEmptyOwned
   }
 }
 
-uint64_t __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke(uint64_t a1)
+void *__104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2980,11 +2961,11 @@ uint64_t __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpg
     [*(a1 + 32) hasHH2MigrationAlreadyRequested];
     v7 = HMFBooleanToString();
     *buf = 138543874;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v7;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    v16 = 2112;
+    v17 = v7;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@[Shared User] : Going to check whether there are homes in the account or not: [homes = %@] [HH2 migration requested: %@]", buf, 0x20u);
   }
 
@@ -2996,17 +2977,16 @@ uint64_t __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpg
     if (result)
     {
       v9 = *(a1 + 32);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke_139;
-      v11[3] = &unk_279729688;
-      v11[4] = v9;
-      v12 = *(a1 + 40);
-      result = [v9 totalHomesInCloudZones:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke_139;
+      v10[3] = &unk_279729688;
+      v10[4] = v9;
+      v11 = *(a1 + 40);
+      return [v9 totalHomesInCloudZones:v10];
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3030,7 +3010,7 @@ void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgrade
 
 void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) totalHomes] != *(a1 + 40))
   {
     v3 = objc_autoreleasePoolPush();
@@ -3041,9 +3021,9 @@ void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgrade
       v11 = HMFGetLogIdentifier();
       v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
       *buf = 138543618;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[Shared User] : There are still homes in the cloud which are not yet downloaded. : [HomesInCloud : %@]", buf, 0x16u);
     }
 
@@ -3061,14 +3041,14 @@ void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgrade
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v19 = v13;
+      v18 = v13;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[Empty Account] : HSA is not enabled for this account. Cannot move this account to HH2", buf, 0xCu);
     }
 
 LABEL_11:
 
     objc_autoreleasePoolPop(v3);
-    goto LABEL_12;
+    return;
   }
 
   if (v6)
@@ -3077,11 +3057,11 @@ LABEL_11:
     v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(*(a1 + 32), "totalHomes")}];
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 40)];
     *buf = 138543874;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Moving shared user to HH2 : [total Homes : %@], [HomesInCloud : %@]", buf, 0x20u);
   }
 
@@ -3095,18 +3075,15 @@ LABEL_11:
   else
   {
     [v10 setHasHH2MigrationAlreadyRequested:1];
-    v15 = [*(a1 + 32) homeManager];
-    v16 = [v15 workQueue];
+    v14 = [*(a1 + 32) homeManager];
+    v15 = [v14 workQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke_140;
     block[3] = &unk_279735D00;
     block[4] = *(a1 + 32);
-    dispatch_async(v16, block);
+    dispatch_async(v15, block);
   }
-
-LABEL_12:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgradedSharedHomesAllowEmptyOwnedHomes___block_invoke_140(uint64_t a1)
@@ -3124,7 +3101,7 @@ void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgrade
 
 - (void)_moveDirectlyToHH2IfAccountIsEmpty
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"DefaultNewUsersToHH2Enabled", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0);
   if ((_os_feature_enabled_impl() & 1) != 0 || AppBooleanValue)
   {
@@ -3156,7 +3133,7 @@ void __104__HMDCloudDataSyncStateFilter_moveDirectlyToHH2IfAccountOnlyHasUpgrade
         {
           v10 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v19 = v10;
+          v18 = v10;
           v11 = "%{public}@Not migrating to HH2 as a TTSU session is ongoing.";
 LABEL_12:
           _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v11, buf, 0xCu);
@@ -3173,7 +3150,7 @@ LABEL_12:
         {
           v10 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v19 = v10;
+          v18 = v10;
           v11 = "%{public}@Not migrating empty account to HH2 as 'allowed to auto migrate empty accounts' is NO.";
           goto LABEL_12;
         }
@@ -3193,9 +3170,9 @@ LABEL_12:
         [idsServerBag2 isHH2SoftwareReleased];
         v14 = HMFBooleanToString();
         *buf = 138543618;
-        v19 = v10;
-        v20 = 2112;
-        v21 = v14;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v14;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Can't migrate empty account to HH2 as HH2 software released server bag value is %@", buf, 0x16u);
 
 LABEL_13:
@@ -3205,13 +3182,11 @@ LABEL_13:
     objc_autoreleasePoolPop(v7);
 LABEL_15:
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke(uint64_t a1)
+void *__65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3222,11 +3197,11 @@ uint64_t __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__b
     [*(a1 + 32) hasHH2MigrationAlreadyRequested];
     v7 = HMFBooleanToString();
     *buf = 138543874;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v7;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v7;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Going to check whether there are homes in the account or not: [homes = %@] [HH2 migration requested: %@]", buf, 0x20u);
   }
 
@@ -3238,22 +3213,21 @@ uint64_t __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__b
     if (result)
     {
       v9 = *(a1 + 32);
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke_134;
-      v11[3] = &unk_279734E28;
-      v11[4] = v9;
-      result = [v9 totalHomesInCloudZones:v11];
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke_134;
+      v10[3] = &unk_279734E28;
+      v10[4] = v9;
+      return [v9 totalHomesInCloudZones:v10];
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke_134(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (!v5)
   {
@@ -3267,9 +3241,9 @@ void __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block
         v9 = HMFGetLogIdentifier();
         v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
         *buf = 138543618;
-        v17 = v9;
-        v18 = 2112;
-        v19 = v10;
+        v16 = v9;
+        v17 = 2112;
+        v18 = v10;
         _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Empty Account] : There are still homes in the cloud which are not yet downloaded. : [HomesInCloud : %@]", buf, 0x16u);
       }
 
@@ -3288,7 +3262,7 @@ LABEL_9:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v17 = v13;
+        v16 = v13;
         _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@[Empty Account] : HSA is not enabled for this account. Cannot move this account to HH2", buf, 0xCu);
       }
 
@@ -3307,13 +3281,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block_invoke_136(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) homeManager];
   v3 = [v2 moveDirectlyToHH2];
 
@@ -3326,21 +3298,19 @@ void __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to create HH2 sentinel zone hence empty account cannot be moved to HH2 for now.", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unable to create HH2 sentinel zone hence empty account cannot be moved to HH2 for now.", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_verifyAccountStatusForMigration
 {
   selfCopy = self;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if ([(HMDCloudDataSyncStateFilter *)self iCloudAccountActive])
   {
     if ([(HMDCloudDataSyncStateFilter *)selfCopy hasHH2MigrationAlreadyRequested])
@@ -3352,7 +3322,7 @@ void __65__HMDCloudDataSyncStateFilter__moveDirectlyToHH2IfAccountIsEmpty__block
       {
         v5 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v14 = v5;
+        v13 = v5;
         v6 = "%{public}@Migration to HH2 is already requested. Not requesting again.";
 LABEL_7:
         _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, v6, buf, 0xCu);
@@ -3374,7 +3344,7 @@ LABEL_8:
 
         v5 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v14 = v5;
+        v13 = v5;
         v6 = "%{public}@Network is not reachable right now. Not auto migrating account.";
         goto LABEL_7;
       }
@@ -3391,16 +3361,16 @@ LABEL_8:
 
         v5 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v14 = v5;
+        v13 = v5;
         v6 = "%{public}@First fetch for Home Manager's zone is not done yet.";
         goto LABEL_7;
       }
 
-      v12 = 0;
-      if ([(HMDCloudDataSyncStateFilter *)selfCopy _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v12])
+      v11 = 0;
+      if ([(HMDCloudDataSyncStateFilter *)selfCopy _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v11])
       {
         v3 = objc_autoreleasePoolPush();
-        v9 = selfCopy;
+        v8 = selfCopy;
         v4 = HMFGetOSLogHandle();
         if (!os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
@@ -3409,28 +3379,27 @@ LABEL_8:
 
         v5 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v14 = v5;
+        v13 = v5;
         v6 = "%{public}@cloud data is still syncing. Let's re-evaluate HH2 migration condition once it is done";
         goto LABEL_7;
       }
 
-      if (v12 == 1)
+      if (v11 == 1)
       {
-        result = 1;
-        goto LABEL_10;
+        return 1;
       }
 
       v3 = objc_autoreleasePoolPush();
-      v10 = selfCopy;
+      v9 = selfCopy;
       v4 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         v5 = HMFGetLogIdentifier();
-        v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
+        v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
         *buf = 138543618;
-        v14 = v5;
-        v15 = 2112;
-        v16 = v11;
+        v13 = v5;
+        v14 = 2112;
+        v15 = v10;
         _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@HH1 data sync state is not good yet. %@", buf, 0x16u);
 
         goto LABEL_8;
@@ -3447,7 +3416,7 @@ LABEL_8:
     {
       v5 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       v6 = "%{public}@iCloud account is not signed in. Not going to auto migrate empty account.";
       goto LABEL_7;
     }
@@ -3456,10 +3425,7 @@ LABEL_8:
 LABEL_9:
 
   objc_autoreleasePoolPop(v3);
-  result = 0;
-LABEL_10:
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)_evaluateMoveToHH2
@@ -3492,10 +3458,10 @@ LABEL_10:
 - (void)_postNotificationForDataSyncInProgress:(BOOL)progress dataSyncState:(unint64_t)state forcePost:(BOOL)post
 {
   progressCopy = progress;
-  v22 = *MEMORY[0x277D85DE8];
-  v19 = 0;
-  v9 = [(HMDCloudDataSyncStateFilter *)self _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v19];
-  if (post || ((v9 ^ progressCopy) & 1) != 0 || v19 != state)
+  v21 = *MEMORY[0x277D85DE8];
+  v18 = 0;
+  v9 = [(HMDCloudDataSyncStateFilter *)self _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v18];
+  if (post || ((v9 ^ progressCopy) & 1) != 0 || v18 != state)
   {
     v10 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -3504,7 +3470,7 @@ LABEL_10:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Posting notification kCloudDataSyncInProgressUpdatedNotification", buf, 0xCu);
     }
 
@@ -3515,11 +3481,10 @@ LABEL_10:
     homeManager = [(HMDCloudDataSyncStateFilter *)selfCopy homeManager];
     metricsManager = [homeManager metricsManager];
     deviceStateManager = [metricsManager deviceStateManager];
-    [deviceStateManager updateWithDataSyncState:v19];
+    [deviceStateManager updateWithDataSyncState:v18];
   }
 
   [(HMDCloudDataSyncStateFilter *)self _evaluateMoveToHH2];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleKeychainSyncStateChangedNotification:(id)notification
@@ -3535,14 +3500,14 @@ LABEL_10:
 
 void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v2 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v12];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v2 = [*(a1 + 32) _cloudSyncinProgressCheck:0 supressPopup:1 sendCanceledError:0 dataSyncState:&v11];
   v3 = *(a1 + 32);
   v4 = +[HMDAppleAccountSettings sharedSettings];
   [v3 _updateKeychainSyncEnabled:{objc_msgSend(v4, "isKeychainSyncEnabled")}];
 
-  [*(a1 + 32) _postNotificationForDataSyncInProgress:v2 dataSyncState:v12 forcePost:0];
+  [*(a1 + 32) _postNotificationForDataSyncInProgress:v2 dataSyncState:v11 forcePost:0];
   v5 = objc_autoreleasePoolPush();
   v6 = *(a1 + 32);
   v7 = HMFGetOSLogHandle();
@@ -3557,14 +3522,80 @@ void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotificatio
     }
 
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v10;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v10;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received notification about keychain sync change, keychain is %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_updateKeychainSyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v18 = *MEMORY[0x277D85DE8];
+  if ([(HMDCloudDataSyncStateFilter *)self keychainSyncEnabled]== enabled)
+  {
+    return;
+  }
+
+  [(HMDCloudDataSyncStateFilter *)self setKeychainSyncEnabled:enabledCopy];
+  if (!self->_decryptionFailed)
+  {
+    if (!enabledCopy)
+    {
+      return;
+    }
+
+    goto LABEL_8;
+  }
+
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
+  if (enabledCopy)
+  {
+    if (v8)
+    {
+      v9 = HMFGetLogIdentifier();
+      v16 = 138543362;
+      v17 = v9;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Keychain has been enabled but decryption had failed earlier, starting data reset timers", &v16, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v5);
+    [(HMDCloudDataSyncStateFilter *)selfCopy _startDataConfigResetTimers];
+LABEL_8:
+    v10 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      v13 = HMFGetLogIdentifier();
+      v16 = 138543362;
+      v17 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Keychain just got enabled, requesting an upload if necessary", &v16, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    homeManager = [(HMDCloudDataSyncStateFilter *)selfCopy2 homeManager];
+    [homeManager determineLocalChangesAndSchedulePush];
+
+    return;
+  }
+
+  if (v8)
+  {
+    v15 = HMFGetLogIdentifier();
+    v16 = 138543362;
+    v17 = v15;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Decryption had failed earlier but keychain is not enabled, stopping data reset timers", &v16, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  [(HMDCloudDataSyncStateFilter *)selfCopy _stopDataConfigResetTimers];
 }
 
 - (void)dealloc
@@ -3582,14 +3613,14 @@ void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotificatio
 
 - (HMDCloudDataSyncStateFilter)initWithName:(id)name homeManager:(id)manager messageDispatcher:(id)dispatcher serverTokenAvailable:(BOOL)available homeDataHasBeenDecrypted:(BOOL)decrypted homeManagerServerTokenAvailable:(BOOL)tokenAvailable localDataDecryptionFailed:(BOOL)failed totalHomes:(int64_t)self0 currentAccount:(id)self1
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   managerCopy = manager;
   dispatcherCopy = dispatcher;
   accountCopy = account;
-  v44.receiver = self;
-  v44.super_class = HMDCloudDataSyncStateFilter;
-  v20 = [(HMDMessageFilter *)&v44 initWithName:nameCopy];
+  v43.receiver = self;
+  v43.super_class = HMDCloudDataSyncStateFilter;
+  v20 = [(HMDMessageFilter *)&v43 initWithName:nameCopy];
   if (v20)
   {
     availableCopy = available;
@@ -3615,9 +3646,9 @@ void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotificatio
       v31 = v30 = managerCopy;
       keychainSyncEnabled = v20->_keychainSyncEnabled;
       *buf = 138543618;
-      v46 = v31;
-      v47 = 1024;
-      v48 = keychainSyncEnabled;
+      v45 = v31;
+      v46 = 1024;
+      v47 = keychainSyncEnabled;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@Key chain sync enabled is set to: %d", buf, 0x12u);
 
       managerCopy = v30;
@@ -3654,7 +3685,6 @@ void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotificatio
     [defaultCenter2 addObserver:v25 selector:sel__handleCloudZoneReadyNotification_ name:@"HMDCloudZoneReadyNotification" object:0];
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -3674,105 +3704,103 @@ void __74__HMDCloudDataSyncStateFilter_handleKeychainSyncStateChangedNotificatio
 
 void __48__HMDCloudDataSyncStateFilter_isAllowedMessage___block_invoke()
 {
-  v19[74] = *MEMORY[0x277D85DE8];
-  v19[0] = @"kResetConfigRequestKey";
-  v19[1] = @"kQueryHomeKitUsageStateRequestKey";
-  v19[2] = @"kSearchForNewAccessoriesRequestKey";
-  v19[3] = @"kFetchNewAccessoriesRequestKey";
+  v18[74] = *MEMORY[0x277D85DE8];
+  v18[0] = @"kResetConfigRequestKey";
+  v18[1] = @"kQueryHomeKitUsageStateRequestKey";
+  v18[2] = @"kSearchForNewAccessoriesRequestKey";
+  v18[3] = @"kFetchNewAccessoriesRequestKey";
   v0 = *MEMORY[0x277CD0300];
-  v19[4] = *MEMORY[0x277CD01D8];
-  v19[5] = v0;
+  v18[4] = *MEMORY[0x277CD01D8];
+  v18[5] = v0;
   v1 = *MEMORY[0x277CD0310];
-  v19[6] = *MEMORY[0x277CD0368];
-  v19[7] = v1;
-  v19[8] = *MEMORY[0x277CD2568];
-  v19[9] = @"kRetrieveLocationEventRequestKey";
+  v18[6] = *MEMORY[0x277CD0368];
+  v18[7] = v1;
+  v18[8] = *MEMORY[0x277CD2568];
+  v18[9] = @"kRetrieveLocationEventRequestKey";
   v2 = *MEMORY[0x277CCFBF8];
-  v19[10] = *MEMORY[0x277CCFBF0];
-  v19[11] = v2;
+  v18[10] = *MEMORY[0x277CCFBF0];
+  v18[11] = v2;
   v3 = *MEMORY[0x277CCFCB0];
-  v19[12] = @"HMHomeAllowUserManagementMessage";
-  v19[13] = v3;
+  v18[12] = @"HMHomeAllowUserManagementMessage";
+  v18[13] = v3;
   v4 = *MEMORY[0x277CCFC88];
-  v19[14] = *MEMORY[0x277CCFC90];
-  v19[15] = v4;
+  v18[14] = *MEMORY[0x277CCFC90];
+  v18[15] = v4;
   v5 = *MEMORY[0x277CD0348];
-  v19[16] = *MEMORY[0x277CCFCB8];
-  v19[17] = v5;
+  v18[16] = *MEMORY[0x277CCFCB8];
+  v18[17] = v5;
   v6 = *MEMORY[0x277CD1128];
-  v19[18] = *MEMORY[0x277CD1108];
-  v19[19] = v6;
+  v18[18] = *MEMORY[0x277CD1108];
+  v18[19] = v6;
   v7 = *MEMORY[0x277CD10F8];
-  v19[20] = *MEMORY[0x277CD1118];
-  v19[21] = v7;
+  v18[20] = *MEMORY[0x277CD1118];
+  v18[21] = v7;
   v8 = *MEMORY[0x277CD1338];
-  v19[22] = *MEMORY[0x277CD1110];
-  v19[23] = v8;
-  v19[24] = @"kSecureServerIDSMessageRequestKey";
-  v19[25] = @"kSecureClientIDSMessageRequestKey";
-  v19[26] = @"kSecureSessionInvalidatedNotificationKey";
-  v19[27] = @"kHomeDataSyncRequestKey";
-  v19[28] = @"kHomeDataFragmentedSyncRequestKey";
-  v19[29] = @"kAreYouAtHomeRequestKey";
-  v19[30] = @"kDoYouSeeUnpairedAccessoriesKey";
-  v19[31] = @"kAddRemoteAccessRequestKey";
-  v19[32] = @"kUserRemovedRequestKey";
-  v19[33] = @"kElectDeviceForIDSSessionKey";
-  v19[34] = @"kUserResetHomeConfigRequestKey";
-  v19[35] = @"kMetadataDataSyncRequestKey";
-  v19[36] = @"kModifyCharacterisiticNotificationsRequestKey";
-  v19[37] = @"kCharacterisiticsChangedInternalNotificationKey";
-  v19[38] = @"kDismissBulletinInternalRequestKey";
-  v19[39] = @"kDismissDialogInternalRequestKey";
-  v19[40] = @"kRequestForCompanionKeysSyncInternalRequestKey";
-  v19[41] = @"kCompanionKeysSyncInternalRequestKey";
-  v19[42] = @"kResidentElectionParametersInternalRequestKey";
-  v19[43] = @"kRetrieveVendorIdentifierInternalKey";
+  v18[22] = *MEMORY[0x277CD1110];
+  v18[23] = v8;
+  v18[24] = @"kSecureServerIDSMessageRequestKey";
+  v18[25] = @"kSecureClientIDSMessageRequestKey";
+  v18[26] = @"kSecureSessionInvalidatedNotificationKey";
+  v18[27] = @"kHomeDataSyncRequestKey";
+  v18[28] = @"kHomeDataFragmentedSyncRequestKey";
+  v18[29] = @"kAreYouAtHomeRequestKey";
+  v18[30] = @"kDoYouSeeUnpairedAccessoriesKey";
+  v18[31] = @"kAddRemoteAccessRequestKey";
+  v18[32] = @"kUserRemovedRequestKey";
+  v18[33] = @"kElectDeviceForIDSSessionKey";
+  v18[34] = @"kUserResetHomeConfigRequestKey";
+  v18[35] = @"kMetadataDataSyncRequestKey";
+  v18[36] = @"kModifyCharacterisiticNotificationsRequestKey";
+  v18[37] = @"kCharacterisiticsChangedInternalNotificationKey";
+  v18[38] = @"kDismissBulletinInternalRequestKey";
+  v18[39] = @"kDismissDialogInternalRequestKey";
+  v18[40] = @"kRequestForCompanionKeysSyncInternalRequestKey";
+  v18[41] = @"kCompanionKeysSyncInternalRequestKey";
+  v18[42] = @"kResidentElectionParametersInternalRequestKey";
+  v18[43] = @"kRetrieveVendorIdentifierInternalKey";
   v9 = *MEMORY[0x277CD0318];
-  v19[44] = @"kHomeConfigInternalRequestKey";
-  v19[45] = v9;
-  v19[46] = *MEMORY[0x277CD03C8];
-  v19[47] = @"kAccessHomeInviteRequestKey";
-  v19[48] = @"kUpdateHomeInvitationStateInternalRequestKey";
-  v19[49] = @"kUpdateInvitationStateRequestKey";
-  v19[50] = @"kPingInternalRequestKey";
-  v19[51] = @"kStartRemoteStreamRequestKey";
-  v19[52] = @"kReconfigureRemoteStreamRequestKey";
-  v19[53] = @"kNegotitateRemoteStreamRequestKey";
-  v19[54] = @"kStopRemoteStreamRequestKey";
-  v19[55] = @"kTakeSnapshotRemoteRequestKey";
-  v19[56] = @"kTakeSnapshotRemoteReceivedKey";
-  v19[57] = @"kEnableAccessoryReachabilityNotificationRequestKey";
-  v19[58] = @"kDisableAccessoryReachabilityNotificationRequestKey";
-  v19[59] = @"kRemoteReachabilityChangedNotificationKey";
+  v18[44] = @"kHomeConfigInternalRequestKey";
+  v18[45] = v9;
+  v18[46] = *MEMORY[0x277CD03C8];
+  v18[47] = @"kAccessHomeInviteRequestKey";
+  v18[48] = @"kUpdateHomeInvitationStateInternalRequestKey";
+  v18[49] = @"kUpdateInvitationStateRequestKey";
+  v18[50] = @"kPingInternalRequestKey";
+  v18[51] = @"kStartRemoteStreamRequestKey";
+  v18[52] = @"kReconfigureRemoteStreamRequestKey";
+  v18[53] = @"kNegotitateRemoteStreamRequestKey";
+  v18[54] = @"kStopRemoteStreamRequestKey";
+  v18[55] = @"kTakeSnapshotRemoteRequestKey";
+  v18[56] = @"kTakeSnapshotRemoteReceivedKey";
+  v18[57] = @"kEnableAccessoryReachabilityNotificationRequestKey";
+  v18[58] = @"kDisableAccessoryReachabilityNotificationRequestKey";
+  v18[59] = @"kRemoteReachabilityChangedNotificationKey";
   v10 = *MEMORY[0x277CD0180];
-  v19[60] = @"kAddHomeInvitesInternalRequestKey";
-  v19[61] = v10;
-  v19[62] = @"kDeviceMeshUpdateRequestKey";
-  v19[63] = @"kDeviceMeshUpdateKey";
-  v19[64] = @"kKeyTransferAgentKey";
-  v19[65] = @"kSystemLogCaptureRequestKey";
-  v19[66] = *MEMORY[0x277CD23F8];
-  v19[67] = @"kRemoteUpdateUserPresenceNotificationKey";
-  v19[68] = *MEMORY[0x277CD2330];
-  v19[69] = *MEMORY[0x277CD2328];
-  v19[70] = *MEMORY[0x277CD2338];
+  v18[60] = @"kAddHomeInvitesInternalRequestKey";
+  v18[61] = v10;
+  v18[62] = @"kDeviceMeshUpdateRequestKey";
+  v18[63] = @"kDeviceMeshUpdateKey";
+  v18[64] = @"kKeyTransferAgentKey";
+  v18[65] = @"kSystemLogCaptureRequestKey";
+  v18[66] = *MEMORY[0x277CD23F8];
+  v18[67] = @"kRemoteUpdateUserPresenceNotificationKey";
+  v18[68] = *MEMORY[0x277CD2330];
+  v18[69] = *MEMORY[0x277CD2328];
+  v18[70] = *MEMORY[0x277CD2338];
   v11 = MEMORY[0x277CBEB98];
-  v19[71] = *MEMORY[0x277CD1070];
-  v19[72] = *MEMORY[0x277CD1080];
-  v19[73] = @"HMDHouseholdMetricsHomeDataLogEventRequest";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:74];
+  v18[71] = *MEMORY[0x277CD1070];
+  v18[72] = *MEMORY[0x277CD1080];
+  v18[73] = @"HMDHouseholdMetricsHomeDataLogEventRequest";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:74];
   v13 = [v11 setWithArray:v12];
   v14 = [v13 mutableCopy];
 
   v15 = +[HMDRemoteLoginHandler remoteMessages];
   [v14 addObjectsFromArray:v15];
 
-  v16 = [v14 copy];
+  v16 = objc_msgSend_copy(v14);
   v17 = isAllowedMessage___allowedMessages;
   isAllowedMessage___allowedMessages = v16;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -3789,12 +3817,11 @@ void __48__HMDCloudDataSyncStateFilter_isAllowedMessage___block_invoke()
 
 uint64_t __42__HMDCloudDataSyncStateFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v109;
-  logCategory__hmf_once_v109 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v109;
+  logCategory__hmf_once_v109 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -55,11 +55,11 @@ void ___ZN12TXTextLayout45applySimpleValuesDictionaryToAttributedStringEP25NSMut
   }
 }
 
-void TXTextLayout::createParagraphStyle(TXTextLayout *this, int a2, int a3, NSAttributedString *a4)
+void TXTextLayout::createParagraphStyle(TXTextLayout *this, unsigned int a2, int a3, NSAttributedString *a4)
 {
   v6 = *MEMORY[0x277D85DE8];
   v4 = 0;
-  v5 = (a3 - a2);
+  v5 = a3 - a2;
   operator new();
 }
 
@@ -197,19 +197,20 @@ void TXTextLayout::applySequenceCharacterOffsets(TXTextLayout *this, __CFString 
   }
 }
 
-void sub_25FB1E224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19)
+void sub_25FB1E224(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
   if (__p)
   {
     operator delete(__p);
   }
 
-  _Block_object_dispose(&a19, 8);
-  v21 = *(v19 - 88);
-  if (v21)
+  _Block_object_dispose(va, 8);
+  v20 = *(v18 - 88);
+  if (v20)
   {
-    *(v19 - 80) = v21;
-    operator delete(v21);
+    *(v18 - 80) = v20;
+    operator delete(v20);
   }
 
   _Unwind_Resume(a1);
@@ -242,12 +243,12 @@ void ___ZN12TXTextLayout29applySequenceCharacterOffsetsEP10__CFStringRK6CMTime_b
   ++*(*(*(a1 + 40) + 8) + 24);
 }
 
-uint64_t __copy_helper_block_e8_56c39_ZTSNSt3__16vectorIiNS_9allocatorIiEEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_56c39_ZTSNSt3__16vectorIiNS_9allocatorIiEEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 56) = 0;
   *(a1 + 64) = 0;
-  v2 = a1 + 56;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 56);
+  v2[2] = 0;
   return std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v2, *(a2 + 56), *(a2 + 64), (*(a2 + 64) - *(a2 + 56)) >> 2);
 }
 
@@ -264,7 +265,7 @@ void __destroy_helper_block_e8_56c39_ZTSNSt3__16vectorIiNS_9allocatorIiEEEE(uint
 void TXTextLayout::applyFontToAllTextStyles(TXTextLayout *this, NSString *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v10, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v10, v4);
   v5 = this + 19344;
   v6 = *(this + 2419);
   if (v6 != this + 19344)
@@ -292,15 +293,15 @@ void TXTextLayout::applyFontToAllTextStyles(TXTextLayout *this, NSString *a2)
     while (v6 != v5);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v10);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v10);
 }
 
-void sub_25FB1E4B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB1E4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   OZLockingGroup::WriteSentry::~WriteSentry(va);
@@ -310,7 +311,7 @@ void sub_25FB1E4B8(_Unwind_Exception *a1, uint64_t a2, ...)
 void TXTextLayout::applyFontScaleToAllTextStyles(TXTextLayout *this, float a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v11, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v11, v4);
   v5 = this + 19344;
   v6 = *(this + 2419);
   if (v6 != this + 19344)
@@ -338,15 +339,15 @@ void TXTextLayout::applyFontScaleToAllTextStyles(TXTextLayout *this, float a2)
     while (v6 != v5);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v11);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v11);
 }
 
-void sub_25FB1E5A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB1E5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   OZLockingGroup::WriteSentry::~WriteSentry(va);
@@ -356,7 +357,7 @@ void sub_25FB1E5A8(_Unwind_Exception *a1, uint64_t a2, ...)
 void TXTextLayout::applyFontSizeToAllTextStyles(TXTextLayout *this, float a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v11, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v11, v4);
   v5 = this + 19344;
   v6 = *(this + 2419);
   if (v6 != this + 19344)
@@ -384,22 +385,22 @@ void TXTextLayout::applyFontSizeToAllTextStyles(TXTextLayout *this, float a2)
     while (v6 != v5);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v11);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v11);
 }
 
-void sub_25FB1E6AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB1E6AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::applyAllCapsSizeToAttributedString(TXTextLayout *a1, __CFAttributedString *a2, __CFString *a3, void *a4, void *a5, uint64_t a6)
+void TXTextLayout::applyAllCapsSizeToAttributedString(TXTextLayout *a1, __CFAttributedString *a2, __CFString *a3, TXTextStyle **a4, void *a5, uint64_t a6)
 {
   v12 = [objc_msgSend(MEMORY[0x277CCA900] "lowercaseLetterCharacterSet")];
   v13 = a4[1];
@@ -407,7 +408,7 @@ void TXTextLayout::applyAllCapsSizeToAttributedString(TXTextLayout *a1, __CFAttr
   v17[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v13 + 1, 1uLL, memory_order_relaxed);
   }
 
   TXTextLayout::applyAllCapsSizeToCharacterSet(a1, a2, a3, v12, v17, a5, a6);
@@ -422,7 +423,7 @@ void TXTextLayout::applyAllCapsSizeToAttributedString(TXTextLayout *a1, __CFAttr
   v16[1] = v15;
   if (v15)
   {
-    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v15 + 1, 1uLL, memory_order_relaxed);
   }
 
   TXTextLayout::applyAllCapsSizeToCharacterSet(a1, a2, a3, v14, v16, a5, a6);
@@ -443,7 +444,7 @@ void sub_25FB1E7E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextLayout::applyAllCapsSizeToCharacterSet(TXTextLayout *a1, __CFAttributedString *a2, __CFString *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7)
+void *TXTextLayout::applyAllCapsSizeToCharacterSet(TXTextLayout *a1, __CFAttributedString *a2, __CFString *a3, void *a4, TXTextStyle **a5, void *a6, uint64_t a7)
 {
   result = [(__CFString *)a3 rangeOfCharacterFromSet:a4 options:0 range:*a6, a6[1]];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -464,7 +465,7 @@ uint64_t TXTextLayout::applyAllCapsSizeToCharacterSet(TXTextLayout *a1, __CFAttr
       }
 
       v19 = [MEMORY[0x277CCA900] lowercaseLetterCharacterSet];
-      v20 = *(a5 + 8);
+      v20 = a5[1];
       v23[0] = *a5;
       v23[1] = v20;
       if (v20)
@@ -515,7 +516,7 @@ void TXTextLayout::applyFontToAttributedString(TXTextLayout *a1, __CFAttributedS
     v13 = *a3;
     *&v22.a = *a5;
     v22.c = *(a5 + 16);
-    OZChannelScale3D::getValue((v13 + 2864), &v22, &sx.a, &v24, &v23, 0.0);
+    OZChannelScale3D::getValue(v13 + 2864, &v22, &sx.a, &v24, &v23, 0.0);
     XMarginScale = TXTextLayout::getXMarginScale(a1);
     sx.a = XMarginScale * sx.a;
     YMarginScale = TXTextLayout::getYMarginScale(a1);
@@ -535,14 +536,14 @@ void TXTextLayout::applyFontToAttributedString(TXTextLayout *a1, __CFAttributedS
     v25 = v22;
   }
 
-  TXTextStyle::getFontName(*a3, &sx);
+  TXTextStyle::getFontName(&sx, *a3);
   v18 = *a3;
   *&v22.a = *a5;
   v22.c = *(a5 + 16);
   Size = TXTextStyle::getSize(v18, &v22, 0.0);
   ValueAsInt = OZChannel::getValueAsInt((*a3 + 5352), MEMORY[0x277CC08F0], 0.0);
   {
-    PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::PCCachedFunctionImpl<PCCFRef<__CTFont const*> (*)(PCString const&,double,BOOL,CGAffineTransform const&)>(&getFontCache(void)::sFontCache, createFont);
+    PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::PCCachedFunctionImpl<PCCFRef<__CTFont const*> (*)(PCString const&,double,BOOL,CGAffineTransform const&)>(&getFontCache(void)::sFontCache, createFont, 32);
   }
 
   PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::operator()(&getFontCache(void)::sFontCache, &sx, ValueAsInt != 0, &v25, &v22, Size);
@@ -608,14 +609,15 @@ BOOL operator<(double *a1, double *a2)
   return result;
 }
 
-void PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::operator()(uint64_t a1@<X0>, const PCString *a2@<X1>, char a3@<W2>, __int128 *a4@<X3>, const void **a5@<X8>, double a6@<D0>)
+void PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::operator()(uint64_t a1@<X0>, const PCString *a2@<X1>, uint64_t a3@<X2>, __int128 *a4@<X3>, const void **a5@<X8>, double a6@<D0>)
 {
+  v7 = a3;
   v12 = (a1 + 32);
   v24 = a1 + 32;
   PCSpinLock::lock((a1 + 32));
   PCString::PCString(&v18, a2);
   v19 = a6;
-  v20 = a3;
+  v20 = v7;
   v13 = a4[1];
   v21 = *a4;
   v22 = v13;
@@ -624,7 +626,7 @@ void PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,C
   PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::findValue(*(a1 + 40), &v18, &v17, a5);
   if ((v17 & 1) == 0)
   {
-    std::function<PCCFRef<__CTFont const*> ()(PCString const&,double,BOOL,CGAffineTransform const&)>::operator()(a1, a2, a3, a4, a6);
+    std::function<PCCFRef<__CTFont const*> ()(PCString const&,double,BOOL,CGAffineTransform const&)>::operator()(a1, a2, v7, a4, a6);
     v14 = *a5;
     v15 = v16;
     if (*a5 && v14 != v16)
@@ -779,13 +781,13 @@ void sub_25FB1F494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTextLayout::stripUnsupportedXMLChars(PCString *this@<X0>, PCString *a2@<X8>)
+void TXTextLayout::stripUnsupportedXMLChars(PCString *__return_ptr a1@<X8>, PCString *this@<X0>)
 {
-  v4 = PCString::ns_str(this);
-  v5 = PCReplaceUnsupportedXMLChars(&v4->isa, &stru_2872E16E0.isa);
-  a2->var0 = 0;
+  v3 = PCString::ns_str(this);
+  v4 = PCReplaceUnsupportedXMLChars(&v3->isa, &stru_2872E16E0.isa);
+  a1->var0 = 0;
 
-  PCString::set(a2, v5);
+  PCString::set(a1, v4);
 }
 
 double tailIntentFromAttributedStringAtRange(NSAttributedString *a1, _NSRange a2)
@@ -852,7 +854,7 @@ void ___ZN12TXTextLayout43applyKerningAndTrackingFromAttributedStringEP18NSAttri
           [v10 floatValue];
           location = RangeOfComposedCharactersAtIndex.location;
           v19.value = &location;
-          *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8 + 19224, &location) + 5) = v13;
+          *(std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>((v8 + 2403), &location, &std::piecewise_construct, &v19) + 5) = v13;
           v11 = RangeOfComposedCharactersAtIndex.location + RangeOfComposedCharactersAtIndex.length;
         }
 
@@ -866,7 +868,7 @@ void ___ZN12TXTextLayout43applyKerningAndTrackingFromAttributedStringEP18NSAttri
     if (v14)
     {
       v15 = v14;
-      TXTextLayout::getStyleAtCharOffset(v8, a3, &location);
+      TXTextLayout::getStyleAtCharOffset(&location, v8, a3);
       v16 = MEMORY[0x277CC08F0];
       v19 = **&MEMORY[0x277CC08F0];
       Size = TXTextStyle::getSize(location, &v19, 0.0);
@@ -907,9 +909,9 @@ double *___ZN12TXTextLayout43applyKerningAndTrackingFromAttributedStringEP18NSAt
         RangeOfComposedCharactersAtIndex = CFStringGetRangeOfComposedCharactersAtIndex([*(v7 + 4) string], v4);
         [a2 floatValue];
         v11 = v10;
-        v12[0] = RangeOfComposedCharactersAtIndex.location;
-        v12[2] = v12;
-        result = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8 + 19224, v12);
+        location = RangeOfComposedCharactersAtIndex.location;
+        p_location = &location;
+        result = std::__tree<std::__value_type<long,double>,std::__map_value_compare<long,std::__value_type<long,double>,std::less<long>,true>,std::allocator<std::__value_type<long,double>>>::__emplace_unique_key_args<long,std::piecewise_construct_t const&,std::tuple<long const&>,std::tuple<>>(v8 + 19224, &location, &std::piecewise_construct, &p_location);
         result[5] = v11;
         v4 = RangeOfComposedCharactersAtIndex.location + RangeOfComposedCharactersAtIndex.length;
       }
@@ -921,10 +923,10 @@ double *___ZN12TXTextLayout43applyKerningAndTrackingFromAttributedStringEP18NSAt
   return result;
 }
 
-void TXTextLayout::readContentsOfFile(uint64_t a1)
+void TXTextLayout::readContentsOfFile(uint64_t a1, PCURL *a2)
 {
-  v2 = Li3DEngineScene::sceneManager(a1);
-  OZLockingGroup::WriteSentry::WriteSentry(v3, v2);
+  v3 = Li3DEngineScene::sceneManager(a1);
+  OZLockingGroup::WriteSentry::WriteSentry(v4, v3);
   *(a1 + 18992) = 1;
   *(a1 + 19032) = *(a1 + 19024);
   std::__list_imp<unsigned int>::clear((a1 + 19368));
@@ -1098,10 +1100,17 @@ LABEL_33:
   return v29;
 }
 
+void sub_25FB20398(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t TXTextLayout::wordsFitInParagraphWidth(uint64_t **this, double a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v16, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v16, v4);
   v5 = this[2378];
   v6 = this[2379];
   if (v5 != v6)
@@ -1142,13 +1151,13 @@ uint64_t TXTextLayout::wordsFitInParagraphWidth(uint64_t **this, double a2)
 
   v14 = 1;
 LABEL_11:
-  OZLockingGroup::WriteSentry::~WriteSentry(v16);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v16);
   return v14;
 }
 
-void sub_25FB20500(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB20500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -1188,7 +1197,7 @@ LABEL_7:
 uint64_t TXTextLayout::isEmoji(TXTextObject ***this, int a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v11, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v11, v4);
   for (i = this[8027]; i; i = *i)
   {
     v6 = *(i + 7);
@@ -1198,7 +1207,7 @@ uint64_t TXTextLayout::isEmoji(TXTextObject ***this, int a2)
       {
         v10 = a2;
         v12 = &v10;
-        isEmoji = *(std::__tree<std::__value_type<int,BOOL>,std::__map_value_compare<int,std::__value_type<int,BOOL>,std::less<int>,true>,std::allocator<std::__value_type<int,BOOL>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>((this + 8026), &v10) + 32);
+        isEmoji = *(std::__tree<std::__value_type<int,BOOL>,std::__map_value_compare<int,std::__value_type<int,BOOL>,std::less<int>,true>,std::allocator<std::__value_type<int,BOOL>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>((this + 8026), &v10, &std::piecewise_construct, &v12) + 32);
         goto LABEL_13;
       }
 
@@ -1222,13 +1231,13 @@ uint64_t TXTextLayout::isEmoji(TXTextObject ***this, int a2)
 
   isEmoji = TXTextObject::isEmoji(*j);
 LABEL_13:
-  OZLockingGroup::WriteSentry::~WriteSentry(v11);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v11);
   return isEmoji & 1;
 }
 
-void sub_25FB20660(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB20660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -1236,17 +1245,17 @@ void sub_25FB20660(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t TXTextLayout::isAllWhitespace(PCString *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v6, v2);
-  TXChannelString::getString(this + 2381, &v5);
+  OZLockingGroup::WriteSentry::WriteSentry(&v6, v2);
+  TXChannelString::getString(&v5, this + 2381);
   v3 = [(__CFString *)PCString::ns_str(&v5) isAllWhitespace];
   PCString::~PCString(&v5);
-  OZLockingGroup::WriteSentry::~WriteSentry(v6);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v6);
   return v3;
 }
 
-void sub_25FB206E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB206E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -1255,7 +1264,7 @@ void TXTextLayout::computeWordIndices(PCString *this)
 {
   v2 = this + 7622;
   v3 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v31, v3);
+  OZLockingGroup::WriteSentry::WriteSentry(&v31, v3);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(v2, &v2[1].var0->isa);
   v2->var0 = &v2[1];
   v2[2].var0 = 0;
@@ -1279,7 +1288,7 @@ void TXTextLayout::computeWordIndices(PCString *this)
   v16[1] = v16;
   v16[2] = 0x2020000000;
   var0 = v2[423].var0;
-  TXChannelString::getString(this + 2381, &v32);
+  TXChannelString::getString(&v32, this + 2381);
   v4 = PCString::ns_str(&v32);
   PCString::~PCString(&v32);
   v5 = [(__CFString *)v4 length];
@@ -1312,7 +1321,7 @@ void TXTextLayout::computeWordIndices(PCString *this)
           v12 = *(v19 + 6);
           v14 = v10;
           v32.var0 = &v14;
-          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2, &v14) + 8) = v12;
+          *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v2, &v14, &std::piecewise_construct, &v32) + 8) = v12;
           LODWORD(v10) = v10 + 1;
           --v11;
         }
@@ -1340,18 +1349,19 @@ void TXTextLayout::computeWordIndices(PCString *this)
   _Block_object_dispose(&v22, 8);
   std::deque<PCHash128>::~deque[abi:ne200100](v28);
   _Block_object_dispose(v29, 8);
-  OZLockingGroup::WriteSentry::~WriteSentry(v31);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v31);
 }
 
-void sub_25FB209A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_25FB209A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  PCString::~PCString((v29 - 72));
+  va_start(va, a27);
+  PCString::~PCString((v28 - 72));
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a28, 8);
-  std::deque<PCHash128>::~deque[abi:ne200100]((v28 + 48));
-  _Block_object_dispose((v29 - 120), 8);
-  OZLockingGroup::WriteSentry::~WriteSentry((v29 - 88));
+  _Block_object_dispose(va, 8);
+  std::deque<PCHash128>::~deque[abi:ne200100]((v27 + 48));
+  _Block_object_dispose((v28 - 120), 8);
+  OZLockingGroup::WriteSentry::~WriteSentry((v28 - 88));
   _Unwind_Resume(a1);
 }
 
@@ -1423,7 +1433,7 @@ void ___ZN12TXTextLayout18computeWordIndicesEv_block_invoke(void *a1, int a2, in
               v18 = *(*(a1[7] + 8) + 24);
               v20 = v16;
               v22 = &v20;
-              *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v9 + 60976, &v20) + 8) = v18;
+              *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v9 + 60976, &v20, &std::piecewise_construct, &v22) + 8) = v18;
               LODWORD(v16) = v16 + 1;
               --v17;
             }
@@ -1449,7 +1459,7 @@ void ___ZN12TXTextLayout18computeWordIndicesEv_block_invoke(void *a1, int a2, in
         v19 = *(*(a1[7] + 8) + 24);
         v20 = v7;
         v22 = &v20;
-        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v9 + 60976, &v20) + 8) = v19;
+        *(std::__tree<std::__value_type<int,unsigned int>,std::__map_value_compare<int,std::__value_type<int,unsigned int>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(v9 + 60976, &v20, &std::piecewise_construct, &v22) + 8) = v19;
         LODWORD(v7) = v7 + 1;
         --v6;
       }
@@ -1912,15 +1922,15 @@ void createFont(PCString *a1@<X0>, CGFloat a2@<D0>, const CGAffineTransform *a3@
   }
 }
 
-uint64_t PCCachedFunction<PCCFRef<__CTFont const*> ()(PCString const&,double,BOOL,CGAffineTransform const&)>::~PCCachedFunction(uint64_t a1)
+uint64_t PCCachedFunction<PCCFRef<__CTFont const*> ()(PCString const&,double,BOOL,CGAffineTransform const&)>::~PCCachedFunction(PCSpinLock *a1)
 {
-  PCCache<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::~PCCache((a1 + 40));
-  PCSpinLock::~PCSpinLock((a1 + 32));
+  PCCache<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::~PCCache(&a1[10]);
+  PCSpinLock::~PCSpinLock(a1 + 8);
 
   return std::__function::__value_func<PCCFRef<__CTFont const*> ()(PCString const&,double,BOOL,CGAffineTransform const&)>::~__value_func[abi:ne200100](a1);
 }
 
-void PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::PCCachedFunctionImpl<PCCFRef<__CTFont const*> (*)(PCString const&,double,BOOL,CGAffineTransform const&)>(uint64_t a1, uint64_t a2)
+void PCCachedFunctionImpl<PCCFRef<__CTFont const*>,PCString const&,double,BOOL,CGAffineTransform const&>::PCCachedFunctionImpl<PCCFRef<__CTFont const*> (*)(PCString const&,double,BOOL,CGAffineTransform const&)>(uint64_t a1, uint64_t a2, int a3)
 {
   *(a1 + 24) = 0;
   if (a2)
@@ -2029,7 +2039,7 @@ uint64_t PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform con
   return a1;
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2077,7 +2087,7 @@ void *PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>
   else
   {
     v8 = result;
-    v9 = result[13];
+    v9 = *(result + 13);
     *a4 = v9;
     if (v9)
     {
@@ -2106,14 +2116,23 @@ PCString *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CG
   v5 = a1 + 1;
   do
   {
-    v6 = std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(&v9, var0 + 4, a2);
-    v7 = v6;
+    v6 = std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(&v9, &var0[1], a2);
+    if (v6)
+    {
+      v7 = 8;
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
     if (!v6)
     {
       v5 = var0;
     }
 
-    var0 = var0[v7].var0;
+    var0 = *(&var0->isa + v7);
   }
 
   while (var0);
@@ -2279,10 +2298,10 @@ PCString *PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform co
   {
     v8 = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::find<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(result + 3, a2);
     v25 = v8;
-    if ((v7 + 32) == v8)
+    if (&v7[4] == v8)
     {
-      v16 = (*(v7 + 72) + 1);
-      *(v7 + 72) = v16;
+      v16 = (&v7[9].var0->isa + 1);
+      v7[9].var0 = v16;
       v24[0] = *a3;
       if (v24[0])
       {
@@ -2293,27 +2312,27 @@ PCString *PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform co
       v24[2] = v16;
       v24[3] = 0;
       std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>::pair[abi:ne200100]<true,0>(v20, a2, v24);
-      v22 = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>((v7 + 24), v20);
+      v22 = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>(v7 + 3, v20, v20);
       v23 = v17;
       PCCFRef<__CTLine const*>::~PCCFRef(&v21);
       PCString::~PCString(v20);
-      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::add(v7 + 48, &v22);
-      *(v7 + 80) += a4;
-      if (!*(v7 + 104))
+      PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::add(&v7[6], &v22);
+      v7[10].var0 = (v7[10].var0 + a4);
+      if (!v7[13].var0)
       {
-        while (*(v7 + 80) > *(v7 + 88) || *(v7 + 40) > *(v7 + 96))
+        while (v7[10].var0 > v7[11].var0 || v7[5].var0 > v7[12].var0)
         {
-          v19 = *(v7 + 48);
-          if (v19 == *(v7 + 56))
+          var0 = v7[6].var0;
+          if (var0 == v7[7].var0)
           {
             break;
           }
 
-          v20[0] = v19->var0;
-          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::remove((v7 + 48), v20);
-          var0 = v20[0].var0;
-          *(v7 + 80) -= v20[0].var0[3].data;
-          std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase((v7 + 24), var0);
+          v20[0] = var0->var0;
+          PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::remove(&v7[6], v20);
+          v18 = v20[0].var0;
+          v7[10].var0 = (v7[10].var0 - v20[0].var0[3].data);
+          std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase(&v7[3], v18);
         }
       }
 
@@ -2324,33 +2343,33 @@ PCString *PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform co
     {
       v9 = v8;
       PCCFRef<__CTLine const*>::operator=(&v8[13].var0, a3);
-      v10 = *(v7 + 72) + 1;
-      *(v7 + 72) = v10;
+      v10 = &v7[9].var0->isa + 1;
+      v7[9].var0 = v10;
       v9[15].var0 = v10;
-      result = PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::bubble((v7 + 48), &v25);
+      result = PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::bubble(&v7[6], &v25);
       v11 = v25;
       v12 = (a4 - v25[14].var0);
       if (v12)
       {
-        v13 = &v12[*(v7 + 80)];
-        *(v7 + 80) = v13;
+        v13 = (v7[10].var0 + v12);
+        v7[10].var0 = v13;
         v11[14].var0 = a4;
-        if (!*(v7 + 104))
+        if (!v7[13].var0)
         {
-          while (v13 > *(v7 + 88) || *(v7 + 40) > *(v7 + 96))
+          while (v13 > v7[11].var0 || v7[5].var0 > v7[12].var0)
           {
-            v15 = *(v7 + 48);
-            if (v15 == *(v7 + 56))
+            v15 = v7[6].var0;
+            if (v15 == v7[7].var0)
             {
               break;
             }
 
             v20[0] = v15->var0;
-            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::remove((v7 + 48), v20);
+            PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__tree_node<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,void *> *,long>>>::remove(&v7[6], v20);
             v14 = v20[0].var0;
-            *(v7 + 80) -= v20[0].var0[3].data;
-            result = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase((v7 + 24), v14);
-            v13 = *(v7 + 80);
+            v7[10].var0 = (v7[10].var0 - v20[0].var0[3].data);
+            result = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase(&v7[3], v14);
+            v13 = v7[10].var0;
           }
         }
       }
@@ -2447,9 +2466,9 @@ void PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<s
   }
 }
 
-__CFString *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>(PCString *a1, PCString *this)
+__CFString *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__emplace_unique_key_args<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>(PCString *a1, PCString *this, uint64_t a3)
 {
-  result = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__find_equal<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(a1, &v3, this)->var0;
+  result = std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__find_equal<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(a1, &v4, this)->var0;
   if (!result)
   {
     std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::__construct_node<std::pair<std::tuple<PCString const,double,BOOL,CGAffineTransform const> const,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>();
@@ -2469,7 +2488,7 @@ PCString *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CG
       while (1)
       {
         v7 = var0;
-        if (!std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(&v9, this, var0 + 4))
+        if (!std::__tuple_less<4ul>::operator()[abi:ne200100]<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::tuple<PCString const,double,BOOL,CGAffineTransform const>>(&v9, this, &var0[1]))
         {
           break;
         }
@@ -2593,16 +2612,16 @@ void PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<s
   }
 }
 
-uint64_t *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase(uint64_t **a1, uint64_t a2)
+uint64_t *std::__tree<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::__map_value_compare<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>,true>,std::allocator<std::__value_type<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCacheImpl<std::tuple<PCString const,double,BOOL,CGAffineTransform const>,PCCFRef<__CTFont const*>,PCNoLock,std::less<std::tuple<PCString const,double,BOOL,CGAffineTransform const>>>::Data>>>::erase(uint64_t **a1, PCString *a2)
 {
   v3 = std::__tree<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,PVInstructionGraphNode * {__strong}>>>::__remove_node_pointer(a1, a2);
-  PCCFRef<__CTLine const*>::~PCCFRef((a2 + 104));
-  PCString::~PCString((a2 + 32));
+  PCCFRef<__CTLine const*>::~PCCFRef(&a2[13].var0);
+  PCString::~PCString(a2 + 4);
   operator delete(a2);
   return v3;
 }
 
-__n128 std::deque<_NSRange>::push_back(void *a1, __n128 *a2)
+__n128 std::deque<_NSRange>::push_back(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   v5 = a1[1];
@@ -2626,19 +2645,19 @@ __n128 std::deque<_NSRange>::push_back(void *a1, __n128 *a2)
   return result;
 }
 
-void *std::deque<_NSRange>::__add_back_capacity(void *a1)
+void std::deque<_NSRange>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -2646,25 +2665,25 @@ void *std::deque<_NSRange>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<PVLoadedEffectItem *>::emplace_back<PVLoadedEffectItem *>(a1, &v9);
 }
 
 void sub_25FB22B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -2678,14 +2697,13 @@ void sub_25FB22B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-const void **std::__split_buffer<_NSRange *>::emplace_front<_NSRange *&>(const void **result, void *a2)
+void std::__split_buffer<_NSRange *>::emplace_front<_NSRange *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -2698,32 +2716,31 @@ const void **std::__split_buffer<_NSRange *>::emplace_front<_NSRange *&>(const v
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void std::vector<PCNSRef<NSURL *>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<PCNSRef<NSURL *>>::__destroy_vector::operator()[abi:ne200100](id ***a1)
 {
   v2 = *a1;
   if (*v2)
@@ -2735,14 +2752,14 @@ void std::vector<PCNSRef<NSURL *>>::__destroy_vector::operator()[abi:ne200100](v
   }
 }
 
-void std::vector<PCNSRef<NSURL *>>::__base_destruct_at_end[abi:ne200100](uint64_t a1, id *a2)
+void std::vector<PCNSRef<NSURL *>>::__base_destruct_at_end[abi:ne200100](uint64_t result, id *a2)
 {
-  for (i = *(a1 + 8); i != a2; ProCore_Impl::PCNSRefImpl::release(i))
+  for (i = *(result + 8); i != a2; ProCore_Impl::PCNSRefImpl::release(i))
   {
     --i;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void sub_25FB22DEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, PCSharedCount a12)
@@ -2820,10 +2837,10 @@ void LiCachedImageFilter::~LiCachedImageFilter(PCSharedCount *this, const PCStri
   OZChannelBase::setRangeName(this, a2 + 2);
 }
 
-CGColorSpace **TXOutlineFilter::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, void *a3@<X8>)
+CGColorSpace **TXOutlineFilter::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, uint64_t *a3@<X8>)
 {
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
-  LiAgent::getHelium(a2, this[2], a3);
+  LiAgent::getHelium(a3, a2, this[2]);
   return LiAgent::setActualColorDescription(a2, RequestedColorDescription);
 }
 
@@ -2859,7 +2876,7 @@ double TXOutlineFilter::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t a3)
       v15[2] = *(a3 + 32);
       v15[3] = v12;
       v14 = xmmword_260343AA0;
-      TXTextObject::getScaleAndHashForPixelTransform(*(a1 + 56));
+      TXTextObject::getScaleAndHashForPixelTransform(*(a1 + 56), a1 + 72, &v17, &v16, v15);
       *(a3 + 120) = 0x3FF0000000000000;
       *(a3 + 80) = 0x3FF0000000000000;
       *(a3 + 40) = 0x3FF0000000000000;
@@ -2900,40 +2917,40 @@ double TXOutlineFilter::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t a3)
   return PCMatrix44Tmpl<double>::rightScale(a3, v7, v8, 1.0);
 }
 
-void LiCachedImageFilter::getCacheHash(uint64_t a1)
+void LiCachedImageFilter::getCacheHash(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v4 = v3;
-  v16[520] = *MEMORY[0x277D85DE8];
-  v5 = v1[9];
-  v6 = v1[10];
-  v7 = v1 + 9;
-  v8 = v1[11];
-  v9 = v1[12];
-  if (v6 | v5 | v8 | v9)
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v7 = v6;
+  v20[520] = *MEMORY[0x277D85DE8];
+  v9 = v8[9];
+  v10 = v8[10];
+  v11 = v8 + 9;
+  v12 = v8[11];
+  v13 = v8[12];
+  if (v10 | v9 | v12 | v13)
   {
-    v13 = 0.0;
-    v14 = 0.0;
-    v15 = 0;
-    v11 = 0uLL;
-    v12 = 0;
-    getScaleTranslate(v2, &v13, &v11);
-    PCHashWriteStream::PCHashWriteStream(v16);
-    PCHashWriteStream::writeValue(v16, v13);
-    PCHashWriteStream::writeValue(v16, v14);
-    PCHashWriteStream::close(v16);
-    Hash = PCHashWriteStream::getHash(v16);
-    PCHash128::operator+=(v7, Hash);
-    *v4 = *v7;
-    PCHashWriteStream::~PCHashWriteStream(v16);
+    v17 = 0.0;
+    v18 = 0.0;
+    v19 = 0;
+    v15 = 0uLL;
+    v16 = 0;
+    getScaleTranslate(v5, &v17, &v15);
+    PCHashWriteStream::PCHashWriteStream(v20);
+    PCHashWriteStream::writeValue(v20, v17);
+    PCHashWriteStream::writeValue(v20, v18);
+    PCHashWriteStream::close(v20);
+    Hash = PCHashWriteStream::getHash(v20);
+    PCHash128::operator+=(v11, Hash);
+    *v7 = *v11;
+    PCHashWriteStream::~PCHashWriteStream(v20);
   }
 
   else
   {
-    *v4 = v5;
-    *(v4 + 4) = v6;
-    *(v4 + 8) = v8;
-    *(v4 + 12) = v9;
+    *v7 = v9;
+    *(v7 + 4) = v10;
+    *(v7 + 8) = v12;
+    *(v7 + 12) = v13;
   }
 }
 
@@ -2963,20 +2980,20 @@ uint64_t LiImageFilter::filteredEdges(LiImageFilter *this)
   return v2();
 }
 
-PCSharedCount *LiImageSource::getSourceAtTime@<X0>(LiImageSource *this@<X0>, PCSharedCount *a2@<X8>)
+void LiImageSource::getSourceAtTime(LiImageSource *this@<X0>, PCSharedCount *a2@<X8>)
 {
   a2->var0 = this;
   if (this)
   {
-    v4 = (this + *(*this - 24));
+    v2 = (this + *(*this - 24));
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return PCSharedCount::PCSharedCount(a2 + 1, v4);
+  PCSharedCount::PCSharedCount(a2 + 1, v2);
 }
 
 void TXOutlineFilter::~TXOutlineFilter(TXOutlineFilter *this)
@@ -3086,11 +3103,11 @@ PCShared_base **PCPtr<LiImageSource>::operator=<LiImageSource>(PCShared_base **a
   return a1;
 }
 
-void sub_25FB23978(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB23978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCSharedCount::~PCSharedCount(va);
-  PCSharedCount::~PCSharedCount(v2 + 1);
+  PCSharedCount::~PCSharedCount(v3 + 1);
   _Unwind_Resume(a1);
 }
 
@@ -3157,21 +3174,21 @@ void TXTextObject::TXTextObject(TXTextObject *this, TXTextLayout *a2, int a3)
   *(this + 4) = a3;
 }
 
-void sub_25FB23B60(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB23B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  PCString::~PCString((v2 + 128));
-  PCString::~PCString((v2 + 72));
-  v4 = *(v2 + 56);
-  if (v4)
+  va_start(va, a3);
+  PCString::~PCString((v3 + 128));
+  PCString::~PCString((v3 + 72));
+  v5 = *(v3 + 56);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   std::vector<std::shared_ptr<HGGPUComputeDevice const>>::__destroy_vector::operator()[abi:ne200100](va);
-  *(v2 + 760) = &unk_2872DEA38;
-  *(v2 + 776) = 0;
-  PCWeakCount::~PCWeakCount((v2 + 768));
+  *(v3 + 760) = &unk_2872DEA38;
+  *(v3 + 776) = 0;
+  PCWeakCount::~PCWeakCount((v3 + 768));
   _Unwind_Resume(a1);
 }
 
@@ -3255,26 +3272,26 @@ double TXTextObject::getBoundingTypographicVolume(double *a1, uint64_t a2)
   return result;
 }
 
-float64_t TXTextObject::getBoundingImageVolume(TXTextObject *a1, uint64_t a2, uint64_t a3)
+double TXTextObject::getBoundingImageVolume(TXTextObject *a1, uint64_t a2, uint64_t a3)
 {
-  OZRenderState::OZRenderState(&v13);
-  *&v13.var0.var0 = *a3;
-  v13.var0.var3 = *(a3 + 16);
-  TXTextObject::getImageBounds(a1, &v13, &v10);
-  v7 = v10;
-  result = v10.f64[0];
-  v8 = v10.f64[0] + v11;
-  v9 = v10.f64[1] + v12;
-  *a2 = v10.f64[0];
+  OZRenderState::OZRenderState(&v14);
+  *&v14.var0.var0 = *a3;
+  v14.var0.var3 = *(a3 + 16);
+  TXTextObject::getImageBounds(&v10, a1, &v14);
+  result = v10;
+  v7 = v11;
+  v8 = v10 + v12;
+  v9 = v11 + v13;
+  *a2 = v10;
   *(a2 + 8) = v8;
-  *(a2 + 16) = v7.f64[1];
+  *(a2 + 16) = v7;
   *(a2 + 24) = v9;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   return result;
 }
 
-float64x2_t TXTextObject::getImageBounds@<Q0>(TXTextObject *this@<X0>, const OZRenderState *a2@<X1>, float64x2_t *a3@<X8>)
+float64x2_t TXTextObject::getImageBounds@<Q0>(uint64_t *__return_ptr a1@<X8>, TXTextObject *this@<X0>, const OZRenderState *a3@<X1>)
 {
   v6 = *(this + 33);
   if (v6)
@@ -3294,8 +3311,8 @@ float64x2_t TXTextObject::getImageBounds@<Q0>(TXTextObject *this@<X0>, const OZR
   }
 
   v9 = *(this + 408);
-  *a3 = *(this + 392);
-  a3[1] = v9;
+  *a1 = *(this + 392);
+  *(a1 + 1) = v9;
   if (!TXTextLayout::scaleAffectsLayout(*(this + 68)))
   {
 LABEL_9:
@@ -3310,14 +3327,14 @@ LABEL_9:
   v28 = 0.0;
   v29 = 0.0;
   v27 = 0.0;
-  var0 = a2->var0;
-  OZChannelScale3D::getValue((v8 + 2864), &var0, &v29, &v28, &v27, 0.0);
+  var0 = a3->var0;
+  OZChannelScale3D::getValue(v8 + 2864, &var0, &v29, &v28, &v27, 0.0);
   v11.f64[0] = v29;
   if (fabs(v29) < 0.0000001 || fabs(v28) < 0.0000001)
   {
     __asm { FMOV            V0.2D, #-1.0 }
 
-    a3[1] = result;
+    *(a1 + 1) = result;
     goto LABEL_9;
   }
 
@@ -3326,10 +3343,10 @@ LABEL_9:
 
   v25 = _Q1;
   v17 = vdivq_f64(_Q1, v11);
-  v23 = vmulq_f64(v17, *a3);
-  v24 = vmulq_f64(v17, a3[1]);
-  *a3 = v23;
-  a3[1] = v24;
+  v23 = vmulq_f64(v17, *a1);
+  v24 = vmulq_f64(v17, *(a1 + 1));
+  *a1 = v23;
+  *(a1 + 1) = v24;
   XMarginScale = TXTextLayout::getXMarginScale(*(this + 68));
   YMarginScale = TXTextLayout::getYMarginScale(*(this + 68));
   v19.f64[0] = XMarginScale;
@@ -3337,8 +3354,8 @@ LABEL_9:
   v20 = vdivq_f64(v25, v19);
   v21 = vmulq_f64(v23, v20);
   result = vmulq_f64(v24, v20);
-  *a3 = v21;
-  a3[1] = result;
+  *a1 = v21;
+  *(a1 + 1) = result;
   if (!v7)
   {
     return result;
@@ -3359,25 +3376,25 @@ void sub_25FB240B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double TXTextObject::getBoundingImageAndTypographicVolume(double *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double TXTextObject::getBoundingImageAndTypographicVolume(TXTextObject *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  OZRenderState::OZRenderState(&v18);
-  *&v18.var0.var0 = *a4;
-  v18.var0.var3 = *(a4 + 16);
-  TXTextObject::getImageBounds(a1, &v18, &v15);
-  v8 = v15.f64[1];
-  v9 = v15.f64[0] + v16;
-  v10 = v15.f64[1] + v17;
-  *a2 = v15.f64[0];
+  OZRenderState::OZRenderState(&v19);
+  *&v19.var0.var0 = *a4;
+  v19.var0.var3 = *(a4 + 16);
+  TXTextObject::getImageBounds(&v15, a1, &v19);
+  v8 = v16;
+  v9 = v15 + v17;
+  v10 = v16 + v18;
+  *a2 = v15;
   *(a2 + 8) = v9;
   *(a2 + 16) = v8;
   *(a2 + 24) = v10;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
-  result = a1[53];
-  v12 = a1[54];
-  v13 = result + a1[55];
-  v14 = v12 + a1[56];
+  result = *(a1 + 53);
+  v12 = *(a1 + 54);
+  v13 = result + *(a1 + 55);
+  v14 = v12 + *(a1 + 56);
   *a3 = result;
   *(a3 + 8) = v13;
   *(a3 + 16) = v12;
@@ -3428,16 +3445,16 @@ __n128 TXTextObject::setSubstituteFontID(TXTextObject *this, int a2)
   return result;
 }
 
-TXTextLayout *TXTextObject::getPosition@<X0>(TXTextObject *this@<X0>, CMTime *a2@<X1>, void *a3@<X8>)
+TXTextLayout *TXTextObject::getPosition@<X0>(uint64_t *__return_ptr a1@<X8>, TXTextObject *this@<X0>, CMTime *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   result = *(this + 68);
   if (result)
   {
     v5 = *(this + 97);
-    return TXTextLayout::getPosition(result, a2, &v5, a3);
+    return TXTextLayout::getPosition(result, a3, &v5, a1);
   }
 
   return result;
@@ -3504,23 +3521,23 @@ double TXTextObject::setPathRotation(TXTextObject *this, CMTime *a2, double resu
   return result;
 }
 
-void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, int a4, int a5, uint64_t a6, int a7, double a8, double a9)
+void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, int a4, int a5, uint64_t a6, unint64_t a7, double a8, double a9)
 {
   v18 = *(a3 + 12);
   if (v18 && (time1 = *a3, time2 = *(a1 + 704), !CMTimeCompare(&time1, &time2)))
   {
-    v51 = a1 + 576;
+    v53 = a1 + 576;
     if (a1 + 576 != a2)
     {
       for (i = 0; i != 4; ++i)
       {
         for (j = 0; j != 32; j += 8)
         {
-          *(a2 + j) = *(v51 + j);
+          *(a2 + j) = *(v53 + j);
         }
 
         a2 += 32;
-        v51 += 32;
+        v53 += 32;
       }
     }
   }
@@ -3536,14 +3553,14 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
     }
 
     v22 = *(a1 + 544);
-    v109 = *a3;
+    v111 = *a3;
     time1 = *a3;
     OZChannel::getValueAsDouble((v20 + 2712), &time1, 0.0);
     v24 = v23;
     if ((*(a3 + 235) & 1) == 0)
     {
-      time1 = v109;
-      HIDWORD(v25) = HIDWORD(v109.value);
+      time1 = v111;
+      HIDWORD(v25) = HIDWORD(v111.value);
       LODWORD(v25) = *(a1 + 736);
       OZChannel::getValueAsDouble((v22 + 28288), &time1, v25);
       v24 = v24 + v26;
@@ -3551,70 +3568,70 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
 
     if (a5)
     {
-      time1 = v109;
+      time1 = v111;
       OZChannel::getValueAsDouble((v22 + 60360), &time1, 0.0);
       a8 = v27;
-      time1 = v109;
+      time1 = v111;
       OZChannel::getValueAsDouble((v22 + 59888), &time1, 0.0);
       a9 = v28;
     }
 
-    v107 = 0.0;
+    v109 = 0.0;
+    v110 = 0.0;
     v108 = 0.0;
+    TXTextObject::getScale(a1, a3, &v110, &v109, &v108, 0, a4, 0, 0, 0, a7);
     v106 = 0.0;
-    TXTextObject::getScale(a1, a3, &v108, &v107, &v106, 0, a4, 0, 0, 0, a7);
-    v104 = 0.0;
+    v107 = 0.0;
     v105 = 0.0;
-    v103 = 0.0;
     if (OZChannel::getValueAsInt((v22 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v22 + 20464), MEMORY[0x277CC08F0], 0.0) != 4)
     {
-      time1 = v109;
-      TXTextObject::getRotation(a1, &time1, &v105, &v104, &v103, 1, a7);
+      time1 = v111;
+      TXTextObject::getRotation(a1, &time1, &v107, &v106, &v105, 1, a7);
     }
 
-    v101 = 0.0;
+    v103 = 0.0;
+    v104 = 0;
     v102 = 0.0;
+    TXTextObject::getPathRotation(a1, &v111, &v104, &v103, &v102);
+    v59 = v24;
+    v101 = 0.0;
     v100 = 0.0;
-    TXTextObject::getPathRotation(a1, &v109, &v102, &v101, &v100);
-    v57 = v24;
     v99 = 0.0;
-    v98 = 0.0;
-    v97 = 0.0;
     time1 = *a3;
-    TXTextObject::getPivot(a1, &v99, &v98, &v97, &time1, a7);
-    v29 = v99;
-    v30 = v98;
-    v31 = v97;
-    v94 = v99;
-    v95 = v98;
-    v96 = v97;
-    v93 = 0x3FF0000000000000;
-    v90 = 0x3FF0000000000000;
-    v87 = 0x3FF0000000000000;
+    TXTextObject::getPivot(a1, &v101, &v100, &v99, &time1, a7);
+    v29 = v101;
+    v30 = v100;
+    v31 = v99;
+    v96 = v101;
+    v97 = v100;
+    v98 = v99;
+    v95 = 0x3FF0000000000000;
+    v92 = 0x3FF0000000000000;
+    v89 = 0x3FF0000000000000;
     time2.value = 0x3FF0000000000000;
     *&time2.timescale = 0u;
-    v86 = 0u;
     v88 = 0u;
-    v89 = 0u;
+    v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
-    v33 = v101;
-    v32 = v102;
-    v34 = v100;
-    PCMatrix44Tmpl<double>::rightRotate(&time2.value, 4, v102, v101, v100);
-    PCMatrix44Tmpl<double>::transform<double>(&time2.value, &v94, &v94);
+    v93 = 0u;
+    v94 = 0u;
+    v33 = v103;
+    v32 = v104;
+    v34 = v102;
+    PCMatrix44Tmpl<double>::rightRotate(&time2.value, 4, v104, v103, v102);
+    PCMatrix44Tmpl<double>::transform<double>(&time2.value, &v96, &v96);
     time1 = *a3;
+    v86 = 0.0;
     v84 = 0.0;
-    v82 = 0.0;
-    v83 = 0.0;
+    v85 = 0.0;
     v35 = *(a1 + 544);
     if (v35)
     {
-      LODWORD(v74.value) = *(a1 + 388);
-      TXTextLayout::getPosition(v35, &time1, &v74, &v82);
-      v36 = v82;
-      v37 = v83;
-      v38 = v84;
+      LODWORD(v76.value) = *(a1 + 388);
+      TXTextLayout::getPosition(v35, &time1, &v76, &v84);
+      v36 = v84;
+      v37 = v85;
+      v38 = v86;
     }
 
     else
@@ -3644,10 +3661,10 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
     if (OZChannel::getValueAsInt((v22 + 20464), MEMORY[0x277CC08F0], 0.0) != 3 && OZChannel::getValueAsInt((v22 + 20464), MEMORY[0x277CC08F0], 0.0) != 4 && (*(a3 + 235) & 1) == 0)
     {
       memset(&time1, 0, sizeof(time1));
-      v74 = v109;
-      HIDWORD(v40) = HIDWORD(v109.value);
+      v76 = v111;
+      HIDWORD(v40) = HIDWORD(v111.value);
       LODWORD(v40) = *(a1 + 736);
-      TXSequenceChannels::getPosition(v22 + 25032, &v74, &time1, v40);
+      TXSequenceChannels::getPosition(v22 + 25032, &v76, &time1, v40);
       v41 = *&time1.epoch;
       if (v39)
       {
@@ -3659,26 +3676,28 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
 
     if (TXTextLayout::alignToPath(v22) && OZChannel::getValueAsInt((v22 + 20464), MEMORY[0x277CC08F0], 0.0) == 2)
     {
-      PCMatrix44Tmpl<double>::rightTranslate(a2, v94, v95, v96);
+      PCMatrix44Tmpl<double>::rightTranslate(a2, v96, v97, v98);
     }
 
-    PCMatrix44Tmpl<double>::rightRotate(a2, 4, v32, v33, v34);
-    PCMatrix44Tmpl<double>::rightRotate(a2, 4, v105, v104, v103);
-    PCMatrix44Tmpl<double>::rightShear(a2, v57 * 3.14159265 / 180.0, 0.0);
+    v42.n128_u64[0] = v32;
+    PCMatrix44Tmpl<double>::rightRotate(a2, 4, v42, v33, v34);
+    v43.n128_f64[0] = v107;
+    PCMatrix44Tmpl<double>::rightRotate(a2, 4, v43, v106, v105);
+    PCMatrix44Tmpl<double>::rightShear(a2, v59 * 3.14159265 / 180.0, 0.0);
     if ((*(a3 + 235) & 1) == 0)
     {
-      v74.value = 0;
-      *&v59[0] = 0;
-      v58[0] = 0.0;
-      time1 = v109;
-      HIDWORD(v42) = HIDWORD(v109.value);
-      LODWORD(v42) = *(a1 + 736);
-      OZChannelScale3D::getValue((v22 + 26232), &time1, &v74.value, v59, v58, v42);
-      PCMatrix44Tmpl<double>::rightScale(a2, *&v74.value, *v59, v58[0]);
+      v76.value = 0;
+      *&v61[0] = 0;
+      v60 = 0.0;
+      time1 = v111;
+      HIDWORD(v44) = HIDWORD(v111.value);
+      LODWORD(v44) = *(a1 + 736);
+      OZChannelScale3D::getValue(v22 + 26232, &time1, &v76.value, v61, &v60, v44);
+      PCMatrix44Tmpl<double>::rightScale(a2, *&v76.value, *v61, v60);
     }
 
     PCMatrix44Tmpl<double>::rightTranslate(a2, -v29, -v30, -v31);
-    PCMatrix44Tmpl<double>::rightScale(a2, v108, v107, v106);
+    PCMatrix44Tmpl<double>::rightScale(a2, v110, v109, v108);
     if (!*(a3 + 12))
     {
       if (a6)
@@ -3688,36 +3707,36 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
         {
           for (k = 0; k != 128; k += 32)
           {
-            v49 = (a2 + k);
-            v50 = *(&time1.epoch + k);
-            *v49 = *(&time1.value + k);
-            v49[1] = v50;
+            v51 = (a2 + k);
+            v52 = *(&time1.epoch + k);
+            *v51 = *(&time1.value + k);
+            v51[1] = v52;
           }
         }
       }
 
       else
       {
-        v73 = 0x3FF0000000000000;
-        v70 = 0x3FF0000000000000;
-        v67 = 0x3FF0000000000000;
+        v75 = 0x3FF0000000000000;
+        v72 = 0x3FF0000000000000;
+        v69 = 0x3FF0000000000000;
         time1.value = 0x3FF0000000000000;
         *&time1.timescale = 0u;
-        v66 = 0u;
         v68 = 0u;
-        v69 = 0u;
+        v70 = 0u;
         v71 = 0u;
-        v72 = 0u;
+        v73 = 0u;
+        v74 = 0u;
         (*(*(v22 + 200) + 1256))(v22 + 200, &time1, a3);
-        PCMatrix44Tmpl<double>::operator*(&time1, a2, &v74);
-        if (&v74 != a2)
+        PCMatrix44Tmpl<double>::operator*(&time1, a2, &v76);
+        if (&v76 != a2)
         {
           for (m = 0; m != 128; m += 32)
           {
-            v55 = (a2 + m);
-            v56 = *(&v74.epoch + m);
-            *v55 = *(&v74.value + m);
-            v55[1] = v56;
+            v57 = (a2 + m);
+            v58 = *(&v76.epoch + m);
+            *v57 = *(&v76.value + m);
+            v57[1] = v58;
           }
         }
       }
@@ -3728,57 +3747,57 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
       OZRenderParams::OZRenderParams(&time1, a3);
       if (*(a3 + 202) == 1)
       {
-        v43 = *(a3 + 160);
-        if (v43)
+        v45 = *(a3 + 160);
+        if (v45)
         {
-          (*(*v43 + 424))(&v74, *(a3 + 160));
-          v60 = 0u;
-          memset(v59, 0, sizeof(v59));
-          v61 = 4;
+          (*(*v45 + 424))(&v76, *(a3 + 160));
           v62 = 0u;
-          v63 = 0u;
-          v64 = 0;
-          PCMatrix44Tmpl<double>::getTransformation(&v74.value, v59);
-          if (*&v60 < 0.0)
+          memset(v61, 0, sizeof(v61));
+          v63 = 4;
+          v64 = 0u;
+          v65 = 0u;
+          v66 = 0;
+          PCMatrix44Tmpl<double>::getTransformation(&v76.value, v61);
+          if (*&v62 < 0.0)
           {
-            *&v75[8] = vnegq_f64(*&v75[8]);
-            v76 = vnegq_f64(v76);
+            *&v77[8] = vnegq_f64(*&v77[8]);
+            v78 = vnegq_f64(v78);
             operator new();
           }
         }
       }
 
-      v81 = 0x3FF0000000000000;
-      v78 = 0x3FF0000000000000;
-      *&v75[16] = 0x3FF0000000000000;
-      v74.value = 0x3FF0000000000000;
-      *&v74.timescale = 0u;
-      *v75 = 0u;
-      v76 = 0u;
-      v77 = 0u;
+      v83 = 0x3FF0000000000000;
+      v80 = 0x3FF0000000000000;
+      *&v77[16] = 0x3FF0000000000000;
+      v76.value = 0x3FF0000000000000;
+      *&v76.timescale = 0u;
+      *v77 = 0u;
+      v78 = 0u;
       v79 = 0u;
-      v80 = 0u;
-      (*(*(v22 + 200) + 1304))(v22 + 200, &v74, &time1);
-      PCMatrix44Tmpl<double>::rightMult(a2, &v74.value);
+      v81 = 0u;
+      v82 = 0u;
+      (*(*(v22 + 200) + 1304))(v22 + 200, &v76, &time1);
+      PCMatrix44Tmpl<double>::rightMult(a2, &v76.value);
       OZRenderParams::~OZRenderParams(&time1);
     }
 
     if (v18)
     {
-      v44 = *a3;
+      v46 = *a3;
       *(a1 + 720) = *(a3 + 2);
-      *(a1 + 704) = v44;
-      v45 = a1 + 576;
+      *(a1 + 704) = v46;
+      v47 = a1 + 576;
       if (a1 + 576 != a2)
       {
         for (n = 0; n != 4; ++n)
         {
           for (ii = 0; ii != 32; ii += 8)
           {
-            *(v45 + ii) = *(a2 + ii);
+            *(v47 + ii) = *(a2 + ii);
           }
 
-          v45 += 32;
+          v47 += 32;
           a2 += 32;
         }
       }
@@ -3791,14 +3810,14 @@ void TXTextObject::getTransformMatrix(uint64_t a1, uint64_t a2, __int128 *a3, in
   }
 }
 
-void sub_25FB24CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25FB24CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
-  MEMORY[0x2666E9F00](v18, 0x10A1C40DA4F106CLL);
+  va_start(va, a24);
+  MEMORY[0x2666E9F00](v25, 0x10A1C40DA4F106CLL, a3, a4, a5, a6, a7, a8);
   OZRenderParams::~OZRenderParams(va);
-  if (v17)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   _Unwind_Resume(a1);
@@ -3842,7 +3861,7 @@ LABEL_6:
     v29 = 0.0;
     v39 = 0.0;
     v32 = v40;
-    OZChannelScale3D::getValue((v20 + 2864), &v32, v33, &v29, &v39, 0.0);
+    OZChannelScale3D::getValue(v20 + 2864, &v32, v33, &v29, &v39, 0.0);
     *a3 = v33[0] * *a3;
     *a4 = v29 * *a4;
     *a5 = v39 * *a5;
@@ -3865,7 +3884,7 @@ LABEL_6:
     v32 = v40;
     HIDWORD(v23) = HIDWORD(v40.value);
     LODWORD(v23) = *(this + 184);
-    OZChannelScale3D::getValue((v21 + 26232), &v32, v33, &v29, &v39, v23);
+    OZChannelScale3D::getValue(v21 + 26232, &v32, v33, &v29, &v39, v23);
     *a3 = v33[0] * *a3;
     *a4 = v29 * *a4;
     *a5 = v39 * *a5;
@@ -3886,7 +3905,7 @@ LABEL_6:
     *a4 = *a4 * fabs(v24);
     if (*(theApp + 81) == 1)
     {
-      OZRenderParams::getPixelTransform(a2, &v32);
+      OZRenderParams::getPixelTransform(&v32.value, a2);
       v29 = 0.0;
       v30 = 0.0;
       v31 = 0;
@@ -4052,34 +4071,34 @@ void sub_25FB253AC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void TXTextObject::getPivot(TXTextObject *this, double *a2, double *a3, double *a4, CMTime *a5, int a6)
+void TXTextObject::getPivot(TXTextObject *this, double *a2, double *a3, double *a4, CMTime *a5, unint64_t a6)
 {
   *a3 = 0.0;
   *a4 = 0.0;
-  v85 = 0;
   v86 = 0;
-  v87 = 0x3FF0000000000000;
-  v88 = 0;
+  v87 = 0;
+  v88 = 0x3FF0000000000000;
   v89 = 0;
-  v90 = 1;
-  v91[0] = 0;
-  *(v91 + 7) = 0;
-  v12 = TXTextObject::syncGlyph(this, a5, &v85);
+  v90 = 0;
+  v91 = 1;
+  v92[0] = 0;
+  *(v92 + 7) = 0;
+  v12 = TXTextObject::syncGlyph(this, a5, &v86);
   if (!v12)
   {
     *a2 = 0.0;
     goto LABEL_94;
   }
 
-  v83 = 0.0;
-  v84 = 0;
-  (*(*v12 + 48))(v12, &v84, &v83, &v85);
-  v13 = v83;
-  *a2 = v84;
+  v84 = 0.0;
+  v85 = 0;
+  (*(*v12 + 48))(v12, &v85, &v84, &v86);
+  v13 = v84;
+  *a2 = v85;
   *a3 = v13;
-  v81 = 1.0;
   v82 = 1.0;
-  v80 = 1.0;
+  v83 = 1.0;
+  v81 = 1.0;
   v14 = *(this + 33);
   v15 = *(v14 + 8);
   v16 = *(v14 + 16);
@@ -4088,33 +4107,33 @@ void TXTextObject::getPivot(TXTextObject *this, double *a2, double *a3, double *
     atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  *&v76.var0.var0 = *&a5->value;
-  v76.var0.var3 = a5->epoch;
-  v74 = v16;
-  OZChannelScale3D::getValue((v15 + 2864), &v76, &v82, &v81, &v80, 0.0);
-  *a2 = v82 * *a2;
+  *&v77.var0.var0 = *&a5->value;
+  v77.var0.var3 = a5->epoch;
+  v75 = v16;
+  OZChannelScale3D::getValue(v15 + 2864, &v77, &v83, &v82, &v81, 0.0);
+  *a2 = v83 * *a2;
   v17 = (*(**(this + 68) + 296))(*(this + 68));
   ValueAsInt = OZChannel::getValueAsInt((*(this + 68) + 22288), MEMORY[0x277CC08F0], 0.0);
   v19 = OZChannel::getValueAsInt((*(this + 68) + 22544), MEMORY[0x277CC08F0], 0.0);
   v20 = *(this + 68);
-  *&v76.var0.var0 = *&a5->value;
-  v76.var0.var3 = a5->epoch;
-  OZChannel::getValueAsDouble((v20 + 22936), &v76, 0.0);
+  *&v77.var0.var0 = *&a5->value;
+  v77.var0.var3 = a5->epoch;
+  OZChannel::getValueAsDouble((v20 + 22936), &v77, 0.0);
   v22 = v21;
-  OZChannel::getValueAsDouble((v20 + 23088), &v76, 0.0);
+  OZChannel::getValueAsDouble((v20 + 23088), &v77, 0.0);
   v24 = v23;
-  OZChannel::getValueAsDouble((v20 + 23536), &v76, 0.0);
+  OZChannel::getValueAsDouble((v20 + 23536), &v77, 0.0);
   v26 = v25;
   v27 = OZChannel::getValueAsInt((*(this + 68) + 22544), MEMORY[0x277CC08F0], 0.0);
-  v78 = xmmword_2603429E0;
   v79 = xmmword_2603429E0;
-  v77 = xmmword_2603429E0;
+  v80 = xmmword_2603429E0;
+  v78 = xmmword_2603429E0;
   __asm { FMOV            V0.2D, #-1.0 }
 
-  v73 = _Q0;
+  v74 = _Q0;
   if (v17)
   {
-    v72 = 0u;
+    v73 = 0u;
     if (ValueAsInt > 1)
     {
       if (ValueAsInt == 2)
@@ -4122,22 +4141,22 @@ void TXTextObject::getPivot(TXTextObject *this, double *a2, double *a3, double *
         v41 = v27 == 2;
         v42 = *(this + 68);
         v43 = *(this + 184);
-        *v75 = *&a5->value;
-        *&v75[16] = a5->epoch;
-        TXTextLayout::getLineVolume(v42, v75, v43, v41, &v76);
+        *v76 = *&a5->value;
+        *&v76[16] = a5->epoch;
+        TXTextLayout::getLineVolume(v42, v76, v43, v41, &v77);
 LABEL_24:
-        v77 = *&v76.var0.var0;
-        v78 = *&v76.var0.var3;
-        v79 = *&v76.var2;
+        v78 = *&v77.var0.var0;
+        v79 = *&v77.var0.var3;
+        v80 = *&v77.var2;
         goto LABEL_25;
       }
 
       if (ValueAsInt == 3)
       {
-        OZRenderState::OZRenderState(&v76);
-        *&v76.var0.var0 = *&a5->value;
-        v76.var0.var3 = a5->epoch;
-        TXTextLayout::getTypographicBox(*(this + 68), &v77, &v76, 1);
+        OZRenderState::OZRenderState(&v77);
+        *&v77.var0.var0 = *&a5->value;
+        v77.var0.var3 = a5->epoch;
+        TXTextLayout::getTypographicBox(*(this + 68), &v78, &v77, 1);
       }
     }
 
@@ -4150,7 +4169,7 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        TXTextLayout::getWordVolume(*(this + 68), *(this + 184), v27 == 2, &v76);
+        TXTextLayout::getWordVolume(*(this + 68), *(this + 184), v27 == 2, &v77);
         goto LABEL_24;
       }
 
@@ -4159,16 +4178,16 @@ LABEL_24:
         v38 = *(this + 54);
         v39 = *(this + 53) + *(this + 55);
         v40 = v38 + *(this + 56);
-        *&v77 = *(this + 53);
-        *(&v77 + 1) = v39;
-        *&v78 = v38;
-        *(&v78 + 1) = v40;
-        v79 = 0uLL;
+        *&v78 = *(this + 53);
+        *(&v78 + 1) = v39;
+        *&v79 = v38;
+        *(&v79 + 1) = v40;
+        v80 = 0uLL;
       }
 
       else
       {
-        TXTextObject::getBoundingImageVolume(this, &v77, a5);
+        TXTextObject::getBoundingImageVolume(this, &v78, a5);
       }
     }
   }
@@ -4177,12 +4196,12 @@ LABEL_24:
   {
     if (ValueAsInt == 3)
     {
-      OZRenderState::OZRenderState(&v76);
-      *&v76.var0.var0 = *&a5->value;
-      v76.var0.var3 = a5->epoch;
-      TXTextLayout::getTypographicBoundsWithAlignment(*(this + 68), &v76, v75);
-      v36 = *v75;
-      v37 = *&v75[16];
+      OZRenderState::OZRenderState(&v77);
+      *&v77.var0.var0 = *&a5->value;
+      v77.var0.var3 = a5->epoch;
+      TXTextLayout::getTypographicBoundsWithAlignment(*(this + 68), &v77, v76);
+      v36 = *v76;
+      v37 = *&v76[16];
     }
 
     else
@@ -4192,28 +4211,28 @@ LABEL_24:
         v33 = v27 == 2;
         v34 = *(this + 68);
         v35 = *(this + 184);
-        *v75 = *&a5->value;
-        *&v75[16] = a5->epoch;
-        TXTextLayout::getLineBounds(v34, v75, v35, v33, a6, &v76.var0.var0);
+        *v76 = *&a5->value;
+        *&v76[16] = a5->epoch;
+        TXTextLayout::getLineBounds(v34, v76, v35, v33, a6, &v77.var0.var0);
       }
 
       else
       {
-        v72 = 0u;
+        v73 = 0u;
         if (ValueAsInt != 1)
         {
           goto LABEL_25;
         }
 
-        TXTextLayout::getWordBounds(*(this + 68), *(this + 184), v27 == 2, &v76);
+        TXTextLayout::getWordBounds(*(this + 68), *(this + 184), v27 == 2, &v77);
       }
 
-      v36 = *&v76.var0.var0;
-      v37 = *&v76.var0.var3;
+      v36 = *&v77.var0.var0;
+      v37 = *&v77.var0.var3;
     }
 
-    v72 = v36;
-    v73 = v37;
+    v73 = v36;
+    v74 = v37;
   }
 
 LABEL_25:
@@ -4225,8 +4244,8 @@ LABEL_25:
     *a4 = v26 + *a4;
     if (ValueAsInt)
     {
-      *a2 = 0.5 * v73.f64[0] + *&v72 - *a2 - *(this + 21);
-      *a3 = *(&v72 + 1) + vmuld_lane_f64(0.5, v73, 1) - *a3 - *(this + 22);
+      *a2 = 0.5 * v74.f64[0] + *&v73 - *a2 - *(this + 21);
+      *a3 = *(&v73 + 1) + vmuld_lane_f64(0.5, v74, 1) - *a3 - *(this + 22);
     }
 
     goto LABEL_92;
@@ -4239,17 +4258,17 @@ LABEL_25:
     {
       if (v19 == 4)
       {
-        v49 = *&v72;
+        v49 = *&v73;
       }
 
       else
       {
         if (v19 != 5)
         {
-          *a2 = 0.5 * v73.f64[0] + *&v72 - *(this + 21);
+          *a2 = 0.5 * v74.f64[0] + *&v73 - *(this + 21);
           if (v19 == 3)
           {
-            v58 = v73.f64[1] + *(&v72 + 1) - v83;
+            v58 = v74.f64[1] + *(&v73 + 1) - v84;
             goto LABEL_48;
           }
 
@@ -4260,13 +4279,13 @@ LABEL_25:
           }
 
 LABEL_47:
-          v58 = *(&v72 + 1) + vmuld_lane_f64(0.5, v73, 1);
+          v58 = *(&v73 + 1) + vmuld_lane_f64(0.5, v74, 1);
 LABEL_48:
           v56 = v58 - *(this + 22);
           goto LABEL_90;
         }
 
-        v49 = v73.f64[0] + *&v72;
+        v49 = v74.f64[0] + *&v73;
       }
 
       *a2 = v49 - *(this + 21);
@@ -4284,35 +4303,36 @@ LABEL_90:
       goto LABEL_91;
     }
 
-    OZRenderState::OZRenderState(&v76);
-    *&v76.var0.var0 = *&a5->value;
-    v76.var0.var3 = a5->epoch;
-    TXTextObject::getImageBounds(this, &v76, v75);
-    v64 = *&v75[8];
-    v59 = *v75;
-    v65 = *&v75[16];
-    v66 = *&v75[24] * 0.5;
-    *a2 = *v75 + *&v75[16] * 0.5;
-    v67 = v64 + v66;
-    *a3 = v67;
+    OZRenderState::OZRenderState(&v77);
+    *&v77.var0.var0 = *&a5->value;
+    v77.var0.var3 = a5->epoch;
+    TXTextObject::getImageBounds(v76, this, &v77);
+    v59 = *v76;
+    v64 = *&v76[8];
+    v65 = *&v76[16];
+    v66 = *&v76[24];
+    v67 = *&v76[24] * 0.5;
+    *a2 = *v76 + *&v76[16] * 0.5;
+    v68 = v64 + v67;
+    *a3 = v68;
     if (v19 <= 3)
     {
       if (!v19)
       {
-        v68 = v67 - v67;
+        v69 = v68 - v68;
         goto LABEL_88;
       }
 
       if (v19 == 3)
       {
-        v68 = v64 + *(&v65 + 1);
+        v69 = v64 + v66;
 LABEL_88:
-        *a3 = v68;
+        *a3 = v69;
       }
 
 LABEL_89:
-      *a2 = v82 * *a2;
-      v56 = v81 * *a3;
+      *a2 = v83 * *a2;
+      v56 = v82 * *a3;
       goto LABEL_90;
     }
 
@@ -4323,7 +4343,7 @@ LABEL_89:
         goto LABEL_89;
       }
 
-      v59 = v59 + *&v65;
+      v59 = v59 + v65;
     }
 
 LABEL_83:
@@ -4339,24 +4359,24 @@ LABEL_83:
       v51 = *(this + 54);
       v52 = v50 + *(this + 55);
       v53 = v51 + *(this + 56);
-      *&v77 = v50;
-      *(&v77 + 1) = v52;
-      *&v78 = v51;
-      *(&v78 + 1) = v53;
-      v79 = 0uLL;
+      *&v78 = v50;
+      *(&v78 + 1) = v52;
+      *&v79 = v51;
+      *(&v79 + 1) = v53;
+      v80 = 0uLL;
       *a2 = (v50 + v52) * 0.5;
       *a3 = (v51 + v53) * 0.5;
       *a4 = 0.0;
       goto LABEL_91;
     }
 
-    TXTextObject::getBoundingImageVolume(this, &v77, a5);
-    v59 = *(&v77 + 1);
-    v60 = *&v77;
-    v61 = *(&v78 + 1);
-    v62 = (*&v79 + *(&v79 + 1)) * 0.5;
-    v63 = *&v78 + *(&v78 + 1);
-    *a2 = (*&v77 + *(&v77 + 1)) * 0.5;
+    TXTextObject::getBoundingImageVolume(this, &v78, a5);
+    v59 = *(&v78 + 1);
+    v60 = *&v78;
+    v61 = *(&v79 + 1);
+    v62 = (*&v80 + *(&v80 + 1)) * 0.5;
+    v63 = *&v79 + *(&v79 + 1);
+    *a2 = (*&v78 + *(&v78 + 1)) * 0.5;
     *a3 = v63 * 0.5;
     *a4 = v62;
     if (v19 <= 3)
@@ -4391,11 +4411,11 @@ LABEL_83:
     goto LABEL_83;
   }
 
-  v45 = *&v77;
-  v46 = *(&v77 + 1) - *&v77;
-  v47 = v78;
-  *a2 = *&v77 - *(this + 21) + (*(&v77 + 1) - *&v77) * 0.5;
-  v48 = *&v79 + *(&v79 + 1);
+  v45 = *&v78;
+  v46 = *(&v78 + 1) - *&v78;
+  v47 = v79;
+  *a2 = *&v78 - *(this + 21) + (*(&v78 + 1) - *&v78) * 0.5;
+  v48 = *&v80 + *(&v80 + 1);
   *a3 = (*&v47 + *(&v47 + 1)) * 0.5 - *a3 - *(this + 22);
   *a4 = v48 * 0.5;
   if (v19 > 3)
@@ -4429,7 +4449,7 @@ LABEL_64:
   {
     if (v19 == 3)
     {
-      *a3 = *(&v47 + 1) - v83 - *(this + 22);
+      *a3 = *(&v47 + 1) - v84 - *(this + 22);
     }
 
     goto LABEL_64;
@@ -4463,16 +4483,16 @@ LABEL_65:
   if (Alignment == 5)
   {
 LABEL_72:
-    v71 = *a2 - (*(&v77 + 1) - *&v77);
+    v72 = *a2 - (*(&v78 + 1) - *&v78);
     goto LABEL_73;
   }
 
   if (Alignment == 4)
   {
 LABEL_71:
-    v71 = *a2 + (*(&v77 + 1) - *&v77) * -0.5;
+    v72 = *a2 + (*(&v78 + 1) - *&v78) * -0.5;
 LABEL_73:
-    *a2 = v71;
+    *a2 = v72;
   }
 
 LABEL_91:
@@ -4480,22 +4500,22 @@ LABEL_91:
   *a3 = v24 + *a3;
   *a4 = v26 + *a4;
 LABEL_92:
-  if (v74)
+  if (v75)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v74);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v75);
   }
 
 LABEL_94:
-  if (BYTE2(v91[0]) == 1)
+  if (BYTE2(v92[0]) == 1)
   {
-    if (v88)
+    if (v89)
     {
-      MEMORY[0x2666E9F00](v88, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](v89, 0x1000C40FF89C88ELL);
     }
   }
 }
 
-void sub_25FB25C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+void sub_25FB25C44(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
 {
   if (a14)
   {
@@ -4507,15 +4527,16 @@ void sub_25FB25C44(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
     v16 = *(v14 - 144);
     if (v16)
     {
-      MEMORY[0x2666E9F00](v16, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](v16, 0x1000C40FF89C88ELL, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void PCMatrix44Tmpl<double>::rightRotate(double *a1, int a2, double a3, double a4, double a5)
+void PCMatrix44Tmpl<double>::rightRotate(double *result, uint64_t a2, __n128 a3, double a4, double a5)
 {
+  v7 = a3.n128_u64[0];
   if (a2 <= 2)
   {
     if (a2)
@@ -4527,30 +4548,30 @@ void PCMatrix44Tmpl<double>::rightRotate(double *a1, int a2, double a3, double a
           return;
         }
 
-        PCMatrix44Tmpl<double>::rightRotate(a1, 2, a5);
-        v9 = a1;
-        v10 = a3;
+        PCMatrix44Tmpl<double>::rightRotate(result, 2, a5);
+        v9 = result;
+        v10 = *&v7;
         v11 = 0;
         goto LABEL_12;
       }
 
-      PCMatrix44Tmpl<double>::rightRotate(a1, 1, a4);
-      v15 = a1;
+      PCMatrix44Tmpl<double>::rightRotate(result, 1, a4);
+      v15 = result;
       v16 = a5;
       v17 = 2;
     }
 
     else
     {
-      PCMatrix44Tmpl<double>::rightRotate(a1, 2, a5);
-      v15 = a1;
+      PCMatrix44Tmpl<double>::rightRotate(result, 2, a5);
+      v15 = result;
       v16 = a4;
       v17 = 1;
     }
 
     PCMatrix44Tmpl<double>::rightRotate(v15, v17, v16);
-    v18 = a1;
-    v19 = a3;
+    v18 = result;
+    v19 = *&v7;
     v20 = 0;
     goto LABEL_18;
   }
@@ -4558,25 +4579,25 @@ void PCMatrix44Tmpl<double>::rightRotate(double *a1, int a2, double a3, double a
   switch(a2)
   {
     case 3:
-      PCMatrix44Tmpl<double>::rightRotate(a1, 0, a3);
-      v9 = a1;
+      PCMatrix44Tmpl<double>::rightRotate(result, 0, a3.n128_f64[0]);
+      v9 = result;
       v10 = a5;
       v11 = 2;
 LABEL_12:
       PCMatrix44Tmpl<double>::rightRotate(v9, v11, v10);
-      v18 = a1;
+      v18 = result;
       v19 = a4;
       v20 = 1;
       goto LABEL_18;
     case 4:
-      PCMatrix44Tmpl<double>::rightRotate(a1, 1, a4);
-      v12 = a1;
-      v13 = a3;
+      PCMatrix44Tmpl<double>::rightRotate(result, 1, a4);
+      v12 = result;
+      v13 = *&v7;
       v14 = 0;
       break;
     case 5:
-      PCMatrix44Tmpl<double>::rightRotate(a1, 0, a3);
-      v12 = a1;
+      PCMatrix44Tmpl<double>::rightRotate(result, 0, a3.n128_f64[0]);
+      v12 = result;
       v13 = a4;
       v14 = 1;
       break;
@@ -4585,7 +4606,7 @@ LABEL_12:
   }
 
   PCMatrix44Tmpl<double>::rightRotate(v12, v14, v13);
-  v18 = a1;
+  v18 = result;
   v19 = a5;
   v20 = 2;
 LABEL_18:
@@ -4605,7 +4626,7 @@ void TXSequenceChannels::getPosition(uint64_t a1, const CMTime *a2, void *a3, do
   a3[2] = v12;
 }
 
-float64x2_t PCMatrix44Tmpl<double>::rightShear(float64x2_t *a1, float64_t a2, long double a3)
+float64x2_t PCMatrix44Tmpl<double>::rightShear(float64x2_t *a1, float64_t a2, double a3)
 {
   v3.f64[0] = a2;
   if (a2 != 0.0)
@@ -4679,8 +4700,10 @@ double OZRenderParams::setCamera(uint64_t a1, const PCSharedCount *a2)
   return result;
 }
 
-void TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(uint64_t a1, CMTime *a2, float64x2_t *a3, float64x2_t *a4, float64x2_t *a5, float64x2_t *a6, int a7, int a8, double a9, double a10, double a11, double a12, unsigned __int8 a13, float64x2_t *a14)
+void TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(uint64_t a1, CMTime *a2, float64x2_t *a3, float64x2_t *a4, float64x2_t *a5, float64x2_t *a6, uint64_t a7, uint64_t a8, double a9, double a10, double a11, double a12, BOOL a13, float64x2_t *a14)
 {
+  v14 = a8;
+  v15 = a7;
   v81 = *a2;
   v79 = 0uLL;
   __asm { FMOV            V4.2D, #-1.0 }
@@ -4704,9 +4727,9 @@ void TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(uint64_t a1, CMT
     v26 = 0;
   }
 
-  v27 = a7 - 1;
+  v27 = v15 - 1;
   v70 = v25;
-  if ((a7 - 1) > 2)
+  if ((v15 - 1) > 2)
   {
     v29 = 30472;
     v28 = 10896;
@@ -4722,10 +4745,10 @@ void TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(uint64_t a1, CMT
   isEnabled = OZChannelBase::isEnabled(v30, 0, 1);
   v77 = 1.0;
   v78 = 1.0;
-  if ((a7 & 0xFFFFFFFE) == 2 && a8)
+  if ((v15 & 0xFFFFFFFE) == 2 && v14)
   {
     v76 = v81;
-    if (a7 == 2)
+    if (v15 == 2)
     {
       TXTextObject::getGlowScale(a1, &v76, &v78, &v77, a13);
     }
@@ -4749,7 +4772,7 @@ void TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(uint64_t a1, CMT
   v75 = 0.0;
   OZChannel::getValueAsDouble((v26 + v28 + 424), &v81, 0.0);
   v37 = *&v36;
-  v38 = (isEnabled & a13);
+  v38 = isEnabled & a13;
   v39 = 0.0;
   if (v38 == 1)
   {
@@ -4837,7 +4860,7 @@ void sub_25FB264D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL PCRect<double>::clipLine(double *a1, float64x2_t *a2, double *a3)
+BOOL PCRect<double>::clipLine(double *a1, float64x2_t *a2, float64x2_t *a3)
 {
   v6 = *a1;
   v5 = a1[1];
@@ -4845,7 +4868,7 @@ BOOL PCRect<double>::clipLine(double *a1, float64x2_t *a2, double *a3)
   v7 = a1[3];
   v15 = 1.0;
   v16 = 0.0;
-  v14 = *a3 - a2->f64[0];
+  v14 = a3->f64[0] - a2->f64[0];
   result = PCRectClipTest(-v14, a2->f64[0] - v6, &v16, &v15);
   if (result)
   {
@@ -4853,7 +4876,7 @@ BOOL PCRect<double>::clipLine(double *a1, float64x2_t *a2, double *a3)
     if (result)
     {
       v10 = a2->f64[1];
-      v13 = a3[1] - v10;
+      v13 = a3->f64[1] - v10;
       result = PCRectClipTest(-v13, v10 - v5, &v16, &v15);
       if (result)
       {
@@ -4883,7 +4906,7 @@ BOOL PCRect<double>::clipLine(double *a1, float64x2_t *a2, double *a3)
   return result;
 }
 
-void TXTextObject::computeRay(uint64_t a1@<X0>, uint64_t a2@<X2>, const OZRenderState *a3@<X3>, uint64_t *a4@<X4>, uint64_t a5@<X8>)
+void TXTextObject::computeRay(uint64_t a1@<X0>, uint64_t a2@<X2>, const OZRenderState *a3@<X3>, uint64_t *a4@<X4>, float64x2_t *a5@<X8>)
 {
   (*(*a2 + 80))(a2);
   OZRenderState::OZRenderState(&v51, a3);
@@ -5045,14 +5068,14 @@ LABEL_31:
   v32 = 0u;
   v34 = 0u;
   v35 = 0u;
-  TXTextObject::getTransformMatrix(a1, &v27, &v38, 1, 1, 0, 1, 0.0, 0.0);
+  TXTextObject::getTransformMatrix(a1, &v27, &v38, 1, 1, 0, 1uLL, 0.0, 0.0);
   while (v13 != v23)
   {
     v24 = *(v13 - 1);
     v13 -= 8;
     (*(*v24 + 1392))(v24, a5, &v51);
-    v25 = vmulq_f64(*(a5 + 32), *(a5 + 32));
-    if (fabs(*(a5 + 24) * *(a5 + 24) + v25.f64[0] + v25.f64[1]) < 0.0000001)
+    v25 = vmulq_f64(a5[2], a5[2]);
+    if (fabs(a5[1].f64[1] * a5[1].f64[1] + v25.f64[0] + v25.f64[1]) < 0.0000001)
     {
       goto LABEL_43;
     }
@@ -5136,7 +5159,7 @@ void TXTextObject::getEyeMatrix(TXTextObject *this@<X0>, OZRenderParams *a2@<X1>
   *(a3 + 104) = 0u;
   OZRenderParams::OZRenderParams(v22, a2);
   v23 = 1;
-  TXTextObject::getTransformMatrix(this, a3, v22, 0, 1, 0, 1, 0.0, 0.0);
+  TXTextObject::getTransformMatrix(this, a3, v22, 0, 1, 0, 1uLL, 0.0, 0.0);
   v11 = *(this + 68);
   if (v11)
   {
@@ -5162,9 +5185,9 @@ void TXTextObject::getEyeMatrix(TXTextObject *this@<X0>, OZRenderParams *a2@<X1>
   OZRenderParams::~OZRenderParams(v22);
 }
 
-void sub_25FB26BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25FB26BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
@@ -5184,7 +5207,7 @@ double TXTextObject::calcTranslationRelativeToCamera(uint64_t a1, uint64_t a2, u
   v49 = 0u;
   v51 = 0u;
   v52 = 0u;
-  TXTextObject::getTransformMatrix(a1, &v44, v54, 1, 1, 0, 1, 0.0, 0.0);
+  TXTextObject::getTransformMatrix(a1, &v44, v54, 1, 1, 0, 1uLL, 0.0, 0.0);
   (*(*a1 + 48))(v43, a1, a2, a4, &v56, 0);
   v41 = 0uLL;
   v42 = 0.0;
@@ -5306,7 +5329,7 @@ void TXTextObject::calcTranslationRelativeToObject(uint64_t a1, uint64_t a2, uin
   HIDWORD(v15) = *&v25[4];
   *&v25[16] = a5->var0.var3;
   LODWORD(v15) = *(a1 + 736);
-  OZChannelScale3D::getValue((v13 + 2864), v25, &v24, &v23, &v22, v15);
+  OZChannelScale3D::getValue(v13 + 2864, v25, &v24, &v23, &v22, v15);
   a6[1].f64[0] = v28 - v33;
   v16.f64[0] = v24;
   v16.f64[1] = v23;
@@ -5321,28 +5344,29 @@ void TXTextObject::calcTranslationRelativeToObject(uint64_t a1, uint64_t a2, uin
   OZRenderParams::~OZRenderParams(v35);
 }
 
-void sub_25FB271A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
+void sub_25FB271A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
-  if (v40)
+  va_start(va, a39);
+  if (v39)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
   }
 
-  OZRenderParams::~OZRenderParams(&a40);
+  OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
+void std::vector<BOOL>::resize(uint64_t *result, unint64_t a2, int a3)
 {
-  v4 = *(a1 + 8);
+  v4 = result[1];
   v5 = a2 - v4;
   if (a2 <= v4)
   {
-    *(a1 + 8) = a2;
+    result[1] = a2;
     return;
   }
 
-  v7 = *(a1 + 16);
+  v7 = result[2];
   v8 = v7 << 6;
   if (v7 << 6 < v5 || v4 > (v7 << 6) - v5)
   {
@@ -5370,19 +5394,19 @@ void std::vector<BOOL>::resize(uint64_t a1, unint64_t a2, int a3)
     }
 
     std::vector<BOOL>::reserve(&v20, v11);
-    v12 = *a1;
-    v13 = *(a1 + 8);
+    v12 = *result;
+    v13 = result[1];
     *&v21 = v13 + v5;
     v22 = v20;
     v23 = 0;
-    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22, &v18);
+    std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>(&v18, v12, 0, &v12[v13 >> 6], v13 & 0x3F, &v22);
     v14 = v18;
     LODWORD(v15) = v19;
-    v16 = *a1;
-    *a1 = v20;
+    v16 = *result;
+    *result = v20;
     v20 = v16;
-    v17 = *(a1 + 8);
-    *(a1 + 8) = v21;
+    v17 = *(result + 1);
+    *(result + 1) = v21;
     v21 = v17;
     if (v16)
     {
@@ -5401,9 +5425,9 @@ LABEL_16:
     return;
   }
 
-  v14 = *a1 + 8 * (v4 >> 6);
-  v15 = *(a1 + 8) & 0x3FLL;
-  *(a1 + 8) = a2;
+  v14 = (*result + 8 * (v4 >> 6));
+  v15 = result[1] & 0x3F;
+  result[1] = a2;
   if (a3)
   {
     goto LABEL_16;
@@ -5686,44 +5710,44 @@ uint64_t TXTextObject::buildGlyphRequest@<X0>(TXTextObject *a1@<X0>, OZRenderSta
   *(a6 + 37) = 0;
   v14 = (a6 + 37);
   *(a6 + 44) = 0;
-  *&v28.value = *&a2->var0.var0;
-  HIDWORD(v15) = HIDWORD(v28.value);
+  *&v29.value = *&a2->var0.var0;
+  HIDWORD(v15) = HIDWORD(v29.value);
   LODWORD(v15) = *(a1 + 97);
-  v28.epoch = a2->var0.var3;
-  *a6 = TXTextObject::getRenderedFontSize(a1, &v28, v15);
+  v29.epoch = a2->var0.var3;
+  *a6 = TXTextObject::getRenderedFontSize(a1, &v29, v15);
   *(a6 + 8) = a3;
   *(a6 + 16) = a7;
   if (!PCMatrix44Tmpl<double>::isIdentity(a4->f64))
   {
-    TXTextObject::getImageBounds(a1, a2, &v28);
-    v26 = 0;
+    TXTextObject::getImageBounds(&v29.value, a1, a2);
     v27 = 0;
-    v24[0] = 0.0;
-    v24[1] = 0.0;
+    v28 = 0;
+    v25[0] = 0.0;
+    v25[1] = 0.0;
     __asm { FMOV            V0.2D, #-1.0 }
 
-    v25 = _Q0;
-    TXTextObject::computeScaleFactors(a2, &v28.value, a4, v24, &v27, &v26);
+    v26 = _Q0;
+    TXTextObject::computeScaleFactors(a2, &v29.value, a4, v25, &v28, &v27);
     operator new();
   }
 
   *(a6 + 32) = *(a1 + 131);
   RenderNodeList = HGRenderJob::GetRenderNodeList(a2);
-  v22 = a5 ^ 1;
+  v23 = a5 ^ 1;
   if (!*(*RenderNodeList + 8))
   {
-    v22 = 1;
+    v23 = 1;
   }
 
-  *v14 = v22;
-  if (v22 == 1)
+  *v14 = v23;
+  if (v23 == 1)
   {
     result = OZRenderParams::getWorkingColorSpace(a2);
   }
 
   else
   {
-    result = PCColorSpaceCache::cgLinearGray(RenderNodeList);
+    result = PCColorSpaceCache::cgLinearGray(RenderNodeList, v22);
   }
 
   *(a6 + 40) = result;
@@ -5753,7 +5777,7 @@ double *TXTextObject::getSystemGlyph(TXTextObject *a1, CMTime *a2, double *a3)
   return result;
 }
 
-float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t a1, __int128 *a2, uint64_t a3, int a4, double a5, double a6, uint64_t a7, int a8, uint64_t a9)
+float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, double a5, double a6, uint64_t a7, int a8, uint64_t a9)
 {
   v23 = 0x3FF0000000000000;
   v20 = 0x3FF0000000000000;
@@ -5765,17 +5789,17 @@ float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t
   v19 = 0u;
   v21 = 0u;
   v22 = 0u;
-  TXTextObject::getTransformMatrix(a1, &v14, a2, 1, a8, a9, 1, a5, a6);
+  TXTextObject::getTransformMatrix(a1, &v14, a2, 1, a8, a9, 1uLL, a5, a6);
   return TXTextObject::getTransformedImageCornersWithFourCornerPinning(a1, a2, a4, &v14, a3, 0);
 }
 
-float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t a1, CMTime *a2, int a3, double *a4, uint64_t a5, float64x2_t *a6)
+float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t a1, CMTime *a2, uint64_t a3, double *a4, uint64_t a5, float64x2_t *a6)
 {
   v20 = 0uLL;
   v19 = 0uLL;
   v18 = 0uLL;
   v17 = 0uLL;
-  TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(a1, a2, &v18, &v17, &v19, &v20, a3, 1, 0.0, 0.0, 0.0, 0.0, 1u, a6);
+  TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(a1, a2, &v18, &v17, &v19, &v20, a3, 1, 0.0, 0.0, 0.0, 0.0, 1, a6);
   v15 = v20;
   v16 = 0;
   v13 = v19;
@@ -5800,7 +5824,7 @@ float64_t TXTextObject::getTransformedImageCornersWithFourCornerPinning(uint64_t
   return result;
 }
 
-float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this, CMTime *a2, float64x2_t *a3, int a4)
+float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this, CMTime *a2, float64x2_t *a3, uint64_t a4)
 {
   v29 = 0uLL;
   v28 = 0uLL;
@@ -5818,7 +5842,7 @@ float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this
       v23 = *a2;
       if (TXTextObject::isAttributeEnabled(this, v7, &v23))
       {
-        TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(this, a2, &v29, &v28, &v27, &v26, v7, 1, 0.0, 0.0, 0.0, 0.0, 1u, 0);
+        TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(this, a2, &v29, &v28, &v27, &v26, v7, 1, 0.0, 0.0, 0.0, 0.0, 1, 0);
         v14 = vbslq_s8(vcgtq_f64(v26, v27), v26, v27);
         v15 = vbslq_s8(vcgtq_f64(v14, v28), v14, v28);
         v16 = vbslq_s8(vcgtq_f64(v27, v26), v26, v27);
@@ -5828,7 +5852,7 @@ float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this
         *&result.f64[0] = *&PCRect<double>::operator|=(a3, &v24);
       }
 
-      ++v7;
+      v7 = (v7 + 1);
     }
 
     while (v7 != 4);
@@ -5836,7 +5860,7 @@ float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this
 
   else
   {
-    TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(this, a2, &v29, &v28, &v27, &v26, a4, 1, 0.0, 0.0, 0.0, 0.0, 1u, 0);
+    TXTextObject::getFourCornerPointsInObjectSpaceForAttribute(this, a2, &v29, &v28, &v27, &v26, a4, 1, 0.0, 0.0, 0.0, 0.0, 1, 0);
     v18 = vbslq_s8(vcgtq_f64(v26, v27), v26, v27);
     v19 = vbslq_s8(vcgtq_f64(v18, v28), v18, v28);
     v20 = vbslq_s8(vcgtq_f64(v27, v26), v26, v27);
@@ -5850,7 +5874,7 @@ float64x2_t TXTextObject::getImageBoundsWithFourCornerPinning(TXTextObject *this
   return result;
 }
 
-BOOL TXTextObject::isAttributeEnabled(TXTextObject *this, int a2, CMTime *a3)
+uint64_t TXTextObject::isAttributeEnabled(TXTextObject *this, int a2, CMTime *a3)
 {
   if (a2 == 5)
   {
@@ -5974,7 +5998,7 @@ LABEL_6:
   v96 = v86;
   if (TXTextLayout::isVerticalLayout(*(a1 + 544)) || (*(**(a1 + 544) + 296))(*(a1 + 544)))
   {
-    TXTextObject::getImageBounds(a1, &v94, &v85);
+    TXTextObject::getImageBounds(&v85, a1, &v94);
     v27 = v85;
     v28 = v86;
     goto LABEL_6;
@@ -6092,7 +6116,7 @@ LABEL_7:
           v79 = 0.0;
           v77 = 0.0;
           var0 = v94.var0;
-          TXTextObject::getPivot(a1, &v79, &v78, &v77, &var0, 1);
+          TXTextObject::getPivot(a1, &v79, &v78, &v77, &var0, 1uLL);
           v75 = 0.0;
           v76 = 0.0;
           var0 = v97;
@@ -6154,7 +6178,7 @@ LABEL_7:
           v78 = 0.0;
           v79 = 0.0;
           v77 = 0.0;
-          TXTextObject::getPivot(a1, &v79, &v78, &v77, &v97, 1);
+          TXTextObject::getPivot(a1, &v79, &v78, &v77, &v97, 1uLL);
           var0 = v97;
           DropShadowDistance = TXTextObject::getDropShadowDistance(a1, &var0);
           var0 = v97;
@@ -6309,14 +6333,15 @@ LABEL_65:
   OZRenderParams::~OZRenderParams(&v94);
 }
 
-void sub_25FB286F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_25FB286F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  if (v55)
+  va_start(va, a54);
+  if (v54)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v54);
   }
 
-  OZRenderParams::~OZRenderParams(&a55);
+  OZRenderParams::~OZRenderParams(va);
   _Unwind_Resume(a1);
 }
 
@@ -6557,13 +6582,13 @@ double *TXTextObject::getTextureBounds@<X0>(TXTextObject *a1@<X0>, OZRenderState
     v39 = 0x3FF0000000000000;
     if (!PCMatrix44Tmpl<double>::isIdentity(a4->f64))
     {
-      TXTextObject::getImageBounds(a1, a2, v32);
+      TXTextObject::getImageBounds(v32, a1, a2);
       v30 = 0.0;
       v31 = 0.0;
       v28[0] = 0.0;
       v28[1] = 0.0;
       v29 = v27;
-      TXTextObject::computeScaleFactors(a2, v32[0].f64, a4, v28, &v31, &v30);
+      TXTextObject::computeScaleFactors(a2, v32, a4, v28, &v31, &v30);
       if (OZRenderParams::getTextRenderQuality(a2) == 6)
       {
         ValueAsInt = OZChannel::getValueAsInt((*(a1 + 68) + 20464), MEMORY[0x277CC08F0], 0.0);
@@ -6611,14 +6636,14 @@ double *TXTextObject::getTextureBounds@<X0>(TXTextObject *a1@<X0>, OZRenderState
     v26 = p_var0;
     if (p_var0)
     {
-      *&a4->f64[0] = p_var0->value;
-      a4[2].f64[1] = *&v26[1].timescale;
+      a4->f64[0] = *p_var0;
+      a4[2].f64[1] = v26[4];
     }
   }
 
   if (v46[2] == 1)
   {
-    result = &p_var0->value;
+    result = p_var0;
     if (p_var0)
     {
       return MEMORY[0x2666E9F00](p_var0, 0x1000C40FF89C88ELL);
@@ -7020,7 +7045,7 @@ void TXTextObject::getTransformedImageBoundsWithStyles(TXTextObject *a1, float64
   v46 = 0u;
   v48 = 0u;
   v49 = 0u;
-  TXTextObject::getTransformMatrix(a1, &v41, &a3->value, 1, 1, 0, 1, 0.0, 0.0);
+  TXTextObject::getTransformMatrix(a1, &v41, &a3->value, 1, 1, 0, 1uLL, 0.0, 0.0);
   __asm { FMOV            V0.2D, #-1.0 }
 
   a2[1] = _Q0;
@@ -7590,7 +7615,7 @@ double TXTextObject::getAdvanceWidth(TXTextLayout **this, CMTime *a2)
   if (TXTextLayout::scaleAffectsLayout(this[68]))
   {
     v13 = *a2;
-    OZChannelScale3D::getValue((v8 + 2864), &v13, &v16, &v15, &v14, 0.0);
+    OZChannelScale3D::getValue(v8 + 2864, &v13, &v16, &v15, &v14, 0.0);
     XMarginScale = TXTextLayout::getXMarginScale(this[68]);
     v16 = XMarginScale * v16;
     YMarginScale = TXTextLayout::getYMarginScale(this[68]);
@@ -7611,13 +7636,13 @@ double TXTextObject::getAdvanceWidth(TXTextLayout **this, CMTime *a2)
   return v5 * v9;
 }
 
-void sub_25FB2A630(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_25FB2A630(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   if (a22 == 1)
   {
     if (a18)
     {
-      MEMORY[0x2666E9F00](a18, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](a18, 0x1000C40FF89C88ELL, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7684,15 +7709,15 @@ uint64_t TXTextObject::computeScaleFactors(OZRenderParams *this, uint64_t a2, fl
 
 void TXTextObject::getTexture(uint64_t a1@<X0>, OZRenderState *a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>, double a8@<D0>)
 {
-  v34 = 0;
+  v35 = 0;
   p_var0 = 0;
-  v38 = 0;
-  v39 = 1;
-  memset(v40, 0, sizeof(v40));
-  v35 = a3;
-  v36 = a8;
+  v39 = 0;
+  v40 = 1;
+  memset(v41, 0, sizeof(v41));
+  v36 = a3;
+  v37 = a8;
   var0 = a2->var0;
-  v14 = TXTextObject::syncGlyph(a1, &var0, &v34);
+  v14 = TXTextObject::syncGlyph(a1, &var0, &v35);
   if (TXTextLayout::scaleEmojiToCapHeight(v14) && *(a1 + 568) == 1)
   {
     PCMatrix44Tmpl<double>::rightScale(a4, *(*(a1 + 544) + 64192), *(*(a1 + 544) + 64192), 1.0);
@@ -7702,22 +7727,22 @@ void TXTextObject::getTexture(uint64_t a1@<X0>, OZRenderState *a2@<X1>, char a3@
   a7[1] = 0;
   *&var0.var0 = 0x3FF0000000000000uLL;
   var0.var3 = 0;
-  v28 = 0;
-  v29 = 0x3FF0000000000000;
-  v30 = 0;
+  v29 = 0;
+  v30 = 0x3FF0000000000000;
   v31 = 0;
   v32 = 0;
-  v33 = 0x3FF0000000000000;
+  v33 = 0;
+  v34 = 0x3FF0000000000000;
   if (!PCMatrix44Tmpl<double>::isIdentity(a4))
   {
-    TXTextObject::getImageBounds(a1, a2, v26);
+    TXTextObject::getImageBounds(&v26, a1, a2);
     v24 = 0.0;
     v25 = 0.0;
     v23[0] = 0uLL;
     __asm { FMOV            V0.2D, #-1.0 }
 
     v23[1] = _Q0;
-    TXTextObject::computeScaleFactors(a2, v26[0].f64, a4, v23, &v25, &v24);
+    TXTextObject::computeScaleFactors(a2, &v26, a4, v23, &v25, &v24);
     v21 = v25;
     if (fabs(v25) < 0.0000001)
     {
@@ -7731,7 +7756,7 @@ void TXTextObject::getTexture(uint64_t a1@<X0>, OZRenderState *a2@<X1>, char a3@
     }
 
     *&var0.var0 = v25;
-    v29 = *&v24;
+    v30 = *&v24;
     p_var0 = &var0;
     *(a4 + 120) = 0x3FF0000000000000;
     *(a4 + 80) = 0x3FF0000000000000;
@@ -7745,25 +7770,25 @@ void TXTextObject::getTexture(uint64_t a1@<X0>, OZRenderState *a2@<X1>, char a3@
     *(a4 + 40) = v22;
   }
 
-  OZRenderParams::getRenderGPU(a2, v26);
-  v40[0] = 1;
-  *&v40[3] = OZRenderParams::getWorkingColorSpace(a2);
-  (*(*v14 + 24))(v23, v14, a5, &v34, a6, a4, v26, 1, 0);
+  OZRenderParams::getRenderGPU(&v26, a2);
+  v41[0] = 1;
+  *&v41[3] = OZRenderParams::getWorkingColorSpace(a2);
+  (*(*v14 + 24))(v23, v14, a5, &v35, a6, a4, &v26, 1, 0);
   *a7 = v23[0];
   v15 = p_var0;
   if (p_var0)
   {
-    *a4 = p_var0->value;
-    *(a4 + 40) = *&v15[1].timescale;
+    *a4 = p_var0->var0;
+    *(a4 + 40) = *&v15[1].var1;
   }
 
-  if (*&v26[0].f64[1])
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v26[0].f64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
 LABEL_11:
-  if (v40[2] == 1)
+  if (v41[2] == 1)
   {
     if (p_var0)
     {
@@ -7772,22 +7797,23 @@ LABEL_11:
   }
 }
 
-void sub_25FB2A9D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
+void sub_25FB2A9D0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16)
 {
   if (*(v16 - 73) == 1)
   {
     v18 = *(v16 - 88);
     if (v18)
     {
-      MEMORY[0x2666E9F00](v18, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](v18, 0x1000C40FF89C88ELL, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-HGMetalContext *TXTextObject::getMetalTexture@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, char a3@<W2>, float64x2_t *a4@<X3>, HGGPURenderer *a5@<X4>, __int128 *a6@<X5>, HGMetalContext **a7@<X8>, double a8@<D0>)
+HGMetalContext *TXTextObject::getMetalTexture@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, uint64_t a3@<X2>, float64x2_t *a4@<X3>, HGGPURenderer *a5@<X4>, __int128 *a6@<X5>, PGHelium **a7@<X8>, double a8@<D0>)
 {
+  v12 = a3;
   TXTextObject::getCacheHashForGlyphBitmap(a1, a2, a3, a4, 0, a8);
   MetalContext = HGGPURenderer::GetMetalContext(a5);
   v37 = *(*(MetalContext + 2) + 16);
@@ -7797,7 +7823,7 @@ HGMetalContext *TXTextObject::getMetalTexture@<X0>(TXTextObject *a1@<X0>, OZRend
   PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::findValue(*(v17 + 8), &v37, &v36, &v32);
   if ((v36 & 1) == 0)
   {
-    TXTextObject::getHGBitmap(a1, a2, a3, a4, a6, 0, &v31, a8);
+    TXTextObject::getHGBitmap(a1, a2, v12, a4, a6, 0, a8, &v31);
     v18 = HGGPURenderer::GetMetalContext(a5);
     *&v40.var0 = *(v31 + 28);
     *&v40.var2 = 1;
@@ -7874,54 +7900,54 @@ HGMetalContext *TXTextObject::getMetalTexture@<X0>(TXTextObject *a1@<X0>, OZRend
   return result;
 }
 
-void sub_25FB2ACF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FB2ACF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(va);
   _Unwind_Resume(a1);
 }
 
 void TXTextObject::getCacheHashForGlyphBitmap(TXTextObject *a1, OZRenderState *a2, char a3, float64x2_t *a4, int a5, double a6)
 {
-  TXTextObject::buildGlyphRequest(a1, a2, a3, a4, a5, v10, a6);
+  TXTextObject::buildGlyphRequest(a1, a2, a3, a4, a5, v13, a6);
   var0 = a2->var0;
   SystemGlyph = TXTextObject::getSystemGlyph(a1, &var0, 0);
-  TXCoreTextGlyph::getCacheHashKey(SystemGlyph);
-  if (v12 == 1)
+  TXCoreTextGlyph::getCacheHashKey(SystemGlyph, v13, v9, v10, v11);
+  if (v15 == 1)
   {
-    if (v11)
+    if (v14)
     {
-      MEMORY[0x2666E9F00](v11, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](v14, 0x1000C40FF89C88ELL);
     }
   }
 }
 
-void sub_25FB2AE0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_25FB2AE0C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 == 1)
   {
     if (a16)
     {
-      MEMORY[0x2666E9F00](a16, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](a16, 0x1000C40FF89C88ELL, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextObject::getHGBitmap@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, int a6@<W5>, void *a7@<X8>, double a8@<D0>)
+double *TXTextObject::getHGBitmap@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, char a3@<W2>, float64x2_t *a4@<X3>, uint64_t a5@<X4>, int a6@<W5>, double a7@<D0>, void *a8@<X8>)
 {
-  TXTextObject::buildGlyphRequest(a1, a2, a3, a4, a6, v16, a8);
+  TXTextObject::buildGlyphRequest(a1, a2, a3, a4, a6, v16, a7);
   var0 = a2->var0;
   SystemGlyph = TXTextObject::getSystemGlyph(a1, &var0, 0);
-  TXCoreTextGlyph::getHGBitmap(SystemGlyph, v16, a5, a7);
+  TXCoreTextGlyph::getHGBitmap(SystemGlyph, v16, a5, a8);
   result = v17;
   if (v17)
   {
-    if (*v17 != *a4 || *(v17 + 32) != *(a4 + 40))
+    if (*v17 != a4->f64[0] || v17[4] != a4[2].f64[1])
     {
-      *a4 = *v17;
-      *(a4 + 40) = *(result + 32);
+      a4->f64[0] = *v17;
+      a4[2].f64[1] = result[4];
     }
 
     if (v18 == 1)
@@ -7933,13 +7959,13 @@ uint64_t TXTextObject::getHGBitmap@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2
   return result;
 }
 
-void sub_25FB2AF1C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_25FB2AF1C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   if (a20 == 1)
   {
     if (a16)
     {
-      MEMORY[0x2666E9F00](a16, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](a16, 0x1000C40FF89C88ELL, a3, a4, a5, a6, a7, a8);
     }
   }
 
@@ -7979,7 +8005,7 @@ void TXTextObject::getBitmap(FxColorDescription *this@<X1>, TXTextObject *a2@<X0
   v44 = 0x3FF0000000000000;
   if (!PCMatrix44Tmpl<double>::isIdentity(a4))
   {
-    TXTextObject::getImageBounds(a2, this, v38);
+    TXTextObject::getImageBounds(v38, a2, this);
     v37[0] = v38[0];
     v37[1] = v38[1];
     PCMatrix44Tmpl<double>::transformRect<double>(a4, v37, v37);
@@ -8002,7 +8028,7 @@ void TXTextObject::getBitmap(FxColorDescription *this@<X1>, TXTextObject *a2@<X0
     __asm { FMOV            V0.2D, #-1.0 }
 
     v26 = _Q0;
-    TXTextObject::computeScaleFactors(this, v38[0].f64, &v29, v25, &v28, &v27);
+    TXTextObject::computeScaleFactors(this, v38, &v29, v25, &v28, &v27);
     v23 = v28;
     if (fabs(v28) < 0.0000001)
     {
@@ -8063,7 +8089,7 @@ void sub_25FB2B1E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextObject::getRenderedGlyphTransform@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, float64x2_t *a3@<X2>, double *a4@<X3>, uint64_t a5@<X8>, float64_t a6@<D0>, float64_t a7@<D1>)
+void *TXTextObject::getRenderedGlyphTransform@<X0>(TXTextObject *a1@<X0>, OZRenderState *a2@<X1>, float64x2_t *a3@<X2>, double *a4@<X3>, uint64_t a5@<X8>, float64_t a6@<D0>, float64_t a7@<D1>)
 {
   v33 = 0;
   v34 = 0;
@@ -8084,7 +8110,7 @@ uint64_t TXTextObject::getRenderedGlyphTransform@<X0>(TXTextObject *a1@<X0>, OZR
   v30 = 0x3FF0000000000000;
   if (!PCMatrix44Tmpl<double>::isIdentity(a3->f64))
   {
-    TXTextObject::getImageBounds(a1, a2, v24);
+    TXTextObject::getImageBounds(v24, a1, a2);
     LiImagePolygon::LiImagePolygon(v22);
     LiImagePolygon::set(v22, v24[0].f64, 0);
     if (a4[2] >= 0.0 && a4[3] >= 0.0)
@@ -8114,13 +8140,13 @@ uint64_t TXTextObject::getRenderedGlyphTransform@<X0>(TXTextObject *a1@<X0>, OZR
   }
 
   result = (*(*v12 + 64))(v12, &v33);
-  v17 = *(result + 16);
+  v17 = *(result + 1);
   *a5 = *result;
   *(a5 + 16) = v17;
-  v18 = *(result + 48);
-  *(a5 + 32) = *(result + 32);
+  v18 = *(result + 3);
+  *(a5 + 32) = *(result + 2);
   *(a5 + 48) = v18;
-  *(a5 + 64) = *(result + 64);
+  *(a5 + 64) = result[8];
   if (HIBYTE(v37) == 1)
   {
     result = v36;
@@ -8133,16 +8159,16 @@ uint64_t TXTextObject::getRenderedGlyphTransform@<X0>(TXTextObject *a1@<X0>, OZR
   return result;
 }
 
-void sub_25FB2B454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25FB2B454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   LiImagePolygon::~LiImagePolygon(va);
-  if (*(v9 - 73) == 1)
+  if (*(v16 - 73) == 1)
   {
-    v11 = *(v9 - 88);
-    if (v11)
+    v18 = *(v16 - 88);
+    if (v18)
     {
-      MEMORY[0x2666E9F00](v11, 0x1000C40FF89C88ELL);
+      MEMORY[0x2666E9F00](v18, 0x1000C40FF89C88ELL);
     }
   }
 
@@ -8188,8 +8214,8 @@ void TXTextObject::getScaleMatrix(TXTextObject *a1, uint64_t a2, CMTime *a3, int
   v9[3] = v11;
   v9[4] = v10;
   v9[5] = v12;
-  PCMatrix33Tmpl<double>::operator*(v9, &v19.value, v7);
-  PCMatrix33Tmpl<double>::operator*(v7, &v10, v8);
+  PCMatrix33Tmpl<double>::operator*(v9, v7, &v19.value);
+  PCMatrix33Tmpl<double>::operator*(v7, v8, &v10);
   PCMatrix33Tmpl<double>::operator=(a2, v8);
   *(a2 + 8) = 0;
   *(a2 + 24) = 0;
@@ -8271,198 +8297,10 @@ void sub_25FB2B9C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void TXTextObject::getScaleAndHashForPixelTransform(uint64_t a1)
+void TXTextObject::getScaleAndHashForPixelTransform(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v14 = v1;
-  v16 = v15;
-  v57[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v57);
-  if ((v5 - 2) >= 2)
-  {
-    if (v5 == 1)
-    {
-LABEL_17:
-      v55 = 0.0;
-      v56 = 0.0;
-      v44 = *&v13->value;
-      epoch = v13->epoch;
-      *v48 = *&v13->value;
-      *&v48[16] = v13->epoch;
-      OutlineWidth = TXTextObject::getOutlineWidth(v14, v48);
-      v43 = 0.0;
-      TXTextObject::getScale(v14, v13, v11->f64, v9, &v43, 1, 1, 1, 0, 0, 1);
-      *v48 = v44;
-      *&v48[16] = epoch;
-      TXTextObject::getOutlineBlur(v14, v48, &v56, &v55);
-      v27 = v7[5];
-      v51 = v7[4];
-      v52 = v27;
-      v28 = v7[7];
-      v53 = v7[6];
-      v54 = v28;
-      v29 = v7[1];
-      *v48 = *v7;
-      *&v48[16] = v29;
-      v30 = v7[3];
-      v49 = v7[2];
-      v50 = v30;
-      TXTextObject::getTextureBounds(v14, v13, 0, v48, 1, 1, &v46, 0.0);
-      v31 = v11->f64[0];
-      v32 = *v9;
-      if (fabs(v11->f64[0]) < 0.0000001)
-      {
-        v33 = 0.0;
-        v34 = 0.0;
-      }
-
-      else
-      {
-        v33 = 0.0;
-        v34 = 0.0;
-        if (fabs(v32) >= 0.0000001)
-        {
-          v33 = *v48 / v31;
-          if (*v48 / v31 > *(&v49 + 1) / v32)
-          {
-            v33 = *(&v49 + 1) / v32;
-          }
-
-          v34 = v33 * (ceil(OutlineWidth * v33) / (OutlineWidth * v33));
-        }
-      }
-
-      v35 = vmulq_n_f64(vmulq_n_f64(*v11, v34), OutlineWidth);
-      v36 = vaddq_f64(v47, vaddq_f64(v35, v35));
-      v47 = v36;
-      v37 = v36.f64[1];
-      if (v36.f64[0] > 4096.0 || v36.f64[1] > 4096.0)
-      {
-        if (v36.f64[0] >= v36.f64[1])
-        {
-          v37 = v36.f64[0];
-        }
-
-        v39 = 4096.0 / v37;
-        v47 = vmulq_n_f64(v36, v39);
-        v40 = v33 * v39;
-        v34 = v40 * (floor(OutlineWidth * v40 + 0.0000001) / (OutlineWidth * v40));
-        if (v34 <= 0.0)
-        {
-          v34 = v40 * (ceil(OutlineWidth * v40) / (OutlineWidth * v40));
-        }
-      }
-
-      v11->f64[0] = v31 * v34;
-      *v9 = v34 * *v9;
-      PCHashWriteStream::writeValue(v57, v11->f64[0]);
-      PCHashWriteStream::writeValue(v57, *v9);
-      TXTextObject::getImageBoundsOfAttribute(v14, v46.f64, v13, 1, 1, 0, 1u, 0, 0.0, 0.0, 0.0, 0.0);
-      v41.f64[0] = *v9;
-      v41.f64[1] = v11->f64[0];
-      *v3 = vuzp1q_s32(vcvtq_s64_f64(v46), vcvtq_s64_f64(vmulq_f64(v47, v41)));
-      goto LABEL_32;
-    }
-
-    if (v5)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  *&v44 = 0;
-  v56 = 0.0;
-  switch(v5)
-  {
-    case 3:
-      *v48 = *&v13->value;
-      *&v48[16] = v13->epoch;
-      TXTextObject::getDropShadowBlur(v14, v48, &v44, &v56);
-      break;
-    case 2:
-      *v48 = *&v13->value;
-      *&v48[16] = v13->epoch;
-      TXTextObject::getGlowBlur(v14, v48, &v44, &v56);
-      break;
-    case 0:
-      *v48 = *&v13->value;
-      *&v48[16] = v13->epoch;
-      TXTextObject::getFaceBlur(v14, v48, &v44, &v56);
-      break;
-  }
-
-  if (*&v44 > 0.0 || v56 > 0.0)
-  {
-    v55 = 0.0;
-    TXTextObject::getScale(v14, v13, v11->f64, v9, &v55, 1, 1, 1, 0, 0, 1);
-    v22 = v7[5];
-    v51 = v7[4];
-    v52 = v22;
-    v23 = v7[7];
-    v53 = v7[6];
-    v54 = v23;
-    v24 = v7[1];
-    *v48 = *v7;
-    *&v48[16] = v24;
-    v25 = v7[3];
-    v49 = v7[2];
-    v50 = v25;
-    TXTextObject::getTextureBounds(v14, v13, 0, v48, 1, 0, &v46, 0.0);
-    v26 = *v48 / v11->f64[0];
-    if (v26 > *(&v49 + 1) / *v9)
-    {
-      v26 = *(&v49 + 1) / *v9;
-    }
-
-    v11->f64[0] = v11->f64[0] * v26;
-    *v9 = *v9 * v26;
-    PCHashWriteStream::writeValue(v57, v11->f64[0]);
-    PCHashWriteStream::writeValue(v57, *v9);
-  }
-
-  else
-  {
-    v17 = v7[5];
-    v51 = v7[4];
-    v52 = v17;
-    v18 = v7[7];
-    v53 = v7[6];
-    v54 = v18;
-    v19 = v7[1];
-    *v48 = *v7;
-    *&v48[16] = v19;
-    v20 = v7[3];
-    v49 = v7[2];
-    v50 = v20;
-    TXTextObject::getTextureBounds(v14, v13, 0, v48, 1, 0, &v46, 0.0);
-    v21 = *(&v49 + 1);
-    v11->f64[0] = *v48;
-    *v9 = v21;
-    PCHashWriteStream::writeValue(v57, v11->f64[0]);
-    PCHashWriteStream::writeValue(v57, *v9);
-    *v3 = vuzp1q_s32(vcvtq_s64_f64(v46), vcvtq_s64_f64(v47));
-  }
-
-  if (v5 == 1)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_32:
-  PCHashWriteStream::close(v57);
-  *v16 = *PCHashWriteStream::getHash(v57)->i8;
-  PCHashWriteStream::~PCHashWriteStream(v57);
-}
-
-void TXTextObject::getTextureCacheHashForAttribute(TXTextObject *this, OZRenderParams *a2, const FxColorDescription *a3, unsigned int a4, double *a5, double *a6)
-{
-  v6 = MEMORY[0x28223BE20](this);
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v6 = v5;
   v8 = v7;
   v10 = v9;
   v12 = v11;
@@ -8470,329 +8308,525 @@ void TXTextObject::getTextureCacheHashForAttribute(TXTextObject *this, OZRenderP
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v21 = v6;
-  v23 = v22;
-  v74[520] = *MEMORY[0x277D85DE8];
-  PCHashWriteStream::PCHashWriteStream(v74);
-  TXTextObject::getCommonTextureCacheHash(v21, v74, v20, v18, v14, v12, v8);
-  v24 = *(v21 + 264);
-  if (v24)
+  v61[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v61);
+  if ((v8 - 2) >= 2)
   {
-    v26 = *(v24 + 8);
-    v25 = *(v24 + 16);
-    if (v25)
+    if (v8 == 1)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+LABEL_17:
+      v59 = 0.0;
+      v60 = 0.0;
+      v48 = *&v16->value;
+      epoch = v16->epoch;
+      *v52 = *&v16->value;
+      *&v52[16] = v16->epoch;
+      OutlineWidth = TXTextObject::getOutlineWidth(v18, v52);
+      v47 = 0.0;
+      TXTextObject::getScale(v18, v16, v14->f64, v12, &v47, 1, 1, 1, 0, 0, 1);
+      *v52 = v48;
+      *&v52[16] = epoch;
+      TXTextObject::getOutlineBlur(v18, v52, &v60, &v59);
+      v31 = v10[5];
+      v55 = v10[4];
+      v56 = v31;
+      v32 = v10[7];
+      v57 = v10[6];
+      v58 = v32;
+      v33 = v10[1];
+      *v52 = *v10;
+      *&v52[16] = v33;
+      v34 = v10[3];
+      v53 = v10[2];
+      v54 = v34;
+      TXTextObject::getTextureBounds(v18, v16, 0, v52, 1, 1, &v50, 0.0);
+      v35 = v14->f64[0];
+      v36 = *v12;
+      if (fabs(v14->f64[0]) < 0.0000001)
+      {
+        v37 = 0.0;
+        v38 = 0.0;
+      }
+
+      else
+      {
+        v37 = 0.0;
+        v38 = 0.0;
+        if (fabs(v36) >= 0.0000001)
+        {
+          v37 = *v52 / v35;
+          if (*v52 / v35 > *(&v53 + 1) / v36)
+          {
+            v37 = *(&v53 + 1) / v36;
+          }
+
+          v38 = v37 * (ceil(OutlineWidth * v37) / (OutlineWidth * v37));
+        }
+      }
+
+      v39 = vmulq_n_f64(vmulq_n_f64(*v14, v38), OutlineWidth);
+      v40 = vaddq_f64(v51, vaddq_f64(v39, v39));
+      v51 = v40;
+      v41 = v40.f64[1];
+      if (v40.f64[0] > 4096.0 || v40.f64[1] > 4096.0)
+      {
+        if (v40.f64[0] >= v40.f64[1])
+        {
+          v41 = v40.f64[0];
+        }
+
+        v43 = 4096.0 / v41;
+        v51 = vmulq_n_f64(v40, v43);
+        v44 = v37 * v43;
+        v38 = v44 * (floor(OutlineWidth * v44 + 0.0000001) / (OutlineWidth * v44));
+        if (v38 <= 0.0)
+        {
+          v38 = v44 * (ceil(OutlineWidth * v44) / (OutlineWidth * v44));
+        }
+      }
+
+      v14->f64[0] = v35 * v38;
+      *v12 = v38 * *v12;
+      PCHashWriteStream::writeValue(v61, v14->f64[0]);
+      PCHashWriteStream::writeValue(v61, *v12);
+      TXTextObject::getImageBoundsOfAttribute(v18, v50.f64, v16, 1, 1, 0, 1u, 0, 0.0, 0.0, 0.0, 0.0);
+      v45.f64[0] = *v12;
+      v45.f64[1] = v14->f64[0];
+      *v6 = vuzp1q_s32(vcvtq_s64_f64(v50), vcvtq_s64_f64(vmulq_f64(v51, v45)));
+      goto LABEL_32;
+    }
+
+    if (v8)
+    {
+      goto LABEL_32;
+    }
+  }
+
+  *&v48 = 0;
+  v60 = 0.0;
+  switch(v8)
+  {
+    case 3:
+      *v52 = *&v16->value;
+      *&v52[16] = v16->epoch;
+      TXTextObject::getDropShadowBlur(v18, v52, &v48, &v60);
+      break;
+    case 2:
+      *v52 = *&v16->value;
+      *&v52[16] = v16->epoch;
+      TXTextObject::getGlowBlur(v18, v52, &v48, &v60);
+      break;
+    case 0:
+      *v52 = *&v16->value;
+      *&v52[16] = v16->epoch;
+      TXTextObject::getFaceBlur(v18, v52, &v48, &v60);
+      break;
+  }
+
+  if (*&v48 > 0.0 || v60 > 0.0)
+  {
+    v59 = 0.0;
+    TXTextObject::getScale(v18, v16, v14->f64, v12, &v59, 1, 1, 1, 0, 0, 1);
+    v26 = v10[5];
+    v55 = v10[4];
+    v56 = v26;
+    v27 = v10[7];
+    v57 = v10[6];
+    v58 = v27;
+    v28 = v10[1];
+    *v52 = *v10;
+    *&v52[16] = v28;
+    v29 = v10[3];
+    v53 = v10[2];
+    v54 = v29;
+    TXTextObject::getTextureBounds(v18, v16, 0, v52, 1, 0, &v50, 0.0);
+    v30 = *v52 / v14->f64[0];
+    if (v30 > *(&v53 + 1) / *v12)
+    {
+      v30 = *(&v53 + 1) / *v12;
+    }
+
+    v14->f64[0] = v14->f64[0] * v30;
+    *v12 = *v12 * v30;
+    PCHashWriteStream::writeValue(v61, v14->f64[0]);
+    PCHashWriteStream::writeValue(v61, *v12);
+  }
+
+  else
+  {
+    v21 = v10[5];
+    v55 = v10[4];
+    v56 = v21;
+    v22 = v10[7];
+    v57 = v10[6];
+    v58 = v22;
+    v23 = v10[1];
+    *v52 = *v10;
+    *&v52[16] = v23;
+    v24 = v10[3];
+    v53 = v10[2];
+    v54 = v24;
+    TXTextObject::getTextureBounds(v18, v16, 0, v52, 1, 0, &v50, 0.0);
+    v25 = *(&v53 + 1);
+    v14->f64[0] = *v52;
+    *v12 = v25;
+    PCHashWriteStream::writeValue(v61, v14->f64[0]);
+    PCHashWriteStream::writeValue(v61, *v12);
+    *v6 = vuzp1q_s32(vcvtq_s64_f64(v50), vcvtq_s64_f64(v51));
+  }
+
+  if (v8 == 1)
+  {
+    goto LABEL_17;
+  }
+
+LABEL_32:
+  PCHashWriteStream::close(v61);
+  *v20 = *PCHashWriteStream::getHash(v61)->i8;
+  PCHashWriteStream::~PCHashWriteStream(v61);
+}
+
+void sub_25FB2BF00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, ...)
+{
+  va_start(va, a41);
+  PCHashWriteStream::~PCHashWriteStream(va);
+  _Unwind_Resume(a1);
+}
+
+void TXTextObject::getTextureCacheHashForAttribute(TXTextObject *this, OZRenderParams *a2, const FxColorDescription *a3, uint64_t a4, double *a5)
+{
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v73[520] = *MEMORY[0x277D85DE8];
+  PCHashWriteStream::PCHashWriteStream(v73);
+  TXTextObject::getCommonTextureCacheHash(v20, v73, v18, v16, v12, v10, v6);
+  v23 = *(v20 + 264);
+  if (v23)
+  {
+    v25 = *(v23 + 8);
+    v24 = *(v23 + 16);
+    if (v24)
+    {
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    v26 = 0;
     v25 = 0;
+    v24 = 0;
   }
 
-  __src = *v20;
-  if (v10)
+  __src = *v18;
+  if (v8)
   {
-    TypeOn = TXTextLayout::getTypeOn(*(v21 + 544), *(v21 + 96), &__src);
-    PCHashWriteStream::writeValue(v74, TypeOn);
+    TypeOn = TXTextLayout::getTypeOn(*(v20 + 544), *(v20 + 96), &__src);
+    PCHashWriteStream::writeValue(v73, TypeOn);
   }
 
-  if (v16 > 1)
+  if (v14 > 1)
   {
-    if (v16 != 2)
+    if (v14 != 2)
     {
-      if (v16 != 3)
+      if (v14 != 3)
       {
         goto LABEL_60;
       }
 
+      v70 = 0.0;
       v71 = 0.0;
-      v72 = 0.0;
-      v69 = 0.0;
-      TXTextObject::getPivot(v21, &v72, &v71, &v69, &__src, v8);
-      v67 = 0.0;
       v68 = 0.0;
-      v70 = __src;
-      TXTextObject::getDropShadowBlur(v21, &v70, &v68, &v67);
-      v65 = 0.0;
+      TXTextObject::getPivot(v20, &v71, &v70, &v68, &__src, v6);
       v66 = 0.0;
-      v70 = __src;
-      TXTextObject::getDropShadowScale(v21, &v70, &v66, &v65, 1);
-      ValueAsInt = OZChannel::getValueAsInt((v26 + 13976), MEMORY[0x277CC08F0], 0.0);
-      PCHashWriteStream::writeValue(v74, 3);
-      PCHashWriteStream::writeValue(v74, v72);
-      PCHashWriteStream::writeValue(v74, v71);
-      PCHashWriteStream::writeValue(v74, v66);
-      PCHashWriteStream::writeValue(v74, v65);
-      PCHashWriteStream::writeValue(v74, ValueAsInt);
-      v36 = v68;
-      PCHashWriteStream::writeValue(v74, v68);
-      v37 = v67;
-      PCHashWriteStream::writeValue(v74, v67);
-      if (v36 > 0.0 || v37 > 0.0)
+      v67 = 0.0;
+      v69 = __src;
+      TXTextObject::getDropShadowBlur(v20, &v69, &v67, &v66);
+      v64 = 0.0;
+      v65 = 0.0;
+      v69 = __src;
+      TXTextObject::getDropShadowScale(v20, &v69, &v65, &v64, 1);
+      ValueAsInt = OZChannel::getValueAsInt((v25 + 13976), MEMORY[0x277CC08F0], 0.0);
+      PCHashWriteStream::writeValue(v73, 3);
+      PCHashWriteStream::writeValue(v73, v71);
+      PCHashWriteStream::writeValue(v73, v70);
+      PCHashWriteStream::writeValue(v73, v65);
+      PCHashWriteStream::writeValue(v73, v64);
+      PCHashWriteStream::writeValue(v73, ValueAsInt);
+      v35 = v67;
+      PCHashWriteStream::writeValue(v73, v67);
+      v36 = v66;
+      PCHashWriteStream::writeValue(v73, v66);
+      if (v35 > 0.0 || v36 > 0.0)
       {
-        v70.value = 0;
+        v69.value = 0;
+        v62 = 0.0;
         v63 = 0.0;
-        v64 = 0.0;
-        TXTextObject::getScale(v21, v20, &v70.value, &v64, &v63, 1, 1, 1, 0, 0, 1);
-        PCHashWriteStream::writeValue(v74, *&v70.value);
-        PCHashWriteStream::writeValue(v74, v64);
+        TXTextObject::getScale(v20, v18, &v69.value, &v63, &v62, 1, 1, 1, 0, 0, 1);
+        PCHashWriteStream::writeValue(v73, *&v69.value);
+        PCHashWriteStream::writeValue(v73, v63);
       }
 
       if (ValueAsInt == 1)
       {
-        v61 = 15240;
+        v60 = 15240;
       }
 
       else
       {
         if (ValueAsInt == 2)
         {
-          (*(*(v26 + 16448) + 448))(v26 + 16448, v74, &__src);
-          v38 = (*(*v26 + 128))(v26);
-          ValueAsUint = OZChannel::getValueAsUint((v26 + 16584), MEMORY[0x277CC08F0], 0.0);
-          Node = OZScene::getNode(v38, ValueAsUint);
+          (*(*(v25 + 16448) + 448))(v25 + 16448, v73, &__src);
+          v37 = (*(*v25 + 128))(v25);
+          ValueAsUint = OZChannel::getValueAsUint((v25 + 16584), MEMORY[0x277CC08F0], 0.0);
+          Node = OZScene::getNode(v37, ValueAsUint);
           if (Node)
           {
-            if (v41)
+            if (v40)
             {
-              v70.value = &v70;
-              *&v70.timescale = &v70;
-              v70.epoch = 0;
-              (*(*v41 + 536))(v41, v74, v20, &v70, 1);
-              std::__list_imp<unsigned int>::clear(&v70);
+              v69.value = &v69;
+              *&v69.timescale = &v69;
+              v69.epoch = 0;
+              (*(*v40 + 536))(v40, v73, v18, &v69, 1);
+              std::__list_imp<unsigned int>::clear(&v69);
             }
           }
 
           goto LABEL_55;
         }
 
-        if (!v10)
+        if (!v8)
         {
 LABEL_55:
-          (*(*(v26 + 18040) + 448))(v26 + 18040, v74, &__src);
+          (*(*(v25 + 18040) + 448))(v25 + 18040, v73, &__src);
           goto LABEL_60;
         }
 
-        v61 = 14232;
+        v60 = 14232;
       }
 
-      (*(*(v26 + v61) + 448))(v26 + v61, v74, &__src);
+      (*(*(v25 + v60) + 448))(v25 + v60, v73, &__src);
       goto LABEL_55;
     }
 
-    v50 = *(v21 + 544);
+    v49 = *(v20 + 544);
+    v70 = 0.0;
     v71 = 0.0;
-    v72 = 0.0;
-    v69 = 0.0;
-    TXTextObject::getPivot(v21, &v72, &v71, &v69, &__src, v8);
-    v67 = 0.0;
     v68 = 0.0;
-    v70 = __src;
-    TXTextObject::getGlowBlur(v21, &v70, &v68, &v67);
-    v65 = 0.0;
+    TXTextObject::getPivot(v20, &v71, &v70, &v68, &__src, v6);
     v66 = 0.0;
-    v70 = __src;
-    TXTextObject::getGlowScale(v21, &v70, &v66, &v65, 1);
-    v51 = OZChannel::getValueAsInt((v26 + 31208), MEMORY[0x277CC08F0], 0.0);
-    PCHashWriteStream::writeValue(v74, 2);
-    PCHashWriteStream::writeValue(v74, v72);
-    PCHashWriteStream::writeValue(v74, v71);
-    PCHashWriteStream::writeValue(v74, v66);
-    PCHashWriteStream::writeValue(v74, v65);
-    PCHashWriteStream::writeValue(v74, v51);
-    PCHashWriteStream::writeValue(v74, v68);
-    PCHashWriteStream::writeValue(v74, v67);
-    v70 = __src;
-    OZChannel::getValueAsDouble((v26 + 36016), &v70, 0.0);
-    v53 = *&v52;
-    HIDWORD(v52) = HIDWORD(__src.value);
-    v70 = __src;
-    LODWORD(v52) = *(v21 + 736);
-    GlowRadius = TXSequenceChannels::getGlowRadius((v50 + 25032), &v70, v52);
-    PCHashWriteStream::writeValue(v74, v53 + GlowRadius);
-    if (v51 == 1)
+    v67 = 0.0;
+    v69 = __src;
+    TXTextObject::getGlowBlur(v20, &v69, &v67, &v66);
+    v64 = 0.0;
+    v65 = 0.0;
+    v69 = __src;
+    TXTextObject::getGlowScale(v20, &v69, &v65, &v64, 1);
+    v50 = OZChannel::getValueAsInt((v25 + 31208), MEMORY[0x277CC08F0], 0.0);
+    PCHashWriteStream::writeValue(v73, 2);
+    PCHashWriteStream::writeValue(v73, v71);
+    PCHashWriteStream::writeValue(v73, v70);
+    PCHashWriteStream::writeValue(v73, v65);
+    PCHashWriteStream::writeValue(v73, v64);
+    PCHashWriteStream::writeValue(v73, v50);
+    PCHashWriteStream::writeValue(v73, v67);
+    PCHashWriteStream::writeValue(v73, v66);
+    v69 = __src;
+    OZChannel::getValueAsDouble((v25 + 36016), &v69, 0.0);
+    v52 = *&v51;
+    HIDWORD(v51) = HIDWORD(__src.value);
+    v69 = __src;
+    LODWORD(v51) = *(v20 + 736);
+    GlowRadius = TXSequenceChannels::getGlowRadius((v49 + 25032), &v69, v51);
+    PCHashWriteStream::writeValue(v73, v52 + GlowRadius);
+    if (v50 == 1)
     {
-      v62 = 32472;
+      v61 = 32472;
     }
 
     else
     {
-      if (v51 == 2)
+      if (v50 == 2)
       {
-        (*(*(v26 + 33680) + 448))(v26 + 33680, v74, &__src);
-        v55 = (*(*v26 + 128))(v26);
-        v56 = OZChannel::getValueAsUint((v26 + 33816), MEMORY[0x277CC08F0], 0.0);
-        v57 = OZScene::getNode(v55, v56);
-        if (v57)
+        (*(*(v25 + 33680) + 448))(v25 + 33680, v73, &__src);
+        v54 = (*(*v25 + 128))(v25);
+        v55 = OZChannel::getValueAsUint((v25 + 33816), MEMORY[0x277CC08F0], 0.0);
+        v56 = OZScene::getNode(v54, v55);
+        if (v56)
         {
-          if (v58)
+          if (v57)
           {
-            v70.value = &v70;
-            *&v70.timescale = &v70;
-            v70.epoch = 0;
-            (*(*v58 + 536))(v58, v74, v20, &v70, 1);
-            std::__list_imp<unsigned int>::clear(&v70);
+            v69.value = &v69;
+            *&v69.timescale = &v69;
+            v69.epoch = 0;
+            (*(*v57 + 536))(v57, v73, v18, &v69, 1);
+            std::__list_imp<unsigned int>::clear(&v69);
           }
         }
 
         goto LABEL_59;
       }
 
-      v62 = 31464;
+      v61 = 31464;
     }
 
-    (*(*(v26 + v62) + 448))(v26 + v62, v74, &__src);
+    (*(*(v25 + v61) + 448))(v25 + v61, v73, &__src);
 LABEL_59:
-    (*(*(v26 + 35272) + 448))(v26 + 35272, v74, &__src);
+    (*(*(v25 + 35272) + 448))(v25 + 35272, v73, &__src);
     goto LABEL_60;
   }
 
-  if (v16)
+  if (v14)
   {
-    if (v16 != 1)
+    if (v14 != 1)
     {
       goto LABEL_60;
     }
 
+    v70 = 0.0;
     v71 = 0.0;
-    v72 = 0.0;
-    v70 = *v20;
-    TXTextObject::getOutlineBlur(v21, &v70, &v72, &v71);
-    v70 = __src;
-    OutlineWidth = TXTextObject::getOutlineWidth(v21, &v70);
-    v29 = OZChannel::getValueAsInt((v26 + 22760), MEMORY[0x277CC08F0], 0.0);
-    PCHashWriteStream::writeValue(v74, 1);
-    PCHashWriteStream::writeValue(v74, OutlineWidth);
-    PCHashWriteStream::writeValue(v74, v29);
-    PCHashWriteStream::writeValue(v74, v72);
-    PCHashWriteStream::writeValue(v74, v71);
-    v30 = OZChannel::getValueAsInt((v26 + 30928), MEMORY[0x277CC08F0], 0.0) != 0;
-    PCHashWriteStream::writeValue(v74, v30);
-    PCHashWriteStream::writeValue(v74, *(*(v21 + 544) + 64176));
-    if (!OZRenderParams::getTextRenderQuality(v20))
+    v69 = *v18;
+    TXTextObject::getOutlineBlur(v20, &v69, &v71, &v70);
+    v69 = __src;
+    OutlineWidth = TXTextObject::getOutlineWidth(v20, &v69);
+    v28 = OZChannel::getValueAsInt((v25 + 22760), MEMORY[0x277CC08F0], 0.0);
+    PCHashWriteStream::writeValue(v73, 1);
+    PCHashWriteStream::writeValue(v73, OutlineWidth);
+    PCHashWriteStream::writeValue(v73, v28);
+    PCHashWriteStream::writeValue(v73, v71);
+    PCHashWriteStream::writeValue(v73, v70);
+    v29 = OZChannel::getValueAsInt((v25 + 30928), MEMORY[0x277CC08F0], 0.0) != 0;
+    PCHashWriteStream::writeValue(v73, v29);
+    PCHashWriteStream::writeValue(v73, *(*(v20 + 544) + 64176));
+    if (!OZRenderParams::getTextRenderQuality(v18))
     {
-      v69 = 0.0;
-      v70.value = 0;
       v68 = 0.0;
-      TXTextObject::getScale(v21, v20, &v70.value, &v69, &v68, 1, 1, 1, 0, 0, v8);
-      PCHashWriteStream::writeValue(v74, *&v70.value);
-      PCHashWriteStream::writeValue(v74, v69);
+      v69.value = 0;
+      v67 = 0.0;
+      TXTextObject::getScale(v20, v18, &v69.value, &v68, &v67, 1, 1, 1, 0, 0, v6);
+      PCHashWriteStream::writeValue(v73, *&v69.value);
+      PCHashWriteStream::writeValue(v73, v68);
     }
 
-    if (v29 == 1)
+    if (v28 == 1)
     {
-      v60 = 24024;
+      v59 = 24024;
     }
 
     else
     {
-      if (v29 == 2)
+      if (v28 == 2)
       {
-        (*(*(v26 + 25232) + 448))(v26 + 25232, v74, &__src);
-        v31 = (*(*v26 + 128))(v26);
-        v32 = OZChannel::getValueAsUint((v26 + 25368), MEMORY[0x277CC08F0], 0.0);
-        v33 = OZScene::getNode(v31, v32);
-        if (v33)
+        (*(*(v25 + 25232) + 448))(v25 + 25232, v73, &__src);
+        v30 = (*(*v25 + 128))(v25);
+        v31 = OZChannel::getValueAsUint((v25 + 25368), MEMORY[0x277CC08F0], 0.0);
+        v32 = OZScene::getNode(v30, v31);
+        if (v32)
         {
-          if (v34)
+          if (v33)
           {
-            v70.value = &v70;
-            *&v70.timescale = &v70;
-            v70.epoch = 0;
-            (*(*v34 + 536))(v34, v74, v20, &v70, 1);
-            std::__list_imp<unsigned int>::clear(&v70);
+            v69.value = &v69;
+            *&v69.timescale = &v69;
+            v69.epoch = 0;
+            (*(*v33 + 536))(v33, v73, v18, &v69, 1);
+            std::__list_imp<unsigned int>::clear(&v69);
           }
         }
 
         goto LABEL_50;
       }
 
-      if (!v10)
+      if (!v8)
       {
 LABEL_50:
-        (*(*(v26 + 26824) + 448))(v26 + 26824, v74, &__src);
+        (*(*(v25 + 26824) + 448))(v25 + 26824, v73, &__src);
         goto LABEL_60;
       }
 
-      v60 = 23016;
+      v59 = 23016;
     }
 
-    (*(*(v26 + v60) + 448))(v26 + v60, v74, &__src);
+    (*(*(v25 + v59) + 448))(v25 + v59, v73, &__src);
     goto LABEL_50;
   }
 
+  v70 = 0.0;
   v71 = 0.0;
-  v72 = 0.0;
-  v70 = __src;
-  TXTextObject::getFaceBlur(v21, &v70, &v72, &v71);
-  v42 = OZChannel::getValueAsInt((v26 + 6088), MEMORY[0x277CC08F0], 0.0);
-  PCHashWriteStream::writeValue(v74, v42);
-  PCHashWriteStream::writeValue(v74, 0);
-  PCHashWriteStream::writeValue(v74, v72);
-  PCHashWriteStream::writeValue(v74, v71);
-  if (v42 == 1)
+  v69 = __src;
+  TXTextObject::getFaceBlur(v20, &v69, &v71, &v70);
+  v41 = OZChannel::getValueAsInt((v25 + 6088), MEMORY[0x277CC08F0], 0.0);
+  PCHashWriteStream::writeValue(v73, v41);
+  PCHashWriteStream::writeValue(v73, 0);
+  PCHashWriteStream::writeValue(v73, v71);
+  PCHashWriteStream::writeValue(v73, v70);
+  if (v41 == 1)
   {
-    v59 = 7352;
+    v58 = 7352;
 LABEL_45:
-    (*(*(v26 + v59) + 448))(v26 + v59, v74, &__src);
+    (*(*(v25 + v58) + 448))(v25 + v58, v73, &__src);
     goto LABEL_60;
   }
 
-  if (v42 != 2)
+  if (v41 != 2)
   {
-    if (!v10)
+    if (!v8)
     {
       goto LABEL_60;
     }
 
-    v59 = 6344;
+    v58 = 6344;
     goto LABEL_45;
   }
 
-  (*(*(v26 + 8560) + 448))(v26 + 8560, v74, &__src);
-  v43 = (*(*v26 + 128))(v26);
-  v44 = OZChannel::getValueAsUint((v26 + 8696), MEMORY[0x277CC08F0], 0.0);
-  v45 = OZScene::getNode(v43, v44);
-  v46 = v45;
-  if (v45)
+  (*(*(v25 + 8560) + 448))(v25 + 8560, v73, &__src);
+  v42 = (*(*v25 + 128))(v25);
+  v43 = OZChannel::getValueAsUint((v25 + 8696), MEMORY[0x277CC08F0], 0.0);
+  v44 = OZScene::getNode(v42, v43);
+  v45 = v44;
+  if (v44)
   {
-    if (v47)
+    if (v46)
     {
-      v70.value = &v70;
-      *&v70.timescale = &v70;
-      v70.epoch = 0;
-      (*(*v47 + 536))(v47, v74, v20, &v70, 1);
-      std::__list_imp<unsigned int>::clear(&v70);
+      v69.value = &v69;
+      *&v69.timescale = &v69;
+      v69.epoch = 0;
+      (*(*v46 + 536))(v46, v73, v18, &v69, 1);
+      std::__list_imp<unsigned int>::clear(&v69);
     }
 
-    if (v49 && ((*(*v49 + 1784))(v49) & 1) != 0 || v48 && (*(*v48 + 1376))(v48) >= 2)
+    if (v48 && ((*(*v48 + 1784))(v48) & 1) != 0 || v47 && (*(*v47 + 1376))(v47) >= 2)
     {
-      PCHashWriteStream::writeValue(v74, &__src);
+      PCHashWriteStream::writeValue(v73, &__src);
     }
   }
 
 LABEL_60:
-  *v23 = *PCHashWriteStream::getHash(v74)->i8;
+  *v22 = *PCHashWriteStream::getHash(v73)->i8;
+  if (v24)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+  }
+
+  PCHashWriteStream::~PCHashWriteStream(v73);
+}
+
+void sub_25FB2CCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  std::__list_imp<unsigned int>::clear(&a17);
   if (v25)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
-  PCHashWriteStream::~PCHashWriteStream(v74);
-}
-
-void sub_25FB2CCC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
-{
-  std::__list_imp<unsigned int>::clear(&a17);
-  if (v26)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
-  }
-
-  PCHashWriteStream::~PCHashWriteStream(&a26);
+  PCHashWriteStream::~PCHashWriteStream(va);
   _Unwind_Resume(a1);
 }
 
@@ -8807,79 +8841,79 @@ double TXSequenceChannels::getGlowRadius(TXSequenceChannels *this, CMTime *a2, d
   return result;
 }
 
-void TXTextObject::getCacheHash(TXTextObject *this, OZRenderParams *a2)
+void TXTextObject::getCacheHash(TXTextObject *this, OZRenderParams *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = MEMORY[0x28223BE20](this);
-  v4 = v3;
-  v5 = v2;
-  v7 = v6;
-  v25[520] = *MEMORY[0x277D85DE8];
-  TextRenderQuality = OZRenderParams::getTextRenderQuality(v3);
-  v22 = *v4;
-  v9 = TXTextObject::syncGlyph(v5, &v22, 0);
-  v10 = *(v9 + 2);
-  v11 = *(v5 + 264);
-  if (v11)
+  MEMORY[0x28223BE20](this, a2, a3, a4, a5);
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v28[520] = *MEMORY[0x277D85DE8];
+  TextRenderQuality = OZRenderParams::getTextRenderQuality(v5);
+  v25 = *v6;
+  v12 = TXTextObject::syncGlyph(v8, &v25, 0);
+  v13 = *(v12 + 2);
+  v14 = *(v8 + 264);
+  if (v14)
   {
-    v13 = *(v11 + 8);
-    v12 = *(v11 + 16);
-    if (v12)
+    v16 = *(v14 + 8);
+    v15 = *(v14 + 16);
+    if (v15)
     {
-      atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     }
   }
 
   else
   {
-    v13 = 0;
-    v12 = 0;
+    v16 = 0;
+    v15 = 0;
   }
 
-  PCHashWriteStream::PCHashWriteStream(v25);
-  PCHashWriteStream::writeValue(v25, TextRenderQuality);
-  v14 = (*(*v10 + 16))(v10);
-  PCHashWriteStream::writeValue(v25, v14);
-  PCHashWriteStream::writeValue(v25, *(v9 + 4));
-  PCHashWriteStream::writeValue(v25, *(v5 + 120));
-  v24[0] = *v4;
-  Size = TXTextStyle::getSize(v13, v24, 0.0);
-  PCHashWriteStream::writeValue(v25, Size);
+  PCHashWriteStream::PCHashWriteStream(v28);
+  PCHashWriteStream::writeValue(v28, TextRenderQuality);
+  v17 = (*(*v13 + 16))(v13);
+  PCHashWriteStream::writeValue(v28, v17);
+  PCHashWriteStream::writeValue(v28, *(v12 + 4));
+  PCHashWriteStream::writeValue(v28, *(v8 + 120));
+  v27[0] = *v6;
+  Size = TXTextStyle::getSize(v16, v27, 0.0);
+  PCHashWriteStream::writeValue(v28, Size);
   if (TextRenderQuality == 2)
   {
-    v24[0].value = 0;
-    v23[0] = 0;
-    v21 = 0.0;
-    TXTextObject::getScale(v5, v4, &v24[0].value, v23, &v21, 1, 1, 1, 0, 0, 1);
-    PCHashWriteStream::writeValue(v25, *&v24[0].value);
-    PCHashWriteStream::writeValue(v25, *v23);
+    v27[0].value = 0;
+    v26[0] = 0;
+    v24 = 0.0;
+    TXTextObject::getScale(v8, v6, &v27[0].value, v26, &v24, 1, 1, 1, 0, 0, 1);
+    PCHashWriteStream::writeValue(v28, *&v27[0].value);
+    PCHashWriteStream::writeValue(v28, *v26);
   }
 
-  v20 = 0.0;
-  v21 = 0.0;
-  v24[0] = v22;
-  TXTextObject::getFaceBlur(v5, v24, &v21, &v20);
-  ValueAsInt = OZChannel::getValueAsInt((v13 + 6088), MEMORY[0x277CC08F0], 0.0);
-  PCHashWriteStream::writeValue(v25, ValueAsInt);
-  PCHashWriteStream::writeValue(v25, v21);
-  PCHashWriteStream::writeValue(v25, v20);
-  PCHashWriteStream::close(v25);
-  PCHashWriteStream::PCHashWriteStream(v24);
-  PCHashWriteStream::PCHashWriteStream(v23);
-  (*(*(v13 + 7352) + 448))(v13 + 7352, v24, &v22);
-  (*(*(v13 + 8560) + 448))(v13 + 8560, v23, &v22);
-  Hash = PCHashWriteStream::getHash(v23);
-  *v7 = *Hash;
-  v7[1] = Hash[1];
-  v18 = PCHashWriteStream::getHash(v24);
-  PCHash128::operator+=(v7, v18);
-  v19 = PCHashWriteStream::getHash(v25);
-  PCHash128::operator+=(v7, v19);
-  PCHashWriteStream::~PCHashWriteStream(v23);
-  PCHashWriteStream::~PCHashWriteStream(v24);
-  PCHashWriteStream::~PCHashWriteStream(v25);
-  if (v12)
+  v23 = 0.0;
+  v24 = 0.0;
+  v27[0] = v25;
+  TXTextObject::getFaceBlur(v8, v27, &v24, &v23);
+  ValueAsInt = OZChannel::getValueAsInt((v16 + 6088), MEMORY[0x277CC08F0], 0.0);
+  PCHashWriteStream::writeValue(v28, ValueAsInt);
+  PCHashWriteStream::writeValue(v28, v24);
+  PCHashWriteStream::writeValue(v28, v23);
+  PCHashWriteStream::close(v28);
+  PCHashWriteStream::PCHashWriteStream(v27);
+  PCHashWriteStream::PCHashWriteStream(v26);
+  (*(*(v16 + 7352) + 448))(v16 + 7352, v27, &v25);
+  (*(*(v16 + 8560) + 448))(v16 + 8560, v26, &v25);
+  Hash = PCHashWriteStream::getHash(v26);
+  *v10 = *Hash;
+  v10[1] = Hash[1];
+  v21 = PCHashWriteStream::getHash(v27);
+  PCHash128::operator+=(v10, v21);
+  v22 = PCHashWriteStream::getHash(v28);
+  PCHash128::operator+=(v10, v22);
+  PCHashWriteStream::~PCHashWriteStream(v26);
+  PCHashWriteStream::~PCHashWriteStream(v27);
+  PCHashWriteStream::~PCHashWriteStream(v28);
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 }
 
@@ -9198,14 +9232,16 @@ void sub_25FB2D99C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextObject::isFaceVisible(TXTextObject *a1, CMTime *a2, __n128 *a3, uint64_t a4, int a5, int a6)
+uint64_t TXTextObject::isFaceVisible(TXTextObject *a1, CMTime *a2, __n128 *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
+  v7 = a5;
   result = TXTextObject::isFaceEnabled(a1, a2);
   if (result)
   {
     if (a3)
     {
-      TXTextObject::getFaceColor(a1, a2, a3, a4, a5, a6);
+      TXTextObject::getFaceColor(a1, a2, a3, a4, v7, v6);
       return fabsf(a3->n128_f32[3]) >= 0.00001;
     }
 
@@ -9456,7 +9492,7 @@ void TXTextObject::setWorkingColor(uint64_t a1, __n128 *a2, PCColor *this, int a
   a2->n128_f32[3] = PCColor::getAlpha(this);
 }
 
-void TXTextObject::getFaceColor(TXTextObject *this, CMTime *a2, double a3, PCColorSpaceCache **a4)
+void TXTextObject::getFaceColor(TXTextObject *this, CMTime *a2, double a3, __n128 *a4)
 {
   v7 = *(this + 33);
   if (v7)
@@ -9477,7 +9513,7 @@ void TXTextObject::getFaceColor(TXTextObject *this, CMTime *a2, double a3, PCCol
 
   PCColor::PCColor(&v15);
   (*(*(v9 + 6344) + 832))(v9 + 6344, a2, &v15);
-  v11 = PCColorSpaceCache::identifyColorSpace(a4[2], v10);
+  v11 = PCColorSpaceCache::identifyColorSpace(a4[1].n128_u64[0], v10);
   CGColorSpace = PCColor::getCGColorSpace(&v15);
   v14 = PCColorSpaceCache::identifyColorSpace(CGColorSpace, v13);
   TXTextObject::getFaceColor(this, a2, a4, &v15, v11, v14);
@@ -9575,7 +9611,7 @@ LABEL_7:
   }
 }
 
-unint64_t TXSequenceChannels::getOutlineWidth(TXSequenceChannels *this, CMTime *a2, double a3)
+uint64_t TXSequenceChannels::getOutlineWidth(TXSequenceChannels *this, CMTime *a2, double a3)
 {
   result = OZChannelBase::isEnabled((this + 10272), 0, 1);
   if (result)
@@ -9764,40 +9800,4 @@ void TXTextObject::getDropShadowColor(TXTextObject *this, CMTime *a2, double a3,
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
-}
-
-void sub_25FB2E9A4(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double TXTextObject::getDropShadowOpacity(TXTextObject *this, CMTime *a2)
-{
-  v4 = *(this + 33);
-  v5 = *(v4 + 8);
-  v6 = *(v4 + 16);
-  if (v6)
-  {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v13 = *a2;
-  OZChannel::getValueAsDouble((v5 + 18040), &v13, 0.0);
-  v7 = *(this + 68);
-  v8 = (*(*v7 + 736))(v7, v7 + 26080, v7 + 46184, a2);
-  TypeOn = TXTextLayout::getTypeOn(*(this + 68), *(this + 24), a2);
-  v13 = *a2;
-  OZChannel::getValueAsDouble((v7 + 19448), &v13, 0.0);
-  v11 = v10;
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  }
-
-  return v8 * TypeOn * v11;
 }

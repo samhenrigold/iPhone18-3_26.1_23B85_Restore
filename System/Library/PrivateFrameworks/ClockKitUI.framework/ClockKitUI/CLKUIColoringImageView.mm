@@ -147,7 +147,7 @@ LABEL_9:
   mEMORY[0x1E695B530] = [MEMORY[0x1E695B530] sharedRenderingContext];
   device = [mEMORY[0x1E695B530] device];
 
-  [(CLKUIColoringImageView *)self transform];
+  objc_msgSend_transform(self);
   if (CGAffineTransformIsIdentity(&v9))
   {
     [(CLKUIColoringImageView *)self frame];

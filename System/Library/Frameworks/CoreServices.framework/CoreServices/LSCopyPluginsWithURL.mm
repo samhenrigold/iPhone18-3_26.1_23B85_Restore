@@ -3,7 +3,7 @@
 
 @implementation LSCopyPluginsWithURL
 
-void ___LSCopyPluginsWithURL_block_invoke(uint64_t a1, uint64_t a2, int *a3)
+void ___LSCopyPluginsWithURL_block_invoke(uint64_t a1, uint64_t a2, unsigned int *a3)
 {
   v6 = objc_autoreleasePoolPush();
   if (_LSAliasMatchesPath_NoIO(**(a1 + 48), *a3, *(a1 + 32), 2 * (*(a1 + 56) != 0)))

@@ -65,7 +65,6 @@
   v2.receiver = selfCopy;
   v2.super_class = AKBaseDaemonConnection;
   [(AKBaseDaemonConnection *)&v2 dealloc];
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -231,7 +230,6 @@ uint64_t __37__AKBaseDaemonConnection__connection__block_invoke_3(uint64_t a1)
   ak_unfair_lock_perform_2(p_unfairLock, &v5);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(v13, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)machServiceName

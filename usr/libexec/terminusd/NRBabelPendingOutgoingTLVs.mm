@@ -7,9 +7,9 @@
 - (NRBabelPendingOutgoingTLVs)initWithInterval:(unsigned __int16)interval
 {
   intervalCopy = interval;
-  v15.receiver = self;
-  v15.super_class = NRBabelPendingOutgoingTLVs;
-  v4 = [(NRBabelPendingOutgoingTLVs *)&v15 init];
+  v18.receiver = self;
+  v18.super_class = NRBabelPendingOutgoingTLVs;
+  v4 = [(NRBabelPendingOutgoingTLVs *)&v18 init];
   if (!v4)
   {
     v10 = sub_1000CB9A8();
@@ -18,15 +18,15 @@
     if (IsLevelEnabled)
     {
       v12 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRBabelPendingOutgoingTLVs initWithInterval:]"", 1298);
     }
 
-    _os_log_pack_size();
-    __chkstk_darwin();
-    v13 = *__error();
-    v14 = _os_log_pack_fill();
-    *v14 = 136446210;
-    *(v14 + 4) = "[NRBabelPendingOutgoingTLVs initWithInterval:]";
+    v13 = _os_log_pack_size();
+    v14 = &v17 - ((__chkstk_darwin() + 15) & 0xFFFFFFFFFFFFFFF0);
+    v15 = __error();
+    v16 = _os_log_pack_fill(v14, v13, *v15, &_mh_execute_header, "%{public}s [super init] failed");
+    *v16 = 136446210;
+    *(v16 + 4) = "[NRBabelPendingOutgoingTLVs initWithInterval:]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
   }

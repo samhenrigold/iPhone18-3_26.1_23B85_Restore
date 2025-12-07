@@ -217,18 +217,19 @@ void __56__VUIAccountSettingsButton_initWithType_interfaceStyle___block_invoke(u
 - (void)_updateAccountImage
 {
   VUIRequireMainThread();
-  if (!+[VUIAuthenticationManager userHasActiveAccount])
+  v3 = +[VUIAuthenticationManager userHasActiveAccount];
+  if (!v3)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = VUIDefaultLogObject(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      *v20 = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "AccountSettingButton:: User has no active account, use noAccount image", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "AccountSettingButton:: User has no active account, use noAccount image", v22, 2u);
     }
 
     if (!MEMORY[0x1E6913230]())
     {
-      v4 = 0;
+      v5 = 0;
       goto LABEL_26;
     }
 
@@ -238,50 +239,51 @@ void __56__VUIAccountSettingsButton_initWithType_interfaceStyle___block_invoke(u
     imageView = [(VUIButton *)self imageView];
     [imageView setHidden:0];
 LABEL_21:
-    v4 = 0;
+    v5 = 0;
     goto LABEL_25;
   }
 
-  v3 = +[VUIAuthenticationManager userProfileImage];
-  if (!v3)
+  v4 = +[VUIAuthenticationManager userProfileImage];
+  if (!v4)
   {
-    v10 = 34.0;
+    v11 = 34.0;
+    if (MEMORY[0x1E6913230]())
+    {
+      v12 = 44.0;
+    }
+
+    else
+    {
+      v12 = 34.0;
+    }
+
     if (MEMORY[0x1E6913230]())
     {
       v11 = 44.0;
     }
 
-    else
+    v13 = MEMORY[0x1E6913230]();
+    v14 = v13;
+    v15 = VUIDefaultLogObject(v13);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
+    if (!v14)
     {
-      v11 = 34.0;
-    }
-
-    if (MEMORY[0x1E6913230]())
-    {
-      v10 = 44.0;
-    }
-
-    v12 = MEMORY[0x1E6913230]();
-    v13 = VUIDefaultLogObject();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_INFO);
-    if (!v12)
-    {
-      if (v14)
+      if (v16)
       {
-        *v22 = 0;
-        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "AccountSettingButton:: No profile image, use monogram image", v22, 2u);
+        *v24 = 0;
+        _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "AccountSettingButton:: No profile image, use monogram image", v24, 2u);
       }
 
       imageView = [MEMORY[0x1E69DCEB0] mainScreen];
       [imageView scale];
-      v4 = [VUIAuthenticationManager monogramAvatarForSize:[(VUIAccountSettingsButton *)self vuiIsRTL] scale:v11 isRTL:v10, v18];
+      v5 = [VUIAuthenticationManager monogramAvatarForSize:[(VUIAccountSettingsButton *)self vuiIsRTL] scale:v12 isRTL:v11, v20];
       goto LABEL_25;
     }
 
-    if (v14)
+    if (v16)
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_INFO, "AccountSettingButton:: No profile image, use monogram avatar view", v23, 2u);
+      *v25 = 0;
+      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_INFO, "AccountSettingButton:: No profile image, use monogram avatar view", v25, 2u);
     }
 
     monogramAvatarView2 = [(VUIAccountSettingsButton *)self monogramAvatarView];
@@ -299,12 +301,12 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v4 = v3;
-  v5 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = v4;
+  v6 = VUIDefaultLogObject(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_INFO, "AccountSettingButton:: Use profile image", buf, 2u);
+    _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_INFO, "AccountSettingButton:: Use profile image", buf, 2u);
   }
 
   if (MEMORY[0x1E6913230]())
@@ -322,7 +324,7 @@ LABEL_26:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [imageView3 setImage:v4];
+    [imageView3 setImage:v5];
   }
 }
 

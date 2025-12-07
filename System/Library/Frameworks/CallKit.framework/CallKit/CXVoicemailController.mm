@@ -41,27 +41,25 @@
 
 - (void)requestTransaction:(id)transaction completion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   completionCopy = completion;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = transactionCopy;
+    v13 = transactionCopy;
     _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "transaction: %@", buf, 0xCu);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __55__CXVoicemailController_requestTransaction_completion___block_invoke;
-  v11[3] = &unk_1E7C073D8;
-  v11[4] = self;
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __55__CXVoicemailController_requestTransaction_completion___block_invoke;
+  v10[3] = &unk_1E7C073D8;
+  v10[4] = self;
+  v11 = completionCopy;
   v9 = completionCopy;
-  [(CXVoicemailController *)self _requestTransaction:transactionCopy completion:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(CXVoicemailController *)self _requestTransaction:transactionCopy completion:v10];
 }
 
 void __55__CXVoicemailController_requestTransaction_completion___block_invoke(uint64_t a1, void *a2)
@@ -81,34 +79,31 @@ void __55__CXVoicemailController_requestTransaction_completion___block_invoke(ui
 
 - (void)requestTransactionWithActions:(id)actions completion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   completionCopy = completion;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = actionsCopy;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "actions: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = actionsCopy;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "actions: %@", &v10, 0xCu);
   }
 
   v9 = [[CXTransaction alloc] initWithActions:actionsCopy];
   [(CXVoicemailController *)self requestTransaction:v9 completion:completionCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestTransactionWithAction:(id)action completion:(id)completion
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   v6 = MEMORY[0x1E695DEC8];
   completionCopy = completion;
   actionCopy2 = action;
   v9 = [v6 arrayWithObjects:&actionCopy count:1];
 
-  [(CXVoicemailController *)self requestTransactionWithActions:v9 completion:completionCopy, actionCopy, v12];
-  v10 = *MEMORY[0x1E69E9840];
+  [(CXVoicemailController *)self requestTransactionWithActions:v9 completion:completionCopy, actionCopy, v11];
 }
 
 - (void)_requestTransaction:(id)transaction completion:(id)completion

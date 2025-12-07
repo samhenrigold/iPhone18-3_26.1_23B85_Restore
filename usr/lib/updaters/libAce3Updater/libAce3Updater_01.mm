@@ -1,15 +1,17 @@
-uint64_t uarpMsgRecvDownstreamEndpointMessageSendAck(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4)
+uint64_t uarpMsgRecvDownstreamEndpointMessageSendAck(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v5 = a3;
   result = UARPProtocolVersionRequiresDownstreamMessageACK(*(a2 + 48));
   if (result)
   {
-    result = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Cu, 0xAu, 0);
+    result = uarpAllocPrepareTransmitBuffer2(a1, a2, 28, 0xAu, 0);
     if (result)
     {
       v9 = result;
       v10 = *(result + 24);
-      *(v10 + 6) = uarpHtons(a4);
-      *(v10 + 8) = uarpHtons(a3);
+      *(v10 + 6) = uarpHtons(v4);
+      *(v10 + 8) = uarpHtons(v5);
 
       return uarpTransmitBuffer2(a1, a2, v9);
     }
@@ -26,7 +28,7 @@ __int16 *uarpOuiAppleGenericFeatures()
   return result;
 }
 
-uint64_t uarpApplePlatformEndpointRecvMessage(uint64_t a1, uint64_t a2, unsigned __int8 *a3, int a4, unsigned int *a5, unsigned int a6)
+uint64_t uarpApplePlatformEndpointRecvMessage(uint64_t a1, int *a2, unsigned __int8 *a3, int a4, unsigned int *a5, unsigned int a6)
 {
   result = 30;
   if (!a1 || !a2 || !a3 || !a5)
@@ -46,7 +48,7 @@ uint64_t uarpApplePlatformEndpointRecvMessage(uint64_t a1, uint64_t a2, unsigned
     if (a4 == 32 && a6 >= 4)
     {
       v12 = *a2;
-      v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xFFFFu, *a2, 0);
+      v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xFFFFLL, *a2, 0);
       if (!v13)
       {
         return 11;
@@ -106,7 +108,7 @@ uint64_t uarpApplePlatformEndpointRecvMessage(uint64_t a1, uint64_t a2, unsigned
           }
 
           v34 = v33(*(a1 + 608), 4, v15 + 23, v18, &v47);
-          if (*(a2 + 48) < 4u)
+          if (*(a2 + 24) < 4u)
           {
             break;
           }
@@ -150,7 +152,7 @@ LABEL_72:
           }
 
           v34 = v36(*(a1 + 608), 7, v15 + 23, v18, &v47);
-          if (*(a2 + 48) >= 4u && v47 == 8)
+          if (*(a2 + 24) >= 4u && v47 == 8)
           {
             goto LABEL_72;
           }
@@ -445,7 +447,7 @@ LABEL_99:
           v32 = 33;
 LABEL_87:
           v34 = v29(v30, v32, v31, v18, &v47);
-          if (*(a2 + 48) < 4u)
+          if (*(a2 + 24) < 4u)
           {
             break;
           }
@@ -851,7 +853,7 @@ LABEL_156:
 LABEL_158:
     v28 = *v38;
 LABEL_159:
-    v28(*(a1 + 608), *(a2 + 40), v26, v24);
+    v28(*(a1 + 608), *(a2 + 5), v26, v24);
     return 0;
   }
 
@@ -1626,11 +1628,12 @@ const char *uarpLoggingCategoryToString(unsigned int a1)
   }
 }
 
-void *uarpProcessPayloadTLVInternal(void *result, uint64_t a2, uint64_t a3, signed int a4, size_t __size, unsigned int *a6)
+void *uarpProcessPayloadTLVInternal(void *result, uint64_t a2, uint64_t a3, uint64_t a4, size_t __size, unsigned __int16 *a6)
 {
   v10 = result;
   if (a4 != -858619624)
   {
+    v11 = a4;
     if (a4 == -858619625)
     {
       if (__size == 2)
@@ -1668,9 +1671,9 @@ LABEL_11:
       result = UARPLayer2HashUpdate(v10, *(a3 + 76), *(a3 + 80), a6, __size);
     }
 
-    if (a4 > -858619631)
+    if (v11 > -858619631)
     {
-      if (a4 == -858619630)
+      if (v11 == -858619630)
       {
         if (__size == 2)
         {
@@ -1682,7 +1685,7 @@ LABEL_11:
 
       else
       {
-        if (a4 != -858619623)
+        if (v11 != -858619623)
         {
           return result;
         }
@@ -1696,7 +1699,7 @@ LABEL_11:
       }
     }
 
-    else if (a4 == -858619641)
+    else if (v11 == -858619641)
     {
       *(a3 + 72) = __size;
       if (!UARPLayer2RequestBuffer(v10, (a3 + 64), __size, 34952, 966))
@@ -1711,7 +1714,7 @@ LABEL_11:
 
     else
     {
-      if (a4 != -858619636)
+      if (v11 != -858619636)
       {
         return result;
       }
@@ -1949,8 +1952,9 @@ void *uarpAllocateTransmitBuffer2(uint64_t a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-void *uarpAllocPrepareTransmitBuffer2(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, int a5)
+void *uarpAllocPrepareTransmitBuffer2(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
 {
+  v7 = a3;
   v10 = *(a2 + 104);
   if (v10)
   {
@@ -1989,7 +1993,7 @@ LABEL_6:
   *(v10 + 39) = v13;
   *(v10 + 32) = *(a2 + 16);
   bzero(v10[3], v11);
-  v14 = uarpHtons(a3);
+  v14 = uarpHtons(v7);
   v15 = v10[3];
   *v15 = v14;
   v15[1] = a4 - 6;
@@ -2052,11 +2056,11 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v20[11] = v2;
-  v20[12] = v3;
+  v15[11] = v2;
+  v15[12] = v3;
   UARPLayer2WatchdogCancel(a1, a2);
-  v20[0] = 0;
-  v6 = UARPLayer2MonotonicClockTime(a1, v20);
+  v15[0] = 0;
+  v6 = UARPLayer2MonotonicClockTime(a1, v15);
   v7 = *(a2 + 112);
   if (!v7)
   {
@@ -2084,7 +2088,7 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
 
       else
       {
-        uarpLogError(6u, "%s: ESPRESSO Corrupt Entry ? pBuffer = %p, pMsg = %p", "uarpTransmitEntryIsValidToSend", v7[1], 0);
+        uarpLogError(6, "%s: ESPRESSO Corrupt Entry ? pBuffer = %p, pMsg = %p", "uarpTransmitEntryIsValidToSend", v7[1], 0);
       }
 
       goto LABEL_5;
@@ -2096,8 +2100,6 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
       break;
     }
 
-    v12 = v7[3];
-    v13 = *(v7 + 18);
     v6 = UARPLayer2VendorSpecificCheckValidToSend(a1, a2);
     if (v6)
     {
@@ -2106,7 +2108,7 @@ uint64_t uarpTransmitQueueService(uint64_t a1, uint64_t a2)
 
 LABEL_5:
     *(v7 + 38) = *(v7 + 39) + 1;
-    v7[7] = v20[0];
+    v7[7] = v15[0];
 LABEL_6:
     v7 = *v7;
     if (!v7)
@@ -2126,25 +2128,23 @@ LABEL_6:
   }
 
 LABEL_17:
-  v14 = v20[0];
-  if (v20[0] && v20[0] - v7[7] < ((8389 * (*(v7 + 32) >> 3)) >> 20))
+  v12 = v15[0];
+  if (v15[0] && v15[0] - v7[7] < ((8389 * (*(v7 + 32) >> 3)) >> 20))
   {
     goto LABEL_6;
   }
 
-  v15 = *(v7 + 38);
-  if (v15 >= *(v7 + 39))
+  v13 = *(v7 + 38);
+  if (v13 >= *(v7 + 39))
   {
     goto LABEL_6;
   }
 
-  *(v7 + 38) = v15 + 1;
-  v7[7] = v14;
+  *(v7 + 38) = v13 + 1;
+  v7[7] = v12;
   *(v7[3] + 4) = uarpHtons(*(a2 + 62));
   ++*(a2 + 62);
   UARPLayer2SendMessage(a1, a2, v7[1], *(a2 + 30) + *(v7 + 18));
-  v16 = v7[3];
-  v17 = *(v7 + 18);
   v6 = UARPLayer2LogPacket(a1, a2);
   if (*(v7 + 40) == 1)
   {
@@ -2160,7 +2160,6 @@ LABEL_26:
   uarpTransmitQueueReclaimEntries(v6, a2);
   if (v8 >= 1 && v9 == 1)
   {
-    v18 = *(a2 + 16);
     UARPLayer2WatchdogSet(a1, a2);
   }
 
@@ -2431,11 +2430,12 @@ uint64_t uarpPlatformDarwinHashFinal(uint64_t result, CC_SHA512_CTX *a2, unsigne
   return result;
 }
 
-void uarpLogError(unsigned int a1, char *__format, ...)
+void uarpLogError(uint64_t a1, char *__format, ...)
 {
   va_start(va, __format);
+  v2 = a1;
   vsnprintf(uarpLogError_logBuffer, 0x200uLL, __format, va);
-  v3 = uarpLogToken(a1);
+  v3 = uarpLogToken(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     uarpLogError_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -2475,17 +2475,15 @@ void uarpLogDebug(unsigned int a1, char *__format, ...)
 void uarpLogInfo(unsigned int a1, char *__format, ...)
 {
   va_start(va, __format);
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   vsnprintf(uarpLogInfo_logBuffer, 0x200uLL, __format, va);
   v3 = uarpLogToken(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v6 = uarpLogInfo_logBuffer;
+    v5 = uarpLogInfo_logBuffer;
     _os_log_impl(&dword_299E58000, v3, OS_LOG_TYPE_INFO, "%s\n", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void uarpLogFault(unsigned int a1, char *__format, ...)
@@ -2499,55 +2497,58 @@ void uarpLogFault(unsigned int a1, char *__format, ...)
   }
 }
 
-void uarpPlatformDarwinLogError(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogError(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(uarpPlatformDarwinLogError_logBuffer, 0x200uLL, a3, &a9);
-  v10 = uarpLogToken(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  va_start(va, a8);
+  vsnprintf(uarpPlatformDarwinLogError_logBuffer, 0x200uLL, a3, va);
+  v9 = uarpLogToken(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    uarpPlatformDarwinLogError_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
+    uarpPlatformDarwinLogError_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
   }
 }
 
-void uarpPlatformDarwinLogInfo(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogInfo(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v14 = *MEMORY[0x29EDCA608];
-  vsnprintf(uarpPlatformDarwinLogInfo_logBuffer, 0x200uLL, a3, &a9);
-  v10 = uarpLogToken(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  va_start(va, a8);
+  v12 = *MEMORY[0x29EDCA608];
+  vsnprintf(uarpPlatformDarwinLogInfo_logBuffer, 0x200uLL, a3, va);
+  v9 = uarpLogToken(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = uarpPlatformDarwinLogInfo_logBuffer;
-    _os_log_impl(&dword_299E58000, v10, OS_LOG_TYPE_INFO, "%s\n", buf, 0xCu);
+    v11 = uarpPlatformDarwinLogInfo_logBuffer;
+    _os_log_impl(&dword_299E58000, v9, OS_LOG_TYPE_INFO, "%s\n", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
-void uarpPlatformDarwinLogDebug(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogDebug(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(uarpPlatformDarwinLogDebug_logBuffer, 0x200uLL, a3, &a9);
-  v10 = uarpLogToken(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  va_start(va, a8);
+  vsnprintf(uarpPlatformDarwinLogDebug_logBuffer, 0x200uLL, a3, va);
+  v9 = uarpLogToken(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    uarpPlatformDarwinLogDebug_cold_1(v10);
+    uarpPlatformDarwinLogDebug_cold_1(v9);
   }
 }
 
-void uarpPlatformDarwinLogFault(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void uarpPlatformDarwinLogFault(uint64_t a1, unsigned int a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  vsnprintf(uarpPlatformDarwinLogFault_logBuffer, 0x200uLL, a3, &a9);
-  v10 = uarpLogToken(a2);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  va_start(va, a8);
+  vsnprintf(uarpPlatformDarwinLogFault_logBuffer, 0x200uLL, a3, va);
+  v9 = uarpLogToken(a2);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
   {
-    uarpPlatformDarwinLogFault_cold_1(v10);
+    uarpPlatformDarwinLogFault_cold_1(v9);
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t UARPSuperBinarySetupHeader(uint64_t a1, uint64_t a2, unsigned int a3, __int128 *a4, int a5)
@@ -2854,8 +2855,9 @@ uint64_t UARPSuperBinaryAddPayloadMetaData(uint64_t a1, uint64_t a2, int a3, uns
   return result;
 }
 
-uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsigned int a5)
+uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
+  v7 = a3;
   v10 = 0;
   while (a5)
   {
@@ -2869,7 +2871,7 @@ uint64_t UARPSuperBinaryAddPayloadDataLarge(uint64_t a1, uint64_t a2, int a3, ui
       v11 = a5;
     }
 
-    result = UARPSuperBinaryAddPayloadData(a1, a2, a3, a4 + v10, v11);
+    result = UARPSuperBinaryAddPayloadData(a1, a2, v7, a4 + v10, v11);
     v10 += v11;
     a5 -= v11;
     if (result)
@@ -3448,7 +3450,7 @@ LABEL_8:
       }
 
       v17 = 0;
-      v18 = a2 + 632;
+      v18 = (a2 + 632);
       do
       {
         v19 = *v18;
@@ -3492,7 +3494,7 @@ LABEL_8:
           v8 = *(a2 + 448);
         }
 
-        v18 = v19 + 176;
+        v18 = (v19 + 176);
         ++v17;
       }
 
@@ -3656,7 +3658,7 @@ void uarpPlatformEndpointDeinit(uint64_t a1)
   uarpPlatformCleanupAssets(a1);
 }
 
-uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, uint64_t a4)
+uint64_t uarpPlatformRemoteEndpointAdd(__int128 *a1, uint64_t a2, __int128 *a3, uint64_t a4)
 {
   result = 30;
   if (a1)
@@ -3667,20 +3669,20 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
       {
         *(a2 + 40) = a4;
         v7 = *a1;
-        v8 = *(a1 + 16);
-        *(a2 + 32) = *(a1 + 32);
+        v8 = a1[1];
+        *(a2 + 32) = *(a1 + 4);
         *a2 = v7;
         *(a2 + 16) = v8;
         if (!a3 || (v10 = *a3, v9 = a3[1], *(a2 + 32) = *(a3 + 4), *a2 = v10, *(a2 + 16) = v9, (v11 = *(a2 + 4)) != 0) && *a2 && *(a2 + 8) >= v11)
         {
           if (!*(a2 + 12))
           {
-            *(a2 + 12) = *(a1 + 12);
+            *(a2 + 12) = *(a1 + 6);
           }
 
           *(a2 + 48) = 0;
-          v12 = *(a1 + 648);
-          *(a1 + 648) = v12 + 1;
+          v12 = *(a1 + 162);
+          *(a1 + 162) = v12 + 1;
           *(a2 + 56) = v12;
           *(a2 + 60) = 1;
           *(a2 + 62) = 1;
@@ -3697,7 +3699,7 @@ uint64_t uarpPlatformRemoteEndpointAdd(uint64_t a1, uint64_t a2, __int128 *a3, u
             result = uarpAllocateTransmitBuffers(a1, a2);
             if (!result)
             {
-              if ((*(a1 + 616) - 1) > 1)
+              if ((*(a1 + 154) - 1) > 1)
               {
                 return 0;
               }
@@ -3751,9 +3753,9 @@ uint64_t uarpPlatformRemoteEndpointRemove(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t uarpPlatformEndpointRequestInfoProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (a1 && a2 && a3 - 13 >= 0xFFFFFFF4)
+  if (a1 && a2 && (a3 - 13) >= 0xFFFFFFF4)
   {
     return uarpSendInformationRequest(a1, a2, a3);
   }
@@ -4247,9 +4249,9 @@ uint64_t uarpPlatformEndpointAssetSetPayloadIndex2(void *a1, uint64_t a2, int a3
               *(a2 + 592) = v15;
               *(a2 + 608) = v16;
               *(a2 + 576) = v14;
-              for (i = *(v6 + 21); i; i = *(i + 16))
+              for (i = *(v6 + 21); i; i = *(i + 2))
               {
-                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, *(i + 4), *(i + 8));
+                uarpProcessPayloadTLVInternal(a1, a2, a2 + 464, *i, i[1], *(i + 1));
               }
 
               v18 = *(v6 + 19);
@@ -4438,7 +4440,7 @@ uint64_t uarpPlatformEndpointAssetFullyStaged(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1u);
+    return uarpAssetProcessingComplete(a1, *(a2 + 696), a2, 1);
   }
 
   else
@@ -4476,8 +4478,7 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
       *(a3 + 408) = v9;
       *(a3 + 424) = v10;
       *(a3 + 392) = v8;
-      *(a3 + 452) = *(a2 + 113);
-      *(a3 + 456) = *(a2 + 114);
+      *(a3 + 452) = *(a2 + 452);
       v11 = a2[29];
       v12 = a2[31];
       *(a3 + 480) = a2[30];
@@ -4526,19 +4527,19 @@ double uarpPlatformEndpointSuperBinaryMerge(uint64_t a1, __int128 *a2, uint64_t 
   return result;
 }
 
-void uarpPlatformEndpointCleanupAssets(uint64_t a1)
+void uarpPlatformEndpointCleanupAssets(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, 0, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, 0, 0);
   }
 }
 
-void uarpPlatformEndpointCleanupAssets2(uint64_t a1, uint64_t a2)
+void uarpPlatformEndpointCleanupAssets2(uint64_t result, uint64_t a2)
 {
-  if (a1)
+  if (result)
   {
-    uarpPlatformCleanupAssetsForRemoteEndpoint(a1, a2, 0);
+    uarpPlatformCleanupAssetsForRemoteEndpoint(result, a2, 0);
   }
 }
 
@@ -4747,7 +4748,7 @@ uint64_t uarpPlatformEndpointRescindAllAssets(uint64_t a1, uint64_t a2)
 {
   if (a1 && a2)
   {
-    return uarpAssetRescind(a1, a2, 0xFFFFu);
+    return uarpAssetRescind(a1, a2, 0xFFFFLL);
   }
 
   else
@@ -4761,7 +4762,7 @@ uint64_t uarpPlatformEndpointApplyStagedAssets(uint64_t a1, uint64_t a2)
   result = 30;
   if (a1 && a2)
   {
-    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0xAu, 6u, 1);
+    v5 = uarpAllocPrepareTransmitBuffer2(a1, a2, 10, 6u, 1);
     if (v5)
     {
 
@@ -4838,7 +4839,7 @@ uint64_t uarpPlatformEndpointSolicitDynamicAsset(uint64_t a1, uint64_t a2, _DWOR
   return uarpSolicitDynamicAsset(a1, a2, a3);
 }
 
-uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, unsigned int a4, const void *a5, unsigned int a6)
+uint64_t uarpPlatformEndpointSendVendorSpecific(uint64_t a1, uint64_t a2, __int16 *a3, uint64_t a4, const void *a5, unsigned int a6)
 {
   if (a1 && a2 && a3 && a5)
   {
@@ -4959,7 +4960,7 @@ uint64_t uarpPlatformDelegateForDownstreamID(uint64_t a1, uint64_t a2, int a3)
 
 uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Du, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 29, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -4970,7 +4971,7 @@ uint64_t uarpPlatformNoFirmwareUpdateAvailable(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 {
-  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x1Fu, 6u, 1);
+  v4 = uarpAllocPrepareTransmitBuffer2(a1, a2, 31, 6u, 1);
   if (!v4)
   {
     return 11;
@@ -4981,7 +4982,7 @@ uint64_t uarpPlatformEndpointDiscoverEndpointIDs(uint64_t a1, uint64_t a2)
 
 uint64_t uarpPlatformQueryEndpointComponentDiscovery(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x21u, 8u, 1);
+  v6 = uarpAllocPrepareTransmitBuffer2(a1, a2, 33, 8u, 1);
   if (!v6)
   {
     return 11;
@@ -5009,7 +5010,7 @@ uint64_t uarpPlatformEndpointBulkInfoQuery(uint64_t a1, uint64_t a2, unsigned in
           v11 = a6;
           if (a6)
           {
-            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x23u, (4 * a5 + 16) & 0xFFFC, 1);
+            v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 35, (4 * a5 + 16) & 0xFFFC, 1);
             if (v13)
             {
               v14 = v13;
@@ -5140,7 +5141,7 @@ uint64_t uarpPlatformEndpointBulkInfoResponse(uint64_t a1, uint64_t a2, unsigned
   result = 30;
   if (a1 && a2 && a4 && a5 && a6)
   {
-    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 0x25u, (a6 + 12), 1);
+    v13 = uarpAllocPrepareTransmitBuffer2(a1, a2, 37, (a6 + 12), 1);
     if (v13)
     {
       v14 = v13;
@@ -5757,7 +5758,7 @@ uint64_t fAssetProcessingNotification2_1(uint64_t a1, uint64_t a2, void *a3)
   return uarpPlatformEndpointAssetFullyStaged(a1, **(a1 + 1520));
 }
 
-uint64_t BackendCreate(void *a1, unsigned __int8 *a2, uint64_t a3)
+uint64_t BackendCreate(uint64_t **a1, unsigned __int8 *a2, uint64_t a3)
 {
   v6 = uarpZalloc(0x50uLL);
   v7 = v6;
@@ -5971,7 +5972,7 @@ uint64_t getAHPMAddressForRID(char a1, void *a2)
 
     else
     {
-      uarpLogError(3u, "Error finding IOKit service: 0x%x\n");
+      uarpLogError(3, "Error finding IOKit service: 0x%x\n");
     }
 
     return CFProperty;
@@ -5987,7 +5988,7 @@ uint64_t getAHPMAddressForRID(char a1, void *a2)
 
     else
     {
-      uarpLogError(3u, "Found no matching services\n");
+      uarpLogError(3, "Found no matching services\n");
     }
 
     return CFProperty;
@@ -6011,7 +6012,7 @@ uint64_t getAHPMAddressForRID(char a1, void *a2)
 
     else
     {
-      uarpLogError(3u, "Cannot find address\n");
+      uarpLogError(3, "Cannot find address\n");
     }
 
 LABEL_22:
@@ -6024,7 +6025,7 @@ LABEL_22:
   {
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Address not number type\n");
+      uarpLogError(3, "Address not number type\n");
       goto LABEL_23;
     }
 
@@ -6036,7 +6037,7 @@ LABEL_22:
   {
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Couldn't get number value\n");
+      uarpLogError(3, "Couldn't get number value\n");
       goto LABEL_23;
     }
 
@@ -6083,7 +6084,7 @@ const __CFDictionary *add_property_match(const __CFDictionary *a1, const void *a
   return a1;
 }
 
-uint64_t getAHPMLibInterfaceForRID(int a1, void *a2)
+uint64_t getAHPMLibInterfaceForRID(int a1, uint64_t *a2)
 {
   valuePtr = a1;
   if (inRestore == 1 && (logLevel & 2) != 0)
@@ -6112,7 +6113,7 @@ uint64_t getAHPMLibInterfaceForRID(int a1, void *a2)
 
     else
     {
-      uarpLogError(3u, "Error finding IOKit service: 0x%x\n");
+      uarpLogError(3, "Error finding IOKit service: 0x%x\n");
     }
   }
 
@@ -6146,7 +6147,7 @@ uint64_t getAHPMLibInterfaceForRID(int a1, void *a2)
 
             else
             {
-              uarpLogError(3u, "QueryInterface returned 0x%08x\n", v15);
+              uarpLogError(3, "QueryInterface returned 0x%08x\n", v15);
             }
           }
 
@@ -6181,7 +6182,7 @@ uint64_t getAHPMLibInterfaceForRID(int a1, void *a2)
 
     else
     {
-      uarpLogError(3u, "Found no matching services\n");
+      uarpLogError(3, "Found no matching services\n");
     }
   }
 
@@ -6231,7 +6232,7 @@ uint64_t delay_ms(unsigned int a1)
   return 0;
 }
 
-uint64_t num_updatable_hpms()
+uint64_t num_updatable_hpms(uint64_t a1, uint64_t a2)
 {
   if ((ace_lookup_complete & 1) == 0)
   {
@@ -6241,18 +6242,19 @@ uint64_t num_updatable_hpms()
   return _MergedGlobals;
 }
 
-uint64_t get_rid_for_lun(int a1, _BYTE *a2)
+uint64_t get_rid_for_lun(uint64_t a1, _BYTE *a2)
 {
+  v3 = a1;
   if ((ace_lookup_complete & 1) == 0)
   {
     lookup_updatable_aces();
   }
 
   result = 3758097090;
-  if (a1 >= 1 && _MergedGlobals >= a1)
+  if (v3 >= 1 && _MergedGlobals >= v3)
   {
     result = 0;
-    *a2 = *(&_MergedGlobals + (a1 - 1) + 4);
+    *a2 = *(&_MergedGlobals + (v3 - 1) + 4);
   }
 
   return result;
@@ -6277,7 +6279,7 @@ uint64_t get_tag_for_rid(int a1, int *a2)
 
     else
     {
-      uarpLogError(3u, "Error finding matching device tree nodes: 0x%x\n");
+      uarpLogError(3, "Error finding matching device tree nodes: 0x%x\n");
     }
   }
 
@@ -6326,7 +6328,7 @@ uint64_t get_tag_for_rid(int a1, int *a2)
 
     else
     {
-      uarpLogError(3u, "Found no matching device tree nodes\n");
+      uarpLogError(3, "Found no matching device tree nodes\n");
     }
   }
 
@@ -6408,7 +6410,7 @@ uint64_t get_retimer_service(int a1, _DWORD *a2)
 
           else
           {
-            uarpLogError(3u, "Error finding the atcrt service (found the iic service)\n");
+            uarpLogError(3, "Error finding the atcrt service (found the iic service)\n");
           }
         }
       }
@@ -6423,7 +6425,7 @@ uint64_t get_retimer_service(int a1, _DWORD *a2)
 
         else
         {
-          uarpLogError(3u, "Error finding the spi-flash-parent\n");
+          uarpLogError(3, "Error finding the spi-flash-parent\n");
         }
       }
     }
@@ -6443,7 +6445,7 @@ uint64_t get_retimer_service(int a1, _DWORD *a2)
 
     else
     {
-      uarpLogError(3u, "Error finding matching device tree nodes: 0x%x\n", 0);
+      uarpLogError(3, "Error finding matching device tree nodes: 0x%x\n", 0);
     }
 
     return 3758097088;
@@ -6479,7 +6481,7 @@ uint64_t get_retimer_nor_access(io_service_t a1, unsigned int a2)
 
   else
   {
-    uarpLogError(3u, "Retimer SPI NOR access failed, value = %u, status = 0x%X\n", a2, v4);
+    uarpLogError(3, "Retimer SPI NOR access failed, value = %u, status = 0x%X\n", a2, v4);
   }
 
 LABEL_7:
@@ -6533,7 +6535,7 @@ uint64_t lookup_updatable_aces()
 
           else
           {
-            uarpLogError(3u, "Error when reading usbc-update-protocol: 0x%x\n");
+            uarpLogError(3, "Error when reading usbc-update-protocol: 0x%x\n");
           }
         }
 
@@ -6561,7 +6563,7 @@ LABEL_37:
 
               else
               {
-                uarpLogError(3u, "Couldn't find RID for service, skipping!\n");
+                uarpLogError(3, "Couldn't find RID for service, skipping!\n");
               }
             }
 
@@ -6750,7 +6752,6 @@ LABEL_19:
     retimer_nor_access = get_retimer_nor_access(v4, 0);
     if (retimer_nor_access)
     {
-      v16 = *(a1 + 102);
       if (inRestore == 1)
       {
         printf("Error when relinquishing shared SPI access on RID%u status=0x%X\n");
@@ -6758,7 +6759,7 @@ LABEL_19:
 
       else
       {
-        uarpLogError(3u, "Error when relinquishing shared SPI access on RID%u status=0x%X\n");
+        uarpLogError(3, "Error when relinquishing shared SPI access on RID%u status=0x%X\n");
       }
     }
 
@@ -6770,20 +6771,20 @@ LABEL_19:
     return retimer_nor_access;
   }
 
-  v18 = 0;
-  retimer_nor_access = get_retimer_service(*(a1 + 102), &v18);
+  v13 = 0;
+  retimer_nor_access = get_retimer_service(*(a1 + 102), &v13);
   if (retimer_nor_access)
   {
     return retimer_nor_access;
   }
 
-  v4 = v18;
-  if (!v18)
+  v4 = v13;
+  if (!v13)
   {
     return retimer_nor_access;
   }
 
-  *(a1 + 2) = v18;
+  *(a1 + 2) = v13;
   if (!a2)
   {
     goto LABEL_19;
@@ -6791,13 +6792,12 @@ LABEL_19:
 
 LABEL_7:
   v5 = *a1;
-  v19 = 0;
-  getAHPMAddressForRID(*(a1 + 102), &v19);
-  v6 = (*(*v5 + 128))(v5, v19, a2, 0);
+  v14 = 0;
+  getAHPMAddressForRID(*(a1 + 102), &v14);
+  v6 = (*(*v5 + 128))(v5, v14, a2, 0);
   if (v6)
   {
     retimer_nor_access = v6;
-    v15 = *(a1 + 102);
     if (inRestore == 1)
     {
       printf("Error when powering on retimer on RID%u status=0x%X\n");
@@ -6805,7 +6805,7 @@ LABEL_7:
 
     else
     {
-      uarpLogError(3u, "Error when powering on retimer on RID%u status=0x%X\n");
+      uarpLogError(3, "Error when powering on retimer on RID%u status=0x%X\n");
     }
   }
 
@@ -6837,7 +6837,7 @@ LABEL_7:
 
         else
         {
-          uarpLogError(3u, "RID0 cannot get exlusive access from retimer, status=0x%X, will assume implicit permission\n", retimer_nor_access);
+          uarpLogError(3, "RID0 cannot get exlusive access from retimer, status=0x%X, will assume implicit permission\n", retimer_nor_access);
         }
 
         return 0;
@@ -6850,29 +6850,27 @@ LABEL_7:
 
       else
       {
-        uarpLogError(3u, "Forcing retimer at RID%u into DFU due to failure to get exclusive access, status=0x%X\n", *(a1 + 102), retimer_nor_access);
+        uarpLogError(3, "Forcing retimer at RID%u into DFU due to failure to get exclusive access, status=0x%X\n", *(a1 + 102), retimer_nor_access);
       }
 
-      v11 = *a1;
-      v20 = 0;
-      getAHPMAddressForRID(*(a1 + 102), &v20);
-      v12 = (*(*v11 + 120))(v11, v20, 1, 0);
-      retimer_nor_access = v12;
-      if (v12)
+      v10 = *a1;
+      v15 = 0;
+      getAHPMAddressForRID(*(a1 + 102), &v15);
+      v11 = (*(*v10 + 120))(v10, v15, 1, 0);
+      retimer_nor_access = v11;
+      if (v11)
       {
-        v13 = *(a1 + 102);
         if (inRestore == 1)
         {
-          printf("Error when forcing ATCRT update on RID%u status=0x%X\n", *(a1 + 102), v12);
+          printf("Error when forcing ATCRT update on RID%u status=0x%X\n", *(a1 + 102), v11);
         }
 
         else
         {
-          uarpLogError(3u, "Error when forcing ATCRT update on RID%u status=0x%X\n", *(a1 + 102), v12);
+          uarpLogError(3, "Error when forcing ATCRT update on RID%u status=0x%X\n", *(a1 + 102), v11);
         }
 
-        (*(*v11 + 120))(v11, v20, 0, 0);
-        v17 = *(a1 + 102);
+        (*(*v10 + 120))(v10, v15, 0, 0);
         if (inRestore == 1)
         {
           printf("Failed to force retimer at RID%u into DFU, status=0x%X\n");
@@ -6880,23 +6878,19 @@ LABEL_7:
 
         else
         {
-          uarpLogError(3u, "Failed to force retimer at RID%u into DFU, status=0x%X\n");
+          uarpLogError(3, "Failed to force retimer at RID%u into DFU, status=0x%X\n");
         }
       }
     }
 
+    else if (inRestore == 1)
+    {
+      printf("RID%u not in restore and getting exclusive access failed, status=0%X\n");
+    }
+
     else
     {
-      v10 = *(a1 + 102);
-      if (inRestore == 1)
-      {
-        printf("RID%u not in restore and getting exclusive access failed, status=0%X\n");
-      }
-
-      else
-      {
-        uarpLogError(3u, "RID%u not in restore and getting exclusive access failed, status=0%X\n");
-      }
+      uarpLogError(3, "RID%u not in restore and getting exclusive access failed, status=0%X\n");
     }
   }
 
@@ -6906,13 +6900,13 @@ LABEL_7:
 int flash(void)
 {
   v3 = v0;
-  v38 = *MEMORY[0x29EDCA608];
-  v36 = 0u;
-  v37 = 0u;
+  v36 = *MEMORY[0x29EDCA608];
   v34 = 0u;
   v35 = 0u;
-  memset(v33, 0, sizeof(v33));
-  v31 = v2;
+  v32 = 0u;
+  v33 = 0u;
+  memset(v31, 0, sizeof(v31));
+  v29 = v2;
   if (v2)
   {
     v4 = 1094993513;
@@ -6952,7 +6946,7 @@ int flash(void)
 
     else
     {
-      uarpLogError(3u, "verify_only set! Should not be attempting to flash!\n");
+      uarpLogError(3, "verify_only set! Should not be attempting to flash!\n");
     }
 
     v8 = 30;
@@ -6970,7 +6964,7 @@ int flash(void)
     uarpLogInfo(3u, "Preparing to flash 0x%x bytes of image to rid %d\n", v1, *(v0 + 102));
   }
 
-  if ((v31 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
     v9 = handle_shared_spi(v3, 1);
     if (v9)
@@ -6980,29 +6974,29 @@ int flash(void)
   }
 
   v10 = *v3;
-  v32 = v4;
-  LOWORD(v27) = 64;
-  v9 = (*(*v10 + 104))(v10, 1, &v32, &v34, 0, v33, 0, 64, v27, 10, 0, 0);
+  v30 = v4;
+  LOWORD(v25) = 64;
+  v9 = (*(*v10 + 104))(v10, 1, &v30, &v32, 0, v31, 0, 64, v25, 10, 0, 0);
   if (v9)
   {
     goto LABEL_64;
   }
 
-  v11 = check_task_result(v33[0], v4);
-  if ((v31 & 1) == 0 && v11 == 4)
+  v11 = check_task_result(v31[0], v4);
+  if ((v29 & 1) == 0 && v11 == 4)
   {
     flash_cold_1(v3);
   }
 
   else
   {
-    HIDWORD(v30) = v6;
-    if (!v11 && (BYTE2(v33[0]) & 0xC0) == 0x80)
+    HIDWORD(v28) = v6;
+    if (!v11 && (BYTE2(v31[0]) & 0xC0) == 0x80)
     {
       if (v7)
       {
         v12 = 0;
-        if (v31)
+        if (v29)
         {
           v13 = 4;
         }
@@ -7017,12 +7011,12 @@ int flash(void)
         while (1)
         {
           v16 = (v7 - v12) >= 0x40 ? 64 : v7 - v12;
-          v36 = 0u;
-          v37 = 0u;
           v34 = 0u;
           v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
           __memcpy_chk();
-          v17 = CRCBuffer(&v34, 64, v14);
+          v17 = CRCBuffer(&v32, 64, v14);
           v14 = v17;
           if (inRestore == 1 && (logLevel & 2) != 0)
           {
@@ -7035,35 +7029,35 @@ int flash(void)
           }
 
           v18 = *v3;
-          v32 = v5;
-          LODWORD(v30) = 0;
-          LOWORD(v29) = 64;
-          v19 = (*(*v18 + 104))(v18, 1, &v32, &v34, 0, v33, 0, 64, v29, 10, 0, v30);
+          v30 = v5;
+          LODWORD(v28) = 0;
+          LOWORD(v27) = 64;
+          v19 = (*(*v18 + 104))(v18, 1, &v30, &v32, 0, v31, 0, 64, v27, 10, 0, v28);
           if (v19)
           {
             break;
           }
 
-          if (check_task_result(v33[0], v5) || v14 != *(v33 + v13))
+          if (check_task_result(v31[0], v5) || v14 != *(v31 + v13))
           {
             goto LABEL_56;
           }
 
           v20 = 1;
-          if (v31)
+          if (v29)
           {
             v20 = 2;
           }
 
-          if (*(v33 | v20) != v15)
+          if (*(v31 | v20) != v15)
           {
             goto LABEL_56;
           }
 
           v12 += v16;
-          if ((v12 == v7) == SLOBYTE(v33[0]) < 0)
+          if ((v12 == v7) == SLOBYTE(v31[0]) < 0)
           {
-            v21 = (SLOBYTE(v33[0]) >> 7) & 1;
+            v21 = (SLOBYTE(v31[0]) >> 7) & 1;
             if (inRestore == 1 && (logLevel & 2) != 0)
             {
               printf("Expected more data: actual_more_data=0x%X, length=0x%X, (current_index + bytes_to_write) = 0x%X\n", v21, v7, v12);
@@ -7087,7 +7081,7 @@ LABEL_62:
         handle_shared_spi(v3, 0);
         if (v8 != -536870167)
         {
-          goto LABEL_54;
+          return v8;
         }
 
         goto LABEL_57;
@@ -7095,19 +7089,19 @@ LABEL_62:
 
 LABEL_50:
       v22 = *v3;
-      v23 = HIDWORD(v30);
-      v32 = HIDWORD(v30);
-      LODWORD(v30) = 0;
-      LOWORD(v28) = 64;
-      v9 = (*(*v22 + 104))(v22, 1, &v32, 0, 0, v33, 0, 0, v28, 10, 0, v30);
+      v23 = HIDWORD(v28);
+      v30 = HIDWORD(v28);
+      LODWORD(v28) = 0;
+      LOWORD(v26) = 64;
+      v9 = (*(*v22 + 104))(v22, 1, &v30, 0, 0, v31, 0, 0, v26, 10, 0, v28);
       if (!v9)
       {
-        if (!check_task_result(v33[0], v23))
+        if (!check_task_result(v31[0], v23))
         {
           v8 = 0;
 LABEL_53:
           handle_shared_spi(v3, 0);
-          goto LABEL_54;
+          return v8;
         }
 
         goto LABEL_56;
@@ -7122,7 +7116,6 @@ LABEL_64:
 LABEL_56:
   handle_shared_spi(v3, 0);
 LABEL_57:
-  v26 = *(v3 + 102);
   if (inRestore == 1)
   {
     printf("Device error RID=0x%d\n", *(v3 + 102));
@@ -7130,13 +7123,11 @@ LABEL_57:
 
   else
   {
-    uarpLogError(3u, "Device error RID=0x%d\n", *(v3 + 102));
+    uarpLogError(3, "Device error RID=0x%d\n", *(v3 + 102));
   }
 
   v8 = -536870167;
   print_fw_update_regs(*v3);
-LABEL_54:
-  v24 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -7152,7 +7143,7 @@ uint64_t check_task_result(char a1, unsigned int a2)
 
     else
     {
-      uarpLogError(3u, "Bad task result from %c%c%c%c 4CC: 0x%x\n", HIBYTE(a2), BYTE2(a2), BYTE1(a2), a2, a1 & 0xF);
+      uarpLogError(3, "Bad task result from %c%c%c%c 4CC: 0x%x\n", HIBYTE(a2), BYTE2(a2), BYTE1(a2), a2, a1 & 0xF);
     }
   }
 
@@ -7165,8 +7156,8 @@ void print_fw_update_regs(uint64_t a1)
   if (v2)
   {
     v3 = v2;
-    v6 = 0;
-    (*(*a1 + 40))(a1, 0, 45, v2, 52, 0, &v6);
+    v5 = 0;
+    (*(*a1 + 40))(a1, 0, 45, v2, 52, 0, &v5);
     if (inRestore == 1)
     {
       puts("otpBuf:");
@@ -7174,13 +7165,12 @@ void print_fw_update_regs(uint64_t a1)
 
     else
     {
-      uarpLogError(3u, "otpBuf:\n");
+      uarpLogError(3, "otpBuf:\n");
     }
 
     v4 = 0;
     do
     {
-      v5 = v3[v4];
       if (inRestore == 1)
       {
         printf("%02X", v3[v4]);
@@ -7188,7 +7178,7 @@ void print_fw_update_regs(uint64_t a1)
 
       else
       {
-        uarpLogError(3u, "%02X", v3[v4]);
+        uarpLogError(3, "%02X", v3[v4]);
       }
 
       if ((++v4 & 0xF) == 0)
@@ -7200,7 +7190,7 @@ void print_fw_update_regs(uint64_t a1)
 
         else
         {
-          uarpLogError(3u, "\n");
+          uarpLogError(3, "\n");
         }
       }
     }
@@ -7210,34 +7200,18 @@ void print_fw_update_regs(uint64_t a1)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_1()
-{
-  result = *v0;
-  v2 = *(**v0 + 40);
-  return result;
-}
-
-void OUTLINED_FUNCTION_12()
-{
-  v2 = *v1;
-  v3 = *v0;
-  v4 = v0[1];
-  v5 = v0[2];
-  v6 = v0[3];
-}
-
 uint64_t OUTLINED_FUNCTION_14(uint64_t a1)
 {
 
-  return wait_for_mode(a1, 1095782432);
+  return wait_for_mode(a1, 1095782432, 1, 0);
 }
 
-uint64_t wait_for_mode(uint64_t a1, int a2)
+uint64_t wait_for_mode(uint64_t a1, int a2, int a3, int a4)
 {
-  v4 = 10;
+  v5 = 10;
   while (1)
   {
-    mode = get_mode(a1);
+    mode = get_mode();
     if (!mode)
     {
       break;
@@ -7250,13 +7224,13 @@ uint64_t wait_for_mode(uint64_t a1, int a2)
 
     else
     {
-      uarpLogError(3u, "Warning: Received status 0x%x when reading mode, delaying 1000ms and trying again", mode);
+      uarpLogError(3, "Warning: Received status 0x%x when reading mode, delaying 1000ms and trying again", mode);
     }
 
     delay_ms(0x3E8u);
-    if (!--v4)
+    if (!--v5)
     {
-      v6 = 3758097129;
+      v7 = 3758097129;
       if (inRestore == 1)
       {
         printf("Ace never enterred mode 0x%x\n");
@@ -7264,10 +7238,10 @@ uint64_t wait_for_mode(uint64_t a1, int a2)
 
       else
       {
-        uarpLogError(3u, "Ace never enterred mode 0x%x\n");
+        uarpLogError(3, "Ace never enterred mode 0x%x\n");
       }
 
-      return v6;
+      return v7;
     }
   }
 
@@ -7276,7 +7250,7 @@ uint64_t wait_for_mode(uint64_t a1, int a2)
     return 0;
   }
 
-  v6 = 3758097129;
+  v7 = 3758097129;
   if (inRestore)
   {
     printf("Ace in unexpected mode 0x%08x\n");
@@ -7284,18 +7258,17 @@ uint64_t wait_for_mode(uint64_t a1, int a2)
 
   else
   {
-    uarpLogError(3u, "Ace in unexpected mode 0x%08x\n");
+    uarpLogError(3, "Ace in unexpected mode 0x%08x\n");
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t get_pers_params(uint64_t a1)
 {
-  v10 = *MEMORY[0x29EDCA608];
-  v7 = 0;
+  v8 = *MEMORY[0x29EDCA608];
   __s1 = 0;
-  v9 = 0;
+  v7 = 0;
   if (*(a1 + 81))
   {
     v4 = 26;
@@ -7320,7 +7293,7 @@ uint64_t get_pers_params(uint64_t a1)
 
       else
       {
-        uarpLogError(3u, "ERROR: Unexpected read length for register 0x2c: 0x%llx\n");
+        uarpLogError(3, "ERROR: Unexpected read length for register 0x2c: 0x%llx\n");
       }
 
       v4 = 39;
@@ -7328,15 +7301,14 @@ uint64_t get_pers_params(uint64_t a1)
   }
 
   handle_shared_spi(a1, 0);
-  v5 = *MEMORY[0x29EDCA608];
   return v4;
 }
 
-uint64_t get_mode(uint64_t a1)
+uint64_t get_mode()
 {
-  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_9();
-  result = v1();
+  result = v0();
   if (!result)
   {
     return 3758097129;
@@ -7347,7 +7319,6 @@ uint64_t get_mode(uint64_t a1)
 
 void flash_cold_1(uint64_t a1)
 {
-  v1 = *(a1 + 102);
   if (inRestore)
   {
     printf("Failed SFWi on RID %d with 'Flash Busy' error - check SPI flash seating\n", *(a1 + 102));
@@ -7355,15 +7326,16 @@ void flash_cold_1(uint64_t a1)
 
   else
   {
-    uarpLogError(3u, "Failed SFWi on RID %d with 'Flash Busy' error - check SPI flash seating\n", *(a1 + 102));
+    uarpLogError(3, "Failed SFWi on RID %d with 'Flash Busy' error - check SPI flash seating\n", *(a1 + 102));
   }
 }
 
-uint64_t USBCUpdateBoardID(uint64_t a1, int a2, void *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateBoardID(uint64_t a1, int a2, void *a3, size_t a4, unsigned int *a5)
 {
+  v6 = a4;
   if (!a1 || a4 < 8 || BackendGetPersParam(*(a1 + 1536)))
   {
-    generic_copyout(0, a3, a4, a5);
+    generic_copyout(0, a3, v6, a5);
   }
 
   else
@@ -7375,7 +7347,7 @@ uint64_t USBCUpdateBoardID(uint64_t a1, int a2, void *a3, unsigned int a4, int *
   return 0;
 }
 
-void generic_copyout(uint64_t a1, _DWORD *a2, int a3, int *a4)
+void generic_copyout(uint64_t a1, _DWORD *a2, unsigned int a3, unsigned int *a4)
 {
   if (a3 > 3)
   {
@@ -7412,7 +7384,7 @@ LABEL_11:
   *a4 = a3;
 }
 
-uint64_t USBCUpdateChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7428,7 +7400,7 @@ uint64_t USBCUpdateChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int 
   return 0;
 }
 
-uint64_t USBCUpdateChipRevision(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateChipRevision(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7444,7 +7416,7 @@ uint64_t USBCUpdateChipRevision(uint64_t a1, int a2, _DWORD *a3, unsigned int a4
   return 0;
 }
 
-uint64_t USBCUpdateECID(uint64_t a1, int a2, void *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateECID(uint64_t a1, int a2, void *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 8 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7460,7 +7432,7 @@ uint64_t USBCUpdateECID(uint64_t a1, int a2, void *a3, unsigned int a4, int *a5)
   return 0;
 }
 
-uint64_t USBCUpdateSecurityDomain(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateSecurityDomain(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7476,7 +7448,7 @@ uint64_t USBCUpdateSecurityDomain(uint64_t a1, int a2, _DWORD *a3, unsigned int 
   return 0;
 }
 
-uint64_t USBCUpdateSecurityMode(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateSecurityMode(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7492,7 +7464,7 @@ uint64_t USBCUpdateSecurityMode(uint64_t a1, int a2, _DWORD *a3, unsigned int a4
   return 0;
 }
 
-uint64_t USBCUpdateProductionMode(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateProductionMode(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7508,7 +7480,7 @@ uint64_t USBCUpdateProductionMode(uint64_t a1, int a2, _DWORD *a3, unsigned int 
   return 0;
 }
 
-uint64_t USBCUpdateChipEpoch(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateChipEpoch(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7524,7 +7496,7 @@ uint64_t USBCUpdateChipEpoch(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, i
   return 0;
 }
 
-uint64_t USBCUpdatePrefixNeedsLUN(int a1, int a2, _BYTE *a3, int a4, int *a5)
+uint64_t USBCUpdatePrefixNeedsLUN(int a1, int a2, _BYTE *a3, unsigned int a4, unsigned int *a5)
 {
   if (a3 && a4)
   {
@@ -7540,7 +7512,7 @@ uint64_t USBCUpdatePrefixNeedsLUN(int a1, int a2, _BYTE *a3, int a4, int *a5)
   return 0;
 }
 
-uint64_t USBCUpdateSuffixNeedsLUN(int a1, int a2, _BYTE *a3, int a4, int *a5)
+uint64_t USBCUpdateSuffixNeedsLUN(int a1, int a2, _BYTE *a3, unsigned int a4, unsigned int *a5)
 {
   if (a3 && a4)
   {
@@ -7556,7 +7528,7 @@ uint64_t USBCUpdateSuffixNeedsLUN(int a1, int a2, _BYTE *a3, int a4, int *a5)
   return 0;
 }
 
-uint64_t USBCUpdateTag(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateTag(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (a1 && a3 && a4 >= 4 && !BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7572,7 +7544,7 @@ uint64_t USBCUpdateTag(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5
   return 0;
 }
 
-uint64_t USBCUpdateRequiresPersonalization(uint64_t a1, int a2, BOOL *a3, int a4, int *a5)
+uint64_t USBCUpdateRequiresPersonalization(uint64_t a1, int a2, BOOL *a3, unsigned int a4, unsigned int *a5)
 {
   if (a1 && a3 && a4)
   {
@@ -7588,7 +7560,7 @@ uint64_t USBCUpdateRequiresPersonalization(uint64_t a1, int a2, BOOL *a3, int a4
   return 0;
 }
 
-uint64_t USBCUpdateAPBoardID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateAPBoardID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7604,7 +7576,7 @@ uint64_t USBCUpdateAPBoardID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, i
   return 0;
 }
 
-uint64_t USBCUpdateAPChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateAPChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (!a1 || a4 < 4 || BackendGetPersParam(*(a1 + 1536)))
   {
@@ -7620,7 +7592,7 @@ uint64_t USBCUpdateAPChipID(uint64_t a1, int a2, _DWORD *a3, unsigned int a4, in
   return 0;
 }
 
-uint64_t USBCUpdateInfoUnsupported(int a1, int a2, _DWORD *a3, unsigned int a4, int *a5)
+uint64_t USBCUpdateInfoUnsupported(int a1, int a2, _DWORD *a3, unsigned int a4, unsigned int *a5)
 {
   if (a4 >= 4)
   {
@@ -7715,19 +7687,11 @@ uint64_t fAssetProcessingNotification2_3(uint64_t a1, uint64_t a2, void *a3)
   return uarpPlatformEndpointAssetFullyStaged(a1, **(a1 + 1520));
 }
 
-void OUTLINED_FUNCTION_2_0()
+uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  v3 = v0[42];
-  v4 = v0[43];
-  v1 = v0[40];
-  v2 = v0[41];
-}
+  va_start(va, a12);
 
-uint64_t OUTLINED_FUNCTION_3_0(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-
-  return parse_serial_string_u64(v7, a2, va);
+  return parse_serial_string_u64(v12, a2, va);
 }
 
 uint64_t fDynamicAssetOffered(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7797,7 +7761,7 @@ uint64_t IM4MDataComplete(uint64_t a1, uint64_t a2)
 
     else
     {
-      uarpLogError(3u, "Failed to build and Stage personalized FW: 0x%x\n", v4);
+      uarpLogError(3, "Failed to build and Stage personalized FW: 0x%x\n", v4);
     }
 
     return uarpPlatformEndpointAssetAbandon(a1, a1 + 1248, a2, 2560);
@@ -7857,7 +7821,7 @@ LABEL_15:
 
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Error allocating info\n");
+      uarpLogError(3, "Error allocating info\n");
       return 0;
     }
 
@@ -7868,7 +7832,7 @@ LABEL_15:
   {
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Error allocating accessory\n");
+      uarpLogError(3, "Error allocating accessory\n");
       return 0;
     }
 
@@ -7993,7 +7957,7 @@ LABEL_26:
 
 void fAssetAllHeadersAndMetaDataComplete_0(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v73 = *MEMORY[0x29EDCA608];
   v3 = 30;
   if (!a1)
   {
@@ -8060,7 +8024,7 @@ LABEL_128:
     uarpPlatformEndpointAssetAbandon(v5, v5 + 1248, *v4, 2304);
 LABEL_129:
     fAssetAllHeadersAndMetaDataComplete_cold_1(v3);
-    goto LABEL_148;
+    return;
   }
 
   if (!*(v5 + 1536))
@@ -8079,8 +8043,8 @@ LABEL_152:
   }
 
   v12 = v11;
-  v70 = 0;
   v69 = 0;
+  v68 = 0;
   PersParam = BackendGetPersParam(*(v5 + 1536));
   if (PersParam)
   {
@@ -8090,7 +8054,7 @@ LABEL_152:
 
   if (inRestore == 1 && (logLevel & 2) != 0)
   {
-    printf("Searching for Board ID 0x%llx\n", v70);
+    printf("Searching for Board ID 0x%llx\n", v69);
     if (!v10)
     {
 LABEL_107:
@@ -8103,7 +8067,7 @@ LABEL_127:
 
   else
   {
-    uarpLogInfo(3u, "Searching for Board ID 0x%llx\n", v70);
+    uarpLogInfo(3u, "Searching for Board ID 0x%llx\n", v69);
     if (!v10)
     {
       goto LABEL_107;
@@ -8112,26 +8076,26 @@ LABEL_127:
 
   v14 = 0;
   v15 = 0;
+  v61 = 0;
   v62 = 0;
-  v63 = 0;
-  v56 = 0xFFFF;
-  v59 = v4;
-  v60 = v5;
-  v57 = v10;
-  v58 = v12;
+  v55 = 0xFFFF;
+  v58 = v4;
+  v59 = v5;
+  v56 = v10;
+  v57 = v12;
   do
   {
-    memset(v68, 0, sizeof(v68));
-    PayloadInfo = uarpAssetQueryPayloadInfo(v5, *v4, v15, v68);
+    memset(v67, 0, sizeof(v67));
+    PayloadInfo = uarpAssetQueryPayloadInfo(v5, *v4, v15, v67);
     if (PayloadInfo)
     {
       goto LABEL_149;
     }
 
-    v17 = uarpTagStructPack32(v68);
+    v17 = uarpTagStructPack32(v67);
     *(v12 + v14) = uarpNtohl(v17);
     PayloadMetaData = uarpAssetQueryPayloadMetaData(v5, *v4, v15);
-    v61 = v14;
+    v60 = v14;
     if (PayloadMetaData)
     {
       v19 = PayloadMetaData;
@@ -8161,23 +8125,23 @@ LABEL_125:
             uarpLogInfo(3u, "Found Board ID 0x%llx\n", v23);
           }
 
-          if (v24 != v70)
+          if (v24 != v69)
           {
             break;
           }
 
           v3 = 15;
-          if (LOBYTE(v68[0]) != 68 || BYTE1(v68[0]) != 76 || v56 != 0xFFFF)
+          if (LOBYTE(v67[0]) != 68 || BYTE1(v67[0]) != 76 || v55 != 0xFFFF)
           {
             goto LABEL_126;
           }
 
           v22 = *(v22 + 16);
           v20 = 1;
-          v56 = v21;
+          v55 = v21;
           if (!v22)
           {
-            v56 = v21;
+            v55 = v21;
             goto LABEL_45;
           }
         }
@@ -8192,8 +8156,8 @@ LABEL_125:
       }
 
 LABEL_45:
-      v67 = 0;
       v66 = 0;
+      v65 = 0;
       PayloadInfo = BackendGetPersParam(*(v5 + 1536));
       if (!PayloadInfo)
       {
@@ -8244,7 +8208,7 @@ LABEL_45:
 
               else
               {
-                uarpLogError(3u, "Non-Fatal error sending tag hint(0x%x) to backend: 0x%x\n", v44, v45);
+                uarpLogError(3, "Non-Fatal error sending tag hint(0x%x) to backend: 0x%x\n", v44, v45);
               }
             }
           }
@@ -8280,17 +8244,17 @@ LABEL_45:
                       goto LABEL_95;
                     }
 
-                    v71 = *v36;
-                    v72 = v30[16];
-                    v73 = 0;
+                    v70 = *v36;
+                    v71 = v30[16];
+                    v72 = 0;
                     if (inRestore == 1 && (logLevel & 2) != 0)
                     {
-                      printf("Found matching tags %s\n", &v71);
+                      printf("Found matching tags %s\n", &v70);
                     }
 
                     else
                     {
-                      uarpLogInfo(3u, "Found matching tags %s\n", &v71);
+                      uarpLogInfo(3u, "Found matching tags %s\n", &v70);
                     }
 
                     v37 = *(v30 + 13);
@@ -8322,8 +8286,8 @@ LABEL_45:
               if (v31 > v27)
               {
 LABEL_95:
-                v4 = v59;
-                v5 = v60;
+                v4 = v58;
+                v5 = v59;
                 goto LABEL_93;
               }
 
@@ -8331,11 +8295,11 @@ LABEL_95:
               {
                 if (v28)
                 {
-                  v39 = v67 < v31 || v67 > v27;
+                  v39 = v66 < v31 || v66 > v27;
                   v40 = !v39;
                   if (v39)
                   {
-                    v41 = v63;
+                    v41 = v62;
                   }
 
                   else
@@ -8343,24 +8307,24 @@ LABEL_95:
                     v41 = v29;
                   }
 
-                  v42 = v62;
+                  v42 = v61;
                   if (v40)
                   {
                     v42 = v28;
                   }
 
-                  v62 = v42;
-                  v63 = v41;
+                  v61 = v42;
+                  v62 = v41;
                 }
 
-                v4 = v59;
-                v5 = v60;
+                v4 = v58;
+                v5 = v59;
               }
 
               else
               {
-                v4 = v59;
-                v5 = v60;
+                v4 = v58;
+                v5 = v59;
               }
             }
           }
@@ -8377,89 +8341,89 @@ LABEL_93:
 LABEL_149:
       v3 = PayloadInfo;
 LABEL_126:
-      v12 = v58;
+      v12 = v57;
       goto LABEL_127;
     }
 
 LABEL_97:
-    v14 = v61 + 1;
-    v15 = v61 + 1;
-    v12 = v58;
+    v14 = v60 + 1;
+    v15 = v60 + 1;
+    v12 = v57;
   }
 
-  while (v61 + 1 != v57);
-  if (!v63)
+  while (v60 + 1 != v56);
+  if (!v62)
   {
     goto LABEL_107;
   }
 
   v48 = 0;
-  while (*(v58 + v48) != v63)
+  while (*(v57 + v48) != v62)
   {
-    if (v57 == ++v48)
+    if (v56 == ++v48)
     {
       goto LABEL_107;
     }
   }
 
   *(v4 + 6) = v48;
-  if (!v62)
+  if (!v61)
   {
     goto LABEL_107;
   }
 
   v49 = 0;
-  while (*(v58 + v49) != v62)
+  while (*(v57 + v49) != v61)
   {
-    if (v57 == ++v49)
+    if (v56 == ++v49)
     {
       goto LABEL_107;
     }
   }
 
   *(v4 + 7) = v49;
-  if (v56 == 0xFFFF)
+  if (v55 == 0xFFFF)
   {
     goto LABEL_107;
   }
 
-  *(v4 + 8) = v56;
-  uarpFree(v58);
-  memset(v65, 0, sizeof(v65));
-  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 6), v65);
+  *(v4 + 8) = v55;
+  uarpFree(v57);
+  memset(v64, 0, sizeof(v64));
+  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 6), v64);
   if (NumberOfPayloads)
   {
     goto LABEL_151;
   }
 
-  NumberOfPayloads = FWImageSetComponentSize(v4[3], 0, DWORD2(v65[1]));
+  NumberOfPayloads = FWImageSetComponentSize(v4[3], 0, DWORD2(v64[1]));
   if (NumberOfPayloads)
   {
     goto LABEL_151;
   }
 
-  *(v4 + 52) = *(v65 + 4);
-  v64 = 0;
-  NumberOfPayloads = uarpVersionToAceVersion(v65 + 1, &v64, 0);
+  *(v4 + 52) = *(v64 + 4);
+  v63 = 0;
+  NumberOfPayloads = uarpVersionToAceVersion(v64 + 1, &v63, 0);
   if (NumberOfPayloads)
   {
     goto LABEL_151;
   }
 
-  NumberOfPayloads = FWImageSetFWVersion(v4[3], v64);
+  NumberOfPayloads = FWImageSetFWVersion(v4[3], v63);
   if (NumberOfPayloads)
   {
     goto LABEL_151;
   }
 
-  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 7), v65);
+  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 7), v64);
   if (NumberOfPayloads)
   {
     goto LABEL_151;
   }
 
-  v50 = DWORD2(v65[1]);
-  *(v4 + 16) = BYTE4(v65[0]) | (BYTE8(v65[0]) << 8);
+  v50 = DWORD2(v64[1]);
+  *(v4 + 16) = BYTE4(v64[0]) | (BYTE8(v64[0]) << 8);
   NumberOfPayloads = FWImageSetComponentSize(v4[3], 1u, v50);
   if (NumberOfPayloads)
   {
@@ -8474,26 +8438,26 @@ LABEL_97:
       goto LABEL_152;
     }
 
-    v68[0] = 0uLL;
-    LODWORD(v71) = 0;
-    LOWORD(v70) = 0;
+    v67[0] = 0uLL;
+    LODWORD(v70) = 0;
+    LOWORD(v69) = 0;
     NumberOfPayloads = BackendGetActiveVersion(v51);
     if (!NumberOfPayloads)
     {
-      NumberOfPayloads = aceVersionToUARPVersion(v71, v70, v68);
+      NumberOfPayloads = aceVersionToUARPVersion(v70, v69, v67);
       if (!NumberOfPayloads)
       {
         if (inRestore == 1 && (logLevel & 2) != 0)
         {
-          printf("validate_same_version: existing = %d.%d.%d.%d, new = %d.%d.%d.%d\n", LODWORD(v68[0]), DWORD1(v68[0]), DWORD2(v68[0]), HIDWORD(v68[0]), *(v4 + 13), *(v4 + 14), *(v4 + 15), *(v4 + 16));
+          printf("validate_same_version: existing = %d.%d.%d.%d, new = %d.%d.%d.%d\n", LODWORD(v67[0]), DWORD1(v67[0]), DWORD2(v67[0]), HIDWORD(v67[0]), *(v4 + 13), *(v4 + 14), *(v4 + 15), *(v4 + 16));
         }
 
         else
         {
-          uarpLogInfo(3u, "validate_same_version: existing = %d.%d.%d.%d, new = %d.%d.%d.%d\n", LODWORD(v68[0]), DWORD1(v68[0]), DWORD2(v68[0]), HIDWORD(v68[0]), *(v4 + 13), *(v4 + 14), *(v4 + 15), *(v4 + 16));
+          uarpLogInfo(3u, "validate_same_version: existing = %d.%d.%d.%d, new = %d.%d.%d.%d\n", LODWORD(v67[0]), DWORD1(v67[0]), DWORD2(v67[0]), HIDWORD(v67[0]), *(v4 + 13), *(v4 + 14), *(v4 + 15), *(v4 + 16));
         }
 
-        if (uarpVersionCompare(v68, v4 + 13))
+        if (uarpVersionCompare(v67, v4 + 13))
         {
           v3 = 24;
         }
@@ -8503,7 +8467,7 @@ LABEL_97:
           v54 = uarpPlatformEndpointAssetFullyStaged(v5, *v4);
           if (!v54)
           {
-            goto LABEL_148;
+            return;
           }
 
           v3 = v54;
@@ -8514,7 +8478,7 @@ LABEL_97:
 
           else
           {
-            uarpLogError(3u, "Failed to mark asset as fully staged when verifying version: 0x%x\n", v54);
+            uarpLogError(3, "Failed to mark asset as fully staged when verifying version: 0x%x\n", v54);
           }
         }
 
@@ -8525,7 +8489,7 @@ LABEL_97:
     goto LABEL_151;
   }
 
-  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 8), v65);
+  NumberOfPayloads = uarpAssetQueryPayloadInfo(v5, *v4, *(v4 + 8), v64);
   if (NumberOfPayloads)
   {
     goto LABEL_151;
@@ -8534,7 +8498,7 @@ LABEL_97:
   if (*(v4 + 33))
   {
     v52 = v4[3];
-    v53 = DWORD2(v65[1]);
+    v53 = DWORD2(v64[1]);
   }
 
   else
@@ -8581,9 +8545,6 @@ LABEL_97:
   {
     goto LABEL_151;
   }
-
-LABEL_148:
-  v55 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t fAssetProcessingNotificationAck_2()
@@ -8642,7 +8603,7 @@ uint64_t fSendMessage(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
     result = (*(a1 + 1416))(*(a1 + 1432), a1, a3);
     if (!result)
     {
-      uarpPlatformEndpointSendMessageComplete(a1, a1 + 1248, a3);
+      uarpPlatformEndpointSendMessageComplete();
       return 0;
     }
   }
@@ -8650,7 +8611,7 @@ uint64_t fSendMessage(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   return result;
 }
 
-uint64_t fSuperBinaryOffered(uint64_t result, uint64_t a2, uint64_t a3)
+char *fSuperBinaryOffered(char *result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
@@ -8661,19 +8622,19 @@ uint64_t fSuperBinaryOffered(uint64_t result, uint64_t a2, uint64_t a3)
       if (result)
       {
         v5 = result;
-        v6 = *(v4 + 1520);
+        v6 = *(v4 + 190);
         if (v6)
         {
           FWImageDestroy((v6 + 24));
-          uarpFree(*(v4 + 1520));
+          uarpFree(*(v4 + 190));
         }
 
-        *(v4 + 1520) = v5;
+        *(v4 + 190) = v5;
         *v5 = a3;
-        result = FWImageCreate((v5 + 24));
+        result = FWImageCreate(v5 + 3);
         if (!result)
         {
-          *(v5 + 32) = 0;
+          *(v5 + 16) = 0;
           bzero(v7 + 8, 0xD8uLL);
           *&v7[0] = fAssetReady_1;
           *&v7[4] = fPayloadData_1;
@@ -8681,8 +8642,8 @@ uint64_t fSuperBinaryOffered(uint64_t result, uint64_t a2, uint64_t a3)
           *(&v7[8] + 1) = fAssetReleased2_0;
           *&v7[11] = fAssetAllHeadersAndMetaDataComplete_0;
           *(&v7[9] + 1) = fAssetProcessingNotificationAck_2;
-          memcpy((v4 + 1544), v7, 0xE0uLL);
-          return uarpPlatformEndpointAssetAccept(v4, v4 + 1248, a3, v5, v7);
+          memcpy(v4 + 1544, v7, 0xE0uLL);
+          return uarpPlatformEndpointAssetAccept(v4, (v4 + 1248), a3, v5, v7);
         }
       }
     }
@@ -8749,7 +8710,7 @@ uint64_t _sendMsgToAccessory(uint64_t a1, uint64_t a2, unsigned __int16 *a3, uns
 
           else
           {
-            uarpLogError(3u, "Failed to recv message, status = 0x%x\n", v7);
+            uarpLogError(3, "Failed to recv message, status = 0x%x\n", v7);
           }
 
           if (a4 >= 6)
@@ -8758,16 +8719,15 @@ uint64_t _sendMsgToAccessory(uint64_t a1, uint64_t a2, unsigned __int16 *a3, uns
             v9 = *(a3 + 1);
             v10 = *(a3 + 2);
             v11 = *(a3 + 3);
-            v12 = *(a3 + 4);
-            v13 = *(a3 + 5);
+            v12 = *(a3 + 5);
             if (inRestore == 1)
             {
-              printf("Failing message: 0x%02x%02x%02x%02x%02x%02x", v8, v9, v10, v11, *(a3 + 4), v13);
+              printf("Failing message: 0x%02x%02x%02x%02x%02x%02x", v8, v9, v10, v11, *(a3 + 4), v12);
             }
 
             else
             {
-              uarpLogError(3u, "Failing message: 0x%02x%02x%02x%02x%02x%02x", v8, v9, v10, v11, *(a3 + 4), v13);
+              uarpLogError(3, "Failing message: 0x%02x%02x%02x%02x%02x%02x", v8, v9, v10, v11, *(a3 + 4), v12);
             }
           }
         }
@@ -8826,11 +8786,11 @@ uint64_t _USBCUpdateFinalize(int a1, void **a2)
   return 0;
 }
 
-uint64_t buildAndStageImage(uint64_t a1, uint64_t a2)
+uint64_t buildAndStageImage(uint64_t a1, uint64_t *a2)
 {
   v12 = 0;
   v11 = 0;
-  v4 = FWImageCreateImageBuffer(*(a2 + 24), &v12, &v11);
+  v4 = FWImageCreateImageBuffer(a2[3], &v12, &v11);
   if (v4)
   {
     return v4;
@@ -8847,7 +8807,7 @@ uint64_t buildAndStageImage(uint64_t a1, uint64_t a2)
 
     else
     {
-      uarpLogError(3u, "Error staging FW: 0x%x, abandoning asset\n", v5);
+      uarpLogError(3, "Error staging FW: 0x%x, abandoning asset\n", v5);
     }
 
     uarpPlatformEndpointAssetAbandon(a1, a1 + 1248, *a2, 2560);
@@ -8905,7 +8865,7 @@ LABEL_17:
 
   else
   {
-    uarpLogError(3u, "Failed to free FW Image buffer, stageImage status = 0x%x, DestroyImageBuffer status = 0x%x\n", v6, v8);
+    uarpLogError(3, "Failed to free FW Image buffer, stageImage status = 0x%x, DestroyImageBuffer status = 0x%x\n", v6, v8);
   }
 
   return v9;
@@ -9023,7 +8983,7 @@ void USBCUpdateQueryLogicalUnitNumber_cold_1()
 
   else
   {
-    uarpLogError(3u, "Error creating backend: 0x%x\n", v0);
+    uarpLogError(3, "Error creating backend: 0x%x\n", v0);
   }
 }
 
@@ -9037,7 +8997,7 @@ void USBCUpdateQueryLogicalUnitNumber_cold_2()
 
   else
   {
-    uarpLogError(3u, "Error querying RID: 0x%x\n", v0);
+    uarpLogError(3, "Error querying RID: 0x%x\n", v0);
   }
 }
 
@@ -9051,7 +9011,7 @@ void USBCUpdateQueryLogicalUnitNumber_cold_3()
 
   else
   {
-    uarpLogError(3u, "Unexpected RID size: 0x%x\n", v0);
+    uarpLogError(3, "Unexpected RID size: 0x%x\n", v0);
   }
 }
 
@@ -9065,7 +9025,7 @@ void USBCUpdateQueryLogicalUnitNumber_cold_4()
 
   else
   {
-    uarpLogError(3u, "Error getting active version: 0x%x\n", v0);
+    uarpLogError(3, "Error getting active version: 0x%x\n", v0);
   }
 }
 
@@ -9079,7 +9039,7 @@ void USBCUpdateQueryLogicalUnitNumber_cold_5()
 
   else
   {
-    uarpLogError(3u, "Error converting to UARP version: 0x%x\n", v0);
+    uarpLogError(3, "Error converting to UARP version: 0x%x\n", v0);
   }
 }
 
@@ -9094,7 +9054,7 @@ void fAssetAllHeadersAndMetaDataComplete_cold_1(unsigned int a1)
 
   else
   {
-    uarpLogError(3u, "ERROR: failed in fAssetAllHeadersAndMetaDataComplete, status = 0x%x (%s)\n", a1, v3);
+    uarpLogError(3, "ERROR: failed in fAssetAllHeadersAndMetaDataComplete, status = 0x%x (%s)\n", a1, v3);
   }
 }
 
@@ -9156,7 +9116,7 @@ uint64_t parse_serial_string(char *a1, const char *a2, unsigned __int8 *a3, uint
   {
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Cannot find start_of_needle\n");
+      uarpLogError(3, "Cannot find start_of_needle\n");
       return 30;
     }
 
@@ -9171,7 +9131,7 @@ LABEL_7:
   {
     if (inRestore != 1)
     {
-      uarpLogError(3u, "Cannot find start of buffer\n");
+      uarpLogError(3, "Cannot find start of buffer\n");
       return 30;
     }
 
@@ -9212,7 +9172,7 @@ LABEL_11:
 
     else
     {
-      uarpLogError(3u, "Reading of start_of_buffer failed\n");
+      uarpLogError(3, "Reading of start_of_buffer failed\n");
     }
   }
 
@@ -9248,7 +9208,7 @@ LABEL_36:
 
       else
       {
-        uarpLogError(3u, "Reading bytes failed, nibbles_in_field=0x%zX, buffer=%p, *buffer=0x%hhX, buffer_size=0x%zX, count=0x%zX, start_of_buf=%s\n", v14, a3, v17, a4, v15, v12);
+        uarpLogError(3, "Reading bytes failed, nibbles_in_field=0x%zX, buffer=%p, *buffer=0x%hhX, buffer_size=0x%zX, count=0x%zX, start_of_buf=%s\n", v14, a3, v17, a4, v15, v12);
       }
     }
 
@@ -9266,7 +9226,7 @@ LABEL_36:
 
       else
       {
-        uarpLogError(3u, "Buffer size = 0! ");
+        uarpLogError(3, "Buffer size = 0! ");
       }
 
       if (inRestore == 1)
@@ -9276,7 +9236,7 @@ LABEL_36:
 
       else
       {
-        uarpLogError(3u, "nibbles_in_field=0x%zX, buffer=%p, *buffer=0x%hhX, buffer_size=0x%zX, count=0x%zX, start_of_buf=%s\n", v14, 0, 0, a4, v15, v12);
+        uarpLogError(3, "nibbles_in_field=0x%zX, buffer=%p, *buffer=0x%hhX, buffer_size=0x%zX, count=0x%zX, start_of_buf=%s\n", v14, 0, 0, a4, v15, v12);
       }
     }
 
@@ -9370,77 +9330,71 @@ uint64_t apChipForAceBoard(uint64_t a1)
 
 void UarpRestoreLayer3LogError_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_error_impl(&dword_299E58000, a2, OS_LOG_TYPE_ERROR, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_error_impl(&dword_299E58000, a2, OS_LOG_TYPE_ERROR, "%s", &v2, 0xCu);
 }
 
 void UarpRestoreLayer3LogDebug_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_debug_impl(&dword_299E58000, a2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_debug_impl(&dword_299E58000, a2, OS_LOG_TYPE_DEBUG, "%s", &v2, 0xCu);
 }
 
 void UarpRestoreLayer3LogFault_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 136315138;
-  v4 = a1;
-  _os_log_fault_impl(&dword_299E58000, a2, OS_LOG_TYPE_FAULT, "%s", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 136315138;
+  v3 = a1;
+  _os_log_fault_impl(&dword_299E58000, a2, OS_LOG_TYPE_FAULT, "%s", &v2, 0xCu);
 }
 
 void uarpLogError_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpLogError_logBuffer;
+  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpLogDebug_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = &uarpLogDebug_logBuffer;
-  _os_log_debug_impl(&dword_299E58000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = uarpLogDebug_logBuffer;
+  _os_log_debug_impl(&dword_299E58000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void uarpLogFault_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpLogFault_logBuffer;
+  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpPlatformDarwinLogError_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x29EDCA608];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = uarpPlatformDarwinLogError_logBuffer;
+  OUTLINED_FUNCTION_0(&dword_299E58000, a1, a3, "%s\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void uarpPlatformDarwinLogDebug_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = &uarpPlatformDarwinLogDebug_logBuffer;
-  _os_log_debug_impl(&dword_299E58000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = uarpPlatformDarwinLogDebug_logBuffer;
+  _os_log_debug_impl(&dword_299E58000, log, OS_LOG_TYPE_DEBUG, "%s\n", &v1, 0xCu);
 }
 
 void uarpPlatformDarwinLogFault_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v2 = 136315138;
-  v3 = &uarpPlatformDarwinLogFault_logBuffer;
-  _os_log_fault_impl(&dword_299E58000, log, OS_LOG_TYPE_FAULT, "%s\n", &v2, 0xCu);
-  v1 = *MEMORY[0x29EDCA608];
+  v3 = *MEMORY[0x29EDCA608];
+  v1 = 136315138;
+  v2 = uarpPlatformDarwinLogFault_logBuffer;
+  _os_log_fault_impl(&dword_299E58000, log, OS_LOG_TYPE_FAULT, "%s\n", &v1, 0xCu);
 }
 
 uint64_t personalizationBackendCreate(void *a1, uint64_t a2, uint64_t a3)
@@ -9661,7 +9615,7 @@ uint64_t personalizationBackendTagHint(uint64_t a1, int a2)
 
       else
       {
-        uarpLogError(3u, "Warning: Frontend expects tag to be %d, but Backend is using tag %d\n", a2, v4);
+        uarpLogError(3, "Warning: Frontend expects tag to be %d, but Backend is using tag %d\n", a2, v4);
       }
     }
 
@@ -9685,4 +9639,24 @@ uint64_t personalizationBackendTagHint(uint64_t a1, int a2)
   }
 
   return result;
+}
+
+uint64_t FWImageCreate(void *a1)
+{
+  if (!a1)
+  {
+    return 30;
+  }
+
+  v2 = uarpZalloc(0x48uLL);
+  *a1 = v2;
+  if (v2)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return 11;
+  }
 }

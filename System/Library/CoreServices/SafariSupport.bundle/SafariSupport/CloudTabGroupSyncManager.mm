@@ -12,6 +12,7 @@
 - (NSString)databasePath;
 - (id)_tabRecordIDFromTabUUID:(id)d inTabCollection:(id)collection;
 - (id)cloudTabGroupSyncCoordinator:(id)coordinator accountPropertiesStoreForCollection:(id)collection;
+- (void)_beginSyncingForTrigger:(id)trigger isLocalChange:(BOOL)change group:(id)group completionHandler:(id)handler;
 - (void)_cancelSyncTimer;
 - (void)_pcsIdentitiesChangedNotification:(id)notification;
 - (void)_processLocalTabOperation:(id)operation completionHandler:(id)handler;
@@ -20,6 +21,7 @@
 - (void)addParticipants:(id)participants toShare:(id)share completionHandler:(id)handler;
 - (void)addSyncObserver:(id)observer;
 - (void)beginSharingTabGroupWithUUID:(id)d completionHandler:(id)handler;
+- (void)beginSyncingForTrigger:(id)trigger isLocalChange:(BOOL)change completionHandler:(id)handler;
 - (void)clearCachedRecordZone;
 - (void)cloudTabGroupSyncCoordinator:(id)coordinator activeParticipantsDidUpdateInTabGroupWithUUID:(id)d;
 - (void)cloudTabGroupSyncCoordinator:(id)coordinator activeParticipantsDidUpdateInTabWithUUID:(id)d;
@@ -50,18 +52,19 @@
 
 - (void)scheduleSyncIfNeeded
 {
-  if ([(CloudTabGroupSyncManager *)self _hasEntitlementForSensitiveOperation])
+  _hasEntitlementForSensitiveOperation = [(CloudTabGroupSyncManager *)self _hasEntitlementForSensitiveOperation];
+  if (_hasEntitlementForSensitiveOperation)
   {
     WBSDispatchAsyncToMainQueueWithAutoreleasePool();
   }
 
   else
   {
-    v2 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_hasEntitlementForSensitiveOperation, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Not scheduling a sync because entitlement is missing", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Not scheduling a sync because entitlement is missing", buf, 2u);
     }
   }
 }
@@ -91,31 +94,31 @@
 
     if (v4)
     {
-      v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v7 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Scheduling a tab group sync operation", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Scheduling a tab group sync operation", buf, 2u);
       }
 
       [(CloudTabGroupSyncManager *)self _cancelSyncTimer];
-      v6 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
+      v8 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
       scheduledSyncTimer = self->_scheduledSyncTimer;
-      self->_scheduledSyncTimer = v6;
+      self->_scheduledSyncTimer = v8;
 
       objc_initWeak(buf, self);
-      v8 = self->_scheduledSyncTimer;
+      v10 = self->_scheduledSyncTimer;
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_10008451C;
       handler[3] = &unk_1001324E8;
-      objc_copyWeak(&v12, buf);
-      dispatch_source_set_event_handler(v8, handler);
-      v9 = self->_scheduledSyncTimer;
-      v10 = dispatch_time(0, 1000000000);
-      dispatch_source_set_timer(v9, v10, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
+      objc_copyWeak(&v14, buf);
+      dispatch_source_set_event_handler(v10, handler);
+      v11 = self->_scheduledSyncTimer;
+      v12 = dispatch_time(0, 1000000000);
+      dispatch_source_set_timer(v11, v12, 0xFFFFFFFFFFFFFFFFLL, 0x1DCD6500uLL);
       dispatch_activate(self->_scheduledSyncTimer);
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(buf);
     }
   }
@@ -123,73 +126,76 @@
 
 - (BOOL)_readyToScheduleSync
 {
-  if ([(CloudTabGroupSyncManager *)self _shouldSync])
+  _shouldSync = [(CloudTabGroupSyncManager *)self _shouldSync];
+  if (_shouldSync)
   {
     if (self->_isMigrating)
     {
-      v3 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-      if (v4)
+      v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_shouldSync, v4);
+      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+      if (v6)
       {
-        v10 = 0;
-        v5 = "Not scheduling a sync being we are currently migrating";
-        v6 = &v10;
+        v16 = 0;
+        v7 = "Not scheduling a sync being we are currently migrating";
+        v8 = &v16;
 LABEL_7:
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, v5, v6, 2u);
-        LOBYTE(v4) = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, v7, v8, 2u);
+        LOBYTE(v6) = 0;
       }
     }
 
     else
     {
-      if (![(CloudTabGroupSyncManager *)self _deviceToDeviceEncryptionEnabled])
+      _deviceToDeviceEncryptionEnabled = [(CloudTabGroupSyncManager *)self _deviceToDeviceEncryptionEnabled];
+      if ((_deviceToDeviceEncryptionEnabled & 1) == 0)
       {
-        v3 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-        v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-        if (!v4)
+        v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_deviceToDeviceEncryptionEnabled, v10);
+        v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+        if (!v6)
         {
-          return v4;
+          return v6;
         }
 
-        v9 = 0;
-        v5 = "Not scheduling a sync because manatee is not available";
-        v6 = &v9;
+        v15 = 0;
+        v7 = "Not scheduling a sync because manatee is not available";
+        v8 = &v15;
         goto LABEL_7;
       }
 
-      if (![(CloudTabGroupSyncManager *)self _accountTermsVerified])
+      _accountTermsVerified = [(CloudTabGroupSyncManager *)self _accountTermsVerified];
+      if ((_accountTermsVerified & 1) == 0)
       {
-        v3 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-        v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-        if (!v4)
+        v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_accountTermsVerified, v12);
+        v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+        if (!v6)
         {
-          return v4;
+          return v6;
         }
 
-        v8 = 0;
-        v5 = "Not scheduling a sync because user did not accept terms and conditions on their account.";
-        v6 = &v8;
+        v14 = 0;
+        v7 = "Not scheduling a sync because user did not accept terms and conditions on their account.";
+        v8 = &v14;
         goto LABEL_7;
       }
 
-      LOBYTE(v4) = 1;
+      LOBYTE(v6) = 1;
     }
   }
 
   else
   {
-    v3 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
-    if (v4)
+    v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_shouldSync, v4);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+    if (v6)
     {
       *buf = 0;
-      v5 = "Not scheduling a sync being syncing is not enabled for this platform";
-      v6 = buf;
+      v7 = "Not scheduling a sync being syncing is not enabled for this platform";
+      v8 = buf;
       goto LABEL_7;
     }
   }
 
-  return v4;
+  return v6;
 }
 
 - (BOOL)_shouldSync
@@ -452,6 +458,82 @@ LABEL_7:
   [(CloudBookmarkStore *)cloudBookmarkStore saveSubscription:v8 inDatabase:sharedCloudDatabase operationGroup:groupCopy withCompletionHandler:handlerCopy];
 }
 
+- (void)beginSyncingForTrigger:(id)trigger isLocalChange:(BOOL)change completionHandler:(id)handler
+{
+  changeCopy = change;
+  triggerCopy = trigger;
+  handlerCopy = handler;
+  _readyToScheduleSync = [(CloudTabGroupSyncManager *)self _readyToScheduleSync];
+  if (_readyToScheduleSync)
+  {
+    self->_syncing = 1;
+    v12 = objc_opt_class();
+    triggerCopy = [NSString stringWithFormat:@"Cloud Tab Groups Sync (%@)", triggerCopy];
+    v14 = [v12 _createOperationGroupWithName:triggerCopy];
+
+    v17 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = v17;
+      configuration = [(CloudTabGroupSyncManager *)self configuration];
+      [configuration storeOwner];
+      v20 = WBNSStringFromCollectionStoreOwner();
+      safari_logDescription = [v14 safari_logDescription];
+      *buf = 138543618;
+      v30 = v20;
+      v31 = 2114;
+      v32 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "••• Starting TabGroups sync for manager %{public}@ with %{public}@", buf, 0x16u);
+    }
+
+    [(CloudTabGroupSyncManager *)self _beginSyncingForTrigger:triggerCopy isLocalChange:changeCopy group:v14 completionHandler:handlerCopy];
+
+    handlerCopy = v14;
+  }
+
+  else
+  {
+    v22 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_readyToScheduleSync, v11);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    if (v23)
+    {
+      v25 = v22;
+      configuration2 = [(CloudTabGroupSyncManager *)self configuration];
+      [configuration2 storeOwner];
+      v27 = WBNSStringFromCollectionStoreOwner();
+      *buf = 138543618;
+      v30 = v27;
+      v31 = 2114;
+      v32 = triggerCopy;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "••• Starting TabGroups sync for manager %{public}@ with trigger: %{public}@", buf, 0x16u);
+    }
+
+    v28 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v23, v24);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    {
+      sub_100085754(v28, self);
+    }
+
+    (*(handlerCopy + 2))(handlerCopy, 4, 0);
+  }
+}
+
+- (void)_beginSyncingForTrigger:(id)trigger isLocalChange:(BOOL)change group:(id)group completionHandler:(id)handler
+{
+  changeCopy = change;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_1000822BC;
+  v12[3] = &unk_100131D60;
+  v12[4] = self;
+  groupCopy = group;
+  handlerCopy = handler;
+  v9 = handlerCopy;
+  v10 = groupCopy;
+  v11 = objc_retainBlock(v12);
+  [(CloudTabGroupSyncCoordinator *)self->_syncCoordinator beginSyncingWithOperationGroup:v10 isLocalChange:changeCopy completionHandler:v11];
+}
+
 - (void)_pcsIdentitiesChangedNotification:(id)notification
 {
   block[0] = _NSConcreteStackBlock;
@@ -468,36 +550,36 @@ LABEL_7:
   {
     self->_isMigrating = 1;
     v3 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Migration"];
-    v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = v4;
+      v6 = v5;
       configuration = [(CloudTabGroupSyncManager *)self configuration];
       [configuration storeOwner];
-      v7 = WBNSStringFromCollectionStoreOwner();
+      v8 = WBNSStringFromCollectionStoreOwner();
       safari_logDescription = [v3 safari_logDescription];
       *buf = 138543618;
-      v14 = v7;
-      v15 = 2114;
-      v16 = safari_logDescription;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "*•• Starting TabGroups migration for manager %{public}@ with %{public}@", buf, 0x16u);
+      v15 = v8;
+      v16 = 2114;
+      v17 = safari_logDescription;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "*•• Starting TabGroups migration for manager %{public}@ with %{public}@", buf, 0x16u);
     }
 
     syncCoordinator = self->_syncCoordinator;
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10008297C;
-    v11[3] = &unk_100135298;
-    v11[4] = self;
-    v12 = v3;
-    v10 = v3;
-    [(CloudTabGroupSyncCoordinator *)syncCoordinator beginMigrationWithOperationGroup:v10 completionHandler:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10008297C;
+    v12[3] = &unk_100135298;
+    v12[4] = self;
+    v13 = v3;
+    v11 = v3;
+    [(CloudTabGroupSyncCoordinator *)syncCoordinator beginMigrationWithOperationGroup:v11 completionHandler:v12];
   }
 }
 
 - (void)sendSyncDidFinishNotificationWithResult:(int64_t)result
 {
-  v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
+  v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 134349056;
@@ -562,43 +644,43 @@ LABEL_7:
   handlerCopy = handler;
   if (![(CloudTabGroupSyncManager *)self _hasEntitlementForSensitiveOperation])
   {
-    v14 = sub_10000A9A4();
+    v15 = sub_10000A9A4();
 LABEL_8:
-    v15 = v14;
-    handlerCopy[2](handlerCopy, 0, v14);
+    v16 = v15;
+    handlerCopy[2](handlerCopy, 0, v15);
 
     goto LABEL_9;
   }
 
   if (![(CloudTabGroupSyncManager *)self _deviceToDeviceEncryptionEnabled])
   {
-    v14 = sub_10008323C();
+    v15 = sub_10008323C();
     goto LABEL_8;
   }
 
   v8 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Setup Shared Tab Group"];
-  v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v8, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = v9;
+    v11 = v10;
     safari_logDescription = [v8 safari_logDescription];
     *buf = 138543618;
-    v21 = dCopy;
-    v22 = 2114;
-    v23 = safari_logDescription;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "••* Will begin sharing tab group with UUID: %{public}@, with %{public}@", buf, 0x16u);
+    v22 = dCopy;
+    v23 = 2114;
+    v24 = safari_logDescription;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "••* Will begin sharing tab group with UUID: %{public}@, with %{public}@", buf, 0x16u);
   }
 
   syncCoordinator = self->_syncCoordinator;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100083AF0;
-  v16[3] = &unk_100135310;
-  v17 = dCopy;
-  v18 = v8;
-  v19 = handlerCopy;
-  v13 = v8;
-  [(CloudTabGroupSyncCoordinator *)syncCoordinator beginSharingTabGroupWithUUID:v17 inOperationGroup:v13 completionHandler:v16];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_100083AF0;
+  v17[3] = &unk_100135310;
+  v18 = dCopy;
+  v19 = v8;
+  v20 = handlerCopy;
+  v14 = v8;
+  [(CloudTabGroupSyncCoordinator *)syncCoordinator beginSharingTabGroupWithUUID:v18 inOperationGroup:v14 completionHandler:v17];
 
 LABEL_9:
 }
@@ -619,29 +701,29 @@ LABEL_9:
   collectionCopy = collection;
   if (![dCopy length])
   {
-    v9 = 0;
+    v10 = 0;
     goto LABEL_6;
   }
 
-  v8 = [collectionCopy tabWithUUID:dCopy];
-  if (v8)
+  v9 = [collectionCopy tabWithUUID:dCopy];
+  if (v9)
   {
-    v9 = [collectionCopy recordIDForTab:v8];
+    v10 = [collectionCopy recordIDForTab:v9];
     cloudBookmarkStore = self->_cloudBookmarkStore;
-    zoneID = [v9 zoneID];
+    zoneID = [v10 zoneID];
     LOBYTE(cloudBookmarkStore) = [(CloudBookmarkStore *)cloudBookmarkStore isSecondaryRecordZoneID:zoneID];
 
     if (cloudBookmarkStore)
     {
 
 LABEL_6:
-      v9 = v9;
-      v12 = v9;
+      v10 = v10;
+      v15 = v10;
       goto LABEL_13;
     }
 
-    v14 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v13, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_1000859EC();
     }
@@ -649,19 +731,19 @@ LABEL_6:
 
   else
   {
-    v13 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(0, v8);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100085A70();
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  v12 = 0;
+  v15 = 0;
 LABEL_13:
 
-  return v12;
+  return v15;
 }
 
 - (void)acceptShareForURL:(id)l invitationTokenData:(id)data completionHandler:(id)handler
@@ -671,35 +753,36 @@ LABEL_13:
   handlerCopy = handler;
   if (![(CloudTabGroupSyncManager *)self _hasEntitlementForSensitiveOperation])
   {
-    v14 = sub_10000A9A4();
+    v16 = sub_10000A9A4();
 LABEL_8:
-    v15 = v14;
-    handlerCopy[2](handlerCopy, 0, v14);
+    v17 = v16;
+    handlerCopy[2](handlerCopy, 0, v16);
 
     goto LABEL_9;
   }
 
-  if (![(CloudTabGroupSyncManager *)self _deviceToDeviceEncryptionEnabled])
+  _deviceToDeviceEncryptionEnabled = [(CloudTabGroupSyncManager *)self _deviceToDeviceEncryptionEnabled];
+  if ((_deviceToDeviceEncryptionEnabled & 1) == 0)
   {
-    v14 = sub_10008323C();
+    v16 = sub_10008323C();
     goto LABEL_8;
   }
 
-  v11 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v13 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(_deviceToDeviceEncryptionEnabled, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Will begin accepting share", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Will begin accepting share", buf, 2u);
   }
 
-  v12 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Accept Share"];
+  v14 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Accept Share"];
   syncCoordinator = self->_syncCoordinator;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100084234;
-  v16[3] = &unk_100135358;
-  v17 = handlerCopy;
-  [(CloudTabGroupSyncCoordinator *)syncCoordinator acceptShareForURL:lCopy invitationTokenData:dataCopy inOperationGroup:v12 completionHandler:v16];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_100084234;
+  v18[3] = &unk_100135358;
+  v19 = handlerCopy;
+  [(CloudTabGroupSyncCoordinator *)syncCoordinator acceptShareForURL:lCopy invitationTokenData:dataCopy inOperationGroup:v14 completionHandler:v18];
 
 LABEL_9:
 }
@@ -721,54 +804,59 @@ LABEL_9:
 {
   operationCopy = operation;
   handlerCopy = handler;
-  v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v16[0] = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Processing local tab operation", v16, 2u);
+    v21[0] = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Processing local tab operation", v21, 2u);
   }
 
-  if (![(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter lockForClient:@"Sync Manager"])
+  v10 = [(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter lockForClient:@"Sync Manager"];
+  if ((v10 & 1) == 0)
   {
-    v13 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v18 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v10, v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100085AE4(v13);
+      sub_100085AE4(v18);
     }
 
-    v14 = +[NSError wb_lockError];
+    v19 = +[NSError wb_lockError];
     goto LABEL_11;
   }
 
   isDatabaseOpen = [(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter isDatabaseOpen];
-  if ((isDatabaseOpen & 1) == 0 && ![(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter openDatabase])
+  if ((isDatabaseOpen & 1) == 0)
   {
-    v15 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    openDatabase = [(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter openDatabase];
+    if ((openDatabase & 1) == 0)
     {
-      sub_100085B28(v15);
-    }
+      v20 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(openDatabase, v14);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        sub_100085B28(v20);
+      }
 
-    v14 = +[NSError wb_databaseOpenError];
+      v19 = +[NSError wb_databaseOpenError];
 LABEL_11:
-    v10 = v14;
-    handlerCopy[2](handlerCopy, 0, v14);
-    goto LABEL_16;
+      v15 = v19;
+      handlerCopy[2](handlerCopy, 0, v19);
+      goto LABEL_16;
+    }
   }
 
-  v10 = [[WBTabCollection alloc] initWithTabCollection:{-[CloudBookmarkDatabaseLockArbiter databaseRef](self->_databaseLockArbiter, "databaseRef")}];
-  v11 = operationCopy[2](operationCopy, v10);
-  if (v11)
+  v15 = [[WBTabCollection alloc] initWithTabCollection:{-[CloudBookmarkDatabaseLockArbiter databaseRef](self->_databaseLockArbiter, "databaseRef")}];
+  v16 = operationCopy[2](operationCopy, v15);
+  if (v16)
   {
     error = 0;
   }
 
   else
   {
-    error = [v10 error];
+    error = [v15 error];
   }
 
-  handlerCopy[2](handlerCopy, v11, error);
+  handlerCopy[2](handlerCopy, v16, error);
   if ((isDatabaseOpen & 1) == 0)
   {
     [(CloudBookmarkDatabaseLockArbiter *)self->_databaseLockArbiter closeDatabaseAndSave:1];

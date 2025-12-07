@@ -143,7 +143,8 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   width = fits.width;
-  PKFloatRoundToPixel();
+  fits.width = fits.height * 0.3;
+  PKFloatRoundToPixel(fits, *&fits.height);
   v5 = v4;
   v6 = width;
   result.height = v5;
@@ -153,9 +154,9 @@
 
 - (void)layoutSubviews
 {
-  v61.receiver = self;
-  v61.super_class = PKSplashImageHeaderView;
-  [(PKSplashImageHeaderView *)&v61 layoutSubviews];
+  v128.receiver = self;
+  v128.super_class = PKSplashImageHeaderView;
+  [(PKSplashImageHeaderView *)&v128 layoutSubviews];
   [(PKSplashImageHeaderView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -181,109 +182,168 @@
   remainder.origin.y = v6 + 0.0;
   remainder.size.width = v8 + -32.0;
   remainder.size.height = v10 + -16.0;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
-  v18 = v14;
-  v19 = v15;
-  v20 = v16;
-  v21 = v17;
+  v14 = PKContentAlignmentMake();
+  v15.n128_u64[0] = 0x4052400000000000;
+  v16.n128_u64[0] = 0x4052400000000000;
+  v17.n128_f64[0] = v4 + 16.0;
+  v18.n128_f64[0] = v6 + 0.0;
+  v19.n128_f64[0] = v8 + -32.0;
+  v20.n128_f64[0] = v10 + -16.0;
+  PKSizeAlignedInRect(v14, v15, v16, v17, v18, v19, v20, v21);
+  v26 = v22;
+  v27 = v23;
+  v28 = v24;
+  v29 = v25;
   if (!self->_hidesIconImage)
   {
-    [(UIImageView *)self->_iconImageView setFrame:v14, v15, v16, v17];
+    [(UIImageView *)self->_iconImageView setFrame:v22, v23, v24, v25];
     CGRectDivide(remainder, &slice[1], &remainder, 89.0, v13);
   }
 
-  *slice = v18;
+  *slice = v26;
   superview = [(UILabel *)self->_attributionLabel superview];
 
   [(UILabel *)self->_primaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v24 = v23;
+  v32 = v31;
+  v34 = v33;
   font = [(UILabel *)self->_primaryLabel font];
   [font lineHeight];
-  v27 = v26;
+  v37 = v36;
 
   if (superview)
   {
-    v55 = v19;
-    v56 = v20;
-    rect = v21;
-    v58 = v24;
-    v28 = v24;
-    v29 = ceilf(v28);
-    v30 = v27;
-    v31 = ceilf(v30);
+    v120 = v27;
+    v121 = v28;
+    rect = v29;
+    v123 = v32;
+    v124 = v34;
+    v38 = v34;
+    v39 = ceilf(v38);
+    v40 = v37;
+    v41 = ceilf(v40);
     [(UILabel *)self->_attributionLabel sizeThatFits:remainder.size.width, remainder.size.height];
-    v33 = v32;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    v35 = v34;
-    v37 = v36;
-    v39 = v38;
-    v41 = v40;
+    v43 = v42;
+    v45 = v44;
+    v46 = PKContentAlignmentMake();
+    v47.n128_u64[0] = *&remainder.origin.x;
+    v48.n128_u64[0] = *&remainder.origin.y;
+    v49.n128_u64[0] = *&remainder.size.width;
+    v50.n128_u64[0] = *&remainder.size.height;
+    v51.n128_u64[0] = v43;
+    v52.n128_f64[0] = v45;
+    PKSizeAlignedInRect(v46, v51, v52, v47, v48, v49, v50, v53);
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
+    v61 = v60;
     font2 = [(UILabel *)self->_secondaryLabel font];
     [font2 descender];
-    v44 = v43;
+    v64 = v63;
 
-    [(UILabel *)self->_attributionLabel setFrame:v35, v37 - v44, v39, v41];
-    CGRectDivide(remainder, &slice[1], &remainder, v33 + v44, CGRectMaxYEdge);
-    if (v29 <= v31)
+    [(UILabel *)self->_attributionLabel setFrame:v55, v57 - v64, v59, v61];
+    CGRectDivide(remainder, &slice[1], &remainder, v45 + v64, CGRectMaxYEdge);
+    if (v39 <= v41)
     {
-      *&v64.origin.x = slice[0];
-      v64.origin.y = v55;
-      v64.size.width = v56;
-      v64.size.height = rect;
-      MinY = CGRectGetMinY(v64);
+      *&v131.origin.x = slice[0];
+      v131.origin.y = v120;
+      v131.size.width = v121;
+      v131.size.height = rect;
+      MinY = CGRectGetMinY(v131);
       CGRectDivide(remainder, &slice[1], &remainder, MinY, CGRectMinYEdge);
       [(UILabel *)self->_secondaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
-      v53 = v52;
+      v108 = v107;
+      v110 = v109;
       secondaryLabel = self->_secondaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
+      v112 = PKContentAlignmentMake();
+      v113.n128_u64[0] = *&remainder.origin.x;
+      v114.n128_u64[0] = *&remainder.origin.y;
+      v115.n128_u64[0] = *&remainder.size.width;
+      v116.n128_u64[0] = *&remainder.size.height;
+      v117.n128_u64[0] = v108;
+      v118.n128_f64[0] = v110;
+      PKSizeAlignedInRect(v112, v117, v118, v113, v114, v115, v116, v119);
       [(UILabel *)secondaryLabel setFrame:?];
-      CGRectDivide(remainder, &slice[1], &remainder, v53, CGRectMinYEdge);
+      CGRectDivide(remainder, &slice[1], &remainder, v110, CGRectMinYEdge);
       primaryLabel = self->_primaryLabel;
+      v79 = PKContentAlignmentMake();
+      v81.n128_u64[0] = *&remainder.origin.x;
+      v82.n128_u64[0] = *&remainder.origin.y;
+      v83.n128_u64[0] = *&remainder.size.width;
+      v84.n128_u64[0] = *&remainder.size.height;
+      v85.n128_u64[0] = v123;
+      v86.n128_f64[0] = v124;
     }
 
     else
     {
-      v45 = self->_primaryLabel;
-      PKContentAlignmentMake();
-      PKSizeAlignedInRect();
-      [(UILabel *)v45 setFrame:?];
-      CGRectDivide(remainder, &slice[1], &remainder, v58, CGRectMaxYEdge);
+      v65 = self->_primaryLabel;
+      v66 = PKContentAlignmentMake();
+      v67.n128_u64[0] = *&remainder.origin.x;
+      v68.n128_u64[0] = *&remainder.origin.y;
+      v69.n128_u64[0] = *&remainder.size.width;
+      v70.n128_u64[0] = *&remainder.size.height;
+      v71.n128_u64[0] = v123;
+      v72.n128_f64[0] = v124;
+      PKSizeAlignedInRect(v66, v71, v72, v67, v68, v69, v70, v73);
+      [(UILabel *)v65 setFrame:?];
+      CGRectDivide(remainder, &slice[1], &remainder, v124, CGRectMaxYEdge);
       [(UILabel *)self->_secondaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
+      v75 = v74;
+      v77 = v76;
       primaryLabel = self->_secondaryLabel;
+      v79 = PKContentAlignmentMake();
+      v81.n128_u64[0] = *&remainder.origin.x;
+      v82.n128_u64[0] = *&remainder.origin.y;
+      v83.n128_u64[0] = *&remainder.size.width;
+      v84.n128_u64[0] = *&remainder.size.height;
+      v85.n128_u64[0] = v75;
+      v86.n128_u64[0] = v77;
     }
-
-    PKContentAlignmentMake();
   }
 
   else
   {
     [(UILabel *)self->_secondaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
-    v48 = v47;
-    v62.origin.x = v18;
-    v62.origin.y = v19;
-    v62.size.width = v20;
-    v62.size.height = v21;
-    CGRectGetMinY(v62);
-    v63.origin.y = v19;
-    v63.origin.x = v18;
-    v63.size.width = v20;
-    v63.size.height = v21;
-    CGRectGetHeight(v63);
-    PKFloatRoundToPixel();
-    CGRectDivide(remainder, &slice[1], &remainder, v49, CGRectMinYEdge);
-    v50 = self->_secondaryLabel;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
-    [(UILabel *)v50 setFrame:?];
-    CGRectDivide(remainder, &slice[1], &remainder, v48, CGRectMinYEdge);
+    v125 = v87;
+    v89 = v88;
+    v90 = v34 + v88;
+    v129.origin.x = v26;
+    v129.origin.y = v27;
+    v129.size.width = v28;
+    v129.size.height = v29;
+    v91 = CGRectGetMinY(v129);
+    v130.origin.y = v27;
+    v92 = v91;
+    v130.origin.x = v26;
+    v130.size.width = v28;
+    v130.size.height = v29;
+    Height = CGRectGetHeight(v130);
+    v94.n128_u64[0] = 0.5;
+    v95.n128_f64[0] = v92 + (Height - v90) * 0.5;
+    PKFloatRoundToPixel(v95, v94);
+    CGRectDivide(remainder, &slice[1], &remainder, v96, CGRectMinYEdge);
+    v97 = self->_secondaryLabel;
+    v98 = PKContentAlignmentMake();
+    v99.n128_u64[0] = *&remainder.origin.x;
+    v100.n128_u64[0] = *&remainder.origin.y;
+    v101.n128_u64[0] = *&remainder.size.width;
+    v102.n128_u64[0] = *&remainder.size.height;
+    v103.n128_u64[0] = v125;
+    v104.n128_f64[0] = v89;
+    PKSizeAlignedInRect(v98, v103, v104, v99, v100, v101, v102, v105);
+    [(UILabel *)v97 setFrame:?];
+    CGRectDivide(remainder, &slice[1], &remainder, v89, CGRectMinYEdge);
     primaryLabel = self->_primaryLabel;
-    PKContentAlignmentMake();
+    v79 = PKContentAlignmentMake();
+    v81.n128_u64[0] = *&remainder.origin.x;
+    v82.n128_u64[0] = *&remainder.origin.y;
+    v83.n128_u64[0] = *&remainder.size.width;
+    v84.n128_u64[0] = *&remainder.size.height;
+    v85.n128_u64[0] = v32;
+    v86.n128_f64[0] = v34;
   }
 
-  PKSizeAlignedInRect();
+  PKSizeAlignedInRect(v79, v85, v86, v81, v82, v83, v84, v80);
   [(UILabel *)primaryLabel setFrame:?];
 }
 

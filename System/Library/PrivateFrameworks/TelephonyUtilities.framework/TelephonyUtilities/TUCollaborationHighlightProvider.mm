@@ -114,7 +114,7 @@
 {
   v30 = *MEMORY[0x1E69E9840];
   changeCopy = change;
-  v5 = TUDefaultLog();
+  v5 = TUDefaultLog(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     highlights = [changeCopy highlights];
@@ -153,12 +153,12 @@
 
         if (v16)
         {
-          v17 = TUDefaultLog();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = TUDefaultLog(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v29 = v14;
-            _os_log_impl(&dword_1956FD000, v17, OS_LOG_TYPE_DEFAULT, "Collaboration populated for: %@", buf, 0xCu);
+            _os_log_impl(&dword_1956FD000, v18, OS_LOG_TYPE_DEFAULT, "Collaboration populated for: %@", buf, 0xCu);
           }
 
           collaborationIdentifierToPendingCollaborations2 = [(TUCollaborationHighlightProvider *)self collaborationIdentifierToPendingCollaborations];
@@ -177,8 +177,6 @@
 
   delegate = [(TUCollaborationHighlightProvider *)self delegate];
   [delegate collaborationsDidChange:self];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)addTemporaryCollaboration:(id)collaboration
@@ -187,7 +185,7 @@
   collaborationCopy = collaboration;
   v5 = [collaborationCopy objectForKeyedSubscript:@"ci"];
   v6 = [(TUCollaborationHighlightProvider *)self collaborationHighlightForIdentifier:v5];
-  delegate = TUDefaultLog();
+  delegate = TUDefaultLog(v6);
   v8 = os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -209,7 +207,7 @@ LABEL_15:
   }
 
   v6 = [objc_alloc(getSWCollaborationHighlightClass()) initWithDictionary:collaborationCopy];
-  v9 = TUDefaultLog();
+  v9 = TUDefaultLog(v6);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v20 = 138412546;
@@ -228,19 +226,19 @@ LABEL_15:
 
     if (v11)
     {
-      v12 = TUDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = TUDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [collaborationCopy objectForKeyedSubscript:@"ckAppBundleIDs"];
+        v14 = [collaborationCopy objectForKeyedSubscript:@"ckAppBundleIDs"];
         v20 = 138412290;
-        v21 = v13;
-        _os_log_impl(&dword_1956FD000, v12, OS_LOG_TYPE_DEFAULT, "Collaboration bundleIDS: %@", &v20, 0xCu);
+        v21 = v14;
+        _os_log_impl(&dword_1956FD000, v13, OS_LOG_TYPE_DEFAULT, "Collaboration bundleIDS: %@", &v20, 0xCu);
       }
 
-      v14 = [collaborationCopy objectForKeyedSubscript:@"ckAppBundleIDs"];
-      v15 = [v14 copy];
+      v15 = [collaborationCopy objectForKeyedSubscript:@"ckAppBundleIDs"];
+      v16 = [v15 copy];
       collaborationIdentifierToBundleIDs = [(TUCollaborationHighlightProvider *)self collaborationIdentifierToBundleIDs];
-      [collaborationIdentifierToBundleIDs setObject:v15 forKeyedSubscript:v5];
+      [collaborationIdentifierToBundleIDs setObject:v16 forKeyedSubscript:v5];
     }
 
     delegate = [(TUCollaborationHighlightProvider *)self delegate];
@@ -249,11 +247,9 @@ LABEL_15:
   }
 
 LABEL_16:
-  v17 = v6;
+  v18 = v6;
 
-  v18 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v18;
 }
 
 - (TUCollaborationProviderDelegate)delegate

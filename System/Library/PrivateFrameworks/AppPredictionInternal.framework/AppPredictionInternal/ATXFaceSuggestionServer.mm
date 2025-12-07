@@ -58,10 +58,10 @@ void __41__ATXFaceSuggestionServer_sharedInstance__block_invoke()
 
 - (ATXFaceSuggestionServer)init
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = ATXFaceSuggestionServer;
-  v2 = [(ATXFaceSuggestionServer *)&v40 init];
+  v42 = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = ATXFaceSuggestionServer;
+  v2 = [(ATXFaceSuggestionServer *)&v39 init];
   if (v2)
   {
     v3 = +[ATXPosterConfigurationCache sharedInstance];
@@ -103,12 +103,11 @@ void __41__ATXFaceSuggestionServer_sharedInstance__block_invoke()
     v2->_listener = v23;
 
     [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
-    v25 = __atxlog_handle_lock_screen();
+    v25 = __atxlog_handle_lock_screen([(NSXPCListener *)v2->_listener resume]);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v42 = "[ATXFaceSuggestionServer init]";
+      v41 = "[ATXFaceSuggestionServer init]";
       _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "%s: listening for connections", buf, 0xCu);
     }
 
@@ -123,29 +122,28 @@ void __41__ATXFaceSuggestionServer_sharedInstance__block_invoke()
     v2->_lockedOrHiddenAppNotification = v28;
 
     v30 = v2->_lockedOrHiddenAppNotification;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __31__ATXFaceSuggestionServer_init__block_invoke_2;
-    v38[3] = &unk_278598048;
-    objc_copyWeak(&v39, buf);
-    [(ATXInternalLockedOrHiddenAppNotification *)v30 registerForNotificationsWithLockedOrHiddenAppBlock:v38];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __31__ATXFaceSuggestionServer_init__block_invoke_2;
+    v37[3] = &unk_278598048;
+    objc_copyWeak(&v38, buf);
+    [(ATXInternalLockedOrHiddenAppNotification *)v30 registerForNotificationsWithLockedOrHiddenAppBlock:v37];
     v31 = objc_opt_new();
     unlockedOrUnhiddenAppNotification = v2->_unlockedOrUnhiddenAppNotification;
     v2->_unlockedOrUnhiddenAppNotification = v31;
 
     v33 = v2->_unlockedOrUnhiddenAppNotification;
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __31__ATXFaceSuggestionServer_init__block_invoke_3;
-    v36[3] = &unk_278598020;
-    objc_copyWeak(&v37, buf);
-    [(ATXInternalUnLockedOrUnHiddenAppNotification *)v33 registerForNotificationsWithUnLockedOrUnHiddenAppBlock:v36];
-    objc_destroyWeak(&v37);
-    objc_destroyWeak(&v39);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __31__ATXFaceSuggestionServer_init__block_invoke_3;
+    v35[3] = &unk_278598020;
+    objc_copyWeak(&v36, buf);
+    [(ATXInternalUnLockedOrUnHiddenAppNotification *)v33 registerForNotificationsWithUnLockedOrUnHiddenAppBlock:v35];
+    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(buf);
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -158,10 +156,10 @@ void __31__ATXFaceSuggestionServer_init__block_invoke()
   [(ATXModeFaceSuggestionGenerator *)v0 generateAndCacheFacesFromDescriptors:v2];
 }
 
-void __31__ATXFaceSuggestionServer_init__block_invoke_33()
+void __31__ATXFaceSuggestionServer_init__block_invoke_33(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  [v0 evictCachedSuggestedFaces];
+  v2 = objc_opt_new();
+  [v2 evictCachedSuggestedFaces];
 }
 
 void __31__ATXFaceSuggestionServer_init__block_invoke_2(uint64_t a1, void *a2)
@@ -203,7 +201,7 @@ void __31__ATXFaceSuggestionServer_init__block_invoke_3(uint64_t a1, void *a2)
   v24 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = __atxlog_handle_lock_screen();
+  v8 = __atxlog_handle_lock_screen(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -212,10 +210,11 @@ void __31__ATXFaceSuggestionServer_init__block_invoke_3(uint64_t a1, void *a2)
   }
 
   v9 = [connectionCopy valueForEntitlement:*MEMORY[0x277CEBA98]];
-  if (v9 && (objc_opt_respondsToSelector() & 1) != 0 && ([v9 BOOLValue] & 1) != 0)
+  v10 = v9;
+  if (v9 && (v9 = objc_opt_respondsToSelector(), (v9 & 1) != 0) && (v9 = [v10 BOOLValue], (v9 & 1) != 0))
   {
-    v10 = ATXFaceSuggestionClientXPCInterface();
-    [connectionCopy setExportedInterface:v10];
+    v11 = ATXFaceSuggestionClientXPCInterface();
+    [connectionCopy setExportedInterface:v11];
 
     [connectionCopy setExportedObject:self];
     objc_initWeak(buf, connectionCopy);
@@ -235,28 +234,27 @@ void __31__ATXFaceSuggestionServer_init__block_invoke_3(uint64_t a1, void *a2)
     objc_destroyWeak(&v19);
     objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
-    v11 = 1;
+    v12 = 1;
   }
 
   else
   {
-    v12 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ATXFaceSuggestionServer listener:shouldAcceptNewConnection:];
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v12;
 }
 
 void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = __atxlog_handle_lock_screen();
+  v2 = __atxlog_handle_lock_screen(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
@@ -266,7 +264,7 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_53(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = __atxlog_handle_lock_screen();
+  v2 = __atxlog_handle_lock_screen(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_53_cold_1();
@@ -277,7 +275,7 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 {
   v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = __atxlog_handle_lock_screen();
+  v5 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 136315138;
@@ -290,28 +288,27 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 
   v8 = [(ATXFaceSuggestionServer *)self checkGalleryForPhotosAppProtection:v7];
 
-  v9 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_lock_screen(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v8 description];
+    v11 = [v8 description];
     v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Gallery returned: %@", &v12, 0xCu);
+    v13 = v11;
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Gallery returned: %@", &v12, 0xCu);
   }
 
   completionCopy[2](completionCopy, v8, 0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchFaceGalleryConfigurationForSemanticType:(int64_t)type completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = __atxlog_handle_lock_screen();
+  v7 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[ATXFaceSuggestionServer fetchFaceGalleryConfigurationForSemanticType:completion:]";
+    v16 = "[ATXFaceSuggestionServer fetchFaceGalleryConfigurationForSemanticType:completion:]";
     _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -319,44 +316,40 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
   v9 = [faceGalleryConfiguration copy];
 
   sections = [v9 sections];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __83__ATXFaceSuggestionServer_fetchFaceGalleryConfigurationForSemanticType_completion___block_invoke;
-  v15[3] = &__block_descriptor_40_e31_B16__0__ATXFaceGallerySection_8l;
-  v15[4] = type;
-  v11 = [sections _pas_filteredArrayWithTest:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __83__ATXFaceSuggestionServer_fetchFaceGalleryConfigurationForSemanticType_completion___block_invoke;
+  v14[3] = &__block_descriptor_40_e31_B16__0__ATXFaceGallerySection_8l;
+  v14[4] = type;
+  v11 = [sections _pas_filteredArrayWithTest:v14];
 
-  [v9 setSections:v11];
-  v12 = __atxlog_handle_lock_screen();
+  v12 = __atxlog_handle_lock_screen([v9 setSections:v11]);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = [v9 description];
     *buf = 138412290;
-    v17 = v13;
+    v16 = v13;
     _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Gallery returned: %@", buf, 0xCu);
   }
 
   completionCopy[2](completionCopy, v9, 0);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)regenerateFaceGalleryConfigurationWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = __atxlog_handle_lock_screen();
+  v5 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[ATXFaceSuggestionServer regenerateFaceGalleryConfigurationWithCompletion:]";
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[ATXFaceSuggestionServer regenerateFaceGalleryConfigurationWithCompletion:]";
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   v6 = os_transaction_create();
   [(ATXFaceSuggestionGenerator *)self->_faceSuggestionGenerator regenerateFaceGalleryConfigurationImmediatelyWithReason:@"XPC request or activity"];
   [(ATXFaceSuggestionServer *)self fetchFaceGalleryConfigurationWithCompletion:completionCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchFaceSuggestionsForFocusMode:(id)mode completion:(id)completion
@@ -372,101 +365,100 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 
 - (void)fetchPosterDescriptorsAndSuggestionDataWithCompletion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v4 = __atxlog_handle_lock_screen();
+  v4 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v44 = "[ATXFaceSuggestionServer fetchPosterDescriptorsAndSuggestionDataWithCompletion:]";
+    v43 = "[ATXFaceSuggestionServer fetchPosterDescriptorsAndSuggestionDataWithCompletion:]";
     _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  v27 = objc_opt_new();
+  v26 = objc_opt_new();
   allDescriptors = [(ATXPosterDescriptorCache *)self->_descriptorCache allDescriptors];
-  v22 = objc_opt_new();
-  v26 = [[ATXFaceSuggestionScorer alloc] initWithParameters:v22 descriptors:allDescriptors];
+  v21 = objc_opt_new();
+  v25 = [[ATXFaceSuggestionScorer alloc] initWithParameters:v21 descriptors:allDescriptors];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   obj = allDescriptors;
-  v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
+  if (v27)
   {
-    v25 = *v36;
+    v24 = *v35;
     do
     {
       v6 = 0;
       do
       {
-        if (*v36 != v25)
+        if (*v35 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v29 = v6;
-        v7 = *(*(&v35 + 1) + 8 * v6);
+        v28 = v6;
+        v7 = *(*(&v34 + 1) + 8 * v6);
         v8 = objc_opt_new();
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        signals = [(ATXFaceSuggestionScorer *)v26 signals];
-        v9 = [signals countByEnumeratingWithState:&v31 objects:v41 count:16];
+        signals = [(ATXFaceSuggestionScorer *)v25 signals];
+        v9 = [signals countByEnumeratingWithState:&v30 objects:v40 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v32;
+          v11 = *v31;
           do
           {
             v12 = 0;
             do
             {
-              if (*v32 != v11)
+              if (*v31 != v11)
               {
                 objc_enumerationMutation(signals);
               }
 
-              v13 = *(*(&v31 + 1) + 8 * v12);
+              v13 = *(*(&v30 + 1) + 8 * v12);
               v14 = objc_opt_class();
               v15 = NSStringFromClass(v14);
-              v39[0] = @"weight";
+              v38[0] = @"weight";
               v16 = MEMORY[0x277CCABB0];
               [v13 weight];
               v17 = [v16 numberWithDouble:?];
-              v39[1] = @"value";
-              v40[0] = v17;
+              v38[1] = @"value";
+              v39[0] = v17;
               v18 = MEMORY[0x277CCABB0];
               [v13 valueForDescriptor:v7];
               v19 = [v18 numberWithDouble:?];
-              v40[1] = v19;
-              v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+              v39[1] = v19;
+              v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
               [v8 setObject:v20 forKeyedSubscript:v15];
 
               ++v12;
             }
 
             while (v10 != v12);
-            v10 = [signals countByEnumeratingWithState:&v31 objects:v41 count:16];
+            v10 = [signals countByEnumeratingWithState:&v30 objects:v40 count:16];
           }
 
           while (v10);
         }
 
-        [v27 setObject:v8 forKeyedSubscript:v7];
-        v6 = v29 + 1;
+        [v26 setObject:v8 forKeyedSubscript:v7];
+        v6 = v28 + 1;
       }
 
-      while (v29 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+      while (v28 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  completionCopy[2](completionCopy, v27, 0);
-  v21 = *MEMORY[0x277D85DE8];
+  completionCopy[2](completionCopy, v26, 0);
 }
 
 - (void)fetchRankedPosterDescriptors:(id)descriptors
@@ -486,20 +478,18 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 
 - (void)fetchPosterConfigurationsWithCompletion:(id)completion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = __atxlog_handle_lock_screen();
+  v5 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[ATXFaceSuggestionServer fetchPosterConfigurationsWithCompletion:]";
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[ATXFaceSuggestionServer fetchPosterConfigurationsWithCompletion:]";
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   configurations = [(ATXPosterConfigurationCache *)self->_configurationCache configurations];
   completionCopy[2](completionCopy, configurations, 0);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchComplicationSetsForFaceGalleryItem:(id)item completion:(id)completion
@@ -507,31 +497,31 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
   completionCopy = completion;
   v6 = os_transaction_create();
   mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
-  v18 = 0;
-  v8 = [mEMORY[0x277CEB998] fetchAccessoryWidgetDescriptorMetadataWithError:&v18];
-  v9 = v18;
+  v19 = 0;
+  v8 = [mEMORY[0x277CEB998] fetchAccessoryWidgetDescriptorMetadataWithError:&v19];
+  v9 = v19;
 
-  v10 = v8;
+  v11 = v8;
   if (!v8)
   {
-    v11 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_lock_screen(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXFaceSuggestionServer fetchComplicationSetsForFaceGalleryItem:completion:];
     }
 
-    v10 = MEMORY[0x277CBEC10];
+    v11 = MEMORY[0x277CBEC10];
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277CEB388]);
-  rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v12 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+  v13 = objc_alloc_init(MEMORY[0x277CEB388]);
+  rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v13 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
   complicationsGenerator = self->_complicationsGenerator;
   allKeys = [rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps allKeys];
-  v16 = [_TtC21AppPredictionInternal26ATXCompanionBundleIdMapper generateMappingForAppBundleIds:allKeys];
-  v17 = [(ATXComplicationSuggestionGenerator *)complicationsGenerator modularSetsWithWidgetDescriptorsAdditionalData:v10 aggregatedAppLaunchData:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps bundleIdToCompanionBundleId:v16];
+  v17 = [_TtC21AppPredictionInternal26ATXCompanionBundleIdMapper generateMappingForAppBundleIds:allKeys];
+  v18 = [(ATXComplicationSuggestionGenerator *)complicationsGenerator modularSetsWithWidgetDescriptorsAdditionalData:v11 aggregatedAppLaunchData:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps bundleIdToCompanionBundleId:v17];
 
-  completionCopy[2](completionCopy, v17, 0);
+  completionCopy[2](completionCopy, v18, 0);
 }
 
 - (void)fetchLandscapeComplicationSetsForFaceGalleryItem:(id)item completion:(id)completion
@@ -539,71 +529,68 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
   completionCopy = completion;
   v6 = os_transaction_create();
   mEMORY[0x277CEB998] = [MEMORY[0x277CEB998] sharedInstance];
-  v18 = 0;
-  v8 = [mEMORY[0x277CEB998] fetchAccessoryWidgetDescriptorMetadataWithError:&v18];
-  v9 = v18;
+  v19 = 0;
+  v8 = [mEMORY[0x277CEB998] fetchAccessoryWidgetDescriptorMetadataWithError:&v19];
+  v9 = v19;
 
-  v10 = v8;
+  v11 = v8;
   if (!v8)
   {
-    v11 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_lock_screen(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXFaceSuggestionServer fetchComplicationSetsForFaceGalleryItem:completion:];
     }
 
-    v10 = MEMORY[0x277CBEC10];
+    v11 = MEMORY[0x277CBEC10];
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277CEB388]);
-  rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v12 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
+  v13 = objc_alloc_init(MEMORY[0x277CEB388]);
+  rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps = [v13 rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps];
 
   complicationsGenerator = self->_complicationsGenerator;
   allKeys = [rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps allKeys];
-  v16 = [_TtC21AppPredictionInternal26ATXCompanionBundleIdMapper generateMappingForAppBundleIds:allKeys];
-  v17 = [(ATXComplicationSuggestionGenerator *)complicationsGenerator landscapeModularSetsWithWidgetDescriptorsAdditionalData:v10 aggregatedAppLaunchData:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps bundleIdToCompanionBundleId:v16];
+  v17 = [_TtC21AppPredictionInternal26ATXCompanionBundleIdMapper generateMappingForAppBundleIds:allKeys];
+  v18 = [(ATXComplicationSuggestionGenerator *)complicationsGenerator landscapeModularSetsWithWidgetDescriptorsAdditionalData:v11 aggregatedAppLaunchData:rawLaunchCountAndDistinctDaysLaunchedOverLast28DaysForAllApps bundleIdToCompanionBundleId:v17];
 
-  completionCopy[2](completionCopy, v17, 0);
+  completionCopy[2](completionCopy, v18, 0);
 }
 
 - (void)posterBoardDidUpdateConfigurations:(id)configurations completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   configurationsCopy = configurations;
   completionCopy = completion;
-  v8 = __atxlog_handle_lock_screen();
+  v8 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ATXFaceSuggestionServer posterBoardDidUpdateConfigurations:completion:]";
-    v12 = 2112;
-    v13 = configurationsCopy;
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[ATXFaceSuggestionServer posterBoardDidUpdateConfigurations:completion:]";
+    v11 = 2112;
+    v12 = configurationsCopy;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
   }
 
   [(ATXPosterConfigurationCache *)self->_configurationCache updateConfigurations:configurationsCopy completion:completionCopy];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)posterBoardDidUpdateDescriptors:(id)descriptors completion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   descriptorsCopy = descriptors;
   completionCopy = completion;
-  v8 = __atxlog_handle_lock_screen();
+  v8 = __atxlog_handle_lock_screen(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[ATXFaceSuggestionServer posterBoardDidUpdateDescriptors:completion:]";
-    v12 = 2112;
-    v13 = descriptorsCopy;
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[ATXFaceSuggestionServer posterBoardDidUpdateDescriptors:completion:]";
+    v11 = 2112;
+    v12 = descriptorsCopy;
+    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
   }
 
   [(ATXPosterDescriptorCache *)self->_descriptorCache updateDescriptors:descriptorsCopy];
   completionCopy[2](completionCopy, 1);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)inputDescriptionForComplicationSuggestionSignal:(id)signal completion:(id)completion
@@ -656,45 +643,48 @@ void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_in
 
 void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_lock_screen(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_cold_1();
     }
   }
 
-  if ([*(a1 + 32) didDefer])
+  v9 = [*(a1 + 32) didDefer];
+  if (v9)
   {
-    v8 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_lock_screen(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
-      v9 = "%s: deferred after fetching watch faces";
+      v24 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
+      v11 = "%s: deferred after fetching watch faces";
 LABEL_11:
-      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 0xCu);
       goto LABEL_12;
     }
 
     goto LABEL_12;
   }
 
-  v10 = objc_opt_new();
-  [v10 refreshComplicationCache];
+  v12 = objc_opt_new();
+  [v12 refreshComplicationCache];
 
-  if ([*(a1 + 32) didDefer])
+  v13 = [*(a1 + 32) didDefer];
+  if (v13)
   {
-    v8 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_lock_screen(v13);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
-      v9 = "%s: deferred after refreshing complication cache";
+      v24 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
+      v11 = "%s: deferred after refreshing complication cache";
       goto LABEL_11;
     }
 
@@ -704,19 +694,20 @@ LABEL_12:
     goto LABEL_19;
   }
 
-  v11 = objc_alloc_init(ATXModeFaceSuggestionGenerator);
-  v12 = +[ATXPosterDescriptorCache sharedInstance];
-  v13 = [v12 allDescriptors];
-  [(ATXModeFaceSuggestionGenerator *)v11 generateAndCacheFacesFromDescriptors:v13];
+  v14 = objc_alloc_init(ATXModeFaceSuggestionGenerator);
+  v15 = +[ATXPosterDescriptorCache sharedInstance];
+  v16 = [v15 allDescriptors];
+  [(ATXModeFaceSuggestionGenerator *)v14 generateAndCacheFacesFromDescriptors:v16];
 
-  if ([*(a1 + 32) didDefer])
+  v17 = [*(a1 + 32) didDefer];
+  if (v17)
   {
-    v14 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = __atxlog_handle_lock_screen(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v21 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
-      _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%s: deferred after refreshing mode face suggestions", buf, 0xCu);
+      v24 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "%s: deferred after refreshing mode face suggestions", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -724,18 +715,17 @@ LABEL_12:
 
   else
   {
-    v15 = +[ATXFaceSuggestionServer sharedInstance];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77;
-    v17[3] = &unk_2785A1130;
-    v18 = *(a1 + 32);
-    v19 = *(a1 + 40);
-    [v15 regenerateFaceGalleryConfigurationWithCompletion:v17];
+    v19 = +[ATXFaceSuggestionServer sharedInstance];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77;
+    v20[3] = &unk_2785A1130;
+    v21 = *(a1 + 32);
+    v22 = *(a1 + 40);
+    [v19 regenerateFaceGalleryConfigurationWithCompletion:v20];
   }
 
 LABEL_19:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77(uint64_t a1, void *a2, void *a3)
@@ -743,7 +733,7 @@ void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_compl
   v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_lock_screen();
+  v7 = __atxlog_handle_lock_screen(v6);
   v8 = v7;
   if (v6)
   {
@@ -761,25 +751,25 @@ void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_compl
   }
 
   v9 = [*(a1 + 32) setDone];
-  v10 = __atxlog_handle_lock_screen();
-  v11 = v10;
-  if (v9)
+  v10 = v9;
+  v11 = __atxlog_handle_lock_screen(v9);
+  v12 = v11;
+  if (v10)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 136315138;
       v14 = "[ATXFaceSuggestionServer reloadLockScreenSuggestionsWithActivity:completion:]_block_invoke";
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "%s: activity set to DONE", &v13, 0xCu);
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "%s: activity set to DONE", &v13, 0xCu);
     }
   }
 
-  else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77_cold_2();
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchScoredComplicationDescriptionWithCompletion:(id)completion
@@ -832,32 +822,32 @@ void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_compl
 
 - (void)logComplicationsSeenInGalleryWithEngagements:(id)engagements completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   engagementsCopy = engagements;
   completionCopy = completion;
   v6 = objc_opt_new();
   uUIDString = [v6 UUIDString];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = engagementsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         v14 = [v8 objectForKeyedSubscript:v13];
         integerValue = [v14 integerValue];
 
@@ -881,45 +871,44 @@ void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_compl
         [v16 logToCoreAnalytics];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   completionCopy[2](completionCopy, 0);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logFaceGalleryItemsSeenInGalleryWithOutcomes:(id)outcomes completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   outcomesCopy = outcomes;
   completionCopy = completion;
   v6 = objc_opt_new();
   uUIDString = [v6 UUIDString];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = outcomesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * v12);
+        v13 = *(*(&v21 + 1) + 8 * v12);
         v14 = [v8 objectForKeyedSubscript:v13];
         v15 = objc_opt_new();
         extensionBundleIdentifier = [v13 extensionBundleIdentifier];
@@ -950,7 +939,7 @@ LABEL_10:
       }
 
       while (v10 != v12);
-      v19 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v19 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       v10 = v19;
     }
 
@@ -958,7 +947,6 @@ LABEL_10:
   }
 
   completionCopy[2](completionCopy, 0);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronousDateOfLastGalleryAppearanceWithCompletion:(id)completion
@@ -992,19 +980,19 @@ LABEL_10:
 
 void __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 state] == 1)
   {
-    v4 = __atxlog_handle_lock_screen();
+    v4 = __atxlog_handle_lock_screen(1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [v3 error];
-      v10 = 136315394;
-      v11 = "[ATXFaceSuggestionServer synchronousDateOfLastGalleryAppearanceWithCompletion:]_block_invoke";
-      v12 = 2112;
-      v13 = v5;
-      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: failed to fetch Biome events with error %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[ATXFaceSuggestionServer synchronousDateOfLastGalleryAppearanceWithCompletion:]_block_invoke";
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: failed to fetch Biome events with error %@", &v9, 0x16u);
     }
   }
 
@@ -1012,8 +1000,6 @@ void __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWithCom
   v7 = *(*(*(a1 + 40) + 8) + 40);
   v8 = [v3 error];
   (*(v6 + 16))(v6, v7, v8);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWithCompletion___block_invoke_96(uint64_t a1, void *a2)
@@ -1036,7 +1022,7 @@ uint64_t __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWit
 {
   v25 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v5 = __atxlog_handle_lock_screen();
+  v5 = __atxlog_handle_lock_screen(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -1047,19 +1033,19 @@ uint64_t __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWit
   v6 = [configurationCopy copy];
   v7 = [(ATXFaceSuggestionServer *)self checkGalleryForPhotosAppProtection:v6];
 
-  v8 = __atxlog_handle_lock_screen();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = __atxlog_handle_lock_screen(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = [v7 description];
+    v10 = [v7 description];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v9;
-    _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Gallery sent to PosterBoard: %@", &buf, 0xCu);
+    *(&buf + 4) = v10;
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Gallery sent to PosterBoard: %@", &buf, 0xCu);
   }
 
   v17 = 0;
   v18 = &v17;
   v19 = 0x2050000000;
-  v10 = getPRSServiceClass_softClass_0;
+  v11 = getPRSServiceClass_softClass_0;
   v20 = getPRSServiceClass_softClass_0;
   if (!getPRSServiceClass_softClass_0)
   {
@@ -1069,28 +1055,26 @@ uint64_t __80__ATXFaceSuggestionServer_synchronousDateOfLastGalleryAppearanceWit
     v23 = &unk_2785967D8;
     v24 = &v17;
     __getPRSServiceClass_block_invoke_0(&buf);
-    v10 = v18[3];
+    v11 = v18[3];
   }
 
-  v11 = v10;
+  v12 = v11;
   _Block_object_dispose(&v17, 8);
-  v12 = objc_opt_new();
+  v13 = objc_opt_new();
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __70__ATXFaceSuggestionServer_generatorDidUpdateFaceGalleryConfiguration___block_invoke;
   v15[3] = &unk_27859EE08;
-  v16 = v12;
-  v13 = v12;
-  [v13 pushPosterGalleryUpdate:v7 completion:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16 = v13;
+  v14 = v13;
+  [v14 pushPosterGalleryUpdate:v7 completion:v15];
 }
 
 void __70__ATXFaceSuggestionServer_generatorDidUpdateFaceGalleryConfiguration___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = __atxlog_handle_lock_screen();
+  v4 = __atxlog_handle_lock_screen(v3);
   v5 = v4;
   if (v3)
   {
@@ -1103,161 +1087,128 @@ void __70__ATXFaceSuggestionServer_generatorDidUpdateFaceGalleryConfiguration___
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 136315394;
-    v9 = "[ATXFaceSuggestionServer generatorDidUpdateFaceGalleryConfiguration:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: service: %@, successfully pushed face gallery configuration to PosterBoard", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[ATXFaceSuggestionServer generatorDidUpdateFaceGalleryConfiguration:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: service: %@, successfully pushed face gallery configuration to PosterBoard", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)widgetDescriptorCacheDidUpdateDescriptors:(id)descriptors
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = __atxlog_handle_lock_screen();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = __atxlog_handle_lock_screen(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[ATXFaceSuggestionServer widgetDescriptorCacheDidUpdateDescriptors:]";
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: refreshing complication cache", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[ATXFaceSuggestionServer widgetDescriptorCacheDidUpdateDescriptors:]";
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: refreshing complication cache", &v5, 0xCu);
   }
 
   [(ATXComplicationSuggestionGenerator *)self->_complicationsGenerator refreshComplicationCache];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)descriptorCacheDidUpdateWithDescriptors:(id)descriptors
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = __atxlog_handle_lock_screen();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = __atxlog_handle_lock_screen(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[ATXFaceSuggestionServer descriptorCacheDidUpdateWithDescriptors:]";
-    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: scheduling mode face suggestions cache refresh due to descriptor update", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[ATXFaceSuggestionServer descriptorCacheDidUpdateWithDescriptors:]";
+    _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "%s: scheduling mode face suggestions cache refresh due to descriptor update", &v5, 0xCu);
   }
 
   [(_PASSimpleCoalescingTimer *)self->_modeFaceSuggestionRefreshCoalescingTimer runAfterDelaySeconds:1 coalescingBehavior:30.0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)checkGalleryForPhotosAppProtection:(id)protection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   protectionCopy = protection;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   sections = [protectionCopy sections];
-  v8 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(sections);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         if (!-[ATXFaceSuggestionServer isPhotosBasedSection:](self, "isPhotosBasedSection:", v12) || ([v6 bundleIdIsLockedOrHiddenByUserPreference:@"com.apple.mobileslideshow"] & 1) == 0)
         {
           [v5 addObject:v12];
         }
       }
 
-      v9 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
   [protectionCopy setSections:v5];
-  v13 = *MEMORY[0x277D85DE8];
 
   return protectionCopy;
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_2_11(&dword_2263AA000, v0, v1, "%s: rejecting connection %@ without entitlement %@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_11(&dword_2263AA000, v0, v1, "%s: rejecting connection %@ without entitlement %@", v2);
 }
 
 void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_13();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __62__ATXFaceSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_53_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_13();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)fetchComplicationSetsForFaceGalleryItem:completion:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_13();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_13();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __78__ATXFaceSuggestionServer_reloadLockScreenSuggestionsWithActivity_completion___block_invoke_77_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __70__ATXFaceSuggestionServer_generatorDidUpdateFaceGalleryConfiguration___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  *v4 = 136315650;
-  *&v4[4] = "[ATXFaceSuggestionServer generatorDidUpdateFaceGalleryConfiguration:]_block_invoke";
-  *&v4[12] = 2112;
-  *&v4[14] = *(a1 + 32);
-  *&v4[22] = 2112;
-  OUTLINED_FUNCTION_2_11(&dword_2263AA000, a2, a3, "%s: service: %@, error pushing face gallery configuration to PosterBoard: %@", *v4, *&v4[8], *&v4[16], a2);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 136315650;
+  *&v3[4] = "[ATXFaceSuggestionServer generatorDidUpdateFaceGalleryConfiguration:]_block_invoke";
+  *&v3[12] = 2112;
+  *&v3[14] = *(a1 + 32);
+  *&v3[22] = 2112;
+  OUTLINED_FUNCTION_2_11(&dword_2263AA000, a2, a3, "%s: service: %@, error pushing face gallery configuration to PosterBoard: %@", *v3, *&v3[8], *&v3[16], a2);
 }
 
 @end

@@ -8,7 +8,7 @@
 - (void)didAcceptAdminTransport:(id)transport
 {
   transportCopy = transport;
-  v4 = _CRKLogGeneral_3();
+  v4 = _CRKLogGeneral_3(transportCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(CRKInstructorExtensionOptimizerShim *)transportCopy didAcceptAdminTransport:v4];
@@ -18,7 +18,7 @@
 - (void)beginRequestWithExtensionContext:(id)context
 {
   contextCopy = context;
-  v4 = _CRKLogGeneral_3();
+  v4 = _CRKLogGeneral_3(contextCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(CRKInstructorExtensionOptimizerShim *)contextCopy beginRequestWithExtensionContext:v4];

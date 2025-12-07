@@ -434,7 +434,7 @@
 
   if (isFocused)
   {
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     titleLabel = [(_UIHorizontalIndexTitleBarCell *)self titleLabel];
     [titleLabel setTextColor:v7];
 

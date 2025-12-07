@@ -18,9 +18,9 @@
 - (TCSSuggestionsDataSource)initWithSuggestions:(id)suggestions
 {
   suggestionsCopy = suggestions;
-  v14.receiver = self;
-  v14.super_class = TCSSuggestionsDataSource;
-  v6 = [(TCSSuggestionsDataSource *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = TCSSuggestionsDataSource;
+  v6 = [(TCSSuggestionsDataSource *)&v16 init];
   v7 = v6;
   if (v6)
   {
@@ -30,18 +30,19 @@
     [defaultCenter addObserver:v7 selector:sel__handleContactStoreDidChange_ name:*MEMORY[0x277CBD140] object:0];
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterAddObserver(DarwinNotifyCenter, v7, _TCSSuggestionsDataSourcePersonNamePreferencesChangeHandler, *MEMORY[0x277D218C0], 0, 0);
-    if (!+[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot])
+    v10 = +[TCSBehavior isMobileKeyBagDisabledOrDeviceUnlockedSinceBoot];
+    if ((v10 & 1) == 0)
     {
-      _TCSInitializeLogging();
-      v10 = TCSLogDefault;
+      _TCSInitializeLogging(v10, v11);
+      v12 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_26F110000, v10, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource will need to wait for first device unlock before it can generate Walkie-Talkie suggested contacts for display.", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_26F110000, v12, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource will need to wait for first device unlock before it can generate Walkie-Talkie suggested contacts for display.", v15, 2u);
       }
 
-      v11 = +[TCSBehavior sharedBehavior];
-      [defaultCenter addObserver:v7 selector:sel__handleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v11];
+      v13 = +[TCSBehavior sharedBehavior];
+      [defaultCenter addObserver:v7 selector:sel__handleDeviceFirstUnlock name:@"TCSFirstUnlockNotification" object:v13];
     }
   }
 
@@ -72,7 +73,7 @@
 - (NSArray)suggestedContacts
 {
   selfCopy = self;
-  v66 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   suggestedContacts = self->_suggestedContacts;
   if (!suggestedContacts)
   {
@@ -80,31 +81,31 @@
     v5 = [suggestedDestinations copy];
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+    v6 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v57;
+      v8 = *v60;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v57 != v8)
+          if (*v60 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v56 + 1) + 8 * i);
+          v10 = *(*(&v59 + 1) + 8 * i);
           v11 = selfCopy;
           contactStore = [(TCSSuggestions *)selfCopy->_suggestions contactStore];
           v13 = +[TCSSuggestionsDataSource descriptorForRequiredKeys];
-          v64 = v13;
-          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
+          v67 = v13;
+          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
           v15 = [TCSContacts _unifiedContactWithIdentifier:0 orDestination:v10 usingContactStore:contactStore keysToFetch:v14];
 
           if (v15)
@@ -116,7 +117,7 @@
           selfCopy = v11;
         }
 
-        v7 = [obj countByEnumeratingWithState:&v56 objects:v65 count:16];
+        v7 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
       }
 
       while (v7);
@@ -126,114 +127,119 @@
     allValues = [dictionary allValues];
     v19 = [v17 setWithArray:allValues];
 
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __45__TCSSuggestionsDataSource_suggestedContacts__block_invoke;
-    v55[3] = &unk_279DC1E40;
-    v55[4] = selfCopy;
-    v47 = [v19 objectsPassingTest:v55];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __45__TCSSuggestionsDataSource_suggestedContacts__block_invoke;
+    v58[3] = &unk_279DC1E40;
+    v58[4] = selfCopy;
+    v50 = [v19 objectsPassingTest:v58];
     [v19 minusSet:?];
-    v54[0] = MEMORY[0x277D85DD0];
-    v54[1] = 3221225472;
-    v54[2] = __45__TCSSuggestionsDataSource_suggestedContacts__block_invoke_2;
-    v54[3] = &unk_279DC1E40;
-    v54[4] = selfCopy;
-    v20 = [v19 objectsPassingTest:v54];
+    v57[0] = MEMORY[0x277D85DD0];
+    v57[1] = 3221225472;
+    v57[2] = __45__TCSSuggestionsDataSource_suggestedContacts__block_invoke_2;
+    v57[3] = &unk_279DC1E40;
+    v57[4] = selfCopy;
+    v20 = [v19 objectsPassingTest:v57];
     [v19 minusSet:v20];
     contactStore2 = [(TCSSuggestions *)selfCopy->_suggestions contactStore];
     v22 = +[TCSSuggestionsDataSource descriptorForRequiredKeys];
-    v63 = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
+    v66 = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v66 count:1];
     v24 = [TCSContacts _unifiedMeContactFromContactStore:contactStore2 keysToFetch:v23];
 
-    if ([v19 containsObject:v24])
+    v25 = [v19 containsObject:v24];
+    if (v25)
     {
-      _TCSInitializeLogging();
-      v25 = TCSLogDefault;
+      _TCSInitializeLogging(v25, v26);
+      v27 = TCSLogDefault;
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_26F110000, v25, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource is omitting the Me card from suggested contacts.", buf, 2u);
+        _os_log_impl(&dword_26F110000, v27, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource is omitting the Me card from suggested contacts.", buf, 2u);
       }
 
       [v19 removeObject:v24];
     }
 
     allObjects = [v19 allObjects];
-    v27 = [(TCSSuggestionsDataSource *)selfCopy _sortedContactsArrayFromArray:allObjects];
-    v28 = selfCopy->_suggestedContacts;
-    selfCopy->_suggestedContacts = v27;
+    v29 = [(TCSSuggestionsDataSource *)selfCopy _sortedContactsArrayFromArray:allObjects];
+    v30 = selfCopy->_suggestedContacts;
+    selfCopy->_suggestedContacts = v29;
 
-    v29 = [(NSArray *)selfCopy->_suggestedContacts count];
-    _TCSInitializeLogging();
-    v30 = TCSLogDefault;
-    v31 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
-    if (v29)
+    v31 = [(NSArray *)selfCopy->_suggestedContacts count];
+    _TCSInitializeLogging(v31, v32);
+    v33 = TCSLogDefault;
+    v34 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
+    if (v31)
     {
-      v43 = v24;
-      v44 = v20;
-      v45 = v19;
-      if (v31)
+      v46 = v24;
+      v47 = v20;
+      v48 = v19;
+      if (v34)
       {
         *buf = 0;
-        _os_log_impl(&dword_26F110000, v30, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource has suggested contacts:", buf, 2u);
+        _os_log_impl(&dword_26F110000, v33, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource has suggested contacts:", buf, 2u);
       }
 
-      v52 = 0u;
+      v55 = 0u;
+      v56 = 0u;
       v53 = 0u;
-      v50 = 0u;
-      v51 = 0u;
-      v46 = selfCopy;
-      v32 = selfCopy->_suggestedContacts;
-      v33 = [(NSArray *)v32 countByEnumeratingWithState:&v50 objects:v62 count:16];
-      if (v33)
+      v54 = 0u;
+      v49 = selfCopy;
+      v35 = selfCopy->_suggestedContacts;
+      v36 = [(NSArray *)v35 countByEnumeratingWithState:&v53 objects:v65 count:16];
+      if (v36)
       {
-        v34 = v33;
-        v35 = *v51;
+        v38 = v36;
+        v39 = *v54;
         do
         {
-          for (j = 0; j != v34; ++j)
+          v40 = 0;
+          do
           {
-            if (*v51 != v35)
+            if (*v54 != v39)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v35);
             }
 
-            v37 = *(*(&v50 + 1) + 8 * j);
-            _TCSInitializeLogging();
-            v38 = TCSLogDefault;
-            if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
+            v41 = *(*(&v53 + 1) + 8 * v40);
+            _TCSInitializeLogging(v36, v37);
+            v42 = TCSLogDefault;
+            v36 = os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT);
+            if (v36)
             {
-              v39 = v38;
-              v40 = [TCSContacts _safeContactDetailStringForLogging:v37];
+              v43 = v42;
+              v44 = [TCSContacts _safeContactDetailStringForLogging:v41];
               *buf = 138412290;
-              v61 = v40;
-              _os_log_impl(&dword_26F110000, v39, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
+              v64 = v44;
+              _os_log_impl(&dword_26F110000, v43, OS_LOG_TYPE_DEFAULT, "    %@", buf, 0xCu);
             }
+
+            ++v40;
           }
 
-          v34 = [(NSArray *)v32 countByEnumeratingWithState:&v50 objects:v62 count:16];
+          while (v38 != v40);
+          v36 = [(NSArray *)v35 countByEnumeratingWithState:&v53 objects:v65 count:16];
+          v38 = v36;
         }
 
-        while (v34);
+        while (v36);
       }
 
-      v19 = v45;
-      selfCopy = v46;
-      v24 = v43;
-      v20 = v44;
+      v19 = v48;
+      selfCopy = v49;
+      v24 = v46;
+      v20 = v47;
     }
 
-    else if (v31)
+    else if (v34)
     {
       *buf = 0;
-      _os_log_impl(&dword_26F110000, v30, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource has no suggested contacts to display.", buf, 2u);
+      _os_log_impl(&dword_26F110000, v33, OS_LOG_TYPE_DEFAULT, "TCSSuggestionsDataSource has no suggested contacts to display.", buf, 2u);
     }
 
     suggestedContacts = selfCopy->_suggestedContacts;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return suggestedContacts;
 }
@@ -272,22 +278,20 @@ BOOL __45__TCSSuggestionsDataSource_suggestedContacts__block_invoke_2(uint64_t a
 
 void __53__TCSSuggestionsDataSource_descriptorForRequiredKeys__block_invoke()
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBDA58];
   v1 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-  v9[0] = v1;
+  v8[0] = v1;
   v2 = [MEMORY[0x277CBDA58] descriptorForAllComparatorKeys];
   v3 = *MEMORY[0x277CBD098];
-  v9[1] = v2;
-  v9[2] = v3;
-  v9[3] = *MEMORY[0x277CBCFC0];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
+  v8[1] = v2;
+  v8[2] = v3;
+  v8[3] = *MEMORY[0x277CBCFC0];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[TCSSuggestionsDataSource descriptorForRequiredKeys]_block_invoke"];
   v6 = [v0 descriptorWithKeyDescriptors:v4 description:v5];
   v7 = descriptorForRequiredKeys_cn_once_object_5;
   descriptorForRequiredKeys_cn_once_object_5 = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suggestionsDidChange:(id)change
@@ -344,7 +348,7 @@ void __53__TCSSuggestionsDataSource_descriptorForRequiredKeys__block_invoke()
 
 - (void)_handleDeviceFirstUnlock
 {
-  _TCSInitializeLogging();
+  _TCSInitializeLogging(self, a2);
   v3 = TCSLogDefault;
   if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_DEFAULT))
   {

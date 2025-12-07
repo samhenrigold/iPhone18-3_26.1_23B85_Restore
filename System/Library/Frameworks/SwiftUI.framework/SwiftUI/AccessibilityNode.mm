@@ -80,9 +80,10 @@
 - (unint64_t)accessibilityTraits
 {
   selfCopy = self;
-  v3 = AccessibilityNode.accessibilityTraits.getter();
+  AccessibilityNode.accessibilityTraits.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (NSString)accessibilityLabel
@@ -114,12 +115,13 @@
 {
   selfCopy = self;
   v3 = AccessibilityNode.resolvedLabels.getter();
+  v6 = 2;
   if (one-time initialization token for comma != -1)
   {
     swift_once();
   }
 
-  v4 = specialized AccessibilityNode.resolvedAttributedTexts(_:options:separator:)(v3);
+  v4 = specialized AccessibilityNode.resolvedAttributedTexts(_:options:separator:)(v3, &v6);
 
   return v4;
 }
@@ -169,13 +171,13 @@
   outlined destroy of AccessibilityAttachment(v6);
   v3 = AccessibilityProperties.hints.getter();
   outlined destroy of AccessibilityProperties(v7);
-  v6[0] = 2;
+  LODWORD(v6[0]) = 2;
   if (one-time initialization token for comma != -1)
   {
     swift_once();
   }
 
-  v4 = specialized AccessibilityNode.resolvedAttributedTexts(_:options:separator:)(v3);
+  v4 = specialized AccessibilityNode.resolvedAttributedTexts(_:options:separator:)(v3, v6);
 
   return v4;
 }
@@ -270,9 +272,10 @@
 - (_TtP7SwiftUI36PlatformAccessibilityElementProtocol_)_accessibilityNodeRepresentedElement
 {
   selfCopy = self;
-  v3 = AccessibilityNode.representedElement.getter();
+  AccessibilityNode.representedElement.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (CGRect)_accessibilityBoundsForRange:(_NSRange)range
@@ -303,32 +306,34 @@
 {
   selfCopy = self;
   v3 = specialized static AccessibilityCore.queryChildren(element:options:)(selfCopy, 2);
-  v4 = Array<A>.representedElements(options:)(2, v3);
+  Array<A>.representedElements(options:)(2, v3);
+  v5 = v4;
 
-  specialized _arrayForceCast<A, B>(_:)(v4);
+  specialized _arrayForceCast<A, B>(_:)(v5);
 
-  v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v5.super.isa;
+  return v6.super.isa;
 }
 
 - (int64_t)accessibilityElementCount
 {
   selfCopy = self;
   v3 = specialized static AccessibilityCore.queryChildren(element:options:)(selfCopy, 0);
-  v4 = Array<A>.representedElements(options:)(0, v3);
+  Array<A>.representedElements(options:)(0, v3);
+  v5 = v4;
 
-  if (v4 >> 62)
+  if (v5 >> 62)
   {
-    v5 = __CocoaSet.count.getter();
+    v6 = __CocoaSet.count.getter();
   }
 
   else
   {
-    v5 = *((v4 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)_accessibilityHasOrderedChildren
@@ -344,7 +349,7 @@
 {
   selfCopy = self;
   *&v3 = COERCE_DOUBLE(AccessibilityNode.explicitActivationPoint.getter());
-  if (v5 == -1 && (*&v3 = COERCE_DOUBLE(AccessibilityNode.implicitActivationPoint(options:)(2)), v6 == -1))
+  if (v5 == -1 && (AccessibilityNode.implicitActivationPoint(options:)(2), v6 == -1))
   {
     [(AccessibilityNode *)selfCopy accessibilityFrame];
     x = v18.origin.x;
@@ -448,7 +453,7 @@
   AccessibilityNode.attachment.getter(v5);
   outlined init with copy of AccessibilityProperties(v5, v6);
   outlined destroy of AccessibilityAttachment(v5);
-  v5[0] = 21;
+  LOBYTE(v5[0]) = 21;
   v3 = AccessibilityProperties.subscript.getter();
 
   outlined destroy of AccessibilityProperties(v6);
@@ -559,7 +564,7 @@
   selfCopy = self;
   AccessibilityNode.resolvedCustomRotors.getter();
 
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomRotor);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for UIAccessibilityCustomRotor, 0x1E69DC5F0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -716,7 +721,7 @@
   }
 
   outlined destroy of AccessibilityTextLayoutProperties?(__dst, &lazy cache variable for type metadata for AccessibilityDataSeriesConfiguration?, MEMORY[0x1E6980BD8], MEMORY[0x1E69E6720], _sypSgMaTm_3);
-  return v7[50];
+  return BYTE2(v7[6]);
 }
 
 - (BOOL)_accessibilityDataSeriesSupportsSonification
@@ -736,7 +741,7 @@
   }
 
   outlined destroy of AccessibilityTextLayoutProperties?(__dst, &lazy cache variable for type metadata for AccessibilityDataSeriesConfiguration?, MEMORY[0x1E6980BD8], MEMORY[0x1E69E6720], _sypSgMaTm_3);
-  return v7[33];
+  return BYTE1(v7[4]);
 }
 
 - (BOOL)_accessibilityDataSeriesIncludesTrendlineInSonification
@@ -756,7 +761,7 @@
   }
 
   outlined destroy of AccessibilityTextLayoutProperties?(__dst, &lazy cache variable for type metadata for AccessibilityDataSeriesConfiguration?, MEMORY[0x1E6980BD8], MEMORY[0x1E69E6720], _sypSgMaTm_3);
-  return v7[49];
+  return BYTE1(v7[6]);
 }
 
 - (double)_accessibilityDataSeriesSonificationDuration

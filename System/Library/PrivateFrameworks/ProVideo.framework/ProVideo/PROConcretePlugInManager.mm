@@ -664,7 +664,7 @@ LABEL_11:
   return v10;
 }
 
-uint64_t __76__PROConcretePlugInManager_checkIfShouldBlockPlugin_returnPluginDictionary___block_invoke(uint64_t a1)
+void *__76__PROConcretePlugInManager_checkIfShouldBlockPlugin_returnPluginDictionary___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) newBlockPluginList:@"6B9D8D3C-D3BF-4276-828F-2212D24B11CE"];
   checkIfShouldBlockPlugin_returnPluginDictionary__pluginList = result;

@@ -44,7 +44,7 @@
 
 - (_LTTranslationResult)initWithCoder:(id)coder
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(_LTTranslationResult *)self init];
   if (v5)
@@ -58,9 +58,9 @@
     v5->_locale = v8;
 
     v10 = MEMORY[0x277CBEB98];
-    v30[0] = objc_opt_class();
-    v30[1] = objc_opt_class();
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v29[0] = objc_opt_class();
+    v29[1] = objc_opt_class();
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"translations"];
@@ -79,9 +79,9 @@
     v5->_endOfUtterance = [coderCopy decodeBoolForKey:@"endOfUtterance"];
     v5->_route = [coderCopy decodeIntegerForKey:@"route"];
     v19 = MEMORY[0x277CBEB98];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
     v21 = [v19 setWithArray:v20];
 
     v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"alignments"];
@@ -95,7 +95,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

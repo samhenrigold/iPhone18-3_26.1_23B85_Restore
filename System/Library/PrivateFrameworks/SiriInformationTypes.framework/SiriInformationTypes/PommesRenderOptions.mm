@@ -9,11 +9,9 @@
 - (_TtC21SiriInformationSearch19PommesRenderOptions)init
 {
   ObjectType = swift_getObjectType();
-  v4 = (*(ObjectType + 128))(destructiveProjectEnumData for UserPromptExperience.PromptType, 0);
-  v5 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v6 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
+  v3 = (*(ObjectType + 128))(destructiveProjectEnumData for UserPromptExperience.PromptType, 0);
   swift_deallocPartialClassInstance();
-  return v4;
+  return v3;
 }
 
 - (_TtC21SiriInformationSearch19PommesRenderOptions)initWithCoder:(id)coder

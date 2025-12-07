@@ -440,7 +440,7 @@ LABEL_15:
     strides = [v112 strides];
     v121 = 0uLL;
     *&v122 = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v121, *strides, strides[1], (strides[1] - *strides) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v121, *strides, *(strides + 8), (*(strides + 8) - *strides) >> 2);
     v106 = v121;
     v90 = *(v121 + 4 * v109);
     v84 = *(*[v112 cellStartsY] + 4 * v109);
@@ -957,7 +957,8 @@ float __46__VNShotflowNetwork_processVImage_inputIsBGR___block_invoke_2(void *a1
 - (void)initializeBuffers
 {
   v2 = objc_opt_class();
-  std::vector<unsigned long>::vector[abi:ne200100](&v6, 4uLL);
+  v6 = 0;
+  std::vector<unsigned long>::vector[abi:ne200100](&v7, 4uLL, &v6);
   inputLayerName = [v2 inputLayerName];
   [inputLayerName UTF8String];
   blob_dimensions = espresso_network_query_blob_dimensions();

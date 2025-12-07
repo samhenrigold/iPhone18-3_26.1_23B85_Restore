@@ -11,12 +11,12 @@
 
 - (CTStewieIMessageLiteSummaryPendingCount)initWithOtherShortHandle:(id)handle pendingCount:(int64_t)count error:(id *)p_isa
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   {
-    v16.receiver = self;
-    v16.super_class = CTStewieIMessageLiteSummaryPendingCount;
-    v11 = [(CTStewieIMessageLiteSummaryPendingCount *)&v16 init];
+    v15.receiver = self;
+    v15.super_class = CTStewieIMessageLiteSummaryPendingCount;
+    v11 = [(CTStewieIMessageLiteSummaryPendingCount *)&v15 init];
     p_isa = &v11->super.isa;
     if (v11)
     {
@@ -35,15 +35,14 @@
   else if (p_isa)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18[0] = @"Invalid otherShortHandle";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17[0] = @"Invalid otherShortHandle";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     *p_isa = [v12 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v13];
 
     p_isa = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

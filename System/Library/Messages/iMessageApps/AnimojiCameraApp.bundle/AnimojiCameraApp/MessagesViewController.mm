@@ -2,9 +2,13 @@
 - (AVTAvatarPickerDelegate)avatarPickerDelegate;
 - (void)didBecomeActiveWithConversation:(id)conversation;
 - (void)didTransitionToPresentationStyle:(unint64_t)style;
+- (void)dismissAvatarUIControllerAnimated:(BOOL)animated;
 - (void)dismissLaunchScreenIfNecessary;
+- (void)presentAvatarUIController:(id)controller animated:(BOOL)animated;
+- (void)selectAvatarRecordWithIdentifier:(id)identifier animated:(BOOL)animated;
 - (void)setAvatarPickerDelegate:(id)delegate;
 - (void)splashScreenViewControllerDidConfirm:(id)confirm;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)willTransitionToPresentationStyle:(unint64_t)style;
 @end
@@ -159,6 +163,31 @@
   [pickerController setMode:v5];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = MessagesViewController;
+  [(MessagesViewController *)&v8 viewDidAppear:appear];
+  if ([(MessagesViewController *)self showsSplashScreen])
+  {
+    parentMessagesViewController = [(MessagesViewController *)self parentMessagesViewController];
+    presentationStyle = [parentMessagesViewController presentationStyle];
+
+    if (presentationStyle == &dword_0 + 1)
+    {
+      splashViewController = [(MessagesViewController *)self splashViewController];
+      view = [splashViewController view];
+      [view setAlpha:1.0];
+    }
+
+    else
+    {
+      splashViewController = [(MessagesViewController *)self parentMessagesViewController];
+      [splashViewController requestExpandedPresentation];
+    }
+  }
+}
+
 - (void)setAvatarPickerDelegate:(id)delegate
 {
   obj = delegate;
@@ -232,6 +261,30 @@
   AVTUISetHasDisplayedCameraEffectsCameraDisclosureSplashScreen();
 
   [(MessagesViewController *)self dismissLaunchScreenIfNecessary];
+}
+
+- (void)presentAvatarUIController:(id)controller animated:(BOOL)animated
+{
+  [AVTUIControllerPresentation setPendingGlobalPresentation:controller, animated];
+
+  [(MessagesViewController *)self requestPresentationStyle:3];
+}
+
+- (void)dismissAvatarUIControllerAnimated:(BOOL)animated
+{
+  v3 = +[AVTUIControllerPresentation pendingGlobalPresentation];
+  modalMessagesController = [v3 modalMessagesController];
+  [modalMessagesController dismiss];
+
+  [AVTUIControllerPresentation setPendingGlobalPresentation:0];
+}
+
+- (void)selectAvatarRecordWithIdentifier:(id)identifier animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  identifierCopy = identifier;
+  pickerController = [(MessagesViewController *)self pickerController];
+  [pickerController selectAvatarRecordWithIdentifier:identifierCopy animated:animatedCopy];
 }
 
 @end

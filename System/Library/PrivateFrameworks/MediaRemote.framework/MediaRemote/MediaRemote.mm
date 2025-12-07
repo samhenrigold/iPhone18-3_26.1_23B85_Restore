@@ -22,9 +22,9 @@ id getINInteractionClass()
   return v1;
 }
 
-void sub_1A2861C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2861C50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -53,9 +53,9 @@ id getBMPublisherOptionsClass()
   return v1;
 }
 
-void sub_1A2861D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2861D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -84,9 +84,9 @@ id getINPlayMediaIntentClass()
   return v1;
 }
 
-void sub_1A2861E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2861E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -117,9 +117,9 @@ id getAVSystemController_SubscribeToNotificationsAttribute()
   return v2;
 }
 
-void sub_1A2861F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2861F14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -150,9 +150,9 @@ id getAVSystemController_ServerConnectionDiedNotification()
   return v2;
 }
 
-void sub_1A2862018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A2862018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -183,9 +183,9 @@ id getAVSystemController_CanBeNowPlayingAppAttribute()
   return v2;
 }
 
-void sub_1A286211C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A286211C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -214,9 +214,9 @@ id getAVSystemControllerClass()
   return v1;
 }
 
-void sub_1A28621FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A28621FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -245,9 +245,9 @@ id getAVSystemControllerClass_0()
   return v1;
 }
 
-void sub_1A28622DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A28622DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -269,10 +269,11 @@ id _MRLogForCategory(unint64_t a1)
   return v2;
 }
 
-void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 uint64_t OUTLINED_FUNCTION_1_2(uint64_t a1)
@@ -281,10 +282,11 @@ uint64_t OUTLINED_FUNCTION_1_2(uint64_t a1)
   return [v1 addObject:a1];
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -294,23 +296,18 @@ void OUTLINED_FUNCTION_1_7(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_1_9(int a1@<W8>)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(*(v2[6] + 8) + 24) = v1;
-  *(*(v2[7] + 8) + 24) = *(*(v2[6] + 8) + 24) != a1;
-  v3 = v2[4];
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
-}
-
-void OUTLINED_FUNCTION_1_12(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0x16u);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
 }
 
 void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -320,19 +317,11 @@ void OUTLINED_FUNCTION_3_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_1_15(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_1_15(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_DEFAULT, a4, &buf, 8u);
-}
-
-void *OUTLINED_FUNCTION_1_17@<X0>(void *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v4 = result[5];
-  v3 = result[6];
-  v5 = result[4];
-  return result;
+  _os_log_impl(a1, v12, OS_LOG_TYPE_DEFAULT, a4, va, 8u);
 }
 
 uint64_t OUTLINED_FUNCTION_1_20()
@@ -341,16 +330,18 @@ uint64_t OUTLINED_FUNCTION_1_20()
   return objc_opt_class();
 }
 
-void OUTLINED_FUNCTION_1_21(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_21(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_12_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_12_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t OUTLINED_FUNCTION_8(void *a1, const char *a2)
@@ -360,36 +351,32 @@ uint64_t OUTLINED_FUNCTION_8(void *a1, const char *a2)
   return [a1 timeIntervalSinceDate:v4];
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-uint64_t OUTLINED_FUNCTION_0_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
+uint64_t OUTLINED_FUNCTION_0_15(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
+  va_start(va, a17);
 
-  return [v18 countByEnumeratingWithState:&a9 objects:&a18 count:16];
+  return [v17 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
-uint64_t OUTLINED_FUNCTION_0_16(uint64_t result)
+void OUTLINED_FUNCTION_0_18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v2 = *(*(v1 + 40) + 8);
-  v3 = *(v2 + 40);
-  *(v2 + 40) = result;
-  return result;
+  va_start(va, a8);
+
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_18(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-void OUTLINED_FUNCTION_0_19(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_0_27(uint64_t result)
@@ -476,9 +463,9 @@ void sub_1A2865090(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1A28651A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A28651A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -491,15 +478,15 @@ uint64_t MRGetSharedService()
   return v1;
 }
 
-void OUTLINED_FUNCTION_3_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t OUTLINED_FUNCTION_3_12()
 {
-  v2 = *(v0 + 3776);
 
   return objc_opt_class();
 }
@@ -531,7 +518,7 @@ void MRAddPlayerPathToXPCMessage(void *a1, void *a2)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      MRAddPlayerPathToXPCMessage_cold_1();
+      MRAddPlayerPathToXPCMessage_cold_1(v6);
     }
 
     v5 = [v6 data];
@@ -638,7 +625,7 @@ CFStringRef MRAVOutputContextTypeCopyDescription(unsigned int a1)
   return CFStringCreateCopy(*MEMORY[0x1E695E480], v1);
 }
 
-uint64_t MRProcessIsMediaRemoteDaemon()
+uint64_t MRProcessIsMediaRemoteDaemon(uint64_t a1, uint64_t a2)
 {
   if (MRProcessIsMediaRemoteDaemon_onceToken != -1)
   {
@@ -653,7 +640,7 @@ void __MRProcessIsMediaRemoteDaemon_block_invoke()
   v0 = [MEMORY[0x1E696AE30] processInfo];
   v1 = [v0 processName];
 
-  MRProcessIsMediaRemoteDaemon_isDaemon = [v1 isEqualToString:@"mediaremoted"];
+  MRProcessIsMediaRemoteDaemon_isDaemon = objc_msgSend_isEqualToString_(v1);
 }
 
 CFStringRef MRMediaRemoteCopyLocalDeviceSystemPodcastApplicationDisplayID()
@@ -777,94 +764,91 @@ Class __getAVSystemControllerClass_block_invoke_0(uint64_t a1)
 
 uint64_t MediaExperienceLibrary()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!MediaExperienceLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __MediaExperienceLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E769ADC8;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __MediaExperienceLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E769ADC8;
+    v4 = 0;
     MediaExperienceLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = MediaExperienceLibraryCore_frameworkLibrary;
   if (!MediaExperienceLibraryCore_frameworkLibrary)
   {
-    MediaExperienceLibrary_cold_1(v3);
+    MediaExperienceLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t MediaExperienceLibrary_0()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!MediaExperienceLibraryCore_frameworkLibrary_0)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __MediaExperienceLibraryCore_block_invoke_0;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E769EE40;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __MediaExperienceLibraryCore_block_invoke_0;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E769EE40;
+    v4 = 0;
     MediaExperienceLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = MediaExperienceLibraryCore_frameworkLibrary_0;
   if (!MediaExperienceLibraryCore_frameworkLibrary_0)
   {
-    MediaExperienceLibrary_cold_1_0(v3);
+    MediaExperienceLibrary_cold_1_0(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
 uint64_t MediaExperienceLibrary_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v3[0] = 0;
+  v5 = *MEMORY[0x1E69E9840];
+  v2[0] = 0;
   if (!MediaExperienceLibraryCore_frameworkLibrary_1)
   {
-    v3[1] = MEMORY[0x1E69E9820];
-    v3[2] = 3221225472;
-    v3[3] = __MediaExperienceLibraryCore_block_invoke_1;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v4 = xmmword_1E76A3778;
-    v5 = 0;
+    v2[1] = MEMORY[0x1E69E9820];
+    v2[2] = 3221225472;
+    v2[3] = __MediaExperienceLibraryCore_block_invoke_1;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v3 = xmmword_1E76A3778;
+    v4 = 0;
     MediaExperienceLibraryCore_frameworkLibrary_1 = _sl_dlopen();
   }
 
   v0 = MediaExperienceLibraryCore_frameworkLibrary_1;
   if (!MediaExperienceLibraryCore_frameworkLibrary_1)
   {
-    MediaExperienceLibrary_cold_1_1(v3);
+    MediaExperienceLibrary_cold_1_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return v0;
 }
 
@@ -890,17 +874,17 @@ void MRMediaRemoteServiceSetNowPlayingPlayer(void *a1, void *a2, void *a3, void 
 uint64_t MRBundlePermittedForGroupSessions(void *a1)
 {
   v1 = a1;
-  if ([v1 isEqualToString:@"com.apple.Music"] & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"com.apple.proximitycontrold") & 1) != 0 || (objc_msgSend(v1, "isEqualToString:", @"com.apple.MediaRemoteUI"))
+  if (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1) & 1) != 0 || (objc_msgSend_isEqualToString_(v1))
   {
-    v2 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v2 = [v1 isEqualToString:@"com.apple.springboard"];
+    isEqualToString = objc_msgSend_isEqualToString_(v1);
   }
 
-  return v2;
+  return isEqualToString;
 }
 
 MRPlayerPath *MRCreatePlayerPathFromXPCMessage(void *a1)
@@ -1018,15 +1002,15 @@ void MRMediaRemoteServiceGetExternalScreenType(void *a1, void *a2, void *a3)
 id MRMediaRemoteServiceCopyDeviceInfo(void *a1, void *a2)
 {
   v3 = a2;
-  if (MRProcessIsMediaRemoteDaemon())
+  if (MRProcessIsMediaRemoteDaemon(v3, v4))
   {
     MRMediaRemoteServiceCopyDeviceInfo_cold_1();
   }
 
-  v4 = +[MRUserSettings currentSettings];
-  v5 = [v4 supportsNativeThirdPartyApps];
+  v5 = +[MRUserSettings currentSettings];
+  v6 = [v5 supportsNativeThirdPartyApps];
 
-  if (!v5)
+  if (!v6)
   {
     goto LABEL_7;
   }
@@ -1036,36 +1020,36 @@ id MRMediaRemoteServiceCopyDeviceInfo(void *a1, void *a2)
     MRMediaRemoteServiceCopyDeviceInfo_cold_2();
   }
 
-  v6 = [MRMediaRemoteServiceCopyDeviceInfo_entitlements objectForKeyedSubscript:@"com.apple.mediaremote.device-info"];
-  v7 = [v6 BOOLValue];
+  v7 = [MRMediaRemoteServiceCopyDeviceInfo_entitlements objectForKeyedSubscript:@"com.apple.mediaremote.device-info"];
+  v8 = [v7 BOOLValue];
 
-  if (!v7)
+  if (!v8)
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   else
   {
 LABEL_7:
-    v8 = a1;
-    v9 = MRCreateXPCMessage(0x20000000000002CuLL);
-    MRAddPlayerPathToXPCMessage(v9, v3);
-    v10 = [v8 connection];
+    v9 = a1;
+    v10 = MRCreateXPCMessage(0x20000000000002CuLL);
+    MRAddPlayerPathToXPCMessage(v10, v3);
+    v11 = [v9 connection];
 
-    v11 = xpc_connection_send_message_with_reply_sync(v10, v9);
-    if (v11 == MEMORY[0x1E69E9E18] || v11 == MEMORY[0x1E69E9E20])
+    v12 = xpc_connection_send_message_with_reply_sync(v11, v10);
+    if (v12 == MEMORY[0x1E69E9E18] || v12 == MEMORY[0x1E69E9E20])
     {
       _MRServiceLogReplyError();
-      v12 = 0;
+      v13 = 0;
     }
 
     else
     {
-      v12 = MRCreateDeviceInfoFromXPCMessage(v11);
+      v13 = MRCreateDeviceInfoFromXPCMessage(v12);
     }
   }
 
-  return v12;
+  return v13;
 }
 
 uint64_t _MRNowPlayingPlayerPathProtobufReadFrom(id *a1, void *a2)
@@ -1254,7 +1238,7 @@ void sub_1A286CB18(_Unwind_Exception *a1)
 
 void MRMediaRemoteNowPlayingResolvePlayerPathWithID(void *a1, void *a2, char a3, void *a4, void *a5)
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a4;
   v11 = a5;
@@ -1297,57 +1281,55 @@ void MRMediaRemoteNowPlayingResolvePlayerPathWithID(void *a1, void *a2, char a3,
     [v20 appendFormat:@" for %@", v16];
   }
 
-  v37 = v9;
+  v36 = v9;
   v22 = _MRLogForCategory(0xAuLL);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v56 = v21;
+    v55 = v21;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v48[0] = MEMORY[0x1E69E9820];
-  v48[1] = 3221225472;
-  v48[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke;
-  v48[3] = &unk_1E76A1D30;
-  v54 = v11;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke;
+  v47[3] = &unk_1E76A1D30;
+  v53 = v11;
   v23 = v16;
-  v49 = v23;
-  v50 = @"resolvePlayerPath";
+  v48 = v23;
+  v49 = @"resolvePlayerPath";
   v24 = v18;
-  v51 = v24;
-  v52 = v17;
+  v50 = v24;
+  v51 = v17;
   v25 = v10;
-  v53 = v25;
+  v52 = v25;
   v26 = v17;
   v27 = v11;
-  v28 = MEMORY[0x1A58E3570](v48);
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_4;
-  v45[3] = &unk_1E76A1DA0;
-  v46 = v25;
-  v47 = &__block_literal_global_80;
+  v28 = MEMORY[0x1A58E3570](v47);
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_4;
+  v44[3] = &unk_1E76A1DA0;
+  v45 = v25;
+  v46 = &__block_literal_global_80;
   v29 = v25;
-  v30 = MEMORY[0x1A58E3570](v45);
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_6;
-  v38[3] = &unk_1E76A1E18;
-  v44 = a3;
-  v39 = v23;
-  v40 = @"resolvePlayerPath";
-  v41 = v24;
-  v42 = v28;
-  v43 = v30;
+  v30 = MEMORY[0x1A58E3570](v44);
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_6;
+  v37[3] = &unk_1E76A1E18;
+  v43 = a3;
+  v38 = v23;
+  v39 = @"resolvePlayerPath";
+  v40 = v24;
+  v41 = v28;
+  v42 = v30;
   v31 = v30[2];
   v32 = v30;
   v33 = v24;
   v34 = v23;
   v35 = v28;
-  v31(v32, v34, v38);
-
-  v36 = *MEMORY[0x1E69E9840];
+  v31(v32, v34, v37);
 }
 
 void __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_4(uint64_t a1, void *a2, void *a3)
@@ -1391,59 +1373,13 @@ void __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_2(uint64_t a1
     v6 = +[MRMediaRemoteServiceClient sharedServiceClient];
     v7 = [v6 activePlayerPath];
 
-    if (!v7)
+    if (v7 && (([v5 origin], (v8 = objc_claimAutoreleasedReturnValue()) == 0) || (v9 = v8, objc_msgSend(v5, "origin"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "origin"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v10, "isEqual:", v11), v11, v10, v9, v12)) && ((objc_msgSend(v5, "client"), (v13 = objc_claimAutoreleasedReturnValue()) == 0) || (v14 = v13, objc_msgSend(v5, "client"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "client"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, v14, v17)) && ((objc_msgSend(v5, "player"), (v18 = objc_claimAutoreleasedReturnValue()) == 0) || (v19 = v18, objc_msgSend(v5, "player"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "player"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "isEqual:", v21), v21, v20, v19, v22)))
     {
-      goto LABEL_11;
-    }
-
-    v8 = [v5 origin];
-    if (v8)
-    {
-      v9 = v8;
-      v10 = [v5 origin];
-      v11 = [v7 origin];
-      v12 = [v10 isEqual:v11];
-
-      if (!v12)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v13 = [v5 client];
-    if (v13)
-    {
-      v14 = v13;
-      v15 = [v5 client];
-      v16 = [v7 client];
-      v17 = [v15 isEqual:v16];
-
-      if (!v17)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    v18 = [v5 player];
-    if (!v18)
-    {
-      goto LABEL_10;
-    }
-
-    v19 = v18;
-    v20 = [v5 player];
-    v21 = [v7 player];
-    v22 = [v20 isEqual:v21];
-
-    if (v22)
-    {
-LABEL_10:
       v4[2](v4, v7, 0);
     }
 
     else
     {
-LABEL_11:
       v23 = MRGetSharedService();
       v24 = +[MRMediaRemoteServiceClient sharedServiceClient];
       v25 = [v24 workerQueue];
@@ -1457,16 +1393,16 @@ LABEL_11:
   }
 }
 
-void sub_1A286DA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A286DA48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t MRMediaRemoteNowPlayingPlayerPathCreateError(void *a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
@@ -1529,7 +1465,7 @@ LABEL_14:
   }
 
 LABEL_15:
-  v17 = @"playerPathDescription";
+  v16 = @"playerPathDescription";
   v11 = [v1 description];
   v12 = v11;
   if (!v11)
@@ -1537,8 +1473,8 @@ LABEL_15:
     v12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   if (!v11)
   {
   }
@@ -1553,7 +1489,6 @@ LABEL_15:
     ErrorWithUserInfo = MRMediaRemoteCreateErrorWithUserInfo(v10, v13);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return ErrorWithUserInfo;
 }
 
@@ -1566,7 +1501,7 @@ uint64_t MRMediaRemoteCreateErrorWithUserInfo(uint64_t a1, uint64_t a2)
 
 void __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 72))
@@ -1597,15 +1532,15 @@ void __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke(uint64_t a1, 
           v14 = [MEMORY[0x1E695DF00] date];
           [v14 timeIntervalSinceDate:*(a1 + 56)];
           *buf = 138544386;
-          v43 = v21;
-          v44 = 2114;
-          v45 = v20;
-          v46 = 2114;
-          v47 = v6;
-          v48 = 2114;
-          v49 = v22;
-          v50 = 2048;
-          v51 = v23;
+          v42 = v21;
+          v43 = 2114;
+          v44 = v20;
+          v45 = 2114;
+          v46 = v6;
+          v47 = 2114;
+          v48 = v22;
+          v49 = 2048;
+          v50 = v23;
           _os_log_error_impl(&dword_1A2860000, v9, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_18:
 
@@ -1628,11 +1563,11 @@ LABEL_18:
         v14 = [MEMORY[0x1E695DF00] date];
         [v14 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v43 = v32;
-        v44 = 2114;
-        v45 = v33;
-        v46 = 2048;
-        v47 = v34;
+        v42 = v32;
+        v43 = 2114;
+        v44 = v33;
+        v45 = 2048;
+        v46 = v34;
         v16 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v17 = v9;
         v18 = 32;
@@ -1643,15 +1578,15 @@ LABEL_18:
       {
 LABEL_23:
 
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_84;
-        v38[3] = &unk_1E769AC18;
+        v37[0] = MEMORY[0x1E69E9820];
+        v37[1] = 3221225472;
+        v37[2] = __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_84;
+        v37[3] = &unk_1E769AC18;
         v35 = *(a1 + 64);
-        v41 = *(a1 + 72);
-        v39 = v5;
-        v40 = v6;
-        v36 = MRCreateDonatedQosBlock(v38);
+        v40 = *(a1 + 72);
+        v38 = v5;
+        v39 = v6;
+        v36 = MRCreateDonatedQosBlock(v37);
         dispatch_async(v35, v36);
 
         goto LABEL_24;
@@ -1663,13 +1598,13 @@ LABEL_23:
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v43 = v26;
-      v44 = 2114;
-      v45 = v25;
-      v46 = 2114;
-      v47 = v27;
-      v48 = 2048;
-      v49 = v28;
+      v42 = v26;
+      v43 = 2114;
+      v44 = v25;
+      v45 = 2114;
+      v46 = v27;
+      v47 = 2048;
+      v48 = v28;
       v16 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     }
 
@@ -1686,15 +1621,15 @@ LABEL_23:
           v14 = [MEMORY[0x1E695DF00] date];
           [v14 timeIntervalSinceDate:*(a1 + 56)];
           *buf = 138544386;
-          v43 = v12;
-          v44 = 2114;
-          v45 = v11;
-          v46 = 2112;
-          v47 = v5;
-          v48 = 2114;
-          v49 = v13;
-          v50 = 2048;
-          v51 = v15;
+          v42 = v12;
+          v43 = 2114;
+          v44 = v11;
+          v45 = 2112;
+          v46 = v5;
+          v47 = 2114;
+          v48 = v13;
+          v49 = 2048;
+          v50 = v15;
           v16 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
           v17 = v9;
           v18 = 52;
@@ -1716,13 +1651,13 @@ LABEL_17:
       v14 = [MEMORY[0x1E695DF00] date];
       [v14 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v43 = v29;
-      v44 = 2114;
-      v45 = v30;
-      v46 = 2112;
-      v47 = v5;
-      v48 = 2048;
-      v49 = v31;
+      v42 = v29;
+      v43 = 2114;
+      v44 = v30;
+      v45 = 2112;
+      v46 = v5;
+      v47 = 2048;
+      v48 = v31;
       v16 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
     }
 
@@ -1732,8 +1667,6 @@ LABEL_17:
   }
 
 LABEL_24:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void __MRMediaRemoteNowPlayingResolvePlayerPathWithID_block_invoke_6(uint64_t a1, void *a2, void *a3)
@@ -1775,9 +1708,9 @@ LABEL_6:
   v13 = MRMediaRemoteCopyLocalDeviceAirPlayReceiverBundleID();
   v14 = [v5 client];
   v15 = [v14 bundleIdentifier];
-  v16 = [v15 isEqualToString:v13];
+  isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-  if (v16)
+  if (isEqualToString)
   {
     (*(*(a1 + 56) + 16))();
   }
@@ -1830,35 +1763,35 @@ CFStringRef MRMediaRemoteErrorCopyDescription(unint64_t a1)
 
 id MRCreateArrayFromData(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (a1)
   {
     v4 = [MEMORY[0x1E696AE40] propertyListWithData:a1 options:0 format:0 error:0];
     a1 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (!v6)
     {
       goto LABEL_14;
     }
 
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (1)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [MEMORY[0x1E695DFB0] null];
 
         if (v10 == v11)
@@ -1878,7 +1811,7 @@ LABEL_11:
 LABEL_12:
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (!v7)
       {
 LABEL_14:
@@ -1887,8 +1820,6 @@ LABEL_14:
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return a1;
 }
@@ -1924,16 +1855,16 @@ uint64_t __MRRegisterTransaction_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1A286F6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1A286F6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1A286F848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1A286F848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2321,9 +2252,9 @@ uint64_t __Block_byref_object_copy__52(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1A286FFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A286FFFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2350,65 +2281,63 @@ id MRCreateFromData(void *a1, void *a2)
 id MRComputeBaseRouteUIDWithDefaultSuffixes(void *a1)
 {
   v1 = a1;
-  v2 = MRCopyPossibleRouteUIDSuffixes();
+  v2 = MRCopyPossibleRouteUIDSuffixes(v1);
   v3 = MRComputeBaseRouteUIDWithSuffixes(v1);
 
   return v3;
 }
 
-id MRCopyPossibleRouteUIDSuffixes()
+id MRCopyPossibleRouteUIDSuffixes(uint64_t a1)
 {
   if (MRCopyPossibleRouteUIDSuffixes_onceToken != -1)
   {
     MRCopyPossibleRouteUIDSuffixes_cold_1();
   }
 
-  v1 = MRCopyPossibleRouteUIDSuffixes_suffixes;
+  v2 = MRCopyPossibleRouteUIDSuffixes_suffixes;
 
-  return v1;
+  return v2;
 }
 
 id MRComputeBaseRouteUIDWithSuffixes(void *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = MRCopyPossibleRouteUIDSuffixes();
+  v2 = MRCopyPossibleRouteUIDSuffixes(v1);
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v4 = [v1 componentsSeparatedByString:@"-"];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if (([v2 containsObject:v9] & 1) == 0)
         {
           [v3 addObject:v9];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [v3 componentsJoinedByString:@"-"];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -2617,36 +2546,36 @@ void MRAddSupportedCommandsToXPCMessage(void *a1, uint64_t a2)
 
 id MRCreateDataFromArray(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3)
   {
     v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v3, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v17 = v3;
+    v16 = v3;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (!v7)
     {
       goto LABEL_14;
     }
 
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = [MEMORY[0x1E695DFB0] null];
 
         if (v11 == v12)
@@ -2666,14 +2595,14 @@ LABEL_11:
 LABEL_12:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (!v8)
       {
 LABEL_14:
 
         v14 = [MEMORY[0x1E696AE40] dataWithPropertyList:v5 format:200 options:0 error:0];
 
-        v3 = v17;
+        v3 = v16;
         goto LABEL_16;
       }
     }
@@ -2681,8 +2610,6 @@ LABEL_14:
 
   v14 = 0;
 LABEL_16:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -3464,29 +3391,25 @@ BOOL OUTLINED_FUNCTION_15(NSObject *a1)
   return os_log_type_enabled(a1, OS_LOG_TYPE_DEFAULT);
 }
 
-uint64_t *OUTLINED_FUNCTION_5_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
+  va_start(va, a8);
+
+  _os_signpost_emit_with_name_impl(a1, v9, OS_SIGNPOST_INTERVAL_BEGIN, v8, a5, a6, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, const char *a5, const char *a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_signpost_emit_with_name_impl(a1, v10, OS_SIGNPOST_INTERVAL_BEGIN, v9, a5, a6, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_2_8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+uint64_t OUTLINED_FUNCTION_2_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
+  va_start(va, a23);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
-}
-
-uint64_t OUTLINED_FUNCTION_2_10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
-{
-
-  return [v24 countByEnumeratingWithState:&a9 objects:&a24 count:16];
+  return [v23 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 void OUTLINED_FUNCTION_2_12(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4325,7 +4248,7 @@ void MRAddPlayerPathToUserInfo(void *a1, void *a2)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      MRAddPlayerPathToUserInfo_cold_1();
+      MRAddPlayerPathToUserInfo_cold_1(v3);
     }
 
     [v4 setObject:v3 forKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
@@ -4652,7 +4575,7 @@ id MRCreateEncodedUserInfo(void *a1)
 
 void __MRMediaRemoteServiceStart_block_invoke_2(uint64_t a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   uint64 = xpc_dictionary_get_uint64(*(a1 + 32), "MRXPC_MESSAGE_ID_KEY");
   v3 = HIBYTE(uint64);
   if (HIBYTE(uint64) > 7)
@@ -4670,10 +4593,10 @@ void __MRMediaRemoteServiceStart_block_invoke_2(uint64_t a1)
         v20 = qos_class_self();
         *&block = MEMORY[0x1E69E9820];
         *(&block + 1) = 3221225472;
-        v37 = ___MRServiceHandleClientPriorityMessage_block_invoke;
-        v38 = &unk_1E769C018;
-        v39 = v5;
-        v40 = v19;
+        v36 = ___MRServiceHandleClientPriorityMessage_block_invoke;
+        v37 = &unk_1E769C018;
+        v38 = v5;
+        v39 = v19;
         v21 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, v20, 0, &block);
         dispatch_async(v9, v21);
 
@@ -4681,7 +4604,7 @@ LABEL_25:
 LABEL_26:
 
 LABEL_49:
-        goto LABEL_50;
+        return;
       }
 
       v9 = _MRLogForCategory(0);
@@ -4759,11 +4682,11 @@ LABEL_40:
     v9 = [v12 agentQueue];
     *&block = MEMORY[0x1E69E9820];
     *(&block + 1) = 3221225472;
-    v37 = ___MRServiceHandleAgentMessage_block_invoke;
-    v38 = &unk_1E769C780;
-    v39 = v5;
-    v40 = v7;
-    v41 = v13;
+    v36 = ___MRServiceHandleAgentMessage_block_invoke;
+    v37 = &unk_1E769C780;
+    v38 = v5;
+    v39 = v7;
+    v40 = v13;
 LABEL_24:
     dispatch_async(v9, &block);
     goto LABEL_25;
@@ -4806,12 +4729,12 @@ LABEL_24:
       v9 = [v7 browsableContentQueue];
       *&block = MEMORY[0x1E69E9820];
       *(&block + 1) = 3221225472;
-      v37 = ___MRServiceHandleBrowsableContentMessage_block_invoke;
-      v38 = &unk_1E769C730;
-      v40 = v16;
-      v41 = v15;
-      v39 = v5;
-      v42 = v7;
+      v36 = ___MRServiceHandleBrowsableContentMessage_block_invoke;
+      v37 = &unk_1E769C730;
+      v39 = v16;
+      v40 = v15;
+      v38 = v5;
+      v41 = v7;
       goto LABEL_24;
     case 6:
       v23 = *(a1 + 40);
@@ -4851,10 +4774,10 @@ LABEL_24:
         *(&block + 1) = 3221225472;
         v10 = ___MRServiceHandleClientMessage_block_invoke;
 LABEL_23:
-        v37 = v10;
-        v38 = &unk_1E769C018;
-        v39 = v5;
-        v40 = v8;
+        v36 = v10;
+        v37 = &unk_1E769C018;
+        v38 = v5;
+        v39 = v8;
         goto LABEL_24;
       }
 
@@ -4879,9 +4802,6 @@ LABEL_16:
     *(&block + 4) = uint64;
     _os_log_impl(&dword_1A2860000, v22, OS_LOG_TYPE_DEFAULT, "No client-side XPC message destination routed for message with ID %lu.", &block, 0xCu);
   }
-
-LABEL_50:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __MRCreateEncodedUserInfo_block_invoke_11(uint64_t a1, void *a2, void *a3)
@@ -5115,7 +5035,7 @@ void MRMediaRemoteSetSupportedCommandsForPlayer(uint64_t a1, uint64_t a2, void *
 
 uint64_t MRSupportedCommandsIsEqual(void *a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v3 == v4)
@@ -5129,71 +5049,71 @@ uint64_t MRSupportedCommandsIsEqual(void *a1, void *a2)
     if (v5 == [v4 count])
     {
       v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v3, "count")}];
+      v29 = 0u;
       v30 = 0u;
       v31 = 0u;
       v32 = 0u;
-      v33 = 0u;
       v7 = v3;
-      v8 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v31;
+        v10 = *v30;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v31 != v10)
+            if (*v30 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v30 + 1) + 8 * i);
+            v12 = *(*(&v29 + 1) + 8 * i);
             v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v12, "command")}];
             [v6 setObject:v12 forKeyedSubscript:v13];
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
         while (v9);
       }
 
-      v25 = v3;
+      v24 = v3;
 
       v14 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v4, "count")}];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v15 = v4;
-      v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v27;
+        v18 = *v26;
         do
         {
           for (j = 0; j != v17; ++j)
           {
-            if (*v27 != v18)
+            if (*v26 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            v20 = *(*(&v26 + 1) + 8 * j);
+            v20 = *(*(&v25 + 1) + 8 * j);
             v21 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v20, "command")}];
             [v14 setObject:v20 forKeyedSubscript:v21];
           }
 
-          v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
         }
 
         while (v17);
       }
 
       v22 = [v6 isEqualToDictionary:v14];
-      v3 = v25;
+      v3 = v24;
     }
 
     else
@@ -5202,86 +5122,84 @@ uint64_t MRSupportedCommandsIsEqual(void *a1, void *a2)
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 void MRSupportedCommandsCalculateDeltas(void *a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v29 = a4;
-  v30 = a5;
-  v28 = a3;
-  v41 = *MEMORY[0x1E69E9840];
+  v28 = a4;
+  v29 = a5;
+  v27 = a3;
+  v40 = *MEMORY[0x1E69E9840];
   v6 = a1;
   v7 = a2;
   v8 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v36;
+    v12 = *v35;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v35 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v34 + 1) + 8 * i);
         v15 = [v14 dictionaryRepresentation];
         v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v14, "command")}];
         [v8 setObject:v15 forKeyedSubscript:v16];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v11);
   }
 
-  v27 = v9;
+  v26 = v9;
 
   v17 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   v18 = v7;
-  v19 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v32;
+    v21 = *v31;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v32 != v21)
+        if (*v31 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v31 + 1) + 8 * j);
+        v23 = *(*(&v30 + 1) + 8 * j);
         v24 = [v23 dictionaryRepresentation];
         v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v23, "command")}];
         [v17 setObject:v24 forKeyedSubscript:v25];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v20);
   }
 
-  MRDictionaryCalculateDeltas(v8, v17, v28, v29, v30);
-  v26 = *MEMORY[0x1E69E9840];
+  MRDictionaryCalculateDeltas(v8, v17, v27, v28, v29);
 }
 
 void MRDictionaryCalculateDeltas(void *a1, void *a2, void *a3, void *a4, void *a5)
@@ -5364,7 +5282,7 @@ void MRMediaRemoteServiceSetSupportedCommands(void *a1, uint64_t a2, void *a3, v
 
 uint64_t MRMediaRemoteSetCanBeNowPlayingForPlayer(void *a1, int a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -5375,11 +5293,11 @@ uint64_t MRMediaRemoteSetCanBeNowPlayingForPlayer(void *a1, int a2)
       v5 = @"NO";
     }
 
-    v18 = 138412546;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRNowPlaying] MRMediaRemoteSetCanBeNowPlayingForPlayer %@ set to %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRNowPlaying] MRMediaRemoteSetCanBeNowPlayingForPlayer %@ set to %@", &v17, 0x16u);
   }
 
   v6 = +[MRNowPlayingOriginClientManager sharedManager];
@@ -5403,7 +5321,6 @@ uint64_t MRMediaRemoteSetCanBeNowPlayingForPlayer(void *a1, int a2)
   v15 = [v10 playerPath];
   MRMediaRemoteServiceSetCanBeNowPlayingAppForPlayer(v14, a2 != 0, v15, 0.0);
 
-  v16 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -5421,9 +5338,9 @@ void MRMediaRemoteServiceSetCanBeNowPlayingAppForPlayer(void *a1, BOOL a2, void 
   xpc_connection_send_message(v9, xdict);
 }
 
-void sub_1A28794B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1A28794B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6922,17 +6839,17 @@ LABEL_375:
   }
 }
 
-void *MRAddDeviceInfoToUserInfo(void *a1, const char *a2)
+void *MRAddDeviceInfoToUserInfo(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
     if (a2)
     {
-      return [a1 setObject:a2 forKeyedSubscript:@"kMRPairedDeviceUserInfoKey"];
+      return [result setObject:a2 forKeyedSubscript:@"kMRPairedDeviceUserInfoKey"];
     }
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t MRDeviceClassFromProtobuf(int a1)
@@ -6994,7 +6911,7 @@ void MRMediaRemoteGetMediaPlaybackVolume(void *a1, void *a2)
 
 void MRMediaRemoteGetMediaPlaybackVolumeForOrigin(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -7019,33 +6936,33 @@ void MRMediaRemoteGetMediaPlaybackVolumeForOrigin(uint64_t a1, void *a2, void *a
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v38 = v13;
+    v37 = v13;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke;
-  v30[3] = &unk_1E76A4B40;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke;
+  v29[3] = &unk_1E76A4B40;
   v15 = v8;
-  v31 = v15;
-  v32 = @"mediaPlaybackVolume";
+  v30 = v15;
+  v31 = @"mediaPlaybackVolume";
   v16 = v11;
-  v33 = v16;
+  v32 = v16;
   v17 = v9;
-  v34 = v17;
+  v33 = v17;
   v18 = v5;
-  v35 = v18;
+  v34 = v18;
   v19 = v6;
-  v36 = v19;
-  v20 = MEMORY[0x1A58E3570](v30);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_2;
-  v28[3] = &unk_1E769AC68;
+  v35 = v19;
+  v20 = MEMORY[0x1A58E3570](v29);
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_2;
+  v27[3] = &unk_1E769AC68;
   v21 = v20;
-  v29 = v21;
-  v22 = MEMORY[0x1A58E3570](v28);
+  v28 = v21;
+  v22 = MEMORY[0x1A58E3570](v27);
   v23 = v22;
   if (a1)
   {
@@ -7054,16 +6971,14 @@ void MRMediaRemoteGetMediaPlaybackVolumeForOrigin(uint64_t a1, void *a2, void *a
 
   else
   {
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_3;
-    v25[3] = &unk_1E76A4AF0;
-    v26 = v21;
-    v27 = v23;
-    MRMediaRemoteNowPlayingResolvePlayerPath(v15, v18, v25);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_3;
+    v24[3] = &unk_1E76A4AF0;
+    v25 = v21;
+    v26 = v23;
+    MRMediaRemoteNowPlayingResolvePlayerPath(v15, v18, v24);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_2(uint64_t a1, void *a2)
@@ -7095,7 +7010,7 @@ void MRMediaRemoteServiceGetMediaPlaybackVolume(void *a1, void *a2, void *a3)
 
 void MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -7109,20 +7024,20 @@ void MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(uint64_t a1, void *a2
   v10 = [v9 UUIDString];
 
   v11 = [[MRPlayerPath alloc] initWithOrigin:a1 client:0 player:0];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke;
-  v29[3] = &unk_1E76A4AA0;
-  v30 = @"volumeControlCapabilities";
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke;
+  v28[3] = &unk_1E76A4AA0;
+  v29 = @"volumeControlCapabilities";
   v12 = v10;
-  v31 = v12;
+  v30 = v12;
   v13 = v8;
-  v32 = v13;
+  v31 = v13;
   v14 = v5;
-  v33 = v14;
+  v32 = v14;
   v15 = v6;
-  v34 = v15;
-  v16 = MEMORY[0x1A58E3570](v29);
+  v33 = v15;
+  v16 = MEMORY[0x1A58E3570](v28);
   v17 = [objc_alloc(MEMORY[0x1E696AD60]) initWithFormat:@"%@<%@>", @"volumeControlCapabilities", v12];
   v18 = v17;
   if (v11)
@@ -7134,17 +7049,17 @@ void MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(uint64_t a1, void *a2
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v36 = v18;
+    v35 = v18;
     _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_94;
-  v27[3] = &unk_1E769AC68;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_94;
+  v26[3] = &unk_1E769AC68;
   v20 = v16;
-  v28 = v20;
-  v21 = MEMORY[0x1A58E3570](v27);
+  v27 = v20;
+  v21 = MEMORY[0x1A58E3570](v26);
   v22 = [(MRPlayerPath *)v11 origin];
 
   if (v22)
@@ -7154,16 +7069,14 @@ void MRMediaRemoteGetPickedRoutedVolumeControlCapabilities(uint64_t a1, void *a2
 
   else
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_3;
-    v24[3] = &unk_1E76A4AF0;
-    v25 = v21;
-    v26 = v20;
-    MRMediaRemoteNowPlayingResolvePlayerPath(v11, v14, v24);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_3;
+    v23[3] = &unk_1E76A4AF0;
+    v24 = v21;
+    v25 = v20;
+    MRMediaRemoteNowPlayingResolvePlayerPath(v11, v14, v23);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_94(uint64_t a1, void *a2)
@@ -7204,15 +7117,16 @@ void MRMediaRemoteServiceGetPickedRouteVolumeControlCapabilities(void *a1, void 
   xpc_connection_send_message_with_reply(v12, v11, v8, handler);
 }
 
-void OUTLINED_FUNCTION_16_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_16_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 void MRMediaRemoteGetSystemVolumeMuted(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E695DF00];
   v5 = a1;
@@ -7225,25 +7139,23 @@ void MRMediaRemoteGetSystemVolumeMuted(void *a1, void *a2)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = v9;
+    v21 = v9;
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
   v11 = +[MRMediaRemoteServiceClient sharedServiceClient];
   v12 = [v11 service];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __MRMediaRemoteGetSystemVolumeMuted_block_invoke;
-  v17[3] = &unk_1E76A4B90;
-  v18 = v8;
-  v19 = v6;
-  v20 = v3;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __MRMediaRemoteGetSystemVolumeMuted_block_invoke;
+  v16[3] = &unk_1E76A4B90;
+  v17 = v8;
+  v18 = v6;
+  v19 = v3;
   v13 = v3;
   v14 = v6;
   v15 = v8;
-  MRMediaRemoteServiceGetSystemIsMuted(v12, v5, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  MRMediaRemoteServiceGetSystemIsMuted(v12, v5, v16);
 }
 
 void MRMediaRemoteServiceGetSystemIsMuted(void *a1, void *a2, void *a3)
@@ -7309,7 +7221,7 @@ uint64_t __MRMediaRemoteServiceGetMediaPlaybackVolume_block_invoke(uint64_t a1, 
 
 void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, void *a2, float a3)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (!v5)
   {
@@ -7334,13 +7246,13 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, vo
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138544130;
-        v46 = v28;
-        v47 = 2114;
-        v48 = v27;
-        v49 = 2114;
-        v50 = v29;
-        v51 = 2048;
-        v52 = v30;
+        v45 = v28;
+        v46 = 2114;
+        v47 = v27;
+        v48 = 2114;
+        v49 = v29;
+        v50 = 2048;
+        v51 = v30;
         v31 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
         v32 = v8;
         v33 = 42;
@@ -7358,11 +7270,11 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, vo
         v13 = [MEMORY[0x1E695DF00] date];
         [v13 timeIntervalSinceDate:*(a1 + 56)];
         *buf = 138543874;
-        v46 = v37;
-        v47 = 2114;
-        v48 = v38;
-        v49 = 2048;
-        v50 = v39;
+        v45 = v37;
+        v46 = 2114;
+        v47 = v38;
+        v48 = 2048;
+        v49 = v39;
         v31 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
         v32 = v8;
         v33 = 32;
@@ -7387,15 +7299,15 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, vo
       v22 = [MEMORY[0x1E695DF00] date];
       [v22 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v46 = v19;
-      v47 = 2114;
-      v48 = v20;
-      v49 = 2112;
-      v50 = v13;
-      v51 = 2114;
-      v52 = v21;
-      v53 = 2048;
-      v54 = v23;
+      v45 = v19;
+      v46 = 2114;
+      v47 = v20;
+      v48 = 2112;
+      v49 = v13;
+      v50 = 2114;
+      v51 = v21;
+      v52 = 2048;
+      v53 = v23;
       v24 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
       v25 = v8;
       v26 = 52;
@@ -7415,13 +7327,13 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, vo
       v22 = [MEMORY[0x1E695DF00] date];
       [v22 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544130;
-      v46 = v34;
-      v47 = 2114;
-      v48 = v35;
-      v49 = 2112;
-      v50 = v13;
-      v51 = 2048;
-      v52 = v36;
+      v45 = v34;
+      v46 = 2114;
+      v47 = v35;
+      v48 = 2112;
+      v49 = v13;
+      v50 = 2048;
+      v51 = v36;
       v24 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
       v25 = v8;
       v26 = 42;
@@ -7445,15 +7357,15 @@ void __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke(uint64_t a1, vo
       v13 = [MEMORY[0x1E695DF00] date];
       [v13 timeIntervalSinceDate:*(a1 + 56)];
       *buf = 138544386;
-      v46 = v11;
-      v47 = 2114;
-      v48 = v10;
-      v49 = 2114;
-      v50 = v5;
-      v51 = 2114;
-      v52 = v12;
-      v53 = 2048;
-      v54 = v14;
+      v45 = v11;
+      v46 = 2114;
+      v47 = v10;
+      v48 = 2114;
+      v49 = v5;
+      v50 = 2114;
+      v51 = v12;
+      v52 = 2048;
+      v53 = v14;
       _os_log_error_impl(&dword_1A2860000, v8, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_20:
     }
@@ -7461,28 +7373,26 @@ LABEL_20:
 
   else if (v9)
   {
-    __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_cold_1(a1, v5, v8);
+    __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_cold_1();
   }
 
 LABEL_21:
 
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_117;
-  v42[3] = &unk_1E769ACB8;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_117;
+  v41[3] = &unk_1E769ACB8;
   v40 = *(a1 + 64);
-  v43 = *(a1 + 72);
-  v44 = a3;
-  dispatch_async(v40, v42);
-
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *(a1 + 72);
+  v43 = a3;
+  dispatch_async(v40, v41);
 }
 
 uint64_t OUTLINED_FUNCTION_11_0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   v13 = *(v10 + *(v11 + 3392));
 
-  return [a10 addObserver:v10 selector:a4 name:a5 object:v13];
+  return [a10 addObserver:v10 selector:a4 name:a5 object:{v13, a7, a8}];
 }
 
 id OUTLINED_FUNCTION_11_3(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -7534,12 +7444,13 @@ uint64_t __MRMediaRemoteServiceGetPickedRouteVolumeControlCapabilities_block_inv
   return kdebug_trace();
 }
 
-void __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke(uint64_t a1, void *a2, int a3, void *a4)
+void __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v5 = a3;
+  v48 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
-  v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(a3);
+  v9 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(v5);
   v10 = _MRLogForCategory(0xAuLL);
   v11 = v10;
   if (!v8 && v9)
@@ -7554,15 +7465,15 @@ void __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke(uint64
         v15 = [MEMORY[0x1E695DF00] date];
         [v15 timeIntervalSinceDate:*(a1 + 48)];
         *buf = 138544386;
-        v40 = v13;
-        v41 = 2114;
-        v42 = v14;
-        v43 = 2112;
-        v44 = v9;
-        v45 = 2114;
-        v46 = v7;
-        v47 = 2048;
-        v48 = v16;
+        v39 = v13;
+        v40 = 2114;
+        v41 = v14;
+        v42 = 2112;
+        v43 = v9;
+        v44 = 2114;
+        v45 = v7;
+        v46 = 2048;
+        v47 = v16;
         v17 = "Response: %{public}@<%{public}@> returned <%@> for %{public}@ in %.4lf seconds";
         v18 = v11;
         v19 = 52;
@@ -7584,13 +7495,13 @@ LABEL_16:
     v15 = [MEMORY[0x1E695DF00] date];
     [v15 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138544130;
-    v40 = v28;
-    v41 = 2114;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v9;
-    v45 = 2048;
-    v46 = v30;
+    v39 = v28;
+    v40 = 2114;
+    v41 = v29;
+    v42 = 2112;
+    v43 = v9;
+    v44 = 2048;
+    v45 = v30;
     v17 = "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds";
 LABEL_15:
     v18 = v11;
@@ -7610,15 +7521,15 @@ LABEL_15:
         v15 = [MEMORY[0x1E695DF00] date];
         [v15 timeIntervalSinceDate:*(a1 + 48)];
         *buf = 138544386;
-        v40 = v21;
-        v41 = 2114;
-        v42 = v22;
-        v43 = 2114;
-        v44 = v8;
-        v45 = 2114;
-        v46 = v7;
-        v47 = 2048;
-        v48 = v23;
+        v39 = v21;
+        v40 = 2114;
+        v41 = v22;
+        v42 = 2114;
+        v43 = v8;
+        v44 = 2114;
+        v45 = v7;
+        v46 = 2048;
+        v47 = v23;
         _os_log_error_impl(&dword_1A2860000, v11, OS_LOG_TYPE_ERROR, "Response: %{public}@<%{public}@> returned with error <%{public}@> for %{public}@ in %.4lf seconds", buf, 0x34u);
 LABEL_17:
 
@@ -7628,7 +7539,7 @@ LABEL_17:
 
     else if (v20)
     {
-      __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_cold_1(a1, v8, v11);
+      __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_cold_1();
     }
 
     goto LABEL_22;
@@ -7647,11 +7558,11 @@ LABEL_17:
     v15 = [MEMORY[0x1E695DF00] date];
     [v15 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138543874;
-    v40 = v31;
-    v41 = 2114;
-    v42 = v32;
-    v43 = 2048;
-    v44 = v33;
+    v39 = v31;
+    v40 = 2114;
+    v41 = v32;
+    v42 = 2048;
+    v43 = v33;
     v17 = "Response: %{public}@<%{public}@> returned in %.4lf seconds";
     v18 = v11;
     v19 = 32;
@@ -7665,29 +7576,27 @@ LABEL_17:
     v15 = [MEMORY[0x1E695DF00] date];
     [v15 timeIntervalSinceDate:*(a1 + 48)];
     *buf = 138544130;
-    v40 = v25;
-    v41 = 2114;
-    v42 = v26;
-    v43 = 2114;
-    v44 = v7;
-    v45 = 2048;
-    v46 = v27;
+    v39 = v25;
+    v40 = 2114;
+    v41 = v26;
+    v42 = 2114;
+    v43 = v7;
+    v44 = 2048;
+    v45 = v27;
     v17 = "Response: %{public}@<%{public}@> returned for %{public}@ in %.4lf seconds";
     goto LABEL_15;
   }
 
 LABEL_22:
 
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_82;
-  v36[3] = &unk_1E769ACB8;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __MRMediaRemoteGetPickedRoutedVolumeControlCapabilities_block_invoke_82;
+  v35[3] = &unk_1E769ACB8;
   v34 = *(a1 + 56);
-  v37 = *(a1 + 64);
-  v38 = a3;
-  dispatch_async(v34, v36);
-
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *(a1 + 64);
+  v37 = v5;
+  dispatch_async(v34, v35);
 }
 
 uint64_t MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription(int a1)
@@ -7749,21 +7658,11 @@ LABEL_13:
   return v5;
 }
 
-uint64_t OUTLINED_FUNCTION_13_0(void *a1, const char *a2, ...)
+uint64_t OUTLINED_FUNCTION_13_0(void *a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a17);
 
-  return [a1 countByEnumeratingWithState:va objects:va1 count:16];
+  return [a1 countByEnumeratingWithState:&a9 objects:va count:{16, a6, a7, a8}];
 }
 
 void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -7771,13 +7670,6 @@ void OUTLINED_FUNCTION_14(void *a1, uint64_t a2, os_log_t log, const char *a4, .
   va_start(va, a4);
 
   _os_log_fault_impl(a1, log, OS_LOG_TYPE_FAULT, a4, va, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_6(uint64_t result)
-{
-  v1 = *(result + 40);
-  v2 = *(result + 48);
-  return result;
 }
 
 uint64_t __MRMediaRemoteGetMediaPlaybackVolumeForOrigin_block_invoke_117(uint64_t a1)
@@ -9306,7 +9198,7 @@ void __MRMediaRemoteServiceGetSystemIsMuted_block_invoke(uint64_t a1, void *a2)
 
 void __MRMediaRemoteGetSystemVolumeMuted_block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = _MRLogForCategory(0xAuLL);
   v7 = v6;
@@ -9314,7 +9206,7 @@ void __MRMediaRemoteGetSystemVolumeMuted_block_invoke(void *a1, uint64_t a2, voi
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __MRMediaRemoteGetSystemVolumeMuted_block_invoke_cold_1(a1, v5, v7);
+      __MRMediaRemoteGetSystemVolumeMuted_block_invoke_cold_1();
     }
   }
 
@@ -9333,15 +9225,15 @@ void __MRMediaRemoteGetSystemVolumeMuted_block_invoke(void *a1, uint64_t a2, voi
 
     v10 = [MEMORY[0x1E695DF00] date];
     [v10 timeIntervalSinceDate:a1[5]];
-    v14 = 138544130;
-    v15 = @"getSystemIsMuted";
-    v16 = 2114;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v9;
-    v20 = 2048;
-    v21 = v11;
-    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", &v14, 0x2Au);
+    v13 = 138544130;
+    v14 = @"getSystemIsMuted";
+    v15 = 2114;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    v19 = 2048;
+    v20 = v11;
+    _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "Response: %{public}@<%{public}@> returned <%@> in %.4lf seconds", &v13, 0x2Au);
   }
 
   v12 = a1[6];
@@ -9349,8 +9241,6 @@ void __MRMediaRemoteGetSystemVolumeMuted_block_invoke(void *a1, uint64_t a2, voi
   {
     (*(v12 + 16))(v12, a2, v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t MRAVOutputContextCopyUniqueIdentifier(void *a1)
@@ -9402,5 +9292,121 @@ void __MRMediaRemoteSetNowPlayingPlayer_block_invoke(uint64_t a1, void *a2)
     v8 = v4;
     v7 = v3;
     dispatch_async(v5, v6);
+  }
+}
+
+void sub_1A2887808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id MRMediaRemoteEndpointFeaturesDescription(char a1)
+{
+  v2 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  v3 = v2;
+  if (a1)
+  {
+    [v2 appendString:@"Audio|"];
+    if ((a1 & 2) == 0)
+    {
+LABEL_3:
+      if ((a1 & 4) == 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_14;
+    }
+  }
+
+  else if ((a1 & 2) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  [v3 appendString:@"Screen|"];
+  if ((a1 & 4) == 0)
+  {
+LABEL_4:
+    if ((a1 & 8) == 0)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  [v3 appendString:@"Video|"];
+  if ((a1 & 8) == 0)
+  {
+LABEL_5:
+    if ((a1 & 0x10) == 0)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+LABEL_15:
+  [v3 appendString:@"RemoteControl|"];
+  if ((a1 & 0x10) != 0)
+  {
+LABEL_6:
+    [v3 appendString:@"Companion|"];
+  }
+
+LABEL_7:
+  if ([v3 hasSuffix:@"|"])
+  {
+    [v3 deleteCharactersInRange:{objc_msgSend(v3, "length") - 1, 1}];
+  }
+
+  return v3;
+}
+
+CFStringRef MRMediaRemoteCopyRouteDiscoveryModeDescription(unsigned int a1)
+{
+  if (a1 > 3)
+  {
+    v1 = @"Unknown";
+  }
+
+  else
+  {
+    v1 = off_1E76A4BB0[a1];
+  }
+
+  return CFStringCreateCopy(*MEMORY[0x1E695E480], v1);
+}
+
+void sub_1A288842C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id location)
+{
+  objc_destroyWeak(&a33);
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void MRMediaRemoteServiceGetHostedRoutingXPCEndpoint(void *a1, unsigned int a2, void *a3, void *a4)
+{
+  v7 = a4;
+  v8 = v7;
+  if (a3 && v7)
+  {
+    v9 = a1;
+    v10 = a3;
+    v11 = MRCreateXPCMessage(0x30000000000000DuLL);
+    xpc_dictionary_set_int64(v11, "MRXPC_DISCOVERY_FEATURES_KEY", a2);
+    v12 = [v9 connection];
+
+    handler[0] = MEMORY[0x1E69E9820];
+    handler[1] = 3221225472;
+    handler[2] = __MRMediaRemoteServiceGetHostedRoutingXPCEndpoint_block_invoke;
+    handler[3] = &unk_1E769C4D0;
+    v14 = v8;
+    xpc_connection_send_message_with_reply(v12, v11, v10, handler);
   }
 }

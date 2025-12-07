@@ -350,32 +350,47 @@ uint64_t __getRTIInputUIServiceMachNameiOSSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t RemoteTextInputLibrary()
 {
-  v3 = RemoteTextInputLibraryCore();
+  v4 = 0;
+  v3 = RemoteTextInputLibraryCore(&v4);
   if (!v3)
   {
     v2 = [MEMORY[0x29EDB9F28] currentHandler];
     v1 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:"void *RemoteTextInputLibrary(void)"];
-    [v2 handleFailureInFunction:0 file:? lineNumber:? description:?];
+    [v2 handleFailureInFunction:v4 file:? lineNumber:? description:?];
     MEMORY[0x29EDC9740](v1);
     MEMORY[0x29EDC9740](v2);
     __break(1u);
     JUMPOUT(0x29C4F1428);
   }
 
+  if (v4)
+  {
+    free(v4);
+  }
+
   return v3;
 }
 
-uint64_t RemoteTextInputLibraryCore()
+uint64_t RemoteTextInputLibraryCore(uint64_t a1)
 {
+  v10 = a1;
+  v8 = RemoteTextInputLibraryCore_frameworkLibrary;
+  v9 = RemoteTextInputLibraryCore_frameworkLibrary;
   if (!RemoteTextInputLibraryCore_frameworkLibrary)
   {
-    __RemoteTextInputLibraryCore_block_invoke();
+    v2 = MEMORY[0x29EDCA5F8];
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = __RemoteTextInputLibraryCore_block_invoke;
+    v6 = &__block_descriptor_40_e5_v8__0l;
+    v7 = v10;
+    __RemoteTextInputLibraryCore_block_invoke(&v2);
   }
 
   return RemoteTextInputLibraryCore_frameworkLibrary;
 }
 
-uint64_t __RemoteTextInputLibraryCore_block_invoke()
+uint64_t __RemoteTextInputLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   RemoteTextInputLibraryCore_frameworkLibrary = result;
@@ -1107,32 +1122,47 @@ uint64_t __getEMFEmojiTokenClass_block_invoke(uint64_t a1)
 
 uint64_t EmojiFoundationLibrary()
 {
-  v3 = EmojiFoundationLibraryCore();
+  v4 = 0;
+  v3 = EmojiFoundationLibraryCore(&v4);
   if (!v3)
   {
     v2 = [MEMORY[0x29EDB9F28] currentHandler];
     v1 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:"void *EmojiFoundationLibrary(void)"];
-    [v2 handleFailureInFunction:0 file:? lineNumber:? description:?];
+    [v2 handleFailureInFunction:v4 file:? lineNumber:? description:?];
     MEMORY[0x29EDC9740](v1);
     MEMORY[0x29EDC9740](v2);
     __break(1u);
     JUMPOUT(0x29C5765DCLL);
   }
 
+  if (v4)
+  {
+    free(v4);
+  }
+
   return v3;
 }
 
-uint64_t EmojiFoundationLibraryCore()
+uint64_t EmojiFoundationLibraryCore(uint64_t a1)
 {
+  v10 = a1;
+  v8 = EmojiFoundationLibraryCore_frameworkLibrary;
+  v9 = EmojiFoundationLibraryCore_frameworkLibrary;
   if (!EmojiFoundationLibraryCore_frameworkLibrary)
   {
-    __EmojiFoundationLibraryCore_block_invoke();
+    v2 = MEMORY[0x29EDCA5F8];
+    v3 = -1073741824;
+    v4 = 0;
+    v5 = __EmojiFoundationLibraryCore_block_invoke;
+    v6 = &__block_descriptor_40_e5_v8__0l;
+    v7 = v10;
+    __EmojiFoundationLibraryCore_block_invoke(&v2);
   }
 
   return EmojiFoundationLibraryCore_frameworkLibrary;
 }
 
-uint64_t __EmojiFoundationLibraryCore_block_invoke()
+uint64_t __EmojiFoundationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   EmojiFoundationLibraryCore_frameworkLibrary = result;
@@ -1609,11 +1639,11 @@ void __Block_byref_object_copy__17(uint64_t a1, uint64_t a2)
   objc_storeStrong(location, 0);
 }
 
-id _createFormatDurationString(double a1, double a2)
+id _createFormatDurationString(__n128 a1, double a2)
 {
-  v17 = a1;
+  v17 = a1.n128_u64[0];
   v16 = a2;
-  v15 = _createDurationString(a1);
+  v15 = _createDurationString(a1.n128_f64[0]);
   v14 = _createDurationString(v16);
   v6 = objc_allocWithZone(MEMORY[0x29EDBA0F8]);
   v7 = accessibilityLocalizedString(@"slider.time.position");
@@ -2358,12 +2388,13 @@ void __AXIgnoresTextOperations_block_invoke(void *a1)
   objc_storeStrong(v3, 0);
 }
 
-void sub_29C621144(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_29C621144(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  *(v38 - 208) = a1;
-  *(v38 - 212) = a2;
-  _Block_object_dispose(&a38, 8);
-  _Unwind_Resume(*(v38 - 208));
+  va_start(va, a37);
+  *(v37 - 208) = a1;
+  *(v37 - 212) = a2;
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(*(v37 - 208));
 }
 
 void __Block_byref_object_copy__25(uint64_t a1, uint64_t a2)

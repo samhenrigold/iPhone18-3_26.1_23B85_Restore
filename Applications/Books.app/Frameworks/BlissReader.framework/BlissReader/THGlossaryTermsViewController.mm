@@ -51,7 +51,7 @@
 
 - (THGlossaryTermsViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v6 = THBundle();
+  v6 = THBundle(self, a2);
   v9.receiver = self;
   v9.super_class = THGlossaryTermsViewController;
   v7 = [(THGlossaryTermsViewController *)&v9 initWithNibName:name bundle:v6];
@@ -152,13 +152,13 @@
 
 - (void)viewDidLoad
 {
-  v5.receiver = self;
-  v5.super_class = THGlossaryTermsViewController;
-  [(THGlossaryTermsViewController *)&v5 viewDidLoad];
+  v7.receiver = self;
+  v7.super_class = THGlossaryTermsViewController;
+  [(THGlossaryTermsViewController *)&v7 viewDidLoad];
   [-[THGlossaryTermsViewController view](self "view")];
   [-[THGlossaryTermsViewController view](self "view")];
-  [-[THGlossaryTermsViewController view](self "view")];
-  -[UISearchBar setPlaceholder:](-[THGlossaryTermsViewController searchBar](self, "searchBar"), "setPlaceholder:", [THBundle() localizedStringForKey:@"Search" value:&stru_471858 table:0]);
+  v3 = [-[THGlossaryTermsViewController view](self "view")];
+  -[UISearchBar setPlaceholder:](-[THGlossaryTermsViewController searchBar](self, "searchBar"), "setPlaceholder:", [THBundle(v3 v4)]);
   [(UISearchBar *)[(THGlossaryTermsViewController *)self searchBar] setDelegate:self];
   [(UIView *)[(THGlossaryTermsViewController *)self dividerView] setBackgroundColor:[UIColor colorWithRed:0.784313725 green:0.780392157 blue:0.8 alpha:1.0]];
   [(UITableView *)[(THGlossaryTermsViewController *)self tableView] setSectionHeaderHeight:0.0];
@@ -172,9 +172,9 @@
   [(THFloatingHeaderController *)[(THGlossaryTermsViewController *)self floatingHeaderController] setTableView:[(THGlossaryTermsViewController *)self tableView]];
   [(THFloatingHeaderController *)[(THGlossaryTermsViewController *)self floatingHeaderController] reloadData];
   TSUScreenScale();
-  [(NSLayoutConstraint *)[(THGlossaryTermsViewController *)self dividerHeightConstraint] setConstant:1.0 / v3];
-  v4 = +[NSNotificationCenter defaultCenter];
-  [(NSNotificationCenter *)v4 addObserver:self selector:"dismissSearchKeyboard:" name:kTHGlossaryDismissSearchNotification object:0];
+  [(NSLayoutConstraint *)[(THGlossaryTermsViewController *)self dividerHeightConstraint] setConstant:1.0 / v5];
+  v6 = +[NSNotificationCenter defaultCenter];
+  [(NSNotificationCenter *)v6 addObserver:self selector:"dismissSearchKeyboard:" name:kTHGlossaryDismissSearchNotification object:0];
 }
 
 - (void)viewWillDisappear:(BOOL)disappear

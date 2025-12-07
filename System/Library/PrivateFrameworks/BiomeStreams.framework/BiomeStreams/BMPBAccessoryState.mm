@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)valueTypeAsString:(int)string;
 - (int)StringAsValueType:(id)type;
 - (int)valueType;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)valueTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E53B70[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsValueType:(id)type
@@ -130,37 +146,35 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (self->_mediaPropertyType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    valueType = self->_valueType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_dataValue)
   {
     PBDataWriterWriteDataField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_stringValue)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    numValue = self->_numValue;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -246,7 +260,6 @@
     }
   }
 
-  v6 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_valueType != *(equalCopy + 10))
@@ -258,7 +271,7 @@
   else if ((*(equalCopy + 44) & 2) != 0)
   {
 LABEL_17:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_18;
   }
 
@@ -277,7 +290,7 @@ LABEL_17:
     }
   }
 
-  v9 = (*(equalCopy + 44) & 1) == 0;
+  v8 = (*(equalCopy + 44) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_numValue != *(equalCopy + 1))
@@ -285,12 +298,12 @@ LABEL_17:
       goto LABEL_17;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_18:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

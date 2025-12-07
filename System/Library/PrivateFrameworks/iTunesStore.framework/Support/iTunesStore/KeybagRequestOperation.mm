@@ -64,12 +64,12 @@
   {
 LABEL_17:
     v19 = 1;
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   if ([v4 profileValidated])
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   itemID = [v5 itemID];
@@ -77,7 +77,7 @@ LABEL_17:
 
   if (integerValue)
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
   v8 = +[SSLogConfig sharedDaemonConfig];
@@ -118,13 +118,11 @@ LABEL_17:
     *&v67[4] = v13;
     *&v67[12] = 2112;
     *&v67[14] = contentIdentifier2;
-    LODWORD(v44) = 22;
-    v43 = v67;
-    v17 = _os_log_send_and_compose_impl();
+    v17 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Attempting claim before authorization for contentID: %@", v67, 22);
 
     if (v17)
     {
-      v18 = [NSString stringWithCString:v17 encoding:4, v67, v44];
+      v18 = [NSString stringWithCString:v17 encoding:4];
       free(v17);
       v43 = v18;
       SSFileLog();
@@ -170,21 +168,26 @@ LABEL_17:
       claimedBundleIdentifiers = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [claimedBundleIdentifiers shouldLog];
+    LODWORD(v23) = [claimedBundleIdentifiers shouldLog];
     shouldLogToDisk = [claimedBundleIdentifiers shouldLogToDisk];
     oSLogObject2 = [claimedBundleIdentifiers OSLogObject];
     v26 = oSLogObject2;
     if (shouldLogToDisk)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v23) = v23 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog2 &= 2u;
+      v23 = v23;
     }
 
-    if (shouldLog2)
+    else
+    {
+      v23 &= 2u;
+    }
+
+    if (v23)
     {
       v27 = objc_opt_class();
       v28 = v58[5];
@@ -194,35 +197,34 @@ LABEL_17:
       v66 = v28;
       v29 = v27;
       LODWORD(v44) = 22;
-      v43 = &v63;
-      v30 = _os_log_send_and_compose_impl();
+      v30 = _os_log_send_and_compose_impl(v23, 0, 0, 0, &_mh_execute_header, v26, 0, "%@: Could not claim apps: %@", &v63, v44);
 
       if (!v30)
       {
-        goto LABEL_31;
+        goto LABEL_32;
       }
 
-      v26 = [NSString stringWithCString:v30 encoding:4, &v63, v44];
+      v26 = [NSString stringWithCString:v30 encoding:4];
       free(v30);
       v43 = v26;
       SSFileLog();
     }
 
-    goto LABEL_31;
+    goto LABEL_32;
   }
 
   v21 = [*(*&v67[8] + 40) copy];
   claimedBundleIdentifiers = self->_claimedBundleIdentifiers;
   self->_claimedBundleIdentifiers = v21;
-LABEL_31:
+LABEL_32:
 
   _Block_object_dispose(&v53, 8);
   _Block_object_dispose(&v57, 8);
 
   _Block_object_dispose(v67, 8);
-LABEL_32:
-  v19 = 0;
 LABEL_33:
+  v19 = 0;
+LABEL_34:
   v31 = objc_alloc_init(AuthorizeMachineOperation);
   [(AuthorizeMachineOperation *)v31 setClientIdentifierHeader:self->_clientIdentifierHeader];
   [(AuthorizeMachineOperation *)v31 setReason:@"refetch"];
@@ -261,26 +263,31 @@ LABEL_33:
     v34 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog3 = [v34 shouldLog];
+  shouldLog2 = [v34 shouldLog];
   if ([v34 shouldLogToDisk])
   {
-    v36 = shouldLog3 | 2;
+    LODWORD(v36) = shouldLog2 | 2;
   }
 
   else
   {
-    v36 = shouldLog3;
+    LODWORD(v36) = shouldLog2;
   }
 
   oSLogObject3 = [v34 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v36 = v36;
+  }
+
+  else
   {
     v36 &= 2u;
   }
 
   if (!v36)
   {
-    goto LABEL_50;
+    goto LABEL_52;
   }
 
   v38 = objc_opt_class();
@@ -292,14 +299,14 @@ LABEL_33:
   v68 = v33;
   v39 = v38;
   LODWORD(v44) = 32;
-  v40 = _os_log_send_and_compose_impl();
+  v40 = _os_log_send_and_compose_impl(v36, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Running authorize operation for account ID: %@, family account ID: %@", v67, v44);
 
   if (v40)
   {
-    oSLogObject3 = [NSString stringWithCString:v40 encoding:4, v67, v44];
+    oSLogObject3 = [NSString stringWithCString:v40 encoding:4];
     free(v40);
     SSFileLog();
-LABEL_50:
+LABEL_52:
   }
 
   v45 = 0;

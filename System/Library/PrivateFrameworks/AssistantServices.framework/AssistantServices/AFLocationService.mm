@@ -11,6 +11,8 @@
 - (void)requestTemporaryAccuracyAuthorizationWithStyle:(unint64_t)style timeout:(double)timeout completion:(id)completion;
 - (void)updateAuthorizationStyleWithUserSelection:(unint64_t)selection completion:(id)completion;
 - (void)updateAuthorizationStyleWithUserSelection:(unint64_t)selection timeout:(double)timeout completion:(id)completion;
+- (void)updateTemporaryAuthorizationForAccurateLocation:(BOOL)location completion:(id)completion;
+- (void)updateTemporaryAuthorizationForAccurateLocation:(BOOL)location timeout:(double)timeout completion:(id)completion;
 @end
 
 @implementation AFLocationService
@@ -69,16 +71,15 @@
 
 void __46__AFLocationService_dismissTCCDialogIfNeeded___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentLocationWithFetchRequest:(id)request completion:(id)completion
@@ -97,16 +98,15 @@ void __46__AFLocationService_dismissTCCDialogIfNeeded___block_invoke(uint64_t a1
 
 void __64__AFLocationService_currentLocationWithFetchRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentLocationWithAccuracy:(double)accuracy timeout:(double)timeout completion:(id)completion
@@ -124,44 +124,75 @@ void __64__AFLocationService_currentLocationWithFetchRequest_completion___block_
 
 void __68__AFLocationService_currentLocationWithAccuracy_timeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
+}
+
+- (void)updateTemporaryAuthorizationForAccurateLocation:(BOOL)location timeout:(double)timeout completion:(id)completion
+{
+  locationCopy = location;
+  completionCopy = completion;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __88__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_timeout_completion___block_invoke;
+  v11[3] = &unk_1E7348AA8;
+  v12 = completionCopy;
+  v9 = completionCopy;
+  v10 = [(AFLocationService *)self serviceWithErrorHandler:v11];
+  [v10 updateTemporaryAuthorizationForAccurateLocation:locationCopy timeout:v9 completion:timeout];
 }
 
 void __88__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_timeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
+}
+
+- (void)updateTemporaryAuthorizationForAccurateLocation:(BOOL)location completion:(id)completion
+{
+  locationCopy = location;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __80__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_completion___block_invoke;
+  v12[3] = &unk_1E7348AA8;
+  v7 = completionCopy;
+  v13 = v7;
+  v8 = [(AFLocationService *)self serviceWithErrorHandler:v12];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __80__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_completion___block_invoke_2;
+  v10[3] = &unk_1E73494D8;
+  v11 = v7;
+  v9 = v7;
+  [v8 updateTemporaryAuthorizationForAccurateLocation:locationCopy completion:v10];
 }
 
 void __80__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAuthorizationStyleWithUserSelection:(unint64_t)selection timeout:(double)timeout completion:(id)completion
@@ -179,16 +210,15 @@ void __80__AFLocationService_updateTemporaryAuthorizationForAccurateLocation_com
 
 void __82__AFLocationService_updateAuthorizationStyleWithUserSelection_timeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAuthorizationStyleWithUserSelection:(unint64_t)selection completion:(id)completion
@@ -212,16 +242,15 @@ void __82__AFLocationService_updateAuthorizationStyleWithUserSelection_timeout_c
 
 void __74__AFLocationService_updateAuthorizationStyleWithUserSelection_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestTemporaryAccuracyAuthorizationWithStyle:(unint64_t)style timeout:(double)timeout completion:(id)completion
@@ -239,16 +268,15 @@ void __74__AFLocationService_updateAuthorizationStyleWithUserSelection_completio
 
 void __87__AFLocationService_requestTemporaryAccuracyAuthorizationWithStyle_timeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestAuthorizationWithStyle:(unint64_t)style timeout:(double)timeout completion:(id)completion
@@ -266,16 +294,15 @@ void __87__AFLocationService_requestTemporaryAccuracyAuthorizationWithStyle_time
 
 void __70__AFLocationService_requestAuthorizationWithStyle_timeout_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentAuthorizationStyle:(id)style
@@ -299,16 +326,15 @@ void __70__AFLocationService_requestAuthorizationWithStyle_timeout_completion___
 
 void __47__AFLocationService_currentAuthorizationStyle___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = *MEMORY[0x1E696AA08];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = *MEMORY[0x1E696AA08];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.siri.location" code:0 userInfo:v5];
 
   (*(v4 + 16))(v4, 0, 0, v6);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (AFLocationService)serviceWithErrorHandler:(id)handler

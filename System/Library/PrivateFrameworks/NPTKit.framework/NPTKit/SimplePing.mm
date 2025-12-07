@@ -22,6 +22,7 @@
 - (void)stop;
 - (void)stopHostResolution;
 - (void)stopSocket;
+- (void)timeOutHandler:(id)handler sequenceNumber:(unsigned __int16)number;
 @end
 
 @implementation SimplePing
@@ -96,15 +97,15 @@ LABEL_7:
 
 - (void)didFailWithError:(id)error
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
   {
     v6 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"Unknown error occurred";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"Unknown error occurred";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v5 = [v6 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:v7];
   }
 
@@ -116,19 +117,17 @@ LABEL_7:
   {
     [delegate simplePing:selfCopy didFailWithError:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailWithHostStreamError:(id)error
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (error.var0 == *MEMORY[0x277CBAD40])
   {
-    v8 = *MEMORY[0x277CBACF0];
+    v7 = *MEMORY[0x277CBACF0];
     v4 = [MEMORY[0x277CCABB0] numberWithInt:*&error.var1];
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -138,8 +137,6 @@ LABEL_7:
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CBACE8] code:2 userInfo:v5];
   [(SimplePing *)self didFailWithError:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)pingPacketWithType:(unsigned __int8)type payload:(id)payload requiresChecksum:(BOOL)checksum
@@ -277,16 +274,16 @@ uint64_t __47__SimplePing_setupTimer_currentSequenceNumber___block_invoke(uint64
 
 - (void)sendPingWithData:(id)data
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   hostAddress = [(SimplePing *)self hostAddress];
 
   if (!hostAddress)
   {
     v16 = MEMORY[0x277CCA9B8];
-    v45 = *MEMORY[0x277CCA450];
-    v46[0] = @"hostAddress is nil";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v44 = *MEMORY[0x277CCA450];
+    v45[0] = @"hostAddress is nil";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     v18 = [v16 errorWithDomain:@"com.apple.NPTKit" code:1 userInfo:v17];
 
     [(SimplePing *)self packetDidFailToSendDelegate:0 error:v18];
@@ -320,11 +317,11 @@ uint64_t __47__SimplePing_setupTimer_currentSequenceNumber___block_invoke(uint64
     if (hostAddressFamily != 2)
     {
       v29 = MEMORY[0x277CCA9B8];
-      v43 = *MEMORY[0x277CCA450];
-      v44 = @"hostAddressFamily is not compatible";
+      v42 = *MEMORY[0x277CCA450];
+      v43 = @"hostAddressFamily is not compatible";
       v30 = MEMORY[0x277CBEAC0];
-      v31 = &v44;
-      v32 = &v43;
+      v31 = &v43;
+      v32 = &v42;
 LABEL_16:
       v33 = [v30 dictionaryWithObjects:v31 forKeys:v32 count:1];
       v34 = [v29 errorWithDomain:@"com.apple.NPTKit" code:1 userInfo:v33];
@@ -345,21 +342,21 @@ LABEL_16:
   if (!v20)
   {
     v29 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA450];
-    v42 = @"Failed to create packet";
+    v40 = *MEMORY[0x277CCA450];
+    v41 = @"Failed to create packet";
     v30 = MEMORY[0x277CBEAC0];
-    v31 = &v42;
-    v32 = &v41;
+    v31 = &v41;
+    v32 = &v40;
     goto LABEL_16;
   }
 
   if ([(SimplePing *)self socket])
   {
-    v39 = dataCopy;
+    v38 = dataCopy;
     Native = CFSocketGetNative(self->_socket);
-    v40[0] = 0;
-    v40[1] = 1000000;
-    setsockopt(Native, 0xFFFF, 4101, v40, 0x10u);
+    v39[0] = 0;
+    v39[1] = 1000000;
+    setsockopt(Native, 0xFFFF, 4101, v39, 0x10u);
     bytes = [v20 bytes];
     v23 = [v20 length];
     hostAddress2 = [(SimplePing *)self hostAddress];
@@ -373,7 +370,7 @@ LABEL_16:
       v28 = *__error();
     }
 
-    dataCopy = v39;
+    dataCopy = v38;
   }
 
   else
@@ -418,8 +415,6 @@ LABEL_16:
   }
 
 LABEL_29:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)packetDidFailToSendDelegate:(id)delegate error:(id)error
@@ -436,6 +431,33 @@ LABEL_29:
   if (![(SimplePing *)self nextSequenceNumber])
   {
     [(SimplePing *)self setNextSequenceNumberHasWrapped:1];
+  }
+}
+
+- (void)timeOutHandler:(id)handler sequenceNumber:(unsigned __int16)number
+{
+  numberCopy = number;
+  handlerCopy = handler;
+  if (![(SimplePing *)self isInvalidated])
+  {
+    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Ping timed out"];
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    hostAddress = [(SimplePing *)self hostAddress];
+
+    if (!hostAddress)
+    {
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Ping host resolution timed out"];
+
+      v6 = v9;
+    }
+
+    [dictionary setValue:v6 forKey:*MEMORY[0x277CCA450]];
+    v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.NPTKit" code:1 userInfo:dictionary];
+    delegate = [(SimplePing *)self delegate];
+    if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
+    {
+      [delegate simplePing:self didTimeOut:handlerCopy sequenceNumber:numberCopy error:v10];
+    }
   }
 }
 
@@ -583,72 +605,67 @@ LABEL_7:
 
 - (void)readData
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0;
+  v32 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0;
+  v28 = 0u;
   v3 = malloc_type_malloc(0xFFFFuLL, 0x4BCE79uLL);
-  if (v3)
+  if (!v3)
   {
-    v4 = v3;
-    v23 = 128;
-    Native = CFSocketGetNative([(SimplePing *)self socket]);
-    v6 = recvfrom(Native, v4, 0xFFFFuLL, 0, &v28, &v23);
-    v7 = 0;
-    if (v6 < 0)
+    v15 = MEMORY[0x277CCA9B8];
+    v25 = *MEMORY[0x277CCA450];
+    v26 = @"Failed to allocate buffer";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v16 = [v15 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:v13];
+    [(SimplePing *)self didFailWithError:v16];
+
+    goto LABEL_19;
+  }
+
+  v4 = v3;
+  v22 = 128;
+  Native = CFSocketGetNative([(SimplePing *)self socket]);
+  v6 = recvfrom(Native, v4, 0xFFFFuLL, 0, &v27, &v22);
+  v7 = 0;
+  if (v6 < 0)
+  {
+    v7 = *__error();
+  }
+
+  timeoutTimer = [(SimplePing *)self timeoutTimer];
+  if (timeoutTimer)
+  {
+    v9 = timeoutTimer;
+    timeoutTimer2 = [(SimplePing *)self timeoutTimer];
+    v11 = dispatch_source_testcancel(timeoutTimer2);
+
+    if (!v11)
     {
-      v7 = *__error();
+      timeoutTimer3 = [(SimplePing *)self timeoutTimer];
+      dispatch_source_cancel(timeoutTimer3);
     }
+  }
 
-    timeoutTimer = [(SimplePing *)self timeoutTimer];
-    if (timeoutTimer)
-    {
-      v9 = timeoutTimer;
-      timeoutTimer2 = [(SimplePing *)self timeoutTimer];
-      v11 = dispatch_source_testcancel(timeoutTimer2);
-
-      if (!v11)
-      {
-        timeoutTimer3 = [(SimplePing *)self timeoutTimer];
-        dispatch_source_cancel(timeoutTimer3);
-      }
-    }
-
-    if (v6 < 1)
-    {
-      if (v7)
-      {
-        v17 = v7;
-      }
-
-      else
-      {
-        v17 = 32;
-      }
-
-      v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v17 userInfo:0];
-      [(SimplePing *)self didFailWithError:v13];
-LABEL_24:
-
-      free(v4);
-      goto LABEL_25;
-    }
-
-    v22 = 0;
+  if (v6 >= 1)
+  {
+    v21 = 0;
     v13 = [MEMORY[0x277CBEB28] dataWithBytes:v4 length:v6];
     if ([v13 length])
     {
       delegate = [(SimplePing *)self delegate];
-      if ([(SimplePing *)self validatePingResponsePacket:v13 sequenceNumber:&v22])
+      if ([(SimplePing *)self validatePingResponsePacket:v13 sequenceNumber:&v21])
       {
-        if (delegate && (objc_opt_respondsToSelector() & 1) != 0)
+        if (delegate)
         {
-          [delegate simplePing:self didReceivePingResponsePacket:v13 sequenceNumber:v22];
+          if (objc_opt_respondsToSelector())
+          {
+            [delegate simplePing:self didReceivePingResponsePacket:v13 sequenceNumber:v21];
+          }
         }
       }
 
@@ -661,30 +678,36 @@ LABEL_24:
     }
 
     v18 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25 = @"Failed to read packet data";
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24 = @"Failed to read packet data";
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v20 = [v18 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:v19];
     [(SimplePing *)self didFailWithError:v20];
+
+LABEL_19:
+    return;
+  }
+
+  if (v7)
+  {
+    v17 = v7;
   }
 
   else
   {
-    v15 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
-    v27 = @"Failed to allocate buffer";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-    v16 = [v15 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:v13];
-    [(SimplePing *)self didFailWithError:v16];
+    v17 = 32;
   }
 
-LABEL_25:
-  v21 = *MEMORY[0x277D85DE8];
+  v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v17 userInfo:0];
+  [(SimplePing *)self didFailWithError:v13];
+LABEL_24:
+
+  free(v4);
 }
 
 - (void)startWithHostAddress
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   hostAddressFamily = [(SimplePing *)self hostAddressFamily];
   if (hostAddressFamily == 30)
   {
@@ -735,31 +758,29 @@ LABEL_5:
     else
     {
       close(v5);
-      v13 = MEMORY[0x277CCA9B8];
-      v18 = *MEMORY[0x277CCA450];
-      v19[0] = @"Failed to create Socket";
-      hostAddress = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-      v14 = [v13 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:hostAddress];
-      [(SimplePing *)self didFailWithError:v14];
+      v12 = MEMORY[0x277CCA9B8];
+      v16 = *MEMORY[0x277CCA450];
+      v17[0] = @"Failed to create Socket";
+      hostAddress = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v13 = [v12 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:hostAddress];
+      [(SimplePing *)self didFailWithError:v13];
 
       delegate = 0;
     }
 
 LABEL_18:
-    v15 = *MEMORY[0x277D85DE8];
     return;
   }
 
   v11 = 43;
 LABEL_13:
-  v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v11 userInfo:0];
+  v14 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v11 userInfo:0];
   [(SimplePing *)self didFailWithError:?];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostResolutionDone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   hasBeenResolved = 0;
   v3 = CFHostGetAddressing([(SimplePing *)self host], &hasBeenResolved);
   v4 = v3;
@@ -776,26 +797,26 @@ LABEL_13:
   if (!v5)
   {
     hasBeenResolved = 0;
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v19;
+      v9 = *v18;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           v12 = v11;
           bytes = [v12 bytes];
           if ([v11 length] >= 0x10)
@@ -826,7 +847,7 @@ LABEL_20:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v17 objects:v22 count:16];
         if (v8)
         {
           continue;
@@ -850,8 +871,6 @@ LABEL_21:
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CBACE8] code:1 userInfo:0];
     [(SimplePing *)self didFailWithError:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -866,7 +885,7 @@ LABEL_21:
 
 void __19__SimplePing_start__block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   memset(&clientContext, 0, sizeof(clientContext));
   clientContext.info = *(a1 + 32);
   v2 = [clientContext.info hostAddress];
@@ -891,9 +910,9 @@ LABEL_5:
     v5 = [*(a1 + 32) host];
     v6 = [MEMORY[0x277CBAB78] resourceLoaderRunLoop];
     CFHostScheduleWithRunLoop(v5, v6, *MEMORY[0x277CBF058]);
-    if (!CFHostStartInfoResolution([*(a1 + 32) host], kCFHostAddresses, &v11))
+    if (!CFHostStartInfoResolution([*(a1 + 32) host], kCFHostAddresses, &v10))
     {
-      [*(a1 + 32) didFailWithHostStreamError:{v11.domain, *&v11.error}];
+      [*(a1 + 32) didFailWithHostStreamError:{v10.domain, *&v10.error}];
     }
 
     [*(a1 + 32) setupTimer:0 currentSequenceNumber:0];
@@ -904,15 +923,13 @@ LABEL_5:
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"Failed to create CFHost";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"Failed to create CFHost";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v7 = [v8 errorWithDomain:@"com.apple.NPTKit" code:-1 userInfo:v9];
 
     [*(a1 + 32) didFailWithError:v7];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopHostResolution

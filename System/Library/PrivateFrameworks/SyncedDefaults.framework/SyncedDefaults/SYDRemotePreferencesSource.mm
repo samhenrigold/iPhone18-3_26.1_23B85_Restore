@@ -5,8 +5,10 @@
 - (__CFDictionary)copyDictionary;
 - (id)dictionaryRepresentationWithError:(id *)error;
 - (id)objectForKey:(id)key error:(id *)error;
+- (unsigned)_synchronizeForced:(unsigned __int8)forced;
 - (unsigned)hasExternalChanges;
 - (unsigned)synchronize;
+- (unsigned)synchronizeForced:(unsigned __int8)forced;
 - (void)dealloc;
 - (void)getValueForKey:(__CFString *)key;
 - (void)ping;
@@ -32,19 +34,19 @@
 
 - (SYDRemotePreferencesSource)initWithApplicationID:(__CFString *)d storeID:(__CFString *)iD shared:(BOOL)shared additionalSource:(BOOL)source containerPath:(__CFString *)path storeType:(int64_t)type
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v12 = SYDGetConnectionLog();
+  v25 = *MEMORY[0x1E69E9840];
+  v12 = SYDGetConnectionLog(self);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = 138412802;
-    v21 = v19;
-    v22 = 2112;
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = 138412802;
+    v20 = v18;
+    v21 = 2112;
     dCopy = d;
-    v24 = 2112;
+    v23 = 2112;
     iDCopy = iD;
-    _os_log_debug_impl(&dword_1C8626000, v12, OS_LOG_TYPE_DEBUG, "Initializing %@ with applicationID=%@ storeID=%@", &v20, 0x20u);
+    _os_log_debug_impl(&dword_1C8626000, v12, OS_LOG_TYPE_DEBUG, "Initializing %@ with applicationID=%@ storeID=%@", &v19, 0x20u);
   }
 
   iDCopy2 = iD;
@@ -64,16 +66,15 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return &v15->super;
 }
 
-void __108__SYDRemotePreferencesSource_initWithApplicationID_storeID_shared_additionalSource_containerPath_storeType___block_invoke()
+void __108__SYDRemotePreferencesSource_initWithApplicationID_storeID_shared_additionalSource_containerPath_storeType___block_invoke(uint64_t a1)
 {
-  v0 = SYDGetConnectionLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = SYDGetConnectionLog(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    __108__SYDRemotePreferencesSource_initWithApplicationID_storeID_shared_additionalSource_containerPath_storeType___block_invoke_cold_1(v0);
+    __108__SYDRemotePreferencesSource_initWithApplicationID_storeID_shared_additionalSource_containerPath_storeType___block_invoke_cold_1(v1);
   }
 }
 
@@ -161,16 +162,14 @@ void __108__SYDRemotePreferencesSource_initWithApplicationID_storeID_shared_addi
 
 void __67__SYDRemotePreferencesSource_synchronizationWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x1E696ABC0];
-  v6 = *MEMORY[0x1E696A578];
-  v7[0] = @"Trying to call a method on an invalid object.";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = *MEMORY[0x1E696A578];
+  v6[0] = @"Trying to call a method on an invalid object.";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   v4 = [v2 errorWithDomain:@"SyncedDefaults" code:1040 userInfo:v3];
   (*(v1 + 16))(v1, v4);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)synchronize
@@ -179,6 +178,26 @@ void __67__SYDRemotePreferencesSource_synchronizationWithCompletionHandler___blo
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   [currentHandler handleFailureInMethod:a2 object:self file:@"SYDRemotePreferencesSource.m" lineNumber:126 description:{@"Trying to call %s on invalid class %@", "-[SYDRemotePreferencesSource synchronize]", v6}];
+
+  return 0;
+}
+
+- (unsigned)synchronizeForced:(unsigned __int8)forced
+{
+  currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [currentHandler handleFailureInMethod:a2 object:self file:@"SYDRemotePreferencesSource.m" lineNumber:131 description:{@"Trying to call %s on invalid class %@", "-[SYDRemotePreferencesSource synchronizeForced:]", v7}];
+
+  return 0;
+}
+
+- (unsigned)_synchronizeForced:(unsigned __int8)forced
+{
+  currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [currentHandler handleFailureInMethod:a2 object:self file:@"SYDRemotePreferencesSource.m" lineNumber:136 description:{@"Trying to call %s on invalid class %@", "-[SYDRemotePreferencesSource _synchronizeForced:]", v7}];
 
   return 0;
 }

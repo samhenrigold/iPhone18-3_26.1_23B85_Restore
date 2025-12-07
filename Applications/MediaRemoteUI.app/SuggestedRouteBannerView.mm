@@ -50,7 +50,7 @@
   }
 
   v10 = v9;
-  sub_100006334(0, &qword_100071A90);
+  sub_100006334(0, &qword_100071A90, UIView_ptr);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = static NSObject.== infix(_:_:)();

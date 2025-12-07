@@ -122,7 +122,7 @@ LABEL_16:
   v10 = strFlags;
   if (!strFlags)
   {
-    v13 = new_JavaLangStringBuilder_initWithInt_(7u);
+    v13 = new_JavaLangStringBuilder_initWithInt_(7);
     JreStrongAssignAndConsume(p_strFlags, v13);
     v10 = *p_strFlags;
     if (!*p_strFlags)
@@ -181,7 +181,7 @@ LABEL_8:
       goto LABEL_23;
     case 18:
     case 50:
-      v12 = [JavaUtilFormattable_class_() isInstance:id];
+      v12 = [JavaUtilFormattable_class_(0 a2)];
       v10 = 0;
       v11 = 0;
       v13 = 0;
@@ -315,7 +315,6 @@ LABEL_30:
 LABEL_31:
       if ((self->flagMinus_ || self->flagZero_) && self->width_ == -1)
       {
-        v25 = self->conversionType_;
         v22 = JreStrcat("CC", a2, id, v3, v4, v5, v6, v7, 45);
         v23 = new_JavaUtilMissingFormatWidthException_initWithNSString_(v22);
         goto LABEL_59;
@@ -323,7 +322,6 @@ LABEL_31:
 
       if ((v15 & 1) == 0 && self->argIndex_ != -1)
       {
-        v26 = self->conversionType_;
         v19 = JreStrcat("CC$", a2, id, v3, v4, v5, v6, v7, 37);
         goto LABEL_57;
       }
@@ -371,19 +369,19 @@ LABEL_31:
   conversionType = self->conversionType_;
   if ((conversionType | 0x20) == 0x74)
   {
-    v7[0] = JavaLangCharacter_valueOfWithChar_(conversionType);
-    v7[1] = JavaLangCharacter_valueOfWithChar_(self->dateSuffix_);
-    v4 = [IOSObjectArray arrayWithObjects:v7 count:2 type:NSObject_class_()];
-    v5 = NSString_formatWithNSString_withNSObjectArray_(@"%c%c", v4);
+    v9 = JavaLangCharacter_valueOfWithChar_(conversionType, a2);
+    v10 = JavaLangCharacter_valueOfWithChar_(self->dateSuffix_, v4);
+    v6 = [IOSObjectArray arrayWithObjects:&v9 count:2 type:NSObject_class_(v10, v5)];
+    v7 = NSString_formatWithNSString_withNSObjectArray_(@"%c%c", v6);
   }
 
   else
   {
-    v5 = NSString_valueOfChar_(conversionType);
+    v7 = NSString_valueOfChar_(conversionType);
   }
 
-  v6 = new_JavaUtilUnknownFormatConversionException_initWithNSString_(v5);
-  objc_exception_throw(v6);
+  v8 = new_JavaUtilUnknownFormatConversionException_initWithNSString_(v7);
+  objc_exception_throw(v8);
 }
 
 - (JavaUtilFormatter_FormatToken)init

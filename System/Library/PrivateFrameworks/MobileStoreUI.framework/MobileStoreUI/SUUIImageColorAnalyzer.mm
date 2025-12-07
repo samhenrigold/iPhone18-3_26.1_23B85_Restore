@@ -65,14 +65,14 @@ LABEL_6:
     cGImage = [v4 CGImage];
     Width = CGImageGetWidth(cGImage);
     Height = CGImageGetHeight(cGImage);
-    v8 = 0;
+    v9 = 0;
     if (Width && Height)
     {
-      SRGB = CGColorSpaceGetSRGB();
+      SRGB = CGColorSpaceGetSRGB(Height, v8);
       if (SRGB)
       {
         CopyWithColorSpace = CGImageCreateCopyWithColorSpace(cGImage, SRGB);
-        v11 = CopyWithColorSpace;
+        v12 = CopyWithColorSpace;
         if (CopyWithColorSpace)
         {
           cGImage = CopyWithColorSpace;
@@ -81,33 +81,33 @@ LABEL_6:
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      v13 = CGBitmapContextCreate(0, 0x16uLL, 0x16uLL, 8uLL, 0x58uLL, SRGB, 0x2002u);
-      v8 = v13;
-      if (v13)
+      v14 = CGBitmapContextCreate(0, 0x16uLL, 0x16uLL, 8uLL, 0x58uLL, SRGB, 0x2002u);
+      v9 = v14;
+      if (v14)
       {
-        v14.origin.x = *MEMORY[0x277CBF348];
-        v14.origin.y = *(MEMORY[0x277CBF348] + 8);
-        v14.size.width = 22.0;
-        v14.size.height = 22.0;
-        CGContextDrawImage(v13, v14, cGImage);
+        v15.origin.x = *MEMORY[0x277CBF348];
+        v15.origin.y = *(MEMORY[0x277CBF348] + 8);
+        v15.size.width = 22.0;
+        v15.size.height = 22.0;
+        CGContextDrawImage(v14, v15, cGImage);
       }
 
-      if (v11)
+      if (v12)
       {
-        CGImageRelease(v11);
+        CGImageRelease(v12);
       }
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

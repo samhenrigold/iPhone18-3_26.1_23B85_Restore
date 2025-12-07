@@ -19,63 +19,62 @@
 
 - (id)updatedIdentifierForLegacyIdentifier:(id)identifier withLanguageCode:(id)code
 {
-  v139 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   codeCopy = code;
   if (identifierCopy)
   {
-    if (objc_msgSend_isEqualToString_(identifierCopy, v6, @"com.apple.speech.voice.Alex", v7, v8))
+    if ([identifierCopy isEqualToString:@"com.apple.speech.voice.Alex"])
     {
-      v14 = @"com.apple.speech.synthesis.voice.Alex";
+      v7 = @"com.apple.speech.synthesis.voice.Alex";
       goto LABEL_37;
     }
 
-    v16 = objc_msgSend_lowercaseString(identifierCopy, v10, v11, v12, v13);
-    v20 = objc_msgSend_containsObject_(&unk_1F1D0F858, v17, v16, v18, v19);
+    lowercaseString = [identifierCopy lowercaseString];
+    v10 = [&unk_1F1D0F858 containsObject:lowercaseString];
 
-    if (v20)
+    if (v10)
     {
-      v14 = identifierCopy;
+      v7 = identifierCopy;
       goto LABEL_37;
     }
 
-    v25 = objc_msgSend_sharedInstance(TTSRegexCache, v21, v22, v23, v24);
-    v28 = objc_msgSend_regexForString_atStart_(v25, v26, @"com\\.apple\\.ttsbundle\\.(?<name>[^.]*)\\-(?<quality>premium|compact|Premium|Compact)$", 1, v27);
+    v11 = +[TTSRegexCache sharedInstance];
+    v12 = [v11 regexForString:@"com\\.apple\\.ttsbundle\\.(?<name>[^.]*)\\-(?<quality>premium|compact|Premium|Compact)$" atStart:1];
 
-    v33 = objc_msgSend_length(identifierCopy, v29, v30, v31, v32);
-    v35 = objc_msgSend_firstMatchInString_options_range_(v28, v34, identifierCopy, 2, 0, v33);
-    if (!objc_msgSend_numberOfRanges(v35, v36, v37, v38, v39))
+    v13 = [v12 firstMatchInString:identifierCopy options:2 range:{0, objc_msgSend(identifierCopy, "length")}];
+    if (![v13 numberOfRanges])
     {
-      v14 = identifierCopy;
+      v7 = identifierCopy;
 LABEL_36:
 
       goto LABEL_37;
     }
 
-    v43 = objc_msgSend_rangeWithName_(v35, v40, @"name", v41, v42);
-    v45 = v44;
-    v48 = objc_msgSend_rangeWithName_(v35, v44, @"quality", v46, v47);
-    v50 = v49;
-    v52 = objc_msgSend_substringWithRange_(identifierCopy, v49, v43, v45, v51);
-    v55 = objc_msgSend_substringWithRange_(identifierCopy, v53, v48, v50, v54);
-    v60 = objc_msgSend_lowercaseString(v55, v56, v57, v58, v59);
+    v14 = [v13 rangeWithName:@"name"];
+    v16 = v15;
+    v17 = [v13 rangeWithName:@"quality"];
+    v19 = v18;
+    v20 = [identifierCopy substringWithRange:{v14, v16}];
+    v21 = [identifierCopy substringWithRange:{v17, v19}];
+    lowercaseString2 = [v21 lowercaseString];
 
-    if (objc_msgSend_containsString_(v52, v61, @"-", v62, v63))
+    if ([v20 containsString:@"-"])
     {
-      v67 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v52, v64, @"-", &stru_1F1CFF8D8, v66);
-      v72 = objc_msgSend_lowercaseString(v67, v68, v69, v70, v71);
-      v77 = objc_msgSend_capitalizedString(v72, v73, v74, v75, v76);
+      v23 = [v20 stringByReplacingOccurrencesOfString:@"-" withString:&stru_1F1CFF8D8];
+      lowercaseString3 = [v23 lowercaseString];
+      capitalizedString = [lowercaseString3 capitalizedString];
 
-      v52 = v77;
+      v20 = capitalizedString;
     }
 
-    isEqualToString = objc_msgSend_isEqualToString_(v60, v64, @"compact", v65, v66);
-    if (codeCopy && isEqualToString)
+    v26 = [lowercaseString2 isEqualToString:@"compact"];
+    if (codeCopy && v26)
     {
-      v83 = objc_msgSend_sharedInstance(TTSLocaleUtilities, v79, v80, v81, v82);
-      v14 = objc_msgSend_defaultVoiceIdentifierForGeneralLanguageCode_(v83, v84, codeCopy, v85, v86);
+      v27 = +[TTSLocaleUtilities sharedInstance];
+      v7 = [v27 defaultVoiceIdentifierForGeneralLanguageCode:codeCopy];
 
-      if (v14)
+      if (v7)
       {
 LABEL_35:
 
@@ -85,90 +84,88 @@ LABEL_35:
 
     else if (!codeCopy)
     {
-      v92 = objc_msgSend_sharedInstance(TTSAXResourceManager, v79, v80, v81, v82);
-      v91 = objc_msgSend_languageCodeForResourceName_withType_(v92, v93, v52, 4, v94);
+      v29 = +[TTSAXResourceManager sharedInstance];
+      v28 = [v29 languageCodeForResourceName:v20 withType:4];
 
       goto LABEL_20;
     }
 
-    v91 = codeCopy;
+    v28 = codeCopy;
 LABEL_20:
-    v95 = _BuiltInVoiceNameForLanguage(v91, v87, v88, v89, v90);
-    v135 = v60;
-    v136 = v28;
-    v134 = v95;
-    if (v95)
+    v30 = _BuiltInVoiceNameForLanguage(v28);
+    v44 = lowercaseString2;
+    v45 = v12;
+    v43 = v30;
+    if (v30)
     {
-      v99 = v95;
-      if ((objc_msgSend_isEqualToString_(v95, v96, v52, v97, v98) & 1) == 0)
+      v31 = v30;
+      if (([v30 isEqualToString:v20] & 1) == 0)
       {
-        v104 = objc_msgSend_sharedInstance(TTSAXResourceManager, v100, v101, v102, v103);
-        v107 = objc_msgSend_languageCodeForResourceName_withType_(v104, v105, v52, 4, v106);
+        v32 = +[TTSAXResourceManager sharedInstance];
+        v33 = [v32 languageCodeForResourceName:v20 withType:4];
 
-        if ((objc_msgSend_isEqualToString_(v91, v108, v107, v109, v110) & 1) == 0)
+        if (([v28 isEqualToString:v33] & 1) == 0)
         {
-          v111 = v99;
+          v34 = v31;
 
-          v52 = v111;
+          v20 = v34;
         }
       }
 
-      v112 = v91;
+      v35 = v28;
     }
 
     else
     {
-      v113 = AXTTSLogResourceMigration();
-      if (os_log_type_enabled(v113, OS_LOG_TYPE_INFO))
+      v36 = AXTTSLogResourceMigration();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v138 = v91;
-        _os_log_impl(&dword_1A9324000, v113, OS_LOG_TYPE_INFO, "No voice found for language code: %@. Attempting to find fallback language.", buf, 0xCu);
+        v47 = v28;
+        _os_log_impl(&dword_1A9324000, v36, OS_LOG_TYPE_INFO, "No voice found for language code: %@. Attempting to find fallback language.", buf, 0xCu);
       }
 
-      v118 = objc_msgSend_sharedInstance(TTSAXResourceManager, v114, v115, v116, v117);
-      v112 = objc_msgSend_languageCodeForResourceName_withType_(v118, v119, v52, 4, v120);
+      v37 = +[TTSAXResourceManager sharedInstance];
+      v35 = [v37 languageCodeForResourceName:v20 withType:4];
 
-      v121 = AXTTSLogResourceMigration();
-      if (os_log_type_enabled(v121, OS_LOG_TYPE_INFO))
+      v38 = AXTTSLogResourceMigration();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v138 = v112;
-        _os_log_impl(&dword_1A9324000, v121, OS_LOG_TYPE_INFO, "Found fallback language code: %@", buf, 0xCu);
+        v47 = v35;
+        _os_log_impl(&dword_1A9324000, v38, OS_LOG_TYPE_INFO, "Found fallback language code: %@", buf, 0xCu);
       }
     }
 
-    v122 = MEMORY[0x1E696AEC0];
-    v60 = v135;
-    if (objc_msgSend_isEqualToString_(v135, v100, @"compact", v102, v103))
+    v39 = MEMORY[0x1E696AEC0];
+    lowercaseString2 = v44;
+    if ([v44 isEqualToString:@"compact"])
     {
-      v127 = @"compact";
+      v40 = @"compact";
     }
 
     else
     {
-      v127 = @"enhanced";
+      v40 = @"enhanced";
     }
 
-    v128 = objc_msgSend_capitalizedString(v52, v123, v124, v125, v126);
-    v14 = objc_msgSend_stringWithFormat_(v122, v129, @"%@.%@.%@.%@", v130, v131, @"com.apple.voice", v127, v112, v128);
+    capitalizedString2 = [v20 capitalizedString];
+    v7 = [v39 stringWithFormat:@"%@.%@.%@.%@", @"com.apple.voice", v40, v35, capitalizedString2];
 
-    v28 = v136;
+    v12 = v45;
     goto LABEL_35;
   }
 
-  v15 = AXTTSLogResourceMigration();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+  v8 = AXTTSLogResourceMigration();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_1A9577C14(codeCopy, v15);
+    sub_1A9577C14(codeCopy, v8);
   }
 
-  v14 = 0;
+  v7 = 0;
 LABEL_37:
 
-  v132 = *MEMORY[0x1E69E9840];
-
-  return v14;
+  return v7;
 }
 
 @end

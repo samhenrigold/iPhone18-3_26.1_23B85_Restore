@@ -259,7 +259,7 @@ id __77__ICTK2TextView_writingToolsCoordinator_requestsContextsForScope_completi
     v25 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v25 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     v27 = parametersCopy;
@@ -309,7 +309,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v18 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v18 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -342,7 +342,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v18 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v18 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -375,7 +375,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v20 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v20 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -408,7 +408,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v20 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v20 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -441,7 +441,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v20 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v20 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -478,7 +478,7 @@ void __115__ICTK2TextView_writingToolsCoordinator_replaceRange_inContext_propose
     v17 = os_log_create("com.apple.notes", "WritingTools");
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [ICTK2TextView writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:];
+      [ICTK2TextView writingToolsCoordinator:contextCopy replaceRange:v17 inContext:? proposedText:? reason:? animationParameters:? completion:?];
     }
 
     if (completionCopy)
@@ -762,12 +762,12 @@ LABEL_24:
 LABEL_25:
 }
 
-- (void)writingToolsCoordinator:replaceRange:inContext:proposedText:reason:animationParameters:completion:.cold.1()
+- (void)writingToolsCoordinator:(uint64_t)a1 replaceRange:(uint64_t)a2 inContext:proposedText:reason:animationParameters:completion:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_2151A1000, v2, v3, "Expected ICWritingToolsContext but got %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_3(&dword_2151A1000, v4, v5, "Expected ICWritingToolsContext but got %@", v6, v7, v8, v9);
 }
 
 @end

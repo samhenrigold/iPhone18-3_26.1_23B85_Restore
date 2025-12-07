@@ -28,7 +28,7 @@
 
 - (void)_handleSnapshotFile:(id)file error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   errorCopy = error;
   workQueue = [(HMDCameraSnapshotLocal *)self workQueue];
@@ -40,13 +40,13 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v16 = 138543874;
-    v17 = v12;
-    v18 = 2112;
-    v19 = fileCopy;
-    v20 = 2112;
-    v21 = errorCopy;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Calling delegate that image %@ has been saved with error %@", &v16, 0x20u);
+    v15 = 138543874;
+    v16 = v12;
+    v17 = 2112;
+    v18 = fileCopy;
+    v19 = 2112;
+    v20 = errorCopy;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Calling delegate that image %@ has been saved with error %@", &v15, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -56,8 +56,6 @@
     sessionID = [(HMDCameraSnapshotLocal *)selfCopy sessionID];
     [delegate snapshotLocal:selfCopy didSaveSnapshotFile:fileCopy error:errorCopy sessionID:sessionID];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getSnapshot:(unint64_t)snapshot
@@ -93,7 +91,7 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -101,15 +99,14 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating HMDCameraSnapshotLocal", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraSnapshotLocal;
-  [(HMDCameraSnapshotLocal *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraSnapshotLocal;
+  [(HMDCameraSnapshotLocal *)&v7 dealloc];
 }
 
 - (HMDCameraSnapshotLocal)initWithSessionID:(id)d workQueue:(id)queue accessory:(id)accessory delegate:(id)delegate snapshotRequestHandler:(id)handler
@@ -149,10 +146,9 @@
 
 void __37__HMDCameraSnapshotLocal_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_27759;
-  logCategory__hmf_once_v2_27759 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_27759;
+  logCategory__hmf_once_v2_27759 = v0;
 }
 
 @end

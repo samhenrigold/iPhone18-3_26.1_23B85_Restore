@@ -31,9 +31,7 @@
   v7 = sub_26BDF857C();
   v9 = v8;
 
-  v10 = *(&selfCopy->super.isa + OBJC_IVAR____TtC11SwiftCRLite6CRLite_issuers);
-
-  sub_26BDF4D94();
+  sub_26BDF4D94(v7, v9);
 
   sub_26BDF697C(v7, v9);
   return 1;
@@ -53,7 +51,7 @@
   statusCopy = status;
   certCopy = cert;
   selfCopy = self;
-  sub_26BDF402C(statusCopy);
+  sub_26BDF402C(statusCopy, certCopy);
 
   return 1;
 }

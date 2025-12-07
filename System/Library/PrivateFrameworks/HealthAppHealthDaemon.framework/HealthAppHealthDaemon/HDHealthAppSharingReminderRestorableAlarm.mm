@@ -44,7 +44,7 @@
 
 - (void)scheduleAlarmWithFallbackDate:(id)date restorableAlarmManager:(id)manager
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   managerCopy = manager;
   sharingReminderDate = [(HDHealthAppSharingReminderRestorableAlarm *)self sharingReminderDate];
@@ -60,11 +60,11 @@
       v12 = objc_opt_class();
       v13 = v12;
       eventIdentifier = [(HDHealthAppSharingReminderRestorableAlarm *)self eventIdentifier];
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2114;
-      v19 = eventIdentifier;
-      _os_log_impl(&dword_22939E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduled alarm event %{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2114;
+      v18 = eventIdentifier;
+      _os_log_impl(&dword_22939E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Scheduled alarm event %{public}@", &v15, 0x16u);
     }
   }
 
@@ -77,21 +77,19 @@
       [HDHealthAppSharingReminderRestorableAlarm scheduleAlarmWithFallbackDate:? restorableAlarmManager:?];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeScheduledAlarmWithRestorableAlarmManager:(id)manager
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D0FD10];
   managerCopy = manager;
   sharingReminderNotificationIdentifier = [v4 sharingReminderNotificationIdentifier];
   eventIdentifier = [(HDHealthAppSharingReminderRestorableAlarm *)self eventIdentifier];
-  v15 = 0;
-  [managerCopy removeAlarmEventWithIdentifier:eventIdentifier error:&v15];
+  v14 = 0;
+  [managerCopy removeAlarmEventWithIdentifier:eventIdentifier error:&v14];
 
-  v8 = v15;
+  v8 = v14;
   _HKInitializeLogging();
   v9 = HKLogWellnessDashboard();
   v10 = v9;
@@ -109,19 +107,18 @@
     v12 = v11;
     eventIdentifier2 = [(HDHealthAppSharingReminderRestorableAlarm *)self eventIdentifier];
     *buf = 138543618;
-    v17 = v11;
-    v18 = 2114;
-    v19 = eventIdentifier2;
+    v16 = v11;
+    v17 = 2114;
+    v18 = eventIdentifier2;
     _os_log_impl(&dword_22939E000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removed alarm event %{public}@", buf, 0x16u);
   }
 
   [(HDHealthAppNotificationManager *)self->_notificationManager removeNotificationWithIdentifier:sharingReminderNotificationIdentifier];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAlarmEvent:(id)event restorableAlarmManager:(id)manager completion:(id)completion
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   managerCopy = manager;
   completionCopy = completion;
@@ -133,9 +130,9 @@
     v13 = v12;
     v14 = [eventCopy description];
     *buf = 138543618;
-    v38 = v12;
-    v39 = 2114;
-    v40 = v14;
+    v37 = v12;
+    v38 = 2114;
+    v39 = v14;
     _os_log_impl(&dword_22939E000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received alarm event %{public}@", buf, 0x16u);
   }
 
@@ -149,14 +146,14 @@
   {
     v19 = objc_opt_class();
     *buf = 138543362;
-    v38 = v19;
+    v37 = v19;
     v20 = v19;
     _os_log_impl(&dword_22939E000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Creating sharing reminder notification.", buf, 0xCu);
   }
 
-  v36 = 0;
-  v21 = [(HDHealthAppNotificationManager *)v17 createSharingReminderNotificationAndReturnError:&v36];
-  v22 = v36;
+  v35 = 0;
+  v21 = [(HDHealthAppNotificationManager *)v17 createSharingReminderNotificationAndReturnError:&v35];
+  v22 = v35;
   v23 = v22;
   if (!v21 || v22)
   {
@@ -178,24 +175,22 @@
     eventCopy = v26;
     primaryProfile = v25;
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __96__HDHealthAppSharingReminderRestorableAlarm_handleAlarmEvent_restorableAlarmManager_completion___block_invoke;
-    v32[3] = &unk_278658168;
-    v32[4] = self;
-    v33 = eventCopy;
-    v34 = managerCopy;
-    v35 = completionCopy;
-    [notificationManager postNotificationWithRequest:v21 completion:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __96__HDHealthAppSharingReminderRestorableAlarm_handleAlarmEvent_restorableAlarmManager_completion___block_invoke;
+    v31[3] = &unk_278658168;
+    v31[4] = self;
+    v32 = eventCopy;
+    v33 = managerCopy;
+    v34 = completionCopy;
+    [notificationManager postNotificationWithRequest:v21 completion:v31];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompletionWithAlarmEvent:(id)event success:(BOOL)success error:(id)error restorableAlarmManager:(id)manager completion:(id)completion
 {
   successCopy = success;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   errorCopy = error;
   managerCopy = manager;
@@ -208,22 +203,22 @@
     v18 = v17;
     eventIdentifier = [eventCopy eventIdentifier];
     *buf = 138544130;
-    v31 = v17;
-    v32 = 2114;
-    v33 = eventIdentifier;
-    v34 = 1024;
-    v35 = successCopy;
-    v36 = 2114;
-    v37 = errorCopy;
+    v30 = v17;
+    v31 = 2114;
+    v32 = eventIdentifier;
+    v33 = 1024;
+    v34 = successCopy;
+    v35 = 2114;
+    v36 = errorCopy;
     _os_log_impl(&dword_22939E000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Handling completion of alarm event %{public}@ success: %d error: %{public}@", buf, 0x26u);
   }
 
   currentDate = [(HDHealthAppSharingReminderRestorableAlarm *)self currentDate];
   if (successCopy)
   {
-    v29 = errorCopy;
-    v21 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:currentDate error:&v29];
-    v22 = v29;
+    v28 = errorCopy;
+    v21 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:currentDate error:&v28];
+    v22 = v28;
 
     _HKInitializeLogging();
     v23 = HKLogWellnessDashboard();
@@ -231,11 +226,11 @@
     {
       v24 = objc_opt_class();
       *buf = 138543874;
-      v31 = v24;
-      v32 = 2112;
-      v33 = currentDate;
-      v34 = 1026;
-      v35 = v21;
+      v30 = v24;
+      v31 = 2112;
+      v32 = currentDate;
+      v33 = 1026;
+      v34 = v21;
       v25 = v24;
       _os_log_impl(&dword_22939E000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updated sharing reminder date to %@ successfully: %{public}d", buf, 0x1Cu);
     }
@@ -265,7 +260,6 @@
 LABEL_12:
 
   completionCopy[2](completionCopy, v27 & successCopy, v22);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sharingReminderDate
@@ -296,16 +290,16 @@ LABEL_12:
 
 - (id)sharingReminderFallbackNotificationDate:(id)date
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = objc_alloc(MEMORY[0x277D10718]);
   WeakRetained = objc_loadWeakRetained(&self->_daemon);
   primaryProfile = [WeakRetained primaryProfile];
   v8 = [v5 initWithCategory:100 domainName:@"com.apple.Health.SharingEntries" profile:primaryProfile];
 
-  v33 = 0;
-  v9 = [v8 dateForKey:@"SharingReminderNotificationDate" error:&v33];
-  v10 = v33;
+  v32 = 0;
+  v9 = [v8 dateForKey:@"SharingReminderNotificationDate" error:&v32];
+  v10 = v32;
   v11 = v10;
   v12 = 0;
   if (v9)
@@ -323,9 +317,9 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  v32 = 0;
-  v14 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:v9 error:&v32];
-  v15 = v32;
+  v31 = 0;
+  v14 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:v9 error:&v31];
+  v15 = v31;
   v16 = v15;
   if (!v14)
   {
@@ -341,17 +335,17 @@ LABEL_11:
       {
         v22 = objc_opt_class();
         *buf = 138543618;
-        v35 = v22;
-        v36 = 2112;
-        v37 = currentDate;
+        v34 = v22;
+        v35 = 2112;
+        v36 = currentDate;
         v23 = v22;
         _os_log_impl(&dword_22939E000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] No fallback date found, using current date as backup to the backup: %@", buf, 0x16u);
       }
     }
 
-    v31 = v12;
-    v24 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:currentDate error:&v31];
-    v16 = v31;
+    v30 = v12;
+    v24 = [(HDHealthAppSharingReminderRestorableAlarm *)self setSharingReminderDate:currentDate error:&v30];
+    v16 = v30;
 
     _HKInitializeLogging();
     v25 = HKLogWellnessDashboard();
@@ -362,9 +356,9 @@ LABEL_11:
       {
         v27 = objc_opt_class();
         *buf = 138543618;
-        v35 = v27;
-        v36 = 2114;
-        v37 = currentDate;
+        v34 = v27;
+        v35 = 2114;
+        v36 = currentDate;
         v28 = v27;
         _os_log_impl(&dword_22939E000, v26, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set sharing reminder date to fallback date: %{public}@", buf, 0x16u);
       }
@@ -384,17 +378,15 @@ LABEL_11:
   {
     v18 = objc_opt_class();
     *buf = 138543618;
-    v35 = v18;
-    v36 = 2114;
-    v37 = v9;
+    v34 = v18;
+    v35 = 2114;
+    v36 = v9;
     v19 = v18;
     _os_log_impl(&dword_22939E000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set sharing reminder date to existing date: %{public}@", buf, 0x16u);
   }
 
   currentDate = v9;
 LABEL_21:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return currentDate;
 }
@@ -462,62 +454,47 @@ LABEL_21:
 
 - (void)scheduleAlarmWithFallbackDate:(void *)a1 restorableAlarmManager:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
-  v9 = [a1 eventIdentifier];
+  v8 = [a1 eventIdentifier];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeScheduledAlarmWithRestorableAlarmManager:.cold.1()
 {
   OUTLINED_FUNCTION_2();
   v1 = v0;
-  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_class();
-  v9 = [v1 eventIdentifier];
+  v8 = [v1 eventIdentifier];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompletionWithAlarmEvent:success:error:restorableAlarmManager:completion:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1(v0);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingReminderDate
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1(v0);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sharingReminderFallbackNotificationDate:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v8 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_class();
   v1 = OUTLINED_FUNCTION_1(v0);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

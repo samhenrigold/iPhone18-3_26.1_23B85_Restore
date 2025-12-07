@@ -9,11 +9,11 @@
 
 - (id)description
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v71 = MEMORY[0x277CCACA8];
+  v77 = *MEMORY[0x277D85DE8];
+  v70 = MEMORY[0x277CCACA8];
   v3 = objc_opt_class();
   modelId = self->_modelId;
-  v70 = v3;
+  v69 = v3;
   v4 = self->_firmwareIds;
   v5 = v4;
   selfCopy = self;
@@ -22,27 +22,27 @@
     if ([(NSArray *)v4 count])
     {
       v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v5, "count")}];
+      v72 = 0u;
       v73 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
-      v66 = v5;
+      v65 = v5;
       v7 = v5;
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v73 objects:v77 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v72 objects:v76 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v74;
+        v10 = *v73;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v74 != v10)
+            if (*v73 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v73 + 1) + 8 * i);
+            v12 = *(*(&v72 + 1) + 8 * i);
             if (v12)
             {
               v13 = MEMORY[0x277CCACA8];
@@ -58,7 +58,7 @@
             [v6 addObject:v15];
           }
 
-          v9 = [(NSArray *)v7 countByEnumeratingWithState:&v73 objects:v77 count:16];
+          v9 = [(NSArray *)v7 countByEnumeratingWithState:&v72 objects:v76 count:16];
         }
 
         while (v9);
@@ -72,7 +72,7 @@
       v20 = [v17 stringWithFormat:@"%@ [%@]", v19, v16];
 
       self = selfCopy;
-      v5 = v66;
+      v5 = v65;
     }
 
     else
@@ -96,29 +96,29 @@
   {
     if ([(NSArray *)v24 count])
     {
-      v67 = v20;
+      v66 = v20;
       v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v25, "count")}];
+      v72 = 0u;
       v73 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
-      v65 = v25;
+      v64 = v25;
       v27 = v25;
-      v28 = [(NSArray *)v27 countByEnumeratingWithState:&v73 objects:v77 count:16];
+      v28 = [(NSArray *)v27 countByEnumeratingWithState:&v72 objects:v76 count:16];
       if (v28)
       {
         v29 = v28;
-        v30 = *v74;
+        v30 = *v73;
         do
         {
           for (j = 0; j != v29; ++j)
           {
-            if (*v74 != v30)
+            if (*v73 != v30)
             {
               objc_enumerationMutation(v27);
             }
 
-            v32 = *(*(&v73 + 1) + 8 * j);
+            v32 = *(*(&v72 + 1) + 8 * j);
             if (v32)
             {
               v33 = MEMORY[0x277CCACA8];
@@ -134,7 +134,7 @@
             [v26 addObject:v35];
           }
 
-          v29 = [(NSArray *)v27 countByEnumeratingWithState:&v73 objects:v77 count:16];
+          v29 = [(NSArray *)v27 countByEnumeratingWithState:&v72 objects:v76 count:16];
         }
 
         while (v29);
@@ -148,8 +148,8 @@
       v40 = [v37 stringWithFormat:@"%@ [%@]", v39, v36];
 
       self = selfCopy;
-      v25 = v65;
-      v20 = v67;
+      v25 = v64;
+      v20 = v66;
     }
 
     else
@@ -173,28 +173,28 @@
   {
     if ([(NSArray *)v43 count])
     {
-      v68 = v20;
+      v67 = v20;
       v45 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](v44, "count")}];
+      v72 = 0u;
       v73 = 0u;
       v74 = 0u;
       v75 = 0u;
-      v76 = 0u;
       v46 = v44;
-      v47 = [(NSArray *)v46 countByEnumeratingWithState:&v73 objects:v77 count:16];
+      v47 = [(NSArray *)v46 countByEnumeratingWithState:&v72 objects:v76 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v74;
+        v49 = *v73;
         do
         {
           for (k = 0; k != v48; ++k)
           {
-            if (*v74 != v49)
+            if (*v73 != v49)
             {
               objc_enumerationMutation(v46);
             }
 
-            v51 = *(*(&v73 + 1) + 8 * k);
+            v51 = *(*(&v72 + 1) + 8 * k);
             if (v51)
             {
               v52 = MEMORY[0x277CCACA8];
@@ -210,7 +210,7 @@
             [v45 addObject:v54];
           }
 
-          v48 = [(NSArray *)v46 countByEnumeratingWithState:&v73 objects:v77 count:16];
+          v48 = [(NSArray *)v46 countByEnumeratingWithState:&v72 objects:v76 count:16];
         }
 
         while (v48);
@@ -224,7 +224,7 @@
       v59 = [v56 stringWithFormat:@"%@ [%@]", v58, v55];
 
       self = selfCopy;
-      v20 = v68;
+      v20 = v67;
     }
 
     else
@@ -242,9 +242,7 @@
     v59 = @"<nil>";
   }
 
-  v62 = [v71 stringWithFormat:@"<%@:%p, modelId: %@, firmwareIds: %@, years: %@, models: %@>", v70, self, modelId, v20, v40, v59];
-
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = [v70 stringWithFormat:@"<%@:%p, modelId: %@, firmwareIds: %@, years: %@, models: %@>", v69, self, modelId, v20, v40, v59];
 
   return v62;
 }
@@ -302,37 +300,8 @@ uint64_t __37__VGDenylistEntry_isSupersetOfEntry___block_invoke(void *a1, void *
       modelId = v5->_modelId;
       v7 = self->_modelId;
       v8 = modelId;
-      if (v7 | v8)
+      if (v7 | v8 && (v9 = v8, v10 = [v7 isEqual:v8], v9, v7, !v10) || (firmwareIds = v5->_firmwareIds, v12 = self->_firmwareIds, v13 = firmwareIds, v12 | v13) && (v14 = v13, v15 = objc_msgSend(v12, "isEqual:", v13), v14, v12, !v15) || (years = v5->_years, v17 = self->_years, v18 = years, v17 | v18) && (v19 = v18, v20 = objc_msgSend(v17, "isEqual:", v18), v19, v17, !v20))
       {
-        v9 = v8;
-        v10 = [v7 isEqual:v8];
-
-        if (!v10)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      firmwareIds = v5->_firmwareIds;
-      v12 = self->_firmwareIds;
-      v13 = firmwareIds;
-      if (v12 | v13)
-      {
-        v14 = v13;
-        v15 = [v12 isEqual:v13];
-
-        if (!v15)
-        {
-          goto LABEL_13;
-        }
-      }
-
-      years = v5->_years;
-      v17 = self->_years;
-      v18 = years;
-      if (v17 | v18 && (v19 = v18, v20 = [v17 isEqual:v18], v19, v17, !v20))
-      {
-LABEL_13:
         v25 = 0;
       }
 

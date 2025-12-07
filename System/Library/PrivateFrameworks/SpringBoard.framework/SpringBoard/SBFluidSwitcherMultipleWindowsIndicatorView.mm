@@ -69,7 +69,7 @@
   v6 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:self parameters:v5];
   v7 = [MEMORY[0x277D75860] effectWithPreview:v6];
   v8 = MEMORY[0x277D75888];
-  [(SBFluidSwitcherMultipleWindowsIndicatorView *)self frame];
+  objc_msgSend_frame(self);
   UIRectCenteredRect();
   v9 = [v8 shapeWithRoundedRect:? cornerRadius:?];
   v10 = [MEMORY[0x277D75890] styleWithEffect:v7 shape:v9];

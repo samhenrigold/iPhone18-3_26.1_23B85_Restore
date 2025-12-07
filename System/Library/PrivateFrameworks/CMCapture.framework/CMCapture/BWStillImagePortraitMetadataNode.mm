@@ -1,9 +1,7 @@
 @interface BWStillImagePortraitMetadataNode
 - (BWStillImagePortraitMetadataNode)initWithNodeConfiguration:(id)configuration sdofRenderingVersion:(int)version sensorConfigurationsByPortType:(id)type defaultPortType:(id)portType defaultZoomFactor:(float)factor;
-- (uint64_t)_attachPortraitLightingEffectMetadataToDepthMetadata:(uint64_t)result portType:(void *)type;
-- (uint64_t)_loadSDOFRenderingBundle;
+- (id)_attachPortraitLightingEffectMetadataToDepthMetadata:(id *)result portType:(void *)type;
 - (uint64_t)_loadSDOFRenderingTuningParametersForPortType:(float)type zoomFactorForPortType:;
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive;
 - (void)dealloc;
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key;
 - (void)prepareForCurrentConfigurationToBecomeLive;
@@ -79,7 +77,7 @@ LABEL_11:
 
 - (void)didSelectFormat:(id)format forInput:(id)input forAttachedMediaKey:(id)key
 {
-  if ([key isEqualToString:@"PrimaryFormat"])
+  if (objc_msgSend_isEqualToString_(key, a2, @"PrimaryFormat"))
   {
     output = self->super._output;
 
@@ -88,7 +86,7 @@ LABEL_11:
 
   else
   {
-    [key isEqualToString:@"Depth"];
+    objc_msgSend_isEqualToString_(key);
     v10.receiver = self;
     v10.super_class = BWStillImagePortraitMetadataNode;
     [(BWNode *)&v10 didSelectFormat:format forInput:input forAttachedMediaKey:key];
@@ -104,44 +102,6 @@ LABEL_11:
   {
     [BWStillImagePortraitMetadataNode prepareForCurrentConfigurationToBecomeLive];
   }
-}
-
-- (uint64_t)_loadSDOFRenderingBundle
-{
-  selfCopy = self;
-  if (self)
-  {
-    v2 = *(self + 128);
-    if (v2 >= 5)
-    {
-      v3 = 5;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    v4 = BWLoadProcessorBundle(@"SDOFRendering", v3);
-    if (v4)
-    {
-      *(selfCopy + 160) = [v4 classNamed:@"FigSDOFRenderingTuningParameters"];
-      selfCopy = [(BWStillImagePortraitMetadataNode *)selfCopy _loadSDOFRenderingTuningParametersForPortType:*(selfCopy + 152) zoomFactorForPortType:?];
-      if (selfCopy)
-      {
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_6();
-        FigDebugAssert3();
-      }
-    }
-
-    else
-    {
-      return 4294954510;
-    }
-  }
-
-  return selfCopy;
 }
 
 - (void)renderSampleBuffer:(opaqueCMSampleBuffer *)buffer forInput:(id)input
@@ -174,65 +134,85 @@ LABEL_11:
     }
 
     v12 = BWPixelBufferDimensionsFromSampleBuffer(buffer);
-    v26 = *MEMORY[0x1E695F050];
-    v27 = *(MEMORY[0x1E695F050] + 16);
+    v34 = *MEMORY[0x1E695F050];
+    v35 = *(MEMORY[0x1E695F050] + 16);
     if (!FigCFDictionaryGetCGRectIfPresent())
     {
-      v26 = 0uLL;
+      v34 = 0uLL;
       __asm { FMOV            V0.2D, #1.0 }
 
-      v27 = _Q0;
+      v35 = _Q0;
     }
 
-    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v12, v12 >> 32, *&v26, *(&v26 + 1), *&v27, *(&v27 + 1), [objc_msgSend(v9 "requestedSettings")] / objc_msgSend(objc_msgSend(v9, "requestedSettings"), "outputHeight"));
-    height = v28.size.height;
-    if (CGRectIsNull(v28))
+    v18 = [objc_msgSend(v9 "requestedSettings")];
+    v19.n128_f64[0] = v18 / [objc_msgSend(v9 "requestedSettings")];
+    v20.n128_u64[0] = v34;
+    v22.n128_u64[0] = *(&v35 + 1);
+    v21.n128_u64[0] = v35;
+    FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect(v12, v12 >> 32, v20, *(&v34 + 1), v21, v22, v19, v23);
+    height = v36.size.height;
+    if (!CGRectIsNull(v36))
     {
-      goto LABEL_28;
-    }
-
-    if ([objc_msgSend(v9 "requestedSettings")])
-    {
-      [objc_msgSend(objc_msgSend(v9 "captureSettings")];
-      v20 = 1.0;
-      if (v19 < 1.0)
+      if ([objc_msgSend(v9 "requestedSettings")])
       {
-        v19 = 1.0;
-      }
-    }
-
-    else
-    {
-      v21 = [objc_msgSend(v9 "requestedSettings")] / height;
-      v22 = [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
-      if (v22)
-      {
-        v21 = v21 / vcvts_n_f32_s32(v22, 1uLL);
+        [objc_msgSend(objc_msgSend(v9 "captureSettings")];
+        v26 = 1.0;
+        if (v25 < 1.0)
+        {
+          v25 = 1.0;
+        }
       }
 
-      [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
-      v20 = 1.0;
-      if (v23 == 0.0)
+      else
       {
-        v23 = 1.0;
+        v27 = [objc_msgSend(v9 "requestedSettings")] / height;
+        v28 = [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B588), "intValue"}];
+        if (v28)
+        {
+          v27 = v27 / vcvts_n_f32_s32(v28, 1uLL);
+        }
+
+        [objc_msgSend(v10 objectForKeyedSubscript:{*off_1E798B240), "floatValue"}];
+        v26 = 1.0;
+        if (v29 == 0.0)
+        {
+          v29 = 1.0;
+        }
+
+        v25 = v27 * v29;
       }
 
-      v19 = v21 * v23;
-    }
+      if (v25 >= v26)
+      {
+        v30 = v25;
+      }
 
-    v24 = v19 >= v20 ? v19 : v20;
-    if ([(NSString *)defaultPortType isEqualToString:self->_currentPortType]&& v24 == self->_currentZoomFactorForSDOFRenderingParameters || ![(BWStillImagePortraitMetadataNode *)self _loadSDOFRenderingTuningParametersForPortType:v24 zoomFactorForPortType:?])
-    {
-      BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer(buffer, self->_sdofRenderingParameters);
-      BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(buffer);
-      [v7 setObject:-[FigSDOFRenderingTuningParameters encodeParametersForSampleBuffer:captureType:](self->_sdofRenderingTuningParameters forKeyedSubscript:{"encodeParametersForSampleBuffer:captureType:", buffer, objc_msgSend(objc_msgSend(v9, "captureSettings"), "captureType") == 11), *off_1E798CEF0}];
-      v25 = MEMORY[0x1E696AD98];
-      [(FigSDOFRenderingTuningParameters *)self->_sdofRenderingTuningParameters simulatedAperture];
-      [v7 setObject:objc_msgSend(v25 forKeyedSubscript:{"numberWithFloat:"), *off_1E798CEF8}];
-      [BWStillImagePortraitMetadataNode _attachPortraitLightingEffectMetadataToDepthMetadata:v7 portType:?];
-      CMSetAttachment(buffer, v6, v7, 1u);
-      CMSetAttachment(buffer, *off_1E798D368, [MEMORY[0x1E696AD98] numberWithInt:self->_sdofRenderingVersion], 1u);
-      [objc_msgSend(v9 "requestedSettings")];
+      else
+      {
+        v30 = v26;
+      }
+
+      if (objc_msgSend_isEqualToString_(defaultPortType) && v30 == self->_currentZoomFactorForSDOFRenderingParameters || (v31 = [(BWStillImagePortraitMetadataNode *)self _loadSDOFRenderingTuningParametersForPortType:v30 zoomFactorForPortType:?]) == 0)
+      {
+        BWPortraitUtilitiesAttachLumaNoiseLevelToSampleBuffer(buffer, self->_sdofRenderingParameters);
+        BWPortraitUtilitiesAttachSyntheticFocusRectangleToSampleBuffer(buffer);
+        [v7 setObject:-[FigSDOFRenderingTuningParameters encodeParametersForSampleBuffer:captureType:](self->_sdofRenderingTuningParameters forKeyedSubscript:{"encodeParametersForSampleBuffer:captureType:", buffer, objc_msgSend(objc_msgSend(v9, "captureSettings"), "captureType") == 11), *off_1E798CEF0}];
+        v32 = MEMORY[0x1E696AD98];
+        [(FigSDOFRenderingTuningParameters *)self->_sdofRenderingTuningParameters simulatedAperture];
+        [v7 setObject:objc_msgSend(v32 forKeyedSubscript:{"numberWithFloat:"), *off_1E798CEF8}];
+        [BWStillImagePortraitMetadataNode _attachPortraitLightingEffectMetadataToDepthMetadata:v7 portType:?];
+        CMSetAttachment(buffer, v6, v7, 1u);
+        CMSetAttachment(buffer, *off_1E798D368, [MEMORY[0x1E696AD98] numberWithInt:self->_sdofRenderingVersion], 1u);
+        [objc_msgSend(v9 "requestedSettings")];
+      }
+
+      else
+      {
+        v33 = v31;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_0_101();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v33);
+      }
     }
 
     else
@@ -240,7 +220,7 @@ LABEL_11:
 LABEL_28:
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_101();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
     }
   }
 
@@ -285,11 +265,11 @@ LABEL_28:
   return result;
 }
 
-- (uint64_t)_attachPortraitLightingEffectMetadataToDepthMetadata:(uint64_t)result portType:(void *)type
+- (id)_attachPortraitLightingEffectMetadataToDepthMetadata:(id *)result portType:(void *)type
 {
   if (result)
   {
-    result = [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(*(result + 136) "objectForKeyedSubscript:{"sensorIDDictionary"), "objectForKeyedSubscript:", @"PortraitLightingParameters", "objectForKeyedSubscript:", @"effectStrength", "doubleValue"}")];
+    result = [objc_msgSend(objc_msgSend(objc_msgSend(objc_msgSend(result[17] "objectForKeyedSubscript:{"sensorIDDictionary"), "objectForKeyedSubscript:", @"PortraitLightingParameters", "objectForKeyedSubscript:", @"effectStrength", "doubleValue"}")];
     if (v3 != 0.0)
     {
       v4 = [MEMORY[0x1E696AD98] numberWithDouble:?];
@@ -300,27 +280,6 @@ LABEL_28:
   }
 
   return result;
-}
-
-- (uint64_t)initWithNodeConfiguration:sdofRenderingVersion:sensorConfigurationsByPortType:defaultPortType:defaultZoomFactor:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)initWithNodeConfiguration:sdofRenderingVersion:sensorConfigurationsByPortType:defaultPortType:defaultZoomFactor:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForCurrentConfigurationToBecomeLive
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

@@ -26,7 +26,7 @@
 
 - (id)mtlKernel
 {
-  v2 = SDOFV2MetalLibURL();
+  v2 = SDOFV2MetalLibURL(self, a2);
 
   return [CIKernel cachedKernelWithFunctionName:@"slm_calcV2" fromMetalLibrary:v2 error:0];
 }
@@ -246,12 +246,12 @@ double __36__CILensModelCalculator_outputImage__block_invoke_101(uint64_t a1, in
   }
 }
 
-uint64_t __36__CILensModelCalculator_outputImage__block_invoke_2(uint64_t a1, void *a2)
+void *__36__CILensModelCalculator_outputImage__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [objc_msgSend(a2 objectForKey:{@"kContextInfoIsMetal", "BOOLValue"}];
   if (result)
   {
-    return *(a1 + 32) != 0;
+    return (*(a1 + 32) != 0);
   }
 
   return result;

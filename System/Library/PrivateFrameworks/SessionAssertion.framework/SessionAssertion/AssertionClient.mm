@@ -13,18 +13,16 @@
   v8 = v7;
 
   v9 = sub_26579E334();
-  v10 = sub_26579E274();
-  v11 = *(v10 + 48);
-  v12 = *(v10 + 52);
+  sub_26579E274();
   swift_allocObject();
   sub_26579E264();
-  v13 = sub_26579E344();
-  v15 = v14;
+  v10 = sub_26579E344();
+  v12 = v11;
   sub_26578A710();
   sub_26579E254();
-  sub_26578422C(v13, v15);
+  sub_26578422C(v10, v12);
 
-  AssertionClient.didInvalidate(invalidationMessage:)(&v16);
+  AssertionClient.didInvalidate(invalidationMessage:)(&v13);
 
   sub_26578422C(v6, v8);
 }

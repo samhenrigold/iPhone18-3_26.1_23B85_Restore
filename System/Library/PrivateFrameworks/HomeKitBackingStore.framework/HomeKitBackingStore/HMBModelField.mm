@@ -162,7 +162,7 @@ LABEL_7:
 
 - (void)setDefaultValue:(id)value
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   if (valueCopy && ([(HMBModelField *)self classObj], (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -175,15 +175,15 @@ LABEL_7:
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
       v12 = NSStringFromClass([(HMBModelField *)selfCopy classObj]);
-      v14 = 138544130;
-      v15 = v9;
-      v16 = 2112;
-      v17 = valueCopy;
-      v18 = 2112;
-      v19 = v11;
-      v20 = 2112;
-      v21 = v12;
-      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to set a default value %@ of type %@ when the stored type is %@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v9;
+      v15 = 2112;
+      v16 = valueCopy;
+      v17 = 2112;
+      v18 = v11;
+      v19 = 2112;
+      v20 = v12;
+      _os_log_impl(&dword_22AD27000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to set a default value %@ of type %@ when the stored type is %@", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -193,8 +193,6 @@ LABEL_7:
   {
     objc_storeStrong(&self->_defaultValue, value);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -253,11 +251,11 @@ LABEL_7:
 
 - (HMBModelField)initWithClass:(Class)class options:(id)options
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
-  v33.receiver = self;
-  v33.super_class = HMBModelField;
-  v7 = [(HMBModelField *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = HMBModelField;
+  v7 = [(HMBModelField *)&v32 init];
   v8 = v7;
   if (!v7)
   {
@@ -265,31 +263,31 @@ LABEL_7:
   }
 
   objc_storeStrong(&v7->_classObj, class);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v9 = optionsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       v13 = 0;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v29 + 1) + 8 * v13++) applyTo:v8];
+        [*(*(&v28 + 1) + 8 * v13++) applyTo:v8];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v11);
@@ -333,31 +331,31 @@ LABEL_27:
   }
 
 LABEL_17:
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v17 = v9;
-  v18 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v26;
+    v20 = *v25;
     do
     {
       v21 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v25 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v25 + 1) + 8 * v21++) applyTo:{v8, v25}];
+        [*(*(&v24 + 1) + 8 * v21++) applyTo:{v8, v24}];
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v19);
@@ -367,7 +365,6 @@ LABEL_17:
   v22 = v8;
 LABEL_25:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

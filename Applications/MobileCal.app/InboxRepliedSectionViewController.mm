@@ -29,6 +29,7 @@
 - (void)_saveStatus:(int64_t)status forItemAtIndexPath:(id)path;
 - (void)_selectedOccurrencesChanged:(id)changed;
 - (void)_updateCell:(id)cell atIndexPath:(id)path;
+- (void)contextMenuInteraction:(id)interaction willEndForConfiguration:(id)configuration animator:(id)animator;
 - (void)contextMenuInteraction:(id)interaction willPerformPreviewActionForMenuWithConfiguration:(id)configuration animator:(id)animator;
 - (void)copy:(id)copy;
 - (void)cut:(id)cut;
@@ -612,6 +613,13 @@
     v12 = event;
     [animatorCopy addAnimations:v11];
   }
+}
+
+- (void)contextMenuInteraction:(id)interaction willEndForConfiguration:(id)configuration animator:(id)animator
+{
+  indexPathForRowWithContextMenu = self->_indexPathForRowWithContextMenu;
+  self->_indexPathForRowWithContextMenu = 0;
+  _objc_release_x1(self, indexPathForRowWithContextMenu);
 }
 
 - (void)_saveStatus:(int64_t)status forItemAtIndexPath:(id)path

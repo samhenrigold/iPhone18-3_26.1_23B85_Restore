@@ -53,7 +53,7 @@
   v4 = 0.0;
   if (numberOfCorrectTop1CachedPrediction)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionAtTop1CachedPrediction:v6];
@@ -75,7 +75,7 @@
   v4 = 0.0;
   if (numberOfCorrectTop2CachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionAtTop2CachedPredictions:v6];
@@ -97,7 +97,7 @@
   v4 = 0.0;
   if (numberOfCorrectTop4CachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionAtTop4CachedPredictions:v6];
@@ -119,7 +119,7 @@
   v4 = 0.0;
   if (numberOfCorrectTop8CachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionAtTop8CachedPredictions:v6];
@@ -141,7 +141,7 @@
   v4 = 0.0;
   if (numberOfCorrectHighConfidenceCachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionOfHighConfidenceCachedPredictions:v6];
@@ -163,7 +163,7 @@
   v4 = 0.0;
   if (numberOfCorrectMediumConfidenceCachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionOfMediumConfidenceCachedPredictions:v6];
@@ -185,7 +185,7 @@
   v4 = 0.0;
   if (numberOfCorrectLowConfidenceCachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionOfLowConfidenceCachedPredictions:v6];
@@ -207,7 +207,7 @@
   v4 = 0.0;
   if (numberOfCorrectCachedPredictions)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 precisionAllCachedPredictions:v6];
@@ -229,7 +229,7 @@
   v4 = 0.0;
   if (numberOfShadowEventTop1CacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallAtTop1CachedPrediction:v6];
@@ -251,7 +251,7 @@
   v4 = 0.0;
   if (numberOfShadowEventTop2CacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallAtTop2CachedPredictions:v6];
@@ -273,7 +273,7 @@
   v4 = 0.0;
   if (numberOfShadowEventTop4CacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallAtTop4CachedPredictions:v6];
@@ -295,7 +295,7 @@
   v4 = 0.0;
   if (numberOfShadowEventTop8CacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallAtTop8CachedPredictions:v6];
@@ -317,7 +317,7 @@
   v4 = 0.0;
   if (numberOfShadowEventHighConfidenceCacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallOfHighConfidenceCachedPredictions:v6];
@@ -339,7 +339,7 @@
   v4 = 0.0;
   if (numberOfShadowEventMediumConfidenceCacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallOfMediumConfidenceCachedPredictions:v6];
@@ -361,7 +361,7 @@
   v4 = 0.0;
   if (numberOfShadowEventLowConfidenceCacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallOfLowConfidenceCachedPredictions:v6];
@@ -383,7 +383,7 @@
   v4 = 0.0;
   if (numberOfShadowEventCacheHits)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 recallAllCachedPredictions:v6];
@@ -405,7 +405,7 @@
   v4 = 0.0;
   if (sumOfShadowEventCacheHitReciprocalRanks != 0.0)
   {
-    v5 = __atxlog_handle_metrics();
+    v5 = __atxlog_handle_metrics(self);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(ATXShadowMetrics *)v5 meanReciprocalRank:v6];
@@ -417,120 +417,118 @@
 
 - (id)asCoreAnalyticsMessageWithModelId:(id)id executableType:(int64_t)type
 {
-  v53[25] = *MEMORY[0x1E69E9840];
-  v53[0] = id;
-  v52[0] = @"modelID";
-  v52[1] = @"executableType";
+  v52[25] = *MEMORY[0x1E69E9840];
+  v52[0] = id;
+  v51[0] = @"modelID";
+  v51[1] = @"executableType";
   v6 = MEMORY[0x1E696AD98];
   idCopy = id;
-  v51 = [v6 numberWithInteger:type];
-  v53[1] = v51;
-  v52[2] = @"cacheHitMRR";
+  v50 = [v6 numberWithInteger:type];
+  v52[1] = v50;
+  v51[2] = @"cacheHitMRR";
   v7 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self meanReciprocalRank];
-  v50 = [v7 numberWithDouble:?];
-  v53[2] = v50;
-  v52[3] = @"numEvent";
-  v49 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfShadowEvents](self, "numberOfShadowEvents")}];
-  v53[3] = v49;
-  v52[4] = @"numPrediction";
-  v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedPredictions](self, "numberOfCachedPredictions")}];
-  v53[4] = v48;
-  v52[5] = @"numPredictionHConf";
-  v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedHighConfidencePredictions](self, "numberOfCachedHighConfidencePredictions")}];
-  v53[5] = v47;
-  v52[6] = @"numPredictionLConf";
-  v45 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedLowConfidencePredictions](self, "numberOfCachedLowConfidencePredictions")}];
-  v53[6] = v45;
-  v52[7] = @"numPredictionMConf";
-  v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedMediumConfidencePredictions](self, "numberOfCachedMediumConfidencePredictions")}];
-  v53[7] = v44;
-  v52[8] = @"numRefresh";
-  v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfPredictionCacheRefreshes](self, "numberOfPredictionCacheRefreshes")}];
-  v53[8] = v43;
-  v52[9] = @"precisionAll";
+  v49 = [v7 numberWithDouble:?];
+  v52[2] = v49;
+  v51[3] = @"numEvent";
+  v48 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfShadowEvents](self, "numberOfShadowEvents")}];
+  v52[3] = v48;
+  v51[4] = @"numPrediction";
+  v47 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedPredictions](self, "numberOfCachedPredictions")}];
+  v52[4] = v47;
+  v51[5] = @"numPredictionHConf";
+  v46 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedHighConfidencePredictions](self, "numberOfCachedHighConfidencePredictions")}];
+  v52[5] = v46;
+  v51[6] = @"numPredictionLConf";
+  v44 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedLowConfidencePredictions](self, "numberOfCachedLowConfidencePredictions")}];
+  v52[6] = v44;
+  v51[7] = @"numPredictionMConf";
+  v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfCachedMediumConfidencePredictions](self, "numberOfCachedMediumConfidencePredictions")}];
+  v52[7] = v43;
+  v51[8] = @"numRefresh";
+  v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[ATXShadowMetrics numberOfPredictionCacheRefreshes](self, "numberOfPredictionCacheRefreshes")}];
+  v52[8] = v42;
+  v51[9] = @"precisionAll";
   v8 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionAllCachedPredictions];
-  v42 = [v8 numberWithDouble:?];
-  v53[9] = v42;
-  v52[10] = @"precisionAt1";
+  v41 = [v8 numberWithDouble:?];
+  v52[9] = v41;
+  v51[10] = @"precisionAt1";
   v9 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionAtTop1CachedPrediction];
-  v41 = [v9 numberWithDouble:?];
-  v53[10] = v41;
-  v52[11] = @"precisionAt2";
+  v40 = [v9 numberWithDouble:?];
+  v52[10] = v40;
+  v51[11] = @"precisionAt2";
   v10 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionAtTop2CachedPredictions];
-  v40 = [v10 numberWithDouble:?];
-  v53[11] = v40;
-  v52[12] = @"precisionAt4";
+  v39 = [v10 numberWithDouble:?];
+  v52[11] = v39;
+  v51[12] = @"precisionAt4";
   v11 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionAtTop4CachedPredictions];
-  v39 = [v11 numberWithDouble:?];
-  v53[12] = v39;
-  v52[13] = @"precisionAt8";
+  v38 = [v11 numberWithDouble:?];
+  v52[12] = v38;
+  v51[13] = @"precisionAt8";
   v12 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionAtTop8CachedPredictions];
-  v38 = [v12 numberWithDouble:?];
-  v53[13] = v38;
-  v52[14] = @"precisionHConf";
+  v37 = [v12 numberWithDouble:?];
+  v52[13] = v37;
+  v51[14] = @"precisionHConf";
   v13 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionOfHighConfidenceCachedPredictions];
-  v37 = [v13 numberWithDouble:?];
-  v53[14] = v37;
-  v52[15] = @"precisionLConf";
+  v36 = [v13 numberWithDouble:?];
+  v52[14] = v36;
+  v51[15] = @"precisionLConf";
   v14 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionOfLowConfidenceCachedPredictions];
-  v36 = [v14 numberWithDouble:?];
-  v53[15] = v36;
-  v52[16] = @"precisionMConf";
+  v35 = [v14 numberWithDouble:?];
+  v52[15] = v35;
+  v51[16] = @"precisionMConf";
   v15 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self precisionOfMediumConfidenceCachedPredictions];
   v16 = [v15 numberWithDouble:?];
-  v53[16] = v16;
-  v52[17] = @"recallAll";
+  v52[16] = v16;
+  v51[17] = @"recallAll";
   v17 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallAllCachedPredictions];
   v18 = [v17 numberWithDouble:?];
-  v53[17] = v18;
-  v52[18] = @"recallAt1";
+  v52[17] = v18;
+  v51[18] = @"recallAt1";
   v19 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallAtTop1CachedPrediction];
   v20 = [v19 numberWithDouble:?];
-  v53[18] = v20;
-  v52[19] = @"recallAt2";
+  v52[18] = v20;
+  v51[19] = @"recallAt2";
   v21 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallAtTop2CachedPredictions];
   v22 = [v21 numberWithDouble:?];
-  v53[19] = v22;
-  v52[20] = @"recallAt4";
+  v52[19] = v22;
+  v51[20] = @"recallAt4";
   v23 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallAtTop4CachedPredictions];
   v24 = [v23 numberWithDouble:?];
-  v53[20] = v24;
-  v52[21] = @"recallAt8";
+  v52[20] = v24;
+  v51[21] = @"recallAt8";
   v25 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallAtTop8CachedPredictions];
   v26 = [v25 numberWithDouble:?];
-  v53[21] = v26;
-  v52[22] = @"recallHConf";
+  v52[21] = v26;
+  v51[22] = @"recallHConf";
   v27 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallOfHighConfidenceCachedPredictions];
   v28 = [v27 numberWithDouble:?];
-  v53[22] = v28;
-  v52[23] = @"recallLConf";
+  v52[22] = v28;
+  v51[23] = @"recallLConf";
   v29 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallOfLowConfidenceCachedPredictions];
   v30 = [v29 numberWithDouble:?];
-  v53[23] = v30;
-  v52[24] = @"recallMConf";
+  v52[23] = v30;
+  v51[24] = @"recallMConf";
   v31 = MEMORY[0x1E696AD98];
   [(ATXShadowMetrics *)self recallOfMediumConfidenceCachedPredictions];
   v32 = [v31 numberWithDouble:?];
-  v53[24] = v32;
-  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:25];
-
-  v34 = *MEMORY[0x1E69E9840];
+  v52[24] = v32;
+  v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:25];
 
   return v33;
 }
@@ -588,121 +586,121 @@
 
 - (void)precisionAtTop1CachedPrediction
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop1CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionAtTop1CachedPrediction]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop1CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionAtTop2CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop2CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionAtTop2CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop2CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionAtTop4CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop4CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionAtTop4CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop4CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionAtTop8CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop8CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionAtTop8CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectTop8CachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionOfHighConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectHighConfidenceCachedPredictions != 0 while _numberOfCachedHighConfidencePredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionOfHighConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectHighConfidenceCachedPredictions != 0 while _numberOfCachedHighConfidencePredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionOfMediumConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectMediumConfidenceCachedPredictions != 0 while _numberOfCachedMediumConfidencePredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionOfMediumConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectMediumConfidenceCachedPredictions != 0 while _numberOfCachedMediumConfidencePredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionOfLowConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectLowConfidenceCachedPredictions != 0 while _numberOfCachedLowConfidencePredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionOfLowConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectLowConfidenceCachedPredictions != 0 while _numberOfCachedLowConfidencePredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)precisionAllCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectCachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics precisionAllCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfCorrectCachedPrediction != 0 while _numberOfCachedPredictions == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallAtTop1CachedPrediction
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop1CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallAtTop1CachedPrediction]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop1CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallAtTop2CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop2CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallAtTop2CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop2CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallAtTop4CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop4CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallAtTop4CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop4CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallAtTop8CachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop8CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallAtTop8CachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventTop8CacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallOfHighConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventHighConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallOfHighConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventHighConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallOfMediumConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventMediumConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallOfMediumConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventMediumConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallOfLowConfidenceCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventLowConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallOfLowConfidenceCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventLowConfidenceCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)recallAllCachedPredictions
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics recallAllCachedPredictions]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _numberOfShadowEventCacheHits != 0 while _numberOfShadowEvents == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)meanReciprocalRank
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _sumOfShadowEventCacheHitReciprocalRanks != 0 while _numberOfShadowEventCacheHits == 0.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ATXShadowMetrics meanReciprocalRank]";
+  OUTLINED_FUNCTION_0_12(&dword_1DEFC4000, self, a3, "%s: _sumOfShadowEventCacheHitReciprocalRanks != 0 while _numberOfShadowEventCacheHits == 0.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -132,9 +132,9 @@ void sub_100011018(uint64_t a1, uint64_t a2)
   }
 }
 
-unint64_t sub_100011074(uint64_t a1, uint64_t a2)
+unint64_t sub_100011074(uint64_t a1, uint64_t *a2)
 {
-  v2 = *(a2 + 8);
+  v2 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v3 = *(a2 + 23);
@@ -301,19 +301,19 @@ void sub_100011C2C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_100011ECC()
+id sub_100011ECC(uint64_t a1)
 {
   if (qword_1004568C8 != -1)
   {
     sub_100357D64();
   }
 
-  v1 = qword_1004568D0;
+  v2 = qword_1004568D0;
 
-  return v1;
+  return v2;
 }
 
-void sub_100012804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id a23)
+void sub_100012804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, id a23)
 {
   objc_destroyWeak((v26 + 48));
   _Block_object_dispose(&a18, 8);
@@ -404,9 +404,9 @@ uint64_t sub_100013574(uint64_t a1, void *a2, id *a3)
   v6 = qword_1004568D0;
   if (os_log_type_enabled(qword_1004568D0, OS_LOG_TYPE_DEFAULT))
   {
-    v31 = 138412290;
-    v32 = *&v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[fba] evaluating: %@", &v31, 0xCu);
+    v32 = 138412290;
+    v33 = *&v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[fba] evaluating: %@", &v32, 0xCu);
   }
 
   v7 = [NSData dataWithContentsOfURL:v5 options:0 error:a3];
@@ -422,11 +422,11 @@ uint64_t sub_100013574(uint64_t a1, void *a2, id *a3)
     {
       v9 = [v5 absoluteString];
       v10 = [*a3 description];
-      v31 = 138412546;
-      v32 = *&v9;
-      v33 = 2112;
-      v34 = v10;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[fba] Error reading contents of: %@ error,%@", &v31, 0x16u);
+      v32 = 138412546;
+      v33 = *&v9;
+      v34 = 2112;
+      v35 = v10;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[fba] Error reading contents of: %@ error,%@", &v32, 0x16u);
     }
   }
 
@@ -462,13 +462,13 @@ uint64_t sub_100013574(uint64_t a1, void *a2, id *a3)
       v25 = qword_1004568D0;
       if (os_log_type_enabled(qword_1004568D0, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 134218496;
-        v32 = v24;
-        v33 = 2048;
-        v34 = 0x4105180000000000;
-        v35 = 1024;
-        v36 = v24 > v23;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[fba] file age: %f > %f expired,%d", &v31, 0x1Cu);
+        v32 = 134218496;
+        v33 = v24;
+        v34 = 2048;
+        v35 = 0x4105180000000000;
+        v36 = 1024;
+        v37 = v24 > v23;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[fba] file age: %f > %f expired,%d", &v32, 0x1Cu);
       }
 
       if (v24 <= v23)
@@ -486,13 +486,13 @@ uint64_t sub_100013574(uint64_t a1, void *a2, id *a3)
 
         if ((v28 & 1) == 0)
         {
-          v29 = sub_100011ECC();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v30 = sub_100011ECC(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            v30 = *a3;
-            v31 = 138412290;
-            v32 = *&v30;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "[fba] Error deleting file: %@", &v31, 0xCu);
+            v31 = *a3;
+            v32 = 138412290;
+            v33 = *&v31;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "[fba] Error deleting file: %@", &v32, 0xCu);
           }
         }
       }
@@ -510,11 +510,11 @@ uint64_t sub_100013574(uint64_t a1, void *a2, id *a3)
       {
         v12 = [v5 absoluteString];
         v13 = [*a3 description];
-        v31 = 138412546;
-        v32 = *&v12;
-        v33 = 2112;
-        v34 = v13;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[fba] Error unarchiving metadata for: %@ error,%@", &v31, 0x16u);
+        v32 = 138412546;
+        v33 = *&v12;
+        v34 = 2112;
+        v35 = v13;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[fba] Error unarchiving metadata for: %@ error,%@", &v32, 0x16u);
       }
     }
   }
@@ -720,7 +720,7 @@ LABEL_38:
   return v7;
 }
 
-void sub_100014160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
+void sub_100014160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, uint64_t a20, void *a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, id a42)
 {
   _Block_object_dispose(&a37, 8);
 
@@ -731,12 +731,12 @@ uint64_t sub_100014354(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v67 = +[NSFileManager defaultManager];
+  v68 = +[NSFileManager defaultManager];
   if (sub_10001B724(*(a1 + 32), a3, @"scanner"))
   {
-    v66 = [NSData dataWithContentsOfURL:v5];
-    v65 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v66 error:a3];
-    if (([v65 containsValueForKey:@"spooled"] & 1) == 0 || !objc_msgSend(WeakRetained, "registerForUploadingWithError:", a3))
+    v67 = [NSData dataWithContentsOfURL:v5];
+    v66 = [[NSKeyedUnarchiver alloc] initForReadingFromData:v67 error:a3];
+    if (([v66 containsValueForKey:@"spooled"] & 1) == 0 || !objc_msgSend(WeakRetained, "registerForUploadingWithError:", a3))
     {
       v19 = 0;
 LABEL_54:
@@ -744,13 +744,13 @@ LABEL_54:
       goto LABEL_55;
     }
 
-    if ([v65 containsValueForKey:@"unspooledFilePath"] && (objc_msgSend(v65, "decodeObjectOfClass:forKey:", objc_opt_class(), @"unspooledFilePath"), v7 = objc_claimAutoreleasedReturnValue(), (v8 = v7) != 0))
+    if ([v66 containsValueForKey:@"unspooledFilePath"] && (objc_msgSend(v66, "decodeObjectOfClass:forKey:", objc_opt_class(), @"unspooledFilePath"), v7 = objc_claimAutoreleasedReturnValue(), (v8 = v7) != 0))
     {
       v9 = [v7 lastPathComponent];
       v10 = [WeakRetained folderURL];
       v11 = [v10 URLByAppendingPathComponent:v9];
       v12 = [v11 path];
-      v13 = [v67 copyItemAtPath:v8 toPath:v12 error:a3];
+      v13 = [v68 copyItemAtPath:v8 toPath:v12 error:a3];
 
       if ((v13 & 1) == 0)
       {
@@ -779,34 +779,34 @@ LABEL_54:
 
     if (![*(a1 + 32) isFileOldEnoughForDeletion:v5])
     {
-      v68 = 0;
-      if ([v67 fileExistsAtPath:v16 isDirectory:&v68] && v68 != 1)
+      v69 = 0;
+      if ([v68 fileExistsAtPath:v16 isDirectory:&v69] && v69 != 1)
       {
-        v56 = v17;
-        v64 = [v65 decodeObjectOfClass:objc_opt_class() forKey:@"metadata"];
-        [v65 finishDecoding];
-        v20 = [v64 keyValuePairs];
-        v63 = [v20 objectForKey:@"hasIBSOS"];
+        v57 = v17;
+        v65 = [v66 decodeObjectOfClass:objc_opt_class() forKey:@"metadata"];
+        [v66 finishDecoding];
+        v20 = [v65 keyValuePairs];
+        v64 = [v20 objectForKey:@"hasIBSOS"];
 
-        if (v63)
+        if (v64)
         {
-          v21 = v64;
-          v22 = [v63 isEqualToString:@"1"];
+          v21 = v65;
+          v22 = [v64 isEqualToString:@"1"];
         }
 
         else
         {
           v22 = 0;
-          v21 = v64;
+          v21 = v65;
         }
 
         v23 = [v21 keyValuePairs];
         v24 = v22;
-        v62 = [v23 objectForKey:@"hasOBSOS"];
+        v63 = [v23 objectForKey:@"hasOBSOS"];
 
-        if (v62)
+        if (v63)
         {
-          v25 = [v62 isEqualToString:@"1"];
+          v25 = [v63 isEqualToString:@"1"];
         }
 
         else
@@ -814,83 +814,84 @@ LABEL_54:
           v25 = 0;
         }
 
-        v26 = [v64 keyValuePairs];
-        v61 = [v26 allKeysForObject:@"companionUploaded"];
+        v26 = [v65 keyValuePairs];
+        v62 = [v26 allKeysForObject:@"companionUploaded"];
 
-        v27 = [v64 keyValuePairs];
-        v60 = [v27 objectForKey:@"recordingUUID"];
+        v27 = [v65 keyValuePairs];
+        v61 = [v27 objectForKey:@"recordingUUID"];
 
-        v28 = [v61 containsObject:v60];
+        v28 = [v62 containsObject:v61];
         if (v28)
         {
-          v29 = [v64 keyValuePairs];
+          v29 = [v65 keyValuePairs];
           [v29 setValue:&off_10043D510 forKey:@"uploadedOnCompanionNotification"];
         }
 
-        v30 = [v64 keyValuePairs];
-        v59 = [v30 objectForKey:@"shouldUploadIndependentlyOfSOS"];
+        v30 = [v65 keyValuePairs];
+        v60 = [v30 objectForKey:@"shouldUploadIndependentlyOfSOS"];
 
-        if (v59)
+        v31 = v60;
+        if (v60)
         {
-          v31 = [v59 isEqualToString:@"1"];
+          v31 = [v60 isEqualToString:@"1"];
+          v32 = v31;
         }
 
         else
         {
-          v31 = 0;
+          v32 = 0;
         }
 
-        v32 = v24 | v25;
-        if ((v32 | v31 | v28))
+        v33 = v24 | v25;
+        if ((v33 | v32 | v28))
         {
-          v33 = [v64 keyValuePairs];
-          v53 = [NSMutableDictionary dictionaryWithDictionary:v33];
+          v34 = [v65 keyValuePairs];
+          v54 = [NSMutableDictionary dictionaryWithDictionary:v34];
 
-          [v53 removeObjectsForKeys:&off_10043F0B8];
-          [v64 setKeyValuePairs:v53];
-          v34 = sub_100011ECC();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+          [v54 removeObjectsForKeys:&off_10043F0B8];
+          v35 = sub_100011ECC([v65 setKeyValuePairs:v54]);
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             *buf = 138544130;
-            v70 = v16;
-            v71 = 1026;
-            v72 = v32 & 1;
-            v73 = 1026;
-            v74 = v31;
-            v75 = 1026;
-            v76 = v28;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "File %{public}@ will be uploaded, SOS: %{public}d independent: %{public}d companion: %{public}d", buf, 0x1Eu);
+            v71 = v16;
+            v72 = 1026;
+            v73 = v33 & 1;
+            v74 = 1026;
+            v75 = v32;
+            v76 = 1026;
+            v77 = v28;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "File %{public}@ will be uploaded, SOS: %{public}d independent: %{public}d companion: %{public}d", buf, 0x1Eu);
           }
 
-          v35 = [WeakRetained configuration];
-          v36 = [v35 certificate];
-          v52 = sub_100019DD0(v36);
+          v36 = [WeakRetained configuration];
+          v37 = [v36 certificate];
+          v53 = sub_100019DD0(v37);
 
-          v37 = [CSHealthWrapMessageConfiguration alloc];
-          v57 = +[NSUUID UUID];
-          v54 = [WeakRetained subjectID];
-          v51 = [WeakRetained configuration];
-          v38 = [v51 studyUUID];
-          v39 = [v64 channel];
-          v40 = [v64 payloadType];
-          v41 = [(CSHealthWrapMessageConfiguration *)v37 initWithCertificate:v52 messageUUID:v57 subjectUUID:v54 studyUUID:v38 channel:v39 payloadType:v40];
+          v38 = [CSHealthWrapMessageConfiguration alloc];
+          v58 = +[NSUUID UUID];
+          v55 = [WeakRetained subjectID];
+          v52 = [WeakRetained configuration];
+          v39 = [v52 studyUUID];
+          v40 = [v65 channel];
+          v41 = [v65 payloadType];
+          v42 = [(CSHealthWrapMessageConfiguration *)v38 initWithCertificate:v53 messageUUID:v58 subjectUUID:v55 studyUUID:v39 channel:v40 payloadType:v41];
 
-          v42 = [v64 keyValuePairs];
-          [(CSHealthWrapMessageConfiguration *)v41 setKeyValuePairs:v42];
+          v43 = [v65 keyValuePairs];
+          [(CSHealthWrapMessageConfiguration *)v42 setKeyValuePairs:v43];
 
-          v58 = [[CSHealthWrapMessage alloc] initWithConfiguration:v41];
-          v43 = [v5 URLByDeletingPathExtension];
-          v55 = [v43 URLByAppendingPathExtension:@"temp"];
+          v59 = [[CSHealthWrapMessage alloc] initWithConfiguration:v42];
+          v44 = [v5 URLByDeletingPathExtension];
+          v56 = [v44 URLByAppendingPathExtension:@"temp"];
 
-          if ([(CSHealthWrapMessage *)v58 startWithOutputFileURL:v55 error:a3])
+          if ([(CSHealthWrapMessage *)v59 startWithOutputFileURL:v56 error:a3])
           {
-            v44 = [NSURL fileURLWithPath:v16];
-            if (-[CSHealthWrapMessage appendDataFromFileURL:error:](v58, "appendDataFromFileURL:error:", v44, a3) && -[CSHealthWrapMessage finalizeWithError:](v58, "finalizeWithError:", a3) && [v67 removeItemAtURL:v44 error:a3] && ((v56 & 1) != 0 || objc_msgSend(v67, "removeItemAtPath:error:", v18, a3)))
+            v45 = [NSURL fileURLWithPath:v16];
+            if (-[CSHealthWrapMessage appendDataFromFileURL:error:](v59, "appendDataFromFileURL:error:", v45, a3) && -[CSHealthWrapMessage finalizeWithError:](v59, "finalizeWithError:", a3) && [v68 removeItemAtURL:v45 error:a3] && ((v57 & 1) != 0 || objc_msgSend(v68, "removeItemAtPath:error:", v18, a3)))
             {
-              v45 = [v5 URLByDeletingPathExtension];
-              v46 = [v45 URLByAppendingPathExtension:@"encrypted"];
+              v46 = [v5 URLByDeletingPathExtension];
+              v47 = [v46 URLByAppendingPathExtension:@"encrypted"];
 
-              v19 = [v67 moveItemAtURL:v55 toURL:v46 error:a3];
+              v19 = [v68 moveItemAtURL:v56 toURL:v47 error:a3];
             }
 
             else
@@ -904,30 +905,30 @@ LABEL_54:
             v19 = 0;
           }
 
-          v49 = v59;
+          v50 = v60;
         }
 
         else
         {
-          v47 = sub_100011ECC();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+          v48 = sub_100011ECC(v31);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
           {
-            v48 = [v64 keyValuePairs];
+            v49 = [v65 keyValuePairs];
             *buf = 138544386;
-            v70 = v16;
-            v71 = 1026;
-            v72 = 0;
-            v73 = 1026;
-            v74 = 0;
-            v75 = 1026;
-            v76 = 0;
-            v77 = 2114;
-            v78 = v48;
-            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "File %{public}@ will NOT be uploaded, SOS: %{public}d independent: %{public}d companion: %{public}d metadata: %{public}@", buf, 0x28u);
+            v71 = v16;
+            v72 = 1026;
+            v73 = 0;
+            v74 = 1026;
+            v75 = 0;
+            v76 = 1026;
+            v77 = 0;
+            v78 = 2114;
+            v79 = v49;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "File %{public}@ will NOT be uploaded, SOS: %{public}d independent: %{public}d companion: %{public}d metadata: %{public}@", buf, 0x28u);
           }
 
-          v49 = v59;
-          v19 = ([v67 removeItemAtPath:v16 error:a3] & 1) != 0 && ((v56 & 1) != 0 || objc_msgSend(v67, "removeItemAtPath:error:", v18, a3));
+          v50 = v60;
+          v19 = ([v68 removeItemAtPath:v16 error:a3] & 1) != 0 && ((v57 & 1) != 0 || objc_msgSend(v68, "removeItemAtPath:error:", v18, a3));
         }
       }
 
@@ -939,10 +940,10 @@ LABEL_54:
           goto LABEL_53;
         }
 
-        v79 = NSLocalizedDescriptionKey;
-        v80 = [NSString stringWithFormat:@"While scanning, can't find file to encrypt at: %@", v16];
-        v64 = v80;
-        v63 = [NSDictionary dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        v80 = NSLocalizedDescriptionKey;
+        v81 = [NSString stringWithFormat:@"While scanning, can't find file to encrypt at: %@", v16];
+        v65 = v81;
+        v64 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
         [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:?];
         *a3 = v19 = 0;
       }
@@ -950,7 +951,7 @@ LABEL_54:
       goto LABEL_53;
     }
 
-    [v67 removeItemAtPath:v16 error:0];
+    [v68 removeItemAtPath:v16 error:0];
     v19 = 1;
 LABEL_53:
 
@@ -1000,7 +1001,7 @@ uint64_t sub_100014F3C(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_1000150A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_1000150A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1116,9 +1117,9 @@ void sub_100015E08(uint64_t a1, void *a2, void *a3, uint64_t a4)
   }
 }
 
-void sub_1000168D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000168D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1491,16 +1492,16 @@ void sub_100017630(id a1)
   _objc_release_x1();
 }
 
-id sub_10001782C()
+id sub_10001782C(uint64_t a1)
 {
   if (qword_100456908 != -1)
   {
     sub_100357DDC();
   }
 
-  v1 = qword_100456910;
+  v2 = qword_100456910;
 
-  return v1;
+  return v2;
 }
 
 void sub_100017B0C(_Unwind_Exception *a1)
@@ -1681,33 +1682,34 @@ id sub_1000190FC(int *a1)
   return v5;
 }
 
-void sub_100019228(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_100019228(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   SafetySOSEventDetected::~SafetySOSEventDetected(&a9);
-  PB::Writer::~Writer(&a11);
+  PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
 void sub_100019250(void *a1)
 {
-  v1 = a1;
-  PB::Reader::Reader(v8, [v1 bytes], objc_msgSend(v1, "length"));
-  SafetySOSEventDetected::SafetySOSEventDetected(v6);
-  SafetySOSEventDetected::readFrom(v6, v8);
-  v2 = v7;
-  v3 = v6[2];
+  v2 = a1;
+  PB::Reader::Reader(v9, [v2 bytes], objc_msgSend(v2, "length"));
+  SafetySOSEventDetected::SafetySOSEventDetected(v7);
+  SafetySOSEventDetected::readFrom(v7, v9);
+  v3 = v8;
+  v4 = v7[2];
   if (qword_100456868 != -1)
   {
     sub_100357F70();
   }
 
-  v4 = (v2 << 31 >> 31) & v3;
-  v5 = qword_100456870;
+  v5 = (v3 << 31 >> 31) & v4;
+  v6 = qword_100456870;
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67174657;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "receiving sos event for mode %{private}d", buf, 8u);
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "receiving sos event for mode %{private}d", buf, 8u);
   }
 
   operator new();
@@ -1762,19 +1764,19 @@ id sub_1000193B4(int8x16_t *a1)
   return v9;
 }
 
-void sub_10001951C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10001951C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   PB::Base::~Base(va1);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_100019544(void *a1@<X0>, void *a2@<X8>)
+void sub_100019544(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = a1;
   PB::Reader::Reader(v19, [v3 bytes], objc_msgSend(v3, "length"));
@@ -1835,9 +1837,9 @@ void sub_100019544(void *a1@<X0>, void *a2@<X8>)
   PB::Base::~Base(v14);
 }
 
-void sub_1000197A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1000197A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   PB::Base::~Base(va);
 
   _Unwind_Resume(a1);
@@ -1871,33 +1873,34 @@ id sub_1000197C8()
   return v2;
 }
 
-void sub_1000198F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1000198F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   PB::Base::~Base(&a9);
-  PB::Writer::~Writer(&a11);
+  PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
 void sub_100019918(void *a1)
 {
-  v1 = a1;
-  PB::Reader::Reader(v8, [v1 bytes], objc_msgSend(v1, "length"));
-  sub_100005C80(v6);
-  sub_100005EB8(v6, v8);
-  v2 = v7;
-  v3 = v6[2];
+  v2 = a1;
+  PB::Reader::Reader(v9, [v2 bytes], objc_msgSend(v2, "length"));
+  sub_100005C80(v7);
+  sub_100005EB8(v7, v9);
+  v3 = v8;
+  v4 = v7[2];
   if (qword_100456868 != -1)
   {
     sub_100357F70();
   }
 
-  v4 = (v2 << 31 >> 31) & v3;
-  v5 = qword_100456870;
+  v5 = (v3 << 31 >> 31) & v4;
+  v6 = qword_100456870;
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "receiving safety lend punch thru %d", buf, 8u);
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "receiving safety lend punch thru %d", buf, 8u);
   }
 
   operator new();
@@ -1938,33 +1941,34 @@ id sub_100019A7C()
   return v2;
 }
 
-void sub_100019BA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_100019BA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   PB::Base::~Base(&a9);
-  PB::Writer::~Writer(&a11);
+  PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
 void sub_100019BCC(void *a1)
 {
-  v1 = a1;
-  PB::Reader::Reader(v8, [v1 bytes], objc_msgSend(v1, "length"));
-  sub_100016FD0(v6);
-  sub_1000171E4(v6, v8);
-  v2 = v7;
-  v3 = v6[2];
+  v2 = a1;
+  PB::Reader::Reader(v9, [v2 bytes], objc_msgSend(v2, "length"));
+  sub_100016FD0(v7);
+  sub_1000171E4(v7, v9);
+  v3 = v8;
+  v4 = v7[2];
   if (qword_100456868 != -1)
   {
     sub_100357F70();
   }
 
-  v4 = (v2 << 31 >> 31) & v3;
-  v5 = qword_100456870;
+  v5 = (v3 << 31 >> 31) & v4;
+  v6 = qword_100456870;
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "receiving safety retract punch thru %d", buf, 8u);
+    v11 = v5;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "receiving safety retract punch thru %d", buf, 8u);
   }
 
   operator new();
@@ -2004,8 +2008,8 @@ void sub_10001A6EC(uint64_t a1, void *a2, void *a3)
 {
   v8 = a2;
   v5 = a3;
-  v6 = +[(GPBMessage *)CSHWProtoKeyValue];
-  v7 = +[(GPBMessage *)CSHWProtoValue];
+  v6 = objc_msgSend_message(CSHWProtoKeyValue);
+  v7 = objc_msgSend_message(CSHWProtoValue);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2144,11 +2148,13 @@ uint64_t sub_10001B724(void *a1, void *a2, void *a3)
   return v11;
 }
 
-void sub_10001C074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, char a47)
+void sub_10001C074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, id a46, ...)
 {
-  _Block_object_dispose(&a41, 8);
+  va_start(va, a46);
 
-  _Block_object_dispose(&a47, 8);
+  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -2831,16 +2837,16 @@ void sub_10001F6AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_10001F720@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_10001F720@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -3101,23 +3107,23 @@ double sub_10001FE88(uint64_t a1, float *a2)
   return result;
 }
 
-uint64_t sub_100020034(uint64_t result, float32x2_t *a2)
+unsigned __int16 *sub_100020034(unsigned __int16 *result, float32x2_t *a2)
 {
   if (*(result + 214) == 1)
   {
-    return sub_10002004C(result, a2, (result + 164));
+    return sub_10002004C(result, a2, (result + 82));
   }
 
   return result;
 }
 
-uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
+unsigned __int16 *sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
 {
   v56 = *a3;
   CMOQuaternion::normalize(&v56, v56);
-  v5 = a2[2].f32[0];
+  v5 = a2[2].i32[0];
   v54 = a2[1];
-  v55 = v5;
+  v55 = *&v5;
   CMOQuaternion::rotateFrameInPlace(&v56, &v54);
   v52[0] = CMOQuaternion::gravity(&v56);
   v52[1] = v6;
@@ -3126,10 +3132,10 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
   v55 = v55 - v53;
   v9 = a1[9];
   v8 = a1[10];
-  if (v9 >= *&v8)
+  if (*&v9 >= *&v8)
   {
     v12 = a1[8];
-    v13 = 0xAAAAAAAAAAAAAAABLL * ((v9 - *&v12) >> 2);
+    v13 = 0xAAAAAAAAAAAAAAABLL * ((*&v9 - *&v12) >> 2);
     v14 = v13 + 1;
     if (v13 + 1 > 0x1555555555555555)
     {
@@ -3164,20 +3170,20 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
     v11 = 12 * v13 + 12;
     v19 = a1[8];
     v20 = a1[9];
-    v21 = (v17 + v19 - v20);
-    if (v19 != v20)
+    v21 = (&v19[v17 / 4] - *&v20);
+    if (v19 != *&v20)
     {
       v22 = v21;
       do
       {
         v23 = *v19;
-        *(v22 + 2) = *(v19 + 2);
-        *v22 = v23;
-        v22 += 12;
-        v19 += 12;
+        *(*&v22 + 8) = v19[2];
+        **&v22 = v23;
+        *&v22 += 12;
+        v19 += 3;
       }
 
-      while (v19 != v20);
+      while (v19 != *&v20);
       v19 = a1[8];
     }
 
@@ -3193,15 +3199,15 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
   else
   {
     v10 = v54;
-    v9[1].f32[0] = v55;
-    *v9 = v10;
-    v11 = &v9[1] + 4;
+    *(*&v9 + 8) = v55;
+    **&v9 = v10;
+    v11 = *&v9 + 12;
   }
 
   a1[9] = v11;
   v25 = a1[15];
   v24 = a1[16];
-  if (v25 >= v24)
+  if (v25 >= *&v24)
   {
     v27 = a1[14];
     v28 = v25 - v27;
@@ -3212,7 +3218,7 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
       sub_10000CD24();
     }
 
-    v31 = v24 - v27;
+    v31 = *&v24 - v27;
     if (v31 >> 2 > v30)
     {
       v30 = v31 >> 2;
@@ -3234,7 +3240,7 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
     v35 = (8 * v29);
     v36 = (8 * v29 - 8 * v34);
     *v35 = *a2;
-    v26 = v35 + 1;
+    v26 = &v35[1];
     memcpy(v36, v27, v28);
     v37 = a1[14];
     a1[14] = v36;
@@ -3249,7 +3255,7 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
   else
   {
     *v25 = *a2;
-    v26 = v25 + 1;
+    v26 = &v25[1];
   }
 
   a1[15] = v26;
@@ -3313,12 +3319,12 @@ uint64_t sub_10002004C(float32x2_t *a1, float32x2_t *a2, float32x4_t *a3)
   return result;
 }
 
-uint64_t sub_1000203BC(void *a1, float32x2_t *a2)
+unsigned __int16 *sub_1000203BC(void *a1, float32x2_t *a2)
 {
-  result = a1 + *(*a1 - 64);
+  result = (a1 + *(*a1 - 64));
   if (*(result + 214) == 1)
   {
-    return sub_10002004C(result, a2, (result + 164));
+    return sub_10002004C(result, a2, (result + 82));
   }
 
   return result;
@@ -3421,14 +3427,10 @@ float sub_100020514(unsigned __int16 *a1)
     sub_100358300();
   }
 
-  v1 = sub_100022DA8(a1, 0);
-  result = *v1;
-  v3 = *(v1 + 4);
-  v4 = *(v1 + 8);
-  return result;
+  return *sub_100022DA8(a1, 0);
 }
 
-uint64_t sub_100020544(uint64_t result, unint64_t a2)
+unsigned __int16 *sub_100020544(unsigned __int16 *result, unint64_t a2)
 {
   if (*(result + 716) == 1)
   {
@@ -3437,20 +3439,20 @@ uint64_t sub_100020544(uint64_t result, unint64_t a2)
     v20 = v2;
     v21 = v3;
     v7 = result;
-    v8 = *(result + 732);
-    v9 = *(result + 32);
+    v8 = *(result + 183);
+    v9 = *(result + 4);
     if (v8 >= (*(v9 + 16) * 0.49033))
     {
-      if (*(result + 218))
+      if (result[109])
       {
         v11 = 0;
         do
         {
-          result = sub_100020690((v7 + 216), v11);
+          result = sub_100020690(v7 + 108, v11);
           v12 = 0;
           v16 = *result;
           v17 = 0;
-          v10 = *(v7 + 736);
+          v10 = *(v7 + 184);
           v13 = 0.0;
           do
           {
@@ -3473,17 +3475,17 @@ uint64_t sub_100020544(uint64_t result, unint64_t a2)
             v10 = sqrtf(v15);
           }
 
-          *(v7 + 736) = v10;
+          *(v7 + 184) = v10;
           ++v11;
         }
 
-        while (v11 < *(v7 + 218));
-        v9 = *(v7 + 32);
+        while (v11 < v7[109]);
+        v9 = *(v7 + 4);
       }
 
       else
       {
-        v10 = *(result + 736);
+        v10 = *(result + 184);
       }
 
       *(v9 + 80) = 1;
@@ -3492,7 +3494,7 @@ uint64_t sub_100020544(uint64_t result, unint64_t a2)
 
     else
     {
-      v10 = *(result + 736);
+      v10 = *(result + 184);
     }
 
     if (*(v9 + 96) < (v8 / 0.49033))
@@ -3507,7 +3509,7 @@ uint64_t sub_100020544(uint64_t result, unint64_t a2)
   return result;
 }
 
-uint64_t sub_100020690(unsigned __int16 *a1, unint64_t a2)
+unsigned __int16 *sub_100020690(unsigned __int16 *a1, unint64_t a2)
 {
   if (a1[1] <= a2)
   {
@@ -4555,12 +4557,12 @@ LABEL_33:
   }
 }
 
-uint64_t sub_100021FE8(uint64_t a1, uint64_t *a2)
+uint64_t sub_100021FE8(uint64_t a1, uint64_t a2)
 {
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
   *(a1 + 40) = 0;
-  sub_100022954(a1 + 40, *a2, a2[1], (a2[1] - *a2) >> 2);
+  sub_100022954((a1 + 40), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
   *(a1 + 64) = 0x400F29F7411CF5C3;
   *(a1 + 72) = 1102024197;
   *a1 = 0u;
@@ -4657,7 +4659,7 @@ uint64_t sub_100022228(uint64_t a1)
   return a1;
 }
 
-void *sub_10002225C(uint64_t a1)
+void sub_10002225C(uint64_t a1)
 {
   *(a1 + 216) = 0;
   *(a1 + 704) = 0;
@@ -4673,41 +4675,34 @@ void *sub_10002225C(uint64_t a1)
   v3 = *(a1 + 112);
   v2 = a1 + 112;
   *(v2 + 8) = v3;
-  result = sub_1000223C0(v2, 0xC80uLL);
+  sub_1000223C0(v2, 0xC80uLL);
   *(v2 + 624) = 0;
-  return result;
 }
 
-void *sub_1000222F0(void *result, unint64_t a2)
+void sub_1000222F0(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      v2 = result[1] - *result;
-      sub_100022744(result, a2);
+      sub_100022744(a1, a2);
     }
 
     sub_10000CD24();
   }
-
-  return result;
 }
 
-void *sub_1000223C0(void *result, unint64_t a2)
+void sub_1000223C0(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      sub_10000CDCC(result, a2);
+      sub_10000CDCC(a1, a2);
     }
 
     sub_10000CD24();
   }
-
-  return result;
 }
 
 float sub_10002247C(uint64_t a1, unint64_t a2)
@@ -4802,7 +4797,7 @@ void sub_100022744(uint64_t a1, unint64_t a2)
   sub_1000092C0();
 }
 
-void *sub_10002279C(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_10002279C(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -4889,7 +4884,7 @@ void *sub_10002279C(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-void sub_1000228D0(uint64_t a1, unint64_t a2)
+void sub_1000228D0(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -4909,7 +4904,7 @@ void sub_10002290C(uint64_t a1, unint64_t a2)
   sub_1000092C0();
 }
 
-uint64_t sub_100022954(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_100022954(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4990,7 +4985,7 @@ void sub_100022D2C(std::__shared_weak_count *a1)
   operator delete();
 }
 
-uint64_t sub_100022DA8(unsigned __int16 *a1, unint64_t a2)
+unsigned __int16 *sub_100022DA8(unsigned __int16 *a1, unint64_t a2)
 {
   v4 = *(a1 + 1);
   if (v4 <= a2)
@@ -5063,16 +5058,16 @@ void sub_100023188(id a1)
   _objc_release_x1();
 }
 
-id sub_1000234B4()
+id sub_1000234B4(uint64_t a1)
 {
   if (qword_1004568D8 != -1)
   {
     sub_10035859C();
   }
 
-  v1 = qword_1004568E0;
+  v2 = qword_1004568E0;
 
-  return v1;
+  return v2;
 }
 
 void sub_10002391C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -5104,9 +5099,9 @@ uint64_t sub_1000239F0(uint64_t a1, void *a2, void *a3)
       v10 = 1;
       if (os_log_type_enabled(qword_1004568E0, OS_LOG_TYPE_INFO))
       {
-        v26 = 138412290;
-        v27 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Removed %@ since it's too old", &v26, 0xCu);
+        v27 = 138412290;
+        v28 = v8;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Removed %@ since it's too old", &v27, 0xCu);
       }
 
       goto LABEL_33;
@@ -5123,9 +5118,9 @@ uint64_t sub_1000239F0(uint64_t a1, void *a2, void *a3)
       v17 = qword_1004568E0;
       if (os_log_type_enabled(qword_1004568E0, OS_LOG_TYPE_INFO))
       {
-        v26 = 138412290;
-        v27 = v5;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "On filePicker, cannot read file %@. Try again later", &v26, 0xCu);
+        v27 = 138412290;
+        v28 = v5;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "On filePicker, cannot read file %@. Try again later", &v27, 0xCu);
       }
 
       v10 = 0;
@@ -5145,12 +5140,12 @@ uint64_t sub_1000239F0(uint64_t a1, void *a2, void *a3)
           v15 = [*(a1 + 32) checkWithManifest:v14];
           if (v15 == 1)
           {
-            v16 = sub_1000234B4();
+            v16 = sub_1000234B4(v15);
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v26 = 138412290;
-              v27 = v8;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "File %@ is newer than all events in the manifest. Try again later", &v26, 0xCu);
+              v27 = 138412290;
+              v28 = v8;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "File %@ is newer than all events in the manifest. Try again later", &v27, 0xCu);
             }
 
             v10 = 0;
@@ -5161,29 +5156,29 @@ uint64_t sub_1000239F0(uint64_t a1, void *a2, void *a3)
             v24 = [v5 URLByDeletingPathExtension];
             v16 = [v24 URLByAppendingPathExtension:@"upload"];
 
-            v10 = [v6 copyItemAtURL:v5 toURL:v16 error:a3];
-            if (v10)
+            v25 = [v6 copyItemAtURL:v5 toURL:v16 error:a3];
+            v10 = v25;
+            if (v25)
             {
-              v25 = sub_1000234B4();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+              v26 = sub_1000234B4(v25);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
               {
-                v26 = 138412290;
-                v27 = v16;
-                _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Picked file %@ for upload later", &v26, 0xCu);
+                v27 = 138412290;
+                v28 = v16;
+                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Picked file %@ for upload later", &v27, 0xCu);
               }
             }
           }
 
           else
           {
-            [v6 removeItemAtPath:v8 error:0];
-            v16 = sub_1000234B4();
+            v16 = sub_1000234B4([v6 removeItemAtPath:v8 error:0]);
             v10 = 1;
             if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
             {
-              v26 = 138412290;
-              v27 = v8;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Removed %@ since it doesn't match any event in the manifest", &v26, 0xCu);
+              v27 = 138412290;
+              v28 = v8;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Removed %@ since it doesn't match any event in the manifest", &v27, 0xCu);
             }
           }
 
@@ -5211,8 +5206,8 @@ LABEL_33:
         goto LABEL_30;
       }
 
-      v26 = 138412290;
-      v27 = v5;
+      v27 = 138412290;
+      v28 = v5;
       v19 = "File %@ doesn't contain value for key 'spooled'";
       v20 = v22;
       v21 = 12;
@@ -5231,13 +5226,13 @@ LABEL_33:
         goto LABEL_30;
       }
 
-      LOWORD(v26) = 0;
+      LOWORD(v27) = 0;
       v19 = "On filePicker, cannot create unarchiver";
       v20 = v18;
       v21 = 2;
     }
 
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, v19, &v26, v21);
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, v19, &v27, v21);
     goto LABEL_30;
   }
 
@@ -5299,11 +5294,11 @@ uint64_t sub_100023F1C(uint64_t a1, void *a2, void *a3)
           }
 
           v13 = [v5 URLByDeletingPathExtension];
-          v54 = [v13 path];
+          v60 = [v13 path];
 
           if ([*(a1 + 32) isFileOldEnoughForDeletion:v5])
           {
-            [v7 removeItemAtPath:v54 error:0];
+            [v7 removeItemAtPath:v60 error:0];
             if (qword_1004568D8 != -1)
             {
               sub_100358574();
@@ -5314,179 +5309,183 @@ uint64_t sub_100023F1C(uint64_t a1, void *a2, void *a3)
             if (os_log_type_enabled(qword_1004568E0, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v54;
+              *&buf[4] = v60;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Removed %@ since it's too old", buf, 0xCu);
             }
 
             goto LABEL_73;
           }
 
-          v58 = 0;
-          if (![v7 fileExistsAtPath:v54 isDirectory:&v58] || v58 == 1)
+          v64 = 0;
+          v23 = [v7 fileExistsAtPath:v60 isDirectory:&v64];
+          if (!v23 || v64 == 1)
           {
             if (a3)
             {
-              v67 = NSLocalizedDescriptionKey;
-              v23 = [NSString stringWithFormat:@"While scanning, can't find file to encrypt at: %@", v54];
-              v68 = v23;
-              v24 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
-              *a3 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:v24];
+              v73 = NSLocalizedDescriptionKey;
+              v24 = [NSString stringWithFormat:@"While scanning, can't find file to encrypt at: %@", v60];
+              v74 = v24;
+              v25 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+              *a3 = [NSError errorWithDomain:NSPOSIXErrorDomain code:2 userInfo:v25];
             }
 
-            v25 = sub_1000234B4();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+            v26 = sub_1000234B4(v23);
+            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v54;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "File to be encrypted %@ doesn't exist", buf, 0xCu);
+              *&buf[4] = v60;
+              _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "File to be encrypted %@ doesn't exist", buf, 0xCu);
             }
 
             v15 = 0;
             goto LABEL_72;
           }
 
-          v53 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"metadata"];
+          v59 = [v10 decodeObjectOfClass:objc_opt_class() forKey:@"metadata"];
           [v10 finishDecoding];
-          v26 = [v53 keyValuePairs];
-          v46 = [NSMutableDictionary dictionaryWithDictionary:v26];
+          v27 = [v59 keyValuePairs];
+          v52 = [NSMutableDictionary dictionaryWithDictionary:v27];
 
-          [v46 removeObjectsForKeys:&off_10043F0D0];
-          [v53 setKeyValuePairs:v46];
-          v27 = sub_1000234B4();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          [v52 removeObjectsForKeys:&off_10043F0D0];
+          v28 = sub_1000234B4([v59 setKeyValuePairs:v52]);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            *&buf[4] = v54;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "File %@ will be encrypted", buf, 0xCu);
+            *&buf[4] = v60;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "File %@ will be encrypted", buf, 0xCu);
           }
 
-          v28 = [WeakRetained configuration];
-          v29 = [v28 certificate];
-          v51 = sub_100019DD0(v29);
+          v29 = [WeakRetained configuration];
+          v30 = [v29 certificate];
+          v57 = sub_100019DD0(v30);
 
-          v44 = [CSHealthWrapMessageConfiguration alloc];
-          v49 = +[NSUUID UUID];
-          v47 = [WeakRetained subjectID];
-          v43 = [WeakRetained configuration];
-          v30 = [v43 studyUUID];
-          v31 = [v53 channel];
-          v32 = [v53 payloadType];
-          v52 = [(CSHealthWrapMessageConfiguration *)v44 initWithCertificate:v51 messageUUID:v49 subjectUUID:v47 studyUUID:v30 channel:v31 payloadType:v32];
+          v50 = [CSHealthWrapMessageConfiguration alloc];
+          v55 = +[NSUUID UUID];
+          v53 = [WeakRetained subjectID];
+          v49 = [WeakRetained configuration];
+          v31 = [v49 studyUUID];
+          v32 = [v59 channel];
+          v33 = [v59 payloadType];
+          v58 = [(CSHealthWrapMessageConfiguration *)v50 initWithCertificate:v57 messageUUID:v55 subjectUUID:v53 studyUUID:v31 channel:v32 payloadType:v33];
 
-          v33 = [v53 keyValuePairs];
-          [(CSHealthWrapMessageConfiguration *)v52 setKeyValuePairs:v33];
+          v34 = [v59 keyValuePairs];
+          [(CSHealthWrapMessageConfiguration *)v58 setKeyValuePairs:v34];
 
-          v50 = [[CSHealthWrapMessage alloc] initWithConfiguration:v52];
-          v34 = [v5 URLByDeletingPathExtension];
-          v48 = [v34 URLByAppendingPathExtension:@"encrypted"];
+          v56 = [[CSHealthWrapMessage alloc] initWithConfiguration:v58];
+          v35 = [v5 URLByDeletingPathExtension];
+          v54 = [v35 URLByAppendingPathExtension:@"encrypted"];
 
-          if (![(CSHealthWrapMessage *)v50 startWithOutputFileURL:v48 error:a3])
+          v36 = [(CSHealthWrapMessage *)v56 startWithOutputFileURL:v54 error:a3];
+          if ((v36 & 1) == 0)
           {
-            v35 = sub_1000234B4();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            v37 = sub_1000234B4(v36);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v48;
-              _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "Failed to start output file %@", buf, 0xCu);
+              *&buf[4] = v54;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Failed to start output file %@", buf, 0xCu);
             }
 
             goto LABEL_70;
           }
 
-          v35 = [NSURL fileURLWithPath:v54];
-          if ([(CSHealthWrapMessage *)v50 appendDataFromFileURL:v35 error:a3])
+          v37 = [NSURL fileURLWithPath:v60];
+          v38 = [(CSHealthWrapMessage *)v56 appendDataFromFileURL:v37 error:a3];
+          if (v38)
           {
-            if ([(CSHealthWrapMessage *)v50 finalizeWithError:a3])
+            v39 = [(CSHealthWrapMessage *)v56 finalizeWithError:a3];
+            if (v39)
             {
-              v36 = [v7 removeItemAtURL:v35 error:a3];
-              v37 = sub_1000234B4();
-              v38 = os_log_type_enabled(v37, OS_LOG_TYPE_INFO);
-              if (v36)
+              v40 = [v7 removeItemAtURL:v37 error:a3];
+              v41 = v40;
+              v42 = sub_1000234B4(v40);
+              v43 = os_log_type_enabled(v42, OS_LOG_TYPE_INFO);
+              if (v41)
               {
-                if (v38)
+                if (v43)
                 {
                   *buf = 138412546;
-                  *&buf[4] = v35;
+                  *&buf[4] = v37;
                   *&buf[12] = 2112;
-                  *&buf[14] = v48;
-                  _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "File %@ has been encrypted as %@", buf, 0x16u);
+                  *&buf[14] = v54;
+                  _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "File %@ has been encrypted as %@", buf, 0x16u);
                 }
 
                 *buf = 0;
                 *&buf[8] = buf;
                 *&buf[16] = 0x3032000000;
-                v64 = sub_100024BD0;
-                v65 = sub_100024BE0;
-                v66 = 0;
-                v45 = dispatch_semaphore_create(0);
-                v39 = [WeakRetained submitter];
-                v55[0] = _NSConcreteStackBlock;
-                v55[1] = 3221225472;
-                v55[2] = sub_100024BE8;
-                v55[3] = &unk_1004130D0;
-                v57 = buf;
-                v40 = v45;
-                v56 = v40;
-                [v39 submitFileWithURL:v48 andCompletionHandler:v55];
+                v70 = sub_100024BD0;
+                v71 = sub_100024BE0;
+                v72 = 0;
+                v51 = dispatch_semaphore_create(0);
+                v44 = [WeakRetained submitter];
+                v61[0] = _NSConcreteStackBlock;
+                v61[1] = 3221225472;
+                v61[2] = sub_100024BE8;
+                v61[3] = &unk_1004130D0;
+                v63 = buf;
+                v45 = v51;
+                v62 = v45;
+                [v44 submitFileWithURL:v54 andCompletionHandler:v61];
 
-                dispatch_semaphore_wait(v40, 0xFFFFFFFFFFFFFFFFLL);
+                dispatch_semaphore_wait(v45, 0xFFFFFFFFFFFFFFFFLL);
                 v15 = [*(*&buf[8] + 40) statusCodeIndicatesSucess];
-                [v7 removeItemAtURL:v48 error:0];
-                [*(a1 + 32) setRegistered:0];
+                [v7 removeItemAtURL:v54 error:0];
+                v46 = [*(a1 + 32) setRegistered:0];
                 if (v15)
                 {
-                  [CSIgneousDetectionService updateNumIgneousUpload:v46];
+                  v46 = [CSIgneousDetectionService updateNumIgneousUpload:v52];
                 }
 
-                v41 = sub_1000234B4();
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+                v47 = sub_1000234B4(v46);
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
                 {
-                  *v59 = 138412546;
-                  v60 = v48;
-                  v61 = 1026;
-                  v62 = v15;
-                  _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "Uploaded %@ to server: %{public}d, deregister with server", v59, 0x12u);
+                  *v65 = 138412546;
+                  v66 = v54;
+                  v67 = 1026;
+                  v68 = v15;
+                  _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "Uploaded %@ to server: %{public}d, deregister with server", v65, 0x12u);
                 }
 
                 _Block_object_dispose(buf, 8);
                 goto LABEL_71;
               }
 
-              if (v38)
+              if (v43)
               {
                 *buf = 138412290;
-                *&buf[4] = v35;
-                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "Failed to remove file %@", buf, 0xCu);
+                *&buf[4] = v37;
+                _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "Failed to remove file %@", buf, 0xCu);
               }
 
 LABEL_70:
               v15 = 0;
 LABEL_71:
 
-              v25 = v53;
+              v26 = v59;
 LABEL_72:
 
 LABEL_73:
               goto LABEL_36;
             }
 
-            v42 = sub_1000234B4();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+            v48 = sub_1000234B4(v39);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
             {
               *buf = 138412290;
-              *&buf[4] = v35;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "Failed to finalize encrypting file %@", buf, 0xCu);
+              *&buf[4] = v37;
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Failed to finalize encrypting file %@", buf, 0xCu);
             }
           }
 
           else
           {
-            v42 = sub_1000234B4();
-            if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+            v48 = sub_1000234B4(v38);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              *&buf[4] = v35;
-              _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "Failed to append data from file %@", buf, 0xCu);
+              *&buf[4] = v37;
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "Failed to append data from file %@", buf, 0xCu);
             }
           }
 
@@ -5565,7 +5564,7 @@ LABEL_38:
   return v15;
 }
 
-void sub_1000249F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_1000249F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -5636,51 +5635,52 @@ void start()
   v2 = +[CSPlatformInfo sharedInstance];
   LODWORD(v3) = [v2 isKappaLoggingDevice];
   v4 = [v2 isKappaDetectionDevice];
+  v5 = v4;
   if ((v3 & v4) == 1)
   {
-    v9 = sub_1000260F0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v11 = sub_1000260F0(v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "false";
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:logging and detection are mutually exclusive, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "false";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:logging and detection are mutually exclusive, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v10 = sub_1000260F0();
-    if (os_signpost_enabled(v10))
+    v13 = sub_1000260F0(v12);
+    if (os_signpost_enabled(v13))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "false";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "logging and detection are mutually exclusive", "{msg%{public}.0s:logging and detection are mutually exclusive, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "false";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "logging and detection are mutually exclusive", "{msg%{public}.0s:logging and detection are mutually exclusive, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v3 = sub_1000260F0();
+    v3 = sub_1000260F0(v14);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v26 = 0;
-      v27 = 2082;
-      v28 = "";
-      v29 = 2082;
-      v30 = "assert";
-      v31 = 2081;
-      v32 = "false";
+      v31 = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2082;
+      v35 = "assert";
+      v36 = 2081;
+      v37 = "false";
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "{msg%{public}.0s:logging and detection are mutually exclusive, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/Daemon/main.mm", 51, "main");
     __break(1u);
   }
 
@@ -5691,12 +5691,12 @@ void start()
       dispatch_once(&qword_1004567C8, &stru_100414220);
     }
 
-    v5 = qword_1004567D0;
+    v6 = qword_1004567D0;
     if (os_log_type_enabled(qword_1004567D0, OS_LOG_TYPE_INFO))
     {
       *buf = 67240192;
-      v26 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "isLoggingDevice %{public}d", buf, 8u);
+      v31 = v3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "isLoggingDevice %{public}d", buf, 8u);
     }
 
     if (qword_1004567C8 != -1)
@@ -5704,76 +5704,77 @@ void start()
       dispatch_once(&qword_1004567C8, &stru_100414220);
     }
 
-    v6 = qword_1004567D0;
+    v7 = qword_1004567D0;
     if (os_log_type_enabled(qword_1004567D0, OS_LOG_TYPE_INFO))
     {
       *buf = 67240192;
-      v26 = v4;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "isDetectionDevice %{public}d", buf, 8u);
+      v31 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "isDetectionDevice %{public}d", buf, 8u);
     }
 
-    v7 = _set_user_dir_suffix();
-    if (confstr(65537, buf, 0x40uLL))
+    v8 = _set_user_dir_suffix();
+    v9 = confstr(65537, buf, 0x40uLL);
+    if (v9)
     {
-      v8 = v7;
+      v10 = v8;
     }
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
 
-    if ((v8 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
       perror("Unable to change temporary directory");
       _Exit(1);
     }
   }
 
-  v11 = sub_1000260F0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_1000260F0(v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    *v23 = 136446210;
-    *&v23[4] = buf;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Temporary directory: %{public}s", v23, 0xCu);
+    *v28 = 136446210;
+    *&v28[4] = buf;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Temporary directory: %{public}s", v28, 0xCu);
   }
 
-  v21 = @"CSCompanionService";
-  v22 = @"CSCompanionService";
-  v12 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v26 = @"CSCompanionService";
+  v27 = @"CSCompanionService";
+  v16 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
   [v2 isKappaDetectionDevice];
   [v2 isKappaLoggingDevice];
-  v13 = objc_opt_new();
-  [v13 setServiceReplacementMap:v12 missBehavior:0];
-  [v13 ensureServiceIsRunning:@"CSCompanionService"];
-  [v13 ensureServiceIsRunning:@"CSAnomalyEventService"];
-  *v23 = 0xF00000002;
-  *&v23[8] = 3;
-  v19 = 0;
-  v20 = 0;
+  v17 = objc_opt_new();
+  [v17 setServiceReplacementMap:v16 missBehavior:0];
+  [v17 ensureServiceIsRunning:@"CSCompanionService"];
+  [v17 ensureServiceIsRunning:@"CSAnomalyEventService"];
+  *v28 = 0xF00000002;
+  *&v28[8] = 3;
+  v24 = 0;
+  v25 = 0;
   __p = 0;
-  sub_10002641C(&__p, v23, &v24, 3uLL);
-  sub_100026134(&__p, v13);
+  sub_10002641C(&__p, v28, &v29, 3uLL);
+  sub_100026134(&__p, v17);
   if (__p)
   {
-    v19 = __p;
+    v24 = __p;
     operator delete(__p);
   }
 
-  if (((v3 | v4) & 1) == 0)
+  if (((v3 | v5) & 1) == 0)
   {
-    v14 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v15 = dispatch_queue_create("FeatureDisabledExit", v14);
+    v18 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v19 = dispatch_queue_create("FeatureDisabledExit", v18);
 
-    v16 = sub_1000260F0();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_1000260F0(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "exiting in 5 seconds", v23, 2u);
+      *v28 = 0;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "exiting in 5 seconds", v28, 2u);
     }
 
-    v17 = dispatch_time(0, 5000000000);
-    dispatch_after(v17, v15, &stru_100414200);
+    v22 = dispatch_time(0, 5000000000);
+    dispatch_after(v22, v19, &stru_100414200);
   }
 
   dispatch_main();
@@ -5789,16 +5790,16 @@ void sub_100026090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_1000260F0()
+id sub_1000260F0(uint64_t a1)
 {
   if (qword_1004567C8 != -1)
   {
     sub_1003585B0();
   }
 
-  v1 = qword_1004567D0;
+  v2 = qword_1004567D0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100026134(int **a1, void *a2)
@@ -5879,7 +5880,7 @@ void sub_100026338(uint64_t a1)
   _Exit(0);
 }
 
-uint64_t sub_10002641C(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10002641C(uint64_t *result, int *a2, int *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5922,16 +5923,16 @@ void sub_100026898(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-id sub_1000268F4()
+id sub_1000268F4(uint64_t a1)
 {
   if (qword_100456918 != -1)
   {
     sub_1003585EC();
   }
 
-  v1 = qword_100456920;
+  v2 = qword_100456920;
 
-  return v1;
+  return v2;
 }
 
 void sub_100026B4C(_Unwind_Exception *a1)
@@ -5980,9 +5981,9 @@ LABEL_18:
       {
         v14 = [*(*(a1 + 32) + 8) coolDownPeriodInSeconds];
         *buf = 138412546;
-        v29 = v8;
-        v30 = 2048;
-        v31 = &v14[-v12];
+        v32 = v8;
+        v33 = 2048;
+        v34 = &v14[-v12];
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Backing down from TTR %@ because we still need to cool down for %lld seconds", buf, 0x16u);
       }
 
@@ -5994,9 +5995,9 @@ LABEL_45:
         goto LABEL_18;
       }
 
-      v26 = NSLocalizedDescriptionKey;
-      v27 = @"Cooldown still in place";
-      v15 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v29 = NSLocalizedDescriptionKey;
+      v30 = @"Cooldown still in place";
+      v15 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
       [NSError errorWithDomain:NSPOSIXErrorDomain code:35 userInfo:v15];
       *a3 = v16 = 0;
 LABEL_44:
@@ -6012,36 +6013,37 @@ LABEL_44:
     }
 
     v21 = qword_100456920;
-    if (os_log_type_enabled(qword_100456920, OS_LOG_TYPE_DEBUG))
+    v22 = os_log_type_enabled(qword_100456920, OS_LOG_TYPE_DEBUG);
+    if (v22)
     {
       *buf = 67109120;
-      LODWORD(v29) = v19;
+      LODWORD(v32) = v19;
       _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Marty TTR confirmation result: %d", buf, 8u);
     }
 
     if (v19 == 3)
     {
-      v23 = sub_1000268F4();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = sub_1000268F4(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109120;
-        LODWORD(v29) = v11;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "User chose not to file radar. ttrManaged,%d", buf, 8u);
+        LODWORD(v32) = v11;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "User chose not to file radar. ttrManaged,%d", buf, 8u);
       }
 
-      [*(a1 + 32) deletePendingFiles:v8 ttrManagedMsl:v11];
+      v25 = [*(a1 + 32) deletePendingFiles:v8 ttrManagedMsl:v11];
     }
 
     else
     {
       if (v19 == 4)
       {
-        v22 = sub_1000268F4();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v23 = sub_1000268F4(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v29) = v11;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Error with confirmation. ttrManagedFiles,%d", buf, 8u);
+          LODWORD(v32) = v11;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "Error with confirmation. ttrManagedFiles,%d", buf, 8u);
         }
 
 LABEL_43:
@@ -6051,42 +6053,44 @@ LABEL_43:
         goto LABEL_44;
       }
 
-      if (([*(a1 + 32) showPrivacyNotificationWithError:a3] & 1) == 0)
+      v28 = [*(a1 + 32) showPrivacyNotificationWithError:a3];
+      if ((v28 & 1) == 0)
       {
-        v22 = sub_1000268F4();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v23 = sub_1000268F4(v28);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v29) = v11;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "User did not consent. ttrManaged,%d", buf, 8u);
+          LODWORD(v32) = v11;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "User did not consent. ttrManaged,%d", buf, 8u);
         }
 
         goto LABEL_43;
       }
 
-      if (([*(a1 + 32) radarWithResult:v19 triggerUUID:v8 ttrManagedMsl:v11 eventType:4 error:a3 formattedDate:v15] & 1) == 0)
+      v25 = [*(a1 + 32) radarWithResult:v19 triggerUUID:v8 ttrManagedMsl:v11 eventType:4 error:a3 formattedDate:v15];
+      if ((v25 & 1) == 0)
       {
-        v22 = sub_1000268F4();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v23 = sub_1000268F4(v25);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109120;
-          LODWORD(v29) = v11;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "Not able to generate TTR. ttrManaged,%d", buf, 8u);
+          LODWORD(v32) = v11;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "Not able to generate TTR. ttrManaged,%d", buf, 8u);
         }
 
         goto LABEL_43;
       }
     }
 
-    v24 = sub_1000268F4();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v26 = sub_1000268F4(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "removing TTR file", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "removing TTR file", buf, 2u);
     }
 
-    v25 = +[NSFileManager defaultManager];
-    [v25 removeItemAtURL:v5 error:0];
+    v27 = +[NSFileManager defaultManager];
+    [v27 removeItemAtURL:v5 error:0];
 
     v16 = 1;
     goto LABEL_44;
@@ -6393,19 +6397,19 @@ id MartyCompanion::serializeDeviceInfo(MartyCompanion *this, const CompanionDevi
   return v19;
 }
 
-void sub_1000293CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000293CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   KappaCompanionDeviceInfo::~KappaCompanionDeviceInfo(va1);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void MartyCompanion::deserializeDeviceInfo(MartyCompanion *this, const NSData *a2)
+void MartyCompanion::deserializeDeviceInfo(MartyCompanion *this)
 {
   v2 = this;
   PB::Reader::Reader(v24, [(MartyCompanion *)v2 bytes], [(MartyCompanion *)v2 length]);
@@ -6666,58 +6670,48 @@ id MartyCompanion::serializeTrigger(float16x4_t *this, const CompanionTrigger *a
   return v44;
 }
 
-void sub_100029A0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100029A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   KappaTriggerSample::~KappaTriggerSample(va1);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void MartyCompanion::deserializeTrigger(MartyCompanion *this, const NSData *a2)
+void MartyCompanion::deserializeTrigger(MartyCompanion *this@<X0>, const NSData *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v2 = this;
-  PB::Reader::Reader(v81, [(MartyCompanion *)v2 bytes], [(MartyCompanion *)v2 length]);
-  KappaTriggerSample::KappaTriggerSample(v60);
-  v58 = 0;
+  v3 = this;
+  PB::Reader::Reader(v82, [(MartyCompanion *)v3 bytes], [(MartyCompanion *)v3 length]);
+  KappaTriggerSample::KappaTriggerSample(v61);
   v59 = 0;
-  v122 = 0u;
+  v60 = 0;
   v123 = 0u;
   v124 = 0u;
-  KappaTriggerSample::readFrom(v60, v81);
-  v3 = v80;
-  v4 = v75;
-  v5 = v77;
-  v6 = v72;
-  if ((v80 & 8) != 0)
+  v125 = 0u;
+  KappaTriggerSample::readFrom(v61, v82);
+  v4 = v81;
+  v5 = v76;
+  v6 = v78;
+  v7 = v73;
+  if ((v81 & 8) != 0)
   {
-    v7 = v65;
+    v8 = v66;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  if ((v80 & 0x40) != 0)
+  if ((v81 & 0x40) != 0)
   {
-    v8 = v68;
-  }
-
-  else
-  {
-    v8 = 0.0;
-  }
-
-  if ((v80 & 0x200) != 0)
-  {
-    v9 = v71;
+    v9 = v69;
   }
 
   else
@@ -6725,35 +6719,45 @@ void MartyCompanion::deserializeTrigger(MartyCompanion *this, const NSData *a2)
     v9 = 0.0;
   }
 
-  v10 = v76;
-  v11 = v70;
-  v12 = v66;
-  v51 = v79;
-  v53 = v78;
-  v49 = v67;
-  if ((v80 & 2) != 0)
+  if ((v81 & 0x200) != 0)
   {
-    v13 = v64;
+    v10 = v72;
   }
 
   else
   {
-    v13 = 0;
+    v10 = 0.0;
+  }
+
+  v11 = v77;
+  v12 = v71;
+  v13 = v67;
+  v52 = v80;
+  v54 = v79;
+  v50 = v68;
+  if ((v81 & 2) != 0)
+  {
+    v14 = v65;
+  }
+
+  else
+  {
+    v14 = 0;
   }
 
   __p = 0;
-  v56 = 0;
   v57 = 0;
-  sub_10002AA98(&__p, v61, v62, (v62 - v61) >> 2);
-  v41 = v12;
-  v42 = v11;
-  v43 = v10;
-  v44 = v7;
-  v45 = v13;
+  v58 = 0;
+  sub_10002AA98(&__p, v62, v63, (v63 - v62) >> 2);
+  v42 = v13;
+  v43 = v12;
+  v44 = v11;
+  v45 = v8;
+  v46 = v14;
   _H11 = 0;
   _H12 = 0;
   _H13 = 0;
-  if (v56 - __p == 12)
+  if (v57 - __p == 12)
   {
     _S0 = *__p;
     _S1 = *(__p + 1);
@@ -6767,18 +6771,18 @@ void MartyCompanion::deserializeTrigger(MartyCompanion *this, const NSData *a2)
     __asm { FCVT            H13, S0 }
   }
 
-  v24 = v80;
-  v25 = v74;
-  v26 = v69;
-  v27 = v73;
-  if (v80)
+  v25 = v81;
+  v26 = v75;
+  v27 = v70;
+  v28 = v74;
+  if (v81)
   {
-    v28 = v63;
+    v29 = v64;
   }
 
   else
   {
-    v28 = 0;
+    v29 = 0;
   }
 
   if (qword_100456868 != -1)
@@ -6786,85 +6790,86 @@ void MartyCompanion::deserializeTrigger(MartyCompanion *this, const NSData *a2)
     sub_10002AB28();
   }
 
-  v29 = v53;
-  v48 = v4 & (v3 << 18 >> 31);
-  v47 = v5 & (v3 >> 15);
-  v46 = v6 & (v3 << 21 >> 31);
-  v30 = v43 & (v3 << 17 >> 31);
-  v31 = v42 & (v3 << 23 >> 31);
-  v52 = v51 & (v3 << 14 >> 31);
-  v54 = v41 & (v3 << 27 >> 31);
-  v50 = v49 & (v3 << 26 >> 31);
-  v32 = v29 & (v3 << 15 >> 31);
-  v33 = v25 & (v24 << 19 >> 31);
-  v34 = v26 & (v24 >> 7);
-  v35 = v24 << 20;
-  v36 = qword_100456870;
-  v37 = v27 & (v35 >> 31);
+  v30 = v54;
+  v49 = v5 & (v4 << 18 >> 31);
+  v48 = v6 & (v4 >> 15);
+  v47 = v7 & (v4 << 21 >> 31);
+  v31 = v44 & (v4 << 17 >> 31);
+  v32 = v43 & (v4 << 23 >> 31);
+  v53 = v52 & (v4 << 14 >> 31);
+  v55 = v42 & (v4 << 27 >> 31);
+  v51 = v50 & (v4 << 26 >> 31);
+  v33 = v30 & (v4 << 15 >> 31);
+  v34 = v26 & (v25 << 19 >> 31);
+  v35 = v27 & (v25 >> 7);
+  v36 = v25 << 20;
+  v37 = qword_100456870;
+  v38 = v28 & (v36 >> 31);
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67179521;
-    v83 = v48;
-    v84 = 1025;
-    v85 = v47;
-    v86 = 1025;
-    v87 = v46;
+    v84 = v49;
+    v85 = 1025;
+    v86 = v48;
+    v87 = 1025;
+    v88 = v47;
     __asm
     {
       FCVT            D2, H11
       FCVT            D3, H12
     }
 
-    v88 = 1025;
+    v89 = 1025;
     __asm { FCVT            D4, H13 }
 
-    v89 = v32;
-    v90 = 2049;
-    v91 = v44;
-    v92 = 2049;
-    v93 = v8;
-    v94 = 2049;
-    v95 = v9;
-    v96 = 1025;
-    v97 = v30;
-    v98 = 1025;
-    v99 = v31;
-    v100 = 1025;
-    v101 = v54;
-    v102 = 1025;
-    v103 = v52;
-    v104 = 1025;
-    v105 = v50;
-    v106 = 2049;
-    v107 = v45;
-    v108 = 2049;
-    v109 = _D2;
-    v110 = 2049;
-    v111 = _D3;
-    v112 = 2049;
-    v113 = _D4;
-    v114 = 1025;
-    v115 = v33;
-    v116 = 1025;
-    v117 = v34;
-    v118 = 1025;
-    v119 = v37;
-    v120 = 2049;
-    v121 = v28;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "receiving marty trigger info %{private}d %{private}d %{private}d %{private}d %{private}llu %{private}f %{private}f %{private}d %{private}d %{private}d %{private}d %{private}d %{private}llu %{private}f %{private}f %{private}f %{private}d %{private}d%{private}d %{private}llu", buf, 0x9Au);
+    v90 = v33;
+    v91 = 2049;
+    v92 = v45;
+    v93 = 2049;
+    v94 = v9;
+    v95 = 2049;
+    v96 = v10;
+    v97 = 1025;
+    v98 = v31;
+    v99 = 1025;
+    v100 = v32;
+    v101 = 1025;
+    v102 = v55;
+    v103 = 1025;
+    v104 = v53;
+    v105 = 1025;
+    v106 = v51;
+    v107 = 2049;
+    v108 = v46;
+    v109 = 2049;
+    v110 = _D2;
+    v111 = 2049;
+    v112 = _D3;
+    v113 = 2049;
+    v114 = _D4;
+    v115 = 1025;
+    v116 = v34;
+    v117 = 1025;
+    v118 = v35;
+    v119 = 1025;
+    v120 = v38;
+    v121 = 2049;
+    v122 = v29;
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEBUG, "receiving marty trigger info %{private}d %{private}d %{private}d %{private}d %{private}llu %{private}f %{private}f %{private}d %{private}d %{private}d %{private}d %{private}d %{private}llu %{private}f %{private}f %{private}f %{private}d %{private}d%{private}d %{private}llu", buf, 0x9Au);
   }
 
   operator new();
 }
 
-void sub_100029EBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_100029EBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
+  va_start(va, a22);
   if (__p)
   {
     operator delete(__p);
   }
 
-  KappaTriggerSample::~KappaTriggerSample(&a23);
+  KappaTriggerSample::~KappaTriggerSample(va);
 
   _Unwind_Resume(a1);
 }
@@ -6906,14 +6911,15 @@ id MartyCompanion::serializeCompanionUUID(const std::string *this, const Compani
   return v5;
 }
 
-void sub_10002A03C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_10002A03C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   MartyCompanionUUID::~MartyCompanionUUID(&a9);
-  PB::Writer::~Writer(&a11);
+  PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void MartyCompanion::deserializeCompanionUUID(MartyCompanion *this, const NSData *a2)
+void MartyCompanion::deserializeCompanionUUID(MartyCompanion *this)
 {
   v2 = this;
   PB::Reader::Reader(v8, [(MartyCompanion *)v2 bytes], [(MartyCompanion *)v2 length]);
@@ -6947,43 +6953,44 @@ void MartyCompanion::deserializeCompanionUUID(MartyCompanion *this, const NSData
   operator new();
 }
 
-id MartyCompanion::serializeDeviceInfoRequest(int *a1)
+id MartyCompanion::serializeDeviceInfoRequest(int *a1, uint64_t a2)
 {
   if (qword_100456868 != -1)
   {
     sub_10002AB14();
   }
 
-  v2 = qword_100456870;
+  v3 = qword_100456870;
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
-    v3 = *a1;
+    v4 = *a1;
     *buf = 67109120;
-    *&buf[4] = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "sending marty requesting device info nop %d", buf, 8u);
+    *&buf[4] = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "sending marty requesting device info nop %d", buf, 8u);
   }
 
   PB::Writer::Writer(buf);
-  sub_100009CA8(v7);
-  v4 = *a1;
-  v8 |= 1u;
-  v7[2] = v4;
-  sub_10000A130(v7, buf);
-  v5 = [NSData dataWithBytes:v10 length:*buf - v10];
-  PB::Base::~Base(v7);
+  sub_100009CA8(v8);
+  v5 = *a1;
+  v9 |= 1u;
+  v8[2] = v5;
+  sub_10000A130(v8, buf);
+  v6 = [NSData dataWithBytes:v11 length:*buf - v11];
+  PB::Base::~Base(v8);
   PB::Writer::~Writer(buf);
 
-  return v5;
+  return v6;
 }
 
-void sub_10002A37C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_10002A37C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   PB::Base::~Base(&a9);
-  PB::Writer::~Writer(&a11);
+  PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void MartyCompanion::deserializeDeviceInfoRequest(MartyCompanion *this, const NSData *a2)
+void MartyCompanion::deserializeDeviceInfoRequest(MartyCompanion *this)
 {
   v2 = this;
   PB::Reader::Reader(v9, [(MartyCompanion *)v2 bytes], [(MartyCompanion *)v2 length]);
@@ -7015,62 +7022,62 @@ void sub_10002A4E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id MartyCompanion::serializeRequestUpload(const std::string *a1)
+id MartyCompanion::serializeRequestUpload(std::string *a1, uint64_t a2)
 {
   if (qword_100456868 != -1)
   {
     sub_10002AB14();
   }
 
-  v2 = qword_100456870;
+  v3 = qword_100456870;
   if (os_log_type_enabled(qword_100456870, OS_LOG_TYPE_DEBUG))
   {
     if ((a1->__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v3 = a1;
+      v4 = a1;
     }
 
     else
     {
-      v3 = a1->__r_.__value_.__r.__words[0];
+      v4 = a1->__r_.__value_.__r.__words[0];
     }
 
     data = a1[1].__r_.__value_.__l.__data_;
     *buf = 136446466;
-    *&buf[4] = v3;
+    *&buf[4] = v4;
     *&buf[12] = 1026;
     *&buf[14] = data;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "sending marty upload request uuid %{public}s %{public}d", buf, 0x12u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "sending marty upload request uuid %{public}s %{public}d", buf, 0x12u);
   }
 
   PB::Writer::Writer(buf);
-  sub_100010780(v8);
-  sub_10002A8F0(v8);
-  std::string::operator=(v9, a1);
-  v5 = a1[1].__r_.__value_.__l.__data_;
-  v11 |= 1u;
-  v10 = v5;
-  sub_100010DDC(v8, buf);
-  v6 = [NSData dataWithBytes:*&buf[8] length:*buf - *&buf[8]];
-  sub_100010804(v8);
+  sub_100010780(v9);
+  sub_10002A8F0(v9);
+  std::string::operator=(v10, a1);
+  v6 = a1[1].__r_.__value_.__l.__data_;
+  v12 |= 1u;
+  v11 = v6;
+  sub_100010DDC(v9, buf);
+  v7 = [NSData dataWithBytes:*&buf[8] length:*buf - *&buf[8]];
+  sub_100010804(v9);
   PB::Writer::~Writer(buf);
 
-  return v6;
+  return v7;
 }
 
-void sub_10002A664(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10002A664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   sub_100010804(va);
   PB::Writer::~Writer(va1);
   _Unwind_Resume(a1);
 }
 
-void MartyCompanion::deserializeRequestUpload(MartyCompanion *this, const NSData *a2)
+void MartyCompanion::deserializeRequestUpload(MartyCompanion *this)
 {
   v2 = this;
   PB::Reader::Reader(v11, [(MartyCompanion *)v2 bytes], [(MartyCompanion *)v2 length]);
@@ -7119,17 +7126,15 @@ void sub_10002A8AC(id a1)
   _objc_release_x1();
 }
 
-uint64_t sub_10002A8F0(uint64_t result)
+void sub_10002A8F0(uint64_t a1)
 {
-  if (!*(result + 8))
+  if (!*(a1 + 8))
   {
     operator new();
   }
-
-  return result;
 }
 
-void *sub_10002A964(void *result, char *__src, char *a3, unint64_t a4)
+void **sub_10002A964(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7201,8 +7206,7 @@ void *sub_10002A964(void *result, char *__src, char *a3, unint64_t a4)
       {
         v16 = *v13;
         v13 += 4;
-        *v15 = v16;
-        v15 += 4;
+        *v15++ = v16;
         v14 += 4;
       }
 
@@ -7216,7 +7220,7 @@ void *sub_10002A964(void *result, char *__src, char *a3, unint64_t a4)
   return result;
 }
 
-uint64_t sub_10002AA98(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_10002AA98(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7302,16 +7306,16 @@ void CLKappaDeescalatorAOI::log(CLKappaDeescalatorAOI *this, uint64_t a2)
   }
 }
 
-id sub_10002AD64()
+id sub_10002AD64(uint64_t a1)
 {
   if (qword_1004567F8 != -1)
   {
     sub_10002C95C();
   }
 
-  v1 = qword_100456800;
+  v2 = qword_100456800;
 
-  return v1;
+  return v2;
 }
 
 double CLKappaDeescalatorAOI::updateWithCurrentLocation(CLKappaDeescalatorAOI *this, const CSSPUGps_Struct *a2)
@@ -7401,7 +7405,7 @@ LABEL_26:
   {
     if (a2 != 1000.0 && a3 != 1000.0)
     {
-      CLKappaDeescalatorAOI::loadAOIs(this);
+      CLKappaDeescalatorAOI::loadAOIs();
     }
 
     if (qword_1004567F8 != -1)
@@ -7474,7 +7478,7 @@ uint64_t CLKappaDeescalatorAOI::onEvaluateFollowingEscalation(CLKappaDeescalator
 
 void CLKappaDeescalatorAOI::loadAOIsFromExistingList(uint64_t a1, uint64_t **a2, _DWORD *a3)
 {
-  v13 = +[CSPersistentConfiguration sharedConfiguration];
+  v19 = +[CSPersistentConfiguration sharedConfiguration];
   if (*(a1 + 36) == 1)
   {
     v6 = @"Kappa";
@@ -7489,31 +7493,31 @@ void CLKappaDeescalatorAOI::loadAOIsFromExistingList(uint64_t a1, uint64_t **a2,
   v8 = [NSString stringWithCString:"DeleteCurrentList" encoding:1];
   v9 = [NSString stringWithFormat:@"%@%@", v7, v8];
 
-  v10 = [v13 objectForKey:v9];
+  v10 = [v19 objectForKey:v9];
   LOBYTE(v8) = [v10 isEqual:&__kCFBooleanTrue];
 
   if ((v8 & 1) == 0)
   {
-    v11 = &kAOIList;
-    v12 = 3192;
+    v17 = &kAOIList;
+    v18 = 3192;
     do
     {
-      CSKappaAOIBoost::addAOI(*a2, v11);
+      CSKappaAOIBoost::addAOI(*a2, v17, v11, v12, v13, v14, v15, v16);
       ++*a3;
-      v11 = (v11 + 12);
-      v12 -= 12;
+      v17 = (v17 + 12);
+      v18 -= 12;
     }
 
-    while (v12);
+    while (v18);
   }
 }
 
-void CLKappaDeescalatorAOI::loadAOIsFromDir(uint64_t a1, void *a2, uint64_t a3, _DWORD *a4)
+void CLKappaDeescalatorAOI::loadAOIsFromDir(uint64_t a1, void *a2, uint64_t **a3, _DWORD *a4)
 {
   v16 = a2;
   v7 = [v16 URLByAppendingPathComponent:@"AOIs.json"];
   v8 = v7;
-  v9 = *(a3 + 8);
+  v9 = a3[1];
   v18[0] = *a3;
   v18[1] = v9;
   if (v9)
@@ -7541,7 +7545,7 @@ void CLKappaDeescalatorAOI::loadAOIsFromDir(uint64_t a1, void *a2, uint64_t a3, 
   v12 = [v16 URLByAppendingPathComponent:v11];
   v13 = v12;
   v14 = *a3;
-  v15 = *(a3 + 8);
+  v15 = a3[1];
   v17[0] = v14;
   v17[1] = v15;
   if (v15)
@@ -7597,18 +7601,18 @@ void CLKappaDeescalatorAOI::loadAOIsFromJSONFile(uint64_t a1, void *a2, uint64_t
     v13 = qword_100456800;
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v26 = [v6 path];
+      v33 = [v6 path];
       *buf = 138412290;
-      v57 = v26;
+      v64 = v33;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "File not found %@", buf, 0xCu);
     }
 
     goto LABEL_50;
   }
 
-  v53 = 0;
-  v11 = [NSData dataWithContentsOfURL:v6 options:0 error:&v53];
-  v12 = v53;
+  v60 = 0;
+  v11 = [NSData dataWithContentsOfURL:v6 options:0 error:&v60];
+  v12 = v60;
   v13 = v12;
   if (!v11 || v12)
   {
@@ -7617,22 +7621,22 @@ void CLKappaDeescalatorAOI::loadAOIsFromJSONFile(uint64_t a1, void *a2, uint64_t
       sub_10002C970();
     }
 
-    v27 = qword_100456800;
+    v34 = qword_100456800;
     if (os_log_type_enabled(qword_100456800, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v57 = v13;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Error reading file: %@", buf, 0xCu);
+      v64 = v13;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Error reading file: %@", buf, 0xCu);
     }
 
     goto LABEL_49;
   }
 
-  v52 = 0;
-  v14 = [NSJSONSerialization JSONObjectWithData:v11 options:0 error:&v52];
-  v15 = v52;
+  v59 = 0;
+  v14 = [NSJSONSerialization JSONObjectWithData:v11 options:0 error:&v59];
+  v15 = v59;
   v13 = v15;
-  v43 = v14;
+  v50 = v14;
   if (!v14 || v15)
   {
     if (qword_1004567F8 != -1)
@@ -7643,11 +7647,11 @@ void CLKappaDeescalatorAOI::loadAOIsFromJSONFile(uint64_t a1, void *a2, uint64_t
     obj = qword_100456800;
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      v28 = [v6 path];
+      v35 = [v6 path];
       *buf = 138412546;
-      v57 = v28;
-      v58 = 2112;
-      v59 = v13;
+      v64 = v35;
+      v65 = 2112;
+      v66 = v13;
       _os_log_impl(&_mh_execute_header, obj, OS_LOG_TYPE_ERROR, "Error parsing %@: %@", buf, 0x16u);
     }
 
@@ -7665,48 +7669,49 @@ void CLKappaDeescalatorAOI::loadAOIsFromJSONFile(uint64_t a1, void *a2, uint64_t
     obj = qword_100456800;
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      v29 = [v6 path];
+      v36 = [v6 path];
       *buf = 138412290;
-      v57 = v29;
+      v64 = v36;
       _os_log_impl(&_mh_execute_header, obj, OS_LOG_TYPE_ERROR, "Malformatted AOI json, top level %@", buf, 0xCu);
     }
 
     goto LABEL_48;
   }
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
-  v49 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = v14;
-  v35 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
-  if (!v35)
+  v42 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+  if (!v42)
   {
     goto LABEL_48;
   }
 
-  v37 = v11;
-  v38 = *v49;
-  v36 = v7;
+  v44 = v11;
+  v45 = *v56;
+  v43 = v7;
   while (2)
   {
-    for (i = 0; i != v35; i = i + 1)
+    for (i = 0; i != v42; i = i + 1)
     {
-      if (*v49 != v38)
+      if (*v56 != v45)
       {
         objc_enumerationMutation(obj);
       }
 
-      v41 = *(*(&v48 + 1) + 8 * i);
+      v48 = *(*(&v55 + 1) + 8 * i);
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        log = sub_10002AD64();
+        log = sub_10002AD64(isKindOfClass);
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v32 = [v6 path];
+          v39 = [v6 path];
           *buf = 138412290;
-          v57 = v32;
+          v64 = v39;
           _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Malformatted AOI json, row not list %@", buf, 0xCu);
         }
 
@@ -7715,16 +7720,17 @@ LABEL_47:
         goto LABEL_48;
       }
 
-      log = v41;
-      if ([log count]!= 3)
+      log = v48;
+      v17 = [log count];
+      if (v17 != 3)
       {
-        v16 = sub_10002AD64();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v18 = sub_10002AD64(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v33 = [v6 path];
+          v40 = [v6 path];
           *buf = 138412290;
-          v57 = v33;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Malformatted AOI json, row with wrong count %@", buf, 0xCu);
+          v64 = v40;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Malformatted AOI json, row with wrong count %@", buf, 0xCu);
         }
 
 LABEL_46:
@@ -7732,25 +7738,24 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      v46 = 0u;
-      v47 = 0u;
-      v44 = 0u;
-      v45 = 0u;
-      v16 = log;
-      v17 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-      if (v17)
+      v53 = 0u;
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v18 = log;
+      v19 = [v18 countByEnumeratingWithState:&v51 objects:v61 count:16];
+      if (v19)
       {
-        v18 = *v45;
+        v20 = *v52;
         while (2)
         {
-          for (j = 0; j != v17; j = j + 1)
+          for (j = 0; j != v19; ++j)
           {
-            if (*v45 != v18)
+            if (*v52 != v20)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v18);
             }
 
-            v20 = *(*(&v44 + 1) + 8 * j);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -7759,23 +7764,23 @@ LABEL_46:
                 sub_10002C970();
               }
 
-              v7 = v36;
-              v11 = v37;
-              v30 = qword_100456800;
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              v7 = v43;
+              v11 = v44;
+              v37 = qword_100456800;
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
               {
-                v31 = [v6 path];
+                v38 = [v6 path];
                 *buf = 138412290;
-                v57 = v31;
-                _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Malformatted AOI json, element not number %@", buf, 0xCu);
+                v64 = v38;
+                _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Malformatted AOI json, element not number %@", buf, 0xCu);
               }
 
               goto LABEL_46;
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v44 objects:v54 count:16];
-          if (v17)
+          v19 = [v18 countByEnumeratingWithState:&v51 objects:v61 count:16];
+          if (v19)
           {
             continue;
           }
@@ -7784,24 +7789,24 @@ LABEL_46:
         }
       }
 
-      v7 = v36;
-      v11 = v37;
-      v34 = [v16 objectAtIndexedSubscript:0];
-      [v34 floatValue];
-      *buf = v21;
-      v22 = [v16 objectAtIndexedSubscript:1];
-      [v22 floatValue];
-      LODWORD(v57) = v23;
-      v24 = [v16 objectAtIndexedSubscript:2];
-      [v24 floatValue];
-      HIDWORD(v57) = v25;
+      v7 = v43;
+      v11 = v44;
+      v41 = [v18 objectAtIndexedSubscript:0];
+      [v41 floatValue];
+      *buf = v22;
+      v23 = [v18 objectAtIndexedSubscript:1];
+      [v23 floatValue];
+      LODWORD(v64) = v24;
+      v25 = [v18 objectAtIndexedSubscript:2];
+      [v25 floatValue];
+      HIDWORD(v64) = v26;
 
-      CSKappaAOIBoost::addAOI(*a3, buf);
+      CSKappaAOIBoost::addAOI(*a3, buf, v27, v28, v29, v30, v31, v32);
       ++*a4;
     }
 
-    v35 = [obj countByEnumeratingWithState:&v48 objects:v55 count:16];
-    if (v35)
+    v42 = [obj countByEnumeratingWithState:&v55 objects:v62 count:16];
+    if (v42)
     {
       continue;
     }
@@ -7946,9 +7951,10 @@ LABEL_20:
 LABEL_24:
 }
 
-void sub_10002C6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, void *a11)
+void sub_10002C6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, _Unwind_Exception *exception_object, uint64_t a10, ...)
 {
-  CLKappaDeescalator::~CLKappaDeescalator(&a11);
+  va_start(va, a10);
+  CLKappaDeescalator::~CLKappaDeescalator(va);
 
   _Unwind_Resume(a1);
 }
@@ -8403,16 +8409,16 @@ LABEL_19:
   return result;
 }
 
-id sub_10002D404()
+id sub_10002D404(uint64_t a1)
 {
   if (qword_1004567F8 != -1)
   {
     sub_10002EB98();
   }
 
-  v1 = qword_100456800;
+  v2 = qword_100456800;
 
-  return v1;
+  return v2;
 }
 
 uint64_t CLKappaDeescalator::evaluateAtSecondDeescalationOpportunity(CLKappaDeescalator *this)
@@ -8899,11 +8905,11 @@ uint64_t CLKappaDeescalator::previousEpochMadeDecision(CLKappaDeescalator *this)
   return (*(*this + 96))();
 }
 
-uint64_t CLKappaDeescalator::raiseUnless(uint64_t this, BOOL a2, const char *a3)
+uint64_t CLKappaDeescalator::raiseUnless(uint64_t this, uint64_t a2, const char *a3)
 {
   if ((this & 1) == 0)
   {
-    sub_10002EBD4();
+    sub_10002EBD4(a2);
   }
 
   return this;
@@ -8967,7 +8973,7 @@ id CLKappaDeescalator::constructModePrefixKey(CLKappaDeescalator *this, const ch
 {
   if (!a2)
   {
-    sub_10002ED38();
+    sub_10002ED38(this);
   }
 
   v3 = *(this + 36);
@@ -8982,99 +8988,101 @@ id CLKappaDeescalator::constructModePostKey(CLKappaDeescalator *this, NSString *
   v6 = v5;
   if (!v4)
   {
-    v9 = sub_10002D404();
+    v9 = sub_10002D404(v5);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "key";
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "key";
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v10 = sub_10002D404();
-    if (os_signpost_enabled(v10))
+    v11 = sub_10002D404(v10);
+    if (os_signpost_enabled(v11))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "key";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "key";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v11 = sub_10002D404();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = sub_10002D404(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "key";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "key";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-LABEL_19:
+    v14 = 230;
+LABEL_20:
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaDeescalator.mm", v14, "constructModePostKey");
     __break(1u);
   }
 
   if (!v5)
   {
-    v12 = sub_10002D404();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v15 = sub_10002D404(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "postfix";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "postfix";
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v13 = sub_10002D404();
-    if (os_signpost_enabled(v13))
+    v17 = sub_10002D404(v16);
+    if (os_signpost_enabled(v17))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "postfix";
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "postfix is null", "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "postfix";
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "postfix is null", "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v11 = sub_10002D404();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v13 = sub_10002D404(v18);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
-      v15 = 0;
-      v16 = 2082;
-      v17 = "";
-      v18 = 2082;
-      v19 = "assert";
-      v20 = 2081;
-      v21 = "postfix";
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v20 = 0;
+      v21 = 2082;
+      v22 = "";
+      v23 = 2082;
+      v24 = "assert";
+      v25 = 2081;
+      v26 = "postfix";
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "{msg%{public}.0s:postfix is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    goto LABEL_19;
+    v14 = 231;
+    goto LABEL_20;
   }
 
   v7 = [[NSString alloc] initWithFormat:@"%@%@", v4, v5];
@@ -9086,7 +9094,7 @@ unint64_t CLKappaDeescalator::shouldForceDeescalate(CLKappaDeescalator *this, co
 {
   if (!a2)
   {
-    sub_10002EE6C();
+    sub_10002EE6C(this);
   }
 
   v3 = [CSPersistentConfiguration configBaseKey:a2 forFeatureMode:*(this + 36)];
@@ -9138,7 +9146,7 @@ uint64_t CLKappaDeescalator::shouldForceNoop(CLKappaDeescalator *this, const cha
 {
   if (!a2)
   {
-    sub_10002EFA8();
+    sub_10002EFA8(this);
   }
 
   v3 = [CSPersistentConfiguration configBaseKey:a2 forFeatureMode:*(this + 36)];
@@ -9225,129 +9233,132 @@ void sub_10002EAB0(id a1)
   _objc_release_x1();
 }
 
-void sub_10002EAF4(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_10002EAF4(void *a1, int a2, int a3, int a4, const char *a5, const char *a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_signpost_emit_with_name_impl(a1, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, &buf, 0x26u);
+  _os_signpost_emit_with_name_impl(a1, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, a5, a6, va, 0x26u);
 }
 
-void sub_10002EB58(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_10002EB58(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_INFO, a4, &buf, 0x26u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_INFO, a4, va, 0x26u);
 }
 
-void sub_10002EB78(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void sub_10002EB78(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, v13, OS_LOG_TYPE_FAULT, a4, &buf, 0x26u);
+  _os_log_impl(a1, v12, OS_LOG_TYPE_FAULT, a4, va, 0x26u);
 }
 
-void sub_10002EBD4()
+void sub_10002EBD4(uint64_t a1)
 {
-  v0 = sub_10002D404();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_10002D404(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_10002EB20();
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  v1 = sub_10002D404();
-  if (os_signpost_enabled(v1))
+  v3 = sub_10002D404(v2);
+  if (os_signpost_enabled(v3))
   {
     sub_10002EB20();
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed assert in raiseUnless(): ", "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed assert in raiseUnless(): ", "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  v2 = sub_10002D404();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v5 = sub_10002D404(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     sub_10002EB20();
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Failed assert in raiseUnless(): , errorMessage:%{public, location:escape_only}s, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x30u);
   }
 
-  v3 = abort_report_np();
-  sub_10002ED38(v3);
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaDeescalator.mm", 214, "raiseUnless");
+  sub_10002ED38(v6);
 }
 
-void sub_10002ED38()
+void sub_10002ED38(uint64_t a1)
 {
-  v0 = sub_10002D404();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_10002D404(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v1, v2, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v20, v21, v22, v23, v24);
+    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v24, v25, v26, v27);
   }
 
-  v7 = sub_10002D404();
-  if (os_signpost_enabled(v7))
+  v9 = sub_10002D404(v8);
+  if (os_signpost_enabled(v9))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v8, v9, v10, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v20, v21, v22, v23, v24);
+    sub_10002EAF4(&_mh_execute_header, v10, v11, v12, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v24, v25, v26, v27);
   }
 
-  v13 = sub_10002D404();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = sub_10002D404(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v14, v15, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v20, v21, v22, v23, v24);
+    sub_10002EB58(&_mh_execute_header, v17, v18, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v24, v25, v26, v27);
   }
 
-  abort_report_np();
-  sub_10002EE6C();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaDeescalator.mm", 221, "constructModePrefixKey");
+  sub_10002EE6C(v23);
 }
 
-void sub_10002EE6C()
+void sub_10002EE6C(uint64_t a1)
 {
-  v0 = sub_10002D404();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_10002D404(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v1, v2, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v20, v21, v22, v23, v24);
+    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26);
   }
 
-  v7 = sub_10002D404();
-  if (os_signpost_enabled(v7))
+  v9 = sub_10002D404(v8);
+  if (os_signpost_enabled(v9))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v8, v9, v10, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v20, v21, v22, v23, v24);
+    sub_10002EAF4(&_mh_execute_header, v10, v11, v12, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v23, v24, v25, v26);
   }
 
-  v13 = sub_10002D404();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = sub_10002D404(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v14, v15, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v20, v21, v22, v23, v24);
+    sub_10002EB58(&_mh_execute_header, v17, v18, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaDeescalator.mm", 240, "shouldForceDeescalate");
   __break(1u);
 }
 
-void sub_10002EFA8()
+void sub_10002EFA8(uint64_t a1)
 {
-  v0 = sub_10002D404();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sub_10002D404(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
     sub_100009C7C();
-    sub_10002EB78(&_mh_execute_header, v1, v2, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v3, v4, v5, v6, v20, v21, v22, v23, v24);
+    sub_10002EB78(&_mh_execute_header, v2, v3, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v4, v5, v6, v7, v23, v24, v25, v26);
   }
 
-  v7 = sub_10002D404();
-  if (os_signpost_enabled(v7))
+  v9 = sub_10002D404(v8);
+  if (os_signpost_enabled(v9))
   {
     sub_100009C7C();
-    sub_10002EAF4(&_mh_execute_header, v8, v9, v10, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v11, v12, v20, v21, v22, v23, v24);
+    sub_10002EAF4(&_mh_execute_header, v10, v11, v12, "key is null", "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v13, v14, v23, v24, v25, v26);
   }
 
-  v13 = sub_10002D404();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v16 = sub_10002D404(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     sub_100009C7C();
-    sub_10002EB58(&_mh_execute_header, v14, v15, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v16, v17, v18, v19, v20, v21, v22, v23, v24);
+    sub_10002EB58(&_mh_execute_header, v17, v18, "{msg%{public}.0s:key is null, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", v19, v20, v21, v22, v23, v24, v25, v26);
   }
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CLKappaDeescalator.mm", 261, "shouldForceNoop");
   __break(1u);
 }
 
@@ -9475,16 +9486,16 @@ void sub_10002F56C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-char **sub_10002F594@<X0>(uint64_t a1@<X0>, char ***a2@<X8>)
+void *sub_10002F594@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   result = *a1;
   {
-    v6 = *(a1 + 8);
+    v5 = *(a1 + 8);
     *a2 = result;
-    a2[1] = v6;
-    if (v6)
+    a2[1] = v5;
+    if (v5)
     {
-      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -9529,54 +9540,4 @@ void sub_10002F830(_Unwind_Exception *a1)
 
   CLKappaAlgBlock::~CLKappaAlgBlock(v1, off_100414BD0);
   _Unwind_Resume(a1);
-}
-
-void CLMartyEstimatesAlgCoupledCrash::resetConfiguration(CLMartyEstimatesAlgCoupledCrash *this)
-{
-  v32 = [CSPersistentConfiguration configBaseKey:"EstimatesAlgCCConfig" forFeatureMode:*(this + 24)];
-  v2 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v3) = 0.5;
-  LODWORD(v4) = 11.5;
-  LODWORD(v5) = 1193033728;
-  [v2 algorithmThresholdNumber:0 inArrayForKey:v32 withMinValue:v3 maxValue:v5 defaultValue:v4];
-  LODWORD(v33) = v6;
-
-  v7 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v8) = 1117782016;
-  LODWORD(v9) = 30.0;
-  [v7 algorithmThresholdNumber:1 inArrayForKey:v32 withMinValue:0.0 maxValue:v8 defaultValue:v9];
-  DWORD1(v33) = v10;
-
-  v11 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v12) = 1112014848;
-  LODWORD(v13) = 7.0;
-  [v11 algorithmThresholdNumber:2 inArrayForKey:v32 withMinValue:0.0 maxValue:v12 defaultValue:v13];
-  DWORD2(v33) = v14;
-
-  v15 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v16) = 1157234688;
-  LODWORD(v17) = 1120403456;
-  [v15 algorithmThresholdNumber:3 inArrayForKey:v32 withMinValue:0.0 maxValue:v16 defaultValue:v17];
-  HIDWORD(v33) = v18;
-
-  v19 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v20) = 1157234688;
-  LODWORD(v21) = 19.0;
-  [v19 algorithmThresholdNumber:4 inArrayForKey:v32 withMinValue:0.0 maxValue:v20 defaultValue:v21];
-  v34 = v22;
-
-  v23 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v24) = 1157234688;
-  LODWORD(v25) = 1118568448;
-  [v23 algorithmThresholdNumber:5 inArrayForKey:v32 withMinValue:0.0 maxValue:v24 defaultValue:v25];
-  v35 = v26;
-
-  v27 = +[CSPersistentConfiguration sharedConfiguration];
-  LODWORD(v28) = 0.5;
-  LODWORD(v29) = 15.0;
-  LODWORD(v30) = 1193033728;
-  [v27 algorithmThresholdNumber:6 inArrayForKey:v32 withMinValue:v28 maxValue:v30 defaultValue:v29];
-  v36 = v31;
-
-  CLMartyEstimatesAlgCoupledCrash::setConfig(this, &v33);
 }

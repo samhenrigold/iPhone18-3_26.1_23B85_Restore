@@ -53,7 +53,7 @@
   self->PXPhotosDetailsWidget_opaque[OBJC_IVAR____TtC12PhotosUICore32PhotosDetailsSharedWithYouWidget____lazy_storage___hasSiblingWidgetAbove] = 2;
   self->PXPhotosDetailsWidget_opaque[OBJC_IVAR____TtC12PhotosUICore32PhotosDetailsSharedWithYouWidget____lazy_storage___hasSiblingWidgetBelow] = 2;
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotosDetailsSharedWithYouWidget();
+  v3.super_class = type metadata accessor for PhotosDetailsSharedWithYouWidget(self, a2);
   return [(PXPhotosDetailsWidget *)&v3 init];
 }
 

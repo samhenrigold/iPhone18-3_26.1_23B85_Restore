@@ -49,7 +49,7 @@
   v27 = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -105,16 +105,16 @@
 
 void __81__AAUISecurityCodeVerifyHook__verifySecurityCodeWithServerAttributes_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   v7 = v6;
   if (a2)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Successfully verified or repaired security code, will attempt to respond with PET", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "Successfully verified or repaired security code, will attempt to respond with PET", &v16, 2u);
     }
 
     v8 = [*(a1 + 32) repairContext];
@@ -123,43 +123,43 @@ void __81__AAUISecurityCodeVerifyHook__verifySecurityCodeWithServerAttributes_co
     v10 = [*(a1 + 32) repairContext];
     v7 = [v10 passwordEquivToken];
 
-    v11 = _AAUILogSystem();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = _AAUILogSystem(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (v9 && v7)
     {
-      if (v12)
+      if (v13)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Determined that local secret was created or validated, attaching PET to server hook response", &v15, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Determined that local secret was created or validated, attaching PET to server hook response", &v16, 2u);
       }
 
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObject:v7 forKey:@"password"];
-      [*(*(a1 + 40) + 16) setAdditionalPayload:v11];
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObject:v7 forKey:@"password"];
+      [*(*(a1 + 40) + 16) setAdditionalPayload:v12];
     }
 
-    else if (v12)
+    else if (v13)
     {
-      v13 = @"NO";
+      v14 = @"NO";
       if (v9)
       {
-        v14 = @"YES";
+        v15 = @"YES";
       }
 
       else
       {
-        v14 = @"NO";
+        v15 = @"NO";
       }
 
       if (v7)
       {
-        v13 = @"YES";
+        v14 = @"YES";
       }
 
-      v15 = 138412546;
-      v16 = v14;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Unable to attach PET to server hook response (hasCachedLocalSecret: %@, hasPET: %@)", &v15, 0x16u);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v14;
+      _os_log_impl(&dword_1C5355000, v12, OS_LOG_TYPE_DEFAULT, "Unable to attach PET to server hook response (hasCachedLocalSecret: %@, hasPET: %@)", &v16, 0x16u);
     }
   }
 

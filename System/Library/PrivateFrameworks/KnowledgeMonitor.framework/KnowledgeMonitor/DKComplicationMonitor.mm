@@ -24,7 +24,7 @@ void __31___DKComplicationMonitor_start__block_invoke_2(uint64_t a1)
 
 uint64_t __51___DKComplicationMonitor_fetchActiveComplications___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -51,26 +51,26 @@ uint64_t __51___DKComplicationMonitor_fetchActiveComplications___block_invoke(ui
   else
   {
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v13 = *(a1 + 40);
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
+          v18 = *(*(&v25 + 1) + 8 * i);
           if (([v18 isEqual:&stru_2838F0870] & 1) == 0)
           {
             v19 = [*(*(*(a1 + 56) + 8) + 40) objectForKeyedSubscript:v18];
@@ -91,7 +91,7 @@ uint64_t __51___DKComplicationMonitor_fetchActiveComplications___block_invoke(ui
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v15);
@@ -101,7 +101,7 @@ uint64_t __51___DKComplicationMonitor_fetchActiveComplications___block_invoke(ui
     if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = v12;
+      v30 = v12;
       _os_log_impl(&dword_22595A000, v23, OS_LOG_TYPE_DEFAULT, "New list of active complications: %@\n", buf, 0xCu);
     }
 
@@ -110,7 +110,6 @@ uint64_t __51___DKComplicationMonitor_fetchActiveComplications___block_invoke(ui
     v5 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -129,11 +128,10 @@ void __70___DKComplicationMonitor_asyncUpdateCurrentActiveComplicationsContext__
 
 void __51___DKComplicationMonitor_fetchActiveComplications___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "failed to fetch list of installed applications on watch: %@\n", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "failed to fetch list of installed applications on watch: %@\n", &v2, 0xCu);
 }
 
 @end

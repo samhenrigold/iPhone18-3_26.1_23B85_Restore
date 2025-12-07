@@ -53,14 +53,13 @@
 
 - (void)netService:(id)service didUpdateTXTRecord:(id)record
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   recordCopy = record;
   hmd_sessionIdentifier = [serviceCopy hmd_sessionIdentifier];
   if (hmd_sessionIdentifier)
   {
     os_unfair_lock_lock_with_options();
-    sessionIdentifier = self->_sessionIdentifier;
     if (HMFEqualObjects())
     {
       os_unfair_lock_unlock(&self->_lock);
@@ -68,29 +67,27 @@
 
     else
     {
-      v10 = self->_sessionIdentifier == 0;
+      v9 = self->_sessionIdentifier == 0;
       objc_storeStrong(&self->_sessionIdentifier, hmd_sessionIdentifier);
       os_unfair_lock_unlock(&self->_lock);
-      if (!v10)
+      if (!v9)
       {
-        v11 = objc_autoreleasePoolPush();
+        v10 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v13 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v12 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
-          v14 = HMFGetLogIdentifier();
-          v16 = 138543362;
-          v17 = v14;
-          _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Received notification session changed, resetting", &v16, 0xCu);
+          v13 = HMFGetLogIdentifier();
+          v14 = 138543362;
+          v15 = v13;
+          _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Received notification session changed, resetting", &v14, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v11);
+        objc_autoreleasePoolPop(v10);
         __HMDHTTPClientMessageTransportReset(selfCopy);
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -133,7 +130,7 @@ uint64_t __76__HMDHTTPClientMessageTransport_client_didRequestPingWithCompletion
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -154,13 +151,13 @@ uint64_t __76__HMDHTTPClientMessageTransport_client_didRequestPingWithCompletion
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           v19 = HMFGetLogIdentifier();
-          v21 = 138543874;
-          v22 = v19;
-          v23 = 2112;
-          v24 = v14;
-          v25 = 2112;
-          v26 = v15;
-          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Port change from '%@' to '%@'", &v21, 0x20u);
+          v20 = 138543874;
+          v21 = v19;
+          v22 = 2112;
+          v23 = v14;
+          v24 = 2112;
+          v25 = v15;
+          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Port change from '%@' to '%@'", &v20, 0x20u);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -168,13 +165,11 @@ uint64_t __76__HMDHTTPClientMessageTransport_client_didRequestPingWithCompletion
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPingWithCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = objc_alloc(MEMORY[0x277D0F840]);
   v6 = MEMORY[0x277CBEBC0];
@@ -190,33 +185,31 @@ uint64_t __76__HMDHTTPClientMessageTransport_client_didRequestPingWithCompletion
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v22 = v14;
-    v23 = 2112;
-    v24 = v10;
+    v21 = v14;
+    v22 = 2112;
+    v23 = v10;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Sending ping request: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   objc_initWeak(buf, selfCopy);
   client2 = [(HMDHTTPClientMessageTransport *)selfCopy client];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_invoke;
-  v18[3] = &unk_279735530;
-  objc_copyWeak(&v20, buf);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_invoke;
+  v17[3] = &unk_279735530;
+  objc_copyWeak(&v19, buf);
   v16 = handlerCopy;
-  v19 = v16;
-  [client2 sendRequest:v10 completionHandler:v18];
+  v18 = v16;
+  [client2 sendRequest:v10 completionHandler:v17];
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -226,11 +219,11 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received response to ping with error: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Received response to ping with error: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -242,9 +235,9 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to ping server", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to ping server", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -255,18 +248,16 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
   {
     (*(v16 + 16))(v16, v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMessage:(id)message timeout:(double)timeout completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
-  v34 = 0;
-  v10 = [MEMORY[0x277CCAC58] dataWithPropertyList:messageCopy format:100 options:0 error:&v34];
-  v11 = v34;
+  v33 = 0;
+  v10 = [MEMORY[0x277CCAC58] dataWithPropertyList:messageCopy format:100 options:0 error:&v33];
+  v11 = v33;
   if (v10)
   {
     if (timeout <= 0.0)
@@ -296,21 +287,21 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v25;
-      v37 = 2112;
-      v38 = v17;
+      v35 = v25;
+      v36 = 2112;
+      v37 = v17;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Sending message request: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
     client2 = [(HMDHTTPClientMessageTransport *)selfCopy client];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __71__HMDHTTPClientMessageTransport_sendMessage_timeout_completionHandler___block_invoke;
-    v32[3] = &unk_279735508;
-    v32[4] = selfCopy;
-    v33 = handlerCopy;
-    [client2 sendRequest:v17 completionHandler:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __71__HMDHTTPClientMessageTransport_sendMessage_timeout_completionHandler___block_invoke;
+    v31[3] = &unk_279735508;
+    v31[4] = selfCopy;
+    v32 = handlerCopy;
+    [client2 sendRequest:v17 completionHandler:v31];
   }
 
   else
@@ -322,9 +313,9 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v30;
-      v37 = 2112;
-      v38 = v11;
+      v35 = v30;
+      v36 = 2112;
+      v37 = v11;
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize response message with error: %@", buf, 0x16u);
     }
 
@@ -334,13 +325,11 @@ void __63__HMDHTTPClientMessageTransport_sendPingWithCompletionHandler___block_i
       (*(handlerCopy + 2))(handlerCopy, 0, v11);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDHTTPClientMessageTransport_sendMessage_timeout_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -350,9 +339,9 @@ void __71__HMDHTTPClientMessageTransport_sendMessage_timeout_completionHandler__
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v10;
-    v52 = 2112;
-    v53 = v5;
+    v50 = v10;
+    v51 = 2112;
+    v52 = v5;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Received response to /sendMessage: %@", buf, 0x16u);
   }
 
@@ -366,9 +355,9 @@ void __71__HMDHTTPClientMessageTransport_sendMessage_timeout_completionHandler__
     {
       v18 = MEMORY[0x277CCAC58];
       v19 = [v5 body];
-      v49 = 0;
-      v20 = [v18 propertyListWithData:v19 options:0 format:0 error:&v49];
-      v21 = v49;
+      v48 = 0;
+      v20 = [v18 propertyListWithData:v19 options:0 format:0 error:&v48];
+      v21 = v48;
 
       if (v20)
       {
@@ -430,15 +419,15 @@ LABEL_32:
         v38 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          v48 = HMFGetLogIdentifier();
+          v47 = HMFGetLogIdentifier();
           v39 = [*(a1 + 32) shortDescription];
           v40 = objc_opt_class();
           *buf = 138543874;
-          v51 = v48;
-          v52 = 2112;
-          v53 = v39;
-          v54 = 2112;
-          v55 = v40;
+          v50 = v47;
+          v51 = 2112;
+          v52 = v39;
+          v53 = 2112;
+          v54 = v40;
           v41 = v21;
           v42 = v36;
           v43 = v40;
@@ -465,9 +454,9 @@ LABEL_32:
         {
           v34 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v51 = v34;
-          v52 = 2112;
-          v53 = v21;
+          v50 = v34;
+          v51 = 2112;
+          v52 = v21;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize message payload with error: %@", buf, 0x16u);
         }
 
@@ -498,9 +487,9 @@ LABEL_34:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v14;
-    v52 = 2112;
-    v53 = v6;
+    v50 = v14;
+    v51 = 2112;
+    v52 = v6;
     _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to send message with error: %@", buf, 0x16u);
   }
 
@@ -512,20 +501,18 @@ LABEL_34:
   }
 
 LABEL_35:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendResponseMessage:(id)message forTransactionIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   if (messageCopy)
   {
-    v28 = 0;
-    v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:messageCopy format:100 options:0 error:&v28];
-    v9 = v28;
+    v27 = 0;
+    v8 = [MEMORY[0x277CCAC58] dataWithPropertyList:messageCopy format:100 options:0 error:&v27];
+    v9 = v27;
     if (!v8)
     {
       v10 = objc_autoreleasePoolPush();
@@ -535,9 +522,9 @@ LABEL_35:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v13;
-        v31 = 2112;
-        v32 = v9;
+        v29 = v13;
+        v30 = 2112;
+        v31 = v9;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize response message with error: %@", buf, 0x16u);
       }
 
@@ -565,21 +552,19 @@ LABEL_35:
   [v19 setHeaderValue:uUIDString2 forHeaderKey:@"Transaction-Identifier"];
 
   client2 = [(HMDHTTPClientMessageTransport *)self client];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __79__HMDHTTPClientMessageTransport__sendResponseMessage_forTransactionIdentifier___block_invoke;
-  v26[3] = &unk_2797354E0;
-  v26[4] = self;
-  v27 = identifierCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __79__HMDHTTPClientMessageTransport__sendResponseMessage_forTransactionIdentifier___block_invoke;
+  v25[3] = &unk_2797354E0;
+  v25[4] = self;
+  v26 = identifierCopy;
   v24 = identifierCopy;
-  [client2 sendRequest:v19 completionHandler:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  [client2 sendRequest:v19 completionHandler:v25];
 }
 
 void __79__HMDHTTPClientMessageTransport__sendResponseMessage_forTransactionIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -592,18 +577,18 @@ void __79__HMDHTTPClientMessageTransport__sendResponseMessage_forTransactionIden
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v6;
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v6;
       v13 = "%{public}@Failed to send response for transaction, %@, with error: %@";
       v14 = v10;
       v15 = OS_LOG_TYPE_ERROR;
       v16 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v14, v15, v13, &v19, v16);
+      _os_log_impl(&dword_2531F8000, v14, v15, v13, &v18, v16);
     }
   }
 
@@ -611,10 +596,10 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     v17 = *(a1 + 40);
-    v19 = 138543618;
-    v20 = v11;
-    v21 = 2112;
-    v22 = v17;
+    v18 = 138543618;
+    v19 = v11;
+    v20 = 2112;
+    v21 = v17;
     v13 = "%{public}@Successfully sent response for transaction: %@";
     v14 = v10;
     v15 = OS_LOG_TYPE_DEBUG;
@@ -623,12 +608,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receiveMessage
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if ([(HMDHTTPClientMessageTransport *)self isRunning])
   {
     v3 = objc_autoreleasePoolPush();
@@ -638,7 +622,7 @@ LABEL_6:
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v6;
+      v21 = v6;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Send long-polled /receiveMessage", buf, 0xCu);
     }
 
@@ -656,22 +640,20 @@ LABEL_6:
 
     date = [MEMORY[0x277CBEAA8] date];
     client2 = [(HMDHTTPClientMessageTransport *)selfCopy client];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke;
-    v19[3] = &unk_2797354E0;
-    v19[4] = selfCopy;
-    v20 = date;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke;
+    v18[3] = &unk_2797354E0;
+    v18[4] = selfCopy;
+    v19 = date;
     v17 = date;
-    [client2 sendRequest:v12 completionHandler:v19];
+    [client2 sendRequest:v12 completionHandler:v18];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -681,9 +663,9 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v47 = v10;
-    v48 = 2112;
-    v49 = v5;
+    v46 = v10;
+    v47 = 2112;
+    v48 = v5;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Received a response to /receiveMessage: %@", buf, 0x16u);
   }
 
@@ -697,9 +679,9 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
     {
       v17 = MEMORY[0x277CCAC58];
       v18 = [v5 body];
-      v45 = 0;
-      v19 = [v17 propertyListWithData:v18 options:0 format:0 error:&v45];
-      v20 = v45;
+      v44 = 0;
+      v19 = [v17 propertyListWithData:v18 options:0 format:0 error:&v44];
+      v20 = v44;
 
       if (v19)
       {
@@ -722,13 +704,13 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
         {
           v25 = [*(a1 + 32) delegate];
           v26 = *(a1 + 32);
-          v43[0] = MEMORY[0x277D85DD0];
-          v43[1] = 3221225472;
-          v43[2] = __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke_42;
-          v43[3] = &unk_2797354B8;
-          v43[4] = v26;
-          v44 = v16;
-          [v25 client:v26 didReceiveMessage:v21 completionHandler:v43];
+          v42[0] = MEMORY[0x277D85DD0];
+          v42[1] = 3221225472;
+          v42[2] = __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke_42;
+          v42[3] = &unk_2797354B8;
+          v42[4] = v26;
+          v43 = v16;
+          [v25 client:v26 didReceiveMessage:v21 completionHandler:v42];
         }
 
         else
@@ -739,16 +721,16 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v37 = v41 = v24;
+            v37 = v40 = v24;
             v38 = objc_opt_class();
             *buf = 138543618;
-            v47 = v37;
-            v48 = 2112;
-            v49 = v38;
+            v46 = v37;
+            v47 = 2112;
+            v48 = v38;
             v39 = v38;
             _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_ERROR, "%{public}@Invalid message class type: %@", buf, 0x16u);
 
-            v24 = v41;
+            v24 = v40;
           }
 
           objc_autoreleasePoolPop(context);
@@ -764,9 +746,9 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
         {
           v34 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v47 = v34;
-          v48 = 2112;
-          v49 = v20;
+          v46 = v34;
+          v47 = 2112;
+          v48 = v20;
           _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize message payload with error: %@", buf, 0x16u);
         }
 
@@ -783,7 +765,7 @@ void __48__HMDHTTPClientMessageTransport__receiveMessage__block_invoke(uint64_t 
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v47 = v30;
+        v46 = v30;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Missing the message transaction identifier", buf, 0xCu);
       }
 
@@ -808,13 +790,11 @@ LABEL_25:
 
   [v14 _stopWithError:v6];
 LABEL_26:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   client = [(HMDHTTPClientMessageTransport *)self client];
 
@@ -826,11 +806,11 @@ LABEL_26:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543618;
-      v14 = v9;
-      v15 = 2112;
-      v16 = errorCopy;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stopping the client with error: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2112;
+      v15 = errorCopy;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Stopping the client with error: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -841,8 +821,6 @@ LABEL_26:
     delegate = [(HMDHTTPClientMessageTransport *)selfCopy delegate];
     [delegate client:selfCopy didStopWithError:errorCopy];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startWithCompletionHandler:(id)handler
@@ -961,7 +939,7 @@ LABEL_26:
 
 - (HMDHTTPClientMessageTransport)initWithIdentifier:(id)identifier netService:(id)service
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   serviceCopy = service;
   v8 = serviceCopy;
@@ -974,7 +952,7 @@ LABEL_26:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v28;
+      v33 = v28;
       v29 = "%{public}@The identifier is required";
 LABEL_10:
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, v29, buf, 0xCu);
@@ -996,7 +974,7 @@ LABEL_11:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v28;
+      v33 = v28;
       v29 = "%{public}@The netService is required";
       goto LABEL_10;
     }
@@ -1004,12 +982,12 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v32.receiver = self;
-  v32.super_class = HMDHTTPClientMessageTransport;
-  v9 = [(HMDHTTPClientMessageTransport *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = HMDHTTPClientMessageTransport;
+  v9 = [(HMDHTTPClientMessageTransport *)&v31 init];
   if (v9)
   {
-    v10 = [identifierCopy copy];
+    v10 = objc_msgSend_copy(identifierCopy);
     identifier = v9->_identifier;
     v9->_identifier = v10;
 
@@ -1047,7 +1025,6 @@ LABEL_11:
   v25 = selfCopy2;
 LABEL_12:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -1078,12 +1055,11 @@ LABEL_12:
 
 uint64_t __44__HMDHTTPClientMessageTransport_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v28_190140;
-  logCategory__hmf_once_v28_190140 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v28_190140;
+  logCategory__hmf_once_v28_190140 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)shortDescription

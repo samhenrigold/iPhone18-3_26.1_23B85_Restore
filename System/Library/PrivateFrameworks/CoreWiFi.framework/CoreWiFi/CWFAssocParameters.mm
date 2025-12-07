@@ -423,7 +423,7 @@ LABEL_68:
     v5->_colocatedScopeID = v14;
 
     v5->_has6GHzOnlyBSS = [coderCopy decodeBoolForKey:@"_has6GHzOnlyBSS"];
-    if (sub_1E0CD88D0())
+    if (sub_1E0CD88D0(0))
     {
       v23 = 0;
       v24 = &v23;

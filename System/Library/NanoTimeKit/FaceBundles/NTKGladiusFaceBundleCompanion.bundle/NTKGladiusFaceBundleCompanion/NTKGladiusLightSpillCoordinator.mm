@@ -34,14 +34,13 @@
 {
   v4 = sub_12920();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_12910();
   selfCopy = self;
-  sub_D734(v8);
+  sub_D734(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)lowFrequencyLightingTimerFired
@@ -59,39 +58,37 @@
 - (void)setOverrideDate:(id)date duration:(double)duration
 {
   v7 = sub_AABC(&unk_29F50, &qword_16DC0);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = __chkstk_darwin(v7 - 8);
-  v11 = &v25[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v9);
-  v13 = &v25[-v12];
-  v14 = sub_AABC(&qword_29D88, qword_16D70);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v18 = &v25[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v16);
-  v20 = &v25[-v19];
+  v8 = __chkstk_darwin(v7 - 8);
+  v10 = &v23[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v8);
+  v12 = &v23[-v11];
+  v13 = sub_AABC(&qword_29D88, qword_16D70);
+  v14 = __chkstk_darwin(v13 - 8);
+  v16 = &v23[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v14);
+  v18 = &v23[-v17];
   if (date)
   {
     sub_12910();
-    v21 = sub_12920();
-    (*(*(v21 - 8) + 56))(v20, 0, 1, v21);
+    v19 = sub_12920();
+    (*(*(v19 - 8) + 56))(v18, 0, 1, v19);
   }
 
   else
   {
-    v22 = sub_12920();
-    (*(*(v22 - 8) + 56))(v20, 1, 1, v22);
+    v20 = sub_12920();
+    (*(*(v20 - 8) + 56))(v18, 1, 1, v20);
   }
 
-  v23 = OBJC_IVAR____TtC29NTKGladiusFaceBundleCompanion31NTKGladiusLightSpillCoordinator_dateOverride;
+  v21 = OBJC_IVAR____TtC29NTKGladiusFaceBundleCompanion31NTKGladiusLightSpillCoordinator_dateOverride;
   swift_beginAccess();
-  sub_BB0C(self + v23, v11, &unk_29F50, &qword_16DC0);
-  sub_BB0C(v20, v18, &qword_29D88, qword_16D70);
+  sub_BB0C(self + v21, v10, &unk_29F50, &qword_16DC0);
+  sub_BB0C(v18, v16, &qword_29D88, qword_16D70);
   selfCopy = self;
-  sub_BE14(v11, v18, v13, duration);
-  sub_BB74(v20, &qword_29D88, qword_16D70);
+  sub_BE14(v10, v16, v12, duration);
+  sub_BB74(v18, &qword_29D88, qword_16D70);
   swift_beginAccess();
-  sub_BA9C(v13, self + v23);
+  sub_BA9C(v12, self + v21);
   swift_endAccess();
 }
 

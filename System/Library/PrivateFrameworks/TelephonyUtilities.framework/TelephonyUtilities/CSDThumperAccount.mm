@@ -297,24 +297,23 @@
 {
   dCopy = d;
   [(CSDThumperAccount *)self allowedSecondaryDeviceIDs];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = v14 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = v13 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
-    v7 = *v12;
+    v7 = *v11;
     while (2)
     {
-      for (i = 0; i != v6; i = i + 1)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * i);
         if (TUStringsAreCaseInsensitiveEqual())
         {
           LOBYTE(v6) = 1;
@@ -322,7 +321,7 @@
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v6)
       {
         continue;

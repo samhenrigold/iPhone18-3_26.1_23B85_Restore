@@ -71,7 +71,7 @@
 
   else
   {
-    [BWStereoDisparityProcessorInput addSampleBuffer:];
+    [(BWStereoDisparityProcessorInput *)self addSampleBuffer:a2];
   }
 }
 

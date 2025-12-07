@@ -10,7 +10,7 @@
 
 + (void)analysesForInterventionOnOutgoingCallToParticipants:(NSArray *)participants callType:(unint64_t)type completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30, &unk_1AEAFC780);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
@@ -37,7 +37,7 @@
 
 + (BOOL)willNeedInterventionForOutgoingCallToParticipants:(id)participants callType:(unint64_t)type error:(id *)error
 {
-  sub_1AEA49EF8(0, &qword_1ED98A488);
+  sub_1AEA49EF8(0, &qword_1ED98A488, off_1E7A431B8);
   v6 = sub_1AEAF96EC();
   sub_1AEA4F9A8(v6, type);
 
@@ -46,7 +46,7 @@
 
 + (void)shouldBlockIncomingCallFromHandles:(NSArray *)handles callType:(unint64_t)type completion:(id)completion
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5E8F30, &unk_1AEAFC780);
   MEMORY[0x1EEE9AC00](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
@@ -73,7 +73,7 @@
 
 + (BOOL)shouldDeclineIncomingCallFromParticipants:(id)participants callType:(unint64_t)type
 {
-  sub_1AEA49EF8(0, &qword_1ED98A488);
+  sub_1AEA49EF8(0, &qword_1ED98A488, off_1E7A431B8);
   v4 = sub_1AEAF96EC();
   v5 = sub_1AEAC3CF8(v4);
 

@@ -701,11 +701,11 @@ LABEL_7:
     }
   }
 
-  configuration = [sessionCopy configuration];
-  originWaypointRequest = [configuration originWaypointRequest];
+  v5 = objc_msgSend_configuration(sessionCopy);
+  originWaypointRequest = [v5 originWaypointRequest];
 
-  configuration2 = [sessionCopy configuration];
-  destinationWaypointRequest = [configuration2 destinationWaypointRequest];
+  v7 = objc_msgSend_configuration(sessionCopy);
+  destinationWaypointRequest = [v7 destinationWaypointRequest];
 
   if (!originWaypointRequest || !destinationWaypointRequest)
   {

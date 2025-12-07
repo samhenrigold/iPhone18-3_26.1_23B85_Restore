@@ -5,15 +5,15 @@
 
 void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = _CDPLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v6;
-    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Renew request completed! Error: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v6;
+    _os_log_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEFAULT, "Renew request completed! Error: %@", &v16, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -50,8 +50,6 @@ void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke(ui
     v15 = [v5 passwordEquivToken];
     (*(v14 + 16))(v14, v15 != 0, v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke_19(uint64_t a1, void *a2, void *a3)
@@ -105,26 +103,23 @@ LABEL_16:
 
 void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP Reauthentication on HomePod failed. Error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP Reauthentication on HomePod failed. Error: %@", v1, 0xCu);
 }
 
 void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke_19_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Silent re-authentication failed: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24510B000, v0, OS_LOG_TYPE_ERROR, "Silent re-authentication failed: %@", v1, 0xCu);
 }
 
 void __55__CDPContext_Daemon__reauthenticateUserWithCompletion___block_invoke_19_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP Reauth on HomePod failed. Error: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_24510B000, v0, OS_LOG_TYPE_FAULT, "CDP Reauth on HomePod failed. Error: %@", v1, 0xCu);
 }
 
 @end

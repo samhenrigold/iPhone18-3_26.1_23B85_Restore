@@ -44,7 +44,7 @@
   v2 = v4.receiver;
   [(BKAudiobookNowPlayingTouchViewController *)&v4 viewDidLoad];
   v3 = OBJC_IVAR___BKAudiobookNowPlayingTouchViewController_viewModel;
-  sub_100274D68();
+  sub_100274D68(*&v2[OBJC_IVAR___BKAudiobookNowPlayingTouchViewController_viewModel]);
   sub_100275384(*&v2[v3]);
   sub_100278F14();
 }
@@ -113,8 +113,8 @@
 {
   selfCopy = self;
   v3 = sub_10041240C();
-  AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.getter();
-  AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.setter();
+  v4 = AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.getter();
+  AudiobookNowPlayingTouchViewController.assetViewControllerDelegate.setter(v4);
 
   return v3;
 }
@@ -248,7 +248,7 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  sub_10079B9A4();
+  sub_10079B9A4(&v5);
 
   return v5;
 }

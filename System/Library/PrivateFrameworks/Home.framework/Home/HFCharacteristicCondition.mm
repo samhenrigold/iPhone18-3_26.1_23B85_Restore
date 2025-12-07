@@ -201,7 +201,7 @@ LABEL_10:
 
 - (id)_nameFormattingContext:(int64_t)context
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   characteristic = [(HFCharacteristicCondition *)self characteristic];
   if (!characteristic || (v6 = characteristic, [(HFCharacteristicCondition *)self value], v7 = objc_claimAutoreleasedReturnValue(), v7, v6, !v7))
   {
@@ -226,9 +226,9 @@ LABEL_17:
         v31 = NSStringFromClass(v30);
         v32 = NSStringFromSelector(a2);
         *buf = 138412546;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v32;
+        v40 = v31;
+        v41 = 2112;
+        v42 = v32;
         _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "%@:%@ missing characteristic. Using unknown condition string", buf, 0x16u);
       }
     }
@@ -244,11 +244,11 @@ LABEL_17:
         characteristic3 = [(HFCharacteristicCondition *)self characteristic];
         uniqueIdentifier = [characteristic3 uniqueIdentifier];
         *buf = 138412802;
-        v41 = v34;
-        v42 = 2112;
-        v43 = v35;
-        v44 = 2112;
-        v45 = uniqueIdentifier;
+        v40 = v34;
+        v41 = 2112;
+        v42 = v35;
+        v43 = 2112;
+        v44 = uniqueIdentifier;
         _os_log_impl(&dword_20D9BF000, v29, OS_LOG_TYPE_DEFAULT, "%@:%@ missing value for characteristic %@. Using unknown condition string", buf, 0x20u);
       }
     }
@@ -257,8 +257,8 @@ LABEL_17:
   }
 
   characteristic4 = [(HFCharacteristicCondition *)self characteristic];
-  service = [characteristic4 service];
-  hf_displayName = [service hf_displayName];
+  v9 = objc_msgSend_service(characteristic4);
+  hf_displayName = [v9 hf_displayName];
 
   v11 = MEMORY[0x277CCAA28];
   characteristic5 = [(HFCharacteristicCondition *)self characteristic];
@@ -283,7 +283,6 @@ LABEL_17:
   }
 
 LABEL_18:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

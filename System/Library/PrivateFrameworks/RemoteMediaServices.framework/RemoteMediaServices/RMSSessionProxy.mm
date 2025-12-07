@@ -44,7 +44,7 @@
   v9 = *MEMORY[0x277D85DE8];
   if (self->_heartbeatTimer)
   {
-    v4 = RMSLogger();
+    v4 = RMSLogger(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = objc_opt_class();
@@ -61,41 +61,41 @@
 
 - (void)_applicationDidBecomeActive:(id)active
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (self->_isPaused)
   {
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v5 = v4 - self->_lastHeartbeatTime;
-    v6 = RMSLogger();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    timeIntervalSinceReferenceDate = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+    v6 = v5 - self->_lastHeartbeatTime;
+    v7 = RMSLogger(timeIntervalSinceReferenceDate);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v15 = 138412546;
-      v16 = *&v8;
-      v17 = 2048;
-      v18 = v5;
-      _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "[%@] Application foregrounded, time since last heartbeat: %f", &v15, 0x16u);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v19 = 138412546;
+      v20 = *&v9;
+      v21 = 2048;
+      v22 = v6;
+      _os_log_impl(&dword_261E98000, v7, OS_LOG_TYPE_DEFAULT, "[%@] Application foregrounded, time since last heartbeat: %f", &v19, 0x16u);
     }
 
-    v9 = RMSLogger();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = RMSLogger(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       sessionTimeout = self->_sessionTimeout;
-      v15 = 134217984;
-      v16 = sessionTimeout;
-      _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Session timeout: %f", &v15, 0xCu);
+      v19 = 134217984;
+      v20 = sessionTimeout;
+      _os_log_impl(&dword_261E98000, v11, OS_LOG_TYPE_DEFAULT, "Session timeout: %f", &v19, 0xCu);
     }
 
-    v11 = self->_sessionTimeout;
-    v12 = RMSLogger();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    if (v5 >= v11)
+    v13 = self->_sessionTimeout;
+    v15 = RMSLogger(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+    if (v6 >= v13)
     {
-      if (v13)
+      if (v16)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Backgrounded for too long, session is over", &v15, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_261E98000, v15, OS_LOG_TYPE_DEFAULT, "Backgrounded for too long, session is over", &v19, 2u);
       }
 
       [(RMSSessionProxy *)self heartbeatDidFail];
@@ -105,20 +105,21 @@
 
     else
     {
-      if (v13)
+      if (v16)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Resuming session", &v15, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&dword_261E98000, v15, OS_LOG_TYPE_DEFAULT, "Resuming session", &v19, 2u);
       }
 
       [(RMSSessionProxy *)self beginHeartbeat];
-      if (v5 > ([(RMSSessionProxy *)self heartbeatTime]/ 2))
+      heartbeatTime = [(RMSSessionProxy *)self heartbeatTime];
+      if (v6 > (heartbeatTime / 2))
       {
-        v14 = RMSLogger();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = RMSLogger(heartbeatTime);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v15) = 0;
-          _os_log_impl(&dword_261E98000, v14, OS_LOG_TYPE_DEFAULT, "Sending immediate heartbeat", &v15, 2u);
+          LOWORD(v19) = 0;
+          _os_log_impl(&dword_261E98000, v18, OS_LOG_TYPE_DEFAULT, "Sending immediate heartbeat", &v19, 2u);
         }
 
         [(NSTimer *)self->_heartbeatTimer fire];
@@ -177,64 +178,64 @@ uint64_t __33__RMSSessionProxy_beginHeartbeat__block_invoke(uint64_t a1)
 
 - (void)_sendHeartbeat:(id)heartbeat
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   heartbeatCopy = heartbeat;
   sessionIdentifier = [(RMSSessionProxy *)self sessionIdentifier];
-  objc_initWeak(&location, self);
-  v6 = RMSLogger();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v7 = RMSLogger(inited);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
-    v8 = NSStringFromClass(v7);
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     *buf = 138412290;
-    v14 = v8;
-    _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "Sending heartbeat for session: %@", buf, 0xCu);
+    v15 = v9;
+    _os_log_impl(&dword_261E98000, v7, OS_LOG_TYPE_DEFAULT, "Sending heartbeat for session: %@", buf, 0xCu);
   }
 
-  v9 = +[RMSIDSClient sharedClient];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __34__RMSSessionProxy__sendHeartbeat___block_invoke;
-  v10[3] = &unk_279B08930;
-  objc_copyWeak(&v11, &location);
-  [v9 sendHeartbeatWithSessionIdentifier:sessionIdentifier completionHandler:v10];
+  v10 = +[RMSIDSClient sharedClient];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __34__RMSSessionProxy__sendHeartbeat___block_invoke;
+  v11[3] = &unk_279B08930;
+  objc_copyWeak(&v12, &location);
+  [v10 sendHeartbeatWithSessionIdentifier:sessionIdentifier completionHandler:v11];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 
 void __34__RMSSessionProxy__sendHeartbeat___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained && WeakRetained[1] && (WeakRetained[4] & 1) == 0)
   {
     if (a2 == 1)
     {
-      [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-      v4[3] = v5;
-      v6 = RMSLogger();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+      v4[3] = v6;
+      v7 = RMSLogger(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_261E98000, v6, OS_LOG_TYPE_DEFAULT, "Hearbeat success response for session: %@", &v12, 0xCu);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v13 = 138412290;
+        v14 = v9;
+        _os_log_impl(&dword_261E98000, v7, OS_LOG_TYPE_DEFAULT, "Hearbeat success response for session: %@", &v13, 0xCu);
       }
     }
 
     else
     {
-      v9 = RMSLogger();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = RMSLogger(WeakRetained);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        v12 = 138412290;
-        v13 = v11;
-        _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Heartbeat failure response for session: %@", &v12, 0xCu);
+        v11 = objc_opt_class();
+        v12 = NSStringFromClass(v11);
+        v13 = 138412290;
+        v14 = v12;
+        _os_log_impl(&dword_261E98000, v10, OS_LOG_TYPE_DEFAULT, "Heartbeat failure response for session: %@", &v13, 0xCu);
       }
 
       [v4 endHeartbeat];

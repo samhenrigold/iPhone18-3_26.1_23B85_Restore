@@ -139,7 +139,7 @@ void __40__HKSPSleepModeButtonModel_setSelected___block_invoke(uint64_t a1)
 
 void __40__HKSPSleepModeButtonModel_setSelected___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if ((a2 & 1) == 0)
@@ -147,18 +147,16 @@ void __40__HKSPSleepModeButtonModel_setSelected___block_invoke_2(uint64_t a1, ch
     v7 = HKSPLogForCategory(7uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543618;
-      v11 = objc_opt_class();
-      v12 = 2114;
-      v13 = v5;
-      v9 = v11;
-      _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to set sleep mode: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = objc_opt_class();
+      v11 = 2114;
+      v12 = v5;
+      v8 = v10;
+      _os_log_error_impl(&dword_269A84000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] failed to set sleep mode: %{public}@", &v9, 0x16u);
     }
 
     [WeakRetained _checkSleepModeState];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __40__HKSPSleepModeButtonModel_setSelected___block_invoke_302(uint64_t a1, void *a2, void *a3)
@@ -182,67 +180,63 @@ void __40__HKSPSleepModeButtonModel_setSelected___block_invoke_302(uint64_t a1, 
 
 void __40__HKSPSleepModeButtonModel_setSelected___block_invoke_2_303(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (!*(a1 + 32))
+  v18 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 32))
   {
-    v9 = HKSPLogForCategory(7uLL);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v2 = [MEMORY[0x277CCDD30] sharedBehavior];
+    v3 = [v2 isAppleWatch];
+    v4 = *(a1 + 32);
+    if (v3)
     {
-      v14 = *(a1 + 40);
-      v15 = objc_opt_class();
-      v16 = *(a1 + 48);
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2114;
-      v21 = v16;
-      v17 = v15;
-      _os_log_error_impl(&dword_269A84000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] failed to get onboarding version: %{public}@", &v18, 0x16u);
-    }
+      v5 = [v4 isAnySleepTrackingOnboardingCompleted];
 
-    goto LABEL_10;
-  }
-
-  v2 = [MEMORY[0x277CCDD30] sharedBehavior];
-  v3 = [v2 isAppleWatch];
-  v4 = *(a1 + 32);
-  if (v3)
-  {
-    v5 = [v4 isAnySleepTrackingOnboardingCompleted];
-
-    if ((v5 & 1) == 0)
-    {
-LABEL_4:
-      v6 = HKSPLogForCategory(7uLL);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      if ((v5 & 1) == 0)
       {
-        v7 = *(a1 + 40);
-        v18 = 138543362;
-        v19 = objc_opt_class();
-        v8 = v19;
-        _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] onboarding not completed", &v18, 0xCu);
-      }
+LABEL_4:
+        v6 = HKSPLogForCategory(7uLL);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          v14 = 138543362;
+          v15 = objc_opt_class();
+          v7 = v15;
+          _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] onboarding not completed", &v14, 0xCu);
+        }
 
-      [*(a1 + 40) _launchAppForOnboarding];
-LABEL_10:
-      v10 = *MEMORY[0x277D85DE8];
-      return;
+        [*(a1 + 40) _launchAppForOnboarding];
+        return;
+      }
     }
+
+    else
+    {
+      v9 = [v4 isAnySleepCoachingOnboardingCompleted];
+
+      if (!v9)
+      {
+        goto LABEL_4;
+      }
+    }
+
+    v10 = *(*(a1 + 56) + 16);
+
+    v10();
   }
 
   else
   {
-    v11 = [v4 isAnySleepCoachingOnboardingCompleted];
-
-    if (!v11)
+    v8 = HKSPLogForCategory(7uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_4;
+      v11 = objc_opt_class();
+      v12 = *(a1 + 48);
+      v14 = 138543618;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v13 = v11;
+      _os_log_error_impl(&dword_269A84000, v8, OS_LOG_TYPE_ERROR, "[%{public}@] failed to get onboarding version: %{public}@", &v14, 0x16u);
     }
   }
-
-  v12 = *(*(a1 + 56) + 16);
-  v13 = *MEMORY[0x277D85DE8];
-
-  v12();
 }
 
 - (void)_launchAppForOnboarding
@@ -265,25 +259,23 @@ LABEL_10:
 
 - (void)_queue_updateStateWithSleepMode:(int64_t)mode
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = HKSPLogForCategory(7uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = v6;
     v8 = NSStringFromHKSPSleepMode(mode);
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v8;
-    _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating sleep mode state: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v8;
+    _os_log_impl(&dword_269A84000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating sleep mode state: %{public}@", &v10, 0x16u);
   }
 
   self->_sleepMode = mode;
   delegate = [(HKSPSleepModeButtonModel *)self delegate];
   [delegate sleepModeButtonModelChanged:self];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HKSPSleepModeButtonModelDelegate)delegate

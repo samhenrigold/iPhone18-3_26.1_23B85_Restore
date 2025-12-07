@@ -160,7 +160,7 @@ LABEL_19:
 void __79__AVPeriodicTimebaseObserver_initGutsWithTimebase_interval_offset_queue_block___block_invoke_4(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) _fireBlockForTime:{&v4, AVTimebaseObserver_figTimebaseGetTime(&v4).n128_f64[0]}];
+  [*(a1 + 32) _fireBlockForTime:{v4, AVTimebaseObserver_figTimebaseGetTime(v4).n128_f64[0]}];
   v3 = *(a1 + 32);
   if (v3[4])
   {

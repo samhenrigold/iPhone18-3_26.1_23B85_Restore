@@ -23,25 +23,25 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v5 = objc_msgSend__recordIdentifier(self, a2, coder);
-  objc_msgSend_encodeInt64_forKey_(coder, v6, v5, @"recordIdentifier");
+  v6 = objc_msgSend__recordIdentifier(self, a2, coder, v3);
+  objc_msgSend_encodeInt64_forKey_(coder, v7, v6, @"recordIdentifier");
 
   IMDBridgedRecordEncode(self, coder);
 }
 
 - (IMDRecord)initWithCoder:(id)coder
 {
-  v9.receiver = self;
-  v9.super_class = IMDRecord;
-  v5 = [(IMDRecord *)&v9 init];
-  if (v5)
+  v11.receiver = self;
+  v11.super_class = IMDRecord;
+  v6 = [(IMDRecord *)&v11 init];
+  if (v6)
   {
-    v6 = objc_msgSend_decodeInt64ForKey_(coder, v4, @"recordIdentifier");
-    objc_msgSend__setRecordIdentifier_(v5, v7, v6);
-    IMDBridgedRecordDecode(v5, coder);
+    v7 = objc_msgSend_decodeInt64ForKey_(coder, v4, @"recordIdentifier", v5);
+    objc_msgSend__setRecordIdentifier_(v6, v8, v7, v9);
+    IMDBridgedRecordDecode(v6, coder);
   }
 
-  return v5;
+  return v6;
 }
 
 @end

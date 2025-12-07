@@ -120,9 +120,9 @@
   if (_hasResults)
   {
     searchText = [(UIFindSession *)self searchText];
-    v5 = [searchText isEqualToString:self->_lastSearchQuery];
+    isEqualToString = objc_msgSend_isEqualToString_(searchText);
 
-    LOBYTE(_hasResults) = v5;
+    LOBYTE(_hasResults) = isEqualToString;
   }
 
   return _hasResults;
@@ -312,7 +312,7 @@ void __61__UITextSearchingFindSession_highlightNextResultInDirection___block_inv
     v8 = [stringCopy length];
     if (v8 == [(NSString *)self->_lastSearchQuery length])
     {
-      if (([stringCopy isEqualToString:self->_lastSearchQuery] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(stringCopy) & 1) == 0)
       {
         v9 = objc_loadWeakRetained(&self->_searchableObject);
         [v9 decorateFoundTextRange:v5 inDocument:v6 usingStyle:0];
@@ -362,7 +362,7 @@ void __61__UITextSearchingFindSession_highlightNextResultInDirection___block_inv
   {
     [(UIFindSession *)self setSearchText:queryCopy];
     [(UIFindSession *)self setReplacementText:stringCopy];
-    if (-[UITextSearchingFindSession _hasResults](self, "_hasResults") && [queryCopy isEqualToString:self->_lastSearchQuery])
+    if ([(UITextSearchingFindSession *)self _hasResults]&& objc_msgSend_isEqualToString_(queryCopy))
     {
       [(UITextSearchingFindSession *)self _replaceHighlightedTextRangeWithReplacementString:stringCopy];
     }
@@ -384,15 +384,15 @@ void __61__UITextSearchingFindSession_highlightNextResultInDirection___block_inv
   }
 }
 
-uint64_t __96__UITextSearchingFindSession_performSingleReplacementWithSearchQuery_replacementString_options___block_invoke(uint64_t a1)
+void *__96__UITextSearchingFindSession_performSingleReplacementWithSearchQuery_replacementString_options___block_invoke(uint64_t a1, const char *a2)
 {
-  result = [*(a1 + 32) isEqualToString:*(*(a1 + 40) + 128)];
+  result = objc_msgSend_isEqualToString_(*(a1 + 32), a2, *(*(a1 + 40) + 128));
   if (result)
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 48);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
 
-    return [v3 _replaceHighlightedTextRangeWithReplacementString:v4];
+    return [v4 _replaceHighlightedTextRangeWithReplacementString:v5];
   }
 
   return result;
@@ -424,7 +424,7 @@ uint64_t __96__UITextSearchingFindSession_performSingleReplacementWithSearchQuer
       selfCopy = self;
       v18 = stringCopy;
       v11 = _Block_copy(&v13);
-      if ([queryCopy isEqualToString:{self->_lastSearchQuery, v13, v14, v15, v16, selfCopy}] && -[UITextSearchingFindSession _hasResults](self, "_hasResults"))
+      if (objc_msgSend_isEqualToString_(queryCopy, v13, v14, v15, v16, selfCopy) && [(UITextSearchingFindSession *)self _hasResults])
       {
         v11[2](v11);
       }
@@ -831,7 +831,7 @@ LABEL_30:
   }
 
   firstObject2 = [v8 objectAtIndex:v13];
-  if ([firstObject2 isEqual:selectedTextRange] && v11 < objc_msgSend(v8, "count") - 1)
+  if (objc_msgSend_isEqual_(firstObject2) && v11 < [v8 count] - 1)
   {
     v15 = [v8 objectAtIndex:v11 + 1];
 
@@ -847,9 +847,9 @@ LABEL_30:
     endOfDocument = [v18 endOfDocument];
 
     start = [selectedTextRange start];
-    v21 = [start isEqual:endOfDocument];
+    isEqual = objc_msgSend_isEqual_(start);
 
-    if (v21)
+    if (isEqual)
     {
       firstObject = [v8 firstObject];
 
@@ -1271,7 +1271,7 @@ uint64_t __62__UITextSearchingFindSession__textRangeComparatorForDocument___bloc
   v9 = [(NSMutableDictionary *)sortedResultsByDocument objectForKey:documentCopy];
   [v9 removeObject:rangeCopy];
 
-  LODWORD(v9) = [rangeCopy isEqual:self->_highlightedTextRange];
+  LODWORD(v9) = objc_msgSend_isEqual_(rangeCopy);
   if (v9)
   {
     [(UITextSearchingFindSession *)self highlightNextResultInDirection:0];

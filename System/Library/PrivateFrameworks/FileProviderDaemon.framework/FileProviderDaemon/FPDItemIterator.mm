@@ -64,14 +64,11 @@
 
 - (void)_popFolder
 {
-  v9 = *MEMORY[0x1E69E9840];
   lastObject = [*(self + 64) lastObject];
   parentItem = [lastObject parentItem];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pushFolder:(id)folder
@@ -103,25 +100,25 @@
 
 - (BOOL)_createEnumerator
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   lastObject = [(NSMutableArray *)self->_enumeratorByDepth lastObject];
   parentItem = [lastObject parentItem];
   providerItemID = [parentItem providerItemID];
   [v3 setEnumeratedItemID:providerItemID];
 
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__1;
-  v51 = __Block_byref_object_dispose__1;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__1;
-  v45 = __Block_byref_object_dispose__1;
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__1;
+  v50 = __Block_byref_object_dispose__1;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__1;
+  v44 = __Block_byref_object_dispose__1;
+  v45 = 0;
   v7 = fp_current_or_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
@@ -134,55 +131,55 @@
 
   if (v10)
   {
-    v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ only enumerating items is supported"];
-    v29 = fp_current_or_default_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ASSERT] ‼️ only enumerating items is supported"];
+    v28 = fp_current_or_default_log();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
       +[FPDVolume prettyNameForDomain:];
     }
 
-    v30 = v28;
-    __assert_rtn("-[FPDItemIterator _createEnumerator]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/FPDItemIterator.m", 127, [v28 UTF8String]);
+    v29 = v27;
+    __assert_rtn("-[FPDItemIterator _createEnumerator]", "/Library/Caches/com.apple.xbs/Sources/FileProviderTools/fileproviderd/action operation engine/FPDItemIterator.m", 127, [v27 UTF8String]);
   }
 
   enumeratedItemID3 = [v3 enumeratedItemID];
   domainIdentifier = [enumeratedItemID3 domainIdentifier];
 
-  v40 = 0;
+  v39 = 0;
   WeakRetained = objc_loadWeakRetained(&self->_provider);
-  v14 = [WeakRetained domainForIdentifier:domainIdentifier reason:&v40];
+  v14 = [WeakRetained domainForIdentifier:domainIdentifier reason:&v39];
 
   if (!v14)
   {
     v15 = FPProviderNotFoundError();
-    v16 = v42[5];
-    v42[5] = v15;
+    v16 = v41[5];
+    v41[5] = v15;
   }
 
   session = [v14 session];
   v18 = [session newFileProviderProxyWithTimeout:0 pid:180.0];
   synchronousRemoteObjectProxy = [v18 synchronousRemoteObjectProxy];
-  v31 = MEMORY[0x1E69E9820];
-  v32 = 3221225472;
-  v33 = __36__FPDItemIterator__createEnumerator__block_invoke;
-  v34 = &unk_1E83BEE98;
-  v38 = &v41;
+  v30 = MEMORY[0x1E69E9820];
+  v31 = 3221225472;
+  v32 = __36__FPDItemIterator__createEnumerator__block_invoke;
+  v33 = &unk_1E83BEE98;
+  v37 = &v40;
   v20 = v3;
-  v35 = v20;
-  v39 = &v47;
+  v34 = v20;
+  v38 = &v46;
   v21 = v14;
-  v36 = v21;
+  v35 = v21;
   selfCopy = self;
-  [synchronousRemoteObjectProxy fetchAndStartEnumeratingWithSettings:v20 observer:self request:0 completionHandler:&v31];
+  [synchronousRemoteObjectProxy fetchAndStartEnumeratingWithSettings:v20 observer:self request:0 completionHandler:&v30];
 
-  v22 = v42[5];
-  v23 = v48[5];
+  v22 = v41[5];
+  v23 = v47[5];
   if (v22)
   {
     if (v23)
     {
 LABEL_14:
-      [(FPDItemIterator *)self _invalidateWithError:v22, v31, v32, v33, v34, v35];
+      [(FPDItemIterator *)self _invalidateWithError:v22, v30, v31, v32, v33, v34];
       v24 = 0;
       goto LABEL_15;
     }
@@ -194,7 +191,7 @@ LABEL_11:
       [(FPDItemIterator *)v25 _createEnumerator];
     }
 
-    v22 = v42[5];
+    v22 = v41[5];
     goto LABEL_14;
   }
 
@@ -203,15 +200,14 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  [lastObject setEnumerator:{v48[5], v31, v32, v33, v34, v35}];
+  [lastObject setEnumerator:{v47[5], v30, v31, v32, v33, v34}];
   [lastObject setNextPage:*MEMORY[0x1E6967208]];
   v24 = 1;
 LABEL_15:
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -419,7 +415,7 @@ uint64_t __38__FPDItemIterator__enumerateMoreItems__block_invoke_94(uint64_t a1,
 
 - (void)_decorateItem:(id)item
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if (-[FPDIterator shouldDecorateItems](self, "shouldDecorateItems") || [itemCopy isFolder] && -[FPDIterator skipMaterializedTreeTraversal](self, "skipMaterializedTreeTraversal"))
   {
@@ -439,28 +435,26 @@ uint64_t __38__FPDItemIterator__enumerateMoreItems__block_invoke_94(uint64_t a1,
 
       v10 = objc_loadWeakRetained(&self->_domain);
       defaultBackend2 = [v10 defaultBackend];
-      v18[0] = itemCopy;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __33__FPDItemIterator__decorateItem___block_invoke;
-      v15[3] = &unk_1E83BEF10;
-      v16 = itemCopy;
-      v17 = v8;
+      v17[0] = itemCopy;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __33__FPDItemIterator__decorateItem___block_invoke;
+      v14[3] = &unk_1E83BEF10;
+      v15 = itemCopy;
+      v16 = v8;
       v13 = v8;
-      [defaultBackend2 decorateItems:v12 completionHandler:v15];
+      [defaultBackend2 decorateItems:v12 completionHandler:v14];
 
       dispatch_group_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __33__FPDItemIterator__decorateItem___block_invoke(uint64_t a1)
+void __33__FPDItemIterator__decorateItem___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __33__FPDItemIterator__decorateItem___block_invoke_cold_1(a1);
   }
@@ -507,12 +501,10 @@ void __33__FPDItemIterator__decorateItem___block_invoke(uint64_t a1)
 
 - (void)_next
 {
-  v7 = *MEMORY[0x1E69E9840];
   [*(self + 72) count];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)nextWithError:(id *)error
@@ -661,76 +653,65 @@ void __33__FPDItemIterator_nextWithError___block_invoke(uint64_t a1)
 
 void __36__FPDItemIterator__createEnumerator__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(*(*a2 + 8) + 40) fp_prettyDescription];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v4, v5, "[ERROR] couldn't get enumerator for %@ from extension: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v4, v5, "[ERROR] couldn't get enumerator for %@ from extension: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)_enumerateMoreItems
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   parentItem = [self parentItem];
   itemID = [parentItem itemID];
   nextPage = [self nextPage];
-  v8 = 138412546;
-  v9 = itemID;
+  v7 = 138412546;
+  v8 = itemID;
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] iterator: enumerating more items starting in %@ starting at %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] iterator: enumerating more items starting in %@ starting at %@", &v7, 0x16u);
 }
 
 void __38__FPDItemIterator__enumerateMoreItems__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] iterator: failed with %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] iterator: failed with %@", v1, 0xCu);
 }
 
 void __38__FPDItemIterator__enumerateMoreItems__block_invoke_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 count];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_decorateItem:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [a1 isDownloaded];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __33__FPDItemIterator__decorateItem___block_invoke_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) isDownloaded];
   OUTLINED_FUNCTION_1_7();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invalidateWithError:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = [*(a2 + 64) firstObject];
-  v3 = [v2 parentItem];
+  v3 = [*(a2 + 64) firstObject];
+  v4 = [v3 parentItem];
+  LODWORD(v11) = 138412546;
+  *(&v11 + 4) = a1;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v4, v5, "[ERROR] invalidating iterator of %@ with error: %@", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_1CEFC7000, v5, v6, "[ERROR] invalidating iterator of %@ with error: %@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

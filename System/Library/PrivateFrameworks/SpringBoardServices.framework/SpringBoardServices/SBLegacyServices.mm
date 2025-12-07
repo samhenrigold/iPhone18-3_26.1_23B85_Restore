@@ -31,9 +31,10 @@ uint64_t __30__SBLegacyServices__configure__block_invoke(uint64_t a1)
   dispatch_set_qos_class_fallback();
   dispatch_activate(__SharedWorkloop);
   [*(a1 + 32) checkInPorts];
-  __FunctionMap = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:770 valueOptions:258];
+  v4 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:770 valueOptions:258];
+  __FunctionMap = v4;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v4);
 }
 
 + (void)checkInPorts
@@ -78,8 +79,7 @@ void __32__SBLegacyServices_checkInPorts__block_invoke()
 
 + (void)start
 {
-  [self _configure];
-  v2 = SBLogCommon();
+  v2 = SBLogCommon([self _configure]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *v3 = 0;
@@ -119,7 +119,7 @@ void __25__SBLegacyServices_start__block_invoke()
 
 void __42__SBLegacyServices_setFunction_forSymbol___block_invoke(uint64_t a1)
 {
-  v2 = SBLogCommon();
+  v2 = SBLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __42__SBLegacyServices_setFunction_forSymbol___block_invoke_cold_1(a1, v2);

@@ -20,6 +20,7 @@
 - (void)dealloc;
 - (void)implCloseSelectableChannel;
 - (void)onBindWithBoolean:(BOOL)boolean;
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int withBoolean:(BOOL)boolean;
 - (void)onDisconnectWithBoolean:(BOOL)boolean;
 @end
 
@@ -251,6 +252,24 @@ LABEL_13:
   return self;
 }
 
+- (void)onConnectWithJavaNetInetAddress:(id)address withInt:(int)int withBoolean:(BOOL)boolean
+{
+  booleanCopy = boolean;
+  v6 = *&int;
+  HIBYTE(self->localAddress_) = 1;
+  v9 = new_JavaNetInetSocketAddress_initWithJavaNetInetAddress_withInt_(address, int);
+  JreStrongAssignAndConsume((&self->super.super.blockingLock_ + 7), v9);
+  if (booleanCopy)
+  {
+    v10 = *(&self->fd_ + 7);
+    if (v10)
+    {
+
+      [v10 onConnectWithJavaNetInetAddress:address withInt:v6];
+    }
+  }
+}
+
 - (id)disconnect
 {
   objc_sync_enter(self);
@@ -341,7 +360,7 @@ LABEL_13:
 
 - (int)sendWithJavaNioByteBuffer:(id)buffer withJavaNetSocketAddress:(id)address
 {
-  sub_100172474(buffer);
+  sub_100172474(buffer, a2);
   [JavaNioDatagramChannelImpl checkOpen]_0(self);
   objc_opt_class();
   if (!address)
@@ -374,7 +393,6 @@ LABEL_15:
 
   if (([v7 isEqual:address] & 1) == 0)
   {
-    v22 = *(&self->super.super.blockingLock_ + 7);
     v21 = JreStrcat("$@$@", v8, v9, v10, v11, v12, v13, v14, @"Connected to ");
     v20 = new_JavaLangIllegalArgumentException_initWithNSString_(v21);
 LABEL_18:
@@ -468,10 +486,10 @@ LABEL_7:
     goto LABEL_18;
   }
 
-  intCopy = int;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  v6 = *&int;
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   [JavaNioDatagramChannelImpl checkOpenConnected]_0(self);
-  v9 = JavaNioFileChannelImpl_calculateTotalRemainingWithJavaNioByteBufferArray_withInt_withInt_withBoolean_(array, intCopy, withInt, 1);
+  v9 = JavaNioFileChannelImpl_calculateTotalRemainingWithJavaNioByteBufferArray_withInt_withInt_withBoolean_(array, v6, withInt, 1);
   if (!v9)
   {
     return 0;
@@ -493,12 +511,12 @@ LABEL_7:
     while (1)
     {
       v23 = *(array + 2);
-      if (intCopy < 0 || intCopy >= v23)
+      if ((v6 & 0x80000000) != 0 || v6 >= v23)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v23, intCopy);
+        IOSArray_throwOutOfBoundsWithMsg(v23, v6);
       }
 
-      v24 = *(array + intCopy + 3);
+      v24 = *(array + v6 + 3);
       if (!v24)
       {
         break;
@@ -506,19 +524,19 @@ LABEL_7:
 
       v25 = JavaLangMath_minWithInt_withInt_([v24 remaining], v22);
       v26 = *(array + 2);
-      if (intCopy < 0 || intCopy >= v26)
+      if ((v6 & 0x80000000) != 0 || v6 >= v26)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v26, intCopy);
+        IOSArray_throwOutOfBoundsWithMsg(v26, v6);
       }
 
-      v27 = *(array + intCopy + 3);
+      v27 = *(array + v6 + 3);
       if (!v27)
       {
         break;
       }
 
       [v27 putWithByteArray:v21 withInt:(v19 - v22) withInt:v25];
-      ++intCopy;
+      LODWORD(v6) = v6 + 1;
       v22 -= v25;
       if (v22 <= 0)
       {
@@ -535,7 +553,7 @@ LABEL_18:
 
 - (int)writeWithJavaNioByteBuffer:(id)buffer
 {
-  sub_100172474(buffer);
+  sub_100172474(buffer, a2);
   [JavaNioDatagramChannelImpl checkOpenConnected]_0(self);
   if (!buffer)
   {
@@ -563,10 +581,10 @@ LABEL_18:
     goto LABEL_23;
   }
 
-  intCopy = int;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  v6 = *&int;
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   [JavaNioDatagramChannelImpl checkOpenConnected]_0(self);
-  v9 = JavaNioFileChannelImpl_calculateTotalRemainingWithJavaNioByteBufferArray_withInt_withInt_withBoolean_(array, intCopy, withInt, 0);
+  v9 = JavaNioFileChannelImpl_calculateTotalRemainingWithJavaNioByteBufferArray_withInt_withInt_withBoolean_(array, v6, withInt, 0);
   if (!v9)
   {
     return 0;
@@ -574,12 +592,12 @@ LABEL_18:
 
   v17 = JavaNioByteBuffer_allocateWithInt_(v9, v10, v11, v12, v13, v14, v15, v16);
   v18 = v17;
-  v19 = withInt + intCopy;
-  if (withInt + intCopy > intCopy)
+  v19 = withInt + v6;
+  if (withInt + v6 > v6)
   {
-    v20 = intCopy;
+    v20 = v6;
     v21 = v19;
-    v22 = array + 8 * intCopy;
+    v22 = array + 8 * v6;
     while (1)
     {
       v23 = *(array + 2);
@@ -629,23 +647,23 @@ LABEL_14:
     v30 = v28;
     while (1)
     {
-      v31 = intCopy;
+      v31 = v6;
       v32 = *(array + 2);
-      if (intCopy < 0 || intCopy >= v32)
+      if ((v6 & 0x80000000) != 0 || v6 >= v32)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v32, intCopy);
+        IOSArray_throwOutOfBoundsWithMsg(v32, v6);
       }
 
-      v33 = *(array + intCopy + 3);
-      if (!v33)
+      v6 = *(array + v6 + 3);
+      if (!v6)
       {
         break;
       }
 
-      v34 = JavaLangMath_minWithInt_withInt_(v30, [*(array + v31 + 3) remaining]);
-      [v33 positionWithInt:{objc_msgSend(v33, "position") + v34}];
-      intCopy = v31 + 1;
-      v30 = (v30 - v34);
+      v33 = JavaLangMath_minWithInt_withInt_(v30, [*(array + v31 + 3) remaining]);
+      [v6 positionWithInt:{objc_msgSend(v6, "position") + v33}];
+      LODWORD(v6) = v31 + 1;
+      v30 = (v30 - v33);
       if (v30 <= 0)
       {
         return v29;

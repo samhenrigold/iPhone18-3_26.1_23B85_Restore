@@ -41,15 +41,15 @@
 - (void)_installViewComponentsAndRegisterIfAble
 {
   v16 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (result)
   {
-    if ((*(self + 32) & 0x10) != 0)
+    if ((*(result + 32) & 0x10) != 0)
     {
-      WeakRetained = objc_loadWeakRetained((self + 40));
-      [(UIView *)WeakRetained _addGeometryChangeObserver:self];
+      WeakRetained = objc_loadWeakRetained((result + 40));
+      [(UIView *)WeakRetained _addGeometryChangeObserver:?];
     }
 
-    v3 = objc_loadWeakRetained((self + 40));
+    v3 = objc_loadWeakRetained((result + 40));
 
     if (v3)
     {
@@ -57,7 +57,7 @@
       v14 = 0u;
       v11 = 0u;
       v12 = 0u;
-      v4 = *(self + 8);
+      v4 = *(result + 8);
       v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
@@ -73,7 +73,7 @@
             }
 
             v9 = *(*(&v11 + 1) + 8 * i);
-            v10 = objc_loadWeakRetained((self + 40));
+            v10 = objc_loadWeakRetained((result + 40));
             [v9 _installToViewIfNeeded:{v10, v11}];
           }
 
@@ -84,7 +84,7 @@
       }
     }
 
-    [(_UIPhysicalButtonInteraction *)self _registerWithArbiterIfAble];
+    [(_UIPhysicalButtonInteraction *)result _registerWithArbiterIfAble];
   }
 }
 
@@ -150,15 +150,15 @@ LABEL_8:
 - (void)_uninstallViewComponentsAndUnregister
 {
   v16 = *MEMORY[0x1E69E9840];
-  if (self)
+  if (result)
   {
-    if ((*(self + 32) & 0x10) != 0)
+    if ((*(result + 32) & 0x10) != 0)
     {
-      WeakRetained = objc_loadWeakRetained((self + 40));
-      [(UIView *)WeakRetained _removeGeometryChangeObserver:self];
+      WeakRetained = objc_loadWeakRetained((result + 40));
+      [(UIView *)WeakRetained _removeGeometryChangeObserver:?];
     }
 
-    v3 = objc_loadWeakRetained((self + 40));
+    v3 = objc_loadWeakRetained((result + 40));
 
     if (v3)
     {
@@ -166,7 +166,7 @@ LABEL_8:
       v14 = 0u;
       v11 = 0u;
       v12 = 0u;
-      v4 = *(self + 8);
+      v4 = *(result + 8);
       v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
@@ -182,7 +182,7 @@ LABEL_8:
             }
 
             v9 = *(*(&v11 + 1) + 8 * i);
-            v10 = objc_loadWeakRetained((self + 40));
+            v10 = objc_loadWeakRetained((result + 40));
             [v9 _uninstallFromViewIfNeeded:{v10, v11}];
           }
 
@@ -193,7 +193,7 @@ LABEL_8:
       }
     }
 
-    [(_UIPhysicalButtonInteraction *)self _unregisterFromArbiter];
+    [(_UIPhysicalButtonInteraction *)result _unregisterFromArbiter];
   }
 }
 
@@ -460,9 +460,9 @@ LABEL_3:
   {
     if (nameCopy && v9)
     {
-      v6 = [(NSString *)v9 isEqual:nameCopy];
+      isEqual = objc_msgSend_isEqual_(v9);
 
-      if (v6)
+      if (isEqual)
       {
         return;
       }
@@ -553,7 +553,7 @@ LABEL_3:
     interactionFlags = self->_interactionFlags;
     v10 = [_UIPhysicalButtonConfigurationSet _configurationSetFromNSSet:configurations];
     v11 = [(_UIPhysicalButtonInteraction *)self _propagatePropertiesToConfigurationSetReturningIfHasExclusiveBehavior:v10];
-    if (![(_UIPhysicalButtonConfigurationSet *)currentHandler2 isEqual:v10])
+    if ((objc_msgSend_isEqual_(currentHandler2) & 1) == 0)
     {
       arbiterRegistrationToken = self->_arbiterRegistrationToken;
       if (arbiterRegistrationToken)

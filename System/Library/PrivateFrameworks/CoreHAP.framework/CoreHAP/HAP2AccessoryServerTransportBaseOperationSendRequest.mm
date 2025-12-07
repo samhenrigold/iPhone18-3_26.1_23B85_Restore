@@ -7,35 +7,35 @@
 
 - (void)main
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (self && (v3 = self->super._transport) != 0)
   {
-    v20 = v3;
+    v18 = v3;
     selfCopy = self;
-    operationQueue = [(HAP2AccessoryServerTransportBase *)v20 operationQueue];
+    operationQueue = [(HAP2AccessoryServerTransportBase *)v18 operationQueue];
     [operationQueue assertCurrentQueue];
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__6734;
-    v30 = __Block_byref_object_dispose__6735;
-    v31 = 0;
-    v22 = 0;
-    v23 = &v22;
-    v24 = 0x2020000000;
-    v25 = 0;
-    propertyLock = [(HAP2AccessoryServerTransportBase *)v20 propertyLock];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_invoke;
-    v21[3] = &unk_2786D4688;
-    v21[4] = v20;
-    v21[5] = &v26;
-    v21[6] = &v22;
-    [propertyLock performReadingBlock:v21];
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__6734;
+    v28 = __Block_byref_object_dispose__6735;
+    v29 = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2020000000;
+    v23 = 0;
+    propertyLock = [(HAP2AccessoryServerTransportBase *)v18 propertyLock];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_invoke;
+    v19[3] = &unk_2786D4688;
+    v19[4] = v18;
+    v19[5] = &v24;
+    v19[6] = &v20;
+    [propertyLock performReadingBlock:v19];
 
-    if (v27[5])
+    if (v25[5])
     {
       if (hap2LogInitialize_onceToken != -1)
       {
@@ -46,62 +46,62 @@
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *&buf[4] = v20;
+        *&buf[4] = v18;
         _os_log_error_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%@ (Base) Not sending while a close is enqueued", buf, 0xCu);
       }
 
-      [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v27[5], v20];
+      [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v25[5], v18];
     }
 
     else
     {
-      if (v23[3])
+      if (v21[3])
       {
         if (hap2LogInitialize_onceToken != -1)
         {
           dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
         }
 
-        v9 = hap2Log_accessory;
+        v8 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
         {
           request = selfCopy->_request;
           *buf = 138412546;
-          *&buf[4] = v20;
+          *&buf[4] = v18;
           *&buf[12] = 2112;
           *&buf[14] = request;
-          v11 = v9;
-          _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%@ (Base) Sending request %@", buf, 0x16u);
+          v10 = v8;
+          _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%@ (Base) Sending request %@", buf, 0x16u);
         }
 
-        v12 = selfCopy->_request;
+        v11 = selfCopy->_request;
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_invoke_33;
-        v37 = &unk_2786D3DA0;
-        v13 = selfCopy;
-        v38 = v13;
-        v39 = v20;
-        [(HAP2AccessoryServerTransportBase *)v20 doSendRequest:v12 completion:buf];
+        v35 = &unk_2786D3DA0;
+        v12 = selfCopy;
+        v36 = v12;
+        v37 = v18;
+        [(HAP2AccessoryServerTransportBase *)v18 doSendRequest:v11 completion:buf];
 
         if (hap2LogInitialize_onceToken != -1)
         {
           dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
         }
 
-        v14 = hap2Log_accessory;
+        v13 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
         {
-          v18 = v13->_request;
-          *v32 = 138412546;
-          v33 = v20;
-          v34 = 2112;
-          v35 = v18;
-          v19 = v14;
-          _os_log_debug_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "%@ (Base) Sent request %@", v32, 0x16u);
+          v16 = v12->_request;
+          *v30 = 138412546;
+          v31 = v18;
+          v32 = 2112;
+          v33 = v16;
+          v17 = v13;
+          _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%@ (Base) Sent request %@", v30, 0x16u);
         }
 
-        v15 = v38;
+        v14 = v36;
       }
 
       else
@@ -111,28 +111,25 @@
           dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
         }
 
-        v16 = hap2Log_accessory;
+        v15 = hap2Log_accessory;
         if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v20;
-          _os_log_error_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%@ (Base) Cannot send when not open", buf, 0xCu);
+          *&buf[4] = v18;
+          _os_log_error_impl(&dword_22AADC000, v15, OS_LOG_TYPE_ERROR, "%@ (Base) Cannot send when not open", buf, 0xCu);
         }
 
-        v15 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"HAP2AccessoryServer cannot send request when transport not open" reason:@"HAP2AccessoryServerTransport state != HAP2AccessoryServerTransportStateOpen when calling sendRequestWithOperation" suggestion:0 underlyingError:0 marker:{104, v20}];
-        [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v15];
+        v14 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"HAP2AccessoryServer cannot send request when transport not open" reason:@"HAP2AccessoryServerTransport state != HAP2AccessoryServerTransportStateOpen when calling sendRequestWithOperation" suggestion:0 underlyingError:0 marker:{104, v18}];
+        [(HAP2AsynchronousOperation *)selfCopy cancelWithError:v14];
       }
     }
 
-    _Block_object_dispose(&v22, 8);
-    _Block_object_dispose(&v26, 8);
-
-    v17 = *MEMORY[0x277D85DE8];
+    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v24, 8);
   }
 
   else
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [(HAP2AsynchronousOperation *)self cancel];
   }

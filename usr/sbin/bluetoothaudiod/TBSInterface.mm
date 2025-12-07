@@ -1,5 +1,8 @@
 @interface TBSInterface
 - (TBSInterface)initWithPeripheral:(id)peripheral service:(id)service;
+- (id)callStateToString:(unsigned __int8)string;
+- (id)opcodesToString:(unsigned __int8)string;
+- (void)didRequestCallControlPointWrite:(unsigned __int8)write parameter:(id)parameter;
 - (void)didRequestCallListRead;
 - (void)handleCallControlPointResultUpdate;
 - (void)handleCallStateUpdate;
@@ -549,6 +552,103 @@ LABEL_65:
     *v3 = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "xpc session requested call list read", v3, 2u);
   }
+}
+
+- (void)didRequestCallControlPointWrite:(unsigned __int8)write parameter:(id)parameter
+{
+  writeCopy = write;
+  parameterCopy = parameter;
+  v7 = qword_1000A9FE0;
+  if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+  {
+    v24 = 136315650;
+    v25 = "[TBSInterface didRequestCallControlPointWrite:parameter:]";
+    v26 = 1024;
+    *v27 = writeCopy;
+    *&v27[4] = 2112;
+    *&v27[6] = parameterCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s : opcode %d, array %@", &v24, 0x1Cu);
+  }
+
+  if (writeCopy <= 1)
+  {
+    v8 = qword_1000A9FE0;
+    if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v8;
+      v10 = [(TBSInterface *)self opcodesToString:writeCopy];
+      firstObject = [parameterCopy firstObject];
+      v24 = 136315650;
+      v25 = "[TBSInterface didRequestCallControlPointWrite:parameter:]";
+      v26 = 2112;
+      *v27 = v10;
+      *&v27[8] = 2112;
+      *&v27[10] = firstObject;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%s : opcode %@  parameters first Object is %@", &v24, 0x20u);
+    }
+
+    firstObject2 = [parameterCopy firstObject];
+    v13 = firstObject2;
+    if (firstObject2)
+    {
+      unsignedCharValue = [firstObject2 unsignedCharValue];
+      v15 = [DataOutputStream outputStreamWithByteOrder:1];
+      [v15 writeUint8:writeCopy];
+      [v15 writeUint8:unsignedCharValue];
+      v16 = qword_1000A9FE0;
+      if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = v16;
+        v18 = [(TBSInterface *)self opcodesToString:writeCopy];
+        data = [v15 data];
+        v20 = [data length];
+        v24 = 136315906;
+        v25 = "[TBSInterface didRequestCallControlPointWrite:parameter:]";
+        v26 = 2112;
+        *v27 = v18;
+        *&v27[8] = 1024;
+        *&v27[10] = unsignedCharValue;
+        *&v27[14] = 2048;
+        *&v27[16] = v20;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%s : Call control point write opcode: %@ | param: %d | total len: %lu", &v24, 0x26u);
+      }
+
+      peripheral = [(ServiceInterface *)self peripheral];
+      data2 = [v15 data];
+      callControlPointCharacteristic = [(TBSInterface *)self callControlPointCharacteristic];
+      [peripheral writeValue:data2 forCharacteristic:callControlPointCharacteristic type:1];
+    }
+  }
+}
+
+- (id)opcodesToString:(unsigned __int8)string
+{
+  if (string >= 6u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN TBS CALL CONTROL OPCODE: %u", string];
+  }
+
+  else
+  {
+    string = *(&off_100095D48 + string);
+  }
+
+  return string;
+}
+
+- (id)callStateToString:(unsigned __int8)string
+{
+  if (string >= 7u)
+  {
+    string = [NSString stringWithFormat:@"UNKNOWN CALL STATE: %d", string];
+  }
+
+  else
+  {
+    string = *(&off_100095D78 + string);
+  }
+
+  return string;
 }
 
 @end

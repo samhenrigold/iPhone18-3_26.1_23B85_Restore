@@ -381,12 +381,13 @@ void __59__WGWidgetVisibilityManager_isWidgetWithIdentifierVisible___block_invok
     [(WGWidgetVisibilityManager *)self _updateWidgetVisibilityPreference:identifier];
   }
 
-  if (_os_feature_enabled_impl())
+  v15 = _os_feature_enabled_impl();
+  if (v15)
   {
-    v15 = WGWidgetVisibilityManagerFirstPartyAvocadoBlackList();
-    v16 = [v15 containsObject:identifier];
+    v16 = WGWidgetVisibilityManagerFirstPartyAvocadoBlackList(v15);
+    v17 = [v16 containsObject:identifier];
 
-    if (v16)
+    if (v17)
     {
       [(NSMutableSet *)self->_visibilityOverridenIdentifiers addObject:identifier];
       [(WGWidgetVisibilityManager *)self _updateWidgetVisibilityPreference:identifier];
@@ -400,36 +401,37 @@ void __59__WGWidgetVisibilityManager_isWidgetWithIdentifierVisible___block_invok
   v5 = [(NSMutableDictionary *)self->_visibilityPreferenceByIdentifier objectForKey:preferenceCopy];
   bOOLValue = [v5 BOOLValue];
   keyExistsAndHasValidFormat = 0;
-  if (_os_feature_enabled_impl())
+  v7 = _os_feature_enabled_impl();
+  if (v7)
   {
-    v7 = WGWidgetVisibilityManagerFirstPartyAvocadoBlackList();
-    v8 = [v7 containsObject:preferenceCopy];
+    v8 = WGWidgetVisibilityManagerFirstPartyAvocadoBlackList(v7);
+    v9 = [v8 containsObject:preferenceCopy];
 
-    if (v8)
+    if (v9)
     {
-      v9 = 0;
+      v10 = 0;
       keyExistsAndHasValidFormat = 1;
 LABEL_5:
       visibilityPreferenceByIdentifier = self->_visibilityPreferenceByIdentifier;
-      v12 = [MEMORY[0x277CCABB0] numberWithBool:v9];
-      [(NSMutableDictionary *)visibilityPreferenceByIdentifier setObject:v12 forKey:preferenceCopy];
+      v13 = [MEMORY[0x277CCABB0] numberWithBool:v10];
+      [(NSMutableDictionary *)visibilityPreferenceByIdentifier setObject:v13 forKey:preferenceCopy];
 
-      v10 = keyExistsAndHasValidFormat;
+      v11 = keyExistsAndHasValidFormat;
       goto LABEL_6;
     }
   }
 
-  v9 = CFPreferencesGetAppBooleanValue(@"SBIconVisibility", preferenceCopy, &keyExistsAndHasValidFormat) != 0;
-  v10 = keyExistsAndHasValidFormat;
+  v10 = CFPreferencesGetAppBooleanValue(@"SBIconVisibility", preferenceCopy, &keyExistsAndHasValidFormat) != 0;
+  v11 = keyExistsAndHasValidFormat;
   if (keyExistsAndHasValidFormat)
   {
     goto LABEL_5;
   }
 
 LABEL_6:
-  v13 = v10 != (v5 != 0) || bOOLValue != v9;
+  v14 = v11 != (v5 != 0) || bOOLValue != v10;
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)_updateWidgetVisibilityPreferences

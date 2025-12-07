@@ -98,7 +98,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Starting to renew MBS lock", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Starting to renew MBS lock");
   }
 
   queue = self->_queue;
@@ -117,7 +117,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Resetting MBS lock timer", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Resetting MBS lock timer");
   }
 
   queue = self->_queue;
@@ -136,7 +136,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Stopping renewing MBS lock", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "Stopping renewing MBS lock");
   }
 
   queue = self->_queue;
@@ -156,7 +156,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Re-acquiring lock", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Re-acquiring lock");
   }
 
   v6 = [(MBService *)self->_service lockForBackupUDID:self->_backupUDID];
@@ -212,8 +212,7 @@ LABEL_17:
       *buf = 138412290;
       v17 = v14;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to re-acquire lock: %@", buf, 0xCu);
-      [MBError descriptionForError:v15];
-      _MBLog();
+      _MBLog(@"Df", "Failed to re-acquire lock: %@", [MBError descriptionForError:v15]);
     }
 
     if (error)
@@ -230,7 +229,7 @@ LABEL_17:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Re-acquired lock", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Re-acquired lock");
   }
 
   return 1;
@@ -299,7 +298,7 @@ LABEL_17:
   {
     *v6 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Releasing lock", v6, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Releasing lock");
   }
 
   v4 = [(MBService *)self->_service lockForBackupUDID:self->_backupUDID];
@@ -339,7 +338,7 @@ LABEL_17:
     *buf = 134217984;
     intervalCopy = interval;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Scheduled MBS lock timer in %0.1f s", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"I ", "Scheduled MBS lock timer in %0.1f s", interval);
   }
 }
 
@@ -350,7 +349,7 @@ LABEL_17:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "MBS lock timer fired", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "MBS lock timer fired");
   }
 
   queue = self->_queue;
@@ -364,15 +363,15 @@ LABEL_17:
 
 - (double)_holdLock
 {
-  v8 = 0;
-  if ([(MBService *)self->_service backupForUDID:self->_backupUDID lastModified:0 error:&v8])
+  v7 = 0;
+  if ([(MBService *)self->_service backupForUDID:self->_backupUDID lastModified:0 error:&v7])
   {
     v3 = MBGetDefaultLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Renewed lock", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Renewed lock");
     }
 
     [(MBServiceLockManager *)self renewInterval];
@@ -380,7 +379,7 @@ LABEL_17:
 
   else
   {
-    if ([MBError isError:v8 withCode:306]&& self->_type == 1)
+    if ([MBError isError:v7 withCode:306]&& self->_type == 1)
     {
       [(MBServiceLockManager *)self _reacquireLockWithError:0];
     }
@@ -390,12 +389,11 @@ LABEL_17:
       v5 = MBGetDefaultLog();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = [MBError descriptionForError:v8];
+        v6 = [MBError descriptionForError:v7];
         *buf = 138412290;
-        v10 = v6;
+        v9 = v6;
         _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error renewing lock: %@", buf, 0xCu);
-        v7 = [MBError descriptionForError:v8];
-        _MBLog();
+        _MBLog(@"Df", "Error renewing lock: %@", [MBError descriptionForError:v7]);
       }
     }
 
@@ -407,8 +405,8 @@ LABEL_17:
 
 - (double)_releaseLock
 {
-  v12 = 0;
-  if ([(MBService *)self->_service restoreCompleteWithInfo:0 backupUDID:self->_backupUDID error:&v12])
+  v11 = 0;
+  if ([(MBService *)self->_service restoreCompleteWithInfo:0 backupUDID:self->_backupUDID error:&v11])
   {
     if ([(MBService *)self->_service lockForBackupUDID:self->_backupUDID])
     {
@@ -420,40 +418,38 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Released lock", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "Released lock");
     }
 
     [self->_delegate lockManagerDidReleaseLock:self];
     return 0.0;
   }
 
-  v5 = [MBError isError:v12 withCodes:4, 13, 305, 306, 0];
+  v5 = [MBError isError:v11 withCodes:4, 13, 305, 306, 0];
   v6 = MBGetDefaultLog();
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (v5)
   {
     if (v7)
     {
-      v8 = [MBError descriptionForError:v12];
+      v8 = [MBError descriptionForError:v11];
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Failed to release lock: %@", buf, 0xCu);
-      v11 = [MBError descriptionForError:v12];
-      _MBLog();
+      _MBLog(@"Df", "Failed to release lock: %@", [MBError descriptionForError:v11]);
     }
 
-    [self->_delegate lockManager:self failedToReleaseLockWithError:{v12, v11}];
+    [self->_delegate lockManager:self failedToReleaseLockWithError:v11];
     return 0.0;
   }
 
   if (v7)
   {
-    v10 = [MBError descriptionForError:v12];
+    v10 = [MBError descriptionForError:v11];
     *buf = 138412290;
-    v14 = v10;
+    v13 = v10;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Error releasing lock: %@", buf, 0xCu);
-    v11 = [MBError descriptionForError:v12];
-    _MBLog();
+    _MBLog(@"Df", "Error releasing lock: %@", [MBError descriptionForError:v11]);
   }
 
   [(MBServiceLockManager *)self retryInterval];

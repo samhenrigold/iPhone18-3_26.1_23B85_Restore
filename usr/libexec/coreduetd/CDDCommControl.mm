@@ -6,6 +6,7 @@
 - (id)deviceFromDeviceDescription:(id)description;
 - (id)identifierFromDeviceDescription:(id)description;
 - (id)requestDataFromDevice:(id)device message:(id)message;
+- (id)synchronize:(id)synchronize interval:(id)interval withForecasts:(BOOL)forecasts;
 - (void)addDevice:(id)device;
 - (void)checkDevices:(id)devices;
 - (void)checkForecastSync;
@@ -876,6 +877,106 @@ LABEL_53:
   v25 = v97;
   v20 = loga;
 LABEL_23:
+}
+
+- (id)synchronize:(id)synchronize interval:(id)interval withForecasts:(BOOL)forecasts
+{
+  forecastsCopy = forecasts;
+  synchronizeCopy = synchronize;
+  intervalCopy = interval;
+  WeakRetained = objc_loadWeakRetained(&self->cdd);
+  privacyMonitor = [WeakRetained privacyMonitor];
+  if (([privacyMonitor updateAllowed] & 1) == 0)
+  {
+
+    goto LABEL_7;
+  }
+
+  v12 = objc_loadWeakRetained(&self->cdd);
+  isClassCLocked = [v12 isClassCLocked];
+
+  if (isClassCLocked)
+  {
+LABEL_7:
+    v15 = +[_CDLogging communicatorChannel];
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+LABEL_10:
+      v24 = 0;
+      goto LABEL_11;
+    }
+
+    *buf = 0;
+    v25 = "CDDCommunicator: Either Background App refresh is disabled or device locked.";
+LABEL_9:
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v25, buf, 2u);
+    goto LABEL_10;
+  }
+
+  v14 = objc_loadWeakRetained(&self->comm);
+  v15 = [v14 getScheduledMessage:intervalCopy withForecasts:forecastsCopy];
+
+  if (!v15)
+  {
+    v15 = +[_CDLogging communicatorChannel];
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_10;
+    }
+
+    *buf = 0;
+    v25 = "CDDCommunicator: no blob, cannot continue.";
+    goto LABEL_9;
+  }
+
+  service = self->_service;
+  v34[0] = IDSSendMessageOptionExpectsPeerResponseKey;
+  v34[1] = IDSSendMessageOptionEnforceRemoteTimeoutsKey;
+  v35[0] = &__kCFBooleanTrue;
+  v35[1] = &__kCFBooleanFalse;
+  v34[2] = IDSSendMessageOptionTimeoutKey;
+  v17 = objc_loadWeakRetained(&self->cdd);
+  config = [v17 config];
+  v19 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [config commSyncBoundarySeconds]);
+  v35[2] = v19;
+  v35[3] = &__kCFBooleanTrue;
+  v34[3] = IDSSendMessageOptionBypassDuetKey;
+  v34[4] = IDSSendMessageOptionOpportunisticDuetKey;
+  v35[4] = &__kCFBooleanTrue;
+  v35[5] = @"DuetForecastExchange";
+  v34[5] = IDSSendMessageOptionQueueOneIdentifierKey;
+  v34[6] = IDSSendMessageOptionForceLocalDeliveryKey;
+  v35[6] = &__kCFBooleanTrue;
+  v20 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:7];
+  v30 = 0;
+  v31 = 0;
+  v21 = [(IDSService *)service sendData:v15 toDestinations:synchronizeCopy priority:200 options:v20 identifier:&v31 error:&v30];
+  v22 = v31;
+  v23 = v30;
+
+  if (v21)
+  {
+    v24 = v22;
+  }
+
+  else
+  {
+    v27 = +[_CDLogging communicatorChannel];
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    {
+      v28 = [v23 description];
+      uTF8String = [v28 UTF8String];
+      *buf = 136315138;
+      v33 = uTF8String;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "CDDCommunicator: synchronize: send error %s.", buf, 0xCu);
+    }
+
+    v24 = 0;
+  }
+
+LABEL_11:
+
+  return v24;
 }
 
 - (void)triggeredExchange:(id)exchange opportunistic:(BOOL)opportunistic queue:(id)queue timeout:(id)timeout urgent:(BOOL)urgent

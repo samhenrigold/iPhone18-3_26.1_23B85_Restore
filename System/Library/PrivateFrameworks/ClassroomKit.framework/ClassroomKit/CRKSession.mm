@@ -537,7 +537,7 @@ void __61__CRKSession_delegateDidBecomeNotConnectableAndDidLoseBeacon__block_inv
 - (void)delegateConnected
 {
   v14 = *MEMORY[0x277D85DE8];
-  v3 = _CRKLogSession();
+  v3 = _CRKLogSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     endpoint = [(CRKSession *)self endpoint];
@@ -623,7 +623,7 @@ void __34__CRKSession_delegateDisconnected__block_invoke(uint64_t a1)
 - (void)resetBackoff
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = _CRKLogSession();
+  v3 = _CRKLogSession(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     endpoint = [(CRKSession *)self endpoint];
@@ -683,12 +683,13 @@ void __34__CRKSession_delegateDisconnected__block_invoke(uint64_t a1)
 {
   operationCopy = operation;
   error = [operationCopy error];
+  v6 = error;
   if (error)
   {
-    v6 = _CRKLogSession();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogSession(error);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CRKSession *)self processFinishedTransportPreflightOperation:error, v6];
+      [(CRKSession *)self processFinishedTransportPreflightOperation:v6, v7];
     }
 
     [(CRKSession *)self failedToConnect];

@@ -1,5 +1,6 @@
 @interface STKYesNoSessionAction
 - (STKYesNoSessionAction)initWithBehavior:(id)behavior inputData:(id)data response:(id)response;
+- (void)sendSuccessWithSelectedResponse:(BOOL)response;
 @end
 
 @implementation STKYesNoSessionAction
@@ -22,21 +23,25 @@
 
 void __61__STKYesNoSessionAction_initWithBehavior_inputData_response___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v8 = a3;
+  v6 = a3;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v6 = *(a1 + 32);
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
-    v7 = v8;
+    v5 = v6;
   }
 
   else
   {
-    v7 = 0;
+    v5 = 0;
   }
 
-  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v7);
+  (*(*(a1 + 32) + 16))(*(a1 + 32), a2, v5);
+}
+
+- (void)sendSuccessWithSelectedResponse:(BOOL)response
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:response];
+  [(STKSessionAction *)self sendResponse:0 withContext:v4];
 }
 
 @end

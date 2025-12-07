@@ -23,59 +23,56 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMShortcutRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v6 = @"com.apple.siri.nl.autoshortcuts";
-  v7[0] = &unk_1F5819CA0;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = @"com.apple.siri.nl.autoshortcuts";
+  v6[0] = &unk_1F5819CA0;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v3 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v4 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (BOOL)hasAutoShortcutIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   usoGraph = [identifier usoGraph];
   identifiers = [usoGraph identifiers];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = identifiers;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     v8 = *MEMORY[0x1E69D24A0];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasValue])
         {
           value = [v10 value];
@@ -89,7 +86,7 @@
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -102,7 +99,6 @@
   v13 = 0;
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -136,55 +132,54 @@ LABEL_12:
 
 - (id)validateDenyListArray:(id)array
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v21 = "[CDMShortcutService validateDenyListArray:]";
-    v22 = 2112;
-    v23 = arrayCopy;
+    v19 = "[CDMShortcutService validateDenyListArray:]";
+    v20 = 2112;
+    v21 = arrayCopy;
     _os_log_debug_impl(&dword_1DC287000, v4, OS_LOG_TYPE_DEBUG, "%s AutoShortcut deny list content: %@", buf, 0x16u);
   }
 
   if (arrayCopy)
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v5 = arrayCopy;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
-      v7 = *v16;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v11 = CDMOSLoggerForCategory(0);
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+            v10 = CDMOSLoggerForCategory(0);
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v21 = "[CDMShortcutService validateDenyListArray:]";
-              _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: AutoShortcut deny list has invalid content, returning empty list", buf, 0xCu);
+              v19 = "[CDMShortcutService validateDenyListArray:]";
+              _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: AutoShortcut deny list has invalid content, returning empty list", buf, 0xCu);
             }
 
             goto LABEL_19;
           }
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -194,31 +189,29 @@ LABEL_12:
       }
     }
 
-    v10 = v5;
+    v9 = v5;
   }
 
   else
   {
-    v12 = CDMOSLoggerForCategory(0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = CDMOSLoggerForCategory(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v21 = "[CDMShortcutService validateDenyListArray:]";
-      _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: AutoShortcut deny list is nil, returning empty list", buf, 0xCu);
+      v19 = "[CDMShortcutService validateDenyListArray:]";
+      _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: AutoShortcut deny list is nil, returning empty list", buf, 0xCu);
     }
 
 LABEL_19:
-    v10 = MEMORY[0x1E695E0F0];
+    v9 = MEMORY[0x1E695E0F0];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v9;
 }
 
 - (id)loadDenyListFromBundle:(id)bundle languageCode:(id)code
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   codeCopy = code;
   v8 = codeCopy;
@@ -228,7 +221,7 @@ LABEL_19:
     if (os_log_type_enabled(codeCopy, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
+      v20 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
       v16 = "%s Didn't receive a deny list bundle, will default to empty deny list";
 LABEL_9:
       _os_log_impl(&dword_1DC287000, codeCopy, OS_LOG_TYPE_INFO, v16, buf, 0xCu);
@@ -245,7 +238,7 @@ LABEL_10:
     if (os_log_type_enabled(codeCopy, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v21 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
+      v20 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
       v16 = "%s languageCode is nil, will default to empty deny list";
       goto LABEL_9;
     }
@@ -272,9 +265,9 @@ LABEL_10:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v21 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
-      v22 = 2112;
-      v23 = v11;
+      v20 = "[CDMShortcutService loadDenyListFromBundle:languageCode:]";
+      v21 = 2112;
+      v22 = v11;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s Did not find deny list on disk at path %@, returning empty list", buf, 0x16u);
     }
 
@@ -282,37 +275,36 @@ LABEL_10:
   }
 
 LABEL_15:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)extractShortcutDataFromSpan:(id)span
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   usoGraph = [span usoGraph];
   v4 = usoGraph;
   if (usoGraph && ([usoGraph nodes], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6))
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     nodes = [v4 nodes];
-    v8 = [nodes countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v8 = [nodes countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v8)
     {
-      v9 = *v32;
+      v9 = *v31;
 LABEL_5:
       v10 = 0;
       while (1)
       {
-        if (*v32 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(nodes);
         }
 
-        v11 = *(*(&v31 + 1) + 8 * v10);
+        v11 = *(*(&v30 + 1) + 8 * v10);
         stringPayload = [v11 stringPayload];
         v13 = stringPayload == 0;
 
@@ -323,7 +315,7 @@ LABEL_5:
 
         if (v8 == ++v10)
         {
-          v8 = [nodes countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v8 = [nodes countByEnumeratingWithState:&v30 objects:v35 count:16];
           if (v8)
           {
             goto LABEL_5;
@@ -341,25 +333,25 @@ LABEL_5:
         goto LABEL_22;
       }
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       identifiers = [v4 identifiers];
-      value3 = [identifiers countByEnumeratingWithState:&v27 objects:v35 count:16];
+      value3 = [identifiers countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (value3)
       {
-        v18 = *v28;
+        v18 = *v27;
         while (2)
         {
           for (i = 0; i != value3; i = i + 1)
           {
-            if (*v28 != v18)
+            if (*v27 != v18)
             {
               objc_enumerationMutation(identifiers);
             }
 
-            v20 = *(*(&v27 + 1) + 8 * i);
+            v20 = *(*(&v26 + 1) + 8 * i);
             namespaceA = [v20 namespaceA];
             value2 = [namespaceA value];
             v23 = [value2 isEqualToString:@"autoShortcutBaseTemplate"];
@@ -371,7 +363,7 @@ LABEL_5:
             }
           }
 
-          value3 = [identifiers countByEnumeratingWithState:&v27 objects:v35 count:16];
+          value3 = [identifiers countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (value3)
           {
             continue;
@@ -400,18 +392,16 @@ LABEL_22:
     v14 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)handle:(id)handle
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  v39 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
-  v38 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v36 = [[CDMShortcutResponseCommand alloc] initWithVoiceCommandUserParses:v39 autoShortcutParses:v38];
+  v38 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:1];
+  v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v35 = [[CDMShortcutResponseCommand alloc] initWithVoiceCommandUserParses:v38 autoShortcutParses:v37];
   currentTurnContext = [handleCopy currentTurnContext];
   v6 = [(CDMShortcutService *)self handleVoiceCommandFollowUp:currentTurnContext];
 
@@ -431,13 +421,13 @@ LABEL_22:
         {
           __dst = 136315394;
           __dst_4 = "[CDMShortcutService handle:]";
-          v42 = 2112;
-          v43 = @"shortcut";
+          v41 = 2112;
+          v42 = @"shortcut";
           _os_log_debug_impl(&dword_1DC287000, v11, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nShortcut follow up request, routing to server", &__dst, 0x16u);
         }
 
-        [v39 addObject:v6];
-        v12 = v36;
+        [v38 addObject:v6];
+        v12 = v35;
         goto LABEL_25;
       }
     }
@@ -447,39 +437,39 @@ LABEL_22:
     }
 
     matchingSpans = [handleCopy matchingSpans];
-    v37 = [(CDMShortcutService *)self filterExactMatchVoiceCommandSpans:matchingSpans];
+    v36 = [(CDMShortcutService *)self filterExactMatchVoiceCommandSpans:matchingSpans];
 
     matchingSpans2 = [handleCopy matchingSpans];
-    v16 = [(CDMShortcutService *)self filterVoiceCommandPrefixMatchingSpans:matchingSpans2 voiceCommandSpan:v37];
+    v16 = [(CDMShortcutService *)self filterVoiceCommandPrefixMatchingSpans:matchingSpans2 voiceCommandSpan:v36];
 
-    v34 = v16;
+    v33 = v16;
     matchingSpans3 = [handleCopy matchingSpans];
-    v35 = [(CDMShortcutService *)self filterVoiceCommandSuffixMatchingSpans:matchingSpans3 voiceCommandSpan:v37];
+    v34 = [(CDMShortcutService *)self filterVoiceCommandSuffixMatchingSpans:matchingSpans3 voiceCommandSpan:v36];
 
     tokenChain = [handleCopy tokenChain];
-    v19 = [(CDMShortcutService *)self shouldSpanComboProduceParse:v37 prefixSpans:v16 suffixSpans:v35 tokenChain:tokenChain];
+    v19 = [(CDMShortcutService *)self shouldSpanComboProduceParse:v36 prefixSpans:v16 suffixSpans:v34 tokenChain:tokenChain];
 
     if (v19)
     {
-      v20 = [(CDMShortcutService *)self extractShortcutDataFromSpan:v37];
+      v20 = [(CDMShortcutService *)self extractShortcutDataFromSpan:v36];
       v21 = CDMLogContext;
-      v33 = v20;
+      v32 = v20;
       if (v20)
       {
         v22 = CDMLogContext;
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          semanticValue = [v33 semanticValue];
+          semanticValue = [v32 semanticValue];
           tokenChain2 = [handleCopy tokenChain];
           stringValue = [tokenChain2 stringValue];
           __dst = 136315906;
           __dst_4 = "[CDMShortcutService handle:]";
-          v42 = 2112;
-          v43 = @"shortcut";
-          v44 = 2112;
-          v45 = semanticValue;
-          v46 = 2112;
-          v47 = stringValue;
+          v41 = 2112;
+          v42 = @"shortcut";
+          v43 = 2112;
+          v44 = semanticValue;
+          v45 = 2112;
+          v46 = stringValue;
           _os_log_debug_impl(&dword_1DC287000, v22, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nFound exact match Voice Command:%@, to utterance:%@ ", &__dst, 0x2Au);
         }
 
@@ -496,16 +486,16 @@ LABEL_22:
       {
         __dst = 136315394;
         __dst_4 = "[CDMShortcutService handle:]";
-        v42 = 2112;
-        v43 = @"shortcut";
+        v41 = 2112;
+        v42 = @"shortcut";
         _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nMatching a top level shortcut, sending it to server", &__dst, 0x16u);
       }
 
       buildParseWithDelegatedUserDialogAct = [(CDMShortcutService *)self buildParseWithDelegatedUserDialogAct];
-      [v39 addObject:buildParseWithDelegatedUserDialogAct];
+      [v38 addObject:buildParseWithDelegatedUserDialogAct];
 
-      v27 = v36;
-      v12 = v36;
+      v27 = v35;
+      v12 = v35;
     }
 
     else
@@ -515,8 +505,8 @@ LABEL_22:
       {
         __dst = 136315394;
         __dst_4 = "[CDMShortcutService handle:]";
-        v42 = 2112;
-        v43 = @"shortcut";
+        v41 = 2112;
+        v42 = @"shortcut";
         _os_log_debug_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nNo exact match Voice Command Found", &__dst, 0x16u);
       }
 
@@ -531,8 +521,8 @@ LABEL_22:
     {
       __dst = 136315394;
       __dst_4 = "[CDMShortcutService handle:]";
-      v42 = 2112;
-      v43 = @"shortcut";
+      v41 = 2112;
+      v42 = @"shortcut";
       _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nFollow up turn with prompts/sdas, should not trigger voice commands", &__dst, 0x16u);
     }
 
@@ -540,8 +530,6 @@ LABEL_22:
   }
 
 LABEL_25:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -677,50 +665,50 @@ LABEL_26:
 
 - (id)filterSubsumedSpans:(id)spans
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v4 = +[CDMProtoSpanMatcherHelper ascendingStartIndexComparator];
   v5 = [spansCopy sortedArrayUsingComparator:v4];
 
   array = [MEMORY[0x1E695DF70] array];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
+        v9 = *(*(&v25 + 1) + 8 * i);
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
         v10 = array;
-        v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
         if (v11)
         {
-          v12 = *v23;
+          v12 = *v22;
           while (2)
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v23 != v12)
+              if (*v22 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v14 = *(*(&v22 + 1) + 8 * j);
+              v14 = *(*(&v21 + 1) + 8 * j);
               startTokenIndex = [v9 startTokenIndex];
               if (startTokenIndex >= [v14 startTokenIndex])
               {
@@ -733,7 +721,7 @@ LABEL_26:
               }
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
             if (v11)
             {
               continue;
@@ -748,14 +736,13 @@ LABEL_17:
         ;
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v6);
   }
 
   v17 = [array copy];
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -784,7 +771,7 @@ LABEL_17:
 
 - (id)filterExactMatchVoiceCommandSpans:(id)spans
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v4 = +[CDMShortcutService voiceCommandPredicate];
   v5 = [spansCopy filteredArrayUsingPredicate:v4];
@@ -794,9 +781,9 @@ LABEL_17:
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = 136315138;
-      v13 = "[CDMShortcutService filterExactMatchVoiceCommandSpans:]";
-      _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Have overlapping voiceCommandName spans, taking the longest one. When tie, prioritizes SiriVocab span", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[CDMShortcutService filterExactMatchVoiceCommandSpans:]";
+      _os_log_debug_impl(&dword_1DC287000, v6, OS_LOG_TYPE_DEBUG, "%s Have overlapping voiceCommandName spans, taking the longest one. When tie, prioritizes SiriVocab span", &v11, 0xCu);
     }
 
     v7 = +[CDMProtoSpanMatcherHelper voiceCommandSpanComparator];
@@ -811,14 +798,12 @@ LABEL_17:
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)handleVoiceCommandFollowUp:(id)up
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   upCopy = up;
   if (![upCopy hasLegacyNlContext])
   {
@@ -845,31 +830,31 @@ LABEL_9:
       selfCopy = self;
       if (systemDialogActs)
       {
-        v42 = systemDialogActs;
+        v41 = systemDialogActs;
         if ([systemDialogActs count])
         {
-          v53 = 0u;
-          v54 = 0u;
-          v51 = 0u;
           v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
           obj = systemDialogActs;
-          v14 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+          v14 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
           if (!v14)
           {
             goto LABEL_22;
           }
 
-          v15 = *v52;
+          v15 = *v51;
 LABEL_14:
           v16 = 0;
           while (1)
           {
-            if (*v52 != v15)
+            if (*v51 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v51 + 1) + 8 * v16);
+            v17 = *(*(&v50 + 1) + 8 * v16);
             if (([v17 hasGaveOptions] & 1) != 0 || (objc_msgSend(v17, "hasOffered") & 1) != 0 || objc_msgSend(v17, "hasPrompted"))
             {
               break;
@@ -877,12 +862,12 @@ LABEL_14:
 
             if (v14 == ++v16)
             {
-              v14 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+              v14 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
               if (!v14)
               {
 LABEL_22:
 
-                systemDialogActs = v42;
+                systemDialogActs = v41;
                 goto LABEL_23;
               }
 
@@ -901,51 +886,51 @@ LABEL_64:
           nlContext2 = [upCopy nlContext];
           activeTasks = [nlContext2 activeTasks];
 
-          v22 = +[CDMFeatureFlags isShortcutsNLv4FollowupEnabled];
+          v21 = +[CDMFeatureFlags isShortcutsNLv4FollowupEnabled];
           if (activeTasks)
           {
-            v23 = v22;
+            v22 = v21;
           }
 
           else
           {
-            v23 = 1;
+            v22 = 1;
           }
 
-          if ((v23 & 1) != 0 || ![activeTasks count])
+          if ((v22 & 1) != 0 || ![activeTasks count])
           {
             buildEmptyShortcutUserParse = 0;
           }
 
           else
           {
-            v49 = 0u;
-            v50 = 0u;
-            v47 = 0u;
             v48 = 0u;
-            v45 = activeTasks;
-            v24 = [v45 countByEnumeratingWithState:&v47 objects:v55 count:16];
-            if (v24)
+            v49 = 0u;
+            v46 = 0u;
+            v47 = 0u;
+            v44 = activeTasks;
+            v23 = [v44 countByEnumeratingWithState:&v46 objects:v54 count:16];
+            if (v23)
             {
-              v25 = *v48;
+              v24 = *v47;
               do
               {
-                for (i = 0; i != v24; ++i)
+                for (i = 0; i != v23; ++i)
                 {
-                  if (*v48 != v25)
+                  if (*v47 != v24)
                   {
-                    objc_enumerationMutation(v45);
+                    objc_enumerationMutation(v44);
                   }
 
-                  v27 = *(*(&v47 + 1) + 8 * i);
-                  if (v27)
+                  v26 = *(*(&v46 + 1) + 8 * i);
+                  if (v26)
                   {
-                    task = [*(*(&v47 + 1) + 8 * i) task];
-                    v29 = task == 0;
+                    task = [*(*(&v46 + 1) + 8 * i) task];
+                    v28 = task == 0;
 
-                    if (!v29)
+                    if (!v28)
                     {
-                      task2 = [v27 task];
+                      task2 = [v26 task];
                       nodes = [task2 nodes];
                       if (nodes)
                       {
@@ -962,24 +947,24 @@ LABEL_64:
                         }
 
                         edges2 = [task2 edges];
-                        v35 = [edges2 count] == 1;
+                        v34 = [edges2 count] == 1;
 
-                        if (v35)
+                        if (v34)
                         {
                           nodes = [task2 nodes];
                           edges = [nodes objectAtIndexedSubscript:0];
                           if ([edges usoElementId] == 1)
                           {
                             nodes2 = [task2 nodes];
-                            v36 = [nodes2 objectAtIndexedSubscript:1];
-                            if ([v36 usoElementId] == 1808)
+                            v35 = [nodes2 objectAtIndexedSubscript:1];
+                            if ([v35 usoElementId] == 1808)
                             {
                               edges3 = [task2 edges];
-                              v39 = [edges3 objectAtIndexedSubscript:0];
-                              label = [v39 label];
-                              v38 = [label usoElementId] == 861;
+                              v38 = [edges3 objectAtIndexedSubscript:0];
+                              label = [v38 label];
+                              v37 = [label usoElementId] == 861;
 
-                              if (v38)
+                              if (v37)
                               {
                                 buildEmptyShortcutUserParse = [(CDMShortcutService *)selfCopy buildParseWithDelegatedUserDialogAct];
 
@@ -1003,10 +988,10 @@ LABEL_57:
                   }
                 }
 
-                v24 = [v45 countByEnumeratingWithState:&v47 objects:v55 count:16];
+                v23 = [v44 countByEnumeratingWithState:&v46 objects:v54 count:16];
               }
 
-              while (v24);
+              while (v23);
             }
 
             buildEmptyShortcutUserParse = 0;
@@ -1050,8 +1035,6 @@ LABEL_25:
 
   buildEmptyShortcutUserParse = 0;
 LABEL_28:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return buildEmptyShortcutUserParse;
 }

@@ -69,22 +69,22 @@
 
 - (BOOL)hasDownloadableAssets
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   inputModes = [(KSMultilingualInputModeTableCell *)self inputModes];
-  v3 = [(NSArray *)inputModes countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSArray *)inputModes countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
 LABEL_3:
     v6 = 0;
     while (1)
     {
-      if (*v10 != v5)
+      if (*v9 != v5)
       {
         objc_enumerationMutation(inputModes);
       }
@@ -97,19 +97,18 @@ LABEL_3:
 
       if (v4 == ++v6)
       {
-        v3 = [(NSArray *)inputModes countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [(NSArray *)inputModes countByEnumeratingWithState:&v8 objects:v12 count:16];
         v4 = v3;
         if (v3)
         {
           goto LABEL_3;
         }
 
-        break;
+        return v3;
       }
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -126,23 +125,23 @@ LABEL_3:
 
 - (void)downloadButtonPressed:(id)pressed withEvent:(id)event
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = [(KSMultilingualInputModeTableCell *)self inputModes:pressed];
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
@@ -151,13 +150,11 @@ LABEL_3:
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

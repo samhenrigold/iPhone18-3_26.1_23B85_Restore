@@ -94,7 +94,7 @@ LABEL_20:
 
 - (id)_widgetsForExerciseMode
 {
-  v12[4] = *MEMORY[0x277D85DE8];
+  v11[4] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   if (([MEMORY[0x277D42590] isiPad] & 1) == 0)
   {
@@ -106,37 +106,33 @@ LABEL_20:
   }
 
   v5 = createHeuristicWidget(1, @"Music.RecentlyPlayedWidget", @"com.apple.Music.MusicWidgets", @"com.apple.Music", 1, 0.3);
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = createHeuristicWidget(0, @"Music.RecentlyPlayedWidget", @"com.apple.Music.MusicWidgets", @"com.apple.Music", 1, 0.3);
-  v12[1] = v6;
+  v11[1] = v6;
   v7 = createHeuristicWidget(1, @"com.apple.weather", @"com.apple.weather.widget", @"com.apple.weather", 1, 0.2);
-  v12[2] = v7;
+  v11[2] = v7;
   v8 = createHeuristicWidget(0, @"com.apple.weather", @"com.apple.weather.widget", @"com.apple.weather", 1, 0.2);
-  v12[3] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
+  v11[3] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
   [v2 addObjectsFromArray:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
 
 - (id)_widgetsForReadingMode
 {
-  v10[5] = *MEMORY[0x277D85DE8];
+  v9[5] = *MEMORY[0x277D85DE8];
   v2 = createHeuristicWidget(2, @"BooksWidget", @"com.apple.iBooks.BooksWidget", @"com.apple.iBooks", 1, 0.8);
-  v10[0] = v2;
+  v9[0] = v2;
   v3 = createHeuristicWidget(1, @"BooksWidget", @"com.apple.iBooks.BooksWidget", @"com.apple.iBooks", 1, 0.8);
-  v10[1] = v3;
+  v9[1] = v3;
   v4 = createHeuristicWidget(0, @"BooksWidget", @"com.apple.iBooks.BooksWidget", @"com.apple.iBooks", 1, 0.8);
-  v10[2] = v4;
+  v9[2] = v4;
   v5 = createHeuristicWidget(1, @"today", @"com.apple.news.widget", @"com.apple.news", 0, 0.4);
-  v10[3] = v5;
+  v9[3] = v5;
   v6 = createHeuristicWidget(0, @"today", @"com.apple.news.widget", @"com.apple.news", 0, 0.4);
-  v10[4] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[4] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
 
   return v7;
 }
@@ -250,18 +246,18 @@ LABEL_20:
 
   if (hasiCloudFamily)
   {
-    v21 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v22 = __atxlog_handle_modes(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_DEFAULT, "The user has iCloud Family, considering Contacts widget", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "The user has iCloud Family, considering Contacts widget", v26, 2u);
     }
 
-    v22 = createHeuristicWidget(1, @"MultipleContactWidget_iOS", @"com.apple.PeopleViewService.PeopleWidget-iOS", @"com.apple.PeopleViewService", 0, 0.78);
-    [v3 addObject:v22];
-
-    v23 = createHeuristicWidget(0, @"SingleContactWidget_iOS", @"com.apple.PeopleViewService.PeopleWidget-iOS", @"com.apple.PeopleViewService", 0, 0.78);
+    v23 = createHeuristicWidget(1, @"MultipleContactWidget_iOS", @"com.apple.PeopleViewService.PeopleWidget-iOS", @"com.apple.PeopleViewService", 0, 0.78);
     [v3 addObject:v23];
+
+    v24 = createHeuristicWidget(0, @"SingleContactWidget_iOS", @"com.apple.PeopleViewService.PeopleWidget-iOS", @"com.apple.PeopleViewService", 0, 0.78);
+    [v3 addObject:v24];
   }
 
   return v3;
@@ -269,12 +265,10 @@ LABEL_20:
 
 - (id)_widgetsForDrivingMode
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = createHeuristicWidget(2, @"com.apple.Maps", @"com.apple.Maps.GeneralMapsWidget", @"com.apple.Maps", 1, 0.8);
-  v6[0] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = v2;
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -362,7 +356,7 @@ LABEL_20:
 
 - (BOOL)_hasTVInterest
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CEB8F0] getUpcomingMediaForBundle:@"com.apple.tv" isInternalApplication:1];
   sortedUpcomingMedia = [v2 sortedUpcomingMedia];
   v4 = [sortedUpcomingMedia count];
@@ -371,12 +365,11 @@ LABEL_20:
   v6 = +[_ATXAppLaunchHistogramManager sharedInstance];
   v7 = [v6 histogramForLaunchType:17];
 
-  v13[0] = v5;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v5;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   [v7 totalLaunchesForBundleIds:v8];
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10 + v4 > 0.0;
 }
 
@@ -414,10 +407,10 @@ void __80__ATXSuggestedPagesStackHeuristicsDataSource__hasSignificantHomeAccesso
 
   if (v3)
   {
-    v4 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_lock_screen(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __80__ATXSuggestedPagesStackHeuristicsDataSource__hasSignificantHomeAccessoryEvents__block_invoke_cold_1(v2, v4);
+      __80__ATXSuggestedPagesStackHeuristicsDataSource__hasSignificantHomeAccessoryEvents__block_invoke_cold_1(v2, v5);
     }
   }
 }
@@ -480,13 +473,11 @@ uint64_t __63__ATXSuggestedPagesStackHeuristicsDataSource__hasAlarmActivity__blo
 
 void __80__ATXSuggestedPagesStackHeuristicsDataSource__hasSignificantHomeAccessoryEvents__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not fetch Home accessory events: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Could not fetch Home accessory events: %@", &v4, 0xCu);
 }
 
 @end

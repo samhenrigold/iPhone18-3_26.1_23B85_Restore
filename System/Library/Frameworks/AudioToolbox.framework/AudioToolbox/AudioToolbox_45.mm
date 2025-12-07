@@ -851,7 +851,7 @@ LABEL_68:
         v31 = *buf;
         v30 = *&buf[8];
         LODWORD(value) = 0;
-        std::vector<float>::vector[abi:ne200100](&__p, (2 * v26) | 1u);
+        std::vector<float>::vector[abi:ne200100](&__p, (2 * v26) | 1u, &value);
         std::vector<std::vector<float>>::vector[abi:ne200100](&valuePtr, 0xAAAAAAAAAAAAAAABLL * ((v30 - v31) >> 3));
         if (__p)
         {
@@ -4613,7 +4613,7 @@ uint64_t IR::DelayLine<float>::DelayLine(uint64_t a1, uint64_t a2)
   *(a1 + 160) = 0;
   *(a1 + 168) = 0;
   *(a1 + 176) = 0;
-  v7 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 160, *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 2);
+  v7 = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 160), *(a2 + 160), *(a2 + 168), (*(a2 + 168) - *(a2 + 160)) >> 2);
   *(a1 + 184) = 0;
   *(a1 + 192) = 0;
   *(a1 + 200) = 0;
@@ -8502,8 +8502,8 @@ uint64_t SmoothedNoiseEstimator<float,NoiseSuppression::Noise::HendriksSPP>::Smo
   v11 = (a1 + 240);
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  v15.i32[0] = 0;
-  std::vector<float>::vector[abi:ne200100]((a1 + 264), a2);
+  LODWORD(v15) = 0;
+  std::vector<float>::vector[abi:ne200100]((a1 + 264), a2, &v15);
   *(a1 + 288) = 0;
   if ((a3 & 1) == 0)
   {
@@ -8538,7 +8538,7 @@ uint64_t SmoothedNoiseEstimator<float,NoiseSuppression::Noise::HendriksSPP>::Smo
     *(a1 + 36) = v18;
     *(a1 + 48) = 0;
     *(a1 + 56) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 40, v19, *(&v19 + 1), (*(&v19 + 1) - v19) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 40), v19, *(&v19 + 1), (*(&v19 + 1) - v19) >> 2);
     std::vector<BOOL>::vector((a1 + 64), v20 + 8);
     *(a1 + 120) = 0;
     *(a1 + 8) = &unk_1F5934A48;
@@ -8546,20 +8546,20 @@ uint64_t SmoothedNoiseEstimator<float,NoiseSuppression::Noise::HendriksSPP>::Smo
     *(a1 + 100) = *&v21[12];
     *(a1 + 128) = 0;
     *(a1 + 136) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 120, v22, *(&v22 + 1), (*(&v22 + 1) - v22) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 120), v22, *(&v22 + 1), (*(&v22 + 1) - v22) >> 2);
     *(a1 + 144) = 0;
     *(a1 + 152) = 0;
     *(a1 + 160) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 144, *(&v23 + 1), v24, (v24 - *(&v23 + 1)) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 144), *(&v23 + 1), v24, (v24 - *(&v23 + 1)) >> 2);
     *(a1 + 168) = 0;
     *(a1 + 176) = 0;
     *(a1 + 184) = 0;
-    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(a1 + 168, v25, *(&v25 + 1), (*(&v25 + 1) - v25) >> 2);
+    std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a1 + 168), v25, *(&v25 + 1), (*(&v25 + 1) - v25) >> 2);
     *(a1 + 192) = v27;
     std::vector<BOOL>::vector((a1 + 208), v28);
     *(a1 + 232) = 1;
     NoiseSuppression::Noise::HendriksSPP::~HendriksSPP(&v15);
-    v15.i32[0] = 0;
+    LODWORD(v15) = 0;
     std::vector<float>::assign(v11, a2, &v15, v13);
   }
 
@@ -8948,28 +8948,30 @@ LABEL_12:
       }
     }
 
-    std::vector<float>::vector[abi:ne200100](&__C, *(this + 10));
+    v6 = *(this + 10);
+    v13 = 0;
+    std::vector<float>::vector[abi:ne200100](&__C, v6, &v13);
     vDSP_vlint(a2, *(this + 35), 1, __C, 1, *(this + 10), 8uLL);
-    v6 = *(*(this + 90) + 8 * v5);
-    v7 = __C;
-    v8 = *(v6 + 52);
-    if (v8 > v13 - __C)
+    v7 = *(*(this + 90) + 8 * v5);
+    v8 = __C;
+    v9 = *(v7 + 52);
+    if (v9 > v15 - __C)
     {
       __assert_rtn("SetSensitivityOffset", "FrequencyDomainCompressor.cpp", 148, "offsets_dB.size() >= mNumSubbands");
     }
 
-    if (v8)
+    if (v9)
     {
-      v9 = *(v6 + 112);
-      v10 = __C;
+      v10 = *(v7 + 112);
+      v11 = __C;
       do
       {
-        v11 = *v10++;
-        *v9++ = *(v6 + 76) + v11;
-        --v8;
+        v12 = *v11++;
+        *v10++ = *(v7 + 76) + v12;
+        --v9;
       }
 
-      while (v8);
+      while (v9);
     }
 
     else if (!__C)
@@ -8979,8 +8981,8 @@ LABEL_11:
       goto LABEL_12;
     }
 
-    v13 = v7;
-    operator delete(v7);
+    v15 = v8;
+    operator delete(v8);
     goto LABEL_11;
   }
 }

@@ -13,10 +13,10 @@
 
 - (FAFamilySharingFeaturesView)initWithContext:(int64_t)context hideLocationSharing:(BOOL)sharing
 {
-  v57[1] = *MEMORY[0x277D85DE8];
-  v55.receiver = self;
-  v55.super_class = FAFamilySharingFeaturesView;
-  v6 = [(FAFamilySharingFeaturesView *)&v55 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v56[1] = *MEMORY[0x277D85DE8];
+  v54.receiver = self;
+  v54.super_class = FAFamilySharingFeaturesView;
+  v6 = [(FAFamilySharingFeaturesView *)&v54 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v7 = v6;
   if (v6)
   {
@@ -103,17 +103,16 @@
     [v46 activateConstraints:v47];
 
     v48 = MEMORY[0x277CCAAD0];
-    v56 = @"learnMoreSpacing";
+    v55 = @"learnMoreSpacing";
     v49 = MEMORY[0x277CCABB0];
     UIRoundToViewScale();
     v50 = [v49 numberWithDouble:?];
-    v57[0] = v50;
-    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+    v56[0] = v50;
+    v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
     v52 = [v48 constraintsWithVisualFormat:@"V:|[_stack]-(learnMoreSpacing)-[_learnMoreButton]|" options:0 metrics:v51 views:v43];
     [v48 activateConstraints:v52];
   }
 
-  v53 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -238,28 +237,28 @@ void __54__FAFamilySharingFeaturesView__learnMoreButtonTapped___block_invoke(uin
 
 - (void)_updateFonts
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   arrangedSubviews = [(UIStackView *)self->_stack arrangedSubviews];
-  v4 = [arrangedSubviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [arrangedSubviews countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        subviews = [*(*(&v14 + 1) + 8 * v7) subviews];
+        subviews = [*(*(&v13 + 1) + 8 * v7) subviews];
         lastObject = [subviews lastObject];
 
         objc_opt_class();
@@ -273,7 +272,7 @@ void __54__FAFamilySharingFeaturesView__learnMoreButtonTapped___block_invoke(uin
       }
 
       while (v5 != v7);
-      v5 = [arrangedSubviews countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [arrangedSubviews countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -284,7 +283,6 @@ void __54__FAFamilySharingFeaturesView__learnMoreButtonTapped___block_invoke(uin
   [titleLabel setFont:v12];
 
   [(FAFamilySharingFeaturesView *)self setNeedsLayout];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)traitCollectionDidChange:(id)change

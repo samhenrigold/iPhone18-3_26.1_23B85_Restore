@@ -52,7 +52,7 @@
 
 - (int)setClientType:(int)type
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   self->mClientType = type;
   if (dword_1EB75DE40)
   {
@@ -61,42 +61,39 @@
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 + (int)updateIsPlaying:(id)playing
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   playing = [+[MXSessionManagerSidekick sharedInstance](MXSessionManagerSidekick copyMXSessionList:"copyMXSessionList:", playing];
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v5 = [playing countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v5 = [playing countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(playing);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
-        if ([v10 getIsPlaying])
+        if ([*(*(&v14 + 1) + 8 * i) getIsPlaying])
         {
-          v10[8];
           v7 = 1;
         }
       }
 
-      v6 = [playing countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [playing countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -116,23 +113,22 @@
 
   if ((v7 & 1) == [playing isPlaying])
   {
-    v13 = 0;
+    v12 = 0;
   }
 
   else
   {
     if (dword_1EB75DE40)
     {
-      v12 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+      v11 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v13 = [playing _setPropertyForKey:@"IsPlaying" value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", v7 & 1, v17, v19)}];
+    v12 = [playing _setPropertyForKey:@"IsPlaying" value:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithBool:", v7 & 1)}];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return v12;
 }
 
 - (id)info
@@ -152,23 +148,21 @@
 
 - (void)dumpInfo
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE40)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (MXSessionSidekick)initWithSession:(id)session
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = MXSessionSidekick;
-  v4 = [(MXSessionSidekick *)&v19 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = MXSessionSidekick;
+  v4 = [(MXSessionSidekick *)&v16 init];
   v5 = v4;
   if (v4)
   {
@@ -207,24 +201,20 @@
       {
       }
 
-      v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-      mID = v5->mID;
-      v5->mDescription = [v14 initWithFormat:@"<MXSessionID = %llx, CoreSessionID = %lld>", mID, v5->mCoreSessionID];
+      v5->mDescription = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"<MXSessionID = %llx, CoreSessionID = %lld>", v5->mID, v5->mCoreSessionID];
       objc_destroyWeak(&location);
     }
 
     else
     {
-      LODWORD(location) = 0;
       v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
 
-      v5 = 0;
+      return 0;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -287,7 +277,7 @@ void __28__MXSessionSidekick_dealloc__block_invoke(uint64_t a1)
 
 - (int)setPropertyForKey:(id)key value:(id)value
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if ([key isEqualToString:@"IsPlaying"])
   {
     if (value)
@@ -300,12 +290,12 @@ void __28__MXSessionSidekick_dealloc__block_invoke(uint64_t a1)
       }
     }
 
-    [MXSessionSidekick setPropertyForKey:v15 value:?];
+    [MXSessionSidekick setPropertyForKey:v14 value:?];
 LABEL_16:
-    v10 = v15[0];
-    if (!v15[0])
+    v10 = v14[0];
+    if (!v14[0])
     {
-      goto LABEL_12;
+      return v10;
     }
 
     goto LABEL_11;
@@ -316,7 +306,7 @@ LABEL_16:
     v9 = CFGetTypeID(value);
     if (v9 != CFNumberGetTypeID())
     {
-      [MXSessionSidekick setPropertyForKey:v15 value:?];
+      [MXSessionSidekick setPropertyForKey:v14 value:?];
       goto LABEL_16;
     }
 
@@ -324,7 +314,7 @@ LABEL_16:
     CFNumberGetValue(value, kCFNumberSInt32Type, &valuePtr);
     if ((valuePtr - 5) <= 0xFFFFFFFB)
     {
-      [MXSessionSidekick setPropertyForKey:v15 value:?];
+      [MXSessionSidekick setPropertyForKey:v14 value:?];
       goto LABEL_16;
     }
 
@@ -346,8 +336,6 @@ LABEL_11:
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-LABEL_12:
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -390,7 +378,7 @@ LABEL_12:
           }
 
           v15 = *(*(&v48 + 1) + 8 * i);
-          v16 = [properties objectForKey:{v15, v34, v35}];
+          v16 = [properties objectForKey:v15];
           if (v16)
           {
             v60 = v15;
@@ -409,7 +397,7 @@ LABEL_12:
     v47 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v17 = [properties countByEnumeratingWithState:&v44 objects:v59 count:{16, v34, v35}];
+    v17 = [properties countByEnumeratingWithState:&v44 objects:v59 count:16];
     if (v17)
     {
       v18 = v17;
@@ -479,7 +467,7 @@ LABEL_12:
           {
             if (v31)
             {
-              v37 = FigSignalErrorAtGM();
+              v37 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v33, v34, v35);
             }
           }
 
@@ -520,14 +508,13 @@ LABEL_44:
   {
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
 - (int)setOrderedProperties:(id)properties usingErrorHandlingStrategy:(unsigned __int8)strategy outPropertiesErrors:(id *)errors
 {
   strategyCopy = strategy;
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   obj = properties;
   errorsCopy = errors;
@@ -535,34 +522,34 @@ LABEL_44:
   {
     if (dword_1EB75DE40)
     {
-      v33 = 0;
+      v32 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    CMSMDebugUtility_PrintCollection(properties);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    CMSMDebugUtility_PrintCollection(obj);
     v29 = 0u;
-    v11 = [properties countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v11 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v11)
     {
       v12 = v11;
-      v26 = 0;
-      v13 = *v29;
+      v25 = 0;
+      v13 = *v28;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v29 != v13)
+          if (*v28 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v28 + 1) + 8 * i);
+          v15 = *(*(&v27 + 1) + 8 * i);
           v16 = objc_autoreleasePoolPush();
           v17 = [objc_msgSend(v15 "allKeys")];
           v18 = [v15 objectForKey:v17];
@@ -576,28 +563,28 @@ LABEL_44:
             v19 = v18;
           }
 
-          v20 = [(MXSessionSidekick *)self setPropertyForKey:v17 value:v19, v23, v24];
-          v34 = v17;
-          v35 = [MEMORY[0x1E696AD98] numberWithInt:v20];
-          [v9 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v35, &v34, 1)}];
+          v20 = [(MXSessionSidekick *)self setPropertyForKey:v17 value:v19];
+          v33 = v17;
+          v34 = [MEMORY[0x1E696AD98] numberWithInt:v20];
+          [v9 addObject:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v34, &v33, 1)}];
           if (strategyCopy == 2)
           {
             if (v20)
             {
-              v26 = FigSignalErrorAtGM();
+              v25 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v22, v23, errorsCopy);
             }
           }
 
           else if (strategyCopy == 1 && v20)
           {
-            [MXSessionSidekick setOrderedProperties:v16 usingErrorHandlingStrategy:v37 outPropertiesErrors:?];
+            [MXSessionSidekick setOrderedProperties:v16 usingErrorHandlingStrategy:v36 outPropertiesErrors:?];
             goto LABEL_26;
           }
 
           objc_autoreleasePoolPop(v16);
         }
 
-        v12 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v12 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       }
 
       while (v12);
@@ -605,15 +592,15 @@ LABEL_44:
 
     else
     {
-      v26 = 0;
+      v25 = 0;
     }
   }
 
   else
   {
-    [MXSessionSidekick setOrderedProperties:v37 usingErrorHandlingStrategy:? outPropertiesErrors:?];
+    [MXSessionSidekick setOrderedProperties:v36 usingErrorHandlingStrategy:? outPropertiesErrors:?];
 LABEL_26:
-    v26 = v37[0];
+    v25 = v36[0];
   }
 
   if (errorsCopy)
@@ -625,37 +612,36 @@ LABEL_26:
   {
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-  return v26;
+  return v25;
 }
 
 - (id)copyProperties:(id)properties outPropertyErrors:(id *)errors
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v18 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v24 = *MEMORY[0x1E69E9840];
+  v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [properties countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [properties countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(properties);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
-        v19 = 0;
-        v13 = [(MXSessionSidekick *)self copyPropertyForKey:v11 valueOut:&v19];
+        v18 = 0;
+        v13 = [(MXSessionSidekick *)self copyPropertyForKey:v11 valueOut:&v18];
         if (v13)
         {
           v14 = 1;
@@ -663,12 +649,12 @@ LABEL_26:
 
         else
         {
-          v14 = v19 == 0;
+          v14 = v18 == 0;
         }
 
         if (!v14)
         {
-          [v18 setObject:? forKey:?];
+          [v17 setObject:? forKey:?];
         }
 
         [v6 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithInt:", v13), v11}];
@@ -676,7 +662,7 @@ LABEL_26:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [properties countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [properties countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -691,8 +677,7 @@ LABEL_26:
   {
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v18;
+  return v17;
 }
 
 - (int)copyPropertyForKey:(id)key valueOut:(id *)out
@@ -746,35 +731,35 @@ LABEL_11:
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setPropertyForKey:(_DWORD *)a1 value:.cold.3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setProperties:(_DWORD *)a1 usingErrorHandlingStrategy:outPropertiesErrors:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 - (uint64_t)setOrderedProperties:(_DWORD *)a1 usingErrorHandlingStrategy:outPropertiesErrors:.cold.2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }

@@ -116,7 +116,7 @@
   MEMORY[0x277D82BE0](pathCopy);
   MEMORY[0x277D82BE0](self);
   sub_214CCD324();
-  v16 = PriorityMessageListViewController.collectionView(_:canFocusItemAt:)();
+  v16 = PriorityMessageListViewController.collectionView(_:canFocusItemAt:)(viewCopy, v12);
   (*(v9 + 8))(v12, v11);
   MEMORY[0x277D82BD8](pathCopy);
   MEMORY[0x277D82BD8](selfCopy);
@@ -139,7 +139,7 @@
   MEMORY[0x277D82BE0](pathCopy);
   MEMORY[0x277D82BE0](self);
   sub_214CCD324();
-  v16 = PriorityMessageListViewController.collectionView(_:shouldHighlightItemAt:)();
+  v16 = PriorityMessageListViewController.collectionView(_:shouldHighlightItemAt:)(viewCopy, v12);
   (*(v9 + 8))(v12, v11);
   MEMORY[0x277D82BD8](pathCopy);
   MEMORY[0x277D82BD8](selfCopy);
@@ -162,7 +162,7 @@
   MEMORY[0x277D82BE0](pathCopy);
   MEMORY[0x277D82BE0](self);
   sub_214CCD324();
-  v16 = PriorityMessageListViewController.collectionView(_:shouldSelectItemAt:)();
+  v16 = PriorityMessageListViewController.collectionView(_:shouldSelectItemAt:)(viewCopy, v12);
   (*(v9 + 8))(v12, v11);
   MEMORY[0x277D82BD8](pathCopy);
   MEMORY[0x277D82BD8](selfCopy);
@@ -213,7 +213,7 @@
   v10 = sub_214CCF564();
   v16 = v8;
   sub_214CCD324();
-  PriorityMessageListViewController.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)(viewCopy, supplementaryViewCopy, v10, v16);
+  PriorityMessageListViewController.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)(viewCopy, supplementaryViewCopy, v10, v16, v13);
   (*(v11 + 8))(v13, v14);
   MEMORY[0x277D82BD8](pathCopy);
 

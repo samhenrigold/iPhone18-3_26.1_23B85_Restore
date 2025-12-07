@@ -126,13 +126,24 @@ LABEL_11:
 + (void)_invertedIndexWithTermIndexURL:(void *)a1 andDocumentIndexURL:fromBundle:.cold.3(void *a1)
 {
   v1 = [a1 bundlePath];
-  OUTLINED_FUNCTION_0_1(&dword_1AF04E000, MEMORY[0x1E69E9C10], v2, "Document index plist could not be found in bundle: '%@'", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_1AF04E000, MEMORY[0x1E69E9C10], v2, "Document index plist could not be found in bundle: '%@'", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 + (void)_invertedIndexWithTermIndexURL:(void *)a1 andDocumentIndexURL:fromBundle:.cold.4(void *a1)
 {
   v1 = [a1 bundlePath];
-  OUTLINED_FUNCTION_0_1(&dword_1AF04E000, MEMORY[0x1E69E9C10], v2, "Term index plist could not be found in bundle: '%@'.", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v1;
+  OUTLINED_FUNCTION_0_1(&dword_1AF04E000, MEMORY[0x1E69E9C10], v2, "Term index plist could not be found in bundle: '%@'.", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
++ (void)_loadDictionaryResource:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1AF04E000, MEMORY[0x1E69E9C10], a3, "Unable to deserialize search engine dictionary resource: '%@'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

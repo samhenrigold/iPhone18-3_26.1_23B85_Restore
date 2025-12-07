@@ -138,16 +138,16 @@
 
 + (id)_updateIfStagedEntry:(void *)entry updateCoordinator:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = a2;
   entryCopy = entry;
   v6 = objc_opt_self();
   shardRegistry = [entryCopy shardRegistry];
+  v18 = 0;
   v19 = 0;
-  v20 = 0;
-  v8 = [shardRegistry stagedShardFileEntryForEntry:v4 entryOut:&v20 error:&v19];
-  v9 = v20;
-  v10 = v19;
+  v8 = [shardRegistry stagedShardFileEntryForEntry:v4 entryOut:&v19 error:&v18];
+  v9 = v19;
+  v10 = v18;
 
   if ((v8 & 1) == 0)
   {
@@ -156,9 +156,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v22 = v6;
-      v23 = 2114;
-      v24 = v10;
+      v21 = v6;
+      v22 = 2114;
+      v23 = v10;
       _os_log_impl(&dword_2514A1000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Unable to determine if there is already a staged manifest file: %{public}@", buf, 0x16u);
     }
   }
@@ -187,20 +187,19 @@ LABEL_10:
 
   v16 = v4;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 + (void)_insertAndLogFailureForEntry:(void *)entry registry:
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a2;
   entryCopy = entry;
   v6 = objc_opt_self();
-  v11 = 0;
-  v7 = [entryCopy insertEntry:v4 error:&v11];
+  v10 = 0;
+  v7 = [entryCopy insertEntry:v4 error:&v10];
 
-  v8 = v11;
+  v8 = v10;
   if ((v7 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -208,16 +207,14 @@ LABEL_10:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543874;
-      v13 = v6;
-      v14 = 2114;
-      v15 = v4;
-      v16 = 2114;
-      v17 = v8;
+      v12 = v6;
+      v13 = 2114;
+      v14 = v4;
+      v15 = 2114;
+      v16 = v8;
       _os_log_impl(&dword_2514A1000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Unable to persist entry %{public}@: %{public}@", buf, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HDOntologyManifestUpdater__updateManifestWithEntry_session_updateCoordinator_completion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

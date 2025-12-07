@@ -643,7 +643,7 @@ LABEL_8:
 
 - (BOOL)setExcludedContexts:(id)contexts error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   started = self->_started;
   if (started)
   {
@@ -653,28 +653,34 @@ LABEL_8:
   else
   {
     std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::clear(&self->_excludedContexts.__table_.__bucket_list_.__ptr_);
-    v15 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v7 = [contexts countByEnumeratingWithState:&v13 objects:v12 count:16];
+    v17 = 0u;
+    v7 = [contexts countByEnumeratingWithState:&v16 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v10 = 0;
+        do
         {
-          if (*v14 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(contexts);
           }
 
-          std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(&self->_excludedContexts.__table_.__bucket_list_.__ptr_, [*(*(&v13 + 1) + 8 * i) unsignedIntValue]);
+          unsignedIntValue = [*(*(&v16 + 1) + 8 * v10) unsignedIntValue];
+          v13 = 0;
+          v14 = unsignedIntValue;
+          std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(&self->_excludedContexts.__table_.__bucket_list_.__ptr_, unsignedIntValue, &v14, &v13);
+          ++v10;
         }
 
-        v8 = [contexts countByEnumeratingWithState:&v13 objects:v12 count:16];
+        while (v8 != v10);
+        v8 = [contexts countByEnumeratingWithState:&v16 objects:v15 count:16];
       }
 
       while (v8);
@@ -686,7 +692,7 @@ LABEL_8:
 
 - (BOOL)setIncludedContexts:(id)contexts error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   started = self->_started;
   if (started)
   {
@@ -696,28 +702,34 @@ LABEL_8:
   else
   {
     std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::clear(&self->_includedContexts.__table_.__bucket_list_.__ptr_);
-    v15 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    v7 = [contexts countByEnumeratingWithState:&v13 objects:v12 count:16];
+    v17 = 0u;
+    v7 = [contexts countByEnumeratingWithState:&v16 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v8; ++i)
+        v10 = 0;
+        do
         {
-          if (*v14 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(contexts);
           }
 
-          std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(&self->_includedContexts.__table_.__bucket_list_.__ptr_, [*(*(&v13 + 1) + 8 * i) unsignedIntValue]);
+          unsignedIntValue = [*(*(&v16 + 1) + 8 * v10) unsignedIntValue];
+          v13 = 0;
+          v14 = unsignedIntValue;
+          std::__hash_table<std::__hash_value_type<unsigned int,unsigned int>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,unsigned int>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,unsigned int,unsigned int>(&self->_includedContexts.__table_.__bucket_list_.__ptr_, unsignedIntValue, &v14, &v13);
+          ++v10;
         }
 
-        v8 = [contexts countByEnumeratingWithState:&v13 objects:v12 count:16];
+        while (v8 != v10);
+        v8 = [contexts countByEnumeratingWithState:&v16 objects:v15 count:16];
       }
 
       while (v8);

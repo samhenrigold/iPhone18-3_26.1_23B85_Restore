@@ -186,10 +186,10 @@ LABEL_24:
       v34 = v20;
     }
 
-    children = [(TUIImageResourceCacheKey *)self children];
-    children2 = [equalCopy children];
-    v24 = children2;
-    if (children == children2)
+    v22 = objc_msgSend_children(self);
+    v23 = objc_msgSend_children(equalCopy);
+    v24 = v23;
+    if (v22 == v23)
     {
 
       v10 = 1;
@@ -197,12 +197,12 @@ LABEL_24:
 
     else
     {
-      children3 = [(TUIImageResourceCacheKey *)self children];
-      [equalCopy children];
+      v25 = objc_msgSend_children(self);
+      objc_msgSend_children(equalCopy);
       v31 = v12;
       v26 = v11;
       v28 = v27 = filterInfo;
-      v10 = [children3 isEqual:v28];
+      v10 = [v25 isEqual:v28];
 
       filterInfo = v27;
       v11 = v26;
@@ -292,8 +292,8 @@ LABEL_29:
   filterInfo = [(TUIImageResourceCacheKey *)self filterInfo];
   [(TUIImageResourceCacheKey *)v4 setFilterInfo:filterInfo];
 
-  children = [(TUIImageResourceCacheKey *)self children];
-  [(TUIImageResourceCacheKey *)v4 setChildren:children];
+  v9 = objc_msgSend_children(self);
+  [(TUIImageResourceCacheKey *)v4 setChildren:v9];
 
   return v4;
 }

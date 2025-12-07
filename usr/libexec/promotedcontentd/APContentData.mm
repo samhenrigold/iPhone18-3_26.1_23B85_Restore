@@ -646,7 +646,7 @@ LABEL_41:
   fromCopy = from;
   sub_1003204D0(fromCopy);
 
-  sub_1001E27A8(&unk_1004D5850);
+  sub_1001E27A8(&unk_1004D5850, &qword_1003EAF30);
   v4.super.isa = sub_100398E48().super.isa;
 
   return v4.super.isa;

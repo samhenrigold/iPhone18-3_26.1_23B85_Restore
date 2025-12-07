@@ -9,7 +9,7 @@
 
 + (id)eventModelWithDictionary:(id)dictionary home:(id)home eventTriggerUUID:(id)d message:(id)message error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   homeCopy = home;
   dCopy = d;
@@ -31,11 +31,11 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v22;
-      v27 = 2112;
-      v28 = dictionaryCopy;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to create HMDMatterAttributeEventBaseModel from dictionary %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v22;
+      v26 = 2112;
+      v27 = dictionaryCopy;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to create HMDMatterAttributeEventBaseModel from dictionary %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -44,8 +44,6 @@
       *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -69,28 +67,26 @@
 
 void __42__HMDMatterAttributeEventModel_properties__block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v9.receiver = *(a1 + 32);
-  v9.super_class = &OBJC_METACLASS___HMDMatterAttributeEventModel;
-  v2 = objc_msgSendSuper2(&v9, sel_properties);
+  v8.receiver = *(a1 + 32);
+  v8.super_class = &OBJC_METACLASS___HMDMatterAttributeEventModel;
+  v2 = objc_msgSendSuper2(&v8, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_105346;
   properties__properties_105346 = v3;
 
   v5 = properties__properties_105346;
-  v10 = @"eventValue";
+  v9 = @"eventValue";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v5 addEntriesFromDictionary:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cd_generateValueForProperty:(id)property managedObjectField:(id)field context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   fieldCopy = field;
   contextCopy = context;
@@ -101,9 +97,9 @@ void __42__HMDMatterAttributeEventModel_properties__block_invoke(uint64_t a1)
     if (matterPathUUID)
     {
       matterPathUUID2 = [(HMDMatterAttributeEventModel *)self matterPathUUID];
-      v29 = 0;
-      v13 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:matterPathUUID2 ofManagedObjectType:objc_opt_class() error:&v29];
-      v14 = v29;
+      v28 = 0;
+      v13 = [HMDBackingStore cdlsFetchManagedObjectWithUUID:matterPathUUID2 ofManagedObjectType:objc_opt_class() error:&v28];
+      v14 = v28;
 
       v15 = v13;
       objc_opt_class();
@@ -134,16 +130,16 @@ void __42__HMDMatterAttributeEventModel_properties__block_invoke(uint64_t a1)
         {
           v23 = HMFGetLogIdentifier();
           [(HMDMatterAttributeEventModel *)selfCopy matterPathUUID];
-          v24 = v27 = v20;
+          v24 = v26 = v20;
           *buf = 138543874;
-          v31 = v23;
-          v32 = 2112;
-          v33 = v24;
-          v34 = 2112;
-          v35 = v14;
+          v30 = v23;
+          v31 = 2112;
+          v32 = v24;
+          v33 = 2112;
+          v34 = v14;
           _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to find mkfMatterPath with UUID %@: %@", buf, 0x20u);
 
-          v20 = v27;
+          v20 = v26;
         }
 
         objc_autoreleasePoolPop(v20);
@@ -159,12 +155,10 @@ void __42__HMDMatterAttributeEventModel_properties__block_invoke(uint64_t a1)
 
   else
   {
-    v28.receiver = self;
-    v28.super_class = HMDMatterAttributeEventModel;
-    v19 = [(HMDBackingStoreModelObject *)&v28 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
+    v27.receiver = self;
+    v27.super_class = HMDMatterAttributeEventModel;
+    v19 = [(HMDBackingStoreModelObject *)&v27 cd_generateValueForProperty:propertyCopy managedObjectField:fieldCopy context:contextCopy];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

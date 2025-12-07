@@ -27,9 +27,9 @@
 
 - (id)_initWithToneBias:(float)bias warmthBias:(float)warmthBias
 {
-  v10.receiver = self;
-  v10.super_class = AVSemanticStyle;
-  result = [(AVSemanticStyle *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = AVSemanticStyle;
+  result = [(AVSemanticStyle *)&v11 init];
   if (result)
   {
     if (fabsf(bias) <= 1.0)
@@ -53,7 +53,7 @@
     }
 
     v9 = [v7 exceptionWithName:v8 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v9, v10))
     {
       objc_exception_throw(v9);
     }

@@ -230,7 +230,7 @@
   v3 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -250,7 +250,7 @@
 
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   v6 = v7;
@@ -736,7 +736,7 @@ LABEL_15:
             if (v27)
             {
               delegate2 = [(VMPlayerController *)self delegate];
-              [(VMPlayerController *)self duration];
+              objc_msgSend_duration(self);
               [delegate2 playerController:self willChangeToDuration:?];
 LABEL_32:
             }
@@ -749,7 +749,7 @@ LABEL_32:
             if (v33)
             {
               delegate2 = [(VMPlayerController *)self delegate];
-              [(VMPlayerController *)self duration];
+              objc_msgSend_duration(self);
               [delegate2 playerController:self didChangeToDuration:?];
               goto LABEL_32;
             }

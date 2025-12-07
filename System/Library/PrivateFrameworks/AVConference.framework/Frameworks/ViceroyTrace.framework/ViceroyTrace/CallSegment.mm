@@ -609,16 +609,14 @@
 
 - (id)reportingClientExperimentSettingsDictionary
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"NCM";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"NCM";
   p_reportingClientExperimentSettings = &self->_reportingClientExperimentSettings;
   v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_reportingClientExperimentSettings.networkConditionMonitoringClientExperimentEnabled];
-  v6[1] = @"MBD";
-  v7[0] = v3;
-  v7[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[1] = @"MBD";
+  v6[0] = v3;
+  v6[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 }
 
 - (void)reportVideoFeatureStatus:(id)status
@@ -643,63 +641,59 @@
 
 - (id)segmentReport
 {
-  v191[132] = *MEMORY[0x277D85DE8];
+  v188[132] = *MEMORY[0x277D85DE8];
   if (self->_duration <= 1)
   {
-    if (self->_nwActivity)
+    if (!self->_nwActivity)
     {
-      nw_activity_complete_with_reason();
-      nw_release(self->_nwActivity);
-      dispatchedAggregatedReportCommon = 0;
-      self->_nwActivity = 0;
+      return 0;
     }
 
-    else
-    {
-      dispatchedAggregatedReportCommon = 0;
-    }
-
-    goto LABEL_200;
+    nw_activity_complete_with_reason();
+    nw_release(self->_nwActivity);
+    dispatchedAggregatedReportCommon = 0;
+    self->_nwActivity = 0;
+    return dispatchedAggregatedReportCommon;
   }
 
   adjustedDuration = self->_adjustedDuration;
   if (adjustedDuration)
   {
-    LODWORD(v162) = (self->_averageTargetBitrate / adjustedDuration * 1000.0);
-    HIDWORD(v162) = (self->_averageReceiveBitrate / adjustedDuration * 1000.0);
-    v163 = (self->_averageSendBitrate / adjustedDuration * 1000.0);
-    HIDWORD(v157) = (self->_averageVideoMediaSendBitrate / adjustedDuration * 1000.0);
-    LODWORD(v154) = (self->_averageVideoMediaReceiveBitrate / adjustedDuration * 1000.0);
-    HIDWORD(v154) = (self->_averageTotalVideoSendBitrate / adjustedDuration * 1000.0);
-    LODWORD(v155) = (self->_averageVideoFECSendBitrate / adjustedDuration * 1000.0);
-    HIDWORD(v155) = (self->_averageVideoHeaderSendBitrate / adjustedDuration * 1000.0);
+    LODWORD(v159) = (self->_averageTargetBitrate / adjustedDuration * 1000.0);
+    HIDWORD(v159) = (self->_averageReceiveBitrate / adjustedDuration * 1000.0);
+    v160 = (self->_averageSendBitrate / adjustedDuration * 1000.0);
+    HIDWORD(v154) = (self->_averageVideoMediaSendBitrate / adjustedDuration * 1000.0);
+    LODWORD(v151) = (self->_averageVideoMediaReceiveBitrate / adjustedDuration * 1000.0);
+    HIDWORD(v151) = (self->_averageTotalVideoSendBitrate / adjustedDuration * 1000.0);
+    LODWORD(v152) = (self->_averageVideoFECSendBitrate / adjustedDuration * 1000.0);
+    HIDWORD(v152) = (self->_averageVideoHeaderSendBitrate / adjustedDuration * 1000.0);
     *&v5 = self->_averageTotalVideoRecvBitrate / adjustedDuration * 1000.0;
     v6 = *&v5;
     LODWORD(v5) = self->_overshootSendBitrate;
     *&v7 = v5 * 1000.0 / adjustedDuration;
-    LODWORD(v158) = (self->_averageVideoFECReceiveBitrate / adjustedDuration * 1000.0);
-    HIDWORD(v158) = *&v7;
+    LODWORD(v155) = (self->_averageVideoFECReceiveBitrate / adjustedDuration * 1000.0);
+    HIDWORD(v155) = *&v7;
     LODWORD(v7) = self->_undershootSendBitrate;
     *&v8 = v7 * 1000.0 / adjustedDuration;
-    LODWORD(v156) = v6;
-    HIDWORD(v156) = *&v8;
+    LODWORD(v153) = v6;
+    HIDWORD(v153) = *&v8;
     LODWORD(v8) = self->_overUtilizedBandwidth;
     *&v9 = v8 * 1000.0 / adjustedDuration;
     v10 = *&v9;
     LODWORD(v9) = self->_underUtilizedBandwidth;
-    LODWORD(v157) = (v9 * 1000.0 / adjustedDuration);
+    LODWORD(v154) = (v9 * 1000.0 / adjustedDuration);
   }
 
   else
   {
     v10 = 0;
-    v157 = 0;
-    v158 = 0;
     v154 = 0;
     v155 = 0;
-    v163 = 0;
-    v162 = 0;
-    v156 = 0;
+    v151 = 0;
+    v152 = 0;
+    v160 = 0;
+    v159 = 0;
+    v153 = 0;
   }
 
   totalVideoStallTime = self->_totalVideoStallTime;
@@ -714,7 +708,7 @@
     v13 = ([(CallSegment *)self RTPeriod]* v12);
   }
 
-  v135 = v13;
+  v132 = v13;
   totalAudioStallTime = self->_totalAudioStallTime;
   v15 = self->_adjustedDuration;
   if (totalAudioStallTime <= ([(CallSegment *)self RTPeriod]* v15))
@@ -730,7 +724,7 @@
 
   totalNoRemotePacketsTime = self->_totalNoRemotePacketsTime;
   v19 = self->_adjustedDuration;
-  v159 = v10;
+  v156 = v10;
   if (totalNoRemotePacketsTime <= ([(CallSegment *)self RTPeriod]* v19))
   {
     v21 = self->_totalNoRemotePacketsTime;
@@ -755,7 +749,7 @@
     v25 = [(CallSegment *)self RTPeriod]* v24;
   }
 
-  v150 = v25;
+  v147 = v25;
   BBRateTooLowCount = self->_BBRateTooLowCount;
   v27 = self->_adjustedDuration;
   if (BBRateTooLowCount <= [(CallSegment *)self RTPeriod]* v27)
@@ -769,21 +763,21 @@
     v29 = [(CallSegment *)self RTPeriod]* v28;
   }
 
-  v149 = v29;
+  v146 = v29;
   audioFlushPacketCount = self->_audioFlushPacketCount;
   if (audioFlushPacketCount >= self->_audioSentPacketCount)
   {
     audioFlushPacketCount = self->_audioSentPacketCount;
   }
 
-  v151 = audioFlushPacketCount;
+  v148 = audioFlushPacketCount;
   videoFlushPacketCount = self->_videoFlushPacketCount;
   if (videoFlushPacketCount >= self->_videoSentPacketCount)
   {
     videoFlushPacketCount = self->_videoSentPacketCount;
   }
 
-  v133 = videoFlushPacketCount;
+  v130 = videoFlushPacketCount;
   poorConnectionTotalLength = self->_poorConnectionTotalLength;
   v33 = self->_adjustedDuration;
   if (poorConnectionTotalLength <= ([(CallSegment *)self RTPeriod]* v33))
@@ -797,21 +791,21 @@
     v35 = ([(CallSegment *)self RTPeriod]* v34);
   }
 
-  v134 = v35;
+  v131 = v35;
   v36 = self->_adjustedDuration;
   if (v36)
   {
-    v161 = (self->_averageBWE / v36);
+    v158 = (self->_averageBWE / v36);
   }
 
   else
   {
-    v161 = 0;
+    v158 = 0;
   }
 
   initialSettledBitrate = [(VCAdaptiveLearningDelegate *)self->_delegate initialSettledBitrate];
   v38 = [(NSString *)self->_segmentName substringToIndex:3];
-  v160 = [(VCAdaptiveLearningDelegate *)self->_delegate previousISBRForSegment:v38];
+  v157 = [(VCAdaptiveLearningDelegate *)self->_delegate previousISBRForSegment:v38];
   if ([(VCAdaptiveLearningDelegate *)self->_delegate adaptiveLearningState])
   {
     v40 = [(NSString *)self->_segmentName containsString:@"D"];
@@ -832,16 +826,16 @@
             *&buf[12] = 2080;
             *&buf[14] = "[CallSegment segmentReport]";
             *&buf[22] = 1024;
-            LODWORD(v171) = 1336;
-            WORD2(v171) = 2112;
-            *(&v171 + 6) = segmentName;
+            LODWORD(v168) = 1336;
+            WORD2(v168) = 2112;
+            *(&v168 + 6) = segmentName;
             _os_log_impl(&dword_23D4DF000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Ignoring duplication segment [%@]", buf, 0x26u);
           }
         }
 
         else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
         {
-          [(CallSegment *)v42 segmentReport];
+          [CallSegment segmentReport];
         }
       }
     }
@@ -860,167 +854,167 @@
           *&buf[12] = 2080;
           *&buf[14] = "[CallSegment segmentReport]";
           *&buf[22] = 1024;
-          LODWORD(v171) = 1333;
-          WORD2(v171) = 2112;
-          *(&v171 + 6) = v47;
+          LODWORD(v168) = 1333;
+          WORD2(v168) = 2112;
+          *(&v168 + 6) = v47;
           _os_log_impl(&dword_23D4DF000, v46, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AdaptiveLearning: Updating Target Bitrate history for segment [%@]", buf, 0x26u);
         }
       }
 
-      [(VCAdaptiveLearningDelegate *)self->_delegate updateSegment:v38 TBR:v162 ISBTR:initialSettledBitrate SATXBR:v163 SARBR:HIDWORD(v162) BWE:v161];
+      [(VCAdaptiveLearningDelegate *)self->_delegate updateSegment:v38 TBR:v159 ISBTR:initialSettledBitrate SATXBR:v160 SARBR:HIDWORD(v159) BWE:v158];
     }
   }
 
   v48 = self->_adjustedDuration;
   if (!v48)
   {
-    v144 = 0;
-    v146 = 0;
-    v148 = 0;
-LABEL_57:
-    v147 = 0;
-LABEL_58:
-    v145 = 0;
-LABEL_59:
+    v141 = 0;
     v143 = 0;
+    v145 = 0;
+LABEL_57:
+    v144 = 0;
+LABEL_58:
+    v142 = 0;
+LABEL_59:
+    v140 = 0;
     goto LABEL_60;
   }
 
   LODWORD(v39) = self->_totalFIRDemandCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v48);
-  v148 = v39;
+  v145 = v39;
   v49 = self->_adjustedDuration;
   if (!v49)
   {
-    v144 = 0;
-    v146 = 0;
+    v141 = 0;
+    v143 = 0;
     goto LABEL_57;
   }
 
   LODWORD(v39) = self->_totalFIRCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v49);
-  v147 = v39;
+  v144 = v39;
   v50 = self->_adjustedDuration;
   if (!v50)
   {
-    v144 = 0;
-    v146 = 0;
+    v141 = 0;
+    v143 = 0;
     goto LABEL_58;
   }
 
   LODWORD(v39) = self->_totalFIRFailSafeCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v50);
-  HIDWORD(v146) = v39;
+  HIDWORD(v143) = v39;
   v51 = self->_adjustedDuration;
   if (!v51)
   {
-    v144 = 0;
-    LODWORD(v146) = 0;
+    v141 = 0;
+    LODWORD(v143) = 0;
     goto LABEL_58;
   }
 
   LODWORD(v39) = self->_videoFrameDecodedButSkippedCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v51);
-  v145 = v39;
+  v142 = v39;
   v52 = self->_adjustedDuration;
   if (!v52)
   {
-    v144 = 0;
-    LODWORD(v146) = 0;
+    v141 = 0;
+    LODWORD(v143) = 0;
     goto LABEL_59;
   }
 
   LODWORD(v39) = self->_videoFrameIncompleteNextTSCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v52);
-  LODWORD(v146) = v39;
+  LODWORD(v143) = v39;
   v53 = self->_adjustedDuration;
   if (!v53)
   {
-    v144 = 0;
+    v141 = 0;
     goto LABEL_59;
   }
 
   LODWORD(v39) = self->_videoFrameTotalIncompleteCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v53);
-  v143 = v39;
+  v140 = v39;
   v54 = self->_adjustedDuration;
   if (!v54)
   {
-    v144 = 0;
+    v141 = 0;
     goto LABEL_60;
   }
 
   LODWORD(v39) = self->_decodedVideoFrameEnqueueCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v54);
-  v144 = v39;
+  v141 = v39;
   v55 = self->_adjustedDuration;
   if (!v55)
   {
 LABEL_60:
-    v140 = 0;
-    v142 = 0;
+    v137 = 0;
+    v139 = 0;
 LABEL_61:
-    v141 = 0;
+    v138 = 0;
     goto LABEL_62;
   }
 
   LODWORD(v39) = self->_videoFrameReceivedCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v55);
-  v142 = v39;
+  v139 = v39;
   v56 = self->_adjustedDuration;
   if (!v56)
   {
-    v140 = 0;
+    v137 = 0;
     goto LABEL_61;
   }
 
   LODWORD(v39) = self->_videoFrameExpectedCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v56);
-  v141 = v39;
+  v138 = v39;
   v57 = self->_adjustedDuration;
   if (!v57)
   {
-    v140 = 0;
+    v137 = 0;
     goto LABEL_62;
   }
 
   LODWORD(v39) = self->_encodedVideoFrameCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v57);
-  v140 = v39;
+  v137 = v39;
   v58 = self->_adjustedDuration;
   if (!v58)
   {
 LABEL_62:
-    v139 = 0;
+    v136 = 0;
     goto LABEL_63;
   }
 
   LODWORD(v39) = self->_captureVideoFrameCounter;
   v39 = *&v39 * 1000.0 / ([(CallSegment *)self RTPeriod]* v58);
-  v139 = v39;
+  v136 = v39;
 LABEL_63:
   mediaStallCount = self->_mediaStallCount;
   if (mediaStallCount)
   {
     v39 = self->_totalMediaStallTime / mediaStallCount * 1000.0;
-    v152 = v39;
+    v149 = v39;
   }
 
   else
   {
-    v152 = 0;
+    v149 = 0;
   }
 
   evictedFramesAnalysisValidIntervals = self->_evictedFramesAnalysisValidIntervals;
   if (evictedFramesAnalysisValidIntervals)
   {
     v39 = self->_evictedFramesAverageLatePacketDelay * 1000.0 / evictedFramesAnalysisValidIntervals;
-    v137 = v39;
+    v134 = v39;
   }
 
   else
   {
-    v137 = 0;
+    v134 = 0;
   }
 
   evictedFramesTrackedCount = self->_evictedFramesTrackedCount;
@@ -1028,12 +1022,12 @@ LABEL_63:
   {
     LODWORD(v39) = self->_evictedFramesRecoveredCount;
     v39 = *&v39 * 10000.0 / evictedFramesTrackedCount;
-    v138 = v39;
+    v135 = v39;
   }
 
   else
   {
-    v138 = 0;
+    v135 = 0;
   }
 
   v62 = self->_adjustedDuration;
@@ -1056,113 +1050,113 @@ LABEL_63:
   if (v62)
   {
     v67 = (self->_averageJitterQueueSizeChanges / v62);
-    v153 = self->_averageJitterQueueSize / v62;
+    v150 = self->_averageJitterQueueSize / v62;
     timeWeightedJitterQueueSize = self->_timeWeightedJitterQueueSize;
     v69 = timeWeightedJitterQueueSize / v62;
     LODWORD(timeWeightedJitterQueueSize) = self->_lateFramesScheduledCount;
-    v136 = (*&timeWeightedJitterQueueSize * 1000.0 / ([(CallSegment *)self RTPeriod]* v62));
+    v133 = (*&timeWeightedJitterQueueSize * 1000.0 / ([(CallSegment *)self RTPeriod]* v62));
     v62 = self->_adjustedDuration;
   }
 
   else
   {
-    v153 = 0;
-    v136 = 0;
+    v150 = 0;
+    v133 = 0;
     v69 = 0.0;
     v67 = 0.0;
   }
 
   v70 = [(CallSegment *)self RTPeriod]* v62;
-  v168.receiver = self;
-  v168.super_class = CallSegment;
-  dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v168 dispatchedAggregatedReportCommon];
+  v165.receiver = self;
+  v165.super_class = CallSegment;
+  dispatchedAggregatedReportCommon = [(VCReportingCommon *)&v165 dispatchedAggregatedReportCommon];
   v71 = self->_segmentName;
   if (!v71)
   {
     v71 = &stru_284F80940;
   }
 
-  v190[0] = @"CONFIG";
-  v190[1] = @"PREVCONFIG";
+  v187[0] = @"CONFIG";
+  v187[1] = @"PREVCONFIG";
   previousSegmentName = self->_previousSegmentName;
   if (!previousSegmentName)
   {
     previousSegmentName = &stru_284F80940;
   }
 
-  v191[0] = v71;
-  v191[1] = previousSegmentName;
-  v190[2] = @"MODE";
-  v191[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callMode];
-  v190[3] = @"DEVROLE";
-  v191[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callDeviceRole];
-  v190[4] = @"TT";
-  v191[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callTransportType];
-  v190[5] = @"INTTR";
-  v191[5] = [MEMORY[0x277CCABA8] numberWithBool:self->_isInitiator];
-  v190[6] = @"SMLRN";
-  v191[6] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate adaptiveLearningState](self->_delegate, "adaptiveLearningState")}];
-  v190[7] = @"DRTN";
-  v191[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[CallSegment RTPeriod](self, "RTPeriod") * self->_duration}];
-  v190[8] = @"RTT";
-  v191[8] = [(VCHistogram *)self->_RTT description];
-  v190[9] = @"ABRTT";
-  v191[9] = [(VCHistogram *)self->_abnormalRTT description];
-  v190[10] = @"TBR";
-  v191[10] = [(VCHistogram *)self->_TBR description];
-  v190[11] = @"RBR";
-  v191[11] = [(VCHistogram *)self->_RBR description];
-  v190[12] = @"SBR";
-  v191[12] = [(VCHistogram *)self->_SBR description];
-  v190[13] = @"JBQS";
-  v191[13] = [(VCHistogram *)self->_JBQSize description];
-  v190[14] = @"WVJBQS";
-  v191[14] = [(VCHistogram *)self->_WANVJBQSize description];
-  v190[15] = @"JBQSDV";
-  v191[15] = [(VCHistogram *)self->_JBQSizeDeltaVidLarger description];
-  v190[16] = @"JBQSDA";
-  v191[16] = [(VCHistogram *)self->_JBQSizeDeltaAudLarger description];
-  v190[17] = @"JBT";
-  v191[17] = [(VCHistogram *)self->_JBTarget description];
-  v190[18] = @"AUJBL";
-  v191[18] = [(VCHistogram *)self->_JBUnclippedTarget description];
-  v190[19] = @"LAT";
-  v191[19] = [(VCHistogram *)self->_latency description];
-  v190[20] = @"REDECR";
-  v191[20] = [(VCHistogram *)self->_REDErasureCompensationRate description];
-  v190[21] = @"REDRC";
-  v191[21] = [(VCHistogram *)self->_REDReceivedCount description];
-  v190[22] = @"REDDC";
-  v191[22] = [(VCHistogram *)self->_REDDiscardedCount description];
-  v190[23] = @"REDNPU";
-  v191[23] = [(VCHistogram *)self->_REDNumPayloadsUsed description];
-  v190[24] = @"REDMD";
-  v191[24] = [(VCHistogram *)self->_REDMaxDelay description];
-  v190[25] = @"JE";
-  v191[25] = [(VCHistogram *)self->_jitterErasures description];
-  v190[26] = @"AE";
-  v191[26] = [(VCHistogram *)self->_audioErasures description];
-  v190[27] = @"SERCNT";
-  v191[27] = [(VCHistogram *)self->_speechErasures description];
-  v190[28] = @"MCAEH";
-  v191[28] = [(VCHistogram *)self->_maxConsAudioErasuresHistogram description];
-  v190[29] = @"JBTS";
-  v191[29] = [(VCHistogram *)self->_timescaleRate description];
-  v190[30] = @"JBSITS";
-  v191[30] = [(VCHistogram *)self->_silenceTimescaleRate description];
-  v190[31] = @"JBSPTS";
-  v191[31] = [(VCHistogram *)self->_speechTimescaleRate description];
-  v190[32] = @"TSERT";
-  v191[32] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_speechErasureTotalTime];
-  v190[33] = @"TMST";
-  v191[33] = [(VCHistogram *)self->_mediaStall description];
-  v190[34] = @"MSMAX";
-  v191[34] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxMediaStallTime * 1000.0)];
-  v190[35] = @"AMST";
-  v191[35] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v152];
-  v190[36] = @"MSTCNT";
-  v191[36] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_mediaStallCount];
-  v190[37] = @"TASP";
+  v188[0] = v71;
+  v188[1] = previousSegmentName;
+  v187[2] = @"MODE";
+  v188[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callMode];
+  v187[3] = @"DEVROLE";
+  v188[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callDeviceRole];
+  v187[4] = @"TT";
+  v188[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callTransportType];
+  v187[5] = @"INTTR";
+  v188[5] = [MEMORY[0x277CCABA8] numberWithBool:self->_isInitiator];
+  v187[6] = @"SMLRN";
+  v188[6] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate adaptiveLearningState](self->_delegate, "adaptiveLearningState")}];
+  v187[7] = @"DRTN";
+  v188[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[CallSegment RTPeriod](self, "RTPeriod") * self->_duration}];
+  v187[8] = @"RTT";
+  v188[8] = [(VCHistogram *)self->_RTT description];
+  v187[9] = @"ABRTT";
+  v188[9] = [(VCHistogram *)self->_abnormalRTT description];
+  v187[10] = @"TBR";
+  v188[10] = [(VCHistogram *)self->_TBR description];
+  v187[11] = @"RBR";
+  v188[11] = [(VCHistogram *)self->_RBR description];
+  v187[12] = @"SBR";
+  v188[12] = [(VCHistogram *)self->_SBR description];
+  v187[13] = @"JBQS";
+  v188[13] = [(VCHistogram *)self->_JBQSize description];
+  v187[14] = @"WVJBQS";
+  v188[14] = [(VCHistogram *)self->_WANVJBQSize description];
+  v187[15] = @"JBQSDV";
+  v188[15] = [(VCHistogram *)self->_JBQSizeDeltaVidLarger description];
+  v187[16] = @"JBQSDA";
+  v188[16] = [(VCHistogram *)self->_JBQSizeDeltaAudLarger description];
+  v187[17] = @"JBT";
+  v188[17] = [(VCHistogram *)self->_JBTarget description];
+  v187[18] = @"AUJBL";
+  v188[18] = [(VCHistogram *)self->_JBUnclippedTarget description];
+  v187[19] = @"LAT";
+  v188[19] = [(VCHistogram *)self->_latency description];
+  v187[20] = @"REDECR";
+  v188[20] = [(VCHistogram *)self->_REDErasureCompensationRate description];
+  v187[21] = @"REDRC";
+  v188[21] = [(VCHistogram *)self->_REDReceivedCount description];
+  v187[22] = @"REDDC";
+  v188[22] = [(VCHistogram *)self->_REDDiscardedCount description];
+  v187[23] = @"REDNPU";
+  v188[23] = [(VCHistogram *)self->_REDNumPayloadsUsed description];
+  v187[24] = @"REDMD";
+  v188[24] = [(VCHistogram *)self->_REDMaxDelay description];
+  v187[25] = @"JE";
+  v188[25] = [(VCHistogram *)self->_jitterErasures description];
+  v187[26] = @"AE";
+  v188[26] = [(VCHistogram *)self->_audioErasures description];
+  v187[27] = @"SERCNT";
+  v188[27] = [(VCHistogram *)self->_speechErasures description];
+  v187[28] = @"MCAEH";
+  v188[28] = [(VCHistogram *)self->_maxConsAudioErasuresHistogram description];
+  v187[29] = @"JBTS";
+  v188[29] = [(VCHistogram *)self->_timescaleRate description];
+  v187[30] = @"JBSITS";
+  v188[30] = [(VCHistogram *)self->_silenceTimescaleRate description];
+  v187[31] = @"JBSPTS";
+  v188[31] = [(VCHistogram *)self->_speechTimescaleRate description];
+  v187[32] = @"TSERT";
+  v188[32] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_speechErasureTotalTime];
+  v187[33] = @"TMST";
+  v188[33] = [(VCHistogram *)self->_mediaStall description];
+  v187[34] = @"MSMAX";
+  v188[34] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxMediaStallTime * 1000.0)];
+  v187[35] = @"AMST";
+  v188[35] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v149];
+  v187[36] = @"MSTCNT";
+  v188[36] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_mediaStallCount];
+  v187[37] = @"TASP";
   if (v70)
   {
     v73 = (v17 / v70 * 10000.0);
@@ -1173,10 +1167,10 @@ LABEL_63:
     v73 = 0;
   }
 
-  v191[37] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v73];
-  v190[38] = @"MASI";
-  v191[38] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxAudioStallInterval * 100.0)];
-  v190[39] = @"TNRPP";
+  v188[37] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v73];
+  v187[38] = @"MASI";
+  v188[38] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxAudioStallInterval * 100.0)];
+  v187[39] = @"TNRPP";
   if (v70)
   {
     v74 = (v21 / v70 * 10000.0);
@@ -1187,13 +1181,13 @@ LABEL_63:
     v74 = 0;
   }
 
-  v191[39] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v74];
-  v190[40] = @"MNRPI";
-  v191[40] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxNoRemotePacketsInterval * 100.0)];
-  v190[41] = @"BBQTL";
+  v188[39] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v74];
+  v187[40] = @"MNRPI";
+  v188[40] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxNoRemotePacketsInterval * 100.0)];
+  v187[41] = @"BBQTL";
   if (v70)
   {
-    v75 = (v150 / v70 * 10000.0);
+    v75 = (v147 / v70 * 10000.0);
   }
 
   else
@@ -1201,11 +1195,11 @@ LABEL_63:
     v75 = 0;
   }
 
-  v191[41] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v75];
-  v190[42] = @"BBRTL";
+  v188[41] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v75];
+  v187[42] = @"BBRTL";
   if (v70)
   {
-    v76 = (v149 / v70 * 10000.0);
+    v76 = (v146 / v70 * 10000.0);
   }
 
   else
@@ -1213,12 +1207,12 @@ LABEL_63:
     v76 = 0;
   }
 
-  v191[42] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v76];
-  v190[43] = @"AFP";
+  v188[42] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v76];
+  v187[43] = @"AFP";
   audioSentPacketCount = self->_audioSentPacketCount;
   if (audioSentPacketCount)
   {
-    v78 = (v151 / audioSentPacketCount * 10000.0);
+    v78 = (v148 / audioSentPacketCount * 10000.0);
   }
 
   else
@@ -1226,36 +1220,36 @@ LABEL_63:
     v78 = 0;
   }
 
-  v191[43] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v78];
-  v190[44] = @"SATXBR";
-  v191[44] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v162];
-  v190[45] = @"SARBR";
-  v191[45] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v162)];
-  v190[46] = @"SASBR";
-  v191[46] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v163];
-  v190[47] = @"AVTSBR";
-  v191[47] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v154)];
-  v190[48] = @"AVMRBR";
-  v191[48] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v154];
-  v190[49] = @"AVMSBR";
-  v191[49] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v157)];
-  v190[50] = @"AVHSBR";
-  v191[50] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v155)];
-  v190[51] = @"AVFSBR";
-  v191[51] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v155];
-  v190[52] = @"AVFRBR";
-  v191[52] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v158];
-  v190[53] = @"AVTRBR";
-  v191[53] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v156];
-  v190[54] = @"AOVSBR";
-  v191[54] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v158)];
-  v190[55] = @"AUNSBR";
-  v191[55] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v156)];
-  v190[56] = @"AOVBWE";
-  v191[56] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v159];
-  v190[57] = @"AUNBWE";
-  v191[57] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v157];
-  v190[58] = @"SAJEAP";
+  v188[43] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v78];
+  v187[44] = @"SATXBR";
+  v188[44] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v159];
+  v187[45] = @"SARBR";
+  v188[45] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v159)];
+  v187[46] = @"SASBR";
+  v188[46] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v160];
+  v187[47] = @"AVTSBR";
+  v188[47] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v151)];
+  v187[48] = @"AVMRBR";
+  v188[48] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v151];
+  v187[49] = @"AVMSBR";
+  v188[49] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v154)];
+  v187[50] = @"AVHSBR";
+  v188[50] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v152)];
+  v187[51] = @"AVFSBR";
+  v188[51] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v152];
+  v187[52] = @"AVFRBR";
+  v188[52] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v155];
+  v187[53] = @"AVTRBR";
+  v188[53] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v153];
+  v187[54] = @"AOVSBR";
+  v188[54] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v155)];
+  v187[55] = @"AUNSBR";
+  v188[55] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v153)];
+  v187[56] = @"AOVBWE";
+  v188[56] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v156];
+  v187[57] = @"AUNBWE";
+  v188[57] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v154];
+  v187[58] = @"SAJEAP";
   v79 = self->_adjustedDuration;
   if (v79)
   {
@@ -1267,8 +1261,8 @@ LABEL_63:
     v80 = 0;
   }
 
-  v191[58] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v80];
-  v190[59] = @"SAEAP";
+  v188[58] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v80];
+  v187[59] = @"SAEAP";
   v81 = self->_adjustedDuration;
   if (v81)
   {
@@ -1280,8 +1274,8 @@ LABEL_63:
     v82 = 0;
   }
 
-  v191[59] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v82];
-  v190[60] = @"SASEAP";
+  v188[59] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v82];
+  v187[60] = @"SASEAP";
   v83 = self->_adjustedDuration;
   if (v83)
   {
@@ -1293,20 +1287,20 @@ LABEL_63:
     v84 = 0;
   }
 
-  v191[60] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v84];
-  v190[61] = @"SMCAE";
-  v191[61] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxConsecutiveAudioErasures];
-  v190[62] = @"SABWE";
-  v191[62] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v161];
-  v190[63] = @"SMAXBWE";
-  v191[63] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBWE];
-  v190[64] = @"SMINBWE";
-  v191[64] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_minBWE];
-  v190[65] = @"SSBWD";
-  v191[65] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalSuddenBandwidthDropCount], 3);
-  v190[66] = @"SRDMBL";
-  v191[66] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalMBLRampDownCount], 3);
-  v190[67] = @"SARTT";
+  v188[60] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v84];
+  v187[61] = @"SMCAE";
+  v188[61] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxConsecutiveAudioErasures];
+  v187[62] = @"SABWE";
+  v188[62] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v158];
+  v187[63] = @"SMAXBWE";
+  v188[63] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxBWE];
+  v187[64] = @"SMINBWE";
+  v188[64] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_minBWE];
+  v187[65] = @"SSBWD";
+  v188[65] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalSuddenBandwidthDropCount], 3);
+  v187[66] = @"SRDMBL";
+  v188[66] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalMBLRampDownCount], 3);
+  v187[67] = @"SARTT";
   v85 = self->_adjustedDuration;
   if (v85)
   {
@@ -1318,38 +1312,38 @@ LABEL_63:
     v86 = 0;
   }
 
-  v191[67] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v86];
-  v190[68] = @"PLR";
-  v191[68] = [(VCHistogram *)self->_PLR description];
-  v190[69] = @"ABPLR";
-  v191[69] = [(VCHistogram *)self->_abnormalPLR description];
-  v190[70] = @"ABBPL";
-  v191[70] = [(VCHistogram *)self->_abnormalBPL description];
-  v190[71] = @"STATBR";
-  v191[71] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageTBRForSegment:](self->_delegate, "shortTermAverageTBRForSegment:", v38)}];
-  v190[72] = @"LTATBR";
-  v191[72] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageTBRForSegment:](self->_delegate, "longTermAverageTBRForSegment:", v38)}];
-  v190[73] = @"LTAISBR";
-  v191[73] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageISBRForSegment:](self->_delegate, "longTermAverageISBRForSegment:", v38)}];
-  v190[74] = @"STAISBR";
-  v191[74] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageISBRForSegment:](self->_delegate, "shortTermAverageISBRForSegment:", v38)}];
-  v190[75] = @"PISBR";
-  v191[75] = [MEMORY[0x277CCABA8] numberWithInt:v160];
-  v190[76] = @"LTASATXBR";
-  v191[76] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageSATXBRForSegment:](self->_delegate, "longTermAverageSATXBRForSegment:", v38)}];
-  v190[77] = @"STASATXBR";
-  v191[77] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageSATXBRForSegment:](self->_delegate, "shortTermAverageSATXBRForSegment:", v38)}];
-  v190[78] = @"LTASARBR";
-  v191[78] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageSARBRForSegment:](self->_delegate, "longTermAverageSARBRForSegment:", v38)}];
-  v190[79] = @"SRASARBR";
-  v191[79] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageSARBRForSegment:](self->_delegate, "shortTermAverageSARBRForSegment:", v38)}];
-  v190[80] = @"LTABWE";
-  v191[80] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageBWEForSegment:](self->_delegate, "longTermAverageBWEForSegment:", v38)}];
-  v190[81] = @"STABWE";
-  v191[81] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageBWEForSegment:](self->_delegate, "shortTermAverageBWEForSegment:", v38)}];
-  v190[82] = @"OOOPCT";
-  v191[82] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_significantOOOPacketCount];
-  v190[83] = @"SAAUDPLR";
+  v188[67] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v86];
+  v187[68] = @"PLR";
+  v188[68] = [(VCHistogram *)self->_PLR description];
+  v187[69] = @"ABPLR";
+  v188[69] = [(VCHistogram *)self->_abnormalPLR description];
+  v187[70] = @"ABBPL";
+  v188[70] = [(VCHistogram *)self->_abnormalBPL description];
+  v187[71] = @"STATBR";
+  v188[71] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageTBRForSegment:](self->_delegate, "shortTermAverageTBRForSegment:", v38)}];
+  v187[72] = @"LTATBR";
+  v188[72] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageTBRForSegment:](self->_delegate, "longTermAverageTBRForSegment:", v38)}];
+  v187[73] = @"LTAISBR";
+  v188[73] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageISBRForSegment:](self->_delegate, "longTermAverageISBRForSegment:", v38)}];
+  v187[74] = @"STAISBR";
+  v188[74] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageISBRForSegment:](self->_delegate, "shortTermAverageISBRForSegment:", v38)}];
+  v187[75] = @"PISBR";
+  v188[75] = [MEMORY[0x277CCABA8] numberWithInt:v157];
+  v187[76] = @"LTASATXBR";
+  v188[76] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageSATXBRForSegment:](self->_delegate, "longTermAverageSATXBRForSegment:", v38)}];
+  v187[77] = @"STASATXBR";
+  v188[77] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageSATXBRForSegment:](self->_delegate, "shortTermAverageSATXBRForSegment:", v38)}];
+  v187[78] = @"LTASARBR";
+  v188[78] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageSARBRForSegment:](self->_delegate, "longTermAverageSARBRForSegment:", v38)}];
+  v187[79] = @"SRASARBR";
+  v188[79] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageSARBRForSegment:](self->_delegate, "shortTermAverageSARBRForSegment:", v38)}];
+  v187[80] = @"LTABWE";
+  v188[80] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate longTermAverageBWEForSegment:](self->_delegate, "longTermAverageBWEForSegment:", v38)}];
+  v187[81] = @"STABWE";
+  v188[81] = [MEMORY[0x277CCABA8] numberWithInt:{-[VCAdaptiveLearningDelegate shortTermAverageBWEForSegment:](self->_delegate, "shortTermAverageBWEForSegment:", v38)}];
+  v187[82] = @"OOOPCT";
+  v188[82] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_significantOOOPacketCount];
+  v187[83] = @"SAAUDPLR";
   v88 = self->_audioSentPacketCount;
   if (v88)
   {
@@ -1362,98 +1356,98 @@ LABEL_63:
     v89 = 0;
   }
 
-  v191[83] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v89];
-  v190[84] = @"SCDTXDB";
-  v191[84] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellDupTxDataBytes], 4);
-  v190[85] = @"SCDRXDB";
-  v191[85] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellDupRxDataBytes], 4);
-  v190[86] = @"SUCBTXDB";
-  v191[86] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalUsedCellBudgetTxDataBytes], 4);
-  v190[87] = @"SUCBRXDB";
-  v191[87] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalUsedCellBudgetRxDataBytes], 4);
-  v190[88] = @"SCTXDB";
-  v191[88] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellTxDataBytes], 4);
-  v190[89] = @"SCRXDB";
-  v191[89] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellRxDataBytes], 4);
-  v190[90] = @"SWTXDB";
-  v191[90] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalWifiTxDataBytes], 4);
-  v190[91] = @"SWRXDB";
-  v191[91] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalWifiRxDataBytes], 4);
-  v190[92] = @"MAXNRPT";
-  v191[92] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_duplicationMaxNoRemotePacketTime * 1000.0)];
-  v190[93] = @"MAXRNRPT";
-  v191[93] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_duplicationMaxRemoteNoRemotePacketTime * 1000.0)];
-  v190[94] = @"NEGSW";
-  v191[94] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_negotiatedSwitches];
-  v190[95] = @"RVER";
-  v191[95] = &unk_284FA53F0;
-  v190[96] = @"VCRCPROFNUM";
-  v191[96] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_vcrcProfileNumber];
-  v190[97] = @"LOCALRTCNT";
-  v191[97] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_localAlertStateSwitchCount], 3);
-  v190[98] = @"REMALRTCNT";
-  v191[98] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_remoteAlertStateSwitchCount], 3);
-  v190[99] = @"LNKPRBVER";
-  v191[99] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_linkProbingConfig.linkProbingVersion];
-  v190[100] = @"REMLNKPRBVER";
-  v191[100] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_linkProbingConfig.remoteLinkProbingVersion];
-  v190[101] = @"DYNDUPLNKCNT";
-  v191[101] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_dynamicDupeLinkCount], 3);
-  v190[102] = @"RTTMEANDLT";
-  v191[102] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v63], 3);
-  v190[103] = @"PLRTIERDLT";
-  v191[103] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v66], 3);
-  v190[104] = @"PCHADEL";
-  v191[104] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_primaryConnHealthAllowedDelay], 2);
-  v190[105] = @"ECNP";
-  v191[105] = [MEMORY[0x277CCABA8] numberWithDouble:v64];
-  v190[106] = @"CMAV";
-  v191[106] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_coreMotionActivityValue];
-  v190[107] = @"CMAC";
-  v191[107] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_coreMotionActivityConfidence];
-  v190[108] = @"AJBSCH";
-  v191[108] = [MEMORY[0x277CCABA8] numberWithDouble:v67];
-  v190[109] = @"AJBL";
-  v191[109] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v153];
-  v190[110] = @"MJBL";
-  v191[110] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxJitterQueueSize];
-  v190[111] = @"TWJBL";
-  v191[111] = [MEMORY[0x277CCABA8] numberWithDouble:v69];
-  v190[112] = @"CHRC";
-  v191[112] = [(VCHistogram *)self->_continuousHighRTTReportCount description];
-  v190[113] = @"CHPC";
-  v191[113] = [(VCHistogram *)self->_continuousHighPLRReportCount description];
-  v190[114] = @"CHRPC";
-  v191[114] = [(VCHistogram *)self->_continuousHighRTTPLRReportCount description];
-  v190[115] = @"RTXNacksEnabled";
-  v191[115] = [MEMORY[0x277CCABA8] numberWithBool:self->_serverPacketRetransmissionsForVideoEnabled];
-  v190[116] = @"RTXNacksDelayedEnabled";
-  v191[116] = [MEMORY[0x277CCABA8] numberWithBool:self->_serverPacketRetransmissionsExtraDelayBudgetEnabled];
-  v190[117] = @"RTXNacksConfigVersion";
-  v191[117] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_nackGeneratorConfigVersion];
-  v190[118] = @"TAPAY";
-  v191[118] = [(VCHistogram *)self->_audioCodecPayload description];
-  v190[119] = @"AATBH";
-  v191[119] = [(VCHistogram *)self->_audioFrameBundling description];
-  v190[120] = @"TAMBR";
-  v191[120] = [(VCHistogram *)self->_audioMediaBitrate description];
-  v190[121] = @"TRPBR";
-  v191[121] = [(VCHistogram *)self->_redPayloadBitrate description];
-  v190[122] = @"CAMCENSTAGE";
-  v191[122] = [MEMORY[0x277CCABA8] numberWithBool:self->_isCenterStageEnabled];
-  v190[123] = @"CAMB";
-  v191[123] = [MEMORY[0x277CCABA8] numberWithBool:self->_isPortraitBlurEnabled];
-  v190[124] = @"TPSSCTR";
-  v191[124] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendSuccessCounter];
-  v190[125] = @"TPSFCTR";
-  v191[125] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendFailureCounter];
-  v190[126] = @"RtcpForLoss";
-  v191[126] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpPSFBForLossFeedbackEnabled];
-  v190[127] = @"RtcpForLtrAck";
-  v191[127] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpPSFBForLtrAckEnabled];
-  v190[128] = @"CPT";
-  v191[128] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:self->_connectionProtocolType];
-  v190[129] = @"AAMRBR";
+  v188[83] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v89];
+  v187[84] = @"SCDTXDB";
+  v188[84] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellDupTxDataBytes], 4);
+  v187[85] = @"SCDRXDB";
+  v188[85] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellDupRxDataBytes], 4);
+  v187[86] = @"SUCBTXDB";
+  v188[86] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalUsedCellBudgetTxDataBytes], 4);
+  v187[87] = @"SUCBRXDB";
+  v188[87] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalUsedCellBudgetRxDataBytes], 4);
+  v187[88] = @"SCTXDB";
+  v188[88] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellTxDataBytes], 4);
+  v187[89] = @"SCRXDB";
+  v188[89] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalCellRxDataBytes], 4);
+  v187[90] = @"SWTXDB";
+  v188[90] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalWifiTxDataBytes], 4);
+  v187[91] = @"SWRXDB";
+  v188[91] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_totalWifiRxDataBytes], 4);
+  v187[92] = @"MAXNRPT";
+  v188[92] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_duplicationMaxNoRemotePacketTime * 1000.0)];
+  v187[93] = @"MAXRNRPT";
+  v188[93] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_duplicationMaxRemoteNoRemotePacketTime * 1000.0)];
+  v187[94] = @"NEGSW";
+  v188[94] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_negotiatedSwitches];
+  v187[95] = @"RVER";
+  v188[95] = &unk_284FA53F0;
+  v187[96] = @"VCRCPROFNUM";
+  v188[96] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_vcrcProfileNumber];
+  v187[97] = @"LOCALRTCNT";
+  v188[97] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_localAlertStateSwitchCount], 3);
+  v187[98] = @"REMALRTCNT";
+  v188[98] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_remoteAlertStateSwitchCount], 3);
+  v187[99] = @"LNKPRBVER";
+  v188[99] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_linkProbingConfig.linkProbingVersion];
+  v187[100] = @"REMLNKPRBVER";
+  v188[100] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_linkProbingConfig.remoteLinkProbingVersion];
+  v187[101] = @"DYNDUPLNKCNT";
+  v188[101] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_dynamicDupeLinkCount], 3);
+  v187[102] = @"RTTMEANDLT";
+  v188[102] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v63], 3);
+  v187[103] = @"PLRTIERDLT";
+  v188[103] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:v66], 3);
+  v187[104] = @"PCHADEL";
+  v188[104] = +[VCAggregatorUtils safeRoundOffNumber:toSignificantDigits:](VCAggregatorUtils, "safeRoundOffNumber:toSignificantDigits:", [MEMORY[0x277CCABA8] numberWithDouble:self->_primaryConnHealthAllowedDelay], 2);
+  v187[105] = @"ECNP";
+  v188[105] = [MEMORY[0x277CCABA8] numberWithDouble:v64];
+  v187[106] = @"CMAV";
+  v188[106] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_coreMotionActivityValue];
+  v187[107] = @"CMAC";
+  v188[107] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_coreMotionActivityConfidence];
+  v187[108] = @"AJBSCH";
+  v188[108] = [MEMORY[0x277CCABA8] numberWithDouble:v67];
+  v187[109] = @"AJBL";
+  v188[109] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v150];
+  v187[110] = @"MJBL";
+  v188[110] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_maxJitterQueueSize];
+  v187[111] = @"TWJBL";
+  v188[111] = [MEMORY[0x277CCABA8] numberWithDouble:v69];
+  v187[112] = @"CHRC";
+  v188[112] = [(VCHistogram *)self->_continuousHighRTTReportCount description];
+  v187[113] = @"CHPC";
+  v188[113] = [(VCHistogram *)self->_continuousHighPLRReportCount description];
+  v187[114] = @"CHRPC";
+  v188[114] = [(VCHistogram *)self->_continuousHighRTTPLRReportCount description];
+  v187[115] = @"RTXNacksEnabled";
+  v188[115] = [MEMORY[0x277CCABA8] numberWithBool:self->_serverPacketRetransmissionsForVideoEnabled];
+  v187[116] = @"RTXNacksDelayedEnabled";
+  v188[116] = [MEMORY[0x277CCABA8] numberWithBool:self->_serverPacketRetransmissionsExtraDelayBudgetEnabled];
+  v187[117] = @"RTXNacksConfigVersion";
+  v188[117] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_nackGeneratorConfigVersion];
+  v187[118] = @"TAPAY";
+  v188[118] = [(VCHistogram *)self->_audioCodecPayload description];
+  v187[119] = @"AATBH";
+  v188[119] = [(VCHistogram *)self->_audioFrameBundling description];
+  v187[120] = @"TAMBR";
+  v188[120] = [(VCHistogram *)self->_audioMediaBitrate description];
+  v187[121] = @"TRPBR";
+  v188[121] = [(VCHistogram *)self->_redPayloadBitrate description];
+  v187[122] = @"CAMCENSTAGE";
+  v188[122] = [MEMORY[0x277CCABA8] numberWithBool:self->_isCenterStageEnabled];
+  v187[123] = @"CAMB";
+  v188[123] = [MEMORY[0x277CCABA8] numberWithBool:self->_isPortraitBlurEnabled];
+  v187[124] = @"TPSSCTR";
+  v188[124] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendSuccessCounter];
+  v187[125] = @"TPSFCTR";
+  v188[125] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_packetSendFailureCounter];
+  v187[126] = @"RtcpForLoss";
+  v188[126] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpPSFBForLossFeedbackEnabled];
+  v187[127] = @"RtcpForLtrAck";
+  v188[127] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_rtcpPSFBForLtrAckEnabled];
+  v187[128] = @"CPT";
+  v188[128] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:self->_connectionProtocolType];
+  v187[129] = @"AAMRBR";
   v90 = self->_adjustedDuration;
   if (v90)
   {
@@ -1465,8 +1459,8 @@ LABEL_63:
     v91 = 0;
   }
 
-  v191[129] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v91];
-  v190[130] = @"AAMTBR";
+  v188[129] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v91];
+  v187[130] = @"AAMTBR";
   v92 = self->_adjustedDuration;
   if (v92)
   {
@@ -1478,15 +1472,15 @@ LABEL_63:
     v93 = 0;
   }
 
-  v191[130] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v93];
-  v190[131] = @"DIAFELD";
-  v191[131] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_reportingClientExperimentSettings.detectInactiveAudioFramesAACELD];
-  [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v191, v190, 132)}];
+  v188[130] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v93];
+  v187[131] = @"DIAFELD";
+  v188[131] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_reportingClientExperimentSettings.detectInactiveAudioFramesAACELD];
+  [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v188, v187, 132)}];
   if (self->_remoteFaceTimeSwitchesAvailable)
   {
-    v188 = @"REMSW";
-    v189 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_remoteSwitches];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v189, &v188, 1)}];
+    v185 = @"REMSW";
+    v186 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_remoteSwitches];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v186, &v185, 1)}];
   }
 
   if ([(VCDurationHistogram *)self->_pipThermalDurations totalDuration])
@@ -1497,33 +1491,33 @@ LABEL_63:
   [dispatchedAggregatedReportCommon setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithBool:", -[CallSegment isApplePersonalHotspot](self, "isApplePersonalHotspot")), @"PHS"}];
   if (self->_linkPreferSuggestion != 255)
   {
-    v186[0] = @"LNKSUG";
-    v187[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
-    v186[1] = @"LNKSCR";
-    v187[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_linkConfidenceScore];
-    v186[2] = @"LNKDEC";
-    v187[2] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_linkPreferDecision];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v187, v186, 3)}];
+    v183[0] = @"LNKSUG";
+    v184[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
+    v183[1] = @"LNKSCR";
+    v184[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_linkConfidenceScore];
+    v183[2] = @"LNKDEC";
+    v184[2] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_linkPreferDecision];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v184, v183, 3)}];
   }
 
   if (self->_linkIPPreference != 255)
   {
-    v184 = @"LNKIP";
-    v185 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v185, &v184, 1)}];
+    v181 = @"LNKIP";
+    v182 = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v182, &v181, 1)}];
   }
 
   if (self->_isRTXTelemetryAvailable)
   {
-    v182[0] = @"NACKS";
-    v183[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksSent];
-    v182[1] = @"NACKF";
-    v183[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksFulfilled];
-    v182[2] = @"NACKFOT";
-    v183[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksFulfilledOnTime];
-    v182[3] = @"UNACKS";
-    v183[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_uniqueNacksSent];
-    v182[4] = @"UNACKSRATE";
+    v179[0] = @"NACKS";
+    v180[0] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksSent];
+    v179[1] = @"NACKF";
+    v180[1] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksFulfilled];
+    v179[2] = @"NACKFOT";
+    v180[2] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_nacksFulfilledOnTime];
+    v179[3] = @"UNACKS";
+    v180[3] = [MEMORY[0x277CCABA8] numberWithUnsignedLongLong:self->_uniqueNacksSent];
+    v179[4] = @"UNACKSRATE";
     v94 = 0.0;
     v95 = 0.0;
     if (v70)
@@ -1531,15 +1525,15 @@ LABEL_63:
       v95 = self->_uniqueNacksSent / v70;
     }
 
-    v183[4] = [MEMORY[0x277CCABA8] numberWithDouble:v95];
-    v182[5] = @"NACKSRATE";
+    v180[4] = [MEMORY[0x277CCABA8] numberWithDouble:v95];
+    v179[5] = @"NACKSRATE";
     if (v70)
     {
       v94 = self->_nacksSent / v70;
     }
 
-    v183[5] = [MEMORY[0x277CCABA8] numberWithDouble:v94];
-    v182[6] = @"NACKFRATE";
+    v180[5] = [MEMORY[0x277CCABA8] numberWithDouble:v94];
+    v179[6] = @"NACKFRATE";
     v96 = 0.0;
     v97 = 0.0;
     if (v70)
@@ -1547,15 +1541,15 @@ LABEL_63:
       v97 = self->_nacksFulfilled / v70;
     }
 
-    v183[6] = [MEMORY[0x277CCABA8] numberWithDouble:v97];
-    v182[7] = @"NACKFOTRATE";
+    v180[6] = [MEMORY[0x277CCABA8] numberWithDouble:v97];
+    v179[7] = @"NACKFOTRATE";
     if (v70)
     {
       v96 = self->_nacksFulfilledOnTime / v70;
     }
 
-    v183[7] = [MEMORY[0x277CCABA8] numberWithDouble:v96];
-    v182[8] = @"NACKFASSMRTX";
+    v180[7] = [MEMORY[0x277CCABA8] numberWithDouble:v96];
+    v179[8] = @"NACKFASSMRTX";
     v98 = 0.0;
     v99 = 0.0;
     if (v70)
@@ -1563,15 +1557,15 @@ LABEL_63:
       v99 = self->_assembledFramesWithRTXPacketsCount / v70;
     }
 
-    v183[8] = [MEMORY[0x277CCABA8] numberWithDouble:v99];
-    v182[9] = @"NACKLSCHFRTX";
+    v180[8] = [MEMORY[0x277CCABA8] numberWithDouble:v99];
+    v179[9] = @"NACKLSCHFRTX";
     if (v70)
     {
       v98 = self->_lateFramesScheduledWithRTXCount / v70;
     }
 
-    v183[9] = [MEMORY[0x277CCABA8] numberWithDouble:v98];
-    v182[10] = @"NACKFFASSMRTX";
+    v180[9] = [MEMORY[0x277CCABA8] numberWithDouble:v98];
+    v179[10] = @"NACKFFASSMRTX";
     if (v70)
     {
       v100 = self->_failedToAssembleFramesWithRTXPacketsCount / v70;
@@ -1582,20 +1576,20 @@ LABEL_63:
       v100 = 0.0;
     }
 
-    v183[10] = [MEMORY[0x277CCABA8] numberWithDouble:v100];
-    v182[11] = @"NACKAVGRSPT";
-    v183[11] = [(VCHistogram *)self->_nacksRTXResponseTime description];
-    v182[12] = @"NACKAVGLATET";
-    v183[12] = [(VCHistogram *)self->_nacksRTXLateTime description];
-    v182[13] = @"NACKMBR";
-    v183[13] = [(VCHistogram *)self->_nacksRTXMediaBitRate description];
-    v182[14] = @"NACKRTXMBR";
-    v183[14] = [(VCHistogram *)self->_nacksRTXRetransmittedMediaBitRate description];
-    v182[15] = @"NACKPLRWRTX";
-    v183[15] = [(VCHistogram *)self->_nacksPLRWithRTX description];
-    v182[16] = @"NACKPLRWORTX";
-    v183[16] = [(VCHistogram *)self->_nacksPLRWithoutRTX description];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v183, v182, 17)}];
+    v180[10] = [MEMORY[0x277CCABA8] numberWithDouble:v100];
+    v179[11] = @"NACKAVGRSPT";
+    v180[11] = [(VCHistogram *)self->_nacksRTXResponseTime description];
+    v179[12] = @"NACKAVGLATET";
+    v180[12] = [(VCHistogram *)self->_nacksRTXLateTime description];
+    v179[13] = @"NACKMBR";
+    v180[13] = [(VCHistogram *)self->_nacksRTXMediaBitRate description];
+    v179[14] = @"NACKRTXMBR";
+    v180[14] = [(VCHistogram *)self->_nacksRTXRetransmittedMediaBitRate description];
+    v179[15] = @"NACKPLRWRTX";
+    v180[15] = [(VCHistogram *)self->_nacksPLRWithRTX description];
+    v179[16] = @"NACKPLRWORTX";
+    v180[16] = [(VCHistogram *)self->_nacksPLRWithoutRTX description];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v180, v179, 17)}];
   }
 
   [dispatchedAggregatedReportCommon addEntriesFromDictionary:{-[CallSegment reportingClientExperimentSettingsDictionary](self, "reportingClientExperimentSettingsDictionary")}];
@@ -1655,28 +1649,28 @@ LABEL_63:
 
   if ([(NSString *)self->_segmentName hasPrefix:@"W"])
   {
-    v180 = @"WiFi5GHz";
-    v181 = [MEMORY[0x277CCABA8] numberWithInt:self->_is5GHz];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v181, &v180, 1)}];
+    v177 = @"WiFi5GHz";
+    v178 = [MEMORY[0x277CCABA8] numberWithInt:self->_is5GHz];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", &v178, &v177, 1)}];
   }
 
   if (self->_isSmartBrakeHistogramPopulated)
   {
-    v178[0] = @"SBCGSTDRTN";
-    v179[0] = [(VCHistogram *)self->_smartBrakeDuration description];
-    v178[1] = @"SBTTXRS";
-    v179[1] = [(VCHistogram *)self->_smartBrakeTargetBitrateStart description];
-    v178[2] = @"SBBWES";
-    v179[2] = [(VCHistogram *)self->_smartBrakeBandwidthStart description];
-    v178[3] = @"SBBWEE";
-    v179[3] = [(VCHistogram *)self->_smartBrakeBandwidthEnd description];
-    v178[4] = @"SBTTXR5";
-    v179[4] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter5 description];
-    v178[5] = @"SBTTXR15";
-    v179[5] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter15 description];
-    v178[6] = @"SBTTXR30";
-    v179[6] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter30 description];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v179, v178, 7)}];
+    v175[0] = @"SBCGSTDRTN";
+    v176[0] = [(VCHistogram *)self->_smartBrakeDuration description];
+    v175[1] = @"SBTTXRS";
+    v176[1] = [(VCHistogram *)self->_smartBrakeTargetBitrateStart description];
+    v175[2] = @"SBBWES";
+    v176[2] = [(VCHistogram *)self->_smartBrakeBandwidthStart description];
+    v175[3] = @"SBBWEE";
+    v176[3] = [(VCHistogram *)self->_smartBrakeBandwidthEnd description];
+    v175[4] = @"SBTTXR5";
+    v176[4] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter5 description];
+    v175[5] = @"SBTTXR15";
+    v176[5] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter15 description];
+    v175[6] = @"SBTTXR30";
+    v176[6] = [(VCHistogram *)self->_smartBrakeTargetBitrateAfter30 description];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v176, v175, 7)}];
   }
 
   if (self->_rateControlSmartBrakeTrialVersion)
@@ -1686,26 +1680,26 @@ LABEL_63:
 
   if (self->_callMode == 1)
   {
-    v176[0] = @"VPLR";
-    v177[0] = [(VCHistogram *)self->_VPLR description];
-    v176[1] = @"VJ";
-    v177[1] = [(VCHistogram *)self->_videoJitter description];
-    v176[2] = @"SVSH";
-    v177[2] = [(VCHistogram *)self->_videoStall description];
-    v176[3] = @"FR";
-    v177[3] = [(VCHistogram *)self->_framerate description];
-    v176[4] = @"VQS";
-    v177[4] = [(VCHistogram *)self->_videoQualityScore description];
-    v176[5] = @"PCON";
-    v177[5] = [(VCHistogram *)self->_poorConnection description];
-    v176[6] = @"VRES";
-    v177[6] = [(VCHistogram *)self->_videoResolution description];
-    v176[7] = @"VEBR";
-    v177[7] = [(VCHistogram *)self->_videoEncodingBitrate description];
-    v176[8] = @"TVSP";
+    v173[0] = @"VPLR";
+    v174[0] = [(VCHistogram *)self->_VPLR description];
+    v173[1] = @"VJ";
+    v174[1] = [(VCHistogram *)self->_videoJitter description];
+    v173[2] = @"SVSH";
+    v174[2] = [(VCHistogram *)self->_videoStall description];
+    v173[3] = @"FR";
+    v174[3] = [(VCHistogram *)self->_framerate description];
+    v173[4] = @"VQS";
+    v174[4] = [(VCHistogram *)self->_videoQualityScore description];
+    v173[5] = @"PCON";
+    v174[5] = [(VCHistogram *)self->_poorConnection description];
+    v173[6] = @"VRES";
+    v174[6] = [(VCHistogram *)self->_videoResolution description];
+    v173[7] = @"VEBR";
+    v174[7] = [(VCHistogram *)self->_videoEncodingBitrate description];
+    v173[8] = @"TVSP";
     if (v70)
     {
-      v110 = (v135 / v70 * *(v105 + 276));
+      v110 = (v132 / v70 * *(v105 + 276));
     }
 
     else
@@ -1713,14 +1707,14 @@ LABEL_63:
       v110 = 0;
     }
 
-    v177[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v110];
-    v176[9] = @"MVSI";
-    v177[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxVideoStallInterval * 100.0)];
-    v176[10] = @"VFP";
+    v174[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v110];
+    v173[9] = @"MVSI";
+    v174[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_maxVideoStallInterval * 100.0)];
+    v173[10] = @"VFP";
     videoSentPacketCount = self->_videoSentPacketCount;
     if (videoSentPacketCount)
     {
-      v112 = (v133 / videoSentPacketCount * *(v105 + 276));
+      v112 = (v130 / videoSentPacketCount * *(v105 + 276));
     }
 
     else
@@ -1728,8 +1722,8 @@ LABEL_63:
       v112 = 0;
     }
 
-    v177[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v112];
-    v176[11] = @"SAVIDPLR";
+    v174[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v112];
+    v173[11] = @"SAVIDPLR";
     v113 = self->_adjustedDuration;
     if (v113)
     {
@@ -1741,17 +1735,17 @@ LABEL_63:
       v114 = 0;
     }
 
-    v177[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v114];
-    v176[12] = @"SPCONTLEN";
-    v177[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionTotalLength];
-    v176[13] = @"SPCONMAXLEN";
-    v177[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionMaxLength];
-    v176[14] = @"SPCONFQ";
-    v177[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionFrequency];
-    v176[15] = @"SPCONP";
+    v174[11] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v114];
+    v173[12] = @"SPCONTLEN";
+    v174[12] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionTotalLength];
+    v173[13] = @"SPCONMAXLEN";
+    v174[13] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionMaxLength];
+    v173[14] = @"SPCONFQ";
+    v174[14] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_poorConnectionFrequency];
+    v173[15] = @"SPCONP";
     if (v70)
     {
-      v115 = (v134 / v70 * *(v105 + 276));
+      v115 = (v131 / v70 * *(v105 + 276));
     }
 
     else
@@ -1759,54 +1753,54 @@ LABEL_63:
       v115 = 0;
     }
 
-    v177[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v115];
-    v176[16] = @"VPBNRFR";
-    v177[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v148];
-    v176[17] = @"FIRFR";
-    v177[17] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v147];
-    v176[18] = @"FIRFSFR";
-    v177[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v146)];
-    v176[19] = @"FIRFSFC";
-    v177[19] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalFIRFailSafeCounter];
-    v176[20] = @"VFDSKPR";
-    v177[20] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v145];
-    v176[21] = @"VPBINTSER";
-    v177[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v146];
-    v176[22] = @"VPBTIR";
-    v177[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v143];
-    v176[23] = @"VPBLSR";
-    v177[23] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v136];
-    v176[24] = @"VREFR";
-    v177[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v144];
-    v176[25] = @"VRRFR";
-    v177[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v142];
-    v176[26] = @"VRExFR";
-    v177[26] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v141];
-    v176[27] = @"VTEFR";
-    v177[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v140];
-    v176[28] = @"VTCFR";
-    v177[28] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v139];
-    v176[29] = @"DUPTYPE";
-    v177[29] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_duplicationType];
-    v176[30] = @"VPBEVALPD";
-    v177[30] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v137];
-    v176[31] = @"VPBEVMLPD";
-    v177[31] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_evictedFramesMaxLatePacketDelay * 1000.0)];
-    v176[32] = @"VPBEVLPDHIST";
-    v177[32] = [(VCHistogram *)self->_evictedFramesLatePacketDelayHist description];
-    v176[33] = @"PEVFR";
-    v177[33] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v138];
-    v176[34] = @"TVMBR";
-    v177[34] = [(VCHistogram *)self->_TVidMedBR description];
-    v176[35] = @"TVPAY";
-    v177[35] = [(VCHistogram *)self->_TVidCodecPayload description];
-    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v177, v176, 36)}];
+    v174[15] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v115];
+    v173[16] = @"VPBNRFR";
+    v174[16] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v145];
+    v173[17] = @"FIRFR";
+    v174[17] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v144];
+    v173[18] = @"FIRFSFR";
+    v174[18] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:HIDWORD(v143)];
+    v173[19] = @"FIRFSFC";
+    v174[19] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_totalFIRFailSafeCounter];
+    v173[20] = @"VFDSKPR";
+    v174[20] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v142];
+    v173[21] = @"VPBINTSER";
+    v174[21] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v143];
+    v173[22] = @"VPBTIR";
+    v174[22] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v140];
+    v173[23] = @"VPBLSR";
+    v174[23] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v133];
+    v173[24] = @"VREFR";
+    v174[24] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v141];
+    v173[25] = @"VRRFR";
+    v174[25] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v139];
+    v173[26] = @"VRExFR";
+    v174[26] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v138];
+    v173[27] = @"VTEFR";
+    v174[27] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v137];
+    v173[28] = @"VTCFR";
+    v174[28] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v136];
+    v173[29] = @"DUPTYPE";
+    v174[29] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:self->_duplicationType];
+    v173[30] = @"VPBEVALPD";
+    v174[30] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v134];
+    v173[31] = @"VPBEVMLPD";
+    v174[31] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:(self->_evictedFramesMaxLatePacketDelay * 1000.0)];
+    v173[32] = @"VPBEVLPDHIST";
+    v174[32] = [(VCHistogram *)self->_evictedFramesLatePacketDelayHist description];
+    v173[33] = @"PEVFR";
+    v174[33] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v135];
+    v173[34] = @"TVMBR";
+    v174[34] = [(VCHistogram *)self->_TVidMedBR description];
+    v173[35] = @"TVPAY";
+    v174[35] = [(VCHistogram *)self->_TVidCodecPayload description];
+    [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v174, v173, 36)}];
     avSyncOffsetSamplesCount = self->_avSyncOffsetSamplesCount;
     if (avSyncOffsetSamplesCount)
     {
-      v174[0] = @"AAVSO";
-      v175[0] = [MEMORY[0x277CCABA8] numberWithInt:(self->_avSyncOffsetSum / avSyncOffsetSamplesCount)];
-      v174[1] = @"MINAVSO";
+      v171[0] = @"AAVSO";
+      v172[0] = [MEMORY[0x277CCABA8] numberWithInt:(self->_avSyncOffsetSum / avSyncOffsetSamplesCount)];
+      v171[1] = @"MINAVSO";
       minAVSyncOffset = self->_minAVSyncOffset;
       if (minAVSyncOffset == 0x7FFFFFFF)
       {
@@ -1818,8 +1812,8 @@ LABEL_63:
         v118 = minAVSyncOffset;
       }
 
-      v175[1] = [MEMORY[0x277CCABA8] numberWithInt:v118];
-      v174[2] = @"MAXAVSO";
+      v172[1] = [MEMORY[0x277CCABA8] numberWithInt:v118];
+      v171[2] = @"MAXAVSO";
       maxAVSyncOffset = self->_maxAVSyncOffset;
       if (maxAVSyncOffset == 0x80000000)
       {
@@ -1831,8 +1825,8 @@ LABEL_63:
         v120 = maxAVSyncOffset;
       }
 
-      v175[2] = [MEMORY[0x277CCABA8] numberWithInt:v120];
-      [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v175, v174, 3)}];
+      v172[2] = [MEMORY[0x277CCABA8] numberWithInt:v120];
+      [dispatchedAggregatedReportCommon addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v172, v171, 3)}];
     }
 
     [(CallSegment *)self addProtocolStackDescriptionTelemetry:dispatchedAggregatedReportCommon];
@@ -1842,23 +1836,21 @@ LABEL_63:
     *&buf[8] = lossPattern;
     lossFecHistogram = self->_lossFecHistogram;
     *&buf[16] = self->_lossHistogram;
-    *&v171 = lossFecHistogram;
+    *&v168 = lossFecHistogram;
     LODWORD(lossFecHistogram) = self->_videoFrameNonFECCompleteCounter;
-    DWORD2(v171) = self->_videoFrameNonFECTotalCounter;
-    HIDWORD(v171) = lossFecHistogram;
+    DWORD2(v168) = self->_videoFrameNonFECTotalCounter;
+    HIDWORD(v168) = lossFecHistogram;
     LODWORD(lossFecHistogram) = self->_fecProcessingTime;
-    v172 = self->_adjustedDuration;
-    v173 = lossFecHistogram;
+    v169 = self->_adjustedDuration;
+    v170 = lossFecHistogram;
     [(VCAdaptiveLearningDelegate *)self->_delegate addFECStats:dispatchedAggregatedReportCommon parameters:buf];
     if (self->_nwActivity)
     {
       if (self->_useNwActivitySubmitMetrics && self->_isNWActivityReportingEnabled)
       {
         v123 = _CFXPCCreateXPCObjectFromCFObject();
-        nwActivity = self->_nwActivity;
         nw_activity_submit_metrics();
         xpc_release(v123);
-        v125 = self->_nwActivity;
       }
 
       nw_activity_complete_with_reason();
@@ -1872,36 +1864,34 @@ LABEL_63:
   [(CallSegment *)self addQRServerTelemetryToDictionary:dispatchedAggregatedReportCommon];
   [(CallSegment *)self reportVideoFeatureStatus:dispatchedAggregatedReportCommon];
   [(CallSegment *)self reportSpatialAudioSupport:dispatchedAggregatedReportCommon];
-  v166 = 0u;
-  v167 = 0u;
+  v163 = 0u;
   v164 = 0u;
-  v165 = 0u;
+  v161 = 0u;
+  v162 = 0u;
   thermalDataCollectors = self->_thermalDataCollectors;
-  v127 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v164 objects:v169 count:16];
-  if (v127)
+  v125 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v161 objects:v166 count:16];
+  if (v125)
   {
-    v128 = v127;
-    v129 = *v165;
+    v126 = v125;
+    v127 = *v162;
     do
     {
-      for (i = 0; i != v128; ++i)
+      for (i = 0; i != v126; ++i)
       {
-        if (*v165 != v129)
+        if (*v162 != v127)
         {
           objc_enumerationMutation(thermalDataCollectors);
         }
 
-        [*(*(&v164 + 1) + 8 * i) updateReport:dispatchedAggregatedReportCommon];
+        [*(*(&v161 + 1) + 8 * i) updateReport:dispatchedAggregatedReportCommon];
       }
 
-      v128 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v164 objects:v169 count:16];
+      v126 = [(NSSet *)thermalDataCollectors countByEnumeratingWithState:&v161 objects:v166 count:16];
     }
 
-    while (v128);
+    while (v126);
   }
 
-LABEL_200:
-  v131 = *MEMORY[0x277D85DE8];
   return dispatchedAggregatedReportCommon;
 }
 
@@ -2014,7 +2004,7 @@ LABEL_200:
 
 - (id)segmentQRReport
 {
-  v36[12] = *MEMORY[0x277D85DE8];
+  v35[12] = *MEMORY[0x277D85DE8];
   result = [(NSString *)self->_relayServer length];
   if (result)
   {
@@ -2075,31 +2065,31 @@ LABEL_200:
     }
 
     relayServer = self->_relayServer;
-    v35[0] = @"CONFIG";
-    v35[1] = @"QRSRVR";
-    v36[0] = segmentName;
-    v36[1] = relayServer;
-    v35[2] = @"QRTYPE";
+    v34[0] = @"CONFIG";
+    v34[1] = @"QRSRVR";
+    v35[0] = segmentName;
+    v35[1] = relayServer;
+    v34[2] = @"QRTYPE";
     v20 = [MEMORY[0x277CCABA8] numberWithInt:self->_relayType];
     accessToken = self->_accessToken;
-    v36[2] = v20;
-    v36[3] = accessToken;
-    v35[3] = @"QRATKN";
-    v35[4] = @"MODE";
-    v36[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callMode];
-    v35[5] = @"DRTN";
-    v36[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[CallSegment RTPeriod](self, "RTPeriod") * self->_duration}];
-    v35[6] = @"PLR";
-    v36[6] = [(VCHistogram *)self->_PLR description];
-    v35[7] = @"RTT";
-    v36[7] = [(VCHistogram *)self->_RTT description];
-    v35[8] = @"LAT";
-    v36[8] = [(VCHistogram *)self->_latency description];
-    v35[9] = @"SATXBR";
-    v36[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v5];
-    v35[10] = @"ERR";
-    v36[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_errorCode];
-    v35[11] = @"TASP";
+    v35[2] = v20;
+    v35[3] = accessToken;
+    v34[3] = @"QRATKN";
+    v34[4] = @"MODE";
+    v35[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_callMode];
+    v34[5] = @"DRTN";
+    v35[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:{-[CallSegment RTPeriod](self, "RTPeriod") * self->_duration}];
+    v34[6] = @"PLR";
+    v35[6] = [(VCHistogram *)self->_PLR description];
+    v34[7] = @"RTT";
+    v35[7] = [(VCHistogram *)self->_RTT description];
+    v34[8] = @"LAT";
+    v35[8] = [(VCHistogram *)self->_latency description];
+    v34[9] = @"SATXBR";
+    v35[9] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:v5];
+    v34[10] = @"ERR";
+    v35[10] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_errorCode];
+    v34[11] = @"TASP";
     v22 = MEMORY[0x277CCABA8];
     v23 = self->_adjustedDuration;
     if (v23)
@@ -2112,13 +2102,13 @@ LABEL_200:
       v24 = 0;
     }
 
-    v36[11] = [v22 numberWithUnsignedInt:v24];
-    v25 = [v17 initWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v36, v35, 12)}];
+    v35[11] = [v22 numberWithUnsignedInt:v24];
+    v25 = [v17 initWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v35, v34, 12)}];
     if (self->_callMode == 1)
     {
-      v33[0] = @"VPLR";
-      v34[0] = [(VCHistogram *)self->_VPLR description];
-      v33[1] = @"SPCONP";
+      v32[0] = @"VPLR";
+      v33[0] = [(VCHistogram *)self->_VPLR description];
+      v32[1] = @"SPCONP";
       v26 = MEMORY[0x277CCABA8];
       v27 = self->_adjustedDuration;
       if (v27)
@@ -2131,8 +2121,8 @@ LABEL_200:
         v28 = 0;
       }
 
-      v34[1] = [v26 numberWithUnsignedInt:v28];
-      v33[2] = @"TVSP";
+      v33[1] = [v26 numberWithUnsignedInt:v28];
+      v32[2] = @"TVSP";
       v29 = MEMORY[0x277CCABA8];
       v30 = self->_adjustedDuration;
       if (v30)
@@ -2145,14 +2135,13 @@ LABEL_200:
         v31 = 0;
       }
 
-      v34[2] = [v29 numberWithUnsignedInt:v31];
-      [v25 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v34, v33, 3)}];
+      v33[2] = [v29 numberWithUnsignedInt:v31];
+      [v25 addEntriesFromDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v33, v32, 3)}];
     }
 
-    result = v25;
+    return v25;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2224,7 +2213,7 @@ LABEL_200:
 
 - (void)setNWActivityReportingEnabled:(BOOL)enabled
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_isNWActivityReportingEnabled = enabled;
   if (VRTraceGetErrorLogLevelForModule("") >= 8)
   {
@@ -2235,25 +2224,23 @@ LABEL_200:
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         isNWActivityReportingEnabled = self->_isNWActivityReportingEnabled;
-        v8 = 136315906;
-        v9 = v4;
-        v10 = 2080;
-        v11 = "[CallSegment setNWActivityReportingEnabled:]";
-        v12 = 1024;
-        v13 = 1848;
-        v14 = 1024;
-        v15 = isNWActivityReportingEnabled;
-        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v8, 0x22u);
+        v7 = 136315906;
+        v8 = v4;
+        v9 = 2080;
+        v10 = "[CallSegment setNWActivityReportingEnabled:]";
+        v11 = 1024;
+        v12 = 1848;
+        v13 = 1024;
+        v14 = isNWActivityReportingEnabled;
+        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v7, 0x22u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      [(CallSegment *)v4 setNWActivityReportingEnabled:?];
+      [CallSegment setNWActivityReportingEnabled:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processSmartBrakeEvent:(id)event
@@ -2294,7 +2281,6 @@ LABEL_200:
 
 - (void)addQRServerTelemetryToDictionary:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -2303,35 +2289,27 @@ LABEL_200:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_5_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)segmentReport
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x26u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
-- (void)setNWActivityReportingEnabled:(uint64_t)a1 .cold.1(uint64_t a1, unsigned __int8 *a2)
+- (void)setNWActivityReportingEnabled:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6_3();
   OUTLINED_FUNCTION_4_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x22u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 @end

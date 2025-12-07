@@ -411,7 +411,7 @@
 - (void)endButtonTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -419,8 +419,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController endButtonTapped:] current state is %d", buf, 8u);
   }
 
-  [(PHEmergencyDialerViewController *)self setCallEnding:1];
-  v6 = sub_100004F84();
+  v6 = sub_100004F84([(PHEmergencyDialerViewController *)self setCallEnding:1]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -469,21 +468,22 @@
 
 - (void)callButtonTapped:(id)tapped
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6[0] = 67109120;
-    v6[1] = [(PHEmergencyDialerViewController *)self currentState];
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController callButtonTapped:] current state is %d", v6, 8u);
+    v7[0] = 67109120;
+    v7[1] = [(PHEmergencyDialerViewController *)self currentState];
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController callButtonTapped:] current state is %d", v7, 8u);
   }
 
-  if (![(PHEmergencyDialerViewController *)self currentState]|| [(PHEmergencyDialerViewController *)self currentState]== 3)
+  currentState = [(PHEmergencyDialerViewController *)self currentState];
+  if (!currentState || (currentState = [(PHEmergencyDialerViewController *)self currentState], currentState == 3))
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(currentState);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Will attempt to dial emergency call", v6, 2u);
+      LOWORD(v7[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Will attempt to dial emergency call", v7, 2u);
     }
 
     [(PHEmergencyDialerViewController *)self attemptToDialEmergencyCall];
@@ -492,7 +492,7 @@
 
 - (void)backButtonTapped:(id)tapped
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -558,9 +558,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
-  v12.receiver = self;
-  v12.super_class = PHEmergencyDialerViewController;
-  [(PHEmergencyDialerViewController *)&v12 viewDidDisappear:disappear];
+  v13.receiver = self;
+  v13.super_class = PHEmergencyDialerViewController;
+  [(PHEmergencyDialerViewController *)&v13 viewDidDisappear:disappear];
   if ([(PHEmergencyDialerViewController *)self shouldSetPresenceToken])
   {
     PHSetEmergencyDialerPresenceTokenValue();
@@ -584,19 +584,19 @@
 
   if (!currentCallCount)
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Ending emergency callback mode due because the emergency dialer is disappearing with no current calls", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ending emergency callback mode due because the emergency dialer is disappearing with no current calls", v12, 2u);
     }
 
     +[TUCallCapabilities endEmergencyCallbackMode];
   }
 
   sub_1000BFF70();
-  v10 = +[PHInCallUtilities sharedInstance];
-  [v10 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForBuddyEmergencyCallReason"];
+  v11 = +[PHInCallUtilities sharedInstance];
+  [v11 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForBuddyEmergencyCallReason"];
 }
 
 - (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
@@ -608,17 +608,17 @@
 
 - (void)updateCurrentState
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[TUCallCenter sharedInstance];
     currentCalls = [v4 currentCalls];
     v6 = +[TUCallCenter sharedInstance];
-    v16 = 138412546;
-    v17 = currentCalls;
-    v18 = 2048;
+    v19 = 138412546;
+    v20 = currentCalls;
+    v21 = 2048;
     currentCallCount = [v6 currentCallCount];
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "updateCurrentState: Calls are: %@. Count is %lu.", &v16, 0x16u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "updateCurrentState: Calls are: %@. Count is %lu.", &v19, 0x16u);
   }
 
   v7 = +[TUCallCenter sharedInstance];
@@ -626,63 +626,65 @@
 
   if (currentCallCount2)
   {
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "updateCurrentState: There are current calls, so setting state to PHEmergencyDialerStateInCall", &v16, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "updateCurrentState: There are current calls, so setting state to PHEmergencyDialerStateInCall", &v19, 2u);
     }
 
-    v10 = +[TUCallCenter sharedInstance];
-    frontmostCall = [v10 frontmostCall];
+    v11 = +[TUCallCenter sharedInstance];
+    frontmostCall = [v11 frontmostCall];
 
-    if ([frontmostCall canDisplayAlertUI:[(PHEmergencyDialerViewController *)self shouldPresentAlertButton]])
+    v13 = [frontmostCall canDisplayAlertUI:[(PHEmergencyDialerViewController *)self shouldPresentAlertButton]];
+    if (v13)
     {
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004F84(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: There are current calls and we need to show alertUI, so setting state to PHEmergencyDialerAlertModeNeededIfAvailable", &v16, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "UpdateCurrentState: There are current calls and we need to show alertUI, so setting state to PHEmergencyDialerAlertModeNeededIfAvailable", &v19, 2u);
       }
 
-      v13 = 2;
+      v15 = 2;
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
   }
 
   else
   {
-    v14 = +[TUCallCapabilities isEmergencyCallbackModeEnabled];
-    frontmostCall = sub_100004F84();
-    v15 = os_log_type_enabled(frontmostCall, OS_LOG_TYPE_DEFAULT);
-    if (v14)
+    v16 = +[TUCallCapabilities isEmergencyCallbackModeEnabled];
+    v17 = v16;
+    frontmostCall = sub_100004F84(v16);
+    v18 = os_log_type_enabled(frontmostCall, OS_LOG_TYPE_DEFAULT);
+    if (v17)
     {
-      if (v15)
+      if (v18)
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "updateCurrentState: emergency callback mode is active, so setting state to PHEmergencyDialerStateEmergencyCallBackMode", &v16, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "updateCurrentState: emergency callback mode is active, so setting state to PHEmergencyDialerStateEmergencyCallBackMode", &v19, 2u);
       }
 
-      v13 = 3;
+      v15 = 3;
     }
 
     else
     {
-      if (v15)
+      if (v18)
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "updateCurrentState: setting state to PHEmergencyDialerStateIdle", &v16, 2u);
+        LOWORD(v19) = 0;
+        _os_log_impl(&_mh_execute_header, frontmostCall, OS_LOG_TYPE_DEFAULT, "updateCurrentState: setting state to PHEmergencyDialerStateIdle", &v19, 2u);
       }
 
-      v13 = 0;
+      v15 = 0;
     }
   }
 
-  [(PHEmergencyDialerViewController *)self setCurrentState:v13];
+  [(PHEmergencyDialerViewController *)self setCurrentState:v15];
 }
 
 - (void)setCurrentState:(signed __int16)state animated:(BOOL)animated
@@ -691,7 +693,7 @@
   if (self->_currentState != state)
   {
     animatedCopy = animated;
-    v7 = sub_100004F84();
+    v7 = sub_100004F84(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
@@ -729,40 +731,41 @@
           }
         }
 
-        if ([(PHEmergencyDialerViewController *)self shouldPresentAlertButton])
+        shouldPresentAlertButton = [(PHEmergencyDialerViewController *)self shouldPresentAlertButton];
+        if (shouldPresentAlertButton)
         {
-          v49[0] = _NSConcreteStackBlock;
-          v49[1] = 3221225472;
-          v49[2] = sub_1000C0F34;
-          v49[3] = &unk_100356988;
-          v49[4] = self;
-          v45 = objc_retainBlock(v49);
-          v46 = v45;
+          v50[0] = _NSConcreteStackBlock;
+          v50[1] = 3221225472;
+          v50[2] = sub_1000C0F34;
+          v50[3] = &unk_100356988;
+          v50[4] = self;
+          v46 = objc_retainBlock(v50);
+          v47 = v46;
           if (animatedCopy)
           {
-            v47 = sub_100004F84();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+            v48 = sub_100004F84(v46);
+            if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController setCurrentState:] self.stewieEndCallButton.enabled = YES", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController setCurrentState:] self.stewieEndCallButton.enabled = YES", buf, 2u);
             }
 
-            [UIView animateWithDuration:v46 animations:0 completion:0.5];
+            [UIView animateWithDuration:v47 animations:0 completion:0.5];
           }
 
           else
           {
-            (v45[2])(v45);
+            (v46[2])(v46);
           }
         }
 
         else
         {
-          v48 = sub_100004F84();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          v49 = sub_100004F84(shouldPresentAlertButton);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "shouldPresentAlertButton is false, skipping update stewie button", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "shouldPresentAlertButton is false, skipping update stewie button", buf, 2u);
           }
         }
       }
@@ -780,12 +783,12 @@
         emergencyTitleLabel3 = [dialerView5 emergencyTitleLabel];
         [emergencyTitleLabel3 setText:v25];
 
-        v50[0] = _NSConcreteStackBlock;
-        v50[1] = 3221225472;
-        v50[2] = sub_1000C0E14;
-        v50[3] = &unk_100356988;
-        v50[4] = self;
-        v28 = objc_retainBlock(v50);
+        v51[0] = _NSConcreteStackBlock;
+        v51[1] = 3221225472;
+        v51[2] = sub_1000C0E14;
+        v51[3] = &unk_100356988;
+        v51[4] = self;
+        v28 = objc_retainBlock(v51);
         v29 = v28;
         if (animatedCopy)
         {
@@ -803,26 +806,26 @@
     {
       if (stateCopy == 1)
       {
-        v53 = 0;
-        v54 = &v53;
-        v55 = 0x2020000000;
+        v54 = 0;
+        v55 = &v54;
+        v56 = 0x2020000000;
         v8 = off_1003B0E88;
-        v56 = off_1003B0E88;
+        v57 = off_1003B0E88;
         if (!off_1003B0E88)
         {
           *buf = _NSConcreteStackBlock;
-          v58 = 3221225472;
-          v59 = sub_1000C3974;
-          v60 = &unk_1003576A8;
-          v61 = &v53;
+          v59 = 3221225472;
+          v60 = sub_1000C3974;
+          v61 = &unk_1003576A8;
+          v62 = &v54;
           v9 = sub_1000C3800();
           v10 = dlsym(v9, "MSNMonitorBeginException");
-          *(v61[1] + 24) = v10;
-          off_1003B0E88 = *(v61[1] + 24);
-          v8 = v54[3];
+          *(v62[1] + 24) = v10;
+          off_1003B0E88 = *(v62[1] + 24);
+          v8 = v55[3];
         }
 
-        _Block_object_dispose(&v53, 8);
+        _Block_object_dispose(&v54, 8);
         if (!v8)
         {
           sub_10025485C();
@@ -854,16 +857,16 @@
         [(PHEmergencyDialerViewController *)self setCallDurationTimer:v19];
 
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"continueCyclingEmergencyTitleLabel" object:0];
-        v51[0] = _NSConcreteStackBlock;
-        v51[1] = 3221225472;
-        v51[2] = sub_1000C0CD8;
-        v51[3] = &unk_100356988;
-        v51[4] = self;
-        v20 = objc_retainBlock(v51);
+        v52[0] = _NSConcreteStackBlock;
+        v52[1] = 3221225472;
+        v52[2] = sub_1000C0CD8;
+        v52[3] = &unk_100356988;
+        v52[4] = self;
+        v20 = objc_retainBlock(v52);
         v21 = v20;
         if (animatedCopy)
         {
-          v22 = sub_100004F84();
+          v22 = sub_100004F84(v20);
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
@@ -891,12 +894,12 @@
 
       [(PHEmergencyDialerViewController *)self setCallDurationTimer:0];
       [(PHEmergencyDialerViewController *)self continueCyclingEmergencyTitleLabel];
-      v52[0] = _NSConcreteStackBlock;
-      v52[1] = 3221225472;
-      v52[2] = sub_1000C0BB8;
-      v52[3] = &unk_100356988;
-      v52[4] = self;
-      v32 = objc_retainBlock(v52);
+      v53[0] = _NSConcreteStackBlock;
+      v53[1] = 3221225472;
+      v53[2] = sub_1000C0BB8;
+      v53[3] = &unk_100356988;
+      v53[4] = self;
+      v32 = objc_retainBlock(v53);
       v33 = v32;
       if (animatedCopy)
       {
@@ -923,7 +926,7 @@
 - (void)callStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v25 = 138412546;
@@ -984,7 +987,7 @@
 - (void)emergencyCallbackModeChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -997,7 +1000,7 @@
 
 - (void)handleAlertInvokedNotification:(id)notification
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1246,49 +1249,49 @@ LABEL_15:
   v7 = objc_alloc_init(TUSenderIdentityClient);
   prioritizedSenderIdentities = [emergencyProvider prioritizedSenderIdentities];
   v9 = [prioritizedSenderIdentities count];
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
     if (v11)
     {
       *buf = 138412290;
-      v26 = numberCopy;
+      v27 = numberCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Checking whether the digits %@ are an emergency telephone number.", buf, 0xCu);
     }
 
-    v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
+    v23 = 0u;
     v12 = prioritizedSenderIdentities;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v13)
     {
-      v20 = emergencyProvider;
-      v14 = *v22;
+      v21 = emergencyProvider;
+      v14 = *v23;
       while (2)
       {
         for (i = 0; i != v13; i = (i + 1))
         {
-          if (*v22 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v16 = *(*(&v22 + 1) + 8 * i);
           uUID = [v16 UUID];
           v18 = [v7 isEmergencyNumberForDigits:numberCopy senderIdentityUUID:uUID];
 
           if (v18)
           {
-            v13 = sub_100004F84();
+            v13 = sub_100004F84(v19);
             if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v26 = numberCopy;
-              v27 = 2112;
-              v28 = v16;
+              v27 = numberCopy;
+              v28 = 2112;
+              v29 = v16;
               _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Digits %@ are an emergency telephone number for sender identity %@.", buf, 0x16u);
             }
 
@@ -1297,7 +1300,7 @@ LABEL_15:
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           continue;
@@ -1307,7 +1310,7 @@ LABEL_15:
       }
 
 LABEL_16:
-      emergencyProvider = v20;
+      emergencyProvider = v21;
     }
   }
 
@@ -1316,7 +1319,7 @@ LABEL_16:
     if (v11)
     {
       *buf = 138412290;
-      v26 = numberCopy;
+      v27 = numberCopy;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Checking whether the digits %@ is an emergency telephone number for nil sender identity.", buf, 0xCu);
     }
 
@@ -1362,8 +1365,7 @@ LABEL_16:
 
 - (void)attemptToDialEmergencyCall
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"continueCyclingEmergencyTitleLabel" object:0];
-  v3 = sub_100004F84();
+  v3 = sub_100004F84([NSObject cancelPreviousPerformRequestsWithTarget:self selector:"continueCyclingEmergencyTitleLabel" object:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = +[TUCallCenter sharedInstance];
@@ -1375,7 +1377,7 @@ LABEL_16:
     }
 
     *buf = 138412290;
-    v39 = v6;
+    v41 = v6;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[PHEmergencyDialerViewController dialEmergencyCall]: current call count is 0: %@", buf, 0xCu);
   }
 
@@ -1385,11 +1387,11 @@ LABEL_16:
   if (!currentCallCount2)
   {
     digits = [(PHEmergencyDialerViewController *)self digits];
-    v10 = sub_100004F84();
+    v10 = sub_100004F84(digits);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = digits;
+      v41 = digits;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: digits to dial is %@", buf, 0xCu);
     }
 
@@ -1399,7 +1401,7 @@ LABEL_16:
       callProviderManager = [v11 callProviderManager];
 
       emergencyProvider = [callProviderManager emergencyProvider];
-      v14 = sub_100004F84();
+      v14 = sub_100004F84(emergencyProvider);
       v15 = v14;
       if (emergencyProvider)
       {
@@ -1428,38 +1430,40 @@ LABEL_16:
         senderIdentityClient = [(PHEmergencyDialerViewController *)self senderIdentityClient];
         v15 = [v16 dialRequestByResolvingDialTypeUsingSenderIdentityClient:senderIdentityClient];
 
-        if ([(PHEmergencyDialerViewController *)self shouldShowAirplaneEmergencyCallAlertForDialRequest:v15])
+        v25 = [(PHEmergencyDialerViewController *)self shouldShowAirplaneEmergencyCallAlertForDialRequest:v15];
+        if (v25)
         {
-          v25 = sub_100004F84();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = sub_100004F84(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "An emergency call is being attempted with airplane mode enabled but Wi-Fi calling is available.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "An emergency call is being attempted with airplane mode enabled but Wi-Fi calling is available.", buf, 2u);
           }
 
-          v26 = [PHAirplaneEmergencyCallAlert alloc];
-          v32 = _NSConcreteStackBlock;
-          v33 = 3221225472;
-          v34 = sub_1000C2454;
-          v35 = &unk_100356D10;
+          v27 = [PHAirplaneEmergencyCallAlert alloc];
+          v34 = _NSConcreteStackBlock;
+          v35 = 3221225472;
+          v36 = sub_1000C2454;
+          v37 = &unk_100356D10;
           selfCopy = self;
           v15 = v15;
-          v37 = v15;
-          v27 = [(PHAirplaneEmergencyCallAlert *)v26 initWithDialAction:&v32];
-          [(PHAirplaneEmergencyCallAlert *)v27 showOnViewController:self, v32, v33, v34, v35, selfCopy];
+          v39 = v15;
+          v28 = [(PHAirplaneEmergencyCallAlert *)v27 initWithDialAction:&v34];
+          [(PHAirplaneEmergencyCallAlert *)v28 showOnViewController:self, v34, v35, v36, v37, selfCopy];
         }
 
         else
         {
-          v28 = PHShouldAttemptCallWithDialRequest();
-          v29 = sub_100004F84();
+          v29 = PHShouldAttemptCallWithDialRequest();
           v30 = v29;
-          if (v28)
+          v31 = sub_100004F84(v29);
+          v32 = v31;
+          if (v30)
           {
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Attempting an emergency call using a cellular network.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Attempting an emergency call using a cellular network.", buf, 2u);
             }
 
             [(PHEmergencyDialerViewController *)self dialEmergencyCallForDialRequest:v15];
@@ -1467,15 +1471,15 @@ LABEL_16:
 
           else
           {
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              sub_10025636C(v30);
+              sub_10025636C(v32);
             }
 
-            v31 = [UIAlertController networkUnavailableAlertControllerWithCallProvider:emergencyProvider dialType:1 senderIdentityUUID:0];
-            if (v31)
+            v33 = [UIAlertController networkUnavailableAlertControllerWithCallProvider:emergencyProvider dialType:1 senderIdentityUUID:0];
+            if (v33)
             {
-              [(PHEmergencyDialerViewController *)self presentViewController:v31 animated:1 completion:0];
+              [(PHEmergencyDialerViewController *)self presentViewController:v33 animated:1 completion:0];
             }
           }
         }
@@ -1492,159 +1496,162 @@ LABEL_16:
 - (void)dialEmergencyCallForDialRequest:(id)request
 {
   requestCopy = request;
-  if (![(PHEmergencyDialerViewController *)self shouldShowRTTAlertForDialRequest:requestCopy])
-  {
-    goto LABEL_6;
-  }
-
-  v5 = sub_10001A58C();
+  v5 = [(PHEmergencyDialerViewController *)self shouldShowRTTAlertForDialRequest:requestCopy];
   if (!v5)
   {
     goto LABEL_6;
   }
 
-  v6 = v5;
+  v6 = sub_10001A58C(v5);
+  if (!v6)
+  {
+    goto LABEL_6;
+  }
+
+  v7 = v6;
   handle = [requestCopy handle];
   value = [handle value];
 
   if ([value destinationIdIsPhoneNumber])
   {
-    v9 = TUHomeCountryCode();
-    v10 = TUFormattedPhoneNumber();
+    v10 = TUHomeCountryCode();
+    v11 = TUFormattedPhoneNumber();
 
-    value = v10;
+    value = v11;
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v56 = 0x2020000000;
-  v57 = 1;
-  v11 = dispatch_semaphore_create(0);
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_1000C2B50;
-  v51[3] = &unk_100358D28;
-  v52 = requestCopy;
+  v62 = 0x2020000000;
+  v63 = 1;
+  v12 = dispatch_semaphore_create(0);
+  v57[0] = _NSConcreteStackBlock;
+  v57[1] = 3221225472;
+  v57[2] = sub_1000C2B50;
+  v57[3] = &unk_100358D28;
+  v58 = requestCopy;
   p_buf = &buf;
-  v12 = v11;
-  v53 = v12;
-  [v6 displayCallPromptForContact:value withCompletion:v51];
-  v13 = dispatch_time(0, 15000000000);
-  dispatch_semaphore_wait(v12, v13);
-  [v6 cancelCallPromptDisplay];
-  v14 = *(*(&buf + 1) + 24);
+  v13 = v12;
+  v59 = v13;
+  [v7 displayCallPromptForContact:value withCompletion:v57];
+  v14 = dispatch_time(0, 15000000000);
+  dispatch_semaphore_wait(v13, v14);
+  [v7 cancelCallPromptDisplay];
+  v15 = *(*(&buf + 1) + 24);
 
   _Block_object_dispose(&buf, 8);
-  if (v14)
+  if (v15)
   {
 LABEL_6:
     handle2 = [requestCopy handle];
     value2 = [handle2 value];
-    v17 = TUIsMMIOrUSSDNumber();
+    v18 = TUIsMMIOrUSSDNumber();
 
-    if (v17)
+    if (v18)
     {
-      v18 = sub_100004F84();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100004F84(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: Digits to dial are MMI/USSD, so dialing directly as a normal dial request", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: Digits to dial are MMI/USSD, so dialing directly as a normal dial request", &buf, 2u);
       }
 
-      v46 = _NSConcreteStackBlock;
-      v47 = 3221225472;
-      v48 = sub_1000C2BD0;
-      v49 = &unk_1003569B0;
-      v19 = requestCopy;
-      v50 = v19;
-      v20 = objc_retainBlock(&v46);
-      handle3 = [v19 handle];
+      v52 = _NSConcreteStackBlock;
+      v53 = 3221225472;
+      v54 = sub_1000C2BD0;
+      v55 = &unk_1003569B0;
+      v21 = requestCopy;
+      v56 = v21;
+      v22 = objc_retainBlock(&v52);
+      handle3 = [v21 handle];
       value3 = [handle3 value];
-      v23 = [PHInCallUIUtilities shouldRequestPasscodeUnlockForMMICode:value3];
+      v25 = [PHInCallUIUtilities shouldRequestPasscodeUnlockForMMICode:value3];
 
-      if (v23)
+      if (v25)
       {
-        v24 = +[PHInCallUtilities sharedInstance];
-        [v24 requestPasscodeUnlockWithCompletion:v20];
+        v26 = +[PHInCallUtilities sharedInstance];
+        [v26 requestPasscodeUnlockWithCompletion:v22];
       }
 
       else
       {
-        (v20[2])(v20, 1);
+        (v22[2])(v22, 1);
       }
 
-      v33 = v50;
+      v36 = v56;
     }
 
     else
     {
-      v25 = +[PHInCallUtilities sharedInstance];
-      isSetupAssistantRunning = [v25 isSetupAssistantRunning];
+      v27 = +[PHInCallUtilities sharedInstance];
+      isSetupAssistantRunning = [v27 isSetupAssistantRunning];
 
-      v27 = +[UIApplication sharedApplication];
-      isPasscodeRequiredToUnlock = [v27 isPasscodeRequiredToUnlock];
+      v29 = +[UIApplication sharedApplication];
+      isPasscodeRequiredToUnlock = [v29 isPasscodeRequiredToUnlock];
 
-      v29 = PHPreferencesGetValueInDomain();
-      LOBYTE(v27) = [v29 BOOLValue];
+      v31 = PHPreferencesGetValueInDomain();
+      LOBYTE(v29) = [v31 BOOLValue];
 
-      if (!(v27 & 1 | (((isSetupAssistantRunning | isPasscodeRequiredToUnlock | +[APApplication isPhoneAppLocked]) & 1) == 0)))
+      v32 = +[APApplication isPhoneAppLocked];
+      if (!(v29 & 1 | (((isSetupAssistantRunning | isPasscodeRequiredToUnlock | v32) & 1) == 0)))
       {
         [requestCopy setDialType:1];
         if (isPasscodeRequiredToUnlock)
         {
-          v30 = 2;
+          v33 = 2;
         }
 
         else
         {
-          v30 = 0;
+          v33 = 0;
         }
 
-        [requestCopy setOriginatingUIType:v30];
+        v32 = [requestCopy setOriginatingUIType:v33];
       }
 
-      v31 = sub_100004F84();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-      {
-        LODWORD(buf) = 138412290;
-        *(&buf + 4) = requestCopy;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: preparing to dial request %@", &buf, 0xCu);
-      }
-
-      v32 = +[TUCallCenter sharedInstance];
-      v33 = [v32 dialWithRequest:requestCopy];
-
-      v34 = sub_100004F84();
+      v34 = sub_100004F84(v32);
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v33;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: emergency call from request is %@", &buf, 0xCu);
+        *(&buf + 4) = requestCopy;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: preparing to dial request %@", &buf, 0xCu);
       }
 
-      if (!v33)
+      v35 = +[TUCallCenter sharedInstance];
+      v36 = [v35 dialWithRequest:requestCopy];
+
+      v38 = sub_100004F84(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        LODWORD(buf) = 138412290;
+        *(&buf + 4) = v36;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "dialEmergencyCall: emergency call from request is %@", &buf, 0xCu);
+      }
+
+      if (!v36)
       {
         goto LABEL_28;
       }
 
-      if (_os_feature_enabled_impl())
+      v39 = _os_feature_enabled_impl();
+      if (v39)
       {
-        v35 = sub_100004F84();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v40 = sub_100004F84(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: request full screen presentation for call from lock screen", &buf, 2u);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: request full screen presentation for call from lock screen", &buf, 2u);
         }
 
-        v36 = +[UIApplication sharedApplication];
-        delegate = [v36 delegate];
-        [delegate requestPresentationForCall:v33 dialRequest:requestCopy];
+        v41 = +[UIApplication sharedApplication];
+        delegate = [v41 delegate];
+        [delegate requestPresentationForCall:v36 dialRequest:requestCopy];
 
-        v38 = sub_100004F84();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        v44 = sub_100004F84(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: dismiss emergency dialer due to ICS launch", &buf, 2u);
+          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "EnhancedEmergency: dismiss emergency dialer due to ICS launch", &buf, 2u);
         }
 
         +[TUCallCapabilities endEmergencyCallbackMode];
@@ -1652,14 +1659,14 @@ LABEL_6:
         [_remoteViewControllerProxy dismiss];
       }
 
-      if ([v33 status] == 6)
+      if ([v36 status] == 6)
       {
 LABEL_28:
-        v40 = +[NSBundle mainBundle];
-        v41 = [v40 localizedStringForKey:@"EMERGENCY_CALLS_ONLY" value:&stru_100361FD0 table:@"EmergencyCallStrings"];
+        v46 = +[NSBundle mainBundle];
+        v47 = [v46 localizedStringForKey:@"EMERGENCY_CALLS_ONLY" value:&stru_100361FD0 table:@"EmergencyCallStrings"];
         dialerView = [(PHEmergencyDialerViewController *)self dialerView];
         emergencyTitleLabel = [dialerView emergencyTitleLabel];
-        [emergencyTitleLabel setText:v41];
+        [emergencyTitleLabel setText:v47];
 
         dialerView2 = [(PHEmergencyDialerViewController *)self dialerView];
         lcdView = [dialerView2 lcdView];
@@ -1735,34 +1742,34 @@ LABEL_28:
   v2 = +[TUCallCenter sharedInstance];
   frontmostCall = [v2 frontmostCall];
 
-  if (frontmostCall && [frontmostCall status] == 1 && (objc_msgSend(frontmostCall, "isRTT") & 1) == 0 && (objc_msgSend(frontmostCall, "isTTY") & 1) == 0 && objc_msgSend(frontmostCall, "supportsTTYWithVoice"))
+  if (frontmostCall && (v4 = [frontmostCall status], v4 == 1) && (v4 = objc_msgSend(frontmostCall, "isRTT"), (v4 & 1) == 0) && (v4 = objc_msgSend(frontmostCall, "isTTY"), (v4 & 1) == 0) && (v4 = objc_msgSend(frontmostCall, "supportsTTYWithVoice"), v4))
   {
-    v4 = +[TUCallCenter sharedInstance];
-    v5 = [v4 currentCallCount] == 1;
+    v5 = +[TUCallCenter sharedInstance];
+    v6 = [v5 currentCallCount] == 1;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v6 = sub_100004F84();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004F84(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"should not";
-    if (v5)
+    v8 = @"should not";
+    if (v6)
     {
-      v7 = @"should";
+      v8 = @"should";
     }
 
-    v9 = 138412546;
-    v10 = v7;
-    v11 = 2112;
-    v12 = frontmostCall;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Determined that the Use RTT button %@ be presented during the emergency call %@.", &v9, 0x16u);
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = frontmostCall;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Determined that the Use RTT button %@ be presented during the emergency call %@.", &v10, 0x16u);
   }
 
-  return v5;
+  return v6;
 }
 
 - (UIButton)useRTTButton
@@ -1770,7 +1777,7 @@ LABEL_28:
   useRTTButton = self->_useRTTButton;
   if (!useRTTButton)
   {
-    v4 = sub_10001A58C();
+    v4 = sub_10001A58C(0);
     v5 = +[TUCallCenter sharedInstance];
     frontmostCall = [v5 frontmostCall];
 
@@ -1811,7 +1818,7 @@ LABEL_28:
 - (void)handleTUCallSupportsTTYWithVoiceChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
@@ -1830,7 +1837,7 @@ LABEL_28:
 - (void)handleTUCallTTYTypeChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();

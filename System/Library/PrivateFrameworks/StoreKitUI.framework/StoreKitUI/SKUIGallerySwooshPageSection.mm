@@ -256,41 +256,41 @@ LABEL_11:
 
 - (void)swoosh:(id)swoosh didChangePlaybackState:(int64_t)state forItemAtIndex:(int64_t)index
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   context = [(SKUIStorePageSection *)self context];
   metricsController = [context metricsController];
 
   if ([metricsController canRecordEventWithType:*MEMORY[0x277D6A488]])
   {
     v10 = objc_alloc_init(MEMORY[0x277D69BA8]);
-    v11 = SKUIMetricsMediaEventTypeForPlaybackState(state);
-    [v10 setMediaEventType:v11];
+    v12 = SKUIMetricsMediaEventTypeForPlaybackState(state, v11);
+    [v10 setMediaEventType:v12];
 
     pageComponent = [(SKUIStorePageSection *)self pageComponent];
     mediaComponents = [pageComponent mediaComponents];
-    v14 = [mediaComponents objectAtIndex:index];
+    v15 = [mediaComponents objectAtIndex:index];
 
-    mediaIdentifier = [v14 mediaIdentifier];
+    mediaIdentifier = [v15 mediaIdentifier];
     if (mediaIdentifier)
     {
-      v16 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
-      [v10 setItemIdentifier:v16];
+      v17 = [MEMORY[0x277CCABB0] numberWithLongLong:mediaIdentifier];
+      [v10 setItemIdentifier:v17];
     }
 
-    mediaURLString = [v14 mediaURLString];
+    mediaURLString = [v15 mediaURLString];
     [v10 setMediaURL:mediaURLString];
 
     pageComponent2 = [(SKUIStorePageSection *)self pageComponent];
-    v19 = [metricsController locationWithPageComponent:pageComponent2];
+    v20 = [metricsController locationWithPageComponent:pageComponent2];
 
-    v20 = [metricsController locationWithPageComponent:v14];
-    v21 = v20;
-    if (v19 && v20)
+    v21 = [metricsController locationWithPageComponent:v15];
+    v22 = v21;
+    if (v20 && v21)
     {
-      v23[0] = v20;
-      v23[1] = v19;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-      [v10 setLocationWithEventLocations:v22];
+      v24[0] = v21;
+      v24[1] = v20;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+      [v10 setLocationWithEventLocations:v23];
     }
 
     [metricsController recordEvent:v10];

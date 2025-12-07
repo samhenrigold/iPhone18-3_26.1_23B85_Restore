@@ -1,11 +1,11 @@
-id sub_100000D00()
+id sub_100000D00(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for DiagnosticExtension();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for DiagnosticExtension();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
-lementation DiagnosticExtension
+tension
 
 - (id)attachmentList
 {

@@ -169,7 +169,6 @@
   objc_storeStrong(&acsURL, 0);
   objc_storeStrong(&v14, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v16;
 
   return v5;
@@ -236,7 +235,6 @@
   objc_storeStrong(&v21, 0);
   objc_storeStrong(&v22, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -349,7 +347,6 @@ LABEL_9:
 
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v19 & 1;
 }
 
@@ -366,7 +363,6 @@ LABEL_9:
   v4 = [AKIDPUtility dictionary:location[0] containsKeys:v5];
   objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v4;
 }
 

@@ -88,13 +88,12 @@ void __24__SHSAudioPlayback_init__block_invoke(uint64_t a1)
 
 - (void)setAudioSessionCategory
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_0();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_265896000, v2, OS_LOG_TYPE_ERROR, "%s: Failed to set the audio session category to '%{public}@' with error '%{public}@'.", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_265896000, v2, OS_LOG_TYPE_ERROR, "%s: Failed to set the audio session category to '%{public}@' with error '%{public}@'.", v3, 0x20u);
 }
 
 - (BOOL)isPlayingRingtone
@@ -109,7 +108,7 @@ void __24__SHSAudioPlayback_init__block_invoke(uint64_t a1)
 - (void)playRingtoneWithIdentifier:(id)identifier loop:(BOOL)loop
 {
   loopCopy = loop;
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = SHSLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -121,17 +120,17 @@ void __24__SHSAudioPlayback_init__block_invoke(uint64_t a1)
       v8 = identifierCopy;
     }
 
-    v40 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
+    v39 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
     *buf = 136315650;
-    v42 = v8;
-    v41 = 2114;
+    v41 = v8;
+    v40 = 2114;
     if (loopCopy)
     {
       v9 = @"YES";
     }
 
-    v43 = 2114;
-    v44 = v9;
+    v42 = 2114;
+    v43 = v9;
     _os_log_impl(&dword_265896000, v7, OS_LOG_TYPE_DEFAULT, "%s: identifier: '%{public}@', loop '%{public}@'.", buf, 0x20u);
   }
 
@@ -207,14 +206,14 @@ void __24__SHSAudioPlayback_init__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v40 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
+      v39 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
       _os_log_impl(&dword_265896000, v30, OS_LOG_TYPE_DEFAULT, "%s: Activating audio session prior to playback.", buf, 0xCu);
     }
 
     _audioSession = [(SHSAudioPlayback *)self _audioSession];
-    v37 = 0;
-    v32 = [_audioSession setActive:1 error:&v37];
-    v33 = v37;
+    v36 = 0;
+    v32 = [_audioSession setActive:1 error:&v36];
+    v33 = v36;
 
     if ((v32 & 1) == 0)
     {
@@ -247,25 +246,23 @@ void __24__SHSAudioPlayback_init__block_invoke(uint64_t a1)
     block[4] = self;
     dispatch_after(v25, MEMORY[0x277D85CD0], block);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SHSAudioPlayback_playRingtoneWithIdentifier_loop___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = SHSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]_block_invoke";
+    v9 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]_block_invoke";
     _os_log_impl(&dword_265896000, v2, OS_LOG_TYPE_DEFAULT, "%s: Deactivating Audio Session.", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) _audioSession];
-  v8 = 0;
-  v4 = [v3 setActive:0 withOptions:1 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v3 setActive:0 withOptions:1 error:&v7];
+  v5 = v7;
 
   if ((v4 & 1) == 0)
   {
@@ -275,13 +272,11 @@ void __52__SHSAudioPlayback_playRingtoneWithIdentifier_loop___block_invoke(uint6
       __52__SHSAudioPlayback_playRingtoneWithIdentifier_loop___block_invoke_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRingtoneWithFadeOut:(float)out
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = SHSLogForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -305,11 +300,10 @@ void __52__SHSAudioPlayback_playRingtoneWithIdentifier_loop___block_invoke(uint6
   block[1] = 3221225472;
   block[2] = __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke;
   block[3] = &unk_279BA66F8;
-  objc_copyWeak(&v12, &buf);
+  objc_copyWeak(&v11, &buf);
   dispatch_after(v9, MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&buf);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke(uint64_t a1)
@@ -337,19 +331,19 @@ void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke(uint64_t a1)
 
 void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = SHSLogForCategory(0);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v10 = "[SHSAudioPlayback stopRingtoneWithFadeOut:]_block_invoke_2";
+    v9 = "[SHSAudioPlayback stopRingtoneWithFadeOut:]_block_invoke_2";
     _os_log_impl(&dword_265896000, v2, OS_LOG_TYPE_DEFAULT, "%s: Deactivating Audio Session.", buf, 0xCu);
   }
 
   v3 = [*(a1 + 32) _audioSession];
-  v8 = 0;
-  v4 = [v3 setActive:0 withOptions:1 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [v3 setActive:0 withOptions:1 error:&v7];
+  v5 = v7;
 
   if ((v4 & 1) == 0)
   {
@@ -359,19 +353,17 @@ void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke_2(uint64_t a1
       __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke_2_cold_1();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPlayback
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SHSLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SHSAudioPlayback stopPlayback]";
-    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SHSAudioPlayback stopPlayback]";
+    _os_log_impl(&dword_265896000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   _queuePlayer = [(SHSAudioPlayback *)self _queuePlayer];
@@ -380,41 +372,35 @@ void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke_2(uint64_t a1
   {
     [(SHSAudioPlayback *)self playRingtoneWithIdentifier:0 loop:0];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)playRingtoneWithIdentifier:(os_log_t)log loop:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
-  _os_log_error_impl(&dword_265896000, log, OS_LOG_TYPE_ERROR, "%s: Player could not insert item.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[SHSAudioPlayback playRingtoneWithIdentifier:loop:]";
+  _os_log_error_impl(&dword_265896000, log, OS_LOG_TYPE_ERROR, "%s: Player could not insert item.", &v1, 0xCu);
 }
 
 - (void)playRingtoneWithIdentifier:loop:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to activate audio session with error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to activate audio session with error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 void __52__SHSAudioPlayback_playRingtoneWithIdentifier_loop___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to deactivate audio session with error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to deactivate audio session with error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 void __44__SHSAudioPlayback_stopRingtoneWithFadeOut___block_invoke_2_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to deactivate audio session with error '%{public}@'.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_265896000, v0, v1, "%s: Failed to deactivate audio session with error '%{public}@'.", v2, v3, v4, v5, v6);
 }
 
 @end

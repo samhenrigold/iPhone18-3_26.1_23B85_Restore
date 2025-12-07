@@ -188,7 +188,7 @@ LABEL_10:
     *error = createManagedAssetError();
     if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
     {
-      sub_10001C87C(dirCopy, error);
+      sub_10001C87C();
     }
 
     v13 = 0;
@@ -340,47 +340,47 @@ LABEL_10:
 
   if (!*error)
   {
-    v62 = groupCopy;
-    v63 = processCopy;
-    v61 = profileCopy;
+    v61 = groupCopy;
+    v62 = processCopy;
+    v60 = profileCopy;
     v26 = [(MAFileStoreManager *)self getPathByTopGroup:processCopy topGroup:groupCopy profile:profileCopy];
     stringByDeletingLastPathComponent = [v26 stringByDeletingLastPathComponent];
     v27 = v26;
-    v68 = 0;
+    v67 = 0;
     v28 = @"file";
     if (directoryCopy)
     {
       v28 = @"directory";
     }
 
-    v64 = v28;
-    v29 = [(NSFileManager *)self->_fileMgr fileExistsAtPath:v27 isDirectory:&v68];
+    v63 = v28;
+    v29 = [(NSFileManager *)self->_fileMgr fileExistsAtPath:v27 isDirectory:&v67];
     if (v29)
     {
       [MAUtilityHelper validatePathMatchingRealpath:v27 error:error];
       if (!*error)
       {
         selfCopy3 = self;
-        v60 = [(NSFileManager *)self->_fileMgr attributesOfItemAtPath:v27 error:error];
+        v59 = [(NSFileManager *)self->_fileMgr attributesOfItemAtPath:v27 error:error];
         if (*error)
         {
           v31 = v27;
           v32 = off_100127CE0;
           v24 = outCopy;
-          groupCopy = v62;
+          groupCopy = v61;
           v25 = processCopy;
-          v22 = v61;
+          v22 = v60;
           if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
           {
             v44 = *error;
             *buf = 138412802;
-            v70 = v64;
-            v71 = 2112;
-            v72 = v31;
-            v73 = 2112;
-            v74 = v44;
+            v69 = v63;
+            v70 = 2112;
+            v71 = v31;
+            v72 = 2112;
+            v73 = v44;
             _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "failed to get attr for %@ %@, error:%@", buf, 0x20u);
-            v34 = v64;
+            v34 = v63;
             v23 = 0;
             v33 = v31;
           }
@@ -389,24 +389,24 @@ LABEL_10:
           {
             v23 = 0;
             v33 = v31;
-            v34 = v64;
+            v34 = v63;
           }
 
           v35 = stringByDeletingLastPathComponent;
-          v36 = v60;
+          v36 = v59;
           goto LABEL_21;
         }
 
-        if (v68 != directoryCopy)
+        if (v67 != directoryCopy)
         {
           v43 = createManagedAssetError();
-          v34 = v64;
+          v34 = v63;
           v23 = 0;
           *error = v43;
           v33 = v27;
           v24 = outCopy;
           v31 = v27;
-          groupCopy = v62;
+          groupCopy = v61;
           v25 = processCopy;
           goto LABEL_48;
         }
@@ -419,10 +419,10 @@ LABEL_10:
 LABEL_67:
             v31 = v27;
             v24 = outCopy;
-            v36 = v60;
-            if ((v21 & 8) != 0 && v60)
+            v36 = v59;
+            if ((v21 & 8) != 0 && v59)
             {
-              v55 = sub_10001B34C(v60, outCopy);
+              v55 = sub_10001B34C(v59, outCopy);
             }
 
             v33 = v39;
@@ -436,11 +436,11 @@ LABEL_59:
           if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v70 = v64;
-            v71 = 2112;
-            v72 = v39;
-            v73 = 2112;
-            v74 = v51;
+            v69 = v63;
+            v70 = 2112;
+            v71 = v39;
+            v72 = 2112;
+            v73 = v51;
             _os_log_debug_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "create %@ to write %@ fileAttrs=%@", buf, 0x20u);
           }
 
@@ -462,14 +462,14 @@ LABEL_65:
               v23 = 0;
               v24 = outCopy;
               v31 = v27;
-              groupCopy = v62;
-              v25 = v63;
+              groupCopy = v61;
+              v25 = v62;
               v33 = v39;
               v35 = stringByDeletingLastPathComponent;
-              v36 = v60;
-              v22 = v61;
+              v36 = v59;
+              v22 = v60;
 LABEL_74:
-              v34 = v64;
+              v34 = v63;
               goto LABEL_21;
             }
 
@@ -486,26 +486,26 @@ LABEL_74:
 
             v31 = v27;
             v33 = v39;
-            *__error();
+            __error();
           }
 
           createManagedAssetError();
           v24 = outCopy;
-          groupCopy = v62;
-          v25 = v63;
+          groupCopy = v61;
+          v25 = v62;
           v35 = stringByDeletingLastPathComponent;
-          *error = v22 = v61;
+          *error = v22 = v60;
 
           v23 = 0;
-          v36 = v60;
+          v36 = v59;
           goto LABEL_74;
         }
 
 LABEL_34:
-        v58 = off_100127CE0;
+        v57 = off_100127CE0;
         if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_DEBUG))
         {
-          sub_10001C94C(v27, v58);
+          sub_10001C94C(v27, v57);
           if ((v21 & 2) == 0)
           {
             goto LABEL_42;
@@ -517,7 +517,7 @@ LABEL_34:
           goto LABEL_42;
         }
 
-        lastPathComponent = [v63 lastPathComponent];
+        lastPathComponent = [v62 lastPathComponent];
         v41 = selfCopy3;
         v42 = lastPathComponent;
         [MAFileStoreManager cleanupPendingUpdatesFor:v41 dir:"cleanupPendingUpdatesFor:dir:error:" error:?];
@@ -528,15 +528,15 @@ LABEL_34:
           v33 = v27;
           v24 = outCopy;
           v31 = v27;
-          groupCopy = v62;
-          v25 = v63;
-          v34 = v64;
+          groupCopy = v61;
+          v25 = v62;
+          v34 = v63;
           goto LABEL_48;
         }
 
 LABEL_42:
-        v59 = [MACryptoHelper randomDataInHex:16];
-        v39 = [NSString stringWithFormat:@"%@-%@.masdtrans", v27, v59];
+        v58 = [MACryptoHelper randomDataInHex:16];
+        v39 = [NSString stringWithFormat:@"%@-%@.masdtrans", v27, v58];
 
         if (mode == 3)
         {
@@ -550,8 +550,8 @@ LABEL_42:
 
         if (v45 != 1 || !clonefile([v27 fileSystemRepresentation], objc_msgSend(v39, "fileSystemRepresentation"), 0))
         {
-          v57 = v45;
-          [outCopy setObject:v59 forKeyedSubscript:kMASessionIdKey];
+          v56 = v45;
+          [outCopy setObject:v58 forKeyedSubscript:kMASessionIdKey];
           v46 = &kMAFileApiTypeOpenFile;
           if (!fileCopy)
           {
@@ -583,7 +583,7 @@ LABEL_42:
           }
 
           selfCopy3 = self;
-          if (v57)
+          if (v56)
           {
             goto LABEL_67;
           }
@@ -591,20 +591,20 @@ LABEL_42:
           goto LABEL_59;
         }
 
-        v56 = *__error();
+        __error();
         *error = createManagedAssetError();
 
         v23 = 0;
         v24 = outCopy;
         v31 = v27;
-        groupCopy = v62;
-        v25 = v63;
-        v34 = v64;
+        groupCopy = v61;
+        v25 = v62;
+        v34 = v63;
         v33 = v39;
 LABEL_48:
         v35 = stringByDeletingLastPathComponent;
-        v36 = v60;
-        v22 = v61;
+        v36 = v59;
+        v22 = v60;
         goto LABEL_21;
       }
     }
@@ -614,19 +614,19 @@ LABEL_48:
       if (mode == 1)
       {
         v37 = createManagedAssetError();
-        v34 = v64;
+        v34 = v63;
         v36 = 0;
         v23 = 0;
         v24 = outCopy;
         *error = v37;
         v33 = v27;
         v31 = v27;
-        groupCopy = v62;
+        groupCopy = v61;
         v25 = processCopy;
 LABEL_19:
         v35 = stringByDeletingLastPathComponent;
 LABEL_20:
-        v22 = v61;
+        v22 = v60;
 LABEL_21:
 
         goto LABEL_22;
@@ -642,16 +642,16 @@ LABEL_21:
         *error = v24 = outCopy;
         v33 = v27;
         v31 = v27;
-        groupCopy = v62;
-        v25 = v63;
-        v34 = v64;
+        groupCopy = v61;
+        v25 = v62;
+        v34 = v63;
         goto LABEL_20;
       }
 
       [MAUtilityHelper validatePathMatchingRealpath:stringByDeletingLastPathComponent error:error];
       if (!*error)
       {
-        v60 = 0;
+        v59 = 0;
         v39 = v27;
         if (v21 & 1) == 0 || (directoryCopy)
         {
@@ -668,9 +668,9 @@ LABEL_21:
     v24 = outCopy;
     v31 = v27;
 LABEL_18:
-    groupCopy = v62;
-    v25 = v63;
-    v34 = v64;
+    groupCopy = v61;
+    v25 = v62;
+    v34 = v63;
     goto LABEL_19;
   }
 
@@ -678,7 +678,7 @@ LABEL_18:
   if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
   {
     v25 = processCopy;
-    sub_10001C8E4(processCopy, error);
+    sub_10001C8E4();
     v23 = 0;
     v24 = outCopy;
   }
@@ -759,7 +759,7 @@ LABEL_22:
     [v19 fileSystemRepresentation];
     if (connCopy)
     {
-      [connCopy auditToken];
+      objc_msgSend_auditToken(connCopy);
     }
 
     v22 = sandbox_extension_issue_file_to_process();
@@ -837,14 +837,14 @@ LABEL_23:
     {
       if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
       {
-        sub_10001CA2C(v16, error);
+        sub_10001CA2C();
       }
 
       v19 = 0;
       goto LABEL_23;
     }
 
-    v35 = lastPathComponent;
+    v33 = lastPathComponent;
     v22 = [NSString stringWithFormat:@"%@-%@.masdtrans", v16, lastPathComponent];
     if (![(NSFileManager *)self->_fileMgr fileExistsAtPath:v22])
     {
@@ -870,30 +870,30 @@ LABEL_23:
     {
       v19 = 0;
 LABEL_21:
-      lastPathComponent = v35;
+      lastPathComponent = v33;
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    lastPathComponent = v35;
+    lastPathComponent = v33;
     if ((v18 & 4) != 0)
     {
       v28 = off_100127CE0;
       if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v38 = v16;
+        v36 = v16;
         _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "rollback atomic update for %@", buf, 0xCu);
       }
 
       if (unlink([v23 fileSystemRepresentation]) && *__error() != 2)
       {
-        v32 = *__error();
+        __error();
         *error = createManagedAssetError();
         if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
         {
-          sub_10001CA94(v23, error);
+          sub_10001CA94();
         }
 
         goto LABEL_46;
@@ -912,11 +912,11 @@ LABEL_22:
       rename(__from, fileSystemRepresentation, v26);
       if (v27)
       {
-        v33 = *__error();
+        __error();
         *error = createManagedAssetError();
         if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
         {
-          sub_10001CB64(v16, error);
+          sub_10001CB64();
         }
 
 LABEL_46:
@@ -928,9 +928,9 @@ LABEL_46:
       if ((v18 & 2) != 0)
       {
         lastPathComponent2 = [fileCopy lastPathComponent];
-        v36 = 0;
-        [(MAFileStoreManager *)self cleanupPendingUpdatesFor:lastPathComponent2 dir:stringByDeletingLastPathComponent error:&v36];
-        v30 = v36;
+        v34 = 0;
+        [(MAFileStoreManager *)self cleanupPendingUpdatesFor:lastPathComponent2 dir:stringByDeletingLastPathComponent error:&v34];
+        v30 = v34;
 
         if (v30 && os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
         {
@@ -1169,7 +1169,7 @@ LABEL_39:
 
   if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
   {
-    sub_10001CCAC(v18, error);
+    sub_10001CCAC();
   }
 
   v19 = 0;
@@ -1222,7 +1222,7 @@ LABEL_8:
         if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v18 = fileSystemRepresentation;
+          v17 = fileSystemRepresentation;
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "dest file %s exists, delete and retry cloning", buf, 0xCu);
         }
 
@@ -1231,7 +1231,7 @@ LABEL_8:
       }
 
       while (v11);
-      v16 = *__error();
+      __error();
       *error = createManagedAssetError();
       v13 = off_100127CE0;
       if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
@@ -1247,7 +1247,7 @@ LABEL_16:
 
   if (os_log_type_enabled(off_100127CE0, OS_LOG_TYPE_ERROR))
   {
-    sub_10001CD7C(stringByDeletingLastPathComponent, error);
+    sub_10001CD7C();
   }
 
   createManagedAssetError();

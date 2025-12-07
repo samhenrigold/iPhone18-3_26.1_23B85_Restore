@@ -57,13 +57,14 @@ LABEL_4:
 - (void)_updateFromMap
 {
   selfCopy = self;
-  sub_10000A5C0();
+  sub_10000A5C0(selfCopy);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
+  selectedCopy = selected;
   selfCopy = self;
-  sub_10000ABA0(selected, animated);
+  sub_10000ABA0(selectedCopy, animated);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event
@@ -109,7 +110,7 @@ LABEL_4:
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_10000B81C();
+  sub_10000B81C(selfCopy);
 }
 
 @end

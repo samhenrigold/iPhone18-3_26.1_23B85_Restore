@@ -13,6 +13,7 @@
 - (void)managerDidBecomeReady:(id)ready;
 - (void)setUpImmediateInterfaceWithAttribution:(id)attribution;
 - (void)setUpTapInterface;
+- (void)showWithCameraPreview:(BOOL)preview photoCount:(unint64_t)count device:(id)device shortcutAttribution:(id)attribution completionHandler:(id)handler;
 @end
 
 @implementation WFTakePhotoActionUIKitUserInterface
@@ -190,6 +191,36 @@ uint64_t __79__WFTakePhotoActionUIKitUserInterface_cancelPresentationWithComplet
   v4 = *(*(a1 + 40) + 16);
 
   return v4();
+}
+
+- (void)showWithCameraPreview:(BOOL)preview photoCount:(unint64_t)count device:(id)device shortcutAttribution:(id)attribution completionHandler:(id)handler
+{
+  previewCopy = preview;
+  deviceCopy = device;
+  attributionCopy = attribution;
+  handlerCopy = handler;
+  if (!handlerCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFTakePhotoActionUIKitUserInterface.m" lineNumber:148 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
+  }
+
+  [(WFTakePhotoActionUIKitUserInterface *)self setShowPreview:previewCopy];
+  [(WFTakePhotoActionUIKitUserInterface *)self setCompletionHandler:handlerCopy];
+  -[WFTakePhotoActionUIKitUserInterface setDevice:](self, "setDevice:", [objc_opt_class() cameraDeviceFromString:deviceCopy]);
+  [(WFTakePhotoActionUIKitUserInterface *)self setRemainingPhotos:count];
+  v15 = objc_alloc_init(MEMORY[0x277CFC2E0]);
+  [(WFTakePhotoActionUIKitUserInterface *)self setOutputCollection:v15];
+
+  if ([(WFTakePhotoActionUIKitUserInterface *)self showPreview])
+  {
+    [(WFTakePhotoActionUIKitUserInterface *)self setUpTapInterface];
+  }
+
+  else
+  {
+    [(WFTakePhotoActionUIKitUserInterface *)self setUpImmediateInterfaceWithAttribution:attributionCopy];
+  }
 }
 
 - (void)setUpImmediateInterfaceWithAttribution:(id)attribution

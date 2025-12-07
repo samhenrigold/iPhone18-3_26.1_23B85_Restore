@@ -46,9 +46,7 @@
     if (sleepTimer)
     {
       [(NSTimer *)sleepTimer invalidate];
-      v6 = [NSTimer scheduledTimerWithTimeInterval:self target:"_sleepTimer:" selector:0 userInfo:1 repeats:interval];
-      v7 = self->_sleepTimer;
-      self->_sleepTimer = v6;
+      self->_sleepTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_sleepTimer:" selector:0 userInfo:1 repeats:interval];
 
       _objc_release_x1();
     }
@@ -168,17 +166,21 @@
       [(BKAudiobookSleepTimer *)self _setTimer];
     }
 
-    else if ([(BKAudiobookSleepTimer *)self waitingForPlayerStatePlayingThenPause])
+    else
     {
-      v8 = BKAudiobooksSleepTimerLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      waitingForPlayerStatePlayingThenPause = [(BKAudiobookSleepTimer *)self waitingForPlayerStatePlayingThenPause];
+      if (waitingForPlayerStatePlayingThenPause)
       {
-        *buf = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Player state has just returned to Playing; pausing to respect a chapter-end expired timer", buf, 2u);
-      }
+        v9 = BKAudiobooksSleepTimerLog(waitingForPlayerStatePlayingThenPause);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Player state has just returned to Playing; pausing to respect a chapter-end expired timer", buf, 2u);
+        }
 
-      [(BKAudiobookSleepTimer *)self setWaitingForPlayerStatePlayingThenPause:0];
-      [playerCopy pause];
+        [(BKAudiobookSleepTimer *)self setWaitingForPlayerStatePlayingThenPause:0];
+        [playerCopy pause];
+      }
     }
   }
 }
@@ -304,20 +306,20 @@ LABEL_5:
   [v5 timeIntervalSinceDate:self->_sleepStartDate];
   v7 = v6;
 
-  [(BKAudiobookSleepTimer *)self initialDuration];
-  v9 = v8;
-  if (v7 < v8)
+  initialDuration = [(BKAudiobookSleepTimer *)self initialDuration];
+  v10 = v9;
+  if (v7 < v9)
   {
-    v4 = v8 - v7;
+    v4 = v9 - v7;
     goto LABEL_5;
   }
 
-  v10 = BKAudiobooksSleepTimerLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = BKAudiobooksSleepTimerLog(initialDuration);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 134217984;
-    v13 = v9;
-    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Sleep timer expired after %lfs.  Pausing playback", &v12, 0xCu);
+    v13 = 134217984;
+    v14 = v10;
+    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Sleep timer expired after %lfs.  Pausing playback", &v13, 0xCu);
   }
 
   audiobookControls = [(BKAudiobookSleepTimer *)self audiobookControls];
@@ -530,9 +532,7 @@ LABEL_5:
   self->_sleepStartDate = v3;
 
   self->_lastSentRemainingTime = 2.22507386e-308;
-  v5 = [NSTimer scheduledTimerWithTimeInterval:self target:"_sleepTimer:" selector:0 userInfo:1 repeats:self->_updateInterval];
-  sleepTimer = self->_sleepTimer;
-  self->_sleepTimer = v5;
+  self->_sleepTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_sleepTimer:" selector:0 userInfo:1 repeats:self->_updateInterval];
 
   _objc_release_x1();
 }

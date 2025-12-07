@@ -64,7 +64,7 @@
 
 void __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 24);
   if (!v3)
@@ -77,8 +77,8 @@ void __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke(u
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v15 = objc_opt_class();
-      v9 = v15;
+      v14 = objc_opt_class();
+      v8 = v14;
       _os_log_error_impl(&dword_1B8220000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[%@]: Treating as legacy client", buf, 0xCu);
     }
 
@@ -101,22 +101,20 @@ LABEL_8:
     v3 = *(v2 + 24);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke_2;
-  v12[3] = &unk_1E7CDBDF8;
-  v12[4] = v2;
-  v13 = *(a1 + 40);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke_5;
-  v10[3] = &unk_1E7CDBE20;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke_2;
+  v11[3] = &unk_1E7CDBDF8;
+  v11[4] = v2;
+  v12 = *(a1 + 40);
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke_5;
+  v9[3] = &unk_1E7CDBE20;
   v7 = *(a1 + 40);
-  v10[4] = *(a1 + 32);
-  v11 = v7;
-  [v2 _call:v3 run:v12 error:v10];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v9[4] = *(a1 + 32);
+  v10 = v7;
+  [v2 _call:v3 run:v11 error:v9];
 }
 
 void __56__ASDCheckQueueRequest__sendRequestWithCompletionBlock___block_invoke_2(uint64_t a1, void *a2)

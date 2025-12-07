@@ -35,16 +35,16 @@
 - (void)setKnownFeatureAvailabilityProviding:(id)providing
 {
   providingCopy = providing;
-  v5 = providingCopy;
+  v6 = providingCopy;
   if (providingCopy)
   {
     featureIdentifier = [providingCopy featureIdentifier];
     os_unfair_lock_lock(&self->_lock);
-    v7 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:featureIdentifier];
+    v8 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:featureIdentifier];
 
-    if (!v7)
+    if (!v8)
     {
-      [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier setObject:v5 forKeyedSubscript:featureIdentifier];
+      [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier setObject:v6 forKeyedSubscript:featureIdentifier];
     }
 
     os_unfair_lock_unlock(&self->_lock);
@@ -52,11 +52,11 @@
 
   else
   {
-    _HKInitializeLogging();
-    featureIdentifier = HKLogInfrastructure();
+    _HKInitializeLogging(0, v5);
+    featureIdentifier = HKLogInfrastructure(v9, v10);
     if (os_log_type_enabled(featureIdentifier, OS_LOG_TYPE_ERROR))
     {
-      [HKFeatureAvailabilityProvidingDataSource setKnownFeatureAvailabilityProviding:];
+      [HKFeatureAvailabilityProvidingDataSource setKnownFeatureAvailabilityProviding:?];
     }
   }
 }
@@ -65,29 +65,29 @@
 {
   identifierCopy = identifier;
   WeakRetained = objc_loadWeakRetained(&self->_healthDataSource);
-  v6 = WeakRetained;
+  v7 = WeakRetained;
   if (WeakRetained)
   {
     if ([WeakRetained requiresWeakRetention])
     {
-      v7 = [v6 featureAvailabilityProvidingForFeatureIdentifier:identifierCopy];
+      v8 = [v7 featureAvailabilityProvidingForFeatureIdentifier:identifierCopy];
       os_unfair_lock_lock(&self->_lock);
-      v8 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
+      v9 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
 
-      if (v8)
+      if (v9)
       {
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      if (!v7)
+      if (!v8)
       {
-        _HKInitializeLogging();
-        v9 = HKLogInfrastructure();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+        _HKInitializeLogging(v10, v11);
+        v14 = HKLogInfrastructure(v12, v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
         {
-          [(HKFeatureAvailabilityProvidingDataSource *)self featureAvailabilityProvidingForFeatureIdentifier:identifierCopy, v9];
+          [(HKFeatureAvailabilityProvidingDataSource *)self featureAvailabilityProvidingForFeatureIdentifier:identifierCopy, v14];
         }
 
         goto LABEL_14;
@@ -97,34 +97,34 @@ LABEL_14:
     else
     {
       os_unfair_lock_lock(&self->_lock);
-      v12 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
+      v19 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
 
-      if (v12)
+      if (v19)
       {
 LABEL_15:
-        v11 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
+        v18 = [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier objectForKeyedSubscript:identifierCopy];
         os_unfair_lock_unlock(&self->_lock);
         goto LABEL_16;
       }
 
-      v7 = [v6 featureAvailabilityProvidingForFeatureIdentifier:identifierCopy];
+      v8 = [v7 featureAvailabilityProvidingForFeatureIdentifier:identifierCopy];
     }
 
-    [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier setObject:v7 forKeyedSubscript:identifierCopy];
+    [(NSMutableDictionary *)self->_featureAvailabilityProvidingByFeatureIdentifier setObject:v8 forKeyedSubscript:identifierCopy];
     goto LABEL_14;
   }
 
-  _HKInitializeLogging();
-  v10 = HKLogInfrastructure();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(0, v6);
+  v17 = HKLogInfrastructure(v15, v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    [HKFeatureAvailabilityProvidingDataSource featureAvailabilityProvidingForFeatureIdentifier:];
+    [HKFeatureAvailabilityProvidingDataSource featureAvailabilityProvidingForFeatureIdentifier:?];
   }
 
-  v11 = 0;
+  v18 = 0;
 LABEL_16:
 
-  return v11;
+  return v18;
 }
 
 - (id)makeAndRegisterBridgedObserverForKey:(id)key handle:(id)handle
@@ -152,35 +152,31 @@ LABEL_16:
   return WeakRetained;
 }
 
-- (void)setKnownFeatureAvailabilityProviding:.cold.1()
+- (void)setKnownFeatureAvailabilityProviding:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "[%{public}@]: Given nil featureAvailabilityProviding in -setKnownFeatureAvailabilityProviding:", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_23(&dword_19197B000, v2, v3, "[%{public}@]: Given nil featureAvailabilityProviding in -setKnownFeatureAvailabilityProviding:", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)featureAvailabilityProvidingForFeatureIdentifier:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a2;
-  v5 = v8;
-  _os_log_fault_impl(&dword_19197B000, a3, OS_LOG_TYPE_FAULT, "[%{public}@]: Unknown feature identifier %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a2;
+  v5 = v7;
+  _os_log_fault_impl(&dword_19197B000, a3, OS_LOG_TYPE_FAULT, "[%{public}@]: Unknown feature identifier %{public}@", &v6, 0x16u);
 }
 
-- (void)featureAvailabilityProvidingForFeatureIdentifier:.cold.2()
+- (void)featureAvailabilityProvidingForFeatureIdentifier:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_23(&dword_19197B000, v1, v2, "[%{public}@]: Health data source is nil", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_23(&dword_19197B000, v2, v3, "[%{public}@]: Health data source is nil", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -41,12 +41,12 @@
   v4 = v6.receiver;
   [(UtilityOnboardingPasswordlessViewController *)&v6 viewWillAppear:appearCopy];
   headerView = [v4 headerView];
-  sub_20CEE70AC(headerView);
+  sub_20CEE70AC(headerView, 0xD000000000000024, 0x800000020D5DAC90);
 }
 
 - (Class)onboardingFlowClass
 {
-  sub_20CECF940(0, &qword_27C81E450);
+  sub_20CECF940(0, &qword_27C81E450, off_277DB19A0);
 
   return swift_getObjCClassFromMetadata();
 }

@@ -4,6 +4,7 @@
 - (ATXProactiveSuggestionSingleSuggestionFeedbackSession)initWithProactiveSuggestion:(id)suggestion feedbackMetadata:(id)metadata matchingSuggestionUUIDs:(id)ds associatedBlendingCacheUUIDs:(id)iDs associatedClientModelCacheUUIDs:(id)uIDs sessionContextStatuses:(id)statuses;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToATXProactiveSuggestionSingleSuggestionFeedbackSession:(id)session;
+- (BOOL)tryUpdateEngagementType:(int64_t)type consumerSubType:(unsigned __int8)subType;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -55,6 +56,28 @@
   return v19;
 }
 
+- (BOOL)tryUpdateEngagementType:(int64_t)type consumerSubType:(unsigned __int8)subType
+{
+  v6 = [MEMORY[0x1E698B028] stringForConsumerSubtype:subType];
+  integerValue = [(NSMutableDictionary *)self->_sessionContextStatusByConsumerSubType objectForKey:v6];
+  v8 = integerValue;
+  if (integerValue)
+  {
+    integerValue = [integerValue integerValue];
+  }
+
+  if (type >= 1 && !integerValue || (v9 = 0, type > 1) && integerValue == 1)
+  {
+    sessionContextStatusByConsumerSubType = self->_sessionContextStatusByConsumerSubType;
+    v11 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    [(NSMutableDictionary *)sessionContextStatusByConsumerSubType setObject:v11 forKey:v6];
+
+    v9 = 1;
+  }
+
+  return v9;
+}
+
 - (void)enumerateShownAndEngagedEngagementTypesAndConsumerSubTypesWithBlock:(id)block
 {
   blockCopy = block;
@@ -95,14 +118,14 @@ void __125__ATXProactiveSuggestionSingleSuggestionFeedbackSession_enumerateShown
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_metrics();
+  v7 = __atxlog_handle_metrics(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"suggestion" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_metrics();
+    v13 = __atxlog_handle_metrics(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"feedbackMetadata" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v13];
 
     v15 = MEMORY[0x1E69C5D78];
@@ -111,46 +134,46 @@ void __125__ATXProactiveSuggestionSingleSuggestionFeedbackSession_enumerateShown
     v18 = objc_opt_class();
     v19 = [v17 initWithObjects:{v18, objc_opt_class(), 0}];
     objc_autoreleasePoolPop(v16);
-    v20 = __atxlog_handle_metrics();
-    v21 = [v15 robustDecodeObjectOfClasses:v19 forKey:@"matchingSuggestionUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v20];
+    v21 = __atxlog_handle_metrics(v20);
+    v22 = [v15 robustDecodeObjectOfClasses:v19 forKey:@"matchingSuggestionUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v21];
 
-    if (v21 && ([coderCopy error], v22 = objc_claimAutoreleasedReturnValue(), v22, !v22))
+    if (v22 && ([coderCopy error], v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
     {
-      v23 = MEMORY[0x1E69C5D78];
-      v24 = objc_autoreleasePoolPush();
-      v25 = objc_alloc(MEMORY[0x1E695DFD8]);
-      v26 = objc_opt_class();
-      v27 = [v25 initWithObjects:{v26, objc_opt_class(), 0}];
-      objc_autoreleasePoolPop(v24);
-      v28 = __atxlog_handle_metrics();
-      v29 = [v23 robustDecodeObjectOfClasses:v27 forKey:@"blendingUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v28];
+      v24 = MEMORY[0x1E69C5D78];
+      v25 = objc_autoreleasePoolPush();
+      v26 = objc_alloc(MEMORY[0x1E695DFD8]);
+      v27 = objc_opt_class();
+      v28 = [v26 initWithObjects:{v27, objc_opt_class(), 0}];
+      objc_autoreleasePoolPop(v25);
+      v30 = __atxlog_handle_metrics(v29);
+      v31 = [v24 robustDecodeObjectOfClasses:v28 forKey:@"blendingUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v30];
 
-      if (v29 && ([coderCopy error], v30 = objc_claimAutoreleasedReturnValue(), v30, !v30))
+      if (v31 && ([coderCopy error], v32 = objc_claimAutoreleasedReturnValue(), v32, !v32))
       {
-        v47 = MEMORY[0x1E69C5D78];
-        v31 = objc_autoreleasePoolPush();
-        v32 = objc_alloc(MEMORY[0x1E695DFD8]);
-        v33 = objc_opt_class();
-        v34 = [v32 initWithObjects:{v33, objc_opt_class(), 0}];
-        objc_autoreleasePoolPop(v31);
-        v35 = __atxlog_handle_metrics();
-        v36 = [v47 robustDecodeObjectOfClasses:v34 forKey:@"clientUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v35];
+        v51 = MEMORY[0x1E69C5D78];
+        v33 = objc_autoreleasePoolPush();
+        v34 = objc_alloc(MEMORY[0x1E695DFD8]);
+        v35 = objc_opt_class();
+        v36 = [v34 initWithObjects:{v35, objc_opt_class(), 0}];
+        objc_autoreleasePoolPop(v33);
+        v38 = __atxlog_handle_metrics(v37);
+        v39 = [v51 robustDecodeObjectOfClasses:v36 forKey:@"clientUUIDs" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v38];
 
-        if (v36 && ([coderCopy error], v37 = objc_claimAutoreleasedReturnValue(), v37, !v37))
+        if (v39 && ([coderCopy error], v40 = objc_claimAutoreleasedReturnValue(), v40, !v40))
         {
-          v48 = MEMORY[0x1E69C5D78];
+          v52 = MEMORY[0x1E69C5D78];
           context = objc_autoreleasePoolPush();
-          v38 = objc_alloc(MEMORY[0x1E695DFD8]);
-          v39 = objc_opt_class();
-          v40 = objc_opt_class();
-          v41 = [v38 initWithObjects:{v39, v40, objc_opt_class(), 0}];
+          v41 = objc_alloc(MEMORY[0x1E695DFD8]);
+          v42 = objc_opt_class();
+          v43 = objc_opt_class();
+          v44 = [v41 initWithObjects:{v42, v43, objc_opt_class(), 0}];
           objc_autoreleasePoolPop(context);
-          v42 = __atxlog_handle_metrics();
-          v43 = [v48 robustDecodeObjectOfClasses:v41 forKey:@"sessionStatuses" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v42];
+          v46 = __atxlog_handle_metrics(v45);
+          v47 = [v52 robustDecodeObjectOfClasses:v44 forKey:@"sessionStatuses" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXProactiveSuggestionSingleSuggestionFeedbackSession" errorCode:-1 logHandle:v46];
 
-          if (v43 && ([coderCopy error], v44 = objc_claimAutoreleasedReturnValue(), v44, !v44))
+          if (v47 && ([coderCopy error], v48 = objc_claimAutoreleasedReturnValue(), v48, !v48))
           {
-            self = [(ATXProactiveSuggestionSingleSuggestionFeedbackSession *)self initWithProactiveSuggestion:v8 feedbackMetadata:v14 matchingSuggestionUUIDs:v21 associatedBlendingCacheUUIDs:v29 associatedClientModelCacheUUIDs:v36 sessionContextStatuses:v43];
+            self = [(ATXProactiveSuggestionSingleSuggestionFeedbackSession *)self initWithProactiveSuggestion:v8 feedbackMetadata:v14 matchingSuggestionUUIDs:v22 associatedBlendingCacheUUIDs:v31 associatedClientModelCacheUUIDs:v39 sessionContextStatuses:v47];
             selfCopy = self;
           }
 
@@ -319,11 +342,9 @@ LABEL_20:
   uuid = [(ATXProactiveSuggestion *)self->_suggestion uuid];
   clientModelSpecification = [(ATXProactiveSuggestion *)self->_suggestion clientModelSpecification];
   clientModelId = [clientModelSpecification clientModelId];
-  associatedBlendingCacheUUIDs = self->_associatedBlendingCacheUUIDs;
-  sessionContextStatusByConsumerSubType = self->_sessionContextStatusByConsumerSubType;
-  v9 = [v3 initWithFormat:@"uuid: %@, clientModelId: %@, statuses: %@, suggestionUUIDs: %@, blendingUUIDs: %@, clientUUIDs: %@", uuid, clientModelId, sessionContextStatusByConsumerSubType, self->_matchingSuggestionUUIDs, associatedBlendingCacheUUIDs, self->_associatedClientModelCacheUUIDs];
+  v7 = [v3 initWithFormat:@"uuid: %@, clientModelId: %@, statuses: %@, suggestionUUIDs: %@, blendingUUIDs: %@, clientUUIDs: %@", uuid, clientModelId, self->_sessionContextStatusByConsumerSubType, self->_matchingSuggestionUUIDs, self->_associatedBlendingCacheUUIDs, self->_associatedClientModelCacheUUIDs];
 
-  return v9;
+  return v7;
 }
 
 @end

@@ -17,27 +17,25 @@
 
 - (BLTRemoteGlobalSettingsChangeset)initWithProvider:(id)provider
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
-  v9.receiver = self;
-  v9.super_class = BLTRemoteGlobalSettingsChangeset;
-  v5 = [(BLTRemoteGlobalSettingsChangeset *)&v9 init];
+  v8.receiver = self;
+  v8.super_class = BLTRemoteGlobalSettingsChangeset;
+  v5 = [(BLTRemoteGlobalSettingsChangeset *)&v8 init];
   if (v5)
   {
     -[BLTRemoteGlobalSettingsChangeset setGlobalScheduledDeliverySetting:](v5, "setGlobalScheduledDeliverySetting:", [providerCopy globalScheduledDeliverySetting]);
-    -[BLTRemoteGlobalSettingsChangeset setGlobalSummarizationSetting:](v5, "setGlobalSummarizationSetting:", [providerCopy globalSummarizationSetting]);
-    v6 = blt_global_settings_sync_log();
+    v6 = blt_global_settings_sync_log(-[BLTRemoteGlobalSettingsChangeset setGlobalSummarizationSetting:](v5, "setGlobalSummarizationSetting:", [providerCopy globalSummarizationSetting]));
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v11 = v5;
-      v12 = 2112;
-      v13 = providerCopy;
+      v10 = v5;
+      v11 = 2112;
+      v12 = providerCopy;
       _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "%@ initWithProvider: %@", buf, 0x16u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -67,7 +65,7 @@
 
 - (BOOL)needsSend
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if ([(BLTRemoteGlobalSettingsChangeset *)self globalScheduledDeliverySetting]|| [(BLTRemoteGlobalSettingsChangeset *)self globalSummarizationSetting])
   {
     v3 = MEMORY[0x277CBEAC0];
@@ -76,27 +74,27 @@
 
     if (v5)
     {
-      v6 = [v5 objectForKeyedSubscript:@"globalScheduledDeliverySetting"];
-      intValue = [v6 intValue];
+      v7 = [v5 objectForKeyedSubscript:@"globalScheduledDeliverySetting"];
+      intValue = [v7 intValue];
       if ([(BLTRemoteGlobalSettingsChangeset *)self globalScheduledDeliverySetting]== intValue)
       {
-        v8 = [v5 objectForKeyedSubscript:@"globalSummarizationSetting"];
-        intValue2 = [v8 intValue];
+        v9 = [v5 objectForKeyedSubscript:@"globalSummarizationSetting"];
+        intValue2 = [v9 intValue];
         globalSummarizationSetting = [(BLTRemoteGlobalSettingsChangeset *)self globalSummarizationSetting];
 
         if (globalSummarizationSetting == intValue2)
         {
-          v11 = blt_global_settings_sync_log();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v13 = blt_global_settings_sync_log(v12);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v18 = 138412546;
+            v19 = 138412546;
             selfCopy3 = self;
-            v20 = 2112;
-            v21 = v5;
-            _os_log_impl(&dword_241FB3000, v11, OS_LOG_TYPE_DEFAULT, "%@ needsSend: remoteSettings: %@ SHOULD NOT SEND", &v18, 0x16u);
+            v21 = 2112;
+            v22 = v5;
+            _os_log_impl(&dword_241FB3000, v13, OS_LOG_TYPE_DEFAULT, "%@ needsSend: remoteSettings: %@ SHOULD NOT SEND", &v19, 0x16u);
           }
 
-          v12 = 0;
+          v14 = 0;
           goto LABEL_16;
         }
       }
@@ -105,52 +103,51 @@
       {
       }
 
-      v11 = blt_global_settings_sync_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = blt_global_settings_sync_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
+        v19 = 138412546;
         selfCopy3 = self;
-        v20 = 2112;
-        v21 = v5;
-        v13 = "%@ needsSend: remoteSettings: %@ SHOULD SEND";
-        v14 = v11;
-        v15 = 22;
+        v21 = 2112;
+        v22 = v5;
+        v15 = "%@ needsSend: remoteSettings: %@ SHOULD SEND";
+        v16 = v13;
+        v17 = 22;
         goto LABEL_14;
       }
     }
 
     else
     {
-      v11 = blt_global_settings_sync_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = blt_global_settings_sync_log(v6);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412290;
+        v19 = 138412290;
         selfCopy3 = self;
-        v13 = "%@ needsSend: !remoteSettings";
-        v14 = v11;
-        v15 = 12;
+        v15 = "%@ needsSend: !remoteSettings";
+        v16 = v13;
+        v17 = 12;
 LABEL_14:
-        _os_log_impl(&dword_241FB3000, v14, OS_LOG_TYPE_DEFAULT, v13, &v18, v15);
+        _os_log_impl(&dword_241FB3000, v16, OS_LOG_TYPE_DEFAULT, v15, &v19, v17);
       }
     }
 
-    v12 = 1;
+    v14 = 1;
 LABEL_16:
 
     goto LABEL_17;
   }
 
-  v5 = blt_global_settings_sync_log();
+  v5 = blt_global_settings_sync_log(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(BLTRemoteGlobalSettingsChangeset *)self needsSend];
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v14;
 }
 
 - (BOOL)sendSuccess
@@ -167,8 +164,8 @@ LABEL_17:
   remoteInfoFileLocation = [(BLTRemoteGlobalSettingsChangeset *)self remoteInfoFileLocation];
   v7 = [v5 writeToFile:remoteInfoFileLocation atomically:1];
 
-  v8 = blt_global_settings_sync_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = blt_global_settings_sync_log(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412802;
     selfCopy = self;
@@ -176,34 +173,30 @@ LABEL_17:
     v14 = v5;
     v15 = 1024;
     v16 = v7;
-    _os_log_impl(&dword_241FB3000, v8, OS_LOG_TYPE_DEFAULT, "%@ sendSuccess: infoFile: %@ saveSuccess: %{BOOL}u", &v11, 0x1Cu);
+    _os_log_impl(&dword_241FB3000, v9, OS_LOG_TYPE_DEFAULT, "%@ sendSuccess: infoFile: %@ saveSuccess: %{BOOL}u", &v11, 0x1Cu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BLTPBSetRemoteGlobalSettingsRequest)blt_protobuf
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [MEMORY[0x277CBEAA8] now];
   [v4 timeIntervalSince1970];
   [v3 setSettingDate:?];
 
   [v3 setGlobalScheduledDeliverySetting:{-[BLTRemoteGlobalSettingsChangeset globalScheduledDeliverySetting](self, "globalScheduledDeliverySetting")}];
-  [v3 setGlobalSummarizationSetting:{-[BLTRemoteGlobalSettingsChangeset globalSummarizationSetting](self, "globalSummarizationSetting")}];
-  v5 = blt_global_settings_sync_log();
+  v5 = blt_global_settings_sync_log([v3 setGlobalSummarizationSetting:{-[BLTRemoteGlobalSettingsChangeset globalSummarizationSetting](self, "globalSummarizationSetting")}]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = v3;
-    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ blt_protobuf: %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = v3;
+    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "%@ blt_protobuf: %@", &v7, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -288,11 +281,10 @@ LABEL_17:
 
 - (void)needsSend
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "%@ needsSend: UNEXPECTED: globalScheduledDeliverySetting == BBScheduledDeliverySettingDefault && globalSummarizationSetting == BBSystemSettingDefault - not sending and this should never happen", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_241FB3000, a2, OS_LOG_TYPE_ERROR, "%@ needsSend: UNEXPECTED: globalScheduledDeliverySetting == BBScheduledDeliverySettingDefault && globalSummarizationSetting == BBSystemSettingDefault - not sending and this should never happen", &v2, 0xCu);
 }
 
 @end

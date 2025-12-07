@@ -1,4 +1,4 @@
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   v142 = 0;
   v143 = 0;
@@ -78,7 +78,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(St
 
       v39 = (a14 + a17);
       v40 = (a14 + a17 + a17);
-      v41 = &v40->i8[a17];
+      v41 = (v40 + a17);
       if (!v31)
       {
         goto LABEL_59;
@@ -91,7 +91,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(St
         if (v22 == v24[2])
         {
           v43 = v24[3] + 1;
-          v44 = &v40->i8[a17];
+          v44 = (v40 + a17);
           v45 = (a14 + a17 + a17);
           v46 = (a14 + a17);
           v47 = a14;
@@ -393,7 +393,7 @@ LABEL_33:
 
       v22 = v135;
 LABEL_59:
-      a14 = &v41[a17];
+      a14 = (v41 + a17);
       v23 = v24[6];
       v37 = v22++ >= v23;
       if (v37)
@@ -411,7 +411,7 @@ LABEL_31:
   return result;
 }
 
-_DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+int32x4_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   v22 = a11[3];
   v23 = *(a3 + 8);
@@ -424,7 +424,7 @@ _DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)1,(StreamType)0,(Strea
   v31 = a12[6];
   if (v30 <= v31)
   {
-    v33 = vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
+    v33 = 4 * vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
     v34 = vld1q_dup_f32(&v186);
     v35.i64[0] = __PAIR64__(v185, v187);
     v35.i64[1] = __PAIR64__(v185, v187);
@@ -535,8 +535,8 @@ LABEL_27:
             v56 = a16;
 LABEL_29:
             v57 = *a12;
-            result += 4 * v57;
-            if (result - 1 >= v27)
+            result += v57;
+            if (&result[-1].u64[1] + 7 >= v27)
             {
               return result;
             }
@@ -544,7 +544,7 @@ LABEL_29:
             v58 = a12[1];
             if (v58)
             {
-              if ((result + 4) <= v27)
+              if (&result[1] <= v27)
               {
                 v59 = *result;
               }
@@ -557,19 +557,19 @@ LABEL_29:
               v61 = 0uLL;
               v62 = 0uLL;
               v63 = 0uLL;
-              v64 = &result[v33];
-              if (&result[v33 + 4] <= v27)
+              v64 = (result + v33);
+              if (result[1].u64 + v33 <= v27)
               {
                 v61 = *v64;
               }
 
-              v65 = (v64 + v33 * 4);
+              v65 = (v64 + v33);
               if (&v65[1] <= v27)
               {
                 v62 = *v65;
               }
 
-              v66 = (v65 + v33 * 4);
+              v66 = (v65 + v33);
               if (&v66[1] <= v27)
               {
                 v63 = *v66;
@@ -681,7 +681,7 @@ LABEL_29:
                 v118 |= 0x10uLL;
               }
 
-              result += 4;
+              ++result;
               v60 = a12[4];
               if (v60 == v57)
               {
@@ -712,7 +712,7 @@ LABEL_29:
                 {
                   if (result)
                   {
-                    if ((result + 4) <= v27)
+                    if (&result[1] <= v27)
                     {
                       v123 = *result;
                     }
@@ -725,25 +725,25 @@ LABEL_29:
                     v124 = 0uLL;
                     v125 = 0uLL;
                     v126 = 0uLL;
-                    v127 = &result[v33];
-                    if (&result[v33 + 4] <= v27)
+                    v127 = (result + v33);
+                    if (result[1].u64 + v33 <= v27)
                     {
                       v124 = *v127;
                     }
 
-                    v128 = (v127 + v33 * 4);
+                    v128 = (v127 + v33);
                     if (&v128[1] <= v27)
                     {
                       v125 = *v128;
                     }
 
-                    v129 = (v128 + v33 * 4);
+                    v129 = (v128 + v33);
                     if (&v129[1] <= v27)
                     {
                       v126 = *v129;
                     }
 
-                    result += 4;
+                    ++result;
                   }
 
                   else
@@ -775,7 +775,7 @@ LABEL_29:
                   v145 = vuzp1q_s32(v123, v34);
                   v146 = v34;
                   v146.i32[0] = v123.i32[2];
-                  v147 = (a14 + 64);
+                  v147 = a14 + 64;
                   *a14 = vzip1q_s32(vuzp1q_s32(v145, v145), v35);
                   *(a14 + 16) = vzip2q_s32(vuzp1q_s32(v143, v143), v35);
                   *(a14 + 32) = vzip1q_s32(vuzp1q_s32(v146, v146), v35);
@@ -834,17 +834,17 @@ LABEL_73:
 
                   else
                   {
-                    v154 = &result[v33];
+                    v154 = (result + v33);
                     if (v153 == 2)
                     {
                       v155 = 0;
-                      v156 = &result[v33];
+                      v156 = (result + v33);
                     }
 
                     else
                     {
-                      v156 = &result[v33];
-                      v154 = (v154 + v33 * 4);
+                      v156 = (result + v33);
+                      v154 = (v154 + v33);
                       if (v153 <= 3)
                       {
                         v155 = 0;
@@ -852,31 +852,31 @@ LABEL_73:
 
                       else
                       {
-                        v155 = v33 * 4;
+                        v155 = v33;
                       }
                     }
                   }
 
-                  v161 = (v154 + v155);
+                  v161 = (v154->i64 + v155);
                   v158 = 0uLL;
                   v159 = 0uLL;
                   v160 = 0uLL;
                   v157 = 0uLL;
                   if ((4 - v119))
                   {
-                    if (&result[v152] <= v27)
+                    if (result + 4 * v152 <= v27)
                     {
-                      v157.i32[0] = result[3 - v119];
+                      v157.i32[0] = result->i32[3 - v119];
                     }
 
                     if (v156 + 4 * v152 <= v27)
                     {
-                      v158.i32[0] = *(v156 + 3 - v119);
+                      v158.i32[0] = v156->i32[3 - v119];
                     }
 
                     if (v154 + 4 * v152 <= v27)
                     {
-                      v159.i32[0] = *(v154 + 3 - v119);
+                      v159.i32[0] = v154->i32[3 - v119];
                     }
 
                     if (v161 + 4 * v152 <= v27)
@@ -888,25 +888,25 @@ LABEL_73:
                   if (((4 - v119) & 2) != 0)
                   {
                     v157 = vextq_s8(v157, v157, 8uLL);
-                    if ((result + 2) <= v27)
+                    if (&result->u64[1] <= v27)
                     {
-                      v162.i64[0] = *result;
+                      v162.i64[0] = result->i64[0];
                       v162.i64[1] = vextq_s8(v157, v157, 8uLL).u64[0];
                       v157 = v162;
                     }
 
                     v158 = vextq_s8(v158, v158, 8uLL);
-                    if ((v156 + 1) <= v27)
+                    if (&v156->u64[1] <= v27)
                     {
-                      v163.i64[0] = *v156;
+                      v163.i64[0] = v156->i64[0];
                       v163.i64[1] = vextq_s8(v158, v158, 8uLL).u64[0];
                       v158 = v163;
                     }
 
                     v159 = vextq_s8(v159, v159, 8uLL);
-                    if ((v154 + 1) <= v27)
+                    if (&v154->u64[1] <= v27)
                     {
-                      v164.i64[0] = *v154;
+                      v164.i64[0] = v154->i64[0];
                       v164.i64[1] = vextq_s8(v159, v159, 8uLL).u64[0];
                       v159 = v164;
                     }
@@ -920,7 +920,7 @@ LABEL_73:
                     }
                   }
 
-                  result += v152;
+                  result = (result + 4 * v152);
                 }
 
                 else
@@ -946,7 +946,7 @@ LABEL_73:
                   v175 = vuzp2q_s32(v159, v34);
                   v176 = vuzp2q_s32(v160, v34);
                   *v147 = v28;
-                  v147[1] = vzip2q_s32(vuzp1q_s32(v173, v173), v35);
+                  *(v147 + 16) = vzip2q_s32(vuzp1q_s32(v173, v173), v35);
                   v28 = vuzp1q_s32(v176, v176);
                   *v148 = v168;
                   v148[1] = vzip2q_s32(vuzp1q_s32(v174, v174), v35);
@@ -967,7 +967,7 @@ LABEL_73:
                     v182 = vzip1q_s32(vuzp1q_s32(v181, v181), v35);
                     v183 = v34;
                     v183.i32[0] = v160.i32[2];
-                    v147[2] = v178;
+                    *(v147 + 32) = v178;
                     v148[2] = vzip1q_s32(v180, v35);
                     v149[2] = v182;
                     v150[2] = vzip1q_s32(vuzp1q_s32(v183, v183), v35);
@@ -1014,7 +1014,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   v20 = a12;
   AXRStreamB44A<unsigned short,(StreamType)0>::AXRStreamB44A(v153, a3);
@@ -1428,7 +1428,7 @@ LABEL_30:
   return result;
 }
 
-_DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+int32x4_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v163, a3);
   v22 = a11[3];
@@ -1441,7 +1441,7 @@ _DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)1,(Strea
   v31 = a12[6];
   if (v30 <= v31)
   {
-    v33 = vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
+    v33 = 4 * vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
     v34 = *(a13 + 60);
     v35 = vld1q_dup_f32(&v161);
     v36.i64[0] = __PAIR64__(v162, v163);
@@ -1553,8 +1553,8 @@ LABEL_27:
             v57 = a16;
 LABEL_29:
             v58 = *a12;
-            result += 4 * v58;
-            if (result - 1 >= v27)
+            result += v58;
+            if (&result[-1].u64[1] + 7 >= v27)
             {
               return result;
             }
@@ -1562,7 +1562,7 @@ LABEL_29:
             v59 = a12[1];
             if (v59)
             {
-              if ((result + 4) <= v27)
+              if (&result[1] <= v27)
               {
                 v60 = *result;
               }
@@ -1575,19 +1575,19 @@ LABEL_29:
               v62 = 0uLL;
               v63 = 0uLL;
               v64 = 0uLL;
-              v65 = &result[v33];
-              if (&result[v33 + 4] <= v27)
+              v65 = (result + v33);
+              if (result[1].u64 + v33 <= v27)
               {
                 v62 = *v65;
               }
 
-              v66 = (v65 + v33 * 4);
+              v66 = (v65 + v33);
               if (&v66[1] <= v27)
               {
                 v63 = *v66;
               }
 
-              v67 = (v66 + v33 * 4);
+              v67 = (v66 + v33);
               if (&v67[1] <= v27)
               {
                 v64 = *v67;
@@ -1695,7 +1695,7 @@ LABEL_29:
                 v103 |= 0x10uLL;
               }
 
-              result += 4;
+              ++result;
               v61 = a12[4];
               if (v61 == v58)
               {
@@ -1726,7 +1726,7 @@ LABEL_29:
                 {
                   if (result)
                   {
-                    if ((result + 4) <= v27)
+                    if (&result[1] <= v27)
                     {
                       v108 = *result;
                     }
@@ -1739,25 +1739,25 @@ LABEL_29:
                     v109 = 0uLL;
                     v110 = 0uLL;
                     v111 = 0uLL;
-                    v112 = &result[v33];
-                    if (&result[v33 + 4] <= v27)
+                    v112 = (result + v33);
+                    if (result[1].u64 + v33 <= v27)
                     {
                       v109 = *v112;
                     }
 
-                    v113 = (v112 + v33 * 4);
+                    v113 = (v112 + v33);
                     if (&v113[1] <= v27)
                     {
                       v110 = *v113;
                     }
 
-                    v114 = (v113 + v33 * 4);
+                    v114 = (v113 + v33);
                     if (&v114[1] <= v27)
                     {
                       v111 = *v114;
                     }
 
-                    result += 4;
+                    ++result;
                   }
 
                   else
@@ -1857,7 +1857,7 @@ LABEL_73:
 
                   else
                   {
-                    v136 = &result[v33 + v33];
+                    v136 = (result + v33 + v33);
                     if (v135 <= 3)
                     {
                       v137 = 0;
@@ -1865,15 +1865,15 @@ LABEL_73:
 
                     else
                     {
-                      v137 = v33 * 4;
+                      v137 = v33;
                     }
 
                     if (v135 == 2)
                     {
-                      v136 = &result[v33];
+                      v136 = (result + v33);
                     }
 
-                    v138 = &result[v33];
+                    v138 = (result + v33);
                     if (v135 == 2)
                     {
                       v139 = 0;
@@ -1885,26 +1885,26 @@ LABEL_73:
                     }
                   }
 
-                  v144 = (v136 + v139);
+                  v144 = (v136->i64 + v139);
                   v141 = 0uLL;
                   v142 = 0uLL;
                   v143 = 0uLL;
                   v140 = 0uLL;
                   if ((4 - v104))
                   {
-                    if (&result[v134] <= v27)
+                    if (result + 4 * v134 <= v27)
                     {
-                      v140.i32[0] = result[3 - v104];
+                      v140.i32[0] = result->i32[3 - v104];
                     }
 
                     if (v138 + 4 * v134 <= v27)
                     {
-                      v141.i32[0] = *(v138 + 3 - v104);
+                      v141.i32[0] = v138->i32[3 - v104];
                     }
 
                     if (v136 + 4 * v134 <= v27)
                     {
-                      v142.i32[0] = *(v136 + 3 - v104);
+                      v142.i32[0] = v136->i32[3 - v104];
                     }
 
                     if (v144 + 4 * v134 <= v27)
@@ -1916,25 +1916,25 @@ LABEL_73:
                   if (((4 - v104) & 2) != 0)
                   {
                     v140 = vextq_s8(v140, v140, 8uLL);
-                    if ((result + 2) <= v27)
+                    if (&result->u64[1] <= v27)
                     {
-                      v145.i64[0] = *result;
+                      v145.i64[0] = result->i64[0];
                       v145.i64[1] = vextq_s8(v140, v140, 8uLL).u64[0];
                       v140 = v145;
                     }
 
                     v141 = vextq_s8(v141, v141, 8uLL);
-                    if ((v138 + 1) <= v27)
+                    if (&v138->u64[1] <= v27)
                     {
-                      v146.i64[0] = *v138;
+                      v146.i64[0] = v138->i64[0];
                       v146.i64[1] = vextq_s8(v141, v141, 8uLL).u64[0];
                       v141 = v146;
                     }
 
                     v142 = vextq_s8(v142, v142, 8uLL);
-                    if ((v136 + 1) <= v27)
+                    if (&v136->u64[1] <= v27)
                     {
-                      v147.i64[0] = *v136;
+                      v147.i64[0] = v136->i64[0];
                       v147.i64[1] = vextq_s8(v142, v142, 8uLL).u64[0];
                       v142 = v147;
                     }
@@ -1948,7 +1948,7 @@ LABEL_73:
                     }
                   }
 
-                  result += v134;
+                  result = (result + 4 * v134);
                 }
 
                 else
@@ -2042,7 +2042,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(StreamType)0,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16x2_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
 {
   v147 = 0;
   v148 = 0;
@@ -2183,7 +2183,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(St
 
       v53 = (a14 + a17);
       v54 = (a14 + a17 + a17);
-      v55 = &v54->i8[a17];
+      v55 = (v54 + a17);
       if (!v147 || !v45)
       {
         goto LABEL_78;
@@ -2198,7 +2198,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(St
       if (v130 == v23[2])
       {
         v57 = v23[3] + 1;
-        v58 = &v54->i8[a17];
+        v58 = (v54 + a17);
         v59 = (a14 + a17 + a17);
         v60 = (a14 + a17);
         v61 = a14;
@@ -2348,12 +2348,12 @@ LABEL_49:
 
       else
       {
-        *a14 = v89;
-        *v53 = v87;
+        a14->val[0] = v89;
+        v53->val[0] = v87;
         v77 -= 2;
         v89.i64[0] = v88.i64[0];
         v87.i64[0] = v86.i64[0];
-        *v54 = v83;
+        v54->val[0] = v83;
         v83.i64[0] = v82.i64[0];
         v56->val[0] = v81;
         v81.i64[0] = v80.i64[0];
@@ -2362,9 +2362,9 @@ LABEL_49:
 
       if (v77 >= 1)
       {
-        *(a14->i64 + v94) = v89.i64[0];
-        *(v53->i64 + v94) = v87.i64[0];
-        *(v54->i64 + v94) = v83.i64[0];
+        *(a14->val[0].i64 + v94) = v89.i64[0];
+        *(v53->val[0].i64 + v94) = v87.i64[0];
+        *(v54->val[0].i64 + v94) = v83.i64[0];
         *(v56->val[0].i64 + v94) = v81.i64[0];
         v94 |= 8uLL;
       }
@@ -2424,16 +2424,16 @@ LABEL_68:
               v108 = vqtbl2q_s8(v149, xmmword_296B6EF50);
               v160.val[1] = vqtbl2q_s8(v163, xmmword_296B6EE90);
               v149.val[1] = vqtbl2q_s8(v149, xmmword_296B6EF70);
-              *a14 = v160.val[0];
-              a14[1] = vqtbl2q_s8(*(&v160 + 16), xmmword_296B6EDD0);
-              a14 += 2;
+              a14->val[0] = v160.val[0];
+              a14->val[1] = vqtbl2q_s8(*(&v160 + 16), xmmword_296B6EDD0);
+              ++a14;
               v149.val[0] = vqtbl2q_s8(v163, xmmword_296B6EEB0);
-              *v53 = v107;
-              v53[1] = vqtbl2q_s8(v149, xmmword_296B6EDD0);
-              v53 += 2;
-              *v54 = v154.val[0];
-              v54[1] = vqtbl2q_s8(*(&v154 + 16), xmmword_296B6EDD0);
-              v54 += 2;
+              v53->val[0] = v107;
+              v53->val[1] = vqtbl2q_s8(v149, xmmword_296B6EDD0);
+              ++v53;
+              v54->val[0] = v154.val[0];
+              v54->val[1] = vqtbl2q_s8(*(&v154 + 16), xmmword_296B6EDD0);
+              ++v54;
               ++v56;
               *v103 = v152;
               --v99;
@@ -2480,9 +2480,9 @@ LABEL_68:
           v123 = 4 - a12[5];
           if ((v123 & 2) != 0)
           {
-            *a14 = v122;
-            *v53 = v121;
-            *v54 = v117;
+            a14->val[0] = v122;
+            v53->val[0] = v121;
+            v54->val[0] = v117;
             v56->val[0] = v115;
             if (v123)
             {
@@ -2495,18 +2495,18 @@ LABEL_68:
               v156.val[1] = vqtbl2q_s8(*v119.i8, xmmword_296B6EEB0);
               v153.val[1] = vqtbl2q_s8(*v114.i8, xmmword_296B6EF50);
               v153.val[0] = vqtbl2q_s8(*v119.i8, xmmword_296B6EE90);
-              a14[1].i64[0] = vqtbl2q_s8(v153, xmmword_296B6EDD0).u64[0];
-              v53[1].i64[0] = vqtbl2q_s8(*(&v156 + 16), xmmword_296B6EDD0).u64[0];
-              v54[1].i64[0] = vqtbl2q_s8(v150, xmmword_296B6EDD0).u64[0];
+              a14->val[1].i64[0] = vqtbl2q_s8(v153, xmmword_296B6EDD0).u64[0];
+              v53->val[1].i64[0] = vqtbl2q_s8(*(&v156 + 16), xmmword_296B6EDD0).u64[0];
+              v54->val[1].i64[0] = vqtbl2q_s8(v150, xmmword_296B6EDD0).u64[0];
               v56->val[1].i64[0] = v156.val[0].i64[0];
             }
           }
 
           else
           {
-            a14->i64[0] = v122.i64[0];
-            v53->i64[0] = v121.i64[0];
-            v54->i64[0] = v117.i64[0];
+            a14->val[0].i64[0] = v122.i64[0];
+            v53->val[0].i64[0] = v121.i64[0];
+            v54->val[0].i64[0] = v117.i64[0];
             v56->val[0].i64[0] = v115.i64[0];
           }
         }
@@ -2516,7 +2516,7 @@ LABEL_68:
 
       v26 = v130;
 LABEL_78:
-      a14 = (v55->val + a17);
+      a14 = (v55 + a17);
       v22 = v23[6];
       v130 = v26 + 1;
       if (v26 >= v22)
@@ -3079,7 +3079,7 @@ LABEL_104:
         v179.i32[0] = v149.i32[2];
         *(a14 + 32) = v177;
         *(a14 + 48) = v170;
-        v180 = (a14 + 64);
+        v180 = a14 + 64;
         v181 = (v62 + 64);
         *v62 = vtrn2q_s32(vrev64q_s32(vuzp1q_s32(v149, v40)), vextq_s8(v152, v178, 0xCuLL));
         *(v62 + 16) = vtrn2q_s32(vrev64q_s32(v168), v167);
@@ -3339,7 +3339,7 @@ LABEL_167:
                 v195.i32[3] = v42.i32[1];
                 v196.i32[3] = v42.i32[1];
                 *v180 = v211;
-                v180[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v189, v40)), v193);
+                *(v180 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v189, v40)), v193);
                 *v181 = v212;
                 v181[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v190, v40)), v194);
                 *v182 = v214;
@@ -3359,7 +3359,7 @@ LABEL_167:
                   v222 = vtrn2q_s32(vrev64q_s32(v221), v213);
                   v223 = v40;
                   v223.i32[0] = v192.i32[2];
-                  v180[2] = v218;
+                  *(v180 + 32) = v218;
                   v181[2] = vtrn2q_s32(v220, v34);
                   v182[2] = v222;
                   v183[2] = vtrn2q_s32(vrev64q_s32(v223), v215);
@@ -3404,7 +3404,7 @@ LABEL_167:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   v19 = a12;
   AXRStreamB44A<unsigned short,(StreamType)0>::AXRStreamB44A(v155, a3);
@@ -3817,7 +3817,7 @@ LABEL_61:
   return result;
 }
 
-_DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+int32x4_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v173, a3);
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v172, a4);
@@ -3830,7 +3830,7 @@ _DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(Strea
   v31 = a12[6];
   if (v30 <= v31)
   {
-    v33 = vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
+    v33 = 4 * vmin_u32(vmls_s32(v25, v24, v22), v24).u32[0];
     v34 = vld1q_dup_f32(&v173);
     v35.i64[0] = __PAIR64__(v171, v172);
     v35.i64[1] = __PAIR64__(v171, v172);
@@ -3941,8 +3941,8 @@ LABEL_27:
             v56 = a16;
 LABEL_29:
             v57 = *a12;
-            result += 4 * v57;
-            if (result - 1 >= v27)
+            result += v57;
+            if (&result[-1].u64[1] + 7 >= v27)
             {
               return result;
             }
@@ -3950,7 +3950,7 @@ LABEL_29:
             v58 = a12[1];
             if (v58)
             {
-              if ((result + 4) <= v27)
+              if (&result[1] <= v27)
               {
                 v59 = *result;
               }
@@ -3963,19 +3963,19 @@ LABEL_29:
               v61 = 0uLL;
               v62 = 0uLL;
               v63 = 0uLL;
-              v64 = &result[v33];
-              if (&result[v33 + 4] <= v27)
+              v64 = (result + v33);
+              if (result[1].u64 + v33 <= v27)
               {
                 v61 = *v64;
               }
 
-              v65 = (v64 + v33 * 4);
+              v65 = (v64 + v33);
               if (&v65[1] <= v27)
               {
                 v62 = *v65;
               }
 
-              v66 = (v65 + v33 * 4);
+              v66 = (v65 + v33);
               if (&v66[1] <= v27)
               {
                 v63 = *v66;
@@ -4083,7 +4083,7 @@ LABEL_29:
                 v114 |= 0x10uLL;
               }
 
-              result += 4;
+              ++result;
               v60 = a12[4];
               if (v60 == v57)
               {
@@ -4114,7 +4114,7 @@ LABEL_29:
                 {
                   if (result)
                   {
-                    if ((result + 4) <= v27)
+                    if (&result[1] <= v27)
                     {
                       v119 = *result;
                     }
@@ -4127,25 +4127,25 @@ LABEL_29:
                     v120 = 0uLL;
                     v121 = 0uLL;
                     v122 = 0uLL;
-                    v123 = &result[v33];
-                    if (&result[v33 + 4] <= v27)
+                    v123 = (result + v33);
+                    if (result[1].u64 + v33 <= v27)
                     {
                       v120 = *v123;
                     }
 
-                    v124 = (v123 + v33 * 4);
+                    v124 = (v123 + v33);
                     if (&v124[1] <= v27)
                     {
                       v121 = *v124;
                     }
 
-                    v125 = (v124 + v33 * 4);
+                    v125 = (v124 + v33);
                     if (&v125[1] <= v27)
                     {
                       v122 = *v125;
                     }
 
-                    result += 4;
+                    ++result;
                   }
 
                   else
@@ -4173,7 +4173,7 @@ LABEL_29:
                   v137 = vuzp2q_s32(v34, v119);
                   v138 = vtrn2q_s32(v137, v34);
                   v139 = vuzp1q_s32(v34, v119);
-                  v140 = (a14 + 64);
+                  v140 = a14 + 64;
                   v119.i32[0] = v34.i32[2];
                   *a14 = vzip1q_s32(vuzp1q_s32(v139, v139), v35);
                   *(a14 + 16) = vzip2q_s32(vuzp1q_s32(v137, v137), v35);
@@ -4233,17 +4233,17 @@ LABEL_73:
 
                   else
                   {
-                    v147 = &result[v33];
+                    v147 = (result + v33);
                     if (v146 == 2)
                     {
                       v148 = 0;
-                      v149 = &result[v33];
+                      v149 = (result + v33);
                     }
 
                     else
                     {
-                      v149 = &result[v33];
-                      v147 = (v147 + v33 * 4);
+                      v149 = (result + v33);
+                      v147 = (v147 + v33);
                       if (v146 <= 3)
                       {
                         v148 = 0;
@@ -4251,31 +4251,31 @@ LABEL_73:
 
                       else
                       {
-                        v148 = v33 * 4;
+                        v148 = v33;
                       }
                     }
                   }
 
-                  v154 = (v147 + v148);
+                  v154 = (v147->i64 + v148);
                   v151 = 0uLL;
                   v152 = 0uLL;
                   v153 = 0uLL;
                   v150 = 0uLL;
                   if ((4 - v115))
                   {
-                    if (&result[v145] <= v27)
+                    if (result + 4 * v145 <= v27)
                     {
-                      v150.i32[0] = result[3 - v115];
+                      v150.i32[0] = result->i32[3 - v115];
                     }
 
                     if (v149 + 4 * v145 <= v27)
                     {
-                      v151.i32[0] = *(v149 + 3 - v115);
+                      v151.i32[0] = v149->i32[3 - v115];
                     }
 
                     if (v147 + 4 * v145 <= v27)
                     {
-                      v152.i32[0] = *(v147 + 3 - v115);
+                      v152.i32[0] = v147->i32[3 - v115];
                     }
 
                     if (v154 + 4 * v145 <= v27)
@@ -4287,25 +4287,25 @@ LABEL_73:
                   if (((4 - v115) & 2) != 0)
                   {
                     v150 = vextq_s8(v150, v150, 8uLL);
-                    if ((result + 2) <= v27)
+                    if (&result->u64[1] <= v27)
                     {
-                      v155.i64[0] = *result;
+                      v155.i64[0] = result->i64[0];
                       v155.i64[1] = vextq_s8(v150, v150, 8uLL).u64[0];
                       v150 = v155;
                     }
 
                     v151 = vextq_s8(v151, v151, 8uLL);
-                    if ((v149 + 1) <= v27)
+                    if (&v149->u64[1] <= v27)
                     {
-                      v156.i64[0] = *v149;
+                      v156.i64[0] = v149->i64[0];
                       v156.i64[1] = vextq_s8(v151, v151, 8uLL).u64[0];
                       v151 = v156;
                     }
 
                     v152 = vextq_s8(v152, v152, 8uLL);
-                    if ((v147 + 1) <= v27)
+                    if (&v147->u64[1] <= v27)
                     {
-                      v157.i64[0] = *v147;
+                      v157.i64[0] = v147->i64[0];
                       v157.i64[1] = vextq_s8(v152, v152, 8uLL).u64[0];
                       v152 = v157;
                     }
@@ -4319,7 +4319,7 @@ LABEL_73:
                     }
                   }
 
-                  result += v145;
+                  result = (result + 4 * v145);
                 }
 
                 else
@@ -4345,7 +4345,7 @@ LABEL_73:
                   v168 = vuzp2q_s32(v34, v152);
                   v169 = vuzp2q_s32(v34, v153);
                   *v140 = v28;
-                  v140[1] = vzip2q_s32(vuzp1q_s32(v166, v166), v35);
+                  *(v140 + 16) = vzip2q_s32(vuzp1q_s32(v166, v166), v35);
                   v28 = vuzp1q_s32(v169, v169);
                   *v142 = v161;
                   v142[1] = vzip2q_s32(vuzp1q_s32(v167, v167), v35);
@@ -4359,7 +4359,7 @@ LABEL_73:
                     v151.i32[0] = v34.i32[2];
                     v152.i32[0] = v34.i32[2];
                     v153.i32[0] = v34.i32[2];
-                    v140[2] = vzip1q_s32(vuzp1q_s32(v150, v150), v35);
+                    *(v140 + 32) = vzip1q_s32(vuzp1q_s32(v150, v150), v35);
                     v142[2] = vzip1q_s32(vuzp1q_s32(v151, v151), v35);
                     v143[2] = vzip1q_s32(vuzp1q_s32(v152, v152), v35);
                     v144[2] = vzip1q_s32(vuzp1q_s32(v153, v153), v35);
@@ -4406,7 +4406,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   v174 = 0;
   v175 = 0;
@@ -5431,7 +5431,7 @@ LABEL_104:
         v166 = vuzp1q_s32(v141, v140);
         v140.i32[0] = v141.i32[2];
         v167 = vtrn2q_s32(v165, v141);
-        v168 = (a14 + 64);
+        v168 = a14 + 64;
         *a14 = vzip1q_s32(vuzp1q_s32(v166, v166), v41);
         *(a14 + 16) = vzip2q_s32(vuzp1q_s32(v165, v165), v41);
         *(a14 + 32) = vzip1q_s32(vuzp1q_s32(v140, v140), v41);
@@ -5697,7 +5697,7 @@ LABEL_167:
                 v209 = vuzp2q_s32(v181, v185);
                 v210 = vuzp2q_s32(v182, v186);
                 *v168 = v201;
-                v168[1] = vzip2q_s32(vuzp1q_s32(v207, v207), v41);
+                *(v168 + 16) = vzip2q_s32(vuzp1q_s32(v207, v207), v41);
                 *v170 = v203;
                 v170[1] = vzip2q_s32(vuzp1q_s32(v208, v208), v41);
                 *v171 = v34;
@@ -5710,7 +5710,7 @@ LABEL_167:
                   v184.i32[0] = v180.i32[2];
                   v185.i32[0] = v181.i32[2];
                   v186.i32[0] = v182.i32[2];
-                  v168[2] = vzip1q_s32(vuzp1q_s32(v183, v183), v41);
+                  *(v168 + 32) = vzip1q_s32(vuzp1q_s32(v183, v183), v41);
                   v170[2] = vzip1q_s32(vuzp1q_s32(v184, v184), v41);
                   v171[2] = vzip1q_s32(vuzp1q_s32(v185, v185), v41);
                   v172[2] = vzip1q_s32(vuzp1q_s32(v186, v186), v41);
@@ -5755,7 +5755,7 @@ LABEL_167:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16x2_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
 {
   AXRStreamB44A<unsigned short,(StreamType)0>::AXRStreamB44A(v152, a3);
   v150 = 0;
@@ -5897,7 +5897,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)1,(St
 
       v54 = (a14 + a17);
       v55 = (a14 + a17 + a17);
-      v56 = &v55->i8[a17];
+      v56 = (v55 + a17);
       if (!v150 || !v46)
       {
         goto LABEL_77;
@@ -6057,12 +6057,12 @@ LABEL_49:
 
         else
         {
-          *a14 = v88;
-          *v54 = v86;
+          a14->val[0] = v88;
+          v54->val[0] = v86;
           v76 -= 2;
           v88.i64[0] = v87.i64[0];
           v86.i64[0] = v85.i64[0];
-          *v55 = v82;
+          v55->val[0] = v82;
           v82.i64[0] = v81.i64[0];
           v57->val[0] = v80;
           v80.i64[0] = v79.i64[0];
@@ -6071,9 +6071,9 @@ LABEL_49:
 
         if (v76 >= 1)
         {
-          *(a14->i64 + v93) = v88.i64[0];
-          *(v54->i64 + v93) = v86.i64[0];
-          *(v55->i64 + v93) = v82.i64[0];
+          *(a14->val[0].i64 + v93) = v88.i64[0];
+          *(v54->val[0].i64 + v93) = v86.i64[0];
+          *(v55->val[0].i64 + v93) = v82.i64[0];
           *(v57->val[0].i64 + v93) = v80.i64[0];
           v93 |= 8uLL;
         }
@@ -6145,16 +6145,16 @@ LABEL_49:
             v163.val[0] = vqtbl2q_s8(v165, xmmword_296B6EE90);
             v107 = vqtbl2q_s8(v163, xmmword_296B6EDD0);
             v163.val[1] = vqtbl2q_s8(v166, xmmword_296B6EF70);
-            *a14 = v161.val[1];
-            a14[1] = v107;
-            a14 += 2;
+            a14->val[0] = v161.val[1];
+            a14->val[1] = v107;
+            ++a14;
             v163.val[0] = vqtbl2q_s8(v165, xmmword_296B6EEB0);
-            *v54 = v161.val[0];
-            v54[1] = vqtbl2q_s8(v163, xmmword_296B6EDD0);
-            v54 += 2;
-            *v55 = v155.val[0];
-            v55[1] = vqtbl2q_s8(*(&v155 + 16), xmmword_296B6EDD0);
-            v55 += 2;
+            v54->val[0] = v161.val[0];
+            v54->val[1] = vqtbl2q_s8(v163, xmmword_296B6EDD0);
+            ++v54;
+            v55->val[0] = v155.val[0];
+            v55->val[1] = vqtbl2q_s8(*(&v155 + 16), xmmword_296B6EDD0);
+            ++v55;
             ++v57;
             *v101 = v153;
             --v98;
@@ -6201,9 +6201,9 @@ LABEL_49:
         v123 = 4 - a12[5];
         if ((v123 & 2) != 0)
         {
-          *a14 = v122;
-          *v54 = v120;
-          *v55 = v117;
+          a14->val[0] = v122;
+          v54->val[0] = v120;
+          v55->val[0] = v117;
           v57->val[0] = v115;
           if (v123)
           {
@@ -6217,24 +6217,24 @@ LABEL_49:
             v162.val[0].i64[0] = vqtbl2q_s8(v162, xmmword_296B6EDD0).u64[0];
             v125 = vqtbl2q_s8(*v111.i8, xmmword_296B6EF50);
             v162.val[1] = vqtbl2q_s8(*v119.i8, xmmword_296B6EE90);
-            a14[1].i64[0] = vqtbl2q_s8(*(&v162 + 16), xmmword_296B6EDD0).u64[0];
-            v54[1].i64[0] = v162.val[0].i64[0];
-            v55[1].i64[0] = vqtbl2q_s8(*(&v157 + 16), xmmword_296B6EDD0).u64[0];
+            a14->val[1].i64[0] = vqtbl2q_s8(*(&v162 + 16), xmmword_296B6EDD0).u64[0];
+            v54->val[1].i64[0] = v162.val[0].i64[0];
+            v55->val[1].i64[0] = vqtbl2q_s8(*(&v157 + 16), xmmword_296B6EDD0).u64[0];
             v57->val[1].i64[0] = v157.val[0].i64[0];
           }
         }
 
         else
         {
-          a14->i64[0] = v122.i64[0];
-          v54->i64[0] = v120.i64[0];
-          v55->i64[0] = v117.i64[0];
+          a14->val[0].i64[0] = v122.i64[0];
+          v54->val[0].i64[0] = v120.i64[0];
+          v55->val[0].i64[0] = v117.i64[0];
           v57->val[0].i64[0] = v115.i64[0];
         }
       }
 
 LABEL_77:
-      a14 = (v56->val + a17);
+      a14 = (v56 + a17);
       v25 = v23[6];
       v38 = v24++ >= v25;
       if (v38)
@@ -6250,7 +6250,7 @@ LABEL_77:
   return result;
 }
 
-int32x4_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+int8x16_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v213, a3);
   v22 = a11[3];
@@ -6791,7 +6791,7 @@ LABEL_104:
         *(a14 + 48) = v166;
         v173 = v147;
         v173.i32[0] = v40.i32[2];
-        v174 = (a14 + 64);
+        v174 = a14 + 64;
         v175 = (v62 + 64);
         *v62 = v164;
         *(v62 + 16) = vtrn2q_s32(vrev64q_s32(v163), v162);
@@ -7051,7 +7051,7 @@ LABEL_167:
                 v185.i32[3] = v42.i32[1];
                 v186.i32[3] = v42.i32[1];
                 *v174 = v204;
-                v174[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v40, v187)), v183);
+                *(v174 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v40, v187)), v183);
                 *v175 = v206;
                 v175[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v40, v188)), v184);
                 *v176 = v208;
@@ -7064,7 +7064,7 @@ LABEL_167:
                   v188.i32[0] = v40.i32[2];
                   v34.i32[0] = v40.i32[2];
                   v189.i32[0] = v40.i32[2];
-                  v174[2] = vtrn2q_s32(vrev64q_s32(v187), v203);
+                  *(v174 + 32) = vtrn2q_s32(vrev64q_s32(v187), v203);
                   v175[2] = vtrn2q_s32(vrev64q_s32(v188), v205);
                   v176[2] = vtrn2q_s32(vrev64q_s32(v34), v207);
                   v177[2] = vtrn2q_s32(vrev64q_s32(v189), v209);
@@ -7109,7 +7109,7 @@ LABEL_167:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16x2_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
 {
   v158 = 0;
   v159 = 0;
@@ -7301,7 +7301,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)1,(St
 
       v58 = (a14 + a17);
       v59 = (a14 + a17 + a17);
-      v60 = &v59->i8[a17];
+      v60 = (v59 + a17);
       if (!v158 || !v156 || !v51)
       {
         goto LABEL_95;
@@ -7471,12 +7471,12 @@ LABEL_66:
 
         else
         {
-          *a14 = v89;
-          *v58 = v87;
+          a14->val[0] = v89;
+          v58->val[0] = v87;
           v78 -= 2;
           v89.i64[0] = v88.i64[0];
           v87.i64[0] = v86.i64[0];
-          *v59 = v84;
+          v59->val[0] = v84;
           v84.i64[0] = v83.i64[0];
           v61->val[0] = v82;
           v82.i64[0] = v81.i64[0];
@@ -7485,9 +7485,9 @@ LABEL_66:
 
         if (v78 >= 1)
         {
-          *(a14->i64 + v94) = v89.i64[0];
-          *(v58->i64 + v94) = v87.i64[0];
-          *(v59->i64 + v94) = v84.i64[0];
+          *(a14->val[0].i64 + v94) = v89.i64[0];
+          *(v58->val[0].i64 + v94) = v87.i64[0];
+          *(v59->val[0].i64 + v94) = v84.i64[0];
           *(v61->val[0].i64 + v94) = v82.i64[0];
           v94 |= 8uLL;
         }
@@ -7558,16 +7558,16 @@ LABEL_66:
             v171.val[1] = vqtbl2q_s8(v175, xmmword_296B6EF70);
             v173.val[1] = vqtbl2q_s8(v175, xmmword_296B6EF50);
             v173.val[0] = vqtbl2q_s8(v174, xmmword_296B6EE90);
-            *a14 = vqtbl2q_s8(*(&v169 + 16), xmmword_296B6EDD0);
-            a14[1] = vqtbl2q_s8(v173, xmmword_296B6EDD0);
-            a14 += 2;
+            a14->val[0] = vqtbl2q_s8(*(&v169 + 16), xmmword_296B6EDD0);
+            a14->val[1] = vqtbl2q_s8(v173, xmmword_296B6EDD0);
+            ++a14;
             v171.val[0] = vqtbl2q_s8(v174, xmmword_296B6EEB0);
-            *v58 = v169.val[0];
-            v58[1] = vqtbl2q_s8(v171, xmmword_296B6EDD0);
-            v58 += 2;
-            *v59 = v164.val[0];
-            v59[1] = vqtbl2q_s8(*(&v164 + 16), xmmword_296B6EDD0);
-            v59 += 2;
+            v58->val[0] = v169.val[0];
+            v58->val[1] = vqtbl2q_s8(v171, xmmword_296B6EDD0);
+            ++v58;
+            v59->val[0] = v164.val[0];
+            v59->val[1] = vqtbl2q_s8(*(&v164 + 16), xmmword_296B6EDD0);
+            ++v59;
             ++v61;
             *v102 = v160;
             --v99;
@@ -7616,9 +7616,9 @@ LABEL_66:
         v122 = 4 - a12[5];
         if ((v122 & 2) != 0)
         {
-          *a14 = v121;
-          *v58 = v119;
-          *v59 = v117;
+          a14->val[0] = v121;
+          v58->val[0] = v119;
+          v59->val[0] = v117;
           v61->val[0] = v115;
           if (v122)
           {
@@ -7632,24 +7632,24 @@ LABEL_66:
             v166.val[0].i64[0] = vqtbl2q_s8(v166, xmmword_296B6EDD0).u64[0];
             v124 = vqtbl2q_s8(*v109.i8, xmmword_296B6EF50);
             v166.val[1] = vqtbl2q_s8(*v110.i8, xmmword_296B6EE90);
-            a14[1].i64[0] = vqtbl2q_s8(*(&v166 + 16), xmmword_296B6EDD0).u64[0];
-            v58[1].i64[0] = v166.val[0].i64[0];
-            v59[1].i64[0] = vqtbl2q_s8(*(&v162 + 16), xmmword_296B6EDD0).u64[0];
+            a14->val[1].i64[0] = vqtbl2q_s8(*(&v166 + 16), xmmword_296B6EDD0).u64[0];
+            v58->val[1].i64[0] = v166.val[0].i64[0];
+            v59->val[1].i64[0] = vqtbl2q_s8(*(&v162 + 16), xmmword_296B6EDD0).u64[0];
             v61->val[1].i64[0] = v162.val[0].i64[0];
           }
         }
 
         else
         {
-          a14->i64[0] = v121.i64[0];
-          v58->i64[0] = v119.i64[0];
-          v59->i64[0] = v117.i64[0];
+          a14->val[0].i64[0] = v121.i64[0];
+          v58->val[0].i64[0] = v119.i64[0];
+          v59->val[0].i64[0] = v117.i64[0];
           v61->val[0].i64[0] = v115.i64[0];
         }
       }
 
 LABEL_95:
-      a14 = (v60->val + a17);
+      a14 = (v60 + a17);
       v22 = v23[6];
       v34 = v21++ >= v22;
       if (v34)
@@ -7665,7 +7665,7 @@ LABEL_95:
   return result;
 }
 
-int32x4_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+int8x16_t *ExtractInterleaved4_B44A<unsigned int,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   v17 = a5;
   v18 = a4;
@@ -8337,7 +8337,7 @@ LABEL_141:
         v207 = v177;
         v207.i32[0] = v170.i32[2];
         v39 = vtrn2q_s32(vrev64q_s32(v207), v206);
-        v208 = (a14 + 64);
+        v208 = a14 + 64;
         v209 = (v79 + 64);
         *(v79 + 32) = v193;
         *(v79 + 48) = vtrn2q_s32(vrev64q_s32(vtrn2q_s32(v195, v169)), vuzp2q_s32(v172, v48));
@@ -8731,7 +8731,7 @@ LABEL_231:
         v223.i32[3] = v48.i32[1];
         v224.i32[3] = v48.i32[1];
         *v208 = v250;
-        v208[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v218, v225)), v214);
+        *(v208 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v218, v225)), v214);
         *v209 = v252;
         v209[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v219, v226)), v222);
         *v210 = v254;
@@ -8744,7 +8744,7 @@ LABEL_231:
           v226.i32[0] = v219.i32[2];
           v39.i32[0] = v220.i32[2];
           v227.i32[0] = v221.i32[2];
-          v208[2] = vtrn2q_s32(vrev64q_s32(v225), v249);
+          *(v208 + 32) = vtrn2q_s32(vrev64q_s32(v225), v249);
           v209[2] = vtrn2q_s32(vrev64q_s32(v226), v251);
           v210[2] = vtrn2q_s32(vrev64q_s32(v39), v253);
           v211[2] = vtrn2q_s32(vrev64q_s32(v227), v255);
@@ -8796,7 +8796,7 @@ LABEL_59:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)0,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   v20 = a12;
   AXRStreamB44A<unsigned short,(StreamType)0>::AXRStreamB44A(v121, a3);
@@ -9174,7 +9174,7 @@ LABEL_31:
   return result;
 }
 
-_DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+char *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v162, a3);
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v161, a4);
@@ -9183,7 +9183,7 @@ _DWORD *ExtractInterleaved4_B44A<unsigned int,(StreamType)0,(StreamType)0,(Strea
   v27 = a12[6];
   if (v26 <= v27)
   {
-    v29 = vmin_u32(vmls_s32(*(*(*(*(a6 + 8) + 40) + 8 * a11[7].u32[1]) + 16), *(*(a6 + 8) + 48), a11[3]), *(*(a6 + 8) + 48)).u32[0];
+    v29 = 4 * vmin_u32(vmls_s32(*(*(*(*(a6 + 8) + 40) + 8 * a11[7].u32[1]) + 16), *(*(a6 + 8) + 48), a11[3]), *(*(a6 + 8) + 48)).u32[0];
     v30 = *(a13 + 60);
     v31 = vld1q_dup_f32(&v161);
     v32.i64[0] = __PAIR64__(v160, v162);
@@ -9298,8 +9298,8 @@ LABEL_27:
             v55 = a16;
 LABEL_29:
             v56 = *a12;
-            result += 4 * v56;
-            if (result - 1 >= v24)
+            result += 16 * v56;
+            if ((result - 1) >= v24)
             {
               return result;
             }
@@ -9308,7 +9308,7 @@ LABEL_29:
             v58 = vzip2q_s32(v159, v32);
             if (v57)
             {
-              if ((result + 4) <= v24)
+              if ((result + 16) <= v24)
               {
                 v59 = *result;
               }
@@ -9322,18 +9322,18 @@ LABEL_29:
               v62 = 0uLL;
               v63 = 0uLL;
               v64 = &result[v29];
-              if (&result[v29 + 4] <= v24)
+              if (&result[v29 + 16] <= v24)
               {
                 v61 = *v64;
               }
 
-              v65 = (v64 + v29 * 4);
+              v65 = (v64 + v29);
               if ((v65 + 1) <= v24)
               {
                 v62 = *v65;
               }
 
-              v66 = (v65 + v29 * 4);
+              v66 = (v65 + v29);
               if (&v66[1] <= v24)
               {
                 v63 = *v66;
@@ -9440,7 +9440,7 @@ LABEL_29:
                 v101 |= 0x10uLL;
               }
 
-              result += 4;
+              result += 16;
               v60 = a12[4];
               if (v60 == v56)
               {
@@ -9471,7 +9471,7 @@ LABEL_29:
                 {
                   if (result)
                   {
-                    if ((result + 4) <= v24)
+                    if ((result + 16) <= v24)
                     {
                       v106 = *result;
                     }
@@ -9485,24 +9485,24 @@ LABEL_29:
                     v108 = 0uLL;
                     v109 = 0uLL;
                     v110 = &result[v29];
-                    if (&result[v29 + 4] <= v24)
+                    if (&result[v29 + 16] <= v24)
                     {
                       v107 = *v110;
                     }
 
-                    v111 = (v110 + v29 * 4);
+                    v111 = (v110 + v29);
                     if ((v111 + 1) <= v24)
                     {
                       v108 = *v111;
                     }
 
-                    v112 = (v111 + v29 * 4);
+                    v112 = (v111 + v29);
                     if ((v112 + 1) <= v24)
                     {
                       v109 = *v112;
                     }
 
-                    result += 4;
+                    result += 16;
                   }
 
                   else
@@ -9610,7 +9610,7 @@ LABEL_73:
 
                     else
                     {
-                      v135 = v29 * 4;
+                      v135 = v29;
                     }
 
                     if (v133 == 2)
@@ -9630,38 +9630,38 @@ LABEL_73:
                     }
                   }
 
-                  v142 = (v134 + v137);
+                  v142 = &v134[v137];
                   v139 = 0uLL;
                   v140 = 0uLL;
                   v141 = 0uLL;
                   v138 = 0uLL;
                   if ((4 - v102))
                   {
-                    if (&result[v132] <= v24)
+                    if (&result[4 * v132] <= v24)
                     {
-                      v138.i32[0] = result[3 - v102];
+                      v138.i32[0] = *&result[4 * (3 - v102)];
                     }
 
-                    if (v136 + 4 * v132 <= v24)
+                    if (&v136[4 * v132] <= v24)
                     {
-                      v139.i32[0] = *(v136 + 3 - v102);
+                      v139.i32[0] = *&v136[4 * (3 - v102)];
                     }
 
-                    if (v134 + 4 * v132 <= v24)
+                    if (&v134[4 * v132] <= v24)
                     {
-                      v140.i32[0] = *(v134 + 3 - v102);
+                      v140.i32[0] = *&v134[4 * (3 - v102)];
                     }
 
-                    if (v142 + 4 * v132 <= v24)
+                    if (&v142[4 * v132] <= v24)
                     {
-                      v141.i32[0] = *(v142 + 3 - v102);
+                      v141.i32[0] = *&v142[4 * (3 - v102)];
                     }
                   }
 
                   if (((4 - v102) & 2) != 0)
                   {
                     v138 = vextq_s8(v138, v138, 8uLL);
-                    if ((result + 2) <= v24)
+                    if ((result + 8) <= v24)
                     {
                       v143 = vextq_s8(v138, v138, 8uLL).u32[0];
                       v138.i64[0] = *result;
@@ -9669,7 +9669,7 @@ LABEL_73:
                     }
 
                     v139 = vextq_s8(v139, v139, 8uLL);
-                    if ((v136 + 1) <= v24)
+                    if ((v136 + 8) <= v24)
                     {
                       v144 = vextq_s8(v139, v139, 8uLL).u32[0];
                       v139.i64[0] = *v136;
@@ -9677,7 +9677,7 @@ LABEL_73:
                     }
 
                     v140 = vextq_s8(v140, v140, 8uLL);
-                    if ((v134 + 1) <= v24)
+                    if ((v134 + 8) <= v24)
                     {
                       v145 = vextq_s8(v140, v140, 8uLL).u32[0];
                       v140.i64[0] = *v134;
@@ -9685,7 +9685,7 @@ LABEL_73:
                     }
 
                     v141 = vextq_s8(v141, v141, 8uLL);
-                    if ((v142 + 1) <= v24)
+                    if ((v142 + 8) <= v24)
                     {
                       v146 = vextq_s8(v141, v141, 8uLL).u32[0];
                       v141.i64[0] = *v142;
@@ -9693,7 +9693,7 @@ LABEL_73:
                     }
                   }
 
-                  result += v132;
+                  result += 4 * v132;
                 }
 
                 else
@@ -9791,7 +9791,7 @@ LABEL_26:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
+void *ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)1>(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, int8x16x2_t *a14, uint64_t a15, int8x16x2_t *a16, uint64_t a17)
 {
   v155 = 0;
   v156 = 0;
@@ -9933,7 +9933,7 @@ uint64_t ExtractInterleaved4_B44A<unsigned short,(StreamType)1,(StreamType)0,(St
 
       v54 = (a14 + a17);
       v55 = (a14 + a17 + a17);
-      v56 = &v55->i8[a17];
+      v56 = (v55 + a17);
       if (!v155 || !v46)
       {
         goto LABEL_78;
@@ -10093,12 +10093,12 @@ LABEL_49:
 
         else
         {
-          *a14 = v87;
-          *v54 = v85;
+          a14->val[0] = v87;
+          v54->val[0] = v85;
           v75 -= 2;
           v87.i64[0] = v86.i64[0];
           v85.i64[0] = v84.i64[0];
-          *v55 = v81;
+          v55->val[0] = v81;
           v81.i64[0] = v80.i64[0];
           v57->val[0] = v79;
           v79.i64[0] = v78.i64[0];
@@ -10107,9 +10107,9 @@ LABEL_49:
 
         if (v75 >= 1)
         {
-          *(a14->i64 + v92) = v87.i64[0];
-          *(v54->i64 + v92) = v85.i64[0];
-          *(v55->i64 + v92) = v81.i64[0];
+          *(a14->val[0].i64 + v92) = v87.i64[0];
+          *(v54->val[0].i64 + v92) = v85.i64[0];
+          *(v55->val[0].i64 + v92) = v81.i64[0];
           *(v57->val[0].i64 + v92) = v79.i64[0];
           v92 |= 8uLL;
         }
@@ -10181,16 +10181,16 @@ LABEL_49:
             v167.val[1] = vqtbl2q_s8(v169, xmmword_296B6EF50);
             v107 = vqtbl2q_s8(v167, xmmword_296B6EDD0);
             v167.val[0] = vqtbl2q_s8(v170, xmmword_296B6EEB0);
-            *a14 = v165.val[1];
-            a14[1] = v107;
-            a14 += 2;
+            a14->val[0] = v165.val[1];
+            a14->val[1] = v107;
+            ++a14;
             v167.val[1] = vqtbl2q_s8(v169, xmmword_296B6EF70);
-            *v54 = v165.val[0];
-            v54[1] = vqtbl2q_s8(v167, xmmword_296B6EDD0);
-            v54 += 2;
-            *v55 = v159.val[0];
-            v55[1] = vqtbl2q_s8(*(&v159 + 16), xmmword_296B6EDD0);
-            v55 += 2;
+            v54->val[0] = v165.val[0];
+            v54->val[1] = vqtbl2q_s8(v167, xmmword_296B6EDD0);
+            ++v54;
+            v55->val[0] = v159.val[0];
+            v55->val[1] = vqtbl2q_s8(*(&v159 + 16), xmmword_296B6EDD0);
+            ++v55;
             ++v57;
             *v100 = v157;
             --v97;
@@ -10241,9 +10241,9 @@ LABEL_49:
         v126 = 4 - a12[5];
         if ((v126 & 2) != 0)
         {
-          *a14 = v125;
-          *v54 = v123;
-          *v55 = v120;
+          a14->val[0] = v125;
+          v54->val[0] = v123;
+          v55->val[0] = v120;
           v57->val[0] = v118;
           if (v126)
           {
@@ -10257,24 +10257,24 @@ LABEL_49:
             v166.val[0].i64[0] = vqtbl2q_s8(v166, xmmword_296B6EDD0).u64[0];
             v166.val[1] = vqtbl2q_s8(*v115.i8, xmmword_296B6EE90);
             v128 = vqtbl2q_s8(*v122.i8, xmmword_296B6EF50);
-            a14[1].i64[0] = vqtbl2q_s8(*(&v166 + 16), xmmword_296B6EDD0).u64[0];
-            v54[1].i64[0] = v166.val[0].i64[0];
-            v55[1].i64[0] = vqtbl2q_s8(*(&v161 + 16), xmmword_296B6EDD0).u64[0];
+            a14->val[1].i64[0] = vqtbl2q_s8(*(&v166 + 16), xmmword_296B6EDD0).u64[0];
+            v54->val[1].i64[0] = v166.val[0].i64[0];
+            v55->val[1].i64[0] = vqtbl2q_s8(*(&v161 + 16), xmmword_296B6EDD0).u64[0];
             v57->val[1].i64[0] = v161.val[0].i64[0];
           }
         }
 
         else
         {
-          a14->i64[0] = v125.i64[0];
-          v54->i64[0] = v123.i64[0];
-          v55->i64[0] = v120.i64[0];
+          a14->val[0].i64[0] = v125.i64[0];
+          v54->val[0].i64[0] = v123.i64[0];
+          v55->val[0].i64[0] = v120.i64[0];
           v57->val[0].i64[0] = v118.i64[0];
         }
       }
 
 LABEL_78:
-      a14 = (v56->val + a17);
+      a14 = (v56 + a17);
       v25 = v23[6];
       v38 = v24++ >= v25;
       if (v38)

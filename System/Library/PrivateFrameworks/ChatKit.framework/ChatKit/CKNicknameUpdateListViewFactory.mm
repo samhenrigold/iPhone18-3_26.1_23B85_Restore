@@ -7,7 +7,7 @@
 
 + (id)listViewWithUpdates:(id)updates delegate:(id)delegate
 {
-  sub_1902188FC(0, &qword_1EAD59890);
+  sub_1902188FC(0, &qword_1EAD59890, off_1E72E52E8);
   v5 = sub_190D57180();
   type metadata accessor for NicknameUpdateListViewFactory();
   swift_unknownObjectRetain();

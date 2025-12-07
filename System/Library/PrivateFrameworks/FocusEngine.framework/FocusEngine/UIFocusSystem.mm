@@ -42,6 +42,7 @@
 - (id)focusedItem;
 - (int64_t)_effectiveFocusDeferralBehavior;
 - (void)_buildFocusItemAncestorCacheIfNecessary;
+- (void)_clearFocusItemAncestorCache;
 - (void)_didFinishUpdatingFocusInContext:(id)context;
 - (void)_enableWithoutFocusRestoration;
 - (void)_focusBehaviorDidChange;
@@ -391,9 +392,10 @@ LABEL_5:
 
     [(_UIFocusCasting *)castingCopy setFocusSystem:self];
     objc_storeStrong(&self->_focusCasting, casting);
+    castingCopy = v7;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](focusCasting, castingCopy);
 }
 
 - (_UIFocusGroupHistory)_focusGroupHistory
@@ -2615,21 +2617,21 @@ LABEL_26:
   return v14;
 }
 
-uint64_t __104__UIFocusSystem__updateFocusImmediatelyToEnvironment_startDeferringOnLostFocus_suppressLostFocusUpdate___block_invoke(uint64_t result)
+id *__104__UIFocusSystem__updateFocusImmediatelyToEnvironment_startDeferringOnLostFocus_suppressLostFocusUpdate___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 40) == 1)
   {
-    result = [*(result + 32) _effectiveFocusDeferralBehavior];
+    result = [result[4] _effectiveFocusDeferralBehavior];
     if (result)
     {
-      result = [*(v1 + 32) _resetFocusDeferral];
+      result = [v1[4] _resetFocusDeferral];
     }
   }
 
   if ((*(v1 + 41) & 1) == 0)
   {
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 requestFocusUpdateToEnvironment:v2];
   }
@@ -2758,6 +2760,13 @@ uint64_t __104__UIFocusSystem__updateFocusImmediatelyToEnvironment_startDeferrin
       objc_storeStrong(p_focusItemAncestorCache, v4);
     }
   }
+}
+
+- (void)_clearFocusItemAncestorCache
+{
+  focusItemAncestorCache = self->_focusItemAncestorCache;
+  self->_focusItemAncestorCache = 0;
+  MEMORY[0x2821F96F8](self, focusItemAncestorCache);
 }
 
 - (BOOL)_focusedItemIsContainedInEnvironment:(id)environment includeSelf:(BOOL)self

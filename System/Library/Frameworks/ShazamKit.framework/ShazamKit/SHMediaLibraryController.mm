@@ -214,37 +214,36 @@
   snapshotCopy = snapshot;
   v5 = +[NSMutableSet set];
   changes = [snapshotCopy changes];
-  v48 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [changes count]);
+  v46 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [changes count]);
 
   changes2 = [snapshotCopy changes];
   v8 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [changes2 count]);
 
-  v62 = 0u;
-  v63 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v46 = snapshotCopy;
+  v58 = 0u;
+  v59 = 0u;
+  v44 = snapshotCopy;
   changes3 = [snapshotCopy changes];
-  v10 = [changes3 countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v10 = [changes3 countByEnumeratingWithState:&v58 objects:v67 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v61;
-    v13 = &cblas_sasum_NEWLAPACK_ptr;
-    v47 = *v61;
+    v12 = *v59;
+    v45 = *v59;
     do
     {
-      v14 = 0;
-      v49 = v11;
+      v13 = 0;
+      v47 = v11;
       do
       {
-        if (*v61 != v12)
+        if (*v59 != v12)
         {
           objc_enumerationMutation(changes3);
         }
 
-        v15 = *(*(&v60 + 1) + 8 * v14);
-        changeType = [v15 changeType];
+        v14 = *(*(&v58 + 1) + 8 * v13);
+        changeType = [v14 changeType];
         if ((changeType - 1) >= 2)
         {
           if (changeType != 3)
@@ -252,149 +251,147 @@
             goto LABEL_21;
           }
 
-          libraryItem = [v15 libraryItem];
+          libraryItem = [v14 libraryItem];
           identifier = [libraryItem identifier];
           [v8 addObject:identifier];
 
           goto LABEL_20;
         }
 
-        libraryItem2 = [v15 libraryItem];
-        v18 = v13[263];
+        libraryItem2 = [v14 libraryItem];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v20 = changes3;
-          v21 = v8;
-          libraryItem3 = [v15 libraryItem];
-          [v48 addObject:libraryItem3];
-          v58 = 0u;
-          v59 = 0u;
-          v57 = 0u;
+          v18 = changes3;
+          v19 = v8;
+          libraryItem3 = [v14 libraryItem];
+          [v46 addObject:libraryItem3];
           v56 = 0u;
+          v57 = 0u;
+          v55 = 0u;
+          v54 = 0u;
           tracksToSave = [libraryItem3 tracksToSave];
-          v24 = [tracksToSave countByEnumeratingWithState:&v56 objects:v68 count:16];
-          if (v24)
+          v22 = [tracksToSave countByEnumeratingWithState:&v54 objects:v66 count:16];
+          if (v22)
           {
-            v25 = v24;
-            v26 = *v57;
+            v23 = v22;
+            v24 = *v55;
             do
             {
-              for (i = 0; i != v25; i = i + 1)
+              for (i = 0; i != v23; i = i + 1)
               {
-                if (*v57 != v26)
+                if (*v55 != v24)
                 {
                   objc_enumerationMutation(tracksToSave);
                 }
 
-                [v5 addObject:*(*(&v56 + 1) + 8 * i)];
+                [v5 addObject:*(*(&v54 + 1) + 8 * i)];
               }
 
-              v25 = [tracksToSave countByEnumeratingWithState:&v56 objects:v68 count:16];
+              v23 = [tracksToSave countByEnumeratingWithState:&v54 objects:v66 count:16];
             }
 
-            while (v25);
+            while (v23);
           }
 
-          v8 = v21;
-          changes3 = v20;
-          v12 = v47;
-          v13 = &cblas_sasum_NEWLAPACK_ptr;
-          v11 = v49;
+          v8 = v19;
+          changes3 = v18;
+          v12 = v45;
+          v11 = v47;
         }
 
-        libraryItem4 = [v15 libraryItem];
+        libraryItem4 = [v14 libraryItem];
         objc_opt_class();
-        v29 = objc_opt_isKindOfClass();
+        v27 = objc_opt_isKindOfClass();
 
-        if (v29)
+        if (v27)
         {
-          libraryItem = [v15 libraryItem];
+          libraryItem = [v14 libraryItem];
           [v5 addObject:libraryItem];
 LABEL_20:
         }
 
 LABEL_21:
-        v14 = v14 + 1;
+        v13 = v13 + 1;
       }
 
-      while (v14 != v11);
-      v11 = [changes3 countByEnumeratingWithState:&v60 objects:v69 count:16];
+      while (v13 != v11);
+      v11 = [changes3 countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
     while (v11);
   }
 
-  v32 = sh_log_object();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v30 = sh_log_object();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     syncID = [(SHMediaLibraryController *)self syncID];
     *buf = 138412290;
-    v65 = syncID;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[Local] Media Library sync starts. Sync ID: %@", buf, 0xCu);
+    v63 = syncID;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[Local] Media Library sync starts. Sync ID: %@", buf, 0xCu);
   }
 
-  if ([v48 count])
+  if ([v46 count])
   {
     dataStore = [(SHMediaLibraryController *)self dataStore];
-    v54[0] = _NSConcreteStackBlock;
-    v54[1] = 3221225472;
-    v54[2] = sub_10001F238;
-    v54[3] = &unk_10007D6B0;
-    v55 = v48;
-    [dataStore persistLibraryGroups:v55 completionHandler:v54];
+    v52[0] = _NSConcreteStackBlock;
+    v52[1] = 3221225472;
+    v52[2] = sub_10001F238;
+    v52[3] = &unk_10007D6B0;
+    v53 = v46;
+    [dataStore persistLibraryGroups:v53 completionHandler:v52];
   }
 
   if ([v5 count])
   {
     dataStore2 = [(SHMediaLibraryController *)self dataStore];
     allObjects = [v5 allObjects];
-    v52[0] = _NSConcreteStackBlock;
-    v52[1] = 3221225472;
-    v52[2] = sub_10001F308;
-    v52[3] = &unk_10007D6B0;
-    v53 = v5;
-    [dataStore2 persistUpdatedTracks:allObjects completionHandler:v52];
+    v50[0] = _NSConcreteStackBlock;
+    v50[1] = 3221225472;
+    v50[2] = sub_10001F308;
+    v50[3] = &unk_10007D6B0;
+    v51 = v5;
+    [dataStore2 persistUpdatedTracks:allObjects completionHandler:v50];
   }
 
   if ([v8 count])
   {
     dataStore3 = [(SHMediaLibraryController *)self dataStore];
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_10001F3D8;
-    v50[3] = &unk_10007D750;
-    v51 = v8;
-    [dataStore3 deleteItemsByIdentifiers:v51 completionHandler:v50];
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_10001F3D8;
+    v48[3] = &unk_10007D750;
+    v49 = v8;
+    [dataStore3 deleteItemsByIdentifiers:v49 completionHandler:v48];
   }
 
   dataStore4 = [(SHMediaLibraryController *)self dataStore];
-  v39 = [dataStore4 commitChangesWithError:error];
+  v37 = [dataStore4 commitChangesWithError:error];
 
-  v40 = sh_log_object();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v38 = sh_log_object();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    if (v39)
+    if (v37)
     {
-      v41 = @"Yes";
+      v39 = @"Yes";
     }
 
     else
     {
-      v41 = @"No";
+      v39 = @"No";
     }
 
     syncID2 = [(SHMediaLibraryController *)self syncID];
     *buf = 138412546;
-    v65 = v41;
-    v66 = 2112;
-    v67 = syncID2;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[Local] Media Library completed sync successfully? %@. Sync ID: %@", buf, 0x16u);
+    v63 = v39;
+    v64 = 2112;
+    v65 = syncID2;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[Local] Media Library completed sync successfully? %@. Sync ID: %@", buf, 0x16u);
   }
 
-  return v39;
+  return v37;
 }
 
 - (void)synchronizeRemoteSnapshot:(id)snapshot startCondition:(id)condition didLocalSyncComplete:(BOOL)complete
@@ -431,66 +428,62 @@ LABEL_21:
   unsyncedTrackChangeset = [(SHMediaLibraryController *)self unsyncedTrackChangeset];
   [(SHLLibraryChangeset *)v7 mergeChangeset:unsyncedTrackChangeset];
 
-  v49 = 0u;
-  v50 = 0u;
+  v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v46 = snapshotCopy;
+  v44 = 0u;
+  v45 = 0u;
+  v43 = snapshotCopy;
   changes = [snapshotCopy changes];
-  v11 = [changes countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v11 = [changes countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = &cblas_sasum_NEWLAPACK_ptr;
-    v14 = *v48;
+    v13 = *v45;
     do
     {
       for (i = 0; i != v12; i = i + 1)
       {
-        if (*v48 != v14)
+        if (*v45 != v13)
         {
           objc_enumerationMutation(changes);
         }
 
-        v16 = *(*(&v47 + 1) + 8 * i);
-        changeType = [v16 changeType];
+        v15 = *(*(&v44 + 1) + 8 * i);
+        changeType = [v15 changeType];
         if ((changeType - 1) >= 2)
         {
           if (changeType == 3)
           {
-            libraryItem = [v16 libraryItem];
-            v30 = v13[269];
+            libraryItem = [v15 libraryItem];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v32 = [SHLLibraryTrack alloc];
-              libraryItem2 = [v16 libraryItem];
+              v29 = [SHLLibraryTrack alloc];
+              libraryItem2 = [v15 libraryItem];
               identifier = [libraryItem2 identifier];
-              v35 = [(SHLLibraryTrack *)v32 initWithIdentifier:identifier];
+              v32 = [(SHLLibraryTrack *)v29 initWithIdentifier:identifier];
 
-              v13 = &cblas_sasum_NEWLAPACK_ptr;
-              v52 = v35;
-              v36 = [NSArray arrayWithObjects:&v52 count:1];
-              [(SHLLibraryChangeset *)v7 deleteTracks:v36];
+              v49 = v32;
+              v33 = [NSArray arrayWithObjects:&v49 count:1];
+              [(SHLLibraryChangeset *)v7 deleteTracks:v33];
             }
 
-            libraryItem3 = [v16 libraryItem];
+            libraryItem3 = [v15 libraryItem];
             objc_opt_class();
-            v38 = objc_opt_isKindOfClass();
+            v35 = objc_opt_isKindOfClass();
 
-            if (v38)
+            if (v35)
             {
-              v39 = [SHLLibraryGroup alloc];
-              libraryItem4 = [v16 libraryItem];
+              v36 = [SHLLibraryGroup alloc];
+              libraryItem4 = [v15 libraryItem];
               identifier2 = [libraryItem4 identifier];
-              v27 = [(SHLLibraryGroup *)v39 initWithIdentifier:identifier2];
+              v25 = [(SHLLibraryGroup *)v36 initWithIdentifier:identifier2];
 
-              v13 = &cblas_sasum_NEWLAPACK_ptr;
-              v51 = v27;
-              v28 = [NSArray arrayWithObjects:&v51 count:1];
-              [(SHLLibraryChangeset *)v7 deleteGroups:v28];
+              v48 = v25;
+              v26 = [NSArray arrayWithObjects:&v48 count:1];
+              [(SHLLibraryChangeset *)v7 deleteGroups:v26];
 LABEL_19:
 
 LABEL_20:
@@ -501,38 +494,37 @@ LABEL_20:
 
         else
         {
-          libraryItem5 = [v16 libraryItem];
-          v19 = v13[269];
+          libraryItem5 = [v15 libraryItem];
           objc_opt_class();
-          v20 = objc_opt_isKindOfClass();
+          v18 = objc_opt_isKindOfClass();
 
-          if (v20)
+          if (v18)
           {
-            libraryItem6 = [v16 libraryItem];
-            v22 = [SHMediaLibraryItemMapper shazamLibraryTrackFromLibraryTrack:libraryItem6];
+            libraryItem6 = [v15 libraryItem];
+            v20 = [SHMediaLibraryItemMapper shazamLibraryTrackFromLibraryTrack:libraryItem6];
 
-            if (v22)
+            if (v20)
             {
-              v54 = v22;
-              v23 = [NSArray arrayWithObjects:&v54 count:1];
-              [(SHLLibraryChangeset *)v7 addTracks:v23];
+              v51 = v20;
+              v21 = [NSArray arrayWithObjects:&v51 count:1];
+              [(SHLLibraryChangeset *)v7 addTracks:v21];
             }
           }
 
-          libraryItem7 = [v16 libraryItem];
+          libraryItem7 = [v15 libraryItem];
           objc_opt_class();
-          v25 = objc_opt_isKindOfClass();
+          v23 = objc_opt_isKindOfClass();
 
-          if (v25)
+          if (v23)
           {
-            libraryItem8 = [v16 libraryItem];
-            v27 = [SHMediaLibraryItemMapper shazamLibraryGroupFromLibraryGroup:libraryItem8];
+            libraryItem8 = [v15 libraryItem];
+            v25 = [SHMediaLibraryItemMapper shazamLibraryGroupFromLibraryGroup:libraryItem8];
 
-            if (v27)
+            if (v25)
             {
-              v53 = v27;
-              v28 = [NSArray arrayWithObjects:&v53 count:1];
-              [(SHLLibraryChangeset *)v7 addGroups:v28];
+              v50 = v25;
+              v26 = [NSArray arrayWithObjects:&v50 count:1];
+              [(SHLLibraryChangeset *)v7 addGroups:v26];
               goto LABEL_19;
             }
 
@@ -541,15 +533,15 @@ LABEL_20:
         }
       }
 
-      v12 = [changes countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v12 = [changes countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
     while (v12);
   }
 
-  v42 = [(SHMediaLibraryController *)selfCopy shazamLibrarySyncStartConditionForMediaLibraryStartCondition:conditionCopy];
+  v39 = [(SHMediaLibraryController *)selfCopy shazamLibrarySyncStartConditionForMediaLibraryStartCondition:conditionCopy];
   remoteLibrary = [(SHMediaLibraryController *)selfCopy remoteLibrary];
-  [remoteLibrary synchronizeChanges:v7 startCondition:v42];
+  [remoteLibrary synchronizeChanges:v7 startCondition:v39];
 }
 
 - (id)unsyncedGroupChangeset

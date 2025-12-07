@@ -243,18 +243,19 @@
 
 - (void)_debugLogBytes:(const void *)bytes size:(unint64_t)size offset:(unint64_t)offset
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (PTSerializationDebugIsEnabled())
+  v15 = *MEMORY[0x277D85DE8];
+  IsEnabled = PTSerializationDebugIsEnabled(self, a2);
+  if (IsEnabled)
   {
-    v8 = _PTLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = _PTLogSystem(IsEnabled);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = NSStringFromBytes(bytes, size);
-      v10 = 134218242;
+      v10 = NSStringFromBytes(bytes, size);
+      v11 = 134218242;
       offsetCopy = offset;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_debug_impl(&dword_2243FB000, v8, OS_LOG_TYPE_DEBUG, "r[%zd]: %@", &v10, 0x16u);
+      v13 = 2112;
+      v14 = v10;
+      _os_log_debug_impl(&dword_2243FB000, v9, OS_LOG_TYPE_DEBUG, "r[%zd]: %@", &v11, 0x16u);
     }
   }
 }

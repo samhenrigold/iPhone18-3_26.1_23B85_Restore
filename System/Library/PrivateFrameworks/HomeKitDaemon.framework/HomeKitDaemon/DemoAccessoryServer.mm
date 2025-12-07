@@ -140,7 +140,7 @@
   queueCopy = queue;
   selfCopy = self;
   v10 = sub_229618230(v6, v7);
-  sub_2295571A0(v6);
+  sub_2295571A0(v6, v7);
 
   return v10;
 }

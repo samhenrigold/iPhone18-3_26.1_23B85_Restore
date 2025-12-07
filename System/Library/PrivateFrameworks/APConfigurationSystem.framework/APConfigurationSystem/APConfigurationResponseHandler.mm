@@ -55,7 +55,7 @@
 
 - (BOOL)processResponseWithData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend__processData_(self, a2, data);
   v5 = [APVersionHelper alloc];
   v6 = objc_alloc_init(APVersionData);
@@ -69,7 +69,7 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = v11;
+      v17 = v11;
       _os_log_impl(&dword_1CA1CE000, v13, OS_LOG_TYPE_DEFAULT, "Configuration system update completed successfully v%lu.", buf, 0xCu);
     }
 
@@ -79,9 +79,9 @@
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 134218240;
-    v18 = v11;
-    v19 = 2048;
-    v20 = v4;
+    v17 = v11;
+    v18 = 2048;
+    v19 = v4;
     _os_log_impl(&dword_1CA1CE000, v13, OS_LOG_TYPE_ERROR, "Configuration system update failed v%lu, Status: %ld.", buf, 0x16u);
   }
 
@@ -94,7 +94,6 @@ LABEL_8:
 
   objc_msgSend__sendCoreAnalyticsWithUpdateStatus_version_(self, v14, v4, v11);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v4 == 1200;
 }
 
@@ -230,10 +229,10 @@ LABEL_10:
 
 - (BOOL)_writeCompressedFileWithData:(id)data atPath:(id)path
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  objc_msgSend_writeToFile_options_error_(data, a2, path, 0x10000000, &v11);
-  v4 = v11;
+  v13 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  objc_msgSend_writeToFile_options_error_(data, a2, path, 0x10000000, &v10);
+  v4 = v10;
   if (v4)
   {
     v5 = APLogForCategory();
@@ -241,21 +240,20 @@ LABEL_10:
     {
       v8 = objc_msgSend_description(v4, v6, v7);
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_impl(&dword_1CA1CE000, v5, OS_LOG_TYPE_ERROR, "Error: Failed to write to file: %{public}@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4 == 0;
 }
 
 - (BOOL)_createTempDirectory
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_fileManager(self, a2, v2);
   v7 = objc_msgSend_pathToTempDir(self, v5, v6);
-  if (objc_msgSend_fileExistsAtPath_(v4, v8, v7) && (v24 = 0, objc_msgSend_removeItemAtPath_error_(v4, v9, v7, &v24), (v10 = v24) != 0))
+  if (objc_msgSend_fileExistsAtPath_(v4, v8, v7) && (v23 = 0, objc_msgSend_removeItemAtPath_error_(v4, v9, v7, &v23), (v10 = v23) != 0))
   {
     v11 = v10;
     v12 = APLogForCategory();
@@ -263,7 +261,7 @@ LABEL_10:
     {
       v15 = objc_msgSend_description(v11, v13, v14);
       *buf = 138543362;
-      v26 = v15;
+      v25 = v15;
       v16 = "Error: Failed to remove temp directory: %{public}@";
 LABEL_8:
       _os_log_impl(&dword_1CA1CE000, v12, OS_LOG_TYPE_ERROR, v16, buf, 0xCu);
@@ -272,9 +270,9 @@ LABEL_8:
 
   else
   {
-    v23 = 0;
-    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v4, v9, v7, 0, 0, &v23);
-    v17 = v23;
+    v22 = 0;
+    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v4, v9, v7, 0, 0, &v22);
+    v17 = v22;
     if (!v17)
     {
       v20 = 1;
@@ -287,7 +285,7 @@ LABEL_8:
     {
       v15 = objc_msgSend_description(v11, v18, v19);
       *buf = 138543362;
-      v26 = v15;
+      v25 = v15;
       v16 = "Error: Failed to create temp directory: %{public}@";
       goto LABEL_8;
     }
@@ -296,23 +294,22 @@ LABEL_8:
   v20 = 0;
 LABEL_11:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)_copyCurrentConfigToTraverse
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_pathToConfig(self, a2, v2);
   v7 = objc_msgSend_fileManager(self, v5, v6);
-  if (objc_msgSend_fileExistsAtPath_(v7, v8, v4) && (objc_msgSend_pathToTraverse(self, v9, v10), v11 = objc_claimAutoreleasedReturnValue(), v21 = 0, objc_msgSend_copyItemAtPath_toPath_error_(v7, v12, v4, v11, &v21), v13 = v21, v11, v13))
+  if (objc_msgSend_fileExistsAtPath_(v7, v8, v4) && (objc_msgSend_pathToTraverse(self, v9, v10), v11 = objc_claimAutoreleasedReturnValue(), v20 = 0, objc_msgSend_copyItemAtPath_toPath_error_(v7, v12, v4, v11, &v20), v13 = v20, v11, v13))
   {
     v14 = APLogForCategory();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v17 = objc_msgSend_description(v13, v15, v16);
       *buf = 138543362;
-      v23 = v17;
+      v22 = v17;
       _os_log_impl(&dword_1CA1CE000, v14, OS_LOG_TYPE_ERROR, "Error: Failed to create fallback file: %{public}@", buf, 0xCu);
     }
 
@@ -324,18 +321,17 @@ LABEL_11:
     v18 = 1;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)_removeTempDirectory
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_fileManager(self, a2, v2);
   v7 = objc_msgSend_pathToTempDir(self, v5, v6);
-  v16 = 0;
-  objc_msgSend_removeItemAtPath_error_(v4, v8, v7, &v16);
-  v9 = v16;
+  v15 = 0;
+  objc_msgSend_removeItemAtPath_error_(v4, v8, v7, &v15);
+  v9 = v15;
 
   if (v9)
   {
@@ -344,18 +340,17 @@ LABEL_11:
     {
       v13 = objc_msgSend_description(v9, v11, v12);
       *buf = 138543362;
-      v18 = v13;
+      v17 = v13;
       _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_ERROR, "Error: Failed to remove temp directory: %{public}@", buf, 0xCu);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9 == 0;
 }
 
 - (BOOL)_replaceConfigWithNewHierarchy
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_fileManager(self, a2, v2);
   v7 = objc_msgSend_pathToConfig(self, v5, v6);
   v10 = objc_msgSend_pathToTraverse(self, v8, v9);
@@ -363,9 +358,9 @@ LABEL_11:
   {
     v14 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v12, v7);
     v16 = objc_msgSend_fileURLWithPath_(MEMORY[0x1E695DFF8], v15, v10);
-    v28 = 0;
-    objc_msgSend_replaceItemAtURL_withItemAtURL_backupItemName_options_resultingItemURL_error_(v4, v17, v14, v16, 0, 3, 0, &v28);
-    v18 = v28;
+    v27 = 0;
+    objc_msgSend_replaceItemAtURL_withItemAtURL_backupItemName_options_resultingItemURL_error_(v4, v17, v14, v16, 0, 3, 0, &v27);
+    v18 = v27;
 
     if (v18)
     {
@@ -382,9 +377,9 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v27 = 0;
-    objc_msgSend_moveItemAtPath_toPath_error_(v4, v23, v10, v7, &v27);
-    v18 = v27;
+    v26 = 0;
+    objc_msgSend_moveItemAtPath_toPath_error_(v4, v23, v10, v7, &v26);
+    v18 = v26;
     if (v18)
     {
 LABEL_3:
@@ -393,7 +388,7 @@ LABEL_3:
       {
         v22 = objc_msgSend_description(v18, v20, v21);
         *buf = 138543362;
-        v30 = v22;
+        v29 = v22;
         _os_log_impl(&dword_1CA1CE000, v19, OS_LOG_TYPE_ERROR, "Error: Failed to replace traversed hierarchy: %{public}@", buf, 0xCu);
       }
 
@@ -404,7 +399,6 @@ LABEL_3:
   v24 = 1;
 LABEL_10:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -424,45 +418,45 @@ LABEL_10:
 
 - (int64_t)_traverseDirectoryAtPath:(id)path replacingConfigurationAtPath:(id)atPath
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   atPathCopy = atPath;
   v9 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v7, v8);
-  v80 = pathCopy;
+  v79 = pathCopy;
   objc_msgSend_enumeratorAtPath_(v9, v10, pathCopy);
+  v87 = 0u;
   v88 = 0u;
   v89 = 0u;
-  v90 = 0u;
-  v11 = v91 = 0u;
-  v84 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v88, v98, 16);
+  v11 = v90 = 0u;
+  v83 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v87, v97, 16);
   v14 = 0;
-  if (v84)
+  if (v83)
   {
-    v15 = *v89;
+    v15 = *v88;
     v16 = 0x1E695D000uLL;
-    v81 = v9;
-    v78 = v11;
-    v79 = atPathCopy;
-    v77 = *v89;
+    v80 = v9;
+    v77 = v11;
+    v78 = atPathCopy;
+    v76 = *v88;
 LABEL_3:
     v17 = 0;
     while (1)
     {
-      if (*v89 != v15)
+      if (*v88 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v18 = *(*(&v88 + 1) + 8 * v17);
+      v18 = *(*(&v87 + 1) + 8 * v17);
       v19 = objc_msgSend_stringByAppendingPathComponent_(atPathCopy, v13, v18);
       v22 = objc_msgSend_pathExtension(v18, v20, v21);
       if (objc_msgSend_isEqualToString_(v22, v23, &stru_1F49DAC40))
       {
         if ((objc_msgSend_fileExistsAtPath_(v9, v24, v19) & 1) == 0)
         {
-          v87 = v14;
-          objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v9, v25, v19, 1, 0, &v87);
-          v26 = v87;
+          v86 = v14;
+          objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v9, v25, v19, 1, 0, &v86);
+          v26 = v86;
 
           v14 = 0;
           if (v26)
@@ -472,11 +466,11 @@ LABEL_3:
             {
               v72 = objc_msgSend_description(v26, v70, v71);
               *buf = 138543362;
-              v93 = v72;
+              v92 = v72;
               _os_log_impl(&dword_1CA1CE000, v68, OS_LOG_TYPE_ERROR, "Error: Create directory error: %{public}@.", buf, 0xCu);
             }
 
-            v76 = 1507;
+            v75 = 1507;
             v14 = v26;
             goto LABEL_43;
           }
@@ -495,10 +489,10 @@ LABEL_33:
 LABEL_34:
       ++v17;
       v16 = 0x1E695D000;
-      if (v84 == v17)
+      if (v83 == v17)
       {
-        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v88, v98, 16);
-        v84 = v67;
+        v67 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v13, &v87, v97, 16);
+        v83 = v67;
         if (v67)
         {
           goto LABEL_3;
@@ -508,12 +502,12 @@ LABEL_34:
       }
     }
 
-    v82 = objc_msgSend_stringByDeletingLastPathComponent(v18, v27, v28);
-    v30 = objc_msgSend_stringByAppendingPathComponent_(atPathCopy, v29, v82);
+    v81 = objc_msgSend_stringByDeletingLastPathComponent(v18, v27, v28);
+    v30 = objc_msgSend_stringByAppendingPathComponent_(atPathCopy, v29, v81);
     v32 = objc_msgSend_stringByAppendingPathComponent_(v30, v31, @"ConfigurationNode.json");
 
-    v83 = objc_msgSend_fileURLWithPath_(*(v16 + 4088), v33, v32);
-    v35 = objc_msgSend_stringByAppendingPathComponent_(v80, v34, v18);
+    v82 = objc_msgSend_fileURLWithPath_(*(v16 + 4088), v33, v32);
+    v35 = objc_msgSend_stringByAppendingPathComponent_(v79, v34, v18);
     v38 = objc_msgSend_versionNumberFromJSONFileAtPath_(APVersionHelper, v36, v35);
     if (v38)
     {
@@ -533,12 +527,12 @@ LABEL_34:
               v63 = objc_msgSend_integerValue(v38, v61, v62);
               v66 = objc_msgSend_integerValue(v44, v64, v65);
               *buf = 138543874;
-              v93 = v35;
-              v94 = 2048;
-              v95 = v63;
+              v92 = v35;
+              v93 = 2048;
+              v94 = v63;
               v60 = log;
-              v96 = 2048;
-              v97 = v66;
+              v95 = 2048;
+              v96 = v66;
               _os_log_impl(&dword_1CA1CE000, log, OS_LOG_TYPE_DEBUG, "Node at path %{public}@ received with version: %ld, current version is %ld, skipping update for this node.", buf, 0x20u);
             }
 
@@ -548,19 +542,19 @@ LABEL_34:
           }
         }
 
-        v86 = v14;
-        objc_msgSend_replaceItemAtURL_withItemAtURL_backupItemName_options_resultingItemURL_error_(v81, v42, v83, v39, 0, 3, 0, &v86);
-        v48 = v86;
+        v85 = v14;
+        objc_msgSend_replaceItemAtURL_withItemAtURL_backupItemName_options_resultingItemURL_error_(v80, v42, v82, v39, 0, 3, 0, &v85);
+        v48 = v85;
 
         v14 = v48;
       }
 
       else
       {
-        v85 = v14;
-        objc_msgSend_moveItemAtPath_toPath_error_(v9, v41, v35, v32, &v85);
+        v84 = v14;
+        objc_msgSend_moveItemAtPath_toPath_error_(v9, v41, v35, v32, &v84);
         v44 = v14;
-        v14 = v85;
+        v14 = v84;
       }
 
       v52 = APLogForCategory();
@@ -571,9 +565,9 @@ LABEL_34:
         {
           v59 = objc_msgSend_integerValue(v38, v57, v58);
           *buf = 138543618;
-          v93 = v35;
-          v94 = 2048;
-          v95 = v59;
+          v92 = v35;
+          v93 = 2048;
+          v94 = v59;
           _os_log_impl(&dword_1CA1CE000, v53, OS_LOG_TYPE_INFO, "Migration of file at path: %{public}@, version: %ld complete.", buf, 0x16u);
         }
 
@@ -587,7 +581,7 @@ LABEL_34:
       {
         v56 = objc_msgSend_description(v14, v54, v55);
         *buf = 138543362;
-        v93 = v56;
+        v92 = v56;
         _os_log_impl(&dword_1CA1CE000, v53, OS_LOG_TYPE_ERROR, "Error: Replace item error: %{public}@.", buf, 0xCu);
       }
 
@@ -602,7 +596,7 @@ LABEL_34:
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v93 = v35;
+        v92 = v35;
         _os_log_impl(&dword_1CA1CE000, v39, OS_LOG_TYPE_ERROR, "Error: Node could not be parsed, path %{public}@.", buf, 0xCu);
       }
 
@@ -611,16 +605,16 @@ LABEL_34:
       v51 = 1508;
     }
 
-    v76 = v51;
+    v75 = v51;
 LABEL_31:
 
     if (!v49)
     {
 
-      v11 = v78;
-      atPathCopy = v79;
-      v9 = v81;
-      v15 = v77;
+      v11 = v77;
+      atPathCopy = v78;
+      v9 = v80;
+      v15 = v76;
       if (!v50)
       {
         goto LABEL_43;
@@ -629,67 +623,69 @@ LABEL_31:
       goto LABEL_34;
     }
 
-    v11 = v78;
-    atPathCopy = v79;
-    v9 = v81;
-    v15 = v77;
+    v11 = v77;
+    atPathCopy = v78;
+    v9 = v80;
+    v15 = v76;
     goto LABEL_33;
   }
 
 LABEL_39:
-  v76 = 1200;
+  v75 = 1200;
 LABEL_43:
 
-  v73 = *MEMORY[0x1E69E9840];
-  return v76;
+  return v75;
 }
 
 - (void)_sendCoreAnalyticsWithUpdateStatus:(int64_t)status version:(int64_t)version
 {
-  v20[3] = *MEMORY[0x1E69E9840];
-  v19[0] = @"ClientConfigVersion";
+  v19[3] = *MEMORY[0x1E69E9840];
+  v18[0] = @"ClientConfigVersion";
   v6 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], a2, version);
-  v20[0] = v6;
-  v19[1] = @"StatusCode";
+  v19[0] = v6;
+  v18[1] = @"StatusCode";
   v8 = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v7, status);
-  v20[1] = v8;
-  v19[2] = @"TestingFlag";
+  v19[1] = v8;
+  v18[2] = @"TestingFlag";
   v9 = MEMORY[0x1E696AD98];
   v12 = objc_msgSend__testingFlag(self, v10, v11);
   v14 = objc_msgSend_numberWithBool_(v9, v13, v12);
-  v20[2] = v14;
-  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v20, v19, 3);
+  v19[2] = v14;
+  v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, v19, v18, 3);
 
   objc_msgSend_sendEvent_customPayload_(MEMORY[0x1E6986188], v17, @"ConfigurationSystemRequest", v16);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_testingFlag
 {
-  if (!objc_msgSend_isAppleInternalInstall(MEMORY[0x1E69861D0], a2, v2))
+  result = 0;
+  if (objc_msgSend_isAppleInternalInstall(MEMORY[0x1E69861D0], a2, v2))
   {
-    return 0;
+    v3 = objc_alloc(MEMORY[0x1E695E000]);
+    v5 = objc_msgSend_initWithSuiteName_(v3, v4, *MEMORY[0x1E6986180]);
+    v7 = objc_msgSend_objectForKey_(v5, v6, @"APConfigurationSystem.testEnvironment");
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v10 = v7;
+      v13 = objc_msgSend_BOOLValue(v10, v11, v12);
+    }
+
+    else
+    {
+      v10 = MEMORY[0x1E695E110];
+      v13 = objc_msgSend_BOOLValue(MEMORY[0x1E695E110], v8, v9);
+    }
+
+    v14 = v13;
+
+    if (v14)
+    {
+      return 1;
+    }
   }
 
-  v3 = objc_alloc(MEMORY[0x1E695E000]);
-  v5 = objc_msgSend_initWithSuiteName_(v3, v4, *MEMORY[0x1E6986180]);
-  v7 = objc_msgSend_objectForKey_(v5, v6, @"APConfigurationSystem.testEnvironment");
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v10 = v7;
-    v13 = objc_msgSend_BOOLValue(v10, v11, v12);
-  }
-
-  else
-  {
-    v10 = MEMORY[0x1E695E110];
-    v13 = objc_msgSend_BOOLValue(MEMORY[0x1E695E110], v8, v9);
-  }
-
-  v14 = v13;
-
-  return (v14 & 1) != 0;
+  return result;
 }
 
 - (int64_t)_configurationVersion
@@ -704,7 +700,7 @@ LABEL_43:
 
 - (BOOL)_createSharedFolderDirectoryIfNeeded
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_pathToConfig(self, a2, v2);
   v7 = objc_msgSend_stringByDeletingLastPathComponent(v4, v5, v6);
 
@@ -716,9 +712,9 @@ LABEL_43:
 
   else
   {
-    v21 = 0;
-    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v10, v12, v7, 1, 0, &v21);
-    v14 = v21;
+    v20 = 0;
+    objc_msgSend_createDirectoryAtPath_withIntermediateDirectories_attributes_error_(v10, v12, v7, 1, 0, &v20);
+    v14 = v20;
     v13 = v14 == 0;
     if (v14)
     {
@@ -727,13 +723,12 @@ LABEL_43:
       {
         v18 = objc_msgSend_description(v14, v16, v17);
         *buf = 138543362;
-        v23 = v18;
+        v22 = v18;
         _os_log_impl(&dword_1CA1CE000, v15, OS_LOG_TYPE_ERROR, "Error: Failed to create shared directory: %{public}@", buf, 0xCu);
       }
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

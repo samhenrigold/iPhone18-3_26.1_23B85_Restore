@@ -131,7 +131,7 @@
   selfCopy = self;
   sub_220EFF778();
 
-  sub_220E1966C(0, &qword_27CF9EBC8);
+  sub_220E1966C(0, &qword_27CF9EBC8, 0x277D75650);
   v3 = sub_220FC2960();
 
   return v3;
@@ -140,7 +140,7 @@
 - (void)selectTemperatureOverlay
 {
   selfCopy = self;
-  sub_220EFFA18(4u);
+  sub_220EFFA18(4);
 }
 
 - (void)selectPrecipitationOverlay
@@ -152,13 +152,13 @@
 - (void)selectAirQualityOverlay
 {
   selfCopy = self;
-  sub_220EFFA18(3u);
+  sub_220EFFA18(3);
 }
 
 - (void)selectWindOverlay
 {
   selfCopy = self;
-  sub_220EFFA18(5u);
+  sub_220EFFA18(5);
 }
 
 - (void)zoomIn
@@ -214,11 +214,11 @@
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_220F01DFC();
+  v8 = sub_220F01DFC(selfCopy, annotation);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (void)mapView:(id)view regionDidChangeAnimated:(BOOL)animated

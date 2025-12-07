@@ -34,13 +34,14 @@
   OUTLINED_FUNCTION_0_10();
   MEMORY[0x1EEE9AC00](v6);
   OUTLINED_FUNCTION_5();
+  v9 = v8 - v7;
   sub_1E41FE804();
   viewCopy = view;
   selfCopy = self;
-  sub_1E3E686B8(viewCopy);
+  sub_1E3E686B8(viewCopy, v9);
 
-  v9 = OUTLINED_FUNCTION_53();
-  v10(v9);
+  v12 = OUTLINED_FUNCTION_53();
+  v13(v12);
 }
 
 - (void)vuiScrollViewDidScroll:(id)scroll

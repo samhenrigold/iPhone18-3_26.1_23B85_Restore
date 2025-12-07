@@ -169,7 +169,7 @@ LABEL_23:
     v12 = off_1E73A3018[state];
   }
 
-  LogPrintF(ucat, "[CUBLEScanner centralManagerDidUpdateState:]", 0x1Eu, "Bluetooth scanner state changed: %s\n", v7, v8, v9, v10, v12);
+  LogPrintF(ucat, "[CUBLEScanner centralManagerDidUpdateState:]", 30, "Bluetooth scanner state changed: %s\n", v7, v8, v9, v10, v12);
 LABEL_9:
   if ((state - 1) > 9)
   {
@@ -269,7 +269,7 @@ LABEL_9:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEScanner _stopScanIfNeededWithReason:]", 0x1Eu, "Scanner stop (%s)\n", v3, v4, v5, v6, reason);
+      LogPrintF(ucat, "[CUBLEScanner _stopScanIfNeededWithReason:]", 30, "Scanner stop (%s)\n", v3, v4, v5, v6, reason);
     }
 
 LABEL_6:
@@ -542,7 +542,7 @@ LABEL_6:
   v4 = centralManager;
   if (!centralManager)
   {
-    v5 = objc_alloc(getCBCentralManagerClass_1352[0]());
+    v5 = objc_alloc(getCBCentralManagerClass_1352(0, a2));
     dispatchQueue = self->_dispatchQueue;
     v7 = getCBManagerNeedsRestrictedStateOperation_1353();
     v56 = v7;
@@ -660,7 +660,7 @@ LABEL_48:
             }
 
             v48 = [(CUBLEScanner *)selfCopy _scanParametersSummary:v25];
-            LogPrintF(v47, "[CUBLEScanner _update]", 0x1Eu, "Scanner update: %@\n", v49, v50, v51, v52, v48);
+            LogPrintF(v47, "[CUBLEScanner _update]", 30, "Scanner update: %@\n", v49, v50, v51, v52, v48);
           }
 
 LABEL_54:
@@ -683,7 +683,7 @@ LABEL_54:
           v45 = selfCopy->_ucat;
         }
 
-        LogPrintF(v45, "[CUBLEScanner _update]", 0xAu, "Scanner no changes\n", v29, v30, v31, v32, v53);
+        LogPrintF(v45, "[CUBLEScanner _update]", 10, "Scanner no changes\n", v29, v30, v31, v32, v53);
       }
 
 LABEL_43:
@@ -706,7 +706,7 @@ LABEL_43:
       }
 
       v38 = [(CUBLEScanner *)selfCopy _scanParametersSummary:_scanParameters2];
-      LogPrintF(v37, "[CUBLEScanner _update]", 0x1Eu, "Scanner start: %@\n", v39, v40, v41, v42, v38);
+      LogPrintF(v37, "[CUBLEScanner _update]", 30, "Scanner start: %@\n", v39, v40, v41, v42, v38);
     }
 
 LABEL_41:
@@ -813,7 +813,7 @@ LABEL_23:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEScanner _invalidated]", 0x1Eu, "Invalidated\n", v9, v10, v11, v12, v15);
+      LogPrintF(ucat, "[CUBLEScanner _invalidated]", 30, "Invalidated\n", v9, v10, v11, v12, v15);
     }
   }
 }
@@ -840,7 +840,7 @@ LABEL_23:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEScanner _invalidate]", 0x1Eu, "Invalidate\n", v2, v3, v4, v5, v6);
+    LogPrintF(ucat, "[CUBLEScanner _invalidate]", 30, "Invalidate\n", v2, v3, v4, v5, v6);
   }
 
 LABEL_6:
@@ -891,7 +891,7 @@ uint64_t __24__CUBLEScanner_activate__block_invoke(uint64_t a1, uint64_t a2, uin
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUBLEScanner activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v13);
+      LogPrintF(v10, "[CUBLEScanner activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v13);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }

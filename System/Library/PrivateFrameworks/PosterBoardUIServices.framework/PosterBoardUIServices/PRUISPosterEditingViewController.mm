@@ -19,14 +19,13 @@
 - (id)contentOnlySnapshot;
 - (id)internalContext;
 - (id)phonePreviewSnapshot;
-- (uint64_t)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation;
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation;
 - (void)_commonInit;
 - (void)_prepareEditingForNewPoster;
 - (void)_prepareForEditing;
 - (void)_registerForStateNotifications;
 - (void)_updateEditingSceneViewControllerShowsContentWhenReady;
 - (void)dealloc;
+- (void)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation;
 - (void)editingSceneViewController:(id)controller deviceMotionEventsRequestedDidChange:(BOOL)change;
 - (void)editingSceneViewController:(id)controller injectedEditingClientSettingsDidChange:(id)change;
 - (void)editingSceneViewController:(id)controller preferredDeviceMotionUpdateIntervalDidChange:(double)change;
@@ -45,6 +44,7 @@
 - (void)stopGeneratingMotionEvents;
 - (void)stopSendingMotionEvents;
 - (void)updateEditingControllerWithContext:(id)context;
+- (void)updateMotionWithRotation:(_OWORD *)rotation;
 - (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
@@ -343,22 +343,23 @@ double __52__PRUISPosterEditingViewController__topButtonLayout__block_invoke()
 
 - (void)setContext:(id)context
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  if ((BSEqualObjects() & 1) == 0)
+  v6 = BSEqualObjects();
+  if ((v6 & 1) == 0)
   {
     editingSceneViewController = self->_editingSceneViewController;
-    v7 = PRUISLogEditing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = PRUISLogEditing(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       context = self->_context;
-      v9 = 138543874;
+      v10 = 138543874;
       contextCopy2 = context;
-      v11 = 2114;
-      v12 = contextCopy;
-      v13 = 1026;
-      v14 = editingSceneViewController != 0;
-      _os_log_debug_impl(&dword_1CAE63000, v7, OS_LOG_TYPE_DEBUG, "Updating context from: %{public}@ to: %{public}@. Will propagate to editor: %{public}d", &v9, 0x1Cu);
+      v12 = 2114;
+      v13 = contextCopy;
+      v14 = 1026;
+      v15 = editingSceneViewController != 0;
+      _os_log_debug_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEBUG, "Updating context from: %{public}@ to: %{public}@. Will propagate to editor: %{public}d", &v10, 0x1Cu);
     }
 
     objc_storeStrong(&self->_context, context);
@@ -593,7 +594,7 @@ void __95__PRUISPosterEditingViewController__addObserverForNotificationName_forw
 
 - (BOOL)_prepareEditingForNewPoster
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   extensionInstance = [(PRUISPosterEditingViewController *)self extensionInstance];
   if (extensionInstance)
   {
@@ -602,9 +603,9 @@ void __95__PRUISPosterEditingViewController__addObserverForNotificationName_forw
   }
 
   extensionForIdentifier = [(PFPosterExtensionProvider *)self->_extensionDataSource extensionForIdentifier];
-  v36 = [extensionForIdentifier objectForKey:self->_extensionIdentifier];
+  v38 = [extensionForIdentifier objectForKey:self->_extensionIdentifier];
 
-  if (v36 && [(PRUISPosterEditingViewController *)self _acquireInstanceForExtension:v36])
+  if (v38 && [(PRUISPosterEditingViewController *)self _acquireInstanceForExtension:v38])
   {
     extensionInstance2 = [(PRUISPosterEditingViewController *)self extensionInstance];
 
@@ -619,41 +620,43 @@ LABEL_3:
       v11 = [v6 mutableConfigurationWithProvider:extensionIdentifier descriptorIdentifier:descriptorIdentifier role:self->_role];
 
       _path2 = [v11 _path];
-      v51 = 0;
-      LOBYTE(serverIdentity) = [_path2 ensureContentsURLIsReachableAndReturnError:&v51];
-      v13 = v51;
+      v54 = 0;
+      LOBYTE(serverIdentity) = [_path2 ensureContentsURLIsReachableAndReturnError:&v54];
+      v13 = v54;
       if (serverIdentity)
       {
 
         path = self->_path;
-        v50 = 0;
-        v15 = [_path2 copyContentsOfPath:path error:&v50];
-        v16 = v50;
+        v53 = 0;
+        v15 = [_path2 copyContentsOfPath:path error:&v53];
+        v16 = v53;
+        v17 = v16;
         if ((v15 & 1) == 0)
         {
-          v17 = PRUISLogEditing();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v18 = PRUISLogEditing(v16);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             [PRUISPosterEditingViewController _prepareEditingForNewPoster];
           }
         }
 
-        v18 = [MEMORY[0x1E69C5308] defaultHomeScreenConfigurationForProvider:self->_extensionIdentifier role:self->_role];
-        v19 = objc_alloc(MEMORY[0x1E69C52E0]);
-        v20 = [v19 initWithDisplayNameLocalizationKey:&stru_1F4ACA8E0 ambientSupportedDataLayout:0 preferredTimeFontConfigurations:MEMORY[0x1E695E0F0] preferredTitleColors:MEMORY[0x1E695E0F0] luminance:v18 preferredHomeScreenConfiguration:0 preferredRenderingConfiguration:0.5];
-        v21 = [MEMORY[0x1E69C5328] loadConfiguredPropertiesForPath:_path2 error:0];
-        v49 = 0;
-        v22 = [MEMORY[0x1E69C5328] storeConfigurableOptionsForPath:_path2 configurableOptions:v20 error:&v49];
-        v48 = v49;
-        if (v22)
+        v19 = [MEMORY[0x1E69C5308] defaultHomeScreenConfigurationForProvider:self->_extensionIdentifier role:self->_role];
+        v20 = objc_alloc(MEMORY[0x1E69C52E0]);
+        v21 = [v20 initWithDisplayNameLocalizationKey:&stru_1F4ACA8E0 ambientSupportedDataLayout:0 preferredTimeFontConfigurations:MEMORY[0x1E695E0F0] preferredTitleColors:MEMORY[0x1E695E0F0] luminance:v19 preferredHomeScreenConfiguration:0 preferredRenderingConfiguration:0.5];
+        v22 = [MEMORY[0x1E69C5328] loadConfiguredPropertiesForPath:_path2 error:0];
+        v52 = 0;
+        v23 = [MEMORY[0x1E69C5328] storeConfigurableOptionsForPath:_path2 configurableOptions:v21 error:&v52];
+        v24 = v52;
+        v51 = v24;
+        if (v23)
         {
           objc_storeStrong(&self->_temporaryConfiguration, v11);
-          v23 = objc_alloc(MEMORY[0x1E69C5290]);
+          v25 = objc_alloc(MEMORY[0x1E69C5290]);
           _buildSceneViewControllerAdditionalInfo = [(PRUISPosterEditingViewController *)self _buildSceneViewControllerAdditionalInfo];
-          v25 = [v23 initWithProvider:extensionInstance2 contents:_path2 configurableOptions:v20 configuredProperties:v21 additionalInfo:_buildSceneViewControllerAdditionalInfo];
+          v27 = [v25 initWithProvider:extensionInstance2 contents:_path2 configurableOptions:v21 configuredProperties:v22 additionalInfo:_buildSceneViewControllerAdditionalInfo];
 
-          [v25 setDelegate:self];
-          [v25 addObserver:self];
+          [v27 setDelegate:self];
+          [v27 addObserver:self];
           if (self->_acceptButtonType - 1 >= 3)
           {
             acceptButtonType = 0;
@@ -664,67 +667,66 @@ LABEL_3:
             acceptButtonType = self->_acceptButtonType;
           }
 
-          [v25 setAcceptButtonType:acceptButtonType];
-          v27 = PRUISLogEditing();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v29 = PRUISLogEditing([v27 setAcceptButtonType:acceptButtonType]);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v53 = _path2;
-            _os_log_impl(&dword_1CAE63000, v27, OS_LOG_TYPE_DEFAULT, "Adding child editing view controller for new poster path: %{public}@}", buf, 0xCu);
+            v56 = _path2;
+            _os_log_impl(&dword_1CAE63000, v29, OS_LOG_TYPE_DEFAULT, "Adding child editing view controller for new poster path: %{public}@}", buf, 0xCu);
           }
 
-          [(PRUISPosterEditingViewController *)self addChildViewController:v25];
+          [(PRUISPosterEditingViewController *)self addChildViewController:v27];
           view = [(PRUISPosterEditingViewController *)self view];
-          view2 = [v25 view];
+          view2 = [v27 view];
           [view addSubview:view2];
 
-          view3 = [v25 view];
+          view3 = [v27 view];
           view4 = [(PRUISPosterEditingViewController *)self view];
           [view4 bounds];
           [view3 setFrame:?];
 
-          [v25 didMoveToParentViewController:self];
+          [v27 didMoveToParentViewController:self];
           editingSceneViewController = self->_editingSceneViewController;
-          self->_editingSceneViewController = v25;
-          v33 = v25;
+          self->_editingSceneViewController = v27;
+          v35 = v27;
 
           [(PRUISPosterEditingViewController *)self updateEditingControllerWithContext:self->_editingSceneViewController];
-          v34 = 1;
+          v36 = 1;
           goto LABEL_23;
         }
 
-        v46 = PRUISLogEditing();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v49 = PRUISLogEditing(v24);
+        if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
         {
           [PRUISPosterEditingViewController _prepareEditingForNewPoster];
         }
 
-        v47 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"didLaydownConfigurableOptions"];
+        v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"didLaydownConfigurableOptions"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           [(PRUISPosterEditingViewController *)a2 _prepareEditingForNewPoster];
         }
 
-        [v47 UTF8String];
+        [v50 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
       }
 
       else
       {
-        v44 = PRUISLogEditing();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        v47 = PRUISLogEditing(v13);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           [PRUISPosterEditingViewController _prepareEditingForNewPoster];
         }
 
-        v45 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"contentsURLIsReachable"];
+        v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"contentsURLIsReachable"];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           [(PRUISPosterEditingViewController *)a2 _prepareEditingForNewPoster];
         }
 
-        [v45 UTF8String];
+        [v48 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
       }
@@ -737,16 +739,16 @@ LABEL_3:
   {
   }
 
-  extensionInstance2 = PRUISLogEditing();
+  extensionInstance2 = PRUISLogEditing(v39);
   if (os_log_type_enabled(extensionInstance2, OS_LOG_TYPE_ERROR))
   {
     [(PRUISPosterEditingViewController *)&self->_extensionIdentifier _prepareEditingForNewPoster:extensionInstance2];
   }
 
-  v34 = 0;
+  v36 = 0;
 LABEL_23:
 
-  return v34;
+  return v36;
 }
 
 - (void)updateEditingControllerWithContext:(id)context
@@ -780,8 +782,7 @@ LABEL_23:
       acceptButtonType = self->_acceptButtonType;
     }
 
-    [v8 setAcceptButtonType:acceptButtonType];
-    v10 = PRUISLogEditing();
+    v10 = PRUISLogEditing([v8 setAcceptButtonType:acceptButtonType]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v30 = 138543362;
@@ -835,7 +836,7 @@ LABEL_23:
 
   else
   {
-    v8 = PRUISLogEditing();
+    v8 = PRUISLogEditing(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(PRUISPosterEditingViewController *)self _prepareEditingForPath:v8, v23, v24, v25, v26, v27, v28];
@@ -881,7 +882,7 @@ LABEL_23:
   return v3;
 }
 
-- (uint64_t)updateMotionWithRotation:(_OWORD *)rotation
+- (void)updateMotionWithRotation:(_OWORD *)rotation
 {
   v3 = *(self + 1120);
   v4 = rotation[1];
@@ -1002,27 +1003,27 @@ LABEL_5:
 
 - (void)posterExtensionProvider:(id)provider foundExtensions:(id)extensions
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v18 = 0u;
+  v30 = *MEMORY[0x1E69E9840];
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
   extensionsCopy = extensions;
-  v6 = [extensionsCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v6 = [extensionsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v20;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v19 != v8)
+      if (*v20 != v8)
       {
         objc_enumerationMutation(extensionsCopy);
       }
 
-      v10 = *(*(&v18 + 1) + 8 * v9);
+      v10 = *(*(&v19 + 1) + 8 * v9);
       posterExtensionBundleIdentifier = [v10 posterExtensionBundleIdentifier];
       v12 = [posterExtensionBundleIdentifier isEqualToString:self->_extensionIdentifier];
 
@@ -1033,7 +1034,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [extensionsCopy countByEnumeratingWithState:&v18 objects:v28 count:16];
+        v7 = [extensionsCopy countByEnumeratingWithState:&v19 objects:v29 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -1043,26 +1044,26 @@ LABEL_3:
       }
     }
 
-    v13 = v10;
+    v14 = v10;
 
-    if (!v13)
+    if (!v14)
     {
       goto LABEL_13;
     }
 
-    v14 = PRUISLogEditing();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = PRUISLogEditing(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = objc_opt_class();
+      v16 = objc_opt_class();
       extensionIdentifier = self->_extensionIdentifier;
       *buf = 138543874;
-      v23 = v15;
-      v24 = 2048;
+      v24 = v16;
+      v25 = 2048;
       selfCopy = self;
-      v26 = 2114;
-      v27 = extensionIdentifier;
-      v17 = v15;
-      _os_log_impl(&dword_1CAE63000, v14, OS_LOG_TYPE_DEFAULT, "(%{public}@:%p)Found extension with id: %{public}@", buf, 0x20u);
+      v27 = 2114;
+      v28 = extensionIdentifier;
+      v18 = v16;
+      _os_log_impl(&dword_1CAE63000, v15, OS_LOG_TYPE_DEFAULT, "(%{public}@:%p)Found extension with id: %{public}@", buf, 0x20u);
     }
   }
 
@@ -1071,16 +1072,16 @@ LABEL_3:
 LABEL_9:
 
 LABEL_13:
-    v14 = PRUISLogEditing();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = PRUISLogEditing(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [PRUISPosterEditingViewController posterExtensionProvider:v14 foundExtensions:?];
+      [PRUISPosterEditingViewController posterExtensionProvider:v15 foundExtensions:?];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  if ([(PRUISPosterEditingViewController *)self _acquireInstanceForExtension:v13])
+  if ([(PRUISPosterEditingViewController *)self _acquireInstanceForExtension:v14])
   {
     [(PRUISPosterEditingViewController *)self _prepareForEditing];
   }
@@ -1210,7 +1211,7 @@ LABEL_13:
   }
 }
 
-- (uint64_t)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation
+- (void)deviceMotionController:(uint64_t)controller didUpdateMotionWithRotation:(_OWORD *)rotation
 {
   v4 = rotation[1];
   v6[0] = *rotation;
@@ -1260,7 +1261,7 @@ LABEL_13:
 
 + (void)posterEditingViewControllerForProvider:(char *)a1 role:context:boundingShape:error:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PFPosterRoleIsValid(role)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1268,7 +1269,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PFPosterRoleIsValid(role)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1278,7 +1279,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSMutablePosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1286,7 +1287,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSMutablePosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1296,7 +1297,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1304,7 +1305,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:NSStringClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1314,7 +1315,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PRUISPosterEditingContext)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1322,7 +1323,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PRUISPosterEditingContext)]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1332,7 +1333,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PFPosterRoleIsValid([configuration role])"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1340,7 +1341,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PFPosterRoleIsValid([configuration role])", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1350,7 +1351,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1358,7 +1359,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1368,7 +1369,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.6(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1376,7 +1377,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1386,7 +1387,7 @@ LABEL_13:
 
 - (void)initWithExtensionIdentifier:(char *)a1 configuration:context:boundingShape:.cold.7(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1394,7 +1395,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1404,7 +1405,7 @@ LABEL_13:
 
 - (void)initWithExistingConfiguration:(char *)a1 context:boundingShape:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1412,7 +1413,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:PRSPosterConfigurationClass]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1422,7 +1423,7 @@ LABEL_13:
 
 - (void)initWithExistingConfiguration:(char *)a1 context:boundingShape:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[path isServerPosterPath]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1430,7 +1431,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[path isServerPosterPath]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1440,7 +1441,7 @@ LABEL_13:
 
 - (void)initWithExistingConfiguration:(char *)a1 context:boundingShape:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1448,7 +1449,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1458,7 +1459,7 @@ LABEL_13:
 
 - (void)initWithEditingConfiguration:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object conformsToProtocol:@protocol(PRUISPosterEditingContext)]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1466,7 +1467,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object conformsToProtocol:@protocol(PRUISPosterEditingContext)]", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1476,7 +1477,7 @@ LABEL_13:
 
 - (void)initWithEditingConfiguration:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"PUIPosterBoundingShapeIsValid(puiBoundingShape)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1484,7 +1485,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"PUIPosterBoundingShapeIsValid(puiBoundingShape)", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1494,7 +1495,7 @@ LABEL_13:
 
 - (void)initWithEditingConfiguration:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1502,7 +1503,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1512,7 +1513,7 @@ LABEL_13:
 
 - (void)initWithEditingConfiguration:(char *)a1 .cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"posterContents != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1520,7 +1521,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"posterContents != nil", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -1530,17 +1531,16 @@ LABEL_13:
 
 - (void)_prepareEditingForNewPoster
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v4 = NSStringFromSelector(self);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  OUTLINED_FUNCTION_2();
-  v9 = @"PRUISPosterEditingViewController.m";
-  v10 = 1024;
-  v11 = 420;
-  v12 = v7;
-  v13 = a3;
-  _os_log_error_impl(&dword_1CAE63000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *self;
+  OUTLINED_FUNCTION_3(&dword_1CAE63000, a2, a3, "Could not find extension with id: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_prepareEditingForPath:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(a1 + 1128);
+  OUTLINED_FUNCTION_3(&dword_1CAE63000, a2, a3, "Could not find extension with id: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)posterExtensionProvider:(uint64_t)a1 foundExtensions:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
@@ -1558,7 +1558,7 @@ LABEL_13:
 
 - (void)setInjectedEditingSettings:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"injectedEditingSettings"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -1566,7 +1566,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_4();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"injectedEditingSettings", v10, v11);
+    OUTLINED_FUNCTION_1_0(&dword_1CAE63000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

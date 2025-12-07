@@ -24,7 +24,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1001F56E8();
+  sub_1001F56E8(delegate);
 }
 
 - (void)loadView

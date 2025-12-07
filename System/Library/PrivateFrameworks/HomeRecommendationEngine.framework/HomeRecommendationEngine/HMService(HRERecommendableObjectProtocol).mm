@@ -67,7 +67,7 @@
 
 - (id)hre_matchingTypes
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   associatedServiceType = [self associatedServiceType];
   serviceType = associatedServiceType;
@@ -76,15 +76,13 @@
     serviceType = [self serviceType];
   }
 
-  v9[0] = serviceType;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = serviceType;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [v2 setWithArray:v5];
 
   if (!associatedServiceType)
   {
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

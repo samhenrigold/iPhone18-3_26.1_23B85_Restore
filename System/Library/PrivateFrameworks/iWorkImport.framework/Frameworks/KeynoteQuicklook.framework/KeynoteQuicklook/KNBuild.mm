@@ -159,63 +159,63 @@
 
 + (void)i_repairBuildToDrawableReferencesFromUUIDsForBuilds:(id)builds drawables:(id)drawables
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   buildsCopy = builds;
   drawablesCopy = drawables;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = buildsCopy;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(buildsCopy, v7, &v27, v31, 16);
-  if (v8)
+  v7 = [buildsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  if (v7)
   {
-    v11 = v8;
-    v12 = 0;
-    v13 = *v28;
+    v8 = v7;
+    v9 = 0;
+    v10 = *v20;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v13)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v27 + 1) + 8 * i);
-        v16 = objc_msgSend_i_drawableId(v15, v9, v10);
+        v12 = *(*(&v19 + 1) + 8 * i);
+        i_drawableId = [v12 i_drawableId];
         objc_opt_class();
-        v19 = objc_msgSend_context(v15, v17, v18);
-        v21 = objc_msgSend_objectWithUUIDIfAvailable_(v19, v20, v16);
-        v22 = TSUDynamicCast();
+        context = [v12 context];
+        v15 = [context objectWithUUIDIfAvailable:i_drawableId];
+        v16 = TSUDynamicCast();
 
-        if (drawablesCopy && !v22)
+        if (drawablesCopy && !v16)
         {
-          if (!v12)
+          if (!v9)
           {
-            v12 = objc_msgSend_UUIDToTSPObjectMapForTSPObjects_(KNBuildUtility, v23, drawablesCopy);
+            v9 = [KNBuildUtility UUIDToTSPObjectMapForTSPObjects:drawablesCopy];
           }
 
           objc_opt_class();
-          v25 = objc_msgSend_objectForKeyedSubscript_(v12, v24, v16);
-          v22 = TSUCheckedDynamicCast();
+          v17 = [v9 objectForKeyedSubscript:i_drawableId];
+          v16 = TSUCheckedDynamicCast();
         }
 
-        if (v22)
+        if (v16)
         {
-          objc_msgSend_setDrawable_(v15, v23, v22);
+          [v12 setDrawable:v16];
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v9, &v27, v31, 16);
+      v8 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
-    while (v11);
+    while (v8);
   }
 
   else
   {
-    v12 = 0;
+    v9 = 0;
   }
 }
 
@@ -226,23 +226,23 @@
   {
     archivingCopy = archiving;
     objc_opt_class();
-    v8 = objc_msgSend_context(self, v6, v7);
-    v10 = v8;
+    context = [(KNBuild *)self context];
+    v7 = context;
     drawableId = self->_drawableId;
     if (archivingCopy)
     {
-      objc_msgSend_objectWithUUIDIfAvailable_(v8, v9, drawableId);
+      [context objectWithUUIDIfAvailable:drawableId];
     }
 
     else
     {
-      objc_msgSend_objectWithUUID_(v8, v9, drawableId);
+      [context objectWithUUID:drawableId];
     }
-    v12 = ;
-    v13 = TSUCheckedDynamicCast();
+    v9 = ;
+    v10 = TSUCheckedDynamicCast();
 
-    v14 = self->_drawable;
-    self->_drawable = v13;
+    v11 = self->_drawable;
+    self->_drawable = v10;
 
     drawable = self->_drawable;
   }
@@ -253,246 +253,245 @@
 - (id)i_drawableOnSlide:(id)slide
 {
   slideCopy = slide;
-  v7 = objc_msgSend_drawable(self, v5, v6);
-  v10 = objc_msgSend_infosToDisplay(slideCopy, v8, v9);
+  drawable = [(KNBuild *)self drawable];
+  infosToDisplay = [slideCopy infosToDisplay];
 
-  if ((objc_msgSend_containsObject_(v10, v11, v7) & 1) == 0)
+  if (([infosToDisplay containsObject:drawable] & 1) == 0)
   {
-    v14 = objc_msgSend_i_drawableId(self, v12, v13);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = sub_275DDB8A8;
-    v19[3] = &unk_27A699010;
-    v20 = v14;
-    v15 = v14;
-    v17 = objc_msgSend_tsu_firstObjectPassingTest_(v10, v16, v19);
+    i_drawableId = [(KNBuild *)self i_drawableId];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_275DDB8A8;
+    v11[3] = &unk_27A699010;
+    v12 = i_drawableId;
+    v8 = i_drawableId;
+    v9 = [infosToDisplay tsu_firstObjectPassingTest:v11];
 
-    v7 = v17;
+    drawable = v9;
   }
 
-  return v7;
+  return drawable;
 }
 
 - (void)i_generateAndApplyNewChunkIdentifierToChunk:(id)chunk
 {
   chunkCopy = chunk;
-  v38 = chunkCopy;
+  v17 = chunkCopy;
   if (!chunkCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 173, 0, "Invalid parameter not satisfying: %{public}s", "chunk != nil");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:173 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "chunk != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     chunkCopy = 0;
   }
 
-  v14 = objc_msgSend_chunkIdentifier(chunkCopy, v5, v6);
-  isValid = objc_msgSend_isValid(v14, v15, v16);
+  chunkIdentifier = [chunkCopy chunkIdentifier];
+  isValid = [chunkIdentifier isValid];
 
   if (isValid)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]");
-    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v24, v21, v23, 174, 0, "An attempt was made to assign a chunk identifier, but the chunk already has one.");
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:174 isFatal:0 description:{"An attempt was made to assign a chunk identifier, but the chunk already has one."}];
 
-    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v25, v26);
+    [MEMORY[0x277D81150] logFullBacktrace];
   }
 
   if (self->_chunkIDSeed == 0x7FFFFFFF)
   {
-    v31 = MEMORY[0x277D81150];
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]");
-    v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v35, v32, v34, 192, 0, "The chunk ID counter is about to overflow and the chunk ID cannot be assigned.");
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_generateAndApplyNewChunkIdentifierToChunk:]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:192 isFatal:0 description:"The chunk ID counter is about to overflow and the chunk ID cannot be assigned."];
 
-    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v36, v37);
+    [MEMORY[0x277D81150] logFullBacktrace];
   }
 
   else
   {
-    objc_msgSend_willModify(self, v18, v19);
+    [(KNBuild *)self willModify];
     ++self->_chunkIDSeed;
-    v27 = [KNBuildChunkIdentifier alloc];
-    v29 = objc_msgSend_initWithBuild_chunkID_(v27, v28, self, self->_chunkIDSeed);
-    objc_msgSend_i_setChunkIdentifier_(v38, v30, v29);
+    v13 = [[KNBuildChunkIdentifier alloc] initWithBuild:self chunkID:self->_chunkIDSeed];
+    [v17 i_setChunkIdentifier:v13];
   }
 }
 
 - (void)i_rollbackChunkIDSeedForChunk:(id)chunk
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   chunkCopy = chunk;
   if (!chunkCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 197, 0, "Invalid parameter not satisfying: %{public}s", "chunk != nil");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:197 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "chunk != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v14 = objc_msgSend_build(chunkCopy, v4, v5);
+  build = [chunkCopy build];
 
-  if (v14 != self)
+  if (build != self)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]");
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 198, 0, "Chunk is not part of the receiver (build).");
+    v9 = MEMORY[0x277D81150];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]"];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v9 handleFailureInFunction:v10 file:v11 lineNumber:198 isFatal:0 description:"Chunk is not part of the receiver (build)."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v24 = objc_msgSend_chunkIdentifier(chunkCopy, v15, v16);
-  chunkIDSeed = objc_msgSend_chunkID(v24, v25, v26);
+  chunkIdentifier = [chunkCopy chunkIdentifier];
+  chunkIDSeed = [chunkIdentifier chunkID];
   if (chunkIDSeed != self->_chunkIDSeed)
   {
-    v29 = MEMORY[0x277D81150];
-    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]");
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v33, v30, v32, 202, 0, "Trying to roll back ID for chunk which was not the last one inserted.");
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:202 isFatal:0 description:"Trying to roll back ID for chunk which was not the last one inserted."];
 
-    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v34, v35);
+    [MEMORY[0x277D81150] logFullBacktrace];
     chunkIDSeed = self->_chunkIDSeed;
   }
 
   if (chunkIDSeed < 1)
   {
-    v57 = MEMORY[0x277D81150];
-    v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]");
-    v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v61, v58, v60, 226, 0, "Trying to roll back an ID which is already at the beginning.");
+    v25 = MEMORY[0x277D81150];
+    v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]"];
+    v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v25 handleFailureInFunction:v26 file:v27 lineNumber:226 isFatal:0 description:"Trying to roll back an ID which is already at the beginning."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v62, v63);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   else
   {
-    v64 = v24;
-    objc_msgSend_i_deregisterBuildChunkWithChunkIdentifier_(self, v28, v24);
-    objc_msgSend_willModify(self, v36, v37);
+    v28 = chunkIdentifier;
+    [(KNBuild *)self i_deregisterBuildChunkWithChunkIdentifier:chunkIdentifier];
+    [(KNBuild *)self willModify];
     --self->_chunkIDSeed;
-    objc_msgSend_i_clearChunkIdentifier(chunkCopy, v38, v39);
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
-    v66 = 0u;
-    v42 = objc_msgSend_allKeys(self->_buildChunkIDMap, v40, v41);
-    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v43, &v65, v69, 16);
-    if (v44)
+    [chunkCopy i_clearChunkIdentifier];
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    allKeys = [(NSMutableDictionary *)self->_buildChunkIDMap allKeys];
+    v18 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v18)
     {
-      v47 = v44;
-      v48 = *v66;
+      v19 = v18;
+      v20 = *v30;
       do
       {
-        for (i = 0; i != v47; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v66 != v48)
+          if (*v30 != v20)
           {
-            objc_enumerationMutation(v42);
+            objc_enumerationMutation(allKeys);
           }
 
-          if (objc_msgSend_integerValue(*(*(&v65 + 1) + 8 * i), v45, v46) > self->_chunkIDSeed)
+          if ([*(*(&v29 + 1) + 8 * i) integerValue] > self->_chunkIDSeed)
           {
-            v50 = MEMORY[0x277D81150];
-            v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]");
-            v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v50, v54, v51, v53, 223, 0, "Found a pre-existing chunk which has an ID that is too high. This could cause an ID collision later.");
+            v22 = MEMORY[0x277D81150];
+            v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_rollbackChunkIDSeedForChunk:]"];
+            v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+            [v22 handleFailureInFunction:v23 file:v24 lineNumber:223 isFatal:0 description:"Found a pre-existing chunk which has an ID that is too high. This could cause an ID collision later."];
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v55, v56);
+            [MEMORY[0x277D81150] logBacktraceThrottled];
           }
         }
 
-        v47 = objc_msgSend_countByEnumeratingWithState_objects_count_(v42, v45, &v65, v69, 16);
+        v19 = [allKeys countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
-      while (v47);
+      while (v19);
     }
 
-    v24 = v64;
+    chunkIdentifier = v28;
   }
 }
 
 - (void)i_registerBuildChunkIdentifierForChunk:(id)chunk
 {
   chunkCopy = chunk;
-  v67 = chunkCopy;
+  v30 = chunkCopy;
   if (!chunkCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 241, 0, "Invalid parameter not satisfying: %{public}s", "chunk != nil");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:241 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "chunk != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     chunkCopy = 0;
   }
 
-  v14 = objc_msgSend_chunkIdentifier(chunkCopy, v5, v6);
-  v17 = v14;
-  if (v14)
+  chunkIdentifier = [chunkCopy chunkIdentifier];
+  v9 = chunkIdentifier;
+  if (chunkIdentifier)
   {
-    if ((objc_msgSend_isValid(v14, v15, v16) & 1) == 0)
+    if (([chunkIdentifier isValid] & 1) == 0)
     {
-      v20 = MEMORY[0x277D81150];
-      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]");
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v24, v21, v23, 247, 0, "Invalid chunk ID.");
+      v10 = MEMORY[0x277D81150];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]"];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+      [v10 handleFailureInFunction:v11 file:v12 lineNumber:247 isFatal:0 description:"Invalid chunk ID."];
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v25, v26);
+      [MEMORY[0x277D81150] logFullBacktrace];
     }
 
-    v27 = objc_msgSend_buildUUID(v17, v18, v19);
-    v30 = objc_msgSend_objectUUID(self, v28, v29);
-    isEqual = objc_msgSend_isEqual_(v27, v31, v30);
+    buildUUID = [v9 buildUUID];
+    objectUUID = [(KNBuild *)self objectUUID];
+    v15 = [buildUUID isEqual:objectUUID];
 
-    if ((isEqual & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v35 = MEMORY[0x277D81150];
-      v36 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]");
-      v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v37, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v35, v39, v36, v38, 248, 0, "Chunk identifier does not reference the receiver (build).");
+      v16 = MEMORY[0x277D81150];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]"];
+      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+      [v16 handleFailureInFunction:v17 file:v18 lineNumber:248 isFatal:0 description:"Chunk identifier does not reference the receiver (build)."];
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v40, v41);
+      [MEMORY[0x277D81150] logFullBacktrace];
     }
 
-    v42 = objc_msgSend_chunkID(v17, v33, v34);
-    v45 = objc_msgSend_p_buildChunkIDMap(self, v43, v44);
-    v47 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v46, v42);
-    v49 = objc_msgSend_objectForKeyedSubscript_(v45, v48, v47);
+    chunkID = [v9 chunkID];
+    p_buildChunkIDMap = [(KNBuild *)self p_buildChunkIDMap];
+    v21 = [MEMORY[0x277CCABB0] numberWithInt:chunkID];
+    v22 = [p_buildChunkIDMap objectForKeyedSubscript:v21];
 
-    if (v49 && v49 != v67)
+    if (v22 && v22 != v30)
     {
-      v51 = MEMORY[0x277D81150];
-      v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]");
-      v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v51, v55, v52, v54, 258, 0, "A chunk ID collision has occurred.");
+      v23 = MEMORY[0x277D81150];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]"];
+      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+      [v23 handleFailureInFunction:v24 file:v25 lineNumber:258 isFatal:0 description:"A chunk ID collision has occurred."];
 
-      objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v56, v57);
+      [MEMORY[0x277D81150] logFullBacktrace];
     }
 
-    v58 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v50, v42);
-    objc_msgSend_setObject_forKeyedSubscript_(v45, v59, v67, v58);
+    v26 = [MEMORY[0x277CCABB0] numberWithInt:chunkID];
+    [p_buildChunkIDMap setObject:v30 forKeyedSubscript:v26];
   }
 
   else
   {
-    v60 = MEMORY[0x277D81150];
-    v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]");
-    v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v62, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v64, v61, v63, 244, 0, "Nil chunk identifier. %@", v67);
+    v27 = MEMORY[0x277D81150];
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_registerBuildChunkIdentifierForChunk:]"];
+    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v27 handleFailureInFunction:v28 file:v29 lineNumber:244 isFatal:0 description:{"Nil chunk identifier. %@", v30}];
 
-    objc_msgSend_logFullBacktrace(MEMORY[0x277D81150], v65, v66);
+    [MEMORY[0x277D81150] logFullBacktrace];
   }
 }
 
 - (id)p_buildChunkIDMap
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   buildChunkIDMap = self->_buildChunkIDMap;
   if (!buildChunkIDMap)
   {
@@ -500,63 +499,62 @@
     v5 = self->_buildChunkIDMap;
     self->_buildChunkIDMap = v4;
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    obj = objc_msgSend_chunks(self, v6, v7);
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v8, &v54, v58, 16);
-    if (v9)
+    v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    obj = [(KNBuild *)self chunks];
+    v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    if (v6)
     {
-      v12 = v9;
-      v13 = *v55;
+      v7 = v6;
+      v8 = *v28;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v55 != v13)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v54 + 1) + 8 * i);
-          v16 = objc_msgSend_chunkIdentifier(v15, v10, v11);
-          if ((objc_msgSend_isValid(v16, v17, v18) & 1) == 0)
+          v10 = *(*(&v27 + 1) + 8 * i);
+          chunkIdentifier = [v10 chunkIdentifier];
+          if (([chunkIdentifier isValid] & 1) == 0)
           {
-            v21 = MEMORY[0x277D81150];
-            v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[KNBuild(Internal) p_buildChunkIDMap]");
-            v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v21, v25, v22, v24, 273, 0, "Expected the chunk to have a fully qualified chunk identifier.");
+            v12 = MEMORY[0x277D81150];
+            v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) p_buildChunkIDMap]"];
+            v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+            [v12 handleFailureInFunction:v13 file:v14 lineNumber:273 isFatal:0 description:"Expected the chunk to have a fully qualified chunk identifier."];
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27);
+            [MEMORY[0x277D81150] logBacktraceThrottled];
           }
 
-          v28 = objc_msgSend_buildUUID(v16, v19, v20);
-          v31 = objc_msgSend_objectUUID(self, v29, v30);
-          isEqual = objc_msgSend_isEqual_(v28, v32, v31);
+          buildUUID = [chunkIdentifier buildUUID];
+          objectUUID = [(KNBuild *)self objectUUID];
+          v17 = [buildUUID isEqual:objectUUID];
 
-          if ((isEqual & 1) == 0)
+          if ((v17 & 1) == 0)
           {
-            v36 = MEMORY[0x277D81150];
-            v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[KNBuild(Internal) p_buildChunkIDMap]");
-            v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-            objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v40, v37, v39, 274, 0, "Chunk identifier does not reference the receiver (build).");
+            v18 = MEMORY[0x277D81150];
+            v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) p_buildChunkIDMap]"];
+            v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+            [v18 handleFailureInFunction:v19 file:v20 lineNumber:274 isFatal:0 description:"Chunk identifier does not reference the receiver (build)."];
 
-            objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42);
+            [MEMORY[0x277D81150] logBacktraceThrottled];
           }
 
-          v43 = self->_buildChunkIDMap;
-          v44 = MEMORY[0x277CCABB0];
-          v45 = objc_msgSend_chunkIdentifier(v15, v34, v35);
-          v48 = objc_msgSend_chunkID(v45, v46, v47);
-          v50 = objc_msgSend_numberWithInt_(v44, v49, v48);
-          objc_msgSend_setObject_forKeyedSubscript_(v43, v51, v15, v50);
+          v21 = self->_buildChunkIDMap;
+          v22 = MEMORY[0x277CCABB0];
+          chunkIdentifier2 = [v10 chunkIdentifier];
+          v24 = [v22 numberWithInt:{objc_msgSend(chunkIdentifier2, "chunkID")}];
+          [(NSMutableDictionary *)v21 setObject:v10 forKeyedSubscript:v24];
         }
 
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v54, v58, 16);
+        v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
-      while (v12);
+      while (v7);
     }
 
     buildChunkIDMap = self->_buildChunkIDMap;
@@ -568,62 +566,62 @@
 - (id)i_buildChunkForChunkIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_p_buildChunkIDMap(self, v5, v6);
-  v8 = MEMORY[0x277CCABB0];
-  v11 = objc_msgSend_chunkID(identifierCopy, v9, v10);
+  p_buildChunkIDMap = [(KNBuild *)self p_buildChunkIDMap];
+  v6 = MEMORY[0x277CCABB0];
+  chunkID = [identifierCopy chunkID];
 
-  v13 = objc_msgSend_numberWithInt_(v8, v12, v11);
-  v15 = objc_msgSend_objectForKeyedSubscript_(v7, v14, v13);
+  v8 = [v6 numberWithInt:chunkID];
+  v9 = [p_buildChunkIDMap objectForKeyedSubscript:v8];
 
-  return v15;
+  return v9;
 }
 
 - (void)i_deregisterBuildChunkWithChunkIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ((objc_msgSend_isValid(identifierCopy, v4, v5) & 1) == 0)
+  if (([identifierCopy isValid] & 1) == 0)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNBuild(Internal) i_deregisterBuildChunkWithChunkIdentifier:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 288, 0, "Invalid chunk identifier.");
+    v4 = MEMORY[0x277D81150];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_deregisterBuildChunkWithChunkIdentifier:]"];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v4 handleFailureInFunction:v5 file:v6 lineNumber:288 isFatal:0 description:"Invalid chunk identifier."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v15 = objc_msgSend_buildUUID(identifierCopy, v6, v7);
-  v18 = objc_msgSend_objectUUID(self, v16, v17);
-  isEqual = objc_msgSend_isEqual_(v15, v19, v18);
+  buildUUID = [identifierCopy buildUUID];
+  objectUUID = [(KNBuild *)self objectUUID];
+  v9 = [buildUUID isEqual:objectUUID];
 
-  if ((isEqual & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[KNBuild(Internal) i_deregisterBuildChunkWithChunkIdentifier:]");
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v27, v24, v26, 289, 0, "Chunk identifier does not reference the receiver (build).");
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(Internal) i_deregisterBuildChunkWithChunkIdentifier:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild-Internal.m"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:289 isFatal:0 description:"Chunk identifier does not reference the receiver (build)."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v30 = objc_msgSend_chunkID(identifierCopy, v21, v22);
-  v33 = objc_msgSend_p_buildChunkIDMap(self, v31, v32);
-  v35 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v34, v30);
-  objc_msgSend_removeObjectForKey_(v33, v36, v35);
+  chunkID = [identifierCopy chunkID];
+  p_buildChunkIDMap = [(KNBuild *)self p_buildChunkIDMap];
+  v15 = [MEMORY[0x277CCABB0] numberWithInt:chunkID];
+  [p_buildChunkIDMap removeObjectForKey:v15];
 }
 
 + (BOOL)p_shouldExcludeAnimationName:(id)name forDrawable:(id)drawable
 {
   drawableCopy = drawable;
   nameCopy = name;
-  isEqualToString = objc_msgSend_isEqualToString_(nameCopy, v7, @"apple:bc-orbital");
+  v7 = [nameCopy isEqualToString:@"apple:bc-orbital"];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v11 = objc_msgSend_isEqualToString_(nameCopy, v10, @"apple:drift object");
+  v9 = [nameCopy isEqualToString:@"apple:drift object"];
 
   objc_opt_class();
   LOBYTE(nameCopy) = objc_opt_isKindOfClass();
 
-  return (isEqualToString & ~isKindOfClass | v11 & nameCopy) & 1;
+  return (v7 & ~isKindOfClass | v9 & nameCopy) & 1;
 }
 
 + (id)p_drawableFromInfo:(id)info
@@ -637,132 +635,129 @@
 
 + (id)supportedAnimationInfosForDrawableInfo:(id)info animationType:(int64_t)type
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (type == 3)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "+[KNBuild supportedAnimationInfosForDrawableInfo:animationType:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 119, 0, "Unexpected animation type.");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuild supportedAnimationInfosForDrawableInfo:animationType:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:119 isFatal:0 description:"Unexpected animation type."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v16 = objc_msgSend_set(MEMORY[0x277CBEB58], v6, v7);
-  v40 = infoCopy;
-  v18 = objc_msgSend_p_drawableFromInfo_(self, v17, infoCopy);
-  v21 = objc_msgSend_instance(KNAnimationRegistry, v19, v20);
-  v24 = objc_msgSend_animationFilters(v18, v22, v23);
-  v26 = objc_msgSend_animationInfosForAnimationType_filter_(v21, v25, type, v24);
+  v10 = [MEMORY[0x277CBEB58] set];
+  v23 = infoCopy;
+  v11 = [self p_drawableFromInfo:infoCopy];
+  v12 = +[KNAnimationRegistry instance];
+  animationFilters = [v11 animationFilters];
+  v14 = [v12 animationInfosForAnimationType:type filter:animationFilters];
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v27 = v26;
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v41, v45, 16);
-  if (v29)
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v15 = v14;
+  v16 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v16)
   {
-    v32 = v29;
-    v33 = *v42;
+    v17 = v16;
+    v18 = *v25;
     do
     {
-      for (i = 0; i != v32; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v42 != v33)
+        if (*v25 != v18)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v15);
         }
 
-        v35 = *(*(&v41 + 1) + 8 * i);
-        v36 = objc_msgSend_effectIdentifier(v35, v30, v31);
-        if ((objc_msgSend_p_shouldExcludeAnimationName_forDrawable_(self, v37, v36, v18) & 1) == 0)
+        v20 = *(*(&v24 + 1) + 8 * i);
+        effectIdentifier = [v20 effectIdentifier];
+        if (([self p_shouldExcludeAnimationName:effectIdentifier forDrawable:v11] & 1) == 0)
         {
-          objc_msgSend_addObject_(v16, v38, v35);
+          [v10 addObject:v20];
         }
       }
 
-      v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v41, v45, 16);
+      v17 = [v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
-    while (v32);
+    while (v17);
   }
 
-  return v16;
+  return v10;
 }
 
 + (id)menuAnimationInfosForDrawableInfo:(id)info animationType:(int64_t)type
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if (type == 3)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "+[KNBuild menuAnimationInfosForDrawableInfo:animationType:]");
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v12, v9, v11, 145, 0, "Unexpected animation type.");
+    v7 = MEMORY[0x277D81150];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuild menuAnimationInfosForDrawableInfo:animationType:]"];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v7 handleFailureInFunction:v8 file:v9 lineNumber:145 isFatal:0 description:"Unexpected animation type."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v15 = MEMORY[0x277CBEB58];
-  v51 = infoCopy;
-  v16 = objc_msgSend_supportedAnimationInfosForDrawableInfo_animationType_(self, v6, infoCopy, type);
-  v18 = objc_msgSend_setWithSet_(v15, v17, v16);
+  v10 = MEMORY[0x277CBEB58];
+  v26 = infoCopy;
+  v11 = [self supportedAnimationInfosForDrawableInfo:infoCopy animationType:type];
+  v12 = [v10 setWithSet:v11];
 
-  v21 = objc_msgSend_set(MEMORY[0x277CBEB58], v19, v20);
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v22 = v18;
-  v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v52, v56, 16);
-  if (v24)
+  v13 = [MEMORY[0x277CBEB58] set];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v14 = v12;
+  v15 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  if (v15)
   {
-    v27 = v24;
-    v28 = MEMORY[0x277D80578];
-    v29 = *v53;
-    v30 = MEMORY[0x277D80588];
+    v16 = v15;
+    v17 = MEMORY[0x277D80578];
+    v18 = *v28;
+    v19 = MEMORY[0x277D80588];
     do
     {
-      for (i = 0; i != v27; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v53 != v29)
+        if (*v28 != v18)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v14);
         }
 
-        v32 = *(*(&v52 + 1) + 8 * i);
-        v33 = objc_msgSend_animationFilter(v32, v25, v26);
-        if ((objc_msgSend_isEqualToString_(v33, v34, *v28) & 1) != 0 || (objc_msgSend_isEqualToString_(v33, v35, *v30) & 1) != 0 || objc_msgSend_isEqualToString_(v33, v35, *MEMORY[0x277D80598]))
+        v21 = *(*(&v27 + 1) + 8 * i);
+        animationFilter = [v21 animationFilter];
+        if (([animationFilter isEqualToString:*v17] & 1) != 0 || (objc_msgSend(animationFilter, "isEqualToString:", *v19) & 1) != 0 || objc_msgSend(animationFilter, "isEqualToString:", *MEMORY[0x277D80598]))
         {
-          v37 = objc_msgSend_animationClass(v32, v35, v36);
-          v40 = objc_msgSend_superclass(v37, v38, v39);
-          v41 = [KNAnimationInfo alloc];
-          v43 = objc_msgSend_initWithAnimationClass_(v41, v42, v40);
-          if (objc_msgSend_containsObject_(v22, v44, v43))
+          v23 = -[KNAnimationInfo initWithAnimationClass:]([KNAnimationInfo alloc], "initWithAnimationClass:", [objc_msgSend(v21 "animationClass")]);
+          if ([v14 containsObject:v23])
           {
-            objc_msgSend_addObject_(v21, v45, v43);
+            [v13 addObject:v23];
           }
         }
       }
 
-      v27 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v25, &v52, v56, 16);
+      v16 = [v14 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
-    while (v27);
+    while (v16);
   }
 
-  v48 = objc_msgSend_mutableCopy(v22, v46, v47);
-  objc_msgSend_minusSet_(v48, v49, v21);
+  v24 = [v14 mutableCopy];
+  [v24 minusSet:v13];
 
-  return v48;
+  return v24;
 }
 
 + (KNBuild)buildWithEffect:(id)effect animationType:(int64_t)type drawable:(id)drawable slide:(id)slide
 {
-  v60[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   drawableCopy = drawable;
   slideCopy = slide;
   effectCopy = effect;
@@ -774,87 +769,99 @@
       goto LABEL_7;
     }
 
-    v19 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNBuild buildWithEffect:animationType:drawable:slide:]");
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v21, v15, v17, 180, 0, "expected inequality between %{public}s and %{public}s", "animationType", "KNAnimationTypeNone");
+    v21 = MEMORY[0x277D81150];
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuild buildWithEffect:animationType:drawable:slide:]"];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    v37 = "animationType";
+    v38 = "KNAnimationTypeNone";
+    v16 = "expected inequality between %{public}s and %{public}s";
+    v17 = v21;
+    v18 = v14;
+    v19 = v15;
+    v20 = 180;
   }
 
   else
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "+[KNBuild buildWithEffect:animationType:drawable:slide:]");
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 179, 0, "Non-emphasis action builds should not use this constructor.");
+    v13 = MEMORY[0x277D81150];
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[KNBuild buildWithEffect:animationType:drawable:slide:]"];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    v16 = "Non-emphasis action builds should not use this constructor.";
+    v17 = v13;
+    v18 = v14;
+    v19 = v15;
+    v20 = 179;
   }
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+  [v17 handleFailureInFunction:v18 file:v19 lineNumber:v20 isFatal:0 description:{v16, v37, v38}];
+
+  [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_7:
-  v24 = [KNBuild alloc];
-  v27 = objc_msgSend_slide(drawableCopy, v25, v26);
-  v30 = objc_msgSend_context(drawableCopy, v28, v29);
-  v32 = objc_msgSend_initWithSlide_effect_buildType_context_(v24, v31, v27, effectCopy, type, v30);
+  v22 = [KNBuild alloc];
+  slide = [drawableCopy slide];
+  context = [drawableCopy context];
+  v25 = [(KNBuild *)v22 initWithSlide:slide effect:effectCopy buildType:type context:context];
 
-  objc_msgSend_setDrawable_(v32, v33, drawableCopy);
-  v38 = objc_msgSend_slide(drawableCopy, v34, v35);
-  if (v38)
+  [(KNBuild *)v25 setDrawable:drawableCopy];
+  slide2 = [drawableCopy slide];
+  if (slide2)
   {
-    isRightToLeft = objc_msgSend_isRightToLeft(drawableCopy, v36, v37);
+    isRightToLeft = [drawableCopy isRightToLeft];
   }
 
   else
   {
-    isRightToLeft = objc_msgSend_documentIsRTL(slideCopy, v36, v37);
+    isRightToLeft = [slideCopy documentIsRTL];
   }
 
-  v40 = isRightToLeft;
+  v28 = isRightToLeft;
 
-  v41 = KNAnimationTypeAsString();
-  v59[0] = *MEMORY[0x277D80178];
-  v59[1] = @"WritingDirectionIsRTL";
-  v60[0] = v41;
-  v43 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v42, v40);
-  v60[1] = v43;
-  v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, v60, v59, 2);
+  v29 = KNAnimationTypeAsString();
+  v39[0] = *MEMORY[0x277D80178];
+  v39[1] = @"WritingDirectionIsRTL";
+  v40[0] = v29;
+  v30 = [MEMORY[0x277CCABB0] numberWithBool:v28];
+  v40[1] = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
 
-  v48 = objc_msgSend_attributes(v32, v46, v47);
-  v50 = objc_msgSend_attributesByAddingAttributesFromDictionary_(v48, v49, v45);
-  objc_msgSend_setAttributes_(v32, v51, v50);
+  attributes = [(KNBuild *)v25 attributes];
+  v33 = [attributes attributesByAddingAttributesFromDictionary:v31];
+  [(KNBuild *)v25 setAttributes:v33];
 
-  v53 = objc_msgSend_deliveriesLocalized_(v32, v52, 0);
-  v56 = objc_msgSend_firstObject(v53, v54, v55);
-  objc_msgSend_setDelivery_(v32, v57, v56);
+  v34 = [(KNBuild *)v25 deliveriesLocalized:0];
+  firstObject = [v34 firstObject];
+  [(KNBuild *)v25 setDelivery:firstObject];
 
-  return v32;
+  return v25;
 }
 
 - (KNBuild)initWithSlide:(id)slide effect:(id)effect buildType:(int64_t)type context:(id)context
 {
   slideCopy = slide;
   effectCopy = effect;
-  v29.receiver = self;
-  v29.super_class = KNBuild;
-  v12 = [(KNBuild *)&v29 initWithContext:context];
+  v21.receiver = self;
+  v21.super_class = KNBuild;
+  v12 = [(KNBuild *)&v21 initWithContext:context];
   if (v12)
   {
     if ((KNAnimationTypeIsBuildType() & 1) == 0)
     {
-      v14 = MEMORY[0x277D81150];
-      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[KNBuild initWithSlide:effect:buildType:context:]");
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 205, 0, "Tried to initialize build with a non-build animation type.");
+      v13 = MEMORY[0x277D81150];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild initWithSlide:effect:buildType:context:]"];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+      [v13 handleFailureInFunction:v14 file:v15 lineNumber:205 isFatal:0 description:"Tried to initialize build with a non-build animation type."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
     objc_storeWeak(&v12->_slide, slideCopy);
-    v23 = objc_msgSend_copy(*MEMORY[0x277D80118], v21, v22);
+    v16 = [*MEMORY[0x277D80118] copy];
     delivery = v12->_delivery;
-    v12->_delivery = v23;
+    v12->_delivery = v16;
 
-    v26 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v25, effectCopy, type);
+    v18 = [KNBuildAttributes defaultAttributesForEffect:effectCopy buildType:type];
     attributes = v12->_attributes;
-    v12->_attributes = v26;
+    v12->_attributes = v18;
   }
 
   return v12;
@@ -863,98 +870,98 @@ LABEL_7:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [KNBuild alloc];
-  v7 = objc_msgSend_slide(self, v5, v6);
-  v10 = objc_msgSend_effect(self, v8, v9);
-  v13 = objc_msgSend_animationType(self, v11, v12);
-  v16 = objc_msgSend_context(self, v14, v15);
-  v18 = objc_msgSend_initWithSlide_effect_buildType_context_(v4, v17, v7, v10, v13, v16);
+  slide = [(KNBuild *)self slide];
+  effect = [(KNBuild *)self effect];
+  animationType = [(KNBuild *)self animationType];
+  context = [(KNBuild *)self context];
+  v9 = [(KNBuild *)v4 initWithSlide:slide effect:effect buildType:animationType context:context];
 
-  v21 = objc_msgSend_drawable(self, v19, v20);
-  objc_msgSend_setDrawable_(v18, v22, v21);
+  drawable = [(KNBuild *)self drawable];
+  [(KNBuild *)v9 setDrawable:drawable];
 
-  v25 = objc_msgSend_delivery(self, v23, v24);
-  objc_msgSend_setDelivery_(v18, v26, v25);
+  delivery = [(KNBuild *)self delivery];
+  [(KNBuild *)v9 setDelivery:delivery];
 
-  v29 = objc_msgSend_attributes(self, v27, v28);
-  objc_msgSend_setAttributes_(v18, v30, v29);
+  attributes = [(KNBuild *)self attributes];
+  [(KNBuild *)v9 setAttributes:attributes];
 
-  v18[22] = self->_chunkIDSeed;
-  if (objc_msgSend_chunkCount(self, v31, v32) == 1)
+  v9->_chunkIDSeed = self->_chunkIDSeed;
+  if ([(KNBuild *)self chunkCount]== 1)
   {
-    v35 = objc_msgSend_chunks(self, v33, v34);
-    v38 = objc_msgSend_firstObject(v35, v36, v37);
+    chunks = [(KNBuild *)self chunks];
+    firstObject = [chunks firstObject];
 
-    v41 = objc_msgSend_eventTrigger(v38, v39, v40);
-    v44 = objc_msgSend_attributes(self, v42, v43);
-    v46 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v45, v41);
-    v48 = objc_msgSend_attributesBySettingValue_forAttributeKey_(v44, v47, v46, @"KNBuildAttributesInitialChunkCreationEventTrigger");
-    objc_msgSend_setAttributes_(v18, v49, v48);
+    eventTrigger = [firstObject eventTrigger];
+    attributes2 = [(KNBuild *)self attributes];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:eventTrigger];
+    v18 = [attributes2 attributesBySettingValue:v17 forAttributeKey:@"KNBuildAttributesInitialChunkCreationEventTrigger"];
+    [(KNBuild *)v9 setAttributes:v18];
   }
 
-  return v18;
+  return v9;
 }
 
 - (void)didInitFromSOS
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = KNBuild;
-  [(KNBuild *)&v35 didInitFromSOS];
+  v24 = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = KNBuild;
+  [(KNBuild *)&v22 didInitFromSOS];
   if (self->_drawable)
   {
-    v4 = MEMORY[0x277D81150];
-    v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "[KNBuild didInitFromSOS]");
-    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v8, v5, v7, 244, 0, "expected nil value for '%{public}s'", "_drawable");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild didInitFromSOS]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:244 isFatal:0 description:{"expected nil value for '%{public}s'", "_drawable"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_slide);
 
   if (WeakRetained)
   {
-    v14 = objc_msgSend_objectUUID(self, v12, v13);
-    v31 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v15 = objc_loadWeakRetained(&self->_slide);
-    v18 = objc_msgSend_buildChunks(v15, v16, v17);
+    objectUUID = [(KNBuild *)self objectUUID];
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v8 = objc_loadWeakRetained(&self->_slide);
+    buildChunks = [v8 buildChunks];
 
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v31, v36, 16);
-    if (v20)
+    v10 = [buildChunks countByEnumeratingWithState:&v18 objects:v23 count:16];
+    if (v10)
     {
-      v23 = v20;
-      v24 = *v32;
+      v11 = v10;
+      v12 = *v19;
       do
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v32 != v24)
+          if (*v19 != v12)
           {
-            objc_enumerationMutation(v18);
+            objc_enumerationMutation(buildChunks);
           }
 
-          v26 = *(*(&v31 + 1) + 8 * i);
-          v27 = objc_msgSend_i_buildId(v26, v21, v22);
-          isEqual = objc_msgSend_isEqual_(v27, v28, v14);
+          v14 = *(*(&v18 + 1) + 8 * i);
+          i_buildId = [v14 i_buildId];
+          v16 = [i_buildId isEqual:objectUUID];
 
-          if (isEqual)
+          if (v16)
           {
-            v30 = objc_msgSend_i_buildFromReference(v26, v21, v22);
+            i_buildFromReference = [v14 i_buildFromReference];
 
-            if (!v30)
+            if (!i_buildFromReference)
             {
-              objc_msgSend_i_setBuildPointer_forUnarchive_(v26, v21, self, 0);
+              [v14 i_setBuildPointer:self forUnarchive:0];
             }
           }
         }
 
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v31, v36, 16);
+        v11 = [buildChunks countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
-      while (v23);
+      while (v11);
     }
   }
 }
@@ -963,28 +970,27 @@ LABEL_7:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v7 = objc_msgSend_objectUUID(self, v5, v6);
-  v10 = objc_msgSend_UUIDString(v7, v8, v9);
-  objc_msgSend_animationType(self, v11, v12);
-  v13 = KNAnimationTypeAsString();
-  v16 = objc_msgSend_drawable(self, v14, v15);
-  v19 = objc_msgSend_effect(self, v17, v18);
-  v22 = objc_msgSend_title(self, v20, v21);
-  v25 = objc_msgSend_chunkCount(self, v23, v24);
-  v27 = objc_msgSend_stringWithFormat_(v3, v26, @"<%@ %p %@ type=%@ drawable=%p effect=%@ title=%@ chunk count=%lu chunkIDseed=%d>", v4, self, v10, v13, v16, v19, v22, v25, self->_chunkIDSeed);
+  objectUUID = [(KNBuild *)self objectUUID];
+  uUIDString = [objectUUID UUIDString];
+  [(KNBuild *)self animationType];
+  v7 = KNAnimationTypeAsString();
+  drawable = [(KNBuild *)self drawable];
+  effect = [(KNBuild *)self effect];
+  title = [(KNBuild *)self title];
+  v11 = [v3 stringWithFormat:@"<%@ %p %@ type=%@ drawable=%p effect=%@ title=%@ chunk count=%lu chunkIDseed=%d>", v4, self, uUIDString, v7, drawable, effect, title, -[KNBuild chunkCount](self, "chunkCount"), self->_chunkIDSeed];
 
-  return v27;
+  return v11;
 }
 
 - (NSString)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  v7 = objc_msgSend_objectUUID(self, v5, v6);
-  v10 = objc_msgSend_UUIDString(v7, v8, v9);
-  v12 = objc_msgSend_stringWithFormat_(v3, v11, @"<%@ %p %@>", v4, self, v10);
+  objectUUID = [(KNBuild *)self objectUUID];
+  uUIDString = [objectUUID UUIDString];
+  v7 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, uUIDString];
 
-  return v12;
+  return v7;
 }
 
 - (KNAbstractSlide)slide
@@ -993,16 +999,16 @@ LABEL_7:
 
   if (WeakRetained)
   {
-    v6 = objc_loadWeakRetained(&self->_slide);
+    slide = objc_loadWeakRetained(&self->_slide);
   }
 
   else
   {
-    v7 = objc_msgSend_drawable(self, v4, v5);
-    v6 = objc_msgSend_slide(v7, v8, v9);
+    drawable = [(KNBuild *)self drawable];
+    slide = [drawable slide];
   }
 
-  return v6;
+  return slide;
 }
 
 - (void)setDrawable:(id)drawable
@@ -1010,36 +1016,36 @@ LABEL_7:
   drawableCopy = drawable;
   if (!drawableCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNBuild setDrawable:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 297, 0, "invalid nil value for '%{public}s'", "drawable");
+    v5 = MEMORY[0x277D81150];
+    v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild setDrawable:]"];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v5 handleFailureInFunction:v6 file:v7 lineNumber:297 isFatal:0 description:{"invalid nil value for '%{public}s'", "drawable"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  objc_msgSend_willModify(self, v5, v6);
-  v16 = drawableCopy;
+  [(KNBuild *)self willModify];
+  v8 = drawableCopy;
   if (self->_drawable != drawableCopy)
   {
     objc_storeStrong(&self->_drawable, drawable);
-    v16 = drawableCopy;
+    v8 = drawableCopy;
   }
 
-  v18 = objc_msgSend_objectUUID(v16, v14, v15);
-  if (!v18)
+  objectUUID = [(TSDDrawableInfo *)v8 objectUUID];
+  if (!objectUUID)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[KNBuild setDrawable:]");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v23, v20, v22, 310, 0, "invalid nil value for '%{public}s'", "drawableId");
+    v10 = MEMORY[0x277D81150];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild setDrawable:]"];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v10 handleFailureInFunction:v11 file:v12 lineNumber:310 isFatal:0 description:{"invalid nil value for '%{public}s'", "drawableId"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  if (self->_drawableId != v18)
+  if (self->_drawableId != objectUUID)
   {
-    objc_storeStrong(&self->_drawableId, v18);
+    objc_storeStrong(&self->_drawableId, objectUUID);
   }
 }
 
@@ -1048,141 +1054,137 @@ LABEL_7:
   attributesCopy = attributes;
   if (self->_attributes != attributesCopy)
   {
-    v31 = attributesCopy;
-    objc_msgSend_willModify(self, attributesCopy, v5);
-    started = objc_msgSend_startOffset(self, v6, v7);
-    v11 = objc_msgSend_endOffset(self, v9, v10);
-    v14 = objc_msgSend_copy(v31, v12, v13);
+    v13 = attributesCopy;
+    [(KNBuild *)self willModify];
+    startOffset = [(KNBuild *)self startOffset];
+    endOffset = [(KNBuild *)self endOffset];
+    v7 = [(KNBuildAttributes *)v13 copy];
     attributes = self->_attributes;
-    self->_attributes = v14;
+    self->_attributes = v7;
 
-    v18 = objc_msgSend_startOffset(self, v16, v17);
-    v21 = objc_msgSend_endOffset(self, v19, v20);
-    attributesCopy = v31;
-    if (started != v18 || v11 != v21)
+    startOffset2 = [(KNBuild *)self startOffset];
+    endOffset2 = [(KNBuild *)self endOffset];
+    attributesCopy = v13;
+    if (startOffset != startOffset2 || endOffset != endOffset2)
     {
-      v23 = objc_msgSend_slide(self, v31, v22);
+      slide = [(KNBuild *)self slide];
       self->_cachedActiveChunkRangeIsValid = 0;
-      objc_msgSend_i_invalidateActiveChunkCache(v23, v24, v25);
-      v28 = objc_msgSend_slideNode(v23, v26, v27);
-      objc_msgSend_invalidateBuildEventCountCaches(v28, v29, v30);
+      [slide i_invalidateActiveChunkCache];
+      slideNode = [slide slideNode];
+      [slideNode invalidateBuildEventCountCaches];
 
-      attributesCopy = v31;
+      attributesCopy = v13;
     }
   }
 }
 
 - (KNAnimationInfo)animationInfo
 {
-  v4 = objc_msgSend_instance(KNAnimationRegistry, a2, v2);
-  v7 = objc_msgSend_effect(self, v5, v6);
-  v10 = objc_msgSend_animationType(self, v8, v9);
-  v12 = objc_msgSend_animationInfoForEffectIdentifier_animationType_(v4, v11, v7, v10);
+  v3 = +[KNAnimationRegistry instance];
+  effect = [(KNBuild *)self effect];
+  v5 = [v3 animationInfoForEffectIdentifier:effect animationType:{-[KNBuild animationType](self, "animationType")}];
 
-  return v12;
+  return v5;
 }
 
 - (KNAnimationPluginMenu)directionMenu
 {
-  v4 = objc_msgSend_animationInfo(self, a2, v2);
-  v7 = objc_msgSend_animationClass(v4, v5, v6);
+  animationInfo = [(KNBuild *)self animationInfo];
+  animationClass = [animationInfo animationClass];
 
-  v10 = objc_msgSend_animationPluginMenu(KNAnimationPluginMenu, v8, v9);
-  v13 = objc_msgSend_animationType(self, v11, v12);
-  objc_msgSend_fillLocalizedDirectionMenu_forType_(v7, v14, v10, v13);
-  v17 = objc_msgSend_attributes(self, v15, v16);
-  v19 = objc_msgSend_valueForAttributeKey_(v17, v18, @"WritingDirectionIsRTL");
-  isEqual = objc_msgSend_isEqual_(v19, v20, MEMORY[0x277CBEC38]);
+  v5 = +[KNAnimationPluginMenu animationPluginMenu];
+  [animationClass fillLocalizedDirectionMenu:v5 forType:{-[KNBuild animationType](self, "animationType")}];
+  attributes = [(KNBuild *)self attributes];
+  v7 = [attributes valueForAttributeKey:@"WritingDirectionIsRTL"];
+  v8 = [v7 isEqual:MEMORY[0x277CBEC38]];
 
-  if (isEqual)
+  if (v8)
   {
-    v25 = objc_msgSend_defaultDirection(v10, v22, v23);
-    v26 = v25 - 11;
-    if (v25 - 11) <= 0xD && ((0x3C03u >> v26))
+    defaultDirection = [v5 defaultDirection];
+    v10 = defaultDirection - 11;
+    if (defaultDirection - 11) <= 0xD && ((0x3C03u >> v10))
     {
-      v25 = qword_275E79198[v26];
+      defaultDirection = qword_275E79198[v10];
     }
 
-    objc_msgSend_setDefaultDirection_(v10, v24, v25);
+    [v5 setDefaultDirection:defaultDirection];
   }
 
-  return v10;
+  return v5;
 }
 
 - (unint64_t)directionType
 {
-  v3 = objc_msgSend_animationInfo(self, a2, v2);
-  v6 = objc_msgSend_animationClass(v3, v4, v5);
+  animationInfo = [(KNBuild *)self animationInfo];
+  animationClass = [animationInfo animationClass];
 
-  return objc_msgSend_directionType(v6, v7, v8);
+  return [animationClass directionType];
 }
 
 - (NSString)localizedEffect
 {
-  v4 = objc_msgSend_animationInfo(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_localizedNameForType_(v4, v8, v7);
+  animationInfo = [(KNBuild *)self animationInfo];
+  v4 = [animationInfo localizedNameForType:{-[KNBuild animationType](self, "animationType")}];
 
-  return v9;
+  return v4;
 }
 
 - (NSString)animationFilter
 {
-  v3 = objc_msgSend_animationInfo(self, a2, v2);
-  v6 = objc_msgSend_animationFilter(v3, v4, v5);
+  animationInfo = [(KNBuild *)self animationInfo];
+  animationFilter = [animationInfo animationFilter];
 
-  return v6;
+  return animationFilter;
 }
 
 - (NSArray)chunks
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   cachedChunks = self->_cachedChunks;
   if (!cachedChunks)
   {
-    v5 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v31 = 0u;
-    v8 = objc_msgSend_slide(self, v6, v7, 0);
-    v11 = objc_msgSend_buildChunks(v8, v9, v10);
+    array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    slide = [(KNBuild *)self slide];
+    buildChunks = [slide buildChunks];
 
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v32, 16);
-    if (v13)
+    v7 = [buildChunks countByEnumeratingWithState:&v16 objects:v20 count:16];
+    if (v7)
     {
-      v16 = v13;
-      v17 = *v29;
+      v8 = v7;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v17)
+          if (*v17 != v9)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(buildChunks);
           }
 
-          v19 = *(*(&v28 + 1) + 8 * i);
-          v20 = objc_msgSend_build(v19, v14, v15);
+          v11 = *(*(&v16 + 1) + 8 * i);
+          build = [v11 build];
 
-          if (v20 == self)
+          if (build == self)
           {
-            objc_msgSend_addObject_(v5, v14, v19);
+            [array addObject:v11];
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v28, v32, 16);
+        v8 = [buildChunks countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
-      while (v16);
+      while (v8);
     }
 
-    if (objc_msgSend_count(v5, v21, v22))
+    if ([array count])
     {
-      v23 = objc_alloc(MEMORY[0x277CBEA60]);
-      v25 = objc_msgSend_initWithArray_(v23, v24, v5);
-      v26 = self->_cachedChunks;
-      self->_cachedChunks = v25;
+      v13 = [objc_alloc(MEMORY[0x277CBEA60]) initWithArray:array];
+      v14 = self->_cachedChunks;
+      self->_cachedChunks = v13;
     }
 
     cachedChunks = self->_cachedChunks;
@@ -1193,113 +1195,112 @@ LABEL_7:
 
 - (id)p_chunkAtIndex:(unint64_t)index
 {
-  v4 = objc_msgSend_chunks(self, a2, index);
-  v6 = objc_msgSend_tsu_rangeCheckedObjectAtIndex_(v4, v5, index);
+  chunks = [(KNBuild *)self chunks];
+  v5 = [chunks tsu_rangeCheckedObjectAtIndex:index];
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)firstChunkIndexOnSlide
 {
-  v3 = objc_msgSend_firstChunk(self, a2, v2);
-  v6 = v3;
-  if (v3)
+  firstChunk = [(KNBuild *)self firstChunk];
+  v3 = firstChunk;
+  if (firstChunk)
   {
-    v7 = objc_msgSend_indexOnSlide(v3, v4, v5);
+    indexOnSlide = [firstChunk indexOnSlide];
   }
 
   else
   {
-    v7 = 0;
+    indexOnSlide = 0;
   }
 
-  return v7;
+  return indexOnSlide;
 }
 
 - (unint64_t)lastChunkIndexOnSlide
 {
-  v3 = objc_msgSend_chunks(self, a2, v2);
-  v6 = objc_msgSend_lastObject(v3, v4, v5);
+  chunks = [(KNBuild *)self chunks];
+  lastObject = [chunks lastObject];
 
-  if (v6)
+  if (lastObject)
   {
-    v9 = objc_msgSend_indexOnSlide(v6, v7, v8);
+    indexOnSlide = [lastObject indexOnSlide];
   }
 
   else
   {
-    v9 = 0;
+    indexOnSlide = 0;
   }
 
-  return v9;
+  return indexOnSlide;
 }
 
 - (unint64_t)chunkCount
 {
-  v3 = objc_msgSend_chunks(self, a2, v2);
-  v6 = objc_msgSend_count(v3, v4, v5);
+  chunks = [(KNBuild *)self chunks];
+  v3 = [chunks count];
 
-  return v6;
+  return v3;
 }
 
 - (unint64_t)expectedChunkCount
 {
-  v4 = objc_msgSend_supportsDelivery(self, a2, v2);
-  isContentBuild = objc_msgSend_isContentBuild(self, v5, v6);
-  if ((v4 & 1) == 0 && !isContentBuild)
+  supportsDelivery = [(KNBuild *)self supportsDelivery];
+  isContentBuild = [(KNBuild *)self isContentBuild];
+  if (!supportsDelivery && !isContentBuild)
   {
     return 1;
   }
 
-  v11 = objc_msgSend_drawable(self, v8, v9);
-  v14 = objc_msgSend_deliveryStyle(self, v12, v13);
-  v17 = objc_msgSend_animationFilter(self, v15, v16);
-  v19 = objc_msgSend_chunkCountForTextureDeliveryStyle_animationFilter_(v11, v18, v14, v17);
+  drawable = [(KNBuild *)self drawable];
+  deliveryStyle = [(KNBuild *)self deliveryStyle];
+  animationFilter = [(KNBuild *)self animationFilter];
+  v9 = [drawable chunkCountForTextureDeliveryStyle:deliveryStyle animationFilter:animationFilter];
 
-  return v19;
+  return v9;
 }
 
 - (KNBuildChunk)firstChunk
 {
-  v3 = objc_msgSend_chunks(self, a2, v2);
-  v6 = objc_msgSend_firstObject(v3, v4, v5);
+  chunks = [(KNBuild *)self chunks];
+  firstObject = [chunks firstObject];
 
-  return v6;
+  return firstObject;
 }
 
 - (id)chunkForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v7 = objc_msgSend_objectUUID(self, v5, v6);
-  v10 = objc_msgSend_buildUUID(identifierCopy, v8, v9);
-  isEqual = objc_msgSend_isEqual_(v7, v11, v10);
+  objectUUID = [(KNBuild *)self objectUUID];
+  buildUUID = [identifierCopy buildUUID];
+  v7 = [objectUUID isEqual:buildUUID];
 
-  if ((isEqual & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v14 = MEMORY[0x277D81150];
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[KNBuild chunkForIdentifier:]");
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 471, 0, "Attempted to resolve a chunk from an identifier using the wrong build.");
+    v8 = MEMORY[0x277D81150];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild chunkForIdentifier:]"];
+    v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v8 handleFailureInFunction:v9 file:v10 lineNumber:471 isFatal:0 description:"Attempted to resolve a chunk from an identifier using the wrong build."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v21 = objc_msgSend_i_buildChunkForChunkIdentifier_(self, v13, identifierCopy);
+  v11 = [(KNBuild *)self i_buildChunkForChunkIdentifier:identifierCopy];
 
-  return v21;
+  return v11;
 }
 
 - (id)deliveriesLocalized:(BOOL)localized
 {
   localizedCopy = localized;
-  v39[1] = *MEMORY[0x277D85DE8];
-  v7 = objc_msgSend_drawable(self, a2, localized);
-  if (!v7)
+  v21[1] = *MEMORY[0x277D85DE8];
+  drawable = [(KNBuild *)self drawable];
+  if (!drawable)
   {
-    v18 = 0;
-    v21 = objc_msgSend_count(0, v5, v6);
+    v11 = 0;
 LABEL_8:
-    if (v21)
+    if ([v11 count])
     {
       goto LABEL_16;
     }
@@ -1309,31 +1310,30 @@ LABEL_8:
       goto LABEL_10;
     }
 
-    v32 = *MEMORY[0x277D80118];
+    v16 = *MEMORY[0x277D80118];
 LABEL_14:
-    v36 = v32;
-    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v22, &v36, 1);
+    v18 = v16;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
     goto LABEL_15;
   }
 
-  v8 = objc_msgSend_animationInfo(self, v5, v6);
-  isDrift = objc_msgSend_isDrift(v8, v9, v10);
+  animationInfo = [(KNBuild *)self animationInfo];
+  isDrift = [animationInfo isDrift];
 
   if (!isDrift)
   {
-    v23 = objc_msgSend_animationFilter(self, v12, v13);
-    v18 = objc_msgSend_textureDeliveryStylesLocalized_animationFilter_(v7, v24, localizedCopy, v23);
+    animationFilter = [(KNBuild *)self animationFilter];
+    v11 = [drawable textureDeliveryStylesLocalized:localizedCopy animationFilter:animationFilter];
 
-    v21 = objc_msgSend_count(v18, v25, v26);
     goto LABEL_8;
   }
 
   if (!localizedCopy)
   {
-    v32 = *MEMORY[0x277D80118];
-    v38 = *MEMORY[0x277D80118];
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, &v38, 1);
-    if (objc_msgSend_count(v18, v33, v34))
+    v16 = *MEMORY[0x277D80118];
+    v20 = *MEMORY[0x277D80118];
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+    if ([v11 count])
     {
       goto LABEL_16;
     }
@@ -1341,36 +1341,36 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v14 = sub_275DC204C();
-  v16 = objc_msgSend_localizedStringForKey_value_table_(v14, v15, @"All at Once", &stru_2884D8E20, @"Keynote");
-  v39[0] = v16;
-  v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v39, 1);
+  v9 = sub_275DC204C(v8);
+  v10 = [v9 localizedStringForKey:@"All at Once" value:&stru_2884D8E20 table:@"Keynote"];
+  v21[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
 
-  if (objc_msgSend_count(v18, v19, v20))
+  if ([v11 count])
   {
     goto LABEL_16;
   }
 
 LABEL_10:
-  v27 = sub_275DC204C();
-  v29 = objc_msgSend_localizedStringForKey_value_table_(v27, v28, @"All at Once", &stru_2884D8E20, @"Keynote");
-  v37 = v29;
-  v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v30, &v37, 1);
+  v13 = sub_275DC204C(0);
+  v14 = [v13 localizedStringForKey:@"All at Once" value:&stru_2884D8E20 table:@"Keynote"];
+  v19 = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
 
-  v18 = v27;
+  v11 = v13;
 LABEL_15:
 
-  v18 = v31;
+  v11 = v15;
 LABEL_16:
 
-  return v18;
+  return v11;
 }
 
 - (BOOL)downgradesDelivery
 {
   selfCopy = self;
-  v3 = objc_msgSend_deliveriesLocalized_(self, a2, 0);
-  LOBYTE(selfCopy) = objc_msgSend_containsObject_(v3, v4, selfCopy->_delivery);
+  v3 = [(KNBuild *)self deliveriesLocalized:0];
+  LOBYTE(selfCopy) = [v3 containsObject:selfCopy->_delivery];
 
   return selfCopy ^ 1;
 }
@@ -1378,40 +1378,40 @@ LABEL_16:
 - (void)setDelivery:(id)delivery
 {
   deliveryCopy = delivery;
-  v7 = deliveryCopy;
-  if (!deliveryCopy || !objc_msgSend_length(deliveryCopy, v5, v6))
+  v5 = deliveryCopy;
+  if (!deliveryCopy || ![(NSString *)deliveryCopy length])
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[KNBuild setDelivery:]");
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v13, v10, v12, 514, 0, "Invalid parameter not satisfying: %{public}s", "delivery != nil && delivery.length > 0");
+    v6 = MEMORY[0x277D81150];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild setDelivery:]"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v6 handleFailureInFunction:v7 file:v8 lineNumber:514 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "delivery != nil && delivery.length > 0"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  if (v7 && self->_delivery != v7 && objc_msgSend_length(v7, v5, v8))
+  if (v5 && self->_delivery != v5 && [(NSString *)v5 length])
   {
-    objc_msgSend_willModify(self, v16, v17);
-    obj = objc_msgSend_copy(v7, v18, v19);
+    [(KNBuild *)self willModify];
+    obj = [(NSString *)v5 copy];
 
     objc_storeStrong(&self->_delivery, obj);
-    v23 = objc_msgSend_drawable(self, v20, v21);
-    if (v23 && objc_msgSend_p_isDeliveryLocalized_forNonNilDrawable_(self, v22, obj, v23))
+    drawable = [(KNBuild *)self drawable];
+    if (drawable && [(KNBuild *)self p_isDeliveryLocalized:obj forNonNilDrawable:drawable])
     {
-      v25 = MEMORY[0x277D81150];
-      v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "[KNBuild setDelivery:]");
-      v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v29, v26, v28, 525, 0, "Trying to set a build's delivery with a _localized_ string. Use the non-localized variant.");
+      v10 = MEMORY[0x277D81150];
+      v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild setDelivery:]"];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+      [v10 handleFailureInFunction:v11 file:v12 lineNumber:525 isFatal:0 description:"Trying to set a build's delivery with a _localized_ string. Use the non-localized variant."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v30, v31);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
-    v32 = obj;
+    v13 = obj;
   }
 
   else
   {
-    v32 = v7;
+    v13 = v5;
   }
 }
 
@@ -1429,86 +1429,86 @@ LABEL_16:
 
   else
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNBuild p_isDeliveryLocalized:forNonNilDrawable:]");
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v23, v20, v22, 533, 0, "Invalid parameter not satisfying: %{public}s", "drawable != nil");
+    v13 = MEMORY[0x277D81150];
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild p_isDeliveryLocalized:forNonNilDrawable:]"];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+    [v13 handleFailureInFunction:v14 file:v15 lineNumber:533 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "drawable != nil"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     if (localizedCopy)
     {
       goto LABEL_3;
     }
   }
 
-  v26 = MEMORY[0x277D81150];
-  v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[KNBuild p_isDeliveryLocalized:forNonNilDrawable:]");
-  v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v30, v27, v29, 534, 0, "Invalid parameter not satisfying: %{public}s", "delivery != nil");
+  v16 = MEMORY[0x277D81150];
+  v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild p_isDeliveryLocalized:forNonNilDrawable:]"];
+  v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+  [v16 handleFailureInFunction:v17 file:v18 lineNumber:534 isFatal:0 description:{"Invalid parameter not satisfying: %{public}s", "delivery != nil"}];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32);
+  [MEMORY[0x277D81150] logBacktraceThrottled];
 LABEL_3:
-  v10 = objc_msgSend_animationFilter(self, v7, v8);
-  v12 = objc_msgSend_textureDeliveryStylesLocalized_animationFilter_(drawableCopy, v11, 0, v10);
-  v15 = 0;
-  if ((objc_msgSend_containsObject_(v12, v13, localizedCopy) & 1) == 0)
+  animationFilter = [(KNBuild *)self animationFilter];
+  v9 = [drawableCopy textureDeliveryStylesLocalized:0 animationFilter:animationFilter];
+  v10 = 0;
+  if (([v9 containsObject:localizedCopy] & 1) == 0)
   {
-    v16 = objc_msgSend_textureDeliveryStylesLocalized_animationFilter_(drawableCopy, v14, 1, v10);
-    v15 = objc_msgSend_containsObject_(v16, v17, localizedCopy);
+    v11 = [drawableCopy textureDeliveryStylesLocalized:1 animationFilter:animationFilter];
+    v10 = [v11 containsObject:localizedCopy];
   }
 
-  return v15;
+  return v10;
 }
 
 - (NSString)delivery
 {
-  if (objc_msgSend_downgradesDelivery(self, a2, v2))
+  if ([(KNBuild *)self downgradesDelivery])
   {
-    v5 = objc_msgSend_deliveriesLocalized_(self, v4, 0);
-    if (!objc_msgSend_count(v5, v6, v7))
+    v3 = [(KNBuild *)self deliveriesLocalized:0];
+    if (![v3 count])
     {
-      v10 = MEMORY[0x277D81150];
-      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[KNBuild delivery]");
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v14, v11, v13, 556, 0, "Build doesn't have any deliveries.");
+      v4 = MEMORY[0x277D81150];
+      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild delivery]"];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+      [v4 handleFailureInFunction:v5 file:v6 lineNumber:556 isFatal:0 description:"Build doesn't have any deliveries."];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16);
+      [MEMORY[0x277D81150] logBacktraceThrottled];
     }
 
-    v17 = objc_msgSend_firstObject(v5, v8, v9);
+    firstObject = [v3 firstObject];
   }
 
   else
   {
-    v17 = self->_delivery;
+    firstObject = self->_delivery;
   }
 
-  return v17;
+  return firstObject;
 }
 
 - (unint64_t)deliveryStyle
 {
-  v4 = objc_msgSend_drawable(self, a2, v2);
-  v7 = objc_msgSend_delivery(self, v5, v6);
-  v9 = objc_msgSend_textureDeliveryStyleFromDeliveryString_(v4, v8, v7);
+  drawable = [(KNBuild *)self drawable];
+  delivery = [(KNBuild *)self delivery];
+  v5 = [drawable textureDeliveryStyleFromDeliveryString:delivery];
 
-  return v9;
+  return v5;
 }
 
 - (unint64_t)startOffset
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildAttributesStartOffset");
-  v5 = objc_msgSend_unsignedIntegerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildAttributesStartOffset"];
+  unsignedIntegerValue = [v2 unsignedIntegerValue];
 
-  return v5;
+  return unsignedIntegerValue;
 }
 
 - (unint64_t)endOffset
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildAttributesEndOffset");
-  v5 = objc_msgSend_unsignedIntegerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildAttributesEndOffset"];
+  unsignedIntegerValue = [v2 unsignedIntegerValue];
 
-  return v5;
+  return unsignedIntegerValue;
 }
 
 - (_NSRange)activeChunkRange
@@ -1522,7 +1522,7 @@ LABEL_3:
 
   else
   {
-    location = objc_msgSend_p_calculateActiveChunkRange(self, a2, v2);
+    location = [(KNBuild *)self p_calculateActiveChunkRange];
     p_cachedActiveChunkRange->location = location;
     p_cachedActiveChunkRange->length = length;
     self->_cachedActiveChunkRangeIsValid = 1;
@@ -1535,170 +1535,169 @@ LABEL_3:
 
 - (_NSRange)p_calculateActiveChunkRange
 {
-  started = objc_msgSend_startOffset(self, a2, v2);
-  v7 = objc_msgSend_endOffset(self, v5, v6);
-  v9 = objc_msgSend_endChunkIndexFromEndOffset_(self, v8, v7);
-  v10 = v9 - started;
-  v11 = v9 == 0x7FFFFFFFFFFFFFFFLL;
-  if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+  startOffset = [(KNBuild *)self startOffset];
+  v4 = [(KNBuild *)self endChunkIndexFromEndOffset:[(KNBuild *)self endOffset]];
+  v5 = v4 - startOffset;
+  v6 = v4 == 0x7FFFFFFFFFFFFFFFLL;
+  if (v4 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v12 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v12 = started;
+    v7 = startOffset;
   }
 
-  if (v11)
+  if (v6)
   {
-    v13 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v13 = v10 + 1;
+    v8 = v5 + 1;
   }
 
-  result.length = v13;
-  result.location = v12;
+  result.length = v8;
+  result.location = v7;
   return result;
 }
 
 - (unint64_t)endChunkIndexFromEndOffset:(unint64_t)offset
 {
-  v4 = objc_msgSend_chunkCount(self, a2, offset);
-  if (v4 <= offset)
+  chunkCount = [(KNBuild *)self chunkCount];
+  if (chunkCount <= offset)
   {
     return 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    return v4 + ~offset;
+    return chunkCount + ~offset;
   }
 }
 
 - (unint64_t)lastActiveChunkIndexInBuild
 {
-  v4 = objc_msgSend_chunkCount(self, a2, v2);
-  active = objc_msgSend_activeChunkRange(self, v5, v6);
-  v9 = active + v8;
-  if (!v8)
+  chunkCount = [(KNBuild *)self chunkCount];
+  activeChunkRange = [(KNBuild *)self activeChunkRange];
+  v6 = activeChunkRange + v5;
+  if (!v5)
   {
-    v9 = v4;
+    v6 = chunkCount;
   }
 
-  return v9 - 1;
+  return v6 - 1;
 }
 
 - (id)p_chunkTitleByTruncatingTitle:(id)title toLength:(unint64_t)length
 {
   titleCopy = title;
-  v8 = objc_msgSend_length(titleCopy, v6, v7);
-  v9 = titleCopy;
-  v11 = v9;
-  v12 = v9;
-  if (v8)
+  v6 = [titleCopy length];
+  v7 = titleCopy;
+  v8 = v7;
+  v9 = v7;
+  if (v6)
   {
-    if (v8 >= length)
+    if (v6 >= length)
     {
-      objc_msgSend_substringWithRange_(v9, v10, 0, length);
+      lengthCopy = length;
     }
 
     else
     {
-      objc_msgSend_substringWithRange_(v9, v10, 0, v8);
+      lengthCopy = v6;
     }
-    v12 = ;
+
+    v9 = [v7 substringWithRange:{0, lengthCopy}];
   }
 
-  return v12;
+  return v9;
 }
 
 - (NSString)title
 {
-  v5 = objc_msgSend_drawable(self, a2, v2);
-  if (v5)
+  drawable = [(KNBuild *)self drawable];
+  if (drawable)
   {
-    v6 = objc_msgSend_p_chunkAtIndex_(self, v4, 0);
-    v9 = objc_msgSend_deliveryStyle(self, v7, v8);
-    v12 = objc_msgSend_animationFilter(self, v10, v11);
-    v15 = objc_msgSend_indexInBuild(v6, v13, v14);
-    v17 = objc_msgSend_kn_displayableBuildOrderNameForTextureDeliveryStyle_animationFilter_chunkIndex_(v5, v16, v9, v12, v15);
+    v4 = [(KNBuild *)self p_chunkAtIndex:0];
+    deliveryStyle = [(KNBuild *)self deliveryStyle];
+    animationFilter = [(KNBuild *)self animationFilter];
+    v7 = [drawable kn_displayableBuildOrderNameForTextureDeliveryStyle:deliveryStyle animationFilter:animationFilter chunkIndex:{objc_msgSend(v4, "indexInBuild")}];
 
-    v19 = objc_msgSend_p_chunkTitleByTruncatingTitle_toLength_(self, v18, v17, 100);
+    v8 = [(KNBuild *)self p_chunkTitleByTruncatingTitle:v7 toLength:100];
   }
 
   else
   {
-    v19 = 0;
+    v8 = 0;
   }
 
-  return v19;
+  return v8;
 }
 
 - (BOOL)isOnSlide
 {
   selfCopy = self;
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = objc_msgSend_builds(v4, v5, v6);
-  LOBYTE(selfCopy) = objc_msgSend_containsObject_(v7, v8, selfCopy);
+  slide = [(KNBuild *)self slide];
+  builds = [slide builds];
+  LOBYTE(selfCopy) = [builds containsObject:selfCopy];
 
   return selfCopy;
 }
 
 - (BOOL)isComplementOfBuild:(id)build
 {
-  v4 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB98], a2, build);
-  LOBYTE(self) = objc_msgSend_p_hasComplementInBuilds_(self, v5, v4);
+  v4 = [MEMORY[0x277CBEB98] setWithObject:build];
+  LOBYTE(self) = [(KNBuild *)self p_hasComplementInBuilds:v4];
 
   return self;
 }
 
 - (BOOL)p_hasComplementInBuilds:(id)builds
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   buildsCopy = builds;
-  if (objc_msgSend_isActionBuild(self, v5, v6))
+  if ([(KNBuild *)self isActionBuild])
   {
-    v9 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v10 = objc_msgSend_drawable(self, v7, v8);
-    v26 = 0u;
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v11 = buildsCopy;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v26, v30, 16);
-    if (v13)
+    drawable = [(KNBuild *)self drawable];
+    v17 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v7 = buildsCopy;
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v8)
     {
-      v16 = v13;
-      v17 = *v27;
+      v9 = v8;
+      v10 = *v18;
       while (2)
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v17)
+          if (*v18 != v10)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v7);
           }
 
-          v19 = *(*(&v26 + 1) + 8 * i);
-          if (v19 != self)
+          v12 = *(*(&v17 + 1) + 8 * i);
+          if (v12 != self)
           {
-            v20 = objc_msgSend_drawable(*(*(&v26 + 1) + 8 * i), v14, v15, v26);
-            v23 = v20;
-            if (v20 == v10)
+            drawable2 = [*(*(&v17 + 1) + 8 * i) drawable];
+            v14 = drawable2;
+            if (drawable2 == drawable)
             {
-              isActionBuild = objc_msgSend_isActionBuild(v19, v21, v22);
+              isActionBuild = [(KNBuild *)v12 isActionBuild];
 
-              if ((isActionBuild & 1) == 0)
+              if (!isActionBuild)
               {
-                v9 = 1;
+                v5 = 1;
                 goto LABEL_16;
               }
             }
@@ -1709,8 +1708,8 @@ LABEL_3:
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v26, v30, 16);
-        if (v16)
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        if (v9)
         {
           continue;
         }
@@ -1719,34 +1718,34 @@ LABEL_3:
       }
     }
 
-    v9 = 0;
+    v5 = 0;
 LABEL_16:
   }
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)hasComplement
 {
   selfCopy = self;
-  v4 = objc_msgSend_slide(self, a2, v2);
-  v7 = objc_msgSend_builds(v4, v5, v6);
-  LOBYTE(selfCopy) = objc_msgSend_p_hasComplementInBuilds_(selfCopy, v8, v7);
+  slide = [(KNBuild *)self slide];
+  builds = [slide builds];
+  LOBYTE(selfCopy) = [(KNBuild *)selfCopy p_hasComplementInBuilds:builds];
 
   return selfCopy;
 }
 
 - (BOOL)isActionMotionBuild
 {
-  v3 = objc_msgSend_effect(self, a2, v2);
-  isEqualToString = objc_msgSend_isEqualToString_(v3, v4, *MEMORY[0x277D800C8]);
+  effect = [(KNBuild *)self effect];
+  v3 = [effect isEqualToString:*MEMORY[0x277D800C8]];
 
-  return isEqualToString;
+  return v3;
 }
 
 - (BOOL)isEmphasisBuild
 {
-  v3 = objc_msgSend_effect(self, a2, v2);
+  effect = [(KNBuild *)self effect];
   IsEmphasisEffect = KNEffectIsEmphasisEffect();
 
   return IsEmphasisEffect;
@@ -1754,326 +1753,307 @@ LABEL_16:
 
 - (BOOL)supportsDuration
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  if (objc_msgSend_isEqualToString_(v4, v5, *MEMORY[0x277D80138]) & 1) != 0 || (objc_msgSend_isEqualToString_(v4, v6, *MEMORY[0x277D80158]) & 1) != 0 || (objc_msgSend_isEqualToString_(v4, v7, *MEMORY[0x277D80148]) & 1) != 0 || (objc_msgSend_isEqualToString_(v4, v8, *MEMORY[0x277D80170]))
+  effect = [(KNBuild *)self effect];
+  if ([effect isEqualToString:*MEMORY[0x277D80138]] & 1) != 0 || (objc_msgSend(effect, "isEqualToString:", *MEMORY[0x277D80158]) & 1) != 0 || (objc_msgSend(effect, "isEqualToString:", *MEMORY[0x277D80148]) & 1) != 0 || (objc_msgSend(effect, "isEqualToString:", *MEMORY[0x277D80170]))
   {
-    v11 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v13 = objc_msgSend_animationName(KNGalleryAppear, v9, v10);
-    if (objc_msgSend_isEqualToString_(v4, v14, v13))
+    v6 = +[KNGalleryAppear animationName];
+    if ([effect isEqualToString:v6])
     {
-      v11 = 0;
+      v4 = 0;
     }
 
-    else if (objc_msgSend_isEqualToString_(v4, v15, *MEMORY[0x277D80140]))
+    else if ([effect isEqualToString:*MEMORY[0x277D80140]])
     {
-      v11 = objc_msgSend_customTextDelivery(self, v16, v17) != 1;
+      v4 = [(KNBuild *)self customTextDelivery]!= 1;
     }
 
     else
     {
-      v11 = 1;
+      v4 = 1;
     }
   }
 
-  return v11;
+  return v4;
 }
 
 - (BOOL)supportsBounce
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesBounce");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesBounce"];
+  return v5;
 }
 
 - (BOOL)supportsAlignToPath
 {
-  v3 = objc_msgSend_animationInfo(self, a2, v2);
-  v5 = objc_msgSend_supportsCustomAttributeKey_(v3, v4, @"KNBuildCustomAttributesAlignToPath");
+  animationInfo = [(KNBuild *)self animationInfo];
+  v3 = [animationInfo supportsCustomAttributeKey:@"KNBuildCustomAttributesAlignToPath"];
 
-  return v5;
+  return v3;
 }
 
 - (BOOL)supportsAcceleration
 {
   v3 = *MEMORY[0x277D800E8];
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D800E8]);
-  v7 = objc_msgSend_integerValue(v4, v5, v6);
+  v4 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D800E8]];
+  integerValue = [v4 integerValue];
 
-  isCustomEffectTimingCurveEditingEnabled = objc_msgSend_isCustomEffectTimingCurveEditingEnabled(KNAnimationUtils, v8, v9);
-  v13 = objc_msgSend_animationInfo(self, v11, v12);
-  v15 = objc_msgSend_customAttributesForAttributeKey_(v13, v14, @"KNAnimationAttributesCustomEffectTimingCurve1");
+  v6 = +[KNAnimationUtils isCustomEffectTimingCurveEditingEnabled];
+  animationInfo = [(KNBuild *)self animationInfo];
+  v8 = [animationInfo customAttributesForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurve1"];
 
-  v18 = objc_msgSend_effect(self, v16, v17);
-  v21 = objc_msgSend_animationType(self, v19, v20);
-  v23 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v22, v18, v21);
+  effect = [(KNBuild *)self effect];
+  v10 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  if (v15 && (v7 == 4) | isCustomEffectTimingCurveEditingEnabled & 1)
+  if (v8 && (integerValue == 4 || v6))
   {
-    v25 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v25 = objc_msgSend_containsAttributeForKey_(v23, v24, v3);
+    v11 = [v10 containsAttributeForKey:v3];
   }
 
-  return v25;
+  return v11;
 }
 
 - (BOOL)supportsIncludeEndpoints
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesIncludeEndpoints");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesIncludeEndpoints"];
+  return v5;
 }
 
 - (BOOL)supportsShine
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesShine");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesShine"];
+  return v5;
 }
 
 - (BOOL)supportsScaleAmount
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesScaleAmount");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesScaleAmount"];
+  return v5;
 }
 
 - (BOOL)supportsCustomScale
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNActionBuildCustomAttributesScale");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNActionBuildCustomAttributesScale"];
+  return v5;
 }
 
 - (BOOL)supportsOpacity
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, *MEMORY[0x277D800F0]);
-  return v11;
+  v5 = [v4 containsAttributeForKey:*MEMORY[0x277D800F0]];
+  return v5;
 }
 
 - (BOOL)supportsActionScale
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, *MEMORY[0x277D80110]);
-  return v11;
+  v5 = [v4 containsAttributeForKey:*MEMORY[0x277D80110]];
+  return v5;
 }
 
 - (BOOL)supportsTravelDistance
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesTravelDistance");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesTravelDistance"];
+  return v5;
 }
 
 - (BOOL)supportsActionRotationAngle
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, *MEMORY[0x277D80100]);
-  return v11;
+  v5 = [v4 containsAttributeForKey:*MEMORY[0x277D80100]];
+  return v5;
 }
 
 - (BOOL)supportsActionRotationDirection
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, *MEMORY[0x277D80108]);
-  return v11;
+  v5 = [v4 containsAttributeForKey:*MEMORY[0x277D80108]];
+  return v5;
 }
 
 - (BOOL)supports3DChartRotationAngle
 {
-  v3 = objc_msgSend_effect(self, a2, v2);
-  if (objc_msgSend_isEqualToString_(v3, v4, @"apple:3d-crane") & 1) != 0 || (objc_msgSend_isEqualToString_(v3, v5, @"apple:3d-rotate"))
+  effect = [(KNBuild *)self effect];
+  if ([effect isEqualToString:@"apple:3d-crane"] & 1) != 0 || (objc_msgSend(effect, "isEqualToString:", @"apple:3d-rotate"))
   {
-    isEqualToString = 1;
+    v3 = 1;
   }
 
   else
   {
-    isEqualToString = objc_msgSend_isEqualToString_(v3, v6, @"apple:3d-rotatinggrow");
+    v3 = [effect isEqualToString:@"apple:3d-rotatinggrow"];
   }
 
-  return isEqualToString;
+  return v3;
 }
 
 - (BOOL)supportsJiggleIntensity
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNActionBuildCustomAttributesJiggleIntensity");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNActionBuildCustomAttributesJiggleIntensity"];
+  return v5;
 }
 
 - (BOOL)supportsCursor
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesCursor");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesCursor"];
+  return v5;
 }
 
 - (BOOL)supportsCustomRepeats
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNActionBuildCustomAttributesRepeatCount");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNActionBuildCustomAttributesRepeatCount"];
+  return v5;
 }
 
 - (BOOL)supportsDecay
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNActionBuildCustomAttributesDecay");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNActionBuildCustomAttributesDecay"];
+  return v5;
 }
 
 - (BOOL)supportsRandomNumberSeedInspection
 {
-  isRandomNumberSeedInspectionEnabled = objc_msgSend_isRandomNumberSeedInspectionEnabled(KNAnimationUtils, a2, v2);
-  if (isRandomNumberSeedInspectionEnabled)
+  v3 = +[KNAnimationUtils isRandomNumberSeedInspectionEnabled];
+  if (v3)
   {
-    v7 = objc_msgSend_effect(self, v5, v6);
-    v10 = objc_msgSend_animationType(self, v8, v9);
-    v12 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v11, v7, v10);
+    effect = [(KNBuild *)self effect];
+    v5 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-    v14 = objc_msgSend_containsAttributeForKey_(v12, v13, @"KNBuildCustomAttributesRandomNumberSeed");
-    LOBYTE(isRandomNumberSeedInspectionEnabled) = v14;
+    v6 = [v5 containsAttributeForKey:@"KNBuildCustomAttributesRandomNumberSeed"];
+    LOBYTE(v3) = v6;
   }
 
-  return isRandomNumberSeedInspectionEnabled;
+  return v3;
 }
 
 - (BOOL)supportsCustomEffectTimingCurve1
 {
-  v3 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], a2, &unk_2884F3AE0, 0);
-  LOBYTE(self) = objc_msgSend_p_supportsCustomEffectTimingCurveForLayoutStyles_(self, v4, v3);
+  v3 = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2884F3AE0, 0}];
+  LOBYTE(self) = [(KNBuild *)self p_supportsCustomEffectTimingCurveForLayoutStyles:v3];
 
   return self;
 }
 
 - (BOOL)supportsCustomEffectTimingCurve2
 {
-  v3 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], a2, &unk_2884F3AF8, &unk_2884F3B10, 0);
-  LOBYTE(self) = objc_msgSend_p_supportsCustomEffectTimingCurveForLayoutStyles_(self, v4, v3);
+  v3 = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2884F3AF8, &unk_2884F3B10, 0}];
+  LOBYTE(self) = [(KNBuild *)self p_supportsCustomEffectTimingCurveForLayoutStyles:v3];
 
   return self;
 }
 
 - (BOOL)supportsCustomEffectTimingCurve3
 {
-  v3 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], a2, &unk_2884F3B28, 0);
-  LOBYTE(self) = objc_msgSend_p_supportsCustomEffectTimingCurveForLayoutStyles_(self, v4, v3);
+  v3 = [MEMORY[0x277CBEB98] setWithObjects:{&unk_2884F3B28, 0}];
+  LOBYTE(self) = [(KNBuild *)self p_supportsCustomEffectTimingCurveForLayoutStyles:v3];
 
   return self;
 }
 
 - (BOOL)supportsCustomDetail
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesDetail");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesDetail"];
+  return v5;
 }
 
 - (BOOL)supportsCustomCursor
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesCursor");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesCursor"];
+  return v5;
 }
 
 - (BOOL)p_supportsCustomEffectTimingCurveForLayoutStyles:(id)styles
 {
   stylesCopy = styles;
-  isCustomEffectTimingCurveEditingEnabled = objc_msgSend_isCustomEffectTimingCurveEditingEnabled(KNAnimationUtils, v5, v6);
-  v10 = objc_msgSend_animationInfo(self, v8, v9);
-  v13 = objc_msgSend_attributes(self, v11, v12);
-  v16 = objc_msgSend_attributes(v13, v14, v15);
-  v18 = objc_msgSend_customEffectTimingCurveDisplayParametersForAttributes_layoutStyleOnly_(v10, v17, v16, 1);
+  v5 = +[KNAnimationUtils isCustomEffectTimingCurveEditingEnabled];
+  animationInfo = [(KNBuild *)self animationInfo];
+  attributes = [(KNBuild *)self attributes];
+  v7Attributes = [attributes attributes];
+  v9 = [animationInfo customEffectTimingCurveDisplayParametersForAttributes:v7Attributes layoutStyleOnly:1];
 
-  v20 = objc_msgSend_objectForKeyedSubscript_(v18, v19, &unk_2884F3B40);
-  LOBYTE(v10) = objc_msgSend_containsObject_(stylesCopy, v21, v20);
+  v10 = [v9 objectForKeyedSubscript:&unk_2884F3B40];
+  LOBYTE(animationInfo) = [stylesCopy containsObject:v10];
 
-  return isCustomEffectTimingCurveEditingEnabled & v10;
+  return v5 & animationInfo;
 }
 
 - (BOOL)supportsDelivery
 {
-  if (objc_msgSend_isActionBuild(self, a2, v2))
+  if ([(KNBuild *)self isActionBuild])
   {
     return 0;
   }
 
-  v6 = objc_msgSend_deliveriesLocalized_(self, v4, 0);
-  v5 = objc_msgSend_count(v6, v7, v8) > 1;
+  v4 = [(KNBuild *)self deliveriesLocalized:0];
+  v3 = [v4 count] > 1;
 
-  return v5;
+  return v3;
 }
 
 - (BOOL)supportsCustomTextDelivery
 {
-  v4 = objc_msgSend_effect(self, a2, v2);
-  v7 = objc_msgSend_animationType(self, v5, v6);
-  v9 = objc_msgSend_defaultAttributesForEffect_buildType_(KNBuildAttributes, v8, v4, v7);
+  effect = [(KNBuild *)self effect];
+  v4 = [KNBuildAttributes defaultAttributesForEffect:effect buildType:[(KNBuild *)self animationType]];
 
-  v11 = objc_msgSend_containsAttributeForKey_(v9, v10, @"KNBuildCustomAttributesTextDelivery");
-  return v11;
+  v5 = [v4 containsAttributeForKey:@"KNBuildCustomAttributesTextDelivery"];
+  return v5;
 }
 
 - (int64_t)animationType
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D80178]);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D80178]];
   v3 = KNAnimationTypeFromString();
 
   return v3;
@@ -2081,426 +2061,419 @@ LABEL_16:
 
 - (double)durationDefaultForInitialChunk
 {
-  v3 = objc_msgSend_attributes(self, a2, v2);
-  v5 = objc_msgSend_valueForAttributeKey_(v3, v4, @"KNBuildAttributesDefaultDuration");
+  attributes = [(KNBuild *)self attributes];
+  v3 = [attributes valueForAttributeKey:@"KNBuildAttributesDefaultDuration"];
 
-  if (v5)
+  if (v3)
   {
-    objc_msgSend_doubleValue(v5, v6, v7);
-    v9 = v8;
+    [v3 doubleValue];
+    v5 = v4;
   }
 
   else
   {
-    v9 = 1.0;
+    v5 = 1.0;
   }
 
-  return v9;
+  return v5;
 }
 
 - (unint64_t)direction
 {
-  v4 = objc_msgSend_animationType(self, a2, v2);
-  if (!objc_msgSend_supportsDirection(self, v5, v6))
+  animationType = [(KNBuild *)self animationType];
+  if (![(KNBuild *)self supportsDirection])
   {
     return 0;
   }
 
-  v9 = objc_msgSend_animationPluginMenu(KNAnimationPluginMenu, v7, v8);
-  v12 = objc_msgSend_animationInfo(self, v10, v11);
-  v15 = objc_msgSend_animationClass(v12, v13, v14);
+  v4 = +[KNAnimationPluginMenu animationPluginMenu];
+  animationInfo = [(KNBuild *)self animationInfo];
+  animationClass = [animationInfo animationClass];
 
-  objc_msgSend_fillLocalizedDirectionMenu_forType_(v15, v16, v9, v4);
-  v19 = objc_msgSend_defaultDirection(v9, v17, v18);
-  v22 = objc_msgSend_attributes(self->_attributes, v20, v21);
-  v24 = objc_msgSend_objectForKey_(v22, v23, @"KNBuildAttributesDirection");
+  [animationClass fillLocalizedDirectionMenu:v4 forType:animationType];
+  defaultDirection = [v4 defaultDirection];
+  attributes = [(KNAnimationAttributes *)self->_attributes attributes];
+  v9 = [attributes objectForKey:@"KNBuildAttributesDirection"];
 
-  if (!v24 || (v27 = objc_msgSend_intValue(v24, v25, v26), (objc_msgSend_containsDirection_(v9, v28, v27) & 1) == 0))
+  if (!v9 || (v10 = [v9 intValue], (objc_msgSend(v4, "containsDirection:", v10) & 1) == 0))
   {
-    v29 = objc_msgSend_attributes(self, v25, v26);
-    v31 = objc_msgSend_valueForAttributeKey_(v29, v30, @"WritingDirectionIsRTL");
-    isEqual = objc_msgSend_isEqual_(v31, v32, MEMORY[0x277CBEC38]);
+    attributes2 = [(KNBuild *)self attributes];
+    v12 = [attributes2 valueForAttributeKey:@"WritingDirectionIsRTL"];
+    v13 = [v12 isEqual:MEMORY[0x277CBEC38]];
 
-    if (isEqual && (v34 = v19 - 11, (v19 - 11) <= 0xD))
+    if (v13 && (v14 = defaultDirection - 11, (defaultDirection - 11) <= 0xD))
     {
-      v27 = v19;
-      if ((0x3C03u >> v34))
+      v10 = defaultDirection;
+      if ((0x3C03u >> v14))
       {
-        v27 = qword_275E79198[v34];
+        v10 = qword_275E79198[v14];
       }
     }
 
     else
     {
-      v27 = v19;
+      v10 = defaultDirection;
     }
   }
 
-  return v27;
+  return v10;
 }
 
 - (unint64_t)actionAcceleration
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D800E8]);
-  v5 = objc_msgSend_unsignedIntegerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D800E8]];
+  unsignedIntegerValue = [v2 unsignedIntegerValue];
 
-  return v5;
+  return unsignedIntegerValue;
 }
 
 - (double)actionScale
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D80110]);
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D80110]];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (double)actionRotationAngle
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D80100]);
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D80100]];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (unint64_t)actionRotationDirection
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D80108]);
-  v5 = objc_msgSend_unsignedIntegerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D80108]];
+  unsignedIntegerValue = [v2 unsignedIntegerValue];
 
-  return v5;
+  return unsignedIntegerValue;
 }
 
 - (double)actionOpacity
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D800F0]);
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D800F0]];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (float)custom3DChartRotation
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNBuild custom3DChartRotation]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v6, v3, v5, 1002, 0, "Do not call method");
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild custom3DChartRotation]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuild.m"];
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:1002 isFatal:0 description:"Do not call method"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v7, v8);
-  v9 = MEMORY[0x277CBEAD8];
-  v10 = *MEMORY[0x277CBE658];
-  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s: %s", "Do not call method", "[KNBuild custom3DChartRotation]");
-  v14 = objc_msgSend_exceptionWithName_reason_userInfo_(v9, v13, v10, v12, 0);
-  v15 = v14;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v5 = MEMORY[0x277CBEAD8];
+  v6 = *MEMORY[0x277CBE658];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s", "Do not call method", "-[KNBuild custom3DChartRotation]"];
+  v8 = [v5 exceptionWithName:v6 reason:v7 userInfo:0];
+  v9 = v8;
 
-  objc_exception_throw(v14);
+  objc_exception_throw(v8);
 }
 
 - (int64_t)customTextDelivery
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesTextDelivery");
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesTextDelivery"];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (unint64_t)customDeliveryOption
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesDeliveryOption");
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesDeliveryOption"];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (int64_t)customAccelerationOption
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, *MEMORY[0x277D800E8]);
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:*MEMORY[0x277D800E8]];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (BOOL)customBounce
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesBounce");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesBounce"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (BOOL)customAlignToPath
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesAlignToPath");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesAlignToPath"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (BOOL)customMotionBlur
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesMotionBlur");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesMotionBlur"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (BOOL)customIncludeEndpoints
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesIncludeEndpoints");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesIncludeEndpoints"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (BOOL)customShine
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesShine");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesShine"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (double)customScaleAmount
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesScaleAmount");
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesScaleAmount"];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (double)customTravelDistance
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesTravelDistance");
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesTravelDistance"];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (unint64_t)customRepeatCount
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNActionBuildCustomAttributesRepeatCount");
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNActionBuildCustomAttributesRepeatCount"];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (BOOL)customDecay
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNActionBuildCustomAttributesDecay");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNActionBuildCustomAttributesDecay"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (unint64_t)customScale
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNActionBuildCustomAttributesScale");
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNActionBuildCustomAttributesScale"];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (unint64_t)customJiggleIntensity
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNActionBuildCustomAttributesJiggleIntensity");
-  v5 = objc_msgSend_integerValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNActionBuildCustomAttributesJiggleIntensity"];
+  integerValue = [v2 integerValue];
 
-  return v5;
+  return integerValue;
 }
 
 - (int64_t)randomNumberSeed
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesRandomNumberSeed");
-  v5 = objc_msgSend_unsignedIntValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesRandomNumberSeed"];
+  unsignedIntValue = [v2 unsignedIntValue];
 
-  return v5;
+  return unsignedIntValue;
 }
 
 - (double)customDetail
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesDetail");
-  objc_msgSend_tsu_CGFloatValue(v2, v3, v4);
-  v6 = v5;
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesDetail"];
+  [v2 tsu_CGFloatValue];
+  v4 = v3;
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)customCursor
 {
-  v2 = objc_msgSend_valueForAttributeKey_(self->_attributes, a2, @"KNBuildCustomAttributesCursor");
-  v5 = objc_msgSend_BOOLValue(v2, v3, v4);
+  v2 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNBuildCustomAttributesCursor"];
+  bOOLValue = [v2 BOOLValue];
 
-  return v5;
+  return bOOLValue;
 }
 
 - (TSDBezierPathSource)customEffectTimingCurve1
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurve1");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurve1"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (TSDBezierPathSource)customEffectTimingCurve2
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurve2");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurve2"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (TSDBezierPathSource)customEffectTimingCurve3
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurve3");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurve3"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (NSString)customEffectTimingCurveThemeName1
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurveThemeName1");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName1"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (NSString)customEffectTimingCurveThemeName2
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurveThemeName2");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName2"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (NSString)customEffectTimingCurveThemeName3
 {
   objc_opt_class();
-  v4 = objc_msgSend_valueForAttributeKey_(self->_attributes, v3, @"KNAnimationAttributesCustomEffectTimingCurveThemeName3");
-  v5 = TSUCheckedDynamicCast();
+  v3 = [(KNAnimationAttributes *)self->_attributes valueForAttributeKey:@"KNAnimationAttributesCustomEffectTimingCurveThemeName3"];
+  v4 = TSUCheckedDynamicCast();
 
-  return v5;
+  return v4;
 }
 
 - (NSSet)inspectableAttributes
 {
-  v4 = objc_msgSend_animationInfo(self, a2, v2);
-  v7 = objc_msgSend_defaultAttributes(v4, v5, v6);
+  animationInfo = [(KNBuild *)self animationInfo];
+  defaultAttributes = [animationInfo defaultAttributes];
 
-  v8 = MEMORY[0x277CBEB58];
-  v11 = objc_msgSend_allKeys(v7, v9, v10);
-  v13 = objc_msgSend_setWithArray_(v8, v12, v11);
+  v5 = MEMORY[0x277CBEB58];
+  allKeys = [defaultAttributes allKeys];
+  v7 = [v5 setWithArray:allKeys];
 
-  v16 = objc_msgSend_supportsDirection(self, v14, v15);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v17, @"KNBuildAttributesDirection", v16);
-  v20 = objc_msgSend_supportsDelivery(self, v18, v19);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v21, @"KNBuildDeliveryProperty", v20);
-  v24 = objc_msgSend_supportsDuration(self, v22, v23);
-  if (objc_msgSend_containsObject_(v13, v25, @"KNBuildAttributesDefaultDuration"))
+  [v7 kn_addOrRemoveObject:@"KNBuildAttributesDirection" withCondition:{-[KNBuild supportsDirection](self, "supportsDirection")}];
+  [v7 kn_addOrRemoveObject:@"KNBuildDeliveryProperty" withCondition:{-[KNBuild supportsDelivery](self, "supportsDelivery")}];
+  supportsDuration = [(KNBuild *)self supportsDuration];
+  if ([v7 containsObject:@"KNBuildAttributesDefaultDuration"])
   {
-    objc_msgSend_removeObject_(v13, v26, @"KNBuildAttributesDefaultDuration");
-    objc_msgSend_addObject_(v13, v27, @"KNBuildChunkDurationProperty");
+    [v7 removeObject:@"KNBuildAttributesDefaultDuration"];
+    [v7 addObject:@"KNBuildChunkDurationProperty"];
   }
 
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v26, @"KNBuildChunkDurationProperty", v24);
-  v30 = objc_msgSend_deliveryStyle(self, v28, v29) != 0;
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v31, @"KNBuildAttributesStartOffset", v30);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v32, @"KNBuildAttributesEndOffset", v30);
-  isActionMotionBuild = objc_msgSend_isActionMotionBuild(self, v33, v34);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v36, *MEMORY[0x277D800F8], isActionMotionBuild);
-  v39 = objc_msgSend_supportsAlignToPath(self, v37, v38);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v40, @"KNBuildCustomAttributesAlignToPath", v39);
-  v42 = objc_msgSend_p_supportsCustomTextDeliveryOptionsForAttributes_(self, v41, v13);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v43, @"KNBuildCustomAttributesDeliveryOption", v42);
-  v46 = objc_msgSend_supportsAcceleration(self, v44, v45);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v47, *MEMORY[0x277D800E8], v46);
-  v50 = objc_msgSend_supportsRandomNumberSeedInspection(self, v48, v49);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v51, @"KNBuildCustomAttributesRandomNumberSeed", v50);
-  v54 = objc_msgSend_supportsCustomEffectTimingCurve3(self, v52, v53);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v55, @"KNAnimationAttributesCustomEffectTimingCurve3", v54);
-  if (v54)
+  [v7 kn_addOrRemoveObject:@"KNBuildChunkDurationProperty" withCondition:supportsDuration];
+  v9 = [(KNBuild *)self deliveryStyle]!= 0;
+  [v7 kn_addOrRemoveObject:@"KNBuildAttributesStartOffset" withCondition:v9];
+  [v7 kn_addOrRemoveObject:@"KNBuildAttributesEndOffset" withCondition:v9];
+  isActionMotionBuild = [(KNBuild *)self isActionMotionBuild];
+  [v7 kn_addOrRemoveObject:*MEMORY[0x277D800F8] withCondition:isActionMotionBuild];
+  [v7 kn_addOrRemoveObject:@"KNBuildCustomAttributesAlignToPath" withCondition:{-[KNBuild supportsAlignToPath](self, "supportsAlignToPath")}];
+  [v7 kn_addOrRemoveObject:@"KNBuildCustomAttributesDeliveryOption" withCondition:{-[KNBuild p_supportsCustomTextDeliveryOptionsForAttributes:](self, "p_supportsCustomTextDeliveryOptionsForAttributes:", v7)}];
+  supportsAcceleration = [(KNBuild *)self supportsAcceleration];
+  [v7 kn_addOrRemoveObject:*MEMORY[0x277D800E8] withCondition:supportsAcceleration];
+  [v7 kn_addOrRemoveObject:@"KNBuildCustomAttributesRandomNumberSeed" withCondition:{-[KNBuild supportsRandomNumberSeedInspection](self, "supportsRandomNumberSeedInspection")}];
+  supportsCustomEffectTimingCurve3 = [(KNBuild *)self supportsCustomEffectTimingCurve3];
+  [v7 kn_addOrRemoveObject:@"KNAnimationAttributesCustomEffectTimingCurve3" withCondition:supportsCustomEffectTimingCurve3];
+  if (supportsCustomEffectTimingCurve3)
   {
-    objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v56, @"KNAnimationAttributesCustomEffectTimingCurve2", 0);
+    [v7 kn_addOrRemoveObject:@"KNAnimationAttributesCustomEffectTimingCurve2" withCondition:0];
 LABEL_6:
-    objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v58, @"KNAnimationAttributesCustomEffectTimingCurve1", 0);
+    supportsCustomEffectTimingCurve1 = 0;
     goto LABEL_8;
   }
 
-  v59 = objc_msgSend_supportsCustomEffectTimingCurve2(self, v56, v57);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v60, @"KNAnimationAttributesCustomEffectTimingCurve2", v59);
-  if (v59)
+  supportsCustomEffectTimingCurve2 = [(KNBuild *)self supportsCustomEffectTimingCurve2];
+  [v7 kn_addOrRemoveObject:@"KNAnimationAttributesCustomEffectTimingCurve2" withCondition:supportsCustomEffectTimingCurve2];
+  if (supportsCustomEffectTimingCurve2)
   {
     goto LABEL_6;
   }
 
-  v64 = objc_msgSend_supportsCustomEffectTimingCurve1(self, v58, v61);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v65, @"KNAnimationAttributesCustomEffectTimingCurve1", v64);
+  supportsCustomEffectTimingCurve1 = [(KNBuild *)self supportsCustomEffectTimingCurve1];
 LABEL_8:
-  v66 = objc_msgSend_supportsCustomDetail(self, v62, v63);
-  objc_msgSend_kn_addOrRemoveObject_withCondition_(v13, v67, @"KNBuildCustomAttributesDetail", v66);
+  [v7 kn_addOrRemoveObject:@"KNAnimationAttributesCustomEffectTimingCurve1" withCondition:supportsCustomEffectTimingCurve1];
+  [v7 kn_addOrRemoveObject:@"KNBuildCustomAttributesDetail" withCondition:{-[KNBuild supportsCustomDetail](self, "supportsCustomDetail")}];
 
-  return v13;
+  return v7;
 }
 
 - (BOOL)p_supportsCustomTextDeliveryOptionsForAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  v9 = objc_msgSend_containsObject_(attributesCopy, v5, @"KNBuildCustomAttributesTextDelivery") && objc_msgSend_containsObject_(attributesCopy, v6, @"KNBuildCustomAttributesDeliveryOption") && objc_msgSend_customTextDelivery(self, v7, v8) > 1;
+  v5 = [attributesCopy containsObject:@"KNBuildCustomAttributesTextDelivery"] && objc_msgSend(attributesCopy, "containsObject:", @"KNBuildCustomAttributesDeliveryOption") && -[KNBuild customTextDelivery](self, "customTextDelivery") > 1;
 
-  return v9;
+  return v5;
 }
 
 - (BOOL)canEditAnimations
 {
-  v3 = objc_msgSend_drawable(self, a2, v2);
-  if (objc_msgSend_isLocked(v3, v4, v5))
+  drawable = [(KNBuild *)self drawable];
+  if ([drawable isLocked])
   {
-    LOBYTE(v8) = 0;
+    LOBYTE(v3) = 0;
   }
 
   else
   {
-    v9 = objc_msgSend_parentInfo(v3, v6, v7);
+    parentInfo = [drawable parentInfo];
     objc_opt_class();
     if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
     {
-      LOBYTE(v8) = 0;
+      LOBYTE(v3) = 0;
     }
 
     else
     {
-      v8 = objc_msgSend_isInlineWithText(v3, v10, v11) ^ 1;
+      v3 = [drawable isInlineWithText] ^ 1;
     }
   }
 
-  return v8;
+  return v3;
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
-  v8 = unarchiverCopy;
+  v7 = unarchiverCopy;
   if ((*(archive + 16) & 2) != 0)
   {
-    v9 = *(archive + 4);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_275E517EC;
-    v22[3] = &unk_27A699760;
-    v22[4] = self;
-    v10 = unarchiverCopy;
-    v11 = objc_opt_class();
-    objc_msgSend_readWeakReferenceMessage_class_protocol_completion_(v10, v12, v9, v11, 0, v22);
+    v8 = *(archive + 4);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = sub_275E517EC;
+    v16[3] = &unk_27A699760;
+    v16[4] = self;
+    v9 = unarchiverCopy;
+    [v9 readWeakReferenceMessage:v8 class:objc_opt_class() protocol:0 completion:v16];
   }
 
   else if (KNBuildArchivingLogCat_init_token != -1)
@@ -2508,29 +2481,30 @@ LABEL_8:
     sub_275E6112C();
   }
 
-  v13 = objc_msgSend_tsp_stringWithProtobufString_(MEMORY[0x277CCACA8], v7, *(archive + 3) & 0xFFFFFFFFFFFFFFFELL);
+  0xFFFFFFFFFFFFFFFELL = [MEMORY[0x277CCACA8] tsp_stringWithProtobufString:*(archive + 3) & 0xFFFFFFFFFFFFFFFELL];
   delivery = self->_delivery;
-  self->_delivery = v13;
+  self->_delivery = 0xFFFFFFFFFFFFFFFELL;
 
-  if (objc_msgSend_isEqualToString_(self->_delivery, v15, @"All At Once"))
+  if ([(NSString *)self->_delivery isEqualToString:@"All At Once"])
   {
-    objc_msgSend_willModifyForUpgrade(self, v16, v17);
+    [(KNBuild *)self willModifyForUpgrade];
     objc_storeStrong(&self->_delivery, *MEMORY[0x277D80118]);
   }
 
-  v18 = [KNBuildAttributes alloc];
+  v12 = [KNBuildAttributes alloc];
   if (*(archive + 5))
   {
-    v20 = objc_msgSend_initFromBuildAttributesArchive_(v18, v19, *(archive + 5));
+    v13 = *(archive + 5);
   }
 
   else
   {
-    v20 = objc_msgSend_initFromBuildAttributesArchive_(v18, v19, &unk_2812EAC50);
+    v13 = &unk_2812EAC50;
   }
 
+  v14 = [(KNBuildAttributes *)v12 initFromBuildAttributesArchive:v13];
   attributes = self->_attributes;
-  self->_attributes = v20;
+  self->_attributes = v14;
 
   if ((*(archive + 16) & 0x10) != 0)
   {
@@ -2541,24 +2515,24 @@ LABEL_8:
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
   archiverCopy = archiver;
-  v9 = objc_msgSend_i_drawableForArchiving_(self, v7, 1);
-  if (v9)
+  v7 = [(KNBuild *)self i_drawableForArchiving:1];
+  if (v7)
   {
     *(archive + 4) |= 2u;
-    v10 = *(archive + 4);
-    if (!v10)
+    v8 = *(archive + 4);
+    if (!v8)
     {
-      v11 = *(archive + 1);
-      if (v11)
+      v9 = *(archive + 1);
+      if (v9)
       {
-        v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+        v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v10 = MEMORY[0x277C8F050](v11);
-      *(archive + 4) = v10;
+      v8 = MEMORY[0x277C8F050](v9);
+      *(archive + 4) = v8;
     }
 
-    objc_msgSend_setWeakReference_message_(archiverCopy, v8, v9, v10);
+    [archiverCopy setWeakReference:v7 message:v8];
   }
 
   else if (KNBuildCobblestoneLogCat_init_token != -1)
@@ -2566,43 +2540,41 @@ LABEL_8:
     sub_275E61154();
   }
 
-  v14 = self->_delivery;
-  if (!v14)
+  v10 = self->_delivery;
+  if (!v10)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[KNBuild(PersistenceAdditions) saveToArchive:archiver:]");
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v19, v16, v18, 92, 0, "invalid nil value for '%{public}s'", "delivery");
+    v11 = MEMORY[0x277D81150];
+    v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(PersistenceAdditions) saveToArchive:archiver:]"];
+    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm"];
+    [v11 handleFailureInFunction:v12 file:v13 lineNumber:92 isFatal:0 description:{"invalid nil value for '%{public}s'", "delivery"}];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  if (!objc_msgSend_length(v14, v12, v13))
+  if (![(__CFString *)v10 length])
   {
-    v23 = MEMORY[0x277D81150];
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[KNBuild(PersistenceAdditions) saveToArchive:archiver:]");
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v27, v24, v26, 95, 0, "Archiving an empty delivery string.");
+    v14 = MEMORY[0x277D81150];
+    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(PersistenceAdditions) saveToArchive:archiver:]"];
+    v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm"];
+    [v14 handleFailureInFunction:v15 file:v16 lineNumber:95 isFatal:0 description:"Archiving an empty delivery string."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29);
-    v14 = &stru_2884D8E20;
+    [MEMORY[0x277D81150] logBacktraceThrottled];
+    v10 = &stru_2884D8E20;
   }
 
-  v30 = v14;
-  v31 = v14;
-  v34 = objc_msgSend_UTF8String(v30, v32, v33);
-  sub_275E51DB8(archive, v34);
+  v17 = v10;
+  sub_275E51DB8(archive, [(__CFString *)v10 UTF8String]);
   *(archive + 4) |= 8u;
   *(archive + 6) = 0;
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = sub_275E51ECC;
-  v38[3] = &unk_27A697C88;
-  v38[4] = self;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = sub_275E51ECC;
+  v20[3] = &unk_27A697C88;
+  v20[4] = self;
   archiveCopy = archive;
-  v35 = archiverCopy;
-  v39 = v35;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v35, v36, 4, archive, v38);
+  v18 = archiverCopy;
+  v21 = v18;
+  [v18 pushScopeForField:4 message:archive usingBlock:v20];
   chunkIDSeed = self->_chunkIDSeed;
   *(archive + 4) |= 0x10u;
   *(archive + 14) = chunkIDSeed;
@@ -2614,28 +2586,28 @@ LABEL_8:
   v5 = objc_opt_class();
   if (v5 != objc_opt_class())
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[KNBuild(PersistenceAdditions) loadFromUnarchiver:]");
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v11, v8, v10, 113, 0, "KNBuild needs a separate method for subclass unarchiving");
+    v6 = MEMORY[0x277D81150];
+    v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuild(PersistenceAdditions) loadFromUnarchiver:]"];
+    v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildPersistenceAdditions.mm"];
+    [v6 handleFailureInFunction:v7 file:v8 lineNumber:113 isFatal:0 description:"KNBuild needs a separate method for subclass unarchiving"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
-  v17 = unarchiverCopy;
+  v10 = unarchiverCopy;
   google::protobuf::internal::AssignDescriptors();
-  v15 = objc_msgSend_messageWithDescriptor_(v17, v14, off_2812EA908[16]);
+  v9 = [v10 messageWithDescriptor:off_2812EA908[16]];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v16, v15, v17);
+  [(KNBuild *)self loadFromArchive:v9 unarchiver:v10];
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_275E52190, off_2812EA908[16]);
+  v4 = [archiverCopy messageWithNewFunction:sub_275E52190 descriptor:off_2812EA908[16]];
 
-  objc_msgSend_saveToArchive_archiver_(self, v6, v5, archiverCopy);
+  [(KNBuild *)self saveToArchive:v4 archiver:archiverCopy];
 }
 
 @end

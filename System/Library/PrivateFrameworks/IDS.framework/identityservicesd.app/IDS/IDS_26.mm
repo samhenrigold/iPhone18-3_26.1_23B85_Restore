@@ -1,13 +1,13 @@
-void sub_1007513EC(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
+void sub_1007513EC(uint64_t *a1, char a2, void (*a3)(void *, uint64_t))
 {
   v4 = *a1;
   v5 = *(*a1 + 128);
   if (a2)
   {
-    sub_100022B2C(*a1, (v4 + 40));
+    sub_100022B2C(*a1, (v4 + 5));
     swift_beginAccess();
-    sub_100012970(v5 + 24);
-    a3(v4 + 40, v5 + 24);
+    sub_100012970((v5 + 24));
+    a3(v4 + 5, v5 + 24);
     swift_endAccess();
     sub_100012970(v4);
   }
@@ -15,7 +15,7 @@ void sub_1007513EC(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
   else
   {
     swift_beginAccess();
-    sub_100012970(v5 + 24);
+    sub_100012970((v5 + 24));
     a3(v4, v5 + 24);
     swift_endAccess();
   }
@@ -23,10 +23,10 @@ void sub_1007513EC(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
   free(v4);
 }
 
-uint64_t sub_1007514D0(__int128 *a1)
+void *sub_1007514D0(__int128 *a1)
 {
-  *(v1 + 48) = sub_100706B30(&qword_100CB3D50);
-  sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus);
+  *(v1 + 48) = sub_100706B30(&qword_100CB3D50, &qword_1009ADBB0);
+  sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus, &unk_1009AEB00);
   *(v1 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v1 + 24));
   sub_100936858();
@@ -36,7 +36,7 @@ uint64_t sub_1007514D0(__int128 *a1)
   *(v1 + 16) = 0;
   *(v1 + 18) = 0;
   swift_beginAccess();
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   sub_100308C84(a1, v1 + 24);
   swift_endAccess();
   return v1;
@@ -45,11 +45,11 @@ uint64_t sub_1007514D0(__int128 *a1)
 uint64_t sub_100751638()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -60,11 +60,11 @@ double sub_100751740@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -73,35 +73,35 @@ double sub_100751740@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100751850()
+uint64_t sub_100751850(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_100751928()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100751A2C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100751A2C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
   *a2 = v4;
@@ -109,21 +109,21 @@ uint64_t sub_100751A2C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100751B38()
+uint64_t sub_100751B38(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_100751C10()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -134,11 +134,11 @@ double sub_100751D18@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -147,21 +147,21 @@ double sub_100751D18@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100751E28()
+uint64_t sub_100751E28(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_100751F00()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -172,11 +172,11 @@ double sub_100752008@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -185,123 +185,123 @@ double sub_100752008@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100752118()
+uint64_t sub_100752118(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_1007521F0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_1007522F4@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1007522F4@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_100752400()
+uint64_t sub_100752400(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_1007524D0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_1007525D4@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_1007525D4@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
-  *a1 = v3;
-  return result;
-}
-
-uint64_t sub_1007526E0()
-{
-  swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100936138();
-}
-
-uint64_t sub_1007527BC()
-{
-  swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100936148();
-
-  swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100768A6C(&qword_100CB3CF8, sub_100768AE4);
-  sub_1009368A8();
-
-  return v0;
-}
-
-double sub_1007528F8@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
-{
-  *&v4 = *a1;
-  swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100936148();
-
-  swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100768A6C(&qword_100CB3CF8, sub_100768AE4);
-  sub_1009368A8();
-
-  result = *&v4;
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100752A34()
+uint64_t sub_1007526E0(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
+  sub_100936138();
+}
+
+uint64_t sub_1007527BC(uint64_t a1)
+{
+  swift_getKeyPath();
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
+  sub_100936148();
+
+  swift_getKeyPath();
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
+  sub_100768A6C(&qword_100CB3CF8, sub_100768AE4, &protocol conformance descriptor for <A> A?);
+  sub_1009368A8();
+
+  return v1;
+}
+
+double sub_1007528F8@<D0>(void *a1@<X0>, _OWORD *a3@<X8>)
+{
+  *&v5 = *a1;
+  swift_getKeyPath();
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
+  sub_100936148();
+
+  swift_getKeyPath();
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
+  sub_100768A6C(&qword_100CB3CF8, sub_100768AE4, &protocol conformance descriptor for <A> A?);
+  sub_1009368A8();
+
+  result = *&v5;
+  *a3 = v5;
+  return result;
+}
+
+uint64_t sub_100752A34(uint64_t *a1, uint64_t *a2)
+{
+  swift_getKeyPath();
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_100752B0C(uint64_t a1, unint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
   sub_10001C370(a1, a2);
 }
@@ -309,12 +309,12 @@ uint64_t sub_100752B0C(uint64_t a1, unint64_t a2)
 uint64_t sub_100752BF0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   return v0;
@@ -324,12 +324,12 @@ double sub_100752D1C@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   result = *&v4;
@@ -337,69 +337,69 @@ double sub_100752D1C@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100752E50()
+uint64_t sub_100752E50(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 uint64_t sub_100752F28()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075302C@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075302C@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_100753138()
+uint64_t sub_100753138(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
-uint64_t sub_100753220()
+uint64_t sub_100753220(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
-uint64_t sub_100753310()
+uint64_t sub_100753310(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
 __n128 sub_1007533E8@<Q0>(uint64_t a1@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769CD8();
   sub_1009368A8();
 
@@ -414,39 +414,39 @@ __n128 sub_1007533E8@<Q0>(uint64_t a1@<X8>)
   return result;
 }
 
-__n128 sub_100753538@<Q0>(uint64_t a1@<X8>)
+__n128 sub_100753538@<Q0>(uint64_t a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769CD8();
   sub_1009368A8();
 
-  result = v4;
-  *(a1 + 64) = v7;
-  *(a1 + 80) = v8;
-  *(a1 + 96) = v9;
-  *a1 = v3;
-  *(a1 + 16) = v4;
-  *(a1 + 32) = v5;
-  *(a1 + 48) = v6;
+  result = v5;
+  *(a2 + 64) = v8;
+  *(a2 + 80) = v9;
+  *(a2 + 96) = v10;
+  *a2 = v4;
+  *(a2 + 16) = v5;
+  *(a2 + 32) = v6;
+  *(a2 + 48) = v7;
   return result;
 }
 
-uint64_t sub_100753688()
+uint64_t sub_100753688(uint64_t a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
-uint64_t sub_100753774()
+uint64_t sub_100753774(uint64_t a1, __int128 *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769C54();
   sub_1009368C8();
 }
@@ -454,12 +454,12 @@ uint64_t sub_100753774()
 uint64_t sub_100753830()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
   type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769D90();
   sub_100936898();
 
@@ -470,12 +470,12 @@ uint64_t sub_100753948@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936148();
 
   swift_getKeyPath();
   type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769D90();
   sub_100936898();
 
@@ -483,18 +483,18 @@ uint64_t sub_100753948@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100753A68()
+uint64_t sub_100753A68(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&qword_100CB3D58, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AEAE4);
   sub_100936138();
 }
 
-uint64_t sub_100753B34()
+uint64_t sub_100753B34(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
   type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   sub_100769D90();
   sub_1009368B8();
 }
@@ -506,10 +506,10 @@ uint64_t sub_100753BE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint
   *&v26 = a3;
   *(&v26 + 1) = a4;
   v15 = swift_allocObject();
-  *(v15 + 48) = sub_100706B30(&qword_100CB3D90);
+  *(v15 + 48) = sub_100706B30(&qword_100CB3D90, &qword_1009ADDD0);
   *&v30 = v14;
   *(&v30 + 1) = v14;
-  *&v31 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  *&v31 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   *(&v31 + 1) = v31;
   *(v15 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v15 + 24));
@@ -527,15 +527,15 @@ uint64_t sub_100753BE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint
   sub_1000226D4((v15 + 24), *(v15 + 48));
   swift_getKeyPath();
   v30 = xmmword_1009AD8D0;
-  sub_100706B30(&qword_100CB3CE8);
-  sub_100768A6C(&qword_100CB3CF0, sub_100768A18);
+  sub_100706B30(&qword_100CB3CE8, &qword_1009ADA48);
+  sub_100768A6C(&qword_100CB3CF0, sub_100768A18, &protocol conformance descriptor for <A> A?);
   sub_1009366D8();
 
   sub_1000226D4((v15 + 24), *(v15 + 48));
   swift_getKeyPath();
   v30 = 0uLL;
-  sub_100706B30(&unk_100CBA310);
-  sub_100022AC0(&qword_100CB3CD8);
+  sub_100706B30(&unk_100CBA310, &qword_1009AD9F0);
+  sub_100022AC0(&qword_100CB3CD8, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009366D8();
 
   sub_1000226D4((v15 + 24), *(v15 + 48));
@@ -555,7 +555,7 @@ uint64_t sub_100753BE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint
   sub_1000226D4((v15 + 24), *(v15 + 48));
   swift_getKeyPath();
   *&v30 = &_swiftEmptyArrayStorage;
-  sub_100706B30(&qword_100CB3D70);
+  sub_100706B30(&qword_100CB3D70, &qword_1009ADDC0);
   type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
   sub_100769D90();
   sub_1009366C8();
@@ -645,7 +645,7 @@ uint64_t sub_100753BE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint
   sub_1009366D8();
 
   sub_100769CA8(a14);
-  v19 = sub_100716518(a1, a2);
+  v19 = sub_100716518(a1, a2, v26, *(&v26 + 1));
   v21 = v20;
 
   sub_1000226D4((v15 + 24), *(v15 + 48));
@@ -664,11 +664,11 @@ uint64_t sub_100753BE4(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint
   return v15;
 }
 
-uint64_t sub_1007545C0(__int128 *a1)
+void *sub_1007545C0(__int128 *a1)
 {
   v2 = v1;
-  *(v1 + 48) = sub_100706B30(&qword_100CB3D90);
-  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  *(v1 + 48) = sub_100706B30(&qword_100CB3D90, &qword_1009ADDD0);
+  sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   *(v1 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v1 + 24));
   sub_100936858();
@@ -682,15 +682,15 @@ uint64_t sub_1007545C0(__int128 *a1)
 
   sub_1000226D4((v2 + 24), *(v2 + 48));
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB3CE8);
-  sub_100768A6C(&qword_100CB3CF0, sub_100768A18);
+  sub_100706B30(&qword_100CB3CE8, &qword_1009ADA48);
+  sub_100768A6C(&qword_100CB3CF0, sub_100768A18, &protocol conformance descriptor for <A> A?);
   sub_1009366D8();
 
   *(v1 + 16) = 0;
   sub_1000226D4((v2 + 24), *(v2 + 48));
   swift_getKeyPath();
-  sub_100706B30(&unk_100CBA310);
-  sub_100022AC0(&qword_100CB3CD8);
+  sub_100706B30(&unk_100CBA310, &qword_1009AD9F0);
+  sub_100022AC0(&qword_100CB3CD8, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009366D8();
 
   *(v1 + 17) = 0;
@@ -710,7 +710,7 @@ uint64_t sub_1007545C0(__int128 *a1)
   *(v1 + 19) = 0;
   sub_1000226D4((v2 + 24), *(v2 + 48));
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB3D70);
+  sub_100706B30(&qword_100CB3D70, &qword_1009ADDC0);
   type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
   sub_100769D90();
   sub_1009366C8();
@@ -720,7 +720,7 @@ uint64_t sub_1007545C0(__int128 *a1)
   *(v1 + 20) = 0;
   *(v1 + 16) = 0;
   swift_beginAccess();
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   sub_100308C84(a1, v1 + 24);
   swift_endAccess();
   return v1;
@@ -780,10 +780,10 @@ unint64_t sub_100754A78()
   }
 }
 
-uint64_t sub_100754B9C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t sub_100754B9C@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = sub_10076A5E4(a1, a2);
-  *a3 = result;
+  result = sub_10076A5E4(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -804,7 +804,7 @@ uint64_t sub_100754C18(uint64_t a1)
 uint64_t sub_100754C54(void *a1)
 {
   v3 = v1;
-  v5 = sub_100706B30(&qword_100CB3D98);
+  v5 = sub_100706B30(&qword_100CB3D98, &qword_1009ADDD8);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v11[-v7 - 8];
@@ -814,7 +814,7 @@ uint64_t sub_100754C54(void *a1)
   v19 = *v3;
   v13 = *v3;
   v12 = 0;
-  sub_100012D50(&v19, v11, &qword_100CB3CE8);
+  sub_100012D50(&v19, v11, &qword_100CB3CE8, &qword_1009ADA48);
   sub_100768A18();
   sub_1009374C8();
   if (!v2)
@@ -823,7 +823,7 @@ uint64_t sub_100754C54(void *a1)
     v18 = v3[1];
     v13 = v3[1];
     v12 = 1;
-    sub_100012D50(&v18, v11, &qword_100CB3CE8);
+    sub_100012D50(&v18, v11, &qword_100CB3CE8, &qword_1009ADA48);
     sub_1009374C8();
     sub_10001C370(v13, *(&v13 + 1));
     LOBYTE(v13) = 2;
@@ -833,25 +833,25 @@ uint64_t sub_100754C54(void *a1)
     v17 = *(v3 + 40);
     v13 = *(v3 + 40);
     v12 = 4;
-    sub_100012D50(&v17, v11, &qword_100CB3CE8);
+    sub_100012D50(&v17, v11, &qword_100CB3CE8, &qword_1009ADA48);
     sub_1009374C8();
     sub_10001C370(v13, *(&v13 + 1));
     v16 = *(v3 + 56);
     v13 = *(v3 + 56);
     v12 = 5;
-    sub_100012D50(&v16, v11, &qword_100CB3CE8);
+    sub_100012D50(&v16, v11, &qword_100CB3CE8, &qword_1009ADA48);
     sub_1009374C8();
     sub_10001C370(v13, *(&v13 + 1));
     v15 = *(v3 + 72);
     v13 = *(v3 + 72);
     v12 = 6;
-    sub_100012D50(&v15, v11, &qword_100CB3CE8);
+    sub_100012D50(&v15, v11, &qword_100CB3CE8, &qword_1009ADA48);
     sub_1009374C8();
     sub_10001C370(v13, *(&v13 + 1));
     v13 = *(v3 + 88);
     v14 = v13;
     v12 = 7;
-    sub_100012D50(&v14, v11, &qword_100CB3CE8);
+    sub_100012D50(&v14, v11, &qword_100CB3CE8, &qword_1009ADA48);
     sub_1009374C8();
   }
 
@@ -877,21 +877,21 @@ __n128 sub_100755030@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, 
   return result;
 }
 
-__n128 sub_10075505C@<Q0>(void *a1@<X0>, uint64_t a2@<X8>)
+__n128 sub_10075505C@<Q0>(uint64_t a1@<X8>, void *a2@<X0>)
 {
-  sub_10076B040(a1, v7);
+  sub_10076B040(a2, v7);
   if (!v2)
   {
     v5 = v7[5];
-    *(a2 + 64) = v7[4];
-    *(a2 + 80) = v5;
-    *(a2 + 96) = v8;
+    *(a1 + 64) = v7[4];
+    *(a1 + 80) = v5;
+    *(a1 + 96) = v8;
     v6 = v7[1];
-    *a2 = v7[0];
-    *(a2 + 16) = v6;
+    *a1 = v7[0];
+    *(a1 + 16) = v6;
     result = v7[3];
-    *(a2 + 32) = v7[2];
-    *(a2 + 48) = result;
+    *(a1 + 32) = v7[2];
+    *(a1 + 48) = result;
   }
 
   return result;
@@ -927,11 +927,11 @@ BOOL sub_1007550D4(uint64_t a1, uint64_t a2)
 uint64_t sub_100755140()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -942,11 +942,11 @@ double sub_100755248@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -955,35 +955,35 @@ double sub_100755248@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100755358()
+uint64_t sub_100755358(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_100755430()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100755534@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100755534@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   *a2 = v4;
@@ -991,35 +991,35 @@ uint64_t sub_100755534@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100755640()
+uint64_t sub_100755640(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_100755718()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_10075581C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10075581C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1027,35 +1027,35 @@ uint64_t sub_10075581C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100755928()
+uint64_t sub_100755928(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_100755A00()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100755B04@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100755B04@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1063,21 +1063,21 @@ uint64_t sub_100755B04@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100755C10()
+uint64_t sub_100755C10(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_100755CE8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1088,11 +1088,11 @@ double sub_100755DF0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1101,21 +1101,21 @@ double sub_100755DF0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100755F00()
+uint64_t sub_100755F00(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_100755FD8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1126,11 +1126,11 @@ double sub_1007560E0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1139,34 +1139,34 @@ double sub_1007560E0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007561F0()
+uint64_t sub_1007561F0(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
 uint64_t sub_1007562C8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_100756400()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -1174,41 +1174,41 @@ uint64_t sub_100756538(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
 uint64_t sub_1007566C0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_1007567F8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -1216,28 +1216,28 @@ uint64_t sub_100756930(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
 double sub_100756AB8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   return v0;
@@ -1247,11 +1247,11 @@ double sub_100756BBC@<D0>(double *a1@<X0>, double *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368A8();
 
   result = v4;
@@ -1259,21 +1259,21 @@ double sub_100756BBC@<D0>(double *a1@<X0>, double *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100756CC8()
+uint64_t sub_100756CC8(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&qword_100CB3DA0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AED3C);
   sub_100936138();
 }
 
-uint64_t sub_100756DA0()
+uint64_t sub_100756DA0(double a1)
 {
   swift_getKeyPath();
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   sub_1009368C8();
 }
 
-uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, void *a8, double a9, Swift::String a10, char *a11, char *a12)
+uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, void *a8, double a9, Swift::String a10, uint64_t a12, uint64_t a13)
 {
   v40._countAndFlagsBits = a7;
   v40._object = a8;
@@ -1283,16 +1283,16 @@ uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a
   v42._object = a4;
   v37 = a2;
   v38 = a1;
-  v44 = a12;
-  v45 = a11;
+  v44 = a13;
+  v45 = a12;
   v41 = a10;
   v39 = sub_100936038();
   v16 = *(v39 - 8);
   __chkstk_darwin(v39);
   v36 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   v18 = swift_allocObject();
-  v18[5] = sub_100706B30(&qword_100CB3DB0);
-  v19 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v18[5] = sub_100706B30(&qword_100CB3DB0, &qword_1009ADF48);
+  v19 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   v46._countAndFlagsBits = v12;
   v46._object = v12;
   v47 = v19;
@@ -1345,7 +1345,7 @@ uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a
   v32(v36, v45, v39);
   sub_1000226D4(v18 + 2, v18[5]);
   swift_getKeyPath();
-  v31 = sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  v31 = sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009366D8();
 
   v24 = *(v16 + 8);
@@ -1371,7 +1371,7 @@ uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a
   sub_100936C08(v43);
 
   v25 = v40;
-  v26 = sub_100716518(v46._countAndFlagsBits, v46._object);
+  v26 = sub_100716518(v46._countAndFlagsBits, v46._object, v40._countAndFlagsBits, v40._object);
   v28 = v27;
 
   sub_1000226D4(v18 + 2, v18[5]);
@@ -1391,8 +1391,8 @@ uint64_t *sub_100756E3C(uint64_t a1, void *a2, uint64_t a3, void *a4, uint64_t a
 
 uint64_t *sub_100757520(__int128 *a1)
 {
-  v1[5] = sub_100706B30(&qword_100CB3DB0);
-  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v1[5] = sub_100706B30(&qword_100CB3DB0, &qword_1009ADF48);
+  sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   v1[6] = swift_getOpaqueTypeConformance2();
   sub_100014250(v1 + 2);
   sub_100936858();
@@ -1402,7 +1402,7 @@ uint64_t *sub_100757520(__int128 *a1)
 
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v1 + 2));
+  sub_100012970(v1 + 2);
   sub_100308C84(a1, (v1 + 2));
   swift_endAccess();
   return v1;
@@ -1411,11 +1411,11 @@ uint64_t *sub_100757520(__int128 *a1)
 uint64_t sub_1007576C0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1426,11 +1426,11 @@ double sub_1007577C8@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1439,35 +1439,35 @@ double sub_1007577C8@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007578D8()
+uint64_t sub_1007578D8(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 }
 
 uint64_t sub_1007579B0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100757AB4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100757AB4@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1475,21 +1475,21 @@ uint64_t sub_100757AB4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100757BC0()
+uint64_t sub_100757BC0(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 }
 
 uint64_t sub_100757C98()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1500,11 +1500,11 @@ double sub_100757DA0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1513,35 +1513,35 @@ double sub_100757DA0@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100757EB0()
+uint64_t sub_100757EB0(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 }
 
 uint64_t sub_100757F88()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_10075808C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10075808C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1549,21 +1549,21 @@ uint64_t sub_10075808C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100758198()
+uint64_t sub_100758198(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 }
 
 uint64_t sub_100758270()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1574,11 +1574,11 @@ double sub_100758378@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -1587,34 +1587,34 @@ double sub_100758378@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100758488()
+uint64_t sub_100758488(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 }
 
 uint64_t sub_100758560()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_100758698()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -1622,18 +1622,18 @@ uint64_t sub_1007587D0(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3DB8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AEE68);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
 uint64_t sub_100758958(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, unint64_t a8)
@@ -1659,8 +1659,8 @@ uint64_t *sub_1007589F0(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, ui
   v40 = v17;
   __chkstk_darwin(v16);
   v37 = v31 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9[5] = sub_100706B30(&qword_100CB3DC0);
-  v19 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  v9[5] = sub_100706B30(&qword_100CB3DC0, &qword_1009AE040);
+  v19 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   v42 = v15;
   v43 = v15;
   v44 = v19;
@@ -1707,7 +1707,7 @@ uint64_t *sub_1007589F0(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, ui
   sub_100936028();
   sub_1000226D4(v9 + 2, v9[5]);
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   v24 = v39;
   sub_1009366D8();
 
@@ -1721,7 +1721,7 @@ uint64_t *sub_1007589F0(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, ui
 
   v25 = v32;
   v26 = v33;
-  v27 = sub_100716518(v42, v43);
+  v27 = sub_100716518(v42, v43, v32, v33);
   v29 = v28;
 
   sub_1000226D4(v9 + 2, v9[5]);
@@ -1736,16 +1736,16 @@ uint64_t *sub_1007589F0(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, ui
   return v9;
 }
 
-void sub_100758EB4(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
+void sub_100758EB4(uint64_t *a1, char a2, void (*a3)(void *, uint64_t))
 {
   v4 = *a1;
   v5 = *(*a1 + 128);
   if (a2)
   {
-    sub_100022B2C(*a1, (v4 + 40));
+    sub_100022B2C(*a1, (v4 + 5));
     swift_beginAccess();
-    sub_100012970(v5 + 16);
-    a3(v4 + 40, v5 + 16);
+    sub_100012970((v5 + 16));
+    a3(v4 + 5, v5 + 16);
     swift_endAccess();
     sub_100012970(v4);
   }
@@ -1753,7 +1753,7 @@ void sub_100758EB4(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
   else
   {
     swift_beginAccess();
-    sub_100012970(v5 + 16);
+    sub_100012970((v5 + 16));
     a3(v4, v5 + 16);
     swift_endAccess();
   }
@@ -1763,14 +1763,14 @@ void sub_100758EB4(uint64_t *a1, char a2, void (*a3)(char *, uint64_t))
 
 uint64_t *sub_100758F98(__int128 *a1)
 {
-  v1[5] = sub_100706B30(&qword_100CB3DC0);
-  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  v1[5] = sub_100706B30(&qword_100CB3DC0, &qword_1009AE040);
+  sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   v1[6] = swift_getOpaqueTypeConformance2();
   sub_100014250(v1 + 2);
   sub_100936858();
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v1 + 2));
+  sub_100012970(v1 + 2);
   sub_100308C84(a1, (v1 + 2));
   swift_endAccess();
   return v1;
@@ -1779,25 +1779,25 @@ uint64_t *sub_100758F98(__int128 *a1)
 uint64_t sub_1007590E0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_1007591E4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1007591E4@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1805,35 +1805,35 @@ uint64_t sub_1007591E4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007592F0()
+uint64_t sub_1007592F0(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936138();
 }
 
 uint64_t sub_1007593C8()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_1007594CC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1007594CC@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   sub_1009368A8();
 
   *a2 = v4;
@@ -1841,49 +1841,49 @@ uint64_t sub_1007594CC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007595D8()
+uint64_t sub_1007595D8(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936138();
 }
 
 uint64_t sub_1007596B0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_1007597F0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_100759930(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -1892,7 +1892,7 @@ uint64_t sub_100759930(uint64_t a1, uint64_t *a2)
 uint64_t sub_100759A78(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  sub_100768830(&qword_100CB3DC8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEF94);
   sub_100936138();
 
   return sub_100021EA4(a1);
@@ -1911,12 +1911,12 @@ void *sub_100759BB0(void *a1, void *a2, void *a3, void *a4)
   v16 = a3;
   v17 = a4;
   v8 = *v4;
-  v9 = sub_100706B30(&qword_100CB4AC0);
+  v9 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v9 - 8);
   v11 = &v15 - v10;
-  v5[6] = sub_100706B30(&qword_100CB3DE8);
+  v5[6] = sub_100706B30(&qword_100CB3DE8, &qword_1009AE0C8);
   v18 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle;
-  v12 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  v12 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   v21 = v8;
   v22 = v8;
   v23 = v12;
@@ -1945,7 +1945,7 @@ void *sub_100759BB0(void *a1, void *a2, void *a3, void *a4)
   swift_getKeyPath();
   v19 = v5;
   v20 = v11;
-  sub_100768830(&qword_100CB3DC8, v18);
+  sub_100768830(&qword_100CB3DC8, v18, &unk_1009AEF94);
   sub_100936138();
 
   sub_100021EA4(v11);
@@ -1955,8 +1955,8 @@ void *sub_100759BB0(void *a1, void *a2, void *a3, void *a4)
 uint64_t sub_100759EB8(__int128 *a1)
 {
   v2 = swift_allocObject();
-  *(v2 + 48) = sub_100706B30(&qword_100CB3DE8);
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  *(v2 + 48) = sub_100706B30(&qword_100CB3DE8, &qword_1009AE0C8);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   *(v2 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v2 + 24));
   sub_100936858();
@@ -1964,16 +1964,16 @@ uint64_t sub_100759EB8(__int128 *a1)
   sub_100936158();
   *(v2 + 16) = 0;
   swift_beginAccess();
-  sub_100012970(v2 + 24);
+  sub_100012970((v2 + 24));
   sub_100308C84(a1, v2 + 24);
   swift_endAccess();
   return v2;
 }
 
-uint64_t sub_100759FF0(__int128 *a1)
+void *sub_100759FF0(__int128 *a1)
 {
-  *(v1 + 48) = sub_100706B30(&qword_100CB3DE8);
-  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  *(v1 + 48) = sub_100706B30(&qword_100CB3DE8, &qword_1009AE0C8);
+  sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   *(v1 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v1 + 24));
   sub_100936858();
@@ -1981,7 +1981,7 @@ uint64_t sub_100759FF0(__int128 *a1)
   sub_100936158();
   *(v1 + 16) = 0;
   swift_beginAccess();
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   sub_100308C84(a1, v1 + 24);
   swift_endAccess();
   return v1;
@@ -1990,11 +1990,11 @@ uint64_t sub_100759FF0(__int128 *a1)
 uint64_t sub_10075A14C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2005,11 +2005,11 @@ double sub_10075A254@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2018,21 +2018,21 @@ double sub_10075A254@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075A364()
+uint64_t sub_10075A364(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075A43C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2043,11 +2043,11 @@ double sub_10075A544@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2056,21 +2056,21 @@ double sub_10075A544@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075A654()
+uint64_t sub_10075A654(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075A72C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2081,11 +2081,11 @@ double sub_10075A834@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2094,35 +2094,35 @@ double sub_10075A834@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075A944()
+uint64_t sub_10075A944(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075AA1C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_10075AB20@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10075AB20@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   *a2 = v4;
@@ -2130,35 +2130,35 @@ uint64_t sub_10075AB20@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075AC2C()
+uint64_t sub_10075AC2C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075AD04()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_10075AE08@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10075AE08@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   *a2 = v4;
@@ -2166,21 +2166,21 @@ uint64_t sub_10075AE08@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075AF14()
+uint64_t sub_10075AF14(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075AFEC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2191,11 +2191,11 @@ double sub_10075B0F4@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2204,34 +2204,34 @@ double sub_10075B0F4@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075B204()
+uint64_t sub_10075B204(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075B2DC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_10075B414()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -2239,28 +2239,28 @@ uint64_t sub_10075B54C(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
 uint64_t sub_10075B6D4()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2271,11 +2271,11 @@ double sub_10075B7DC@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_100768AE4();
   sub_1009368A8();
 
@@ -2284,25 +2284,25 @@ double sub_10075B7DC@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075B8EC()
+uint64_t sub_10075B8EC(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075B9C4(uint64_t a1, unint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
   sub_1007156D8(a1, a2);
 }
 
-uint64_t sub_10075BAA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, void (*a6)(uint64_t))
+uint64_t sub_10075BAA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
 {
   swift_getKeyPath();
-  sub_100768830(a5, a6);
+  sub_100768830(a5, a6, a7);
   sub_100768A18();
   sub_1009368C8();
 }
@@ -2310,114 +2310,114 @@ uint64_t sub_10075BAA8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint
 uint64_t sub_10075BB44()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075BC48@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075BC48@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075BD54()
+uint64_t sub_10075BD54(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075BE24()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075BF28@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075BF28@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075C034()
+uint64_t sub_10075C034(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
-uint64_t sub_10075C104()
+uint64_t sub_10075C104(char a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075C1D0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075C310()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075C450(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -2426,131 +2426,131 @@ uint64_t sub_10075C450(uint64_t a1, uint64_t *a2)
 uint64_t sub_10075C598(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(a1);
 }
 
-uint64_t sub_10075C668(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+uint64_t sub_10075C668(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
   swift_getKeyPath();
-  sub_100768830(a4, a5);
-  sub_100022718(&qword_100CB3DD8, &qword_100CB3DA8);
+  sub_100768830(a4, a5, a6);
+  sub_100022718(&qword_100CB3DD8, &qword_100CB3DA8, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368C8();
 }
 
 uint64_t sub_10075C730()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075C834@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075C834@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075C940()
+uint64_t sub_10075C940(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075CA10()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075CB14@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075CB14@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075CC20()
+uint64_t sub_10075CC20(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
-uint64_t sub_10075CCF0()
+uint64_t sub_10075CCF0(char a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075CDBC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075CEFC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075D03C(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -2559,7 +2559,7 @@ uint64_t sub_10075D03C(uint64_t a1, uint64_t *a2)
 uint64_t sub_10075D184(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(a1);
@@ -2568,12 +2568,12 @@ uint64_t sub_10075D184(uint64_t a1)
 uint64_t sub_10075D254()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   return v0;
@@ -2583,12 +2583,12 @@ double sub_10075D380@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   result = *&v4;
@@ -2596,56 +2596,56 @@ double sub_10075D380@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_10075D4B4()
+uint64_t sub_10075D4B4(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
-uint64_t sub_10075D58C()
+uint64_t sub_10075D58C(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
 uint64_t sub_10075D66C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075D7AC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075D8EC(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -2654,7 +2654,7 @@ uint64_t sub_10075D8EC(uint64_t a1, uint64_t *a2)
 uint64_t sub_10075DA34(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(a1);
@@ -2663,39 +2663,39 @@ uint64_t sub_10075DA34(uint64_t a1)
 uint64_t sub_10075DB04()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075DC44()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075DD84(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -2704,7 +2704,7 @@ uint64_t sub_10075DD84(uint64_t a1, uint64_t *a2)
 uint64_t sub_10075DECC(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(a1);
@@ -2713,39 +2713,39 @@ uint64_t sub_10075DECC(uint64_t a1)
 uint64_t sub_10075DF9C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075E0DC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_10075E21C(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -2754,7 +2754,7 @@ uint64_t sub_10075E21C(uint64_t a1, uint64_t *a2)
 uint64_t sub_10075E364(uint64_t a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 
   return sub_100021EA4(a1);
@@ -2763,48 +2763,48 @@ uint64_t sub_10075E364(uint64_t a1)
 uint64_t sub_10075E434()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075E538@<X0>(_BYTE *a1@<X8>)
+uint64_t sub_10075E538@<X0>(_BYTE *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075E644()
+uint64_t sub_10075E644(char *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
-uint64_t sub_10075E714()
+uint64_t sub_10075E714(char a1)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  sub_100768830(&qword_100CB3DF0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AF0C0);
   sub_100936138();
 }
 
-uint64_t sub_10075E7E0(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+uint64_t sub_10075E7E0(uint64_t a1, char a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
   swift_getKeyPath();
-  sub_100768830(a4, a5);
+  sub_100768830(a4, a5, a6);
   sub_1009368C8();
 }
 
@@ -2830,9 +2830,9 @@ uint64_t sub_10075E86C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uin
   __chkstk_darwin(v60);
   v49 = &v46 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
   v23 = swift_allocObject();
-  *(v23 + 48) = sub_100706B30(&qword_100CB3E00);
+  *(v23 + 48) = sub_100706B30(&qword_100CB3E00, &qword_1009AE3C8);
   v56 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution;
-  v24 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  v24 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   v71 = v18;
   v72 = v18;
   v73 = v24;
@@ -2899,7 +2899,7 @@ uint64_t sub_10075E86C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uin
   (*(v68 + 16))(v49, v67, v60);
   sub_1000226D4((v23 + 24), *(v23 + 48));
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009366D8();
 
   v33 = *(v30 + 8);
@@ -2951,7 +2951,7 @@ uint64_t sub_10075E86C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uin
   v42 = v40[1];
   sub_100715738(v37, v36);
   sub_100715738(v38, v39);
-  sub_100768308(v41, v42);
+  sub_100768308(v41, v42, &v76);
   sub_100012970(&v71);
   v43 = v76;
   v44 = v77;
@@ -2966,7 +2966,7 @@ uint64_t sub_10075E86C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uin
   swift_getKeyPath();
   v69 = v23;
   v70 = v57;
-  sub_100768830(&qword_100CB3DF0, v56);
+  sub_100768830(&qword_100CB3DF0, v56, &unk_1009AF0C0);
   sub_100936138();
 
   sub_1007156D8(v63, v64);
@@ -2977,10 +2977,10 @@ uint64_t sub_10075E86C(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4, uin
   return v23;
 }
 
-uint64_t sub_10075F184(__int128 *a1)
+void *sub_10075F184(__int128 *a1)
 {
-  *(v1 + 48) = sub_100706B30(&qword_100CB3E00);
-  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  *(v1 + 48) = sub_100706B30(&qword_100CB3E00, &qword_1009AE3C8);
+  sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   *(v1 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v1 + 24));
   sub_100936858();
@@ -2994,7 +2994,7 @@ uint64_t sub_10075F184(__int128 *a1)
   *(v1 + 20) = 0;
   *(v1 + 16) = 0;
   swift_beginAccess();
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   sub_100308C84(a1, v1 + 24);
   swift_endAccess();
   return v1;
@@ -3003,11 +3003,11 @@ uint64_t sub_10075F184(__int128 *a1)
 uint64_t sub_10075F33C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   sub_1009368A8();
 
   return v0;
@@ -3017,93 +3017,93 @@ uint64_t sub_10075F440@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075F54C()
+uint64_t sub_10075F54C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936138();
 }
 
-uint64_t sub_10075F618()
+uint64_t sub_10075F618(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   sub_1009368C8();
 }
 
 uint64_t sub_10075F6B4()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   sub_1009368A8();
 
   return v1;
 }
 
-uint64_t sub_10075F7B8@<X0>(_DWORD *a1@<X8>)
+uint64_t sub_10075F7B8@<X0>(_DWORD *a2@<X8>)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   sub_1009368A8();
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t sub_10075F8C4()
+uint64_t sub_10075F8C4(int *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936138();
 }
 
-uint64_t sub_10075F994(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+uint64_t sub_10075F994(uint64_t a1, int a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
   swift_getKeyPath();
-  sub_100768830(a4, a5);
+  sub_100768830(a4, a5, a6);
   sub_1009368C8();
 }
 
 uint64_t sub_10075FA20()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_10075FB58()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -3111,24 +3111,25 @@ uint64_t sub_10075FC90(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3E08, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF1EC);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
-uint64_t sub_10075FE18(uint64_t a1, int a2, uint64_t a3)
+uint64_t sub_10075FE18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   v6 = swift_allocObject();
-  sub_10075FE70(a1, a2, a3);
+  sub_10075FE70(a1, v4, a3);
   return v6;
 }
 
@@ -3141,8 +3142,8 @@ uint64_t *sub_10075FE70(uint64_t a1, int a2, uint64_t a3)
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
   v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4[5] = sub_100706B30(&qword_100CB3E10);
-  v12 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  v4[5] = sub_100706B30(&qword_100CB3E10, &qword_1009AE448);
+  v12 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   v18 = v7;
   v19 = v7;
   v20 = v12;
@@ -3165,7 +3166,7 @@ uint64_t *sub_10075FE70(uint64_t a1, int a2, uint64_t a3)
   (*(v9 + 16))(v11, v17, v8);
   sub_1000226D4(v4 + 2, v4[5]);
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009366D8();
 
   v14 = *(v9 + 8);
@@ -3177,14 +3178,14 @@ uint64_t *sub_10075FE70(uint64_t a1, int a2, uint64_t a3)
 uint64_t *sub_100760180(__int128 *a1)
 {
   v2 = swift_allocObject();
-  v2[5] = sub_100706B30(&qword_100CB3E10);
-  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  v2[5] = sub_100706B30(&qword_100CB3E10, &qword_1009AE448);
+  sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   v2[6] = swift_getOpaqueTypeConformance2();
   sub_100014250(v2 + 2);
   sub_100936858();
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v2 + 2));
+  sub_100012970(v2 + 2);
   sub_100308C84(a1, (v2 + 2));
   swift_endAccess();
   return v2;
@@ -3193,25 +3194,25 @@ uint64_t *sub_100760180(__int128 *a1)
 uint64_t sub_1007602B0()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_1007603B4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1007603B4@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   *a2 = v4;
@@ -3219,35 +3220,35 @@ uint64_t sub_1007603B4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007604C0()
+uint64_t sub_1007604C0(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936138();
 }
 
 uint64_t sub_100760598()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_10076069C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_10076069C@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   *a2 = v4;
@@ -3255,35 +3256,35 @@ uint64_t sub_10076069C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007607A8()
+uint64_t sub_1007607A8(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936138();
 }
 
 uint64_t sub_100760880()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100760984@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100760984@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   *a2 = v4;
@@ -3291,21 +3292,21 @@ uint64_t sub_100760984@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100760A90()
+uint64_t sub_100760A90(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936138();
 }
 
 uint64_t sub_100760B68()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   return v0;
@@ -3315,81 +3316,81 @@ uint64_t sub_100760C6C@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100760D78()
+uint64_t sub_100760D78(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&qword_100CB3E18, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF318);
   sub_100936138();
 }
 
-uint64_t sub_100760E44()
+uint64_t sub_100760E44(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   sub_1009368C8();
 }
 
-uint64_t sub_100760EE0(uint64_t a1, void *a2)
+uint64_t sub_100760EE0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = swift_allocObject();
-  sub_100760F50(a1, a2);
-  return v4;
+  v10 = swift_allocObject();
+  sub_100760F50(a1, a2, a3, a4, a5);
+  return v10;
 }
 
-uint64_t *sub_100760F50(uint64_t a1, void *a2)
+uint64_t *sub_100760F50(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v3 = v2;
-  v2[5] = sub_100706B30(&qword_100CB3E20);
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
-  v2[6] = swift_getOpaqueTypeConformance2();
-  sub_100014250(v2 + 2);
+  v6 = v5;
+  v5[5] = sub_100706B30(&qword_100CB3E20, &qword_1009AE4F0);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
+  v5[6] = swift_getOpaqueTypeConformance2();
+  sub_100014250(v5 + 2);
   sub_100936858();
   sub_100936158();
-  sub_1000226D4(v3 + 2, v3[5]);
+  sub_1000226D4(v6 + 2, v6[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v3 + 2, v3[5]);
+  sub_1000226D4(v6 + 2, v6[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v3 + 2, v3[5]);
+  sub_1000226D4(v6 + 2, v6[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  v7._countAndFlagsBits = a1;
-  v7._object = a2;
-  sub_100936C08(v7);
+  v10._countAndFlagsBits = a1;
+  v10._object = a2;
+  sub_100936C08(v10);
 
-  sub_1000226D4(v3 + 2, v3[5]);
+  sub_1000226D4(v6 + 2, v6[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  return v2;
+  return v5;
 }
 
 uint64_t *sub_100761204(__int128 *a1)
 {
   v2 = swift_allocObject();
-  v2[5] = sub_100706B30(&qword_100CB3E20);
-  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  v2[5] = sub_100706B30(&qword_100CB3E20, &qword_1009AE4F0);
+  sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   v2[6] = swift_getOpaqueTypeConformance2();
   sub_100014250(v2 + 2);
   sub_100936858();
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v2 + 2));
+  sub_100012970(v2 + 2);
   sub_100308C84(a1, (v2 + 2));
   swift_endAccess();
   return v2;
@@ -3398,11 +3399,11 @@ uint64_t *sub_100761204(__int128 *a1)
 uint64_t sub_100761334()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   return v0;
@@ -3412,53 +3413,53 @@ uint64_t sub_100761438@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100761544()
+uint64_t sub_100761544(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
-uint64_t sub_100761610()
+uint64_t sub_100761610(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368C8();
 }
 
 uint64_t sub_1007616AC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_1007617B0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1007617B0@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   *a2 = v4;
@@ -3466,49 +3467,49 @@ uint64_t sub_1007617B0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_1007618BC()
+uint64_t sub_1007618BC(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
 uint64_t sub_100761994()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_100761AD4()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022718(&qword_100CB3DE0, &unk_100CBA670);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022718(&qword_100CB3DE0, &unk_100CBA670, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 }
 
 uint64_t sub_100761C14(uint64_t a1, uint64_t *a2)
 {
-  v4 = sub_100706B30(&qword_100CB4AC0);
+  v4 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v4 - 8);
   v6 = &v9[-v5];
-  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0);
+  sub_100012D50(a1, &v9[-v5], &qword_100CB4AC0, &qword_1009AC370);
   v7 = *a2;
   v12 = v7;
   swift_getKeyPath();
   v10 = v7;
   v11 = v6;
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 
   return sub_100021EA4(v6);
@@ -3517,24 +3518,24 @@ uint64_t sub_100761C14(uint64_t a1, uint64_t *a2)
 uint64_t sub_100761D5C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
 uint64_t sub_100761E94()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100768830(&unk_100CBA670, &type metadata accessor for Date);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100768830(&unk_100CBA670, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368A8();
 }
 
@@ -3542,36 +3543,36 @@ uint64_t sub_100761FCC(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100936038();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v10[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  (*(v5 + 16))(v7, a1, v4);
-  v8 = *a2;
-  v13 = v8;
+  v6 = __chkstk_darwin(v4);
+  v8 = &v11[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  (*(v5 + 16))(v8, a1, v4, v6);
+  v9 = *a2;
+  v14 = v9;
   swift_getKeyPath();
-  v11 = v8;
-  v12 = v7;
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  v12 = v9;
+  v13 = v8;
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 
-  return (*(v5 + 8))(v7, v4);
+  return (*(v5 + 8))(v8, v4);
 }
 
-uint64_t sub_100762154(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+uint64_t sub_100762154(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t), uint64_t a6)
 {
   swift_getKeyPath();
-  sub_100768830(a4, a5);
-  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  sub_100768830(a4, a5, a6);
+  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009368C8();
 }
 
 uint64_t sub_100762214()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   return v0;
@@ -3581,39 +3582,39 @@ uint64_t sub_100762318@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100762424()
+uint64_t sub_100762424(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
-uint64_t sub_1007624F0()
+uint64_t sub_1007624F0(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368C8();
 }
 
 uint64_t sub_10076258C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   return v0;
@@ -3623,40 +3624,40 @@ uint64_t sub_100762690@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_10076279C()
+uint64_t sub_10076279C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
-uint64_t sub_100762868()
+uint64_t sub_100762868(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   sub_1009368C8();
 }
 
 uint64_t sub_100762904()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   return v0;
@@ -3666,12 +3667,12 @@ double sub_100762A30@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   result = *&v4;
@@ -3679,22 +3680,22 @@ double sub_100762A30@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100762B64()
+uint64_t sub_100762B64(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
 uint64_t sub_100762C3C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   return v0;
@@ -3704,12 +3705,12 @@ double sub_100762D68@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   *&v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
-  sub_100022AC0(&qword_100CB3CE0);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
+  sub_100022AC0(&qword_100CB3CE0, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368A8();
 
   result = *&v4;
@@ -3717,22 +3718,22 @@ double sub_100762D68@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100762E9C()
+uint64_t sub_100762E9C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  sub_100768830(&qword_100CB3E28, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF444);
   sub_100936138();
 }
 
-uint64_t sub_100762F74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, void (*a6)(uint64_t))
+uint64_t sub_100762F74(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
 {
   swift_getKeyPath();
-  sub_100768830(a5, a6);
-  sub_100022AC0(&qword_100CB3CD8);
+  sub_100768830(a5, a6, a7);
+  sub_100022AC0(&qword_100CB3CD8, &protocol witness table for String, &protocol conformance descriptor for <A> A?);
   sub_1009368C8();
 }
 
-uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11)
+uint64_t sub_100763034(void *a1, uint64_t a2, uint64_t a3, char *a4, void *a5, void *a6, void *a7, uint64_t a8, void *a9, uint64_t a10, void *a11)
 {
   v30 = a7;
   v31 = a8;
@@ -3748,12 +3749,12 @@ uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void
   v37 = *(v35 - 8);
   __chkstk_darwin(v35);
   v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_100706B30(&qword_100CB4AC0);
+  v16 = sub_100706B30(&qword_100CB4AC0, &qword_1009AC370);
   __chkstk_darwin(v16);
   v18 = &v26 - v17;
   v19 = swift_allocObject();
-  *(v19 + 48) = sub_100706B30(&qword_100CB3E30);
-  v20 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  *(v19 + 48) = sub_100706B30(&qword_100CB3E30, &qword_1009AE638);
+  v20 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   v38 = v11;
   v39 = v11;
   v40 = v20;
@@ -3768,11 +3769,11 @@ uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void
   v39 = a2;
   sub_1009366D8();
 
-  sub_100012D50(a3, v18, &qword_100CB4AC0);
+  sub_100012D50(a3, v18, &qword_100CB4AC0, &qword_1009AC370);
   sub_1000226D4((v19 + 24), *(v19 + 48));
   swift_getKeyPath();
   v26 = &protocol conformance descriptor for <A> A?;
-  sub_100022718(&qword_100CB3DD8, &qword_100CB3DA8);
+  sub_100022718(&qword_100CB3DD8, &qword_100CB3DA8, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   sub_1009366D8();
 
   sub_100021EA4(v18);
@@ -3782,7 +3783,7 @@ uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void
   (*(v37 + 16))(v15, v36, v35);
   sub_1000226D4((v19 + 24), *(v19 + 48));
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date);
+  sub_100768830(&qword_100CB3DA8, &type metadata accessor for Date, &protocol conformance descriptor for Date);
   sub_1009366D8();
 
   v23 = v21 + 8;
@@ -3803,8 +3804,8 @@ uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void
   swift_getKeyPath();
   v38 = v30;
   v39 = v31;
-  sub_100706B30(&unk_100CBA310);
-  sub_100022AC0(&qword_100CB3CD8);
+  sub_100706B30(&unk_100CBA310, &qword_1009AD9F0);
+  sub_100022AC0(&qword_100CB3CD8, &protocol witness table for String, v26);
   sub_1009366D8();
 
   *(v19 + 17) = 0;
@@ -3825,10 +3826,10 @@ uint64_t sub_100763034(void *a1, void *a2, uint64_t a3, char *a4, void *a5, void
   return v19;
 }
 
-uint64_t sub_100763608(__int128 *a1)
+void *sub_100763608(__int128 *a1)
 {
-  *(v1 + 48) = sub_100706B30(&qword_100CB3E30);
-  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  *(v1 + 48) = sub_100706B30(&qword_100CB3E30, &qword_1009AE638);
+  sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   *(v1 + 56) = swift_getOpaqueTypeConformance2();
   sub_100014250((v1 + 24));
   sub_100936858();
@@ -3838,7 +3839,7 @@ uint64_t sub_100763608(__int128 *a1)
   *(v1 + 16) = 0;
   *(v1 + 18) = 0;
   swift_beginAccess();
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   sub_100308C84(a1, v1 + 24);
   swift_endAccess();
   return v1;
@@ -3846,7 +3847,7 @@ uint64_t sub_100763608(__int128 *a1)
 
 uint64_t sub_100763770(uint64_t *a1)
 {
-  sub_100012970(v1 + 24);
+  sub_100012970((v1 + 24));
   v3 = *a1;
   v4 = sub_100936168();
   (*(*(v4 - 8) + 8))(v1 + v3, v4);
@@ -3857,25 +3858,25 @@ uint64_t sub_100763770(uint64_t *a1)
 uint64_t sub_100763814()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
 }
 
-uint64_t sub_100763918@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100763918@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
@@ -3883,28 +3884,28 @@ uint64_t sub_100763918@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100763A24()
+uint64_t sub_100763A24(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100763AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, void (*a6)(uint64_t))
+uint64_t sub_100763AFC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t *a5, uint64_t (*a6)(uint64_t), uint64_t a7)
 {
   swift_getKeyPath();
-  sub_100768830(a5, a6);
+  sub_100768830(a5, a6, a7);
   sub_1009368C8();
 }
 
 uint64_t sub_100763B94()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -3914,39 +3915,39 @@ uint64_t sub_100763C98@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100763DA4()
+uint64_t sub_100763DA4(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100763E70()
+uint64_t sub_100763E70(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100763F0C()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -3956,39 +3957,39 @@ uint64_t sub_100764010@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_10076411C()
+uint64_t sub_10076411C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_1007641E8()
+uint64_t sub_1007641E8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100764284()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -3998,39 +3999,39 @@ uint64_t sub_100764388@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100764494()
+uint64_t sub_100764494(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100764560()
+uint64_t sub_100764560(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_1007645FC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4040,39 +4041,39 @@ uint64_t sub_100764700@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_10076480C()
+uint64_t sub_10076480C(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_1007648D8()
+uint64_t sub_1007648D8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100764974()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4082,39 +4083,39 @@ uint64_t sub_100764A78@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100764B84()
+uint64_t sub_100764B84(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100764C50()
+uint64_t sub_100764C50(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100764CEC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4124,39 +4125,39 @@ uint64_t sub_100764DF0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100764EFC()
+uint64_t sub_100764EFC(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100764FC8()
+uint64_t sub_100764FC8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100765064()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4166,39 +4167,39 @@ uint64_t sub_100765168@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100765274()
+uint64_t sub_100765274(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100765340()
+uint64_t sub_100765340(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_1007653DC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4208,39 +4209,39 @@ uint64_t sub_1007654E0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_1007655EC()
+uint64_t sub_1007655EC(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_1007656B8()
+uint64_t sub_1007656B8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100765754()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4250,39 +4251,39 @@ uint64_t sub_100765858@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100765964()
+uint64_t sub_100765964(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100765A30()
+uint64_t sub_100765A30(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
 uint64_t sub_100765ACC()
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   return v0;
@@ -4292,85 +4293,85 @@ uint64_t sub_100765BD0@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v4 = *a1;
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936148();
 
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368A8();
 
   *a2 = v4;
   return result;
 }
 
-uint64_t sub_100765CDC()
+uint64_t sub_100765CDC(uint64_t *a1, uint64_t *a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CB3E38, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF570);
   sub_100936138();
 }
 
-uint64_t sub_100765DA8()
+uint64_t sub_100765DA8(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   sub_1009368C8();
 }
 
-uint64_t *sub_100765E44()
+uint64_t *sub_100765E44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v0 = swift_allocObject();
-  v0[5] = sub_100706B30(&qword_100CB3E40);
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
-  v0[6] = swift_getOpaqueTypeConformance2();
-  sub_100014250(v0 + 2);
+  v12 = swift_allocObject();
+  v12[5] = sub_100706B30(&qword_100CB3E40, &qword_1009AE7F8);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
+  v12[6] = swift_getOpaqueTypeConformance2();
+  sub_100014250(v12 + 2);
   sub_100936858();
   sub_100936158();
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  sub_1000226D4(v0 + 2, v0[5]);
+  sub_1000226D4(v12 + 2, v12[5]);
   swift_getKeyPath();
   sub_1009366D8();
 
-  return v0;
+  return v12;
 }
 
 uint64_t sub_1007662F4(uint64_t a1, void (*a2)(uint64_t))
@@ -4382,14 +4383,14 @@ uint64_t sub_1007662F4(uint64_t a1, void (*a2)(uint64_t))
 
 uint64_t *sub_100766344(__int128 *a1)
 {
-  v1[5] = sub_100706B30(&qword_100CB3E40);
-  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  v1[5] = sub_100706B30(&qword_100CB3E40, &qword_1009AE7F8);
+  sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   v1[6] = swift_getOpaqueTypeConformance2();
   sub_100014250(v1 + 2);
   sub_100936858();
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v1 + 2));
+  sub_100012970(v1 + 2);
   sub_100308C84(a1, (v1 + 2));
   swift_endAccess();
   return v1;
@@ -4397,7 +4398,7 @@ uint64_t *sub_100766344(__int128 *a1)
 
 uint64_t sub_10076648C(uint64_t *a1)
 {
-  sub_100012970(v1 + 16);
+  sub_100012970((v1 + 16));
   v3 = *a1;
   v4 = sub_100936168();
   (*(*(v4 - 8) + 8))(v1 + v3, v4);
@@ -4405,7 +4406,7 @@ uint64_t sub_10076648C(uint64_t *a1)
   return swift_deallocClassInstance();
 }
 
-void (*sub_100766574(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100766574(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4429,12 +4430,12 @@ uint64_t sub_1007666F0(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable);
+  v5 = sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable, &unk_1009AE8A8);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_1007667D0(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_1007667D0(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4458,12 +4459,12 @@ uint64_t sub_100766954(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  v5 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_1007669EC(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_1007669EC(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4487,12 +4488,12 @@ uint64_t sub_100766B68(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus);
+  v5 = sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus, &unk_1009AEB00);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_100766C60(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100766C60(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4516,12 +4517,12 @@ uint64_t sub_100766DDC(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v5 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_100766E74(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100766E74(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4545,12 +4546,12 @@ uint64_t sub_100766FF0(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  v5 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_100767088(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100767088(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4574,12 +4575,12 @@ uint64_t sub_100767204(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  v5 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_10076729C(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_10076729C(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4603,12 +4604,12 @@ uint64_t sub_100767418(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  v5 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-void (*sub_1007674C8(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_1007674C8(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4632,27 +4633,27 @@ uint64_t sub_100767644(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  v5 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
 
-uint64_t *sub_1007676F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t *))
+uint64_t *sub_1007676F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, void (*a7)(uint64_t, uint64_t *))
 {
-  v10 = swift_allocObject();
-  v10[5] = sub_100706B30(a4);
-  v10[6] = swift_getOpaqueTypeConformance2();
-  sub_100014250(v10 + 2);
+  v11 = swift_allocObject();
+  v11[5] = sub_100706B30(a4, a5);
+  v11[6] = swift_getOpaqueTypeConformance2();
+  sub_100014250(v11 + 2);
   sub_100936858();
   sub_100936158();
   swift_beginAccess();
-  sub_100012970((v10 + 2));
-  a7(a1, v10 + 2);
+  sub_100012970(v11 + 2);
+  a7(a1, v11 + 2);
   swift_endAccess();
-  return v10;
+  return v11;
 }
 
-void (*sub_1007677FC(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_1007677FC(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4676,7 +4677,7 @@ uint64_t sub_100767978(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  v5 = sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
@@ -4684,12 +4685,12 @@ uint64_t sub_100767978(uint64_t *a1, uint64_t *a2)
 uint64_t sub_100767A10(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
 {
   swift_beginAccess();
-  sub_100012970(v4 + 24);
+  sub_100012970((v4 + 24));
   a4(a1, v4 + 24);
   return swift_endAccess();
 }
 
-void (*sub_100767A78(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100767A78(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4713,7 +4714,7 @@ uint64_t sub_100767BF4(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  v5 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
@@ -4728,12 +4729,12 @@ uint64_t sub_100767C8C(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
 uint64_t sub_100767CDC(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
 {
   swift_beginAccess();
-  sub_100012970(v4 + 16);
+  sub_100012970((v4 + 16));
   a4(a1, v4 + 16);
   return swift_endAccess();
 }
 
-void (*sub_100767D44(uint64_t *a1))(uint64_t *, char)
+uint64_t (*sub_100767D44(uint64_t *a1))(uint64_t, uint64_t)
 {
   if (&_swift_coroFrameAlloc)
   {
@@ -4753,14 +4754,14 @@ void (*sub_100767D44(uint64_t *a1))(uint64_t *, char)
   return sub_10077174C;
 }
 
-Swift::Int sub_100767DD8()
+Swift::Int sub_100767DD8(uint64_t a1, uint64_t a2)
 {
   sub_100937668();
   sub_100936AD8();
   return sub_1009376C8();
 }
 
-Swift::Int sub_100767EB0()
+Swift::Int sub_100767EB0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_100937668();
   sub_100936AD8();
@@ -4771,7 +4772,7 @@ uint64_t sub_100767F84(uint64_t *a1, uint64_t *a2)
 {
   v3 = *a1;
   v4 = *a2;
-  v5 = sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  v5 = sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
 
   return static PersistentModel.== infix(_:_:)(v3, v4, v2, v5);
 }
@@ -4858,7 +4859,7 @@ LABEL_18:
   return result;
 }
 
-size_t sub_100768130(size_t result, int64_t a2, char a3, void *a4)
+void *sub_100768130(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -4904,7 +4905,7 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   v10 = *(sub_1009369C8() - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
@@ -4918,7 +4919,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -4950,31 +4951,31 @@ LABEL_19:
   return v13;
 }
 
-uint64_t sub_100768308(uint64_t a1, unint64_t a2)
+uint64_t sub_100768308(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v2 = a2 >> 62;
+  v3 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
-    if (!v2)
+    if (!v3)
     {
       return sub_100935E58();
     }
 
-    v3 = a1;
-    v4 = a1 >> 32;
+    v4 = a1;
+    v5 = a1 >> 32;
     if (a1 >> 32 < a1)
     {
       __break(1u);
     }
 
-    return sub_100768440(v3, v4);
+    return sub_100768440(v4, v5);
   }
 
-  if (v2 == 2)
+  if (v3 == 2)
   {
-    v3 = *(a1 + 16);
-    v4 = *(a1 + 24);
-    return sub_100768440(v3, v4);
+    v4 = *(a1 + 16);
+    v5 = *(a1 + 24);
+    return sub_100768440(v4, v5);
   }
 
   return sub_100935E58();
@@ -5000,57 +5001,57 @@ uint64_t sub_100768440(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1007684D4()
 {
-  sub_100706B30(&unk_100CB4A00);
+  sub_100706B30(&unk_100CB4A00, &unk_1009B31E0);
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD8E0;
   v1 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice(0);
-  v2 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+  v2 = sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
   *(v0 + 32) = v1;
   *(v0 + 40) = v2;
   v3 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable(0);
-  v4 = sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable);
+  v4 = sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable, &unk_1009AE8A8);
   *(v0 + 48) = v3;
   *(v0 + 56) = v4;
   v5 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession(0);
-  v6 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession);
+  v6 = sub_100768830(&unk_100CBA9C0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSession, &unk_1009AEC2C);
   *(v0 + 64) = v5;
   *(v0 + 72) = v6;
   v7 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity(0);
-  v8 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity);
+  v8 = sub_100768830(&qword_100CBAE40, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDPublicIdentity, &unk_1009AED58);
   *(v0 + 80) = v7;
   *(v0 + 88) = v8;
   v9 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution(0);
-  v10 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution);
+  v10 = sub_100768830(&qword_100CB3DF8, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDSenderKeyDistribution, &unk_1009AEFB0);
   *(v0 + 96) = v9;
   *(v0 + 104) = v10;
   v11 = type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex(0);
-  v12 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex);
+  v12 = sub_100768830(&qword_100CBA960, type metadata accessor for SDPersistenceSchemaV6.IDSGroupEncryptionKeyRollIndex, &unk_1009AF0DC);
   *(v0 + 112) = v11;
   *(v0 + 120) = v12;
   v13 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle(0);
-  v14 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle);
+  v14 = sub_100768830(&qword_100CB3DD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDShortHandle, &unk_1009AEE84);
   *(v0 + 128) = v13;
   *(v0 + 136) = v14;
   v15 = type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle(0);
-  v16 = sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle);
+  v16 = sub_100768830(&unk_100CBABE0, type metadata accessor for SDPersistenceSchemaV6.IDSOffGridDeliveryDonatedHandle, &unk_1009AF208);
   *(v0 + 144) = v15;
   *(v0 + 152) = v16;
   v17 = type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent(0);
-  v18 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent);
+  v18 = sub_100768830(&qword_100CBA620, type metadata accessor for SDPersistenceSchemaV6.IDSRegistrationEvent, &unk_1009AF334);
   *(v0 + 160) = v17;
   *(v0 + 168) = v18;
   v19 = type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount(0);
-  v20 = sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount);
+  v20 = sub_100768830(&qword_100CBA5B0, type metadata accessor for SDPersistenceSchemaV6.IDSQualifiedContactsCount, &unk_1009AF460);
   *(v0 + 176) = v19;
   *(v0 + 184) = v20;
   v21 = type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus(0);
-  v22 = sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus);
+  v22 = sub_100768830(&qword_100CB3D30, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDStatus, &unk_1009AEB00);
   *(v0 + 192) = v21;
   *(v0 + 200) = v22;
   return v0;
 }
 
-uint64_t sub_100768830(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100768830(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5075,12 +5076,12 @@ unint64_t sub_100768A18()
   return result;
 }
 
-uint64_t sub_100768A6C(unint64_t *a1, void (*a2)(void))
+uint64_t sub_100768A6C(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_1007147D0(&qword_100CB3CE8);
+    sub_1007147D0(&qword_100CB3CE8, &qword_1009ADA48);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -5106,9 +5107,9 @@ unint64_t sub_100768BC0()
   result = qword_100CB3D08;
   if (!qword_100CB3D08)
   {
-    sub_1007147D0(&qword_100CB3D00);
-    sub_100014C88(&qword_100CB3D10, &qword_100CB3D18);
-    sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice);
+    sub_1007147D0(&qword_100CB3D00, &qword_1009ADA78);
+    sub_100014C88(&qword_100CB3D10, &qword_100CB3D18, &qword_1009ADA80, &protocol conformance descriptor for [A]);
+    sub_100768830(&unk_100CBABC0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDDevice, &unk_1009AE9D4);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100CB3D08);
   }
@@ -5122,14 +5123,14 @@ uint64_t sub_100768CD4()
   v1 = *(v0 - 8);
   __chkstk_darwin(v0);
   v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1009AD830;
   swift_getKeyPath();
   v13 = 0u;
   v14 = 0u;
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
@@ -5137,7 +5138,7 @@ uint64_t sub_100768CD4()
   swift_allocObject();
   v6 = sub_100936A38();
   *(&v11 + 1) = v5;
-  v12 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  v12 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   *&v10 = v6;
   sub_1009369B8();
   swift_getKeyPath();
@@ -5176,25 +5177,25 @@ uint64_t sub_100768CD4()
   v11 = 0u;
   sub_1009369B8();
   swift_getKeyPath();
-  *(&v14 + 1) = sub_100706B30(&qword_100CB49F0);
+  *(&v14 + 1) = sub_100706B30(&qword_100CB49F0, &qword_1009AFFB0);
   *&v13 = &_swiftEmptyArrayStorage;
   (*(v1 + 104))(v3, enum case for Schema.Relationship.DeleteRule.nullify(_:), v0);
   v7 = sub_100936988();
   swift_allocObject();
   v8 = sub_100936998();
   *(&v11 + 1) = v7;
-  v12 = sub_100768830(&qword_100CB49F8, &type metadata accessor for Schema.Relationship);
+  v12 = sub_100768830(&qword_100CB49F8, &type metadata accessor for Schema.Relationship, &protocol conformance descriptor for Schema.Relationship);
   *&v10 = v8;
   sub_1009369B8();
   return v4;
 }
 
-uint64_t sub_100769364(unint64_t *a1)
+uint64_t sub_100769364(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_1007147D0(&qword_100CB3D38);
+    sub_1007147D0(&qword_100CB3D38, &qword_1009BEF40);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5204,19 +5205,19 @@ uint64_t sub_100769364(unint64_t *a1)
 
 uint64_t sub_100769478()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD830;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -5262,9 +5263,9 @@ unint64_t sub_100769D90()
   result = qword_100CB3D78;
   if (!qword_100CB3D78)
   {
-    sub_1007147D0(&qword_100CB3D70);
-    sub_100014C88(&qword_100CB3D80, &qword_100CB3D88);
-    sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable);
+    sub_1007147D0(&qword_100CB3D70, &qword_1009ADDC0);
+    sub_100014C88(&qword_100CB3D80, &qword_100CB3D88, &qword_1009ADDC8, &protocol conformance descriptor for [A]);
+    sub_100768830(&qword_100CB3CD0, type metadata accessor for SDPersistenceSchemaV6.IDSQuerySDAddressable, &unk_1009AE8A8);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_100CB3D78);
   }
@@ -5278,14 +5279,14 @@ uint64_t sub_100769EA4()
   v0 = *(v10 - 8);
   __chkstk_darwin(v10);
   v2 = &v9 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1009AD8F0;
   swift_getKeyPath();
   v14 = 0u;
   v15 = 0u;
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
@@ -5293,7 +5294,7 @@ uint64_t sub_100769EA4()
   swift_allocObject();
   v5 = sub_100936A38();
   *(&v12 + 1) = v4;
-  v13 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  v13 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   *&v11 = v5;
   sub_1009369B8();
   swift_getKeyPath();
@@ -5374,7 +5375,7 @@ uint64_t sub_100769EA4()
   v12 = 0u;
   sub_1009369B8();
   swift_getKeyPath();
-  *(&v15 + 1) = sub_100706B30(&qword_100CB49F0);
+  *(&v15 + 1) = sub_100706B30(&qword_100CB49F0, &qword_1009AFFB0);
   *&v14 = &_swiftEmptyArrayStorage;
   swift_getKeyPath();
   (*(v0 + 104))(v2, enum case for Schema.Relationship.DeleteRule.nullify(_:), v10);
@@ -5382,7 +5383,7 @@ uint64_t sub_100769EA4()
   swift_allocObject();
   v7 = sub_100936998();
   *(&v12 + 1) = v6;
-  v13 = sub_100768830(&qword_100CB49F8, &type metadata accessor for Schema.Relationship);
+  v13 = sub_100768830(&qword_100CB49F8, &type metadata accessor for Schema.Relationship, &protocol conformance descriptor for Schema.Relationship);
   *&v11 = v7;
   sub_1009369B8();
   return v3;
@@ -5468,18 +5469,18 @@ BOOL sub_10076A888(__int128 *a1, __int128 *a2)
   {
     if (*(&v37 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v38, &v36, &qword_100CB3CE8);
-      sub_100012D50(&v37, &v36, &qword_100CB3CE8);
+      sub_100012D50(&v38, &v36, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v37, &v36, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v6, v5);
       goto LABEL_7;
     }
 
 LABEL_5:
-    sub_100012D50(&v38, &v36, &qword_100CB3CE8);
+    sub_100012D50(&v38, &v36, &qword_100CB3CE8, &qword_1009ADA48);
     v9 = &v37;
     v10 = &v36;
 LABEL_12:
-    sub_100012D50(v9, v10, &qword_100CB3CE8);
+    sub_100012D50(v9, v10, &qword_100CB3CE8, &qword_1009ADA48);
     sub_10001C370(v6, v5);
     v12 = v7;
     v13 = v8;
@@ -5493,12 +5494,12 @@ LABEL_13:
     goto LABEL_5;
   }
 
-  sub_100012D50(&v38, &v36, &qword_100CB3CE8);
-  sub_100012D50(&v37, &v36, &qword_100CB3CE8);
+  sub_100012D50(&v38, &v36, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v37, &v36, &qword_100CB3CE8, &qword_1009ADA48);
   v11 = sub_10071CAE8(v6, v5, v7, v8);
   sub_10001C370(v7, v8);
   sub_10001C370(v6, v5);
-  if ((v11 & 1) == 0)
+  if (!v11)
   {
     return 0;
   }
@@ -5514,8 +5515,8 @@ LABEL_7:
   {
     if (*(&v35 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v36, &v34, &qword_100CB3CE8);
-      sub_100012D50(&v35, &v34, &qword_100CB3CE8);
+      sub_100012D50(&v36, &v34, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v35, &v34, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v6, v5);
       goto LABEL_16;
     }
@@ -5526,18 +5527,18 @@ LABEL_7:
   if (*(&v35 + 1) >> 60 == 15)
   {
 LABEL_11:
-    sub_100012D50(&v36, &v34, &qword_100CB3CE8);
+    sub_100012D50(&v36, &v34, &qword_100CB3CE8, &qword_1009ADA48);
     v9 = &v35;
     v10 = &v34;
     goto LABEL_12;
   }
 
-  sub_100012D50(&v36, &v34, &qword_100CB3CE8);
-  sub_100012D50(&v35, &v34, &qword_100CB3CE8);
+  sub_100012D50(&v36, &v34, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v35, &v34, &qword_100CB3CE8, &qword_1009ADA48);
   v15 = sub_10071CAE8(v6, v5, v7, v8);
   sub_10001C370(v7, v8);
   sub_10001C370(v6, v5);
-  if ((v15 & 1) == 0)
+  if (!v15)
   {
     return 0;
   }
@@ -5559,8 +5560,8 @@ LABEL_16:
   {
     if (*(&v33 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v34, &v32, &qword_100CB3CE8);
-      sub_100012D50(&v33, &v32, &qword_100CB3CE8);
+      sub_100012D50(&v34, &v32, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v33, &v32, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v6, v5);
       goto LABEL_24;
     }
@@ -5571,18 +5572,18 @@ LABEL_16:
   if (*(&v33 + 1) >> 60 == 15)
   {
 LABEL_22:
-    sub_100012D50(&v34, &v32, &qword_100CB3CE8);
+    sub_100012D50(&v34, &v32, &qword_100CB3CE8, &qword_1009ADA48);
     v9 = &v33;
     v10 = &v32;
     goto LABEL_12;
   }
 
-  sub_100012D50(&v34, &v32, &qword_100CB3CE8);
-  sub_100012D50(&v33, &v32, &qword_100CB3CE8);
+  sub_100012D50(&v34, &v32, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v33, &v32, &qword_100CB3CE8, &qword_1009ADA48);
   v17 = sub_10071CAE8(v6, v5, v7, v8);
   sub_10001C370(v7, v8);
   sub_10001C370(v6, v5);
-  if ((v17 & 1) == 0)
+  if (!v17)
   {
     return 0;
   }
@@ -5599,8 +5600,8 @@ LABEL_24:
   {
     if (*(&v31 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v32, &v30, &qword_100CB3CE8);
-      sub_100012D50(&v31, &v30, &qword_100CB3CE8);
+      sub_100012D50(&v32, &v30, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v31, &v30, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v6, v5);
       goto LABEL_30;
     }
@@ -5611,18 +5612,18 @@ LABEL_24:
   if (*(&v31 + 1) >> 60 == 15)
   {
 LABEL_28:
-    sub_100012D50(&v32, &v30, &qword_100CB3CE8);
+    sub_100012D50(&v32, &v30, &qword_100CB3CE8, &qword_1009ADA48);
     v9 = &v31;
     v10 = &v30;
     goto LABEL_12;
   }
 
-  sub_100012D50(&v32, &v30, &qword_100CB3CE8);
-  sub_100012D50(&v31, &v30, &qword_100CB3CE8);
+  sub_100012D50(&v32, &v30, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v31, &v30, &qword_100CB3CE8, &qword_1009ADA48);
   v19 = sub_10071CAE8(v6, v5, v7, v8);
   sub_10001C370(v7, v8);
   sub_10001C370(v6, v5);
-  if ((v19 & 1) == 0)
+  if (!v19)
   {
     return 0;
   }
@@ -5639,8 +5640,8 @@ LABEL_30:
   {
     if (*(&v29 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v30, &v28, &qword_100CB3CE8);
-      sub_100012D50(&v29, &v28, &qword_100CB3CE8);
+      sub_100012D50(&v30, &v28, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v29, &v28, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v6, v5);
       goto LABEL_36;
     }
@@ -5651,18 +5652,18 @@ LABEL_30:
   if (*(&v29 + 1) >> 60 == 15)
   {
 LABEL_34:
-    sub_100012D50(&v30, &v28, &qword_100CB3CE8);
+    sub_100012D50(&v30, &v28, &qword_100CB3CE8, &qword_1009ADA48);
     v9 = &v29;
     v10 = &v28;
     goto LABEL_12;
   }
 
-  sub_100012D50(&v30, &v28, &qword_100CB3CE8);
-  sub_100012D50(&v29, &v28, &qword_100CB3CE8);
+  sub_100012D50(&v30, &v28, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v29, &v28, &qword_100CB3CE8, &qword_1009ADA48);
   v21 = sub_10071CAE8(v6, v5, v7, v8);
   sub_10001C370(v7, v8);
   sub_10001C370(v6, v5);
-  if ((v21 & 1) == 0)
+  if (!v21)
   {
     return 0;
   }
@@ -5677,8 +5678,8 @@ LABEL_36:
   {
     if (*(&v27 + 1) >> 60 == 15)
     {
-      sub_100012D50(&v28, v26, &qword_100CB3CE8);
-      sub_100012D50(&v27, v26, &qword_100CB3CE8);
+      sub_100012D50(&v28, v26, &qword_100CB3CE8, &qword_1009ADA48);
+      sub_100012D50(&v27, v26, &qword_100CB3CE8, &qword_1009ADA48);
       sub_10001C370(v23, *(&v23 + 1));
       return 1;
     }
@@ -5689,20 +5690,20 @@ LABEL_36:
   if (*(&v27 + 1) >> 60 == 15)
   {
 LABEL_40:
-    sub_100012D50(&v28, v26, &qword_100CB3CE8);
-    sub_100012D50(&v27, v26, &qword_100CB3CE8);
+    sub_100012D50(&v28, v26, &qword_100CB3CE8, &qword_1009ADA48);
+    sub_100012D50(&v27, v26, &qword_100CB3CE8, &qword_1009ADA48);
     sub_10001C370(v23, *(&v23 + 1));
     v13 = *(&v24 + 1);
     v12 = v24;
     goto LABEL_13;
   }
 
-  sub_100012D50(&v28, v26, &qword_100CB3CE8);
-  sub_100012D50(&v27, v26, &qword_100CB3CE8);
+  sub_100012D50(&v28, v26, &qword_100CB3CE8, &qword_1009ADA48);
+  sub_100012D50(&v27, v26, &qword_100CB3CE8, &qword_1009ADA48);
   v25 = sub_10071CAE8(v23, *(&v23 + 1), v24, *(&v24 + 1));
   sub_10001C370(v24, *(&v24 + 1));
   sub_10001C370(v23, *(&v23 + 1));
-  return (v25 & 1) != 0;
+  return v25;
 }
 
 unint64_t sub_10076AFEC()
@@ -5719,7 +5720,7 @@ unint64_t sub_10076AFEC()
 
 uint64_t sub_10076B040@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = sub_100706B30(&qword_100CB49E8);
+  v5 = sub_100706B30(&qword_100CB49E8, &qword_1009AFFA8);
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v27 - v7;
@@ -5834,19 +5835,19 @@ uint64_t sub_10076B040@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_10076BAC4()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD900;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -5869,19 +5870,19 @@ uint64_t sub_10076BAC4()
 
 uint64_t sub_10076C17C()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD840;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -5898,19 +5899,19 @@ uint64_t sub_10076C17C()
 
 uint64_t sub_10076C668()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AC7A0;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -5926,7 +5927,7 @@ uint64_t sub_10076D07C()
   v1 = v0;
   __chkstk_darwin(v24);
   v21 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   v3 = *(v0 + 72);
   v4 = (*(v1 + 80) + 32) & ~*(v1 + 80);
   v5 = swift_allocObject();
@@ -5936,7 +5937,7 @@ uint64_t sub_10076D07C()
   swift_getKeyPath();
   v28 = 0u;
   v29 = 0u;
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
@@ -5944,7 +5945,7 @@ uint64_t sub_10076D07C()
   swift_allocObject();
   v7 = sub_100936A38();
   *(&v26 + 1) = v6;
-  v8 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  v8 = sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   v27 = v8;
   *&v25 = v7;
   sub_1009369B8();
@@ -6079,10 +6080,10 @@ uint64_t sub_10076D07C()
   swift_getKeyPath();
   v28 = 0u;
   v29 = 0u;
-  sub_100706B30(&qword_100CB49D0);
+  sub_100706B30(&qword_100CB49D0, &qword_1009AFF90);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1009AD160;
-  sub_100706B30(&qword_100CB4A30);
+  sub_100706B30(&qword_100CB4A30, &qword_1009AFF98);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_1009AD920;
   *(v11 + 32) = swift_getKeyPath();
@@ -6092,12 +6093,12 @@ uint64_t sub_10076D07C()
   *(v12 + 32) = swift_getKeyPath();
   *(v12 + 40) = swift_getKeyPath();
   *(v10 + 40) = v12;
-  v13 = sub_100706B30(&qword_100CB49D8);
+  v13 = sub_100706B30(&qword_100CB49D8, &qword_1009AFFA0);
   swift_allocObject();
   v14 = sub_1009369E8();
   *(&v26 + 1) = v13;
   v15 = v21;
-  v27 = sub_100014C88(&qword_100CB49E0, &qword_100CB49D8);
+  v27 = sub_100014C88(&qword_100CB49E0, &qword_100CB49D8, &qword_1009AFFA0, &protocol conformance descriptor for Schema.Index<A>);
   *&v25 = v14;
   sub_1009369B8();
   v16 = sub_100768130(0, 1, 1, &_swiftEmptyArrayStorage);
@@ -6105,7 +6106,7 @@ uint64_t sub_10076D07C()
   v17 = *(v16 + 3);
   if (v18 >= v17 >> 1)
   {
-    v16 = sub_100768130(v17 > 1, v18 + 1, 1, v16);
+    v16 = sub_100768130((v17 > 1), v18 + 1, 1, v16);
   }
 
   *(v16 + 2) = v18 + 1;
@@ -6118,19 +6119,19 @@ uint64_t sub_10076D07C()
 
 uint64_t sub_10076DBD0()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AC7A0;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -6141,19 +6142,19 @@ uint64_t sub_10076DBD0()
 
 uint64_t sub_10076DFAC()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD150;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -6166,19 +6167,19 @@ uint64_t sub_10076DFAC()
 
 uint64_t sub_10076E534()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD940;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -6199,19 +6200,19 @@ uint64_t sub_10076E534()
 
 uint64_t sub_10076EBBC()
 {
-  sub_100706B30(&qword_100CB49B8);
+  sub_100706B30(&qword_100CB49B8, &qword_1009AFF50);
   sub_1009369C8();
   v0 = swift_allocObject();
   *(v0 + 16) = xmmword_1009AD8E0;
   swift_getKeyPath();
-  sub_100706B30(&qword_100CB49C0);
+  sub_100706B30(&qword_100CB49C0, &qword_1009AFF58);
   sub_100936A18();
   *(swift_allocObject() + 16) = xmmword_1009AC700;
   sub_100936A08();
   sub_100936A28();
   swift_allocObject();
   sub_100936A38();
-  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute);
+  sub_100768830(&qword_100CB49C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   sub_1009369B8();
   swift_getKeyPath();
   sub_1009369B8();
@@ -6236,10 +6237,10 @@ uint64_t sub_10076EBBC()
   return v0;
 }
 
-uint64_t sub_1007700DC()
+uint64_t sub_1007700DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6251,10 +6252,10 @@ uint64_t sub_1007700DC()
   return result;
 }
 
-uint64_t sub_1007701B4()
+uint64_t sub_1007701B4(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -6353,10 +6354,10 @@ uint64_t sub_10077033C(uint64_t result, unsigned int a2, unsigned int a3)
   return result;
 }
 
-uint64_t sub_1007703BC()
+uint64_t sub_1007703BC(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6368,10 +6369,10 @@ uint64_t sub_1007703BC()
   return result;
 }
 
-uint64_t sub_10077048C()
+uint64_t sub_10077048C(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6383,10 +6384,10 @@ uint64_t sub_10077048C()
   return result;
 }
 
-uint64_t sub_100770580()
+uint64_t sub_100770580(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -6394,10 +6395,10 @@ uint64_t sub_100770580()
   return result;
 }
 
-uint64_t sub_10077067C()
+uint64_t sub_10077067C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6409,10 +6410,10 @@ uint64_t sub_10077067C()
   return result;
 }
 
-uint64_t sub_100770740()
+uint64_t sub_100770740(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6424,10 +6425,10 @@ uint64_t sub_100770740()
   return result;
 }
 
-uint64_t sub_100770808()
+uint64_t sub_100770808(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6439,10 +6440,10 @@ uint64_t sub_100770808()
   return result;
 }
 
-uint64_t sub_1007708E4()
+uint64_t sub_1007708E4(uint64_t a1)
 {
   result = sub_100936168();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -6652,18 +6653,18 @@ unint64_t sub_100770BBC()
   return result;
 }
 
-uint64_t sub_100770DA0(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_100770DA0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   swift_getKeyPath();
-  sub_100768830(a2, a3);
+  sub_100768830(a2, a3, a4);
   sub_100768A18();
   sub_1009368C8();
 }
 
-uint64_t sub_100770EDC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_100770EDC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   swift_getKeyPath();
-  sub_100768830(a2, a3);
+  sub_100768830(a2, a3, a4);
   sub_1009368C8();
 }
 
@@ -6753,31 +6754,31 @@ LABEL_7:
     return &_swiftEmptyArrayStorage;
   }
 
-  sub_100014170(0, &unk_100CB4A20);
+  sub_100014170(0, &unk_100CB4A20, off_100BD2EF0);
   v7 = sub_100936CE8();
 
   return v7;
 }
 
-uint64_t sub_100771BB0()
+uint64_t sub_100771BB0(uint64_t a1, uint64_t a2)
 {
-  v1 = OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer;
-  if (*&v0[OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer])
+  v3 = OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer;
+  if (*&v2[OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer])
   {
-    v2 = *&v0[OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer];
+    v4 = *&v2[OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___rollKeysTimer];
   }
 
   else
   {
-    sub_100771C18(v0);
-    v2 = v3;
-    *&v0[v1] = v3;
+    sub_100771C18(v2);
+    v4 = v5;
+    *&v2[v3] = v5;
     swift_unknownObjectRetain();
     swift_unknownObjectRelease();
   }
 
   swift_unknownObjectRetain();
-  return v2;
+  return v4;
 }
 
 void sub_100771C18(void *a1)
@@ -6795,9 +6796,9 @@ void sub_100771C18(void *a1)
   v4 = sub_1009364E8();
   v33 = *(v4 - 8);
   v34 = v4;
-  v5 = __chkstk_darwin(v4);
-  v30 = (&v30 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v4);
+  v30 = (&v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  __chkstk_darwin(v6);
   v8 = (&v30 - v7);
   v9 = sub_100936558();
   v31 = *(v9 - 8);
@@ -6808,12 +6809,12 @@ void sub_100771C18(void *a1)
   v13 = *(v12 - 8);
   __chkstk_darwin(v12);
   v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = sub_100014170(0, &qword_100CB5058);
+  v42 = sub_100014170(0, &qword_100CB5058, OS_dispatch_source_ptr);
   v16 = im_primary_queue();
   aBlock[0] = &_swiftEmptyArrayStorage;
-  sub_1007924D8(&qword_100CB5060, &type metadata accessor for OS_dispatch_source.TimerFlags);
-  sub_100706B30(&qword_100CB5068);
-  sub_100014C88(&unk_100CB5070, &qword_100CB5068);
+  sub_1007924D8(&qword_100CB5060, &type metadata accessor for OS_dispatch_source.TimerFlags, &protocol conformance descriptor for OS_dispatch_source.TimerFlags);
+  sub_100706B30(&qword_100CB5068, &unk_1009B0CA8);
+  sub_100014C88(&unk_100CB5070, &qword_100CB5068, &unk_1009B0CA8, &protocol conformance descriptor for [A]);
   v17 = v11;
   sub_1009370B8();
   sub_100936FB8();
@@ -6880,16 +6881,16 @@ LABEL_7:
 uint64_t sub_1007721F0()
 {
   sub_1009364F8();
-  sub_1007924D8(&unk_100CB4AA0, &type metadata accessor for DispatchWorkItemFlags);
-  sub_100706B30(&unk_100CB3550);
-  sub_100014C88(&qword_100CB4AB0, &unk_100CB3550);
+  sub_1007924D8(&unk_100CB4AA0, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_100706B30(&unk_100CB3550, &qword_1009AC360);
+  sub_100014C88(&qword_100CB4AB0, &unk_100CB3550, &qword_1009AC360, &protocol conformance descriptor for [A]);
   return sub_1009370B8();
 }
 
-uint64_t (*sub_1007722F4(uint64_t *a1))(void *a1)
+uint64_t (*sub_1007722F4(uint64_t *a1, uint64_t a2))(uint64_t *a1)
 {
-  a1[1] = v1;
-  *a1 = sub_100771BB0();
+  a1[1] = v2;
+  *a1 = sub_100771BB0(a1, a2);
   return sub_10077233C;
 }
 
@@ -6919,6 +6920,13 @@ LABEL_5:
 
   __break(1u);
   return result;
+}
+
+uint64_t sub_100772464(uint64_t a1)
+{
+  v2 = *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___unsentRateLimiter);
+  *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___unsentRateLimiter) = a1;
+  return _objc_release_x1(a1, v2);
 }
 
 void (*sub_100772478(id *a1))(uint64_t *a1)
@@ -6964,6 +6972,13 @@ LABEL_5:
   return result;
 }
 
+uint64_t sub_1007725E8(uint64_t a1)
+{
+  v2 = *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___iMessageReceiveRateLimiter);
+  *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___iMessageReceiveRateLimiter) = a1;
+  return _objc_release_x1(a1, v2);
+}
+
 void (*sub_1007725FC(id *a1))(uint64_t *a1)
 {
   a1[1] = v1;
@@ -7005,6 +7020,13 @@ LABEL_5:
 
   __break(1u);
   return result;
+}
+
+uint64_t sub_10077276C(uint64_t a1)
+{
+  v2 = *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___lastActiveRateLimiter);
+  *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___lastActiveRateLimiter) = a1;
+  return _objc_release_x1(a1, v2);
 }
 
 void (*sub_100772780(id *a1))(uint64_t *a1)
@@ -7050,6 +7072,13 @@ LABEL_5:
   return result;
 }
 
+uint64_t sub_1007728F0(uint64_t a1)
+{
+  v2 = *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___lastIMessagedRateLimiter);
+  *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___lastIMessagedRateLimiter) = a1;
+  return _objc_release_x1(a1, v2);
+}
+
 void (*sub_100772904(id *a1))(uint64_t *a1)
 {
   a1[1] = v1;
@@ -7093,6 +7122,13 @@ LABEL_5:
   return result;
 }
 
+uint64_t sub_100772A74(uint64_t a1)
+{
+  v2 = *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___selfKeyCheckRateLimiter);
+  *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___selfKeyCheckRateLimiter) = a1;
+  return _objc_release_x1(a1, v2);
+}
+
 void (*sub_100772A88(id *a1))(uint64_t *a1)
 {
   a1[1] = v1;
@@ -7108,16 +7144,16 @@ void sub_100772AD0(uint64_t *a1)
   *(v1 + OBJC_IVAR___IDSSenderKeyDistributionManager____lazy_storage___selfKeyCheckRateLimiter) = v2;
 }
 
-id sub_100772B20@<X0>(unint64_t *a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
+id sub_100772B20@<X0>(void *a1@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   result = [objc_opt_self() sharedInstance];
   if (result)
   {
-    v7 = result;
-    result = sub_100014170(0, a1);
-    a3[3] = result;
-    a3[4] = a2;
-    *a3 = v7;
+    v9 = result;
+    result = sub_100014170(0, a2, a1);
+    a4[3] = result;
+    a4[4] = a3;
+    *a4 = v9;
   }
 
   else
@@ -7139,7 +7175,7 @@ id sub_100772B9C()
   return result;
 }
 
-void *sub_100772C24(void *a1, uint64_t a2, unint64_t a3)
+void *sub_100772C24(void *a1, uint64_t a2, uint64_t a3)
 {
   v44 = a2;
   v45 = a3;
@@ -7275,18 +7311,18 @@ id sub_1007731C8()
   return objc_msgSendSuper2(&v11, "dealloc");
 }
 
-id sub_100773484(uint64_t a1)
+id sub_100773484(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_self();
+  v3 = objc_opt_self();
   sub_100771A4C();
-  sub_100014170(0, &unk_100CB4A20);
+  sub_100014170(0, &unk_100CB4A20, off_100BD2EF0);
   isa = sub_100936CD8().super.isa;
 
-  sub_100014170(0, &qword_100CBA2E0);
-  v4 = sub_100936CD8().super.isa;
-  v5 = [v2 accountToQueryFrom:isa fromURI:a1 destinationURIs:v4 allowLocalAccount:0 respectFromURI:1];
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+  v5 = sub_100936CD8().super.isa;
+  v6 = [v3 accountToQueryFrom:isa fromURI:a1 destinationURIs:v5 allowLocalAccount:0 respectFromURI:1];
 
-  return v5;
+  return v6;
 }
 
 id sub_100773564(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void (*a8)(uint64_t), uint64_t a9)
@@ -7299,7 +7335,7 @@ id sub_100773564(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint
   v12 = swift_allocObject();
   *(v12 + 16) = &_swiftEmptyArrayStorage;
   v189 = (v12 + 16);
-  sub_100706B30(&qword_100CB4A30);
+  sub_100706B30(&qword_100CB4A30, &qword_1009AFF98);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1009AD920;
   *(inited + 32) = a3;
@@ -7431,7 +7467,7 @@ LABEL_245:
   }
 
   v33 = v32;
-  sub_100014170(0, &qword_100CBA2E0);
+  sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   isa = sub_100936CD8().super.isa;
   v35 = sub_100936B28();
   v36 = [v33 endpointsForURIs:isa service:v35 fromURI:v191];
@@ -7441,8 +7477,8 @@ LABEL_245:
     goto LABEL_245;
   }
 
-  sub_100706B30(&qword_100CB4A38);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  sub_100706B30(&qword_100CB4A38, &unk_1009AFFD0);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v37 = sub_100936A78();
 
   v38 = v37 + 64;
@@ -7993,7 +8029,7 @@ LABEL_146:
             }
 
             result = sub_100935C08();
-            v136 = (v54 >> 32) - v54;
+            v136 = ((v54 >> 32) - v54);
             if (result < v136)
             {
               v136 = result;
@@ -8224,7 +8260,7 @@ LABEL_192:
               }
 
               result = sub_100935C08();
-              v136 = (v54 >> 32) - v54;
+              v136 = ((v54 >> 32) - v54);
               if (result < v136)
               {
                 v136 = result;
@@ -8682,66 +8718,66 @@ LABEL_34:
   return v10 & 1;
 }
 
-uint64_t sub_100774D94(uint64_t (*a1)(char *), uint64_t a2, uint64_t a3)
+void sub_100774D94(uint64_t (*a1)(char *), uint64_t a2, uint64_t a3)
 {
   v7 = type metadata accessor for SenderKeyInfo(0);
-  v25 = *(v7 - 8);
-  v8 = __chkstk_darwin(v7 - 8);
-  v24 = v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = __chkstk_darwin(v8);
-  v12 = v21 - v11;
-  v23 = *(a3 + 16);
-  if (v23)
+  v24 = *(v7 - 8);
+  __chkstk_darwin(v7 - 8);
+  v23 = v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9);
+  v11 = v20 - v10;
+  v22 = *(a3 + 16);
+  if (v22)
   {
-    v13 = 0;
-    v14 = &_swiftEmptyArrayStorage;
-    v21[1] = a2;
-    v22 = a3;
-    v21[0] = a1;
-    while (v13 < *(a3 + 16))
+    v12 = 0;
+    v13 = &_swiftEmptyArrayStorage;
+    v20[1] = a2;
+    v21 = a3;
+    v20[0] = a1;
+    while (v12 < *(a3 + 16))
     {
-      v15 = (*(v25 + 80) + 32) & ~*(v25 + 80);
-      v16 = *(v25 + 72);
-      sub_1007927DC(a3 + v15 + v16 * v13, v12, type metadata accessor for SenderKeyInfo);
-      v17 = a1(v12);
+      v14 = (*(v24 + 80) + 32) & ~*(v24 + 80);
+      v15 = *(v24 + 72);
+      sub_1007927DC(a3 + v14 + v15 * v12, v11, type metadata accessor for SenderKeyInfo);
+      v16 = a1(v11);
       if (v3)
       {
-        sub_100791FE8(v12, type metadata accessor for SenderKeyInfo);
+        sub_100791FE8(v11, type metadata accessor for SenderKeyInfo);
 
         goto LABEL_15;
       }
 
-      if (v17)
+      if (v16)
       {
-        sub_100792048(v12, v24, type metadata accessor for SenderKeyInfo);
+        sub_100792048(v11, v23, type metadata accessor for SenderKeyInfo);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v26 = v14;
+        v25 = v13;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          sub_1007897B0(0, v14[2] + 1, 1);
-          v14 = v26;
+          sub_1007897B0(0, v13[2] + 1, 1);
+          v13 = v25;
         }
 
-        v20 = v14[2];
-        v19 = v14[3];
-        if (v20 >= v19 >> 1)
+        v19 = v13[2];
+        v18 = v13[3];
+        if (v19 >= v18 >> 1)
         {
-          sub_1007897B0(v19 > 1, v20 + 1, 1);
-          v14 = v26;
+          sub_1007897B0((v18 > 1), v19 + 1, 1);
+          v13 = v25;
         }
 
-        v14[2] = v20 + 1;
-        result = sub_100792048(v24, v14 + v15 + v20 * v16, type metadata accessor for SenderKeyInfo);
-        a3 = v22;
-        a1 = v21[0];
+        v13[2] = v19 + 1;
+        sub_100792048(v23, v13 + v14 + v19 * v15, type metadata accessor for SenderKeyInfo);
+        a3 = v21;
+        a1 = v20[0];
       }
 
       else
       {
-        result = sub_100791FE8(v12, type metadata accessor for SenderKeyInfo);
+        sub_100791FE8(v11, type metadata accessor for SenderKeyInfo);
       }
 
-      if (v23 == ++v13)
+      if (v22 == ++v12)
       {
         goto LABEL_15;
       }
@@ -8752,13 +8788,8 @@ uint64_t sub_100774D94(uint64_t (*a1)(char *), uint64_t a2, uint64_t a3)
 
   else
   {
-    v14 = &_swiftEmptyArrayStorage;
 LABEL_15:
-
-    return v14;
   }
-
-  return result;
 }
 
 void sub_100775020(uint64_t a1, void *a2, void *a3)
@@ -8809,9 +8840,9 @@ uint64_t sub_100775150(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   v21 = *(a1 + 32);
   if (a3)
   {
-    sub_100014170(0, &qword_100CBA2E0);
-    sub_100014170(0, &unk_100CBA300);
-    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+    sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+    sub_100014170(0, &unk_100CBA300, NSNumber_ptr);
+    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
     v19 = sub_100936A78();
     if (!v12)
     {
@@ -8825,7 +8856,7 @@ uint64_t sub_100775150(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t
   if (a4)
   {
 LABEL_3:
-    sub_100014170(0, &unk_100CBA300);
+    sub_100014170(0, &unk_100CBA300, NSNumber_ptr);
     v12 = sub_100936A78();
   }
 
@@ -8846,18 +8877,18 @@ LABEL_4:
   if (a8)
   {
 LABEL_6:
-    sub_100014170(0, &qword_100CBA2E0);
-    sub_100706B30(&qword_100CB5020);
-    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+    sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+    sub_100706B30(&qword_100CB5020, &qword_1009B0C88);
+    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
     a8 = sub_100936A78();
   }
 
 LABEL_7:
   if (a10)
   {
-    sub_100014170(0, &qword_100CBA2E0);
-    sub_100706B30(&qword_100CB4A38);
-    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+    sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
+    sub_100706B30(&qword_100CB4A38, &unk_1009AFFD0);
+    sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
     v13 = sub_100936A78();
   }
 
@@ -8886,7 +8917,7 @@ void sub_1007755C4(unint64_t a1, void *a2, uint64_t a3, unint64_t a4, unsigned _
     v20 = swift_slowAlloc();
     v86[0] = swift_slowAlloc();
     *v19 = 136316162;
-    sub_100014170(0, &qword_100CBA2E0);
+    sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
     v21 = sub_100936CF8();
     v23 = sub_10001273C(v21, v22, v86);
 
@@ -8943,7 +8974,7 @@ void sub_1007755C4(unint64_t a1, void *a2, uint64_t a3, unint64_t a4, unsigned _
 
     *(v19 + 44) = v34;
     _os_log_impl(&_mh_execute_header, v16, v82, "generateAndSendKeyIfNeeded called with toURIs: %s fromURI: %@ context: %s keyMessageType: %s requestedKeyIDs: %s", v19, 0x34u);
-    sub_100013814(v20, &qword_100CB36B0);
+    sub_100013814(v20, &qword_100CB36B0, &unk_1009AD140);
 
     swift_arrayDestroy();
   }
@@ -9290,12 +9321,12 @@ LABEL_15:
   __break(1u);
 }
 
-void sub_1007762D4(uint64_t *a1, void *a2, void (*a3)(void), uint64_t a4)
+void sub_1007762D4(uint64_t **a1, void *a2, void (*a3)(void), uint64_t a4)
 {
   v132 = a4;
   v131 = a3;
   v140 = a2;
-  v5 = sub_100706B30(&unk_100CB4A50);
+  v5 = sub_100706B30(&unk_100CB4A50, &unk_1009AFFE0);
   __chkstk_darwin(v5 - 8);
   v7 = &v124 - v6;
   v137 = type metadata accessor for SenderKeyAndState(0);
@@ -9438,7 +9469,7 @@ LABEL_25:
         break;
       }
 
-      v9 = sub_100014170(0, &qword_100CBA2E0);
+      v9 = sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
       if (sub_100937038())
       {
       }
@@ -9512,11 +9543,11 @@ LABEL_143:
 LABEL_44:
   v136 = v27;
   v29 = (*((swift_isaMask & *v28) + 0x1D8))();
-  sub_100706B30(&qword_100CB4A30);
+  sub_100706B30(&qword_100CB4A30, &qword_1009AFF98);
   v30 = swift_allocObject();
   *(v30 + 16) = xmmword_1009AD920;
   *(v30 + 32) = v26;
-  v31 = sub_100014170(0, &qword_100CBA2E0);
+  v31 = sub_100014170(0, &qword_100CBA2E0, IDSURI_ptr);
   v126 = v26;
   v32 = v26;
   v129 = v31;
@@ -9525,7 +9556,7 @@ LABEL_44:
   (*((swift_isaMask & *v28) + 0xC8))(v34);
   v35 = sub_100936B28();
 
-  sub_100706B30(&unk_100CBA2F0);
+  sub_100706B30(&unk_100CBA2F0, &unk_1009BE6F0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1009AC700;
   *(inited + 32) = sub_100936B38();
@@ -9535,8 +9566,8 @@ LABEL_44:
   *(inited + 48) = [v38 initWithInteger:1];
   sub_1007917EC(inited);
   swift_setDeallocating();
-  sub_100013814(inited + 32, &unk_100CB4A60);
-  sub_100014170(0, &unk_100CBA300);
+  sub_100013814(inited + 32, &unk_100CB4A60, &qword_1009AFFF0);
+  sub_100014170(0, &unk_100CBA300, NSNumber_ptr);
   v10 = sub_100936A58().super.isa;
 
   v40 = [v29 endpointsForURIs:isa service:v35 fromURI:v39 withCapabilities:v10];
@@ -9548,8 +9579,8 @@ LABEL_44:
   }
 
   swift_unknownObjectRelease();
-  v7 = sub_100706B30(&qword_100CB4A38);
-  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0);
+  v7 = sub_100706B30(&qword_100CB4A38, &unk_1009AFFD0);
+  sub_100746FD4(&unk_100CB4A40, &qword_100CBA2E0, IDSURI_ptr);
   v9 = sub_100936A78();
 
   a1 = v139;
@@ -9889,7 +9920,7 @@ LABEL_99:
       if ((*a1)(v75, 1, v137) == 1)
       {
 
-        sub_100013814(v75, &unk_100CB4A50);
+        sub_100013814(v75, &unk_100CB4A50, &unk_1009AFFE0);
         goto LABEL_102;
       }
 
@@ -9992,7 +10023,7 @@ LABEL_124:
   {
     v98 = sub_1007884E0(*(v96 + 16), 0);
     v99 = sub_10078FCE0(&v142, v98 + 4, v97, v96);
-    sub_100308C6C();
+    sub_100308C6C(v142);
     if (v99 != v97)
     {
       __break(1u);
@@ -10043,7 +10074,7 @@ LABEL_124:
     *(v104 + 24) = v114;
     v100 = v139;
     _os_log_impl(&_mh_execute_header, v102, v103, "Will send self key check message to myURI: %@ for filteredPeerURIs: %s with keyIDsToCheck: %s", v104, 0x20u);
-    sub_100013814(v105, &qword_100CB36B0);
+    sub_100013814(v105, &qword_100CB36B0, &unk_1009AD140);
 
     swift_arrayDestroy();
   }

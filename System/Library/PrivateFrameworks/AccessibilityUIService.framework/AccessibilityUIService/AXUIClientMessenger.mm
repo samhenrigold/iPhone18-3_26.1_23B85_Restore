@@ -4,6 +4,7 @@
 - (AXUIClientMessenger)initWithClientIdentifier:(id)identifier connection:(id)connection;
 - (id)description;
 - (id)sendSynchronousMessage:(id)message withIdentifier:(unint64_t)identifier error:(id *)error;
+- (void)sendAsynchronousMessage:(id)message withIdentifier:(unint64_t)identifier targetAccessQueue:(id)queue completionRequiresWritingBlock:(BOOL)block completion:(id)completion;
 @end
 
 @implementation AXUIClientMessenger
@@ -55,6 +56,16 @@
   }
 
   return v9;
+}
+
+- (void)sendAsynchronousMessage:(id)message withIdentifier:(unint64_t)identifier targetAccessQueue:(id)queue completionRequiresWritingBlock:(BOOL)block completion:(id)completion
+{
+  blockCopy = block;
+  completionCopy = completion;
+  queueCopy = queue;
+  messageCopy = message;
+  v15 = +[AXUIServiceManager sharedServiceManager];
+  [v15 _sendAsynchronousMessage:messageCopy withIdentifier:identifier toClientWithMessenger:self targetAccessQueue:queueCopy completionRequiresWritingBlock:blockCopy completion:completionCopy];
 }
 
 - (id)sendSynchronousMessage:(id)message withIdentifier:(unint64_t)identifier error:(id *)error

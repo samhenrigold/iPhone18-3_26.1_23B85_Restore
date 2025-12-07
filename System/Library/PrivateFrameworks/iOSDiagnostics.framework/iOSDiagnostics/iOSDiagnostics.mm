@@ -300,11 +300,11 @@ void sub_100005D94(uint64_t a1)
   [WeakRetained receiveMessage:*(a1 + 32) data:*(a1 + 40) fromDestination:*(a1 + 48) expectsResponse:*(a1 + 72) response:*(a1 + 56)];
 }
 
-void sub_100006478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100006478(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 152), 8);
+  _Block_object_dispose((v23 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -330,9 +330,37 @@ void sub_1000064D8(uint64_t a1, void *a2, void *a3)
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void sub_10000716C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_100006B1C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 buf, int a14, __int16 a15, __int16 a16, void *a17)
 {
-  va_start(va, a10);
+  if (a2 == 1)
+  {
+    v17 = objc_begin_catch(a1);
+    v18 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = [v17 name];
+      v20 = [v17 reason];
+      v21 = [v17 userInfo];
+      v22 = [v21 description];
+      LODWORD(buf) = 138412802;
+      *(&buf + 4) = v19;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v20;
+      a16 = 2112;
+      a17 = v22;
+      _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Exception raised while taking SHA256 of file: %@: %@ (%@)", &buf, 0x20u);
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x100006ACCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_10000716C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -418,28 +446,29 @@ LABEL_9:
   }
 
 LABEL_14:
-  v18 = *(*(*(a1 + 48) + 8) + 40);
-  v19 = *(*(*(a1 + 56) + 8) + 40);
   (*(*(a1 + 40) + 16))();
   dispatch_group_leave(*(a1 + 32));
 }
 
-void sub_1000076EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000076EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_100007714(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007714(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_100007730(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100007730(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000077A8(id a1)
@@ -582,11 +611,32 @@ void sub_10000DD10(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to get remote object proxy with error: %@", &v2, 0xCu);
 }
 
+void sub_10000DD88(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  sub_100007730(&_mh_execute_header, a2, a3, "Failed to get certificate in PEM format. Error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_10000DF68(void *a1, NSObject *a2)
 {
   v3 = [a1 path];
   sub_10000774C();
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Could not create file handle from file at path = %@.", v4, 0xCu);
+}
+
+void sub_10000E098(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  sub_100007714(&_mh_execute_header, a2, a3, "Failed to obtain device identity key, error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10000E10C(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_100007730(&_mh_execute_header, a2, a3, "Failed to create device identification public key digest, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10000E240(void *a1, NSObject *a2)

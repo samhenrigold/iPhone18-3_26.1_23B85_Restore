@@ -17,7 +17,7 @@
   }
 
   selfCopy = self;
-  sub_269D7D414();
+  sub_269D7D414(selfCopy);
 }
 
 - (void)hksp_nextButtonTapped

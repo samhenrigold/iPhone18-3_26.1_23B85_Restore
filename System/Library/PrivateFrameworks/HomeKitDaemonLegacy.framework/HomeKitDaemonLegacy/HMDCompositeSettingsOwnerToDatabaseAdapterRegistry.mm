@@ -9,7 +9,7 @@
 
 - (void)removeZoneWithZoneName:(id)name uuid:(id)uuid workQueue:(id)queue
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   uuidCopy = uuid;
   queueCopy = queue;
@@ -19,11 +19,11 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v14;
-    v21 = 2112;
-    v22 = nameCopy;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Asked to remove zone:%@", &v19, 0x16u);
+    v18 = 138543618;
+    v19 = v14;
+    v20 = 2112;
+    v21 = nameCopy;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Asked to remove zone:%@", &v18, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -38,8 +38,6 @@
   }
 
   [(HMDCompositeSettingsZoneManager *)v15 remove];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createDatabaseAdapterIfNotExistForUUID:(id)d homeUUID:(id)iD accessory:(id)accessory workQueue:(id)queue zoneName:(id)name
@@ -51,7 +49,7 @@
   nameCopy = name;
   os_unfair_lock_lock_with_options();
   settingOwnerToDatabaseAdapterTable = self->_settingOwnerToDatabaseAdapterTable;
-  v17 = [dCopy copy];
+  v17 = objc_msgSend_copy(dCopy);
   v18 = [(NSMapTable *)settingOwnerToDatabaseAdapterTable objectForKey:v17];
 
   v20 = objc_getProperty(self, v19, 24, 1);
@@ -91,7 +89,7 @@
   }
 
   v7 = Property;
-  v8 = [dCopy copy];
+  v8 = objc_msgSend_copy(dCopy);
   v9 = [v7 objectForKey:v8];
 
   os_unfair_lock_unlock(&self->_lock);

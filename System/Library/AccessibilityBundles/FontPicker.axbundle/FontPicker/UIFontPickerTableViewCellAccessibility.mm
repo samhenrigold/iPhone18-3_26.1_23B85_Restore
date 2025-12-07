@@ -9,7 +9,7 @@ id __85___UIFontPickerTableViewCellAccessibility__accessibilityLoadAccessibility
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained transform];
+    objc_msgSend_transform(WeakRetained);
   }
 
   else

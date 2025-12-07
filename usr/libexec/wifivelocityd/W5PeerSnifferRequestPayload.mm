@@ -17,23 +17,23 @@
 - (W5PeerSnifferRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v45.receiver = self;
-  v45.super_class = W5PeerSnifferRequestPayload;
-  v5 = [(W5PeerSnifferRequestPayload *)&v45 init];
+  v46.receiver = self;
+  v46.super_class = W5PeerSnifferRequestPayload;
+  v5 = [(W5PeerSnifferRequestPayload *)&v46 init];
   if (v5)
   {
     v6 = sub_100098A04();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = 136315906;
-      v59 = "[W5PeerSnifferRequestPayload initWithRequest:]";
-      v60 = 2080;
-      v61 = "W5PeerSnifferRequestPayload.m";
-      v62 = 1024;
-      v63 = 36;
-      v64 = 2114;
-      v65 = requestCopy;
-      _os_log_send_and_compose_impl();
+      v59 = 136315906;
+      v60 = "[W5PeerSnifferRequestPayload initWithRequest:]";
+      v61 = 2080;
+      v62 = "W5PeerSnifferRequestPayload.m";
+      v63 = 1024;
+      v64 = 36;
+      v65 = 2114;
+      v66 = requestCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v6, 0, "[wifivelocity] %s (%s:%u) Request Data: %{public}@", &v59, 38);
     }
 
     v7 = [requestCopy objectForKey:@"version"];
@@ -42,9 +42,9 @@
     {
       v8 = [requestCopy objectForKey:@"type"];
       v9 = [NSSet setWithObjects:objc_opt_class(), 0];
-      v44 = 0;
-      v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v9 fromData:v8 error:&v44];
-      v11 = v44;
+      v45 = 0;
+      v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v9 fromData:v8 error:&v45];
+      v11 = v45;
       v5->_type = [v10 integerValue];
 
       type = v5->_type;
@@ -76,22 +76,22 @@ LABEL_16:
             }
 
             v38 = [NSError alloc];
-            v46 = NSLocalizedDescriptionKey;
-            v41 = +[NSBundle mainBundle];
-            v42 = [v41 localizedStringForKey:@"nil rotation interval" value:&stru_1000E4788 table:0];
-            v47 = v42;
-            v30 = [NSDictionary dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+            v47 = NSLocalizedDescriptionKey;
+            v42 = +[NSBundle mainBundle];
+            v43 = [v42 localizedStringForKey:@"nil rotation interval" value:&stru_1000E4788 table:0];
+            v48 = v43;
+            v30 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
             v32 = [v38 initWithDomain:@"com.apple.wifivelocty.sniffer" code:-1 userInfo:v30];
 
             goto LABEL_29;
           }
 
           v31 = [NSError alloc];
-          v54 = NSLocalizedDescriptionKey;
-          v41 = +[NSBundle mainBundle];
-          v42 = [v41 localizedStringForKey:@"nil type" value:&stru_1000E4788 table:0];
-          v55 = v42;
-          v30 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+          v55 = NSLocalizedDescriptionKey;
+          v42 = +[NSBundle mainBundle];
+          v43 = [v42 localizedStringForKey:@"nil type" value:&stru_1000E4788 table:0];
+          v56 = v43;
+          v30 = [NSDictionary dictionaryWithObjects:&v56 forKeys:&v55 count:1];
           v32 = [v31 initWithDomain:@"com.apple.wifivelocty.sniffer" code:-2 userInfo:v30];
 
           v13 = 0;
@@ -100,7 +100,7 @@ LABEL_24:
           v15 = 0;
 LABEL_29:
           v11 = v32;
-          v29 = v41;
+          v29 = v42;
           goto LABEL_30;
         }
 
@@ -108,11 +108,11 @@ LABEL_29:
         if (!v13)
         {
           v40 = [NSError alloc];
-          v48 = NSLocalizedDescriptionKey;
-          v41 = +[NSBundle mainBundle];
-          v42 = [v41 localizedStringForKey:@"nil UUID" value:&stru_1000E4788 table:0];
-          v49 = v42;
-          v30 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+          v49 = NSLocalizedDescriptionKey;
+          v42 = +[NSBundle mainBundle];
+          v43 = [v42 localizedStringForKey:@"nil UUID" value:&stru_1000E4788 table:0];
+          v50 = v43;
+          v30 = [NSDictionary dictionaryWithObjects:&v50 forKeys:&v49 count:1];
           v32 = [v40 initWithDomain:@"com.apple.wifivelocty.sniffer" code:-1 userInfo:v30];
 
           goto LABEL_24;
@@ -131,9 +131,9 @@ LABEL_15:
       v15 = [requestCopy objectForKey:@"channels"];
       v16 = objc_opt_class();
       v17 = [NSSet setWithObjects:v16, objc_opt_class(), 0];
-      v43 = v11;
-      v18 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v17 fromData:v15 error:&v43];
-      v19 = v43;
+      v44 = v11;
+      v18 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v17 fromData:v15 error:&v44];
+      v19 = v44;
 
       channels = v5->_channels;
       v5->_channels = v18;
@@ -156,11 +156,11 @@ LABEL_15:
         }
 
         v37 = [NSError alloc];
-        v50 = NSLocalizedDescriptionKey;
+        v51 = NSLocalizedDescriptionKey;
         v34 = +[NSBundle mainBundle];
-        v42 = [v34 localizedStringForKey:@"nil duration" value:&stru_1000E4788 table:0];
-        v51 = v42;
-        v30 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+        v43 = [v34 localizedStringForKey:@"nil duration" value:&stru_1000E4788 table:0];
+        v52 = v43;
+        v30 = [NSDictionary dictionaryWithObjects:&v52 forKeys:&v51 count:1];
         v35 = v37;
         v36 = -1;
       }
@@ -168,11 +168,11 @@ LABEL_15:
       else
       {
         v33 = [NSError alloc];
-        v52 = NSLocalizedDescriptionKey;
+        v53 = NSLocalizedDescriptionKey;
         v34 = +[NSBundle mainBundle];
-        v42 = [v34 localizedStringForKey:@"nil channel" value:&stru_1000E4788 table:0];
-        v53 = v42;
-        v30 = [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v43 = [v34 localizedStringForKey:@"nil channel" value:&stru_1000E4788 table:0];
+        v54 = v43;
+        v30 = [NSDictionary dictionaryWithObjects:&v54 forKeys:&v53 count:1];
         v35 = v33;
         v36 = -3;
       }
@@ -187,11 +187,11 @@ LABEL_15:
     else
     {
       v28 = [NSError alloc];
-      v56 = NSLocalizedDescriptionKey;
+      v57 = NSLocalizedDescriptionKey;
       v29 = +[NSBundle mainBundle];
-      v42 = [v29 localizedStringForKey:@"nil version" value:&stru_1000E4788 table:0];
-      v57 = v42;
-      v30 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v43 = [v29 localizedStringForKey:@"nil version" value:&stru_1000E4788 table:0];
+      v58 = v43;
+      v30 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
       v11 = [v28 initWithDomain:@"com.apple.wifivelocty.sniffer" code:-1 userInfo:v30];
       v13 = 0;
       v14 = 0;
@@ -214,15 +214,16 @@ LABEL_31:
   v39 = sub_100098A04();
   if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v58 = 136315906;
-    v59 = "[W5PeerSnifferRequestPayload initWithRequest:]";
-    v60 = 2080;
-    v61 = "W5PeerSnifferRequestPayload.m";
-    v62 = 1024;
-    v63 = 77;
-    v64 = 2114;
-    v65 = v11;
-    _os_log_send_and_compose_impl();
+    v59 = 136315906;
+    v60 = "[W5PeerSnifferRequestPayload initWithRequest:]";
+    v61 = 2080;
+    v62 = "W5PeerSnifferRequestPayload.m";
+    v63 = 1024;
+    v64 = 77;
+    v65 = 2114;
+    v66 = v11;
+    LODWORD(v41) = 38;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v39, 0, "[wifivelocity] %s (%s:%u) init error (error='%{public}@')", &v59, v41);
   }
 
   v26 = 0;
@@ -255,9 +256,9 @@ LABEL_22:
   }
 
   v6 = [[NSNumber alloc] initWithInteger:{-[W5PeerSnifferRequestPayload type](self, "type")}];
-  v27 = 0;
-  version = [NSKeyedArchiver archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v27];
-  v7 = v27;
+  v25 = 0;
+  version = [NSKeyedArchiver archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v25];
+  v7 = v25;
 
   [v3 setObject:version forKey:@"type"];
   if ([(W5PeerSnifferRequestPayload *)self type]!= 1)
@@ -268,9 +269,9 @@ LABEL_22:
   }
 
   channels = [(W5PeerSnifferRequestPayload *)self channels];
-  v26 = v7;
-  v9 = [NSKeyedArchiver archivedDataWithRootObject:channels requiringSecureCoding:1 error:&v26];
-  v10 = v26;
+  v24 = v7;
+  v9 = [NSKeyedArchiver archivedDataWithRootObject:channels requiringSecureCoding:1 error:&v24];
+  v10 = v24;
 
   if (v9)
   {
@@ -333,17 +334,15 @@ LABEL_13:
   v20 = sub_100098A04();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 136315906;
-    v29 = "[W5PeerSnifferRequestPayload encode]";
-    v30 = 2080;
-    v31 = "W5PeerSnifferRequestPayload.m";
-    v32 = 1024;
-    v33 = 102;
-    v34 = 2114;
-    v35 = v10;
-    LODWORD(v25) = 38;
-    v24 = &v28;
-    _os_log_send_and_compose_impl();
+    v26 = 136315906;
+    v27 = "[W5PeerSnifferRequestPayload encode]";
+    v28 = 2080;
+    v29 = "W5PeerSnifferRequestPayload.m";
+    v30 = 1024;
+    v31 = 102;
+    v32 = 2114;
+    v33 = v10;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v20, 0, "[wifivelocity] %s (%s:%u) failed to encode channels with error='%{public}@'", &v26, 38);
   }
 
   v9 = 0;

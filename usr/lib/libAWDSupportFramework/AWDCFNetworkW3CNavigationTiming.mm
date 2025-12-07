@@ -509,13 +509,11 @@ LABEL_17:
     goto LABEL_3;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x400) != 0)
   {
 LABEL_3:
-    redirectStart = self->_redirectStart;
     PBDataWriterWriteUint64Field();
     *&has = self->_has;
   }
@@ -523,7 +521,6 @@ LABEL_3:
 LABEL_4:
   if ((*&has & 0x200) != 0)
   {
-    redirectEnd = self->_redirectEnd;
     PBDataWriterWriteUint64Field();
     *&has = self->_has;
     if ((*&has & 0x10) == 0)
@@ -543,7 +540,6 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  fetchStart = self->_fetchStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 8) == 0)
@@ -558,7 +554,6 @@ LABEL_7:
   }
 
 LABEL_30:
-  domainLookupStart = self->_domainLookupStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 4) == 0)
@@ -573,7 +568,6 @@ LABEL_8:
   }
 
 LABEL_31:
-  domainLookupEnd = self->_domainLookupEnd;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 2) == 0)
@@ -588,7 +582,6 @@ LABEL_9:
   }
 
 LABEL_32:
-  connectStart = self->_connectStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -603,7 +596,6 @@ LABEL_10:
   }
 
 LABEL_33:
-  secureConnectionStart = self->_secureConnectionStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 1) == 0)
@@ -618,7 +610,6 @@ LABEL_11:
   }
 
 LABEL_34:
-  connectEnd = self->_connectEnd;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -633,7 +624,6 @@ LABEL_12:
   }
 
 LABEL_35:
-  requestStart = self->_requestStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -648,7 +638,6 @@ LABEL_13:
   }
 
 LABEL_36:
-  responseStart = self->_responseStart;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -663,7 +652,6 @@ LABEL_14:
   }
 
 LABEL_37:
-  responseEnd = self->_responseEnd;
   PBDataWriterWriteUint64Field();
   *&has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -678,7 +666,6 @@ LABEL_15:
   }
 
 LABEL_38:
-  redirectCountW3C = self->_redirectCountW3C;
   PBDataWriterWriteInt64Field();
   *&has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -693,12 +680,10 @@ LABEL_16:
   }
 
 LABEL_39:
-  redirectCount = self->_redirectCount;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_17:
-    isReused = self->_isReused;
     PBDataWriterWriteInt64Field();
   }
 
@@ -715,7 +700,6 @@ LABEL_18:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isCellular = self->_isCellular;
     PBDataWriterWriteInt64Field();
   }
 

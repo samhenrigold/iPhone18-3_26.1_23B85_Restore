@@ -83,15 +83,15 @@
 
 - (void)startWithCallback:(id)callback
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   callbackCopy = callback;
-  v14[0] = @"id";
+  v13[0] = @"id";
   identifier = [(WatchQuickAction *)self identifier];
-  v14[1] = @"started";
-  v15[0] = identifier;
+  v13[1] = @"started";
+  v14[0] = identifier;
   v6 = [MEMORY[0x277CCABB0] numberWithBool:{-[WatchQuickAction started](self, "started")}];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   wqa_dump_call_stack(@"quick action start", v7);
 
   [(WatchQuickAction *)self _updateOverlaysIfNecessary];
@@ -119,20 +119,18 @@
       [viewToOverlay2 _wqa_registerQuickActionForBoundingPathChanges:self];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = @"id";
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = @"id";
   identifier = [(WatchQuickAction *)self identifier];
-  v16[1] = @"started";
-  v17[0] = identifier;
+  v15[1] = @"started";
+  v16[0] = identifier;
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[WatchQuickAction started](self, "started")}];
-  v17[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v16[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
   wqa_dump_call_stack(@"quick action cancel", v5);
 
   if ([(WatchQuickAction *)self started])
@@ -143,8 +141,8 @@
     if (identifier2)
     {
       v8 = +[WatchQuickActionsServices sharedInstance];
-      v15 = identifier2;
-      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+      v14 = identifier2;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
       [v8 unregisterQuickActionIdentifiers:v9 startupCallback:0];
     }
 
@@ -163,8 +161,6 @@
       [viewToOverlay2 _wqa_unregisterExistingQuickActionForBoundingPathChanges];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateLocalizedTitle:(id)title
@@ -187,7 +183,7 @@
 
 - (void)_commonInitLocalizedTitle:(id)title quickActionType:(int64_t)type targetView:(id)view hostingView:(id)hostingView withQuickActivationCallback:(id)callback withQuickActivationEndCallback:(id)endCallback
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   titleCopy = title;
   viewCopy = view;
   hostingViewCopy = hostingView;
@@ -215,12 +211,10 @@
   }
 
   v24 = self->_identifier;
-  v27 = @"id";
-  v28[0] = v24;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v26 = @"id";
+  v27[0] = v24;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
   wqa_dump_call_stack(@"quick action init", v25);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -489,20 +483,20 @@ LABEL_8:
 
 + (id)quickActionFromSerializedData:(id)data error:(id *)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [dataCopy length])
   {
     v6 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v8 = [v6 setWithArray:v7];
 
-    v16 = 0;
-    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:dataCopy error:&v16];
-    v10 = v16;
+    v15 = 0;
+    v9 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v8 fromData:dataCopy error:&v15];
+    v10 = v15;
     v11 = v10;
     if (error)
     {
@@ -526,8 +520,6 @@ LABEL_8:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

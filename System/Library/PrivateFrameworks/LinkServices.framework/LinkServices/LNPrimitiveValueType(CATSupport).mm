@@ -28,7 +28,7 @@
 
 - (id)cat_value:()CATSupport
 {
-  v83[2] = *MEMORY[0x1E69E9840];
+  v82[2] = *MEMORY[0x1E69E9840];
   v4 = a3;
   typeIdentifier = [self typeIdentifier];
   value14 = 0;
@@ -38,46 +38,46 @@
     {
       if (typeIdentifier == 8)
       {
-        v82[0] = @"secs";
-        v15 = MEMORY[0x1E696AD98];
+        v81[0] = @"secs";
+        v14 = MEMORY[0x1E696AD98];
         value = [v4 value];
         if (value)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v17 = value;
+            v16 = value;
           }
 
           else
           {
-            v17 = 0;
+            v16 = 0;
           }
         }
 
         else
         {
-          v17 = 0;
+          v16 = 0;
         }
 
-        v22 = v17;
+        v21 = v16;
 
-        [v22 timeIntervalSince1970];
-        v24 = v23;
+        [v21 timeIntervalSince1970];
+        v23 = v22;
 
-        currentCalendar = [v15 numberWithDouble:v24];
-        v82[1] = @"timeZone";
-        v83[0] = currentCalendar;
+        currentCalendar = [v14 numberWithDouble:v23];
+        v81[1] = @"timeZone";
+        v82[0] = currentCalendar;
         localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
         name = [localTimeZone name];
-        v83[1] = name;
-        value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+        v82[1] = name;
+        value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
       }
 
       else
       {
-        v80 = @"secs";
-        v11 = MEMORY[0x1E696AD98];
+        v79 = @"secs";
+        v10 = MEMORY[0x1E696AD98];
         currentCalendar = [MEMORY[0x1E695DEE8] currentCalendar];
         value2 = [v4 value];
         if (value2)
@@ -85,28 +85,28 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v14 = value2;
+            v13 = value2;
           }
 
           else
           {
-            v14 = 0;
+            v13 = 0;
           }
         }
 
         else
         {
-          v14 = 0;
+          v13 = 0;
         }
 
-        v27 = v14;
+        v26 = v13;
 
-        v28 = [currentCalendar dateFromComponents:v27];
+        v27 = [currentCalendar dateFromComponents:v26];
 
-        [v28 timeIntervalSince1970];
-        v29 = [v11 numberWithDouble:?];
-        v81 = v29;
-        value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+        [v27 timeIntervalSince1970];
+        v28 = [v10 numberWithDouble:?];
+        v80 = v28;
+        value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
       }
     }
 
@@ -115,253 +115,253 @@
       switch(typeIdentifier)
       {
         case 10:
-          v78 = @"values";
-          v75 = @"address";
-          v73[0] = @"administrativeArea";
+          v77 = @"values";
+          v74 = @"address";
+          v72[0] = @"administrativeArea";
           value3 = [v4 value];
           if (value3)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v19 = value3;
+              v18 = value3;
             }
 
             else
             {
-              v19 = 0;
+              v18 = 0;
             }
           }
 
           else
           {
-            v19 = 0;
+            v18 = 0;
           }
 
-          v30 = v19;
+          v29 = v18;
 
-          administrativeArea = [v30 administrativeArea];
+          administrativeArea = [v29 administrativeArea];
 
-          v72 = administrativeArea;
-          v74[0] = administrativeArea;
-          v73[1] = @"country";
+          v71 = administrativeArea;
+          v73[0] = administrativeArea;
+          v72[1] = @"country";
           value4 = [v4 value];
           if (value4)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v33 = value4;
+              v32 = value4;
             }
 
             else
             {
-              v33 = 0;
+              v32 = 0;
             }
           }
 
           else
           {
-            v33 = 0;
+            v32 = 0;
           }
 
-          v34 = v33;
+          v33 = v32;
 
-          country = [v34 country];
+          country = [v33 country];
 
-          v71 = country;
-          v74[1] = country;
-          v73[2] = @"countryCode";
+          v70 = country;
+          v73[1] = country;
+          v72[2] = @"countryCode";
           value5 = [v4 value];
           if (value5)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v37 = value5;
+              v36 = value5;
             }
 
             else
             {
-              v37 = 0;
+              v36 = 0;
             }
           }
 
           else
           {
-            v37 = 0;
+            v36 = 0;
           }
 
-          v38 = v37;
+          v37 = v36;
 
-          iSOcountryCode = [v38 ISOcountryCode];
+          iSOcountryCode = [v37 ISOcountryCode];
 
-          v70 = iSOcountryCode;
-          v74[2] = iSOcountryCode;
-          v73[3] = @"locality";
+          v69 = iSOcountryCode;
+          v73[2] = iSOcountryCode;
+          v72[3] = @"locality";
           value6 = [v4 value];
           if (value6)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v41 = value6;
+              v40 = value6;
             }
 
             else
             {
-              v41 = 0;
+              v40 = 0;
             }
           }
 
           else
           {
-            v41 = 0;
+            v40 = 0;
           }
 
-          v42 = v41;
+          v41 = v40;
 
-          locality = [v42 locality];
+          locality = [v41 locality];
 
-          v69 = locality;
-          v74[3] = locality;
-          v73[4] = @"name";
+          v68 = locality;
+          v73[3] = locality;
+          v72[4] = @"name";
           value7 = [v4 value];
           if (value7)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v45 = value7;
+              v44 = value7;
             }
 
             else
             {
-              v45 = 0;
+              v44 = 0;
             }
           }
 
           else
           {
-            v45 = 0;
+            v44 = 0;
           }
 
-          v46 = v45;
+          v45 = v44;
 
-          name2 = [v46 name];
+          name2 = [v45 name];
 
-          v74[4] = name2;
-          v73[5] = @"postCode";
+          v73[4] = name2;
+          v72[5] = @"postCode";
           value8 = [v4 value];
           if (value8)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v49 = value8;
+              v48 = value8;
             }
 
             else
             {
-              v49 = 0;
+              v48 = 0;
             }
           }
 
           else
           {
-            v49 = 0;
+            v48 = 0;
           }
 
-          v50 = v49;
+          v49 = v48;
 
-          postalCode = [v50 postalCode];
+          postalCode = [v49 postalCode];
 
-          v74[5] = postalCode;
-          v73[6] = @"subAdministrativeArea";
+          v73[5] = postalCode;
+          v72[6] = @"subAdministrativeArea";
           value9 = [v4 value];
           if (value9)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v53 = value9;
+              v52 = value9;
             }
 
             else
             {
-              v53 = 0;
+              v52 = 0;
             }
           }
 
           else
           {
-            v53 = 0;
+            v52 = 0;
           }
 
-          v54 = v53;
+          v53 = v52;
 
-          subAdministrativeArea = [v54 subAdministrativeArea];
+          subAdministrativeArea = [v53 subAdministrativeArea];
 
-          v74[6] = subAdministrativeArea;
-          v73[7] = @"subThoroughfare";
+          v73[6] = subAdministrativeArea;
+          v72[7] = @"subThoroughfare";
           value10 = [v4 value];
           if (value10)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v57 = value10;
+              v56 = value10;
             }
 
             else
             {
-              v57 = 0;
+              v56 = 0;
             }
           }
 
           else
           {
-            v57 = 0;
+            v56 = 0;
           }
 
-          v58 = v57;
+          v57 = v56;
 
-          subThoroughfare = [v58 subThoroughfare];
+          subThoroughfare = [v57 subThoroughfare];
 
-          v74[7] = subThoroughfare;
-          v73[8] = @"thoroughfare";
+          v73[7] = subThoroughfare;
+          v72[8] = @"thoroughfare";
           value11 = [v4 value];
           if (value11)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v61 = value11;
+              v60 = value11;
             }
 
             else
             {
-              v61 = 0;
+              v60 = 0;
             }
           }
 
           else
           {
-            v61 = 0;
+            v60 = 0;
           }
 
-          v62 = v61;
+          v61 = v60;
 
-          thoroughfare = [v62 thoroughfare];
+          thoroughfare = [v61 thoroughfare];
 
-          v74[8] = thoroughfare;
-          v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:9];
+          v73[8] = thoroughfare;
+          v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:9];
+          v75 = v63;
+          v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
           v76 = v64;
-          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-          v77 = v65;
-          v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v77 count:1];
-          v79 = v66;
-          value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+          v65 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+          v78 = v65;
+          value14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
 
           goto LABEL_4;
         case 11:
@@ -371,23 +371,23 @@
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v21 = value12;
+              v20 = value12;
             }
 
             else
             {
-              v21 = 0;
+              v20 = 0;
             }
           }
 
           else
           {
-            v21 = 0;
+            v20 = 0;
           }
 
-          v67 = v21;
+          v66 = v20;
 
-          absoluteString = [v67 absoluteString];
+          absoluteString = [v66 absoluteString];
           break;
         case 12:
           value13 = [v4 value];
@@ -396,23 +396,23 @@
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v10 = value13;
+              v9 = value13;
             }
 
             else
             {
-              v10 = 0;
+              v9 = 0;
             }
           }
 
           else
           {
-            v10 = 0;
+            v9 = 0;
           }
 
-          v67 = v10;
+          v66 = v9;
 
-          absoluteString = [v67 string];
+          absoluteString = [v66 string];
           break;
         default:
           goto LABEL_4;
@@ -428,8 +428,6 @@
   }
 
 LABEL_4:
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return value14;
 }

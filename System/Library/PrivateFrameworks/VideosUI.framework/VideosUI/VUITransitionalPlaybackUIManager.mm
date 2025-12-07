@@ -248,11 +248,11 @@ void __54__VUITransitionalPlaybackUIManager__processStateEnter__block_invoke(uin
   [v3 transitionToForeground:v2 animated:1];
 }
 
-uint64_t __54__VUITransitionalPlaybackUIManager__processStateEnter__block_invoke_2(uint64_t result, int a2)
+id *__54__VUITransitionalPlaybackUIManager__processStateEnter__block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _onTimeout];
+    return [result[4] _onTimeout];
   }
 
   return result;

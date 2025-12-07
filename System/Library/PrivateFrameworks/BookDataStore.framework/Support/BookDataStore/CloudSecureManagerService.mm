@@ -3,6 +3,7 @@
 + (void)deleteCloudDataWithCompletion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
+- (void)setEnableCloudSync:(BOOL)sync;
 @end
 
 @implementation CloudSecureManagerService
@@ -17,6 +18,16 @@
   v2 = swift_unknownObjectRetain();
 
   return v2;
+}
+
+- (void)setEnableCloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v4 = *(&self->super.isa + OBJC_IVAR____TtC14bookdatastored25CloudSecureManagerService_userDataManagerImpl);
+  selfCopy = self;
+  [v4 setEnableCloudSync:syncCopy];
+  sub_1000C6F80(syncCopy);
+  [*(&selfCopy->super.isa + OBJC_IVAR____TtC14bookdatastored25CloudSecureManagerService_changeTokenController) setEnableCloudSync:syncCopy];
 }
 
 - (void)hasSaltChangedWithCompletion:(id)completion
@@ -47,7 +58,7 @@
 
   selfCopy = self;
   sub_10013C274(v7, v6);
-  sub_1000044D8(v7);
+  sub_1000044D8(v7, v6);
 }
 
 + (void)deleteCloudDataWithCompletion:(id)completion
@@ -67,7 +78,7 @@
 
   sub_10013C548(v3, v4);
 
-  sub_1000044D8(v3);
+  sub_1000044D8(v3, v4);
 }
 
 @end

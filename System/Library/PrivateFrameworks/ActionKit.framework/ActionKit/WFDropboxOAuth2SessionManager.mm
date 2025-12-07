@@ -72,7 +72,7 @@ void __68__WFDropboxOAuth2SessionManager_revokeCredential_completionHandler___bl
 
 - (WFDropboxOAuth2SessionManager)initWithSessionConfiguration:(id)configuration clientID:(id)d clientSecret:(id)secret
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277CBEBC0];
   secretCopy = secret;
   dCopy = d;
@@ -82,22 +82,21 @@ void __68__WFDropboxOAuth2SessionManager_revokeCredential_completionHandler___bl
   localeIdentifier = [currentLocale localeIdentifier];
 
   v15 = [MEMORY[0x277CCAD18] queryItemWithName:@"disable_signup" value:@"true"];
-  v23[0] = v15;
+  v22[0] = v15;
   v16 = [MEMORY[0x277CCAD18] queryItemWithName:@"locale" value:localeIdentifier];
-  v23[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
 
   v18 = [MEMORY[0x277CBEBC0] URLWithString:@"https://api.dropboxapi.com/1/oauth2/token"];
   v19 = [v12 wfo_URLByAppendingQueryItems:v17];
   v20 = [(WFOAuth2SessionManager *)self initWithSessionConfiguration:configurationCopy tokenURL:v18 authorizationURL:v19 authenticationMethod:@"client_secret_post" clientID:dCopy clientSecret:secretCopy];
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (void)authenticateWithLegacyAccessToken:(id)token accessTokenSecret:(id)secret completionHandler:(id)handler
 {
-  v57[2] = *MEMORY[0x277D85DE8];
+  v56[2] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   secretCopy = secret;
   handlerCopy = handler;
@@ -124,23 +123,23 @@ void __68__WFDropboxOAuth2SessionManager_revokeCredential_completionHandler___bl
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFDropboxOAuth2SessionManager.m" lineNumber:34 description:{@"Invalid parameter not satisfying: %@", @"accessTokenSecret"}];
 
 LABEL_3:
-  v49 = handlerCopy;
+  v48 = handlerCopy;
   if (!handlerCopy)
   {
     currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler3 handleFailureInMethod:a2 object:self file:@"WFDropboxOAuth2SessionManager.m" lineNumber:35 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
   }
 
-  v47 = [MEMORY[0x277CBEBC0] URLWithString:@"https://api.dropboxapi.com/1/oauth2/token_from_oauth1"];
+  v46 = [MEMORY[0x277CBEBC0] URLWithString:@"https://api.dropboxapi.com/1/oauth2/token_from_oauth1"];
   v12 = [MEMORY[0x277CBAB50] requestWithURL:?];
   [v12 _setNonAppInitiated:1];
-  v46 = v12;
+  v45 = v12;
   [v12 setHTTPMethod:@"POST"];
   clientSecret = [(WFOAuth2SessionManager *)self clientSecret];
-  v57[0] = clientSecret;
-  v57[1] = secretCopy;
-  v50 = secretCopy;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+  v56[0] = clientSecret;
+  v56[1] = secretCopy;
+  v49 = secretCopy;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
   v15 = [v14 componentsJoinedByString:@"&"];
 
   v16 = objc_opt_new();
@@ -153,14 +152,14 @@ LABEL_3:
   v20 = [v18 queryItemWithName:@"oauth_consumer_key" value:clientID];
   [v16 addObject:v20];
 
-  v51 = tokenCopy;
+  v50 = tokenCopy;
   v21 = [MEMORY[0x277CCAD18] queryItemWithName:@"oauth_token" value:tokenCopy];
   [v16 addObject:v21];
 
   v22 = [MEMORY[0x277CCAD18] queryItemWithName:@"oauth_signature_method" value:@"PLAINTEXT"];
   [v16 addObject:v22];
 
-  v45 = v15;
+  v44 = v15;
   v23 = [MEMORY[0x277CCAD18] queryItemWithName:@"oauth_signature" value:v15];
   [v16 addObject:v23];
 
@@ -169,26 +168,26 @@ LABEL_3:
 
   [v25 addCharactersInString:@"-_.~"];
   v26 = objc_opt_new();
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v27 = v16;
-  v28 = [v27 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v53;
+    v30 = *v52;
     do
     {
       for (i = 0; i != v29; ++i)
       {
-        if (*v53 != v30)
+        if (*v52 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v52 + 1) + 8 * i);
+        v32 = *(*(&v51 + 1) + 8 * i);
         name = [v32 name];
         v34 = [name stringByAddingPercentEncodingWithAllowedCharacters:v25];
 
@@ -199,7 +198,7 @@ LABEL_3:
         [v26 addObject:v37];
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v51 objects:v55 count:16];
     }
 
     while (v29);
@@ -209,10 +208,8 @@ LABEL_3:
   v39 = [v26 componentsJoinedByString:{@", "}];
   v40 = [v38 stringWithFormat:@"OAuth %@", v39];
 
-  [v46 setValue:v40 forHTTPHeaderField:@"Authorization"];
-  [(WFOAuth2SessionManager *)selfCopy authenticateWithRequest:v46 refreshToken:0 completionHandler:v49];
-
-  v41 = *MEMORY[0x277D85DE8];
+  [v45 setValue:v40 forHTTPHeaderField:@"Authorization"];
+  [(WFOAuth2SessionManager *)selfCopy authenticateWithRequest:v45 refreshToken:0 completionHandler:v48];
 }
 
 - (id)appAuthorizationSessionWithCompletionHandler:(id)handler

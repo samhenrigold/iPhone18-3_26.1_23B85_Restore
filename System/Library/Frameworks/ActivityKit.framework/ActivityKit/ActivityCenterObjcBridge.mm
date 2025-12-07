@@ -51,11 +51,10 @@
   v4 = _Block_copy(handler);
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC11ActivityKit24ActivityCenterObjcBridge__activityCenter);
   selfCopy = self;
-  v8 = sub_1A2CEF804(sub_1A2CF22B8, v5);
+  v7 = sub_1A2CEF804(sub_1A2CF22B8, v5);
 
-  return v8;
+  return v7;
 }
 
 @end

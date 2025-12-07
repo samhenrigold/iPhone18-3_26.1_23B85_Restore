@@ -53,7 +53,7 @@
 
 - (void)updatePredictedContextResult:(id)result error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -63,11 +63,11 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v18 = v11;
-    v19 = 2112;
-    v20 = resultCopy;
-    v21 = 2112;
-    v22 = errorCopy;
+    v17 = v11;
+    v18 = 2112;
+    v19 = resultCopy;
+    v20 = 2112;
+    v21 = errorCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Detected NPLOI update predicted context %@ with error %@", buf, 0x20u);
   }
 
@@ -76,21 +76,19 @@
   {
     dataSource = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy dataSource];
     queue = [dataSource queue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __74__HMDUserComingHomeCoreRoutineTracker_updatePredictedContextResult_error___block_invoke;
-    v15[3] = &unk_27868A750;
-    v15[4] = selfCopy;
-    v16 = resultCopy;
-    dispatch_async(queue, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __74__HMDUserComingHomeCoreRoutineTracker_updatePredictedContextResult_error___block_invoke;
+    v14[3] = &unk_27868A750;
+    v14[4] = selfCopy;
+    v15 = resultCopy;
+    dispatch_async(queue, v14);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDUserComingHomeCoreRoutineTracker_updatePredictedContextResult_error___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -98,11 +96,11 @@ void __74__HMDUserComingHomeCoreRoutineTracker_updatePredictedContextResult_erro
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Adding predicted context result to process: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Adding predicted context result to process: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -117,13 +115,11 @@ void __74__HMDUserComingHomeCoreRoutineTracker_updatePredictedContextResult_erro
   {
     [*(a1 + 32) _lookUpCurrentHomeLocationOfInterest];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lookUpCurrentHomeLocationOfInterest
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -181,43 +177,43 @@ LABEL_8:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v25;
-        v43 = 2112;
-        v44 = location;
+        v41 = v25;
+        v42 = 2112;
+        v43 = location;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Looking up the current location of interest for %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v22);
       objc_initWeak(buf, selfCopy);
       locationManager = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy locationManager];
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke;
-      v38[3] = &unk_27867BF60;
-      objc_copyWeak(&v40, buf);
-      v39 = location;
-      [locationManager fetchLocationOfInterestAtLocation:v39 withCompletion:v38];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke;
+      v37[3] = &unk_27867BF60;
+      objc_copyWeak(&v39, buf);
+      v38 = location;
+      [locationManager fetchLocationOfInterestAtLocation:v38 withCompletion:v37];
 
-      objc_destroyWeak(&v40);
+      objc_destroyWeak(&v39);
       objc_destroyWeak(buf);
       goto LABEL_14;
     }
 
-    v33 = objc_autoreleasePoolPush();
+    v32 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v35 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    v34 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      v36 = HMFGetLogIdentifier();
+      v35 = HMFGetLogIdentifier();
       currentHomeLocationOfInterest2 = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy2 currentHomeLocationOfInterest];
       *buf = 138543618;
-      v42 = v36;
-      v43 = 2112;
-      v44 = currentHomeLocationOfInterest2;
-      _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Using current location of interest %@", buf, 0x16u);
+      v41 = v35;
+      v42 = 2112;
+      v43 = currentHomeLocationOfInterest2;
+      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Using current location of interest %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v33);
+    objc_autoreleasePoolPop(v32);
     [(HMDUserComingHomeCoreRoutineTracker *)selfCopy2 _processPredictedContextResults];
   }
 
@@ -230,7 +226,7 @@ LABEL_8:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v30;
+      v41 = v30;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Cannot lookup the current location of interest because cannot determine the home location", buf, 0xCu);
     }
 
@@ -243,13 +239,11 @@ LABEL_8:
   }
 
 LABEL_14:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -265,11 +259,11 @@ void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInter
         v11 = HMFGetLogIdentifier();
         v12 = *(a1 + 32);
         *buf = 138543874;
-        v19 = v11;
-        v20 = 2112;
-        v21 = v12;
-        v22 = 2112;
-        v23 = v6;
+        v18 = v11;
+        v19 = 2112;
+        v20 = v12;
+        v21 = 2112;
+        v22 = v6;
         _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unable to find location of interest for the home %@ location with error: %@", buf, 0x20u);
       }
 
@@ -278,21 +272,19 @@ void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInter
 
     v13 = [WeakRetained dataSource];
     v14 = [v13 queue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke_73;
-    v16[3] = &unk_27868A750;
-    v16[4] = WeakRetained;
-    v17 = v5;
-    dispatch_async(v14, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke_73;
+    v15[3] = &unk_27868A750;
+    v15[4] = WeakRetained;
+    v16 = v5;
+    dispatch_async(v14, v15);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInterest__block_invoke_73(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -300,11 +292,11 @@ void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInter
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v12 = 138543618;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Setting current location of interest to %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Setting current location of interest to %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -321,74 +313,67 @@ void __75__HMDUserComingHomeCoreRoutineTracker__lookUpCurrentHomeLocationOfInter
 
     [*(a1 + 32) _processPredictedContextResults];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processPredictedContextResults
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([(HMDUserComingHomeCoreRoutineTracker *)self isLookUpLocationOfInterestInProgress])
+  if (![(HMDUserComingHomeCoreRoutineTracker *)self isLookUpLocationOfInterestInProgress])
   {
-LABEL_11:
-    v13 = *MEMORY[0x277D85DE8];
-    return;
-  }
+    currentHomeLocationOfInterest = [(HMDUserComingHomeCoreRoutineTracker *)self currentHomeLocationOfInterest];
 
-  currentHomeLocationOfInterest = [(HMDUserComingHomeCoreRoutineTracker *)self currentHomeLocationOfInterest];
-
-  if (currentHomeLocationOfInterest)
-  {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    predictedContextResultsToProcess = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
-    v7 = [predictedContextResultsToProcess countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v7)
+    if (currentHomeLocationOfInterest)
     {
-      v8 = v7;
-      v9 = *v17;
-      do
+      v16 = 0u;
+      v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
+      predictedContextResultsToProcess = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
+      v7 = [predictedContextResultsToProcess countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v7)
       {
-        for (i = 0; i != v8; ++i)
+        v8 = v7;
+        v9 = *v15;
+        do
         {
-          if (*v17 != v9)
+          for (i = 0; i != v8; ++i)
           {
-            objc_enumerationMutation(predictedContextResultsToProcess);
+            if (*v15 != v9)
+            {
+              objc_enumerationMutation(predictedContextResultsToProcess);
+            }
+
+            result = [*(*(&v14 + 1) + 8 * i) result];
+            [(HMDUserComingHomeCoreRoutineTracker *)self _processPredictedContextResult:result];
           }
 
-          result = [*(*(&v16 + 1) + 8 * i) result];
-          [(HMDUserComingHomeCoreRoutineTracker *)self _processPredictedContextResult:result];
+          v8 = [predictedContextResultsToProcess countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
-        v8 = [predictedContextResultsToProcess countByEnumeratingWithState:&v16 objects:v20 count:16];
+        while (v8);
       }
 
-      while (v8);
+      predictedContextResultsToProcess2 = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
+      [predictedContextResultsToProcess2 removeAllObjects];
     }
 
-    predictedContextResultsToProcess2 = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
-    [predictedContextResultsToProcess2 removeAllObjects];
+    else
+    {
+      predictedContextResultsToProcess3 = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
+      [predictedContextResultsToProcess3 removeAllObjects];
 
-    goto LABEL_11;
+      [(HMDUserComingHomeCoreRoutineTracker *)self _stopComingHomeTracking:11];
+    }
   }
-
-  predictedContextResultsToProcess3 = [(HMDUserComingHomeCoreRoutineTracker *)self predictedContextResultsToProcess];
-  [predictedContextResultsToProcess3 removeAllObjects];
-
-  v15 = *MEMORY[0x277D85DE8];
-
-  [(HMDUserComingHomeCoreRoutineTracker *)self _stopComingHomeTracking:11];
 }
 
 - (void)_reprocessLastPredictedContextResults
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -409,11 +394,11 @@ LABEL_11:
       {
         v11 = HMFGetLogIdentifier();
         lastPredictedContextResult2 = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy lastPredictedContextResult];
-        v20 = 138543618;
-        v21 = v11;
-        v22 = 2112;
-        v23 = lastPredictedContextResult2;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Reprocessing predicted context result to process: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v11;
+        v21 = 2112;
+        v22 = lastPredictedContextResult2;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Reprocessing predicted context result to process: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -433,13 +418,11 @@ LABEL_11:
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processPredictedContextResult:(id)result
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
@@ -452,9 +435,9 @@ LABEL_11:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v65 = v10;
-    v66 = 2112;
-    v67 = resultCopy;
+    v64 = v10;
+    v65 = 2112;
+    v66 = resultCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Processing predicted context result: %@", buf, 0x16u);
   }
 
@@ -462,7 +445,7 @@ LABEL_11:
   [(HMDUserComingHomeCoreRoutineTracker *)selfCopy setLastPredictedContextResult:resultCopy];
   if (resultCopy)
   {
-    v58 = resultCopy;
+    v57 = resultCopy;
     v11 = [resultCopy nextStepPredictedContextsWithFilterMask:1];
     v12 = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy _preprocessPredictedContextLocations:v11];
 
@@ -476,37 +459,37 @@ LABEL_11:
       home = [dataSource2 home];
       uuid = [home uuid];
       *buf = 138543874;
-      v65 = v16;
-      v66 = 2112;
-      v67 = uuid;
-      v68 = 2112;
-      v69 = v12;
+      v64 = v16;
+      v65 = 2112;
+      v66 = uuid;
+      v67 = 2112;
+      v68 = v12;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Home %@ processing contexts: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v20 = v12;
-    v21 = [v20 countByEnumeratingWithState:&v59 objects:v63 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v58 objects:v62 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v60;
-      v57 = selfCopy;
+      v23 = *v59;
+      v56 = selfCopy;
       while (2)
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v60 != v23)
+          if (*v59 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v59 + 1) + 8 * i);
-          if ([(HMDUserComingHomeCoreRoutineTracker *)v14 canStartComingHome:v25, v57]|| [(HMDUserComingHomeCoreRoutineTracker *)v14 canStayInComingHome:v25])
+          v25 = *(*(&v58 + 1) + 8 * i);
+          if ([(HMDUserComingHomeCoreRoutineTracker *)v14 canStartComingHome:v25, v56]|| [(HMDUserComingHomeCoreRoutineTracker *)v14 canStayInComingHome:v25])
           {
             v31 = objc_autoreleasePoolPush();
             v32 = v14;
@@ -515,15 +498,15 @@ LABEL_11:
             {
               v34 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v65 = v34;
-              v66 = 2112;
-              v67 = v25;
+              v64 = v34;
+              v65 = 2112;
+              v66 = v25;
               _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_INFO, "%{public}@Found predicted context location: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v31);
             v30 = v25;
-            selfCopy = v57;
+            selfCopy = v56;
             goto LABEL_25;
           }
 
@@ -534,18 +517,18 @@ LABEL_11:
           {
             v29 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v65 = v29;
-            v66 = 2112;
-            v67 = v25;
+            v64 = v29;
+            v65 = 2112;
+            v66 = v25;
             _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Ignoring predicted context that will not start of maintain Coming Home: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v26);
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v59 objects:v63 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v58 objects:v62 count:16];
         v30 = 0;
-        selfCopy = v57;
+        selfCopy = v56;
         if (v22)
         {
           continue;
@@ -562,7 +545,7 @@ LABEL_11:
 
 LABEL_25:
 
-    resultCopy = v58;
+    resultCopy = v57;
   }
 
   else
@@ -574,7 +557,7 @@ LABEL_25:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v65 = v38;
+      v64 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@No predicted context to process", buf, 0xCu);
     }
 
@@ -635,21 +618,19 @@ LABEL_25:
 
     [(HMDUserComingHomeCoreRoutineTracker *)selfCopy _stopComingHomeTracking:11];
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_preprocessPredictedContextLocations:(id)locations
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
   [(HMDUserComingHomeCoreRoutineTracker *)self _auditSeenPredictedContextLocations];
-  v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(locationsCopy, "count")}];
   v49 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(locationsCopy, "count")}];
+  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(locationsCopy, "count")}];
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
   v9 = HMFGetOSLogHandle();
@@ -657,34 +638,34 @@ LABEL_25:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v58 = v10;
-    v59 = 2112;
-    v60 = locationsCopy;
+    v57 = v10;
+    v58 = 2112;
+    v59 = locationsCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Preprocessing predicted contexts: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = locationsCopy;
-  v11 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v11 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v53;
+    v13 = *v52;
     do
     {
       v14 = 0;
       do
       {
-        if (*v53 != v13)
+        if (*v52 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v52 + 1) + 8 * v14);
+        v15 = *(*(&v51 + 1) + 8 * v14);
         if ([v15 conformsToProtocol:&unk_283FE7FC8])
         {
           v16 = v15;
@@ -706,9 +687,9 @@ LABEL_25:
           {
             v25 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v58 = v25;
-            v59 = 2112;
-            v60 = v15;
+            v57 = v25;
+            v58 = 2112;
+            v59 = v15;
             _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring because this is not a predicted context location: %@", buf, 0x16u);
           }
 
@@ -743,9 +724,9 @@ LABEL_27:
           {
             v36 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v58 = v36;
-            v59 = 2112;
-            v60 = v17;
+            v57 = v36;
+            v58 = 2112;
+            v59 = v17;
             _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring because this is for another home: %@", buf, 0x16u);
           }
 
@@ -770,16 +751,16 @@ LABEL_27:
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v58 = v32;
-            v59 = 2112;
-            v60 = v17;
+            v57 = v32;
+            v58 = 2112;
+            v59 = v17;
             _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Found navigation predicted context location: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v29);
-          v33 = v50;
+          v33 = v49;
 LABEL_26:
-          [v33 addObject:{v17, v49}];
+          [v33 addObject:{v17, v48}];
           goto LABEL_32;
         }
 
@@ -796,14 +777,14 @@ LABEL_26:
             {
               v43 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v58 = v43;
-              v59 = 2112;
-              v60 = v17;
+              v57 = v43;
+              v58 = 2112;
+              v59 = v17;
               _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Found valid predicted context location: %@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v39);
-            v33 = v49;
+            v33 = v48;
             goto LABEL_26;
           }
 
@@ -811,9 +792,9 @@ LABEL_26:
           {
             v44 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v58 = v44;
-            v59 = 2112;
-            v60 = v17;
+            v57 = v44;
+            v58 = 2112;
+            v59 = v17;
             _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Ignoring visit predicted context location: %@", buf, 0x16u);
           }
 
@@ -828,17 +809,15 @@ LABEL_32:
       }
 
       while (v12 != v14);
-      v45 = [obj countByEnumeratingWithState:&v52 objects:v56 count:16];
+      v45 = [obj countByEnumeratingWithState:&v51 objects:v55 count:16];
       v12 = v45;
     }
 
     while (v45);
   }
 
-  [v50 addObjectsFromArray:v49];
-  v46 = [v50 copy];
-
-  v47 = *MEMORY[0x277D85DE8];
+  [v49 addObjectsFromArray:v48];
+  v46 = objc_msgSend_copy(v49);
 
   return v46;
 }
@@ -936,7 +915,7 @@ LABEL_32:
 
 - (void)_seenPredictedContextLocationsAddContext:(id)context
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
@@ -951,51 +930,49 @@ LABEL_32:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = contextCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding new context location to seen contexts: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = contextCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding new context location to seen contexts: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     seenPredictedContextLocations = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy seenPredictedContextLocations];
     [seenPredictedContextLocations addObject:contextCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_seenPredictedContextLocationsContains:(id)contains forInsert:(BOOL)insert
 {
   insertCopy = insert;
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   containsCopy = contains;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
   v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   obj = [(HMDUserComingHomeCoreRoutineTracker *)self seenPredictedContextLocations];
-  v75 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
-  if (v75)
+  v74 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+  if (v74)
   {
     selfCopy = self;
-    v73 = *v77;
-    v71 = containsCopy;
+    v72 = *v76;
+    v70 = containsCopy;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v77 != v73)
+      if (*v76 != v72)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v76 + 1) + 8 * v8);
+      v9 = *(*(&v75 + 1) + 8 * v8);
       v10 = containsCopy;
       dateInterval = [v10 dateInterval];
       startDate = [dateInterval startDate];
@@ -1038,7 +1015,7 @@ LABEL_3:
         v34 = [date3 compare:date4];
 
         v35 = v34 == 1;
-        containsCopy = v71;
+        containsCopy = v70;
         if (v35)
         {
           goto LABEL_17;
@@ -1054,7 +1031,7 @@ LABEL_3:
       [date5 timeIntervalSinceDate:date6];
       v43 = v42;
 
-      containsCopy = v71;
+      containsCopy = v70;
       v44 = fabs(v43);
       if (v44 <= v23 && vabdd_f64(v44, v23) >= 2.22044605e-16)
       {
@@ -1070,15 +1047,15 @@ LABEL_3:
           startDate6 = [dateInterval9 startDate];
           date9 = [startDate6 date];
           [v9 dateInterval];
-          v52 = v69 = date7;
+          v52 = v68 = date7;
           [v52 endDate];
-          v53 = v68 = startDate5;
+          v53 = v67 = startDate5;
           [v53 date];
-          v54 = v67 = dateInterval7;
-          v70 = [date9 compare:v54];
+          v54 = v66 = dateInterval7;
+          v69 = [date9 compare:v54];
 
-          containsCopy = v71;
-          if (v70 != 1)
+          containsCopy = v70;
+          if (v69 != 1)
           {
             v57 = objc_autoreleasePoolPush();
             v58 = selfCopy;
@@ -1087,17 +1064,17 @@ LABEL_3:
             {
               v61 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v81 = v61;
-              v82 = 2112;
-              v83 = v9;
-              v84 = 2112;
-              v85 = v10;
+              v80 = v61;
+              v81 = 2112;
+              v82 = v9;
+              v83 = 2112;
+              v84 = v10;
               _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_DEBUG, "%{public}@Found matching context location in seen contexts: %@ == %@", buf, 0x20u);
             }
 
             objc_autoreleasePoolPop(v57);
             v56 = v9;
-            containsCopy = v71;
+            containsCopy = v70;
             goto LABEL_32;
           }
 
@@ -1108,10 +1085,10 @@ LABEL_3:
 LABEL_17:
 
 LABEL_18:
-      if (v75 == ++v8)
+      if (v74 == ++v8)
       {
-        v55 = [obj countByEnumeratingWithState:&v76 objects:v86 count:16];
-        v75 = v55;
+        v55 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+        v74 = v55;
         if (v55)
         {
           goto LABEL_3;
@@ -1125,14 +1102,12 @@ LABEL_18:
   v56 = 0;
 LABEL_32:
 
-  v62 = *MEMORY[0x277D85DE8];
-
   return v56;
 }
 
 - (void)_auditSeenPredictedContextLocations
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -1142,33 +1117,33 @@ LABEL_32:
 
   v6 = MEMORY[0x277CBEB18];
   seenPredictedContextLocations = [(HMDUserComingHomeCoreRoutineTracker *)self seenPredictedContextLocations];
-  v31 = [v6 arrayWithCapacity:{objc_msgSend(seenPredictedContextLocations, "count")}];
+  v30 = [v6 arrayWithCapacity:{objc_msgSend(seenPredictedContextLocations, "count")}];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   selfCopy = self;
   seenPredictedContextLocations2 = [(HMDUserComingHomeCoreRoutineTracker *)self seenPredictedContextLocations];
-  v9 = [seenPredictedContextLocations2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v9 = [seenPredictedContextLocations2 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v9)
   {
     v11 = v9;
-    v29 = 0;
-    v33 = *v36;
+    v28 = 0;
+    v32 = *v35;
     *&v10 = 138543618;
-    v28 = v10;
+    v27 = v10;
     obj = seenPredictedContextLocations2;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v33)
+        if (*v35 != v32)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         v14 = MEMORY[0x277CBEAA8];
         dateInterval = [v13 dateInterval];
         endDate = [dateInterval endDate];
@@ -1181,7 +1156,7 @@ LABEL_32:
 
         if ([v22 compare:currentDate] == 1)
         {
-          [v31 addObject:v13];
+          [v30 addObject:v13];
         }
 
         else
@@ -1192,34 +1167,32 @@ LABEL_32:
           if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
             v26 = HMFGetLogIdentifier();
-            *buf = v28;
-            v40 = v26;
-            v41 = 2112;
-            v42 = v13;
+            *buf = v27;
+            v39 = v26;
+            v40 = 2112;
+            v41 = v13;
             _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Expiring context from seen predicted contexts: %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v23);
-          v29 = 1;
+          v28 = 1;
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v11);
 
-    if (v29)
+    if (v28)
     {
-      [(HMDUserComingHomeCoreRoutineTracker *)selfCopy setSeenPredictedContextLocations:v31];
+      [(HMDUserComingHomeCoreRoutineTracker *)selfCopy setSeenPredictedContextLocations:v30];
     }
   }
 
   else
   {
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)processPredictedContextResults
@@ -1349,7 +1322,7 @@ LABEL_14:
 
 - (void)_stopComingHomeTracking:(unint64_t)tracking
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -1360,34 +1333,32 @@ LABEL_14:
   state = [(HMDUserComingHomeCoreRoutineTracker *)self state];
   if (queue)
   {
-    if (state != 3)
+    if (state == 3)
     {
-      v9 = objc_autoreleasePoolPush();
-      selfCopy = self;
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-      {
-        v12 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v12;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Setting Coming Home to Not Coming Home", &v17, 0xCu);
-      }
-
-      v13 = 3;
-LABEL_9:
-
-      objc_autoreleasePoolPop(v9);
-      [(HMDUserComingHomeCoreRoutineTracker *)self setState:v13];
-      [(HMDUserComingHomeCoreRoutineTracker *)self setStateEnd:0];
-      [(HMDUserComingHomeCoreRoutineTracker *)self setOriginalStateEnd:0];
-      [(HMDUserComingHomeCoreRoutineTracker *)self setChangedTimestamp:0];
-      [(HMDUserComingHomeCoreRoutineTracker *)self setLastReason:tracking];
-      [(HMDUserComingHomeCoreRoutineTracker *)self _stateUpdated];
+      return;
     }
+
+    v9 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v11 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    {
+      v12 = HMFGetLogIdentifier();
+      v16 = 138543362;
+      v17 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Setting Coming Home to Not Coming Home", &v16, 0xCu);
+    }
+
+    v13 = 3;
   }
 
-  else if (state != 1)
+  else
   {
+    if (state == 1)
+    {
+      return;
+    }
+
     v9 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v11 = HMFGetOSLogHandle();
@@ -1395,21 +1366,25 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
+      v16 = 138543362;
+      v17 = v15;
       v13 = 1;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Monitoring is not allowed, setting Coming Home to Unknown", &v17, 0xCu);
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Monitoring is not allowed, setting Coming Home to Unknown", &v16, 0xCu);
     }
-
-    goto LABEL_9;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v9);
+  [(HMDUserComingHomeCoreRoutineTracker *)self setState:v13];
+  [(HMDUserComingHomeCoreRoutineTracker *)self setStateEnd:0];
+  [(HMDUserComingHomeCoreRoutineTracker *)self setOriginalStateEnd:0];
+  [(HMDUserComingHomeCoreRoutineTracker *)self setChangedTimestamp:0];
+  [(HMDUserComingHomeCoreRoutineTracker *)self setLastReason:tracking];
+  [(HMDUserComingHomeCoreRoutineTracker *)self _stateUpdated];
 }
 
 - (void)_startOrUpdateComingHomeTrackingWithStateEnd:(id)end
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   endCopy = end;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
@@ -1433,11 +1408,11 @@ LABEL_12:
     {
       v27 = HMFGetLogIdentifier();
       stateEnd = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy stateEnd];
-      v35 = 138543618;
-      v36 = v27;
-      v37 = 2112;
-      v38 = stateEnd;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Setting Coming Home with ETA: %@", &v35, 0x16u);
+      v34 = 138543618;
+      v35 = v27;
+      v36 = 2112;
+      v37 = stateEnd;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Setting Coming Home with ETA: %@", &v34, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
@@ -1460,13 +1435,13 @@ LABEL_7:
     {
       v18 = HMFGetLogIdentifier();
       stateEnd4 = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy2 stateEnd];
-      v35 = 138543874;
-      v36 = v18;
-      v37 = 2112;
-      v38 = endCopy;
-      v39 = 2112;
-      v40 = stateEnd4;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Updating Coming Home with ETA: %@, Previous ETA: %@", &v35, 0x20u);
+      v34 = 138543874;
+      v35 = v18;
+      v36 = 2112;
+      v37 = endCopy;
+      v38 = 2112;
+      v39 = stateEnd4;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Updating Coming Home with ETA: %@, Previous ETA: %@", &v34, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -1501,31 +1476,29 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v30 = objc_autoreleasePoolPush();
+  v29 = objc_autoreleasePoolPush();
   selfCopy3 = self;
-  v32 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+  v31 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
-    v33 = HMFGetLogIdentifier();
+    v32 = HMFGetLogIdentifier();
     stateEnd5 = [(HMDUserComingHomeCoreRoutineTracker *)selfCopy3 stateEnd];
-    v35 = 138543874;
-    v36 = v33;
-    v37 = 2112;
-    v38 = endCopy;
-    v39 = 2112;
-    v40 = stateEnd5;
-    _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Not updating Coming Home with new ETA: %@, Previous ETA: %@", &v35, 0x20u);
+    v34 = 138543874;
+    v35 = v32;
+    v36 = 2112;
+    v37 = endCopy;
+    v38 = 2112;
+    v39 = stateEnd5;
+    _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Not updating Coming Home with new ETA: %@, Previous ETA: %@", &v34, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v30);
+  objc_autoreleasePoolPop(v29);
 LABEL_15:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_calculateEstimatedEntryDateForPredictedContextLocation:(id)location
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
@@ -1564,11 +1537,11 @@ LABEL_15:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        v25 = 138543618;
-        v26 = v22;
-        v27 = 2112;
-        v28 = locationCopy;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Cannot calculate ETA because the current prediction does not have a startDate: %@", &v25, 0x16u);
+        v24 = 138543618;
+        v25 = v22;
+        v26 = 2112;
+        v27 = locationCopy;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Cannot calculate ETA because the current prediction does not have a startDate: %@", &v24, 0x16u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -1580,8 +1553,6 @@ LABEL_15:
   {
     v18 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -1600,16 +1571,16 @@ LABEL_15:
 
 uint64_t __66__HMDUserComingHomeCoreRoutineTracker_handleDidLeaveNotification___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User has left the home", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User has left the home", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1618,9 +1589,7 @@ uint64_t __66__HMDUserComingHomeCoreRoutineTracker_handleDidLeaveNotification___
   v7 = [v6 currentDate];
   [*(a1 + 32) setLastHomeExitDate:v7];
 
-  result = [*(a1 + 32) _reprocessLastPredictedContextResults];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _reprocessLastPredictedContextResults];
 }
 
 - (void)handleDidArriveNotification:(id)notification
@@ -1637,16 +1606,16 @@ uint64_t __66__HMDUserComingHomeCoreRoutineTracker_handleDidLeaveNotification___
 
 void __67__HMDUserComingHomeCoreRoutineTracker_handleDidArriveNotification___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v23 = 138543362;
-    v24 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User has arrived home", &v23, 0xCu);
+    v22 = 138543362;
+    v23 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@User has arrived home", &v22, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -1699,7 +1668,6 @@ void __67__HMDUserComingHomeCoreRoutineTracker_handleDidArriveNotification___blo
   [v21 submitLogEvent:v19];
 
   [*(a1 + 32) _stopComingHomeTracking:11];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleLocationChangedNotification:(id)notification
@@ -1729,7 +1697,7 @@ void __73__HMDUserComingHomeCoreRoutineTracker_handleLocationChangedNotification
 
 - (void)handleLocationAuthorizationChange:(int64_t)change
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUserComingHomeCoreRoutineTracker *)self dataSource];
   queue = [dataSource queue];
   dispatch_assert_queue_V2(queue);
@@ -1743,11 +1711,11 @@ void __73__HMDUserComingHomeCoreRoutineTracker_handleLocationChangedNotification
     {
       v10 = HMFGetLogIdentifier();
       v11 = HMLocationAuthorizationAsString();
-      v19 = 138543618;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Location authorization updated to %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Location authorization updated to %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1770,8 +1738,6 @@ void __73__HMDUserComingHomeCoreRoutineTracker_handleLocationChangedNotification
       [(HMDUserComingHomeCoreRoutineTracker *)selfCopy _stopComingHomeTracking:4];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForNotifications
@@ -2005,10 +1971,9 @@ void __73__HMDUserComingHomeCoreRoutineTracker_handleLocationChangedNotification
 
 void __50__HMDUserComingHomeCoreRoutineTracker_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v43_159700;
-  logCategory__hmf_once_v43_159700 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v43_159700;
+  logCategory__hmf_once_v43_159700 = v0;
 }
 
 + (void)initialize

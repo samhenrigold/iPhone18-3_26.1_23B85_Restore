@@ -10,7 +10,7 @@
   cleanlyCopy = cleanly;
   tocCopy = toc;
   descriptorsCopy = descriptors;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   if (!streamCopy)
   {
@@ -22,20 +22,20 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22);
   }
 
-  v37.receiver = self;
-  v37.super_class = TSPDistributableArchiveOutputStream;
-  v23 = [(TSPDistributableArchiveOutputStream *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = TSPDistributableArchiveOutputStream;
+  v23 = [(TSPDistributableArchiveOutputStream *)&v36 init];
   v24 = v23;
   if (v23)
   {
     objc_storeStrong(&v23->_outputStream, stream);
     MEMORY[0x28223BE20](v25);
-    LODWORD(v34) = 1179010153;
-    HIDWORD(v34) = crc;
-    *v35 = 1;
-    *&v35[2] = v27;
-    *&v35[10] = v28;
-    *&v35[18] = 1;
+    LODWORD(v33) = 1179010153;
+    HIDWORD(v33) = crc;
+    *v34 = 1;
+    *&v34[2] = v27;
+    *&v34[10] = v28;
+    *&v34[18] = 1;
     if (tocCopy)
     {
       v29 = 2;
@@ -57,13 +57,12 @@
       v31 = 0;
     }
 
-    *&v35[22] = v30 | v31;
-    LODWORD(v36) = 0;
-    objc_msgSend_writeBuffer_size_(v24->_outputStream, v26, &v34, 36, v34, *v35, *&v35[8], *&v35[16]);
+    *&v34[22] = v30 | v31;
+    LODWORD(v35) = 0;
+    objc_msgSend_writeBuffer_size_(v24->_outputStream, v26, &v33, 36, v33, *v34, *&v34[8], *&v34[16]);
     v24->_offset += 36;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

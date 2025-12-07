@@ -29,48 +29,47 @@
 
 - (id)attributeDescriptions
 {
-  v32[8] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
-  v31 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMIClusteringTaskSummary numberOfFaceprintsClustered](self, "numberOfFaceprintsClustered")}];
-  v30 = [v3 initWithName:@"Faceprints" value:v31];
-  v32[0] = v30;
-  v4 = objc_alloc(MEMORY[0x277D0F778]);
-  v29 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMIClusteringTaskSummary numberOfClusters](self, "numberOfClusters")}];
-  v28 = [v4 initWithName:@"Clusters" value:v29];
-  v32[1] = v28;
+  v4 = MEMORY[0x277CCABB0];
+  [(HMIClusteringTaskSummary *)self numberOfFaceprintsClustered];
+  v27 = [v4 numberWithInteger:?];
+  v28 = [v3 initWithName:? value:?];
   v5 = objc_alloc(MEMORY[0x277D0F778]);
-  v27 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMIClusteringTaskSummary numberOfPersonsCreated](self, "numberOfPersonsCreated")}];
-  v26 = [v5 initWithName:@"Persons" value:v27];
-  v32[2] = v26;
-  v6 = objc_alloc(MEMORY[0x277D0F778]);
-  v25 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMIClusteringTaskSummary numberOfUnknownFaceprintsAssociated](self, "numberOfUnknownFaceprintsAssociated")}];
-  v7 = [v6 initWithName:@"Associated" value:v25];
-  v32[3] = v7;
-  v8 = objc_alloc(MEMORY[0x277D0F778]);
-  v9 = MEMORY[0x277CCABB0];
+  v6 = MEMORY[0x277CCABB0];
+  [(HMIClusteringTaskSummary *)self numberOfClusters];
+  v26 = [v6 numberWithInteger:?];
+  v29 = [v5 initWithName:? value:?];
+  v7 = objc_alloc(MEMORY[0x277D0F778]);
+  v8 = MEMORY[0x277CCABB0];
+  [(HMIClusteringTaskSummary *)self numberOfPersonsCreated];
+  v25 = [v8 numberWithInteger:?];
+  v30 = [v7 initWithName:? value:?];
+  v9 = objc_alloc(MEMORY[0x277D0F778]);
+  v10 = MEMORY[0x277CCABB0];
+  [(HMIClusteringTaskSummary *)self numberOfUnknownFaceprintsAssociated];
+  v24 = [v10 numberWithInteger:?];
+  v31 = [v9 initWithName:? value:?];
+  v11 = objc_alloc(MEMORY[0x277D0F778]);
+  v12 = MEMORY[0x277CCABB0];
   [(HMIClusteringTaskSummary *)self faceprintingDuration];
-  v10 = [v9 numberWithDouble:?];
-  v11 = [v8 initWithName:@"Faceprinting Duration" value:v10];
-  v32[4] = v11;
-  v12 = objc_alloc(MEMORY[0x277D0F778]);
-  v13 = MEMORY[0x277CCABB0];
+  v13 = [v12 numberWithDouble:?];
+  v32 = [v11 initWithName:? value:?];
+  v14 = objc_alloc(MEMORY[0x277D0F778]);
+  v15 = MEMORY[0x277CCABB0];
   [(HMIClusteringTaskSummary *)self clusteringDuration];
-  v14 = [v13 numberWithDouble:?];
-  v15 = [v12 initWithName:@"Clustering Duration" value:v14];
-  v32[5] = v15;
-  v16 = objc_alloc(MEMORY[0x277D0F778]);
-  v17 = MEMORY[0x277CCABB0];
+  v16 = [v15 numberWithDouble:?];
+  v33 = [v14 initWithName:? value:?];
+  v17 = objc_alloc(MEMORY[0x277D0F778]);
+  v18 = MEMORY[0x277CCABB0];
   [(HMIClusteringTaskSummary *)self totalDuration];
-  v18 = [v17 numberWithDouble:?];
-  v19 = [v16 initWithName:@"Total Duration" value:v18];
-  v32[6] = v19;
+  v19 = [v18 numberWithDouble:?];
+  v34 = [v17 initWithName:? value:?];
   v20 = objc_alloc(MEMORY[0x277D0F778]);
   error = [(HMIClusteringTaskSummary *)self error];
-  v22 = [v20 initWithName:@"Error" value:error];
-  v32[7] = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:8];
+  v35 = [v20 initWithName:? value:?];
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  return v23;
+  return v22;
 }
 
 @end

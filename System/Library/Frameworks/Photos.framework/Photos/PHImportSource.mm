@@ -889,7 +889,7 @@ void __27__PHImportSource_addItems___block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __25__PHImportSource_stalled__block_invoke(uint64_t a1)
+void *__25__PHImportSource_stalled__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 248) count];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;
@@ -914,10 +914,10 @@ uint64_t __25__PHImportSource_stalled__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __24__PHImportSource_isDone__block_invoke(uint64_t result)
+void *__24__PHImportSource_isDone__block_invoke(void *result)
 {
   v1 = result;
-  v2 = *(result + 32);
+  v2 = result[4];
   if (*(v2 + 68))
   {
     v3 = 0;
@@ -929,7 +929,7 @@ uint64_t __24__PHImportSource_isDone__block_invoke(uint64_t result)
     v3 = result == 0;
   }
 
-  *(*(*(v1 + 40) + 8) + 24) = v3;
+  *(*(v1[5] + 8) + 24) = v3;
   return result;
 }
 
@@ -2884,7 +2884,7 @@ uint64_t __27__PHImportSource_beginWork__block_invoke(uint64_t a1)
   dispatch_sync(controlQueue, block);
 }
 
-uint64_t __34__PHImportSource_stopAssetLoading__block_invoke(uint64_t a1)
+void *__34__PHImportSource_stopAssetLoading__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setOpen:0];
   result = [*(a1 + 32) stalled];
@@ -3063,18 +3063,18 @@ void __91__PHImportSource_loadAssetsForLibrary_allowDuplicates_order_batchSize_b
   }
 }
 
-uint64_t __91__PHImportSource_loadAssetsForLibrary_allowDuplicates_order_batchSize_batchInterval_atEnd___block_invoke_4(uint64_t a1)
+uint64_t __91__PHImportSource_loadAssetsForLibrary_allowDuplicates_order_batchSize_batchInterval_atEnd___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  [*(a1 + 32) setOptions:v2];
+  v3 = objc_opt_new();
+  [*(a1 + 32) setOptions:v3];
 
-  v3 = *(a1 + 40);
-  v4 = [*(a1 + 32) options];
-  [v4 setAllowDuplicates:v3];
+  v4 = *(a1 + 40);
+  v5 = [*(a1 + 32) options];
+  [v5 setAllowDuplicates:v4];
 
-  v5 = *(a1 + 32);
+  v6 = *(a1 + 32);
 
-  return [v5 beginWork];
+  return [v6 beginWork];
 }
 
 - (id)loadAssetsForLibrary:(id)library allowDuplicates:(BOOL)duplicates order:(int64_t)order batchInterval:(double)interval atEnd:(id)end

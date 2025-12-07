@@ -109,76 +109,87 @@
     shouldLog = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v13) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v13) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (!v13)
     {
-      goto LABEL_24;
+      goto LABEL_26;
     }
 
-LABEL_22:
+LABEL_24:
     v17 = objc_opt_class();
     v32 = 138412546;
     v33 = v17;
     v34 = 2112;
     v35 = v31;
-    LODWORD(v30) = 22;
-    v18 = _os_log_send_and_compose_impl();
+    v18 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not generate request body: %@", &v32, 22);
     if (v18)
     {
       v19 = v18;
-      [NSString stringWithCString:v18 encoding:4, &v32, v30];
+      [NSString stringWithCString:v18 encoding:4];
       free(v19);
       SSFileLog();
     }
 
-LABEL_24:
+LABEL_26:
     [(GetPlayInfoOperation *)self _failWithError:SSErrorWithUnderlyingError()];
-    goto LABEL_40;
+    goto LABEL_43;
   }
 
   v4 = [NSPropertyListSerialization dataWithPropertyList:v3 format:100 options:0 error:&v31];
   if (!v4)
   {
-    v14 = +[SSLogConfig sharedDaemonConfig];
-    if (!v14)
+    v15 = +[SSLogConfig sharedDaemonConfig];
+    if (!v15)
     {
-      v14 = +[SSLogConfig sharedConfig];
+      v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v14 shouldLog];
-    if ([v14 shouldLogToDisk])
+    shouldLog2 = [v15 shouldLog];
+    if ([v15 shouldLogToDisk])
     {
-      v16 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v16 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v15 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v16 &= 2u;
+      v13 = v13;
     }
 
-    if (!v16)
+    else
     {
-      goto LABEL_24;
+      v13 &= 2u;
     }
 
-    goto LABEL_22;
+    if (!v13)
+    {
+      goto LABEL_26;
+    }
+
+    goto LABEL_24;
   }
 
   v5 = v4;
@@ -218,38 +229,42 @@ LABEL_24:
   shouldLog3 = [v22 shouldLog];
   if ([v22 shouldLogToDisk])
   {
-    v24 = shouldLog3 | 2;
+    LODWORD(v24) = shouldLog3 | 2;
   }
 
   else
   {
-    v24 = shouldLog3;
+    LODWORD(v24) = shouldLog3;
   }
 
-  if (!os_log_type_enabled([v22 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v22 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v24 = v24;
+  }
+
+  else
   {
     v24 &= 2u;
   }
 
   if (v24)
   {
-    v25 = objc_opt_class();
+    v26 = objc_opt_class();
     v32 = 138412290;
-    v33 = v25;
-    LODWORD(v30) = 12;
-    v29 = &v32;
-    v26 = _os_log_send_and_compose_impl();
-    if (v26)
+    v33 = v26;
+    v27 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Fetching play info", &v32, 12);
+    if (v27)
     {
-      v27 = v26;
-      v28 = [NSString stringWithCString:v26 encoding:4, &v32, v30];
-      free(v27);
-      v29 = v28;
+      v28 = v27;
+      v29 = [NSString stringWithCString:v27 encoding:4];
+      free(v28);
+      v30 = v29;
       SSFileLog();
     }
   }
 
-  if ([(GetPlayInfoOperation *)self runSubOperation:v6 returningError:&v31, v29])
+  if ([(GetPlayInfoOperation *)self runSubOperation:v6 returningError:&v31, v30])
   {
     [(GetPlayInfoOperation *)self _setResponseForOutput:[(DaemonProtocolDataProvider *)v20 output]];
   }
@@ -259,12 +274,12 @@ LABEL_24:
     [(GetPlayInfoOperation *)self _failWithError:v31];
   }
 
-LABEL_40:
+LABEL_43:
 }
 
 - (id)_copyRequestBody:(id *)body
 {
-  v37 = 0;
+  v38 = 0;
   sinfs = [(SSPlayInfoRequestContext *)self->_context sinfs];
   if ([sinfs count])
   {
@@ -289,7 +304,7 @@ LABEL_40:
 
   if (!v8)
   {
-    accountIdentifier = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyAccountIdentifier" error:&v37];
+    accountIdentifier = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyAccountIdentifier" error:&v38];
   }
 
   if (accountIdentifier)
@@ -304,65 +319,69 @@ LABEL_40:
 
     else
     {
-      v17 = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyFairPlayKeyIdentifier" error:&v37];
-      if (v17)
+      v18 = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyFairPlayKeyIdentifier" error:&v38];
+      if (v18)
       {
-        v18 = v17;
-        v19 = [[NSArray alloc] initWithObjects:{v17, 0}];
-        v20 = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyRentalInformation" error:0];
-        if (v20)
+        v19 = v18;
+        v20 = [[NSArray alloc] initWithObjects:{v18, 0}];
+        v21 = [(SinfsArray *)v6 copyValueForProperty:@"SinfPropertyRentalInformation" error:0];
+        if (v21)
         {
-          v21 = @"rental-ids";
+          v22 = @"rental-ids";
         }
 
         else
         {
-          v21 = @"key-ids";
+          v22 = @"key-ids";
         }
 
-        [v9 setObject:v19 forKey:v21];
+        [v9 setObject:v20 forKey:v22];
       }
 
       else
       {
-        v28 = +[SSLogConfig sharedDaemonConfig];
-        if (!v28)
+        v29 = +[SSLogConfig sharedDaemonConfig];
+        if (!v29)
         {
-          v28 = +[SSLogConfig sharedConfig];
+          v29 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog = [v28 shouldLog];
-        if ([v28 shouldLogToDisk])
+        shouldLog = [v29 shouldLog];
+        if ([v29 shouldLogToDisk])
         {
-          v30 = shouldLog | 2;
+          LODWORD(v31) = shouldLog | 2;
         }
 
         else
         {
-          v30 = shouldLog;
+          LODWORD(v31) = shouldLog;
         }
 
-        if (!os_log_type_enabled([v28 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject = [v29 OSLogObject];
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          v30 &= 2u;
+          v31 = v31;
         }
 
-        if (v30)
+        else
         {
-          v31 = objc_opt_class();
-          v38 = 138412546;
-          v39 = v31;
-          v40 = 2112;
-          v41 = v37;
-          LODWORD(v36) = 22;
-          v35 = &v38;
-          v32 = _os_log_send_and_compose_impl();
-          if (v32)
+          v31 &= 2u;
+        }
+
+        if (v31)
+        {
+          v33 = objc_opt_class();
+          v39 = 138412546;
+          v40 = v33;
+          v41 = 2112;
+          v42 = v38;
+          v34 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not get key identifier: %@", &v39, 22);
+          if (v34)
           {
-            v33 = v32;
-            v34 = [NSString stringWithCString:v32 encoding:4, &v38, v36];
-            free(v33);
             v35 = v34;
+            v36 = [NSString stringWithCString:v34 encoding:4];
+            free(v35);
+            v37 = v36;
             SSFileLog();
           }
         }
@@ -381,10 +400,10 @@ LABEL_40:
       [v9 setObject:guid forKey:@"guid"];
     }
 
-    v24 = [+[SSDevice currentDevice](SSDevice "currentDevice")];
-    if (v24)
+    v25 = [+[SSDevice currentDevice](SSDevice "currentDevice")];
+    if (v25)
     {
-      [v9 setObject:v24 forKey:@"hw.model"];
+      [v9 setObject:v25 forKey:@"hw.model"];
     }
 
     playerGUID = [(SSPlayInfoRequestContext *)self->_context playerGUID];
@@ -411,33 +430,38 @@ LABEL_40:
     shouldLog2 = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v13 = shouldLog2 | 2;
+      LODWORD(v13) = shouldLog2 | 2;
     }
 
     else
     {
-      v13 = shouldLog2;
+      LODWORD(v13) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v11 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v11 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = v13;
+    }
+
+    else
     {
       v13 &= 2u;
     }
 
     if (v13)
     {
-      v14 = objc_opt_class();
-      v38 = 138412546;
-      v39 = v14;
-      v40 = 2112;
-      v41 = v37;
-      LODWORD(v36) = 22;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v15 = objc_opt_class();
+      v39 = 138412546;
+      v40 = v15;
+      v41 = 2112;
+      v42 = v38;
+      v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not get DSID: %@", &v39, 22);
+      if (v16)
       {
-        v16 = v15;
-        [NSString stringWithCString:v15 encoding:4, &v38, v36];
-        free(v16);
+        v17 = v16;
+        [NSString stringWithCString:v16 encoding:4];
+        free(v17);
         SSFileLog();
       }
     }
@@ -445,7 +469,7 @@ LABEL_40:
     v9 = 0;
   }
 
-  if (v37)
+  if (v38)
   {
 
     v9 = 0;
@@ -453,7 +477,7 @@ LABEL_40:
 
   if (body)
   {
-    *body = v37;
+    *body = v38;
   }
 
   return v9;
@@ -499,15 +523,21 @@ LABEL_40:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -518,15 +548,13 @@ LABEL_40:
       v18 = objc_opt_class();
       v19 = 2112;
       v20 = v6;
-      LODWORD(v15) = 22;
-      v14 = &v17;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Received failure status code: %@", &v17, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v17, v15];
-        free(v11);
-        v14 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v15 = v13;
         SSFileLog();
       }
     }
@@ -537,14 +565,14 @@ LABEL_40:
 
   else
   {
-    v13 = [output objectForKey:@"play-info"];
+    v14 = [output objectForKey:@"play-info"];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v13 = 0;
+      v14 = 0;
     }
 
-    v16 = [[SSPlayInfoResponse alloc] initWithPlayInfoData:v13 error:0];
+    v16 = [[SSPlayInfoResponse alloc] initWithPlayInfoData:v14 error:0];
     [(GetPlayInfoOperation *)self _setPlayInfoResponse:?];
     [(GetPlayInfoOperation *)self setSuccess:1];
   }

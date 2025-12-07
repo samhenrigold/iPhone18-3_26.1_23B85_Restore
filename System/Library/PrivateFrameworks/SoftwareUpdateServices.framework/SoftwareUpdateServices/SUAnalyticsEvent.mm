@@ -5,6 +5,7 @@
 - (id)description;
 - (void)_queue_addEventPayloadEntries:(id)entries;
 - (void)_queue_removeEventPayloadEntry:(id)entry;
+- (void)_queue_setEventPayloadEntry:(id)entry BOOLValue:(BOOL)value;
 - (void)_queue_setEventPayloadEntry:(id)entry numberValue:(id)value;
 - (void)_queue_setEventPayloadEntry:(id)entry stringValue:(id)value;
 - (void)_queue_setEventPayloadEntryToNull:(id)null;
@@ -233,6 +234,24 @@ uint64_t __32__SUAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
   [(NSMutableDictionary *)self->_mutableEventPayload addEntriesFromDictionary:entriesCopy];
 }
 
+- (void)_queue_setEventPayloadEntry:(id)entry BOOLValue:(BOOL)value
+{
+  valueCopy = value;
+  entryCopy = entry;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  if (entryCopy)
+  {
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:valueCopy];
+    [(NSMutableDictionary *)self->_mutableEventPayload setObject:v6 forKeyedSubscript:entryCopy];
+  }
+
+  else
+  {
+    v6 = SULogAnalytics(0);
+    SULogErrorForSubsystem(v6, @"invalid key passed to setEventPayloadEntry", v7, v8, v9, v10, v11, v12, v13);
+  }
+}
+
 - (void)_queue_setEventPayloadEntry:(id)entry numberValue:(id)value
 {
   entryCopy = entry;
@@ -245,8 +264,8 @@ uint64_t __32__SUAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = SULogAnalytics();
-    SULogErrorForSubsystem(v7, @"invalid key/numberValue passed to setEventPayloadEntry", v8, v9, v10, v11, v12, v13, v14);
+    v8 = SULogAnalytics(v7);
+    SULogErrorForSubsystem(v8, @"invalid key/numberValue passed to setEventPayloadEntry", v9, v10, v11, v12, v13, v14, v15);
   }
 }
 
@@ -262,27 +281,27 @@ uint64_t __32__SUAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
 
   else
   {
-    v7 = SULogAnalytics();
-    SULogErrorForSubsystem(v7, @"invalid key/stringValue passed to setEventPayloadEntry", v8, v9, v10, v11, v12, v13, v14);
+    v8 = SULogAnalytics(v7);
+    SULogErrorForSubsystem(v8, @"invalid key/stringValue passed to setEventPayloadEntry", v9, v10, v11, v12, v13, v14, v15);
   }
 }
 
 - (void)_queue_setEventPayloadEntryToNull:(id)null
 {
   dispatch_assert_queue_V2(self->_stateQueue);
-  v4 = SULogAnalytics();
-  v13 = v4;
+  v5 = SULogAnalytics(v4);
+  v14 = v5;
   if (null)
   {
-    v11 = @"not supported";
+    v12 = @"not supported";
   }
 
   else
   {
-    v11 = @"invalid key passed to setEventPayloadEntrytoNull";
+    v12 = @"invalid key passed to setEventPayloadEntrytoNull";
   }
 
-  SULogErrorForSubsystem(v4, v11, v5, v6, v7, v8, v9, v10, v12);
+  SULogErrorForSubsystem(v5, v12, v6, v7, v8, v9, v10, v11, v13);
 }
 
 - (void)_queue_removeEventPayloadEntry:(id)entry
@@ -296,8 +315,8 @@ uint64_t __32__SUAnalyticsEvent_eventPayload__block_invoke(uint64_t a1)
 
   else
   {
-    v4 = SULogAnalytics();
-    SULogErrorForSubsystem(v4, @"invalid key passed to removePayloadEntry", v5, v6, v7, v8, v9, v10, v11);
+    v5 = SULogAnalytics(v4);
+    SULogErrorForSubsystem(v5, @"invalid key passed to removePayloadEntry", v6, v7, v8, v9, v10, v11, v12);
   }
 }
 

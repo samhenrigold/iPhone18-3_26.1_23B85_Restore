@@ -21,6 +21,7 @@
 - (void)deletionSectionDidSelectRow:(id)row sourceItem:(id)item;
 - (void)electrocardiogramMetadataViewDidTapDetailButton:(id)button;
 - (void)presentPDFViewController;
+- (void)setActionsEnabled:(BOOL)enabled;
 - (void)shareButtonTapped:(id)tapped;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
@@ -216,7 +217,7 @@
 
 - (void)_loadSections
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   sections = [(WDElectrocardiogramDataMetadataViewController *)self sections];
   [sections removeAllObjects];
 
@@ -268,15 +269,15 @@
     v24 = [objc_alloc(MEMORY[0x277D12880]) initWithSourceVersion:version algorithmVersion:sampleAlgorithmVersion];
     if (v24)
     {
-      v47 = mode;
-      v52 = displayTypeController;
+      v46 = mode;
+      v51 = displayTypeController;
       sample4 = [(WDElectrocardiogramDataMetadataViewController *)self sample];
       metadata = [sample4 metadata];
       v27 = [metadata objectForKey:*MEMORY[0x277CCE0D0]];
 
-      v50 = version;
-      v51 = unitController;
-      v48 = v27;
+      v49 = version;
+      v50 = unitController;
+      v47 = v27;
       if (v27)
       {
         updateVersion = v27;
@@ -292,26 +293,26 @@
       v29 = HKHealthKitFrameworkBundle();
       v30 = [v29 localizedStringForKey:@"SOURCE_FEATURE_VERSION_TITLE" value:&stru_28641D9B8 table:@"Localizable-Cinnamon"];
       v31 = HKConditionallyRedactedHeartRhythmString();
-      v54[0] = *MEMORY[0x277CCDEF8];
-      v32 = v54[0];
-      v54[1] = @"FeatureVersion";
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+      v53[0] = *MEMORY[0x277CCDEF8];
+      v32 = v53[0];
+      v53[1] = @"FeatureVersion";
+      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
       v34 = HKUIJoinStringsForAutomationIdentifier();
       [v19 addText:v28 detail:v31 baseIdentifier:v34];
 
       v35 = HKHealthKitFrameworkBundle();
       v36 = [v35 localizedStringForKey:@"SOURCE_UPDATE_VERSION_TITLE" value:&stru_28641D9B8 table:@"Localizable-Cinnamon"];
       v37 = HKConditionallyRedactedHeartRhythmString();
-      v53[0] = v32;
-      v53[1] = @"UpdateVersion";
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+      v52[0] = v32;
+      v52[1] = @"UpdateVersion";
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
       v39 = HKUIJoinStringsForAutomationIdentifier();
       [v19 addText:updateVersion detail:v37 baseIdentifier:v39];
 
-      unitController = v51;
-      displayTypeController = v52;
-      version = v50;
-      mode = v47;
+      unitController = v50;
+      displayTypeController = v51;
+      version = v49;
+      mode = v46;
     }
 
     [(WDElectrocardiogramDataMetadataViewController *)self _addSectionIfNonNull:v19];
@@ -329,8 +330,6 @@
     sections3 = [(WDElectrocardiogramDataMetadataViewController *)self sections];
     [sections3 addObject:v44];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reloadElectrocardiogramMetadataTableHeaderView
@@ -532,9 +531,18 @@
   return v8;
 }
 
+- (void)setActionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  self->_actionsEnabled = enabled;
+  navigationItem = [(WDElectrocardiogramDataMetadataViewController *)self navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+  [rightBarButtonItem setEnabled:enabledCopy];
+}
+
 - (void)shareButtonTapped:(id)tapped
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   reportGenerator = [(WDElectrocardiogramDataMetadataViewController *)self reportGenerator];
   generatePDF = [reportGenerator generatePDF];
@@ -551,21 +559,19 @@
   if (v14)
   {
     v15 = objc_alloc(MEMORY[0x277D546D8]);
-    v22[0] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     v17 = [v15 initWithActivityItems:v16 applicationActivities:0];
 
     popoverPresentationController = [v17 popoverPresentationController];
     [popoverPresentationController setSourceItem:tappedCopy];
 
-    v21 = *MEMORY[0x277D54730];
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = *MEMORY[0x277D54730];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     [v17 setExcludedActivityTypes:v19];
 
     [(WDElectrocardiogramDataMetadataViewController *)self presentViewController:v17 animated:1 completion:0];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentPDFViewController
@@ -638,19 +644,8 @@ void __80__WDElectrocardiogramDataMetadataViewController_deleteSampleTriggeredBy
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  if (!changeCopy)
+  if (!changeCopy || (-[WDElectrocardiogramDataMetadataViewController traitCollection](self, "traitCollection"), v4 = objc_claimAutoreleasedReturnValue(), [v4 preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(changeCopy, "preferredContentSizeCategory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  traitCollection = [(WDElectrocardiogramDataMetadataViewController *)self traitCollection];
-  preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v7 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     [(WDElectrocardiogramDataMetadataViewController *)self _reloadElectrocardiogramMetadataTableHeaderView];
   }
 }
@@ -733,11 +728,10 @@ void __85__WDElectrocardiogramDataMetadataViewController_viewControllerWillEnter
 
 - (void)_fetchActiveAlgorithmVersionWithHealthStore:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[WDElectrocardiogramDataMetadataViewController _fetchActiveAlgorithmVersionWithHealthStore:]";
-  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "%{public}s: Failed to fetch active algorithm version.", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[WDElectrocardiogramDataMetadataViewController _fetchActiveAlgorithmVersionWithHealthStore:]";
+  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "%{public}s: Failed to fetch active algorithm version.", &v1, 0xCu);
 }
 
 @end

@@ -533,9 +533,10 @@ LABEL_21:
     v3 = v2;
     _CTServerConnectionCopyCellularUsageWorkspaceInfo();
     CFRelease(v3);
+    v2 = v12;
   }
 
-  v4 = _PSLoggingFacility();
+  v4 = _PSLoggingFacility(v2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -842,7 +843,7 @@ LABEL_11:
           [v14 setProperty:bundleIdentifier forKey:@"AppBundleID"];
           [v14 setProperty:bundleIdentifier forKey:@"id"];
           [v14 setProperty:bundleIdentifier forKey:@"restrictByID"];
-          if (!PSIsSpecifierHiddenDueToRestrictions(v14))
+          if ((PSIsSpecifierHiddenDueToRestrictions(v14) & 1) == 0)
           {
             [v18 addObject:v14];
           }
@@ -850,7 +851,7 @@ LABEL_11:
 
         else
         {
-          v12 = _PSLoggingFacility();
+          v12 = _PSLoggingFacility(0);
           if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_13;

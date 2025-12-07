@@ -15,13 +15,12 @@
 
 - (id)description
 {
-  v7.receiver = self;
-  v7.super_class = _DASNetworkQualityPolicyResponseRationale;
-  v3 = [(_DASPolicyResponseRationale *)&v7 description];
+  v6.receiver = self;
+  v6.super_class = _DASNetworkQualityPolicyResponseRationale;
+  v3 = [(_DASPolicyResponseRationale *)&v6 description];
   v4 = [v3 mutableCopy];
 
-  cellLQMRequired = self->_cellLQMRequired;
-  [v4 appendFormat:@" Size %lu upload:%d, [wifiLQM] Required=%ld, Observed=%ld, [cellLQM] Required=%ld Observed=%ld\n", self->_activityTransferSize, self->_isUpload, self->_wifiLQMRequired, self->_wifiLQMObserved, cellLQMRequired, self->_cellLQMObserved];
+  [v4 appendFormat:@" Size %lu upload:%d, [wifiLQM] Required=%ld, Observed=%ld, [cellLQM] Required=%ld Observed=%ld\n", self->_activityTransferSize, self->_isUpload, self->_wifiLQMRequired, self->_wifiLQMObserved, self->_cellLQMRequired, self->_cellLQMObserved];
 
   return v4;
 }

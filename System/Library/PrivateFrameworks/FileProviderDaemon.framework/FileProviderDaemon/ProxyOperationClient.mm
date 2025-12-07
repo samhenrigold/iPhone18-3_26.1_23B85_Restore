@@ -15,7 +15,9 @@
   if (!proxifiedDescription)
   {
     _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
+    v6 = v5;
     proxifiedDescription = sub_1CF9E6888();
+    v6, v7, v8, v9, v10, v11, v12, v13;
   }
 
   return proxifiedDescription;
@@ -38,6 +40,8 @@
   selfCopy = self;
   errorCopy = error;
   sub_1CF919DF0(v8, error, sub_1CF744650, v9);
+
+  v8, v12, v13, v14, v15, v16, v17, v18;
 }
 
 - (_TtC18FileProviderDaemonP33_95B4E889D922FD43A9B7D480DBF87E0A20ProxyOperationClient)init

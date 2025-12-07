@@ -54,18 +54,18 @@
 
 - (NSDictionary)powerEventData
 {
-  v39[2] = *MEMORY[0x1E69E9840];
-  v38[0] = @"maintenanceIndexingTime";
+  v38[2] = *MEMORY[0x1E69E9840];
+  v37[0] = @"maintenanceIndexingTime";
   v3 = MEMORY[0x1E696AD98];
   [(EDSearchableIndexSchedulerState *)self maintenanceIndexingTime];
   v4 = [v3 numberWithDouble:?];
-  v38[1] = @"extraIndexingTime";
-  v39[0] = v4;
+  v37[1] = @"extraIndexingTime";
+  v38[0] = v4;
   v5 = MEMORY[0x1E696AD98];
   [(EDSearchableIndexSchedulerState *)self otherIndexingTime];
   v6 = [v5 numberWithDouble:?];
-  v39[1] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v38[1] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
   v8 = [v7 mutableCopy];
 
   [(EDSearchableIndexSchedulerState *)self fastPassIndexingTime];
@@ -83,69 +83,67 @@
     [v8 setObject:v12 forKeyedSubscript:@"fastPassIndexedItemCount"];
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v13 = +[EDSearchableIndexScheduler activityTypes];
-  v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v14)
   {
-    v15 = *v33;
+    v15 = *v32;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v33 != v15)
+        if (*v32 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v32 + 1) + 8 * i);
+        v17 = *(*(&v31 + 1) + 8 * i);
         v18 = [(EDSearchableIndexSchedulerState *)self isIndexingEnabledForActivityType:v17];
         v19 = [MEMORY[0x1E696AD98] numberWithBool:v18];
         [v8 setObject:v19 forKeyedSubscript:v17];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v14);
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v20 = +[EDSearchableIndexScheduler taskTypes];
-  v21 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v21)
   {
-    v22 = *v29;
+    v22 = *v28;
     v23 = MEMORY[0x1E695E118];
     do
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v29 != v22)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v28 + 1) + 8 * j);
+        v25 = *(*(&v27 + 1) + 8 * j);
         if ([(EDSearchableIndexSchedulerState *)self isIndexingEnabledForTaskType:v25])
         {
           [v8 setObject:v23 forKeyedSubscript:v25];
         }
       }
 
-      v21 = [v20 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v21);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

@@ -3289,9 +3289,11 @@ LABEL_15:
 
 uint64_t __73__PHResourceLocalAvailabilityRequest_resourceLocalAvailabilityRequestLog__block_invoke()
 {
-  resourceLocalAvailabilityRequestLog_log = os_log_create("com.apple.photos", "PHResourceLocalAvailabilityRequest");
+  v0 = os_log_create("com.apple.photos", "PHResourceLocalAvailabilityRequest");
+  v1 = resourceLocalAvailabilityRequestLog_log;
+  resourceLocalAvailabilityRequestLog_log = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)isKnownUnsupportedFormatForAsset:(id)asset
@@ -3473,9 +3475,11 @@ LABEL_30:
 
 uint64_t __71__PHResourceLocalAvailabilityRequest_isKnownUnsupportedFormatForAsset___block_invoke()
 {
-  isKnownUnsupportedFormatForAsset__cachedPlayableVideoCodecs = [MEMORY[0x1E695DFA8] set];
+  v0 = [MEMORY[0x1E695DFA8] set];
+  v1 = isKnownUnsupportedFormatForAsset__cachedPlayableVideoCodecs;
+  isKnownUnsupportedFormatForAsset__cachedPlayableVideoCodecs = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_resourcesToShareForAsset:(id)asset options:(id)options error:(id *)error

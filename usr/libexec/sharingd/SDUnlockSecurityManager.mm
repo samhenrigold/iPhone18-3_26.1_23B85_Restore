@@ -113,7 +113,7 @@
     v5 = paired_unlock_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1001CECF0(&v9);
+      sub_1001CECF0();
     }
 
     v4 = 0;
@@ -143,8 +143,6 @@
   keyCopy = key;
   localKeyCopy = localKey;
   v9 = localKeyCopy;
-  v12 = 0;
-  v13 = 0;
   if (localKeyCopy)
   {
     [localKeyCopy bytes];
@@ -155,7 +153,7 @@
     v10 = paired_unlock_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1001CED5C(&v12);
+      sub_1001CED5C();
     }
   }
 
@@ -166,11 +164,6 @@
     {
       sub_1001CEDC8();
     }
-  }
-
-  if (v13)
-  {
-    free(v13);
   }
 
   return 0;
@@ -758,7 +751,7 @@ LABEL_14:
 - (int64_t)authSessionWithFlags:(unsigned int)flags secret:(id)secret errorCode:(int *)code
 {
   secretCopy = secret;
-  v36 = 0;
+  v37 = 0;
   localLongTermKey = [(SDUnlockSecurityManager *)self localLongTermKey];
   if (localLongTermKey)
   {
@@ -785,7 +778,7 @@ LABEL_14:
       remoteLongTermKey3 = [(SDUnlockSecurityManager *)self remoteLongTermKey];
       [remoteLongTermKey3 length];
       [secretCopy bytes];
-      v35 = secretCopy;
+      v36 = secretCopy;
       [secretCopy length];
       flagsCopy2 = flags;
       v17 = aks_remote_session();
@@ -794,7 +787,7 @@ LABEL_14:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        flagsCopy = v36;
+        flagsCopy = v37;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Auth session -- create (session id: %d)", buf, 8u);
       }
 
@@ -808,8 +801,8 @@ LABEL_14:
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Received no memory error when creating session, clearing and retrying", buf, 2u);
         }
 
-        sub_10005C8E8();
-        v36 = 0;
+        sub_10005C8E8(v21);
+        v37 = 0;
         localLongTermKey4 = [(SDUnlockSecurityManager *)self localLongTermKey];
         [localLongTermKey4 bytes];
         localLongTermKey5 = [(SDUnlockSecurityManager *)self localLongTermKey];
@@ -832,42 +825,42 @@ LABEL_14:
           if (v17 != -536870184)
           {
 LABEL_29:
-            v29 = paired_unlock_log();
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+            v30 = paired_unlock_log();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
             {
               localLongTermKey6 = [(SDUnlockSecurityManager *)self localLongTermKey];
               remoteLongTermKey6 = [(SDUnlockSecurityManager *)self remoteLongTermKey];
               *buf = 67109890;
               flagsCopy = v17;
-              v39 = 1024;
-              v40 = flagsCopy2;
-              v41 = 2112;
-              v42 = localLongTermKey6;
-              v43 = 2112;
-              v44 = remoteLongTermKey6;
-              _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Failed to setup session: (status = %x, flags = %d,\n localKey = %@,\n remoteKey = %@)", buf, 0x22u);
+              v40 = 1024;
+              v41 = flagsCopy2;
+              v42 = 2112;
+              v43 = localLongTermKey6;
+              v44 = 2112;
+              v45 = remoteLongTermKey6;
+              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Failed to setup session: (status = %x, flags = %d,\n localKey = %@,\n remoteKey = %@)", buf, 0x22u);
 
-              secretCopy = v35;
+              secretCopy = v36;
             }
 
             goto LABEL_32;
           }
 
 LABEL_21:
-          v27 = paired_unlock_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v28 = paired_unlock_log();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 67109120;
             flagsCopy = v17;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Escrow record exists, but not available (status = %d)", buf, 8u);
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Escrow record exists, but not available (status = %d)", buf, 8u);
           }
 
-          v25 = 0;
+          v26 = 0;
           goto LABEL_33;
         }
 
-        v28 = paired_unlock_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = paired_unlock_log();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           sub_1001CF2FC();
         }
@@ -881,7 +874,7 @@ LABEL_21:
           {
             if (!v17)
             {
-              v25 = v36;
+              v26 = v37;
               goto LABEL_33;
             }
 
@@ -891,17 +884,17 @@ LABEL_21:
           goto LABEL_21;
         }
 
-        v28 = paired_unlock_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = paired_unlock_log();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
           flagsCopy = -536870160;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Escrow record not found status = %d", buf, 8u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Escrow record not found status = %d", buf, 8u);
         }
       }
 
 LABEL_32:
-      v25 = -1;
+      v26 = -1;
 LABEL_33:
       if (v19)
       {
@@ -912,16 +905,16 @@ LABEL_33:
     }
   }
 
-  v26 = paired_unlock_log();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v27 = paired_unlock_log();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     sub_1001CF338(self);
   }
 
-  v25 = -1;
+  v26 = -1;
 LABEL_35:
 
-  return v25;
+  return v26;
 }
 
 - (BOOL)setupWithAuthSession:(int64_t)session passcode:(id)passcode
@@ -1003,30 +996,14 @@ LABEL_11:
 
 - (id)escrowSecretWithAuthSession:(int64_t)session
 {
-  v7 = 0;
-  v8 = 0;
-  if (aks_remote_peer_confirm() == -536870212 || v7 == 0)
+  aks_remote_peer_confirm();
+  v3 = paired_unlock_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v4 = paired_unlock_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_1001CF4E8(&v7);
-    }
-
-    v5 = 0;
+    sub_1001CF4E8();
   }
 
-  else
-  {
-    v5 = [NSData dataWithBytes:v8 length:?];
-  }
-
-  if (v8)
-  {
-    free(v8);
-  }
-
-  return v5;
+  return 0;
 }
 
 - (void)clearStateForSession:(int64_t)session

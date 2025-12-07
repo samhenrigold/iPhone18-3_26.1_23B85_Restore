@@ -41,7 +41,7 @@ LABEL_107:
       goto LABEL_30;
     }
 
-    [v16 timingInfo];
+    objc_msgSend_timingInfo(v16);
     value = v159;
     flags = HIDWORD(v160);
     timescale = v160;
@@ -53,7 +53,7 @@ LABEL_107:
 
     else
     {
-      [v152 lastProcessedPTS];
+      objc_msgSend_lastProcessedPTS(v152);
       CMTimeMake(&rhs, 1, 30);
       CMTimeAdd(&time1, &lhs, &rhs);
       value = time1.value;
@@ -68,9 +68,9 @@ LABEL_107:
     time1.timescale = timescale;
     time1.flags = flags;
     time1.epoch = epoch;
-    [v152 lastUpdatePTS];
+    objc_msgSend_lastUpdatePTS(v152);
     CMTimeSubtract(&v154, &time1, &lhs);
-    [v152 frameUpdateSpacing];
+    objc_msgSend_frameUpdateSpacing(v152);
     *&lhs.data = *&v154.value;
     lhs.width = v154.epoch;
     v20 = CMTimeCompare(&time1, &lhs);
@@ -364,7 +364,7 @@ LABEL_70:
             [(VNObservation *)v111 setConfidence:v124];
             if (v142)
             {
-              v125 = calculateCropSizeOfPixelBuffer(v117, 0);
+              v125 = calculateCropSizeOfPixelBuffer(v117, 0, 0.1);
               v127 = v126;
               v129 = v128;
               v131 = v130;

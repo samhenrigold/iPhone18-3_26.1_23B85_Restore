@@ -31,7 +31,7 @@
   modelCopy = model;
   controllerCopy = controller;
   contextCopy = context;
-  v16 = _AAUILogSystem();
+  v16 = _AAUILogSystem(contextCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [AAUIInviteMessageFlowController initWithContext:v16 flow:? navigationController:? defaultMessageViewModel:? messageSentViewModel:?];
@@ -142,16 +142,16 @@
 
   [v3 addObject:@"com.apple.accountaccess.editInvite"];
   [v3 addObject:@"com.apple.accountaccess.send"];
-  [(AAUIInviteMessageFlowController *)self _sendRecoveryContactSendMessageLandingEvent:v3];
+  v14 = [(AAUIInviteMessageFlowController *)self _sendRecoveryContactSendMessageLandingEvent:v3];
   navigationController = self->_navigationController;
-  v15 = _AAUILogSystem();
-  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+  v16 = _AAUILogSystem(v14);
+  v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (navigationController)
   {
-    if (v16)
+    if (v17)
     {
-      *v19 = 0;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by pushing to existing navigation controller", v19, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by pushing to existing navigation controller", v20, 2u);
     }
 
     [(UINavigationController *)self->_navigationController pushViewController:self->_defaultMessageController animated:1];
@@ -159,21 +159,21 @@
 
   else
   {
-    if (v16)
+    if (v17)
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by creating new navigation controller", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "iMessage invitation flow by creating new navigation controller", buf, 2u);
     }
 
-    v17 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:self->_defaultMessageController];
-    v18 = self->_navigationController;
-    self->_navigationController = v17;
+    v18 = [objc_alloc(MEMORY[0x1E69DCCD8]) initWithRootViewController:self->_defaultMessageController];
+    v19 = self->_navigationController;
+    self->_navigationController = v18;
   }
 }
 
 - (void)_showMessagesComposeController
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -192,7 +192,7 @@
 
 - (void)_showInvitationSent
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -200,7 +200,7 @@
   }
 
   uiVersion = [(AAUIInviteMessageFlowController *)self uiVersion];
-  v5 = _AAUILogSystem();
+  v5 = _AAUILogSystem(uiVersion);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (uiVersion == 1)
   {
@@ -388,7 +388,7 @@ void __53__AAUIInviteMessageFlowController__invitationWasSent__block_invoke(uint
 
 - (void)_cancelMessageInvitationFlow
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -426,7 +426,7 @@ void __63__AAUIInviteMessageFlowController__cancelMessageInvitationFlow__block_i
 
 - (void)_finishMessageInvitationFlow
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -466,7 +466,7 @@ void __63__AAUIInviteMessageFlowController__finishMessageInvitationFlow__block_i
 
 - (void)_messageSentSecondaryActionTapped
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -485,7 +485,7 @@ void __63__AAUIInviteMessageFlowController__finishMessageInvitationFlow__block_i
 
 - (void)_sendDefaultMessage
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -520,16 +520,16 @@ void __63__AAUIInviteMessageFlowController__finishMessageInvitationFlow__block_i
 
 void __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
-    v20 = _AAUILogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v22 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_3(v20);
+      __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_3(v22);
     }
 
     goto LABEL_22;
@@ -546,16 +546,16 @@ void __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke(uin
     }
 
 LABEL_10:
-    v20 = _AAUILogSystem();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v22 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_2(v6, v20);
+      __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_2(v6, v22);
     }
 
     goto LABEL_22;
   }
 
-  [WeakRetained _hideActivitySpinnerInNavigationBar];
+  v9 = [WeakRetained _hideActivitySpinnerInNavigationBar];
   if (!v5)
   {
     goto LABEL_10;
@@ -564,76 +564,81 @@ LABEL_10:
 LABEL_4:
   if ([*(a1 + 32) uiVersion] == 1)
   {
-    v9 = [v5 bubbleMetadata];
-    v30 = [objc_alloc(getMSMessageRichLinkLayoutClass()) initWithLinkMetadata:v9];
-    v10 = [objc_alloc(getMSMessageLiveLayoutClass()) initWithAlternateLayout:v30];
-    [v10 setRequiredCapabilities:&unk_1F44C06C0];
-    v11 = objc_alloc(getMSMessageClass());
-    v12 = objc_alloc_init(getMSSessionClass());
-    v13 = [v11 initWithSession:v12];
+    v10 = [v5 bubbleMetadata];
+    v33 = [objc_alloc(getMSMessageRichLinkLayoutClass()) initWithLinkMetadata:v10];
+    v11 = [objc_alloc(getMSMessageLiveLayoutClass()) initWithAlternateLayout:v33];
+    [v11 setRequiredCapabilities:&unk_1F44C06C0];
+    v12 = objc_alloc(getMSMessageClass());
+    v13 = objc_alloc_init(getMSSessionClass());
+    v14 = [v12 initWithSession:v13];
 
-    [v13 setLayout:v10];
-    v14 = [*(*(a1 + 32) + 16) messageURL];
-    [v13 setURL:v14];
+    [v14 setLayout:v11];
+    v15 = [*(*(a1 + 32) + 16) messageURL];
+    [v14 setURL:v15];
 
-    v15 = [v9 title];
-    [v13 setSummaryText:v15];
+    v16 = [v10 title];
+    [v14 setSummaryText:v16];
 
-    v16 = [v13 _pluginPayloadWithAppIconData:0 appName:@"CustodianInviteMessageExtension" allowDataPayloads:1];
-    v17 = [v16 data];
-    v34[0] = WeakRetained[3];
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
-    v19 = IMSPISendMSMessagePayloadReturningGUID();
+    v17 = [v14 _pluginPayloadWithAppIconData:0 appName:@"CustodianInviteMessageExtension" allowDataPayloads:1];
+    v18 = [v17 data];
+    v37[0] = WeakRetained[3];
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:1];
+    v20 = IMSPISendMSMessagePayloadReturningGUID();
 
-    if ((v19 & 1) == 0)
+    if ((v20 & 1) == 0)
     {
       goto LABEL_20;
-    }
-  }
-
-  else if (+[AAUIFeatureFlags isLCMessageExtensionEnabled])
-  {
-    if (([WeakRetained _sendLCLiveMessage:v5] & 1) == 0)
-    {
-LABEL_20:
-      v20 = _AAUILogSystem();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-      {
-        __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_1(v20);
-      }
-
-LABEL_22:
-
-      goto LABEL_23;
     }
   }
 
   else
   {
-    v21 = _AAUILogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = +[AAUIFeatureFlags isLCMessageExtensionEnabled];
+    if (v23)
     {
-      *buf = 138412290;
-      v33 = v5;
-      _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "Sending message with linkmetadata: %@", buf, 0xCu);
+      v21 = [WeakRetained _sendLCLiveMessage:v5];
+      if ((v21 & 1) == 0)
+      {
+LABEL_20:
+        v22 = _AAUILogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        {
+          __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_cold_1(v22);
+        }
+
+LABEL_22:
+
+        goto LABEL_23;
+      }
     }
 
-    v22 = objc_alloc_init(MEMORY[0x1E696ECD8]);
-    v23 = [v5 bubbleMetadata];
-    [v22 setMetadata:v23];
-
-    v31 = 0;
-    v24 = [v22 dataRepresentationWithOutOfLineAttachments:&v31];
-    v25 = v31;
-    v26 = [WeakRetained[2] inviteURL];
-    v27 = IMSPISendRichLink();
-
-    v28 = [WeakRetained[2] messageBody];
-    v29 = IMSPISendMessageWithAttachments();
-
-    if (!v27 || !v29)
+    else
     {
-      goto LABEL_20;
+      v24 = _AAUILogSystem(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v36 = v5;
+        _os_log_impl(&dword_1C5355000, v24, OS_LOG_TYPE_DEFAULT, "Sending message with linkmetadata: %@", buf, 0xCu);
+      }
+
+      v25 = objc_alloc_init(MEMORY[0x1E696ECD8]);
+      v26 = [v5 bubbleMetadata];
+      [v25 setMetadata:v26];
+
+      v34 = 0;
+      v27 = [v25 dataRepresentationWithOutOfLineAttachments:&v34];
+      v28 = v34;
+      v29 = [WeakRetained[2] inviteURL];
+      v30 = IMSPISendRichLink();
+
+      v31 = [WeakRetained[2] messageBody];
+      v32 = IMSPISendMessageWithAttachments();
+
+      if (!v30 || !v32)
+      {
+        goto LABEL_20;
+      }
     }
   }
 
@@ -645,7 +650,7 @@ void __54__AAUIInviteMessageFlowController__sendDefaultMessage__block_invoke_99(
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -684,7 +689,7 @@ void __54__AAUIInviteMessageFlowController__sendLCLiveMessage___block_invoke(uin
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -771,11 +776,11 @@ LABEL_7:
 
   if (v12)
   {
-    v13 = MEMORY[0x1E6985DB0];
-    v14 = *MEMORY[0x1E698BA48];
+    v14 = MEMORY[0x1E6985DB0];
+    v15 = *MEMORY[0x1E698BA48];
     aida_alternateDSID = [v12 aida_alternateDSID];
     telemetryFlowID = [(AAUIInviteMessageFlowController *)self telemetryFlowID];
-    v17 = [v13 analyticsEventWithName:v14 altDSID:aida_alternateDSID flowID:telemetryFlowID];
+    v18 = [v14 analyticsEventWithName:v15 altDSID:aida_alternateDSID flowID:telemetryFlowID];
 
     if (status)
     {
@@ -783,19 +788,19 @@ LABEL_7:
     }
 
 LABEL_6:
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "User cancelled", v23, 2u);
+      *v24 = 0;
+      _os_log_impl(&dword_1C5355000, v19, OS_LOG_TYPE_DEFAULT, "User cancelled", v24, 2u);
     }
 
-    v19 = MEMORY[0x1E696ABC0];
-    v20 = -1;
+    v20 = MEMORY[0x1E696ABC0];
+    v21 = -1;
     goto LABEL_12;
   }
 
-  v17 = 0;
+  v18 = 0;
   if (!status)
   {
     goto LABEL_6;
@@ -804,17 +809,17 @@ LABEL_6:
 LABEL_3:
   if (status != 1)
   {
-    v21 = _AAUILogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _AAUILogSystem(v13);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [AAUIInviteMessageFlowController inviteController:v21 didFinishWithStatus:? recipients:? userInfo:? error:?];
+      [AAUIInviteMessageFlowController inviteController:v22 didFinishWithStatus:? recipients:? userInfo:? error:?];
     }
 
-    v19 = MEMORY[0x1E696ABC0];
-    v20 = 0;
+    v20 = MEMORY[0x1E696ABC0];
+    v21 = 0;
 LABEL_12:
-    v22 = [v19 aa_errorWithCode:v20];
-    [(AAUIInviteMessageFlowController *)self _sendTelemetryEventWithSuccess:v17 didSucceed:0 error:v22];
+    v23 = [v20 aa_errorWithCode:v21];
+    [(AAUIInviteMessageFlowController *)self _sendTelemetryEventWithSuccess:v18 didSucceed:0 error:v23];
 
     goto LABEL_13;
   }

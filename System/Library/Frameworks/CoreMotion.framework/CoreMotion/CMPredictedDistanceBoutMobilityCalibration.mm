@@ -17,28 +17,26 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v32[4] = *MEMORY[0x1E69E9840];
-  v31[0] = @"startTime";
+  v31[4] = *MEMORY[0x1E69E9840];
+  v30[0] = @"startTime";
   v4 = MEMORY[0x1E696AD98];
   started = objc_msgSend_startDate(self, a2, v2);
   objc_msgSend_timeIntervalSinceReferenceDate(started, v6, v7);
-  v32[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
-  v31[1] = @"endTime";
+  v31[0] = objc_msgSend_numberWithDouble_(v4, v8, v9);
+  v30[1] = @"endTime";
   v10 = MEMORY[0x1E696AD98];
   v13 = objc_msgSend_endDate(self, v11, v12);
   objc_msgSend_timeIntervalSinceReferenceDate(v13, v14, v15);
-  v32[1] = objc_msgSend_numberWithDouble_(v10, v16, v17);
-  v31[2] = @"cadenceWatch";
+  v31[1] = objc_msgSend_numberWithDouble_(v10, v16, v17);
+  v30[2] = @"cadenceWatch";
   v18 = MEMORY[0x1E696AD98];
   objc_msgSend_cadenceWatch(self, v19, v20);
-  v32[2] = objc_msgSend_numberWithDouble_(v18, v21, v22);
-  v31[3] = @"meanWalkingSpeed";
+  v31[2] = objc_msgSend_numberWithDouble_(v18, v21, v22);
+  v30[3] = @"meanWalkingSpeed";
   v23 = MEMORY[0x1E696AD98];
   objc_msgSend_meanWalkingSpeed(self, v24, v25);
-  v32[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
-  result = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v32, v31, 4);
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
+  v31[3] = objc_msgSend_numberWithDouble_(v23, v26, v27);
+  return objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v28, v31, v30, 4);
 }
 
 - (CMPredictedDistanceBoutMobilityCalibration)initWithRecordId:(unint64_t)id startDate:(id)date endDate:(id)endDate cadenceWatch:(double)watch cadenceGaitCycle:(double)cycle meanWalkingSpeed:(double)speed gaitCycleYield:(double)yield

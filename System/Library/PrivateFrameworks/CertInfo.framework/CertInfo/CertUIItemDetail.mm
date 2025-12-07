@@ -1,6 +1,7 @@
 @interface CertUIItemDetail
 + (id)itemDetailWithDetailTitle:(id)title detail:(id)detail;
 + (id)itemDetailWithDetailTitle:(id)title detail:(id)detail detailHighlightColor:(id)color;
++ (id)itemDetailWithDetailTitle:(id)title detail:(id)detail detailHighlightColor:(id)color showCheckmarkView:(BOOL)view checkmarkText:(id)text checkmarkHighlightColor:(id)highlightColor showCheckmark:(BOOL)checkmark;
 - (CertUIItemDetail)initWithDetailTitle:(id)title detail:(id)detail detailHighlightColor:(id)color showCheckmarkView:(BOOL)view checkmarkText:(id)text checkmarkHighlightColor:(id)highlightColor showCheckmark:(BOOL)checkmark;
 @end
 
@@ -25,6 +26,20 @@
   v10 = [[CertUIItemDetail alloc] initWithDetailTitle:titleCopy detail:detailCopy detailHighlightColor:colorCopy showCheckmarkView:0 checkmarkText:0 checkmarkHighlightColor:0 showCheckmark:v12];
 
   return v10;
+}
+
++ (id)itemDetailWithDetailTitle:(id)title detail:(id)detail detailHighlightColor:(id)color showCheckmarkView:(BOOL)view checkmarkText:(id)text checkmarkHighlightColor:(id)highlightColor showCheckmark:(BOOL)checkmark
+{
+  viewCopy = view;
+  highlightColorCopy = highlightColor;
+  textCopy = text;
+  colorCopy = color;
+  detailCopy = detail;
+  titleCopy = title;
+  LOBYTE(v21) = checkmark;
+  v19 = [[CertUIItemDetail alloc] initWithDetailTitle:titleCopy detail:detailCopy detailHighlightColor:colorCopy showCheckmarkView:viewCopy checkmarkText:textCopy checkmarkHighlightColor:highlightColorCopy showCheckmark:v21];
+
+  return v19;
 }
 
 - (CertUIItemDetail)initWithDetailTitle:(id)title detail:(id)detail detailHighlightColor:(id)color showCheckmarkView:(BOOL)view checkmarkText:(id)text checkmarkHighlightColor:(id)highlightColor showCheckmark:(BOOL)checkmark

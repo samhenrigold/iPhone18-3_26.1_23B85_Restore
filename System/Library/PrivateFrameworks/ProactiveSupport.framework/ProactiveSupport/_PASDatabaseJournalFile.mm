@@ -24,7 +24,7 @@
 
 - (void)unlink
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_dead)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -47,11 +47,11 @@
       v6 = __error();
       v7 = strerror(*v6);
       *buf = 138412802;
-      v12 = path;
-      v13 = 1024;
-      v14 = v5;
-      v15 = 2080;
-      v16 = v7;
+      v11 = path;
+      v12 = 1024;
+      v13 = v5;
+      v14 = 2080;
+      v15 = v7;
       _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not remove %@: errno=%i: %s", buf, 0x1Cu);
     }
   }
@@ -60,8 +60,6 @@
   {
     self->_dead = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clear
@@ -83,7 +81,7 @@
 
 - (id)read
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   if (!self->_len || [(_PASDatabaseJournalFile *)self isFullyRead])
   {
     v4 = 0;
@@ -101,7 +99,7 @@
     fcntl(self->_fd, 48, 1);
   }
 
-  v38 = 0;
+  v37 = 0;
   __buf = 0;
   v5 = pread(self->_fd, &__buf, 0xCuLL, self->_readCursor);
   v6 = self->_readCursor + 12;
@@ -115,11 +113,11 @@
       v9 = __error();
       v10 = strerror(*v9);
       *buf = 138412802;
-      *v40 = path;
-      *&v40[8] = 1024;
-      v41[0] = v8;
-      LOWORD(v41[1]) = 2080;
-      *(&v41[1] + 2) = v10;
+      *v39 = path;
+      *&v39[8] = 1024;
+      v40[0] = v8;
+      LOWORD(v40[1]) = 2080;
+      *(&v40[1] + 2) = v10;
       v11 = MEMORY[0x1E69E9C10];
       v12 = "Could not read from journal file %@: errno=%i: %s";
       v13 = 28;
@@ -140,11 +138,11 @@ LABEL_20:
       {
         v29 = self->_path;
         *buf = 67109634;
-        *v40 = -1347426410;
-        *&v40[4] = 1024;
-        *&v40[6] = v15;
-        LOWORD(v41[0]) = 2112;
-        *(v41 + 2) = v29;
+        *v39 = -1347426410;
+        *&v39[4] = 1024;
+        *&v39[6] = v15;
+        LOWORD(v40[0]) = 2112;
+        *(v40 + 2) = v29;
         v11 = MEMORY[0x1E69E9C10];
         v12 = "Journal file has invalid magic number: expected 0x%x, got 0x%x: %@";
         v13 = 24;
@@ -164,9 +162,9 @@ LABEL_20:
     if (v20 >= v21)
     {
       bytes = [v17 bytes];
-      v33 = adler32(0, bytes, HIDWORD(__buf));
-      v34 = v38;
-      if (v38 == v33)
+      v32 = adler32(0, bytes, HIDWORD(__buf));
+      v33 = v37;
+      if (v37 == v32)
       {
         v17 = v17;
         v4 = v17;
@@ -178,13 +176,13 @@ LABEL_20:
         goto LABEL_30;
       }
 
-      v35 = self->_path;
+      v34 = self->_path;
       *buf = 138412802;
-      *v40 = v35;
-      *&v40[8] = 1024;
-      v41[0] = v33;
-      LOWORD(v41[1]) = 1024;
-      *(&v41[1] + 2) = v34;
+      *v39 = v34;
+      *&v39[8] = 1024;
+      v40[0] = v32;
+      LOWORD(v40[1]) = 1024;
+      *(&v40[1] + 2) = v33;
       v26 = MEMORY[0x1E69E9C10];
       v27 = "Journal file checksum mismatch: %@: %u / %u";
       v28 = 24;
@@ -204,11 +202,11 @@ LABEL_30:
       v24 = __error();
       v25 = strerror(*v24);
       *buf = 138412802;
-      *v40 = v22;
-      *&v40[8] = 1024;
-      v41[0] = v23;
-      LOWORD(v41[1]) = 2080;
-      *(&v41[1] + 2) = v25;
+      *v39 = v22;
+      *&v39[8] = 1024;
+      v40[0] = v23;
+      LOWORD(v40[1]) = 2080;
+      *(&v40[1] + 2) = v25;
       v26 = MEMORY[0x1E69E9C10];
       v27 = "Could not read from journal file %@: errno=%i: %s";
       v28 = 28;
@@ -222,7 +220,7 @@ LABEL_30:
   {
     v14 = self->_path;
     *buf = 138412290;
-    *v40 = v14;
+    *v39 = v14;
     v11 = MEMORY[0x1E69E9C10];
     v12 = "Journal file truncated: %@";
     v13 = 12;
@@ -238,14 +236,13 @@ LABEL_22:
 LABEL_23:
 
 LABEL_24:
-  v30 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)write:(id)write
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   writeCopy = write;
   if ([writeCopy length] >> 32)
   {
@@ -260,50 +257,50 @@ LABEL_24:
   }
 
   v6 = adler32(0, [writeCopy bytes], objc_msgSend(writeCopy, "length"));
-  v19[0] = -1347426410;
-  v19[1] = [writeCopy length];
-  v19[2] = v6;
-  v27.iov_base = v19;
-  v27.iov_len = 12;
+  v18[0] = -1347426410;
+  v18[1] = [writeCopy length];
+  v18[2] = v6;
+  v26.iov_base = v18;
+  v26.iov_len = 12;
   bytes = [writeCopy bytes];
   v7 = [writeCopy length];
 
-  v29 = v7;
-  if (writev(self->_fd, &v27, 2) < 0)
+  v28 = v7;
+  if (writev(self->_fd, &v26, 2) < 0)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       path = self->_path;
-      v14 = *__error();
-      v15 = __error();
-      v16 = strerror(*v15);
-      v26.st_dev = 138412802;
-      *&v26.st_mode = path;
-      WORD2(v26.st_ino) = 1024;
-      *(&v26.st_ino + 6) = v14;
-      HIWORD(v26.st_uid) = 2080;
-      *&v26.st_gid = v16;
-      _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not write to journal file %@: errno=%i: %s", &v26, 0x1Cu);
+      v13 = *__error();
+      v14 = __error();
+      v15 = strerror(*v14);
+      v25.st_dev = 138412802;
+      *&v25.st_mode = path;
+      WORD2(v25.st_ino) = 1024;
+      *(&v25.st_ino + 6) = v13;
+      HIWORD(v25.st_uid) = 2080;
+      *&v25.st_gid = v15;
+      _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not write to journal file %@: errno=%i: %s", &v25, 0x1Cu);
     }
   }
 
   else
   {
-    memset(&v26, 0, sizeof(v26));
-    if (fstat(self->_fd, &v26))
+    memset(&v25, 0, sizeof(v25));
+    if (fstat(self->_fd, &v25))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v9 = self->_path;
-        v10 = *__error();
-        v11 = __error();
-        v12 = strerror(*v11);
+        v8 = self->_path;
+        v9 = *__error();
+        v10 = __error();
+        v11 = strerror(*v10);
         *buf = 138412802;
-        v21 = v9;
-        v22 = 1024;
-        v23 = v10;
-        v24 = 2080;
-        v25 = v12;
+        v20 = v8;
+        v21 = 1024;
+        v22 = v9;
+        v23 = 2080;
+        v24 = v11;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not fstat %@: errno=%i: %s", buf, 0x1Cu);
       }
 
@@ -311,11 +308,9 @@ LABEL_24:
       self->_fd = -1;
     }
 
-    self->_len = v26.st_size;
+    self->_len = v25.st_size;
     self->_written = 1;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -350,11 +345,11 @@ LABEL_24:
 
 - (_PASDatabaseJournalFile)initWithPath:(id)path
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v20.receiver = self;
-  v20.super_class = _PASDatabaseJournalFile;
-  v6 = [(_PASDatabaseJournalFile *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = _PASDatabaseJournalFile;
+  v6 = [(_PASDatabaseJournalFile *)&v19 init];
   v7 = v6;
   if (!v6)
   {
@@ -366,21 +361,21 @@ LABEL_24:
   v7->_fd = v8;
   if ((v8 & 0x80000000) == 0)
   {
-    memset(&v27, 0, sizeof(v27));
-    if (fstat(v8, &v27))
+    memset(&v26, 0, sizeof(v26));
+    if (fstat(v8, &v26))
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         path = v7->_path;
-        v13 = *__error();
-        v14 = __error();
-        v15 = strerror(*v14);
+        v12 = *__error();
+        v13 = __error();
+        v14 = strerror(*v13);
         *buf = 138412802;
         pathCopy2 = path;
-        v23 = 1024;
-        v24 = v13;
-        v25 = 2080;
-        v26 = v15;
+        v22 = 1024;
+        v23 = v12;
+        v24 = 2080;
+        v25 = v14;
         _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not fstat %@: errno=%i: %s", buf, 0x1Cu);
       }
 
@@ -390,7 +385,7 @@ LABEL_24:
       goto LABEL_12;
     }
 
-    v7->_len = v27.st_size;
+    v7->_len = v26.st_size;
 LABEL_11:
     v9 = v7;
     goto LABEL_12;
@@ -398,23 +393,22 @@ LABEL_11:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = v7->_path;
-    v17 = *__error();
-    v18 = __error();
-    v19 = strerror(*v18);
-    v27.st_dev = 138412802;
-    *&v27.st_mode = v16;
-    WORD2(v27.st_ino) = 1024;
-    *(&v27.st_ino + 6) = v17;
-    HIWORD(v27.st_uid) = 2080;
-    *&v27.st_gid = v19;
-    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not open %@: errno=%i: %s", &v27, 0x1Cu);
+    v15 = v7->_path;
+    v16 = *__error();
+    v17 = __error();
+    v18 = strerror(*v17);
+    v26.st_dev = 138412802;
+    *&v26.st_mode = v15;
+    WORD2(v26.st_ino) = 1024;
+    *(&v26.st_ino + 6) = v16;
+    HIWORD(v26.st_uid) = 2080;
+    *&v26.st_gid = v18;
+    _os_log_error_impl(&dword_1A7F47000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Could not open %@: errno=%i: %s", &v26, 0x1Cu);
   }
 
   v9 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

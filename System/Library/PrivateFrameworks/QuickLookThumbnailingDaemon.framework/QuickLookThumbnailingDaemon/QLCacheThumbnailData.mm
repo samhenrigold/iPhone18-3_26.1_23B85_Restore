@@ -1,6 +1,7 @@
 @interface QLCacheThumbnailData
 - (BOOL)setState:(unint64_t)state changedState:(BOOL *)changedState;
 - (CGRect)contentRect;
+- (QLCacheThumbnailData)initWithCacheId:(unint64_t)id fileIdentifier:(id)identifier version:(id)version size:(float)size iconMode:(BOOL)mode iconVariant:(int64_t)variant interpolationQuality:(int)quality badgeType:(unint64_t)self0 externalGeneratorDataHash:(unint64_t)self1 hitCount:(unint64_t)self2 lastHitDate:(id)self3;
 - (QLCacheThumbnailData)initWithCacheId:(unint64_t)id fileIdentifier:(id)identifier version:(id)version size:(float)size iconMode:(BOOL)mode iconVariant:(int64_t)variant interpolationQuality:(int)quality hitCount:(unint64_t)self0 lastHitDate:(id)self1 bitmapFormat:(id)self2 bitmapData:(id)self3 metadata:(id)self4 flavor:(int)self5 contentRect:(CGRect)self6 badgeType:(unint64_t)self7 externalGeneratorDataHash:(unint64_t)self8;
 - (QLCacheThumbnailData)initWithCacheId:(unint64_t)id thumbnailRequest:(id)request size:(float)size badgeType:(unint64_t)type;
 - (QLCacheThumbnailData)initWithCacheId:(unint64_t)id thumbnailRequest:(id)request size:(float)size bitmapFormat:(id)format bitmapData:(id)data metadata:(id)metadata flavor:(int)flavor contentRect:(CGRect)self0 badgeType:(unint64_t)self1;
@@ -28,6 +29,20 @@
   v2.receiver = self;
   v2.super_class = QLCacheThumbnailData;
   [(QLCacheThumbnailData *)&v2 dealloc];
+}
+
+- (QLCacheThumbnailData)initWithCacheId:(unint64_t)id fileIdentifier:(id)identifier version:(id)version size:(float)size iconMode:(BOOL)mode iconVariant:(int64_t)variant interpolationQuality:(int)quality badgeType:(unint64_t)self0 externalGeneratorDataHash:(unint64_t)self1 hitCount:(unint64_t)self2 lastHitDate:(id)self3
+{
+  modeCopy = mode;
+  dateCopy = date;
+  versionCopy = version;
+  identifierCopy = identifier;
+  v22 = objc_opt_new();
+  LODWORD(v26) = 0;
+  *&v23 = size;
+  v24 = [(QLCacheThumbnailData *)self initWithCacheId:id fileIdentifier:identifierCopy version:versionCopy size:modeCopy iconMode:variant iconVariant:quality interpolationQuality:v23 hitCount:*MEMORY[0x277CBF3A0] lastHitDate:*(MEMORY[0x277CBF3A0] + 8) bitmapFormat:*(MEMORY[0x277CBF3A0] + 16) bitmapData:*(MEMORY[0x277CBF3A0] + 24) metadata:count flavor:dateCopy contentRect:v22 badgeType:0 externalGeneratorDataHash:0, v26, type, hash];
+
+  return v24;
 }
 
 - (QLCacheThumbnailData)initWithCacheId:(unint64_t)id fileIdentifier:(id)identifier version:(id)version size:(float)size iconMode:(BOOL)mode iconVariant:(int64_t)variant interpolationQuality:(int)quality hitCount:(unint64_t)self0 lastHitDate:(id)self1 bitmapFormat:(id)self2 bitmapData:(id)self3 metadata:(id)self4 flavor:(int)self5 contentRect:(CGRect)self6 badgeType:(unint64_t)self7 externalGeneratorDataHash:(unint64_t)self8
@@ -154,7 +169,7 @@
   return v5;
 }
 
-uint64_t __46__QLCacheThumbnailData_setState_changedState___block_invoke(uint64_t a1)
+void *__46__QLCacheThumbnailData_setState_changedState___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 48);
   if (v2)

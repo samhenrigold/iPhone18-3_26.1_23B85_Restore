@@ -98,34 +98,34 @@ void __66__VUIActionTypeGDPR_performWithTargetResponder_completionHandler___bloc
 void __66__VUIActionTypeGDPR_performWithTargetResponder_completionHandler___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __66__VUIActionTypeGDPR_performWithTargetResponder_completionHandler___block_invoke_3;
-  v10[3] = &unk_1E872E828;
-  objc_copyWeak(&v12, (a1 + 56));
-  v11 = *(a1 + 48);
-  [v2 dismissViewControllerAnimated:1 completion:v10];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__VUIActionTypeGDPR_performWithTargetResponder_completionHandler___block_invoke_3;
+  v11[3] = &unk_1E872E828;
+  objc_copyWeak(&v13, (a1 + 56));
+  v12 = *(a1 + 48);
+  [v2 dismissViewControllerAnimated:1 completion:v11];
   v3 = +[VUIInterfaceFactory sharedInstance];
   v4 = [v3 openURLHandler];
   v5 = [v4 openedByDeeplink];
 
   if ((v5 & 1) == 0)
   {
-    v6 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "VUIApplicationActionRouter - GDPR Accept Button -- Check if there is any pending offer to spend", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIApplicationActionRouter - GDPR Accept Button -- Check if there is any pending offer to spend", v10, 2u);
     }
 
-    v7 = [*(a1 + 40) appContext];
-    [VUIOfferUtilities fetchAndPresentOffer:v7 sourceEvent:@"AppLaunch" completion:0];
+    v8 = [*(a1 + 40) appContext];
+    [VUIOfferUtilities fetchAndPresentOffer:v8 sourceEvent:@"AppLaunch" completion:0];
   }
 
-  v8 = dispatch_get_global_queue(0, 0);
-  dispatch_async(v8, &__block_literal_global_43);
+  v9 = dispatch_get_global_queue(0, 0);
+  dispatch_async(v9, &__block_literal_global_43);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
 }
 
 void __66__VUIActionTypeGDPR_performWithTargetResponder_completionHandler___block_invoke_3(uint64_t a1)

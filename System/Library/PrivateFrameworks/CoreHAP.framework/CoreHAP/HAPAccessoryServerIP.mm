@@ -3,6 +3,7 @@
 + (id)logCategory;
 + (id)sharedPairOperationQueue;
 - (BOOL)_delegateRespondsToSelector:(SEL)selector;
+- (BOOL)_handleSecureSessionClosingWithError:(id *)error status:(int)status data:(id)data;
 - (BOOL)_isSessionEstablished;
 - (BOOL)_matchesError:(id)error withHAPErrorCode:(int64_t)code;
 - (BOOL)_matchesError:(id)error withHAPHMErrorCode:(int64_t)code;
@@ -12,6 +13,7 @@
 - (BOOL)_shouldConnectBasedOnDisconnectOnIdle;
 - (BOOL)_shouldNotifyClientsOfPVFailure:(id)failure;
 - (BOOL)_updateAccessories:(id)accessories;
+- (BOOL)_validateAuthChallengeResponse:(id)response expectedTID:(unsigned __int8)d error:(id *)error;
 - (BOOL)_validateProtocolInfo:(id)info;
 - (BOOL)hasBonjourDeviceInfo;
 - (BOOL)isBonjourDiscoveryPending;
@@ -89,6 +91,7 @@
 - (void)_establishSecureSessionAndRemovePairing:(id)pairing queue:(id)queue completion:(id)completion;
 - (void)_getAttributeDatabase;
 - (void)_handleConnectionIdleTimeout;
+- (void)_handleEventResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status error:(id)error characteristics:(id)characteristics requestedEventState:(BOOL)state completion:(id)completion queue:(id)self0;
 - (void)_handleListPairingsResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status httpError:(id)error completionQueue:(id)queue completionHandler:(id)handler;
 - (void)_handleMFiCertValidation;
 - (void)_handlePairSetupAfterM4Callback;
@@ -118,6 +121,7 @@
 - (void)_pairSetupContinueWAC;
 - (void)_pairVerifyStartWAC:(id)c;
 - (void)_parseAttributeDatabase:(id)database transaction:(id)transaction;
+- (void)_performEasyConfigWithPairingPrompt:(void *)prompt performPairSetup:(BOOL)setup isSplit:(BOOL)split completion:(id)completion;
 - (void)_performExecuteWriteValues:(id)values prepareIdentifier:(id)identifier timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler;
 - (void)_performTimedWriteValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler;
 - (void)_performWriteValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler;
@@ -135,10 +139,12 @@
 - (void)_reset;
 - (void)_sendRemovePairingWithData:(id)data queue:(id)queue completion:(id)completion;
 - (void)_skipReconfirm;
+- (void)_startAddPairingWithIdentifier:(id)identifier publicKey:(id)key admin:(BOOL)admin queue:(id)queue completion:(id)completion;
 - (void)_startConnectionIdleTimer;
 - (void)_startReachability;
 - (void)_stopReachability;
 - (void)_stopReachabilityTimer;
+- (void)_submitStateNumberChangeEvent:(BOOL)event;
 - (void)_suspendConnectionIdleTimer;
 - (void)_tearDownSessionAndStartReachabilityWithError:(id)error;
 - (void)_tearDownSessionWithError:(id)error;
@@ -296,7 +302,7 @@ uint64_t __47__HAPAccessoryServerIP_disconnectOnIdleUpdated__block_invoke(uint64
 
 - (void)_suspendConnectionIdleTimer
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -312,11 +318,11 @@ uint64_t __47__HAPAccessoryServerIP_disconnectOnIdleUpdated__block_invoke(uint64
       v8 = HMFGetLogIdentifier();
       connectionIdleTimer2 = [(HAPAccessoryServerIP *)selfCopy connectionIdleTimer];
       [connectionIdleTimer2 timeInterval];
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v10;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Canceling connection idle timer of: %0.3fs", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v10;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Canceling connection idle timer of: %0.3fs", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -325,13 +331,11 @@ uint64_t __47__HAPAccessoryServerIP_disconnectOnIdleUpdated__block_invoke(uint64
 
     [(HAPAccessoryServerIP *)selfCopy setConnectionIdleTimer:0];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startConnectionIdleTimer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -345,8 +349,8 @@ uint64_t __47__HAPAccessoryServerIP_disconnectOnIdleUpdated__block_invoke(uint64
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v8;
+      v25 = 138543362;
+      v26 = v8;
       v9 = "%{public}@Not starting connection idle timer --- no active connection";
       v10 = v7;
       v11 = OS_LOG_TYPE_DEBUG;
@@ -356,7 +360,7 @@ uint64_t __47__HAPAccessoryServerIP_disconnectOnIdleUpdated__block_invoke(uint64
 LABEL_8:
 
     objc_autoreleasePoolPop(v5);
-    goto LABEL_17;
+    return;
   }
 
   if ([(HAPAccessoryServer *)self isSessionRestoreActive])
@@ -367,13 +371,13 @@ LABEL_8:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v8;
+      v25 = 138543362;
+      v26 = v8;
       v9 = "%{public}@*** Session Restore is active, ignoring start connection idle timer request";
       v10 = v7;
       v11 = OS_LOG_TYPE_INFO;
 LABEL_7:
-      _os_log_impl(&dword_22AADC000, v10, v11, v9, &v26, 0xCu);
+      _os_log_impl(&dword_22AADC000, v10, v11, v9, &v25, 0xCu);
 
       goto LABEL_8;
     }
@@ -393,10 +397,10 @@ LABEL_11:
 
     if (!self->_idleTimerActiveSessions)
     {
-      v22 = objc_alloc(MEMORY[0x277D0F920]);
+      v21 = objc_alloc(MEMORY[0x277D0F920]);
       [(HAPAccessoryServerIP *)self disconnectOnIdleTimeout];
-      v23 = [v22 initWithTimeInterval:0 options:?];
-      [(HAPAccessoryServerIP *)self setConnectionIdleTimer:v23];
+      v22 = [v21 initWithTimeInterval:0 options:?];
+      [(HAPAccessoryServerIP *)self setConnectionIdleTimer:v22];
 
       connectionIdleTimer2 = [(HAPAccessoryServerIP *)self connectionIdleTimer];
       [connectionIdleTimer2 setDelegate:self];
@@ -422,25 +426,22 @@ LABEL_13:
       v17 = HMFGetLogIdentifier();
       connectionIdleTimer5 = [(HAPAccessoryServerIP *)selfCopy3 connectionIdleTimer];
       [connectionIdleTimer5 timeInterval];
-      v26 = 138543618;
-      v27 = v17;
-      v28 = 2048;
-      v29 = v19;
-      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting connection idle timer of: %03fs", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v17;
+      v27 = 2048;
+      v28 = v19;
+      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting connection idle timer of: %03fs", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     connectionIdleTimer6 = [(HAPAccessoryServerIP *)selfCopy3 connectionIdleTimer];
     [connectionIdleTimer6 resume];
   }
-
-LABEL_17:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_kickConnectionIdleTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -454,22 +455,20 @@ LABEL_17:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Kicking connection idle timer", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Kicking connection idle timer", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     connectionIdleTimer2 = [(HAPAccessoryServerIP *)selfCopy connectionIdleTimer];
     [connectionIdleTimer2 kick];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConnectionIdleTimeout
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -481,17 +480,15 @@ LABEL_17:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@The connection idle timer fired, disconnecting...", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@The connection idle timer fired, disconnecting...", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v8 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:29 userInfo:0];
     [(HAPAccessoryServerIP *)selfCopy disconnectWithError:v8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateActiveDisconnectOnIdleTimeout:(double)timeout
@@ -508,7 +505,7 @@ LABEL_17:
 
 void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) shouldDisconnectOnIdle])
   {
     [*(a1 + 32) setDisconnectOnIdleTimeout:*(a1 + 40)];
@@ -531,11 +528,11 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
         {
           v12 = HMFGetLogIdentifier();
           [*(a1 + 32) disconnectOnIdleTimeout];
-          v23 = 138543618;
-          v24 = v12;
-          v25 = 2048;
-          v26 = v13;
-          _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating active connection idle timer timeout to: %0.3fs", &v23, 0x16u);
+          v22 = 138543618;
+          v23 = v12;
+          v24 = 2048;
+          v25 = v13;
+          _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Updating active connection idle timer timeout to: %0.3fs", &v22, 0x16u);
         }
 
         objc_autoreleasePoolPop(v9);
@@ -560,8 +557,6 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
       }
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_delegateRespondsToSelector:(SEL)selector
@@ -592,7 +587,7 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
 
 - (void)_accessoryDidBecomeUnreachable:(id)unreachable
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   unreachableCopy = unreachable;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -605,13 +600,13 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
     v9 = HMFGetLogIdentifier();
     isReachable = [unreachableCopy isReachable];
     shortDescription = [unreachableCopy shortDescription];
-    v18 = 138543874;
-    v19 = v9;
-    v20 = 1024;
-    v21 = isReachable;
-    v22 = 2112;
-    v23 = shortDescription;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Accessory became unreachable after ping - reachable flag %d accessory: %@", &v18, 0x1Cu);
+    v17 = 138543874;
+    v18 = v9;
+    v19 = 1024;
+    v20 = isReachable;
+    v21 = 2112;
+    v22 = shortDescription;
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Accessory became unreachable after ping - reachable flag %d accessory: %@", &v17, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -624,9 +619,9 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Marking accessory unreachable", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Marking accessory unreachable", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -638,8 +633,6 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
   {
     [(HAPAccessoryServerIP *)selfCopy _startReachability];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pollAccessory
@@ -655,7 +648,7 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
 
 - (void)_pollAccessory
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reachabilityPingEnabled = [(HAPAccessoryServer *)self reachabilityPingEnabled];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -668,11 +661,11 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
       v8 = HMFGetLogIdentifier();
       primaryAccessory = [(HAPAccessoryServerIP *)selfCopy primaryAccessory];
       shortDescription = [primaryAccessory shortDescription];
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = shortDescription;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reachability poll for accessory: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = shortDescription;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reachability poll for accessory: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -685,21 +678,19 @@ void __60__HAPAccessoryServerIP_updateActiveDisconnectOnIdleTimeout___block_invo
     if (v7)
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reachability ping disabled", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Reachability ping disabled", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [(HAPAccessoryServerIP *)selfCopy stopPing];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doPollForAccessory:(id)accessory
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -719,7 +710,7 @@ LABEL_8:
 
     v12 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v12;
+    v17 = v12;
     v13 = "%{public}@Reachability poll called while reachability event timer is nil";
 LABEL_7:
     _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, v13, buf, 0xCu);
@@ -743,7 +734,7 @@ LABEL_7:
 
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       v13 = "%{public}@Reachability poll failed - no suitable characteristic";
       goto LABEL_7;
     }
@@ -751,21 +742,20 @@ LABEL_7:
 
   v7 = v6;
   clientQueue2 = [(HAPAccessoryServer *)self clientQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke;
-  v15[3] = &unk_2786D6538;
-  v15[4] = self;
-  v16 = accessoryCopy;
-  [v16 readValueForCharacteristic:v7 timeout:0 expiry:clientQueue2 completionQueue:v15 completionHandler:0.0];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke;
+  v14[3] = &unk_2786D6538;
+  v14[4] = self;
+  v15 = accessoryCopy;
+  [v15 readValueForCharacteristic:v7 timeout:0 expiry:clientQueue2 completionQueue:v14 completionHandler:0.0];
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) clientQueue];
@@ -778,13 +768,13 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
   {
     v11 = HMFGetLogIdentifier();
     v12 = [*(a1 + 32) reachabilityPingEnabled];
-    v18 = 138543874;
-    v19 = v11;
-    v20 = 2112;
-    v21 = v6;
-    v22 = 1024;
-    v23 = v12;
-    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Reachability poll complete error=%@ reachabilityPingEnabled %d", &v18, 0x1Cu);
+    v17 = 138543874;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v6;
+    v21 = 1024;
+    v22 = v12;
+    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Reachability poll complete error=%@ reachabilityPingEnabled %d", &v17, 0x1Cu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -796,13 +786,11 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
   v15 = *(a1 + 32);
   v16 = *(v15 + 448);
   *(v15 + 448) = v14;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doReachabilityWithError:(id)error forAccessory:(id)accessory
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   accessoryCopy = accessory;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
@@ -826,13 +814,13 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
       v16 = HMFGetLogIdentifier();
       consecutiveFailedPingCount = [accessoryCopy consecutiveFailedPingCount];
       shortDescription = [accessoryCopy shortDescription];
-      v26 = 138543874;
-      v27 = v16;
-      v28 = 1024;
-      v29 = consecutiveFailedPingCount;
-      v30 = 2112;
-      v31 = shortDescription;
-      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Reachability poll failure count: %d for accessory: %@", &v26, 0x1Cu);
+      v25 = 138543874;
+      v26 = v16;
+      v27 = 1024;
+      v28 = consecutiveFailedPingCount;
+      v29 = 2112;
+      v30 = shortDescription;
+      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Reachability poll failure count: %d for accessory: %@", &v25, 0x1Cu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -854,9 +842,9 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v23;
-        _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@Reachability poll -- resetting consecutive ping failure", &v26, 0xCu);
+        v25 = 138543362;
+        v26 = v23;
+        _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@Reachability poll -- resetting consecutive ping failure", &v25, 0xCu);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -878,8 +866,6 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
     v9 = [(HAPAccessoryServer *)self buildReachabilityNotificationDictionary:accessoryCopy reachable:1 linkType:1 withError:0];
     [(HAPAccessoryServer *)self notifyClients:1 withDictionary:v9];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_indicateSessionActivityWithReason:(id)reason
@@ -911,7 +897,7 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
 
 - (id)_startReachabilityEventTimer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([(HAPAccessoryServer *)self shouldDisconnectOnIdle])
   {
     v3 = objc_autoreleasePoolPush();
@@ -920,9 +906,9 @@ void __44__HAPAccessoryServerIP__doPollForAccessory___block_invoke(uint64_t a1, 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v6;
-      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@shouldDisconnectOnIdle is enabled -- ignoring request to start reachability timer", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v6;
+      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@shouldDisconnectOnIdle is enabled -- ignoring request to start reachability timer", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -939,26 +925,26 @@ LABEL_6:
   }
 
   [(HAPAccessoryServerIP *)self _getReachabilityTimeoutValue];
-  v12 = v11;
-  v13 = objc_autoreleasePoolPush();
+  v11 = v10;
+  v12 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v15 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v14 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
-    v16 = HMFGetLogIdentifier();
+    v15 = HMFGetLogIdentifier();
     primaryAccessory = [(HAPAccessoryServerIP *)selfCopy2 primaryAccessory];
     shortDescription = [primaryAccessory shortDescription];
-    v21 = 138543874;
-    v22 = v16;
-    v23 = 2112;
-    v24 = shortDescription;
-    v25 = 2048;
-    v26 = v12;
-    _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Setting reachability poll timer for accessory: %@ to %0.3fs", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v15;
+    v22 = 2112;
+    v23 = shortDescription;
+    v24 = 2048;
+    v25 = v11;
+    _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_INFO, "%{public}@Setting reachability poll timer for accessory: %@ to %0.3fs", &v20, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v13);
-  v8 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:3 options:v12];
+  objc_autoreleasePoolPop(v12);
+  v8 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:3 options:v11];
   [v8 setDelegate:selfCopy2];
   clientQueue = [(HAPAccessoryServer *)selfCopy2 clientQueue];
   [v8 setDelegateQueue:clientQueue];
@@ -969,7 +955,6 @@ LABEL_6:
   [(HAPAccessoryServerIP *)selfCopy2 setReachabilityStartTime:date];
 
 LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1008,7 +993,7 @@ LABEL_7:
 
 - (void)_stopReachability
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -1017,7 +1002,6 @@ LABEL_7:
   {
 
 LABEL_7:
-    v11 = *MEMORY[0x277D85DE8];
 
     [(HAPAccessoryServerIP *)self _stopReachabilityTimer];
     return;
@@ -1036,18 +1020,17 @@ LABEL_7:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v9;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Server still has accessories to support ping for -- ignoring stop ping request for server", &v12, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Server still has accessories to support ping for -- ignoring stop ping request for server", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopReachabilityTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_reachabilityEventTimer)
   {
     v3 = objc_autoreleasePoolPush();
@@ -1056,9 +1039,9 @@ LABEL_7:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping reachability timer", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping reachability timer", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -1066,8 +1049,6 @@ LABEL_7:
     reachabilityEventTimer = self->_reachabilityEventTimer;
     self->_reachabilityEventTimer = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopPing
@@ -1083,23 +1064,21 @@ LABEL_7:
 
 uint64_t __32__HAPAccessoryServerIP_stopPing__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Stopping IP reachability", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Stopping IP reachability", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   [*(a1 + 32) setReachabilityPingEnabled:0];
-  result = [*(a1 + 32) _stopReachability];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _stopReachability];
 }
 
 - (void)startPing
@@ -1115,7 +1094,7 @@ uint64_t __32__HAPAccessoryServerIP_stopPing__block_invoke(uint64_t a1)
 
 void __33__HAPAccessoryServerIP_startPing__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) reachabilityPingEnabled];
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 32);
@@ -1126,9 +1105,9 @@ void __33__HAPAccessoryServerIP_startPing__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting IP reachability", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting IP reachability", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -1140,15 +1119,13 @@ void __33__HAPAccessoryServerIP_startPing__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Attempting to start ping on server that is not enabled", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Attempting to start ping on server that is not enabled", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identifyWithCompletion:(id)completion
@@ -1171,9 +1148,9 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke(uint64_t a
   if (![*(a1 + 32) isWacAccessory] || (objc_msgSend(*(a1 + 32), "isWacComplete") & 1) != 0)
   {
     v2 = MEMORY[0x277CCACA8];
-    v17[0] = @"/";
-    v17[1] = @"identify";
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = @"/";
+    v16[1] = @"identify";
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v4 = [v2 pathWithComponents:v3];
 
     v5 = [*(a1 + 32) _ensureHTTPClientSetUp];
@@ -1191,15 +1168,15 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke(uint64_t a
     {
       objc_initWeak(location, *(a1 + 32));
       v8 = *(a1 + 32);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653;
-      v14[3] = &unk_2786D2918;
-      objc_copyWeak(&v16, location);
-      v15 = *(a1 + 40);
-      [v8 sendPOSTRequestToURL:v4 request:0 serializationType:1 completionHandler:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653;
+      v13[3] = &unk_2786D2918;
+      objc_copyWeak(&v15, location);
+      v14 = *(a1 + 40);
+      [v8 sendPOSTRequestToURL:v4 request:0 serializationType:1 completionHandler:v13];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(location);
     }
 
@@ -1224,13 +1201,11 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke(uint64_t a
     (*(*(a1 + 40) + 16))();
 LABEL_11:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -1242,11 +1217,11 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653(uint64
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Identify returned HTTP client error: %@", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Identify returned HTTP client error: %@", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -1268,9 +1243,9 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653(uint64
       if (v19)
       {
         v20 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v20;
-        _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Identify succeeded", &v26, 0xCu);
+        v25 = 138543362;
+        v26 = v20;
+        _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Identify succeeded", &v25, 0xCu);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1283,11 +1258,11 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653(uint64
       {
         v22 = HMFGetLogIdentifier();
         v23 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-        v26 = 138543618;
-        v27 = v22;
-        v28 = 2112;
-        v29 = v23;
-        _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Identify returned unexpected status code: %@", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v22;
+        v27 = 2112;
+        v28 = v23;
+        _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Identify returned unexpected status code: %@", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -1300,8 +1275,6 @@ void __47__HAPAccessoryServerIP_identifyWithCompletion___block_invoke_653(uint64
       (*(v24 + 16))(v24, v21);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)httpClient:(id)client willSendHTTPMessageWithHeaders:(id)headers body:(id)body
@@ -1374,7 +1347,7 @@ void __73__HAPAccessoryServerIP_httpClient_didReceiveHTTPMessageWithHeaders_body
 
 - (void)_handleListPairingsResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status httpError:(id)error completionQueue:(id)queue completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   errorCopy = error;
   queueCopy = queue;
@@ -1388,9 +1361,9 @@ void __73__HAPAccessoryServerIP_httpClient_didReceiveHTTPMessageWithHeaders_body
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v48 = v21;
-      v49 = 2112;
-      *v50 = errorCopy;
+      v47 = v21;
+      v48 = 2112;
+      *v49 = errorCopy;
       _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to list-pairings with error %@", buf, 0x16u);
     }
 
@@ -1410,7 +1383,7 @@ LABEL_22:
     v35 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v41 = v33;
+      v40 = v33;
       v36 = HMFGetLogIdentifier();
       v37 = HTTPGetReasonPhrase();
       if (type - 1 > 3)
@@ -1425,18 +1398,18 @@ LABEL_22:
 
       v39 = v38;
       *buf = 138544386;
-      v48 = v36;
-      v49 = 1024;
-      *v50 = status;
-      *&v50[4] = 2080;
-      *&v50[6] = v37;
-      *&v50[14] = 2112;
-      *&v50[16] = v39;
-      v51 = 2112;
-      v52 = objectCopy;
+      v47 = v36;
+      v48 = 1024;
+      *v49 = status;
+      *&v49[4] = 2080;
+      *&v49[6] = v37;
+      *&v49[14] = 2112;
+      *&v49[16] = v39;
+      v50 = 2112;
+      v51 = objectCopy;
       _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_ERROR, "%{public}@Received invalid response to list-pairings with HTTP status '%d %s', serializationType %@ responseObject %@", buf, 0x30u);
 
-      v33 = v41;
+      v33 = v40;
     }
 
     objc_autoreleasePoolPop(v33);
@@ -1451,14 +1424,14 @@ LABEL_22:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v48 = v26;
+    v47 = v26;
     _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Received valid response to list-pairings", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
-  v46 = 0;
-  v27 = [HAPPairingUtilities parseListPairingsResponse:objectCopy error:&v46];
-  v28 = v46;
+  v45 = 0;
+  v27 = [HAPPairingUtilities parseListPairingsResponse:objectCopy error:&v45];
+  v28 = v45;
   if (!v27)
   {
     v29 = objc_autoreleasePoolPush();
@@ -1468,11 +1441,11 @@ LABEL_22:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v48 = v32;
-      v49 = 2112;
-      *v50 = objectCopy;
-      *&v50[8] = 2112;
-      *&v50[10] = v28;
+      v47 = v32;
+      v48 = 2112;
+      *v49 = objectCopy;
+      *&v49[8] = 2112;
+      *&v49[10] = v28;
       _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse list-pairings response: %@ with error %@", buf, 0x20u);
     }
 
@@ -1487,36 +1460,34 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = __118__HAPAccessoryServerIP__handleListPairingsResponseObject_type_httpStatus_httpError_completionQueue_completionHandler___block_invoke;
     block[3] = &unk_2786D69E0;
-    v45 = handlerCopy;
-    v43 = v27;
-    v44 = v28;
+    v44 = handlerCopy;
+    v42 = v27;
+    v43 = v28;
     dispatch_async(queueCopy, block);
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listPairingsWithCompletionQueue:(id)queue completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
   if ([(HAPAccessoryServerIP *)self _isSessionEstablished])
   {
-    v26 = 0;
-    v8 = [HAPPairingUtilities createListPairingsRequest:&v26];
-    v9 = v26;
+    v25 = 0;
+    v8 = [HAPPairingUtilities createListPairingsRequest:&v25];
+    v9 = v25;
     if (v8)
     {
       v10 = [@"/" stringByAppendingPathComponent:@"pairings"];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __75__HAPAccessoryServerIP__listPairingsWithCompletionQueue_completionHandler___block_invoke_2;
-      v20[3] = &unk_2786D2A30;
-      v20[4] = self;
-      v21 = queueCopy;
-      v22 = handlerCopy;
-      [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:v10 request:v8 serializationType:2 completionHandler:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __75__HAPAccessoryServerIP__listPairingsWithCompletionQueue_completionHandler___block_invoke_2;
+      v19[3] = &unk_2786D2A30;
+      v19[4] = self;
+      v20 = queueCopy;
+      v21 = handlerCopy;
+      [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:v10 request:v8 serializationType:2 completionHandler:v19];
     }
 
     else
@@ -1528,9 +1499,9 @@ LABEL_23:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v9;
+        v27 = v18;
+        v28 = 2112;
+        v29 = v9;
         _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to create list pairings request payload with error: %@", buf, 0x16u);
       }
 
@@ -1544,11 +1515,11 @@ LABEL_23:
       block[1] = 3221225472;
       block[2] = __75__HAPAccessoryServerIP__listPairingsWithCompletionQueue_completionHandler___block_invoke;
       block[3] = &unk_2786D65D8;
-      v25 = handlerCopy;
-      v24 = v9;
+      v24 = handlerCopy;
+      v23 = v9;
       dispatch_async(queueCopy, block);
 
-      v10 = v25;
+      v10 = v24;
     }
 
 LABEL_13:
@@ -1562,7 +1533,7 @@ LABEL_13:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v14;
+    v27 = v14;
     _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing list-pairing", buf, 0xCu);
   }
 
@@ -1570,8 +1541,6 @@ LABEL_13:
   [(HAPAccessoryServerIP *)selfCopy2 _queueListPairingWithCompletionQueue:queueCopy completionHandler:handlerCopy];
   [(HAPAccessoryServerIP *)selfCopy2 _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.listPairings"];
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listPairingsWithCompletionQueue:(id)queue completionHandler:(id)handler
@@ -1593,12 +1562,12 @@ LABEL_14:
 
 - (BOOL)removePairingForCurrentControllerOnQueue:(id)queue completion:(id)completion
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   completionCopy = completion;
-  v41 = 0;
-  v8 = [(HAPAccessoryServer *)self getControllerPairingIdentityWithError:&v41];
-  v9 = v41;
+  v40 = 0;
+  v8 = [(HAPAccessoryServer *)self getControllerPairingIdentityWithError:&v40];
+  v9 = v40;
   identifier = [v8 identifier];
   publicKey = [v8 publicKey];
   data = [publicKey data];
@@ -1614,9 +1583,9 @@ LABEL_14:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v43 = v18;
-        v44 = 2112;
-        v45 = identifier;
+        v42 = v18;
+        v43 = 2112;
+        v44 = identifier;
         _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Sending request to accessory to remove the pairing for the current controller: %@", buf, 0x16u);
       }
 
@@ -1624,20 +1593,20 @@ LABEL_14:
       keyStore = [(HAPAccessoryServer *)selfCopy keyStore];
       identifier2 = [(HAPAccessoryServer *)selfCopy identifier];
       clientQueue = [(HAPAccessoryServer *)selfCopy clientQueue];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_609;
-      v28[3] = &unk_2786D2A80;
-      v28[4] = selfCopy;
-      v29 = identifier;
-      v30 = data;
-      v31 = keyStore;
-      v32 = identifier2;
-      v33 = queueCopy;
-      v34 = completionCopy;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_609;
+      v27[3] = &unk_2786D2A80;
+      v27[4] = selfCopy;
+      v28 = identifier;
+      v29 = data;
+      v30 = keyStore;
+      v31 = identifier2;
+      v32 = queueCopy;
+      v33 = completionCopy;
       v22 = identifier2;
       v14 = keyStore;
-      dispatch_async(clientQueue, v28);
+      dispatch_async(clientQueue, v27);
 
       v9 = 0;
       v13 = 1;
@@ -1645,27 +1614,27 @@ LABEL_14:
 
     else
     {
-      v46[0] = *MEMORY[0x277CCA450];
+      v45[0] = *MEMORY[0x277CCA450];
       v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to remove the pairing for the current controller"];
-      v47[0] = v23;
-      v46[1] = *MEMORY[0x277CCA470];
+      v46[0] = v23;
+      v45[1] = *MEMORY[0x277CCA470];
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
       v25 = [mainBundle localizedStringForKey:@"There was no controller public key or controller username" value:&stru_283E79C60 table:0];
-      v47[1] = v25;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+      v46[1] = v25;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
 
       v9 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:27 userInfo:v14];
       v13 = 0;
       if (queueCopy && completionCopy)
       {
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_2;
-        v35[3] = &unk_2786D65D8;
-        v37 = completionCopy;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_2;
+        v34[3] = &unk_2786D65D8;
+        v36 = completionCopy;
         v9 = v9;
-        v36 = v9;
-        dispatch_async(queueCopy, v35);
+        v35 = v9;
+        dispatch_async(queueCopy, v34);
 
         v13 = 0;
       }
@@ -1681,17 +1650,16 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke;
     block[3] = &unk_2786D65D8;
-    v40 = completionCopy;
+    v39 = completionCopy;
     v9 = v9;
-    v39 = v9;
+    v38 = v9;
     dispatch_async(queueCopy, block);
 
     v13 = 0;
-    v14 = v40;
+    v14 = v39;
 LABEL_13:
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1725,7 +1693,7 @@ void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_complet
 
 void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_2_610(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v5 = objc_autoreleasePoolPush();
@@ -1735,9 +1703,9 @@ void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_complet
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v3;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v3;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Request to remove current controller pairing from accessory completed with error: %@", buf, 0x16u);
   }
 
@@ -1750,9 +1718,9 @@ void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_complet
   [v6 setAuthenticated:0];
   v9 = *(a1 + 32);
   v10 = *(a1 + 40);
-  v26 = 0;
-  [v9 removeAccessoryKeyForName:v10 error:&v26];
-  v11 = v26;
+  v25 = 0;
+  [v9 removeAccessoryKeyForName:v10 error:&v25];
+  v11 = v25;
   if (v11)
   {
     v12 = objc_autoreleasePoolPush();
@@ -1762,9 +1730,9 @@ void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_complet
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v15;
-      v29 = 2112;
-      v30 = v11;
+      v27 = v15;
+      v28 = 2112;
+      v29 = v11;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_INFO, "%{public}@After removing the accessory with 'Remove Pairing', we failed to remove accessory from the keychain with error %@", buf, 0x16u);
     }
 
@@ -1775,13 +1743,13 @@ void __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_complet
       v17 = *(a1 + 56);
       if (v17)
       {
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_611;
-        v24[3] = &unk_2786D6490;
-        v18 = &v25;
-        v25 = v17;
-        v19 = v24;
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_611;
+        v23[3] = &unk_2786D6490;
+        v18 = &v24;
+        v24 = v17;
+        v19 = v23;
 LABEL_14:
         dispatch_async(v16, v19);
       }
@@ -1800,21 +1768,19 @@ LABEL_14:
         block[1] = 3221225472;
         block[2] = __76__HAPAccessoryServerIP_removePairingForCurrentControllerOnQueue_completion___block_invoke_2_612;
         block[3] = &unk_2786D6490;
-        v18 = &v23;
-        v23 = v20;
+        v18 = &v22;
+        v22 = v20;
         v19 = block;
         goto LABEL_14;
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePairingsResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status httpError:(id)error removeRequest:(BOOL)request completionQueue:(id)queue completionBlock:(id)block
 {
   requestCopy = request;
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   errorCopy = error;
   queueCopy = queue;
@@ -1830,16 +1796,16 @@ LABEL_14:
       v23 = HMFGetLogIdentifier();
       v24 = @"add";
       *buf = 138543874;
-      v63 = v23;
-      v64 = 2112;
+      v62 = v23;
+      v63 = 2112;
       if (v19)
       {
         v24 = @"remove";
       }
 
-      v65 = v24;
-      v66 = 2112;
-      *v67 = errorCopy;
+      v64 = v24;
+      v65 = 2112;
+      *v66 = errorCopy;
       _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to %@ pairing with error %@", buf, 0x20u);
     }
 
@@ -1849,7 +1815,7 @@ LABEL_14:
 
   else if (objectCopy && type == 2 && status == 200 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v55 = requestCopy;
+    v54 = requestCopy;
     v26 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v28 = HMFGetOSLogHandle();
@@ -1858,104 +1824,104 @@ LABEL_14:
       v29 = HMFGetLogIdentifier();
       v30 = v29;
       v31 = "add";
-      if (v55)
+      if (v54)
       {
         v31 = "remove";
       }
 
       *buf = 138543618;
-      v63 = v29;
-      v64 = 2080;
-      v65 = v31;
+      v62 = v29;
+      v63 = 2080;
+      v64 = v31;
       _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Received valid response to %s pairing", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
-    if (v55)
+    if (v54)
     {
-      v61 = 0;
-      v32 = [HAPPairingUtilities parseRemovePairingResponse:objectCopy error:&v61];
-      v33 = v61;
+      v60 = 0;
+      v32 = [HAPPairingUtilities parseRemovePairingResponse:objectCopy error:&v60];
+      v33 = v60;
     }
 
     else
     {
-      v60 = 0;
-      v32 = [HAPPairingUtilities parseAddPairingResponse:objectCopy error:&v60];
-      v33 = v60;
+      v59 = 0;
+      v32 = [HAPPairingUtilities parseAddPairingResponse:objectCopy error:&v59];
+      v33 = v59;
     }
 
     v25 = v33;
     if (!v32)
     {
-      v42 = objc_autoreleasePoolPush();
-      v43 = selfCopy2;
-      v44 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v41 = objc_autoreleasePoolPush();
+      v42 = selfCopy2;
+      v43 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v46 = v45 = objectCopy;
-        v47 = "add";
+        v45 = v44 = objectCopy;
+        v46 = "add";
         *buf = 138544130;
-        v64 = 2080;
-        v63 = v46;
-        if (v55)
+        v63 = 2080;
+        v62 = v45;
+        if (v54)
         {
-          v47 = "remove";
+          v46 = "remove";
         }
 
-        v65 = v47;
-        v66 = 2112;
-        *v67 = v45;
-        *&v67[8] = 2112;
-        *&v67[10] = v25;
-        _os_log_impl(&dword_22AADC000, v44, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse %s pairing response: %@ with error %@", buf, 0x2Au);
+        v64 = v46;
+        v65 = 2112;
+        *v66 = v44;
+        *&v66[8] = 2112;
+        *&v66[10] = v25;
+        _os_log_impl(&dword_22AADC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse %s pairing response: %@ with error %@", buf, 0x2Au);
 
-        objectCopy = v45;
+        objectCopy = v44;
       }
 
-      objc_autoreleasePoolPop(v42);
+      objc_autoreleasePoolPop(v41);
     }
 
     if (v25)
     {
-      v48 = objc_autoreleasePoolPush();
-      v49 = selfCopy2;
-      v50 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v47 = objc_autoreleasePoolPush();
+      v48 = selfCopy2;
+      v49 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = HMFGetLogIdentifier();
-        v52 = "add";
+        v50 = HMFGetLogIdentifier();
+        v51 = "add";
         *buf = 138544130;
-        v64 = 2080;
-        v63 = v51;
-        if (v55)
+        v63 = 2080;
+        v62 = v50;
+        if (v54)
         {
-          v52 = "remove";
+          v51 = "remove";
         }
 
-        v65 = v52;
-        v66 = 2112;
-        *v67 = objectCopy;
-        *&v67[8] = 2112;
-        *&v67[10] = v25;
-        _os_log_impl(&dword_22AADC000, v50, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse %s pairing response: %@ with error %@", buf, 0x2Au);
+        v64 = v51;
+        v65 = 2112;
+        *v66 = objectCopy;
+        *&v66[8] = 2112;
+        *&v66[10] = v25;
+        _os_log_impl(&dword_22AADC000, v49, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse %s pairing response: %@ with error %@", buf, 0x2Au);
       }
 
-      objc_autoreleasePoolPop(v48);
+      objc_autoreleasePoolPop(v47);
     }
   }
 
   else
   {
-    v56 = objectCopy;
+    v55 = objectCopy;
     v34 = objc_autoreleasePoolPush();
     selfCopy3 = self;
     v36 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v54 = v34;
-      v53 = HMFGetLogIdentifier();
+      v53 = v34;
+      v52 = HMFGetLogIdentifier();
       if (requestCopy)
       {
         v37 = "remove";
@@ -1979,25 +1945,25 @@ LABEL_14:
 
       v40 = v39;
       *buf = 138544642;
-      v63 = v53;
-      v64 = 2080;
-      v65 = v37;
-      v66 = 1024;
-      *v67 = status;
-      *&v67[4] = 2080;
-      *&v67[6] = v38;
-      *&v67[14] = 2112;
-      *&v67[16] = v40;
-      v68 = 2112;
-      v69 = v56;
+      v62 = v52;
+      v63 = 2080;
+      v64 = v37;
+      v65 = 1024;
+      *v66 = status;
+      *&v66[4] = 2080;
+      *&v66[6] = v38;
+      *&v66[14] = 2112;
+      *&v66[16] = v40;
+      v67 = 2112;
+      v68 = v55;
       _os_log_impl(&dword_22AADC000, v36, OS_LOG_TYPE_ERROR, "%{public}@Received invalid response to %s /pairings with HTTP status '%d %s', serializationType %@ responseObject %@", buf, 0x3Au);
 
-      v34 = v54;
+      v34 = v53;
     }
 
     objc_autoreleasePoolPop(v34);
     v25 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
-    objectCopy = v56;
+    objectCopy = v55;
   }
 
   if (queueCopy && blockCopy)
@@ -2006,12 +1972,10 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = __126__HAPAccessoryServerIP__handlePairingsResponseObject_type_httpStatus_httpError_removeRequest_completionQueue_completionBlock___block_invoke;
     block[3] = &unk_2786D65D8;
-    v59 = blockCopy;
-    v58 = v25;
+    v58 = blockCopy;
+    v57 = v25;
     dispatch_async(queueCopy, block);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRemovePairingWithData:(id)data queue:(id)queue completion:(id)completion
@@ -2113,16 +2077,16 @@ void __81__HAPAccessoryServerIP__establishSecureSessionAndRemovePairing_queue_co
 
 - (void)_removePairingWithIdentifier:(id)identifier publicKey:(id)key queue:(id)queue completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyCopy = key;
   queueCopy = queue;
   completionCopy = completion;
   v14 = [objc_alloc(MEMORY[0x277D0F8B0]) initWithPairingKeyData:keyCopy];
   v15 = [[HAPPairingIdentity alloc] initWithIdentifier:identifierCopy publicKey:v14 privateKey:0 permissions:0];
-  v26 = 0;
-  v16 = [HAPPairingUtilities createRemovePairingRequestForPairingIdentity:v15 error:&v26];
-  v17 = v26;
+  v25 = 0;
+  v16 = [HAPPairingUtilities createRemovePairingRequestForPairingIdentity:v15 error:&v25];
+  v17 = v25;
   if (v16)
   {
     [(HAPAccessoryServerIP *)self _establishSecureSessionAndRemovePairing:v16 queue:queueCopy completion:completionCopy];
@@ -2135,11 +2099,11 @@ void __81__HAPAccessoryServerIP__establishSecureSessionAndRemovePairing_queue_co
     v19 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v21;
-      v29 = 2112;
-      v30 = v17;
+      v27 = v20;
+      v28 = 2112;
+      v29 = v17;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to create remove pairing request payload with error: %@", buf, 0x16u);
     }
 
@@ -2150,13 +2114,11 @@ void __81__HAPAccessoryServerIP__establishSecureSessionAndRemovePairing_queue_co
       block[1] = 3221225472;
       block[2] = __80__HAPAccessoryServerIP__removePairingWithIdentifier_publicKey_queue_completion___block_invoke;
       block[3] = &unk_2786D65D8;
-      v24 = v17;
-      v25 = completionCopy;
+      v23 = v17;
+      v24 = completionCopy;
       dispatch_async(queueCopy, block);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HAPAccessoryServerIP__removePairingWithIdentifier_publicKey_queue_completion___block_invoke(uint64_t a1)
@@ -2192,6 +2154,92 @@ void __72__HAPAccessoryServerIP_removePairing_completionQueue_completionHandler_
   v3 = [*(a1 + 40) publicKey];
   v4 = [v3 data];
   [v2 _removePairingWithIdentifier:v5 publicKey:v4 queue:*(a1 + 48) completion:*(a1 + 56)];
+}
+
+- (void)_startAddPairingWithIdentifier:(id)identifier publicKey:(id)key admin:(BOOL)admin queue:(id)queue completion:(id)completion
+{
+  adminCopy = admin;
+  v43 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  keyCopy = key;
+  queueCopy = queue;
+  completionCopy = completion;
+  v16 = [objc_alloc(MEMORY[0x277D0F8B0]) initWithPairingKeyData:keyCopy];
+  v17 = [[HAPPairingIdentity alloc] initWithIdentifier:identifierCopy publicKey:v16 privateKey:0 permissions:adminCopy];
+  v38 = 0;
+  v18 = [HAPPairingUtilities createAddPairingRequestForPairingIdentity:v17 error:&v38];
+  v31 = v38;
+  if (v18)
+  {
+    v19 = [@"/" stringByAppendingPathComponent:@"pairings"];
+    if ([(HAPAccessoryServerIP *)self _isSessionEstablished])
+    {
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __88__HAPAccessoryServerIP__startAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke_584;
+      v32[3] = &unk_2786D2A30;
+      v32[4] = self;
+      v33 = queueCopy;
+      v34 = completionCopy;
+      [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:v19 request:v18 serializationType:2 completionHandler:v32];
+    }
+
+    else
+    {
+      v30 = completionCopy;
+      context = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v25 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        HMFGetLogIdentifier();
+        v26 = v27 = identifierCopy;
+        *buf = 138543362;
+        v40 = v26;
+        _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing add-pairing", buf, 0xCu);
+
+        identifierCopy = v27;
+      }
+
+      objc_autoreleasePoolPop(context);
+      completionCopy = v30;
+      [(HAPAccessoryServerIP *)selfCopy _queueAddPairingWithIdentifier:identifierCopy publicKey:keyCopy admin:adminCopy queue:queueCopy completion:v30];
+      [(HAPAccessoryServerIP *)selfCopy _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"pairingAdd"];
+    }
+
+    goto LABEL_12;
+  }
+
+  v20 = objc_autoreleasePoolPush();
+  selfCopy2 = self;
+  v22 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    HMFGetLogIdentifier();
+    v23 = v29 = completionCopy;
+    *buf = 138543618;
+    v40 = v23;
+    v41 = 2112;
+    v42 = v31;
+    _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to create add pairing request payload with error: %@", buf, 0x16u);
+
+    completionCopy = v29;
+  }
+
+  objc_autoreleasePoolPop(v20);
+  if (queueCopy && completionCopy)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __88__HAPAccessoryServerIP__startAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke;
+    block[3] = &unk_2786D65D8;
+    v36 = v31;
+    v37 = completionCopy;
+    dispatch_async(queueCopy, block);
+
+    v19 = v36;
+LABEL_12:
+  }
 }
 
 void __88__HAPAccessoryServerIP__startAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke(uint64_t a1)
@@ -2246,7 +2294,7 @@ void __69__HAPAccessoryServerIP_addPairing_completionQueue_completionHandler___b
 
 void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2255,9 +2303,9 @@ void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke(uint64_t
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) code];
     *buf = 138543618;
-    v24 = v5;
-    v25 = 2048;
-    v26 = v6;
+    v23 = v5;
+    v24 = 2048;
+    v25 = v6;
     _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Auth Complete with status: %ld", buf, 0x16u);
   }
 
@@ -2270,28 +2318,28 @@ void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke(uint64_t
     v8 = *(a1 + 40);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_570;
-  v21[3] = &unk_2786D7050;
-  v21[4] = *(a1 + 32);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_570;
+  v20[3] = &unk_2786D7050;
+  v20[4] = *(a1 + 32);
   v9 = v8;
-  v22 = v9;
-  __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_570(v21);
+  v21 = v9;
+  __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_570(v20);
   v10 = [*(a1 + 32) delegate];
   v11 = objc_opt_respondsToSelector();
 
   if (v11)
   {
     v12 = [*(a1 + 32) delegateQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_2;
-    v19[3] = &unk_2786D7050;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_2;
+    v18[3] = &unk_2786D7050;
     v13 = *(a1 + 40);
-    v19[4] = *(a1 + 32);
-    v20 = v13;
-    dispatch_async(v12, v19);
+    v18[4] = *(a1 + 32);
+    v19 = v13;
+    dispatch_async(v12, v18);
   }
 
   else
@@ -2303,14 +2351,12 @@ void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke(uint64_t
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Does not implement accessoryServer:didFinishAuth:", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_570(uint64_t a1)
@@ -2354,7 +2400,7 @@ void __49__HAPAccessoryServerIP_authSession_authComplete___block_invoke_2(uint64
 
 void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -2367,8 +2413,8 @@ void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke(uin
     block[3] = &unk_2786D7078;
     v5 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v15 = v5;
-    v16 = *(a1 + 48);
+    v14 = v5;
+    v15 = *(a1 + 48);
     dispatch_async(v4, block);
   }
 
@@ -2381,7 +2427,7 @@ void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke(uin
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement accessoryServer:confirmUUID:token:", buf, 0xCu);
     }
 
@@ -2391,8 +2437,6 @@ void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke(uin
     v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:1 userInfo:0];
     [v10 authSession:v11 authComplete:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke_2(uint64_t a1)
@@ -2423,7 +2467,7 @@ void __54__HAPAccessoryServerIP_authSession_confirmUUID_token___block_invoke_2(u
 
 void __59__HAPAccessoryServerIP_authSession_authenticateUUID_token___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) delegate];
   v3 = objc_opt_respondsToSelector();
 
@@ -2436,8 +2480,8 @@ void __59__HAPAccessoryServerIP_authSession_authenticateUUID_token___block_invok
     block[3] = &unk_2786D7078;
     v5 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v15 = v5;
-    v16 = *(a1 + 48);
+    v14 = v5;
+    v15 = *(a1 + 48);
     dispatch_async(v4, block);
   }
 
@@ -2450,7 +2494,7 @@ void __59__HAPAccessoryServerIP_authSession_authenticateUUID_token___block_invok
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement authenticateUUID:token1:token2:", buf, 0xCu);
     }
 
@@ -2460,8 +2504,6 @@ void __59__HAPAccessoryServerIP_authSession_authenticateUUID_token___block_invok
     v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:1 userInfo:0];
     [v10 authSession:v11 authComplete:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HAPAccessoryServerIP_authSession_authenticateUUID_token___block_invoke_2(uint64_t a1)
@@ -2498,17 +2540,17 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke(id
     objc_initWeak(location, a1[4]);
     [a1[4] _notifyDelegateOfPairingProgress:3];
     v2 = [a1[4] hapWACAccessoryClient];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_2;
-    v18[3] = &unk_2786D3230;
-    objc_copyWeak(&v22, location);
-    v19 = a1[5];
-    v20 = a1[6];
-    v21 = a1[7];
-    v3 = [v2 restoreNetworkWithCompletion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_2;
+    v17[3] = &unk_2786D3230;
+    objc_copyWeak(&v21, location);
+    v18 = a1[5];
+    v19 = a1[6];
+    v20 = a1[7];
+    v3 = [v2 restoreNetworkWithCompletion:v17];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(location);
   }
 
@@ -2526,8 +2568,8 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke(id
       block[2] = __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_565;
       block[3] = &unk_2786D7078;
       block[4] = a1[4];
-      v16 = a1[5];
-      v17 = a1[6];
+      v15 = a1[5];
+      v16 = a1[6];
       dispatch_async(v6, block);
     }
 
@@ -2551,8 +2593,6 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke(id
       [v11 authSession:v12 authComplete:v13];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_2(id *a1, void *a2)
@@ -2586,7 +2626,7 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_56
 
 void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_3(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -2596,20 +2636,20 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_3(
     {
       v5 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v5;
+      v37 = v5;
       _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, "%{public}@Failed to restore back to infrastructure network", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
     v6 = MEMORY[0x277CCA9B8];
     v7 = *(a1 + 32);
-    v35 = *MEMORY[0x277CCA7E8];
-    v36 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA7E8];
+    v35 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v9 = [v6 errorWithDomain:@"HAPErrorDomain" code:1 userInfo:v8];
 
     [*(a1 + 40) authSession:*(a1 + 64) authComplete:v9];
-    goto LABEL_15;
+    return;
   }
 
   [*(a1 + 40) ensureNetworkMonitor];
@@ -2619,14 +2659,14 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_3(
 
   if (!v11)
   {
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_560;
-    v30[3] = &unk_2786D7050;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_560;
+    v29[3] = &unk_2786D7050;
     v17 = *(a1 + 48);
-    v30[4] = *(a1 + 40);
-    v31 = v17;
-    __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_560(v30);
+    v29[4] = *(a1 + 40);
+    v30 = v17;
+    __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_560(v29);
     v18 = objc_autoreleasePoolPush();
     v19 = *(a1 + 40);
     v20 = HMFGetOSLogHandle();
@@ -2634,13 +2674,13 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_3(
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v21;
+      v37 = v21;
       _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Network is not reachable: Waiting...", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
     [*(a1 + 40) setTokenValidationPending:1];
-    v16 = v31;
+    v16 = v30;
     goto LABEL_11;
   }
 
@@ -2657,14 +2697,14 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_3(
     block[3] = &unk_2786D7078;
     v15 = *(a1 + 48);
     block[4] = *(a1 + 40);
-    v33 = v15;
-    v34 = *(a1 + 56);
+    v32 = v15;
+    v33 = *(a1 + 56);
     dispatch_async(v14, block);
 
-    v16 = v33;
+    v16 = v32;
 LABEL_11:
 
-    goto LABEL_15;
+    return;
   }
 
   v22 = objc_autoreleasePoolPush();
@@ -2674,7 +2714,7 @@ LABEL_11:
   {
     v25 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v38 = v25;
+    v37 = v25;
     _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement validateUUID:token1:token2:", buf, 0xCu);
   }
 
@@ -2683,9 +2723,6 @@ LABEL_11:
   v27 = *(a1 + 64);
   v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:1 userInfo:0];
   [v26 authSession:v27 authComplete:v28];
-
-LABEL_15:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_4(uint64_t a1)
@@ -2722,7 +2759,7 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_56
 
 - (void)authSession:(id)session sendAuthExchangeData:(id)data
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dataCopy = data;
   v8 = objc_autoreleasePoolPush();
@@ -2732,24 +2769,22 @@ void __55__HAPAccessoryServerIP_authSession_validateUUID_token___block_invoke_56
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v18 = v11;
-    v19 = 2112;
-    v20 = dataCopy;
+    v17 = v11;
+    v18 = 2112;
+    v19 = dataCopy;
     _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Sending Auth Exchange with data: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   clientQueue = [(HAPAccessoryServer *)selfCopy clientQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke;
-  v15[3] = &unk_2786D7050;
-  v15[4] = selfCopy;
-  v16 = dataCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke;
+  v14[3] = &unk_2786D7050;
+  v14[4] = selfCopy;
+  v15 = dataCopy;
   v13 = dataCopy;
-  dispatch_async(clientQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(clientQueue, v14);
 }
 
 void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke(uint64_t a1)
@@ -2768,7 +2803,7 @@ void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke(
 
 void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2793,26 +2828,26 @@ void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_
 
       v18 = v17;
       *buf = 138544130;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v8;
-      v30 = 2112;
-      v31 = v18;
-      v32 = 2112;
-      v33 = v9;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v8;
+      v29 = 2112;
+      v30 = v18;
+      v31 = 2112;
+      v32 = v9;
       _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed Auth request, received response object: %@, MIME type: %@, error: %@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v13);
     v19 = [MEMORY[0x277CCA9B8] hapErrorWithCode:8 marker:2111];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_554;
-    v24[3] = &unk_2786D7050;
-    v24[4] = v14;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_554;
+    v23[3] = &unk_2786D7050;
+    v23[4] = v14;
     v20 = v19;
-    v25 = v20;
-    __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_554(v24);
+    v24 = v20;
+    __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_554(v23);
     if ([v14 _delegateRespondsToSelector:sel_accessoryServer_didFinishAuth_])
     {
       v21 = [v14 delegateQueue];
@@ -2830,8 +2865,6 @@ void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_
     v12 = [WeakRetained authSession];
     [v12 handleAuthExchangeData:v8 withHeader:1];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HAPAccessoryServerIP_authSession_sendAuthExchangeData___block_invoke_554(uint64_t a1)
@@ -2879,7 +2912,7 @@ uint64_t __55__HAPAccessoryServerIP_tearDownSessionOnAuthCompletion__block_invok
 
 - (void)provisionToken:(id)token
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2888,24 +2921,22 @@ uint64_t __55__HAPAccessoryServerIP_tearDownSessionOnAuthCompletion__block_invok
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = tokenCopy;
+    v14 = v8;
+    v15 = 2112;
+    v16 = tokenCopy;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Provisioning Tokens T1: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   clientQueue = [(HAPAccessoryServer *)selfCopy clientQueue];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __39__HAPAccessoryServerIP_provisionToken___block_invoke;
-  v12[3] = &unk_2786D7050;
-  v12[4] = selfCopy;
-  v13 = tokenCopy;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __39__HAPAccessoryServerIP_provisionToken___block_invoke;
+  v11[3] = &unk_2786D7050;
+  v11[4] = selfCopy;
+  v12 = tokenCopy;
   v10 = tokenCopy;
-  dispatch_async(clientQueue, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  dispatch_async(clientQueue, v11);
 }
 
 void __39__HAPAccessoryServerIP_provisionToken___block_invoke(uint64_t a1)
@@ -2916,7 +2947,7 @@ void __39__HAPAccessoryServerIP_provisionToken___block_invoke(uint64_t a1)
 
 - (void)continueAuthAfterValidation:(BOOL)validation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -2924,23 +2955,21 @@ void __39__HAPAccessoryServerIP_provisionToken___block_invoke(uint64_t a1)
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v8;
-    v15 = 2048;
+    v13 = v8;
+    v14 = 2048;
     pairSetupType = [(HAPAccessoryServer *)selfCopy pairSetupType];
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Current Pair Setup Type %tu", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   clientQueue = [(HAPAccessoryServer *)selfCopy clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __52__HAPAccessoryServerIP_continueAuthAfterValidation___block_invoke;
-  v11[3] = &unk_2786D6768;
-  v11[4] = selfCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __52__HAPAccessoryServerIP_continueAuthAfterValidation___block_invoke;
+  v10[3] = &unk_2786D6768;
+  v10[4] = selfCopy;
   validationCopy = validation;
-  dispatch_async(clientQueue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(clientQueue, v10);
 }
 
 void __52__HAPAccessoryServerIP_continueAuthAfterValidation___block_invoke(uint64_t a1)
@@ -3020,9 +3049,111 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
   [v1 handleAuthExchangeData:0 withHeader:1];
 }
 
+- (BOOL)_validateAuthChallengeResponse:(id)response expectedTID:(unsigned __int8)d error:(id *)error
+{
+  dCopy = d;
+  v39 = *MEMORY[0x277D85DE8];
+  responseCopy = response;
+  v31 = 0;
+  v32 = 0;
+  v9 = [HAPProtocolMessages parseAuthChallengeResponse:responseCopy expectedTID:dCopy outChallengeResponse:&v32 outMFICert:&v31 withHeader:1];
+  v10 = v32;
+  v11 = v31;
+  if (v9)
+  {
+    errorCopy = error;
+    PairingSessionDeriveKey();
+    v12 = [MEMORY[0x277CBEA90] dataWithBytes:v37 length:32];
+    v13 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      v16 = HMFGetLogIdentifier();
+      hmf_hexadecimalRepresentation = [v12 hmf_hexadecimalRepresentation];
+      *buf = 138543618;
+      v34 = v16;
+      v35 = 2112;
+      v36 = hmf_hexadecimalRepresentation;
+      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Derived nonce: %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v13);
+    [v12 bytes];
+    [v12 length];
+    [v10 bytes];
+    [v10 length];
+    [v11 bytes];
+    [v11 length];
+    v18 = MFiPlatform_VerifySignature();
+    v19 = v18 == 0;
+    if (v18)
+    {
+      v20 = v18;
+      v21 = objc_autoreleasePoolPush();
+      v22 = selfCopy;
+      v23 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      {
+        v24 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v34 = v24;
+        v35 = 1024;
+        LODWORD(v36) = v20;
+        _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Unable to verify the signature, got error: %d", buf, 0x12u);
+
+        error = errorCopy;
+      }
+
+      objc_autoreleasePoolPop(v21);
+      if (error)
+      {
+        if (v20 == -67808)
+        {
+          [MEMORY[0x277CCA9B8] hapErrorWithCode:17];
+        }
+
+        else
+        {
+          HMErrorFromOSStatus(v20);
+        }
+        *error = ;
+      }
+    }
+  }
+
+  else
+  {
+    v25 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      v28 = HMFGetLogIdentifier();
+      *v37 = 138543362;
+      v38 = v28;
+      _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse auth challenge response", v37, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v25);
+    if (error)
+    {
+      [MEMORY[0x277CCA9B8] hapErrorWithCode:15];
+      *error = v19 = 0;
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+  }
+
+  return v19;
+}
+
 - (void)_validatePairingAuthMethod:(id)method activity:(id)activity
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   methodCopy = method;
   activityCopy = activity;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
@@ -3040,7 +3171,7 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v58 = v13;
+        v57 = v13;
         _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Not sending auth challenge request because the accessory doesn't claim to support it", buf, 0xCu);
       }
 
@@ -3062,27 +3193,27 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v58 = v36;
+        v57 = v36;
         _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_DEBUG, "%{public}@Sending auth challenge request", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v33);
       objc_initWeak(buf, selfCopy2);
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke_538;
-      v47[3] = &unk_2786D2A08;
-      objc_copyWeak(v50, buf);
-      v49 = methodCopy;
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke_538;
+      v46[3] = &unk_2786D2A08;
+      objc_copyWeak(v49, buf);
+      v48 = methodCopy;
       v37 = activityCopy;
-      v51 = location;
-      v48 = v37;
-      v50[1] = 1;
-      v38 = MEMORY[0x231885210](v47);
+      v50 = location;
+      v47 = v37;
+      v49[1] = 1;
+      v38 = MEMORY[0x231885210](v46);
       [v37 markWithReason:@"Sending auth challenge request"];
       [(HAPAccessoryServerIP *)selfCopy2 sendPOSTRequestToURL:@"/secure-message" request:v32 serializationType:3 completionHandler:v38];
 
-      objc_destroyWeak(v50);
+      objc_destroyWeak(v49);
       objc_destroyWeak(buf);
     }
 
@@ -3110,9 +3241,9 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
             v30 = HMFGetLogIdentifier();
             v31 = @"HAPAuthMethodUnknown";
             *buf = 138543618;
-            v58 = v30;
-            v59 = 2112;
-            v60 = @"HAPAuthMethodUnknown";
+            v57 = v30;
+            v58 = 2112;
+            v59 = @"HAPAuthMethodUnknown";
             _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Not sending auth challenge because the auth method doesn't support auth challenges or is unknown: %@", buf, 0x16u);
           }
 
@@ -3132,9 +3263,9 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
         v43 = HMFGetLogIdentifier();
         v44 = off_2786D2590[v39];
         *buf = 138543618;
-        v58 = v43;
-        v59 = 2112;
-        v60 = v44;
+        v57 = v43;
+        v58 = 2112;
+        v59 = v44;
         _os_log_impl(&dword_22AADC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Not sending auth challenge due to unsupported auth type: %@", buf, 0x16u);
       }
 
@@ -3153,21 +3284,21 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v18;
+      v57 = v18;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and then doing auth challenge request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     objc_initWeak(&location, selfCopy5);
-    v52[0] = MEMORY[0x277D85DD0];
-    v52[1] = 3221225472;
-    v52[2] = __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke;
-    v52[3] = &unk_2786D3A30;
-    v54 = methodCopy;
-    objc_copyWeak(&v55, &location);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke;
+    v51[3] = &unk_2786D3A30;
+    v53 = methodCopy;
+    objc_copyWeak(&v54, &location);
     v19 = activityCopy;
-    v53 = v19;
-    v20 = MEMORY[0x231885210](v52);
+    v52 = v19;
+    v20 = MEMORY[0x231885210](v51);
     v21 = objc_autoreleasePoolPush();
     v22 = selfCopy5;
     v23 = HMFGetOSLogHandle();
@@ -3175,7 +3306,7 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v58 = v24;
+      v57 = v24;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing auth challenge request until pair-verify completes", buf, 0xCu);
     }
 
@@ -3186,14 +3317,12 @@ void __45__HAPAccessoryServerIP_authenticateAccessory__block_invoke(uint64_t a1)
     [queuedOperations addObject:v26];
 
     [(HAPAccessoryServerIP *)v22 _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.validatePairingAuthMethod"];
-    objc_destroyWeak(&v55);
+    objc_destroyWeak(&v54);
 
     objc_destroyWeak(&location);
   }
 
 LABEL_27:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke(uint64_t a1, void *a2)
@@ -3216,7 +3345,7 @@ void __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invo
 
 void __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invoke_538(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -3241,13 +3370,13 @@ void __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invo
 
       v30 = v29;
       *buf = 138544130;
-      v37 = v28;
+      v35 = v28;
+      v36 = 2112;
+      v37 = v8;
       v38 = 2112;
-      v39 = v8;
+      v39 = v30;
       v40 = 2112;
-      v41 = v30;
-      v42 = 2112;
-      v43 = v9;
+      v41 = v9;
       _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed sending auth Request, received response object: %@, MIME type: %@, error: %@", buf, 0x2Au);
     }
 
@@ -3264,17 +3393,17 @@ void __60__HAPAccessoryServerIP__validatePairingAuthMethod_activity___block_invo
   {
     v15 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v37 = v15;
-    v38 = 2112;
-    v39 = v8;
+    v35 = v15;
+    v36 = 2112;
+    v37 = v8;
     _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Received auth response: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v12);
   v16 = *(a1 + 64);
-  v35 = 0;
-  v17 = [v13 _validateAuthChallengeResponse:v8 expectedTID:v16 error:&v35];
-  v18 = v35;
+  v33 = 0;
+  v17 = [v13 _validateAuthChallengeResponse:v8 expectedTID:v16 error:&v33];
+  v18 = v33;
   if ((v17 & 1) == 0)
   {
 LABEL_16:
@@ -3301,19 +3430,16 @@ LABEL_16:
 
     v32 = v24;
     *buf = 138543618;
-    v37 = v22;
-    v38 = 2112;
-    v39 = v32;
+    v35 = v22;
+    v36 = 2112;
+    v37 = v32;
     _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@Auth challenge completed successfully with auth method: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v19);
-  v33 = *(a1 + 56);
   v31 = *(*(a1 + 40) + 16);
 LABEL_20:
   v31();
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validatePairingAuthMethod:(id)method
@@ -3336,7 +3462,7 @@ LABEL_20:
 
 - (BOOL)_validateProtocolInfo:(id)info
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   deviceIdentifier = [infoCopy deviceIdentifier];
   identifier = [(HAPAccessoryServer *)self identifier];
@@ -3374,24 +3500,23 @@ LABEL_8:
     category2 = [(HAPAccessoryServer *)selfCopy category];
     authMethod = [(HAPAccessoryServer *)selfCopy authMethod];
     version2 = [(HAPAccessoryServer *)selfCopy version];
-    v22 = 138544386;
-    v23 = v16;
-    v24 = 2112;
-    v25 = infoCopy;
-    v26 = 2112;
-    v27 = category2;
-    v28 = 2048;
-    v29 = authMethod;
-    v30 = 2112;
-    v31 = version2;
-    _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated Info %@ does not match category: %@, authMethods: %tu version: %@", &v22, 0x34u);
+    v21 = 138544386;
+    v22 = v16;
+    v23 = 2112;
+    v24 = infoCopy;
+    v25 = 2112;
+    v26 = category2;
+    v27 = 2048;
+    v28 = authMethod;
+    v29 = 2112;
+    v30 = version2;
+    _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated Info %@ does not match category: %@, authMethods: %tu version: %@", &v21, 0x34u);
   }
 
   objc_autoreleasePoolPop(v13);
   v12 = 0;
 LABEL_11:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3426,7 +3551,7 @@ LABEL_11:
 
 void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3434,22 +3559,22 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v21 = v5;
+    v20 = v5;
     _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Getting Acc Info", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   objc_initWeak(&location, *(a1 + 32));
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524;
-  v15[3] = &unk_2786D29B8;
-  objc_copyWeak(&v18, &location);
-  v17 = *(a1 + 56);
-  v14 = *(a1 + 40);
-  v6 = v14;
-  v16 = v14;
-  v7 = MEMORY[0x231885210](v15);
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524;
+  v14[3] = &unk_2786D29B8;
+  objc_copyWeak(&v17, &location);
+  v16 = *(a1 + 56);
+  v13 = *(a1 + 40);
+  v6 = v13;
+  v15 = v13;
+  v7 = MEMORY[0x231885210](v14);
   v8 = [HAPProtocolMessages constructInfoRequest:&unk_283EA9578 outTID:*(*(a1 + 56) + 8) + 24];
   v9 = objc_autoreleasePoolPush();
   v10 = *(a1 + 32);
@@ -3458,24 +3583,22 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke(uint64_t a1)
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v21 = v12;
-    v22 = 2112;
-    v23 = v8;
+    v20 = v12;
+    v21 = 2112;
+    v22 = v8;
     _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Sending Acc Info Request: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   [*(a1 + 32) sendPOSTRequestToURL:@"/secure-message" request:v8 serializationType:3 completionHandler:v7];
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -3498,15 +3621,15 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524(uint64_t a1,
       }
 
       v16 = v15;
-      v30 = 138544130;
-      v31 = v14;
-      v32 = 2112;
-      v33 = v8;
-      v34 = 2112;
-      v35 = v16;
-      v36 = 2112;
-      v37 = v9;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed sending Acc Info Request, received response object: %@, MIME type: %@, error: %@", &v30, 0x2Au);
+      v29 = 138544130;
+      v30 = v14;
+      v31 = 2112;
+      v32 = v8;
+      v33 = 2112;
+      v34 = v16;
+      v35 = 2112;
+      v36 = v9;
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed sending Acc Info Request, received response object: %@, MIME type: %@, error: %@", &v29, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -3522,11 +3645,11 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524(uint64_t a1,
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
     v23 = HMFGetLogIdentifier();
-    v30 = 138543618;
-    v31 = v23;
-    v32 = 2112;
-    v33 = v8;
-    _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Received Acc Info response: %@", &v30, 0x16u);
+    v29 = 138543618;
+    v30 = v23;
+    v31 = 2112;
+    v32 = v8;
+    _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Received Acc Info response: %@", &v29, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
@@ -3547,8 +3670,6 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524(uint64_t a1,
     v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HAPErrorDomain" code:7 userInfo:0];
     (*(v27 + 16))(v27, v28);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkMonitorIsUnreachable:(id)unreachable
@@ -3564,20 +3685,19 @@ void __41__HAPAccessoryServerIP_getAccessoryInfo___block_invoke_524(uint64_t a1,
 
 void __52__HAPAccessoryServerIP_networkMonitorIsUnreachable___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Network is unavailable", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Network is unavailable", &v6, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)networkMonitorIsReachable:(id)reachable
@@ -3593,7 +3713,7 @@ void __52__HAPAccessoryServerIP_networkMonitorIsUnreachable___block_invoke(uint6
 
 void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3601,7 +3721,7 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v5;
+    v38 = v5;
     _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Network is available", buf, 0xCu);
   }
 
@@ -3615,22 +3735,22 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
     if (v7)
     {
       v8 = [*(a1 + 32) authSession];
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
-      v9 = [v8 getToken:&v35 uuid:&v34];
-      v10 = v35;
-      v11 = v34;
+      v9 = [v8 getToken:&v34 uuid:&v33];
+      v10 = v34;
+      v11 = v33;
 
       if (v9)
       {
-        v32[0] = MEMORY[0x277D85DD0];
-        v32[1] = 3221225472;
-        v32[2] = __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_519;
-        v32[3] = &unk_2786D7050;
-        v32[4] = *(a1 + 32);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_519;
+        v31[3] = &unk_2786D7050;
+        v31[4] = *(a1 + 32);
         v12 = v11;
-        v33 = v12;
-        __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_519(v32);
+        v32 = v12;
+        __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_519(v31);
         v13 = [*(a1 + 32) delegateQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -3638,9 +3758,9 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
         block[3] = &unk_2786D7078;
         block[4] = *(a1 + 32);
         v11 = v12;
-        v30 = v11;
+        v29 = v11;
         v10 = v10;
-        v31 = v10;
+        v30 = v10;
         dispatch_async(v13, block);
       }
 
@@ -3653,15 +3773,15 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v22;
+          v38 = v22;
           _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to get validation info", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v19);
-        v36 = *MEMORY[0x277CCA7E8];
+        v35 = *MEMORY[0x277CCA7E8];
         v23 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:3];
-        v37 = v23;
-        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+        v36 = v23;
+        v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
 
         v25 = *(a1 + 32);
         v26 = [v25 authSession];
@@ -3679,7 +3799,7 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v17;
+        v38 = v17;
         _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Delegate does not implement validateUUID:token1:token2:", buf, 0xCu);
       }
 
@@ -3690,8 +3810,6 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke(uint64_
       [v18 authSession:v10 authComplete:v11];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_519(uint64_t a1)
@@ -3712,7 +3830,7 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_2(uint6
 
 - (void)timerDidFire:(id)fire
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -3728,21 +3846,21 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_2(uint6
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v12;
+      v23 = v12;
       _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Timed out waiting for Bonjour event after legacy WAC completion - aborting...", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v13 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:8];
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __37__HAPAccessoryServerIP_timerDidFire___block_invoke;
-    v20 = &unk_2786D7050;
-    v21 = selfCopy;
-    v22 = v13;
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __37__HAPAccessoryServerIP_timerDidFire___block_invoke;
+    v19 = &unk_2786D7050;
+    v20 = selfCopy;
+    v21 = v13;
     v14 = v13;
-    __37__HAPAccessoryServerIP_timerDidFire___block_invoke(&v17);
-    [(HAPAccessoryServerIP *)selfCopy _notifyDelegatesOfAddAccessoryFailureWithError:v14, v17, v18, v19, v20, v21];
+    __37__HAPAccessoryServerIP_timerDidFire___block_invoke(&v16);
+    [(HAPAccessoryServerIP *)selfCopy _notifyDelegatesOfAddAccessoryFailureWithError:v14, v16, v17, v18, v19, v20];
     [(HAPAccessoryServerIP *)selfCopy setBonjourEventTimer:0];
   }
 
@@ -3769,8 +3887,6 @@ void __50__HAPAccessoryServerIP_networkMonitorIsReachable___block_invoke_2(uint6
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __37__HAPAccessoryServerIP_timerDidFire___block_invoke(uint64_t a1)
@@ -3788,7 +3904,7 @@ void __37__HAPAccessoryServerIP_timerDidFire___block_invoke(uint64_t a1)
 
 - (void)_validateReachabilityTimer
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -3815,58 +3931,100 @@ void __37__HAPAccessoryServerIP_timerDidFire___block_invoke(uint64_t a1)
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v6;
-      v28 = 2048;
-      v29 = v8;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v6;
+      v27 = 2048;
+      v28 = v8;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Reachability timer late actual duration %@  expected %0.3f", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     v19 = [MEMORY[0x277CCABB0] numberWithDouble:{v8, @"HAPAccessoryDuration", @"HAPAccessoryExpectedDuration", v6}];
-    v23[1] = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:2];
+    v22[1] = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:2];
 
     [(HAPAccessoryServer *)selfCopy notifyClients:4 withDictionary:v20];
   }
+}
 
-  v21 = *MEMORY[0x277D85DE8];
+- (BOOL)_handleSecureSessionClosingWithError:(id *)error status:(int)status data:(id)data
+{
+  v5 = *&status;
+  v23[1] = *MEMORY[0x277D85DE8];
+  dataCopy = data;
+  useHH2 = [(HAPAccessoryServer *)self useHH2];
+  v10 = 0;
+  if (error)
+  {
+    if (useHH2)
+    {
+      v11 = [dataCopy length];
+      v10 = 0;
+      if (v5)
+      {
+        if (v11)
+        {
+          v12 = [MEMORY[0x277CCA9B8] errorWithOSStatus:v5];
+          v21 = v12;
+          [(HAPAccessoryServer *)self securitySessionWillCloseWithResponseData:dataCopy error:&v21];
+          v13 = v21;
+
+          v14 = [MEMORY[0x277CCA9B8] errorWithOSStatus:4294960542];
+          v15 = [v13 isEqual:v14];
+
+          if (v15)
+          {
+            v16 = MEMORY[0x277CCA9B8];
+            domain = [*error domain];
+            code = [*error code];
+            v22 = *MEMORY[0x277CCA7E8];
+            v23[0] = v13;
+            v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+            *error = [v16 errorWithDomain:domain code:code userInfo:v19];
+          }
+
+          v10 = v15 ^ 1;
+        }
+      }
+    }
+  }
+
+  return v10;
 }
 
 - (int)_handlePairVerifyCompletionWithData:(id)data
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy__742;
-  v50 = __Block_byref_object_dispose__743;
-  v51 = 0;
-  v53 = 0;
-  v54 = 0;
-  v52 = 0;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke;
-  v43[3] = &unk_2786D6A98;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__742;
+  v46 = __Block_byref_object_dispose__743;
+  v47 = 0;
+  v49 = 0;
+  v50 = 0;
+  v48 = 0;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke;
+  v39[3] = &unk_2786D6A98;
   v5 = dataCopy;
-  v44 = v5;
+  v40 = v5;
   selfCopy = self;
-  v6 = MEMORY[0x231885210](v43);
+  v6 = MEMORY[0x231885210](v39);
   objc_initWeak(&location, self);
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke_3;
-  v38[3] = &unk_2786D2990;
-  objc_copyWeak(&v41, &location);
-  v40 = &v46;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke_3;
+  v34[3] = &unk_2786D2990;
+  objc_copyWeak(&v37, &location);
+  v36 = &v42;
   v7 = v6;
-  v39 = v7;
-  v8 = MEMORY[0x231885210](v38);
-  pairingSession = self->_pairingSession;
-  v10 = v5;
+  v35 = v7;
+  v8 = MEMORY[0x231885210](v34);
+  v9 = v5;
   [v5 bytes];
   [v5 length];
   code = PairingSessionExchange();
@@ -3875,69 +4033,68 @@ void __37__HAPAccessoryServerIP_timerDidFire___block_invoke(uint64_t a1)
     goto LABEL_5;
   }
 
-  if (!v52)
+  if (!v48)
   {
-    v15 = [MEMORY[0x277CBEA90] dataWithBytes:v54 length:v53];
-    v16 = v47[5];
-    v47[5] = v15;
+    v12 = [MEMORY[0x277CBEA90] dataWithBytes:v50 length:v49];
+    v13 = v43[5];
+    v43[5] = v12;
 
-    [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-verify" request:v47[5] serializationType:2 completionHandler:v8];
-    v14 = 0;
+    [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-verify" request:v43[5] serializationType:2 completionHandler:v8];
+    v11 = 0;
 LABEL_7:
     code = 0;
     goto LABEL_8;
   }
 
-  v12 = self->_pairingSession;
   code = PairingSessionDeriveKey();
-  if (code || (v13 = self->_pairingSession, code = PairingSessionDeriveKey(), code))
+  if (code || (code = PairingSessionDeriveKey(), code))
   {
 LABEL_5:
-    v14 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
   httpClient = [(HAPAccessoryServerIP *)self httpClient];
-  v37 = 0;
-  v28 = [httpClient enableUAPSessionSecurityWithReadKey:v60 writeKey:v59 error:&v37];
-  v14 = v37;
+  v33 = 0;
+  v24 = [httpClient enableUAPSessionSecurityWithReadKey:v56 writeKey:v55 error:&v33];
+  v11 = v33;
 
-  if (v28)
+  if (v24)
   {
     goto LABEL_24;
   }
 
   context = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v30 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v26 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    v31 = HMFGetLogIdentifier();
+    v27 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v56 = v31;
-    v57 = 2112;
-    *v58 = v14;
-    _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable HAP session security with error %@", buf, 0x16u);
+    v52 = v27;
+    v53 = 2112;
+    *v54 = v11;
+    _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable HAP session security with error %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(context);
-  code = [v14 code];
+  code = [v11 code];
   if (!code)
   {
 LABEL_24:
-    [(HAPAccessoryServerIP *)self invokePairVerifyCompletionBlock:v14, context];
+    [(HAPAccessoryServerIP *)self invokePairVerifyCompletionBlock:v11, context];
     [(HAPAccessoryServerIP *)self setSecuritySessionOpen:1];
     [(HAPAccessoryServer *)self setReachable:1];
     [(HAPAccessoryServerIP *)self _notifyDelegatesOfConnectionState:1 withError:0];
     context = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v33 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v29 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
-      v34 = HMFGetLogIdentifier();
+      v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v56 = v34;
-      _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_INFO, "%{public}@Pair-verify succeeded", buf, 0xCu);
+      v52 = v30;
+      _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_INFO, "%{public}@Pair-verify succeeded", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(context);
@@ -3946,51 +4103,50 @@ LABEL_24:
   }
 
 LABEL_8:
-  if (v54)
+  if (v50)
   {
-    free(v54);
+    free(v50);
   }
 
   if (code)
   {
-    v17 = objc_autoreleasePoolPush();
+    v14 = objc_autoreleasePoolPush();
     selfCopy4 = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v56 = v20;
-      v57 = 1024;
-      *v58 = code;
-      *&v58[4] = 2112;
-      *&v58[6] = v5;
-      _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@Pair-verify message failed: %d with data: %@", buf, 0x1Cu);
+      v52 = v17;
+      v53 = 1024;
+      *v54 = code;
+      *&v54[4] = 2112;
+      *&v54[6] = v5;
+      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Pair-verify message failed: %d with data: %@", buf, 0x1Cu);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = HMErrorFromOSStatus(code);
+    objc_autoreleasePoolPop(v14);
+    v18 = HMErrorFromOSStatus(code);
     useHH2 = [(HAPAccessoryServer *)selfCopy4 useHH2];
     if (code == -6727 && useHH2)
     {
-      v36 = v21;
-      [(HAPAccessoryServerIP *)selfCopy4 _handleSecureSessionClosingWithError:&v36 status:4294960569 data:v5];
-      v24 = v36;
+      v32 = v18;
+      [(HAPAccessoryServerIP *)selfCopy4 _handleSecureSessionClosingWithError:&v32 status:4294960569 data:v5];
+      v21 = v32;
 
-      v21 = v24;
+      v18 = v21;
     }
 
-    [(HAPAccessoryServerIP *)selfCopy4 _tearDownSessionAndStartReachabilityWithError:v21, context];
-    (*(v7 + 2))(v7, v21);
-    [(HAPAccessoryServerIP *)selfCopy4 _processQueuedOperationsWithError:v21];
-    [(HAPAccessoryServerIP *)selfCopy4 invokePairVerifyCompletionBlock:v21];
+    [(HAPAccessoryServerIP *)selfCopy4 _tearDownSessionAndStartReachabilityWithError:v18, context];
+    (*(v7 + 2))(v7, v18);
+    [(HAPAccessoryServerIP *)selfCopy4 _processQueuedOperationsWithError:v18];
+    [(HAPAccessoryServerIP *)selfCopy4 invokePairVerifyCompletionBlock:v18];
   }
 
-  objc_destroyWeak(&v41);
+  objc_destroyWeak(&v37);
   objc_destroyWeak(&location);
 
-  _Block_object_dispose(&v46, 8);
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
   return code;
 }
 
@@ -4012,7 +4168,7 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
 
 void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -4042,13 +4198,13 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
 
       v17 = v16;
       *buf = 138544130;
-      v24 = v15;
-      v25 = 2112;
-      v26 = v8;
-      v27 = 2112;
-      v28 = v17;
-      v29 = 2112;
-      v30 = v9;
+      v23 = v15;
+      v24 = 2112;
+      v25 = v8;
+      v26 = 2112;
+      v27 = v17;
+      v28 = 2112;
+      v29 = v9;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send Pair Verify request, received response object: %@, MIME type: %@, error: %@", buf, 0x2Au);
     }
 
@@ -4060,9 +4216,9 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
     v19 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:18];
     if ([v13 useHH2])
     {
-      v22 = v19;
-      [v13 _handleSecureSessionClosingWithError:&v22 status:4294960596 data:*(*(*(a1 + 40) + 8) + 40)];
-      v20 = v22;
+      v21 = v19;
+      [v13 _handleSecureSessionClosingWithError:&v21 status:4294960596 data:*(*(*(a1 + 40) + 8) + 40)];
+      v20 = v21;
 
       v19 = v20;
     }
@@ -4071,8 +4227,6 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
     (*(*(a1 + 32) + 16))();
     [v13 invokePairVerifyCompletionBlock:v19];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invoke_2(uint64_t a1)
@@ -4090,18 +4244,18 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
 
 - (int)_pairVerifyStartWithRetry:(BOOL)retry
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v28 = 0;
-  v29 = 0;
+  v32 = *MEMORY[0x277D85DE8];
+  v26 = 0;
   v27 = 0;
+  v25 = 0;
   objc_initWeak(&location, self);
-  v20 = MEMORY[0x277D85DD0];
-  v21 = 3221225472;
-  v22 = __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke;
-  v23 = &unk_2786D2968;
-  objc_copyWeak(&v24, &location);
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke;
+  v21 = &unk_2786D2968;
+  objc_copyWeak(&v22, &location);
   retryCopy = retry;
-  v5 = MEMORY[0x231885210](&v20);
+  v5 = MEMORY[0x231885210](&v18);
   v6 = objc_autoreleasePoolPush();
   selfCopy = self;
   v8 = HMFGetOSLogHandle();
@@ -4109,67 +4263,65 @@ void __60__HAPAccessoryServerIP__handlePairVerifyCompletionWithData___block_invo
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v31 = v9;
+    v29 = v9;
     _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Pair-verify starting", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
-  _ensureHTTPClientSetUp = [(HAPAccessoryServerIP *)selfCopy _ensurePairingSessionIsInitializedWithType:3, v20, v21, v22, v23];
+  _ensureHTTPClientSetUp = [(HAPAccessoryServerIP *)selfCopy _ensurePairingSessionIsInitializedWithType:3, v18, v19, v20, v21];
   if (!_ensureHTTPClientSetUp)
   {
-    pairingSession = selfCopy->_pairingSession;
     _ensureHTTPClientSetUp = PairingSessionExchange();
     if (!_ensureHTTPClientSetUp)
     {
       _ensureHTTPClientSetUp = [(HAPAccessoryServerIP *)selfCopy _ensureHTTPClientSetUp];
       if (!_ensureHTTPClientSetUp)
       {
-        v12 = [MEMORY[0x277CBEA90] dataWithBytes:v29 length:v28];
-        [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:@"/pair-verify" request:v12 serializationType:2 completionHandler:v5];
+        v11 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:v26];
+        [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:@"/pair-verify" request:v11 serializationType:2 completionHandler:v5];
 
         _ensureHTTPClientSetUp = 0;
       }
     }
   }
 
-  if (v29)
+  if (v27)
   {
-    free(v29);
+    free(v27);
   }
 
   if (_ensureHTTPClientSetUp)
   {
-    v13 = objc_autoreleasePoolPush();
-    v14 = selfCopy;
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v12 = objc_autoreleasePoolPush();
+    v13 = selfCopy;
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = HMFGetLogIdentifier();
+      v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v16;
-      v32 = 1024;
-      v33 = _ensureHTTPClientSetUp;
-      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Pair-verify start failed: %d", buf, 0x12u);
+      v29 = v15;
+      v30 = 1024;
+      v31 = _ensureHTTPClientSetUp;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Pair-verify start failed: %d", buf, 0x12u);
     }
 
-    objc_autoreleasePoolPop(v13);
-    v17 = HMErrorFromOSStatus(_ensureHTTPClientSetUp);
-    [(HAPAccessoryServerIP *)v14 _tearDownSessionAndStartReachabilityWithError:v17];
-    [(HAPAccessoryServerIP *)v14 invokePairVerifyCompletionBlock:v17];
-    [(HAPAccessoryServerIP *)v14 _processQueuedOperationsWithError:v17];
-    [(HAPAccessoryServerIP *)v14 _notifyDelegatesPairingStopped:v17];
+    objc_autoreleasePoolPop(v12);
+    v16 = HMErrorFromOSStatus(_ensureHTTPClientSetUp);
+    [(HAPAccessoryServerIP *)v13 _tearDownSessionAndStartReachabilityWithError:v16];
+    [(HAPAccessoryServerIP *)v13 invokePairVerifyCompletionBlock:v16];
+    [(HAPAccessoryServerIP *)v13 _processQueuedOperationsWithError:v16];
+    [(HAPAccessoryServerIP *)v13 _notifyDelegatesPairingStopped:v16];
   }
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(&location);
 
-  v18 = *MEMORY[0x277D85DE8];
   return _ensureHTTPClientSetUp;
 }
 
 void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -4179,9 +4331,9 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v32 = 138543362;
-    v33 = v14;
-    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Pair-verify complete", &v32, 0xCu);
+    v31 = 138543362;
+    v32 = v14;
+    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Pair-verify complete", &v31, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -4209,15 +4361,15 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
       }
 
       v20 = v19;
-      v32 = 138544130;
-      v33 = v18;
-      v34 = 2112;
-      v35 = v8;
-      v36 = 2112;
-      v37 = v20;
-      v38 = 2114;
-      v39 = v9;
-      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to send initial Pair Verify request, received response object: %@, MIME type: %@, error: %{public}@", &v32, 0x2Au);
+      v31 = 138544130;
+      v32 = v18;
+      v33 = 2112;
+      v34 = v8;
+      v35 = 2112;
+      v36 = v20;
+      v37 = 2114;
+      v38 = v9;
+      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to send initial Pair Verify request, received response object: %@, MIME type: %@, error: %{public}@", &v31, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -4254,9 +4406,9 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
       if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         v30 = HMFGetLogIdentifier();
-        v32 = 138543362;
-        v33 = v30;
-        _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_INFO, "%{public}@Retrying PV on first failure", &v32, 0xCu);
+        v31 = 138543362;
+        v32 = v30;
+        _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_INFO, "%{public}@Retrying PV on first failure", &v31, 0xCu);
       }
 
       objc_autoreleasePoolPop(v27);
@@ -4281,8 +4433,6 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
       [v16 invokePairVerifyCompletionBlock:v26];
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldNotifyClientsOfPVFailure:(id)failure
@@ -4307,18 +4457,18 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
 
 - (int)_pairSetupTryPassword:(id)password
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   passwordCopy = password;
-  v22 = 0;
-  v23 = 0;
+  v20 = 0;
   v21 = 0;
+  v19 = 0;
   objc_initWeak(&location, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke;
-  v18[3] = &unk_2786D2940;
-  objc_copyWeak(&v19, &location);
-  v5 = MEMORY[0x231885210](v18);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke;
+  v16[3] = &unk_2786D2940;
+  objc_copyWeak(&v17, &location);
+  v5 = MEMORY[0x231885210](v16);
   if (self->_pairingSession)
   {
     v6 = passwordCopy;
@@ -4326,25 +4476,24 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
     v7 = PairingSessionSetSetupCode();
     if (!v7)
     {
-      pairingSession = self->_pairingSession;
-      v9 = PairingSessionExchange();
-      if (v9)
+      v8 = PairingSessionExchange();
+      if (v8)
       {
-        if (v9 == -6771)
+        if (v8 == -6771)
         {
           v7 = 0;
         }
 
         else
         {
-          v7 = v9;
+          v7 = v8;
         }
       }
 
       else
       {
-        v10 = [MEMORY[0x277CBEA90] dataWithBytes:v23 length:v22];
-        [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-setup" request:v10 serializationType:2 completionHandler:v5];
+        v9 = [MEMORY[0x277CBEA90] dataWithBytes:v21 length:v20];
+        [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-setup" request:v9 serializationType:2 completionHandler:v5];
 
         v7 = 0;
       }
@@ -4356,43 +4505,42 @@ void __50__HAPAccessoryServerIP__pairVerifyStartWithRetry___block_invoke(uint64_
     v7 = 4294960578;
   }
 
-  if (v23)
+  if (v21)
   {
-    free(v23);
+    free(v21);
   }
 
   if (v7)
   {
-    v11 = objc_autoreleasePoolPush();
+    v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = HMFGetLogIdentifier();
+      v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v14;
-      v26 = 1024;
-      v27 = v7;
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed initializing message for try-password during Pair Setup: error: %d", buf, 0x12u);
+      v23 = v13;
+      v24 = 1024;
+      v25 = v7;
+      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed initializing message for try-password during Pair Setup: error: %d", buf, 0x12u);
     }
 
-    objc_autoreleasePoolPop(v11);
-    v15 = HMErrorFromOSStatus(v7);
-    [(HAPAccessoryServerIP *)selfCopy _tearDownSessionAndStartReachabilityWithError:v15];
-    [(HAPAccessoryServerIP *)selfCopy _processQueuedOperationsWithError:v15];
-    [(HAPAccessoryServerIP *)selfCopy _notifyDelegatesPairingStopped:v15];
+    objc_autoreleasePoolPop(v10);
+    v14 = HMErrorFromOSStatus(v7);
+    [(HAPAccessoryServerIP *)selfCopy _tearDownSessionAndStartReachabilityWithError:v14];
+    [(HAPAccessoryServerIP *)selfCopy _processQueuedOperationsWithError:v14];
+    [(HAPAccessoryServerIP *)selfCopy _notifyDelegatesPairingStopped:v14];
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -4421,15 +4569,15 @@ void __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke(uint64_t a1
       }
 
       v17 = v16;
-      v21 = 138544130;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v9;
-      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send request to try password during Pair Setup, received response object: %@, MIME type: %@, error: %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v9;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send request to try password during Pair Setup, received response object: %@, MIME type: %@, error: %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -4448,14 +4596,12 @@ void __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke(uint64_t a1
     [v13 _processQueuedOperationsWithError:v19];
     [v13 _notifyDelegatesPairingStopped:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_promptForSetupCodeWithFlags:(unsigned int)flags delaySeconds:(int)seconds pairingFlags:(unsigned int)pairingFlags isWAC:(BOOL)c
 {
   cCopy = c;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
   v13 = HMFGetOSLogHandle();
@@ -4464,103 +4610,99 @@ void __46__HAPAccessoryServerIP__pairSetupTryPassword___block_invoke(uint64_t a1
     v14 = HMFGetLogIdentifier();
     v15 = HMFBooleanToString();
     *buf = 138544386;
-    v31 = v14;
-    v32 = 1024;
+    v30 = v14;
+    v31 = 1024;
     flagsCopy = flags;
-    v34 = 1024;
+    v33 = 1024;
     secondsCopy = seconds;
-    v36 = 1024;
+    v35 = 1024;
     pairingFlagsCopy = pairingFlags;
-    v38 = 2112;
-    v39 = v15;
+    v37 = 2112;
+    v38 = v15;
     _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Pair-setup received request to prompt for password, flags: %0x, delay: %d pairing flags: %0x isWAC: %@\n", buf, 0x28u);
   }
 
   objc_autoreleasePoolPop(v11);
-  if ((flags & 0x10000) != 0 && ![(HAPAccessoryServerIP *)selfCopy isHandlingInvalidSetupCode])
+  if ((flags & 0x10000) == 0 || [(HAPAccessoryServerIP *)selfCopy isHandlingInvalidSetupCode])
   {
-    v19 = objc_autoreleasePoolPush();
-    v20 = selfCopy;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    if ((flags & 0x30000) != 0 || [(HAPAccessoryServerIP *)selfCopy isHandlingInvalidSetupCode])
     {
-      v22 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v31 = v22;
-      _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@Pair-setup restarting pairing before asking for the setup code.", buf, 0xCu);
+      [(HAPAccessoryServerIP *)selfCopy setHandlingInvalidSetupCode:0];
+      if ([(HAPAccessoryServerIP *)selfCopy _delegateRespondsToSelector:sel_accessoryServer_didReceiveBadPasswordThrottleAttemptsWithDelay_])
+      {
+        delegateQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
+        hapWACAccessoryClient = delegateQueue;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke_2;
+        v26[3] = &unk_2786D6740;
+        v26[4] = selfCopy;
+        secondsCopy2 = seconds;
+        v18 = v26;
+LABEL_20:
+        dispatch_async(delegateQueue, v18);
+        goto LABEL_21;
+      }
     }
 
-    objc_autoreleasePoolPop(v19);
-    [(HAPAccessoryServerIP *)v20 setHandlingInvalidSetupCode:1];
-    if (cCopy)
+    else if ([(HAPAccessoryServerIP *)selfCopy _delegateRespondsToSelector:sel_accessoryServer_promptUserForPasswordWithType_])
     {
-      hapWACAccessoryClient = [(HAPAccessoryServerIP *)v20 hapWACAccessoryClient];
-      [hapWACAccessoryClient restart];
-LABEL_21:
+      if ((pairingFlags & 0x40000000) != 0)
+      {
+        v23 = 2;
+      }
 
-      result = 0;
-      goto LABEL_22;
+      else
+      {
+        v23 = 1;
+      }
+
+      delegateQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
+      hapWACAccessoryClient = delegateQueue;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke_3;
+      v25[3] = &unk_2786D63C8;
+      v25[4] = selfCopy;
+      v25[5] = v23;
+      v18 = v25;
+      goto LABEL_20;
     }
 
-    clientQueue = [(HAPAccessoryServer *)v20 clientQueue];
-    hapWACAccessoryClient = clientQueue;
+    return -6702;
+  }
+
+  v19 = objc_autoreleasePoolPush();
+  v20 = selfCopy;
+  v21 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  {
+    v22 = HMFGetLogIdentifier();
+    *buf = 138543362;
+    v30 = v22;
+    _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@Pair-setup restarting pairing before asking for the setup code.", buf, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v19);
+  [(HAPAccessoryServerIP *)v20 setHandlingInvalidSetupCode:1];
+  if (!cCopy)
+  {
+    delegateQueue = [(HAPAccessoryServer *)v20 clientQueue];
+    hapWACAccessoryClient = delegateQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke;
     block[3] = &unk_2786D6CA0;
     block[4] = v20;
     v18 = block;
-LABEL_20:
-    dispatch_async(clientQueue, v18);
-    goto LABEL_21;
-  }
-
-  if ((flags & 0x30000) != 0 || [(HAPAccessoryServerIP *)selfCopy isHandlingInvalidSetupCode])
-  {
-    [(HAPAccessoryServerIP *)selfCopy setHandlingInvalidSetupCode:0];
-    if ([(HAPAccessoryServerIP *)selfCopy _delegateRespondsToSelector:sel_accessoryServer_didReceiveBadPasswordThrottleAttemptsWithDelay_])
-    {
-      clientQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
-      hapWACAccessoryClient = clientQueue;
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke_2;
-      v27[3] = &unk_2786D6740;
-      v27[4] = selfCopy;
-      secondsCopy2 = seconds;
-      v18 = v27;
-      goto LABEL_20;
-    }
-  }
-
-  else if ([(HAPAccessoryServerIP *)selfCopy _delegateRespondsToSelector:sel_accessoryServer_promptUserForPasswordWithType_])
-  {
-    if ((pairingFlags & 0x40000000) != 0)
-    {
-      v23 = 2;
-    }
-
-    else
-    {
-      v23 = 1;
-    }
-
-    clientQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
-    hapWACAccessoryClient = clientQueue;
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke_3;
-    v26[3] = &unk_2786D63C8;
-    v26[4] = selfCopy;
-    v26[5] = v23;
-    v18 = v26;
     goto LABEL_20;
   }
 
-  result = -6702;
-LABEL_22:
-  v25 = *MEMORY[0x277D85DE8];
-  return result;
+  hapWACAccessoryClient = [(HAPAccessoryServerIP *)v20 hapWACAccessoryClient];
+  [hapWACAccessoryClient restart];
+LABEL_21:
+
+  return 0;
 }
 
 void __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairingFlags_isWAC___block_invoke_2(uint64_t a1)
@@ -4577,19 +4719,17 @@ void __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairin
 
 - (void)_handlePairSetupAfterM4Callback
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
-  pairingSession = self->_pairingSession;
   PeerFlags = PairingSessionGetPeerFlags();
-  v6 = self->_pairingSession;
-  v7 = PairingSessionCopyProperty();
-  v8 = CFGetTypeID(v7);
-  if (v8 != CFDataGetTypeID())
+  v5 = PairingSessionCopyProperty();
+  v6 = CFGetTypeID(v5);
+  if (v6 != CFDataGetTypeID())
   {
-    v9 = 0;
-    if (!v7)
+    v7 = 0;
+    if (!v5)
     {
       goto LABEL_24;
     }
@@ -4597,67 +4737,67 @@ void __85__HAPAccessoryServerIP__promptForSetupCodeWithFlags_delaySeconds_pairin
     goto LABEL_23;
   }
 
-  v9 = v7;
-  v10 = [HAPAccessory productDataStringFromData:v9];
-  [(HAPAccessoryServer *)self setProductData:v10];
+  v7 = v5;
+  v8 = [HAPAccessory productDataStringFromData:v7];
+  [(HAPAccessoryServer *)self setProductData:v8];
 
-  v11 = objc_autoreleasePoolPush();
+  v9 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v13 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v11 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v14 = HMFGetLogIdentifier();
-    shortDescription = [v9 shortDescription];
+    v12 = HMFGetLogIdentifier();
+    shortDescription = [v7 shortDescription];
     *buf = 138543874;
-    v43 = v14;
-    v44 = 1024;
-    v45 = PeerFlags;
-    v46 = 2112;
-    v47 = shortDescription;
-    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Pair-setup after M4, flags %08X  productData %@", buf, 0x1Cu);
+    v39 = v12;
+    v40 = 1024;
+    v41 = PeerFlags;
+    v42 = 2112;
+    v43 = shortDescription;
+    _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Pair-setup after M4, flags %08X  productData %@", buf, 0x1Cu);
   }
 
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v9);
   category = [(HAPAccessoryServer *)selfCopy category];
   if ([category isEqual:&unk_283EA9590])
   {
     mEMORY[0x277D0F8D0] = [MEMORY[0x277D0F8D0] sharedPreferences];
-    v18 = [mEMORY[0x277D0F8D0] preferenceForKey:@"shouldRequireOwnershipProof"];
-    bOOLValue = [v18 BOOLValue];
+    v16 = [mEMORY[0x277D0F8D0] preferenceForKey:@"shouldRequireOwnershipProof"];
+    bOOLValue = [v16 BOOLValue];
 
     if (bOOLValue)
     {
-      v20 = objc_autoreleasePoolPush();
-      v21 = selfCopy;
-      v22 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v18 = objc_autoreleasePoolPush();
+      v19 = selfCopy;
+      v20 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
-        v23 = HMFGetLogIdentifier();
+        v21 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v43 = v23;
-        _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEBUG, "%{public}@Overriding to require ownership proof flags", buf, 0xCu);
+        v39 = v21;
+        _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Overriding to require ownership proof flags", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v20);
-      if (!v9)
+      objc_autoreleasePoolPop(v18);
+      if (!v7)
       {
-        v41 = 0x1A862D3F6955180CLL;
-        v9 = [MEMORY[0x277CBEA90] dataWithBytes:&v41 length:8];
-        v24 = [HAPAccessory productDataStringFromData:v9];
-        [(HAPAccessoryServer *)v21 setProductData:v24];
+        v37 = 0x1A862D3F6955180CLL;
+        v7 = [MEMORY[0x277CBEA90] dataWithBytes:&v37 length:8];
+        v22 = [HAPAccessory productDataStringFromData:v7];
+        [(HAPAccessoryServer *)v19 setProductData:v22];
 
-        v25 = objc_autoreleasePoolPush();
-        v26 = v21;
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v23 = objc_autoreleasePoolPush();
+        v24 = v19;
+        v25 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          v28 = HMFGetLogIdentifier();
+          v26 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v43 = v28;
-          _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Overriding product data to that of BBN/IMP", buf, 0xCu);
+          v39 = v26;
+          _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEBUG, "%{public}@Overriding product data to that of BBN/IMP", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v25);
+        objc_autoreleasePoolPop(v23);
       }
 
       goto LABEL_14;
@@ -4677,91 +4817,87 @@ LABEL_14:
   pairingRequest = [(HAPAccessoryServer *)selfCopy pairingRequest];
   ownershipToken = [pairingRequest ownershipToken];
 
-  v31 = objc_autoreleasePoolPush();
-  v32 = selfCopy;
-  v33 = HMFGetOSLogHandle();
-  v34 = os_log_type_enabled(v33, OS_LOG_TYPE_INFO);
+  v29 = objc_autoreleasePoolPush();
+  v30 = selfCopy;
+  v31 = HMFGetOSLogHandle();
+  v32 = os_log_type_enabled(v31, OS_LOG_TYPE_INFO);
   if (!ownershipToken)
   {
-    if (v34)
+    if (v32)
     {
-      v39 = HMFGetLogIdentifier();
+      v36 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v39;
-      _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_INFO, "%{public}@Accessory requires ownership token, but we don't have one, bailing out", buf, 0xCu);
+      v39 = v36;
+      _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_INFO, "%{public}@Accessory requires ownership token, but we don't have one, bailing out", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v31);
-    [(HAPAccessoryServerIP *)v32 _notifyDelegateNeedsOwnershipToken];
-    [(HAPAccessoryServerIP *)v32 setCancelPairingErr:4294896152];
+    objc_autoreleasePoolPop(v29);
+    [(HAPAccessoryServerIP *)v30 _notifyDelegateNeedsOwnershipToken];
+    [(HAPAccessoryServerIP *)v30 setCancelPairingErr:4294896152];
 LABEL_22:
-    if (!v7)
+    if (!v5)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    CFRelease(v7);
+    CFRelease(v5);
     goto LABEL_24;
   }
 
-  if (v34)
+  if (v32)
   {
-    v35 = HMFGetLogIdentifier();
+    v33 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v43 = v35;
-    _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_INFO, "%{public}@Adding an ownership token to the pairing session", buf, 0xCu);
+    v39 = v33;
+    _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_INFO, "%{public}@Adding an ownership token to the pairing session", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v31);
-  v36 = self->_pairingSession;
-  pairingRequest2 = [(HAPAccessoryServer *)v32 pairingRequest];
+  objc_autoreleasePoolPop(v29);
+  pairingRequest2 = [(HAPAccessoryServer *)v30 pairingRequest];
   ownershipToken2 = [pairingRequest2 ownershipToken];
   PairingSessionSetProperty();
 
-  if (v7)
+  if (v5)
   {
     goto LABEL_23;
   }
 
 LABEL_24:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_handlePairSetupCompletionWithData:(id)data
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v63 = 0;
-  v64 = 0;
-  v62 = 0;
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke;
-  v59[3] = &unk_2786D6A98;
-  v5 = dataCopy;
-  v60 = v5;
-  selfCopy = self;
-  v6 = MEMORY[0x231885210](v59);
-  objc_initWeak(&location, self);
+  v59 = 0;
+  v60 = 0;
+  v58 = 0;
   v55[0] = MEMORY[0x277D85DD0];
   v55[1] = 3221225472;
-  v55[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_3;
-  v55[3] = &unk_2786D2918;
-  objc_copyWeak(&v57, &location);
+  v55[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke;
+  v55[3] = &unk_2786D6A98;
+  v5 = dataCopy;
+  v56 = v5;
+  selfCopy = self;
+  v6 = MEMORY[0x231885210](v55);
+  objc_initWeak(&location, self);
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_3;
+  v51[3] = &unk_2786D2918;
+  objc_copyWeak(&v53, &location);
   v7 = v6;
-  v56 = v7;
-  v50 = MEMORY[0x231885210](v55);
-  pairingSession = self->_pairingSession;
-  v9 = v5;
+  v52 = v7;
+  v46 = MEMORY[0x231885210](v51);
+  v8 = v5;
   [v5 bytes];
   [v5 length];
-  v10 = PairingSessionExchange();
-  cancelPairingErr = v10;
-  if (v10)
+  v9 = PairingSessionExchange();
+  cancelPairingErr = v9;
+  if (v9)
   {
-    if (v10 != -6771)
+    if (v9 != -6771)
     {
       goto LABEL_28;
     }
@@ -4771,7 +4907,7 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  if (!v62)
+  if (!v58)
   {
     if ([(HAPAccessoryServerIP *)self cancelPairingErr])
     {
@@ -4779,24 +4915,24 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    v38 = [MEMORY[0x277CBEA90] dataWithBytes:v64 length:v63];
-    [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-setup" request:v38 serializationType:2 completionHandler:v50];
+    v35 = [MEMORY[0x277CBEA90] dataWithBytes:v60 length:v59];
+    [(HAPAccessoryServerIP *)self sendPOSTRequestToURL:@"/pair-setup" request:v35 serializationType:2 completionHandler:v46];
 
     goto LABEL_27;
   }
 
-  v12 = objc_autoreleasePoolPush();
+  v11 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v14 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = HMFGetLogIdentifier();
+    v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v73 = v15;
-    _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEBUG, "%{public}@Pairing completed - Done", buf, 0xCu);
+    v69 = v14;
+    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Pairing completed - Done", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v12);
+  objc_autoreleasePoolPop(v11);
   if ([(HAPAccessoryServer *)selfCopy2 pairSetupType]!= 3)
   {
     if ([(HAPAccessoryServer *)selfCopy2 pairSetupType]== 5 || [(HAPAccessoryServer *)selfCopy2 pairSetupType]== 6)
@@ -4807,102 +4943,100 @@ LABEL_27:
     else
     {
       [(HAPAccessoryServerIP *)selfCopy2 _tearDownSession];
-      v39 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:18];
-      [(HAPAccessoryServerIP *)selfCopy2 _processQueuedOperationsWithError:v39];
+      v36 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:18];
+      [(HAPAccessoryServerIP *)selfCopy2 _processQueuedOperationsWithError:v36];
       [(HAPAccessoryServerIP *)selfCopy2 _notifyDelegatesPairingStopped:0];
     }
 
     goto LABEL_27;
   }
 
-  v16 = objc_autoreleasePoolPush();
-  v17 = selfCopy2;
-  v18 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v15 = objc_autoreleasePoolPush();
+  v16 = selfCopy2;
+  v17 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v19 = HMFGetLogIdentifier();
-    *v65 = 138543362;
-    v66 = v19;
-    _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Split pair setup done.", v65, 0xCu);
+    v18 = HMFGetLogIdentifier();
+    *v61 = 138543362;
+    v62 = v18;
+    _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Split pair setup done.", v61, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v16);
-  v20 = self->_pairingSession;
+  objc_autoreleasePoolPop(v15);
   cancelPairingErr = PairingSessionDeriveKey();
   if (!cancelPairingErr)
   {
-    v21 = self->_pairingSession;
     cancelPairingErr = PairingSessionDeriveKey();
     if (!cancelPairingErr)
     {
-      v47 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:32];
-      v48 = [MEMORY[0x277CBEA90] dataWithBytes:v71 length:32];
-      v22 = objc_autoreleasePoolPush();
-      v23 = v17;
-      v24 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v43 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:32];
+      v44 = [MEMORY[0x277CBEA90] dataWithBytes:v67 length:32];
+      v19 = objc_autoreleasePoolPush();
+      v20 = v16;
+      v21 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v25 = HMFGetLogIdentifier();
-        *v65 = 138543874;
-        v66 = v25;
-        v67 = 2112;
-        v68 = v47;
-        v69 = 2112;
-        v70 = v48;
-        _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_DEBUG, "%{public}@Generated read key: %@, write key: %@", v65, 0x20u);
+        v22 = HMFGetLogIdentifier();
+        *v61 = 138543874;
+        v62 = v22;
+        v63 = 2112;
+        v64 = v43;
+        v65 = 2112;
+        v66 = v44;
+        _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_DEBUG, "%{public}@Generated read key: %@, write key: %@", v61, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v22);
-      httpClient = [(HAPAccessoryServerIP *)v23 httpClient];
-      v54 = 0;
-      v27 = [httpClient enableUAPSessionSecurityWithReadKey:buf writeKey:v71 error:&v54];
-      v49 = v54;
+      objc_autoreleasePoolPop(v19);
+      httpClient = [(HAPAccessoryServerIP *)v20 httpClient];
+      v50 = 0;
+      v24 = [httpClient enableUAPSessionSecurityWithReadKey:buf writeKey:v67 error:&v50];
+      v45 = v50;
 
-      if (v27)
+      if (v24)
       {
         goto LABEL_16;
       }
 
-      v28 = objc_autoreleasePoolPush();
-      v29 = v23;
-      v30 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v25 = objc_autoreleasePoolPush();
+      v26 = v20;
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v31 = HMFGetLogIdentifier();
-        *v65 = 138543618;
-        v66 = v31;
-        v67 = 2112;
-        v68 = v49;
-        _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable HAP session security with error %@", v65, 0x16u);
+        v28 = HMFGetLogIdentifier();
+        *v61 = 138543618;
+        v62 = v28;
+        v63 = 2112;
+        v64 = v45;
+        _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to enable HAP session security with error %@", v61, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v28);
-      cancelPairingErr = [v49 code];
+      objc_autoreleasePoolPop(v25);
+      cancelPairingErr = [v45 code];
       if (!cancelPairingErr)
       {
 LABEL_16:
-        v32 = objc_autoreleasePoolPush();
-        v33 = v23;
-        v34 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v29 = objc_autoreleasePoolPush();
+        v30 = v20;
+        v31 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v35 = HMFGetLogIdentifier();
-          *v65 = 138543362;
-          v66 = v35;
-          _os_log_impl(&dword_22AADC000, v34, OS_LOG_TYPE_DEBUG, "%{public}@Secure session enabled - starting Auth", v65, 0xCu);
+          v32 = HMFGetLogIdentifier();
+          *v61 = 138543362;
+          v62 = v32;
+          _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEBUG, "%{public}@Secure session enabled - starting Auth", v61, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v32);
-        [(HAPAccessoryServerIP *)v33 _notifyDelegateOfPairingProgress:2];
+        objc_autoreleasePoolPop(v29);
+        [(HAPAccessoryServerIP *)v30 _notifyDelegateOfPairingProgress:2];
         date = [MEMORY[0x277CBEAA8] date];
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_482;
-        v51[3] = &unk_2786D6A98;
-        v37 = date;
-        v52 = v37;
-        v53 = v33;
-        [(HAPAccessoryServerIP *)v33 getAccessoryInfo:v51];
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_482;
+        v47[3] = &unk_2786D6A98;
+        v34 = date;
+        v48 = v34;
+        v49 = v30;
+        [(HAPAccessoryServerIP *)v30 getAccessoryInfo:v47];
 
         cancelPairingErr = 0;
       }
@@ -4910,38 +5044,37 @@ LABEL_16:
   }
 
 LABEL_28:
-  if (v64)
+  if (v60)
   {
-    free(v64);
+    free(v60);
   }
 
   if (cancelPairingErr)
   {
-    v40 = objc_autoreleasePoolPush();
+    v37 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v42 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v39 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
-      v43 = HMFGetLogIdentifier();
+      v40 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v73 = v43;
-      v74 = 1024;
-      v75 = cancelPairingErr;
-      _os_log_impl(&dword_22AADC000, v42, OS_LOG_TYPE_ERROR, "%{public}@Pair-setup message failed with %d", buf, 0x12u);
+      v69 = v40;
+      v70 = 1024;
+      v71 = cancelPairingErr;
+      _os_log_impl(&dword_22AADC000, v39, OS_LOG_TYPE_ERROR, "%{public}@Pair-setup message failed with %d", buf, 0x12u);
     }
 
-    objc_autoreleasePoolPop(v40);
-    v44 = HMErrorFromOSStatus(cancelPairingErr);
-    [(HAPAccessoryServerIP *)selfCopy3 _tearDownSessionAndStartReachabilityWithError:v44];
-    (*(v7 + 2))(v7, v44);
-    [(HAPAccessoryServerIP *)selfCopy3 _processQueuedOperationsWithError:v44];
-    [(HAPAccessoryServerIP *)selfCopy3 _notifyDelegatesPairingStopped:v44];
+    objc_autoreleasePoolPop(v37);
+    v41 = HMErrorFromOSStatus(cancelPairingErr);
+    [(HAPAccessoryServerIP *)selfCopy3 _tearDownSessionAndStartReachabilityWithError:v41];
+    (*(v7 + 2))(v7, v41);
+    [(HAPAccessoryServerIP *)selfCopy3 _processQueuedOperationsWithError:v41];
+    [(HAPAccessoryServerIP *)selfCopy3 _notifyDelegatesPairingStopped:v41];
   }
 
-  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v53);
   objc_destroyWeak(&location);
 
-  v45 = *MEMORY[0x277D85DE8];
   return cancelPairingErr;
 }
 
@@ -4963,7 +5096,7 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
 
 void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -4992,15 +5125,15 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
       }
 
       v17 = v16;
-      v21 = 138544130;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v8;
-      v25 = 2112;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v9;
-      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send Pair Setup request, received response object: %@, MIME type: %@, error: %@", &v21, 0x2Au);
+      v20 = 138544130;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v8;
+      v24 = 2112;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v9;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send Pair Setup request, received response object: %@, MIME type: %@, error: %@", &v20, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -5020,8 +5153,6 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
     [v13 _processQueuedOperationsWithError:v19];
     [v13 _notifyDelegatesPairingStopped:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invoke_482(uint64_t a1, void *a2)
@@ -5082,27 +5213,27 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
 
 - (int)_continuePairingAfterAuthPromptWithRetry:(BOOL)retry
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v33 = 0;
-  v34 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v31 = 0;
   v32 = 0;
+  v30 = 0;
   self->_retryingPairSetup = retry;
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke;
-  v31[3] = &unk_2786D6CF0;
-  v31[4] = self;
-  v5 = MEMORY[0x231885210](v31, a2);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke;
+  v29[3] = &unk_2786D6CF0;
+  v29[4] = self;
+  v5 = MEMORY[0x231885210](v29, a2);
   objc_initWeak(&location, self);
-  v23 = MEMORY[0x277D85DD0];
-  v24 = 3221225472;
-  v25 = __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke_474;
-  v26 = &unk_2786D28F0;
-  objc_copyWeak(&v28, &location);
+  v21 = MEMORY[0x277D85DD0];
+  v22 = 3221225472;
+  v23 = __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke_474;
+  v24 = &unk_2786D28F0;
+  objc_copyWeak(&v26, &location);
   retryCopy = retry;
   v6 = v5;
-  v27 = v6;
-  v7 = MEMORY[0x231885210](&v23);
+  v25 = v6;
+  v7 = MEMORY[0x231885210](&v21);
   v8 = objc_autoreleasePoolPush();
   selfCopy = self;
   v10 = HMFGetOSLogHandle();
@@ -5110,21 +5241,20 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v36 = v11;
+    v34 = v11;
     _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Pair-setup starting", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
-  [(HAPAccessoryServerIP *)selfCopy setCachedSocketInfo:0, v23, v24, v25, v26];
+  [(HAPAccessoryServerIP *)selfCopy setCachedSocketInfo:0, v21, v22, v23, v24];
   cancelPairingErr = [(HAPAccessoryServerIP *)selfCopy _ensurePairingSessionIsInitializedWithType:1];
   if (!cancelPairingErr)
   {
-    pairingSession = selfCopy->_pairingSession;
-    v14 = PairingSessionExchange();
-    cancelPairingErr = v14;
-    if (v14)
+    v13 = PairingSessionExchange();
+    cancelPairingErr = v13;
+    if (v13)
     {
-      if (v14 == -6771)
+      if (v13 == -6771)
       {
         goto LABEL_9;
       }
@@ -5141,8 +5271,8 @@ void __59__HAPAccessoryServerIP__handlePairSetupCompletionWithData___block_invok
       cancelPairingErr = [(HAPAccessoryServerIP *)selfCopy _ensureHTTPClientSetUp];
       if (!cancelPairingErr)
       {
-        v15 = [MEMORY[0x277CBEA90] dataWithBytes:v34 length:v33];
-        [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:@"/pair-setup" request:v15 serializationType:2 completionHandler:v7];
+        v14 = [MEMORY[0x277CBEA90] dataWithBytes:v32 length:v31];
+        [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:@"/pair-setup" request:v14 serializationType:2 completionHandler:v7];
 
 LABEL_9:
         cancelPairingErr = 0;
@@ -5151,38 +5281,37 @@ LABEL_9:
   }
 
 LABEL_10:
-  if (v34)
+  if (v32)
   {
-    free(v34);
+    free(v32);
   }
 
   if (cancelPairingErr)
   {
-    v16 = objc_autoreleasePoolPush();
-    v17 = selfCopy;
-    v18 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v15 = objc_autoreleasePoolPush();
+    v16 = selfCopy;
+    v17 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v19 = HMFGetLogIdentifier();
+      v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v19;
-      v37 = 1024;
-      v38 = cancelPairingErr;
-      _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@Pair-setup start failed: %d", buf, 0x12u);
+      v34 = v18;
+      v35 = 1024;
+      v36 = cancelPairingErr;
+      _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Pair-setup start failed: %d", buf, 0x12u);
     }
 
-    objc_autoreleasePoolPop(v16);
-    v20 = HMErrorFromOSStatus(cancelPairingErr);
-    [(HAPAccessoryServerIP *)v17 _tearDownSessionAndStartReachabilityWithError:v20];
-    (*(v6 + 2))(v6, v20);
-    [(HAPAccessoryServerIP *)v17 _processQueuedOperationsWithError:v20];
-    [(HAPAccessoryServerIP *)v17 _notifyDelegatesPairingStopped:v20];
+    objc_autoreleasePoolPop(v15);
+    v19 = HMErrorFromOSStatus(cancelPairingErr);
+    [(HAPAccessoryServerIP *)v16 _tearDownSessionAndStartReachabilityWithError:v19];
+    (*(v6 + 2))(v6, v19);
+    [(HAPAccessoryServerIP *)v16 _processQueuedOperationsWithError:v19];
+    [(HAPAccessoryServerIP *)v16 _notifyDelegatesPairingStopped:v19];
   }
 
-  objc_destroyWeak(&v28);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 
-  v21 = *MEMORY[0x277D85DE8];
   return cancelPairingErr;
 }
 
@@ -5201,7 +5330,7 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
 
 void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke_474(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -5230,15 +5359,15 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
       }
 
       v17 = v16;
-      v25 = 138544130;
-      v26 = v15;
-      v27 = 2112;
-      v28 = v8;
-      v29 = 2112;
-      v30 = v17;
-      v31 = 2112;
-      v32 = v9;
-      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send initial Pair Setup request, received response object: %@, MIME type: %@, error: %@", &v25, 0x2Au);
+      v24 = 138544130;
+      v25 = v15;
+      v26 = 2112;
+      v27 = v8;
+      v28 = 2112;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v9;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Unable to send initial Pair Setup request, received response object: %@, MIME type: %@, error: %@", &v24, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -5262,9 +5391,9 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         v23 = HMFGetLogIdentifier();
-        v25 = 138543362;
-        v26 = v23;
-        _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@Retrying PS on first failure", &v25, 0xCu);
+        v24 = 138543362;
+        v25 = v23;
+        _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@Retrying PS on first failure", &v24, 0xCu);
       }
 
       objc_autoreleasePoolPop(v20);
@@ -5278,8 +5407,6 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
       [v13 _processQueuedOperationsWithError:v19];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block_invoke_2(uint64_t a1)
@@ -5298,27 +5425,27 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
 - (int)_pairSetupStartWithConsentRequired:(BOOL)required
 {
   requiredCopy = required;
-  v63 = *MEMORY[0x277D85DE8];
-  v58 = 0;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke;
-  v56[3] = &unk_2786D6768;
-  v56[4] = self;
+  v62 = *MEMORY[0x277D85DE8];
+  v57 = 0;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke;
+  v55[3] = &unk_2786D6768;
+  v55[4] = self;
   requiredCopy2 = required;
-  __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke(v56);
-  [(HAPAccessoryServerIP *)self _isAccessoryPublicKeyPresent:&v58 + 1 registeredWithHomeKit:&v58];
-  if (HIBYTE(v58) == 1)
+  __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke(v55);
+  [(HAPAccessoryServerIP *)self _isAccessoryPublicKeyPresent:&v57 + 1 registeredWithHomeKit:&v57];
+  if (HIBYTE(v57) == 1)
   {
-    if (v58)
+    if (v57)
     {
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_460;
-      v53[3] = &unk_2786D7050;
-      v53[4] = self;
-      v54 = 0;
-      __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_460(v53);
+      v52[0] = MEMORY[0x277D85DD0];
+      v52[1] = 3221225472;
+      v52[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_460;
+      v52[3] = &unk_2786D7050;
+      v52[4] = self;
+      v53 = 0;
+      __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_460(v52);
 
       v5 = 0;
     }
@@ -5332,16 +5459,16 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v60 = v28;
+        v59 = v28;
         _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Accessory public key was already present but it has not been configured with HomeKit", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v25);
       keyStore = [(HAPAccessoryServer *)selfCopy keyStore];
       identifier = [(HAPAccessoryServer *)selfCopy identifier];
-      v55 = 0;
-      [keyStore registerAccessoryWithHomeKit:identifier error:&v55];
-      v5 = v55;
+      v54 = 0;
+      [keyStore registerAccessoryWithHomeKit:identifier error:&v54];
+      v5 = v54;
     }
 
     [(HAPAccessoryServerIP *)self _notifyDelegatesPairingStopped:v5];
@@ -5357,9 +5484,9 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
     v9 = HMFGetLogIdentifier();
     featureFlags = selfCopy2->_featureFlags;
     *buf = 138543618;
-    v60 = v9;
-    v61 = 2048;
-    v62 = featureFlags;
+    v59 = v9;
+    v60 = 2048;
+    v61 = featureFlags;
     _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting a reconfirm with Bonjour during pairing with flags: %llu", buf, 0x16u);
   }
 
@@ -5378,20 +5505,20 @@ void __65__HAPAccessoryServerIP__continuePairingAfterAuthPromptWithRetry___block
         {
 LABEL_27:
           v41 = HMErrorFromOSStatus(v31);
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_2;
-          v46[3] = &unk_2786D7050;
-          v46[4] = selfCopy2;
-          v47 = v41;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_2;
+          v45[3] = &unk_2786D7050;
+          v45[4] = selfCopy2;
+          v46 = v41;
           v42 = v41;
-          __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_2(v46);
+          __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_2(v45);
           [(HAPAccessoryServerIP *)selfCopy2 _notifyDelegatesOfAddAccessoryFailureWithError:v42];
           [(HAPAccessoryServerIP *)selfCopy2 _tearDownSessionAndStartReachabilityWithError:v42];
           v43 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:79 reason:0 underlyingError:v42];
 
           [(HAPAccessoryServerIP *)selfCopy2 _processQueuedOperationsWithError:v43];
-          goto LABEL_28;
+          return v31;
         }
 
         v32 = objc_autoreleasePoolPush();
@@ -5401,7 +5528,7 @@ LABEL_27:
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v60 = v35;
+          v59 = v35;
           _os_log_impl(&dword_22AADC000, v34, OS_LOG_TYPE_DEBUG, "%{public}@Requesting consent for MFi Auth pair-setup", buf, 0xCu);
         }
 
@@ -5414,16 +5541,16 @@ LABEL_27:
           v39 = [(HAPAccessoryInfo *)v36 initWithName:name manufacturer:0 modelName:0 category:category certificationStatus:0 denylisted:0 ppid:0];
 
           delegateQueue = [(HAPAccessoryServer *)v33 delegateQueue];
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_466;
-          v48[3] = &unk_2786D7050;
-          v48[4] = v33;
-          v49 = v39;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_466;
+          v47[3] = &unk_2786D7050;
+          v47[4] = v33;
+          v48 = v39;
           v23 = v39;
-          dispatch_async(delegateQueue, v48);
+          dispatch_async(delegateQueue, v47);
 
-          v24 = v49;
+          v24 = v48;
           goto LABEL_13;
         }
 
@@ -5439,7 +5566,7 @@ LABEL_26:
     }
 
     LODWORD(v31) = [(HAPAccessoryServerIP *)selfCopy2 _continuePairingAfterAuthPromptWithRetry:1];
-    goto LABEL_28;
+    return v31;
   }
 
 LABEL_9:
@@ -5451,9 +5578,9 @@ LABEL_9:
     v16 = HMFGetLogIdentifier();
     v17 = selfCopy2->_featureFlags;
     *buf = 138543618;
-    v60 = v16;
-    v61 = 2048;
-    v62 = v17;
+    v59 = v16;
+    v60 = 2048;
+    v61 = v17;
     _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Accessory doesn't support known auth flags: %llu, prompting user...", buf, 0x16u);
   }
 
@@ -5473,19 +5600,17 @@ LABEL_9:
   block[1] = 3221225472;
   block[2] = __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invoke_465;
   block[3] = &unk_2786D4978;
-  v51 = v21;
-  v52 = 4 * (v12 != 0);
+  v50 = v21;
+  v51 = 4 * (v12 != 0);
   block[4] = v14;
   v23 = v21;
   dispatch_async(delegateQueue2, block);
 
-  v24 = v51;
+  v24 = v50;
 LABEL_13:
 
 LABEL_18:
   LODWORD(v31) = 0;
-LABEL_28:
-  v44 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -5494,16 +5619,15 @@ void __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invok
   v2 = [*(a1 + 32) pairingActivity];
   if (v2)
   {
-    v8 = v2;
+    v7 = v2;
     [*(a1 + 32) isWacAccessory];
     v3 = HMFBooleanToString();
     [*(a1 + 32) isWacLegacy];
     v4 = HMFBooleanToString();
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "pairSetupType")}];
     [*(a1 + 32) authMethod];
-    v6 = *(a1 + 40);
-    v7 = HMFBooleanToString();
-    v2 = v8;
+    v6 = HMFBooleanToString();
+    v2 = v7;
   }
 }
 
@@ -5547,7 +5671,7 @@ void __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invok
 
 - (int)_ensurePairingSessionIsInitializedWithType:(unsigned int)type
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pairingRequest = [(HAPAccessoryServer *)self pairingRequest];
   pairingIdentity = [pairingRequest pairingIdentity];
   identifier = [pairingIdentity identifier];
@@ -5576,10 +5700,10 @@ void __59__HAPAccessoryServerIP__pairSetupStartWithConsentRequired___block_invok
   {
     v13 = v12;
 LABEL_28:
-    v28 = self->_pairingSession;
-    if (v28)
+    v25 = self->_pairingSession;
+    if (v25)
     {
-      CFRelease(v28);
+      CFRelease(v25);
       self->_pairingSession = 0;
     }
 
@@ -5637,18 +5761,18 @@ LABEL_28:
       if (![(HAPAccessoryServerIP *)self authenticated])
       {
         [(HAPAccessoryServer *)self setPairSetupType:3];
-        v31 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v33 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v29 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v34 = HMFGetLogIdentifier();
-          v35 = self->_featureFlags;
+          v30 = HMFGetLogIdentifier();
+          v31 = self->_featureFlags;
           *buf = 138543618;
-          v39 = v34;
-          v40 = 2048;
-          v41 = v35;
-          _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_DEBUG, "%{public}@Feature flags: %llu, Performing Transient Split pair-setup", buf, 0x16u);
+          v35 = v30;
+          v36 = 2048;
+          v37 = v31;
+          _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Feature flags: %llu, Performing Transient Split pair-setup", buf, 0x16u);
         }
 
         goto LABEL_36;
@@ -5666,9 +5790,7 @@ LABEL_28:
       if ((v20 & 0x10) == 0)
       {
 LABEL_24:
-        v21 = self->_pairingSession;
         PairingSessionSetFlags();
-        v22 = self->_pairingSession;
         PairingSessionSetEventHandler();
         goto LABEL_25;
       }
@@ -5676,25 +5798,25 @@ LABEL_24:
       if (![(HAPAccessoryServerIP *)self authenticated])
       {
         [(HAPAccessoryServer *)self setPairSetupType:6];
-        v31 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v33 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+        v29 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
-          v36 = HMFGetLogIdentifier();
-          v37 = self->_featureFlags;
+          v32 = HMFGetLogIdentifier();
+          v33 = self->_featureFlags;
           *buf = 138543874;
-          v39 = v36;
-          v40 = 2048;
-          v41 = v37;
-          v42 = 1024;
-          v43 = 16793617;
-          _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_DEBUG, "%{public}@Feature flags: %llu, Performing Transient Split pair-setup with Cert Auth flags: 0x%X", buf, 0x1Cu);
+          v35 = v32;
+          v36 = 2048;
+          v37 = v33;
+          v38 = 1024;
+          v39 = 16793617;
+          _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_DEBUG, "%{public}@Feature flags: %llu, Performing Transient Split pair-setup with Cert Auth flags: 0x%X", buf, 0x1Cu);
         }
 
 LABEL_36:
 
-        objc_autoreleasePoolPop(v31);
+        objc_autoreleasePoolPop(v27);
         goto LABEL_24;
       }
     }
@@ -5704,21 +5826,20 @@ LABEL_36:
   }
 
 LABEL_25:
-  v23 = objc_autoreleasePoolPush();
+  v21 = objc_autoreleasePoolPush();
   selfCopy3 = self;
-  v25 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+  v23 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
-    v26 = HMFGetLogIdentifier();
+    v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v26;
-    v40 = 2112;
-    v41 = v10;
-    _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_INFO, "%{public}@Setting Pairing session identifier to %@", buf, 0x16u);
+    v35 = v24;
+    v36 = 2112;
+    v37 = v10;
+    _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_INFO, "%{public}@Setting Pairing session identifier to %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v23);
-  v27 = self->_pairingSession;
+  objc_autoreleasePoolPop(v21);
   [v10 UTF8String];
   v13 = PairingSessionSetIdentifier();
   if (v13)
@@ -5728,7 +5849,6 @@ LABEL_25:
 
 LABEL_30:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -5915,7 +6035,7 @@ LABEL_14:
 
 - (int)getBonjourDeviceDNSName:(id *)name
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (!name || ![(HAPAccessoryServerIP *)self hasBonjourDeviceInfo])
   {
     v12 = objc_autoreleasePoolPush();
@@ -5928,77 +6048,73 @@ LABEL_14:
       [(HAPAccessoryServerIP *)selfCopy hasBonjourDeviceInfo];
       v17 = HMFBooleanToString();
       *buf = 138543874;
-      v25 = v15;
-      v26 = 2112;
-      v27 = v16;
-      v28 = 2112;
-      v29 = v17;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v16;
+      v27 = 2112;
+      v28 = v17;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Missing Bonjour Info with dnsName: %@, hasBonjourDeviceInfo: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v12);
-    goto LABEL_11;
+    return -6705;
   }
 
   bonjourDeviceInfo = [(HAPAccessoryServerIP *)self bonjourDeviceInfo];
   v6 = BonjourDevice_CopyDNSNames();
 
-  if (!v6)
+  if (v6)
+  {
+    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytesNoCopy:v6 length:strnlen(v6 encoding:0x800uLL) freeWhenDone:{4, 1}];
+    *name = v7;
+    if (!v7)
+    {
+      v8 = objc_autoreleasePoolPush();
+      selfCopy2 = self;
+      v10 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v11 = HMFGetLogIdentifier();
+        *buf = 138543618;
+        v24 = v11;
+        v25 = 2080;
+        v26 = v6;
+        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize string with dns name: %s", buf, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v8);
+      free(v6);
+      *name = &stru_283E79C60;
+      return -6705;
+    }
+  }
+
+  else
   {
     v19 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
+    selfCopy3 = self;
     v21 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v22;
-      v26 = 1024;
-      LODWORD(v27) = 0;
+      v24 = v22;
+      v25 = 1024;
+      LODWORD(v26) = 0;
       _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@CopyDNSNames failed with error: %d", buf, 0x12u);
     }
 
     objc_autoreleasePoolPop(v19);
     free(0);
     *name = &stru_283E79C60;
-    goto LABEL_15;
   }
 
-  v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytesNoCopy:v6 length:strnlen(v6 encoding:0x800uLL) freeWhenDone:{4, 1}];
-  *name = v7;
-  if (v7)
-  {
-LABEL_15:
-    result = 0;
-    goto LABEL_16;
-  }
-
-  v8 = objc_autoreleasePoolPush();
-  selfCopy3 = self;
-  v10 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    v11 = HMFGetLogIdentifier();
-    *buf = 138543618;
-    v25 = v11;
-    v26 = 2080;
-    v27 = v6;
-    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to initialize string with dns name: %s", buf, 0x16u);
-  }
-
-  objc_autoreleasePoolPop(v8);
-  free(v6);
-  *name = &stru_283E79C60;
-LABEL_11:
-  result = -6705;
-LABEL_16:
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (void)httpClient:(id)client didStartConnectingToNetAddress:(id)address
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   addressCopy = address;
   addressFamily = [addressCopy addressFamily];
@@ -6023,25 +6139,23 @@ LABEL_16:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543874;
-      v15 = v12;
-      v16 = 2112;
-      v17 = addressCopy;
-      v18 = 2048;
+      v13 = 138543874;
+      v14 = v12;
+      v15 = 2112;
+      v16 = addressCopy;
+      v17 = 2048;
       addressFamily2 = [addressCopy addressFamily];
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unknown address family in net address: %@, %lu", &v14, 0x20u);
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Unknown address family in net address: %@, %lu", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)httpClient:(id)client didReceiveSocketEvent:(unint64_t)event
 {
   eventCopy = event;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -6061,11 +6175,11 @@ LABEL_16:
       [v12 appendString:{@", KeepAlive"}];
     }
 
-    v17 = 138543618;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received a socket event %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v12;
+    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Received a socket event %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -6073,13 +6187,11 @@ LABEL_16:
   identifier = [(HAPAccessoryServer *)selfCopy identifier];
   category = [(HAPAccessoryServer *)selfCopy category];
   [mEMORY[0x277D0F8C0] reportWakeEvent:identifier linkType:1 accessoryCategory:category];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_httpClientDidCloseConnectionDueToServer:(id)server
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   serverCopy = server;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -6088,7 +6200,7 @@ LABEL_16:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v8;
+    v32 = v8;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Received a server-initiated disconnection", buf, 0xCu);
   }
 
@@ -6115,7 +6227,7 @@ LABEL_16:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v22;
+      v32 = v22;
       _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@[LPM] Suspend Capable Accessory: Unexpected disconnect", buf, 0xCu);
     }
 
@@ -6126,12 +6238,12 @@ LABEL_16:
     if (v24)
     {
       delegateQueue = [(HAPAccessoryServer *)v15 delegateQueue];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __65__HAPAccessoryServerIP__httpClientDidCloseConnectionDueToServer___block_invoke_428;
-      v30[3] = &unk_2786D6CA0;
-      v30[4] = v15;
-      dispatch_async(delegateQueue, v30);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __65__HAPAccessoryServerIP__httpClientDidCloseConnectionDueToServer___block_invoke_428;
+      v29[3] = &unk_2786D6CA0;
+      v29[4] = v15;
+      dispatch_async(delegateQueue, v29);
     }
 
 LABEL_14:
@@ -6149,7 +6261,7 @@ LABEL_14:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v33 = v18;
+    v32 = v18;
     _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@[LPM] Suspend Capable Accessory: Disconnected -> Entering suspended mode", buf, 0xCu);
   }
 
@@ -6170,8 +6282,6 @@ LABEL_14:
 
   [(HAPAccessoryServerIP *)v15 _tearDownSession];
 LABEL_15:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HAPAccessoryServerIP__httpClientDidCloseConnectionDueToServer___block_invoke(uint64_t a1)
@@ -6273,23 +6383,21 @@ LABEL_6:
 
 void __53__HAPAccessoryServerIP_setPairVerifyCompletionBlock___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, "%{public}@pairVerifyCompletionBlock is already set!", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, "%{public}@pairVerifyCompletionBlock is already set!", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:23];
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HAPAccessoryServerIP_setPairVerifyCompletionBlock___block_invoke_423(uint64_t a1, void *a2)
@@ -6410,7 +6518,7 @@ void __53__HAPAccessoryServerIP_setPairVerifyCompletionBlock___block_invoke_423(
   return selfCopy;
 }
 
-uint64_t __44__HAPAccessoryServerIP_isSessionEstablished__block_invoke(uint64_t a1)
+void *__44__HAPAccessoryServerIP_isSessionEstablished__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isSessionEstablished];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6419,56 +6527,56 @@ uint64_t __44__HAPAccessoryServerIP_isSessionEstablished__block_invoke(uint64_t 
 
 - (BOOL)_updateAccessories:(id)accessories
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   array = [MEMORY[0x277CBEB18] array];
-  v46 = accessoriesCopy;
-  v52 = [MEMORY[0x277CBEB18] arrayWithArray:accessoriesCopy];
+  v45 = accessoriesCopy;
+  v51 = [MEMORY[0x277CBEB18] arrayWithArray:accessoriesCopy];
   v5 = MEMORY[0x277CBEB18];
   accessories = [(HAPAccessoryServer *)self accessories];
-  v49 = [v5 arrayWithArray:accessories];
+  v48 = [v5 arrayWithArray:accessories];
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   selfCopy = self;
   accessories2 = [(HAPAccessoryServer *)self accessories];
-  v51 = [accessories2 countByEnumeratingWithState:&v61 objects:v73 count:16];
-  if (v51)
+  v50 = [accessories2 countByEnumeratingWithState:&v60 objects:v72 count:16];
+  if (v50)
   {
-    v50 = *v62;
+    v49 = *v61;
     obj = accessories2;
     while (2)
     {
-      for (i = 0; i != v51; ++i)
+      for (i = 0; i != v50; ++i)
       {
-        if (*v62 != v50)
+        if (*v61 != v49)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v61 + 1) + 8 * i);
+        v9 = *(*(&v60 + 1) + 8 * i);
+        v56 = 0u;
         v57 = 0u;
         v58 = 0u;
         v59 = 0u;
-        v60 = 0u;
-        v10 = v52;
-        v11 = [v10 countByEnumeratingWithState:&v57 objects:v72 count:16];
+        v10 = v51;
+        v11 = [v10 countByEnumeratingWithState:&v56 objects:v71 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v58;
+          v13 = *v57;
 LABEL_8:
           v14 = 0;
           while (1)
           {
-            if (*v58 != v13)
+            if (*v57 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v57 + 1) + 8 * v14);
+            v15 = *(*(&v56 + 1) + 8 * v14);
             instanceID = [v9 instanceID];
             instanceID2 = [v15 instanceID];
             v18 = [instanceID isEqualToNumber:instanceID2];
@@ -6480,7 +6588,7 @@ LABEL_8:
 
             if (v12 == ++v14)
             {
-              v12 = [v10 countByEnumeratingWithState:&v57 objects:v72 count:16];
+              v12 = [v10 countByEnumeratingWithState:&v56 objects:v71 count:16];
               if (v12)
               {
                 goto LABEL_8;
@@ -6495,7 +6603,7 @@ LABEL_8:
             [v9 mergeObject:v15];
             [array addObject:v9];
             [v10 removeObject:v15];
-            [v49 removeObject:v9];
+            [v48 removeObject:v9];
             goto LABEL_17;
           }
 
@@ -6506,17 +6614,17 @@ LABEL_8:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v67 = v42;
-            v68 = 2112;
-            v69 = v9;
-            v70 = 2112;
-            v71 = v15;
+            v66 = v42;
+            v67 = 2112;
+            v68 = v9;
+            v69 = 2112;
+            v70 = v15;
             _os_log_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to merge existing accessory %@ with new accessory %@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v39);
           v38 = 0;
-          v31 = v46;
+          v31 = v45;
           v37 = obj;
           v19 = array;
           goto LABEL_40;
@@ -6526,8 +6634,8 @@ LABEL_17:
       }
 
       accessories2 = obj;
-      v51 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
-      if (v51)
+      v50 = [obj countByEnumeratingWithState:&v60 objects:v72 count:16];
+      if (v50)
       {
         continue;
       }
@@ -6537,7 +6645,7 @@ LABEL_17:
   }
 
   v19 = array;
-  if ([v49 count])
+  if ([v48 count])
   {
     v20 = objc_autoreleasePoolPush();
     v21 = selfCopy;
@@ -6546,46 +6654,46 @@ LABEL_17:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v67 = v23;
-      v68 = 2114;
-      v69 = v49;
+      v66 = v23;
+      v67 = 2114;
+      v68 = v48;
       _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@The following accessories are not present in the latest attribute database: %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v24 = v49;
-    v25 = [v24 countByEnumeratingWithState:&v53 objects:v65 count:16];
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v24 = v48;
+    v25 = [v24 countByEnumeratingWithState:&v52 objects:v64 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v54;
+      v27 = *v53;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v54 != v27)
+          if (*v53 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v53 + 1) + 8 * j);
+          v29 = *(*(&v52 + 1) + 8 * j);
           v30 = HMErrorFromHAPErrorCode(33);
           [v29 invalidateWithError:v30];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v53 objects:v65 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v52 objects:v64 count:16];
       }
 
       while (v26);
     }
   }
 
-  v31 = v46;
-  if ([v52 count])
+  v31 = v45;
+  if ([v51 count])
   {
     accessories3 = [(HAPAccessoryServer *)selfCopy accessories];
 
@@ -6598,16 +6706,16 @@ LABEL_17:
       {
         v36 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v67 = v36;
-        v68 = 2114;
-        v69 = v52;
+        v66 = v36;
+        v67 = 2114;
+        v68 = v51;
         _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@The following accessories are new in the latest attribute database: %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v33);
     }
 
-    [array addObjectsFromArray:v52];
+    [array addObjectsFromArray:v51];
   }
 
   v37 = [MEMORY[0x277CBEA60] arrayWithArray:array];
@@ -6615,33 +6723,32 @@ LABEL_17:
   v38 = 1;
 LABEL_40:
 
-  v43 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (void)_updateProtocolVersionFromPrimaryAccessory:(id)accessory
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   services = [accessory services];
-  v5 = [services countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v5 = [services countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v31;
+    v7 = *v30;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v31 != v7)
+      if (*v30 != v7)
       {
         objc_enumerationMutation(services);
       }
 
-      v9 = *(*(&v30 + 1) + 8 * v8);
+      v9 = *(*(&v29 + 1) + 8 * v8);
       type = [v9 type];
       v11 = [type isEqualToString:@"000000A2-0000-1000-8000-0026BB765291"];
 
@@ -6652,7 +6759,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [services countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v6 = [services countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -6669,26 +6776,26 @@ LABEL_3:
       goto LABEL_20;
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     characteristics = [v12 characteristics];
-    v14 = [characteristics countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v14 = [characteristics countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
 LABEL_13:
       v17 = 0;
       while (1)
       {
-        if (*v27 != v16)
+        if (*v26 != v16)
         {
           objc_enumerationMutation(characteristics);
         }
 
-        v18 = *(*(&v26 + 1) + 8 * v17);
+        v18 = *(*(&v25 + 1) + 8 * v17);
         type2 = [v18 type];
         v20 = [type2 isEqualToString:@"00000037-0000-1000-8000-0026BB765291"];
 
@@ -6699,7 +6806,7 @@ LABEL_13:
 
         if (v15 == ++v17)
         {
-          v15 = [characteristics countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v15 = [characteristics countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v15)
           {
             goto LABEL_13;
@@ -6744,66 +6851,64 @@ LABEL_20:
   }
 
 LABEL_26:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__registerForInternalCharacteristicNotifications
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   selfCopy = self;
   accessories = [(HAPAccessoryServer *)self accessories];
-  v5 = [accessories countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v5 = [accessories countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v31;
     v8 = &selRef_initWithName_activity_block_;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
+        v10 = *(*(&v30 + 1) + 8 * i);
         if ([v10 conformsToProtocol:v8[94]] && (objc_opt_respondsToSelector() & 1) != 0)
         {
           v11 = accessories;
           v12 = [v10 accessoryServerDidRequestCharacteristicsToRegisterForNotifications:selfCopy];
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
-          v13 = [v12 countByEnumeratingWithState:&v27 objects:v39 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v26 objects:v38 count:16];
           if (v13)
           {
             v14 = v13;
-            v15 = *v28;
+            v15 = *v27;
             do
             {
               for (j = 0; j != v14; ++j)
               {
-                if (*v28 != v15)
+                if (*v27 != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v27 + 1) + 8 * j);
+                v17 = *(*(&v26 + 1) + 8 * j);
                 if (([v17 eventNotificationsEnabled] & 1) == 0)
                 {
                   [array addObject:v17];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v27 objects:v39 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v26 objects:v38 count:16];
             }
 
             while (v14);
@@ -6814,7 +6919,7 @@ LABEL_26:
         }
       }
 
-      v6 = [accessories countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v6 = [accessories countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v6);
@@ -6822,12 +6927,12 @@ LABEL_26:
 
   if ([array count])
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __72__HAPAccessoryServerIP___registerForInternalCharacteristicNotifications__block_invoke;
-    v26[3] = &unk_2786D5B30;
-    v26[4] = selfCopy;
-    v18 = MEMORY[0x231885210](v26);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __72__HAPAccessoryServerIP___registerForInternalCharacteristicNotifications__block_invoke;
+    v25[3] = &unk_2786D5B30;
+    v25[4] = selfCopy;
+    v18 = MEMORY[0x231885210](v25);
     v19 = objc_autoreleasePoolPush();
     v20 = selfCopy;
     v21 = HMFGetOSLogHandle();
@@ -6835,9 +6940,9 @@ LABEL_26:
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v36 = v22;
-      v37 = 2112;
-      v38 = array;
+      v35 = v22;
+      v36 = 2112;
+      v37 = array;
       _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@Registering events for characteristics: %@", buf, 0x16u);
     }
 
@@ -6845,13 +6950,11 @@ LABEL_26:
     clientQueue = [(HAPAccessoryServer *)v20 clientQueue];
     [(HAPAccessoryServerIP *)v20 enableEvents:1 forCharacteristics:array withCompletionHandler:v18 queue:clientQueue];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HAPAccessoryServerIP___registerForInternalCharacteristicNotifications__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -6863,23 +6966,23 @@ void __72__HAPAccessoryServerIP___registerForInternalCharacteristicNotifications
     if (v10)
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v6;
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v6;
       v12 = "%{public}@Failed to enable notifications for accessory with error: %@";
       v13 = v9;
       v14 = 22;
 LABEL_6:
-      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, v12, &v16, v14);
+      _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, v12, &v15, v14);
     }
   }
 
   else if (v10)
   {
     v11 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v11;
+    v15 = 138543362;
+    v16 = v11;
     v12 = "%{public}@Successfully enabled notifications for accessory";
     v13 = v9;
     v14 = 12;
@@ -6887,17 +6990,16 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v7);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseAttributeDatabase:(id)database transaction:(id)transaction
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   transactionCopy = transaction;
   v8 = objc_autoreleasePoolPush();
   v9 = [MEMORY[0x277CCAAA0] dataWithJSONObject:databaseCopy options:0 error:0];
-  v70 = v8;
+  v69 = v8;
   if (v9)
   {
     v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v9 encoding:4];
@@ -6915,7 +7017,7 @@ LABEL_6:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v79 = v14;
+    v78 = v14;
     _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%{public}@Parsing attribute database", buf, 0xCu);
   }
 
@@ -6938,13 +7040,13 @@ LABEL_6:
     }
 
     *buf = 138543618;
-    v79 = v18;
-    v80 = 2112;
-    v81 = v20;
+    v78 = v18;
+    v79 = 2112;
+    v80 = v20;
     _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Parsing attribute database: %@", buf, 0x16u);
   }
 
-  v69 = v10;
+  v68 = v10;
 
   objc_autoreleasePoolPop(v15);
   v21 = [(__CFString *)databaseCopy objectForKeyedSubscript:@"accessories"];
@@ -6957,7 +7059,7 @@ LABEL_6:
     {
       v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v79 = v46;
+      v78 = v46;
       _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_ERROR, "%{public}@No accessory objects found in the attribute database", buf, 0xCu);
     }
 
@@ -6980,11 +7082,11 @@ LABEL_6:
       v25 = HMFGetLogIdentifier();
       v26 = objc_opt_class();
       *buf = 138543874;
-      v79 = v25;
-      v80 = 2114;
-      v81 = @"accessories";
-      v82 = 2114;
-      v83 = v26;
+      v78 = v25;
+      v79 = 2114;
+      v80 = @"accessories";
+      v81 = 2114;
+      v82 = v26;
       v27 = v26;
       _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Expected the value of '%{public}@' to be an array in the attribute database, instead it is a %{public}@", buf, 0x20u);
     }
@@ -6995,40 +7097,40 @@ LABEL_6:
     {
 LABEL_32:
       v47 = v28;
-      v48 = v70;
+      v48 = v69;
       goto LABEL_55;
     }
   }
 
-  v66 = v9;
-  v67 = transactionCopy;
-  v68 = databaseCopy;
+  v65 = v9;
+  v66 = transactionCopy;
+  v67 = databaseCopy;
   v29 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v21, "count")}];
   array = [MEMORY[0x277CBEB18] array];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
-  v65 = v21;
+  v64 = v21;
   obj = v21;
-  v31 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
-  v72 = array;
+  v31 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
+  v71 = array;
   if (v31)
   {
     v32 = v31;
     v33 = 0;
-    v34 = *v74;
+    v34 = *v73;
 LABEL_18:
     v35 = 0;
     v36 = v33;
     while (1)
     {
-      if (*v74 != v34)
+      if (*v73 != v34)
       {
         objc_enumerationMutation(obj);
       }
 
-      v33 = [HAPAccessoryServerIP _parseSerializedAccessoryDictionary:*(*(&v73 + 1) + 8 * v35) server:v16, v65];
+      v33 = [HAPAccessoryServerIP _parseSerializedAccessoryDictionary:*(*(&v72 + 1) + 8 * v35) server:v16, v64];
 
       if (!v33)
       {
@@ -7063,7 +7165,7 @@ LABEL_18:
         {
           v54 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v79 = v54;
+          v78 = v54;
           _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_ERROR, "%{public}@Accessory Server has accessory with duplicate instance ID", buf, 0xCu);
 
           goto LABEL_39;
@@ -7076,13 +7178,13 @@ LABEL_18:
       [v29 addObject:instanceID3];
 
       [v33 setServer:v16];
-      array = v72;
-      [v72 addObject:v33];
+      array = v71;
+      [v71 addObject:v33];
       ++v35;
       v36 = v33;
       if (v32 == v35)
       {
-        v32 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+        v32 = [obj countByEnumeratingWithState:&v72 objects:v76 count:16];
         if (v32)
         {
           goto LABEL_18;
@@ -7099,22 +7201,22 @@ LABEL_18:
     {
       v52 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v79 = v52;
+      v78 = v52;
       _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse serialized accessory", buf, 0xCu);
 
       v33 = 0;
 LABEL_39:
-      transactionCopy = v67;
-      databaseCopy = v68;
+      transactionCopy = v66;
+      databaseCopy = v67;
       goto LABEL_42;
     }
 
     v33 = 0;
 LABEL_41:
-    transactionCopy = v67;
-    databaseCopy = v68;
+    transactionCopy = v66;
+    databaseCopy = v67;
 LABEL_42:
-    array = v72;
+    array = v71;
 
     objc_autoreleasePoolPop(v49);
     v47 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:66];
@@ -7130,8 +7232,8 @@ LABEL_42:
     v33 = 0;
 LABEL_34:
 
-    transactionCopy = v67;
-    databaseCopy = v68;
+    transactionCopy = v66;
+    databaseCopy = v67;
   }
 
   if ([array count] < 0xC9)
@@ -7150,7 +7252,7 @@ LABEL_34:
       HMFGetLogIdentifier();
       v63 = v62 = transactionCopy;
       *buf = 138543362;
-      v79 = v63;
+      v78 = v63;
       _os_log_impl(&dword_22AADC000, v57, OS_LOG_TYPE_ERROR, "%{public}@Failed to update accessories, returning invalid response error", buf, 0xCu);
 
       transactionCopy = v62;
@@ -7169,7 +7271,7 @@ LABEL_34:
       HMFGetLogIdentifier();
       v59 = v58 = transactionCopy;
       *buf = 138543362;
-      v79 = v59;
+      v78 = v59;
       _os_log_impl(&dword_22AADC000, v57, OS_LOG_TYPE_ERROR, "%{public}@Accessory Server exceeds maximum number of allowed accessories", buf, 0xCu);
 
       transactionCopy = v58;
@@ -7180,12 +7282,12 @@ LABEL_34:
 
   objc_autoreleasePoolPop(v55);
   v47 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:v60];
-  array = v72;
+  array = v71;
 LABEL_53:
 
-  v48 = v70;
-  v21 = v65;
-  v9 = v66;
+  v48 = v69;
+  v21 = v64;
+  v9 = v65;
   if (!v47)
   {
     [(HAPAccessoryServerIP *)v16 setHasAttributeDatabase:1];
@@ -7197,7 +7299,6 @@ LABEL_55:
   [(HAPAccessoryServerIP *)v16 _processQueuedOperationsWithError:v47];
 
   objc_autoreleasePoolPop(v48);
-  v64 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getAttributeDatabase
@@ -7227,7 +7328,7 @@ LABEL_55:
 
 void __45__HAPAccessoryServerIP__getAttributeDatabase__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -7258,15 +7359,15 @@ void __45__HAPAccessoryServerIP__getAttributeDatabase__block_invoke(uint64_t a1,
         }
 
         v17 = v16;
-        v23 = 138544130;
-        v24 = v15;
-        v25 = 2114;
-        v26 = v8;
-        v27 = 2114;
-        v28 = v17;
-        v29 = 2114;
-        v30 = v9;
-        _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get attribute database, received response object: %{public}@, MIME type: %{public}@, error: %{public}@", &v23, 0x2Au);
+        v22 = 138544130;
+        v23 = v15;
+        v24 = 2114;
+        v25 = v8;
+        v26 = 2114;
+        v27 = v17;
+        v28 = 2114;
+        v29 = v9;
+        _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to get attribute database, received response object: %{public}@, MIME type: %{public}@, error: %{public}@", &v22, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -7289,13 +7390,11 @@ void __45__HAPAccessoryServerIP__getAttributeDatabase__block_invoke(uint64_t a1,
       *(v20 + 40) = 0;
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_parseTXTRecordDictionary:(id)dictionary
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy hmf_dataForKey:@"id"];
   if (!v5)
@@ -7307,9 +7406,9 @@ void __45__HAPAccessoryServerIP__getAttributeDatabase__block_invoke(uint64_t a1,
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v17;
-      v100 = 2112;
-      v101 = @"id";
+      v97 = v17;
+      v98 = 2112;
+      v99 = @"id";
 LABEL_11:
       _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
     }
@@ -7333,13 +7432,10 @@ LABEL_14:
 
   if (v9)
   {
-    [v9 bytes];
-    [v9 length];
-    p_featureFlags = &self->_featureFlags;
-    SNScanF();
+    SNScanF([v9 bytes], objc_msgSend(v9, "length"), "%lli", &self->_featureFlags);
   }
 
-  v10 = [dictionaryCopy hmf_dataForKey:{@"md", p_featureFlags}];
+  v10 = [dictionaryCopy hmf_dataForKey:@"md"];
 
   if (!v10)
   {
@@ -7350,9 +7446,9 @@ LABEL_14:
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v17;
-      v100 = 2112;
-      v101 = @"md";
+      v97 = v17;
+      v98 = 2112;
+      v99 = @"md";
       goto LABEL_11;
     }
 
@@ -7375,31 +7471,31 @@ LABEL_14:
     [(HAPAccessoryServerIP *)self setSourceVersion:0];
   }
 
-  v21 = [dictionaryCopy hmf_dataForKey:@"pv"];
+  v20 = [dictionaryCopy hmf_dataForKey:@"pv"];
 
-  if (v21)
+  if (v20)
   {
-    v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v21 encoding:4];
-    if (v22)
+    v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v20 encoding:4];
+    if (v21)
     {
-      v23 = [objc_alloc(MEMORY[0x277D0F940]) initWithString:v22];
-      [(HAPAccessoryServer *)self setVersion:v23];
-      if ([v23 majorVersion] >= 2)
+      v22 = [objc_alloc(MEMORY[0x277D0F940]) initWithString:v21];
+      [(HAPAccessoryServer *)self setVersion:v22];
+      if ([v22 majorVersion] >= 2)
       {
-        v41 = objc_autoreleasePoolPush();
+        v40 = objc_autoreleasePoolPush();
         selfCopy3 = self;
-        v43 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+        v42 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
         {
-          v44 = HMFGetLogIdentifier();
+          v43 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v99 = v44;
-          v100 = 2112;
-          v101 = v22;
-          _os_log_impl(&dword_22AADC000, v43, OS_LOG_TYPE_ERROR, "%{public}@TXT record contains incompatible protocol version %@", buf, 0x16u);
+          v97 = v43;
+          v98 = 2112;
+          v99 = v21;
+          _os_log_impl(&dword_22AADC000, v42, OS_LOG_TYPE_ERROR, "%{public}@TXT record contains incompatible protocol version %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v41);
+        objc_autoreleasePoolPop(v40);
         if ([(HAPAccessoryServerIP *)selfCopy3 isPaired])
         {
           [(HAPAccessoryServer *)selfCopy3 setReachabilityChangedReason:@"Internal"];
@@ -7412,40 +7508,40 @@ LABEL_14:
     }
   }
 
-  v24 = [dictionaryCopy hmf_dataForKey:@"w#"];
+  v23 = [dictionaryCopy hmf_dataForKey:@"w#"];
 
-  if (v24)
+  if (v23)
   {
-    v25 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v24 encoding:4];
-    longLongValue = [(__CFString *)v25 longLongValue];
+    v24 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v23 encoding:4];
+    longLongValue = [(__CFString *)v24 longLongValue];
     if ((longLongValue - 1) >= 0xFFFFFFFF)
     {
-      v30 = objc_autoreleasePoolPush();
+      v29 = objc_autoreleasePoolPush();
       selfCopy4 = self;
-      v32 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v33 = HMFGetLogIdentifier();
+        v32 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v99 = v33;
-        v100 = 2112;
-        v101 = v25;
-        _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'w#' has invalid wake number: %@", buf, 0x16u);
+        v97 = v32;
+        v98 = 2112;
+        v99 = v24;
+        _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'w#' has invalid wake number: %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v30);
+      objc_autoreleasePoolPop(v29);
       goto LABEL_14;
     }
 
-    v27 = longLongValue;
+    v26 = longLongValue;
   }
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  if ([(HAPAccessoryServer *)self wakeNumber]!= v27 && [(HAPAccessoryServerIP *)self _delegateRespondsToSelector:sel_accessoryServer_didUpdateWakeNumber_])
+  if ([(HAPAccessoryServer *)self wakeNumber]!= v26 && [(HAPAccessoryServerIP *)self _delegateRespondsToSelector:sel_accessoryServer_didUpdateWakeNumber_])
   {
     delegateQueue = [(HAPAccessoryServer *)self delegateQueue];
     block[0] = MEMORY[0x277D85DD0];
@@ -7453,52 +7549,52 @@ LABEL_14:
     block[2] = __50__HAPAccessoryServerIP__parseTXTRecordDictionary___block_invoke;
     block[3] = &unk_2786D63C8;
     block[4] = self;
-    block[5] = v27;
+    block[5] = v26;
     dispatch_async(delegateQueue, block);
   }
 
-  [(HAPAccessoryServer *)self setWakeNumber:v27];
-  v21 = [dictionaryCopy hmf_dataForKey:@"c#"];
+  [(HAPAccessoryServer *)self setWakeNumber:v26];
+  v20 = [dictionaryCopy hmf_dataForKey:@"c#"];
 
-  if (!v21)
+  if (!v20)
   {
-    if (v27)
+    if (v26)
     {
       goto LABEL_36;
     }
 
     v14 = objc_autoreleasePoolPush();
     selfCopy5 = self;
-    v93 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+    v92 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
     {
-      v94 = HMFGetLogIdentifier();
+      v93 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v94;
-      v100 = 2112;
-      v101 = @"c#";
-      _os_log_impl(&dword_22AADC000, v93, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
+      v97 = v93;
+      v98 = 2112;
+      v99 = @"c#";
+      _os_log_impl(&dword_22AADC000, v92, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
     }
 
     goto LABEL_13;
   }
 
-  v22 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v21 encoding:4];
-  longLongValue2 = [(__CFString *)v22 longLongValue];
+  v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v20 encoding:4];
+  longLongValue2 = [(__CFString *)v21 longLongValue];
   if ((longLongValue2 - 1) >= 0xFFFFFFFF)
   {
-    v45 = objc_autoreleasePoolPush();
+    v44 = objc_autoreleasePoolPush();
     selfCopy6 = self;
-    v47 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v46 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v48 = HMFGetLogIdentifier();
+      v47 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v99 = v48;
-      _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'c#' has invalid configuration number", buf, 0xCu);
+      v97 = v47;
+      _os_log_impl(&dword_22AADC000, v46, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'c#' has invalid configuration number", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v45);
+    objc_autoreleasePoolPop(v44);
 LABEL_50:
 
     goto LABEL_14;
@@ -7507,26 +7603,26 @@ LABEL_50:
   [(HAPAccessoryServer *)self setConfigNumber:longLongValue2];
 
 LABEL_36:
-  v34 = [dictionaryCopy hmf_dataForKey:@"s#"];
+  v33 = [dictionaryCopy hmf_dataForKey:@"s#"];
 
-  if (v34)
+  if (v33)
   {
-    v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v34 encoding:4];
-    longLongValue3 = [v35 longLongValue];
+    v34 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v33 encoding:4];
+    longLongValue3 = [v34 longLongValue];
     if ((longLongValue3 - 0x100000000) <= 0xFFFFFFFF00000000)
     {
-      v37 = objc_autoreleasePoolPush();
+      v36 = objc_autoreleasePoolPush();
       selfCopy7 = self;
-      v39 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v38 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v40 = HMFGetLogIdentifier();
+        v39 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v99 = v40;
-        _os_log_impl(&dword_22AADC000, v39, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 's#' has invalid state number", buf, 0xCu);
+        v97 = v39;
+        _os_log_impl(&dword_22AADC000, v38, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 's#' has invalid state number", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v37);
+      objc_autoreleasePoolPop(v36);
       longLongValue3 = 1;
     }
 
@@ -7535,29 +7631,29 @@ LABEL_36:
 
   else
   {
-    v49 = objc_autoreleasePoolPush();
+    v48 = objc_autoreleasePoolPush();
     selfCopy8 = self;
-    v51 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v50 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      v52 = HMFGetLogIdentifier();
+      v51 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v52;
-      v100 = 2112;
-      v101 = @"s#";
-      _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
+      v97 = v51;
+      v98 = 2112;
+      v99 = @"s#";
+      _os_log_impl(&dword_22AADC000, v50, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v49);
+    objc_autoreleasePoolPop(v48);
     [(HAPAccessoryServer *)selfCopy8 setStateNumber:1];
   }
 
-  v53 = [dictionaryCopy hmf_dataForKey:@"sf"];
+  v52 = [dictionaryCopy hmf_dataForKey:@"sf"];
 
-  if (v53)
+  if (v52)
   {
-    v54 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v53 encoding:4];
-    longLongValue4 = [v54 longLongValue];
+    v53 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v52 encoding:4];
+    longLongValue4 = [v53 longLongValue];
   }
 
   else
@@ -7565,120 +7661,120 @@ LABEL_36:
     longLongValue4 = 0;
   }
 
-  v56 = objc_autoreleasePoolPush();
+  v55 = objc_autoreleasePoolPush();
   selfCopy9 = self;
-  v58 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+  v57 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
   {
-    v59 = HMFGetLogIdentifier();
+    v58 = HMFGetLogIdentifier();
     isPaired = [(HAPAccessoryServerIP *)selfCopy9 isPaired];
-    v61 = @"No";
+    v60 = @"No";
     *buf = 138543874;
-    v99 = v59;
+    v97 = v58;
     if (isPaired)
     {
-      v61 = @"Yes";
+      v60 = @"Yes";
     }
 
-    v100 = 2112;
-    v101 = v61;
-    v102 = 2048;
-    v103 = longLongValue4;
-    _os_log_impl(&dword_22AADC000, v58, OS_LOG_TYPE_DEBUG, "%{public}@Paired: %@, Setting status flags to %tu", buf, 0x20u);
+    v98 = 2112;
+    v99 = v60;
+    v100 = 2048;
+    v101 = longLongValue4;
+    _os_log_impl(&dword_22AADC000, v57, OS_LOG_TYPE_DEBUG, "%{public}@Paired: %@, Setting status flags to %tu", buf, 0x20u);
   }
 
-  objc_autoreleasePoolPop(v56);
+  objc_autoreleasePoolPop(v55);
   [(HAPAccessoryServerIP *)selfCopy9 setStatusFlags:longLongValue4];
   if (![(HAPAccessoryServerIP *)selfCopy9 isWacAccessory]|| [(HAPAccessoryServerIP *)selfCopy9 isWacLegacy])
   {
     [(HAPAccessoryServer *)selfCopy9 setHasPairings:(longLongValue4 & 1) == 0];
   }
 
-  v62 = [dictionaryCopy hmf_dataForKey:@"ci"];
+  v61 = [dictionaryCopy hmf_dataForKey:@"ci"];
 
-  if (v62)
+  if (v61)
   {
-    v63 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v62 encoding:4];
-    v64 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v63, "longLongValue")}];
-    [(HAPAccessoryServer *)selfCopy9 setCategory:v64];
+    v62 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v61 encoding:4];
+    v63 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(v62, "longLongValue")}];
+    [(HAPAccessoryServer *)selfCopy9 setCategory:v63];
   }
 
   else
   {
-    v65 = objc_autoreleasePoolPush();
-    v66 = selfCopy9;
-    v67 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    v64 = objc_autoreleasePoolPush();
+    v65 = selfCopy9;
+    v66 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
-      v68 = HMFGetLogIdentifier();
+      v67 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v68;
-      v100 = 2112;
-      v101 = @"ci";
-      _os_log_impl(&dword_22AADC000, v67, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@', set the category to @(1) - Other", buf, 0x16u);
+      v97 = v67;
+      v98 = 2112;
+      v99 = @"ci";
+      _os_log_impl(&dword_22AADC000, v66, OS_LOG_TYPE_ERROR, "%{public}@TXT record does not contain data for key '%@', set the category to @(1) - Other", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v65);
-    [(HAPAccessoryServer *)v66 setCategory:&unk_283EA9560];
+    objc_autoreleasePoolPop(v64);
+    [(HAPAccessoryServer *)v65 setCategory:&unk_283EA9560];
   }
 
-  v69 = [dictionaryCopy hmf_dataForKey:@"sh"];
+  v68 = [dictionaryCopy hmf_dataForKey:@"sh"];
 
-  if (v69)
+  if (v68)
   {
-    v70 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v69 encoding:4];
-    v71 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-    v96 = 0;
-    v72 = [v71 reverseTransformedValue:v70 format:12 error:&v96];
-    v73 = v96;
+    v69 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v68 encoding:4];
+    v70 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
+    v94 = 0;
+    v71 = [v70 reverseTransformedValue:v69 format:12 error:&v94];
+    v72 = v94;
 
-    if (v72)
+    if (v71)
     {
-      [(HAPAccessoryServer *)selfCopy9 setSetupHash:v72];
-      v74 = objc_autoreleasePoolPush();
-      v75 = selfCopy9;
-      v76 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
+      [(HAPAccessoryServer *)selfCopy9 setSetupHash:v71];
+      v73 = objc_autoreleasePoolPush();
+      v74 = selfCopy9;
+      v75 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
       {
-        v77 = HMFGetLogIdentifier();
+        v76 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v99 = v77;
-        v100 = 2112;
-        v101 = v72;
-        _os_log_impl(&dword_22AADC000, v76, OS_LOG_TYPE_DEBUG, "%{public}@Setup hash is %@ for accessory server", buf, 0x16u);
+        v97 = v76;
+        v98 = 2112;
+        v99 = v71;
+        _os_log_impl(&dword_22AADC000, v75, OS_LOG_TYPE_DEBUG, "%{public}@Setup hash is %@ for accessory server", buf, 0x16u);
 
         v7 = 0x277CCA000;
       }
 
-      objc_autoreleasePoolPop(v74);
+      objc_autoreleasePoolPop(v73);
     }
   }
 
   else
   {
-    v78 = objc_autoreleasePoolPush();
-    v79 = selfCopy9;
-    v80 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+    v77 = objc_autoreleasePoolPush();
+    v78 = selfCopy9;
+    v79 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
     {
-      v81 = HMFGetLogIdentifier();
+      v80 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v81;
-      v100 = 2112;
-      v101 = @"sh";
-      _os_log_impl(&dword_22AADC000, v80, OS_LOG_TYPE_DEBUG, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
+      v97 = v80;
+      v98 = 2112;
+      v99 = @"sh";
+      _os_log_impl(&dword_22AADC000, v79, OS_LOG_TYPE_DEBUG, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v78);
+    objc_autoreleasePoolPop(v77);
   }
 
   [(HAPAccessoryServer *)selfCopy9 setCompatibilityFeatures:0];
-  v82 = [dictionaryCopy hmf_dataForKey:@"fe"];
+  v81 = [dictionaryCopy hmf_dataForKey:@"fe"];
 
-  if (v82)
+  if (v81)
   {
-    v83 = [objc_alloc(*(v7 + 3240)) initWithData:v82 encoding:4];
-    longLongValue5 = [(__CFString *)v83 longLongValue];
+    v82 = [objc_alloc(*(v7 + 3240)) initWithData:v81 encoding:4];
+    longLongValue5 = [(__CFString *)v82 longLongValue];
     if ((longLongValue5 - 0x100000000) > 0xFFFFFFFF00000000)
     {
       [(HAPAccessoryServer *)selfCopy9 setCompatibilityFeatures:longLongValue5];
@@ -7686,45 +7782,44 @@ LABEL_36:
 
     else
     {
-      v85 = objc_autoreleasePoolPush();
-      v86 = selfCopy9;
-      v87 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+      v84 = objc_autoreleasePoolPush();
+      v85 = selfCopy9;
+      v86 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
       {
-        v88 = HMFGetLogIdentifier();
+        v87 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v99 = v88;
-        v100 = 2112;
-        v101 = v83;
-        _os_log_impl(&dword_22AADC000, v87, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'fe' has invalid value %@", buf, 0x16u);
+        v97 = v87;
+        v98 = 2112;
+        v99 = v82;
+        _os_log_impl(&dword_22AADC000, v86, OS_LOG_TYPE_ERROR, "%{public}@TXT record key 'fe' has invalid value %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v85);
+      objc_autoreleasePoolPop(v84);
     }
   }
 
   else
   {
-    v89 = objc_autoreleasePoolPush();
-    v90 = selfCopy9;
-    v91 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+    v88 = objc_autoreleasePoolPush();
+    v89 = selfCopy9;
+    v90 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
-      v92 = HMFGetLogIdentifier();
+      v91 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v99 = v92;
-      v100 = 2112;
-      v101 = @"fe";
-      _os_log_impl(&dword_22AADC000, v91, OS_LOG_TYPE_DEBUG, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
+      v97 = v91;
+      v98 = 2112;
+      v99 = @"fe";
+      _os_log_impl(&dword_22AADC000, v90, OS_LOG_TYPE_DEBUG, "%{public}@TXT record does not contain data for key '%@'", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v89);
+    objc_autoreleasePoolPop(v88);
   }
 
   v18 = 1;
 LABEL_15:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -7738,7 +7833,7 @@ void __50__HAPAccessoryServerIP__parseTXTRecordDictionary___block_invoke(uint64_
 
 - (BOOL)_parseAndValidateTXTRecord
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bonjourDeviceInfo = [(HAPAccessoryServerIP *)self bonjourDeviceInfo];
   v4 = [bonjourDeviceInfo objectForKeyedSubscript:@"txt"];
 
@@ -7765,10 +7860,10 @@ LABEL_17:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           v16 = HMFGetLogIdentifier();
-          v22 = 138543618;
-          v23 = v16;
-          v24 = 2112;
-          v25 = v5;
+          v21 = 138543618;
+          v22 = v16;
+          v23 = 2112;
+          v24 = v5;
           v17 = "%{public}@Failed to instantiate accessory because a deviceID wasn't present in the TXT record dictionary: %@";
           goto LABEL_15;
         }
@@ -7789,10 +7884,10 @@ LABEL_16:
       }
 
       v16 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v5;
+      v21 = 138543618;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v5;
       v17 = "%{public}@Failed to instantiate accessory because TXT record is malformed: %@";
     }
 
@@ -7807,15 +7902,15 @@ LABEL_16:
       }
 
       v16 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v4;
+      v21 = 138543618;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v4;
       v17 = "%{public}@Failed to instantiate accessory because the TXT record data could not be converted to a dictionary: %@";
     }
 
 LABEL_15:
-    _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_ERROR, v17, &v22, 0x16u);
+    _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_ERROR, v17, &v21, 0x16u);
 
     goto LABEL_16;
   }
@@ -7827,24 +7922,23 @@ LABEL_15:
   {
     v11 = HMFGetLogIdentifier();
     bonjourDeviceInfo2 = [(HAPAccessoryServerIP *)selfCopy4 bonjourDeviceInfo];
-    v22 = 138543618;
-    v23 = v11;
-    v24 = 2112;
-    v25 = bonjourDeviceInfo2;
-    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to instantiate accessory because no TXT record data was found in BonjourDeviceInfo: %@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v11;
+    v23 = 2112;
+    v24 = bonjourDeviceInfo2;
+    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to instantiate accessory because no TXT record data was found in BonjourDeviceInfo: %@", &v21, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v7 = 0;
 LABEL_18:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_processEvent:(id)event matchedCharacteristic:(id *)characteristic
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (![(HAPAccessoryServerIP *)self _isSessionEstablished])
   {
@@ -7855,9 +7949,9 @@ LABEL_18:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v29;
-      v88 = 2112;
-      v89 = eventCopy;
+      v86 = v29;
+      v87 = 2112;
+      v88 = eventCopy;
       _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@No secure session dropping event %@", buf, 0x16u);
 LABEL_21:
     }
@@ -7879,10 +7973,10 @@ LABEL_22:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v29;
-      v88 = 2112;
-      v89 = objc_opt_class();
-      v30 = v89;
+      v86 = v29;
+      v87 = 2112;
+      v88 = objc_opt_class();
+      v30 = v88;
       _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle individual event update because it is not a dictionary, instead it is %@", buf, 0x16u);
 
       goto LABEL_21;
@@ -7901,32 +7995,32 @@ LABEL_22:
       v10 = v9;
       if (v9)
       {
-        v75 = v9;
+        v74 = v9;
         accessories = [(HAPAccessoryServer *)self accessories];
-        v77 = v7;
+        v76 = v7;
         v12 = [accessories hmf_firstObjectWithInstanceID:v7];
 
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
         v82 = 0u;
-        v74 = v12;
+        v83 = 0u;
+        v80 = 0u;
+        v81 = 0u;
+        v73 = v12;
         services = [v12 services];
-        v14 = [services countByEnumeratingWithState:&v81 objects:v85 count:16];
+        v14 = [services countByEnumeratingWithState:&v80 objects:v84 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v82;
+          v16 = *v81;
 LABEL_8:
           v17 = 0;
           while (1)
           {
-            if (*v82 != v16)
+            if (*v81 != v16)
             {
               objc_enumerationMutation(services);
             }
 
-            characteristics = [*(*(&v81 + 1) + 8 * v17) characteristics];
+            characteristics = [*(*(&v80 + 1) + 8 * v17) characteristics];
             v19 = [characteristics hmf_firstObjectWithInstanceID:v8];
 
             if (v19)
@@ -7936,7 +8030,7 @@ LABEL_8:
 
             if (v15 == ++v17)
             {
-              v15 = [services countByEnumeratingWithState:&v81 objects:v85 count:16];
+              v15 = [services countByEnumeratingWithState:&v80 objects:v84 count:16];
               if (v15)
               {
                 goto LABEL_8;
@@ -7952,8 +8046,8 @@ LABEL_8:
             format = [metadata format];
             v43 = HAPCharacteristicFormatFromString(format);
 
-            v10 = v75;
-            v7 = v77;
+            v10 = v74;
+            v7 = v76;
             if (!v43)
             {
               v44 = objc_autoreleasePoolPush();
@@ -7962,16 +8056,16 @@ LABEL_8:
               if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v47 = v73 = v44;
+                v47 = v72 = v44;
                 *buf = 138543362;
-                v87 = v47;
+                v86 = v47;
                 _os_log_impl(&dword_22AADC000, v46, OS_LOG_TYPE_ERROR, "%{public}@The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", buf, 0xCu);
 
-                v44 = v73;
+                v44 = v72;
               }
 
               objc_autoreleasePoolPop(v44);
-              v48 = v75;
+              v48 = v74;
               goto LABEL_41;
             }
           }
@@ -7979,18 +8073,18 @@ LABEL_8:
           else
           {
             v43 = 12;
-            v10 = v75;
-            v7 = v77;
+            v10 = v74;
+            v7 = v76;
           }
 
           v53 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-          v80 = 0;
-          v48 = [v53 reverseTransformedValue:v10 format:v43 error:&v80];
-          v54 = v80;
+          v79 = 0;
+          v48 = [v53 reverseTransformedValue:v10 format:v43 error:&v79];
+          v54 = v79;
 
           if (v54)
           {
-            v78 = v48;
+            v77 = v48;
             v55 = objc_autoreleasePoolPush();
             selfCopy6 = self;
             v57 = HMFGetOSLogHandle();
@@ -7998,11 +8092,11 @@ LABEL_8:
             {
               v58 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v87 = v58;
-              v88 = 2112;
-              v89 = v10;
-              v90 = 2112;
-              v91 = v54;
+              v86 = v58;
+              v87 = 2112;
+              v88 = v10;
+              v89 = 2112;
+              v90 = v54;
               v59 = "%{public}@Failed to transform the value '%@' with error %@";
               v60 = v57;
               v61 = 32;
@@ -8014,8 +8108,8 @@ LABEL_46:
 
             objc_autoreleasePoolPop(v55);
             v24 = 0;
-            v25 = v74;
-            v48 = v78;
+            v25 = v73;
+            v48 = v77;
             goto LABEL_54;
           }
 
@@ -8033,19 +8127,19 @@ LABEL_41:
               if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
               {
                 HMFGetLogIdentifier();
-                v67 = v76 = v64;
+                v67 = v75 = v64;
                 [v19 notificationContext];
-                v68 = v79 = v48;
+                v68 = v78 = v48;
                 *buf = 138543874;
-                v87 = v67;
-                v88 = 2112;
-                v89 = v68;
-                v90 = 2112;
-                v91 = v8;
+                v86 = v67;
+                v87 = 2112;
+                v88 = v68;
+                v89 = 2112;
+                v90 = v8;
                 _os_log_impl(&dword_22AADC000, v66, OS_LOG_TYPE_INFO, "%{public}@Received notification context:%@ in event for characteristic instanceId: %@", buf, 0x20u);
 
-                v48 = v79;
-                v64 = v76;
+                v48 = v78;
+                v64 = v75;
               }
 
               objc_autoreleasePoolPop(v64);
@@ -8056,7 +8150,7 @@ LABEL_41:
               [v19 setNotificationContext:0];
             }
 
-            v25 = v74;
+            v25 = v73;
             if (!characteristic)
             {
               v24 = 1;
@@ -8078,7 +8172,7 @@ LABEL_55:
           }
 
           v54 = v62;
-          v78 = v48;
+          v77 = v48;
           v55 = objc_autoreleasePoolPush();
           selfCopy6 = self;
           v57 = HMFGetOSLogHandle();
@@ -8086,9 +8180,9 @@ LABEL_55:
           {
             v58 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v87 = v58;
-            v88 = 2112;
-            v89 = v54;
+            v86 = v58;
+            v87 = 2112;
+            v88 = v54;
             v59 = "%{public}@Failed to handle individual event update because the new value is invalid with error %@";
             v60 = v57;
             v61 = 22;
@@ -8107,15 +8201,15 @@ LABEL_14:
         {
           v23 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v87 = v23;
+          v86 = v23;
           _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle individual event update because there was no matching characteristic", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v20);
         v24 = 0;
-        v10 = v75;
-        v7 = v77;
-        v25 = v74;
+        v10 = v74;
+        v7 = v76;
+        v25 = v73;
 LABEL_56:
       }
 
@@ -8128,7 +8222,7 @@ LABEL_56:
         {
           v52 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v87 = v52;
+          v86 = v52;
           _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle individual event update because there was no value", buf, 0xCu);
         }
 
@@ -8146,12 +8240,12 @@ LABEL_56:
       {
         v39 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v87 = v39;
-        v88 = 2112;
-        v89 = @"iid";
-        v90 = 2112;
-        v91 = objc_opt_class();
-        v40 = v91;
+        v86 = v39;
+        v87 = 2112;
+        v88 = @"iid";
+        v89 = 2112;
+        v90 = objc_opt_class();
+        v40 = v90;
         _os_log_impl(&dword_22AADC000, v38, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle individual event update because '%@' is not a number, instead it is %@", buf, 0x20u);
       }
 
@@ -8169,12 +8263,12 @@ LABEL_56:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v87 = v34;
-      v88 = 2112;
-      v89 = @"aid";
-      v90 = 2112;
-      v91 = objc_opt_class();
-      v35 = v91;
+      v86 = v34;
+      v87 = 2112;
+      v88 = @"aid";
+      v89 = 2112;
+      v90 = objc_opt_class();
+      v35 = v90;
       _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle individual event update because '%@' is not a number, instead it is %@", buf, 0x20u);
     }
 
@@ -8183,13 +8277,12 @@ LABEL_56:
   }
 
 LABEL_60:
-  v71 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (void)httpClient:(id)client didReceiveEvent:(id)event
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   eventCopy = event;
   mEMORY[0x277D0F8C0] = [MEMORY[0x277D0F8C0] sharedPowerLogger];
@@ -8205,29 +8298,29 @@ LABEL_60:
     if (objc_opt_isKindOfClass())
     {
       array = [MEMORY[0x277CBEB18] array];
+      v39 = 0u;
       v40 = 0u;
       v41 = 0u;
       v42 = 0u;
-      v43 = 0u;
       obj = v11;
-      v13 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v13 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v41;
+        v15 = *v40;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v41 != v15)
+            if (*v40 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v40 + 1) + 8 * i);
-            v39 = 0;
-            v18 = [(HAPAccessoryServerIP *)self _processEvent:v17 matchedCharacteristic:&v39];
-            v19 = v39;
+            v17 = *(*(&v39 + 1) + 8 * i);
+            v38 = 0;
+            v18 = [(HAPAccessoryServerIP *)self _processEvent:v17 matchedCharacteristic:&v38];
+            v19 = v38;
             if (!v18)
             {
               v31 = objc_autoreleasePoolPush();
@@ -8237,7 +8330,7 @@ LABEL_60:
               {
                 v34 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v46 = v34;
+                v45 = v34;
                 _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to process individual event", buf, 0xCu);
               }
 
@@ -8246,17 +8339,17 @@ LABEL_60:
             }
 
             [array addObject:v19];
-            v37[0] = MEMORY[0x277D85DD0];
-            v37[1] = 3221225472;
-            v37[2] = __51__HAPAccessoryServerIP_httpClient_didReceiveEvent___block_invoke;
-            v37[3] = &unk_2786D2878;
-            v37[4] = self;
-            v38 = v19;
+            v36[0] = MEMORY[0x277D85DD0];
+            v36[1] = 3221225472;
+            v36[2] = __51__HAPAccessoryServerIP_httpClient_didReceiveEvent___block_invoke;
+            v36[3] = &unk_2786D2878;
+            v36[4] = self;
+            v37 = v19;
             v20 = v19;
-            [(HAPAccessoryServer *)self enumerateInternalDelegatesUsingBlock:v37];
+            [(HAPAccessoryServer *)self enumerateInternalDelegatesUsingBlock:v36];
           }
 
-          v14 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v14 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
           if (v14)
           {
             continue;
@@ -8279,12 +8372,12 @@ LABEL_21:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v46 = v29;
-        v47 = 2112;
-        v48 = @"characteristics";
-        v49 = 2112;
-        v50 = objc_opt_class();
-        v30 = v50;
+        v45 = v29;
+        v46 = 2112;
+        v47 = @"characteristics";
+        v48 = 2112;
+        v49 = objc_opt_class();
+        v30 = v49;
         _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle event because the '%@' value was not an array, instead it was %@", buf, 0x20u);
       }
 
@@ -8301,17 +8394,15 @@ LABEL_21:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v24;
-      v47 = 2112;
-      v48 = objc_opt_class();
-      v25 = v48;
+      v45 = v24;
+      v46 = 2112;
+      v47 = objc_opt_class();
+      v25 = v47;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle event because it was not an NSDictionary, instead it was %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HAPAccessoryServerIP_httpClient_didReceiveEvent___block_invoke(uint64_t a1, void *a2)
@@ -8323,46 +8414,595 @@ void __51__HAPAccessoryServerIP_httpClient_didReceiveEvent___block_invoke(uint64
   }
 }
 
+- (void)_handleEventResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status error:(id)error characteristics:(id)characteristics requestedEventState:(BOOL)state completion:(id)completion queue:(id)self0
+{
+  stateCopy = state;
+  v176 = *MEMORY[0x277D85DE8];
+  objectCopy = object;
+  errorCopy = error;
+  characteristicsCopy = characteristics;
+  completionCopy = completion;
+  selfCopy = self;
+  queueCopy = queue;
+  v138 = errorCopy;
+  v139 = objectCopy;
+  if (errorCopy)
+  {
+    v19 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v21 = HMFGetOSLogHandle();
+    v22 = v138;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v23 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v171 = v23;
+      v172 = 2112;
+      *v173 = v138;
+      _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Setting notification registration failed with error %@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v19);
+    v24 = queueCopy;
+    if ([v138 code] == -6723 || objc_msgSend(v138, "code") == -6753)
+    {
+      v25 = objc_autoreleasePoolPush();
+      v26 = selfCopy2;
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        HMFGetLogIdentifier();
+        v29 = v28 = completionCopy;
+        *buf = 138543362;
+        v171 = v29;
+        _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Interpreting error as unreachable", buf, 0xCu);
+
+        completionCopy = v28;
+        v22 = v138;
+      }
+
+      objc_autoreleasePoolPop(v25);
+      v30 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:4 reason:0 underlyingError:v22];
+    }
+
+    else
+    {
+      v30 = v138;
+    }
+
+    v91 = v30;
+    [(HAPAccessoryServerIP *)selfCopy2 _tearDownSessionAndStartReachabilityWithError:v22];
+LABEL_67:
+    array2 = 0;
+    goto LABEL_68;
+  }
+
+  if (objectCopy && type == 1 && status == 207)
+  {
+    v31 = objc_autoreleasePoolPush();
+    selfCopy3 = self;
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    {
+      v34 = HMFGetLogIdentifier();
+      *buf = 138544130;
+      v171 = v34;
+      v172 = 1024;
+      *v173 = 207;
+      *&v173[4] = 2080;
+      *&v173[6] = HTTPGetReasonPhrase();
+      *&v173[14] = 2112;
+      *&v173[16] = v139;
+      _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, "%{public}@Characteristic event registration request responded with '%d %s' HTTP status code %@", buf, 0x26u);
+    }
+
+    objc_autoreleasePoolPop(v31);
+    v35 = v139;
+    v36 = characteristicsCopy;
+    v22 = 0;
+    if (selfCopy3)
+    {
+      v124 = v35;
+      v37 = [v35 objectForKeyedSubscript:@"characteristics"];
+      v38 = [v37 count];
+      v133 = v36;
+      v127 = v37;
+      if (v38 == [v36 count])
+      {
+        v129 = [MEMORY[0x277CBEB18] arrayWithArray:v36];
+        array = [MEMORY[0x277CBEB18] array];
+        v154 = 0u;
+        v155 = 0u;
+        v156 = 0u;
+        v157 = 0u;
+        obj = v37;
+        v125 = [obj countByEnumeratingWithState:&v154 objects:buf count:16];
+        if (v125)
+        {
+          v126 = *v155;
+          *&v39 = 138544386;
+          v119 = v39;
+          v130 = completionCopy;
+          v122 = selfCopy3;
+LABEL_18:
+          v40 = 0;
+          while (1)
+          {
+            if (*v155 != v126)
+            {
+              objc_enumerationMutation(obj);
+            }
+
+            v41 = *(*(&v154 + 1) + 8 * v40);
+            v42 = [v41 objectForKeyedSubscript:{@"aid", v119}];
+            v43 = [v41 objectForKeyedSubscript:@"iid"];
+            v44 = [v41 objectForKeyedSubscript:@"status"];
+            v45 = v44;
+            v46 = !v42 || v43 == 0;
+            if (v46 || v44 == 0)
+            {
+              break;
+            }
+
+            v132 = v40;
+            v134 = v44;
+            v140 = v43;
+            v152 = 0u;
+            v153 = 0u;
+            v151 = 0u;
+            v150 = 0u;
+            v48 = v129;
+            v49 = [v48 countByEnumeratingWithState:&v150 objects:v169 count:16];
+            if (!v49)
+            {
+LABEL_78:
+
+LABEL_79:
+              v104 = objc_autoreleasePoolPush();
+              v105 = v122;
+              v106 = HMFGetOSLogHandle();
+              completionCopy = v130;
+              v45 = v134;
+              if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+              {
+                v107 = HMFGetLogIdentifier();
+                *v159 = 138543874;
+                v160 = v107;
+                v161 = 2112;
+                v43 = v140;
+                v162 = v140;
+                v163 = 2112;
+                v164 = v42;
+                v108 = "%{public}@Invalid event response for characteristic ID '%@' against accessory '%@': characteristic was not requested to change event registration";
+                v109 = v106;
+                v110 = 32;
+                goto LABEL_81;
+              }
+
+              v36 = v133;
+              v43 = v140;
+              goto LABEL_83;
+            }
+
+            v50 = v49;
+            v51 = *v151;
+LABEL_30:
+            v52 = 0;
+            while (1)
+            {
+              if (*v151 != v51)
+              {
+                objc_enumerationMutation(v48);
+              }
+
+              v53 = *(*(&v150 + 1) + 8 * v52);
+              service = [v53 service];
+              accessory = [service accessory];
+              instanceID = [accessory instanceID];
+
+              if (instanceID)
+              {
+                if ([v42 isEqualToNumber:instanceID])
+                {
+                  instanceID2 = [v53 instanceID];
+                  v58 = [v140 isEqualToNumber:instanceID2];
+
+                  if (v58)
+                  {
+                    break;
+                  }
+                }
+              }
+
+              if (v50 == ++v52)
+              {
+                v50 = [v48 countByEnumeratingWithState:&v150 objects:v169 count:16];
+                if (v50)
+                {
+                  goto LABEL_30;
+                }
+
+                goto LABEL_78;
+              }
+            }
+
+            v59 = v53;
+
+            if (!v59)
+            {
+              goto LABEL_79;
+            }
+
+            [v48 removeObject:v59];
+            v60 = v134;
+            if ([v134 intValue])
+            {
+              v61 = ConvertFromHAPIPStatusErrorCode([v134 integerValue]);
+              service2 = [v59 service];
+              accessory2 = [service2 accessory];
+
+              v64 = objc_autoreleasePoolPush();
+              v65 = v122;
+              v66 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+              {
+                v67 = HMFGetLogIdentifier();
+                instanceID3 = [accessory2 instanceID];
+                [v59 instanceID];
+                v69 = v121 = v64;
+                [v59 type];
+                v70 = v120 = accessory2;
+                *v159 = v119;
+                v160 = v67;
+                v161 = 2112;
+                v162 = instanceID3;
+                v163 = 2112;
+                v164 = v69;
+                v165 = 2112;
+                v166 = v70;
+                v167 = 2112;
+                v168 = v61;
+                _os_log_impl(&dword_22AADC000, v66, OS_LOG_TYPE_DEFAULT, "%{public}@Event response for characteristic %@/%@/%@ with error: %@", v159, 0x34u);
+
+                accessory2 = v120;
+                v64 = v121;
+
+                v60 = v134;
+              }
+
+              objc_autoreleasePoolPop(v64);
+            }
+
+            else
+            {
+              [v59 setEventNotificationsEnabled:stateCopy];
+              v61 = 0;
+            }
+
+            v71 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:v59 error:v61];
+            [array addObject:v71];
+
+            completionCopy = v130;
+            v40 = v132 + 1;
+            v36 = v133;
+            if (v132 + 1 == v125)
+            {
+              v22 = 0;
+              selfCopy3 = v122;
+              v125 = [obj countByEnumeratingWithState:&v154 objects:buf count:16];
+              if (v125)
+              {
+                goto LABEL_18;
+              }
+
+              goto LABEL_47;
+            }
+          }
+
+          v104 = objc_autoreleasePoolPush();
+          v105 = v122;
+          v106 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+          {
+            v107 = HMFGetLogIdentifier();
+            *v159 = 138544130;
+            v160 = v107;
+            v161 = 2112;
+            v162 = v43;
+            v163 = 2112;
+            v164 = v42;
+            v165 = 2112;
+            v166 = v45;
+            v108 = "%{public}@Invalid event response for characteristic ID '%@' against accessory '%@' and HAP status code '%@'";
+            v109 = v106;
+            v110 = 42;
+LABEL_81:
+            _os_log_impl(&dword_22AADC000, v109, OS_LOG_TYPE_ERROR, v108, v159, v110);
+
+            v36 = v133;
+          }
+
+LABEL_83:
+
+          objc_autoreleasePoolPop(v104);
+          array2 = 0;
+          v22 = 0;
+          v24 = queueCopy;
+          selfCopy3 = v122;
+          goto LABEL_84;
+        }
+
+LABEL_47:
+
+        v24 = queueCopy;
+        if ([v129 count])
+        {
+          v72 = objc_autoreleasePoolPush();
+          v73 = selfCopy3;
+          v74 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+          {
+            v75 = HMFGetLogIdentifier();
+            v76 = [v129 count];
+            *v159 = 138543618;
+            v160 = v75;
+            v161 = 2048;
+            v162 = v76;
+            _os_log_impl(&dword_22AADC000, v74, OS_LOG_TYPE_ERROR, "%{public}@Invalid event response, '%lu' requested characteristics remain unmatched with a response object", v159, 0x16u);
+          }
+
+          objc_autoreleasePoolPop(v72);
+          array2 = 0;
+          v36 = v133;
+        }
+
+        else
+        {
+          array2 = array;
+        }
+
+LABEL_84:
+      }
+
+      else
+      {
+        v97 = objc_autoreleasePoolPush();
+        v98 = selfCopy3;
+        v99 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+        {
+          v100 = HMFGetLogIdentifier();
+          v101 = completionCopy;
+          v102 = [v127 count];
+          v103 = [v133 count];
+          *buf = 138543874;
+          v171 = v100;
+          v172 = 2048;
+          *v173 = v102;
+          completionCopy = v101;
+          v22 = 0;
+          *&v173[8] = 2048;
+          *&v173[10] = v103;
+          _os_log_impl(&dword_22AADC000, v99, OS_LOG_TYPE_ERROR, "%{public}@Invalid write response, '%lu' response objects for '%lu' request tuples", buf, 0x20u);
+
+          v36 = v133;
+        }
+
+        objc_autoreleasePoolPop(v97);
+        array2 = 0;
+        v24 = queueCopy;
+      }
+
+      v35 = v124;
+    }
+
+    else
+    {
+      array2 = 0;
+      v24 = queueCopy;
+    }
+
+    if ([array2 count])
+    {
+      v91 = 0;
+      goto LABEL_68;
+    }
+
+    v111 = objc_autoreleasePoolPush();
+    v112 = selfCopy3;
+    v113 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
+    {
+      HMFGetLogIdentifier();
+      v114 = v141 = v111;
+      v115 = completionCopy;
+      v116 = HTTPGetReasonPhrase();
+      v117 = @"HAP JSON";
+      *buf = 138544386;
+      v171 = v114;
+      v172 = 1024;
+      *v173 = 207;
+      *&v173[4] = 2080;
+      *&v173[6] = v116;
+      completionCopy = v115;
+      v22 = 0;
+      *&v173[14] = 2112;
+      *&v173[16] = @"HAP JSON";
+      v174 = 2112;
+      v175 = v35;
+      _os_log_impl(&dword_22AADC000, v113, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse response objects for an event registration request, the accessory sent an invalid response with HTTP Status Code '%d %s' and a %@ body: %@", buf, 0x30u);
+
+      v24 = queueCopy;
+      v111 = v141;
+    }
+
+    objc_autoreleasePoolPop(v111);
+    v91 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
+
+    goto LABEL_67;
+  }
+
+  v78 = objc_autoreleasePoolPush();
+  selfCopy4 = self;
+  v80 = HMFGetOSLogHandle();
+  v81 = v80;
+  if (!v139 && type == 4 && status == 204)
+  {
+    v131 = completionCopy;
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+    {
+      v82 = HMFGetLogIdentifier();
+      *buf = 138543874;
+      v171 = v82;
+      v172 = 1024;
+      *v173 = 204;
+      *&v173[4] = 2080;
+      *&v173[6] = HTTPGetReasonPhrase();
+      _os_log_impl(&dword_22AADC000, v81, OS_LOG_TYPE_DEFAULT, "%{public}@Received event registration response with no body and a '%d %s' HTTP status code.", buf, 0x1Cu);
+    }
+
+    objc_autoreleasePoolPop(v78);
+    array2 = [MEMORY[0x277CBEB18] array];
+    v146 = 0u;
+    v147 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v83 = characteristicsCopy;
+    v84 = [v83 countByEnumeratingWithState:&v146 objects:v158 count:16];
+    if (v84)
+    {
+      v85 = v84;
+      v86 = 0;
+      v87 = *v147;
+      do
+      {
+        v88 = 0;
+        v89 = v86;
+        do
+        {
+          if (*v147 != v87)
+          {
+            objc_enumerationMutation(v83);
+          }
+
+          v90 = *(*(&v146 + 1) + 8 * v88);
+          [v90 setEventNotificationsEnabled:stateCopy];
+          v86 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:v90 error:0];
+
+          [array2 addObject:v86];
+          ++v88;
+          v89 = v86;
+        }
+
+        while (v85 != v88);
+        v85 = [v83 countByEnumeratingWithState:&v146 objects:v158 count:16];
+      }
+
+      while (v85);
+    }
+
+    v91 = 0;
+    v22 = 0;
+    completionCopy = v131;
+    v24 = queueCopy;
+  }
+
+  else
+  {
+    v24 = queueCopy;
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
+    {
+      v92 = HMFGetLogIdentifier();
+      v93 = HTTPGetReasonPhrase();
+      v94 = type - 1;
+      v95 = completionCopy;
+      if (v94 > 3)
+      {
+        v96 = @"Invalid";
+      }
+
+      else
+      {
+        v96 = off_2786D4CF8[v94];
+      }
+
+      v118 = v96;
+      *buf = 138544386;
+      v171 = v92;
+      v172 = 1024;
+      *v173 = status;
+      *&v173[4] = 2080;
+      *&v173[6] = v93;
+      *&v173[14] = 2112;
+      *&v173[16] = v118;
+      v174 = 2112;
+      v175 = v139;
+      _os_log_impl(&dword_22AADC000, v81, OS_LOG_TYPE_ERROR, "%{public}@Failed to set event registration because the accessory sent an invalid response with HTTP Status Code '%d %s' and a %@ body: %@", buf, 0x30u);
+
+      completionCopy = v95;
+    }
+
+    objc_autoreleasePoolPop(v78);
+    v91 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
+    array2 = 0;
+    v22 = 0;
+  }
+
+LABEL_68:
+  [(HAPAccessoryServerIP *)selfCopy _indicateSessionActivityWithReason:@"Event"];
+  if (completionCopy && v24)
+  {
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __126__HAPAccessoryServerIP__handleEventResponseObject_type_httpStatus_error_characteristics_requestedEventState_completion_queue___block_invoke;
+    block[3] = &unk_2786D69E0;
+    v145 = completionCopy;
+    v143 = array2;
+    v144 = v91;
+    dispatch_async(v24, block);
+  }
+}
+
 - (void)_enableEvents:(BOOL)events forCharacteristics:(id)characteristics withCompletionHandler:(id)handler queue:(id)queue
 {
   eventsCopy = events;
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   handlerCopy = handler;
   queueCopy = queue;
   v11 = characteristicsCopy;
-  v57 = v11;
+  v56 = v11;
   if (self)
   {
     v12 = v11;
     selfCopy = self;
-    v55 = handlerCopy;
+    v54 = handlerCopy;
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+    v69 = 0u;
     v70 = 0u;
     v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
+    v14 = [obj countByEnumeratingWithState:&v69 objects:v81 count:16];
     if (v14)
     {
       v15 = v14;
       v16 = 0;
       instanceID = 0;
-      v18 = *v71;
+      v18 = *v70;
 LABEL_4:
       v19 = 0;
       v20 = v16;
       v21 = instanceID;
       while (1)
       {
-        if (*v71 != v18)
+        if (*v70 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
         v22 = v13;
-        v23 = *(*(&v70 + 1) + 8 * v19);
+        v23 = *(*(&v69 + 1) + 8 * v19);
         if (([v23 properties] & 1) == 0)
         {
           break;
@@ -8382,9 +9022,9 @@ LABEL_4:
           {
             v36 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v79 = v36;
-            v80 = 2112;
-            v81 = v23;
+            v78 = v36;
+            v79 = 2112;
+            v80 = v23;
             _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to serialize event request for characteristic %@ because the accessory instance ID was nil.", buf, 0x16u);
           }
 
@@ -8401,15 +9041,15 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v77[0] = instanceID;
-        v76[0] = @"aid";
-        v76[1] = @"iid";
+        v76[0] = instanceID;
+        v75[0] = @"aid";
+        v75[1] = @"iid";
         instanceID2 = [v23 instanceID];
-        v77[1] = instanceID2;
-        v76[2] = @"ev";
+        v76[1] = instanceID2;
+        v75[2] = @"ev";
         v27 = [MEMORY[0x277CCABB0] numberWithBool:eventsCopy];
-        v77[2] = v27;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:3];
+        v76[2] = v27;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:3];
 
         v13 = v22;
         [v22 addObject:v16];
@@ -8418,7 +9058,7 @@ LABEL_20:
         v21 = instanceID;
         if (v15 == v19)
         {
-          v15 = [obj countByEnumeratingWithState:&v70 objects:v82 count:16];
+          v15 = [obj countByEnumeratingWithState:&v69 objects:v81 count:16];
           if (v15)
           {
             goto LABEL_4;
@@ -8436,9 +9076,9 @@ LABEL_20:
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v79 = v33;
-        v80 = 2112;
-        v81 = v23;
+        v78 = v33;
+        v79 = 2112;
+        v80 = v23;
         _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_ERROR, "%{public}@Characteristic doesn't support notifications: %@", buf, 0x16u);
       }
 
@@ -8457,7 +9097,7 @@ LABEL_13:
     self = selfCopy;
 LABEL_21:
 
-    handlerCopy = v55;
+    handlerCopy = v54;
   }
 
   else
@@ -8479,11 +9119,11 @@ LABEL_21:
     block[1] = 3221225472;
     block[2] = __85__HAPAccessoryServerIP__enableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke;
     block[3] = &unk_2786D65D8;
-    v69 = handlerCopy;
-    v68 = v38;
+    v68 = handlerCopy;
+    v67 = v38;
     dispatch_async(queueCopy, block);
 
-    v42 = v69;
+    v42 = v68;
 LABEL_32:
 
     goto LABEL_36;
@@ -8493,21 +9133,21 @@ LABEL_32:
   {
     if ([(HAPAccessoryServerIP *)self _isSessionEstablished])
     {
-      v74 = @"characteristics";
-      v75 = v28;
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v73 = @"characteristics";
+      v74 = v28;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
       v40 = [@"/" stringByAppendingPathComponent:@"characteristics"];
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __85__HAPAccessoryServerIP__enableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_344;
-      v60[3] = &unk_2786D2850;
-      v60[4] = self;
-      v61 = v57;
-      v64 = eventsCopy;
-      v63 = handlerCopy;
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __85__HAPAccessoryServerIP__enableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_344;
+      v59[3] = &unk_2786D2850;
+      v59[4] = self;
+      v60 = v56;
+      v63 = eventsCopy;
+      v62 = handlerCopy;
       v41 = queueCopy;
-      v62 = queueCopy;
-      [(HAPAccessoryServerIP *)self sendPUTRequestToURL:v40 request:v39 serializationType:1 timeout:v60 completionHandler:10.0];
+      v61 = queueCopy;
+      [(HAPAccessoryServerIP *)self sendPUTRequestToURL:v40 request:v39 serializationType:1 timeout:v59 completionHandler:10.0];
     }
 
     else
@@ -8518,14 +9158,14 @@ LABEL_32:
       if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         v52 = HMFGetLogIdentifier();
-        *v82 = 138543362;
-        v83 = v52;
-        _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing enableEvents", v82, 0xCu);
+        *v81 = 138543362;
+        v82 = v52;
+        _os_log_impl(&dword_22AADC000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing enableEvents", v81, 0xCu);
       }
 
       objc_autoreleasePoolPop(v49);
       v41 = queueCopy;
-      [(HAPAccessoryServerIP *)selfCopy2 _queueEnableEvents:eventsCopy forCharacteristics:v57 withCompletionHandler:handlerCopy queue:queueCopy];
+      [(HAPAccessoryServerIP *)selfCopy2 _queueEnableEvents:eventsCopy forCharacteristics:v56 withCompletionHandler:handlerCopy queue:queueCopy];
       [(HAPAccessoryServerIP *)selfCopy2 _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.events"];
     }
 
@@ -8540,28 +9180,26 @@ LABEL_32:
   if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     v48 = HMFGetLogIdentifier();
-    *v82 = 138543362;
-    v83 = v48;
-    _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Modifying 0 characteristics, bailing", v82, 0xCu);
+    *v81 = 138543362;
+    v82 = v48;
+    _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_DEFAULT, "%{public}@Modifying 0 characteristics, bailing", v81, 0xCu);
   }
 
   objc_autoreleasePoolPop(v45);
   v41 = queueCopy;
   if (handlerCopy)
   {
-    v65[0] = MEMORY[0x277D85DD0];
-    v65[1] = 3221225472;
-    v65[2] = __85__HAPAccessoryServerIP__enableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_340;
-    v65[3] = &unk_2786D6490;
-    v66 = handlerCopy;
-    dispatch_async(queueCopy, v65);
-    v42 = v66;
+    v64[0] = MEMORY[0x277D85DD0];
+    v64[1] = 3221225472;
+    v64[2] = __85__HAPAccessoryServerIP__enableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_340;
+    v64[3] = &unk_2786D6490;
+    v65 = handlerCopy;
+    dispatch_async(queueCopy, v64);
+    v42 = v65;
     goto LABEL_32;
   }
 
 LABEL_36:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableEvents:(BOOL)events forCharacteristics:(id)characteristics withCompletionHandler:(id)handler queue:(id)queue
@@ -8587,7 +9225,7 @@ LABEL_36:
 
 - (void)_handleUpdatesForCharacteristics:(id)characteristics stateNumber:(id)number
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   numberCopy = number;
   if (![(HAPAccessoryServerIP *)self _delegateRespondsToSelector:sel_accessoryServer_didUpdateValuesForCharacteristics_stateNumber_broadcast_])
@@ -8596,33 +9234,33 @@ LABEL_36:
   }
 
   selfCopy = self;
-  v27 = numberCopy;
-  v29 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
+  v26 = numberCopy;
+  v28 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(characteristicsCopy, "count")}];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v28 = characteristicsCopy;
+  v27 = characteristicsCopy;
   obj = characteristicsCopy;
-  v9 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (!v9)
   {
     goto LABEL_18;
   }
 
   v10 = v9;
-  v11 = *v35;
+  v11 = *v34;
   do
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v35 != v11)
+      if (*v34 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v34 + 1) + 8 * i);
+      v13 = *(*(&v33 + 1) + 8 * i);
       service = [v13 service];
       type = [service type];
       if ([type isEqualToString:@"00000125-0000-1000-8000-0026BB765291"])
@@ -8633,7 +9271,7 @@ LABEL_36:
         if (v17)
         {
           v18 = [HAPCharacteristicEvent eventWithCharacteristic:v13];
-          [v29 addObject:v18];
+          [v28 addObject:v18];
 
           goto LABEL_16;
         }
@@ -8655,7 +9293,7 @@ LABEL_36:
       if (v21)
       {
         type3 = [HAPCharacteristicEvent eventWithCharacteristic:v13];
-        [v29 addObject:type3];
+        [v28 addObject:type3];
 LABEL_14:
       }
 
@@ -8663,22 +9301,22 @@ LABEL_14:
 LABEL_16:
     }
 
-    v10 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v10 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
   }
 
   while (v10);
 LABEL_18:
 
-  if ([v29 count])
+  if ([v28 count])
   {
-    v38 = @"HAPCharacteristicEvents";
-    v39 = v29;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+    v37 = @"HAPCharacteristicEvents";
+    v38 = v28;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"HAPCharacteristicEventNotification" object:0 userInfo:v22];
   }
 
-  numberCopy = v27;
+  numberCopy = v26;
   if ([v8 count])
   {
     delegateQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
@@ -8687,15 +9325,13 @@ LABEL_18:
     block[2] = __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___block_invoke;
     block[3] = &unk_2786D7078;
     block[4] = selfCopy;
-    v32 = v8;
-    v33 = v27;
+    v31 = v8;
+    v32 = v26;
     dispatch_async(delegateQueue, block);
   }
 
-  characteristicsCopy = v28;
+  characteristicsCopy = v27;
 LABEL_23:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___block_invoke(uint64_t a1)
@@ -8725,7 +9361,7 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
 
 - (void)handleHTTPClientUnavailableErrorWithCompletion:(id)completion serializationType:(unint64_t)type
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -8733,21 +9369,19 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v10;
-    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to handle request because httpClient has been deallocated", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v10;
+    _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to handle request because httpClient has been deallocated", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
   v11 = [MEMORY[0x277CCA9B8] hapHMErrorWithCode:4 description:@"Failed to handle request because httpClient has been deallocated" reason:0 suggestion:0 underlyingError:0 marker:1902];
   completionCopy[2](completionCopy, 0, type, 503, v11);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendGETRequestToURL:(id)l timeout:(double)timeout completionHandler:(id)handler
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   httpClient = [(HAPAccessoryServerIP *)self httpClient];
@@ -8766,22 +9400,22 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
       httpClient3 = [(HAPAccessoryServerIP *)selfCopy httpClient];
       peerSocketInfo2 = [httpClient3 peerSocketInfo];
       [peerSocketInfo2 port];
-      v17 = v28 = v11;
+      v17 = v27 = v11;
       httpClient4 = [(HAPAccessoryServerIP *)selfCopy httpClient];
       clientRequestIdentifier = [httpClient4 clientRequestIdentifier];
       *buf = 138544386;
-      v30 = v14;
-      v31 = 2114;
-      v32 = lCopy;
-      v33 = 2112;
-      v34 = ipAddressStringWithScope;
-      v35 = 2112;
-      v36 = v17;
-      v37 = 2112;
-      v38 = clientRequestIdentifier;
+      v29 = v14;
+      v30 = 2114;
+      v31 = lCopy;
+      v32 = 2112;
+      v33 = ipAddressStringWithScope;
+      v34 = 2112;
+      v35 = v17;
+      v36 = 2112;
+      v37 = clientRequestIdentifier;
       _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Sending GET request to '%{public}@' (info: %@:%@ ... CID %@)", buf, 0x34u);
 
-      v11 = v28;
+      v11 = v27;
     }
 
     objc_autoreleasePoolPop(v11);
@@ -8801,13 +9435,11 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
   {
     [(HAPAccessoryServerIP *)self handleHTTPClientUnavailableErrorWithCompletion:handlerCopy serializationType:1];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPOSTRequestToURL:(id)l request:(id)request serializationType:(unint64_t)type completionHandler:(id)handler
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   requestCopy = request;
   handlerCopy = handler;
@@ -8828,23 +9460,23 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
       peerSocketInfo2 = [httpClient3 peerSocketInfo];
       port = [peerSocketInfo2 port];
       [(HAPAccessoryServerIP *)selfCopy httpClient];
-      v20 = v29 = v14;
+      v20 = v28 = v14;
       [v20 clientRequestIdentifier];
-      v21 = v28 = type;
+      v21 = v27 = type;
       *buf = 138544386;
-      v31 = v17;
-      v32 = 2112;
-      v33 = lCopy;
-      v34 = 2112;
-      v35 = ipAddressStringWithScope;
-      v36 = 2112;
-      v37 = port;
-      v38 = 2112;
-      v39 = v21;
+      v30 = v17;
+      v31 = 2112;
+      v32 = lCopy;
+      v33 = 2112;
+      v34 = ipAddressStringWithScope;
+      v35 = 2112;
+      v36 = port;
+      v37 = 2112;
+      v38 = v21;
       _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Sending POST request to '%@' (info: %@:%@ ... CID %@)", buf, 0x34u);
 
-      type = v28;
-      v14 = v29;
+      type = v27;
+      v14 = v28;
     }
 
     objc_autoreleasePoolPop(v14);
@@ -8857,13 +9489,11 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
   {
     [(HAPAccessoryServerIP *)self handleHTTPClientUnavailableErrorWithCompletion:handlerCopy serializationType:type];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendPUTRequestToURL:(id)l request:(id)request serializationType:(unint64_t)type timeout:(double)timeout completionHandler:(id)handler
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   lCopy = l;
   requestCopy = request;
   handlerCopy = handler;
@@ -8878,40 +9508,40 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
     {
       v19 = HMFGetLogIdentifier();
       v20 = MEMORY[0x277CBEB98];
-      v40 = v19;
-      v41 = @"authData";
-      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
-      v35 = [v20 setWithArray:v37];
-      [requestCopy secureDescriptionWithBlacklistKeys:v35];
-      v21 = v36 = requestCopy;
+      v39 = v19;
+      v40 = @"authData";
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+      v34 = [v20 setWithArray:v36];
+      [requestCopy secureDescriptionWithBlacklistKeys:v34];
+      v21 = v35 = requestCopy;
       httpClient2 = [(HAPAccessoryServerIP *)selfCopy httpClient];
       peerSocketInfo = [httpClient2 peerSocketInfo];
       ipAddressStringWithScope = [peerSocketInfo ipAddressStringWithScope];
       httpClient3 = [(HAPAccessoryServerIP *)selfCopy httpClient];
       [httpClient3 peerSocketInfo];
-      v23 = v39 = type;
+      v23 = v38 = type;
       [v23 port];
-      v24 = v38 = v16;
+      v24 = v37 = v16;
       httpClient4 = [(HAPAccessoryServerIP *)selfCopy httpClient];
       clientRequestIdentifier = [httpClient4 clientRequestIdentifier];
       *buf = 138544642;
-      v43 = v40;
-      v44 = 2114;
-      v45 = lCopy;
-      v46 = 2114;
-      v47 = v21;
-      v48 = 2112;
-      v49 = ipAddressStringWithScope;
-      v50 = 2112;
-      v51 = v24;
-      v52 = 2112;
-      v53 = clientRequestIdentifier;
+      v42 = v39;
+      v43 = 2114;
+      v44 = lCopy;
+      v45 = 2114;
+      v46 = v21;
+      v47 = 2112;
+      v48 = ipAddressStringWithScope;
+      v49 = 2112;
+      v50 = v24;
+      v51 = 2112;
+      v52 = clientRequestIdentifier;
       _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@Sending PUT request to '%{public}@' with body %{public}@ (info: %@:%@ ... CID %@)", buf, 0x3Eu);
 
-      v16 = v38;
-      type = v39;
+      v16 = v37;
+      type = v38;
 
-      requestCopy = v36;
+      requestCopy = v35;
     }
 
     objc_autoreleasePoolPop(v16);
@@ -8931,13 +9561,11 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
   {
     [(HAPAccessoryServerIP *)self handleHTTPClientUnavailableErrorWithCompletion:handlerCopy serializationType:type];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleWriteResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status error:(id)error requestTuples:(id)tuples completion:(id)completion
 {
-  v212 = *MEMORY[0x277D85DE8];
+  v211 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   errorCopy = error;
   tuplesCopy = tuples;
@@ -8949,13 +9577,13 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v207 = v20;
-    v208 = 2114;
-    *v209 = tuplesCopy;
-    *&v209[8] = 1026;
-    *&v209[10] = status;
-    *&v209[14] = 2082;
-    *&v209[16] = HTTPGetReasonPhrase();
+    v206 = v20;
+    v207 = 2114;
+    *v208 = tuplesCopy;
+    *&v208[8] = 1026;
+    *&v208[10] = status;
+    *&v208[14] = 2082;
+    *&v208[16] = HTTPGetReasonPhrase();
     _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Received write response with %{public}@ and '%{public}d %{public}s' HTTP status code", buf, 0x26u);
   }
 
@@ -8970,9 +9598,9 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v207 = v24;
-      v208 = 2114;
-      *v209 = errorCopy;
+      v206 = v24;
+      v207 = 2114;
+      *v208 = errorCopy;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to write characteristic because the HTTP request returned the following error: %{public}@", buf, 0x16u);
     }
 
@@ -8990,7 +9618,7 @@ void __69__HAPAccessoryServerIP__handleUpdatesForCharacteristics_stateNumber___b
       {
         v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v207 = v28;
+        v206 = v28;
         _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@interpreting error as unreachable", buf, 0xCu);
       }
 
@@ -9016,7 +9644,7 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v171 = completionCopy;
+  v170 = completionCopy;
   if (status == 207 || status == 200)
   {
     v30 = objectCopy;
@@ -9048,73 +9676,73 @@ LABEL_24:
   statusCopy = status;
   if (!v33)
   {
-    v91 = objc_autoreleasePoolPush();
-    v92 = selfCopy;
-    v93 = HMFGetOSLogHandle();
-    v94 = v93;
+    v90 = objc_autoreleasePoolPush();
+    v91 = selfCopy;
+    v92 = HMFGetOSLogHandle();
+    v93 = v92;
     if (type == 4 && !objectCopy && statusCopy == 204)
     {
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_DEFAULT))
       {
-        v95 = HMFGetLogIdentifier();
-        v96 = HTTPGetReasonPhrase();
+        v94 = HMFGetLogIdentifier();
+        v95 = HTTPGetReasonPhrase();
         *buf = 138543874;
-        v207 = v95;
-        v208 = 1026;
-        *v209 = 204;
-        *&v209[4] = 2082;
-        *&v209[6] = v96;
-        _os_log_impl(&dword_22AADC000, v94, OS_LOG_TYPE_DEFAULT, "%{public}@Received write response with no body and a '%{public}d %{public}s' HTTP status code.", buf, 0x1Cu);
+        v206 = v94;
+        v207 = 1026;
+        *v208 = 204;
+        *&v208[4] = 2082;
+        *&v208[6] = v95;
+        _os_log_impl(&dword_22AADC000, v93, OS_LOG_TYPE_DEFAULT, "%{public}@Received write response with no body and a '%{public}d %{public}s' HTTP status code.", buf, 0x1Cu);
       }
 
-      objc_autoreleasePoolPop(v91);
+      objc_autoreleasePoolPop(v90);
       array = [MEMORY[0x277CBEB18] array];
+      v175 = 0u;
       v176 = 0u;
       v177 = 0u;
       v178 = 0u;
-      v179 = 0u;
-      v97 = tuplesCopy;
-      v98 = [v97 countByEnumeratingWithState:&v176 objects:v193 count:16];
-      if (v98)
+      v96 = tuplesCopy;
+      v97 = [v96 countByEnumeratingWithState:&v175 objects:v192 count:16];
+      if (v97)
       {
-        v99 = v98;
-        v169 = tuplesCopy;
-        v100 = 0;
-        v101 = *v177;
+        v98 = v97;
+        v168 = tuplesCopy;
+        v99 = 0;
+        v100 = *v176;
         do
         {
-          v102 = 0;
-          v103 = v100;
+          v101 = 0;
+          v102 = v99;
           do
           {
-            if (*v177 != v101)
+            if (*v176 != v100)
             {
-              objc_enumerationMutation(v97);
+              objc_enumerationMutation(v96);
             }
 
-            v104 = *(*(&v176 + 1) + 8 * v102);
-            characteristic = [v104 characteristic];
-            value = [v104 value];
+            v103 = *(*(&v175 + 1) + 8 * v101);
+            characteristic = [v103 characteristic];
+            value = [v103 value];
             [characteristic setValue:value];
 
-            characteristic2 = [v104 characteristic];
-            v100 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:characteristic2 error:0];
+            characteristic2 = [v103 characteristic];
+            v99 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:characteristic2 error:0];
 
-            [array addObject:v100];
-            characteristic3 = [v104 characteristic];
+            [array addObject:v99];
+            characteristic3 = [v103 characteristic];
             [characteristic3 instanceID];
 
-            ++v102;
-            v103 = v100;
+            ++v101;
+            v102 = v99;
           }
 
-          while (v99 != v102);
-          v99 = [v97 countByEnumeratingWithState:&v176 objects:v193 count:16];
+          while (v98 != v101);
+          v98 = [v96 countByEnumeratingWithState:&v175 objects:v192 count:16];
         }
 
-        while (v99);
+        while (v98);
 
-        tuplesCopy = v169;
+        tuplesCopy = v168;
       }
 
       v34 = 0;
@@ -9123,35 +9751,35 @@ LABEL_24:
 
     else
     {
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
-        v115 = HMFGetLogIdentifier();
-        v116 = HTTPGetReasonPhrase();
+        v114 = HMFGetLogIdentifier();
+        v115 = HTTPGetReasonPhrase();
         if (type - 1 > 3)
         {
-          v117 = @"Invalid";
+          v116 = @"Invalid";
         }
 
         else
         {
-          v117 = off_2786D4CF8[type - 1];
+          v116 = off_2786D4CF8[type - 1];
         }
 
-        v124 = v117;
+        v123 = v116;
         *buf = 138544386;
-        v207 = v115;
-        v208 = 1026;
-        *v209 = statusCopy;
-        *&v209[4] = 2082;
-        *&v209[6] = v116;
-        *&v209[14] = 2114;
-        *&v209[16] = v124;
-        v210 = 2114;
-        v211 = objectCopy;
-        _os_log_impl(&dword_22AADC000, v94, OS_LOG_TYPE_ERROR, "%{public}@Failed to write characteristic because the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
+        v206 = v114;
+        v207 = 1026;
+        *v208 = statusCopy;
+        *&v208[4] = 2082;
+        *&v208[6] = v115;
+        *&v208[14] = 2114;
+        *&v208[16] = v123;
+        v209 = 2114;
+        v210 = objectCopy;
+        _os_log_impl(&dword_22AADC000, v93, OS_LOG_TYPE_ERROR, "%{public}@Failed to write characteristic because the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
       }
 
-      objc_autoreleasePoolPop(v91);
+      objc_autoreleasePoolPop(v90);
       v34 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
       array = 0;
     }
@@ -9159,113 +9787,113 @@ LABEL_24:
     goto LABEL_132;
   }
 
-  v37 = objc_autoreleasePoolPush();
-  v38 = selfCopy;
-  v39 = HMFGetOSLogHandle();
-  v166 = v38;
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v36 = objc_autoreleasePoolPush();
+  v37 = selfCopy;
+  v38 = HMFGetOSLogHandle();
+  v165 = v37;
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
-    v40 = HMFGetLogIdentifier();
-    v41 = HTTPGetReasonPhrase();
+    v39 = HMFGetLogIdentifier();
+    v40 = HTTPGetReasonPhrase();
     *buf = 138544130;
-    v207 = v40;
-    v208 = 1026;
-    *v209 = status;
-    *&v209[4] = 2082;
-    *&v209[6] = v41;
-    *&v209[14] = 2114;
-    *&v209[16] = objectCopy;
-    _os_log_impl(&dword_22AADC000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@Characteristic write request responded with '%{public}d %{public}s' HTTP status code %{public}@", buf, 0x26u);
+    v206 = v39;
+    v207 = 1026;
+    *v208 = status;
+    *&v208[4] = 2082;
+    *&v208[6] = v40;
+    *&v208[14] = 2114;
+    *&v208[16] = objectCopy;
+    _os_log_impl(&dword_22AADC000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@Characteristic write request responded with '%{public}d %{public}s' HTTP status code %{public}@", buf, 0x26u);
   }
 
-  objc_autoreleasePoolPop(v37);
-  v42 = objectCopy;
-  v43 = tuplesCopy;
-  v44 = [v42 objectForKeyedSubscript:@"characteristics"];
+  objc_autoreleasePoolPop(v36);
+  v41 = objectCopy;
+  v42 = tuplesCopy;
+  v43 = [v41 objectForKeyedSubscript:@"characteristics"];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v160 = v44;
-    v109 = objectCopy;
-    v110 = v43;
-    v111 = objc_autoreleasePoolPush();
-    v112 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+    v159 = v43;
+    v108 = objectCopy;
+    v109 = v42;
+    v110 = objc_autoreleasePoolPush();
+    v111 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
     {
-      v113 = HMFGetLogIdentifier();
+      v112 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v207 = v113;
-      v208 = 2114;
-      *v209 = @"characteristics";
-      _os_log_impl(&dword_22AADC000, v112, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, %{public}@ key doesn't contain an NSArray", buf, 0x16u);
+      v206 = v112;
+      v207 = 2114;
+      *v208 = @"characteristics";
+      _os_log_impl(&dword_22AADC000, v111, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, %{public}@ key doesn't contain an NSArray", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v111);
+    objc_autoreleasePoolPop(v110);
     array = 0;
-    v114 = v110;
-    objectCopy = v109;
-    v44 = v160;
+    v113 = v109;
+    objectCopy = v108;
+    v43 = v159;
     goto LABEL_115;
   }
 
-  v45 = [v44 count];
-  if (v45 != [v43 count])
+  v44 = [v43 count];
+  if (v44 != [v42 count])
   {
-    v118 = v43;
-    v119 = objc_autoreleasePoolPush();
-    v120 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+    v117 = v42;
+    v118 = objc_autoreleasePoolPush();
+    v119 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v121 = v175 = v119;
-      v122 = [v44 count];
-      v123 = [v118 count];
+      v120 = v174 = v118;
+      v121 = [v43 count];
+      v122 = [v117 count];
       *buf = 138543874;
-      v207 = v121;
-      v208 = 2050;
-      *v209 = v122;
-      *&v209[8] = 2050;
-      *&v209[10] = v123;
-      _os_log_impl(&dword_22AADC000, v120, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, '%{public}lu' response objects for '%{public}lu' request tuples", buf, 0x20u);
+      v206 = v120;
+      v207 = 2050;
+      *v208 = v121;
+      *&v208[8] = 2050;
+      *&v208[10] = v122;
+      _os_log_impl(&dword_22AADC000, v119, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, '%{public}lu' response objects for '%{public}lu' request tuples", buf, 0x20u);
 
-      v119 = v175;
+      v118 = v174;
     }
 
-    objc_autoreleasePoolPop(v119);
+    objc_autoreleasePoolPop(v118);
     array = 0;
-    v114 = v118;
+    v113 = v117;
     goto LABEL_115;
   }
 
-  v152 = v43;
-  v161 = [MEMORY[0x277CBEB18] arrayWithArray:v43];
+  v151 = v42;
+  v160 = [MEMORY[0x277CBEB18] arrayWithArray:v42];
   array2 = [MEMORY[0x277CBEB18] array];
+  v188 = 0u;
   v189 = 0u;
   v190 = 0u;
   v191 = 0u;
-  v192 = 0u;
-  obj = v44;
-  v155 = [obj countByEnumeratingWithState:&v189 objects:buf count:16];
-  if (!v155)
+  obj = v43;
+  v154 = [obj countByEnumeratingWithState:&v188 objects:buf count:16];
+  if (!v154)
   {
 LABEL_75:
 
-    if ([v161 count])
+    if ([v160 count])
     {
-      v87 = objc_autoreleasePoolPush();
-      v88 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+      v86 = objc_autoreleasePoolPush();
+      v87 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
       {
-        v89 = HMFGetLogIdentifier();
-        v90 = [v161 count];
-        *v196 = 138543618;
-        v197 = v89;
-        v198 = 2050;
-        v199 = v90;
-        _os_log_impl(&dword_22AADC000, v88, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, '%{public}lu' request tuples remain unmatched with a response object", v196, 0x16u);
+        v88 = HMFGetLogIdentifier();
+        v89 = [v160 count];
+        *v195 = 138543618;
+        v196 = v88;
+        v197 = 2050;
+        v198 = v89;
+        _os_log_impl(&dword_22AADC000, v87, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response, '%{public}lu' request tuples remain unmatched with a response object", v195, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v87);
+      objc_autoreleasePoolPop(v86);
       array = 0;
     }
 
@@ -9274,116 +9902,116 @@ LABEL_75:
       array = array2;
     }
 
-    v114 = v152;
+    v113 = v151;
     goto LABEL_114;
   }
 
-  v156 = *v190;
-  *&v46 = 138544386;
-  v149 = v46;
-  v153 = objectCopy;
-  v168 = tuplesCopy;
-  v162 = v42;
-  v159 = v44;
+  v155 = *v189;
+  *&v45 = 138544386;
+  v148 = v45;
+  v152 = objectCopy;
+  v167 = tuplesCopy;
+  v161 = v41;
+  v158 = v43;
   while (1)
   {
-    v47 = 0;
+    v46 = 0;
 LABEL_38:
-    if (*v190 != v156)
+    if (*v189 != v155)
     {
       objc_enumerationMutation(obj);
     }
 
-    v164 = v47;
-    v48 = *(*(&v189 + 1) + 8 * v47);
-    v49 = [v48 hmf_numberForKey:{@"aid", v149}];
-    v50 = [v48 hmf_numberForKey:@"iid"];
-    v165 = [v48 objectForKeyedSubscript:@"value"];
-    v51 = [v48 hmf_numberForKey:@"status"];
-    v52 = v51;
-    v174 = v50;
-    if (v49)
+    v163 = v46;
+    v47 = *(*(&v188 + 1) + 8 * v46);
+    v48 = [v47 hmf_numberForKey:{@"aid", v148}];
+    v49 = [v47 hmf_numberForKey:@"iid"];
+    v164 = [v47 objectForKeyedSubscript:@"value"];
+    v50 = [v47 hmf_numberForKey:@"status"];
+    v51 = v50;
+    v173 = v49;
+    if (v48)
     {
-      v53 = v50 == 0;
+      v52 = v49 == 0;
     }
 
     else
     {
-      v53 = 1;
+      v52 = 1;
     }
 
-    if (v53 || v51 == 0)
+    if (v52 || v50 == 0)
     {
-      v145 = objc_autoreleasePoolPush();
-      v146 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
+      v144 = objc_autoreleasePoolPush();
+      v145 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
       {
-        v147 = HMFGetLogIdentifier();
-        *v196 = v149;
-        v197 = v147;
-        v198 = 2114;
-        v199 = v50;
-        v200 = 2114;
-        v201 = v49;
-        v202 = 2114;
-        v203 = v165;
-        v204 = 2114;
-        v205 = v52;
-        _os_log_impl(&dword_22AADC000, v146, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%{public}@' and HAP status code '%{public}@'", v196, 0x34u);
+        v146 = HMFGetLogIdentifier();
+        *v195 = v148;
+        v196 = v146;
+        v197 = 2114;
+        v198 = v49;
+        v199 = 2114;
+        v200 = v48;
+        v201 = 2114;
+        v202 = v164;
+        v203 = 2114;
+        v204 = v51;
+        _os_log_impl(&dword_22AADC000, v145, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%{public}@' and HAP status code '%{public}@'", v195, 0x34u);
       }
 
-      objc_autoreleasePoolPop(v145);
-      v114 = v152;
+      objc_autoreleasePoolPop(v144);
+      v113 = v151;
       goto LABEL_111;
     }
 
-    v167 = v51;
-    v187 = 0u;
-    v188 = 0u;
-    v185 = 0u;
+    v166 = v50;
     v186 = 0u;
-    v55 = v161;
-    v56 = [v55 countByEnumeratingWithState:&v185 objects:v195 count:16];
-    if (!v56)
+    v187 = 0u;
+    v184 = 0u;
+    v185 = 0u;
+    v54 = v160;
+    v55 = [v54 countByEnumeratingWithState:&v184 objects:v194 count:16];
+    if (!v55)
     {
       break;
     }
 
-    v57 = v56;
-    v58 = *v186;
+    v56 = v55;
+    v57 = *v185;
 LABEL_49:
-    v59 = 0;
+    v58 = 0;
     while (1)
     {
-      if (*v186 != v58)
+      if (*v185 != v57)
       {
-        objc_enumerationMutation(v55);
+        objc_enumerationMutation(v54);
       }
 
-      v60 = *(*(&v185 + 1) + 8 * v59);
-      characteristic4 = [v60 characteristic];
+      v59 = *(*(&v184 + 1) + 8 * v58);
+      characteristic4 = [v59 characteristic];
       service = [characteristic4 service];
       accessory = [service accessory];
       instanceID = [accessory instanceID];
 
       if (instanceID)
       {
-        if ([v49 isEqualToNumber:instanceID])
+        if ([v48 isEqualToNumber:instanceID])
         {
           instanceID2 = [characteristic4 instanceID];
-          v66 = [v174 isEqualToNumber:instanceID2];
+          v65 = [v173 isEqualToNumber:instanceID2];
 
-          if (v66)
+          if (v65)
           {
             break;
           }
         }
       }
 
-      if (v57 == ++v59)
+      if (v56 == ++v58)
       {
-        v57 = [v55 countByEnumeratingWithState:&v185 objects:v195 count:16];
-        if (v57)
+        v56 = [v54 countByEnumeratingWithState:&v184 objects:v194 count:16];
+        if (v56)
         {
           goto LABEL_49;
         }
@@ -9392,94 +10020,94 @@ LABEL_49:
       }
     }
 
-    v67 = v60;
+    v66 = v59;
 
-    if (!v67)
+    if (!v66)
     {
       goto LABEL_107;
     }
 
     errorCopy = 0;
-    tuplesCopy = v168;
-    v52 = v167;
+    tuplesCopy = v167;
+    v51 = v166;
     if (!characteristic4)
     {
       goto LABEL_108;
     }
 
-    [v55 removeObject:v67];
-    if ([v167 intValue])
+    [v54 removeObject:v66];
+    if ([v166 intValue])
     {
-      v157 = v67;
-      v68 = ConvertFromHAPIPStatusErrorCode([v167 integerValue]);
+      v156 = v66;
+      v67 = ConvertFromHAPIPStatusErrorCode([v166 integerValue]);
       service2 = [characteristic4 service];
       accessory2 = [service2 accessory];
 
       server = [accessory2 server];
-      v72 = objc_autoreleasePoolPush();
-      v73 = server;
-      v74 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+      v71 = objc_autoreleasePoolPush();
+      v72 = server;
+      v73 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
       {
-        v150 = HMFGetLogIdentifier();
+        v149 = HMFGetLogIdentifier();
         [accessory2 instanceID];
-        v75 = v151 = accessory2;
+        v74 = v150 = accessory2;
         instanceID3 = [characteristic4 instanceID];
         type = [characteristic4 type];
-        *v196 = v149;
-        v197 = v150;
-        v198 = 2114;
-        v199 = v75;
-        v200 = 2114;
-        v201 = instanceID3;
-        v78 = instanceID3;
-        v202 = 2114;
-        v203 = type;
-        v79 = type;
-        v204 = 2114;
-        v205 = v68;
-        _os_log_impl(&dword_22AADC000, v74, OS_LOG_TYPE_DEFAULT, "%{public}@Response for characteristic write %{public}@/%{public}@/%{public}@ with error: %{public}@", v196, 0x34u);
+        *v195 = v148;
+        v196 = v149;
+        v197 = 2114;
+        v198 = v74;
+        v199 = 2114;
+        v200 = instanceID3;
+        v77 = instanceID3;
+        v201 = 2114;
+        v202 = type;
+        v78 = type;
+        v203 = 2114;
+        v204 = v67;
+        _os_log_impl(&dword_22AADC000, v73, OS_LOG_TYPE_DEFAULT, "%{public}@Response for characteristic write %{public}@/%{public}@/%{public}@ with error: %{public}@", v195, 0x34u);
 
-        v52 = v167;
-        accessory2 = v151;
+        v51 = v166;
+        accessory2 = v150;
       }
 
-      objc_autoreleasePoolPop(v72);
-      tuplesCopy = v168;
+      objc_autoreleasePoolPop(v71);
+      tuplesCopy = v167;
     }
 
     else
     {
-      includeResponseValue = [v67 includeResponseValue];
-      v80 = v165;
-      if (!v165)
+      includeResponseValue = [v66 includeResponseValue];
+      v79 = v164;
+      if (!v164)
       {
         if (includeResponseValue)
         {
-          v125 = v67;
-          v126 = objc_autoreleasePoolPush();
-          v127 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+          v124 = v66;
+          v125 = objc_autoreleasePoolPush();
+          v126 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
           {
-            v148 = HMFGetLogIdentifier();
-            *v196 = 138543874;
-            v197 = v148;
-            v198 = 2114;
-            v199 = v174;
-            v200 = 2114;
-            v201 = v49;
-            _os_log_impl(&dword_22AADC000, v127, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@': response value is not included in the response when one is requested", v196, 0x20u);
+            v147 = HMFGetLogIdentifier();
+            *v195 = 138543874;
+            v196 = v147;
+            v197 = 2114;
+            v198 = v173;
+            v199 = 2114;
+            v200 = v48;
+            _os_log_impl(&dword_22AADC000, v126, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@': response value is not included in the response when one is requested", v195, 0x20u);
           }
 
-          v165 = 0;
+          v164 = 0;
           goto LABEL_110;
         }
 
-        [v67 includeResponseValue];
+        [v66 includeResponseValue];
 LABEL_72:
-        accessory2 = [v67 value];
+        accessory2 = [v66 value];
         [characteristic4 setValue:accessory2];
-        v68 = 0;
+        v67 = 0;
         goto LABEL_73;
       }
 
@@ -9488,40 +10116,40 @@ LABEL_72:
         goto LABEL_72;
       }
 
-      v157 = v67;
+      v156 = v66;
       metadata = [characteristic4 metadata];
       format = [metadata format];
-      v84 = HAPCharacteristicFormatFromString(format);
+      v83 = HAPCharacteristicFormatFromString(format);
 
-      v85 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-      v184 = 0;
-      accessory2 = [v85 reverseTransformedValue:v165 format:v84 error:&v184];
-      v68 = v184;
+      v84 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
+      v183 = 0;
+      accessory2 = [v84 reverseTransformedValue:v164 format:v83 error:&v183];
+      v67 = v183;
 
-      if (!v68)
+      if (!v67)
       {
         [characteristic4 setValue:accessory2];
       }
     }
 
-    v80 = v165;
-    v67 = v157;
+    v79 = v164;
+    v66 = v156;
 LABEL_73:
 
-    v86 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:characteristic4 error:v68];
-    [array2 addObject:v86];
+    v85 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:characteristic4 error:v67];
+    [array2 addObject:v85];
 
-    v42 = v162;
-    v47 = v164 + 1;
-    if (v164 + 1 != v155)
+    v41 = v161;
+    v46 = v163 + 1;
+    if (v163 + 1 != v154)
     {
       goto LABEL_38;
     }
 
-    objectCopy = v153;
-    v44 = v159;
-    v155 = [obj countByEnumeratingWithState:&v189 objects:buf count:16];
-    if (!v155)
+    objectCopy = v152;
+    v43 = v158;
+    v154 = [obj countByEnumeratingWithState:&v188 objects:buf count:16];
+    if (!v154)
     {
       goto LABEL_75;
     }
@@ -9530,37 +10158,37 @@ LABEL_73:
 LABEL_106:
 
   characteristic4 = 0;
-  v67 = 0;
+  v66 = 0;
 LABEL_107:
   errorCopy = 0;
-  tuplesCopy = v168;
-  v52 = v167;
+  tuplesCopy = v167;
+  v51 = v166;
 LABEL_108:
-  v125 = v67;
-  v126 = objc_autoreleasePoolPush();
-  v127 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+  v124 = v66;
+  v125 = objc_autoreleasePoolPush();
+  v126 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
   {
-    v128 = HMFGetLogIdentifier();
-    *v196 = 138543874;
-    v197 = v128;
-    v198 = 2114;
-    v199 = v174;
-    v200 = 2114;
-    v201 = v49;
-    _os_log_impl(&dword_22AADC000, v127, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@': characteristic was not requested to be written", v196, 0x20u);
+    v127 = HMFGetLogIdentifier();
+    *v195 = 138543874;
+    v196 = v127;
+    v197 = 2114;
+    v198 = v173;
+    v199 = 2114;
+    v200 = v48;
+    _os_log_impl(&dword_22AADC000, v126, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid write response for characteristic ID '%{public}@' against accessory '%{public}@': characteristic was not requested to be written", v195, 0x20u);
   }
 
 LABEL_110:
-  v114 = v152;
+  v113 = v151;
 
-  objc_autoreleasePoolPop(v126);
-  v42 = v162;
+  objc_autoreleasePoolPop(v125);
+  v41 = v161;
 LABEL_111:
 
   array = 0;
-  objectCopy = v153;
-  v44 = v159;
+  objectCopy = v152;
+  v43 = v158;
 LABEL_114:
 
 LABEL_115:
@@ -9571,42 +10199,42 @@ LABEL_115:
 
   else
   {
-    v163 = v42;
-    v129 = objc_autoreleasePoolPush();
-    v130 = v166;
-    v131 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v131, OS_LOG_TYPE_DEFAULT))
+    v162 = v41;
+    v128 = objc_autoreleasePoolPush();
+    v129 = v165;
+    v130 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
     {
-      v132 = errorCopy;
-      v133 = HMFGetLogIdentifier();
-      v134 = HTTPGetReasonPhrase();
+      v131 = errorCopy;
+      v132 = HMFGetLogIdentifier();
+      v133 = HTTPGetReasonPhrase();
       if (type - 1 > 3)
       {
-        v135 = @"Invalid";
+        v134 = @"Invalid";
       }
 
       else
       {
-        v135 = off_2786D4CF8[type - 1];
+        v134 = off_2786D4CF8[type - 1];
       }
 
-      v136 = v135;
+      v135 = v134;
       *buf = 138544386;
-      v207 = v133;
-      v208 = 1026;
-      *v209 = statusCopy;
-      *&v209[4] = 2082;
-      *&v209[6] = v134;
-      *&v209[14] = 2114;
-      *&v209[16] = v136;
-      v210 = 2114;
-      v211 = v163;
-      _os_log_impl(&dword_22AADC000, v131, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse response objects for a write request, the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
+      v206 = v132;
+      v207 = 1026;
+      *v208 = statusCopy;
+      *&v208[4] = 2082;
+      *&v208[6] = v133;
+      *&v208[14] = 2114;
+      *&v208[16] = v135;
+      v209 = 2114;
+      v210 = v162;
+      _os_log_impl(&dword_22AADC000, v130, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to parse response objects for a write request, the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
 
-      errorCopy = v132;
+      errorCopy = v131;
     }
 
-    objc_autoreleasePoolPop(v129);
+    objc_autoreleasePoolPop(v128);
     v34 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
 
     array = 0;
@@ -9614,58 +10242,56 @@ LABEL_115:
 
   if (currentActivity)
   {
-    v182 = 0u;
-    v183 = 0u;
-    v180 = 0u;
     v181 = 0u;
+    v182 = 0u;
+    v179 = 0u;
+    v180 = 0u;
     array = array;
-    v137 = [array countByEnumeratingWithState:&v180 objects:v194 count:16];
-    if (v137)
+    v136 = [array countByEnumeratingWithState:&v179 objects:v193 count:16];
+    if (v136)
     {
-      v138 = v137;
-      v139 = *v181;
+      v137 = v136;
+      v138 = *v180;
       do
       {
-        for (i = 0; i != v138; ++i)
+        for (i = 0; i != v137; ++i)
         {
-          if (*v181 != v139)
+          if (*v180 != v138)
           {
             objc_enumerationMutation(array);
           }
 
-          v141 = *(*(&v180 + 1) + 8 * i);
-          characteristic5 = [v141 characteristic];
+          v140 = *(*(&v179 + 1) + 8 * i);
+          characteristic5 = [v140 characteristic];
           [characteristic5 instanceID];
 
-          error = [v141 error];
+          error = [v140 error];
           [error domain];
 
-          error2 = [v141 error];
+          error2 = [v140 error];
           [error2 code];
         }
 
-        v138 = [array countByEnumeratingWithState:&v180 objects:v194 count:16];
+        v137 = [array countByEnumeratingWithState:&v179 objects:v193 count:16];
       }
 
-      while (v138);
+      while (v137);
     }
   }
 
 LABEL_132:
-  completionCopy = v171;
-  if (v171)
+  completionCopy = v170;
+  if (v170)
   {
     goto LABEL_24;
   }
 
 LABEL_25:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePrepareWriteResponseObject:(id)object type:(unint64_t)type prepareIdentifier:(id)identifier httpStatus:(int)status error:(id)error requestTuples:(id)tuples timeout:(double)timeout expiry:(id)self0 queue:(id)self1 originalCompletion:(id)self2 completion:(id)self3
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   identifierCopy = identifier;
   errorCopy = error;
@@ -9681,11 +10307,11 @@ LABEL_25:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v72 = v26;
-    v73 = 1026;
-    *v74 = status;
-    *&v74[4] = 2082;
-    *&v74[6] = HTTPGetReasonPhrase();
+    v71 = v26;
+    v72 = 1026;
+    *v73 = status;
+    *&v73[4] = 2082;
+    *&v73[6] = HTTPGetReasonPhrase();
     _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Received prepare write response with '%{public}d %{public}s' HTTP status code", buf, 0x1Cu);
   }
 
@@ -9700,7 +10326,7 @@ LABEL_25:
       v52 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v65 = currentActivity;
+        v64 = currentActivity;
         v53 = completionCopy;
         v54 = HMFGetLogIdentifier();
         v55 = HTTPGetReasonPhrase();
@@ -9716,19 +10342,19 @@ LABEL_25:
 
         v57 = v56;
         *buf = 138544386;
-        v72 = v54;
-        v73 = 1026;
-        *v74 = status;
-        *&v74[4] = 2082;
-        *&v74[6] = v55;
-        *&v74[14] = 2114;
-        *&v74[16] = v57;
-        v75 = 2114;
-        v76 = objectCopy;
+        v71 = v54;
+        v72 = 1026;
+        *v73 = status;
+        *&v73[4] = 2082;
+        *&v73[6] = v55;
+        *&v73[14] = 2114;
+        *&v73[16] = v57;
+        v74 = 2114;
+        v75 = objectCopy;
         _os_log_impl(&dword_22AADC000, v52, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare write characteristic because the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
 
         completionCopy = v53;
-        currentActivity = v65;
+        currentActivity = v64;
       }
 
       objc_autoreleasePoolPop(v50);
@@ -9757,11 +10383,11 @@ LABEL_25:
         v49 = tuplesCopy;
         if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
         {
-          v64 = HMFGetLogIdentifier();
+          v63 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v72 = v64;
-          v73 = 2112;
-          *v74 = tuplesCopy;
+          v71 = v63;
+          v72 = 2112;
+          *v73 = tuplesCopy;
           _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_INFO, "%{public}@Performing execute write for inCharacteristicWriteRequestTuples %@", buf, 0x16u);
         }
 
@@ -9777,11 +10403,11 @@ LABEL_25:
       {
         v46 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v72 = v46;
-        v73 = 2114;
-        *v74 = v40;
-        *&v74[8] = 2114;
-        *&v74[10] = v37;
+        v71 = v46;
+        v72 = 2114;
+        *v73 = v40;
+        *&v73[8] = 2114;
+        *&v73[10] = v37;
         _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@Prepare write failed with HAP Status Code %{public}@ and a body: %{public}@", buf, 0x20u);
       }
 
@@ -9797,18 +10423,18 @@ LABEL_25:
 
     else
     {
-      v60 = objc_autoreleasePoolPush();
-      v61 = selfCopy;
-      v62 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v59 = objc_autoreleasePoolPush();
+      v60 = selfCopy;
+      v61 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
       {
-        v63 = HMFGetLogIdentifier();
+        v62 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v72 = v63;
-        _os_log_impl(&dword_22AADC000, v62, OS_LOG_TYPE_ERROR, "%{public}@Invalid prepare write response", buf, 0xCu);
+        v71 = v62;
+        _os_log_impl(&dword_22AADC000, v61, OS_LOG_TYPE_ERROR, "%{public}@Invalid prepare write response", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v60);
+      objc_autoreleasePoolPop(v59);
       v47 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:59];
       if (v22)
       {
@@ -9832,9 +10458,9 @@ LABEL_43:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v72 = v31;
-    v73 = 2114;
-    *v74 = errorCopy;
+    v71 = v31;
+    v72 = 2114;
+    *v73 = errorCopy;
     _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to prepare write characteristic because the HTTP request returned the following error: %{public}@", buf, 0x16u);
   }
 
@@ -9851,7 +10477,7 @@ LABEL_43:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v72 = v35;
+      v71 = v35;
       _os_log_impl(&dword_22AADC000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@interpreting error as unreachable", buf, 0xCu);
     }
 
@@ -9876,21 +10502,19 @@ LABEL_43:
 LABEL_32:
   v58 = expiryCopy;
 LABEL_33:
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performExecuteWriteValues:(id)values prepareIdentifier:(id)identifier timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v68[2] = *MEMORY[0x277D85DE8];
+  v67[2] = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   identifierCopy = identifier;
   expiryCopy = expiry;
   queueCopy = queue;
   handlerCopy = handler;
-  v62 = 0;
-  v45 = [(HAPAccessoryServerIP *)self _serializeCharacteristicWriteRequestTuples:valuesCopy error:&v62];
-  v18 = v62;
+  v61 = 0;
+  v44 = [(HAPAccessoryServerIP *)self _serializeCharacteristicWriteRequestTuples:valuesCopy error:&v61];
+  v18 = v61;
   v19 = v18;
   if (handlerCopy && queueCopy && v18)
   {
@@ -9898,12 +10522,12 @@ LABEL_33:
     block[1] = 3221225472;
     block[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke;
     block[3] = &unk_2786D65D8;
-    v61 = handlerCopy;
+    v60 = handlerCopy;
     v19 = v19;
-    v60 = v19;
+    v59 = v19;
     dispatch_async(queueCopy, block);
 
-    v20 = v61;
+    v20 = v60;
 LABEL_27:
 
     goto LABEL_28;
@@ -9911,27 +10535,27 @@ LABEL_27:
 
   if (identifierCopy)
   {
-    v67[0] = @"characteristics";
-    v67[1] = @"pid";
-    v68[0] = v45;
-    v68[1] = identifierCopy;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
+    v66[0] = @"characteristics";
+    v66[1] = @"pid";
+    v67[0] = v44;
+    v67[1] = identifierCopy;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
     objc_initWeak(&location, self);
-    v49[0] = MEMORY[0x277D85DD0];
-    v49[1] = 3221225472;
-    v49[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_2;
-    v49[3] = &unk_2786D2760;
-    objc_copyWeak(v54, &location);
-    v50 = valuesCopy;
-    v54[1] = *&timeout;
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_2;
+    v48[3] = &unk_2786D2760;
+    objc_copyWeak(v53, &location);
+    v49 = valuesCopy;
+    v53[1] = *&timeout;
     v21 = expiryCopy;
-    v51 = v21;
+    v50 = v21;
     queue = queueCopy;
     queueCopy2 = queue;
-    v39 = handlerCopy;
-    v53 = v39;
-    v43 = MEMORY[0x231885210](v49);
-    v42 = [@"/" stringByAppendingPathComponent:@"characteristics"];
+    v38 = handlerCopy;
+    v52 = v38;
+    v42 = MEMORY[0x231885210](v48);
+    v41 = [@"/" stringByAppendingPathComponent:@"characteristics"];
     if (timeout <= 0.0)
     {
       timeout = 10.0;
@@ -9948,9 +10572,9 @@ LABEL_27:
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v64 = v26;
-        v65 = 2048;
-        v66 = v23;
+        v63 = v26;
+        v64 = 2048;
+        v65 = v23;
         _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_INFO, "%{public}@Remaining TTL for write operation: %0.4f sec", buf, 0x16u);
       }
 
@@ -9964,7 +10588,7 @@ LABEL_27:
         {
           v36 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v64 = v36;
+          v63 = v36;
           _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_ERROR, "%{public}@Drop write operation due to TTL expiry", buf, 0xCu);
         }
 
@@ -9973,14 +10597,14 @@ LABEL_27:
 
         if (queueCopy != 0 && handlerCopy != 0)
         {
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_284;
-          v46[3] = &unk_2786D65D8;
-          v48 = v39;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_284;
+          v45[3] = &unk_2786D65D8;
+          v47 = v38;
           v19 = v37;
-          v47 = v19;
-          dispatch_async(queue, v46);
+          v46 = v19;
+          dispatch_async(queue, v45);
         }
 
         else
@@ -9988,7 +10612,7 @@ LABEL_27:
           v19 = v37;
         }
 
-        v27 = v42;
+        v27 = v41;
         goto LABEL_26;
       }
 
@@ -9998,11 +10622,11 @@ LABEL_27:
       }
     }
 
-    v27 = v42;
-    [(HAPAccessoryServerIP *)self sendPUTRequestToURL:v42 request:v20 serializationType:1 timeout:v43 completionHandler:timeout];
+    v27 = v41;
+    [(HAPAccessoryServerIP *)self sendPUTRequestToURL:v41 request:v20 serializationType:1 timeout:v42 completionHandler:timeout];
 LABEL_26:
 
-    objc_destroyWeak(v54);
+    objc_destroyWeak(v53);
     objc_destroyWeak(&location);
     goto LABEL_27;
   }
@@ -10014,7 +10638,7 @@ LABEL_26:
   {
     v31 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v64 = v31;
+    v63 = v31;
     _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_ERROR, "%{public}@Error during _performExecuteWriteValues: inPrepareIdentifier is nil", buf, 0xCu);
   }
 
@@ -10023,28 +10647,26 @@ LABEL_26:
 
   if (queueCopy != 0 && handlerCopy != 0)
   {
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_283;
-    v56[3] = &unk_2786D65D8;
-    v58 = handlerCopy;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_timeout_expiry_queue_completionHandler___block_invoke_283;
+    v55[3] = &unk_2786D65D8;
+    v57 = handlerCopy;
     v19 = v32;
-    v57 = v19;
-    dispatch_async(queueCopy, v56);
+    v56 = v19;
+    dispatch_async(queueCopy, v55);
 
-    v20 = v58;
+    v20 = v57;
     goto LABEL_27;
   }
 
   v19 = v32;
 LABEL_28:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_serializeCharacteristicWriteRequestTuples:(void *)tuples error:
 {
-  v116 = *MEMORY[0x277D85DE8];
+  v115 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   selfCopy = self;
@@ -10054,18 +10676,18 @@ LABEL_28:
     goto LABEL_56;
   }
 
-  v98 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v97 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v5, "count")}];
+  v101 = 0u;
   v102 = 0u;
   v103 = 0u;
   v104 = 0u;
-  v105 = 0u;
   obj = v6;
-  v97 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
+  v96 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
   dictionary = 0;
   instanceID = 0;
   characteristic = 0;
   v11 = 0;
-  if (!v97)
+  if (!v96)
   {
     value = 0;
     v35 = 0;
@@ -10073,11 +10695,11 @@ LABEL_28:
   }
 
   value = 0;
-  v96 = *v103;
+  v95 = *v102;
   *&v7 = 138543362;
-  v89 = v7;
+  v88 = v7;
   tuplesCopy = tuples;
-  v91 = v6;
+  v90 = v6;
   do
   {
     v12 = 0;
@@ -10087,12 +10709,12 @@ LABEL_28:
     v16 = value;
     do
     {
-      if (*v103 != v96)
+      if (*v102 != v95)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v102 + 1) + 8 * v12);
+      v17 = *(*(&v101 + 1) + 8 * v12);
       value = [v17 value];
 
       characteristic = [v17 characteristic];
@@ -10120,13 +10742,13 @@ LABEL_28:
         {
           v71 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v108 = v71;
-          v109 = 2112;
-          v110 = value;
-          v111 = 2112;
-          v112 = characteristic;
-          v113 = 2112;
-          v114 = instanceID;
+          v107 = v71;
+          v108 = 2112;
+          v109 = value;
+          v110 = 2112;
+          v111 = characteristic;
+          v112 = 2112;
+          v113 = instanceID;
           _os_log_impl(&dword_22AADC000, v70, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize characteristic write requests because the tuple contained a value of '%@' for characteristic '%@' with an accessory instance ID of '%@'", buf, 0x2Au);
         }
 
@@ -10136,7 +10758,7 @@ LABEL_45:
         dictionary = v13;
 LABEL_49:
         tuples = tuplesCopy;
-        v6 = v91;
+        v6 = v90;
         goto LABEL_50;
       }
 
@@ -10145,9 +10767,9 @@ LABEL_49:
         v23 = 12;
 LABEL_18:
         v33 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-        v101 = 0;
-        v34 = [v33 transformedValue:value format:v23 error:&v101];
-        v35 = v101;
+        v100 = 0;
+        v34 = [v33 transformedValue:value format:v23 error:&v100];
+        v35 = v100;
 
         v11 = v34;
         if (v35)
@@ -10168,8 +10790,8 @@ LABEL_18:
       }
 
       v24 = MEMORY[0x277CCAAA0];
-      v106 = value;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v106 count:1];
+      v105 = value;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
       v26 = [v24 isValidJSONObject:v25];
 
       v27 = objc_autoreleasePoolPush();
@@ -10181,8 +10803,8 @@ LABEL_18:
         if (v30)
         {
           v31 = HMFGetLogIdentifier();
-          *buf = v89;
-          v108 = v31;
+          *buf = v88;
+          v107 = v31;
           _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "%{public}@The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", buf, 0xCu);
         }
 
@@ -10197,8 +10819,8 @@ LABEL_18:
         if (v30)
         {
           v66 = HMFGetLogIdentifier();
-          *buf = v89;
-          v108 = v66;
+          *buf = v88;
+          v107 = v66;
           _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "%{public}@The characteristic has not specified a characteristic format type and the characteristic value is of a type that cannot be serialized.", buf, 0xCu);
         }
 
@@ -10217,11 +10839,11 @@ LABEL_42:
             v76 = characteristic;
             v78 = v77 = v11;
             *buf = 138543874;
-            v108 = v78;
-            v109 = 2112;
-            v110 = value;
-            v111 = 2112;
-            v112 = v35;
+            v107 = v78;
+            v108 = 2112;
+            v109 = value;
+            v110 = 2112;
+            v111 = v35;
             _os_log_impl(&dword_22AADC000, v74, OS_LOG_TYPE_ERROR, "%{public}@Failed to transform characteristic value '%@' with error: %@", buf, 0x20u);
 
             v11 = v77;
@@ -10257,11 +10879,11 @@ LABEL_19:
             HMFGetLogIdentifier();
             v83 = v82 = v11;
             *buf = 138543874;
-            v108 = v83;
-            v109 = 2112;
-            v110 = characteristic;
-            v111 = 2112;
-            v112 = instanceID;
+            v107 = v83;
+            v108 = 2112;
+            v109 = characteristic;
+            v110 = 2112;
+            v111 = instanceID;
             _os_log_impl(&dword_22AADC000, v81, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize characteristic write requests because the tuple requires a write response value but the characteristic '%@' on accessory with instance ID '%@' does not support it", buf, 0x20u);
 
             v11 = v82;
@@ -10286,20 +10908,20 @@ LABEL_19:
         if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v93 = instanceID;
+          v92 = instanceID;
           v44 = characteristic;
           v46 = v45 = v11;
           authorizationData2 = [v17 authorizationData];
           v48 = [authorizationData2 length];
           *buf = 138543618;
-          v108 = v46;
-          v109 = 2048;
-          v110 = v48;
+          v107 = v46;
+          v108 = 2048;
+          v109 = v48;
           _os_log_impl(&dword_22AADC000, v43, OS_LOG_TYPE_INFO, "%{public}@Appending authorization data to characteristic write requests with length: %tu", buf, 0x16u);
 
           v11 = v45;
           characteristic = v44;
-          instanceID = v93;
+          instanceID = v92;
         }
 
         objc_autoreleasePoolPop(v41);
@@ -10320,25 +10942,25 @@ LABEL_19:
         {
           v56 = HMFGetLogIdentifier();
           [v17 contextData];
-          v57 = v94 = v11;
+          v57 = v93 = v11;
           [v17 contextData];
-          v92 = v53;
+          v91 = v53;
           v58 = instanceID;
           v60 = v59 = characteristic;
           v61 = [v60 length];
           *buf = 138543874;
-          v108 = v56;
-          v109 = 2112;
-          v110 = v57;
-          v111 = 2048;
-          v112 = v61;
+          v107 = v56;
+          v108 = 2112;
+          v109 = v57;
+          v110 = 2048;
+          v111 = v61;
           _os_log_impl(&dword_22AADC000, v55, OS_LOG_TYPE_INFO, "%{public}@Appending context data %@ to characteristic write requests with length: %tu", buf, 0x20u);
 
           characteristic = v59;
           instanceID = v58;
-          v53 = v92;
+          v53 = v91;
 
-          v11 = v94;
+          v11 = v93;
         }
 
         objc_autoreleasePoolPop(v53);
@@ -10347,7 +10969,7 @@ LABEL_19:
         [dictionary setObject:v63 forKeyedSubscript:@"ctxData"];
       }
 
-      [v98 addObject:dictionary];
+      [v97 addObject:dictionary];
       ++v12;
       v13 = dictionary;
       v14 = instanceID;
@@ -10357,14 +10979,14 @@ LABEL_19:
       v16 = value;
     }
 
-    while (v97 != v12);
-    v67 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
+    while (v96 != v12);
+    v67 = [obj countByEnumeratingWithState:&v101 objects:v114 count:16];
     v35 = 0;
     tuples = tuplesCopy;
-    v6 = v91;
+    v6 = v90;
     characteristic = v65;
     instanceID = v64;
-    v97 = v67;
+    v96 = v67;
   }
 
   while (v67);
@@ -10383,13 +11005,12 @@ LABEL_50:
 
   else
   {
-    v85 = v98;
+    v85 = v97;
   }
 
   v86 = v85;
 
 LABEL_56:
-  v87 = *MEMORY[0x277D85DE8];
 
   return v86;
 }
@@ -10431,89 +11052,89 @@ void __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_ti
 
 - (void)_performTimedWriteValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queue = queue;
   handlerCopy = handler;
-  v68 = 0;
-  v37 = HMFRandomDataWithLength();
-  [v37 getBytes:&v68 length:8];
-  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v68];
+  v67 = 0;
+  v36 = HMFRandomDataWithLength();
+  [v36 getBytes:&v67 length:8];
+  v37 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v67];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:&unk_283EA9608 forKeyedSubscript:@"ttl"];
-  [dictionary setObject:v38 forKeyedSubscript:@"pid"];
+  [dictionary setObject:v37 forKeyedSubscript:@"pid"];
   if (!handlerCopy || dictionary)
   {
     v13 = objc_alloc_init(MEMORY[0x277D0F780]);
     objc_initWeak(&location, self);
     objc_initWeak(&from, v13);
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_2;
-    v56[3] = &unk_2786D27D8;
-    objc_copyWeak(&v62, &location);
-    objc_copyWeak(v63, &from);
-    v57 = v38;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_2;
+    v55[3] = &unk_2786D27D8;
+    objc_copyWeak(&v61, &location);
+    objc_copyWeak(v62, &from);
+    v56 = v37;
     v14 = valuesCopy;
-    v58 = v14;
-    v63[1] = *&timeout;
+    v57 = v14;
+    v62[1] = *&timeout;
     v15 = expiryCopy;
-    v59 = v15;
+    v58 = v15;
     queueCopy = queue;
-    v60 = queueCopy;
+    v59 = queueCopy;
     v17 = handlerCopy;
-    v61 = v17;
-    v18 = MEMORY[0x231885210](v56);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4;
-    v47[3] = &unk_2786D2828;
-    objc_copyWeak(&v54, &from);
-    objc_copyWeak(v55, &location);
+    v60 = v17;
+    v18 = MEMORY[0x231885210](v55);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4;
+    v46[3] = &unk_2786D2828;
+    objc_copyWeak(&v53, &from);
+    objc_copyWeak(v54, &location);
     v19 = v14;
-    v48 = v19;
-    v55[1] = *&timeout;
-    v49 = v15;
+    v47 = v19;
+    v54[1] = *&timeout;
+    v48 = v15;
     v20 = queueCopy;
-    v50 = v20;
+    v49 = v20;
     v21 = v17;
-    v52 = v21;
-    v51 = dictionary;
-    v32 = v18;
-    v53 = v32;
-    [v13 addExecutionBlock:v47];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_277;
-    v43[3] = &unk_2786D6BE0;
-    objc_copyWeak(&v46, &from);
-    v45 = v21;
-    v44 = v20;
-    [v13 setCompletionBlock:v43];
+    v51 = v21;
+    v50 = dictionary;
+    v31 = v18;
+    v52 = v31;
+    [v13 addExecutionBlock:v46];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_277;
+    v42[3] = &unk_2786D6BE0;
+    objc_copyWeak(&v45, &from);
+    v44 = v21;
+    v43 = v20;
+    [v13 setCompletionBlock:v42];
     currentActivity = [MEMORY[0x277D0F770] currentActivity];
     if (currentActivity)
     {
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       v23 = v19;
-      v24 = [v23 countByEnumeratingWithState:&v39 objects:v69 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v38 objects:v68 count:16];
       if (v24)
       {
-        v25 = *v40;
+        v25 = *v39;
         do
         {
           v26 = 0;
           do
           {
-            if (*v40 != v25)
+            if (*v39 != v25)
             {
               objc_enumerationMutation(v23);
             }
 
-            v27 = *(*(&v39 + 1) + 8 * v26);
+            v27 = *(*(&v38 + 1) + 8 * v26);
             v28 = currentActivity;
             characteristic = [v27 characteristic];
             [characteristic instanceID];
@@ -10522,7 +11143,7 @@ void __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_ti
           }
 
           while (v24 != v26);
-          v24 = [v23 countByEnumeratingWithState:&v39 objects:v69 count:16];
+          v24 = [v23 countByEnumeratingWithState:&v38 objects:v68 count:16];
         }
 
         while (v24);
@@ -10532,12 +11153,12 @@ void __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_ti
     clientOperationQueue = [(HAPAccessoryServerIP *)self clientOperationQueue];
     [clientOperationQueue addOperation:v13];
 
-    objc_destroyWeak(&v46);
-    objc_destroyWeak(v55);
-    objc_destroyWeak(&v54);
+    objc_destroyWeak(&v45);
+    objc_destroyWeak(v54);
+    objc_destroyWeak(&v53);
 
-    objc_destroyWeak(v63);
-    objc_destroyWeak(&v62);
+    objc_destroyWeak(v62);
+    objc_destroyWeak(&v61);
     objc_destroyWeak(&from);
     objc_destroyWeak(&location);
   }
@@ -10548,12 +11169,10 @@ void __108__HAPAccessoryServerIP__performExecuteWriteValues_prepareIdentifier_ti
     block[1] = 3221225472;
     block[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke;
     block[3] = &unk_2786D6490;
-    v67 = handlerCopy;
+    v66 = handlerCopy;
     dispatch_async(queue, block);
-    v13 = v67;
+    v13 = v66;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke(uint64_t a1)
@@ -10598,7 +11217,7 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
 
 void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   v3 = objc_loadWeakRetained((a1 + 88));
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0)
@@ -10611,14 +11230,14 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
       block[2] = __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_276;
       block[3] = &unk_2786D2800;
       block[4] = v3;
-      v11 = *(a1 + 32);
-      v18 = *(a1 + 96);
-      v12 = *(a1 + 40);
-      v13 = *(a1 + 48);
-      v16 = *(a1 + 64);
-      v14 = WeakRetained;
-      v15 = *(a1 + 56);
-      v17 = *(a1 + 72);
+      v10 = *(a1 + 32);
+      v17 = *(a1 + 96);
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      v15 = *(a1 + 64);
+      v13 = WeakRetained;
+      v14 = *(a1 + 56);
+      v16 = *(a1 + 72);
       dispatch_async(v4, block);
     }
 
@@ -10630,7 +11249,7 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
       {
         v7 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v20 = v7;
+        v19 = v7;
         _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to timed write values because IP Accessory Server has been deallocated", buf, 0xCu);
       }
 
@@ -10639,8 +11258,6 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
       [WeakRetained cancelWithError:v8];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_277(uint64_t a1)
@@ -10677,7 +11294,7 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
 
 void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_276(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) _isSessionEstablished])
   {
     v2 = [@"/" stringByAppendingPathComponent:@"prepare"];
@@ -10695,11 +11312,11 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v8;
-      v23 = 2048;
-      v24 = v4;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Remaining TTL for timed write operation: %0.4f sec", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v8;
+      v22 = 2048;
+      v23 = v4;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Remaining TTL for timed write operation: %0.4f sec", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -10717,9 +11334,9 @@ LABEL_11:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v17;
-      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Drop timed write operation due to TTL expiry", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v17;
+      _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%{public}@Drop timed write operation due to TTL expiry", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
@@ -10736,9 +11353,9 @@ LABEL_11:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v13;
-      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session has been lost since this operation was staged. Canceling operation and re-queueing timed write.", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v13;
+      _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session has been lost since this operation was staged. Canceling operation and re-queueing timed write.", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -10749,8 +11366,6 @@ LABEL_11:
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -10763,16 +11378,16 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
 
 - (void)_performWriteValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queue = queue;
   handlerCopy = handler;
-  v61 = 0;
-  v32 = valuesCopy;
-  v34 = [(HAPAccessoryServerIP *)self _serializeCharacteristicWriteRequestTuples:valuesCopy error:&v61];
-  v14 = v61;
-  v31 = v14;
+  v60 = 0;
+  v31 = valuesCopy;
+  v33 = [(HAPAccessoryServerIP *)self _serializeCharacteristicWriteRequestTuples:valuesCopy error:&v60];
+  v14 = v60;
+  v30 = v14;
   if (handlerCopy && v14)
   {
     v15 = v14;
@@ -10780,78 +11395,76 @@ void __88__HAPAccessoryServerIP__performTimedWriteValues_timeout_expiry_queue_co
     block[1] = 3221225472;
     block[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke;
     block[3] = &unk_2786D65D8;
-    v60 = handlerCopy;
-    v59 = v15;
+    v59 = handlerCopy;
+    v58 = v15;
     dispatch_async(queue, block);
 
-    v16 = v60;
+    v16 = v59;
   }
 
   else
   {
-    v62 = @"characteristics";
-    v63[0] = v34;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+    v61 = @"characteristics";
+    v62[0] = v33;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:&v61 count:1];
     objc_initWeak(&location, self);
-    v51[0] = MEMORY[0x277D85DD0];
-    v51[1] = 3221225472;
-    v51[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_2;
-    v51[3] = &unk_2786D2760;
-    objc_copyWeak(v56, &location);
+    v50[0] = MEMORY[0x277D85DD0];
+    v50[1] = 3221225472;
+    v50[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_2;
+    v50[3] = &unk_2786D2760;
+    objc_copyWeak(v55, &location);
     v18 = valuesCopy;
-    v52 = v18;
-    v56[1] = *&timeout;
+    v51 = v18;
+    v55[1] = *&timeout;
     v19 = expiryCopy;
-    v53 = v19;
+    v52 = v19;
     queueCopy = queue;
-    v54 = queueCopy;
+    v53 = queueCopy;
     v21 = handlerCopy;
-    v55 = v21;
-    v22 = MEMORY[0x231885210](v51);
+    v54 = v21;
+    v22 = MEMORY[0x231885210](v50);
     v23 = objc_alloc_init(MEMORY[0x277D0F780]);
     objc_initWeak(&from, v23);
     currentActivity = [MEMORY[0x277D0F770] currentActivity];
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4;
-    v40[3] = &unk_2786D27B0;
-    objc_copyWeak(&v48, &from);
-    objc_copyWeak(v49, &location);
-    v41 = v18;
-    v49[1] = *&timeout;
-    v42 = v19;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4;
+    v39[3] = &unk_2786D27B0;
+    objc_copyWeak(&v47, &from);
+    objc_copyWeak(v48, &location);
+    v40 = v18;
+    v48[1] = *&timeout;
+    v41 = v19;
     v25 = queueCopy;
-    v43 = v25;
+    v42 = v25;
     v26 = v21;
-    v46 = v26;
+    v45 = v26;
     v27 = currentActivity;
-    v44 = v27;
+    v43 = v27;
     v16 = v17;
-    v45 = v16;
+    v44 = v16;
     v28 = v22;
-    v47 = v28;
-    [v23 addExecutionBlock:v40];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_274;
-    v36[3] = &unk_2786D6BE0;
-    objc_copyWeak(&v39, &from);
-    v38 = v26;
-    v37 = v25;
-    [v23 setCompletionBlock:v36];
+    v46 = v28;
+    [v23 addExecutionBlock:v39];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_274;
+    v35[3] = &unk_2786D6BE0;
+    objc_copyWeak(&v38, &from);
+    v37 = v26;
+    v36 = v25;
+    [v23 setCompletionBlock:v35];
     clientOperationQueue = [(HAPAccessoryServerIP *)self clientOperationQueue];
     [clientOperationQueue addOperation:v23];
 
-    objc_destroyWeak(&v39);
-    objc_destroyWeak(v49);
-    objc_destroyWeak(&v48);
+    objc_destroyWeak(&v38);
+    objc_destroyWeak(v48);
+    objc_destroyWeak(&v47);
 
     objc_destroyWeak(&from);
-    objc_destroyWeak(v56);
+    objc_destroyWeak(v55);
     objc_destroyWeak(&location);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_2(id *a1, void *a2, uint64_t a3, unsigned int a4, void *a5)
@@ -10883,7 +11496,7 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
 
 void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_4(id *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 11);
   v3 = objc_loadWeakRetained(a1 + 12);
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0)
@@ -10891,29 +11504,29 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
     if (v3)
     {
       v4 = [v3 clientQueue];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_266;
-      v16[3] = &unk_2786D2788;
-      objc_copyWeak(v22, a1 + 11);
-      v16[4] = v3;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_266;
+      v15[3] = &unk_2786D2788;
+      objc_copyWeak(v21, a1 + 11);
+      v15[4] = v3;
       v5 = a1[4];
-      v22[1] = a1[13];
+      v21[1] = a1[13];
       v6 = a1[5];
       v7 = a1[6];
-      v20 = a1[9];
+      v19 = a1[9];
       v8 = a1[7];
       *&v9 = v7;
       *(&v9 + 1) = v8;
       *&v10 = v5;
       *(&v10 + 1) = v6;
-      v17 = v10;
-      v18 = v9;
-      v19 = a1[8];
-      v21 = a1[10];
-      dispatch_async(v4, v16);
+      v16 = v10;
+      v17 = v9;
+      v18 = a1[8];
+      v20 = a1[10];
+      dispatch_async(v4, v15);
 
-      objc_destroyWeak(v22);
+      objc_destroyWeak(v21);
     }
 
     else
@@ -10924,7 +11537,7 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v13;
+        v23 = v13;
         _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to write values because IP Accessory Server has been deallocated", buf, 0xCu);
       }
 
@@ -10933,8 +11546,6 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
       [WeakRetained cancelWithError:v14];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_274(uint64_t a1)
@@ -10971,41 +11582,41 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
 
 void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_266(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 96));
   if ([*(a1 + 32) _isSessionEstablished])
   {
     v3 = [@"/" stringByAppendingPathComponent:@"characteristics"];
     if (*(a1 + 64))
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v4 = *(a1 + 40);
-      v5 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v28;
+        v7 = *v27;
         do
         {
           v8 = 0;
           do
           {
-            if (*v28 != v7)
+            if (*v27 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = [*(*(&v27 + 1) + 8 * v8) characteristic];
+            v9 = [*(*(&v26 + 1) + 8 * v8) characteristic];
             [v9 instanceID];
 
             ++v8;
           }
 
           while (v6 != v8);
-          v6 = [v4 countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v26 objects:v34 count:16];
         }
 
         while (v6);
@@ -11036,9 +11647,9 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v16;
-      v33 = 2048;
-      v34 = v12;
+      v31 = v16;
+      v32 = 2048;
+      v33 = v12;
       _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Remaining TTL for write operation: %0.4f sec", buf, 0x16u);
     }
 
@@ -11051,7 +11662,7 @@ void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_complet
       }
 
 LABEL_20:
-      [*(a1 + 64) markWithReason:{@"Writing", v27}];
+      [*(a1 + 64) markWithReason:{@"Writing", v26}];
       [*(a1 + 32) sendPUTRequestToURL:v3 request:*(a1 + 72) serializationType:1 timeout:*(a1 + 88) completionHandler:v10];
       [WeakRetained finish];
       goto LABEL_27;
@@ -11064,7 +11675,7 @@ LABEL_20:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v24;
+      v31 = v24;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Drop write operation due to TTL expiry", buf, 0xCu);
     }
 
@@ -11082,7 +11693,7 @@ LABEL_20:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v20;
+      v31 = v20;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session has been lost since this operation was staged. Canceling operation and re-queueing write.", buf, 0xCu);
     }
 
@@ -11094,8 +11705,6 @@ LABEL_20:
   }
 
 LABEL_27:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __83__HAPAccessoryServerIP__performWriteValues_timeout_expiry_queue_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -11180,7 +11789,7 @@ LABEL_9:
 
 void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_responses_timeout_expiry_queue_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _populateSocketUpdateType];
   [*(a1 + 32) _insertWriteCharacteristicValues:*(a1 + 40) timeout:*(a1 + 48) expiry:*(a1 + 56) queue:*(a1 + 64) withCompletionHandler:*(a1 + 72)];
   if ([*(a1 + 32) isEstablishingSecureConnection])
@@ -11191,9 +11800,9 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Already establishing secure session - not attempting a re-establishment", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Already establishing secure session - not attempting a re-establishment", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -11208,17 +11817,15 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to re-establish secure session for write on ECONNRESET", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to re-establish secure session for write on ECONNRESET", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [*(a1 + 40) count];
     [*(a1 + 32) _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.write.retry"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_responses_timeout_expiry_queue_completionHandler___block_invoke_265(uint64_t a1)
@@ -11237,7 +11844,7 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
 
 - (void)_writeCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queueCopy = queue;
@@ -11259,9 +11866,9 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
           {
             v21 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v44 = v21;
-            v45 = 2114;
-            v46 = valuesCopy;
+            v43 = v21;
+            v44 = 2114;
+            v45 = valuesCopy;
             _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Performing timed write for characteristicWriteRequestTuples %{public}@", buf, 0x16u);
           }
 
@@ -11275,9 +11882,9 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
           {
             v36 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v44 = v36;
-            v45 = 2114;
-            v46 = valuesCopy;
+            v43 = v36;
+            v44 = 2114;
+            v45 = valuesCopy;
             _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Performing write for characteristicWriteRequestTuples %{public}@", buf, 0x16u);
           }
 
@@ -11295,7 +11902,7 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v35;
+          v43 = v35;
           _os_log_impl(&dword_22AADC000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing write", buf, 0xCu);
         }
 
@@ -11314,19 +11921,19 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v31;
+        v43 = v31;
         _os_log_impl(&dword_22AADC000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Writing 0 characteristics, bailing", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v28);
       if (handlerCopy)
       {
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __90__HAPAccessoryServerIP__writeCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_254;
-        v38[3] = &unk_2786D6490;
-        v39 = handlerCopy;
-        dispatch_async(queueCopy, v38);
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __90__HAPAccessoryServerIP__writeCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_254;
+        v37[3] = &unk_2786D6490;
+        v38 = handlerCopy;
+        dispatch_async(queueCopy, v37);
       }
     }
   }
@@ -11341,11 +11948,11 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
       v25 = HMFGetLogIdentifier();
       v26 = MEMORY[0x231885210](handlerCopy);
       *buf = 138543874;
-      v44 = v25;
-      v45 = 2114;
-      v46 = 0;
-      v47 = 2114;
-      v48 = v26;
+      v43 = v25;
+      v44 = 2114;
+      v45 = 0;
+      v46 = 2114;
+      v47 = v26;
       _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to write values because the characteristicWriteRequestTuples was %{public}@ and the completion handler was %{public}@", buf, 0x20u);
     }
 
@@ -11357,13 +11964,11 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
       block[1] = 3221225472;
       block[2] = __90__HAPAccessoryServerIP__writeCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke;
       block[3] = &unk_2786D65D8;
-      v42 = handlerCopy;
-      v41 = v27;
+      v41 = handlerCopy;
+      v40 = v27;
       dispatch_async(queueCopy, block);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry completionQueue:(id)queue completionHandler:(id)handler
@@ -11402,29 +12007,29 @@ void __115__HAPAccessoryServerIP__handleWriteECONNResetError_writeRequests_respo
 void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+  v2 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v28;
+    v4 = *v27;
     do
     {
       v5 = 0;
-      v22 = v3;
+      v21 = v3;
       do
       {
-        if (*v28 != v4)
+        if (*v27 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v27 + 1) + 8 * v5);
+        v6 = *(*(&v26 + 1) + 8 * v5);
         v7 = objc_autoreleasePoolPush();
         v8 = *(v1 + 40);
         v9 = HMFGetOSLogHandle();
@@ -11437,18 +12042,18 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
           v14 = [v6 characteristic];
           v15 = [v6 contextData];
           *buf = 138544130;
-          v32 = v12;
-          v33 = 2112;
-          v34 = v13;
-          v35 = 2114;
-          v36 = v14;
-          v37 = 2112;
-          v38 = v15;
+          v31 = v12;
+          v32 = 2112;
+          v33 = v13;
+          v34 = 2114;
+          v35 = v14;
+          v36 = 2112;
+          v37 = v15;
           _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Writing value '%@' to characteristic '%{public}@' with contextData '%@'", buf, 0x2Au);
 
           v1 = v11;
           v4 = v10;
-          v3 = v22;
+          v3 = v21;
         }
 
         objc_autoreleasePoolPop(v7);
@@ -11456,7 +12061,7 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v27 objects:v39 count:16];
+      v3 = [obj countByEnumeratingWithState:&v26 objects:v38 count:16];
     }
 
     while (v3);
@@ -11467,15 +12072,13 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
   v18 = *(v1 + 80);
   v19 = *(v1 + 48);
   v20 = *(v1 + 56);
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke_253;
-  v24[3] = &unk_2786D6060;
-  v25 = *(v1 + 64);
-  v26 = *(v1 + 72);
-  [v16 _writeCharacteristicValues:v17 timeout:v19 expiry:v20 queue:v24 completionHandler:v18];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke_253;
+  v23[3] = &unk_2786D6060;
+  v24 = *(v1 + 64);
+  v25 = *(v1 + 72);
+  [v16 _writeCharacteristicValues:v17 timeout:v19 expiry:v20 queue:v23 completionHandler:v18];
 }
 
 void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke_253(uint64_t a1, void *a2, void *a3)
@@ -11496,7 +12099,7 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
 
 - (void)_handleReadResponseObject:(id)object type:(unint64_t)type httpStatus:(int)status error:(id)error characteristics:(id)characteristics completion:(id)completion
 {
-  v203 = *MEMORY[0x277D85DE8];
+  v202 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   errorCopy = error;
   characteristicsCopy = characteristics;
@@ -11508,7 +12111,7 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v200 = v19;
+    v199 = v19;
     _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_INFO, "%{public}@Received response to a read characteristics request", buf, 0xCu);
   }
 
@@ -11521,7 +12124,7 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
     v23 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v168 = completionCopy;
+      v167 = completionCopy;
       v24 = currentActivity;
       v25 = objectCopy;
       v26 = HMFGetLogIdentifier();
@@ -11537,20 +12140,20 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
 
       v101 = v27;
       *buf = 138544386;
-      v200 = v26;
-      v201 = 2114;
-      *v202 = characteristicsCopy;
-      *&v202[8] = 2114;
-      *&v202[10] = v25;
-      *&v202[18] = 2114;
-      *&v202[20] = v101;
-      *&v202[28] = 2114;
-      *&v202[30] = errorCopy;
+      v199 = v26;
+      v200 = 2114;
+      *v201 = characteristicsCopy;
+      *&v201[8] = 2114;
+      *&v201[10] = v25;
+      *&v201[18] = 2114;
+      *&v201[20] = v101;
+      *&v201[28] = 2114;
+      *&v201[30] = errorCopy;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to read characteristics %{public}@, received response object: %{public}@, MIME type: %{public}@, error: %{public}@", buf, 0x34u);
 
       objectCopy = v25;
       currentActivity = v24;
-      completionCopy = v168;
+      completionCopy = v167;
     }
 
     objc_autoreleasePoolPop(v21);
@@ -11572,7 +12175,7 @@ void __99__HAPAccessoryServerIP_writeCharacteristicValues_timeout_expiry_complet
         v109 = characteristicsCopy;
         v111 = v110 = objectCopy;
         *buf = 138543362;
-        v200 = v111;
+        v199 = v111;
         _os_log_impl(&dword_22AADC000, v106, OS_LOG_TYPE_DEFAULT, "%{public}@interpreting error as unreachable", buf, 0xCu);
 
         objectCopy = v110;
@@ -11609,41 +12212,41 @@ LABEL_93:
         v31 = objectCopy;
         v32 = characteristicsCopy;
         array = [MEMORY[0x277CBEB18] array];
-        v161 = v31;
+        v160 = v31;
         v33 = [v31 objectForKeyedSubscript:@"characteristics"];
         objc_opt_class();
-        v164 = v32;
-        v160 = v33;
-        v158 = objectCopy;
+        v163 = v32;
+        v159 = v33;
+        v157 = objectCopy;
         if (objc_opt_isKindOfClass())
         {
           v34 = [v33 count];
           if (v34 == [v32 count])
           {
-            v153 = [MEMORY[0x277CBEB18] arrayWithArray:v32];
+            v152 = [MEMORY[0x277CBEB18] arrayWithArray:v32];
+            v182 = 0u;
             v183 = 0u;
             v184 = 0u;
             v185 = 0u;
-            v186 = 0u;
             obj = v33;
-            v154 = [obj countByEnumeratingWithState:&v183 objects:buf count:16];
-            if (!v154)
+            v153 = [obj countByEnumeratingWithState:&v182 objects:buf count:16];
+            if (!v153)
             {
 LABEL_73:
 
-              if ([v153 count])
+              if ([v152 count])
               {
                 v87 = objc_autoreleasePoolPush();
                 v88 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
                 {
                   v89 = HMFGetLogIdentifier();
-                  v90 = [v153 count];
-                  *v189 = 138543618;
-                  v190 = v89;
-                  v191 = 2050;
-                  v192 = v90;
-                  _os_log_impl(&dword_22AADC000, v88, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, '%{public}lu' request tuples remain unmatched with a response object", v189, 0x16u);
+                  v90 = [v152 count];
+                  *v188 = 138543618;
+                  v189 = v89;
+                  v190 = 2050;
+                  v191 = v90;
+                  _os_log_impl(&dword_22AADC000, v88, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, '%{public}lu' request tuples remain unmatched with a response object", v188, 0x16u);
                 }
 
                 objc_autoreleasePoolPop(v87);
@@ -11658,22 +12261,22 @@ LABEL_73:
               goto LABEL_109;
             }
 
-            v155 = *v184;
+            v154 = *v183;
             *&v35 = 138543362;
-            v144 = v35;
-            v166 = characteristicsCopy;
-            v169 = completionCopy;
-            v151 = currentActivity;
+            v143 = v35;
+            v165 = characteristicsCopy;
+            v168 = completionCopy;
+            v150 = currentActivity;
 LABEL_21:
             v36 = 0;
             while (1)
             {
-              if (*v184 != v155)
+              if (*v183 != v154)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v37 = *(*(&v183 + 1) + 8 * v36);
+              v37 = *(*(&v182 + 1) + 8 * v36);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -11685,25 +12288,25 @@ LABEL_21:
               if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v57 = v163 = v36;
+                v57 = v162 = v36;
                 v58 = objc_opt_class();
-                *v189 = 138543618;
-                v190 = v57;
-                v191 = 2112;
-                v192 = v58;
+                *v188 = 138543618;
+                v189 = v57;
+                v190 = 2112;
+                v191 = v58;
                 v59 = v58;
-                _os_log_impl(&dword_22AADC000, v56, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response object - ignoring response object %@", v189, 0x16u);
+                _os_log_impl(&dword_22AADC000, v56, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response object - ignoring response object %@", v188, 0x16u);
 
-                v32 = v164;
-                v36 = v163;
+                v32 = v163;
+                v36 = v162;
               }
 
               objc_autoreleasePoolPop(v55);
 LABEL_71:
-              if (++v36 == v154)
+              if (++v36 == v153)
               {
-                v154 = [obj countByEnumeratingWithState:&v183 objects:buf count:16];
-                if (!v154)
+                v153 = [obj countByEnumeratingWithState:&v182 objects:buf count:16];
+                if (!v153)
                 {
                   goto LABEL_73;
                 }
@@ -11712,14 +12315,14 @@ LABEL_71:
               }
             }
 
-            v162 = v36;
+            v161 = v36;
             v38 = [v37 hmf_numberForKey:@"aid"];
             v39 = [v37 hmf_numberForKey:@"iid"];
             v40 = [v37 objectForKeyedSubscript:@"value"];
-            v147 = v37;
+            v146 = v37;
             v41 = [v37 hmf_numberForKey:@"status"];
             v42 = v41;
-            v171 = v39;
+            v170 = v39;
             if (v38)
             {
               v43 = v39 == 0;
@@ -11730,51 +12333,51 @@ LABEL_71:
               v43 = 1;
             }
 
-            v157 = v41;
-            v159 = v40;
+            v156 = v41;
+            v158 = v40;
             if (v43 || (status == 207) != (v41 != 0) || (v40 == 0) == ([v41 intValue] == 0))
             {
-              v121 = objc_autoreleasePoolPush();
-              v122 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+              v120 = objc_autoreleasePoolPush();
+              v121 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
               {
-                v124 = HMFGetLogIdentifier();
-                *v189 = 138544386;
-                v190 = v124;
-                v191 = 2114;
-                v192 = v171;
-                v193 = 2114;
-                v194 = v38;
-                v195 = 2112;
-                v196 = v159;
-                v197 = 2114;
-                v198 = v42;
-                _os_log_impl(&dword_22AADC000, v122, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%@' and HAP status code '%{public}@'", v189, 0x34u);
+                v123 = HMFGetLogIdentifier();
+                *v188 = 138544386;
+                v189 = v123;
+                v190 = 2114;
+                v191 = v170;
+                v192 = 2114;
+                v193 = v38;
+                v194 = 2112;
+                v195 = v158;
+                v196 = 2114;
+                v197 = v42;
+                _os_log_impl(&dword_22AADC000, v121, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%@' and HAP status code '%{public}@'", v188, 0x34u);
               }
             }
 
             else
             {
-              v181 = 0u;
-              v182 = 0u;
-              v179 = 0u;
               v180 = 0u;
-              v44 = v153;
-              v45 = [v44 countByEnumeratingWithState:&v179 objects:v188 count:16];
+              v181 = 0u;
+              v178 = 0u;
+              v179 = 0u;
+              v44 = v152;
+              v45 = [v44 countByEnumeratingWithState:&v178 objects:v187 count:16];
               if (v45)
               {
                 v46 = v45;
-                v47 = *v180;
+                v47 = *v179;
 LABEL_33:
                 v48 = 0;
                 while (1)
                 {
-                  if (*v180 != v47)
+                  if (*v179 != v47)
                   {
                     objc_enumerationMutation(v44);
                   }
 
-                  v49 = *(*(&v179 + 1) + 8 * v48);
+                  v49 = *(*(&v178 + 1) + 8 * v48);
                   service = [v49 service];
                   accessory = [service accessory];
                   instanceID = [accessory instanceID];
@@ -11784,7 +12387,7 @@ LABEL_33:
                     if ([v38 isEqualToNumber:instanceID])
                     {
                       instanceID2 = [v49 instanceID];
-                      v54 = [v171 isEqualToNumber:instanceID2];
+                      v54 = [v170 isEqualToNumber:instanceID2];
 
                       if (v54)
                       {
@@ -11795,7 +12398,7 @@ LABEL_33:
 
                   if (v46 == ++v48)
                   {
-                    v46 = [v44 countByEnumeratingWithState:&v179 objects:v188 count:16];
+                    v46 = [v44 countByEnumeratingWithState:&v178 objects:v187 count:16];
                     if (v46)
                     {
                       goto LABEL_33;
@@ -11813,16 +12416,16 @@ LABEL_33:
                 }
 
                 [v44 removeObject:v60];
-                currentActivity = v151;
-                v156 = v60;
+                currentActivity = v150;
+                v155 = v60;
                 if ([v60 shouldValidateValueAfterReading])
                 {
                   metadata = [v60 metadata];
                   format = [metadata format];
                   v63 = HAPCharacteristicFormatFromString(format);
 
-                  characteristicsCopy = v166;
-                  completionCopy = v169;
+                  characteristicsCopy = v165;
+                  completionCopy = v168;
                   if (!v63)
                   {
                     v64 = objc_autoreleasePoolPush();
@@ -11830,17 +12433,17 @@ LABEL_33:
                     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
                     {
                       v66 = HMFGetLogIdentifier();
-                      *v189 = v144;
-                      v190 = v66;
-                      _os_log_impl(&dword_22AADC000, v65, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", v189, 0xCu);
+                      *v188 = v143;
+                      v189 = v66;
+                      _os_log_impl(&dword_22AADC000, v65, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", v188, 0xCu);
                     }
 
                     objc_autoreleasePoolPop(v64);
-                    v67 = v159;
+                    v67 = v158;
 LABEL_54:
-                    if ([v157 intValue])
+                    if ([v156 intValue])
                     {
-                      v70 = ConvertFromHAPIPStatusErrorCode([v157 integerValue]);
+                      v70 = ConvertFromHAPIPStatusErrorCode([v156 integerValue]);
                     }
 
                     else
@@ -11848,7 +12451,7 @@ LABEL_54:
                       if ([v60 shouldValidateValueAfterReading])
                       {
                         v70 = [v60 validateValue:v67 outValue:0];
-                        v36 = v162;
+                        v36 = v161;
                         if (!v70)
                         {
                           [v60 setValue:v67];
@@ -11861,13 +12464,13 @@ LABEL_54:
                       v70 = 0;
                     }
 
-                    v36 = v162;
+                    v36 = v161;
 LABEL_61:
-                    v149 = v67;
+                    v148 = v67;
                     if (([v60 properties] & 0x100) != 0)
                     {
                       v71 = v70;
-                      v72 = _parseNotificationContextFromCharacteristicResponse(v147);
+                      v72 = _parseNotificationContextFromCharacteristicResponse(v146);
                       [v60 setNotificationContext:v72];
 
                       v73 = objc_autoreleasePoolPush();
@@ -11875,20 +12478,20 @@ LABEL_61:
                       if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
                       {
                         v75 = HMFGetLogIdentifier();
-                        notificationContext = [v156 notificationContext];
-                        *v189 = 138543874;
-                        v190 = v75;
-                        v191 = 2114;
-                        v192 = notificationContext;
-                        v193 = 2114;
-                        v194 = v171;
-                        _os_log_impl(&dword_22AADC000, v74, OS_LOG_TYPE_INFO, "%{public}@[HAPAccessoryServerIP] Received notification context:%{public}@ in read response for characteristic instanceId: %{public}@", v189, 0x20u);
+                        notificationContext = [v155 notificationContext];
+                        *v188 = 138543874;
+                        v189 = v75;
+                        v190 = 2114;
+                        v191 = notificationContext;
+                        v192 = 2114;
+                        v193 = v170;
+                        _os_log_impl(&dword_22AADC000, v74, OS_LOG_TYPE_INFO, "%{public}@[HAPAccessoryServerIP] Received notification context:%{public}@ in read response for characteristic instanceId: %{public}@", v188, 0x20u);
 
-                        v36 = v162;
+                        v36 = v161;
                       }
 
                       objc_autoreleasePoolPop(v73);
-                      v60 = v156;
+                      v60 = v155;
                       v70 = v71;
                     }
 
@@ -11900,11 +12503,11 @@ LABEL_61:
                     v77 = [HAPCharacteristicResponseTuple responseTupleForCharacteristic:v60 error:v70];
                     if (v70)
                     {
-                      v148 = v70;
+                      v147 = v70;
                       service2 = [v60 service];
                       accessory2 = [service2 accessory];
 
-                      v146 = accessory2;
+                      v145 = accessory2;
                       server = [accessory2 server];
                       context = objc_autoreleasePoolPush();
                       v81 = server;
@@ -11912,34 +12515,34 @@ LABEL_61:
                       if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
                       {
                         v83 = HMFGetLogIdentifier();
-                        instanceID3 = [v146 instanceID];
-                        instanceID4 = [v156 instanceID];
-                        type = [v156 type];
-                        *v189 = 138544386;
-                        v190 = v83;
-                        v191 = 2114;
-                        v192 = instanceID3;
-                        v193 = 2114;
-                        v194 = instanceID4;
-                        v195 = 2114;
-                        v196 = type;
-                        v197 = 2114;
-                        v198 = v148;
-                        _os_log_impl(&dword_22AADC000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@Read response for characteristic %{public}@/%{public}@/%{public}@ with error: %{public}@", v189, 0x34u);
+                        instanceID3 = [v145 instanceID];
+                        instanceID4 = [v155 instanceID];
+                        type = [v155 type];
+                        *v188 = 138544386;
+                        v189 = v83;
+                        v190 = 2114;
+                        v191 = instanceID3;
+                        v192 = 2114;
+                        v193 = instanceID4;
+                        v194 = 2114;
+                        v195 = type;
+                        v196 = 2114;
+                        v197 = v147;
+                        _os_log_impl(&dword_22AADC000, v82, OS_LOG_TYPE_DEFAULT, "%{public}@Read response for characteristic %{public}@/%{public}@/%{public}@ with error: %{public}@", v188, 0x34u);
 
-                        characteristicsCopy = v166;
-                        v36 = v162;
+                        characteristicsCopy = v165;
+                        v36 = v161;
                       }
 
                       objc_autoreleasePoolPop(context);
-                      completionCopy = v169;
-                      v60 = v156;
-                      v70 = v148;
+                      completionCopy = v168;
+                      v60 = v155;
+                      v70 = v147;
                     }
 
                     [array addObject:v77];
 
-                    v32 = v164;
+                    v32 = v163;
                     goto LABEL_71;
                   }
                 }
@@ -11947,119 +12550,119 @@ LABEL_61:
                 else
                 {
                   v63 = 12;
-                  characteristicsCopy = v166;
-                  completionCopy = v169;
+                  characteristicsCopy = v165;
+                  completionCopy = v168;
                 }
 
                 v68 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-                v178 = 0;
-                v67 = [v68 reverseTransformedValue:v159 format:v63 error:&v178];
-                v69 = v178;
+                v177 = 0;
+                v67 = [v68 reverseTransformedValue:v158 format:v63 error:&v177];
+                v69 = v177;
 
                 if (!v69)
                 {
-                  v60 = v156;
+                  v60 = v155;
                   goto LABEL_54;
                 }
 
-                v150 = v67;
-                v141 = objc_autoreleasePoolPush();
-                v142 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v142, OS_LOG_TYPE_ERROR))
+                v149 = v67;
+                v140 = objc_autoreleasePoolPush();
+                v141 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
                 {
-                  v143 = HMFGetLogIdentifier();
-                  *v189 = 138543874;
-                  v190 = v143;
-                  v191 = 2114;
-                  v192 = v159;
-                  v193 = 2112;
-                  v194 = v69;
-                  _os_log_impl(&dword_22AADC000, v142, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Failed to transform value '%{public}@' with error: %@", v189, 0x20u);
+                  v142 = HMFGetLogIdentifier();
+                  *v188 = 138543874;
+                  v189 = v142;
+                  v190 = 2114;
+                  v191 = v158;
+                  v192 = 2112;
+                  v193 = v69;
+                  _os_log_impl(&dword_22AADC000, v141, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Failed to transform value '%{public}@' with error: %@", v188, 0x20u);
                 }
 
-                objc_autoreleasePoolPop(v141);
+                objc_autoreleasePoolPop(v140);
                 goto LABEL_108;
               }
 
 LABEL_102:
 
 LABEL_103:
-              v121 = objc_autoreleasePoolPush();
-              v122 = HMFGetOSLogHandle();
-              characteristicsCopy = v166;
-              currentActivity = v151;
-              if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
+              v120 = objc_autoreleasePoolPush();
+              v121 = HMFGetOSLogHandle();
+              characteristicsCopy = v165;
+              currentActivity = v150;
+              if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
               {
-                v123 = HMFGetLogIdentifier();
-                *v189 = 138544130;
-                v190 = v123;
-                v191 = 2114;
-                v192 = v171;
-                v193 = 2114;
-                v194 = v38;
-                v195 = 2112;
-                v196 = v159;
-                _os_log_impl(&dword_22AADC000, v122, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%@': characteristic was not requested to be read", v189, 0x2Au);
+                v122 = HMFGetLogIdentifier();
+                *v188 = 138544130;
+                v189 = v122;
+                v190 = 2114;
+                v191 = v170;
+                v192 = 2114;
+                v193 = v38;
+                v194 = 2112;
+                v195 = v158;
+                _os_log_impl(&dword_22AADC000, v121, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid response for characteristic ID '%{public}@' against accessory '%{public}@' with value '%@': characteristic was not requested to be read", v188, 0x2Au);
               }
             }
 
-            objc_autoreleasePoolPop(v121);
-            completionCopy = v169;
+            objc_autoreleasePoolPop(v120);
+            completionCopy = v168;
 LABEL_108:
 
             v91 = 0;
-            v32 = v164;
+            v32 = v163;
 LABEL_109:
 
 LABEL_110:
             if ([v91 count])
             {
-              v125 = characteristicsCopy;
+              v124 = characteristicsCopy;
               v103 = 0;
               if (currentActivity)
               {
 LABEL_112:
-                v126 = currentActivity;
-                v176 = 0u;
-                v177 = 0u;
-                v174 = 0u;
+                v125 = currentActivity;
                 v175 = 0u;
+                v176 = 0u;
+                v173 = 0u;
+                v174 = 0u;
                 v91 = v91;
-                v127 = [v91 countByEnumeratingWithState:&v174 objects:v187 count:16];
-                if (v127)
+                v126 = [v91 countByEnumeratingWithState:&v173 objects:v186 count:16];
+                if (v126)
                 {
-                  v128 = v127;
-                  v129 = *v175;
+                  v127 = v126;
+                  v128 = *v174;
                   do
                   {
-                    for (i = 0; i != v128; ++i)
+                    for (i = 0; i != v127; ++i)
                     {
-                      if (*v175 != v129)
+                      if (*v174 != v128)
                       {
                         objc_enumerationMutation(v91);
                       }
 
-                      v131 = *(*(&v174 + 1) + 8 * i);
-                      characteristic = [v131 characteristic];
+                      v130 = *(*(&v173 + 1) + 8 * i);
+                      characteristic = [v130 characteristic];
                       [characteristic instanceID];
 
-                      error = [v131 error];
+                      error = [v130 error];
                       [error domain];
 
-                      error2 = [v131 error];
+                      error2 = [v130 error];
                       [error2 code];
                     }
 
-                    v128 = [v91 countByEnumeratingWithState:&v174 objects:v187 count:16];
+                    v127 = [v91 countByEnumeratingWithState:&v173 objects:v186 count:16];
                   }
 
-                  while (v128);
+                  while (v127);
                 }
 
-                characteristicsCopy = v125;
-                currentActivity = v126;
+                characteristicsCopy = v124;
+                currentActivity = v125;
 LABEL_124:
-                objectCopy = v158;
+                objectCopy = v157;
                 if (!completionCopy)
                 {
                   goto LABEL_94;
@@ -12071,33 +12674,33 @@ LABEL_124:
 
             else
             {
-              v135 = objc_autoreleasePoolPush();
-              v136 = selfCopy;
-              v137 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v137, OS_LOG_TYPE_ERROR))
+              v134 = objc_autoreleasePoolPush();
+              v135 = selfCopy;
+              v136 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
               {
                 HMFGetLogIdentifier();
-                v138 = v172 = v135;
-                v139 = HTTPGetReasonPhrase();
-                v140 = @"HAP JSON";
+                v137 = v171 = v134;
+                v138 = HTTPGetReasonPhrase();
+                v139 = @"HAP JSON";
                 *buf = 138544386;
-                v200 = v138;
-                v201 = 1026;
-                *v202 = status;
-                *&v202[4] = 2082;
-                *&v202[6] = v139;
-                *&v202[14] = 2114;
-                *&v202[16] = @"HAP JSON";
-                *&v202[24] = 2114;
-                *&v202[26] = v161;
-                _os_log_impl(&dword_22AADC000, v137, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse response objects for a read request, the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
+                v199 = v137;
+                v200 = 1026;
+                *v201 = status;
+                *&v201[4] = 2082;
+                *&v201[6] = v138;
+                *&v201[14] = 2114;
+                *&v201[16] = @"HAP JSON";
+                *&v201[24] = 2114;
+                *&v201[26] = v160;
+                _os_log_impl(&dword_22AADC000, v136, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse response objects for a read request, the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
 
-                v135 = v172;
+                v134 = v171;
               }
 
-              v125 = characteristicsCopy;
+              v124 = characteristicsCopy;
 
-              objc_autoreleasePoolPop(v135);
+              objc_autoreleasePoolPop(v134);
               v103 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:50];
 
               v91 = 0;
@@ -12107,46 +12710,46 @@ LABEL_124:
               }
             }
 
-            characteristicsCopy = v125;
+            characteristicsCopy = v124;
             goto LABEL_124;
           }
 
-          v114 = objc_autoreleasePoolPush();
-          v117 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          v113 = objc_autoreleasePoolPush();
+          v116 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
           {
-            v118 = HMFGetLogIdentifier();
-            v119 = [v160 count];
-            v120 = [v164 count];
+            v117 = HMFGetLogIdentifier();
+            v118 = [v159 count];
+            v119 = [v163 count];
             *buf = 138543874;
-            v200 = v118;
-            v201 = 2050;
-            *v202 = v119;
-            v32 = v164;
-            *&v202[8] = 2050;
-            *&v202[10] = v120;
-            _os_log_impl(&dword_22AADC000, v117, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, '%{public}lu' response objects for '%{public}lu' requested characteristics", buf, 0x20u);
+            v199 = v117;
+            v200 = 2050;
+            *v201 = v118;
+            v32 = v163;
+            *&v201[8] = 2050;
+            *&v201[10] = v119;
+            _os_log_impl(&dword_22AADC000, v116, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, '%{public}lu' response objects for '%{public}lu' requested characteristics", buf, 0x20u);
           }
         }
 
         else
         {
-          v114 = objc_autoreleasePoolPush();
-          v115 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
+          v113 = objc_autoreleasePoolPush();
+          v114 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
           {
-            v116 = HMFGetLogIdentifier();
+            v115 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v200 = v116;
-            v201 = 2112;
-            *v202 = @"characteristics";
-            _os_log_impl(&dword_22AADC000, v115, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, %@ key doesn't contain an NSArray", buf, 0x16u);
+            v199 = v115;
+            v200 = 2112;
+            *v201 = @"characteristics";
+            _os_log_impl(&dword_22AADC000, v114, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Invalid read response, %@ key doesn't contain an NSArray", buf, 0x16u);
 
-            v32 = v164;
+            v32 = v163;
           }
         }
 
-        objc_autoreleasePoolPop(v114);
+        objc_autoreleasePoolPop(v113);
         v91 = 0;
         goto LABEL_110;
       }
@@ -12161,7 +12764,7 @@ LABEL_124:
   {
     v96 = characteristicsCopy;
     v97 = objectCopy;
-    v167 = v96;
+    v166 = v96;
     v98 = HMFGetLogIdentifier();
     v99 = HTTPGetReasonPhrase();
     if (type - 1 > 3)
@@ -12176,19 +12779,19 @@ LABEL_124:
 
     v112 = v100;
     *buf = 138544386;
-    v200 = v98;
-    v201 = 1026;
-    *v202 = status;
-    *&v202[4] = 2082;
-    *&v202[6] = v99;
-    *&v202[14] = 2114;
-    *&v202[16] = v112;
-    *&v202[24] = 2114;
-    *&v202[26] = v97;
+    v199 = v98;
+    v200 = 1026;
+    *v201 = status;
+    *&v201[4] = 2082;
+    *&v201[6] = v99;
+    *&v201[14] = 2114;
+    *&v201[16] = v112;
+    *&v201[24] = 2114;
+    *&v201[26] = v97;
     _os_log_impl(&dword_22AADC000, v95, OS_LOG_TYPE_ERROR, "%{public}@Failed to read characteristics because the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
 
     objectCopy = v97;
-    characteristicsCopy = v167;
+    characteristicsCopy = v166;
     v92 = completionCopy;
   }
 
@@ -12202,13 +12805,11 @@ LABEL_124:
   }
 
 LABEL_94:
-
-  v113 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_readCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queue = queue;
@@ -12219,26 +12820,25 @@ LABEL_94:
     {
       if ([(HAPAccessoryServerIP *)self _isSessionEstablished])
       {
-        v73 = 0u;
-        v74 = 0u;
         v71 = 0u;
         v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v14 = valuesCopy;
-        v15 = [v14 countByEnumeratingWithState:&v71 objects:v80 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v69 objects:v78 count:16];
         v16 = v14;
         if (v15)
         {
-          v17 = *v72;
+          v17 = *v70;
 LABEL_6:
           v18 = 0;
           while (1)
           {
-            if (*v72 != v17)
+            if (*v70 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v71 + 1) + 8 * v18);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -12247,7 +12847,7 @@ LABEL_6:
 
             if (v15 == ++v18)
             {
-              v15 = [v14 countByEnumeratingWithState:&v71 objects:v80 count:16];
+              v15 = [v14 countByEnumeratingWithState:&v69 objects:v78 count:16];
               if (v15)
               {
                 goto LABEL_6;
@@ -12263,89 +12863,89 @@ LABEL_6:
             goto LABEL_28;
           }
 
-          v69[0] = MEMORY[0x277D85DD0];
-          v69[1] = 3221225472;
-          v69[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_215;
-          v69[3] = &unk_2786D6490;
-          v70 = handlerCopy;
-          dispatch_async(queue, v69);
-          v16 = v70;
+          v67[0] = MEMORY[0x277D85DD0];
+          v67[1] = 3221225472;
+          v67[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_215;
+          v67[3] = &unk_2786D6490;
+          v68 = handlerCopy;
+          dispatch_async(queue, v67);
+          v16 = v68;
         }
 
 LABEL_27:
 
 LABEL_28:
         objc_initWeak(buf, self);
-        v63[0] = MEMORY[0x277D85DD0];
-        v63[1] = 3221225472;
-        v63[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_2;
-        v63[3] = &unk_2786D2760;
-        objc_copyWeak(v68, buf);
-        v34 = v14;
-        v64 = v34;
-        v68[1] = *&timeout;
-        v35 = expiryCopy;
-        v65 = v35;
+        v61[0] = MEMORY[0x277D85DD0];
+        v61[1] = 3221225472;
+        v61[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_2;
+        v61[3] = &unk_2786D2760;
+        objc_copyWeak(v66, buf);
+        v33 = v14;
+        v62 = v33;
+        v66[1] = *&timeout;
+        v34 = expiryCopy;
+        v63 = v34;
         queueCopy = queue;
-        v66 = queueCopy;
-        v37 = handlerCopy;
-        v67 = v37;
-        v38 = MEMORY[0x231885210](v63);
+        v64 = queueCopy;
+        v36 = handlerCopy;
+        v65 = v36;
+        v37 = MEMORY[0x231885210](v61);
         currentActivity = [MEMORY[0x277D0F770] currentActivity];
-        v40 = objc_alloc_init(MEMORY[0x277D0F780]);
-        objc_initWeak(&location, v40);
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_4;
-        v53[3] = &unk_2786D2828;
-        objc_copyWeak(&v60, &location);
-        objc_copyWeak(v61, buf);
+        v39 = objc_alloc_init(MEMORY[0x277D0F780]);
+        objc_initWeak(&location, v39);
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_4;
+        v51[3] = &unk_2786D2828;
+        objc_copyWeak(&v58, &location);
+        objc_copyWeak(v59, buf);
+        v52 = v33;
+        v40 = currentActivity;
+        v53 = v40;
+        v59[1] = *&timeout;
         v54 = v34;
-        v41 = currentActivity;
+        v41 = queueCopy;
         v55 = v41;
-        v61[1] = *&timeout;
-        v56 = v35;
-        v42 = queueCopy;
-        v57 = v42;
+        v42 = v36;
+        v56 = v42;
         v43 = v37;
-        v58 = v43;
-        v44 = v38;
-        v59 = v44;
-        [v40 addExecutionBlock:v53];
-        v49[0] = MEMORY[0x277D85DD0];
-        v49[1] = 3221225472;
-        v49[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_234;
-        v49[3] = &unk_2786D6BE0;
-        objc_copyWeak(&v52, &location);
-        v51 = v43;
-        v50 = v42;
-        [v40 setCompletionBlock:v49];
+        v57 = v43;
+        [v39 addExecutionBlock:v51];
+        v47[0] = MEMORY[0x277D85DD0];
+        v47[1] = 3221225472;
+        v47[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_234;
+        v47[3] = &unk_2786D6BE0;
+        objc_copyWeak(&v50, &location);
+        v49 = v42;
+        v48 = v41;
+        [v39 setCompletionBlock:v47];
         clientOperationQueue = [(HAPAccessoryServerIP *)self clientOperationQueue];
-        [clientOperationQueue addOperation:v40];
+        [clientOperationQueue addOperation:v39];
 
-        objc_destroyWeak(&v52);
-        objc_destroyWeak(v61);
-        objc_destroyWeak(&v60);
+        objc_destroyWeak(&v50);
+        objc_destroyWeak(v59);
+        objc_destroyWeak(&v58);
         objc_destroyWeak(&location);
 
-        objc_destroyWeak(v68);
+        objc_destroyWeak(v66);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v30 = objc_autoreleasePoolPush();
+        v29 = objc_autoreleasePoolPush();
         selfCopy = self;
-        v32 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v31 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v33 = HMFGetLogIdentifier();
+          v32 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v82 = v33;
-          _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing read", buf, 0xCu);
+          v80 = v32;
+          _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing read", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v30);
+        objc_autoreleasePoolPop(v29);
         [(HAPAccessoryServerIP *)selfCopy _queueReadCharacteristicValues:valuesCopy timeout:expiryCopy expiry:queue queue:handlerCopy completionHandler:timeout];
         [(HAPAccessoryServerIP *)selfCopy _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.read"];
       }
@@ -12353,63 +12953,61 @@ LABEL_28:
 
     else
     {
-      v26 = objc_autoreleasePoolPush();
+      v25 = objc_autoreleasePoolPush();
       selfCopy2 = self;
-      v28 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v27 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = HMFGetLogIdentifier();
+        v28 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v82 = v29;
-        _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Reading 0 characteristics, bailing", buf, 0xCu);
+        v80 = v28;
+        _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@Reading 0 characteristics, bailing", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v26);
+      objc_autoreleasePoolPop(v25);
       if (handlerCopy)
       {
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_210;
-        v75[3] = &unk_2786D6490;
-        v76 = handlerCopy;
-        dispatch_async(queue, v75);
+        v73[0] = MEMORY[0x277D85DD0];
+        v73[1] = 3221225472;
+        v73[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_210;
+        v73[3] = &unk_2786D6490;
+        v74 = handlerCopy;
+        dispatch_async(queue, v73);
       }
     }
   }
 
   else
   {
-    v20 = objc_autoreleasePoolPush();
+    v19 = objc_autoreleasePoolPush();
     selfCopy3 = self;
-    v22 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v23 = HMFGetLogIdentifier();
-      v24 = MEMORY[0x231885210](handlerCopy);
+      v22 = HMFGetLogIdentifier();
+      v23 = MEMORY[0x231885210](handlerCopy);
       *buf = 138543874;
-      v82 = v23;
+      v80 = v22;
+      v81 = 2112;
+      v82 = 0;
       v83 = 2112;
-      v84 = 0;
-      v85 = 2112;
-      v86 = v24;
-      _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to read values because the characteristics were %@ and the completion handler was %@", buf, 0x20u);
+      v84 = v23;
+      _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to read values because the characteristics were %@ and the completion handler was %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v20);
-    v25 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:20];
+    objc_autoreleasePoolPop(v19);
+    v24 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:20];
     if (handlerCopy)
     {
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke;
       block[3] = &unk_2786D65D8;
-      v79 = handlerCopy;
-      v78 = v25;
+      v77 = handlerCopy;
+      v76 = v24;
       dispatch_async(queue, block);
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_215(uint64_t a1)
@@ -12447,40 +13045,40 @@ void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_c
 
 void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_4(id *a1)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 10);
   v3 = objc_loadWeakRetained(a1 + 11);
   if (WeakRetained && ([WeakRetained isCancelled] & 1) == 0)
   {
     if (v3)
     {
-      v48 = v3;
+      v47 = v3;
       [@"/" stringByAppendingPathComponent:@"characteristics"];
-      v47 = v46 = a1;
+      v46 = v45 = a1;
       v4 = a1[4];
       v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v4, "count")}];
       v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
+      v62 = 0u;
       v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
       obj = v4;
-      v7 = [obj countByEnumeratingWithState:&v63 objects:buf count:16];
+      v7 = [obj countByEnumeratingWithState:&v62 objects:buf count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v64;
-        v45 = WeakRetained;
+        v9 = *v63;
+        v44 = WeakRetained;
 LABEL_6:
         v10 = 0;
         while (1)
         {
-          if (*v64 != v9)
+          if (*v63 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v63 + 1) + 8 * v10);
+          v11 = *(*(&v62 + 1) + 8 * v10);
           v12 = [v11 service];
           v13 = [v12 accessory];
           v14 = [v13 instanceID];
@@ -12493,22 +13091,22 @@ LABEL_6:
           if ([v5 containsObject:v11])
           {
             v29 = objc_autoreleasePoolPush();
-            v3 = v48;
-            v34 = v48;
+            v3 = v47;
+            v34 = v47;
             v31 = HMFGetOSLogHandle();
             if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
               v35 = HMFGetLogIdentifier();
-              *v68 = 138543618;
-              v69 = v35;
-              v70 = 2112;
-              v71 = v11;
-              _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@Refusing to create a query string because the same characteristic has been requested twice: %@", v68, 0x16u);
+              *v67 = 138543618;
+              v68 = v35;
+              v69 = 2112;
+              v70 = v11;
+              _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@Refusing to create a query string because the same characteristic has been requested twice: %@", v67, 0x16u);
             }
 
             v33 = 58;
 LABEL_23:
-            WeakRetained = v45;
+            WeakRetained = v44;
 
             objc_autoreleasePoolPop(v29);
             v24 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:v33];
@@ -12533,8 +13131,8 @@ LABEL_23:
 
           if (v8 == ++v10)
           {
-            v8 = [obj countByEnumeratingWithState:&v63 objects:buf count:16];
-            WeakRetained = v45;
+            v8 = [obj countByEnumeratingWithState:&v62 objects:buf count:16];
+            WeakRetained = v44;
             if (v8)
             {
               goto LABEL_6;
@@ -12545,17 +13143,17 @@ LABEL_23:
         }
 
         v29 = objc_autoreleasePoolPush();
-        v3 = v48;
-        v30 = v48;
+        v3 = v47;
+        v30 = v47;
         v31 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           v32 = HMFGetLogIdentifier();
-          *v68 = 138543618;
-          v69 = v32;
-          v70 = 2112;
-          v71 = v11;
-          _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to create a query string for characteristic %@ because the accessory instance ID was nil.", v68, 0x16u);
+          *v67 = 138543618;
+          v68 = v32;
+          v69 = 2112;
+          v70 = v11;
+          _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to create a query string for characteristic %@ because the accessory instance ID was nil.", v67, 0x16u);
         }
 
         v14 = 0;
@@ -12569,44 +13167,44 @@ LABEL_13:
       v22 = [v6 componentsJoinedByString:{@", "}];
       v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", @"id=", v22];
       v24 = 0;
-      v3 = v48;
+      v3 = v47;
 LABEL_24:
 
       v37 = v24;
       if (v23)
       {
-        v28 = v47;
-        if (v46[5])
+        v28 = v46;
+        if (v45[5])
         {
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
           v60 = 0u;
-          v38 = v46[4];
-          v39 = [v38 countByEnumeratingWithState:&v59 objects:v67 count:16];
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
+          v38 = v45[4];
+          v39 = [v38 countByEnumeratingWithState:&v58 objects:v66 count:16];
           if (v39)
           {
             v40 = v39;
-            v41 = *v60;
+            v41 = *v59;
             do
             {
               for (i = 0; i != v40; ++i)
               {
-                if (*v60 != v41)
+                if (*v59 != v41)
                 {
                   objc_enumerationMutation(v38);
                 }
 
-                [*(*(&v59 + 1) + 8 * i) instanceID];
+                [*(*(&v58 + 1) + 8 * i) instanceID];
               }
 
-              v40 = [v38 countByEnumeratingWithState:&v59 objects:v67 count:16];
+              v40 = [v38 countByEnumeratingWithState:&v58 objects:v66 count:16];
             }
 
             while (v40);
           }
 
-          v3 = v48;
+          v3 = v47;
         }
 
         v43 = [v3 clientQueue];
@@ -12614,25 +13212,25 @@ LABEL_24:
         block[1] = 3221225472;
         block[2] = __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_224;
         block[3] = &unk_2786D2788;
-        objc_copyWeak(v58, v46 + 10);
+        objc_copyWeak(v57, v45 + 10);
         block[4] = v3;
-        v51 = v46[4];
-        v58[1] = v46[12];
-        v52 = v46[6];
-        v53 = v46[7];
-        v56 = v46[8];
-        v54 = v47;
-        v55 = v23;
-        v57 = v46[9];
+        v50 = v45[4];
+        v57[1] = v45[12];
+        v51 = v45[6];
+        v52 = v45[7];
+        v55 = v45[8];
+        v53 = v46;
+        v54 = v23;
+        v56 = v45[9];
         dispatch_async(v43, block);
 
-        objc_destroyWeak(v58);
+        objc_destroyWeak(v57);
       }
 
       else
       {
         [WeakRetained cancelWithError:v37];
-        v28 = v47;
+        v28 = v46;
       }
     }
 
@@ -12644,7 +13242,7 @@ LABEL_24:
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v73 = v27;
+        v72 = v27;
         _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@Failed to read values because IP Accessory Server has been deallocated", buf, 0xCu);
       }
 
@@ -12653,8 +13251,6 @@ LABEL_24:
       [WeakRetained cancelWithError:v28];
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_234(uint64_t a1)
@@ -12691,7 +13287,7 @@ void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_c
 
 void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_224(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 96));
   if ([*(a1 + 32) _isSessionEstablished])
   {
@@ -12720,9 +13316,9 @@ void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_c
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v10;
-      v24 = 2048;
-      v25 = v6;
+      v22 = v10;
+      v23 = 2048;
+      v24 = v6;
       _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Remaining TTL for read operation: %0.4f sec", buf, 0x16u);
     }
 
@@ -12750,7 +13346,7 @@ LABEL_11:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v19;
+      v22 = v19;
       _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@Drop read operation due to TTL expiry", buf, 0xCu);
     }
 
@@ -12768,7 +13364,7 @@ LABEL_11:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session has been lost since this operation was staged. Canceling operation and re-queueing read.", buf, 0xCu);
     }
 
@@ -12780,8 +13376,6 @@ LABEL_11:
   }
 
 LABEL_18:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HAPAccessoryServerIP__readCharacteristicValues_timeout_expiry_queue_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -12866,7 +13460,7 @@ LABEL_9:
 
 void __120__HAPAccessoryServerIP__handleReadECONNRESETError_readCharacteristics_responses_timeout_expiry_queue_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _populateSocketUpdateType];
   [*(a1 + 32) _insertReadCharacteristicValues:*(a1 + 40) timeout:*(a1 + 48) expiry:*(a1 + 56) queue:*(a1 + 64) completionHandler:*(a1 + 72)];
   if ([*(a1 + 32) isEstablishingSecureConnection])
@@ -12877,9 +13471,9 @@ void __120__HAPAccessoryServerIP__handleReadECONNRESETError_readCharacteristics_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Already establishing secure session - not attempting a re-establishment", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v5;
+      _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Already establishing secure session - not attempting a re-establishment", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -12894,17 +13488,15 @@ void __120__HAPAccessoryServerIP__handleReadECONNRESETError_readCharacteristics_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to re-establish secure session for read on ECONNRESET", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to re-establish secure session for read on ECONNRESET", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     [*(a1 + 40) count];
     [*(a1 + 32) _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.read.retry"];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __120__HAPAccessoryServerIP__handleReadECONNRESETError_readCharacteristics_responses_timeout_expiry_queue_completionHandler___block_invoke_209(uint64_t a1)
@@ -12977,7 +13569,7 @@ void __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
 
 void __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -12990,11 +13582,11 @@ void __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2114;
-      v19 = v8;
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Read Response: '%{public}@'", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2114;
+      v18 = v8;
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Read Response: '%{public}@'", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -13011,8 +13603,6 @@ void __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
 
   [*(a1 + 32) end];
   [*(a1 + 32) invalidate];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completionQueue_completionHandler___block_invoke_3(uint64_t a1, void *a2)
@@ -13025,7 +13615,7 @@ BOOL __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
 
 - (void)_processQueuedOperationsWithError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   queuedOperations = [(HAPAccessoryServerIP *)self queuedOperations];
   v6 = [queuedOperations copy];
@@ -13036,27 +13626,27 @@ BOOL __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
     [(HAPAccessoryServerIP *)self setSecuritySessionOpen:0];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         queuedOperations2 = [(HAPAccessoryServerIP *)self queuedOperations];
         v13 = MEMORY[0x231885210](v11);
         [queuedOperations2 removeObject:v13];
@@ -13066,27 +13656,25 @@ BOOL __98__HAPAccessoryServerIP_readCharacteristicValues_timeout_expiry_completi
         block[1] = 3221225472;
         block[2] = __58__HAPAccessoryServerIP__processQueuedOperationsWithError___block_invoke;
         block[3] = &unk_2786D69E0;
-        v18 = errorCopy;
+        v17 = errorCopy;
         selfCopy = self;
-        v20 = v11;
+        v19 = v11;
         dispatch_async(clientQueue, block);
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __58__HAPAccessoryServerIP__processQueuedOperationsWithError___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
@@ -13098,11 +13686,11 @@ uint64_t __58__HAPAccessoryServerIP__processQueuedOperationsWithError___block_in
     {
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) code];
-      v13 = 138543618;
-      v14 = v7;
-      v15 = 1026;
-      v16 = v8;
-      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Failing queued request with %{public}d", &v13, 0x12u);
+      v11 = 138543618;
+      v12 = v7;
+      v13 = 1026;
+      v14 = v8;
+      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Failing queued request with %{public}d", &v11, 0x12u);
     }
 
     objc_autoreleasePoolPop(v3);
@@ -13113,41 +13701,38 @@ uint64_t __58__HAPAccessoryServerIP__processQueuedOperationsWithError___block_in
     if (v6)
     {
       v9 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v9;
-      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Running queued request", &v13, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Running queued request", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 40) _kickConnectionIdleTimer];
   }
 
-  v10 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)_queueEnableEvents:(BOOL)events forCharacteristics:(id)characteristics withCompletionHandler:(id)handler queue:(id)queue
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   handlerCopy = handler;
   queueCopy = queue;
   objc_initWeak(&location, self);
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke;
-  v27 = &unk_2786D26E8;
-  objc_copyWeak(&v31, &location);
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke;
+  v26 = &unk_2786D26E8;
+  objc_copyWeak(&v30, &location);
   v13 = queueCopy;
-  v28 = v13;
+  v27 = v13;
   v14 = handlerCopy;
-  v30 = v14;
+  v29 = v14;
   eventsCopy = events;
   v15 = characteristicsCopy;
-  v29 = v15;
-  v16 = MEMORY[0x231885210](&v24);
+  v28 = v15;
+  v16 = MEMORY[0x231885210](&v23);
   v17 = objc_autoreleasePoolPush();
   selfCopy = self;
   v19 = HMFGetOSLogHandle();
@@ -13155,24 +13740,22 @@ uint64_t __58__HAPAccessoryServerIP__processQueuedOperationsWithError___block_in
   {
     v20 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v20;
+    v34 = v20;
     _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing enableEvents until pair-verify completes", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v17);
-  v21 = [(HAPAccessoryServerIP *)selfCopy queuedOperations:v24];
+  v21 = [(HAPAccessoryServerIP *)selfCopy queuedOperations:v23];
   v22 = MEMORY[0x231885210](v16);
   [v21 addObject:v22];
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = WeakRetained;
@@ -13185,47 +13768,45 @@ void __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withComple
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Error in establishing secure session, failing enableEvents block with %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v10 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_187;
-    v12[3] = &unk_2786D65D8;
-    v14 = *(a1 + 48);
-    v13 = v3;
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withCompletionHandler_queue___block_invoke_187;
+    v11[3] = &unk_2786D65D8;
+    v13 = *(a1 + 48);
+    v12 = v3;
+    dispatch_async(v10, v11);
   }
 
   else
   {
     [WeakRetained _enableEvents:*(a1 + 64) forCharacteristics:*(a1 + 40) withCompletionHandler:*(a1 + 48) queue:*(a1 + 32)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queueListPairingWithCompletionQueue:(id)queue completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
   objc_initWeak(&location, self);
-  v18 = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionHandler___block_invoke;
-  v21 = &unk_2786D3A30;
-  objc_copyWeak(&v24, &location);
+  v17 = MEMORY[0x277D85DD0];
+  v18 = 3221225472;
+  v19 = __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionHandler___block_invoke;
+  v20 = &unk_2786D3A30;
+  objc_copyWeak(&v23, &location);
   v8 = queueCopy;
-  v22 = v8;
+  v21 = v8;
   v9 = handlerCopy;
-  v23 = v9;
-  v10 = MEMORY[0x231885210](&v18);
+  v22 = v9;
+  v10 = MEMORY[0x231885210](&v17);
   v11 = objc_autoreleasePoolPush();
   selfCopy = self;
   v13 = HMFGetOSLogHandle();
@@ -13233,24 +13814,22 @@ void __90__HAPAccessoryServerIP__queueEnableEvents_forCharacteristics_withComple
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v27 = v14;
+    v26 = v14;
     _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing list-pairing until pair-verify completes", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
-  v15 = [(HAPAccessoryServerIP *)selfCopy queuedOperations:v18];
+  v15 = [(HAPAccessoryServerIP *)selfCopy queuedOperations:v17];
   v16 = MEMORY[0x231885210](v10);
   [v15 addObject:v16];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = WeakRetained;
@@ -13263,54 +13842,52 @@ void __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionH
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Error in establishing secure session, failing add pairing block with %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionHandler___block_invoke_186;
-    v12[3] = &unk_2786D65D8;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionHandler___block_invoke_186;
+    v11[3] = &unk_2786D65D8;
     v10 = *(a1 + 32);
-    v14 = *(a1 + 40);
-    v13 = v3;
-    dispatch_async(v10, v12);
+    v13 = *(a1 + 40);
+    v12 = v3;
+    dispatch_async(v10, v11);
   }
 
   else
   {
     [WeakRetained _listPairingsWithCompletionQueue:*(a1 + 32) completionHandler:*(a1 + 40)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queueAddPairingWithIdentifier:(id)identifier publicKey:(id)key admin:(BOOL)admin queue:(id)queue completion:(id)completion
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   keyCopy = key;
   queueCopy = queue;
   completionCopy = completion;
   objc_initWeak(&location, self);
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke;
-  v28[3] = &unk_2786D26C0;
-  objc_copyWeak(&v33, &location);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke;
+  v27[3] = &unk_2786D26C0;
+  objc_copyWeak(&v32, &location);
   v16 = queueCopy;
-  v29 = v16;
+  v28 = v16;
   v17 = completionCopy;
-  v32 = v17;
+  v31 = v17;
   v18 = identifierCopy;
-  v30 = v18;
+  v29 = v18;
   v19 = keyCopy;
-  v31 = v19;
+  v30 = v19;
   adminCopy = admin;
-  v20 = MEMORY[0x231885210](v28);
+  v20 = MEMORY[0x231885210](v27);
   v21 = objc_autoreleasePoolPush();
   selfCopy = self;
   v23 = HMFGetOSLogHandle();
@@ -13318,7 +13895,7 @@ void __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionH
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v24;
+    v36 = v24;
     _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing add-pairing until pair-verify completes", buf, 0xCu);
   }
 
@@ -13327,15 +13904,13 @@ void __79__HAPAccessoryServerIP__queueListPairingWithCompletionQueue_completionH
   v26 = MEMORY[0x231885210](v20);
   [queuedOperations addObject:v26];
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v5 = WeakRetained;
@@ -13348,34 +13923,32 @@ void __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_q
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Error in establishing secure session, failing add pairing block with %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     v10 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke_185;
-    v12[3] = &unk_2786D65D8;
-    v14 = *(a1 + 56);
-    v13 = v3;
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_queue_completion___block_invoke_185;
+    v11[3] = &unk_2786D65D8;
+    v13 = *(a1 + 56);
+    v12 = v3;
+    dispatch_async(v10, v11);
   }
 
   else
   {
     [WeakRetained _startAddPairingWithIdentifier:*(a1 + 40) publicKey:*(a1 + 48) admin:*(a1 + 72) queue:*(a1 + 32) completion:*(a1 + 56)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_insertWriteCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queueCopy = queue;
@@ -13390,22 +13963,20 @@ void __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_q
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v21;
-    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple characteristic write at the start until pair-verify completes", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v21;
+    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple characteristic write at the start until pair-verify completes", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
   queuedOperations = [(HAPAccessoryServerIP *)selfCopy queuedOperations];
   v23 = MEMORY[0x231885210](v17);
   [queuedOperations insertObject:v23 atIndex:0];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queueWriteCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queueCopy = queue;
@@ -13419,9 +13990,9 @@ void __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_q
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v21;
-    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple characteristic write until pair-verify completes", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v21;
+    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple characteristic write until pair-verify completes", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -13429,8 +14000,6 @@ void __88__HAPAccessoryServerIP__queueAddPairingWithIdentifier_publicKey_admin_q
   queuedOperations = [(HAPAccessoryServerIP *)selfCopy queuedOperations];
   v23 = MEMORY[0x231885210](v17);
   [queuedOperations addObject:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queuedWriteOperationBlock:(id)block timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
@@ -13482,7 +14051,7 @@ void __90__HAPAccessoryServerIP__queuedWriteOperationBlock_timeout_expiry_queue_
 
 - (void)_insertReadCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queueCopy = queue;
@@ -13497,22 +14066,20 @@ void __90__HAPAccessoryServerIP__queuedWriteOperationBlock_timeout_expiry_queue_
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v21;
-    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queueing multiple read at the start until pair-verify completes", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v21;
+    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queueing multiple read at the start until pair-verify completes", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
   queuedOperations = [(HAPAccessoryServerIP *)selfCopy queuedOperations];
   v23 = MEMORY[0x231885210](v17);
   [queuedOperations insertObject:v23 atIndex:0];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queueReadCharacteristicValues:(id)values timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   expiryCopy = expiry;
   queueCopy = queue;
@@ -13526,9 +14093,9 @@ void __90__HAPAccessoryServerIP__queuedWriteOperationBlock_timeout_expiry_queue_
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v21;
-    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple read until pair-verify completes", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v21;
+    _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing multiple read until pair-verify completes", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
@@ -13536,8 +14103,6 @@ void __90__HAPAccessoryServerIP__queuedWriteOperationBlock_timeout_expiry_queue_
   queuedOperations = [(HAPAccessoryServerIP *)selfCopy queuedOperations];
   v23 = MEMORY[0x231885210](v17);
   [queuedOperations addObject:v23];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queuedReadOperationBlock:(id)block timeout:(double)timeout expiry:(id)expiry queue:(id)queue completionHandler:(id)handler
@@ -13589,36 +14154,36 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
 
 - (void)_error:(id)_error forWriteCharacteristicValues:(id)values queue:(id)queue completionHandler:(id)handler
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   _errorCopy = _error;
   valuesCopy = values;
   queueCopy = queue;
   handlerCopy = handler;
   array = [MEMORY[0x277CBEB18] array];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = valuesCopy;
-  v37 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
-  if (v37)
+  v36 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
+  if (v36)
   {
-    v36 = *v43;
+    v35 = *v42;
     selfCopy = self;
-    v32 = array;
+    v31 = array;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v43 != v36)
+        if (*v42 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v42 + 1) + 8 * i);
+        v14 = *(*(&v41 + 1) + 8 * i);
         if (_errorCopy)
         {
-          characteristic = [*(*(&v42 + 1) + 8 * i) characteristic];
+          characteristic = [*(*(&v41 + 1) + 8 * i) characteristic];
           service = [characteristic service];
           accessory = [service accessory];
 
@@ -13628,31 +14193,31 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             HMFGetLogIdentifier();
-            v21 = v35 = accessory;
-            [v35 instanceID];
+            v21 = v34 = accessory;
+            [v34 instanceID];
             v23 = v22 = _errorCopy;
             instanceID = [characteristic instanceID];
             [characteristic type];
-            v25 = v34 = v18;
+            v25 = v33 = v18;
             *buf = 138544386;
-            v47 = v21;
-            v48 = 2114;
-            v49 = v23;
-            v50 = 2114;
-            v51 = instanceID;
-            v52 = 2114;
-            v53 = v25;
-            v54 = 2114;
-            v55 = v22;
+            v46 = v21;
+            v47 = 2114;
+            v48 = v23;
+            v49 = 2114;
+            v50 = instanceID;
+            v51 = 2114;
+            v52 = v25;
+            v53 = 2114;
+            v54 = v22;
             _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Write response for characteristic %{public}@/%{public}@/%{public}@ with error: %{public}@", buf, 0x34u);
 
-            v18 = v34;
+            v18 = v33;
             self = selfCopy;
 
             _errorCopy = v22;
-            array = v32;
+            array = v31;
 
-            accessory = v35;
+            accessory = v34;
           }
 
           objc_autoreleasePoolPop(v18);
@@ -13664,10 +14229,10 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
         [array addObject:v27];
       }
 
-      v37 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
+      v36 = [obj countByEnumeratingWithState:&v41 objects:v55 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
   if (handlerCopy)
@@ -13676,48 +14241,46 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
     block[1] = 3221225472;
     block[2] = __84__HAPAccessoryServerIP__error_forWriteCharacteristicValues_queue_completionHandler___block_invoke;
     block[3] = &unk_2786D69E0;
-    v41 = handlerCopy;
-    v39 = array;
-    v40 = _errorCopy;
+    v40 = handlerCopy;
+    v38 = array;
+    v39 = _errorCopy;
     dispatch_async(queueCopy, block);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_error:(id)_error forReadCharacteristicValues:(id)values queue:(id)queue completionHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   _errorCopy = _error;
   valuesCopy = values;
   queueCopy = queue;
   handlerCopy = handler;
   array = [MEMORY[0x277CBEB18] array];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = valuesCopy;
-  v35 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
-  if (v35)
+  v34 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+  if (v34)
   {
-    v13 = *v41;
+    v13 = *v40;
     selfCopy = self;
-    v32 = array;
-    v30 = *v41;
+    v31 = array;
+    v29 = *v40;
     do
     {
-      for (i = 0; i != v35; ++i)
+      for (i = 0; i != v34; ++i)
       {
-        if (*v41 != v13)
+        if (*v40 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v40 + 1) + 8 * i);
+        v15 = *(*(&v39 + 1) + 8 * i);
         if (_errorCopy)
         {
-          service = [*(*(&v40 + 1) + 8 * i) service];
+          service = [*(*(&v39 + 1) + 8 * i) service];
           accessory = [service accessory];
 
           v18 = objc_autoreleasePoolPush();
@@ -13728,27 +14291,27 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
             v21 = HMFGetLogIdentifier();
             instanceID = [accessory instanceID];
             [v15 instanceID];
-            v34 = v18;
+            v33 = v18;
             v24 = v23 = _errorCopy;
             type = [v15 type];
             *buf = 138544386;
-            v45 = v21;
-            v46 = 2114;
-            v47 = instanceID;
-            v48 = 2114;
-            v49 = v24;
-            v50 = 2114;
-            v51 = type;
-            v52 = 2114;
-            v53 = v23;
+            v44 = v21;
+            v45 = 2114;
+            v46 = instanceID;
+            v47 = 2114;
+            v48 = v24;
+            v49 = 2114;
+            v50 = type;
+            v51 = 2114;
+            v52 = v23;
             _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Read response failed for characteristic %{public}@/%{public}@/%{public}@: %{public}@", buf, 0x34u);
 
             self = selfCopy;
             _errorCopy = v23;
-            v18 = v34;
+            v18 = v33;
 
-            array = v32;
-            v13 = v30;
+            array = v31;
+            v13 = v29;
           }
 
           objc_autoreleasePoolPop(v18);
@@ -13758,10 +14321,10 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
         [array addObject:v26];
       }
 
-      v35 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
+      v34 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
     }
 
-    while (v35);
+    while (v34);
   }
 
   if (handlerCopy)
@@ -13770,18 +14333,16 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
     block[1] = 3221225472;
     block[2] = __83__HAPAccessoryServerIP__error_forReadCharacteristicValues_queue_completionHandler___block_invoke;
     block[3] = &unk_2786D69E0;
-    v39 = handlerCopy;
-    v37 = array;
-    v38 = _errorCopy;
+    v38 = handlerCopy;
+    v36 = array;
+    v37 = _errorCopy;
     dispatch_async(queueCopy, block);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_continuePairingAfterMFiCertValidation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   [(HAPAccessoryServerIP *)self tearDownSessionOnAuthCompletion];
   if ([(HAPAccessoryServer *)self pairSetupType]== 6)
   {
@@ -13795,9 +14356,9 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
       if (v7)
       {
         v8 = HMFGetLogIdentifier();
-        *v16 = 138543362;
-        *&v16[4] = v8;
-        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Transient Pair-Setup completed with Cert Auth - starting easyConfig", v16, 0xCu);
+        *v14 = 138543362;
+        *&v14[4] = v8;
+        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Transient Pair-Setup completed with Cert Auth - starting easyConfig", v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
@@ -13808,33 +14369,30 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
     {
       if (v7)
       {
-        v10 = HMFGetLogIdentifier();
-        *v16 = 138543362;
-        *&v16[4] = v10;
-        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Transient Pair-Setup completed with Cert Auth - starting regular", v16, 0xCu);
+        v9 = HMFGetLogIdentifier();
+        *v14 = 138543362;
+        *&v14[4] = v9;
+        _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Transient Pair-Setup completed with Cert Auth - starting regular", v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v4);
       pairingActivity = [(HAPAccessoryServer *)selfCopy pairingActivity];
       [pairingActivity begin];
-      *v16 = [(HAPAccessoryServer *)selfCopy pairingActivity];
+      *v14 = [(HAPAccessoryServer *)selfCopy pairingActivity];
 
       pairingRequest = [(HAPAccessoryServer *)selfCopy pairingRequest];
-      v13 = [pairingRequest copy];
+      v12 = [pairingRequest copy];
 
-      [v13 setRequiresUserConsent:0];
+      [v12 setRequiresUserConsent:0];
       pairingRequest2 = [(HAPAccessoryServer *)selfCopy pairingRequest];
       [(HAPAccessoryServerIP *)selfCopy startPairingWithRequest:pairingRequest2];
 
       __HMFActivityScopeLeave();
     }
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v9 = *MEMORY[0x277D85DE8];
 
     [(HAPAccessoryServerIP *)self _notifyDelegatesPairingStopped:0];
   }
@@ -13842,8 +14400,8 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
 
 - (void)_handleMFiCertValidation
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v33 = 0;
+  v37 = *MEMORY[0x277D85DE8];
+  v32 = 0;
   if (([(HAPAccessoryServer *)self pairSetupType]== 5 || [(HAPAccessoryServer *)self pairSetupType]== 6) && self->_pairingSession)
   {
     v3 = PairingSessionCopyProperty();
@@ -13854,11 +14412,11 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v35 = v7;
-      v36 = 1024;
-      *v37 = v33;
-      *&v37[4] = 2112;
-      *&v37[6] = v3;
+      v34 = v7;
+      v35 = 1024;
+      *v36 = v32;
+      *&v36[4] = 2112;
+      *&v36[6] = v3;
       _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Pair Setup completed with err: %d - MFi Cert %@", buf, 0x1Cu);
     }
 
@@ -13877,35 +14435,35 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v35 = v12;
+          v34 = v12;
           _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Restoring network to validate Cert", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v9);
         [(HAPAccessoryServerIP *)v10 _notifyDelegateOfPairingProgress:3];
         hapWACAccessoryClient = [(HAPAccessoryServerIP *)v10 hapWACAccessoryClient];
-        v29[0] = MEMORY[0x277D85DD0];
-        v29[1] = 3221225472;
-        v29[2] = __48__HAPAccessoryServerIP__handleMFiCertValidation__block_invoke;
-        v29[3] = &unk_2786D2670;
-        objc_copyWeak(&v31, &location);
-        v30 = v8;
-        v14 = [hapWACAccessoryClient restoreNetworkWithCompletion:v29];
+        v28[0] = MEMORY[0x277D85DD0];
+        v28[1] = 3221225472;
+        v28[2] = __48__HAPAccessoryServerIP__handleMFiCertValidation__block_invoke;
+        v28[3] = &unk_2786D2670;
+        objc_copyWeak(&v30, &location);
+        v29 = v8;
+        v14 = [hapWACAccessoryClient restoreNetworkWithCompletion:v28];
 
-        objc_destroyWeak(&v31);
+        objc_destroyWeak(&v30);
         objc_destroyWeak(&location);
       }
 
       else if ([(HAPAccessoryServerIP *)selfCopy _delegateRespondsToSelector:sel_accessoryServer_validateCert_model_])
       {
         delegateQueue = [(HAPAccessoryServer *)selfCopy delegateQueue];
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __48__HAPAccessoryServerIP__handleMFiCertValidation__block_invoke_3;
-        v27[3] = &unk_2786D7050;
-        v27[4] = selfCopy;
-        v28 = v8;
-        dispatch_async(delegateQueue, v27);
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __48__HAPAccessoryServerIP__handleMFiCertValidation__block_invoke_3;
+        v26[3] = &unk_2786D7050;
+        v26[4] = selfCopy;
+        v27 = v8;
+        dispatch_async(delegateQueue, v26);
       }
 
       else
@@ -13913,7 +14471,7 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
         [(HAPAccessoryServerIP *)selfCopy _tearDownSession];
         v16 = [MEMORY[0x277CCA9B8] errorWithHMErrorCode:18];
         [(HAPAccessoryServerIP *)selfCopy _processQueuedOperationsWithError:v16];
-        v17 = HMErrorFromOSStatus(v33);
+        v17 = HMErrorFromOSStatus(v32);
         [(HAPAccessoryServerIP *)selfCopy _notifyDelegatesPairingStopped:v17];
       }
     }
@@ -13939,16 +14497,15 @@ void __89__HAPAccessoryServerIP__queuedReadOperationBlock_timeout_expiry_queue_c
 
     v25 = v24;
     *buf = 138543874;
-    v35 = v21;
-    v36 = 2048;
-    *v37 = pairSetupType;
-    *&v37[8] = 2112;
-    *&v37[10] = v25;
+    v34 = v21;
+    v35 = 2048;
+    *v36 = pairSetupType;
+    *&v36[8] = 2112;
+    *&v36[10] = v25;
     _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Pair-Setup Completed with Type: %tu, Auth method: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v18);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HAPAccessoryServerIP__handleMFiCertValidation__block_invoke(uint64_t a1, uint64_t a2)
@@ -14068,7 +14625,7 @@ void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_2(uint64_t a
 
 void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_164(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -14077,20 +14634,19 @@ void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_164(uint64_t
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Pairing stopped and accessory pairing removed with error: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Pairing stopped and accessory pairing removed with error: %{public}@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_3(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -14099,15 +14655,14 @@ void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_3(uint64_t a
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Deferred accessory pairing removed with error: %{public}@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Deferred accessory pairing removed with error: %{public}@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectWithError:(id)error
@@ -14126,27 +14681,25 @@ void __45__HAPAccessoryServerIP_stopPairingWithError___block_invoke_3(uint64_t a
 
 uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Tearing down session as a result of disconnect call", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Tearing down session as a result of disconnect call", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _tearDownSessionAndStartReachabilityWithError:*(a1 + 40)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _tearDownSessionAndStartReachabilityWithError:*(a1 + 40)];
 }
 
 - (void)_tearDownSessionAndStartReachabilityWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -14157,11 +14710,11 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2114;
-    v19 = errorCopy;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@invalidating HTTP client and tearing down pairing session %{public}@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v9;
+    v17 = 2114;
+    v18 = errorCopy;
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@invalidating HTTP client and tearing down pairing session %{public}@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -14172,35 +14725,32 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     v13 = HMFGetLogIdentifier();
-    v16 = 138543362;
-    v17 = v13;
-    _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ensuring reachability poll is enabled", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v13;
+    _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ensuring reachability poll is enabled", &v15, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
   [(HAPAccessoryServerIP *)v11 _startReachability];
   browser = [(HAPAccessoryServerIP *)v11 browser];
   [browser startDiscoveringAccessoryServers];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_skipReconfirm
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@Skipping reconfirm", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@Skipping reconfirm", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_matchesError:(id)error withHAPHMErrorCode:(int64_t)code
@@ -14257,7 +14807,7 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
 
 - (void)_doBonjourReconfirm
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -14274,23 +14824,21 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v12 = 138543618;
-        v13 = v10;
-        v14 = 1024;
-        v15 = v6;
-        _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bonjour reconfirm failed %d", &v12, 0x12u);
+        v11 = 138543618;
+        v12 = v10;
+        v13 = 1024;
+        v14 = v6;
+        _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%{public}@Bonjour reconfirm failed %d", &v11, 0x12u);
       }
 
       objc_autoreleasePoolPop(v7);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_tearDownSessionWithError:(id)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   pairingSession = self->_pairingSession;
   if (pairingSession)
@@ -14307,9 +14855,9 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v9;
-    v27 = 2114;
-    v28 = errorCopy;
+    v25 = v9;
+    v26 = 2114;
+    v27 = errorCopy;
     _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Invalidating HTTP client with error: %{public}@", buf, 0x16u);
   }
 
@@ -14324,31 +14872,31 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
     [(HAPAccessoryServerIP *)selfCopy setPreSoftAuthWacStarted:0];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   accessories = [(HAPAccessoryServer *)selfCopy accessories];
-  v12 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       v15 = 0;
       do
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(accessories);
         }
 
-        [*(*(&v20 + 1) + 8 * v15++) invalidateWithError:errorCopy];
+        [*(*(&v19 + 1) + 8 * v15++) invalidateWithError:errorCopy];
       }
 
       while (v13 != v15);
-      v13 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -14362,7 +14910,6 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
   [(HAPAccessoryServerIP *)selfCopy setDisconnectOnIdleTimeout:?];
 
   [(HAPAccessoryServerIP *)selfCopy _suspendConnectionIdleTimer];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)tryPairingPassword:(id)password onboardingSetupPayloadString:(id)string error:(id *)error
@@ -14383,7 +14930,7 @@ uint64_t __44__HAPAccessoryServerIP_disconnectWithError___block_invoke(uint64_t 
 
 uint64_t __78__HAPAccessoryServerIP_tryPairingPassword_onboardingSetupPayloadString_error___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (![*(a1 + 32) isWacAccessory] || (objc_msgSend(*(a1 + 32), "isWacLegacy") & 1) != 0 || (objc_msgSend(*(a1 + 32), "isPreSoftAuthWacStarted") & 1) != 0)
   {
     goto LABEL_7;
@@ -14410,38 +14957,33 @@ LABEL_7:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         v8 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v8;
-        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Post SW Auth password", &v17, 0xCu);
+        v14 = 138543362;
+        v15 = v8;
+        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Post SW Auth password", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
-      result = [*(a1 + 32) _continuePairingWithSetupCode:*(a1 + 40)];
-      v10 = *MEMORY[0x277D85DE8];
+      return [*(a1 + 32) _continuePairingWithSetupCode:*(a1 + 40)];
     }
 
     else
     {
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
-      v13 = *MEMORY[0x277D85DE8];
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
 
-      return [v11 _pairSetupTryPassword:v12];
+      return [v10 _pairSetupTryPassword:v11];
     }
-
-    return result;
   }
 
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v16 = *MEMORY[0x277D85DE8];
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
 
-  return [v14 _continuePairingWithSetupCode:v15];
+  return [v12 _continuePairingWithSetupCode:v13];
 }
 
 - (void)continuePairingAfterAuthPrompt
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -14450,9 +14992,9 @@ LABEL_7:
     v6 = HMFGetLogIdentifier();
     hapWACAccessory = [(HAPAccessoryServerIP *)selfCopy hapWACAccessory];
     *buf = 138543618;
-    v12 = v6;
-    v13 = 2112;
-    v14 = hapWACAccessory;
+    v11 = v6;
+    v12 = 2112;
+    v13 = hapWACAccessory;
     _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Continuing pairing after auth prompt hapWACAccessory: %@", buf, 0x16u);
   }
 
@@ -14464,8 +15006,6 @@ LABEL_7:
   block[3] = &unk_2786D6CA0;
   block[4] = selfCopy;
   dispatch_async(clientQueue, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__HAPAccessoryServerIP_continuePairingAfterAuthPrompt__block_invoke(uint64_t a1)
@@ -14596,7 +15136,7 @@ id __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke(uint64_t a1
 
 void __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v3)
@@ -14612,8 +15152,8 @@ void __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_2(uint64_
   if (v6)
   {
     v7 = [HAPAccessoryInfo alloc];
-    v27 = [*(a1 + 32) hapWACAccessory];
-    v8 = [v27 name];
+    v26 = [*(a1 + 32) hapWACAccessory];
+    v8 = [v26 name];
     v9 = [*(a1 + 32) hapWACAccessory];
     v10 = [v9 manufacturer];
     v11 = [*(a1 + 32) hapWACAccessory];
@@ -14630,7 +15170,7 @@ void __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_2(uint64_
       block[2] = __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_3;
       block[3] = &unk_2786D7050;
       block[4] = *(a1 + 32);
-      v30 = v15;
+      v29 = v15;
       dispatch_async(v16, block);
     }
 
@@ -14652,17 +15192,17 @@ LABEL_10:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v23;
+      v31 = v23;
       _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@Waiting for Bonjour to start Cert / Token Auth", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_162;
-    v28[3] = &unk_2786D6CA0;
-    v28[4] = *(a1 + 32);
-    __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_162(v28);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_162;
+    v27[3] = &unk_2786D6CA0;
+    v27[4] = *(a1 + 32);
+    __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_162(v27);
     goto LABEL_13;
   }
 
@@ -14674,17 +15214,15 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v25 = [*(a1 + 32) hapWACAccessory];
-  v26 = [v25 supportsWAC2];
+  v24 = [*(a1 + 32) hapWACAccessory];
+  v25 = [v24 supportsWAC2];
 
-  if (v26)
+  if (v25)
   {
     [*(a1 + 32) continuePairingAfterAuthPrompt];
   }
 
 LABEL_13:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_3(uint64_t a1)
@@ -14777,7 +15315,7 @@ void __48__HAPAccessoryServerIP_startPairingWithRequest___block_invoke_162(uint6
 
 void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [WeakRetained clientQueue];
@@ -14787,16 +15325,16 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
   [v6 timeIntervalSinceDate:*(a1 + 32)];
   v8 = v7;
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_2;
-  v28[3] = &unk_2786D6E88;
-  v28[4] = WeakRetained;
-  v31 = v8;
-  v29 = *(a1 + 40);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_2;
+  v27[3] = &unk_2786D6E88;
+  v27[4] = WeakRetained;
+  v30 = v8;
+  v28 = *(a1 + 40);
   v9 = v3;
-  v30 = v9;
-  __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_2(v28);
+  v29 = v9;
+  __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_2(v27);
   if (!v9)
   {
     v15 = [WeakRetained httpClient];
@@ -14811,11 +15349,11 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
       v21 = [v16 ipAddressStringWithScope];
       v22 = [v16 port];
       *buf = 138543874;
-      v33 = v20;
-      v34 = 2112;
-      v35 = v21;
-      v36 = 2112;
-      v37 = v22;
+      v32 = v20;
+      v33 = 2112;
+      v34 = v21;
+      v35 = 2112;
+      v36 = v22;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "%{public}@Completed pair-verify and caching socket info: %@:%@", buf, 0x20u);
     }
 
@@ -14842,9 +15380,9 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v33 = v13;
-    v34 = 2112;
-    v35 = v9;
+    v32 = v13;
+    v33 = 2112;
+    v34 = v9;
     _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to complete pair-verify - error: %@", buf, 0x16u);
   }
 
@@ -14860,16 +15398,15 @@ LABEL_13:
   }
 
   v14 = [v11 clientQueue];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_160;
-  v26[3] = &unk_2786D7050;
-  v26[4] = v11;
-  v27 = *(a1 + 40);
-  dispatch_async(v14, v26);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_160;
+  v25[3] = &unk_2786D7050;
+  v25[4] = v11;
+  v26 = *(a1 + 40);
+  dispatch_async(v14, v25);
 
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatabaseWithReason___block_invoke_2(uint64_t a1)
@@ -14888,7 +15425,7 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
 
 - (void)discoverAccessories
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(HAPAccessoryServerIP *)self hasBonjourDeviceInfo])
   {
     clientQueue = [(HAPAccessoryServer *)self clientQueue];
@@ -14909,7 +15446,7 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v11 = v7;
+      v10 = v7;
       _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Waiting for Bonjour to discoverAccessories", buf, 0xCu);
     }
 
@@ -14917,13 +15454,11 @@ void __86__HAPAccessoryServerIP__establishSecureConnectionAndFetchAttributeDatab
     [(HAPAccessoryServerIP *)selfCopy setBonjourDiscoveryPending:1];
     [(HAPAccessoryServerIP *)selfCopy _notifyDelegateOfPairingProgress:8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a1)
+void *__43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _isSessionEstablished];
   v3 = *(a1 + 32);
   if (v2)
@@ -14937,21 +15472,18 @@ uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         v8 = HMFGetLogIdentifier();
-        v11 = 138543362;
-        v12 = v8;
-        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Ignoring request to discover accessories because the session is already established, calling delegate immediately", &v11, 0xCu);
+        v9 = 138543362;
+        v10 = v8;
+        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Ignoring request to discover accessories because the session is already established, calling delegate immediately", &v9, 0xCu);
       }
 
       objc_autoreleasePoolPop(v5);
-      result = [*(a1 + 32) _notifyDelegateOfDiscoveryCompletionWithError:0];
+      return [*(a1 + 32) _notifyDelegateOfDiscoveryCompletionWithError:0];
     }
-
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v10 = *MEMORY[0x277D85DE8];
 
     return [v3 _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.discoverAccessories"];
   }
@@ -14961,7 +15493,7 @@ uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a
 
 - (void)_clearIPCacheOnError:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -14986,11 +15518,11 @@ uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = HMFGetLogIdentifier();
-          v18 = 138543618;
-          v19 = v16;
-          v20 = 2048;
-          v21 = v12;
-          _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Clearing IP cache due to error %ld", &v18, 0x16u);
+          v17 = 138543618;
+          v18 = v16;
+          v19 = 2048;
+          v20 = v12;
+          _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Clearing IP cache due to error %ld", &v17, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -14998,13 +15530,11 @@ uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCacheForDevice:(id)device socketInfo:(id)info bonjour:(id)bonjour
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   infoCopy = info;
   bonjourCopy = bonjour;
@@ -15017,13 +15547,13 @@ uint64_t __43__HAPAccessoryServerIP_discoverAccessories__block_invoke(uint64_t a
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v20;
+      v25 = 138543362;
+      v26 = v20;
       v21 = "%{public}@Cannot save cache for nil deviceID";
       v22 = v19;
       v23 = 12;
 LABEL_12:
-      _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, v21, &v26, v23);
+      _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, v21, &v25, v23);
     }
 
 LABEL_13:
@@ -15048,10 +15578,10 @@ LABEL_13:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = infoCopy;
+      v25 = 138543618;
+      v26 = v20;
+      v27 = 2112;
+      v28 = infoCopy;
       v21 = "%{public}@Request to save cache with nil bonjour info ignored %@";
       v22 = v19;
       v23 = 22;
@@ -15073,12 +15603,11 @@ LABEL_13:
   }
 
 LABEL_14:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCachedSocketInfo:(id)info
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   os_unfair_lock_lock_with_options();
   if (infoCopy)
@@ -15112,13 +15641,13 @@ LABEL_7:
       v11 = HMFGetLogIdentifier();
       shortDescription = [(HAPSocketInfo *)v7 shortDescription];
       shortDescription2 = [infoCopy shortDescription];
-      v19 = 138543874;
-      v20 = v11;
-      v21 = 2112;
-      v22 = shortDescription;
-      v23 = 2112;
-      v24 = shortDescription2;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@cached socket updated from %@ to %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v11;
+      v20 = 2112;
+      v21 = shortDescription;
+      v22 = 2112;
+      v23 = shortDescription2;
+      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@cached socket updated from %@ to %@", &v18, 0x20u);
     }
 
 LABEL_10:
@@ -15134,10 +15663,10 @@ LABEL_10:
     v10 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v18 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v18;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@cleared socket info", &v19, 0xCu);
+      v17 = HMFGetLogIdentifier();
+      v18 = 138543362;
+      v19 = v17;
+      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@cleared socket info", &v18, 0xCu);
     }
 
     goto LABEL_10;
@@ -15150,8 +15679,6 @@ LABEL_12:
     deviceIDString = [deviceID deviceIDString];
     [(HAPAccessoryServerIP *)self _updateCacheForDevice:deviceIDString socketInfo:infoCopy bonjour:self->_bonjourDeviceInfo];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HAPSocketInfo)currentSocketInfo
@@ -15180,7 +15707,7 @@ LABEL_12:
 
 - (HMFNetAddress)peerAddress
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   httpClient = [(HAPAccessoryServerIP *)self httpClient];
 
   if (httpClient)
@@ -15197,16 +15724,14 @@ LABEL_12:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get peer address -- httpClient is nil", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get peer address -- httpClient is nil", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     peerAddress = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return peerAddress;
 }
@@ -15264,50 +15789,48 @@ LABEL_12:
 
 void __77__HAPAccessoryServerIP_createKeysForDataStreamWithKeySalt_completionHandler___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 344))
   {
     [*(a1 + 40) bytes];
     [*(a1 + 40) length];
     v2 = PairingSessionDeriveKey();
-    if (v2 || (v3 = *(*(a1 + 32) + 344), [*(a1 + 40) bytes], objc_msgSend(*(a1 + 40), "length"), v2 = PairingSessionDeriveKey(), v2))
+    if (v2 || ([*(a1 + 40) bytes], objc_msgSend(*(a1 + 40), "length"), v2 = PairingSessionDeriveKey(), v2))
     {
-      v4 = 0;
+      v3 = 0;
     }
 
     else
     {
-      v11 = [HAPSecuritySessionEncryption alloc];
-      v12 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:32];
-      v13 = [MEMORY[0x277CBEA90] dataWithBytes:&v14 length:32];
-      v4 = [(HAPSecuritySessionEncryption *)v11 initWithInputKey:v12 outputKey:v13];
+      v9 = [HAPSecuritySessionEncryption alloc];
+      v10 = [MEMORY[0x277CBEA90] dataWithBytes:buf length:32];
+      v11 = [MEMORY[0x277CBEA90] dataWithBytes:&v12 length:32];
+      v3 = [(HAPSecuritySessionEncryption *)v9 initWithInputKey:v10 outputKey:v11];
 
       v2 = 0;
     }
 
-    v5 = HMErrorFromOSStatus(v2);
+    v4 = HMErrorFromOSStatus(v2);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = objc_autoreleasePoolPush();
-    v7 = *(a1 + 32);
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = objc_autoreleasePoolPush();
+    v6 = *(a1 + 32);
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = HMFGetLogIdentifier();
+      v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v16 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Attempting to create HDS keys without an active session", buf, 0xCu);
+      v14 = v8;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Attempting to create HDS keys without an active session", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v6);
-    v5 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"Attempting to create HDS keys without an active session" reason:@"HAPAccessoryServerIP._pairingSession nil during createKeysForDataStream" suggestion:0 underlyingError:0 marker:108];
+    objc_autoreleasePoolPop(v5);
+    v4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"Attempting to create HDS keys without an active session" reason:@"HAPAccessoryServerIP._pairingSession nil during createKeysForDataStream" suggestion:0 underlyingError:0 marker:108];
     (*(*(a1 + 48) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pairSetupStartSoftAuthWAC
@@ -15321,7 +15844,7 @@ void __77__HAPAccessoryServerIP_createKeysForDataStreamWithKeySalt_completionHan
   dispatch_async(clientQueue, block);
 }
 
-uint64_t __49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint64_t a1)
+void *__49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setHasStartedPairing:1];
   [*(a1 + 32) setPreSoftAuthWacStarted:0];
@@ -15344,7 +15867,7 @@ uint64_t __49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint
 
 - (void)_tearDownWAC
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -15352,8 +15875,8 @@ uint64_t __49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v6;
-    v15 = 1024;
+    v13 = v6;
+    v14 = 1024;
     isWacComplete = [(HAPAccessoryServerIP *)selfCopy isWacComplete];
     _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@tearDownWAC - wacComplete: %d", buf, 0x12u);
   }
@@ -15366,12 +15889,12 @@ uint64_t __49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint
 
     [(HAPAccessoryServerIP *)selfCopy _notifyDelegateOfPairingProgress:3];
     hapWACAccessoryClient2 = [(HAPAccessoryServerIP *)selfCopy hapWACAccessoryClient];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __36__HAPAccessoryServerIP__tearDownWAC__block_invoke;
-    v12[3] = &unk_2786D6CF0;
-    v12[4] = selfCopy;
-    v9 = [hapWACAccessoryClient2 restoreNetworkWithCompletion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __36__HAPAccessoryServerIP__tearDownWAC__block_invoke;
+    v11[3] = &unk_2786D6CF0;
+    v11[4] = selfCopy;
+    v9 = [hapWACAccessoryClient2 restoreNetworkWithCompletion:v11];
   }
 
   else
@@ -15379,15 +15902,13 @@ uint64_t __49__HAPAccessoryServerIP_pairSetupStartSoftAuthWAC__block_invoke(uint
     pairOperation = [(HAPAccessoryServerIP *)selfCopy pairOperation];
     [pairOperation finish];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __36__HAPAccessoryServerIP__tearDownWAC__block_invoke(uint64_t result, uint64_t a2)
+id *__36__HAPAccessoryServerIP__tearDownWAC__block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) _notifyDelegateOfPairingProgress:4];
+    return [result[4] _notifyDelegateOfPairingProgress:4];
   }
 
   return result;
@@ -15409,7 +15930,7 @@ uint64_t __36__HAPAccessoryServerIP__tearDownWAC__block_invoke(uint64_t result, 
 
 void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -15418,19 +15939,19 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke(uint64_t
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
     *buf = 138543618;
-    v41 = v5;
-    v42 = 2114;
-    v43 = v6;
+    v40 = v5;
+    v41 = 2114;
+    v42 = v6;
     _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Continue pairing after WAC with error: %{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_127;
-  v39[3] = &unk_2786D6CF0;
-  v39[4] = *(a1 + 32);
-  v7 = MEMORY[0x231885210](v39);
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_127;
+  v38[3] = &unk_2786D6CF0;
+  v38[4] = *(a1 + 32);
+  v7 = MEMORY[0x231885210](v38);
   [*(a1 + 32) setWacComplete:1];
   v8 = [*(a1 + 32) pairOperation];
   [v8 finish];
@@ -15452,9 +15973,9 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke(uint64_t
   {
     v13 = [v12 keyStore];
     v14 = [*(a1 + 32) identifier];
-    v38 = 0;
-    [v13 registerAccessoryWithHomeKit:v14 error:&v38];
-    v15 = v38;
+    v37 = 0;
+    [v13 registerAccessoryWithHomeKit:v14 error:&v37];
+    v15 = v37;
 
     if (v15)
     {
@@ -15493,9 +16014,9 @@ LABEL_20:
         v23 = HMFGetLogIdentifier();
         v24 = [*(a1 + 32) bonjourDeviceInfo];
         *buf = 138543618;
-        v41 = v23;
-        v42 = 2112;
-        v43 = v24;
+        v40 = v23;
+        v41 = 2112;
+        v42 = v24;
         _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@already has pairings after legacy WAC completion - aborting pairing operation: %@", buf, 0x16u);
       }
 
@@ -15508,9 +16029,9 @@ LABEL_20:
 
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v36 = HMFGetLogIdentifier();
+      v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v41 = v36;
+      v40 = v35;
       _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_INFO, "%{public}@continuing Legacy WAC", buf, 0xCu);
     }
 
@@ -15533,17 +16054,17 @@ LABEL_20:
       {
         v29 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v41 = v29;
+        v40 = v29;
         _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_INFO, "%{public}@Starting a timer to wait for Bonjour event after legacy WAC completion", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v26);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_132;
-      v37[3] = &unk_2786D6CA0;
-      v37[4] = *(a1 + 32);
-      __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_132(v37);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_132;
+      v36[3] = &unk_2786D6CA0;
+      v36[4] = *(a1 + 32);
+      __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_132(v36);
       v30 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:0 options:60.0];
       [*(a1 + 32) setBonjourEventTimer:v30];
 
@@ -15560,8 +16081,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_127(uint64_t a1, void *a2)
@@ -15608,7 +16127,7 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_2(uint64
 
 - (int)_continuePairingWithSetupCode:(id)code
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -15616,36 +16135,48 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_2(uint64
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2080;
-    v16 = "[HAPAccessoryServerIP _continuePairingWithSetupCode:]";
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@%s", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2080;
+    v15 = "[HAPAccessoryServerIP _continuePairingWithSetupCode:]";
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@%s", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   hapWACAccessoryClient = [(HAPAccessoryServerIP *)selfCopy hapWACAccessoryClient];
   v10 = [hapWACAccessoryClient continuePairingWithSetupCode:codeCopy];
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)_continuePairingUsingWAC
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   isWacStarted = [(HAPAccessoryServerIP *)self isWacStarted];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
   v7 = v6;
-  if (!isWacStarted)
+  if (isWacStarted)
+  {
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v21 = v8;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@WAC already started", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v4);
+  }
+
+  else
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v9;
+      v21 = v9;
       _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Continuing WAC Pairing", buf, 0xCu);
     }
 
@@ -15657,12 +16188,12 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_2(uint64
     if (supportsLegacyWAC)
     {
       [(HAPAccessoryServerIP *)selfCopy _notifyDelegateOfPairingProgress:6];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke;
-      v20[3] = &unk_2786D6CF0;
-      v20[4] = selfCopy;
-      v12 = v20;
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke;
+      v19[3] = &unk_2786D6CF0;
+      v19[4] = selfCopy;
+      v12 = v19;
       v13 = selfCopy;
       v14 = 0;
     }
@@ -15673,47 +16204,34 @@ void __49__HAPAccessoryServerIP__continuePairingAfterWAC___block_invoke_2(uint64
       {
         [(HAPAccessoryServerIP *)selfCopy _notifyDelegateOfPairingProgress:0];
         hapWACAccessoryClient = [(HAPAccessoryServerIP *)selfCopy hapWACAccessoryClient];
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_120;
-        v19[3] = &unk_2786D6CF0;
-        v19[4] = selfCopy;
-        v16 = [hapWACAccessoryClient joinAccessoryNetworkWithCompletion:v19];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_120;
+        v18[3] = &unk_2786D6CF0;
+        v18[4] = selfCopy;
+        v16 = [hapWACAccessoryClient joinAccessoryNetworkWithCompletion:v18];
 
-        goto LABEL_13;
+        return;
       }
 
       [(HAPAccessoryServerIP *)selfCopy _notifyDelegateOfPairingProgress:6];
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_125;
-      v18[3] = &unk_2786D6CF0;
-      v18[4] = selfCopy;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_125;
+      v17[3] = &unk_2786D6CF0;
+      v17[4] = selfCopy;
       v14 = _WACPairSetupPromptForSetupCodeDelegateCallback_f;
-      v12 = v18;
+      v12 = v17;
       v13 = selfCopy;
     }
 
     [(HAPAccessoryServerIP *)v13 _performEasyConfigWithPairingPrompt:v14 performPairSetup:1 isSplit:0 completion:v12];
-    goto LABEL_13;
   }
-
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = HMFGetLogIdentifier();
-    *buf = 138543362;
-    v22 = v8;
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@WAC already started", buf, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v4);
-LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -15721,15 +16239,14 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke(uint64_t 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config completed error: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config completed error: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_120(uint64_t a1, void *a2)
@@ -15749,7 +16266,7 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_120(uint6
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_125(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -15758,29 +16275,27 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_125(uin
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v3;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v3;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config & Pair-Setup completed error: %{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_126;
-  v11[3] = &unk_2786D7050;
-  v11[4] = *(a1 + 32);
-  v12 = v3;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_126;
+  v10[3] = &unk_2786D7050;
+  v10[4] = *(a1 + 32);
+  v11 = v3;
   v9 = v3;
-  dispatch_async(v8, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v8, v10);
 }
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -15791,20 +16306,20 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2(uint64_
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
       *buf = 138543618;
-      v14 = v5;
-      v15 = 2114;
-      v16 = v6;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v6;
       _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Retrying to join accessory network due to error: %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
     v7 = [*(a1 + 40) hapWACAccessoryClient];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_121;
-    v12[3] = &unk_2786D6CF0;
-    v12[4] = *(a1 + 40);
-    v8 = [v7 joinAccessoryNetworkWithCompletion:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_121;
+    v11[3] = &unk_2786D6CF0;
+    v11[4] = *(a1 + 40);
+    v8 = [v7 joinAccessoryNetworkWithCompletion:v11];
   }
 
   else
@@ -15812,15 +16327,13 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2(uint64_
     [*(a1 + 40) _notifyDelegateOfPairingProgress:1];
     [*(a1 + 40) _notifyDelegateOfPairingProgress:6];
     v9 = *(a1 + 40);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_123;
-    v11[3] = &unk_2786D6CF0;
-    v11[4] = v9;
-    [v9 _performEasyConfigWithPairingPrompt:_WACPairSetupPromptForSetupCodeDelegateCallback_f performPairSetup:1 isSplit:1 completion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_123;
+    v10[3] = &unk_2786D6CF0;
+    v10[4] = v9;
+    [v9 _performEasyConfigWithPairingPrompt:_WACPairSetupPromptForSetupCodeDelegateCallback_f performPairSetup:1 isSplit:1 completion:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_121(uint64_t a1, void *a2)
@@ -15840,7 +16353,7 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_121(uint6
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_123(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -15849,24 +16362,22 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_123(uint6
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v14 = v7;
-    v15 = 2114;
-    v16 = v3;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v3;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config & Pair-Setup completed error: %{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) clientQueue];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_124;
-  v11[3] = &unk_2786D7050;
-  v11[4] = *(a1 + 32);
-  v12 = v3;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_124;
+  v10[3] = &unk_2786D7050;
+  v10[4] = *(a1 + 32);
+  v11 = v3;
   v9 = v3;
-  dispatch_async(v8, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(v8, v10);
 }
 
 uint64_t __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_122(uint64_t a1)
@@ -15895,7 +16406,7 @@ uint64_t __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_2_122
 
 void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -15903,22 +16414,37 @@ void __48__HAPAccessoryServerIP__continuePairingUsingWAC__block_invoke_3(uint64_
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config & Pair-Setup completed error: %{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy Config & Pair-Setup completed error: %{public}@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _continuePairingAfterConfirmingSecureWAC:v3];
+}
 
-  v8 = *MEMORY[0x277D85DE8];
+- (void)_performEasyConfigWithPairingPrompt:(void *)prompt performPairSetup:(BOOL)setup isSplit:(BOOL)split completion:(id)completion
+{
+  splitCopy = split;
+  setupCopy = setup;
+  completionCopy = completion;
+  hapWACAccessoryClient = [(HAPAccessoryServerIP *)self hapWACAccessoryClient];
+  pairingRequest = [(HAPAccessoryServer *)self pairingRequest];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_completion___block_invoke;
+  v15[3] = &unk_2786D6790;
+  v15[4] = self;
+  v16 = completionCopy;
+  v13 = completionCopy;
+  v14 = [hapWACAccessoryClient performEasyConfigWithParingPrompt:prompt performPairSetup:setupCopy isSplit:splitCopy pairingRequest:pairingRequest completion:v15];
 }
 
 void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairSetup_isSplit_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -15929,11 +16455,11 @@ void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairS
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v3;
-      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Bonjour reset after Easy Config completed with error: %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v3;
+      _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Bonjour reset after Easy Config completed with error: %{public}@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -15944,8 +16470,6 @@ void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairS
   {
     (*(v8 + 16))(v8, v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)continuePairingUsingWAC
@@ -15961,7 +16485,7 @@ void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairS
 
 - (void)_continuePairingAfterConfirmingSecureWAC:(id)c
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   cCopy = c;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -15970,9 +16494,9 @@ void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairS
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v8;
-    v20 = 2114;
-    v21 = cCopy;
+    v18 = v8;
+    v19 = 2114;
+    v20 = cCopy;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Continue pairing after confirming secure WAC with error: %{public}@", buf, 0x16u);
   }
 
@@ -15995,12 +16519,10 @@ void __96__HAPAccessoryServerIP__performEasyConfigWithPairingPrompt_performPairS
     block[2] = __65__HAPAccessoryServerIP__continuePairingAfterConfirmingSecureWAC___block_invoke;
     block[3] = &unk_2786D7050;
     block[4] = selfCopy;
-    v17 = v12;
+    v16 = v12;
     v14 = v12;
     dispatch_async(delegateQueue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HAPAccessoryServerIP__continuePairingAfterConfirmingSecureWAC___block_invoke(uint64_t a1)
@@ -16011,7 +16533,7 @@ void __65__HAPAccessoryServerIP__continuePairingAfterConfirmingSecureWAC___block
 
 - (void)_pairVerifyStartWAC:(id)c
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   cCopy = c;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -16021,29 +16543,27 @@ void __65__HAPAccessoryServerIP__continuePairingAfterConfirmingSecureWAC___block
     v8 = HMFGetLogIdentifier();
     hapWACAccessory = [(HAPAccessoryServerIP *)selfCopy hapWACAccessory];
     *buf = 138543618;
-    v16 = v8;
-    v17 = 2114;
-    v18 = hapWACAccessory;
+    v15 = v8;
+    v16 = 2114;
+    v17 = hapWACAccessory;
     _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Request to start reprovisioning: %{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HAPAccessoryServerIP *)selfCopy setWacComplete:0];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke;
-  v13[3] = &unk_2786D6A98;
-  v13[4] = selfCopy;
-  v14 = cCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke;
+  v12[3] = &unk_2786D6A98;
+  v12[4] = selfCopy;
+  v13 = cCopy;
   v10 = cCopy;
-  v11 = [(HAPAccessoryServerIP *)selfCopy _joinAccessoryNetworkWithCompletion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = [(HAPAccessoryServerIP *)selfCopy _joinAccessoryNetworkWithCompletion:v12];
 }
 
 void __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -16052,9 +16572,9 @@ void __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke(uint64_t a1, 
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v7;
-    v17 = 2114;
-    v18 = v3;
+    v15 = v7;
+    v16 = 2114;
+    v17 = v3;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Joined accessory network for re-WAC with join error: %{public}@", buf, 0x16u);
   }
 
@@ -16071,21 +16591,19 @@ void __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke(uint64_t a1, 
   else
   {
     v9 = [v8 hapWACAccessoryClient];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke_119;
-    v14[3] = &unk_2786D6CF0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke_119;
+    v13[3] = &unk_2786D6CF0;
     v11 = *(a1 + 40);
-    v14[4] = *(a1 + 32);
-    v12 = [v9 performEasyConfigWithParingPrompt:0 performPairSetup:0 isSplit:0 pairingRequest:v11 completion:v14];
+    v13[4] = *(a1 + 32);
+    v12 = [v9 performEasyConfigWithParingPrompt:0 performPairSetup:0 isSplit:0 pairingRequest:v11 completion:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke_119(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) setWacComplete:1];
   v4 = objc_autoreleasePoolPush();
@@ -16094,19 +16612,17 @@ void __44__HAPAccessoryServerIP__pairVerifyStartWAC___block_invoke_119(uint64_t 
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v3;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy config with pair-verify finished with error: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v7;
+    v12 = 2114;
+    v13 = v3;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@Easy config with pair-verify finished with error: %{public}@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   v8 = [*(a1 + 32) browser];
   v9 = [*(a1 + 32) identifier];
   [v8 notifyDelegatesOfWACCompletionWithIdentifier:v9 error:v3];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pairSetupContinueWAC
@@ -16147,7 +16663,7 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke(uint64_t a1)
 
 void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_2(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) pairOperation];
   v3 = [v2 isCancelled];
 
@@ -16161,9 +16677,9 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_2(uint64_t a
       v7 = HMFGetLogIdentifier();
       v8 = [*(a1 + 32) hapWACAccessory];
       *buf = 138543618;
-      v30 = v7;
-      v31 = 2112;
-      v32 = v8;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v8;
       _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@cancel pairing: %@", buf, 0x16u);
     }
 
@@ -16189,7 +16705,7 @@ LABEL_16:
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v30 = v25;
+          v29 = v25;
           _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_INFO, "%{public}@Starting WAC Software Auth Split Pair-Setup", buf, 0xCu);
         }
 
@@ -16208,7 +16724,7 @@ LABEL_16:
 
 LABEL_19:
     [*(a1 + 32) _continuePairingUsingWAC];
-    goto LABEL_20;
+    return;
   }
 
   v10 = objc_autoreleasePoolPush();
@@ -16218,35 +16734,33 @@ LABEL_19:
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v13;
+    v29 = v13;
     _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Legacy WAC, prompting user to request permission to provide credentials...", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v10);
-  if (![*(a1 + 32) _delegateRespondsToSelector:sel_accessoryServer_requestUserPermission_accessoryInfo_error_])
+  if ([*(a1 + 32) _delegateRespondsToSelector:sel_accessoryServer_requestUserPermission_accessoryInfo_error_])
   {
-    [*(a1 + 32) _notifyDelegatesOfAddAccessoryFailureWithError:0];
-    goto LABEL_20;
-  }
+    v14 = [HAPAccessoryInfo alloc];
+    v15 = [*(a1 + 32) name];
+    v16 = [*(a1 + 32) category];
+    v17 = [(HAPAccessoryInfo *)v14 initWithName:v15 manufacturer:0 modelName:0 category:v16 certificationStatus:0 denylisted:0 ppid:0];
 
-  v14 = [HAPAccessoryInfo alloc];
-  v15 = [*(a1 + 32) name];
-  v16 = [*(a1 + 32) category];
-  v17 = [(HAPAccessoryInfo *)v14 initWithName:v15 manufacturer:0 modelName:0 category:v16 certificationStatus:0 denylisted:0 ppid:0];
-
-  v18 = [*(a1 + 32) delegateQueue];
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117;
-  block[3] = &unk_2786D7050;
-  block[4] = *(a1 + 32);
-  v28 = v17;
-  v9 = v17;
-  dispatch_async(v18, block);
+    v18 = [*(a1 + 32) delegateQueue];
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117;
+    block[3] = &unk_2786D7050;
+    block[4] = *(a1 + 32);
+    v27 = v17;
+    v9 = v17;
+    dispatch_async(v18, block);
 
 LABEL_5:
-LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
+    return;
+  }
+
+  [*(a1 + 32) _notifyDelegatesOfAddAccessoryFailureWithError:0];
 }
 
 void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117(uint64_t a1)
@@ -16257,7 +16771,7 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117(uint64_t
 
 - (id)_joinAccessoryNetworkWithCompletion:(id)completion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   browser = [(HAPAccessoryServerIP *)self browser];
   visible2Pt4Networks = [browser visible2Pt4Networks];
@@ -16286,19 +16800,19 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117(uint64_t
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v18;
+      v30 = v18;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Join accessory network", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     hapWACAccessoryClient3 = [(HAPAccessoryServerIP *)selfCopy hapWACAccessoryClient];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invoke;
-    v28[3] = &unk_2786D6790;
-    v28[4] = selfCopy;
-    v29 = completionCopy;
-    v20 = [hapWACAccessoryClient3 joinAccessoryNetworkWithCompletion:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invoke;
+    v27[3] = &unk_2786D6790;
+    v27[4] = selfCopy;
+    v28 = completionCopy;
+    v20 = [hapWACAccessoryClient3 joinAccessoryNetworkWithCompletion:v27];
 
     v21 = 0;
   }
@@ -16312,7 +16826,7 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117(uint64_t
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v25;
+      v30 = v25;
       _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@Error Allocating HAPWACAccessoryClient", buf, 0xCu);
     }
 
@@ -16320,8 +16834,6 @@ void __45__HAPAccessoryServerIP__pairSetupContinueWAC__block_invoke_117(uint64_t
     v21 = [MEMORY[0x277CCA9B8] hapErrorWithCode:19 description:@"Error Allocating HAPWACAccessoryClient" reason:@"HAPAccessoryServerIP.hapWACAccessoryClient is null after _joinAccessoryNetworkWithCompletion" suggestion:0 underlyingError:0 marker:106];
     (*(completionCopy + 2))(completionCopy, v21);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -16336,23 +16848,21 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
 
 - (void)_invalidateWAC
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@invalidateWAC", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@invalidateWAC", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   pairOperation = [(HAPAccessoryServerIP *)selfCopy pairOperation];
   [pairOperation finish];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startReprovisioningWithPairingRequest:(id)request
@@ -16529,7 +17039,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
 
 - (void)_updateWithBonjourDeviceInfo:(id)info socketInfo:(id)socketInfo
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   socketInfoCopy = socketInfo;
   if (socketInfoCopy)
@@ -16545,7 +17055,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
   discoveryBookkeeping = [(HAPAccessoryServerIP *)self discoveryBookkeeping];
   [discoveryBookkeeping setLastDiscoveryMethod:v8];
 
-  v52 = infoCopy;
+  v51 = infoCopy;
   [(HAPAccessoryServerIP *)self setBonjourDeviceInfo:infoCopy];
   [(HAPAccessoryServerIP *)self setHasUpdatedBonjour:1];
   configNumber = [(HAPAccessoryServer *)self configNumber];
@@ -16557,7 +17067,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
   _parseAndValidateTXTRecord = [(HAPAccessoryServerIP *)self _parseAndValidateTXTRecord];
   isPaired = [(HAPAccessoryServerIP *)self isPaired];
   v14 = isPaired;
-  v55 = socketInfoCopy;
+  v54 = socketInfoCopy;
   if (socketInfoCopy && isPaired)
   {
     v15 = objc_autoreleasePoolPush();
@@ -16569,7 +17079,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
       v18 = wakeNumber;
       v20 = v19 = _parseAndValidateTXTRecord;
       *buf = 138543362;
-      v62 = v20;
+      v61 = v20;
       _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_INFO, "%{public}@Saving socket info", buf, 0xCu);
 
       _parseAndValidateTXTRecord = v19;
@@ -16593,7 +17103,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
     stateNumber2 = [(HAPAccessoryServer *)selfCopy2 stateNumber];
     *buf = 138545410;
     v30 = @"NO";
-    v62 = v24;
+    v61 = v24;
     if (v14)
     {
       v31 = @"YES";
@@ -16609,24 +17119,24 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
       v30 = @"YES";
     }
 
-    v63 = 2048;
-    v64 = configNumber;
-    v65 = 2048;
-    v66 = configNumber2;
+    v62 = 2048;
+    v63 = configNumber;
+    v64 = 2048;
+    v65 = configNumber2;
     _parseAndValidateTXTRecord = v26;
     wakeNumber = v25;
-    v67 = 2048;
-    v68 = v25;
-    v69 = 2048;
-    v70 = wakeNumber2;
-    v71 = 2048;
-    v72 = stateNumber;
-    v73 = 2048;
-    v74 = stateNumber2;
-    v75 = 2114;
-    v76 = v31;
-    v77 = 2114;
-    v78 = v30;
+    v66 = 2048;
+    v67 = v25;
+    v68 = 2048;
+    v69 = wakeNumber2;
+    v70 = 2048;
+    v71 = stateNumber;
+    v72 = 2048;
+    v73 = stateNumber2;
+    v74 = 2114;
+    v75 = v31;
+    v76 = 2114;
+    v77 = v30;
     _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Parsing record: C# old/new %tu/%tu, W# old/new %tu/%tu, S# old/new %tu/%tu Paired: %{public}@, Discovery Pending: %{public}@", buf, 0x5Cu);
   }
 
@@ -16653,7 +17163,7 @@ void __60__HAPAccessoryServerIP__joinAccessoryNetworkWithCompletion___block_invo
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v42;
+      v61 = v42;
       v43 = "%{public}@skip connecting because accessory is suspended";
       v44 = v41;
       v45 = OS_LOG_TYPE_DEBUG;
@@ -16673,7 +17183,7 @@ LABEL_30:
       {
         v49 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v62 = v49;
+        v61 = v49;
         _os_log_impl(&dword_22AADC000, v48, OS_LOG_TYPE_INFO, "%{public}@connecting because accessory is no longer suspended", buf, 0xCu);
       }
 
@@ -16693,10 +17203,10 @@ LABEL_30:
       block[2] = __64__HAPAccessoryServerIP__updateWithBonjourDeviceInfo_socketInfo___block_invoke;
       block[3] = &unk_2786D6740;
       block[4] = selfCopy2;
-      v57 = v32;
-      v58 = v35;
-      v59 = v38;
-      v60 = isBonjourDiscoveryPending;
+      v56 = v32;
+      v57 = v35;
+      v58 = v38;
+      v59 = isBonjourDiscoveryPending;
       dispatch_async(clientQueue, block);
 
       goto LABEL_40;
@@ -16709,7 +17219,7 @@ LABEL_30:
     {
       v42 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v62 = v42;
+      v61 = v42;
       v43 = "%{public}@skip update because WAC is in progress";
       v44 = v41;
       v45 = OS_LOG_TYPE_INFO;
@@ -16719,17 +17229,14 @@ LABEL_30:
 
   objc_autoreleasePoolPop(v39);
 LABEL_40:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__HAPAccessoryServerIP__updateWithBonjourDeviceInfo_socketInfo___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) _isSessionEstablished])
   {
     v2 = *(a1 + 32);
-    v3 = *MEMORY[0x277D85DE8];
 
     return [v2 _getAttributeDatabase];
   }
@@ -16738,77 +17245,89 @@ uint64_t __64__HAPAccessoryServerIP__updateWithBonjourDeviceInfo_socketInfo___bl
   {
     if (*(a1 + 40))
     {
-      v5 = @"bonjourUpdate.configNumberChanged";
+      v4 = @"bonjourUpdate.configNumberChanged";
     }
 
     else if (*(a1 + 41))
     {
-      v5 = @"bonjourUpdate.stateNumberChanged";
+      v4 = @"bonjourUpdate.stateNumberChanged";
     }
 
     else if (*(a1 + 42))
     {
-      v5 = @"bonjourUpdate.wakeNumberChanged";
+      v4 = @"bonjourUpdate.wakeNumberChanged";
     }
 
     else if (*(a1 + 43))
     {
-      v5 = @"bonjourUpdate.pendingBonjourDiscovery";
+      v4 = @"bonjourUpdate.pendingBonjourDiscovery";
     }
 
     else
     {
-      v5 = @"requested";
+      v4 = @"requested";
     }
 
-    v6 = objc_autoreleasePoolPush();
-    v7 = *(a1 + 32);
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v5 = objc_autoreleasePoolPush();
+    v6 = *(a1 + 32);
+    v7 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@establishing secured session due: %{public}@", &v11, 0x16u);
+      v8 = HMFGetLogIdentifier();
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2114;
+      v12 = v4;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@establishing secured session due: %{public}@", &v9, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v6);
-    result = [*(a1 + 32) _establishSecureConnectionAndFetchAttributeDatabaseWithReason:v5];
-    v10 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v5);
+    return [*(a1 + 32) _establishSecureConnectionAndFetchAttributeDatabaseWithReason:v4];
   }
-
-  return result;
 }
 
 - (BOOL)_shouldConnectBasedOnDisconnectOnIdle
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(HAPAccessoryServer *)self shouldDisconnectOnIdle]&& ([(HAPAccessoryServerIP *)self httpClient], v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  v11 = *MEMORY[0x277D85DE8];
+  if (![(HAPAccessoryServer *)self shouldDisconnectOnIdle])
   {
-    v6 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v8 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
-    {
-      v9 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v9;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@Recommend deferring update to server until next connection", &v10, 0xCu);
-    }
-
-    objc_autoreleasePoolPop(v6);
-    result = 0;
+    return 1;
   }
 
-  else
+  httpClient = [(HAPAccessoryServerIP *)self httpClient];
+
+  if (httpClient)
   {
-    result = 1;
+    return 1;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Recommend deferring update to server until next connection", &v9, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  return 0;
+}
+
+- (void)_submitStateNumberChangeEvent:(BOOL)event
+{
+  eventCopy = event;
+  primaryAccessoryForServer = [(HAPAccessoryServerIP *)self primaryAccessoryForServer];
+
+  if (primaryAccessoryForServer)
+  {
+    primaryAccessoryForServer2 = [(HAPAccessoryServerIP *)self primaryAccessoryForServer];
+    v7 = [(HAPAccessoryServer *)self buildReachabilityNotificationDictionary:primaryAccessoryForServer2 reachable:eventCopy linkType:1 withError:0];
+
+    [(HAPAccessoryServer *)self notifyClients:3 withDictionary:v7];
+  }
 }
 
 - (void)updateWithBonjourDeviceInfo:(id)info socketInfo:(id)socketInfo
@@ -16830,14 +17349,14 @@ uint64_t __64__HAPAccessoryServerIP__updateWithBonjourDeviceInfo_socketInfo___bl
 
 void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_invoke(uint64_t a1)
 {
-  *&v32[5] = *MEMORY[0x277D85DE8];
+  *&v31[5] = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _updateWithBonjourDeviceInfo:*(a1 + 40) socketInfo:*(a1 + 48)];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_invoke_2;
-  v28[3] = &unk_2786D6CF0;
-  v28[4] = *(a1 + 32);
-  v2 = MEMORY[0x231885210](v28);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_invoke_2;
+  v27[3] = &unk_2786D6CF0;
+  v27[4] = *(a1 + 32);
+  v2 = MEMORY[0x231885210](v27);
   if (![*(a1 + 32) isWacAccessory] || !objc_msgSend(*(a1 + 32), "isWacLegacy"))
   {
     if (![*(a1 + 32) isPairingRequestPending])
@@ -16852,7 +17371,7 @@ void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_i
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v24;
+      v29 = v24;
       _os_log_impl(&dword_22AADC000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Pairing request pending", buf, 0xCu);
     }
 
@@ -16873,11 +17392,11 @@ void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_i
     v7 = ([*(a1 + 32) statusFlags] & 1) == 0;
     v8 = [*(a1 + 32) isContinuingLegacyWACpairing];
     *buf = 138543874;
-    v30 = v6;
-    v31 = 1024;
-    *v32 = v7;
-    v32[2] = 1024;
-    *&v32[3] = v8;
+    v29 = v6;
+    v30 = 1024;
+    *v31 = v7;
+    v31[2] = 1024;
+    *&v31[3] = v8;
     _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@Legacy WAC accessory Bonjour event - hasPairings %d  continuingLegacyPairing: %d", buf, 0x18u);
   }
 
@@ -16896,7 +17415,7 @@ void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_i
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v13;
+        v29 = v13;
         _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Received Bonjour event - canceling timer", buf, 0xCu);
       }
 
@@ -16918,9 +17437,9 @@ void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_i
         v18 = HMFGetLogIdentifier();
         v19 = [*(a1 + 32) bonjourDeviceInfo];
         *buf = 138543618;
-        v30 = v18;
-        v31 = 2112;
-        *v32 = v19;
+        v29 = v18;
+        v30 = 2112;
+        *v31 = v19;
         _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@has pairings after legacy WAC completion - aborting pairing operation: %@", buf, 0x16u);
       }
 
@@ -16940,8 +17459,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HAPAccessoryServerIP_updateWithBonjourDeviceInfo_socketInfo___block_invoke_2(uint64_t a1, void *a2)
@@ -17199,7 +17716,7 @@ void __55__HAPAccessoryServerIP__notifyDelegatesPairingStopped___block_invoke(ui
 
 void __44__HAPAccessoryServerIP_removeActiveSession___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 368) &= ~*(a1 + 40);
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -17209,13 +17726,13 @@ void __44__HAPAccessoryServerIP_removeActiveSession___block_invoke(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v6 = HAPStringFromAccessoryServerSession(*(a1 + 40));
     v7 = HAPStringFromAccessoryServerSession(*(*(a1 + 32) + 368));
-    v15 = 138543874;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    v19 = 2112;
-    v20 = v7;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Removed active session for %@. Current active sessions: %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    v18 = 2112;
+    v19 = v7;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Removed active session for %@. Current active sessions: %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -17229,11 +17746,11 @@ void __44__HAPAccessoryServerIP_removeActiveSession___block_invoke(uint64_t a1)
     {
       v12 = HMFGetLogIdentifier();
       v13 = HAPStringFromAccessoryServerSession(*(*(a1 + 32) + 368));
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Not enabling connection idle timer due to active sessions: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Not enabling connection idle timer due to active sessions: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -17243,8 +17760,6 @@ void __44__HAPAccessoryServerIP_removeActiveSession___block_invoke(uint64_t a1)
   {
     [v8 _startConnectionIdleTimer];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addActiveSession:(int64_t)session
@@ -17261,7 +17776,7 @@ void __44__HAPAccessoryServerIP_removeActiveSession___block_invoke(uint64_t a1)
 
 void *__41__HAPAccessoryServerIP_addActiveSession___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 368) |= *(a1 + 40);
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
@@ -17271,23 +17786,22 @@ void *__41__HAPAccessoryServerIP_addActiveSession___block_invoke(uint64_t a1)
     v5 = HMFGetLogIdentifier();
     v6 = HAPStringFromAccessoryServerSession(*(a1 + 40));
     v7 = HAPStringFromAccessoryServerSession(*(*(a1 + 32) + 368));
-    v10 = 138543874;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Added active session for %@. Current active sessions: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Added active session for %@. Current active sessions: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
   result = *(a1 + 32);
   if (result[46])
   {
-    result = [result _suspendConnectionIdleTimer];
+    return [result _suspendConnectionIdleTimer];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -17370,7 +17884,7 @@ void __57__HAPAccessoryServerIP__notifyDelegateOfPairingProgress___block_invoke(
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   [(HAPAccessoryServerIP *)self _stopReachabilityTimer];
   [(HAPAccessoryServerIP *)self setConnectionIdleTimer:0];
   clientOperationQueue = self->_clientOperationQueue;
@@ -17385,7 +17899,7 @@ void __57__HAPAccessoryServerIP__notifyDelegateOfPairingProgress___block_invoke(
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v7;
+      v11 = v7;
       _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_INFO, "%{public}@HTTP client not invalidated - invalidating....", buf, 0xCu);
     }
 
@@ -17400,10 +17914,9 @@ void __57__HAPAccessoryServerIP__notifyDelegateOfPairingProgress___block_invoke(
     self->_pairingSession = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = HAPAccessoryServerIP;
-  [(HAPAccessoryServerIP *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = HAPAccessoryServerIP;
+  [(HAPAccessoryServerIP *)&v9 dealloc];
 }
 
 - (void)invalidateWithCompletionHandler:(id)handler
@@ -17422,7 +17935,7 @@ void __57__HAPAccessoryServerIP__notifyDelegateOfPairingProgress___block_invoke(
 
 uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isWacAccessory] && (objc_msgSend(*(a1 + 32), "isWacComplete") & 1) == 0)
   {
     [*(a1 + 32) _invalidateWAC];
@@ -17438,9 +17951,9 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
       v5 = HMFGetLogIdentifier();
       v6 = [*(a1 + 32) httpClient];
       *buf = 138543618;
-      v24 = v5;
-      v25 = 2112;
-      v26 = v6;
+      v23 = v5;
+      v24 = 2112;
+      v25 = v6;
       _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Invalidating non WAC server with httpClient: %@", buf, 0x16u);
     }
 
@@ -17451,27 +17964,27 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
 
     [*(a1 + 32) setHttpClient:0];
     [*(a1 + 32) setInvalidated:1];
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     v8 = [*(a1 + 32) accessories];
-    v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v19;
+      v11 = *v18;
       do
       {
         v12 = 0;
         do
         {
-          if (*v19 != v11)
+          if (*v18 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v18 + 1) + 8 * v12);
+          v13 = *(*(&v17 + 1) + 8 * v12);
           v14 = HMErrorFromHAPErrorCode(32);
           [v13 invalidateWithError:v14];
 
@@ -17479,7 +17992,7 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v10);
@@ -17493,23 +18006,21 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
     (*(v15 + 16))();
   }
 
-  result = [*(a1 + 32) incrementHAPIPInvalidationCount];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) incrementHAPIPInvalidationCount];
 }
 
 - (void)_reset
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@*** RESET Called", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@*** RESET Called", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -17529,7 +18040,6 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
   [(HAPAccessoryServerIP *)selfCopy setCurrentPairVerifyError:0];
   [(HAPAccessoryServerIP *)selfCopy setTriedConnectingToIPv4Address:0];
   [(HAPAccessoryServerIP *)selfCopy setTriedConnectingToIPv6Address:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HAPAccessoryServerIP)initWithBonjourDeviceInfo:(id)info keyStore:(id)store browser:(id)browser discoveryMethod:(unint64_t)method
@@ -17683,7 +18193,7 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
 
 + (id)_parseSerializedAccessoryDictionary:(id)dictionary server:(id)server
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   serverCopy = server;
   objc_opt_class();
@@ -17696,28 +18206,28 @@ uint64_t __56__HAPAccessoryServerIP_invalidateWithCompletionHandler___block_invo
       if (objc_opt_isKindOfClass())
       {
         v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+        v49 = 0u;
         v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
         v9 = v7;
-        v10 = [(__CFString *)v9 countByEnumeratingWithState:&v50 objects:v54 count:16];
+        v10 = [(__CFString *)v9 countByEnumeratingWithState:&v49 objects:v53 count:16];
         if (v10)
         {
           v11 = v10;
           v12 = 0;
-          v13 = *v51;
+          v13 = *v50;
 LABEL_6:
           v14 = 0;
           v15 = v12;
           while (1)
           {
-            if (*v51 != v13)
+            if (*v50 != v13)
             {
               objc_enumerationMutation(v9);
             }
 
-            v12 = _parseSerializedService(*(*(&v50 + 1) + 8 * v14));
+            v12 = _parseSerializedService(*(*(&v49 + 1) + 8 * v14));
 
             if (!v12)
             {
@@ -17729,7 +18239,7 @@ LABEL_6:
             v15 = v12;
             if (v11 == v14)
             {
-              v11 = [(__CFString *)v9 countByEnumeratingWithState:&v50 objects:v54 count:16];
+              v11 = [(__CFString *)v9 countByEnumeratingWithState:&v49 objects:v53 count:16];
               if (v11)
               {
                 goto LABEL_6;
@@ -17749,7 +18259,7 @@ LABEL_6:
 
           v42 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v56 = v42;
+          v55 = v42;
           _os_log_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse serialized service", buf, 0xCu);
         }
 
@@ -17773,9 +18283,9 @@ LABEL_13:
               {
                 v22 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v56 = v22;
-                v57 = 2114;
-                v58 = v9;
+                v55 = v22;
+                v56 = 2114;
+                v57 = v9;
                 _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Creating HAP Accessory with instanceID %{public}@", buf, 0x16u);
               }
 
@@ -17788,9 +18298,9 @@ LABEL_13:
               {
                 v44 = HMFGetLogIdentifier();
                 *buf = 138543618;
-                v56 = v44;
-                v57 = 2114;
-                v58 = v9;
+                v55 = v44;
+                v56 = 2114;
+                v57 = v9;
                 _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "%{public}@Creating HAP Bridged Accessory with instanceID %{public}@", buf, 0x16u);
               }
 
@@ -17824,14 +18334,14 @@ LABEL_38:
 
           v42 = HMFGetLogIdentifier();
           [dictionaryCopy objectForKeyedSubscript:@"aid"];
-          v43 = v49 = v39;
+          v43 = v48 = v39;
           *buf = 138543618;
-          v56 = v42;
-          v57 = 2112;
-          v58 = v43;
+          v55 = v42;
+          v56 = 2112;
+          v57 = v43;
           _os_log_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, "%{public}@Unable to parse accessory's instanceID: %@", buf, 0x16u);
 
-          v39 = v49;
+          v39 = v48;
         }
 
         goto LABEL_31;
@@ -17845,11 +18355,11 @@ LABEL_38:
         v36 = HMFGetLogIdentifier();
         v37 = objc_opt_class();
         *buf = 138543874;
-        v56 = v36;
-        v57 = 2114;
-        v58 = @"services";
-        v59 = 2114;
-        v60 = v37;
+        v55 = v36;
+        v56 = 2114;
+        v57 = @"services";
+        v58 = 2114;
+        v59 = v37;
         v38 = v37;
         _os_log_impl(&dword_22AADC000, v35, OS_LOG_TYPE_ERROR, "%{public}@Expected '%{public}@' to be an array in the accessory object of the attribute database, instead it is a %{public}@", buf, 0x20u);
       }
@@ -17864,7 +18374,7 @@ LABEL_38:
       {
         v34 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v34;
+        v55 = v34;
         _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_ERROR, "%{public}@No services found when parsing accessory object in attribute database", buf, 0xCu);
       }
     }
@@ -17884,9 +18394,9 @@ LABEL_39:
     v27 = HMFGetLogIdentifier();
     v28 = objc_opt_class();
     *buf = 138543618;
-    v56 = v27;
-    v57 = 2114;
-    v58 = v28;
+    v55 = v27;
+    v56 = 2114;
+    v57 = v28;
     v29 = v28;
     _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_ERROR, "%{public}@Expected accessory object to be a dictionary in the attribute database, instead it is a %{public}@", buf, 0x16u);
   }
@@ -17894,8 +18404,6 @@ LABEL_39:
   objc_autoreleasePoolPop(v24);
   v30 = 0;
 LABEL_40:
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -17943,21 +18451,21 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
 - (id)readAndResetHAPMetrics:(BOOL)metrics
 {
   metricsCopy = metrics;
-  v13[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
-  v12[0] = &unk_283EA95A8;
+  v11[0] = &unk_283EA95A8;
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPIPInvalidationCount];
-  v13[0] = v4;
-  v12[1] = &unk_283EA95C0;
+  v12[0] = v4;
+  v11[1] = &unk_283EA95C0;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPIPHTTPRequestsCount];
-  v13[1] = v5;
-  v12[2] = &unk_283EA95D8;
+  v12[1] = v5;
+  v11[2] = &unk_283EA95D8;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPIPHTTPResponsesCount];
-  v13[2] = v6;
-  v12[3] = &unk_283EA95F0;
+  v12[2] = v6;
+  v11[3] = &unk_283EA95F0;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_metricHAPIPHTTPEventsCount];
-  v13[3] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
+  v12[3] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:4];
 
   if (metricsCopy)
   {
@@ -17968,7 +18476,6 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -18007,7 +18514,7 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
 
 - (void)_requestResource:(id)resource queue:(id)queue completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   resourceCopy = resource;
   queueCopy = queue;
   handlerCopy = handler;
@@ -18022,42 +18529,42 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v16;
+      v44 = v16;
       _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_INFO, "%{public}@Requesting resource", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v17 = MEMORY[0x277CCACA8];
-    v43[0] = @"/";
-    v43[1] = @"resource";
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[0] = @"/";
+    v42[1] = @"resource";
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     v19 = [v17 pathWithComponents:v18];
 
     _ensureHTTPClientSetUp = [(HAPAccessoryServerIP *)selfCopy _ensureHTTPClientSetUp];
     if (_ensureHTTPClientSetUp)
     {
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_2_1288;
-      v30[3] = &unk_2786D2AF8;
-      v31 = handlerCopy;
-      v32 = _ensureHTTPClientSetUp;
-      dispatch_async(queueCopy, v30);
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_2_1288;
+      v29[3] = &unk_2786D2AF8;
+      v30 = handlerCopy;
+      v31 = _ensureHTTPClientSetUp;
+      dispatch_async(queueCopy, v29);
     }
 
     else
     {
       objc_initWeak(buf, selfCopy);
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1284;
-      v33[3] = &unk_2786D2AD0;
-      objc_copyWeak(&v36, buf);
-      v34 = queueCopy;
-      v35 = handlerCopy;
-      [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:v19 request:resourceCopy serializationType:1 completionHandler:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1284;
+      v32[3] = &unk_2786D2AD0;
+      objc_copyWeak(&v35, buf);
+      v33 = queueCopy;
+      v34 = handlerCopy;
+      [(HAPAccessoryServerIP *)selfCopy sendPOSTRequestToURL:v19 request:resourceCopy serializationType:1 completionHandler:v32];
 
-      objc_destroyWeak(&v36);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
     }
   }
@@ -18068,21 +18575,21 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v21;
+      v44 = v21;
       _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@Secure session not established, establishing lazily and queuing resource request", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     objc_initWeak(&location, selfCopy);
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke;
-    v37[3] = &unk_2786D2AA8;
-    objc_copyWeak(&v41, &location);
-    v38 = queueCopy;
-    v40 = handlerCopy;
-    v39 = resourceCopy;
-    v22 = MEMORY[0x231885210](v37);
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke;
+    v36[3] = &unk_2786D2AA8;
+    objc_copyWeak(&v40, &location);
+    v37 = queueCopy;
+    v39 = handlerCopy;
+    v38 = resourceCopy;
+    v22 = MEMORY[0x231885210](v36);
     v23 = objc_autoreleasePoolPush();
     v24 = selfCopy;
     v25 = HMFGetOSLogHandle();
@@ -18090,7 +18597,7 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v26;
+      v44 = v26;
       _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Queuing resource request until pair-verify completes", buf, 0xCu);
     }
 
@@ -18100,11 +18607,9 @@ void __73__HAPAccessoryServerIP_SessionRestore__processPendingBonjourRemoveEvent
     [queuedOperations addObject:v28];
 
     [(HAPAccessoryServerIP *)v24 _establishSecureConnectionAndFetchAttributeDatabaseWithReason:@"noSession.hapurl"];
-    objc_destroyWeak(&v41);
+    objc_destroyWeak(&v40);
     objc_destroyWeak(&location);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -18130,9 +18635,10 @@ void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionH
   }
 }
 
-void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1284(uint64_t a1, void *a2, uint64_t a3, int a4, void *a5)
+void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1284(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v6 = a4;
+  v48 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a5;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -18145,9 +18651,9 @@ void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionH
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v42 = v15;
-      v43 = 2112;
-      *v44 = v10;
+      v41 = v15;
+      v42 = 2112;
+      *v43 = v10;
       _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@Resource request returned HTTP client error: %@", buf, 0x16u);
     }
 
@@ -18156,35 +18662,35 @@ void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionH
     block[1] = 3221225472;
     block[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1285;
     block[3] = &unk_2786D65D8;
-    v16 = &v40;
+    v16 = &v39;
     v17 = *(a1 + 32);
-    v40 = *(a1 + 40);
-    v39 = v10;
+    v39 = *(a1 + 40);
+    v38 = v10;
     dispatch_async(v17, block);
-    v18 = v39;
+    v18 = v38;
     goto LABEL_5;
   }
 
   if (v9)
   {
-    if (a4 == 200)
+    if (v6 == 200)
     {
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
       if (a3 == 2 && (isKindOfClass & 1) != 0)
       {
         v20 = v9;
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_2_1286;
-        v35[3] = &unk_2786D65D8;
-        v16 = &v37;
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_2_1286;
+        v34[3] = &unk_2786D65D8;
+        v16 = &v36;
         v21 = *(a1 + 32);
         v22 = *(a1 + 40);
-        v36 = v20;
-        v37 = v22;
-        dispatch_async(v21, v35);
-        v18 = v36;
+        v35 = v20;
+        v36 = v22;
+        dispatch_async(v21, v34);
+        v18 = v35;
 LABEL_5:
 
         goto LABEL_17;
@@ -18197,9 +18703,9 @@ LABEL_5:
   v25 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v32 = v23;
+    v31 = v23;
     v26 = HMFGetLogIdentifier();
-    v31 = HTTPGetReasonPhrase();
+    v30 = HTTPGetReasonPhrase();
     if ((a3 - 1) > 3)
     {
       v27 = @"Invalid";
@@ -18212,32 +18718,30 @@ LABEL_5:
 
     v28 = v27;
     *buf = 138544386;
-    v42 = v26;
-    v43 = 1026;
-    *v44 = a4;
-    *&v44[4] = 2082;
-    *&v44[6] = v31;
-    v45 = 2114;
-    v46 = v28;
-    v47 = 2114;
-    v48 = v9;
+    v41 = v26;
+    v42 = 1026;
+    *v43 = v6;
+    *&v43[4] = 2082;
+    *&v43[6] = v30;
+    v44 = 2114;
+    v45 = v28;
+    v46 = 2114;
+    v47 = v9;
     _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to request resource because the accessory sent an invalid response with HTTP Status Code '%{public}d %{public}s' and a %{public}@ body: %{public}@", buf, 0x30u);
 
-    v23 = v32;
+    v23 = v31;
   }
 
   objc_autoreleasePoolPop(v23);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1287;
-  v33[3] = &unk_2786D6490;
-  v16 = &v34;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_1287;
+  v32[3] = &unk_2786D6490;
+  v16 = &v33;
   v29 = *(a1 + 32);
-  v34 = *(a1 + 40);
-  dispatch_async(v29, v33);
+  v33 = *(a1 + 40);
+  dispatch_async(v29, v32);
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HAPAccessoryServerIP_HTTPActivity___requestResource_queue_completionHandler___block_invoke_2_1288(uint64_t a1)
@@ -18326,7 +18830,6 @@ void __78__HAPAccessoryServerIP_HTTPActivity__requestResource_queue_completionHa
 
 uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
   logCategory__hmf_once_v432 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();
@@ -18334,7 +18837,7 @@ uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
 
 - (void)_cancelNameResolution
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
 
@@ -18348,9 +18851,9 @@ uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Cancelling active name resolution", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_INFO, "%{public}@Cancelling active name resolution", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -18359,13 +18862,11 @@ uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
 
     [(HAPAccessoryServerIP *)selfCopy setNameResolver:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doResolveWithGroup:(id)group
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   clientQueue = [(HAPAccessoryServer *)self clientQueue];
   dispatch_assert_queue_V2(clientQueue);
@@ -18381,7 +18882,7 @@ uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v10;
+      v26 = v10;
       _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Name resolution already in progress!  Are there multiple outstanding connection requests?", buf, 0xCu);
     }
 
@@ -18417,21 +18918,19 @@ uint64_t __44__HAPAccessoryServerIP_Metrics__logCategory__block_invoke()
     [(HAPAccessoryServerIP *)self setNameResolver:v21];
 
     nameResolver2 = [(HAPAccessoryServerIP *)self nameResolver];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __60__HAPAccessoryServerIP_NameResolution___doResolveWithGroup___block_invoke;
-    v24[3] = &unk_2786D5840;
-    v24[4] = self;
-    v25 = groupCopy;
-    [nameResolver2 resolveWithTimeout:v24 completion:v16];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __60__HAPAccessoryServerIP_NameResolution___doResolveWithGroup___block_invoke;
+    v23[3] = &unk_2786D5840;
+    v23[4] = self;
+    v24 = groupCopy;
+    [nameResolver2 resolveWithTimeout:v23 completion:v16];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HAPAccessoryServerIP_NameResolution___doResolveWithGroup___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setNameResolver:0];
@@ -18444,11 +18943,11 @@ void __60__HAPAccessoryServerIP_NameResolution___doResolveWithGroup___block_invo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Saving updated socket info %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_INFO, "%{public}@Saving updated socket info %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -18460,19 +18959,17 @@ void __60__HAPAccessoryServerIP_NameResolution___doResolveWithGroup___block_invo
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v12;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Name resolution failed: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v12;
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Name resolution failed: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

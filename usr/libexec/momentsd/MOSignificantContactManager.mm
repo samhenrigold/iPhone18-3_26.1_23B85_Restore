@@ -524,8 +524,8 @@ void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDat
 
 void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDate_CompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v47 = +[NSCalendar currentCalendar];
-  v2 = [v47 startOfDayForDate:*(a1 + 32)];
+  v46 = +[NSCalendar currentCalendar];
+  v2 = [v46 startOfDayForDate:*(a1 + 32)];
   v3 = &GEOPOICategoryGasStation_ptr;
   v4 = objc_opt_new();
   if (*(a1 + 32))
@@ -576,104 +576,103 @@ void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDat
     }
   }
 
-  v48 = objc_opt_new();
+  v47 = objc_opt_new();
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   obj = v4;
-  v53 = [obj countByEnumeratingWithState:&v60 objects:v76 count:16];
-  if (v53)
+  v52 = [obj countByEnumeratingWithState:&v59 objects:v75 count:16];
+  if (v52)
   {
-    v52 = *v61;
-    v46 = v2;
-    v49 = a1;
+    v51 = *v60;
+    v45 = v2;
+    v48 = a1;
     while (2)
     {
       v17 = 0;
       do
       {
-        if (*v61 != v52)
+        if (*v60 != v51)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v60 + 1) + 8 * v17);
+        v18 = *(*(&v59 + 1) + 8 * v17);
         context = objc_autoreleasePoolPush();
         v19 = [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:0];
-        v75 = v19;
-        v20 = [NSArray arrayWithObjects:&v75 count:1];
+        v74 = v19;
+        v20 = [NSArray arrayWithObjects:&v74 count:1];
 
         v21 = [v18 startDate];
         v22 = [v18 endDate];
         v23 = [NSPredicate predicateWithFormat:@"startDate >= %@ && startDate <= %@", v21, v22];
 
-        v54 = v23;
-        v74[0] = v23;
-        v74[1] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicateMechanism;
-        v74[2] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicatePersonIdNotNil;
-        v74[3] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicateBundleId;
-        v24 = [NSArray arrayWithObjects:v74 count:4];
+        v53 = v23;
+        v73[0] = v23;
+        v73[1] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicateMechanism;
+        v73[2] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicatePersonIdNotNil;
+        v73[3] = _fetchInteractionsBetweenStartDate_EndDate_CompletionHandler__predicateBundleId;
+        v24 = [NSArray arrayWithObjects:v73 count:4];
         v25 = [NSCompoundPredicate andPredicateWithSubpredicates:v24];
 
         v26 = [*(a1 + 48) interactionStore];
-        v59 = 0;
-        v55 = v20;
-        v27 = [v26 queryInteractionsUsingPredicate:v25 sortDescriptors:v20 limit:1000 error:&v59];
-        v28 = v59;
+        v58 = 0;
+        v54 = v20;
+        v27 = [v26 queryInteractionsUsingPredicate:v25 sortDescriptors:v20 limit:1000 error:&v58];
+        v28 = v58;
 
-        v29 = v3[233];
-        v30 = objc_opt_new();
-        v57[0] = _NSConcreteStackBlock;
-        v57[1] = 3221225472;
-        v57[2] = __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDate_CompletionHandler___block_invoke_3;
-        v57[3] = &unk_100337690;
-        v57[4] = *(a1 + 48);
-        v31 = v30;
-        v58 = v31;
-        [v27 enumerateObjectsWithOptions:2 usingBlock:v57];
-        v32 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v29 = objc_opt_new();
+        v56[0] = _NSConcreteStackBlock;
+        v56[1] = 3221225472;
+        v56[2] = __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDate_CompletionHandler___block_invoke_3;
+        v56[3] = &unk_100337690;
+        v56[4] = *(a1 + 48);
+        v30 = v29;
+        v57 = v30;
+        [v27 enumerateObjectsWithOptions:2 usingBlock:v56];
+        v31 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           NSStringFromSelector(*(a1 + 64));
-          v33 = v51 = v17;
-          v34 = [v27 count];
-          v35 = v28;
-          v36 = v27;
-          v37 = v25;
-          v38 = v3;
-          v39 = v34;
-          v40 = [v18 startDate];
-          v41 = [v18 endDate];
-          v42 = [v31 count];
+          v32 = v50 = v17;
+          v33 = [v27 count];
+          v34 = v28;
+          v35 = v27;
+          v36 = v25;
+          v37 = v3;
+          v38 = v33;
+          v39 = [v18 startDate];
+          v40 = [v18 endDate];
+          v41 = [v30 count];
           *buf = 138413314;
-          v65 = v33;
-          v66 = 2048;
-          v67 = v39;
-          v3 = v38;
-          v25 = v37;
-          v27 = v36;
-          v28 = v35;
-          v68 = 2112;
-          v69 = v40;
-          v70 = 2112;
-          v71 = v41;
-          v72 = 2048;
-          v73 = v42;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%@, fetched interaction count, %lu, startDate, %@, endDate, %@, filtered interaction count, %lu", buf, 0x34u);
+          v64 = v32;
+          v65 = 2048;
+          v66 = v38;
+          v3 = v37;
+          v25 = v36;
+          v27 = v35;
+          v28 = v34;
+          v67 = 2112;
+          v68 = v39;
+          v69 = 2112;
+          v70 = v40;
+          v71 = 2048;
+          v72 = v41;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%@, fetched interaction count, %lu, startDate, %@, endDate, %@, filtered interaction count, %lu", buf, 0x34u);
 
-          a1 = v49;
-          v17 = v51;
+          a1 = v48;
+          v17 = v50;
         }
 
         if (v28)
         {
-          v43 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v42 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v65 = v28;
-            _os_log_error_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "Interactions query error: %@", buf, 0xCu);
+            v64 = v28;
+            _os_log_error_impl(&_mh_execute_header, v42, OS_LOG_TYPE_ERROR, "Interactions query error: %@", buf, 0xCu);
           }
 
           (*(*(a1 + 56) + 16))();
@@ -681,10 +680,10 @@ void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDat
 
         else
         {
-          v44 = [*(a1 + 48) _conversationsFromInteractions:v31];
-          if ([v44 count])
+          v43 = [*(a1 + 48) _conversationsFromInteractions:v30];
+          if ([v43 count])
           {
-            [v48 addObjectsFromArray:v44];
+            [v47 addObjectsFromArray:v43];
           }
         }
 
@@ -692,18 +691,18 @@ void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDat
         if (v28)
         {
 
-          v2 = v46;
-          v45 = v48;
+          v2 = v45;
+          v44 = v47;
           goto LABEL_35;
         }
 
         v17 = v17 + 1;
       }
 
-      while (v53 != v17);
-      v2 = v46;
-      v53 = [obj countByEnumeratingWithState:&v60 objects:v76 count:16];
-      if (v53)
+      while (v52 != v17);
+      v2 = v45;
+      v52 = [obj countByEnumeratingWithState:&v59 objects:v75 count:16];
+      if (v52)
       {
         continue;
       }
@@ -712,7 +711,7 @@ void __92__MOSignificantContactManager__fetchInteractionsBetweenStartDate_EndDat
     }
   }
 
-  v45 = v48;
+  v44 = v47;
   (*(*(a1 + 56) + 16))();
 LABEL_35:
 }
@@ -1231,25 +1230,25 @@ void __62__MOSignificantContactManager__conversationsFromInteractions___block_in
   conversationsCopy = conversations;
   handlerCopy = handler;
   v8 = +[NSDate distantFuture];
-  v35 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
+  v37 = 0u;
   v9 = conversationsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v10)
   {
-    v11 = *v34;
+    v11 = *v37;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v34 != v11)
+        if (*v37 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         startDate = [v13 startDate];
         v15 = [v8 isAfterDate:startDate];
 
@@ -1261,18 +1260,18 @@ void __62__MOSignificantContactManager__conversationsFromInteractions___block_in
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v10);
   }
 
   v30 = 0;
-  v31[0] = &v30;
-  v31[1] = 0x3032000000;
-  v31[2] = __Block_byref_object_copy__8;
-  v31[3] = __Block_byref_object_dispose__8;
-  v32 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__8;
+  v34 = __Block_byref_object_dispose__8;
+  v35 = 0;
   v28[0] = 0;
   v28[1] = v28;
   v28[2] = 0x3032000000;
@@ -1288,12 +1287,12 @@ void __62__MOSignificantContactManager__conversationsFromInteractions___block_in
   v27[5] = v28;
   [momentStore fetchEventsWithStartDateAfter:v8 Category:10 CompletionHandler:v27];
 
-  if (*(v31[0] + 40))
+  if (v31[5])
   {
     v18 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [MOSignificantContactManager _saveConversations:v31 handler:?];
+      [MOSignificantContactManager _saveConversations:handler:];
     }
 
     v19 = _mo_log_facility_get_os_log(&MOLogFacilitySignificantContact);
@@ -1304,7 +1303,7 @@ void __62__MOSignificantContactManager__conversationsFromInteractions___block_in
 
     if (handlerCopy)
     {
-      handlerCopy[2](handlerCopy, *(v31[0] + 40), &__NSDictionary0__struct);
+      handlerCopy[2](handlerCopy, v31[5], &__NSDictionary0__struct);
     }
   }
 
@@ -2878,13 +2877,6 @@ void __75__MOSignificantContactManager__collectSignificantContactsFromInteractio
   [a1 count];
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, " ---  Received Interactions Count :%3lu", v3, 0xCu);
-}
-
-- (void)_saveConversations:(uint64_t)a1 handler:.cold.1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 - (void)_saveConversations:handler:.cold.2()

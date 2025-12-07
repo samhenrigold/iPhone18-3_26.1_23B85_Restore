@@ -110,9 +110,10 @@ void __48__ATXDailyRoutinesTriggerManager_sharedInstance__block_invoke()
 
 void __53__ATXDailyRoutinesTriggerManager_updateWithActivity___block_invoke(uint64_t a1)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) getNextTransitionOnActivity:*(a1 + 40)];
-  if (([*(a1 + 40) didDefer] & 1) == 0)
+  v3 = [*(a1 + 40) didDefer];
+  if ((v3 & 1) == 0)
   {
     if (v2)
     {
@@ -121,11 +122,11 @@ void __53__ATXDailyRoutinesTriggerManager_updateWithActivity___block_invoke(uint
 
     else
     {
-      v3 = __atxlog_handle_dailyroutines();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = __atxlog_handle_dailyroutines(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v29) = 0;
-        _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "No predicted transition received. Attempting to load from cache", &v29, 2u);
+        LOWORD(v33) = 0;
+        _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "No predicted transition received. Attempting to load from cache", &v33, 2u);
       }
 
       v2 = [*(*(a1 + 32) + 16) getNextTransitionOnActivity:*(a1 + 40)];
@@ -133,97 +134,94 @@ void __53__ATXDailyRoutinesTriggerManager_updateWithActivity___block_invoke(uint
 
     if (([*(a1 + 40) didDefer] & 1) == 0)
     {
-      v4 = [MEMORY[0x277CCAB98] defaultCenter];
-      v5 = v4;
-      v6 = *(a1 + 32);
+      v5 = [MEMORY[0x277CCAB98] defaultCenter];
+      v6 = v5;
+      v7 = *(a1 + 32);
       if (v2)
       {
-        v31 = @"transition";
-        v32[0] = v2;
-        v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-        [v5 postNotificationName:@"com.apple.duetexpertd.dailyroutines" object:v6 userInfo:v7];
+        v35 = @"transition";
+        v36[0] = v2;
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+        [v6 postNotificationName:@"com.apple.duetexpertd.dailyroutines" object:v7 userInfo:v8];
 
-        v8 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = __atxlog_handle_dailyroutines(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = 138412290;
-          v30 = v2;
-          _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "Using the following transition: %@", &v29, 0xCu);
+          v33 = 138412290;
+          v34 = v2;
+          _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Using the following transition: %@", &v33, 0xCu);
         }
 
-        v9 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v12 = __atxlog_handle_dailyroutines(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(*(a1 + 32) + 8);
-          v11 = [v2 date];
-          v12 = [v10 stringFromDate:v11];
-          v29 = 138412290;
-          v30 = v12;
-          _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Transition time: %@", &v29, 0xCu);
+          v13 = *(*(a1 + 32) + 8);
+          v14 = [v2 date];
+          v15 = [v13 stringFromDate:v14];
+          v33 = 138412290;
+          v34 = v15;
+          _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Transition time: %@", &v33, 0xCu);
         }
 
-        v13 = *(a1 + 32);
-        v14 = v13[4];
-        v15 = [v13 now];
-        v16 = [v2 transitionArrayForDate:v15];
-        v17 = [v14 setWithObject:v16];
+        v16 = *(a1 + 32);
+        v17 = v16[4];
+        v18 = [v16 now];
+        v19 = [v2 transitionArrayForDate:v18];
+        v20 = [v17 setWithObject:v19];
 
-        v18 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v22 = __atxlog_handle_dailyroutines(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v29 = 67109120;
-          LODWORD(v30) = v17;
-          _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Context store updated: %{BOOL}d", &v29, 8u);
+          v33 = 67109120;
+          LODWORD(v34) = v20;
+          _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Context store updated: %{BOOL}d", &v33, 8u);
         }
 
-        v19 = *(a1 + 32);
-        v20 = objc_opt_class();
-        v21 = [v2 date];
-        v22 = [*(a1 + 32) now];
-        v23 = [v20 _wakeupDateForExitDate:v21 fromDate:v22];
+        v23 = objc_opt_class();
+        v24 = [v2 date];
+        v25 = [*(a1 + 32) now];
+        v26 = [v23 _wakeupDateForExitDate:v24 fromDate:v25];
 
-        v24 = __atxlog_handle_dailyroutines();
-        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-        if (v23)
+        v28 = __atxlog_handle_dailyroutines(v27);
+        v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+        if (v26)
         {
-          if (v25)
+          if (v29)
           {
-            v26 = [*(*(a1 + 32) + 8) stringFromDate:v23];
-            v29 = 138412290;
-            v30 = v26;
-            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Scheduling one shot job for %@", &v29, 0xCu);
+            v30 = [*(*(a1 + 32) + 8) stringFromDate:v26];
+            v33 = 138412290;
+            v34 = v30;
+            _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "Scheduling one shot job for %@", &v33, 0xCu);
           }
 
-          v27 = *(a1 + 32);
-          v24 = [v27 now];
-          [v23 timeIntervalSinceDate:v24];
-          [v27 _scheduleOneShotJobAfterInterval:?];
+          v31 = *(a1 + 32);
+          v28 = [v31 now];
+          [v26 timeIntervalSinceDate:v28];
+          [v31 _scheduleOneShotJobAfterInterval:?];
         }
 
-        else if (v25)
+        else if (v29)
         {
-          LOWORD(v29) = 0;
-          _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "Declined to schedule an trigger manager update", &v29, 2u);
+          LOWORD(v33) = 0;
+          _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "Declined to schedule an trigger manager update", &v33, 2u);
         }
       }
 
       else
       {
-        [v4 postNotificationName:@"com.apple.duetexpertd.dailyroutines" object:*(a1 + 32)];
+        [v5 postNotificationName:@"com.apple.duetexpertd.dailyroutines" object:*(a1 + 32)];
 
-        v23 = __atxlog_handle_dailyroutines();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v26 = __atxlog_handle_dailyroutines(v32);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v29) = 0;
-          _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "No transition found", &v29, 2u);
+          LOWORD(v33) = 0;
+          _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_DEFAULT, "No transition found", &v33, 2u);
         }
 
         v2 = 0;
       }
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentTransition
@@ -253,7 +251,7 @@ void __51__ATXDailyRoutinesTriggerManager_currentTransition__block_invoke(uint64
   v2 = [*(*(a1 + 32) + 24) getNextTransitionOnActivity:0];
   if (!v2)
   {
-    v3 = __atxlog_handle_dailyroutines();
+    v3 = __atxlog_handle_dailyroutines(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
@@ -270,41 +268,41 @@ void __51__ATXDailyRoutinesTriggerManager_currentTransition__block_invoke(uint64
 
 + (id)_wakeupDateForExitDate:(id)date fromDate:(id)fromDate
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   fromDateCopy = fromDate;
   v7 = +[_ATXGlobals sharedInstance];
   triggerPresetMinutes = [v7 triggerPresetMinutes];
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __66__ATXDailyRoutinesTriggerManager__wakeupDateForExitDate_fromDate___block_invoke;
-  v24[3] = &unk_278596C60;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __66__ATXDailyRoutinesTriggerManager__wakeupDateForExitDate_fromDate___block_invoke;
+  v23[3] = &unk_278596C60;
   v9 = dateCopy;
-  v25 = v9;
-  v10 = [triggerPresetMinutes _pas_mappedArrayWithTransform:v24];
+  v24 = v9;
+  v10 = [triggerPresetMinutes _pas_mappedArrayWithTransform:v23];
   v11 = [v10 sortedArrayUsingSelector:sel_compare_];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v13)
   {
-    v14 = *v21;
+    v14 = *v20;
     while (2)
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
-        [v16 timeIntervalSinceDate:{fromDateCopy, v20}];
+        v16 = *(*(&v19 + 1) + 8 * i);
+        [v16 timeIntervalSinceDate:{fromDateCopy, v19}];
         if (v17 > 0.0)
         {
           v13 = v16;
@@ -312,7 +310,7 @@ void __51__ATXDailyRoutinesTriggerManager_currentTransition__block_invoke(uint64
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v25 count:16];
       if (v13)
       {
         continue;
@@ -323,8 +321,6 @@ void __51__ATXDailyRoutinesTriggerManager_currentTransition__block_invoke(uint64
   }
 
 LABEL_11:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -339,7 +335,7 @@ uint64_t __66__ATXDailyRoutinesTriggerManager__wakeupDateForExitDate_fromDate___
 
 - (void)_scheduleOneShotJobAfterInterval:(double)interval
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (interval >= 120.0)
   {
     v4 = xpc_dictionary_create(0, 0, 0);
@@ -348,17 +344,17 @@ uint64_t __66__ATXDailyRoutinesTriggerManager__wakeupDateForExitDate_fromDate___
     xpc_dictionary_set_int64(v4, *MEMORY[0x277D86250], interval);
     xpc_dictionary_set_int64(v4, *MEMORY[0x277D86270], *MEMORY[0x277D862A8]);
     xpc_dictionary_set_string(v4, *MEMORY[0x277D86340], *MEMORY[0x277D86350]);
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __67__ATXDailyRoutinesTriggerManager__scheduleOneShotJobAfterInterval___block_invoke;
-    v7[3] = &unk_278596790;
-    v7[4] = self;
-    atxRegisterCTSJobHandlerForNonClassCLocked("com.apple.duetexpertd.dailyroutines-trigger", v4, v7);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __67__ATXDailyRoutinesTriggerManager__scheduleOneShotJobAfterInterval___block_invoke;
+    v6[3] = &unk_278596790;
+    v6[4] = self;
+    atxRegisterCTSJobHandlerForNonClassCLocked("com.apple.duetexpertd.dailyroutines-trigger", v4, v6);
   }
 
   else
   {
-    v4 = __atxlog_handle_dailyroutines();
+    v4 = __atxlog_handle_dailyroutines(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
@@ -366,14 +362,12 @@ uint64_t __66__ATXDailyRoutinesTriggerManager__wakeupDateForExitDate_fromDate___
       _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Interval %f too soon, not scheduling one shot update", buf, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ATXDailyRoutinesTriggerManager__scheduleOneShotJobAfterInterval___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_dailyroutines();
+  v4 = __atxlog_handle_dailyroutines(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

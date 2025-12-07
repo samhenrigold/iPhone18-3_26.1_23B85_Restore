@@ -1,8 +1,8 @@
 @interface FamilyInviteAnalytics
 + (_TtC14FamilyCircleUI21FamilyInviteAnalytics)shared;
 - (_TtC14FamilyCircleUI21FamilyInviteAnalytics)init;
-- (uint64_t)sendTapInviteOnSuggestedContactEvent;
-- (uint64_t)sendTapInviteOthersEvent;
+- (double)sendTapInviteOnSuggestedContactEvent;
+- (double)sendTapInviteOthersEvent;
 - (void)sendFamilyInviteInteractionEventWithAction:(id)action inviteState:(id)state isReceiver:(BOOL)receiver;
 - (void)sendFamilyInviteStatusUpdateEventWithUpdateStatus:(id)status success:(BOOL)success;
 - (void)sendFamilySuggestionsEventWithFamilySuggestionsProactiveCount:(int64_t)count familySuggestionsDisplayedCount:(int64_t)displayedCount hasBoostedContacts:(BOOL)contacts proactiveModelUsed:(int64_t)used serverRequestedModel:(id)model;
@@ -64,7 +64,7 @@
   return [(FamilyInviteAnalytics *)&v3 init];
 }
 
-- (uint64_t)sendTapInviteOnSuggestedContactEvent
+- (double)sendTapInviteOnSuggestedContactEvent
 {
   if (qword_27CDB4F68 != -1)
   {
@@ -85,9 +85,11 @@
   swift_setDeallocating();
   sub_21BBC9AFC(inited + 32);
   sub_21BCA55DC(&v3, v1);
+
+  return result;
 }
 
-- (uint64_t)sendTapInviteOthersEvent
+- (double)sendTapInviteOthersEvent
 {
   if (qword_27CDB4F68 != -1)
   {
@@ -108,6 +110,8 @@
   swift_setDeallocating();
   sub_21BBC9AFC(inited + 32);
   sub_21BCA55DC(&v3, v1);
+
+  return result;
 }
 
 @end

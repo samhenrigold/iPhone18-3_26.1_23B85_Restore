@@ -456,7 +456,7 @@ LABEL_23:
   {
     memset(&v9, 0, sizeof(v9));
     movie = self->_movie;
-    if (movie && ([(AVURLAsset *)movie vcp_livePhotoStillDisplayTime], (v9.flags & 1) != 0))
+    if (movie && (objc_msgSend_vcp_livePhotoStillDisplayTime(movie, 0.0), (v9.flags & 1) != 0))
     {
       time = v9;
       *&v4 = CMTimeGetSeconds(&time);
@@ -501,7 +501,7 @@ LABEL_23:
       [v10 naturalSize];
       v14 = v13;
       v16 = v15;
-      [v11 preferredTransform];
+      objc_msgSend_preferredTransform(v11);
       v5->_pixelWidth = fabs(v16 * v23 + v21 * v14);
       v5->_pixelHeight = fabs(v16 * v24 + v22 * v14);
       [v11 nominalFrameRate];
@@ -555,7 +555,7 @@ LABEL_14:
   movie = self->_movie;
   if (movie)
   {
-    [(AVURLAsset *)movie duration];
+    objc_msgSend_duration(movie, a2);
   }
 
   else

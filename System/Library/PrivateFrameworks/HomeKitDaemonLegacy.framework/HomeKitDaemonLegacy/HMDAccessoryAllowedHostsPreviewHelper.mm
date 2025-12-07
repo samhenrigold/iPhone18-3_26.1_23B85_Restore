@@ -9,21 +9,19 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   WeakRetained = objc_loadWeakRetained(&self->_home);
   v5 = [v3 initWithName:@"home" value:WeakRetained];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (id)watchedAccessoryIdentifiersForFirewallRuleManager:(id)manager
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   WeakRetained = objc_loadWeakRetained(&self->_home);
   if (WeakRetained && self->_firewallRuleManager == managerCopy)
@@ -52,25 +50,25 @@
     }
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     accessories = [WeakRetained accessories];
-    v13 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(accessories);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
+          v16 = *(*(&v19 + 1) + 8 * i);
           if ([v16 supportsNetworkProtection])
           {
             metadataIdentifier = [v16 metadataIdentifier];
@@ -81,21 +79,19 @@
           }
         }
 
-        v13 = [accessories countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [accessories countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v13);
     }
 
-    v6 = [v11 copy];
+    v6 = objc_msgSend_copy(v11);
   }
 
   else
   {
     v6 = [MEMORY[0x277CBEB98] set];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -142,22 +138,21 @@ void __82__HMDAccessoryAllowedHostsPreviewHelper_fetchAllowedHostsForAccessory_c
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(*(a1 + 32) + 16);
-    v6 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __82__HMDAccessoryAllowedHostsPreviewHelper_fetchAllowedHostsForAccessory_completion___block_invoke_2;
-    v7[3] = &unk_27972D2A0;
-    v8 = *(a1 + 48);
-    [v5 fetchRulesForAccessories:v6 completion:v7];
+    v4 = *(*(a1 + 32) + 16);
+    v5 = [MEMORY[0x277CBEB98] setWithObject:*(a1 + 40)];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __82__HMDAccessoryAllowedHostsPreviewHelper_fetchAllowedHostsForAccessory_completion___block_invoke_2;
+    v6[3] = &unk_27972D2A0;
+    v7 = *(a1 + 48);
+    [v4 fetchRulesForAccessories:v5 completion:v6];
   }
 }
 

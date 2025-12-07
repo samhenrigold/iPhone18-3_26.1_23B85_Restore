@@ -192,7 +192,7 @@ void __64__PLInterLibraryTransfer__validateSourceAsset_destinationAsset___block_
   copiedCopy = copied;
   hasMasterThumb = [destinationAssetCopy hasMasterThumb];
   hasTableThumbs = [destinationAssetCopy hasTableThumbs];
-  v10 = [copiedCopy count];
+  v10 = objc_msgSend_count(copiedCopy);
 
   uuid = [destinationAssetCopy uuid];
   v12 = PLInterLibraryTransferGetLog();
@@ -489,7 +489,7 @@ LABEL_31:
 
   if (v39[3])
   {
-    if ([v46[5] count])
+    if (objc_msgSend_count(v46[5]))
     {
       photoLibrary3 = [v16 photoLibrary];
       v21[0] = MEMORY[0x1E69E9820];
@@ -1402,7 +1402,7 @@ LABEL_6:
   {
     v10 = [*(a1 + 40) destinationEntity];
     v11 = [v10 name];
-    v12 = [*(*(*(a1 + 48) + 8) + 40) count];
+    v12 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
     v13 = 138543618;
     v14 = v11;
     v15 = 2048;
@@ -1508,8 +1508,8 @@ LABEL_6:
 
   v17 = [(PLInterLibraryTransfer *)self _sourceAttributesFromObject:objectCopy];
   v18 = MEMORY[0x1E695D5B8];
-  entity = [objectCopy entity];
-  name = [entity name];
+  v19 = objc_msgSend_entity(objectCopy);
+  name = [v19 name];
   managedObjectContext = [libraryCopy managedObjectContext];
   v22 = [v18 entityForName:name inManagedObjectContext:managedObjectContext];
 
@@ -1518,8 +1518,8 @@ LABEL_6:
     [(PLInterLibraryTransfer *)self _setAttributes:v17 onObject:destinationObjectCopy];
 LABEL_6:
     [mapCopy setObject:destinationObjectCopy forKey:objectCopy];
-    entity2 = [objectCopy entity];
-    relationshipsByName = [entity2 relationshipsByName];
+    v23 = objc_msgSend_entity(objectCopy);
+    relationshipsByName = [v23 relationshipsByName];
     v30[0] = MEMORY[0x1E69E9820];
     v30[1] = 3221225472;
     v30[2] = __78__PLInterLibraryTransfer__copyObject_toDestinationObject_toLibrary_objectMap___block_invoke;
@@ -1582,7 +1582,7 @@ LABEL_7:
 
 void __54__PLInterLibraryTransfer__sourceAttributesFromObject___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) entity];
+  v2 = objc_msgSend_entity(*(a1 + 32));
   v3 = [v2 attributesByName];
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
@@ -1790,7 +1790,7 @@ LABEL_21:
   return v17;
 }
 
-uint64_t __78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destinationAsset___block_invoke(uint64_t a1)
+void *__78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destinationAsset___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) uuid];
   v3 = *(*(a1 + 40) + 8);
@@ -1808,7 +1808,7 @@ uint64_t __78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destina
   return result;
 }
 
-uint64_t __78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destinationAsset___block_invoke_115(uint64_t a1)
+void *__78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destinationAsset___block_invoke_115(uint64_t a1)
 {
   v2 = [*(a1 + 32) modificationDate];
   v3 = *(*(a1 + 40) + 8);
@@ -1867,7 +1867,7 @@ uint64_t __78__PLInterLibraryTransfer__shouldSkipTransferWithSourceAsset_destina
   }
 
   v15 = libraryCopy;
-  if ([v27 count])
+  if (objc_msgSend_count(v27))
   {
     v16 = 0;
     while (1)
@@ -2042,39 +2042,39 @@ void __39__PLInterLibraryTransfer__deleteAsset___block_invoke(uint64_t a1)
   return v26;
 }
 
-void __93__PLInterLibraryTransfer__loadObjectWithEntityName_withValues_forKeyPaths_fromLibrary_error___block_invoke(uint64_t a1)
+void __93__PLInterLibraryTransfer__loadObjectWithEntityName_withValues_forKeyPaths_fromLibrary_error___block_invoke(uint64_t a1, const char *a2)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32), a2))
   {
-    v2 = objc_autoreleasePoolPush();
-    v3 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:*(a1 + 40)];
-    v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v5 = *(a1 + 48);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __93__PLInterLibraryTransfer__loadObjectWithEntityName_withValues_forKeyPaths_fromLibrary_error___block_invoke_2;
-    v15[3] = &unk_1E7572788;
-    v16 = *(a1 + 32);
-    v6 = v4;
-    v17 = v6;
-    [v5 enumerateObjectsUsingBlock:v15];
-    v7 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v6];
-    [v3 setPredicate:v7];
-    [v3 setFetchLimit:1];
-    v8 = [*(a1 + 56) managedObjectContext];
-    v14 = 0;
-    v9 = [v8 executeFetchRequest:v3 error:&v14];
-    v10 = v14;
+    v4 = objc_autoreleasePoolPush();
+    v5 = [MEMORY[0x1E695D5E0] fetchRequestWithEntityName:*(a1 + 40)];
+    v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v7 = *(a1 + 48);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __93__PLInterLibraryTransfer__loadObjectWithEntityName_withValues_forKeyPaths_fromLibrary_error___block_invoke_2;
+    v17[3] = &unk_1E7572788;
+    v18 = *(a1 + 32);
+    v8 = v6;
+    v19 = v8;
+    [v7 enumerateObjectsUsingBlock:v17];
+    v9 = [MEMORY[0x1E696AB28] andPredicateWithSubpredicates:v8];
+    [v5 setPredicate:v9];
+    [v5 setFetchLimit:1];
+    v10 = [*(a1 + 56) managedObjectContext];
+    v16 = 0;
+    v11 = [v10 executeFetchRequest:v5 error:&v16];
+    v12 = v16;
 
-    if ([v9 count])
+    if (objc_msgSend_count(v11))
     {
-      v11 = [v9 objectAtIndex:0];
-      v12 = *(*(a1 + 64) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v13 = [v11 objectAtIndex:0];
+      v14 = *(*(a1 + 64) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
 
-    objc_autoreleasePoolPop(v2);
+    objc_autoreleasePoolPop(v4);
   }
 }
 
@@ -2995,7 +2995,7 @@ void __55__PLInterLibraryTransfer_transferPersonWithUuid_error___block_invoke_69
           v23 = PLInterLibraryTransferGetLog();
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v24 = [v37 count];
+            v24 = objc_msgSend_count(v37);
             *v79 = 138543618;
             v80 = v17;
             v81 = 2048;

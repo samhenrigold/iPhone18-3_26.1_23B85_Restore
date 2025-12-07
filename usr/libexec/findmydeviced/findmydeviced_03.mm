@@ -1,203 +1,3 @@
-void sub_100190BE4(id a1)
-{
-  qword_1003147B0 = objc_alloc_init(FMDProtectedContextManager);
-
-  _objc_release_x1();
-}
-
-void sub_100190F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 144), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100190F78(uint64_t *a1)
-{
-  v2 = [FMPreferencesUtil stringForKey:a1[4] inDomain:kFMDNotBackedUpPrefDomain];
-  if (v2)
-  {
-    v3 = [[NSUUID alloc] initWithUUIDString:v2];
-    v4 = *(a1[5] + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
-
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      sub_10022BEC0(a1 + 4, (a1 + 5), v6);
-    }
-
-    v7 = [[FMDProtectedContext alloc] initWithContextKey:a1[4] contextUUID:*(*(a1[5] + 8) + 40)];
-    v8 = *(a1[7] + 8);
-    obj = *(v8 + 40);
-    v9 = [(FMDProtectedContext *)v7 context:&obj];
-    objc_storeStrong((v8 + 40), obj);
-    v10 = *(a1[6] + 8);
-    v11 = *(v10 + 40);
-    *(v10 + 40) = v9;
-  }
-}
-
-void sub_1001911DC(uint64_t a1)
-{
-  [*(a1 + 32) setProtectionClass:*(a1 + 56)];
-  [*(a1 + 32) saveContext:*(a1 + 40)];
-  v3 = [*(a1 + 32) contextUUID];
-  v2 = [v3 UUIDString];
-  [FMPreferencesUtil setString:v2 forKey:*(a1 + 48) inDomain:kFMDNotBackedUpPrefDomain];
-}
-
-void sub_1001913C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001913E0(uint64_t a1)
-{
-  v2 = (a1 + 32);
-  v3 = [FMDProtectedContext directoryURLForContextKey:*(a1 + 32)];
-  v4 = [FMPreferencesUtil stringForKey:*v2 inDomain:kFMDNotBackedUpPrefDomain];
-  if (v4)
-  {
-    v5 = [[NSUUID alloc] initWithUUIDString:v4];
-    if ([v5 isEqual:*(a1 + 40)])
-    {
-      v6 = sub_100002880();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        sub_10022BF58((a1 + 32), v6);
-      }
-
-      [FMPreferencesUtil removeKey:*(a1 + 32) inDomain:kFMDNotBackedUpPrefDomain];
-      *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 48) cleanOutCurrentContextDirectoryURL:v3 preservingContextUUID:0 obliterateDirectory:*(a1 + 64)];
-    }
-
-    else
-    {
-      *(*(*(a1 + 56) + 8) + 24) = 0;
-      v7 = sub_100002880();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = *(a1 + 40);
-        v9 = 138412290;
-        v10 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Trying to delete an outdated protected context %@", &v9, 0xCu);
-      }
-    }
-  }
-
-  else
-  {
-    *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 48) cleanOutCurrentContextDirectoryURL:v3 preservingContextUUID:0 obliterateDirectory:*(a1 + 64)];
-  }
-}
-
-void sub_10019168C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001916A4(uint64_t a1)
-{
-  v2 = [FMDProtectedContext directoryURLForContextKey:*(a1 + 32)];
-  [FMPreferencesUtil removeKey:*(a1 + 32) inDomain:kFMDNotBackedUpPrefDomain];
-  *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 40) cleanOutCurrentContextDirectoryURL:v2 preservingContextUUID:0 obliterateDirectory:1];
-}
-
-void sub_1001918B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001918D0(uint64_t a1)
-{
-  v2 = sub_100002880();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "FMDProtectedContextManager start cleanupblock", buf, 2u);
-  }
-
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained _startCleaningEmptyFolders])
-  {
-    [FMPreferencesUtil setBool:1 forKey:@"kFMDProtectedContextCleanedUpEmptyFolders" inDomain:kFMDNotBackedUpPrefDomain];
-    [FMPreferencesUtil synchronizeDomain:kFMDNotBackedUpPrefDomain];
-    v4 = +[FMXPCNotificationsUtil sharedInstance];
-    v5 = [v4 isHandlerRegisteredForDarwinNotification:*(a1 + 32)];
-
-    if (v5)
-    {
-      v6 = +[FMXPCNotificationsUtil sharedInstance];
-      [v6 deregisterHandlerForDarwinNotification:*(a1 + 32)];
-    }
-
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v11 = 0;
-      v8 = "FMDProtectedContextManager finished cleaning up empty folders";
-      v9 = &v11;
-LABEL_10:
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
-    }
-  }
-
-  else
-  {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = 0;
-      v8 = "FMDProtectedContextManager failed to clean up empty folders";
-      v9 = &v10;
-      goto LABEL_10;
-    }
-  }
-}
-
-void sub_100191B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
-{
-  objc_destroyWeak((v17 + 40));
-  objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_100191BB8(uint64_t a1, void *a2)
-{
-  v2 = *(*(a1 + 32) + 8);
-  if (*(v2 + 24))
-  {
-    v4 = a2;
-    WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v5 = [v4 lastPathComponent];
-
-    *(*(*(a1 + 32) + 8) + 24) = [WeakRetained cleanupAllContextsForKey:v5];
-  }
-
-  else
-  {
-    *(v2 + 24) = 0;
-  }
-}
-
 void sub_100191D58(uint64_t a1, void *a2)
 {
   v6 = a2;
@@ -260,26 +60,27 @@ LABEL_7:
 BOOL sub_1001923EC(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v8 = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Could not enumerate folder %@ %@", &v8, 0x16u);
+      v7 = *(a1 + 32);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not enumerate folder %@ %@", &v9, 0x16u);
     }
   }
 
-  return v4 == 0;
+  return v5 == 0;
 }
 
-void sub_1001925A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001925A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -288,30 +89,31 @@ void sub_1001925C0(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v8 = 0;
-  [v4 removeItemAtURL:v3 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  [v4 removeItemAtURL:v3 error:&v9];
+  v5 = v9;
   v6 = v5;
   if (!v5)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100002880(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022BFD4(v3, v7);
+      sub_10022BFD4(v3, v8);
     }
 
     goto LABEL_7;
   }
 
-  if (([v5 fm_isFileNotFoundError] & 1) == 0)
+  v7 = [v5 fm_isFileNotFoundError];
+  if ((v7 & 1) == 0)
   {
     *(*(*(a1 + 40) + 8) + 24) = 0;
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unable to delete protected context file %@", buf, 0xCu);
+      v11 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Unable to delete protected context file %@", buf, 0xCu);
     }
 
 LABEL_7:
@@ -321,21 +123,22 @@ LABEL_7:
 BOOL sub_100192908(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = sub_100002880();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002880(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v8 = 138412546;
-      v9 = v6;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Could not enumerate folder %@ %@", &v8, 0x16u);
+      v7 = *(a1 + 32);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not enumerate folder %@ %@", &v9, 0x16u);
     }
   }
 
-  return v4 == 0;
+  return v5 == 0;
 }
 
 void sub_100192C2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -376,21 +179,21 @@ void sub_100193A48(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 httpResponseStatus];
     v7 = [v3 httpResponseBody];
     v8 = [v3 httpResponseHeaders];
-    v17 = 138413058;
-    v18 = v3;
-    v19 = 2048;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v7;
-    v23 = 2112;
-    v24 = v8;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v17, 0x2Au);
+    v18 = 138413058;
+    v19 = v3;
+    v20 = 2048;
+    v21 = v6;
+    v22 = 2112;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v18, 0x2Au);
   }
 
   v9 = [v3 httpResponseError];
@@ -400,62 +203,63 @@ void sub_100193A48(uint64_t a1, void *a2)
 
   else if (([v3 cancelled] & 1) == 0)
   {
-    v11 = [v3 httpResponseBody];
-    v13 = [WeakRetained registry];
-    [v13 updateConfigurations:v11];
+    v12 = [v3 httpResponseBody];
+    v14 = [WeakRetained registry];
+    [v14 updateConfigurations:v12];
     goto LABEL_12;
   }
 
   v10 = [v3 cancelled];
-  v11 = sub_10000BE38();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = sub_10000BE38(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_13;
     }
 
-    v13 = [v3 fm_logID];
-    v17 = 138412290;
-    v18 = v13;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v17, 0xCu);
+    v14 = [v3 fm_logID];
+    v18 = 138412290;
+    v19 = v14;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v18, 0xCu);
   }
 
   else
   {
-    if (!v12)
+    if (!v13)
     {
       goto LABEL_13;
     }
 
-    v13 = [v3 fm_logID];
-    v14 = [v3 httpResponseStatus];
-    v15 = [v3 httpResponseError];
-    v17 = 138412802;
-    v18 = v13;
-    v19 = 2048;
-    v20 = v14;
-    v21 = 2112;
-    v22 = v15;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v17, 0x20u);
+    v14 = [v3 fm_logID];
+    v15 = [v3 httpResponseStatus];
+    v16 = [v3 httpResponseError];
+    v18 = 138412802;
+    v19 = v14;
+    v20 = 2048;
+    v21 = v15;
+    v22 = 2112;
+    v23 = v16;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v18, 0x20u);
   }
 
 LABEL_12:
 
 LABEL_13:
-  v16 = *(a1 + 32);
-  if (v16)
+  v17 = *(a1 + 32);
+  if (v17)
   {
-    (*(v16 + 16))();
+    (*(v17 + 16))();
   }
 }
 
-void sub_100194630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100194630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -497,9 +301,9 @@ void sub_100195ED4(uint64_t a1, void *a2)
   [*(a1 + 32) setObject:v3 forKeyedSubscript:v4];
 }
 
-void sub_100196214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100196214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -518,9 +322,9 @@ void sub_10019622C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_100196398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100196398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -565,9 +369,9 @@ void sub_1001963B0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   *(*(*(a1 + 32) + 8) + 24) &= v8;
 }
 
-void sub_10019658C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10019658C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -592,9 +396,9 @@ void sub_1001965A4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   *a4 = *(*(*(a1 + 32) + 8) + 24);
 }
 
-void sub_100196874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100196874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -658,20 +462,20 @@ uint64_t sub_100199D48(uint64_t a1)
   return _objc_release_x1(v1, v2);
 }
 
-void sub_100199E1C()
+void sub_100199E1C(uint64_t a1)
 {
-  v0 = MGCopyAnswerWithError();
-  if (v0 && (v1 = [v0 intValue] - 1, v1 <= 0xA))
+  v1 = MGCopyAnswerWithError();
+  if (v1 && (v2 = [v1 intValue] - 1, v2 <= 0xA))
   {
-    v2 = qword_100258748[v1];
+    v3 = qword_100258748[v2];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  qword_1003147E8 = v2;
+  qword_1003147E8 = v3;
 }
 
 uint64_t sub_100199F44(uint64_t a1)
@@ -731,16 +535,20 @@ uint64_t sub_10019A2C4(uint64_t a1)
 
 uint64_t sub_10019A328(uint64_t a1)
 {
-  qword_100314848 = [*(a1 + 32) _stringGestaltQueryForKey:@"ModelNumber"];
+  v1 = [*(a1 + 32) _stringGestaltQueryForKey:@"ModelNumber"];
+  v2 = qword_100314848;
+  qword_100314848 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10019A36C(uint64_t a1)
 {
-  qword_100314858 = [*(a1 + 32) _stringGestaltQueryForKey:@"RegionCode"];
+  v1 = [*(a1 + 32) _stringGestaltQueryForKey:@"RegionCode"];
+  v2 = qword_100314858;
+  qword_100314858 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10019A450(uint64_t a1)
@@ -810,16 +618,20 @@ uint64_t sub_10019A79C(uint64_t a1)
 
 uint64_t sub_10019A7E0(uint64_t a1)
 {
-  qword_1003148E8 = [*(a1 + 32) _numberGestaltQueryForKey:@"ChipID"];
+  v1 = [*(a1 + 32) _numberGestaltQueryForKey:@"ChipID"];
+  v2 = qword_1003148E8;
+  qword_1003148E8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10019A824(uint64_t a1)
 {
-  qword_1003148F8 = [*(a1 + 32) _numberGestaltQueryForKey:@"UniqueChipID"];
+  v1 = [*(a1 + 32) _numberGestaltQueryForKey:@"UniqueChipID"];
+  v2 = qword_1003148F8;
+  qword_1003148F8 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 uint64_t sub_10019A8FC(uint64_t a1)
@@ -884,25 +696,24 @@ id sub_10019AE30(uint64_t a1)
 
 void sub_10019BBD8(void *a1, void *a2, void *a3)
 {
-  v14 = a2;
+  v12 = a2;
   v5 = a3;
-  v6 = a1[7];
-  if (objc_opt_isKindOfClass() & 1) != 0 || (v7 = a1[8], (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_isKindOfClass())
   {
-    v9 = a1[4];
-    v8 = a1[5];
-    v10 = [*(*(a1[6] + 8) + 40) arrayByAddingObject:v14];
-    v11 = [v8 flattenedArrayFromObject:v5 parentIndices:v10];
-    [v9 addObjectsFromArray:v11];
+    v7 = a1[4];
+    v6 = a1[5];
+    v8 = [*(*(a1[6] + 8) + 40) arrayByAddingObject:v12];
+    v9 = [v6 flattenedArrayFromObject:v5 parentIndices:v8];
+    [v7 addObjectsFromArray:v9];
   }
 
   else
   {
-    v12 = a1[4];
-    v10 = [*(*(a1[6] + 8) + 40) arrayByAddingObject:v14];
-    v11 = [v10 componentsJoinedByString:@"_"];
-    v13 = [NSString stringWithFormat:@"%@_%@", v11, v5];
-    [v12 addObject:v13];
+    v10 = a1[4];
+    v8 = [*(*(a1[6] + 8) + 40) arrayByAddingObject:v12];
+    v9 = [v8 componentsJoinedByString:@"_"];
+    v11 = [NSString stringWithFormat:@"%@_%@", v9, v5];
+    [v10 addObject:v11];
   }
 }
 
@@ -924,10 +735,10 @@ void sub_10019C9E4(uint64_t a1)
   v2 = *(a1 + 40);
   if (v2)
   {
-    (*(v2 + 16))();
+    v2 = (*(v2 + 16))();
   }
 
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
@@ -993,7 +804,7 @@ void sub_10019F534(uint64_t a1)
     (*(v3 + 16))(v3, v4);
   }
 
-  v5 = sub_100002880();
+  v5 = sub_100002880(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1006,7 +817,7 @@ void sub_10019F534(uint64_t a1)
 
 uint64_t sub_10019F660(uint64_t a1)
 {
-  v2 = sub_10017DEB4();
+  v2 = sub_10017DEB4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1020,7 +831,7 @@ uint64_t sub_10019F660(uint64_t a1)
 
 uint64_t sub_10019F718(uint64_t a1)
 {
-  v2 = sub_10017DEB4();
+  v2 = sub_10017DEB4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1111,29 +922,30 @@ void sub_1001A03E0(uint64_t a1)
   {
     v12 = [v11 objectForKeyedSubscript:@"LastAccountAddTime"];
     v13 = [v5 fm_isEqualToNumber:v12 withPrecision:0.1];
+    v14 = v13;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  v14 = sub_100002880();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100002880(v13);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v16[0] = 67109634;
-    v16[1] = v13;
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "alCompleted : %d, currentAccountAddTime: %@, alAccountAddTime: %@", v16, 0x1Cu);
+    v17[0] = 67109634;
+    v17[1] = v14;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = v12;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "alCompleted : %d, currentAccountAddTime: %@, alAccountAddTime: %@", v17, 0x1Cu);
   }
 
-  v15 = *(a1 + 40);
-  if (v15)
+  v16 = *(a1 + 40);
+  if (v16)
   {
-    (*(v15 + 16))(v15, v13, 0);
+    (*(v16 + 16))(v16, v14, 0);
   }
 }
 
@@ -1199,16 +1011,16 @@ void sub_1001A17D4(uint64_t a1, int a2)
   }
 }
 
-void sub_1001A22BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_1001A22BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a49, 8);
   _Block_object_dispose(&a55, 8);
   _Block_object_dispose(&a61, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x200], 8);
-  _Block_object_dispose((v67 - 160), 8);
-  _Block_object_dispose((v67 - 224), 8);
-  _Block_object_dispose((v67 - 192), 8);
+  _Block_object_dispose((v65 - 160), 8);
+  _Block_object_dispose((v65 - 224), 8);
+  _Block_object_dispose((v65 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1246,11 +1058,11 @@ void sub_1001A23F0(uint64_t a1)
     v2 = 0;
   }
 
-  v3 = sub_100002880();
+  v3 = sub_100002880(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v15) = v2 & 1;
+    LODWORD(v16) = v2 & 1;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Populating Headers %i", buf, 8u);
   }
 
@@ -1267,33 +1079,32 @@ void sub_1001A23F0(uint64_t a1)
     [v4 fm_safelyMapKey:@"X-Apple-AL-ID" toObject:v5];
 
     v6 = [*(a1 + 40) _deviceIdentifiersForSignature];
-    v13 = 0;
-    v7 = [NSJSONSerialization dataWithJSONObject:v6 options:0 error:&v13];
-    v8 = v13;
+    v14 = 0;
+    v7 = [NSJSONSerialization dataWithJSONObject:v6 options:0 error:&v14];
+    v8 = v14;
     v9 = [v7 base64EncodedString];
 
     if (v8)
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100002880(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10022C630();
       }
     }
 
-    [v4 fm_safelyMapKey:@"X-Apple-AL-Content" toObject:v9];
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100002880([v4 fm_safelyMapKey:@"X-Apple-AL-Content" toObject:v9]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = v4;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Completed all signing %@", buf, 0xCu);
+      v16 = v4;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Completed all signing %@", buf, 0xCu);
     }
 
-    v12 = *(a1 + 48);
-    if (v12)
+    v13 = *(a1 + 48);
+    if (v13)
     {
-      (*(v12 + 16))(v12, v4, 0);
+      (*(v13 + 16))(v13, v4, 0);
     }
   }
 }
@@ -1302,31 +1113,31 @@ void sub_1001A26C8(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100002880();
+  v7 = sub_100002880(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v19 = v5;
-    v20 = 2112;
-    v21 = v6;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Absinth signing returned %@ %@", buf, 0x16u);
   }
 
   if (v5)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10022C698();
     }
 
-    v9 = [v5 code];
-    v10 = [v5 userInfo];
-    v11 = [v10 objectForKeyedSubscript:@"kFMDUnderlyingErrorCodeKey"];
-    v12 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ld,%ld", v9, [v11 integerValue]);
-    v13 = *(a1[5] + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v10 = [v5 code];
+    v11 = [v5 userInfo];
+    v12 = [v11 objectForKeyedSubscript:@"kFMDUnderlyingErrorCodeKey"];
+    v13 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%ld,%ld", v10, [v12 integerValue]);
+    v14 = *(a1[5] + 8);
+    v15 = *(v14 + 40);
+    *(v14 + 40) = v13;
   }
 
   else
@@ -1336,28 +1147,28 @@ void sub_1001A26C8(void *a1, void *a2, void *a3)
       goto LABEL_8;
     }
 
-    v15 = [v6 objectAtIndexedSubscript:0];
-    v10 = [v15 base64EncodedString];
-
-    v16 = [v6 objectAtIndexedSubscript:1];
+    v16 = [v6 objectAtIndexedSubscript:0];
     v11 = [v16 base64EncodedString];
 
-    objc_storeStrong((*(a1[6] + 8) + 40), v10);
-    v17 = sub_100002880();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v17 = [v6 objectAtIndexedSubscript:1];
+    v12 = [v17 base64EncodedString];
+
+    objc_storeStrong((*(a1[6] + 8) + 40), v11);
+    v19 = sub_100002880(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v10;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Signature header: %@", buf, 0xCu);
+      v22 = v11;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Signature header: %@", buf, 0xCu);
     }
 
-    objc_storeStrong((*(a1[7] + 8) + 40), v11);
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    objc_storeStrong((*(a1[7] + 8) + 40), v12);
+    v15 = sub_100002880(v20);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v11;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "SkAuth header: %@", buf, 0xCu);
+      v22 = v12;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SkAuth header: %@", buf, 0xCu);
     }
   }
 
@@ -1408,7 +1219,7 @@ void sub_1001A2D3C(uint64_t a1, uint64_t a2)
 void sub_1001A32E0(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000BE38();
+  v4 = sub_10000BE38(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -1432,7 +1243,7 @@ uint64_t sub_1001A3898(uint64_t a1)
 
 void sub_1001A3F8C(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) serialNumber];
@@ -1453,7 +1264,7 @@ void sub_1001A3F8C(uint64_t a1)
 
 void sub_1001A40E4(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) serialNumber];
@@ -1470,7 +1281,7 @@ void sub_1001A40E4(uint64_t a1)
 void sub_1001A41F0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1482,7 +1293,7 @@ void sub_1001A41F0(id a1, NSError *a2)
 void sub_1001A530C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10017DE2C();
+  v4 = sub_10017DE2C(v3);
   v5 = v4;
   if (v3)
   {
@@ -1513,42 +1324,44 @@ void sub_1001A5B60(uint64_t a1, void *a2)
   v3 = a2;
   state = xpc_activity_get_state(v3);
   v5 = xpc_activity_copy_criteria(v3);
+  v6 = v5;
   if (state == 2)
   {
-    v6 = objc_alloc_init(FMAlert);
-    [v6 setCategory:3];
-    v7 = [*(a1 + 32) locateStats];
-    [v6 setMsgText:v7];
+    v7 = objc_alloc_init(FMAlert);
+    [v7 setCategory:3];
+    v8 = [*(a1 + 32) locateStats];
+    [v7 setMsgText:v8];
 
-    [v6 setMsgTitle:@"Daily Locate Report"];
-    [v6 setShowMsgInLockScreen:1];
-    [v6 setDismissMsgOnUnlock:0];
-    [v6 setDismissMsgOnLock:0];
-    [v6 setDefaultButtonTitle:@"OK"];
-    v8 = +[FMAlertManager sharedInstance];
-    [v8 activateAlert:v6];
+    [v7 setMsgTitle:@"Daily Locate Report"];
+    [v7 setShowMsgInLockScreen:1];
+    [v7 setDismissMsgOnUnlock:0];
+    [v7 setDismissMsgOnLock:0];
+    [v7 setDefaultButtonTitle:@"OK"];
+    v9 = +[FMAlertManager sharedInstance];
+    [v9 activateAlert:v7];
 
-    v9 = xpc_activity_set_state(v3, 5);
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v10 = xpc_activity_set_state(v3, 5);
+    v11 = v10;
+    v12 = sub_100002880(v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022C914(v9, v10);
+      sub_10022C914(v11, v12);
     }
   }
 
   else
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = sub_100002880(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022C88C(v5, state, v6);
+      sub_10022C88C(v6, state, v7);
     }
   }
 }
 
-void sub_1001A5EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001A5EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1576,7 +1389,7 @@ void sub_1001A5EC4(uint64_t a1, void *a2)
 void sub_1001A679C(id a1, NSString *a2)
 {
   v2 = a2;
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -1607,10 +1420,11 @@ uint64_t sub_1001A8740(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-void sub_1001A8ABC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1001A8ABC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1001A97C0(uint64_t a1)
@@ -1647,9 +1461,9 @@ void sub_1001A9AEC(uint64_t a1)
   [WeakRetained _serialQueue_scheduleLocationPurgeTimer];
 }
 
-void sub_1001A9EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001A9EDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1690,26 +1504,28 @@ void sub_1001AB2C8(uint64_t a1)
 void sub_1001AB3A0(uint64_t a1)
 {
   [*(a1 + 32) _removeUntrackedAssets:&__NSArray0__struct];
-  v2 = +[NSFileManager defaultManager];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() defaultStorageLocation];
-  v10 = 0;
-  [v2 removeItemAtURL:v4 error:&v10];
-  v5 = v10;
+  v1 = +[NSFileManager defaultManager];
+  v2 = [objc_opt_class() defaultStorageLocation];
+  v8 = 0;
+  [v1 removeItemAtURL:v2 error:&v8];
+  v3 = v8;
 
-  if (v5 && ([v5 fm_isFileNotFoundError] & 1) == 0)
+  if (v3)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = [v3 fm_isFileNotFoundError];
+    if ((v4 & 1) == 0)
     {
-      sub_10022CFF0(v5);
+      v5 = sub_100002880(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022CFF0(v3);
+      }
     }
   }
 
-  v7 = +[NSFileManager defaultManager];
-  v8 = *(a1 + 32);
-  v9 = [objc_opt_class() deprecatedStorageLocation];
-  [v7 removeItemAtURL:v9 error:0];
+  v6 = +[NSFileManager defaultManager];
+  v7 = [objc_opt_class() deprecatedStorageLocation];
+  [v6 removeItemAtURL:v7 error:0];
 }
 
 void sub_1001AB9F4(uint64_t a1)
@@ -1729,17 +1545,17 @@ void sub_1001AB9F4(uint64_t a1)
 
   if (v9)
   {
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A040();
     }
   }
 }
 
-void sub_1001ABBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001ABBD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1749,32 +1565,31 @@ void sub_1001ABBEC(uint64_t a1)
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), *(*(a1 + 32) + 16));
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    v2 = *(a1 + 32);
-    v3 = [objc_opt_class() deprecatedStorageLocation];
-    v4 = *(a1 + 32);
-    v5 = [objc_opt_class() defaultStorageLocation];
-    v6 = +[NSFileManager defaultManager];
-    [v6 fm_migrateFileFromURL:v3 toURL:v5];
+    v2 = [objc_opt_class() deprecatedStorageLocation];
+    v3 = [objc_opt_class() defaultStorageLocation];
+    v4 = +[NSFileManager defaultManager];
+    [v4 fm_migrateFileFromURL:v2 toURL:v3];
 
-    v7 = [*(a1 + 32) dataArchiver];
-    v8 = [NSSet setWithObject:objc_opt_class()];
-    v15 = 0;
-    v9 = [v7 readDictionaryAndClasses:v8 error:&v15];
-    v10 = v15;
-    v11 = *(*(a1 + 40) + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v9;
+    v5 = [*(a1 + 32) dataArchiver];
+    v6 = [NSSet setWithObject:objc_opt_class()];
+    v14 = 0;
+    v7 = [v5 readDictionaryAndClasses:v6 error:&v14];
+    v8 = v14;
+    v9 = *(*(a1 + 40) + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v7;
 
-    if (([v10 fm_isFileNotFoundError] & 1) == 0 && (!*(*(*(a1 + 40) + 8) + 40) || v10))
+    v11 = [v8 fm_isFileNotFoundError];
+    if ((v11 & 1) == 0 && (!*(*(*(a1 + 40) + 8) + 40) || v8))
     {
-      v13 = sub_100002880();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v12 = sub_100002880(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10022D084();
       }
 
-      v14 = +[FMDEventLoggerGeneral sharedInstance];
-      [v14 sendError:v10 forEventName:@"FMDAssetRegistryFailedReadEventName"];
+      v13 = +[FMDEventLoggerGeneral sharedInstance];
+      [v13 sendError:v8 forEventName:@"FMDAssetRegistryFailedReadEventName"];
     }
   }
 }
@@ -1783,7 +1598,7 @@ void sub_1001ABF88(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [*(a1 + 32) serverInteractionController];
-  v5 = sub_100002880();
+  v5 = sub_100002880(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -1798,7 +1613,7 @@ void sub_1001ABF88(uint64_t a1, void *a2)
 
 void sub_1001AC0FC(id a1, OS_xpc_object *a2)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v3 = 0;
@@ -1806,9 +1621,9 @@ void sub_1001AC0FC(id a1, OS_xpc_object *a2)
   }
 }
 
-void sub_1001AD44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001AD44C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1819,7 +1634,7 @@ void sub_1001AD468(uint64_t a1, void *a2, void *a3)
   v6 = v5;
   if (!a2 || v5)
   {
-    v7 = sub_10000BE38();
+    v7 = sub_10000BE38(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10022D154();
@@ -1848,93 +1663,95 @@ void sub_1001AD744(_Unwind_Exception *a1)
 void sub_1001AD780(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002880();
+  v4 = sub_100002880(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 btAddressData];
     v6 = [v5 fm_MACAddressString];
     v7 = [v3 name];
-    v26 = 138412546;
-    v27 = v6;
-    v28 = 2112;
-    v29[0] = v7;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - device (%@) with MAC (%@)", &v26, 0x16u);
+    v29 = 138412546;
+    v30 = v6;
+    v31 = 2112;
+    v32[0] = v7;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - device (%@) with MAC (%@)", &v29, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (([v3 deviceFlags] & 0x4000) == 0)
+  v9 = [v3 deviceFlags];
+  if ((v9 & 0x4000) == 0)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - only BT classic devices are supported, ignoring device", &v26, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - only BT classic devices are supported, ignoring device", &v29, 2u);
     }
 
     goto LABEL_17;
   }
 
-  if (([v3 discoveryFlags] & 0x200000) != 0)
+  v11 = [v3 discoveryFlags];
+  if ((v11 & 0x200000) != 0)
   {
-    v14 = [FMDAccessoryIdentifier alloc];
-    v15 = [v3 btAddressData];
-    v16 = [v15 fm_MACAddressString];
-    v9 = [v14 initWithAddress:v16];
+    v16 = [FMDAccessoryIdentifier alloc];
+    v17 = [v3 btAddressData];
+    v18 = [v17 fm_MACAddressString];
+    v10 = [v16 initWithAddress:v18];
 
-    v17 = [WeakRetained accessoryRegistry];
-    v18 = [v17 accessoryForIdentifier:v9];
+    v19 = [WeakRetained accessoryRegistry];
+    v20 = [v19 accessoryForIdentifier:v10];
 
-    if (v18)
+    if (v20)
     {
-      v19 = [v18 name];
-      v20 = [v3 name];
-      v21 = [v19 compare:v20];
+      v21 = [v20 name];
+      v22 = [v3 name];
+      v23 = [v21 compare:v22];
 
-      if (!v21)
+      if (!v23)
       {
 LABEL_16:
 
         goto LABEL_17;
       }
 
-      v22 = sub_100002880();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100002880(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = [v18 name];
-        v24 = [v3 name];
-        v26 = 138412546;
-        v27 = v23;
-        v28 = 2112;
-        v29[0] = v24;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager deviceNameChanged (%@) => (%@)", &v26, 0x16u);
+        v26 = [v20 name];
+        v27 = [v3 name];
+        v29 = 138412546;
+        v30 = v26;
+        v31 = 2112;
+        v32[0] = v27;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager deviceNameChanged (%@) => (%@)", &v29, 0x16u);
       }
 
-      v25 = @"BluetoothMagicPairedDeviceNameChangedNotification";
+      v28 = @"BluetoothMagicPairedDeviceNameChangedNotification";
     }
 
     else
     {
-      v25 = @"BluetoothDeviceConnectSuccessNotification";
+      v28 = @"BluetoothDeviceConnectSuccessNotification";
     }
 
-    [WeakRetained updateNotificationReceived:v3 withName:v25];
+    [WeakRetained updateNotificationReceived:v3 withName:v28];
     goto LABEL_16;
   }
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002880(v11);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v3 btAddressData];
-    v11 = [v10 fm_MACAddressString];
-    v12 = [v3 connectedServices];
-    v13 = [v3 discoveryFlags];
-    v26 = 138412802;
-    v27 = v11;
-    v28 = 1024;
-    LODWORD(v29[0]) = v12;
-    WORD2(v29[0]) = 2048;
-    *(v29 + 6) = v13;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - unhandled device (%@) connectedServices (%x) discoveryFlags (flags %llx)", &v26, 0x1Cu);
+    v12 = [v3 btAddressData];
+    v13 = [v12 fm_MACAddressString];
+    v14 = [v3 connectedServices];
+    v15 = [v3 discoveryFlags];
+    v29 = 138412802;
+    v30 = v13;
+    v31 = 1024;
+    LODWORD(v32[0]) = v14;
+    WORD2(v32[0]) = 2048;
+    *(v32 + 6) = v15;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager FoundHandler - unhandled device (%@) connectedServices (%x) discoveryFlags (flags %llx)", &v29, 0x1Cu);
   }
 
 LABEL_17:
@@ -1944,30 +1761,32 @@ void sub_1001ADAEC(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = [v3 deviceFlags];
-  WeakRetained = sub_100002880();
-  v6 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
-  if ((v4 & 0x4000) != 0)
+  v5 = v4;
+  WeakRetained = sub_100002880(v4);
+  v7 = os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEFAULT);
+  if ((v5 & 0x4000) != 0)
   {
-    if (v6)
+    if (v7)
     {
-      v10 = [v3 name];
-      v11 = [v3 btAddressData];
-      v12 = [v11 fm_MACAddressString];
-      v14 = 138412546;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager LostHandler - device (%@) with MAC (%@)", &v14, 0x16u);
+      v11 = [v3 name];
+      v12 = [v3 btAddressData];
+      v13 = [v12 fm_MACAddressString];
+      v16 = 138412546;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager LostHandler - device (%@) with MAC (%@)", &v16, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    if ([WeakRetained _cbPoweredOff])
+    v14 = [WeakRetained _cbPoweredOff];
+    if (v14)
     {
-      v13 = sub_10000BE38();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10000BE38(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Ignore notification. Bailing.", &v14, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Ignore notification. Bailing.", &v16, 2u);
       }
     }
 
@@ -1977,23 +1796,23 @@ void sub_1001ADAEC(uint64_t a1, void *a2)
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    v7 = [v3 name];
-    v8 = [v3 btAddressData];
-    v9 = [v8 fm_MACAddressString];
-    v14 = 138412546;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v9;
-    _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager LostHandler - only BT classic devices are supported, ignoring device (%@) with MAC (%@)", &v14, 0x16u);
+    v8 = [v3 name];
+    v9 = [v3 btAddressData];
+    v10 = [v9 fm_MACAddressString];
+    v16 = 138412546;
+    v17 = v8;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_DEFAULT, "FMDExtAccesoryManager LostHandler - only BT classic devices are supported, ignoring device (%@) with MAC (%@)", &v16, 0x16u);
   }
 }
 
 void sub_1001ADCF0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   v4 = v3;
   if (v2)
   {
@@ -2014,290 +1833,296 @@ void sub_1001AE3F8(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_10000BE38();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_10000BE38(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10022D224(a1, v6, v7);
-    }
-  }
-
-  else if ([*(a1 + 40) _cbPoweredOff])
-  {
-    v7 = sub_10000BE38();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BT is off. Cannot update accessory list.", buf, 2u);
+      sub_10022D224(a1, v7, v8);
     }
   }
 
   else
   {
-    v31 = objc_alloc_init(NSMutableDictionary);
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v30 = v5;
-    v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    v9 = [*(a1 + 40) _cbPoweredOff];
     if (v9)
     {
-      v10 = v9;
-      v11 = *v43;
-      do
+      v8 = sub_10000BE38(v9);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        for (i = 0; i != v10; i = i + 1)
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BT is off. Cannot update accessory list.", buf, 2u);
+      }
+    }
+
+    else
+    {
+      v35 = objc_alloc_init(NSMutableDictionary);
+      v46 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v34 = v5;
+      v10 = v5;
+      v11 = [v10 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      if (v11)
+      {
+        v12 = v11;
+        v13 = *v47;
+        do
         {
-          if (*v43 != v11)
+          for (i = 0; i != v12; i = i + 1)
           {
-            objc_enumerationMutation(v8);
-          }
-
-          v13 = [[FMDExtAccessory alloc] initWithExtAccessoryInfo:*(*(&v42 + 1) + 8 * i)];
-          v14 = +[FMDExtConfigurationRegistry sharedInstance];
-          v15 = [(FMDExtAccessory *)v13 accessoryType];
-          v16 = [v14 supportsAccessoryType:v15];
-
-          if (v16)
-          {
-            v17 = [(FMDExtAccessory *)v13 accessoryIdentifier];
-            [(FMDExtAccessory *)v13 setExtensionId:*(a1 + 32)];
-            [v31 setObject:v13 forKeyedSubscript:v17];
-          }
-
-          else
-          {
-            v17 = sub_10000BE38();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+            if (*v47 != v13)
             {
-              v18 = [(FMDExtAccessory *)v13 name];
-              v19 = [(FMDExtAccessory *)v13 accessoryType];
-              *buf = 138412546;
-              v47 = v18;
-              v48 = 2112;
-              v49 = v19;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "accessory %@ with accessory type %@ not supported", buf, 0x16u);
+              objc_enumerationMutation(v10);
+            }
+
+            v15 = [[FMDExtAccessory alloc] initWithExtAccessoryInfo:*(*(&v46 + 1) + 8 * i)];
+            v16 = +[FMDExtConfigurationRegistry sharedInstance];
+            v17 = [(FMDExtAccessory *)v15 accessoryType];
+            v18 = [v16 supportsAccessoryType:v17];
+
+            if (v18)
+            {
+              v20 = [(FMDExtAccessory *)v15 accessoryIdentifier];
+              [(FMDExtAccessory *)v15 setExtensionId:*(a1 + 32)];
+              [v35 setObject:v15 forKeyedSubscript:v20];
+            }
+
+            else
+            {
+              v20 = sub_10000BE38(v19);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              {
+                v21 = [(FMDExtAccessory *)v15 name];
+                v22 = [(FMDExtAccessory *)v15 accessoryType];
+                *buf = 138412546;
+                v51 = v21;
+                v52 = 2112;
+                v53 = v22;
+                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "accessory %@ with accessory type %@ not supported", buf, 0x16u);
+              }
             }
           }
+
+          v12 = [v10 countByEnumeratingWithState:&v46 objects:v54 count:16];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v42 objects:v50 count:16];
+        while (v12);
       }
 
-      while (v10);
+      v23 = [*(a1 + 40) serialQueue];
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_1001AE8A4;
+      block[3] = &unk_1002D07A0;
+      block[4] = *(a1 + 32);
+      v24 = v10;
+      v25 = *(a1 + 40);
+      v42 = v24;
+      v43 = v25;
+      v26 = v35;
+      v44 = v26;
+      v45 = *(a1 + 48);
+      dispatch_async(v23, block);
+
+      v27 = [*(a1 + 48) allAccessories];
+      v28 = [v27 copy];
+
+      v30 = sub_10000BE38(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = *(a1 + 48);
+        *buf = 138412546;
+        v51 = v31;
+        v52 = 2112;
+        v53 = v28;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Check for removed accessories. registry: %@, previouslyPairedAccessories: %@", buf, 0x16u);
+      }
+
+      v32 = [*(a1 + 40) serialQueue];
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_1001AEEC4;
+      v36[3] = &unk_1002D07A0;
+      v37 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
+      v38 = v28;
+      v39 = v26;
+      v40 = *(a1 + 48);
+      v8 = v26;
+      v33 = v28;
+      dispatch_async(v32, v36);
+
+      v7 = 0;
+      v5 = v34;
     }
-
-    v20 = [*(a1 + 40) serialQueue];
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_1001AE8A4;
-    block[3] = &unk_1002D07A0;
-    block[4] = *(a1 + 32);
-    v21 = v8;
-    v22 = *(a1 + 40);
-    v38 = v21;
-    v39 = v22;
-    v23 = v31;
-    v40 = v23;
-    v41 = *(a1 + 48);
-    dispatch_async(v20, block);
-
-    v24 = [*(a1 + 48) allAccessories];
-    v25 = [v24 copy];
-
-    v26 = sub_10000BE38();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
-    {
-      v27 = *(a1 + 48);
-      *buf = 138412546;
-      v47 = v27;
-      v48 = 2112;
-      v49 = v25;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Check for removed accessories. registry: %@, previouslyPairedAccessories: %@", buf, 0x16u);
-    }
-
-    v28 = [*(a1 + 40) serialQueue];
-    v32[0] = _NSConcreteStackBlock;
-    v32[1] = 3221225472;
-    v32[2] = sub_1001AEEC4;
-    v32[3] = &unk_1002D07A0;
-    v33 = vextq_s8(*(a1 + 32), *(a1 + 32), 8uLL);
-    v34 = v25;
-    v35 = v23;
-    v36 = *(a1 + 48);
-    v7 = v23;
-    v29 = v25;
-    dispatch_async(v28, v32);
-
-    v6 = 0;
-    v5 = v30;
   }
 }
 
 void sub_1001AE8A4(uint64_t a1)
 {
-  v2 = sub_10000BE38();
+  v2 = sub_10000BE38(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v60 = v3;
-    v61 = 2112;
-    v62 = v4;
+    v63 = v3;
+    v64 = 2112;
+    v65 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "ext: %@, current accessoryList = %@", buf, 0x16u);
   }
 
-  v5 = sub_10000BE38();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10000BE38(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = [*(a1 + 48) accessoriesByExtension];
-    v8 = [v7 objectForKeyedSubscript:*(a1 + 32)];
+    v7 = *(a1 + 32);
+    v8 = [*(a1 + 48) accessoriesByExtension];
+    v9 = [v8 objectForKeyedSubscript:*(a1 + 32)];
     *buf = 138412546;
-    v60 = v6;
-    v61 = 2112;
-    v62 = v8;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ext: %@, stored accessoryList = %@", buf, 0x16u);
+    v63 = v7;
+    v64 = 2112;
+    v65 = v9;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ext: %@, stored accessoryList = %@", buf, 0x16u);
   }
 
-  v55 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v9 = *(a1 + 56);
-  v10 = [v9 countByEnumeratingWithState:&v53 objects:v58 count:16];
-  if (v10)
+  v57 = 0u;
+  v10 = *(a1 + 56);
+  v11 = [v10 countByEnumeratingWithState:&v56 objects:v61 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v54;
+    v12 = v11;
+    v13 = *v57;
     do
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v12; i = i + 1)
       {
-        if (*v54 != v12)
+        if (*v57 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v53 + 1) + 8 * i);
-        v15 = [*(a1 + 48) accessoriesByExtension];
-        v16 = [v15 objectForKeyedSubscript:*(a1 + 32)];
-        v17 = [v16 objectForKeyedSubscript:v14];
+        v15 = *(*(&v56 + 1) + 8 * i);
+        v16 = [*(a1 + 48) accessoriesByExtension];
+        v17 = [v16 objectForKeyedSubscript:*(a1 + 32)];
+        v18 = [v17 objectForKeyedSubscript:v15];
 
-        v18 = [*(a1 + 56) objectForKeyedSubscript:v14];
-        if (v17 && ([v17 accessoryInfoChanged:v18] & 1) == 0)
+        v19 = [*(a1 + 56) objectForKeyedSubscript:v15];
+        v20 = v19;
+        if (v18 && (v19 = [v18 accessoryInfoChanged:v19], (v19 & 1) == 0))
         {
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_1001AEEAC;
           block[3] = &unk_1002CD478;
-          v51 = *(a1 + 64);
-          v52 = v17;
+          v54 = *(a1 + 64);
+          v55 = v18;
           dispatch_async(&_dispatch_main_q, block);
         }
 
         else
         {
-          v19 = sub_10000BE38();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_10000BE38(v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v60 = v18;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "new accessory added = %@", buf, 0xCu);
+            v63 = v20;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "new accessory added = %@", buf, 0xCu);
           }
 
-          v20 = [*(a1 + 48) accessoriesByExtension];
-          v21 = [v20 objectForKeyedSubscript:*(a1 + 32)];
+          v22 = [*(a1 + 48) accessoriesByExtension];
+          v23 = [v22 objectForKeyedSubscript:*(a1 + 32)];
 
-          if (!v21)
+          if (!v23)
           {
-            v22 = objc_alloc_init(NSMutableDictionary);
-            v23 = [*(a1 + 48) accessoriesByExtension];
-            [v23 setObject:v22 forKeyedSubscript:*(a1 + 32)];
+            v24 = objc_alloc_init(NSMutableDictionary);
+            v25 = [*(a1 + 48) accessoriesByExtension];
+            [v25 setObject:v24 forKeyedSubscript:*(a1 + 32)];
           }
 
-          v24 = [*(a1 + 48) accessoriesByExtension];
-          v25 = [v24 objectForKeyedSubscript:*(a1 + 32)];
-          [v25 setObject:v18 forKeyedSubscript:v14];
+          v26 = [*(a1 + 48) accessoriesByExtension];
+          v27 = [v26 objectForKeyedSubscript:*(a1 + 32)];
+          [v27 setObject:v20 forKeyedSubscript:v15];
 
-          [*(a1 + 48) updateAccessory:v18];
+          [*(a1 + 48) updateAccessory:v20];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v56 objects:v61 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 
-  v48 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v26 = [*(a1 + 48) accessoriesByExtension];
-  v27 = [v26 objectForKeyedSubscript:*(a1 + 32)];
-  v28 = [v27 allKeys];
+  v50 = 0u;
+  v28 = [*(a1 + 48) accessoriesByExtension];
+  v29 = [v28 objectForKeyedSubscript:*(a1 + 32)];
+  v30 = [v29 allKeys];
 
-  v29 = [v28 countByEnumeratingWithState:&v46 objects:v57 count:16];
-  if (v29)
+  v31 = [v30 countByEnumeratingWithState:&v49 objects:v60 count:16];
+  if (v31)
   {
-    v30 = v29;
-    v31 = *v47;
+    v32 = v31;
+    v33 = *v50;
     do
     {
-      for (j = 0; j != v30; j = j + 1)
+      for (j = 0; j != v32; j = j + 1)
       {
-        if (*v47 != v31)
+        if (*v50 != v33)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v30);
         }
 
-        v33 = *(*(&v46 + 1) + 8 * j);
-        v34 = [*(a1 + 56) objectForKeyedSubscript:v33];
+        v35 = *(*(&v49 + 1) + 8 * j);
+        v36 = [*(a1 + 56) objectForKeyedSubscript:v35];
 
-        if (!v34)
+        if (!v36)
         {
-          v35 = [*(a1 + 48) accessoriesByExtension];
-          v36 = [v35 objectForKeyedSubscript:*(a1 + 32)];
-          v37 = [v36 objectForKeyedSubscript:v33];
+          v37 = [*(a1 + 48) accessoriesByExtension];
+          v38 = [v37 objectForKeyedSubscript:*(a1 + 32)];
+          v39 = [v38 objectForKeyedSubscript:v35];
 
-          v38 = sub_10000BE38();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v41 = sub_10000BE38(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = [v37 name];
+            v42 = [v39 name];
             *buf = 138412290;
-            v60 = v39;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "removing accessory = %@", buf, 0xCu);
+            v63 = v42;
+            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "removing accessory = %@", buf, 0xCu);
           }
 
-          v43[0] = _NSConcreteStackBlock;
-          v43[1] = 3221225472;
-          v43[2] = sub_1001AEEB8;
-          v43[3] = &unk_1002CD478;
-          v44 = *(a1 + 64);
-          v45 = v37;
-          v40 = v37;
-          dispatch_async(&_dispatch_main_q, v43);
-          v41 = [*(a1 + 48) accessoriesByExtension];
-          v42 = [v41 objectForKeyedSubscript:*(a1 + 32)];
-          [v42 removeObjectForKey:v33];
+          v46[0] = _NSConcreteStackBlock;
+          v46[1] = 3221225472;
+          v46[2] = sub_1001AEEB8;
+          v46[3] = &unk_1002CD478;
+          v47 = *(a1 + 64);
+          v48 = v39;
+          v43 = v39;
+          dispatch_async(&_dispatch_main_q, v46);
+          v44 = [*(a1 + 48) accessoriesByExtension];
+          v45 = [v44 objectForKeyedSubscript:*(a1 + 32)];
+          [v45 removeObjectForKey:v35];
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v46 objects:v57 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v49 objects:v60 count:16];
     }
 
-    while (v30);
+    while (v32);
   }
 }
 
 void sub_1001AEEC4(uint64_t a1)
 {
-  v3 = sub_10000BE38();
+  v3 = sub_10000BE38(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [*(a1 + 32) extensionsAlreadySynced];
@@ -2340,7 +2165,7 @@ void sub_1001AEEC4(uint64_t a1)
         if ([v13 category] == 3)
         {
           v14 = v13;
-          v15 = sub_10000BE38();
+          v15 = sub_10000BE38(v14);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
@@ -2403,124 +2228,124 @@ void sub_1001AF2A8(uint64_t a1)
 
   if (v4)
   {
-    v5 = sub_10000BE38();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_10000BE38(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [v4 features];
+      v7 = [v4 features];
       *buf = 138412290;
-      v53 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "got config %@", buf, 0xCu);
+      v55 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "got config %@", buf, 0xCu);
     }
 
-    v7 = dispatch_group_create();
-    v8 = [v4 flavorForFeature:@"style"];
-    v9 = [*(a1 + 32) accessoryIdentifier];
-    v10 = [v9 stringValue];
+    v8 = dispatch_group_create();
+    v9 = [v4 flavorForFeature:@"style"];
+    v10 = [*(a1 + 32) accessoryIdentifier];
+    v11 = [v10 stringValue];
 
-    if (v8)
+    if (v9)
     {
-      v11 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"style" flavor:v8];
-      if (v11)
+      v12 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"style" flavor:v9];
+      if (v12)
       {
-        dispatch_group_enter(v7);
-        v12 = [v4 infoForFeature:@"style"];
-        v49[0] = _NSConcreteStackBlock;
-        v49[1] = 3221225472;
-        v49[2] = sub_1001AF834;
-        v49[3] = &unk_1002D07F0;
-        v50 = *(a1 + 32);
-        v51 = v7;
-        [v11 getStyleForAccessory:v10 info:v12 withCompletion:v49];
+        dispatch_group_enter(v8);
+        v13 = [v4 infoForFeature:@"style"];
+        v51[0] = _NSConcreteStackBlock;
+        v51[1] = 3221225472;
+        v51[2] = sub_1001AF834;
+        v51[3] = &unk_1002D07F0;
+        v52 = *(a1 + 32);
+        v53 = v8;
+        [v12 getStyleForAccessory:v11 info:v13 withCompletion:v51];
       }
 
-      v13 = dispatch_time(0, 60000000000);
-      v14 = dispatch_get_global_queue(0, 0);
+      v14 = dispatch_time(0, 60000000000);
+      v15 = dispatch_get_global_queue(0, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1001AF948;
       block[3] = &unk_1002D07A0;
-      v44 = *(a1 + 32);
-      v45 = v8;
-      v46 = v10;
-      v15 = v4;
-      v16 = *(a1 + 40);
-      v47 = v15;
-      v48 = v16;
-      dispatch_after(v13, v14, block);
+      v46 = *(a1 + 32);
+      v47 = v9;
+      v48 = v11;
+      v16 = v4;
+      v17 = *(a1 + 40);
+      v49 = v16;
+      v50 = v17;
+      dispatch_after(v14, v15, block);
     }
 
     [v4 timeoutForFeature:@"style"];
-    v18 = dispatch_time(0, (v17 * 1000000000.0));
-    if (dispatch_group_wait(v7, v18))
+    v19 = dispatch_time(0, (v18 * 1000000000.0));
+    v20 = dispatch_group_wait(v8, v19);
+    if (v20)
     {
-      v19 = sub_10000BE38();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = sub_10000BE38(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10022D2B0();
       }
     }
 
-    v37 = v10;
-    v38 = v7;
-    v20 = [v4 infoForFeature:@"sound"];
-    v21 = +[NSMutableDictionary dictionary];
-    v39 = 0u;
-    v40 = 0u;
+    v39 = v11;
+    v40 = v8;
+    v22 = [v4 infoForFeature:@"sound"];
+    v23 = +[NSMutableDictionary dictionary];
     v41 = 0u;
     v42 = 0u;
-    v36 = v20;
-    v22 = [v20 objectForKeyedSubscript:@"channels"];
-    v23 = [v22 countByEnumeratingWithState:&v39 objects:v58 count:16];
-    if (v23)
+    v43 = 0u;
+    v44 = 0u;
+    v38 = v22;
+    v24 = [v22 objectForKeyedSubscript:@"channels"];
+    v25 = [v24 countByEnumeratingWithState:&v41 objects:v60 count:16];
+    if (v25)
     {
-      v24 = v23;
-      v25 = *v40;
+      v26 = v25;
+      v27 = *v42;
       do
       {
-        for (i = 0; i != v24; i = i + 1)
+        for (i = 0; i != v26; i = i + 1)
         {
-          if (*v40 != v25)
+          if (*v42 != v27)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v24);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
-          v28 = [[FMDAudioChannelStatus alloc] initWithName:v27 active:1];
-          [(FMDAudioChannelStatus *)v28 setAvailability:1];
-          [v21 setObject:v28 forKey:v27];
+          v29 = *(*(&v41 + 1) + 8 * i);
+          v30 = [[FMDAudioChannelStatus alloc] initWithName:v29 active:1];
+          [(FMDAudioChannelStatus *)v30 setAvailability:1];
+          [v23 setObject:v30 forKey:v29];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v39 objects:v58 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v41 objects:v60 count:16];
       }
 
-      while (v24);
+      while (v26);
     }
 
-    [*(a1 + 32) setAudioChannelInfo:v21];
-    v29 = sub_10017DBC8();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v31 = sub_10017DBC8([*(a1 + 32) setAudioChannelInfo:v23]);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = [*(a1 + 32) playbackChannels];
-      v31 = [*(a1 + 32) audioChannelInfo];
-      v32 = [*(a1 + 32) name];
+      v32 = [*(a1 + 32) playbackChannels];
+      v33 = [*(a1 + 32) audioChannelInfo];
+      v34 = [*(a1 + 32) name];
       *buf = 138412802;
-      v53 = v30;
-      v54 = 2112;
-      v55 = v31;
+      v55 = v32;
       v56 = 2112;
-      v57 = v32;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "got playback channel  %@  and audioChannelInfo = %@ error for %@", buf, 0x20u);
+      v57 = v33;
+      v58 = 2112;
+      v59 = v34;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "got playback channel  %@  and audioChannelInfo = %@ error for %@", buf, 0x20u);
     }
 
-    v33 = [*(a1 + 40) accessoryRegistry];
-    [v33 updateAccessory:*(a1 + 32)];
+    v35 = [*(a1 + 40) accessoryRegistry];
+    [v35 updateAccessory:*(a1 + 32)];
   }
 
   else
   {
-    v34 = +[FMDExtConfigurationRegistry sharedInstance];
-    v35 = [*(a1 + 32) accessoryType];
-    [v34 prepareForAccessoryType:v35];
+    v36 = +[FMDExtConfigurationRegistry sharedInstance];
+    v37 = [*(a1 + 32) accessoryType];
+    [v36 prepareForAccessoryType:v37];
   }
 }
 
@@ -2528,7 +2353,7 @@ void sub_1001AF834(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_10000BE38();
+  v7 = sub_10000BE38(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) name];
@@ -2551,7 +2376,7 @@ void sub_1001AF834(uint64_t a1, void *a2, void *a3)
 
 void sub_1001AF948(uint64_t a1)
 {
-  v2 = sub_10000BE38();
+  v2 = sub_10000BE38(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) name];
@@ -2578,14 +2403,14 @@ void sub_1001AFABC(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_10000BE38();
+  v7 = sub_10000BE38(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Got style %@ with error = %@", &v13, 0x16u);
+    v14 = 138412546;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Got style %@ with error = %@", &v14, 0x16u);
   }
 
   if (v5)
@@ -2597,28 +2422,28 @@ void sub_1001AFABC(uint64_t a1, void *a2, void *a3)
 
       if ((v9 & 1) == 0)
       {
-        v10 = sub_10000BE38();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_10000BE38(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = [*(a1 + 32) name];
-          v13 = 138412546;
-          v14 = v11;
-          v15 = 2112;
-          v16 = v5;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "updating Accessory %@ with style %@", &v13, 0x16u);
+          v12 = [*(a1 + 32) name];
+          v14 = 138412546;
+          v15 = v12;
+          v16 = 2112;
+          v17 = v5;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "updating Accessory %@ with style %@", &v14, 0x16u);
         }
 
         [*(a1 + 32) setStyle:v5];
-        v12 = [*(a1 + 40) accessoryRegistry];
-        [v12 updateAccessory:*(a1 + 32)];
+        v13 = [*(a1 + 40) accessoryRegistry];
+        [v13 updateAccessory:*(a1 + 32)];
       }
     }
   }
 }
 
-void sub_1001AFD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001AFD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2687,7 +2512,7 @@ void sub_1001B008C(id a1, FMDExtAccessory *a2, unint64_t a3, BOOL *a4)
     v8 = [v7 ownerSession];
 
     v9 = [[FMSynchronizer alloc] initWithDescription:@"SP-BA-UUID" andTimeout:5.0];
-    v10 = sub_100002880();
+    v10 = sub_100002880(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = [(FMDExtAccessory *)v4 address];
@@ -2711,7 +2536,7 @@ void sub_1001B008C(id a1, FMDExtAccessory *a2, unint64_t a3, BOOL *a4)
 void sub_1001B0254(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002880();
+  v4 = sub_100002880(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 UUIDString];
@@ -2788,9 +2613,9 @@ id sub_1001B0C74(uint64_t a1)
   return v7;
 }
 
-void sub_1001B0E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1001B0E04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2853,9 +2678,9 @@ uint64_t sub_1001B116C(uint64_t a1)
   return result;
 }
 
-void sub_1001B12BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001B12BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2870,52 +2695,53 @@ void sub_1001B12D4(uint64_t a1)
 
   v6 = [v5 sortedArrayUsingComparator:&stru_1002D0910];
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_10000AB24;
-  v23 = sub_100002B5C;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_10000AB24;
+  v24 = sub_100002B5C;
+  v25 = 0;
   v7 = [*v2 canRetrieveLockedRecords];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1001B15F8;
-  v17[3] = &unk_1002D0938;
-  v17[4] = &v19;
-  v18 = v7;
-  [v6 enumerateObjectsUsingBlock:v17];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1001B15F8;
+  v18[3] = &unk_1002D0938;
+  v18[4] = &v20;
+  v19 = v7;
+  [v6 enumerateObjectsUsingBlock:v18];
   v8 = +[FMDProtectedContextManager sharedManager];
-  v9 = [v20[5] recordName];
+  v9 = [v21[5] recordName];
   v10 = [v8 contextForKey:v9 contextUUID:0 error:0];
 
   if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v11 = v10;
-      v12 = [[FMDLocation alloc] initWithDictionary:v11];
-      v13 = *(*(a1 + 48) + 8);
-      v14 = *(v13 + 40);
-      *(v13 + 40) = v12;
+      v12 = v10;
+      v13 = [[FMDLocation alloc] initWithDictionary:v12];
+      v14 = *(*(a1 + 48) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
     }
   }
 
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100002880(isKindOfClass);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(*(*(a1 + 48) + 8) + 40);
+    v17 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138412290;
-    v26 = v16;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore: Historical diskLocation %@", buf, 0xCu);
+    v27 = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "AccessoryLocationStore: Historical diskLocation %@", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 }
 
-void sub_1001B155C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001B155C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2952,18 +2778,21 @@ void sub_1001B1740(uint64_t a1)
 {
   [*(a1 + 32) clearAllRecords];
   v2 = +[NSFileManager defaultManager];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() defaultStorageLocation];
+  v3 = [objc_opt_class() defaultStorageLocation];
   v7 = 0;
-  [v2 removeItemAtURL:v4 error:&v7];
-  v5 = v7;
+  [v2 removeItemAtURL:v3 error:&v7];
+  v4 = v7;
 
-  if (v5 && ([v5 fm_isFileNotFoundError] & 1) == 0)
+  if (v4)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = [v4 fm_isFileNotFoundError];
+    if ((v5 & 1) == 0)
     {
-      sub_10022D318(v5, v6);
+      v6 = sub_100002880(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022D318(v4, v6);
+      }
     }
   }
 
@@ -2982,7 +2811,7 @@ void sub_1001B18EC(_Unwind_Exception *a1)
 void sub_1001B1910(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002880();
+  v4 = sub_100002880(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -3036,16 +2865,17 @@ void sub_1001B1DC4(uint64_t a1, void *a2)
 void sub_1001B1E1C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (([*(a1 + 32) containsObject:v3] & 1) == 0)
+  v4 = [*(a1 + 32) containsObject:v3];
+  if ((v4 & 1) == 0)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10022D3B4();
     }
 
-    v5 = +[FMDProtectedContextManager sharedManager];
-    [v5 cleanupAllContextsForKey:v3];
+    v6 = +[FMDProtectedContextManager sharedManager];
+    [v6 cleanupAllContextsForKey:v3];
   }
 }
 
@@ -3077,55 +2907,56 @@ void sub_1001B2498(uint64_t a1)
 
   if (v5)
   {
-    v19 = [WeakRetained saveLocationToDisk:*(a1 + 40) accessory:*(a1 + 32) protection:0];
-    v6 = [WeakRetained saveLocationToDisk:*(a1 + 40) accessory:*(a1 + 32) protection:1];
-    v7 = [WeakRetained recordsByAccessoryIdentifier];
-    v8 = [v7 mutableCopy];
+    v20 = [WeakRetained saveLocationToDisk:*(a1 + 40) accessory:*(a1 + 32) protection:0];
+    v7 = [WeakRetained saveLocationToDisk:*(a1 + 40) accessory:*(a1 + 32) protection:1];
+    v8 = [WeakRetained recordsByAccessoryIdentifier];
+    v9 = [v8 mutableCopy];
 
-    v9 = [WeakRetained recordsByAccessoryIdentifier];
-    v10 = [*(a1 + 32) accessoryIdentifier];
-    v11 = [v9 objectForKeyedSubscript:v10];
-    v12 = [v11 mutableCopy];
-    v13 = v12;
-    if (v12)
+    v10 = [WeakRetained recordsByAccessoryIdentifier];
+    v11 = [*(a1 + 32) accessoryIdentifier];
+    v12 = [v10 objectForKeyedSubscript:v11];
+    v13 = [v12 mutableCopy];
+    v14 = v13;
+    if (v13)
     {
-      v14 = v12;
+      v15 = v13;
     }
 
     else
     {
-      v14 = objc_opt_new();
+      v15 = objc_opt_new();
     }
 
-    v17 = v14;
+    v18 = v15;
 
-    [v17 addObject:v19];
-    [v17 addObject:v6];
-    v18 = [*(a1 + 32) accessoryIdentifier];
-    [v8 setObject:v17 forKeyedSubscript:v18];
+    [v18 addObject:v20];
+    [v18 addObject:v7];
+    v19 = [*(a1 + 32) accessoryIdentifier];
+    [v9 setObject:v18 forKeyedSubscript:v19];
 
-    [WeakRetained setRecordsByAccessoryIdentifier:v8];
+    [WeakRetained setRecordsByAccessoryIdentifier:v9];
     [WeakRetained expungeRecordsForAccessory:*(a1 + 32) allRecords:0];
   }
 
   else
   {
-    v15 = sub_100002880();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100002880(v6);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 32);
+      v17 = *(a1 + 32);
       *buf = 138412290;
-      v21 = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Unable to save location to disk: The accessory is no longer paired. %@", buf, 0xCu);
+      v22 = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Unable to save location to disk: The accessory is no longer paired. %@", buf, 0xCu);
     }
   }
 }
 
-void sub_1001B2F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1001B2F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3174,90 +3005,91 @@ void sub_1001B304C(uint64_t a1, void *a2)
   v12 = [NSNumber numberWithUnsignedInteger:v9];
   [v11 setObject:v12 forKey:v6];
 
-  v13 = sub_100002880();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100002880(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 67109120;
-    LODWORD(v31) = v9 <= v10;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore Applying max locate rule - valid : %i", &v30, 8u);
+    v32 = 67109120;
+    LODWORD(v33) = v9 <= v10;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore Applying max locate rule - valid : %i", &v32, 8u);
   }
 
   if (v9 > v10)
   {
 
 LABEL_9:
-    v15 = 0;
+    v17 = 0;
 LABEL_10:
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100002880(v3);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 56);
-      v30 = 134217984;
-      v31 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Accessory location is expired or beyond maximum (%lu), deleting it.", &v30, 0xCu);
+      v19 = *(a1 + 56);
+      v32 = 134217984;
+      v33 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Accessory location is expired or beyond maximum (%lu), deleting it.", &v32, 0xCu);
     }
 
-    v18 = +[FMDProtectedContextManager sharedManager];
-    v19 = [v4 recordName];
-    v20 = [v4 contextUUID];
-    [v18 cleanupContextsForKey:v19 contextUUID:v20 obliterate:0];
+    v20 = +[FMDProtectedContextManager sharedManager];
+    v21 = [v4 recordName];
+    v22 = [v4 contextUUID];
+    [v20 cleanupContextsForKey:v21 contextUUID:v22 obliterate:0];
 
     goto LABEL_13;
   }
 
   if (![v4 protection])
   {
-    v14 = 64;
+    v16 = 64;
     goto LABEL_16;
   }
 
-  if ([v4 protection] == 1)
+  v15 = [v4 protection];
+  if (v15 == 1)
   {
-    v14 = 80;
+    v16 = 80;
 LABEL_16:
-    v21 = [v4 creationDate];
-    v15 = [v21 dateByAddingTimeInterval:*(a1 + v14)];
+    v23 = [v4 creationDate];
+    v17 = [v23 dateByAddingTimeInterval:*(a1 + v16)];
 
-    [v15 timeIntervalSinceReferenceDate];
-    v23 = *(a1 + 72) < v22;
+    v15 = [v17 timeIntervalSinceReferenceDate];
+    v25 = *(a1 + 72) < v24;
     goto LABEL_18;
   }
 
-  v15 = 0;
-  v23 = 1;
+  v17 = 0;
+  v25 = 1;
 LABEL_18:
-  v24 = sub_100002880();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v26 = sub_100002880(v15);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v30 = 67109120;
-    LODWORD(v31) = v23;
-    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore Applying time expiry - valid : %i", &v30, 8u);
+    v32 = 67109120;
+    LODWORD(v33) = v25;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "FMDAccessoryLocationStore Applying time expiry - valid : %i", &v32, 8u);
   }
 
-  if (!v23)
+  if (!v25)
   {
     goto LABEL_10;
   }
 
   [*(*(*(a1 + 40) + 8) + 40) addObject:v4];
-  v25 = *(*(a1 + 48) + 8);
-  v26 = *(v25 + 40);
-  if (v26)
+  v27 = *(*(a1 + 48) + 8);
+  v28 = *(v27 + 40);
+  if (v28)
   {
-    [v26 timeIntervalSinceReferenceDate];
-    v28 = v27;
-    [v15 timeIntervalSinceReferenceDate];
-    if (v28 <= v29)
+    [v28 timeIntervalSinceReferenceDate];
+    v30 = v29;
+    [v17 timeIntervalSinceReferenceDate];
+    if (v30 <= v31)
     {
       goto LABEL_14;
     }
 
-    v25 = *(*(a1 + 48) + 8);
+    v27 = *(*(a1 + 48) + 8);
   }
 
-  v15 = v15;
-  v18 = *(v25 + 40);
-  *(v25 + 40) = v15;
+  v17 = v17;
+  v20 = *(v27 + 40);
+  *(v27 + 40) = v17;
 LABEL_13:
 
 LABEL_14:
@@ -3279,9 +3111,9 @@ void sub_1001B35D0(uint64_t a1)
   v2 = [WeakRetained dataArchiver];
   v3 = objc_opt_class();
   v4 = [NSSet setWithObjects:v3, objc_opt_class(), 0];
-  v11 = 0;
-  v5 = [v2 readDictionaryAndClasses:v4 error:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [v2 readDictionaryAndClasses:v4 error:&v12];
+  v6 = v12;
   v7 = &__NSDictionary0__struct;
   if (v5)
   {
@@ -3290,16 +3122,20 @@ void sub_1001B35D0(uint64_t a1)
 
   v8 = v7;
 
-  if (v6 && ([v6 fm_isFileNotFoundError] & 1) == 0)
+  if (v6)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = [v6 fm_isFileNotFoundError];
+    if ((v9 & 1) == 0)
     {
-      sub_10022D41C();
-    }
+      v10 = sub_100002880(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022D41C();
+      }
 
-    v10 = +[FMDEventLoggerGeneral sharedInstance];
-    [v10 sendError:v6 forEventName:@"FMDAccessoryLocationStoreFailedReadEventName"];
+      v11 = +[FMDEventLoggerGeneral sharedInstance];
+      [v11 sendError:v6 forEventName:@"FMDAccessoryLocationStoreFailedReadEventName"];
+    }
   }
 
   [WeakRetained setRecordsByAccessoryIdentifier:v8];
@@ -3317,9 +3153,9 @@ void sub_1001B4160(uint64_t a1)
   [WeakRetained _logEvent:*(a1 + 32)];
 }
 
-void sub_1001B448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001B448C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3339,26 +3175,26 @@ void sub_1001B4730(uint64_t a1)
   v3 = WeakRetained;
   if (*(a1 + 32))
   {
-    [WeakRetained setLogs:?];
+    v4 = [WeakRetained setLogs:?];
   }
 
   else
   {
-    v4 = +[NSMutableArray array];
-    [v3 setLogs:v4];
+    v5 = +[NSMutableArray array];
+    [v3 setLogs:v5];
   }
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [v3 logs];
-    v7 = [v6 count];
-    v8 = [v3 cachedLogFileURL];
-    v9 = 134218242;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v8;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found existing logs %ld %@", &v9, 0x16u);
+    v7 = [v3 logs];
+    v8 = [v7 count];
+    v9 = [v3 cachedLogFileURL];
+    v10 = 134218242;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found existing logs %ld %@", &v10, 0x16u);
   }
 }
 
@@ -3388,41 +3224,43 @@ void sub_1001B50F8(uint64_t a1, void *a2)
   v3 = a2;
   state = xpc_activity_get_state(v3);
   v5 = xpc_activity_copy_criteria(v3);
+  v6 = v5;
   if (state == 2)
   {
     [*(a1 + 32) performWork];
-    v6 = xpc_activity_set_state(v3, 5);
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = xpc_activity_set_state(v3, 5);
+    v8 = v7;
+    v9 = sub_100002880(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) name];
-      v12 = 138412546;
-      v13 = v8;
-      v14 = 1024;
-      LODWORD(v15) = v6;
-      v9 = "FMDXPCJanitor XPC activity triggered. Updating to done so that it can be cleaned. success : %@ : %d";
-      v10 = v7;
-      v11 = 18;
+      v10 = [*(a1 + 32) name];
+      v14 = 138412546;
+      v15 = v10;
+      v16 = 1024;
+      LODWORD(v17) = v8;
+      v11 = "FMDXPCJanitor XPC activity triggered. Updating to done so that it can be cleaned. success : %@ : %d";
+      v12 = v9;
+      v13 = 18;
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, &v12, v11);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v14, v13);
     }
   }
 
   else
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [*(a1 + 32) name];
-      v12 = 138412802;
-      v13 = v8;
-      v14 = 2048;
-      v15 = state;
+      v10 = [*(a1 + 32) name];
+      v14 = 138412802;
+      v15 = v10;
       v16 = 2048;
-      v17 = v5;
-      v9 = "FMDXPCJanitor XPC activity XPC activity %@ changed to state %ld with criteria %p";
-      v10 = v7;
-      v11 = 32;
+      v17 = state;
+      v18 = 2048;
+      v19 = v6;
+      v11 = "FMDXPCJanitor XPC activity XPC activity %@ changed to state %ld with criteria %p";
+      v12 = v9;
+      v13 = 32;
       goto LABEL_6;
     }
   }
@@ -3437,156 +3275,156 @@ void sub_1001B5750(id *a1)
     v4 = [WeakRetained configManager];
     v5 = [v4 activeConfig];
 
-    v6 = sub_1000029E0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000029E0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v114 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor - starting with config %@", buf, 0xCu);
+      v121 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor - starting with config %@", buf, 0xCu);
     }
 
     if (!v5)
     {
-      v7 = sub_1000029E0();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000029E0(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor - no active policy. Defaulting to proactive", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor - no active policy. Defaulting to proactive", buf, 2u);
       }
 
-      v8 = [v3 configManager];
-      v5 = [v8 configForPolicy:kFMDSecureLocationModeBackgroundProactive];
+      v10 = [v3 configManager];
+      v5 = [v10 configForPolicy:kFMDSecureLocationModeBackgroundProactive];
     }
 
-    v9 = [[FMDSecureLocationPublisher alloc] initWithConfiguration:v5];
-    [v3 setLocationPublisher:v9];
+    v11 = [[FMDSecureLocationPublisher alloc] initWithConfiguration:v5];
+    [v3 setLocationPublisher:v11];
 
-    v10 = [v3 locationPublisher];
-    v112[0] = _NSConcreteStackBlock;
-    v112[1] = 3221225472;
-    v112[2] = sub_1001B6314;
-    v112[3] = &unk_1002CD4C8;
-    v112[4] = v3;
-    [v10 publishCriteriaMetBlock:v112];
+    v12 = [v3 locationPublisher];
+    v119[0] = _NSConcreteStackBlock;
+    v119[1] = 3221225472;
+    v119[2] = sub_1001B6314;
+    v119[3] = &unk_1002CD4C8;
+    v119[4] = v3;
+    [v12 publishCriteriaMetBlock:v119];
 
-    v11 = [v3 locationPublisher];
-    v111[0] = _NSConcreteStackBlock;
-    v111[1] = 3221225472;
-    v111[2] = sub_1001B6398;
-    v111[3] = &unk_1002D0AE0;
-    v111[4] = v3;
-    [v11 startPublisherWithBlock:v111];
+    v13 = [v3 locationPublisher];
+    v118[0] = _NSConcreteStackBlock;
+    v118[1] = 3221225472;
+    v118[2] = sub_1001B6398;
+    v118[3] = &unk_1002D0AE0;
+    v118[4] = v3;
+    [v13 startPublisherWithBlock:v118];
 
-    v12 = [v5 policyName];
-    v13 = kFMDSecureLocationModeProactive;
-    v14 = [v12 caseInsensitiveCompare:kFMDSecureLocationModeProactive];
+    v14 = [v5 policyName];
+    v15 = kFMDSecureLocationModeProactive;
+    v16 = [v14 caseInsensitiveCompare:kFMDSecureLocationModeProactive];
 
-    if (v14)
+    if (v16)
     {
-      v15 = [v5 policyName];
-      v16 = [v15 caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive];
+      v17 = [v5 policyName];
+      v18 = [v17 caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive];
 
-      if (v16)
+      if (v18)
       {
-        v17 = [v5 policyName];
-        v18 = [v17 caseInsensitiveCompare:kFMDSecureLocationModeLive];
+        v19 = [v5 policyName];
+        v20 = [v19 caseInsensitiveCompare:kFMDSecureLocationModeLive];
 
-        if (v18)
+        if (v20)
         {
-          v19 = [v5 policyName];
-          v20 = [v19 caseInsensitiveCompare:kFMDSecureLocationModeProactiveShallow];
+          v21 = [v5 policyName];
+          v22 = [v21 caseInsensitiveCompare:kFMDSecureLocationModeProactiveShallow];
 
-          if (!v20)
+          if (!v22)
           {
-            v101 = [a1[4] _createLocationManager];
-            [v3 setShallowLocationManager:v101];
+            v108 = [a1[4] _createLocationManager];
+            [v3 setShallowLocationManager:v108];
 
-            v102 = a1[4];
-            v103 = [v3 shallowLocationManager];
-            [v103 setDelegate:v102];
+            v109 = a1[4];
+            v110 = [v3 shallowLocationManager];
+            [v110 setDelegate:v109];
 
-            v104 = a1[4];
-            v105 = [v5 desiredAccuracy];
-            [v104 _clLocationAccuracyFromConfigValue:v105];
-            v107 = v106;
-            v108 = [v3 shallowLocationManager];
-            [v108 setDesiredAccuracy:v107];
+            v111 = a1[4];
+            v112 = [v5 desiredAccuracy];
+            [v111 _clLocationAccuracyFromConfigValue:v112];
+            v114 = v113;
+            v115 = [v3 shallowLocationManager];
+            [v115 setDesiredAccuracy:v114];
 
-            v37 = [v3 shallowLocationManager];
-            [v37 startUpdatingLocation];
+            v40 = [v3 shallowLocationManager];
+            [v40 startUpdatingLocation];
             goto LABEL_25;
           }
 
-          v21 = [v5 policyName];
-          v22 = [v21 caseInsensitiveCompare:kFMDSecureLocationModeOwnerProactive];
+          v23 = [v5 policyName];
+          v24 = [v23 caseInsensitiveCompare:kFMDSecureLocationModeOwnerProactive];
 
-          if (v22)
+          if (v24)
           {
             goto LABEL_26;
           }
 
-          v23 = [a1[4] _createLocationManager];
-          [v3 setBystanderLocationManager:v23];
+          v25 = [a1[4] _createLocationManager];
+          [v3 setBystanderLocationManager:v25];
 
-          v24 = a1[4];
-          v25 = [v3 bystanderLocationManager];
-          [v25 setDelegate:v24];
-
-          v26 = kCLLocationAccuracyBystander;
+          v26 = a1[4];
           v27 = [v3 bystanderLocationManager];
-          [v27 setDesiredAccuracy:v26];
+          [v27 setDelegate:v26];
 
-          v28 = [v3 bystanderLocationManager];
-          [v28 startUpdatingLocation];
+          v28 = kCLLocationAccuracyBystander;
+          v29 = [v3 bystanderLocationManager];
+          [v29 setDesiredAccuracy:v28];
 
-          v29 = [a1[4] _createLocationManager];
-          [v3 setHeartbeatLocationManager:v29];
+          v30 = [v3 bystanderLocationManager];
+          [v30 startUpdatingLocation];
 
-          v30 = a1[4];
-          v31 = [v3 heartbeatLocationManager];
-          [v31 setDelegate:v30];
+          v31 = [a1[4] _createLocationManager];
+          [v3 setHeartbeatLocationManager:v31];
 
           v32 = a1[4];
-          v33 = [v5 desiredAccuracy];
-          [v32 _clLocationAccuracyFromConfigValue:v33];
-          v35 = v34;
-          v36 = [v3 heartbeatLocationManager];
-          [v36 setDesiredAccuracy:v35];
+          v33 = [v3 heartbeatLocationManager];
+          [v33 setDelegate:v32];
 
-          v37 = sub_1000029E0();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v34 = a1[4];
+          v35 = [v5 desiredAccuracy];
+          [v34 _clLocationAccuracyFromConfigValue:v35];
+          v37 = v36;
+          v38 = [v3 heartbeatLocationManager];
+          [v38 setDesiredAccuracy:v37];
+
+          v40 = sub_1000029E0(v39);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v38 = "SecureLocationMonitor: Started location managers for ownerproactive";
+            v41 = "SecureLocationMonitor: Started location managers for ownerproactive";
 LABEL_24:
-            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v38, buf, 2u);
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
           }
         }
 
         else
         {
-          v72 = [a1[4] _createLocationManager];
-          [v3 setLiveLocationManager:v72];
+          v77 = [a1[4] _createLocationManager];
+          [v3 setLiveLocationManager:v77];
 
-          v73 = a1[4];
-          v74 = [v3 liveLocationManager];
-          [v74 setDelegate:v73];
-
-          v75 = a1[4];
-          v76 = [v5 desiredAccuracy];
-          [v75 _clLocationAccuracyFromConfigValue:v76];
-          v78 = v77;
+          v78 = a1[4];
           v79 = [v3 liveLocationManager];
-          [v79 setDesiredAccuracy:v78];
+          [v79 setDelegate:v78];
 
-          v80 = [v3 liveLocationManager];
-          [v80 startUpdatingLocation];
+          v80 = a1[4];
+          v81 = [v5 desiredAccuracy];
+          [v80 _clLocationAccuracyFromConfigValue:v81];
+          v83 = v82;
+          v84 = [v3 liveLocationManager];
+          [v84 setDesiredAccuracy:v83];
 
-          v37 = sub_1000029E0();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v85 = [v3 liveLocationManager];
+          [v85 startUpdatingLocation];
+
+          v40 = sub_1000029E0(v86);
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            v38 = "SecureLocationMonitor: Started live location manager";
+            v41 = "SecureLocationMonitor: Started live location manager";
             goto LABEL_24;
           }
         }
@@ -3594,45 +3432,45 @@ LABEL_24:
 
       else
       {
-        v58 = [a1[4] _createLocationManager];
-        [v3 setVisitsLocationManager:v58];
-
-        v59 = a1[4];
-        v60 = [v3 visitsLocationManager];
-        [v60 setDelegate:v59];
-
-        v61 = [v3 visitsLocationManager];
-        [v61 startMonitoringVisits];
-
         v62 = [a1[4] _createLocationManager];
-        [v3 setSlcLocationManager:v62];
+        [v3 setVisitsLocationManager:v62];
 
         v63 = a1[4];
-        v64 = [v3 slcLocationManager];
+        v64 = [v3 visitsLocationManager];
         [v64 setDelegate:v63];
 
-        v65 = [v3 slcLocationManager];
-        [v65 startMonitoringSignificantLocationChanges];
+        v65 = [v3 visitsLocationManager];
+        [v65 startMonitoringVisits];
 
         v66 = [a1[4] _createLocationManager];
-        [v3 setBystanderLocationManager:v66];
+        [v3 setSlcLocationManager:v66];
 
         v67 = a1[4];
-        v68 = [v3 bystanderLocationManager];
+        v68 = [v3 slcLocationManager];
         [v68 setDelegate:v67];
 
-        v69 = kCLLocationAccuracyBystander;
-        v70 = [v3 bystanderLocationManager];
-        [v70 setDesiredAccuracy:v69];
+        v69 = [v3 slcLocationManager];
+        [v69 startMonitoringSignificantLocationChanges];
 
-        v71 = [v3 bystanderLocationManager];
-        [v71 startUpdatingLocation];
+        v70 = [a1[4] _createLocationManager];
+        [v3 setBystanderLocationManager:v70];
 
-        v37 = sub_1000029E0();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v71 = a1[4];
+        v72 = [v3 bystanderLocationManager];
+        [v72 setDelegate:v71];
+
+        v73 = kCLLocationAccuracyBystander;
+        v74 = [v3 bystanderLocationManager];
+        [v74 setDesiredAccuracy:v73];
+
+        v75 = [v3 bystanderLocationManager];
+        [v75 startUpdatingLocation];
+
+        v40 = sub_1000029E0(v76);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v38 = "SecureLocationMonitor: Started background proactive location manager";
+          v41 = "SecureLocationMonitor: Started background proactive location manager";
           goto LABEL_24;
         }
       }
@@ -3640,55 +3478,55 @@ LABEL_24:
 
     else
     {
-      v40 = [a1[4] _createLocationManager];
-      [v3 setVisitsLocationManager:v40];
+      v43 = [a1[4] _createLocationManager];
+      [v3 setVisitsLocationManager:v43];
 
-      v41 = a1[4];
-      v42 = [v3 visitsLocationManager];
-      [v42 setDelegate:v41];
+      v44 = a1[4];
+      v45 = [v3 visitsLocationManager];
+      [v45 setDelegate:v44];
 
-      v43 = [v3 visitsLocationManager];
-      [v43 startMonitoringVisits];
+      v46 = [v3 visitsLocationManager];
+      [v46 startMonitoringVisits];
 
-      v44 = [a1[4] _createLocationManager];
-      [v3 setSlcLocationManager:v44];
+      v47 = [a1[4] _createLocationManager];
+      [v3 setSlcLocationManager:v47];
 
-      v45 = a1[4];
-      v46 = [v3 slcLocationManager];
-      [v46 setDelegate:v45];
+      v48 = a1[4];
+      v49 = [v3 slcLocationManager];
+      [v49 setDelegate:v48];
 
-      v47 = [v3 slcLocationManager];
-      [v47 startMonitoringSignificantLocationChanges];
+      v50 = [v3 slcLocationManager];
+      [v50 startMonitoringSignificantLocationChanges];
 
-      v48 = [a1[4] _createLocationManager];
-      [v3 setBystanderLocationManager:v48];
+      v51 = [a1[4] _createLocationManager];
+      [v3 setBystanderLocationManager:v51];
 
-      v49 = a1[4];
-      v50 = [v3 bystanderLocationManager];
-      [v50 setDelegate:v49];
-
-      v51 = kCLLocationAccuracyBystander;
-      v52 = [v3 bystanderLocationManager];
-      [v52 setDesiredAccuracy:v51];
-
+      v52 = a1[4];
       v53 = [v3 bystanderLocationManager];
-      [v53 startUpdatingLocation];
+      [v53 setDelegate:v52];
 
-      v54 = [a1[4] _createLocationManager];
-      [v3 setHeartbeatLocationManager:v54];
+      v54 = kCLLocationAccuracyBystander;
+      v55 = [v3 bystanderLocationManager];
+      [v55 setDesiredAccuracy:v54];
 
-      v55 = a1[4];
-      v56 = [v3 heartbeatLocationManager];
-      [v56 setDelegate:v55];
+      v56 = [v3 bystanderLocationManager];
+      [v56 startUpdatingLocation];
 
-      v57 = [v3 heartbeatLocationManager];
-      [v57 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+      v57 = [a1[4] _createLocationManager];
+      [v3 setHeartbeatLocationManager:v57];
 
-      v37 = sub_1000029E0();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v58 = a1[4];
+      v59 = [v3 heartbeatLocationManager];
+      [v59 setDelegate:v58];
+
+      v60 = [v3 heartbeatLocationManager];
+      [v60 setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+
+      v40 = sub_1000029E0(v61);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v38 = "SecureLocationMonitor: Started proactive location manager";
+        v41 = "SecureLocationMonitor: Started proactive location manager";
         goto LABEL_24;
       }
     }
@@ -3696,94 +3534,94 @@ LABEL_24:
 LABEL_25:
 
 LABEL_26:
-    v81 = [a1[4] _createLocationManager];
-    [v3 setOndemandLocationManager:v81];
+    v87 = [a1[4] _createLocationManager];
+    [v3 setOndemandLocationManager:v87];
 
-    v82 = a1[4];
-    v83 = [v3 ondemandLocationManager];
-    [v83 setDelegate:v82];
+    v88 = a1[4];
+    v89 = [v3 ondemandLocationManager];
+    [v89 setDelegate:v88];
 
-    v84 = a1[4];
-    v85 = [v5 desiredAccuracy];
-    [v84 _clLocationAccuracyFromConfigValue:v85];
-    v87 = v86;
+    v90 = a1[4];
+    v91 = [v5 desiredAccuracy];
+    [v90 _clLocationAccuracyFromConfigValue:v91];
+    v93 = v92;
 
-    if (v87 >= kCLLocationAccuracyHundredMeters)
+    if (v93 >= kCLLocationAccuracyHundredMeters)
     {
-      v87 = kCLLocationAccuracyHundredMeters;
+      v93 = kCLLocationAccuracyHundredMeters;
     }
 
-    v88 = [v3 ondemandLocationManager];
-    [v88 setDesiredAccuracy:v87];
+    v94 = [v3 ondemandLocationManager];
+    [v94 setDesiredAccuracy:v93];
 
-    v89 = [a1[4] _createLocationManagerForStewie];
-    [v3 setStewieLocationManager:v89];
+    v95 = [a1[4] _createLocationManagerForStewie];
+    [v3 setStewieLocationManager:v95];
 
     [a1[4] _scheduleXPCActivity];
-    v90 = objc_alloc_init(FMDMotionMonitor);
-    [v3 setMotionMonitor:v90];
+    v96 = objc_alloc_init(FMDMotionMonitor);
+    [v3 setMotionMonitor:v96];
 
-    v91 = [v3 motionMonitor];
-    [v91 startMotionMonitoring];
+    v97 = [v3 motionMonitor];
+    [v97 startMotionMonitoring];
 
     [v3 setLocationManagerStarted:1];
-    v92 = dispatch_get_global_queue(0, 0);
+    v98 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1001B645C;
     block[3] = &unk_1002CE250;
-    v110 = a1[5];
-    dispatch_async(v92, block);
+    v117 = a1[5];
+    dispatch_async(v98, block);
 
-    v93 = [v5 policyName];
-    v94 = [v93 caseInsensitiveCompare:kFMDSecureLocationModeOwnerProactive];
+    v99 = [v5 policyName];
+    v100 = [v99 caseInsensitiveCompare:kFMDSecureLocationModeOwnerProactive];
 
-    if (v94)
+    if (v100)
     {
-      v95 = [v5 policyName];
-      v96 = [v95 caseInsensitiveCompare:v13];
+      v101 = [v5 policyName];
+      v102 = [v101 caseInsensitiveCompare:v15];
 
-      if (v96)
+      if (v102)
       {
-        v97 = [v5 policyName];
-        v98 = [v97 caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive];
+        v103 = [v5 policyName];
+        v104 = [v103 caseInsensitiveCompare:kFMDSecureLocationModeBackgroundProactive];
 
-        if (v98)
+        if (v104)
         {
 LABEL_35:
-          v100 = sub_1000029E0();
-          if (os_log_type_enabled(v100, OS_LOG_TYPE_DEFAULT))
+          v107 = sub_1000029E0(v105);
+          if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor Started Location Managers", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v107, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor Started Location Managers", buf, 2u);
           }
 
           goto LABEL_38;
         }
 
-        v99 = 3;
+        v106 = 3;
       }
 
       else
       {
-        v99 = 1;
+        v106 = 1;
       }
     }
 
     else
     {
-      v99 = 2;
+      v106 = 2;
     }
 
-    [FMPreferencesUtil setInteger:v99 forKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain];
+    v105 = [FMPreferencesUtil setInteger:v106 forKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain];
     goto LABEL_35;
   }
 
-  v39 = sub_1000029E0();
-  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+  v42 = sub_1000029E0(0);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: strongSelf is nil, not starting monitors. Calling completion", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: strongSelf is nil, not starting monitors. Calling completion", buf, 2u);
   }
 
   (*(a1[5] + 2))();
@@ -3792,7 +3630,7 @@ LABEL_38:
 
 void sub_1001B6314(uint64_t a1)
 {
-  v2 = sub_1000029E0();
+  v2 = sub_1000029E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3806,7 +3644,7 @@ void sub_1001B6314(uint64_t a1)
 void sub_1001B6398(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000029E0();
+  v4 = sub_1000029E0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -3820,8 +3658,7 @@ void sub_1001B6398(uint64_t a1, void *a2)
 void sub_1001B6728(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  [WeakRetained setForcePushOndemandlocation:1];
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0([WeakRetained setForcePushOndemandlocation:1]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -3835,14 +3672,15 @@ void sub_1001B6728(uint64_t a1)
 void sub_1001B69D8(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000029E0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_1000029E0(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 138412290;
-      v5 = v2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Error starting SecureLocationMonitor %@", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error starting SecureLocationMonitor %@", &v5, 0xCu);
     }
   }
 }
@@ -3942,8 +3780,7 @@ void sub_1001B6C4C(uint64_t a1)
     v25 = *(a1 + 32);
     dispatch_async(v20, block);
 
-    [FMPreferencesUtil setInteger:0 forKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain];
-    v21 = sub_1000029E0();
+    v21 = sub_1000029E0([FMPreferencesUtil setInteger:0 forKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain]);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *v23 = 0;
@@ -3953,7 +3790,7 @@ void sub_1001B6C4C(uint64_t a1)
 
   else
   {
-    v22 = sub_1000029E0();
+    v22 = sub_1000029E0(0);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *v23 = 0;
@@ -3983,27 +3820,28 @@ void sub_1001B7470(uint64_t a1)
 void sub_1001B7554(uint64_t a1)
 {
   v2 = _os_feature_enabled_impl();
-  v3 = sub_1000029E0();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = v2;
+  v4 = sub_1000029E0(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v5;
-      v6 = "SecureLocationMonitor: Sending location to FML to publish %@";
+      v6 = *(a1 + 32);
+      v10 = 138412290;
+      v11 = v6;
+      v7 = "SecureLocationMonitor: Sending location to FML to publish %@";
 LABEL_6:
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
-    v7 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v7;
-    v6 = "SecureLocationMonitor: Sending location to searchpartyd to publish %@";
+    v8 = *(a1 + 32);
+    v10 = 138412290;
+    v11 = v8;
+    v7 = "SecureLocationMonitor: Sending location to searchpartyd to publish %@";
     goto LABEL_6;
   }
 
@@ -4014,7 +3852,7 @@ LABEL_6:
 void sub_1001B77EC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000029E0();
+  v4 = sub_1000029E0(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -4050,7 +3888,7 @@ void sub_1001B77EC(uint64_t a1, void *a2)
 void sub_1001B7924(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000029E0();
+  v4 = sub_1000029E0(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
@@ -4090,17 +3928,17 @@ void sub_1001B7C64(uint64_t a1)
 
   if ((v3 & 1) == 0)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) heartbeatLocationManager];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: don't have a valid lastReceivedLocation. Requesting from heartbeat location manager %@", &v7, 0xCu);
+      v6 = [*(a1 + 32) heartbeatLocationManager];
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: don't have a valid lastReceivedLocation. Requesting from heartbeat location manager %@", &v8, 0xCu);
     }
 
-    v6 = [*(a1 + 32) heartbeatLocationManager];
-    [v6 requestLocation];
+    v7 = [*(a1 + 32) heartbeatLocationManager];
+    [v7 requestLocation];
   }
 }
 
@@ -4110,60 +3948,45 @@ uint64_t sub_1001B7FBC(uint64_t a1)
 
   if (v2)
   {
-    v3 = [*(a1 + 32) lastOnDemandPublishTime];
-    if (!v3)
+    v4 = [*(a1 + 32) lastOnDemandPublishTime];
+    if (v4 && (v5 = v4, [*(a1 + 32) lastOnDemandPublishTime], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSinceNow"), v8 = -v7, objc_msgSend(*(a1 + 32), "configManager"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "activeConfig"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "onDemandPublishThreshold"), v12 = v11, v10, v9, v6, v5, v12 > v8))
     {
-      goto LABEL_6;
-    }
-
-    v4 = v3;
-    v5 = [*(a1 + 32) lastOnDemandPublishTime];
-    [v5 timeIntervalSinceNow];
-    v7 = -v6;
-    v8 = [*(a1 + 32) configManager];
-    v9 = [v8 activeConfig];
-    [v9 onDemandPublishThreshold];
-    v11 = v10;
-
-    if (v11 > v7)
-    {
-      v12 = sub_1000029E0();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000029E0(v4);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 0;
-        v13 = "SecureLocationMonitor: Rejecting ondemand publish request as its within threshold";
-        v14 = &v19;
+        v20 = 0;
+        v14 = "SecureLocationMonitor: Rejecting ondemand publish request as its within threshold";
+        v15 = &v20;
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v14, v15, 2u);
       }
     }
 
     else
     {
-LABEL_6:
-      v15 = sub_1000029E0();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_1000029E0(v4);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Requesting ondemand one time location", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Requesting ondemand one time location", buf, 2u);
       }
 
-      v16 = [*(a1 + 32) ondemandLocationManager];
-      [v16 requestLocation];
+      v17 = [*(a1 + 32) ondemandLocationManager];
+      [v17 requestLocation];
 
-      v12 = +[NSDate now];
-      [*(a1 + 32) setLastOnDemandPublishTime:v12];
+      v13 = +[NSDate now];
+      [*(a1 + 32) setLastOnDemandPublishTime:v13];
     }
   }
 
   else
   {
-    v12 = sub_1000029E0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 0;
-      v13 = "SecureLocationMonitor: Received ondemand request but location manager not setup";
-      v14 = &v18;
+      v19 = 0;
+      v14 = "SecureLocationMonitor: Received ondemand request but location manager not setup";
+      v15 = &v19;
       goto LABEL_11;
     }
   }
@@ -4173,7 +3996,7 @@ LABEL_6:
 
 id sub_1001B8220(uint64_t a1, void *a2)
 {
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -4185,7 +4008,7 @@ id sub_1001B8220(uint64_t a1, void *a2)
 
 void sub_1001B8498(uint64_t a1)
 {
-  v2 = sub_1000029E0();
+  v2 = sub_1000029E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -4199,7 +4022,7 @@ void sub_1001B8498(uint64_t a1)
 
 void sub_1001B8898(id a1, NSError *a2)
 {
-  v2 = sub_1000029E0();
+  v2 = sub_1000029E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 138412290;
@@ -4210,7 +4033,7 @@ void sub_1001B8898(id a1, NSError *a2)
 
 void sub_1001B95C4(uint64_t a1)
 {
-  v2 = sub_1000029E0();
+  v2 = sub_1000029E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -4227,14 +4050,15 @@ void sub_1001B95C4(uint64_t a1)
 void sub_1001B97D4(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (*(a1 + 32))
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error stopping SecureLocationMonitor %@", &v5, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error stopping SecureLocationMonitor %@", &v6, 0xCu);
     }
   }
 }
@@ -4242,33 +4066,34 @@ void sub_1001B97D4(uint64_t a1, void *a2)
 void sub_1001B9C68(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000029E0();
+  v4 = sub_1000029E0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: - xpc activity triggered", &v12, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: - xpc activity triggered", &v15, 2u);
   }
 
   state = xpc_activity_get_state(v3);
   if (state == 2)
   {
-    v8 = sub_1000029E0();
+    v8 = sub_1000029E0(2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: XPC Activity State Run", &v12, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: XPC Activity State Run", &v15, 2u);
     }
 
     if (!xpc_activity_should_defer(v3))
     {
-      v9 = [FMPreferencesUtil BOOLForKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain];
-      if (([*(a1 + 32) isRunning] & 1) != 0 || !v9)
+      v10 = [FMPreferencesUtil BOOLForKey:@"kFMDSecureLocationsShouldStartMonitor" inDomain:kFMDNotBackedUpPrefDomain];
+      v11 = [*(a1 + 32) isRunning];
+      if ((v11 & 1) != 0 || !v10)
       {
-        v10 = sub_1000029E0();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = sub_1000029E0(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v12) = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor already running", &v12, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor already running", &v15, 2u);
         }
 
         [*(a1 + 32) _publishHeartbeatIfNeeded];
@@ -4279,21 +4104,23 @@ void sub_1001B9C68(uint64_t a1, void *a2)
         [*(a1 + 32) startLocationMonitor:&stru_1002D0BF8];
       }
 
-      v11 = xpc_activity_set_state(v3, 5);
-      v6 = sub_1000029E0();
+      v13 = xpc_activity_set_state(v3, 5);
+      v14 = v13;
+      v6 = sub_1000029E0(v13);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 67109120;
-        LODWORD(v13) = v11;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Setting state of XPC activity to done. Result %d", &v12, 8u);
+        v15 = 67109120;
+        LODWORD(v16) = v14;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Setting state of XPC activity to done. Result %d", &v15, 8u);
       }
 
       goto LABEL_21;
     }
 
-    if (!xpc_activity_set_state(v3, 3))
+    v9 = xpc_activity_set_state(v3, 3);
+    if (!v9)
     {
-      v6 = sub_1000029E0();
+      v6 = sub_1000029E0(v9);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_10022D998(v6);
@@ -4305,13 +4132,13 @@ void sub_1001B9C68(uint64_t a1, void *a2)
 
   else if (!state)
   {
-    v6 = sub_1000029E0();
+    v6 = sub_1000029E0(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = xpc_activity_copy_criteria(v3);
-      v12 = 138412290;
-      v13 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: XPC Activity Checkin with criteria %@", &v12, 0xCu);
+      v15 = 138412290;
+      v16 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: XPC Activity Checkin with criteria %@", &v15, 0xCu);
     }
 
 LABEL_21:
@@ -4322,7 +4149,7 @@ void sub_1001B9F04(id a1, NSError *a2)
 {
   if (a2)
   {
-    v2 = sub_1000029E0();
+    v2 = sub_1000029E0(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -4334,37 +4161,38 @@ void sub_1001B9F04(id a1, NSError *a2)
 void sub_1001BA1C0(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (v3 || (v6 = *(a1 + 32)) == 0)
+  v4 = v3;
+  if (v3 || (v7 = *(a1 + 32)) == 0)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       *buf = 138543618;
-      v11 = v3;
-      v12 = 2114;
-      v13 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Error stopping %{public}@ OR NO activeConfig %{public}@", buf, 0x16u);
+      v12 = v4;
+      v13 = 2114;
+      v14 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SecureLocationMonitor: Error stopping %{public}@ OR NO activeConfig %{public}@", buf, 0x16u);
     }
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1001BA2F8;
-    v8[3] = &unk_1002CD868;
-    v9 = v6;
-    [v7 startLocationMonitor:v8];
-    v4 = v9;
+    v8 = *(a1 + 40);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1001BA2F8;
+    v9[3] = &unk_1002CD868;
+    v10 = v7;
+    [v8 startLocationMonitor:v9];
+    v5 = v10;
   }
 }
 
 void sub_1001BA2F8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000029E0();
+  v4 = sub_1000029E0(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -4379,7 +4207,7 @@ void sub_1001BA2F8(uint64_t a1, void *a2)
 void sub_1001BA3C0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -4391,7 +4219,7 @@ void sub_1001BA3C0(id a1, NSError *a2)
 void sub_1001BA5D8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -4403,7 +4231,7 @@ void sub_1001BA5D8(id a1, NSError *a2)
 void sub_1001BA684(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -4426,7 +4254,7 @@ void sub_1001BA844(uint64_t a1)
 void sub_1001BAE6C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_1000029E0();
+  v3 = sub_1000029E0(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -4448,46 +4276,46 @@ void sub_1001BB770(uint64_t a1)
 {
   v2 = [*(a1 + 32) dataArchiver];
   v3 = [NSSet setWithObjects:objc_opt_class(), 0];
-  v11 = 0;
-  v4 = [v2 readDictionaryAndClasses:v3 error:&v11];
-  v5 = v11;
+  v12 = 0;
+  v4 = [v2 readDictionaryAndClasses:v3 error:&v12];
+  v5 = v12;
 
   if (v5)
   {
-    v6 = sub_1000029E0();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000029E0(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10022D9F0();
     }
 
-    v7 = [*(a1 + 32) configForPolicy:kFMDSecureLocationModeBackgroundProactive];
-    v8 = *(a1 + 32);
+    v8 = [*(a1 + 32) configForPolicy:kFMDSecureLocationModeBackgroundProactive];
+    v9 = *(a1 + 32);
   }
 
   else
   {
-    v7 = [*(a1 + 32) _readConfigFromDictionary:v4];
-    v9 = sub_1000029E0();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = [*(a1 + 32) _readConfigFromDictionary:v4];
+    v10 = sub_1000029E0(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v13 = @"SecureLocationConfig";
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ Read config from file %@", buf, 0x16u);
+      v14 = @"SecureLocationConfig";
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ Read config from file %@", buf, 0x16u);
     }
 
-    v8 = *(a1 + 32);
-    if (!v7)
+    v9 = *(a1 + 32);
+    if (!v8)
     {
-      v10 = [v8 configForPolicy:kFMDSecureLocationModeBackgroundProactive];
-      [*(a1 + 32) setActiveConfig:v10];
+      v11 = [v9 configForPolicy:kFMDSecureLocationModeBackgroundProactive];
+      [*(a1 + 32) setActiveConfig:v11];
 
       goto LABEL_9;
     }
   }
 
-  [v8 setActiveConfig:v7];
+  [v9 setActiveConfig:v8];
 LABEL_9:
 }
 
@@ -4499,27 +4327,27 @@ void sub_1001BBA08(uint64_t a1)
     v3 = [*(a1 + 32) dataArchiver];
     v4 = [v3 saveDictionary:v2];
 
-    v5 = sub_1000029E0();
-    v6 = v5;
+    v6 = sub_1000029E0(v5);
+    v7 = v6;
     if (v4)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_10022DA6C();
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = @"SecureLocationConfig";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ Archived config data successfully", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = @"SecureLocationConfig";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Archived config data successfully", &v8, 0xCu);
     }
   }
 
   else
   {
-    v4 = sub_1000029E0();
+    v4 = sub_1000029E0(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10022DAE8();
@@ -4546,8 +4374,7 @@ void sub_1001BBC90(uint64_t a1)
       dispatch_async(v4, block);
     }
 
-    [*(a1 + 32) _archiveConfigFile:*(a1 + 40)];
-    v5 = sub_1000029E0();
+    v5 = sub_1000029E0([*(a1 + 32) _archiveConfigFile:*(a1 + 40)]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a1 + 32) activeConfig];
@@ -4592,111 +4419,112 @@ void sub_1001BCF84(id *a1)
   v3 = [WeakRetained activeConfig];
   v4 = [v3 policyName];
 
-  if ([a1[4] stopMonitoringActivePolicy])
+  v5 = [a1[4] stopMonitoringActivePolicy];
+  if (v5)
   {
-    v5 = sub_1000029E0();
-    v6 = v5;
+    v6 = sub_1000029E0(v5);
+    v7 = v6;
     if (v4)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 138412546;
-        *&v25[4] = @"SecureLocationConfig";
-        *&v25[12] = 2114;
-        *&v25[14] = v4;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ Removing active policy: %{public}@", v25, 0x16u);
+        *v28 = 138412546;
+        *&v28[4] = @"SecureLocationConfig";
+        *&v28[12] = 2114;
+        *&v28[14] = v4;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Removing active policy: %{public}@", v28, 0x16u);
       }
 
-      v7 = [WeakRetained activePolicies];
-      [v7 removeObjectForKey:v4];
-
-      v8 = [WeakRetained policyExpirationTimes];
+      v8 = [WeakRetained activePolicies];
       [v8 removeObjectForKey:v4];
+
+      v9 = [WeakRetained policyExpirationTimes];
+      [v9 removeObjectForKey:v4];
 
       [WeakRetained policyExpired:v4];
     }
 
     else
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_10022DC64();
       }
 
-      v17 = [WeakRetained delegate];
-      v18 = v17;
-      if (v17)
+      v19 = [WeakRetained delegate];
+      v20 = v19;
+      if (v19)
       {
-        [v17 activeConfigChanged:0];
+        [v19 activeConfigChanged:0];
       }
     }
 
     goto LABEL_24;
   }
 
-  v9 = [a1[5] _removeContext:a1[4]];
-  v10 = [WeakRetained policyExpirationTimes];
-  v11 = [a1[4] mode];
-  if (v9)
+  v10 = [a1[5] _removeContext:a1[4]];
+  v11 = [WeakRetained policyExpirationTimes];
+  v12 = [a1[4] mode];
+  if (v10)
   {
-    [v10 setObject:v9 forKey:v11];
+    [v11 setObject:v10 forKey:v12];
 
-    v12 = sub_1000029E0();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000029E0(v13);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
-    v13 = [a1[4] mode];
-    *v25 = 138412802;
-    *&v25[4] = @"SecureLocationConfig";
-    *&v25[12] = 2114;
-    *&v25[14] = v13;
-    *&v25[22] = 2114;
-    v26 = v9;
-    v14 = "%@ Updated expirationTime for %{public}@ to %{public}@";
-    v15 = v12;
-    v16 = 32;
+    v15 = [a1[4] mode];
+    *v28 = 138412802;
+    *&v28[4] = @"SecureLocationConfig";
+    *&v28[12] = 2114;
+    *&v28[14] = v15;
+    *&v28[22] = 2114;
+    v29 = v10;
+    v16 = "%@ Updated expirationTime for %{public}@ to %{public}@";
+    v17 = v14;
+    v18 = 32;
   }
 
   else
   {
-    [v10 removeObjectForKey:v11];
+    [v11 removeObjectForKey:v12];
 
-    v12 = sub_1000029E0();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000029E0(v21);
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_17;
     }
 
-    v13 = [a1[4] mode];
-    *v25 = 138412546;
-    *&v25[4] = @"SecureLocationConfig";
-    *&v25[12] = 2114;
-    *&v25[14] = v13;
-    v14 = "%@ No more subs left for %{public}@";
-    v15 = v12;
-    v16 = 22;
+    v15 = [a1[4] mode];
+    *v28 = 138412546;
+    *&v28[4] = @"SecureLocationConfig";
+    *&v28[12] = 2114;
+    *&v28[14] = v15;
+    v16 = "%@ No more subs left for %{public}@";
+    v17 = v14;
+    v18 = 22;
   }
 
-  _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, v25, v16);
+  _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, v28, v18);
 
 LABEL_17:
-  v19 = [WeakRetained activeConfig];
+  v22 = [WeakRetained activeConfig];
 
-  if (v19)
+  if (v22)
   {
-    v20 = [a1[4] mode];
-    v21 = [v20 isEqualToString:v4];
+    v23 = [a1[4] mode];
+    v24 = [v23 isEqualToString:v4];
 
-    if (v21)
+    if (v24)
     {
-      v22 = +[NSDate date];
-      v23 = v22;
-      if (!v9 || [v22 compare:v9] == 1)
+      v25 = +[NSDate date];
+      v26 = v25;
+      if (!v10 || [v25 compare:v10] == 1)
       {
-        v24 = [a1[4] mode];
-        [WeakRetained policyExpired:v24];
+        v27 = [a1[4] mode];
+        [WeakRetained policyExpired:v27];
       }
     }
   }
@@ -4720,123 +4548,122 @@ void sub_1001BD70C(uint64_t a1)
 
   if (v7)
   {
-    v8 = sub_1000029E0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000029E0(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412546;
-      v37 = @"SecureLocationConfig";
-      v38 = 2114;
-      v39 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ Active config expired: %{public}@", buf, 0x16u);
+      v39 = @"SecureLocationConfig";
+      v40 = 2114;
+      v41 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ Active config expired: %{public}@", buf, 0x16u);
     }
 
     [v3 setActiveConfig:0];
   }
 
-  v10 = +[NSDate date];
-  v11 = sub_1000029E0();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = +[NSDate date];
+  v12 = sub_1000029E0(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [*(a1 + 40) policyExpirationTimes];
+    v13 = [*(a1 + 40) policyExpirationTimes];
     *buf = 138412546;
-    v37 = @"SecureLocationConfig";
-    v38 = 2114;
-    v39 = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ policyExpirationTimes %{public}@", buf, 0x16u);
+    v39 = @"SecureLocationConfig";
+    v40 = 2114;
+    v41 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ policyExpirationTimes %{public}@", buf, 0x16u);
   }
 
-  v29 = v3;
+  v31 = v3;
 
+  v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   obj = [*(a1 + 40) policyExpirationTimes];
-  v13 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-  if (v13)
+  v14 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v14)
   {
-    v14 = v13;
-    v15 = 0;
-    v16 = *v32;
+    v15 = v14;
+    v16 = 0;
+    v17 = *v34;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v15; i = i + 1)
       {
-        if (*v32 != v16)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v31 + 1) + 8 * i);
-        v19 = [*(a1 + 40) policyExpirationTimes];
-        v20 = [v19 objectForKey:v18];
+        v19 = *(*(&v33 + 1) + 8 * i);
+        v20 = [*(a1 + 40) policyExpirationTimes];
+        v21 = [v20 objectForKey:v19];
 
-        if ([v10 compare:v20] == -1)
+        if ([v11 compare:v21] == -1)
         {
-          v21 = [*(a1 + 40) configForPolicy:v18];
-          v22 = v21;
-          if (!v15 || (v23 = [v21 priority], v23 > objc_msgSend(v15, "priority")))
+          v22 = [*(a1 + 40) configForPolicy:v19];
+          v23 = v22;
+          if (!v16 || (v24 = [v22 priority], v22 = objc_msgSend(v16, "priority"), v24 > v22))
           {
-            v7 = sub_1000029E0();
+            v7 = sub_1000029E0(v22);
             if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = [v22 policyName];
+              v25 = [v23 policyName];
               *buf = 138412546;
-              v37 = @"SecureLocationConfig";
-              v38 = 2114;
-              v39 = v24;
+              v39 = @"SecureLocationConfig";
+              v40 = 2114;
+              v41 = v25;
               _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Found higher priority policy %{public}@", buf, 0x16u);
             }
 
-            v25 = v22;
+            v26 = v23;
             LOBYTE(v7) = 1;
-            v15 = v25;
+            v16 = v26;
           }
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v15 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v14);
+    while (v15);
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
   if (v7)
   {
-    v26 = sub_1000029E0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = sub_1000029E0(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v37 = @"SecureLocationConfig";
-      v38 = 2114;
-      v39 = v15;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%@ Changing active config to: %{public}@", buf, 0x16u);
+      v39 = @"SecureLocationConfig";
+      v40 = 2114;
+      v41 = v16;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%@ Changing active config to: %{public}@", buf, 0x16u);
     }
 
-    [v29 setActiveConfig:v15];
-    v27 = [v29 delegate];
-    if (v27)
+    [v31 setActiveConfig:v16];
+    v29 = [v31 delegate];
+    if (v29)
     {
-      v28 = [*(a1 + 40) activeConfig];
-      [v27 activeConfigChanged:v28];
+      v30 = [*(a1 + 40) activeConfig];
+      [v29 activeConfigChanged:v30];
     }
   }
 }
 
 uint64_t sub_1001BDD20(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = qword_1003149D8;
-  qword_1003149D8 = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = qword_1003149D8;
+  qword_1003149D8 = v1;
 
-  return _objc_release_x1(v2, v3);
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1001BDEFC(uint64_t a1)
@@ -4857,37 +4684,37 @@ void sub_1001BDEFC(uint64_t a1)
         v7 = [WeakRetained loggedEvents];
         [v7 addObject:*(a1 + 32)];
 
-        v8 = sub_100002880();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_100002880(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(a1 + 32);
-          v10 = *(a1 + 40);
-          v17 = 138412546;
-          v18 = v9;
-          v19 = 2112;
-          v20 = v10;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ error occured %@", &v17, 0x16u);
+          v10 = *(a1 + 32);
+          v11 = *(a1 + 40);
+          v18 = 138412546;
+          v19 = v10;
+          v20 = 2112;
+          v21 = v11;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ error occured %@", &v18, 0x16u);
         }
 
-        v11 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:*(a1 + 32)];
-        v12 = [*(a1 + 40) userInfo];
-        v13 = [v12 objectForKeyedSubscript:NSUnderlyingErrorKey];
+        v12 = [(FMDEventLoggerEventError *)[FMDEventLoggerEventDataPeekError alloc] initWithEventName:*(a1 + 32)];
+        v13 = [*(a1 + 40) userInfo];
+        v14 = [v13 objectForKeyedSubscript:NSUnderlyingErrorKey];
 
-        if (v13)
+        if (v14)
         {
-          v14 = v11;
-          v15 = v13;
+          v15 = v12;
+          v16 = v14;
         }
 
         else
         {
-          v15 = *(a1 + 40);
-          v14 = v11;
+          v16 = *(a1 + 40);
+          v15 = v12;
         }
 
-        [(FMDEventLoggerEventDataPeekError *)v14 setError:v15];
-        v16 = +[FMDEventLogger sharedLogger];
-        [v16 logEvent:v11];
+        [(FMDEventLoggerEventDataPeekError *)v15 setError:v16];
+        v17 = +[FMDEventLogger sharedLogger];
+        [v17 logEvent:v12];
       }
     }
   }
@@ -4895,7 +4722,7 @@ void sub_1001BDEFC(uint64_t a1)
 
 void sub_1001BEF48(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) directoryURL];
@@ -4911,24 +4738,24 @@ void sub_1001BEF48(uint64_t a1)
 
 void sub_1001BF02C(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) directoryURL];
     v4 = [v3 path];
-    v9 = 138412290;
-    v10 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Monitored directory went away: %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Monitored directory went away: %@", &v10, 0xCu);
   }
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100002880(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 32) directoryURL];
-    v7 = [v6 path];
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Monitored directory went away: %@", &v9, 0xCu);
+    v7 = [*(a1 + 32) directoryURL];
+    v8 = [v7 path];
+    v10 = 138412290;
+    v11 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Monitored directory went away: %@", &v10, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -4938,7 +4765,7 @@ void sub_1001BF02C(uint64_t a1)
 void sub_1001BF8B0(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_10017DBC8();
+  v3 = sub_10017DBC8(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -4984,11 +4811,11 @@ void sub_1001BF95C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
       block[2] = sub_1001BFD78;
       block[3] = &unk_1002D0D40;
       block[4] = *(a1 + 32);
-      v40 = v6;
-      v47 = v16;
+      v42 = v6;
+      v49 = v16;
       v21 = *(a1 + 48);
-      v45 = a4;
-      v46 = v13;
+      v47 = a4;
+      v48 = v13;
       v22 = *(a1 + 56);
       v23 = *(a1 + 64);
       v24 = *(a1 + 72);
@@ -4996,10 +4823,10 @@ void sub_1001BF95C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
       *(&v25 + 1) = v24;
       *&v26 = v21;
       *(&v26 + 1) = v22;
-      v41 = v26;
-      v42 = v25;
-      v43 = *(a1 + 80);
-      v44 = *(a1 + 88);
+      v43 = v26;
+      v44 = v25;
+      v45 = *(a1 + 80);
+      v46 = *(a1 + 88);
       dispatch_after(v20, &_dispatch_main_q, block);
     }
   }
@@ -5026,11 +4853,11 @@ LABEL_29:
 
     if (v29)
     {
-      v30 = sub_100002880();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_100002880(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        *v38 = 0;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Ignoring locate alert as the device is in lost mode...", v38, 2u);
+        *v40 = 0;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Ignoring locate alert as the device is in lost mode...", v40, 2u);
       }
 
 LABEL_21:
@@ -5038,44 +4865,44 @@ LABEL_21:
       goto LABEL_29;
     }
 
-    v31 = +[FMDSystemConfig sharedInstance];
-    v32 = [v31 isPasscodeSet];
+    v32 = +[FMDSystemConfig sharedInstance];
+    v33 = [v32 isPasscodeSet];
 
-    if (!v32)
+    if (!v33)
     {
       goto LABEL_29;
     }
 
-    v33 = +[FMDSystemConfig sharedInstance];
-    if ([v33 isLocked])
+    v34 = +[FMDSystemConfig sharedInstance];
+    if ([v34 isLocked])
     {
     }
 
     else
     {
-      v34 = +[FMDSystemConfig sharedInstance];
-      v35 = [v34 isLocking];
+      v36 = +[FMDSystemConfig sharedInstance];
+      v37 = [v36 isLocking];
 
-      if (!v35)
+      if (!v37)
       {
-        v37 = sub_100002880();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v39 = sub_100002880(v35);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          *v38 = 0;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Displaying locate alert...", v38, 2u);
+          *v40 = 0;
+          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Displaying locate alert...", v40, 2u);
         }
 
-        v30 = +[FMAlertManager sharedInstance];
-        [v30 activateAlert:*(a1 + 104)];
+        v31 = +[FMAlertManager sharedInstance];
+        [v31 activateAlert:*(a1 + 104)];
         goto LABEL_21;
       }
     }
 
-    v36 = sub_100002880();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v38 = sub_100002880(v35);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Device is locked. Enqueing the alert to be shown after unlock", v38, 2u);
+      *v40 = 0;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Device is locked. Enqueing the alert to be shown after unlock", v40, 2u);
     }
 
     [*(a1 + 32) _showAlertAfterUnlock:*(a1 + 104)];
@@ -5112,7 +4939,7 @@ void sub_1001BFD78(uint64_t a1)
 void sub_1001BFE5C(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000BE38();
+  v4 = sub_10000BE38(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -5131,32 +4958,32 @@ id sub_1001BFF24(uint64_t a1)
 
   if (v3)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      sub_10022DE6C(v2, v4);
+      sub_10022DE6C(v2, v5);
     }
 
     [*v2 setStandardLocator:0];
   }
 
-  v5 = *(a1 + 40);
-  if (v5)
+  v6 = *(a1 + 40);
+  if (v6)
   {
-    [v5 timeIntervalSinceNow];
-    if (v6 < -3.0)
+    [v6 timeIntervalSinceNow];
+    if (v7 < -3.0)
     {
       if ([*(a1 + 48) category] == 3)
       {
-        v8 = *(a1 + 56);
-        v7 = *(a1 + 64);
-        v9 = *(a1 + 72);
-        v11[0] = _NSConcreteStackBlock;
-        v11[1] = 3221225472;
-        v11[2] = sub_1001C0054;
-        v11[3] = &unk_1002CD868;
-        v12 = v7;
-        [v8 stopDiscoveryForAccessory:v12 info:v9 withCompletion:v11];
+        v9 = *(a1 + 56);
+        v8 = *(a1 + 64);
+        v10 = *(a1 + 72);
+        v12[0] = _NSConcreteStackBlock;
+        v12[1] = 3221225472;
+        v12[2] = sub_1001C0054;
+        v12[3] = &unk_1002CD868;
+        v13 = v8;
+        [v9 stopDiscoveryForAccessory:v13 info:v10 withCompletion:v12];
       }
 
       else
@@ -5172,7 +4999,7 @@ id sub_1001BFF24(uint64_t a1)
 void sub_1001C0054(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10000BE38();
+  v4 = sub_10000BE38(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -5233,26 +5060,26 @@ void sub_1001C05F0(uint64_t a1, void *a2)
 
     else if (([v3 cancelled] & 1) == 0)
     {
-      v15 = *(a1 + 32);
-      if (v15)
+      v16 = *(a1 + 32);
+      if (v16)
       {
-        (*(v15 + 16))(v15, 1);
+        v16 = (*(v16 + 16))(v16, 1);
       }
 
-      v7 = sub_100002880();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100002880(v16);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_15;
       }
 
-      v9 = [v3 fm_logID];
-      v16 = 138412546;
-      v17 = v9;
-      v18 = 2048;
-      v19 = [v3 httpResponseStatus];
-      v10 = "%@: successful with status %ld";
-      v11 = v7;
-      v12 = 22;
+      v10 = [v3 fm_logID];
+      v17 = 138412546;
+      v18 = v10;
+      v19 = 2048;
+      v20 = [v3 httpResponseStatus];
+      v11 = "%@: successful with status %ld";
+      v12 = v8;
+      v13 = 22;
       goto LABEL_11;
     }
 
@@ -5263,36 +5090,37 @@ void sub_1001C05F0(uint64_t a1, void *a2)
     }
 
     v6 = [v3 cancelled];
-    v7 = sub_100002880();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v7 = v6;
+    v8 = sub_100002880(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v9)
       {
-        v9 = [v3 fm_logID];
-        v16 = 138412290;
-        v17 = v9;
-        v10 = "%@: Cancelled";
-        v11 = v7;
-        v12 = 12;
+        v10 = [v3 fm_logID];
+        v17 = 138412290;
+        v18 = v10;
+        v11 = "%@: Cancelled";
+        v12 = v8;
+        v13 = 12;
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
 LABEL_14:
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      v9 = [v3 fm_logID];
-      v13 = [v3 httpResponseStatus];
-      v14 = [v3 httpResponseError];
-      v16 = 138412802;
-      v17 = v9;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v16, 0x20u);
+      v10 = [v3 fm_logID];
+      v14 = [v3 httpResponseStatus];
+      v15 = [v3 httpResponseError];
+      v17 = 138412802;
+      v18 = v10;
+      v19 = 2048;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v17, 0x20u);
 
       goto LABEL_14;
     }
@@ -5330,56 +5158,61 @@ void sub_1001C0CB8(id a1, FMDRequest *a2)
     {
     }
 
-    else if (![(FMDRequest *)v2 cancelled])
+    else
     {
-      v5 = sub_100002880();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v14 = [(FMDRequest *)v2 cancelled];
+      if ((v14 & 1) == 0)
       {
-        goto LABEL_13;
-      }
+        v6 = sub_100002880(v14);
+        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_13;
+        }
 
-      v7 = [(FMDRequest *)v2 fm_logID];
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2048;
-      v16 = [(FMDRequest *)v2 httpResponseStatus];
-      v8 = "%@: successful with status %ld";
-      v9 = v5;
-      v10 = 22;
-      goto LABEL_9;
+        v8 = [(FMDRequest *)v2 fm_logID];
+        v15 = 138412546;
+        v16 = v8;
+        v17 = 2048;
+        v18 = [(FMDRequest *)v2 httpResponseStatus];
+        v9 = "%@: successful with status %ld";
+        v10 = v6;
+        v11 = 22;
+        goto LABEL_9;
+      }
     }
 
     v4 = [(FMDRequest *)v2 cancelled];
-    v5 = sub_100002880();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (v4)
+    v5 = v4;
+    v6 = sub_100002880(v4);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        v7 = [(FMDRequest *)v2 fm_logID];
-        v13 = 138412290;
-        v14 = v7;
-        v8 = "%@: Cancelled";
-        v9 = v5;
-        v10 = 12;
+        v8 = [(FMDRequest *)v2 fm_logID];
+        v15 = 138412290;
+        v16 = v8;
+        v9 = "%@: Cancelled";
+        v10 = v6;
+        v11 = 12;
 LABEL_9:
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
 LABEL_12:
       }
     }
 
-    else if (v6)
+    else if (v7)
     {
-      v7 = [(FMDRequest *)v2 fm_logID];
-      v11 = [(FMDRequest *)v2 httpResponseStatus];
-      v12 = [(FMDRequest *)v2 httpResponseError];
-      v13 = 138412802;
-      v14 = v7;
-      v15 = 2048;
-      v16 = v11;
-      v17 = 2112;
+      v8 = [(FMDRequest *)v2 fm_logID];
+      v12 = [(FMDRequest *)v2 httpResponseStatus];
+      v13 = [(FMDRequest *)v2 httpResponseError];
+      v15 = 138412802;
+      v16 = v8;
+      v17 = 2048;
       v18 = v12;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v13, 0x20u);
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v15, 0x20u);
 
       goto LABEL_12;
     }
@@ -5414,37 +5247,38 @@ id sub_1001C159C(uint64_t a1)
 void sub_1001C165C(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "CommandHandlerLocate got an accessory location %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CommandHandlerLocate got an accessory location %@", &v17, 0xCu);
     }
 
-    v7 = [FMDRequestCurrentLocation alloc];
-    v8 = [*(a1 + 32) account];
-    v9 = *(a1 + 64);
+    v8 = [FMDRequestCurrentLocation alloc];
+    v9 = [*(a1 + 32) account];
+    v10 = *(a1 + 64);
     [*(a1 + 40) doubleValue];
-    v11 = [(FMDRequestCurrentLocation *)v7 initWithAccount:v8 location:v5 finalLocation:a3 reason:v9 accuracyChange:0.0 cacheValidityDuration:v10];
+    v12 = [(FMDRequestCurrentLocation *)v8 initWithAccount:v9 location:v6 finalLocation:a3 reason:v10 accuracyChange:0.0 cacheValidityDuration:v11];
 
-    [(FMDRequest *)v11 setDecorator:*(a1 + 48)];
-    [(FMDRequest *)v11 setCompletionHandler:&stru_1002D0DD0];
-    v12 = [*(a1 + 32) accessoryRegistry];
-    v13 = [v12 accessoryForIdentifier:*(a1 + 56)];
+    [(FMDRequest *)v12 setDecorator:*(a1 + 48)];
+    [(FMDRequest *)v12 setCompletionHandler:&stru_1002D0DD0];
+    v13 = [*(a1 + 32) accessoryRegistry];
+    v14 = [v13 accessoryForIdentifier:*(a1 + 56)];
 
     ct_green_tea_logger_create_static();
-    v14 = getCTGreenTeaOsLogHandle();
-    v15 = v14;
-    if (v14 && os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = getCTGreenTeaOsLogHandle();
+    v16 = v15;
+    if (v15 && os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Transmitting Location.", &v16, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Transmitting Location.", &v17, 2u);
     }
 
-    [*(a1 + 32) enqueueRequest:v11 forAccessory:v13];
+    [*(a1 + 32) enqueueRequest:v12 forAccessory:v14];
   }
 }
 
@@ -5458,56 +5292,61 @@ void sub_1001C1828(id a1, FMDRequest *a2)
     {
     }
 
-    else if (![(FMDRequest *)v2 cancelled])
+    else
     {
-      v5 = sub_100002880();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v14 = [(FMDRequest *)v2 cancelled];
+      if ((v14 & 1) == 0)
       {
-        goto LABEL_13;
-      }
+        v6 = sub_100002880(v14);
+        if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_13;
+        }
 
-      v7 = [(FMDRequest *)v2 fm_logID];
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2048;
-      v16 = [(FMDRequest *)v2 httpResponseStatus];
-      v8 = "%@: successful with status %ld";
-      v9 = v5;
-      v10 = 22;
-      goto LABEL_9;
+        v8 = [(FMDRequest *)v2 fm_logID];
+        v15 = 138412546;
+        v16 = v8;
+        v17 = 2048;
+        v18 = [(FMDRequest *)v2 httpResponseStatus];
+        v9 = "%@: successful with status %ld";
+        v10 = v6;
+        v11 = 22;
+        goto LABEL_9;
+      }
     }
 
     v4 = [(FMDRequest *)v2 cancelled];
-    v5 = sub_100002880();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    if (v4)
+    v5 = v4;
+    v6 = sub_100002880(v4);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    if (v5)
     {
-      if (v6)
+      if (v7)
       {
-        v7 = [(FMDRequest *)v2 fm_logID];
-        v13 = 138412290;
-        v14 = v7;
-        v8 = "%@: Cancelled";
-        v9 = v5;
-        v10 = 12;
+        v8 = [(FMDRequest *)v2 fm_logID];
+        v15 = 138412290;
+        v16 = v8;
+        v9 = "%@: Cancelled";
+        v10 = v6;
+        v11 = 12;
 LABEL_9:
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, v8, &v13, v10);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
 LABEL_12:
       }
     }
 
-    else if (v6)
+    else if (v7)
     {
-      v7 = [(FMDRequest *)v2 fm_logID];
-      v11 = [(FMDRequest *)v2 httpResponseStatus];
-      v12 = [(FMDRequest *)v2 httpResponseError];
-      v13 = 138412802;
-      v14 = v7;
-      v15 = 2048;
-      v16 = v11;
-      v17 = 2112;
+      v8 = [(FMDRequest *)v2 fm_logID];
+      v12 = [(FMDRequest *)v2 httpResponseStatus];
+      v13 = [(FMDRequest *)v2 httpResponseError];
+      v15 = 138412802;
+      v16 = v8;
+      v17 = 2048;
       v18 = v12;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v13, 0x20u);
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v15, 0x20u);
 
       goto LABEL_12;
     }
@@ -5539,9 +5378,9 @@ void sub_1001C1BE0(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = v3;
-  if (v3 && [v3 count])
+  if (v3 && (v3 = [v3 count]) != 0)
   {
-    v5 = sub_100002880();
+    v5 = sub_100002880(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 134217984;
@@ -5554,7 +5393,7 @@ void sub_1001C1BE0(uint64_t a1, void *a2)
 
   else
   {
-    v6 = sub_100002880();
+    v6 = sub_100002880(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v7) = 0;
@@ -5574,21 +5413,21 @@ void sub_1001C24F8(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 httpResponseStatus];
     v7 = [v3 httpResponseBody];
     v8 = [v3 httpResponseHeaders];
-    v28 = 138413058;
-    v29 = v3;
-    v30 = 2048;
-    v31 = v6;
-    v32 = 2112;
-    v33 = v7;
-    v34 = 2112;
-    v35 = v8;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v28, 0x2Au);
+    v29 = 138413058;
+    v30 = v3;
+    v31 = 2048;
+    v32 = v6;
+    v33 = 2112;
+    v34 = v7;
+    v35 = 2112;
+    v36 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v29, 0x2Au);
   }
 
   v9 = [v3 httpResponseError];
@@ -5598,91 +5437,92 @@ void sub_1001C24F8(uint64_t a1, void *a2)
 
   else if (([v3 cancelled] & 1) == 0)
   {
-    v17 = [v3 httpResponseBody];
-    v18 = objc_alloc_init(FMDPairingCheckCommandResponseInfo);
-    v20 = [v17 objectForKeyedSubscript:@"phoneNumber"];
-    [v18 setPhoneNumber:v20];
+    v18 = [v3 httpResponseBody];
+    v19 = objc_alloc_init(FMDPairingCheckCommandResponseInfo);
+    v21 = [v18 objectForKeyedSubscript:@"phoneNumber"];
+    [v19 setPhoneNumber:v21];
 
-    v21 = [v17 objectForKeyedSubscript:@"statusCode"];
-    [v18 setStatusCode:v21];
+    v22 = [v18 objectForKeyedSubscript:@"statusCode"];
+    [v19 setStatusCode:v22];
 
-    v22 = [v17 objectForKeyedSubscript:@"signature"];
-    [v18 setSignature:v22];
+    v23 = [v18 objectForKeyedSubscript:@"signature"];
+    [v19 setSignature:v23];
 
-    v23 = [v17 objectForKeyedSubscript:@"servernonce"];
-    [v18 setServerNonce:v23];
+    v24 = [v18 objectForKeyedSubscript:@"servernonce"];
+    [v19 setServerNonce:v24];
 
-    v24 = [v17 objectForKeyedSubscript:@"lostInfo"];
-    [v18 setLostModeInfo:v24];
+    v25 = [v18 objectForKeyedSubscript:@"lostInfo"];
+    [v19 setLostModeInfo:v25];
 
-    v25 = [v17 objectForKeyedSubscript:@"useEraseKeyType"];
-    [v18 setUseEraseKeyType:v25];
+    v26 = [v18 objectForKeyedSubscript:@"useEraseKeyType"];
+    [v19 setUseEraseKeyType:v26];
 
-    v26 = [WeakRetained onCompletionHandler];
+    v27 = [WeakRetained onCompletionHandler];
 
-    if (v26)
+    if (v27)
     {
-      v27 = [WeakRetained onCompletionHandler];
-      (v27)[2](v27, 0, v18);
+      v28 = [WeakRetained onCompletionHandler];
+      (v28)[2](v28, 0, v19);
     }
 
     goto LABEL_15;
   }
 
   v10 = [v3 cancelled];
-  v11 = sub_10000BE38();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = sub_10000BE38(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
-      v13 = [v3 fm_logID];
-      v28 = 138412290;
-      v29 = v13;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v28, 0xCu);
+      v14 = [v3 fm_logID];
+      v29 = 138412290;
+      v30 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v29, 0xCu);
 LABEL_12:
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v13 = [v3 fm_logID];
-    v14 = [v3 httpResponseStatus];
-    v15 = [v3 httpResponseError];
-    v28 = 138412802;
-    v29 = v13;
-    v30 = 2048;
-    v31 = v14;
-    v32 = 2112;
-    v33 = v15;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v28, 0x20u);
+    v14 = [v3 fm_logID];
+    v15 = [v3 httpResponseStatus];
+    v16 = [v3 httpResponseError];
+    v29 = 138412802;
+    v30 = v14;
+    v31 = 2048;
+    v32 = v15;
+    v33 = 2112;
+    v34 = v16;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v29, 0x20u);
 
     goto LABEL_12;
   }
 
-  v16 = [WeakRetained onCompletionHandler];
+  v17 = [WeakRetained onCompletionHandler];
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_16;
   }
 
-  v17 = [WeakRetained onCompletionHandler];
-  v18 = [v3 httpResponseError];
-  (v17)[2](v17, v18, 0);
+  v18 = [WeakRetained onCompletionHandler];
+  v19 = [v3 httpResponseError];
+  (v18)[2](v18, v19, 0);
 LABEL_15:
 
 LABEL_16:
-  v19 = *(a1 + 32);
-  if (v19)
+  v20 = *(a1 + 32);
+  if (v20)
   {
-    (*(v19 + 16))();
+    (*(v20 + 16))();
   }
 }
 
-void sub_1001C2C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001C2C80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5693,9 +5533,9 @@ void sub_1001C2C98(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = [v2 count];
 }
 
-void sub_1001C2E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001C2E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5721,9 +5561,9 @@ void sub_1001C308C(uint64_t a1)
   [v2 removeObjectForKey:*(a1 + 40)];
 }
 
-void sub_1001C31E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001C31E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5748,44 +5588,45 @@ void sub_1001C34B0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained replacedExsitingAction:*(a1 + 32)];
-  v4 = sub_10017DA30();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v4 = v3;
+  v5 = sub_10017DA30(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 32);
-      v7 = [WeakRetained requests];
-      v12 = 138412546;
-      v13 = v6;
-      v14 = 2112;
+      v7 = *(a1 + 32);
+      v8 = [WeakRetained requests];
+      v14 = 138412546;
       v15 = v7;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Replacing existing action: %@ already in queue: %@", &v12, 0x16u);
+      v16 = 2112;
+      v17 = v8;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Replacing existing action: %@ already in queue: %@", &v14, 0x16u);
     }
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v8 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Executing block add request: %@", &v12, 0xCu);
+      v9 = *(a1 + 32);
+      v14 = 138412290;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Executing block add request: %@", &v14, 0xCu);
     }
 
-    v9 = [WeakRetained requests];
-    [v9 addObject:*(a1 + 32)];
+    v10 = [WeakRetained requests];
+    [v10 addObject:*(a1 + 32)];
 
-    v10 = sub_10017DA30();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_10017DA30(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [WeakRetained requests];
-      v12 = 138412546;
-      v13 = WeakRetained;
-      v14 = 2112;
-      v15 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ requests in queue - %@", &v12, 0x16u);
+      v13 = [WeakRetained requests];
+      v14 = 138412546;
+      v15 = WeakRetained;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@ requests in queue - %@", &v14, 0x16u);
     }
 
     [WeakRetained processRequests];
@@ -5803,43 +5644,44 @@ void sub_1001C3818(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained isPaused];
-  v4 = sub_10017DA30();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-  if (v3)
+  v4 = v3;
+  v5 = sub_10017DA30(v3);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    if (v5)
+    if (v6)
     {
-      v9 = 138412290;
-      v10 = WeakRetained;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ could not cancel request queue paused", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = WeakRetained;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ could not cancel request queue paused", &v11, 0xCu);
     }
   }
 
   else
   {
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 32);
-      v9 = 138412546;
-      v10 = WeakRetained;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ executing block for action to be removed - %@", &v9, 0x16u);
+      v7 = *(a1 + 32);
+      v11 = 138412546;
+      v12 = WeakRetained;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ executing block for action to be removed - %@", &v11, 0x16u);
     }
 
     [*(a1 + 32) willCancelAction];
-    v7 = [WeakRetained requests];
-    [v7 removeObject:*(a1 + 32)];
+    v8 = [WeakRetained requests];
+    [v8 removeObject:*(a1 + 32)];
 
-    v4 = sub_10017DA30();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_10017DA30(v9);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [WeakRetained requests];
-      v9 = 138412546;
-      v10 = WeakRetained;
-      v11 = 2112;
-      v12 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ requests remaining - %@", &v9, 0x16u);
+      v10 = [WeakRetained requests];
+      v11 = 138412546;
+      v12 = WeakRetained;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ requests remaining - %@", &v11, 0x16u);
     }
   }
 }
@@ -5854,7 +5696,7 @@ void sub_1001C3DC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1001C3DE4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = sub_10017DA30();
+  v3 = sub_10017DA30(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -5880,11 +5722,11 @@ void sub_1001C3F34(uint64_t a1)
   [WeakRetained processRequests];
 }
 
-void sub_1001C41E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001C41E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6015,13 +5857,13 @@ void sub_1001C51C4(uint64_t a1)
 
   if (v3)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [WeakRetained activeTokens];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscovery unterminated tokens %@.", &v6, 0xCu);
+      v6 = [WeakRetained activeTokens];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "FMDBluetoothDiscovery unterminated tokens %@.", &v7, 0xCu);
     }
   }
 
@@ -6111,7 +5953,7 @@ uint64_t sub_1001C668C(uint64_t a1)
 void sub_1001C6C48(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100002880();
+  v4 = sub_100002880(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -6128,9 +5970,9 @@ void sub_1001C7008(uint64_t a1, void *a2)
   v4 = objc_alloc_init(FMDUserNotificationContent);
   [*(a1 + 32) timeIntervalSinceNow];
   v6 = v5;
-  v7 = *(a1 + 40);
+  v7 = objc_opt_respondsToSelector();
   v8 = 0.0;
-  if (objc_opt_respondsToSelector())
+  if (v7)
   {
     v9 = [*(a1 + 40) performSelector:"accessoryType"];
     v10 = +[FMDExtConfigurationRegistry sharedInstance];
@@ -6141,54 +5983,54 @@ void sub_1001C7008(uint64_t a1, void *a2)
   }
 
   v13 = fabs(v6);
-  v14 = sub_100002880();
+  v14 = sub_100002880(v7);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v34 = v8;
+    v35 = v8;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: waitTime %f", buf, 0xCu);
   }
 
   if (v8 - v13 >= 0.0)
   {
-    v15 = v8 - v13;
+    v16 = v8 - v13;
   }
 
   else
   {
-    v15 = 0.0;
+    v16 = 0.0;
   }
 
-  v16 = sub_100002880();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100002880(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v34 = v15;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: remainingWaitTime %f", buf, 0xCu);
+    v35 = v16;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDDetachNotificationManager: remainingWaitTime %f", buf, 0xCu);
   }
 
-  v17 = dispatch_time(0, (v15 * 1000000000.0));
-  v18 = dispatch_get_global_queue(0, 0);
+  v18 = dispatch_time(0, (v16 * 1000000000.0));
+  v19 = dispatch_get_global_queue(0, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001C72DC;
   block[3] = &unk_1002D0F78;
-  v26 = *(a1 + 48);
-  v19 = *(a1 + 56);
-  v20 = *(a1 + 64);
-  v21 = *(a1 + 40);
-  *&v22 = v20;
-  *(&v22 + 1) = v21;
-  *&v23 = v26;
-  *(&v23 + 1) = v19;
-  v28 = v23;
-  v29 = v22;
-  v30 = v4;
-  v31 = v3;
-  v32 = *(a1 + 72);
-  v24 = v3;
-  v25 = v4;
-  dispatch_after(v17, v18, block);
+  v27 = *(a1 + 48);
+  v20 = *(a1 + 56);
+  v21 = *(a1 + 64);
+  v22 = *(a1 + 40);
+  *&v23 = v21;
+  *(&v23 + 1) = v22;
+  *&v24 = v27;
+  *(&v24 + 1) = v20;
+  v29 = v24;
+  v30 = v23;
+  v31 = v4;
+  v32 = v3;
+  v33 = *(a1 + 72);
+  v25 = v3;
+  v26 = v4;
+  dispatch_after(v18, v19, block);
 }
 
 void sub_1001C72DC(id *a1)
@@ -6199,7 +6041,7 @@ void sub_1001C72DC(id *a1)
   if (v3 && [a1[6] isEqualToString:v3])
   {
     v4 = [a1[7] connectionState];
-    v5 = sub_100002880();
+    v5 = sub_100002880(v4);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
     if (v4 == 1)
     {
@@ -6258,53 +6100,53 @@ void sub_1001C72DC(id *a1)
       [v26 doubleValue];
       v28 = [v20 isRestrictedLocationWithLatitude:v24 longitude:v27];
 
-      v29 = sub_100002880();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v30 = sub_100002880(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        v38 = a1[9];
+        v39 = a1[9];
         *buf = 138412802;
-        v44 = v38;
-        v45 = 1024;
-        v46 = v19;
-        v47 = 1024;
-        v48 = v28;
-        _os_log_debug_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "location = %@ isRestrictRegion = %d isRestrictedLocation = %d", buf, 0x18u);
+        v45 = v39;
+        v46 = 1024;
+        v47 = v19;
+        v48 = 1024;
+        v49 = v28;
+        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "location = %@ isRestrictRegion = %d isRestrictedLocation = %d", buf, 0x18u);
       }
 
       if ((a1[9] == 0) | v19 & 1 | v28 & 1)
       {
-        v30 = @"MAGSAFE_WALLET_DETACH_NOTIFICATION_MESSAGE_DEFAULT";
+        v31 = @"MAGSAFE_WALLET_DETACH_NOTIFICATION_MESSAGE_DEFAULT";
       }
 
       else
       {
-        v30 = @"MAGSAFE_WALLET_DETACH_NOTIFICATION_MESSAGE";
+        v31 = @"MAGSAFE_WALLET_DETACH_NOTIFICATION_MESSAGE";
       }
 
-      v31 = [(__CFString *)v30 fmd_localizedStringInTable:@"Localizable-MULDER"];
-      [a1[8] setLocationMessage:v31];
+      v32 = [(__CFString *)v31 fmd_localizedStringInTable:@"Localizable-MULDER"];
+      [a1[8] setLocationMessage:v32];
 
-      v32 = [a1[9] location];
-      v33 = [v32 latitude];
-      [v33 doubleValue];
+      v33 = [a1[9] location];
+      v34 = [v33 latitude];
+      [v34 doubleValue];
       [a1[8] setLatitude:?];
 
-      v34 = [a1[9] location];
-      v35 = [v34 longitude];
-      [v35 doubleValue];
+      v35 = [a1[9] location];
+      v36 = [v35 longitude];
+      [v36 doubleValue];
       [a1[8] setLongitude:?];
 
-      v36 = +[FMDFMIPManager sharedInstance];
-      v37 = a1[8];
-      v39[0] = _NSConcreteStackBlock;
-      v39[1] = 3221225472;
-      v39[2] = sub_1001C7810;
-      v39[3] = &unk_1002D0F50;
-      v39[4] = a1[4];
-      v40 = a1[10];
-      v41 = a1[5];
-      v42 = a1[8];
-      [v36 addNotificationRequest:v37 completion:v39];
+      v37 = +[FMDFMIPManager sharedInstance];
+      v38 = a1[8];
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_1001C7810;
+      v40[3] = &unk_1002D0F50;
+      v40[4] = a1[4];
+      v41 = a1[10];
+      v42 = a1[5];
+      v43 = a1[8];
+      [v37 addNotificationRequest:v38 completion:v40];
     }
   }
 }
@@ -6327,7 +6169,7 @@ void sub_1001C7810(uint64_t a1, uint64_t a2)
 void sub_1001C7A58(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -6350,7 +6192,7 @@ void sub_1001C8B78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v15 = objc_begin_catch(a1);
-    v16 = sub_100002880();
+    v16 = sub_100002880(v15);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
@@ -6370,7 +6212,7 @@ void sub_1001C8D88(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   if (a2 == 1)
   {
     v11 = objc_begin_catch(a1);
-    v12 = sub_100002880();
+    v12 = sub_100002880(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(buf) = 138412290;
@@ -6411,7 +6253,7 @@ void sub_1001C97D4(uint64_t a1, void *a2)
   }
 
   v4 = [v3 httpResponseStatus];
-  v5 = sub_100002880();
+  v5 = sub_100002880(v4);
   v6 = v5;
   if (v4 != 200)
   {
@@ -6451,7 +6293,7 @@ LABEL_4:
 void sub_1001C9DDC(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_100002880();
+  v3 = sub_100002880(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if (v2)
   {
@@ -6488,21 +6330,21 @@ void sub_1001CAD08(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = sub_10000BE38();
+  v5 = sub_10000BE38(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [v3 httpResponseStatus];
     v7 = [v3 httpResponseBody];
     v8 = [v3 httpResponseHeaders];
-    v24 = 138413058;
-    v25 = v3;
-    v26 = 2048;
-    v27 = v6;
-    v28 = 2112;
-    v29 = v7;
-    v30 = 2112;
-    v31 = v8;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v24, 0x2Au);
+    v25 = 138413058;
+    v26 = v3;
+    v27 = 2048;
+    v28 = v6;
+    v29 = 2112;
+    v30 = v7;
+    v31 = 2112;
+    v32 = v8;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "request = %@, status = %ld %@ %@", &v25, 0x2Au);
   }
 
   v9 = [v3 httpResponseError];
@@ -6512,73 +6354,74 @@ void sub_1001CAD08(uint64_t a1, void *a2)
 
   else if (([v3 cancelled] & 1) == 0)
   {
-    v17 = [v3 httpResponseBody];
-    v18 = objc_alloc_init(FMDPairingLockRegisterResponseInfo);
-    v20 = [v17 objectForKeyedSubscript:@"serialNumber"];
-    [v18 setSerialNumber:v20];
+    v18 = [v3 httpResponseBody];
+    v19 = objc_alloc_init(FMDPairingLockRegisterResponseInfo);
+    v21 = [v18 objectForKeyedSubscript:@"serialNumber"];
+    [v19 setSerialNumber:v21];
 
-    v21 = [v17 objectForKeyedSubscript:@"pairingCheckToken"];
-    [v18 setPairingToken:v21];
+    v22 = [v18 objectForKeyedSubscript:@"pairingCheckToken"];
+    [v19 setPairingToken:v22];
 
-    v22 = [WeakRetained onCompletionHandler];
+    v23 = [WeakRetained onCompletionHandler];
 
-    if (v22)
+    if (v23)
     {
-      v23 = [WeakRetained onCompletionHandler];
-      (v23)[2](v23, 0, v18);
+      v24 = [WeakRetained onCompletionHandler];
+      (v24)[2](v24, 0, v19);
     }
 
     goto LABEL_15;
   }
 
   v10 = [v3 cancelled];
-  v11 = sub_10000BE38();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v10)
+  v11 = v10;
+  v12 = sub_10000BE38(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
-      v13 = [v3 fm_logID];
-      v24 = 138412290;
-      v25 = v13;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v24, 0xCu);
+      v14 = [v3 fm_logID];
+      v25 = 138412290;
+      v26 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Cancelled", &v25, 0xCu);
 LABEL_12:
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v13 = [v3 fm_logID];
-    v14 = [v3 httpResponseStatus];
-    v15 = [v3 httpResponseError];
-    v24 = 138412802;
-    v25 = v13;
-    v26 = 2048;
-    v27 = v14;
-    v28 = 2112;
-    v29 = v15;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v24, 0x20u);
+    v14 = [v3 fm_logID];
+    v15 = [v3 httpResponseStatus];
+    v16 = [v3 httpResponseError];
+    v25 = 138412802;
+    v26 = v14;
+    v27 = 2048;
+    v28 = v15;
+    v29 = 2112;
+    v30 = v16;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v25, 0x20u);
 
     goto LABEL_12;
   }
 
-  v16 = [WeakRetained onCompletionHandler];
+  v17 = [WeakRetained onCompletionHandler];
 
-  if (!v16)
+  if (!v17)
   {
     goto LABEL_16;
   }
 
-  v17 = [WeakRetained onCompletionHandler];
-  v18 = [v3 httpResponseError];
-  (v17)[2](v17, v18, 0);
+  v18 = [WeakRetained onCompletionHandler];
+  v19 = [v3 httpResponseError];
+  (v18)[2](v18, v19, 0);
 LABEL_15:
 
 LABEL_16:
-  v19 = *(a1 + 32);
-  if (v19)
+  v20 = *(a1 + 32);
+  if (v20)
   {
-    (*(v19 + 16))();
+    (*(v20 + 16))();
   }
 }
 
@@ -6592,9 +6435,9 @@ id sub_1001CBF14(uint64_t a1)
   return [v4 _accountDidChangeFrom:v2 to:v3];
 }
 
-void sub_1001CC060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001CC060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6602,10 +6445,11 @@ void sub_1001CC060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1001CC468(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002880(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10022E554(a1);
     }
@@ -6614,14 +6458,14 @@ void sub_1001CC468(uint64_t a1, void *a2)
   else
   {
     [*(a1 + 32) removeAccountPreferences];
-    v4 = +[FMDLocalActivationLockInfoManager sharedInstance];
-    [v4 clearAllState];
+    v5 = +[FMDLocalActivationLockInfoManager sharedInstance];
+    [v5 clearAllState];
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v6 = *(a1 + 48);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v4);
   }
 }
 
@@ -6641,12 +6485,12 @@ void sub_1001CD184(uint64_t a1, void *a2, void *a3)
   v7 = v6;
   if (!v5 || v6)
   {
-    v9 = sub_100002880();
+    v9 = sub_100002880(v6);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to get PET info %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed to get PET info %{public}@", &v10, 0xCu);
     }
   }
 
@@ -6659,7 +6503,6 @@ void sub_1001CD184(uint64_t a1, void *a2, void *a3)
     [*(a1 + 32) setPet:v9];
   }
 
-  v10 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -6670,20 +6513,20 @@ void sub_1001CE020(uint64_t a1)
 
   if (!v3)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100002880(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [WeakRetained serviceName];
-      v6 = 138412290;
-      v7 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@ is not functional as an APS token is not available.", &v6, 0xCu);
+      v6 = [WeakRetained serviceName];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%@ is not functional as an APS token is not available.", &v7, 0xCu);
     }
   }
 }
 
 void sub_1001CE108(id a1)
 {
-  v1 = sub_100002880();
+  v1 = sub_100002880(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -6707,9 +6550,9 @@ void sub_1001CE484(uint64_t a1)
   [v6 enumerateObjectsUsingBlock:v7];
 }
 
-void sub_1001CED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001CED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6744,9 +6587,9 @@ void sub_1001CEDAC(uint64_t a1)
   }
 }
 
-void sub_1001CF0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001CF0B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6787,7 +6630,7 @@ id sub_1001CF0C8(uint64_t a1)
 
 id sub_1001CFA58(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -6801,7 +6644,7 @@ id sub_1001CFA58(uint64_t a1)
 
 id sub_1001CFB10(uint64_t a1)
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -6848,102 +6691,106 @@ id sub_1001D1380(uint64_t a1)
 void sub_1001D2C6C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error sending location payload to FML %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error sending location payload to FML %@", &v8, 0xCu);
     }
   }
 
-  v5 = +[FMXPCTransactionManager sharedInstance];
-  [v5 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
+  v6 = +[FMXPCTransactionManager sharedInstance];
+  [v6 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v3);
+    (*(v7 + 16))(v7, v4);
   }
 }
 
 void sub_1001D2D64(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error sending location payload to spd %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error sending location payload to spd %@", &v8, 0xCu);
     }
   }
 
-  v5 = +[FMXPCTransactionManager sharedInstance];
-  [v5 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
+  v6 = +[FMXPCTransactionManager sharedInstance];
+  [v6 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v3);
+    (*(v7 + 16))(v7, v4);
   }
 }
 
 void sub_1001D2E5C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error sending location command to FML %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error sending location command to FML %@", &v8, 0xCu);
     }
   }
 
-  v5 = +[FMXPCTransactionManager sharedInstance];
-  [v5 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
+  v6 = +[FMXPCTransactionManager sharedInstance];
+  [v6 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v3);
+    (*(v7 + 16))(v7, v4);
   }
 }
 
 void sub_1001D2F54(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000029E0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000029E0(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Error sending location commands to spd %@", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Error sending location commands to spd %@", &v8, 0xCu);
     }
   }
 
-  v5 = +[FMXPCTransactionManager sharedInstance];
-  [v5 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
+  v6 = +[FMXPCTransactionManager sharedInstance];
+  [v6 endTransaction:@"MDSecureLocationsHandlePushTransaction"];
 
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    (*(v6 + 16))(v6, v3);
+    (*(v7 + 16))(v7, v4);
   }
 }
 
-void sub_1001D4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001D4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6979,9 +6826,9 @@ LABEL_4:
 LABEL_6:
 }
 
-void sub_1001D4D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001D4D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7086,63 +6933,64 @@ void sub_1001D5D58(uint64_t a1)
 void sub_1001D5E98(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if ([WeakRetained startedPublishing])
+  v3 = [WeakRetained startedPublishing];
+  if (v3)
   {
-    v3 = *(a1 + 32);
-    v4 = [v3 locationInfo];
-    [v4 timestamp];
-    v5 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v4 = *(a1 + 32);
+    v5 = [v4 locationInfo];
+    [v5 timestamp];
+    v6 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
-    v6 = [WeakRetained lastPublishedLocation];
-    if ([v3 publishReason]== 2)
+    v7 = [WeakRetained lastPublishedLocation];
+    if ([v4 publishReason]== 2)
     {
-      v7 = [WeakRetained lastPublishedVisit];
+      v8 = [WeakRetained lastPublishedVisit];
 
-      if (!v7)
+      if (!v8)
       {
-        v31 = sub_1000029E0();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v35 = sub_1000029E0(v9);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Publishing visit immediately since there is no previous visit", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Publishing visit immediately since there is no previous visit", buf, 2u);
         }
 
-        [WeakRetained _publishResultLocation:v3];
-        [WeakRetained setLastPublishedVisit:v3];
+        [WeakRetained _publishResultLocation:v4];
+        [WeakRetained setLastPublishedVisit:v4];
         goto LABEL_51;
       }
 
-      v8 = [v3 locationInfo];
-      [v8 timestamp];
-      v9 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v10 = [v4 locationInfo];
+      [v10 timestamp];
+      v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
-      v10 = [WeakRetained lastPublishedVisit];
-      v11 = [v10 locationInfo];
-      v12 = [v11 timestamp];
+      v12 = [WeakRetained lastPublishedVisit];
+      v13 = [v12 locationInfo];
+      v14 = [v13 timestamp];
 
-      [*&v9 timeIntervalSinceDate:v12];
-      v14 = v13;
-      v15 = [WeakRetained config];
-      [v15 minTimeBetweenVisitPublish];
-      v17 = v16;
+      [*&v11 timeIntervalSinceDate:v14];
+      v16 = v15;
+      v17 = [WeakRetained config];
+      [v17 minTimeBetweenVisitPublish];
+      v19 = v18;
 
-      if (v14 <= v17)
+      if (v16 <= v19)
       {
-        v41 = sub_1000029E0();
-        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+        v47 = sub_1000029E0(v20);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          v42 = [WeakRetained config];
-          [v42 minTimeBetweenVisitPublish];
+          v48 = [WeakRetained config];
+          [v48 minTimeBetweenVisitPublish];
           *buf = 134217984;
-          v101 = v43;
-          _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Not publishing visit since it is within min publish limit (%f)", buf, 0xCu);
+          v110 = v49;
+          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Not publishing visit since it is within min publish limit (%f)", buf, 0xCu);
         }
       }
 
       else
       {
-        [WeakRetained _publishResultLocation:v3];
-        [WeakRetained setLastPublishedVisit:v3];
+        [WeakRetained _publishResultLocation:v4];
+        [WeakRetained setLastPublishedVisit:v4];
       }
 
 LABEL_50:
@@ -7151,206 +6999,207 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    if (!v6)
+    if (!v7)
     {
       [WeakRetained _persistedLastPublishedTimestamp];
-      v9 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-      if (v9 != 0.0)
+      *&v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v11 = *&v36;
+      if (*&v36 != 0.0)
       {
-        [*&v5 timeIntervalSinceDate:*&v9];
-        v33 = v32;
-        v34 = [WeakRetained config];
-        [v34 minTimeBetweenPublish];
-        v36 = v35;
+        [*&v6 timeIntervalSinceDate:v36];
+        v38 = v37;
+        v39 = [WeakRetained config];
+        [v39 minTimeBetweenPublish];
+        v41 = v40;
 
-        if (v33 <= v36)
+        if (v38 <= v41)
         {
-          v88 = sub_1000029E0();
-          if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+          v97 = sub_1000029E0(v36);
+          if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
           {
-            sub_10022EB84(*&v9, v88);
+            sub_10022EB84(*&v11, v97);
           }
 
-          [WeakRetained setLastReceivedLocation:v3];
+          [WeakRetained setLastReceivedLocation:v4];
           goto LABEL_50;
         }
       }
 
-      v27 = sub_1000029E0();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_1000029E0(v36);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v101 = v9;
-        v102 = 2112;
-        v103 = v5;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: New location is the first recorded location or greater than persisted lastPublish. lastPublished %@, new %@. Publishing", buf, 0x16u);
+        v110 = v11;
+        v111 = 2112;
+        v112 = v6;
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: New location is the first recorded location or greater than persisted lastPublish. lastPublished %@, new %@. Publishing", buf, 0x16u);
       }
 
       goto LABEL_26;
     }
 
-    v18 = [v6 locationInfo];
-    [v18 timestamp];
-    v9 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+    v21 = [v7 locationInfo];
+    [v21 timestamp];
+    v11 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
-    [*&v5 timeIntervalSinceDate:*&v9];
-    v20 = v19;
-    v21 = +[NSDate now];
-    [v21 timeIntervalSinceDate:*&v9];
+    [*&v6 timeIntervalSinceDate:*&v11];
     v23 = v22;
-
-    v24 = [WeakRetained config];
-    [v24 heartbeatPublish];
+    v24 = +[NSDate now];
+    [v24 timeIntervalSinceDate:*&v11];
     v26 = v25;
 
-    if (v23 < v26 || v20 <= 0.0)
+    v27 = [WeakRetained config];
+    [v27 heartbeatPublish];
+    v29 = v28;
+
+    if (v26 < v29 || v23 <= 0.0)
     {
-      if (-[NSObject publishReason](v3, "publishReason") != 5 || ([WeakRetained config], v37 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "onDemandPublishThreshold"), v39 = v38, v37, v20 < v39) || v20 <= 0.0)
+      if (-[NSObject publishReason](v4, "publishReason") != 5 || ([WeakRetained config], v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v42, "onDemandPublishThreshold"), v44 = v43, v42, v23 < v44) || v23 <= 0.0)
       {
-        v44 = [v3 locationInfo];
-        v45 = [v44 latitude];
-        [v45 doubleValue];
-        v47 = v46;
+        v50 = [v4 locationInfo];
+        v51 = [v50 latitude];
+        [v51 doubleValue];
+        v53 = v52;
 
-        v48 = [v3 locationInfo];
-        v49 = [v48 longitude];
-        [v49 doubleValue];
-        v51 = v50;
+        v54 = [v4 locationInfo];
+        v55 = [v54 longitude];
+        [v55 doubleValue];
+        v57 = v56;
 
-        v52 = [[CLLocation alloc] initWithLatitude:v47 longitude:v51];
-        v53 = [v6 locationInfo];
-        v54 = [v53 latitude];
-        [v54 doubleValue];
-        v56 = v55;
+        v58 = [[CLLocation alloc] initWithLatitude:v53 longitude:v57];
+        v59 = [v7 locationInfo];
+        v60 = [v59 latitude];
+        [v60 doubleValue];
+        v62 = v61;
 
-        v57 = [v6 locationInfo];
-        v58 = [v57 longitude];
-        [v58 doubleValue];
-        v60 = v59;
+        v63 = [v7 locationInfo];
+        v64 = [v63 longitude];
+        [v64 doubleValue];
+        v66 = v65;
 
-        v61 = [[CLLocation alloc] initWithLatitude:v56 longitude:v60];
-        [v52 distanceFromLocation:v61];
-        v63 = v62;
-        v64 = [WeakRetained config];
-        [v64 minDistanceBetweenPublish];
-        if (v63 >= v65)
+        v67 = [[CLLocation alloc] initWithLatitude:v62 longitude:v66];
+        [v58 distanceFromLocation:v67];
+        v69 = v68;
+        v70 = [WeakRetained config];
+        [v70 minDistanceBetweenPublish];
+        if (v69 >= v71)
         {
-          v72 = 1;
+          v78 = 1;
         }
 
         else
         {
           [WeakRetained config];
-          v97 = v6;
-          v66 = v5;
-          v67 = v9;
-          v68 = v61;
-          v70 = v69 = v52;
-          [v70 minDistanceBetweenPublish];
-          v72 = v71 == 0.0;
+          v106 = v7;
+          v72 = v6;
+          v73 = v11;
+          v74 = v67;
+          v76 = v75 = v58;
+          [v76 minDistanceBetweenPublish];
+          v78 = v77 == 0.0;
 
-          v52 = v69;
-          v61 = v68;
-          v9 = v67;
-          v5 = v66;
-          v6 = v97;
+          v58 = v75;
+          v67 = v74;
+          v11 = v73;
+          v6 = v72;
+          v7 = v106;
         }
 
-        v73 = sub_1000029E0();
-        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+        v80 = sub_1000029E0(v79);
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
-          v89 = @"no";
-          if (v72)
+          v98 = @"no";
+          if (v78)
           {
-            v89 = @"yes";
+            v98 = @"yes";
           }
 
           [WeakRetained config];
-          v90 = v98 = v52;
-          [v90 minDistanceBetweenPublish];
+          v99 = v107 = v58;
+          [v99 minDistanceBetweenPublish];
           *buf = 138412802;
-          v101 = v95;
-          v102 = 2048;
-          v103 = v63;
-          v104 = 2048;
-          v105 = v91;
-          _os_log_debug_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEBUG, "SecureLocationPublisher: meetsDistanceLimits %@ distance %f configLimit %f", buf, 0x20u);
+          v110 = v104;
+          v111 = 2048;
+          v112 = v69;
+          v113 = 2048;
+          v114 = v100;
+          _os_log_debug_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEBUG, "SecureLocationPublisher: meetsDistanceLimits %@ distance %f configLimit %f", buf, 0x20u);
 
-          v52 = v98;
+          v58 = v107;
         }
 
-        v74 = [WeakRetained config];
-        [v74 minTimeBetweenPublish];
-        v76 = v75;
+        v81 = [WeakRetained config];
+        [v81 minTimeBetweenPublish];
+        v83 = v82;
 
-        v77 = sub_1000029E0();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+        v85 = sub_1000029E0(v84);
+        if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
         {
-          v92 = @"no";
-          if (v20 >= v76)
+          v101 = @"no";
+          if (v23 >= v83)
           {
-            v92 = @"yes";
+            v101 = @"yes";
           }
 
           [WeakRetained config];
-          v93 = v99 = v52;
-          [v93 minTimeBetweenPublish];
+          v102 = v108 = v58;
+          [v102 minTimeBetweenPublish];
           *buf = 138412802;
-          v101 = v96;
-          v102 = 2048;
-          v103 = v20;
-          v104 = 2048;
-          v105 = v94;
-          _os_log_debug_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "SecureLocationPublisher: meetsTimeLimits %@ time %f limit %f", buf, 0x20u);
+          v110 = v105;
+          v111 = 2048;
+          v112 = v23;
+          v113 = 2048;
+          v114 = v103;
+          _os_log_debug_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEBUG, "SecureLocationPublisher: meetsTimeLimits %@ time %f limit %f", buf, 0x20u);
 
-          v52 = v99;
+          v58 = v108;
         }
 
-        if (v20 < v76)
+        if (v23 < v83)
         {
-          v72 = 0;
+          v78 = 0;
         }
 
-        v78 = sub_1000029E0();
-        v79 = v78;
-        if (v72)
+        v87 = sub_1000029E0(v86);
+        v88 = v87;
+        if (v78)
         {
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
           {
-            v80 = [WeakRetained config];
-            [v80 minTimeBetweenPublish];
-            v82 = v81;
+            v89 = [WeakRetained config];
+            [v89 minTimeBetweenPublish];
+            v91 = v90;
             [WeakRetained config];
-            v84 = v83 = v52;
-            [v84 minDistanceBetweenPublish];
+            v93 = v92 = v58;
+            [v93 minDistanceBetweenPublish];
             *buf = 134218752;
-            v101 = v20;
-            v102 = 2048;
-            v103 = v82;
-            v104 = 2048;
-            v105 = v63;
-            v106 = 2048;
-            v107 = v85;
-            _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: new location meets publishing criteria. Time %f Limit %f, Distance %f Limit %f", buf, 0x2Au);
+            v110 = v23;
+            v111 = 2048;
+            v112 = v91;
+            v113 = 2048;
+            v114 = v69;
+            v115 = 2048;
+            v116 = v94;
+            _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: new location meets publishing criteria. Time %f Limit %f, Distance %f Limit %f", buf, 0x2Au);
 
-            v52 = v83;
+            v58 = v92;
           }
 
-          [WeakRetained _publishResultLocation:v3];
-          v86 = [WeakRetained criteriaMetBlock];
+          [WeakRetained _publishResultLocation:v4];
+          v95 = [WeakRetained criteriaMetBlock];
 
-          if (v86)
+          if (v95)
           {
-            v87 = [WeakRetained criteriaMetBlock];
-            v87[2]();
+            v96 = [WeakRetained criteriaMetBlock];
+            v96[2]();
           }
         }
 
         else
         {
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
           {
-            sub_10022EB40(v79);
+            sub_10022EB40(v88);
           }
 
           [WeakRetained setLastReceivedLocation:*(a1 + 32)];
@@ -7359,58 +7208,58 @@ LABEL_51:
         goto LABEL_50;
       }
 
-      v27 = sub_1000029E0();
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_1000029E0(v45);
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_26;
       }
 
-      v28 = [WeakRetained config];
-      [v28 onDemandPublishThreshold];
+      v32 = [WeakRetained config];
+      [v32 onDemandPublishThreshold];
       *buf = 134218240;
-      v101 = v20;
-      v102 = 2048;
-      v103 = v40;
-      v30 = "SecureLocationPublisher: Publishing ondemand location since time elapsed (%f) greater than ondemand threshold (%f)";
+      v110 = v23;
+      v111 = 2048;
+      v112 = v46;
+      v34 = "SecureLocationPublisher: Publishing ondemand location since time elapsed (%f) greater than ondemand threshold (%f)";
     }
 
     else
     {
-      v27 = sub_1000029E0();
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v31 = sub_1000029E0(v30);
+      if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_26:
 
-        [WeakRetained _publishResultLocation:v3];
+        [WeakRetained _publishResultLocation:v4];
         goto LABEL_50;
       }
 
-      v28 = [WeakRetained config];
-      [v28 heartbeatPublish];
+      v32 = [WeakRetained config];
+      [v32 heartbeatPublish];
       *buf = 134218240;
-      v101 = v23;
-      v102 = 2048;
-      v103 = v29;
-      v30 = "SecureLocationPublisher: Publishing location since time elapsed (%f) greater than hearbeat limit (%f)";
+      v110 = v26;
+      v111 = 2048;
+      v112 = v33;
+      v34 = "SecureLocationPublisher: Publishing location since time elapsed (%f) greater than hearbeat limit (%f)";
     }
 
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v30, buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v34, buf, 0x16u);
 
     goto LABEL_26;
   }
 
-  v3 = sub_1000029E0();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = sub_1000029E0(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10022EAFC(v3);
+    sub_10022EAFC(v4);
   }
 
 LABEL_52:
 }
 
-void sub_1001D687C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001D687C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7418,32 +7267,17 @@ void sub_1001D687C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1001D6894(uint64_t a1)
 {
   v2 = [*(a1 + 32) lastReceivedLocation];
-  if (!v2)
-  {
-    goto LABEL_3;
-  }
-
-  v3 = v2;
-  v4 = [*(a1 + 32) lastReceivedLocation];
-  v5 = [v4 locationInfo];
-  v6 = [v5 timestamp];
-  [v6 timeIntervalSinceNow];
-  v8 = -v7;
-  v9 = [*(a1 + 32) config];
-  [v9 stalenessThreshold];
-  v11 = v10;
-
-  if (v11 >= v8)
+  if (v2 && (v3 = v2, [*(a1 + 32) lastReceivedLocation], v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "locationInfo"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "timestamp"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSinceNow"), v8 = -v7, objc_msgSend(*(a1 + 32), "config"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "stalenessThreshold"), v11 = v10, v9, v6, v5, v4, v3, v11 >= v8))
   {
     v18 = *(a1 + 32);
     v19 = [v18 lastReceivedLocation];
     [v18 _publishResultLocation:v19];
 
-    v12 = sub_1000029E0();
+    v12 = sub_1000029E0(v20);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: publishing lastReceivedLocation", &v20, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: publishing lastReceivedLocation", &v21, 2u);
     }
 
     v17 = 1;
@@ -7451,19 +7285,18 @@ void sub_1001D6894(uint64_t a1)
 
   else
   {
-LABEL_3:
-    v12 = sub_1000029E0();
+    v12 = sub_1000029E0(v2);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = [*(a1 + 32) lastReceivedLocation];
       v14 = [*(a1 + 32) lastReceivedLocation];
       v15 = [v14 locationInfo];
       v16 = [v15 timestamp];
-      v20 = 138412546;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Can't publish lastReceivedLocation %@, ts: %@", &v20, 0x16u);
+      v21 = 138412546;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Can't publish lastReceivedLocation %@, ts: %@", &v21, 0x16u);
     }
 
     v17 = 0;
@@ -7474,14 +7307,13 @@ LABEL_3:
 
 uint64_t sub_1001D6CFC(uint64_t a1)
 {
-  v2 = sub_1000029E0();
+  v2 = sub_1000029E0(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Executing the publish block.", v5, 2u);
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "SecureLocationPublisher: Executing the publish block.", v4, 2u);
   }
 
-  v3 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -7489,99 +7321,102 @@ void sub_1001D7364(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10022EC68(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_10022EC68(v7, v8, v9, v10, v11, v12, v13, v14);
     }
 
-    v14 = [v6 description];
-    v15 = @"statusFetchError";
+    v15 = [v7 description];
+    v16 = @"statusFetchError";
     goto LABEL_23;
   }
 
-  if ([v5 count] <= 1)
+  v17 = [v5 count];
+  if (v17 <= 1)
   {
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_10022EE44(v16);
+      sub_10022EE44(v18);
     }
 
-    v14 = 0;
-    v15 = @"ckksStatusAbsent";
-    goto LABEL_23;
-  }
-
-  v17 = [v5 objectAtIndexedSubscript:1];
-  v18 = [v17 objectForKeyedSubscript:@"keystate"];
-  if ([v18 isEqualToString:@"ready"])
-  {
-
-LABEL_12:
-    v22 = [v5 objectAtIndexedSubscript:1];
-    v23 = [v22 objectForKeyedSubscript:@"accounttracker"];
-    v24 = [NSString stringWithFormat:@"%@", v23];
-
-    LOBYTE(v23) = [v24 containsString:@"deviceToDeviceEncryptionAvailability=(account|device)"];
-    v25 = sub_100002880();
-    v26 = v25;
-    if (v23)
-    {
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
-      {
-        v27 = [v5 objectAtIndexedSubscript:1];
-        v28 = [v27 objectForKeyedSubscript:@"keystate"];
-        *buf = 138412290;
-        v43 = v28;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "CKKSStatus: good. KeyState: %@", buf, 0xCu);
-      }
-
-      v29 = [v5 objectAtIndexedSubscript:1];
-      v30 = [v29 objectForKeyedSubscript:@"keystate"];
-      v15 = [NSString stringWithFormat:@"good-%@", v30];
-
-      v14 = 0;
-    }
-
-    else
-    {
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-      {
-        sub_10022EDD8(v24, v26, v31, v32, v33, v34, v35, v36);
-      }
-
-      v14 = v24;
-      v15 = @"d2dEncUnavailable";
-    }
-
+    v15 = 0;
+    v16 = @"ckksStatusAbsent";
     goto LABEL_23;
   }
 
   v19 = [v5 objectAtIndexedSubscript:1];
   v20 = [v19 objectForKeyedSubscript:@"keystate"];
-  v21 = [v20 isEqualToString:@"readypendingunlock"];
+  if ([v20 isEqualToString:@"ready"])
+  {
 
-  if (v21)
+LABEL_12:
+    v25 = [v5 objectAtIndexedSubscript:1];
+    v26 = [v25 objectForKeyedSubscript:@"accounttracker"];
+    v27 = [NSString stringWithFormat:@"%@", v26];
+
+    v28 = [v27 containsString:@"deviceToDeviceEncryptionAvailability=(account|device)"];
+    LOBYTE(v26) = v28;
+    v29 = sub_100002880(v28);
+    v30 = v29;
+    if (v26)
+    {
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        v31 = [v5 objectAtIndexedSubscript:1];
+        v32 = [v31 objectForKeyedSubscript:@"keystate"];
+        *buf = 138412290;
+        v47 = v32;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "CKKSStatus: good. KeyState: %@", buf, 0xCu);
+      }
+
+      v33 = [v5 objectAtIndexedSubscript:1];
+      v34 = [v33 objectForKeyedSubscript:@"keystate"];
+      v16 = [NSString stringWithFormat:@"good-%@", v34];
+
+      v15 = 0;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022EDD8(v27, v30, v35, v36, v37, v38, v39, v40);
+      }
+
+      v15 = v27;
+      v16 = @"d2dEncUnavailable";
+    }
+
+    goto LABEL_23;
+  }
+
+  v21 = [v5 objectAtIndexedSubscript:1];
+  v22 = [v21 objectForKeyedSubscript:@"keystate"];
+  v23 = [v22 isEqualToString:@"readypendingunlock"];
+
+  if (v23)
   {
     goto LABEL_12;
   }
 
-  v37 = sub_100002880();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v41 = sub_100002880(v24);
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
   {
-    sub_10022ECD4(v5, v37);
+    sub_10022ECD4(v5, v41);
   }
 
-  v38 = [v5 objectAtIndexedSubscript:1];
-  v39 = [v38 objectForKeyedSubscript:@"keystate"];
-  v40 = [v5 objectAtIndexedSubscript:1];
-  v41 = [v40 objectForKeyedSubscript:@"keyStateError"];
-  v14 = [NSString stringWithFormat:@"KeyState: %@. Error: %@", v39, v41];
+  v42 = [v5 objectAtIndexedSubscript:1];
+  v43 = [v42 objectForKeyedSubscript:@"keystate"];
+  v44 = [v5 objectAtIndexedSubscript:1];
+  v45 = [v44 objectForKeyedSubscript:@"keyStateError"];
+  v15 = [NSString stringWithFormat:@"KeyState: %@. Error: %@", v43, v45];
 
-  v15 = @"badStatus";
+  v16 = @"badStatus";
 LABEL_23:
   (*(*(a1 + 32) + 16))();
 }
@@ -7596,24 +7431,25 @@ void sub_1001D78A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_1001D78C4(uint64_t a1, void *a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
   if (a2)
   {
-    v4 = sub_100002880();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100002880(WeakRetained);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10022EE88(a2, v4);
+      sub_10022EE88(a2, v5);
     }
 
-    v5 = kFMDErrorDomain;
-    v8 = NSUnderlyingErrorKey;
-    v6 = [NSError errorWithDomain:@"NSXPCError" code:a2 userInfo:0];
-    v9 = v6;
-    v7 = [NSDictionary dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-    a2 = [NSError errorWithDomain:v5 code:13 userInfo:v7];
+    v6 = kFMDErrorDomain;
+    v9 = NSUnderlyingErrorKey;
+    v7 = [NSError errorWithDomain:@"NSXPCError" code:a2 userInfo:0];
+    v10 = v7;
+    v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+    a2 = [NSError errorWithDomain:v6 code:13 userInfo:v8];
   }
 
-  [WeakRetained setConnection:0];
-  [WeakRetained _didEndDiscoveryWithError:a2];
+  [v4 setConnection:0];
+  [v4 _didEndDiscoveryWithError:a2];
 }
 
 void sub_1001D9890(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -7633,7 +7469,8 @@ void sub_1001D98C4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   if (a4 != 3 && a4 != 5)
   {
     v4 = [WeakRetained locator];
-    v10 = [v4 locatorRunning] ^ 1;
+    WeakRetained = [v4 locatorRunning];
+    v10 = WeakRetained ^ 1;
   }
 
   if (a4 != 3 && a4 != 5)
@@ -7642,7 +7479,7 @@ void sub_1001D98C4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 
   if (v10)
   {
-    v11 = sub_100002880();
+    v11 = sub_100002880(WeakRetained);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_10022F1A0(v9);
@@ -7659,7 +7496,7 @@ void sub_1001D98C4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 void sub_1001D99BC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_100002880();
+  v2 = sub_100002880(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10022F23C(WeakRetained);
@@ -7798,7 +7635,7 @@ void sub_1001DA4A4(uint64_t a1, void *a2, void *a3, uint64_t a4)
   {
     if (v7)
     {
-      v12 = sub_100002880();
+      v12 = sub_100002880(v8);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138412290;
@@ -7855,7 +7692,8 @@ void sub_1001DAE90(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
   if (a4 != 3 && a4 != 5)
   {
     v4 = [WeakRetained locator];
-    v10 = [v4 locatorRunning] ^ 1;
+    WeakRetained = [v4 locatorRunning];
+    v10 = WeakRetained ^ 1;
   }
 
   if (a4 != 3 && a4 != 5)
@@ -7864,7 +7702,7 @@ void sub_1001DAE90(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 
   if (v10)
   {
-    v11 = sub_100002880();
+    v11 = sub_100002880(WeakRetained);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       sub_10022F3AC(v9);
@@ -7881,7 +7719,7 @@ void sub_1001DAE90(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 void sub_1001DAF88(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = sub_100002880();
+  v2 = sub_100002880(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10022F448(WeakRetained);
@@ -7912,14 +7750,12 @@ void sub_1001DC05C(uint64_t a1)
   v2 = [*(a1 + 32) _writeAccessoriesToDisk:&__NSDictionary0__struct];
   v3 = [*(a1 + 32) writeLostModeInfo:&__NSArray0__struct version:&stru_1002DCE08];
   v4 = +[NSFileManager defaultManager];
-  v5 = *(a1 + 32);
-  v6 = [objc_opt_class() deprecatedStorageLocation];
-  [v4 removeItemAtURL:v6 error:0];
+  v5 = [objc_opt_class() deprecatedStorageLocation];
+  [v4 removeItemAtURL:v5 error:0];
 
-  v9 = +[NSFileManager defaultManager];
-  v7 = *(a1 + 32);
-  v8 = [objc_opt_class() deprecatedLostModeStorageLocation];
-  [v9 removeItemAtURL:v8 error:0];
+  v7 = +[NSFileManager defaultManager];
+  v6 = [objc_opt_class() deprecatedLostModeStorageLocation];
+  [v7 removeItemAtURL:v6 error:0];
 }
 
 void sub_1001DC228(uint64_t a1)
@@ -7968,35 +7804,35 @@ void sub_1001DC448(uint64_t a1)
 void sub_1001DC64C(uint64_t a1)
 {
   v2 = [NSMutableDictionary alloc];
-  v26 = a1;
+  v27 = a1;
   v3 = [*(a1 + 32) readAllAccessoriesFromDisk];
   v4 = [v2 initWithDictionary:v3];
 
+  v36 = 0u;
+  v34 = 0u;
   v35 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v32 = 0u;
   v5 = [v4 allValues];
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v6)
   {
     v7 = v6;
-    v25 = v4;
+    v26 = v4;
     v8 = 0;
-    v9 = *v33;
+    v9 = *v34;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v33 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v33 + 1) + 8 * i);
         v12 = [v11 serialNumbers];
         v13 = [v12 objectForKeyedSubscript:@"systemSerialNumber"];
-        v14 = [v13 isEqualToString:*(v26 + 40)];
+        v14 = [v13 isEqualToString:*(v27 + 40)];
 
         if (v14)
         {
@@ -8006,37 +7842,37 @@ void sub_1001DC64C(uint64_t a1)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v7);
 
-    v4 = v25;
+    v4 = v26;
     if (v8)
     {
-      v16 = sub_10000BE38();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v17 = sub_10000BE38(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = *(v26 + 40);
+        v18 = *(v27 + 40);
         *buf = 138412546;
-        v37 = v17;
-        v38 = 2112;
-        v39 = v8;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "FMDMagSafeDataSource: removing accessory with serialNumber %@ accessoryId = %@", buf, 0x16u);
+        v38 = v18;
+        v39 = 2112;
+        v40 = v8;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "FMDMagSafeDataSource: removing accessory with serialNumber %@ accessoryId = %@", buf, 0x16u);
       }
 
-      [v25 removeObjectForKey:v8];
-      v18 = [*(v26 + 32) _writeAccessoriesToDisk:v25];
-      v19 = dispatch_get_global_queue(0, 0);
+      [v26 removeObjectForKey:v8];
+      v19 = [*(v27 + 32) _writeAccessoriesToDisk:v26];
+      v20 = dispatch_get_global_queue(0, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1001DC9F8;
       block[3] = &unk_1002CD8B0;
-      v20 = *(v26 + 48);
-      v30 = v18;
-      v31 = v20;
-      v21 = v18;
-      dispatch_async(v19, block);
+      v21 = *(v27 + 48);
+      v31 = v19;
+      v32 = v21;
+      v22 = v19;
+      dispatch_async(v20, block);
 
       goto LABEL_18;
     }
@@ -8046,24 +7882,24 @@ void sub_1001DC64C(uint64_t a1)
   {
   }
 
-  v22 = sub_10000BE38();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_10000BE38(v16);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = *(v26 + 40);
+    v24 = *(v27 + 40);
     *buf = 138412290;
-    v37 = v23;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "FMDMagSafeDataSource: No magsafe accessory with serialNumber %@ found", buf, 0xCu);
+    v38 = v24;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "FMDMagSafeDataSource: No magsafe accessory with serialNumber %@ found", buf, 0xCu);
   }
 
-  v24 = dispatch_get_global_queue(0, 0);
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_1001DCA0C;
-  v27[3] = &unk_1002CE250;
-  v28 = *(v26 + 48);
-  dispatch_async(v24, v27);
+  v25 = dispatch_get_global_queue(0, 0);
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_1001DCA0C;
+  v28[3] = &unk_1002CE250;
+  v29 = *(v27 + 48);
+  dispatch_async(v25, v28);
 
-  v8 = v28;
+  v8 = v29;
 LABEL_18:
 }
 
@@ -8083,7 +7919,7 @@ void sub_1001DD030(uint64_t a1)
 
   else
   {
-    v8 = sub_100002880();
+    v8 = sub_100002880(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10022F63C(v8, v9, v10, v11, v12, v13, v14, v15);
@@ -8125,21 +7961,21 @@ void sub_1001DD3D0(uint64_t a1)
 
   if ([v5 length] && (v6 = objc_msgSend([FMDAccessoryIdentifier alloc], "initWithString:", v5), objc_msgSend(v2, "accessoryRegistry"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "accessoryForIdentifier:", v6), v8 = objc_claimAutoreleasedReturnValue(), v7, v6, v8))
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v5;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Message command for accessory %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = v5;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Message command for accessory %@", &v17, 0xCu);
     }
 
-    v10 = [AccessoryRegisterAction alloc];
-    v11 = [v2 account];
-    v12 = [v2 serverInteractionControllerForAccessory:v8];
-    v13 = [(AccessoryRegisterAction *)v10 initWithAccount:v11 accessory:v8 cause:@"startupAccessoryRegister" force:1 serverInteractionController:v12];
+    v11 = [AccessoryRegisterAction alloc];
+    v12 = [v2 account];
+    v13 = [v2 serverInteractionControllerForAccessory:v8];
+    v14 = [(AccessoryRegisterAction *)v11 initWithAccount:v12 accessory:v8 cause:@"startupAccessoryRegister" force:1 serverInteractionController:v13];
 
-    v14 = +[ActionManager sharedManager];
-    v15 = [v14 enqueueAction:v13];
+    v15 = +[ActionManager sharedManager];
+    v16 = [v15 enqueueAction:v14];
   }
 
   else
@@ -8187,26 +8023,26 @@ void sub_1001DD9C0(uint64_t a1, void *a2)
 
     else if (([v3 cancelled] & 1) == 0)
     {
-      v15 = *(a1 + 32);
-      if (v15)
+      v16 = *(a1 + 32);
+      if (v16)
       {
-        (*(v15 + 16))(v15, 1);
+        v16 = (*(v16 + 16))(v16, 1);
       }
 
-      v7 = sub_100002880();
-      if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100002880(v16);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_15;
       }
 
-      v9 = [v3 fm_logID];
-      v16 = 138412546;
-      v17 = v9;
-      v18 = 2048;
-      v19 = [v3 httpResponseStatus];
-      v10 = "%@: successful with status %ld";
-      v11 = v7;
-      v12 = 22;
+      v10 = [v3 fm_logID];
+      v17 = 138412546;
+      v18 = v10;
+      v19 = 2048;
+      v20 = [v3 httpResponseStatus];
+      v11 = "%@: successful with status %ld";
+      v12 = v8;
+      v13 = 22;
       goto LABEL_11;
     }
 
@@ -8217,36 +8053,37 @@ void sub_1001DD9C0(uint64_t a1, void *a2)
     }
 
     v6 = [v3 cancelled];
-    v7 = sub_100002880();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    v7 = v6;
+    v8 = sub_100002880(v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      if (v8)
+      if (v9)
       {
-        v9 = [v3 fm_logID];
-        v16 = 138412290;
-        v17 = v9;
-        v10 = "%@: Cancelled";
-        v11 = v7;
-        v12 = 12;
+        v10 = [v3 fm_logID];
+        v17 = 138412290;
+        v18 = v10;
+        v11 = "%@: Cancelled";
+        v12 = v8;
+        v13 = 12;
 LABEL_11:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v10, &v16, v12);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
 LABEL_14:
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      v9 = [v3 fm_logID];
-      v13 = [v3 httpResponseStatus];
-      v14 = [v3 httpResponseError];
-      v16 = 138412802;
-      v17 = v9;
-      v18 = 2048;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v16, 0x20u);
+      v10 = [v3 fm_logID];
+      v14 = [v3 httpResponseStatus];
+      v15 = [v3 httpResponseError];
+      v17 = 138412802;
+      v18 = v10;
+      v19 = 2048;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v15;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@: Error (%ld) %@", &v17, 0x20u);
 
       goto LABEL_14;
     }
@@ -8264,9 +8101,9 @@ void sub_1001DE584(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1001DEBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001DEBFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8280,8 +8117,7 @@ void sub_1001DEC14(uint64_t a1)
 
   *(*(*(a1 + 48) + 8) + 24) = [v2 isEqualToSet:v5] ^ 1;
   [*(a1 + 40) setPlaybackChannels:*(a1 + 32)];
-  [*(a1 + 40) updateAudioChannelPlayingState:*(a1 + 32)];
-  v6 = sub_100002880();
+  v6 = sub_100002880([*(a1 + 40) updateAudioChannelPlayingState:*(a1 + 32)]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10022F6C0(v3, v6);
@@ -8334,9 +8170,9 @@ void sub_1001DF43C(uint64_t a1, void *a2)
   }
 }
 
-void sub_1001DF5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001DF5E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8393,7 +8229,7 @@ void sub_1001E1968(uint64_t a1)
 
 void sub_1001E21FC(id a1)
 {
-  v1 = sub_100002880();
+  v1 = sub_100002880(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
     sub_10022F924(v1);
@@ -8432,12 +8268,13 @@ void sub_1001E2C04(uint64_t a1)
   [WeakRetained _serialQueue_refreshBeaconStats];
 }
 
-void sub_1001E2ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, char a29)
+void sub_1001E2ED0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location, ...)
 {
-  objc_destroyWeak((v29 + 72));
+  va_start(va, location);
+  objc_destroyWeak((v28 + 72));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v30 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8445,52 +8282,52 @@ void sub_1001E2F10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = *(*(*(a1 + 56) + 8) + 40);
-  if (!v3 || [v3 compare:*(a1 + 32)] != 1 || (v4 = *(*(*(a1 + 64) + 8) + 40)) == 0 || objc_msgSend(v4, "compare:", *(a1 + 32)) != 1)
+  if (!v3 || (v3 = [v3 compare:*(a1 + 32)], v3 != 1) || (v3 = *(*(*(a1 + 64) + 8) + 40)) == 0 || (v3 = objc_msgSend(v3, "compare:", *(a1 + 32)), v3 != 1))
   {
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v3);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Waiting for both Oct & Mte beacon stats to be fetched.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Waiting for both Oct & Mte beacon stats to be fetched.", buf, 2u);
     }
 
     goto LABEL_15;
   }
 
-  v5 = sub_100002880();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100002880(1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Both Oct & Mte beacon stats have been fetched.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Both Oct & Mte beacon stats have been fetched.", buf, 2u);
   }
 
-  v6 = [*(a1 + 40) copy];
-  [WeakRetained setRawStats:v6];
+  v5 = [*(a1 + 40) copy];
+  [WeakRetained setRawStats:v5];
 
-  v7 = [WeakRetained rawStats];
-  [FMPreferencesUtil setDictionary:v7 forKey:off_1003139B8 inDomain:kFMDNotBackedUpPrefDomain];
+  v6 = [WeakRetained rawStats];
+  [FMPreferencesUtil setDictionary:v6 forKey:off_1003139B8 inDomain:kFMDNotBackedUpPrefDomain];
 
-  v8 = [*(a1 + 48) isEqualToDictionary:*(a1 + 40)];
-  if ((*(a1 + 80) & 1) != 0 || !v8)
+  v7 = [*(a1 + 48) isEqualToDictionary:*(a1 + 40)];
+  if ((*(a1 + 80) & 1) != 0 || !v7)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Basic or detailed beacon stats have changed. Sending the updated stats to the server", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Basic or detailed beacon stats have changed. Sending the updated stats to the server", buf, 2u);
     }
 
-    v10 = [WeakRetained statsChangeHandler];
-    if (v10)
+    v9 = [WeakRetained statsChangeHandler];
+    if (v9)
     {
-      v11 = dispatch_get_global_queue(0, 0);
+      v10 = dispatch_get_global_queue(0, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1001E315C;
       block[3] = &unk_1002CE250;
-      v10 = v10;
-      v13 = v10;
-      dispatch_async(v11, block);
+      v9 = v9;
+      v12 = v9;
+      dispatch_async(v10, block);
     }
 
 LABEL_15:
@@ -8501,7 +8338,7 @@ void sub_1001E316C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
   v6 = a2;
-  v7 = sub_100002880();
+  v7 = sub_100002880(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v12 = 0;
@@ -8540,38 +8377,247 @@ void sub_1001E339C(uint64_t a1)
   v9 = [*(a1 + 32) objectForKeyedSubscript:@"mteStatusError"];
   [v5 fm_safelyMapKey:@"mteStatusError" toObject:v9];
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100002880(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Both Oct & Mte beacon stats have been fetched.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Both Oct & Mte beacon stats have been fetched.", buf, 2u);
   }
 
-  v11 = [v5 copy];
-  [WeakRetained setRawStats:v11];
+  v12 = [v5 copy];
+  [WeakRetained setRawStats:v12];
 
-  v12 = [WeakRetained rawStats];
-  [FMPreferencesUtil setDictionary:v12 forKey:off_1003139B8 inDomain:kFMDNotBackedUpPrefDomain];
+  v13 = [WeakRetained rawStats];
+  [FMPreferencesUtil setDictionary:v13 forKey:off_1003139B8 inDomain:kFMDNotBackedUpPrefDomain];
 
-  if (([v4 isEqualToDictionary:v5] & 1) == 0)
+  v14 = [v4 isEqualToDictionary:v5];
+  if ((v14 & 1) == 0)
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Detailed beacon stats have changed. Sending the updated stats to the server", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Detailed beacon stats have changed. Sending the updated stats to the server", buf, 2u);
     }
 
-    v14 = [WeakRetained statsChangeHandler];
-    if (v14)
+    v16 = [WeakRetained statsChangeHandler];
+    if (v16)
     {
-      v15 = dispatch_get_global_queue(0, 0);
+      v17 = dispatch_get_global_queue(0, 0);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1001E366C;
       block[3] = &unk_1002CE250;
-      v17 = v14;
-      dispatch_async(v15, block);
+      v19 = v16;
+      dispatch_async(v17, block);
     }
+  }
+}
+
+void sub_1001E370C(id a1)
+{
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.icloud.findmydeviced.fetch_spstats", 0, 0, 1u);
+}
+
+void sub_1001E3908(id a1)
+{
+  v1 = dispatch_queue_create("com.apple.icloud.findmydeviced.registerDigestSerialQueue", 0);
+  v2 = qword_100314A80;
+  qword_100314A80 = v1;
+
+  _objc_release_x1(v1, v2);
+}
+
+void sub_1001E3BF0(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = sub_100002880(WeakRetained);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 138412546;
+    v4 = objc_opt_class();
+    v5 = 2048;
+    v6 = WeakRetained;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) will cancel", &v3, 0x16u);
+  }
+
+  [WeakRetained setCancelled:1];
+}
+
+void sub_1001E463C(uint64_t a1, void *a2)
+{
+  v4 = [a2 mutableCopy];
+  v3 = +[FMDBluetoothAccessory volatileKeysToExcludeFromRegisterDigest];
+  [v4 removeObjectsForKeys:v3];
+
+  [*(a1 + 32) addObject:v4];
+}
+
+void sub_1001E46B4(id a1)
+{
+  v1 = [NSRegularExpression regularExpressionWithPattern:@"authToken.* options:" error:1, 0];
+  v2 = qword_100314A88;
+  qword_100314A88 = v1;
+
+  _objc_release_x1(v1, v2);
+}
+
+void sub_1001E4DE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
+{
+  _Block_object_dispose((v25 - 176), 8);
+  _Block_object_dispose((v25 - 240), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1001E4E58(uint64_t a1)
+{
+  v2 = [*(a1 + 32) provider];
+  v3 = [v2 account];
+  v4 = [RegisterAction _registerDigestPrefKeyForAccount:v3];
+
+  v5 = [*(a1 + 32) _registrationInformationDigest:byte_100314A98];
+  v6 = *(*(a1 + 48) + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
+
+  if (qword_100314A68)
+  {
+    v8 = [qword_100314A68 isEqualToData:*(*(*(a1 + 48) + 8) + 40)];
+    if (v8)
+    {
+      v9 = sub_100002880(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = objc_opt_class();
+        v11 = *(a1 + 32);
+        v12 = *(a1 + 40);
+        v33 = 138412802;
+        v34 = v10;
+        v35 = 2048;
+        v36 = v11;
+        v37 = 2112;
+        v38 = v12;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) Not sending register with cause %@ because there is already another register with the same registration information in-progress", &v33, 0x20u);
+      }
+
+      *(*(*(a1 + 56) + 8) + 24) = 0;
+    }
+  }
+
+  if (*(*(*(a1 + 56) + 8) + 24) == 1)
+  {
+    v13 = qword_100314A70;
+    if (!qword_100314A70)
+    {
+      v14 = [FMPreferencesUtil dataForKey:v4 inDomain:kFMDNotBackedUpPrefDomain];
+      v15 = qword_100314A70;
+      qword_100314A70 = v14;
+
+      v13 = qword_100314A70;
+    }
+
+    v16 = v13;
+    v17 = v16;
+    if (qword_100314A68)
+    {
+      goto LABEL_26;
+    }
+
+    if (!v16)
+    {
+      goto LABEL_26;
+    }
+
+    v18 = [v16 isEqualToData:*(*(*(a1 + 48) + 8) + 40)];
+    if (!v18)
+    {
+      goto LABEL_26;
+    }
+
+    if ((byte_100314A98 & 1) == 0)
+    {
+      v19 = +[FMDDaemon sharedInstance];
+      if ([v19 isFirstRunAfterBoot])
+      {
+        v20 = [*(a1 + 32) _shouldThrottleDeviceRestartRegister];
+
+        if ((v20 & 1) == 0)
+        {
+          v21 = sub_100002880(v18);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          {
+            v22 = *(a1 + 40);
+            v33 = 138543362;
+            v34 = v22;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Reg-info unchanged but forcing register %{public}@", &v33, 0xCu);
+          }
+
+LABEL_22:
+
+LABEL_26:
+          goto LABEL_27;
+        }
+      }
+
+      else
+      {
+      }
+
+      if ((byte_100314A98 & 1) == 0)
+      {
+        v23 = +[FMDStartupRegisterManager sharedInstance];
+        v24 = [v23 shouldForceRegisterOnStartup];
+
+        if (v24)
+        {
+          v21 = sub_100002880(v18);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          {
+            v25 = *(a1 + 40);
+            v26 = +[FMDStartupRegisterManager sharedInstance];
+            v33 = 138543618;
+            v34 = v25;
+            v35 = 2114;
+            v36 = v26;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Reg-info unchanged but forcing register %{public}@ due to %{public}@", &v33, 0x16u);
+          }
+
+          goto LABEL_22;
+        }
+      }
+    }
+
+    v27 = sub_100002880(v18);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      v28 = *(a1 + 40);
+      v33 = 138543362;
+      v34 = v28;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Reg-info unchanged. Ignoring register %{public}@", &v33, 0xCu);
+    }
+
+    *(*(*(a1 + 56) + 8) + 24) = 0;
+    goto LABEL_26;
+  }
+
+LABEL_27:
+  v29 = [*(a1 + 32) cancelled];
+  if (v29)
+  {
+    v30 = sub_100002880(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      v31 = objc_opt_class();
+      v32 = *(a1 + 32);
+      v33 = 138412546;
+      v34 = v31;
+      v35 = 2048;
+      v36 = v32;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) cancelled by action manager", &v33, 0x16u);
+    }
+
+    *(*(*(a1 + 56) + 8) + 24) = 0;
   }
 }

@@ -70,22 +70,23 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v19 = __atxlog_handle_default();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      [(ATXActivitySuggestionFeedbackEvent *)self initWithProto:v19];
+      [(ATXActivitySuggestionFeedbackEvent *)self initWithProto:v20];
     }
 
     goto LABEL_7;
   }
 
-  v5 = MEMORY[0x1E695DF00];
-  v6 = protoCopy;
-  v28 = [[v5 alloc] initWithTimeIntervalSinceReferenceDate:-[ATXPBActivitySuggestionFeedbackEvent date](v6)];
-  activity = [(ATXPBActivitySuggestionFeedbackEvent *)v6 activity];
-  v26 = [ATXActivity alloc];
+  v6 = MEMORY[0x1E695DF00];
+  v7 = protoCopy;
+  v29 = [[v6 alloc] initWithTimeIntervalSinceReferenceDate:-[ATXPBActivitySuggestionFeedbackEvent date](v7)];
+  activity = [(ATXPBActivitySuggestionFeedbackEvent *)v7 activity];
+  v27 = [ATXActivity alloc];
   modeUUID = [(ATXPBActivity *)activity modeUUID];
   type = [(ATXPBActivity *)activity type];
   origin = [(ATXPBActivity *)activity origin];
@@ -93,19 +94,19 @@ LABEL_7:
   originAnchorType = [(ATXPBActivity *)activity originAnchorType];
   suggestionUUID = [(ATXPBActivity *)activity suggestionUUID];
   serializedTriggers = [(ATXPBActivity *)activity serializedTriggers];
-  v12 = ATXDeserializeTriggers();
+  v13 = ATXDeserializeTriggers();
   uiLocation = [(ATXPBActivity *)activity uiLocation];
-  LOBYTE(v22) = [(ATXPBActivity *)activity shouldSuggestTriggers];
-  LOBYTE(v21) = 0;
-  v27 = [(ATXActivity *)v26 initWithModeUUID:modeUUID userModeName:0 activityType:type origin:origin originBundleId:originBundleId originAnchorType:originAnchorType allowsSmartEntry:v21 suggestionUUID:suggestionUUID triggers:v12 location:uiLocation shouldSuggestTriggers:v22];
+  LOBYTE(v23) = [(ATXPBActivity *)activity shouldSuggestTriggers];
+  LOBYTE(v22) = 0;
+  v28 = [(ATXActivity *)v27 initWithModeUUID:modeUUID userModeName:0 activityType:type origin:origin originBundleId:originBundleId originAnchorType:originAnchorType allowsSmartEntry:v22 suggestionUUID:suggestionUUID triggers:v13 location:uiLocation shouldSuggestTriggers:v23];
 
-  serializedAcceptedTriggers = [(ATXPBActivitySuggestionFeedbackEvent *)v6 serializedAcceptedTriggers];
-  v15 = ATXDeserializeTriggers();
-  eventType = [(ATXPBActivitySuggestionFeedbackEvent *)v6 eventType];
-  suggestionType = [(ATXPBActivitySuggestionFeedbackEvent *)v6 suggestionType];
-  LODWORD(suggestionUUID) = [(ATXPBActivitySuggestionFeedbackEvent *)v6 location];
+  serializedAcceptedTriggers = [(ATXPBActivitySuggestionFeedbackEvent *)v7 serializedAcceptedTriggers];
+  v16 = ATXDeserializeTriggers();
+  eventType = [(ATXPBActivitySuggestionFeedbackEvent *)v7 eventType];
+  suggestionType = [(ATXPBActivitySuggestionFeedbackEvent *)v7 suggestionType];
+  LODWORD(suggestionUUID) = [(ATXPBActivitySuggestionFeedbackEvent *)v7 location];
 
-  self = [(ATXActivitySuggestionFeedbackEvent *)self initWithEventDate:v28 activity:v27 acceptedTriggers:v15 eventType:eventType suggestionType:suggestionType location:suggestionUUID];
+  self = [(ATXActivitySuggestionFeedbackEvent *)self initWithEventDate:v29 activity:v28 acceptedTriggers:v16 eventType:eventType suggestionType:suggestionType location:suggestionUUID];
   selfCopy = self;
 LABEL_8:
 

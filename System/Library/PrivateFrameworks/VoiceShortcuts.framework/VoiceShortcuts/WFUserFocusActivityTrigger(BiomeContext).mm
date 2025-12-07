@@ -7,7 +7,7 @@
 
 - (void)shouldFireInResponseToEvent:()BiomeContext triggerIdentifier:completion:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v7 = a5;
   eventBody = [a3 eventBody];
   if (eventBody)
@@ -25,22 +25,22 @@
         activityUniqueIdentifier = [self activityUniqueIdentifier];
         activitySemanticIdentifier = [self activitySemanticIdentifier];
         *buf = 136317186;
-        v28 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
-        v29 = 2114;
-        v30 = semanticModeIdentifier;
-        v31 = 2114;
-        v32 = mode;
-        v33 = 2114;
-        v34 = semanticModeIdentifier2;
-        v35 = 1024;
-        v36 = starting;
-        v37 = 2114;
-        v38 = activityUniqueIdentifier;
-        v39 = 2114;
-        v40 = activitySemanticIdentifier;
-        v41 = 1024;
+        v27 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+        v28 = 2114;
+        v29 = semanticModeIdentifier;
+        v30 = 2114;
+        v31 = mode;
+        v32 = 2114;
+        v33 = semanticModeIdentifier2;
+        v34 = 1024;
+        v35 = starting;
+        v36 = 2114;
+        v37 = activityUniqueIdentifier;
+        v38 = 2114;
+        v39 = activitySemanticIdentifier;
+        v40 = 1024;
         onEnable = [self onEnable];
-        v43 = 1024;
+        v42 = 1024;
         onDisable = [self onDisable];
         _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, "%s Received change for Kettle mode (%{public}@) — incoming change (uuid: %{public}@, id: %{public}@, starting: %i), trigger (uuid: %{public}@, id: %{public}@, onEnable: %i, onDisable: %i)", buf, 0x50u);
       }
@@ -59,7 +59,7 @@
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v28 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+            v27 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
             v20 = "%s Received Kettle mode change, but the semantic mode identifier didn't match the trigger's semantic mode identifier, not firing";
 LABEL_18:
             _os_log_impl(&dword_23103C000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, 0xCu);
@@ -82,7 +82,7 @@ LABEL_18:
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315138;
-            v28 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
+            v27 = "[WFUserFocusActivityTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]";
             v20 = "%s Received Kettle mode change and the trigger has no semantic mode identifier. The unique identifier didn't match the trigger's unique identifier, not firing";
             goto LABEL_18;
           }
@@ -118,8 +118,6 @@ LABEL_22:
 
   v7[2](v7, 0);
 LABEL_23:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)publisherWithScheduler:()BiomeContext

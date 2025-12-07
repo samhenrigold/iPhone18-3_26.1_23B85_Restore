@@ -6,6 +6,7 @@
 + (BOOL)parsingWithSubItems;
 + (id)asParseRules;
 - (ASFolder)initWithCoder:(id)coder;
+- (ASFolder)initWithFolderType:(int)type serverID:(id)d parentID:(id)iD displayName:(id)name localID:(int)localID;
 - (BOOL)isEqual:(id)equal;
 - (id)_folderTypeString;
 - (id)description;
@@ -268,19 +269,48 @@ LABEL_20:
   return v9;
 }
 
+- (ASFolder)initWithFolderType:(int)type serverID:(id)d parentID:(id)iD displayName:(id)name localID:(int)localID
+{
+  v7 = *&localID;
+  v10 = *&type;
+  dCopy = d;
+  iDCopy = iD;
+  nameCopy = name;
+  v21.receiver = self;
+  v21.super_class = ASFolder;
+  v15 = [(ASItem *)&v21 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(ASFolder *)v15 setFolderType:v10];
+    v17 = [dCopy copy];
+    [(ASFolder *)v16 setServerID:v17];
+
+    v18 = [iDCopy copy];
+    [(ASFolder *)v16 setParentID:v18];
+
+    v19 = [nameCopy copy];
+    [(ASFolder *)v16 setDisplayName:v19];
+
+    [(ASFolder *)v16 setLocalID:v7];
+  }
+
+  return v16;
+}
+
 - (void)parseASParseContext:(id)context root:(id)root parent:(id)parent callbackDict:(id)dict streamCallbackDict:(id)callbackDict account:(id)account
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = ASFolder;
-  [(ASItem *)&v28 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
+  v30 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = ASFolder;
+  [(ASItem *)&v27 parseASParseContext:context root:root parent:parent callbackDict:dict streamCallbackDict:callbackDict account:account];
   parsingState = self->super._parsingState;
   if (parsingState >= 2)
   {
     if (parsingState == 4 || parsingState == 3)
     {
       self->super._parsingState = parsingState;
-      goto LABEL_21;
+      return;
     }
 
     v10 = ([(ASItem *)self token]& 0x3F) - 15;
@@ -292,7 +322,7 @@ LABEL_20:
       {
         token = [(ASItem *)self token];
         *buf = 67109120;
-        v30 = token;
+        v29 = token;
         v21 = "ASFolder created with unknown token %d";
 LABEL_18:
         v23 = v18;
@@ -315,7 +345,7 @@ LABEL_19:
           if ([(ASFolder *)self changeType]&& [(ASFolder *)self changeType]!= 1)
           {
 
-            goto LABEL_21;
+            return;
           }
 
           parentID = [(ASFolder *)self parentID];
@@ -330,7 +360,7 @@ LABEL_19:
 
               if (folderType)
               {
-                goto LABEL_21;
+                return;
               }
 
               goto LABEL_25;
@@ -340,8 +370,8 @@ LABEL_19:
 
 LABEL_25:
         v18 = DALoggingwithCategory();
-        v27 = *(MEMORY[0x277D03988] + 3);
-        if (!os_log_type_enabled(v18, v27))
+        v26 = *(MEMORY[0x277D03988] + 3);
+        if (!os_log_type_enabled(v18, v26))
         {
           goto LABEL_20;
         }
@@ -349,7 +379,7 @@ LABEL_25:
         *buf = 0;
         v21 = "A required attribute for this folder was not set in the response.";
         v23 = v18;
-        v24 = v27;
+        v24 = v26;
         v25 = 2;
         goto LABEL_19;
       }
@@ -360,7 +390,7 @@ LABEL_25:
       {
         codePage = [(ASItem *)self codePage];
         *buf = 67109120;
-        v30 = codePage;
+        v29 = codePage;
         v21 = "ASFolder created with unknown code page %d";
         goto LABEL_18;
       }
@@ -370,9 +400,6 @@ LABEL_20:
 
     [(ASItem *)self setParsingState:3];
   }
-
-LABEL_21:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)asParseRules

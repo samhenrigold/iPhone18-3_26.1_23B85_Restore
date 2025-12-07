@@ -7,7 +7,6 @@
 - (int)reconcileWithPlaceholderProvider:(id)provider;
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler;
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler currentTileCount:;
-- (uint64_t)newStorage;
 - (void)dealloc;
 - (void)migrateInputVideoRequirements:(id)requirements outputVideoRequirements:(id)videoRequirements;
 - (void)propagateInferenceResultsToInferenceDictionary:(id)dictionary usingStorage:(id)storage inputSampleBuffer:(opaqueCMSampleBuffer *)buffer propagationSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer;
@@ -789,9 +788,10 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
   if (espressoProvider)
   {
     v6 = [(BWEspressoInferenceProvider *)espressoProvider prepareForSubmissionWithWorkQueue:?];
+    v7 = v6;
     if (v6)
     {
-      [BWTiledEspressoInferenceProvider prepareForSubmissionWithWorkQueue:];
+      [BWTiledEspressoInferenceProvider prepareForSubmissionWithWorkQueue:v6];
     }
 
     else
@@ -802,11 +802,11 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 
   else
   {
-    [BWTiledEspressoInferenceProvider prepareForSubmissionWithWorkQueue:];
+    [(BWTiledEspressoInferenceProvider *)0 prepareForSubmissionWithWorkQueue:a2, queue];
     return 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)propagateInferenceResultsToInferenceDictionary:(id)dictionary usingStorage:(id)storage inputSampleBuffer:(opaqueCMSampleBuffer *)buffer propagationSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer
@@ -925,7 +925,14 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 - (int)reconcileWithPlaceholderProvider:(id)provider
 {
   type = [(BWTiledEspressoInferenceProvider *)self type];
-  if (type != [provider type] || !-[NSString isEqualToString:](self->_customInferenceIdentifier, "isEqualToString:", objc_msgSend(provider, "customInferenceIdentifier")))
+  if (type != [provider type])
+  {
+    return -31783;
+  }
+
+  customInferenceIdentifier = self->_customInferenceIdentifier;
+  [provider customInferenceIdentifier];
+  if (!objc_msgSend_isEqualToString_(customInferenceIdentifier))
   {
     return -31783;
   }
@@ -941,7 +948,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF842BLL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x16C, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -950,7 +957,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x17D, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -959,7 +966,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x18A, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -968,7 +975,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x173, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -977,7 +984,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x169, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -986,7 +993,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x168, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -995,7 +1002,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x167, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1004,7 +1011,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x166, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1013,7 +1020,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1AC, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1022,7 +1029,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8420, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1CE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1031,7 +1038,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1D8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1040,7 +1047,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1E8, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1049,7 +1056,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1F2, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1058,21 +1065,21 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x20C, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.7()
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x221, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:(_DWORD *)a1 usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.8(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841BLL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x227, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1081,7 +1088,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841BLL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x22F, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1090,14 +1097,14 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x23A, v1, v2, v3, v5);
 }
 
 - (uint64_t)submitForSampleBuffer:(_DWORD *)a1 usingStorage:withSubmissionTime:workQueue:completionHandler:currentTileCount:.cold.11(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1C6, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1106,7 +1113,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF841ALL, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1B9, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1115,7 +1122,7 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1AE, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -1124,30 +1131,9 @@ uint64_t __135__BWTiledEspressoInferenceProvider_submitForSampleBuffer_usingStor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWTiledEspressoInferenceProvider >>>>", 0x1AD, v3, v4, v5, v7);
   *a1 = result;
   return result;
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)prepareForSubmissionWithWorkQueue:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)newStorage
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

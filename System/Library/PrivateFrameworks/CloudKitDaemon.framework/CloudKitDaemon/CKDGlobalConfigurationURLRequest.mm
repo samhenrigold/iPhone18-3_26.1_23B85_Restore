@@ -16,15 +16,13 @@
 
 - (id)additionalHeaderValues
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14 = 0x28387C540;
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13 = 0x28387C540;
   v3 = objc_msgSend_container(self, a2, v2);
   v6 = objc_msgSend_containerID(v3, v4, v5);
   v9 = objc_msgSend_containerIdentifier(v6, v7, v8);
-  v15[0] = v9;
-  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v15, &v14, 1);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[0] = v9;
+  v11 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v10, v14, &v13, 1);
 
   return v11;
 }
@@ -59,7 +57,7 @@
 
 - (void)requestDidParsePlistObject:(id)object
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (*MEMORY[0x277CBC880] != -1)
   {
@@ -71,19 +69,17 @@
   {
     v6 = v5;
     v9 = objc_msgSend_requestUUID(self, v7, v8);
-    v15 = 138543618;
-    v16 = v9;
-    v17 = 2114;
-    v18 = objectCopy;
-    _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "req: %{public}@, Fetched configuration plist from server: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v9;
+    v16 = 2114;
+    v17 = objectCopy;
+    _os_log_impl(&dword_22506F000, v6, OS_LOG_TYPE_INFO, "req: %{public}@, Fetched configuration plist from server: %{public}@", &v14, 0x16u);
   }
 
   v10 = [CKDServerConfiguration alloc];
   v12 = objc_msgSend_initWithValues_(v10, v11, objectCopy);
   configuration = self->_configuration;
   self->_configuration = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -190,7 +190,7 @@ void __26__VCTransportSession_stop__block_invoke(uint64_t a1)
   dispatch_async(v5, block);
 }
 
-uint64_t __26__VCTransportSession_stop__block_invoke_72(uint64_t a1)
+void *__26__VCTransportSession_stop__block_invoke_72(uint64_t a1)
 {
   result = [*(a1 + 32) eventHandler];
   if (result)
@@ -259,56 +259,57 @@ void __53__VCTransportSession_callEventHandlerWithEvent_info___block_invoke(uint
 
 - (int)deregisterNotificationForTransportStream:(OpaqueVCTransportStream *)stream
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   CMNotificationCenterGetDefaultLocalCenter();
-  v4 = CMNotificationCenterRemoveListener();
-  if (v4)
+  v3 = CMNotificationCenterRemoveListener();
+  if (v3)
   {
-    [(VCTransportSession *)v4 deregisterNotificationForTransportStream:?];
-    LODWORD(v6) = v15;
-    return v6;
+    [(VCTransportSession *)v3 deregisterNotificationForTransportStream:?];
+    LODWORD(v4) = v14;
+    return v4;
   }
 
-  v6 = 3492950510;
-  CMBaseObject = VCPacketFilterGetCMBaseObject(stream, v5);
-  v8 = *(CMBaseObjectGetVTable() + 8);
-  if (*v8 >= 2uLL)
+  v4 = 3492950510;
+  VCPacketFilterGetCMBaseObject();
+  v6 = v5;
+  v7 = *(CMBaseObjectGetVTable() + 8);
+  if (*v7 >= 2uLL)
   {
-    v9 = v8[8];
-    if (v9)
+    v8 = v7[8];
+    if (v8)
     {
-      v10 = v9(CMBaseObject);
-      if (v10 >= 0)
+      v9 = v8(v6);
+      if (v9 >= 0)
       {
-        v11 = v10;
+        v10 = v9;
       }
 
       else
       {
-        v11 = -v10;
+        v10 = -v9;
       }
 
-      if (!v10)
+      if (!v9)
       {
-        LODWORD(v6) = 0;
-        return v6;
+        LODWORD(v4) = 0;
+        return v4;
       }
 
-      v6 = v11 | 0xD0320000;
+      v4 = v10 | 0xD0320000;
     }
   }
 
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *MEMORY[0x1E6986650];
+    v11 = VRTraceErrorLogLevelToCSTR();
+    v12 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
-      [(VCTransportSession *)v12 deregisterNotificationForTransportStream:v6, v13];
+      [(VCTransportSession *)v11 deregisterNotificationForTransportStream:v4, v12];
     }
   }
 
-  return v6;
+  return v4;
 }
 
 - (void)setCallActive:(BOOL)active
@@ -854,39 +855,40 @@ LABEL_10:
 
 - (void)addNetworkAssertionWithInterfaceType:(int)type
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_stateQueue);
   if (self->_didAddNetworkAssertion)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v13 = VRTraceErrorLogLevelToCSTR();
-      v14 = *MEMORY[0x1E6986650];
+      v15 = VRTraceErrorLogLevelToCSTR();
+      v16 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136315650;
-        v16 = v13;
+        *v17 = 136315650;
+        *&v17[4] = v15;
         OUTLINED_FUNCTION_0();
-        v17 = 520;
-        _os_log_impl(&dword_1DB56E000, v14, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Unexpected: Adding assertion multiple times", &v15, 0x1Cu);
+        v18 = 520;
+        _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Unexpected: Adding assertion multiple times", v17, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v5 = VCFeatureFlagManager_SkipNonInfraWiFiAssertion();
-    if (type == 3 && v5)
+    v7 = VCFeatureFlagManager_SkipNonInfraWiFiAssertion(v5, v6);
+    if (type == 3 && v7)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v6 = VRTraceErrorLogLevelToCSTR();
+        v8 = VRTraceErrorLogLevelToCSTR();
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          HIDWORD(v16) = HIDWORD(v6);
+          *v17 = 136315650;
+          *&v17[4] = v8;
           OUTLINED_FUNCTION_0();
-          v17 = 525;
-          OUTLINED_FUNCTION_1(&dword_1DB56E000, v7, v8, " [%s] %s:%d NetworkAgent assertion added", v9, v10, v11, v12, 2u);
+          v18 = 525;
+          OUTLINED_FUNCTION_1(&dword_1DB56E000, v9, v10, " [%s] %s:%d NetworkAgent assertion added", v11, v12, v13, v14, *v17);
         }
       }
 
@@ -904,11 +906,13 @@ LABEL_10:
     [+[VCNetworkAgent sharedInstance](VCNetworkAgent removeAssertion];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      VRTraceErrorLogLevelToCSTR();
+      v3 = VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
+        LODWORD(v10) = 136315650;
+        *(&v10 + 4) = v3;
         OUTLINED_FUNCTION_0();
-        OUTLINED_FUNCTION_1(&dword_1DB56E000, v3, v4, " [%s] %s:%d NetworkAgent assertion removed", v5, v6, v7, v8, 2u);
+        OUTLINED_FUNCTION_1(&dword_1DB56E000, v4, v5, " [%s] %s:%d NetworkAgent assertion removed", v6, v7, v8, v9, v10, DWORD2(v10));
       }
     }
 

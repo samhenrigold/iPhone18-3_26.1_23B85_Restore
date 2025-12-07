@@ -88,15 +88,15 @@ void __66__LACDTOLocationProviderTaskDecorator_locationStateBackgroundTask__bloc
 {
   v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v7 = LACLogDTOLocation();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v8 = LACLogDTOLocation(inited);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
     v18 = 2048;
     taskCopy = task;
-    _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform query with %.2f sec timeout", buf, 0x16u);
+    _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform query with %.2f sec timeout", buf, 0x16u);
   }
 
   locationStateBackgroundTask = [(LACDTOLocationProviderTaskDecorator *)self locationStateBackgroundTask];
@@ -106,14 +106,12 @@ void __66__LACDTOLocationProviderTaskDecorator_locationStateBackgroundTask__bloc
   v12[2] = __82__LACDTOLocationProviderTaskDecorator__runLocationStateBackgroundTask_completion___block_invoke;
   v12[3] = &unk_1E7A95C18;
   objc_copyWeak(&v14, &location);
-  v10 = completionCopy;
-  v13 = v10;
+  v11 = completionCopy;
+  v13 = v11;
   [locationStateBackgroundTask runWithTimeout:workQueue queue:v12 completion:task];
 
   objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __82__LACDTOLocationProviderTaskDecorator__runLocationStateBackgroundTask_completion___block_invoke(uint64_t a1, void *a2)
@@ -145,26 +143,24 @@ void __82__LACDTOLocationProviderTaskDecorator__runLocationStateBackgroundTask_c
 
     if (error)
     {
-      v11 = LACLogDTOLocation();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = LACLogDTOLocation(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         error2 = [resultCopy error];
         v16 = 138543618;
         selfCopy = self;
         v18 = 2114;
         v19 = error2;
-        _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ query finished with error %{public}@", &v16, 0x16u);
+        _os_log_impl(&dword_1B0233000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ query finished with error %{public}@", &v16, 0x16u);
       }
     }
 
     value2 = +[LACDTOLocationState nullInstance];
   }
 
-  v13 = value2;
+  v14 = value2;
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 @end

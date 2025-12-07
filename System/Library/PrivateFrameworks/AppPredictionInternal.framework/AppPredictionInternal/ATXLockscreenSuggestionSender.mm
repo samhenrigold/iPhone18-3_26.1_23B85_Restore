@@ -39,18 +39,18 @@
 
 - (void)blendingLayerDidUpdateLockscreenUICache:(id)cache
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   cacheCopy = cache;
-  v5 = __atxlog_handle_blending();
+  v5 = __atxlog_handle_blending(cacheCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
-    v36 = 138412546;
-    v37 = v7;
-    v38 = 2112;
-    v39 = cacheCopy;
-    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - received new ui cache: %@", &v36, 0x16u);
+    v39 = 138412546;
+    v40 = v7;
+    v41 = 2112;
+    v42 = cacheCopy;
+    _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%@ - received new ui cache: %@", &v39, 0x16u);
   }
 
   allSuggestionsInLayout = [cacheCopy allSuggestionsInLayout];
@@ -60,20 +60,22 @@
 
   _cachedExecutableIdentifier = [(ATXLockscreenSuggestionSender *)self _cachedExecutableIdentifier];
   [(ATXLockscreenSuggestionSender *)self _updateCachedExecutableIdentifierWithSuggestion:firstObject];
-  if (![(ATXLockscreenBlacklist *)self->_lockscreenBlacklist isPredictionGloballyDisabled])
+  isPredictionGloballyDisabled = [(ATXLockscreenBlacklist *)self->_lockscreenBlacklist isPredictionGloballyDisabled];
+  if (!isPredictionGloballyDisabled)
   {
-    LOBYTE(v36) = 0;
-    v16 = *MEMORY[0x277CEBD00];
-    if (CFPreferencesGetAppBooleanValue(@"displayDonationsOnLockscreen", *MEMORY[0x277CEBD00], &v36) || (LOBYTE(v36) = 0, CFPreferencesGetAppBooleanValue(@"displayLastDonationOnCoverSheet", v16, &v36)))
+    LOBYTE(v39) = 0;
+    v17 = *MEMORY[0x277CEBD00];
+    AppBooleanValue = CFPreferencesGetAppBooleanValue(@"displayDonationsOnLockscreen", *MEMORY[0x277CEBD00], &v39);
+    if (AppBooleanValue || (LOBYTE(v39) = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(@"displayLastDonationOnCoverSheet", v17, &v39), AppBooleanValue))
     {
-      uuid = __atxlog_handle_blending();
+      uuid = __atxlog_handle_blending(AppBooleanValue);
       if (os_log_type_enabled(uuid, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
-        v36 = 138412290;
-        v37 = v19;
-        _os_log_impl(&dword_2263AA000, uuid, OS_LOG_TYPE_DEFAULT, "%@ - not forwarding predictions to lockscreen because demo or developer switch was on", &v36, 0xCu);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        v39 = 138412290;
+        v40 = v21;
+        _os_log_impl(&dword_2263AA000, uuid, OS_LOG_TYPE_DEFAULT, "%@ - not forwarding predictions to lockscreen because demo or developer switch was on", &v39, 0xCu);
       }
 
 LABEL_11:
@@ -83,36 +85,37 @@ LABEL_11:
 
     if (_cachedExecutableIdentifier)
     {
-      v21 = executableIdentifier;
-      if (v21)
+      v22 = executableIdentifier;
+      v23 = v22;
+      if (v22)
       {
-        v22 = [_cachedExecutableIdentifier isEqualToString:v21];
+        v24 = [_cachedExecutableIdentifier isEqualToString:v22];
 
-        if (v22)
+        if (v24)
         {
-          v23 = _cachedExecutableIdentifier;
+          v25 = _cachedExecutableIdentifier;
           goto LABEL_20;
         }
       }
 
-      v24 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v26 = __atxlog_handle_blending(v22);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        v36 = 138412290;
-        v37 = v26;
-        _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_INFO, "%@ - revoke needed for old lock screen predictions", &v36, 0xCu);
+        v27 = objc_opt_class();
+        v28 = NSStringFromClass(v27);
+        v39 = 138412290;
+        v40 = v28;
+        _os_log_impl(&dword_2263AA000, v26, OS_LOG_TYPE_INFO, "%@ - revoke needed for old lock screen predictions", &v39, 0xCu);
       }
 
       [(ATXActionNotificationServer *)self->_actionNotificationServer removeAllActionPredictionNotificationsAndTrackEvent:1 recordFeedback:1];
-      v27 = _cachedExecutableIdentifier;
-      if (v21)
+      v29 = _cachedExecutableIdentifier;
+      if (v23)
       {
 LABEL_20:
-        v28 = [v21 isEqualToString:_cachedExecutableIdentifier];
+        v30 = [v23 isEqualToString:_cachedExecutableIdentifier];
 
-        if (v28)
+        if (v30)
         {
           goto LABEL_12;
         }
@@ -123,28 +126,28 @@ LABEL_20:
 
     else
     {
-      v29 = __atxlog_handle_blending();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v32 = __atxlog_handle_blending(AppBooleanValue);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
-        v30 = objc_opt_class();
-        v31 = NSStringFromClass(v30);
-        v36 = 138412290;
-        v37 = v31;
-        _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_INFO, "%@ - revoking, although no old lock screen predictions detected", &v36, 0xCu);
+        v33 = objc_opt_class();
+        v34 = NSStringFromClass(v33);
+        v39 = 138412290;
+        v40 = v34;
+        _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "%@ - revoking, although no old lock screen predictions detected", &v39, 0xCu);
       }
 
-      [(ATXActionNotificationServer *)self->_actionNotificationServer removeAllActionPredictionNotificationsAndTrackEvent:0 recordFeedback:0];
+      v31 = [(ATXActionNotificationServer *)self->_actionNotificationServer removeAllActionPredictionNotificationsAndTrackEvent:0 recordFeedback:0];
       if (executableIdentifier)
       {
 LABEL_25:
-        v32 = __atxlog_handle_blending();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+        v35 = __atxlog_handle_blending(v31);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
         {
-          v33 = objc_opt_class();
-          v34 = NSStringFromClass(v33);
-          v36 = 138412290;
-          v37 = v34;
-          _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "%@ - post needed for new lock screen predictions", &v36, 0xCu);
+          v36 = objc_opt_class();
+          v37 = NSStringFromClass(v36);
+          v39 = 138412290;
+          v40 = v37;
+          _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_INFO, "%@ - post needed for new lock screen predictions", &v39, 0xCu);
         }
 
         actionNotificationServer = self->_actionNotificationServer;
@@ -157,20 +160,18 @@ LABEL_25:
     goto LABEL_12;
   }
 
-  v13 = __atxlog_handle_blending();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = __atxlog_handle_blending(isPredictionGloballyDisabled);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = NSStringFromClass(v14);
-    v36 = 138412290;
-    v37 = v15;
-    _os_log_impl(&dword_2263AA000, v13, OS_LOG_TYPE_DEFAULT, "%@ - not forwarding predictions to lockscreen because predictions are globally disabled", &v36, 0xCu);
+    v15 = objc_opt_class();
+    v16 = NSStringFromClass(v15);
+    v39 = 138412290;
+    v40 = v16;
+    _os_log_impl(&dword_2263AA000, v14, OS_LOG_TYPE_DEFAULT, "%@ - not forwarding predictions to lockscreen because predictions are globally disabled", &v39, 0xCu);
   }
 
   [(ATXActionNotificationServer *)self->_actionNotificationServer removeAllActionPredictionNotificationsAndTrackEvent:0 recordFeedback:0];
 LABEL_12:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCachedExecutableIdentifierWithSuggestion:(id)suggestion

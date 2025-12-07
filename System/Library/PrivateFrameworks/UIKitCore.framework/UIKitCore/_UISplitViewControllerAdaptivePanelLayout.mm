@@ -37,7 +37,7 @@
 {
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return sub_188E5C8A8();
+  return sub_188E5C8A8(source, delegate);
 }
 
 - (CGSize)contentSize
@@ -240,7 +240,8 @@
 - (BOOL)canShowSplitViewControllerColumn:(int64_t)column withSplitViewControllerColumn:(int64_t)controllerColumn
 {
   selfCopy = self;
-  LOBYTE(controllerColumn) = sub_188E5D610(column, controllerColumn);
+  sub_188E5D610(column, controllerColumn);
+  LOBYTE(controllerColumn) = v7;
 
   return controllerColumn & 1;
 }
@@ -336,17 +337,19 @@
 - (int64_t)splitViewControllerColumnDisplayedBeforeSplitViewControllerColumn:(int64_t)column
 {
   selfCopy = self;
-  v5 = sub_188E5E3B8(column);
+  sub_188E5E3B8(column);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (int64_t)splitViewControllerColumnDisplayedAfterSplitViewControllerColumn:(int64_t)column
 {
   selfCopy = self;
-  v5 = sub_188E5E4E0(column);
+  sub_188E5E4E0(column);
+  v6 = v5;
 
-  return v5;
+  return v6;
 }
 
 - (void)prepareLayout

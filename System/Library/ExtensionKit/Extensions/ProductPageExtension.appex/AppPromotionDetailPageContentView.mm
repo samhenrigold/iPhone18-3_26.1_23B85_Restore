@@ -49,7 +49,7 @@
   }
 
   v10 = v9;
-  sub_100016F40(0, &qword_10094D040);
+  sub_100016F40(0, &qword_10094D040, NSObject_ptr);
   v11 = sub_100770EEC();
 
   v7 = v10;

@@ -39,13 +39,11 @@
 
   else
   {
-    v7 = type metadata accessor for GracePeriod();
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
+    type metadata accessor for GracePeriod(0);
     swift_allocObject();
-    v10 = sub_100013868(v4, v6);
-    (*(*self->_TtCs12_SwiftObject_opaque + 88))(v10);
-    sub_100015F58(&qword_10005CEC0);
+    v7 = sub_100013868(v4, v6);
+    (*(*self->_TtCs12_SwiftObject_opaque + 88))(v7);
+    sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
     dispatch thunk of ModelContext.insert<A>(_:)();
 
     sub_10001496C();
@@ -63,47 +61,46 @@
 - (id)getGracePeriodStartDate:(id)date
 {
   v3 = sub_100001EB0(&qword_10005BD00, "^/");
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = v18 - v5;
-  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v9 = v8;
+  v5 = v17 - v4;
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
 
-  v10 = sub_1000142C0(v7, v9);
+  v9 = sub_1000142C0(v6, v8);
 
-  if (v10)
+  if (v9)
   {
-    v18[1] = v10;
+    v17[1] = v9;
     swift_getKeyPath();
-    sub_100015F58(&qword_10005CED8);
+    sub_100015F58(&qword_10005CED8, &unk_1000340C4);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
-    sub_100015F58(&qword_10005CEC0);
-    sub_100016384(&qword_10005C030, &qword_10005C038);
+    sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+    sub_100016384(&qword_10005C030, &qword_10005C038, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
     PersistentModel.getValue<A>(forKey:)();
 
-    v11 = type metadata accessor for Date();
-    v12 = *(v11 - 8);
-    v13 = (*(v12 + 48))(v6, 1, v11);
-    v14 = 0;
-    if (v13 != 1)
+    v10 = type metadata accessor for Date();
+    v11 = *(v10 - 8);
+    v12 = (*(v11 + 48))(v5, 1, v10);
+    v13 = 0;
+    if (v12 != 1)
     {
       isa = Date._bridgeToObjectiveC()().super.isa;
-      (*(v12 + 8))(v6, v11);
-      v14 = isa;
+      (*(v11 + 8))(v5, v10);
+      v13 = isa;
     }
   }
 
   else
   {
 
-    v16 = type metadata accessor for Date();
-    (*(*(v16 - 8) + 56))(v6, 1, 1, v16);
-    v14 = 0;
+    v15 = type metadata accessor for Date();
+    (*(*(v15 - 8) + 56))(v5, 1, 1, v15);
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 @end

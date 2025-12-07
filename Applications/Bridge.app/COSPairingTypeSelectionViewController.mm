@@ -255,30 +255,31 @@
 
 - (id)captionText
 {
-  if ([(COSPairingTypeSelectionViewController *)self offerYorktown])
+  offerYorktown = [(COSPairingTypeSelectionViewController *)self offerYorktown];
+  if (offerYorktown)
   {
-    v2 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v3 = sub_10002DF9C();
-    v4 = +[NSBundle mainBundle];
-    v5 = v4;
-    if (v3)
+    v5 = sub_10002DF9C(offerYorktown, v3);
+    v6 = +[NSBundle mainBundle];
+    v7 = v6;
+    if (v5)
     {
-      v6 = @"SETUP_CHOICE_CAPTION_TEXT_GT";
+      v8 = @"SETUP_CHOICE_CAPTION_TEXT_GT";
     }
 
     else
     {
-      v6 = @"SETUP_CHOICE_CAPTION_TEXT";
+      v8 = @"SETUP_CHOICE_CAPTION_TEXT";
     }
 
-    v2 = [v4 localizedStringForKey:v6 value:&stru_10026E598 table:@"Localizable-tinker"];
+    v4 = [v6 localizedStringForKey:v8 value:&stru_10026E598 table:@"Localizable-tinker"];
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)suggestedButtonPressed:(id)pressed

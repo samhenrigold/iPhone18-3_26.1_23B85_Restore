@@ -29,7 +29,7 @@
     if (v6->interface)
     {
       v83 = universeCopy;
-      if (!MomentsLibraryCore() || !NSClassFromString(@"MONotificationScheduleItem"))
+      if (!MomentsLibraryCore(0) || !NSClassFromString(@"MONotificationScheduleItem"))
       {
         v11 = _mo_log_facility_get_os_log(&MOLogFacilityGeneral);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))

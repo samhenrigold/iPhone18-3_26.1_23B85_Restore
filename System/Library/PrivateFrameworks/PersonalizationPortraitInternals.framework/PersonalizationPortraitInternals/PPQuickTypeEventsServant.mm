@@ -11,10 +11,10 @@
 
 - (id)quickTypeItemsWithQuery:(id)query limit:(unint64_t)limit explanationSet:(id)set
 {
-  v189 = *MEMORY[0x277D85DE8];
+  v188 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   setCopy = set;
-  v143 = queryCopy;
+  v142 = queryCopy;
   LODWORD(queryCopy) = [queryCopy type];
   v9 = pp_quicktype_log_handle();
   v10 = v9;
@@ -50,7 +50,7 @@ LABEL_16:
     goto LABEL_158;
   }
 
-  subtype = [v143 subtype];
+  subtype = [v142 subtype];
   v12 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
@@ -60,18 +60,18 @@ LABEL_16:
   }
 
   v13 = objc_opt_new();
-  if ([v143 time] == 1)
+  if ([v142 time] == 1)
   {
     localEventStore = self->_localEventStore;
     v15 = [v13 dateByAddingTimeInterval:-600.0];
     v16 = [v13 dateByAddingTimeInterval:345600.0];
-    v139 = [(PPLocalEventStore *)localEventStore eventsFromDate:v15 toDate:v16];
+    v138 = [(PPLocalEventStore *)localEventStore eventsFromDate:v15 toDate:v16];
 LABEL_9:
 
     goto LABEL_23;
   }
 
-  if ([v143 time] == 2)
+  if ([v142 time] == 2)
   {
     v18 = self->_localEventStore;
     v19 = PPNextMidnight();
@@ -79,14 +79,14 @@ LABEL_9:
 
   else
   {
-    if ([v143 time] == 3)
+    if ([v142 time] == 3)
     {
       v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:172800.0];
       v20 = self->_localEventStore;
       v16 = PPNextMidnight();
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
       v22 = [currentCalendar startOfDayForDate:v15];
-      v139 = [(PPLocalEventStore *)v20 eventsFromDate:v16 toDate:v22];
+      v138 = [(PPLocalEventStore *)v20 eventsFromDate:v16 toDate:v22];
 
       goto LABEL_9;
     }
@@ -96,49 +96,49 @@ LABEL_9:
   }
 
   v15 = v19;
-  v139 = [(PPLocalEventStore *)v18 eventsFromDate:v13 toDate:v19];
+  v138 = [(PPLocalEventStore *)v18 eventsFromDate:v13 toDate:v19];
 LABEL_23:
 
   v23 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [v139 count];
+    v24 = [v138 count];
     *buf = 134217984;
     *&buf[4] = v24;
     _os_log_impl(&dword_23224A000, v23, OS_LOG_TYPE_DEFAULT, "%tu events matching predicate", buf, 0xCu);
   }
 
-  if ([v139 count])
+  if ([v138 count])
   {
-    people = [v143 people];
+    people = [v142 people];
     if (people)
     {
       v26 = people;
       if (objc_opt_respondsToSelector())
       {
-        v140 = v26;
+        v139 = v26;
       }
 
       else
       {
-        v181 = v26;
-        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v181 count:1];
+        v180 = v26;
+        v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v180 count:1];
 
-        v140 = v27;
+        v139 = v27;
       }
     }
 
     else
     {
-      v140 = 0;
+      v139 = 0;
     }
 
-    obj = [v143 recipients];
-    v155 = objc_opt_new();
-    v150 = v13;
-    if ([v143 time] == 1 && subtype == 3 && (objc_msgSend(v143, "fields") & 0x30000) != 0)
+    obj = [v142 recipients];
+    v154 = objc_opt_new();
+    v149 = v13;
+    if ([v142 time] == 1 && subtype == 3 && (objc_msgSend(v142, "fields") & 0x30000) != 0)
     {
-      if ((!obj || ![obj count]) && (!v140 || !objc_msgSend(v140, "count")))
+      if ((!obj || ![obj count]) && (!v139 || !objc_msgSend(v139, "count")))
       {
         v64 = pp_quicktype_log_handle();
         if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
@@ -161,35 +161,35 @@ LABEL_23:
       }
 
       v29 = objc_opt_new();
-      v166[0] = MEMORY[0x277D85DD0];
-      v166[1] = 3221225472;
-      v166[2] = __73__PPQuickTypeEventsServant_quickTypeItemsWithQuery_limit_explanationSet___block_invoke;
-      v166[3] = &unk_278976948;
+      v165[0] = MEMORY[0x277D85DD0];
+      v165[1] = 3221225472;
+      v165[2] = __73__PPQuickTypeEventsServant_quickTypeItemsWithQuery_limit_explanationSet___block_invoke;
+      v165[3] = &unk_278976948;
       v30 = v29;
-      v167 = v30;
-      [obj enumerateObjectsUsingBlock:v166];
+      v166 = v30;
+      [obj enumerateObjectsUsingBlock:v165];
       v31 = v30;
 
-      v164 = 0u;
-      v165 = 0u;
-      v162 = 0u;
       v163 = 0u;
+      v164 = 0u;
+      v161 = 0u;
+      v162 = 0u;
       obj = v31;
-      v32 = [obj countByEnumeratingWithState:&v162 objects:v180 count:16];
+      v32 = [obj countByEnumeratingWithState:&v161 objects:v179 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v163;
+        v34 = *v162;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v163 != v34)
+            if (*v162 != v34)
             {
               objc_enumerationMutation(obj);
             }
 
-            v36 = *(*(&v162 + 1) + 8 * i);
+            v36 = *(*(&v161 + 1) + 8 * i);
             v37 = objc_opt_new();
             if ([v36 containsString:@"@"])
             {
@@ -215,36 +215,36 @@ LABEL_23:
               v41 = v36;
             }
 
-            [v155 addObject:v41];
+            [v154 addObject:v41];
           }
 
-          v33 = [obj countByEnumeratingWithState:&v162 objects:v180 count:16];
+          v33 = [obj countByEnumeratingWithState:&v161 objects:v179 count:16];
         }
 
         while (v33);
       }
 
-      v13 = v150;
+      v13 = v149;
       self = selfCopy;
       subtype = 3;
     }
 
-    if ([v155 count])
+    if ([v154 count])
     {
-      if (v140 && [v140 count])
+      if (v139 && [v139 count])
       {
-        [v155 addObjectsFromArray:v140];
+        [v154 addObjectsFromArray:v139];
       }
 
-      v42 = v155;
+      v42 = v154;
 
-      v140 = v42;
+      v139 = v42;
     }
 
     v43 = pp_quicktype_log_handle();
     if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
     {
-      v44 = [v140 count];
+      v44 = [v139 count];
       *buf = 134217984;
       *&buf[4] = v44;
       _os_log_impl(&dword_23224A000, v43, OS_LOG_TYPE_INFO, "%ld people of interest", buf, 0xCu);
@@ -254,14 +254,14 @@ LABEL_23:
     if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138739971;
-      *&buf[4] = v140;
+      *&buf[4] = v139;
       _os_log_debug_impl(&dword_23224A000, v45, OS_LOG_TYPE_DEBUG, "people of interest: %{sensitive}@", buf, 0xCu);
     }
 
-    time = [v143 time];
-    fields = [v143 fields];
-    v48 = v139;
-    v140 = v140;
+    time = [v142 time];
+    fields = [v142 fields];
+    v48 = v138;
+    v139 = v139;
     v49 = setCopy;
     if (self)
     {
@@ -271,9 +271,9 @@ LABEL_23:
         *buf = 134218498;
         *&buf[4] = time;
         *&buf[12] = 2112;
-        *&buf[14] = v140;
+        *&buf[14] = v139;
         *&buf[22] = 1024;
-        LODWORD(v185) = subtype == 3;
+        LODWORD(v184) = subtype == 3;
         _os_log_debug_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEBUG, "filtering events for time: %lu: people: %@ busy: %d", buf, 0x1Cu);
       }
 
@@ -282,8 +282,8 @@ LABEL_23:
         if (subtype == 3)
         {
           v51 = v49;
-          v52 = v140;
-          v53 = v140;
+          v52 = v139;
+          v53 = v139;
           objectEnumerator = [v48 objectEnumerator];
 LABEL_73:
           v55 = objectEnumerator;
@@ -317,8 +317,8 @@ LABEL_73:
         if (subtype == 3)
         {
           v51 = v49;
-          v52 = v140;
-          v53 = v140;
+          v52 = v139;
+          v53 = v139;
           objectEnumerator = [v48 reverseObjectEnumerator];
           goto LABEL_73;
         }
@@ -328,7 +328,7 @@ LABEL_73:
         allObjects = [reverseObjectEnumerator allObjects];
 
 LABEL_85:
-        v52 = v140;
+        v52 = v139;
 LABEL_86:
 
         v67 = pp_quicktype_log_handle();
@@ -349,11 +349,11 @@ LABEL_86:
         }
 
         +[PPQuickTypeMetrics eventsMatches:](PPQuickTypeMetrics, "eventsMatches:", [allObjects count]);
-        fields2 = [v143 fields];
-        v71 = [PPQuickTypeFormatter formatterWithQuery:v143];
+        fields2 = [v142 fields];
+        v71 = [PPQuickTypeFormatter formatterWithQuery:v142];
         v72 = allObjects;
-        v151 = v71;
-        v138 = v49;
+        v150 = v71;
+        v137 = v49;
         if (self)
         {
           v73 = objc_alloc(MEMORY[0x277CBEB18]);
@@ -369,11 +369,11 @@ LABEL_86:
           }
 
           self = [v73 initWithCapacity:limitCopy];
+          v171 = 0u;
           v172 = 0u;
           v173 = 0u;
           v174 = 0u;
-          v175 = 0u;
-          v137 = v72;
+          v136 = v72;
           v76 = v72;
           v77 = +[PPConfiguration sharedInstance];
           nextEventsFuzzMinutes = [v77 nextEventsFuzzMinutes];
@@ -395,49 +395,49 @@ LABEL_86:
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke;
-            v185 = &unk_278973B28;
-            v186 = startDate;
-            v188 = v81;
+            v184 = &unk_278973B28;
+            v185 = startDate;
+            v187 = v81;
             v84 = v83;
-            v187 = v84;
+            v186 = v84;
             [v76 enumerateObjectsUsingBlock:buf];
-            v85 = v187;
+            v85 = v186;
             v86 = v84;
           }
 
-          v149 = [v86 countByEnumeratingWithState:&v172 objects:v183 count:16];
-          if (v149)
+          v148 = [v86 countByEnumeratingWithState:&v171 objects:v182 count:16];
+          if (v148)
           {
-            v156 = 0;
-            v144 = *v173;
+            v155 = 0;
+            v143 = *v172;
             limitCopy2 = limit;
             selfCopy2 = self;
-            v147 = fields2;
-            v145 = v86;
-            v146 = v76;
+            v146 = fields2;
+            v144 = v86;
+            v145 = v76;
             do
             {
               v87 = 0;
               do
               {
-                if (*v173 != v144)
+                if (*v172 != v143)
                 {
                   objc_enumerationMutation(v86);
                 }
 
-                v152 = v87;
-                v88 = *(*(&v172 + 1) + 8 * v87);
+                v151 = v87;
+                v88 = *(*(&v171 + 1) + 8 * v87);
+                v167 = 0u;
                 v168 = 0u;
                 v169 = 0u;
                 v170 = 0u;
-                v171 = 0u;
                 v89 = v88;
-                v90 = v151;
+                v90 = v150;
                 v91 = objc_opt_new();
                 v92 = v89;
                 v93 = v90;
                 v94 = objc_opt_new();
-                v159 = v91;
+                v158 = v91;
                 if ((fields2 & 0x20000) != 0)
                 {
                   startDate2 = [v92 startDate];
@@ -445,7 +445,7 @@ LABEL_86:
                   v97 = [PPQuickTypeLabeledValue labeledValueWithLabel:0 value:v96 scoreBoost:0x20000 fields:0.0];
                   [v94 addObject:v97];
 
-                  v91 = v159;
+                  v91 = v158;
                   if ((fields2 & 0x40000) != 0)
                   {
 LABEL_107:
@@ -454,7 +454,7 @@ LABEL_107:
                     v100 = [PPQuickTypeLabeledValue labeledValueWithLabel:0 value:v99 scoreBoost:0x40000 fields:0.0];
                     [v94 addObject:v100];
 
-                    v91 = v159;
+                    v91 = v158;
                     if ((fields2 & 0x8000) == 0)
                     {
                       goto LABEL_112;
@@ -506,7 +506,7 @@ LABEL_112:
                   }
                 }
 
-                v153 = v93;
+                v152 = v93;
 
                 v108 = pp_quicktype_log_handle();
                 if (os_log_type_enabled(v108, OS_LOG_TYPE_DEBUG))
@@ -518,25 +518,25 @@ LABEL_112:
                   _os_log_debug_impl(&dword_23224A000, v108, OS_LOG_TYPE_DEBUG, "valuesForPrediction event: %@: values: %@", buf, 0x16u);
                 }
 
-                v178 = 0u;
-                v179 = 0u;
-                v176 = 0u;
                 v177 = 0u;
-                v157 = v94;
-                v161 = [v157 countByEnumeratingWithState:&v176 objects:buf count:16];
-                if (v161)
+                v178 = 0u;
+                v175 = 0u;
+                v176 = 0u;
+                v156 = v94;
+                v160 = [v156 countByEnumeratingWithState:&v175 objects:buf count:16];
+                if (v160)
                 {
-                  v158 = *v177;
+                  v157 = *v176;
                   do
                   {
-                    for (j = 0; j != v161; ++j)
+                    for (j = 0; j != v160; ++j)
                     {
-                      if (*v177 != v158)
+                      if (*v176 != v157)
                       {
-                        objc_enumerationMutation(v157);
+                        objc_enumerationMutation(v156);
                       }
 
-                      v110 = *(*(&v176 + 1) + 8 * j);
+                      v110 = *(*(&v175 + 1) + 8 * j);
                       v111 = MEMORY[0x277D3A478];
                       value = [v110 value];
                       [v110 fields];
@@ -557,33 +557,33 @@ LABEL_112:
                       [v110 scoreBoost];
                       v119 = v118;
                       eventIdentifier = [v92 eventIdentifier];
-                      BYTE2(v136) = 3;
-                      BYTE1(v136) = v117;
-                      LOBYTE(v136) = 0;
-                      v121 = [v111 quickTypeItemWithLabel:&stru_284759D38 value:value2 name:title2 date:startDate3 fields:fields3 originatingBundleID:0 originatingWebsiteURL:v119 predictionAge:0 shouldAggregate:-1 flags:v136 score:eventIdentifier source:? sourceIdentifier:?];
-                      v91 = v159;
-                      [v159 addObject:v121];
+                      BYTE2(v135) = 3;
+                      BYTE1(v135) = v117;
+                      LOBYTE(v135) = 0;
+                      v121 = [v111 quickTypeItemWithLabel:&stru_284759D38 value:value2 name:title2 date:startDate3 fields:fields3 originatingBundleID:0 originatingWebsiteURL:v119 predictionAge:0 shouldAggregate:-1 flags:v135 score:eventIdentifier source:? sourceIdentifier:?];
+                      v91 = v158;
+                      [v158 addObject:v121];
                     }
 
-                    v161 = [v157 countByEnumeratingWithState:&v176 objects:buf count:16];
+                    v160 = [v156 countByEnumeratingWithState:&v175 objects:buf count:16];
                   }
 
-                  while (v161);
+                  while (v160);
                 }
 
-                v122 = [v91 countByEnumeratingWithState:&v168 objects:v182 count:16];
+                v122 = [v91 countByEnumeratingWithState:&v167 objects:v181 count:16];
                 if (v122)
                 {
                   v123 = v122;
-                  v124 = *v169;
-                  v13 = v150;
+                  v124 = *v168;
+                  v13 = v149;
                   self = selfCopy2;
                   while (2)
                   {
                     v125 = 0;
-                    if (limitCopy2 >= v156)
+                    if (limitCopy2 >= v155)
                     {
-                      v126 = limitCopy2 - v156;
+                      v126 = limitCopy2 - v155;
                     }
 
                     else
@@ -591,15 +591,15 @@ LABEL_112:
                       v126 = 0;
                     }
 
-                    v127 = 100 - v156;
+                    v127 = 100 - v155;
                     do
                     {
-                      if (*v169 != v124)
+                      if (*v168 != v124)
                       {
-                        objc_enumerationMutation(v159);
+                        objc_enumerationMutation(v158);
                       }
 
-                      v128 = *(*(&v168 + 1) + 8 * v125);
+                      v128 = *(*(&v167 + 1) + 8 * v125);
                       v129 = pp_quicktype_log_handle();
                       if (os_log_type_enabled(v129, OS_LOG_TYPE_DEBUG))
                       {
@@ -610,17 +610,17 @@ LABEL_112:
 
                       if (v126 == v125)
                       {
-                        v131 = v159;
+                        v131 = v158;
                         goto LABEL_144;
                       }
 
                       v130 = v127;
-                      if (v156 > 0x64)
+                      if (v155 > 0x64)
                       {
                         v130 = 0.0;
                       }
 
-                      ++v156;
+                      ++v155;
                       [v128 setScore:v130];
                       [(PPQuickTypeEventsServant *)selfCopy2 addObject:v128];
                       ++v125;
@@ -628,8 +628,8 @@ LABEL_112:
                     }
 
                     while (v123 != v125);
-                    v131 = v159;
-                    v123 = [v159 countByEnumeratingWithState:&v168 objects:v182 count:16];
+                    v131 = v158;
+                    v123 = [v158 countByEnumeratingWithState:&v167 objects:v181 count:16];
                     if (v123)
                     {
                       continue;
@@ -640,10 +640,10 @@ LABEL_112:
 
 LABEL_144:
 
-                  fields2 = v147;
-                  v86 = v145;
-                  v76 = v146;
-                  if (v156 > limitCopy2)
+                  fields2 = v146;
+                  v86 = v144;
+                  v76 = v145;
+                  if (v155 > limitCopy2)
                   {
                     goto LABEL_149;
                   }
@@ -652,21 +652,21 @@ LABEL_144:
                 else
                 {
 
-                  v13 = v150;
+                  v13 = v149;
                   self = selfCopy2;
-                  fields2 = v147;
-                  v86 = v145;
-                  v76 = v146;
+                  fields2 = v146;
+                  v86 = v144;
+                  v76 = v145;
                 }
 
-                v87 = v152 + 1;
+                v87 = v151 + 1;
               }
 
-              while (v152 + 1 != v149);
-              v149 = [v86 countByEnumeratingWithState:&v172 objects:v183 count:16];
+              while (v151 + 1 != v148);
+              v148 = [v86 countByEnumeratingWithState:&v171 objects:v182 count:16];
             }
 
-            while (v149);
+            while (v148);
           }
 
 LABEL_149:
@@ -674,20 +674,20 @@ LABEL_149:
           if ([v76 count])
           {
             v132 = [(PPQuickTypeEventsServant *)self count];
-            v72 = v137;
-            v133 = v138;
+            v72 = v136;
+            v133 = v137;
             if ((fields2 & 0x10000) != 0 && !v132)
             {
-              [v138 push:24];
+              [v137 push:24];
             }
 
             goto LABEL_155;
           }
 
-          v72 = v137;
+          v72 = v136;
         }
 
-        v133 = v138;
+        v133 = v137;
 LABEL_155:
 
 LABEL_156:
@@ -714,7 +714,6 @@ LABEL_156:
 LABEL_157:
 
 LABEL_158:
-  v134 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -761,30 +760,30 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
 
 - (id)_freeEventsAndGapsFromEvents:(void *)events explanationSet:
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   v4 = a2;
   eventsCopy = events;
-  v58 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
+  v57 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:2];
   v5 = objc_opt_new();
+  v66 = 0u;
   v67 = 0u;
   v68 = 0u;
   v69 = 0u;
-  v70 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v67 objects:v78 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v66 objects:v77 count:16];
   if (v7)
   {
-    v8 = *v68;
+    v8 = *v67;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v68 != v8)
+        if (*v67 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v67 + 1) + 8 * i);
+        v10 = *(*(&v66 + 1) + 8 * i);
         if ([v10 availability] != 1 && !-[PPQuickTypeEventsServant _shouldTreatAsUnscheduledFreeTime:](v10))
         {
           startDate = [v10 startDate];
@@ -800,7 +799,7 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v67 objects:v78 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v66 objects:v77 count:16];
     }
 
     while (v7);
@@ -809,9 +808,9 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
   v18 = pp_quicktype_log_handle();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    *v74 = 138412290;
-    *&v74[4] = v5;
-    _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: busy ranges: %@", v74, 0xCu);
+    *v73 = 138412290;
+    *&v73[4] = v5;
+    _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: busy ranges: %@", v73, 0xCu);
   }
 
   if ([v5 count])
@@ -820,18 +819,18 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
     v20 = pp_quicktype_log_handle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      *v74 = 138412290;
-      *&v74[4] = v19;
-      _os_log_debug_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: busy start: %@", v74, 0xCu);
+      *v73 = 138412290;
+      *&v73[4] = v19;
+      _os_log_debug_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: busy start: %@", v73, 0xCu);
     }
 
-    v57 = objc_opt_new();
+    v56 = objc_opt_new();
     firstIndex = [v5 firstIndex];
-    [v57 timeIntervalSinceReferenceDate];
+    [v56 timeIntervalSinceReferenceDate];
     if (v22 < firstIndex)
     {
       currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-      v24 = [currentCalendar components:124 fromDate:v57];
+      v24 = [currentCalendar components:124 fromDate:v56];
       v25 = [v24 minute] < 30;
       v26 = MEMORY[0x277CBEAA8];
       minute = [v24 minute];
@@ -841,13 +840,13 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
         v28 = 30;
       }
 
-      v29 = [v26 dateWithTimeInterval:v57 sinceDate:(60 * (v28 - minute))];
+      v29 = [v26 dateWithTimeInterval:v56 sinceDate:(60 * (v28 - minute))];
       v30 = pp_quicktype_log_handle();
       if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        *v74 = 138412290;
-        *&v74[4] = v29;
-        _os_log_debug_impl(&dword_23224A000, v30, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: free start: %@", v74, 0xCu);
+        *v73 = 138412290;
+        *&v73[4] = v29;
+        _os_log_debug_impl(&dword_23224A000, v30, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: free start: %@", v73, 0xCu);
       }
 
       if ([v29 compare:v19] != 1)
@@ -855,53 +854,53 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
         v31 = pp_quicktype_log_handle();
         if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          *v74 = 138412546;
-          *&v74[4] = v29;
-          *&v74[12] = 2112;
-          *&v74[14] = v19;
-          _os_log_debug_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: initial free added: %@-%@", v74, 0x16u);
+          *v73 = 138412546;
+          *&v73[4] = v29;
+          *&v73[12] = 2112;
+          *&v73[14] = v19;
+          _os_log_debug_impl(&dword_23224A000, v31, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: initial free added: %@-%@", v73, 0x16u);
         }
 
         v32 = [(PPQuickTypeEventsServant *)self _unscheduledFreeTimeEventFrom:v29 to:v19];
-        [v58 addObject:v32];
+        [v57 addObject:v32];
       }
     }
 
-    *v74 = 0;
-    *&v74[8] = v74;
-    *&v74[16] = 0x3032000000;
-    v75 = __Block_byref_object_copy__6968;
-    v76 = __Block_byref_object_dispose__6969;
-    v54 = v19;
-    v77 = v54;
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = __72__PPQuickTypeEventsServant__freeEventsAndGapsFromEvents_explanationSet___block_invoke;
-    v63[3] = &unk_278973B50;
-    v66 = v74;
-    v33 = v58;
-    v64 = v33;
+    *v73 = 0;
+    *&v73[8] = v73;
+    *&v73[16] = 0x3032000000;
+    v74 = __Block_byref_object_copy__6968;
+    v75 = __Block_byref_object_dispose__6969;
+    v53 = v19;
+    v76 = v53;
+    v62[0] = MEMORY[0x277D85DD0];
+    v62[1] = 3221225472;
+    v62[2] = __72__PPQuickTypeEventsServant__freeEventsAndGapsFromEvents_explanationSet___block_invoke;
+    v62[3] = &unk_278973B50;
+    v65 = v73;
+    v33 = v57;
+    v63 = v33;
     selfCopy = self;
-    [v5 enumerateRangesWithOptions:0 usingBlock:v63];
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
+    [v5 enumerateRangesWithOptions:0 usingBlock:v62];
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v34 = v6;
-    v35 = [v34 countByEnumeratingWithState:&v59 objects:v73 count:16];
+    v35 = [v34 countByEnumeratingWithState:&v58 objects:v72 count:16];
     if (v35)
     {
-      v36 = *v60;
+      v36 = *v59;
       do
       {
         for (j = 0; j != v35; ++j)
         {
-          if (*v60 != v36)
+          if (*v59 != v36)
           {
             objc_enumerationMutation(v34);
           }
 
-          v38 = *(*(&v59 + 1) + 8 * j);
+          v38 = *(*(&v58 + 1) + 8 * j);
           if ([v38 availability] == 1 && !-[PPQuickTypeEventsServant _shouldTreatAsUnscheduledFreeTime:](v38))
           {
             startDate3 = [v38 startDate];
@@ -919,7 +918,7 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
               if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v72 = v38;
+                v71 = v38;
                 _os_log_debug_impl(&dword_23224A000, v46, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: adding free event: %@", buf, 0xCu);
               }
 
@@ -928,14 +927,14 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
           }
         }
 
-        v35 = [v34 countByEnumeratingWithState:&v59 objects:v73 count:16];
+        v35 = [v34 countByEnumeratingWithState:&v58 objects:v72 count:16];
       }
 
       while (v35);
     }
 
     currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
-    v48 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:*(*&v74[8] + 40) sinceDate:86400.0];
+    v48 = [MEMORY[0x277CBEAA8] dateWithTimeInterval:*(*&v73[8] + 40) sinceDate:86400.0];
     v49 = [currentCalendar2 startOfDayForDate:v48];
 
     v50 = [(PPQuickTypeEventsServant *)self _unscheduledFreeTimeEventFrom:v49 to:?];
@@ -948,33 +947,31 @@ void __58__PPQuickTypeEventsServant__fuzzyNextEvents_minimumCount___block_invoke
 
     v51 = [v33 sortedArrayUsingSelector:sel_compareStartDateWithEvent_];
 
-    _Block_object_dispose(v74, 8);
+    _Block_object_dispose(v73, 8);
   }
 
   else
   {
-    v51 = v58;
+    v51 = v57;
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v51;
 }
 
 - (id)_busyEventsFromEvents:(void *)events people:(void *)people explanationSet:(void *)set
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   peopleCopy = people;
   setCopy = set;
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:1];
+  v79 = 0u;
   v80 = 0u;
   v81 = 0u;
   v82 = 0u;
-  v83 = 0u;
   v9 = eventsCopy;
-  v72 = [v9 countByEnumeratingWithState:&v80 objects:v101 count:16];
-  if (!v72)
+  v71 = [v9 countByEnumeratingWithState:&v79 objects:v100 count:16];
+  if (!v71)
   {
 
     v57 = 23;
@@ -983,25 +980,25 @@ LABEL_68:
     goto LABEL_69;
   }
 
-  v60 = setCopy;
-  v61 = 0;
+  v59 = setCopy;
+  v60 = 0;
   v10 = 0;
-  v11 = *v81;
-  v64 = v8;
-  v65 = peopleCopy;
-  v62 = *v81;
-  v63 = v9;
+  v11 = *v80;
+  v63 = v8;
+  v64 = peopleCopy;
+  v61 = *v80;
+  v62 = v9;
   do
   {
     v12 = 0;
     do
     {
-      if (*v81 != v11)
+      if (*v80 != v11)
       {
         objc_enumerationMutation(v9);
       }
 
-      v13 = *(*(&v80 + 1) + 8 * v12);
+      v13 = *(*(&v79 + 1) + 8 * v12);
       startDate = [v13 startDate];
       [startDate timeIntervalSinceNow];
       v16 = v15;
@@ -1016,40 +1013,40 @@ LABEL_68:
         goto LABEL_57;
       }
 
-      v66 = v13;
+      v65 = v13;
       attendees = [v13 attendees];
       v18 = peopleCopy;
-      v71 = attendees;
+      v70 = attendees;
+      v96 = 0u;
       v97 = 0u;
       v98 = 0u;
       v99 = 0u;
-      v100 = 0u;
       v19 = v18;
-      v69 = [v19 countByEnumeratingWithState:&v97 objects:v105 count:16];
-      v70 = v19;
-      if (!v69)
+      v68 = [v19 countByEnumeratingWithState:&v96 objects:v104 count:16];
+      v69 = v19;
+      if (!v68)
       {
         goto LABEL_50;
       }
 
-      v67 = *v98;
-      v68 = v12;
+      v66 = *v97;
+      v67 = v12;
       while (2)
       {
         v20 = 0;
         while (2)
         {
-          if (*v98 != v67)
+          if (*v97 != v66)
           {
             objc_enumerationMutation(v19);
           }
 
-          v75 = v20;
-          v21 = *(*(&v97 + 1) + 8 * v20);
+          v74 = v20;
+          v21 = *(*(&v96 + 1) + 8 * v20);
           v22 = objc_autoreleasePoolPush();
           v23 = objc_opt_new();
           objc_opt_class();
-          v76 = v22;
+          v75 = v22;
           if (objc_opt_isKindOfClass())
           {
             contact = [v21 contact];
@@ -1059,30 +1056,30 @@ LABEL_68:
               [v23 addObject:localizedFullName];
             }
 
-            v95 = 0u;
-            v96 = 0u;
-            v93 = 0u;
             v94 = 0u;
+            v95 = 0u;
+            v92 = 0u;
+            v93 = 0u;
             emailAddresses = [contact emailAddresses];
-            v27 = [emailAddresses countByEnumeratingWithState:&v93 objects:v104 count:16];
+            v27 = [emailAddresses countByEnumeratingWithState:&v92 objects:v103 count:16];
             if (v27)
             {
               v28 = v27;
-              v29 = *v94;
+              v29 = *v93;
               do
               {
                 for (i = 0; i != v28; ++i)
                 {
-                  if (*v94 != v29)
+                  if (*v93 != v29)
                   {
                     objc_enumerationMutation(emailAddresses);
                   }
 
-                  value = [*(*(&v93 + 1) + 8 * i) value];
+                  value = [*(*(&v92 + 1) + 8 * i) value];
                   [v23 addObject:value];
                 }
 
-                v28 = [emailAddresses countByEnumeratingWithState:&v93 objects:v104 count:16];
+                v28 = [emailAddresses countByEnumeratingWithState:&v92 objects:v103 count:16];
               }
 
               while (v28);
@@ -1094,12 +1091,12 @@ LABEL_68:
             [v23 addObject:v21];
           }
 
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
           v90 = 0u;
-          v32 = v71;
-          v33 = [v32 countByEnumeratingWithState:&v89 objects:v103 count:16];
+          v91 = 0u;
+          v88 = 0u;
+          v89 = 0u;
+          v32 = v70;
+          v33 = [v32 countByEnumeratingWithState:&v88 objects:v102 count:16];
           if (!v33)
           {
 LABEL_53:
@@ -1111,33 +1108,33 @@ LABEL_53:
               _os_log_impl(&dword_23224A000, v55, OS_LOG_TYPE_INFO, "one or more person of interest not found in attendees", buf, 2u);
             }
 
-            objc_autoreleasePoolPop(v76);
+            objc_autoreleasePoolPop(v75);
             v53 = 0;
-            v54 = v70;
-            v52 = v70;
-            v8 = v64;
-            peopleCopy = v65;
-            v11 = v62;
-            v9 = v63;
-            v12 = v68;
+            v54 = v69;
+            v52 = v69;
+            v8 = v63;
+            peopleCopy = v64;
+            v11 = v61;
+            v9 = v62;
+            v12 = v67;
             goto LABEL_56;
           }
 
           v34 = v33;
-          v35 = *v90;
-          v77 = v32;
-          v73 = *v90;
+          v35 = *v89;
+          v76 = v32;
+          v72 = *v89;
 LABEL_30:
           v36 = 0;
-          v74 = v34;
+          v73 = v34;
           while (1)
           {
-            if (*v90 != v35)
+            if (*v89 != v35)
             {
               objc_enumerationMutation(v32);
             }
 
-            v37 = *(*(&v89 + 1) + 8 * v36);
+            v37 = *(*(&v88 + 1) + 8 * v36);
             v38 = objc_autoreleasePoolPush();
             if ([v37 status] == 3)
             {
@@ -1153,12 +1150,12 @@ LABEL_30:
             name = [v37 name];
             lowercaseString2 = [name lowercaseString];
 
-            v87 = 0u;
-            v88 = 0u;
-            v85 = 0u;
             v86 = 0u;
+            v87 = 0u;
+            v84 = 0u;
+            v85 = 0u;
             v44 = v23;
-            v45 = [v44 countByEnumeratingWithState:&v85 objects:v102 count:16];
+            v45 = [v44 countByEnumeratingWithState:&v84 objects:v101 count:16];
             if (v45)
             {
               break;
@@ -1166,13 +1163,13 @@ LABEL_30:
 
 LABEL_44:
 
-            v34 = v74;
+            v34 = v73;
             v38 = context;
 LABEL_45:
             objc_autoreleasePoolPop(v38);
             if (++v36 == v34)
             {
-              v34 = [v32 countByEnumeratingWithState:&v89 objects:v103 count:16];
+              v34 = [v32 countByEnumeratingWithState:&v88 objects:v102 count:16];
               if (v34)
               {
                 goto LABEL_30;
@@ -1183,17 +1180,17 @@ LABEL_45:
           }
 
           v46 = v45;
-          v47 = *v86;
+          v47 = *v85;
 LABEL_36:
           v48 = 0;
           while (1)
           {
-            if (*v86 != v47)
+            if (*v85 != v47)
             {
               objc_enumerationMutation(v44);
             }
 
-            v49 = *(*(&v85 + 1) + 8 * v48);
+            v49 = *(*(&v84 + 1) + 8 * v48);
             v50 = objc_autoreleasePoolPush();
             lowercaseString3 = [v49 lowercaseString];
             if (([emailAddress containsString:lowercaseString3] & 1) != 0 || (objc_msgSend(lowercaseString2, "containsString:", lowercaseString3) & 1) != 0 || objc_msgSend(lowercaseString, "containsString:", lowercaseString3))
@@ -1204,9 +1201,9 @@ LABEL_36:
             objc_autoreleasePoolPop(v50);
             if (v46 == ++v48)
             {
-              v46 = [v44 countByEnumeratingWithState:&v85 objects:v102 count:16];
-              v32 = v77;
-              v35 = v73;
+              v46 = [v44 countByEnumeratingWithState:&v84 objects:v101 count:16];
+              v32 = v76;
+              v35 = v72;
               if (v46)
               {
                 goto LABEL_36;
@@ -1219,11 +1216,11 @@ LABEL_36:
           objc_autoreleasePoolPop(v50);
           objc_autoreleasePoolPop(context);
 
-          objc_autoreleasePoolPop(v76);
-          v20 = v75 + 1;
-          v12 = v68;
-          v19 = v70;
-          if (v75 + 1 != v69)
+          objc_autoreleasePoolPop(v75);
+          v20 = v74 + 1;
+          v12 = v67;
+          v19 = v69;
+          if (v74 + 1 != v68)
           {
             continue;
           }
@@ -1231,8 +1228,8 @@ LABEL_36:
           break;
         }
 
-        v69 = [v70 countByEnumeratingWithState:&v97 objects:v105 count:16];
-        if (v69)
+        v68 = [v69 countByEnumeratingWithState:&v96 objects:v104 count:16];
+        if (v68)
         {
           continue;
         }
@@ -1250,14 +1247,14 @@ LABEL_50:
         _os_log_impl(&dword_23224A000, v52, OS_LOG_TYPE_INFO, "all people of interest found in attendees", buf, 2u);
       }
 
-      v8 = v64;
-      peopleCopy = v65;
-      v11 = v62;
-      v9 = v63;
-      v54 = v70;
+      v8 = v63;
+      peopleCopy = v64;
+      v11 = v61;
+      v9 = v62;
+      v54 = v69;
 LABEL_56:
 
-      v13 = v66;
+      v13 = v65;
       if (v53)
       {
 LABEL_57:
@@ -1266,7 +1263,7 @@ LABEL_57:
 
       else
       {
-        v61 = 1;
+        v60 = 1;
       }
 
       v10 = 1;
@@ -1274,9 +1271,9 @@ LABEL_59:
       ++v12;
     }
 
-    while (v12 != v72);
-    v56 = [v9 countByEnumeratingWithState:&v80 objects:v101 count:16];
-    v72 = v56;
+    while (v12 != v71);
+    v56 = [v9 countByEnumeratingWithState:&v79 objects:v100 count:16];
+    v71 = v56;
   }
 
   while (v56);
@@ -1284,12 +1281,12 @@ LABEL_59:
   if ((v10 & 1) == 0)
   {
     v57 = 23;
-    setCopy = v60;
+    setCopy = v59;
     goto LABEL_68;
   }
 
-  setCopy = v60;
-  if ((([peopleCopy count] != 0) & v61) == 1)
+  setCopy = v59;
+  if ((([peopleCopy count] != 0) & v60) == 1)
   {
     v57 = 21;
     goto LABEL_68;
@@ -1297,44 +1294,42 @@ LABEL_59:
 
 LABEL_69:
 
-  v58 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (BOOL)_shouldTreatAsUnscheduledFreeTime:(void *)time
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   if ([timeCopy availability] == 1 && (objc_msgSend(timeCopy, "organizerIsCurrentUser") & 1) == 0)
   {
     v3 = timeCopy;
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     attendees = [v3 attendees];
-    v5 = [attendees countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v5 = [attendees countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       while (2)
       {
         v8 = 0;
         do
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(attendees);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * v8);
+          v9 = *(*(&v14 + 1) + 8 * v8);
           v10 = pp_quicktype_log_handle();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v20 = v9;
+            v19 = v9;
             _os_log_debug_impl(&dword_23224A000, v10, OS_LOG_TYPE_DEBUG, "isFreeTime: attendee: %@", buf, 0xCu);
           }
 
@@ -1345,7 +1340,7 @@ LABEL_69:
             {
               status = [v9 status];
               *buf = 134217984;
-              v20 = status;
+              v19 = status;
               _os_log_debug_impl(&dword_23224A000, v11, OS_LOG_TYPE_DEBUG, "isFreeTime: is current user, status: %ld", buf, 0xCu);
             }
 
@@ -1357,7 +1352,7 @@ LABEL_69:
         }
 
         while (v6 != v8);
-        v6 = [attendees countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v6 = [attendees countByEnumeratingWithState:&v14 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1376,7 +1371,6 @@ LABEL_18:
     v2 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -1407,7 +1401,7 @@ LABEL_18:
 
 void __72__PPQuickTypeEventsServant__freeEventsAndGapsFromEvents_explanationSet___block_invoke(void *a1, unint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:a2];
   v7 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:(a2 + a3)];
   if ([*(*(a1[6] + 8) + 40) compare:v6] == -1)
@@ -1415,12 +1409,12 @@ void __72__PPQuickTypeEventsServant__freeEventsAndGapsFromEvents_explanationSet_
     v8 = pp_quicktype_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = *(*(a1[6] + 8) + 40);
-      v15 = 138412546;
-      v16 = v14;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: adding free block: %@-%@", &v15, 0x16u);
+      v13 = *(*(a1[6] + 8) + 40);
+      v14 = 138412546;
+      v15 = v13;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_debug_impl(&dword_23224A000, v8, OS_LOG_TYPE_DEBUG, "freeEventsAndGapsFromEvents: adding free block: %@-%@", &v14, 0x16u);
     }
 
     v9 = a1[4];
@@ -1431,8 +1425,6 @@ void __72__PPQuickTypeEventsServant__freeEventsAndGapsFromEvents_explanationSet_
   v11 = *(a1[6] + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v7;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (PPQuickTypeEventsServant)init

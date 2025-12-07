@@ -44,37 +44,37 @@
 
 - (void)_accessibilityLoadChartInformation
 {
-  v34 = *MEMORY[0x29EDCA608];
-  v27 = objc_opt_new();
+  v33 = *MEMORY[0x29EDCA608];
   v26 = objc_opt_new();
+  v25 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   [v3 setDateFormat:@"MMM"];
-  v25 = v4;
+  v24 = v4;
   [v4 setDateFormat:@"MMMM"];
   selfCopy = self;
   [(SHSHeadphoneNotificationTableCellAccessibility *)self safeArrayForKey:@"_notificationData"];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  obj = v32 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  obj = v31 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v30;
+    v8 = *v29;
     v9 = 0x7FFFFFFFLL;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
+        v11 = *(*(&v28 + 1) + 8 * i);
         objc_opt_class();
         v12 = [v11 objectForKey:@"count"];
         v13 = __UIAccessibilityCastAsClass();
@@ -96,10 +96,10 @@
         if (!v16)
         {
           v17 = [v3 dateFromString:v15];
-          v18 = [v25 stringFromDate:v17];
+          v18 = [v24 stringFromDate:v17];
 
-          [v27 addObject:v18];
-          [v26 addObject:v13];
+          [v26 addObject:v18];
+          [v25 addObject:v13];
           intValue = [v13 intValue];
           if (v9 >= intValue)
           {
@@ -124,7 +124,7 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v6);
@@ -136,20 +136,18 @@
     v9 = 0x7FFFFFFFLL;
   }
 
-  [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v27 forKey:@"kAXHeadphoneNotificationGraphXLabels"];
-  [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v26 forKey:@"kAXHeadphoneNotificationGraphYValues"];
+  [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v26 forKey:@"kAXHeadphoneNotificationGraphXLabels"];
+  [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v25 forKey:@"kAXHeadphoneNotificationGraphYValues"];
   v21 = [MEMORY[0x29EDBA070] numberWithInt:v9];
   [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v21 forKey:@"kAXHeadphoneNotificationGraphYAxisMin"];
 
   v22 = [MEMORY[0x29EDBA070] numberWithInt:v7];
   [(SHSHeadphoneNotificationTableCellAccessibility *)selfCopy _accessibilitySetRetainedValue:v22 forKey:@"kAXHeadphoneNotificationGraphYAxisMax"];
-
-  v23 = *MEMORY[0x29EDCA608];
 }
 
 - (id)accessibilityChartDescriptor
 {
-  v24[1] = *MEMORY[0x29EDCA608];
+  v23[1] = *MEMORY[0x29EDCA608];
   v3 = [(SHSHeadphoneNotificationTableCellAccessibility *)self _accessibilityValueForKey:@"kAXHeadphoneNotificationGraphXLabels"];
   v4 = objc_alloc(MEMORY[0x29EDB8048]);
   v5 = accessibilityLocalizedString(@"headphone.notifications.xaxis");
@@ -171,11 +169,9 @@
   _accessibilityDataSeriesName = [(SHSHeadphoneNotificationTableCellAccessibility *)self _accessibilityDataSeriesName];
   _accessibilityChartSummary = [(SHSHeadphoneNotificationTableCellAccessibility *)self _accessibilityChartSummary];
   _accessibilityDataSeries = [(SHSHeadphoneNotificationTableCellAccessibility *)self _accessibilityDataSeries];
-  v24[0] = _accessibilityDataSeries;
-  v20 = [MEMORY[0x29EDB8D80] arrayWithObjects:v24 count:1];
+  v23[0] = _accessibilityDataSeries;
+  v20 = [MEMORY[0x29EDB8D80] arrayWithObjects:v23 count:1];
   v21 = [v16 initWithTitle:_accessibilityDataSeriesName summary:_accessibilityChartSummary xAxisDescriptor:v6 yAxisDescriptor:v15 series:v20];
-
-  v22 = *MEMORY[0x29EDCA608];
 
   return v21;
 }

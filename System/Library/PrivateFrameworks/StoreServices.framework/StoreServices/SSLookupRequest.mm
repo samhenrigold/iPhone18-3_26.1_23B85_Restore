@@ -58,8 +58,8 @@
 
 - (void)startWithLookupBlock:(id)block
 {
-  v23 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v22 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -78,40 +78,38 @@
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
-      v21 = 136446210;
-      v22 = "[SSLookupRequest startWithLookupBlock:]";
-      LODWORD(v19) = 12;
-      v18 = &v21;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v20 = 136446210;
+      v21 = "[SSLookupRequest startWithLookupBlock:]";
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v21, v19}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __40__SSLookupRequest_startWithLookupBlock___block_invoke;
-  v20[3] = &unk_1E84AC760;
-  v20[4] = self;
-  v20[5] = block;
-  [(SSRequest *)self _startWithMessageID:85 messageBlock:v20, v18];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __40__SSLookupRequest_startWithLookupBlock___block_invoke;
+  v19[3] = &unk_1E84AC760;
+  v19[4] = self;
+  v19[5] = block;
+  [(SSRequest *)self _startWithMessageID:85 messageBlock:v19];
 }
 
 uint64_t __40__SSLookupRequest_startWithLookupBlock___block_invoke(uint64_t a1, void *a2)

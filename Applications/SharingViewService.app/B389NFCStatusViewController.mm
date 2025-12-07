@@ -38,10 +38,11 @@
 {
   v2 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_onDoneAction);
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_onDoneAction);
+  v4 = *(&self->super._bottomMarginConstraint + OBJC_IVAR____TtC18SharingViewService27B389NFCStatusViewController_onDoneAction);
   *v2 = 0;
   v2[1] = 0;
   selfCopy = self;
-  sub_100012050(v3);
+  sub_100012050(v3, v4);
   sub_10002DB84(0, 0);
 }
 

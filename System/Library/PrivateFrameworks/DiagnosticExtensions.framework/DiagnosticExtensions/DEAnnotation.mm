@@ -9,7 +9,7 @@
 
 + (void)annotateURL:(id)l displayName:(id)name description:(id)description iconType:(id)type additionalInfo:(id)info error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   descriptionCopy = description;
   typeCopy = type;
@@ -26,46 +26,46 @@
 
   else if (infoCopy)
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
-    v21 = infoCopy;
-    v22 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v22)
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
+    v20 = infoCopy;
+    v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v21)
     {
-      v23 = v22;
-      v30 = infoCopy;
-      v31 = typeCopy;
-      v32 = descriptionCopy;
-      v24 = *v34;
+      v22 = v21;
+      v29 = infoCopy;
+      v30 = typeCopy;
+      v31 = descriptionCopy;
+      v23 = *v33;
       while (2)
       {
-        for (i = 0; i != v23; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v34 != v24)
+          if (*v33 != v23)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v20);
           }
 
-          v26 = *(*(&v33 + 1) + 8 * i);
-          v27 = [v21 objectForKeyedSubscript:v26];
-          v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.diagnosticextensions.additionalInfo", v26];
-          v29 = [self writeExtendedAttributeInURL:lCopy forKey:v28 value:v27];
-          if (v29)
+          v25 = *(*(&v32 + 1) + 8 * i);
+          v26 = [v20 objectForKeyedSubscript:v25];
+          v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.diagnosticextensions.additionalInfo", v25];
+          v28 = [self writeExtendedAttributeInURL:lCopy forKey:v27 value:v26];
+          if (v28)
           {
-            v19 = v29;
+            v19 = v28;
             if (error)
             {
-              *error = [v29 copy];
+              *error = [v28 copy];
             }
 
             goto LABEL_21;
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v33 objects:v37 count:16];
-        if (v23)
+        v22 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        if (v22)
         {
           continue;
         }
@@ -75,9 +75,9 @@
 
       v19 = 0;
 LABEL_21:
-      typeCopy = v31;
-      descriptionCopy = v32;
-      infoCopy = v30;
+      typeCopy = v30;
+      descriptionCopy = v31;
+      infoCopy = v29;
     }
 
     else
@@ -90,13 +90,11 @@ LABEL_21:
   {
     v19 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)readExtendedAttributeInURL:(id)l forKey:(id)key error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   lCopy = l;
   keyCopy = key;
   path = [lCopy path];
@@ -108,7 +106,7 @@ LABEL_21:
       goto LABEL_25;
     }
 
-    [MEMORY[0x277CCACA8] stringWithFormat:@"URL path is nil. Cannot read annotation for key [%@]", keyCopy, v27];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"URL path is nil. Cannot read annotation for key [%@]", keyCopy, v26];
     goto LABEL_23;
   }
 
@@ -122,7 +120,7 @@ LABEL_21:
       goto LABEL_25;
     }
 
-    [MEMORY[0x277CCACA8] stringWithFormat:@"urlPathAsCString is nil. Cannot read annotation for key [%@]", keyCopy, v27];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"urlPathAsCString is nil. Cannot read annotation for key [%@]", keyCopy, v26];
     goto LABEL_23;
   }
 
@@ -134,7 +132,7 @@ LABEL_21:
       goto LABEL_25;
     }
 
-    [MEMORY[0x277CCACA8] stringWithFormat:@"keyAsCString is nil. Cannot write annotation for key [%@]", keyCopy, v27];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"keyAsCString is nil. Cannot write annotation for key [%@]", keyCopy, v26];
     goto LABEL_23;
   }
 
@@ -148,7 +146,7 @@ LABEL_21:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v29 = keyCopy;
+        v28 = keyCopy;
         _os_log_impl(&dword_248AB3000, v20, OS_LOG_TYPE_INFO, "Extended attribute not found for key [%{public}@]", buf, 0xCu);
       }
     }
@@ -202,14 +200,14 @@ LABEL_24:
   {
     if (error)
     {
-      v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error reading key [%@], errno: [%i]", keyCopy, *__error()];
-      *error = [self errorWithMessage:v24];
+      v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error reading key [%@], errno: [%i]", keyCopy, *__error()];
+      *error = [self errorWithMessage:v23];
     }
 
     else
     {
-      v25 = +[DELogging fwHandle];
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v24 = +[DELogging fwHandle];
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         +[DEAnnotation readExtendedAttributeInURL:forKey:error:];
       }
@@ -224,19 +222,17 @@ LABEL_24:
   {
     lastPathComponent = [lCopy lastPathComponent];
     *buf = 136381187;
-    v29 = v18;
-    v30 = 2114;
-    v31 = keyCopy;
-    v32 = 2114;
-    v33 = lastPathComponent;
+    v28 = v18;
+    v29 = 2114;
+    v30 = keyCopy;
+    v31 = 2114;
+    v32 = lastPathComponent;
     _os_log_debug_impl(&dword_248AB3000, v19, OS_LOG_TYPE_DEBUG, "Read [%{private}s] for key [%{public}@] in file [%{public}@]", buf, 0x20u);
   }
 
   error = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
   free(v18);
 LABEL_25:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return error;
 }
@@ -298,47 +294,40 @@ LABEL_11:
 
 + (id)errorWithMessage:(id)message
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA068];
-  v11[0] = message;
+  v9 = *MEMORY[0x277CCA068];
+  v10[0] = message;
   v4 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"DEExtensionErrorDomain" code:5 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 + (void)readExtendedAttributeInURL:forKey:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248AB3000, v1, v2, "Error reading extended attribute key [%{public}@], errno: [%i]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248AB3000, v0, v1, "Error reading extended attribute key [%{public}@], errno: [%i]", v2, v3, v4, v5);
 }
 
 + (void)readExtendedAttributeInURL:(uint64_t)a1 forKey:(uint64_t)a2 error:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Error allocating buffer to read value for key [%{public}@] size: [%li]", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_error_impl(&dword_248AB3000, log, OS_LOG_TYPE_ERROR, "Error allocating buffer to read value for key [%{public}@] size: [%li]", &v3, 0x16u);
 }
 
 + (void)readExtendedAttributeInURL:forKey:error:.cold.3()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_248AB3000, v1, v2, "Error reading extended attribute key [%{public}@] errno: [%i]", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_248AB3000, v0, v1, "Error reading extended attribute key [%{public}@] errno: [%i]", v2, v3, v4, v5);
 }
 
 @end

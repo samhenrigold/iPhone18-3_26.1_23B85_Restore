@@ -54,7 +54,7 @@
 
 - (id)knownFields
 {
-  v11[18] = *MEMORY[0x277D85DE8];
+  v10[18] = *MEMORY[0x277D85DE8];
   delegate = [(MTEventDataProvider *)self delegate];
   v4 = objc_opt_respondsToSelector();
 
@@ -66,32 +66,30 @@
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = MTLoadUrlEventHandler;
-    delegate2 = [(MTEventHandler *)&v10 knownFields];
-    v11[0] = @"fetchStartTime";
-    v11[1] = @"domainLookupStartTime";
-    v11[2] = @"domainLookupEndTime";
-    v11[3] = @"connectionStartTime";
-    v11[4] = @"connectionEndTime";
-    v11[5] = @"secureConnectionStartTime";
-    v11[6] = @"requestStartTime";
-    v11[7] = @"responseStartTime";
-    v11[8] = @"responseEndTime";
-    v11[9] = @"requestUrl";
-    v11[10] = @"connectionReused";
-    v11[11] = @"dnsServersIPAddresses";
-    v11[12] = @"edgeNodeCacheStatus";
-    v11[13] = @"redirectCount";
-    v11[14] = @"resolvedIPAddress";
-    v11[15] = @"statusCode";
-    v11[16] = @"xpSessionDuration";
-    v11[17] = @"xpSamplingPercentageUsers";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:18];
+    v9.receiver = self;
+    v9.super_class = MTLoadUrlEventHandler;
+    delegate2 = [(MTEventHandler *)&v9 knownFields];
+    v10[0] = @"fetchStartTime";
+    v10[1] = @"domainLookupStartTime";
+    v10[2] = @"domainLookupEndTime";
+    v10[3] = @"connectionStartTime";
+    v10[4] = @"connectionEndTime";
+    v10[5] = @"secureConnectionStartTime";
+    v10[6] = @"requestStartTime";
+    v10[7] = @"responseStartTime";
+    v10[8] = @"responseEndTime";
+    v10[9] = @"requestUrl";
+    v10[10] = @"connectionReused";
+    v10[11] = @"dnsServersIPAddresses";
+    v10[12] = @"edgeNodeCacheStatus";
+    v10[13] = @"redirectCount";
+    v10[14] = @"resolvedIPAddress";
+    v10[15] = @"statusCode";
+    v10[16] = @"xpSessionDuration";
+    v10[17] = @"xpSamplingPercentageUsers";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:18];
     knownFields = [delegate2 arrayByAddingObjectsFromArray:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return knownFields;
 }

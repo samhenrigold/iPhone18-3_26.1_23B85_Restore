@@ -76,15 +76,15 @@ uint64_t __25__PCSLockManager_manager__block_invoke()
 
 - (BOOL)holdAssertion:(id)assertion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   v5 = [(PCSLockManager *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [assertionCopy name];
-    v14 = 138543362;
-    v15 = name;
-    _os_log_impl(&dword_1B229C000, v5, OS_LOG_TYPE_DEFAULT, "assertion %{public}@ trying to hold lock assertion", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = name;
+    _os_log_impl(&dword_1B229C000, v5, OS_LOG_TYPE_DEFAULT, "assertion %{public}@ trying to hold lock assertion", &v13, 0xCu);
   }
 
   selfCopy = self;
@@ -106,9 +106,9 @@ uint64_t __25__PCSLockManager_manager__block_invoke()
         v10 = "";
       }
 
-      v14 = 136315138;
-      v15 = v10;
-      _os_log_impl(&dword_1B229C000, v8, OS_LOG_TYPE_DEFAULT, "Got lock assertion%s", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = v10;
+      _os_log_impl(&dword_1B229C000, v8, OS_LOG_TYPE_DEFAULT, "Got lock assertion%s", &v13, 0xCu);
     }
 
     [(NSHashTable *)selfCopy->_holders addObject:assertionCopy];
@@ -117,21 +117,20 @@ uint64_t __25__PCSLockManager_manager__block_invoke()
 
   objc_sync_exit(selfCopy);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)_onlockDropAssertion:(id)assertion
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   v5 = [(PCSLockManager *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [assertionCopy name];
-    v9 = 138543362;
-    v10 = name;
-    _os_log_impl(&dword_1B229C000, v5, OS_LOG_TYPE_DEFAULT, "assertion %{public}@ dropping lock assertion", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = name;
+    _os_log_impl(&dword_1B229C000, v5, OS_LOG_TYPE_DEFAULT, "assertion %{public}@ dropping lock assertion", &v8, 0xCu);
   }
 
   [(NSHashTable *)self->_holders removeObject:assertionCopy];
@@ -141,12 +140,10 @@ uint64_t __25__PCSLockManager_manager__block_invoke()
     v7 = [(PCSLockManager *)self log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1B229C000, v7, OS_LOG_TYPE_DEFAULT, "dropped lock assertion", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_1B229C000, v7, OS_LOG_TYPE_DEFAULT, "dropped lock assertion", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dropAssertion:(id)assertion

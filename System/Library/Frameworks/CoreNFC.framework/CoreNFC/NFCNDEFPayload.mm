@@ -55,13 +55,13 @@
 
 - (NFCNDEFPayload)initWithFormatType:(unsigned __int8)type type:(id)a4 identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v13 = a4;
   identifierCopy = identifier;
   payloadCopy = payload;
-  v41.receiver = self;
-  v41.super_class = NFCNDEFPayload;
-  v16 = [(NFCNDEFPayload *)&v41 init];
+  v40.receiver = self;
+  v40.super_class = NFCNDEFPayload;
+  v16 = [(NFCNDEFPayload *)&v40 init];
   if (!v16)
   {
 LABEL_25:
@@ -157,38 +157,35 @@ LABEL_25:
     v28 = object_getClassName(v16);
     v29 = sel_getName(a2);
     *buf = 67109890;
-    v43 = v27;
-    v44 = 2082;
-    v45 = v28;
-    v46 = 2082;
-    v47 = v29;
-    v48 = 1024;
-    v49 = 78;
+    v42 = v27;
+    v43 = 2082;
+    v44 = v28;
+    v45 = 2082;
+    v46 = v29;
+    v47 = 1024;
+    v48 = 78;
     _os_log_impl(&dword_23728C000, v25, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i NDEF payload exceeds the size limit", buf, 0x22u);
   }
 
   v30 = 0;
 LABEL_26:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  payload = self->_payload;
-  v5 = [v3 initWithFormat:@"TNF=%d, Payload Type=%@, Payload ID=%@, Payload=%@, ChunkSize=%zu", self->_typeNameFormat, self->_type, self->_identifier, payload, self->_chunkSize];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"TNF=%d, Payload Type=%@, Payload ID=%@, Payload=%@, ChunkSize=%zu", self->_typeNameFormat, self->_type, self->_identifier, self->_payload, self->_chunkSize];
 
-  return v5;
+  return v2;
 }
 
 - (id)asData
 {
-  v42 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v4 = [MEMORY[0x277D82B68] recordsWithTNF:self->_typeNameFormat type:self->_type identifier:self->_identifier payload:self->_payload chunkSize:self->_chunkSize outError:&v32];
-  if (v32)
+  v41 = *MEMORY[0x277D85DE8];
+  v31 = 0;
+  v4 = [MEMORY[0x277D82B68] recordsWithTNF:self->_typeNameFormat type:self->_type identifier:self->_identifier payload:self->_payload chunkSize:self->_chunkSize outError:&v31];
+  if (v31)
   {
     v5 = 0;
   }
@@ -196,26 +193,26 @@ LABEL_26:
   else
   {
     v6 = objc_opt_new();
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v7 = v4;
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v41 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v40 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          asData = [*(*(&v28 + 1) + 8 * i) asData];
+          asData = [*(*(&v27 + 1) + 8 * i) asData];
           if (!asData)
           {
             Logger = NFLogGetLogger();
@@ -232,7 +229,7 @@ LABEL_26:
                 v19 = 43;
               }
 
-              v15(3, "%c[%{public}s %{public}s]:%i Record serialization error", v19, ClassName, Name, 110, v28);
+              v15(3, "%c[%{public}s %{public}s]:%i Record serialization error", v19, ClassName, Name, 110, v27);
             }
 
             v20 = NFSharedLogGetLogger();
@@ -252,13 +249,13 @@ LABEL_26:
               v23 = object_getClassName(self);
               v24 = sel_getName(a2);
               *buf = 67109890;
-              v34 = v22;
-              v35 = 2082;
-              v36 = v23;
-              v37 = 2082;
-              v38 = v24;
-              v39 = 1024;
-              v40 = 110;
+              v33 = v22;
+              v34 = 2082;
+              v35 = v23;
+              v36 = 2082;
+              v37 = v24;
+              v38 = 1024;
+              v39 = 110;
               _os_log_impl(&dword_23728C000, v20, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Record serialization error", buf, 0x22u);
             }
 
@@ -270,7 +267,7 @@ LABEL_26:
           [v6 appendData:asData];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v28 objects:v41 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v40 count:16];
         if (v9)
         {
           continue;
@@ -284,14 +281,12 @@ LABEL_26:
 LABEL_22:
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (NFCNDEFPayload)wellKnownTypeURIPayloadWithString:(NSString *)uri
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v5 = uri;
   v6 = 0;
   while (1)
@@ -316,8 +311,8 @@ LABEL_22:
   v5 = v10;
 LABEL_7:
   v11 = objc_opt_new();
-  v44 = v9;
-  v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v44 length:1];
+  v43 = v9;
+  v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:&v43 length:1];
   [v11 appendData:v12];
 
   if (![(NSString *)v5 length])
@@ -359,13 +354,13 @@ LABEL_7:
     v27 = object_getClassName(self);
     v28 = sel_getName(a2);
     *buf = 67109890;
-    v46 = v26;
-    v47 = 2082;
-    v48 = v27;
-    v49 = 2082;
-    v50 = v28;
-    v51 = 1024;
-    v52 = 161;
+    v45 = v26;
+    v46 = 2082;
+    v47 = v27;
+    v48 = 2082;
+    v49 = v28;
+    v50 = 1024;
+    v51 = 161;
     v29 = "%c[%{public}s %{public}s]:%i Missing URI field";
     goto LABEL_28;
   }
@@ -391,14 +386,14 @@ LABEL_7:
     v32 = object_getClass(self);
     v33 = class_isMetaClass(v32);
     v34 = object_getClassName(self);
-    v43 = sel_getName(a2);
+    v42 = sel_getName(a2);
     v35 = 45;
     if (v33)
     {
       v35 = 43;
     }
 
-    v31(3, "%c[%{public}s %{public}s]:%i Invalid UTF8 URI string", v35, v34, v43, 157);
+    v31(3, "%c[%{public}s %{public}s]:%i Invalid UTF8 URI string", v35, v34, v42, 157);
   }
 
   v16 = NFSharedLogGetLogger();
@@ -418,13 +413,13 @@ LABEL_7:
     v38 = object_getClassName(self);
     v39 = sel_getName(a2);
     *buf = 67109890;
-    v46 = v37;
-    v47 = 2082;
-    v48 = v38;
-    v49 = 2082;
-    v50 = v39;
-    v51 = 1024;
-    v52 = 157;
+    v45 = v37;
+    v46 = 2082;
+    v47 = v38;
+    v48 = 2082;
+    v49 = v39;
+    v50 = 1024;
+    v51 = 157;
     v29 = "%c[%{public}s %{public}s]:%i Invalid UTF8 URI string";
 LABEL_28:
     _os_log_impl(&dword_23728C000, v16, OS_LOG_TYPE_ERROR, v29, buf, 0x22u);
@@ -433,8 +428,6 @@ LABEL_28:
 LABEL_29:
   v18 = 0;
 LABEL_30:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -528,7 +521,7 @@ LABEL_30:
 
 - (NSString)wellKnownTypeTextPayloadWithLocale:(NSLocale *)locale
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v6 = [@"T" dataUsingEncoding:4];
   if (self->_typeNameFormat != 1 || ![(NSData *)self->_type isEqualToData:v6])
   {
@@ -538,10 +531,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v42 = 0;
-  [(NSData *)self->_payload getBytes:&v42 length:1];
-  v7 = v42 & 0x3F;
-  if (v42 < 0)
+  v41 = 0;
+  [(NSData *)self->_payload getBytes:&v41 length:1];
+  v7 = v41 & 0x3F;
+  if (v41 < 0)
   {
     v8 = 10;
   }
@@ -587,82 +580,82 @@ LABEL_17:
       v18 = object_getClassName(self);
       v19 = sel_getName(a2);
       *buf = 67109890;
-      v44 = v17;
-      v45 = 2082;
-      v46 = v18;
-      v47 = 2082;
-      v48 = v19;
-      v49 = 1024;
-      v50 = 266;
+      v43 = v17;
+      v44 = 2082;
+      v45 = v18;
+      v46 = 2082;
+      v47 = v19;
+      v48 = 1024;
+      v49 = 266;
       _os_log_impl(&dword_23728C000, v15, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid payload length", buf, 0x22u);
     }
 
     goto LABEL_17;
   }
 
-  v23 = objc_alloc(MEMORY[0x277CCACA8]);
-  v24 = [(NSData *)self->_payload subdataWithRange:1, v7];
-  v25 = [v23 initWithData:v24 encoding:1];
+  v22 = objc_alloc(MEMORY[0x277CCACA8]);
+  v23 = [(NSData *)self->_payload subdataWithRange:1, v7];
+  v24 = [v22 initWithData:v23 encoding:1];
 
-  if ([v25 length])
+  if ([v24 length])
   {
     if (locale)
     {
-      *locale = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v25];
+      *locale = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v24];
     }
 
-    v26 = [(NSData *)self->_payload length]+ ~v7;
-    if (v26)
+    v25 = [(NSData *)self->_payload length]+ ~v7;
+    if (v25)
     {
-      v27 = objc_alloc(MEMORY[0x277CCACA8]);
-      v28 = [(NSData *)self->_payload subdataWithRange:v7 + 1, v26];
-      v20 = [v27 initWithData:v28 encoding:v8];
+      v26 = objc_alloc(MEMORY[0x277CCACA8]);
+      v27 = [(NSData *)self->_payload subdataWithRange:v7 + 1, v25];
+      v20 = [v26 initWithData:v27 encoding:v8];
     }
 
     else
     {
-      v29 = NFLogGetLogger();
-      if (v29)
+      v28 = NFLogGetLogger();
+      if (v28)
       {
-        v30 = v29;
-        v31 = object_getClass(self);
-        v32 = class_isMetaClass(v31);
-        v33 = object_getClassName(self);
-        v41 = sel_getName(a2);
-        v34 = 45;
-        if (v32)
+        v29 = v28;
+        v30 = object_getClass(self);
+        v31 = class_isMetaClass(v30);
+        v32 = object_getClassName(self);
+        v40 = sel_getName(a2);
+        v33 = 45;
+        if (v31)
         {
-          v34 = 43;
+          v33 = 43;
         }
 
-        v30(4, "%c[%{public}s %{public}s]:%i Empty string", v34, v33, v41, 284);
+        v29(4, "%c[%{public}s %{public}s]:%i Empty string", v33, v32, v40, 284);
       }
 
-      v35 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v34 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        v36 = object_getClass(self);
-        if (class_isMetaClass(v36))
+        v35 = object_getClass(self);
+        if (class_isMetaClass(v35))
         {
-          v37 = 43;
+          v36 = 43;
         }
 
         else
         {
-          v37 = 45;
+          v36 = 45;
         }
 
-        v38 = object_getClassName(self);
-        v39 = sel_getName(a2);
+        v37 = object_getClassName(self);
+        v38 = sel_getName(a2);
         *buf = 67109890;
-        v44 = v37;
-        v45 = 2082;
-        v46 = v38;
-        v47 = 2082;
-        v48 = v39;
-        v49 = 1024;
-        v50 = 284;
-        _os_log_impl(&dword_23728C000, v35, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Empty string", buf, 0x22u);
+        v43 = v36;
+        v44 = 2082;
+        v45 = v37;
+        v46 = 2082;
+        v47 = v38;
+        v48 = 1024;
+        v49 = 284;
+        _os_log_impl(&dword_23728C000, v34, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Empty string", buf, 0x22u);
       }
 
       v20 = objc_opt_new();
@@ -675,7 +668,6 @@ LABEL_17:
   }
 
 LABEL_18:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

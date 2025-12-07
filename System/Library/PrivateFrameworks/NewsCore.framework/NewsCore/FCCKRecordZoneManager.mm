@@ -9,75 +9,74 @@
 
 - (id)initWithDatabase:(void *)database recordZoneNames:
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v28 = a2;
+  v35 = *MEMORY[0x1E69E9840];
+  v27 = a2;
   databaseCopy = database;
-  if (self && (v34.receiver = self, v34.super_class = FCCKRecordZoneManager, (v29 = objc_msgSendSuper2(&v34, sel_init)) != 0))
+  if (self && (v33.receiver = self, v33.super_class = FCCKRecordZoneManager, (v28 = objc_msgSendSuper2(&v33, sel_init)) != 0))
   {
-    v25 = a2;
+    v24 = a2;
     array = [MEMORY[0x1E695DF70] array];
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v26 = databaseCopy;
+    v25 = databaseCopy;
     obj = databaseCopy;
-    v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v31;
+      v11 = *v30;
       v12 = *MEMORY[0x1E695B728];
       do
       {
         v13 = 0;
         do
         {
-          if (*v31 != v11)
+          if (*v30 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v30 + 1) + 8 * v13);
+          v14 = *(*(&v29 + 1) + 8 * v13);
           v15 = [objc_alloc(MEMORY[0x1E695BA90]) initWithZoneName:v14 ownerName:v12];
           [array addObject:v15];
-          v16 = [[FCCKRecordZone alloc] initWithDatabase:v28 delegate:v29 recordZoneID:v15];
+          v16 = [[FCCKRecordZone alloc] initWithDatabase:v27 delegate:v28 recordZoneID:v15];
           [dictionary setObject:v16 forKey:v14];
 
           ++v13;
         }
 
         while (v10 != v13);
-        v10 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v10 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v10);
     }
 
-    objc_storeStrong(v29 + 1, v25);
-    v17 = v29[2];
-    v29[2] = array;
+    objc_storeStrong(v28 + 1, v24);
+    v17 = v28[2];
+    v28[2] = array;
     v18 = array;
 
-    v19 = v29[3];
-    v29[3] = dictionary;
+    v19 = v28[3];
+    v28[3] = dictionary;
     v20 = dictionary;
 
     v21 = [[FCAsyncSerialQueue alloc] initWithQualityOfService:25];
-    v22 = v29[5];
-    v29[5] = v21;
+    v22 = v28[5];
+    v28[5] = v21;
 
-    databaseCopy = v26;
+    databaseCopy = v25;
   }
 
   else
   {
-    v29 = 0;
+    v28 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
-  return v29;
+  return v28;
 }
 
 - (id)recordZoneWithName:(id *)name
@@ -177,7 +176,7 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
 
 void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -185,30 +184,30 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
     v7 = [MEMORY[0x1E695DF70] array];
     if ([v6 code] == 2)
     {
-      v25 = v5;
+      v24 = v5;
       v8 = [v6 userInfo];
       v9 = [v8 objectForKey:*MEMORY[0x1E695B798]];
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v10 = v9;
-      v11 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v31;
+        v13 = *v30;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v31 != v13)
+            if (*v30 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = *(*(&v30 + 1) + 8 * i);
+            v15 = *(*(&v29 + 1) + 8 * i);
             v16 = [v10 objectForKey:v15];
             if ([v16 code] == 26)
             {
@@ -217,13 +216,13 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v30 objects:v34 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v29 objects:v33 count:16];
         }
 
         while (v12);
       }
 
-      v5 = v25;
+      v5 = v24;
     }
 
     if ([v7 count])
@@ -232,17 +231,17 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
       [(FCCKPrivateSaveRecordZonesOperation *)v18 setRecordZonesToSave:v7];
       [(FCOperation *)v18 setQualityOfService:25];
       [(FCOperation *)v18 setRelativePriority:1];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler___block_invoke_4;
-      v26[3] = &unk_1E7C3FEB8;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler___block_invoke_4;
+      v25[3] = &unk_1E7C3FEB8;
       v19 = v5;
       v20 = *(a1 + 32);
       v21 = *(a1 + 40);
-      v27 = v19;
-      v28 = v20;
-      v29 = v21;
-      [(FCCKPrivateSaveRecordZonesOperation *)v18 setSaveRecordZonesCompletionBlock:v26];
+      v26 = v19;
+      v27 = v20;
+      v28 = v21;
+      [(FCCKPrivateSaveRecordZonesOperation *)v18 setSaveRecordZonesCompletionBlock:v25];
       v22 = *(a1 + 32);
       if (v22)
       {
@@ -268,8 +267,6 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
     [(FCAssetHandle *)*(a1 + 32) setFetchOperation:v5];
     (*(*(a1 + 40) + 16))();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler___block_invoke_4(void *a1, void *a2, void *a3)
@@ -308,7 +305,7 @@ void __71__FCCKRecordZoneManager_prepareRecordZonesForUseWithCompletionHandler__
 
 void __72__FCCKRecordZoneManager_ensureRecordZoneExistsWithID_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   if (v4)
@@ -336,13 +333,13 @@ void __72__FCCKRecordZoneManager_ensureRecordZoneExistsWithID_completionHandler_
         {
           v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing record zone for ID %@", *(a1 + 40)];
           *buf = 136315906;
-          v15 = "[FCCKRecordZoneManager ensureRecordZoneExistsWithID:completionHandler:]_block_invoke";
-          v16 = 2080;
-          v17 = "FCCKRecordZoneManager.m";
-          v18 = 1024;
-          v19 = 152;
-          v20 = 2114;
-          v21 = v10;
+          v14 = "[FCCKRecordZoneManager ensureRecordZoneExistsWithID:completionHandler:]_block_invoke";
+          v15 = 2080;
+          v16 = "FCCKRecordZoneManager.m";
+          v17 = 1024;
+          v18 = 152;
+          v19 = 2114;
+          v20 = v10;
           v11 = MEMORY[0x1E69E9C10];
 LABEL_15:
           _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
@@ -360,13 +357,13 @@ LABEL_15:
       {
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"missing record zone for ID %@", *(a1 + 40)];
         *buf = 136315906;
-        v15 = "[FCCKRecordZoneManager ensureRecordZoneExistsWithID:completionHandler:]_block_invoke";
-        v16 = 2080;
-        v17 = "FCCKRecordZoneManager.m";
-        v18 = 1024;
-        v19 = 156;
-        v20 = 2114;
-        v21 = v10;
+        v14 = "[FCCKRecordZoneManager ensureRecordZoneExistsWithID:completionHandler:]_block_invoke";
+        v15 = 2080;
+        v16 = "FCCKRecordZoneManager.m";
+        v17 = 1024;
+        v18 = 156;
+        v19 = 2114;
+        v20 = v10;
         v11 = MEMORY[0x1E69E9C10];
         goto LABEL_15;
       }
@@ -374,8 +371,6 @@ LABEL_15:
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

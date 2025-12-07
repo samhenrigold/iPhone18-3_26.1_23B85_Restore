@@ -115,7 +115,6 @@
     v5 = 0;
     do
     {
-      v6 = p_rxVHTSuccess->list[v5];
       PBDataWriterWriteUint64Field();
       ++v5;
     }
@@ -125,55 +124,51 @@
 
   if (self->_txVHTSuccess.count)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = self->_txVHTSuccess.list[v7];
       PBDataWriterWriteUint64Field();
-      ++v7;
+      ++v6;
     }
 
-    while (v7 < self->_txVHTSuccess.count);
+    while (v6 < self->_txVHTSuccess.count);
   }
 
   if (self->_rxMCSSuccess.count)
   {
-    v9 = 0;
+    v7 = 0;
     do
     {
-      v10 = self->_rxMCSSuccess.list[v9];
       PBDataWriterWriteUint64Field();
-      ++v9;
+      ++v7;
     }
 
-    while (v9 < self->_rxMCSSuccess.count);
+    while (v7 < self->_rxMCSSuccess.count);
   }
 
   if (self->_txMCSSuccess.count)
   {
-    v11 = 0;
+    v8 = 0;
     do
     {
-      v12 = self->_txMCSSuccess.list[v11];
       PBDataWriterWriteUint64Field();
-      ++v11;
+      ++v8;
     }
 
-    while (v11 < self->_txMCSSuccess.count);
+    while (v8 < self->_txMCSSuccess.count);
   }
 
   p_ampduAGGs = &self->_ampduAGGs;
   if (p_ampduAGGs->count)
   {
-    v14 = 0;
+    v10 = 0;
     do
     {
-      v15 = p_ampduAGGs->list[v14];
       PBDataWriterWriteUint64Field();
-      ++v14;
+      ++v10;
     }
 
-    while (v14 < p_ampduAGGs->count);
+    while (v10 < p_ampduAGGs->count);
   }
 }
 

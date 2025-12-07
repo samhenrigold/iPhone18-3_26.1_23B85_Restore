@@ -87,7 +87,7 @@
 
 - (const)pluginHeader
 {
-  [(BackendXPC *)self backend];
+  objc_msgSend_backend(self, a2);
   v2 = *(v4 + 24);
   if (v5)
   {

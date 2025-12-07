@@ -181,7 +181,7 @@ LABEL_14:
   return isReportingAvailable_isAvailable;
 }
 
-uint64_t __67__PXVideoPlaybackReporterAVPlayerItemEndpoint_isReportingAvailable__block_invoke()
+void *__67__PXVideoPlaybackReporterAVPlayerItemEndpoint_isReportingAvailable__block_invoke()
 {
   result = [MEMORY[0x1E69880B0] instancesRespondToSelector:sel_setReportingValueWithNumber_forKey_];
   isReportingAvailable_isAvailable = result;

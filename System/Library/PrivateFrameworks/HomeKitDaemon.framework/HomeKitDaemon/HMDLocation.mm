@@ -29,6 +29,7 @@
 - (void)_updateEntryForRegion:(id)region;
 - (void)_updateExitForRegion:(id)region;
 - (void)_updateRegionState:(int64_t)state forRegion:(id)region;
+- (void)_updateWithLocationAuthorizationStatus:(int)status;
 - (void)beingConfigured:(BOOL)configured completionHandler:(id)handler;
 - (void)dealloc;
 - (void)deregisterForRegionUpdate:(id)update completionHandler:(id)handler;
@@ -56,7 +57,7 @@
 
 - (void)sessionDidDisconnect:(id)disconnect
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   disconnectCopy = disconnect;
   self->_carPlayConnected = 0;
   v5 = [MEMORY[0x277CBEAA8] now];
@@ -69,18 +70,17 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@CarPlay session disconnected", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@CarPlay session disconnected", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sessionDidConnect:(id)connect
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   self->_carPlayConnected = 1;
   lastCarPlaySessionDisconnectionTimeStamp = self->_lastCarPlaySessionDisconnectionTimeStamp;
@@ -92,18 +92,17 @@
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@New CarPlay session connected", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@New CarPlay session connected", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCoreRoutineLOIForCurrentLocationWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!handlerCopy)
   {
@@ -135,18 +134,18 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v13;
+      v19 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Asking Core Routine for LOI at current location", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler___block_invoke;
-    v17[3] = &unk_278687158;
-    v17[4] = selfCopy;
-    v18 = v5;
-    [v8 _fetchPlaceInferencesWithFidelityPolicy:5 handler:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler___block_invoke;
+    v16[3] = &unk_278687158;
+    v16[4] = selfCopy;
+    v17 = v5;
+    [v8 _fetchPlaceInferencesWithFidelityPolicy:5 handler:v16];
   }
 
   else
@@ -155,7 +154,7 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v14;
+      v19 = v14;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@looks like we do not have valid location manager instance.", buf, 0xCu);
     }
 
@@ -163,13 +162,11 @@
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     (v5)[2](v5, 0, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -193,9 +190,9 @@ void __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler_
           if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             v15 = HMFGetLogIdentifier();
-            v37 = 138543362;
-            v38 = v15;
-            _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@LOI Identifier is nil. Returning fallback location.", &v37, 0xCu);
+            v36 = 138543362;
+            v37 = v15;
+            _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@LOI Identifier is nil. Returning fallback location.", &v36, 0xCu);
           }
 
           objc_autoreleasePoolPop(v12);
@@ -208,11 +205,11 @@ void __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler_
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v37 = 138543618;
-          v38 = v19;
-          v39 = 2112;
-          v40 = v9;
-          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@CR LOI Location : %@", &v37, 0x16u);
+          v36 = 138543618;
+          v37 = v19;
+          v38 = 2112;
+          v39 = v9;
+          _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@CR LOI Location : %@", &v36, 0x16u);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -226,11 +223,11 @@ void __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler_
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         v34 = HMFGetLogIdentifier();
-        v37 = 138543618;
-        v38 = v34;
-        v39 = 2112;
-        v40 = v9;
-        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Not using CR location with low accuracy : %@", &v37, 0x16u);
+        v36 = 138543618;
+        v37 = v34;
+        v38 = 2112;
+        v39 = v9;
+        _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Not using CR location with low accuracy : %@", &v36, 0x16u);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -247,9 +244,9 @@ void __72__HMDLocation_getCoreRoutineLOIForCurrentLocationWithCompletionHandler_
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v37 = 138543362;
-        v38 = v27;
-        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Reference location is nil.", &v37, 0xCu);
+        v36 = 138543362;
+        v37 = v27;
+        _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Reference location is nil.", &v36, 0xCu);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -271,18 +268,16 @@ LABEL_22:
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     v23 = HMFGetLogIdentifier();
-    v37 = 138543618;
-    v38 = v23;
-    v39 = 2112;
-    v40 = v7;
-    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Got an error or place inferences are nil while fetching location of interest. %@", &v37, 0x16u);
+    v36 = 138543618;
+    v37 = v23;
+    v38 = 2112;
+    v39 = v7;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Got an error or place inferences are nil while fetching location of interest. %@", &v36, 0x16u);
   }
 
   objc_autoreleasePoolPop(v20);
   (*(*(a1 + 40) + 16))();
 LABEL_23:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchLocationOfInterestAtLocation:(id)location withCompletion:(id)completion
@@ -295,7 +290,7 @@ LABEL_23:
 
 - (void)_unregisterForNPLOIMonitoring:(id)monitoring
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -306,11 +301,11 @@ LABEL_23:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = monitoringCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Unregistering for NPLOI monitoring for delegate: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = monitoringCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Unregistering for NPLOI monitoring for delegate: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -318,7 +313,6 @@ LABEL_23:
   [nploiMonitoringDelegatesToLocations removeObjectForKey:monitoringCopy];
 
   [(HMDLocation *)selfCopy _startUpdateOrStopNPLOIMonitoring];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterForNPLOIMonitoring:(id)monitoring
@@ -337,7 +331,7 @@ LABEL_23:
 
 - (void)_registerForNPLOIMonitoring:(id)monitoring forLocation:(id)location
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   locationCopy = location;
   handlerQueue = [(HMDLocation *)self handlerQueue];
@@ -352,11 +346,11 @@ LABEL_23:
     if (v12)
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2112;
-      v20 = monitoringCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for NPLOI monitoring for delegate: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2112;
+      v19 = monitoringCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for NPLOI monitoring for delegate: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -371,18 +365,16 @@ LABEL_23:
     if (v12)
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v15;
-      v19 = 2112;
-      v20 = monitoringCopy;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@No location, unregistering if already register for NPLOI monitoring for delegate: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v15;
+      v18 = 2112;
+      v19 = monitoringCopy;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@No location, unregistering if already register for NPLOI monitoring for delegate: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     [(HMDLocation *)selfCopy _unregisterForNPLOIMonitoring:monitoringCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForNPLOIMonitoring:(id)monitoring forLocation:(id)location
@@ -404,7 +396,7 @@ LABEL_23:
 
 - (void)_startUpdateOrStopNPLOIMonitoring
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
@@ -416,9 +408,9 @@ LABEL_23:
     v7 = HMFGetLogIdentifier();
     nploiMonitoringDelegatesToLocations = [(HMDLocation *)selfCopy nploiMonitoringDelegatesToLocations];
     *buf = 138543618;
-    v31 = v7;
-    v32 = 2048;
-    v33 = [nploiMonitoringDelegatesToLocations count];
+    v30 = v7;
+    v31 = 2048;
+    v32 = [nploiMonitoringDelegatesToLocations count];
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Current NPLOI monitoring contexts count is now %lu", buf, 0x16u);
   }
 
@@ -434,7 +426,7 @@ LABEL_23:
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v21;
+      v30 = v21;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Stopping NPLOI monitoring because there are no more delegates or not allowed to monitor", buf, 0xCu);
     }
 
@@ -451,7 +443,7 @@ LABEL_23:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v15;
+      v30 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Updating NPLOI context options for NPLOI monitoring", buf, 0xCu);
     }
 
@@ -460,14 +452,14 @@ LABEL_23:
     if (_createCurrentNPLOIRegistrationOptions)
     {
       routineManager = [(HMDLocation *)v13 routineManager];
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __48__HMDLocation__startUpdateOrStopNPLOIMonitoring__block_invoke;
-      v27[3] = &unk_27867D948;
-      objc_copyWeak(&v28, &location);
-      [routineManager startMonitoringPredictedContextWithOptions:_createCurrentNPLOIRegistrationOptions completionHandler:v27];
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __48__HMDLocation__startUpdateOrStopNPLOIMonitoring__block_invoke;
+      v26[3] = &unk_27867D948;
+      objc_copyWeak(&v27, &location);
+      [routineManager startMonitoringPredictedContextWithOptions:_createCurrentNPLOIRegistrationOptions completionHandler:v26];
 
-      objc_destroyWeak(&v28);
+      objc_destroyWeak(&v27);
     }
 
     else
@@ -479,7 +471,7 @@ LABEL_23:
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v25;
+        v30 = v25;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to create NPLOI context options for NPLOI monitoring, stop monitoring", buf, 0xCu);
       }
 
@@ -489,7 +481,6 @@ LABEL_23:
   }
 
   objc_destroyWeak(&location);
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDLocation__startUpdateOrStopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -524,7 +515,7 @@ void __48__HMDLocation__startUpdateOrStopNPLOIMonitoring__block_invoke(uint64_t 
 
 void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (v3)
@@ -535,17 +526,15 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop NPLOI monitoring with %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop NPLOI monitoring with %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processPredictedContextResult:(id)result error:(id)error
@@ -593,7 +582,7 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
 
 - (id)_createCurrentNPLOIRegistrationOptions
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
@@ -622,10 +611,10 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
   if ([v6 count])
   {
     v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"dateInterval.startDate.date" ascending:1];
-    v18[0] = v12;
+    v17[0] = v12;
     v13 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"probability" ascending:0];
-    v18[1] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[1] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
 
     v15 = [objc_alloc(MEMORY[0x277D01238]) initWithForecastWindowDateInterval:0 filterContextTypeMask:1 filterLocations:v6 resultSortDescriptors:v14];
   }
@@ -635,14 +624,12 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (BOOL)isNPLOIMonitoringAllowed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   locationManager = [(HMDLocation *)self locationManager];
   locationServicesEnabled = [objc_opt_class() locationServicesEnabled];
 
@@ -654,15 +641,14 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Location Services are disabled", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Location Services are disabled", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return locationServicesEnabled;
 }
 
@@ -682,7 +668,7 @@ void __35__HMDLocation__stopNPLOIMonitoring__block_invoke(uint64_t a1, void *a2)
 
 void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -690,23 +676,21 @@ void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invok
   {
     v5 = HMFGetLogIdentifier();
     v6 = regionAsString(*(a1 + 40));
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@did start monitoring for region: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@did start monitoring for region: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v7 = [*(a1 + 32) locationManager];
   [v7 requestStateForRegion:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didExitRegion:(id)region
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v8 = objc_autoreleasePoolPush();
@@ -716,22 +700,20 @@ void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invok
   {
     v11 = HMFGetLogIdentifier();
     v12 = regionAsString(regionCopy);
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@LocationManager did exit the region %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@LocationManager did exit the region %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDLocation *)selfCopy _handleDeterminedState:2 forRegion:regionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didEnterRegion:(id)region
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v8 = objc_autoreleasePoolPush();
@@ -741,22 +723,20 @@ void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invok
   {
     v11 = HMFGetLogIdentifier();
     v12 = regionAsString(regionCopy);
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@LocationManager did enter the region %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@LocationManager did enter the region %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMDLocation *)selfCopy _handleDeterminedState:1 forRegion:regionCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didDetermineState:(int64_t)state forRegion:(id)region
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   regionCopy = region;
   v10 = objc_autoreleasePoolPush();
@@ -767,24 +747,22 @@ void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invok
     v13 = HMFGetLogIdentifier();
     v14 = HMCLRegionStateAsString();
     [regionCopy radius];
-    v17 = 138543874;
-    v18 = v13;
-    v19 = 2112;
-    v20 = v14;
-    v21 = 2048;
-    v22 = v15;
-    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@LocationManager did determine region state: %@, radius : %f", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v13;
+    v18 = 2112;
+    v19 = v14;
+    v20 = 2048;
+    v21 = v15;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@LocationManager did determine region state: %@, radius : %f", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
   [(HMDLocation *)selfCopy _handleDeterminedState:state forRegion:regionCopy];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   authorizationStatus = [authorizationCopy authorizationStatus];
   v6 = objc_autoreleasePoolPush();
@@ -795,28 +773,26 @@ void __59__HMDLocation_locationManager_didStartMonitoringForRegion___block_invok
     v9 = HMFGetLogIdentifier();
     v10 = HMCLAuthorizationStatusAsString();
     *buf = 138543618;
-    v16 = v9;
-    v17 = 2112;
-    v18 = v10;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v10;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Received updated authorization status %@ for location", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   handlerQueue = [(HMDLocation *)selfCopy handlerQueue];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke;
-  v13[3] = &unk_278688888;
-  v13[4] = selfCopy;
-  v14 = authorizationStatus;
-  dispatch_async(handlerQueue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke;
+  v12[3] = &unk_278688888;
+  v12[4] = selfCopy;
+  v13 = authorizationStatus;
+  dispatch_async(handlerQueue, v12);
 }
 
 uint64_t __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) authStatus];
   [*(a1 + 32) setAuthStatus:*(a1 + 40)];
   if (([MEMORY[0x277CBFC10] hm_isLocationAllowedForAuthorizationStatus:*(a1 + 40)] & 1) == 0)
@@ -833,30 +809,27 @@ uint64_t __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke(
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = HMFGetLogIdentifier();
-      v7 = *(a1 + 40);
-      v8 = HMCLAuthorizationStatusAsString();
+      v7 = HMCLAuthorizationStatusAsString();
       [*(a1 + 32) locationAuthorized];
-      v9 = HMLocationAuthorizationAsString();
-      v12 = 138543874;
-      v13 = v6;
+      v8 = HMLocationAuthorizationAsString();
+      v10 = 138543874;
+      v11 = v6;
+      v12 = 2112;
+      v13 = v7;
       v14 = 2112;
       v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Initial location auth status for homed: %@, %@", &v12, 0x20u);
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Initial location auth status for homed: %@, %@", &v10, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
 
-  result = [*(a1 + 32) _startUpdateOrStopNPLOIMonitoring];
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _startUpdateOrStopNPLOIMonitoring];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -866,9 +839,9 @@ uint64_t __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke(
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = errorCopy;
+    v15 = v11;
+    v16 = 2112;
+    v17 = errorCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Received error for the location update: %@", buf, 0x16u);
   }
 
@@ -880,13 +853,11 @@ uint64_t __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke(
   block[3] = &unk_27868A728;
   block[4] = selfCopy;
   dispatch_async(handlerQueue, block);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   locationsCopy = locations;
   v8 = objc_autoreleasePoolPush();
@@ -896,29 +867,27 @@ uint64_t __53__HMDLocation_locationManagerDidChangeAuthorization___block_invoke(
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v11;
-    v20 = 2112;
-    v21 = locationsCopy;
+    v18 = v11;
+    v19 = 2112;
+    v20 = locationsCopy;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Location manager updated locations: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   handlerQueue = [(HMDLocation *)selfCopy handlerQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __50__HMDLocation_locationManager_didUpdateLocations___block_invoke;
-  v15[3] = &unk_27868A750;
-  v16 = locationsCopy;
-  v17 = selfCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __50__HMDLocation_locationManager_didUpdateLocations___block_invoke;
+  v14[3] = &unk_27868A750;
+  v15 = locationsCopy;
+  v16 = selfCopy;
   v13 = locationsCopy;
-  dispatch_async(handlerQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(handlerQueue, v14);
 }
 
 void __50__HMDLocation_locationManager_didUpdateLocations___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) lastObject];
   if (v2 && [HMDLocation isAccurateLocation:v2])
   {
@@ -934,11 +903,11 @@ void __50__HMDLocation_locationManager_didUpdateLocations___block_invoke(uint64_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v2;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Ignoring inaccurate single location: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v2;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Ignoring inaccurate single location: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -947,13 +916,11 @@ void __50__HMDLocation_locationManager_didUpdateLocations___block_invoke(uint64_
   }
 
   [v3 _notifySingleLocationDelegatesWithLocation:v4];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDeterminedState:(int64_t)state forRegion:(id)region
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   v7 = [MEMORY[0x277CBFC10] hm_regionStateFromCLRegionState:state];
   v8 = objc_autoreleasePoolPush();
@@ -966,13 +933,13 @@ void __50__HMDLocation_locationManager_didUpdateLocations___block_invoke(uint64_
     identifier = [regionCopy identifier];
     v14 = regionAsString(regionCopy);
     *buf = 138544130;
-    v22 = v11;
-    v23 = 2112;
-    v24 = v12;
-    v25 = 2112;
-    v26 = identifier;
-    v27 = 2112;
-    v28 = v14;
+    v21 = v11;
+    v22 = 2112;
+    v23 = v12;
+    v24 = 2112;
+    v25 = identifier;
+    v26 = 2112;
+    v27 = v14;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Region state is %@ for region %@ %@", buf, 0x2Au);
   }
 
@@ -980,23 +947,21 @@ void __50__HMDLocation_locationManager_didUpdateLocations___block_invoke(uint64_
   if (v7)
   {
     handlerQueue = [(HMDLocation *)selfCopy handlerQueue];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __48__HMDLocation__handleDeterminedState_forRegion___block_invoke;
-    v17[3] = &unk_27867D900;
-    v17[4] = selfCopy;
-    v18 = regionCopy;
-    v19 = v7;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__HMDLocation__handleDeterminedState_forRegion___block_invoke;
+    v16[3] = &unk_27867D900;
+    v16[4] = selfCopy;
+    v17 = regionCopy;
+    v18 = v7;
     stateCopy = state;
-    dispatch_async(handlerQueue, v17);
+    dispatch_async(handlerQueue, v16);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDLocation__handleDeterminedState_forRegion___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) regionStates];
   v3 = [v2 objectForKey:*(a1 + 40)];
 
@@ -1019,13 +984,13 @@ void __48__HMDLocation__handleDeterminedState_forRegion___block_invoke(uint64_t 
             v10 = HMFGetLogIdentifier();
             v11 = [*(a1 + 40) identifier];
             v12 = regionAsString(*(a1 + 40));
-            v31 = 138543874;
-            v32 = v10;
+            v29 = 138543874;
+            v30 = v10;
+            v31 = 2112;
+            v32 = v11;
             v33 = 2112;
-            v34 = v11;
-            v35 = 2112;
-            v36 = v12;
-            _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received exit for region %@ %@", &v31, 0x20u);
+            v34 = v12;
+            _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received exit for region %@ %@", &v29, 0x20u);
           }
 
           objc_autoreleasePoolPop(v6);
@@ -1039,13 +1004,13 @@ void __48__HMDLocation__handleDeterminedState_forRegion___block_invoke(uint64_t 
             v19 = HMFGetLogIdentifier();
             v20 = [*(a1 + 40) identifier];
             v21 = regionAsString(*(a1 + 40));
-            v31 = 138543874;
-            v32 = v19;
+            v29 = 138543874;
+            v30 = v19;
+            v31 = 2112;
+            v32 = v20;
             v33 = 2112;
-            v34 = v20;
-            v35 = 2112;
-            v36 = v21;
-            _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received entry for region %@ %@", &v31, 0x20u);
+            v34 = v21;
+            _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received entry for region %@ %@", &v29, 0x20u);
           }
 
           objc_autoreleasePoolPop(v6);
@@ -1067,18 +1032,17 @@ LABEL_15:
     {
       v25 = HMFGetLogIdentifier();
       v26 = HMRegionStateString();
-      v27 = *(a1 + 48);
-      v28 = HMRegionStateString();
-      v29 = [*(a1 + 40) identifier];
-      v31 = 138544130;
-      v32 = v25;
+      v27 = HMRegionStateString();
+      v28 = [*(a1 + 40) identifier];
+      v29 = 138544130;
+      v30 = v25;
+      v31 = 2114;
+      v32 = v26;
       v33 = 2114;
-      v34 = v26;
+      v34 = v27;
       v35 = 2114;
       v36 = v28;
-      v37 = 2114;
-      v38 = v29;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Updating region state from %{public}@ to %{public}@ %{public}@", &v31, 0x2Au);
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Updating region state from %{public}@ to %{public}@ %{public}@", &v29, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v22);
@@ -1094,19 +1058,17 @@ LABEL_15:
     v16 = HMFGetLogIdentifier();
     v17 = HMRegionStateString();
     v18 = [*(a1 + 40) identifier];
-    v31 = 138543874;
-    v32 = v16;
+    v29 = 138543874;
+    v30 = v16;
+    v31 = 2112;
+    v32 = v17;
     v33 = 2112;
-    v34 = v17;
-    v35 = 2112;
-    v36 = v18;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Ignoring because region state did not change %@ %@", &v31, 0x20u);
+    v34 = v18;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Ignoring because region state did not change %@ %@", &v29, 0x20u);
   }
 
   objc_autoreleasePoolPop(v13);
 LABEL_18:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beingConfigured:(BOOL)configured completionHandler:(id)handler
@@ -1126,42 +1088,41 @@ LABEL_18:
 
 void __49__HMDLocation_beingConfigured_completionHandler___block_invoke(uint64_t a1)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v84 = a1;
+  v82 = a1;
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v6 = *(a1 + 48);
-    v7 = HMFBooleanToString();
+    v6 = HMFBooleanToString();
     *buf = 138543618;
-    v99 = v5;
-    v100 = 2112;
-    v101 = v7;
+    v97 = v5;
+    v98 = 2112;
+    v99 = v6;
     _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Being configured is changing to %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   if (*(a1 + 48) == [*(a1 + 32) beingConfigured])
   {
-    v8 = objc_autoreleasePoolPush();
-    v9 = *(a1 + 32);
-    v10 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v7 = objc_autoreleasePoolPush();
+    v8 = *(a1 + 32);
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = HMFGetLogIdentifier();
+      v10 = HMFGetLogIdentifier();
       [*(a1 + 32) beingConfigured];
-      v12 = HMFBooleanToString();
+      v11 = HMFBooleanToString();
       *buf = 138543618;
+      v97 = v10;
+      v98 = 2112;
       v99 = v11;
-      v100 = 2112;
-      v101 = v12;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Being configured is not changing from %@", buf, 0x16u);
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Being configured is not changing from %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v8);
+    objc_autoreleasePoolPop(v7);
     goto LABEL_8;
   }
 
@@ -1169,270 +1130,267 @@ void __49__HMDLocation_beingConfigured_completionHandler___block_invoke(uint64_t
   if (*(a1 + 48) == 1)
   {
 LABEL_8:
-    v13 = *(a1 + 40);
-    if (v13)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      (*(v13 + 16))();
+      (*(v12 + 16))();
     }
 
-    goto LABEL_56;
+    return;
   }
 
-  v14 = objc_autoreleasePoolPush();
-  v15 = *(a1 + 32);
-  v16 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  v13 = objc_autoreleasePoolPush();
+  v14 = *(a1 + 32);
+  v15 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v17 = HMFGetLogIdentifier();
+    v16 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v99 = v17;
-    _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Being configured is changing to NO, submitting the pending monitor requests", buf, 0xCu);
+    v97 = v16;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Being configured is changing to NO, submitting the pending monitor requests", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v14);
-  v95 = 0u;
-  v96 = 0u;
+  objc_autoreleasePoolPop(v13);
   v93 = 0u;
   v94 = 0u;
+  v91 = 0u;
+  v92 = 0u;
   obj = [*(a1 + 32) pendingRegionMonitoringRequests];
-  v18 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v94;
+    v18 = v17;
+    v19 = *v92;
     do
     {
-      for (i = 0; i != v19; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v94 != v20)
+        if (*v92 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v93 + 1) + 8 * i);
-        v23 = [*(v84 + 32) pendingRegionMonitoringRequests];
-        v24 = [v23 objectForKey:v22];
+        v21 = *(*(&v91 + 1) + 8 * i);
+        v22 = [*(v82 + 32) pendingRegionMonitoringRequests];
+        v23 = [v22 objectForKey:v21];
 
-        if (v24)
+        if (v23)
         {
-          v25 = [*(v84 + 32) regionStateDelegatesByRegionIdentifier];
-          v26 = [v22 identifier];
-          [v25 setObject:v24 forKey:v26];
+          v24 = [*(v82 + 32) regionStateDelegatesByRegionIdentifier];
+          v25 = [v21 identifier];
+          [v24 setObject:v23 forKey:v25];
 
-          v27 = objc_autoreleasePoolPush();
-          v28 = *(v84 + 32);
-          v29 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v26 = objc_autoreleasePoolPush();
+          v27 = *(v82 + 32);
+          v28 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
           {
-            v30 = HMFGetLogIdentifier();
-            regionAsString(v22);
-            v31 = v19;
-            v33 = v32 = v20;
+            v29 = HMFGetLogIdentifier();
+            regionAsString(v21);
+            v30 = v18;
+            v32 = v31 = v19;
             *buf = 138543618;
-            v99 = v30;
-            v100 = 2112;
-            v101 = v33;
-            _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@After configured, submitting start monitor request for region: %@", buf, 0x16u);
+            v97 = v29;
+            v98 = 2112;
+            v99 = v32;
+            _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@After configured, submitting start monitor request for region: %@", buf, 0x16u);
 
-            v20 = v32;
             v19 = v31;
+            v18 = v30;
           }
 
-          objc_autoreleasePoolPop(v27);
-          v34 = [*(v84 + 32) locationManager];
-          [v34 startMonitoringForRegion:v22];
+          objc_autoreleasePoolPop(v26);
+          v33 = [*(v82 + 32) locationManager];
+          [v33 startMonitoringForRegion:v21];
         }
       }
 
-      v19 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
+      v18 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
-  v35 = [*(v84 + 32) pendingRegionMonitoringRequests];
-  [v35 removeAllObjects];
+  v34 = [*(v82 + 32) pendingRegionMonitoringRequests];
+  [v34 removeAllObjects];
 
-  v91 = 0u;
-  v92 = 0u;
   v89 = 0u;
   v90 = 0u;
-  obja = [*(v84 + 32) pendingRegionCallbacks];
-  v36 = [obja countByEnumeratingWithState:&v89 objects:v104 count:16];
-  if (v36)
+  v87 = 0u;
+  v88 = 0u;
+  obja = [*(v82 + 32) pendingRegionCallbacks];
+  v35 = [obja countByEnumeratingWithState:&v87 objects:v102 count:16];
+  if (v35)
   {
-    v38 = v36;
-    v39 = *v90;
-    *&v37 = 138543874;
-    v80 = v37;
+    v37 = v35;
+    v38 = *v88;
+    *&v36 = 138543874;
+    v78 = v36;
     do
     {
-      for (j = 0; j != v38; ++j)
+      for (j = 0; j != v37; ++j)
       {
-        if (*v90 != v39)
+        if (*v88 != v38)
         {
           objc_enumerationMutation(obja);
         }
 
-        v41 = *(*(&v89 + 1) + 8 * j);
-        v42 = [*(v84 + 32) pendingRegionCallbacks];
-        v43 = [v42 objectForKey:v41];
+        v40 = *(*(&v87 + 1) + 8 * j);
+        v41 = [*(v82 + 32) pendingRegionCallbacks];
+        v42 = [v41 objectForKey:v40];
 
-        v44 = [v43 unsignedIntegerValue];
-        if (v44)
+        v43 = [v42 unsignedIntegerValue];
+        if (v43)
         {
-          if (v44 == 1)
+          if (v43 == 1)
           {
-            v49 = objc_autoreleasePoolPush();
-            v50 = *(v84 + 32);
-            v51 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v48 = objc_autoreleasePoolPush();
+            v49 = *(v82 + 32);
+            v50 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
             {
-              v52 = HMFGetLogIdentifier();
+              v51 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v99 = v52;
-              v100 = 2112;
-              v101 = v41;
-              _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_INFO, "%{public}@Calling pending entry callback for region %@", buf, 0x16u);
+              v97 = v51;
+              v98 = 2112;
+              v99 = v40;
+              _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_INFO, "%{public}@Calling pending entry callback for region %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v49);
-            [*(v84 + 32) _updateEntryForRegion:v41];
+            objc_autoreleasePoolPop(v48);
+            [*(v82 + 32) _updateEntryForRegion:v40];
           }
 
-          else if (v44 == 2)
+          else if (v43 == 2)
           {
-            v45 = objc_autoreleasePoolPush();
-            v46 = *(v84 + 32);
-            v47 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+            v44 = objc_autoreleasePoolPush();
+            v45 = *(v82 + 32);
+            v46 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
             {
-              v48 = HMFGetLogIdentifier();
+              v47 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v99 = v48;
-              v100 = 2112;
-              v101 = v41;
-              _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_INFO, "%{public}@Calling pending exit callback for region %@", buf, 0x16u);
+              v97 = v47;
+              v98 = 2112;
+              v99 = v40;
+              _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_INFO, "%{public}@Calling pending exit callback for region %@", buf, 0x16u);
             }
 
-            objc_autoreleasePoolPop(v45);
-            [*(v84 + 32) _updateExitForRegion:v41];
+            objc_autoreleasePoolPop(v44);
+            [*(v82 + 32) _updateExitForRegion:v40];
           }
         }
 
         else
         {
-          v53 = objc_autoreleasePoolPush();
-          v54 = *(v84 + 32);
-          v55 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+          v52 = objc_autoreleasePoolPush();
+          v53 = *(v82 + 32);
+          v54 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
           {
-            v56 = HMFGetLogIdentifier();
-            *buf = v80;
-            v99 = v56;
+            v55 = HMFGetLogIdentifier();
+            *buf = v78;
+            v97 = v55;
+            v98 = 2112;
+            v99 = v42;
             v100 = 2112;
-            v101 = v43;
-            v102 = 2112;
-            v103 = v41;
-            _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_INFO, "%{public}@Unknown region state %@ for region %@", buf, 0x20u);
+            v101 = v40;
+            _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_INFO, "%{public}@Unknown region state %@ for region %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v53);
+          objc_autoreleasePoolPop(v52);
         }
       }
 
-      v38 = [obja countByEnumeratingWithState:&v89 objects:v104 count:16];
+      v37 = [obja countByEnumeratingWithState:&v87 objects:v102 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
-  v57 = [*(v84 + 32) pendingRegionCallbacks];
-  [v57 removeAllObjects];
+  v56 = [*(v82 + 32) pendingRegionCallbacks];
+  [v56 removeAllObjects];
 
-  v58 = [*(v84 + 32) locationManager];
-  v59 = [v58 monitoredRegions];
+  v57 = [*(v82 + 32) locationManager];
+  v58 = [v57 monitoredRegions];
 
-  v87 = 0u;
-  v88 = 0u;
   v85 = 0u;
   v86 = 0u;
-  v60 = v59;
-  v61 = [v60 countByEnumeratingWithState:&v85 objects:v97 count:16];
-  if (v61)
+  v83 = 0u;
+  v84 = 0u;
+  v59 = v58;
+  v60 = [v59 countByEnumeratingWithState:&v83 objects:v95 count:16];
+  if (v60)
   {
-    v62 = v61;
-    v63 = *v86;
+    v61 = v60;
+    v62 = *v84;
     do
     {
-      v64 = 0;
-      objb = v62;
+      v63 = 0;
+      objb = v61;
       do
       {
-        if (*v86 != v63)
+        if (*v84 != v62)
         {
-          objc_enumerationMutation(v60);
+          objc_enumerationMutation(v59);
         }
 
-        v65 = *(*(&v85 + 1) + 8 * v64);
-        v66 = [*(v84 + 32) regionStateDelegatesByRegionIdentifier];
-        v67 = [v65 identifier];
-        v68 = [v66 objectForKey:v67];
+        v64 = *(*(&v83 + 1) + 8 * v63);
+        v65 = [*(v82 + 32) regionStateDelegatesByRegionIdentifier];
+        v66 = [v64 identifier];
+        v67 = [v65 objectForKey:v66];
 
-        if (!v68)
+        if (!v67)
         {
-          v69 = objc_autoreleasePoolPush();
-          v70 = *(v84 + 32);
-          v71 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+          v68 = objc_autoreleasePoolPush();
+          v69 = *(v82 + 32);
+          v70 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
           {
-            v72 = HMFGetLogIdentifier();
-            regionAsString(v65);
-            v73 = v63;
-            v75 = v74 = v60;
+            v71 = HMFGetLogIdentifier();
+            regionAsString(v64);
+            v72 = v62;
+            v74 = v73 = v59;
             *buf = 138543618;
-            v99 = v72;
-            v100 = 2112;
-            v101 = v75;
-            _os_log_impl(&dword_229538000, v71, OS_LOG_TYPE_ERROR, "%{public}@Region %@ was not found in the region state monitor map, stopping monitoring", buf, 0x16u);
+            v97 = v71;
+            v98 = 2112;
+            v99 = v74;
+            _os_log_impl(&dword_229538000, v70, OS_LOG_TYPE_ERROR, "%{public}@Region %@ was not found in the region state monitor map, stopping monitoring", buf, 0x16u);
 
-            v60 = v74;
-            v63 = v73;
+            v59 = v73;
+            v62 = v72;
           }
 
-          objc_autoreleasePoolPop(v69);
-          v76 = [*(v84 + 32) regionStates];
-          [v76 removeObjectForKey:v65];
+          objc_autoreleasePoolPop(v68);
+          v75 = [*(v82 + 32) regionStates];
+          [v75 removeObjectForKey:v64];
 
-          v77 = [*(v84 + 32) locationManager];
-          [v77 stopMonitoringForRegion:v65];
+          v76 = [*(v82 + 32) locationManager];
+          [v76 stopMonitoringForRegion:v64];
 
-          v62 = objb;
+          v61 = objb;
         }
 
-        ++v64;
+        ++v63;
       }
 
-      while (v62 != v64);
-      v62 = [v60 countByEnumeratingWithState:&v85 objects:v97 count:16];
+      while (v61 != v63);
+      v61 = [v59 countByEnumeratingWithState:&v83 objects:v95 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
-  v78 = *(v84 + 40);
-  if (v78)
+  v77 = *(v82 + 40);
+  if (v77)
   {
-    (*(v78 + 16))();
+    (*(v77 + 16))();
   }
-
-LABEL_56:
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateExitForRegion:(id)region
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -1446,11 +1404,11 @@ LABEL_56:
     {
       v9 = HMFGetLogIdentifier();
       v10 = regionAsString(regionCopy);
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, pending the exit for region %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, pending the exit for region %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1480,22 +1438,20 @@ LABEL_56:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = HMFGetLogIdentifier();
-          v17 = 138543362;
-          v18 = v15;
-          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Not calling the didExitRegion delegate as this event was not subscribed for", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = v15;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Not calling the didExitRegion delegate as this event was not subscribed for", &v16, 0xCu);
         }
 
         objc_autoreleasePoolPop(v12);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateEntryForRegion:(id)region
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -1509,11 +1465,11 @@ LABEL_56:
     {
       v9 = HMFGetLogIdentifier();
       v10 = regionAsString(regionCopy);
-      v17 = 138543618;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, pending the entry for region %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, pending the entry for region %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -1543,22 +1499,20 @@ LABEL_56:
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           v15 = HMFGetLogIdentifier();
-          v17 = 138543362;
-          v18 = v15;
-          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Not calling the didEnterRegion delegate as this event was not subscribed for", &v17, 0xCu);
+          v16 = 138543362;
+          v17 = v15;
+          _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Not calling the didEnterRegion delegate as this event was not subscribed for", &v16, 0xCu);
         }
 
         objc_autoreleasePoolPop(v12);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateRegionState:(int64_t)state forRegion:(id)region
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -1604,9 +1558,9 @@ LABEL_9:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       v21 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v21;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Not calling the location delegate as this event was not subscribed for", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v21;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Not calling the location delegate as this event was not subscribed for", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -1620,24 +1574,22 @@ LABEL_9:
   {
     v11 = HMFGetLogIdentifier();
     v12 = regionAsString(regionCopy);
-    v23 = 138543874;
-    v24 = v11;
-    v25 = 2048;
+    v22 = 138543874;
+    v23 = v11;
+    v24 = 2048;
     stateCopy = state;
-    v27 = 2112;
-    v28 = v12;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, not updating region state %tu for region %@", &v23, 0x20u);
+    v26 = 2112;
+    v27 = v12;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, not updating region state %tu for region %@", &v22, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_delegateforRegion:(id)region
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   regionCopy = region;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -1655,11 +1607,11 @@ LABEL_17:
     {
       v12 = HMFGetLogIdentifier();
       v13 = regionAsString(regionCopy);
-      v18 = 138543618;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Update received for a region %@ that was not found in the region state monitor map, stopping monitoring", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Update received for a region %@ that was not found in the region state monitor map, stopping monitoring", &v17, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1670,9 +1622,38 @@ LABEL_17:
     [locationManager stopMonitoringForRegion:regionCopy];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v8;
+}
+
+- (void)_updateWithLocationAuthorizationStatus:(int)status
+{
+  v3 = *&status;
+  v20 = *MEMORY[0x277D85DE8];
+  handlerQueue = [(HMDLocation *)self handlerQueue];
+  dispatch_assert_queue_V2(handlerQueue);
+
+  -[HMDLocation setLocationAuthorized:](self, "setLocationAuthorized:", [MEMORY[0x277CBFC10] hm_locationAuthorizationFromCLAuthorizationStatus:v3]);
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  {
+    v9 = HMFGetLogIdentifier();
+    [(HMDLocation *)selfCopy locationAuthorized];
+    v10 = HMLocationAuthorizationAsString();
+    *buf = 138543618;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Location Authorization Status Updated : %@", buf, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v6);
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  v12 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDLocation locationAuthorized](selfCopy, "locationAuthorized", @"HMLocationAuthorizationKey"}];
+  v15 = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  [defaultCenter postNotificationName:@"HMLocationAuthorizationChangedNotification" object:selfCopy userInfo:v13];
 }
 
 - (void)_notifySingleLocationDelegate:(id)delegate withLocation:(id)location
@@ -1691,36 +1672,36 @@ LABEL_17:
 
 - (void)_notifySingleLocationDelegatesWithLocation:(id)location
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   locationCopy = location;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   singleLocationDelegates = [(HMDLocation *)self singleLocationDelegates];
-  v7 = [singleLocationDelegates countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [singleLocationDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(singleLocationDelegates);
         }
 
-        [(HMDLocation *)self _notifySingleLocationDelegate:*(*(&v13 + 1) + 8 * v10++) withLocation:locationCopy];
+        [(HMDLocation *)self _notifySingleLocationDelegate:*(*(&v12 + 1) + 8 * v10++) withLocation:locationCopy];
       }
 
       while (v8 != v10);
-      v8 = [singleLocationDelegates countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [singleLocationDelegates countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1728,8 +1709,6 @@ LABEL_17:
 
   singleLocationDelegates2 = [(HMDLocation *)self singleLocationDelegates];
   [singleLocationDelegates2 removeAllObjects];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterForRegionUpdate:(id)update completionHandler:(id)handler
@@ -1751,23 +1730,23 @@ LABEL_17:
 
 void __59__HMDLocation_deregisterForRegionUpdate_completionHandler___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 48))
   {
-    v32 = objc_autoreleasePoolPush();
-    v33 = *(a1 + 32);
-    v34 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v31 = objc_autoreleasePoolPush();
+    v32 = *(a1 + 32);
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v35 = HMFGetLogIdentifier();
+      v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v35;
-      _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Completion handler is invalid", buf, 0xCu);
+      v44 = v34;
+      _os_log_impl(&dword_229538000, v33, OS_LOG_TYPE_ERROR, "%{public}@Completion handler is invalid", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v32);
-    v36 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"You must provide a completion handler" userInfo:0];
-    objc_exception_throw(v36);
+    objc_autoreleasePoolPop(v31);
+    v35 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"You must provide a completion handler" userInfo:0];
+    objc_exception_throw(v35);
   }
 
   v2 = *(a1 + 40);
@@ -1780,7 +1759,7 @@ void __59__HMDLocation_deregisterForRegionUpdate_completionHandler___block_invok
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v27;
+      v44 = v27;
       v28 = "%{public}@Monitored regions are nil";
 LABEL_23:
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, v28, buf, 0xCu);
@@ -1793,7 +1772,7 @@ LABEL_24:
     v30 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:3 userInfo:0];
     (*(v29 + 16))(v29, v30);
 
-    goto LABEL_25;
+    return;
   }
 
   if (![v2 count])
@@ -1805,7 +1784,7 @@ LABEL_24:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v27;
+      v44 = v27;
       v28 = "%{public}@Monitored regions are empty";
       goto LABEL_23;
     }
@@ -1813,29 +1792,29 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   obj = *(a1 + 40);
-  v3 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v3 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v41;
+    v6 = *v40;
     *&v4 = 138543618;
-    v37 = v4;
-    v38 = *v41;
+    v36 = v4;
+    v37 = *v40;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v41 != v6)
+        if (*v40 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
+        v8 = *(*(&v39 + 1) + 8 * i);
         v9 = [*(a1 + 32) regionStates];
         [v9 removeObjectForKey:v8];
 
@@ -1853,13 +1832,13 @@ LABEL_24:
           {
             v17 = HMFGetLogIdentifier();
             v18 = regionAsString(v8);
-            *buf = v37;
-            v45 = v17;
-            v46 = 2112;
-            v47 = v18;
+            *buf = v36;
+            v44 = v17;
+            v45 = 2112;
+            v46 = v18;
             _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Submitting stop monitor request for region: %@", buf, 0x16u);
 
-            v6 = v38;
+            v6 = v37;
           }
 
           objc_autoreleasePoolPop(v13);
@@ -1877,28 +1856,26 @@ LABEL_24:
           {
             v22 = HMFGetLogIdentifier();
             v23 = regionAsString(v8);
-            *buf = v37;
-            v45 = v22;
-            v46 = 2112;
-            v47 = v23;
+            *buf = v36;
+            v44 = v22;
+            v45 = 2112;
+            v46 = v23;
             _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Region %@ was not found in the region state monitor map, cannot deregister", buf, 0x16u);
 
-            v6 = v38;
+            v6 = v37;
           }
 
           objc_autoreleasePoolPop(v13);
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v5 = [obj countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v5);
   }
 
   (*(*(a1 + 48) + 16))();
-LABEL_25:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForRegionUpdate:(id)update withDelegate:(id)delegate completionHandler:(id)handler
@@ -1923,23 +1900,23 @@ LABEL_25:
 
 void __70__HMDLocation_registerForRegionUpdate_withDelegate_completionHandler___block_invoke(uint64_t a1)
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   if (!*(a1 + 56))
   {
-    v49 = objc_autoreleasePoolPush();
-    v50 = *(a1 + 32);
-    v51 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v48 = objc_autoreleasePoolPush();
+    v49 = *(a1 + 32);
+    v50 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      v52 = HMFGetLogIdentifier();
+      v51 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v52;
-      _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Completion handler is invalid", buf, 0xCu);
+      v65 = v51;
+      _os_log_impl(&dword_229538000, v50, OS_LOG_TYPE_ERROR, "%{public}@Completion handler is invalid", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v49);
-    v53 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"You must provide a completion handler" userInfo:0];
-    objc_exception_throw(v53);
+    objc_autoreleasePoolPop(v48);
+    v52 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"You must provide a completion handler" userInfo:0];
+    objc_exception_throw(v52);
   }
 
   v2 = *(a1 + 40);
@@ -1955,7 +1932,7 @@ void __70__HMDLocation_registerForRegionUpdate_withDelegate_completionHandler___
 
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v66 = v19;
+    v65 = v19;
     v20 = "%{public}@Monitored regions are nil";
 LABEL_24:
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, v20, buf, 0xCu);
@@ -1975,7 +1952,7 @@ LABEL_24:
 
     v19 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v66 = v19;
+    v65 = v19;
     v20 = "%{public}@Monitored regions are empty";
     goto LABEL_24;
   }
@@ -1989,7 +1966,7 @@ LABEL_24:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v19;
+      v65 = v19;
       v20 = "%{public}@Delegate is nil";
       goto LABEL_24;
     }
@@ -2005,7 +1982,7 @@ LABEL_26:
     v25 = [v22 errorWithDomain:v23 code:v24 userInfo:0];
     (*(v21 + 16))(v21, v25);
 
-    goto LABEL_27;
+    return;
   }
 
   v3 = [*(a1 + 32) locationManager];
@@ -2013,24 +1990,24 @@ LABEL_26:
 
   if ((v4 & 1) == 0)
   {
-    v27 = objc_autoreleasePoolPush();
-    v28 = *(a1 + 32);
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v26 = objc_autoreleasePoolPush();
+    v27 = *(a1 + 32);
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v30;
-      v31 = "%{public}@Location services are not enabled, cannot submit region monitoring";
-      v32 = v29;
-      v33 = OS_LOG_TYPE_INFO;
-LABEL_32:
-      _os_log_impl(&dword_229538000, v32, v33, v31, buf, 0xCu);
+      v65 = v29;
+      v30 = "%{public}@Location services are not enabled, cannot submit region monitoring";
+      v31 = v28;
+      v32 = OS_LOG_TYPE_INFO;
+LABEL_31:
+      _os_log_impl(&dword_229538000, v31, v32, v30, buf, 0xCu);
     }
 
-LABEL_33:
+LABEL_32:
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v26);
     v21 = *(a1 + 56);
     v22 = MEMORY[0x277CCA9B8];
     v23 = *MEMORY[0x277CCFD28];
@@ -2040,45 +2017,45 @@ LABEL_33:
 
   if (([MEMORY[0x277CBFC10] hm_isLocationAllowedForAuthorizationStatus:{objc_msgSend(*(a1 + 32), "authStatus")}] & 1) == 0)
   {
-    v27 = objc_autoreleasePoolPush();
-    v28 = *(a1 + 32);
-    v29 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v26 = objc_autoreleasePoolPush();
+    v27 = *(a1 + 32);
+    v28 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v30 = HMFGetLogIdentifier();
+      v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v66 = v30;
-      v31 = "%{public}@Location is not authorized for homed, cannot submit region monitoring";
-      v32 = v29;
-      v33 = OS_LOG_TYPE_ERROR;
-      goto LABEL_32;
+      v65 = v29;
+      v30 = "%{public}@Location is not authorized for homed, cannot submit region monitoring";
+      v31 = v28;
+      v32 = OS_LOG_TYPE_ERROR;
+      goto LABEL_31;
     }
 
-    goto LABEL_33;
+    goto LABEL_32;
   }
 
   if ([*(a1 + 32) beingConfigured])
   {
-    v62 = 0uLL;
-    v63 = 0uLL;
-    v60 = 0uLL;
     v61 = 0uLL;
+    v62 = 0uLL;
+    v59 = 0uLL;
+    v60 = 0uLL;
     obj = *(a1 + 40);
-    v5 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+    v5 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v61;
+      v7 = *v60;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v61 != v7)
+          if (*v60 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v60 + 1) + 8 * i);
+          v9 = *(*(&v59 + 1) + 8 * i);
           v10 = objc_autoreleasePoolPush();
           v11 = *(a1 + 32);
           v12 = HMFGetOSLogHandle();
@@ -2087,9 +2064,9 @@ LABEL_33:
             v13 = HMFGetLogIdentifier();
             v14 = regionAsString(v9);
             *buf = 138543618;
-            v66 = v13;
-            v67 = 2112;
-            v68 = v14;
+            v65 = v13;
+            v66 = 2112;
+            v67 = v14;
             _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@The system is being configured, holding onto region %@ monitoring requests until complete", buf, 0x16u);
           }
 
@@ -2098,7 +2075,7 @@ LABEL_33:
           [v15 setObject:*(a1 + 48) forKey:v9];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+        v6 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
       }
 
       while (v6);
@@ -2107,62 +2084,60 @@ LABEL_33:
 
   else
   {
-    v58 = 0uLL;
-    v59 = 0uLL;
-    v56 = 0uLL;
     v57 = 0uLL;
+    v58 = 0uLL;
+    v55 = 0uLL;
+    v56 = 0uLL;
     obj = *(a1 + 40);
-    v34 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
-    if (v34)
+    v33 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+    if (v33)
     {
-      v36 = v34;
-      v37 = *v57;
-      *&v35 = 138543618;
-      v54 = v35;
+      v35 = v33;
+      v36 = *v56;
+      *&v34 = 138543618;
+      v53 = v34;
       do
       {
-        for (j = 0; j != v36; ++j)
+        for (j = 0; j != v35; ++j)
         {
-          if (*v57 != v37)
+          if (*v56 != v36)
           {
             objc_enumerationMutation(obj);
           }
 
-          v39 = *(*(&v56 + 1) + 8 * j);
-          v40 = [*(a1 + 32) regionStateDelegatesByRegionIdentifier];
-          v41 = *(a1 + 48);
-          v42 = [v39 identifier];
-          [v40 setObject:v41 forKey:v42];
+          v38 = *(*(&v55 + 1) + 8 * j);
+          v39 = [*(a1 + 32) regionStateDelegatesByRegionIdentifier];
+          v40 = *(a1 + 48);
+          v41 = [v38 identifier];
+          [v39 setObject:v40 forKey:v41];
 
-          v43 = objc_autoreleasePoolPush();
-          v44 = *(a1 + 32);
-          v45 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+          v42 = objc_autoreleasePoolPush();
+          v43 = *(a1 + 32);
+          v44 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
-            v46 = HMFGetLogIdentifier();
-            v47 = regionAsString(v39);
-            *buf = v54;
-            v66 = v46;
-            v67 = 2112;
-            v68 = v47;
-            _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Submitting start monitor request for region: %@", buf, 0x16u);
+            v45 = HMFGetLogIdentifier();
+            v46 = regionAsString(v38);
+            *buf = v53;
+            v65 = v45;
+            v66 = 2112;
+            v67 = v46;
+            _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Submitting start monitor request for region: %@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v43);
-          v48 = [*(a1 + 32) locationManager];
-          [v48 startMonitoringForRegion:v39];
+          objc_autoreleasePoolPop(v42);
+          v47 = [*(a1 + 32) locationManager];
+          [v47 startMonitoringForRegion:v38];
         }
 
-        v36 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+        v35 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
       }
 
-      while (v36);
+      while (v35);
     }
   }
 
   (*(*(a1 + 56) + 16))();
-LABEL_27:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getCurrentLocation
@@ -2175,7 +2150,7 @@ LABEL_27:
 
 - (void)_extractSingleLocationForDelegate:(id)delegate
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
@@ -2186,11 +2161,11 @@ LABEL_27:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v9;
-    v31 = 2112;
-    v32 = delegateCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Extracting single location for delegate: %@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v9;
+    v30 = 2112;
+    v31 = delegateCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Extracting single location for delegate: %@", &v28, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2207,9 +2182,9 @@ LABEL_27:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v29 = 138543362;
-        v30 = v15;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Requesting single location", &v29, 0xCu);
+        v28 = 138543362;
+        v29 = v15;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Requesting single location", &v28, 0xCu);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -2228,11 +2203,11 @@ LABEL_27:
       v21 = HMFGetLogIdentifier();
       singleLocationDelegates3 = [(HMDLocation *)v19 singleLocationDelegates];
       v23 = [singleLocationDelegates3 count];
-      v29 = 138543618;
-      v30 = v21;
-      v31 = 2048;
-      v32 = v23;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Current single location delegate count is now %ld", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v21;
+      v30 = 2048;
+      v31 = v23;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Current single location delegate count is now %ld", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -2246,21 +2221,19 @@ LABEL_27:
     if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
       v27 = HMFGetLogIdentifier();
-      v29 = 138543362;
-      v30 = v27;
-      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Passing back nil location because locations can't be extracted", &v29, 0xCu);
+      v28 = 138543362;
+      v29 = v27;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Passing back nil location because locations can't be extracted", &v28, 0xCu);
     }
 
     objc_autoreleasePoolPop(v24);
     [(HMDLocation *)v25 _notifySingleLocationDelegate:delegateCopy withLocation:0];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canLocationBeExtracted
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerQueue = [(HMDLocation *)self handlerQueue];
   dispatch_assert_queue_V2(handlerQueue);
 
@@ -2278,11 +2251,11 @@ LABEL_27:
     }
 
     v10 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v10;
+    v14 = 138543362;
+    v15 = v10;
     v11 = "%{public}@Can't extract location because Location Services are not enabled";
 LABEL_11:
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, v11, &v15, 0xCu);
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, v11, &v14, 0xCu);
 
     goto LABEL_12;
   }
@@ -2298,37 +2271,33 @@ LABEL_11:
     }
 
     v10 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v10;
+    v14 = 138543362;
+    v15 = v10;
     v11 = "%{public}@Waiting for initial location auth.";
     goto LABEL_11;
   }
 
-  if (([MEMORY[0x277CBFC10] hm_isLocationAllowedForAuthorizationStatus:{-[HMDLocation authStatus](self, "authStatus")}] & 1) == 0)
+  if ([MEMORY[0x277CBFC10] hm_isLocationAllowedForAuthorizationStatus:{-[HMDLocation authStatus](self, "authStatus")}])
   {
-    v7 = objc_autoreleasePoolPush();
-    selfCopy3 = self;
-    v9 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-    {
-      v10 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v10;
-      v11 = "%{public}@Can't extract location because Location Services are not enabled for homed";
-      goto LABEL_11;
-    }
+    return 1;
+  }
+
+  v7 = objc_autoreleasePoolPush();
+  selfCopy3 = self;
+  v9 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  {
+    v10 = HMFGetLogIdentifier();
+    v14 = 138543362;
+    v15 = v10;
+    v11 = "%{public}@Can't extract location because Location Services are not enabled for homed";
+    goto LABEL_11;
+  }
 
 LABEL_12:
 
-    objc_autoreleasePoolPop(v7);
-    result = 0;
-    goto LABEL_13;
-  }
-
-  result = 1;
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  objc_autoreleasePoolPop(v7);
+  return 0;
 }
 
 - (void)startExtractingSingleLocationForDelegate:(id)delegate
@@ -2358,7 +2327,7 @@ LABEL_13:
 
 void __35__HMDLocation_stopUpdatingLocation__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2366,11 +2335,11 @@ void __35__HMDLocation_stopUpdatingLocation__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 32), "totalLocationObservingClients")}];
-    v15 = 138543618;
-    v16 = v5;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing stop updating location request: totalClients: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v5;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing stop updating location request: totalClients: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2386,17 +2355,15 @@ void __35__HMDLocation_stopUpdatingLocation__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Requesting CLLocationManager to stop updating location", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Requesting CLLocationManager to stop updating location", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v13 = [*(a1 + 32) locationManager];
     [v13 stopUpdatingLocation];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUpdatingLocation
@@ -2412,7 +2379,7 @@ void __35__HMDLocation_stopUpdatingLocation__block_invoke(uint64_t a1)
 
 uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2420,11 +2387,11 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(*(a1 + 32), "totalLocationObservingClients")}];
-    v14 = 138543618;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing start updating location request: totalClients: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Processing start updating location request: totalClients: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2436,9 +2403,9 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Requesting CLLocationManager to start updating location", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Requesting CLLocationManager to start updating location", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -2446,9 +2413,7 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
     [v11 startUpdatingLocation];
   }
 
-  result = [*(a1 + 32) setTotalLocationObservingClients:{objc_msgSend(*(a1 + 32), "totalLocationObservingClients") + 1}];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) setTotalLocationObservingClients:{objc_msgSend(*(a1 + 32), "totalLocationObservingClients") + 1}];
 }
 
 - (BOOL)isCurrentLocationSimulated
@@ -2561,73 +2526,65 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
 
 + (id)nextSunsetTimeForLocation:(id)location date:(id)date
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   date = [HMDLocation _getAlmanacWithLocation:location, date];
   previousSunset = [date previousSunset];
   sunset = [date sunset];
-  v11[1] = sunset;
+  v10[1] = sunset;
   nextSunset = [date nextSunset];
-  v11[2] = nextSunset;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[2] = nextSunset;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
 
   return v8;
 }
 
 + (id)sunsetTimeForLocation:(id)location
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v3 = [HMDLocation _getAlmanacWithLocation:location];
   previousSunrise = [v3 previousSunrise];
   sunrise = [v3 sunrise];
-  v11[1] = sunrise;
+  v10[1] = sunrise;
   nextSunrise = [v3 nextSunrise];
-  v11[2] = nextSunrise;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = nextSunrise;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   v8 = [HMDLocation findEvent:v7 withGeo:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)nextSunriseTimeForLocation:(id)location date:(id)date
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   date = [HMDLocation _getAlmanacWithLocation:location, date];
   previousSunrise = [date previousSunrise];
   sunrise = [date sunrise];
-  v11[1] = sunrise;
+  v10[1] = sunrise;
   nextSunrise = [date nextSunrise];
-  v11[2] = nextSunrise;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[2] = nextSunrise;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
 
   return v8;
 }
 
 + (id)sunriseTimeForLocation:(id)location
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   v3 = [HMDLocation _getAlmanacWithLocation:location];
   previousSunset = [v3 previousSunset];
   sunset = [v3 sunset];
-  v11[1] = sunset;
+  v10[1] = sunset;
   nextSunset = [v3 nextSunset];
-  v11[2] = nextSunset;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  v10[2] = nextSunset;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
   v8 = [HMDLocation findEvent:v7 withGeo:v3];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (id)findEvent:(id)event withGeo:(id)geo
 {
-  v27[7] = *MEMORY[0x277D85DE8];
+  v26[7] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   geoCopy = geo;
   v6 = [MEMORY[0x277CBEAA8] now];
@@ -2639,19 +2596,19 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
   v9 = [currentCalendar dateFromComponents:hmf_dateComponents];
 
   previousSunrise = [geoCopy previousSunrise];
-  v27[0] = previousSunrise;
+  v26[0] = previousSunrise;
   previousSunset = [geoCopy previousSunset];
-  v27[1] = previousSunset;
+  v26[1] = previousSunset;
   sunrise = [geoCopy sunrise];
-  v27[2] = sunrise;
+  v26[2] = sunrise;
   sunset = [geoCopy sunset];
-  v27[3] = sunset;
+  v26[3] = sunset;
   nextSunrise = [geoCopy nextSunrise];
-  v27[4] = nextSunrise;
+  v26[4] = nextSunrise;
   nextSunset = [geoCopy nextSunset];
-  v27[5] = nextSunset;
-  v27[6] = v9;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:7];
+  v26[5] = nextSunset;
+  v26[6] = v9;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:7];
 
   v17 = [v16 sortedArrayUsingComparator:&__block_literal_global_257];
   v18 = 0;
@@ -2696,8 +2653,6 @@ uint64_t __36__HMDLocation_startUpdatingLocation__block_invoke(uint64_t a1)
   }
 
 LABEL_11:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2747,10 +2702,9 @@ LABEL_11:
 
 void __26__HMDLocation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v26_183449;
-  logCategory__hmf_once_v26_183449 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v26_183449;
+  logCategory__hmf_once_v26_183449 = v0;
 }
 
 + (HMDLocation)sharedManager

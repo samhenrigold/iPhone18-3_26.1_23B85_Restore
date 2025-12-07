@@ -9,7 +9,7 @@
 
 + (id)ar_calibrationWithImageData:()ARAdditions adCalibrationData:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   pixelBuffer = [v6 pixelBuffer];
@@ -29,85 +29,86 @@
   [v7 referenceDimensions];
   if (Width == v13 && Height == v12)
   {
-    v33 = v7;
+    v34 = v7;
     goto LABEL_21;
   }
 
   distortionModel = [v7 distortionModel];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_43 != -1)
     {
       +[ADCameraCalibration(ARAdditions) ar_calibrationWithImageData:adCalibrationData:];
     }
 
-    v34 = ARShouldUseLogTypeError_internalOSVersion_43;
-    v35 = _ARLogGeneral_36();
-    v36 = v35;
-    if (v34 == 1)
+    v35 = ARShouldUseLogTypeError_internalOSVersion_43;
+    v36 = _ARLogGeneral_36(isKindOfClass);
+    v37 = v36;
+    if (v35 == 1)
     {
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v37 = objc_opt_class();
-        v38 = NSStringFromClass(v37);
+        v38 = objc_opt_class();
+        v39 = NSStringFromClass(v38);
         *buf = 138543618;
-        v49 = v38;
-        v50 = 2048;
+        v50 = v39;
+        v51 = 2048;
         selfCopy2 = self;
-        v39 = "%{public}@ <%p>: Unsupported distoration model to scale for imageData";
-        v40 = v36;
-        v41 = OS_LOG_TYPE_ERROR;
+        v40 = "%{public}@ <%p>: Unsupported distoration model to scale for imageData";
+        v41 = v37;
+        v42 = OS_LOG_TYPE_ERROR;
 LABEL_18:
-        _os_log_impl(&dword_1C241C000, v40, v41, v39, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v41, v42, v40, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v42 = objc_opt_class();
-      v38 = NSStringFromClass(v42);
+      v43 = objc_opt_class();
+      v39 = NSStringFromClass(v43);
       *buf = 138543618;
-      v49 = v38;
-      v50 = 2048;
+      v50 = v39;
+      v51 = 2048;
       selfCopy2 = self;
-      v39 = "Error: %{public}@ <%p>: Unsupported distoration model to scale for imageData";
-      v40 = v36;
-      v41 = OS_LOG_TYPE_INFO;
+      v40 = "Error: %{public}@ <%p>: Unsupported distoration model to scale for imageData";
+      v41 = v37;
+      v42 = OS_LOG_TYPE_INFO;
       goto LABEL_18;
     }
 
-    v33 = 0;
+    v34 = 0;
     goto LABEL_20;
   }
 
-  v16 = objc_alloc(MEMORY[0x1E698C160]);
+  v17 = objc_alloc(MEMORY[0x1E698C160]);
   [v6 extrinsicMatrixToDeviceType:*MEMORY[0x1E6986930]];
-  v46 = v18;
-  v47 = v17;
-  v44 = v20;
-  v45 = v19;
+  v47 = v19;
+  v48 = v18;
+  v45 = v21;
+  v46 = v20;
   [v7 pixelSize];
-  v22 = v21;
+  v23 = v22;
   [v7 referenceDimensions];
-  v24 = v23;
-  v26 = v25;
+  v25 = v24;
+  v27 = v26;
   [distortionModel distortionCenter];
-  v28 = v27;
-  v30 = v29;
+  v29 = v28;
+  v31 = v30;
   lensDistortionLookupTable = [distortionModel lensDistortionLookupTable];
   inverseLensDistortionLookupTable = [distortionModel inverseLensDistortionLookupTable];
-  v33 = [v16 ar_initWithImageData:v6 cameraToPlatformTransform:lensDistortionLookupTable pixelSize:inverseLensDistortionLookupTable referenceDimensions:v47 distortionCenter:v46 lensDistortionLookupTable:v45 inverseLensDistortionLookupTable:{v44, v22, v24, v26, v28, v30}];
+  v34 = [v17 ar_initWithImageData:v6 cameraToPlatformTransform:lensDistortionLookupTable pixelSize:inverseLensDistortionLookupTable referenceDimensions:v48 distortionCenter:v47 lensDistortionLookupTable:v46 inverseLensDistortionLookupTable:{v45, v23, v25, v27, v29, v31}];
 
 LABEL_20:
 LABEL_21:
 
-  return v33;
+  return v34;
 }
 
 + (id)ar_initWithCVACameraCalibrationData:()ARAdditions
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (!v4)
@@ -117,47 +118,47 @@ LABEL_21:
       +[ADCameraCalibration(ARAdditions) ar_calibrationWithImageData:adCalibrationData:];
     }
 
-    v29 = ARShouldUseLogTypeError_internalOSVersion_43;
-    v30 = _ARLogGeneral_36();
-    v31 = v30;
-    if (v29 == 1)
+    v31 = ARShouldUseLogTypeError_internalOSVersion_43;
+    v32 = _ARLogGeneral_36(v4);
+    v33 = v32;
+    if (v31 == 1)
     {
-      if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_29;
       }
 
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       *buf = 138543618;
-      v55 = v33;
-      v56 = 2048;
+      v57 = v35;
+      v58 = 2048;
       selfCopy6 = self;
-      v34 = "%{public}@ <%p>: calibrationData is nil";
+      v36 = "%{public}@ <%p>: calibrationData is nil";
 LABEL_22:
-      v42 = v31;
-      v43 = OS_LOG_TYPE_ERROR;
+      v44 = v33;
+      v45 = OS_LOG_TYPE_ERROR;
 LABEL_28:
-      _os_log_impl(&dword_1C241C000, v42, v43, v34, buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v44, v45, v36, buf, 0x16u);
 
       goto LABEL_29;
     }
 
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
       goto LABEL_29;
     }
 
-    v38 = objc_opt_class();
-    v33 = NSStringFromClass(v38);
+    v40 = objc_opt_class();
+    v35 = NSStringFromClass(v40);
     *buf = 138543618;
-    v55 = v33;
-    v56 = 2048;
+    v57 = v35;
+    v58 = 2048;
     selfCopy6 = self;
-    v34 = "Error: %{public}@ <%p>: calibrationData is nil";
+    v36 = "Error: %{public}@ <%p>: calibrationData is nil";
 LABEL_27:
-    v42 = v31;
-    v43 = OS_LOG_TYPE_INFO;
+    v44 = v33;
+    v45 = OS_LOG_TYPE_INFO;
     goto LABEL_28;
   }
 
@@ -170,38 +171,38 @@ LABEL_27:
       +[ADCameraCalibration(ARAdditions) ar_calibrationWithImageData:adCalibrationData:];
     }
 
-    v35 = ARShouldUseLogTypeError_internalOSVersion_43;
-    v36 = _ARLogGeneral_36();
-    v31 = v36;
-    if (v35 == 1)
+    v37 = ARShouldUseLogTypeError_internalOSVersion_43;
+    v38 = _ARLogGeneral_36(v7);
+    v33 = v38;
+    if (v37 == 1)
     {
-      if (!os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      if (!os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_29;
       }
 
-      v37 = objc_opt_class();
-      v33 = NSStringFromClass(v37);
+      v39 = objc_opt_class();
+      v35 = NSStringFromClass(v39);
       *buf = 138543618;
-      v55 = v33;
-      v56 = 2048;
+      v57 = v35;
+      v58 = 2048;
       selfCopy6 = self;
-      v34 = "%{public}@ <%p>: lensDistortionLookupTable is nil";
+      v36 = "%{public}@ <%p>: lensDistortionLookupTable is nil";
       goto LABEL_22;
     }
 
-    if (!os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
     {
       goto LABEL_29;
     }
 
-    v44 = objc_opt_class();
-    v33 = NSStringFromClass(v44);
+    v46 = objc_opt_class();
+    v35 = NSStringFromClass(v46);
     *buf = 138543618;
-    v55 = v33;
-    v56 = 2048;
+    v57 = v35;
+    v58 = 2048;
     selfCopy6 = self;
-    v34 = "Error: %{public}@ <%p>: lensDistortionLookupTable is nil";
+    v36 = "Error: %{public}@ <%p>: lensDistortionLookupTable is nil";
     goto LABEL_27;
   }
 
@@ -209,28 +210,28 @@ LABEL_27:
 
   if (inverseLensDistortionLookupTable)
   {
-    v8 = objc_alloc(MEMORY[0x1E698C178]);
+    v10 = objc_alloc(MEMORY[0x1E698C178]);
     [v5 lensDistortionCenter];
-    v10 = v9;
     v12 = v11;
+    v14 = v13;
     lensDistortionLookupTable2 = [v5 lensDistortionLookupTable];
     inverseLensDistortionLookupTable2 = [v5 inverseLensDistortionLookupTable];
-    v15 = [v8 initWithDistortionCenter:lensDistortionLookupTable2 lensDistortionLookupTable:inverseLensDistortionLookupTable2 inverseLensDistortionLookupTable:{v10, v12}];
+    v17 = [v10 initWithDistortionCenter:lensDistortionLookupTable2 lensDistortionLookupTable:inverseLensDistortionLookupTable2 inverseLensDistortionLookupTable:{v12, v14}];
 
-    v16 = objc_alloc(MEMORY[0x1E698C160]);
+    v18 = objc_alloc(MEMORY[0x1E698C160]);
     [v5 intrinsicMatrix];
-    v53 = v17;
-    v51 = v19;
-    v52 = v18;
+    v55 = v19;
+    v53 = v21;
+    v54 = v20;
     [v5 extrinsicMatrix];
-    v49 = v21;
-    v50 = v20;
-    v47 = v23;
-    v48 = v22;
+    v51 = v23;
+    v52 = v22;
+    v49 = v25;
+    v50 = v24;
     [v5 pixelSize];
-    v25 = v24;
+    v27 = v26;
     [v5 intrinsicMatrixReferenceDimensions];
-    v28 = [v16 initWithIntrinsics:v15 cameraToPlatformTransform:v53 pixelSize:v52 forReferenceDimensions:v51 withDistortionModel:{v50, v49, v48, v47, v25, v26, v27}];
+    v30 = [v18 initWithIntrinsics:v17 cameraToPlatformTransform:v55 pixelSize:v54 forReferenceDimensions:v53 withDistortionModel:{v52, v51, v50, v49, v27, v28, v29}];
 
     goto LABEL_30;
   }
@@ -240,44 +241,44 @@ LABEL_27:
     +[ADCameraCalibration(ARAdditions) ar_calibrationWithImageData:adCalibrationData:];
   }
 
-  v39 = ARShouldUseLogTypeError_internalOSVersion_43;
-  v40 = _ARLogGeneral_36();
-  v31 = v40;
-  if (v39 != 1)
+  v41 = ARShouldUseLogTypeError_internalOSVersion_43;
+  v42 = _ARLogGeneral_36(v9);
+  v33 = v42;
+  if (v41 != 1)
   {
-    if (!os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+    if (!os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
     {
       goto LABEL_29;
     }
 
-    v45 = objc_opt_class();
-    v33 = NSStringFromClass(v45);
+    v47 = objc_opt_class();
+    v35 = NSStringFromClass(v47);
     *buf = 138543618;
-    v55 = v33;
-    v56 = 2048;
+    v57 = v35;
+    v58 = 2048;
     selfCopy6 = self;
-    v34 = "Error: %{public}@ <%p>: inverseLensDistortionLookupTable is nil";
+    v36 = "Error: %{public}@ <%p>: inverseLensDistortionLookupTable is nil";
     goto LABEL_27;
   }
 
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
   {
-    v41 = objc_opt_class();
-    v33 = NSStringFromClass(v41);
+    v43 = objc_opt_class();
+    v35 = NSStringFromClass(v43);
     *buf = 138543618;
-    v55 = v33;
-    v56 = 2048;
+    v57 = v35;
+    v58 = 2048;
     selfCopy6 = self;
-    v34 = "%{public}@ <%p>: inverseLensDistortionLookupTable is nil";
+    v36 = "%{public}@ <%p>: inverseLensDistortionLookupTable is nil";
     goto LABEL_22;
   }
 
 LABEL_29:
 
-  v28 = 0;
+  v30 = 0;
 LABEL_30:
 
-  return v28;
+  return v30;
 }
 
 - (id)ar_initWithImageData:()ARAdditions calibrationData:
@@ -308,27 +309,27 @@ LABEL_30:
 
 - (id)ar_initWithImageData:()ARAdditions cameraToPlatformTransform:pixelSize:referenceDimensions:distortionCenter:lensDistortionLookupTable:inverseLensDistortionLookupTable:
 {
-  v23 = a12;
-  v24 = a11;
-  v25 = a10;
-  [v25 imageResolution];
-  v27 = v26 / a7;
-  v28 = a14 * (v26 / a7);
-  [v25 imageResolution];
-  v30 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v24 lensDistortionLookupTable:v23 inverseLensDistortionLookupTable:{v28, -(v29 - a8 * v27) * -0.5 + a15 * v27}];
+  v21 = a12;
+  v22 = a11;
+  v23 = a10;
+  [v23 imageResolution];
+  v25 = v24 / a7;
+  v26 = a14 * (v24 / a7);
+  [v23 imageResolution];
+  v28 = [objc_alloc(MEMORY[0x1E698C178]) initWithDistortionCenter:v22 lensDistortionLookupTable:v21 inverseLensDistortionLookupTable:{v26, -(v27 - a8 * v25) * -0.5 + a15 * v25}];
 
   selfCopy = self;
-  [v25 cameraIntrinsics];
-  v42 = v33;
-  v43 = v32;
-  v41 = v34;
-  [v25 imageResolution];
+  [v23 cameraIntrinsics];
+  v40 = v31;
+  v41 = v30;
+  v39 = v32;
+  [v23 imageResolution];
+  v34 = v33;
   v36 = v35;
-  v38 = v37;
 
-  v39 = [selfCopy initWithIntrinsics:v30 cameraToPlatformTransform:v43 pixelSize:v42 forReferenceDimensions:v41 withDistortionModel:{a2, a3, a4, a5, a6, v36, v38}];
+  v37 = [selfCopy initWithIntrinsics:v28 cameraToPlatformTransform:v41 pixelSize:v40 forReferenceDimensions:v39 withDistortionModel:{a2, a3, a4, a5, a6, v34, v36}];
 
-  return v39;
+  return v37;
 }
 
 @end

@@ -36,7 +36,7 @@
   v6 = [(_PXStoryDefaultStyleProducer *)&v8 init];
   if (v6)
   {
-    v6->_thumbnailOnly = ([configurationCopy options] & 2) != 0;
+    v6->_thumbnailOnly = (objc_msgSend_options(configurationCopy) & 2) != 0;
     objc_storeStrong(&v6->_storyConfiguration, configuration);
   }
 

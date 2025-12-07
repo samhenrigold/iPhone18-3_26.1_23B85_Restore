@@ -100,9 +100,8 @@
 
   if (!previousValues)
   {
-    properties = self->_properties;
-    v5 = objc_alloc_init(objc_opt_class());
-    [(ACHDataStoreActivityProperties *)self->_properties setPreviousValues:v5];
+    v4 = objc_alloc_init(objc_opt_class());
+    [(ACHDataStoreActivityProperties *)self->_properties setPreviousValues:v4];
   }
 
   previousValues2 = [(ACHDataStoreActivityProperties *)self->_properties previousValues];
@@ -112,39 +111,38 @@
 
 - (void)clearAllProperties
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   dictionaryKeys = [(ACHDataStoreActivityProperties *)self->_properties dictionaryKeys];
-  v4 = [dictionaryKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [dictionaryKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(dictionaryKeys);
         }
 
-        [(ACHDataStoreActivityProperties *)self->_properties setValue:&unk_283555C08 forKey:*(*(&v9 + 1) + 8 * v7++)];
+        [(ACHDataStoreActivityProperties *)self->_properties setValue:&unk_283555C08 forKey:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [dictionaryKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [dictionaryKeys countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   [(ACHDataStoreActivityProperties *)self->_properties setPreviousValues:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLastCheckedIndex:(int64_t)index

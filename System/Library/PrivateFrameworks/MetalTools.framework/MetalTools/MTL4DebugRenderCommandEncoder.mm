@@ -15,6 +15,7 @@
 - (void)dealloc;
 - (void)dispatchThreadsPerTile:(id *)tile;
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount;
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount baseVertex:(int64_t)vertex baseInstance:(unint64_t)self0;
@@ -47,6 +48,8 @@
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setStencilStoreAction:(unint64_t)action;
 - (void)setThreadgroupMemoryLength:(unint64_t)length offset:(unint64_t)offset atIndex:(unint64_t)index;
 - (void)setTriangleFillMode:(unint64_t)mode;
@@ -84,9 +87,8 @@
 
 - (id)commandBuffer
 {
-  v6 = 0;
-  memset(&v5[1], 0, 48);
-  device = self->super.super.super._device;
+  v5 = 0;
+  memset(&v4[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -94,9 +96,9 @@
   }
 
   _MTLMessageContextEnd();
-  v5[0].receiver = self;
-  v5[0].super_class = MTL4DebugRenderCommandEncoder;
-  return [(objc_super *)v5 commandBuffer];
+  v4[0].receiver = self;
+  v4[0].super_class = MTL4DebugRenderCommandEncoder;
+  return [(objc_super *)v4 commandBuffer];
 }
 
 - (void)endEncoding
@@ -117,7 +119,6 @@
 
 - (void)setColorAttachmentMap:(id)map
 {
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding:0])
   {
@@ -128,23 +129,22 @@
 
   if (map)
   {
-    v6 = [map copy];
+    v5 = [map copy];
   }
 
   else
   {
-    v6 = objc_opt_new();
+    v5 = objc_opt_new();
   }
 
-  self->_colorAttachmentMap = v6;
+  self->_colorAttachmentMap = v5;
   [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
 - (void)setRenderPipelineState:(id)state
 {
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
-  device = self->super.super.super._device;
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -179,24 +179,23 @@ LABEL_4:
     _MTLMessageContextPush_();
   }
 
-  if (!*&v8[0])
+  if (!*&v7[0])
   {
-    [(MTL4DebugRenderCommandEncoder *)self _validateFramebufferCompatibility:v8 pipelineState:state];
+    [(MTL4DebugRenderCommandEncoder *)self _validateFramebufferCompatibility:v7 pipelineState:state];
   }
 
   _MTLMessageContextEnd();
   self->_currentRenderPipelineState = state;
   self->_encoderState = (*&self->_encoderState & 0xFFFFDFFE | 0x2000);
-  v7.receiver = self;
-  v7.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v7 setRenderPipelineState:state];
+  v6.receiver = self;
+  v6.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v6 setRenderPipelineState:state];
 }
 
 - (void)setViewport:(id *)viewport
 {
-  v26 = 0;
-  memset(&v25[3], 0, 48);
-  device = self->super.super.super._device;
+  v20 = 0;
+  memset(&v19[3], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -216,8 +215,8 @@ LABEL_4:
     end = self->_currentViewports.__end_;
     if (end - begin == 48)
     {
-      v9 = begin == end ? 0 : self->_currentViewports.__begin_;
-      if (!memcmp(v9, viewport, 0x30uLL))
+      v8 = begin == end ? 0 : self->_currentViewports.__begin_;
+      if (!memcmp(v8, viewport, 0x30uLL))
       {
         _MTLMessageContextPush_();
       }
@@ -256,60 +255,54 @@ LABEL_4:
     _MTLMessageContextPush_();
   }
 
-  var2 = viewport->var2;
-  var3 = viewport->var3;
-  var0 = viewport->var0;
-  var1 = viewport->var1;
-  v15 = viewport->var4;
   _MTLMessageContextEnd();
-  v16 = self->_currentViewports.__begin_;
-  self->_currentViewports.__end_ = v16;
+  v10 = self->_currentViewports.__begin_;
+  self->_currentViewports.__end_ = v10;
   cap = self->_currentViewports.__cap_;
-  if (v16 >= cap)
+  if (v10 >= cap)
   {
-    v20 = 0xAAAAAAAAAAAAAAABLL * ((cap - v16) >> 4);
-    v21 = 2 * v20;
-    if (2 * v20 <= 1)
+    v14 = 0xAAAAAAAAAAAAAAABLL * ((cap - v10) >> 4);
+    v15 = 2 * v14;
+    if (2 * v14 <= 1)
     {
-      v21 = 1;
+      v15 = 1;
     }
 
-    if (v20 >= 0x2AAAAAAAAAAAAAALL)
+    if (v14 >= 0x2AAAAAAAAAAAAAALL)
     {
-      v22 = 0x555555555555555;
+      v16 = 0x555555555555555;
     }
 
     else
     {
-      v22 = v21;
+      v16 = v15;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(&self->_currentViewports, v22);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(&self->_currentViewports, v16);
   }
 
-  v18 = *&viewport->var0;
-  v19 = *&viewport->var4;
-  *(v16 + 1) = *&viewport->var2;
-  *(v16 + 2) = v19;
-  *v16 = v18;
-  self->_currentViewports.__end_ = (v16 + 48);
+  v12 = *&viewport->var0;
+  v13 = *&viewport->var4;
+  *(v10 + 1) = *&viewport->var2;
+  *(v10 + 2) = v13;
+  *v10 = v12;
+  self->_currentViewports.__end_ = (v10 + 48);
   self->_encoderState = (*&self->_encoderState & 0xFFFFBFFD | 0x4000);
-  v23 = *&viewport->var2;
-  v25[0] = *&viewport->var0;
-  v25[1] = v23;
-  v25[2] = *&viewport->var4;
-  v24.receiver = self;
-  v24.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v24 setViewport:v25];
+  v17 = *&viewport->var2;
+  v19[0] = *&viewport->var0;
+  v19[1] = v17;
+  v19[2] = *&viewport->var4;
+  v18.receiver = self;
+  v18.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v18 setViewport:v19];
 }
 
 - (void)setViewports:(id *)viewports count:(unint64_t)count
 {
-  v44 = 0;
-  v42 = 0u;
-  v43 = 0u;
-  v41 = 0u;
-  device = self->super.super.super._device;
+  v38 = 0;
+  v36 = 0u;
+  v37 = 0u;
+  v35 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -323,7 +316,7 @@ LABEL_4:
     encoderState = self->_encoderState;
   }
 
-  if ((*&encoderState & 0x4000) != 0 && (begin = self->_currentViewports.__begin_, end = self->_currentViewports.__end_, 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 4) == count) && (begin != end ? (v11 = self->_currentViewports.__begin_) : (v11 = 0), !memcmp(v11, viewports, end - begin)))
+  if ((*&encoderState & 0x4000) != 0 && (begin = self->_currentViewports.__begin_, end = self->_currentViewports.__end_, 0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 4) == count) && (begin != end ? (v10 = self->_currentViewports.__begin_) : (v10 = 0), !memcmp(v10, viewports, end - begin)))
   {
     _MTLMessageContextPush_();
     if (!count)
@@ -337,58 +330,53 @@ LABEL_4:
     goto LABEL_28;
   }
 
-  v12 = 0;
+  v11 = 0;
   p_var4 = &viewports->var4;
   do
   {
     if (fabs(*(p_var4 - 2)) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
     if (fabs(*(p_var4 - 1)) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
     if (fabs(*(p_var4 - 4)) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
     if (fabs(*(p_var4 - 3)) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
-    v14 = *p_var4;
+    v13 = *p_var4;
     if (fabs(*p_var4) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
-      v14 = *p_var4;
+      v13 = *p_var4;
     }
 
-    if (fabs(v14) == INFINITY)
+    if (fabs(v13) == INFINITY)
     {
-      v37 = v12;
+      v31 = v11;
       _MTLMessageContextPush_();
     }
 
-    v15 = *(p_var4 - 2);
-    v16 = *(p_var4 - 1);
-    v17 = *(p_var4 - 4);
-    v18 = *(p_var4 - 3);
-    v19 = *p_var4;
-    ++v12;
+    ++v11;
     p_var4 += 6;
   }
 
-  while (count != v12);
+  while (count != v11);
 LABEL_28:
   viewportsCopy = viewports;
   _MTLMessageContextEnd();
@@ -398,73 +386,73 @@ LABEL_28:
   std::vector<MTLViewport>::reserve(&self->_currentViewports.__begin_, count);
   if (count)
   {
-    v21 = self->_currentViewports.__end_;
+    v15 = self->_currentViewports.__end_;
     viewportsCopy2 = viewports;
     countCopy = count;
     do
     {
       cap = p_currentViewports->__cap_;
-      if (v21 >= cap)
+      if (v15 >= cap)
       {
-        v27 = 0xAAAAAAAAAAAAAAABLL * ((v21 - p_currentViewports->__begin_) >> 4);
-        v28 = v27 + 1;
-        if (v27 + 1 > 0x555555555555555)
+        v21 = 0xAAAAAAAAAAAAAAABLL * ((v15 - p_currentViewports->__begin_) >> 4);
+        v22 = v21 + 1;
+        if (v21 + 1 > 0x555555555555555)
         {
           std::vector<std::pair<char const*,MTLShaderValidationState>>::__throw_length_error[abi:ne200100]();
         }
 
-        v29 = 0xAAAAAAAAAAAAAAABLL * ((cap - p_currentViewports->__begin_) >> 4);
-        if (2 * v29 > v28)
+        v23 = 0xAAAAAAAAAAAAAAABLL * ((cap - p_currentViewports->__begin_) >> 4);
+        if (2 * v23 > v22)
         {
-          v28 = 2 * v29;
+          v22 = 2 * v23;
         }
 
-        if (v29 >= 0x2AAAAAAAAAAAAAALL)
+        if (v23 >= 0x2AAAAAAAAAAAAAALL)
         {
-          v30 = 0x555555555555555;
+          v24 = 0x555555555555555;
         }
 
         else
         {
-          v30 = v28;
+          v24 = v22;
         }
 
+        if (v24)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(p_currentViewports, v24);
+        }
+
+        v25 = 48 * v21;
+        v26 = *&viewportsCopy2->var0;
+        v27 = *&viewportsCopy2->var4;
+        *(v25 + 16) = *&viewportsCopy2->var2;
+        *(v25 + 32) = v27;
+        *v25 = v26;
+        v15 = (48 * v21 + 48);
+        v28 = p_currentViewports->__end_ - p_currentViewports->__begin_;
+        v29 = (v25 - v28);
+        memcpy((v25 - v28), p_currentViewports->__begin_, v28);
+        v30 = p_currentViewports->__begin_;
+        p_currentViewports->__begin_ = v29;
+        p_currentViewports->__end_ = v15;
+        p_currentViewports->__cap_ = 0;
         if (v30)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<MTLViewport>>(p_currentViewports, v30);
-        }
-
-        v31 = 48 * v27;
-        v32 = *&viewportsCopy2->var0;
-        v33 = *&viewportsCopy2->var4;
-        *(v31 + 16) = *&viewportsCopy2->var2;
-        *(v31 + 32) = v33;
-        *v31 = v32;
-        v21 = (48 * v27 + 48);
-        v34 = p_currentViewports->__end_ - p_currentViewports->__begin_;
-        v35 = (v31 - v34);
-        memcpy((v31 - v34), p_currentViewports->__begin_, v34);
-        v36 = p_currentViewports->__begin_;
-        p_currentViewports->__begin_ = v35;
-        p_currentViewports->__end_ = v21;
-        p_currentViewports->__cap_ = 0;
-        if (v36)
-        {
-          operator delete(v36);
+          operator delete(v30);
         }
       }
 
       else
       {
-        v25 = *&viewportsCopy2->var0;
-        v26 = *&viewportsCopy2->var4;
-        *(v21 + 1) = *&viewportsCopy2->var2;
-        *(v21 + 2) = v26;
-        *v21 = v25;
-        v21 = (v21 + 48);
+        v19 = *&viewportsCopy2->var0;
+        v20 = *&viewportsCopy2->var4;
+        *(v15 + 1) = *&viewportsCopy2->var2;
+        *(v15 + 2) = v20;
+        *v15 = v19;
+        v15 = (v15 + 48);
       }
 
-      p_currentViewports->__end_ = v21;
+      p_currentViewports->__end_ = v15;
       ++viewportsCopy2;
       --countCopy;
     }
@@ -473,18 +461,17 @@ LABEL_28:
   }
 
   selfCopy->_encoderState = (*&selfCopy->_encoderState & 0xFFFFBFFD | 0x4000);
-  v40.receiver = selfCopy;
-  v40.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v40 setViewports:viewportsCopy count:count, v37];
+  v34.receiver = selfCopy;
+  v34.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v34 setViewports:viewportsCopy count:count, v31];
 }
 
 - (void)setVertexAmplificationCount:(unint64_t)count viewMappings:(id *)mappings
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v12 = 0;
   v10 = 0u;
-  device = self->super.super.super._device;
+  v11 = 0u;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if (![(MTLToolsDevice *)self->super.super.super._device supportsVertexAmplification])
   {
@@ -516,18 +503,17 @@ LABEL_28:
   _MTLMessageContextEnd();
   self->_currentVertexAmplificationCount = count;
   self->_encoderState = (*&self->_encoderState & 0xFFFF7FFB | 0x8000);
-  v9.receiver = self;
-  v9.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v9 setVertexAmplificationCount:count viewMappings:mappings];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v8 setVertexAmplificationCount:count viewMappings:mappings];
 }
 
 - (void)setCullMode:(unint64_t)mode
 {
-  v11 = 0;
-  v9 = 0u;
-  v10 = 0u;
+  v10 = 0;
   v8 = 0u;
-  device = self->super.super.super._device;
+  v9 = 0u;
+  v7 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -554,18 +540,17 @@ LABEL_28:
   _MTLMessageContextEnd();
   self->_currentCullMode = mode;
   self->_encoderState = (*&self->_encoderState & 0xFFFEFFF7 | 0x10000);
-  v7.receiver = self;
-  v7.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v7 setCullMode:mode];
+  v6.receiver = self;
+  v6.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v6 setCullMode:mode];
 }
 
 - (void)setDepthClipMode:(unint64_t)mode
 {
-  v11 = 0;
-  v9 = 0u;
-  v10 = 0u;
+  v10 = 0;
   v8 = 0u;
-  device = self->super.super.super._device;
+  v9 = 0u;
+  v7 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -592,16 +577,15 @@ LABEL_28:
   _MTLMessageContextEnd();
   self->_currentDepthClipMode = mode;
   self->_encoderState = (*&self->_encoderState & 0xFFFDFFEF | 0x20000);
-  v7.receiver = self;
-  v7.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v7 setDepthClipMode:mode];
+  v6.receiver = self;
+  v6.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v6 setDepthClipMode:mode];
 }
 
 - (void)setDepthBias:(float)bias slopeScale:(float)scale clamp:(float)clamp
 {
-  v15 = 0;
-  memset(&v14[1], 0, 48);
-  device = self->super.super.super._device;
+  v14 = 0;
+  memset(&v13[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -625,21 +609,20 @@ LABEL_28:
   self->_currentDepthSlopeScale = scale;
   self->_currentDepthClamp = clamp;
   self->_encoderState = (*&self->_encoderState & 0xFFFBFFDF | 0x40000);
-  v14[0].receiver = self;
-  v14[0].super_class = MTL4DebugRenderCommandEncoder;
-  *&v11 = bias;
-  *&v12 = scale;
-  *&v13 = clamp;
-  [(objc_super *)v14 setDepthBias:v11 slopeScale:v12 clamp:v13];
+  v13[0].receiver = self;
+  v13[0].super_class = MTL4DebugRenderCommandEncoder;
+  *&v10 = bias;
+  *&v11 = scale;
+  *&v12 = clamp;
+  [(objc_super *)v13 setDepthBias:v10 slopeScale:v11 clamp:v12];
 }
 
 - (void)setDepthTestMinBound:(float)bound maxBound:(float)maxBound
 {
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
+  v13 = 0;
   v11 = 0u;
-  device = self->super.super.super._device;
+  v12 = 0u;
+  v10 = 0u;
   _MTLMessageContextBegin_();
   if (![(MTLToolsDevice *)self->super.super.super._device supportsDepthBoundsTesting])
   {
@@ -674,18 +657,17 @@ LABEL_28:
   _MTLMessageContextEnd();
   self->_currentDepthTestMinBound = bound;
   self->_currentDepthTestMaxBound = maxBound;
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  *&v8 = bound;
-  *&v9 = maxBound;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 setDepthTestMinBound:v8 maxBound:v9];
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  *&v7 = bound;
+  *&v8 = maxBound;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 setDepthTestMinBound:v7 maxBound:v8];
 }
 
 - (void)setScissorRect:(id *)rect
 {
-  v32 = 0;
-  memset(&v31[2], 0, 48);
-  device = self->super.super.super._device;
+  v31 = 0;
+  memset(&v30[2], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -695,10 +677,10 @@ LABEL_28:
   var2 = rect->var2;
   if (var2 + rect->var0 > self->_width)
   {
-    v28 = var2 + rect->var0;
+    v27 = var2 + rect->var0;
     width = self->_width;
     var0 = rect->var0;
-    v27 = rect->var2;
+    v26 = rect->var2;
     _MTLMessageContextPush_();
   }
 
@@ -706,10 +688,10 @@ LABEL_28:
   var3 = rect->var3;
   if (var3 + var1 > self->_height)
   {
-    v28 = var3 + var1;
+    v27 = var3 + var1;
     width = self->_height;
     var0 = rect->var1;
-    v27 = rect->var3;
+    v26 = rect->var3;
     _MTLMessageContextPush_();
   }
 
@@ -731,11 +713,11 @@ LABEL_28:
         begin = 0;
       }
 
-      v12 = *begin;
-      v13 = *(begin + 1);
-      v15 = *(begin + 2);
-      v14 = *(begin + 3);
-      if (v12 == rect->var0 && v13 == rect->var1 && v15 == rect->var2 && v14 == rect->var3)
+      v11 = *begin;
+      v12 = *(begin + 1);
+      v14 = *(begin + 2);
+      v13 = *(begin + 3);
+      if (v11 == rect->var0 && v12 == rect->var1 && v14 == rect->var2 && v13 == rect->var3)
       {
         _MTLMessageContextPush_();
       }
@@ -743,42 +725,42 @@ LABEL_28:
   }
 
   _MTLMessageContextEnd();
-  v19 = self->_currentScissorRects.__begin_;
-  self->_currentScissorRects.__end_ = v19;
+  v18 = self->_currentScissorRects.__begin_;
+  self->_currentScissorRects.__end_ = v18;
   cap = self->_currentScissorRects.__cap_;
-  if (v19 >= cap)
+  if (v18 >= cap)
   {
-    v22 = cap - v19;
-    v23 = v22 >> 4;
-    if ((v22 >> 4) <= 1)
+    v21 = cap - v18;
+    v22 = v21 >> 4;
+    if ((v21 >> 4) <= 1)
     {
-      v23 = 1;
+      v22 = 1;
     }
 
-    if (v22 >= 0x7FFFFFFFFFFFFFE0)
+    if (v21 >= 0x7FFFFFFFFFFFFFE0)
     {
-      v24 = 0x7FFFFFFFFFFFFFFLL;
+      v23 = 0x7FFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v24 = v23;
+      v23 = v22;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(&self->_currentScissorRects, v24);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<MTLScissorRect>>(&self->_currentScissorRects, v23);
   }
 
-  v21 = *&rect->var2;
-  *v19 = *&rect->var0;
-  *(v19 + 1) = v21;
-  self->_currentScissorRects.__end_ = (v19 + 32);
+  v20 = *&rect->var2;
+  *v18 = *&rect->var0;
+  *(v18 + 1) = v20;
+  self->_currentScissorRects.__end_ = (v18 + 32);
   self->_encoderState = (*&self->_encoderState & 0xFFF7FFBF | 0x80000);
-  v25 = *&rect->var2;
-  v31[0] = *&rect->var0;
-  v31[1] = v25;
-  v30.receiver = self;
-  v30.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v30 setScissorRect:v31, var0, v27, v28, width];
+  v24 = *&rect->var2;
+  v30[0] = *&rect->var0;
+  v30[1] = v24;
+  v29.receiver = self;
+  v29.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v29 setScissorRect:v30, var0, v26, v27, width];
 }
 
 - (void)setScissorRects:(id *)rects count:(unint64_t)count
@@ -787,7 +769,6 @@ LABEL_28:
   v40 = 0u;
   v41 = 0u;
   v39 = 0u;
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -803,38 +784,38 @@ LABEL_28:
     goto LABEL_11;
   }
 
-  v8 = 0;
+  v7 = 0;
   p_var2 = &rects->var2;
   do
   {
-    v10 = *(p_var2 - 2);
-    if (*p_var2 + v10 > self->_width)
+    v9 = *(p_var2 - 2);
+    if (*p_var2 + v9 > self->_width)
     {
-      v35 = v8;
+      v35 = v7;
       width = self->_width;
       v33 = *p_var2;
-      v34 = *p_var2 + v10;
+      v34 = *p_var2 + v9;
       v32 = *(p_var2 - 2);
       _MTLMessageContextPush_();
     }
 
-    v11 = *(p_var2 - 1);
-    v12 = p_var2[1];
-    if (v12 + v11 > self->_height)
+    v10 = *(p_var2 - 1);
+    v11 = p_var2[1];
+    if (v11 + v10 > self->_height)
     {
-      v35 = v8;
+      v35 = v7;
       width = self->_height;
       v33 = p_var2[1];
-      v34 = v12 + v11;
+      v34 = v11 + v10;
       v32 = *(p_var2 - 1);
       _MTLMessageContextPush_();
     }
 
-    ++v8;
+    ++v7;
     p_var2 += 4;
   }
 
-  while (count != v8);
+  while (count != v7);
 LABEL_11:
   encoderState = self->_encoderState;
   if ((*&encoderState & 0x40) == 0)
@@ -849,8 +830,8 @@ LABEL_11:
     end = self->_currentScissorRects.__end_;
     if (count == (end - begin) >> 5)
     {
-      v16 = begin == end ? 0 : self->_currentScissorRects.__begin_;
-      if (!memcmp(v16, rects, end - begin))
+      v15 = begin == end ? 0 : self->_currentScissorRects.__begin_;
+      if (!memcmp(v15, rects, end - begin))
       {
         _MTLMessageContextPush_();
       }
@@ -861,7 +842,7 @@ LABEL_11:
   _MTLMessageContextEnd();
   p_currentScissorRects = &self->_currentScissorRects;
   self->_currentScissorRects.__end_ = self->_currentScissorRects.__begin_;
-  std::vector<MTLScissorRect>::reserve(&self->_currentScissorRects.__begin_, count);
+  std::vector<MTLScissorRect>::reserve(&self->_currentScissorRects.__begin_, count, v17);
   if (count)
   {
     v18 = self->_currentScissorRects.__end_;
@@ -942,11 +923,10 @@ LABEL_11:
 
 - (void)setTriangleFillMode:(unint64_t)mode
 {
-  v11 = 0;
-  v9 = 0u;
-  v10 = 0u;
+  v10 = 0;
   v8 = 0u;
-  device = self->super.super.super._device;
+  v9 = 0u;
+  v7 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -973,16 +953,15 @@ LABEL_11:
   _MTLMessageContextEnd();
   self->_currentTriangleFillMode = mode;
   self->_encoderState = (*&self->_encoderState & 0xFFEFFF7F | 0x100000);
-  v7.receiver = self;
-  v7.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v7 setTriangleFillMode:mode];
+  v6.receiver = self;
+  v6.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v6 setTriangleFillMode:mode];
 }
 
 - (void)setBlendColorRed:(float)red green:(float)green blue:(float)blue alpha:(float)alpha
 {
-  v18 = 0;
-  memset(&v17[1], 0, 48);
-  device = self->super.super.super._device;
+  v17 = 0;
+  memset(&v16[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1014,20 +993,19 @@ LABEL_11:
 
 LABEL_10:
   _MTLMessageContextEnd();
-  v17[0].receiver = self;
-  v17[0].super_class = MTL4DebugRenderCommandEncoder;
-  *&v13 = red;
-  *&v14 = green;
-  *&v15 = blue;
-  *&v16 = alpha;
-  [(objc_super *)v17 setBlendColorRed:v13 green:v14 blue:v15 alpha:v16];
+  v16[0].receiver = self;
+  v16[0].super_class = MTL4DebugRenderCommandEncoder;
+  *&v12 = red;
+  *&v13 = green;
+  *&v14 = blue;
+  *&v15 = alpha;
+  [(objc_super *)v16 setBlendColorRed:v12 green:v13 blue:v14 alpha:v15];
 }
 
 - (void)setDepthStencilState:(id)state
 {
-  v8 = 0;
-  memset(&v7[1], 0, 48);
-  device = self->super.super.super._device;
+  v7 = 0;
+  memset(&v6[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1049,9 +1027,74 @@ LABEL_10:
   _MTLMessageContextEnd();
   self->_currentDepthStencilState = state;
   self->_encoderState = (*&self->_encoderState & 0xFFBFFDFF | 0x400000);
-  v7[0].receiver = self;
-  v7[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v7 setDepthStencilState:state];
+  v6[0].receiver = self;
+  v6[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v6 setDepthStencilState:state];
+}
+
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  v7 = 0;
+  memset(&v6[1], 0, 48);
+  _MTLMessageContextBegin_();
+  if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  encoderState = self->_encoderState;
+  if ((*&encoderState & 0x400) == 0)
+  {
+    _MTLMessageContextPush_();
+    encoderState = self->_encoderState;
+  }
+
+  if ((*&encoderState & 0x800000) != 0 && self->_currentStencilFrontReferenceValue == v3 && self->_currentStencilBackReferenceValue == v3)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  self->_currentStencilFrontReferenceValue = v3;
+  self->_currentStencilBackReferenceValue = v3;
+  self->_encoderState = (*&self->_encoderState & 0xFF7FFBFF | 0x800000);
+  v6[0].receiver = self;
+  v6[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v6 setStencilReferenceValue:v3];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  v9 = 0;
+  memset(&v8[1], 0, 48);
+  _MTLMessageContextBegin_();
+  if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  encoderState = self->_encoderState;
+  if ((*&encoderState & 0x400) == 0)
+  {
+    _MTLMessageContextPush_();
+    encoderState = self->_encoderState;
+  }
+
+  if ((*&encoderState & 0x800000) != 0 && self->_currentStencilFrontReferenceValue == v5 && self->_currentStencilBackReferenceValue == v4)
+  {
+    _MTLMessageContextPush_();
+  }
+
+  _MTLMessageContextEnd();
+  self->_currentStencilFrontReferenceValue = v5;
+  self->_currentStencilBackReferenceValue = v4;
+  self->_encoderState = (*&self->_encoderState & 0xFF7FFBFF | 0x800000);
+  v8[0].receiver = self;
+  v8[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v8 setStencilFrontReferenceValue:v5 backReferenceValue:v4];
 }
 
 - (void)setVisibilityResultMode:(unint64_t)mode offset:(unint64_t)offset
@@ -1064,11 +1107,8 @@ LABEL_10:
     MTLValidateFeatureSupport();
   }
 
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
-  v17 = 0u;
-  device = self->super.super.super._device;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1083,7 +1123,7 @@ LABEL_10:
 
   else if (!mode)
   {
-    v13 = 1;
+    v12 = 1;
     goto LABEL_22;
   }
 
@@ -1093,15 +1133,15 @@ LABEL_10:
     p_end_node = &self->_allVisibilityOffsets.__tree_.__end_node_;
     do
     {
-      v10 = left[4].__left_;
-      v11 = v10 >= offsetCopy;
-      v12 = v10 < offsetCopy;
-      if (v11)
+      v9 = left[4].__left_;
+      v10 = v9 >= offsetCopy;
+      v11 = v9 < offsetCopy;
+      if (v10)
       {
         p_end_node = left;
       }
 
-      left = left[v12].__left_;
+      left = left[v11].__left_;
     }
 
     while (left);
@@ -1119,10 +1159,10 @@ LABEL_10:
 
   if (offsetCopy + 8 > [-[MTL4RenderPassDescriptor visibilityResultBuffer](self->_descriptor "visibilityResultBuffer")])
   {
-    [MTL4DebugRenderCommandEncoder setVisibilityResultMode:? offset:?];
+    [MTL4DebugRenderCommandEncoder setVisibilityResultMode:v16 offset:?];
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_22:
   encoderState = self->_encoderState;
   if ((*&encoderState & 0x800) == 0)
@@ -1133,31 +1173,30 @@ LABEL_22:
 
   if ((*&encoderState & 0x1000000) != 0 && self->_currentVisibilityResultMode == mode && self->_currentVisibilityResultModeOffset == offsetCopy)
   {
-    [MTL4DebugRenderCommandEncoder setVisibilityResultMode:mode offset:?];
+    [MTL4DebugRenderCommandEncoder setVisibilityResultMode:mode offset:v16];
   }
 
   _MTLMessageContextEnd();
   self->_currentVisibilityResultMode = mode;
   self->_currentVisibilityResultModeOffset = offsetCopy;
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long &>(&self->_allVisibilityOffsets, &offsetCopy2);
+    std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long &>(&self->_allVisibilityOffsets, &offsetCopy2, &offsetCopy2);
     offsetCopy = offsetCopy2;
   }
 
   self->_encoderState = (*&self->_encoderState & 0xFEFFF7FF | 0x1000000);
-  v16.receiver = self;
-  v16.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v16 setVisibilityResultMode:mode offset:offsetCopy];
+  v15.receiver = self;
+  v15.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v15 setVisibilityResultMode:mode offset:offsetCopy];
 }
 
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v12 = 0;
   v10 = 0u;
-  device = self->super.super.super._device;
+  v11 = 0u;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1170,19 +1209,17 @@ LABEL_22:
   }
 
   _MTLMessageContextEnd();
-  v8 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
-  _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v8, index, self->_unknownStoreActions);
-  [v8 setStoreAction:action];
-  v9.receiver = self;
-  v9.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v9 setColorStoreAction:action atIndex:index];
+  v7 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
+  [v7 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v7, index, self->_unknownStoreActions)}];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v8 setColorStoreAction:action atIndex:index];
 }
 
 - (void)setDepthStoreAction:(unint64_t)action
 {
-  v8 = 0;
-  memset(&v7[1], 0, 48);
-  device = self->super.super.super._device;
+  v7 = 0;
+  memset(&v6[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1190,19 +1227,17 @@ LABEL_22:
   }
 
   _MTLMessageContextEnd();
-  v6 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
-  _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v6, 8uLL, self->_unknownStoreActions);
-  [v6 setStoreAction:action];
-  v7[0].receiver = self;
-  v7[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v7 setDepthStoreAction:action];
+  v5 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
+  [v5 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v5, 8uLL, self->_unknownStoreActions)}];
+  v6[0].receiver = self;
+  v6[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v6 setDepthStoreAction:action];
 }
 
 - (void)setStencilStoreAction:(unint64_t)action
 {
-  v8 = 0;
-  memset(&v7[1], 0, 48);
-  device = self->super.super.super._device;
+  v7 = 0;
+  memset(&v6[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1210,99 +1245,92 @@ LABEL_22:
   }
 
   _MTLMessageContextEnd();
-  v6 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
-  _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v6, 9uLL, self->_unknownStoreActions);
-  [v6 setStoreAction:action];
-  v7[0].receiver = self;
-  v7[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v7 setStencilStoreAction:action];
+  v5 = [-[MTL4RenderPassDescriptor colorAttachments](self->_descriptor "colorAttachments")];
+  [v5 setStoreAction:{action, _MTLDebugValidateDeferredStoreActionOnDevice(self->super.super.super._device, action, v5, 9uLL, self->_unknownStoreActions)}];
+  v6[0].receiver = self;
+  v6[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v6 setStencilStoreAction:action];
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count
 {
-  v12 = 0;
-  memset(v11, 0, sizeof(v11));
-  device = self->super.super.super._device;
+  v11 = 0;
+  memset(v10, 0, sizeof(v10));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v11 primitiveType:primitives instanceCount:1];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v10 primitiveType:primitives instanceCount:1];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 drawPrimitives:primitives vertexStart:start vertexCount:count];
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 drawPrimitives:primitives vertexStart:start vertexCount:count];
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount
 {
-  v14 = 0;
-  memset(v13, 0, sizeof(v13));
-  device = self->super.super.super._device;
+  v13 = 0;
+  memset(v12, 0, sizeof(v12));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v13 primitiveType:primitives instanceCount:instanceCount];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v12 primitiveType:primitives instanceCount:instanceCount];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v12.receiver = self;
-  v12.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v12 drawPrimitives:primitives vertexStart:start vertexCount:count instanceCount:instanceCount];
+  v11.receiver = self;
+  v11.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v11 drawPrimitives:primitives vertexStart:start vertexCount:count instanceCount:instanceCount];
 }
 
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount baseInstance:(unint64_t)instance
 {
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  device = self->super.super.super._device;
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v15 primitiveType:primitives instanceCount:instanceCount];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v14 primitiveType:primitives instanceCount:instanceCount];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v14.receiver = self;
-  v14.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v14 drawPrimitives:primitives vertexStart:start vertexCount:count instanceCount:instanceCount baseInstance:instance];
+  v13.receiver = self;
+  v13.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v13 drawPrimitives:primitives vertexStart:start vertexCount:count instanceCount:instanceCount baseInstance:instance];
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length
 {
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  device = self->super.super.super._device;
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v15 indexBuffer:buffer indexType:type indexBufferLength:length];
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v15 primitiveType:primitives instanceCount:1];
+  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v14 indexBuffer:buffer indexType:type indexBufferLength:length];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v14 primitiveType:primitives instanceCount:1];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v14.receiver = self;
-  v14.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v14 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length];
+  v13.receiver = self;
+  v13.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v13 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length];
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount
 {
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
-  device = self->super.super.super._device;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v17 indexBuffer:buffer indexType:type indexBufferLength:length];
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v17 primitiveType:primitives instanceCount:instanceCount];
+  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v16 indexBuffer:buffer indexType:type indexBufferLength:length];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v16 primitiveType:primitives instanceCount:instanceCount];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v16.receiver = self;
-  v16.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v16 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length instanceCount:instanceCount];
+  v15.receiver = self;
+  v15.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v15 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length instanceCount:instanceCount];
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexCount:(unint64_t)count indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length instanceCount:(unint64_t)instanceCount baseVertex:(int64_t)vertex baseInstance:(unint64_t)self0
 {
-  v20 = 0;
-  memset(v19, 0, sizeof(v19));
-  device = self->super.super.super._device;
+  v19 = 0;
+  memset(v18, 0, sizeof(v18));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v19 indexBuffer:buffer indexType:type indexBufferLength:length];
-  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v19 primitiveType:primitives instanceCount:instanceCount];
+  [(MTL4DebugRenderCommandEncoder *)self _validateIndexedDrawCommon:v18 indexBuffer:buffer indexType:type indexBufferLength:length];
+  [(MTL4DebugRenderCommandEncoder *)self _validateDrawCommon:v18 primitiveType:primitives instanceCount:instanceCount];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v18.receiver = self;
-  v18.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v18 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length instanceCount:instanceCount baseVertex:vertex baseInstance:instance];
+  v17.receiver = self;
+  v17.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v17 drawIndexedPrimitives:primitives indexCount:count indexType:type indexBuffer:buffer indexBufferLength:length instanceCount:instanceCount baseVertex:vertex baseInstance:instance];
 }
 
 - (void)drawPrimitives:(unint64_t)primitives indirectBuffer:(unint64_t)buffer
@@ -1313,9 +1341,8 @@ LABEL_22:
     MTLValidateFeatureSupport();
   }
 
-  v9 = 0;
-  memset(&v8[1], 0, 48);
-  device = self->super.super.super._device;
+  v8 = 0;
+  memset(&v7[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1338,9 +1365,9 @@ LABEL_7:
 LABEL_5:
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v8[0].receiver = self;
-  v8[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v8 drawPrimitives:primitives indirectBuffer:buffer];
+  v7[0].receiver = self;
+  v7[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v7 drawPrimitives:primitives indirectBuffer:buffer];
 }
 
 - (void)drawIndexedPrimitives:(unint64_t)primitives indexType:(unint64_t)type indexBuffer:(unint64_t)buffer indexBufferLength:(unint64_t)length indirectBuffer:(unint64_t)indirectBuffer
@@ -1351,9 +1378,8 @@ LABEL_5:
     MTLValidateFeatureSupport();
   }
 
-  v15 = 0;
-  memset(&v14[1], 0, 48);
-  device = self->super.super.super._device;
+  v14 = 0;
+  memset(&v13[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1376,32 +1402,31 @@ LABEL_7:
 LABEL_5:
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v14[0].receiver = self;
-  v14[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v14 drawIndexedPrimitives:primitives indexType:type indexBuffer:buffer indexBufferLength:length indirectBuffer:indirectBuffer];
+  v13[0].receiver = self;
+  v13[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v13 drawIndexedPrimitives:primitives indexType:type indexBuffer:buffer indexBufferLength:length indirectBuffer:indirectBuffer];
 }
 
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range
 {
   length = range.length;
   location = range.location;
-  v14 = 0;
-  v12 = 0u;
-  v13 = 0u;
+  v13 = 0;
   v11 = 0u;
-  device = self->super.super.super._device;
+  v12 = 0u;
+  v10 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
     _MTLMessageContextPush_();
   }
 
-  v16.length = [buffer size];
-  v15.location = location;
-  v15.length = length;
-  v16.location = 0;
-  v9 = NSIntersectionRange(v15, v16);
-  if (v9.location != location || v9.length != length)
+  v15.length = [buffer size];
+  v14.location = location;
+  v14.length = length;
+  v15.location = 0;
+  v8 = NSIntersectionRange(v14, v15);
+  if (v8.location != location || v8.length != length)
   {
     [buffer size];
     _MTLMessageContextPush_();
@@ -1409,16 +1434,15 @@ LABEL_5:
 
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 executeCommandsInBuffer:buffer withRange:location, length];
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 executeCommandsInBuffer:buffer withRange:location, length];
 }
 
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(unint64_t)indirectBuffer
 {
-  v9 = 0;
-  memset(&v8[1], 0, 48);
-  device = self->super.super.super._device;
+  v8 = 0;
+  memset(&v7[1], 0, 48);
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1441,9 +1465,9 @@ LABEL_5:
 LABEL_3:
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v8[0].receiver = self;
-  v8[0].super_class = MTL4DebugRenderCommandEncoder;
-  [(objc_super *)v8 executeCommandsInBuffer:buffer indirectBuffer:indirectBuffer];
+  v7[0].receiver = self;
+  v7[0].super_class = MTL4DebugRenderCommandEncoder;
+  [(objc_super *)v7 executeCommandsInBuffer:buffer indirectBuffer:indirectBuffer];
 }
 
 - (void)setObjectThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index
@@ -1454,11 +1478,10 @@ LABEL_3:
     MTLValidateFeatureSupport();
   }
 
-  v20 = 0;
-  v18 = 0u;
-  v19 = 0u;
+  v19 = 0;
   v17 = 0u;
-  device = self->super.super.super._device;
+  v18 = 0u;
+  v16 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1486,12 +1509,12 @@ LABEL_3:
     _MTLMessageContextPush_();
   }
 
-  if (!v17)
+  if (!v16)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v8 = &self->_currentObjectThreadgroupMemoryLengths[index];
-      if (v8->isValid && !v8->hasBeenUsed)
+      v7 = &self->_currentObjectThreadgroupMemoryLengths[index];
+      if (v7->isValid && !v7->hasBeenUsed)
       {
         indexCopy2 = index;
         MTLReportFailure();
@@ -1500,26 +1523,26 @@ LABEL_3:
   }
 
   _MTLMessageContextEnd();
-  v9 = &self->_currentObjectThreadgroupMemoryLengths[index];
-  if (MTLReportFailureTypeEnabled() && !v9->hasLodClamp && !v9->threadgroupMemoryOffset && v9->threadgroupMemoryLength == length && v9->bufferAttributeStride == -1 && v9->type == 3 && !v9->object && !(v9->bufferLength | v9->var0 | v9->bufferOffset) && !*&v9->lodMinClamp)
+  v8 = &self->_currentObjectThreadgroupMemoryLengths[index];
+  if (MTLReportFailureTypeEnabled() && !v8->hasLodClamp && !v8->threadgroupMemoryOffset && v8->threadgroupMemoryLength == length && v8->bufferAttributeStride == -1 && v8->type == 3 && !v8->object && !(v8->bufferLength | v8->var0 | v8->bufferOffset) && !*&v8->lodMinClamp)
   {
     [MTL4DebugComputeCommandEncoder setThreadgroupMemoryLength:atIndex:];
   }
 
-  v9->isValid = length != 0;
-  v9->hasBeenUsed = 0;
-  v9->type = 3;
-  *&v9->object = 0u;
-  *&v9->bufferLength = 0u;
-  v9->bufferAttributeStride = -1;
-  v9->threadgroupMemoryLength = length;
-  v9->threadgroupMemoryOffset = 0;
-  v9->hasLodClamp = 0;
-  v9->lodMinClamp = 0.0;
-  v9->lodMaxClamp = 0.0;
-  v16.receiver = self;
-  v16.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v16 setObjectThreadgroupMemoryLength:length atIndex:index, indexCopy2, maxComputeThreadgroupMemoryAlignmentBytes];
+  v8->isValid = length != 0;
+  v8->hasBeenUsed = 0;
+  v8->type = 3;
+  *&v8->object = 0u;
+  *&v8->bufferLength = 0u;
+  v8->bufferAttributeStride = -1;
+  v8->threadgroupMemoryLength = length;
+  v8->threadgroupMemoryOffset = 0;
+  v8->hasLodClamp = 0;
+  v8->lodMinClamp = 0.0;
+  v8->lodMaxClamp = 0.0;
+  v15.receiver = self;
+  v15.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v15 setObjectThreadgroupMemoryLength:length atIndex:index, indexCopy2, maxComputeThreadgroupMemoryAlignmentBytes];
 }
 
 - (void)_validateThreadgroupSize:(id *)size stage:(unint64_t)stage context:(_MTLMessageContext *)context
@@ -1550,33 +1573,26 @@ LABEL_3:
     meshThreadExecutionWidth = [(MTLRenderPipelineState *)self->_currentRenderPipelineState objectThreadExecutionWidth];
   }
 
-  var1 = size->var1;
-  var2 = size->var2;
-  v15 = var1 * size->var0 * var2;
-  if (v15 > maxTotalThreadsPerMeshThreadgroup)
+  v13 = size->var1 * size->var0 * size->var2;
+  if (v13 > maxTotalThreadsPerMeshThreadgroup)
   {
-    v19 = size->var2;
-    v21 = var1 * size->var0 * var2;
-    v18 = size->var1;
     _MTLMessageContextPush_();
   }
 
   if (meshThreadExecutionWidth)
   {
-    v16 = meshThreadgroupSizeIsMultipleOfThreadExecutionWidth;
+    v14 = meshThreadgroupSizeIsMultipleOfThreadExecutionWidth;
   }
 
   else
   {
-    v16 = 0;
+    v14 = 0;
   }
 
-  if (v16 == 1)
+  if (v14 == 1)
   {
-    if (v15 % meshThreadExecutionWidth)
+    if (v13 % meshThreadExecutionWidth)
     {
-      v20 = size->var2;
-      v17 = *&size->var0;
       _MTLMessageContextPush_();
     }
   }
@@ -1592,7 +1608,7 @@ LABEL_3:
   currentRenderPipelineState = self->_currentRenderPipelineState;
   if (currentRenderPipelineState)
   {
-    [(MTLRenderPipelineState *)currentRenderPipelineState requiredThreadsPerObjectThreadgroup];
+    objc_msgSend_requiredThreadsPerObjectThreadgroup(currentRenderPipelineState);
   }
 
   validateDispatchThreadsPerThreadgroupWithRTPTG();
@@ -1600,7 +1616,7 @@ LABEL_3:
   v10 = self->_currentRenderPipelineState;
   if (v10)
   {
-    [(MTLRenderPipelineState *)v10 requiredThreadsPerMeshThreadgroup];
+    objc_msgSend_requiredThreadsPerMeshThreadgroup(v10);
   }
 
   validateDispatchThreadsPerThreadgroupWithRTPTG();
@@ -1614,27 +1630,26 @@ LABEL_3:
     MTLValidateFeatureSupport();
   }
 
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
-  device = self->super.super.super._device;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v17];
-  v15 = *&threadgroup->var0;
+  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v16];
+  v14 = *&threadgroup->var0;
   var2 = threadgroup->var2;
-  v13 = *&meshThreadgroup->var0;
-  v14 = meshThreadgroup->var2;
-  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v15 threadsPerMeshThreadgroup:&v13 context:v17];
+  v12 = *&meshThreadgroup->var0;
+  v13 = meshThreadgroup->var2;
+  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v14 threadsPerMeshThreadgroup:&v12 context:v16];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v15 = *&threadgroups->var0;
+  v14 = *&threadgroups->var0;
   var2 = threadgroups->var2;
-  v13 = *&threadgroup->var0;
-  v14 = threadgroup->var2;
-  v11 = *&meshThreadgroup->var0;
-  v12 = meshThreadgroup->var2;
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 drawMeshThreadgroups:&v15 threadsPerObjectThreadgroup:&v13 threadsPerMeshThreadgroup:&v11];
+  v12 = *&threadgroup->var0;
+  v13 = threadgroup->var2;
+  v10 = *&meshThreadgroup->var0;
+  v11 = meshThreadgroup->var2;
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 drawMeshThreadgroups:&v14 threadsPerObjectThreadgroup:&v12 threadsPerMeshThreadgroup:&v10];
 }
 
 - (void)drawMeshThreads:(id *)threads threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
@@ -1645,27 +1660,26 @@ LABEL_3:
     MTLValidateFeatureSupport();
   }
 
-  v18 = 0;
-  memset(v17, 0, sizeof(v17));
-  device = self->super.super.super._device;
+  v17 = 0;
+  memset(v16, 0, sizeof(v16));
   _MTLMessageContextBegin_();
-  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v17];
-  v15 = *&threadgroup->var0;
+  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v16];
+  v14 = *&threadgroup->var0;
   var2 = threadgroup->var2;
-  v13 = *&meshThreadgroup->var0;
-  v14 = meshThreadgroup->var2;
-  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v15 threadsPerMeshThreadgroup:&v13 context:v17];
+  v12 = *&meshThreadgroup->var0;
+  v13 = meshThreadgroup->var2;
+  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v14 threadsPerMeshThreadgroup:&v12 context:v16];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v15 = *&threads->var0;
+  v14 = *&threads->var0;
   var2 = threads->var2;
-  v13 = *&threadgroup->var0;
-  v14 = threadgroup->var2;
-  v11 = *&meshThreadgroup->var0;
-  v12 = meshThreadgroup->var2;
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 drawMeshThreads:&v15 threadsPerObjectThreadgroup:&v13 threadsPerMeshThreadgroup:&v11];
+  v12 = *&threadgroup->var0;
+  v13 = threadgroup->var2;
+  v10 = *&meshThreadgroup->var0;
+  v11 = meshThreadgroup->var2;
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 drawMeshThreads:&v14 threadsPerObjectThreadgroup:&v12 threadsPerMeshThreadgroup:&v10];
 }
 
 - (void)drawMeshThreadgroupsWithIndirectBuffer:(unint64_t)buffer threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
@@ -1676,55 +1690,52 @@ LABEL_3:
     MTLValidateFeatureSupport();
   }
 
-  v16 = 0;
-  memset(v15, 0, sizeof(v15));
-  device = self->super.super.super._device;
+  v15 = 0;
+  memset(v14, 0, sizeof(v14));
   _MTLMessageContextBegin_();
   if (!buffer)
   {
     _MTLMessageContextPush_();
   }
 
-  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v15];
-  v13 = *&threadgroup->var0;
+  [(MTL4DebugRenderCommandEncoder *)self _validateMeshDrawCommon:v14];
+  v12 = *&threadgroup->var0;
   var2 = threadgroup->var2;
-  v11 = *&meshThreadgroup->var0;
-  v12 = meshThreadgroup->var2;
-  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v13 threadsPerMeshThreadgroup:&v11 context:v15];
+  v10 = *&meshThreadgroup->var0;
+  v11 = meshThreadgroup->var2;
+  [(MTL4DebugRenderCommandEncoder *)self _validateThreadsPerObjectThreadgroup:&v12 threadsPerMeshThreadgroup:&v10 context:v14];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDraw];
-  v13 = *&threadgroup->var0;
+  v12 = *&threadgroup->var0;
   var2 = threadgroup->var2;
-  v11 = *&meshThreadgroup->var0;
-  v12 = meshThreadgroup->var2;
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 drawMeshThreadgroupsWithIndirectBuffer:buffer threadsPerObjectThreadgroup:&v13 threadsPerMeshThreadgroup:&v11];
+  v10 = *&meshThreadgroup->var0;
+  v11 = meshThreadgroup->var2;
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 drawMeshThreadgroupsWithIndirectBuffer:buffer threadsPerObjectThreadgroup:&v12 threadsPerMeshThreadgroup:&v10];
 }
 
 - (void)dispatchThreadsPerTile:(id *)tile
 {
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
-  device = self->super.super.super._device;
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
   _MTLMessageContextBegin_();
-  v7 = *tile;
-  [(MTL4DebugRenderCommandEncoder *)self _validateDispatchThreadsPerTileCommon:v8 threadsPerTile:&v7];
+  v6 = *tile;
+  [(MTL4DebugRenderCommandEncoder *)self _validateDispatchThreadsPerTileCommon:v7 threadsPerTile:&v6];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDispatch];
-  v7 = *tile;
-  v6.receiver = self;
-  v6.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v6 dispatchThreadsPerTile:&v7];
+  v6 = *tile;
+  v5.receiver = self;
+  v5.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v5 dispatchThreadsPerTile:&v6];
 }
 
 - (void)setThreadgroupMemoryLength:(unint64_t)length offset:(unint64_t)offset atIndex:(unint64_t)index
 {
-  v25 = 0;
-  v23 = 0u;
-  v24 = 0u;
+  v24 = 0;
   v22 = 0u;
-  device = self->super.super.super._device;
+  v23 = 0u;
+  v21 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1760,12 +1771,12 @@ LABEL_3:
     _MTLMessageContextPush_();
   }
 
-  if (!v22)
+  if (!v21)
   {
     if (MTLReportFailureTypeEnabled())
     {
-      v10 = &self->_currentThreadgroupMemoryArguments[index];
-      if (v10->isValid && !v10->hasBeenUsed)
+      v9 = &self->_currentThreadgroupMemoryArguments[index];
+      if (v9->isValid && !v9->hasBeenUsed)
       {
         indexCopy2 = index;
         MTLReportFailure();
@@ -1774,35 +1785,34 @@ LABEL_3:
   }
 
   _MTLMessageContextEnd();
-  v11 = &self->_currentThreadgroupMemoryArguments[index];
-  if (MTLReportFailureTypeEnabled() && !v11->hasLodClamp && v11->threadgroupMemoryOffset == offset && v11->threadgroupMemoryLength == length && v11->bufferAttributeStride == -1 && v11->type == 3 && !v11->object && !(v11->bufferLength | v11->var0 | v11->bufferOffset) && !*&v11->lodMinClamp)
+  v10 = &self->_currentThreadgroupMemoryArguments[index];
+  if (MTLReportFailureTypeEnabled() && !v10->hasLodClamp && v10->threadgroupMemoryOffset == offset && v10->threadgroupMemoryLength == length && v10->bufferAttributeStride == -1 && v10->type == 3 && !v10->object && !(v10->bufferLength | v10->var0 | v10->bufferOffset) && !*&v10->lodMinClamp)
   {
     [MTL4DebugComputeCommandEncoder setThreadgroupMemoryLength:atIndex:];
   }
 
-  v11->isValid = length != 0;
-  v11->hasBeenUsed = 0;
-  v11->type = 3;
-  *&v11->object = 0u;
-  *&v11->bufferLength = 0u;
-  v11->bufferAttributeStride = -1;
-  v11->threadgroupMemoryLength = length;
-  v11->threadgroupMemoryOffset = offset;
-  v11->hasLodClamp = 0;
-  v11->lodMinClamp = 0.0;
-  v11->lodMaxClamp = 0.0;
-  v21.receiver = self;
-  v21.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v21 setThreadgroupMemoryLength:length offset:offset atIndex:index, indexCopy2, maxComputeThreadgroupMemoryAlignmentBytes2];
+  v10->isValid = length != 0;
+  v10->hasBeenUsed = 0;
+  v10->type = 3;
+  *&v10->object = 0u;
+  *&v10->bufferLength = 0u;
+  v10->bufferAttributeStride = -1;
+  v10->threadgroupMemoryLength = length;
+  v10->threadgroupMemoryOffset = offset;
+  v10->hasLodClamp = 0;
+  v10->lodMinClamp = 0.0;
+  v10->lodMaxClamp = 0.0;
+  v20.receiver = self;
+  v20.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v20 setThreadgroupMemoryLength:length offset:offset atIndex:index, indexCopy2, maxComputeThreadgroupMemoryAlignmentBytes2];
 }
 
 - (void)setArgumentTable:(id)table atStages:(unint64_t)stages
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v12 = 0;
   v10 = 0u;
-  device = self->super.super.super._device;
+  v11 = 0u;
+  v9 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1886,18 +1896,17 @@ LABEL_12:
   }
 
 LABEL_13:
-  v9.receiver = self;
-  v9.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v9 setArgumentTable:table atStages:stages, stagesCopy];
+  v8.receiver = self;
+  v8.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v8 setArgumentTable:table atStages:stages, stagesCopy];
 }
 
 - (void)setFrontFacingWinding:(unint64_t)winding
 {
-  v11 = 0;
-  v9 = 0u;
-  v10 = 0u;
+  v10 = 0;
   v8 = 0u;
-  device = self->super.super.super._device;
+  v9 = 0u;
+  v7 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1934,18 +1943,17 @@ LABEL_13:
 
 LABEL_9:
   _MTLMessageContextEnd();
-  v7.receiver = self;
-  v7.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v7 setFrontFacingWinding:winding];
+  v6.receiver = self;
+  v6.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v6 setFrontFacingWinding:winding];
 }
 
 - (void)setLineWidth:(float)width
 {
-  v12 = 0;
-  v10 = 0u;
-  v11 = 0u;
+  v11 = 0;
   v9 = 0u;
-  device = self->super.super.super._device;
+  v10 = 0u;
+  v8 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1958,10 +1966,10 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v8.receiver = self;
-  v8.super_class = MTL4DebugRenderCommandEncoder;
-  *&v7 = width;
-  [(MTL4ToolsRenderCommandEncoder *)&v8 setLineWidth:v7];
+  v7.receiver = self;
+  v7.super_class = MTL4DebugRenderCommandEncoder;
+  *&v6 = width;
+  [(MTL4ToolsRenderCommandEncoder *)&v7 setLineWidth:v6];
 }
 
 - (void)setDepthClipModeSPI:(unint64_t)i
@@ -1972,11 +1980,10 @@ LABEL_9:
     MTLValidateFeatureSupport();
   }
 
-  v10 = 0;
-  v8 = 0u;
-  v9 = 0u;
+  v9 = 0;
   v7 = 0u;
-  device = self->super.super.super._device;
+  v8 = 0u;
+  v6 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -1989,18 +1996,17 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v6.receiver = self;
-  v6.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v6 setDepthClipModeSPI:i];
+  v5.receiver = self;
+  v5.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v5 setDepthClipModeSPI:i];
 }
 
 - (void)setCommandDataCorruptModeSPI:(unint64_t)i
 {
-  v10 = 0;
-  v8 = 0u;
-  v9 = 0u;
+  v9 = 0;
   v7 = 0u;
-  device = self->super.super.super._device;
+  v8 = 0u;
+  v6 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -2013,46 +2019,72 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v6.receiver = self;
-  v6.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v6 setCommandDataCorruptModeSPI:i];
+  v5.receiver = self;
+  v5.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v5 setCommandDataCorruptModeSPI:i];
 }
 
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region
 {
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  device = self->super.super.super._device;
+  v16 = 0;
+  memset(v15, 0, sizeof(v15));
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
     _MTLMessageContextPush_();
   }
 
-  v11 = *&tile->var0;
-  *&v12 = tile->var2;
-  [(MTL4DebugRenderCommandEncoder *)self _validateDispatchThreadsPerTileCommon:v16 threadsPerTile:&v11];
+  v10 = *&tile->var0;
+  *&v11 = tile->var2;
+  [(MTL4DebugRenderCommandEncoder *)self _validateDispatchThreadsPerTileCommon:v15 threadsPerTile:&v10];
   _MTLMessageContextEnd();
   [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDispatch];
-  v8 = *&tile->var0;
+  v7 = *&tile->var0;
   var2 = tile->var2;
-  v9 = *&region->var0.var2;
-  v11 = *&region->var0.var0;
-  v12 = v9;
-  v13 = *&region->var1.var1;
-  v14 = v8;
-  v10.receiver = self;
-  v10.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v10 dispatchThreadsPerTile:&v14 inRegion:&v11];
+  v8 = *&region->var0.var2;
+  v10 = *&region->var0.var0;
+  v11 = v8;
+  v12 = *&region->var1.var1;
+  v13 = v7;
+  v9.receiver = self;
+  v9.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v9 dispatchThreadsPerTile:&v13 inRegion:&v10];
+}
+
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index
+{
+  v5 = *&index;
+  v18 = 0;
+  memset(v17, 0, sizeof(v17));
+  _MTLMessageContextBegin_();
+  if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  v12 = *&tile->var0;
+  *&v13 = tile->var2;
+  [(MTL4DebugRenderCommandEncoder *)self _validateDispatchThreadsPerTileCommon:v17 threadsPerTile:&v12];
+  _MTLMessageContextEnd();
+  [(MTL4DebugRenderCommandEncoder *)self _updateEncoderStateAfterDispatch];
+  v9 = *&tile->var0;
+  var2 = tile->var2;
+  v10 = *&region->var0.var2;
+  v12 = *&region->var0.var0;
+  v13 = v10;
+  v14 = *&region->var1.var1;
+  v15 = v9;
+  v11.receiver = self;
+  v11.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v11 dispatchThreadsPerTile:&v15 inRegion:&v12 withRenderTargetArrayIndex:v5];
 }
 
 - (void)setVertexAmplificationMode:(unint64_t)mode value:(unint64_t)value
 {
-  v15 = 0;
-  v13 = 0u;
-  v14 = 0u;
+  v14 = 0;
   v12 = 0u;
-  device = self->super.super.super._device;
+  v13 = 0u;
+  v11 = 0u;
   _MTLMessageContextBegin_();
   if ([(MTL4DebugCommandEncoder *)self->_debugCommandEncoder hasEndEncoding])
   {
@@ -2065,11 +2097,11 @@ LABEL_9:
     _MTLMessageContextPush_();
   }
 
-  v8 = vcnt_s8(value);
-  v8.i16[0] = vaddlv_u8(v8);
+  v7 = vcnt_s8(value);
+  v7.i16[0] = vaddlv_u8(v7);
   if (mode == 1)
   {
-    valueCopy = v8.u32[0];
+    valueCopy = v7.u32[0];
   }
 
   else
@@ -2084,9 +2116,9 @@ LABEL_9:
   }
 
   _MTLMessageContextEnd();
-  v11.receiver = self;
-  v11.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v11 setVertexAmplificationMode:mode value:value];
+  v10.receiver = self;
+  v10.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v10 setVertexAmplificationMode:mode value:value];
 }
 
 - (void)_validateLBRT:(_MTLMessageContext *)t
@@ -2122,10 +2154,10 @@ LABEL_9:
     _MTLMessageContextPush_();
   }
 
-  v8 = _MTLDebugIndexTypeSize(type);
-  if (v8)
+  v9 = _MTLDebugIndexTypeSize(type, common);
+  if (v9)
   {
-    if (length % v8)
+    if (length % v9)
     {
       _MTLMessageContextPush_();
     }
@@ -2157,7 +2189,7 @@ LABEL_9:
     _MTLMessageContextPush_();
   }
 
-  _MTLDebugValidateMTLPrimitiveTypeWithContext(type, 0);
+  _MTLDebugValidateMTLPrimitiveTypeWithContext(type, 0, common);
   rasterizationRateMap = [(MTL4RenderPassDescriptor *)self->_descriptor rasterizationRateMap];
   if (type - 5 <= 0xFFFFFFFFFFFFFFFDLL && rasterizationRateMap)
   {
@@ -2227,7 +2259,7 @@ LABEL_9:
       var0 = tile->var0;
       if (var0 != [(MTL4RenderPassDescriptor *)self->_descriptor tileWidth]|| (var1 = tile->var1, var1 != [(MTL4RenderPassDescriptor *)self->_descriptor tileHeight]))
       {
-        [MTL4DebugRenderCommandEncoder _validateDispatchThreadsPerTileCommon:tile threadsPerTile:&self->_descriptor];
+        [(MTL4DebugRenderCommandEncoder *)tile _validateDispatchThreadsPerTileCommon:common threadsPerTile:?];
       }
     }
 
@@ -2251,14 +2283,12 @@ LABEL_9:
     v14 = tile->var2 * v13.i64[0] * v13.i64[1];
     if (v14 > [(MTLRenderPipelineState *)*p_currentRenderPipelineState maxTotalThreadsPerThreadgroup:v15])
     {
-      [(MTL4DebugRenderCommandEncoder *)tile _validateDispatchThreadsPerTileCommon:p_currentRenderPipelineState threadsPerTile:?];
+      [(MTL4DebugRenderCommandEncoder *)tile _validateDispatchThreadsPerTileCommon:p_currentRenderPipelineState threadsPerTile:common];
     }
 
-    v19 = *&tile->var0;
-    var2 = tile->var2;
     if (*p_currentRenderPipelineState)
     {
-      [(MTLRenderPipelineState *)*p_currentRenderPipelineState requiredThreadsPerTileThreadgroup];
+      objc_msgSend_requiredThreadsPerTileThreadgroup(*p_currentRenderPipelineState);
     }
 
     validateDispatchThreadsPerThreadgroupWithRTPTG();
@@ -2302,7 +2332,7 @@ LABEL_4:
 
     else
     {
-      [v6 screenSize];
+      objc_msgSend_screenSize(v6);
       renderTargetWidth = v40;
       if (v9)
       {
@@ -2310,7 +2340,7 @@ LABEL_4:
       }
     }
 
-    [v6 screenSize];
+    objc_msgSend_screenSize(v6);
     v9 = v41;
     goto LABEL_4;
   }
@@ -2519,28 +2549,31 @@ LABEL_26:
 
     else
     {
-      v28 = mtl4MeshDescriptor;
-      v16 = _MTL4DebugFunctionDescriptorName([mtl4MeshDescriptor objectFunctionDescriptor]);
-      v17 = _MTL4DebugFunctionDescriptorName([v28 meshFunctionDescriptor]);
-      v18 = _MTL4DebugFunctionDescriptorName([v28 fragmentFunctionDescriptor]);
+      v30 = mtl4MeshDescriptor;
+      objectFunctionDescriptor = [mtl4MeshDescriptor objectFunctionDescriptor];
+      v16 = _MTL4DebugFunctionDescriptorName(objectFunctionDescriptor, v32);
+      meshFunctionDescriptor = [v30 meshFunctionDescriptor];
+      v17 = _MTL4DebugFunctionDescriptorName(meshFunctionDescriptor, v34);
+      fragmentFunctionDescriptor = [v30 fragmentFunctionDescriptor];
+      v18 = _MTL4DebugFunctionDescriptorName(fragmentFunctionDescriptor, v36);
     }
 
-    v29 = v18;
+    v37 = v18;
     validationReflection = [(MTLRenderPipelineState *)self->_currentRenderPipelineState validationReflection];
-    LOBYTE(v38) = 0;
-    -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Object", v16, self->_currentObjectArgumentTable, self->_currentObjectThreadgroupMemoryLengths, [validationReflection objectBindings], v38);
-    LOBYTE(v39) = 0;
-    -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Mesh", v17, self->_currentMeshArgumentTable, 0, [validationReflection meshBindings], v39);
+    LOBYTE(v50) = 0;
+    -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Object", v16, self->_currentObjectArgumentTable, self->_currentObjectThreadgroupMemoryLengths, [validationReflection objectBindings], v50);
+    LOBYTE(v51) = 0;
+    -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Mesh", v17, self->_currentMeshArgumentTable, 0, [validationReflection meshBindings], v51);
     debugCommandEncoder = self->_debugCommandEncoder;
     currentFragmentArgumentTable = self->_currentFragmentArgumentTable;
     fragmentBindings = [validationReflection fragmentBindings];
-    LOBYTE(v38) = 0;
-    v23 = @"Fragment";
+    LOBYTE(v50) = 0;
+    v25 = @"Fragment";
     currentThreadgroupMemoryArguments = self->_currentThreadgroupMemoryArguments;
-    v25 = debugCommandEncoder;
+    v27 = debugCommandEncoder;
     argumentsCopy3 = arguments;
-    v27 = v29;
-    v33 = currentFragmentArgumentTable;
+    v29 = v37;
+    v41 = currentFragmentArgumentTable;
   }
 
   else
@@ -2557,19 +2590,20 @@ LABEL_26:
 
       else
       {
-        v13 = _MTL4DebugFunctionDescriptorName([mtl4TileDescriptor tileFunctionDescriptor]);
+        tileFunctionDescriptor = [mtl4TileDescriptor tileFunctionDescriptor];
+        v13 = _MTL4DebugFunctionDescriptorName(tileFunctionDescriptor, v20);
       }
 
-      v19 = v13;
-      v20 = self->_debugCommandEncoder;
+      v21 = v13;
+      v22 = self->_debugCommandEncoder;
       currentTileArgumentTable = self->_currentTileArgumentTable;
       fragmentBindings = [validationReflection2 tileBindings];
-      LOBYTE(v38) = 0;
-      v23 = @"Tile";
+      LOBYTE(v50) = 0;
+      v25 = @"Tile";
       currentThreadgroupMemoryArguments = self->_currentThreadgroupMemoryArguments;
-      v25 = v20;
+      v27 = v22;
       argumentsCopy3 = arguments;
-      v27 = v19;
+      v29 = v21;
     }
 
     else
@@ -2589,30 +2623,32 @@ LABEL_26:
 
       else
       {
-        v34 = mtl4Descriptor;
-        v8 = _MTL4DebugFunctionDescriptorName([mtl4Descriptor vertexFunctionDescriptor]);
-        v9 = _MTL4DebugFunctionDescriptorName([v34 fragmentFunctionDescriptor]);
+        v42 = mtl4Descriptor;
+        vertexFunctionDescriptor = [mtl4Descriptor vertexFunctionDescriptor];
+        v8 = _MTL4DebugFunctionDescriptorName(vertexFunctionDescriptor, v44);
+        fragmentFunctionDescriptor2 = [v42 fragmentFunctionDescriptor];
+        v9 = _MTL4DebugFunctionDescriptorName(fragmentFunctionDescriptor2, v46);
       }
 
-      v35 = v9;
+      v47 = v9;
       validationReflection3 = [(MTLRenderPipelineState *)self->_currentRenderPipelineState validationReflection];
-      LOBYTE(v38) = 0;
-      -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Vertex", v8, self->_currentVertexArgumentTable, self->_currentThreadgroupMemoryArguments, [validationReflection3 vertexBindings], v38);
-      v37 = self->_debugCommandEncoder;
+      LOBYTE(v50) = 0;
+      -[MTL4DebugCommandEncoder validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:](self->_debugCommandEncoder, "validateFunctionArguments:stage:functionName:argumentTable:boundThreadgroupMemoryArguments:bindings:allowNullBufferBindings:", arguments, @"Vertex", v8, self->_currentVertexArgumentTable, self->_currentThreadgroupMemoryArguments, [validationReflection3 vertexBindings], v50);
+      v49 = self->_debugCommandEncoder;
       currentTileArgumentTable = self->_currentFragmentArgumentTable;
       fragmentBindings = [validationReflection3 fragmentBindings];
-      LOBYTE(v38) = 0;
-      v23 = @"Fragment";
+      LOBYTE(v50) = 0;
+      v25 = @"Fragment";
       currentThreadgroupMemoryArguments = self->_currentThreadgroupMemoryArguments;
-      v25 = v37;
+      v27 = v49;
       argumentsCopy3 = arguments;
-      v27 = v35;
+      v29 = v47;
     }
 
-    v33 = currentTileArgumentTable;
+    v41 = currentTileArgumentTable;
   }
 
-  [(MTL4DebugCommandEncoder *)v25 validateFunctionArguments:argumentsCopy3 stage:v23 functionName:v27 argumentTable:v33 boundThreadgroupMemoryArguments:currentThreadgroupMemoryArguments bindings:fragmentBindings allowNullBufferBindings:v38];
+  [(MTL4DebugCommandEncoder *)v27 validateFunctionArguments:argumentsCopy3 stage:v25 functionName:v29 argumentTable:v41 boundThreadgroupMemoryArguments:currentThreadgroupMemoryArguments bindings:fragmentBindings allowNullBufferBindings:v50];
 }
 
 - (void)_validateFramebufferCompatibility:(_MTLMessageContext *)compatibility pipelineState:(id)state
@@ -2696,8 +2732,8 @@ LABEL_26:
     goto LABEL_58;
   }
 
-  v43 = v6;
-  v42 = v7;
+  v41 = v6;
+  v40 = v7;
   colorAttachments = [(MTL4RenderPassDescriptor *)self->_descriptor colorAttachments];
   for (i = 0; i != 8; ++i)
   {
@@ -2712,17 +2748,17 @@ LABEL_26:
         if (v8 != v24)
         {
           Name = v24;
-          v41 = v8;
+          v39 = v8;
           v37 = i;
 LABEL_39:
           _MTLMessageContextPush_();
         }
       }
 
-      else if (v43 != v24)
+      else if (v41 != v24)
       {
         Name = v24;
-        v41 = v43;
+        v39 = v41;
         v37 = i;
         goto LABEL_39;
       }
@@ -2730,7 +2766,7 @@ LABEL_39:
       if (([(MTL4RenderPassDescriptor *)self->_descriptor supportColorAttachmentMapping:v37]& 1) == 0 && v21 != v23)
       {
         Name = MTLPixelFormatGetName();
-        v41 = MTLPixelFormatGetName();
+        v39 = MTLPixelFormatGetName();
         v37 = i;
         goto LABEL_37;
       }
@@ -2748,7 +2784,7 @@ LABEL_37:
   }
 
   tileDescriptor = [state tileDescriptor];
-  v7 = v42;
+  v7 = v40;
   if (tileDescriptor || [state mtl4TileDescriptor])
   {
     goto LABEL_58;
@@ -2768,20 +2804,20 @@ LABEL_37:
     goto LABEL_73;
   }
 
-  if (v42)
+  if (v40)
   {
-    if (v42 != v28)
+    if (v40 != v28)
     {
       v37 = v28;
-      Name = v42;
+      Name = v40;
       goto LABEL_77;
     }
   }
 
-  else if (v43 != v28)
+  else if (v41 != v28)
   {
     v37 = v28;
-    Name = v43;
+    Name = v41;
 LABEL_77:
     _MTLMessageContextPush_();
   }
@@ -2809,20 +2845,20 @@ LABEL_50:
     goto LABEL_75;
   }
 
-  if (v42)
+  if (v40)
   {
-    if (v42 != v32)
+    if (v40 != v32)
     {
       v37 = v32;
-      Name = v42;
+      Name = v40;
       goto LABEL_79;
     }
   }
 
-  else if (v43 != v32)
+  else if (v41 != v32)
   {
     v37 = v32;
-    Name = v43;
+    Name = v41;
 LABEL_79:
     _MTLMessageContextPush_();
   }
@@ -2844,13 +2880,11 @@ LABEL_58:
     {
       if (resolvedColorSampleCount != v8)
       {
-        v39 = self->_resolvedColorSampleCount;
         _MTLMessageContextPush_();
       }
 
       if (self->_resolvedRasterSampleCount != v7)
       {
-        resolvedRasterSampleCount = self->_resolvedRasterSampleCount;
         goto LABEL_71;
       }
     }
@@ -2874,11 +2908,10 @@ LABEL_71:
 
 - (void)writeTimestampWithGranularity:(int64_t)granularity afterStage:(unint64_t)stage intoHeap:(id)heap atIndex:(unint64_t)index
 {
-  v16 = 0;
-  v14 = 0u;
-  v15 = 0u;
+  v15 = 0;
   v13 = 0u;
-  device = self->super.super.super._device;
+  v14 = 0u;
+  v12 = 0u;
   _MTLMessageContextBegin_();
   if (!heap)
   {
@@ -2914,9 +2947,9 @@ LABEL_15:
   }
 
   _MTLMessageContextEnd();
-  v12.receiver = self;
-  v12.super_class = MTL4DebugRenderCommandEncoder;
-  [(MTL4ToolsRenderCommandEncoder *)&v12 writeTimestampWithGranularity:granularity afterStage:stage intoHeap:heap atIndex:index];
+  v11.receiver = self;
+  v11.super_class = MTL4DebugRenderCommandEncoder;
+  [(MTL4ToolsRenderCommandEncoder *)&v11 writeTimestampWithGranularity:granularity afterStage:stage intoHeap:heap atIndex:index];
 }
 
 - (id).cxx_construct
@@ -2971,21 +3004,10 @@ LABEL_15:
   return self;
 }
 
-- (uint64_t)_validateDispatchThreadsPerTileCommon:(uint64_t *)a1 threadsPerTile:(id *)a2 .cold.1(uint64_t *a1, id *a2)
+- (uint64_t)_validateDispatchThreadsPerTileCommon:(uint64_t)a3 threadsPerTile:.cold.1(uint64_t a1, id *a2, uint64_t a3)
 {
-  v3 = *a1;
-  v4 = a1[1];
   [*a2 tileWidth];
   [*a2 tileHeight];
-  return _MTLMessageContextPush_();
-}
-
-- (uint64_t)_validateDispatchThreadsPerTileCommon:(id *)a3 threadsPerTile:.cold.2(uint64_t *a1, uint64_t *a2, id *a3)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v6 = *a2;
-  [*a3 maxTotalThreadsPerThreadgroup];
   return _MTLMessageContextPush_();
 }
 

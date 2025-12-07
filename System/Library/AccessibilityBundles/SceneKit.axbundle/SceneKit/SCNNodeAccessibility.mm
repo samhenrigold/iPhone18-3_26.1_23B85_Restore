@@ -250,7 +250,7 @@
   return v2;
 }
 
-uint64_t __65__SCNNodeAccessibility__accessibilitySCNVector3BoundingBoxPoints__block_invoke(uint64_t a1)
+void *__65__SCNNodeAccessibility__accessibilitySCNVector3BoundingBoxPoints__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) getBoundingBoxMin:*(*(a1 + 48) + 8) + 32 max:*(*(a1 + 56) + 8) + 32];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -259,65 +259,62 @@ uint64_t __65__SCNNodeAccessibility__accessibilitySCNVector3BoundingBoxPoints__b
 
 - (id)_accessibilityConvertSCNVector3Points:(id)points toNode:(id)node
 {
-  v36 = *MEMORY[0x29EDCA608];
+  v34 = *MEMORY[0x29EDCA608];
   pointsCopy = points;
   nodeCopy = node;
   v7 = objc_opt_new();
-  LOBYTE(v25) = 0;
+  LOBYTE(v23) = 0;
   objc_opt_class();
   v8 = __UIAccessibilityCastAsClass();
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   obj = pointsCopy;
-  v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
-    v10 = *v32;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
-        v25 = 0;
-        v26 = &v25;
-        v27 = 0x3010000000;
-        v28 = &unk_29C22BAF1;
-        v29 = 0;
-        v30 = 0;
-        v23 = v8;
-        v24 = nodeCopy;
+        v23 = 0;
+        v24 = &v23;
+        v25 = 0x3010000000;
+        v26 = &unk_29C22BAF1;
+        v27 = 0;
+        v28 = 0;
+        v21 = v8;
+        v22 = nodeCopy;
         AXPerformSafeBlock();
-        v13 = *(v26 + 8);
-        v14 = *(v26 + 9);
-        v15 = *(v26 + 10);
+        v12 = *(v24 + 8);
+        v13 = *(v24 + 9);
+        v14 = *(v24 + 10);
 
-        _Block_object_dispose(&v25, 8);
+        _Block_object_dispose(&v23, 8);
+        LODWORD(v15) = v12;
         LODWORD(v16) = v13;
         LODWORD(v17) = v14;
-        LODWORD(v18) = v15;
-        v19 = [MEMORY[0x29EDBA168] valueWithSCNVector3:{v16, v17, v18}];
-        [v7 addObject:v19];
+        v18 = [MEMORY[0x29EDBA168] valueWithSCNVector3:{v15, v16, v17}];
+        [v7 addObject:v18];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v9);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
-
   return v7;
 }
 
-uint64_t __69__SCNNodeAccessibility__accessibilityConvertSCNVector3Points_toNode___block_invoke(uint64_t a1)
+void *__69__SCNNodeAccessibility__accessibilityConvertSCNVector3Points_toNode___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [*(a1 + 40) SCNVector3Value];

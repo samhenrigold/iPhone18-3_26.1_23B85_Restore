@@ -89,32 +89,32 @@
 
 - (id)totalWithinss
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   withinss = [(CPMLKMeansModel *)self withinss];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [withinss countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [withinss countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(withinss);
         }
 
-        [*(*(&v12 + 1) + 8 * i) doubleValue];
+        [*(*(&v11 + 1) + 8 * i) doubleValue];
         v6 = v6 + v8;
       }
 
-      v4 = [withinss countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [withinss countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -126,8 +126,6 @@
   }
 
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:v6];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

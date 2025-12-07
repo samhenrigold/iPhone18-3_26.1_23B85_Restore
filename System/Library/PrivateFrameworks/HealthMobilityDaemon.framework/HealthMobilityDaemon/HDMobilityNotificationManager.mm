@@ -10,12 +10,12 @@
 
 - (HDMobilityNotificationManager)initWithProfile:(id)profile walkingSteadinessAvailabilityManager:(id)manager
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   managerCopy = manager;
-  v24.receiver = self;
-  v24.super_class = HDMobilityNotificationManager;
-  v8 = [(HDMobilityNotificationManager *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = HDMobilityNotificationManager;
+  v8 = [(HDMobilityNotificationManager *)&v23 init];
   v9 = v8;
   if (v8)
   {
@@ -43,27 +43,26 @@
       v19 = v18;
       v20 = objc_opt_class();
       *buf = 138543362;
-      v26 = v20;
+      v25 = v20;
       _os_log_impl(&dword_251962000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] was created", buf, 0xCu);
     }
 
     v21 = v9;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v11 = objc_opt_class();
+    v10 = objc_opt_class();
     _os_log_impl(&dword_251962000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] stop observing walking steadiness events", buf, 0xCu);
   }
 
@@ -72,59 +71,56 @@
   v7 = HKMobilityWalkingSteadinessEventType();
   [dataManager removeObserver:self forDataType:v7];
 
-  v9.receiver = self;
-  v9.super_class = HDMobilityNotificationManager;
-  [(HDMobilityNotificationManager *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HDMobilityNotificationManager;
+  [(HDMobilityNotificationManager *)&v8 dealloc];
 }
 
 - (void)daemonReady:(id)ready
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC2F8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
-    v10 = 138543362;
-    v11 = objc_opt_class();
-    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] start observing walking steadiness events", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = objc_opt_class();
+    _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] start observing walking steadiness events", &v9, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   dataManager = [WeakRetained dataManager];
   v8 = HKMobilityWalkingSteadinessEventType();
   [dataManager addObserver:self forDataType:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)samplesAdded:(id)added anchor:(id)anchor
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   addedCopy = added;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = [addedCopy countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v6 = [addedCopy countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v6)
   {
     v8 = v6;
-    v9 = *v26;
+    v9 = *v25;
     v10 = MEMORY[0x277CCC2F8];
     *&v7 = 138543362;
-    v23 = v7;
+    v22 = v7;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(addedCopy);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         _source = [v12 _source];
         _isLocalDevice = [_source _isLocalDevice];
 
@@ -137,8 +133,8 @@
           {
             v17 = v15;
             v18 = objc_opt_class();
-            *buf = v23;
-            v30 = v18;
+            *buf = v22;
+            v29 = v18;
             _os_log_impl(&dword_251962000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Detected AppleWalkingSteadinessEvent added with local device source", buf, 0xCu);
           }
 
@@ -156,19 +152,17 @@
         {
           v20 = v15;
           v21 = objc_opt_class();
-          *buf = v23;
-          v30 = v21;
+          *buf = v22;
+          v29 = v21;
           _os_log_impl(&dword_251962000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Detected AppleWalkingSteadinessEvent added with non-local device source", buf, 0xCu);
         }
       }
 
-      v8 = [addedCopy countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v8 = [addedCopy countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v8);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke(uint64_t a1)
@@ -185,7 +179,7 @@ uint64_t __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke(
 
 void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2F8];
@@ -194,11 +188,10 @@ void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2(ui
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      _os_log_impl(&dword_251962000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notified user for AppleWalkingSteadinessEvent successfully.", &v11, 0xCu);
+      v8 = v6;
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      _os_log_impl(&dword_251962000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notified user for AppleWalkingSteadinessEvent successfully.", &v9, 0xCu);
     }
   }
 
@@ -206,13 +199,11 @@ void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2(ui
   {
     __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2_cold_1(a1, v6, v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_showNotificationForLocalSteadinessEvent:(id)event completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   completionCopy = completion;
   dispatch_assert_queue_V2(self->_queue);
@@ -256,32 +247,32 @@ void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2(ui
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v31 = __Block_byref_object_copy_;
-    v32 = __Block_byref_object_dispose_;
+    v30 = __Block_byref_object_copy_;
+    v31 = __Block_byref_object_dispose_;
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     notificationManager = [WeakRetained notificationManager];
 
-    v28[0] = 0;
-    v28[1] = v28;
-    v28[2] = 0x3032000000;
-    v28[3] = __Block_byref_object_copy_;
-    v28[4] = __Block_byref_object_dispose_;
-    v29 = self->_analyticsManager;
+    v27[0] = 0;
+    v27[1] = v27;
+    v27[2] = 0x3032000000;
+    v27[3] = __Block_byref_object_copy_;
+    v27[4] = __Block_byref_object_dispose_;
+    v28 = self->_analyticsManager;
     v18 = *(*&buf[8] + 40);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke;
-    v21[3] = &unk_2796D9500;
-    v21[4] = self;
-    v22 = v16;
-    v25 = buf;
-    v24 = completionCopy;
-    v27 = value;
-    v23 = eventCopy;
-    v26 = v28;
-    [v18 removeDeliveredNotificationsWithCategoryIdentifier:v22 completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke;
+    v20[3] = &unk_2796D9500;
+    v20[4] = self;
+    v21 = v16;
+    v24 = buf;
+    v23 = completionCopy;
+    v26 = value;
+    v22 = eventCopy;
+    v25 = v27;
+    [v18 removeDeliveredNotificationsWithCategoryIdentifier:v21 completionHandler:v20];
 
-    _Block_object_dispose(v28, 8);
+    _Block_object_dispose(v27, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -290,17 +281,15 @@ void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2(ui
     v19 = [MEMORY[0x277CCA9B8] hk_error:3 format:{@"Unknown notification category for walking steadiness event value: %ld", value}];
     (*(completionCopy + 2))(completionCopy, 0, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 32);
-  v28 = 0;
-  v3 = [v2 featureStatusWithError:&v28];
-  v4 = v28;
+  v25 = 0;
+  v3 = [v2 featureStatusWithError:&v25];
+  v4 = v25;
   v5 = MEMORY[0x277CCC2F8];
   if (!v3)
   {
@@ -308,59 +297,55 @@ void __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadine
     v6 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = objc_opt_class();
+      v7 = v6;
+      v8 = objc_opt_class();
       *buf = 138543618;
-      v30 = v9;
-      v31 = 2114;
-      v32 = v4;
-      _os_log_impl(&dword_251962000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to get featureStatus. error: %{public}@", buf, 0x16u);
+      v27 = v8;
+      v28 = 2114;
+      v29 = v4;
+      _os_log_impl(&dword_251962000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to get featureStatus. error: %{public}@", buf, 0x16u);
     }
   }
 
-  v10 = [v3 objectForKeyedSubscript:*MEMORY[0x277D11A48]];
-  v11 = [v10 areAllRequirementsSatisfied];
+  v9 = [v3 objectForKeyedSubscript:*MEMORY[0x277D11A48]];
+  v10 = [v9 areAllRequirementsSatisfied];
 
   _HKInitializeLogging();
-  v12 = *v5;
+  v11 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 32);
-    v14 = v12;
-    v15 = objc_opt_class();
+    v12 = v11;
+    v13 = objc_opt_class();
     *buf = 138543618;
-    v30 = v15;
-    v31 = 1024;
-    LODWORD(v32) = v11;
-    _os_log_impl(&dword_251962000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Firing notification with shouldHidePregnancyContent: %d", buf, 0x12u);
+    v27 = v13;
+    v28 = 1024;
+    LODWORD(v29) = v10;
+    _os_log_impl(&dword_251962000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Firing notification with shouldHidePregnancyContent: %d", buf, 0x12u);
   }
 
-  v16 = [MEMORY[0x277CE1FC0] hkmobility_requestForCategory:*(a1 + 40) shouldHidePregnancyContent:v11];
-  [*(*(*(a1 + 64) + 8) + 40) postNotificationWithRequest:v16 completion:*(a1 + 56)];
-  v17 = [HDMobilityWalkingSteadinessAnalyticsNotificationEventDataSource alloc];
+  v14 = [MEMORY[0x277CE1FC0] hkmobility_requestForCategory:*(a1 + 40) shouldHidePregnancyContent:v10];
+  [*(*(*(a1 + 64) + 8) + 40) postNotificationWithRequest:v14 completion:*(a1 + 56)];
+  v15 = [HDMobilityWalkingSteadinessAnalyticsNotificationEventDataSource alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  v19 = *(a1 + 80);
-  v20 = *(a1 + 40);
-  v21 = [*(a1 + 48) endDate];
-  v22 = [(HDMobilityWalkingSteadinessAnalyticsNotificationEventDataSource *)v17 initWithProfile:WeakRetained category:v20 value:v19 date:v21 isShowingPregnancyContent:v11 ^ 1];
+  v17 = *(a1 + 80);
+  v18 = *(a1 + 40);
+  v19 = [*(a1 + 48) endDate];
+  v20 = [(HDMobilityWalkingSteadinessAnalyticsNotificationEventDataSource *)v15 initWithProfile:WeakRetained category:v18 value:v17 date:v19 isShowingPregnancyContent:v10 ^ 1];
 
-  v23 = *(*(*(a1 + 72) + 8) + 40);
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke_322;
-  v26[3] = &unk_2796D94D8;
-  v24 = *(a1 + 40);
-  v26[4] = *(a1 + 32);
-  v27 = v24;
-  [v23 submitNotificationEventWithDataSource:v22 resultHandler:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *(*(*(a1 + 72) + 8) + 40);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke_322;
+  v23[3] = &unk_2796D94D8;
+  v22 = *(a1 + 40);
+  v23[4] = *(a1 + 32);
+  v24 = v22;
+  [v21 submitNotificationEventWithDataSource:v20 resultHandler:v23];
 }
 
 void __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadinessEvent_completion___block_invoke_322(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 status] == 1)
   {
@@ -368,36 +353,30 @@ void __91__HDMobilityNotificationManager__queue_showNotificationForLocalSteadine
     v4 = *MEMORY[0x277CCC2F8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2F8], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v6 = v4;
-      v7 = objc_opt_class();
-      v8 = *(a1 + 40);
-      v9 = [v3 error];
-      v11 = 138543874;
+      v5 = v4;
+      v6 = objc_opt_class();
+      v7 = *(a1 + 40);
+      v8 = [v3 error];
+      v9 = 138543874;
+      v10 = v6;
+      v11 = 2112;
       v12 = v7;
-      v13 = 2112;
+      v13 = 2114;
       v14 = v8;
-      v15 = 2114;
-      v16 = v9;
-      _os_log_impl(&dword_251962000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to submit notification analytics for category: %@, error: %{public}@", &v11, 0x20u);
+      _os_log_impl(&dword_251962000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unable to submit notification analytics for category: %@, error: %{public}@", &v9, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __53__HDMobilityNotificationManager_samplesAdded_anchor___block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2112;
-  v10 = a3;
-  _os_log_fault_impl(&dword_251962000, v5, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to notify user for AppleWalkingSteadinessEvent with error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v5 = 138543618;
+  v6 = objc_opt_class();
+  v7 = 2112;
+  v8 = a3;
+  _os_log_fault_impl(&dword_251962000, v4, OS_LOG_TYPE_FAULT, "[%{public}@] Failed to notify user for AppleWalkingSteadinessEvent with error: %@", &v5, 0x16u);
 }
 
 - (void)_queue_showNotificationForLocalSteadinessEvent:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

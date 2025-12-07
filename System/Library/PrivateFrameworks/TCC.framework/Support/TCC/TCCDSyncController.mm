@@ -113,16 +113,16 @@
 
 - (TCCDSyncController)init
 {
-  v6.receiver = self;
-  v6.super_class = TCCDSyncController;
-  v2 = [(TCCDSyncController *)&v6 init];
+  v7.receiver = self;
+  v7.super_class = TCCDSyncController;
+  v2 = [(TCCDSyncController *)&v7 init];
   if (v2)
   {
-    [v2 setSyServiceClass:off_1000C0C48()];
-    [v2 setNrPairedDeviceRegisteryClass:off_1000C0C50()];
-    v3 = dispatch_queue_create("TCCDSyncController", 0);
-    v4 = *(v2 + 12);
-    *(v2 + 12) = v3;
+    v3 = [v2 setSyServiceClass:off_1000C0C48()];
+    [v2 setNrPairedDeviceRegisteryClass:off_1000C0C50(v3)];
+    v4 = dispatch_queue_create("TCCDSyncController", 0);
+    v5 = *(v2 + 12);
+    *(v2 + 12) = v4;
 
     dispatch_queue_set_specific(*(v2 + 12), off_1000C0C40, v2, 0);
     if ([v2 syServiceClass] && objc_msgSend(v2, "nrPairedDeviceRegisteryClass") && *(v2 + 12))
@@ -204,7 +204,7 @@
 
 - (void)_initializeSyncEngine
 {
-  v3 = tcc_sync_log();
+  v3 = tcc_sync_log(self);
   v4 = qword_1000C12F8;
   qword_1000C12F8 = v3;
 

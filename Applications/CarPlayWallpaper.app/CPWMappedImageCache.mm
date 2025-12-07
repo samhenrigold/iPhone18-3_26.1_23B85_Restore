@@ -56,7 +56,7 @@
   imageCopy = image;
   selfCopy = self;
   CPWMappedImageCache.save(image:with:completion:)(imageCopy, v8, v10, v7, v11);
-  sub_10000907C(v7);
+  sub_10000907C(v7, v11);
 }
 
 - (void)removeAllImagesWithCompletion:(id)completion
@@ -86,10 +86,10 @@
   v10[3] = &unk_1000149F0;
   v8 = _Block_copy(v10);
   selfCopy = self;
-  sub_100006418(v4);
+  sub_100006418(v4, v5);
 
   [v6 removeAllImagesWithCompletion:v8];
-  sub_10000907C(v4);
+  sub_10000907C(v4, v5);
   _Block_release(v8);
 }
 

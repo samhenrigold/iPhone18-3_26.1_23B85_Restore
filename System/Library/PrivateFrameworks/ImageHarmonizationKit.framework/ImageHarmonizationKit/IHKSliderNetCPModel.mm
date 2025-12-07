@@ -28,30 +28,30 @@
 
 - (unint64_t)product:(id)product
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   productCopy = product;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(productCopy, v4, &v15, v19, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(productCopy, v4, &v14, v18, 16);
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     v11 = 1;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(productCopy);
         }
 
-        v11 *= objc_msgSend_unsignedIntValue(*(*(&v15 + 1) + 8 * i), v5, v6, v7, v8, v15);
+        v11 *= objc_msgSend_unsignedIntValue(*(*(&v14 + 1) + 8 * i), v5, v6, v7, v8, v14);
       }
 
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(productCopy, v5, &v15, v19, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(productCopy, v5, &v14, v18, 16);
     }
 
     while (v9);
@@ -62,7 +62,6 @@
     v11 = 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -226,6 +225,7 @@ LABEL_10:
       v61 = xmmword_2797A5D10;
       v62 = 0;
       qword_27F71E148 = _sl_dlopen();
+      v7 = v54;
       if (!qword_27F71E148)
       {
         goto LABEL_25;
@@ -240,93 +240,98 @@ LABEL_10:
     v51[3] = objc_getClass("VNCreateSceneprintRequest");
     if (!v51[3])
     {
-      goto LABEL_25;
+      abort_report_np("Unable to find class %s", "VNCreateSceneprintRequest");
+      goto LABEL_29;
     }
 
     qword_27F71E140 = v51[3];
     v6 = v51[3];
   }
 
-  v7 = v6;
+  v8 = v6;
   _Block_object_dispose(&v50, 8);
-  v8 = objc_alloc_init(v6);
-  if (objc_msgSend_setRevision_error_(v8, v9, 3737841671, error, v10))
+  v9 = objc_alloc_init(v6);
+  if (objc_msgSend_setRevision_error_(v9, v10, 3737841671, error, v11))
   {
     v50 = 0;
     v51 = &v50;
     v52 = 0x2050000000;
-    v11 = qword_27F71E150;
+    v12 = qword_27F71E150;
     v53 = qword_27F71E150;
     if (qword_27F71E150)
     {
 LABEL_18:
-      v13 = v11;
+      v14 = v12;
       _Block_object_dispose(&v50, 8);
-      v14 = [v11 alloc];
-      v17 = objc_msgSend_initWithCVPixelBuffer_options_(v14, v15, image, MEMORY[0x277CBEC10], v16);
-      v60 = v8;
-      v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v18, &v60, 1, v19);
-      v23 = objc_msgSend_performRequests_error_(v17, v21, v20, error, v22);
+      v15 = [v12 alloc];
+      v18 = objc_msgSend_initWithCVPixelBuffer_options_(v15, v16, image, MEMORY[0x277CBEC10], v17);
+      v60 = v9;
+      v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, &v60, 1, v20);
+      v24 = objc_msgSend_performRequests_error_(v18, v22, v21, error, v23);
 
-      if (v23)
+      if (v24)
       {
-        v28 = objc_msgSend_results(v8, v24, v25, v26, v27);
-        v33 = objc_msgSend_firstObject(v28, v29, v30, v31, v32);
-        v38 = objc_msgSend_sceneprints(v33, v34, v35, v36, v37);
-        v43 = objc_msgSend_firstObject(v38, v39, v40, v41, v42);
+        v29 = objc_msgSend_results(v9, v25, v26, v27, v28);
+        v34 = objc_msgSend_firstObject(v29, v30, v31, v32, v33);
+        v39 = objc_msgSend_sceneprints(v34, v35, v36, v37, v38);
+        v44 = objc_msgSend_firstObject(v39, v40, v41, v42, v43);
 
-        v12 = objc_msgSend_descriptorData(v43, v44, v45, v46, v47);
+        v13 = objc_msgSend_descriptorData(v44, v45, v46, v47, v48);
       }
 
       else
       {
-        v12 = 0;
+        v13 = 0;
       }
 
       goto LABEL_22;
     }
 
     v54 = 0;
-    if (!qword_27F71E148)
+    if (qword_27F71E148)
     {
-      v55 = MEMORY[0x277D85DD0];
-      v56 = 3221225472;
-      v57 = sub_254ADAE8C;
-      v58 = &unk_2797A5D28;
-      v59 = &v54;
-      v61 = xmmword_2797A5D10;
-      v62 = 0;
-      qword_27F71E148 = _sl_dlopen();
-      if (!qword_27F71E148)
-      {
-        goto LABEL_25;
-      }
+      goto LABEL_16;
+    }
 
+    v55 = MEMORY[0x277D85DD0];
+    v56 = 3221225472;
+    v57 = sub_254ADAE8C;
+    v58 = &unk_2797A5D28;
+    v59 = &v54;
+    v61 = xmmword_2797A5D10;
+    v62 = 0;
+    qword_27F71E148 = _sl_dlopen();
+    v7 = v54;
+    if (qword_27F71E148)
+    {
       if (v54)
       {
         free(v54);
       }
-    }
 
-    v51[3] = objc_getClass("VNImageRequestHandler");
-    if (v51[3])
-    {
-      qword_27F71E150 = v51[3];
-      v11 = v51[3];
-      goto LABEL_18;
+LABEL_16:
+      v51[3] = objc_getClass("VNImageRequestHandler");
+      if (v51[3])
+      {
+        qword_27F71E150 = v51[3];
+        v12 = v51[3];
+        goto LABEL_18;
+      }
+
+      abort_report_np("Unable to find class %s", "VNImageRequestHandler");
+LABEL_29:
+      __break(1u);
     }
 
 LABEL_25:
-    abort_report_np();
-    __break(1u);
+    abort_report_np("%s", v7);
+    goto LABEL_29;
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_22:
 
-  v48 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 - (id)predictStyleVectorForPixelBuffer:(__CVBuffer *)buffer scenePrint:(id)print error:(id *)error

@@ -4,7 +4,6 @@
 - (double)audioErasureTotalTimeAlt:(id)alt;
 - (double)avgJBDelay:(id)delay;
 - (double)avgJBTargetSizeChanges:(id)changes;
-- (double)markHandshakeCompletion:(double)completion;
 - (double)significantVideoStallTotalTime:(id)time;
 - (id)initCallWithRemoteParticipantID:(id)d andWeeklyID:(id)iD;
 - (id)videoDegradedTotalCounter:(id)counter;
@@ -28,14 +27,15 @@
 - (void)incrementCallDuration;
 - (void)incrementVideoStreamSwitchCounterForStreamGroup:(id)group;
 - (void)markCameraCompositionCompletionWithTimestamp:(double)timestamp;
-- (void)markCameraCompositionStartWithTimestamp:(double)timestamp;
-- (void)markHandshakeStart:(double)start;
 - (void)markScreenControlCompletionWithTimestamp:(double)timestamp;
-- (void)markScreenControlStartWithTimestamp:(double)timestamp;
 - (void)processCipherSuites:(id)suites;
+- (void)processKeyFrameReceived:(unsigned int)received withTime:(double)time;
+- (void)processKeyFrameRequestSent:(unsigned int)sent withTime:(double)time;
 - (void)processNetworkQualityUpdatedWithStatus:(unsigned int)status timestamp:(double)timestamp;
 - (void)processRTEvent:(id)event;
 - (void)processStreamData:(id)data streamGroupID:(id)d;
+- (void)processVideoDegraded:(BOOL)degraded streamGroup:(id)group timestamp:(double)timestamp;
+- (void)processVideoDegraded:(BOOL)degraded timestamp:(double)timestamp;
 - (void)updateAudioBitratePerStreamGroup:(id)group;
 - (void)updatePerfTimingV1WithFirstVideoFrameProcessingDelta:(double)delta firstMediaReceivedDelta:(double)receivedDelta firstMKIDelta:(double)iDelta totalMediaStallSaveDelta:(double)saveDelta streamGroupID:(id)d;
 - (void)updatePerfTimingV2WithMediaCreatedToStartedTime:(double)time mediaStartedToFirstPacketTime:(double)packetTime mediaFirstPacketToFirstFrameTime:(double)frameTime streamGroupID:(id)d;
@@ -127,25 +127,9 @@
   self->_live = 0;
 }
 
-- (void)markHandshakeStart:(double)start
-{
-  v5 = *MEMORY[0x277D85DE8];
-  handshakeStartTime = self->_handshakeStartTime;
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (double)markHandshakeCompletion:(double)completion
-{
-  v6 = *MEMORY[0x277D85DE8];
-  handshakeDuration = self->_handshakeDuration;
-  result = handshakeDuration;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 - (void)markCameraCompositionCompletionWithTimestamp:(double)timestamp
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = (timestamp - self->_cameraCompositionStartTimeMsec) * 1000.0;
   self->_cameraCompositionTotalDurationMsec = v4 + self->_cameraCompositionTotalDurationMsec;
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
@@ -156,36 +140,28 @@
     {
       remoteParticipantID = self->_remoteParticipantID;
       cameraCompositionTotalDurationMsec = self->_cameraCompositionTotalDurationMsec;
-      v10 = 136316418;
-      v11 = v5;
-      v12 = 2080;
-      v13 = "[MultiwayCall markCameraCompositionCompletionWithTimestamp:]";
-      v14 = 1024;
-      v15 = 2205;
-      v16 = 2112;
-      v17 = remoteParticipantID;
-      v18 = 2048;
-      v19 = v4;
-      v20 = 2048;
-      v21 = cameraCompositionTotalDurationMsec;
-      _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Camera composition with participant=%@ completed, current duration=%f total duration=%f", &v10, 0x3Au);
+      v9 = 136316418;
+      v10 = v5;
+      v11 = 2080;
+      v12 = "[MultiwayCall markCameraCompositionCompletionWithTimestamp:]";
+      v13 = 1024;
+      v14 = 2205;
+      v15 = 2112;
+      v16 = remoteParticipantID;
+      v17 = 2048;
+      v18 = v4;
+      v19 = 2048;
+      v20 = cameraCompositionTotalDurationMsec;
+      _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Camera composition with participant=%@ completed, current duration=%f total duration=%f", &v9, 0x3Au);
     }
   }
 
   self->_cameraCompositionStartTimeMsec = NAN;
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)markScreenControlStartWithTimestamp:(double)timestamp
-{
-  v5 = *MEMORY[0x277D85DE8];
-  screenControlStartTime = self->_screenControlStartTime;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markScreenControlCompletionWithTimestamp:(double)timestamp
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = (timestamp - self->_screenControlStartTime) * 1000.0;
   self->_screenControlTotalDurationMsec = v4 + self->_screenControlTotalDurationMsec;
   -[NSMutableArray addObject:](self->_screenControlDurationsMsec, "addObject:", [MEMORY[0x277CCABA8] numberWithDouble:v4]);
@@ -197,42 +173,73 @@
     {
       remoteParticipantID = self->_remoteParticipantID;
       screenControlTotalDurationMsec = self->_screenControlTotalDurationMsec;
-      v10 = 136316418;
-      v11 = v5;
-      v12 = 2080;
-      v13 = "[MultiwayCall markScreenControlCompletionWithTimestamp:]";
-      v14 = 1024;
-      v15 = 2222;
-      v16 = 2112;
-      v17 = remoteParticipantID;
-      v18 = 2048;
-      v19 = v4;
-      v20 = 2048;
-      v21 = screenControlTotalDurationMsec;
-      _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Screen Control with participant=%@ completed, current duration=%f total duration=%f", &v10, 0x3Au);
+      v9 = 136316418;
+      v10 = v5;
+      v11 = 2080;
+      v12 = "[MultiwayCall markScreenControlCompletionWithTimestamp:]";
+      v13 = 1024;
+      v14 = 2222;
+      v15 = 2112;
+      v16 = remoteParticipantID;
+      v17 = 2048;
+      v18 = v4;
+      v19 = 2048;
+      v20 = screenControlTotalDurationMsec;
+      _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Screen Control with participant=%@ completed, current duration=%f total duration=%f", &v9, 0x3Au);
     }
   }
 
   self->_screenControlStartTime = NAN;
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)markCameraCompositionStartWithTimestamp:(double)timestamp
-{
-  v5 = *MEMORY[0x277D85DE8];
-  cameraCompositionStartTimeMsec = self->_cameraCompositionStartTimeMsec;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isVideoDegraded
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  streamGroupStats = self->_streamGroupStats;
+  v4 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = 0;
+    v7 = *v11;
+    do
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(streamGroupStats);
+        }
+
+        v6 |= [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats objectForKeyedSubscript:{*(*(&v10 + 1) + 8 * i)), "isVideoDegraded"}];
+      }
+
+      v5 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v5);
+  }
+
+  else
+  {
+    LOBYTE(v6) = 0;
+  }
+
+  return v6 & 1;
+}
+
+- (unsigned)significantVideoStallCount:(id)count
 {
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  streamGroupStats = self->_streamGroupStats;
-  v4 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
@@ -244,57 +251,17 @@
       {
         if (*v12 != v7)
         {
-          objc_enumerationMutation(streamGroupStats);
-        }
-
-        v6 |= [-[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats objectForKeyedSubscript:{*(*(&v11 + 1) + 8 * i)), "isVideoDegraded"}];
-      }
-
-      v5 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v11 objects:v15 count:16];
-    }
-
-    while (v5);
-  }
-
-  else
-  {
-    LOBYTE(v6) = 0;
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-  return v6 & 1;
-}
-
-- (unsigned)significantVideoStallCount:(id)count
-{
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = 0;
-    v7 = *v13;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v13 != v7)
-        {
           objc_enumerationMutation(count);
         }
 
-        v9 = [count objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [count objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           v6 += [v9 significantVideoStallCount];
         }
       }
 
-      v5 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -305,7 +272,6 @@
     LOWORD(v6) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -336,79 +302,88 @@
 
 - (double)significantVideoStallTotalTime:(id)time
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v4 = [time countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v14;
-    v7 = 0.0;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v14 != v6)
-        {
-          objc_enumerationMutation(time);
-        }
-
-        v9 = [time objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
-        if (v9)
-        {
-          [v9 videoStallTotalTime];
-          v7 = v7 + v10;
-        }
-      }
-
-      v5 = [time countByEnumeratingWithState:&v13 objects:v17 count:16];
-    }
-
-    while (v5);
-  }
-
-  else
-  {
-    v7 = 0.0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
-  return v7;
-}
-
-- (unsigned)audioErasureCount:(id)count
-{
   v17 = *MEMORY[0x277D85DE8];
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v4 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [time countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v4)
+  {
+    return 0.0;
+  }
+
+  v5 = v4;
+  v6 = *v13;
+  v7 = 0.0;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v13 != v6)
+      {
+        objc_enumerationMutation(time);
+      }
+
+      v9 = [time objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+      if (v9)
+      {
+        [v9 videoStallTotalTime];
+        v7 = v7 + v10;
+      }
+    }
+
+    v5 = [time countByEnumeratingWithState:&v12 objects:v16 count:16];
+  }
+
+  while (v5);
+  return v7;
+}
+
+- (void)processKeyFrameRequestSent:(unsigned int)sent withTime:(double)time
+{
+  v5 = -[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats, "objectForKeyedSubscript:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:*&sent]);
+
+  [v5 processKeyFrameRequestSent:time];
+}
+
+- (void)processKeyFrameReceived:(unsigned int)received withTime:(double)time
+{
+  v5 = -[NSMutableDictionary objectForKeyedSubscript:](self->_streamGroupStats, "objectForKeyedSubscript:", [MEMORY[0x277CCABA8] numberWithUnsignedInt:*&received]);
+
+  [v5 processKeyFrameReceived:time];
+}
+
+- (unsigned)audioErasureCount:(id)count
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(count);
         }
 
-        v9 = [count objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [count objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           v6 += [v9 audioErasureCount];
         }
       }
 
-      v5 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -419,40 +394,39 @@
     LOWORD(v6) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unsigned)maxAudioErasureCount:(id)count
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     LOWORD(v6) = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(count);
         }
 
-        v9 = [count objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [count objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           v6 = fmax(v6, [v9 maxAudioErasureCount]);
         }
       }
 
-      v5 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -463,40 +437,39 @@
     LOWORD(v6) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unsigned)maxVideoStallCount:(id)count
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     LOWORD(v6) = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(count);
         }
 
-        v9 = [count objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [count objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           v6 = fmax(v6, [v9 maxVideoStallCount]);
         }
       }
 
-      v5 = [count countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [count countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -507,37 +480,36 @@
     LOWORD(v6) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (double)avgJBDelay:(id)delay
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [delay countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [delay countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v4)
   {
-    goto LABEL_13;
+    return 0.0;
   }
 
   v5 = v4;
   v6 = 0;
-  v7 = *v17;
+  v7 = *v16;
   v8 = 0.0;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(delay);
       }
 
-      v10 = [delay objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
+      v10 = [delay objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i)];
       if (v10)
       {
         v11 = v10;
@@ -551,52 +523,48 @@
       }
     }
 
-    v5 = [delay countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [delay countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v5);
   if (v6)
   {
-    result = v8 / v6;
+    return v8 / v6;
   }
 
   else
   {
-LABEL_13:
-    result = 0.0;
+    return 0.0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (double)avgJBTargetSizeChanges:(id)changes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [changes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [changes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (!v4)
   {
-    goto LABEL_12;
+    return 0.0;
   }
 
   v5 = v4;
   v6 = 0;
-  v7 = *v15;
+  v7 = *v14;
   v8 = 0.0;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v15 != v7)
+      if (*v14 != v7)
       {
         objc_enumerationMutation(changes);
       }
 
-      v10 = [changes objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i)];
+      v10 = [changes objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
       if (v10)
       {
         ++v6;
@@ -605,55 +573,51 @@ LABEL_13:
       }
     }
 
-    v5 = [changes countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [changes countByEnumeratingWithState:&v13 objects:v17 count:16];
   }
 
   while (v5);
   if (v6)
   {
-    result = v8 / v6;
+    return v8 / v6;
   }
 
   else
   {
-LABEL_12:
-    result = 0.0;
+    return 0.0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (unsigned)maxJBTargetSizeChanges:(id)changes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v4 = [changes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [changes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     LOWORD(v6) = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(changes);
         }
 
-        v9 = [changes objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+        v9 = [changes objectForKeyedSubscript:*(*(&v11 + 1) + 8 * i)];
         if (v9)
         {
           v6 = fmax(v6, [v9 maxJBTargetSizeChanges]);
         }
       }
 
-      v5 = [changes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [changes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -664,33 +628,32 @@ LABEL_12:
     LOWORD(v6) = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (unsigned)minVideoFrameRate:(id)rate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v4 = [rate countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [rate countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     LOWORD(v7) = 60;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(rate);
         }
 
-        v9 = [rate objectForKeyedSubscript:*(*(&v14 + 1) + 8 * i)];
+        v9 = [rate objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
         if (v9)
         {
           v10 = v9;
@@ -704,7 +667,7 @@ LABEL_12:
         }
       }
 
-      v5 = [rate countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [rate countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -715,97 +678,86 @@ LABEL_12:
     LOWORD(v7) = 60;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (double)audioErasureTotalTime:(id)time
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [time countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v4)
+  v4 = [time countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v4)
   {
-    v5 = v4;
-    v6 = *v14;
-    v7 = 0.0;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v14 != v6)
-        {
-          objc_enumerationMutation(time);
-        }
+    return 0.0;
+  }
 
-        v9 = [time objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
-        if (v9)
-        {
-          [v9 audioErasureTotalTime];
-          v7 = v7 + v10;
-        }
+  v5 = v4;
+  v6 = *v13;
+  v7 = 0.0;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v13 != v6)
+      {
+        objc_enumerationMutation(time);
       }
 
-      v5 = [time countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [time objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+      if (v9)
+      {
+        [v9 audioErasureTotalTime];
+        v7 = v7 + v10;
+      }
     }
 
-    while (v5);
+    v5 = [time countByEnumeratingWithState:&v12 objects:v16 count:16];
   }
 
-  else
-  {
-    v7 = 0.0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  while (v5);
   return v7;
 }
 
 - (double)audioErasureTotalTimeAlt:(id)alt
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v4 = [alt countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v4)
+  v4 = [alt countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (!v4)
   {
-    v5 = v4;
-    v6 = *v14;
-    v7 = 0.0;
-    do
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v14 != v6)
-        {
-          objc_enumerationMutation(alt);
-        }
+    return 0.0;
+  }
 
-        v9 = [alt objectForKeyedSubscript:*(*(&v13 + 1) + 8 * i)];
-        if (v9)
-        {
-          [v9 audioErasureTotalTime];
-          v7 = v7 + v10;
-        }
+  v5 = v4;
+  v6 = *v13;
+  v7 = 0.0;
+  do
+  {
+    for (i = 0; i != v5; ++i)
+    {
+      if (*v13 != v6)
+      {
+        objc_enumerationMutation(alt);
       }
 
-      v5 = [alt countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [alt objectForKeyedSubscript:*(*(&v12 + 1) + 8 * i)];
+      if (v9)
+      {
+        [v9 audioErasureTotalTime];
+        v7 = v7 + v10;
+      }
     }
 
-    while (v5);
+    v5 = [alt countByEnumeratingWithState:&v12 objects:v16 count:16];
   }
 
-  else
-  {
-    v7 = 0.0;
-  }
-
-  v11 = *MEMORY[0x277D85DE8];
+  while (v5);
   return v7;
 }
 
@@ -942,28 +894,28 @@ LABEL_12:
 
 - (void)updateAudioBitratePerStreamGroup:(id)group
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v4 = [group objectForKeyedSubscript:sRTCReportingStreamCollection];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v44;
+    v7 = *v43;
     do
     {
       v8 = 0;
       do
       {
-        if (*v44 != v7)
+        if (*v43 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [v4 objectForKeyedSubscript:*(*(&v43 + 1) + 8 * v8)];
+        v9 = [v4 objectForKeyedSubscript:*(*(&v42 + 1) + 8 * v8)];
         v10 = [v9 objectForKeyedSubscript:@"VCMSStreamGroup"];
         v11 = [objc_msgSend(v9 objectForKeyedSubscript:{@"VCMSDirection", "intValue"}];
         if ([v10 unsignedIntValue] == 2 || objc_msgSend(v10, "unsignedIntValue") == 4 || objc_msgSend(v10, "unsignedIntValue") == 6)
@@ -1059,13 +1011,96 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v6);
   }
+}
 
-  v42 = *MEMORY[0x277D85DE8];
+- (void)processVideoDegraded:(BOOL)degraded timestamp:(double)timestamp
+{
+  degradedCopy = degraded;
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  streamGroupStats = self->_streamGroupStats;
+  v8 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = *v13;
+    do
+    {
+      for (i = 0; i != v9; ++i)
+      {
+        if (*v13 != v10)
+        {
+          objc_enumerationMutation(streamGroupStats);
+        }
+
+        [(MultiwayCall *)self processVideoDegraded:degradedCopy streamGroup:*(*(&v12 + 1) + 8 * i) timestamp:timestamp];
+      }
+
+      v9 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v12 objects:v16 count:16];
+    }
+
+    while (v9);
+  }
+}
+
+- (void)processVideoDegraded:(BOOL)degraded streamGroup:(id)group timestamp:(double)timestamp
+{
+  degradedCopy = degraded;
+  v8 = [(NSMutableDictionary *)self->_streamGroupStats objectForKeyedSubscript:group];
+  isVideoDegraded = [v8 isVideoDegraded];
+  if (degradedCopy)
+  {
+    if (isVideoDegraded)
+    {
+      goto LABEL_12;
+    }
+
+    [v8 setVideoDegradedStartTime:timestamp];
+    goto LABEL_11;
+  }
+
+  if (isVideoDegraded)
+  {
+    [v8 videoDegradedStartTime];
+    if (v10 != 0.0)
+    {
+      [v8 setVideoDegradedTotalCounter:{objc_msgSend(v8, "videoDegradedTotalCounter") + 1}];
+      [v8 videoDegradedStartTime];
+      v12 = timestamp - v11;
+      [v8 videoDegradedTotalTime];
+      [v8 setVideoDegradedTotalTime:v13 + v12];
+      [v8 videoDegradedMaxLength];
+      if (v14 < v12)
+      {
+        v14 = v12;
+      }
+
+      [v8 setVideoDegradedMaxLength:v14];
+      [v8 setVideoDegradedStartTime:0.0];
+    }
+
+    [v8 videoDegradedStartTimePerReason];
+    if (v15 != 0.0)
+    {
+      [v8 videoDegradedStartTimePerReason];
+      [objc_msgSend(v8 "videoDegradedDurationPerReason")];
+      timestamp = 0.0;
+LABEL_11:
+      [v8 setVideoDegradedStartTimePerReason:timestamp];
+    }
+  }
+
+LABEL_12:
+
+  [v8 setIsVideoDegraded:degradedCopy];
 }
 
 - (void)processStreamData:(id)data streamGroupID:(id)d
@@ -1452,27 +1487,27 @@ LABEL_35:
 
 - (void)addStreamGroupTelemetry:(id)telemetry
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   streamGroupStats = self->_streamGroupStats;
-  v6 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(streamGroupStats);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if ([v10 unsignedIntValue] == 1 || objc_msgSend(v10, "unsignedIntValue") == 3 || objc_msgSend(v10, "unsignedIntValue") == 5 || objc_msgSend(v10, "unsignedIntValue") == 7 || objc_msgSend(v10, "unsignedIntValue") == 8 || objc_msgSend(v10, "unsignedIntValue") == 10)
         {
           [(MultiwayCall *)self addVideoStreamGroupTelemetry:telemetry streamGroupID:v10];
@@ -1484,7 +1519,7 @@ LABEL_35:
         }
       }
 
-      v7 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [(NSMutableDictionary *)streamGroupStats countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -1516,7 +1551,6 @@ LABEL_35:
   }
 
   [telemetry setObject:objc_msgSend(MEMORY[0x277CCABA8] forKeyedSubscript:{"numberWithUnsignedInt:", v16), @"AWSB"}];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addControlChannelTelemetry:(id)telemetry timestamp:(double)timestamp
@@ -1570,7 +1604,6 @@ LABEL_35:
 - (void)processNetworkQualityUpdatedWithStatus:(unsigned int)status timestamp:(double)timestamp
 {
   OUTLINED_FUNCTION_58();
-  v19 = *MEMORY[0x277D85DE8];
   if (*(v4 + 592) != v5)
   {
     v7 = v6;
@@ -1611,13 +1644,11 @@ LABEL_35:
     *(v9 + 592) = v8;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_57();
 }
 
 - (void)incrementCallDuration
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (self->_live)
   {
     if (self->_duration <= 0)
@@ -1629,23 +1660,21 @@ LABEL_35:
         {
           if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
           {
-            remoteParticipantID = self->_remoteParticipantID;
             OUTLINED_FUNCTION_7_1();
             OUTLINED_FUNCTION_12();
             OUTLINED_FUNCTION_8_1();
             OUTLINED_FUNCTION_26();
-            _os_log_impl(v5, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 0x26u);
+            _os_log_impl(v3, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 0x26u);
           }
         }
 
         else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
         {
-          v9 = self->_remoteParticipantID;
           OUTLINED_FUNCTION_7_1();
           OUTLINED_FUNCTION_12();
           OUTLINED_FUNCTION_8_1();
           OUTLINED_FUNCTION_26();
-          _os_log_debug_impl(v10, v11, OS_LOG_TYPE_DEBUG, v12, v13, 0x26u);
+          _os_log_debug_impl(v7, v8, OS_LOG_TYPE_DEBUG, v9, v10, 0x26u);
         }
       }
     }
@@ -1657,12 +1686,10 @@ LABEL_35:
   }
 
   ++self->_duration;
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updatePerfTimingV2WithMediaCreatedToStartedTime:mediaStartedToFirstPacketTime:mediaFirstPacketToFirstFrameTime:streamGroupID:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -1672,11 +1699,9 @@ LABEL_35:
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_3_4();
       OUTLINED_FUNCTION_6_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -3,9 +3,9 @@
 - (SBApplicationLaunchNotifyAirplaneModeAlertItem)initWithApplication:(id)application;
 - (id)_alertTitleForOnCellular:(int)cellular isMessagesApplication:;
 - (id)_createSystemApertureElement;
-- (uint64_t)_primaryActionTriggeredForOnCellular:(uint64_t)result;
-- (void)_configureForAirplaneModeDataAlertOnCellular:(int)cellular isMessagesApplication:;
+- (void)_configureForAirplaneModeDataAlertOnCellular:(uint64_t)cellular isMessagesApplication:;
 - (void)_isMessagesApplication;
+- (void)_primaryActionTriggeredForOnCellular:(void *)result;
 - (void)_sendUserToSettings;
 - (void)_turnOffAirplaneMode;
 - (void)configure:(BOOL)configure requirePasscodeForActions:(BOOL)actions;
@@ -68,17 +68,19 @@ void __78__SBApplicationLaunchNotifyAirplaneModeAlertItem__createSystemApertureE
   return result;
 }
 
-- (void)_configureForAirplaneModeDataAlertOnCellular:(int)cellular isMessagesApplication:
+- (void)_configureForAirplaneModeDataAlertOnCellular:(uint64_t)cellular isMessagesApplication:
 {
   if (self)
   {
+    cellularCopy = cellular;
+    v4 = a2;
     alertController = [self alertController];
-    v7 = [(SBApplicationLaunchNotifyAirplaneModeAlertItem *)self _alertTitleForOnCellular:a2 isMessagesApplication:cellular];
+    v7 = [(SBApplicationLaunchNotifyAirplaneModeAlertItem *)self _alertTitleForOnCellular:v4 isMessagesApplication:cellularCopy];
     [alertController setTitle:v7];
 
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     v9 = mainBundle;
-    if (a2)
+    if (v4)
     {
       v10 = @"AIRPLANE_DISABLE";
     }
@@ -88,7 +90,7 @@ void __78__SBApplicationLaunchNotifyAirplaneModeAlertItem__createSystemApertureE
       v10 = @"AIRPLANE_DATA_SETTINGS";
     }
 
-    if (a2)
+    if (v4)
     {
       v11 = @"AIRPLANE_CANCEL";
     }
@@ -105,7 +107,7 @@ void __78__SBApplicationLaunchNotifyAirplaneModeAlertItem__createSystemApertureE
     v18[2] = __117__SBApplicationLaunchNotifyAirplaneModeAlertItem__configureForAirplaneModeDataAlertOnCellular_isMessagesApplication___block_invoke;
     v18[3] = &unk_2783C0D28;
     v18[4] = self;
-    v19 = a2;
+    v19 = v4;
     v13 = [MEMORY[0x277D750F8] actionWithTitle:v12 style:0 handler:v18];
     [alertController addAction:v13];
 
@@ -117,7 +119,7 @@ void __78__SBApplicationLaunchNotifyAirplaneModeAlertItem__createSystemApertureE
     v17[2] = __117__SBApplicationLaunchNotifyAirplaneModeAlertItem__configureForAirplaneModeDataAlertOnCellular_isMessagesApplication___block_invoke_2;
     v17[3] = &unk_2783A8A40;
     v17[4] = self;
-    v16 = [MEMORY[0x277D750F8] actionWithTitle:v15 style:a2 handler:v17];
+    v16 = [MEMORY[0x277D750F8] actionWithTitle:v15 style:v4 handler:v17];
     [alertController addAction:v16];
   }
 }
@@ -221,7 +223,7 @@ void __78__SBApplicationLaunchNotifyAirplaneModeAlertItem__createSystemApertureE
   return v7;
 }
 
-- (uint64_t)_primaryActionTriggeredForOnCellular:(uint64_t)result
+- (void)_primaryActionTriggeredForOnCellular:(void *)result
 {
   if (result)
   {

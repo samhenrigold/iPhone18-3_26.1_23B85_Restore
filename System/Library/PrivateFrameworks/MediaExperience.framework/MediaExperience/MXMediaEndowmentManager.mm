@@ -37,76 +37,76 @@ uint64_t __31__MXMediaEndowmentManager_init__block_invoke_2(uint64_t a1, uint64_
 
 uint64_t __44__MXMediaEndowmentManager_refreshAssertions__block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E695DFA8] set];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = [+[MXSessionManager sharedInstance](MXSessionManager copyMXCoreSessionList];
-  v18 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v18)
+  v17 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+  if (v17)
   {
-    v17 = *v34;
+    v16 = *v33;
     do
     {
       v2 = 0;
       do
       {
-        if (*v34 != v17)
+        if (*v33 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = v2;
-        v3 = *(*(&v33 + 1) + 8 * v2);
+        v18 = v2;
+        v3 = *(*(&v32 + 1) + 8 * v2);
         if ([v3 isPlaying])
         {
           v4 = [objc_msgSend(v3 "clientPID")];
           if (v4)
           {
             v5 = v4;
-            v31 = 0u;
-            v32 = 0u;
-            v29 = 0u;
             v30 = 0u;
-            v20 = *(*(a1 + 32) + 40);
-            v23 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
-            if (v23)
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            v19 = *(*(a1 + 32) + 40);
+            v22 = [v19 countByEnumeratingWithState:&v28 objects:v37 count:16];
+            if (v22)
             {
-              v21 = *v30;
+              v20 = *v29;
               do
               {
                 v6 = 0;
                 do
                 {
-                  if (*v30 != v21)
+                  if (*v29 != v20)
                   {
-                    objc_enumerationMutation(v20);
+                    objc_enumerationMutation(v19);
                   }
 
-                  v24 = v6;
-                  v7 = *(*(&v29 + 1) + 8 * v6);
+                  v23 = v6;
+                  v7 = *(*(&v28 + 1) + 8 * v6);
                   v8 = [*(*(a1 + 32) + 40) objectForKey:v7];
+                  v24 = 0u;
                   v25 = 0u;
                   v26 = 0u;
                   v27 = 0u;
-                  v28 = 0u;
-                  v9 = [v8 countByEnumeratingWithState:&v25 objects:v37 count:16];
+                  v9 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
                   if (v9)
                   {
                     v10 = v9;
-                    v11 = *v26;
+                    v11 = *v25;
                     do
                     {
                       for (i = 0; i != v10; ++i)
                       {
-                        if (*v26 != v11)
+                        if (*v25 != v11)
                         {
                           objc_enumerationMutation(v8);
                         }
 
-                        v13 = [v8 objectForKey:*(*(&v25 + 1) + 8 * i)];
+                        v13 = [v8 objectForKey:*(*(&v24 + 1) + 8 * i)];
                         if ([v13 containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", v5)}] && objc_msgSend(v3, "isPlaying"))
                         {
                           [v1 addObject:v7];
@@ -114,37 +114,35 @@ uint64_t __44__MXMediaEndowmentManager_refreshAssertions__block_invoke(uint64_t 
                         }
                       }
 
-                      v10 = [v8 countByEnumeratingWithState:&v25 objects:v37 count:16];
+                      v10 = [v8 countByEnumeratingWithState:&v24 objects:v36 count:16];
                     }
 
                     while (v10);
                   }
 
-                  v6 = v24 + 1;
+                  v6 = v23 + 1;
                 }
 
-                while (v24 + 1 != v23);
-                v23 = [v20 countByEnumeratingWithState:&v29 objects:v38 count:16];
+                while (v23 + 1 != v22);
+                v22 = [v19 countByEnumeratingWithState:&v28 objects:v37 count:16];
               }
 
-              while (v23);
+              while (v22);
             }
           }
         }
 
-        v2 = v19 + 1;
+        v2 = v18 + 1;
       }
 
-      while (v19 + 1 != v18);
-      v18 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      while (v18 + 1 != v17);
+      v17 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
-  result = [*(a1 + 32) refreshDomainAssertions:@"MediaPlayback" currentlyActivePIDs:v1];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) refreshDomainAssertions:@"MediaPlayback" currentlyActivePIDs:v1];
 }
 
 - (void)refreshAssertions
@@ -188,22 +186,20 @@ MXMediaEndowmentManager *__41__MXMediaEndowmentManager_sharedInstance__block_inv
 
 uint64_t __31__MXMediaEndowmentManager_init__block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E69C7630] descriptor];
   [v3 setEndowmentNamespaces:&unk_1F28AF590];
   [v3 setValues:32];
   [a2 setStateDescriptor:v3];
   v4 = NSClassFromString(&cfstr_Rbsprocessever.isa);
-  v7[0] = [(objc_class *)v4 performSelector:NSSelectorFromString(&cfstr_Everythingpred.isa)];
-  [a2 setPredicates:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v7, 1)}];
-  result = [a2 setUpdateHandler:&__block_literal_global_18];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  v6[0] = [(objc_class *)v4 performSelector:NSSelectorFromString(&cfstr_Everythingpred.isa)];
+  [a2 setPredicates:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v6, 1)}];
+  return [a2 setUpdateHandler:&__block_literal_global_18];
 }
 
 - (void)dealloc
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   mSerialQueue = self->mSerialQueue;
   if (mSerialQueue)
   {
@@ -214,55 +210,55 @@ uint64_t __31__MXMediaEndowmentManager_init__block_invoke(uint64_t a1, void *a2)
   [(RBSProcessMonitor *)self->mProcessMonitor invalidate];
 
   self->mProcessMonitor = 0;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   mEndowments = self->mEndowments;
-  v5 = [(NSMutableDictionary *)mEndowments countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v5 = [(NSMutableDictionary *)mEndowments countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v30;
+    v7 = *v29;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v30 != v7)
+        if (*v29 != v7)
         {
           objc_enumerationMutation(mEndowments);
         }
 
-        v9 = [(NSMutableDictionary *)self->mEndowments objectForKey:*(*(&v29 + 1) + 8 * i)];
+        v9 = [(NSMutableDictionary *)self->mEndowments objectForKey:*(*(&v28 + 1) + 8 * i)];
+        v24 = 0u;
         v25 = 0u;
         v26 = 0u;
         v27 = 0u;
-        v28 = 0u;
-        v10 = [v9 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v26;
+          v12 = *v25;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v26 != v12)
+              if (*v25 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [objc_msgSend(v9 objectForKey:{*(*(&v25 + 1) + 8 * j)), "invalidate"}];
+              [objc_msgSend(v9 objectForKey:{*(*(&v24 + 1) + 8 * j)), "invalidate"}];
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v25 objects:v34 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v24 objects:v33 count:16];
           }
 
           while (v11);
         }
       }
 
-      v6 = [(NSMutableDictionary *)mEndowments countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v6 = [(NSMutableDictionary *)mEndowments countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v6);
@@ -272,64 +268,63 @@ uint64_t __31__MXMediaEndowmentManager_init__block_invoke(uint64_t a1, void *a2)
   self->mEndowmentPayloads = 0;
 
   self->mEndowmentTrees = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   mMediaPlaybackAssertions = self->mMediaPlaybackAssertions;
-  v15 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v15 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v22;
+    v17 = *v21;
     do
     {
       for (k = 0; k != v16; ++k)
       {
-        if (*v22 != v17)
+        if (*v21 != v17)
         {
           objc_enumerationMutation(mMediaPlaybackAssertions);
         }
 
-        [-[NSMutableDictionary objectForKey:](self->mMediaPlaybackAssertions objectForKey:{*(*(&v21 + 1) + 8 * k)), "invalidate"}];
+        [-[NSMutableDictionary objectForKey:](self->mMediaPlaybackAssertions objectForKey:{*(*(&v20 + 1) + 8 * k)), "invalidate"}];
       }
 
-      v16 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v16 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
     while (v16);
   }
 
   self->mMediaPlaybackAssertions = 0;
-  v20.receiver = self;
-  v20.super_class = MXMediaEndowmentManager;
-  [(MXMediaEndowmentManager *)&v20 dealloc];
-  v19 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = MXMediaEndowmentManager;
+  [(MXMediaEndowmentManager *)&v19 dealloc];
 }
 
 - (void)iterateEndowmentTree:(id)tree rootPID:(id)d environment:(id)environment endowmentLinks:(id)links
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [links countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [links countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(links);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
+        v14 = *(*(&v17 + 1) + 8 * v13);
         v15 = [-[NSMutableDictionary objectForKey:](self->mEndowmentTrees objectForKey:{d), "objectForKey:", environment}];
         [v15 addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", objc_msgSend(v14, "targetPid"))}];
         -[MXMediaEndowmentManager iterateEndowmentTree:rootPID:environment:endowmentLinks:](self, "iterateEndowmentTree:rootPID:environment:endowmentLinks:", tree, d, environment, [tree childrenLinks:v14]);
@@ -337,13 +332,11 @@ uint64_t __31__MXMediaEndowmentManager_init__block_invoke(uint64_t a1, void *a2)
       }
 
       while (v11 != v13);
-      v11 = [links countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [links countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshEndowmentTrees
@@ -359,29 +352,29 @@ uint64_t __31__MXMediaEndowmentManager_init__block_invoke(uint64_t a1, void *a2)
 
 uint64_t __48__MXMediaEndowmentManager_refreshEndowmentTrees__block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69C7580] endowmentTreeForNamespace:@"com.apple.mediaexperience.session-Media"];
   [*(*(a1 + 32) + 40) removeAllObjects];
-  v37 = 0u;
-  v38 = 0u;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = [v2 rootLinks];
-  v3 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v3 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v36;
+    v5 = *v33;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v36 != v5)
+        if (*v33 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v35 + 1) + 8 * i);
+        v7 = *(*(&v32 + 1) + 8 * i);
         v8 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v7, "targetPid")}];
         if (![*(*(a1 + 32) + 40) objectForKey:v8])
         {
@@ -393,57 +386,57 @@ uint64_t __48__MXMediaEndowmentManager_refreshEndowmentTrees__block_invoke(uint6
         [*(a1 + 32) iterateEndowmentTree:v2 rootPID:v8 environment:objc_msgSend(v7 endowmentLinks:{"targetEnvironment"), objc_msgSend(v2, "childrenLinks:", v7)}];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v4 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v4);
   }
 
-  v33 = 0u;
-  v34 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v10 = [*(*(a1 + 32) + 24) allKeys];
-  v11 = [v10 countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v32;
+    v13 = *v29;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v32 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * j);
+        v15 = *(*(&v28 + 1) + 8 * j);
         if (![*(*(a1 + 32) + 40) objectForKey:v15])
         {
           v16 = [*(*(a1 + 32) + 24) objectForKey:v15];
+          v24 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
-          v29 = 0u;
-          v30 = 0u;
-          v17 = [v16 countByEnumeratingWithState:&v27 objects:v39 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
           if (v17)
           {
             v18 = v17;
-            v19 = *v28;
+            v19 = *v25;
             do
             {
               for (k = 0; k != v18; ++k)
               {
-                if (*v28 != v19)
+                if (*v25 != v19)
                 {
                   objc_enumerationMutation(v16);
                 }
 
-                [objc_msgSend(v16 objectForKey:{*(*(&v27 + 1) + 8 * k)), "invalidate"}];
+                [objc_msgSend(v16 objectForKey:{*(*(&v24 + 1) + 8 * k)), "invalidate"}];
               }
 
-              v18 = [v16 countByEnumeratingWithState:&v27 objects:v39 count:16];
+              v18 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
             }
 
             while (v18);
@@ -456,20 +449,18 @@ uint64_t __48__MXMediaEndowmentManager_refreshEndowmentTrees__block_invoke(uint6
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          [*(*(a1 + 32) + 24) removeObjectForKey:{v15, v24, v25}];
+          [*(*(a1 + 32) + 24) removeObjectForKey:v15];
           [*(*(a1 + 32) + 32) removeObjectForKey:v15];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v12);
   }
 
-  result = [*(a1 + 32) storeMediaEndowments];
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) storeMediaEndowments];
 }
 
 - (void)handleEndowmentTreeUpdate
@@ -481,68 +472,70 @@ uint64_t __48__MXMediaEndowmentManager_refreshEndowmentTrees__block_invoke(uint6
 
 - (void)processStateUpdateHandler:(id)handler process:(id)process update:(id)update
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   previousState = [objc_msgSend(objc_msgSend(update previousState];
   v7 = [objc_msgSend(objc_msgSend(update "state")];
   if (previousState)
   {
-    if ((v7 & 1) == 0)
+    if (v7)
     {
-      if (dword_1EB75DE60)
-      {
-        goto LABEL_7;
-      }
+      return;
+    }
 
+    if (!dword_1EB75DE60)
+    {
       goto LABEL_8;
     }
+
+    goto LABEL_7;
   }
 
-  else if (v7)
+  if (!v7)
   {
-    if (dword_1EB75DE60)
-    {
+    return;
+  }
+
+  if (dword_1EB75DE60)
+  {
 LABEL_7:
-      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
-      fig_log_call_emit_and_clean_up_after_send_and_compose();
-    }
+    os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+    fig_log_call_emit_and_clean_up_after_send_and_compose();
+  }
 
 LABEL_8:
-    [+[MXMediaEndowmentManager sharedInstance](MXMediaEndowmentManager handleEndowmentTreeUpdate:v10];
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
+  [+[MXMediaEndowmentManager sharedInstance](MXMediaEndowmentManager handleEndowmentTreeUpdate];
 }
 
 - (int)grantMediaEndowment:(int)endowment environmentID:(id)d endowmentPayload:(id)payload
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
+  v24 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
+  v23 = 0;
   v9 = [payload objectForKey:@"AuditToken"];
   v10 = [payload objectForKey:@"BundleID"];
   if (endowment && d && (v9 ? (v11 = v10 == 0) : (v11 = 1), !v11))
   {
     mSerialQueue = self->mSerialQueue;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPayload___block_invoke;
-    v17[3] = &unk_1E7AE7D08;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPayload___block_invoke;
+    v16[3] = &unk_1E7AE7D08;
     endowmentCopy = endowment;
-    v17[4] = self;
-    v17[5] = d;
-    v17[7] = v10;
-    v17[8] = &v21;
-    v17[6] = payload;
-    MXDispatchSync("[MXMediaEndowmentManager grantMediaEndowment:environmentID:endowmentPayload:]", "MX_MediaEndowmentManager.m", 368, 0, 0, mSerialQueue, v17);
-    v13 = *(v22 + 6);
+    v16[4] = self;
+    v16[5] = d;
+    v16[7] = v10;
+    v16[8] = &v20;
+    v16[6] = payload;
+    MXDispatchSync("[MXMediaEndowmentManager grantMediaEndowment:environmentID:endowmentPayload:]", "MX_MediaEndowmentManager.m", 368, 0, 0, mSerialQueue, v16);
+    v13 = *(v21 + 6);
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -550,15 +543,14 @@ LABEL_8:
     v13 = -15681;
   }
 
-  _Block_object_dispose(&v21, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
   return v13;
 }
 
 void __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPayload___block_invoke(uint64_t a1)
 {
-  v23[18] = *MEMORY[0x1E69E9840];
-  v22 = 0;
+  v18[18] = *MEMORY[0x1E69E9840];
+  v17 = 0;
   v2 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 72)];
   if ([objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "objectForKey:", *(a1 + 40)}])
   {
@@ -569,41 +561,16 @@ void __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPa
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [objc_msgSend(objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2, v18, v20), "objectForKey:", *(a1 + 40)), "invalidate"}];
+    [objc_msgSend(objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "objectForKey:", *(a1 + 40)), "invalidate"}];
     [objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "removeObjectForKey:", *(a1 + 40)}];
     [objc_msgSend(*(*(a1 + 32) + 32) objectForKey:{v2), "removeObjectForKey:", *(a1 + 40)}];
   }
 
   v4 = [MEMORY[0x1E69C7640] targetWithPid:*(a1 + 72) environmentIdentifier:*(a1 + 40)];
-  if (!v4)
-  {
-    goto LABEL_11;
-  }
-
-  v5 = v4;
-  v6 = [MEMORY[0x1E69C7578] grantWithNamespace:@"com.apple.mediaexperience.session-Media" endowment:*(a1 + 48)];
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = v6;
-  v8 = [MEMORY[0x1E69C7530] attributeWithCompletionPolicy:1];
-  if (!v8)
-  {
-    goto LABEL_11;
-  }
-
-  v9 = v8;
-  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{originator:com.apple.mediaexperience, bundleID:%@ clientPID:%d, environmentID:%@}", *(a1 + 56), *(a1 + 72), *(a1 + 40)];
-  v11 = objc_alloc(MEMORY[0x1E69C7548]);
-  v23[0] = v7;
-  v23[1] = v9;
-  v12 = [v11 initWithExplanation:v10 target:v5 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v23, 2)}];
-  if (v12)
+  if (v4 && (v5 = v4, (v6 = [MEMORY[0x1E69C7578] grantWithNamespace:@"com.apple.mediaexperience.session-Media" endowment:*(a1 + 48)]) != 0) && (v7 = v6, (v8 = objc_msgSend(MEMORY[0x1E69C7530], "attributeWithCompletionPolicy:", 1)) != 0) && (v9 = v8, v10 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"{originator:com.apple.mediaexperience, bundleID:%@ clientPID:%d, environmentID:%@}", *(a1 + 56), *(a1 + 72), *(a1 + 40)), v11 = objc_alloc(MEMORY[0x1E69C7548]), v18[0] = v7, v18[1] = v9, (v12 = objc_msgSend(v11, "initWithExplanation:target:attributes:", v10, v5, objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v18, 2))) != 0))
   {
     v13 = v12;
-    if (([v12 acquireWithError:&v22] & 1) == 0)
+    if (([v12 acquireWithError:&v17] & 1) == 0)
     {
       v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
@@ -615,12 +582,12 @@ void __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPa
     {
       if (dword_1EB75DE60)
       {
-        v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+        v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
         fig_log_call_emit_and_clean_up_after_send_and_compose();
       }
 
-      if (![*(*(a1 + 32) + 24) objectForKey:{v2, v19, v21}])
+      if (![*(*(a1 + 32) + 24) objectForKey:v2])
       {
         [*(*(a1 + 32) + 24) setObject:objc_msgSend(MEMORY[0x1E695DF90] forKey:{"dictionary"), v2}];
         [*(*(a1 + 32) + 32) setObject:objc_msgSend(MEMORY[0x1E695DF90] forKey:{"dictionary"), v2}];
@@ -634,41 +601,38 @@ void __78__MXMediaEndowmentManager_grantMediaEndowment_environmentID_endowmentPa
 
   else
   {
-LABEL_11:
     v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     *(*(*(a1 + 64) + 8) + 24) = -15687;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (int)revokeMediaEndowment:(int)endowment environmentID:(id)d
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v16 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 0;
   if (endowment && d)
   {
     mSerialQueue = self->mSerialQueue;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___block_invoke;
-    v9[3] = &unk_1E7AE7D30;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___block_invoke;
+    v8[3] = &unk_1E7AE7D30;
     endowmentCopy = endowment;
-    v9[4] = self;
-    v9[5] = d;
-    v9[6] = &v13;
-    MXDispatchSync("[MXMediaEndowmentManager revokeMediaEndowment:environmentID:]", "MX_MediaEndowmentManager.m", 462, 0, 0, mSerialQueue, v9);
-    v5 = *(v14 + 6);
+    v8[4] = self;
+    v8[5] = d;
+    v8[6] = &v12;
+    MXDispatchSync("[MXMediaEndowmentManager revokeMediaEndowment:environmentID:]", "MX_MediaEndowmentManager.m", 462, 0, 0, mSerialQueue, v8);
+    v5 = *(v13 + 6);
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -676,14 +640,13 @@ LABEL_11:
     v5 = -15681;
   }
 
-  _Block_object_dispose(&v13, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v12, 8);
   return v5;
 }
 
-uint64_t __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___block_invoke(uint64_t a1)
+void *__62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithInt:*(a1 + 56)];
   v3 = [objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "objectForKey:", *(a1 + 40)}];
   if (v3)
@@ -696,7 +659,7 @@ uint64_t __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___bloc
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    [objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2, v8, v9), "removeObjectForKey:", *(a1 + 40)}];
+    [objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "removeObjectForKey:", *(a1 + 40)}];
     [objc_msgSend(*(*(a1 + 32) + 32) objectForKey:{v2), "removeObjectForKey:", *(a1 + 40)}];
     if (![objc_msgSend(*(*(a1 + 32) + 24) objectForKey:{v2), "count"}])
     {
@@ -704,7 +667,7 @@ uint64_t __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___bloc
       [*(*(a1 + 32) + 32) removeObjectForKey:v2];
     }
 
-    result = [*(a1 + 32) refreshEndowmentTrees];
+    return [*(a1 + 32) refreshEndowmentTrees];
   }
 
   else
@@ -715,7 +678,6 @@ uint64_t __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___bloc
     *(*(*(a1 + 48) + 8) + 24) = -15685;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -740,50 +702,50 @@ uint64_t __62__MXMediaEndowmentManager_revokeMediaEndowment_environmentID___bloc
   return v5;
 }
 
-uint64_t __54__MXMediaEndowmentManager_getHostProcessAttributions___block_invoke(uint64_t a1)
+void *__54__MXMediaEndowmentManager_getHostProcessAttributions___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
+  v26 = *MEMORY[0x1E69E9840];
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = *(*(a1 + 32) + 40);
-  result = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-  v16 = result;
+  result = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v15 = result;
   if (result)
   {
-    v15 = *v22;
+    v14 = *v21;
     do
     {
       v3 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v21 + 1) + 8 * v3);
+        v4 = *(*(&v20 + 1) + 8 * v3);
         v5 = [*(*(a1 + 32) + 40) objectForKey:v4];
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
-        v6 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v18;
+          v8 = *v17;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v18 != v8)
+              if (*v17 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v17 + 1) + 8 * i);
+              v10 = *(*(&v16 + 1) + 8 * i);
               v11 = [v5 objectForKey:v10];
               if ([v11 containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", *(a1 + 48))}])
               {
@@ -795,99 +757,107 @@ uint64_t __54__MXMediaEndowmentManager_getHostProcessAttributions___block_invoke
               }
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v7);
         }
 
-        ++v3;
+        v3 = v3 + 1;
       }
 
-      while (v3 != v16);
-      result = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
-      v16 = result;
+      while (v3 != v15);
+      result = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v15 = result;
     }
 
     while (result);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)storeMediaEndowments
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v26 = *MEMORY[0x1E69E9840];
+  v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = self->mEndowments;
-  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v15 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v15)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v21 + 1) + 8 * i);
+        v6 = *(*(&v20 + 1) + 8 * i);
         v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+        v16 = 0u;
         v17 = 0u;
         v18 = 0u;
         v19 = 0u;
-        v20 = 0u;
         v8 = [(NSMutableDictionary *)self->mEndowments objectForKey:v6];
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v18;
+          v11 = *v17;
           do
           {
             for (j = 0; j != v10; ++j)
             {
-              if (*v18 != v11)
+              if (*v17 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              [v7 setObject:objc_msgSend(-[NSMutableDictionary objectForKey:](self->mEndowmentPayloads forKey:{"objectForKey:", v6), "objectForKey:", *(*(&v17 + 1) + 8 * j)), *(*(&v17 + 1) + 8 * j)}];
+              [v7 setObject:objc_msgSend(-[NSMutableDictionary objectForKey:](self->mEndowmentPayloads forKey:{"objectForKey:", v6), "objectForKey:", *(*(&v16 + 1) + 8 * j)), *(*(&v16 + 1) + 8 * j)}];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
           }
 
           while (v10);
         }
 
-        [v16 setObject:v7 forKey:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@", v6)}];
+        [v15 setObject:v7 forKey:{objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@", v6)}];
       }
 
-      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
   }
 
-  MXCFPreferencesSetAndSynchronizeUserPreference(@"mediaEndowments", v16);
-
-  v13 = *MEMORY[0x1E69E9840];
+  MXCFPreferencesSetAndSynchronizeUserPreference(@"mediaEndowments", v15);
 }
 
 - (void)loadMediaEndowments
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   [objc_msgSend(MEMORY[0x1E696AE30] "processInfo")];
-  if (v2 > 45.0)
+  if (v2 <= 45.0)
+  {
+    MXCFPreferencesSetAndSynchronizeUserPreference(@"mediaEndowments", 0);
+    if (dword_1EB75DE60)
+    {
+      os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
+      fig_log_call_emit_and_clean_up_after_send_and_compose();
+    }
+  }
+
+  else
   {
     v3 = MXCFPreferencesCopyPreference(@"mediaEndowments");
     v27 = objc_alloc_init(MEMORY[0x1E696ADA0]);
@@ -898,190 +868,181 @@ uint64_t __54__MXMediaEndowmentManager_getHostProcessAttributions___block_invoke
     v34 = 0u;
     obj = v3;
     v24 = [v3 countByEnumeratingWithState:&v33 objects:v48 count:16];
-    if (!v24)
+    if (v24)
     {
-      goto LABEL_27;
-    }
-
-    v23 = *v34;
-    while (1)
-    {
-      v4 = 0;
+      v23 = *v34;
       do
       {
-        if (*v34 != v23)
+        v4 = 0;
+        do
         {
-          objc_enumerationMutation(obj);
-        }
-
-        v26 = v4;
-        v5 = *(*(&v33 + 1) + 8 * v4);
-        v6 = [obj objectForKey:{v5, v21, v22}];
-        v29 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v32 = 0u;
-        v7 = [v6 countByEnumeratingWithState:&v29 objects:v47 count:16];
-        if (v7)
-        {
-          v8 = v7;
-          v9 = *v30;
-          do
+          if (*v34 != v23)
           {
-            for (i = 0; i != v8; ++i)
-            {
-              if (*v30 != v9)
-              {
-                objc_enumerationMutation(v6);
-              }
-
-              v11 = *(*(&v29 + 1) + 8 * i);
-              v12 = [v6 objectForKey:{v11, v21, v22}];
-              if (-[MXMediaEndowmentManager grantMediaEndowment:environmentID:endowmentPayload:](self, "grantMediaEndowment:environmentID:endowmentPayload:", [objc_msgSend(v27 numberFromString:{v5), "unsignedIntValue"}], v11, v12))
-              {
-                v38 = 0;
-                type = OS_LOG_TYPE_DEFAULT;
-                os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v14 = v38;
-                if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type))
-                {
-                  v15 = v14;
-                }
-
-                else
-                {
-                  v15 = v14 & 0xFFFFFFFE;
-                }
-
-                if (v15)
-                {
-                  goto LABEL_22;
-                }
-              }
-
-              else
-              {
-                v38 = 0;
-                type = OS_LOG_TYPE_DEFAULT;
-                v16 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v17 = v38;
-                if (os_log_type_enabled(v16, type))
-                {
-                  v18 = v17;
-                }
-
-                else
-                {
-                  v18 = v17 & 0xFFFFFFFE;
-                }
-
-                if (v18)
-                {
-LABEL_22:
-                  v39 = 136315906;
-                  v40 = "[MXMediaEndowmentManager loadMediaEndowments]";
-                  v41 = 2114;
-                  v42 = v5;
-                  v43 = 2114;
-                  v44 = v11;
-                  v45 = 2114;
-                  v46 = v12;
-                  LODWORD(v22) = 42;
-                  v21 = &v39;
-                  _os_log_send_and_compose_impl();
-                }
-              }
-
-              fig_log_call_emit_and_clean_up_after_send_and_compose();
-            }
-
-            v8 = [v6 countByEnumeratingWithState:&v29 objects:v47 count:16];
+            objc_enumerationMutation(obj);
           }
 
-          while (v8);
+          v26 = v4;
+          v5 = *(*(&v33 + 1) + 8 * v4);
+          v6 = [obj objectForKey:v5];
+          v29 = 0u;
+          v30 = 0u;
+          v31 = 0u;
+          v32 = 0u;
+          v7 = [v6 countByEnumeratingWithState:&v29 objects:v47 count:16];
+          if (v7)
+          {
+            v8 = v7;
+            v9 = *v30;
+            do
+            {
+              for (i = 0; i != v8; ++i)
+              {
+                if (*v30 != v9)
+                {
+                  objc_enumerationMutation(v6);
+                }
+
+                v11 = *(*(&v29 + 1) + 8 * i);
+                v12 = [v6 objectForKey:v11];
+                if (-[MXMediaEndowmentManager grantMediaEndowment:environmentID:endowmentPayload:](self, "grantMediaEndowment:environmentID:endowmentPayload:", [objc_msgSend(v27 numberFromString:{v5), "unsignedIntValue"}], v11, v12))
+                {
+                  v38 = 0;
+                  type = OS_LOG_TYPE_DEFAULT;
+                  v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v14 = v38;
+                  v15 = type;
+                  if (os_log_type_enabled(v13, type))
+                  {
+                    v16 = v14;
+                  }
+
+                  else
+                  {
+                    v16 = v14 & 0xFFFFFFFE;
+                  }
+
+                  if (v16)
+                  {
+                    v39 = 136315906;
+                    v40 = "[MXMediaEndowmentManager loadMediaEndowments]";
+                    v41 = 2114;
+                    v42 = v5;
+                    v43 = 2114;
+                    v44 = v11;
+                    v45 = 2114;
+                    v46 = v12;
+                    LODWORD(v22) = 42;
+                    _os_log_send_and_compose_impl(v16, 0, v49, 128, &dword_1B17A2000, v13, v15, "-MXMediaEndowmentManager- %s: Endowment was not recovered! clientPID='%{public}@', environmentID='%{public}@', endowmentPayload='%{public}@'", &v39, v22);
+                  }
+                }
+
+                else
+                {
+                  v38 = 0;
+                  type = OS_LOG_TYPE_DEFAULT;
+                  v17 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v18 = v38;
+                  v19 = type;
+                  if (os_log_type_enabled(v17, type))
+                  {
+                    v20 = v18;
+                  }
+
+                  else
+                  {
+                    v20 = v18 & 0xFFFFFFFE;
+                  }
+
+                  if (v20)
+                  {
+                    v39 = 136315906;
+                    v40 = "[MXMediaEndowmentManager loadMediaEndowments]";
+                    v41 = 2114;
+                    v42 = v5;
+                    v43 = 2114;
+                    v44 = v11;
+                    v45 = 2114;
+                    v46 = v12;
+                    LODWORD(v22) = 42;
+                    _os_log_send_and_compose_impl(v20, 0, v49, 128, &dword_1B17A2000, v17, v19, "-MXMediaEndowmentManager- %s: Endowment was recovered successfully! clientPID='%{public}@', environmentID='%{public}@', endowmentPayload='%{public}@'", &v39, v22);
+                  }
+                }
+
+                fig_log_call_emit_and_clean_up_after_send_and_compose();
+              }
+
+              v8 = [v6 countByEnumeratingWithState:&v29 objects:v47 count:16];
+            }
+
+            while (v8);
+          }
+
+          v4 = v26 + 1;
         }
 
-        v4 = v26 + 1;
+        while (v26 + 1 != v24);
+        v24 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
       }
 
-      while (v26 + 1 != v24);
-      v24 = [obj countByEnumeratingWithState:&v33 objects:v48 count:16];
-      if (!v24)
-      {
-LABEL_27:
-
-        [(MXMediaEndowmentManager *)self refreshEndowmentTrees];
-        goto LABEL_30;
-      }
+      while (v24);
     }
-  }
 
-  MXCFPreferencesSetAndSynchronizeUserPreference(@"mediaEndowments", 0);
-  if (dword_1EB75DE60)
-  {
-    v38 = 0;
-    type = OS_LOG_TYPE_DEFAULT;
-    v19 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
+    [(MXMediaEndowmentManager *)self refreshEndowmentTrees];
   }
-
-LABEL_30:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshDomainAssertions:(id)assertions currentlyActivePIDs:(id)ds
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   obj = [MEMORY[0x1E695DFA8] set];
   if ([assertions isEqualToString:@"MediaPlayback"])
   {
     mMediaPlaybackAssertions = self->mMediaPlaybackAssertions;
+    v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v7 = [ds countByEnumeratingWithState:&v51 objects:v64 count:16];
+    v7 = [ds countByEnumeratingWithState:&v48 objects:v61 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v52;
+      v9 = *v49;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v52 != v9)
+          if (*v49 != v9)
           {
             objc_enumerationMutation(ds);
           }
 
-          v11 = *(*(&v51 + 1) + 8 * i);
-          if (![(NSMutableDictionary *)mMediaPlaybackAssertions objectForKey:v11, v34, v36])
+          v11 = *(*(&v48 + 1) + 8 * i);
+          if (![(NSMutableDictionary *)mMediaPlaybackAssertions objectForKey:v11])
           {
-            v50 = 0;
+            v47 = 0;
             assertions = [MEMORY[0x1E696AEC0] stringWithFormat:@"{originator:com.apple.mediaexperience, clientPID:%@ DomainName:%@}", v11, assertions];
             v13 = [MEMORY[0x1E69C7560] attributeWithDomain:@"com.apple.mediaexperience" name:assertions];
             v14 = objc_alloc(MEMORY[0x1E69C7548]);
             v15 = [MEMORY[0x1E69C7640] targetWithPid:{objc_msgSend(v11, "unsignedIntValue")}];
-            v63 = v13;
-            v16 = [v14 initWithExplanation:assertions target:v15 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v63, 1)}];
-            if ([v16 acquireWithError:&v50])
+            v60 = v13;
+            v16 = [v14 initWithExplanation:assertions target:v15 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v60, 1)}];
+            if ([v16 acquireWithError:&v47])
             {
               if (dword_1EB75DE60)
               {
-                *v49 = 0;
+                *v46 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
                 os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
                 os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              [(NSMutableDictionary *)mMediaPlaybackAssertions setObject:v16 forKey:v11, v34, v36];
+              [(NSMutableDictionary *)mMediaPlaybackAssertions setObject:v16 forKey:v11];
             }
 
             else
             {
-              *v49 = 0;
+              *v46 = 0;
               type = OS_LOG_TYPE_DEFAULT;
               v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
               os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
@@ -1090,99 +1051,99 @@ LABEL_30:
           }
         }
 
-        v8 = [ds countByEnumeratingWithState:&v51 objects:v64 count:16];
+        v8 = [ds countByEnumeratingWithState:&v48 objects:v61 count:16];
       }
 
       while (v8);
     }
 
-    v46 = 0u;
-    v47 = 0u;
+    v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
-    v19 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v44 objects:v56 count:16, v34, v36];
+    v41 = 0u;
+    v42 = 0u;
+    v19 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v41 objects:v53 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v45;
+      v21 = *v42;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v45 != v21)
+          if (*v42 != v21)
           {
             objc_enumerationMutation(mMediaPlaybackAssertions);
           }
 
-          v23 = *(*(&v44 + 1) + 8 * j);
+          v23 = *(*(&v41 + 1) + 8 * j);
           if (([ds containsObject:v23] & 1) == 0)
           {
             [obj addObject:v23];
           }
         }
 
-        v20 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v44 objects:v56 count:16];
+        v20 = [(NSMutableDictionary *)mMediaPlaybackAssertions countByEnumeratingWithState:&v41 objects:v53 count:16];
       }
 
       while (v20);
     }
 
-    v42 = 0u;
-    v43 = 0u;
+    v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v24 = [obj countByEnumeratingWithState:&v40 objects:v55 count:16];
+    v37 = 0u;
+    v38 = 0u;
+    v24 = [obj countByEnumeratingWithState:&v37 objects:v52 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v41;
+      v26 = *v38;
       do
       {
         for (k = 0; k != v25; ++k)
         {
-          if (*v41 != v26)
+          if (*v38 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v40 + 1) + 8 * k);
+          v28 = *(*(&v37 + 1) + 8 * k);
           [-[NSMutableDictionary objectForKey:](mMediaPlaybackAssertions objectForKey:{v28), "invalidate"}];
           if (dword_1EB75DE60)
           {
-            LODWORD(v50) = 0;
-            v49[0] = OS_LOG_TYPE_DEFAULT;
+            LODWORD(v47) = 0;
+            v46[0] = OS_LOG_TYPE_DEFAULT;
             v29 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v30 = v50;
-            if (os_log_type_enabled(v29, v49[0]))
+            v30 = v47;
+            v31 = v46[0];
+            if (os_log_type_enabled(v29, v46[0]))
             {
-              v31 = v30;
+              v32 = v30;
             }
 
             else
             {
-              v31 = v30 & 0xFFFFFFFE;
+              v32 = v30 & 0xFFFFFFFE;
             }
 
-            if (v31)
+            if (v32)
             {
-              v57 = 136315650;
-              v58 = "[MXMediaEndowmentManager refreshDomainAssertions:currentlyActivePIDs:]";
-              v59 = 2114;
+              v54 = 136315650;
+              v55 = "[MXMediaEndowmentManager refreshDomainAssertions:currentlyActivePIDs:]";
+              v56 = 2114;
               assertionsCopy = assertions;
-              v61 = 2114;
-              v62 = v28;
-              LODWORD(v37) = 32;
-              v35 = &v57;
-              _os_log_send_and_compose_impl();
+              v58 = 2114;
+              v59 = v28;
+              LODWORD(v34) = 32;
+              _os_log_send_and_compose_impl(v32, 0, v62, 128, &dword_1B17A2000, v29, v31, "-MXMediaEndowmentManager- %s: %{public}@ assertion has been invalidated! clientPID='%{public}@'", &v54, v34);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
           }
 
-          [(NSMutableDictionary *)mMediaPlaybackAssertions removeObjectForKey:v28, v35, v37];
+          [(NSMutableDictionary *)mMediaPlaybackAssertions removeObjectForKey:v28];
         }
 
-        v25 = [obj countByEnumeratingWithState:&v40 objects:v55 count:16];
+        v25 = [obj countByEnumeratingWithState:&v37 objects:v52 count:16];
       }
 
       while (v25);
@@ -1191,14 +1152,10 @@ LABEL_30:
 
   else
   {
-    LODWORD(v50) = 0;
-    v49[0] = OS_LOG_TYPE_DEFAULT;
-    v32 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+    v33 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dumpDebugInfo
@@ -1212,19 +1169,19 @@ LABEL_30:
   MXDispatchSync("[MXMediaEndowmentManager dumpDebugInfo]", "MX_MediaEndowmentManager.m", 720, 0, 0, mSerialQueue, v3);
 }
 
-uint64_t __40__MXMediaEndowmentManager_dumpDebugInfo__block_invoke(uint64_t a1)
+void *__40__MXMediaEndowmentManager_dumpDebugInfo__block_invoke(uint64_t a1)
 {
-  v180 = *MEMORY[0x1E69E9840];
+  v187 = *MEMORY[0x1E69E9840];
   if (dword_1EB75DE60)
   {
-    v165 = 0;
+    v171 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE60)
     {
-      v165 = 0;
+      v171 = 0;
       type = OS_LOG_TYPE_DEFAULT;
       v2 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
       os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
@@ -1232,767 +1189,759 @@ uint64_t __40__MXMediaEndowmentManager_dumpDebugInfo__block_invoke(uint64_t a1)
     }
   }
 
-  v162 = 0u;
-  v163 = 0u;
-  v160 = 0u;
-  v161 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v166 = 0u;
+  v167 = 0u;
   obj = *(*(a1 + 32) + 24);
-  v126 = [obj countByEnumeratingWithState:&v160 objects:v179 count:{16, v101, v108}];
-  if (v126)
+  v132 = [obj countByEnumeratingWithState:&v166 objects:v185 count:16];
+  if (v132)
   {
-    v123 = *v161;
+    v129 = *v167;
     do
     {
       v3 = 0;
       do
       {
-        if (*v161 != v123)
+        if (*v167 != v129)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v160 + 1) + 8 * v3);
-        v5 = [*(*(a1 + 32) + 24) objectForKey:{v4, v102, v109}];
+        v4 = *(*(&v166 + 1) + 8 * v3);
+        v5 = [*(*(a1 + 32) + 24) objectForKey:v4];
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
           v6 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v7 = v165;
+          v7 = v171;
+          v8 = type;
           if (os_log_type_enabled(v6, type))
           {
-            v8 = v7;
+            v9 = v7;
           }
 
           else
           {
-            v8 = v7 & 0xFFFFFFFE;
+            v9 = v7 & 0xFFFFFFFE;
           }
 
-          if (v8)
+          if (v9)
           {
-            v172 = 136315394;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            v174 = 2114;
-            v175 = v4;
-            LODWORD(v110) = 22;
-            v103 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315394;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            v180 = 2114;
+            v181 = v4;
+            LODWORD(v120) = 22;
+            _os_log_send_and_compose_impl(v9, 0, v186, 128, &dword_1B17A2000, v6, v8, "-MXMediaEndowmentManager- %s: \t\t %{public}@ = {", &v178, v120);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v129 = v3;
-        v158 = 0u;
-        v159 = 0u;
-        v156 = 0u;
-        v157 = 0u;
-        v9 = [v5 countByEnumeratingWithState:&v156 objects:v178 count:{16, v103, v110}];
-        if (v9)
+        v135 = v3;
+        v164 = 0u;
+        v165 = 0u;
+        v162 = 0u;
+        v163 = 0u;
+        v10 = [v5 countByEnumeratingWithState:&v162 objects:v184 count:16];
+        if (v10)
         {
-          v10 = v9;
-          v11 = *v157;
+          v11 = v10;
+          v12 = *v163;
           do
           {
-            for (i = 0; i != v10; ++i)
+            for (i = 0; i != v11; ++i)
             {
-              if (*v157 != v11)
+              if (*v163 != v12)
               {
                 objc_enumerationMutation(v5);
               }
 
               if (dword_1EB75DE60)
               {
-                v13 = *(*(&v156 + 1) + 8 * i);
-                v165 = 0;
+                v14 = *(*(&v162 + 1) + 8 * i);
+                v171 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v15 = v165;
-                if (os_log_type_enabled(v14, type))
+                v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v16 = v171;
+                v17 = type;
+                if (os_log_type_enabled(v15, type))
                 {
-                  v16 = v15;
+                  v18 = v16;
                 }
 
                 else
                 {
-                  v16 = v15 & 0xFFFFFFFE;
+                  v18 = v16 & 0xFFFFFFFE;
                 }
 
-                if (v16)
+                if (v18)
                 {
-                  v17 = [objc_msgSend(v5 objectForKey:{v13), "explanation"}];
-                  v172 = 136315650;
-                  v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-                  v174 = 2114;
-                  v175 = v13;
-                  v176 = 2114;
-                  v177 = v17;
-                  LODWORD(v109) = 32;
-                  v102 = &v172;
-                  _os_log_send_and_compose_impl();
+                  v19 = [objc_msgSend(v5 objectForKey:{v14), "explanation"}];
+                  v178 = 136315650;
+                  v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+                  v180 = 2114;
+                  v181 = v14;
+                  v182 = 2114;
+                  v183 = v19;
+                  LODWORD(v120) = 32;
+                  _os_log_send_and_compose_impl(v18, 0, v186, 128, &dword_1B17A2000, v15, v17, "-MXMediaEndowmentManager- %s: \t\t\t %{public}@: '%{public}@',", &v178, v120);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
             }
 
-            v10 = [v5 countByEnumeratingWithState:&v156 objects:v178 count:16];
+            v11 = [v5 countByEnumeratingWithState:&v162 objects:v184 count:16];
           }
 
-          while (v10);
+          while (v11);
         }
 
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v18 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v19 = v165;
-          if (os_log_type_enabled(v18, type))
+          v20 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v21 = v171;
+          v22 = type;
+          if (os_log_type_enabled(v20, type))
           {
-            v20 = v19;
+            v23 = v21;
           }
 
           else
           {
-            v20 = v19 & 0xFFFFFFFE;
+            v23 = v21 & 0xFFFFFFFE;
           }
 
-          if (v20)
+          if (v23)
           {
-            v172 = 136315138;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            LODWORD(v109) = 12;
-            v102 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315138;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            _os_log_send_and_compose_impl(v23, 0, v186, 128, &dword_1B17A2000, v20, v22, "-MXMediaEndowmentManager- %s: \t\t }", &v178);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        ++v3;
+        v3 = v135 + 1;
       }
 
-      while ((v129 + 1) != v126);
-      v126 = [obj countByEnumeratingWithState:&v160 objects:v179 count:16];
+      while ((v135 + 1) != v132);
+      v132 = [obj countByEnumeratingWithState:&v166 objects:v185 count:16];
     }
 
-    while (v126);
+    while (v132);
   }
 
   if (dword_1EB75DE60)
   {
-    v165 = 0;
+    v171 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v21 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v22 = v165;
-    if (os_log_type_enabled(v21, type))
+    v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v25 = v171;
+    v26 = type;
+    if (os_log_type_enabled(v24, type))
     {
-      v23 = v22;
+      v27 = v25;
     }
 
     else
     {
-      v23 = v22 & 0xFFFFFFFE;
+      v27 = v25 & 0xFFFFFFFE;
     }
 
-    if (v23)
+    if (v27)
     {
-      v172 = 136315138;
-      v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-      LODWORD(v109) = 12;
-      v102 = &v172;
-      _os_log_send_and_compose_impl();
+      v178 = 136315138;
+      v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+      _os_log_send_and_compose_impl(v27, 0, v186, 128, &dword_1B17A2000, v24, v26, "-MXMediaEndowmentManager- %s: \t }", &v178);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE60)
     {
-      v165 = 0;
+      v171 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v24 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v25 = v165;
-      if (os_log_type_enabled(v24, type))
+      v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v29 = v171;
+      v30 = type;
+      if (os_log_type_enabled(v28, type))
       {
-        v26 = v25;
+        v31 = v29;
       }
 
       else
       {
-        v26 = v25 & 0xFFFFFFFE;
+        v31 = v29 & 0xFFFFFFFE;
       }
 
-      if (v26)
+      if (v31)
       {
-        v172 = 136315138;
-        v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-        LODWORD(v109) = 12;
-        v102 = &v172;
-        _os_log_send_and_compose_impl();
+        v178 = 136315138;
+        v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+        _os_log_send_and_compose_impl(v31, 0, v186, 128, &dword_1B17A2000, v28, v30, "-MXMediaEndowmentManager- %s: \t mEndowmentPayloads = {", &v178);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v154 = 0u;
-  v155 = 0u;
-  v152 = 0u;
-  v153 = 0u;
-  v115 = *(*(a1 + 32) + 32);
-  v117 = [v115 countByEnumeratingWithState:&v152 objects:v171 count:{16, v102, v109}];
-  if (v117)
+  v160 = 0u;
+  v161 = 0u;
+  v158 = 0u;
+  v159 = 0u;
+  v121 = *(*(a1 + 32) + 32);
+  v123 = [v121 countByEnumeratingWithState:&v158 objects:v177 count:16];
+  if (v123)
   {
-    v116 = *v153;
+    v122 = *v159;
     do
     {
-      v27 = 0;
+      v32 = 0;
       do
       {
-        if (*v153 != v116)
+        if (*v159 != v122)
         {
-          v28 = v27;
-          objc_enumerationMutation(v115);
-          v27 = v28;
+          v33 = v32;
+          objc_enumerationMutation(v121);
+          v32 = v33;
         }
 
-        v118 = v27;
-        v29 = *(*(&v152 + 1) + 8 * v27);
-        v127 = [*(*(a1 + 32) + 32) objectForKey:{v29, v104, v111}];
+        v124 = v32;
+        v34 = *(*(&v158 + 1) + 8 * v32);
+        v133 = [*(*(a1 + 32) + 32) objectForKey:v34];
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v30 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v31 = v165;
-          if (os_log_type_enabled(v30, type))
+          v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v36 = v171;
+          v37 = type;
+          if (os_log_type_enabled(v35, type))
           {
-            v32 = v31;
+            v38 = v36;
           }
 
           else
           {
-            v32 = v31 & 0xFFFFFFFE;
+            v38 = v36 & 0xFFFFFFFE;
           }
 
-          if (v32)
+          if (v38)
           {
-            v172 = 136315394;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            v174 = 2114;
-            v175 = v29;
-            LODWORD(v112) = 22;
-            v105 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315394;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            v180 = 2114;
+            v181 = v34;
+            LODWORD(v120) = 22;
+            _os_log_send_and_compose_impl(v38, 0, v186, 128, &dword_1B17A2000, v35, v37, "-MXMediaEndowmentManager- %s: \t\t %{public}@ = {", &v178, v120);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v150 = 0u;
-        v151 = 0u;
-        v148 = 0u;
-        v149 = 0u;
-        v124 = [v127 countByEnumeratingWithState:&v148 objects:v170 count:{16, v105, v112}];
-        if (v124)
+        v156 = 0u;
+        v157 = 0u;
+        v154 = 0u;
+        v155 = 0u;
+        v130 = [v133 countByEnumeratingWithState:&v154 objects:v176 count:16];
+        if (v130)
         {
-          obja = *v149;
+          obja = *v155;
           do
           {
-            v33 = 0;
+            v39 = 0;
             do
             {
-              if (*v149 != obja)
+              if (*v155 != obja)
               {
-                objc_enumerationMutation(v127);
+                objc_enumerationMutation(v133);
               }
 
-              v130 = v33;
-              v34 = *(*(&v148 + 1) + 8 * v33);
+              v136 = v39;
+              v40 = *(*(&v154 + 1) + 8 * v39);
               if (dword_1EB75DE60)
               {
-                v165 = 0;
+                v171 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v35 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v36 = v165;
-                if (os_log_type_enabled(v35, type))
+                v41 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v42 = v171;
+                v43 = type;
+                if (os_log_type_enabled(v41, type))
                 {
-                  v37 = v36;
+                  v44 = v42;
                 }
 
                 else
                 {
-                  v37 = v36 & 0xFFFFFFFE;
+                  v44 = v42 & 0xFFFFFFFE;
                 }
 
-                if (v37)
+                if (v44)
                 {
-                  v172 = 136315394;
-                  v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-                  v174 = 2114;
-                  v175 = v34;
-                  LODWORD(v111) = 22;
-                  v104 = &v172;
-                  _os_log_send_and_compose_impl();
+                  v178 = 136315394;
+                  v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+                  v180 = 2114;
+                  v181 = v40;
+                  LODWORD(v120) = 22;
+                  _os_log_send_and_compose_impl(v44, 0, v186, 128, &dword_1B17A2000, v41, v43, "-MXMediaEndowmentManager- %s: \t\t\t %{public}@ = {", &v178, v120);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              v38 = [v127 objectForKey:{v34, v104, v111}];
-              v144 = 0u;
-              v145 = 0u;
-              v146 = 0u;
-              v147 = 0u;
-              v39 = [v38 countByEnumeratingWithState:&v144 objects:v169 count:16];
-              if (v39)
+              v45 = [v133 objectForKey:v40];
+              v150 = 0u;
+              v151 = 0u;
+              v152 = 0u;
+              v153 = 0u;
+              v46 = [v45 countByEnumeratingWithState:&v150 objects:v175 count:16];
+              if (v46)
               {
-                v40 = v39;
-                v41 = *v145;
+                v47 = v46;
+                v48 = *v151;
                 do
                 {
-                  for (j = 0; j != v40; ++j)
+                  for (j = 0; j != v47; ++j)
                   {
-                    if (*v145 != v41)
+                    if (*v151 != v48)
                     {
-                      objc_enumerationMutation(v38);
+                      objc_enumerationMutation(v45);
                     }
 
                     if (dword_1EB75DE60)
                     {
-                      v43 = *(*(&v144 + 1) + 8 * j);
-                      v165 = 0;
+                      v50 = *(*(&v150 + 1) + 8 * j);
+                      v171 = 0;
                       type = OS_LOG_TYPE_DEFAULT;
-                      v44 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                      v45 = v165;
-                      if (os_log_type_enabled(v44, type))
+                      v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                      v52 = v171;
+                      v53 = type;
+                      if (os_log_type_enabled(v51, type))
                       {
-                        v46 = v45;
+                        v54 = v52;
                       }
 
                       else
                       {
-                        v46 = v45 & 0xFFFFFFFE;
+                        v54 = v52 & 0xFFFFFFFE;
                       }
 
-                      if (v46)
+                      if (v54)
                       {
-                        v47 = [v38 objectForKey:v43];
-                        v172 = 136315650;
-                        v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-                        v174 = 2114;
-                        v175 = v43;
-                        v176 = 2114;
-                        v177 = v47;
-                        LODWORD(v111) = 32;
-                        v104 = &v172;
-                        _os_log_send_and_compose_impl();
+                        v55 = [v45 objectForKey:v50];
+                        v178 = 136315650;
+                        v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+                        v180 = 2114;
+                        v181 = v50;
+                        v182 = 2114;
+                        v183 = v55;
+                        LODWORD(v120) = 32;
+                        _os_log_send_and_compose_impl(v54, 0, v186, 128, &dword_1B17A2000, v51, v53, "-MXMediaEndowmentManager- %s: \t\t\t\t %{public}@: '%{public}@',", &v178, v120);
                       }
 
                       fig_log_call_emit_and_clean_up_after_send_and_compose();
                     }
                   }
 
-                  v40 = [v38 countByEnumeratingWithState:&v144 objects:v169 count:16];
+                  v47 = [v45 countByEnumeratingWithState:&v150 objects:v175 count:16];
                 }
 
-                while (v40);
+                while (v47);
               }
 
               if (dword_1EB75DE60)
               {
-                v165 = 0;
+                v171 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v48 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v49 = v165;
-                if (os_log_type_enabled(v48, type))
+                v56 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v57 = v171;
+                v58 = type;
+                if (os_log_type_enabled(v56, type))
                 {
-                  v50 = v49;
+                  v59 = v57;
                 }
 
                 else
                 {
-                  v50 = v49 & 0xFFFFFFFE;
+                  v59 = v57 & 0xFFFFFFFE;
                 }
 
-                if (v50)
+                if (v59)
                 {
-                  v172 = 136315138;
-                  v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-                  LODWORD(v111) = 12;
-                  v104 = &v172;
-                  _os_log_send_and_compose_impl();
+                  v178 = 136315138;
+                  v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+                  _os_log_send_and_compose_impl(v59, 0, v186, 128, &dword_1B17A2000, v56, v58, "-MXMediaEndowmentManager- %s: \t\t\t }", &v178);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
 
-              v33 = v130 + 1;
+              v39 = v136 + 1;
             }
 
-            while (v130 + 1 != v124);
-            v124 = [v127 countByEnumeratingWithState:&v148 objects:v170 count:16];
+            while (v136 + 1 != v130);
+            v130 = [v133 countByEnumeratingWithState:&v154 objects:v176 count:16];
           }
 
-          while (v124);
+          while (v130);
         }
 
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v51 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v52 = v165;
-          if (os_log_type_enabled(v51, type))
+          v60 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v61 = v171;
+          v62 = type;
+          if (os_log_type_enabled(v60, type))
           {
-            v53 = v52;
+            v63 = v61;
           }
 
           else
           {
-            v53 = v52 & 0xFFFFFFFE;
+            v63 = v61 & 0xFFFFFFFE;
           }
 
-          if (v53)
+          if (v63)
           {
-            v172 = 136315138;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            LODWORD(v111) = 12;
-            v104 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315138;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            _os_log_send_and_compose_impl(v63, 0, v186, 128, &dword_1B17A2000, v60, v62, "-MXMediaEndowmentManager- %s: \t\t }", &v178);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v27 = v118 + 1;
+        v32 = v124 + 1;
       }
 
-      while (v118 + 1 != v117);
-      v117 = [v115 countByEnumeratingWithState:&v152 objects:v171 count:16];
+      while (v124 + 1 != v123);
+      v123 = [v121 countByEnumeratingWithState:&v158 objects:v177 count:16];
     }
 
-    while (v117);
+    while (v123);
   }
 
   if (dword_1EB75DE60)
   {
-    v165 = 0;
+    v171 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v54 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v55 = v165;
-    if (os_log_type_enabled(v54, type))
+    v64 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v65 = v171;
+    v66 = type;
+    if (os_log_type_enabled(v64, type))
     {
-      v56 = v55;
+      v67 = v65;
     }
 
     else
     {
-      v56 = v55 & 0xFFFFFFFE;
+      v67 = v65 & 0xFFFFFFFE;
     }
 
-    if (v56)
+    if (v67)
     {
-      v172 = 136315138;
-      v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-      LODWORD(v111) = 12;
-      v104 = &v172;
-      _os_log_send_and_compose_impl();
+      v178 = 136315138;
+      v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+      _os_log_send_and_compose_impl(v67, 0, v186, 128, &dword_1B17A2000, v64, v66, "-MXMediaEndowmentManager- %s: \t }", &v178);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE60)
     {
-      v165 = 0;
+      v171 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v57 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v58 = v165;
-      if (os_log_type_enabled(v57, type))
+      v68 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v69 = v171;
+      v70 = type;
+      if (os_log_type_enabled(v68, type))
       {
-        v59 = v58;
+        v71 = v69;
       }
 
       else
       {
-        v59 = v58 & 0xFFFFFFFE;
+        v71 = v69 & 0xFFFFFFFE;
       }
 
-      if (v59)
+      if (v71)
       {
-        v172 = 136315138;
-        v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-        LODWORD(v111) = 12;
-        v104 = &v172;
-        _os_log_send_and_compose_impl();
+        v178 = 136315138;
+        v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+        _os_log_send_and_compose_impl(v71, 0, v186, 128, &dword_1B17A2000, v68, v70, "-MXMediaEndowmentManager- %s: \t mEndowmentTrees = {", &v178);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v142 = 0u;
-  v143 = 0u;
-  v140 = 0u;
-  v141 = 0u;
+  v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   objb = *(*(a1 + 32) + 40);
-  v128 = [objb countByEnumeratingWithState:&v140 objects:v168 count:{16, v104, v111}];
-  if (v128)
+  v134 = [objb countByEnumeratingWithState:&v146 objects:v174 count:16];
+  if (v134)
   {
-    v125 = *v141;
+    v131 = *v147;
     do
     {
-      v60 = 0;
+      v72 = 0;
       do
       {
-        if (*v141 != v125)
+        if (*v147 != v131)
         {
           objc_enumerationMutation(objb);
         }
 
-        v61 = *(*(&v140 + 1) + 8 * v60);
-        v62 = [*(*(a1 + 32) + 40) objectForKey:{v61, v106, v113}];
+        v73 = *(*(&v146 + 1) + 8 * v72);
+        v74 = [*(*(a1 + 32) + 40) objectForKey:v73];
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v63 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v64 = v165;
-          if (os_log_type_enabled(v63, type))
+          v75 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v76 = v171;
+          v77 = type;
+          if (os_log_type_enabled(v75, type))
           {
-            v65 = v64;
+            v78 = v76;
           }
 
           else
           {
-            v65 = v64 & 0xFFFFFFFE;
+            v78 = v76 & 0xFFFFFFFE;
           }
 
-          if (v65)
+          if (v78)
           {
-            v172 = 136315394;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            v174 = 2114;
-            v175 = v61;
-            LODWORD(v114) = 22;
-            v107 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315394;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            v180 = 2114;
+            v181 = v73;
+            LODWORD(v120) = 22;
+            _os_log_send_and_compose_impl(v78, 0, v186, 128, &dword_1B17A2000, v75, v77, "-MXMediaEndowmentManager- %s: \t\t %{public}@ = {", &v178, v120);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v131 = v60;
-        v138 = 0u;
-        v139 = 0u;
-        v136 = 0u;
-        v137 = 0u;
-        v66 = [v62 countByEnumeratingWithState:&v136 objects:v167 count:{16, v107, v114}];
-        if (v66)
+        v137 = v72;
+        v144 = 0u;
+        v145 = 0u;
+        v142 = 0u;
+        v143 = 0u;
+        v79 = [v74 countByEnumeratingWithState:&v142 objects:v173 count:16];
+        if (v79)
         {
-          v67 = v66;
-          v68 = *v137;
+          v80 = v79;
+          v81 = *v143;
           do
           {
-            for (k = 0; k != v67; ++k)
+            for (k = 0; k != v80; ++k)
             {
-              if (*v137 != v68)
+              if (*v143 != v81)
               {
-                objc_enumerationMutation(v62);
+                objc_enumerationMutation(v74);
               }
 
               if (dword_1EB75DE60)
               {
-                v70 = *(*(&v136 + 1) + 8 * k);
-                v165 = 0;
+                v83 = *(*(&v142 + 1) + 8 * k);
+                v171 = 0;
                 type = OS_LOG_TYPE_DEFAULT;
-                v71 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                v72 = v165;
-                if (os_log_type_enabled(v71, type))
+                v84 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                v85 = v171;
+                v86 = type;
+                if (os_log_type_enabled(v84, type))
                 {
-                  v73 = v72;
+                  v87 = v85;
                 }
 
                 else
                 {
-                  v73 = v72 & 0xFFFFFFFE;
+                  v87 = v85 & 0xFFFFFFFE;
                 }
 
-                if (v73)
+                if (v87)
                 {
-                  v74 = [objc_msgSend(objc_msgSend(v62 objectForKey:{v70), "allObjects"), "componentsJoinedByString:", @", "}];
-                  v172 = 136315650;
-                  v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-                  v174 = 2114;
-                  v175 = v70;
-                  v176 = 2114;
-                  v177 = v74;
-                  LODWORD(v113) = 32;
-                  v106 = &v172;
-                  _os_log_send_and_compose_impl();
+                  v88 = [objc_msgSend(objc_msgSend(v74 objectForKey:{v83), "allObjects"), "componentsJoinedByString:", @", "}];
+                  v178 = 136315650;
+                  v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+                  v180 = 2114;
+                  v181 = v83;
+                  v182 = 2114;
+                  v183 = v88;
+                  LODWORD(v120) = 32;
+                  _os_log_send_and_compose_impl(v87, 0, v186, 128, &dword_1B17A2000, v84, v86, "-MXMediaEndowmentManager- %s: \t\t\t %{public}@: ['%{public}@'],", &v178, v120);
                 }
 
                 fig_log_call_emit_and_clean_up_after_send_and_compose();
               }
             }
 
-            v67 = [v62 countByEnumeratingWithState:&v136 objects:v167 count:16];
+            v80 = [v74 countByEnumeratingWithState:&v142 objects:v173 count:16];
           }
 
-          while (v67);
+          while (v80);
         }
 
         if (dword_1EB75DE60)
         {
-          v165 = 0;
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v75 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v76 = v165;
-          if (os_log_type_enabled(v75, type))
+          v89 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v90 = v171;
+          v91 = type;
+          if (os_log_type_enabled(v89, type))
           {
-            v77 = v76;
+            v92 = v90;
           }
 
           else
           {
-            v77 = v76 & 0xFFFFFFFE;
+            v92 = v90 & 0xFFFFFFFE;
           }
 
-          if (v77)
+          if (v92)
           {
-            v172 = 136315138;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            LODWORD(v113) = 12;
-            v106 = &v172;
-            _os_log_send_and_compose_impl();
+            v178 = 136315138;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            _os_log_send_and_compose_impl(v92, 0, v186, 128, &dword_1B17A2000, v89, v91, "-MXMediaEndowmentManager- %s: \t\t }", &v178);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        v60 = v131 + 1;
+        v72 = v137 + 1;
       }
 
-      while ((v131 + 1) != v128);
-      v128 = [objb countByEnumeratingWithState:&v140 objects:v168 count:16];
+      while ((v137 + 1) != v134);
+      v134 = [objb countByEnumeratingWithState:&v146 objects:v174 count:16];
     }
 
-    while (v128);
+    while (v134);
   }
 
   if (dword_1EB75DE60)
   {
-    v165 = 0;
+    v171 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v78 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v79 = v165;
-    if (os_log_type_enabled(v78, type))
+    v93 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v94 = v171;
+    v95 = type;
+    if (os_log_type_enabled(v93, type))
     {
-      v80 = v79;
+      v96 = v94;
     }
 
     else
     {
-      v80 = v79 & 0xFFFFFFFE;
+      v96 = v94 & 0xFFFFFFFE;
     }
 
-    if (v80)
+    if (v96)
     {
-      v172 = 136315138;
-      v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-      LODWORD(v113) = 12;
-      v106 = &v172;
-      _os_log_send_and_compose_impl();
+      v178 = 136315138;
+      v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+      _os_log_send_and_compose_impl(v96, 0, v186, 128, &dword_1B17A2000, v93, v95, "-MXMediaEndowmentManager- %s: \t }", &v178);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE60)
     {
-      v165 = 0;
+      v171 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v81 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v82 = v165;
-      if (os_log_type_enabled(v81, type))
+      v97 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v98 = v171;
+      v99 = type;
+      if (os_log_type_enabled(v97, type))
       {
-        v83 = v82;
+        v100 = v98;
       }
 
       else
       {
-        v83 = v82 & 0xFFFFFFFE;
+        v100 = v98 & 0xFFFFFFFE;
       }
 
-      if (v83)
+      if (v100)
       {
-        v172 = 136315138;
-        v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-        LODWORD(v113) = 12;
-        v106 = &v172;
-        _os_log_send_and_compose_impl();
+        v178 = 136315138;
+        v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+        _os_log_send_and_compose_impl(v100, 0, v186, 128, &dword_1B17A2000, v97, v99, "-MXMediaEndowmentManager- %s: \t mMediaPlaybackAssertions = {", &v178);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
-  v133 = 0u;
-  v84 = *(*(a1 + 32) + 48);
-  result = [v84 countByEnumeratingWithState:&v132 objects:v166 count:{16, v106, v113}];
+  v140 = 0u;
+  v141 = 0u;
+  v138 = 0u;
+  v139 = 0u;
+  v101 = *(*(a1 + 32) + 48);
+  result = [v101 countByEnumeratingWithState:&v138 objects:v172 count:16];
   if (result)
   {
-    v86 = result;
-    v87 = *v133;
+    v103 = result;
+    v104 = *v139;
     do
     {
-      v88 = 0;
+      v105 = 0;
       do
       {
-        if (*v133 != v87)
+        if (*v139 != v104)
         {
-          objc_enumerationMutation(v84);
+          objc_enumerationMutation(v101);
         }
 
         if (dword_1EB75DE60)
         {
-          v89 = *(*(&v132 + 1) + 8 * v88);
-          v165 = 0;
+          v106 = *(*(&v138 + 1) + 8 * v105);
+          v171 = 0;
           type = OS_LOG_TYPE_DEFAULT;
-          v90 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-          v91 = v165;
-          if (os_log_type_enabled(v90, type))
+          v107 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+          v108 = v171;
+          v109 = type;
+          if (os_log_type_enabled(v107, type))
           {
-            v92 = v91;
+            v110 = v108;
           }
 
           else
           {
-            v92 = v91 & 0xFFFFFFFE;
+            v110 = v108 & 0xFFFFFFFE;
           }
 
-          if (v92)
+          if (v110)
           {
-            v93 = [objc_msgSend(*(*(a1 + 32) + 48) objectForKey:{v89), "explanation"}];
-            v172 = 136315650;
-            v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-            v174 = 2114;
-            v175 = v89;
-            v176 = 2114;
-            v177 = v93;
-            _os_log_send_and_compose_impl();
+            v111 = [objc_msgSend(*(*(a1 + 32) + 48) objectForKey:{v106), "explanation"}];
+            v178 = 136315650;
+            v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+            v180 = 2114;
+            v181 = v106;
+            v182 = 2114;
+            v183 = v111;
+            LODWORD(v120) = 32;
+            _os_log_send_and_compose_impl(v110, 0, v186, 128, &dword_1B17A2000, v107, v109, "-MXMediaEndowmentManager- %s: \t\t %{public}@: '%{public}@'", &v178, v120);
           }
 
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        ++v88;
+        v105 = v105 + 1;
       }
 
-      while (v86 != v88);
-      result = [v84 countByEnumeratingWithState:&v132 objects:v166 count:16];
-      v86 = result;
+      while (v103 != v105);
+      result = [v101 countByEnumeratingWithState:&v138 objects:v172 count:16];
+      v103 = result;
     }
 
     while (result);
@@ -2000,56 +1949,57 @@ uint64_t __40__MXMediaEndowmentManager_dumpDebugInfo__block_invoke(uint64_t a1)
 
   if (dword_1EB75DE60)
   {
-    v165 = 0;
+    v171 = 0;
     type = OS_LOG_TYPE_DEFAULT;
-    v94 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    v95 = v165;
-    if (os_log_type_enabled(v94, type))
+    v112 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    v113 = v171;
+    v114 = type;
+    if (os_log_type_enabled(v112, type))
     {
-      v96 = v95;
+      v115 = v113;
     }
 
     else
     {
-      v96 = v95 & 0xFFFFFFFE;
+      v115 = v113 & 0xFFFFFFFE;
     }
 
-    if (v96)
+    if (v115)
     {
-      v172 = 136315138;
-      v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-      _os_log_send_and_compose_impl();
+      v178 = 136315138;
+      v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+      _os_log_send_and_compose_impl(v115, 0, v186, 128, &dword_1B17A2000, v112, v114, "-MXMediaEndowmentManager- %s: \t }", &v178);
     }
 
     result = fig_log_call_emit_and_clean_up_after_send_and_compose();
     if (dword_1EB75DE60)
     {
-      v165 = 0;
+      v171 = 0;
       type = OS_LOG_TYPE_DEFAULT;
-      v97 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v98 = v165;
-      if (os_log_type_enabled(v97, type))
+      v116 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v117 = v171;
+      v118 = type;
+      if (os_log_type_enabled(v116, type))
       {
-        v99 = v98;
+        v119 = v117;
       }
 
       else
       {
-        v99 = v98 & 0xFFFFFFFE;
+        v119 = v117 & 0xFFFFFFFE;
       }
 
-      if (v99)
+      if (v119)
       {
-        v172 = 136315138;
-        v173 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
-        _os_log_send_and_compose_impl();
+        v178 = 136315138;
+        v179 = "[MXMediaEndowmentManager dumpDebugInfo]_block_invoke";
+        _os_log_send_and_compose_impl(v119, 0, v186, 128, &dword_1B17A2000, v116, v118, "-MXMediaEndowmentManager- %s: \t =======================================================================================================================================", &v178);
       }
 
-      result = fig_log_call_emit_and_clean_up_after_send_and_compose();
+      return fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
   }
 
-  v100 = *MEMORY[0x1E69E9840];
   return result;
 }
 

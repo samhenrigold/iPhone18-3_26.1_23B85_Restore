@@ -186,7 +186,7 @@
   self->_initializationResult = [WFInitialization initializeProcessWithDatabase:1];
   if (contextCopy)
   {
-    [contextCopy _extensionHostAuditToken];
+    objc_msgSend__extensionHostAuditToken(contextCopy);
   }
 
   else

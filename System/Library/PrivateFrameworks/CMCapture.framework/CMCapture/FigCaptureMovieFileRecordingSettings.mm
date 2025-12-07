@@ -77,7 +77,7 @@
   [coder encodeObject:-[FigCaptureMovieFileRecordingSettings cinematicAudioSettings](self forKey:{"cinematicAudioSettings"), @"cinematicAudioSettings"}];
   if (self)
   {
-    [(FigCaptureMovieFileRecordingSettings *)self movieFragmentInterval];
+    objc_msgSend_movieFragmentInterval(self);
   }
 
   else
@@ -225,7 +225,7 @@
   v16 = objc_opt_class();
   settingsID = [(FigCaptureRecordingSettings *)self settingsID];
   lastPathComponent = [(NSURL *)[(FigCaptureRecordingSettings *)self outputURL] lastPathComponent];
-  [(FigCaptureRecordingSettings *)self maxDuration];
+  objc_msgSend_maxDuration(self);
   Seconds = CMTimeGetSeconds(&time);
   maxFileSize = [(FigCaptureRecordingSettings *)self maxFileSize];
   v21 = &stru_1F216A3D0;

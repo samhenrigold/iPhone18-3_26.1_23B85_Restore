@@ -80,7 +80,7 @@ LABEL_10:
 
 - (id)stringForExtendedAttribute:()SYExtendedAttributes atURL:error:
 {
-  v6 = [self dataForExtendedAttribute:? atURL:? error:?];
+  v6 = [self dataForExtendedAttribute:a3 atURL:a4 error:?];
   if (v6)
   {
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v6 encoding:4];

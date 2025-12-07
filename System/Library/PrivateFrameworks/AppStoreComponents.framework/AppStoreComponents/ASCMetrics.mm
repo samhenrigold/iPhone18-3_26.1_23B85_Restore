@@ -157,7 +157,7 @@ uint64_t __53__ASCMetrics_processMetricsData_pageFields_activity___block_invoke_
 
 - (id)recordCampaignToken:(id)token providerToken:(id)providerToken withLockup:(id)lockup
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   providerTokenCopy = providerToken;
   lockupCopy = lockup;
@@ -165,25 +165,25 @@ uint64_t __53__ASCMetrics_processMetricsData_pageFields_activity___block_invoke_
 
   if (offer)
   {
-    v12 = ASCOfferGetCodableClasses();
+    v13 = ASCOfferGetCodableClasses(v12);
     offer2 = [lockupCopy offer];
-    v14 = [v12 containsObject:objc_opt_class()];
+    v15 = [v13 containsObject:objc_opt_class()];
 
-    if ((v14 & 1) == 0)
+    if ((v15 & 1) == 0)
     {
-      v15 = MEMORY[0x277CCACA8];
+      v16 = MEMORY[0x277CCACA8];
       offer3 = [lockupCopy offer];
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
-      v19 = [v15 stringWithFormat:@"Unsupported custom lockup offer type: %@.", v18];
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = [v16 stringWithFormat:@"Unsupported custom lockup offer type: %@.", v19];
 
-      v20 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v41 = *MEMORY[0x277CCA450];
-      v42[0] = v19;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:&v41 count:1];
-      v22 = [v20 initWithDomain:0x2827A05D8 code:3 userInfo:v21];
+      v21 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v42 = *MEMORY[0x277CCA450];
+      v43[0] = v20;
+      v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
+      v23 = [v21 initWithDomain:0x2827A05D8 code:3 userInfo:v22];
 
-      v23 = [MEMORY[0x277CEE420] promiseWithError:v22];
+      v24 = [MEMORY[0x277CEE420] promiseWithError:v23];
 
       goto LABEL_6;
     }
@@ -196,36 +196,36 @@ uint64_t __53__ASCMetrics_processMetricsData_pageFields_activity___block_invoke_
   pendingProcesses = [(ASCMetrics *)self pendingProcesses];
   objc_initWeak(&location, pendingProcesses);
 
-  v25 = objc_alloc_init(MEMORY[0x277CEE5F0]);
+  v26 = objc_alloc_init(MEMORY[0x277CEE5F0]);
   connection = [(ASCMetrics *)self connection];
   metricsService = [connection metricsService];
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_invoke;
-  v34[3] = &unk_2781CBBA8;
-  objc_copyWeak(&v39, &location);
-  v28 = v25;
-  v35 = v28;
-  v36 = tokenCopy;
-  v37 = providerTokenCopy;
-  v38 = lockupCopy;
-  [metricsService addSuccessBlock:v34];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_invoke_3;
-  v32[3] = &unk_2781CBB80;
-  v29 = v28;
-  v33 = v29;
-  [metricsService addErrorBlock:v32];
-  v30 = v33;
-  v23 = v29;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_invoke;
+  v35[3] = &unk_2781CBBA8;
+  objc_copyWeak(&v40, &location);
+  v29 = v26;
+  v36 = v29;
+  v37 = tokenCopy;
+  v38 = providerTokenCopy;
+  v39 = lockupCopy;
+  [metricsService addSuccessBlock:v35];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_invoke_3;
+  v33[3] = &unk_2781CBB80;
+  v30 = v29;
+  v34 = v30;
+  [metricsService addErrorBlock:v33];
+  v31 = v34;
+  v24 = v30;
 
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v40);
   objc_destroyWeak(&location);
 LABEL_6:
 
-  return v23;
+  return v24;
 }
 
 void __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_invoke(uint64_t a1, void *a2)
@@ -261,7 +261,7 @@ uint64_t __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_i
 
 - (id)recordQToken:(id)token campaignToken:(id)campaignToken advertisementID:(id)d withLockup:(id)lockup
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   campaignTokenCopy = campaignToken;
   dCopy = d;
@@ -270,25 +270,25 @@ uint64_t __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_i
 
   if (offer)
   {
-    v15 = ASCOfferGetCodableClasses();
+    v16 = ASCOfferGetCodableClasses(v15);
     offer2 = [lockupCopy offer];
-    v17 = [v15 containsObject:objc_opt_class()];
+    v18 = [v16 containsObject:objc_opt_class()];
 
-    if ((v17 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
-      v18 = MEMORY[0x277CCACA8];
+      v19 = MEMORY[0x277CCACA8];
       offer3 = [lockupCopy offer];
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = [v18 stringWithFormat:@"Unsupported custom lockup offer type: %@.", v21];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = [v19 stringWithFormat:@"Unsupported custom lockup offer type: %@.", v22];
 
-      v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v45 = *MEMORY[0x277CCA450];
-      v46[0] = v22;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-      v25 = [v23 initWithDomain:0x2827A05D8 code:3 userInfo:v24];
+      v24 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v46 = *MEMORY[0x277CCA450];
+      v47[0] = v23;
+      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
+      v26 = [v24 initWithDomain:0x2827A05D8 code:3 userInfo:v25];
 
-      v26 = [MEMORY[0x277CEE420] promiseWithError:v25];
+      v27 = [MEMORY[0x277CEE420] promiseWithError:v26];
 
       goto LABEL_6;
     }
@@ -301,37 +301,37 @@ uint64_t __59__ASCMetrics_recordCampaignToken_providerToken_withLockup___block_i
   pendingProcesses = [(ASCMetrics *)self pendingProcesses];
   objc_initWeak(&location, pendingProcesses);
 
-  v28 = objc_alloc_init(MEMORY[0x277CEE5F0]);
+  v29 = objc_alloc_init(MEMORY[0x277CEE5F0]);
   connection = [(ASCMetrics *)self connection];
   metricsService = [connection metricsService];
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __68__ASCMetrics_recordQToken_campaignToken_advertisementID_withLockup___block_invoke;
-  v37[3] = &unk_2781CBBD0;
-  objc_copyWeak(&v43, &location);
-  v31 = v28;
-  v38 = v31;
-  v39 = tokenCopy;
-  v40 = campaignTokenCopy;
-  v41 = dCopy;
-  v42 = lockupCopy;
-  [metricsService addSuccessBlock:v37];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __68__ASCMetrics_recordQToken_campaignToken_advertisementID_withLockup___block_invoke_3;
-  v35[3] = &unk_2781CBB80;
-  v32 = v31;
-  v36 = v32;
-  [metricsService addErrorBlock:v35];
-  v33 = v36;
-  v26 = v32;
+  v38[0] = MEMORY[0x277D85DD0];
+  v38[1] = 3221225472;
+  v38[2] = __68__ASCMetrics_recordQToken_campaignToken_advertisementID_withLockup___block_invoke;
+  v38[3] = &unk_2781CBBD0;
+  objc_copyWeak(&v44, &location);
+  v32 = v29;
+  v39 = v32;
+  v40 = tokenCopy;
+  v41 = campaignTokenCopy;
+  v42 = dCopy;
+  v43 = lockupCopy;
+  [metricsService addSuccessBlock:v38];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __68__ASCMetrics_recordQToken_campaignToken_advertisementID_withLockup___block_invoke_3;
+  v36[3] = &unk_2781CBB80;
+  v33 = v32;
+  v37 = v33;
+  [metricsService addErrorBlock:v36];
+  v34 = v37;
+  v27 = v33;
 
-  objc_destroyWeak(&v43);
+  objc_destroyWeak(&v44);
   objc_destroyWeak(&location);
 LABEL_6:
 
-  return v26;
+  return v27;
 }
 
 void __68__ASCMetrics_recordQToken_campaignToken_advertisementID_withLockup___block_invoke(uint64_t a1, void *a2)

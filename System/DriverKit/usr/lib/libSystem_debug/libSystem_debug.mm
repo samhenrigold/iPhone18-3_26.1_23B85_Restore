@@ -1,4 +1,4 @@
-void libSystem_initializer()
+void libSystem_initializer(uint64_t a1, uint64_t a2, uint64_t a3, const char **a4, uint64_t a5)
 {
   if (!MEMORY[0xFFFFFC100])
   {

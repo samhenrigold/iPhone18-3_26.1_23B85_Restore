@@ -126,17 +126,18 @@ uint64_t __42__HDSSetupClient__activateWithCompletion___block_invoke_2(uint64_t 
 - (void)startAdvertisingWithCompletion:(id)completion
 {
   completionCopy = completion;
+  v5 = completionCopy;
   v7 = completionCopy;
-  if (gLogCategory_HDSSetupClient <= 30 && (gLogCategory_HDSSetupClient != -1 || (v5 = _LogCategory_Initialize(), completionCopy = v7, v5)))
+  if (gLogCategory_HDSSetupClient <= 30 && (gLogCategory_HDSSetupClient != -1 || (completionCopy = _LogCategory_Initialize(), v5 = v7, completionCopy)))
   {
-    [HDSSetupClient startAdvertisingWithCompletion:];
+    completionCopy = [HDSSetupClient startAdvertisingWithCompletion:];
     if (v7)
     {
       goto LABEL_5;
     }
   }
 
-  else if (completionCopy)
+  else if (v5)
   {
 LABEL_5:
     remoteObjectProxy = [(NSXPCConnection *)self->_connection remoteObjectProxy];
@@ -145,14 +146,17 @@ LABEL_5:
     goto LABEL_10;
   }
 
-  if (gLogCategory_HDSSetupClient <= 90 && (gLogCategory_HDSSetupClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HDSSetupClient <= 90)
   {
-    [HDSSetupClient startAdvertisingWithCompletion:];
+    if (gLogCategory_HDSSetupClient != -1 || (completionCopy = _LogCategory_Initialize(), completionCopy))
+    {
+      completionCopy = [HDSSetupClient startAdvertisingWithCompletion:];
+    }
   }
 
 LABEL_10:
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](completionCopy);
 }
 
 - (SetupEngineDelegate)delegate

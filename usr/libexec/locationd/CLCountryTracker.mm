@@ -294,7 +294,7 @@
         {
           if (usable)
           {
-            [usable clientLocation];
+            objc_msgSend_clientLocation(usable);
             v28 = DWORD1(v40);
           }
 
@@ -351,7 +351,7 @@
             {
               if (usable)
               {
-                [usable clientLocation];
+                objc_msgSend_clientLocation(usable);
                 v30 = DWORD1(v40);
               }
 
@@ -514,24 +514,33 @@ LABEL_23:
       v14 = v13;
       if (firstObject)
       {
-        [firstObject clientLocation];
-        v15 = *(&v76 + 1);
-        [firstObject clientLocation];
-        v16 = DWORD1(v54);
+        objc_msgSend_clientLocation(firstObject);
+        v15 = *(&v87 + 1);
+        objc_msgSend_clientLocation(firstObject);
+        v16 = DWORD1(v61);
       }
 
       else
       {
         v16 = 0;
         v15 = 0;
-        v78 = 0u;
-        memset(v79, 0, sizeof(v79));
-        v76 = 0u;
-        v77 = 0u;
-        v74 = 0u;
-        v75 = 0u;
-        memset(v73, 0, sizeof(v73));
-        v54 = 0u;
+        v89 = 0u;
+        memset(v90, 0, sizeof(v90));
+        v87 = 0u;
+        v88 = 0u;
+        v85 = 0u;
+        v86 = 0u;
+        memset(v84, 0, sizeof(v84));
+        *&v65[-4] = 0u;
+        v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
+        v57 = 0u;
+        v58 = 0u;
+        v56 = 0u;
       }
 
       *buf = 134546945;
@@ -551,57 +560,69 @@ LABEL_23:
 
     if (sub_10000A100(121, 2))
     {
-      bzero(v73, 0x65CuLL);
+      bzero(v84, 0x65CuLL);
       if (qword_1025D4750 != -1)
       {
         sub_100260318();
       }
 
+      v43 = qword_1025D4758;
       [firstObject coordinate];
-      v44 = v43;
+      v45 = v44;
       [firstObject coordinate];
-      v46 = v45;
+      v47 = v46;
       [firstObject horizontalAccuracy];
-      v48 = v47;
+      v49 = v48;
       [objc_msgSend(firstObject "timestamp")];
-      v50 = v49;
+      v51 = v50;
       if (firstObject)
       {
-        [firstObject clientLocation];
-        v51 = *(&v54 + 1);
-        [firstObject clientLocation];
-        v52 = DWORD1(v57);
+        objc_msgSend_clientLocation(firstObject);
+        v52 = *(&v61 + 1);
+        objc_msgSend_clientLocation(firstObject);
+        v53 = DWORD1(v68);
       }
 
       else
       {
+        v53 = 0;
+        *&v65[-4] = 0u;
         v52 = 0;
-        v51 = 0;
+        v63 = 0u;
+        v64 = 0u;
+        v61 = 0u;
+        v62 = 0u;
         v59 = 0u;
-        memset(v60, 0, sizeof(v60));
+        v60 = 0u;
         v57 = 0u;
         v58 = 0u;
         v56 = 0u;
+        v70 = 0u;
+        memset(v71, 0, 28);
+        v68 = 0u;
+        v69 = 0u;
+        v67 = 0u;
         memset(buf, 0, sizeof(buf));
       }
 
-      v61 = 134546945;
-      v62 = v44;
-      v63 = 2053;
-      v64 = v46;
-      v65 = 2048;
-      v66 = v48;
-      v67 = 2048;
-      v68 = v50;
-      v69 = 2048;
-      v70 = v51;
-      v71 = 1024;
-      v72 = v52;
-      v53 = _os_log_send_and_compose_impl();
-      sub_100152C7C("Generic", 1, 0, 2, "[CLCountryTracker locationManager:didUpdateLocations:]", "%s\n", v53);
-      if (v53 != v73)
+      v72 = 134546945;
+      v73 = v45;
+      v74 = 2053;
+      v75 = v47;
+      v76 = 2048;
+      v77 = v49;
+      v78 = 2048;
+      v79 = v51;
+      v80 = 2048;
+      v81 = v52;
+      v82 = 1024;
+      v83 = v53;
+      _os_log_send_and_compose_impl(2, 0, v84, 1628, dword_100000000, v43, 1, "Got a usable location <%{sensitive}+.8lf,%{sensitive}+.8lf>, acc %.2f, timestamp %.2f, lifespan %.2f, confidence %d", &v72, 58, v56, v57, v58, v59, v60, v61, v62, v63, v64, *v65, *&v65[8], *buf, *&buf[8], *&buf[16], *&buf[24], *&buf[32], *&buf[48], *&buf[56], v67, v68, v69, v70, v71[0], *&v71[1], v71[3]);
+      v55 = v54;
+      sub_100152C7C("Generic", 1, 0, 2, "[CLCountryTracker locationManager:didUpdateLocations:]", "%s\n", v54);
+      if (v55 != v84)
       {
-        free(v53);
+        free(v55);
       }
     }
 
@@ -634,23 +655,23 @@ LABEL_23:
         v29 = v28;
         v30 = LocationLogEncryptionDataSize();
         v31 = LocationLogEncryptionEncryptData();
-        *v73 = 68290562;
-        *&v73[4] = 0;
-        *&v73[8] = 2082;
-        *&v73[10] = "";
-        *&v73[18] = 2050;
-        *&v73[20] = v19;
-        *&v73[28] = 2050;
-        *&v73[30] = v18;
-        *&v73[38] = 2050;
-        *&v73[40] = v27;
-        LOWORD(v74) = 2050;
-        *(&v74 + 2) = v29;
-        WORD5(v74) = 1040;
-        HIDWORD(v74) = v30;
-        LOWORD(v75) = 2098;
-        *(&v75 + 2) = v31;
-        _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_INFO, "{msg%{public}.0s:computed deltas, deltaR:%{public}f, deltaT:%{public}f, debounceTime:%{public}f, staleTime:%{public}f, prevCoordinate:%{public, location:Encrypted_CLLocationCoordinate2D}.*P}", v73, 0x4Au);
+        *v84 = 68290562;
+        *&v84[4] = 0;
+        *&v84[8] = 2082;
+        *&v84[10] = "";
+        *&v84[18] = 2050;
+        *&v84[20] = v19;
+        *&v84[28] = 2050;
+        *&v84[30] = v18;
+        *&v84[38] = 2050;
+        *&v84[40] = v27;
+        LOWORD(v85) = 2050;
+        *(&v85 + 2) = v29;
+        WORD5(v85) = 1040;
+        HIDWORD(v85) = v30;
+        LOWORD(v86) = 2098;
+        *(&v86 + 2) = v31;
+        _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_INFO, "{msg%{public}.0s:computed deltas, deltaR:%{public}f, deltaT:%{public}f, debounceTime:%{public}f, staleTime:%{public}f, prevCoordinate:%{public, location:Encrypted_CLLocationCoordinate2D}.*P}", v84, 0x4Au);
       }
     }
 
@@ -664,11 +685,11 @@ LABEL_23:
       v37 = qword_1025D4758;
       if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_INFO))
       {
-        *v73 = 68289026;
-        *&v73[4] = 0;
-        *&v73[8] = 2082;
-        *&v73[10] = "";
-        _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_INFO, "{msg%{public}.0s:first valid location since start!}", v73, 0x12u);
+        *v84 = 68289026;
+        *&v84[4] = 0;
+        *&v84[8] = 2082;
+        *&v84[10] = "";
+        _os_log_impl(dword_100000000, v37, OS_LOG_TYPE_INFO, "{msg%{public}.0s:first valid location since start!}", v84, 0x12u);
       }
 
       [(CLCountryTracker *)self requestLocationWithDesiredAccuracy:kCLLocationAccuracyBystander];
@@ -690,10 +711,10 @@ LABEL_23:
         goto LABEL_33;
       }
 
-      *v73 = 68289026;
-      *&v73[4] = 0;
-      *&v73[8] = 2082;
-      *&v73[10] = "";
+      *v84 = 68289026;
+      *&v84[4] = 0;
+      *&v84[8] = 2082;
+      *&v84[10] = "";
       v36 = "{msg%{public}.0s:accepting location because we've moved enough and we're past the debounce time}";
     }
 
@@ -716,14 +737,14 @@ LABEL_23:
         goto LABEL_33;
       }
 
-      *v73 = 68289026;
-      *&v73[4] = 0;
-      *&v73[8] = 2082;
-      *&v73[10] = "";
+      *v84 = 68289026;
+      *&v84[4] = 0;
+      *&v84[8] = 2082;
+      *&v84[10] = "";
       v36 = "{msg%{public}.0s:accepting location because it's been long enough without an update}";
     }
 
-    _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_INFO, v36, v73, 0x12u);
+    _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_INFO, v36, v84, 0x12u);
 LABEL_33:
     [(CLCountryTracker *)self prevExpensiveTerritoryQueryTime];
     v39 = v38;
@@ -904,11 +925,11 @@ LABEL_33:
   if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_INFO))
   {
     buf = 68289539;
-    v58 = 2082;
-    v59 = "";
-    v60 = 2113;
+    v48 = 2082;
+    v49 = "";
+    v50 = 2113;
     errorCopy3 = fetch;
-    v62 = 2114;
+    v52 = 2114;
     errorCopy = error;
     _os_log_impl(dword_100000000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:response from fetchPossibleTerritoriesForLocation, results:%{private, location:escape_only}@, error:%{public, location:escape_only}@}", &buf, 0x26u);
   }
@@ -924,9 +945,9 @@ LABEL_33:
     if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_ERROR))
     {
       buf = 68289282;
-      v58 = 2082;
-      v59 = "";
-      v60 = 2114;
+      v48 = 2082;
+      v49 = "";
+      v50 = 2114;
       errorCopy3 = error;
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:error getting country info, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
       if (qword_1025D4750 != -1)
@@ -939,9 +960,9 @@ LABEL_33:
     if (os_signpost_enabled(qword_1025D4758))
     {
       buf = 68289282;
-      v58 = 2082;
-      v59 = "";
-      v60 = 2114;
+      v48 = 2082;
+      v49 = "";
+      v50 = 2114;
       errorCopy3 = error;
       _os_signpost_emit_with_name_impl(dword_100000000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "error getting country info", "{msg%{public}.0s:error getting country info, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
     }
@@ -961,9 +982,9 @@ LABEL_33:
     if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_INFO))
     {
       buf = 68289282;
-      v58 = 2082;
-      v59 = "";
-      v60 = 2114;
+      v48 = 2082;
+      v49 = "";
+      v50 = 2114;
       errorCopy3 = @"XZ";
       _os_log_impl(dword_100000000, v35, OS_LOG_TYPE_INFO, "{msg%{public}.0s:no country info found, defaulting to international waters, code:%{public, location:escape_only}@}", &buf, 0x1Cu);
     }
@@ -974,11 +995,7 @@ LABEL_33:
 
   fetchCopy3 = fetch;
   v10 = +[NSMutableArray arrayWithCapacity:](NSMutableArray, "arrayWithCapacity:", [fetch count]);
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
-  v11 = [fetch countByEnumeratingWithState:&v49 objects:v56 count:16];
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(fetch);
   if (!v11)
   {
 LABEL_68:
@@ -988,21 +1005,21 @@ LABEL_68:
 
   v12 = v11;
   v13 = 0;
-  v14 = *v50;
-  v43 = *v50;
+  v14 = MEMORY[0];
+  v43 = MEMORY[0];
   do
   {
     v15 = 0;
     v42 = v12;
     do
     {
-      if (*v50 != v14)
+      if (MEMORY[0] != v14)
       {
         objc_enumerationMutation(fetchCopy3);
       }
 
       v44 = v15;
-      v16 = *(*(&v49 + 1) + 8 * v15);
+      v16 = *(8 * v15);
       if (v16)
       {
         if ([(__CFString *)v16 isDisputed])
@@ -1017,33 +1034,29 @@ LABEL_68:
           {
             v18 = [-[__CFString disputedTerritoryName](v16 "disputedTerritoryName")];
             buf = 68289283;
-            v58 = 2082;
-            v59 = "";
-            v60 = 2081;
+            v48 = 2082;
+            v49 = "";
+            v50 = 2081;
             errorCopy3 = v18;
             _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_INFO, "{msg%{public}.0s:result is a disputed territory, adding all interested parties, name:%{private, location:escape_only}s}", &buf, 0x1Cu);
           }
 
-          v47 = 0u;
-          v48 = 0u;
-          v45 = 0u;
-          v46 = 0u;
           interestedPartyIso3166CountryCodes2 = [(__CFString *)v16 interestedPartyIso3166CountryCodes2];
-          v20 = [interestedPartyIso3166CountryCodes2 countByEnumeratingWithState:&v45 objects:v55 count:16];
+          v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(interestedPartyIso3166CountryCodes2);
           if (v20)
           {
             v21 = v20;
-            v22 = *v46;
+            v22 = MEMORY[0];
             do
             {
               for (i = 0; i != v21; i = i + 1)
               {
-                if (*v46 != v22)
+                if (MEMORY[0] != v22)
                 {
                   objc_enumerationMutation(interestedPartyIso3166CountryCodes2);
                 }
 
-                v24 = [*(*(&v45 + 1) + 8 * i) copy];
+                v24 = [*(8 * i) copy];
                 [(NSMutableArray *)v10 addObject:v24];
                 if (qword_1025D4750 != -1)
                 {
@@ -1055,15 +1068,15 @@ LABEL_68:
                 {
                   uTF8String = [v24 UTF8String];
                   buf = 68289283;
-                  v58 = 2082;
-                  v59 = "";
-                  v60 = 2081;
+                  v48 = 2082;
+                  v49 = "";
+                  v50 = 2081;
                   errorCopy3 = uTF8String;
                   _os_log_impl(dword_100000000, v25, OS_LOG_TYPE_INFO, "{msg%{public}.0s:adding interested party, countryCode:%{private, location:escape_only}s}", &buf, 0x1Cu);
                 }
               }
 
-              v21 = [interestedPartyIso3166CountryCodes2 countByEnumeratingWithState:&v45 objects:v55 count:16];
+              v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(interestedPartyIso3166CountryCodes2);
             }
 
             while (v21);
@@ -1094,9 +1107,9 @@ LABEL_59:
           if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_FAULT))
           {
             buf = 68289282;
-            v58 = 2082;
-            v59 = "";
-            v60 = 2114;
+            v48 = 2082;
+            v49 = "";
+            v50 = 2114;
             errorCopy3 = v16;
             _os_log_impl(dword_100000000, v33, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:got a result that lacked a 2-letter ISO country code, terr:%{public, location:escape_only}@}", &buf, 0x1Cu);
             if (qword_1025D4750 != -1)
@@ -1109,9 +1122,9 @@ LABEL_59:
           if (os_signpost_enabled(qword_1025D4758))
           {
             buf = 68289282;
-            v58 = 2082;
-            v59 = "";
-            v60 = 2114;
+            v48 = 2082;
+            v49 = "";
+            v50 = 2114;
             errorCopy3 = v16;
             _os_signpost_emit_with_name_impl(dword_100000000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "got a result that lacked a 2-letter ISO country code", "{msg%{public}.0s:got a result that lacked a 2-letter ISO country code, terr:%{public, location:escape_only}@}", &buf, 0x1Cu);
           }
@@ -1132,9 +1145,9 @@ LABEL_59:
         {
           uTF8String2 = [v30 UTF8String];
           buf = 68289283;
-          v58 = 2082;
-          v59 = "";
-          v60 = 2081;
+          v48 = 2082;
+          v49 = "";
+          v50 = 2081;
           errorCopy3 = uTF8String2;
           _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_INFO, "{msg%{public}.0s:adding resultant country code, countryCode:%{private, location:escape_only}s}", &buf, 0x1Cu);
         }
@@ -1154,8 +1167,8 @@ LABEL_59:
         if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_ERROR))
         {
           buf = 68289026;
-          v58 = 2082;
-          v59 = "";
+          v48 = 2082;
+          v49 = "";
           _os_log_impl(dword_100000000, v28, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:empty territory element?}", &buf, 0x12u);
           if (qword_1025D4750 != -1)
           {
@@ -1167,8 +1180,8 @@ LABEL_59:
         if (os_signpost_enabled(qword_1025D4758))
         {
           buf = 68289026;
-          v58 = 2082;
-          v59 = "";
+          v48 = 2082;
+          v49 = "";
           _os_signpost_emit_with_name_impl(dword_100000000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "empty territory element?", "{msg%{public}.0s:empty territory element?}", &buf, 0x12u);
         }
       }
@@ -1178,7 +1191,7 @@ LABEL_60:
     }
 
     while (v15 != v12);
-    v12 = [fetchCopy3 countByEnumeratingWithState:&v49 objects:v56 count:16];
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(fetchCopy3);
   }
 
   while (v12);
@@ -1193,11 +1206,11 @@ LABEL_69:
     [+[NSDate now](NSDate timeIntervalSince1970];
     *(v40 + 264) = v38;
     *(v40 + 146) = v13 & 1;
-    v53[0] = kRDUpdateKeyCountryCodes;
-    v53[1] = kRDUpdateKeyInDisputedArea;
-    v54[0] = v36;
-    v54[1] = [NSNumber numberWithBool:?];
-    [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:2];
+    v45[0] = kRDUpdateKeyCountryCodes;
+    v45[1] = kRDUpdateKeyInDisputedArea;
+    v46[0] = v36;
+    v46[1] = [NSNumber numberWithBool:?];
+    [NSDictionary dictionaryWithObjects:v46 forKeys:v45 count:2];
     if (&_RDUpdateCountryCodeInfoFromLocation)
     {
       RDUpdateCountryCodeInfoFromLocation();
@@ -1300,7 +1313,7 @@ LABEL_10:
     }
   }
 
-  [(CLLocationManager *)self->_locManager setDesiredAccuracy:accuracy, v10, *v11, *&v11[16]];
+  [(CLLocationManager *)self->_locManager setDesiredAccuracy:accuracy, v10, *v11, *&v11[8]];
 }
 
 - (void)checkLocationServicesStatusAndEnableExpensiveScansIfNecessary
@@ -1453,7 +1466,7 @@ LABEL_18:
 
   if (distance)
   {
-    [distance clientLocation];
+    objc_msgSend_clientLocation(distance);
   }
 
   else
@@ -1481,7 +1494,7 @@ LABEL_18:
   *&buf[16] = v28;
   if (b)
   {
-    [b clientLocation];
+    objc_msgSend_clientLocation(b);
   }
 
   else
@@ -1644,10 +1657,10 @@ LABEL_16:
       if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_ERROR))
       {
         buf = 68289282;
-        v42 = 2082;
-        v43 = "";
-        v44 = 2114;
-        v45 = [error description];
+        v37 = 2082;
+        v38 = "";
+        v39 = 2114;
+        v40 = [error description];
         _os_log_impl(dword_100000000, v22, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:failed to revgeo, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
         if (qword_1025D4750 != -1)
         {
@@ -1660,10 +1673,10 @@ LABEL_16:
       {
         v24 = [error description];
         buf = 68289282;
-        v42 = 2082;
-        v43 = "";
-        v44 = 2114;
-        v45 = v24;
+        v37 = 2082;
+        v38 = "";
+        v39 = 2114;
+        v40 = v24;
         _os_signpost_emit_with_name_impl(dword_100000000, v23, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "failed to revgeo", "{msg%{public}.0s:failed to revgeo, error:%{public, location:escape_only}@}", &buf, 0x1Cu);
       }
     }
@@ -1680,34 +1693,30 @@ LABEL_16:
     if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_INFO))
     {
       buf = 68289282;
-      v42 = 2082;
-      v43 = "";
-      v44 = 2050;
-      v45 = [placemarks count];
+      v37 = 2082;
+      v38 = "";
+      v39 = 2050;
+      v40 = [placemarks count];
       _os_log_impl(dword_100000000, v8, OS_LOG_TYPE_INFO, "{msg%{public}.0s:parsing results for eligibility, count:%{public}lu}", &buf, 0x1Cu);
     }
 
     count = xpc_array_get_count(self->fEligibilityPrecise);
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v10 = [placemarks countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(placemarks);
     if (v10)
     {
       v11 = v10;
-      v12 = *v37;
+      v12 = MEMORY[0];
       do
       {
         v13 = 0;
         do
         {
-          if (*v37 != v12)
+          if (MEMORY[0] != v12)
           {
             objc_enumerationMutation(placemarks);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * v13);
+          v14 = *(8 * v13);
           if ([objc_msgSend(v14 _geoMapItem])
           {
             if (count)
@@ -1737,10 +1746,10 @@ LABEL_16:
               {
                 v20 = [objc_msgSend(v14 "_geoMapItem")];
                 buf = 68289283;
-                v42 = 2082;
-                v43 = "";
-                v44 = 2113;
-                v45 = v20;
+                v37 = 2082;
+                v38 = "";
+                v39 = 2113;
+                v40 = v20;
                 _os_log_impl(dword_100000000, v19, OS_LOG_TYPE_INFO, "{msg%{public}.0s:found os_eligibility territory of interest, terr:%{private, location:escape_only}@}", &buf, 0x1Cu);
               }
 
@@ -1762,10 +1771,10 @@ LABEL_17:
               {
                 v18 = [objc_msgSend(v14 "_geoMapItem")];
                 buf = 68289283;
-                v42 = 2082;
-                v43 = "";
-                v44 = 2113;
-                v45 = v18;
+                v37 = 2082;
+                v38 = "";
+                v39 = 2113;
+                v40 = v18;
                 _os_log_impl(dword_100000000, v17, OS_LOG_TYPE_INFO, "{msg%{public}.0s:os_eligibility not interested in this, ignoring, terr:%{private, location:escape_only}@}", &buf, 0x1Cu);
               }
             }
@@ -1775,7 +1784,7 @@ LABEL_17:
         }
 
         while (v13 != v11);
-        v11 = [placemarks countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(placemarks);
       }
 
       while (v11);
@@ -1800,10 +1809,10 @@ LABEL_17:
     {
       v28 = xpc_array_get_count(xarraya);
       buf = 68289282;
-      v42 = 2082;
-      v43 = "";
-      v44 = 2050;
-      v45 = v28;
+      v37 = 2082;
+      v38 = "";
+      v39 = 2050;
+      v40 = v28;
       _os_log_impl(dword_100000000, v27, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:sending updates to os_eligibility, count:%{public}lu}", &buf, 0x1Cu);
     }
 
@@ -1820,10 +1829,10 @@ LABEL_17:
       if (os_log_type_enabled(qword_1025D4758, OS_LOG_TYPE_ERROR))
       {
         buf = 68289282;
-        v42 = 2082;
-        v43 = "";
-        v44 = 1026;
-        LODWORD(v45) = v30;
+        v37 = 2082;
+        v38 = "";
+        v39 = 1026;
+        LODWORD(v40) = v30;
         _os_log_impl(dword_100000000, v31, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:Failed to post to os_eligibility, error:%{public}d}", &buf, 0x18u);
         if (qword_1025D4750 != -1)
         {
@@ -1835,10 +1844,10 @@ LABEL_17:
       if (os_signpost_enabled(qword_1025D4758))
       {
         buf = 68289282;
-        v42 = 2082;
-        v43 = "";
-        v44 = 1026;
-        LODWORD(v45) = v30;
+        v37 = 2082;
+        v38 = "";
+        v39 = 1026;
+        LODWORD(v40) = v30;
         _os_signpost_emit_with_name_impl(dword_100000000, v32, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Failed to post to os_eligibility", "{msg%{public}.0s:Failed to post to os_eligibility, error:%{public}d}", &buf, 0x18u);
       }
     }

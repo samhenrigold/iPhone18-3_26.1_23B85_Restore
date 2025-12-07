@@ -112,52 +112,50 @@ void __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_Completio
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v24 = __Block_byref_object_copy__12;
-  v25 = __Block_byref_object_dispose__12;
-  v26 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__12;
-  v19 = __Block_byref_object_dispose__12;
-  v20 = objc_opt_new();
+  v22 = __Block_byref_object_copy__12;
+  v23 = __Block_byref_object_dispose__12;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__12;
+  v17 = __Block_byref_object_dispose__12;
+  v18 = objc_opt_new();
   v6 = *&buf[8];
   v7 = *(*&buf[8] + 40);
   v8 = *(a1[6] + 16);
-  v13[5] = &v15;
+  v11[5] = &v13;
   obj = v7;
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_114;
-  v13[3] = &unk_100337E50;
-  v13[4] = buf;
-  [v8 iterScoredEventsWithQuery:v5 error:&obj block:v13];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_114;
+  v11[3] = &unk_100337E50;
+  v11[4] = buf;
+  [v8 iterScoredEventsWithQuery:v5 error:&obj block:v11];
   objc_storeStrong((v6 + 40), obj);
   if (*(*&buf[8] + 40))
   {
     v9 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(&buf[8]);
+      __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1();
     }
   }
 
   else
   {
-    v10 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v9 = _mo_log_facility_get_os_log(&MOLogFacilityProactiveTravel);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = [v16[5] count];
-      *v21 = 134217984;
-      v22 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "found %lu trips", v21, 0xCu);
+      v10 = [v14[5] count];
+      *v19 = 134217984;
+      v20 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "found %lu trips", v19, 0xCu);
     }
-
-    v12 = v16[5];
   }
 
   (*(a1[7] + 16))();
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v13, 8);
 
   _Block_object_dispose(buf, 8);
 }
@@ -193,83 +191,78 @@ void *__81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_Completi
   dispatch_async(queue, v15);
 }
 
-void __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke(void *a1)
+void __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  [v2 setFromDate:a1[4]];
-  [v2 setToDate:a1[5]];
-  v19 = 0;
-  v20[0] = &v19;
-  v20[1] = 0x3032000000;
-  v20[2] = __Block_byref_object_copy__12;
-  v20[3] = __Block_byref_object_dispose__12;
-  v21 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__12;
-  v17 = __Block_byref_object_dispose__12;
-  v18 = objc_opt_new();
-  v4 = (v20[0] + 40);
-  v3 = *(v20[0] + 40);
-  v5 = *(a1[6] + 16);
-  v11[5] = &v13;
-  obj = v3;
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2;
-  v11[3] = &unk_100337E50;
-  v11[4] = &v19;
-  [v5 iterScoredEventsWithQuery:v2 error:&obj block:v11];
-  objc_storeStrong(v4, obj);
-  if (*(v20[0] + 40))
+  v3 = objc_opt_new();
+  [v3 setFromDate:a1[4]];
+  [v3 setToDate:a1[5]];
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__12;
+  v21 = __Block_byref_object_dispose__12;
+  v22 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__12;
+  v15 = __Block_byref_object_dispose__12;
+  v16 = objc_opt_new();
+  v5 = (v18 + 5);
+  v4 = v18[5];
+  v6 = *(a1[6] + 16);
+  v9[5] = &v11;
+  obj = v4;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2;
+  v9[3] = &unk_100337E50;
+  v9[4] = &v17;
+  [v6 iterScoredEventsWithQuery:v3 error:&obj block:v9];
+  objc_storeStrong(v5, obj);
+  if (v18[5])
   {
-    v6 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(v20);
+      __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1();
     }
-
-    v7 = *(v20[0] + 40);
   }
 
   else
   {
-    v8 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v9 = [v14[5] count];
+      v8 = [v12[5] count];
       *buf = 134217984;
-      v23 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Got %lu events", buf, 0xCu);
+      v24 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Got %lu events", buf, 0xCu);
     }
-
-    v10 = v14[5];
   }
 
   (*(a1[7] + 16))();
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v11, 8);
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v17, 8);
 }
 
 void __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = a1 + 32;
   if (*(*(*(a1 + 32) + 8) + 40))
   {
-    v3 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v2 = _mo_log_facility_get_os_log(&MOLogFacilitySuggestedEvent);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2_cold_1(v2);
+      __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2_cold_1();
     }
   }
 
   else
   {
-    v4 = *(*(*(a1 + 40) + 8) + 40);
+    v3 = *(*(*(a1 + 40) + 8) + 40);
 
-    [v4 addObject:a2];
+    [v3 addObject:a2];
   }
 }
 
@@ -976,27 +969,6 @@ void __73__MOSuggestedEventManager__removeSuggestedEventsDeletedAtSource_handler
   {
     (*(v10 + 16))(v10, v5, v6);
   }
-}
-
-void __81__MOSuggestedEventManager__fetchTripsBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_cold_1(uint64_t a1)
-{
-  v6 = *(*a1 + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void __89__MOSuggestedEventManager_fetchSuggestedEventBetweenStartDate_EndDate_CompletionHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v6 = *(*(*a1 + 8) + 40);
-  OUTLINED_FUNCTION_0_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void __73__MOSuggestedEventManager__removeSuggestedEventsDeletedAtSource_handler___block_invoke_136_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)

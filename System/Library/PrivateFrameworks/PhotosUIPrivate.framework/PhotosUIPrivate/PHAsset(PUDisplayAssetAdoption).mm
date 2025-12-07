@@ -37,7 +37,7 @@
   v6 = mediaAnalysisProperties;
   if (mediaAnalysisProperties)
   {
-    [mediaAnalysisProperties bestKeyFrameTime];
+    objc_msgSend_bestKeyFrameTime(mediaAnalysisProperties);
   }
 
   else
@@ -145,7 +145,7 @@
   if (photoIrisProperties)
   {
     v5 = photoIrisProperties;
-    [photoIrisProperties photoIrisVideoDuration];
+    objc_msgSend_photoIrisVideoDuration(photoIrisProperties);
     photoIrisProperties = v5;
   }
 
@@ -167,7 +167,7 @@
   if (photoIrisProperties)
   {
     v5 = photoIrisProperties;
-    [photoIrisProperties photoIrisStillDisplayTime];
+    objc_msgSend_photoIrisStillDisplayTime(photoIrisProperties);
     photoIrisProperties = v5;
   }
 

@@ -82,9 +82,9 @@ LABEL_7:
     +[ICAttachmentInlineDrawingModel(TextFinding) inlineDrawingTextFindingQueue];
   }
 
-  v1 = inlineDrawingTextFindingQueue_sDrawingFindingQueue;
+  v2 = inlineDrawingTextFindingQueue_sDrawingFindingQueue;
 
-  return v1;
+  return v2;
 }
 
 - (void)textFindingResultsMatchingString:()TextFinding textView:ignoreCase:wholeWords:startsWith:usePattern:completion:.cold.1(void *a1, NSObject *a2)

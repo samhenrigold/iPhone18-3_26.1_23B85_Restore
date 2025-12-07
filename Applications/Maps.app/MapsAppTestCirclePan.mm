@@ -210,13 +210,13 @@ LABEL_11:
 
   if (!self->_isSubTest)
   {
-    options = [(MapsAppTest *)self options];
-    v7 = [options objectForKeyedSubscript:@"circleDistance"];
+    v6 = objc_msgSend_options(self);
+    v7 = [v6 objectForKeyedSubscript:@"circleDistance"];
 
     if (v7)
     {
-      options2 = [(MapsAppTest *)self options];
-      v9 = [options2 objectForKeyedSubscript:@"circleDistance"];
+      v8 = objc_msgSend_options(self);
+      v9 = [v8 objectForKeyedSubscript:@"circleDistance"];
       [v9 doubleValue];
       self->_circleRadius = v10 * 0.5;
     }
@@ -282,13 +282,13 @@ LABEL_11:
     v11->_circleRadius = 4.0;
     if (!v11->_isSubTest)
     {
-      options = [(MapsAppTest *)v11 options];
-      v17 = [options objectForKeyedSubscript:@"circleDistance"];
+      v16 = objc_msgSend_options(v11);
+      v17 = [v16 objectForKeyedSubscript:@"circleDistance"];
 
       if (v17)
       {
-        options2 = [(MapsAppTest *)v11 options];
-        v19 = [options2 objectForKeyedSubscript:@"circleDistance"];
+        v18 = objc_msgSend_options(v11);
+        v19 = [v18 objectForKeyedSubscript:@"circleDistance"];
         [v19 doubleValue];
         v11->_circleRadius = v20 * 0.5;
       }
@@ -312,13 +312,13 @@ LABEL_11:
         v11->_pitch = v25;
         [optionsCopy _mapstest_yaw];
         v11->_yaw = v26;
-        options3 = [(MapsAppTest *)v11 options];
-        v28 = [options3 objectForKeyedSubscript:@"circleDistance"];
+        v27 = objc_msgSend_options(v11);
+        v28 = [v27 objectForKeyedSubscript:@"circleDistance"];
 
         if (v28)
         {
-          options4 = [(MapsAppTest *)v11 options];
-          v30 = [options4 objectForKeyedSubscript:@"circleDistance"];
+          v29 = objc_msgSend_options(v11);
+          v30 = [v29 objectForKeyedSubscript:@"circleDistance"];
           [v30 doubleValue];
           v11->_circleRadius = v31 * 0.5;
         }

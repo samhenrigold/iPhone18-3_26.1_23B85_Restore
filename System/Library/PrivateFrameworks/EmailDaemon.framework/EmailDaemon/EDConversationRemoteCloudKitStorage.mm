@@ -134,89 +134,87 @@ void __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke(uint6
     v6 = [*(a1 + 32) exportTransaction];
     [v6 resetPendingTransactions];
 
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = [objc_opt_class() log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_cold_1(v8);
+      __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_cold_1(v7);
     }
 
-    v9 = [*(a1 + 32) mirroringPersistentStore];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_36;
-    v27[3] = &unk_1E8251DD0;
-    v27[4] = *(a1 + 32);
-    [v9 performBlock:v27];
+    v8 = [*(a1 + 32) mirroringPersistentStore];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_36;
+    v25[3] = &unk_1E8251DD0;
+    v25[4] = *(a1 + 32);
+    [v8 performBlock:v25];
   }
 
-  v10 = [*(a1 + 32) importTransaction];
-  v11 = [v10 hasPendingTransactions];
+  v9 = [*(a1 + 32) importTransaction];
+  v10 = [v9 hasPendingTransactions];
 
-  if (v11)
+  if (v10)
   {
-    v12 = [*(a1 + 32) importTransaction];
-    [v12 resetPendingTransactions];
+    v11 = [*(a1 + 32) importTransaction];
+    [v11 resetPendingTransactions];
 
-    v13 = *(a1 + 32);
-    v14 = [objc_opt_class() log];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v12 = [objc_opt_class() log];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_cold_2(v14);
+      __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_cold_2(v12);
     }
 
-    v15 = [*(a1 + 32) mirroringPersistentStore];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_38;
-    v26[3] = &unk_1E8251DD0;
-    v26[4] = *(a1 + 32);
-    [v15 performBlock:v26];
+    v13 = [*(a1 + 32) mirroringPersistentStore];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_38;
+    v24[3] = &unk_1E8251DD0;
+    v24[4] = *(a1 + 32);
+    [v13 performBlock:v24];
   }
 
-  v16 = [*(a1 + 32) _controlInManagedObjectContext:v3];
-  v17 = [v16 migratedFromKVSStorage];
+  v14 = [*(a1 + 32) _controlInManagedObjectContext:v3];
+  v15 = [v14 migratedFromKVSStorage];
 
-  v18 = *(a1 + 32);
-  if (v17)
+  v16 = *(a1 + 32);
+  if (v15)
   {
-    [v18 setInitialized:1];
-    v19 = [*(a1 + 32) delegate];
-    v20 = objc_opt_respondsToSelector();
+    [v16 setInitialized:1];
+    v17 = [*(a1 + 32) delegate];
+    v18 = objc_opt_respondsToSelector();
 
-    if ((v20 & 1) == 0)
+    if ((v18 & 1) == 0)
     {
       goto LABEL_14;
     }
 
-    v21 = [*(a1 + 32) delegate];
-    [v21 conversationRemoteStorageDidInitialize:*(a1 + 32)];
+    v19 = [*(a1 + 32) delegate];
+    [v19 conversationRemoteStorageDidInitialize:*(a1 + 32)];
   }
 
   else
   {
-    v21 = [v18 mirroringPersistentStore];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_2;
-    v25[3] = &unk_1E8251DD0;
-    v25[4] = *(a1 + 32);
-    [v21 performBlock:v25];
+    v19 = [v16 mirroringPersistentStore];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_2;
+    v23[3] = &unk_1E8251DD0;
+    v23[4] = *(a1 + 32);
+    [v19 performBlock:v23];
   }
 
 LABEL_14:
   [*(a1 + 32) _recoverHistoryToken];
-  v22 = [*(a1 + 32) historyToken];
+  v20 = [*(a1 + 32) historyToken];
 
-  if (!v22)
+  if (!v20)
   {
-    v23 = [*(a1 + 32) mirroringPersistentStore];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_3;
-    v24[3] = &unk_1E8251DD0;
-    v24[4] = *(a1 + 32);
-    [v23 performBlock:v24];
+    v21 = [*(a1 + 32) mirroringPersistentStore];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __52__EDConversationRemoteCloudKitStorage__initialSetup__block_invoke_3;
+    v22[3] = &unk_1E8251DD0;
+    v22[4] = *(a1 + 32);
+    [v21 performBlock:v22];
   }
 }
 
@@ -239,17 +237,16 @@ LABEL_14:
 
 void __60__EDConversationRemoteCloudKitStorage_setDictionary_forKey___block_invoke(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) entityForConversationDictionary:*(a1 + 40) key:*(a1 + 48) managedObjectContext:v3];
   v5 = *(a1 + 32);
   v6 = [v4 conversationUUID];
-  v9[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   [v5 _handleDuplicationsForConversationUUIDs:v7 managedObjectContext:v3];
 
   [*(a1 + 32) _addOrUpdateConversationInfo:v4 managedObjectContext:v3];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDictionaryForKey:(id)key
@@ -327,7 +324,7 @@ void __56__EDConversationRemoteCloudKitStorage_dictionaryForKey___block_invoke(u
 
 void __63__EDConversationRemoteCloudKitStorage_dictionaryRepresentation__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) allConversationInfosInManagedObjectContext:v3];
   v5 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
@@ -335,26 +332,26 @@ void __63__EDConversationRemoteCloudKitStorage_dictionaryRepresentation__block_i
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [*(a1 + 32) dictionaryForConversationInfo:{v12, v18}];
+        v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = [*(a1 + 32) dictionaryForConversationInfo:{v12, v17}];
         v14 = [v12 conversationUUID];
         v15 = v14;
         if (v13)
@@ -373,13 +370,11 @@ void __63__EDConversationRemoteCloudKitStorage_dictionaryRepresentation__block_i
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)synchronize
@@ -526,34 +521,31 @@ void __81__EDConversationRemoteCloudKitStorage__requestFirstSyncWithManagedObjec
 
 void __81__EDConversationRemoteCloudKitStorage__requestFirstSyncWithManagedObjectContext___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v4 = [objc_opt_class() log];
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = *(a1 + 40);
-    v11 = 134217984;
-    v12 = v6;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_INFO, "First request import arrived. Success: %lu", &v11, 0xCu);
+    v5 = *(a1 + 40);
+    v9 = 134217984;
+    v10 = v5;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "First request import arrived. Success: %lu", &v9, 0xCu);
   }
 
   if (*(a1 + 40) == 1 && ([*(a1 + 32) isInitialized] & 1) == 0)
   {
     [*(a1 + 32) setInitialized:1];
-    v7 = [*(a1 + 32) delegate];
-    v8 = objc_opt_respondsToSelector();
+    v6 = [*(a1 + 32) delegate];
+    v7 = objc_opt_respondsToSelector();
 
-    if (v8)
+    if (v7)
     {
-      v9 = [*(a1 + 32) delegate];
-      [v9 conversationRemoteStorageDidInitialize:*(a1 + 32)];
+      v8 = [*(a1 + 32) delegate];
+      [v8 conversationRemoteStorageDidInitialize:*(a1 + 32)];
     }
 
     [*(a1 + 32) _retrieveChangesSinceLastRequestInManagedObjectContext:v3];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePushNotification:(id)notification
@@ -572,23 +564,21 @@ void __81__EDConversationRemoteCloudKitStorage__requestFirstSyncWithManagedObjec
 
 void __63__EDConversationRemoteCloudKitStorage__handlePushNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E695B9D8];
   v5 = [*(a1 + 32) userInfo];
   v6 = [v4 notificationFromRemoteNotificationDictionary:v5];
 
-  v7 = *(a1 + 40);
-  v8 = [objc_opt_class() log];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v7 = [objc_opt_class() log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "APS Push received - %{public}@", &v10, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "APS Push received - %{public}@", &v8, 0xCu);
   }
 
   [*(a1 + 40) _requestImportWithManagedObjectContext:v3];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)storageName
@@ -639,7 +629,7 @@ void __63__EDConversationRemoteCloudKitStorage_isMigratedFromKVSStorage__block_i
 
 void __65__EDConversationRemoteCloudKitStorage_setMigratedFromKVSStorage___block_invoke(uint64_t a1, void *a2)
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) _controlInManagedObjectContext:v3];
   if (!v4)
@@ -648,39 +638,34 @@ void __65__EDConversationRemoteCloudKitStorage_setMigratedFromKVSStorage___block
   }
 
   [v4 setMigratedFromKVSStorage:*(a1 + 40)];
-  v10[0] = 0;
-  v5 = [v3 save:v10];
-  v6 = v10[0];
+  v8[0] = 0;
+  v5 = [v3 save:v8];
+  v6 = v8[0];
   if ((v5 & 1) == 0)
   {
-    v7 = *(a1 + 32);
-    v8 = [objc_opt_class() log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = [objc_opt_class() log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [v6 ef_publicDescription];
       objc_claimAutoreleasedReturnValue();
       __65__EDConversationRemoteCloudKitStorage_setMigratedFromKVSStorage___block_invoke_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)cloudKitAPSTopics
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = cloudKitAPSTopics_cloudKitAPSTopics;
   if (!cloudKitAPSTopics_cloudKitAPSTopics)
   {
-    v7[0] = @"com.apple.icloud-container.com.apple.mobilemail";
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = @"com.apple.icloud-container.com.apple.mobilemail";
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
     v4 = cloudKitAPSTopics_cloudKitAPSTopics;
     cloudKitAPSTopics_cloudKitAPSTopics = v3;
 
     v2 = cloudKitAPSTopics_cloudKitAPSTopics;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -767,16 +752,16 @@ void __65__EDConversationRemoteCloudKitStorage_setMigratedFromKVSStorage___block
 
 - (void)_handleDuplicationsForConversationUUIDs:(id)ds managedObjectContext:(id)context
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   contextCopy = context;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v8 = dsCopy;
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v33 objects:v42 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v32 objects:v41 count:16];
   if (!v9)
   {
 LABEL_24:
@@ -785,49 +770,49 @@ LABEL_24:
   }
 
   v10 = 0;
-  v24 = *v34;
-  v25 = v9;
+  v23 = *v33;
+  v24 = v9;
   do
   {
-    for (i = 0; i != v25; ++i)
+    for (i = 0; i != v24; ++i)
     {
-      if (*v34 != v24)
+      if (*v33 != v23)
       {
         objc_enumerationMutation(obj);
       }
 
-      v26 = [(EDConversationRemoteCloudKitStorage *)self _conversationInfosWithUUID:*(*(&v33 + 1) + 8 * i) managedObjectContext:contextCopy];
-      if ([v26 count] >= 2)
+      v25 = [(EDConversationRemoteCloudKitStorage *)self _conversationInfosWithUUID:*(*(&v32 + 1) + 8 * i) managedObjectContext:contextCopy];
+      if ([v25 count] >= 2)
       {
-        v31 = 0u;
-        v32 = 0u;
-        v29 = 0u;
         v30 = 0u;
-        v11 = [v26 subarrayWithRange:{1, objc_msgSend(v26, "count") - 1}];
-        v12 = [v11 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
+        v11 = [v25 subarrayWithRange:{1, objc_msgSend(v25, "count") - 1}];
+        v12 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
         if (v12)
         {
-          v13 = *v30;
+          v13 = *v29;
           do
           {
             v14 = 0;
             do
             {
-              if (*v30 != v13)
+              if (*v29 != v13)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v15 = *(*(&v29 + 1) + 8 * v14);
+              v15 = *(*(&v28 + 1) + 8 * v14);
               v16 = [objc_opt_class() log];
               if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 conversationUUID = [v15 conversationUUID];
                 objectID = [v15 objectID];
                 *buf = 138543618;
-                v38 = conversationUUID;
-                v39 = 2114;
-                v40 = objectID;
+                v37 = conversationUUID;
+                v38 = 2114;
+                v39 = objectID;
                 _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "Deleting duplicated object. %{public}@, %{public}@", buf, 0x16u);
               }
 
@@ -838,7 +823,7 @@ LABEL_24:
             }
 
             while (v12 != v14);
-            v12 = [v11 countByEnumeratingWithState:&v29 objects:v41 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v28 objects:v40 count:16];
           }
 
           while (v12);
@@ -848,16 +833,16 @@ LABEL_24:
       }
     }
 
-    v25 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+    v24 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
   }
 
-  while (v25);
+  while (v24);
 
   if (v10)
   {
-    v28 = 0;
-    v20 = [contextCopy save:&v28];
-    v8 = v28;
+    v27 = 0;
+    v20 = [contextCopy save:&v27];
+    v8 = v27;
     if ((v20 & 1) == 0)
     {
       v21 = [objc_opt_class() log];
@@ -873,8 +858,6 @@ LABEL_24:
   }
 
 LABEL_25:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_conversationInfoWithUUID:(id)d managedObjectContext:(id)context
@@ -887,7 +870,7 @@ LABEL_25:
 
 - (id)_conversationInfosWithUUID:(id)d managedObjectContext:(id)context
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
   v7 = +[EDConversationInfo fetchRequest];
@@ -895,13 +878,13 @@ LABEL_25:
   [v7 setPredicate:dCopy];
 
   v9 = [objc_alloc(MEMORY[0x1E696AEB0]) initWithKey:@"lastModified" ascending:0];
-  v17[0] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   [v7 setSortDescriptors:v10];
 
-  v16 = 0;
-  v11 = [contextCopy executeFetchRequest:v7 error:&v16];
-  v12 = v16;
+  v15 = 0;
+  v11 = [contextCopy executeFetchRequest:v7 error:&v15];
+  v12 = v15;
   if (v12)
   {
     v13 = [objc_opt_class() log];
@@ -913,18 +896,16 @@ LABEL_25:
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 - (void)_addOrUpdateConversationInfo:(id)info managedObjectContext:(id)context
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   infoCopy = info;
-  v10[0] = 0;
-  v6 = [context save:v10];
-  v7 = v10[0];
+  v9[0] = 0;
+  v6 = [context save:v9];
+  v7 = v9[0];
   if ((v6 & 1) == 0)
   {
     v8 = [objc_opt_class() log];
@@ -937,8 +918,6 @@ LABEL_25:
       [EDConversationRemoteCloudKitStorage _addOrUpdateConversationInfo:managedObjectContext:];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateConversationInfo:(id)info withAnotherConversationInfo:(id)conversationInfo
@@ -956,16 +935,16 @@ LABEL_25:
 
 - (void)_removeConversationInfoWithId:(id)id managedObjectContext:(id)context
 {
-  v13[4] = *MEMORY[0x1E69E9840];
+  v12[4] = *MEMORY[0x1E69E9840];
   idCopy = id;
   contextCopy = context;
   v8 = [(EDConversationRemoteCloudKitStorage *)self _conversationInfoWithUUID:idCopy managedObjectContext:contextCopy];
   if (v8)
   {
     [contextCopy deleteObject:v8];
-    v13[0] = 0;
-    v9 = [contextCopy save:v13];
-    v10 = v13[0];
+    v12[0] = 0;
+    v9 = [contextCopy save:v12];
+    v10 = v12[0];
     if ((v9 & 1) == 0)
     {
       v11 = [objc_opt_class() log];
@@ -977,19 +956,17 @@ LABEL_25:
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_removeConversationInfoWithObjectId:(id)id save:(BOOL)save managedObjectContext:(id)context
 {
   saveCopy = save;
-  v17[8] = *MEMORY[0x1E69E9840];
+  v16[8] = *MEMORY[0x1E69E9840];
   idCopy = id;
   contextCopy = context;
-  v17[0] = 0;
-  v9 = [contextCopy existingObjectWithID:idCopy error:v17];
-  v10 = v17[0];
+  v16[0] = 0;
+  v9 = [contextCopy existingObjectWithID:idCopy error:v16];
+  v10 = v16[0];
   if (v10)
   {
     v11 = [objc_opt_class() log];
@@ -1006,9 +983,9 @@ LABEL_25:
     [contextCopy deleteObject:v9];
     if (saveCopy)
     {
-      v16 = 0;
-      v12 = [contextCopy save:&v16];
-      v13 = v16;
+      v15 = 0;
+      v12 = [contextCopy save:&v15];
+      v13 = v15;
       if ((v12 & 1) == 0)
       {
         v14 = [objc_opt_class() log];
@@ -1021,18 +998,16 @@ LABEL_25:
       }
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allConversationInfosInManagedObjectContext:(id)context
 {
-  v10[4] = *MEMORY[0x1E69E9840];
+  v9[4] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = +[EDConversationInfo fetchRequest];
-  v10[0] = 0;
-  v5 = [contextCopy executeFetchRequest:v4 error:v10];
-  v6 = v10[0];
+  v9[0] = 0;
+  v5 = [contextCopy executeFetchRequest:v4 error:v9];
+  v6 = v9[0];
   if (v6)
   {
     v7 = [objc_opt_class() log];
@@ -1044,19 +1019,17 @@ LABEL_25:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_controlInManagedObjectContext:(id)context
 {
-  v11[4] = *MEMORY[0x1E69E9840];
+  v10[4] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = +[EDCloudKitControl fetchRequest];
-  v11[0] = 0;
-  v5 = [contextCopy executeFetchRequest:v4 error:v11];
-  v6 = v11[0];
+  v10[0] = 0;
+  v5 = [contextCopy executeFetchRequest:v4 error:v10];
+  v6 = v10[0];
   firstObject = [v5 firstObject];
   if (!v5)
   {
@@ -1068,8 +1041,6 @@ LABEL_25:
       [EDConversationRemoteCloudKitStorage _controlInManagedObjectContext:];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -1087,21 +1058,20 @@ LABEL_25:
 
 void __76__EDConversationRemoteCloudKitStorage__handleWillResetSyncDataNotification___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = [objc_opt_class() log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "CoreData will reset sync couldKit data", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "CoreData will reset sync couldKit data", v6, 2u);
   }
 
-  v4 = [*(a1 + 32) delegate];
-  v5 = objc_opt_respondsToSelector();
+  v3 = [*(a1 + 32) delegate];
+  v4 = objc_opt_respondsToSelector();
 
-  if (v5)
+  if (v4)
   {
-    v6 = [*(a1 + 32) delegate];
-    [v6 conversationRemoteStorageWillResetData:*(a1 + 32)];
+    v5 = [*(a1 + 32) delegate];
+    [v5 conversationRemoteStorageWillResetData:*(a1 + 32)];
   }
 }
 
@@ -1118,21 +1088,20 @@ void __76__EDConversationRemoteCloudKitStorage__handleWillResetSyncDataNotificat
 
 void __75__EDConversationRemoteCloudKitStorage__handleDidResetSyncDataNotification___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() log];
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v2 = [objc_opt_class() log];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "CoreData did reset sync couldKit data", v7, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "CoreData did reset sync couldKit data", v6, 2u);
   }
 
-  v4 = [*(a1 + 32) delegate];
-  v5 = objc_opt_respondsToSelector();
+  v3 = [*(a1 + 32) delegate];
+  v4 = objc_opt_respondsToSelector();
 
-  if (v5)
+  if (v4)
   {
-    v6 = [*(a1 + 32) delegate];
-    [v6 conversationRemoteStorageDidResetData:*(a1 + 32)];
+    v5 = [*(a1 + 32) delegate];
+    [v5 conversationRemoteStorageDidResetData:*(a1 + 32)];
   }
 }
 
@@ -1192,207 +1161,200 @@ void __75__EDConversationRemoteCloudKitStorage__handleDidResetSyncDataNotificati
 
 void __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke(uint64_t a1, void *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v33 = a2;
-  v3 = [v33 author];
+  v41 = *MEMORY[0x1E69E9840];
+  v27 = a2;
+  v3 = [v27 author];
   v4 = [v3 componentsSeparatedByString:@"."];
 
-  v32 = v4;
+  v26 = v4;
   v5 = [v4 firstObject];
   v6 = [*(a1 + 32) transactionAuthor];
   LOBYTE(v4) = [v5 isEqualToString:v6];
 
   if ((v4 & 1) == 0)
   {
-    v7 = *(a1 + 40);
-    v8 = [objc_opt_class() log];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v7 = [objc_opt_class() log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_INFO, "Started handling core data changes", buf, 2u);
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_INFO, "Started handling core data changes", buf, 2u);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v9 = [v33 changes];
-    v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
-    if (v10)
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v8 = [v27 changes];
+    v9 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    if (v9)
     {
-      v11 = *v41;
+      v10 = *v35;
       do
       {
-        v12 = 0;
+        v11 = 0;
         do
         {
-          if (*v41 != v11)
+          if (*v35 != v10)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v40 + 1) + 8 * v12);
-          v14 = objc_autoreleasePoolPush();
-          v15 = [v13 changeType];
-          if (!v15)
+          v12 = *(*(&v34 + 1) + 8 * v11);
+          v13 = objc_autoreleasePoolPush();
+          v14 = [v12 changeType];
+          if (!v14)
           {
-            v27 = *(a1 + 40);
-            v28 = [v13 changedObjectID];
-            v19 = [v27 _conversationInfoWithObjectId:v28 managedObjectContext:*(a1 + 32)];
+            v24 = *(a1 + 40);
+            v25 = [v12 changedObjectID];
+            v17 = [v24 _conversationInfoWithObjectId:v25 managedObjectContext:*(a1 + 32)];
 
-            v29 = *(a1 + 40);
-            if (!v19)
+            if (!v17)
             {
-              v20 = [objc_opt_class() log];
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v18 = [objc_opt_class() log];
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
               {
-                __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_4(&v38, v39);
+                __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_4(&v32, v33);
               }
 
               goto LABEL_30;
             }
 
-            v24 = [objc_opt_class() log];
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v21 = [objc_opt_class() log];
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v45 = v19;
-              _os_log_debug_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEBUG, "EDConversationInfo added. %{public}@", buf, 0xCu);
+              v39 = v17;
+              _os_log_debug_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEBUG, "EDConversationInfo added. %{public}@", buf, 0xCu);
             }
 
 LABEL_19:
 
-            v20 = [*(a1 + 40) dictionaryForConversationInfo:v19];
-            v25 = *(*(*(a1 + 48) + 8) + 40);
-            v26 = [v19 conversationUUID];
-            [v25 setObject:v20 forKeyedSubscript:v26];
+            v18 = [*(a1 + 40) dictionaryForConversationInfo:v17];
+            v22 = *(*(*(a1 + 48) + 8) + 40);
+            v23 = [v17 conversationUUID];
+            [v22 setObject:v18 forKeyedSubscript:v23];
 
             goto LABEL_30;
           }
 
-          if (v15 == 1)
+          if (v14 == 1)
           {
-            v21 = *(a1 + 40);
-            v22 = [v13 changedObjectID];
-            v19 = [v21 _conversationInfoWithObjectId:v22 managedObjectContext:*(a1 + 32)];
+            v19 = *(a1 + 40);
+            v20 = [v12 changedObjectID];
+            v17 = [v19 _conversationInfoWithObjectId:v20 managedObjectContext:*(a1 + 32)];
 
-            v23 = *(a1 + 40);
-            if (!v19)
+            if (!v17)
             {
-              v20 = [objc_opt_class() log];
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+              v18 = [objc_opt_class() log];
+              if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
               {
-                __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_3(&v36, v37);
+                __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_3(&v30, v31);
               }
 
               goto LABEL_30;
             }
 
-            v24 = [objc_opt_class() log];
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v21 = [objc_opt_class() log];
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138543362;
-              v45 = v19;
-              _os_log_debug_impl(&dword_1C61EF000, v24, OS_LOG_TYPE_DEBUG, "EDConversationInfo updated/inserted. %{public}@", buf, 0xCu);
+              v39 = v17;
+              _os_log_debug_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEBUG, "EDConversationInfo updated/inserted. %{public}@", buf, 0xCu);
             }
 
             goto LABEL_19;
           }
 
-          if (v15 != 2)
+          if (v14 != 2)
           {
             goto LABEL_31;
           }
 
-          v16 = *(a1 + 40);
-          v17 = [objc_opt_class() log];
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+          v15 = [objc_opt_class() log];
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            [v13 changedObjectID];
+            [v12 changedObjectID];
             objc_claimAutoreleasedReturnValue();
             __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_1();
           }
 
-          v18 = [v13 tombstone];
-          v19 = [v18 objectForKeyedSubscript:@"conversationUUID"];
+          v16 = [v12 tombstone];
+          v17 = [v16 objectForKeyedSubscript:@"conversationUUID"];
 
-          if (v19)
+          if (v17)
           {
-            v20 = [MEMORY[0x1E695DFB0] null];
-            [*(*(*(a1 + 48) + 8) + 40) setObject:v20 forKeyedSubscript:v19];
+            v18 = [MEMORY[0x1E695DFB0] null];
+            [*(*(*(a1 + 48) + 8) + 40) setObject:v18 forKeyedSubscript:v17];
           }
 
           else
           {
-            v30 = *(a1 + 40);
-            v20 = [objc_opt_class() log];
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v18 = [objc_opt_class() log];
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_2(&v34, v35);
+              __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestInManagedObjectContext___block_invoke_cold_2(&v28, v29);
             }
           }
 
 LABEL_30:
 
 LABEL_31:
-          objc_autoreleasePoolPop(v14);
-          ++v12;
+          objc_autoreleasePoolPop(v13);
+          ++v11;
         }
 
-        while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        while (v9 != v11);
+        v9 = [v8 countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
-      while (v10);
+      while (v9);
     }
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (id)enumerateChangeHistorySinceToken:(id)token managedObjectContext:(id)context usingBlock:(id)block
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   blockCopy = block;
   v10 = tokenCopy;
-  v29 = 0;
-  v11 = [(EDConversationRemoteCloudKitStorage *)self _transactionHistorySinceToken:v10 managedObjectContext:context error:&v29];
-  v12 = v29;
+  v28 = 0;
+  v11 = [(EDConversationRemoteCloudKitStorage *)self _transactionHistorySinceToken:v10 managedObjectContext:context error:&v28];
+  v12 = v28;
   token = v10;
   if (v11)
   {
     token = v10;
     if ([v11 count])
     {
-      v23 = v12;
-      v28 = 0;
+      v22 = v12;
+      v27 = 0;
+      v23 = 0u;
       v24 = 0u;
       v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       v14 = v11;
-      v15 = [v14 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v23 objects:v29 count:16];
       token = v10;
       if (v15)
       {
-        v16 = *v25;
+        v16 = *v24;
         token = v10;
 LABEL_5:
         v17 = 0;
         v18 = token;
         while (1)
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * v17);
-          blockCopy[2](blockCopy, v19, &v28);
+          v19 = *(*(&v23 + 1) + 8 * v17);
+          blockCopy[2](blockCopy, v19, &v27);
           token = [v19 token];
 
-          if (v28)
+          if (v27)
           {
             break;
           }
@@ -1401,7 +1363,7 @@ LABEL_5:
           v18 = token;
           if (v15 == v17)
           {
-            v15 = [v14 countByEnumeratingWithState:&v24 objects:v30 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v23 objects:v29 count:16];
             if (v15)
             {
               goto LABEL_5;
@@ -1412,7 +1374,7 @@ LABEL_5:
         }
       }
 
-      v12 = v23;
+      v12 = v22;
     }
   }
 
@@ -1426,21 +1388,19 @@ LABEL_5:
     v20 = token;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)_transactionHistorySinceToken:(id)token managedObjectContext:(id)context error:(id *)error
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   contextCopy = context;
   v9 = [MEMORY[0x1E695D698] fetchHistoryAfterToken:tokenCopy];
   [v9 setResultType:5];
-  v18[0] = 0;
-  v10 = [contextCopy executeRequest:v9 error:v18];
-  v11 = v18[0];
+  v17[0] = 0;
+  v10 = [contextCopy executeRequest:v9 error:v17];
+  v11 = v17[0];
   v12 = v11;
   if (error)
   {
@@ -1478,18 +1438,16 @@ LABEL_5:
   result = 0;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return result;
 }
 
 - (id)_conversationInfoWithObjectId:(id)id managedObjectContext:(id)context
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   idCopy = id;
-  v15[0] = 0;
-  v6 = [context existingObjectWithID:idCopy error:v15];
-  v7 = v15[0];
+  v14[0] = 0;
+  v6 = [context existingObjectWithID:idCopy error:v14];
+  v7 = v14[0];
   if (v7)
   {
     v8 = [objc_opt_class() log];
@@ -1510,8 +1468,6 @@ LABEL_12:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -1590,11 +1546,10 @@ void __94__EDConversationRemoteCloudKitStorage__retrieveChangesSinceLastRequestI
 
 - (void)_transactionHistorySinceToken:(uint64_t)a1 managedObjectContext:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "persistentHistoryResult.result is not an array. Ignoring it %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "persistentHistoryResult.result is not an array. Ignoring it %{public}@", &v2, 0xCu);
 }
 
 - (void)_transactionHistorySinceToken:managedObjectContext:error:.cold.2()

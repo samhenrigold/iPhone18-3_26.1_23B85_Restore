@@ -113,12 +113,12 @@
       goto LABEL_7;
     }
 
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionView.m", 980, 3, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v12, v13, v14, v15, v10);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionView.m", 980, 3u, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v12, v13, v14, v15, v10);
   }
 
   else
   {
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionView.m", 980, 3, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v6, v7, v8, v9, 0);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNActionView.m", 980, 3u, @"Tried to initialize UITargetedPreview with a view that is not in a window: %@", v6, v7, v8, v9, 0);
   }
 
   v17 = 0;

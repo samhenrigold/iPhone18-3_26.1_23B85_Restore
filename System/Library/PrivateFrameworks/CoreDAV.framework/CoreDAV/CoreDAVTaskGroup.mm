@@ -57,44 +57,42 @@
 
 - (void)_tearDownAllTasks
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->_isTearingDown)
   {
     self->_isTearingDown = 1;
     v3 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:1 userInfo:0];
     v4 = [(NSMutableSet *)self->_outstandingTasks copy];
+    v10 = 0u;
     v11 = 0u;
     v12 = 0u;
     v13 = 0u;
-    v14 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v11 + 1) + 8 * v9++) finishEarlyWithError:{v3, v11}];
+          [*(*(&v10 + 1) + 8 * v9++) finishEarlyWithError:{v3, v10}];
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bailWithError:(id)error
@@ -156,31 +154,28 @@
 
 - (void)submitWithTaskManager:(id)manager
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (manager)
   {
     [(CoreDAVTaskGroup *)self setTaskManager:?];
-    v4 = *MEMORY[0x277D85DE8];
 
     [(CoreDAVTaskGroup *)self startTaskGroup];
   }
 
   else
   {
-    v5 = +[CoreDAVLogging sharedLogging];
-    v6 = [v5 logHandleForAccountInfoProvider:0];
-    v7 = v6;
-    if (v6 && os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = +[CoreDAVLogging sharedLogging];
+    v5 = [v4 logHandleForAccountInfoProvider:0];
+    v6 = v5;
+    if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
+      v8 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "TaskGroup %@ submitted with no taskManager, returning immediately", &v10, 0xCu);
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "TaskGroup %@ submitted with no taskManager, returning immediately", &v8, 0xCu);
     }
 
-    v8 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:6 userInfo:0];
-    [(CoreDAVTaskGroup *)self finishEarlyWithError:v8];
-
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:6 userInfo:0];
+    [(CoreDAVTaskGroup *)self finishEarlyWithError:v7];
   }
 }
 

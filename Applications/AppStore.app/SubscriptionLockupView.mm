@@ -57,26 +57,28 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  height = fits.height;
+  width = fits.width;
   ObjectType = swift_getObjectType();
-  v5 = qword_10096E700;
+  v7 = qword_10096E700;
   selfCopy = self;
-  if (v5 != -1)
+  if (v7 != -1)
   {
     swift_once();
   }
 
-  v7 = type metadata accessor for SmallLockupLayout.Metrics();
-  v8 = sub_1000056A8(v7, qword_1009D25C0);
-  v14.receiver = selfCopy;
-  v14.super_class = ObjectType;
-  [(SubscriptionLockupView *)&v14 layoutMargins];
-  v9 = sub_100508144(v8, selfCopy);
-  v11 = v10;
+  v9 = type metadata accessor for SmallLockupLayout.Metrics();
+  v10 = sub_1000056A8(v9, qword_1009D25C0);
+  v16.receiver = selfCopy;
+  v16.super_class = ObjectType;
+  [(SubscriptionLockupView *)&v16 layoutMargins];
+  v11 = sub_100508144(v10, selfCopy, width, height);
+  v13 = v12;
 
-  v12 = v9;
-  v13 = v11;
-  result.height = v13;
-  result.width = v12;
+  v14 = v11;
+  v15 = v13;
+  result.height = v15;
+  result.width = v14;
   return result;
 }
 

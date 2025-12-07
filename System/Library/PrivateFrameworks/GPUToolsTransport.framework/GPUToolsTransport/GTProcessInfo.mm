@@ -41,11 +41,11 @@
 
 - (GTProcessInfo)initWithCoder:(id)coder
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v44.receiver = self;
-  v44.super_class = GTProcessInfo;
-  v5 = [(GTProcessInfo *)&v44 init];
+  v42.receiver = self;
+  v42.super_class = GTProcessInfo;
+  v5 = [(GTProcessInfo *)&v42 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"processName"];
@@ -71,37 +71,36 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v42 = 0u;
-        v43 = 0u;
         v40 = 0u;
         v41 = 0u;
+        v38 = 0u;
+        v39 = 0u;
         v11 = v5->_arguments;
-        v12 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v12 = [(NSArray *)v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v41;
+          v14 = *v39;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v41 != v14)
+              if (*v39 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v40 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v17 = v5->_arguments;
+                v16 = v5->_arguments;
                 v5->_arguments = 0;
 
                 goto LABEL_18;
               }
             }
 
-            v13 = [(NSArray *)v11 countByEnumeratingWithState:&v40 objects:v46 count:16];
+            v13 = [(NSArray *)v11 countByEnumeratingWithState:&v38 objects:v44 count:16];
             if (v13)
             {
               continue;
@@ -121,51 +120,51 @@
 LABEL_18:
     }
 
-    v18 = objc_opt_class();
-    v19 = [coderCopy decodeDictionaryWithKeysOfClass:v18 objectsOfClass:objc_opt_class() forKey:@"environment"];
+    v17 = objc_opt_class();
+    v18 = [coderCopy decodeDictionaryWithKeysOfClass:v17 objectsOfClass:objc_opt_class() forKey:@"environment"];
     environment = v5->_environment;
-    v5->_environment = v19;
+    v5->_environment = v18;
 
     if (v5->_environment)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v38 = 0u;
-        v39 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v21 = v5->_environment;
-        v22 = [(NSDictionary *)v21 countByEnumeratingWithState:&v36 objects:v45 count:16];
-        if (v22)
+        v34 = 0u;
+        v35 = 0u;
+        v20 = v5->_environment;
+        v21 = [(NSDictionary *)v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
+        if (v21)
         {
-          v23 = v22;
-          v24 = *v37;
+          v22 = v21;
+          v23 = *v35;
           while (2)
           {
-            for (j = 0; j != v23; ++j)
+            for (j = 0; j != v22; ++j)
             {
-              if (*v37 != v24)
+              if (*v35 != v23)
               {
-                objc_enumerationMutation(v21);
+                objc_enumerationMutation(v20);
               }
 
-              v26 = *(*(&v36 + 1) + 8 * j);
+              v25 = *(*(&v34 + 1) + 8 * j);
               objc_opt_class();
               isKindOfClass = objc_opt_isKindOfClass();
-              v28 = v5->_environment;
+              v27 = v5->_environment;
               if ((isKindOfClass & 1) == 0)
               {
                 goto LABEL_33;
               }
 
-              v29 = [(NSDictionary *)v28 objectForKeyedSubscript:v26, v36];
+              v28 = [(NSDictionary *)v27 objectForKeyedSubscript:v25, v34];
               objc_opt_class();
-              v30 = objc_opt_isKindOfClass();
+              v29 = objc_opt_isKindOfClass();
 
-              if ((v30 & 1) == 0)
+              if ((v29 & 1) == 0)
               {
-                v28 = v5->_environment;
+                v27 = v5->_environment;
 LABEL_33:
                 v5->_environment = 0;
 
@@ -173,8 +172,8 @@ LABEL_33:
               }
             }
 
-            v23 = [(NSDictionary *)v21 countByEnumeratingWithState:&v36 objects:v45 count:16];
-            if (v23)
+            v22 = [(NSDictionary *)v20 countByEnumeratingWithState:&v34 objects:v43 count:16];
+            if (v22)
             {
               continue;
             }
@@ -186,32 +185,31 @@ LABEL_33:
 
       else
       {
-        v21 = v5->_environment;
+        v20 = v5->_environment;
         v5->_environment = 0;
       }
 
 LABEL_34:
     }
 
-    v31 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
+    v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"bundleIdentifier"];
     bundleIdentifier = v5->_bundleIdentifier;
-    v5->_bundleIdentifier = v31;
+    v5->_bundleIdentifier = v30;
 
     if (v5->_bundleIdentifier)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v33 = v5->_bundleIdentifier;
+        v32 = v5->_bundleIdentifier;
         v5->_bundleIdentifier = 0;
       }
     }
 
-    v5->_processIdentifier = [coderCopy decodeInt32ForKey:{@"processIdentifier", v36}];
+    v5->_processIdentifier = [coderCopy decodeInt32ForKey:{@"processIdentifier", v34}];
     v5->_ppid = [coderCopy decodeInt32ForKey:@"ppid"];
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

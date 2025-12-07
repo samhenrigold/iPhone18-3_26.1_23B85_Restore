@@ -30,7 +30,7 @@ void __53___KSTextReplacementClientStore_cancelPendingUpdates__block_invoke(uint
 {
   if (a3)
   {
-    NSLog(&cfstr_FailedToCancel.isa, a3);
+    NSLog(&cfstr_FailedToCancel.isa, a2, a3);
   }
 }
 

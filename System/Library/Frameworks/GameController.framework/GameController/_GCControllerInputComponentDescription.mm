@@ -46,21 +46,22 @@
 {
   v4 = initWithCoder__onceToken_0;
   coderCopy = coder;
+  v6 = coderCopy;
   if (v4 != -1)
   {
     [_GCControllerInputComponentDescription initWithCoder:];
   }
 
-  v6 = GCIPCObjectIdentifier_Classes();
-  v7 = [coderCopy decodeObjectOfClasses:v6 forKey:@"identifier"];
+  v7 = GCIPCObjectIdentifier_Classes(coderCopy);
+  v8 = [v6 decodeObjectOfClasses:v7 forKey:@"identifier"];
 
-  v8 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"input"];
+  v9 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  v10 = [v6 decodeObjectOfClasses:v9 forKey:@"input"];
 
-  v10 = [coderCopy decodeObjectOfClasses:initWithCoder__BindingClasses_0 forKey:@"bindings"];
+  v11 = [v6 decodeObjectOfClasses:initWithCoder__BindingClasses_0 forKey:@"bindings"];
 
-  v11 = [(_GCControllerInputComponentDescription *)self initWithIdentifier:v7 controllerInputs:v9 bindings:v10];
-  return v11;
+  v12 = [(_GCControllerInputComponentDescription *)self initWithIdentifier:v8 controllerInputs:v10 bindings:v11];
+  return v12;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -74,7 +75,7 @@
 
 - (id)materializeWithContext:(id)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   materializedInputComponent = self->_materializedInputComponent;
   if (materializedInputComponent)
@@ -83,26 +84,26 @@
   }
 
   v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_bindingDescriptions, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = self->_bindingDescriptions;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
 LABEL_5:
     v12 = 0;
     while (1)
     {
-      if (*v21 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = [*(*(&v20 + 1) + 8 * v12) materializeWithContext:{contextCopy, v20}];
+      v13 = [*(*(&v19 + 1) + 8 * v12) materializeWithContext:{contextCopy, v19}];
       if (!v13)
       {
         break;
@@ -113,7 +114,7 @@ LABEL_5:
 
       if (v10 == ++v12)
       {
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           goto LABEL_5;
@@ -145,8 +146,6 @@ LABEL_2:
   v6 = 0;
 LABEL_15:
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
@@ -163,7 +162,7 @@ LABEL_15:
 
 - (BOOL)update:(id)update withContext:(id)context
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   contextCopy = context;
   identifier = [updateCopy identifier];
@@ -176,26 +175,26 @@ LABEL_15:
   }
 
   v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_bindingDescriptions, "count")}];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = self->_bindingDescriptions;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
 LABEL_5:
     v17 = 0;
     while (1)
     {
-      if (*v25 != v16)
+      if (*v24 != v16)
       {
         objc_enumerationMutation(v13);
       }
 
-      v18 = [*(*(&v24 + 1) + 8 * v17) materializeWithContext:{contextCopy, v24}];
+      v18 = [*(*(&v23 + 1) + 8 * v17) materializeWithContext:{contextCopy, v23}];
       if (!v18)
       {
         break;
@@ -206,7 +205,7 @@ LABEL_5:
 
       if (v15 == ++v17)
       {
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v15)
         {
           goto LABEL_5;
@@ -224,45 +223,44 @@ LABEL_5:
     [(_GCControllerInputComponentDescription *)self _applyBinding:v12 toComponent:updateCopy];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20 == v21;
 }
 
 - (void)_applyBinding:(id)binding toComponent:(id)component
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   bindingCopy = binding;
   componentCopy = component;
   if ([componentCopy conformsToProtocol:&unk_1F4E94BA0])
   {
     [componentCopy setGamepadEventSource:0];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v7 = bindingCopy;
-    v8 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v25;
+      v10 = *v24;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v25 != v10)
+          if (*v24 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v24 + 1) + 8 * i);
+          v12 = *(*(&v23 + 1) + 8 * i);
           if ([v12 conformsToProtocol:&unk_1F4E97280])
           {
             [componentCopy setGamepadEventSource:v12];
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v9);
@@ -272,40 +270,38 @@ LABEL_5:
   if ([componentCopy conformsToProtocol:&unk_1F4E9EE30])
   {
     [componentCopy setCollectionEventSource:0];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v13 = bindingCopy;
-    v14 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v21;
+      v16 = *v20;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v21 != v16)
+          if (*v20 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v20 + 1) + 8 * j);
-          if ([v18 conformsToProtocol:{&unk_1F4E9D8A0, v20}])
+          v18 = *(*(&v19 + 1) + 8 * j);
+          if ([v18 conformsToProtocol:{&unk_1F4E9D8A0, v19}])
           {
             [componentCopy setCollectionEventSource:v18];
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v15);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)update:(uint64_t)a1 withContext:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

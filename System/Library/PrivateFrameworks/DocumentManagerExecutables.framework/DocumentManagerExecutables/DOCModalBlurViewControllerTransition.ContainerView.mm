@@ -20,7 +20,7 @@
   }
 
   v10 = v9;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIView);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIView, 0x277D75D18);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = static NSObject.== infix(_:_:)();

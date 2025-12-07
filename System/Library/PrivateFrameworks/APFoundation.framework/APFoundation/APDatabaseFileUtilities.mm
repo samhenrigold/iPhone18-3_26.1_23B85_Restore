@@ -7,15 +7,15 @@
 
 + (void)removeDatabaseAtPath:(id)path
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = objc_msgSend_databaseDirectory(pathCopy, v4, v5, v6);
   v11 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v8, v9, v10);
   if (objc_msgSend_fileExistsAtPath_(v11, v12, v7, v13))
   {
-    v31 = 0;
-    v15 = objc_msgSend_removeItemAtPath_error_(v11, v14, v7, &v31);
-    v16 = v31;
+    v30 = 0;
+    v15 = objc_msgSend_removeItemAtPath_error_(v11, v14, v7, &v30);
+    v16 = v30;
     if ((v15 & 1) == 0)
     {
       v17 = APLogForCategory(0xCuLL);
@@ -26,19 +26,17 @@
         v23 = objc_msgSend_localizedFailureReason(v16, v20, v21, v22);
         v27 = objc_msgSend_userInfo(v16, v24, v25, v26);
         *buf = 138478339;
-        v33 = v18;
-        v34 = 2114;
-        v35 = v23;
-        v36 = 2114;
-        v37 = v27;
+        v32 = v18;
+        v33 = 2114;
+        v34 = v23;
+        v35 = 2114;
+        v36 = v27;
         _os_log_impl(&dword_1BADC1000, v17, OS_LOG_TYPE_ERROR, "[%{private}@]: Failed to Remove Database: %{public}@ %{public}@", buf, 0x20u);
       }
 
       objc_msgSend__moveCorruptedFileAtPath_(APDatabaseFileUtilities, v28, pathCopy, v29);
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_moveCorruptedFileAtPath:(id)path

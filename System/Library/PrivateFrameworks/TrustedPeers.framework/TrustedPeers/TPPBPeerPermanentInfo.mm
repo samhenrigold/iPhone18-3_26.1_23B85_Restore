@@ -90,7 +90,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_epoch != *(equalCopy + 2))
@@ -102,7 +101,7 @@
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_19:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_20;
   }
 
@@ -139,7 +138,7 @@ LABEL_19:
     }
   }
 
-  v10 = (*(equalCopy + 56) & 1) == 0;
+  v9 = (*(equalCopy + 56) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_creationTime != *(equalCopy + 1))
@@ -147,12 +146,12 @@ LABEL_19:
       goto LABEL_19;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_20:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -236,7 +235,6 @@ LABEL_20:
   toCopy = to;
   if ((*&self->_has & 2) != 0)
   {
-    epoch = self->_epoch;
     PBDataWriterWriteUint64Field();
   }
 
@@ -262,7 +260,6 @@ LABEL_20:
 
   if (*&self->_has)
   {
-    creationTime = self->_creationTime;
     PBDataWriterWriteUint64Field();
   }
 }

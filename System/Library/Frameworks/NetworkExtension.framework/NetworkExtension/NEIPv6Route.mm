@@ -6,11 +6,28 @@
 - (NEIPv6Route)initWithDestinationAddress:(NSString *)address networkPrefixLength:(NSNumber *)networkPrefixLength;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEIPv6Route
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  destinationAddress = [(NEIPv6Route *)self destinationAddress];
+  [v7 appendPrettyObject:destinationAddress withName:@"destinationAddress" andIndent:v5 options:options | 1];
+
+  destinationNetworkPrefixLength = [(NEIPv6Route *)self destinationNetworkPrefixLength];
+  [v7 appendPrettyObject:destinationNetworkPrefixLength withName:@"destinationNetworkPrefixLength" andIndent:v5 options:options];
+
+  gatewayAddress = [(NEIPv6Route *)self gatewayAddress];
+  [v7 appendPrettyObject:gatewayAddress withName:@"gatewayAddress" andIndent:v5 options:options | 1];
+
+  return v7;
+}
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
@@ -181,7 +198,7 @@ LABEL_9:
   v3 = +[NEIPv6Route defaultRoute];
   destinationAddress = [(NEIPv6Route *)self destinationAddress];
   destinationAddress2 = [v3 destinationAddress];
-  if ([destinationAddress isEqualToString:destinationAddress2])
+  if (objc_msgSend_isEqualToString_(destinationAddress))
   {
     destinationNetworkPrefixLength = [(NEIPv6Route *)self destinationNetworkPrefixLength];
     destinationNetworkPrefixLength2 = [v3 destinationNetworkPrefixLength];

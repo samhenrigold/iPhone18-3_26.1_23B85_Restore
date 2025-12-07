@@ -12,14 +12,14 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SyncedLyricsViewController.ScrollView();
+  v8.super_class = type metadata accessor for SyncedLyricsViewController.ScrollView(0, a2);
   return [(SyncedLyricsViewController.ScrollView *)&v8 initWithFrame:x, y, width, height];
 }
 
 - (_TtCC7LyricsX26SyncedLyricsViewControllerP33_02FB2ED49F3FD1C2D63F6922676AEE0410ScrollView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SyncedLyricsViewController.ScrollView();
+  v7.super_class = type metadata accessor for SyncedLyricsViewController.ScrollView(0, a2);
   coderCopy = coder;
   v5 = [(SyncedLyricsViewController.ScrollView *)&v7 initWithCoder:coderCopy];
 

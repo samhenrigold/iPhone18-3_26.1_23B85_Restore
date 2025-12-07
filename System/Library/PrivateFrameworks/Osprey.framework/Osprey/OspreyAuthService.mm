@@ -30,94 +30,99 @@
 {
   successCopy = success;
   failureCopy = failure;
-  OspreyLoggingInit();
-  v8 = OspreyLogContextAbsinthe;
+  OspreyLoggingInit(failureCopy, v8);
+  v9 = OspreyLogContextAbsinthe;
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
   {
-    [(OspreyAuthService *)v8 certificateDataWithSuccess:v9 failure:v10, v11, v12, v13, v14, v15];
+    [(OspreyAuthService *)v9 certificateDataWithSuccess:v10 failure:v11, v12, v13, v14, v15, v16];
   }
 
-  v29 = 0;
   v30 = 0;
-  v31 = xmmword_25DE49DA0;
-  v32 = 0u;
+  v31 = 0;
+  v32 = xmmword_25DE49DA0;
   v33 = 0u;
-  v34 = 0;
-  v35 = 1;
-  v36 = 256;
-  v37 = 0;
-  flatbuffers::FlatBufferBuilder::NotNested(&v29);
-  BYTE6(v34) = 1;
-  v16 = flatbuffers::FlatBufferBuilder::EndTable(&v29, v32 - v33 + DWORD2(v32));
-  flatbuffers::FlatBufferBuilder::Finish(&v29, v16, 0, 0);
-  v17 = objc_alloc(MEMORY[0x277CBEA90]);
-  BufferPointer = flatbuffers::FlatBufferBuilder::GetBufferPointer(&v29);
-  v19 = [v17 initWithBytes:BufferPointer length:(v32 - v33 + DWORD2(v32))];
-  v20 = [OspreyRequest requestWithMethodName:@"/siri.sidecars.auth.AuthSession/GetCertificate"];
+  v34 = 0u;
+  v35 = 0;
+  v36 = 1;
+  v37 = 256;
+  v38 = 0;
+  flatbuffers::FlatBufferBuilder::NotNested(&v30);
+  BYTE6(v35) = 1;
+  v17 = flatbuffers::FlatBufferBuilder::EndTable(&v30, v33 - v34 + DWORD2(v33));
+  flatbuffers::FlatBufferBuilder::Finish(&v30, v17, 0, 0);
+  v18 = objc_alloc(MEMORY[0x277CBEA90]);
+  BufferPointer = flatbuffers::FlatBufferBuilder::GetBufferPointer(&v30);
+  v20 = [v18 initWithBytes:BufferPointer length:(v33 - v34 + DWORD2(v33))];
+  v21 = [OspreyRequest requestWithMethodName:@"/siri.sidecars.auth.AuthSession/GetCertificate"];
   uUIDString = [(NSUUID *)self->_authUUID UUIDString];
-  [v20 setClientTraceId:uUIDString];
+  [v21 setClientTraceId:uUIDString];
 
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_authStrategyVersion];
-  [v20 setDeviceAuthenticationVersion:v22];
+  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_authStrategyVersion];
+  [v21 setDeviceAuthenticationVersion:v23];
 
   channel = self->_channel;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke;
-  v26[3] = &unk_2799F2070;
-  v24 = failureCopy;
-  v27 = v24;
-  v25 = successCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke;
+  v27[3] = &unk_2799F2070;
+  v25 = failureCopy;
   v28 = v25;
-  [(OspreyGRPCChannel *)channel unaryRequest:v20 requestData:v19 responseHandler:v26];
+  v26 = successCopy;
+  v29 = v26;
+  [(OspreyGRPCChannel *)channel unaryRequest:v21 requestData:v20 responseHandler:v27];
 
-  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(&v29);
+  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(&v30);
 }
 
 void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    OspreyLoggingInit();
-    v7 = OspreyLogContextAbsinthe;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    OspreyLoggingInit(v6, v7);
+    v9 = OspreyLogContextAbsinthe;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v6 localizedDescription];
-      __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_1(v8, v22);
+      v10 = [v8 localizedDescription];
+      __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_1(v10, v26);
     }
 
     (*(*(a1 + 32) + 16))();
-  }
-
-  else if ([v5 length])
-  {
-    OspreyLoggingInit();
-    v9 = OspreyLogContextAbsinthe;
-    if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
-    {
-      __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_2(v9, v10, v11, v12, v13, v14, v15, v16);
-    }
-
-    v17 = v5;
-    v18 = [v5 bytes];
-    v19 = (v18 + *v18 + *(v18 + *v18 - *(v18 + *v18) + 4));
-    v20 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v19 + *v19 + 4 length:*(v19 + *v19)];
-    (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    OspreyLoggingInit();
-    v21 = OspreyLogContextAbsinthe;
-    if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
+    v11 = [v5 length];
+    if (v11)
     {
-      __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_3(v21);
+      OspreyLoggingInit(v11, v12);
+      v13 = OspreyLogContextAbsinthe;
+      if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
+      {
+        __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
+      }
+
+      v21 = v5;
+      v22 = [v5 bytes];
+      v23 = (v22 + *v22 + *(v22 + *v22 - *(v22 + *v22) + 4));
+      v24 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:v23 + *v23 + 4 length:*(v23 + *v23)];
+      (*(*(a1 + 40) + 16))();
     }
 
-    (*(*(a1 + 32) + 16))();
+    else
+    {
+      OspreyLoggingInit(0, v12);
+      v25 = OspreyLogContextAbsinthe;
+      if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
+      {
+        __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_3(v25);
+      }
+
+      (*(*(a1 + 32) + 16))();
+    }
   }
 }
 
@@ -126,119 +131,120 @@ void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke(u
   dataCopy = data;
   successCopy = success;
   failureCopy = failure;
-  OspreyLoggingInit();
-  v11 = OspreyLogContextAbsinthe;
+  OspreyLoggingInit(failureCopy, v11);
+  v12 = OspreyLogContextAbsinthe;
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
   {
-    [(OspreyAuthService *)v11 createClientSessionWithData:v12 success:v13 failure:v14, v15, v16, v17, v18];
+    [(OspreyAuthService *)v12 createClientSessionWithData:v13 success:v14 failure:v15, v16, v17, v18, v19];
   }
 
   bytes = [dataCopy bytes];
-  v20 = [dataCopy length];
-  v48 = 0;
+  v21 = [dataCopy length];
   v49 = 0;
   v50 = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v48, bytes, bytes + v20, v20);
-  v39 = 0;
+  v51 = 0;
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(&v49, bytes, bytes + v21, v21);
   v40 = 0;
-  v41 = xmmword_25DE49DA0;
-  v42 = 0u;
+  v41 = 0;
+  v42 = xmmword_25DE49DA0;
   v43 = 0u;
-  v44 = 0;
-  v45 = 1;
-  v46 = 256;
-  if (v49 == v48)
+  v44 = 0u;
+  v45 = 0;
+  v46 = 1;
+  v47 = 256;
+  if (v50 == v49)
   {
-    v21 = &flatbuffers::data<unsigned char,std::allocator<unsigned char>>(std::vector<unsigned char> const&)::t;
+    v22 = &flatbuffers::data<unsigned char,std::allocator<unsigned char>>(std::vector<unsigned char> const&)::t;
   }
 
   else
   {
-    v21 = v48;
+    v22 = v49;
   }
 
-  v47 = 0;
-  v22 = flatbuffers::FlatBufferBuilder::CreateVector<unsigned char>(&v39, v21, v49 - v48);
-  flatbuffers::FlatBufferBuilder::NotNested(&v39);
-  BYTE6(v44) = 1;
-  v23 = DWORD2(v42);
-  v24 = v43;
-  v25 = v42;
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(&v39, 4, v22);
-  v26 = flatbuffers::FlatBufferBuilder::EndTable(&v39, v25 - v24 + v23);
-  flatbuffers::FlatBufferBuilder::Finish(&v39, v26, 0, 0);
-  v27 = MEMORY[0x277CBEA90];
-  BufferPointer = flatbuffers::FlatBufferBuilder::GetBufferPointer(&v39);
-  v29 = [v27 dataWithBytes:BufferPointer length:(v42 - v43 + DWORD2(v42))];
-  v30 = [OspreyRequest requestWithMethodName:@"/siri.sidecars.auth.AuthSession/CreateSession"];
+  v48 = 0;
+  v23 = flatbuffers::FlatBufferBuilder::CreateVector<unsigned char>(&v40, v22, v50 - v49);
+  flatbuffers::FlatBufferBuilder::NotNested(&v40);
+  BYTE6(v45) = 1;
+  v24 = DWORD2(v43);
+  v25 = v44;
+  v26 = v43;
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(&v40, 4, v23);
+  v27 = flatbuffers::FlatBufferBuilder::EndTable(&v40, v26 - v25 + v24);
+  flatbuffers::FlatBufferBuilder::Finish(&v40, v27, 0, 0);
+  v28 = MEMORY[0x277CBEA90];
+  BufferPointer = flatbuffers::FlatBufferBuilder::GetBufferPointer(&v40);
+  v30 = [v28 dataWithBytes:BufferPointer length:(v43 - v44 + DWORD2(v43))];
+  v31 = [OspreyRequest requestWithMethodName:@"/siri.sidecars.auth.AuthSession/CreateSession"];
   uUIDString = [(NSUUID *)self->_authUUID UUIDString];
-  [v30 setClientTraceId:uUIDString];
+  [v31 setClientTraceId:uUIDString];
 
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_authStrategyVersion];
-  [v30 setDeviceAuthenticationVersion:v32];
+  v33 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:self->_authStrategyVersion];
+  [v31 setDeviceAuthenticationVersion:v33];
 
   channel = self->_channel;
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke;
-  v36[3] = &unk_2799F2070;
-  v34 = failureCopy;
-  v37 = v34;
-  v35 = successCopy;
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke;
+  v37[3] = &unk_2799F2070;
+  v35 = failureCopy;
   v38 = v35;
-  [(OspreyGRPCChannel *)channel unaryRequest:v30 requestData:v29 responseHandler:v36];
+  v36 = successCopy;
+  v39 = v36;
+  [(OspreyGRPCChannel *)channel unaryRequest:v31 requestData:v30 responseHandler:v37];
 
-  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(&v39);
-  if (v48)
+  flatbuffers::FlatBufferBuilder::~FlatBufferBuilder(&v40);
+  if (v49)
   {
-    v49 = v48;
-    operator delete(v48);
+    v50 = v49;
+    operator delete(v49);
   }
 }
 
 void __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    OspreyLoggingInit();
-    v7 = OspreyLogContextAbsinthe;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    OspreyLoggingInit(v6, v7);
+    v9 = OspreyLogContextAbsinthe;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v8 = [v6 localizedDescription];
-      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_1(v8, v33);
+      v10 = [v8 localizedDescription];
+      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_1(v10, v36);
     }
 
     (*(*(a1 + 32) + 16))();
     goto LABEL_21;
   }
 
-  if (!v5 || ![v5 length])
+  if (!v5 || (v6 = [v5 length]) == 0)
   {
-    OspreyLoggingInit();
-    v27 = OspreyLogContextAbsinthe;
+    OspreyLoggingInit(v6, v7);
+    v30 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
-      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_4(v27);
+      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_4(v30);
     }
 
     goto LABEL_20;
   }
 
-  v9 = [v5 bytes];
-  v10 = (v9 + *v9);
-  v11 = (v10 - *v10);
-  if (*v11 < 5u || (v12 = v11[2]) == 0)
+  v11 = [v5 bytes];
+  v13 = (v11 + *v11);
+  v14 = (v13 - *v13);
+  if (*v14 < 5u || (v15 = v14[2]) == 0)
   {
-    v13 = 0;
+    v16 = 0;
 LABEL_18:
-    OspreyLoggingInit();
-    v28 = OspreyLogContextAbsinthe;
+    OspreyLoggingInit(v11, v12);
+    v31 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
-      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_3(v13, v28);
+      __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_3(v16, v31);
     }
 
 LABEL_20:
@@ -246,51 +252,58 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v13 = *(v10 + v12);
-  if (v13 != 1)
+  v16 = *(v13 + v15);
+  if (v16 != 1)
   {
     goto LABEL_18;
   }
 
-  OspreyLoggingInit();
-  v14 = OspreyLogContextAbsinthe;
+  OspreyLoggingInit(v11, v12);
+  v17 = OspreyLogContextAbsinthe;
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
   {
-    __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_2(v17, v18, v19, v20, v21, v22, v23, v24);
   }
 
-  v22 = *v10;
-  v23 = v10 - v22;
-  v24 = *(v10 - v22);
-  v25 = *(v10 - v22 + 6);
-  if (*(v10 - v22 + 6))
+  v25 = *v13;
+  v26 = v13 - v25;
+  v27 = *(v13 - v25);
+  v28 = *(v13 - v25 + 6);
+  if (*(v13 - v25 + 6))
   {
-    v22 = *(v10 + v25);
-    v26 = v10 + v25 + v22;
+    v25 = *(v13 + v28);
+    v29 = v13 + v28 + v25;
   }
 
   else
   {
-    v25 = 0;
-    v26 = 0;
-    v22 = v22;
+    v28 = 0;
+    v29 = 0;
+    v25 = v25;
   }
 
-  v29 = 0.0;
-  if (v24 >= 9)
+  v32 = 0.0;
+  if (v27 >= 9)
   {
-    v30 = *(v23 + 4);
-    if (v30)
+    v33 = *(v26 + 4);
+    if (v33)
     {
-      v29 = *(v10 + v30);
+      v32 = *(v13 + v33);
     }
   }
 
-  v31 = *(a1 + 40);
-  v32 = [MEMORY[0x277CBEA90] dataWithBytes:v26 + 4 length:*(v10 + v25 + v22)];
-  (*(v31 + 16))(v31, v32, v29);
+  v34 = *(a1 + 40);
+  v35 = [MEMORY[0x277CBEA90] dataWithBytes:v29 + 4 length:*(v13 + v28 + v25)];
+  (*(v34 + 16))(v34, v35, v32);
 
 LABEL_21:
+}
+
+- (void)certificateDataWithSuccess:(uint64_t)a3 failure:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyAuthService certificateDataWithSuccess:failure:]";
+  OUTLINED_FUNCTION_0_3(&dword_25DDE6000, a1, a3, "%s Fetching cert from server...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_1(void *a1, _DWORD *a2)
@@ -298,6 +311,13 @@ void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_c
   *a2 = 136315394;
   OUTLINED_FUNCTION_1_4(a1, a2, "[OspreyAuthService certificateDataWithSuccess:failure:]_block_invoke");
   _os_log_error_impl(&dword_25DDE6000, v3, OS_LOG_TYPE_ERROR, "%s Error fetching cert from auth service! Error: %@", v4, 0x16u);
+}
+
+void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyAuthService certificateDataWithSuccess:failure:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_25DDE6000, a1, a3, "%s Successfully fetched certificate!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_cold_3(os_log_t log)
@@ -308,11 +328,25 @@ void __56__OspreyAuthService_certificateDataWithSuccess_failure___block_invoke_c
   _os_log_error_impl(&dword_25DDE6000, log, OS_LOG_TYPE_ERROR, "%s Certificate data was empty!", &v1, 0xCu);
 }
 
+- (void)createClientSessionWithData:(uint64_t)a3 success:(uint64_t)a4 failure:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyAuthService createClientSessionWithData:success:failure:]";
+  OUTLINED_FUNCTION_0_3(&dword_25DDE6000, a1, a3, "%s Creating client session...", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_1(void *a1, _DWORD *a2)
 {
   *a2 = 136315394;
   OUTLINED_FUNCTION_1_4(a1, a2, "[OspreyAuthService createClientSessionWithData:success:failure:]_block_invoke");
   _os_log_error_impl(&dword_25DDE6000, v3, OS_LOG_TYPE_ERROR, "%s Error getting session info response from auth service! Error: %@", v4, 0x16u);
+}
+
+void __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[OspreyAuthService createClientSessionWithData:success:failure:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_25DDE6000, a1, a3, "%s Successfully created client session!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __65__OspreyAuthService_createClientSessionWithData_success_failure___block_invoke_cold_3(int a1, NSObject *a2)

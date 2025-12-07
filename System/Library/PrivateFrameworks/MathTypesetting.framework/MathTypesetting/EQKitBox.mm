@@ -19,7 +19,7 @@
   memset(&v19[1], 0, sizeof(CGAffineTransform));
   if (rootCopy)
   {
-    [rootCopy transformFromDescendant:self];
+    objc_msgSend_transformFromDescendant_(rootCopy);
   }
 
   [(EQKitBox *)self height];

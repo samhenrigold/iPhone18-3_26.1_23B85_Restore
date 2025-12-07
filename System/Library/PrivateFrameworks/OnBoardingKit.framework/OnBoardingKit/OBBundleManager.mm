@@ -4,6 +4,7 @@
 - (id)_allLinkBundles;
 - (id)_allPrivacyBundles;
 - (id)_bundleSearchPath;
+- (id)_bundleWithIdentifier:(id)identifier usingSearchPath:(id)path includePlaceholder:(BOOL)placeholder isLinkBundle:(BOOL)bundle isReplacementBundle:(BOOL)replacementBundle;
 - (id)_bundlesInSearchPath:(id)path withBundleCreationBlock:(id)block;
 - (id)_subarrayHavingPreconditionSatisfiedOfReplacementBundles:(id)bundles;
 - (id)allBundles;
@@ -73,114 +74,112 @@ uint64_t __32__OBBundleManager_sharedManager__block_invoke()
 
 - (id)allBundles
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v29 = objc_opt_new();
+  v39 = *MEMORY[0x1E69E9840];
+  v30 = objc_opt_new();
   _bundleSearchPath = [(OBBundleManager *)self _bundleSearchPath];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v34 = 0;
-  v28 = _bundleSearchPath;
-  v5 = [defaultManager contentsOfDirectoryAtPath:_bundleSearchPath error:&v34];
-  v6 = v34;
+  v35 = 0;
+  v29 = _bundleSearchPath;
+  v5 = [defaultManager contentsOfDirectoryAtPath:_bundleSearchPath error:&v35];
+  v6 = v35;
 
   if (v6)
   {
-    v7 = _OBLoggingFacility();
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _OBLoggingFacility(v7);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_23;
     }
 
     *buf = 138412290;
-    v37 = v6;
-    v8 = "OBPrivacy: Error getting bundles list: %@";
-    v9 = v7;
-    v10 = 12;
+    v38 = v6;
+    v9 = "OBPrivacy: Error getting bundles list: %@";
+    v10 = v8;
+    v11 = 12;
     goto LABEL_4;
   }
 
   if ([v5 count])
   {
-    v32 = 0u;
     v33 = 0u;
-    v30 = 0u;
+    v34 = 0u;
     v31 = 0u;
-    v7 = v5;
-    v11 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
-    if (v11)
+    v32 = 0u;
+    v8 = v5;
+    v12 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v12)
     {
-      v12 = v11;
-      v26 = v5;
-      v27 = 0;
-      v13 = *v31;
+      v13 = v12;
+      v27 = v5;
+      v28 = 0;
+      v14 = *v32;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v31 != v13)
+          if (*v32 != v14)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v8);
           }
 
-          v15 = *(*(&v30 + 1) + 8 * i);
-          pathExtension = [v15 pathExtension];
+          v16 = *(*(&v31 + 1) + 8 * i);
+          pathExtension = [v16 pathExtension];
           lowercaseString = [pathExtension lowercaseString];
-          v18 = [lowercaseString isEqualToString:@"bundle"];
+          v19 = [lowercaseString isEqualToString:@"bundle"];
 
-          if (v18)
+          if (v19)
           {
             _providersByBundleNames = [(OBBundleManager *)self _providersByBundleNames];
-            v20 = [_providersByBundleNames objectForKeyedSubscript:v15];
-            path = [v20 path];
+            v21 = [_providersByBundleNames objectForKeyedSubscript:v16];
+            path = [v21 path];
 
             if (path)
             {
-              v22 = _OBLoggingFacility();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v24 = _OBLoggingFacility(v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v37 = path;
-                _os_log_impl(&dword_1B4FB6000, v22, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Using bundle path %@", buf, 0xCu);
+                v38 = path;
+                _os_log_impl(&dword_1B4FB6000, v24, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Using bundle path %@", buf, 0xCu);
               }
             }
 
             else
             {
-              path = [v28 stringByAppendingPathComponent:v15];
+              path = [v29 stringByAppendingPathComponent:v16];
             }
 
-            v23 = [OBBundle bundleAtPath:path];
-            [v29 addObject:v23];
+            v25 = [OBBundle bundleAtPath:path];
+            [v30 addObject:v25];
           }
         }
 
-        v12 = [v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v13 = [v8 countByEnumeratingWithState:&v31 objects:v36 count:16];
       }
 
-      while (v12);
-      v5 = v26;
-      v6 = v27;
+      while (v13);
+      v5 = v27;
+      v6 = v28;
     }
   }
 
   else
   {
-    v7 = _OBLoggingFacility();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _OBLoggingFacility(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v8 = "OBPrivacy: No bundles";
-      v9 = v7;
-      v10 = 2;
+      v9 = "OBPrivacy: No bundles";
+      v10 = v8;
+      v11 = 2;
 LABEL_4:
-      _os_log_impl(&dword_1B4FB6000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
+      _os_log_impl(&dword_1B4FB6000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
     }
   }
 
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v29;
+  return v30;
 }
 
 - (id)_allPrivacyBundles
@@ -375,33 +374,34 @@ uint64_t __61__OBBundleManager_orderedPrivacyBundlesWithInclusionOptions___block
         }
 
         v18 = *(*(&v29 + 1) + 8 * j);
-        if ([v6 containsObject:{v18, v26}])
+        v19 = [v6 containsObject:{v18, v26}];
+        if (v19)
         {
-          v19 = _OBLoggingFacility();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = _OBLoggingFacility(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v38 = v18;
-            _os_log_impl(&dword_1B4FB6000, v19, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Client directly requested placeholder bundle %@", buf, 0xCu);
+            _os_log_impl(&dword_1B4FB6000, v20, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Client directly requested placeholder bundle %@", buf, 0xCu);
           }
 
           _bundleSearchPath = [(OBBundleManager *)self _bundleSearchPath];
-          v21 = [_bundleSearchPath stringByAppendingPathComponent:@"ReplacementBundles"];
-          v22 = [(OBBundleManager *)self _bundleWithIdentifier:v18 usingSearchPath:v21 includePlaceholder:0 isLinkBundle:0 isReplacementBundle:1];
+          v22 = [_bundleSearchPath stringByAppendingPathComponent:@"ReplacementBundles"];
+          v23 = [(OBBundleManager *)self _bundleWithIdentifier:v18 usingSearchPath:v22 includePlaceholder:0 isLinkBundle:0 isReplacementBundle:1];
 
-          if (v22)
+          if (v23)
           {
             goto LABEL_18;
           }
         }
 
         _bundleSearchPath2 = [(OBBundleManager *)self _bundleSearchPath];
-        v22 = [(OBBundleManager *)self _bundleWithIdentifier:v18 usingSearchPath:_bundleSearchPath2 includePlaceholder:1 isLinkBundle:0 isReplacementBundle:0];
+        v23 = [(OBBundleManager *)self _bundleWithIdentifier:v18 usingSearchPath:_bundleSearchPath2 includePlaceholder:1 isLinkBundle:0 isReplacementBundle:0];
 
-        if (v22)
+        if (v23)
         {
 LABEL_18:
-          [v13 addObject:v22];
+          [v13 addObject:v23];
         }
       }
 
@@ -416,26 +416,117 @@ LABEL_18:
     [(OBBundleManager *)self _modifyBundles:v13 asNecessaryWithReplacementBundles:v26];
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (id)bundleWithIdentifier:(id)identifier
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = MEMORY[0x1E695DEC8];
   identifierCopy2 = identifier;
   v6 = [v4 arrayWithObjects:&identifierCopy count:1];
 
-  v7 = [(OBBundleManager *)self bundlesWithIdentifiers:v6, identifierCopy, v12];
+  v7 = [(OBBundleManager *)self bundlesWithIdentifiers:v6, identifierCopy, v11];
 
   firstObject = [v7 firstObject];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return firstObject;
+}
+
+- (id)_bundleWithIdentifier:(id)identifier usingSearchPath:(id)path includePlaceholder:(BOOL)placeholder isLinkBundle:(BOOL)bundle isReplacementBundle:(BOOL)replacementBundle
+{
+  replacementBundleCopy = replacementBundle;
+  bundleCopy = bundle;
+  placeholderCopy = placeholder;
+  v40 = *MEMORY[0x1E69E9840];
+  identifierCopy = identifier;
+  pathCopy = path;
+  v14 = pathCopy;
+  if ((bundleCopy || replacementBundleCopy) && placeholderCopy)
+  {
+    v33 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"Placeholder bundles are only supported for regular bundles." userInfo:0];
+    objc_exception_throw(v33);
+  }
+
+  v15 = [pathCopy stringByAppendingPathComponent:identifierCopy];
+  v16 = [v15 stringByAppendingPathExtension:@"bundle"];
+
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v18 = [defaultManager fileExistsAtPath:v16];
+
+  if (!v18)
+  {
+    if (placeholderCopy)
+    {
+      has_internal_ui = os_variant_has_internal_ui();
+      if (has_internal_ui)
+      {
+        v27 = [v14 stringByAppendingPathComponent:@"com.apple.onboarding.internalplaceholder"];
+        v28 = [v27 stringByAppendingPathExtension:@"bundle"];
+
+        has_internal_ui = [OBBundle bundleAtPath:v28 placeholderIdentifier:identifierCopy];
+        v29 = has_internal_ui;
+        v16 = v28;
+        if (has_internal_ui)
+        {
+          goto LABEL_17;
+        }
+      }
+    }
+
+    goto LABEL_14;
+  }
+
+  _providersByBundleNames = [(OBBundleManager *)self _providersByBundleNames];
+  lastPathComponent = [v16 lastPathComponent];
+  v22 = [_providersByBundleNames objectForKeyedSubscript:lastPathComponent];
+  path = [v22 path];
+
+  if (path)
+  {
+    v24 = path;
+
+    v26 = _OBLoggingFacility(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    {
+      v34 = 138412290;
+      v35 = v24;
+      _os_log_impl(&dword_1B4FB6000, v26, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Using bundle path %@", &v34, 0xCu);
+    }
+
+    v16 = v24;
+  }
+
+  else
+  {
+    v24 = v16;
+  }
+
+  v29 = [OBBundle bundleAtPath:v24 isLinkBundle:bundleCopy isReplacementBundle:replacementBundleCopy];
+
+  if (!v29)
+  {
+LABEL_14:
+    v30 = _OBLoggingFacility(has_internal_ui);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    {
+      v32 = [MEMORY[0x1E696AD98] numberWithBool:placeholderCopy];
+      v34 = 138412802;
+      v35 = identifierCopy;
+      v36 = 2112;
+      v37 = v32;
+      v38 = 2112;
+      v39 = v14;
+      _os_log_error_impl(&dword_1B4FB6000, v30, OS_LOG_TYPE_ERROR, "Failed to create bundle with identifier %@ including placeholder %@ using search path %@", &v34, 0x20u);
+    }
+
+    v29 = 0;
+  }
+
+LABEL_17:
+
+  return v29;
 }
 
 - (id)_bundlesInSearchPath:(id)path withBundleCreationBlock:(id)block
@@ -451,15 +542,15 @@ LABEL_18:
 
   if (v8)
   {
-    v9 = _OBLoggingFacility();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _OBLoggingFacility(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       lastPathComponent = [pathCopy lastPathComponent];
       *buf = 138412546;
       v33 = lastPathComponent;
       v34 = 2112;
       v35 = v8;
-      _os_log_impl(&dword_1B4FB6000, v9, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Failed to get contents of %@ directory: %@", buf, 0x16u);
+      _os_log_impl(&dword_1B4FB6000, v10, OS_LOG_TYPE_DEFAULT, "OBPrivacy: Failed to get contents of %@ directory: %@", buf, 0x16u);
     }
   }
 
@@ -474,79 +565,78 @@ LABEL_18:
     v29 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v9 = v7;
-    v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    if (v11)
+    v10 = v7;
+    v12 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    if (v12)
     {
-      v12 = v11;
+      v13 = v12;
       v23 = pathCopy;
-      v13 = *v27;
+      v14 = *v27;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v27 != v13)
+          if (*v27 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v26 + 1) + 8 * i);
-          pathExtension = [v15 pathExtension];
+          v16 = *(*(&v26 + 1) + 8 * i);
+          pathExtension = [v16 pathExtension];
           lowercaseString = [pathExtension lowercaseString];
-          v18 = [lowercaseString isEqualToString:@"bundle"];
+          v19 = [lowercaseString isEqualToString:@"bundle"];
 
-          if (v18)
+          if (v19)
           {
-            stringByDeletingPathExtension = [v15 stringByDeletingPathExtension];
-            v20 = blockCopy[2](blockCopy, stringByDeletingPathExtension);
-            [v24 addObject:v20];
+            stringByDeletingPathExtension = [v16 stringByDeletingPathExtension];
+            v21 = blockCopy[2](blockCopy, stringByDeletingPathExtension);
+            [v24 addObject:v21];
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
-      while (v12);
+      while (v13);
       pathCopy = v23;
       v8 = 0;
     }
   }
 
 LABEL_16:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
 
 - (id)privacyLinkBundleForBundles:(id)bundles
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = bundlesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        identifier = [*(*(&v18 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v17 + 1) + 8 * i) identifier];
         [v5 addObject:identifier];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -566,14 +656,12 @@ LABEL_16:
 
   v15 = firstObject;
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 - (id)privacyLinkBundleForIdentifiers:(id)identifiers
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   if ([identifiersCopy count] < 2)
   {
@@ -583,30 +671,30 @@ LABEL_16:
   else
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v6 = identifiersCopy;
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [OBBundle nameFromIdentifier:*(*(&v19 + 1) + 8 * i), v19];
+          v11 = [OBBundle nameFromIdentifier:*(*(&v18 + 1) + 8 * i), v18];
           [v5 addObject:v11];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
@@ -620,8 +708,6 @@ LABEL_16:
 
     v16 = [(OBBundleManager *)self _bundleWithIdentifier:v13 usingSearchPath:v15 includePlaceholder:0 isLinkBundle:1 isReplacementBundle:0];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -645,42 +731,40 @@ LABEL_16:
 
 - (id)_subarrayHavingPreconditionSatisfiedOfReplacementBundles:(id)bundles
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = bundlesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        if ([(OBBundleManager *)self _isPreconditionSatisfiedForReplacementBundle:v11, v14])
+        v11 = *(*(&v13 + 1) + 8 * i);
+        if ([(OBBundleManager *)self _isPreconditionSatisfiedForReplacementBundle:v11, v13])
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -710,173 +794,173 @@ LABEL_16:
 
 - (void)_modifyBundles:(id)bundles asNecessaryWithReplacementBundles:(id)replacementBundles
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   bundlesCopy = bundles;
   replacementBundlesCopy = replacementBundles;
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   obj = bundlesCopy;
-  v8 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
+  v8 = [obj countByEnumeratingWithState:&v73 objects:v82 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v75;
+    v10 = *v74;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v75 != v10)
+        if (*v74 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        identifier = [*(*(&v74 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v73 + 1) + 8 * i) identifier];
         [v7 addObject:identifier];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
+      v9 = [obj countByEnumeratingWithState:&v73 objects:v82 count:16];
     }
 
     while (v9);
   }
 
+  v51 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v52 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v53 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
-  v46 = replacementBundlesCopy;
-  v13 = [v46 countByEnumeratingWithState:&v70 objects:v82 count:16];
+  v45 = replacementBundlesCopy;
+  v13 = [v45 countByEnumeratingWithState:&v69 objects:v81 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v71;
+    v15 = *v70;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v71 != v15)
+        if (*v70 != v15)
         {
-          objc_enumerationMutation(v46);
+          objc_enumerationMutation(v45);
         }
 
-        v17 = *(*(&v70 + 1) + 8 * j);
+        v17 = *(*(&v69 + 1) + 8 * j);
+        v65 = 0u;
         v66 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v69 = 0u;
         replaceeIdentifierSetsCache = [v17 replaceeIdentifierSetsCache];
-        v19 = [replaceeIdentifierSetsCache countByEnumeratingWithState:&v66 objects:v81 count:16];
+        v19 = [replaceeIdentifierSetsCache countByEnumeratingWithState:&v65 objects:v80 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v67;
+          v21 = *v66;
           do
           {
             for (k = 0; k != v20; ++k)
             {
-              if (*v67 != v21)
+              if (*v66 != v21)
               {
                 objc_enumerationMutation(replaceeIdentifierSetsCache);
               }
 
-              v23 = *(*(&v66 + 1) + 8 * k);
+              v23 = *(*(&v65 + 1) + 8 * k);
               if ([v23 isSubsetOfSet:v7])
               {
-                [v52 unionSet:v23];
-                [v53 addObject:v17];
+                [v51 unionSet:v23];
+                [v52 addObject:v17];
               }
             }
 
-            v20 = [replaceeIdentifierSetsCache countByEnumeratingWithState:&v66 objects:v81 count:16];
+            v20 = [replaceeIdentifierSetsCache countByEnumeratingWithState:&v65 objects:v80 count:16];
           }
 
           while (v20);
         }
       }
 
-      v14 = [v46 countByEnumeratingWithState:&v70 objects:v82 count:16];
+      v14 = [v45 countByEnumeratingWithState:&v69 objects:v81 count:16];
     }
 
     while (v14);
   }
 
-  if ([v53 count])
+  if ([v52 count])
   {
     v24 = [obj copy];
     [obj removeAllObjects];
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
-    v45 = v24;
-    v25 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v44 = v24;
+    v25 = [v44 countByEnumeratingWithState:&v61 objects:v79 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v63;
-      v43 = *v63;
+      v27 = *v62;
+      v42 = *v62;
       do
       {
         v28 = 0;
-        v44 = v26;
+        v43 = v26;
         do
         {
-          if (*v63 != v27)
+          if (*v62 != v27)
           {
-            objc_enumerationMutation(v45);
+            objc_enumerationMutation(v44);
           }
 
-          v29 = *(*(&v62 + 1) + 8 * v28);
+          v29 = *(*(&v61 + 1) + 8 * v28);
           identifier2 = [v29 identifier];
-          v31 = [v52 containsObject:identifier2];
+          v31 = [v51 containsObject:identifier2];
 
           if (v31)
           {
-            v47 = v28;
-            v60 = 0u;
-            v61 = 0u;
-            v58 = 0u;
+            v46 = v28;
             v59 = 0u;
-            v48 = [v53 copy];
-            v51 = [v48 countByEnumeratingWithState:&v58 objects:v79 count:16];
-            if (v51)
+            v60 = 0u;
+            v57 = 0u;
+            v58 = 0u;
+            v47 = [v52 copy];
+            v50 = [v47 countByEnumeratingWithState:&v57 objects:v78 count:16];
+            if (v50)
             {
-              v50 = *v59;
+              v49 = *v58;
               do
               {
-                for (m = 0; m != v51; ++m)
+                for (m = 0; m != v50; ++m)
                 {
-                  if (*v59 != v50)
+                  if (*v58 != v49)
                   {
-                    objc_enumerationMutation(v48);
+                    objc_enumerationMutation(v47);
                   }
 
-                  v33 = *(*(&v58 + 1) + 8 * m);
+                  v33 = *(*(&v57 + 1) + 8 * m);
+                  v53 = 0u;
                   v54 = 0u;
                   v55 = 0u;
                   v56 = 0u;
-                  v57 = 0u;
                   replaceeIdentifierSetsCache2 = [v33 replaceeIdentifierSetsCache];
-                  v35 = [replaceeIdentifierSetsCache2 countByEnumeratingWithState:&v54 objects:v78 count:16];
+                  v35 = [replaceeIdentifierSetsCache2 countByEnumeratingWithState:&v53 objects:v77 count:16];
                   if (v35)
                   {
                     v36 = v35;
-                    v37 = *v55;
+                    v37 = *v54;
                     do
                     {
                       for (n = 0; n != v36; ++n)
                       {
-                        if (*v55 != v37)
+                        if (*v54 != v37)
                         {
                           objc_enumerationMutation(replaceeIdentifierSetsCache2);
                         }
 
-                        v39 = *(*(&v54 + 1) + 8 * n);
+                        v39 = *(*(&v53 + 1) + 8 * n);
                         identifier3 = [v29 identifier];
                         if ([v39 containsObject:identifier3])
                         {
@@ -885,7 +969,7 @@ LABEL_16:
                           if (v41)
                           {
                             [obj addObject:v33];
-                            [v53 removeObject:v33];
+                            [v52 removeObject:v33];
                             goto LABEL_47;
                           }
                         }
@@ -895,7 +979,7 @@ LABEL_16:
                         }
                       }
 
-                      v36 = [replaceeIdentifierSetsCache2 countByEnumeratingWithState:&v54 objects:v78 count:16];
+                      v36 = [replaceeIdentifierSetsCache2 countByEnumeratingWithState:&v53 objects:v77 count:16];
                     }
 
                     while (v36);
@@ -904,15 +988,15 @@ LABEL_16:
 LABEL_47:
                 }
 
-                v51 = [v48 countByEnumeratingWithState:&v58 objects:v79 count:16];
+                v50 = [v47 countByEnumeratingWithState:&v57 objects:v78 count:16];
               }
 
-              while (v51);
+              while (v50);
             }
 
-            v27 = v43;
-            v26 = v44;
-            v28 = v47;
+            v27 = v42;
+            v26 = v43;
+            v28 = v46;
           }
 
           else
@@ -924,14 +1008,12 @@ LABEL_47:
         }
 
         while (v28 != v26);
-        v26 = [v45 countByEnumeratingWithState:&v62 objects:v80 count:16];
+        v26 = [v44 countByEnumeratingWithState:&v61 objects:v79 count:16];
       }
 
       while (v26);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 @end

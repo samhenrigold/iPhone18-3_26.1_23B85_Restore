@@ -109,7 +109,7 @@
 {
   video = self->_video;
   self->_video = 0;
-  _objc_release_x1();
+  _objc_release_x1(self, video);
 }
 
 - (id)complicationColor

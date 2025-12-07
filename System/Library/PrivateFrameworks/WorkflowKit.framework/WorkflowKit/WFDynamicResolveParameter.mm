@@ -199,42 +199,40 @@ void __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchT
 
 void __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFActionsLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     *buf = 136315651;
-    v19 = "[WFDynamicResolveParameter(WFParameterPicker) wf_loadStatesWithSearchTerm:completionHandler:]_block_invoke_2";
-    v20 = 2113;
-    v21 = v5;
-    v22 = 2113;
-    v23 = v3;
+    v18 = "[WFDynamicResolveParameter(WFParameterPicker) wf_loadStatesWithSearchTerm:completionHandler:]_block_invoke_2";
+    v19 = 2113;
+    v20 = v5;
+    v21 = 2113;
+    v22 = v3;
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_INFO, "%s Updating dynamic resolution results with: %{private}@, prompt: %{private}@", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_242;
-  v17[3] = &unk_1E837E220;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_242;
+  v16[3] = &unk_1E837E220;
   v6 = *(a1 + 32);
-  v17[4] = *(a1 + 40);
-  v7 = [v6 if_map:v17];
+  v16[4] = *(a1 + 40);
+  v7 = [v6 if_map:v16];
   v8 = [objc_alloc(MEMORY[0x1E696E918]) initWithItems:v7];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_2_245;
-  v13[3] = &unk_1E837ECE0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_2_245;
+  v12[3] = &unk_1E837ECE0;
   v9 = *(a1 + 48);
-  v15 = v3;
-  v16 = v9;
-  v14 = v8;
+  v14 = v3;
+  v15 = v9;
+  v13 = v8;
   v10 = v3;
   v11 = v8;
-  dispatch_async(MEMORY[0x1E69E96A0], v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  dispatch_async(MEMORY[0x1E69E96A0], v12);
 }
 
 WFCodableAttributeBackedSubstitutableState *__94__WFDynamicResolveParameter_WFParameterPicker__wf_loadStatesWithSearchTerm_completionHandler___block_invoke_242(uint64_t a1, void *a2)

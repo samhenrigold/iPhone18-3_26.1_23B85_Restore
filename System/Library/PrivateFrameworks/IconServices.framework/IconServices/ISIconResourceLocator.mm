@@ -73,11 +73,11 @@ uint64_t __52__ISIconResourceLocator_genericIconrResourceLocator__block_invoke()
 
 - (ISIconResourceLocator)initWithCoder:(id)coder
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = ISIconResourceLocator;
-  v5 = [(ISIconResourceLocator *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = ISIconResourceLocator;
+  v5 = [(ISIconResourceLocator *)&v18 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_resourceDirectoryURL"];
@@ -89,11 +89,11 @@ uint64_t __52__ISIconResourceLocator_genericIconrResourceLocator__block_invoke()
     v5->_bundleIdentifier = v8;
 
     v10 = MEMORY[0x1E695DFD8];
-    v20[0] = objc_opt_class();
-    v20[1] = objc_opt_class();
-    v20[2] = objc_opt_class();
-    v20[3] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+    v19[0] = objc_opt_class();
+    v19[1] = objc_opt_class();
+    v19[2] = objc_opt_class();
+    v19[3] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
     v12 = [v10 setWithArray:v11];
 
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"_iconsDictionary"];
@@ -105,7 +105,6 @@ uint64_t __52__ISIconResourceLocator_genericIconrResourceLocator__block_invoke()
     v5->_preferedResourceName = v15;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -130,11 +129,10 @@ uint64_t __52__ISIconResourceLocator_genericIconrResourceLocator__block_invoke()
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to decode ISIconResourceLocator with exception: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to decode ISIconResourceLocator with exception: %@", &v2, 0xCu);
 }
 
 @end

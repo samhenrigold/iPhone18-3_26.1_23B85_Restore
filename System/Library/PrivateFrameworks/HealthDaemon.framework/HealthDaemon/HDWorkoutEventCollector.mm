@@ -18,7 +18,7 @@
 
 - (void)stop
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC330];
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
@@ -26,17 +26,15 @@
     sessionId = self->_sessionId;
     v5 = v3;
     uUIDString = [(NSUUID *)sessionId UUIDString];
-    v9 = 138412546;
+    v8 = 138412546;
     selfCopy = self;
-    v11 = 2112;
-    v12 = uUIDString;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%@: Stopping with session ID %@", &v9, 0x16u);
+    v10 = 2112;
+    v11 = uUIDString;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%@: Stopping with session ID %@", &v8, 0x16u);
   }
 
   v7 = self->_sessionId;
   self->_sessionId = 0;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HDWorkoutEventCollector)initWithProfile:(id)profile delegate:(id)delegate
@@ -58,7 +56,7 @@
 
 - (void)startWithSessionId:(id)id
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   idCopy = id;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC330];
@@ -66,17 +64,15 @@
   {
     v6 = v5;
     uUIDString = [(NSUUID *)idCopy UUIDString];
-    v10 = 138412546;
+    v9 = 138412546;
     selfCopy = self;
-    v12 = 2112;
-    v13 = uUIDString;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%@: Starting with session ID %@", &v10, 0x16u);
+    v11 = 2112;
+    v12 = uUIDString;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%@: Starting with session ID %@", &v9, 0x16u);
   }
 
   sessionId = self->_sessionId;
   self->_sessionId = idCopy;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPendingEventsThroughDate:(id)date completion:(id)completion

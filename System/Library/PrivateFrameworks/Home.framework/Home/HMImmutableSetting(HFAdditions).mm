@@ -11,128 +11,128 @@
   selfCopy = self;
   if (objc_opt_isKindOfClass())
   {
-    v3 = selfCopy;
+    v4 = selfCopy;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = v3;
+  v5 = v4;
 
   objc_opt_class();
-  v5 = selfCopy;
+  v6 = selfCopy;
   if (objc_opt_isKindOfClass())
   {
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = v6;
+  v8 = v7;
 
   objc_opt_class();
-  v8 = v5;
+  v9 = v6;
   if (objc_opt_isKindOfClass())
   {
-    v9 = v8;
+    v10 = v9;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = v9;
+  v11 = v10;
 
   objc_opt_class();
-  v11 = v8;
+  v12 = v9;
   if (objc_opt_isKindOfClass())
   {
-    v12 = v11;
+    v13 = v12;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = v12;
+  v14 = v13;
 
   objc_opt_class();
-  v14 = v11;
+  v15 = v12;
   if (objc_opt_isKindOfClass())
   {
-    v15 = v14;
+    v16 = v15;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  v16 = v15;
+  v17 = v16;
 
   objc_opt_class();
-  v17 = v14;
+  v18 = v15;
   if (objc_opt_isKindOfClass())
   {
-    v18 = v17;
+    v19 = v18;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
-  v19 = v18;
+  v20 = v19;
 
-  if (v4)
+  if (v5)
   {
-    stringValue = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v4, "BOOLValue")}];
+    stringValue = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v5, "BOOLValue")}];
 LABEL_31:
-    v21 = stringValue;
+    v22 = stringValue;
     goto LABEL_32;
   }
 
-  if (v7)
+  if (v8)
   {
-    stringValue = [v7 stringValue];
+    stringValue = [v8 stringValue];
     goto LABEL_31;
   }
 
-  if (v10)
+  if (v11)
   {
-    stringValue = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v10, "integerValue")}];
+    stringValue = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v11, "integerValue")}];
     goto LABEL_31;
   }
 
-  if (v13)
+  if (v14)
   {
-    stringValue = [v13 stringListValue];
+    stringValue = [v14 stringListValue];
     goto LABEL_31;
   }
 
-  if (v16)
+  if (v17)
   {
-    stringValue = [v16 languageValues];
+    stringValue = [v17 languageValues];
     goto LABEL_31;
   }
 
-  if (v19)
+  if (v20)
   {
-    stringValue = [v19 languageValue];
+    stringValue = [v20 languageValue];
     goto LABEL_31;
   }
 
-  v21 = 0;
+  v22 = 0;
 LABEL_32:
 
-  return v21;
+  return v22;
 }
 
 - (id)homeKitAccessorySettingValueForRawValue:()HFAdditions

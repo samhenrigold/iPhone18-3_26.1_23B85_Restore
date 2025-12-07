@@ -15,7 +15,7 @@
 
 - (BOOL)enumerateDatasetsWithError:(id *)error usingBlock:(id)block
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v12 = objc_msgSend_bytes(self->_data, v7, v8, v9, v10, v11);
   offset = self->_offset;
@@ -24,9 +24,9 @@
   if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v63 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
-    v64 = 2048;
-    v65 = v19;
+    v62 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
+    v63 = 2048;
+    v64 = v19;
     _os_log_impl(&dword_2559A5000, v20, OS_LOG_TYPE_INFO, "%s Linearly scanning profile data (length: %llu) for all datasets.", buf, 0x16u);
   }
 
@@ -52,9 +52,9 @@ LABEL_14:
       if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v63 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
-        v64 = 2112;
-        v65 = v28;
+        v62 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
+        v63 = 2112;
+        v64 = v28;
         _os_log_impl(&dword_2559A5000, v29, OS_LOG_TYPE_INFO, "%s Reading dataset: %@", buf, 0x16u);
       }
 
@@ -70,7 +70,7 @@ LABEL_14:
         if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v63 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
+          v62 = "[KVStreamProfileReader enumerateDatasetsWithError:usingBlock:]";
           _os_log_debug_impl(&dword_2559A5000, v36, OS_LOG_TYPE_DEBUG, "%s Dataset buffer offset not resolved, enumerating items to resolve offset.", buf, 0xCu);
         }
 
@@ -83,10 +83,10 @@ LABEL_14:
         if (!v35)
         {
           v50 = MEMORY[0x277CCA9B8];
-          v60 = *MEMORY[0x277CCA450];
+          v59 = *MEMORY[0x277CCA450];
           v51 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v45, @"Cannot enumerate items in dataset: %@ aborting profile enumeration.", v46, v47, v48, v28);
-          v61 = v51;
-          v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v61, &v60, 1, v53);
+          v60 = v51;
+          v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v60, &v59, 1, v53);
           v57 = objc_msgSend_errorWithDomain_code_userInfo_(v50, v55, @"com.apple.koa.profile", 3, v54, v56);
           if (error && v57)
           {
@@ -108,7 +108,6 @@ LABEL_14:
     v49 = 0;
   }
 
-  v58 = *MEMORY[0x277D85DE8];
   return v49;
 }
 

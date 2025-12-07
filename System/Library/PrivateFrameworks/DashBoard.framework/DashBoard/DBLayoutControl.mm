@@ -13,7 +13,7 @@
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_24814FB28(0, &unk_27EE92A80);
+  sub_24814FB28(0, &unk_27EE92A80, 0x277D758B8);
   sub_2482347FC();
   v6 = sub_248383C80();
   eventCopy = event;

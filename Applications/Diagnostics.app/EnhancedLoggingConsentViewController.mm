@@ -45,18 +45,19 @@ LABEL_3:
 {
   if (section == 1)
   {
-    sub_1000494C8(0, 0, _swiftEmptyArrayStorage, 0xD00000000000001CLL, 0x800000010018C7F0);
-    v5 = String._bridgeToObjectiveC()();
-
+    sub_1000494C8(0, 0, &_swiftEmptyArrayStorage, 0xD00000000000001CLL, 0x800000010018C7F0);
     v6 = v5;
+    v7 = String._bridgeToObjectiveC()();
+    v6, v8, v9, v10, v11, v12, v13, v14;
+    v15 = v7;
   }
 
   else
   {
-    v6 = 0;
+    v15 = 0;
   }
 
-  return v6;
+  return v15;
 }
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section

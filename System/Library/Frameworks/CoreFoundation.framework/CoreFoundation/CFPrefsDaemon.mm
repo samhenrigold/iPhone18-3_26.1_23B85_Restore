@@ -1,18 +1,18 @@
 @interface CFPrefsDaemon
-+ (BOOL)_getUncanonicalizedSourcePath:(__CFString *)path withDomain:(__CFString *)domain user:(int)user byHost:(const __CFString *)host containerPath:(int)containerPath managed:(int)managed managedUsesContainer:;
-+ (CFStringRef)_copyUncanonicalizedSourcePathWithDomain:(__CFString *)domain user:(int)user byHost:(const __CFString *)host containerPath:(int)path managed:(int)managed managedUsesContainer:;
++ (BOOL)_getUncanonicalizedSourcePath:(__CFString *)path withDomain:(__CFString *)domain user:(uint64_t)user byHost:(const __CFString *)host containerPath:(int)containerPath managed:(int)managed managedUsesContainer:;
++ (CFStringRef)_copyUncanonicalizedSourcePathWithDomain:(__CFString *)domain user:(uint64_t)user byHost:(const __CFString *)host containerPath:(int)path managed:(int)managed managedUsesContainer:;
 - (CFPDContainerSource)_createSourceWithDomain:(const void *)domain user:(uint64_t)user container:(uint64_t)container byHost:(uint64_t)host managed:(uint64_t)managed shmemIndex:;
+- (const)_setSource:(int)source isDead:;
 - (os_unfair_lock_s)initWithRole:(int)role testMode:;
 - (uint64_t)_initializeShmemPage:(uint64_t)result;
-- (uint64_t)_setSource:(int)source isDead:;
 - (uint64_t)getShmemName:(uint64_t)result bufLen:;
 - (uint64_t)isInTestMode;
 - (uint64_t)listener;
 - (uint64_t)role;
 - (uint64_t)shmem;
 - (uint64_t)updateEntireShmem;
-- (uint64_t)updateShmemForDomain:(uint64_t)result;
-- (uint64_t)updateShmemIndex:(uint64_t)result;
+- (uint64_t)updateShmemForDomain:(uint64_t)domain;
+- (uint64_t)updateShmemIndex:(uint64_t)index;
 - (uint64_t)userID;
 - (void)handleAgentCheckInMessage:(uint64_t)message;
 - (void)handleFlushManagedMessage:(uint64_t)message replyHandler:;
@@ -26,49 +26,48 @@
 - (void)synchronousWithSourceCache:(uint64_t)cache;
 - (void)withAllKnownManagedSources:(uint64_t)sources;
 - (void)withSnapshotOfSourcesForDomainIdentifier:(uint64_t)identifier performBlock:;
-- (void)withSourceForDomain:(const __CFString *)domain inContainer:(__CFString *)container user:(int)user byHost:(int)host managed:(int)managed managedUsesContainer:(uint64_t)usesContainer cloudStoreEntitlement:(const void *)entitlement cloudConfigurationPath:(uint64_t)self0 performWithSourceLock:(uint64_t)self1 afterReleasingSourceLock:;
+- (void)withSourceForDomain:(const __CFString *)domain inContainer:(__CFString *)container user:(uint64_t)user byHost:(uint64_t)host managed:(int)managed managedUsesContainer:(uint64_t)usesContainer cloudStoreEntitlement:(const void *)entitlement cloudConfigurationPath:(uint64_t)self0 performWithSourceLock:(uint64_t)self1 afterReleasingSourceLock:;
 @end
 
 @implementation CFPrefsDaemon
 
 - (uint64_t)shmem
 {
-  v3[5] = *MEMORY[0x1E69E9840];
+  v7[5] = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v1 = result;
+    v6 = result;
     if (isCFPrefsD == 1)
     {
-      v3[0] = MEMORY[0x1E69E9820];
-      v3[1] = 3221225472;
-      v3[2] = __22__CFPrefsDaemon_shmem__block_invoke;
-      v3[3] = &unk_1E6D81EC0;
-      v3[4] = result;
+      v7[0] = MEMORY[0x1E69E9820];
+      v7[1] = 3221225472;
+      v7[2] = __22__CFPrefsDaemon_shmem__block_invoke;
+      v7[3] = &unk_1E6D81EC0;
+      v7[4] = result;
       if (shmem_onceToken != -1)
       {
-        dispatch_once(&shmem_onceToken, v3);
+        dispatch_once(&shmem_onceToken, v7);
       }
     }
 
     else
     {
       os_unfair_lock_lock(&shmem_directModeShmemLock);
-      if (!*(v1 + 576))
+      if (!*(v6 + 576))
       {
-        [(CFPrefsDaemon *)v1 _initializeShmemPage:?];
+        [(CFPrefsDaemon *)v6 _initializeShmemPage:?];
       }
 
       os_unfair_lock_unlock(&shmem_directModeShmemLock);
     }
 
-    result = *(v1 + 576);
+    result = *(v6 + 576);
     if (!result)
     {
       [CFPrefsDaemon shmem];
     }
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -94,56 +93,54 @@
 
 - (void)withSnapshotOfSourcesForDomainIdentifier:(uint64_t)identifier performBlock:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
-    v16 = 0;
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
     v12 = 0;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke;
-    v8[3] = &unk_1E6DD18D0;
-    v8[4] = &v9;
-    v8[5] = &v13;
-    v8[6] = a2;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0;
+    v8 = 0;
+    v9 = &v8;
+    v10 = 0x2020000000;
+    v11 = 0;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke;
+    v7[3] = &unk_1E6DD18D0;
+    v7[4] = &v8;
+    v7[5] = &v12;
+    v7[6] = a2;
     os_unfair_lock_lock((self + 48));
-    (__86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke)(v8, *(self + 32), *(self + 40));
+    (__86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke)(v7, *(self + 32), *(self + 40));
     os_unfair_lock_unlock((self + 48));
-    (*(identifier + 16))(identifier, v14[3], v10[3]);
-    v5 = v14[3];
+    (*(identifier + 16))(identifier, v13[3], v9[3]);
+    v5 = v13[3];
     if (v5)
     {
-      if (v10[3])
+      if (v9[3])
       {
         v6 = 0;
         do
         {
-          CFRelease(*(v14[3] + 8 * v6++));
+          CFRelease(*(v13[3] + 8 * v6++));
         }
 
-        while (v6 < v10[3]);
-        v5 = v14[3];
+        while (v6 < v9[3]);
+        v5 = v13[3];
       }
 
       free(v5);
     }
 
-    _Block_object_dispose(&v9, 8);
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(&v12, 8);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-CFIndex __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke(int8x16_t *a1, CFSetRef theSet)
+void *__86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke(int8x16_t *a1, CFSetRef theSet)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   result = CFSetGetCount(theSet);
   *(*(a1[2].i64[0] + 8) + 24) = result;
   v5 = *(*(a1[2].i64[0] + 8) + 24);
@@ -151,16 +148,15 @@ CFIndex __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentif
   {
     *(*(a1[2].i64[1] + 8) + 24) = malloc_type_calloc(1uLL, 8 * v5, 0x80040B8603338uLL);
     *(*(a1[2].i64[0] + 8) + 24) = 0;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke_2;
-    v7[3] = &unk_1E6DD18A8;
-    v9 = a1[3].i64[0];
-    v8 = vextq_s8(a1[2], a1[2], 8uLL);
-    result = CFSetApply(theSet, v7);
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdentifier_performBlock___block_invoke_2;
+    v6[3] = &unk_1E6DD18A8;
+    v8 = a1[3].i64[0];
+    v7 = vextq_s8(a1[2], a1[2], 8uLL);
+    return CFSetApply(theSet, v6);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -182,29 +178,30 @@ uint64_t __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdenti
 
 - (void)withAllKnownManagedSources:(uint64_t)sources
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   if (sources)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
-    v24 = 0;
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
     v19 = 0;
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
+    v23 = 0;
     v15 = 0;
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x2020000000;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 0;
     v11 = 0;
-    v25 = &v24;
-    v26 = 0x22010000000;
-    v27 = &unk_1835A7D5B;
+    v12 = &v11;
+    v13 = 0x2020000000;
+    v14 = 0;
+    v7 = 0;
+    v8 = &v7;
+    v9 = 0x2020000000;
+    v10 = 0;
+    v24 = &v23;
+    v25 = 0x22010000000;
+    v26 = &unk_1835A7D5B;
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
@@ -236,80 +233,75 @@ uint64_t __86__CFPrefsDaemon_SourceSupport__withSnapshotOfSourcesForDomainIdenti
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke;
-    v7[3] = &unk_1E6DD1920;
-    v7[6] = &v12;
-    v7[7] = &v8;
-    v7[8] = &v16;
-    v7[9] = &v24;
-    v7[4] = sources;
-    v7[5] = &v20;
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke;
+    v6[3] = &unk_1E6DD1920;
+    v6[6] = &v11;
+    v6[7] = &v7;
+    v6[8] = &v15;
+    v6[9] = &v23;
+    v6[4] = sources;
+    v6[5] = &v19;
     os_unfair_lock_lock((sources + 48));
-    (__59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke)(v7, *(sources + 32), *(sources + 40));
+    (__59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke)(v6, *(sources + 32), *(sources + 40));
     os_unfair_lock_unlock((sources + 48));
-    (*(a2 + 16))(a2, v21[3], v13[3], v17[3], v9[3], v25 + 4);
-    if (v21[3])
+    (*(a2 + 16))(a2, v20[3], v12[3], v16[3], v8[3], v24 + 4);
+    if (v20[3])
     {
-      if (v13[3])
+      if (v12[3])
       {
         v4 = 0;
         do
         {
-          CFRelease(*(v21[3] + 8 * v4++));
+          CFRelease(*(v20[3] + 8 * v4++));
         }
 
-        while (v4 < v13[3]);
+        while (v4 < v12[3]);
       }
 
-      if (v9[3])
+      if (v8[3])
       {
         v5 = 0;
         do
         {
-          CFRelease(*(v17[3] + 8 * v5++));
+          CFRelease(*(v16[3] + 8 * v5++));
         }
 
-        while (v5 < v9[3]);
+        while (v5 < v8[3]);
       }
 
-      free(v21[3]);
+      free(v20[3]);
     }
 
-    _Block_object_dispose(&v24, 8);
-    _Block_object_dispose(&v8, 8);
-    _Block_object_dispose(&v12, 8);
-    _Block_object_dispose(&v16, 8);
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v7, 8);
+    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v19, 8);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void *__59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke(void *a1, CFSetRef theSet)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   Count = CFSetGetCount(theSet);
   if (Count >= 1)
   {
     v5 = Count;
     *(*(a1[5] + 8) + 24) = malloc_type_malloc(8 * Count, 0x80040B8603338uLL);
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke_2;
-    v8[3] = &unk_1E6DD18F8;
-    v9 = *(a1 + 5);
-    v10 = a1[7];
-    v11 = v5;
-    CFSetApply(theSet, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke_2;
+    v7[3] = &unk_1E6DD18F8;
+    v8 = *(a1 + 5);
+    v9 = a1[7];
+    v10 = v5;
+    CFSetApply(theSet, v7);
     *(*(a1[8] + 8) + 24) = *(*(a1[5] + 8) + 24) + 8 * v5 - 8 * *(*(a1[7] + 8) + 24);
   }
 
-  result = memcpy((*(a1[9] + 8) + 32), (a1[4] + 56), 0x200uLL);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return memcpy((*(a1[9] + 8) + 32), (a1[4] + 56), 0x200uLL);
 }
 
 uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_invoke_2(void *a1, void *a2)
@@ -344,7 +336,7 @@ uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_i
   return result;
 }
 
-+ (BOOL)_getUncanonicalizedSourcePath:(__CFString *)path withDomain:(__CFString *)domain user:(int)user byHost:(const __CFString *)host containerPath:(int)containerPath managed:(int)managed managedUsesContainer:
++ (BOOL)_getUncanonicalizedSourcePath:(__CFString *)path withDomain:(__CFString *)domain user:(uint64_t)user byHost:(const __CFString *)host containerPath:(int)containerPath managed:(int)managed managedUsesContainer:
 {
   objc_opt_self();
   if (containerPath)
@@ -373,31 +365,26 @@ uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_i
   return PathForManagedBundleID;
 }
 
-+ (CFStringRef)_copyUncanonicalizedSourcePathWithDomain:(__CFString *)domain user:(int)user byHost:(const __CFString *)host containerPath:(int)path managed:(int)managed managedUsesContainer:
++ (CFStringRef)_copyUncanonicalizedSourcePathWithDomain:(__CFString *)domain user:(uint64_t)user byHost:(const __CFString *)host containerPath:(int)path managed:(int)managed managedUsesContainer:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   bzero(cStr, 0x402uLL);
-  if ([CFPrefsDaemon _getUncanonicalizedSourcePath:a2 withDomain:domain user:user byHost:host containerPath:path managed:managed managedUsesContainer:?])
+  if (![CFPrefsDaemon _getUncanonicalizedSourcePath:a2 withDomain:domain user:user byHost:host containerPath:path managed:managed managedUsesContainer:?])
   {
-    v13 = CFStringFileSystemEncoding();
-    result = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, cStr, v13);
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  v13 = CFStringFileSystemEncoding();
+  return CFStringCreateWithCString(&__kCFAllocatorSystemDefault, cStr, v13);
 }
 
-- (void)withSourceForDomain:(const __CFString *)domain inContainer:(__CFString *)container user:(int)user byHost:(int)host managed:(int)managed managedUsesContainer:(uint64_t)usesContainer cloudStoreEntitlement:(const void *)entitlement cloudConfigurationPath:(uint64_t)self0 performWithSourceLock:(uint64_t)self1 afterReleasingSourceLock:
+- (void)withSourceForDomain:(const __CFString *)domain inContainer:(__CFString *)container user:(uint64_t)user byHost:(uint64_t)host managed:(int)managed managedUsesContainer:(uint64_t)usesContainer cloudStoreEntitlement:(const void *)entitlement cloudConfigurationPath:(uint64_t)self0 performWithSourceLock:(uint64_t)self1 afterReleasingSourceLock:
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (self)
   {
+    hostCopy = host;
     if (managed && (host & 1) == 0)
     {
       [CFPrefsDaemon withSourceForDomain:inContainer:user:byHost:managed:managedUsesContainer:cloudStoreEntitlement:cloudConfigurationPath:performWithSourceLock:afterReleasingSourceLock:];
@@ -407,10 +394,10 @@ uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_i
     if (a2 && container)
     {
       userCopy = user;
-      if ([(CFPrefsDaemon *)self shmem])
+      if ([(CFPrefsDaemon *)self shmem:a2])
       {
         usesContainerCopy = usesContainer;
-        v20 = [CFPrefsDaemon _copyUncanonicalizedSourcePathWithDomain:a2 user:container byHost:userCopy containerPath:domain managed:host managedUsesContainer:managed];
+        v20 = [CFPrefsDaemon _copyUncanonicalizedSourcePathWithDomain:a2 user:container byHost:userCopy containerPath:domain managed:hostCopy managedUsesContainer:managed];
         v18 = objc_alloc_init(CFPDSourceLookUpKey);
         if (entitlement)
         {
@@ -445,41 +432,41 @@ uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_i
       LOBYTE(user) = userCopy;
     }
 
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3052000000;
-    v33 = __Block_byref_object_copy__4;
-    v34 = __Block_byref_object_dispose__4;
-    v35 = 0;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke;
-    v26[3] = &unk_1E6DD1948;
-    v26[8] = a2;
-    v26[9] = domain;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3052000000;
+    v32 = __Block_byref_object_copy__4;
+    v33 = __Block_byref_object_dispose__4;
+    v34 = 0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke;
+    v25[3] = &unk_1E6DD1948;
+    v25[8] = a2;
+    v25[9] = domain;
     userCopy2 = user;
-    hostCopy = host;
-    v26[10] = container;
-    v26[11] = entitlement;
-    v26[4] = v18;
-    v26[5] = usesContainer;
-    v26[6] = self;
-    v26[7] = &v30;
+    v27 = hostCopy;
+    v25[10] = container;
+    v25[11] = entitlement;
+    v25[4] = v18;
+    v25[5] = usesContainer;
+    v25[6] = self;
+    v25[7] = &v29;
     managedCopy = managed;
     os_unfair_lock_lock((self + 48));
-    __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke(v26, *(self + 32), *(self + 40));
+    __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke(v25, *(self + 32), *(self + 40));
     os_unfair_lock_unlock((self + 48));
-    v22 = v31[5];
+    v22 = v30[5];
     if (v22)
     {
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_2;
-      v25[3] = &unk_1E6DD1998;
-      v25[5] = path;
-      v25[6] = &v30;
-      v25[4] = self;
-      [v22 lockedSync:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_2;
+      v24[3] = &unk_1E6DD1998;
+      v24[5] = path;
+      v24[6] = &v29;
+      v24[4] = self;
+      [v22 lockedSync:v24];
     }
 
     else
@@ -489,13 +476,11 @@ uint64_t __59__CFPrefsDaemon_SourceSupport__withAllKnownManagedSources___block_i
 
     if (lock)
     {
-      (*(lock + 16))(lock, v31[5]);
+      (*(lock + 16))(lock, v30[5]);
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v29, 8);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke(uint64_t a1, CFSetRef theSet, __CFBag *a3)
@@ -599,26 +584,24 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
 
 void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_2(void *a1)
 {
-  v6[6] = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1[6] + 8) + 40);
+  v4[6] = *MEMORY[0x1E69E9840];
   (*(a1[5] + 16))();
-  v3 = a1[4];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3;
-  v6[3] = &unk_1E6DD1970;
-  v4 = a1[6];
-  v6[4] = v3;
-  v6[5] = v4;
-  os_unfair_lock_lock((v3 + 48));
-  __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3(v6, *(v3 + 32), *(v3 + 40));
-  os_unfair_lock_unlock((v3 + 48));
-  v5 = *MEMORY[0x1E69E9840];
+  v2 = a1[4];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3;
+  v4[3] = &unk_1E6DD1970;
+  v3 = a1[6];
+  v4[4] = v2;
+  v4[5] = v3;
+  os_unfair_lock_lock((v2 + 48));
+  __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3(v4, *(v2 + 32), *(v2 + 40));
+  os_unfair_lock_unlock((v2 + 48));
 }
 
 void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3(uint64_t a1, __CFSet *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a1 + 40;
   v6 = CFBasicHashRemoveValue(a3, *(*(*(a1 + 40) + 8) + 40));
   v7 = v6 == 1;
@@ -627,105 +610,97 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
     [*(*(*v5 + 8) + 40) setUncanonicalizedPathCached:0];
   }
 
-  v10 = v7;
-  v9 = 0;
-  [*(*(*v5 + 8) + 40) processEndOfMessageIntendingToRemoveSource:&v10 replacingWithTombstone:&v9];
-  if (v10)
+  v9 = v7;
+  v8 = 0;
+  [*(*(*v5 + 8) + 40) processEndOfMessageIntendingToRemoveSource:&v9 replacingWithTombstone:&v8];
+  if (v9)
   {
-    __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3_cold_1(a1, v5, a2, &v9);
+    __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_byHost_managed_managedUsesContainer_cloudStoreEntitlement_cloudConfigurationPath_performWithSourceLock_afterReleasingSourceLock___block_invoke_3_cold_1(a1, v5, a2, &v8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  xpc_dictionary_get_int64(*(a1 + 32), "CFPreferencesShmemIndex");
-  v2 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  int64 = xpc_dictionary_get_int64(*(a1 + 32), "CFPreferencesShmemIndex");
+  v4 = _CFPrefsDaemonLog(int64, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_cold_1(a1, v2);
+    __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_cold_1(a1, v4);
   }
 
-  v6 = *(a1 + 56);
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 32);
   [CFPrefsDaemon synchronousWithSourceCache:?];
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_52(uint64_t a1, CFSetRef theSet)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   context[0] = *(a1 + 48);
-  context[1] = &v22;
-  v22 = 0;
+  context[1] = &v23;
+  v23 = 0;
   CFSetApplyFunction(theSet, indexSearchCallback, context);
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_2;
+  v13[3] = &unk_1E6DD1D78;
+  v13[4] = v23;
+  v13[5] = &v18;
+  [v23 lockedSync:v13];
+  v3 = *(a1 + 32);
   v12[0] = MEMORY[0x1E69E9820];
   v12[1] = 3221225472;
-  v12[2] = __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_2;
+  v12[2] = __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_3;
   v12[3] = &unk_1E6DD1D78;
-  v12[4] = v22;
-  v12[5] = &v17;
-  [v22 lockedSync:v12];
-  v3 = *(a1 + 32);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_3;
-  v11[3] = &unk_1E6DD1D78;
-  v11[4] = v3;
-  v11[5] = &v13;
-  [v3 lockedSync:v11];
-  v4 = _CFPrefsDaemonLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v12[4] = v3;
+  v12[5] = &v14;
+  v4 = [v3 lockedSync:v12];
+  v6 = _CFPrefsDaemonLog(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = *(a1 + 52);
-    v9 = v18[3];
-    v10 = v14[3];
+    v9 = *(a1 + 52);
+    v10 = v19[3];
+    v11 = v15[3];
     *buf = 67240706;
-    v24 = v8;
-    v25 = 2114;
-    v26 = v9;
-    v27 = 2114;
-    v28 = v10;
-    _os_log_fault_impl(&dword_1830E6000, v4, OS_LOG_TYPE_FAULT, "CFPreferences detected an inconsistency. An attempt by process %{public}d to access preferences in \n%{public}@\n actually resolved to \n%{public}@\n Typically this indicates that the process's sandbox profile changed in a way that added or removed a shared-preference-* rule or changed its container path. To avoid overwriting data incorrectly, cfprefsd is disconnecting this client from this source, its preferences will not be saved to disk", buf, 0x1Cu);
+    v25 = v9;
+    v26 = 2114;
+    v27 = v10;
+    v28 = 2114;
+    v29 = v11;
+    _os_log_fault_impl(&dword_1830E6000, v6, OS_LOG_TYPE_FAULT, "CFPreferences detected an inconsistency. An attempt by process %{public}d to access preferences in \n%{public}@\n actually resolved to \n%{public}@\n Typically this indicates that the process's sandbox profile changed in a way that added or removed a shared-preference-* rule or changed its container path. To avoid overwriting data incorrectly, cfprefsd is disconnecting this client from this source, its preferences will not be saved to disk", buf, 0x1Cu);
   }
 
-  v5 = v18[3];
-  if (v5)
+  v7 = v19[3];
+  if (v7)
   {
-    CFRelease(v5);
+    CFRelease(v7);
   }
 
-  v6 = v14[3];
-  if (v6)
+  v8 = v15[3];
+  if (v8)
   {
-    CFRelease(v6);
+    CFRelease(v8);
   }
 
   xpc_release(*(a1 + 40));
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v17, 8);
-  v7 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v18, 8);
 }
 
-uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_2(uint64_t a1)
+void *__65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) debugDump];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_3(uint64_t a1)
+void *__65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) debugDump];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -734,7 +709,7 @@ uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___b
 
 - (void)handleMessage:(uint64_t)message fromPeer:(uint64_t)peer replyHandler:
 {
-  if (self)
+  if (result)
   {
     Class = object_getClass(a2);
     if (Class != MEMORY[0x1E69E9E98])
@@ -744,7 +719,7 @@ uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___b
         [CFPrefsDaemon handleMessage:fromPeer:replyHandler:];
       }
 
-      [(CFPrefsDaemon *)message handleMessage:a2 fromPeer:peer replyHandler:self];
+      [(CFPrefsDaemon *)message handleMessage:a2 fromPeer:peer replyHandler:result];
     }
   }
 }
@@ -754,7 +729,7 @@ uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___b
   v59 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_84;
+    return;
   }
 
   _CFPrefsFixUpIncomingMessageForPIDImpersonationIfNeeded(a2);
@@ -764,7 +739,7 @@ uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___b
   if (xpc_user_sessions_enabled() && !xpc_user_sessions_get_session_uid() && (v47 & 1) == 0 && !CFEqual(v5, @"kCFPreferencesAnyUser"))
   {
     [CFPrefsDaemon handleSourceMessage:replyHandler:];
-    goto LABEL_84;
+    return;
   }
 
   v46 = 0;
@@ -773,7 +748,7 @@ uint64_t __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___b
   if (!FixedUpDomainForMessage)
   {
     [CFPrefsDaemon handleSourceMessage:replyHandler:];
-    goto LABEL_84;
+    return;
   }
 
   xpc_dictionary_set_value(a2, "AllowWritingSpecialKeysToGlobalPreferences", 0);
@@ -892,15 +867,14 @@ LABEL_33:
   }
 
 LABEL_34:
-  v18 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BB8]);
-  if (_CFPrefsSandboxCheckForMessage_0(a2))
+  if (_CFPrefsSandboxCheckForMessage_0(a2, "user-preference-read", *MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BB8] | 6u))
   {
-    v19 = 0;
+    v18 = 0;
     goto LABEL_37;
   }
 
 LABEL_36:
-  v19 = xpc_dictionary_get_string(a2, "Key") == 0;
+  v18 = xpc_dictionary_get_string(a2, "Key") == 0;
 LABEL_37:
   messageCopy = message;
   v48 = 0;
@@ -910,28 +884,29 @@ LABEL_37:
   v52 = __Block_byref_object_dispose__5;
   v53 = 0;
   string = xpc_dictionary_get_string(a2, "CFPreferencesCloudConfig");
-  v21 = xpc_dictionary_get_value(a2, "CFPreferencesCloudStoreIdentifier");
-  v22 = v21;
-  if (!v21)
+  v20 = xpc_dictionary_get_value(a2, "CFPreferencesCloudStoreIdentifier");
+  v21 = v20;
+  if (!v20)
   {
     if (string)
     {
-      v22 = xpc_string_create(v46);
+      v21 = xpc_string_create(v46);
       goto LABEL_45;
     }
 
 LABEL_62:
-    v25 = 0;
+    v26 = 0;
     goto LABEL_63;
   }
 
-  if (object_getClass(v21) != MEMORY[0x1E69E9F10])
+  Class = object_getClass(v20);
+  if (Class != MEMORY[0x1E69E9F10])
   {
-    v23 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = _CFPrefsDaemonLog(Class, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v24 = _CFPrefsPIDForMessage(a2);
-      [(CFPrefsDaemon *)buf handleSourceMessage:v24 replyHandler:v23];
+      v25 = _CFPrefsPIDForMessage(a2);
+      [(CFPrefsDaemon *)buf handleSourceMessage:v25 replyHandler:v24];
     }
 
     goto LABEL_62;
@@ -942,12 +917,12 @@ LABEL_62:
     goto LABEL_62;
   }
 
-  xpc_retain(v22);
+  xpc_retain(v21);
 LABEL_45:
-  v25 = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, string, 0x8000100u);
-  if (v19 || _CFPrefsBooleanEntitlementValueForMessage(a2, "com.apple.private.trust-defaults-kvstore-identifier"))
+  v26 = CFStringCreateWithCString(&__kCFAllocatorSystemDefault, string, 0x8000100u);
+  if (v18 || _CFPrefsBooleanEntitlementValueForMessage(a2, "com.apple.private.trust-defaults-kvstore-identifier"))
   {
-    *(v49 + 40) = v22;
+    *(v49 + 40) = v21;
   }
 
   else if (v12)
@@ -956,9 +931,9 @@ LABEL_45:
     v36 = v35;
     if (v35)
     {
-      if (object_getClass(v35) == MEMORY[0x1E69E9F10] && xpc_equal(v22, v36))
+      if (object_getClass(v35) == MEMORY[0x1E69E9F10] && xpc_equal(v21, v36))
       {
-        *(v49 + 40) = v22;
+        *(v49 + 40) = v21;
       }
 
       xpc_release(v36);
@@ -967,55 +942,55 @@ LABEL_45:
 
   if (!*(v49 + 40))
   {
-    v26 = _CFPrefsCopyEntitlementForMessage(a2, "com.apple.private.ubiquity-kvstore-access");
-    v27 = v26;
-    if (v26)
+    v27 = _CFPrefsCopyEntitlementForMessage(a2, "com.apple.private.ubiquity-kvstore-access");
+    v28 = v27;
+    if (v27)
     {
-      if (object_getClass(v26) == MEMORY[0x1E69E9E50])
+      if (object_getClass(v27) == MEMORY[0x1E69E9E50])
       {
         applier[0] = MEMORY[0x1E69E9820];
         applier[1] = 3221225472;
         applier[2] = __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_75;
         applier[3] = &unk_1E6DD1F90;
-        applier[4] = v22;
+        applier[4] = v21;
         applier[5] = &v48;
-        xpc_array_apply(v27, applier);
+        xpc_array_apply(v28, applier);
       }
 
-      xpc_release(v27);
+      xpc_release(v28);
     }
   }
 
   if (!*(v49 + 40))
   {
-    v28 = _CFPrefsCopyEntitlementForMessage(a2, "com.apple.private.ubiquity-additional-kvstore-identifiers");
-    v29 = v28;
-    if (v28)
+    v29 = _CFPrefsCopyEntitlementForMessage(a2, "com.apple.private.ubiquity-additional-kvstore-identifiers");
+    v30 = v29;
+    if (v29)
     {
-      if (object_getClass(v28) == MEMORY[0x1E69E9E50])
+      if (object_getClass(v29) == MEMORY[0x1E69E9E50])
       {
         v44[0] = MEMORY[0x1E69E9820];
         v44[1] = 3221225472;
         v44[2] = __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_2;
         v44[3] = &unk_1E6DD1F90;
-        v44[4] = v22;
+        v44[4] = v21;
         v44[5] = &v48;
-        xpc_array_apply(v29, v44);
+        xpc_array_apply(v30, v44);
       }
 
-      xpc_release(v29);
+      xpc_release(v30);
     }
   }
 
-  v30 = *(v49 + 40);
-  if (v30)
+  v31 = *(v49 + 40);
+  if (v31)
   {
-    xpc_retain(v30);
+    xpc_retain(v31);
   }
 
-  if (v22)
+  if (v21)
   {
-    xpc_release(v22);
+    xpc_release(v21);
   }
 
 LABEL_63:
@@ -1032,8 +1007,8 @@ LABEL_63:
     goto LABEL_74;
   }
 
-  v31 = *(v49 + 40);
-  if (string && !v31)
+  v32 = *(v49 + 40);
+  if (string && !v32)
   {
     reply = xpc_dictionary_create_reply(a2);
     if (!reply)
@@ -1067,13 +1042,13 @@ LABEL_74:
   v42[3] = &unk_1E6DD1FE0;
   v42[4] = a2;
   v42[5] = &v54;
-  [(CFPrefsDaemon *)self withSourceForDomain:v16 inContainer:v5 user:v39 byHost:v41 managed:v37 & 1 managedUsesContainer:v31 cloudStoreEntitlement:v25 cloudConfigurationPath:v43 performWithSourceLock:v42 afterReleasingSourceLock:?];
+  [(CFPrefsDaemon *)self withSourceForDomain:v16 inContainer:v5 user:v39 byHost:v41 managed:v37 & 1 managedUsesContainer:v32 cloudStoreEntitlement:v26 cloudConfigurationPath:v43 performWithSourceLock:v42 afterReleasingSourceLock:?];
   _Block_object_dispose(&v54, 8);
 LABEL_75:
-  v33 = *(v49 + 40);
-  if (v33)
+  v34 = *(v49 + 40);
+  if (v34)
   {
-    xpc_release(v33);
+    xpc_release(v34);
   }
 
   if ((v17 & 1) == 0)
@@ -1081,9 +1056,9 @@ LABEL_75:
     CFRelease(v16);
   }
 
-  if (v25)
+  if (v26)
   {
-    CFRelease(v25);
+    CFRelease(v26);
   }
 
   if (v5)
@@ -1092,49 +1067,47 @@ LABEL_75:
   }
 
   _Block_object_dispose(&v48, 8);
-LABEL_84:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMultiMessage:(uint64_t)message replyHandler:
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_8;
+    return;
   }
 
-  selfCopy = self;
-  if (!xpc_dictionary_get_remote_connection(xdict))
+  remote_connection = xpc_dictionary_get_remote_connection(xdict);
+  if (!remote_connection)
   {
     value = xpc_dictionary_get_value(xdict, "connection");
-    if (!value || object_getClass(value) != MEMORY[0x1E69E9E68])
+    if (!value || (remote_connection = value, object_getClass(value) != MEMORY[0x1E69E9E68]))
     {
       [CFPrefsDaemon handleMultiMessage:replyHandler:];
     }
   }
 
-  v7 = xpc_dictionary_get_value(xdict, "CFPreferencesMessages");
-  if (!v7 || (v8 = v7, object_getClass(v7) != MEMORY[0x1E69E9E50]))
+  v8 = xpc_dictionary_get_value(xdict, "CFPreferencesMessages");
+  if (!v8 || (v9 = v8, object_getClass(v8) != MEMORY[0x1E69E9E50]))
   {
     [CFPrefsDaemon handleMultiMessage:? replyHandler:?];
-    goto LABEL_8;
+    return;
   }
 
-  if (!xpc_array_apply(v8, &__block_literal_global_98))
+  if (!xpc_array_apply(v9, &__block_literal_global_98))
   {
     [CFPrefsDaemon handleMultiMessage:? replyHandler:?];
-    goto LABEL_8;
+    return;
   }
 
-  count = xpc_array_get_count(v8);
-  v12 = count;
+  count = xpc_array_get_count(v9);
+  v13 = count;
   if (count >> 60)
   {
-    v26 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", count);
-    v27 = [NSException exceptionWithName:@"NSGenericException" reason:v26 userInfo:0];
-    CFRelease(v26);
-    objc_exception_throw(v27);
+    v27 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", count);
+    v28 = [NSException exceptionWithName:@"NSGenericException" reason:v27 userInfo:0];
+    CFRelease(v27);
+    objc_exception_throw(v28);
   }
 
   if (count <= 1)
@@ -1142,94 +1115,92 @@ LABEL_84:
     count = 1;
   }
 
-  v13 = MEMORY[0x1EEE9AC00](count, v11);
-  v15 = (&v28 - v14);
-  v38[0] = 0;
-  if (v12 >= 0x101)
+  v14 = MEMORY[0x1EEE9AC00](count, v11, v12);
+  v16 = (&v29 - v15);
+  v35[0] = 0;
+  if (v13 >= 0x101)
   {
-    v16 = _CFCreateArrayStorage(v13, 0, v38);
-    v30 = &v28;
-    v31 = v16;
-    v15 = v16;
+    v17 = _CFCreateArrayStorage(v14, 0, v35);
+    v31 = &v29;
+    v32 = v17;
+    v16 = v17;
     goto LABEL_18;
   }
 
-  v31 = 0;
-  if (v12)
+  v32 = 0;
+  if (v13)
   {
-    v30 = &v28;
+    v31 = &v29;
 LABEL_18:
-    for (i = 0; i != v12; ++i)
+    for (i = 0; i != v13; ++i)
     {
-      v15[i] = xpc_array_get_value(v8, i);
+      v16[i] = xpc_array_get_value(v9, i);
     }
 
     messageCopy = message;
-    v18 = 0;
-    v19 = MEMORY[0x1E69E9E80];
+    v19 = 0;
+    v20 = MEMORY[0x1E69E9E80];
     do
     {
-      v20 = v15[v18];
-      v15[v18] = 0;
-      if (object_getClass(v20) == v19)
+      v21 = v16[v19];
+      v16[v19] = 0;
+      if (object_getClass(v21) == v20)
       {
-        v32 = MEMORY[0x1E69E9820];
-        v33 = 3221225472;
-        v34 = __49__CFPrefsDaemon_handleMultiMessage_replyHandler___block_invoke_2;
-        v35 = &__block_descriptor_44_e33_v16__0__NSObject_OS_xpc_object__8l;
-        v36 = v15;
-        v37 = v18;
-        [CFPrefsDaemon handleMessage:selfCopy fromPeer:v20 replyHandler:?];
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __49__CFPrefsDaemon_handleMultiMessage_replyHandler___block_invoke_2;
+        v33[3] = &__block_descriptor_44_e33_v16__0__NSObject_OS_xpc_object__8l;
+        v33[4] = v16;
+        v34 = v19;
+        [(CFPrefsDaemon *)self handleMessage:v21 fromPeer:remote_connection replyHandler:v33];
       }
 
-      if (!v15[v18])
+      if (!v16[v19])
       {
-        v15[v18] = xpc_null_create();
+        v16[v19] = xpc_null_create();
       }
 
-      ++v18;
+      ++v19;
     }
 
-    while (v12 != v18);
-    v21 = 0;
+    while (v13 != v19);
+    v22 = 0;
     message = messageCopy;
     goto LABEL_27;
   }
 
-  v21 = 1;
+  v22 = 1;
 LABEL_27:
-  v22 = v31;
+  v23 = v32;
   reply = xpc_dictionary_create_reply(xdict);
   if (!reply)
   {
     reply = xpc_dictionary_create(0, 0, 0);
   }
 
-  v24 = xpc_array_create(v15, v12);
-  xpc_dictionary_set_value(reply, "CFPreferencesMessages", v24);
-  xpc_release(v24);
-  if ((v21 & 1) == 0)
+  v25 = xpc_array_create(v16, v13);
+  xpc_dictionary_set_value(reply, "CFPreferencesMessages", v25);
+  xpc_release(v25);
+  if ((v22 & 1) == 0)
   {
-    v25 = MEMORY[0x1E69E9ED0];
+    v26 = MEMORY[0x1E69E9ED0];
     do
     {
-      if (object_getClass(*v15) != v25)
+      if (object_getClass(*v16) != v26)
       {
-        xpc_release(*v15);
+        xpc_release(*v16);
       }
 
-      ++v15;
-      --v12;
+      ++v16;
+      --v13;
     }
 
-    while (v12);
+    while (v13);
   }
 
   (*(message + 16))(message, reply);
   xpc_release(reply);
-  free(v22);
-LABEL_8:
-  v9 = *MEMORY[0x1E69E9840];
+  free(v23);
 }
 
 uint64_t __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke()
@@ -1269,43 +1240,42 @@ uint64_t __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_2(u
 
 void __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!xpc_dictionary_get_BOOL(*(a1 + 32), "FullCloudSync"))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     if (a2)
     {
-      value = xpc_dictionary_get_value(v8, "CFPreferencesShmemIndex");
-      if (!value || (v10 = value, object_getClass(value) != MEMORY[0x1E69E9EB0]) || (v11 = xpc_int64_get_value(v10), v11 == -1) || v11 == [a2 shmemIndex])
+      value = xpc_dictionary_get_value(v7, "CFPreferencesShmemIndex");
+      if (!value || (v9 = value, object_getClass(value) != MEMORY[0x1E69E9EB0]) || (v10 = xpc_int64_get_value(v9), v10 == -1) || v10 == [a2 shmemIndex])
       {
         reply = [a2 acceptMessage:*(a1 + 32)];
         *(*(*(a1 + 56) + 8) + 24) = 1;
 LABEL_21:
         (*(*(a1 + 48) + 16))();
         xpc_release(reply);
-        v16 = *MEMORY[0x1E69E9840];
         return;
       }
 
-      v18 = *(a1 + 32);
-      v17 = *(a1 + 40);
+      v15 = *(a1 + 32);
+      v14 = *(a1 + 40);
       length = 0;
-      v23 = 0u;
-      v24 = 0u;
-      data = xpc_dictionary_get_data(v18, "CFPreferencesAuditToken", &length);
+      v20 = 0u;
+      v21 = 0u;
+      data = xpc_dictionary_get_data(v15, "CFPreferencesAuditToken", &length);
       if (data && length == 32)
       {
-        v20 = data[1];
-        v23 = *data;
-        v24 = v20;
+        v17 = data[1];
+        v20 = *data;
+        v21 = v17;
       }
 
       else
       {
-        if (!xpc_dictionary_get_remote_connection(v18))
+        if (!xpc_dictionary_get_remote_connection(v15))
         {
-          v21 = xpc_dictionary_get_value(v18, "connection");
-          if (!v21 || object_getClass(v21) != MEMORY[0x1E69E9E68])
+          v18 = xpc_dictionary_get_value(v15, "connection");
+          if (!v18 || object_getClass(v18) != MEMORY[0x1E69E9E68])
           {
             __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_3_cold_1();
           }
@@ -1314,28 +1284,28 @@ LABEL_21:
         xpc_connection_get_audit_token();
       }
 
-      [(CFPrefsDaemon *)v17 logDomainInconsistencyForProcess:*(a1 + 32) message:a2 source:?];
+      [(CFPrefsDaemon *)v14 logDomainInconsistencyForProcess:*(a1 + 32) message:a2 source:?];
       reply = xpc_dictionary_create_reply(*(a1 + 32));
       if (!reply)
       {
         reply = xpc_dictionary_create(0, 0, 0);
       }
 
-      v15 = "Lookup inconsistency";
+      v13 = "Lookup inconsistency";
     }
 
     else
     {
-      reply = xpc_dictionary_create_reply(v8);
+      reply = xpc_dictionary_create_reply(v7);
       if (!reply)
       {
         reply = xpc_dictionary_create(0, 0, 0);
       }
 
-      v15 = "Domain or user not found";
+      v13 = "Domain or user not found";
     }
 
-    populateErrorReply(v15, reply, 1u);
+    populateErrorReply(v13, reply, 1u);
     goto LABEL_21;
   }
 
@@ -1345,24 +1315,22 @@ LABEL_21:
   if (isKindOfClass)
   {
     v6 = *(a1 + 48);
-    v7 = *MEMORY[0x1E69E9840];
 
     [a2 synchronizeWithCloud:v5 replyHandler:v6];
   }
 
   else
   {
-    v13 = xpc_dictionary_create_reply(*(a1 + 32));
-    if (!v13)
+    v12 = xpc_dictionary_create_reply(*(a1 + 32));
+    if (!v12)
     {
-      v13 = xpc_dictionary_create(0, 0, 0);
+      v12 = xpc_dictionary_create(0, 0, 0);
     }
 
-    populateErrorReply("Domain not cloud-backed", v13, 1u);
+    populateErrorReply("Domain not cloud-backed", v12, 1u);
     (*(*(a1 + 48) + 16))();
-    v14 = *MEMORY[0x1E69E9840];
 
-    xpc_release(v13);
+    xpc_release(v12);
   }
 }
 
@@ -1380,7 +1348,7 @@ void __50__CFPrefsDaemon_handleSourceMessage_replyHandler___block_invoke_4(uint6
 
 void __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke(uint64_t a1, void **a2, uint64_t a3, void **a4, uint64_t a5, uint64_t a6)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v10 = a3;
@@ -1395,17 +1363,17 @@ void __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke(u
   }
 
   v13 = 0;
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke_2;
-  v22 = &unk_1E6DD2008;
-  v23 = *(a1 + 32);
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke_2;
+  v20 = &unk_1E6DD2008;
+  v21 = *(a1 + 32);
   do
   {
     for (i = *(a6 + 8 * v13); i; i &= ~(1 << v15))
     {
       v15 = __clz(__rbit64(i));
-      v21(&v19, (((v13 << 6) | 1) + v15 - 1));
+      (v19)(&v17, (((v13 << 6) | 1) + v15 - 1));
     }
 
     ++v13;
@@ -1418,13 +1386,11 @@ void __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke(u
     [v16 notifyObservers];
   }
 
-  v17 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
   xpc_release(*(a1 + 40));
-  v18 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __64__CFPrefsDaemon_handleFlushSourceForDomainMessage_replyHandler___block_invoke(uint64_t a1, void **a2, uint64_t a3)
+void *__64__CFPrefsDaemon_handleFlushSourceForDomainMessage_replyHandler___block_invoke(uint64_t a1, void **a2, uint64_t a3)
 {
   if (a3)
   {
@@ -1442,13 +1408,13 @@ uint64_t __64__CFPrefsDaemon_handleFlushSourceForDomainMessage_replyHandler___bl
   return result;
 }
 
-xpc_object_t __49__CFPrefsDaemon_handleMultiMessage_replyHandler___block_invoke_2(xpc_object_t result, xpc_object_t object)
+int *__49__CFPrefsDaemon_handleMultiMessage_replyHandler___block_invoke_2(int *result, xpc_object_t object)
 {
   if (object)
   {
     v2 = result;
     result = xpc_retain(object);
-    *(*(v2 + 32) + 8 * *(v2 + 40)) = result;
+    *(*(v2 + 4) + 8 * v2[10]) = result;
   }
 
   return result;
@@ -1456,113 +1422,109 @@ xpc_object_t __49__CFPrefsDaemon_handleMultiMessage_replyHandler___block_invoke_
 
 - (os_unfair_lock_s)initWithRole:(int)role testMode:
 {
-  v18 = *MEMORY[0x1E69E9840];
-  if (self)
+  v17 = *MEMORY[0x1E69E9840];
+  if (!self)
   {
-    v17.receiver = self;
-    v17.super_class = CFPrefsDaemon;
-    v5 = objc_msgSendSuper2(&v17, sel_init);
-    v6 = v5;
-    if (v5)
+    return 0;
+  }
+
+  v16.receiver = self;
+  v16.super_class = CFPrefsDaemon;
+  v5 = objc_msgSendSuper2(&v16, sel_init);
+  v6 = v5;
+  if (v5)
+  {
+    LOBYTE(v5[142]._os_unfair_lock_opaque) = role;
+    if (role)
     {
-      LOBYTE(v5[142]._os_unfair_lock_opaque) = role;
-      if (role)
-      {
-        os_transaction_create();
-      }
-
-      if (a2)
-      {
-        v6[6]._os_unfair_lock_opaque = a2;
-        v7 = a2 == 2;
-      }
-
-      else
-      {
-        if ((isCFPrefsD & 1) == 0)
-        {
-          [CFPrefsDaemon initWithRole:testMode:];
-        }
-
-        if (initWithRole_testMode__onceToken != -1)
-        {
-          [CFPrefsDaemon initWithRole:testMode:];
-        }
-
-        v7 = initWithRole_testMode__runningInSystemContext;
-        if (initWithRole_testMode__runningInSystemContext)
-        {
-          v8 = 2;
-        }
-
-        else
-        {
-          v8 = 1;
-        }
-
-        v6[6]._os_unfair_lock_opaque = v8;
-      }
-
-      if (LOBYTE(v6[142]._os_unfair_lock_opaque))
-      {
-        v9 = "com.apple.cfprefsd.daemon.system.test";
-      }
-
-      else
-      {
-        v9 = "com.apple.cfprefsd.daemon.system";
-      }
-
-      v10 = "com.apple.cfprefsd.daemon";
-      if (LOBYTE(v6[142]._os_unfair_lock_opaque))
-      {
-        v10 = "com.apple.cfprefsd.daemon.test";
-      }
-
-      if (v7)
-      {
-        v11 = v9;
-      }
-
-      else
-      {
-        v11 = v10;
-      }
-
-      *&v6[4]._os_unfair_lock_opaque = v11;
-      if (isCFPrefsD == 1)
-      {
-        mach_service = xpc_connection_create_mach_service(v11, 0, 1uLL);
-      }
-
-      else
-      {
-        mach_service = xpc_connection_create(0, 0);
-      }
-
-      v13 = mach_service;
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_2;
-      v16[3] = &unk_1E6DD1D00;
-      v16[4] = v6;
-      xpc_connection_set_event_handler(mach_service, v16);
-      v6[12]._os_unfair_lock_opaque = 0;
-      os_unfair_lock_lock(v6 + 12);
-      *&v6[8]._os_unfair_lock_opaque = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeSetCallBacks);
-      *&v6[10]._os_unfair_lock_opaque = CFBagCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeBagCallBacks);
-      os_unfair_lock_unlock(v6 + 12);
-      *&v6[2]._os_unfair_lock_opaque = v13;
-      xpc_connection_activate(v13);
+      os_transaction_create();
     }
+
+    if (a2)
+    {
+      v6[6]._os_unfair_lock_opaque = a2;
+      v7 = a2 == 2;
+    }
+
+    else
+    {
+      if ((isCFPrefsD & 1) == 0)
+      {
+        [CFPrefsDaemon initWithRole:testMode:];
+      }
+
+      if (initWithRole_testMode__onceToken != -1)
+      {
+        [CFPrefsDaemon initWithRole:testMode:];
+      }
+
+      v7 = initWithRole_testMode__runningInSystemContext;
+      if (initWithRole_testMode__runningInSystemContext)
+      {
+        v8 = 2;
+      }
+
+      else
+      {
+        v8 = 1;
+      }
+
+      v6[6]._os_unfair_lock_opaque = v8;
+    }
+
+    if (LOBYTE(v6[142]._os_unfair_lock_opaque))
+    {
+      v9 = "com.apple.cfprefsd.daemon.system.test";
+    }
+
+    else
+    {
+      v9 = "com.apple.cfprefsd.daemon.system";
+    }
+
+    v10 = "com.apple.cfprefsd.daemon";
+    if (LOBYTE(v6[142]._os_unfair_lock_opaque))
+    {
+      v10 = "com.apple.cfprefsd.daemon.test";
+    }
+
+    if (v7)
+    {
+      v11 = v9;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    *&v6[4]._os_unfair_lock_opaque = v11;
+    if (isCFPrefsD == 1)
+    {
+      mach_service = xpc_connection_create_mach_service(v11, 0, 1uLL);
+    }
+
+    else
+    {
+      mach_service = xpc_connection_create(0, 0);
+    }
+
+    v13 = mach_service;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_2;
+    v15[3] = &unk_1E6DD1D00;
+    v15[4] = v6;
+    xpc_connection_set_event_handler(mach_service, v15);
+    v6[12]._os_unfair_lock_opaque = 0;
+    os_unfair_lock_lock(v6 + 12);
+    *&v6[8]._os_unfair_lock_opaque = CFSetCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeSetCallBacks);
+    *&v6[10]._os_unfair_lock_opaque = CFBagCreateMutable(&__kCFAllocatorSystemDefault, 0, &kCFTypeBagCallBacks);
+    os_unfair_lock_unlock(v6 + 12);
+    *&v6[2]._os_unfair_lock_opaque = v13;
+    xpc_connection_activate(v13);
   }
 
-  else
-  {
-    v6 = 0;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1586,7 +1548,7 @@ uint64_t __39__CFPrefsDaemon_initWithRole_testMode___block_invoke()
 
 void __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_2(uint64_t a1, _xpc_connection_s *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (object_getClass(a2) == MEMORY[0x1E69E9E68])
   {
     handler[0] = MEMORY[0x1E69E9820];
@@ -1597,14 +1559,14 @@ void __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_2(uint64_t a1, _xp
     handler[4] = a2;
     handler[5] = v4;
     xpc_connection_set_event_handler(a2, handler);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    *__str = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    *__str = 0u;
+    v11 = 0u;
     pid = xpc_connection_get_pid(a2);
     if ((snprintf(__str, 0x80uLL, "client-%d", pid) - 1) > 0x7E)
     {
@@ -1630,81 +1592,76 @@ void __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_2(uint64_t a1, _xp
     xpc_connection_set_finalizer_f(a2, client_context_finalizer);
     xpc_connection_activate(a2);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_3(uint64_t a1, id a2)
 {
-  v20[5] = *MEMORY[0x1E69E9840];
-  if (object_getClass(a2) != MEMORY[0x1E69E9E80])
+  v18[5] = *MEMORY[0x1E69E9840];
+  if (object_getClass(a2) == MEMORY[0x1E69E9E80])
   {
-    if (a2 == MEMORY[0x1E69E9E20])
+    v7 = *(a1 + 32);
+    if (terminating[0])
     {
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x2020000000;
-      v19 = 0;
-      v4 = *(a1 + 32);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_5;
-      v15[3] = &unk_1E6DD1E08;
-      v15[4] = &v16;
-      withClientContext(v4, v15);
-      v5 = v17[3];
-      if (v5)
-      {
-        if (CFSetGetCount(v5) >= 1)
-        {
-          v6 = v17[3];
-          v13[0] = MEMORY[0x1E69E9820];
-          v13[1] = 3221225472;
-          v13[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_6;
-          v13[3] = &unk_1E6DD1C38;
-          v14 = *(a1 + 32);
-          CFSetApply(v6, v13);
-        }
 
-        CFRelease(v17[3]);
+      xpc_connection_cancel(v7);
+    }
+
+    else
+    {
+      context = xpc_connection_get_context(v7);
+      if (!context)
+      {
+        __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_3_cold_2();
       }
 
-      _Block_object_dispose(&v16, 8);
-    }
+      v9 = atomic_load(context + 1);
+      if (!v9)
+      {
+        __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_3_cold_1();
+      }
 
-LABEL_15:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
+      v10 = *(a1 + 32);
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_4;
+      v18[3] = &unk_1E6DD1D00;
+      v18[4] = v10;
+      [(CFPrefsDaemon *)v9 handleMessage:a2 fromPeer:v10 replyHandler:v18];
+    }
   }
 
-  v7 = *(a1 + 32);
-  if (!terminating)
+  else if (a2 == MEMORY[0x1E69E9E20])
   {
-    context = xpc_connection_get_context(v7);
-    if (!context)
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
+    v4 = *(a1 + 32);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_5;
+    v13[3] = &unk_1E6DD1E08;
+    v13[4] = &v14;
+    withClientContext(v4, v13);
+    v5 = v15[3];
+    if (v5)
     {
-      __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_3_cold_2();
+      if (CFSetGetCount(v5) >= 1)
+      {
+        v6 = v15[3];
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_6;
+        v11[3] = &unk_1E6DD1C38;
+        v12 = *(a1 + 32);
+        CFSetApply(v6, v11);
+      }
+
+      CFRelease(v15[3]);
     }
 
-    v10 = atomic_load(context + 1);
-    if (!v10)
-    {
-      __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_3_cold_1();
-    }
-
-    v11 = *(a1 + 32);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_4;
-    v20[3] = &unk_1E6DD1D00;
-    v20[4] = v11;
-    [(CFPrefsDaemon *)v10 handleMessage:a2 fromPeer:v11 replyHandler:v20];
-    goto LABEL_15;
+    _Block_object_dispose(&v14, 8);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  xpc_connection_cancel(v7);
 }
 
 void __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_4(uint64_t a1, void *a2)
@@ -1761,17 +1718,17 @@ uint64_t __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_6(uint64_t a1,
   }
 }
 
-- (uint64_t)_setSource:(int)source isDead:
+- (const)_setSource:(int)source isDead:
 {
   if (result)
   {
     v5 = result;
-    os_unfair_lock_assert_owner((result + 48));
+    os_unfair_lock_assert_owner(result + 12);
     result = [a2 managed];
     if (result)
     {
       result = [a2 shmemIndex];
-      v6 = *(v5 + 56 + 8 * (result >> 6));
+      v6 = *&v5[2 * (result >> 6) + 14]._os_unfair_lock_opaque;
       v7 = v6 | (1 << result);
       v8 = v6 & ~(1 << result);
       if (source)
@@ -1779,7 +1736,7 @@ uint64_t __39__CFPrefsDaemon_initWithRole_testMode___block_invoke_6(uint64_t a1,
         v8 = v7;
       }
 
-      *(v5 + 56 + 8 * (result >> 6)) = v8;
+      *&v5[2 * (result >> 6) + 14]._os_unfair_lock_opaque = v8;
     }
   }
 
@@ -1851,7 +1808,7 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
 
 - (void)logDomainInconsistencyForProcess:(void *)process message:(void *)message source:
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self)
   {
     messageCopy = message;
@@ -1862,19 +1819,17 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
     block[1] = 3221225472;
     block[2] = __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke;
     block[3] = &unk_1E6DD1F68;
-    v13 = a2;
+    v12 = a2;
     block[4] = process;
     block[5] = self;
     block[6] = message;
     dispatch_async(global_queue, block);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFlushManagedMessage:(uint64_t)message replyHandler:
 {
-  v8[7] = *MEMORY[0x1E69E9840];
+  v7[7] = *MEMORY[0x1E69E9840];
   if (self)
   {
     log_client_activity(a2, "requested flush of managed sources", 0);
@@ -1885,17 +1840,15 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
       reply = OUTLINED_FUNCTION_2_8(0);
     }
 
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke;
-    v8[3] = &unk_1E6DD2030;
-    v8[5] = reply;
-    v8[6] = message;
-    v8[4] = self;
-    [(CFPrefsDaemon *)self withAllKnownManagedSources:v8];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke;
+    v7[3] = &unk_1E6DD2030;
+    v7[5] = reply;
+    v7[6] = message;
+    v7[4] = self;
+    [(CFPrefsDaemon *)self withAllKnownManagedSources:v7];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleAgentCheckInMessage:(uint64_t)message
@@ -1903,15 +1856,13 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
   v4 = *MEMORY[0x1E69E9840];
   if (message)
   {
-    v1 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = _CFPrefsDaemonLog(message, a2);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *v3 = 0;
-      _os_log_error_impl(&dword_1830E6000, v1, OS_LOG_TYPE_ERROR, "cfprefsd agents don't exist on non-macOS platforms", v3, 2u);
+      _os_log_error_impl(&dword_1830E6000, v2, OS_LOG_TYPE_ERROR, "cfprefsd agents don't exist on non-macOS platforms", v3, 2u);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFlushSourceForDomainMessage:(uint64_t)message replyHandler:
@@ -1930,7 +1881,7 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
       {
         v10 = v6;
         [(CFPrefsDaemon *)v3 withSnapshotOfSourcesForDomainIdentifier:v6 performBlock:&__block_literal_global_94];
-        [(CFPrefsDaemon *)v3 updateShmemForDomain:v10];
+        [(CFPrefsDaemon *)v3 updateShmemForDomain:v10, v11, v12, v13, v14];
         CFRelease(v10);
       }
     }
@@ -1966,78 +1917,80 @@ void __197__CFPrefsDaemon_SourceSupport__withSourceForDomain_inContainer_user_by
   }
 }
 
-uint64_t __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke_2(uint64_t a1, int a2)
+uint64_t __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   result = *(a1 + 32);
   if (result)
   {
-    v4 = [(CFPrefsDaemon *)result shmem];
-    result = OUTLINED_FUNCTION_6_3(v4);
-    if (v6)
+    v7 = a2;
+    v8 = [(CFPrefsDaemon *)result shmem:a2];
+    result = OUTLINED_FUNCTION_6_3(v8);
+    if (v10)
     {
-      atomic_store(v5, (result + 4 * a2));
+      atomic_store(v9, (result + 4 * v7));
     }
   }
 
   return result;
 }
 
-- (uint64_t)updateShmemIndex:(uint64_t)result
+- (uint64_t)updateShmemIndex:(uint64_t)index
 {
   if (result)
   {
-    shmem = [(CFPrefsDaemon *)result shmem];
-    result = OUTLINED_FUNCTION_6_3(shmem);
-    if (v5)
+    v6 = a2;
+    v7 = [(CFPrefsDaemon *)result shmem:a2];
+    result = OUTLINED_FUNCTION_6_3(v7);
+    if (v9)
     {
-      atomic_store(v4, (result + 4 * a2));
+      atomic_store(v8, (result + 4 * v6));
     }
   }
 
   return result;
 }
 
-- (uint64_t)updateShmemForDomain:(uint64_t)result
+- (uint64_t)updateShmemForDomain:(uint64_t)domain
 {
   if (result)
   {
-    result = [(CFPrefsDaemon *)result shmem];
-    v3 = result;
+    result = [(CFPrefsDaemon *)result shmem:a2];
+    v7 = result;
     if (a2)
     {
-      v4 = 7 * (CFHash(a2) % 0x249);
+      v8 = 7 * (CFHash(a2) % 0x249);
       result = CFStringGetLength(a2);
-      v5 = result % 7;
+      v9 = result % 7;
     }
 
     else
     {
-      v4 = 0;
-      v5 = 0;
+      v8 = 0;
+      v9 = 0;
     }
 
-    v6 = v5 + v4;
-    if ((v5 + v4) > 4088 || v6 == 0)
+    v10 = v9 + v8;
+    if ((v9 + v8) > 4088 || v10 == 0)
     {
-      LOWORD(v6) = v5 + 1;
+      LOWORD(v10) = v9 + 1;
     }
 
-    if (v6 <= 0xFFF8u)
+    if (v10 <= 0xFFF8u)
     {
-      v8 = (v3 + 4 * v6);
-      v9 = (v6 + 7) - v6;
+      v12 = (v7 + 4 * v10);
+      v13 = (v10 + 7) - v10;
       do
       {
-        if (atomic_fetch_add(v8, 1u) == -1)
+        if (atomic_fetch_add(v12, 1u) == -1)
         {
-          atomic_store(1u, v8);
+          atomic_store(1u, v12);
         }
 
-        ++v8;
-        --v9;
+        ++v12;
+        --v13;
       }
 
-      while (v9);
+      while (v13);
     }
   }
 
@@ -2061,18 +2014,15 @@ uint64_t __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invo
 
 - (uint64_t)_initializeShmemPage:(uint64_t)result
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!result)
   {
-    goto LABEL_15;
+    return result;
   }
 
-  v3 = result;
   bzero(__str, 0x400uLL);
-  *(v3 + 568);
-  v4 = *(v3 + 24);
   OUTLINED_FUNCTION_5_4();
-  snprintf(__str, 0x1FuLL, v5);
+  snprintf(__str, 0x1FuLL, v3);
   if (isCFPrefsD)
   {
     result = shm_open(__str, 514, 420);
@@ -2081,16 +2031,15 @@ uint64_t __56__CFPrefsDaemon_handleFlushManagedMessage_replyHandler___block_invo
   else
   {
     getpid();
-    v6 = *MEMORY[0x1E69E9BD0];
     result = sandbox_check();
     if (result)
     {
 LABEL_9:
-      v8 = *a2;
+      v6 = *a2;
 LABEL_10:
-      if (v8)
+      if (v6)
       {
-        goto LABEL_15;
+        return result;
       }
 
       goto LABEL_11;
@@ -2104,11 +2053,11 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v7 = result;
+  v5 = result;
   ftruncate(result, 0x4000);
-  *a2 = mmap(0, 0x4000uLL, 3, 1, v7, 0);
-  result = close(v7);
-  v8 = *a2;
+  *a2 = mmap(0, 0x4000uLL, 3, 1, v5, 0);
+  result = close(v5);
+  v6 = *a2;
   if (*a2 != -1)
   {
     goto LABEL_10;
@@ -2118,19 +2067,17 @@ LABEL_10:
 LABEL_11:
   if (isCFPrefsD == 1)
   {
-    v9 = _CFPrefsDaemonLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = _CFPrefsDaemonLog(result, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v12 = __str;
-      _os_log_fault_impl(&dword_1830E6000, v9, OS_LOG_TYPE_FAULT, "cfprefsd could not create a shmem named %s, cross-process preferences will not work correctly", buf, 0xCu);
+      v9 = __str;
+      _os_log_fault_impl(&dword_1830E6000, v7, OS_LOG_TYPE_FAULT, "cfprefsd could not create a shmem named %s, cross-process preferences will not work correctly", buf, 0xCu);
     }
   }
 
   result = malloc_type_calloc(1uLL, 0x4000uLL, 0x100004052888210uLL);
   *a2 = result;
-LABEL_15:
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2138,10 +2085,8 @@ LABEL_15:
 {
   if (result)
   {
-    *(result + 568);
-    v1 = *(result + 24);
     OUTLINED_FUNCTION_5_4();
-    return snprintf(v2, 0x1FuLL, v3);
+    return snprintf(v1, 0x1FuLL, v2);
   }
 
   return result;
@@ -2151,7 +2096,7 @@ LABEL_15:
 {
   if (result)
   {
-    result = [(CFPrefsDaemon *)result shmem];
+    result = [(CFPrefsDaemon *)result shmem:a2];
     for (i = 4; i != 0x4000; i += 4)
     {
       if (atomic_fetch_add((result + i), 1u) == -1)
@@ -2179,12 +2124,11 @@ LABEL_15:
 
 void __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 56);
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_1830E6000, a2, OS_LOG_TYPE_FAULT, "Lookup inconsistency for request from pid %d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_1830E6000, a2, OS_LOG_TYPE_FAULT, "Lookup inconsistency for request from pid %d", v3, 8u);
 }
 
 - (void)handleMessage:(uint64_t)a3 fromPeer:(uint64_t)a4 replyHandler:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2207,27 +2151,27 @@ void __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block
       case 7:
       case 8:
       case 9:
-        v10 = OUTLINED_FUNCTION_1_18();
+        v11 = OUTLINED_FUNCTION_1_18();
 
-        [(CFPrefsDaemon *)v10 handleSourceMessage:v11 replyHandler:v12];
+        [(CFPrefsDaemon *)v11 handleSourceMessage:v12 replyHandler:v13];
         break;
       case 2:
-        [CFPrefsDaemon handleAgentCheckInMessage:a4];
+        [(CFPrefsDaemon *)a4 handleAgentCheckInMessage:v10];
         goto LABEL_12;
       case 3:
-        v21 = OUTLINED_FUNCTION_1_18();
+        v22 = OUTLINED_FUNCTION_1_18();
 
-        [(CFPrefsDaemon *)v21 handleFlushManagedMessage:v22 replyHandler:v23];
+        [(CFPrefsDaemon *)v22 handleFlushManagedMessage:v23 replyHandler:v24];
         break;
       case 4:
-        v24 = OUTLINED_FUNCTION_1_18();
+        v25 = OUTLINED_FUNCTION_1_18();
 
-        [CFPrefsDaemon handleFlushSourceForDomainMessage:v24 replyHandler:?];
+        [CFPrefsDaemon handleFlushSourceForDomainMessage:v25 replyHandler:?];
         break;
       case 5:
-        v15 = OUTLINED_FUNCTION_1_18();
+        v16 = OUTLINED_FUNCTION_1_18();
 
-        [(CFPrefsDaemon *)v15 handleMultiMessage:v16 replyHandler:v17];
+        [(CFPrefsDaemon *)v16 handleMultiMessage:v17 replyHandler:v18];
         break;
       case 6:
 
@@ -2236,12 +2180,12 @@ void __65__CFPrefsDaemon_logDomainInconsistencyForProcess_message_source___block
       default:
         if (int64 == 999)
         {
-          v13 = +[_CFPrefsSynchronizer sharedInstance];
-          [(_CFPrefsSynchronizer *)v13 synchronize];
+          v14 = +[_CFPrefsSynchronizer sharedInstance];
+          [(_CFPrefsSynchronizer *)v14 synchronize];
 LABEL_12:
-          v14 = *(v4 + 16);
+          v15 = *(v4 + 16);
 
-          v14(v4, 0);
+          v15(v4, 0);
         }
 
         else
@@ -2253,8 +2197,8 @@ LABEL_12:
           }
 
           populateErrorReply("Unsupported CFPreferences Daemon Operation", reply, 1u);
-          v19 = OUTLINED_FUNCTION_0_25();
-          v20(v19);
+          v20 = OUTLINED_FUNCTION_0_25();
+          v21(v20);
 
           xpc_release(reply);
         }

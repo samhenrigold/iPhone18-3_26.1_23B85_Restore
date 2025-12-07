@@ -13,7 +13,7 @@
 
 - (_TtC11AppStoreKit16DynamicTypeLabel)initWithFrame:(CGRect)frame
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB34E0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB34E0, &qword_1E1B189E0);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - v4;
   ObjectType = swift_getObjectType();
@@ -48,14 +48,14 @@
   selfCopy = self;
   sub_1E1580BA4(&v9);
   v8.receiver = selfCopy;
-  v8.super_class = type metadata accessor for DynamicTypeLabel();
+  v8.super_class = type metadata accessor for DynamicTypeLabel(0);
   [(DynamicTypeLabel *)&v8 setTextAlignment:alignment];
 }
 
 - (NSString)text
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DynamicTypeLabel();
+  v7.super_class = type metadata accessor for DynamicTypeLabel(0);
   v2 = v7.receiver;
   text = [(DynamicTypeLabel *)&v7 text];
   if (text)
@@ -91,7 +91,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for DynamicTypeLabel();
+  v7.super_class = type metadata accessor for DynamicTypeLabel(0);
   [(DynamicTypeLabel *)&v7 setText:v5];
 
   sub_1E1580348(1);
@@ -110,7 +110,7 @@
   sub_1E1580348(0);
   lineBreakMode = [(DynamicTypeLabel *)selfCopy lineBreakMode];
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for DynamicTypeLabel();
+  v7.super_class = type metadata accessor for DynamicTypeLabel(0);
   [(DynamicTypeLabel *)&v7 setAttributedText:textCopy];
   [(DynamicTypeLabel *)selfCopy setLineBreakMode:lineBreakMode];
 }

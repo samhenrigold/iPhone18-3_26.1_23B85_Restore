@@ -692,10 +692,10 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ received cutWiFiManagerLinkDidChange - alerting the delegate. isWiFiAssociated? %@ context %@", v16, 0x20u);
     }
 
-    delegate = [(APSNetworkMonitor *)self delegate];
+    v12 = [(APSNetworkMonitor *)self delegate:*v16];
     if (objc_opt_respondsToSelector())
     {
-      [delegate networkMonitorWiFiBecameAssociated:self];
+      [v12 networkMonitorWiFiBecameAssociated:self];
     }
   }
 
@@ -1621,7 +1621,7 @@ LABEL_29:
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%@ interfaceConstraintChanged: %ld changing current dual mode %@)", v10, 0x20u);
     }
 
-    [(APSDecayTimer *)self->_decayTimer forceTimerFire];
+    [(APSDecayTimer *)self->_decayTimer forceTimerFire:*v10];
   }
 }
 

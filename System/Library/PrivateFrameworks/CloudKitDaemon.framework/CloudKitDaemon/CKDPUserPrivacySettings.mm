@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    discoverable = self->_discoverable;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -259,7 +259,7 @@ void __52__VUIEpisodeDetailViewController_initWithMediaItem___block_invoke(uint6
 
 void __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   if (*(a1 + 32))
   {
@@ -268,8 +268,8 @@ void __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke(uint64_t a1)
     {
       v2 = [*v1 videosPlayable];
       v3 = [VUIMediaInfo alloc];
-      v12[0] = v2;
-      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v13[0] = v2;
+      v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
       v5 = [(VUIMediaInfo *)v3 initWithPlaybackContext:3 videosPlayables:v4 imageProxies:0 storeDictionary:0];
 
       v6 = [MEMORY[0x1E695DF00] date];
@@ -284,10 +284,11 @@ void __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke(uint64_t a1)
     else
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0 || (v7 = [VUIMediaInfo alloc], v11 = *v1, [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1], v8 = objc_claimAutoreleasedReturnValue(), v5 = -[VUIMediaInfo initWithPlaybackContext:vuiMediaItems:](v7, "initWithPlaybackContext:vuiMediaItems:", 3, v8), v8, -[NSObject setIntent:](v5, "setIntent:", 1), -[NSObject setAutomaticPlaybackStart:](v5, "setAutomaticPlaybackStart:", 0), !v5))
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0 || (v8 = [VUIMediaInfo alloc], v12 = *v1, [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1], v9 = objc_claimAutoreleasedReturnValue(), v5 = -[VUIMediaInfo initWithPlaybackContext:vuiMediaItems:](v8, "initWithPlaybackContext:vuiMediaItems:", 3, v9), v9, -[NSObject setIntent:](v5, "setIntent:", 1), isKindOfClass = -[NSObject setAutomaticPlaybackStart:](v5, "setAutomaticPlaybackStart:", 0), !v5))
       {
 LABEL_10:
-        v5 = VUIDefaultLogObject();
+        v5 = VUIDefaultLogObject(isKindOfClass);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke_cold_1(v1, v5);
@@ -297,17 +298,17 @@ LABEL_10:
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke_2;
-    v9[3] = &unk_1E872D768;
-    v10 = *v1;
-    [VUIActionPlay playMediaInfo:v5 watchType:0 isRentAndWatchNow:0 completion:v9];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke_2;
+    v10[3] = &unk_1E872D768;
+    v11 = *v1;
+    [VUIActionPlay playMediaInfo:v5 watchType:0 isRentAndWatchNow:0 completion:v10];
 
     goto LABEL_12;
   }
 
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __44__VUIEpisodeDetailViewController_didTapPlay__block_invoke_cold_2(v5);

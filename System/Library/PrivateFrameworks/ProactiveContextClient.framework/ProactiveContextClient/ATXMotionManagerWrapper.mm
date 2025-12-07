@@ -68,45 +68,46 @@ void __45__ATXMotionManagerWrapper_getCurrentActivity__block_invoke(uint64_t a1,
 
 - (id)_fetchMotionActivities
 {
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__16;
-  v22 = __Block_byref_object_dispose__16;
-  v23 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__16;
+  v23 = __Block_byref_object_dispose__16;
+  v24 = 0;
   v3 = dispatch_semaphore_create(0);
   motionActivityManager = self->_motionActivityManager;
   v5 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:-30.0];
   date = [MEMORY[0x277CBEAA8] date];
   motionActivityQueue = self->_motionActivityQueue;
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __49__ATXMotionManagerWrapper__fetchMotionActivities__block_invoke;
-  v15 = &unk_279AB8CB8;
-  v17 = &v18;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __49__ATXMotionManagerWrapper__fetchMotionActivities__block_invoke;
+  v16 = &unk_279AB8CB8;
+  v18 = &v19;
   v8 = v3;
-  v16 = v8;
-  [(CMMotionActivityManager *)motionActivityManager queryActivityStartingFromDate:v5 toDate:date toQueue:motionActivityQueue withHandler:&v12];
+  v17 = v8;
+  [(CMMotionActivityManager *)motionActivityManager queryActivityStartingFromDate:v5 toDate:date toQueue:motionActivityQueue withHandler:&v13];
 
-  if ([MEMORY[0x277D425A0] waitForSemaphore:v8 timeoutSeconds:{60.0, v12, v13, v14, v15}] == 1)
+  v9 = [MEMORY[0x277D425A0] waitForSemaphore:v8 timeoutSeconds:{60.0, v13, v14, v15, v16}];
+  if (v9 == 1)
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(ATXMotionManagerWrapper *)v9 _fetchMotionActivities];
+      [(ATXMotionManagerWrapper *)v10 _fetchMotionActivities];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = v19[5];
+    v11 = v20[5];
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
 
-  return v10;
+  return v11;
 }
 
 + (id)sharedInstance
@@ -243,211 +244,211 @@ void __49__ATXMotionManagerWrapper__motionActivityHandler__block_invoke(uint64_t
   if (WeakRetained)
   {
     v7 = WeakRetained;
-    objc_sync_enter(v7);
+    v8 = objc_sync_enter(v7);
     if (v4)
     {
-      v8 = v7 + 4;
-      if (!v7[4] || (v9 = [v4 walking], v9 != objc_msgSend(*v8, "walking")))
+      v9 = v7 + 4;
+      if (!v7[4] || (v10 = [v4 walking], v8 = objc_msgSend(*v9, "walking"), v10 != v8))
       {
-        v10 = __atxlog_handle_default();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v11 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 67109120;
           v81 = [v4 walking];
-          _os_log_impl(&dword_260C9F000, v10, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: WALKING state changed to %d", buf, 8u);
+          _os_log_impl(&dword_260C9F000, v11, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: WALKING state changed to %d", buf, 8u);
         }
 
         v69 = 0u;
         v70 = 0u;
         v67 = 0u;
         v68 = 0u;
-        v11 = [v7[3] objectForKey:&unk_28733C8B0];
-        v12 = [v11 countByEnumeratingWithState:&v67 objects:v79 count:16];
-        if (v12)
+        v12 = [v7[3] objectForKey:&unk_28733C8B0];
+        v13 = [v12 countByEnumeratingWithState:&v67 objects:v79 count:16];
+        if (v13)
         {
-          v13 = *v68;
+          v14 = *v68;
           do
           {
-            v14 = 0;
+            v15 = 0;
             do
             {
-              if (*v68 != v13)
+              if (*v68 != v14)
               {
-                objc_enumerationMutation(v11);
+                objc_enumerationMutation(v12);
               }
 
-              [*(*(&v67 + 1) + 8 * v14++) didUpdateMotionType:0 isActive:{objc_msgSend(v4, "walking")}];
+              [*(*(&v67 + 1) + 8 * v15++) didUpdateMotionType:0 isActive:{objc_msgSend(v4, "walking")}];
             }
 
-            while (v12 != v14);
-            v12 = [v11 countByEnumeratingWithState:&v67 objects:v79 count:16];
+            while (v13 != v15);
+            v13 = [v12 countByEnumeratingWithState:&v67 objects:v79 count:16];
           }
 
-          while (v12);
+          while (v13);
         }
       }
 
-      if (!*v8 || (v15 = [v4 running], v15 != objc_msgSend(*v8, "running")))
+      if (!*v9 || (v16 = [v4 running], v8 = objc_msgSend(*v9, "running"), v16 != v8))
       {
-        v16 = __atxlog_handle_default();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        v17 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v17 = [v4 running];
+          v18 = [v4 running];
           *buf = 67109120;
-          v81 = v17;
-          _os_log_impl(&dword_260C9F000, v16, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: RUNNING state changed to %d", buf, 8u);
+          v81 = v18;
+          _os_log_impl(&dword_260C9F000, v17, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: RUNNING state changed to %d", buf, 8u);
         }
 
         v65 = 0u;
         v66 = 0u;
         v63 = 0u;
         v64 = 0u;
-        v18 = [v7[3] objectForKey:&unk_28733C8C8];
-        v19 = [v18 countByEnumeratingWithState:&v63 objects:v78 count:16];
-        if (v19)
+        v19 = [v7[3] objectForKey:&unk_28733C8C8];
+        v20 = [v19 countByEnumeratingWithState:&v63 objects:v78 count:16];
+        if (v20)
         {
-          v20 = *v64;
+          v21 = *v64;
           do
           {
-            v21 = 0;
+            v22 = 0;
             do
             {
-              if (*v64 != v20)
+              if (*v64 != v21)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v19);
               }
 
-              [*(*(&v63 + 1) + 8 * v21++) didUpdateMotionType:1 isActive:{objc_msgSend(v4, "running")}];
+              [*(*(&v63 + 1) + 8 * v22++) didUpdateMotionType:1 isActive:{objc_msgSend(v4, "running")}];
             }
 
-            while (v19 != v21);
-            v19 = [v18 countByEnumeratingWithState:&v63 objects:v78 count:16];
+            while (v20 != v22);
+            v20 = [v19 countByEnumeratingWithState:&v63 objects:v78 count:16];
           }
 
-          while (v19);
+          while (v20);
         }
       }
 
-      if (!*v8 || (v22 = [v4 cycling], v22 != objc_msgSend(*v8, "cycling")))
+      if (!*v9 || (v23 = [v4 cycling], v8 = objc_msgSend(*v9, "cycling"), v23 != v8))
       {
-        v23 = __atxlog_handle_default();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v24 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
-          v24 = [v4 cycling];
+          v25 = [v4 cycling];
           *buf = 67109120;
-          v81 = v24;
-          _os_log_impl(&dword_260C9F000, v23, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: CYCLING state changed to %d", buf, 8u);
+          v81 = v25;
+          _os_log_impl(&dword_260C9F000, v24, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: CYCLING state changed to %d", buf, 8u);
         }
 
         v61 = 0u;
         v62 = 0u;
         v59 = 0u;
         v60 = 0u;
-        v25 = [v7[3] objectForKey:&unk_28733C8E0];
-        v26 = [v25 countByEnumeratingWithState:&v59 objects:v77 count:16];
-        if (v26)
+        v26 = [v7[3] objectForKey:&unk_28733C8E0];
+        v27 = [v26 countByEnumeratingWithState:&v59 objects:v77 count:16];
+        if (v27)
         {
-          v27 = *v60;
+          v28 = *v60;
           do
           {
-            v28 = 0;
+            v29 = 0;
             do
             {
-              if (*v60 != v27)
+              if (*v60 != v28)
               {
-                objc_enumerationMutation(v25);
+                objc_enumerationMutation(v26);
               }
 
-              [*(*(&v59 + 1) + 8 * v28++) didUpdateMotionType:2 isActive:{objc_msgSend(v4, "cycling")}];
+              [*(*(&v59 + 1) + 8 * v29++) didUpdateMotionType:2 isActive:{objc_msgSend(v4, "cycling")}];
             }
 
-            while (v26 != v28);
-            v26 = [v25 countByEnumeratingWithState:&v59 objects:v77 count:16];
+            while (v27 != v29);
+            v27 = [v26 countByEnumeratingWithState:&v59 objects:v77 count:16];
           }
 
-          while (v26);
+          while (v27);
         }
       }
 
-      if (!*v8 || (v29 = [v4 automotive], v29 != objc_msgSend(*v8, "automotive")))
+      if (!*v9 || (v30 = [v4 automotive], v8 = objc_msgSend(*v9, "automotive"), v30 != v8))
       {
-        v30 = __atxlog_handle_default();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v31 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = [v4 automotive];
+          v32 = [v4 automotive];
           *buf = 67109120;
-          v81 = v31;
-          _os_log_impl(&dword_260C9F000, v30, OS_LOG_TYPE_DEFAULT, "ATXMotionManagerWrapper: AUTOMOTIVE state changed to %d", buf, 8u);
+          v81 = v32;
+          _os_log_impl(&dword_260C9F000, v31, OS_LOG_TYPE_DEFAULT, "ATXMotionManagerWrapper: AUTOMOTIVE state changed to %d", buf, 8u);
         }
 
         v57 = 0u;
         v58 = 0u;
         v55 = 0u;
         v56 = 0u;
-        v32 = [v7[3] objectForKey:&unk_28733C8F8];
-        v33 = [v32 countByEnumeratingWithState:&v55 objects:v76 count:16];
-        if (v33)
+        v33 = [v7[3] objectForKey:&unk_28733C8F8];
+        v34 = [v33 countByEnumeratingWithState:&v55 objects:v76 count:16];
+        if (v34)
         {
-          v34 = *v56;
+          v35 = *v56;
           do
           {
-            v35 = 0;
+            v36 = 0;
             do
             {
-              if (*v56 != v34)
+              if (*v56 != v35)
               {
-                objc_enumerationMutation(v32);
+                objc_enumerationMutation(v33);
               }
 
-              [*(*(&v55 + 1) + 8 * v35++) didUpdateMotionType:3 isActive:{objc_msgSend(v4, "automotive")}];
+              [*(*(&v55 + 1) + 8 * v36++) didUpdateMotionType:3 isActive:{objc_msgSend(v4, "automotive")}];
             }
 
-            while (v33 != v35);
-            v33 = [v32 countByEnumeratingWithState:&v55 objects:v76 count:16];
+            while (v34 != v36);
+            v34 = [v33 countByEnumeratingWithState:&v55 objects:v76 count:16];
           }
 
-          while (v33);
+          while (v34);
         }
       }
 
-      if (!*v8 || (v36 = [v4 unknown], v36 != objc_msgSend(*v8, "unknown")))
+      if (!*v9 || (v37 = [v4 unknown], v8 = objc_msgSend(*v9, "unknown"), v37 != v8))
       {
-        v37 = __atxlog_handle_default();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        v38 = __atxlog_handle_default(v8);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
         {
-          v38 = [v4 unknown];
+          v39 = [v4 unknown];
           *buf = 67109120;
-          v81 = v38;
-          _os_log_impl(&dword_260C9F000, v37, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: UNKNOWN state changed to %d", buf, 8u);
+          v81 = v39;
+          _os_log_impl(&dword_260C9F000, v38, OS_LOG_TYPE_INFO, "ATXMotionManagerWrapper: UNKNOWN state changed to %d", buf, 8u);
         }
 
         v53 = 0u;
         v54 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v39 = [v7[3] objectForKey:{&unk_28733C910, 0}];
-        v40 = [v39 countByEnumeratingWithState:&v51 objects:v75 count:16];
-        if (v40)
+        v40 = [v7[3] objectForKey:{&unk_28733C910, 0}];
+        v41 = [v40 countByEnumeratingWithState:&v51 objects:v75 count:16];
+        if (v41)
         {
-          v41 = *v52;
+          v42 = *v52;
           do
           {
-            v42 = 0;
+            v43 = 0;
             do
             {
-              if (*v52 != v41)
+              if (*v52 != v42)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v40);
               }
 
-              [*(*(&v51 + 1) + 8 * v42++) didUpdateMotionType:4 isActive:{objc_msgSend(v4, "unknown")}];
+              [*(*(&v51 + 1) + 8 * v43++) didUpdateMotionType:4 isActive:{objc_msgSend(v4, "unknown")}];
             }
 
-            while (v40 != v42);
-            v40 = [v39 countByEnumeratingWithState:&v51 objects:v75 count:16];
+            while (v41 != v43);
+            v41 = [v40 countByEnumeratingWithState:&v51 objects:v75 count:16];
           }
 
-          while (v40);
+          while (v41);
         }
       }
 
@@ -462,40 +463,38 @@ void __49__ATXMotionManagerWrapper__motionActivityHandler__block_invoke(uint64_t
         v74 = 0u;
         v71 = 0u;
         v72 = 0u;
-        v44 = v7[3];
-        v45 = [MEMORY[0x277CCABB0] numberWithInteger:i];
-        v46 = [v44 objectForKey:v45];
+        v45 = v7[3];
+        v46 = [MEMORY[0x277CCABB0] numberWithInteger:i];
+        v47 = [v45 objectForKey:v46];
 
-        v47 = [v46 countByEnumeratingWithState:&v71 objects:v82 count:16];
-        if (v47)
+        v48 = [v47 countByEnumeratingWithState:&v71 objects:v82 count:16];
+        if (v48)
         {
-          v48 = *v72;
+          v49 = *v72;
           do
           {
-            v49 = 0;
+            v50 = 0;
             do
             {
-              if (*v72 != v48)
+              if (*v72 != v49)
               {
-                objc_enumerationMutation(v46);
+                objc_enumerationMutation(v47);
               }
 
-              [*(*(&v71 + 1) + 8 * v49++) didUpdateMotionType:i isActive:0];
+              [*(*(&v71 + 1) + 8 * v50++) didUpdateMotionType:i isActive:0];
             }
 
-            while (v47 != v49);
-            v47 = [v46 countByEnumeratingWithState:&v71 objects:v82 count:16];
+            while (v48 != v50);
+            v48 = [v47 countByEnumeratingWithState:&v71 objects:v82 count:16];
           }
 
-          while (v47);
+          while (v48);
         }
       }
     }
 
     objc_sync_exit(v7);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUpdatingMotionType:(int64_t)type forDelegate:(id)delegate

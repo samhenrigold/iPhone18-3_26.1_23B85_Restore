@@ -6,30 +6,35 @@
 
 + (BOOL)processWithInputs:(id)inputs arguments:(id)arguments output:(id)output error:(id *)error
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   v7 = [inputs objectAtIndex:{0, arguments, output, error}];
-  if ([v7 format] != 2312 && objc_msgSend(v7, "format") != 2056 && objc_msgSend(v7, "format") != 266 && objc_msgSend(v7, "format") != 264)
+  if ([v7 format] != 2312 && objc_msgSend(v7, "format") != 2056 && objc_msgSend(v7, "format") != 266)
   {
-    v63 = ci_logger_filter();
-    v24 = os_log_type_enabled(v63, OS_LOG_TYPE_ERROR);
-    if (!v24)
+    format = [v7 format];
+    if (format != 264)
     {
-      return v24;
-    }
+      v68 = ci_logger_filter(format, v9);
+      v29 = os_log_type_enabled(v68, OS_LOG_TYPE_ERROR);
+      if (!v29)
+      {
+        return v29;
+      }
 
-    [CIIntegralImageProcessorCPU processWithInputs:v7 arguments:? output:? error:?];
+      [CIIntegralImageProcessorCPU processWithInputs:v7 arguments:? output:? error:?];
 LABEL_51:
-    LOBYTE(v24) = 0;
-    return v24;
+      LOBYTE(v29) = 0;
+      return v29;
+    }
   }
 
-  if ([output format] != 2312)
+  format2 = [output format];
+  if (format2 != 2312)
   {
-    v23 = ci_logger_filter();
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
-    if (!v24)
+    v28 = ci_logger_filter(format2, v11);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+    if (!v29)
     {
-      return v24;
+      return v29;
     }
 
     [CIIntegralImageProcessorCPU processWithInputs:output arguments:? output:? error:?];
@@ -38,15 +43,15 @@ LABEL_51:
 
   bytesPerRow = [output bytesPerRow];
   [output region];
-  v10 = v9;
-  __src = malloc_type_calloc(bytesPerRow, vcvtps_u32_f32(v10), 0x100004052888210uLL);
+  v14 = v13;
+  __src = malloc_type_calloc(bytesPerRow, vcvtps_u32_f32(v14), 0x100004052888210uLL);
   if (!__src)
   {
-    v25 = ci_logger_filter();
-    v24 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
-    if (!v24)
+    v30 = ci_logger_filter(0, v15);
+    v29 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
+    if (!v29)
     {
-      return v24;
+      return v29;
     }
 
     [CIIntegralImageProcessorCPU processWithInputs:output arguments:? output:? error:?];
@@ -54,102 +59,102 @@ LABEL_51:
   }
 
   [v7 region];
-  v12 = v11;
+  v17 = v16;
   [output region];
-  if (v12 != v13)
+  if (v17 != v18)
   {
     +[CIIntegralImageProcessorCPU processWithInputs:arguments:output:error:];
   }
 
   [v7 region];
-  v15 = v14;
+  v20 = v19;
   [output region];
-  if (v15 != v16)
+  if (v20 != v21)
   {
     +[CIIntegralImageProcessorCPU processWithInputs:arguments:output:error:];
   }
 
   [v7 region];
-  v18 = v17;
-  v19 = vcvtps_u32_f32(v18);
+  v23 = v22;
+  v24 = vcvtps_u32_f32(v23);
   [v7 region];
-  v21 = v20;
+  v26 = v25;
   outputCopy = output;
-  v66 = bytesPerRow;
+  v71 = bytesPerRow;
   if ([v7 format] == 2312)
   {
-    v22 = 16;
+    v27 = 16;
   }
 
   else
   {
-    format = [v7 format];
-    v22 = 4;
-    if (format == 2056)
+    format3 = [v7 format];
+    v27 = 4;
+    if (format3 == 2056)
     {
-      v22 = 8;
+      v27 = 8;
     }
   }
 
-  v71 = v22;
-  format2 = [v7 format];
-  if (v19)
+  v76 = v27;
+  format4 = [v7 format];
+  if (v24)
   {
-    v28 = 0;
-    v68 = 0;
-    v29 = v21;
-    v30 = vcvtps_u32_f32(v29);
-    v69 = 2 * (format2 != 266);
-    v70 = 2 * (format2 == 266);
+    v33 = 0;
+    v73 = 0;
+    v34 = v26;
+    v35 = vcvtps_u32_f32(v34);
+    v74 = 2 * (format4 != 266);
+    v75 = 2 * (format4 == 266);
     do
     {
-      if (v30)
+      if (v35)
       {
-        v31 = 0;
-        v32 = &__src[v28 * v66];
-        v33 = ~v28 + v19;
-        v34 = v68 - 1;
-        v72 = &__src[v66 * v34];
-        v35 = 1;
+        v36 = 0;
+        v37 = &__src[v33 * v71];
+        v38 = ~v33 + v24;
+        v39 = v73 - 1;
+        v77 = &__src[v71 * v39];
+        v40 = 1;
         do
         {
           baseAddress = [v7 baseAddress];
           bytesPerRow2 = [v7 bytesPerRow];
-          if (v33 >= v19)
+          if (v38 >= v24)
           {
-            v38 = 0;
+            v43 = 0;
           }
 
           else
           {
-            v38 = (baseAddress + bytesPerRow2 * v33 + v31 * v71);
+            v43 = (baseAddress + bytesPerRow2 * v38 + v36 * v76);
           }
 
-          v75 = 0uLL;
+          v80 = 0uLL;
           if ([v7 format] == 2056)
           {
             *&src.height = xmmword_19CF23040;
             src.rowBytes = 8;
-            dest.data = &v75;
+            dest.data = &v80;
             *&dest.height = xmmword_19CF23040;
             dest.rowBytes = 16;
-            src.data = v38;
+            src.data = v43;
             vImageConvert_Planar16FtoPlanarF(&src, &dest, 0x10u);
           }
 
           else if ([v7 format] == 266 || objc_msgSend(v7, "format") == 264)
           {
-            LOBYTE(v39) = v38[v70];
-            *&v40 = v39 / 255.0;
-            LODWORD(v75) = v40;
-            LOBYTE(v40) = v38[1];
-            *&v41 = v40 / 255.0;
-            DWORD1(v75) = v41;
-            LOBYTE(v41) = v38[v69];
-            *&v42 = v41 / 255.0;
-            DWORD2(v75) = v42;
-            LOBYTE(v42) = v38[3];
-            *(&v75 + 3) = v42 / 255.0;
+            LOBYTE(v44) = v43[v75];
+            *&v45 = v44 / 255.0;
+            LODWORD(v80) = v45;
+            LOBYTE(v45) = v43[1];
+            *&v46 = v45 / 255.0;
+            DWORD1(v80) = v46;
+            LOBYTE(v46) = v43[v74];
+            *&v47 = v46 / 255.0;
+            DWORD2(v80) = v47;
+            LOBYTE(v47) = v43[3];
+            *(&v80 + 3) = v47 / 255.0;
           }
 
           else
@@ -159,97 +164,97 @@ LABEL_51:
               +[CIIntegralImageProcessorCPU processWithInputs:arguments:output:error:];
             }
 
-            v75 = *v38;
+            v80 = *v43;
           }
 
-          v43 = 16 * v31;
-          v44 = &v32[16 * v31];
-          *v44 = *&v75 + *v44;
-          v45 = v44[2];
-          v44[1] = *(&v75 + 1) + v44[1];
-          v44[2] = *(&v75 + 2) + v45;
-          v44[3] = *(&v75 + 3) + v44[3];
-          v46 = v35 - 2;
-          if (v46 >= v30)
+          v48 = 16 * v36;
+          v49 = &v37[16 * v36];
+          *v49 = *&v80 + *v49;
+          v50 = v49[2];
+          v49[1] = *(&v80 + 1) + v49[1];
+          v49[2] = *(&v80 + 2) + v50;
+          v49[3] = *(&v80 + 3) + v49[3];
+          v51 = v40 - 2;
+          if (v51 >= v35)
           {
-            v47 = 0;
-          }
-
-          else
-          {
-            v47 = &v32[16 * v46];
-          }
-
-          addPixel<float>(v44, v47);
-          if (v34 >= v19)
-          {
-            v48 = 0;
+            v52 = 0;
           }
 
           else
           {
-            v48 = &v72[v43];
+            v52 = &v37[16 * v51];
           }
 
-          addPixel<float>(v44, v48);
-          if (v34 < v19 && v46 < v30)
+          addPixel<float>(v49, v52);
+          if (v39 >= v24)
           {
-            v49 = &v72[16 * v46];
-            if (v49)
+            v53 = 0;
+          }
+
+          else
+          {
+            v53 = &v77[v48];
+          }
+
+          addPixel<float>(v49, v53);
+          if (v39 < v24 && v51 < v35)
+          {
+            v54 = &v77[16 * v51];
+            if (v54)
             {
-              v50 = v44[1];
-              *v44 = *v44 - *v49;
-              v44[1] = v50 - v49[1];
-              v51 = v44[3];
-              v44[2] = v44[2] - v49[2];
-              v44[3] = v51 - v49[3];
+              v55 = v49[1];
+              *v49 = *v49 - *v54;
+              v49[1] = v55 - v54[1];
+              v56 = v49[3];
+              v49[2] = v49[2] - v54[2];
+              v49[3] = v56 - v54[3];
             }
           }
 
-          v31 = v35++;
+          v36 = v40++;
         }
 
-        while (v31 < v30);
+        while (v36 < v35);
       }
 
-      v28 = ++v68;
+      v33 = ++v73;
     }
 
-    while (v68 < v19);
+    while (v73 < v24);
   }
 
   [outputCopy region];
-  v53 = v52;
+  v58 = v57;
   [outputCopy region];
-  v55 = v54;
+  v60 = v59;
   if ([outputCopy format] != 2312)
   {
     +[CIIntegralImageProcessorCPU processWithInputs:arguments:output:error:];
   }
 
-  v56 = v53;
-  v57 = vcvtps_u32_f32(v56);
+  v61 = v58;
+  v62 = vcvtps_u32_f32(v61);
   baseAddress2 = [outputCopy baseAddress];
-  if (v57)
+  if (v62)
   {
-    v59 = v55;
-    v60 = 16 * vcvtps_u32_f32(v59);
-    v61 = (baseAddress2 + v66 * (v57 - 1));
-    v62 = __src;
+    v64 = v60;
+    v65 = 16 * vcvtps_u32_f32(v64);
+    v66 = (baseAddress2 + v71 * (v62 - 1));
+    v67 = __src;
     do
     {
-      memcpy(v61, v62, v60);
-      v62 += v66;
-      v61 -= v66;
-      --v57;
+      memcpy(v66, v67, v65);
+      v67 += v71;
+      v66 -= v71;
+      --v62;
     }
 
-    while (v57);
+    while (v62);
   }
 
   free(__src);
-  LOBYTE(v24) = 1;
-  return v24;
+  LOBYTE(v29) = 1;
+  return v29;
 }
 
 + (void)processWithInputs:(void *)a1 arguments:output:error:.cold.1(void *a1)

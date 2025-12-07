@@ -39,22 +39,16 @@
 
 - (void)addApps:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *MEMORY[0x1E6966E18];
   [a1 count];
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_5_2(&dword_1CEFC7000, v2, v3, "[DEBUG] posting %@ for %lu apps", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_2(&dword_1CEFC7000, v1, v2, "[DEBUG] posting %@ for %lu apps", v3, v4, v5, v6);
 }
 
 - (void)removeAppsWithBundleIDs:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *MEMORY[0x1E6966E18];
   [a1 count];
   OUTLINED_FUNCTION_2_7();
-  OUTLINED_FUNCTION_5_2(&dword_1CEFC7000, v2, v3, "[DEBUG] posting %@ for removal of %lu apps", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_2(&dword_1CEFC7000, v1, v2, "[DEBUG] posting %@ for removal of %lu apps", v3, v4, v5, v6);
 }
 
 @end

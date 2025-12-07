@@ -5,16 +5,16 @@ void sub_243334910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id nph_general_log()
+id nph_general_log(uint64_t a1)
 {
   if (nph_general_log_onceToken != -1)
   {
     nph_general_log_cold_1();
   }
 
-  v1 = nph_general_log_logger;
+  v2 = nph_general_log_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nph_general_log_block_invoke()
@@ -39,22 +39,23 @@ void nph_ensure_on_main_queue(void *a1)
   }
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-id CTSUServerQueue()
+id CTSUServerQueue(uint64_t a1)
 {
   if (CTSUServerQueue_onceToken != -1)
   {
     CTSUServerQueue_cold_1();
   }
 
-  v1 = CTSUServerQueue_sCTServerQueue;
+  v2 = CTSUServerQueue_sCTServerQueue;
 
-  return v1;
+  return v2;
 }
 
 void __CTSUServerQueue_block_invoke()
@@ -66,19 +67,17 @@ void __CTSUServerQueue_block_invoke()
 
   if (!CTSUServerQueue_sCTServerQueue)
   {
-    v2 = nph_general_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = nph_general_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315138;
       v5 = "dispatch_queue_t CTSUServerQueue(void)_block_invoke";
-      _os_log_impl(&dword_243333000, v2, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerQueue", &v4, 0xCu);
+      _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerQueue", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t CTSUServerConnectionRef()
+uint64_t CTSUServerConnectionRef(uint64_t a1, uint64_t a2)
 {
   if (CTSUServerConnectionRef_onceToken != -1)
   {
@@ -91,46 +90,41 @@ uint64_t CTSUServerConnectionRef()
 void __CTSUServerConnectionRef_block_invoke()
 {
   v6 = *MEMORY[0x277D85DE8];
-  _CTServerConnectionAddIdentifierException();
-  v0 = *MEMORY[0x277CBECE8];
-  v1 = CTSUServerQueue();
+  v0 = _CTServerConnectionAddIdentifierException();
+  v1 = CTSUServerQueue(v0);
   CTSUServerConnectionRef_sCTServerConnectionRef = _CTServerConnectionCreateOnTargetQueue();
 
   if (!CTSUServerConnectionRef_sCTServerConnectionRef)
   {
-    v2 = nph_general_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = nph_general_log(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136315138;
       v5 = "CTServerConnectionRef CTSUServerConnectionRef(void)_block_invoke";
-      _os_log_impl(&dword_243333000, v2, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerConnectionRef", &v4, 0xCu);
+      _os_log_impl(&dword_243333000, v3, OS_LOG_TYPE_DEFAULT, "%s - unable to create sCTServerConnectionRef", &v4, 0xCu);
     }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __CTSUServerConnectionRef_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v5 = nph_general_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v5 = nph_general_log(a1);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315650;
-    v8 = "CTServerConnectionRef CTSUServerConnectionRef(void)_block_invoke_2";
-    v9 = 2112;
-    v10 = a2;
-    v11 = 2112;
-    v12 = a3;
-    _os_log_impl(&dword_243333000, v5, OS_LOG_TYPE_DEFAULT, "%s notification:%@ info:%@", &v7, 0x20u);
+    v6 = 136315650;
+    v7 = "CTServerConnectionRef CTSUServerConnectionRef(void)_block_invoke_2";
+    v8 = 2112;
+    v9 = a2;
+    v10 = 2112;
+    v11 = a3;
+    _os_log_impl(&dword_243333000, v5, OS_LOG_TYPE_DEFAULT, "%s notification:%@ info:%@", &v6, 0x20u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
-void sub_243337A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_243337A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -146,45 +140,41 @@ void *__getCTCellularPlanErrorDomainSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t CellularPlanManagerLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!CellularPlanManagerLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __CellularPlanManagerLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278DAC980;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __CellularPlanManagerLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278DAC980;
+    v5 = 0;
     CellularPlanManagerLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = CellularPlanManagerLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!CellularPlanManagerLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __CellularPlanManagerLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CellularPlanManagerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -200,8 +190,8 @@ Class __getCTCellularPlanManagerClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getCTCellularPlanManagerClass_block_invoke_cold_1();
-    return [NSError(NPHCellularError) NPHCellularErrorWithCode:v3 forSubscriptionContext:?];
+    __getCTCellularPlanManagerClass_block_invoke_cold_1();
+    return [(NSError(NPHCellularError) *)v3 NPHCellularErrorWithCode:v4 forSubscriptionContext:v5, v6];
   }
 
   return result;
@@ -236,7 +226,7 @@ void sub_2433406C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t NPHDeviceOSIsInternalInstall()
+uint64_t NPHDeviceOSIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (NPHDeviceOSIsInternalInstall_onceToken != -1)
   {
@@ -253,7 +243,7 @@ uint64_t __NPHDeviceOSIsInternalInstall_block_invoke()
   return result;
 }
 
-uint64_t NPHDeviceHasBaseband()
+uint64_t NPHDeviceHasBaseband(uint64_t a1, uint64_t a2)
 {
   if (NPHDeviceHasBaseband_onceToken != -1)
   {
@@ -278,7 +268,7 @@ uint64_t NPHIsCerberusEnabled()
   return v1;
 }
 
-uint64_t NPHIsWalkaboutEnabled()
+uint64_t NPHIsWalkaboutEnabled(uint64_t a1, uint64_t a2)
 {
   if (NPHIsWalkaboutEnabled_onceToken != -1)
   {
@@ -357,10 +347,10 @@ void NPHSetTmpDirPrefix()
 
   if ((v2 & 1) == 0)
   {
-    v3 = nph_general_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = nph_general_log(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      NPHSetTmpDirPrefix_cold_1(v3);
+      NPHSetTmpDirPrefix_cold_1(v4);
     }
   }
 }
@@ -412,16 +402,16 @@ os_log_t define_nph_log(char *category)
   return v1;
 }
 
-id nph_sos_general_log()
+id nph_sos_general_log(uint64_t a1)
 {
   if (nph_sos_general_log_onceToken != -1)
   {
     nph_sos_general_log_cold_1();
   }
 
-  v1 = nph_sos_general_log_logger;
+  v2 = nph_sos_general_log_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nph_sos_general_log_block_invoke()
@@ -431,16 +421,16 @@ uint64_t __nph_sos_general_log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id nph_sos_newton_log()
+id nph_sos_newton_log(uint64_t a1)
 {
   if (nph_sos_newton_log_onceToken != -1)
   {
     nph_sos_newton_log_cold_1();
   }
 
-  v1 = nph_sos_newton_log_logger;
+  v2 = nph_sos_newton_log_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __nph_sos_newton_log_block_invoke()
@@ -459,12 +449,11 @@ void sub_24334957C(_Unwind_Exception *a1)
 
 void NPHSetTmpDirPrefix_cold_1(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *__error();
-  v4 = 136315394;
-  v5 = "void NPHSetTmpDirPrefix(void)";
-  v6 = 1024;
-  v7 = v2;
-  _os_log_error_impl(&dword_243333000, a1, OS_LOG_TYPE_ERROR, "%s: failed, errno: %d", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "void NPHSetTmpDirPrefix(void)";
+  v5 = 1024;
+  v6 = v2;
+  _os_log_error_impl(&dword_243333000, a1, OS_LOG_TYPE_ERROR, "%s: failed, errno: %d", &v3, 0x12u);
 }

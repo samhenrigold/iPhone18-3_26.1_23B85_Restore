@@ -41,7 +41,7 @@
   enabledCopy = enabled;
   v12 = *MEMORY[0x277D85DE8];
   self->_sosEnabled = enabled;
-  v4 = SBLogButtonsCombo();
+  v4 = SBLogButtonsCombo(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = objc_opt_class();
@@ -77,11 +77,10 @@
 {
   if ([(SBSOSLockGestureObserver *)self isSOSEnabled])
   {
-    [(SBPressSequenceRecognizer *)self->_recognizer registerPressDownWithTimestamp:timestamp];
-    v5 = SBLogButtonsCombo();
+    v5 = SBLogButtonsCombo([(SBPressSequenceRecognizer *)self->_recognizer registerPressDownWithTimestamp:timestamp]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [SBSOSLockGestureObserver registerPressDownWithTimestamp:];
+      [SBSOSLockGestureObserver registerPressDownWithTimestamp:?];
     }
   }
 
@@ -96,11 +95,10 @@
 {
   if ([(SBSOSLockGestureObserver *)self isSOSEnabled])
   {
-    [(SBPressSequenceRecognizer *)self->_recognizer registerPressUpWithTimestamp:timestamp];
-    v5 = SBLogButtonsCombo();
+    v5 = SBLogButtonsCombo([(SBPressSequenceRecognizer *)self->_recognizer registerPressUpWithTimestamp:timestamp]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [SBSOSLockGestureObserver registerPressUpWithTimestamp:];
+      [SBSOSLockGestureObserver registerPressUpWithTimestamp:?];
     }
   }
 
@@ -288,18 +286,22 @@ LABEL_7:
   return WeakRetained;
 }
 
-- (void)registerPressDownWithTimestamp:.cold.1()
+- (void)registerPressDownWithTimestamp:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ - Registered SOS Lock Press Down.", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v3, v4, "%{public}@ - Registered SOS Lock Press Down.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
-- (void)registerPressUpWithTimestamp:.cold.1()
+- (void)registerPressUpWithTimestamp:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "%{public}@ - Registered SOS Lock Press Up.", v4, v5, v6, v7, 2u);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v3, v4, "%{public}@ - Registered SOS Lock Press Up.", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 @end

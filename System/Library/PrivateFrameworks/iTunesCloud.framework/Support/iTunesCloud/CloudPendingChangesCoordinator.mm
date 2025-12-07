@@ -19,18 +19,18 @@
     pendingChangesPath = self->_pendingChangesPath;
     *buf = 134218498;
     selfCopy = self;
-    v17 = 2048;
-    v18 = v6;
-    v19 = 2112;
-    v20 = pendingChangesPath;
+    v16 = 2048;
+    v17 = v6;
+    v18 = 2112;
+    v19 = pendingChangesPath;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CloudPendingChangesCoordinator %p - Saving pending changes [%lu] - path=%@", buf, 0x20u);
   }
 
   if ([changesCopy count])
   {
-    v14 = 0;
-    v8 = [NSKeyedArchiver archivedDataWithRootObject:changesCopy requiringSecureCoding:1 error:&v14];
-    v9 = v14;
+    v13 = 0;
+    v8 = [NSKeyedArchiver archivedDataWithRootObject:changesCopy requiringSecureCoding:1 error:&v13];
+    v9 = v13;
     if (v8)
     {
       v10 = [v8 writeToFile:self->_pendingChangesPath atomically:1];
@@ -38,7 +38,6 @@
 
     else
     {
-      loggable = self->_loggable;
       logCategory = [objc_opt_class() logCategory];
       if (os_log_type_enabled(logCategory, OS_LOG_TYPE_ERROR))
       {
@@ -68,8 +67,8 @@
     pendingChangesPath = self->_pendingChangesPath;
     *buf = 134218242;
     selfCopy = self;
-    v18 = 2112;
-    v19 = pendingChangesPath;
+    v17 = 2112;
+    v18 = pendingChangesPath;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "CloudPendingChangesCoordinator %p - Retrieving pending changes - path=%@", buf, 0x16u);
   }
 
@@ -83,13 +82,12 @@
     {
       v8 = objc_opt_class();
       v9 = [NSSet setWithObjects:v8, objc_opt_class(), 0];
-      v15 = 0;
-      v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v9 fromData:v7 error:&v15];
-      v11 = v15;
+      v14 = 0;
+      v10 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v9 fromData:v7 error:&v14];
+      v11 = v14;
 
       if (!v10)
       {
-        loggable = self->_loggable;
         logCategory = [objc_opt_class() logCategory];
         if (os_log_type_enabled(logCategory, OS_LOG_TYPE_ERROR))
         {

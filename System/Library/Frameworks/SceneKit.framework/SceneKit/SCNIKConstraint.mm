@@ -21,16 +21,17 @@
 
 - (SCNIKConstraint)init
 {
-  v4.receiver = self;
-  v4.super_class = SCNIKConstraint;
-  v2 = [(SCNConstraint *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = SCNIKConstraint;
+  v2 = [(SCNConstraint *)&v6 init];
+  v4 = v2;
   if (v2)
   {
-    v2->super._constraintRef = C3DConstraintCreateIK();
-    v2->_jointsPerNode = [MEMORY[0x277CBEB38] dictionary];
+    v2->super._constraintRef = C3DConstraintCreateIK(v2, v3);
+    v4->_jointsPerNode = [MEMORY[0x277CBEB38] dictionary];
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -116,11 +117,11 @@ void __36__SCNIKConstraint_setChainRootNode___block_invoke(uint64_t a1)
   [SCNTransaction postCommandWithContext:sceneRef object:self key:@"targetPosition" applyBlock:v8];
 }
 
-void __37__SCNIKConstraint_setTargetPosition___block_invoke(uint64_t a1, __n128 a2)
+void __37__SCNIKConstraint_setTargetPosition___block_invoke(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  a2.n128_u64[0] = *(a1 + 40);
-  a2.n128_u32[2] = *(a1 + 48);
-  C3DConstraintIKSetTarget(*(*(a1 + 32) + 8), a2);
+  a3.n128_u64[0] = *(a1 + 40);
+  a3.n128_u32[2] = *(a1 + 48);
+  C3DConstraintIKSetTarget(*(*(a1 + 32) + 8), a2, a3);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -248,7 +249,7 @@ void __55__SCNIKConstraint_setMaxAllowedRotationAngle_forJoint___block_invoke(ui
 
 - (void)_customDecodingOfSCNIKConstraint:(id)constraint
 {
-  self->super._constraintRef = C3DConstraintCreateIK();
+  self->super._constraintRef = C3DConstraintCreateIK(self, a2);
   *&v5 = SCNDecodeVector3(constraint, @"ikTarget");
   [(SCNIKConstraint *)self setTargetPosition:v5];
 

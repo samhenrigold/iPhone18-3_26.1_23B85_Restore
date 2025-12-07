@@ -1,8 +1,17 @@
 @interface ICGetGeniusItemsRequest
++ (id)requestWithDatabaseID:(unsigned int)d seedID:(unint64_t)iD numberOfItems:(unsigned int)items;
+- (ICGetGeniusItemsRequest)initWithDatabaseID:(unsigned int)d seedID:(unint64_t)iD numberOfItems:(unsigned int)items;
 - (id)canonicalResponseForResponse:(id)response;
 @end
 
 @implementation ICGetGeniusItemsRequest
+
++ (id)requestWithDatabaseID:(unsigned int)d seedID:(unint64_t)iD numberOfItems:(unsigned int)items
+{
+  v5 = [objc_alloc(objc_opt_class()) initWithDatabaseID:*&d seedID:iD numberOfItems:*&items];
+
+  return v5;
+}
 
 - (id)canonicalResponseForResponse:(id)response
 {
@@ -54,6 +63,24 @@
   [v3 setItemIDs:v6];
 
   return v3;
+}
+
+- (ICGetGeniusItemsRequest)initWithDatabaseID:(unsigned int)d seedID:(unint64_t)iD numberOfItems:(unsigned int)items
+{
+  v5 = *&items;
+  v8 = [NSString stringWithFormat:@"databases/%u/getgeniusitems", *&d];
+  v9 = [(ICDRequest *)self initWithAction:v8];
+
+  if (v9)
+  {
+    v10 = [NSString stringWithFormat:@"%llu", iD];
+    [(ICDRequest *)v9 setValue:v10 forArgument:@"seed-id"];
+
+    v11 = [NSString stringWithFormat:@"%u", v5];
+    [(ICDRequest *)v9 setValue:v11 forArgument:@"num-items"];
+  }
+
+  return v9;
 }
 
 @end

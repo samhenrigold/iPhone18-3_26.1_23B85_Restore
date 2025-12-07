@@ -49,7 +49,6 @@
     [_CATArbitratorResourceProxy respondsToSelector:];
   }
 
-  mRegistration = self->mRegistration;
   return objc_opt_respondsToSelector() & 1;
 }
 

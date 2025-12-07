@@ -12,6 +12,7 @@
 - (BOOL)enrollForDeviceName:(id)name pairingCredential:(id)credential hubHostName:(id)hostName hubPort:(id)port error:(id *)error;
 - (BOOL)enrolled;
 - (BOOL)installCachedContentForCurrentLocale:(BOOL *)locale;
+- (BOOL)migrateDataWithBlockingUI:(int)i startMigration:(BOOL)migration;
 - (BOOL)setupAccounts:(id *)accounts;
 - (BOOL)setupContinuityLinking:(id *)linking;
 - (BOOL)updateDemoContent;
@@ -83,59 +84,60 @@
   portCopy = port;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v60 = +[MSDProgressUpdater sharedInstance];
-  v56 = credentialCopy;
-  v57 = nameCopy;
-  v59 = +[MSDServerRequestHandler sharedInstance];
-  if ([(MSDDemoUpdateController *)selfCopy busy])
+  v66 = +[MSDProgressUpdater sharedInstance];
+  v62 = credentialCopy;
+  v63 = nameCopy;
+  v65 = +[MSDServerRequestHandler sharedInstance];
+  busy = [(MSDDemoUpdateController *)selfCopy busy];
+  if (busy)
   {
-    v55 = sub_100063A54();
-    sub_1000DF394(v55);
-    v32 = 0;
-    v58 = 0;
-    v16 = 0;
-    v20 = 0;
+    v61 = sub_100063A54(busy);
+    sub_1000DF394(v61);
+    v33 = 0;
+    v64 = 0;
+    v17 = 0;
+    v21 = 0;
     setDemoDeviceFlag = 0;
     goto LABEL_26;
   }
 
   [(MSDDemoUpdateController *)selfCopy setBusy:1];
-  [v60 updateStage:1];
-  v16 = objc_alloc_init(MSDEnrollRequest);
+  [v66 updateStage:1];
+  v17 = objc_alloc_init(MSDEnrollRequest);
   device = [(MSDDemoUpdateController *)selfCopy device];
-  getRegistrationInfoKeys = [(MSDEnrollRequest *)v16 getRegistrationInfoKeys];
-  v19 = [device deviceInformation:getRegistrationInfoKeys];
-  v20 = [v19 mutableCopy];
+  getRegistrationInfoKeys = [(MSDEnrollRequest *)v17 getRegistrationInfoKeys];
+  v20 = [device deviceInformation:getRegistrationInfoKeys];
+  v21 = [v20 mutableCopy];
 
-  v21 = +[MSDNPIMaskValues sharedInstance];
-  LODWORD(getRegistrationInfoKeys) = [v21 isNPIDevice];
+  v22 = +[MSDNPIMaskValues sharedInstance];
+  LODWORD(getRegistrationInfoKeys) = [v22 isNPIDevice];
 
   if (getRegistrationInfoKeys)
   {
-    v22 = &off_10017B200;
+    v23 = &off_10017B200;
   }
 
   else
   {
-    v22 = &off_10017B218;
+    v23 = &off_10017B218;
   }
 
-  [v20 setObject:v22 forKeyedSubscript:@"MSDDemoPingType"];
-  v23 = [NSDictionary dictionaryWithDictionary:v20];
-  [(MSDEnrollRequest *)v16 setRegistrationInfo:v23];
+  [v21 setObject:v23 forKeyedSubscript:@"MSDDemoPingType"];
+  v24 = [NSDictionary dictionaryWithDictionary:v21];
+  [(MSDEnrollRequest *)v17 setRegistrationInfo:v24];
 
   if (hostNameCopy && portCopy)
   {
-    [(MSDCommandServerRequest *)v16 setServer:hostNameCopy];
-    [(MSDCommandServerRequest *)v16 setPort:portCopy];
+    [(MSDCommandServerRequest *)v17 setServer:hostNameCopy];
+    [(MSDCommandServerRequest *)v17 setPort:portCopy];
   }
 
-  v58 = [v59 handleRequestSync:v16];
-  error = [v58 error];
+  v64 = [v65 handleRequestSync:v17];
+  error = [v64 error];
 
   if (error)
   {
-    v32 = 0;
+    v33 = 0;
     goto LABEL_29;
   }
 
@@ -146,27 +148,27 @@
   [device3 setHubPort:portCopy];
 
   device4 = [(MSDDemoUpdateController *)selfCopy device];
-  v28 = +[NSDate date];
-  [v28 timeIntervalSinceReferenceDate];
-  [device4 saveHubLastOnlineTime:v29];
+  v29 = +[NSDate date];
+  [v29 timeIntervalSinceReferenceDate];
+  [device4 saveHubLastOnlineTime:v30];
 
   device5 = [(MSDDemoUpdateController *)selfCopy device];
   [device5 holdPowerAssertion];
 
   +[MSDBundleProgressTracker migratePreferencesFromFactoryDevicesIfNeeded];
-  [v60 loadBundles];
+  [v66 loadBundles];
   device6 = [(MSDDemoUpdateController *)selfCopy device];
-  LODWORD(v28) = [device6 isBetterTogetherDemo];
+  LODWORD(v29) = [device6 isBetterTogetherDemo];
 
-  if (v28)
+  if (v29)
   {
-    v32 = +[MSDPairedWatchProxy sharedInstance];
-    [v32 bootstrap];
+    v33 = +[MSDPairedWatchProxy sharedInstance];
+    [v33 bootstrap];
   }
 
   else
   {
-    v32 = 0;
+    v33 = 0;
   }
 
   device7 = [(MSDDemoUpdateController *)selfCopy device];
@@ -177,8 +179,8 @@
     device8 = [(MSDDemoUpdateController *)selfCopy device];
     [device8 setupWorkFolderForBootTask];
 
-    v36 = +[MSDCryptoHandler sharedInstance];
-    [v36 createSecretKeyIfNeeded];
+    v38 = +[MSDCryptoHandler sharedInstance];
+    [v38 createSecretKeyIfNeeded];
 
     device9 = [(MSDDemoUpdateController *)selfCopy device];
     turnOnDemoMode = [device9 turnOnDemoMode];
@@ -188,60 +190,60 @@
       device10 = [(MSDDemoUpdateController *)selfCopy device];
       [device10 configureGreyMatterAutoUpdate];
 
-      v40 = +[MSDAnalytics sharedInstance];
-      [v40 disableCoreAnalticsTransformSampling];
+      v42 = +[MSDAnalytics sharedInstance];
+      [v42 disableCoreAnalticsTransformSampling];
 
       device11 = [(MSDDemoUpdateController *)selfCopy device];
       isPressDemoDevice = [device11 isPressDemoDevice];
 
       if ((isPressDemoDevice & 1) == 0)
       {
-        v43 = +[MSDConfigurationProfileManager sharedInstance];
-        [v43 installDefaultConfigurationProfile];
+        v45 = +[MSDConfigurationProfileManager sharedInstance];
+        [v45 installDefaultConfigurationProfile];
       }
 
       device12 = [(MSDDemoUpdateController *)selfCopy device];
       [device12 setWaitingForCommand:1];
 
-      v45 = +[MSDMailProcessor sharedInstance];
-      [v45 setWaitingForCommand:1];
+      v47 = +[MSDMailProcessor sharedInstance];
+      [v47 setWaitingForCommand:1];
 
       device13 = [(MSDDemoUpdateController *)selfCopy device];
-      v47 = [device13 switchModeImmediately:1];
+      v49 = [device13 switchModeImmediately:1];
 
-      if (v47)
+      if (v49)
       {
-        v48 = sub_100063A54();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v51 = sub_100063A54(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Starting mail processor after enrolling.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Starting mail processor after enrolling.", buf, 2u);
         }
 
-        v49 = +[MSDMailProcessor sharedInstance];
-        [v49 start];
+        v52 = +[MSDMailProcessor sharedInstance];
+        [v52 start];
 
-        v50 = sub_100063A54();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v54 = sub_100063A54(v53);
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Starting mail processor ended", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Starting mail processor ended", buf, 2u);
         }
 
         device14 = [(MSDDemoUpdateController *)selfCopy device];
         [device14 terminateConfigurationApp];
 
-        v52 = sub_100063A54();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_100063A54(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "terminateConfigurationApp ended", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "terminateConfigurationApp ended", buf, 2u);
         }
 
         device15 = [(MSDDemoUpdateController *)selfCopy device];
         [device15 deleteConfigurationApp];
 
-        sub_100063A54();
+        sub_100063A54(v59);
         objc_claimAutoreleasedReturnValue();
         sub_1000DF334();
         goto LABEL_24;
@@ -253,7 +255,7 @@ LABEL_29:
     goto LABEL_25;
   }
 
-  sub_100063A54();
+  sub_100063A54(v36);
   objc_claimAutoreleasedReturnValue();
   sub_1000DF2D8();
 LABEL_24:
@@ -273,7 +275,7 @@ LABEL_26:
   context = objc_autoreleasePoolPush();
   v4 = +[MSDUIHelper sharedInstance];
   v5 = +[MSDProgressUpdater sharedInstance];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -282,37 +284,38 @@ LABEL_26:
 
   if (os_variant_has_internal_content() && (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 skipVerifyHashBeforeStaging], v7, v8))
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Skipping file hash verification before staging", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Skipping file hash verification before staging", buf, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = 1;
+    v11 = 1;
   }
 
-  v76[0] = @"IsCriticalUpdate";
-  v76[1] = @"ForBackgroundDownload";
-  v77[0] = &__kCFBooleanFalse;
-  v77[1] = &__kCFBooleanFalse;
-  v76[2] = @"VerifyHashBeforeStaging";
-  v11 = [NSNumber numberWithBool:v10];
-  v77[2] = v11;
-  v12 = [NSDictionary dictionaryWithObjects:v77 forKeys:v76 count:3];
+  v84[0] = @"IsCriticalUpdate";
+  v84[1] = @"ForBackgroundDownload";
+  v85[0] = &__kCFBooleanFalse;
+  v85[1] = &__kCFBooleanFalse;
+  v84[2] = @"VerifyHashBeforeStaging";
+  v12 = [NSNumber numberWithBool:v11];
+  v85[2] = v12;
+  v13 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:3];
 
-  if ([(MSDDemoUpdateController *)selfCopy busy])
+  busy = [(MSDDemoUpdateController *)selfCopy busy];
+  if (busy)
   {
-    v54 = sub_100063A54();
-    sub_1000DF43C(v54);
-    v14 = 0;
-    v18 = 0;
-    v51 = 0;
+    v60 = sub_100063A54(busy);
+    sub_1000DF43C(v60);
+    v16 = 0;
+    v20 = 0;
+    v57 = 0;
     goto LABEL_29;
   }
 
@@ -320,25 +323,25 @@ LABEL_26:
   device = [(MSDDemoUpdateController *)selfCopy device];
   [device setCachedBundleInstallState:@"cachedBundleInstallInProgress"];
 
-  v71 = 0;
-  v14 = [(MSDDemoUpdateController *)selfCopy _selectCachedManifestWithError:&v71];
-  v15 = v71;
-  v16 = v15;
-  if (!v14)
+  v79 = 0;
+  v16 = [(MSDDemoUpdateController *)selfCopy _selectCachedManifestWithError:&v79];
+  v17 = v79;
+  v18 = v17;
+  if (!v16)
   {
-    v50 = 0;
+    v56 = 0;
     goto LABEL_35;
   }
 
-  v70 = v15;
-  v17 = [(MSDDemoUpdateController *)selfCopy _signedManifestMinimumOSVersionCheck:v14 error:&v70];
-  v18 = v70;
+  v78 = v17;
+  v19 = [(MSDDemoUpdateController *)selfCopy _signedManifestMinimumOSVersionCheck:v16 error:&v78];
+  v20 = v78;
 
-  if (!v17)
+  if (!v19)
   {
 LABEL_34:
-    v50 = 0;
-    v16 = v18;
+    v56 = 0;
+    v18 = v20;
     goto LABEL_35;
   }
 
@@ -349,45 +352,45 @@ LABEL_34:
   {
     device3 = [(MSDDemoUpdateController *)selfCopy device];
     installedFactoryBundleID2 = [device3 installedFactoryBundleID];
-    bundleID = [v14 bundleID];
-    v24 = [installedFactoryBundleID2 isEqualToString:bundleID];
+    bundleID = [v16 bundleID];
+    v26 = [installedFactoryBundleID2 isEqualToString:bundleID];
 
-    if (v24)
+    if (v26)
     {
       device4 = [(MSDDemoUpdateController *)selfCopy device];
       [device4 setCachedBundleInstallState:@"cachedBundleInstallDone"];
 
-      device12 = sub_100063A54();
+      device12 = sub_100063A54(v70);
       if (os_log_type_enabled(device12, OS_LOG_TYPE_DEFAULT))
       {
-        getLocaleCode = [v14 getLocaleCode];
+        getLocaleCode = [v16 getLocaleCode];
         device5 = [(MSDDemoUpdateController *)selfCopy device];
         installedFactoryBundleID3 = [device5 installedFactoryBundleID];
         *buf = 138543618;
-        v73 = getLocaleCode;
-        v74 = 2114;
-        v75 = installedFactoryBundleID3;
+        v81 = getLocaleCode;
+        v82 = 2114;
+        v83 = installedFactoryBundleID3;
         _os_log_impl(&_mh_execute_header, device12, OS_LOG_TYPE_DEFAULT, "Bundle with locale %{public}@ & bundle ID %{public}@ already installed", buf, 0x16u);
       }
 
-      v50 = 0;
-      v51 = 1;
+      v56 = 0;
+      v57 = 1;
       goto LABEL_26;
     }
   }
 
   helperAgent = [(MSDDemoUpdateController *)selfCopy helperAgent];
-  v26 = [helperAgent stageDeviceForUpdateProcess:0];
+  v28 = [helperAgent stageDeviceForUpdateProcess:0];
 
-  if ((v26 & 1) == 0)
+  if ((v28 & 1) == 0)
   {
-    v55 = sub_100063A54();
-    sub_1000DF3E8(v55);
+    v61 = sub_100063A54(v29);
+    sub_1000DF3E8(v61);
     goto LABEL_34;
   }
 
-  v27 = +[MSDUIHelper sharedInstance];
-  [v27 startFullScreenUIWith:@"CACHED_BUNDLE_INSTALL" allowCancel:0];
+  v30 = +[MSDUIHelper sharedInstance];
+  [v30 startFullScreenUIWith:@"CACHED_BUNDLE_INSTALL" allowCancel:0];
 
   device6 = [(MSDDemoUpdateController *)selfCopy device];
   dcotaOfflineModeDevice = [device6 dcotaOfflineModeDevice];
@@ -398,54 +401,54 @@ LABEL_34:
     [device7 setupDummyPreferenceFile];
   }
 
-  [v5 startBundleUpdateMonitor:v14 inMode:0];
+  [v5 startBundleUpdateMonitor:v16 inMode:0];
   bundleInProgress = [v5 bundleInProgress];
   [bundleInProgress startBundleUpdateTimer];
 
   device8 = [(MSDDemoUpdateController *)selfCopy device];
   [device8 setBackgroundDownloadActive:0];
 
-  v33 = sub_100063A54();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v37 = sub_100063A54(v36);
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Stopping all apps running in the foreground...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Stopping all apps running in the foreground...", buf, 2u);
   }
 
-  v34 = +[MSDAppHelper sharedInstance];
+  v38 = +[MSDAppHelper sharedInstance];
   fullScreenUIAppId = [v4 fullScreenUIAppId];
-  v36 = [NSArray arrayWithObjects:fullScreenUIAppId, @"com.apple.ist.windward", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.PineBoard", 0];
-  [v34 stopAllAppsExcept:v36];
+  v40 = [NSArray arrayWithObjects:fullScreenUIAppId, @"com.apple.ist.windward", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.PineBoard", 0];
+  [v38 stopAllAppsExcept:v40];
 
-  v69 = v18;
-  LODWORD(v34) = [(MSDDemoUpdateController *)selfCopy _kickOffContentUpdateForManifest:v14 withOptions:v12 error:&v69];
-  v16 = v69;
+  v77 = v20;
+  LODWORD(v38) = [(MSDDemoUpdateController *)selfCopy _kickOffContentUpdateForManifest:v16 withOptions:v13 error:&v77];
+  v18 = v77;
 
-  if (!v34)
+  if (!v38)
   {
     goto LABEL_30;
   }
 
   bundleInProgress2 = [v5 bundleInProgress];
   [bundleInProgress2 getBundleUpdateTime];
-  v39 = v38;
+  v43 = v42;
 
-  v40 = sub_100063A54();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v45 = sub_100063A54(v44);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v73 = v39;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Total time taken for this update: %f.", buf, 0xCu);
+    v81 = v43;
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Total time taken for this update: %f.", buf, 0xCu);
   }
 
   bundleInProgress3 = [v5 bundleInProgress];
   [bundleInProgress3 stopBundleUpdateTimer];
 
-  v42 = sub_100063A54();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v48 = sub_100063A54(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Done with content update, switching to real backup folder.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Done with content update, switching to real backup folder.", buf, 2u);
   }
 
   helperAgent2 = [(MSDDemoUpdateController *)selfCopy helperAgent];
@@ -454,25 +457,25 @@ LABEL_34:
   if (!switchToBackupFolder)
   {
 LABEL_30:
-    v50 = 1;
+    v56 = 1;
 LABEL_35:
-    v68 = v16;
-    sub_1000C1424(&v68, 3727744768, @"An error has occurred.");
-    v18 = v68;
+    v76 = v18;
+    sub_1000C1424(&v76, 3727744768, @"An error has occurred.");
+    v20 = v76;
 
-    v56 = +[MSDDemoUpdateStatusHub sharedInstance];
-    [v56 demoUpdateFailed:v18];
+    v62 = +[MSDDemoUpdateStatusHub sharedInstance];
+    [v62 demoUpdateFailed:v20];
 
     device9 = [(MSDDemoUpdateController *)selfCopy device];
     dcotaOfflineModeDevice2 = [device9 dcotaOfflineModeDevice];
 
     if ((dcotaOfflineModeDevice2 & 1) == 0)
     {
-      v59 = sub_100063A54();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+      v66 = sub_100063A54(v65);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Cleaning up keep alive file and BootTask Work folder...", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "Cleaning up keep alive file and BootTask Work folder...", buf, 2u);
       }
 
       device10 = [(MSDDemoUpdateController *)selfCopy device];
@@ -484,35 +487,35 @@ LABEL_35:
 
     device12 = [(MSDDemoUpdateController *)selfCopy device];
     [device12 setCachedBundleInstallState:@"cachedBundleInstallDone"];
-    v51 = 0;
+    v57 = 0;
     goto LABEL_26;
   }
 
-  [(MSDDemoUpdateController *)selfCopy _stageContentPlistForManifest:v14];
-  v45 = +[MSDLanguageAndRegionManager sharedInstance];
-  [v45 saveCurrentDeviceLanguageIdentifier];
+  [(MSDDemoUpdateController *)selfCopy _stageContentPlistForManifest:v16];
+  v51 = +[MSDLanguageAndRegionManager sharedInstance];
+  [v51 saveCurrentDeviceLanguageIdentifier];
 
-  v46 = +[MSDLanguageAndRegionManager sharedInstance];
-  [v46 saveCurrentDeviceRegionCode];
+  v52 = +[MSDLanguageAndRegionManager sharedInstance];
+  [v52 saveCurrentDeviceRegionCode];
 
-  bundleID2 = [v14 bundleID];
+  bundleID2 = [v16 bundleID];
   device13 = [(MSDDemoUpdateController *)selfCopy device];
   [device13 setInstalledFactoryBundleID:bundleID2];
 
   device12 = [(MSDDemoUpdateController *)selfCopy device];
   [device12 setCachedBundleInstallState:@"cachedBundleInstallWaitMigration"];
-  v50 = 1;
-  v51 = 1;
-  v18 = v16;
+  v56 = 1;
+  v57 = 1;
+  v20 = v18;
 LABEL_26:
 
   if (locale)
   {
-    *locale = v50;
+    *locale = v56;
   }
 
-  v52 = +[MSDUIHelper sharedInstance];
-  [v52 stopFullScreenUI:0];
+  v58 = +[MSDUIHelper sharedInstance];
+  [v58 stopFullScreenUI:0];
 
   [(MSDDemoUpdateController *)selfCopy setBusy:0];
 LABEL_29:
@@ -520,7 +523,7 @@ LABEL_29:
   objc_autoreleasePoolPop(context);
   objc_sync_exit(selfCopy);
 
-  return v51;
+  return v57;
 }
 
 - (BOOL)updateDemoContent
@@ -529,61 +532,62 @@ LABEL_29:
   objc_sync_enter(selfCopy);
   context = objc_autoreleasePoolPush();
   v3 = +[MSDProgressUpdater sharedInstance];
-  v64 = +[MSDUIHelper sharedInstance];
+  v69 = +[MSDUIHelper sharedInstance];
   device = [(MSDDemoUpdateController *)selfCopy device];
   criticalUpdatePrioritized = [device criticalUpdatePrioritized];
 
   if (os_variant_has_internal_content() && (+[MSDTestPreferences sharedInstance](MSDTestPreferences, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 skipVerifyHashBeforeStaging], v5, v6))
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Skipping file hash verification before staging", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Skipping file hash verification before staging", buf, 2u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v8 = 1;
+    v9 = 1;
   }
 
-  v72[0] = @"IsCriticalUpdate";
-  v9 = [NSNumber numberWithBool:criticalUpdatePrioritized];
-  v73[0] = v9;
-  v73[1] = &__kCFBooleanFalse;
-  v72[1] = @"ForBackgroundDownload";
-  v72[2] = @"VerifyHashBeforeStaging";
-  v10 = [NSNumber numberWithBool:v8];
-  v73[2] = v10;
-  v63 = [NSDictionary dictionaryWithObjects:v73 forKeys:v72 count:3];
+  v77[0] = @"IsCriticalUpdate";
+  v10 = [NSNumber numberWithBool:criticalUpdatePrioritized];
+  v78[0] = v10;
+  v78[1] = &__kCFBooleanFalse;
+  v77[1] = @"ForBackgroundDownload";
+  v77[2] = @"VerifyHashBeforeStaging";
+  v11 = [NSNumber numberWithBool:v9];
+  v78[2] = v11;
+  v68 = [NSDictionary dictionaryWithObjects:v78 forKeys:v77 count:3];
 
-  v60 = +[MSDPairedWatchProxy sharedInstance];
+  v65 = +[MSDPairedWatchProxy sharedInstance];
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v70 = busy;
   if (busy)
   {
-    v52 = sub_100063A54();
-    sub_1000DF48C(v52);
+    v57 = sub_100063A54(busy);
+    sub_1000DF48C(v57);
     getContentUpdateType = 0;
     downloadedContentSource = 0;
-    v59 = 0;
+    v64 = 0;
     retrieveSignedManifest = 0;
     goto LABEL_27;
   }
 
   [(MSDDemoUpdateController *)selfCopy setBusy:1];
   device2 = [(MSDDemoUpdateController *)selfCopy device];
-  v12 = [device2 switchModeImmediately:2];
+  v14 = [device2 switchModeImmediately:2];
 
-  if (!v12)
+  if (!v14)
   {
     paired = 0;
 LABEL_31:
     getContentUpdateType = 0;
     downloadedContentSource = 0;
-    v20 = 0;
+    v23 = 0;
 LABEL_33:
     retrieveSignedManifest = 0;
     goto LABEL_37;
@@ -592,7 +596,7 @@ LABEL_33:
   device3 = [(MSDDemoUpdateController *)selfCopy device];
   if ([device3 isBetterTogetherDemo])
   {
-    paired = [v60 paired];
+    paired = [v65 paired];
   }
 
   else
@@ -601,20 +605,20 @@ LABEL_33:
   }
 
   helperAgent = [(MSDDemoUpdateController *)selfCopy helperAgent];
-  v15 = [helperAgent stageDeviceForUpdateProcess:0];
+  v17 = [helperAgent stageDeviceForUpdateProcess:0];
 
-  if ((v15 & 1) == 0)
+  if ((v17 & 1) == 0)
   {
-    v53 = sub_100063A54();
-    sub_1000DF3E8(v53);
+    v58 = sub_100063A54(v18);
+    sub_1000DF3E8(v58);
     goto LABEL_31;
   }
 
-  v16 = sub_100063A54();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100063A54(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Device downloading manifest...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Device downloading manifest...", buf, 2u);
   }
 
   [v3 updateStage:2];
@@ -623,89 +627,88 @@ LABEL_33:
 
   if (!retrieveSignedManifest)
   {
-    v69 = 0;
-    sub_1000C1424(&v69, 3727740940, @"Could not download manifest.");
-    v20 = v69;
+    v74 = 0;
+    sub_1000C1424(&v74, 3727740940, @"Could not download manifest.");
+    v23 = v74;
     getContentUpdateType = 0;
     downloadedContentSource = 0;
     goto LABEL_33;
   }
 
-  v68 = 0;
-  v19 = [(MSDDemoUpdateController *)selfCopy _signedManifestMinimumOSVersionCheck:retrieveSignedManifest error:&v68];
-  v20 = v68;
-  if (v19)
+  v73 = 0;
+  v22 = [(MSDDemoUpdateController *)selfCopy _signedManifestMinimumOSVersionCheck:retrieveSignedManifest error:&v73];
+  v23 = v73;
+  if (v22)
   {
     [v3 startBundleUpdateMonitor:retrieveSignedManifest inMode:0];
     bundleInProgress = [v3 bundleInProgress];
     [bundleInProgress startBundleUpdateTimer];
 
-    v22 = +[MSDAppPrivacyPermissionsHelper sharedInstance];
-    [v22 savePrivacyPermissionsForAllApps:retrieveSignedManifest];
+    v25 = +[MSDAppPrivacyPermissionsHelper sharedInstance];
+    [v25 savePrivacyPermissionsForAllApps:retrieveSignedManifest];
 
     device5 = [(MSDDemoUpdateController *)selfCopy device];
     [device5 setBackgroundDownloadActive:0];
 
-    [v3 updateStage:21];
-    v24 = sub_100063A54();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100063A54([v3 updateStage:21]);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Stopping all apps running in the foreground...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Stopping all apps running in the foreground...", buf, 2u);
     }
 
-    v25 = +[MSDAppHelper sharedInstance];
-    fullScreenUIAppId = [v64 fullScreenUIAppId];
-    v27 = [NSArray arrayWithObjects:fullScreenUIAppId, @"com.apple.ist.windward", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.PineBoard", @"com.apple.ist.DigitalSignage.iOS", 0];
-    [v25 stopAllAppsExcept:v27];
+    v28 = +[MSDAppHelper sharedInstance];
+    fullScreenUIAppId = [v69 fullScreenUIAppId];
+    v30 = [NSArray arrayWithObjects:fullScreenUIAppId, @"com.apple.ist.windward", @"com.apple.ist.DemoDiscoveryApp", @"com.apple.PineBoard", @"com.apple.ist.DigitalSignage.iOS", 0];
+    [v28 stopAllAppsExcept:v30];
 
     [v3 updateStage:22];
-    v67 = v20;
-    LODWORD(v25) = [(MSDDemoUpdateController *)selfCopy _kickOffContentUpdateForManifest:retrieveSignedManifest withOptions:v63 error:&v67];
-    v59 = v67;
+    v72 = v23;
+    LODWORD(v28) = [(MSDDemoUpdateController *)selfCopy _kickOffContentUpdateForManifest:retrieveSignedManifest withOptions:v68 error:&v72];
+    v64 = v72;
 
-    if (v25)
+    if (v28)
     {
       getContentUpdateType = [v3 getContentUpdateType];
       bundleInProgress2 = [v3 bundleInProgress];
       downloadedContentSource = [bundleInProgress2 downloadedContentSource];
 
-      v30 = [downloadedContentSource objectForKey:@"remote"];
-      longLongValue = [v30 longLongValue];
-      v32 = [downloadedContentSource objectForKey:@"local"];
-      longLongValue2 = [v32 longLongValue];
+      v33 = [downloadedContentSource objectForKey:@"remote"];
+      longLongValue = [v33 longLongValue];
+      v35 = [downloadedContentSource objectForKey:@"local"];
+      longLongValue2 = [v35 longLongValue];
 
       bundleInProgress3 = [v3 bundleInProgress];
       getComponentsSuccessful = [bundleInProgress3 getComponentsSuccessful];
       bundleInProgress4 = [v3 bundleInProgress];
       getAllComponentsForUpdate = [bundleInProgress4 getAllComponentsForUpdate];
 
-      v38 = [downloadedContentSource objectForKey:@"local"];
-      longLongValue3 = [v38 longLongValue];
+      v41 = [downloadedContentSource objectForKey:@"local"];
+      longLongValue3 = [v41 longLongValue];
 
       bundleInProgress5 = [v3 bundleInProgress];
       [bundleInProgress5 getBundleUpdateTime];
-      v42 = v41;
+      v45 = v44;
 
-      v43 = sub_100063A54();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v47 = sub_100063A54(v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v71 = v42;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Total time taken for this update: %f.", buf, 0xCu);
+        v76 = v45;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Total time taken for this update: %f.", buf, 0xCu);
       }
 
-      v44 = +[MSDAnalyticsEventHandler sharedInstance];
-      [v44 sendContentUpdateCompletedEvent:&longLongValue[longLongValue2] withTimeTaken:longLongValue3 != 0 cachingHubAvailable:criticalUpdatePrioritized isCriticalUpdate:getContentUpdateType contentUpdateType:100 * getComponentsSuccessful / getAllComponentsForUpdate andComponentSuccess:v42];
+      v48 = +[MSDAnalyticsEventHandler sharedInstance];
+      [v48 sendContentUpdateCompletedEvent:&longLongValue[longLongValue2] withTimeTaken:longLongValue3 != 0 cachingHubAvailable:criticalUpdatePrioritized isCriticalUpdate:getContentUpdateType contentUpdateType:100 * getComponentsSuccessful / getAllComponentsForUpdate andComponentSuccess:v45];
 
       bundleInProgress6 = [v3 bundleInProgress];
       [bundleInProgress6 stopBundleUpdateTimer];
 
-      v46 = sub_100063A54();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+      v51 = sub_100063A54(v50);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Done with content update, switching to real backup folder.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Done with content update, switching to real backup folder.", buf, 2u);
       }
 
       helperAgent2 = [(MSDDemoUpdateController *)selfCopy helperAgent];
@@ -714,12 +717,12 @@ LABEL_33:
       if (switchToBackupFolder)
       {
         device6 = [(MSDDemoUpdateController *)selfCopy device];
-        v50 = [device6 switchModeImmediately:4];
+        v55 = [device6 switchModeImmediately:4];
 
-        if (v50)
+        if (v55)
         {
           [(MSDDemoUpdateController *)selfCopy setBusy:0];
-          LOBYTE(v10) = 1;
+          LOBYTE(v11) = 1;
           goto LABEL_27;
         }
       }
@@ -731,7 +734,7 @@ LABEL_33:
       downloadedContentSource = 0;
     }
 
-    v20 = v59;
+    v23 = v64;
   }
 
   else
@@ -741,31 +744,31 @@ LABEL_33:
   }
 
 LABEL_37:
-  v66 = v20;
-  sub_1000C1424(&v66, 3727744768, @"An error has occurred.");
-  v59 = v66;
+  v71 = v23;
+  sub_1000C1424(&v71, 3727744768, @"An error has occurred.");
+  v64 = v71;
 
-  v54 = +[MSDDemoUpdateStatusHub sharedInstance];
-  [v54 demoUpdateFailed:v59];
+  v59 = +[MSDDemoUpdateStatusHub sharedInstance];
+  [v59 demoUpdateFailed:v64];
 
-  v55 = +[MSDAnalyticsEventHandler sharedInstance];
-  [v55 sendContentUpdateFailureEvent:v59 isFatal:1];
+  v60 = +[MSDAnalyticsEventHandler sharedInstance];
+  [v60 sendContentUpdateFailureEvent:v64 isFatal:1];
 
   if (paired)
   {
-    v56 = +[MSDPairedWatchProxy sharedInstance];
-    [v56 signalContentUpdateCompletion:0 andError:v59];
+    v61 = +[MSDPairedWatchProxy sharedInstance];
+    [v61 signalContentUpdateCompletion:0 andError:v64];
   }
 
-  [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v59];
+  [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v64];
   [(MSDDemoUpdateController *)selfCopy setBusy:0];
-  LOBYTE(v10) = 0;
+  LOBYTE(v11) = 0;
 LABEL_27:
 
   objc_autoreleasePoolPop(context);
   objc_sync_exit(selfCopy);
 
-  return v10 & (busy ^ 1);
+  return v11 & (v70 ^ 1);
 }
 
 - (void)cancelDemoContentUpdate
@@ -833,10 +836,11 @@ LABEL_9:
   errorCopy = error;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  if (![(MSDDemoUpdateController *)selfCopy busy])
+  busy = [(MSDDemoUpdateController *)selfCopy busy];
+  if ((busy & 1) == 0)
   {
-    v10 = sub_100063A54();
-    sub_1000DF4DC(v10);
+    v11 = sub_100063A54(busy);
+    sub_1000DF4DC(v11);
     goto LABEL_6;
   }
 
@@ -844,21 +848,21 @@ LABEL_9:
   if (!resultCopy)
   {
 LABEL_6:
-    v12 = errorCopy;
-    sub_1000C1424(&v12, 3727744768, @"An error has occurred.");
-    v9 = v12;
+    v13 = errorCopy;
+    sub_1000C1424(&v13, 3727744768, @"An error has occurred.");
+    v10 = v13;
 
-    v11 = +[MSDDemoUpdateStatusHub sharedInstance];
-    [v11 demoUpdateFailed:v9];
+    v12 = +[MSDDemoUpdateStatusHub sharedInstance];
+    [v12 demoUpdateFailed:v10];
 
-    [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v9];
+    [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v10];
     goto LABEL_4;
   }
 
   device = [(MSDDemoUpdateController *)selfCopy device];
   [device switchModeImmediately:5];
 
-  v9 = errorCopy;
+  v10 = errorCopy;
 LABEL_4:
   objc_sync_exit(selfCopy);
 }
@@ -930,10 +934,11 @@ LABEL_4:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v5 = busy;
   if (busy)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100063A54(busy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF52C();
     }
@@ -942,19 +947,19 @@ LABEL_4:
   else
   {
     [(MSDDemoUpdateController *)selfCopy setBusy:1];
-    v7 = 0;
-    v2 = [(MSDDemoUpdateController *)selfCopy setupAccounts:&v7];
-    v5 = v7;
-    if (v5)
+    v8 = 0;
+    v2 = [(MSDDemoUpdateController *)selfCopy setupAccounts:&v8];
+    v6 = v8;
+    if (v6)
     {
-      [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v5];
+      [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v6];
     }
 
     [(MSDDemoUpdateController *)selfCopy setBusy:0];
   }
 
   objc_sync_exit(selfCopy);
-  return (busy ^ 1) & v2;
+  return (v5 ^ 1) & v2;
 }
 
 - (BOOL)continueToUpdateAssets
@@ -962,70 +967,72 @@ LABEL_4:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v5 = busy;
   if (busy)
   {
-    v11 = sub_100063A54();
-    sub_1000DF394(v11);
-    v9 = 0;
+    v14 = sub_100063A54(busy);
+    sub_1000DF394(v14);
+    v12 = 0;
     goto LABEL_10;
   }
 
   [(MSDDemoUpdateController *)selfCopy setBusy:1];
   if (!+[MSDGreyMatterHelper isOptedIn])
   {
-    v9 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
   sleep(0x1Eu);
-  v5 = +[MSDAssetUpdater sharedInstance];
-  v14 = 0;
-  v6 = [v5 downloadAssetsWithError:&v14];
-  v7 = v14;
+  v6 = +[MSDAssetUpdater sharedInstance];
+  v17 = 0;
+  v7 = [v6 downloadAssetsWithError:&v17];
+  v8 = v17;
 
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    sub_100063A54();
+    sub_100063A54(v9);
     objc_claimAutoreleasedReturnValue();
     sub_1000DF568();
 LABEL_14:
 
-    v13 = v7;
-    sub_1000C1424(&v13, 3727744776, @"Failed to download support for Apple Intelligence");
-    v9 = v13;
+    v16 = v8;
+    sub_1000C1424(&v16, 3727744776, @"Failed to download support for Apple Intelligence");
+    v12 = v16;
 
-    v12 = +[MSDDemoUpdateStatusHub sharedInstance];
-    [v12 demoUpdateFailed:v9];
+    v15 = +[MSDDemoUpdateStatusHub sharedInstance];
+    [v15 demoUpdateFailed:v12];
 
-    [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v9];
+    [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v12];
     [(MSDDemoUpdateController *)selfCopy setBusy:0];
     v2 = 0;
     goto LABEL_10;
   }
 
-  v8 = sub_100063A54();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Calling waitForGMAvailability", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling waitForGMAvailability", buf, 2u);
   }
 
-  if (!+[MSDGreyMatterHelper waitForGMAvailability])
+  v11 = +[MSDGreyMatterHelper waitForGMAvailability];
+  if ((v11 & 1) == 0)
   {
-    sub_100063A54();
+    sub_100063A54(v11);
     objc_claimAutoreleasedReturnValue();
     sub_1000DF5C4();
     goto LABEL_14;
   }
 
-  v9 = v7;
+  v12 = v8;
 LABEL_9:
   [(MSDDemoUpdateController *)selfCopy setBusy:0];
   v2 = 1;
 LABEL_10:
   objc_sync_exit(selfCopy);
 
-  return v2 & (busy ^ 1);
+  return v2 & (v5 ^ 1);
 }
 
 - (BOOL)continueToUpdateOSPreferences
@@ -1033,18 +1040,19 @@ LABEL_10:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v4 = busy;
   if (busy)
   {
-    v8 = sub_100063A54();
-    sub_1000DF394(v8);
+    v9 = sub_100063A54(busy);
+    sub_1000DF394(v9);
     getCurrentSiriLanguage = 0;
   }
 
   else
   {
     [(MSDDemoUpdateController *)selfCopy setBusy:1];
-    v4 = +[MSDLanguageAndRegionManager sharedInstance];
-    getCurrentSiriLanguage = [v4 getCurrentSiriLanguage];
+    v5 = +[MSDLanguageAndRegionManager sharedInstance];
+    getCurrentSiriLanguage = [v5 getCurrentSiriLanguage];
 
     device = [(MSDDemoUpdateController *)selfCopy device];
     [device applyStagedDevicePreferences:0];
@@ -1054,7 +1062,7 @@ LABEL_10:
 
   objc_sync_exit(selfCopy);
 
-  return busy ^ 1;
+  return v4 ^ 1;
 }
 
 - (BOOL)continueToContinuityLinking
@@ -1062,10 +1070,11 @@ LABEL_10:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v5 = busy;
   if (busy)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = sub_100063A54(busy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF52C();
     }
@@ -1074,19 +1083,19 @@ LABEL_10:
   else
   {
     [(MSDDemoUpdateController *)selfCopy setBusy:1];
-    v7 = 0;
-    v2 = [(MSDDemoUpdateController *)selfCopy setupContinuityLinking:&v7];
-    v5 = v7;
-    if (v5)
+    v8 = 0;
+    v2 = [(MSDDemoUpdateController *)selfCopy setupContinuityLinking:&v8];
+    v6 = v8;
+    if (v6)
     {
-      [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v5];
+      [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v6];
     }
 
     [(MSDDemoUpdateController *)selfCopy setBusy:0];
   }
 
   objc_sync_exit(selfCopy);
-  return (busy ^ 1) & v2;
+  return (v5 ^ 1) & v2;
 }
 
 - (BOOL)continueToUpdateDemoContent
@@ -1094,36 +1103,37 @@ LABEL_10:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   context = objc_autoreleasePoolPush();
-  v47 = +[MSDPairedWatchProxy sharedInstance];
+  v55 = +[MSDPairedWatchProxy sharedInstance];
   busy = [(MSDDemoUpdateController *)selfCopy busy];
+  v56 = busy;
   if (busy)
   {
-    v43 = sub_100063A54();
-    sub_1000DF394(v43);
-    v18 = 0;
+    v51 = sub_100063A54(busy);
+    sub_1000DF394(v51);
+    v21 = 0;
     allKeys = 0;
-    v25 = 0;
-    v33 = 0;
+    v28 = 0;
+    v36 = 0;
     goto LABEL_37;
   }
 
   [(MSDDemoUpdateController *)selfCopy setBusy:1];
-  v4 = +[MSDAppPrivacyPermissionsHelper sharedInstance];
-  [v4 grantPrivacyPermissionsForAllApps];
+  v5 = +[MSDAppPrivacyPermissionsHelper sharedInstance];
+  [v5 grantPrivacyPermissionsForAllApps];
 
   device = [(MSDDemoUpdateController *)selfCopy device];
   isPressDemoDevice = [device isPressDemoDevice];
 
   if ((isPressDemoDevice & 1) == 0)
   {
-    v7 = +[MSDConfigurationProfileManager sharedInstance];
-    [v7 installDefaultConfigurationProfile];
+    v8 = +[MSDConfigurationProfileManager sharedInstance];
+    [v8 installDefaultConfigurationProfile];
   }
 
   +[MSDGreyMatterHelper migrateOptInValue];
-  v53 = 0;
-  [(MSDDemoUpdateController *)selfCopy setupAccounts:&v53];
-  v46 = v53;
+  v61 = 0;
+  [(MSDDemoUpdateController *)selfCopy setupAccounts:&v61];
+  v54 = v61;
   device2 = [(MSDDemoUpdateController *)selfCopy device];
   if (![device2 isBetterTogetherDemo])
   {
@@ -1131,28 +1141,28 @@ LABEL_10:
     goto LABEL_12;
   }
 
-  paired = [v47 paired];
+  paired = [v55 paired];
 
   if (!paired)
   {
 LABEL_12:
-    v14 = 0;
+    v17 = 0;
     goto LABEL_13;
   }
 
   if (os_variant_has_internal_content())
   {
-    v10 = +[MSDTestPreferences sharedInstance];
-    contentSyncTimeoutInterval = [v10 contentSyncTimeoutInterval];
+    v12 = +[MSDTestPreferences sharedInstance];
+    contentSyncTimeoutInterval = [v12 contentSyncTimeoutInterval];
 
     if (contentSyncTimeoutInterval)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100063A54(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v55 = contentSyncTimeoutInterval;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Override default content sync timeout interval with value: %{public}@", buf, 0xCu);
+        v63 = contentSyncTimeoutInterval;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Override default content sync timeout interval with value: %{public}@", buf, 0xCu);
       }
 
       unsignedIntValue = [contentSyncTimeoutInterval unsignedIntValue];
@@ -1169,102 +1179,103 @@ LABEL_12:
     unsignedIntValue = 1800;
   }
 
-  v39 = +[MSDProgressUpdater sharedInstance];
-  [v39 updateStage:32];
+  v45 = +[MSDProgressUpdater sharedInstance];
+  [v45 updateStage:32];
 
-  v40 = sub_100063A54();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v47 = sub_100063A54(v46);
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v55) = unsignedIntValue;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Wait extra %u seconds for content sync between phone and watch...", buf, 8u);
+    LODWORD(v63) = unsignedIntValue;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Wait extra %u seconds for content sync between phone and watch...", buf, 8u);
   }
 
-  sleep(unsignedIntValue);
-  v41 = sub_100063A54();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v48 = sleep(unsignedIntValue);
+  v49 = sub_100063A54(v48);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Sending content update completion signal to paired watch...", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Sending content update completion signal to paired watch...", buf, 2u);
   }
 
-  v14 = 1;
-  if ([v47 signalContentUpdateCompletion:1 andError:0])
+  v11 = [v55 signalContentUpdateCompletion:1 andError:0];
+  v17 = 1;
+  if (v11)
   {
 LABEL_13:
-    v15 = sub_100063A54();
-    v44 = v14;
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100063A54(v11);
+    v52 = v17;
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Re-enabling idle timer for blocking UI", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Re-enabling idle timer for blocking UI", buf, 2u);
     }
 
-    v16 = +[MSDUIHelper sharedInstance];
-    [v16 reenableIdleTimer];
+    v19 = +[MSDUIHelper sharedInstance];
+    [v19 reenableIdleTimer];
 
     device3 = [(MSDDemoUpdateController *)selfCopy device];
-    v52 = 0;
-    [device3 applyStagedDevicePreferences:&v52];
-    v18 = v52;
+    v60 = 0;
+    [device3 applyStagedDevicePreferences:&v60];
+    v21 = v60;
 
     device4 = [(MSDDemoUpdateController *)selfCopy device];
     getSavedOSPreferencesRequest = [device4 getSavedOSPreferencesRequest];
     allKeys = [getSavedOSPreferencesRequest allKeys];
 
-    v22 = +[MSDLanguageAndRegionManager sharedInstance];
-    if ([v22 isSiriEnabled])
+    v25 = +[MSDLanguageAndRegionManager sharedInstance];
+    if ([v25 isSiriEnabled])
     {
-      v23 = [v18 containsObject:@"SystemSiriLanguage"] ^ 1;
+      v26 = [v21 containsObject:@"SystemSiriLanguage"] ^ 1;
     }
 
     else
     {
-      v23 = 0;
+      v26 = 0;
     }
 
     if ([allKeys containsObject:@"SystemLanguage"] && objc_msgSend(allKeys, "containsObject:", @"SystemRegion"))
     {
-      v24 = +[MSDPreferencesFile sharedInstance];
-      [v24 removeObjectForKey:@"locale"];
-      v25 = 0;
+      v27 = +[MSDPreferencesFile sharedInstance];
+      [v27 removeObjectForKey:@"locale"];
+      v28 = 0;
     }
 
     else
     {
-      v26 = +[MSDPreferencesFile sharedInstance];
-      v25 = [v26 objectForKey:@"locale"];
+      v29 = +[MSDPreferencesFile sharedInstance];
+      v28 = [v29 objectForKey:@"locale"];
 
-      if (!v25)
+      if (!v28)
       {
         goto LABEL_24;
       }
 
-      v24 = [v25 objectForKey:@"language"];
-      v27 = [v25 objectForKey:@"region"];
-      v28 = +[MSDLanguageAndRegionManager sharedInstance];
-      [v28 setDeviceLanguage:v24 andRegion:v27 matchToSystemLanguage:0 sbRestartNeeded:0 sbRestartHandler:0];
+      v27 = [v28 objectForKey:@"language"];
+      v30 = [v28 objectForKey:@"region"];
+      v31 = +[MSDLanguageAndRegionManager sharedInstance];
+      [v31 setDeviceLanguage:v27 andRegion:v30 matchToSystemLanguage:0 sbRestartNeeded:0 sbRestartHandler:0];
 
-      v29 = +[MSDPreferencesFile sharedInstance];
-      [v29 removeObjectForKey:@"locale"];
+      v32 = +[MSDPreferencesFile sharedInstance];
+      [v32 removeObjectForKey:@"locale"];
     }
 
 LABEL_24:
-    v30 = +[MSDAnalytics sharedInstance];
-    [v30 disableCoreAnalticsTransformSampling];
+    v33 = +[MSDAnalytics sharedInstance];
+    [v33 disableCoreAnalticsTransformSampling];
 
     if (+[MSDGreyMatterHelper isOptedIn])
     {
       sleep(0x1Eu);
-      v31 = +[MSDAssetUpdater sharedInstance];
-      v51 = v46;
-      v32 = [v31 downloadAssetsWithError:&v51];
-      v33 = v51;
+      v34 = +[MSDAssetUpdater sharedInstance];
+      v59 = v54;
+      v35 = [v34 downloadAssetsWithError:&v59];
+      v36 = v59;
 
-      if ((v32 & 1) == 0)
+      if ((v35 & 1) == 0)
       {
-        v35 = sub_100063A54();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v40 = sub_100063A54(v37);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           sub_1000DF65C();
         }
@@ -1272,39 +1283,40 @@ LABEL_24:
         goto LABEL_53;
       }
 
-      v34 = sub_100063A54();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_100063A54(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Calling waitForGMAvailability", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Calling waitForGMAvailability", buf, 2u);
       }
 
-      if (!+[MSDGreyMatterHelper waitForGMAvailability])
+      v39 = +[MSDGreyMatterHelper waitForGMAvailability];
+      if ((v39 & 1) == 0)
       {
-        v35 = sub_100063A54();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v40 = sub_100063A54(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           sub_1000DF698();
         }
 
 LABEL_53:
 
-        v46 = v33;
+        v54 = v36;
         goto LABEL_47;
       }
     }
 
-    else if (v23)
+    else if (v26)
     {
-      v36 = +[MSDAssetUpdater sharedInstance];
-      v50 = v46;
-      v37 = [v36 handleSiriAssetsWithError:&v50];
-      v33 = v50;
+      v41 = +[MSDAssetUpdater sharedInstance];
+      v58 = v54;
+      v42 = [v41 handleSiriAssetsWithError:&v58];
+      v36 = v58;
 
-      if ((v37 & 1) == 0)
+      if ((v42 & 1) == 0)
       {
-        v35 = sub_100063A54();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        v40 = sub_100063A54(v43);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           sub_1000DF620();
         }
@@ -1315,7 +1327,7 @@ LABEL_53:
 
     else
     {
-      v33 = v46;
+      v36 = v54;
     }
 
     [(MSDDemoUpdateController *)selfCopy setBusy:0];
@@ -1323,24 +1335,24 @@ LABEL_53:
     goto LABEL_37;
   }
 
-  v44 = 1;
-  v18 = 0;
+  v52 = 1;
+  v21 = 0;
   allKeys = 0;
-  v25 = 0;
+  v28 = 0;
 LABEL_47:
-  v49 = v46;
-  sub_1000C1424(&v49, 3727744768, @"An error has occurred.");
-  v33 = v49;
+  v57 = v54;
+  sub_1000C1424(&v57, 3727744768, @"An error has occurred.");
+  v36 = v57;
 
-  v42 = +[MSDDemoUpdateStatusHub sharedInstance];
-  [v42 demoUpdateFailed:v33];
+  v50 = +[MSDDemoUpdateStatusHub sharedInstance];
+  [v50 demoUpdateFailed:v36];
 
-  if (v44)
+  if (v52)
   {
-    [v47 signalContentUpdateCompletion:0 andError:v33];
+    [v55 signalContentUpdateCompletion:0 andError:v36];
   }
 
-  [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v33];
+  [(MSDDemoUpdateController *)selfCopy checkWithTimeKeeper:v36];
   [(MSDDemoUpdateController *)selfCopy setBusy:0];
   v2 = 0;
 LABEL_37:
@@ -1348,54 +1360,55 @@ LABEL_37:
   objc_autoreleasePoolPop(context);
   objc_sync_exit(selfCopy);
 
-  return v2 & (busy ^ 1);
+  return v2 & (v56 ^ 1);
 }
 
 - (void)checkWithTimeKeeper:(id)keeper
 {
   keeperCopy = keeper;
   v4 = +[MSDDemoUpdateTimeKeeper sharedInstance];
-  v14 = 0;
-  v5 = [v4 shouldCleanUp:&v14];
-  v6 = v14;
+  v16 = 0;
+  v5 = [v4 shouldCleanUp:&v16];
+  v6 = v16;
   v7 = v6;
   if (v5)
   {
-    if ([v6 code] != 3727741184)
+    code = [v6 code];
+    if (code != 3727741184)
     {
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100063A54(code);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Unknown clean up reason!", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Unknown clean up reason!", buf, 2u);
       }
     }
 
-    v9 = +[MSDTargetDevice sharedInstance];
-    [v9 forceSwitchToDemoModeIfNeeded];
+    v10 = +[MSDTargetDevice sharedInstance];
+    [v10 forceSwitchToDemoModeIfNeeded];
     goto LABEL_9;
   }
 
   if ([keeperCopy code] == 3727740939)
   {
-    v9 = +[MSDProgressUpdater sharedInstance];
-    [v9 updateStage:24];
+    v10 = +[MSDProgressUpdater sharedInstance];
+    [v10 updateStage:24];
 LABEL_9:
 
     goto LABEL_16;
   }
 
-  v10 = +[MSDTestPreferences sharedInstance];
-  timeShowingFatalError = [v10 timeShowingFatalError];
+  v11 = +[MSDTestPreferences sharedInstance];
+  timeShowingFatalError = [v11 timeShowingFatalError];
 
   if (timeShowingFatalError)
   {
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100063A54(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v16 = timeShowingFatalError;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Override MSDTimeShowingFatalError timeout: %u", buf, 8u);
+      v18 = timeShowingFatalError;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Override MSDTimeShowingFatalError timeout: %u", buf, 8u);
     }
   }
 
@@ -1404,70 +1417,225 @@ LABEL_9:
     timeShowingFatalError = 900;
   }
 
-  v13 = [v4 setCompletionTimeForFatalError:timeShowingFatalError];
+  v15 = [v4 setCompletionTimeForFatalError:timeShowingFatalError];
 LABEL_16:
 }
 
 - (BOOL)PLHasCompletedRestorePostProcessing
 {
-  v12 = 0;
+  v13 = 0;
   v2 = [PLAssetsdClient alloc];
   v3 = +[PLPhotoLibraryPathManager systemLibraryURL];
   v4 = [v2 initWithPhotoLibraryURL:v3];
 
   demoClient = [v4 demoClient];
-  v11 = 0;
-  v6 = [demoClient hasCompletedRestorePostProcessing:&v12 error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [demoClient hasCompletedRestorePostProcessing:&v13 error:&v12];
+  v7 = v12;
 
   if (v6)
   {
-    v8 = v12;
+    v9 = v13;
   }
 
   else
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF6D4();
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (BOOL)PLHasCompletedMomentAnalysis
 {
-  v12 = 0;
+  v13 = 0;
   v2 = [PLAssetsdClient alloc];
   v3 = +[PLPhotoLibraryPathManager systemLibraryURL];
   v4 = [v2 initWithPhotoLibraryURL:v3];
 
   demoClient = [v4 demoClient];
-  v11 = 0;
-  v6 = [demoClient hasCompletedMomentAnalysis:&v12 error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [demoClient hasCompletedMomentAnalysis:&v13 error:&v12];
+  v7 = v12;
 
   if (v6)
   {
-    v8 = v12;
+    v9 = v13;
   }
 
   else
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF744();
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8 & 1;
+  return v9 & 1;
+}
+
+- (BOOL)migrateDataWithBlockingUI:(int)i startMigration:(BOOL)migration
+{
+  migrationCopy = migration;
+  if (![(MSDDemoUpdateController *)self migrationDone])
+  {
+    v6 = +[MSDProgressUpdater sharedInstance];
+    [v6 updateStage:14];
+
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      LODWORD(v41) = 67109120;
+      HIDWORD(v41) = migrationCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Waiting for data migration to finish; startMigration=%{BOOL}d", &v41, 8u);
+    }
+
+    if (migrationCopy)
+    {
+      v9 = DMPerformMigration();
+    }
+
+    else
+    {
+      v9 = DMPerformMigrationIfNeeded();
+    }
+
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v41) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Data migration finished.", &v41, 2u);
+    }
+
+    device = [(MSDDemoUpdateController *)self device];
+    isOfflineMode = [device isOfflineMode];
+
+    v13 = +[MSDUIHelper sharedInstance];
+    v14 = v13;
+    if (isOfflineMode)
+    {
+      v15 = @"CACHED_BUNDLE_INSTALL";
+    }
+
+    else
+    {
+      v15 = @"IN_PROGRESS";
+    }
+
+    [v13 startFullScreenUIWith:v15 allowCancel:1 disableIdleTimer:1];
+
+    v17 = sub_100063A54(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v41) = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Checking photo library migration.", &v41, 2u);
+    }
+
+    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    do
+    {
+      v21 = v20;
+      v22 = v19;
+      v20 = +[NSDate date];
+
+      pLHasCompletedRestorePostProcessing = [(MSDDemoUpdateController *)self PLHasCompletedRestorePostProcessing];
+      sleep(2u);
+      v19 = +[NSDate date];
+
+      v24 = [v19 timeIntervalSinceDate:v20];
+      v18 += v25;
+    }
+
+    while ((pLHasCompletedRestorePostProcessing & 1) == 0 && v18 < 900);
+    v26 = sub_100063A54(v24);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+    if (pLHasCompletedRestorePostProcessing)
+    {
+      if (!v27)
+      {
+        goto LABEL_23;
+      }
+
+      LODWORD(v41) = 67109120;
+      HIDWORD(v41) = v18;
+      v28 = "Photo library migration finished after %d seconds.";
+    }
+
+    else
+    {
+      if (!v27)
+      {
+        goto LABEL_23;
+      }
+
+      LODWORD(v41) = 67109120;
+      HIDWORD(v41) = v18;
+      v28 = "Photo library migration timeout after %d seconds.";
+    }
+
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v28, &v41, 8u);
+LABEL_23:
+
+    v30 = sub_100063A54(v29);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v41) = 0;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Checking photo moment analysis.", &v41, 2u);
+    }
+
+    v31 = 0;
+    do
+    {
+      v32 = v20;
+      v33 = v19;
+      v20 = +[NSDate date];
+
+      pLHasCompletedMomentAnalysis = [(MSDDemoUpdateController *)self PLHasCompletedMomentAnalysis];
+      sleep(5u);
+      v19 = +[NSDate date];
+
+      v35 = [v19 timeIntervalSinceDate:v20];
+      v31 += v36;
+    }
+
+    while ((pLHasCompletedMomentAnalysis & 1) == 0 && v31 < 300);
+    v37 = sub_100063A54(v35);
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+    if (pLHasCompletedMomentAnalysis)
+    {
+      if (v38)
+      {
+        LODWORD(v41) = 67109120;
+        HIDWORD(v41) = v31;
+        v39 = "Photo moment analysis finished after %d seconds.";
+LABEL_33:
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v39, &v41, 8u);
+      }
+    }
+
+    else if (v38)
+    {
+      LODWORD(v41) = 67109120;
+      HIDWORD(v41) = v31;
+      v39 = "Photo moment analysis timeout after %d seconds.";
+      goto LABEL_33;
+    }
+
+    [(MSDDemoUpdateController *)self setMigrationDone:1];
+  }
+
+  return 1;
 }
 
 - (void)setAutomatedDeviceGroupStoreID
@@ -1491,13 +1659,13 @@ LABEL_16:
   v8 = +[OSASystemConfiguration automatedDeviceGroup];
   if (!v8)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF95C();
     }
 
-    v11 = 0;
+    v12 = 0;
     v9 = 0;
     goto LABEL_26;
   }
@@ -1505,8 +1673,8 @@ LABEL_16:
   v9 = v8;
   if (!v5)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF8D0();
     }
@@ -1516,8 +1684,8 @@ LABEL_16:
 
   if (!serialNumber)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF850();
     }
@@ -1525,52 +1693,55 @@ LABEL_16:
     goto LABEL_25;
   }
 
-  if ([(__CFString *)v8 containsString:v5]&& [(__CFString *)v9 containsString:serialNumber])
+  if ([(__CFString *)v8 containsString:v5])
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = [(__CFString *)v9 containsString:serialNumber];
+    if (v10)
     {
-      *buf = 138544130;
-      v16 = @"AutomatedDeviceGroup";
-      v17 = 2114;
-      v18 = v9;
-      v19 = 2114;
-      v20 = v5;
-      v21 = 2114;
-      v22 = serialNumber;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ key with value %{public}@ already contains store ID %{public}@ and serial number %{public}@, skip appending store ID and serial number again", buf, 0x2Au);
-    }
+      v11 = sub_100063A54(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138544130;
+        v17 = @"AutomatedDeviceGroup";
+        v18 = 2114;
+        v19 = v9;
+        v20 = 2114;
+        v21 = v5;
+        v22 = 2114;
+        v23 = serialNumber;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ key with value %{public}@ already contains store ID %{public}@ and serial number %{public}@, skip appending store ID and serial number again", buf, 0x2Au);
+      }
 
 LABEL_25:
-    v11 = 0;
+      v12 = 0;
 LABEL_26:
 
-    v12 = v9;
-    goto LABEL_27;
+      v13 = v9;
+      goto LABEL_27;
+    }
   }
 
-  v12 = [NSString stringWithFormat:@"%@_%@_%@", v9, v5, serialNumber];
+  v13 = [NSString stringWithFormat:@"%@_%@_%@", v9, v5, serialNumber];
 
-  [OSASystemConfiguration setAutomatedDeviceGroup:v12];
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100063A54([OSASystemConfiguration setAutomatedDeviceGroup:v13]);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v12;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Set new AutomatedDeviceGroup %@", buf, 0xCu);
+    v17 = v13;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Set new AutomatedDeviceGroup %@", buf, 0xCu);
   }
 
-  v14 = +[OSASystemConfiguration automatedDeviceGroup];
-  v11 = v14;
-  if (!v14 || ([v14 isEqualToString:v12] & 1) == 0)
+  v15 = +[OSASystemConfiguration automatedDeviceGroup];
+  v12 = v15;
+  if (!v15 || (v15 = [v15 isEqualToString:v13], (v15 & 1) == 0))
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100063A54(v15);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF7B4();
     }
 
-    v9 = v12;
+    v9 = v13;
     goto LABEL_26;
   }
 
@@ -1583,19 +1754,20 @@ LABEL_27:
   v3 = objc_alloc_init(EMDaemonInterface);
   [v3 launchDaemon];
   clientState = [v3 clientState];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10008BEA8;
-  v8[3] = &unk_10016BAA0;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10008BEA8;
+  v9[3] = &unk_10016BAA0;
   v5 = v2;
-  v9 = v5;
-  [clientState setStateForDemoMode:v8];
+  v10 = v5;
+  [clientState setStateForDemoMode:v9];
 
   v6 = dispatch_time(0, 3000000000);
-  if (dispatch_semaphore_wait(v5, v6))
+  v7 = dispatch_semaphore_wait(v5, v6);
+  if (v7)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000DF9E8();
     }
@@ -1608,34 +1780,34 @@ LABEL_27:
   getInfo = [checkCopy getInfo];
   v8 = [getInfo objectForKey:@"MinimumOSVersion"];
 
-  v9 = sub_100063A54();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100063A54(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     getInfo2 = [checkCopy getInfo];
-    v11 = [getInfo2 objectForKey:@"PartNumber"];
+    v12 = [getInfo2 objectForKey:@"PartNumber"];
     getInfo3 = [checkCopy getInfo];
-    v13 = [getInfo3 objectForKey:@"Revision"];
-    v19 = 138543874;
-    v20 = v11;
-    v21 = 2114;
-    v22 = v13;
-    v23 = 2114;
-    v24 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Manifest partnumber/revision: %{public}@_%{public}@, minimum OS version is %{public}@", &v19, 0x20u);
+    v14 = [getInfo3 objectForKey:@"Revision"];
+    v20 = 138543874;
+    v21 = v12;
+    v22 = 2114;
+    v23 = v14;
+    v24 = 2114;
+    v25 = v8;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Manifest partnumber/revision: %{public}@_%{public}@, minimum OS version is %{public}@", &v20, 0x20u);
   }
 
-  if (v8 && (-[MSDDemoUpdateController device](self, "device"), v14 = objc_claimAutoreleasedReturnValue(), [v14 OSVersion], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v8, "higherVersionThan:", v15), v15, v14, v16))
+  if (v8 && (-[MSDDemoUpdateController device](self, "device"), v15 = objc_claimAutoreleasedReturnValue(), [v15 OSVersion], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v8, "higherVersionThan:", v16), v16, v15, v17))
   {
     sub_1000DFAB0(v8, self, error);
-    v17 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v17 = 1;
+    v18 = 1;
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)_kickOffContentUpdateForManifest:(id)manifest withOptions:(id)options error:(id *)error
@@ -1675,12 +1847,12 @@ LABEL_8:
 
       if ((completed & 1) == 0)
       {
-        v20 = sub_100063A54();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = sub_100063A54(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v66 = v15;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Request builder to defer the update of app: %{public}@", buf, 0xCu);
+          v68 = v15;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Request builder to defer the update of app: %{public}@", buf, 0xCu);
         }
 
         [v9 setObject:v15 forKey:@"AppItemToDefer"];
@@ -1699,90 +1871,90 @@ LABEL_8:
 LABEL_13:
 
 LABEL_14:
-  v21 = [[MSDComponentBuilder alloc] initWithSignedManifest:manifestCopy andOptions:v9];
-  v22 = +[MSDConfigurationProfileManager sharedInstance];
-  [v22 uninstallAllDemoBundleConfigurationProfiles];
+  v22 = [[MSDComponentBuilder alloc] initWithSignedManifest:manifestCopy andOptions:v9];
+  v23 = +[MSDConfigurationProfileManager sharedInstance];
+  [v23 uninstallAllDemoBundleConfigurationProfiles];
 
-  buildComponentsNotInManifest = [(MSDComponentBuilder *)v21 buildComponentsNotInManifest];
+  buildComponentsNotInManifest = [(MSDComponentBuilder *)v22 buildComponentsNotInManifest];
   if (buildComponentsNotInManifest)
   {
-    buildComponentsFromManifest = [(MSDComponentBuilder *)v21 buildComponentsFromManifest];
+    buildComponentsFromManifest = [(MSDComponentBuilder *)v22 buildComponentsFromManifest];
     if (buildComponentsFromManifest)
     {
-      v25 = buildComponentsFromManifest;
+      v26 = buildComponentsFromManifest;
       errorCopy = error;
-      v50 = v9;
-      v51 = optionsCopy;
+      v52 = v9;
+      v53 = optionsCopy;
 
-      v26 = +[MSDDemoUpdateTimeKeeper sharedInstance];
-      date = [v26 date];
+      v27 = +[MSDDemoUpdateTimeKeeper sharedInstance];
+      date = [v27 date];
 
+      v61 = 0u;
+      v62 = 0u;
       v59 = 0u;
       v60 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v48 = v25;
-      v49 = buildComponentsNotInManifest;
-      v63[0] = buildComponentsNotInManifest;
-      v63[1] = v25;
-      obj = [NSArray arrayWithObjects:v63 count:2];
-      v27 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
-      if (!v27)
+      v50 = v26;
+      v51 = buildComponentsNotInManifest;
+      v65[0] = buildComponentsNotInManifest;
+      v65[1] = v26;
+      obj = [NSArray arrayWithObjects:v65 count:2];
+      v28 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+      if (!v28)
       {
-        v29 = 0;
+        v30 = 0;
 LABEL_32:
 
-        v21 = 0;
+        v22 = 0;
         manifestCopy = 0;
-        v42 = 1;
-        v9 = v50;
-        optionsCopy = v51;
-        v43 = v48;
-        buildComponentsNotInManifest = v49;
+        v44 = 1;
+        v9 = v52;
+        optionsCopy = v53;
+        v45 = v50;
+        buildComponentsNotInManifest = v51;
         goto LABEL_33;
       }
 
-      v28 = v27;
-      v29 = 0;
-      v30 = *v58;
+      v29 = v28;
+      v30 = 0;
+      v31 = *v60;
 LABEL_18:
-      v31 = 0;
+      v32 = 0;
       while (1)
       {
-        if (*v58 != v30)
+        if (*v60 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v32 = *(*(&v57 + 1) + 8 * v31);
-        v33 = objc_autoreleasePoolPush();
-        if ([v32 count])
+        v33 = *(*(&v59 + 1) + 8 * v32);
+        v34 = objc_autoreleasePoolPush();
+        if ([v33 count])
         {
-          v34 = +[MSDDemoUpdateTimeKeeper sharedInstance];
-          v56 = v29;
-          v35 = [v34 shouldCleanUp:&v56];
-          v36 = v56;
+          v35 = +[MSDDemoUpdateTimeKeeper sharedInstance];
+          v58 = v30;
+          v36 = [v35 shouldCleanUp:&v58];
+          v37 = v58;
 
-          if (v35)
+          if (v36)
           {
-            v37 = sub_100063A54();
-            if (os_log_type_enabled(&v37->super, OS_LOG_TYPE_DEFAULT))
+            v39 = sub_100063A54(v38);
+            if (os_log_type_enabled(&v39->super, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315138;
-              v66 = "[MSDDemoUpdateController _kickOffContentUpdateForManifest:withOptions:error:]";
-              _os_log_impl(&_mh_execute_header, &v37->super, OS_LOG_TYPE_DEFAULT, "%s - Content update has been cancelled by users request", buf, 0xCu);
+              v68 = "[MSDDemoUpdateController _kickOffContentUpdateForManifest:withOptions:error:]";
+              _os_log_impl(&_mh_execute_header, &v39->super, OS_LOG_TYPE_DEFAULT, "%s - Content update has been cancelled by users request", buf, 0xCu);
             }
 
-            v29 = v36;
+            v30 = v37;
 LABEL_38:
-            v9 = v50;
-            optionsCopy = v51;
+            v9 = v52;
+            optionsCopy = v53;
             error = errorCopy;
-            v43 = v48;
-            buildComponentsNotInManifest = v49;
+            v45 = v50;
+            buildComponentsNotInManifest = v51;
 
-            objc_autoreleasePoolPop(v33);
-            v21 = 0;
+            objc_autoreleasePoolPop(v34);
+            v22 = 0;
             manifestCopy = 0;
             if (!errorCopy)
             {
@@ -1790,24 +1962,24 @@ LABEL_38:
             }
 
 LABEL_39:
-            v45 = v29;
-            v42 = 0;
-            *error = v29;
+            v47 = v30;
+            v44 = 0;
+            *error = v30;
             goto LABEL_33;
           }
 
-          v37 = [[MSDComponentProcessor alloc] initWithQoS:33];
-          v38 = [[MSDComponentManager alloc] initWithComponents:v32 andProcessor:v37];
-          [(MSDDemoUpdateController *)self setComponentManager:v38];
+          v39 = [[MSDComponentProcessor alloc] initWithQoS:33];
+          v40 = [[MSDComponentManager alloc] initWithComponents:v33 andProcessor:v39];
+          [(MSDDemoUpdateController *)self setComponentManager:v40];
           componentManager = [(MSDDemoUpdateController *)self componentManager];
           [componentManager startProcessingAllComponents];
 
           componentManager2 = [(MSDDemoUpdateController *)self componentManager];
-          v55 = v36;
-          v41 = [componentManager2 waitForProcessingCompletionTillDate:date outError:&v55];
-          v29 = v55;
+          v57 = v37;
+          v43 = [componentManager2 waitForProcessingCompletionTillDate:date outError:&v57];
+          v30 = v57;
 
-          if ((v41 & 1) == 0 && ([v29 code] == 3727741184 || objc_msgSend(v29, "code") == 3727741185))
+          if ((v43 & 1) == 0 && ([v30 code] == 3727741184 || objc_msgSend(v30, "code") == 3727741185))
           {
 
             goto LABEL_38;
@@ -1816,15 +1988,15 @@ LABEL_39:
 
         else
         {
-          v37 = 0;
-          v38 = 0;
+          v39 = 0;
+          v40 = 0;
         }
 
-        objc_autoreleasePoolPop(v33);
-        if (v28 == ++v31)
+        objc_autoreleasePoolPop(v34);
+        if (v29 == ++v32)
         {
-          v28 = [obj countByEnumeratingWithState:&v57 objects:v64 count:16];
-          if (v28)
+          v29 = [obj countByEnumeratingWithState:&v59 objects:v66 count:16];
+          if (v29)
           {
             goto LABEL_18;
           }
@@ -1834,20 +2006,20 @@ LABEL_39:
       }
     }
 
-    v61 = 0;
-    sub_1000C1390(&v61, 3727740938, @"Manifest is corrupted.");
-    v46 = v61;
+    v63 = 0;
+    sub_1000C1390(&v63, 3727740938, @"Manifest is corrupted.");
+    v48 = v63;
   }
 
   else
   {
-    v62 = 0;
-    sub_1000C1390(&v62, 3727740938, @"Manifest is corrupted.");
-    v46 = v62;
+    v64 = 0;
+    sub_1000C1390(&v64, 3727740938, @"Manifest is corrupted.");
+    v48 = v64;
   }
 
-  v29 = v46;
-  v43 = 0;
+  v30 = v48;
+  v45 = 0;
   date = 0;
   if (error)
   {
@@ -1855,17 +2027,17 @@ LABEL_39:
   }
 
 LABEL_45:
-  v42 = 0;
+  v44 = 0;
 LABEL_33:
 
-  return v42;
+  return v44;
 }
 
 - (void)_stageContentPlistForManifest:(id)manifest
 {
   manifestCopy = manifest;
   v5 = +[NSFileManager defaultManager];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1876,8 +2048,8 @@ LABEL_33:
 
   if (!v7)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000DFE14();
     }
@@ -1885,12 +2057,13 @@ LABEL_33:
     goto LABEL_25;
   }
 
-  v8 = [v5 fileExistsAtPath:v7];
-  v9 = sub_100063A54();
+  v9 = [v5 fileExistsAtPath:v7];
   v10 = v9;
-  if ((v8 & 1) == 0)
+  v11 = sub_100063A54(v9);
+  v12 = v11;
+  if ((v10 & 1) == 0)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000DFBB0();
     }
@@ -1898,44 +2071,46 @@ LABEL_33:
 LABEL_25:
     stringByDeletingLastPathComponent = 0;
     fileHash = 0;
-    v12 = 0;
+    v15 = 0;
 LABEL_35:
 
     goto LABEL_20;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v27 = v7;
-    v28 = 2114;
-    v29 = @"/private/var/mobile/backup/var/mobile/Media/Content.plist";
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Copying %{public}@ to %{public}@...", buf, 0x16u);
+    v35 = v7;
+    v36 = 2114;
+    v37 = @"/private/var/mobile/backup/var/mobile/Media/Content.plist";
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Copying %{public}@ to %{public}@...", buf, 0x16u);
   }
 
   stringByDeletingLastPathComponent = [@"/private/var/mobile/backup/var/mobile/Media/Content.plist" stringByDeletingLastPathComponent];
-  if ([v5 fileExistsAtPath:stringByDeletingLastPathComponent])
+  v14 = [v5 fileExistsAtPath:stringByDeletingLastPathComponent];
+  if (v14)
   {
-    v12 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v13 = sub_100063A54();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100063A54(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = stringByDeletingLastPathComponent;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Creating %{public}@...", buf, 0xCu);
+      v35 = stringByDeletingLastPathComponent;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Creating %{public}@...", buf, 0xCu);
     }
 
-    v25 = 0;
-    v14 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
-    v12 = v25;
-    if ((v14 & 1) == 0)
+    v33 = 0;
+    v17 = [v5 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v33];
+    v18 = v33;
+    v15 = v18;
+    if ((v17 & 1) == 0)
     {
-      v10 = sub_100063A54();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_100063A54(v18);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000DFC20();
       }
@@ -1945,17 +2120,17 @@ LABEL_35:
     }
   }
 
-  v15 = [NSURL fileURLWithString:v7];
-  fileHash = [v15 fileHash];
+  v19 = [NSURL fileURLWithString:v7];
+  fileHash = [v19 fileHash];
 
   helperAgent = [(MSDDemoUpdateController *)self helperAgent];
-  v18 = [helperAgent cloneFile:v7 to:@"/private/var/mobile/backup/var/mobile/Media/Content.plist" expectingHash:fileHash];
+  v22 = [helperAgent cloneFile:v7 to:@"/private/var/mobile/backup/var/mobile/Media/Content.plist" expectingHash:fileHash];
 
-  v19 = sub_100063A54();
-  v10 = v19;
-  if ((v18 & 1) == 0)
+  v24 = sub_100063A54(v23);
+  v12 = v24;
+  if ((v22 & 1) == 0)
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_1000DFC9C();
     }
@@ -1963,32 +2138,33 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v27 = v7;
-    v28 = 2114;
-    v29 = @"/private/var/demo_backup/Metadata/.Content.plist";
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Copying %{public}@ to %{public}@...", buf, 0x16u);
+    v35 = v7;
+    v36 = 2114;
+    v37 = @"/private/var/demo_backup/Metadata/.Content.plist";
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Copying %{public}@ to %{public}@...", buf, 0x16u);
   }
 
-  if (([v5 fileExistsAtPath:@"/private/var/demo_backup/Metadata"] & 1) == 0)
+  v25 = [v5 fileExistsAtPath:@"/private/var/demo_backup/Metadata"];
+  if ((v25 & 1) == 0)
   {
-    v20 = sub_100063A54();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100063A54(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = @"/private/var/demo_backup/Metadata";
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Creating %{public}@...", buf, 0xCu);
+      v35 = @"/private/var/demo_backup/Metadata";
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Creating %{public}@...", buf, 0xCu);
     }
 
     helperAgent2 = [(MSDDemoUpdateController *)self helperAgent];
-    v22 = [helperAgent2 prepareWorkDirectory:@"/private/var/demo_backup/Metadata" writableByNonRoot:0];
+    v28 = [helperAgent2 prepareWorkDirectory:@"/private/var/demo_backup/Metadata" writableByNonRoot:0];
 
-    if ((v22 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      v10 = sub_100063A54();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_100063A54(v29);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000DFD18();
       }
@@ -1998,12 +2174,12 @@ LABEL_35:
   }
 
   helperAgent3 = [(MSDDemoUpdateController *)self helperAgent];
-  v24 = [helperAgent3 cloneFile:v7 to:@"/private/var/demo_backup/Metadata/.Content.plist" expectingHash:fileHash];
+  v31 = [helperAgent3 cloneFile:v7 to:@"/private/var/demo_backup/Metadata/.Content.plist" expectingHash:fileHash];
 
-  if ((v24 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100063A54(v32);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1000DFD98();
     }
@@ -2021,268 +2197,270 @@ LABEL_20:
   manifestPath = [v5 manifestPath];
 
   stringByDeletingLastPathComponent = [manifestPath stringByDeletingLastPathComponent];
-  v60 = objc_opt_new();
+  v65 = objc_opt_new();
   v8 = +[MSDLanguageAndRegionManager sharedInstance];
   getCurrentDevicePreferredLanguage = [v8 getCurrentDevicePreferredLanguage];
 
   v9 = +[MSDLanguageAndRegionManager sharedInstance];
   getCurrentDeviceRegion = [v9 getCurrentDeviceRegion];
 
-  v11 = sub_100063A54();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_100063A54(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     *&buf[4] = getCurrentDevicePreferredLanguage;
-    v71 = 2114;
-    v72 = getCurrentDeviceRegion;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Selecting cached bundle with preferred language code %{public}@; region %{public}@", buf, 0x16u);
+    v76 = 2114;
+    v77 = getCurrentDeviceRegion;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Selecting cached bundle with preferred language code %{public}@; region %{public}@", buf, 0x16u);
   }
 
-  v12 = [MSDSignedManifestFactoryMetadata loadManifestMetadata:@"/var/MSDWorkContainer/.MSD_cache_content_plist"];
-  v56 = stringByDeletingLastPathComponent;
-  v57 = v4;
-  v55 = v12;
-  if (!v12 && [0 count])
+  v13 = [MSDSignedManifestFactoryMetadata loadManifestMetadata:@"/var/MSDWorkContainer/.MSD_cache_content_plist"];
+  v61 = stringByDeletingLastPathComponent;
+  v62 = v4;
+  v60 = v13;
+  if (!v13 && [0 count])
   {
     sub_1000DFE50();
-    v16 = 0;
-    v32 = 0;
+    v17 = 0;
+    v35 = 0;
     goto LABEL_61;
   }
 
   selfCopy = self;
-  v59 = manifestPath;
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
-  v65 = 0u;
-  v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v64 objects:v75 count:16];
-  if (v14)
+  v64 = manifestPath;
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v69 objects:v80 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = 0;
-    v17 = *v65;
+    v16 = v15;
+    v17 = 0;
+    v18 = *v70;
     do
     {
-      for (i = 0; i != v15; i = i + 1)
+      for (i = 0; i != v16; i = i + 1)
       {
-        if (*v65 != v17)
+        if (*v70 != v18)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v64 + 1) + 8 * i);
-        supportedRegions = [v19 supportedRegions];
-        v21 = [supportedRegions containsObject:getCurrentDeviceRegion];
+        v20 = *(*(&v69 + 1) + 8 * i);
+        supportedRegions = [v20 supportedRegions];
+        v22 = [supportedRegions containsObject:getCurrentDeviceRegion];
 
-        if (v21)
+        if (v22)
         {
-          [v60 addObject:v19];
+          [v65 addObject:v20];
         }
 
-        if ([v19 isPrimaryBundle])
+        if ([v20 isPrimaryBundle])
         {
-          v22 = v19;
+          v23 = v20;
 
-          v23 = sub_100063A54();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v25 = sub_100063A54(v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            *&buf[4] = v22;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found default primary bundle: %{public}@", buf, 0xCu);
+            *&buf[4] = v23;
+            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Found default primary bundle: %{public}@", buf, 0xCu);
           }
 
-          v16 = v22;
+          v17 = v23;
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v64 objects:v75 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v69 objects:v80 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  manifestPath = v59;
-  if ([v60 count])
+  v26 = [v65 count];
+  manifestPath = v64;
+  if (v26)
   {
-    v24 = sub_100063A54();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100063A54(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [v60 count];
+      v28 = [v65 count];
       *buf = 134218498;
-      *&buf[4] = v25;
-      v71 = 2114;
-      v72 = getCurrentDeviceRegion;
-      v73 = 2114;
-      v74 = v60;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Found %lu bundles for region %{public}@: %{public}@", buf, 0x20u);
+      *&buf[4] = v28;
+      v76 = 2114;
+      v77 = getCurrentDeviceRegion;
+      v78 = 2114;
+      v79 = v65;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Found %lu bundles for region %{public}@: %{public}@", buf, 0x20u);
     }
 
-    v26 = [MSDSignedManifestFactoryMetadata languageIdentifiersForMetadataList:v60];
-    v69 = getCurrentDevicePreferredLanguage;
-    v27 = [NSArray arrayWithObjects:&v69 count:1];
-    v28 = [NSLocale matchedLanguagesFromAvailableLanguages:v26 forPreferredLanguages:v27];
+    v29 = [MSDSignedManifestFactoryMetadata languageIdentifiersForMetadataList:v65];
+    v74 = getCurrentDevicePreferredLanguage;
+    v30 = [NSArray arrayWithObjects:&v74 count:1];
+    v31 = [NSLocale matchedLanguagesFromAvailableLanguages:v29 forPreferredLanguages:v30];
 
-    if ([v28 count])
+    if ([v31 count])
     {
-      firstObject = [v28 firstObject];
-      v30 = sub_100063A54();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      firstObject = [v31 firstObject];
+      v33 = sub_100063A54(firstObject);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         *&buf[4] = firstObject;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Found matched language code: %{public}@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Found matched language code: %{public}@", buf, 0xCu);
       }
 
-      v31 = [MSDSignedManifestFactoryMetadata metadataWithLanugageIdentifier:firstObject fromList:v60];
-      if (v31)
+      v34 = [MSDSignedManifestFactoryMetadata metadataWithLanugageIdentifier:firstObject fromList:v65];
+      if (v34)
       {
-        v32 = v31;
+        v35 = v34;
 
         goto LABEL_35;
       }
 
-      v33 = sub_100063A54();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v37 = sub_100063A54(0);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         sub_1000DFEEC();
       }
     }
   }
 
-  v34 = sub_100063A54();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v38 = sub_100063A54(v26);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Did not find matching bundle; selecting default primary bundle", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Did not find matching bundle; selecting default primary bundle", buf, 2u);
   }
 
-  v32 = v16;
+  v36 = v17;
+  v35 = v36;
 LABEL_35:
-  v35 = sub_100063A54();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v39 = sub_100063A54(v36);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *&buf[4] = v32;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Selected bundle metadata: %{public}@", buf, 0xCu);
+    *&buf[4] = v35;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Selected bundle metadata: %{public}@", buf, 0xCu);
   }
 
-  fileName = [v32 fileName];
+  fileName = [v35 fileName];
 
   if (!fileName)
   {
     sub_1000E01C0();
 LABEL_61:
-    v41 = 0;
-    v39 = 0;
-    v47 = *buf;
+    v46 = 0;
+    v43 = 0;
+    v52 = *buf;
     goto LABEL_62;
   }
 
-  v68[0] = @"/var/MSDWorkContainer/.MSD_cache_manifest";
-  fileName2 = [v32 fileName];
-  v68[1] = fileName2;
-  v38 = [NSArray arrayWithObjects:v68 count:2];
-  v39 = [NSString pathWithComponents:v38];
+  v73[0] = @"/var/MSDWorkContainer/.MSD_cache_manifest";
+  fileName2 = [v35 fileName];
+  v73[1] = fileName2;
+  v42 = [NSArray arrayWithObjects:v73 count:2];
+  v43 = [NSString pathWithComponents:v42];
 
-  v40 = sub_100063A54();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v45 = sub_100063A54(v44);
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    *&buf[4] = v39;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Loading manifest file from path %{public}@", buf, 0xCu);
+    *&buf[4] = v43;
+    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Loading manifest file from path %{public}@", buf, 0xCu);
   }
 
-  v41 = [MSDSignedManifestFactory createSignedManifestFromManifestFile:v39];
-  v42 = sub_100063A54();
-  v43 = v42;
-  if (!v41)
+  v46 = [MSDSignedManifestFactory createSignedManifestFromManifestFile:v43];
+  v47 = sub_100063A54(v46);
+  v48 = v47;
+  if (!v46)
   {
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
       sub_1000E0150();
     }
 
-    v63 = 0;
-    sub_1000C1390(&v63, 3727740942, @"Failed to load cached manifest file");
-    v47 = v63;
-    v41 = 0;
+    v68 = 0;
+    sub_1000C1390(&v68, 3727740942, @"Failed to load cached manifest file");
+    v52 = v68;
+    v46 = 0;
     goto LABEL_62;
   }
 
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    *&buf[4] = v39;
-    v71 = 2114;
-    v72 = v59;
-    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Copying manifest file from %{public}@ to %{public}@", buf, 0x16u);
+    *&buf[4] = v43;
+    v76 = 2114;
+    v77 = v64;
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Copying manifest file from %{public}@ to %{public}@", buf, 0x16u);
   }
 
-  if ([v57 fileExistsAtPath:v56] & 1) != 0 || (-[MSDDemoUpdateController helperAgent](selfCopy, "helperAgent"), v44 = objc_claimAutoreleasedReturnValue(), v45 = objc_msgSend(v44, "prepareWorkDirectory:writableByNonRoot:", v56, 1), v44, (v45))
+  if ([v62 fileExistsAtPath:v61] & 1) != 0 || (-[MSDDemoUpdateController helperAgent](selfCopy, "helperAgent"), v49 = objc_claimAutoreleasedReturnValue(), v50 = objc_msgSend(v49, "prepareWorkDirectory:writableByNonRoot:", v61, 1), v49, (v50))
   {
-    if ([v57 fileExistsAtPath:v59])
+    if ([v62 fileExistsAtPath:v64])
     {
-      v62 = 0;
-      v46 = [v57 removeItemAtPath:v59 error:&v62];
-      v47 = v62;
-      if ((v46 & 1) == 0)
+      v67 = 0;
+      v51 = [v62 removeItemAtPath:v64 error:&v67];
+      v52 = v67;
+      if ((v51 & 1) == 0)
       {
-        sub_1000E0000();
+        sub_1000E0000(v64);
         goto LABEL_62;
       }
     }
 
     else
     {
-      v47 = 0;
+      v52 = 0;
     }
 
-    v48 = v47;
-    v61 = v47;
-    v49 = [v57 copyItemAtPath:v39 toPath:v59 error:&v61];
-    v47 = v61;
+    v53 = v52;
+    v66 = v52;
+    v54 = [v62 copyItemAtPath:v43 toPath:v64 error:&v66];
+    v52 = v66;
 
-    if (v49)
+    if (v54)
     {
-      v41 = v41;
-      v50 = v41;
-      manifestPath = v59;
+      v46 = v46;
+      v55 = v46;
+      manifestPath = v64;
       goto LABEL_51;
     }
 
-    sub_1000E00B8();
-    manifestPath = v59;
+    sub_1000E00B8(v52);
+    manifestPath = v64;
   }
 
   else
   {
-    sub_1000DFF5C();
-    v47 = 0;
+    sub_1000DFF5C(v61);
+    v52 = 0;
   }
 
 LABEL_62:
   if (error)
   {
-    v52 = v47;
-    v50 = 0;
-    *error = v47;
+    v57 = v52;
+    v55 = 0;
+    *error = v52;
   }
 
   else
   {
-    v50 = 0;
+    v55 = 0;
   }
 
 LABEL_51:
 
-  return v50;
+  return v55;
 }
 
 - (id)_contentPlistPathForManifest:(id)manifest
@@ -2299,22 +2477,22 @@ LABEL_51:
   {
     if (v7)
     {
-      v8 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@_%d.plist", @"/var/MSDWorkContainer/.MSD_cache_content_plist", v5, [v7 intValue]);
+      v9 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%@/%@_%d.plist", @"/var/MSDWorkContainer/.MSD_cache_content_plist", v5, [v7 intValue]);
       goto LABEL_4;
     }
 
-    sub_1000E025C();
+    sub_1000E025C(v8);
   }
 
   else
   {
-    sub_1000E02F8();
+    sub_1000E02F8(v8);
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_4:
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)enrolled

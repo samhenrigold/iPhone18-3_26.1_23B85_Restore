@@ -584,7 +584,7 @@ LABEL_11:
 
   _filter = [(LPImageView *)self _filter];
   v5 = _filter;
-  if (_filter <= 8 && ((1 << _filter) & 0x1A0) != 0 || (-[LPImage properties](self->_image, "properties"), v48 = objc_claimAutoreleasedReturnValue(), v8 = [v48 type], v48, v8 == 5) || !-[LPImageView shouldApplyBackground](self, "shouldApplyBackground") && -[LPImage _hasTransparency](self->_image, "_hasTransparency"))
+  if (_filter <= 8 && ((1 << _filter) & 0x1A0) != 0 || (-[LPImage properties](self->_image, "properties"), v49 = objc_claimAutoreleasedReturnValue(), v8 = [v49 type], v49, v8 == 5) || !-[LPImageView shouldApplyBackground](self, "shouldApplyBackground") && -[LPImage _hasTransparency](self->_image, "_hasTransparency"))
   {
     layer = [(LPImageView *)self layer];
     [layer setShadowPath:0];
@@ -621,11 +621,11 @@ LABEL_11:
     v18 = v17;
     [(LPImageView *)self _effectiveCornerRadius];
     v20 = v19;
-    v52.origin.x = v13;
-    v52.origin.y = v14;
-    v52.size.width = v15;
-    v52.size.height = v16;
-    v21 = CGPathCreateWithRoundedRect(v52, v18, v20, 0);
+    v53.origin.x = v13;
+    v53.origin.y = v14;
+    v53.size.width = v15;
+    v53.size.height = v16;
+    v21 = CGPathCreateWithRoundedRect(v53, v18, v20, 0);
     v22 = CFAutorelease(v21);
     layer3 = [(LPImageView *)self layer];
     [layer3 setShadowPath:v22];
@@ -637,27 +637,27 @@ LABEL_11:
     [platformImage size];
     v27 = v26;
     v29 = v28;
-    [(LPImageView *)self bounds];
-    sizeFittingInsideSizeMaintainingAspectRatio(v27, v29, v30, v31);
-    v33 = v32;
-    v35 = v34;
+    bounds = [(LPImageView *)self bounds];
+    sizeFittingInsideSizeMaintainingAspectRatio(bounds, v27, v29, v31, v32);
+    v34 = v33;
+    v36 = v35;
 
     [(LPImageView *)self bounds];
-    v37 = (v36 - v33) * 0.5;
+    v38 = (v37 - v34) * 0.5;
     [(LPImageView *)self bounds];
-    v39 = (v38 - v35) * 0.5;
+    v40 = (v39 - v36) * 0.5;
     [(LPImageView *)self _effectiveCornerRadius];
-    v41 = v40;
+    v42 = v41;
     [(LPImageView *)self _effectiveCornerRadius];
-    v43 = v42;
-    v53.origin.x = v37;
-    v53.origin.y = v39;
-    v53.size.width = v33;
-    v53.size.height = v35;
-    v44 = CGPathCreateWithRoundedRect(v53, v41, v43, 0);
-    v45 = CFAutorelease(v44);
+    v44 = v43;
+    v54.origin.x = v38;
+    v54.origin.y = v40;
+    v54.size.width = v34;
+    v54.size.height = v36;
+    v45 = CGPathCreateWithRoundedRect(v54, v42, v44, 0);
+    v46 = CFAutorelease(v45);
     layer3 = [(LPImageView *)self layer];
-    [layer3 setShadowPath:v45];
+    [layer3 setShadowPath:v46];
   }
 
   else
@@ -833,38 +833,38 @@ double __34__LPImageView_layoutComponentView__block_invoke(uint64_t a1)
   if ([*(*(a1 + 32) + 440) filter] == 3 || objc_msgSend(*(*(a1 + 32) + 440), "requireFixedSize"))
   {
     v2 = [*(*(a1 + 32) + 440) fixedSize];
-    [v2 asSize];
-    sizeFittingInsideSizeMaintainingAspectRatio(v3, v4, *(a1 + 56), *(a1 + 64));
+    v3 = [v2 asSize];
+    sizeFittingInsideSizeMaintainingAspectRatio(v3, v4, v5, *(a1 + 56), *(a1 + 64));
   }
 
   else
   {
     [*(*(a1 + 32) + 432) fixedSize];
-    v9 = v8;
-    v11 = v10;
-    v12 = *MEMORY[0x1E695F060];
-    v13 = *(MEMORY[0x1E695F060] + 8);
-    v14 = [*(*(a1 + 32) + 416) platformImage];
-    v2 = v14;
-    if (v9 == v12 && v11 == v13)
+    v10 = v9;
+    v12 = v11;
+    v13 = *MEMORY[0x1E695F060];
+    v14 = *(MEMORY[0x1E695F060] + 8);
+    v15 = [*(*(a1 + 32) + 416) platformImage];
+    v2 = v15;
+    if (v10 == v13 && v12 == v14)
     {
-      [v14 size];
-      sizeFittingInsideSizeMaintainingAspectRatio(v22, v23, *(a1 + 56), *(a1 + 64));
+      v24 = [v15 size];
+      sizeFittingInsideSizeMaintainingAspectRatio(v24, v25, v26, *(a1 + 56), *(a1 + 64));
     }
 
     else
     {
-      [v14 size];
-      v17 = v16;
-      v19 = v18;
-      [*(*(a1 + 32) + 432) fixedSize];
-      sizeFittingInsideSizeMaintainingAspectRatio(v17, v19, v20, v21);
+      [v15 size];
+      v18 = v17;
+      v20 = v19;
+      v21 = [*(*(a1 + 32) + 432) fixedSize];
+      sizeFittingInsideSizeMaintainingAspectRatio(v21, v18, v20, v22, v23);
     }
   }
 
-  v6 = v5;
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)shouldApplyBackground
@@ -1018,13 +1018,13 @@ double __34__LPImageView_layoutComponentView__block_invoke(uint64_t a1)
 
 LABEL_6:
       fixedSize2 = [(LPImageViewStyle *)self->_style fixedSize];
-      [fixedSize2 asSize];
-      sizeFittingInsideSizeMaintainingAspectRatio(v9, v10, width, height);
-      v12 = v11;
-      v14 = v13;
+      asSize = [fixedSize2 asSize];
+      sizeFittingInsideSizeMaintainingAspectRatio(asSize, v10, v11, width, height);
+      v13 = v12;
+      v15 = v14;
 
-      v15 = v12;
-      v16 = v14;
+      v16 = v13;
+      v17 = v15;
       goto LABEL_16;
     }
 
@@ -1038,30 +1038,30 @@ LABEL_6:
 
   platformImage = [(LPImage *)self->_image platformImage];
   [platformImage size];
-  v20 = v19;
-  v22 = v21;
+  v21 = v20;
+  v23 = v22;
 
   _isFallbackIcon = [(LPImage *)self->_image _isFallbackIcon];
-  v24 = fmax(v20, v22);
+  v25 = fmax(v21, v23);
   if (_isFallbackIcon)
   {
-    v25 = v24;
+    v26 = v25;
   }
 
   else
   {
-    v25 = v20;
+    v26 = v21;
   }
 
   if (!_isFallbackIcon)
   {
-    v24 = v22;
+    v25 = v23;
   }
 
-  sizeFittingInsideSizeMaintainingAspectRatio(v25, v24, width, height);
+  sizeFittingInsideSizeMaintainingAspectRatio(_isFallbackIcon, v26, v25, width, height);
 LABEL_16:
-  result.height = v16;
-  result.width = v15;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 
@@ -1202,20 +1202,20 @@ LABEL_6:
 
     if (v15)
     {
-      sizeFittingInsideSizeMaintainingAspectRatio(v11, v13, 1024.0, 1024.0);
-      v17 = v16;
-      v19 = v18;
+      sizeFittingInsideSizeMaintainingAspectRatio(v16, v11, v13, 1024.0, 1024.0);
+      v18 = v17;
+      v20 = v19;
       objc_initWeak(&location, v9);
       [(LPImageView *)self setHidden:1];
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __41__LPImageView__createImageViewWithImage___block_invoke;
-      v45[3] = &unk_1E7A36B38;
-      v45[4] = self;
-      objc_copyWeak(&v46, &location);
-      [platformImage prepareThumbnailOfSize:v45 completionHandler:{v17, v19}];
+      v46[0] = MEMORY[0x1E69E9820];
+      v46[1] = 3221225472;
+      v46[2] = __41__LPImageView__createImageViewWithImage___block_invoke;
+      v46[3] = &unk_1E7A36B38;
+      v46[4] = self;
+      objc_copyWeak(&v47, &location);
+      [platformImage prepareThumbnailOfSize:v46 completionHandler:{v18, v20}];
 
-      objc_destroyWeak(&v46);
+      objc_destroyWeak(&v47);
       objc_destroyWeak(&location);
       platformImage = 0;
     }
@@ -1231,14 +1231,14 @@ LABEL_6:
 
   if (fixedFallbackImageFont)
   {
-    v23 = MEMORY[0x1E69DCAD8];
+    v24 = MEMORY[0x1E69DCAD8];
     fixedFallbackImageFont2 = [(LPImageViewStyle *)self->_style fixedFallbackImageFont];
-    v25 = [v23 configurationWithFont:fixedFallbackImageFont2];
-    v26 = MEMORY[0x1E69DCAD8];
+    v26 = [v24 configurationWithFont:fixedFallbackImageFont2];
+    v27 = MEMORY[0x1E69DCAD8];
     fixedFallbackImageScale = [(LPImageViewStyle *)self->_style fixedFallbackImageScale];
-    v28 = [v26 configurationWithScale:{objc_msgSend(fixedFallbackImageScale, "integerValue")}];
-    v29 = [v25 configurationByApplyingConfiguration:v28];
-    [v9 setPreferredSymbolConfiguration:v29];
+    v29 = [v27 configurationWithScale:{objc_msgSend(fixedFallbackImageScale, "integerValue")}];
+    v30 = [v26 configurationByApplyingConfiguration:v29];
+    [v9 setPreferredSymbolConfiguration:v30];
 
     goto LABEL_20;
   }
@@ -1260,33 +1260,33 @@ LABEL_6:
     }
   }
 
-  v31 = MEMORY[0x1E69DCAD8];
+  v32 = MEMORY[0x1E69DCAD8];
   fixedFallbackImageSize2 = [(LPImageViewStyle *)self->_style fixedFallbackImageSize];
   [fixedFallbackImageSize2 value];
-  fixedFallbackImageFont2 = [v31 configurationWithPointSize:?];
+  fixedFallbackImageFont2 = [v32 configurationWithPointSize:?];
 
   fixedFallbackImageWeight = [(LPImageViewStyle *)self->_style fixedFallbackImageWeight];
 
   if (fixedFallbackImageWeight)
   {
-    v34 = MEMORY[0x1E69DCAD8];
+    v35 = MEMORY[0x1E69DCAD8];
     fixedFallbackImageWeight2 = [(LPImageViewStyle *)self->_style fixedFallbackImageWeight];
-    v36 = [v34 configurationWithWeight:{objc_msgSend(fixedFallbackImageWeight2, "integerValue")}];
-    v37 = [fixedFallbackImageFont2 configurationByApplyingConfiguration:v36];
+    v37 = [v35 configurationWithWeight:{objc_msgSend(fixedFallbackImageWeight2, "integerValue")}];
+    v38 = [fixedFallbackImageFont2 configurationByApplyingConfiguration:v37];
 
-    fixedFallbackImageFont2 = v37;
+    fixedFallbackImageFont2 = v38;
   }
 
   fixedFallbackImageFontTextStyle2 = [(LPImageViewStyle *)self->_style fixedFallbackImageFontTextStyle];
 
   if (fixedFallbackImageFontTextStyle2)
   {
-    v39 = MEMORY[0x1E69DCAD8];
+    v40 = MEMORY[0x1E69DCAD8];
     fixedFallbackImageFontTextStyle3 = [(LPImageViewStyle *)self->_style fixedFallbackImageFontTextStyle];
-    v41 = [v39 configurationWithTextStyle:fixedFallbackImageFontTextStyle3];
-    v42 = [fixedFallbackImageFont2 configurationByApplyingConfiguration:v41];
+    v42 = [v40 configurationWithTextStyle:fixedFallbackImageFontTextStyle3];
+    v43 = [fixedFallbackImageFont2 configurationByApplyingConfiguration:v42];
 
-    fixedFallbackImageFont2 = v42;
+    fixedFallbackImageFont2 = v43;
   }
 
   [v9 setPreferredSymbolConfiguration:fixedFallbackImageFont2];

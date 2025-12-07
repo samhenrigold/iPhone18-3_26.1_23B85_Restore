@@ -8,8 +8,8 @@
 
 - (HDHealthTopicsDiagnosticOperation)initWithAttachmentDirectoryURL:(id)l
 {
-  v3 = *(*(sub_31CC() - 8) + 64);
-  __chkstk_darwin();
+  v3 = sub_31CC();
+  __chkstk_darwin(v3 - 8);
   v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_31BC();
   return sub_11A0(v5);

@@ -45,7 +45,7 @@
   swift_beginAccess();
 
   sub_1D4389644(v2);
-  sub_1D41766C0(0, &qword_1EDE32A00);
+  sub_1D41766C0(0, &qword_1EDE32A00, 0x1E69DD168);
   sub_1D4322D38();
   v3 = sub_1D441A054();
 

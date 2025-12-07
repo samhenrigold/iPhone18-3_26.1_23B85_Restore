@@ -49,7 +49,7 @@ void __65__FACreateChildController__createAccountWithAgeRange_completion___block
 {
   v5 = a2;
   v6 = a3;
-  v7 = _FALogSystem();
+  v7 = _FALogSystem(v6);
   v8 = v7;
   if (v5)
   {
@@ -93,8 +93,7 @@ void __65__FACreateChildController__createAccountWithAgeRange_completion___block
 {
   resultsCopy = results;
   completionCopy = completion;
-  [(FACreateChildController *)self _setupPresentedViewController];
-  v8 = _FALogSystem();
+  v8 = _FALogSystem([(FACreateChildController *)self _setupPresentedViewController]);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [FACreateChildController _repairAccountWithAuthenticationResults:completion:];
@@ -139,29 +138,30 @@ uint64_t __78__FACreateChildController__repairAccountWithAuthenticationResults_c
   return result;
 }
 
-void __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_46(void *a1, char a2, void *a3)
+void __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_46(void *a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = *(a1[6] + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = 0;
 
-  v8 = _FALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _FALogSystem(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_46_cold_1(a2, v5, v8);
+    __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_46_cold_1(v3, v5, v9);
   }
 
-  v9 = MEMORY[0x277D08250];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_54;
-  v11[3] = &unk_2782F3038;
-  v10 = a1[5];
-  v11[4] = a1[4];
-  v12 = v10;
-  v13 = a2;
-  [v9 handleDidSetupFamilyWithCompletion:v11];
+  v10 = MEMORY[0x277D08250];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_54;
+  v12[3] = &unk_2782F3038;
+  v11 = a1[5];
+  v12[4] = a1[4];
+  v13 = v11;
+  v14 = v3;
+  [v10 handleDidSetupFamilyWithCompletion:v12];
 }
 
 void __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_54(uint64_t a1, uint64_t a2, void *a3)
@@ -205,13 +205,14 @@ void __78__FACreateChildController__repairAccountWithAuthenticationResults_compl
 
   [v5 setIsUsernameEditable:0];
   v8 = objc_opt_respondsToSelector();
-  v9 = _FALogSystem();
-  v10 = v9;
-  if (v8)
+  v9 = v8;
+  v10 = _FALogSystem(v8);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [(FACreateChildController *)v5 _createNewAccountContextForAgeRange:range, v10];
+      [(FACreateChildController *)v5 _createNewAccountContextForAgeRange:range, v11];
     }
 
     [v5 setRequestedNewAccountAgeRange:range];
@@ -219,7 +220,7 @@ void __78__FACreateChildController__repairAccountWithAuthenticationResults_compl
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [FACreateChildController _createNewAccountContextForAgeRange:];
     }
@@ -318,51 +319,51 @@ void __73__FACreateChildController__dismissPresentedViewControllerWithCompletion
 
   if (v6)
   {
-    v7 = [resultsCopy objectForKeyedSubscript:v5];
-    [v4 setObject:v7 forKeyedSubscript:@"memberId"];
+    v8 = [resultsCopy objectForKeyedSubscript:v5];
+    [v4 setObject:v8 forKeyedSubscript:@"memberId"];
   }
 
   else
   {
-    v7 = _FALogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FALogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [FACreateChildController _repairParametersFromAuthResults:];
     }
   }
 
-  v8 = *MEMORY[0x277CEFF78];
-  v9 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x277CEFF78]];
+  v9 = *MEMORY[0x277CEFF78];
+  v10 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x277CEFF78]];
 
-  if (v9)
+  if (v10)
   {
-    v10 = [resultsCopy objectForKeyedSubscript:v8];
-    [v4 setObject:v10 forKeyedSubscript:@"altDSID"];
+    v12 = [resultsCopy objectForKeyedSubscript:v9];
+    [v4 setObject:v12 forKeyedSubscript:@"altDSID"];
   }
 
   else
   {
-    v10 = _FALogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = _FALogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [FACreateChildController _repairParametersFromAuthResults:];
     }
   }
 
-  v11 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x277CEFFA0]];
-  v12 = *MEMORY[0x277CED1C8];
-  v13 = [v11 objectForKeyedSubscript:*MEMORY[0x277CED1C8]];
+  v13 = [resultsCopy objectForKeyedSubscript:*MEMORY[0x277CEFFA0]];
+  v14 = *MEMORY[0x277CED1C8];
+  v15 = [v13 objectForKeyedSubscript:*MEMORY[0x277CED1C8]];
 
-  if (v13)
+  if (v15)
   {
-    v14 = [v11 objectForKeyedSubscript:v12];
-    [v4 setObject:v14 forKeyedSubscript:v12];
+    v17 = [v13 objectForKeyedSubscript:v14];
+    [v4 setObject:v17 forKeyedSubscript:v14];
   }
 
   else
   {
-    v14 = _FALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = _FALogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FACreateChildController _repairParametersFromAuthResults:];
     }
@@ -439,14 +440,6 @@ void __70__FACreateChildController_navigationController_presentViewController___
   return WeakRetained;
 }
 
-void __65__FACreateChildController__createAccountWithAgeRange_completion___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __78__FACreateChildController__repairAccountWithAuthenticationResults_completion___block_invoke_46_cold_1(char a1, uint64_t a2, NSObject *a3)
 {
   v3 = @"YES";
@@ -455,30 +448,20 @@ void __78__FACreateChildController__repairAccountWithAuthenticationResults_compl
     v3 = @"NO";
   }
 
-  *v5 = 138412546;
-  *&v5[4] = v3;
-  *&v5[12] = 2112;
-  *&v5[14] = a2;
-  OUTLINED_FUNCTION_2(&dword_21BB35000, a2, a3, "Child account repair flow %@ error: %@", *v5, *&v5[8], *&v5[16], *MEMORY[0x277D85DE8]);
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_createNewAccountContextForAgeRange:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  *v4 = 138412546;
+  *&v4[4] = v3;
+  *&v4[12] = 2112;
+  *&v4[14] = a2;
+  OUTLINED_FUNCTION_2(&dword_21BB35000, a2, a3, "Child account repair flow %@ error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_createNewAccountContextForAgeRange:(NSObject *)a3 .cold.2(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2048;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2(&dword_21BB35000, a2, a3, "Configuring create context: %@ for new account of age range: %lu", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2048;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2(&dword_21BB35000, a2, a3, "Configuring create context: %@ for new account of age range: %lu", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)_repairParametersFromAuthResults:.cold.1()

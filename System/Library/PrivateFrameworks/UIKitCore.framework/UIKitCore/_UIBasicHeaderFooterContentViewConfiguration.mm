@@ -7,7 +7,7 @@
 - (NSDirectionalEdgeInsets)directionalLayoutMargins;
 - (NSString)description;
 - (_UIBasicHeaderFooterContentViewConfiguration)initWithCoder:(id)coder;
-- (id)_initWithTextLabel:(uint64_t)label isHeader:(int)header resetsVerticalLayoutMargins:(void *)margins traitCollection:;
+- (id)_initWithTextLabel:(uint64_t)label isHeader:(uint64_t)header resetsVerticalLayoutMargins:(void *)margins traitCollection:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)createContentView;
 - (id)updatedConfigurationForState:(unint64_t)state traitCollection:(id)collection;
@@ -34,8 +34,9 @@
   return v4;
 }
 
-- (id)_initWithTextLabel:(uint64_t)label isHeader:(int)header resetsVerticalLayoutMargins:(void *)margins traitCollection:
+- (id)_initWithTextLabel:(uint64_t)label isHeader:(uint64_t)header resetsVerticalLayoutMargins:(void *)margins traitCollection:
 {
+  headerCopy = header;
   v10 = a2;
   marginsCopy = margins;
   if (self)
@@ -47,7 +48,7 @@
     if (v12)
     {
       objc_storeStrong(v12 + 4, a2);
-      [(_UIBasicHeaderFooterContentViewConfiguration *)self _configureForResetsVerticalLayoutMargins:header isHeader:label withTraitCollection:marginsCopy];
+      [(_UIBasicHeaderFooterContentViewConfiguration *)self _configureForResetsVerticalLayoutMargins:headerCopy isHeader:label withTraitCollection:marginsCopy];
     }
   }
 

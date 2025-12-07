@@ -479,41 +479,54 @@ void __34__BCUIRingItemView_layoutSubviews__block_invoke_2(uint64_t a1)
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
+  v40 = labelSize.height;
+  v12 = size.height;
   BSRectWithSize();
-  rect = v13;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  v29.origin.x = x;
-  v29.origin.y = y;
-  v29.size.width = width;
-  v29.size.height = height;
-  v20 = CGRectGetHeight(v29);
+  rect = v14;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
+  v42.origin.x = x;
+  v42.origin.y = y;
+  v42.size.width = width;
+  v42.size.height = height;
+  v24 = CGRectGetHeight(v42);
   ringScale = self->_ringScale;
   if (style == 2)
   {
-    if ([(BCUIRingItemView *)self _shouldReverseLayoutDirection])
+    _shouldReverseLayoutDirection = [(BCUIRingItemView *)self _shouldReverseLayoutDirection];
+    if (_shouldReverseLayoutDirection)
     {
       [(BCUIRingItemView *)self bounds];
-      CGRectGetMaxX(v30);
-      v31.origin.x = rect;
-      v31.origin.y = v15;
-      v31.size.width = v17;
-      v31.size.height = v19;
-      CGRectGetWidth(v31);
+      MaxX = CGRectGetMaxX(v43);
+      v44.origin.x = rect;
+      v44.origin.y = v16;
+      v44.size.width = v18;
+      v44.size.height = v20;
+      v32 = MaxX - CGRectGetWidth(v44);
+      goto LABEL_7;
     }
   }
 
   else if (style == 1)
   {
+    v26 = v24;
     traitCollection = [(BCUIRingItemView *)self traitCollection];
     preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
     [BCUIRingItemView _ringLabelPaddingForContentSizeCategory:preferredContentSizeCategory];
+    v30 = v29;
+
+    v16 = (v26 - (v40 + v12 + v30)) * 0.5;
   }
 
+  v32 = rect;
+LABEL_7:
+  scaleCopy = scale;
   if (ringScale == 1.0)
   {
-    UIRectIntegralWithScale();
+    v38 = v16;
+    v39 = v20;
+    UIRectIntegralWithScale(_shouldReverseLayoutDirection, v22, *&v32, v18, *(&scaleCopy - 1), v23);
   }
 
   else
@@ -521,10 +534,10 @@ void __34__BCUIRingItemView_layoutSubviews__block_invoke_2(uint64_t a1)
     UIRectCenteredXInRectScale();
   }
 
-  result.size.height = v27;
-  result.size.width = v26;
-  result.origin.y = v25;
-  result.origin.x = v24;
+  result.size.height = v37;
+  result.size.width = v36;
+  result.origin.y = v35;
+  result.origin.x = v34;
   return result;
 }
 
@@ -739,20 +752,39 @@ id __71__BCUIRingItemView__beginAutomaticallyUpdatingChargeLabelVisualStyling__b
 
 - (CGRect)_frameForChargeLabelWithSize:(CGSize)size baseLineOffsetFromBoundsTop:(double)top chargeRingSize:(CGSize)ringSize style:(int64_t)style inBounds:(CGRect)bounds scale:(double)scale
 {
+  height = ringSize.height;
+  v10 = size.height;
   BSRectWithSize();
-  CGRectGetHeight(bounds);
+  v13 = v12;
+  v15 = v14;
+  v35 = v17;
+  v36 = v16;
+  v21 = CGRectGetHeight(bounds);
   if (style == 1)
   {
+    v13 = v13 + -6.0;
     traitCollection = [(BCUIRingItemView *)self traitCollection];
     preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
     [BCUIRingItemView _ringLabelPaddingForContentSizeCategory:preferredContentSizeCategory];
+    v25 = v24;
+
+    v15 = v21 + (v21 - (v10 + height + v25)) * -0.5 - v10;
   }
 
-  UIRectIntegralWithScale();
-  result.size.height = v15;
-  result.size.width = v14;
-  result.origin.y = v13;
-  result.origin.x = v12;
+  else if (style == 2)
+  {
+    v15 = v21 - top + -4.0;
+  }
+
+  v26 = v13;
+  v27 = v15;
+  v28 = v35;
+
+  UIRectIntegralWithScale(v18, v19, *&v26, v36, *&v28, v20);
+  result.size.height = v33;
+  result.size.width = v32;
+  result.origin.y = v31;
+  result.origin.x = v30;
   return result;
 }
 

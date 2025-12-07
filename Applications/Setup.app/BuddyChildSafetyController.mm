@@ -21,14 +21,16 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100041D38(appear);
+  sub_100041D38(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100041E18(appear);
+  sub_100041E18(appearCopy);
 }
 
 - (void)continueTapped
@@ -67,9 +69,9 @@
 - (BOOL)controllerNeedsToRun
 {
   selfCopy = self;
-  v3 = sub_100042068();
+  v4 = sub_100042068(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (_TtC5Setup26BuddyChildSafetyController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

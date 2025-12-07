@@ -66,17 +66,20 @@
 
 uint64_t __35__VSAccountsArchive_initWithCoder___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(a1 + 32) + 16) = [a2 copy];
+  v3 = [a2 copy];
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 16);
+  *(v4 + 16) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
-void __35__VSAccountsArchive_initWithCoder___block_invoke_2()
+void __35__VSAccountsArchive_initWithCoder___block_invoke_2(uint64_t a1)
 {
-  v0 = VSErrorLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = VSErrorLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    __35__VSAccountsArchive_initWithCoder___block_invoke_2_cold_1(v0);
+    __35__VSAccountsArchive_initWithCoder___block_invoke_2_cold_1(v1);
   }
 }
 

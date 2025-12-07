@@ -31,7 +31,7 @@
   result = self->_madResult;
   if (result)
   {
-    return [($58EB755F713D70195D081A2438463C76 *)result timeRange];
+    return objc_msgSend_timeRange(result, a3);
   }
 
   *&retstr->var0.var3 = 0u;
@@ -69,7 +69,7 @@
   madResult = self->_madResult;
   if (madResult)
   {
-    [(_MADVideoRemoveBackgroundPreviewResult *)madResult timeRange];
+    objc_msgSend_timeRange(madResult, a2);
   }
 
   else
@@ -106,7 +106,7 @@ LABEL_6:
       v12 = *(*(&v15 + 1) + 8 * v11);
       if (v12)
       {
-        [*(*(&v15 + 1) + 8 * v11) presentationTimeStamp];
+        objc_msgSend_presentationTimeStamp(*(*(&v15 + 1) + 8 * v11));
       }
 
       else

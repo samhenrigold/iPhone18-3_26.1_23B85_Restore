@@ -75,7 +75,7 @@
     }
 
 LABEL_10:
-    v11 = 0;
+    isEqualToString = 0;
     goto LABEL_13;
   }
 
@@ -91,20 +91,20 @@ LABEL_5:
   v10 = v9;
   if (v8 == v9)
   {
-    v11 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v11 = 0;
+    isEqualToString = 0;
     if (v8 && v9)
     {
-      v11 = [(NSString *)v8 isEqualToString:v9];
+      isEqualToString = objc_msgSend_isEqualToString_(v8);
     }
   }
 
 LABEL_13:
-  return v11;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

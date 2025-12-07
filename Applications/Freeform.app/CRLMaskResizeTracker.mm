@@ -149,7 +149,7 @@
   }
 
   imageLayout2 = [(CRLImageRep *)self->mImageRep imageLayout];
-  [(CRLMaskResizeTracker *)self p_currentResizeTransform];
+  objc_msgSend_p_currentResizeTransform(self);
   [imageLayout2 resizeWithTransform:&v15];
 
   imageLayout3 = [(CRLImageRep *)self->mImageRep imageLayout];
@@ -175,7 +175,7 @@
   actionStringForResize = [(CRLImageRep *)v4 actionStringForResize];
   [commandController setCurrentGroupActionString:actionStringForResize];
 
-  [(CRLMaskResizeTracker *)self p_currentResizeTransform];
+  objc_msgSend_p_currentResizeTransform(self);
   v11 = [(CRLImageRep *)v4 resizedGeometryForTransform:v42];
   imageLayout = [(CRLImageRep *)v4 imageLayout];
   maskLayout = [imageLayout maskLayout];

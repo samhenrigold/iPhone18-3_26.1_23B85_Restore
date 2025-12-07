@@ -1165,19 +1165,18 @@ LABEL_194:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v20 = toCopy;
+  v7 = toCopy;
   if (self->_relativePath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v20;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    birth = self->_birth;
     PBDataWriterWriteInt32Field();
-    toCopy = v20;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x200) == 0)
     {
@@ -1196,9 +1195,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  modified = self->_modified;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x400) == 0)
   {
@@ -1212,9 +1210,8 @@ LABEL_6:
   }
 
 LABEL_29:
-  statusChanged = self->_statusChanged;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
+  toCopy = v7;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -1228,9 +1225,8 @@ LABEL_7:
   }
 
 LABEL_30:
-  size = self->_size;
   PBDataWriterWriteInt64Field();
-  toCopy = v20;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x80) == 0)
   {
@@ -1244,9 +1240,8 @@ LABEL_8:
   }
 
 LABEL_31:
-  groupID = self->_groupID;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -1260,9 +1255,8 @@ LABEL_9:
   }
 
 LABEL_32:
-  userID = self->_userID;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
+  toCopy = v7;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -1276,47 +1270,44 @@ LABEL_10:
   }
 
 LABEL_33:
-  mode = self->_mode;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_11:
-    sizeBeforeCopy = self->_sizeBeforeCopy;
     PBDataWriterWriteInt64Field();
-    toCopy = v20;
+    toCopy = v7;
   }
 
 LABEL_12:
   if (self->_linkTarget)
   {
     PBDataWriterWriteStringField();
-    toCopy = v20;
+    toCopy = v7;
   }
 
   if (self->_encryptionKey)
   {
     PBDataWriterWriteDataField();
-    toCopy = v20;
+    toCopy = v7;
   }
 
   if (self->_sha256Signature)
   {
     PBDataWriterWriteDataField();
-    toCopy = v20;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x40) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x40) != 0)
   {
-    flags = self->_flags;
     PBDataWriterWriteUint32Field();
-    toCopy = v20;
-    v7 = self->_has;
-    if ((v7 & 0x20) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x20) == 0)
     {
 LABEL_20:
-      if ((v7 & 0x10) == 0)
+      if ((v6 & 0x10) == 0)
       {
         goto LABEL_21;
       }
@@ -1325,19 +1316,18 @@ LABEL_20:
     }
   }
 
-  else if ((v7 & 0x20) == 0)
+  else if ((v6 & 0x20) == 0)
   {
     goto LABEL_20;
   }
 
-  contentEncodingMethod = self->_contentEncodingMethod;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_21:
-    if ((v7 & 0x1000) == 0)
+    if ((v6 & 0x1000) == 0)
     {
       goto LABEL_22;
     }
@@ -1346,14 +1336,13 @@ LABEL_21:
   }
 
 LABEL_37:
-  contentCompressionMethod = self->_contentCompressionMethod;
   PBDataWriterWriteInt32Field();
-  toCopy = v20;
-  v7 = self->_has;
-  if ((v7 & 0x1000) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x1000) == 0)
   {
 LABEL_22:
-    if ((v7 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_24;
     }
@@ -1362,15 +1351,13 @@ LABEL_22:
   }
 
 LABEL_38:
-  isMMCSEncryptedOnly = self->_isMMCSEncryptedOnly;
   PBDataWriterWriteBOOLField();
-  toCopy = v20;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_23:
-    sourceDeviceInode = self->_sourceDeviceInode;
     PBDataWriterWriteInt64Field();
-    toCopy = v20;
+    toCopy = v7;
   }
 
 LABEL_24:
@@ -1974,7 +1961,6 @@ LABEL_77:
     goto LABEL_77;
   }
 
-  v14 = *(equalCopy + 104);
   if (self->_isMMCSEncryptedOnly)
   {
     if ((*(equalCopy + 104) & 1) == 0)

@@ -50,25 +50,23 @@ uint64_t __42__EFOperationQueueScheduler_performBlock___block_invoke(uint64_t a1
 
 - (void)performSyncBlock:(id)block
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v5 = +[EFPriorityDesignator currentDesignatorIfExists];
   v6 = MEMORY[0x1E696AAE0];
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __46__EFOperationQueueScheduler_performSyncBlock___block_invoke;
-  v16 = &unk_1E8248960;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __46__EFOperationQueueScheduler_performSyncBlock___block_invoke;
+  v15 = &unk_1E8248960;
   v7 = blockCopy;
-  v18 = v7;
+  v17 = v7;
   v8 = v5;
-  v17 = v8;
-  v9 = [v6 blockOperationWithBlock:&v13];
+  v16 = v8;
+  v9 = [v6 blockOperationWithBlock:&v12];
   queue = self->_queue;
-  v19[0] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:{1, v13, v14, v15, v16}];
+  v18[0] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:{1, v12, v13, v14, v15}];
   [(NSOperationQueue *)queue addOperations:v11 waitUntilFinished:1];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EFOperationQueueScheduler_performSyncBlock___block_invoke(uint64_t a1)

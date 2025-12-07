@@ -32,31 +32,29 @@
 
 - (BOOL)reverseLookupKey:(int)key dataLength:(unint64_t)length resultBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  marisa::Agent::Agent(v14);
-  marisa::Agent::set_query(v14);
-  marisa::Trie::reverse_lookup(&self->trie, v14);
-  v8 = v15;
-  v9 = v16;
-  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v15 length:v16 + ~length encoding:4];
+  marisa::Agent::Agent(v13);
+  marisa::Agent::set_query(v13);
+  marisa::Trie::reverse_lookup(&self->trie, v13);
+  v8 = v14;
+  v9 = v15;
+  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v14 length:v15 + ~length encoding:4];
   v11 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v8 + v9 - length length:length];
   blockCopy[2](blockCopy, v10, v11);
 
-  marisa::Agent::~Agent(v14);
-  v12 = *MEMORY[0x1E69E9840];
+  marisa::Agent::~Agent(v13);
   return 1;
 }
 
 - (id)reverseLookupRow:(int)row
 {
-  v10 = *MEMORY[0x1E69E9840];
-  marisa::Agent::Agent(v7);
-  marisa::Agent::set_query(v7);
-  marisa::Trie::reverse_lookup(&self->trie, v7);
-  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v8 length:v9 encoding:4];
-  marisa::Agent::~Agent(v7);
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  marisa::Agent::Agent(v6);
+  marisa::Agent::set_query(v6);
+  marisa::Trie::reverse_lookup(&self->trie, v6);
+  v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v7 length:v8 encoding:4];
+  marisa::Agent::~Agent(v6);
 
   return v4;
 }
@@ -119,25 +117,25 @@
 
 - (void)lookupKey:(id)key resultBlock:(id)block
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   blockCopy = block;
-  marisa::Agent::Agent(v20);
+  marisa::Agent::Agent(v19);
   v8 = [keyCopy dataUsingEncoding:4];
-  v19 = [v8 mutableCopy];
+  v18 = [v8 mutableCopy];
 
-  if (v19)
+  if (v18)
   {
-    v9 = [v19 length];
+    v9 = [v18 length];
     *buf = 255;
-    [v19 appendBytes:buf length:2];
-    v10 = v19;
-    marisa::Agent::set_query(v20, [v19 bytes]);
-    while (marisa::Trie::predictive_search(&self->trie, v20))
+    [v18 appendBytes:buf length:2];
+    v10 = v18;
+    marisa::Agent::set_query(v19, [v18 bytes]);
+    while (marisa::Trie::predictive_search(&self->trie, v19))
     {
-      v11 = v21;
-      v12 = v22;
-      v13 = v23;
+      v11 = v20;
+      v12 = v21;
+      v13 = v22;
       v14 = objc_autoreleasePoolPush();
       v15 = [MEMORY[0x1E695DEF0] dataWithBytes:v11 + v9 + 1 length:~v9 + v12];
       blockCopy[2](blockCopy, v15, v13);
@@ -153,9 +151,9 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v25 = "[OVMarisaTrie lookupKey:resultBlock:]";
-      v26 = 2112;
-      v27 = keyCopy;
+      v24 = "[OVMarisaTrie lookupKey:resultBlock:]";
+      v25 = 2112;
+      v26 = keyCopy;
       _os_log_impl(&dword_1DC287000, v17, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to convert NSString to UTF8 NSData. String is:%@", buf, 0x16u);
     }
 
@@ -163,8 +161,7 @@
     objc_autoreleasePoolPop(v16);
   }
 
-  marisa::Agent::~Agent(v20);
-  v18 = *MEMORY[0x1E69E9840];
+  marisa::Agent::~Agent(v19);
 }
 
 - (BOOL)lookupRow:(id)row outIdx:(int64_t *)idx
@@ -191,22 +188,22 @@
 
 - (void)enumerateAllRowsWithBlock:(id)block
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  marisa::Agent::Agent(v15);
+  marisa::Agent::Agent(v14);
   v5 = 0;
   *&v6 = 136315394;
-  v14 = v6;
+  v13 = v6;
   while (v5 < marisa::Trie::size(&self->trie))
   {
-    marisa::Agent::set_query(v15);
-    marisa::Trie::reverse_lookup(&self->trie, v15);
-    v7 = v16;
-    v9 = v17;
-    v8 = v18;
+    marisa::Agent::set_query(v14);
+    marisa::Trie::reverse_lookup(&self->trie, v14);
+    v7 = v15;
+    v9 = v16;
+    v8 = v17;
     v10 = objc_autoreleasePoolPush();
     std::string::basic_string[abi:ne200100](&__p, v7, v9);
-    if (v20 >= 0)
+    if (v19 >= 0)
     {
       p_p = &__p;
     }
@@ -216,10 +213,10 @@
       p_p = __p;
     }
 
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{p_p, v14}];
+    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{p_p, v13}];
     blockCopy[2](blockCopy, v12, v8);
 
-    if (v20 < 0)
+    if (v19 < 0)
     {
       operator delete(__p);
     }
@@ -228,31 +225,29 @@
     ++v5;
   }
 
-  marisa::Agent::~Agent(v15);
-
-  v13 = *MEMORY[0x1E69E9840];
+  marisa::Agent::~Agent(v14);
 }
 
 - (void)enumerateAllEntriesWithBlock:(id)block
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  marisa::Agent::Agent(v18);
+  marisa::Agent::Agent(v17);
   v5 = 0;
   *&v6 = 136315394;
-  v17 = v6;
+  v16 = v6;
   while (v5 < marisa::Trie::size(&self->trie))
   {
-    marisa::Agent::set_query(v18);
-    marisa::Trie::reverse_lookup(&self->trie, v18);
+    marisa::Agent::set_query(v17);
+    marisa::Trie::reverse_lookup(&self->trie, v17);
     v7 = __s;
-    v8 = v20;
-    v9 = v21;
+    v8 = v19;
+    v9 = v20;
     v10 = strchr(__s, -1);
     v11 = objc_autoreleasePoolPush();
     v12 = v10 - v7;
     std::string::basic_string[abi:ne200100](&__p, v7, v10 - v7);
-    if (v23 >= 0)
+    if (v22 >= 0)
     {
       p_p = &__p;
     }
@@ -262,11 +257,11 @@
       p_p = __p;
     }
 
-    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{p_p, v17}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{p_p, v16}];
     v15 = [MEMORY[0x1E695DEF0] dataWithBytes:&v7[v12 + 1] length:~v12 + v8];
     blockCopy[2](blockCopy, v14, v15, v9);
 
-    if (v23 < 0)
+    if (v22 < 0)
     {
       operator delete(__p);
     }
@@ -275,9 +270,7 @@
     ++v5;
   }
 
-  marisa::Agent::~Agent(v18);
-
-  v16 = *MEMORY[0x1E69E9840];
+  marisa::Agent::~Agent(v17);
 }
 
 - (void)writeToURL:(id)l
@@ -350,7 +343,7 @@
 
 - (OVMarisaTrie)initWithURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [lCopy path];
@@ -358,9 +351,9 @@
 
   if (v7)
   {
-    v19.receiver = self;
-    v19.super_class = OVMarisaTrie;
-    v8 = [(OVMarisaTrie *)&v19 init];
+    v18.receiver = self;
+    v18.super_class = OVMarisaTrie;
+    v8 = [(OVMarisaTrie *)&v18 init];
     if (v8)
     {
       path2 = [lCopy path];
@@ -373,11 +366,11 @@
         lastPathComponent = [lCopy lastPathComponent];
         v13 = marisa::Trie::num_keys(&v8->trie);
         *buf = 136315650;
-        v21 = "[OVMarisaTrie initWithURL:]";
-        v22 = 2112;
-        v23 = lastPathComponent;
-        v24 = 2048;
-        v25 = v13;
+        v20 = "[OVMarisaTrie initWithURL:]";
+        v21 = 2112;
+        v22 = lastPathComponent;
+        v23 = 2048;
+        v24 = v13;
         _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s OVMarisaTrie %@ loaded {count: %lu}", buf, 0x20u);
       }
     }
@@ -393,16 +386,15 @@
     {
       path3 = [lCopy path];
       *buf = 136315394;
-      v21 = "[OVMarisaTrie initWithURL:]";
-      v22 = 2112;
-      v23 = path3;
+      v20 = "[OVMarisaTrie initWithURL:]";
+      v21 = 2112;
+      v22 = path3;
       _os_log_impl(&dword_1DC287000, v15, OS_LOG_TYPE_INFO, "%s [WARN]: Unable to locate marisa trie {path: %@}", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

@@ -21,14 +21,13 @@
 {
   v4 = sub_264982374();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4, v7, v8);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v6, v7);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_264982354();
   selfCopy = self;
-  sub_26496CE7C(v10);
+  sub_26496CE7C(v9);
 
-  (*(v5 + 8))(v10, v4);
+  (*(v5 + 8))(v9, v4);
 }
 
 @end

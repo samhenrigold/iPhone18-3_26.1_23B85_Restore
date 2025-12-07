@@ -16,22 +16,20 @@
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isFirstPartyDonation" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isIndoor" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"activityType" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eventType" dataType:0 requestOnly:0 fieldNumber:4 protoDataType:4 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"activityUUID" dataType:2 requestOnly:0 fieldNumber:5 protoDataType:13 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"isUpdate" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:12 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
@@ -151,7 +149,7 @@ LABEL_29:
 
 - (id)jsonDictionary
 {
-  v23[6] = *MEMORY[0x1E69E9840];
+  v22[6] = *MEMORY[0x1E69E9840];
   if ([(BMHealthWorkout *)self hasIsFirstPartyDonation])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMHealthWorkout isFirstPartyDonation](self, "isFirstPartyDonation")}];
@@ -185,58 +183,58 @@ LABEL_29:
     v8 = 0;
   }
 
-  v22[0] = @"isFirstPartyDonation";
+  v21[0] = @"isFirstPartyDonation";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v21 = v3;
-  v23[0] = null;
-  v22[1] = @"isIndoor";
+  v19 = null;
+  v20 = v3;
+  v22[0] = null;
+  v21[1] = @"isIndoor";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v23[1] = null2;
-  v22[2] = @"activityType";
+  v17 = null2;
+  v22[1] = null2;
+  v21[2] = @"activityType";
   null3 = activityType;
   if (!activityType)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[2] = null3;
-  v22[3] = @"eventType";
+  v22[2] = null3;
+  v21[3] = @"eventType";
   null4 = v6;
   if (!v6)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[3] = null4;
-  v22[4] = @"activityUUID";
+  v22[3] = null4;
+  v21[4] = @"activityUUID";
   null5 = activityUUID;
   if (!activityUUID)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[4] = null5;
-  v22[5] = @"isUpdate";
+  v22[4] = null5;
+  v21[5] = @"isUpdate";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23[5] = null6;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:{6, v18}];
+  v22[5] = null6;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:{6, v17}];
   if (v8)
   {
     if (activityUUID)
@@ -294,18 +292,16 @@ LABEL_26:
 LABEL_36:
 
 LABEL_27:
-  if (!v21)
+  if (!v20)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (BMHealthWorkout)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v63[1] = *MEMORY[0x1E69E9840];
+  v62[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"isFirstPartyDonation"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -329,10 +325,10 @@ LABEL_4:
         v23 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v24 = *MEMORY[0x1E698F240];
-        v60 = *MEMORY[0x1E696A578];
+        v59 = *MEMORY[0x1E696A578];
         v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isIndoor"];
-        v61 = v25;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v60 = v25;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
         v26 = v23;
         v8 = v22;
         v27 = v24;
@@ -343,17 +339,17 @@ LABEL_4:
         goto LABEL_49;
       }
 
-      v50 = v9;
+      v49 = v9;
     }
 
     else
     {
-      v50 = 0;
+      v49 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"activityType"];
     selfCopy = self;
-    v49 = v8;
+    v48 = v8;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -362,47 +358,47 @@ LABEL_4:
         if (!error)
         {
           v16 = 0;
-          v20 = v50;
+          v20 = v49;
           goto LABEL_49;
         }
 
         v28 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy2 = error;
         v29 = *MEMORY[0x1E698F240];
-        v58 = *MEMORY[0x1E696A578];
-        v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"activityType"];
-        v59 = v47;
-        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+        v57 = *MEMORY[0x1E696A578];
+        v46 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"activityType"];
+        v58 = v46;
+        v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
         v30 = [v28 initWithDomain:v29 code:2 userInfo:v11];
         error = 0;
         v16 = 0;
         *errorCopy2 = v30;
-        v20 = v50;
+        v20 = v49;
 LABEL_48:
 
         self = selfCopy;
-        v8 = v49;
+        v8 = v48;
 LABEL_49:
 
         goto LABEL_50;
       }
 
-      v46 = v10;
+      v45 = v10;
     }
 
     else
     {
-      v46 = 0;
+      v45 = 0;
     }
 
     v11 = [dictionaryCopy objectForKeyedSubscript:@"eventType"];
-    v45 = v7;
+    v44 = v7;
     if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v47 = v11;
+        v46 = v11;
       }
 
       else
@@ -412,33 +408,33 @@ LABEL_49:
         {
           if (!error)
           {
-            v47 = 0;
+            v46 = 0;
             v16 = 0;
-            v20 = v50;
-            error = v46;
+            v20 = v49;
+            error = v45;
             goto LABEL_48;
           }
 
-          v48 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v38 = *MEMORY[0x1E698F240];
-          v56 = *MEMORY[0x1E696A578];
+          v47 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v37 = *MEMORY[0x1E698F240];
+          v55 = *MEMORY[0x1E696A578];
           v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"eventType"];
-          v57 = v13;
-          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
-          v39 = [v48 initWithDomain:v38 code:2 userInfo:v12];
-          v47 = 0;
+          v56 = v13;
+          v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+          v38 = [v47 initWithDomain:v37 code:2 userInfo:v12];
+          v46 = 0;
           v16 = 0;
-          *error = v39;
+          *error = v38;
           goto LABEL_58;
         }
 
-        v47 = [MEMORY[0x1E696AD98] numberWithInt:BMHealthWorkoutEventTypeFromString(v11)];
+        v46 = [MEMORY[0x1E696AD98] numberWithInt:BMHealthWorkoutEventTypeFromString(v11)];
       }
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"activityUUID"];
@@ -458,14 +454,14 @@ LABEL_16:
       {
         v15 = 0;
 LABEL_19:
-        error = v46;
-        v16 = -[BMHealthWorkout initWithIsFirstPartyDonation:isIndoor:activityType:eventType:activityUUID:isUpdate:](selfCopy, "initWithIsFirstPartyDonation:isIndoor:activityType:eventType:activityUUID:isUpdate:", v49, v50, v46, [v47 intValue], v13, v15);
+        error = v45;
+        v16 = -[BMHealthWorkout initWithIsFirstPartyDonation:isIndoor:activityType:eventType:activityUUID:isUpdate:](selfCopy, "initWithIsFirstPartyDonation:isIndoor:activityType:eventType:activityUUID:isUpdate:", v48, v49, v45, [v46 intValue], v13, v15);
         selfCopy = v16;
 LABEL_46:
 
 LABEL_47:
-        v20 = v50;
-        v7 = v45;
+        v20 = v49;
+        v7 = v44;
         goto LABEL_48;
       }
 
@@ -478,19 +474,19 @@ LABEL_47:
 
       if (error)
       {
-        v44 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v40 = *MEMORY[0x1E698F240];
-        v52 = *MEMORY[0x1E696A578];
+        v43 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v39 = *MEMORY[0x1E698F240];
+        v51 = *MEMORY[0x1E696A578];
         v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isUpdate"];
-        v53 = v34;
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-        *error = [v44 initWithDomain:v40 code:2 userInfo:v35];
+        v52 = v34;
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        *error = [v43 initWithDomain:v39 code:2 userInfo:v35];
       }
 
       v15 = 0;
       v16 = 0;
 LABEL_45:
-      error = v46;
+      error = v45;
       goto LABEL_46;
     }
 
@@ -499,10 +495,10 @@ LABEL_45:
       errorCopy3 = error;
       v31 = objc_alloc(MEMORY[0x1E696ABC0]);
       v32 = *MEMORY[0x1E698F240];
-      v54 = *MEMORY[0x1E696A578];
+      v53 = *MEMORY[0x1E696A578];
       v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"activityUUID"];
-      v55 = v15;
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+      v54 = v15;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
       v33 = [v31 initWithDomain:v32 code:2 userInfo:v14];
       v13 = 0;
       v16 = 0;
@@ -513,7 +509,7 @@ LABEL_45:
     v13 = 0;
     v16 = 0;
 LABEL_58:
-    error = v46;
+    error = v45;
     goto LABEL_47;
   }
 
@@ -534,10 +530,10 @@ LABEL_58:
   v17 = objc_alloc(MEMORY[0x1E696ABC0]);
   errorCopy4 = error;
   v19 = *MEMORY[0x1E698F240];
-  v62 = *MEMORY[0x1E696A578];
+  v61 = *MEMORY[0x1E696A578];
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"isFirstPartyDonation"];
-  v63[0] = v20;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
+  v62[0] = v20;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:&v61 count:1];
   v21 = [v17 initWithDomain:v19 code:2 userInfo:v9];
   v8 = 0;
   v16 = 0;
@@ -545,7 +541,6 @@ LABEL_58:
 LABEL_50:
 
 LABEL_51:
-  v36 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -563,13 +558,11 @@ LABEL_51:
   toCopy = to;
   if (self->_hasIsFirstPartyDonation)
   {
-    isFirstPartyDonation = self->_isFirstPartyDonation;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasIsIndoor)
   {
-    isIndoor = self->_isIndoor;
     PBDataWriterWriteBOOLField();
   }
 
@@ -578,7 +571,6 @@ LABEL_51:
     PBDataWriterWriteStringField();
   }
 
-  eventType = self->_eventType;
   PBDataWriterWriteUint32Field();
   if (self->_activityUUID)
   {
@@ -587,7 +579,6 @@ LABEL_51:
 
   if (self->_hasIsUpdate)
   {
-    isUpdate = self->_isUpdate;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -963,22 +954,20 @@ LABEL_80:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isFirstPartyDonation" number:1 type:12 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isIndoor" number:2 type:12 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"activityType" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eventType" number:4 type:4 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"activityUUID" number:5 type:13 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"isUpdate" number:6 type:12 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

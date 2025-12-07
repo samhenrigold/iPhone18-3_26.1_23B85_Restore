@@ -776,89 +776,87 @@ uint64_t __40__VOSSettingsItem_BSIActivationGestures__block_invoke()
 
 void __35__VOSSettingsItem_allSettingsItems__block_invoke()
 {
-  v42[35] = *MEMORY[0x277D85DE8];
-  v41 = +[VOSSettingsItem Sounds];
-  v42[0] = v41;
-  v40 = +[VOSSettingsItem AudioDucking];
-  v42[1] = v40;
-  v39 = +[VOSSettingsItem Volume];
-  v42[2] = v39;
-  v38 = +[VOSSettingsItem Pitch];
-  v42[3] = v38;
-  v37 = +[VOSSettingsItem PhoneticFeedback];
-  v42[4] = v37;
-  v36 = +[VOSSettingsItem SendToHDMI];
-  v42[5] = v36;
-  v35 = +[VOSSettingsItem SpeakNotifications];
-  v42[6] = v35;
-  v34 = +[VOSSettingsItem SoundCurtain];
-  v42[7] = v34;
-  v33 = +[VOSSettingsItem SpeakingRate];
-  v42[8] = v33;
-  v32 = +[VOSSettingsItem Voice];
-  v42[9] = v32;
-  v31 = +[VOSSettingsItem DuckingAmount];
-  v42[10] = v31;
-  v30 = +[VOSSettingsItem Hints];
-  v42[11] = v30;
-  v29 = +[VOSSettingsItem MediaDescriptions];
-  v42[12] = v29;
-  v28 = +[VOSSettingsItem RotorActionConfirmation];
-  v42[13] = v28;
-  v27 = +[VOSSettingsItem Activities];
-  v42[14] = v27;
-  v26 = +[VOSSettingsItem Punctuation];
-  v42[15] = v26;
-  v25 = +[VOSSettingsItem ScreenRecognition];
-  v42[16] = v25;
-  v24 = +[VOSSettingsItem ImageDescriptions];
-  v42[17] = v24;
-  v23 = +[VOSSettingsItem DirectTouch];
-  v42[18] = v23;
-  v22 = +[VOSSettingsItem NavigationStyle];
-  v42[19] = v22;
-  v21 = +[VOSSettingsItem NavigateImages];
-  v42[20] = v21;
-  v20 = +[VOSSettingsItem GestureDirection];
-  v42[21] = v20;
-  v19 = +[VOSSettingsItem TypingStyle];
-  v42[22] = v19;
-  v17 = +[VOSSettingsItem SoftwareTypingFeedback];
-  v42[23] = v17;
-  v16 = +[VOSSettingsItem HardwareTypingFeedback];
-  v42[24] = v16;
-  v15 = +[VOSSettingsItem SlideToType];
-  v42[25] = v15;
+  v41[35] = *MEMORY[0x277D85DE8];
+  v40 = +[VOSSettingsItem Sounds];
+  v41[0] = v40;
+  v39 = +[VOSSettingsItem AudioDucking];
+  v41[1] = v39;
+  v38 = +[VOSSettingsItem Volume];
+  v41[2] = v38;
+  v37 = +[VOSSettingsItem Pitch];
+  v41[3] = v37;
+  v36 = +[VOSSettingsItem PhoneticFeedback];
+  v41[4] = v36;
+  v35 = +[VOSSettingsItem SendToHDMI];
+  v41[5] = v35;
+  v34 = +[VOSSettingsItem SpeakNotifications];
+  v41[6] = v34;
+  v33 = +[VOSSettingsItem SoundCurtain];
+  v41[7] = v33;
+  v32 = +[VOSSettingsItem SpeakingRate];
+  v41[8] = v32;
+  v31 = +[VOSSettingsItem Voice];
+  v41[9] = v31;
+  v30 = +[VOSSettingsItem DuckingAmount];
+  v41[10] = v30;
+  v29 = +[VOSSettingsItem Hints];
+  v41[11] = v29;
+  v28 = +[VOSSettingsItem MediaDescriptions];
+  v41[12] = v28;
+  v27 = +[VOSSettingsItem RotorActionConfirmation];
+  v41[13] = v27;
+  v26 = +[VOSSettingsItem Activities];
+  v41[14] = v26;
+  v25 = +[VOSSettingsItem Punctuation];
+  v41[15] = v25;
+  v24 = +[VOSSettingsItem ScreenRecognition];
+  v41[16] = v24;
+  v23 = +[VOSSettingsItem ImageDescriptions];
+  v41[17] = v23;
+  v22 = +[VOSSettingsItem DirectTouch];
+  v41[18] = v22;
+  v21 = +[VOSSettingsItem NavigationStyle];
+  v41[19] = v21;
+  v20 = +[VOSSettingsItem NavigateImages];
+  v41[20] = v20;
+  v19 = +[VOSSettingsItem GestureDirection];
+  v41[21] = v19;
+  v18 = +[VOSSettingsItem TypingStyle];
+  v41[22] = v18;
+  v16 = +[VOSSettingsItem SoftwareTypingFeedback];
+  v41[23] = v16;
+  v15 = +[VOSSettingsItem HardwareTypingFeedback];
+  v41[24] = v15;
+  v14 = +[VOSSettingsItem SlideToType];
+  v41[25] = v14;
   v0 = +[VOSSettingsItem CaptionPanel];
-  v42[26] = v0;
+  v41[26] = v0;
   v1 = +[VOSSettingsItem LargeCursor];
-  v42[27] = v1;
+  v41[27] = v1;
   v2 = +[VOSSettingsItem BrailleAlerts];
-  v42[28] = v2;
+  v41[28] = v2;
   v3 = +[VOSSettingsItem BrailleFormatting];
-  v42[29] = v3;
+  v41[29] = v3;
   v4 = +[VOSSettingsItem BrailleAutoAdvanceDuration];
-  v42[30] = v4;
+  v41[30] = v4;
   v5 = +[VOSSettingsItem BrailleOutput];
-  v42[31] = v5;
+  v41[31] = v5;
   v6 = +[VOSSettingsItem BrailleInput];
-  v42[32] = v6;
+  v41[32] = v6;
   v7 = +[VOSSettingsItem LiveRegions];
-  v42[33] = v7;
+  v41[33] = v7;
   v8 = +[VOSSettingsItem BSIActivationGestures];
-  v42[34] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:35];
-  v18 = [v9 mutableCopy];
+  v41[34] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:35];
+  v17 = [v9 mutableCopy];
 
-  v10 = [v18 ax_filteredArrayUsingBlock:&__block_literal_global_463];
+  v10 = [v17 ax_filteredArrayUsingBlock:&__block_literal_global_463];
   v11 = allSettingsItems_FinalList;
   allSettingsItems_FinalList = v10;
 
   v12 = [allSettingsItems_FinalList sortedArrayUsingComparator:&__block_literal_global_467_0];
   v13 = allSettingsItems_FinalList;
   allSettingsItems_FinalList = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __35__VOSSettingsItem_allSettingsItems__block_invoke_2(uint64_t a1, void *a2)
@@ -886,40 +884,38 @@ uint64_t __35__VOSSettingsItem_allSettingsItems__block_invoke_3(uint64_t a1, voi
 
 + (id)settingsIDtoItemMap:(id)map
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = mapCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         identifier = [v10 identifier];
         [dictionary setObject:v10 forKeyedSubscript:identifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

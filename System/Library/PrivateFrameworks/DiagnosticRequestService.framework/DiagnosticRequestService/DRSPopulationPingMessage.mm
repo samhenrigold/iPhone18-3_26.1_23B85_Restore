@@ -8,31 +8,33 @@
 - (DRSPopulationPingMessage)initWithJSONDict:(id)dict
 {
   dictCopy = dict;
-  if ([objc_opt_class() isJSONDictForClass:dictCopy])
+  v5 = [objc_opt_class() isJSONDictForClass:dictCopy];
+  if (v5)
   {
-    v5 = [dictCopy objectForKeyedSubscript:kDRSTaskingSystemMessage_messageUUIDKey];
-    if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    isKindOfClass = [dictCopy objectForKeyedSubscript:kDRSTaskingSystemMessage_messageUUIDKey];
+    v7 = isKindOfClass;
+    if (isKindOfClass && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
     {
-      v6 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v5];
+      v8 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v7];
 
-      v7 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateReceivedKey);
-      v8 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateBroadcastKey);
-      v9 = [(DRSTaskingSystemMessage *)self _versionFromJSONDict:dictCopy];
-      v12.receiver = self;
-      v12.super_class = DRSPopulationPingMessage;
-      self = [(DRSTaskingSystemMessage *)&v12 initWithVersion:v9 messageUUID:v6 dateBroadcast:v8 dateReceived:v7];
+      v9 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateReceivedKey);
+      v10 = _dateFromJSONDict(dictCopy, kDRSTaskingSystemMessage_DateBroadcastKey);
+      v11 = [(DRSTaskingSystemMessage *)self _versionFromJSONDict:dictCopy];
+      v14.receiver = self;
+      v14.super_class = DRSPopulationPingMessage;
+      self = [(DRSTaskingSystemMessage *)&v14 initWithVersion:v11 messageUUID:v8 dateBroadcast:v10 dateReceived:v9];
 
-      v5 = v6;
+      v7 = v8;
       selfCopy = self;
     }
 
     else
     {
-      v7 = DPLogHandle_TaskingMessageError();
-      if (os_signpost_enabled(v7))
+      v9 = DPLogHandle_TaskingMessageError(isKindOfClass);
+      if (os_signpost_enabled(v9))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid pingUUID", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "TaskingMessageJSONInitError", "Invalid pingUUID", buf, 2u);
       }
 
       selfCopy = 0;
@@ -41,11 +43,11 @@
 
   else
   {
-    v5 = DPLogHandle_TaskingMessageError();
-    if (os_signpost_enabled(v5))
+    v7 = DPLogHandle_TaskingMessageError(v5);
+    if (os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PopulationPingJSONInitError", "JSON dictionary of wrong type", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PopulationPingJSONInitError", "JSON dictionary of wrong type", buf, 2u);
     }
 
     selfCopy = 0;

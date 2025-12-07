@@ -275,6 +275,7 @@
 - (NSString)webEmbedContentBlockers;
 - (NSString)webEmbedDataSourcesConfigurationResourceId;
 - (NSString)widgetConfigID;
+- (__CFString)localizedStorefrontID;
 - (double)analyticsJitterLowerBound;
 - (double)analyticsJitterUpperBound;
 - (double)articleBannerAdRequestThrottle;
@@ -342,7 +343,6 @@
 - (id)appAnalyticsNotificationReceiptEndpointUrlForEnvironment:(unint64_t)environment;
 - (id)expFieldForKey:(void *)key;
 - (id)jsonEncodableObject;
-- (id)localizedStorefrontID;
 - (id)paidALaCartePaywallConfigForChannelID:(id)d;
 - (id)personalizationTreatment;
 - (id)recipeTagRecipeListIDPrefix;
@@ -448,19 +448,19 @@
 
 @implementation FCNewsAppConfig
 
-- (id)localizedStorefrontID
+- (__CFString)localizedStorefrontID
 {
   selfCopy = self;
   if (self)
   {
-    languageConfigDictionary = [self languageConfigDictionary];
+    languageConfigDictionary = [(__CFString *)self languageConfigDictionary];
     if (languageConfigDictionary)
     {
-      selfCopy = [selfCopy storefrontID];
+      selfCopy = [(__CFString *)selfCopy storefrontID];
       v3 = FCAppConfigurationStringValue(languageConfigDictionary, @"languageTag", &stru_1F2DC7DC0);
       lowercaseString = [v3 lowercaseString];
 
-      if ([selfCopy isEqualToString:@"143455"] && objc_msgSend(lowercaseString, "isEqualToString:", @"fr-ca"))
+      if (-[__CFString isEqualToString:](selfCopy, "isEqualToString:", @"143455") && [lowercaseString isEqualToString:@"fr-ca"])
       {
         v5 = @"143455-fr-ca";
 
@@ -1007,15 +1007,7 @@ LABEL_12:
 
 - (NSArray)internalPersonalizationRequestsToCollect
 {
-  if (!NFInternalBuild())
-  {
-    goto LABEL_5;
-  }
-
-  v3 = NewsCoreUserDefaults();
-  v4 = [v3 valueForKey:@"news.news_personalization.collect_internal_personalization_requests"];
-
-  if (!v4 || (NewsCoreUserDefaults(), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 BOOLForKey:@"news.news_personalization.collect_internal_personalization_requests"], v5, v6))
+  if (NFInternalBuild() && ((NewsCoreUserDefaults(), v3 = objc_claimAutoreleasedReturnValue(), [v3 valueForKey:@"news.news_personalization.collect_internal_personalization_requests"], v4 = objc_claimAutoreleasedReturnValue(), v4, v3, !v4) || (NewsCoreUserDefaults(), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "BOOLForKey:", @"news.news_personalization.collect_internal_personalization_requests"), v5, v6)))
   {
     configDictionary = [(FCNewsAppConfig *)self configDictionary];
     v8 = FCAppConfigurationArrayValueWithDefaultValue(configDictionary, @"internalPersonalizationRequestsToCollect", &unk_1F2E6F8D0);
@@ -1023,7 +1015,6 @@ LABEL_12:
 
   else
   {
-LABEL_5:
     v8 = MEMORY[0x1E695E0F0];
   }
 
@@ -1454,11 +1445,11 @@ LABEL_5:
 
 - (void)initWithConfigDictionary:(void *)dictionary storefrontID:(void *)d languageConfigDictionary:
 {
-  v339 = *MEMORY[0x1E69E9840];
+  v338 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dictionaryCopy = dictionary;
   dCopy = d;
-  if (!self || (v328.receiver = self, v328.super_class = FCNewsAppConfig, (v10 = objc_msgSendSuper2(&v328, sel_init)) == 0))
+  if (!self || (v327.receiver = self, v327.super_class = FCNewsAppConfig, (v10 = objc_msgSendSuper2(&v327, sel_init)) == 0))
   {
     v50 = 0;
     goto LABEL_115;
@@ -1473,18 +1464,18 @@ LABEL_5:
   v15 = v11[6];
   v11[6] = v14;
 
-  v297 = dCopy;
+  v296 = dCopy;
   v16 = [dCopy copy];
   v17 = v11[7];
   v11[7] = v16;
 
   v18 = objc_alloc(MEMORY[0x1E69B68D8]);
-  v326[0] = MEMORY[0x1E69E9820];
-  v326[1] = 3221225472;
-  v326[2] = __82__FCNewsAppConfig_initWithConfigDictionary_storefrontID_languageConfigDictionary___block_invoke;
-  v326[3] = &unk_1E7C36F98;
-  v327 = v7;
-  v19 = [v18 initWithConstructor:v326];
+  v325[0] = MEMORY[0x1E69E9820];
+  v325[1] = 3221225472;
+  v325[2] = __82__FCNewsAppConfig_initWithConfigDictionary_storefrontID_languageConfigDictionary___block_invoke;
+  v325[3] = &unk_1E7C36F98;
+  v326 = v7;
+  v19 = [v18 initWithConstructor:v325];
   v20 = v11[52];
   v11[52] = v19;
 
@@ -1495,7 +1486,7 @@ LABEL_5:
   v24 = v11[3];
   v11[3] = v23;
 
-  v298 = v7;
+  v297 = v7;
   v25 = dictionaryCopy;
   v26 = [FCOfflineDownloadsConfiguration alloc];
   configDictionary = [v11 configDictionary];
@@ -1532,8 +1523,8 @@ LABEL_5:
   configDictionary9 = [v11 configDictionary];
   v49 = FCAppConfigurationIntegerValue(configDictionary9, @"privateDataCleanupToV4Level3", 0);
 
-  v299 = v25;
-  v300 = v11;
+  v298 = v25;
+  v299 = v11;
   if (NFInternalBuild())
   {
     *(v11 + 8) = (v37 & 0x480) != 0;
@@ -1565,55 +1556,55 @@ LABEL_5:
   *(v11 + 14) = [FCFeatureEnablementChecker enabledForCurrentLevel:v47];
   *(v11 + 15) = [FCFeatureEnablementChecker enabledForCurrentLevel:v49];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v304 = objc_opt_new();
+  v303 = objc_opt_new();
   configDictionary10 = [v11 configDictionary];
   v52 = FCAppConfigurationArrayValueWithDefaultValue(configDictionary10, @"endpointConfigs", 0);
 
-  v331 = 0u;
-  v332 = 0u;
-  v329 = 0u;
   v330 = 0u;
+  v331 = 0u;
+  v328 = 0u;
+  v329 = 0u;
   obj = v52;
-  v305 = [obj countByEnumeratingWithState:&v329 objects:v336 count:16];
-  if (v305)
+  v304 = [obj countByEnumeratingWithState:&v328 objects:v335 count:16];
+  if (v304)
   {
-    v302 = *v330;
+    v301 = *v329;
     do
     {
       v53 = 0;
       do
       {
-        if (*v330 != v302)
+        if (*v329 != v301)
         {
           objc_enumerationMutation(obj);
         }
 
-        v314 = v53;
-        v54 = *(*(&v329 + 1) + 8 * v53);
-        v313 = [FCEndpointConfiguration alloc];
-        v322 = FCAppConfigurationStringValue(v54, @"clientApiBaseUrl", 0);
+        v313 = v53;
+        v54 = *(*(&v328 + 1) + 8 * v53);
+        v312 = [FCEndpointConfiguration alloc];
+        v321 = FCAppConfigurationStringValue(v54, @"clientApiBaseUrl", 0);
         log = FCAppConfigurationStringValue(v54, @"newsNotificationsBaseUrl", 0);
-        v323 = FCAppConfigurationStringValue(v54, @"staticAssetBaseUrl", 0);
-        v312 = FCAppConfigurationStringValue(v54, @"remoteDataSourceBaseUrl", 0);
-        v311 = FCAppConfigurationStringValue(v54, @"newsletterApiBaseUrl", 0);
-        v310 = FCAppConfigurationStringValue(v54, @"appAnalyticsEndpointUrl", 0);
-        v321 = FCAppConfigurationStringValue(v54, @"fairPlayEndpointUrl", 0);
-        v320 = FCAppConfigurationStringValue(v54, @"searchApiBaseUrl", 0);
-        v319 = FCAppConfigurationStringValue(v54, @"puzzlesArchiveApiBaseUrl", 0);
-        v318 = FCAppConfigurationStringValue(v54, @"appAnalyticsNotificationReceiptBaseUrl", 0);
-        v317 = FCAppConfigurationStringValue(v54, @"authTokenApiBaseUrl", 0);
-        v316 = FCAppConfigurationStringValue(v54, @"sportsDataVisualizationApiBaseUrl", 0);
-        v315 = FCAppConfigurationStringValue(v54, @"fineGrainedNewsletterSubscriptionBaseUrl", 0);
-        v309 = FCAppConfigurationStringValue(v54, @"appAnalyticsSportsEventsEndpointUrl", 0);
-        v308 = FCAppConfigurationStringValue(v54, @"appHealthEventsEndpointUrl", 0);
-        v307 = FCAppConfigurationStringValue(v54, @"appHeartbeatEventsEndpointUrl", 0);
+        v322 = FCAppConfigurationStringValue(v54, @"staticAssetBaseUrl", 0);
+        v311 = FCAppConfigurationStringValue(v54, @"remoteDataSourceBaseUrl", 0);
+        v310 = FCAppConfigurationStringValue(v54, @"newsletterApiBaseUrl", 0);
+        v309 = FCAppConfigurationStringValue(v54, @"appAnalyticsEndpointUrl", 0);
+        v320 = FCAppConfigurationStringValue(v54, @"fairPlayEndpointUrl", 0);
+        v319 = FCAppConfigurationStringValue(v54, @"searchApiBaseUrl", 0);
+        v318 = FCAppConfigurationStringValue(v54, @"puzzlesArchiveApiBaseUrl", 0);
+        v317 = FCAppConfigurationStringValue(v54, @"appAnalyticsNotificationReceiptBaseUrl", 0);
+        v316 = FCAppConfigurationStringValue(v54, @"authTokenApiBaseUrl", 0);
+        v315 = FCAppConfigurationStringValue(v54, @"sportsDataVisualizationApiBaseUrl", 0);
+        v314 = FCAppConfigurationStringValue(v54, @"fineGrainedNewsletterSubscriptionBaseUrl", 0);
+        v308 = FCAppConfigurationStringValue(v54, @"appAnalyticsSportsEventsEndpointUrl", 0);
+        v307 = FCAppConfigurationStringValue(v54, @"appHealthEventsEndpointUrl", 0);
+        v306 = FCAppConfigurationStringValue(v54, @"appHeartbeatEventsEndpointUrl", 0);
         v55 = FCAppConfigurationStringValue(v54, @"ckOrderFeedBaseUrl", 0);
-        v306 = FCAppConfigurationStringValue(v54, @"ckMultiFetchBaseUrl", 0);
+        v305 = FCAppConfigurationStringValue(v54, @"ckMultiFetchBaseUrl", 0);
         v56 = FCAppConfigurationStringValue(v54, @"ckRecordFetchBaseUrl", 0);
         v57 = FCAppConfigurationStringValue(v54, @"ckEdgeCachedOrderFeedBaseUrl", 0);
         v58 = FCAppConfigurationStringValue(v54, @"ckEdgeCachedMultiFetchBaseUrl", 0);
         v59 = FCAppConfigurationStringValue(v54, @"smarterFetchBaseUrl", 0);
-        v60 = [(FCEndpointConfiguration *)v313 initWithClientAPIBaseURLString:v322 notificationsBaseURLString:log staticAssetBaseURLString:v323 remoteDataSourceBaseURLString:v312 newsletterAPIBaseURLString:v311 appAnalyticsBaseURLString:v310 fairPlayBaseURLString:v321 searchAPIBaseURLString:v320 puzzlesArchiveAPIBaseURLString:v319 appAnalyticsNotificationReceiptBaseURLString:v318 authTokenAPIBaseURLString:v317 sportsDataVisualizationAPIBaseURLString:v316 fineGrainedNewsletterSubscriptionBaseURLString:v315 appAnalyticsSportsEventsBaseURLString:v309 appAnalyticsAppHealthBaseURLString:v308 appAnalyticsAppHeartbeatBaseURLString:v307 ckOrderFeedBaseURLString:v55 ckMultiFetchBaseURLString:v306 ckRecordFetchBaseURLString:v56 ckEdgeCachedOrderFeedBaseURLString:v57 ckEdgeCachedMultiFetchBaseURLString:v58 smarterFetchBaseURLString:v59];
+        v60 = [(FCEndpointConfiguration *)v312 initWithClientAPIBaseURLString:v321 notificationsBaseURLString:log staticAssetBaseURLString:v322 remoteDataSourceBaseURLString:v311 newsletterAPIBaseURLString:v310 appAnalyticsBaseURLString:v309 fairPlayBaseURLString:v320 searchAPIBaseURLString:v319 puzzlesArchiveAPIBaseURLString:v318 appAnalyticsNotificationReceiptBaseURLString:v317 authTokenAPIBaseURLString:v316 sportsDataVisualizationAPIBaseURLString:v315 fineGrainedNewsletterSubscriptionBaseURLString:v314 appAnalyticsSportsEventsBaseURLString:v308 appAnalyticsAppHealthBaseURLString:v307 appAnalyticsAppHeartbeatBaseURLString:v306 ckOrderFeedBaseURLString:v55 ckMultiFetchBaseURLString:v305 ckRecordFetchBaseURLString:v56 ckEdgeCachedOrderFeedBaseURLString:v57 ckEdgeCachedMultiFetchBaseURLString:v58 smarterFetchBaseURLString:v59];
 
         v61 = FCAppConfigurationStringValue(v54, @"environment", 0);
         v62 = FCEndpointEnvironmentForEnvironment(v61);
@@ -1637,14 +1628,14 @@ LABEL_5:
           *&buf[14] = clientAPIBaseURLString;
           *&buf[22] = 2112;
           *&buf[24] = notificationsBaseURLString;
-          LOWORD(v334[0]) = 2112;
-          *(v334 + 2) = staticAssetBaseURLString;
-          HIWORD(v334[2]) = 2112;
-          *&v334[3] = remoteDataSourceBaseURLString;
-          LOWORD(v334[5]) = 2112;
-          *(&v334[5] + 2) = newsletterAPIBaseURLString;
-          HIWORD(v334[7]) = 2112;
-          v335 = v71;
+          LOWORD(v333[0]) = 2112;
+          *(v333 + 2) = staticAssetBaseURLString;
+          HIWORD(v333[2]) = 2112;
+          *&v333[3] = remoteDataSourceBaseURLString;
+          LOWORD(v333[5]) = 2112;
+          *(&v333[5] + 2) = newsletterAPIBaseURLString;
+          HIWORD(v333[7]) = 2112;
+          v334 = v71;
           _os_log_impl(&dword_1B63EF000, loga, OS_LOG_TYPE_INFO, "endpointConfig - environment: %ld, clientAPIURL: %@, notificationsURL: %@, staticAssetURL: %@, remoteDataSourcesURL: %@, newsletterURL: %@, appHeartbeatUrl: %@", buf, 0x48u);
 
           v60 = v70;
@@ -1653,77 +1644,77 @@ LABEL_5:
         v72 = FCAppConfigurationStringValue(v54, @"analyticsEndpointUrlsJson", 0);
         v73 = FCAppConfigurationStringValue(v54, @"analyticsEnvelopeContentTypePropJson", 0);
         v74 = FCAnalyticsEnvelopeContentTypeConfigsByContentType(v72, v73);
-        [v304 setObject:v74 forKeyedSubscript:v63];
+        [v303 setObject:v74 forKeyedSubscript:v63];
 
-        v53 = v314 + 1;
+        v53 = v313 + 1;
       }
 
-      while (v305 != v314 + 1);
-      v305 = [obj countByEnumeratingWithState:&v329 objects:v336 count:16];
+      while (v304 != v313 + 1);
+      v304 = [obj countByEnumeratingWithState:&v328 objects:v335 count:16];
     }
 
-    while (v305);
+    while (v304);
   }
 
-  v75 = *(v300 + 9);
-  *(v300 + 9) = dictionary;
+  v75 = v299[9];
+  v299[9] = dictionary;
   v76 = dictionary;
 
-  v77 = *(v300 + 53);
-  *(v300 + 53) = v304;
+  v77 = v299[53];
+  v299[53] = v303;
 
-  languageConfigDictionary2 = [v300 languageConfigDictionary];
+  languageConfigDictionary2 = [v299 languageConfigDictionary];
   v79 = FCAppConfigurationArrayValueWithDefaultValue(languageConfigDictionary2, @"preSubscribedNotificationsChannelIds", 0);
 
-  languageConfigDictionary3 = [v300 languageConfigDictionary];
+  languageConfigDictionary3 = [v299 languageConfigDictionary];
   v81 = FCAppConfigurationArrayValueWithDefaultValue(languageConfigDictionary3, @"recommendedNotificationChannels", 0);
 
   v82 = [v81 fc_arrayByTransformingWithBlock:&__block_literal_global_172];
   v83 = [[FCNotificationsConfiguration alloc] initWithPresubscribedChannelIDs:v79 recommendedNotificationChannelIDs:v82];
-  v84 = *(v300 + 10);
-  *(v300 + 10) = v83;
+  v84 = v299[10];
+  v299[10] = v83;
 
-  languageConfigDictionary4 = [v300 languageConfigDictionary];
+  languageConfigDictionary4 = [v299 languageConfigDictionary];
   v86 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary4, @"topStoriesConfig", 0);
 
   v87 = [[FCTopStoriesConfiguration alloc] initWithConfigDictionary:v86];
-  v88 = *(v300 + 11);
-  *(v300 + 11) = v87;
+  v88 = v299[11];
+  v299[11] = v87;
 
-  configDictionary11 = [v300 configDictionary];
+  configDictionary11 = [v299 configDictionary];
   v90 = FCAppConfigurationStringValue(configDictionary11, @"forYouNonPersonalizedGroupsOrder", 0);
 
   v91 = [[FCForYouGroupsConfiguration alloc] initWithJSONConfiguration:v90];
-  v92 = *(v300 + 12);
-  *(v300 + 12) = v91;
+  v92 = v299[12];
+  v299[12] = v91;
 
-  v93 = v299;
-  languageConfigDictionary5 = [v300 languageConfigDictionary];
+  v93 = v298;
+  languageConfigDictionary5 = [v299 languageConfigDictionary];
   v95 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary5, @"puzzlesConfig", 0);
 
-  *v336 = @"143441";
-  *&v336[8] = @"143455";
-  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:v336 count:2];
+  *v335 = @"143441";
+  *&v335[8] = @"143455";
+  v96 = [MEMORY[0x1E695DEC8] arrayWithObjects:v335 count:2];
   v97 = [[FCPuzzlesConfiguration alloc] initWithConfigDictionary:v95 storefrontID:v93 defaultSupportedStorefronts:v96];
 
-  v98 = *(v300 + 13);
-  *(v300 + 13) = v97;
+  v98 = v299[13];
+  v299[13] = v97;
 
-  configDictionary12 = [v300 configDictionary];
+  configDictionary12 = [v299 configDictionary];
   v100 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary12, @"iadConfig", 0);
 
   v101 = [[FCIAdConfiguration alloc] initWithConfigDictionary:v100];
-  v102 = *(v300 + 14);
-  *(v300 + 14) = v101;
+  v102 = v299[14];
+  v299[14] = v101;
 
-  configDictionary13 = [v300 configDictionary];
+  configDictionary13 = [v299 configDictionary];
   v104 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary13, @"prefetchConfig", 0);
 
   v105 = [[FCPrefetchConfiguration alloc] initWithConfigDictionary:v104];
-  v106 = *(v300 + 15);
-  *(v300 + 15) = v105;
+  v106 = v299[15];
+  v299[15] = v105;
 
-  languageConfigDictionary6 = [v300 languageConfigDictionary];
+  languageConfigDictionary6 = [v299 languageConfigDictionary];
   v108 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary6, @"shareVideoPlayerConfig", 0);
 
   v109 = objc_opt_new();
@@ -1736,24 +1727,24 @@ LABEL_5:
   v112 = FCAppConfigurationStringValue(v108, @"discoverMoreVideosUrl", 0);
   [v109 setActionURLString:v112];
 
-  v113 = *(v300 + 17);
-  *(v300 + 17) = v109;
+  v113 = v299[17];
+  v299[17] = v109;
 
-  configDictionary14 = [v300 configDictionary];
+  configDictionary14 = [v299 configDictionary];
   v115 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary14, @"widgetConfig2", 0);
 
   v116 = [[FCWidgetConfig alloc] initWithConfigDictionary:v115];
-  v117 = *(v300 + 54);
-  *(v300 + 54) = v116;
+  v117 = v299[54];
+  v299[54] = v116;
 
-  languageConfigDictionary7 = [v300 languageConfigDictionary];
+  languageConfigDictionary7 = [v299 languageConfigDictionary];
   v119 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary7, @"channelPaywallConfigurations", 0);
 
   v120 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v119, "count")}];
   memset(buf, 0, sizeof(buf));
-  memset(v334, 0, sizeof(v334));
+  memset(v333, 0, sizeof(v333));
   v121 = v119;
-  v122 = [v121 countByEnumeratingWithState:buf objects:v336 count:16];
+  v122 = [v121 countByEnumeratingWithState:buf objects:v335 count:16];
   if (v122)
   {
     v123 = v122;
@@ -1775,24 +1766,24 @@ LABEL_5:
         [v120 setObject:v129 forKeyedSubscript:v126];
       }
 
-      v123 = [v121 countByEnumeratingWithState:buf objects:v336 count:16];
+      v123 = [v121 countByEnumeratingWithState:buf objects:v335 count:16];
     }
 
     while (v123);
   }
 
   v130 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v120];
-  v131 = *(v300 + 19);
-  *(v300 + 19) = v130;
+  v131 = v299[19];
+  v299[19] = v130;
 
-  languageConfigDictionary8 = [v300 languageConfigDictionary];
+  languageConfigDictionary8 = [v299 languageConfigDictionary];
   v133 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary8, @"channelUpsellConfigurations2", 0);
 
   v134 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v133, "count")}];
   memset(buf, 0, sizeof(buf));
-  memset(v334, 0, sizeof(v334));
+  memset(v333, 0, sizeof(v333));
   v135 = v133;
-  v136 = [v135 countByEnumeratingWithState:buf objects:v336 count:16];
+  v136 = [v135 countByEnumeratingWithState:buf objects:v335 count:16];
   if (v136)
   {
     v137 = v136;
@@ -1814,59 +1805,59 @@ LABEL_5:
         [v134 setObject:v143 forKeyedSubscript:v140];
       }
 
-      v137 = [v135 countByEnumeratingWithState:buf objects:v336 count:16];
+      v137 = [v135 countByEnumeratingWithState:buf objects:v335 count:16];
     }
 
     while (v137);
   }
 
   v144 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v134];
-  v145 = *(v300 + 18);
-  *(v300 + 18) = v144;
+  v145 = v299[18];
+  v299[18] = v144;
 
-  languageConfigDictionary9 = [v300 languageConfigDictionary];
+  languageConfigDictionary9 = [v299 languageConfigDictionary];
   v147 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary9, @"sportsUpsellConfiguration", 0);
 
   v148 = [[FCSportsUpsellConfig alloc] initWithConfigDictionary:v147];
-  v149 = *(v300 + 20);
-  *(v300 + 20) = v148;
+  v149 = v299[20];
+  v299[20] = v148;
 
-  languageConfigDictionary10 = [v300 languageConfigDictionary];
+  languageConfigDictionary10 = [v299 languageConfigDictionary];
   v151 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary10, @"locationSharingUpsellConfiguration", 0);
 
   v152 = [[FCLocationSharingUpsellConfig alloc] initWithConfigDictionary:v151];
-  v153 = *(v300 + 21);
-  *(v300 + 21) = v152;
+  v153 = v299[21];
+  v299[21] = v152;
 
-  languageConfigDictionary11 = [v300 languageConfigDictionary];
+  languageConfigDictionary11 = [v299 languageConfigDictionary];
   v155 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary11, @"paidBundleViaOfferConfiguration", 0);
 
   v156 = [[FCPaidBundleViaOfferConfig alloc] initWithConfigDictionary:v155];
-  v157 = *(v300 + 22);
-  *(v300 + 22) = v156;
+  v157 = v299[22];
+  v299[22] = v156;
 
   v158 = v93;
-  languageConfigDictionary12 = [v300 languageConfigDictionary];
+  languageConfigDictionary12 = [v299 languageConfigDictionary];
   v160 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary12, @"paidBundleConfig", 0);
 
   v161 = [FCPaidBundleConfiguration alloc];
-  localizedStorefrontID = [(FCNewsAppConfig *)v300 localizedStorefrontID];
-  *v336 = @"143441";
-  *&v336[8] = @"143455";
-  *&v336[16] = @"143444";
-  v337 = @"143460";
-  v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v336 count:4];
+  localizedStorefrontID = [(FCNewsAppConfig *)v299 localizedStorefrontID];
+  *v335 = @"143441";
+  *&v335[8] = @"143455";
+  *&v335[16] = @"143444";
+  v336 = @"143460";
+  v163 = [MEMORY[0x1E695DEC8] arrayWithObjects:v335 count:4];
   v164 = [(FCPaidBundleConfiguration *)v161 initWithConfigDictionary:v160 storefrontID:v158 localizedStorefrontID:localizedStorefrontID defaultSupportedStoreFronts:v163];
 
-  v165 = *(v300 + 23);
-  *(v300 + 23) = v164;
+  v165 = v299[23];
+  v299[23] = v164;
 
   if (NFInternalBuild())
   {
     v166 = NewsCoreUserDefaults();
     if ([v166 integerForKey:@"news.features.statelessPersonalization"] == 1)
     {
-      configDictionary15 = [v300 configDictionary];
+      configDictionary15 = [v299 configDictionary];
       v168 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary15, @"newsPersonalizationConfiguration", 0);
 
       if (!v168)
@@ -1874,14 +1865,14 @@ LABEL_5:
         v169 = FCStatelessPersonalizationLog;
         if (os_log_type_enabled(FCStatelessPersonalizationLog, OS_LOG_TYPE_DEFAULT))
         {
-          *v336 = 0;
-          _os_log_impl(&dword_1B63EF000, v169, OS_LOG_TYPE_DEFAULT, "Stateless Personalization Enabled, but not personalization configuration was specified, falling back to default", v336, 2u);
+          *v335 = 0;
+          _os_log_impl(&dword_1B63EF000, v169, OS_LOG_TYPE_DEFAULT, "Stateless Personalization Enabled, but not personalization configuration was specified, falling back to default", v335, 2u);
         }
 
         v170 = +[FCNewsPersonalizationConfiguration defaultConfiguration];
-        v171 = v300;
-        configDictionary16 = *(v300 + 42);
-        *(v300 + 42) = v170;
+        v171 = v299;
+        configDictionary16 = v299[42];
+        v299[42] = v170;
         goto LABEL_42;
       }
     }
@@ -1894,17 +1885,17 @@ LABEL_5:
   v173 = FCStatelessPersonalizationLog;
   if (os_log_type_enabled(FCStatelessPersonalizationLog, OS_LOG_TYPE_DEFAULT))
   {
-    *v336 = 0;
-    _os_log_impl(&dword_1B63EF000, v173, OS_LOG_TYPE_DEFAULT, "Loading news personalization configuration", v336, 2u);
+    *v335 = 0;
+    _os_log_impl(&dword_1B63EF000, v173, OS_LOG_TYPE_DEFAULT, "Loading news personalization configuration", v335, 2u);
   }
 
   v174 = [FCNewsPersonalizationConfiguration alloc];
-  v171 = v300;
-  configDictionary16 = [v300 configDictionary];
+  v171 = v299;
+  configDictionary16 = [v299 configDictionary];
   v175 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary16, @"newsPersonalizationConfiguration", 0);
   v176 = [(FCNewsPersonalizationConfiguration *)v174 initWithDictionary:v175];
-  v177 = *(v300 + 42);
-  *(v300 + 42) = v176;
+  v177 = v299[42];
+  v299[42] = v176;
 
 LABEL_42:
   if (!NFInternalBuild())
@@ -1929,9 +1920,9 @@ LABEL_42:
     v182 = FCTabiConfigurationLog;
     if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v336 = 138543362;
-      *&v336[4] = v178;
-      _os_log_impl(&dword_1B63EF000, v182, OS_LOG_TYPE_DEFAULT, "Found tabi config override enabled, specified as %{public}@", v336, 0xCu);
+      *v335 = 138543362;
+      *&v335[4] = v178;
+      _os_log_impl(&dword_1B63EF000, v182, OS_LOG_TYPE_DEFAULT, "Found tabi config override enabled, specified as %{public}@", v335, 0xCu);
     }
 
     v183 = MEMORY[0x1E696ACB0];
@@ -1945,11 +1936,11 @@ LABEL_42:
       v187 = FCTabiConfigurationLog;
       if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_ERROR))
       {
-        v295 = v187;
+        v294 = v187;
         localizedDescription = [v186 localizedDescription];
-        *v336 = 138543362;
-        *&v336[4] = localizedDescription;
-        _os_log_error_impl(&dword_1B63EF000, v295, OS_LOG_TYPE_ERROR, "Failed to decode tabi config into Dictionary, proceeding as if no override is in place %{public}@", v336, 0xCu);
+        *v335 = 138543362;
+        *&v335[4] = localizedDescription;
+        _os_log_error_impl(&dword_1B63EF000, v294, OS_LOG_TYPE_ERROR, "Failed to decode tabi config into Dictionary, proceeding as if no override is in place %{public}@", v335, 0xCu);
       }
     }
 
@@ -1957,43 +1948,43 @@ LABEL_42:
     {
       v191 = [[FCNewsTabiConfiguration alloc] initWithDictionary:v185];
       packageAssetIDs = [(FCNewsTabiConfiguration *)v191 packageAssetIDs];
-      v285 = [packageAssetIDs count];
+      v284 = [packageAssetIDs count];
 
-      if (v285)
+      if (v284)
       {
-        v171 = v300;
-        objc_storeStrong(v300 + 43, v191);
-        v286 = FCTabiConfigurationLog;
+        v171 = v299;
+        objc_storeStrong(v299 + 43, v191);
+        v285 = FCTabiConfigurationLog;
         if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_DEFAULT))
         {
-          v287 = v286;
+          v286 = v285;
           version = [(FCNewsTabiConfiguration *)v191 version];
-          *v336 = 138543362;
-          *&v336[4] = version;
-          _os_log_impl(&dword_1B63EF000, v287, OS_LOG_TYPE_DEFAULT, "Loaded user defaults tabi configuration version %{public}@", v336, 0xCu);
+          *v335 = 138543362;
+          *&v335[4] = version;
+          _os_log_impl(&dword_1B63EF000, v286, OS_LOG_TYPE_DEFAULT, "Loaded user defaults tabi configuration version %{public}@", v335, 0xCu);
 
-          v286 = FCTabiConfigurationLog;
+          v285 = FCTabiConfigurationLog;
         }
 
-        if (os_log_type_enabled(v286, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v285, OS_LOG_TYPE_DEFAULT))
         {
-          v289 = *(v300 + 43);
-          *v336 = 138543362;
-          *&v336[4] = v289;
-          _os_log_impl(&dword_1B63EF000, v286, OS_LOG_TYPE_DEFAULT, "Full configuration %{public}@", v336, 0xCu);
+          v288 = v299[43];
+          *v335 = 138543362;
+          *&v335[4] = v288;
+          _os_log_impl(&dword_1B63EF000, v285, OS_LOG_TYPE_DEFAULT, "Full configuration %{public}@", v335, 0xCu);
         }
 
         goto LABEL_67;
       }
 
-      v294 = FCTabiConfigurationLog;
+      v293 = FCTabiConfigurationLog;
       if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_ERROR))
       {
-        *v336 = 0;
-        _os_log_error_impl(&dword_1B63EF000, v294, OS_LOG_TYPE_ERROR, "Defaults specified tabi configuration didn't specify any packageAssetIDs, proceeding as if no override is in place", v336, 2u);
+        *v335 = 0;
+        _os_log_error_impl(&dword_1B63EF000, v293, OS_LOG_TYPE_ERROR, "Defaults specified tabi configuration didn't specify any packageAssetIDs, proceeding as if no override is in place", v335, 2u);
       }
 
-      v171 = v300;
+      v171 = v299;
     }
   }
 
@@ -2012,8 +2003,8 @@ LABEL_52:
     v192 = FCTabiConfigurationLog;
     if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v336 = 0;
-      _os_log_impl(&dword_1B63EF000, v192, OS_LOG_TYPE_DEFAULT, "Found V2 tabi configuration", v336, 2u);
+      *v335 = 0;
+      _os_log_impl(&dword_1B63EF000, v192, OS_LOG_TYPE_DEFAULT, "Found V2 tabi configuration", v335, 2u);
     }
 
     v193 = [FCNewsTabiConfiguration alloc];
@@ -2025,8 +2016,8 @@ LABEL_52:
     v195 = FCTabiConfigurationLog;
     if (os_log_type_enabled(FCTabiConfigurationLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v336 = 0;
-      _os_log_impl(&dword_1B63EF000, v195, OS_LOG_TYPE_DEFAULT, "Found DawnburstD tabi configuration", v336, 2u);
+      *v335 = 0;
+      _os_log_impl(&dword_1B63EF000, v195, OS_LOG_TYPE_DEFAULT, "Found DawnburstD tabi configuration", v335, 2u);
     }
 
     v193 = [FCNewsTabiConfiguration alloc];
@@ -2041,25 +2032,25 @@ LABEL_52:
     {
       if (v197)
       {
-        *v336 = 0;
-        _os_log_impl(&dword_1B63EF000, v196, OS_LOG_TYPE_DEFAULT, "Using baseline tabi configuration", v336, 2u);
+        *v335 = 0;
+        _os_log_impl(&dword_1B63EF000, v196, OS_LOG_TYPE_DEFAULT, "Using baseline tabi configuration", v335, 2u);
       }
 
-      v290 = [FCNewsTabiConfiguration alloc];
+      v289 = [FCNewsTabiConfiguration alloc];
       languageConfigDictionary16 = [v171 languageConfigDictionary];
-      v291 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary16, @"newsTabiConfiguration", MEMORY[0x1E695E0F8]);
-      v292 = [(FCNewsTabiConfiguration *)v290 initWithDictionary:v291];
-      v293 = *(v300 + 43);
-      *(v300 + 43) = v292;
+      v290 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary16, @"newsTabiConfiguration", MEMORY[0x1E695E0F8]);
+      v291 = [(FCNewsTabiConfiguration *)v289 initWithDictionary:v290];
+      v292 = v299[43];
+      v299[43] = v291;
 
-      v171 = v300;
+      v171 = v299;
       goto LABEL_65;
     }
 
     if (v197)
     {
-      *v336 = 0;
-      _os_log_impl(&dword_1B63EF000, v196, OS_LOG_TYPE_DEFAULT, "Found DawnburstB tabi configuration", v336, 2u);
+      *v335 = 0;
+      _os_log_impl(&dword_1B63EF000, v196, OS_LOG_TYPE_DEFAULT, "Found DawnburstB tabi configuration", v335, 2u);
     }
 
     v193 = [FCNewsTabiConfiguration alloc];
@@ -2077,9 +2068,9 @@ LABEL_65:
     v201 = v171[43];
     v202 = v200;
     version2 = [v201 version];
-    *v336 = 138543362;
-    *&v336[4] = version2;
-    _os_log_impl(&dword_1B63EF000, v202, OS_LOG_TYPE_DEFAULT, "Loaded tabi configuration version %{public}@", v336, 0xCu);
+    *v335 = 138543362;
+    *&v335[4] = version2;
+    _os_log_impl(&dword_1B63EF000, v202, OS_LOG_TYPE_DEFAULT, "Loaded tabi configuration version %{public}@", v335, 0xCu);
   }
 
 LABEL_67:
@@ -2089,9 +2080,9 @@ LABEL_67:
 
   v206 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v205, "count")}];
   memset(buf, 0, sizeof(buf));
-  memset(v334, 0, sizeof(v334));
+  memset(v333, 0, sizeof(v333));
   v207 = v205;
-  v208 = [v207 countByEnumeratingWithState:buf objects:v336 count:16];
+  v208 = [v207 countByEnumeratingWithState:buf objects:v335 count:16];
   if (v208)
   {
     v209 = v208;
@@ -2113,31 +2104,31 @@ LABEL_67:
         [v206 setObject:v215 forKeyedSubscript:v212];
       }
 
-      v209 = [v207 countByEnumeratingWithState:buf objects:v336 count:16];
+      v209 = [v207 countByEnumeratingWithState:buf objects:v335 count:16];
     }
 
     while (v209);
   }
 
   v216 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v206];
-  v217 = *(v300 + 48);
-  *(v300 + 48) = v216;
+  v217 = v299[48];
+  v299[48] = v216;
 
-  configDictionary17 = [v300 configDictionary];
+  configDictionary17 = [v299 configDictionary];
   v219 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary17, @"launchPresentationConfigV2", 0);
 
   v220 = [[FCLaunchPresentationConfig alloc] initWithConfigDictionary:v219];
-  v221 = *(v300 + 49);
-  *(v300 + 49) = v220;
+  v221 = v299[49];
+  v299[49] = v220;
 
-  languageConfigDictionary18 = [v300 languageConfigDictionary];
+  languageConfigDictionary18 = [v299 languageConfigDictionary];
   v223 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary18, @"campaignReferralConfigurations", 0);
 
   v224 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v223, "count")}];
   memset(buf, 0, sizeof(buf));
-  memset(v334, 0, sizeof(v334));
+  memset(v333, 0, sizeof(v333));
   v225 = v223;
-  v226 = [v225 countByEnumeratingWithState:buf objects:v336 count:16];
+  v226 = [v225 countByEnumeratingWithState:buf objects:v335 count:16];
   if (v226)
   {
     v227 = v226;
@@ -2159,63 +2150,63 @@ LABEL_67:
         [v224 setObject:v233 forKeyedSubscript:v230];
       }
 
-      v227 = [v225 countByEnumeratingWithState:buf objects:v336 count:16];
+      v227 = [v225 countByEnumeratingWithState:buf objects:v335 count:16];
     }
 
     while (v227);
   }
 
   v234 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v224];
-  v50 = v300;
-  v235 = *(v300 + 50);
-  *(v300 + 50) = v234;
+  v50 = v299;
+  v235 = v299[50];
+  v299[50] = v234;
 
-  if (NFInternalBuild() && ([v300 configDictionary], v236 = objc_claimAutoreleasedReturnValue(), FCAppConfigurationDictionaryValueWithDefaultValue(v236, @"timesOfDayConfiguration", 0), v237 = objc_claimAutoreleasedReturnValue(), v237, v236, !v237))
+  if (NFInternalBuild() && ([v299 configDictionary], v236 = objc_claimAutoreleasedReturnValue(), FCAppConfigurationDictionaryValueWithDefaultValue(v236, @"timesOfDayConfiguration", 0), v237 = objc_claimAutoreleasedReturnValue(), v237, v236, !v237))
   {
-    v282 = FCStatelessPersonalizationLog;
-    v7 = v298;
-    dictionaryCopy = v299;
-    dCopy = v297;
+    v281 = FCStatelessPersonalizationLog;
+    v7 = v297;
+    dictionaryCopy = v298;
+    dCopy = v296;
     if (os_log_type_enabled(FCStatelessPersonalizationLog, OS_LOG_TYPE_DEFAULT))
     {
-      *v336 = 0;
-      _os_log_impl(&dword_1B63EF000, v282, OS_LOG_TYPE_DEFAULT, "See an internal build with no times of day configuration in the app config, falling back to default", v336, 2u);
+      *v335 = 0;
+      _os_log_impl(&dword_1B63EF000, v281, OS_LOG_TYPE_DEFAULT, "See an internal build with no times of day configuration in the app config, falling back to default", v335, 2u);
     }
 
-    v283 = +[FCTimesOfDayConfiguration defaultConfiguration];
-    configDictionary18 = *(v300 + 47);
-    *(v300 + 47) = v283;
+    v282 = +[FCTimesOfDayConfiguration defaultConfiguration];
+    configDictionary18 = v299[47];
+    v299[47] = v282;
   }
 
   else
   {
     v238 = [FCTimesOfDayConfiguration alloc];
-    configDictionary18 = [v300 configDictionary];
+    configDictionary18 = [v299 configDictionary];
     v240 = FCAppConfigurationDictionaryValueWithDefaultValue(configDictionary18, @"timesOfDayConfiguration", 0);
     v241 = [(FCTimesOfDayConfiguration *)v238 initWithDictionary:v240];
-    v242 = *(v300 + 47);
-    *(v300 + 47) = v241;
+    v242 = v299[47];
+    v299[47] = v241;
 
-    v7 = v298;
-    dictionaryCopy = v299;
-    dCopy = v297;
+    v7 = v297;
+    dictionaryCopy = v298;
+    dCopy = v296;
   }
 
-  languageConfigDictionary19 = [v300 languageConfigDictionary];
+  languageConfigDictionary19 = [v299 languageConfigDictionary];
   v244 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary19, @"superfeedConfigOverrides", 0);
 
   v245 = MEMORY[0x1E695DF20];
-  *v336 = MEMORY[0x1E69E9820];
-  *&v336[8] = 3221225472;
-  *&v336[16] = __48__FCNewsAppConfig__loadSuperfeedConfigOverrides__block_invoke;
-  v337 = &unk_1E7C36EC8;
-  v338 = v244;
+  *v335 = MEMORY[0x1E69E9820];
+  *&v335[8] = 3221225472;
+  *&v335[16] = __48__FCNewsAppConfig__loadSuperfeedConfigOverrides__block_invoke;
+  v336 = &unk_1E7C36EC8;
+  v337 = v244;
   v246 = v244;
-  v247 = [v245 fc_dictionary:v336];
-  v248 = *(v300 + 51);
-  *(v300 + 51) = v247;
+  v247 = [v245 fc_dictionary:v335];
+  v248 = v299[51];
+  v299[51] = v247;
 
-  languageConfigDictionary20 = [v300 languageConfigDictionary];
+  languageConfigDictionary20 = [v299 languageConfigDictionary];
   v250 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary20, @"autoFavoritesServiceConfiguration", 0);
 
   if (v250)
@@ -2229,9 +2220,9 @@ LABEL_67:
     {
       if (os_log_type_enabled(FCAutoFavoritesServiceLog, OS_LOG_TYPE_ERROR))
       {
-        *v336 = 138543362;
-        *&v336[4] = v253;
-        _os_log_error_impl(&dword_1B63EF000, v254, OS_LOG_TYPE_ERROR, "Encountered error when encoding auto favorites service configuration as data, storing empty configuration. Error=%{public}@", v336, 0xCu);
+        *v335 = 138543362;
+        *&v335[4] = v253;
+        _os_log_error_impl(&dword_1B63EF000, v254, OS_LOG_TYPE_ERROR, "Encountered error when encoding auto favorites service configuration as data, storing empty configuration. Error=%{public}@", v335, 0xCu);
       }
 
       v255 = [@"{}" dataUsingEncoding:4];
@@ -2243,30 +2234,30 @@ LABEL_67:
       {
         v256 = v254;
         v257 = [v252 length];
-        *v336 = 134218242;
-        *&v336[4] = v257;
-        *&v336[12] = 2114;
-        *&v336[14] = v251;
-        _os_log_impl(&dword_1B63EF000, v256, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for auto favorites service configuration %{public}@", v336, 0x16u);
+        *v335 = 134218242;
+        *&v335[4] = v257;
+        *&v335[12] = 2114;
+        *&v335[14] = v251;
+        _os_log_impl(&dword_1B63EF000, v256, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for auto favorites service configuration %{public}@", v335, 0x16u);
       }
 
       v255 = v252;
     }
 
-    v258 = *(v300 + 44);
-    *(v300 + 44) = v255;
+    v258 = v299[44];
+    v299[44] = v255;
 
-    v50 = v300;
+    v50 = v299;
   }
 
   else
   {
-    *v336 = MEMORY[0x1E69E9820];
-    *&v336[8] = 3221225472;
-    *&v336[16] = __57__FCNewsAppConfig__loadAutoFavoritesServiceConfiguration__block_invoke;
-    v337 = &unk_1E7C36EA0;
-    v338 = v300;
-    __57__FCNewsAppConfig__loadAutoFavoritesServiceConfiguration__block_invoke(v336);
+    *v335 = MEMORY[0x1E69E9820];
+    *&v335[8] = 3221225472;
+    *&v335[16] = __57__FCNewsAppConfig__loadAutoFavoritesServiceConfiguration__block_invoke;
+    v336 = &unk_1E7C36EA0;
+    v337 = v299;
+    __57__FCNewsAppConfig__loadAutoFavoritesServiceConfiguration__block_invoke(v335);
   }
 
   languageConfigDictionary21 = [v50 languageConfigDictionary];
@@ -2283,9 +2274,9 @@ LABEL_67:
     {
       if (os_log_type_enabled(FCNotificationsLog, OS_LOG_TYPE_ERROR))
       {
-        *v336 = 138543362;
-        *&v336[4] = v263;
-        _os_log_error_impl(&dword_1B63EF000, v264, OS_LOG_TYPE_ERROR, "Encountered error when encoding notification scoring service configuration as data, storing empty configuration. Error=%{public}@", v336, 0xCu);
+        *v335 = 138543362;
+        *&v335[4] = v263;
+        _os_log_error_impl(&dword_1B63EF000, v264, OS_LOG_TYPE_ERROR, "Encountered error when encoding notification scoring service configuration as data, storing empty configuration. Error=%{public}@", v335, 0xCu);
       }
 
       v265 = [@"{}" dataUsingEncoding:4];
@@ -2297,30 +2288,30 @@ LABEL_67:
       {
         v266 = v264;
         v267 = [v262 length];
-        *v336 = 134218242;
-        *&v336[4] = v267;
-        *&v336[12] = 2114;
-        *&v336[14] = v261;
-        _os_log_impl(&dword_1B63EF000, v266, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for notification scoring service configuration %{public}@", v336, 0x16u);
+        *v335 = 134218242;
+        *&v335[4] = v267;
+        *&v335[12] = 2114;
+        *&v335[14] = v261;
+        _os_log_impl(&dword_1B63EF000, v266, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for notification scoring service configuration %{public}@", v335, 0x16u);
       }
 
       v265 = v262;
     }
 
-    v268 = *(v300 + 46);
-    *(v300 + 46) = v265;
+    v268 = v299[46];
+    v299[46] = v265;
 
-    v50 = v300;
+    v50 = v299;
   }
 
   else
   {
-    *v336 = MEMORY[0x1E69E9820];
-    *&v336[8] = 3221225472;
-    *&v336[16] = __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_invoke;
-    v337 = &unk_1E7C36EA0;
-    v338 = v50;
-    __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_invoke(v336);
+    *v335 = MEMORY[0x1E69E9820];
+    *&v335[8] = 3221225472;
+    *&v335[16] = __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_invoke;
+    v336 = &unk_1E7C36EA0;
+    v337 = v50;
+    __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_invoke(v335);
   }
 
   languageConfigDictionary22 = [v50 languageConfigDictionary];
@@ -2337,14 +2328,14 @@ LABEL_67:
     {
       if (os_log_type_enabled(FCAutoFavoritesServiceLog, OS_LOG_TYPE_ERROR))
       {
-        *v336 = 138543362;
-        *&v336[4] = v273;
-        _os_log_error_impl(&dword_1B63EF000, v274, OS_LOG_TYPE_ERROR, "Encountered error when encoding recipe auto favorites service configuration as data, storing empty configuration. Error=%{public}@", v336, 0xCu);
+        *v335 = 138543362;
+        *&v335[4] = v273;
+        _os_log_error_impl(&dword_1B63EF000, v274, OS_LOG_TYPE_ERROR, "Encountered error when encoding recipe auto favorites service configuration as data, storing empty configuration. Error=%{public}@", v335, 0xCu);
       }
 
       v275 = [@"{}" dataUsingEncoding:4];
-      v276 = *(v300 + 44);
-      *(v300 + 44) = v275;
+      v276 = v299[44];
+      v299[44] = v275;
     }
 
     else
@@ -2353,54 +2344,53 @@ LABEL_67:
       {
         v277 = v274;
         v278 = [v272 length];
-        *v336 = 134218242;
-        *&v336[4] = v278;
-        *&v336[12] = 2114;
-        *&v336[14] = v271;
-        _os_log_impl(&dword_1B63EF000, v277, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for recipe auto favorites service configuration %{public}@", v336, 0x16u);
+        *v335 = 134218242;
+        *&v335[4] = v278;
+        *&v335[12] = 2114;
+        *&v335[14] = v271;
+        _os_log_impl(&dword_1B63EF000, v277, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for recipe auto favorites service configuration %{public}@", v335, 0x16u);
       }
 
       v279 = v272;
-      v276 = *(v300 + 45);
-      *(v300 + 45) = v279;
+      v276 = v299[45];
+      v299[45] = v279;
     }
 
-    v50 = v300;
+    v50 = v299;
   }
 
   else
   {
-    *v336 = MEMORY[0x1E69E9820];
-    *&v336[8] = 3221225472;
-    *&v336[16] = __63__FCNewsAppConfig__loadRecipeAutoFavoritesServiceConfiguration__block_invoke;
-    v337 = &unk_1E7C36EA0;
-    v338 = v50;
-    __63__FCNewsAppConfig__loadRecipeAutoFavoritesServiceConfiguration__block_invoke(v336);
+    *v335 = MEMORY[0x1E69E9820];
+    *&v335[8] = 3221225472;
+    *&v335[16] = __63__FCNewsAppConfig__loadRecipeAutoFavoritesServiceConfiguration__block_invoke;
+    v336 = &unk_1E7C36EA0;
+    v337 = v50;
+    __63__FCNewsAppConfig__loadRecipeAutoFavoritesServiceConfiguration__block_invoke(v335);
   }
 
 LABEL_115:
-  v280 = *MEMORY[0x1E69E9840];
   return v50;
 }
 
 + (id)configurationWithData:(void *)data storefrontID:(void *)d preferredLanguageTags:
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v6 = a2;
   dataCopy = data;
   dCopy = d;
   objc_opt_self();
   if (!v6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "data"];
+    v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "data"];
     *buf = 136315906;
-    v62 = "+[FCNewsAppConfig configurationWithData:storefrontID:preferredLanguageTags:]";
-    v63 = 2080;
-    v64 = "FCNewsAppConfig.m";
-    v65 = 1024;
-    v66 = 175;
-    v67 = 2114;
-    v68 = v41;
+    v61 = "+[FCNewsAppConfig configurationWithData:storefrontID:preferredLanguageTags:]";
+    v62 = 2080;
+    v63 = "FCNewsAppConfig.m";
+    v64 = 1024;
+    v65 = 175;
+    v66 = 2114;
+    v67 = v40;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dCopy)
@@ -2416,56 +2406,56 @@ LABEL_115:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v42 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "preferredLanguageTags"];
+    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "preferredLanguageTags"];
     *buf = 136315906;
-    v62 = "+[FCNewsAppConfig configurationWithData:storefrontID:preferredLanguageTags:]";
-    v63 = 2080;
-    v64 = "FCNewsAppConfig.m";
-    v65 = 1024;
-    v66 = 176;
-    v67 = 2114;
-    v68 = v42;
+    v61 = "+[FCNewsAppConfig configurationWithData:storefrontID:preferredLanguageTags:]";
+    v62 = 2080;
+    v63 = "FCNewsAppConfig.m";
+    v64 = 1024;
+    v65 = 176;
+    v66 = 2114;
+    v67 = v41;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (v6 && ([MEMORY[0x1E696ACB0] JSONObjectWithData:v6 options:0 error:0], (v9 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v47 = dataCopy;
-    v48 = v6;
+    v46 = dataCopy;
+    v47 = v6;
     v10 = v9;
-    v46 = dCopy;
+    v45 = dCopy;
     v11 = dCopy;
     objc_opt_self();
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     v13 = FCAppConfigurationArrayValueWithDefaultValue(v10, @"languageConfigs", 0);
-    v45 = v10;
+    v44 = v10;
     v14 = FCAppConfigurationStringValue(v10, @"fallbackLanguageTag", 0);
     lowercaseString = [v14 lowercaseString];
 
-    v44 = v11;
-    v43 = [v11 fc_arrayByTransformingWithBlock:&__block_literal_global_27];
+    v43 = v11;
+    v42 = [v11 fc_arrayByTransformingWithBlock:&__block_literal_global_27];
     firstObject = [v13 firstObject];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     obj = v13;
-    v15 = [obj countByEnumeratingWithState:&v56 objects:buf count:16];
+    v15 = [obj countByEnumeratingWithState:&v55 objects:buf count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v57;
+      v17 = *v56;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v57 != v17)
+          if (*v56 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v56 + 1) + 8 * i);
+          v19 = *(*(&v55 + 1) + 8 * i);
           v20 = FCAppConfigurationStringValue(v19, @"languageTag", &stru_1F2DC7DC0);
           lowercaseString2 = [v20 lowercaseString];
 
@@ -2486,7 +2476,7 @@ LABEL_6:
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v56 objects:buf count:16];
+        v16 = [obj countByEnumeratingWithState:&v55 objects:buf count:16];
       }
 
       while (v16);
@@ -2494,27 +2484,27 @@ LABEL_6:
 
     if ([dictionary count])
     {
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
       v53 = 0u;
-      v25 = v43;
-      v26 = v43;
-      v27 = [v26 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v54 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v25 = v42;
+      v26 = v42;
+      v27 = [v26 countByEnumeratingWithState:&v51 objects:v59 count:16];
       if (v27)
       {
         v28 = v27;
-        v29 = *v53;
+        v29 = *v52;
         while (2)
         {
           for (j = 0; j != v28; ++j)
           {
-            if (*v53 != v29)
+            if (*v52 != v29)
             {
               objc_enumerationMutation(v26);
             }
 
-            v31 = *(*(&v52 + 1) + 8 * j);
+            v31 = *(*(&v51 + 1) + 8 * j);
             v32 = __75__FCNewsAppConfig_languageConfigDictionaryForConfig_preferredLanguageTags___block_invoke_2(v31);
             v33 = [dictionary objectForKeyedSubscript:v31];
             if (v33 || ([dictionary objectForKeyedSubscript:v32], (v33 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -2525,7 +2515,7 @@ LABEL_6:
             }
           }
 
-          v28 = [v26 countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v28 = [v26 countByEnumeratingWithState:&v51 objects:v59 count:16];
           v34 = 0;
           if (v28)
           {
@@ -2547,7 +2537,7 @@ LABEL_34:
     else
     {
       v34 = 0;
-      v25 = v43;
+      v25 = v42;
     }
 
     if (v34)
@@ -2562,19 +2552,19 @@ LABEL_34:
 
     v38 = v37;
 
-    v35 = v45;
-    v6 = v48;
-    dCopy = v46;
+    v35 = v44;
+    v6 = v47;
+    dCopy = v45;
     if (v38)
     {
-      dataCopy = v47;
-      v36 = [[FCNewsAppConfig alloc] initWithConfigDictionary:v45 storefrontID:v47 languageConfigDictionary:v38];
+      dataCopy = v46;
+      v36 = [[FCNewsAppConfig alloc] initWithConfigDictionary:v44 storefrontID:v46 languageConfigDictionary:v38];
     }
 
     else
     {
       v36 = 0;
-      dataCopy = v47;
+      dataCopy = v46;
     }
   }
 
@@ -2583,8 +2573,6 @@ LABEL_34:
     v35 = 0;
     v36 = 0;
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v36;
 }
@@ -2667,23 +2655,23 @@ void __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_i
 
 - (NSData)delayedNotificationSchedulerConfigurationData
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
   v3 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary, @"delayedNotificationSchedulerConfiguration", 0);
 
   if (v3)
   {
     v4 = v3;
-    v15 = 0;
-    v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v14];
+    v6 = v14;
     v7 = FCNotificationsLog;
     if (v6)
     {
       if (os_log_type_enabled(FCNotificationsLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = v6;
+        v16 = v6;
         _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Encountered error when encoding delayed notification scheduler configuration as data, storing empty configuration. Error=%{public}@", buf, 0xCu);
       }
 
@@ -2697,9 +2685,9 @@ void __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_i
         v11 = v7;
         v12 = [v5 length];
         *buf = 134218242;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v4;
+        v16 = v12;
+        v17 = 2114;
+        v18 = v4;
         _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for delayed notification scheduler configuration %{public}@", buf, 0x16u);
       }
 
@@ -2721,30 +2709,28 @@ void __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_i
     v10 = [@"{}" dataUsingEncoding:4];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (NSData)delayedNotificationVendorConfigurationData
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
   v3 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary, @"delayedNotificationVendorConfiguration", 0);
 
   if (v3)
   {
     v4 = v3;
-    v15 = 0;
-    v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v15];
-    v6 = v15;
+    v14 = 0;
+    v5 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v4 options:0 error:&v14];
+    v6 = v14;
     v7 = FCNotificationsLog;
     if (v6)
     {
       if (os_log_type_enabled(FCNotificationsLog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v17 = v6;
+        v16 = v6;
         _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Encountered error when encoding delayed notification vendor configuration as data, storing empty configuration. Error=%{public}@", buf, 0xCu);
       }
 
@@ -2758,9 +2744,9 @@ void __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_i
         v11 = v7;
         v12 = [v5 length];
         *buf = 134218242;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v4;
+        v16 = v12;
+        v17 = 2114;
+        v18 = v4;
         _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "Successfully encoded %lu bytes for delayed notification vendor configuration %{public}@", buf, 0x16u);
       }
 
@@ -2781,8 +2767,6 @@ void __63__FCNewsAppConfig__loadNotificationScoringServiceConfiguration__block_i
 
     v10 = [@"{}" dataUsingEncoding:4];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -3258,36 +3242,36 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
 
 - (id)paidALaCartePaywallConfigForChannelID:(id)d
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = dCopy;
   if (!self->_cachedPaidALaCartePaywallConfigs)
   {
-    v25 = dCopy;
+    v24 = dCopy;
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
     languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
     v8 = FCAppConfigurationDictionaryValueWithDefaultValue(languageConfigDictionary, @"paidALaCartePaywallConfigs2", 0);
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = [FCPaidALaCartePaywallConfig alloc];
           v16 = [v9 objectForKeyedSubscript:v14];
           v17 = [(FCPaidALaCartePaywallConfig *)v15 initWithChannelID:v14 configDictionary:v16];
@@ -3302,7 +3286,7 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v11);
@@ -3311,7 +3295,7 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
     cachedPaidALaCartePaywallConfigs = self->_cachedPaidALaCartePaywallConfigs;
     self->_cachedPaidALaCartePaywallConfigs = v6;
 
-    v5 = v25;
+    v5 = v24;
   }
 
   if ([v5 length])
@@ -3323,8 +3307,6 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
@@ -3339,22 +3321,20 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
 
 - (NSArray)hiddenFeedIDs
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
   v3 = FCAppConfigurationStringValue(languageConfigDictionary, @"hiddenFeedId", 0);
 
   if (v3)
   {
-    v7[0] = v3;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v3;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -3654,7 +3634,7 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
 
 - (NSArray)freeGlobalESLArticleListIDs
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
   v4 = FCAppConfigurationStringValue(languageConfigDictionary, @"freeEvergreenArticleListId", 0);
 
@@ -3665,8 +3645,8 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
   v8 = languageConfigDictionary3;
   if (v6)
   {
-    v13[0] = v6;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v10 = FCAppConfigurationArrayValueWithDefaultValue(v8, @"freeEvergreenArticleListIds", v9);
   }
 
@@ -3675,14 +3655,12 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
     v10 = FCAppConfigurationArrayValueWithDefaultValue(languageConfigDictionary3, @"freeEvergreenArticleListIds", MEMORY[0x1E695E0F0]);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (NSArray)paidGlobalESLArticleListIDs
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   languageConfigDictionary = [(FCNewsAppConfig *)self languageConfigDictionary];
   v4 = FCAppConfigurationStringValue(languageConfigDictionary, @"paidEvergreenArticleListId", 0);
 
@@ -3693,8 +3671,8 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
   v8 = languageConfigDictionary3;
   if (v6)
   {
-    v13[0] = v6;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v10 = FCAppConfigurationArrayValueWithDefaultValue(v8, @"paidEvergreenArticleListIds", v9);
   }
 
@@ -3702,8 +3680,6 @@ id __49__FCNewsAppConfig_localInForYouTopicTagAllowList__block_invoke(uint64_t a
   {
     v10 = FCAppConfigurationArrayValueWithDefaultValue(languageConfigDictionary3, @"paidEvergreenArticleListIds", MEMORY[0x1E695E0F0]);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -3930,7 +3906,7 @@ LABEL_8:
 
 - (id)todayConfigWithIdentifier:(id)identifier queueConfigs:(id)configs backgroundColorLight:(id)light backgroundColorDark:(id)dark audioIndicatorColor:(id)color widgetBannerConfig:(id)config
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   configsCopy = configs;
   lightCopy = light;
@@ -3949,15 +3925,15 @@ LABEL_18:
     goto LABEL_14;
   }
 
-  v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queueConfigs"];
+  v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queueConfigs"];
   *buf = 136315906;
-  v38 = "[FCNewsAppConfig todayConfigWithIdentifier:queueConfigs:backgroundColorLight:backgroundColorDark:audioIndicatorColor:widgetBannerConfig:]";
-  v39 = 2080;
-  v40 = "FCNewsAppConfig.m";
-  v41 = 1024;
-  v42 = 1531;
-  v43 = 2114;
-  v44 = v29;
+  v37 = "[FCNewsAppConfig todayConfigWithIdentifier:queueConfigs:backgroundColorLight:backgroundColorDark:audioIndicatorColor:widgetBannerConfig:]";
+  v38 = 2080;
+  v39 = "FCNewsAppConfig.m";
+  v40 = 1024;
+  v41 = 1531;
+  v42 = 2114;
+  v43 = v28;
   _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
   if (!self)
@@ -3970,45 +3946,45 @@ LABEL_4:
   if (v20)
   {
     self = objc_opt_new();
-    v31 = lightCopy;
+    v30 = lightCopy;
     [(FCNewsAppConfig *)self setBackgroundColorLight:lightCopy];
-    v30 = darkCopy;
+    v29 = darkCopy;
     [(FCNewsAppConfig *)self setBackgroundColorDark:darkCopy];
     [(FCNewsAppConfig *)self setAudioIndicatorColor:colorCopy];
     v21 = identifierCopy;
     [(FCNewsAppConfig *)self setWidgetIdentifier:identifierCopy];
     [(FCNewsAppConfig *)self setWidgetBannerConfig:configCopy];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v22 = configsCopy;
-    v23 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v33;
+      v25 = *v32;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v33 != v25)
+          if (*v32 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          [(FCNewsAppConfig *)self addTodayQueueConfigs:*(*(&v32 + 1) + 8 * i)];
+          [(FCNewsAppConfig *)self addTodayQueueConfigs:*(*(&v31 + 1) + 8 * i)];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v24);
     }
 
     identifierCopy = v21;
-    darkCopy = v30;
-    lightCopy = v31;
+    darkCopy = v29;
+    lightCopy = v30;
   }
 
   else
@@ -4017,8 +3993,6 @@ LABEL_4:
   }
 
 LABEL_14:
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -5520,9 +5494,9 @@ uint64_t __41__FCNewsAppConfig_topStoriesPublishDates__block_invoke(uint64_t a1,
 
 - (BOOL)fineGrainedNewsletterManagementEnabled
 {
-  v10[1] = *MEMORY[0x1E69E9840];
-  v10[0] = @"143441";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[1] = *MEMORY[0x1E69E9840];
+  v9[0] = @"143441";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   storefrontID = [(FCNewsAppConfig *)self storefrontID];
   if ([v3 containsObject:storefrontID])
   {
@@ -5537,9 +5511,7 @@ uint64_t __41__FCNewsAppConfig_topStoriesPublishDates__block_invoke(uint64_t a1,
   configDictionary = [(FCNewsAppConfig *)self configDictionary];
   v7 = FCAppConfigurationIntegerValue(configDictionary, @"fineGrainedNewsletterManagementEnabledLevel", v5);
 
-  result = [FCFeatureEnablementChecker enabledForCurrentLevel:v7];
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return [FCFeatureEnablementChecker enabledForCurrentLevel:v7];
 }
 
 - (BOOL)dimNonSubscriberContentOffline
@@ -6427,7 +6399,7 @@ FCEditorialTopicEventMappingProperty *__55__FCNewsAppConfig_editorialTopicEventM
 
 - (NSDictionary)todayFeedGroupClusteringKnobOverrides
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = NewsCoreUserDefaults();
   v4 = [v3 BOOLForKey:@"news.news_personalization.cluster_config_overrides.enabled"];
 
@@ -6450,9 +6422,9 @@ LABEL_9:
   }
 
   v7 = [languageConfigDictionary dataUsingEncoding:4];
-  v14 = 0;
-  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v13];
+  v9 = v13;
   if (v9)
   {
     v10 = v9;
@@ -6460,7 +6432,7 @@ LABEL_9:
     if (os_log_type_enabled(FCAppConfigurationLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v10;
+      v15 = v10;
       _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "Failed to parse debug override value for todayFeedGroupClusteringKnobOverrides error: %@", buf, 0xCu);
     }
 
@@ -6468,14 +6440,13 @@ LABEL_9:
   }
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (NSDictionary)tagFeedGroupClusteringKnobOverrides
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = NewsCoreUserDefaults();
   v4 = [v3 BOOLForKey:@"news.news_personalization.cluster_config_overrides.enabled"];
 
@@ -6498,9 +6469,9 @@ LABEL_9:
   }
 
   v7 = [languageConfigDictionary dataUsingEncoding:4];
-  v14 = 0;
-  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v13];
+  v9 = v13;
   if (v9)
   {
     v10 = v9;
@@ -6508,7 +6479,7 @@ LABEL_9:
     if (os_log_type_enabled(FCAppConfigurationLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v10;
+      v15 = v10;
       _os_log_error_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_ERROR, "Failed to parse debug override value for topicFeedGroupClusteringKnobOverrides error: %@", buf, 0xCu);
     }
 
@@ -6516,7 +6487,6 @@ LABEL_9:
   }
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -6569,7 +6539,7 @@ LABEL_10:
 
 - (BOOL)allowAnyChannelForTodayChannelGroups
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   configDictionary = [(FCNewsAppConfig *)self configDictionary];
   v3 = FCAppConfigurationBoolValue(configDictionary, @"allowAnyChannelForTodayChannelGroups", 0);
 
@@ -6581,9 +6551,9 @@ LABEL_10:
     v7 = FCAppConfigurationLog;
     if (os_log_type_enabled(FCAppConfigurationLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11[0] = 67109120;
-      v11[1] = v3;
-      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "See internal user with allow any channel for today channel groups override as %d", v11, 8u);
+      v10[0] = 67109120;
+      v10[1] = v3;
+      _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "See internal user with allow any channel for today channel groups override as %d", v10, 8u);
     }
   }
 
@@ -6592,14 +6562,13 @@ LABEL_10:
     v8 = FCAppConfigurationLog;
     if (os_log_type_enabled(FCAppConfigurationLog, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11[0]) = 0;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "allowAnyChannelForTodayChannelGroups being reported as true from app config", v11, 2u);
+      LOWORD(v10[0]) = 0;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "allowAnyChannelForTodayChannelGroups being reported as true from app config", v10, 2u);
     }
 
     LOBYTE(v3) = 1;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -6619,216 +6588,206 @@ LABEL_10:
   return v3;
 }
 
-void __41__FCNewsAppConfig_overrideForYouConfigID__block_invoke()
+void __41__FCNewsAppConfig_overrideForYouConfigID__block_invoke(uint64_t a1)
 {
   if (NFInternalBuild())
   {
-    v4 = NewsCoreUserDefaults();
-    if ([v4 BOOLForKey:@"enable_config_overrides"])
+    v5 = NewsCoreUserDefaults();
+    if ([v5 BOOLForKey:@"enable_config_overrides"])
     {
-      v0 = NewsCoreUserDefaults();
-      v1 = [v0 stringForKey:@"override_foryouconfig_id"];
-      v2 = _MergedGlobals_139;
-      _MergedGlobals_139 = v1;
+      v1 = NewsCoreUserDefaults();
+      v2 = [v1 stringForKey:@"override_foryouconfig_id"];
+      v3 = _MergedGlobals_139;
+      _MergedGlobals_139 = v2;
     }
 
     else
     {
-      v0 = _MergedGlobals_139;
+      v1 = _MergedGlobals_139;
       _MergedGlobals_139 = 0;
     }
 
-    v3 = v4;
+    v4 = v5;
   }
 
   else
   {
-    v3 = _MergedGlobals_139;
+    v4 = _MergedGlobals_139;
     _MergedGlobals_139 = 0;
   }
 }
 
-void __48__FCNewsAppConfig_overrideForYouPremiumConfigID__block_invoke()
+void __48__FCNewsAppConfig_overrideForYouPremiumConfigID__block_invoke(uint64_t a1)
 {
   if (NFInternalBuild())
   {
-    v4 = NewsCoreUserDefaults();
-    if ([v4 BOOLForKey:@"enable_config_overrides"])
+    v5 = NewsCoreUserDefaults();
+    if ([v5 BOOLForKey:@"enable_config_overrides"])
     {
-      v0 = NewsCoreUserDefaults();
-      v1 = [v0 stringForKey:@"override_foryouconfig_premium_id"];
-      v2 = qword_1EDB26F98;
-      qword_1EDB26F98 = v1;
+      v1 = NewsCoreUserDefaults();
+      v2 = [v1 stringForKey:@"override_foryouconfig_premium_id"];
+      v3 = qword_1EDB26F98;
+      qword_1EDB26F98 = v2;
     }
 
     else
     {
-      v0 = qword_1EDB26F98;
+      v1 = qword_1EDB26F98;
       qword_1EDB26F98 = 0;
     }
 
-    v3 = v4;
+    v4 = v5;
   }
 
   else
   {
-    v3 = qword_1EDB26F98;
+    v4 = qword_1EDB26F98;
     qword_1EDB26F98 = 0;
   }
 }
 
-void __48__FCNewsAppConfig_overrideWidgetSectionConfigID__block_invoke()
+void __48__FCNewsAppConfig_overrideWidgetSectionConfigID__block_invoke(uint64_t a1)
 {
   if (NFInternalBuild())
   {
-    v4 = NewsCoreUserDefaults();
-    if ([v4 BOOLForKey:@"enable_config_overrides"])
+    v5 = NewsCoreUserDefaults();
+    if ([v5 BOOLForKey:@"enable_config_overrides"])
     {
-      v0 = NewsCoreUserDefaults();
-      v1 = [v0 stringForKey:@"override_widgetsectionconfig_id"];
-      v2 = qword_1EDB26FA8;
-      qword_1EDB26FA8 = v1;
+      v1 = NewsCoreUserDefaults();
+      v2 = [v1 stringForKey:@"override_widgetsectionconfig_id"];
+      v3 = qword_1EDB26FA8;
+      qword_1EDB26FA8 = v2;
     }
 
     else
     {
-      v0 = qword_1EDB26FA8;
+      v1 = qword_1EDB26FA8;
       qword_1EDB26FA8 = 0;
     }
 
-    v3 = v4;
+    v4 = v5;
   }
 
   else
   {
-    v3 = qword_1EDB26FA8;
+    v4 = qword_1EDB26FA8;
     qword_1EDB26FA8 = 0;
   }
 }
 
 void __69__FCNewsAppConfig_defaultForYouRecordConfigIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"Y", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"Y", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"Y", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"Y", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"Y", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB26FB8;
   qword_1EDB26FB8 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __76__FCNewsAppConfig_defaultForYouPremiumRecordConfigIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"YP", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"YP", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"YP", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"YP", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"YP", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB26FC8;
   qword_1EDB26FC8 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FCNewsAppConfig_defaultWidgetRecordConfigIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"W", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"W", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"W", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"W", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"W", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB26FD8;
   qword_1EDB26FD8 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __72__FCNewsAppConfig_defaultMagazinesConfigRecordIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"configuration-magazines", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"configuration-magazines", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"configuration-magazines", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"configuration-magazines", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"configuration-magazines", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB26FE8;
   qword_1EDB26FE8 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __68__FCNewsAppConfig_defaultAudioConfigRecordIDByLocalizedStorefrontID__block_invoke()
 {
-  v9[5] = *MEMORY[0x1E69E9840];
-  v8[0] = @"143441";
+  v8[5] = *MEMORY[0x1E69E9840];
+  v7[0] = @"143441";
   v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"U", @"143441"];
-  v9[0] = v0;
-  v8[1] = @"143455";
+  v8[0] = v0;
+  v7[1] = @"143455";
   v1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"U", @"143455"];
-  v9[1] = v1;
-  v8[2] = @"143455-fr-ca";
+  v8[1] = v1;
+  v7[2] = @"143455-fr-ca";
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-fr", @"U", @"143455"];
-  v9[2] = v2;
-  v8[3] = @"143444";
+  v8[2] = v2;
+  v7[3] = @"143444";
   v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"U", @"143444"];
-  v9[3] = v3;
-  v8[4] = @"143460";
+  v8[3] = v3;
+  v7[4] = @"143460";
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-%@-en", @"U", @"143460"];
-  v9[4] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:5];
+  v8[4] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
   v6 = qword_1EDB26FF8;
   qword_1EDB26FF8 = v5;
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)numberOfFetchedHeadlinesToReport

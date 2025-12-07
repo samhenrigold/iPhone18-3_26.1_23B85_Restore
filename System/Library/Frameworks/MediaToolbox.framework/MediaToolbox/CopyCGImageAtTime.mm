@@ -3,16 +3,16 @@
 
 @implementation CopyCGImageAtTime
 
-CFTypeRef __surrogateAIG_CopyCGImageAtTime_block_invoke(uint64_t a1)
+CFTypeRef __surrogateAIG_CopyCGImageAtTime_block_invoke(void *a1)
 {
-  *(*(*(a1 + 32) + 8) + 24) = surrogateAIG_EnsureSubGeneratorCreated(*(a1 + 48));
-  result = *(*(a1 + 56) + 24);
+  *(*(a1[4] + 8) + 24) = surrogateAIG_EnsureSubGeneratorCreated(a1[6]);
+  result = *(a1[7] + 24);
   if (result)
   {
     result = CFRetain(result);
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 

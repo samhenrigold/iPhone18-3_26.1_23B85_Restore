@@ -204,26 +204,24 @@
 
 void __42__REBayesianMLModel__predictWithFeatures___block_invoke(uint64_t a1, void *a2, unint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (*(*(a1 + 32) + 552) > a3)
   {
     v8 = RELogForDomain(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v10 = *(*(a1 + 40) + 8 * a3);
-      v11 = [v7 name];
-      v12 = 134218498;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v11;
-      v16 = 2048;
-      v17 = a4;
-      _os_log_debug_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEBUG, "\t0x%016llX\t%@ → %016llX", &v12, 0x20u);
+      v9 = *(*(a1 + 40) + 8 * a3);
+      v10 = [v7 name];
+      v11 = 134218498;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v10;
+      v15 = 2048;
+      v16 = a4;
+      _os_log_debug_impl(&dword_22859F000, v8, OS_LOG_TYPE_DEBUG, "\t0x%016llX\t%@ → %016llX", &v11, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__REBayesianMLModel__predictWithFeatures___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
@@ -331,7 +329,7 @@ void __55__REBayesianMLModel__loadFeatureVector_fromFeatureMap___block_invoke_2(
 - (BOOL)_saveModelToURL:(id)l includeDebugData:(BOOL)data error:(id *)error
 {
   dataCopy = data;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   lCopy = l;
   MEMORY[0x22AABBC00](__sb);
   path = [lCopy path];
@@ -339,16 +337,16 @@ void __55__REBayesianMLModel__loadFeatureVector_fromFeatureMap___block_invoke_2(
   [path UTF8String];
   std::filebuf::open();
 
-  v10 = v18;
-  if (v18)
+  v10 = v17;
+  if (v17)
   {
-    v14.__loc_ = 0;
-    v13 = MEMORY[0x277D82850] + 24;
-    v14.__vftable = (MEMORY[0x277D82850] + 64);
-    std::ios_base::init(&v14, __sb);
-    v15 = 0;
-    v16 = -1;
-    BayesianModel::SaveModel(&self->_model, &v13, dataCopy);
+    v13.__loc_ = 0;
+    v12 = MEMORY[0x277D82850] + 24;
+    v13.__vftable = (MEMORY[0x277D82850] + 64);
+    std::ios_base::init(&v13, __sb);
+    v14 = 0;
+    v15 = -1;
+    BayesianModel::SaveModel(&self->_model, &v12, dataCopy);
     std::ostream::flush();
     std::ostream::~ostream();
   }
@@ -356,7 +354,6 @@ void __55__REBayesianMLModel__loadFeatureVector_fromFeatureMap___block_invoke_2(
   std::filebuf::close();
   MEMORY[0x22AABBC10](__sb);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 

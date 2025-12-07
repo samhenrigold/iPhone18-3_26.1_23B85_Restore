@@ -10,7 +10,7 @@
 
 - (void)determineExpectedOutputFiles:(id)files
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v5 = [(CADDiagnosticsCalDAVSpotlightLogCollector *)self findAllLogFiles:filesCopy];
   [filesCopy log:{@"Found %lu spotlight logs", objc_msgSend(v5, "count")}];
@@ -18,27 +18,27 @@
   [filesCopy log:{@"Including %lu spotlight logs", objc_msgSend(v6, "count")}];
   objc_storeStrong(&self->_orderedInputURLs, v6);
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        lastPathComponent = [*(*(&v17 + 1) + 8 * v12) lastPathComponent];
+        lastPathComponent = [*(*(&v16 + 1) + 8 * v12) lastPathComponent];
         v14 = [filesCopy temporaryFileForName:lastPathComponent];
         [filesCopy setStatus:0 forFile:v14];
         [(NSArray *)v7 addObject:v14];
@@ -47,7 +47,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -55,56 +55,54 @@
 
   orderedOutputURLs = self->_orderedOutputURLs;
   self->_orderedOutputURLs = v7;
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findAllLogFiles:(id)files
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v4 = DACustomLogDirectory();
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v25];
-  v7 = v25;
+  v24 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v24];
+  v7 = v24;
 
   if (!v6)
   {
     [filesCopy logError:{@"Unable to find spotlight logs: %@", v7}];
   }
 
-  v17 = v7;
-  v18 = v4;
-  v20 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4 isDirectory:1];
-  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v16 = v7;
+  v17 = v4;
+  v19 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4 isDirectory:1];
+  v18 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if ([v13 hasPrefix:@"SpotlightLog"] && (objc_msgSend(v13, "containsString:", @"-latest") & 1) == 0)
         {
-          v14 = [v20 URLByAppendingPathComponent:v13];
+          v14 = [v19 URLByAppendingPathComponent:v13];
           if (v14)
           {
             [filesCopy log:{@"Found log file %@", v13}];
-            [v19 addObject:v14];
+            [v18 addObject:v14];
           }
 
           else
@@ -119,15 +117,13 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (id)sortAndTrimLogFiles:(id)files context:(id)context
@@ -191,34 +187,34 @@ uint64_t __73__CADDiagnosticsCalDAVSpotlightLogCollector_sortAndTrimLogFiles_con
 
 - (id)parseFilenameDates:(id)dates context:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   contextCopy = context;
-  v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v6 setDateStyle:1];
-  v23 = v6;
+  v22 = v6;
   [v6 setDateFormat:@"yyyy_MM_dd_HH_mm_ssZZZ"];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = datesCopy;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         lastPathComponent = [v11 lastPathComponent];
         v13 = [lastPathComponent rangeOfString:@".log"];
         v14 = [lastPathComponent rangeOfString:@"_"];
@@ -230,11 +226,11 @@ uint64_t __73__CADDiagnosticsCalDAVSpotlightLogCollector_sortAndTrimLogFiles_con
         else
         {
           v17 = [lastPathComponent substringWithRange:{v14 + 1, v13 + ~v14}];
-          v18 = [v23 dateFromString:v17];
+          v18 = [v22 dateFromString:v17];
           v19 = v18;
           if (v18)
           {
-            [v22 setObject:v18 forKeyedSubscript:v11];
+            [v21 setObject:v18 forKeyedSubscript:v11];
           }
 
           else
@@ -244,48 +240,46 @@ uint64_t __73__CADDiagnosticsCalDAVSpotlightLogCollector_sortAndTrimLogFiles_con
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (void)collect:(id)collect
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   collectCopy = collect;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
   obj = self->_orderedInputURLs;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v21;
+    v8 = *v20;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v21 != v8)
+      if (*v20 != v8)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v20 + 1) + 8 * v9);
+      v10 = *(*(&v19 + 1) + 8 * v9);
       v11 = [(NSArray *)selfCopy->_orderedOutputURLs objectAtIndexedSubscript:v7];
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v19 = 0;
-      v13 = [defaultManager copyItemAtURL:v10 toURL:v11 error:&v19];
-      v14 = v19;
+      v18 = 0;
+      v13 = [defaultManager copyItemAtURL:v10 toURL:v11 error:&v18];
+      v14 = v18;
 
       if (v13)
       {
@@ -307,7 +301,7 @@ LABEL_3:
       ++v7;
       if (v6 == ++v9)
       {
-        v6 = [(NSArray *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v6 = [(NSArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -317,8 +311,6 @@ LABEL_3:
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

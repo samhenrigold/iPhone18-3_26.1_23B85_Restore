@@ -9,43 +9,43 @@
 
 + (id)excludedChatBundleIds
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = CFPreferencesCopyAppValue(@"SBSearchDisabledBundles", @"com.apple.spotlightui");
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v16 + 1) + 8 * i);
+          v8 = *(*(&v15 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v11 = pp_social_highlights_log_handle();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
             {
-              v14 = objc_opt_class();
+              v13 = objc_opt_class();
               *buf = 138543619;
-              v22 = v14;
-              v23 = 2113;
-              v24 = v8;
-              v15 = v14;
+              v21 = v13;
+              v22 = 2113;
+              v23 = v8;
+              v14 = v13;
               _os_log_error_impl(&dword_23224A000, v11, OS_LOG_TYPE_ERROR, "Item of unexpected type in SBSearchDisabledBundles array: %{public}@ (%{private}@)", buf, 0x16u);
             }
 
@@ -53,7 +53,7 @@
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v5)
         {
           continue;
@@ -74,10 +74,10 @@
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543619;
-      v22 = objc_opt_class();
-      v23 = 2113;
-      v24 = v2;
-      v10 = v22;
+      v21 = objc_opt_class();
+      v22 = 2113;
+      v23 = v2;
+      v10 = v21;
       _os_log_error_impl(&dword_23224A000, v3, OS_LOG_TYPE_ERROR, "Unexpected type for SBSearchDisabledBundles: %{public}@ (%{private}@)", buf, 0x16u);
     }
 
@@ -91,74 +91,72 @@ LABEL_18:
   v9 = MEMORY[0x277CBEBF8];
 LABEL_19:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)resolveBundleIdToApplicationIdentifierIfInstalled:(id)installed
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   installedCopy = installed;
   if ([installedCopy count])
   {
-    v30 = objc_opt_new();
+    v29 = objc_opt_new();
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v29 = installedCopy;
+    v28 = installedCopy;
     obj = installedCopy;
-    v5 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+    v5 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
     if (!v5)
     {
       goto LABEL_26;
     }
 
-    v32 = *v47;
+    v31 = *v46;
     while (1)
     {
       v6 = 0;
       do
       {
-        if (*v47 != v32)
+        if (*v46 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v46 + 1) + 8 * v6);
+        v7 = *(*(&v45 + 1) + 8 * v6);
         v8 = objc_autoreleasePoolPush();
-        v40 = 0;
-        v41 = &v40;
-        v42 = 0x3032000000;
-        v43 = __Block_byref_object_copy__1068;
-        v44 = __Block_byref_object_dispose__1069;
-        v45 = 0;
+        v39 = 0;
+        v40 = &v39;
+        v41 = 0x3032000000;
+        v42 = __Block_byref_object_copy__1068;
+        v43 = __Block_byref_object_dispose__1069;
+        v44 = 0;
         bundleIdToAppIdCacheLock = self->_bundleIdToAppIdCacheLock;
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke;
-        v39[3] = &unk_2789720D8;
-        v39[4] = v7;
-        v39[5] = &v40;
-        [(_PASLock *)bundleIdToAppIdCacheLock runWithLockAcquired:v39];
-        v10 = v41[5];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke;
+        v38[3] = &unk_2789720D8;
+        v38[4] = v7;
+        v38[5] = &v39;
+        [(_PASLock *)bundleIdToAppIdCacheLock runWithLockAcquired:v38];
+        v10 = v40[5];
         if (!v10)
         {
           v14 = v7;
           v15 = objc_alloc(MEMORY[0x277CC1E70]);
-          v38 = 0;
-          v16 = [v15 initWithBundleIdentifier:v14 allowPlaceholder:0 error:&v38];
-          v17 = v38;
+          v37 = 0;
+          v16 = [v15 initWithBundleIdentifier:v14 allowPlaceholder:0 error:&v37];
+          v17 = v37;
           if (v16)
           {
             v18 = pp_social_highlights_log_handle();
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v51 = v14;
-              v52 = 2112;
-              v53 = v16;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v16;
               _os_log_debug_impl(&dword_23224A000, v18, OS_LOG_TYPE_DEBUG, "Considering registered bundleID: %@, got record: %@", buf, 0x16u);
             }
 
@@ -173,16 +171,16 @@ LABEL_19:
                 applicationState = [v16 applicationIdentifier];
                 if (applicationState)
                 {
-                  [v30 addObject:applicationState];
+                  [v29 addObject:applicationState];
                   v22 = self->_bundleIdToAppIdCacheLock;
-                  v33[0] = MEMORY[0x277D85DD0];
-                  v33[1] = 3221225472;
-                  v33[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke_19;
-                  v33[3] = &unk_278971C38;
-                  v34 = v14;
+                  v32[0] = MEMORY[0x277D85DD0];
+                  v32[1] = 3221225472;
+                  v32[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke_19;
+                  v32[3] = &unk_278971C38;
+                  v33 = v14;
                   applicationState = applicationState;
-                  v35 = applicationState;
-                  [(_PASLock *)v22 runWithLockAcquired:v33];
+                  v34 = applicationState;
+                  [(_PASLock *)v22 runWithLockAcquired:v32];
                 }
 
                 goto LABEL_22;
@@ -200,20 +198,20 @@ LABEL_23:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v51 = v14;
-              v52 = 2112;
-              v53 = v17;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v17;
               _os_log_impl(&dword_23224A000, v23, OS_LOG_TYPE_INFO, "Failed to initialize LSApplicationRecord with bundle id %@: %@", buf, 0x16u);
             }
 
             v24 = self->_bundleIdToAppIdCacheLock;
-            v36[0] = MEMORY[0x277D85DD0];
-            v36[1] = 3221225472;
-            v36[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke_18;
-            v36[3] = &unk_278971C10;
-            v37 = v14;
-            [(_PASLock *)v24 runWithLockAcquired:v36];
-            applicationState = v37;
+            v35[0] = MEMORY[0x277D85DD0];
+            v35[1] = 3221225472;
+            v35[2] = __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke_18;
+            v35[3] = &unk_278971C10;
+            v36 = v14;
+            [(_PASLock *)v24 runWithLockAcquired:v35];
+            applicationState = v36;
           }
 
 LABEL_22:
@@ -229,32 +227,32 @@ LABEL_22:
           v13 = pp_social_highlights_log_handle();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
-            v25 = v41[5];
+            v25 = v40[5];
             *buf = 138412546;
-            v51 = v25;
-            v52 = 2112;
-            v53 = v7;
+            v50 = v25;
+            v51 = 2112;
+            v52 = v7;
             _os_log_debug_impl(&dword_23224A000, v13, OS_LOG_TYPE_DEBUG, "Fetching cached application identifier %@ for bundle ID: %@", buf, 0x16u);
           }
 
-          [v30 addObject:v41[5]];
+          [v29 addObject:v40[5]];
         }
 
 LABEL_24:
-        _Block_object_dispose(&v40, 8);
+        _Block_object_dispose(&v39, 8);
 
         objc_autoreleasePoolPop(v8);
         ++v6;
       }
 
       while (v5 != v6);
-      v5 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v5 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
       if (!v5)
       {
 LABEL_26:
 
-        v26 = [v30 copy];
-        installedCopy = v29;
+        v26 = [v29 copy];
+        installedCopy = v28;
         goto LABEL_28;
       }
     }
@@ -263,17 +261,12 @@ LABEL_26:
   v26 = 0;
 LABEL_28:
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v26;
 }
 
 uint64_t __87__PPSocialHighlightStorageUtilities_resolveBundleIdToApplicationIdentifierIfInstalled___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKeyedSubscript:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKeyedSubscript:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }

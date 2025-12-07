@@ -26,29 +26,29 @@
 
 - (void)dealloc
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(ECMessageBodyElement *)self setParser:0];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   nodes = self->_nodes;
-  v4 = [(NSArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [(NSArray *)nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(nodes);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           if (!v6)
@@ -60,7 +60,7 @@
         }
       }
 
-      v5 = [(NSArray *)nodes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)nodes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -71,10 +71,9 @@
     v6 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = ECMessageBodyElement;
-  [(ECMessageBodyElement *)&v11 dealloc];
-  v10 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ECMessageBodyElement;
+  [(ECMessageBodyElement *)&v10 dealloc];
 }
 
 - (void)setNodes:(id)nodes

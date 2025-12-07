@@ -450,7 +450,7 @@ LABEL_85:
   return v24;
 }
 
-uint64_t __70__VCPEffectsAnalyzer_analyzeAsset_onDemand_cancel_statsFlags_results___block_invoke_366(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__70__VCPEffectsAnalyzer_analyzeAsset_onDemand_cancel_statsFlags_results___block_invoke_366(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) addObject:a2];
   *a3 = 1;

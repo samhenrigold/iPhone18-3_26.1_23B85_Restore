@@ -30,9 +30,9 @@
   CGContextSetLineWidth(v4, 1.5);
   v7 = [(NUKeyframeSequence *)self count];
   memset(&v63[1], 0, sizeof(CMTime));
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:0];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   memset(v63, 0, 24);
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v7 - 1];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   memset(&v62, 0, sizeof(v62));
   lhs = v63[0];
   rhs = v63[1];
@@ -41,7 +41,7 @@
   Mutable = CGPathCreateMutable();
   v9 = CGPathCreateMutable();
   memset(&lhs, 0, sizeof(lhs));
-  [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:0];
+  objc_msgSend_timeOfKeyframeAtIndex_(self);
   if (v7 >= 1)
   {
     v10 = 0;
@@ -56,13 +56,13 @@
     {
       v49 = v17;
       memset(&rhs, 0, sizeof(rhs));
-      [(NUKeyframeSequence *)self timeOfKeyframeAtIndex:v10];
+      objc_msgSend_timeOfKeyframeAtIndex_(self);
       memset(&v59, 0, sizeof(v59));
       v58 = rhs;
       v57 = v63[1];
       CMTimeSubtract(&v59, &v58, &v57);
       v19 = v59.value / v59.timescale * 1024.0 / (v62.value / v62.timescale);
-      [(NUKeyframeSequenceDouble2 *)self valueOfKeyframeAtIndex:v10];
+      objc_msgSend_valueOfKeyframeAtIndex_(self);
       v21 = vmulq_f64(v46, vmulq_f64(vsubq_f64(v20, *self->_bias), v44));
       v45 = v21;
       if (v10)
@@ -82,7 +82,7 @@
           CMTimeMultiplyByRatio(&time, &v55, 32 - v23, 32);
           CMTimeAdd(&v58, &v57, &time);
           v57 = v58;
-          [(NUKeyframeSequenceDouble2 *)self sampleAtTime:&v57];
+          objc_msgSend_sampleAtTime_(self);
           v50 = v26;
           v27 = 0;
           v47 = *self->_bias;
@@ -172,38 +172,38 @@
 {
   if (*(time + 12))
   {
-    v23 = *time;
-    v24 = *(time + 2);
-    v6 = [self indexOfKeyframeAtOrBeforeTime:&v23];
+    v22 = *time;
+    v23 = *(time + 2);
+    [self indexOfKeyframeAtOrBeforeTime:&v22];
     interpolation = [self interpolation];
     switch(interpolation)
     {
       case 2:
-        [self valueOfKeyframeAtIndex:v6];
-        v19 = v10;
-        [self valueOfKeyframeAtIndex:v6 + 1];
-        v17 = v11;
-        [self tangentOfKeyframeAtIndex:v6];
-        v15 = v12;
-        [self tangentOfKeyframeAtIndex:v6 + 1];
-        v14 = v13;
-        v23 = *time;
-        v24 = *(time + 2);
-        [self interpolantAtTime:&v23];
-        *&result = *&vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v15, v20, 1), v19, v20.f64[0]), v17, v21.f64[0]), v14, v21, 1);
+        objc_msgSend_valueOfKeyframeAtIndex_(self);
+        v18 = v9;
+        objc_msgSend_valueOfKeyframeAtIndex_(self);
+        v16 = v10;
+        objc_msgSend_tangentOfKeyframeAtIndex_(self);
+        v14 = v11;
+        objc_msgSend_tangentOfKeyframeAtIndex_(self);
+        v13 = v12;
+        v22 = *time;
+        v23 = *(time + 2);
+        objc_msgSend_interpolantAtTime_(self);
+        *&result = *&vmlaq_laneq_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_laneq_f64(v14, v19, 1), v18, v19.f64[0]), v16, v20.f64[0]), v13, v20, 1);
         break;
       case 1:
-        [self valueOfKeyframeAtIndex:v6];
-        v18 = v8;
-        [self valueOfKeyframeAtIndex:v6 + 1];
-        v16 = v9;
-        v23 = *time;
-        v24 = *(time + 2);
-        [self interpolantAtTime:&v23];
-        *&result = *&vmlaq_n_f64(vmulq_laneq_f64(v16, v22, 1), v18, v22.f64[0]);
+        objc_msgSend_valueOfKeyframeAtIndex_(self);
+        v17 = v7;
+        objc_msgSend_valueOfKeyframeAtIndex_(self);
+        v15 = v8;
+        v22 = *time;
+        v23 = *(time + 2);
+        objc_msgSend_interpolantAtTime_(self);
+        *&result = *&vmlaq_n_f64(vmulq_laneq_f64(v15, v21, 1), v17, v21.f64[0]);
         break;
       case 0:
-        [self valueOfKeyframeAtIndex:v6];
+        objc_msgSend_valueOfKeyframeAtIndex_(self);
         break;
     }
   }
@@ -211,7 +211,7 @@
   else
   {
 
-    [self valueOfKeyframeAtIndex:0];
+    objc_msgSend_valueOfKeyframeAtIndex_(self, a2, 0);
   }
 
   return result;
@@ -220,33 +220,32 @@
 - (double)tangentOfKeyframeAtIndex:(uint64_t)index
 {
   result = 0.0;
-  v4 = index - 1;
   if (index >= 1)
   {
-    v7 = [self count];
+    v6 = [self count];
     result = 0.0;
-    if (v7 - 1 > index)
+    if (v6 - 1 > index)
     {
-      [self valueOfKeyframeAtIndex:{v4, 0.0}];
-      v11 = v8;
-      [self valueOfKeyframeAtIndex:index + 1];
-      v10 = v9;
-      memset(&v15[1], 0, sizeof(CMTime));
-      [self timeOfKeyframeAtIndex:v4];
-      memset(v15, 0, 24);
-      [self timeOfKeyframeAtIndex:index + 1];
-      memset(&v14, 0, sizeof(v14));
-      lhs = v15[0];
-      rhs = v15[1];
-      CMTimeSubtract(&v14, &lhs, &rhs);
-      if (v14.value < 1)
+      objc_msgSend_valueOfKeyframeAtIndex_(self, 0.0);
+      v10 = v7;
+      objc_msgSend_valueOfKeyframeAtIndex_(self);
+      v9 = v8;
+      memset(&v14[1], 0, sizeof(CMTime));
+      objc_msgSend_timeOfKeyframeAtIndex_(self);
+      memset(v14, 0, 24);
+      objc_msgSend_timeOfKeyframeAtIndex_(self);
+      memset(&v13, 0, sizeof(v13));
+      lhs = v14[0];
+      rhs = v14[1];
+      CMTimeSubtract(&v13, &lhs, &rhs);
+      if (v13.value < 1)
       {
         return 0.0;
       }
 
       else
       {
-        *&result = *&vdivq_f64(vsubq_f64(v10, v11), vdupq_lane_s64(COERCE__INT64(fmax(v14.value / v14.timescale, 0.015625)), 0));
+        *&result = *&vdivq_f64(vsubq_f64(v9, v10), vdupq_lane_s64(COERCE__INT64(fmax(v13.value / v13.timescale, 0.015625)), 0));
       }
     }
   }

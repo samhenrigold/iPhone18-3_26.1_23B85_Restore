@@ -12,30 +12,30 @@
 
 - (unint64_t)_numberOfOptionsForCustomEditMode:(int64_t)mode slot:(id)slot
 {
-  slot = [(NTKUnity2025Face *)self _optionClassForCustomEditMode:mode, slot];
-  device = [(NTKFace *)self device];
-  v7 = [(objc_class *)slot numberOfOptionsForDevice:device];
+  v5 = objc_msgSend__optionClassForCustomEditMode_(self, a2, mode, slot);
+  v8 = objc_msgSend_device(self, v6, v7);
+  v10 = objc_msgSend_numberOfOptionsForDevice_(v5, v9, v8);
 
-  return v7;
+  return v10;
 }
 
 - (id)_optionAtIndex:(unint64_t)index forCustomEditMode:(int64_t)mode slot:(id)slot
 {
-  v7 = [(NTKUnity2025Face *)self _optionClassForCustomEditMode:mode];
-  device = [(NTKFace *)self device];
-  v9 = [(objc_class *)v7 optionAtIndex:index forDevice:device];
+  v7 = objc_msgSend__optionClassForCustomEditMode_(self, a2, mode);
+  v10 = objc_msgSend_device(self, v8, v9);
+  v12 = objc_msgSend_optionAtIndex_forDevice_(v7, v11, index, v10);
 
-  return v9;
+  return v12;
 }
 
 - (unint64_t)_indexOfOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot
 {
   optionCopy = option;
-  v8 = [(NTKUnity2025Face *)self _optionClassForCustomEditMode:mode];
-  device = [(NTKFace *)self device];
-  v10 = [(objc_class *)v8 indexOfOption:optionCopy forDevice:device];
+  v9 = objc_msgSend__optionClassForCustomEditMode_(self, v8, mode);
+  v12 = objc_msgSend_device(self, v10, v11);
+  v14 = objc_msgSend_indexOfOption_forDevice_(v9, v13, optionCopy, v12);
 
-  return v10;
+  return v14;
 }
 
 + (id)_complicationSlotDescriptors
@@ -50,33 +50,29 @@
   v5 = NTKComplicationTypeRankedListWithDefaultTypes();
   v6 = NTKMultiFamilyComplicationSlotDescriptor();
   v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v11, v10, 2);
 
-  v8 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 + (id)_richComplicationSlotsForDevice:(id)device
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D2BEE8];
-  v7[0] = *MEMORY[0x277D2BF08];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = *MEMORY[0x277D2BF08];
+  v6[1] = v3;
+  v4 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v6, 2);
 
   return v4;
 }
 
 + (id)_orderedComplicationSlots
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D2BEE8];
-  v6[0] = *MEMORY[0x277D2BF08];
-  v6[1] = v2;
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277D2BF08];
+  v5[1] = v2;
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v5, 2);
 
   return v3;
 }
@@ -84,25 +80,26 @@
 - (id)_localizedNameForComplicationSlot:(id)slot
 {
   slotCopy = slot;
-  if ([slotCopy isEqualToString:*MEMORY[0x277D2BF08]])
+  if (objc_msgSend_isEqualToString_(slotCopy, v4, *MEMORY[0x277D2BF08]))
   {
-    v4 = @"TOP_LEFT";
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"SLOT_LABEL_%@", @"TOP_LEFT");
   }
 
   else
   {
-    v5 = [slotCopy isEqualToString:*MEMORY[0x277D2BEE8]];
-    v4 = @"BOTTOM_RIGHT";
-    if (!v5)
+    isEqualToString = objc_msgSend_isEqualToString_(slotCopy, v5, *MEMORY[0x277D2BEE8]);
+    v8 = @"BOTTOM_RIGHT";
+    if (!isEqualToString)
     {
-      v4 = 0;
+      v8 = 0;
     }
+
+    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"SLOT_LABEL_%@", v8);
   }
+  v9 = ;
+  v10 = NTKClockFaceLocalizedString();
 
-  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"SLOT_LABEL_%@", v4];
-  v7 = NTKClockFaceLocalizedString();
-
-  return v7;
+  return v10;
 }
 
 @end

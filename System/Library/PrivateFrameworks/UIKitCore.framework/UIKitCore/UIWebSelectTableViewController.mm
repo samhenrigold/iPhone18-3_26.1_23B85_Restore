@@ -328,7 +328,7 @@ LABEL_14:
   }
 
   v15 = [MEMORY[0x1E696AC88] indexPathForRow:singleSelectionIndex inSection:self->_singleSelectionSection];
-  if (![path isEqual:v15])
+  if (!objc_msgSend_isEqual_(path))
   {
     goto LABEL_14;
   }

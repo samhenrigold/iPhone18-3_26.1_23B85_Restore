@@ -20,13 +20,13 @@
 {
   sub_100007C5C(self + OBJC_IVAR____TtC10FitnessApp31TrophyCaseSectionViewController_achievementDataProvider, v5);
   sub_1000066AC(v5, v5[3]);
-  sub_100045DD0(&unk_1008E99D0, type metadata accessor for TrophyCaseSectionViewController);
+  sub_100045DD0(&unk_1008E99D0, type metadata accessor for TrophyCaseSectionViewController, &unk_1006EA490);
   selfCopy = self;
   dispatch thunk of AAUIAwardsDataProviding.remove(observer:)();
 
   sub_100005A40(v5);
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for TrophyCaseSectionViewController();
+  v4.super_class = type metadata accessor for TrophyCaseSectionViewController(0);
   [(TrophyCaseSectionViewController *)&v4 dealloc];
 }
 
@@ -34,7 +34,7 @@
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for TrophyCaseSectionViewController();
+  v5.super_class = type metadata accessor for TrophyCaseSectionViewController(0);
   v4 = v5.receiver;
   [(TrophyCaseSectionViewController *)&v5 viewWillAppear:appearCopy];
   [*&v4[OBJC_IVAR____TtC10FitnessApp31TrophyCaseSectionViewController_localizationProvider] setPaused:{objc_msgSend(*&v4[OBJC_IVAR____TtC10FitnessApp31TrophyCaseSectionViewController_pauseRingsCoordinator], "isPaused", v5.receiver, v5.super_class)}];

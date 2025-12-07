@@ -22,9 +22,11 @@
 
 uint64_t __42__WFNetworkBehaviorMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_s_sharedInstance = objc_alloc_init(WFNetworkBehaviorMonitor);
+  v0 = objc_alloc_init(WFNetworkBehaviorMonitor);
+  v1 = sharedInstance_s_sharedInstance;
+  sharedInstance_s_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WFNetworkBehaviorMonitor)init

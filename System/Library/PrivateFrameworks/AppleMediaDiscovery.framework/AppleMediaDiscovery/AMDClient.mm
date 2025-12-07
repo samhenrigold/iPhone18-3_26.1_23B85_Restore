@@ -80,7 +80,6 @@
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = v19;
 
   return v4;
@@ -300,7 +299,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v38;
 
   return v3;
@@ -368,7 +366,6 @@
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v18;
 
   return v3;
@@ -452,7 +449,6 @@
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)getAppSegmentDataWithRequest:(id)request completion:(id)completion
@@ -626,7 +622,6 @@
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)iaeSegmentNotificationHandler:(id)handler
@@ -808,7 +803,6 @@
   objc_storeStrong(&userInfo, 0);
   objc_storeStrong(&name, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)subscribeToSegmentNotificationWithCallback:(id)callback forAccountDSID:(id)d
@@ -1160,7 +1154,6 @@ void __71__AMDClient_subscribeToSegmentNotificationWithCallback_forAccountDSID__
   objc_storeStrong(&v50, 0);
   objc_storeStrong(&v51, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v19 = v53;
 
   return v19;
@@ -1520,7 +1513,6 @@ LABEL_38:
   objc_storeStrong(&v37, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v13 = v40;
 
   return v13;
@@ -1715,7 +1707,6 @@ LABEL_33:
   objc_storeStrong(&v47, 0);
   objc_storeStrong(&v48, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v15 = v50;
 
   return v15;

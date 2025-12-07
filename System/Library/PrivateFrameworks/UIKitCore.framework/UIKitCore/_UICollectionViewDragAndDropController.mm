@@ -74,7 +74,7 @@
 - (void)reset;
 - (void)setCurrentDropInsertionShadowUpdateIdentifier:(uint64_t)identifier;
 - (void)setCurrentlyInsertingPlaceholderContext:(uint64_t)context;
-- (void)setDragInteractionEnabled:(uint64_t)enabled;
+- (void)setDragInteractionEnabled:(uint64_t)result;
 - (void)setDropCoordinatorItemsMap:(uint64_t)map;
 - (void)setPlaceholderContextsByIndexPath:(uint64_t)path;
 - (void)updateAppearanceForCell:(void *)cell atIndexPath:;
@@ -699,7 +699,7 @@ LABEL_18:
         }
 
 LABEL_17:
-        if (destinationIndexPath && targetIndexPath != destinationIndexPath && ([targetIndexPath isEqual:destinationIndexPath] & 1) == 0)
+        if (destinationIndexPath && targetIndexPath != destinationIndexPath && (objc_msgSend_isEqual_(targetIndexPath) & 1) == 0)
         {
           [v37 setObject:destinationIndexPath forKeyedSubscript:targetIndexPath];
           [v14 setTargetIndexPath:destinationIndexPath];
@@ -997,14 +997,14 @@ LABEL_10:
   return self;
 }
 
-- (void)setDragInteractionEnabled:(uint64_t)enabled
+- (void)setDragInteractionEnabled:(uint64_t)result
 {
-  if (enabled)
+  if (result)
   {
-    if (*(enabled + 40) != a2)
+    if (*(result + 40) != a2)
     {
-      *(enabled + 40) = a2;
-      [(_UICollectionViewDragSourceController *)*(enabled + 56) setDragInteractionEnabled:a2];
+      *(result + 40) = a2;
+      [(_UICollectionViewDragSourceController *)*(result + 56) setDragInteractionEnabled:a2];
     }
   }
 }
@@ -1032,9 +1032,9 @@ LABEL_10:
       {
         if (v8)
         {
-          v10 = [v7 isEqual:v8];
+          isEqual = objc_msgSend_isEqual_(v7);
 
-          if (v10)
+          if (isEqual)
           {
             v5 = 1;
 LABEL_18:
@@ -1058,7 +1058,7 @@ LABEL_18:
 
         else if (v13)
         {
-          v5 = [v11 isEqual:v13];
+          v5 = objc_msgSend_isEqual_(v11);
         }
 
         else
@@ -1122,7 +1122,7 @@ LABEL_19:
     {
       _indexPath = [(UICollectionViewUpdateItem *)v4 _indexPath];
       v7 = 1;
-      if (([_indexPath isEqual:indexPathForOriginalReorderedItem] & 1) == 0)
+      if ((objc_msgSend_isEqual_(_indexPath) & 1) == 0)
       {
         if (!v4 || v4[6] != 0x7FFFFFFFFFFFFFFFLL || (v8 = [_indexPath section], v8 != objc_msgSend(indexPathForOriginalReorderedItem, "section")))
         {
@@ -1334,7 +1334,7 @@ LABEL_5:
     }
   }
 
-  [(_UICollectionViewSubviewCollection *)self->_viewsWithAppearanceUpdates enumerateCellsWithEnumerator:?];
+  [(_UICollectionViewSubviewCollection *)&self->_viewsWithAppearanceUpdates->super.isa enumerateCellsWithEnumerator:?];
   viewsWithAppearanceUpdates = self->_viewsWithAppearanceUpdates;
   if (viewsWithAppearanceUpdates)
   {
@@ -1995,20 +1995,20 @@ LABEL_41:
         {
           indexPathBeforeUpdate = [v11 indexPathBeforeUpdate];
           originalIndexPath = [itemCopy originalIndexPath];
-          if ([indexPathBeforeUpdate isEqual:originalIndexPath])
+          if (objc_msgSend_isEqual_(indexPathBeforeUpdate))
           {
             indexPathAfterUpdate = [v11 indexPathAfterUpdate];
             [itemCopy targetIndexPath];
             v15 = v9;
             v16 = itemCopy;
             v18 = v17 = _shadowUpdates;
-            v24 = [indexPathAfterUpdate isEqual:v18];
+            isEqual = objc_msgSend_isEqual_(indexPathAfterUpdate);
 
             _shadowUpdates = v17;
             itemCopy = v16;
             v9 = v15;
 
-            if (v24)
+            if (isEqual)
             {
               _shadowUpdates2 = [(_UICollectionViewShadowUpdatesController *)selfCopy _shadowUpdates];
               [_shadowUpdates2 removeObjectAtIndex:v8];
@@ -2064,9 +2064,9 @@ LABEL_3:
       currentlyInsertingPlaceholderContext = self->_currentlyInsertingPlaceholderContext;
       v12 = currentlyInsertingPlaceholderContext ? currentlyInsertingPlaceholderContext->_originalInsertionIndexPath : 0;
       v13 = currentlyInsertingPlaceholderContext;
-      v14 = [(NSIndexPath *)v12 isEqual:pathCopy];
+      isEqual = objc_msgSend_isEqual_(v12);
 
-      if (v14)
+      if (isEqual)
       {
         v7 = self->_currentlyInsertingPlaceholderContext;
         if (v7)
@@ -2094,7 +2094,7 @@ LABEL_12:
   pathCopy = path;
   if (neededCopy && pathCopy)
   {
-    if (self && (currentlyInsertingPlaceholderContext = self->_currentlyInsertingPlaceholderContext) != 0 && (v8 = currentlyInsertingPlaceholderContext, v9 = [v8[3] isEqual:pathCopy], v8, v9) && (v10 = self->_currentlyInsertingPlaceholderContext) != 0)
+    if (self && (currentlyInsertingPlaceholderContext = self->_currentlyInsertingPlaceholderContext) != 0 && (v8 = currentlyInsertingPlaceholderContext, isEqual = objc_msgSend_isEqual_(v8[3]), v8, isEqual) && (v10 = self->_currentlyInsertingPlaceholderContext) != 0)
     {
       p_isa = &v10->super.isa;
     }
@@ -3339,7 +3339,7 @@ LABEL_15:
 
 - (void)placeholderContextNeedsCellUpdate:(id)update
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   if (self)
   {
@@ -3369,7 +3369,7 @@ LABEL_15:
 
     if (!v10)
     {
-      goto LABEL_25;
+      goto LABEL_21;
     }
 
     collectionView = [(_UICollectionViewShadowUpdatesController *)self collectionView];
@@ -3389,105 +3389,85 @@ LABEL_15:
       v17 = reuseIdentifier;
       if (v15)
       {
-        if (updateCopy)
-        {
-          v18 = updateCopy[2];
-        }
+        isEqualToString = objc_msgSend_isEqualToString_(reuseIdentifier);
 
-        else
-        {
-          v18 = 0;
-        }
-
-        v19 = [reuseIdentifier isEqualToString:v18];
-
-        if ((v19 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
           reuseIdentifier2 = [v14 reuseIdentifier];
-          v22 = reuseIdentifier2;
+          v21 = reuseIdentifier2;
           if (updateCopy)
           {
-            v23 = updateCopy[2];
+            v22 = updateCopy[2];
           }
 
           else
           {
-            v23 = 0;
+            v22 = 0;
           }
 
-          [currentHandler handleFailureInMethod:a2 object:self file:@"_UICollectionViewDragAndDropController.m" lineNumber:1402 description:{@"Error: cell reuseIdentifier (%@) does not match expected placeholder context reuseIdentifier (%@). Please file a bug against UICollectionView.", reuseIdentifier2, v23}];
+          [currentHandler handleFailureInMethod:a2 object:self file:@"_UICollectionViewDragAndDropController.m" lineNumber:1402 description:{@"Error: cell reuseIdentifier (%@) does not match expected placeholder context reuseIdentifier (%@). Please file a bug against UICollectionView.", reuseIdentifier2, v22}];
 
           if (!updateCopy)
           {
-            goto LABEL_24;
+            goto LABEL_20;
           }
 
-          goto LABEL_22;
+          goto LABEL_18;
         }
       }
 
       else
       {
-        if (updateCopy)
-        {
-          v24 = updateCopy[2];
-        }
+        v23 = objc_msgSend_isEqualToString_(reuseIdentifier);
 
-        else
+        if ((v23 & 1) == 0)
         {
-          v24 = 0;
-        }
-
-        v25 = [reuseIdentifier isEqualToString:v24];
-
-        if ((v25 & 1) == 0)
-        {
-          v27 = *(__UILogGetCategoryCachedImpl("Assert", &placeholderContextNeedsCellUpdate____s_category) + 8);
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          v25 = *(__UILogGetCategoryCachedImpl("Assert", &placeholderContextNeedsCellUpdate____s_category) + 8);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             reuseIdentifier3 = [v14 reuseIdentifier];
-            v29 = reuseIdentifier3;
+            v27 = reuseIdentifier3;
             if (updateCopy)
             {
-              v30 = updateCopy[2];
+              v28 = updateCopy[2];
             }
 
             else
             {
-              v30 = 0;
+              v28 = 0;
             }
 
             *buf = 138412546;
-            v32 = reuseIdentifier3;
-            v33 = 2112;
-            v34 = v30;
-            _os_log_impl(&dword_188A29000, v27, OS_LOG_TYPE_ERROR, "Error: cell reuseIdentifier (%@) does not match expected placeholder context reuseIdentifier (%@). Please file a bug against UICollectionView.", buf, 0x16u);
+            v30 = reuseIdentifier3;
+            v31 = 2112;
+            v32 = v28;
+            _os_log_impl(&dword_188A29000, v25, OS_LOG_TYPE_ERROR, "Error: cell reuseIdentifier (%@) does not match expected placeholder context reuseIdentifier (%@). Please file a bug against UICollectionView.", buf, 0x16u);
           }
 
           if (!updateCopy)
           {
-            goto LABEL_24;
+            goto LABEL_20;
           }
 
-          goto LABEL_22;
+          goto LABEL_18;
         }
       }
 
       if (updateCopy)
       {
-LABEL_22:
-        v26 = updateCopy[4];
-        if (v26)
+LABEL_18:
+        v24 = updateCopy[4];
+        if (v24)
         {
-          (*(v26 + 16))(v26, v14);
+          (*(v24 + 16))(v24, v14);
         }
       }
     }
 
-LABEL_24:
+LABEL_20:
 
-LABEL_25:
+LABEL_21:
   }
 }
 

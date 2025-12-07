@@ -25,6 +25,7 @@
 - (void)invalidatedPortalSourceCollections:(id)collections matchMoveSources:(id)sources;
 - (void)pointerVisibilityStateDidChange:(id)change;
 - (void)setActiveHoverRegion:(id)region transitionCompletion:(id)completion;
+- (void)setSystemCursorInteractionContextID:(unsigned int)d;
 - (void)sharedInit;
 @end
 
@@ -88,29 +89,27 @@
 
 void __39__PSPointerClientController_sharedInit__block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 64));
   v2 = *(*(a1 + 32) + 16);
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __39__PSPointerClientController_sharedInit__block_invoke_4;
-  v11 = &unk_27839D900;
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __39__PSPointerClientController_sharedInit__block_invoke_4;
+  v10 = &unk_27839D900;
   v3 = *(a1 + 40);
   v4 = *(a1 + 32);
-  v12 = v3;
-  v13 = v4;
-  [v2 configureConnection:&v8];
-  v5 = PSLogCommon();
+  v11 = v3;
+  v12 = v4;
+  v5 = PSLogCommon([v2 configureConnection:&v7]);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(*(a1 + 32) + 16);
     *buf = 138543362;
-    v15 = v6;
+    v14 = v6;
     _os_log_impl(&dword_21ED3B000, v5, OS_LOG_TYPE_INFO, "Activating Connection: %{public}@", buf, 0xCu);
   }
 
   [*(*(a1 + 32) + 16) activate];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PSPointerClientController_sharedInit__block_invoke_4(uint64_t a1, void *a2)
@@ -180,14 +179,14 @@ void __39__PSPointerClientController_sharedInit__block_invoke(uint64_t a1)
 
 void __39__PSPointerClientController_sharedInit__block_invoke_5(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PSLogCommon();
+  v4 = PSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Connection Activated: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Connection Activated: %{public}@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -197,20 +196,18 @@ void __39__PSPointerClientController_sharedInit__block_invoke_5(uint64_t a1, voi
     *(WeakRetained + 69) = 1;
     [WeakRetained _connectionQueue_handleNonLaunchingConnectionActivation];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PSPointerClientController_sharedInit__block_invoke_11(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PSLogCommon();
+  v4 = PSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received interruption for connection: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received interruption for connection: %{public}@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -220,15 +217,13 @@ void __39__PSPointerClientController_sharedInit__block_invoke_11(uint64_t a1, vo
     *(WeakRetained + 69) = 0;
     [WeakRetained _connectionQueue_handleNonLaunchingConnectionInterruption];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __39__PSPointerClientController_sharedInit__block_invoke_12(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PSLogCommon();
+  v4 = PSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 138543362;
@@ -247,16 +242,16 @@ void __39__PSPointerClientController_sharedInit__block_invoke_12(uint64_t a1, vo
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v18 = 0x3032000000;
-      v19 = __Block_byref_object_copy_;
-      v20 = __Block_byref_object_dispose_;
-      v21 = 0;
-      v15[0] = 0;
-      v15[1] = v15;
-      v15[2] = 0x3032000000;
-      v15[3] = __Block_byref_object_copy_;
-      v15[4] = __Block_byref_object_dispose_;
-      v16 = 0;
+      v17 = 0x3032000000;
+      v18 = __Block_byref_object_copy_;
+      v19 = __Block_byref_object_dispose_;
+      v20 = 0;
+      v14[0] = 0;
+      v14[1] = v14;
+      v14[2] = 0x3032000000;
+      v14[3] = __Block_byref_object_copy_;
+      v14[4] = __Block_byref_object_dispose_;
+      v15 = 0;
       v8 = v6[1];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
@@ -264,23 +259,21 @@ void __39__PSPointerClientController_sharedInit__block_invoke_12(uint64_t a1, vo
       block[3] = &unk_27839D888;
       block[4] = *(a1 + 32);
       block[5] = &buf;
-      block[6] = v15;
+      block[6] = v14;
       dispatch_sync(v8, block);
-      v10[0] = MEMORY[0x277D85DD0];
-      v10[1] = 3221225472;
-      v10[2] = __39__PSPointerClientController_sharedInit__block_invoke_2_14;
-      v10[3] = &unk_27839D8B0;
-      v11 = v6;
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __39__PSPointerClientController_sharedInit__block_invoke_2_14;
+      v9[3] = &unk_27839D8B0;
+      v10 = v6;
       p_buf = &buf;
-      v13 = v15;
-      dispatch_async(MEMORY[0x277D85CD0], v10);
+      v12 = v14;
+      dispatch_async(MEMORY[0x277D85CD0], v9);
 
-      _Block_object_dispose(v15, 8);
+      _Block_object_dispose(v14, 8);
       _Block_object_dispose(&buf, 8);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__PSPointerClientController_sharedInit__block_invoke_13(void *a1)
@@ -394,7 +387,7 @@ void __80__PSPointerClientController_invalidatePointerPortalSourceCollection_com
 
   else
   {
-    v5 = PSLogCommon();
+    v5 = PSLogCommon(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_cold_1(a1);
@@ -415,12 +408,13 @@ void __80__PSPointerClientController_invalidatePointerPortalSourceCollection_com
 void __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2(id *a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2_cold_1(a1, v3);
+      __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2_cold_1(a1, v4);
     }
 
 LABEL_4:
@@ -431,17 +425,17 @@ LABEL_4:
   if (a1[4])
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v4 = WeakRetained;
+    v5 = WeakRetained;
     if (WeakRetained)
     {
-      v6 = *(WeakRetained + 1);
+      v7 = *(WeakRetained + 1);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_17;
       block[3] = &unk_27839D7E0;
       block[4] = WeakRetained;
-      v11 = a1[4];
-      dispatch_sync(v6, block);
+      v12 = a1[4];
+      dispatch_sync(v7, block);
     }
 
     goto LABEL_4;
@@ -450,13 +444,13 @@ LABEL_4:
 LABEL_5:
   if (a1[5])
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2_18;
-    v7[3] = &unk_27839D950;
-    v9 = a1[5];
-    v8 = v3;
-    dispatch_async(MEMORY[0x277D85CD0], v7);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2_18;
+    v8[3] = &unk_27839D950;
+    v10 = a1[5];
+    v9 = v4;
+    dispatch_async(MEMORY[0x277D85CD0], v8);
   }
 }
 
@@ -508,7 +502,7 @@ void __74__PSPointerClientController_invalidateContentMatchMoveSources_completio
 
   else
   {
-    v5 = PSLogCommon();
+    v5 = PSLogCommon(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_cold_1(a1);
@@ -529,78 +523,77 @@ void __74__PSPointerClientController_invalidateContentMatchMoveSources_completio
 void __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2(id *a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = PSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2_cold_1(v3);
+      __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2_cold_1(v4);
     }
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v4 = WeakRetained;
+    v5 = WeakRetained;
     if (WeakRetained)
     {
-      v6 = *(WeakRetained + 1);
+      v7 = *(WeakRetained + 1);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_21;
       block[3] = &unk_27839D7E0;
-      v11 = a1[4];
-      v12 = v4;
-      dispatch_sync(v6, block);
+      v12 = a1[4];
+      v13 = v5;
+      dispatch_sync(v7, block);
     }
   }
 
   if (a1[5])
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2_22;
-    v7[3] = &unk_27839D950;
-    v9 = a1[5];
-    v8 = v3;
-    dispatch_async(MEMORY[0x277D85CD0], v7);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2_22;
+    v8[3] = &unk_27839D950;
+    v10 = a1[5];
+    v9 = v4;
+    dispatch_async(MEMORY[0x277D85CD0], v8);
   }
 }
 
 void __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_21(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 40) + 88) removeObject:{*(*(&v8 + 1) + 8 * v6++), v8}];
+        [*(*(a1 + 40) + 88) removeObject:{*(*(&v7 + 1) + 8 * v6++), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setActiveHoverRegion:(id)region transitionCompletion:(id)completion
@@ -637,37 +630,37 @@ void __71__PSPointerClientController_setActiveHoverRegion_transitionCompletion__
   block[4] = v2;
   block[5] = &v18;
   dispatch_sync(v3, block);
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 69);
-  if (v5 == 1 && (v19[3] || !*(a1 + 40)))
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 69);
+  if (v6 == 1 && (v19[3] || !*(a1 + 40)))
   {
-    v6 = [*(v4 + 16) remoteTarget];
+    v7 = [*(v5 + 16) remoteTarget];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __71__PSPointerClientController_setActiveHoverRegion_transitionCompletion___block_invoke_3;
     v15[3] = &unk_27839DA40;
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
     v16 = *(a1 + 48);
-    [v6 setActiveHoverRegion:v7 transitionCompletion:v15];
+    [v7 setActiveHoverRegion:v8 transitionCompletion:v15];
 
-    v8 = &v16;
+    v9 = &v16;
 LABEL_9:
 
     goto LABEL_10;
   }
 
-  v9 = PSLogCommon();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = PSLogCommon(v4);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v10 = NSStringFromSelector(*(a1 + 56));
-    v11 = PSPointerClientInteractionStateToString(v19[3]);
+    v11 = NSStringFromSelector(*(a1 + 56));
+    v12 = PSPointerClientInteractionStateToString(v19[3]);
     *buf = 138543874;
-    v23 = v10;
+    v23 = v11;
     v24 = 1024;
-    v25 = v5;
+    v25 = v6;
     v26 = 2114;
-    v27 = v11;
-    _os_log_impl(&dword_21ED3B000, v9, OS_LOG_TYPE_INFO, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", buf, 0x1Cu);
+    v27 = v12;
+    _os_log_impl(&dword_21ED3B000, v10, OS_LOG_TYPE_INFO, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", buf, 0x1Cu);
   }
 
   if (*(a1 + 48))
@@ -676,7 +669,7 @@ LABEL_9:
     v13[1] = 3221225472;
     v13[2] = __71__PSPointerClientController_setActiveHoverRegion_transitionCompletion___block_invoke_24;
     v13[3] = &unk_27839D9A0;
-    v8 = &v14;
+    v9 = &v14;
     v14 = *(a1 + 48);
     dispatch_async(MEMORY[0x277D85CD0], v13);
     goto LABEL_9;
@@ -684,7 +677,6 @@ LABEL_9:
 
 LABEL_10:
   _Block_object_dispose(&v18, 8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __71__PSPointerClientController_setActiveHoverRegion_transitionCompletion___block_invoke_3(uint64_t a1, void *a2)
@@ -733,10 +725,7 @@ void __71__PSPointerClientController_setActiveHoverRegion_transitionCompletion__
 
 uint64_t __61__PSPointerClientController_acquireServiceKeepAliveAssertion__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _accessQueue_acquireServiceKeepAliveAssertion];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _accessQueue_acquireServiceKeepAliveAssertion];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -766,7 +755,7 @@ void __54__PSPointerClientController_autohidePointerForReason___block_invoke(uin
 
   else
   {
-    v4 = PSLogCommon();
+    v4 = PSLogCommon(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __54__PSPointerClientController_autohidePointerForReason___block_invoke_cold_1(a1);
@@ -1014,6 +1003,22 @@ void __71__PSPointerClientController_persistentlyShowPointerAssertionForReason__
   }
 }
 
+- (void)setSystemCursorInteractionContextID:(unsigned int)d
+{
+  v3 = *&d;
+  systemPointerInteractionContextIDAssertion = self->_systemPointerInteractionContextIDAssertion;
+  if (systemPointerInteractionContextIDAssertion)
+  {
+    [(BSInvalidatable *)systemPointerInteractionContextIDAssertion invalidate];
+    v6 = self->_systemPointerInteractionContextIDAssertion;
+    self->_systemPointerInteractionContextIDAssertion = 0;
+  }
+
+  self->_systemPointerInteractionContextIDAssertion = [(PSPointerClientController *)self setSystemPointerInteractionContextID:v3 displayUUID:0];
+
+  MEMORY[0x2821F96F8]();
+}
+
 - (id)setSystemPointerInteractionContextID:(unsigned int)d displayUUID:(id)iD
 {
   iDCopy = iD;
@@ -1046,10 +1051,11 @@ void __78__PSPointerClientController_setSystemPointerInteractionContextID_displa
   v28 = *MEMORY[0x277D85DE8];
   v2 = [PSDisplay displayWithHardwareIdentifier:*(a1 + 32)];
   v3 = [*(*(a1 + 40) + 120) objectForKeyedSubscript:v2];
+  v4 = v3;
   if (v3)
   {
-    v4 = PSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v16 = *(a1 + 56);
       *buf = 67109634;
@@ -1057,43 +1063,41 @@ void __78__PSPointerClientController_setSystemPointerInteractionContextID_displa
       v24 = 2114;
       v25 = v2;
       v26 = 1024;
-      v27 = [v3 unsignedIntValue];
-      _os_log_error_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_ERROR, "Trying to set the systemPointerInteractionContextID to 0x%x for %{public}@ but we aleady have one: 0x%x ", buf, 0x18u);
+      v27 = [v4 unsignedIntValue];
+      _os_log_error_impl(&dword_21ED3B000, v5, OS_LOG_TYPE_ERROR, "Trying to set the systemPointerInteractionContextID to 0x%x for %{public}@ but we aleady have one: 0x%x ", buf, 0x18u);
     }
   }
 
   else
   {
-    v5 = objc_alloc(MEMORY[0x277CF0CE8]);
-    v6 = [v2 description];
+    v6 = objc_alloc(MEMORY[0x277CF0CE8]);
+    v7 = [v2 description];
     v20[0] = MEMORY[0x277D85DD0];
     v20[1] = 3221225472;
     v20[2] = __78__PSPointerClientController_setSystemPointerInteractionContextID_displayUUID___block_invoke_43;
     v20[3] = &unk_27839DAE0;
     v20[4] = *(a1 + 40);
-    v7 = v2;
-    v21 = v7;
-    v8 = [v5 initWithIdentifier:@"PSSystemPointerInteraction" forReason:v6 invalidationBlock:v20];
-    v9 = *(*(a1 + 48) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v8 = v2;
+    v21 = v8;
+    v9 = [v6 initWithIdentifier:@"PSSystemPointerInteraction" forReason:v7 invalidationBlock:v20];
+    v10 = *(*(a1 + 48) + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 56)];
-    [*(*(a1 + 40) + 120) setObject:v11 forKeyedSubscript:v7];
-    v12 = *(a1 + 40);
-    v13 = *(v12 + 32);
+    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*(a1 + 56)];
+    [*(*(a1 + 40) + 120) setObject:v12 forKeyedSubscript:v8];
+    v13 = *(a1 + 40);
+    v14 = *(v13 + 32);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __78__PSPointerClientController_setSystemPointerInteractionContextID_displayUUID___block_invoke_4;
     block[3] = &unk_27839DB08;
-    block[4] = v12;
-    v18 = v11;
-    v19 = v7;
-    v14 = v11;
-    dispatch_async(v13, block);
+    block[4] = v13;
+    v18 = v12;
+    v19 = v8;
+    v15 = v12;
+    dispatch_async(v14, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __78__PSPointerClientController_setSystemPointerInteractionContextID_displayUUID___block_invoke_43(uint64_t a1)
@@ -1170,43 +1174,44 @@ void __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDis
 {
   v2 = [PSDisplay displayWithHardwareIdentifier:a1[4]];
   v3 = [*(a1[5] + 128) objectForKeyedSubscript:v2];
+  v4 = v3;
   if (v3)
   {
-    v4 = PSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PSLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_cold_1();
     }
 
-    objc_storeStrong((*(a1[6] + 8) + 40), v3);
+    objc_storeStrong((*(a1[6] + 8) + 40), v4);
   }
 
   else
   {
-    v5 = objc_alloc(MEMORY[0x277CF0CE8]);
-    v6 = [v2 description];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_47;
-    v15[3] = &unk_27839DAE0;
-    v15[4] = a1[5];
-    v7 = v2;
-    v16 = v7;
-    v8 = [v5 initWithIdentifier:@"PSHoverRegionOverride" forReason:v6 invalidationBlock:v15];
-    v9 = *(a1[6] + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v6 = objc_alloc(MEMORY[0x277CF0CE8]);
+    v7 = [v2 description];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_47;
+    v16[3] = &unk_27839DAE0;
+    v16[4] = a1[5];
+    v8 = v2;
+    v17 = v8;
+    v9 = [v6 initWithIdentifier:@"PSHoverRegionOverride" forReason:v7 invalidationBlock:v16];
+    v10 = *(a1[6] + 8);
+    v11 = *(v10 + 40);
+    *(v10 + 40) = v9;
 
-    [*(a1[5] + 128) setObject:*(*(a1[6] + 8) + 40) forKeyedSubscript:v7];
-    v11 = a1[5];
-    v12 = *(v11 + 32);
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_4;
-    v13[3] = &unk_27839D7E0;
-    v13[4] = v11;
-    v14 = v7;
-    dispatch_async(v12, v13);
+    [*(a1[5] + 128) setObject:*(*(a1[6] + 8) + 40) forKeyedSubscript:v8];
+    v12 = a1[5];
+    v13 = *(v12 + 32);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_4;
+    v14[3] = &unk_27839D7E0;
+    v14[4] = v12;
+    v15 = v8;
+    dispatch_async(v13, v14);
   }
 }
 
@@ -1256,26 +1261,25 @@ void __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDis
 
 - (void)clientInteractionStateDidChange:(id)change
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   integerValue = [change integerValue];
-  v5 = PSLogCommon();
+  v5 = PSLogCommon(integerValue);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = PSPointerClientInteractionStateToString(integerValue);
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_21ED3B000, v5, OS_LOG_TYPE_DEFAULT, "clientInteractionStateDidChange: %{public}@", buf, 0xCu);
   }
 
   accessQueue = self->_accessQueue;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __61__PSPointerClientController_clientInteractionStateDidChange___block_invoke;
-  v9[3] = &unk_27839DA90;
-  v9[4] = self;
-  v9[5] = integerValue;
-  dispatch_sync(accessQueue, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __61__PSPointerClientController_clientInteractionStateDidChange___block_invoke;
+  v8[3] = &unk_27839DA90;
+  v8[4] = self;
+  v8[5] = integerValue;
+  dispatch_sync(accessQueue, v8);
 }
 
 void __61__PSPointerClientController_clientInteractionStateDidChange___block_invoke(uint64_t a1)
@@ -1332,18 +1336,18 @@ uint64_t __61__PSPointerClientController_clientInteractionStateDidChange___block
 
 void __61__PSPointerClientController_pointerVisibilityStateDidChange___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (*(v1 + 112) != v2)
   {
     *(v1 + 112) = v2;
-    v4 = PSLogCommon();
+    v4 = PSLogCommon(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = PSPointerVisibilityStateToString(*(a1 + 40));
       *buf = 138543362;
-      v9 = v5;
+      v8 = v5;
       _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_DEFAULT, "pointerVisibilityStateDidChange: %{public}@", buf, 0xCu);
     }
 
@@ -1354,8 +1358,6 @@ void __61__PSPointerClientController_pointerVisibilityStateDidChange___block_inv
     block[4] = *(a1 + 32);
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PSPointerClientController_pointerVisibilityStateDidChange___block_invoke_52(uint64_t a1)
@@ -1456,16 +1458,16 @@ void __173__PSPointerClientController_adjustedDecelerationTargetPointerPosition_
 
 - (void)invalidatedPortalSourceCollections:(id)collections matchMoveSources:(id)sources
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   collectionsCopy = collections;
   sourcesCopy = sources;
-  v8 = PSLogCommon();
+  v8 = PSLogCommon(sourcesCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
-    v23 = [collectionsCopy count];
-    v24 = 2048;
-    v25 = [sourcesCopy count];
+    v22 = [collectionsCopy count];
+    v23 = 2048;
+    v24 = [sourcesCopy count];
     _os_log_impl(&dword_21ED3B000, v8, OS_LOG_TYPE_DEFAULT, "server invalidated %lu portalSourceCollections + %lu matchMoveSources", buf, 0x16u);
   }
 
@@ -1475,89 +1477,85 @@ void __173__PSPointerClientController_adjustedDecelerationTargetPointerPosition_
   block[2] = __81__PSPointerClientController_invalidatedPortalSourceCollections_matchMoveSources___block_invoke;
   block[3] = &unk_27839DB08;
   v10 = collectionsCopy;
-  v19 = v10;
+  v18 = v10;
   selfCopy = self;
   v11 = sourcesCopy;
-  v21 = v11;
+  v20 = v11;
   dispatch_sync(accessQueue, block);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __81__PSPointerClientController_invalidatedPortalSourceCollections_matchMoveSources___block_invoke_2;
-  v15[3] = &unk_27839DB08;
-  v15[4] = self;
-  v16 = v10;
-  v17 = v11;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __81__PSPointerClientController_invalidatedPortalSourceCollections_matchMoveSources___block_invoke_2;
+  v14[3] = &unk_27839DB08;
+  v14[4] = self;
+  v15 = v10;
+  v16 = v11;
   v12 = v11;
   v13 = v10;
-  dispatch_async(MEMORY[0x277D85CD0], v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v14);
 }
 
 void __81__PSPointerClientController_invalidatedPortalSourceCollections_matchMoveSources___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       v6 = 0;
       do
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(a1 + 40) + 80) removeObject:*(*(&v17 + 1) + 8 * v6++)];
+        [*(*(a1 + 40) + 80) removeObject:*(*(&v16 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v4);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = *(a1 + 48);
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(a1 + 40) + 88) removeObject:{*(*(&v13 + 1) + 8 * v11++), v13}];
+        [*(*(a1 + 40) + 88) removeObject:{*(*(&v12 + 1) + 8 * v11++), v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createPointerPortalSourceCollectionForDisplay:(id)display completion:(id)completion
@@ -1594,20 +1592,20 @@ void __87__PSPointerClientController__createPointerPortalSourceCollectionForDisp
   block[4] = v2;
   block[5] = &v18;
   dispatch_sync(v3, block);
-  v4 = *(a1 + 32);
-  v5 = v4[69];
-  if (v5 == 1 && v19[3])
+  v5 = *(a1 + 32);
+  v6 = v5[69];
+  if (v6 == 1 && v19[3])
   {
-    objc_initWeak(location, v4);
-    v6 = [*(*(a1 + 32) + 16) remoteTarget];
-    v7 = *(a1 + 40);
+    objc_initWeak(location, v5);
+    v7 = [*(*(a1 + 32) + 16) remoteTarget];
+    v8 = *(a1 + 40);
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_3;
     v14[3] = &unk_27839DC20;
     objc_copyWeak(&v16, location);
     v15 = *(a1 + 48);
-    [v6 createPointerPortalSourceCollectionForDisplay:v7 completion:v14];
+    [v7 createPointerPortalSourceCollectionForDisplay:v8 completion:v14];
 
     objc_destroyWeak(&v16);
     objc_destroyWeak(location);
@@ -1615,18 +1613,18 @@ void __87__PSPointerClientController__createPointerPortalSourceCollectionForDisp
 
   else
   {
-    v8 = PSLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PSLogCommon(v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = NSStringFromSelector(*(a1 + 56));
       v11 = PSPointerClientInteractionStateToString(v19[3]);
       *location = 138543874;
       *&location[4] = v10;
       v23 = 1024;
-      v24 = v5;
+      v24 = v6;
       v25 = 2114;
       v26 = v11;
-      _os_log_error_impl(&dword_21ED3B000, v8, OS_LOG_TYPE_ERROR, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", location, 0x1Cu);
+      _os_log_error_impl(&dword_21ED3B000, v9, OS_LOG_TYPE_ERROR, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", location, 0x1Cu);
     }
 
     if (*(a1 + 48))
@@ -1641,49 +1639,49 @@ void __87__PSPointerClientController__createPointerPortalSourceCollectionForDisp
   }
 
   _Block_object_dispose(&v18, 8);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = PSLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PSLogCommon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_3_cold_1(v6);
+      __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_3_cold_1(v7);
     }
   }
 
   if (v5)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
-    v9 = WeakRetained;
+    v10 = WeakRetained;
     if (WeakRetained)
     {
-      v10 = WeakRetained[1];
+      v11 = WeakRetained[1];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_61;
       block[3] = &unk_27839D7E0;
       block[4] = WeakRetained;
-      v16 = v5;
-      dispatch_sync(v10, block);
+      v17 = v5;
+      dispatch_sync(v11, block);
     }
   }
 
   if (*(a1 + 32))
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_2_62;
-    v11[3] = &unk_27839DBF8;
-    v14 = *(a1 + 32);
-    v12 = v5;
-    v13 = v6;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_2_62;
+    v12[3] = &unk_27839DBF8;
+    v15 = *(a1 + 32);
+    v13 = v5;
+    v14 = v7;
+    dispatch_async(MEMORY[0x277D85CD0], v12);
   }
 }
 
@@ -1729,21 +1727,21 @@ void __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_co
   block[4] = v2;
   block[5] = &v19;
   dispatch_sync(v3, block);
-  v4 = *(a1 + 32);
-  v5 = v4[69];
-  if (v5 == 1 && v20[3])
+  v5 = *(a1 + 32);
+  v6 = v5[69];
+  if (v6 == 1 && v20[3])
   {
-    objc_initWeak(location, v4);
-    v6 = [*(*(a1 + 32) + 16) remoteTarget];
-    v7 = *(a1 + 40);
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
+    objc_initWeak(location, v5);
+    v7 = [*(*(a1 + 32) + 16) remoteTarget];
+    v8 = *(a1 + 40);
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 56)];
     v15[0] = MEMORY[0x277D85DD0];
     v15[1] = 3221225472;
     v15[2] = __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_3;
     v15[3] = &unk_27839DC48;
     objc_copyWeak(&v17, location);
     v16 = *(a1 + 48);
-    [v6 createContentMatchMoveSourcesForDisplay:v7 countValue:v8 completion:v15];
+    [v7 createContentMatchMoveSourcesForDisplay:v8 countValue:v9 completion:v15];
 
     objc_destroyWeak(&v17);
     objc_destroyWeak(location);
@@ -1751,18 +1749,18 @@ void __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_co
 
   else
   {
-    v9 = PSLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PSLogCommon(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = NSStringFromSelector(*(a1 + 64));
       v12 = PSPointerClientInteractionStateToString(v20[3]);
       *location = 138543874;
       *&location[4] = v11;
       v24 = 1024;
-      v25 = v5;
+      v25 = v6;
       v26 = 2114;
       v27 = v12;
-      _os_log_error_impl(&dword_21ED3B000, v9, OS_LOG_TYPE_ERROR, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", location, 0x1Cu);
+      _os_log_error_impl(&dword_21ED3B000, v10, OS_LOG_TYPE_ERROR, "Unable to send message for %{public}@ with isConnectionActive: %{BOOL}u, clientInteractionState: %{public}@", location, 0x1Cu);
     }
 
     if (*(a1 + 48))
@@ -1777,46 +1775,46 @@ void __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_co
   }
 
   _Block_object_dispose(&v19, 8);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = PSLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PSLogCommon(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_3_cold_1(v6);
+      __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_3_cold_1(v7);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v9 = WeakRetained;
+  v10 = WeakRetained;
   if (WeakRetained)
   {
-    v10 = WeakRetained[1];
+    v11 = WeakRetained[1];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_65;
     block[3] = &unk_27839D7E0;
     block[4] = WeakRetained;
-    v16 = v5;
-    dispatch_sync(v10, block);
+    v17 = v5;
+    dispatch_sync(v11, block);
   }
 
   if (*(a1 + 32))
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_2_66;
-    v11[3] = &unk_27839DBF8;
-    v14 = *(a1 + 32);
-    v12 = v5;
-    v13 = v6;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_2_66;
+    v12[3] = &unk_27839DBF8;
+    v15 = *(a1 + 32);
+    v13 = v5;
+    v14 = v7;
+    dispatch_async(MEMORY[0x277D85CD0], v12);
   }
 }
 
@@ -1917,25 +1915,24 @@ void __74__PSPointerClientController__accessQueue_acquireServiceKeepAliveAsserti
 {
   v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _connectionQueue_launchingConnection];
-  v3 = *(a1 + 32);
-  if ((*(v3 + 68) & 1) == 0)
+  v3 = v2;
+  v4 = *(a1 + 32);
+  if ((*(v4 + 68) & 1) == 0)
   {
-    *(v3 + 68) = 1;
-    v4 = PSLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    *(v4 + 68) = 1;
+    v5 = PSLogCommon(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = 138543362;
-      v8 = v2;
-      _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Activating Launching Connection: %{public}@", &v7, 0xCu);
+      v8 = v3;
+      _os_log_impl(&dword_21ED3B000, v5, OS_LOG_TYPE_INFO, "Activating Launching Connection: %{public}@", &v7, 0xCu);
     }
 
-    [v2 activate];
+    [v3 activate];
   }
 
-  v5 = [v2 remoteTarget];
-  [v5 setWantsServiceKeepAlive:MEMORY[0x277CBEC38]];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = [v3 remoteTarget];
+  [v6 setWantsServiceKeepAlive:MEMORY[0x277CBEC38]];
 }
 
 - (void)_connectionQueue_handleNonLaunchingConnectionActivation
@@ -2014,10 +2011,7 @@ uint64_t __84__PSPointerClientController__connectionQueue_handleNonLaunchingConn
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v8 = [*(a1[4] + 128) copy];
-  v9 = *(a1[7] + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = v8;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 128) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2123,29 +2117,29 @@ uint64_t __86__PSPointerClientController__connectionQueue_handleNonLaunchingConn
   if (*(v10 + 24) == 1)
   {
     _connectionQueue_launchingConnection = [(PSPointerClientController *)self _connectionQueue_launchingConnection];
+    v5 = _connectionQueue_launchingConnection;
     if (!self->_hasActivatedLaunchingConnection)
     {
       self->_hasActivatedLaunchingConnection = 1;
-      v5 = PSLogCommon();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v6 = PSLogCommon(_connectionQueue_launchingConnection);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
-        v14 = _connectionQueue_launchingConnection;
-        _os_log_impl(&dword_21ED3B000, v5, OS_LOG_TYPE_INFO, "Activating Launching Connection: %{public}@", buf, 0xCu);
+        v14 = v5;
+        _os_log_impl(&dword_21ED3B000, v6, OS_LOG_TYPE_INFO, "Activating Launching Connection: %{public}@", buf, 0xCu);
       }
 
-      [_connectionQueue_launchingConnection activate];
+      [v5 activate];
     }
 
-    remoteTarget = [_connectionQueue_launchingConnection remoteTarget];
+    remoteTarget = [v5 remoteTarget];
     [remoteTarget setWantsServiceKeepAlive:MEMORY[0x277CBEC38]];
   }
 
   _Block_object_dispose(&v9, 8);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __83__PSPointerClientController__connectionQueue_handleLaunchingConnectionInterruption__block_invoke(uint64_t a1)
+void *__83__PSPointerClientController__connectionQueue_handleLaunchingConnectionInterruption__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 56) count];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -2213,29 +2207,27 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
 
 void __65__PSPointerClientController__connectionQueue_launchingConnection__block_invoke_2(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = PSLogCommon();
+  v3 = PSLogCommon(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_21ED3B000, v3, OS_LOG_TYPE_INFO, "Launching Connection Activated: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_21ED3B000, v3, OS_LOG_TYPE_INFO, "Launching Connection Activated: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __65__PSPointerClientController__connectionQueue_launchingConnection__block_invoke_79(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PSLogCommon();
+  v4 = PSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v8 = 138543362;
-    v9 = v3;
-    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received interruption for launching connection: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v3;
+    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received interruption for launching connection: %{public}@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2245,20 +2237,18 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
     *(WeakRetained + 68) = 0;
     [WeakRetained _connectionQueue_handleLaunchingConnectionInterruption];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __65__PSPointerClientController__connectionQueue_launchingConnection__block_invoke_80(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = PSLogCommon();
+  v4 = PSLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received invalidation for launching connection: %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_21ED3B000, v4, OS_LOG_TYPE_INFO, "Received invalidation for launching connection: %{public}@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -2272,8 +2262,6 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
       *(WeakRetained + 3) = 0;
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_main_notifyDelegateOfInvalidatedRemoteSourcesSpecificallyThesePortalSourceCollections:(id)collections matchMoveSources:(id)sources
@@ -2311,16 +2299,16 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
     block[5] = &v30;
     block[6] = &v24;
     dispatch_sync(accessQueue, block);
-    v10 = PSLogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PSLogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v31[5] count];
-      v12 = [v25[5] count];
+      v12 = [v31[5] count];
+      v13 = [v25[5] count];
       *buf = 134218240;
-      v38 = v11;
+      v38 = v12;
       v39 = 2048;
-      v40 = v12;
-      _os_log_impl(&dword_21ED3B000, v10, OS_LOG_TYPE_DEFAULT, "delegate doesn't support individual source invalidation, invalidating %lu additional portalSourceCollections + %lu additional matchMoveSources", buf, 0x16u);
+      v40 = v13;
+      _os_log_impl(&dword_21ED3B000, v11, OS_LOG_TYPE_DEFAULT, "delegate doesn't support individual source invalidation, invalidating %lu additional portalSourceCollections + %lu additional matchMoveSources", buf, 0x16u);
     }
 
     allObjects = [v25[5] allObjects];
@@ -2330,29 +2318,29 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v14 = v31[5];
-    v15 = [v14 countByEnumeratingWithState:&v19 objects:v36 count:16];
-    if (v15)
+    v15 = v31[5];
+    v16 = [v15 countByEnumeratingWithState:&v19 objects:v36 count:16];
+    if (v16)
     {
-      v16 = *v20;
+      v17 = *v20;
       do
       {
-        v17 = 0;
+        v18 = 0;
         do
         {
-          if (*v20 != v16)
+          if (*v20 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          [(PSPointerClientController *)self invalidatePointerPortalSourceCollection:*(*(&v19 + 1) + 8 * v17++) completion:0, v19];
+          [(PSPointerClientController *)self invalidatePointerPortalSourceCollection:*(*(&v19 + 1) + 8 * v18++) completion:0, v19];
         }
 
-        while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v19 objects:v36 count:16];
+        while (v16 != v18);
+        v16 = [v15 countByEnumeratingWithState:&v19 objects:v36 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
     if (objc_opt_respondsToSelector())
@@ -2364,8 +2352,6 @@ void __65__PSPointerClientController__connectionQueue_launchingConnection__block
 
     _Block_object_dispose(&v30, 8);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __133__PSPointerClientController__main_notifyDelegateOfInvalidatedRemoteSourcesSpecificallyThesePortalSourceCollections_matchMoveSources___block_invoke(void *a1)
@@ -2395,83 +2381,64 @@ uint64_t __133__PSPointerClientController__main_notifyDelegateOfInvalidatedRemot
 
 void __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __80__PSPointerClientController_invalidatePointerPortalSourceCollection_completion___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *(a1 + 32);
   [a2 code];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 56));
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __74__PSPointerClientController_invalidateContentMatchMoveSources_completion___block_invoke_2_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __54__PSPointerClientController_autohidePointerForReason___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(*(a1 + 48));
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PSPointerClientController_acquireOverridingHoverRegionAssertionForDisplay___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_21ED3B000, v0, OS_LOG_TYPE_ERROR, "Trying to acquire an overriding hover region assertion but we already have one for this display %{public}@, returning the existing assertion.", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_21ED3B000, v0, OS_LOG_TYPE_ERROR, "Trying to acquire an overriding hover region assertion but we already have one for this display %{public}@, returning the existing assertion.", v1, 0xCu);
 }
 
 void __87__PSPointerClientController__createPointerPortalSourceCollectionForDisplay_completion___block_invoke_3_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __87__PSPointerClientController__createContentMatchMoveSourcesForDisplay_count_completion___block_invoke_3_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 code];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

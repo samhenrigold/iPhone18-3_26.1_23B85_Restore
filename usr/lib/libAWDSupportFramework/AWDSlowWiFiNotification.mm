@@ -180,7 +180,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -200,7 +199,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  actionField = self->_actionField;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -215,7 +213,6 @@ LABEL_4:
   }
 
 LABEL_10:
-  recoveryAction = self->_recoveryAction;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -227,7 +224,6 @@ LABEL_5:
     }
 
 LABEL_12:
-    userInput = self->_userInput;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -238,7 +234,6 @@ LABEL_12:
   }
 
 LABEL_11:
-  recoveryReason = self->_recoveryReason;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) != 0)
@@ -253,7 +248,6 @@ LABEL_6:
   }
 
 LABEL_13:
-  facetimeCallInProgress = self->_facetimeCallInProgress;
 
   PBDataWriterWriteBOOLField();
 }

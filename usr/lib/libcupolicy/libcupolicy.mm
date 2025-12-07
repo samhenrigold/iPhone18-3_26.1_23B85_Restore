@@ -18,7 +18,7 @@ void CellularUsagePolicyClient::CellularUsagePolicyClient(CellularUsagePolicyCli
   *(this + 128) = 0;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -32,13 +32,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -270,15 +270,15 @@ void *__copy_helper_block_e8_40c21_ZTSN8dispatch5queueE48c44_ZTSN8dispatch5block
 
 void CellularUsagePolicyClient::handleMessage_sync(uint64_t a1, xpc::object *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     xpc::object::to_string(__p, a2);
-    v4 = v9 >= 0 ? __p : __p[0];
+    v4 = v8 >= 0 ? __p : __p[0];
     *buf = 136315138;
     *&buf[4] = v4;
     _os_log_impl(&dword_29871F000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Received msg from server: %s", buf, 0xCu);
-    if (v9 < 0)
+    if (v8 < 0)
     {
       operator delete(__p[0]);
     }
@@ -297,7 +297,7 @@ void CellularUsagePolicyClient::handleMessage_sync(uint64_t a1, xpc::object *a2)
     __p[1] = "kDataUsagePolicies";
     xpc::dict::object_proxy::operator xpc::array(__p, buf);
     v5 = *buf;
-    v7 = *buf;
+    v6 = *buf;
     if (*buf)
     {
       xpc_retain(*buf);
@@ -306,16 +306,14 @@ void CellularUsagePolicyClient::handleMessage_sync(uint64_t a1, xpc::object *a2)
     else
     {
       v5 = xpc_null_create();
-      v7 = v5;
+      v6 = v5;
     }
 
-    CellularUsagePolicyClient::handleDataUsagePolicies_sync(a1, &v7);
+    CellularUsagePolicyClient::handleDataUsagePolicies_sync(a1, &v6);
     xpc_release(v5);
-    v7 = 0;
+    v6 = 0;
     xpc_release(*buf);
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298720164(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, xpc_object_t object)
@@ -504,10 +502,10 @@ void sub_2987205D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CellularUsagePolicyClient::checkin_sync(xpc_connection_t *this)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   message = 0;
   xpc::dict_creator::dict_creator(object);
-  xpc::dict_creator::operator()<char const*>("kRegisterCUPolicyClient", object, "kRequest", buf);
+  xpc::dict_creator::operator()<char const*>(buf, "kRegisterCUPolicyClient", object, "kRequest");
   xpc_release(object[0]);
   message = *buf;
   *buf = xpc_null_create();
@@ -515,25 +513,25 @@ void CellularUsagePolicyClient::checkin_sync(xpc_connection_t *this)
   v2 = getprogname();
   if (v2)
   {
-    v7 = xpc_string_create(v2);
-    if (!v7)
+    v6 = xpc_string_create(v2);
+    if (!v6)
     {
-      v7 = xpc_null_create();
+      v6 = xpc_null_create();
     }
 
     object[0] = &message;
     object[1] = "kProgName";
-    xpc::dict::object_proxy::operator=(object, &v7, &v8);
-    xpc_release(v8);
-    v8 = 0;
+    xpc::dict::object_proxy::operator=(object, &v6, &v7);
     xpc_release(v7);
     v7 = 0;
+    xpc_release(v6);
+    v6 = 0;
   }
 
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
     xpc::object::to_string(object, &message);
-    if (v6 >= 0)
+    if (v5 >= 0)
     {
       v3 = object;
     }
@@ -546,7 +544,7 @@ void CellularUsagePolicyClient::checkin_sync(xpc_connection_t *this)
     *buf = 136315138;
     *&buf[4] = v3;
     _os_log_impl(&dword_29871F000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Checking in with server: %s", buf, 0xCu);
-    if (v6 < 0)
+    if (v5 < 0)
     {
       operator delete(object[0]);
     }
@@ -554,7 +552,6 @@ void CellularUsagePolicyClient::checkin_sync(xpc_connection_t *this)
 
   xpc_connection_send_message(this[5], message);
   xpc_release(message);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298720780(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t object)
@@ -636,7 +633,7 @@ void sub_298720980(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void xpc::dict_creator::operator()<char const*>(char *string@<X2>, void **a2@<X0>, uint64_t a3@<X1>, void **a4@<X8>)
+void xpc::dict_creator::operator()<char const*>(xpc_object_t *__return_ptr a1@<X8>, char *string@<X2>, void **a3@<X0>, uint64_t a4@<X1>)
 {
   v7 = xpc_string_create(string);
   v8 = v7;
@@ -658,15 +655,15 @@ LABEL_4:
   v8 = 0;
   v11 = xpc_null_create();
 LABEL_5:
-  v10[0] = a2;
-  v10[1] = a3;
+  v10[0] = a3;
+  v10[1] = a4;
   xpc::dict::object_proxy::operator=(v10, &v11, &object);
   xpc_release(object);
   object = 0;
   xpc_release(v11);
   v11 = 0;
-  v9 = *a2;
-  *a4 = *a2;
+  v9 = *a3;
+  *a1 = *a3;
   if (v9)
   {
     xpc_retain(v9);
@@ -674,7 +671,7 @@ LABEL_5:
 
   else
   {
-    *a4 = xpc_null_create();
+    *a1 = xpc_null_create();
   }
 
   xpc_release(v8);
@@ -1065,18 +1062,18 @@ void *ctu::cf::CFSharedRef<__CFBoolean const>::CFSharedRef<void const,void>(void
   return a1;
 }
 
-uint64_t std::__copy_impl::operator()[abi:ne200100]<xpc::array::iterator,xpc::array::iterator,std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>>@<X0>(uint64_t a1@<X1>, void *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+uint64_t std::__copy_impl::operator()[abi:ne200100]<xpc::array::iterator,xpc::array::iterator,std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>>@<X0>(xpc_object_t *a1@<X1>, xpc_object_t *a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
 {
   *&v12 = a3;
   *(&v12 + 1) = a4;
-  for (i = *(a1 + 8); i != a2[1] || *a1 != *a2; *(a1 + 8) = i)
+  for (i = a1[1]; i != a2[1] || *a1 != *a2; a1[1] = i)
   {
     v10[0] = a1;
     v10[1] = i;
     xpc::array::object_proxy::operator xpc::dict(v10, &object);
     std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>::operator=[abi:ne200100](&v12, &object);
     xpc_release(object);
-    i = *(a1 + 8) + 1;
+    i = a1[1] + 1;
   }
 
   return std::pair<xpc::array::iterator,std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>>::pair[abi:ne200100]<xpc::array::iterator,std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>,0>(a5, a1, &v12);
@@ -1144,25 +1141,25 @@ void __destroy_helper_block_e8_40c21_ZTSN8dispatch5queueE48c44_ZTSN8dispatch5blo
   }
 }
 
-uint64_t std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__emplace_hint_unique_key_args<xpc::dict,xpc::dict>(void *a1, void *a2, void *a3)
+uint64_t std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__emplace_hint_unique_key_args<xpc::dict,xpc::dict>(void *a1, void *a2, void *a3, void *a4)
 {
-  v8 = 0;
   v9 = 0;
-  v3 = *std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__find_equal<xpc::dict>(a1, a2, &v9, &v8, a3);
-  if (!v3)
+  v10 = 0;
+  v4 = *std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__find_equal<xpc::dict>(a1, a2, &v10, &v9, a3);
+  if (!v4)
   {
-    v5 = 0;
     v6 = 0;
     v7 = 0;
+    v8 = 0;
     std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__construct_node<xpc::dict>();
   }
 
-  return v3;
+  return v4;
 }
 
-void **std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>::operator=[abi:ne200100](void **a1, void *a2)
+uint64_t *std::insert_iterator<std::set<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>>::operator=[abi:ne200100](uint64_t *a1, void *a2)
 {
-  v3 = std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__emplace_hint_unique_key_args<xpc::dict,xpc::dict>(*a1, a1[1], a2);
+  v3 = std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__emplace_hint_unique_key_args<xpc::dict,xpc::dict>(*a1, a1[1], a2, a2);
   a1[1] = v3;
   v4 = *(v3 + 8);
   if (v4)
@@ -1307,7 +1304,7 @@ LABEL_28:
   return std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__find_equal<xpc::dict>(a1, a3, a5);
 }
 
-uint64_t *std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleId,std::allocator<xpc::dict>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1325,7 +1322,7 @@ uint64_t *std::__tree<xpc::dict,CellularUsagePolicyClient::policy_cmp_by_bundleI
   return result;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<xpc::dict,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<xpc::dict,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+xpc_object_t **std::unique_ptr<std::__tree_node<xpc::dict,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<xpc::dict,void *>>>>::~unique_ptr[abi:ne200100](xpc_object_t **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1350,12 +1347,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1369,22 +1366,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1418,13 +1415,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1650,7 +1647,6 @@ void ___ZN25CellularUsagePolicyClient27dispatchClientCallback_syncEN3xpc5arrayE_
       v4 = v3;
       if (a1[4])
       {
-        v5 = a1[7];
         (*(a1[6] + 16))();
       }
 
@@ -2128,7 +2124,7 @@ void ___ZN25CellularUsagePolicyClient26performFirstNetworkUseFlowEPKcbU13block_p
 
   v17 = 0;
   xpc::dict_creator::dict_creator(buf);
-  xpc::dict_creator::operator()<char const*>("kCUPerformFirstNetworkUseFlow", buf, "kRequest", &v16);
+  xpc::dict_creator::operator()<char const*>(&v16, "kCUPerformFirstNetworkUseFlow", buf, "kRequest");
   xpc_release(*buf);
   v17 = v16;
   v16 = xpc_null_create();
@@ -2445,7 +2441,7 @@ void CellularUsagePolicyClient::fetchDataUsagePoliciesIfNeeded_sync(uint64_t a1,
     }
 
     v6 = xpc::dict_creator::dict_creator(&v12);
-    xpc::dict_creator::operator()<char const*>("kCUGetNetworkAccessPolicies", v6, "kRequest", &v11);
+    xpc::dict_creator::operator()<char const*>(&v11, "kCUGetNetworkAccessPolicies", v6, "kRequest");
     xpc_release(v12);
     v7 = v11;
     v11 = xpc_null_create();
@@ -2620,7 +2616,7 @@ void __destroy_helper_block_e8_40c44_ZTSN8dispatch5blockIU13block_pointerFvPvEEE
 
 void ___ZN25CellularUsagePolicyClient35fetchDataUsagePoliciesIfNeeded_syncEU13block_pointerFvbE_block_invoke(uint64_t a1, xpc_object_t object)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v3 = *(a1 + 40);
   objecta = 0;
   v4 = MEMORY[0x29EDCAA00];
@@ -2659,11 +2655,11 @@ LABEL_9:
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
     {
       xpc::object::to_string(__p, &objecta);
-      v7 = v12 >= 0 ? __p : __p[0];
+      v7 = v11 >= 0 ? __p : __p[0];
       *buf = 136315138;
       *&buf[4] = v7;
       _os_log_impl(&dword_29871F000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Initial network access policies msg received from server: %s", buf, 0xCu);
-      if (v12 < 0)
+      if (v11 < 0)
       {
         operator delete(__p[0]);
       }
@@ -2676,7 +2672,7 @@ LABEL_9:
     if (MEMORY[0x29C291100](*buf) == MEMORY[0x29EDCA9E0])
     {
       v8 = *buf;
-      v10 = *buf;
+      v9 = *buf;
       if (*buf)
       {
         xpc_retain(*buf);
@@ -2685,12 +2681,12 @@ LABEL_9:
       else
       {
         v8 = xpc_null_create();
-        v10 = v8;
+        v9 = v8;
       }
 
-      CellularUsagePolicyClient::handleDataUsagePolicies_sync(v3, &v10);
+      CellularUsagePolicyClient::handleDataUsagePolicies_sync(v3, &v9);
       xpc_release(v8);
-      v10 = 0;
+      v9 = 0;
     }
 
     (*(*(a1 + 32) + 16))();
@@ -2703,7 +2699,6 @@ LABEL_9:
   }
 
   xpc_release(objecta);
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void sub_298723720(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, xpc_object_t a14, xpc_object_t object)
@@ -3273,20 +3268,20 @@ void sub_29872417C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void CellularUsagePolicyClient::checkout_sync(xpc_connection_t *this)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  v7 = 0;
+  v8 = *MEMORY[0x29EDCA608];
+  v6 = 0;
   xpc::dict_creator::dict_creator(object);
-  xpc::dict_creator::operator()<char const*>("kUnregisterCUPolicyClient", object, "kRequest", buf);
+  xpc::dict_creator::operator()<char const*>(buf, "kUnregisterCUPolicyClient", object, "kRequest");
   xpc_release(object[0]);
   v2 = *buf;
-  v7 = *buf;
+  v6 = *buf;
   *buf = xpc_null_create();
   xpc_release(*buf);
   xpc_connection_send_message(this[5], v2);
   if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
   {
-    xpc::object::to_string(object, &v7);
-    if (v6 >= 0)
+    xpc::object::to_string(object, &v6);
+    if (v5 >= 0)
     {
       v3 = object;
     }
@@ -3299,16 +3294,15 @@ void CellularUsagePolicyClient::checkout_sync(xpc_connection_t *this)
     *buf = 136315138;
     *&buf[4] = v3;
     _os_log_impl(&dword_29871F000, MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT, "Checking out with server: %s", buf, 0xCu);
-    if (v6 < 0)
+    if (v5 < 0)
     {
       operator delete(object[0]);
     }
 
-    v2 = v7;
+    v2 = v6;
   }
 
   xpc_release(v2);
-  v4 = *MEMORY[0x29EDCA608];
 }
 
 void CellularUsagePolicyClient::handleServerError_sync(uint64_t a1, void *a2)
@@ -3547,17 +3541,17 @@ void sub_298724958(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-xpc_object_t *std::__copy_impl::operator()[abi:ne200100]<xpc::array::iterator,xpc::array::iterator,std::back_insert_iterator<xpc::array>>@<X0>(uint64_t a1@<X1>, void *a2@<X2>, xpc_object_t *a3@<X3>, xpc_object_t *a4@<X8>)
+xpc_object_t *std::__copy_impl::operator()[abi:ne200100]<xpc::array::iterator,xpc::array::iterator,std::back_insert_iterator<xpc::array>>@<X0>(xpc_object_t *a1@<X1>, xpc_object_t *a2@<X2>, xpc_object_t *a3@<X3>, xpc_object_t *a4@<X8>)
 {
   v12 = a3;
-  for (i = *(a1 + 8); i != a2[1] || *a1 != *a2; *(a1 + 8) = i)
+  for (i = a1[1]; i != a2[1] || *a1 != *a2; a1[1] = i)
   {
     v10[0] = a1;
     v10[1] = i;
     xpc::array::object_proxy::operator xpc::object(v10, &value);
     xpc_array_append_value(*a3, value);
     xpc_release(value);
-    i = *(a1 + 8) + 1;
+    i = a1[1] + 1;
   }
 
   return std::pair<xpc::array::iterator,std::back_insert_iterator<xpc::array>>::pair[abi:ne200100]<xpc::array::iterator,std::back_insert_iterator<xpc::array>,0>(a4, a1, &v12);
@@ -3718,7 +3712,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -3728,7 +3722,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -3741,12 +3735,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);

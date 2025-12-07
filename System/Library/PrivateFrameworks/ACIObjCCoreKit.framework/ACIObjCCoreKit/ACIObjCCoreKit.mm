@@ -260,9 +260,9 @@ uint64_t ns2aciDictionary(NSDictionary *a1)
   return v2;
 }
 
-void sub_23C4120A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C4120A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -270,10 +270,9 @@ void sub_23C4120A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___Z16ns2aciDictionaryP12NSDictionary_block_invoke(uint64_t a1, objc_object *a2, void *a3)
 {
-  v6 = a3;
-  if (ns2aciObject(a2) && ns2aciObject(v6))
+  v4 = a3;
+  if (ns2aciObject(a2) && ns2aciObject(v4))
   {
-    v5 = *(*(*(a1 + 32) + 8) + 24);
     aci::Dictionary::setObject();
   }
 }
@@ -340,9 +339,9 @@ uint64_t ns2aciArray(NSArray *a1)
   return v2;
 }
 
-void sub_23C412304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23C412304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -350,10 +349,9 @@ void sub_23C412304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___Z11ns2aciArrayP7NSArray_block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if (ns2aciObject(v4))
+  v2 = a2;
+  if (ns2aciObject(v2))
   {
-    v3 = *(*(*(a1 + 32) + 8) + 24);
     aci::Array::addObject();
   }
 }
@@ -460,7 +458,7 @@ uint64_t nsJSONToDict(NSString *a1)
   return v5;
 }
 
-dispatch_queue_t fixedPriorityDispatchQueue(const char *a1, void *a2)
+dispatch_queue_t fixedPriorityDispatchQueue(const char *a1, void *a2, uint64_t a3)
 {
   v24 = *MEMORY[0x277D85DE8];
   v22 = 0u;
@@ -479,16 +477,14 @@ dispatch_queue_t fixedPriorityDispatchQueue(const char *a1, void *a2)
   v11 = 0u;
   *__str = 0u;
   v9 = 0u;
-  v3 = a2;
+  v4 = a2;
   snprintf(__str, 0x100uLL, "%sWorkLoop", a1);
   inactive = dispatch_workloop_create_inactive(__str);
   dispatch_workloop_set_scheduler_priority();
   dispatch_activate(inactive);
-  v5 = dispatch_queue_create_with_target_V2(a1, v3, inactive);
+  v6 = dispatch_queue_create_with_target_V2(a1, v4, inactive);
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v6;
 }
 
 id nsJSONToDict(void *a1, void *a2, void *a3, void *a4)

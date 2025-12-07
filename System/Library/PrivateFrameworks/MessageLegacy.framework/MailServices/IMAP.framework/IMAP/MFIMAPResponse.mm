@@ -65,6 +65,7 @@
 - (void)setSharedNamespaces:(id)namespaces;
 - (void)setUidFlagsChange:(int)change;
 - (void)setUids:(id)uids;
+- (void)setUserData:(id)data responseCode:(int)code responseInfo:(id)info;
 - (void)setValue:(id)value forKey:(id)key;
 @end
 
@@ -136,16 +137,15 @@ LABEL_6:
     return 0;
   }
 
-  responseInfoAndOrUserData = self->_data.basic.responseInfoAndOrUserData;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_data.basic.responseInfoAndOrUserData;
+  responseInfoAndOrUserData = self->_data.basic.responseInfoAndOrUserData;
 
-  return [v4 objectAtIndex:0];
+  return [responseInfoAndOrUserData objectAtIndex:0];
 }
 
 - (id)userData
@@ -158,7 +158,6 @@ LABEL_6:
 
   else
   {
-    responseInfoAndOrUserData = self->_data.basic.responseInfoAndOrUserData;
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     result = self->_data.basic.responseInfoAndOrUserData;
@@ -186,6 +185,47 @@ LABEL_6:
   }
 
   return userData;
+}
+
+- (void)setUserData:(id)data responseCode:(int)code responseInfo:(id)info
+{
+  if (*(self + 8) - 1 > 5)
+  {
+    [objc_msgSend(MEMORY[0x277CCA890] currentHandler];
+    return;
+  }
+
+  dataCopy = data;
+  self->_data.basic.responseCode = code;
+  if ([MEMORY[0x277D24ED0] isValidBase64:?])
+  {
+    dataCopy = [dataCopy mf_decodeBase64];
+  }
+
+  responseInfoAndOrUserData = self->_data.basic.responseInfoAndOrUserData;
+  if (info)
+  {
+
+    v9 = objc_allocWithZone(MEMORY[0x277CBEA60]);
+    if (!dataCopy)
+    {
+      dataCopy = [MEMORY[0x277CBEA90] data];
+    }
+
+    v10 = [v9 initWithObjects:{info, dataCopy, 0}];
+  }
+
+  else
+  {
+    if (responseInfoAndOrUserData == dataCopy)
+    {
+      return;
+    }
+
+    v10 = dataCopy;
+  }
+
+  self->_data.basic.responseInfoAndOrUserData = v10;
 }
 
 - (id)capabilities
@@ -462,59 +502,50 @@ LABEL_6:
 
     self->_data.fetch.modSeqNumber = extraAttributes;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchResultWithType:(int)type
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fetchResults = [(MFIMAPResponse *)self fetchResults];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [fetchResults countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
+  v5 = [fetchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (!v5)
   {
-    v6 = v5;
-    v7 = *v13;
+    return 0;
+  }
+
+  v6 = v5;
+  v7 = *v12;
 LABEL_3:
-    v8 = 0;
-    while (1)
+  v8 = 0;
+  while (1)
+  {
+    if (*v12 != v7)
     {
-      if (*v13 != v7)
+      objc_enumerationMutation(fetchResults);
+    }
+
+    v9 = *(*(&v11 + 1) + 8 * v8);
+    if ([v9 type] == type)
+    {
+      return v9;
+    }
+
+    if (v6 == ++v8)
+    {
+      v6 = [fetchResults countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
       {
-        objc_enumerationMutation(fetchResults);
+        goto LABEL_3;
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([v9 type] == type)
-      {
-        break;
-      }
-
-      if (v6 == ++v8)
-      {
-        v6 = [fetchResults countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
-        {
-          goto LABEL_3;
-        }
-
-        goto LABEL_9;
-      }
+      return 0;
     }
   }
-
-  else
-  {
-LABEL_9:
-    v9 = 0;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
 }
 
 - (id)fetchResults
@@ -835,7 +866,7 @@ LABEL_9:
 
 - (id)description
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
   if ([(MFIMAPResponse *)self isUntagged])
   {
@@ -849,7 +880,7 @@ LABEL_9:
   }
 
   [string appendFormat:@"%s ", ResponseTypeTable[4 * *(self + 8) + 1]];
-  v68 = string;
+  v67 = string;
   switch(*(self + 8))
   {
     case 1:
@@ -887,7 +918,7 @@ LABEL_9:
         goto LABEL_78;
       }
 
-      goto LABEL_95;
+      return string;
     case 7:
       capabilities = [(MFIMAPResponse *)self capabilities];
       goto LABEL_63;
@@ -915,11 +946,11 @@ LABEL_9:
     case 9:
     case 0xA:
     case 0xB:
-      [string appendFormat:@"%llu", -[MFIMAPResponse number](self, "number"), v64, v65];
-      goto LABEL_95;
+      [string appendFormat:@"%llu", -[MFIMAPResponse number](self, "number"), v63, v64];
+      return string;
     case 0xC:
-      [string appendFormat:@"(%@)", objc_msgSend(-[MFIMAPResponse flags](self, "flags"), "componentsJoinedByString:", @" ", v64, v65];
-      goto LABEL_95;
+      [string appendFormat:@"(%@)", objc_msgSend(-[MFIMAPResponse flags](self, "flags"), "componentsJoinedByString:", @" ", v63, v64];
+      return string;
     case 0xD:
       statusEntries = [(MFIMAPResponse *)self statusEntries];
       allKeys2 = [statusEntries allKeys];
@@ -1000,10 +1031,10 @@ LABEL_9:
       extraAttributes = [(MFIMAPResponse *)self extraAttributes];
       if ([extraAttributes count])
       {
-        [string appendFormat:@" ==> (%@)", objc_msgSend(extraAttributes, "componentsJoinedByString:", @", "), v64, v65];
+        [string appendFormat:@" ==> (%@)", objc_msgSend(extraAttributes, "componentsJoinedByString:", @", "), v63, v64];
       }
 
-      goto LABEL_95;
+      return string;
     case 0x11:
       fetchResults = [(MFIMAPResponse *)self fetchResults];
       v51 = [fetchResults count];
@@ -1035,57 +1066,57 @@ LABEL_76:
       }
 
       [string appendFormat:@"%@", v56];
-      v79 = 0u;
-      v80 = 0u;
-      v77 = 0u;
       v78 = 0u;
-      v57 = [quotaRootNames countByEnumeratingWithState:&v77 objects:v82 count:16];
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
+      v57 = [quotaRootNames countByEnumeratingWithState:&v76 objects:v81 count:16];
       if (v57)
       {
         v58 = v57;
-        v59 = *v78;
+        v59 = *v77;
         do
         {
           for (m = 0; m != v58; ++m)
           {
-            if (*v78 != v59)
+            if (*v77 != v59)
             {
               objc_enumerationMutation(quotaRootNames);
             }
 
-            [string appendFormat:@" %@", *(*(&v77 + 1) + 8 * m)];
+            [string appendFormat:@" %@", *(*(&v76 + 1) + 8 * m)];
           }
 
-          v58 = [quotaRootNames countByEnumeratingWithState:&v77 objects:v82 count:16];
+          v58 = [quotaRootNames countByEnumeratingWithState:&v76 objects:v81 count:16];
         }
 
         while (v58);
       }
 
-      goto LABEL_95;
+      return string;
     case 0x13:
       quotas = [(MFIMAPResponse *)self quotas];
       [string appendFormat:@"%@", -[MFIMAPResponse quotaRootName](self, "quotaRootName")];
-      v75 = 0u;
-      v76 = 0u;
-      v73 = 0u;
       v74 = 0u;
+      v75 = 0u;
+      v72 = 0u;
+      v73 = 0u;
       obja = quotas;
-      v31 = [quotas countByEnumeratingWithState:&v73 objects:v81 count:16];
+      v31 = [quotas countByEnumeratingWithState:&v72 objects:v80 count:16];
       if (v31)
       {
         v32 = v31;
-        v33 = *v74;
+        v33 = *v73;
         do
         {
           for (n = 0; n != v32; ++n)
           {
-            if (*v74 != v33)
+            if (*v73 != v33)
             {
               objc_enumerationMutation(obja);
             }
 
-            v35 = *(*(&v73 + 1) + 8 * n);
+            v35 = *(*(&v72 + 1) + 8 * n);
             v36 = [v35 objectForKey:@"_IMAPNameQuotaKey"];
             v37 = [v35 objectForKey:@"_IMAPCurrentUsageQuotaKey"];
             v38 = [v35 objectForKey:@"_IMAPMaxUsageQuotaKey"];
@@ -1119,31 +1150,31 @@ LABEL_76:
               v41 = @"0";
             }
 
-            string = v68;
-            [v68 appendFormat:@" (%@ %@/%@)", v39, v40, v41];
+            string = v67;
+            [v67 appendFormat:@" (%@ %@/%@)", v39, v40, v41];
           }
 
-          v32 = [obja countByEnumeratingWithState:&v73 objects:v81 count:16];
+          v32 = [obja countByEnumeratingWithState:&v72 objects:v80 count:16];
         }
 
         while (v32);
       }
 
-      goto LABEL_95;
+      return string;
     case 0x16:
-      v69[0] = MEMORY[0x277D85DD0];
-      v69[1] = 3221225472;
-      v70 = __29__MFIMAPResponse_description__block_invoke;
-      v71 = &unk_2798B1A28;
-      v72 = string;
-      __29__MFIMAPResponse_description__block_invoke(v69, [(MFIMAPResponse *)self privateNamespaces]);
+      v68[0] = MEMORY[0x277D85DD0];
+      v68[1] = 3221225472;
+      v69 = __29__MFIMAPResponse_description__block_invoke;
+      v70 = &unk_2798B1A28;
+      v71 = string;
+      __29__MFIMAPResponse_description__block_invoke(v68, [(MFIMAPResponse *)self privateNamespaces]);
       [string appendString:@" "];
       publicNamespaces = [(MFIMAPResponse *)self publicNamespaces];
-      v70(v69, publicNamespaces);
+      v69(v68, publicNamespaces);
       [string appendString:@" "];
       sharedNamespaces = [(MFIMAPResponse *)self sharedNamespaces];
-      v70(v69, sharedNamespaces);
-      goto LABEL_95;
+      v69(v68, sharedNamespaces);
+      return string;
     case 0x17:
       responseName = [(MFIMAPResponse *)self responseName];
       parameters = [(MFIMAPResponse *)self parameters];
@@ -1155,7 +1186,7 @@ LABEL_76:
 
       if (!parameters)
       {
-        goto LABEL_95;
+        return string;
       }
 
       [string appendString:@" "];
@@ -1166,8 +1197,6 @@ LABEL_77:
       v8 = string;
 LABEL_78:
       [v8 appendString:v9];
-LABEL_95:
-      v62 = *MEMORY[0x277D85DE8];
       return string;
     case 0x18:
       uidFlagsChange = [(MFIMAPResponse *)self uidFlagsChange];
@@ -1191,38 +1220,38 @@ LABEL_95:
       }
 
       [string appendFormat:@" %@ %c%@", v46, v47, v45];
-      goto LABEL_95;
+      return string;
     default:
-      goto LABEL_95;
+      return string;
   }
 }
 
 uint64_t __29__MFIMAPResponse_description__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2)
   {
     objc_msgSend(v3, "appendString:", @"(");
-    v20 = 0u;
-    v21 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v5 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v16 = 0u;
+    v17 = 0u;
+    v5 = [a2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v17;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(a2);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 objectForKeyedSubscript:@"_IMAPNamespacePrefixKey"];
           v11 = [v9 objectForKeyedSubscript:@"_IMAPNamespaceDelimiterKey"];
           v12 = [v9 objectForKeyedSubscript:@"_IMAPNamespaceExtensionsKey"];
@@ -1238,87 +1267,72 @@ uint64_t __29__MFIMAPResponse_description__block_invoke(uint64_t a1, void *a2)
             [v13 appendString:@"NIL"];
           }
 
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __29__MFIMAPResponse_description__block_invoke_2;
-          v17[3] = &unk_2798B1A00;
-          v17[4] = *(a1 + 32);
-          [v12 enumerateKeysAndObjectsUsingBlock:v17];
+          v15[0] = MEMORY[0x277D85DD0];
+          v15[1] = 3221225472;
+          v15[2] = __29__MFIMAPResponse_description__block_invoke_2;
+          v15[3] = &unk_2798B1A00;
+          v15[4] = *(a1 + 32);
+          [v12 enumerateKeysAndObjectsUsingBlock:v15];
           [*(a1 + 32) appendString:@""]);
         }
 
-        v6 = [a2 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [a2 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v6);
     }
 
-    result = [*(a1 + 32) appendString:@""]);
-    v15 = *MEMORY[0x277D85DE8];
+    return [*(a1 + 32) appendString:@""]);
   }
 
   else
   {
-    v16 = *MEMORY[0x277D85DE8];
 
     return [v3 appendString:@"NIL"];
   }
-
-  return result;
 }
 
 - (MFIMAPResponse)initWithConnection:(id)connection responseConsumer:(id)consumer
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = MFIMAPResponse;
-  v6 = [(MFIMAPResponse *)&v13 init];
-  if (v6)
+  v13 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = MFIMAPResponse;
+  v6 = [(MFIMAPResponse *)&v12 init];
+  if (!v6)
   {
-    v7 = objc_alloc_init(MEMORY[0x277CCA8B0]);
-    [(MFIMAPResponse *)v6 setResponseConsumer:consumer];
-    v8 = [connection _readDataOfLength:-1];
-    if (!v8 || ((v9 = -[MFIMAPParseContext initWithConnection:response:start:end:]([MFIMAPParseContext alloc], "initWithConnection:response:start:end:", connection, v6, [v8 bytes], objc_msgSend(v8, "bytes") + objc_msgSend(v8, "length")), response(v9), !-[MFIMAPParseContext isValid](v9, "isValid")) ? (v10 = 0) : (v10 = v6), v9, !v10))
-    {
-
-      v10 = 0;
-    }
+    return 0;
   }
 
-  else
+  v7 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+  [(MFIMAPResponse *)v6 setResponseConsumer:consumer];
+  v8 = [connection _readDataOfLength:-1];
+  if (!v8 || ((v9 = -[MFIMAPParseContext initWithConnection:response:start:end:]([MFIMAPParseContext alloc], "initWithConnection:response:start:end:", connection, v6, [v8 bytes], objc_msgSend(v8, "bytes") + objc_msgSend(v8, "length")), response(v9), !-[MFIMAPParseContext isValid](v9, "isValid")) ? (v10 = 0) : (v10 = v6), v9, !v10))
   {
+
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (MFIMAPResponse)initWithString:(id)string
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = MFIMAPResponse;
-  v4 = [(MFIMAPResponse *)&v11 init];
-  if (v4)
+  v11 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = MFIMAPResponse;
+  v4 = [(MFIMAPResponse *)&v10 init];
+  if (!v4)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CCA8B0]);
-    uTF8String = [string UTF8String];
-    v7 = -[MFIMAPParseContext initWithConnection:response:start:end:]([MFIMAPParseContext alloc], "initWithConnection:response:start:end:", 0, v4, uTF8String, uTF8String + [string length]);
-    response(v7);
-    if ([(MFIMAPParseContext *)v7 isValid])
-    {
-      v8 = v4;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v8 = 0;
-    }
-
-    if (!v8)
-    {
-    }
+  v5 = objc_alloc_init(MEMORY[0x277CCA8B0]);
+  uTF8String = [string UTF8String];
+  v7 = -[MFIMAPParseContext initWithConnection:response:start:end:]([MFIMAPParseContext alloc], "initWithConnection:response:start:end:", 0, v4, uTF8String, uTF8String + [string length]);
+  response(v7);
+  if ([(MFIMAPParseContext *)v7 isValid])
+  {
+    v8 = v4;
   }
 
   else
@@ -1326,7 +1340,10 @@ uint64_t __29__MFIMAPResponse_description__block_invoke(uint64_t a1, void *a2)
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
+  if (!v8)
+  {
+  }
+
   return v8;
 }
 
@@ -1431,12 +1448,11 @@ uint64_t __29__MFIMAPResponse_description__block_invoke(uint64_t a1, void *a2)
 
 - (void)fetchResults
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_error_impl(&dword_258B7A000, a2, OS_LOG_TYPE_ERROR, "Invalid for response type %d", v4, 8u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_error_impl(&dword_258B7A000, a2, OS_LOG_TYPE_ERROR, "Invalid for response type %d", v3, 8u);
 }
 
 - (uint64_t)setFetchResults:.cold.1()

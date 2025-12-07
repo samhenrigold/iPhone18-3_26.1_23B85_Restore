@@ -6,28 +6,28 @@
 
 - (double)_accessibilityDelayBeforeUpdatingOnActivation
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   [(UIToolbarTextButtonAccessibility__PhotosUI__UIKit *)self allTargets];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v3 = v19 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = v18 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     while (2)
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
+        v8 = *(*(&v15 + 1) + 8 * v7);
         objc_opt_class();
         v9 = [v8 _accessibilityValueForKey:AXIsPhotoSharingLikeButtonKey];
         v10 = __UIAccessibilityCastAsClass();
@@ -44,7 +44,7 @@
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v5)
       {
         continue;
@@ -54,13 +54,12 @@
     }
   }
 
-  v15.receiver = self;
-  v15.super_class = UIToolbarTextButtonAccessibility__PhotosUI__UIKit;
-  [(UIToolbarTextButtonAccessibility__PhotosUI__UIKit *)&v15 _accessibilityDelayBeforeUpdatingOnActivation];
+  v14.receiver = self;
+  v14.super_class = UIToolbarTextButtonAccessibility__PhotosUI__UIKit;
+  [(UIToolbarTextButtonAccessibility__PhotosUI__UIKit *)&v14 _accessibilityDelayBeforeUpdatingOnActivation];
   v12 = v11;
 LABEL_11:
 
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 

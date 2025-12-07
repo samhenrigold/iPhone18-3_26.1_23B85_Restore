@@ -470,7 +470,7 @@ uint64_t __69__PNPWizardScratchpadView__showToastNotificationWithInitialAnimatio
     self->_toastView = v3;
   }
 
-  v5 = PencilPairingUIBundle();
+  v5 = PencilPairingUIBundle(self);
   v6 = [v5 localizedStringForKey:@"USE_APPLE_PENCIL_PROMPT" value:&stru_286FDFDB8 table:0];
 
   [(PNPWizardScratchpadToast *)self->_toastView setText:v6];
@@ -724,8 +724,7 @@ uint64_t __52__PNPWizardScratchpadView__dismissToastNotification__block_invoke(u
   v3->_toastView = v29;
 
   [(PNPWizardScratchpadToast *)v3->_toastView setUserInteractionEnabled:0];
-  [(PNPWizardScratchpadView *)v3 addSubview:v3->_toastView];
-  v31 = PencilPairingUIBundle();
+  v31 = PencilPairingUIBundle([(PNPWizardScratchpadView *)v3 addSubview:v3->_toastView]);
   v32 = [v31 localizedStringForKey:@"USE_APPLE_PENCIL_PROMPT" value:&stru_286FDFDB8 table:0];
 
   [(PNPWizardScratchpadToast *)v3->_toastView setText:v32];

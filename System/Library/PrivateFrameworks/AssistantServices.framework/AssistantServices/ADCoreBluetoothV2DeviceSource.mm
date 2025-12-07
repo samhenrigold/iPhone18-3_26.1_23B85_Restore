@@ -229,8 +229,8 @@ LABEL_10:
 
   [(NSMapTable *)self->_cbuuidByAddress removeObjectForKey:v6];
   [(NSMapTable *)self->_addressByCBUUID removeObjectForKey:identifier];
-  v9 = [(NSMapTable *)self->_devicesByDeviceUID objectForKey:identifier];
-  v10 = [(NSMapTable *)self->_devicesByAddress objectForKey:identifier];
+  v9 = objc_msgSend_objectForKey_(self->_devicesByDeviceUID);
+  v10 = objc_msgSend_objectForKey_(self->_devicesByAddress);
   if (v9)
   {
     v11 = v9;
@@ -239,7 +239,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v12 = [(NSMapTable *)self->_devicesByAddress objectForKey:v6];
+  v12 = objc_msgSend_objectForKey_(self->_devicesByAddress);
 
   if (v12)
   {
@@ -278,8 +278,8 @@ LABEL_8:
     identifier = [v5 identifier];
     [(NSMapTable *)self->_addressByCBUUID setObject:v7 forKey:identifier];
     [(NSMapTable *)self->_cbuuidByAddress setObject:identifier forKey:v7];
-    v9 = [(NSMapTable *)self->_devicesByDeviceUID objectForKey:identifier];
-    v10 = [(NSMapTable *)self->_devicesByAddress objectForKey:v7];
+    v9 = objc_msgSend_objectForKey_(self->_devicesByDeviceUID);
+    v10 = objc_msgSend_objectForKey_(self->_devicesByAddress);
     if (v9)
     {
       v11 = AFSiriLogContextDaemon;
@@ -489,10 +489,10 @@ LABEL_20:
           objc_enumerationMutation(v4);
         }
 
-        v9 = [(NSMapTable *)self->_devicesByAddress objectForKey:*(*(&v20 + 1) + 8 * v8)];
+        v9 = objc_msgSend_objectForKey_(self->_devicesByAddress);
         [v9 invalidate];
 
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
@@ -522,10 +522,10 @@ LABEL_20:
           objc_enumerationMutation(v10);
         }
 
-        v15 = [(NSMapTable *)self->_devicesByDeviceUID objectForKey:*(*(&v16 + 1) + 8 * v14), v16];
+        v15 = objc_msgSend_objectForKey_(self->_devicesByDeviceUID, v16);
         [v15 invalidate];
 
-        v14 = v14 + 1;
+        ++v14;
       }
 
       while (v12 != v14);
@@ -576,7 +576,7 @@ LABEL_20:
   dCopy = d;
   devicesByDeviceUID = self->_devicesByDeviceUID;
   uUIDString = [dCopy UUIDString];
-  v9 = [(NSMapTable *)devicesByDeviceUID objectForKey:uUIDString];
+  v9 = objc_msgSend_objectForKey_(devicesByDeviceUID);
 
   if (v9)
   {
@@ -631,7 +631,7 @@ LABEL_20:
   absentCopy = absent;
   addressCopy = address;
   v7 = AFNormalizeMacAddress();
-  v8 = [(NSMapTable *)self->_devicesByAddress objectForKey:v7];
+  v8 = objc_msgSend_objectForKey_(self->_devicesByAddress);
   if (v8)
   {
     v9 = v8;

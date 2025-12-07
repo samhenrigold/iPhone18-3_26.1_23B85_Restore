@@ -1,5 +1,6 @@
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -25,7 +26,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -163,7 +164,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -180,7 +181,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -188,7 +189,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -221,12 +222,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -252,7 +253,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -952,6 +953,7 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_420vf_GCD(void *result, uint64_t a2, double
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -977,7 +979,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -1115,7 +1117,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -1132,7 +1134,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -1140,7 +1142,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -1173,12 +1175,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -1204,7 +1206,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -1276,45 +1278,45 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
     v27 = v19[1];
     v28 = *v21;
     v29 = v21[1];
-    v30 = v25[17].u16[2];
-    v31 = v25[17].u16[3];
-    a5.i32[0] = v25->i32[0];
-    _Q3.n128_u32[0] = v25[3].u32[1];
-    v32 = v25[18].u16[0];
-    v33 = v25[18].u16[1];
-    v34 = v25[18].u16[2];
+    v30 = *(*&v25 + 140);
+    v31 = *(*&v25 + 142);
+    a5.i32[0] = **&v25;
+    _Q3.n128_u32[0] = *(*&v25 + 28);
+    v32 = *(*&v25 + 144);
+    v33 = *(*&v25 + 146);
+    v34 = *(*&v25 + 148);
     a3.i32[0] = 1174403072;
-    v35 = 8191.0 / v25[16].u32[0];
+    v35 = 8191.0 / *(*&v25 + 128);
     v36 = v30;
-    _S14 = v35 * v25->f32[0];
-    v38 = v25[18].u16[3];
-    v39 = v25[19].u16[0];
+    _S14 = v35 * **v25.f32;
+    v38 = *(*&v25 + 150);
+    v39 = *(*&v25 + 152);
     *a5.i16 = v30;
     v40 = vdupq_lane_s16(*a5.f32, 0);
     *a5.i16 = -v31;
-    _Q3.n128_u32[1] = v25[1].u32[0];
+    _Q3.n128_u32[1] = *(*&v25 + 8);
     *a9.f32 = vmul_n_f32(_Q3.n128_u64[0], v35);
     v297 = a9.i64[0];
-    _Q3.n128_u32[0] = v25[6].u32[0];
-    a7.i32[0] = v25[6].i32[1];
-    _Q5.n128_u32[0] = v25[7].u32[0];
+    _Q3.n128_u32[0] = *(*&v25 + 48);
+    a7.i32[0] = *(*&v25 + 52);
+    _Q5.n128_u32[0] = *(*&v25 + 56);
     v41 = vdupq_lane_s32(vcvt_f16_f32(a9), 0);
-    *v10.f32 = vmul_n_f32(v25[2], v35);
-    v296 = v25[9].f32[0];
+    *v10.f32 = vmul_n_f32(*(*&v25 + 16), v35);
+    v296 = *(*&v25 + 72);
     v42 = vmulq_n_f16(v41, *a5.i16);
     v278 = vdupq_lane_s32(vcvt_f16_f32(v10), 0);
     v43 = vmulq_n_f16(v278, *a5.i16);
-    _Q3.n128_u32[1] = v25[7].u32[1];
+    _Q3.n128_u32[1] = *(*&v25 + 60);
     __asm { FMOV            V1.2S, #0.25 }
 
     *v9.f32 = vmul_f32(_Q3.n128_u64[0], _D1);
     v49 = vdupq_lane_s32(vcvt_f16_f32(v9), 0);
-    a7.i32[1] = v25[8].i32[0];
+    a7.i32[1] = *(*&v25 + 64);
     *a7.f32 = vmul_f32(*a7.f32, _D1);
-    _Q5.n128_u32[1] = v25[8].u32[1];
+    _Q5.n128_u32[1] = *(*&v25 + 68);
     *a5.f32 = vmul_f32(_Q5.n128_u64[0], _D1);
-    _Q5.n128_u32[0] = v25[10].u32[0];
-    _Q3.n128_u32[0] = v25[10].u32[1];
+    _Q5.n128_u32[0] = *(*&v25 + 80);
+    _Q3.n128_u32[0] = *(*&v25 + 84);
     v50 = vcvt_f16_f32(a5);
     v51 = vdupq_lane_s32(v50, 0);
     *v50.i16 = v32;
@@ -1322,9 +1324,9 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
     v260 = _Q1;
     *_Q1.i16 = v33;
     v52 = vdupq_lane_s16(*_Q1.i8, 0);
-    result = (v25 + 164);
+    result = (*&v25 + 164);
     v53 = v14 & 0xFFFFFFFE;
-    v54 = &v25[2068] + 4;
+    v54 = *&v25 + 16548;
     *_Q1.i16 = v34;
     v55 = vdupq_lane_s16(*_Q1.i8, 0);
     *_Q1.i16 = v38;
@@ -1344,14 +1346,14 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
     __asm { FCVT            H8, S14 }
 
     v273 = _H8;
-    v295 = v25[4].f32[1];
+    v295 = *(*&v25 + 36);
     __asm { FCVT            H8, S19 }
 
-    v294 = v25[5].f32[0];
+    v294 = *(*&v25 + 40);
     __asm { FCVT            H7, S9 }
 
     v271 = _H7;
-    v293 = v25[5].f32[1];
+    v293 = *(*&v25 + 44);
     __asm { FCVT            H7, S23 }
 
     v67 = v55;
@@ -1359,7 +1361,7 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
     __asm { FCVT            H9, S17 }
 
     v70 = v56;
-    v292 = v25[9].f32[1];
+    v292 = *(*&v25 + 76);
     __asm { FCVT            H6, S6 }
 
     v269 = _H6;
@@ -1370,23 +1372,23 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
     __asm { FCVT            H6, S3 }
 
     v73 = v52;
-    v285 = v25[11].f32[0];
+    v285 = *(*&v25 + 88);
     __asm { FCVT            H3, S26 }
 
     v266 = *_Q3.n128_u16;
     v74 = vdupq_lane_s16(*_Q1.i8, 0);
-    v283 = v25[11].f32[1];
+    v283 = *(*&v25 + 92);
     __asm { FCVT            H3, S27 }
 
     v263 = *_Q3.n128_u16;
-    v280 = v25[12].f32[0];
+    v280 = *(*&v25 + 96);
     __asm { FCVT            H10, S10 }
 
-    v279 = v25[12].f32[1];
+    v279 = *(*&v25 + 100);
     __asm { FCVT            H3, S13 }
 
     v300 = _Q3;
-    v265 = v25[13].f32[0];
+    v265 = *(*&v25 + 104);
     __asm { FCVT            H1, S1 }
 
     v299 = *_Q1.i16;
@@ -1524,69 +1526,69 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
           v123 = vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v100, _H9), *(&v86 - 14), v269), v102, *v268.n128_u16);
           v124 = vmlaq_n_f16(vmlaq_n_f16(vmulq_n_f16(v100, v267), *(&v86 - 14), v266), v102, v263);
           v125 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v120, *(&v86 + 2)), v101));
-          v104.i16[0] = *&v54[2 * v125.u16[0]];
-          v104.i16[1] = *&v54[2 * v125.u16[1]];
-          v104.i16[2] = *&v54[2 * v125.u16[2]];
-          v104.i16[3] = *&v54[2 * v125.u16[3]];
-          v104.i16[4] = *&v54[2 * v125.u16[4]];
-          v104.i16[5] = *&v54[2 * v125.u16[5]];
-          v104.i16[6] = *&v54[2 * v125.u16[6]];
+          v104.i16[0] = *(v54 + 2 * v125.u16[0]);
+          v104.i16[1] = *(v54 + 2 * v125.u16[1]);
+          v104.i16[2] = *(v54 + 2 * v125.u16[2]);
+          v104.i16[3] = *(v54 + 2 * v125.u16[3]);
+          v104.i16[4] = *(v54 + 2 * v125.u16[4]);
+          v104.i16[5] = *(v54 + 2 * v125.u16[5]);
+          v104.i16[6] = *(v54 + 2 * v125.u16[6]);
           v126 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v121, *(&v86 + 2)), v101));
-          v109.i16[0] = *&v54[2 * v126.u16[0]];
-          v109.i16[1] = *&v54[2 * v126.u16[1]];
-          v109.i16[2] = *&v54[2 * v126.u16[2]];
-          v109.i16[3] = *&v54[2 * v126.u16[3]];
-          v109.i16[4] = *&v54[2 * v126.u16[4]];
-          v109.i16[5] = *&v54[2 * v126.u16[5]];
-          v109.i16[6] = *&v54[2 * v126.u16[6]];
+          v109.i16[0] = *(v54 + 2 * v126.u16[0]);
+          v109.i16[1] = *(v54 + 2 * v126.u16[1]);
+          v109.i16[2] = *(v54 + 2 * v126.u16[2]);
+          v109.i16[3] = *(v54 + 2 * v126.u16[3]);
+          v109.i16[4] = *(v54 + 2 * v126.u16[4]);
+          v109.i16[5] = *(v54 + 2 * v126.u16[5]);
+          v109.i16[6] = *(v54 + 2 * v126.u16[6]);
           v127 = vuzp1q_s16(v104, v109);
-          v104.i16[7] = *&v54[2 * v125.u16[7]];
+          v104.i16[7] = *(v54 + 2 * v125.u16[7]);
           v101.i16[7] = v300.n128_i16[7];
           _H9 = v301;
-          v109.i16[7] = *&v54[2 * v126.u16[7]];
+          v109.i16[7] = *(v54 + 2 * v126.u16[7]);
           v128 = vmaxq_f16(v122, *(&v86 + 2));
           v79.i64[0] = 0x9000900090009000;
           v79.i64[1] = 0x9000900090009000;
           v129 = vcvtq_u16_f16(vminq_f16(v128, v79));
           v130 = vmlaq_n_f16(vmulq_n_f16(v102, v299), *(&v86 - 14), *v300.n128_u16);
-          v102.i16[0] = *&v54[2 * v129.u16[0]];
-          v102.i16[1] = *&v54[2 * v129.u16[1]];
-          v102.i16[2] = *&v54[2 * v129.u16[2]];
-          v102.i16[3] = *&v54[2 * v129.u16[3]];
-          v102.i16[4] = *&v54[2 * v129.u16[4]];
-          v102.i16[5] = *&v54[2 * v129.u16[5]];
-          v102.i16[6] = *&v54[2 * v129.u16[6]];
+          v102.i16[0] = *(v54 + 2 * v129.u16[0]);
+          v102.i16[1] = *(v54 + 2 * v129.u16[1]);
+          v102.i16[2] = *(v54 + 2 * v129.u16[2]);
+          v102.i16[3] = *(v54 + 2 * v129.u16[3]);
+          v102.i16[4] = *(v54 + 2 * v129.u16[4]);
+          v102.i16[5] = *(v54 + 2 * v129.u16[5]);
+          v102.i16[6] = *(v54 + 2 * v129.u16[6]);
           *(&v86 - 14) = v102;
-          LOWORD(v86) = *&v54[2 * v129.u16[7]];
+          LOWORD(v86) = *(v54 + 2 * v129.u16[7]);
           v131 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v123, *(&v86 + 2)), v79));
-          v129.i16[0] = *&v54[2 * v131.u16[0]];
-          v129.i16[1] = *&v54[2 * v131.u16[1]];
-          v129.i16[2] = *&v54[2 * v131.u16[2]];
-          v129.i16[3] = *&v54[2 * v131.u16[3]];
-          v129.i16[4] = *&v54[2 * v131.u16[4]];
-          v129.i16[5] = *&v54[2 * v131.u16[5]];
-          v129.i16[6] = *&v54[2 * v131.u16[6]];
-          v132 = &v54[2 * v131.u16[7]];
+          v129.i16[0] = *(v54 + 2 * v131.u16[0]);
+          v129.i16[1] = *(v54 + 2 * v131.u16[1]);
+          v129.i16[2] = *(v54 + 2 * v131.u16[2]);
+          v129.i16[3] = *(v54 + 2 * v131.u16[3]);
+          v129.i16[4] = *(v54 + 2 * v131.u16[4]);
+          v129.i16[5] = *(v54 + 2 * v131.u16[5]);
+          v129.i16[6] = *(v54 + 2 * v131.u16[6]);
+          v132 = (v54 + 2 * v131.u16[7]);
           v133 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(v124, *(&v86 + 2)), v79));
-          v101.i16[0] = *&v54[2 * v133.u16[0]];
-          v101.i16[1] = *&v54[2 * v133.u16[1]];
-          v101.i16[2] = *&v54[2 * v133.u16[2]];
-          v101.i16[3] = *&v54[2 * v133.u16[3]];
-          v101.i16[4] = *&v54[2 * v133.u16[4]];
-          v101.i16[5] = *&v54[2 * v133.u16[5]];
-          v101.i16[6] = *&v54[2 * v133.u16[6]];
+          v101.i16[0] = *(v54 + 2 * v133.u16[0]);
+          v101.i16[1] = *(v54 + 2 * v133.u16[1]);
+          v101.i16[2] = *(v54 + 2 * v133.u16[2]);
+          v101.i16[3] = *(v54 + 2 * v133.u16[3]);
+          v101.i16[4] = *(v54 + 2 * v133.u16[4]);
+          v101.i16[5] = *(v54 + 2 * v133.u16[5]);
+          v101.i16[6] = *(v54 + 2 * v133.u16[6]);
           v134 = vuzp1q_s16(v129, v101);
           v129.i16[7] = *v132;
-          v101.i16[7] = *&v54[2 * v133.u16[7]];
+          v101.i16[7] = *(v54 + 2 * v133.u16[7]);
           v135 = vcvtq_u16_f16(vminq_f16(vmaxq_f16(vmlaq_n_f16(v130, v100, v262), *(&v86 + 2)), v79));
-          v133.i16[0] = *&v54[2 * v135.u16[0]];
-          v133.i16[1] = *&v54[2 * v135.u16[1]];
-          v133.i16[2] = *&v54[2 * v135.u16[2]];
-          v133.i16[3] = *&v54[2 * v135.u16[3]];
-          v133.i16[4] = *&v54[2 * v135.u16[4]];
-          v133.i16[5] = *&v54[2 * v135.u16[5]];
-          v133.i16[6] = *&v54[2 * v135.u16[6]];
-          v136 = &v54[2 * v135.u16[7]];
+          v133.i16[0] = *(v54 + 2 * v135.u16[0]);
+          v133.i16[1] = *(v54 + 2 * v135.u16[1]);
+          v133.i16[2] = *(v54 + 2 * v135.u16[2]);
+          v133.i16[3] = *(v54 + 2 * v135.u16[3]);
+          v133.i16[4] = *(v54 + 2 * v135.u16[4]);
+          v133.i16[5] = *(v54 + 2 * v135.u16[5]);
+          v133.i16[6] = *(v54 + 2 * v135.u16[6]);
+          v136 = (v54 + 2 * v135.u16[7]);
           v137 = v133;
           v137.i16[7] = *v136;
           *v59++ = vmovn_s16(vcvtq_u16_f16(vminq_f16(vmaxq_f16(vmlaq_n_f16(vmlaq_n_f16(vmlaq_n_f16(v260, v104, v272), v109, v271), *(&v86 - 14), v270), v260), v67)));
@@ -1811,40 +1813,40 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
         v208 = ((v292 * _S30) + (_S25 * v296)) + (_S10 * v290);
         v209 = ((v285 * _S30) + (_S25 * v288)) + (_S10 * v283);
         v210 = ((v279 * _S30) + (_S25 * v280)) + (_S10 * v265);
-        LOWORD(_S1) = *&v54[2 * llroundf(fminf(fmaxf(v199, 0.0), 8191.0))];
+        LOWORD(_S1) = *(v54 + 2 * llroundf(fminf(fmaxf(v199, 0.0), 8191.0)));
         __asm { FCVT            S3, H1 }
 
-        LOWORD(_S1) = *&v54[2 * llroundf(fminf(fmaxf(v200, 0.0), 8191.0))];
+        LOWORD(_S1) = *(v54 + 2 * llroundf(fminf(fmaxf(v200, 0.0), 8191.0)));
         __asm { FCVT            S1, H1 }
 
-        LOWORD(_S2) = *&v54[2 * llroundf(fminf(fmaxf(_S2, 0.0), 8191.0))];
+        LOWORD(_S2) = *(v54 + 2 * llroundf(fminf(fmaxf(_S2, 0.0), 8191.0)));
         __asm { FCVT            S2, H2 }
 
-        LOWORD(_S4) = *&v54[2 * llroundf(fminf(fmaxf(_S5, 0.0), 8191.0))];
+        LOWORD(_S4) = *(v54 + 2 * llroundf(fminf(fmaxf(_S5, 0.0), 8191.0)));
         __asm { FCVT            S4, H4 }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(v203, 0.0), 8191.0))];
-        LOWORD(_S6) = *&v54[2 * llroundf(fminf(fmaxf(_S6, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(v203, 0.0), 8191.0)));
+        LOWORD(_S6) = *(v54 + 2 * llroundf(fminf(fmaxf(_S6, 0.0), 8191.0)));
         __asm
         {
           FCVT            S17, H5
           FCVT            S6, H6
         }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(v205, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(v205, 0.0), 8191.0)));
         __asm { FCVT            S30, H5 }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(v206, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(v206, 0.0), 8191.0)));
         __asm { FCVT            S27, H5 }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(_S7, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(_S7, 0.0), 8191.0)));
         __asm { FCVT            S25, H5 }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(v208, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(v208, 0.0), 8191.0)));
         __asm { FCVT            S13, H5 }
 
-        LOWORD(_S5) = *&v54[2 * llroundf(fminf(fmaxf(v209, 0.0), 8191.0))];
-        LOWORD(_S7) = *&v54[2 * llroundf(fminf(fmaxf(v210, 0.0), 8191.0))];
+        LOWORD(_S5) = *(v54 + 2 * llroundf(fminf(fmaxf(v209, 0.0), 8191.0)));
+        LOWORD(_S7) = *(v54 + 2 * llroundf(fminf(fmaxf(v210, 0.0), 8191.0)));
         __asm
         {
           FCVT            S5, H5
@@ -2104,6 +2106,7 @@ float32x2_t *vt_Copy_420vf_TRC_Mat_TRC_420vf_neon_fp16_GCD(float32x2_t *result, 
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_420vf(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -2129,7 +2132,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -2267,7 +2270,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -2284,7 +2287,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -2292,7 +2295,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -2325,12 +2328,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -2356,7 +2359,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -2985,6 +2988,7 @@ void *vt_Copy_420vf_TRC_Mat_TRC_420vf_GCD(void *result, uint64_t a2, double a3, 
 
 uint64_t vt_Copy_420vf_rgb_420vf_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -3010,7 +3014,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -3148,7 +3152,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -3165,7 +3169,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -3173,7 +3177,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -3206,12 +3210,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -3237,7 +3241,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -3729,6 +3733,7 @@ void *vt_Copy_420vf_rgb_420vf_neon_fp16_GCD(void *result, uint64_t a2, int16x8_t
 
 uint64_t vt_Copy_420vf_rgb_420vf(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, unint64_t *a8, void *a9)
 {
+  v13 = a3;
   v72 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -3754,7 +3759,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v58 - v21);
     bzero(&v58 - v21, v22);
   }
@@ -3892,7 +3897,7 @@ LABEL_75:
   v46 = v43 + v27;
   v47 = v43 + v27 + v45 * *a4 > *a5;
   v63 = a9;
-  v64 = a3;
+  v64 = v13;
   v61 = v28;
   v62 = v29;
   v59 = v30;
@@ -3909,7 +3914,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v44 + v37 + 1) / 2 - 1) > a5[1])
   {
     v48 = a5;
     v49 = a8;
@@ -3917,7 +3922,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v46 + a4[2] * v45 > a5[2])
+  if (*(v13 + 16) && v46 + a4[2] * v45 > a5[2])
   {
     v48 = a5;
     v49 = a8;
@@ -3950,12 +3955,12 @@ LABEL_75:
     v50 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v58, v59, v60);
     v15 = v50;
     a8 = v49;
     a5 = v48;
     v23 = v63;
-    a3 = v64;
+    v13 = v64;
     v28 = v61;
     v29 = v62;
     v30 = v59;
@@ -3981,7 +3986,7 @@ LABEL_68:
   v19[12] = v43;
   v19[13] = v44;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -4376,6 +4381,7 @@ char *vt_Copy_420vf_rgb_420vf_GCD(void *a1, uint64_t a2, double a3, double a4, f
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -4401,7 +4407,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -4539,7 +4545,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -4556,7 +4562,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -4564,7 +4570,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -4597,12 +4603,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -4628,7 +4634,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -4671,22 +4677,22 @@ LABEL_74:
   return v20;
 }
 
-void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t a2, double a3, double a4, double a5, double a6, float32x4_t a7, double a8, float32x4_t a9)
+char *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(char *result, uint64_t a2, double a3, double a4, double a5, double a6, float32x4_t a7, double a8, float32x4_t a9)
 {
   v338 = *(result + 36);
   v13 = 2 * *result;
   v337 = *(result + 44) + 2 * (*(result + 28) * a2 / v13);
-  v14 = result[14];
-  v16 = result[12];
-  v15 = result[13];
+  v14 = *(result + 14);
+  v16 = *(result + 12);
+  v15 = *(result + 13);
   v344 = result;
   v17 = v15 * a2 / v13;
-  v18 = result[15] + 2 * v17;
+  v18 = *(result + 15) + 2 * v17;
   v19 = 2 * ((v15 + v15 * a2) / v13 - v17);
-  v20 = result[7];
-  v21 = result[8];
-  v22 = result[16];
-  v23 = result[17];
+  v20 = *(result + 7);
+  v21 = *(result + 8);
+  v22 = *(result + 16);
+  v23 = *(result + 17);
   v336 = v21[2];
   v340 = v20[2];
   v342 = v23[2];
@@ -4695,7 +4701,7 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t 
   if (v19 >= 1)
   {
     v24 = 0;
-    v25 = result[19];
+    v25 = *(result + 19);
     v26 = *v21;
     v27 = v21[1];
     v29 = *v23;
@@ -4886,7 +4892,7 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t 
     v346 = v34;
     do
     {
-      result = (v75 + v26);
+      result = v75 + v26;
       v94 = &v73->i8[v29];
       if (v16 < 8)
       {
@@ -4901,7 +4907,7 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t 
       {
         v359 = v24;
         v95 = 0;
-        v356 = (v75 + v26);
+        v356 = v75 + v26;
         v357 = &v73->i8[v29];
         v96 = (v75 + v26);
         v97 = (v73 + v29);
@@ -5595,7 +5601,7 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t 
         v62 = v404;
       }
 
-      v75 = (result + v26);
+      v75 = &result[v26];
       v74 += v27;
       v73 = &v94[v29];
       v72 += v360;
@@ -5658,12 +5664,13 @@ void *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t 
     }
   }
 
-  *(v344 + a2 + 40) = 0;
+  *&v344[4 * a2 + 160] = 0;
   return result;
 }
 
 uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -5689,7 +5696,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -5827,7 +5834,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -5844,7 +5851,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -5852,7 +5859,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -5885,12 +5892,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -5916,7 +5923,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -5959,7 +5966,7 @@ LABEL_74:
   return v20;
 }
 
-uint64_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
+uint64_t vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
 {
   v10 = 2 * *a1;
   v203 = *(a1 + 44) + 2 * (*(a1 + 28) * a2 / v10);
@@ -5976,7 +5983,7 @@ uint64_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double
   result = a1[17];
   v21 = v18[2];
   v206 = v17[2];
-  v22 = result[2];
+  v22 = *(result + 16);
   v205 = v20[2];
   v23 = (v205 + v22 * v15 + 2 * v11);
   if (v16 >= 1)
@@ -5987,7 +5994,7 @@ uint64_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double
     v27 = *v18;
     v28 = v18[1];
     v29 = *result;
-    result = result[1];
+    result = *(result + 8);
     LOWORD(a5) = *(v25 + 140);
     LOWORD(a6) = *(v25 + 142);
     LOWORD(v6) = *(v25 + 144);
@@ -6565,6 +6572,7 @@ uint64_t *vt_Copy_420vf_TRC_Tone_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_xf420_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -6590,7 +6598,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -6728,7 +6736,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -6745,7 +6753,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -6753,7 +6761,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -6786,12 +6794,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -6817,7 +6825,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -7748,6 +7756,7 @@ void *vt_Copy_420vf_TRC_Mat_TRC_xf420_neon_fp16_GCD(void *result, uint64_t a2, d
 
 uint64_t vt_Copy_420vf_TRC_Mat_TRC_xf420(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -7773,7 +7782,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -7911,7 +7920,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -7928,7 +7937,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -7936,7 +7945,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -7969,12 +7978,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -8000,7 +8009,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -8043,7 +8052,7 @@ LABEL_74:
   return v20;
 }
 
-uint64_t *vt_Copy_420vf_TRC_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
+uint64_t vt_Copy_420vf_TRC_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
 {
   v11 = 2 * *a1;
   v172 = *(a1 + 44) + 2 * (*(a1 + 28) * a2 / v11);
@@ -8059,7 +8068,7 @@ uint64_t *vt_Copy_420vf_TRC_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, 
   v21 = a1[16];
   result = a1[17];
   v22 = v19[2];
-  v23 = result[2];
+  v23 = *(result + 16);
   v174 = v21[2];
   v175 = v18[2];
   v24 = (v174 + v23 * v16 + 2 * v12);
@@ -8071,7 +8080,7 @@ uint64_t *vt_Copy_420vf_TRC_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, 
     v28 = *v19;
     v29 = v19[1];
     v30 = *result;
-    result = result[1];
+    result = *(result + 8);
     LOWORD(a5) = *(v26 + 140);
     LOWORD(a6) = *(v26 + 142);
     LOWORD(v6) = *(v26 + 144);
@@ -8573,6 +8582,7 @@ uint64_t *vt_Copy_420vf_TRC_Mat_TRC_xf420_GCD(void *a1, uint64_t a2, double a3, 
 
 uint64_t vt_Copy_420vf_rgb_xf420_neon_fp16(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -8598,7 +8608,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -8736,7 +8746,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -8753,7 +8763,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -8761,7 +8771,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -8794,12 +8804,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -8825,7 +8835,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -8868,7 +8878,7 @@ LABEL_74:
   return v20;
 }
 
-uint64_t *vt_Copy_420vf_rgb_xf420_neon_fp16_GCD(void *a1, uint64_t a2)
+uint64_t vt_Copy_420vf_rgb_xf420_neon_fp16_GCD(void *a1, uint64_t a2)
 {
   v161 = *(a1 + 36);
   v8 = 2 * *a1;
@@ -8885,7 +8895,7 @@ uint64_t *vt_Copy_420vf_rgb_xf420_neon_fp16_GCD(void *a1, uint64_t a2)
   result = a1[17];
   v19 = v16[2];
   v20 = v15[2];
-  v21 = result[2];
+  v21 = *(result + 16);
   v162 = v18[2];
   v22 = (v162 + v21 * v13 + 2 * v9);
   if (v14 >= 1)
@@ -8895,7 +8905,7 @@ uint64_t *vt_Copy_420vf_rgb_xf420_neon_fp16_GCD(void *a1, uint64_t a2)
     v25 = *v16;
     v26 = v16[1];
     v27 = *result;
-    result = result[1];
+    result = *(result + 8);
     v28 = v24[17].u16[2];
     v29 = v24[17].u16[3];
     v2.i32[0] = v24[3].i32[1];
@@ -9258,6 +9268,7 @@ uint64_t *vt_Copy_420vf_rgb_xf420_neon_fp16_GCD(void *a1, uint64_t a2)
 
 uint64_t vt_Copy_420vf_rgb_xf420(uint64_t a1, int64x2_t *a2, uint64_t a3, unint64_t *a4, void *a5, int64x2_t *a6, uint64_t a7, void *a8, void *a9)
 {
+  v13 = a3;
   v73 = *MEMORY[0x1E69E9840];
   v15 = *(a1 + 162);
   v16 = *a2;
@@ -9283,7 +9294,7 @@ LABEL_75:
 
   else
   {
-    MEMORY[0x1EEE9AC00]();
+    MEMORY[0x1EEE9AC00](a1, 4 * v15 + 160, a3, a4);
     v19 = (&v59 - v21);
     bzero(&v59 - v21, v22);
   }
@@ -9421,7 +9432,7 @@ LABEL_75:
   v47 = v44 + v27;
   v48 = v44 + v27 + v46 * *a4 > *a5;
   v64 = a9;
-  v65 = a3;
+  v65 = v13;
   v62 = v28;
   v63 = v29;
   v60 = v30;
@@ -9438,7 +9449,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
+  if (*(v13 + 8) && ((v47 + 1 + ((v47 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + a4[1] * ((v45 + v38 + 1) / 2 - 1) > a5[1])
   {
     v49 = a5;
     v50 = a8;
@@ -9446,7 +9457,7 @@ LABEL_75:
     goto LABEL_68;
   }
 
-  if (*(a3 + 16) && v47 + a4[2] * v46 > a5[2])
+  if (*(v13 + 16) && v47 + a4[2] * v46 > a5[2])
   {
     v49 = a5;
     v50 = a8;
@@ -9479,12 +9490,12 @@ LABEL_75:
     v51 = v15;
 LABEL_68:
     fig_log_get_emitter();
-    v20 = FigSignalErrorAtGM();
+    v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v59, v60, v61);
     v15 = v51;
     a8 = v50;
     a5 = v49;
     v23 = v64;
-    a3 = v65;
+    v13 = v65;
     v28 = v62;
     v29 = v63;
     v30 = v60;
@@ -9510,7 +9521,7 @@ LABEL_68:
   v19[12] = v44;
   v19[13] = v45;
   v19[14] = v28;
-  v19[7] = a3;
+  v19[7] = v13;
   v19[8] = a4;
   v19[9] = a5;
   v19[10] = v29;
@@ -9553,7 +9564,7 @@ LABEL_74:
   return v20;
 }
 
-uint64_t *vt_Copy_420vf_rgb_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
+uint64_t vt_Copy_420vf_rgb_xf420_GCD(void *a1, uint64_t a2, double a3, double a4, float a5, float a6)
 {
   v8 = *(a1 + 36);
   v9 = 2 * *a1;
@@ -9570,7 +9581,7 @@ uint64_t *vt_Copy_420vf_rgb_xf420_GCD(void *a1, uint64_t a2, double a3, double a
   result = a1[17];
   v21 = v18[2];
   v22 = v17[2];
-  v23 = result[2];
+  v23 = *(result + 16);
   v24 = v20[2];
   v25 = (v24 + v23 * v15 + 2 * v11);
   if (v16 >= 1)
@@ -9581,7 +9592,7 @@ uint64_t *vt_Copy_420vf_rgb_xf420_GCD(void *a1, uint64_t a2, double a3, double a
     v29 = *v18;
     v30 = v18[1];
     v31 = *result;
-    result = result[1];
+    result = *(result + 8);
     LOWORD(a5) = *(v27 + 140);
     LOWORD(a6) = *(v27 + 142);
     v32 = *(v27 + 136) / *(v27 + 128);

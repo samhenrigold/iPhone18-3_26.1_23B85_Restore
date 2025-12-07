@@ -79,17 +79,18 @@
 - (void)startMonitoring
 {
   start = [(CTStewieStateMonitor *)self->_stateMonitor start];
-  v3 = contactSearchLog();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
-  if (start)
+  v3 = start;
+  v4 = contactSearchLog(start);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
       [CNACTStewieFacade startMonitoring];
     }
   }
 
-  else if (v4)
+  else if (v5)
   {
     [CNACTStewieFacade startMonitoring];
   }
@@ -137,19 +138,19 @@
       _cn_flatten = [v6 _cn_flatten];
       _cn_distinctObjects = [_cn_flatten _cn_distinctObjects];
 
-      v9 = contactSearchLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = contactSearchLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         [CNACTStewieFacade emergencyTerms];
       }
 
-      v10 = MEMORY[0x277CFBED8];
+      v11 = MEMORY[0x277CFBED8];
       currentEnvironment = [MEMORY[0x277CFBE10] currentEnvironment];
       timeProvider = [currentEnvironment timeProvider];
       [timeProvider timestamp];
-      v13 = [v10 timestampedWithValue:_cn_distinctObjects timestamp:?];
+      v14 = [v11 timestampedWithValue:_cn_distinctObjects timestamp:?];
       emergencyMemo = selfCopy->_emergencyMemo;
-      selfCopy->_emergencyMemo = v13;
+      selfCopy->_emergencyMemo = v14;
 
       value = [(CNTimestamped *)selfCopy->_emergencyMemo value];
     }
@@ -161,8 +162,6 @@
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return value;
 }
@@ -206,7 +205,7 @@
     {
       localizedAvocetPhrases = [objc_opt_class() localizedAvocetPhrases];
       _cn_distinctObjects = [localizedAvocetPhrases _cn_distinctObjects];
-      v6 = contactSearchLog();
+      v6 = contactSearchLog(_cn_distinctObjects);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         [CNACTStewieFacade avocetTerms];
@@ -297,7 +296,7 @@
   v6 = v5;
   if (!v5)
   {
-    v7 = contactSearchLog();
+    v7 = contactSearchLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [CNACTStewieFacade numbers];
@@ -313,9 +312,9 @@
 {
   changedCopy = changed;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v6 = contactSearchLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v6 = objc_sync_enter(selfCopy);
+  v7 = contactSearchLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [CNACTStewieFacade stateChanged:];
   }
@@ -331,38 +330,30 @@
 
 - (void)emergencyTerms
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)avocetTerms
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)numbers
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stateChanged:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -1,6 +1,8 @@
 @interface LACUIPackagedViewStateController
 - (LACUIPackagedViewStateController)initWithLayer:(id)layer;
 - (LACUIPackagedViewStateController)initWithPlatformStateController:(id)controller;
+- (void)_clearPendingTransitionWithFlag:(BOOL)flag;
+- (void)packagedViewPlatformStateController:(id)controller didTransitionToState:(id)state completed:(BOOL)completed;
 - (void)setState:(id)state animated:(BOOL)animated completion:(id)completion;
 @end
 
@@ -114,7 +116,7 @@
 
 void __65__LACUIPackagedViewStateController_setState_animated_completion___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained && *(WeakRetained + 2))
@@ -128,15 +130,35 @@ void __65__LACUIPackagedViewStateController_setState_animated_completion___block
     if (os_log_type_enabled(LA_LOG_LACUIPackagedViewStateController_log, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_DEFAULT, "Calling completion for %{public}@ after reaching duration limit", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_DEFAULT, "Calling completion for %{public}@ after reaching duration limit", &v6, 0xCu);
     }
 
     [v3 _clearPendingTransitionWithFlag:1];
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)packagedViewPlatformStateController:(id)controller didTransitionToState:(id)state completed:(BOOL)completed
+{
+  completedCopy = completed;
+  pendingStateTransition = self->_pendingStateTransition;
+  stateCopy = state;
+  toState = [(LACUIPackagedViewStateTransition *)pendingStateTransition toState];
+  v10 = [toState finishesWithStateNamed:stateCopy];
+
+  if (v10)
+  {
+
+    [(LACUIPackagedViewStateController *)self _clearPendingTransitionWithFlag:completedCopy];
+  }
+}
+
+- (void)_clearPendingTransitionWithFlag:(BOOL)flag
+{
+  [(LACUIPackagedViewStateTransition *)self->_pendingStateTransition complete:flag];
+  pendingStateTransition = self->_pendingStateTransition;
+  self->_pendingStateTransition = 0;
 }
 
 @end

@@ -3,13 +3,9 @@
 
 @implementation LSDatabaseDisposeStringArray
 
-uint64_t ___LSDatabaseDisposeStringArray_block_invoke(uint64_t a1)
+uint64_t ___LSDatabaseDisposeStringArray_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    v2 = v1[5];
-  }
+  v3 = *(a1 + 32);
 
   return _CSStringRelease();
 }

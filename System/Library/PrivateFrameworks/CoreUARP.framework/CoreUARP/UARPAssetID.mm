@@ -188,11 +188,11 @@
 
 - (UARPAssetID)initWithCoder:(id)coder
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v51.receiver = self;
-  v51.super_class = UARPAssetID;
-  v5 = [(UARPAssetID *)&v51 init];
+  v50.receiver = self;
+  v50.super_class = UARPAssetID;
+  v5 = [(UARPAssetID *)&v50 init];
   if (v5)
   {
     v5->_type = [coderCopy decodeIntegerForKey:@"type"];
@@ -256,9 +256,9 @@
     v5->_modelNumber = v30;
 
     v32 = MEMORY[0x277CBEB98];
-    v54[0] = objc_opt_class();
-    v54[1] = objc_opt_class();
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:2];
+    v53[0] = objc_opt_class();
+    v53[1] = objc_opt_class();
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
     v34 = [v32 setWithArray:v33];
 
     v35 = [coderCopy decodeObjectOfClasses:v34 forKey:@"downstreamAssetIDs"];
@@ -273,9 +273,9 @@
     }
 
     v39 = MEMORY[0x277CBEB98];
-    v53[0] = objc_opt_class();
-    v53[1] = objc_opt_class();
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+    v52[0] = objc_opt_class();
+    v52[1] = objc_opt_class();
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
     v41 = [v39 setWithArray:v40];
 
     v42 = [coderCopy decodeObjectOfClasses:v41 forKey:@"activeAccessoriesForStaging"];
@@ -283,9 +283,9 @@
     v5->_activeAccessoriesForStaging = v42;
 
     v44 = MEMORY[0x277CBEB98];
-    v52[0] = objc_opt_class();
-    v52[1] = objc_opt_class();
-    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+    v51[0] = objc_opt_class();
+    v51[1] = objc_opt_class();
+    v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
     v46 = [v44 setWithArray:v45];
 
     v47 = [coderCopy decodeObjectOfClasses:v46 forKey:@"deploymentRules"];
@@ -295,7 +295,6 @@
     v5->_isUrgentUpdate = [coderCopy decodeBoolForKey:@"isUrgentUpdate"];
   }
 
-  v49 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -363,9 +362,7 @@
 
 - (void)setRemoteBuildManifestPlistPath:(id)path
 {
-  v4 = [path copy];
-  remoteBuildManifestPlistPath = self->_remoteBuildManifestPlistPath;
-  self->_remoteBuildManifestPlistPath = v4;
+  self->_remoteBuildManifestPlistPath = [path copy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -894,9 +891,7 @@
 - (id)rawDescription
 {
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
-  typeString = [(UARPAssetID *)self typeString];
-  assetVersion = self->_assetVersion;
-  [v3 appendFormat:@"type=%s, assetVersion=%@/%@", typeString, assetVersion, self->_assetVersionNumber];
+  [v3 appendFormat:@"type=%s, assetVersion=%@/%@", -[UARPAssetID typeString](self, "typeString"), self->_assetVersion, self->_assetVersionNumber];
   if (self->_modelNumber)
   {
     [v3 appendFormat:@", downstream=%@", self->_modelNumber];
@@ -929,9 +924,9 @@
     [v3 appendFormat:@", tag=%@", self->_tag];
   }
 
-  v7 = [MEMORY[0x277CCACA8] stringWithString:v3];
+  v5 = [MEMORY[0x277CCACA8] stringWithString:v3];
 
-  return v7;
+  return v5;
 }
 
 - (id)description
@@ -947,38 +942,38 @@
 
 - (id)_createUARPDeploymentRules:(id)rules
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   rulesCopy = rules;
   if ([rulesCopy count])
   {
-    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v21 = objc_alloc_init(MEMORY[0x277CCA968]);
-    [v21 setDateFormat:@"MM/dd/yyyy"];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = objc_alloc_init(MEMORY[0x277CCA968]);
+    [v20 setDateFormat:@"MM/dd/yyyy"];
     v24 = 0u;
-    v16 = rulesCopy;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v15 = rulesCopy;
     obj = rulesCopy;
-    v22 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
-    if (v22)
+    v21 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v21)
     {
-      v20 = *v24;
+      v19 = *v23;
       do
       {
-        for (i = 0; i != v22; ++i)
+        for (i = 0; i != v21; ++i)
         {
-          if (*v24 != v20)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v5 = *(*(&v23 + 1) + 8 * i);
+          v5 = *(*(&v22 + 1) + 8 * i);
           v6 = [v5 objectForKey:@"rampPeriod"];
           v7 = [v5 objectForKey:@"deploymentLimit"];
           v8 = [v5 objectForKey:@"countryList"];
           v9 = [v5 objectForKey:@"goLiveDate"];
-          v10 = [v21 dateFromString:v9];
+          v10 = [v20 dateFromString:v9];
           v11 = objc_alloc_init(UARPDeploymentRuleConfig);
           [(UARPDeploymentRuleConfig *)v11 setGoLiveDate:v10];
           [(UARPDeploymentRuleConfig *)v11 setCountryList:v8];
@@ -987,7 +982,7 @@
           v12 = [[UARPDeploymentRule alloc] initWithConfig:v11];
           if (v12)
           {
-            [v19 addObject:v12];
+            [v18 addObject:v12];
           }
 
           else
@@ -996,132 +991,126 @@
             if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v28 = v5;
+              v27 = v5;
               _os_log_error_impl(&dword_247AA7000, log, OS_LOG_TYPE_ERROR, "Error: Invalid rule combination not allowed %@", buf, 0xCu);
             }
           }
         }
 
-        v22 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+        v21 = [obj countByEnumeratingWithState:&v22 objects:v28 count:16];
       }
 
-      while (v22);
+      while (v21);
     }
 
-    rulesCopy = v16;
+    rulesCopy = v15;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v18;
 }
 
 - (BOOL)isDeploymentAllowed
 {
-  v32 = *MEMORY[0x277D85DE8];
-  if ([(NSArray *)self->_deploymentRules count])
+  v31 = *MEMORY[0x277D85DE8];
+  if (![(NSArray *)self->_deploymentRules count])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v3 = self->_deploymentRules;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
-    if (v4)
-    {
-      v6 = v4;
-      v7 = 0;
-      v8 = *v26;
-      *&v5 = 138412290;
-      v23 = v5;
+    return 1;
+  }
+
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v3 = self->_deploymentRules;
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  if (v4)
+  {
+    v6 = v4;
+    v7 = 0;
+    v8 = *v25;
+    *&v5 = 138412290;
+    v22 = v5;
 LABEL_4:
-      v9 = 0;
-      v10 = v7;
-      while (1)
+    v9 = 0;
+    v10 = v7;
+    while (1)
+    {
+      if (*v25 != v8)
       {
-        if (*v26 != v8)
+        objc_enumerationMutation(v3);
+      }
+
+      v11 = *(*(&v24 + 1) + 8 * v9);
+      log = self->_log;
+      if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
+      {
+        *buf = v22;
+        v29 = v11;
+        _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Checking Rule %@", buf, 0xCu);
+      }
+
+      v23 = v10;
+      v13 = [v11 isDeploymentAllowed:{&v23, v22}];
+      v7 = v23;
+
+      deploymentDay = [v11 deploymentDay];
+
+      if (deploymentDay)
+      {
+        deploymentDay2 = [v11 deploymentDay];
+        deploymentDay = self->_deploymentDay;
+        self->_deploymentDay = deploymentDay2;
+      }
+
+      deploymentPercent = [v11 deploymentPercent];
+
+      if (deploymentPercent)
+      {
+        deploymentPercent2 = [v11 deploymentPercent];
+        deploymentPercent = self->_deploymentPercent;
+        self->_deploymentPercent = deploymentPercent2;
+      }
+
+      if (v13)
+      {
+        break;
+      }
+
+      ++v9;
+      v10 = v7;
+      if (v6 == v9)
+      {
+        v6 = [(NSArray *)v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
+        if (v6)
         {
-          objc_enumerationMutation(v3);
+          goto LABEL_4;
         }
 
-        v11 = *(*(&v25 + 1) + 8 * v9);
-        log = self->_log;
-        if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
-        {
-          *buf = v23;
-          v30 = v11;
-          _os_log_impl(&dword_247AA7000, log, OS_LOG_TYPE_INFO, "Checking Rule %@", buf, 0xCu);
-        }
-
-        v24 = v10;
-        v13 = [v11 isDeploymentAllowed:{&v24, v23}];
-        v7 = v24;
-
-        deploymentDay = [v11 deploymentDay];
-
-        if (deploymentDay)
-        {
-          deploymentDay2 = [v11 deploymentDay];
-          deploymentDay = self->_deploymentDay;
-          self->_deploymentDay = deploymentDay2;
-        }
-
-        deploymentPercent = [v11 deploymentPercent];
-
-        if (deploymentPercent)
-        {
-          deploymentPercent2 = [v11 deploymentPercent];
-          deploymentPercent = self->_deploymentPercent;
-          self->_deploymentPercent = deploymentPercent2;
-        }
-
-        if (v13)
-        {
-          break;
-        }
-
-        ++v9;
-        v10 = v7;
-        if (v6 == v9)
-        {
-          v6 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
-          if (v6)
-          {
-            goto LABEL_4;
-          }
-
-          v20 = 0;
-          goto LABEL_20;
-        }
+        v20 = 0;
+        goto LABEL_20;
       }
     }
-
-    else
-    {
-      v7 = 0;
-    }
-
-    v20 = 1;
-LABEL_20:
   }
 
   else
   {
-    v20 = 1;
+    v7 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = 1;
+LABEL_20:
+
   return v20;
 }
 
 - (void)dumpWithTabDepth:(unint64_t)depth dumpString:(id)string
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   [stringCopy appendWithTabDepth:depth format:@"Asset ID:\n"];
   [stringCopy appendWithTabDepth:depth + 1 format:{@"Type: %s\n", UARPAssetLocationTypeToString(self->_type)}];
@@ -1182,31 +1171,31 @@ LABEL_20:
   if ([(NSArray *)self->_deploymentRules count])
   {
     [stringCopy appendWithTabDepth:depth + 1 format:@"Deployment Rules:\n"];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = self->_deploymentRules;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v15 + 1) + 8 * v11++) dumpWithTabDepth:depth + 2 dumpString:stringCopy];
+          [*(*(&v14 + 1) + 8 * v11++) dumpWithTabDepth:depth + 2 dumpString:stringCopy];
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -1235,8 +1224,6 @@ LABEL_20:
   }
 
   [stringCopy appendWithTabDepth:depth + 1 format:{@"Signature Validation Needed: %s\n", v13}];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

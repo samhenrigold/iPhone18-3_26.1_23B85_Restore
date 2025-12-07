@@ -4,6 +4,7 @@
 - (HDDaemon)daemon;
 - (void)_reportSnapshotWithType:(void *)type subType:(void *)subType context:(void *)context processIdentifier:(void *)identifier thresholdValues:;
 - (void)reportApplyDataFailure:(Class)failure duringSyncFromStore:(id)store error:(id)error;
+- (void)reportCorruptionForDatabase:(id)database resultCode:(int)code;
 - (void)reportDataCollectionSeriesProblem:(id)problem quantityType:(id)type;
 - (void)reportJournalFailureWithErrorDescription:(id)description provenance:(id)provenance error:(id)error;
 - (void)reportMissingSource:(id)source duringSyncFromStore:(id)store;
@@ -65,6 +66,12 @@
       [v17 snapshotWithSignature:v18 duration:0 event:0 payload:&__block_literal_global_185 reply:0.0];
     }
   }
+}
+
+- (void)reportCorruptionForDatabase:(id)database resultCode:(int)code
+{
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%d", database, *&code];
+  [(HDAutoBugCaptureReporter *)self _reportSnapshotWithType:@"Corruption" subType:v5 context:*MEMORY[0x277CCE408] processIdentifier:0 thresholdValues:?];
 }
 
 - (void)reportDataCollectionSeriesProblem:(id)problem quantityType:(id)type
@@ -186,7 +193,7 @@ LABEL_9:
 
 void __102__HDAutoBugCaptureReporter__reportSnapshotWithType_subType_context_processIdentifier_thresholdValues___block_invoke(uint64_t a1, void *a2)
 {
-  *&v23[5] = *MEMORY[0x277D85DE8];
+  *&v22[5] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277D6B198]];
   v4 = [v3 BOOLValue];
@@ -198,13 +205,13 @@ void __102__HDAutoBugCaptureReporter__reportSnapshotWithType_subType_context_pro
     v6 = HKLogAnalytics();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      *v23 = v5;
+      v21 = 138412290;
+      *v22 = v5;
       v7 = "Diagnostic reporter snapshot accepted with sessionID %@";
       v8 = v6;
       v9 = 12;
 LABEL_17:
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, v7, &v22, v9);
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, v7, &v21, v9);
     }
   }
 
@@ -225,10 +232,10 @@ LABEL_17:
     {
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 67109378;
-        v23[0] = v11;
-        LOWORD(v23[1]) = 2112;
-        *(&v23[1] + 2) = v5;
+        v21 = 67109378;
+        v22[0] = v11;
+        LOWORD(v22[1]) = 2112;
+        *(&v22[1] + 2) = v5;
         v7 = "Diagnostic reporter snapshot rejected with expected reason %d (%@)";
         v8 = v6;
         v9 = 18;
@@ -238,15 +245,13 @@ LABEL_17:
 
     else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v22 = 67109378;
-      v23[0] = v11;
-      LOWORD(v23[1]) = 2112;
-      *(&v23[1] + 2) = v5;
-      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Diagnostic reporter snapshot rejected with unexpected reason %d (%@)", &v22, 0x12u);
+      v21 = 67109378;
+      v22[0] = v11;
+      LOWORD(v22[1]) = 2112;
+      *(&v22[1] + 2) = v5;
+      _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "Diagnostic reporter snapshot rejected with unexpected reason %d (%@)", &v21, 0x12u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HDDaemon)daemon

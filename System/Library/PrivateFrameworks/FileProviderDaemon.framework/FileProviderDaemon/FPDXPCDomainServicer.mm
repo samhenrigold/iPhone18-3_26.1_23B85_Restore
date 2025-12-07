@@ -119,11 +119,10 @@
 
 - (void)invalidate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] invalidating %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] invalidating %@", &v2, 0xCu);
 }
 
 - (FPDXPCDomainServicer)initWithServer:(id)server providerDomainID:(id)d domain:(id)domain connection:(id)connection
@@ -259,10 +258,9 @@
   else
   {
     v5 = objc_alloc(MEMORY[0x1E69674B0]);
-    providerDomainID = self->_providerDomainID;
-    v7 = FPProviderNotFoundError();
-    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (not found)", self->_providerDomainID];
-    v4 = [v5 initWithConnection:0 protocol:&unk_1F4C8C390 orError:v7 name:v8 requestPid:{-[FPDXPCDomainServicer pid](self, "pid")}];
+    v6 = FPProviderNotFoundError();
+    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ (not found)", self->_providerDomainID];
+    v4 = [v5 initWithConnection:0 protocol:&unk_1F4C8C390 orError:v6 name:v7 requestPid:{-[FPDXPCDomainServicer pid](self, "pid")}];
   }
 
   return v4;
@@ -306,31 +304,27 @@ void __106__FPDXPCDomainServicer_deleteSearchableItemsWithSpotlightDomainIdentif
 
 void __106__FPDXPCDomainServicer_deleteSearchableItemsWithSpotlightDomainIdentifiers_indexReason_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer deleteSearchableItemsWithSpotlightDomainIdentifiers:indexReason:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer deleteSearchableItemsWithSpotlightDomainIdentifiers:indexReason:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeItemID:(id)d completionHandler:(id)handler
@@ -352,93 +346,84 @@ void __106__FPDXPCDomainServicer_deleteSearchableItemsWithSpotlightDomainIdentif
 
 void __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke(uint64_t a1)
 {
-  v11 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v11];
+  v10 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v10];
   if (v2)
   {
     v3 = *(a1 + 40);
     v4 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_241;
-    v7[3] = &unk_1E83BE1A8;
-    v7[4] = *(a1 + 32);
-    v5 = &v8;
-    v8 = *(a1 + 48);
-    [v2 didChangeItemID:v3 request:v4 completionHandler:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_241;
+    v6[3] = &unk_1E83BE1A8;
+    v6[4] = *(a1 + 32);
+    v5 = &v7;
+    v7 = *(a1 + 48);
+    [v2 didChangeItemID:v3 request:v4 completionHandler:v6];
   }
 
   else
   {
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_2;
-    v9[3] = &unk_1E83BE1A8;
-    v9[4] = *(a1 + 32);
-    v5 = &v10;
-    v10 = *(a1 + 48);
-    v6 = *(*(a1 + 32) + 88);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_2;
+    v8[3] = &unk_1E83BE1A8;
+    v8[4] = *(a1 + 32);
+    v5 = &v9;
+    v9 = *(a1 + 48);
     v4 = FPProviderNotFoundError();
-    __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_2(v9, v4);
+    __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_2(v8, v4);
   }
 }
 
 void __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer didChangeItemID:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer didChangeItemID:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke_241(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer didChangeItemID:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer didChangeItemID:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveItemID:(id)d completionHandler:(id)handler
@@ -460,104 +445,96 @@ void __58__FPDXPCDomainServicer_didChangeItemID_completionHandler___block_invoke
 
 void __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
     v5 = *(a1 + 40);
     v6 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_242;
-    v9[3] = &unk_1E83BE220;
-    v9[4] = *(a1 + 32);
-    v7 = &v10;
-    v10 = *(a1 + 48);
-    [v4 URLForItemID:v5 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v6 completionHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_242;
+    v8[3] = &unk_1E83BE220;
+    v8[4] = *(a1 + 32);
+    v7 = &v9;
+    v9 = *(a1 + 48);
+    [v4 URLForItemID:v5 creatingPlaceholderIfMissing:0 ignoreAlternateContentsURL:1 forBookmarkResolution:0 request:v6 completionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
-    v11[4] = *(a1 + 32);
-    v7 = &v12;
-    v12 = *(a1 + 48);
-    v8 = *(*(a1 + 32) + 88);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
+    v10[4] = *(a1 + 32);
+    v7 = &v11;
+    v11 = *(a1 + 48);
     v4 = FPProviderNotFoundError();
-    __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2(v11, v4);
+    __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2(v10, v4);
   }
 }
 
 void __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134219010;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer resolveItemID:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = 0;
-    v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer resolveItemID:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_242(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = *(*(a1 + 32) + 80);
-  v19 = fpfs_adopt_log();
-  v11 = fp_current_or_default_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v16 = fpfs_adopt_log();
+  v10 = fp_current_or_default_log();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v15 = *(a1 + 40);
-    v16 = FPPopLogSectionForBlock();
-    v17 = *(a1 + 32);
-    v18 = [v8 url];
+    v13 = FPPopLogSectionForBlock();
+    v14 = *(a1 + 32);
+    v15 = [v8 url];
     *buf = 134219010;
-    v21 = v16;
-    v22 = 2112;
-    v23 = v17;
-    v24 = 2080;
-    v25 = "[FPDXPCDomainServicer resolveItemID:completionHandler:]_block_invoke";
-    v26 = 2112;
-    v27 = v18;
-    v28 = 2112;
-    v29 = v7;
-    _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = v14;
+    v21 = 2080;
+    v22 = "[FPDXPCDomainServicer resolveItemID:completionHandler:]_block_invoke";
+    v23 = 2112;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v7;
+    _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
-  v12 = *(a1 + 40);
-  v13 = [v8 url];
-  (*(v12 + 16))(v12, v13, v7);
+  v11 = *(a1 + 40);
+  v12 = [v8 url];
+  (*(v11 + 16))(v11, v12, v7);
 
   __fp_pop_log();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDomainEjectable:(BOOL)ejectable completionHandler:(id)handler
@@ -577,99 +554,90 @@ void __56__FPDXPCDomainServicer_resolveItemID_completionHandler___block_invoke_2
 
 void __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = 0;
-  v2 = [*(a1 + 32) providerOrNilWithReason:&v14];
+  v13 = 0;
+  v2 = [*(a1 + 32) providerOrNilWithReason:&v13];
   if (v2)
   {
     v3 = *(a1 + 48);
     v4 = [*(a1 + 32) providerDomainID];
     v5 = [v4 fp_toDomainIdentifier];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_244;
-    v10[3] = &unk_1E83BE1A8;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_244;
+    v9[3] = &unk_1E83BE1A8;
     v6 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v7 = &v11;
-    v11 = v6;
-    [v2 setEjectable:v3 forDomainIdentifier:v5 completionHandler:v10];
+    v9[4] = *(a1 + 32);
+    v7 = &v10;
+    v10 = v6;
+    [v2 setEjectable:v3 forDomainIdentifier:v5 completionHandler:v9];
   }
 
   else
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_2;
-    v12[3] = &unk_1E83BE1A8;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_2;
+    v11[3] = &unk_1E83BE1A8;
     v8 = *(a1 + 40);
-    v12[4] = *(a1 + 32);
-    v7 = &v13;
-    v13 = v8;
-    v9 = *(*(a1 + 32) + 88);
+    v11[4] = *(a1 + 32);
+    v7 = &v12;
+    v12 = v8;
     v4 = FPProviderNotFoundError();
-    __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_2(v12, v4);
+    __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_2(v11, v4);
   }
 }
 
 void __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
+    *buf = 134218754;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer setDomainEjectable:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+  }
+
+  (*(*(a1 + 40) + 16))();
+  __fp_pop_log();
+}
+
+void __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_244(uint64_t a1, void *a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
+  [WeakRetained signalProviderChanges];
+
+  v8 = fpfs_adopt_log();
   v5 = fp_current_or_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v6 = FPPopLogSectionForBlock();
+    v7 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer setDomainEjectable:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v7;
+    v13 = 2080;
+    v14 = "[FPDXPCDomainServicer setDomainEjectable:completionHandler:]_block_invoke";
+    v15 = 2112;
+    v16 = v3;
     _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_invoke_244(uint64_t a1, void *a2)
-{
-  v20 = *MEMORY[0x1E69E9840];
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-  [WeakRetained signalProviderChanges];
-
-  v5 = *(*(a1 + 32) + 80);
-  v11 = fpfs_adopt_log();
-  v6 = fp_current_or_default_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-  {
-    v8 = *(a1 + 40);
-    v9 = FPPopLogSectionForBlock();
-    v10 = *(a1 + 32);
-    *buf = 134218754;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    v16 = 2080;
-    v17 = "[FPDXPCDomainServicer setDomainEjectable:completionHandler:]_block_invoke";
-    v18 = 2112;
-    v19 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
-  }
-
-  (*(*(a1 + 40) + 16))();
-  __fp_pop_log();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ingestFromCacheItemWithIdentifier:(id)identifier requestedFields:(unint64_t)fields completionHandler:(id)handler
@@ -692,9 +660,9 @@ void __61__FPDXPCDomainServicer_setDomainEjectable_completionHandler___block_inv
 
 void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v28 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v28];
+  v33 = *MEMORY[0x1E69E9840];
+  v24 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v24];
   v3 = v2;
   if (v2)
   {
@@ -710,40 +678,38 @@ void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedField
       v9 = [v3 defaultBackend];
       v10 = *(a1 + 56);
       v11 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_248;
-      v23[3] = &unk_1E83BE1A8;
-      v23[4] = *(a1 + 32);
-      v24 = *(a1 + 48);
-      [v9 ingestFromCacheItemWithID:v8 requestedFields:v10 request:v11 completionHandler:v23];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_248;
+      v19[3] = &unk_1E83BE1A8;
+      v19[4] = *(a1 + 32);
+      v20 = *(a1 + 48);
+      [v9 ingestFromCacheItemWithID:v8 requestedFields:v10 request:v11 completionHandler:v19];
     }
 
     else
     {
-      v14 = *(*(a1 + 32) + 80);
-      v25 = fpfs_adopt_log();
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v21 = fpfs_adopt_log();
+      v13 = fp_current_or_default_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v19 = *(a1 + 48);
-        v20 = FPPopLogSectionForBlock();
-        v21 = *(a1 + 32);
-        v22 = FPNotSupportedError();
+        v16 = FPPopLogSectionForBlock();
+        v17 = *(a1 + 32);
+        v18 = FPNotSupportedError();
         *buf = 134218754;
-        v30 = v20;
+        v26 = v16;
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2080;
+        v30 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke";
         v31 = 2112;
-        v32 = v21;
-        v33 = 2080;
-        v34 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke";
-        v35 = 2112;
-        v36 = v22;
-        _os_log_debug_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+        v32 = v18;
+        _os_log_debug_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
       }
 
-      v16 = *(a1 + 48);
-      v17 = FPNotSupportedError();
-      (*(v16 + 16))(v16, v17);
+      v14 = *(a1 + 48);
+      v15 = FPNotSupportedError();
+      (*(v14 + 16))(v14, v15);
 
       __fp_pop_log();
     }
@@ -751,76 +717,65 @@ void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedField
 
   else
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_2;
-    v26[3] = &unk_1E83BE1A8;
-    v26[4] = *(a1 + 32);
-    v27 = *(a1 + 48);
-    v12 = *(*(a1 + 32) + 88);
-    v13 = FPProviderNotFoundError();
-    __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_2(v26, v13);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_2;
+    v22[3] = &unk_1E83BE1A8;
+    v22[4] = *(a1 + 32);
+    v23 = *(a1 + 48);
+    v12 = FPProviderNotFoundError();
+    __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_2(v22, v12);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedFields_completionHandler___block_invoke_248(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer ingestFromCacheItemWithIdentifier:requestedFields:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reimportItemsBelowItemWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -842,8 +797,8 @@ void __92__FPDXPCDomainServicer_ingestFromCacheItemWithIdentifier_requestedField
 
 void __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x1E69673A0]);
@@ -851,85 +806,76 @@ void __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionH
     v5 = [v3 initWithProviderDomainID:v4 itemIdentifier:*(a1 + 40)];
 
     v6 = [v2 defaultBackend];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_249;
-    v9[3] = &unk_1E83BE1A8;
-    v9[4] = *(a1 + 32);
-    v10 = *(a1 + 48);
-    [v6 reimportItemsBelowItemWithID:v5 markItemDataless:0 completionHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_249;
+    v8[3] = &unk_1E83BE1A8;
+    v8[4] = *(a1 + 32);
+    v9 = *(a1 + 48);
+    [v6 reimportItemsBelowItemWithID:v5 markItemDataless:0 completionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
-    v11[4] = *(a1 + 32);
-    v12 = *(a1 + 48);
-    v7 = *(*(a1 + 32) + 88);
-    v8 = FPProviderNotFoundError();
-    __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(v11, v8);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
+    v10[4] = *(a1 + 32);
+    v11 = *(a1 + 48);
+    v7 = FPProviderNotFoundError();
+    __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(v10, v7);
   }
 }
 
 void __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer reimportItemsBelowItemWithIdentifier:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer reimportItemsBelowItemWithIdentifier:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionHandler___block_invoke_249(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer reimportItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer reimportItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)evictItemWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -951,8 +897,8 @@ void __79__FPDXPCDomainServicer_reimportItemsBelowItemWithIdentifier_completionH
 
 void __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v14 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v14];
+  v13 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v13];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x1E69673A0]);
@@ -962,85 +908,76 @@ void __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___bloc
     v6 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
     [v6 setProviderInitiated:1];
     v7 = [v2 defaultBackend];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_250;
-    v10[3] = &unk_1E83BE1A8;
-    v10[4] = *(a1 + 32);
-    v11 = *(a1 + 48);
-    [v7 evictItemWithID:v5 evictionReason:4 request:v6 completionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_250;
+    v9[3] = &unk_1E83BE1A8;
+    v9[4] = *(a1 + 32);
+    v10 = *(a1 + 48);
+    [v7 evictItemWithID:v5 evictionReason:4 request:v6 completionHandler:v9];
   }
 
   else
   {
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_2;
-    v12[3] = &unk_1E83BE1A8;
-    v12[4] = *(a1 + 32);
-    v13 = *(a1 + 48);
-    v8 = *(*(a1 + 32) + 88);
-    v9 = FPProviderNotFoundError();
-    __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_2(v12, v9);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_2;
+    v11[3] = &unk_1E83BE1A8;
+    v11[4] = *(a1 + 32);
+    v12 = *(a1 + 48);
+    v8 = FPProviderNotFoundError();
+    __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_2(v11, v8);
   }
 }
 
 void __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer evictItemWithIdentifier:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer evictItemWithIdentifier:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___block_invoke_250(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer evictItemWithIdentifier:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer evictItemWithIdentifier:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)materializeItemWithIdentifier:(id)identifier requestedRange:(_NSRange)range completionHandler:(id)handler
@@ -1066,9 +1003,9 @@ void __66__FPDXPCDomainServicer_evictItemWithIdentifier_completionHandler___bloc
 
 void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v24];
+  v29 = *MEMORY[0x1E69E9840];
+  v20 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v20];
   if (v2)
   {
     if (*(a1 + 56) == 0x7FFFFFFFFFFFFFFFLL || (fpfs_supports_partial_materialization() & 1) != 0)
@@ -1080,40 +1017,38 @@ void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_com
       v6 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
       [v6 setProviderInitiated:1];
       v7 = [v2 defaultBackend];
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_251;
-      v19[3] = &unk_1E83BE1A8;
-      v19[4] = *(a1 + 32);
-      v20 = *(a1 + 48);
-      [v7 materializeItemWithID:v5 requestedRange:*(a1 + 56) request:*(a1 + 64) completionHandler:{v6, v19}];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_251;
+      v15[3] = &unk_1E83BE1A8;
+      v15[4] = *(a1 + 32);
+      v16 = *(a1 + 48);
+      [v7 materializeItemWithID:v5 requestedRange:*(a1 + 56) request:*(a1 + 64) completionHandler:{v6, v15}];
     }
 
     else
     {
-      v10 = *(*(a1 + 32) + 80);
-      v21 = fpfs_adopt_log();
-      v11 = fp_current_or_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v17 = fpfs_adopt_log();
+      v9 = fp_current_or_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v15 = *(a1 + 48);
-        v16 = FPPopLogSectionForBlock();
-        v17 = *(a1 + 32);
-        v18 = FPNotSupportedError();
+        v12 = FPPopLogSectionForBlock();
+        v13 = *(a1 + 32);
+        v14 = FPNotSupportedError();
         *buf = 134218754;
-        v26 = v16;
+        v22 = v12;
+        v23 = 2112;
+        v24 = v13;
+        v25 = 2080;
+        v26 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke";
         v27 = 2112;
-        v28 = v17;
-        v29 = 2080;
-        v30 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke";
-        v31 = 2112;
-        v32 = v18;
-        _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+        v28 = v14;
+        _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
       }
 
-      v12 = *(a1 + 48);
-      v13 = FPNotSupportedError();
-      (*(v12 + 16))(v12, v13);
+      v10 = *(a1 + 48);
+      v11 = FPNotSupportedError();
+      (*(v10 + 16))(v10, v11);
 
       __fp_pop_log();
     }
@@ -1121,76 +1056,65 @@ void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_com
 
   else
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_2;
-    v22[3] = &unk_1E83BE1A8;
-    v22[4] = *(a1 + 32);
-    v23 = *(a1 + 48);
-    v8 = *(*(a1 + 32) + 88);
-    v9 = FPProviderNotFoundError();
-    __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_2(v22, v9);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_2;
+    v18[3] = &unk_1E83BE1A8;
+    v18[4] = *(a1 + 32);
+    v19 = *(a1 + 48);
+    v8 = FPProviderNotFoundError();
+    __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_2(v18, v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_completionHandler___block_invoke_251(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer materializeItemWithIdentifier:requestedRange:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateMaterializedSetFromSyncAnchor:(id)anchor suggestedBatchSize:(int64_t)size completionHandler:(id)handler
@@ -1213,119 +1137,110 @@ void __87__FPDXPCDomainServicer_materializeItemWithIdentifier_requestedRange_com
 
 void __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_252;
-    v9[3] = &unk_1E83BE2C0;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_252;
+    v8[3] = &unk_1E83BE2C0;
     v5 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v6 = &v10;
+    v8[4] = *(a1 + 32);
+    v6 = &v9;
     v7 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    [v4 enumerateMaterializedSetFromSyncAnchor:v5 suggestedBatchSize:v7 completionHandler:v9];
+    v9 = *(a1 + 48);
+    [v4 enumerateMaterializedSetFromSyncAnchor:v5 suggestedBatchSize:v7 completionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
-    v11[4] = *(a1 + 32);
-    v6 = &v12;
-    v12 = *(a1 + 48);
-    v8 = *(*(a1 + 32) + 88);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
+    v10[4] = *(a1 + 32);
+    v6 = &v11;
+    v11 = *(a1 + 48);
     v4 = FPProviderNotFoundError();
-    __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(v11, v4);
+    __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(v10, v4);
   }
 }
 
 void __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134220034;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer enumerateMaterializedSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = MEMORY[0x1E695E0F0];
-    v19 = 2112;
-    v20 = MEMORY[0x1E695E0F0];
-    v21 = 1024;
-    v22 = 0;
-    v23 = 2112;
-    v24 = 0;
-    v25 = 2112;
-    v26 = 0;
-    v27 = 2112;
-    v28 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %@, %@, %@", buf, 0x58u);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer enumerateMaterializedSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = MEMORY[0x1E695E0F0];
+    v16 = 2112;
+    v17 = MEMORY[0x1E695E0F0];
+    v18 = 1024;
+    v19 = 0;
+    v20 = 2112;
+    v21 = 0;
+    v22 = 2112;
+    v23 = 0;
+    v24 = 2112;
+    v25 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %@, %@, %@", buf, 0x58u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_252(uint64_t a1, void *a2, void *a3, int a4, void *a5, void *a6, void *a7)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v13 = a2;
   v14 = a3;
   v15 = a5;
   v16 = a6;
   v17 = a7;
-  v18 = *(*(a1 + 32) + 80);
-  v24 = fpfs_adopt_log();
-  v19 = fp_current_or_default_log();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = fpfs_adopt_log();
+  v18 = fp_current_or_default_log();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
-    v21 = *(a1 + 40);
-    v22 = FPPopLogSectionForBlock();
-    v23 = *(a1 + 32);
+    v19 = FPPopLogSectionForBlock();
+    v20 = *(a1 + 32);
     *buf = 134220034;
-    v26 = v22;
-    v27 = 2112;
-    v28 = v23;
-    v29 = 2080;
-    v30 = "[FPDXPCDomainServicer enumerateMaterializedSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke";
-    v31 = 2112;
-    v32 = v13;
-    v33 = 2112;
-    v34 = v14;
-    v35 = 1024;
-    v36 = a4;
-    v37 = 2112;
-    v38 = v15;
-    v39 = 2112;
-    v40 = v16;
-    v41 = 2112;
-    v42 = v17;
-    _os_log_debug_impl(&dword_1CEFC7000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %@, %@, %@", buf, 0x58u);
+    v23 = v19;
+    v24 = 2112;
+    v25 = v20;
+    v26 = 2080;
+    v27 = "[FPDXPCDomainServicer enumerateMaterializedSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke";
+    v28 = 2112;
+    v29 = v13;
+    v30 = 2112;
+    v31 = v14;
+    v32 = 1024;
+    v33 = a4;
+    v34 = 2112;
+    v35 = v15;
+    v36 = 2112;
+    v37 = v16;
+    v38 = 2112;
+    v39 = v17;
+    _os_log_debug_impl(&dword_1CEFC7000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %@, %@, %@", buf, 0x58u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentMaterializedSetSyncAnchorWithCompletionHandler:(id)handler
@@ -1344,86 +1259,76 @@ void __100__FPDXPCDomainServicer_enumerateMaterializedSetFromSyncAnchor_suggeste
 
 void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_254;
-    v9[3] = &unk_1E83BE2E8;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_254;
+    v8[3] = &unk_1E83BE2E8;
     v5 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v6 = &v10;
-    v10 = v5;
-    [v4 currentMaterializedSetSyncAnchorWithCompletionHandler:v9];
+    v8[4] = *(a1 + 32);
+    v6 = &v9;
+    v9 = v5;
+    [v4 currentMaterializedSetSyncAnchorWithCompletionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
     v7 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v6 = &v12;
-    v12 = v7;
-    v8 = *(*(a1 + 32) + 88);
+    v10[4] = *(a1 + 32);
+    v6 = &v11;
+    v11 = v7;
     v4 = FPProviderNotFoundError();
-    __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2(v11, v4);
+    __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2(v10, v4);
   }
 }
 
 void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v8 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
     FPPopLogSectionForBlock();
-    __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1((a1 + 32));
+    __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_254(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer currentMaterializedSetSyncAnchorWithCompletionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer currentMaterializedSetSyncAnchorWithCompletionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumeratePendingSetFromSyncAnchor:(id)anchor suggestedBatchSize:(int64_t)size completionHandler:(id)handler
@@ -1446,127 +1351,118 @@ void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHa
 
 void __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_256;
-    v9[3] = &unk_1E83BE338;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_256;
+    v8[3] = &unk_1E83BE338;
     v5 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v6 = &v10;
+    v8[4] = *(a1 + 32);
+    v6 = &v9;
     v7 = *(a1 + 56);
-    v10 = *(a1 + 48);
-    [v4 enumeratePendingSetFromSyncAnchor:v5 suggestedBatchSize:v7 completionHandler:v9];
+    v9 = *(a1 + 48);
+    [v4 enumeratePendingSetFromSyncAnchor:v5 suggestedBatchSize:v7 completionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
-    v11[4] = *(a1 + 32);
-    v6 = &v12;
-    v12 = *(a1 + 48);
-    v8 = *(*(a1 + 32) + 88);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
+    v10[4] = *(a1 + 32);
+    v6 = &v11;
+    v11 = *(a1 + 48);
     v4 = FPProviderNotFoundError();
-    __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(v11, v4);
+    __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(v10, v4);
   }
 }
 
 void __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134220546;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer enumeratePendingSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = MEMORY[0x1E695E0F0];
-    v19 = 2112;
-    v20 = MEMORY[0x1E695E0F0];
-    v21 = 1024;
-    v22 = 0;
-    v23 = 1024;
-    v24 = 0;
-    v25 = 2048;
-    v26 = 0;
-    v27 = 2112;
-    v28 = 0;
-    v29 = 2112;
-    v30 = 0;
-    v31 = 2112;
-    v32 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %{BOOL}d, %lf, %@, %@, %@", buf, 0x68u);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer enumeratePendingSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = MEMORY[0x1E695E0F0];
+    v16 = 2112;
+    v17 = MEMORY[0x1E695E0F0];
+    v18 = 1024;
+    v19 = 0;
+    v20 = 1024;
+    v21 = 0;
+    v22 = 2048;
+    v23 = 0;
+    v24 = 2112;
+    v25 = 0;
+    v26 = 2112;
+    v27 = 0;
+    v28 = 2112;
+    v29 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %{BOOL}d, %lf, %@, %@, %@", buf, 0x68u);
   }
 
   (*(*(a1 + 40) + 16))(0.0);
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatchSize_completionHandler___block_invoke_256(uint64_t a1, void *a2, void *a3, int a4, int a5, void *a6, void *a7, void *a8, double a9)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v17 = a2;
   v18 = a3;
   v19 = a6;
   v20 = a7;
   v21 = a8;
-  v22 = *(*(a1 + 32) + 80);
-  v28 = fpfs_adopt_log();
-  v23 = fp_current_or_default_log();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v25 = fpfs_adopt_log();
+  v22 = fp_current_or_default_log();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v25 = *(a1 + 40);
-    v26 = FPPopLogSectionForBlock();
-    v27 = *(a1 + 32);
+    v23 = FPPopLogSectionForBlock();
+    v24 = *(a1 + 32);
     *buf = 134220546;
-    v30 = v26;
-    v31 = 2112;
-    v32 = v27;
-    v33 = 2080;
-    v34 = "[FPDXPCDomainServicer enumeratePendingSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke";
-    v35 = 2112;
-    v36 = v17;
-    v37 = 2112;
-    v38 = v18;
-    v39 = 1024;
-    v40 = a4;
-    v41 = 1024;
-    v42 = a5;
-    v43 = 2048;
-    v44 = a9;
-    v45 = 2112;
-    v46 = v19;
-    v47 = 2112;
-    v48 = v20;
-    v49 = 2112;
-    v50 = v21;
-    _os_log_debug_impl(&dword_1CEFC7000, v23, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %{BOOL}d, %lf, %@, %@, %@", buf, 0x68u);
+    v27 = v23;
+    v28 = 2112;
+    v29 = v24;
+    v30 = 2080;
+    v31 = "[FPDXPCDomainServicer enumeratePendingSetFromSyncAnchor:suggestedBatchSize:completionHandler:]_block_invoke";
+    v32 = 2112;
+    v33 = v17;
+    v34 = 2112;
+    v35 = v18;
+    v36 = 1024;
+    v37 = a4;
+    v38 = 1024;
+    v39 = a5;
+    v40 = 2048;
+    v41 = a9;
+    v42 = 2112;
+    v43 = v19;
+    v44 = 2112;
+    v45 = v20;
+    v46 = 2112;
+    v47 = v21;
+    _os_log_debug_impl(&dword_1CEFC7000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %{BOOL}d, %{BOOL}d, %lf, %@, %@, %@", buf, 0x68u);
   }
 
   (*(*(a1 + 40) + 16))(a9);
   __fp_pop_log();
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentPendingSetSyncAnchorWithCompletionHandler:(id)handler
@@ -1585,90 +1481,80 @@ void __95__FPDXPCDomainServicer_enumeratePendingSetFromSyncAnchor_suggestedBatch
 
 void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v13 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v13];
+  v12 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v12];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_258;
-    v9[3] = &unk_1E83BE360;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_258;
+    v8[3] = &unk_1E83BE360;
     v5 = *(a1 + 40);
-    v9[4] = *(a1 + 32);
-    v6 = &v10;
-    v10 = v5;
-    [v4 currentPendingSetSyncAnchorWithCompletionHandler:v9];
+    v8[4] = *(a1 + 32);
+    v6 = &v9;
+    v9 = v5;
+    [v4 currentPendingSetSyncAnchorWithCompletionHandler:v8];
   }
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2;
-    v11[3] = &unk_1E83BE1A8;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2;
+    v10[3] = &unk_1E83BE1A8;
     v7 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v6 = &v12;
-    v12 = v7;
-    v8 = *(*(a1 + 32) + 88);
+    v10[4] = *(a1 + 32);
+    v6 = &v11;
+    v11 = v7;
     v4 = FPProviderNotFoundError();
-    __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2(v11, v4);
+    __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2(v10, v4);
   }
 }
 
 void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v8 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v6 = *(a1 + 40);
     FPPopLogSectionForBlock();
-    __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1((a1 + 32));
+    __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))(0.0);
   __fp_pop_log();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_258(uint64_t a1, int a2, void *a3, double a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v7 = a3;
-  v8 = *(*(a1 + 32) + 80);
-  v14 = fpfs_adopt_log();
-  v9 = fp_current_or_default_log();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = fpfs_adopt_log();
+  v8 = fp_current_or_default_log();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11 = *(a1 + 40);
-    v12 = FPPopLogSectionForBlock();
-    v13 = *(a1 + 32);
+    v9 = FPPopLogSectionForBlock();
+    v10 = *(a1 + 32);
     *buf = 134219266;
-    v16 = v12;
-    v17 = 2112;
-    v18 = v13;
-    v19 = 2080;
-    v20 = "[FPDXPCDomainServicer currentPendingSetSyncAnchorWithCompletionHandler:]_block_invoke";
-    v21 = 1024;
-    v22 = a2;
-    v23 = 2048;
-    v24 = a4;
-    v25 = 2112;
-    v26 = v7;
-    _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %{BOOL}d, %lf, %@", buf, 0x3Au);
+    v13 = v9;
+    v14 = 2112;
+    v15 = v10;
+    v16 = 2080;
+    v17 = "[FPDXPCDomainServicer currentPendingSetSyncAnchorWithCompletionHandler:]_block_invoke";
+    v18 = 1024;
+    v19 = a2;
+    v20 = 2048;
+    v21 = a4;
+    v22 = 2112;
+    v23 = v7;
+    _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %{BOOL}d, %lf, %@", buf, 0x3Au);
   }
 
   (*(*(a1 + 40) + 16))(a4);
   __fp_pop_log();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForChangesOnItemsBelowItemWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -1690,9 +1576,9 @@ void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler
 
 void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v25 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v25];
+  v30 = *MEMORY[0x1E69E9840];
+  v21 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v21];
   v3 = v2;
   if (v2)
   {
@@ -1704,40 +1590,38 @@ void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_com
       v6 = [v3 defaultBackend];
       v7 = *(a1 + 40);
       v8 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_262;
-      v20[3] = &unk_1E83BE1A8;
-      v20[4] = *(a1 + 32);
-      v21 = *(a1 + 48);
-      [v6 waitForChangesOnItemsBelowItemWithIdentifier:v7 request:v8 completionHandler:v20];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_262;
+      v16[3] = &unk_1E83BE1A8;
+      v16[4] = *(a1 + 32);
+      v17 = *(a1 + 48);
+      [v6 waitForChangesOnItemsBelowItemWithIdentifier:v7 request:v8 completionHandler:v16];
     }
 
     else
     {
-      v11 = *(*(a1 + 32) + 80);
-      v22 = fpfs_adopt_log();
-      v12 = fp_current_or_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v18 = fpfs_adopt_log();
+      v10 = fp_current_or_default_log();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v16 = *(a1 + 48);
-        v17 = FPPopLogSectionForBlock();
-        v18 = *(a1 + 32);
-        v19 = FPNotSupportedError();
+        v13 = FPPopLogSectionForBlock();
+        v14 = *(a1 + 32);
+        v15 = FPNotSupportedError();
         *buf = 134218754;
-        v27 = v17;
+        v23 = v13;
+        v24 = 2112;
+        v25 = v14;
+        v26 = 2080;
+        v27 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
         v28 = 2112;
-        v29 = v18;
-        v30 = 2080;
-        v31 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
-        v32 = 2112;
-        v33 = v19;
-        _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+        v29 = v15;
+        _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
       }
 
-      v13 = *(a1 + 48);
-      v14 = FPNotSupportedError();
-      (*(v13 + 16))(v13, v14);
+      v11 = *(a1 + 48);
+      v12 = FPNotSupportedError();
+      (*(v11 + 16))(v11, v12);
 
       __fp_pop_log();
     }
@@ -1745,76 +1629,65 @@ void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_com
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_2;
-    v23[3] = &unk_1E83BE1A8;
-    v23[4] = *(a1 + 32);
-    v24 = *(a1 + 48);
-    v9 = *(*(a1 + 32) + 88);
-    v10 = FPProviderNotFoundError();
-    __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(v23, v10);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_2;
+    v19[3] = &unk_1E83BE1A8;
+    v19[4] = *(a1 + 32);
+    v20 = *(a1 + 48);
+    v9 = FPProviderNotFoundError();
+    __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(v19, v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_completionHandler___block_invoke_262(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer waitForChangesOnItemsBelowItemWithIdentifier:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)waitForStabilizationWithMode:(unint64_t)mode completionHandler:(id)handler
@@ -1834,8 +1707,8 @@ void __87__FPDXPCDomainServicer_waitForChangesOnItemsBelowItemWithIdentifier_com
 
 void __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke(uint64_t a1)
 {
-  v15 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v15];
+  v14 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v14];
   v3 = v2;
   if (v2)
   {
@@ -1843,88 +1716,79 @@ void __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler__
     v5 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_263;
-    v11[3] = &unk_1E83BE1A8;
-    v11[4] = *(a1 + 32);
-    v8 = &v12;
-    v12 = v6;
-    [v4 waitForStabilizationForRequest:v5 mode:v7 completionHandler:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_263;
+    v10[3] = &unk_1E83BE1A8;
+    v10[4] = *(a1 + 32);
+    v8 = &v11;
+    v11 = v6;
+    [v4 waitForStabilizationForRequest:v5 mode:v7 completionHandler:v10];
   }
 
   else
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_2;
-    v13[3] = &unk_1E83BE1A8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_2;
+    v12[3] = &unk_1E83BE1A8;
     v9 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v8 = &v14;
-    v14 = v9;
-    v10 = *(*(a1 + 32) + 88);
+    v12[4] = *(a1 + 32);
+    v8 = &v13;
+    v13 = v9;
     v4 = FPProviderNotFoundError();
-    __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_2(v13, v4);
+    __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_2(v12, v4);
   }
 }
 
 void __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer waitForStabilizationWithMode:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer waitForStabilizationWithMode:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler___block_invoke_263(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer waitForStabilizationWithMode:completionHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer waitForStabilizationWithMode:completionHandler:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signalErrorResolved:(id)resolved completionHandler:(id)handler
@@ -1946,8 +1810,8 @@ void __71__FPDXPCDomainServicer_waitForStabilizationWithMode_completionHandler__
 
 void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke(id *a1)
 {
-  v17 = 0;
-  v2 = [a1[4] domainOrNil:&v17];
+  v16 = 0;
+  v2 = [a1[4] domainOrNil:&v16];
   v3 = v2;
   if (v2)
   {
@@ -1956,141 +1820,128 @@ void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_in
     block[1] = 3221225472;
     block[2] = __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_264;
     block[3] = &unk_1E83BE3B0;
-    v11 = v3;
+    v10 = v3;
     v5 = a1[5];
     v6 = a1[4];
-    v12 = v5;
-    v13 = v6;
-    v14 = a1[6];
+    v11 = v5;
+    v12 = v6;
+    v13 = a1[6];
     dispatch_async(v4, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2;
-    v15[3] = &unk_1E83BE1A8;
-    v15[4] = a1[4];
-    v16 = a1[6];
-    v8 = *(a1[4] + 11);
-    v9 = FPProviderNotFoundError();
-    __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2(v15, v9);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2;
+    v14[3] = &unk_1E83BE1A8;
+    v14[4] = a1[4];
+    v15 = a1[6];
+    v8 = FPProviderNotFoundError();
+    __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2(v14, v8);
 
-    v7 = v16;
+    v7 = v15;
   }
 }
 
 void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_264(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) defaultBackend];
   v3 = objc_opt_respondsToSelector();
 
   if (v3)
   {
     v4 = [*(a1 + 32) defaultBackend];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2_267;
-    v17[3] = &unk_1E83BE1A8;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2_267;
+    v14[3] = &unk_1E83BE1A8;
     v5 = *(a1 + 40);
     v6 = *(a1 + 56);
-    v17[4] = *(a1 + 48);
-    v18 = v6;
-    [v4 signalErrorResolved:v5 completionHandler:v17];
+    v14[4] = *(a1 + 48);
+    v15 = v6;
+    [v4 signalErrorResolved:v5 completionHandler:v14];
   }
 
   else
   {
-    v7 = *(*(a1 + 48) + 80);
-    v16 = fpfs_adopt_log();
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v13 = fpfs_adopt_log();
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 56);
-      v13 = FPPopLogSectionForBlock();
-      v14 = *(a1 + 48);
-      v15 = FPNotSupportedError();
+      v10 = FPPopLogSectionForBlock();
+      v11 = *(a1 + 48);
+      v12 = FPNotSupportedError();
       *buf = 134218754;
-      v20 = v13;
-      v21 = 2112;
-      v22 = v14;
-      v23 = 2080;
-      v24 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke";
-      v25 = 2112;
-      v26 = v15;
-      _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      v20 = 2080;
+      v21 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke";
+      v22 = 2112;
+      v23 = v12;
+      _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
-    v9 = *(a1 + 56);
-    v10 = FPNotSupportedError();
-    (*(v9 + 16))(v9, v10);
+    v8 = *(a1 + 56);
+    v9 = FPNotSupportedError();
+    (*(v8 + 16))(v8, v9);
 
     __fp_pop_log();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_invoke_2_267(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer signalErrorResolved:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)temporaryDirectoryWithCompletionHandler:(id)handler
@@ -2109,42 +1960,40 @@ void __62__FPDXPCDomainServicer_signalErrorResolved_completionHandler___block_in
 
 void __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v29 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v29];
+  v34 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v23];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 volume];
-    v26 = 0;
-    v5 = [v4 temporaryDirectoryURL:v3 error:&v26];
-    v6 = v26;
+    v20 = 0;
+    v5 = [v4 temporaryDirectoryURL:v3 error:&v20];
+    v6 = v20;
 
     if (v5)
     {
-      v25 = v6;
-      v7 = [MEMORY[0x1E6967408] wrapperWithURL:v5 readonly:0 error:&v25];
-      v8 = v25;
+      v19 = v6;
+      v7 = [MEMORY[0x1E6967408] wrapperWithURL:v5 readonly:0 error:&v19];
+      v8 = v19;
 
-      v9 = *(*(a1 + 32) + 80);
-      v23 = fpfs_adopt_log();
-      v10 = fp_current_or_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v17 = fpfs_adopt_log();
+      v9 = fp_current_or_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v17 = *(a1 + 40);
-        v18 = FPPopLogSectionForBlock();
-        v19 = *(a1 + 32);
+        v13 = FPPopLogSectionForBlock();
+        v14 = *(a1 + 32);
         *buf = 134219010;
-        v31 = v18;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2080;
+        v29 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke";
+        v30 = 2112;
+        v31 = v7;
         v32 = 2112;
-        v33 = v19;
-        v34 = 2080;
-        v35 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke";
-        v36 = 2112;
-        v37 = v7;
-        v38 = 2112;
-        v39 = v8;
-        _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v33 = v8;
+        _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -2153,25 +2002,23 @@ void __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_
 
     else
     {
-      v14 = *(*(a1 + 32) + 80);
-      v24 = fpfs_adopt_log();
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = fpfs_adopt_log();
+      v12 = fp_current_or_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v20 = *(a1 + 40);
-        v21 = FPPopLogSectionForBlock();
-        v22 = *(a1 + 32);
+        v15 = FPPopLogSectionForBlock();
+        v16 = *(a1 + 32);
         *buf = 134219010;
-        v31 = v21;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
+        v28 = 2080;
+        v29 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke";
+        v30 = 2112;
+        v31 = 0;
         v32 = 2112;
-        v33 = v22;
-        v34 = 2080;
-        v35 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke";
-        v36 = 2112;
-        v37 = 0;
-        v38 = 2112;
-        v39 = v6;
-        _os_log_debug_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v33 = v6;
+        _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -2183,50 +2030,43 @@ void __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_
 
   else
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke_2;
-    v27[3] = &unk_1E83BE1A8;
-    v11 = *(a1 + 40);
-    v27[4] = *(a1 + 32);
-    v28 = v11;
-    v12 = *(*(a1 + 32) + 88);
-    v13 = FPProviderNotFoundError();
-    __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke_2(v27, v13);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke_2;
+    v21[3] = &unk_1E83BE1A8;
+    v10 = *(a1 + 40);
+    v21[4] = *(a1 + 32);
+    v22 = v10;
+    v11 = FPProviderNotFoundError();
+    __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke_2(v21, v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134219010;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = 0;
-    v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer temporaryDirectoryWithCompletionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stateDirectoryWithCompletionHandler:(id)handler
@@ -2245,42 +2085,40 @@ void __64__FPDXPCDomainServicer_temporaryDirectoryWithCompletionHandler___block_
 
 void __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
-  v29 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v29];
+  v34 = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v23];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 volume];
-    v26 = 0;
-    v5 = [v4 stateDirectoryURL:v3 error:&v26];
-    v6 = v26;
+    v20 = 0;
+    v5 = [v4 stateDirectoryURL:v3 error:&v20];
+    v6 = v20;
 
     if (v5)
     {
-      v25 = v6;
-      v7 = [MEMORY[0x1E6967408] wrapperWithURL:v5 readonly:0 error:&v25];
-      v8 = v25;
+      v19 = v6;
+      v7 = [MEMORY[0x1E6967408] wrapperWithURL:v5 readonly:0 error:&v19];
+      v8 = v19;
 
-      v9 = *(*(a1 + 32) + 80);
-      v23 = fpfs_adopt_log();
-      v10 = fp_current_or_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v17 = fpfs_adopt_log();
+      v9 = fp_current_or_default_log();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v17 = *(a1 + 40);
-        v18 = FPPopLogSectionForBlock();
-        v19 = *(a1 + 32);
+        v13 = FPPopLogSectionForBlock();
+        v14 = *(a1 + 32);
         *buf = 134219010;
-        v31 = v18;
+        v25 = v13;
+        v26 = 2112;
+        v27 = v14;
+        v28 = 2080;
+        v29 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke";
+        v30 = 2112;
+        v31 = v7;
         v32 = 2112;
-        v33 = v19;
-        v34 = 2080;
-        v35 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke";
-        v36 = 2112;
-        v37 = v7;
-        v38 = 2112;
-        v39 = v8;
-        _os_log_debug_impl(&dword_1CEFC7000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v33 = v8;
+        _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -2289,25 +2127,23 @@ void __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invo
 
     else
     {
-      v14 = *(*(a1 + 32) + 80);
-      v24 = fpfs_adopt_log();
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v18 = fpfs_adopt_log();
+      v12 = fp_current_or_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v20 = *(a1 + 40);
-        v21 = FPPopLogSectionForBlock();
-        v22 = *(a1 + 32);
+        v15 = FPPopLogSectionForBlock();
+        v16 = *(a1 + 32);
         *buf = 134219010;
-        v31 = v21;
+        v25 = v15;
+        v26 = 2112;
+        v27 = v16;
+        v28 = 2080;
+        v29 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke";
+        v30 = 2112;
+        v31 = 0;
         v32 = 2112;
-        v33 = v22;
-        v34 = 2080;
-        v35 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke";
-        v36 = 2112;
-        v37 = 0;
-        v38 = 2112;
-        v39 = v6;
-        _os_log_debug_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v33 = v6;
+        _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -2319,50 +2155,43 @@ void __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invo
 
   else
   {
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke_2;
-    v27[3] = &unk_1E83BE1A8;
-    v11 = *(a1 + 40);
-    v27[4] = *(a1 + 32);
-    v28 = v11;
-    v12 = *(*(a1 + 32) + 88);
-    v13 = FPProviderNotFoundError();
-    __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke_2(v27, v13);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke_2;
+    v21[3] = &unk_1E83BE1A8;
+    v10 = *(a1 + 40);
+    v21[4] = *(a1 + 32);
+    v22 = v10;
+    v11 = FPProviderNotFoundError();
+    __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke_2(v21, v11);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134219010;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = 0;
-    v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer stateDirectoryWithCompletionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)listAvailableTestingOperationsWithCompletionHandler:(id)handler
@@ -2381,14 +2210,14 @@ void __60__FPDXPCDomainServicer_stateDirectoryWithCompletionHandler___block_invo
 
 void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
-  v42 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v42];
+  v45[1] = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v34];
   if (v2)
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-    v53[0] = *MEMORY[0x1E69675A8];
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    v45[0] = *MEMORY[0x1E69675A8];
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
     v5 = [WeakRetained fp_hasOneOfEntitlements:v4 nonSandboxedAccess:0 logLevel:2];
 
     if (v5)
@@ -2398,106 +2227,100 @@ void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHand
 
       if (v7)
       {
-        v8 = *(*(a1 + 32) + 80);
-        v39 = fpfs_adopt_log();
-        v9 = fp_current_or_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v31 = fpfs_adopt_log();
+        v8 = fp_current_or_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(a1 + 40);
-          v30 = FPPopLogSectionForBlock();
-          v31 = *(a1 + 32);
-          v32 = FPNotSupportedError();
+          v23 = FPPopLogSectionForBlock();
+          v24 = *(a1 + 32);
+          v25 = FPNotSupportedError();
           *buf = 134219010;
-          v44 = v30;
-          v45 = 2112;
-          v46 = v31;
-          v47 = 2080;
-          v48 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
-          v49 = 2112;
-          v50 = 0;
-          v51 = 2112;
-          v52 = v32;
-          _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+          v36 = v23;
+          v37 = 2112;
+          v38 = v24;
+          v39 = 2080;
+          v40 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
+          v41 = 2112;
+          v42 = 0;
+          v43 = 2112;
+          v44 = v25;
+          _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
         }
       }
 
       else
       {
-        v20 = [v2 defaultBackend];
-        v21 = objc_opt_respondsToSelector();
+        v16 = [v2 defaultBackend];
+        v17 = objc_opt_respondsToSelector();
 
-        if (v21)
+        if (v17)
         {
-          v22 = [v2 defaultBackend];
-          v23 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_272;
-          v37[3] = &unk_1E83BE3D8;
-          v37[4] = *(a1 + 32);
-          v38 = *(a1 + 40);
-          [v22 listAvailableTestingOperationsWithRequest:v23 completionHandler:v37];
+          v18 = [v2 defaultBackend];
+          v19 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_272;
+          v29[3] = &unk_1E83BE3D8;
+          v29[4] = *(a1 + 32);
+          v30 = *(a1 + 40);
+          [v18 listAvailableTestingOperationsWithRequest:v19 completionHandler:v29];
 
           goto LABEL_11;
         }
 
-        v24 = *(*(a1 + 32) + 80);
-        v39 = fpfs_adopt_log();
-        v9 = fp_current_or_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v31 = fpfs_adopt_log();
+        v8 = fp_current_or_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v33 = *(a1 + 40);
-          v34 = FPPopLogSectionForBlock();
-          v35 = *(a1 + 32);
-          v36 = FPNotSupportedError();
+          v26 = FPPopLogSectionForBlock();
+          v27 = *(a1 + 32);
+          v28 = FPNotSupportedError();
           *buf = 134219010;
-          v44 = v34;
-          v45 = 2112;
-          v46 = v35;
-          v47 = 2080;
-          v48 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
-          v49 = 2112;
-          v50 = 0;
-          v51 = 2112;
-          v52 = v36;
-          _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+          v36 = v26;
+          v37 = 2112;
+          v38 = v27;
+          v39 = 2080;
+          v40 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
+          v41 = 2112;
+          v42 = 0;
+          v43 = 2112;
+          v44 = v28;
+          _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
         }
       }
 
-      v10 = *(a1 + 40);
-      v11 = FPNotSupportedError();
-      (*(v10 + 16))(v10, 0, v11);
+      v9 = *(a1 + 40);
+      v10 = FPNotSupportedError();
+      (*(v9 + 16))(v9, 0, v10);
 
       __fp_pop_log();
     }
 
     else
     {
-      v15 = *(*(a1 + 32) + 80);
-      v39 = fpfs_adopt_log();
-      v16 = fp_current_or_default_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v31 = fpfs_adopt_log();
+      v13 = fp_current_or_default_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v25 = *(a1 + 40);
-        v26 = FPPopLogSectionForBlock();
-        v27 = *(a1 + 32);
-        v28 = FPNotPermittedError();
+        v20 = FPPopLogSectionForBlock();
+        v21 = *(a1 + 32);
+        v22 = FPNotPermittedError();
         *buf = 134219010;
-        v44 = v26;
-        v45 = 2112;
-        v46 = v27;
-        v47 = 2080;
-        v48 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
-        v49 = 2112;
-        v50 = 0;
-        v51 = 2112;
-        v52 = v28;
-        _os_log_debug_impl(&dword_1CEFC7000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v36 = v20;
+        v37 = 2112;
+        v38 = v21;
+        v39 = 2080;
+        v40 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
+        v41 = 2112;
+        v42 = 0;
+        v43 = 2112;
+        v44 = v22;
+        _os_log_debug_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
-      v17 = *(a1 + 40);
-      v18 = FPNotPermittedError();
-      (*(v17 + 16))(v17, 0, v18);
+      v14 = *(a1 + 40);
+      v15 = FPNotPermittedError();
+      (*(v14 + 16))(v14, 0, v15);
 
       __fp_pop_log();
     }
@@ -2505,33 +2328,56 @@ void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHand
 
   else
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_2;
-    v40[3] = &unk_1E83BE1A8;
-    v12 = *(a1 + 40);
-    v40[4] = *(a1 + 32);
-    v41 = v12;
-    v13 = *(*(a1 + 32) + 88);
-    v14 = FPProviderNotFoundError();
-    __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_2(v40, v14);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_2;
+    v32[3] = &unk_1E83BE1A8;
+    v11 = *(a1 + 40);
+    v32[4] = *(a1 + 32);
+    v33 = v11;
+    v12 = FPProviderNotFoundError();
+    __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_2(v32, v12);
   }
 
 LABEL_11:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
+    *buf = 134219010;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+  }
+
+  (*(*(a1 + 40) + 16))();
+  __fp_pop_log();
+}
+
+void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_272(uint64_t a1, void *a2, void *a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = a3;
+  v10 = fpfs_adopt_log();
+  v7 = fp_current_or_default_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
     v8 = FPPopLogSectionForBlock();
     v9 = *(a1 + 32);
     *buf = 134219010;
@@ -2539,50 +2385,16 @@ void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHand
     v13 = 2112;
     v14 = v9;
     v15 = 2080;
-    v16 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke_2";
+    v16 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
     v17 = 2112;
-    v18 = 0;
+    v18 = v5;
     v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v20 = v6;
+    _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHandler___block_invoke_272(uint64_t a1, void *a2, void *a3)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  v7 = *(*(a1 + 32) + 80);
-  v13 = fpfs_adopt_log();
-  v8 = fp_current_or_default_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    v10 = *(a1 + 40);
-    v11 = FPPopLogSectionForBlock();
-    v12 = *(a1 + 32);
-    *buf = 134219010;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2080;
-    v19 = "[FPDXPCDomainServicer listAvailableTestingOperationsWithCompletionHandler:]_block_invoke";
-    v20 = 2112;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
-  }
-
-  (*(*(a1 + 40) + 16))();
-  __fp_pop_log();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runTestingOperations:(id)operations completionHandler:(id)handler
@@ -2604,14 +2416,14 @@ void __76__FPDXPCDomainServicer_listAvailableTestingOperationsWithCompletionHand
 
 void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke(uint64_t a1)
 {
-  v53[1] = *MEMORY[0x1E69E9840];
-  v42 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v42];
+  v45[1] = *MEMORY[0x1E69E9840];
+  v34 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v34];
   if (v2)
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-    v53[0] = *MEMORY[0x1E69675A8];
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    v45[0] = *MEMORY[0x1E69675A8];
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
     v5 = [WeakRetained fp_hasOneOfEntitlements:v4 nonSandboxedAccess:0 logLevel:2];
 
     if (v5)
@@ -2621,107 +2433,101 @@ void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_i
 
       if (v7)
       {
-        v8 = *(*(a1 + 32) + 80);
-        v39 = fpfs_adopt_log();
-        v9 = fp_current_or_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v31 = fpfs_adopt_log();
+        v8 = fp_current_or_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v29 = *(a1 + 48);
-          v30 = FPPopLogSectionForBlock();
-          v31 = *(a1 + 32);
-          v32 = FPNotSupportedError();
+          v23 = FPPopLogSectionForBlock();
+          v24 = *(a1 + 32);
+          v25 = FPNotSupportedError();
           *buf = 134219010;
-          v44 = v30;
-          v45 = 2112;
-          v46 = v31;
-          v47 = 2080;
-          v48 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
-          v49 = 2112;
-          v50 = 0;
-          v51 = 2112;
-          v52 = v32;
-          _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+          v36 = v23;
+          v37 = 2112;
+          v38 = v24;
+          v39 = 2080;
+          v40 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
+          v41 = 2112;
+          v42 = 0;
+          v43 = 2112;
+          v44 = v25;
+          _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
         }
       }
 
       else
       {
-        v19 = [v2 defaultBackend];
-        v20 = objc_opt_respondsToSelector();
+        v15 = [v2 defaultBackend];
+        v16 = objc_opt_respondsToSelector();
 
-        if (v20)
+        if (v16)
         {
-          v21 = [v2 defaultBackend];
-          v22 = *(a1 + 40);
-          v23 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_276;
-          v37[3] = &unk_1E83BE400;
-          v37[4] = *(a1 + 32);
-          v38 = *(a1 + 48);
-          [v21 runTestingOperations:v22 request:v23 completionHandler:v37];
+          v17 = [v2 defaultBackend];
+          v18 = *(a1 + 40);
+          v19 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
+          v29[0] = MEMORY[0x1E69E9820];
+          v29[1] = 3221225472;
+          v29[2] = __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_276;
+          v29[3] = &unk_1E83BE400;
+          v29[4] = *(a1 + 32);
+          v30 = *(a1 + 48);
+          [v17 runTestingOperations:v18 request:v19 completionHandler:v29];
 
           goto LABEL_11;
         }
 
-        v24 = *(*(a1 + 32) + 80);
-        v39 = fpfs_adopt_log();
-        v9 = fp_current_or_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v31 = fpfs_adopt_log();
+        v8 = fp_current_or_default_log();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v33 = *(a1 + 48);
-          v34 = FPPopLogSectionForBlock();
-          v35 = *(a1 + 32);
-          v36 = FPNotSupportedError();
+          v26 = FPPopLogSectionForBlock();
+          v27 = *(a1 + 32);
+          v28 = FPNotSupportedError();
           *buf = 134219010;
-          v44 = v34;
-          v45 = 2112;
-          v46 = v35;
-          v47 = 2080;
-          v48 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
-          v49 = 2112;
-          v50 = 0;
-          v51 = 2112;
-          v52 = v36;
-          _os_log_debug_impl(&dword_1CEFC7000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+          v36 = v26;
+          v37 = 2112;
+          v38 = v27;
+          v39 = 2080;
+          v40 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
+          v41 = 2112;
+          v42 = 0;
+          v43 = 2112;
+          v44 = v28;
+          _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
         }
       }
 
-      v10 = *(a1 + 48);
-      v11 = FPNotSupportedError();
-      (*(v10 + 16))(v10, 0, v11);
+      v9 = *(a1 + 48);
+      v10 = FPNotSupportedError();
+      (*(v9 + 16))(v9, 0, v10);
 
       __fp_pop_log();
     }
 
     else
     {
-      v14 = *(*(a1 + 32) + 80);
-      v39 = fpfs_adopt_log();
-      v15 = fp_current_or_default_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v31 = fpfs_adopt_log();
+      v12 = fp_current_or_default_log();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v25 = *(a1 + 48);
-        v26 = FPPopLogSectionForBlock();
-        v27 = *(a1 + 32);
-        v28 = FPNotPermittedError();
+        v20 = FPPopLogSectionForBlock();
+        v21 = *(a1 + 32);
+        v22 = FPNotPermittedError();
         *buf = 134219010;
-        v44 = v26;
-        v45 = 2112;
-        v46 = v27;
-        v47 = 2080;
-        v48 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
-        v49 = 2112;
-        v50 = 0;
-        v51 = 2112;
-        v52 = v28;
-        _os_log_debug_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v36 = v20;
+        v37 = 2112;
+        v38 = v21;
+        v39 = 2080;
+        v40 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
+        v41 = 2112;
+        v42 = 0;
+        v43 = 2112;
+        v44 = v22;
+        _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
-      v16 = *(a1 + 48);
-      v17 = FPNotPermittedError();
-      (*(v16 + 16))(v16, 0, v17);
+      v13 = *(a1 + 48);
+      v14 = FPNotPermittedError();
+      (*(v13 + 16))(v13, 0, v14);
 
       __fp_pop_log();
     }
@@ -2729,32 +2535,55 @@ void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_i
 
   else
   {
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_2;
-    v40[3] = &unk_1E83BE1A8;
-    v40[4] = *(a1 + 32);
-    v41 = *(a1 + 48);
-    v12 = *(*(a1 + 32) + 88);
-    v13 = FPProviderNotFoundError();
-    __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_2(v40, v13);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_2;
+    v32[3] = &unk_1E83BE1A8;
+    v32[4] = *(a1 + 32);
+    v33 = *(a1 + 48);
+    v11 = FPProviderNotFoundError();
+    __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_2(v32, v11);
   }
 
 LABEL_11:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
+    *buf = 134219010;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+  }
+
+  (*(*(a1 + 40) + 16))();
+  __fp_pop_log();
+}
+
+void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_276(uint64_t a1, void *a2, void *a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = a3;
+  v10 = fpfs_adopt_log();
+  v7 = fp_current_or_default_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
     v8 = FPPopLogSectionForBlock();
     v9 = *(a1 + 32);
     *buf = 134219010;
@@ -2762,50 +2591,16 @@ void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_i
     v13 = 2112;
     v14 = v9;
     v15 = 2080;
-    v16 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke_2";
+    v16 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
     v17 = 2112;
-    v18 = 0;
+    v18 = v5;
     v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v20 = v6;
+    _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_invoke_276(uint64_t a1, void *a2, void *a3)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  v7 = *(*(a1 + 32) + 80);
-  v13 = fpfs_adopt_log();
-  v8 = fp_current_or_default_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    v10 = *(a1 + 40);
-    v11 = FPPopLogSectionForBlock();
-    v12 = *(a1 + 32);
-    *buf = 134219010;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2080;
-    v19 = "[FPDXPCDomainServicer runTestingOperations:completionHandler:]_block_invoke";
-    v20 = 2112;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
-  }
-
-  (*(*(a1 + 40) + 16))();
-  __fp_pop_log();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToUploadProgressUpdates:(id)updates completionHandler:(id)handler
@@ -2827,8 +2622,8 @@ void __63__FPDXPCDomainServicer_runTestingOperations_completionHandler___block_i
 
 void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke(id *a1)
 {
-  v17 = 0;
-  v2 = [a1[4] domainOrNil:&v17];
+  v16 = 0;
+  v2 = [a1[4] domainOrNil:&v16];
   v3 = v2;
   if (v2)
   {
@@ -2837,138 +2632,127 @@ void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandl
     block[1] = 3221225472;
     block[2] = __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_278;
     block[3] = &unk_1E83BE3B0;
-    v11 = v3;
+    v10 = v3;
     v5 = a1[5];
     v6 = a1[4];
-    v12 = v5;
-    v13 = v6;
-    v14 = a1[6];
+    v11 = v5;
+    v12 = v6;
+    v13 = a1[6];
     dispatch_async(v4, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2;
-    v15[3] = &unk_1E83BE1A8;
-    v15[4] = a1[4];
-    v16 = a1[6];
-    v8 = *(a1[4] + 11);
-    v9 = FPProviderNotFoundError();
-    __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2(v15, v9);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2;
+    v14[3] = &unk_1E83BE1A8;
+    v14[4] = a1[4];
+    v15 = a1[6];
+    v8 = FPProviderNotFoundError();
+    __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2(v14, v8);
 
-    v7 = v16;
+    v7 = v15;
   }
 }
 
 void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_278(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) defaultBackend];
   v3 = objc_opt_respondsToSelector();
 
   if (v3)
   {
     v4 = [*(a1 + 32) defaultBackend];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2_281;
-    v17[3] = &unk_1E83BE428;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2_281;
+    v14[3] = &unk_1E83BE428;
     v5 = *(a1 + 40);
     v6 = *(a1 + 56);
-    v17[4] = *(a1 + 48);
-    v19 = v6;
-    v18 = *(a1 + 40);
-    [v4 subscribeToUploadProgressUpdates:v5 completionHandler:v17];
+    v14[4] = *(a1 + 48);
+    v16 = v6;
+    v15 = *(a1 + 40);
+    [v4 subscribeToUploadProgressUpdates:v5 completionHandler:v14];
   }
 
   else
   {
-    v7 = *(*(a1 + 48) + 80);
-    v16 = fpfs_adopt_log();
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v13 = fpfs_adopt_log();
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 56);
-      v13 = FPPopLogSectionForBlock();
-      v14 = *(a1 + 48);
-      v15 = FPNotSupportedError();
+      v10 = FPPopLogSectionForBlock();
+      v11 = *(a1 + 48);
+      v12 = FPNotSupportedError();
       *buf = 134218754;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
-      v24 = 2080;
-      v25 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke";
-      v26 = 2112;
-      v27 = v15;
-      _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2080;
+      v22 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke";
+      v23 = 2112;
+      v24 = v12;
+      _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
-    v9 = *(a1 + 56);
-    v10 = FPNotSupportedError();
-    (*(v9 + 16))(v9, v10);
+    v8 = *(a1 + 56);
+    v9 = FPNotSupportedError();
+    (*(v8 + 16))(v8, v9);
 
     __fp_pop_log();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandler___block_invoke_2_281(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 80);
-    v10 = fpfs_adopt_log();
-    v5 = fp_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = fpfs_adopt_log();
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 48);
-      v8 = FPPopLogSectionForBlock();
-      v9 = *(a1 + 32);
+      v5 = FPPopLogSectionForBlock();
+      v6 = *(a1 + 32);
       *buf = 134218754;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2080;
-      v16 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke_2";
-      v17 = 2112;
-      v18 = v3;
-      _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2080;
+      v13 = "[FPDXPCDomainServicer subscribeToUploadProgressUpdates:completionHandler:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v3;
+      _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -2979,8 +2763,6 @@ void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandl
   {
     objc_storeStrong((*(a1 + 32) + 96), *(a1 + 40));
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeToDownloadProgressUpdates:(id)updates completionHandler:(id)handler
@@ -3002,8 +2784,8 @@ void __75__FPDXPCDomainServicer_subscribeToUploadProgressUpdates_completionHandl
 
 void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke(id *a1)
 {
-  v17 = 0;
-  v2 = [a1[4] domainOrNil:&v17];
+  v16 = 0;
+  v2 = [a1[4] domainOrNil:&v16];
   v3 = v2;
   if (v2)
   {
@@ -3012,138 +2794,127 @@ void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHan
     block[1] = 3221225472;
     block[2] = __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_282;
     block[3] = &unk_1E83BE3B0;
-    v11 = v3;
+    v10 = v3;
     v5 = a1[5];
     v6 = a1[4];
-    v12 = v5;
-    v13 = v6;
-    v14 = a1[6];
+    v11 = v5;
+    v12 = v6;
+    v13 = a1[6];
     dispatch_async(v4, block);
 
-    v7 = v11;
+    v7 = v10;
   }
 
   else
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2;
-    v15[3] = &unk_1E83BE1A8;
-    v15[4] = a1[4];
-    v16 = a1[6];
-    v8 = *(a1[4] + 11);
-    v9 = FPProviderNotFoundError();
-    __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2(v15, v9);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2;
+    v14[3] = &unk_1E83BE1A8;
+    v14[4] = a1[4];
+    v15 = a1[6];
+    v8 = FPProviderNotFoundError();
+    __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2(v14, v8);
 
-    v7 = v16;
+    v7 = v15;
   }
 }
 
 void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_282(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) defaultBackend];
   v3 = objc_opt_respondsToSelector();
 
   if (v3)
   {
     v4 = [*(a1 + 32) defaultBackend];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2_285;
-    v17[3] = &unk_1E83BE428;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2_285;
+    v14[3] = &unk_1E83BE428;
     v5 = *(a1 + 40);
     v6 = *(a1 + 56);
-    v17[4] = *(a1 + 48);
-    v19 = v6;
-    v18 = *(a1 + 40);
-    [v4 subscribeToDownloadProgressUpdates:v5 completionHandler:v17];
+    v14[4] = *(a1 + 48);
+    v16 = v6;
+    v15 = *(a1 + 40);
+    [v4 subscribeToDownloadProgressUpdates:v5 completionHandler:v14];
   }
 
   else
   {
-    v7 = *(*(a1 + 48) + 80);
-    v16 = fpfs_adopt_log();
-    v8 = fp_current_or_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v13 = fpfs_adopt_log();
+    v7 = fp_current_or_default_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v12 = *(a1 + 56);
-      v13 = FPPopLogSectionForBlock();
-      v14 = *(a1 + 48);
-      v15 = FPNotSupportedError();
+      v10 = FPPopLogSectionForBlock();
+      v11 = *(a1 + 48);
+      v12 = FPNotSupportedError();
       *buf = 134218754;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
-      v24 = 2080;
-      v25 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke";
-      v26 = 2112;
-      v27 = v15;
-      _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v18 = v10;
+      v19 = 2112;
+      v20 = v11;
+      v21 = 2080;
+      v22 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke";
+      v23 = 2112;
+      v24 = v12;
+      _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
-    v9 = *(a1 + 56);
-    v10 = FPNotSupportedError();
-    (*(v9 + 16))(v9, v10);
+    v8 = *(a1 + 56);
+    v9 = FPNotSupportedError();
+    (*(v8 + 16))(v8, v9);
 
     __fp_pop_log();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHandler___block_invoke_2_285(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 80);
-    v10 = fpfs_adopt_log();
-    v5 = fp_current_or_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v7 = fpfs_adopt_log();
+    v4 = fp_current_or_default_log();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 48);
-      v8 = FPPopLogSectionForBlock();
-      v9 = *(a1 + 32);
+      v5 = FPPopLogSectionForBlock();
+      v6 = *(a1 + 32);
       *buf = 134218754;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v15 = 2080;
-      v16 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke_2";
-      v17 = 2112;
-      v18 = v3;
-      _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v9 = v5;
+      v10 = 2112;
+      v11 = v6;
+      v12 = 2080;
+      v13 = "[FPDXPCDomainServicer subscribeToDownloadProgressUpdates:completionHandler:]_block_invoke_2";
+      v14 = 2112;
+      v15 = v3;
+      _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -3154,8 +2925,6 @@ void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHan
   {
     objc_storeStrong((*(a1 + 32) + 104), *(a1 + 40));
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAccessingServiceWithName:(id)name itemID:(id)d completionHandler:(id)handler
@@ -3180,168 +2949,161 @@ void __77__FPDXPCDomainServicer_subscribeToDownloadProgressUpdates_completionHan
 
 void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke(uint64_t a1)
 {
-  v16 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v16];
+  v15 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v15];
   v3 = v2;
   if (v2)
   {
     v4 = [v2 defaultBackend];
     v5 = *(a1 + 40);
     v6 = +[FPDRequest requestForPID:](FPDRequest, "requestForPID:", [*(a1 + 32) pid]);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286;
-    v10[3] = &unk_1E83BE478;
-    v10[4] = *(a1 + 32);
-    v7 = &v13;
-    v13 = *(a1 + 56);
-    v11 = *(a1 + 48);
-    v12 = v3;
-    [v4 fetchServicesForItemID:v5 allowRestrictedSources:1 request:v6 completionHandler:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286;
+    v9[3] = &unk_1E83BE478;
+    v9[4] = *(a1 + 32);
+    v7 = &v12;
+    v12 = *(a1 + 56);
+    v10 = *(a1 + 48);
+    v11 = v3;
+    [v4 fetchServicesForItemID:v5 allowRestrictedSources:1 request:v6 completionHandler:v9];
 
-    v8 = v11;
+    v8 = v10;
   }
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_2;
-    v14[3] = &unk_1E83BE1A8;
-    v14[4] = *(a1 + 32);
-    v7 = &v15;
-    v15 = *(a1 + 56);
-    v9 = *(*(a1 + 32) + 88);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_2;
+    v13[3] = &unk_1E83BE1A8;
+    v13[4] = *(a1 + 32);
+    v7 = &v14;
+    v14 = *(a1 + 56);
     v8 = FPProviderNotFoundError();
-    __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_2(v14, v8);
+    __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_2(v13, v8);
   }
 }
 
 void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134219266;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = 0;
-    v19 = 2112;
-    v20 = 0;
-    v21 = 2112;
-    v22 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = 0;
+    v18 = 2112;
+    v19 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = v9;
   if (v7)
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v12)
     {
-      v13 = *v43;
+      v13 = *v36;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v43 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(v11);
           }
 
-          v15 = [*(*(&v42 + 1) + 8 * i) serviceName];
+          v15 = [*(*(&v35 + 1) + 8 * i) serviceName];
           v16 = [v15 isEqualToString:*(a1 + 40)];
 
           if (v16)
           {
-            v20 = objc_opt_new();
-            [v20 setRequestEffectivePID:{objc_msgSend(*(*(a1 + 32) + 56), "requestEffectivePID")}];
-            v21 = MEMORY[0x1E696AEC0];
-            v22 = *(a1 + 40);
+            v18 = objc_opt_new();
+            [v18 setRequestEffectivePID:{objc_msgSend(*(*(a1 + 32) + 56), "requestEffectivePID")}];
+            v19 = MEMORY[0x1E696AEC0];
+            v20 = *(a1 + 40);
             [*(*(a1 + 32) + 56) requestEffectivePID];
-            v23 = FPExecutableNameForProcessIdentifier();
-            v24 = [v21 stringWithFormat:@"service %@ for %@[%u]", v22, v23, objc_msgSend(*(*(a1 + 32) + 56), "requestEffectivePID")];
-            [v20 setPrettyDescription:v24];
+            v21 = FPExecutableNameForProcessIdentifier();
+            v22 = [v19 stringWithFormat:@"service %@ for %@[%u]", v20, v21, objc_msgSend(*(*(a1 + 32) + 56), "requestEffectivePID")];
+            [v18 setPrettyDescription:v22];
 
-            v25 = [*(a1 + 48) session];
-            objc_initWeak(&location, v25);
+            v23 = [*(a1 + 48) session];
+            objc_initWeak(&location, v23);
 
-            v40[0] = MEMORY[0x1E69E9820];
-            v40[1] = 3221225472;
-            v40[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_294;
-            v40[3] = &unk_1E83BE450;
-            objc_copyWeak(&v41, &location);
-            [v20 setStopBlock:v40];
-            if (!v20)
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_294;
+            v33[3] = &unk_1E83BE450;
+            objc_copyWeak(&v34, &location);
+            [v18 setStopBlock:v33];
+            if (!v18)
             {
               __assert_rtn("[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke_2", "FPDXPCDomainServicer.m", 701, "extender");
             }
 
-            v26 = [*(a1 + 48) session];
-            [v26 registerLifetimeExtensionForObject:v20];
+            v24 = [*(a1 + 48) session];
+            [v24 registerLifetimeExtensionForObject:v18];
 
-            v27 = *(*(a1 + 32) + 80);
-            v39 = fpfs_adopt_log();
-            v28 = fp_current_or_default_log();
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            v32 = fpfs_adopt_log();
+            v25 = fp_current_or_default_log();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
             {
-              v33 = *(a1 + 56);
-              v34 = FPPopLogSectionForBlock();
-              v35 = *(a1 + 32);
+              v28 = FPPopLogSectionForBlock();
+              v29 = *(a1 + 32);
               *buf = 134219266;
-              v49 = v34;
-              v50 = 2112;
-              v51 = v35;
-              v52 = 2080;
-              v53 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke_2";
-              v54 = 2112;
-              v55 = v7;
-              v56 = 2112;
-              v57 = v20;
-              v58 = 2112;
-              v59 = 0;
-              _os_log_debug_impl(&dword_1CEFC7000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
+              v42 = v28;
+              v43 = 2112;
+              v44 = v29;
+              v45 = 2080;
+              v46 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke_2";
+              v47 = 2112;
+              v48 = v7;
+              v49 = 2112;
+              v50 = v18;
+              v51 = 2112;
+              v52 = 0;
+              _os_log_debug_impl(&dword_1CEFC7000, v25, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
             }
 
             (*(*(a1 + 56) + 16))();
             __fp_pop_log();
 
-            objc_destroyWeak(&v41);
+            objc_destroyWeak(&v34);
             objc_destroyWeak(&location);
 
             goto LABEL_24;
           }
         }
 
-        v12 = [v11 countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v35 objects:v40 count:16];
         if (v12)
         {
           continue;
@@ -3351,14 +3113,12 @@ void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionH
       }
     }
 
-    v17 = *(*(a1 + 32) + 80);
     location = fpfs_adopt_log();
-    v18 = fp_current_or_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = fp_current_or_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      v19 = *(a1 + 56);
       FPPopLogSectionForBlock();
-      __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_1((a1 + 32));
+      __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_1();
     }
 
     (*(*(a1 + 56) + 16))();
@@ -3369,36 +3129,34 @@ void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionH
   {
     if (!v9)
     {
-      v29 = fp_current_or_default_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v26 = fp_current_or_default_log();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_2(v29);
+        __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_2(v26);
       }
 
       v10 = [MEMORY[0x1E696ABC0] fp_invalidArgumentError:@"error"];
     }
 
-    v30 = *(*(a1 + 32) + 80);
     location = fpfs_adopt_log();
-    v31 = fp_current_or_default_log();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+    v27 = fp_current_or_default_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      v36 = *(a1 + 56);
-      v37 = FPPopLogSectionForBlock();
-      v38 = *(a1 + 32);
+      v30 = FPPopLogSectionForBlock();
+      v31 = *(a1 + 32);
       *buf = 134219266;
-      v49 = v37;
-      v50 = 2112;
-      v51 = v38;
-      v52 = 2080;
-      v53 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke";
-      v54 = 2112;
-      v55 = 0;
-      v56 = 2112;
-      v57 = 0;
-      v58 = 2112;
-      v59 = v10;
-      _os_log_debug_impl(&dword_1CEFC7000, v31, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
+      v42 = v30;
+      v43 = 2112;
+      v44 = v31;
+      v45 = 2080;
+      v46 = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke";
+      v47 = 2112;
+      v48 = 0;
+      v49 = 2112;
+      v50 = 0;
+      v51 = 2112;
+      v52 = v10;
+      _os_log_debug_impl(&dword_1CEFC7000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", buf, 0x3Eu);
     }
 
     (*(*(a1 + 56) + 16))();
@@ -3406,8 +3164,6 @@ void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionH
   }
 
 LABEL_24:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_294(uint64_t a1, void *a2)
@@ -3436,14 +3192,14 @@ void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionH
 
 void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke(uint64_t a1)
 {
-  v45[1] = *MEMORY[0x1E69E9840];
-  v34 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v34];
+  v39[1] = *MEMORY[0x1E69E9840];
+  v28 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v28];
   if (v2)
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 32));
-    v45[0] = *MEMORY[0x1E6967560];
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:1];
+    v39[0] = *MEMORY[0x1E6967560];
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
     v5 = [WeakRetained fp_hasOneOfEntitlements:v4 nonSandboxedAccess:0 logLevel:2];
 
     if (v5)
@@ -3454,43 +3210,41 @@ void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandle
       if (v7)
       {
         v8 = [v2 defaultBackend];
-        v29[0] = MEMORY[0x1E69E9820];
-        v29[1] = 3221225472;
-        v29[2] = __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_301;
-        v29[3] = &unk_1E83BE3D8;
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_301;
+        v23[3] = &unk_1E83BE3D8;
         v9 = *(a1 + 40);
-        v29[4] = *(a1 + 32);
-        v30 = *(a1 + 48);
-        [v8 getDiagnosticAttributesForItems:v9 completionHandler:v29];
+        v23[4] = *(a1 + 32);
+        v24 = *(a1 + 48);
+        [v8 getDiagnosticAttributesForItems:v9 completionHandler:v23];
       }
 
       else
       {
-        v16 = *(*(a1 + 32) + 80);
-        v31 = fpfs_adopt_log();
-        v17 = fp_current_or_default_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v25 = fpfs_adopt_log();
+        v14 = fp_current_or_default_log();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v25 = *(a1 + 48);
-          v26 = FPPopLogSectionForBlock();
-          v27 = *(a1 + 32);
-          v28 = FPNotSupportedError();
+          v20 = FPPopLogSectionForBlock();
+          v21 = *(a1 + 32);
+          v22 = FPNotSupportedError();
           *buf = 134219010;
-          v36 = v26;
+          v30 = v20;
+          v31 = 2112;
+          v32 = v21;
+          v33 = 2080;
+          v34 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
+          v35 = 2112;
+          v36 = 0;
           v37 = 2112;
-          v38 = v27;
-          v39 = 2080;
-          v40 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
-          v41 = 2112;
-          v42 = 0;
-          v43 = 2112;
-          v44 = v28;
-          _os_log_debug_impl(&dword_1CEFC7000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+          v38 = v22;
+          _os_log_debug_impl(&dword_1CEFC7000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
         }
 
-        v18 = *(a1 + 48);
-        v19 = FPNotSupportedError();
-        (*(v18 + 16))(v18, 0, v19);
+        v15 = *(a1 + 48);
+        v16 = FPNotSupportedError();
+        (*(v15 + 16))(v15, 0, v16);
 
         __fp_pop_log();
       }
@@ -3498,31 +3252,29 @@ void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandle
 
     else
     {
-      v12 = *(*(a1 + 32) + 80);
-      v31 = fpfs_adopt_log();
-      v13 = fp_current_or_default_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v25 = fpfs_adopt_log();
+      v11 = fp_current_or_default_log();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v21 = *(a1 + 48);
-        v22 = FPPopLogSectionForBlock();
-        v23 = *(a1 + 32);
-        v24 = FPNotPermittedError();
+        v17 = FPPopLogSectionForBlock();
+        v18 = *(a1 + 32);
+        v19 = FPNotPermittedError();
         *buf = 134219010;
-        v36 = v22;
+        v30 = v17;
+        v31 = 2112;
+        v32 = v18;
+        v33 = 2080;
+        v34 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
+        v35 = 2112;
+        v36 = 0;
         v37 = 2112;
-        v38 = v23;
-        v39 = 2080;
-        v40 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
-        v41 = 2112;
-        v42 = 0;
-        v43 = 2112;
-        v44 = v24;
-        _os_log_debug_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+        v38 = v19;
+        _os_log_debug_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
       }
 
-      v14 = *(a1 + 48);
-      v15 = FPNotPermittedError();
-      (*(v14 + 16))(v14, 0, v15);
+      v12 = *(a1 + 48);
+      v13 = FPNotPermittedError();
+      (*(v12 + 16))(v12, 0, v13);
 
       __fp_pop_log();
     }
@@ -3530,30 +3282,53 @@ void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandle
 
   else
   {
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_2;
-    v32[3] = &unk_1E83BE1A8;
-    v32[4] = *(a1 + 32);
-    v33 = *(a1 + 48);
-    v10 = *(*(a1 + 32) + 88);
-    v11 = FPProviderNotFoundError();
-    __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_2(v32, v11);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_2;
+    v26[3] = &unk_1E83BE1A8;
+    v26[4] = *(a1 + 32);
+    v27 = *(a1 + 48);
+    v10 = FPProviderNotFoundError();
+    __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_2(v26, v10);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
+    *buf = 134219010;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = 0;
+    v16 = 2112;
+    v17 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+  }
+
+  (*(*(a1 + 40) + 16))();
+  __fp_pop_log();
+}
+
+void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_301(uint64_t a1, void *a2, void *a3)
+{
+  v21 = *MEMORY[0x1E69E9840];
+  v5 = a2;
+  v6 = a3;
+  v10 = fpfs_adopt_log();
+  v7 = fp_current_or_default_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  {
     v8 = FPPopLogSectionForBlock();
     v9 = *(a1 + 32);
     *buf = 134219010;
@@ -3561,50 +3336,16 @@ void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandle
     v13 = 2112;
     v14 = v9;
     v15 = 2080;
-    v16 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke_2";
+    v16 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
     v17 = 2112;
-    v18 = 0;
+    v18 = v5;
     v19 = 2112;
-    v20 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
+    v20 = v6;
+    _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandler___block_invoke_301(uint64_t a1, void *a2, void *a3)
-{
-  v24 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  v7 = *(*(a1 + 32) + 80);
-  v13 = fpfs_adopt_log();
-  v8 = fp_current_or_default_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-  {
-    v10 = *(a1 + 40);
-    v11 = FPPopLogSectionForBlock();
-    v12 = *(a1 + 32);
-    *buf = 134219010;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2080;
-    v19 = "[FPDXPCDomainServicer getDiagnosticAttributesForItems:completionHandler:]_block_invoke";
-    v20 = 2112;
-    v21 = v5;
-    v22 = 2112;
-    v23 = v6;
-    _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@", buf, 0x34u);
-  }
-
-  (*(*(a1 + 40) + 16))();
-  __fp_pop_log();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_t_setFilePresenterObserver:(id)observer
@@ -3623,59 +3364,57 @@ void __74__FPDXPCDomainServicer_getDiagnosticAttributesForItems_completionHandle
 
 void __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke(uint64_t a1)
 {
-  v12 = 0;
-  v2 = [*(a1 + 32) providerOrNilWithReason:&v12];
-  v3 = *(a1 + 32);
+  v10 = 0;
+  v2 = [*(a1 + 32) providerOrNilWithReason:&v10];
   if (v2)
   {
-    [*(v3 + 48) finishObserving];
-    v4 = [v2 domainForIdentifier:*MEMORY[0x1E6967178] reason:0];
-    v5 = [MEMORY[0x1E696ADA8] keyPathWithRootObject:v4 path:"filePresenters"];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke_3;
-    v10[3] = &unk_1E83BE4C8;
-    v11 = *(a1 + 40);
-    v6 = [v5 addObserverBlock:v10];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 48);
-    *(v7 + 48) = v6;
+    [*(*(a1 + 32) + 48) finishObserving];
+    v3 = [v2 domainForIdentifier:*MEMORY[0x1E6967178] reason:0];
+    v4 = [MEMORY[0x1E696ADA8] keyPathWithRootObject:v3 path:"filePresenters"];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke_3;
+    v8[3] = &unk_1E83BE4C8;
+    v9 = *(a1 + 40);
+    v5 = [v4 addObserverBlock:v8];
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 48);
+    *(v6 + 48) = v5;
   }
 
   else
   {
-    v9 = *(v3 + 88);
-    v4 = FPProviderNotFoundError();
+    v3 = FPProviderNotFoundError();
   }
 }
 
 void __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke_3(uint64_t a1, void *a2)
 {
-  v13 = a1;
-  v22 = *MEMORY[0x1E69E9840];
+  v12 = a1;
+  v21 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v14 = v2;
+  v13 = v2;
   v4 = [v2 allValues];
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [v9 presentedItemURL];
         if (v10)
         {
@@ -3688,20 +3427,19 @@ void __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke_3(uin
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v20 = v9;
+            v19 = v9;
             _os_log_error_impl(&dword_1CEFC7000, v11, OS_LOG_TYPE_ERROR, "[ERROR] nil presentedItemURL for presenter: %@", buf, 0xCu);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  [*(v13 + 32) observePresentedFilesDidChange:v3];
-  v12 = *MEMORY[0x1E69E9840];
+  [*(v12 + 32) observePresentedFilesDidChange:v3];
 }
 
 - (void)requestDiagnosticCollectionForItemWithIdentifier:(id)identifier errorReason:(id)reason completionHandler:(id)handler
@@ -3720,120 +3458,111 @@ void __52__FPDXPCDomainServicer__t_setFilePresenterObserver___block_invoke_3(uin
 
 void __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v18 = 0;
-  v2 = [*(a1 + 32) domainOrNil:&v18];
+  v23 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v2 = [*(a1 + 32) domainOrNil:&v14];
   if (v2)
   {
-    v3 = *(*(a1 + 32) + 80);
-    v15 = fpfs_adopt_log();
-    v4 = fp_current_or_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v11 = fpfs_adopt_log();
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 40);
-      v12 = FPPopLogSectionForBlock();
-      v13 = *(a1 + 32);
-      v14 = FPNotSupportedError();
+      v8 = FPPopLogSectionForBlock();
+      v9 = *(a1 + 32);
+      v10 = FPNotSupportedError();
       *buf = 134218754;
-      v20 = v12;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2080;
+      v20 = "[FPDXPCDomainServicer requestDiagnosticCollectionForItemWithIdentifier:errorReason:completionHandler:]_block_invoke";
       v21 = 2112;
-      v22 = v13;
-      v23 = 2080;
-      v24 = "[FPDXPCDomainServicer requestDiagnosticCollectionForItemWithIdentifier:errorReason:completionHandler:]_block_invoke";
-      v25 = 2112;
-      v26 = v14;
-      _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+      v22 = v10;
+      _os_log_debug_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
     }
 
-    v5 = *(a1 + 40);
-    v6 = FPNotSupportedError();
-    (*(v5 + 16))(v5, v6);
+    v4 = *(a1 + 40);
+    v5 = FPNotSupportedError();
+    (*(v4 + 16))(v4, v5);
 
     __fp_pop_log();
   }
 
   else
   {
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke_2;
-    v16[3] = &unk_1E83BE1A8;
-    v7 = *(a1 + 40);
-    v16[4] = *(a1 + 32);
-    v17 = v7;
-    v8 = *(*(a1 + 32) + 88);
-    v9 = FPProviderNotFoundError();
-    __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke_2(v16, v9);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke_2;
+    v12[3] = &unk_1E83BE1A8;
+    v6 = *(a1 + 40);
+    v12[4] = *(a1 + 32);
+    v13 = v6;
+    v7 = FPProviderNotFoundError();
+    __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke_2(v12, v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __103__FPDXPCDomainServicer_requestDiagnosticCollectionForItemWithIdentifier_errorReason_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(*(a1 + 32) + 80);
-  v10 = fpfs_adopt_log();
-  v5 = fp_current_or_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v7 = fpfs_adopt_log();
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 40);
-    v8 = FPPopLogSectionForBlock();
-    v9 = *(a1 + 32);
+    v5 = FPPopLogSectionForBlock();
+    v6 = *(a1 + 32);
     *buf = 134218754;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2080;
-    v16 = "[FPDXPCDomainServicer requestDiagnosticCollectionForItemWithIdentifier:errorReason:completionHandler:]_block_invoke_2";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_debug_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2080;
+    v13 = "[FPDXPCDomainServicer requestDiagnosticCollectionForItemWithIdentifier:errorReason:completionHandler:]_block_invoke_2";
+    v14 = 2112;
+    v15 = v3;
+    _os_log_debug_impl(&dword_1CEFC7000, v4, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 40) + 16))();
   __fp_pop_log();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __78__FPDXPCDomainServicer_currentMaterializedSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_1_3(a1);
-  OUTLINED_FUNCTION_0_0(3.8523e-34, v1, v2, v3);
-  *(v4 + 24) = "[FPDXPCDomainServicer currentMaterializedSetSyncAnchorWithCompletionHandler:]_block_invoke_2";
-  *(v4 + 32) = v5;
-  *(v4 + 34) = 0;
-  _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", v6, 0x2Au);
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_0_0(3.8523e-34, v0, v1, v2);
+  *(v3 + 24) = "[FPDXPCDomainServicer currentMaterializedSetSyncAnchorWithCompletionHandler:]_block_invoke_2";
+  *(v3 + 32) = v4;
+  *(v3 + 34) = 0;
+  _os_log_debug_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@", v5, 0x2Au);
 }
 
-void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __73__FPDXPCDomainServicer_currentPendingSetSyncAnchorWithCompletionHandler___block_invoke_2_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_1_3(a1);
-  OUTLINED_FUNCTION_0_0(3.8526e-34, v1, v2, v3);
-  *(v4 + 24) = "[FPDXPCDomainServicer currentPendingSetSyncAnchorWithCompletionHandler:]_block_invoke_2";
-  *(v4 + 32) = 1024;
-  *(v4 + 34) = 0;
-  *(v4 + 38) = 2048;
-  *(v4 + 40) = 0;
-  *(v4 + 48) = v5;
-  *(v4 + 50) = 0;
-  _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %{BOOL}d, %lf, %@", v6, 0x3Au);
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_0_0(3.8526e-34, v0, v1, v2);
+  *(v3 + 24) = "[FPDXPCDomainServicer currentPendingSetSyncAnchorWithCompletionHandler:]_block_invoke_2";
+  *(v3 + 32) = 1024;
+  *(v3 + 34) = 0;
+  *(v3 + 38) = 2048;
+  *(v3 + 40) = 0;
+  *(v3 + 48) = v4;
+  *(v3 + 50) = 0;
+  _os_log_debug_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %{BOOL}d, %lf, %@", v5, 0x3Au);
 }
 
-void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_1(uint64_t *a1)
+void __79__FPDXPCDomainServicer_startAccessingServiceWithName_itemID_completionHandler___block_invoke_286_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_1_3(a1);
-  OUTLINED_FUNCTION_0_0(3.8526e-34, v1, v2, v3);
-  *(v4 + 24) = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke";
-  *(v4 + 32) = v5;
-  *(v4 + 34) = 0;
-  *(v4 + 42) = v5;
-  *(v4 + 44) = 0;
-  *(v4 + 52) = v5;
-  *(v4 + 54) = 0;
-  _os_log_debug_impl(&dword_1CEFC7000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", v6, 0x3Eu);
+  OUTLINED_FUNCTION_1_3();
+  OUTLINED_FUNCTION_0_0(3.8526e-34, v0, v1, v2);
+  *(v3 + 24) = "[FPDXPCDomainServicer startAccessingServiceWithName:itemID:completionHandler:]_block_invoke";
+  *(v3 + 32) = v4;
+  *(v3 + 34) = 0;
+  *(v3 + 42) = v4;
+  *(v3 + 44) = 0;
+  *(v3 + 52) = v4;
+  *(v3 + 54) = 0;
+  _os_log_debug_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx ipc: %@, reply of %s %@, %@, %@", v5, 0x3Eu);
 }
 
 @end

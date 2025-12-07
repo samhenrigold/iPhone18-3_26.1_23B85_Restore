@@ -11,6 +11,7 @@
 - (void)resetGreyCustomizations;
 - (void)setAction:(id)action forDetailController:(id)controller;
 - (void)setHandGestures:(id)gestures specifier:(id)specifier;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ZoomHandGesturesController
@@ -33,11 +34,11 @@
 
 - (id)specifiers
 {
-  v50[3] = *MEMORY[0x277D85DE8];
+  v49[3] = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v48 = *MEMORY[0x277D3FC48];
+    v47 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     v6 = objc_opt_class();
@@ -47,11 +48,11 @@
     v8 = settingsLocString(@"GREY_GESTURE_EDUCATION_ACTION", @"AccessibilitySettings-watchcontrol");
     v9 = [v8 rangeOfString:v8];
     v11 = v10;
-    v46 = v8;
+    v45 = v8;
     [emptyGroupSpecifier setProperty:v8 forKey:*MEMORY[0x277D3FF70]];
-    v52.location = v9;
-    v52.length = v11;
-    v12 = NSStringFromRange(v52);
+    v51.location = v9;
+    v51.length = v11;
+    v12 = NSStringFromRange(v51);
     [emptyGroupSpecifier setProperty:v12 forKey:*MEMORY[0x277D3FF58]];
 
     v13 = [MEMORY[0x277CCAE60] valueWithNonretainedObject:self];
@@ -60,7 +61,7 @@
     v14 = NSStringFromSelector(sel__didTapLearnMore);
     [emptyGroupSpecifier setProperty:v14 forKey:*MEMORY[0x277D3FF50]];
 
-    v47 = emptyGroupSpecifier;
+    v46 = emptyGroupSpecifier;
     [array addObject:emptyGroupSpecifier];
     v15 = MEMORY[0x277D3FAD8];
     v16 = settingsLocString(@"HAND_GESTURES", @"ZoomSettings");
@@ -71,7 +72,7 @@
     v19 = settingsLocString(@"GREY_CUSTOMIZATIONS_TITLE", @"AccessibilitySettings-watchcontrol");
     v20 = [v18 groupSpecifierWithName:v19];
 
-    v45 = v20;
+    v44 = v20;
     [array addObject:v20];
     _greyEventActionCustomizations = [(ZoomHandGesturesController *)self _greyEventActionCustomizations];
     v22 = *MEMORY[0x277D7EA20];
@@ -87,14 +88,14 @@
         v26 = [MEMORY[0x277CCABB0] numberWithLong:v22];
         v27 = [_greyEventActionCustomizations objectForKeyedSubscript:v26];
 
-        v49[0] = @"ZoomHandGesturesGreyEventKey";
+        v48[0] = @"ZoomHandGesturesGreyEventKey";
         v28 = [MEMORY[0x277CCABB0] numberWithLong:v22];
-        v50[0] = v28;
-        v50[1] = v27;
-        v49[1] = @"ZoomHandGesturesActionKey";
-        v49[2] = @"ZoomHandGesturesActionDetailDelegate";
-        v50[2] = self;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:3];
+        v49[0] = v28;
+        v49[1] = v27;
+        v48[1] = @"ZoomHandGesturesActionKey";
+        v48[2] = @"ZoomHandGesturesActionDetailDelegate";
+        v49[2] = self;
+        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:3];
         [v25 setUserInfo:v29];
 
         v30 = [(ZoomHandGesturesController *)self specifierIdentifierForGreyEvent:v22];
@@ -130,13 +131,11 @@
     [v40 setIdentifier:@"ACTIVATION_GESTURE_ID"];
     [array addObject:v40];
     v41 = [array copy];
-    v42 = *(&self->super.super.super.super.super.super.isa + v48);
-    *(&self->super.super.super.super.super.super.isa + v48) = v41;
+    v42 = *(&self->super.super.super.super.super.super.isa + v47);
+    *(&self->super.super.super.super.super.super.isa + v47) = v41;
 
-    v3 = *(&self->super.super.super.super.super.super.isa + v48);
+    v3 = *(&self->super.super.super.super.super.super.isa + v47);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -152,6 +151,36 @@
   {
     return off_278B90D68[event - 1];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = ZoomHandGesturesController;
+  [(AccessibilityBridgeBaseController *)&v19 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"HAND_GESTURES" table:@"ZoomSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"ZOOM_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = MEMORY[0x277CF3470];
+  v20[0] = v15;
+  v20[1] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=ZOOM_ID/HandGestures"];
+  [v16 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v17 deepLink:v18];
 }
 
 - (void)setHandGestures:(id)gestures specifier:(id)specifier

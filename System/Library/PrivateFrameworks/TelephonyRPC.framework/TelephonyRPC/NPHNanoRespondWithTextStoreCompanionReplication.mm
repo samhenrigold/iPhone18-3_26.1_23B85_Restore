@@ -36,20 +36,18 @@
 
 - (void)_replyWithMessageStoreDidChange
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = nph_general_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = nph_general_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[NPHNanoRespondWithTextStoreCompanionReplication _replyWithMessageStoreDidChange]";
-    _os_log_impl(&dword_26D269000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[NPHNanoRespondWithTextStoreCompanionReplication _replyWithMessageStoreDidChange]";
+    _os_log_impl(&dword_26D269000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
   }
 
   npsManager = self->_npsManager;
   v5 = [MEMORY[0x277CBEB98] setWithObject:@"TUReplyWithMessageStoreReplyArray"];
   [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v5];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

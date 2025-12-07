@@ -19,6 +19,7 @@
 - (void)localizeDefaultRepliesIfNeeded;
 - (void)saveReplies:(id)replies;
 - (void)setCannedReplies:(id)replies;
+- (void)setIncludeSmartReplies:(BOOL)replies;
 @end
 
 @implementation WRCannedRepliesStore
@@ -37,9 +38,7 @@
   mEMORY[0x277D2BCF8] = [MEMORY[0x277D2BCF8] sharedInstance];
   getActivePairedDevice = [mEMORY[0x277D2BCF8] getActivePairedDevice];
 
-  v4 = *MEMORY[0x277CF3440];
   LOBYTE(mEMORY[0x277D2BCF8]) = BPSDeviceHasCapabilityForString();
-
   return mEMORY[0x277D2BCF8];
 }
 
@@ -113,38 +112,38 @@
 
 - (id)repliesForLanguage:(id)language
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   [(WRCannedRepliesStore *)self invalidateCachesIfNeededForLanguage:languageCopy];
-  v23 = languageCopy;
+  v22 = languageCopy;
   [(NSRecursiveLock *)self->_lock lock];
   if (!self->_cachedLocalizedReplies)
   {
     [(WRCannedRepliesStore *)self loadCannedRepliesIfNeeded];
     v7 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{-[NSArray count](self->_cannedReplies, "count")}];
     usesFormalReplies = [(WRCannedRepliesStore *)self usesFormalReplies];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v9 = self->_cannedReplies;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (!v10)
     {
       goto LABEL_20;
     }
 
-    v11 = *v25;
+    v11 = *v24;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         defaultReplyKey = [v13 defaultReplyKey];
 
         if (defaultReplyKey)
@@ -180,7 +179,7 @@
         }
       }
 
-      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v10)
       {
 LABEL_20:
@@ -205,36 +204,34 @@ LABEL_20:
 LABEL_21:
   [(NSRecursiveLock *)self->_lock unlock];
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)keyForDefaultReply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   usesFormalReplies = [(WRCannedRepliesStore *)self usesFormalReplies];
   [(NSRecursiveLock *)self->_lock lock];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = self->_cannedReplies;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         defaultReplyKey = [v10 defaultReplyKey];
 
         if (defaultReplyKey)
@@ -264,7 +261,7 @@ LABEL_21:
         }
       }
 
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v7)
       {
         continue;
@@ -278,7 +275,6 @@ LABEL_21:
 LABEL_15:
 
   [(NSRecursiveLock *)self->_lock unlock];
-  v18 = *MEMORY[0x277D85DE8];
 
   return defaultReplyKey2;
 }
@@ -303,35 +299,35 @@ LABEL_15:
 
 - (void)setCannedReplies:(id)replies
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   repliesCopy = replies;
   [(NSRecursiveLock *)self->_lock lock];
   objc_storeStrong(&self->_cannedReplies, replies);
   selfCopy = self;
   [(NSRecursiveLock *)self->_lock unlock];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(repliesCopy, "count")}];
-  v24 = +[WRCannedRepliesStore supportsEnhancedEditing];
+  v23 = +[WRCannedRepliesStore supportsEnhancedEditing];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v7 = repliesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       v11 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v12 = *(*(&v24 + 1) + 8 * v11);
         defaultReplyText = [v12 defaultReplyText];
         v14 = [defaultReplyText isEqualToString:@"SMART_REPLIES_MARKER"];
 
@@ -359,7 +355,7 @@ LABEL_10:
           defaultReplyKey2 = [v12 defaultReplyKey];
           if (([(__CFString *)defaultReplyKey2 hasSuffix:@"_FORMAL"]& 1) == 0)
           {
-            if (!v24)
+            if (!v23)
             {
 
               defaultReplyKey2 = &stru_288224B90;
@@ -374,7 +370,7 @@ LABEL_11:
       }
 
       while (v9 != v11);
-      v20 = [v7 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v20 = [v7 countByEnumeratingWithState:&v24 objects:v30 count:16];
       v9 = v20;
     }
 
@@ -385,13 +381,11 @@ LABEL_11:
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = v6;
+    v29 = v6;
     _os_log_impl(&dword_272AC2000, log, OS_LOG_TYPE_DEFAULT, "saving canned replies: %{public}@", buf, 0xCu);
   }
 
   [(WRCannedRepliesStore *)selfCopy saveReplies:v6];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)includeSmartReplies
@@ -406,6 +400,25 @@ LABEL_11:
   }
 
   return v4;
+}
+
+- (void)setIncludeSmartReplies:(BOOL)replies
+{
+  repliesCopy = replies;
+  domainAccessor = [(WRCannedRepliesStore *)self domainAccessor];
+  [domainAccessor setBool:repliesCopy forKey:@"IncludeSmartRepliesKey"];
+
+  domainAccessor2 = [(WRCannedRepliesStore *)self domainAccessor];
+  synchronize = [domainAccessor2 synchronize];
+
+  npsManager = [(WRCannedRepliesStore *)self npsManager];
+  defaultsDomain = [(WRReplyStoreInfo *)self->_info defaultsDomain];
+  v10 = [MEMORY[0x277CBEB98] setWithObject:@"IncludeSmartRepliesKey"];
+  [npsManager synchronizeNanoDomain:defaultsDomain keys:v10];
+
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.IncludeSmartRepliesKey.changed", 0, 0, 1u);
 }
 
 - (BOOL)usesFormalReplies
@@ -446,35 +459,8 @@ LABEL_11:
     defaultsKey = [(WRReplyStoreInfo *)self->_info defaultsKey];
     domainAccessor = [(WRCannedRepliesStore *)self domainAccessor];
 
-    if (!domainAccessor || !defaultsKey)
+    if (!domainAccessor || !defaultsKey || ((-[WRCannedRepliesStore domainAccessor](self, "domainAccessor"), v5 = objc_claimAutoreleasedReturnValue(), -[WRReplyStoreInfo defaultsKey](self->_info, "defaultsKey"), v6 = objc_claimAutoreleasedReturnValue(), [v5 objectForKey:v6], v7 = objc_claimAutoreleasedReturnValue(), v6, v5, -[WRCannedRepliesStore migrateRepliesIfNeeded:](self, "migrateRepliesIfNeeded:", v7), v8 = objc_claimAutoreleasedReturnValue(), v7, !v8) ? (v9 = 0) : (v9 = objc_msgSend(objc_alloc(MEMORY[0x277CBEB18]), "initWithCapacity:", objc_msgSend(v8, "count"))), v10 = +[WRCannedRepliesStore supportsEnhancedEditing](WRCannedRepliesStore, "supportsEnhancedEditing"), v20[0] = MEMORY[0x277D85DD0], v20[1] = 3221225472, v20[2] = __49__WRCannedRepliesStore_loadCannedRepliesIfNeeded__block_invoke, v20[3] = &unk_279E66AA8, v20[4] = self, v22 = &v24, v23 = v10, v11 = v9, v21 = v11, objc_msgSend(v8, "enumerateObjectsUsingBlock:", v20), v12 = v21, v13 = v11, v12, v13, v8, !v13))
     {
-      goto LABEL_14;
-    }
-
-    domainAccessor2 = [(WRCannedRepliesStore *)self domainAccessor];
-    defaultsKey2 = [(WRReplyStoreInfo *)self->_info defaultsKey];
-    v7 = [domainAccessor2 objectForKey:defaultsKey2];
-
-    v8 = [(WRCannedRepliesStore *)self migrateRepliesIfNeeded:v7];
-
-    v9 = v8 ? [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v8, "count")}] : 0;
-    v10 = +[WRCannedRepliesStore supportsEnhancedEditing];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __49__WRCannedRepliesStore_loadCannedRepliesIfNeeded__block_invoke;
-    v20[3] = &unk_279E66AA8;
-    v20[4] = self;
-    v22 = &v24;
-    v23 = v10;
-    v11 = v9;
-    v21 = v11;
-    [v8 enumerateObjectsUsingBlock:v20];
-    v12 = v21;
-    v13 = v11;
-
-    if (!v13)
-    {
-LABEL_14:
       v13 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[WRReplyStoreInfo defaultCount](self->_info, "defaultCount")}];
       for (i = 0; i < [(WRReplyStoreInfo *)self->_info defaultCount]; ++i)
       {
@@ -505,42 +491,41 @@ LABEL_14:
 
 void __49__WRCannedRepliesStore_loadCannedRepliesIfNeeded__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = a2;
-  v5 = *(a1 + 32);
-  if (![objc_opt_class() isTinker] || (objc_msgSend(*(*(a1 + 32) + 16), "hiddenTinkerReplyKeys"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "containsObject:", v11), v6, (v7 & 1) == 0))
+  v10 = a2;
+  if (![objc_opt_class() isTinker] || (objc_msgSend(*(*(a1 + 32) + 16), "hiddenTinkerReplyKeys"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "containsObject:", v10), v5, (v6 & 1) == 0))
   {
-    v8 = objc_alloc_init(WRCannedReply);
-    if ([v11 isEqualToString:@"SMART_REPLIES_MARKER"])
+    v7 = objc_alloc_init(WRCannedReply);
+    if ([v10 isEqualToString:@"SMART_REPLIES_MARKER"])
     {
-      v9 = *(*(a1 + 48) + 8);
-      if (*(v9 + 24))
+      v8 = *(*(a1 + 48) + 8);
+      if (*(v8 + 24))
       {
 LABEL_13:
 
         goto LABEL_14;
       }
 
-      *(v9 + 24) = 1;
-      [(WRCannedReply *)v8 setDefaultReplyText:v11];
+      *(v8 + 24) = 1;
+      [(WRCannedReply *)v7 setDefaultReplyText:v10];
     }
 
-    else if ([v11 hasPrefix:@"DEFAULT_REPLY_"])
+    else if ([v10 hasPrefix:@"DEFAULT_REPLY_"])
     {
-      [(WRCannedReply *)v8 setDefaultReplyKey:v11];
+      [(WRCannedReply *)v7 setDefaultReplyKey:v10];
     }
 
-    else if ((*(a1 + 56) & 1) != 0 || ![v11 isEqualToString:&stru_288224B90])
+    else if ((*(a1 + 56) & 1) != 0 || ![v10 isEqualToString:&stru_288224B90])
     {
-      [(WRCannedReply *)v8 setText:v11];
+      [(WRCannedReply *)v7 setText:v10];
     }
 
     else
     {
-      v10 = [@"DEFAULT_REPLY_" stringByAppendingFormat:@"%tu", a3];
-      [(WRCannedReply *)v8 setDefaultReplyKey:v10];
+      v9 = [@"DEFAULT_REPLY_" stringByAppendingFormat:@"%tu", a3];
+      [(WRCannedReply *)v7 setDefaultReplyKey:v9];
     }
 
-    [*(a1 + 40) addObject:v8];
+    [*(a1 + 40) addObject:v7];
     goto LABEL_13;
   }
 
@@ -549,29 +534,29 @@ LABEL_14:
 
 - (void)localizeDefaultRepliesIfNeeded
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   [(NSRecursiveLock *)self->_lock lock];
   if (!self->_didLocalizeDefaultReplies)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = self->_cannedReplies;
-    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
+          v7 = *(*(&v11 + 1) + 8 * i);
           defaultReplyKey = [v7 defaultReplyKey];
 
           if (defaultReplyKey)
@@ -582,7 +567,7 @@ LABEL_14:
           }
         }
 
-        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v4 = [(NSArray *)v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v4);
@@ -592,7 +577,6 @@ LABEL_14:
   }
 
   [(NSRecursiveLock *)self->_lock unlock];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateCachesIfNeededForLanguage:(id)language
@@ -655,7 +639,7 @@ LABEL_14:
 
 - (id)migrateRepliesIfNeeded:(id)needed
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   v5 = neededCopy;
   if (self->_didMigrationCheck)
@@ -709,13 +693,13 @@ LABEL_14:
       }
 
       v22 = [v19 mutableCopy];
-      v44[0] = MEMORY[0x277D85DD0];
-      v44[1] = 3221225472;
-      v44[2] = __47__WRCannedRepliesStore_migrateRepliesIfNeeded___block_invoke;
-      v44[3] = &unk_279E66AD0;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __47__WRCannedRepliesStore_migrateRepliesIfNeeded___block_invoke;
+      v43[3] = &unk_279E66AD0;
       v23 = v22;
-      v45 = v23;
-      [v19 enumerateObjectsUsingBlock:v44];
+      v44 = v23;
+      [v19 enumerateObjectsUsingBlock:v43];
       if ([v23 count])
       {
         domainAccessor3 = [(WRCannedRepliesStore *)self domainAccessor];
@@ -787,29 +771,29 @@ LABEL_14:
 LABEL_34:
   if (unsignedIntegerValue <= 1 && self->_category == 1 && (-[WRCannedRepliesStore domainAccessor](self, "domainAccessor"), v25 = objc_claimAutoreleasedReturnValue(), [v25 setObject:&unk_288225968 forKey:@"WatchRepliesVersion"], v25, objc_msgSend(v12, "count")))
   {
-    v38 = v8;
+    v37 = v8;
     v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v39 = 0u;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
     v27 = v12;
-    v28 = [v27 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v41;
+      v30 = *v40;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v41 != v30)
+          if (*v40 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v40 + 1) + 8 * i);
-          if ([v32 isEqualToString:{@"SMART_REPLIES_MARKER", v38}] || !objc_msgSend(v32, "hasPrefix:", @"DEFAULT_REPLY_"))
+          v32 = *(*(&v39 + 1) + 8 * i);
+          if ([v32 isEqualToString:{@"SMART_REPLIES_MARKER", v37}] || !objc_msgSend(v32, "hasPrefix:", @"DEFAULT_REPLY_"))
           {
             [v26 addObject:v32];
           }
@@ -837,7 +821,7 @@ LABEL_34:
           }
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v29);
@@ -852,7 +836,7 @@ LABEL_34:
       }
     }
 
-    v8 = v38;
+    v8 = v37;
   }
 
   else
@@ -864,7 +848,6 @@ LABEL_34:
   v6 = v26;
 
 LABEL_59:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -916,11 +899,10 @@ void __47__WRCannedRepliesStore_migrateRepliesIfNeeded___block_invoke(uint64_t a
 
 - (void)saveReplies:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_272AC2000, a2, OS_LOG_TYPE_DEBUG, "saving canned replies: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_272AC2000, a2, OS_LOG_TYPE_DEBUG, "saving canned replies: %{public}@", &v2, 0xCu);
 }
 
 @end

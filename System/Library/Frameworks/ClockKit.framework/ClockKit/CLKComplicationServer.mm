@@ -243,7 +243,7 @@ void __30__CLKComplicationServer__init__block_invoke(uint64_t a1)
 
 - (void)_createConnection
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_connectionLock);
   if (self->_serverConnection)
   {
@@ -252,7 +252,7 @@ void __30__CLKComplicationServer__init__block_invoke(uint64_t a1)
     {
       serverConnection = self->_serverConnection;
       *buf = 138412290;
-      v16 = serverConnection;
+      v18 = serverConnection;
       _os_log_impl(&dword_23702D000, v3, OS_LOG_TYPE_DEFAULT, "Invalidating existing server connection (%@) while trying to create a new one", buf, 0xCu);
     }
 
@@ -267,26 +267,26 @@ void __30__CLKComplicationServer__init__block_invoke(uint64_t a1)
 
   objc_initWeak(buf, self);
   v8 = self->_serverConnection;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __42__CLKComplicationServer__createConnection__block_invoke;
-  v13[3] = &unk_278A1E700;
-  objc_copyWeak(&v14, buf);
-  [(NSXPCConnection *)v8 setInterruptionHandler:v13];
-  [(NSXPCConnection *)self->_serverConnection setInvalidationHandler:&__block_literal_global_20];
-  v9 = self->_serverConnection;
-  v10 = CLKComplicationServerInterface();
-  [(NSXPCConnection *)v9 setRemoteObjectInterface:v10];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __42__CLKComplicationServer__createConnection__block_invoke;
+  v15[3] = &unk_278A1E700;
+  objc_copyWeak(&v16, buf);
+  [(NSXPCConnection *)v8 setInterruptionHandler:v15];
+  v9 = [(NSXPCConnection *)self->_serverConnection setInvalidationHandler:&__block_literal_global_20];
+  v10 = self->_serverConnection;
+  v11 = CLKComplicationServerInterface(v9);
+  [(NSXPCConnection *)v10 setRemoteObjectInterface:v11];
 
-  v11 = self->_serverConnection;
-  v12 = CLKComplicationClientInterface();
-  [(NSXPCConnection *)v11 setExportedInterface:v12];
+  v12 = self->_serverConnection;
+  v14 = CLKComplicationClientInterface(v13);
+  [(NSXPCConnection *)v12 setExportedInterface:v14];
 
   [(NSXPCConnection *)self->_serverConnection setExportedObject:self];
   [(NSXPCConnection *)self->_serverConnection resume];
   os_unfair_lock_unlock(&self->_connectionLock);
   [(CLKComplicationServer *)self _checkinWithServer];
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v16);
   objc_destroyWeak(buf);
 }
 
@@ -335,63 +335,9 @@ void __42__CLKComplicationServer__createConnection__block_invoke_91()
 
 - (void)_createDataSourceIfNecessary
 {
-  if (!self->_dataSource)
-  {
-    v3 = objc_alloc_init(self->_dataSourceClass);
-    dataSource = self->_dataSource;
-    self->_dataSource = v3;
-
-    self->_dataSourceFlags.supportsGetTimeTravelDirections = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetTimelineStartDate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetTimelineEndDate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetPrivacyBehavior = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetTimelineAnimationBehavior = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsExtendAfter = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsExtendBefore = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetRequestedUpdate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsNotifyRequestedUpdate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsNotifyBudgetExhausted = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetPlaceholderTemplate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetLocalizableSampleTemplate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsGetAlwaysOnTemplate = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsComplicationDescriptors = objc_opt_respondsToSelector() & 1;
-    self->_dataSourceFlags.supportsHandleSharedComplicationDescriptors = objc_opt_respondsToSelector() & 1;
-    if (objc_opt_respondsToSelector())
-    {
-      widgetMigrator = [(CLKComplicationDataSource *)self->_dataSource widgetMigrator];
-      if (widgetMigrator)
-      {
-        v6 = objc_opt_respondsToSelector();
-        v7 = CLKLoggingObjectForDomain(3);
-        v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
-        if (v6)
-        {
-          if (v8)
-          {
-            [(CLKComplicationServer *)v7 _createDataSourceIfNecessary:v9];
-          }
-        }
-
-        else if (v8)
-        {
-          [(CLKComplicationServer *)v7 _createDataSourceIfNecessary:v9];
-        }
-      }
-
-      else
-      {
-        v7 = CLKLoggingObjectForDomain(3);
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-        {
-          [(CLKComplicationServer *)v7 _createDataSourceIfNecessary:v16];
-        }
-
-        v6 = 0;
-      }
-
-      self->_dataSourceFlags.supportsWidgetMigrationFromLegacy = v6 & 1;
-    }
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer _createDataSourceIfNecessary]";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, self, a3, "%s data source does not implement widgetMigrator. Widget migration will be unsupported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setActiveComplications:(id)complications
@@ -1071,7 +1017,7 @@ uint64_t __63__CLKComplicationServer_getNextRequestedUpdateDateWithHandler___blo
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __48__CLKComplicationServer_requestedUpdateDidBegin__block_invoke(uint64_t a1)
+void *__48__CLKComplicationServer_requestedUpdateDidBegin__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createDataSourceIfNecessary];
   v3 = *(a1 + 32);
@@ -1095,7 +1041,7 @@ uint64_t __48__CLKComplicationServer_requestedUpdateDidBegin__block_invoke(uint6
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __55__CLKComplicationServer_requestedUpdateBudgetExhausted__block_invoke(uint64_t a1)
+void *__55__CLKComplicationServer_requestedUpdateBudgetExhausted__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createDataSourceIfNecessary];
   v3 = *(a1 + 32);
@@ -1430,7 +1376,7 @@ void __63__CLKComplicationServer_getComplicationDescriptorsWithHandler___block_i
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __61__CLKComplicationServer_handleSharedComplicationDescriptors___block_invoke(uint64_t a1)
+void *__61__CLKComplicationServer_handleSharedComplicationDescriptors___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _createDataSourceIfNecessary];
   v3 = *(a1 + 32);
@@ -1575,6 +1521,34 @@ void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler
   _os_log_error_impl(&dword_23702D000, a2, OS_LOG_TYPE_ERROR, "complication server failed to register for restart notifications: %d", v2, 8u);
 }
 
+void __81__CLKComplicationServer_getLocalizableSampleTemplateForComplication_withHandler___block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getLocalizableSampleTemplateForComplication:withHandler:]_block_invoke_2";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s default block", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __81__CLKComplicationServer_getLocalizableSampleTemplateForComplication_withHandler___block_invoke_140_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getLocalizableSampleTemplateForComplication:withHandler:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s validating", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __81__CLKComplicationServer_getLocalizableSampleTemplateForComplication_withHandler___block_invoke_140_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getLocalizableSampleTemplateForComplication:withHandler:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s calling handler", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getWidgetMigrationConfigurationFrom:withHandler:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s skipping widget migration query, because data source does not support widget migration", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler___block_invoke_cold_2()
 {
   v3 = *MEMORY[0x277D85DE8];
@@ -1584,6 +1558,13 @@ void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler
   _os_log_debug_impl(&dword_23702D000, v0, OS_LOG_TYPE_DEBUG, "%s asking widget migrator for widget migration configuration: %@", &v1, 0x16u);
 }
 
+void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler___block_invoke_2_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getWidgetMigrationConfigurationFrom:withHandler:]_block_invoke_2";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s default block", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler___block_invoke_157_cold_1()
 {
   v3 = *MEMORY[0x277D85DE8];
@@ -1591,6 +1572,13 @@ void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler
   v2 = "[CLKComplicationServer getWidgetMigrationConfigurationFrom:withHandler:]_block_invoke";
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(&dword_23702D000, v0, OS_LOG_TYPE_DEBUG, "%s calling handler with widget migration configuration: %@", &v1, 0x16u);
+}
+
+void __73__CLKComplicationServer_getWidgetMigrationConfigurationFrom_withHandler___block_invoke_157_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[CLKComplicationServer getWidgetMigrationConfigurationFrom:withHandler:]_block_invoke";
+  OUTLINED_FUNCTION_0_3(&dword_23702D000, a1, a3, "%s calling handler with no widget migration configuration", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

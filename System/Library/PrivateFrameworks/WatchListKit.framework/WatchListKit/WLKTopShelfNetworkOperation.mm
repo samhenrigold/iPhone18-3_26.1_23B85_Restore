@@ -36,7 +36,7 @@
   payload = self->_payload;
   self->_payload = responseDictionary;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](responseDictionary, payload);
 }
 
 @end

@@ -45,7 +45,7 @@ uint64_t __30__CUPairingSession_invalidate__block_invoke(uint64_t a1, uint64_t a
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUPairingSession invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v22);
+      LogPrintF(v10, "[CUPairingSession invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v22);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -73,7 +73,7 @@ LABEL_5:
   v14 = MEMORY[0x1E696ABC0];
   v15 = *MEMORY[0x1E696A768];
   v23 = *MEMORY[0x1E696A578];
-  v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6723, 0, 0)}];
+  v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960573, 0, 0)}];
   v17 = v16;
   v18 = @"?";
   if (v16)
@@ -168,7 +168,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUPairingSession deriveKeyWithSaltPtr:saltLen:infoPtr:infoLen:keyLen:outputKeyPtr:]", 0x5Au, "### Derive key before activate\n", infoPtr, infoLen, keyLen, keyPtr, v18);
+      LogPrintF(ucat, "[CUPairingSession deriveKeyWithSaltPtr:saltLen:infoPtr:infoLen:keyLen:outputKeyPtr:]", 90, "### Derive key before activate\n", infoPtr, infoLen, keyLen, keyPtr, v18);
     }
 
 LABEL_11:
@@ -176,7 +176,7 @@ LABEL_11:
     return v14;
   }
 
-  v14 = PairingSessionDeriveKey(pairingSession);
+  v14 = PairingSessionDeriveKey(pairingSession, ptr, len, infoPtr, infoLen, keyLen, keyPtr);
   if (v14)
   {
     v17 = self->_ucat;
@@ -192,7 +192,7 @@ LABEL_11:
         v17 = self->_ucat;
       }
 
-      LogPrintF(v17, "[CUPairingSession deriveKeyWithSaltPtr:saltLen:infoPtr:infoLen:keyLen:outputKeyPtr:]", 0x5Au, "### Derive key failed: %#m\n", v10, v11, v12, v13, v14);
+      LogPrintF(v17, "[CUPairingSession deriveKeyWithSaltPtr:saltLen:infoPtr:infoLen:keyLen:outputKeyPtr:]", 90, "### Derive key failed: %#m\n", v10, v11, v12, v13, v14);
     }
   }
 
@@ -209,7 +209,7 @@ LABEL_11:
     if (*ucat != -1)
     {
 LABEL_3:
-      ucat = LogPrintF(ucat, "[CUPairingSession closeStream:]", 0x1Eu, "Close stream '%@'\n", v5, v6, v7, v8, name);
+      ucat = LogPrintF(ucat, "[CUPairingSession closeStream:]", 30, "Close stream '%@'\n", v5, v6, v7, v8, name);
       name = v11;
       goto LABEL_5;
     }
@@ -246,7 +246,7 @@ LABEL_5:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUPairingSession openStreamWithName:type:error:]", 0x1Eu, "Open stream '%@'\n", v8, v9, v10, v11, nameCopy);
+      LogPrintF(ucat, "[CUPairingSession openStreamWithName:type:error:]", 30, "Open stream '%@'\n", v8, v9, v10, v11, nameCopy);
       goto LABEL_5;
     }
 
@@ -343,7 +343,7 @@ LABEL_26:
       if (v56->var0 != -1)
       {
 LABEL_29:
-        LogPrintF(v56, "[CUPairingSession openStreamWithName:type:error:]", 0x3Cu, "### Open stream '%@' failed: %{error}\n", v52, v53, v54, v55, nameCopy);
+        LogPrintF(v56, "[CUPairingSession openStreamWithName:type:error:]", 60, "### Open stream '%@' failed: %{error}\n", v52, v53, v54, v55, nameCopy);
         goto LABEL_31;
       }
 
@@ -453,7 +453,7 @@ LABEL_34:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUPairingSession _tryPIN:]", 0x1Eu, "Try PIN\n", v4, v5, v6, v7, v27);
+      LogPrintF(ucat, "[CUPairingSession _tryPIN:]", 30, "Try PIN\n", v4, v5, v6, v7, v27);
       goto LABEL_5;
     }
 
@@ -481,11 +481,11 @@ LABEL_5:
         v16 = self->_ucat;
       }
 
-      LogPrintF(v16, "[CUPairingSession _tryPIN:]", 0x5Au, "Try PIN without activate\n", v4, v5, v6, v7, v27);
+      LogPrintF(v16, "[CUPairingSession _tryPIN:]", 90, "Try PIN without activate\n", v4, v5, v6, v7, v27);
     }
 
 LABEL_17:
-    LODWORD(v17) = -6745;
+    v17 = 4294960551;
     goto LABEL_18;
   }
 
@@ -510,7 +510,7 @@ LABEL_17:
       v18 = self->_ucat;
     }
 
-    LogPrintF(v18, "[CUPairingSession _tryPIN:]", 0x5Au, "### Set PIN failed: %#m\n", v12, v13, v14, v15, v17);
+    LogPrintF(v18, "[CUPairingSession _tryPIN:]", 90, "### Set PIN failed: %#m\n", v12, v13, v14, v15, v17);
   }
 
 LABEL_18:
@@ -805,7 +805,7 @@ LABEL_24:
   }
 
   v58 = NSPrintF("%#m", v36, v37, v38, v39, v40, v41, v42, v56);
-  LogPrintF(v57, "[CUPairingSession _receivedData:flags:]", 0x1Eu, "### Encode message failed: %@", v59, v60, v61, v62, v58);
+  LogPrintF(v57, "[CUPairingSession _receivedData:flags:]", 30, "### Encode message failed: %@", v59, v60, v61, v62, v58);
 
 LABEL_71:
 LABEL_39:
@@ -866,99 +866,95 @@ LABEL_41:
 
 void __40__CUPairingSession_receivedMessageData___block_invoke(uint64_t a1)
 {
-  HIDWORD(v31) = -6700;
-  v7 = OPACKDecodeData(*(a1 + 32), 8u, &v31 + 1);
-  if (!v7)
+  v19 = -6700;
+  v2 = OPACKDecodeData(*(a1 + 32), 8u, &v19);
+  if (!v2)
   {
-    v26 = *(a1 + 40);
-    v27 = *MEMORY[0x1E696A768];
-    if (HIDWORD(v31))
+    v16 = *(a1 + 40);
+    if (v19)
     {
-      v28 = HIDWORD(v31);
+      v17 = v19;
     }
 
     else
     {
-      v28 = 4294960596;
+      v17 = 4294960596;
     }
 
-    v29 = "Decode message failed";
+    NSErrorF_safe(*MEMORY[0x1E696A768], v17, "Decode message failed");
     goto LABEL_25;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v26 = *(a1 + 40);
-    v27 = *MEMORY[0x1E696A768];
-    v29 = "Not a dictionary";
-    v28 = 4294960540;
-LABEL_25:
-    v14 = NSErrorF_safe(v27, v28, v29, v2, v3, v4, v5, v6, v31);
-    [v26 _completed:v14];
+    v16 = *(a1 + 40);
+    NSErrorF_safe(*MEMORY[0x1E696A768], 4294960540, "Not a dictionary");
+    v4 = LABEL_25:;
+    [v16 _completed:v4];
     goto LABEL_19;
   }
 
   TypeID = CFDataGetTypeID();
-  v14 = CFDictionaryGetTypedValue(v7, @"_pd", TypeID, 0);
-  if (v14)
+  v4 = CFDictionaryGetTypedValue(v2, @"_pd", TypeID, 0);
+  if (v4)
   {
-    v15 = CFStringGetTypeID();
-    v16 = CFDictionaryGetTypedValue(v7, @"_lc", v15, 0);
-    if (v16)
+    v5 = CFStringGetTypeID();
+    v6 = CFDictionaryGetTypedValue(v2, @"_lc", v5, 0);
+    if (v6)
     {
-      objc_storeStrong((*(a1 + 40) + 152), v16);
+      objc_storeStrong((*(a1 + 40) + 152), v6);
     }
 
-    v17 = CFStringGetTypeID();
-    v18 = CFDictionaryGetTypedValue(v7, @"_li", v17, 0);
-    if (v18)
+    v7 = CFStringGetTypeID();
+    v8 = CFDictionaryGetTypedValue(v2, @"_li", v7, 0);
+    if (v8)
     {
-      objc_storeStrong((*(a1 + 40) + 160), v18);
+      objc_storeStrong((*(a1 + 40) + 160), v8);
     }
 
-    Value = CFDictionaryGetValue(v7, @"_pt");
+    Value = CFDictionaryGetValue(v2, @"_pt");
     if (Value)
     {
-      v32 = 0;
-      v20 = CFGetInt64(Value, &v32);
-      if (v20)
+      v20 = 0;
+      v10 = CFGetInt64(Value, &v20);
+      if (v10)
       {
-        *(*(a1 + 40) + 44) = v20;
-        v21 = *(*(a1 + 40) + 8);
-        if (v21)
+        *(*(a1 + 40) + 44) = v10;
+        v11 = *(*(a1 + 40) + 8);
+        if (v11)
         {
-          PairingSessionSetProperty(v21, @"setupCodeType", [MEMORY[0x1E696AD98] numberWithUnsignedInt:?]);
+          PairingSessionSetProperty(v11, @"setupCodeType", [MEMORY[0x1E696AD98] numberWithUnsignedInt:?]);
         }
       }
     }
 
-    v22 = CFDictionaryGetValue(v7, @"_pdc");
-    if (v22)
+    v12 = CFDictionaryGetValue(v2, @"_pdc");
+    if (v12)
     {
-      v33 = 0;
-      v23 = CFGetInt64(v22, &v33);
-      if (v23 >= 1)
+      v21 = 0;
+      v13 = CFGetInt64(v12, &v21);
+      if (v13 >= 1)
       {
-        *(*(a1 + 40) + 40) = v23;
+        *(*(a1 + 40) + 40) = v13;
       }
     }
 
-    v24 = CFStringGetTypeID();
-    v25 = CFDictionaryGetTypedValue(v7, @"_ppt", v24, 0);
-    if (v25)
+    v14 = CFStringGetTypeID();
+    v15 = CFDictionaryGetTypedValue(v2, @"_ppt", v14, 0);
+    if (v15)
     {
-      objc_storeStrong((*(a1 + 40) + 176), v25);
+      objc_storeStrong((*(a1 + 40) + 176), v15);
     }
 
-    [*(a1 + 40) _receivedData:v14 flags:0];
+    [*(a1 + 40) _receivedData:v4 flags:0];
   }
 
   else
   {
-    v30 = *(a1 + 40);
-    v16 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No pairing data", v9, v10, v11, v12, v13, v31);
-    [v30 _completed:v16];
+    v18 = *(a1 + 40);
+    v6 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960591, "No pairing data");
+    [v18 _completed:v6];
   }
 
 LABEL_19:
@@ -992,7 +988,7 @@ LABEL_19:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUPairingSession _completed:]", 0x32u, "### Pairing failed: %{error}\n", v4, v5, v6, v7, _completedCopy);
+    LogPrintF(ucat, "[CUPairingSession _completed:]", 50, "### Pairing failed: %{error}\n", v4, v5, v6, v7, _completedCopy);
 LABEL_18:
     (*(*p_completionHandler + 2))();
     v16 = *p_completionHandler;
@@ -1034,7 +1030,7 @@ LABEL_18:
         v15 = self->_ucat;
       }
 
-      LogPrintF(v15, "[CUPairingSession _completed:]", 0x1Eu, "Pairing completed\n", v4, v5, v6, v7, v17);
+      LogPrintF(v15, "[CUPairingSession _completed:]", 30, "Pairing completed\n", v4, v5, v6, v7, v17);
       goto LABEL_18;
     }
 
@@ -1075,7 +1071,7 @@ LABEL_19:
     v10 = CUPrintFlags(self->_flags, byte_191FFADB4, 1);
     v11 = CUPrintFlags(self->_extraFlags, byte_191FF9E2A, 1);
     [(NSString *)self->_fixedPIN length];
-    LogPrintF_safe(ucat, "[CUPairingSession _activate]", 0x1Eu, "Activate: sessionType=%s, flags=%@, extraFlags=%@, pinType=%s, fixedPIN=%s", v12, v13, v14, v15, v9);
+    LogPrintF_safe(ucat, "[CUPairingSession _activate]", 30, "Activate: sessionType=%s, flags=%@, extraFlags=%@, pinType=%s, fixedPIN=%s", v12, v13, v14, v15, v9);
   }
 
 LABEL_9:
@@ -1099,7 +1095,7 @@ LABEL_9:
     }
 
 LABEL_86:
-    LODWORD(v46) = -6745;
+    v46 = 4294960551;
     goto LABEL_87;
   }
 
@@ -1120,7 +1116,7 @@ LABEL_86:
 
       v45 = "### No sendDataHandler\n";
 LABEL_76:
-      LogPrintF(v44, "[CUPairingSession _activate]", 0x5Au, v45, v2, v3, v4, v5, v59);
+      LogPrintF(v44, "[CUPairingSession _activate]", 90, v45, v2, v3, v4, v5, v59);
       goto LABEL_86;
     }
 
@@ -1156,7 +1152,7 @@ LABEL_22:
   v16 = PairingSessionCreate(&self->_pairingSession, v62, self->_sessionType);
   if (v16)
   {
-    LODWORD(v46) = v16;
+    v46 = v16;
     v47 = self->_ucat;
     if (v47->var0 <= 90)
     {
@@ -1181,7 +1177,7 @@ LABEL_22:
         v49 = off_1E73A4CA0[v48];
       }
 
-      LogPrintF(v47, "[CUPairingSession _activate]", 0x5Au, "### Create pairing session type %s failed: %#m\n", v17, v18, v19, v20, v49);
+      LogPrintF(v47, "[CUPairingSession _activate]", 90, "### Create pairing session type %s failed: %#m\n", v17, v18, v19, v20, v49);
     }
   }
 
@@ -1327,7 +1323,7 @@ LABEL_22:
         v50 = self->_ucat;
       }
 
-      LogPrintF(v50, "[CUPairingSession _activate]", 0x5Au, "### Set fixed PIN failed: %#m\n", v25, v26, v27, v28, v46);
+      LogPrintF(v50, "[CUPairingSession _activate]", 90, "### Set fixed PIN failed: %#m\n", v25, v26, v27, v28, v46);
     }
   }
 

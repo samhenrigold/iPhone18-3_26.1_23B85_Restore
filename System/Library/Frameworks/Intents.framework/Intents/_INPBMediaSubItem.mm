@@ -143,7 +143,6 @@ LABEL_13:
 
   if (assetInfo)
   {
-    assetInfo = self->_assetInfo;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 }

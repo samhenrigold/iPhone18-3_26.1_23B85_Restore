@@ -14,36 +14,36 @@
 
 - (id)contactPointValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactPoint(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactPoint(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactPoint(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactPoint(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactPoint(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactPoint(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (id)contactNormalValue
 {
-  v29[3] = *MEMORY[0x1E69E9840];
-  v5 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactNormal(self, a2, v2, v3);
-  v9 = objc_msgSend_numberWithFloat_(v5, v6, v7, v8);
-  v10 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactNormal(self, v11, v12, v13, v9);
-  LODWORD(v14) = HIDWORD(v14);
-  v29[1] = objc_msgSend_numberWithFloat_(v10, v15, v16, v17, v14);
-  v18 = MEMORY[0x1E696AD98];
-  objc_msgSend_contactNormal(self, v19, v20, v21);
-  LODWORD(v23) = v22;
-  v29[2] = objc_msgSend_numberWithFloat_(v18, v24, v25, v26, v23);
-  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v27, v29, 3);
+  v23[3] = *MEMORY[0x1E69E9840];
+  v4 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactNormal(self, a2, v2);
+  v7 = objc_msgSend_numberWithFloat_(v4, v5, v6);
+  v8 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactNormal(self, v9, v10, v7);
+  LODWORD(v11) = HIDWORD(v11);
+  v23[1] = objc_msgSend_numberWithFloat_(v8, v12, v13, v11);
+  v14 = MEMORY[0x1E696AD98];
+  objc_msgSend_contactNormal(self, v15, v16);
+  LODWORD(v18) = v17;
+  v23[2] = objc_msgSend_numberWithFloat_(v14, v19, v20, v18);
+  return objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v21, v23, 3);
 }
 
 - (void)dealloc
@@ -58,15 +58,15 @@
   v3 = MEMORY[0x1E696AD60];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v8 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p", v7, v5, self);
-  objc_msgSend_appendFormat_(v8, v9, @" '%@'", v10, self->_nodeA);
-  objc_msgSend_appendFormat_(v8, v11, @" '%@'", v12, self->_nodeB);
-  objc_msgSend_appendFormat_(v8, v13, @" point(%f %f %f)", v14, COERCE_FLOAT(*self->_contactPoint), COERCE_FLOAT(HIDWORD(*self->_contactPoint)), COERCE_FLOAT(*&self->_contactPoint[8]));
-  objc_msgSend_appendFormat_(v8, v15, @" normal(%f %f %f)", v16, COERCE_FLOAT(*self->_contactNormal), COERCE_FLOAT(HIDWORD(*self->_contactNormal)), COERCE_FLOAT(*&self->_contactNormal[8]));
-  objc_msgSend_appendFormat_(v8, v17, @" impulse(%f)", v18, self->_collisionImpulse);
-  objc_msgSend_appendFormat_(v8, v19, @" distance:%f", v20, self->_distance);
-  objc_msgSend_appendString_(v8, v21, @">", v22);
-  return v8;
+  v7 = objc_msgSend_stringWithFormat_(v3, v6, @"<%@: %p", v5, self);
+  objc_msgSend_appendFormat_(v7, v8, @" '%@'", self->_nodeA);
+  objc_msgSend_appendFormat_(v7, v9, @" '%@'", self->_nodeB);
+  objc_msgSend_appendFormat_(v7, v10, @" point(%f %f %f)", COERCE_FLOAT(*self->_contactPoint), COERCE_FLOAT(HIDWORD(*self->_contactPoint)), COERCE_FLOAT(*&self->_contactPoint[8]));
+  objc_msgSend_appendFormat_(v7, v11, @" normal(%f %f %f)", COERCE_FLOAT(*self->_contactNormal), COERCE_FLOAT(HIDWORD(*self->_contactNormal)), COERCE_FLOAT(*&self->_contactNormal[8]));
+  objc_msgSend_appendFormat_(v7, v12, @" impulse(%f)", self->_collisionImpulse);
+  objc_msgSend_appendFormat_(v7, v13, @" distance:%f", self->_distance);
+  objc_msgSend_appendString_(v7, v14, @">");
+  return v7;
 }
 
 - (void)_fillNodeA:(VFXPhysicsContact *)self nodeB:(SEL)b contactPoint:(id)point contactNormal:(id)normal distance:(float)distance hitFraction:(float)fraction
@@ -249,10 +249,9 @@
 
 + (id)_contactWithManifold:(const btPersistentManifold *)manifold index:(int64_t)index
 {
-  v4 = manifold + 192 * index;
-  v5 = *(v4 + 16);
-  objc_msgSend__updateWithManifold_index_point_(v5, a2, manifold, index, v4 + 16);
-  return v5;
+  v4 = *&manifold->var1[index].var14;
+  objc_msgSend__updateWithManifold_index_point_(v4, a2, manifold);
+  return v4;
 }
 
 - (BOOL)_shouldPostUpdate

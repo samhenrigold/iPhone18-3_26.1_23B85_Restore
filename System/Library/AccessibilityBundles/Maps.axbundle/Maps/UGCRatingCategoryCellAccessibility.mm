@@ -51,7 +51,7 @@
 
 - (id)accessibilityCustomActions
 {
-  v20[2] = *MEMORY[0x29EDCA608];
+  v19[2] = *MEMORY[0x29EDCA608];
   v3 = objc_alloc(MEMORY[0x29EDC78E0]);
   v4 = AXMapsLocString(@"LIKE");
   v5 = [v3 initWithName:v4 target:self selector:sel_likeDislikeViewDidSelectLike_];
@@ -68,18 +68,18 @@
   switch(v12)
   {
     case 2:
-      v18 = v8;
-      v13 = &v18;
+      v17 = v8;
+      v13 = &v17;
       goto LABEL_7;
     case 1:
-      v19 = v5;
-      v13 = &v19;
+      v18 = v5;
+      v13 = &v18;
 LABEL_7:
       v14 = v11;
       goto LABEL_8;
     case 0:
-      v20[0] = v5;
-      v13 = v20;
+      v19[0] = v5;
+      v13 = v19;
       v14 = v8;
 LABEL_8:
       v13[1] = v14;
@@ -89,8 +89,6 @@ LABEL_8:
 
   v15 = MEMORY[0x29EDB8E90];
 LABEL_10:
-
-  v16 = *MEMORY[0x29EDCA608];
 
   return v15;
 }

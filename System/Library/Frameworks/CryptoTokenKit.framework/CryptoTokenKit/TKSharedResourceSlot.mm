@@ -119,10 +119,10 @@ void __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke(uint6
 
     if (v4)
     {
-      v5 = TK_LOG_sharedrsc();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = TK_LOG_sharedrsc(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke_cold_1(v3, v5);
+        __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke_cold_1(v3, v6);
       }
     }
 
@@ -132,12 +132,12 @@ void __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke(uint6
       if (isa)
       {
         dispatch_source_cancel(isa);
-        v7 = v3[4].isa;
+        v8 = v3[4].isa;
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
       v3[4].isa = 0;
@@ -150,7 +150,7 @@ void __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke(uint6
 
   else
   {
-    v3 = TK_LOG_sharedrsc();
+    v3 = TK_LOG_sharedrsc(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke_cold_2(v3);
@@ -170,7 +170,7 @@ void __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke(uint6
       idleTimer = selfCopy->_idleTimer;
       if (!idleTimer)
       {
-        v12 = TK_LOG_sharedrsc();
+        v12 = TK_LOG_sharedrsc(0);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           [(TKSharedResourceSlot *)selfCopy resourceWithError:v12];
@@ -241,20 +241,18 @@ LABEL_14:
 
 void __52__TKSharedResourceSlot_releaseResourceImmediatelly___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: got idle, but item is revived, ignoring", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "%{public}@: got idle, but item is revived, ignoring", &v2, 0xCu);
 }
 
 - (void)resourceWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "%@ activating from idle, but idle timer is unset", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "%@ activating from idle, but idle timer is unset", &v2, 0xCu);
 }
 
 @end

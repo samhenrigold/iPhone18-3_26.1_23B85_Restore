@@ -94,29 +94,7 @@
 
 - (BOOL)enabled
 {
-  possiblyUnfetchedAppConfiguration = [(FCNewsAppConfigurationManager *)self->_appConfig possiblyUnfetchedAppConfiguration];
-  if ((objc_opt_respondsToSelector() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v4 = [standardUserDefaults integerForKey:@"news.onboarding.version.latest_completed"];
-
-  standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-  v6 = [standardUserDefaults2 integerForKey:@"news.onboarding.version.debug_latest_completed"];
-
-  v7 = v6 >= 0 ? v6 : v4;
-  if (v7 >= 1)
-  {
-    v8 = [possiblyUnfetchedAppConfiguration newsletterSubscriptionType] != 0;
-  }
-
-  else
-  {
-LABEL_7:
-    v8 = 0;
-  }
+  v8 = (objc_opt_respondsToSelector() & 1) != 0 && (([MEMORY[0x1E695E000] standardUserDefaults], v3 = possiblyUnfetchedAppConfiguration = [(FCNewsAppConfigurationManager *)self->_appConfig possiblyUnfetchedAppConfiguration];
 
   return v8;
 }
@@ -207,12 +185,11 @@ LABEL_7:
 void __46__FCNewsletterManager_forceUpdateSubscription__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v9 = a5;
-  v12 = v9;
+  v11 = v9;
   if (a2)
   {
     [*(a1 + 32) updateCacheWithNewsletterString:a2 includeArray:a3 newsletters:a4];
-    v10 = *(a1 + 32);
-    v11 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
   }
 
   else
@@ -222,10 +199,10 @@ void __46__FCNewsletterManager_forceUpdateSubscription__block_invoke_4(uint64_t 
       [*(a1 + 32) resetCaches];
     }
 
-    v11 = *(*(a1 + 48) + 16);
+    v10 = *(*(a1 + 48) + 16);
   }
 
-  v11();
+  v10();
 }
 
 - (void)resetCaches
@@ -576,12 +553,12 @@ void __46__FCNewsletterManager_forceUpdateSubscription__block_invoke_4(uint64_t 
 
 - (void)subscribeTo:(int64_t)to includeOptions:(int64_t)options
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AF00] isMainThread];
   enabled = [(FCNewsletterManager *)self enabled];
   if (!to || !enabled)
   {
-    goto LABEL_25;
+    return;
   }
 
   v8 = [(FCNewsletterManager *)self updatedIncludeOptionsWithNewsletter:to includeOptions:options];
@@ -614,11 +591,11 @@ LABEL_11:
           v15 = [v14 copy];
 
           v16 = [v15 componentsJoinedByString:@"|"];
-          v27 = 138412546;
-          v28 = v10;
-          v29 = 2112;
-          v30 = v16;
-          _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "FCNewsletterManager: Subscribing to newsletter [%@] options [%@]", &v27, 0x16u);
+          v26 = 138412546;
+          v27 = v10;
+          v28 = 2112;
+          v29 = v16;
+          _os_log_impl(&dword_1B63EF000, v12, OS_LOG_TYPE_DEFAULT, "FCNewsletterManager: Subscribing to newsletter [%@] options [%@]", &v26, 0x16u);
 
           goto LABEL_12;
         }
@@ -689,14 +666,11 @@ LABEL_12:
 
   v25 = [(FCNewsletterSubscribeCommand *)v20 initWithNewsletter:v21 includeArray:v24];
   [(FCCommandQueue *)selfCopy->_endpointCommandQueue addCommand:v25];
-
-LABEL_25:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeTo:(int64_t)to includeOptions:(int64_t)options completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   [MEMORY[0x1E696AF00] isMainThread];
   enabled = [(FCNewsletterManager *)self enabled];
@@ -736,9 +710,9 @@ LABEL_11:
 
           v18 = [v17 componentsJoinedByString:@"|"];
           *buf = 138412546;
-          v29 = v12;
-          v30 = 2112;
-          v31 = v18;
+          v28 = v12;
+          v29 = 2112;
+          v30 = v18;
           _os_log_impl(&dword_1B63EF000, v14, OS_LOG_TYPE_DEFAULT, "FCNewsletterManager: Subscribing to newsletter [%@] options [%@]", buf, 0x16u);
 
 LABEL_12:
@@ -767,13 +741,13 @@ LABEL_19:
                 v23 = [v22 copy];
 
                 v24 = dispatch_get_global_queue(-2, 0);
-                v26[0] = MEMORY[0x1E69E9820];
-                v26[1] = 3221225472;
-                v26[2] = __61__FCNewsletterManager_subscribeTo_includeOptions_completion___block_invoke_40;
-                v26[3] = &unk_1E7C46BE0;
-                v26[4] = self;
-                v27 = completionCopy;
-                [endpointConnection newsletterSubscribeTo:v20 includeArray:v23 callbackQueue:v24 completion:v26];
+                v25[0] = MEMORY[0x1E69E9820];
+                v25[1] = 3221225472;
+                v25[2] = __61__FCNewsletterManager_subscribeTo_includeOptions_completion___block_invoke_40;
+                v25[3] = &unk_1E7C46BE0;
+                v25[4] = self;
+                v26 = completionCopy;
+                [endpointConnection newsletterSubscribeTo:v20 includeArray:v23 callbackQueue:v24 completion:v25];
 
                 goto LABEL_20;
               }
@@ -819,8 +793,6 @@ LABEL_10:
   }
 
 LABEL_20:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __61__FCNewsletterManager_subscribeTo_includeOptions_completion___block_invoke_40(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -1214,13 +1186,13 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
 
 - (void)updateCacheWithNewsletterString:(id)string includeArray:(id)array newsletters:(id)newsletters
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   arrayCopy = array;
   newslettersCopy = newsletters;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v45 = selfCopy;
+  v44 = selfCopy;
   subscription = selfCopy->_subscription;
   if (stringCopy)
   {
@@ -1245,7 +1217,7 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
       v12 = 0;
     }
 
-    v45->_subscription = v12;
+    v44->_subscription = v12;
   }
 
   if (arrayCopy)
@@ -1260,31 +1232,31 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
 
     else
     {
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
       obj = v13;
-      v15 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
-      v39 = v13;
+      v15 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v38 = v13;
       newslettersCopy2 = newsletters;
-      v41 = arrayCopy;
-      v42 = stringCopy;
+      v40 = arrayCopy;
+      v41 = stringCopy;
       v16 = 0;
       if (v15)
       {
-        v17 = *v48;
+        v17 = *v47;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v48 != v17)
+            if (*v47 != v17)
             {
               objc_enumerationMutation(obj);
             }
 
-            v19 = *(*(&v47 + 1) + 8 * i);
-            v20 = [v19 isEqualToString:{@"ARTICLES", v39, newslettersCopy2, v41, v42}];
+            v19 = *(*(&v46 + 1) + 8 * i);
+            v20 = [v19 isEqualToString:{@"ARTICLES", v38, newslettersCopy2, v40, v41}];
             v21 = [v19 isEqualToString:@"NEWSPLUS_CHANNELS"];
             v22 = [v19 isEqualToString:@"SPORTS"];
             v23 = v16 | v20;
@@ -1304,43 +1276,43 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+          v15 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
         }
 
         while (v15);
       }
 
-      arrayCopy = v41;
-      stringCopy = v42;
+      arrayCopy = v40;
+      stringCopy = v41;
       newsletters = newslettersCopy2;
-      v13 = v39;
+      v13 = v38;
     }
 
-    v45->_includeOptions = v16;
+    v44->_includeOptions = v16;
   }
 
   if (newslettersCopy)
   {
-    p_cachedNewsletters = &v45->_cachedNewsletters;
-    if (![(NSArray *)v45->_cachedNewsletters fc_isEqualToArray:newslettersCopy])
+    p_cachedNewsletters = &v44->_cachedNewsletters;
+    if (![(NSArray *)v44->_cachedNewsletters fc_isEqualToArray:newslettersCopy])
     {
       v25 = [*p_cachedNewsletters mutableCopy];
       objc_storeStrong(p_cachedNewsletters, newsletters);
-      [(FCNewsletterManager *)v45 notifyObserversWithPreviousNewsletters:v25 updatedNewsletters:newslettersCopy];
+      [(FCNewsletterManager *)v44 notifyObserversWithPreviousNewsletters:v25 updatedNewsletters:newslettersCopy];
     }
   }
 
-  if (v45->_subscription)
+  if (v44->_subscription)
   {
     v26 = [MEMORY[0x1E695DF00] now];
-    [(FCNewsletterManager *)v45 cacheTimeout];
+    [(FCNewsletterManager *)v44 cacheTimeout];
     v27 = [v26 dateByAddingTimeInterval:?];
-    cacheExpiration = v45->_cacheExpiration;
-    v45->_cacheExpiration = v27;
+    cacheExpiration = v44->_cacheExpiration;
+    v44->_cacheExpiration = v27;
 
     standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
     v30 = standardUserDefaults;
-    v31 = v45->_subscription - 1;
+    v31 = v44->_subscription - 1;
     if (v31 > 2)
     {
       v32 = @"UNKNOWN";
@@ -1351,12 +1323,12 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
       v32 = off_1E7C46CC0[v31];
     }
 
-    [standardUserDefaults setObject:v32 forKey:{FCNewsletterManagerSubscriptionKey, v39, newslettersCopy2, v41, v42}];
+    [standardUserDefaults setObject:v32 forKey:{FCNewsletterManagerSubscriptionKey, v38, newslettersCopy2, v40, v41}];
 
     standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
-    [standardUserDefaults2 setInteger:v45->_includeOptions forKey:FCNewsletterManagerIncludeKey];
+    [standardUserDefaults2 setInteger:v44->_includeOptions forKey:FCNewsletterManagerIncludeKey];
 
-    v34 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v45->_cachedNewsletters];
+    v34 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v44->_cachedNewsletters];
     standardUserDefaults3 = [MEMORY[0x1E695E000] standardUserDefaults];
     [standardUserDefaults3 setObject:v34 forKey:FCNewsletterManagerNewslettersKey];
 
@@ -1364,15 +1336,13 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
     v37 = [MEMORY[0x1E695DF00] now];
     [standardUserDefaults4 setObject:v37 forKey:FCNewsletterManagerCacheAgeKey];
 
-    if (v45->_subscription != subscription)
+    if (v44->_subscription != subscription)
     {
-      [(FCNewsletterManager *)v45 notifyObserversWithPreviousSubscription:subscription];
+      [(FCNewsletterManager *)v44 notifyObserversWithPreviousSubscription:subscription];
     }
   }
 
-  objc_sync_exit(v45);
-
-  v38 = *MEMORY[0x1E69E9840];
+  objc_sync_exit(v44);
 }
 
 - (BOOL)shouldSubmitPersonalizationVector
@@ -1428,14 +1398,14 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
 
 - (void)saveToCloudKitSubscribedChannels:(id)channels
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   channelsCopy = channels;
   v5 = objc_alloc(MEMORY[0x1E695BA90]);
   v6 = [v5 initWithZoneName:@"UserPrivacyExporter" ownerName:*MEMORY[0x1E695B728]];
   v7 = [objc_alloc(MEMORY[0x1E695BA80]) initWithZoneID:v6];
   v8 = objc_alloc_init(FCCKPrivateSaveRecordZonesOperation);
-  v19[0] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   [(FCCKPrivateSaveRecordZonesOperation *)v8 setRecordZonesToSave:v9];
 
   database = [(FCNewsletterManager *)self database];
@@ -1444,36 +1414,34 @@ void __34__FCNewsletterManager_getWebToken__block_invoke_4(uint64_t a1, void *a2
   [(FCOperation *)v8 setQualityOfService:17];
   [(FCCKPrivateDatabaseOperation *)v8 setSkipPreflight:1];
   [(FCCKPrivateSaveRecordZonesOperation *)v8 setCanBypassEncryptionRequirement:1];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke;
-  v15[3] = &unk_1E7C46CA0;
-  v16 = v6;
-  v17 = channelsCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke;
+  v14[3] = &unk_1E7C46CA0;
+  v15 = v6;
+  v16 = channelsCopy;
   selfCopy = self;
   v11 = channelsCopy;
   v12 = v6;
-  [(FCCKPrivateSaveRecordZonesOperation *)v8 setSaveRecordZonesCompletionBlock:v15];
+  [(FCCKPrivateSaveRecordZonesOperation *)v8 setSaveRecordZonesCompletionBlock:v14];
   fc_sharedConcurrentQueue = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
   [fc_sharedConcurrentQueue addOperation:v8];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2;
-    v15[3] = &unk_1E7C36EA0;
-    v16 = v4;
-    __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2(v15);
-    v6 = v16;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2;
+    v14[3] = &unk_1E7C36EA0;
+    v15 = v4;
+    __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2(v14);
+    v6 = v15;
   }
 
   else
@@ -1485,8 +1453,8 @@ void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke(u
     [v9 setObject:v8 forKeyedSubscript:@"subscribedChannelTagIDs"];
 
     v10 = objc_alloc_init(FCCKPrivateSaveRecordsOperation);
-    v17[0] = v7;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v7;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [(FCCKPrivateSaveRecordsOperation *)v10 setRecordsToSave:v11];
 
     v12 = [*(a1 + 48) database];
@@ -1500,23 +1468,19 @@ void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke(u
     v13 = [MEMORY[0x1E696ADC8] fc_sharedConcurrentQueue];
     [v13 addOperation:v10];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "failed to save subscribed channels to CK with error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "failed to save subscribed channels to CK with error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_75(uint64_t a1, uint64_t a2, void *a3)
@@ -1536,17 +1500,15 @@ void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_7
 
 void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2_79(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "failed to save subscribed channels to CK with error: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B63EF000, v2, OS_LOG_TYPE_DEFAULT, "failed to save subscribed channels to CK with error: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deletePersonalizationVector
@@ -1588,80 +1550,76 @@ void __56__FCNewsletterManager_saveToCloudKitSubscribedChannels___block_invoke_2
 
 - (void)notifyObserversWithPreviousSubscription:(int64_t)subscription
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   observers = [(FCNewsletterManager *)self observers];
   v5 = [observers copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) newsletterSubscriptionChangedFromSubscription:subscription];
+        [*(*(&v10 + 1) + 8 * v9++) newsletterSubscriptionChangedFromSubscription:subscription];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserversWithPreviousNewsletters:(id)newsletters updatedNewsletters:(id)updatedNewsletters
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   newslettersCopy = newsletters;
   updatedNewslettersCopy = updatedNewsletters;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   observers = [(FCNewsletterManager *)self observers];
   v9 = [observers copy];
 
-  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) didUpdateNewslettersFrom:newslettersCopy to:updatedNewslettersCopy];
+        [*(*(&v14 + 1) + 8 * v13++) didUpdateNewslettersFrom:newslettersCopy to:updatedNewslettersCopy];
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

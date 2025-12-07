@@ -110,15 +110,15 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = +[CRLAssertionHandler packedBacktraceString];
-      sub_101314064(v15, v30, v13);
+      sub_101314064(v15, v23, v13);
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", v16, v17, v18, v19, v20, v21, v22, "[CRLZipFileWriteChannel writeData:handler:]");
-    v23 = [NSString stringWithUTF8String:"[CRLZipFileWriteChannel writeData:handler:]"];
-    v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriteChannel.mm"];
-    [CRLAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:40 isFatal:1 description:"Channel is closed"];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Channel is closed", "[CRLZipFileWriteChannel writeData:handler:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriteChannel.mm", 40);
+    v16 = [NSString stringWithUTF8String:"[CRLZipFileWriteChannel writeData:handler:]"];
+    v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/Zip/CRLZipFileWriteChannel.mm"];
+    [CRLAssertionHandler handleFailureInFunction:v16 file:v17 lineNumber:40 isFatal:1 description:"Channel is closed"];
 
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v25, v26);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v18, v19);
     abort();
   }
 
@@ -134,14 +134,14 @@
 
   archiveWriter = self->_archiveWriter;
   writerQueue = self->_writerQueue;
-  v27[0] = _NSConcreteStackBlock;
-  v27[1] = 3221225472;
-  v27[2] = sub_100364524;
-  v27[3] = &unk_1018590C8;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100364524;
+  v20[3] = &unk_1018590C8;
   v12 = handlerCopy;
-  v28 = v12;
-  v29 = size;
-  [(CRLZipWriter *)archiveWriter addData:dataCopy queue:writerQueue completion:v27];
+  v21 = v12;
+  v22 = size;
+  [(CRLZipWriter *)archiveWriter addData:dataCopy queue:writerQueue completion:v20];
 }
 
 - (void)flushWithCompletion:(id)completion

@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for RoutePickerItemSlider();
+  v4.super_class = type metadata accessor for RoutePickerItemSlider(self, a2);
   v2 = v4.receiver;
   [(RoutePickerItemSlider *)&v4 layoutSubviews];
   sub_1A220BA04();
@@ -27,7 +27,7 @@
 {
   beginCopy = begin;
   selfCopy = self;
-  LOBYTE(self) = sub_1A220B1A0(beginCopy);
+  LOBYTE(self) = sub_1A220B1A0(beginCopy, v6);
 
   return self & 1;
 }

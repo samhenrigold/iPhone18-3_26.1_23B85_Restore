@@ -3,7 +3,7 @@ void genericIncomingConnectionCallback(uint64_t a1)
   cf = 0;
   if (DLShouldLog(5))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericIncomingConnectionCallback", 5, @"genericIncomingConnectionCallback called", v4, v5, v6, v7, v12);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericIncomingConnectionCallback", 5, @"genericIncomingConnectionCallback called", v4, v5, v6, v7);
   }
 
   if (DLDeviceReady(a1, &cf, v2, v3, v4, v5, v6, v7))
@@ -20,12 +20,12 @@ void genericIncomingConnectionCallback(uint64_t a1)
   }
 }
 
-void genericConnectionMadeCallback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void genericConnectionMadeCallback()
 {
   if (DLShouldLog(5))
   {
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericConnectionMadeCallback", 5, @"genericConnectionMadeCallback called", v9, v10, v11, v12, a9);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericConnectionMadeCallback", 5, @"genericConnectionMadeCallback called", v0, v1, v2, v3);
   }
 }
 
@@ -71,7 +71,7 @@ uint64_t genericAcceptFailedCallback(uint64_t a1, __CFString *a2)
   return v8(a1, v9);
 }
 
-void genericDisconnectCallback(uint64_t a1, char a2)
+void genericDisconnectCallback(uint64_t a1, uint64_t a2)
 {
   if (DLShouldLog(5))
   {
@@ -83,7 +83,7 @@ uint64_t genericConnectionLostCallback(uint64_t a1)
 {
   if (DLShouldLog(5))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericConnectionLostCallback", 5, @"genericConnectionLostCallback called", v2, v3, v4, v5, v8);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericConnectionLostCallback", 5, @"genericConnectionLostCallback called", v2, v3, v4, v5);
   }
 
   v6 = *(*(a1 + 40) + 32);
@@ -91,21 +91,21 @@ uint64_t genericConnectionLostCallback(uint64_t a1)
   return v6(a1, @"Lost connection");
 }
 
-void genericProcessMessageCallback(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void genericProcessMessageCallback(uint64_t a1, uint64_t a2)
 {
   if (DLShouldLog(7))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProcessMessageCallback", 7, @"genericProcessMessageCallback called with message: %@", v10, v11, v12, v13, a2);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProcessMessageCallback", 7, @"genericProcessMessageCallback called with message: %@", v3, v4, v5, v6, a2);
   }
 
   if (DLShouldLog(4))
   {
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProcessMessageCallback", 4, @"genericProcessMessageCallback was never overridden. This method does nothing. Your app will probably hang here.", v14, v15, v16, v17, a9);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProcessMessageCallback", 4, @"genericProcessMessageCallback was never overridden. This method does nothing. Your app will probably hang here.", v7, v8, v9, v10);
   }
 }
 
-void genericPingCallback(uint64_t a1, char a2)
+void genericPingCallback(uint64_t a1, uint64_t a2)
 {
   if (DLShouldLog(6))
   {
@@ -134,7 +134,7 @@ void printFileTransferStatus(const __CFDictionary *a1)
         CFNumberGetValue(v14, kCFNumberSInt64Type, &v23);
         if (DLShouldLog(5))
         {
-          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "printFileTransferStatus", 5, @"Transfer status for %@: %3.2f%% complete.", v15, v16, v17, v18, Value);
+          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "printFileTransferStatus", 5, @"Transfer status for %@: %3.2f%% complete.", v15, v16, v17, v18, Value, ((v23 / v24) * 100.0));
         }
       }
 
@@ -159,22 +159,22 @@ void printFileTransferStatus(const __CFDictionary *a1)
   }
 }
 
-void genericSendFileCallback(uint64_t a1, const __CFData *a2, const __CFDictionary *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void genericSendFileCallback(uint64_t a1, const __CFData *a2, const __CFDictionary *a3)
 {
-  v16 = 0;
+  v10 = 0;
   if (a3)
   {
     printFileTransferStatus(a3);
     if (a2)
     {
-      DLHandleSentFilePiece(a1, a2, a3, &v16);
+      DLHandleSentFilePiece(a1, a2, a3, &v10);
     }
   }
 
   else if (DLShouldLog(3))
   {
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericSendFileCallback", 3, @"No info dictionary passed to genericSendFileCallback", v12, v13, v14, v15, a9);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericSendFileCallback", 3, @"No info dictionary passed to genericSendFileCallback", v6, v7, v8, v9);
   }
 }
 
@@ -182,42 +182,40 @@ void genericRequestFileCallback(uint64_t a1, __CFString *a2, uint64_t a3)
 {
   if (DLShouldLog(5))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 5, @"genericRequestFileCallback called for file %@ and info %@", v6, v7, v8, v9, a2);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 5, @"genericRequestFileCallback called for file %@ and info %@", v6, v7, v8, v9, a2, a3);
   }
 
   v18 = 0;
   if (DLSendFile(a1, a2, a3, &v18, v6, v7, v8, v9) && DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 3, @"Could not send the file at %@: %@", v10, v11, v12, v13, a2);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 3, @"Could not send the file at %@: %@", v10, v11, v12, v13, a2, v18);
   }
 
   if (DLWaitForMessage(a1))
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 3, @"Could not send the file at %@: %@", v14, v15, v16, v17, a2);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericRequestFileCallback", 3, @"Could not send the file at %@: %@", v14, v15, v16, v17, a2, v18);
     }
   }
 }
 
-void genericProgressCallback(__n128 a1)
+void genericProgressCallback(double a1)
 {
-  v1 = a1.n128_u8[0];
   if (DLShouldLog(6))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProgressCallback", 6, @"genericProgressCallback called with percentage: %f", v2, v3, v4, v5, v1);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/GenericConnectionCallbacks.c", "genericProgressCallback", 6, @"genericProgressCallback called with percentage: %f", v2, v3, v4, v5, *&a1);
   }
 }
 
-CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CFDataRef _DLHandlerThreadMessagePortCallback(int a1, uint64_t a2, CFDataRef xmlData, uint64_t a4)
 {
-  v10 = a2;
-  v253 = 0;
+  v6 = a2;
+  v250 = 0;
   errorString = 0;
   if (a2 >= 16 && DLShouldLog(4))
   {
-    v245 = a4;
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadMessagePortCallback", 4, @"Handler thread invoked with unknown msgid %d for connection %p", a5, a6, a7, a8, v10);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadMessagePortCallback", 4, @"Handler thread invoked with unknown msgid %d for connection %p", v7, v8, v9, v10, v6, a4);
   }
 
   if (!a4)
@@ -233,8 +231,8 @@ CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData,
 
   if (sSaveCallHistory == 1)
   {
-    v11 = v10 <= 0xF ? sDLMessageStrings[v10] : "(Invalid Message Code)";
-    v18 = CFStringCreateWithFormat(0, 0, @"-> Handling %s", v11, v245);
+    v11 = v6 <= 0xF ? sDLMessageStrings[v6] : "(Invalid Message Code)";
+    v18 = CFStringCreateWithFormat(0, 0, @"-> Handling %s", v11);
     _DLCallHistoryAddEntry(v18);
     if (v18)
     {
@@ -242,11 +240,11 @@ CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData,
     }
   }
 
-  if (v10 <= 8)
+  if (v6 <= 8)
   {
-    if (v10 > 5)
+    if (v6 > 5)
     {
-      if ((v10 - 7) < 2)
+      if ((v6 - 7) < 2)
       {
         v27 = *(a4 + 64);
         if (v27)
@@ -265,7 +263,7 @@ CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData,
           _DLCleanupStreamHandler(a4);
         }
 
-        if (v10 == 8)
+        if (v6 == 8)
         {
           v32 = *(a4 + 88);
           if (v32)
@@ -284,7 +282,7 @@ CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData,
         }
 
         v35 = *(a4 + 96);
-        v36 = sHandlerThreadConnectionSessionNumber | v10;
+        v36 = sHandlerThreadConnectionSessionNumber | v6;
         if (v35)
         {
           DLThreadSendMessage(v35, v36, 0);
@@ -292,24 +290,24 @@ CFDataRef _DLHandlerThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData,
 
         else
         {
-          _DLMainThreadMessagePortCallback(0, v36, 0, a4, a5, a6, a7, a8);
+          _DLMainThreadMessagePortCallback(0, v36, 0, a4);
         }
 
         return 0;
       }
 
-      if (v10 == 6)
+      if (v6 == 6)
       {
-        _DLHandlerThreadWriteMessage(a4, xmlData, xmlData, a4, a5, a6, a7, a8, v244);
+        _DLHandlerThreadWriteMessage(a4, xmlData);
         return 0;
       }
 
       goto LABEL_105;
     }
 
-    if (v10 != 1 && v10 != 3)
+    if (v6 != 1 && v6 != 3)
     {
-      if (v10 == 5)
+      if (v6 == 5)
       {
         Message = _DLHandlerThreadReadMessage(a4);
         v20 = *(a4 + 96);
@@ -331,7 +329,7 @@ LABEL_151:
       StreamHandlerForType(Value, a4 + 64, &errorString);
     }
 
-    if (v10 == 1)
+    if (v6 == 1)
     {
       if (StreamHandlerAccept(*(a4 + 64), *(a4 + 120), &errorString))
       {
@@ -341,7 +339,7 @@ LABEL_151:
         }
 
         v60 = 0;
-        v10 = 2;
+        LODWORD(v6) = 2;
 LABEL_148:
         if (errorString)
         {
@@ -350,29 +348,29 @@ LABEL_148:
         }
 
         v20 = *(a4 + 96);
-        v21 = sHandlerThreadConnectionSessionNumber | v10;
+        v21 = sHandlerThreadConnectionSessionNumber | v6;
         v22 = a4;
         Message = v60;
         goto LABEL_151;
       }
 
-      if (_DLCheckVersionForAccept(a4, &v253))
+      if (_DLCheckVersionForAccept(a4, &v250))
       {
         v60 = 0;
-        v10 = 1;
+        LODWORD(v6) = 1;
       }
 
       else
       {
-        v136 = v253;
-        if (!v253)
+        v136 = v250;
+        if (!v250)
         {
           v136 = CFRetain(@"Unknown error");
-          v253 = v136;
+          v250 = v136;
         }
 
         v60 = _DLCreateMessageDataV(@"DLAcceptMessage", 1, v89, v90, v91, v92, v93, v94, v136);
-        v10 = 2;
+        LODWORD(v6) = 2;
       }
     }
 
@@ -399,48 +397,48 @@ LABEL_148:
           v70 = @"DLErrorConnectingLocked";
         }
 
-        v253 = v70;
+        v250 = v70;
         v60 = _DLCreateMessageDataV(@"DLConnectMessage", 1, v64, v65, v66, v67, v68, v69, v70);
-        v10 = 4;
+        LODWORD(v6) = 4;
         goto LABEL_148;
       }
 
-      if (_DLCheckVersionForConnect(a4, &v253))
+      if (_DLCheckVersionForConnect(a4, &v250))
       {
         v60 = 0;
       }
 
       else
       {
-        v137 = v253;
-        if (!v253)
+        v137 = v250;
+        if (!v250)
         {
           v137 = CFRetain(@"Unknown error");
-          v253 = v137;
+          v250 = v137;
         }
 
         v60 = _DLCreateMessageDataV(@"DLConnectMessage", 1, v95, v96, v97, v98, v99, v100, v137);
-        v10 = 4;
+        LODWORD(v6) = 4;
       }
     }
 
-    if (v253)
+    if (v250)
     {
-      CFRelease(v253);
-      v253 = 0;
+      CFRelease(v250);
+      v250 = 0;
     }
 
     goto LABEL_148;
   }
 
-  if (v10 <= 12)
+  if (v6 <= 12)
   {
-    switch(v10)
+    switch(v6)
     {
       case 9:
         _DLCleanupStreamHandler(a4);
         return 0;
-      case 10:
+      case 0xA:
         if (*(a4 + 64))
         {
           v71 = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString);
@@ -480,7 +478,7 @@ LABEL_148:
 
         v16 = @"RequestFileMessage called in HandlerThread, but StreamHandler is NULL";
         goto LABEL_116;
-      case 11:
+      case 0xB:
         if (*(a4 + 64))
         {
           v23 = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString);
@@ -529,48 +527,48 @@ LABEL_148:
               *__error() = 0;
               theData = 0;
               context = 0;
-              v261 = 0;
+              v258 = 0;
               v108 = CFDictionaryGetValue(v101, @"DLFileEncryptionKey");
               if (v108)
               {
                 v109 = v108;
                 if (DLShouldLog(6))
                 {
-                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"The caller has requested that this file be encrypted before sending it. Starting up the encryption engine", v110, v111, v112, v113, v244);
+                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"The caller has requested that this file be encrypted before sending it. Starting up the encryption engine", v110, v111, v112, v113);
                 }
 
-                v261 = 1;
-                v262 = 0;
-                v114 = createFileAuthBlob(v109, &theData, &v262);
+                v258 = 1;
+                v259 = 0;
+                v114 = createFileAuthBlob(v109, &theData, &v259);
                 if (!v114)
                 {
                   if (DLShouldLog(3))
                   {
-                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not create encrypted auth data", v206, v207, v208, v209, v244);
+                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not create encrypted auth data", v206, v207, v208, v209);
                   }
 
-                  if (v262)
+                  if (v259)
                   {
-                    CFRelease(v262);
+                    CFRelease(v259);
                   }
 
                   goto LABEL_242;
                 }
 
                 BytePtr = CFDataGetBytePtr(theData);
-                v116 = CFDataGetBytePtr(v262);
+                v116 = CFDataGetBytePtr(v259);
                 v117 = CCCryptorCreate(0, 0, 1u, BytePtr, 0x20uLL, v116, &context);
-                if (v262)
+                if (v259)
                 {
-                  CFRelease(v262);
-                  v262 = 0;
+                  CFRelease(v259);
+                  v259 = 0;
                 }
 
                 if (v117)
                 {
                   if (DLShouldLog(3))
                   {
-                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not create an encryptor! Refusing to send the file", v118, v119, v120, v121, v244);
+                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not create an encryptor! Refusing to send the file", v118, v119, v120, v121);
                   }
 
 LABEL_242:
@@ -599,7 +597,7 @@ LABEL_266:
 
                 if (DLShouldLog(6))
                 {
-                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Successfully created an encryptor. Hang on to your initialization vectors, it's going to be a wild ride!", v214, v215, v216, v217, v244);
+                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Successfully created an encryptor. Hang on to your initialization vectors, it's going to be a wild ride!", v214, v215, v216, v217);
                 }
               }
 
@@ -608,7 +606,7 @@ LABEL_266:
                 v114 = 0;
               }
 
-              v147 = CFNumberCreate(0, kCFNumberCharType, &v261);
+              v147 = CFNumberCreate(0, kCFNumberCharType, &v258);
               CFDictionarySetValue(v101, @"DLFileIsEncrypted", v147);
               if (v147)
               {
@@ -616,22 +614,22 @@ LABEL_266:
               }
 
               CFDictionaryRemoveValue(v101, @"DLFileEncryptionKey");
-              v262 = -1;
+              v259 = -1;
               v148 = CFDictionaryGetValue(v101, @"DLFileAttributesKey");
               if (v148)
               {
                 v149 = CFDictionaryGetValue(v148, @"FileSize");
                 if (v149)
                 {
-                  CFNumberGetValue(v149, kCFNumberLongLongType, &v262);
+                  CFNumberGetValue(v149, kCFNumberLongLongType, &v259);
                 }
               }
 
-              if (v262 == -1)
+              if (v259 == -1)
               {
                 if (DLShouldLog(3))
                 {
-                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not get the file size from the file info dictionary. Refusing to send this file", v210, v211, v212, v213, v244);
+                  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not get the file size from the file info dictionary. Refusing to send this file", v210, v211, v212, v213);
                 }
 
                 LOBYTE(v107) = 0;
@@ -652,7 +650,7 @@ LABEL_266:
                 }
 
                 v153 = v152 + 16;
-                v251 = v114;
+                v248 = v114;
                 if (v114)
                 {
                   v153 += CFDataGetLength(v114);
@@ -662,17 +660,17 @@ LABEL_266:
                 if (v154)
                 {
                   v155 = v154;
-                  v259 = 0;
+                  v256 = 0;
                   bytesDeallocator = *MEMORY[0x277CBED00];
                   while (1)
                   {
                     bzero(v155, v153);
-                    if (v261 == 1 && v259 == 0)
+                    if (v258 == 1 && v256 == 0)
                     {
-                      Length = CFDataGetLength(v251);
-                      v274.location = 0;
-                      v274.length = Length;
-                      CFDataGetBytes(v251, v274, v155);
+                      Length = CFDataGetLength(v248);
+                      v271.location = 0;
+                      v271.length = Length;
+                      CFDataGetBytes(v248, v271, v155);
                     }
 
                     else
@@ -686,12 +684,12 @@ LABEL_266:
                       break;
                     }
 
-                    v159 = CFNumberCreate(0, kCFNumberLongLongType, &v259);
+                    v159 = CFNumberCreate(0, kCFNumberLongLongType, &v256);
                     CFDictionarySetValue(v101, @"DLFileOffsetKey", v159);
                     CFRelease(v159);
                     if (v158 >= v152)
                     {
-                      if (v259 + v158 < v262)
+                      if (v256 + v158 < v259)
                       {
                         v160 = 1;
                       }
@@ -707,17 +705,17 @@ LABEL_266:
                       v160 = 2;
                     }
 
-                    v258 = v160;
-                    v161 = CFNumberCreate(0, kCFNumberIntType, &v258);
+                    v255 = v160;
+                    v161 = CFNumberCreate(0, kCFNumberIntType, &v255);
                     CFDictionarySetValue(v101, @"DLFileStatusKey", v161);
                     if (v161)
                     {
                       CFRelease(v161);
                     }
 
-                    if (v261 == 1)
+                    if (v258 == 1)
                     {
-                      v256 = 0;
+                      v253 = 0;
                       dataOutMoved = 0;
                       v162 = CCCryptorUpdate(context, &v155[Length], v158, &v155[Length], v153 - Length, &dataOutMoved);
                       if (v162)
@@ -725,23 +723,23 @@ LABEL_266:
                         v163 = v162;
                         if (DLShouldLog(3))
                         {
-                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"There was an error while encrypting the file data: %d", v164, v165, v166, v167, v163);
+                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"There was an error while encrypting the file data: %d", v164, v165, v166, v167, v163, v246);
                         }
                       }
 
                       else if (DLShouldLog(6))
                       {
-                        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"%d bytes of data successfully encrypted", v170, v171, v172, v173, dataOutMoved);
+                        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"%d bytes of data successfully encrypted", v170, v171, v172, v173, dataOutMoved, v246);
                       }
 
-                      if (v258 == 2)
+                      if (v255 == 2)
                       {
                         if (DLShouldLog(6))
                         {
-                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Finalizing bytes", v174, v175, v176, v177, v244);
+                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Finalizing bytes", v174, v175, v176, v177);
                         }
 
-                        v178 = CCCryptorFinal(context, &v155[Length + dataOutMoved], v153 - Length - dataOutMoved, &v256);
+                        v178 = CCCryptorFinal(context, &v155[Length + dataOutMoved], v153 - Length - dataOutMoved, &v253);
                         if (v178)
                         {
                           v179 = v178;
@@ -758,11 +756,11 @@ LABEL_266:
 
                         else if (DLShouldLog(6))
                         {
-                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Finalized %d bytes of data", v184, v185, v186, v187, v256);
+                          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 6, @"Finalized %d bytes of data", v184, v185, v186, v187, v253);
                         }
                       }
 
-                      v169 = dataOutMoved + Length + v256;
+                      v169 = dataOutMoved + Length + v253;
                       v168 = v155;
                     }
 
@@ -773,6 +771,7 @@ LABEL_266:
                     }
 
                     v188 = CFDataCreateWithBytesNoCopy(0, v168, v169, bytesDeallocator);
+                    v246 = v101;
                     v195 = _DLCreateMessageDataV(@"DLSendFile", 2, v189, v190, v191, v192, v193, v194, v188);
                     v202 = _DLSendData(*(a4 + 64), v195, &errorString);
                     if (v195)
@@ -789,24 +788,25 @@ LABEL_266:
                     {
                       if (DLShouldLog(3))
                       {
-                        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not send data: '%@'", v222, v223, v224, v225, errorString);
+                        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not send data: '%@'", v222, v223, v224, v225, errorString, v101);
                       }
 
-                      v226 = CFStringCreateWithFormat(0, 0, @"Could not send data: %@", errorString, v101);
+                      v226 = CFStringCreateWithFormat(0, 0, @"Could not send data: %@", errorString, v246);
                       goto LABEL_257;
                     }
 
-                    v203 = v259;
-                    if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * v259 + 0x1999999999999998, 1) < 0x1999999999999999uLL || v258 == 2)
+                    v203 = v256;
+                    if (__ROR8__(0xCCCCCCCCCCCCCCCDLL * v256 + 0x1999999999999998, 1) < 0x1999999999999999uLL || v255 == 2)
                     {
+                      v246 = v101;
                       v204 = _DLCreateMessageDataV(@"DLSendFile", 2, v196, v197, v198, v199, v200, v201, 0);
                       _SendMessage(a4, *(a4 + 96), _DLMainThreadMessagePortCallback, sHandlerThreadConnectionSessionNumber | 0xBu, v204);
-                      v203 = v259;
+                      v203 = v256;
                     }
 
                     v205 = v203 + v152;
-                    v259 = v205;
-                    if (v205 && v205 >= v262)
+                    v256 = v205;
+                    if (v205 && v205 >= v259)
                     {
                       LOBYTE(v107) = 1;
                       goto LABEL_258;
@@ -817,14 +817,14 @@ LABEL_266:
                   {
                     v227 = ferror(v105);
                     v228 = __error();
-                    strerror(*v228);
-                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Error while reading from file: (%d) %s", v229, v230, v231, v232, v227);
+                    v229 = strerror(*v228);
+                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Error while reading from file: (%d) %s", v230, v231, v232, v233, v227, v229);
                   }
 
-                  v233 = v259;
-                  v234 = __error();
-                  v247 = strerror(*v234);
-                  v226 = CFStringCreateWithFormat(0, 0, @"Could not read file bytes at offset %lld: %s", v233, v247);
+                  v234 = v256;
+                  v235 = __error();
+                  v247 = strerror(*v235);
+                  v226 = CFStringCreateWithFormat(0, 0, @"Could not read file bytes at offset %lld: %s", v234, v247);
 LABEL_257:
                   LOBYTE(v107) = 0;
                   errorString = v226;
@@ -836,14 +836,14 @@ LABEL_258:
                 {
                   if (DLShouldLog(3))
                   {
-                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not malloc- out of memory!", v218, v219, v220, v221, v244);
+                    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not malloc- out of memory!", v218, v219, v220, v221);
                   }
 
                   errorString = CFStringCreateWithFormat(0, 0, @"Could not malloc- out of memory!");
                   LOBYTE(v107) = 1;
                 }
 
-                v114 = v251;
+                v114 = v248;
               }
 
               goto LABEL_260;
@@ -880,22 +880,22 @@ LABEL_267:
           if ((v107 & 1) == 0)
           {
             LODWORD(context) = 3;
-            v235 = CFNumberCreate(0, kCFNumberIntType, &context);
-            CFDictionarySetValue(v101, @"DLFileStatusKey", v235);
-            if (v235)
+            v236 = CFNumberCreate(0, kCFNumberIntType, &context);
+            CFDictionarySetValue(v101, @"DLFileStatusKey", v236);
+            if (v236)
             {
-              CFRelease(v235);
+              CFRelease(v236);
             }
 
-            v242 = _DLCreateMessageDataV(@"DLSendFile", 2, v236, v237, v238, v239, v240, v241, 0);
-            v243 = v242;
-            if (v242)
+            v243 = _DLCreateMessageDataV(@"DLSendFile", 2, v237, v238, v239, v240, v241, v242, 0);
+            v244 = v243;
+            if (v243)
             {
-              CFRetain(v242);
+              CFRetain(v243);
             }
 
-            _SendMessage(a4, *(a4 + 96), _DLMainThreadMessagePortCallback, sHandlerThreadConnectionSessionNumber | 0xBu, v243);
-            _DLSendDataAndDisconnectOnError(a4, v243);
+            _SendMessage(a4, *(a4 + 96), _DLMainThreadMessagePortCallback, sHandlerThreadConnectionSessionNumber | 0xBu, v244);
+            _DLSendDataAndDisconnectOnError(a4, v244);
           }
 
           if (v23)
@@ -931,38 +931,36 @@ LABEL_105:
       return 0;
     }
 
-    v244 = v10;
+    v245 = v6;
     v16 = @"DLHandlerThreadMessagePortCallback called with an unknown message: %d";
 LABEL_10:
     v17 = 3;
 LABEL_11:
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadMessagePortCallback", v17, v16, v12, v13, v14, v15, v244);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadMessagePortCallback", v17, v16, v12, v13, v14, v15, v245);
     return 0;
   }
 
-  if (v10 != 13)
+  if (v6 != 13)
   {
-    if (v10 == 14)
+    if (v6 == 14)
     {
       v37 = CFPropertyListCreateFromXMLData(0, xmlData, 0, 0);
       ValueAtIndex = CFArrayGetValueAtIndex(v37, 1);
-      v270 = 0;
+      v267 = 0;
       cf = 0;
       context = a4;
-      v265 = CFArrayGetValueAtIndex(v37, 2);
-      v267 = 0u;
-      v268 = 0u;
-      v269 = 0u;
-      v266 = a4;
-      v272 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v246 = *(a4 + 160);
-      v249 = *(a4 + 168);
-      v83 = _DLCreateMessageDataV(@"DLMessageUploadFiles", 3, v77, v78, v79, v80, v81, v82, v265);
+      v262 = CFArrayGetValueAtIndex(v37, 2);
+      v264 = 0u;
+      v265 = 0u;
+      v266 = 0u;
+      v263 = a4;
+      v269 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+      v83 = _DLCreateMessageDataV(@"DLMessageUploadFiles", 3, v77, v78, v79, v80, v81, v82, v262);
       v84 = _DLSendDataAndDisconnectOnError(a4, v83);
       v85 = v84;
       if (v84)
       {
-        LODWORD(v270) = v84;
+        LODWORD(v267) = v84;
         cf = @"Error sending header";
       }
 
@@ -979,9 +977,9 @@ LABEL_11:
       CFDictionaryApplyFunction(ValueAtIndex, _DLUploadFilesFromDeviceCallback, &context);
       v86 = CFDataCreate(0, 0, 0);
       v87 = _DLSendDataAndDisconnectOnError(a4, v86);
-      if (v87 && (!v270 || v270 == -13))
+      if (v87 && (!v267 || v267 == -13))
       {
-        LODWORD(v270) = v87;
+        LODWORD(v267) = v87;
         if (cf)
         {
           CFRelease(cf);
@@ -1001,7 +999,7 @@ LABEL_11:
         goto LABEL_169;
       }
 
-      if (v270 && v270 != -13)
+      if (v267 && v267 != -13)
       {
         goto LABEL_175;
       }
@@ -1009,7 +1007,7 @@ LABEL_11:
 
     else
     {
-      if (v10 != 15)
+      if (v6 != 15)
       {
         goto LABEL_105;
       }
@@ -1018,23 +1016,21 @@ LABEL_11:
       v38 = CFArrayGetValueAtIndex(v37, 1);
       v39 = CFArrayGetValueAtIndex(v37, 2);
       v40 = copyKeysFromDictionary(v38);
-      v270 = 0;
+      v267 = 0;
       cf = 0;
       context = a4;
-      v265 = v39;
-      v267 = 0u;
-      v268 = 0u;
-      v269 = 0u;
-      v266 = a4;
-      v272 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-      v248 = *(a4 + 160);
-      v250 = *(a4 + 168);
+      v262 = v39;
+      v264 = 0u;
+      v265 = 0u;
+      v266 = 0u;
+      v263 = a4;
+      v269 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       v47 = _DLCreateMessageDataV(@"DLMessageDownloadFiles", 4, v41, v42, v43, v44, v45, v46, v40);
       v48 = _DLSendDataAndDisconnectOnError(a4, v47);
       v49 = v48;
       if (v48)
       {
-        LODWORD(v270) = v48;
+        LODWORD(v267) = v48;
         cf = @"Error sending header";
       }
 
@@ -1056,7 +1052,7 @@ LABEL_175:
           CFRelease(v37);
         }
 
-        v146 = _DLCreateStatusResponseData(v270);
+        v146 = _DLCreateStatusResponseData(v267);
         _DLBulkOperationContextDealloc(&context);
         return v146;
       }
@@ -1075,7 +1071,7 @@ LABEL_57:
           v50 = _DLHandlerThreadReadMessage(a4);
           if (!v50)
           {
-            LODWORD(v270) = -1;
+            LODWORD(v267) = -1;
             if (cf)
             {
               CFRelease(cf);
@@ -1096,7 +1092,7 @@ LABEL_57:
           CFRelease(v51);
           if (!v52)
           {
-            LODWORD(v270) = -1;
+            LODWORD(v267) = -1;
             if (cf)
             {
               CFRelease(cf);
@@ -1117,14 +1113,14 @@ LABEL_163:
 
           _DLDownloadFileToDevice(&context, v52, v53);
           CFRelease(v52);
-          v49 = v270;
-          if (v270)
+          v49 = v267;
+          if (v267)
           {
             goto LABEL_56;
           }
         }
 
-        LODWORD(v270) = -1;
+        LODWORD(v267) = -1;
         if (cf)
         {
           CFRelease(cf);
@@ -1142,10 +1138,10 @@ LABEL_168:
       if (v88)
       {
 LABEL_169:
-        v262 = 0;
+        v259 = 0;
         theData = 0;
-        v145 = _DLGetStatusResponseFromData(v88, &v262, &theData);
-        _DLBulkOperationContextMergeResults(&context, v145, theData, v262);
+        v145 = _DLGetStatusResponseFromData(v88, &v259, &theData);
+        _DLBulkOperationContextMergeResults(&context, v145, theData, v259);
         goto LABEL_175;
       }
 
@@ -1155,7 +1151,7 @@ LABEL_169:
       }
     }
 
-    LODWORD(v270) = -1;
+    LODWORD(v267) = -1;
     if (cf)
     {
       CFRelease(cf);
@@ -1165,7 +1161,7 @@ LABEL_169:
     goto LABEL_175;
   }
 
-  _DLHandlerThreadWriteMessage(a4, xmlData, xmlData, a4, a5, a6, a7, a8, v244);
+  _DLHandlerThreadWriteMessage(a4, xmlData);
 
   return _DLHandlerThreadReadMessage(a4);
 }
@@ -1182,7 +1178,7 @@ void _DLRequestRead(uint64_t a1)
   if (v2)
   {
 
-    DLThreadSendMessage(v2, 5, 0);
+    DLThreadSendMessage(v2, 5u, 0);
   }
 
   else
@@ -1214,14 +1210,15 @@ void _DLCallHistoryMain(__CFString *a1, uint64_t a2)
   }
 }
 
-void _DLRequestWriteV(uint64_t a1, const void *a2, int a3, __CFString **a4)
+void _DLRequestWriteV(uint64_t a1, const void *a2, uint64_t a3, __CFString **a4)
 {
+  v5 = a3;
   if (sSaveCallHistory == 1)
   {
     _DLCallHistoryMain(@"RequestWrite", a2);
   }
 
-  v8 = _DLCreateMessageDataWithArgs(a2, a3, a4);
+  v8 = _DLCreateMessageDataWithArgs(a2, v5, a4);
   if (v8)
   {
     v9 = *(a1 + 104);
@@ -1234,14 +1231,14 @@ CFTypeRef _DLCreateMessageDataWithArgs(const void *a1, int a2, __CFString **a3)
 {
   v3 = a2;
   errorString = 0;
-  v28 = a3;
+  v27 = a3;
   Mutable = CFArrayCreateMutable(0, a2 + 1, MEMORY[0x277CBF128]);
   CFArrayAppendValue(Mutable, a1);
   if (v3 >= 1)
   {
     do
     {
-      v6 = v28++;
+      v6 = v27++;
       v7 = *v6;
       if (v7)
       {
@@ -1308,7 +1305,7 @@ CFTypeRef _DLCreateMessageDataWithArgs(const void *a1, int a2, __CFString **a3)
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateMessageDataWithArgs", 3, @"Could not open stream for writing message data", v13, v14, v15, v16, v26);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateMessageDataWithArgs", 3, @"Could not open stream for writing message data", v13, v14, v15, v16);
     }
 
     if (v10)
@@ -1329,7 +1326,7 @@ LABEL_25:
   return result;
 }
 
-void _SendMessage(uint64_t a1, __CFMessagePort *a2, void (*a3)(void, uint64_t, const __CFData *, uint64_t), uint64_t a4, const __CFData *a5)
+void _SendMessage(uint64_t a1, __CFMessagePort *a2, void (*a3)(void, uint64_t, const void *, uint64_t), uint64_t a4, const __CFData *a5)
 {
   if (a2)
   {
@@ -1354,7 +1351,7 @@ const __CFString *_DLGetParameterAtIndexWithDefaultValue(const __CFArray *a1, CF
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLGetParameterAtIndexWithDefaultValue", 3, @"Error in DeviceLinkConnection, requested parameter at index %d is beyond the end of the parameter array: %@", v8, v9, v10, v11, a2);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLGetParameterAtIndexWithDefaultValue", 3, @"Error in DeviceLinkConnection, requested parameter at index %d is beyond the end of the parameter array: %@", v8, v9, v10, v11, a2, a1);
     }
   }
 
@@ -1379,9 +1376,9 @@ const __CFString *_DLGetParameterAtIndexWithDefaultValue(const __CFArray *a1, CF
   return a3;
 }
 
-void _DLHandlerThreadWriteMessage(uint64_t a1, const __CFData *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _DLHandlerThreadWriteMessage(void *a1, const __CFData *a2)
 {
-  if (*(a1 + 64))
+  if (a1[8])
   {
 
     _DLSendDataAndDisconnectOnError(a1, a2);
@@ -1390,11 +1387,11 @@ void _DLHandlerThreadWriteMessage(uint64_t a1, const __CFData *a2, uint64_t a3, 
   else if (DLShouldLog(4))
   {
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadWriteMessage", 4, @"WriteMessage called in HandlerThread, but StreamHandler is NULL", v10, v11, v12, v13, a9);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadWriteMessage", 4, @"WriteMessage called in HandlerThread, but StreamHandler is NULL", v3, v4, v5, v6);
   }
 }
 
-uint64_t _DLSendDataAndDisconnectOnError(uint64_t a1, CFDataRef theData)
+uint64_t _DLSendDataAndDisconnectOnError(void *a1, CFDataRef theData)
 {
   if (theData)
   {
@@ -1413,24 +1410,24 @@ uint64_t _DLSendDataAndDisconnectOnError(uint64_t a1, CFDataRef theData)
 
 CFDataRef _DLHandlerThreadReadMessage(uint64_t a1)
 {
-  v13 = 0;
+  v12 = 0;
   cf = 0;
   v1 = *(a1 + 64);
   if (v1)
   {
-    if (StreamHandlerReceive(v1, &v13, &cf))
+    if (StreamHandlerReceive(v1, &v12, &cf))
     {
       if (DLShouldLog(3))
       {
         _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadReadMessage", 3, @"Could not receive message: '%@'", v2, v3, v4, v5, cf);
       }
 
-      if (v13)
+      if (v12)
       {
-        CFRelease(v13);
+        CFRelease(v12);
       }
 
-      v13 = 0;
+      v12 = 0;
     }
 
     if (cf)
@@ -1441,13 +1438,13 @@ CFDataRef _DLHandlerThreadReadMessage(uint64_t a1)
 
   else if (DLShouldLog(4))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadReadMessage", 4, @"ReadMessage called in HandlerThread, but StreamHandler is NULL", v6, v7, v8, v9, v11);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadReadMessage", 4, @"ReadMessage called in HandlerThread, but StreamHandler is NULL", v6, v7, v8, v9);
   }
 
-  return v13;
+  return v12;
 }
 
-uint64_t _DLCreateDeviceLinkConnectionForDevice(int a1, void (**a2)(uint64_t a1), uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, int a7, CFTypeRef *a8)
+uint64_t _DLCreateDeviceLinkConnectionForDevice(uint64_t a1, void (**a2)(uint64_t a1), uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, int a7, CFTypeRef *a8)
 {
   if (!a2)
   {
@@ -1466,10 +1463,10 @@ LABEL_7:
   v13 = _DLCreateDeviceLinkConnection(@"Device", a1, a2, a3, a4);
   if (v13)
   {
-    *(v13 + 48) = a2;
-    *(v13 + 24) = a6;
-    *(v13 + 32) = -1;
-    *(v13 + 36) = a7;
+    v13[6] = a2;
+    v13[3] = a6;
+    *(v13 + 8) = -1;
+    *(v13 + 9) = a7;
     *a5 = v13;
     return 0;
   }
@@ -1481,7 +1478,7 @@ LABEL_8:
   return DLSetStatus(v16, a8, v15);
 }
 
-uint64_t _DLCreateDeviceLinkConnection(const void *a1, int a2, void (**a3)(uint64_t a1), uint64_t a4, uint64_t a5)
+void *_DLCreateDeviceLinkConnection(const void *a1, int a2, void (**a3)(uint64_t a1), uint64_t a4, uint64_t a5)
 {
   keyExistsAndHasValidFormat = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"SaveCallHistory", @"com.apple.DeviceLink", &keyExistsAndHasValidFormat);
@@ -1489,7 +1486,7 @@ uint64_t _DLCreateDeviceLinkConnection(const void *a1, int a2, void (**a3)(uint6
   {
     if (DLShouldLog(4))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateDeviceLinkConnection", 4, @"Turning on call history for DeviceLink", v12, v13, v14, v15, v29);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateDeviceLinkConnection", 4, @"Turning on call history for DeviceLink", v12, v13, v14, v15);
     }
 
     sSaveCallHistory = 1;
@@ -1558,8 +1555,7 @@ uint64_t _DLCreateDeviceLinkConnection(const void *a1, int a2, void (**a3)(uint6
     v16[14] = 0;
     v18 = CFRetain(a1);
     *(v17 + 72) = v18;
-    v30 = v18;
-    v19 = CFStringCreateWithFormat(0, 0, @"%@.%@");
+    v19 = CFStringCreateWithFormat(0, 0, @"%@.%@", v18, @"MainMessagePort");
     *(v17 + 80) = DLThreadCreateReceivePort(v19, v17, _DLMainThreadMessagePortCallback);
     *(v17 + 96) = DLThreadCreateSendPort(v19);
     if (v19)
@@ -1581,7 +1577,7 @@ uint64_t _DLCreateDeviceLinkConnection(const void *a1, int a2, void (**a3)(uint6
     {
       if (DLShouldLog(3))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLSetupHandlerThreadAndMessagePorts", 3, @"Could not create a message handler thread", v21, v22, v23, v24, v30);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLSetupHandlerThreadAndMessagePorts", 3, @"Could not create a message handler thread", v21, v22, v23, v24);
       }
 
 LABEL_37:
@@ -1625,7 +1621,7 @@ LABEL_37:
   return v17;
 }
 
-uint64_t _DLCreateDeviceLinkConnectionForComputer(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, int a7, CFTypeRef *a8)
+uint64_t _DLCreateDeviceLinkConnectionForComputer(int a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, int a7, CFTypeRef *a8)
 {
   if (!a2)
   {
@@ -1650,10 +1646,10 @@ LABEL_9:
   v13 = _DLCreateDeviceLinkConnection(@"Computer", a1, a2, a3, a4);
   if (v13)
   {
-    *(v13 + 56) = a2;
-    *(v13 + 24) = a6;
-    *(v13 + 32) = -1;
-    *(v13 + 36) = a7;
+    v13[7] = a2;
+    v13[3] = a6;
+    *(v13 + 8) = -1;
+    *(v13 + 9) = a7;
     *a5 = v13;
     return 0;
   }
@@ -1813,7 +1809,7 @@ uint64_t _DLCheckForDisconnect(_DWORD *a1, _DWORD *a2, void *a3)
 
 uint64_t DLLockdownCheckin(__CFDictionary *a1)
 {
-  v17 = 0;
+  v20 = 0;
   v2 = secure_lockdown_checkin();
   if (v2)
   {
@@ -1828,28 +1824,35 @@ uint64_t DLLockdownCheckin(__CFDictionary *a1)
 
   else
   {
-    lockdown_get_securecontext();
-    valuePtr = lockdown_get_socket();
+    securecontext = lockdown_get_securecontext();
+    socket = lockdown_get_socket();
+    valuePtr = socket;
     if (DLShouldLog(6))
     {
-      v9 = DLGetProcessName();
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLLockdownCheckin", 6, @"%@ launched from lockdown on socket %d with%s SSL", v10, v11, v12, v13, v9);
+      v11 = DLGetProcessName();
+      v16 = "";
+      if (!securecontext)
+      {
+        v16 = "out";
+      }
+
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLLockdownCheckin", 6, @"%@ launched from lockdown on socket %d with%s SSL", v12, v13, v14, v15, v11, socket, v16);
     }
 
     CFDictionarySetValue(a1, @"DLInfoStreamTypeKey", @"DLInfoStreamTypeTCP");
     CFDictionarySetValue(a1, @"DLInfoLockdownAccept", *MEMORY[0x277CBED28]);
-    v14 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-    CFDictionarySetValue(a1, @"DLInfoSocketKey", v14);
-    if (v14)
+    v17 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+    CFDictionarySetValue(a1, @"DLInfoSocketKey", v17);
+    if (v17)
     {
-      CFRelease(v14);
+      CFRelease(v17);
     }
 
-    v15 = CFNumberCreate(0, kCFNumberNSIntegerType, &v17);
-    CFDictionarySetValue(a1, @"DLInfoLockdownConnection", v15);
-    if (v15)
+    v18 = CFNumberCreate(0, kCFNumberNSIntegerType, &v20);
+    CFDictionarySetValue(a1, @"DLInfoLockdownConnection", v18);
+    if (v18)
     {
-      CFRelease(v15);
+      CFRelease(v18);
     }
 
     return 0;
@@ -1858,7 +1861,7 @@ uint64_t DLLockdownCheckin(__CFDictionary *a1)
 
 uint64_t DLLockdownXPCCheckin(const void *a1, const void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!a1)
   {
     DLLockdownXPCCheckin_cold_4();
@@ -1872,7 +1875,7 @@ uint64_t DLLockdownXPCCheckin(const void *a1, const void *a2)
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 136446210;
-    v12 = a1;
+    v11 = a1;
     _os_log_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lockdown_checkin_xpc, serviceName:%{public}s", buf, 0xCu);
   }
 
@@ -1892,9 +1895,7 @@ uint64_t DLLockdownXPCCheckin(const void *a1, const void *a2)
     dispatch_release(v4);
     dispatch_release(v4);
     CFRelease(a2);
-LABEL_12:
-    result = 0xFFFFFFFFLL;
-    goto LABEL_13;
+    return 0xFFFFFFFFLL;
   }
 
   v7 = dispatch_time(0, 600000000000);
@@ -1907,31 +1908,29 @@ LABEL_12:
       DLLockdownXPCCheckin_cold_2();
     }
 
-    goto LABEL_12;
+    return 0xFFFFFFFFLL;
   }
 
   result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO);
   if (result)
   {
     *buf = 138412290;
-    v12 = a2;
+    v11 = a2;
     _os_log_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lockdown_checkin_xpc succeeded: %@", buf, 0xCu);
-    result = 0;
+    return 0;
   }
 
-LABEL_13:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __DLLockdownXPCCheckin_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v13 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  v12 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v15 = a3;
+    v14 = a3;
     _os_log_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "lockdown_checkin_xpc connection handler called: %@", buf, 0xCu);
   }
 
@@ -1945,16 +1944,16 @@ void __DLLockdownXPCCheckin_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
       v7 = DLGetProcessName();
       v8 = "";
       *buf = 138543874;
-      v15 = v7;
+      v14 = v7;
       if (!securecontext)
       {
         v8 = "out";
       }
 
-      v16 = 1024;
-      v17 = socket;
-      v18 = 2080;
-      v19 = v8;
+      v15 = 1024;
+      v16 = socket;
+      v17 = 2080;
+      v18 = v8;
       _os_log_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%{public}@ launched from lockdown on socket %d with%s SSL", buf, 0x1Cu);
     }
 
@@ -1967,7 +1966,7 @@ void __DLLockdownXPCCheckin_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
       CFRelease(v9);
     }
 
-    v10 = CFNumberCreate(0, kCFNumberNSIntegerType, &v13);
+    v10 = CFNumberCreate(0, kCFNumberNSIntegerType, &v12);
     CFDictionarySetValue(*(a1 + 32), @"DLInfoLockdownConnection", v10);
     if (v10)
     {
@@ -1978,8 +1977,6 @@ void __DLLockdownXPCCheckin_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
     dispatch_group_leave(*(a1 + 40));
     dispatch_release(*(a1 + 40));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t DLWaitForConnection(uint64_t a1, CFTypeRef cf, CFTypeRef *a3)
@@ -1988,7 +1985,7 @@ uint64_t DLWaitForConnection(uint64_t a1, CFTypeRef cf, CFTypeRef *a3)
   {
     if (DLShouldLog(4))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 4, @"DLWaitForConnection called, but already waiting for a connection", v3, v4, v5, v6, v23);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 4, @"DLWaitForConnection called, but already waiting for a connection", v3, v4, v5, v6);
     }
 
     return 0;
@@ -2026,7 +2023,7 @@ LABEL_10:
 
     if (DLShouldLog(7))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 7, @"Next expected session number: %d, connection %p", v11, v12, v13, v14, BYTE1(*(a1 + 4)));
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 7, @"Next expected session number: %d, connection %p", v11, v12, v13, v14, (*(a1 + 4) >> 8), a1);
     }
 
     v15 = CFDictionaryContainsKey(*(a1 + 120), @"DLInfoAllowSleepKey");
@@ -2035,7 +2032,7 @@ LABEL_10:
     {
       if (v16)
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 6, @"Allowing sleep during connections", v17, v18, v19, v20, v23);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 6, @"Allowing sleep during connections", v17, v18, v19, v20);
       }
 
       *(a1 + 146) = 0;
@@ -2043,7 +2040,7 @@ LABEL_10:
 
     else if (v16)
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 6, @"Preventing sleep during connections", v17, v18, v19, v20, v23);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLWaitForConnection", 6, @"Preventing sleep during connections", v17, v18, v19, v20);
     }
 
     *(a1 + 145) = 1;
@@ -2055,12 +2052,12 @@ LABEL_10:
     v21 = *(a1 + 104);
     if (v21)
     {
-      DLThreadSendMessage(v21, 1, 0);
+      DLThreadSendMessage(v21, 1u, 0);
     }
 
     else
     {
-      _DLHandlerThreadMessagePortCallback(0, 1, 0, a1, v17, v18, v19, v20);
+      _DLHandlerThreadMessagePortCallback(0, 1, 0, a1);
     }
 
     return 0;
@@ -2103,7 +2100,7 @@ LABEL_7:
 
     if (DLShouldLog(7))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 7, @"Next expected session number: %d, connection: %p", v7, v8, v9, v10, BYTE1(*(a1 + 4)));
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 7, @"Next expected session number: %d, connection: %p", v7, v8, v9, v10, (*(a1 + 4) >> 8), a1);
     }
 
     v11 = CFDictionaryContainsKey(*(a1 + 120), @"DLInfoAllowSleepKey");
@@ -2112,7 +2109,7 @@ LABEL_7:
     {
       if (v12)
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 5, @"Allowing sleep during connections", v13, v14, v15, v16, v23);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 5, @"Allowing sleep during connections", v13, v14, v15, v16);
       }
 
       *(a1 + 146) = 0;
@@ -2120,7 +2117,7 @@ LABEL_7:
 
     else if (v12)
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 5, @"Preventing sleep during connections", v13, v14, v15, v16, v23);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 5, @"Preventing sleep during connections", v13, v14, v15, v16);
     }
 
     *(a1 + 145) = 1;
@@ -2131,18 +2128,18 @@ LABEL_7:
 
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 6, @"Sending connect message to handler thread", v17, v18, v19, v20, v23);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLConnect", 6, @"Sending connect message to handler thread", v17, v18, v19, v20);
     }
 
     v21 = *(a1 + 104);
     if (v21)
     {
-      DLThreadSendMessage(v21, 3, 0);
+      DLThreadSendMessage(v21, 3u, 0);
     }
 
     else
     {
-      _DLHandlerThreadMessagePortCallback(0, 3, 0, a1, v17, v18, v19, v20);
+      _DLHandlerThreadMessagePortCallback(0, 3, 0, a1);
     }
 
     return 0;
@@ -2192,7 +2189,7 @@ uint64_t DLDisconnect(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4, uin
   return 0;
 }
 
-uint64_t DLProcessMessage(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DLProcessMessage(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   _DLRequestWrite(a1, @"DLMessageProcessMessage", 1, a4, a5, a6, a7, a8, a2);
   _DLRequestRead(a1);
@@ -2241,7 +2238,7 @@ uint64_t DLHandleSentFilePieceEncrypted(uint64_t a1, const __CFData *a2, CFDicti
     return 0;
   }
 
-  v69 = 0;
+  v68 = 0;
   valuePtr = 0;
   Value = CFDictionaryGetValue(theDict, @"DLFileStatusKey");
   if (Value)
@@ -2251,10 +2248,10 @@ uint64_t DLHandleSentFilePieceEncrypted(uint64_t a1, const __CFData *a2, CFDicti
 
   v11 = CFDictionaryGetValue(theDict, @"DLFileDest");
   v12 = CFDictionaryGetValue(theDict, @"DLFileOffsetKey");
-  v67 = 0;
+  v66 = 0;
   if (v12)
   {
-    CFNumberGetValue(v12, kCFNumberLongLongType, &v67);
+    CFNumberGetValue(v12, kCFNumberLongLongType, &v66);
   }
 
   if (!a4 || *(a1 + 200))
@@ -2262,7 +2259,7 @@ uint64_t DLHandleSentFilePieceEncrypted(uint64_t a1, const __CFData *a2, CFDicti
     goto LABEL_8;
   }
 
-  if (v67)
+  if (v66)
   {
     if (!DLShouldLog(3))
     {
@@ -2274,7 +2271,7 @@ uint64_t DLHandleSentFilePieceEncrypted(uint64_t a1, const __CFData *a2, CFDicti
   }
 
   dataOutMoved = 0;
-  v37 = createFileKeyFromAuthBlob(a2, a4, &dataOutMoved, &v69);
+  v37 = createFileKeyFromAuthBlob(a2, a4, &dataOutMoved, &v68);
   if (!v37)
   {
     if (!DLShouldLog(3))
@@ -2290,7 +2287,7 @@ LABEL_33:
 
     v34 = @"Could not decrypt the file encryption key. Refusing to decode this file";
 LABEL_32:
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLHandleSentFilePieceEncrypted", 3, v34, v30, v31, v32, v33, v65);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLHandleSentFilePieceEncrypted", 3, v34, v30, v31, v32, v33);
     goto LABEL_33;
   }
 
@@ -2386,7 +2383,7 @@ LABEL_8:
   dataOutMoved = 0;
   v21 = *(a1 + 200);
   v22 = CFDataGetBytePtr(a2);
-  v23 = CCCryptorUpdate(v21, &v22[v69], v17 - v69, v20, v17 + 16, &dataOutMoved);
+  v23 = CCCryptorUpdate(v21, &v22[v68], v17 - v68, v20, v17 + 16, &dataOutMoved);
   if (v23)
   {
     v24 = v23;
@@ -2410,7 +2407,7 @@ LABEL_19:
   {
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLHandleSentFilePieceEncrypted", 6, @"Finalizing bytes and shutting down the decryptor", v51, v52, v53, v54, v65);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLHandleSentFilePieceEncrypted", 6, @"Finalizing bytes and shutting down the decryptor", v51, v52, v53, v54);
     }
 
     v55 = CCCryptorFinal(*(a1 + 200), &v20[dataOutMoved], v18 - dataOutMoved, &dataOutMoved);
@@ -2470,7 +2467,7 @@ uint64_t DLKillConnection(uint64_t a1)
       v5 = @"Not killing waiting connection, because that would be rude";
       v6 = 5;
 LABEL_19:
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", v6, v5, v1, v2, v3, v4, v15);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", v6, v5, v1, v2, v3, v4, v19, v20);
     }
   }
 
@@ -2479,7 +2476,7 @@ LABEL_19:
     *(a1 + 4) = 0;
     if (DLShouldLog(7))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", 7, @"Killing Connection. Next expected session number: %d, Connection: %p", v8, v9, v10, v11, BYTE1(*(a1 + 4)));
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", 7, @"Killing Connection. Next expected session number: %d, Connection: %p", v8, v9, v10, v11, (*(a1 + 4) >> 8), a1);
     }
 
     v12 = *(a1 + 64);
@@ -2487,7 +2484,7 @@ LABEL_19:
     {
       if (StreamHandlerClose(v12, &cf) && DLShouldLog(3))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", 3, @"Closing the stream handler directly in DLKillConnection: '%@'", v8, v9, v10, v11, cf);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLKillConnection", 3, @"Closing the stream handler directly in DLKillConnection: '%@'", v13, v14, v15, v16, cf);
       }
 
       if (cf)
@@ -2502,20 +2499,21 @@ LABEL_19:
       _DLCallHistoryAddEntry(@"Kill");
     }
 
-    v13 = *(a1 + 104);
-    if (v13)
+    v17 = *(a1 + 104);
+    if (v17)
     {
-      DLThreadSendMessage(v13, 9, 0);
+      DLThreadSendMessage(v17, 9u, 0);
     }
 
     else
     {
-      _DLHandlerThreadMessagePortCallback(0, 9, 0, a1, v8, v9, v10, v11);
+      _DLHandlerThreadMessagePortCallback(0, 9, 0, a1);
     }
 
     if (DLShouldLog(7))
     {
-      v15 = *(a1 + 4) >> 8;
+      v19 = (*(a1 + 4) >> 8);
+      v20 = a1;
       v5 = @"After _SendMessage: %d, Connection: %p";
       v6 = 7;
       goto LABEL_19;
@@ -2589,29 +2587,29 @@ LABEL_12:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t _DLProcessSyncMessageWithStatusResponseV(uint64_t a1, void *a2, CFStringRef *a3, SInt32 a4, const void *a5, int a6, __CFString **a7)
+uint64_t _DLProcessSyncMessageWithStatusResponseV(uint64_t a1, void *a2, CFStringRef *a3, uint64_t a4, const void *a5, int a6, __CFString **a7)
 {
-  v15 = _DLCreateMessageDataWithArgs(a5, a6, a7);
-  v16 = *(a1 + 104);
-  if (v16)
+  v11 = _DLCreateMessageDataWithArgs(a5, a6, a7);
+  v12 = *(a1 + 104);
+  if (v12)
   {
-    v17 = DLThreadSendSyncMessage(v16, a4, v15);
+    v13 = DLThreadSendSyncMessage(v12, a4, v11);
   }
 
   else
   {
-    v17 = _DLHandlerThreadMessagePortCallback(0, a4, v15, a1, v11, v12, v13, v14);
-    if (v15)
+    v13 = _DLHandlerThreadMessagePortCallback(0, a4, v11, a1);
+    if (v11)
     {
-      CFRelease(v15);
+      CFRelease(v11);
     }
   }
 
-  if (v17)
+  if (v13)
   {
-    v18 = _DLGetStatusResponseFromData(v17, a2, a3);
-    CFRelease(v17);
-    return v18;
+    v14 = _DLGetStatusResponseFromData(v13, a2, a3);
+    CFRelease(v13);
+    return v14;
   }
 
   else
@@ -2864,25 +2862,16 @@ uint64_t _DLBulkOperationContextUpdate(uint64_t result, const void *a2, const vo
   return result;
 }
 
-CFTypeRef _DLCreateBulkOperationContextStatusResponseData(uint64_t a1)
-{
-  v1 = *(a1 + 80);
-  v2 = *(a1 + 88);
-  return _DLCreateStatusResponseData(*(a1 + 72));
-}
-
 void _DLBulkOperationContextSendStatusResponse(uint64_t a1)
 {
   v1 = *a1;
-  v2 = *(a1 + 80);
-  v3 = *(a1 + 88);
   valuePtr = *(a1 + 72);
-  v4 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  _DLRequestWrite(v1, @"DLMessageStatusResponse", 3, v5, v6, v7, v8, v9, v4);
+  v2 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  _DLRequestWrite(v1, @"DLMessageStatusResponse", 3, v3, v4, v5, v6, v7, v2);
   _DLRequestRead(v1);
-  if (v4)
+  if (v2)
   {
-    CFRelease(v4);
+    CFRelease(v2);
   }
 }
 
@@ -2900,9 +2889,7 @@ uint64_t _DLSingleFromMultiError(uint64_t result, const __CFString *a2, CFDictio
         goto LABEL_9;
       }
 
-LABEL_10:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_11;
+      return 0xFFFFFFFFLL;
     }
 
     values = 0;
@@ -2915,30 +2902,28 @@ LABEL_10:
         v7 = @"Unexpected bulk operation result key";
 LABEL_9:
         *a4 = v7;
-        goto LABEL_10;
+        return 0xFFFFFFFFLL;
       }
 
-      goto LABEL_10;
+      return 0xFFFFFFFFLL;
     }
 
-    v9 = values;
+    v8 = values;
     Value = CFDictionaryGetValue(values, @"DLFileErrorCode");
     CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
     if (a4)
     {
-      v11 = CFDictionaryGetValue(v9, @"DLFileErrorString");
-      *a4 = v11;
-      if (v11)
+      v10 = CFDictionaryGetValue(v8, @"DLFileErrorString");
+      *a4 = v10;
+      if (v10)
       {
-        CFRetain(v11);
+        CFRetain(v10);
       }
     }
 
-    result = valuePtr;
+    return valuePtr;
   }
 
-LABEL_11:
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2975,8 +2960,6 @@ CFTypeRef DLSetProgress(uint64_t a1, CFTypeRef cf, const void *a3)
 
 uint64_t DLCreateDirectory(uint64_t a1, __CFString *a2, uint64_t a3, CFStringRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = a2;
-  v17 = *(a1 + 160);
   v10 = _DLProcessSyncMessageWithStatusResponse(a1, 0, a4, 13, @"DLMessageCreateDirectory", 3, a7, a8, a2);
   if (DLShouldLog(6))
   {
@@ -2985,7 +2968,12 @@ uint64_t DLCreateDirectory(uint64_t a1, __CFString *a2, uint64_t a3, CFStringRef
       v15 = *a4;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLCreateDirectory", 6, @"CreateDirectory(%@): %d %@", v11, v12, v13, v14, v9);
+    else
+    {
+      v15 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLCreateDirectory", 6, @"CreateDirectory(%@): %d %@", v11, v12, v13, v14, a2, v10, v15);
   }
 
   return v10;
@@ -2993,8 +2981,6 @@ uint64_t DLCreateDirectory(uint64_t a1, __CFString *a2, uint64_t a3, CFStringRef
 
 uint64_t DLContentsOfDirectory(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFStringRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = a2;
-  v17 = *(a1 + 160);
   v10 = _DLProcessSyncMessageWithStatusResponse(a1, a4, a5, 13, @"DLContentsOfDirectory", 3, a7, a8, a2);
   if (DLShouldLog(6))
   {
@@ -3003,7 +2989,12 @@ uint64_t DLContentsOfDirectory(uint64_t a1, __CFString *a2, uint64_t a3, void *a
       v15 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLContentsOfDirectory", 6, @"ContentsOfDirectory(%@): %d %@", v11, v12, v13, v14, v9);
+    else
+    {
+      v15 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLContentsOfDirectory", 6, @"ContentsOfDirectory(%@): %d %@", v11, v12, v13, v14, a2, v10, v15);
   }
 
   return v10;
@@ -3011,21 +3002,24 @@ uint64_t DLContentsOfDirectory(uint64_t a1, __CFString *a2, uint64_t a3, void *a
 
 uint64_t DLCopyItem(uint64_t a1, __CFString *a2, uint64_t a3, uint64_t a4, CFStringRef *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = a2;
-  v17 = *(a1 + 160);
   v18 = *(a1 + 168);
-  v10 = _DLProcessSyncMessageWithStatusResponse(a1, 0, a5, 13, @"DLMessageCopyItem", 5, a7, a8, a2);
+  v11 = _DLProcessSyncMessageWithStatusResponse(a1, 0, a5, 13, @"DLMessageCopyItem", 5, a7, a8, a2);
   if (DLShouldLog(6))
   {
     if (a5)
     {
-      v15 = *a5;
+      v16 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLCopyItem", 6, @"CopyItem(%@, %@): %d %@", v11, v12, v13, v14, v9);
+    else
+    {
+      v16 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLCopyItem", 6, @"CopyItem(%@, %@): %d %@", v12, v13, v14, v15, a2, a3, v11, v16, v18);
   }
 
-  return v10;
+  return v11;
 }
 
 uint64_t DLMoveItem(uint64_t a1, const __CFString *a2, void *a3, uint64_t a4, CFStringRef *a5)
@@ -3047,7 +3041,6 @@ uint64_t DLMoveItem(uint64_t a1, const __CFString *a2, void *a3, uint64_t a4, CF
     CFRelease(cf);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3063,7 +3056,6 @@ uint64_t DLMoveItems(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFStrin
     v10 = @"DLMessageMoveFiles";
   }
 
-  v19 = *(a1 + 160);
   v11 = _DLProcessSyncMessageWithStatusResponse(a1, a4, a5, 13, v10, 3, a7, a8, a2);
   if (DLShouldLog(6))
   {
@@ -3073,7 +3065,12 @@ uint64_t DLMoveItems(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFStrin
       v17 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLMoveItems", 6, @"MoveItems(%d): %d %@", v13, v14, v15, v16, Count);
+    else
+    {
+      v17 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLMoveItems", 6, @"MoveItems(%d): %d %@", v13, v14, v15, v16, Count, v11, v17);
   }
 
   return v11;
@@ -3081,8 +3078,6 @@ uint64_t DLMoveItems(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFStrin
 
 uint64_t _DLRemoveDirectory(uint64_t a1, __CFString *a2, uint64_t a3, CFStringRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = a2;
-  v17 = *(a1 + 160);
   v10 = _DLProcessSyncMessageWithStatusResponse(a1, 0, a4, 13, @"DLMessageRemoveDirectory", 3, a7, a8, a2);
   if (DLShouldLog(6))
   {
@@ -3091,15 +3086,20 @@ uint64_t _DLRemoveDirectory(uint64_t a1, __CFString *a2, uint64_t a3, CFStringRe
       v15 = *a4;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLRemoveDirectory", 6, @"RemoveDirectory(%@): %d %@", v11, v12, v13, v14, v9);
+    else
+    {
+      v15 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLRemoveDirectory", 6, @"RemoveDirectory(%@): %d %@", v11, v12, v13, v14, a2, v10, v15);
   }
 
   return v10;
 }
 
-void _DLRemoveItemUsingOldProtocolCallback(const __CFString *a1, uint64_t a2, uint64_t a3)
+void _DLRemoveItemUsingOldProtocolCallback(const __CFString *a1, uint64_t a2, uint64_t *a3)
 {
-  v4 = DLStringByAppendingPathComponent(*(a3 + 8), a1);
+  v4 = DLStringByAppendingPathComponent(a3[1], a1);
   DLRemoveItem(*a3, v4, 0, 0);
   if (v4)
   {
@@ -3126,7 +3126,6 @@ uint64_t DLRemoveItem(uint64_t a1, const __CFString *a2, uint64_t a3, CFStringRe
     CFRelease(cf);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -3154,7 +3153,6 @@ uint64_t _DLRemoveItemsUsingOldProtocol(uint64_t a1, __CFString *a2, uint64_t a3
 {
   MutableCopy = 0;
   theDict = 0;
-  v19 = *(a1 + 160);
   context = a1;
   v11 = _DLProcessSyncMessageWithStatusResponse(a1, &theDict, a5, 13, @"DLMessageRemoveFiles", 3, a7, a8, a2);
   if (DLShouldLog(6))
@@ -3165,7 +3163,12 @@ uint64_t _DLRemoveItemsUsingOldProtocol(uint64_t a1, __CFString *a2, uint64_t a3
       v17 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLRemoveItemsUsingOldProtocol", 6, @"RemoveFiles(%d): %d %@", v13, v14, v15, v16, Count);
+    else
+    {
+      v17 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLRemoveItemsUsingOldProtocol", 6, @"RemoveFiles(%d): %d %@", v13, v14, v15, v16, Count, v11, v17, context);
   }
 
   if (v11 == -13)
@@ -3178,7 +3181,7 @@ uint64_t _DLRemoveItemsUsingOldProtocol(uint64_t a1, __CFString *a2, uint64_t a3
       {
         *a4 = MutableCopy;
         v11 = 4294967283;
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
       v11 = 4294967283;
@@ -3203,7 +3206,7 @@ uint64_t _DLRemoveItemsUsingOldProtocol(uint64_t a1, __CFString *a2, uint64_t a3
     MutableCopy = 0;
   }
 
-LABEL_16:
+LABEL_17:
   if (theDict)
   {
     CFRelease(theDict);
@@ -3221,7 +3224,6 @@ uint64_t DLRemoveItems(uint64_t a1, __CFString *a2, uint64_t a3, CFDictionaryRef
 
   else
   {
-    v19 = *(a1 + 160);
     v10 = _DLProcessSyncMessageWithStatusResponse(a1, a4, a5, 13, @"DLMessageRemoveItems", 3, a7, a8, a2);
   }
 
@@ -3234,13 +3236,18 @@ uint64_t DLRemoveItems(uint64_t a1, __CFString *a2, uint64_t a3, CFDictionaryRef
       v17 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLRemoveItems", 6, @"RemoveItems(%d): %d %@", v13, v14, v15, v16, Count);
+    else
+    {
+      v17 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLRemoveItems", 6, @"RemoveItems(%d): %d %@", v13, v14, v15, v16, Count, v11, v17);
   }
 
   return v11;
 }
 
-BOOL _DLBulkOperationSendChunk(uint64_t a1, uint64_t a2, unsigned int a3)
+BOOL _DLBulkOperationSendChunk(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = _DLSendBytesAndDisconnectOnError(*a1, a2, a3);
   _DLBulkOperationContextSetStatus(a1, v4, @"Error sending chunk");
@@ -3248,12 +3255,12 @@ BOOL _DLBulkOperationSendChunk(uint64_t a1, uint64_t a2, unsigned int a3)
   return !v5 || v5 == -13;
 }
 
-uint64_t _DLSendBytesAndDisconnectOnError(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t _DLSendBytesAndDisconnectOnError(void *a1, uint64_t a2, unsigned int a3)
 {
   cf = 0;
-  v4 = *(a1 + 64);
-  v18 = 0;
-  v5 = StreamHandlerSend(v4, a2, a3, &v18, &cf);
+  v4 = a1[8];
+  v14 = 0;
+  v5 = StreamHandlerSend(v4, a2, a3, &v14, &cf);
   if (v5)
   {
     if (DLShouldLog(3))
@@ -3263,16 +3270,16 @@ uint64_t _DLSendBytesAndDisconnectOnError(uint64_t a1, uint64_t a2, unsigned int
 
     CFRelease(cf);
     _DLCleanupStreamHandler(a1);
-    v14 = *(a1 + 96);
-    v15 = sHandlerThreadConnectionSessionNumber | 0xCu;
-    if (v14)
+    v10 = a1[12];
+    v11 = sHandlerThreadConnectionSessionNumber | 0xC;
+    if (v10)
     {
-      DLThreadSendMessage(v14, v15, 0);
+      DLThreadSendMessage(v10, v11, 0);
     }
 
     else
     {
-      _DLMainThreadMessagePortCallback(0, v15, 0, a1, v10, v11, v12, v13);
+      _DLMainThreadMessagePortCallback(0, v11, 0, a1);
     }
   }
 
@@ -3594,7 +3601,6 @@ uint64_t DLUploadFile(uint64_t a1, const __CFString *a2, void *a3, uint64_t a4, 
     CFRelease(cf);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3609,7 +3615,12 @@ uint64_t DLUploadFiles(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFStr
       v16 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLUploadFiles", 6, @"DownloadFiles(%d): %d %@", v12, v13, v14, v15, Count);
+    else
+    {
+      v16 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLUploadFiles", 6, @"DownloadFiles(%d): %d %@", v12, v13, v14, v15, Count, v10, v16);
   }
 
   return v10;
@@ -3697,7 +3708,7 @@ LABEL_19:
 
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLUploadFilesFromDeviceCallback", 6, @"UploadFile(%@, %@): %d %@", v19, v20, v21, v22, a1);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLUploadFilesFromDeviceCallback", 6, @"UploadFile(%@, %@): %d %@", v19, v20, v21, v22, a1, a2, v11, cf);
     }
   }
 
@@ -3730,7 +3741,6 @@ uint64_t DLDownloadFile(uint64_t a1, const __CFString *a2, void *a3, uint64_t a4
     CFRelease(cf);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3745,7 +3755,12 @@ uint64_t DLDownloadFiles(uint64_t a1, __CFString *a2, uint64_t a3, void *a4, CFS
       v16 = *a5;
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLDownloadFiles", 6, @"DownloadFiles(%d): %d %@", v12, v13, v14, v15, Count);
+    else
+    {
+      v16 = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLDownloadFiles", 6, @"DownloadFiles(%d): %d %@", v12, v13, v14, v15, Count, v10, v16);
   }
 
   return v10;
@@ -3817,7 +3832,7 @@ LABEL_8:
 
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLDownloadFileToDevice", 6, @"DownloadFile(%@, %@): %d %@", v15, v16, v17, v18, a2);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLDownloadFileToDevice", 6, @"DownloadFile(%@, %@): %d %@", v15, v16, v17, v18, a2, a3, v8, cf);
     }
   }
 
@@ -3853,7 +3868,7 @@ uint64_t DLGetFreeDiskSpace(uint64_t a1, void *a2, CFStringRef *a3, uint64_t a4,
       v9 = 4294967294;
       if (!DLShouldLog(6))
       {
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
       goto LABEL_11;
@@ -3865,17 +3880,20 @@ uint64_t DLGetFreeDiskSpace(uint64_t a1, void *a2, CFStringRef *a3, uint64_t a4,
 
   if (!DLShouldLog(6))
   {
+    goto LABEL_13;
+  }
+
+  if (!a3)
+  {
+LABEL_11:
+    v16 = 0;
     goto LABEL_12;
   }
 
-  if (a3)
-  {
-    v16 = *a3;
-  }
-
-LABEL_11:
-  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLGetFreeDiskSpace", 6, @"GetFreeDiskSpace(): %d %@ %@", v12, v13, v14, v15, v9);
+  v16 = *a3;
 LABEL_12:
+  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLGetFreeDiskSpace", 6, @"GetFreeDiskSpace(): %d %@ %@", v12, v13, v14, v15, v9, v16, number);
+LABEL_13:
   if (number)
   {
     CFRelease(number);
@@ -3910,7 +3928,7 @@ uint64_t DLPurgeDiskSpace(uint64_t a1, void *a2, uint64_t a3, int a4, CFStringRe
       v12 = 4294967294;
       if (!DLShouldLog(6))
       {
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
       goto LABEL_11;
@@ -3922,17 +3940,20 @@ uint64_t DLPurgeDiskSpace(uint64_t a1, void *a2, uint64_t a3, int a4, CFStringRe
 
   if (!DLShouldLog(6))
   {
+    goto LABEL_13;
+  }
+
+  if (!a5)
+  {
+LABEL_11:
+    v18 = 0;
     goto LABEL_12;
   }
 
-  if (a5)
-  {
-    v18 = *a5;
-  }
-
-LABEL_11:
-  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLPurgeDiskSpace", 6, @"PurgeDiskSpace(): %d %@ %@", v14, v15, v16, v17, v12);
+  v18 = *a5;
 LABEL_12:
+  _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "DLPurgeDiskSpace", 6, @"PurgeDiskSpace(): %d %@ %@", v14, v15, v16, v17, v12, v18, number);
+LABEL_13:
   if (number)
   {
     CFRelease(number);
@@ -3977,11 +3998,12 @@ pthread_mutex_t *_DLCallHistoryAddEntry(void *value)
   return result;
 }
 
-uint64_t _DLCheckVersionForAccept(uint64_t a1, CFTypeRef *a2)
+uint64_t _DLCheckVersionForAccept(uint64_t a1, CFStringRef *a2)
 {
   cf = 0;
   v4 = CFNumberCreate(0, kCFNumberIntType, &kDLProtocolVersion);
   v5 = CFNumberCreate(0, kCFNumberIntType, (a1 + 36));
+  v61 = v5;
   v12 = _DLCreateMessageDataV(@"DLMessageVersionExchange", 2, v6, v7, v8, v9, v10, v11, v4);
   v13 = _DLSendData(*(a1 + 64), v12, a2);
   if (v12)
@@ -3993,7 +4015,7 @@ uint64_t _DLCheckVersionForAccept(uint64_t a1, CFTypeRef *a2)
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Could not send data: '%@'", v14, v15, v16, v17, *a2);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Could not send data: '%@'", v14, v15, v16, v17, *a2, v5);
     }
 
     if (v4)
@@ -4013,15 +4035,14 @@ uint64_t _DLCheckVersionForAccept(uint64_t a1, CFTypeRef *a2)
   CFRelease(v5);
   if (DLShouldLog(6))
   {
-    v61 = *(a1 + 36);
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 6, @"Accepting side sent version numbers. DeviceLink %d, protocol %d", v19, v20, v21, v22, kDLProtocolVersion);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 6, @"Accepting side sent version numbers. DeviceLink %d, protocol %d", v19, v20, v21, v22, kDLProtocolVersion, *(a1 + 36));
   }
 
   if (StreamHandlerReceive(*(a1 + 64), &cf, a2))
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Could not receive message: '%@'", v23, v24, v25, v26, *a2);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Could not receive message: '%@'", v23, v24, v25, v26, *a2, v61);
     }
 
     v18 = cf;
@@ -4042,7 +4063,7 @@ uint64_t _DLCheckVersionForAccept(uint64_t a1, CFTypeRef *a2)
 
     v46 = @"Did not receive version number data from connecting side";
 LABEL_40:
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, v46, v42, v43, v44, v45, v60);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, v46, v42, v43, v44, v45, v60, v61);
     return 0;
   }
 
@@ -4070,7 +4091,7 @@ LABEL_40:
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Invalid version received from the connect side", v47, v48, v49, v50, v60);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 3, @"Invalid version received from the connect side", v47, v48, v49, v50);
     }
 
 LABEL_9:
@@ -4089,7 +4110,7 @@ LABEL_16:
 
   if (DLShouldLog(6))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 6, @"Accepting side received ok/nogo from connect side: %@", v33, v34, v35, v36, v30);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 6, @"Accepting side received ok/nogo from connect side: %@", v33, v34, v35, v36, v30, v61);
   }
 
   if (CFStringCompare(v30, @"DLVersionsOk", 0))
@@ -4109,7 +4130,7 @@ LABEL_16:
 
     if (DLShouldLog(4))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 4, @"Our DeviceLink version (%d) is greater than the connecting side's version (%d), but that's ok", v51, v52, v53, v54, kDLProtocolVersion);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForAccept", 4, @"Our DeviceLink version (%d) is greater than the connecting side's version (%d), but that's ok", v51, v52, v53, v54, kDLProtocolVersion, valuePtr);
     }
   }
 
@@ -4131,7 +4152,7 @@ LABEL_44:
   return v27;
 }
 
-uint64_t _DLCheckVersionForConnect(uint64_t a1, CFTypeRef *a2)
+uint64_t _DLCheckVersionForConnect(uint64_t a1, CFStringRef *a2)
 {
   cf = 0;
   if (StreamHandlerReceive(*(a1 + 64), &cf, a2))
@@ -4155,7 +4176,7 @@ uint64_t _DLCheckVersionForConnect(uint64_t a1, CFTypeRef *a2)
     {
       v18 = @"Did not receive version number data from accepting side";
 LABEL_54:
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, v18, v14, v15, v16, v17, v80);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, v18, v14, v15, v16, v17, v80, v81);
     }
 
     return 0;
@@ -4196,21 +4217,21 @@ LABEL_54:
 
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side received version numbers from the accepting side. DeviceLink %d, app %d", v25, v26, v27, v28, SBYTE4(valuePtr));
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side received version numbers from the accepting side. DeviceLink %d, app %d", v25, v26, v27, v28, HIDWORD(valuePtr), valuePtr);
     }
   }
 
   else if (DLShouldLog(6))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side received message from accepting side, but either message was NULL or a mismatch on the expected %@: %@", v10, v11, v12, v13, @"DLMessageVersionExchange");
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side received message from accepting side, but either message was NULL or a mismatch on the expected %@: %@", v10, v11, v12, v13, @"DLMessageVersionExchange", v8);
   }
 
   CFRelease(v8);
   if (!HIDWORD(valuePtr))
   {
-    v81 = 0;
+    v82 = 0;
     v40 = _DLCreateMessageDataV(@"DLMessageDisconnect", 1, v29, v30, v31, v32, v33, v34, @"Protocol version mismatch");
-    v41 = _DLSendData(*(a1 + 64), v40, &v81);
+    v41 = _DLSendData(*(a1 + 64), v40, &v82);
     if (v40)
     {
       CFRelease(v40);
@@ -4220,13 +4241,13 @@ LABEL_54:
     {
       if (DLShouldLog(3))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Could not send disconnect message: '%@'", v42, v43, v44, v45, v81);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Could not send disconnect message: '%@'", v42, v43, v44, v45, v82);
       }
 
-      if (v81)
+      if (v82)
       {
-        CFRelease(v81);
-        v81 = 0;
+        CFRelease(v82);
+        v82 = 0;
       }
     }
 
@@ -4238,7 +4259,7 @@ LABEL_54:
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its DeviceLink protocol version is greater (connect: %d, accept: %d)", v35, v36, v37, v38, kDLProtocolVersion);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its DeviceLink protocol version is greater (connect: %d, accept: %d)", v35, v36, v37, v38, kDLProtocolVersion, HIDWORD(valuePtr));
     }
 
     goto LABEL_28;
@@ -4248,7 +4269,7 @@ LABEL_54:
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its DeviceLink protocol version is lesser (connect: %d, accept: %d)", v46, v47, v48, v49, kDLProtocolVersion);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its DeviceLink protocol version is lesser (connect: %d, accept: %d)", v46, v47, v48, v49, kDLProtocolVersion, HIDWORD(valuePtr));
     }
 
     v50 = @"DLErrorAcceptingDeviceLinkGreater";
@@ -4269,7 +4290,7 @@ LABEL_42:
 
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its app protocol version is lesser (connect: %d, accept: %d)", v76, v77, v78, v79, *(a1 + 36));
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its app protocol version is lesser (connect: %d, accept: %d)", v76, v77, v78, v79, *(a1 + 36), valuePtr);
     }
 
     v50 = @"DLErrorAcceptingProtocolGreater";
@@ -4281,7 +4302,7 @@ LABEL_41:
 
   if (DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its app protocol version is greater (connect: %d, accept: %d)", v72, v73, v74, v75, *(a1 + 36));
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 3, @"Connecting side determined that its app protocol version is greater (connect: %d, accept: %d)", v72, v73, v74, v75, *(a1 + 36), valuePtr);
   }
 
   v39 = CFRetain(@"DLErrorConnectingProtocolGreater");
@@ -4301,6 +4322,7 @@ LABEL_43:
   }
 
   v57 = CFNumberCreate(0, kCFNumberIntType, &kDLProtocolVersion);
+  v81 = v57;
   v64 = _DLCreateMessageDataV(@"DLMessageVersionExchange", 2, v58, v59, v60, v61, v62, v63, v39);
   if (v57)
   {
@@ -4327,45 +4349,43 @@ LABEL_43:
 
   if (DLShouldLog(6))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side sent %@", v67, v68, v69, v70, v39);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCheckVersionForConnect", 6, @"Connecting side sent %@", v67, v68, v69, v70, v39, v57);
   }
 
   return v51;
 }
 
-uint64_t _DLMainThreadMessagePortCallback(int a1, uint64_t a2, uint64_t xmlData, int *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _DLMainThreadMessagePortCallback(int a1, int a2, CFDataRef xmlData, _DWORD *a4)
 {
-  v9 = xmlData;
-  v10 = a2;
   errorString = 0;
-  v11 = a2 & 0xFFFFFF00;
-  v12 = a2;
+  v7 = a2 & 0xFFFFFF00;
+  v8 = a2;
   if (a2 >= 0x10u && DLShouldLog(4))
   {
-    v95 = a4;
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLMainThreadMessagePortCallback", 4, @"Main thread invoked with unknown msgid %d for connection %p", a5, a6, a7, a8, v12);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLMainThreadMessagePortCallback", 4, @"Main thread invoked with unknown msgid %d for connection %p", v9, v10, v11, v12, v8, a4);
   }
 
-  if (v11 != a4[1])
+  if (v7 != a4[1])
   {
     if (!DLShouldLog(4))
     {
       return 0;
     }
 
-    v96 = (a4[1] >> 8);
-    v94 = v10 >> 8;
+    v95 = (a4[1] >> 8);
+    v96 = a4;
+    v94 = (a2 >> 8);
     v18 = @"Connection session number %d from incoming message doesn't match current connection %d (connection %p)";
     v19 = 4;
 LABEL_10:
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLMainThreadMessagePortCallback", v19, v18, v14, v15, v16, v17, v94);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLMainThreadMessagePortCallback", v19, v18, v14, v15, v16, v17, v94, v95, v96);
     return 0;
   }
 
   if (sSaveCallHistory == 1)
   {
-    v13 = v12 <= 0xF ? sDLMessageStrings[v12] : "(Invalid Message Code)";
-    v20 = CFStringCreateWithFormat(0, 0, @"<- Main %s", v13, v95);
+    v13 = v8 <= 0xF ? sDLMessageStrings[v8] : "(Invalid Message Code)";
+    v20 = CFStringCreateWithFormat(0, 0, @"<- Main %s", v13);
     _DLCallHistoryAddEntry(v20);
     if (v20)
     {
@@ -4373,11 +4393,11 @@ LABEL_10:
     }
   }
 
-  if (v10 > 5u)
+  if (a2 > 5u)
   {
-    if (v10 <= 0xAu)
+    if (a2 <= 0xAu)
     {
-      switch(v10)
+      switch(a2)
       {
         case 6u:
           if (!DLShouldLog(3))
@@ -4420,23 +4440,23 @@ LABEL_92:
         return 0;
       }
 
-      LOBYTE(v94) = v12;
+      v94 = v8;
       v18 = @"DLMainThreadMessagePortCallback called with unknown message type: %d";
 LABEL_94:
       v19 = 3;
       goto LABEL_10;
     }
 
-    if (v10 != 11)
+    if (a2 != 11)
     {
-      if (v10 == 12)
+      if (a2 == 12)
       {
         _DLReleaseIOPMAssertion(a4);
         (*(*(a4 + 5) + 40))(a4);
         return 0;
       }
 
-      if (v10 == 13)
+      if (a2 == 13)
       {
         if (!DLShouldLog(3))
         {
@@ -4450,12 +4470,12 @@ LABEL_94:
       goto LABEL_92;
     }
 
-    if (v9)
+    if (xmlData)
     {
-      v9 = CFPropertyListCreateFromXMLData(0, v9, 0, &errorString);
+      xmlData = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString);
     }
 
-    Count = CFArrayGetCount(v9);
+    Count = CFArrayGetCount(xmlData);
     if (Count < 2)
     {
       v50 = 0;
@@ -4464,10 +4484,10 @@ LABEL_94:
     else
     {
       v49 = Count;
-      v50 = _DLGetParameterAtIndexWithDefaultValue(v9, 1, 0);
+      v50 = _DLGetParameterAtIndexWithDefaultValue(xmlData, 1, 0);
       if (v49 != 2)
       {
-        v51 = _DLGetParameterAtIndexWithDefaultValue(v9, 2, 0);
+        v51 = _DLGetParameterAtIndexWithDefaultValue(xmlData, 2, 0);
         goto LABEL_103;
       }
     }
@@ -4475,32 +4495,32 @@ LABEL_94:
     v51 = 0;
 LABEL_103:
     (*(*(a4 + 5) + 72))(a4, v50, v51);
-    if (!v9)
+    if (!xmlData)
     {
       return 0;
     }
 
 LABEL_104:
-    CFRelease(v9);
+    CFRelease(xmlData);
     return 0;
   }
 
-  if (v10 <= 2u)
+  if (a2 <= 2u)
   {
-    if (v10 == 1)
+    if (a2 == 1)
     {
-      _DLCreateIOPMAssertion(a4, a2, xmlData, a4, a5, a6, a7, a8, v94);
-      if (v9)
+      _DLCreateIOPMAssertion(a4);
+      if (xmlData)
       {
-        v9 = CFPropertyListCreateFromXMLData(0, v9, 0, &errorString);
-        if (!v9)
+        xmlData = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString);
+        if (!xmlData)
         {
           if (DLShouldLog(3))
           {
             _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLMainThreadMessagePortCallback", 3, @"Could not create a property list from the message XML data: '%@'", v42, v43, v44, v45, errorString);
           }
 
-          v9 = 0;
+          xmlData = 0;
         }
       }
 
@@ -4510,17 +4530,17 @@ LABEL_104:
         errorString = 0;
       }
 
-      (**(a4 + 5))(a4, v9);
+      (**(a4 + 5))(a4, xmlData);
     }
 
     else
     {
-      if (v10 != 2)
+      if (a2 != 2)
       {
         goto LABEL_92;
       }
 
-      if (v9 && (v40 = CFPropertyListCreateFromXMLData(0, v9, 0, &errorString), (v9 = v40) != 0))
+      if (xmlData && (v40 = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString), (xmlData = v40) != 0))
       {
         v41 = _DLGetParameterAtIndexWithDefaultValue(v40, 1, 0);
       }
@@ -4537,17 +4557,17 @@ LABEL_104:
     goto LABEL_99;
   }
 
-  if (v10 == 3)
+  if (a2 == 3)
   {
-    _DLCreateIOPMAssertion(a4, a2, xmlData, a4, a5, a6, a7, a8, v94);
+    _DLCreateIOPMAssertion(a4);
     (*(*(a4 + 5) + 8))(a4);
     _DLRequestRead(a4);
     return 0;
   }
 
-  if (v10 == 4)
+  if (a2 == 4)
   {
-    if (v9 && (v46 = CFPropertyListCreateFromXMLData(0, v9, 0, &errorString), (v9 = v46) != 0))
+    if (xmlData && (v46 = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString), (xmlData = v46) != 0))
     {
       v47 = _DLGetParameterAtIndexWithDefaultValue(v46, 1, 0);
     }
@@ -4560,7 +4580,7 @@ LABEL_104:
     *a4 = 0;
     (*(*(a4 + 5) + 16))(a4, v47);
 LABEL_99:
-    if (!v9)
+    if (!xmlData)
     {
       return 0;
     }
@@ -4568,18 +4588,18 @@ LABEL_99:
     goto LABEL_104;
   }
 
-  if (v10 != 5)
+  if (a2 != 5)
   {
     goto LABEL_92;
   }
 
-  if (!v9)
+  if (!xmlData)
   {
     errorString = CFRetain(@"NULL data returned from read");
     goto LABEL_106;
   }
 
-  v24 = CFPropertyListCreateFromXMLData(0, v9, 0, &errorString);
+  v24 = CFPropertyListCreateFromXMLData(0, xmlData, 0, &errorString);
   if (!v24)
   {
 LABEL_106:
@@ -4610,7 +4630,7 @@ LABEL_106:
 
   if (!ValueAtIndex && DLShouldLog(4))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandleIncomingMessage", 4, @"HandleIncomingMessage called with NULL message!", v29, v30, v31, v32, v94);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandleIncomingMessage", 4, @"HandleIncomingMessage called with NULL message!", v29, v30, v31, v32);
   }
 
   if (CFStringCompare(ValueAtIndex, @"DLMessageDeviceReady", 0) == kCFCompareEqualTo)
@@ -4778,7 +4798,7 @@ LABEL_138:
 
     v70 = @"CreateDirectory message received with too few components";
 LABEL_165:
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandleIncomingMessage", 4, v70, v66, v67, v68, v69, v94);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandleIncomingMessage", 4, v70, v66, v67, v68, v69);
     goto LABEL_166;
   }
 
@@ -5008,53 +5028,52 @@ uint64_t _DLSendData(uint64_t a1, CFDataRef theData, CFTypeRef *a3)
   }
 }
 
-void _DLCreateIOPMAssertion(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _DLCreateIOPMAssertion(uint64_t result)
 {
-  if (*(a1 + 146))
+  if (*(result + 146))
   {
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateIOPMAssertion", 6, @"Grabbing PreventIdleSleep assertion...", v10, v11, v12, v13, v19);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateIOPMAssertion", 6, @"Grabbing PreventIdleSleep assertion...", v2, v3, v4, v5);
     }
 
-    v14 = DLGetProcessName();
-    if (IOPMAssertionCreateWithName(@"NoIdleSleepAssertion", 0xFFu, v14, (a1 + 208)) && DLShouldLog(3))
+    v6 = DLGetProcessName();
+    if (IOPMAssertionCreateWithName(@"NoIdleSleepAssertion", 0xFFu, v6, (result + 208)) && DLShouldLog(3))
     {
 
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateIOPMAssertion", 3, @"Could not grab idle sleep prevention assertion!", v15, v16, v17, v18, a9);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLCreateIOPMAssertion", 3, @"Could not grab idle sleep prevention assertion!", v7, v8, v9, v10);
     }
   }
 }
 
-void _DLReleaseIOPMAssertion(uint64_t a1)
+void _DLReleaseIOPMAssertion(uint64_t result)
 {
-  if (*(a1 + 146))
+  if (*(result + 146))
   {
     if (DLShouldLog(6))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLReleaseIOPMAssertion", 6, @"Releasing PreventIdleSleep assertion...", v2, v3, v4, v5, v11);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLReleaseIOPMAssertion", 6, @"Releasing PreventIdleSleep assertion...", v2, v3, v4, v5);
     }
 
-    v6 = *(a1 + 208);
+    v6 = *(result + 208);
     if (v6)
     {
       if (IOPMAssertionRelease(v6))
       {
         if (DLShouldLog(3))
         {
-          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLReleaseIOPMAssertion", 3, @"Could not release idle sleep prevention assertion", v7, v8, v9, v10, v11);
+          _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLReleaseIOPMAssertion", 3, @"Could not release idle sleep prevention assertion", v7, v8, v9, v10);
         }
       }
 
-      *(a1 + 208) = 0;
+      *(result + 208) = 0;
     }
   }
 }
 
 uint64_t _DLHandlerThreadEntryPoint(uint64_t a1)
 {
-  v8 = *(a1 + 72);
-  v2 = CFStringCreateWithFormat(0, 0, @"%@.%@");
+  v2 = CFStringCreateWithFormat(0, 0, @"%@.%@", *(a1 + 72), @"HandlerMessagePort");
   *(a1 + 88) = DLThreadCreateReceivePort(v2, a1, _DLHandlerThreadMessagePortCallback);
   *(a1 + 104) = DLThreadCreateSendPort(v2);
   if (v2)
@@ -5067,7 +5086,7 @@ uint64_t _DLHandlerThreadEntryPoint(uint64_t a1)
   DLThreadRun();
   if (DLShouldLog(5))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadEntryPoint", 5, @"Handler thread exited run loop", v3, v4, v5, v6, v8);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLHandlerThreadEntryPoint", 5, @"Handler thread exited run loop", v3, v4, v5, v6);
   }
 
   return 0;
@@ -5108,11 +5127,13 @@ void DLDeleteCondition(pthread_cond_t *a1)
 pthread_mutex_t *DLCreateMutex()
 {
   v0 = malloc_type_calloc(0x40uLL, 1uLL, 0x1000040FA0F61DDuLL);
-  if (pthread_mutex_init(v0, 0))
+  v1 = pthread_mutex_init(v0, 0);
+  if (v1)
   {
+    v2 = v1;
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLCreateMutex", 3, @"Error initializing mutex: %d");
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLCreateMutex", 3, @"Error initializing mutex: %d", v3, v4, v5, v6, v2);
     }
 
     free(v0);
@@ -5140,7 +5161,7 @@ BOOL DLLock(pthread_mutex_t *a1)
   v1 = pthread_mutex_lock(a1);
   if (v1 && DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLLock", 3, @"Error locking mutex: %d");
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLLock", 3, @"Error locking mutex: %d", v2, v3, v4, v5, v1);
   }
 
   return v1 == 0;
@@ -5151,7 +5172,7 @@ BOOL DLUnlock(pthread_mutex_t *a1)
   v1 = pthread_mutex_unlock(a1);
   if (v1 && DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLUnlock", 3, @"Error unlocking mutex: %d");
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLUnlock", 3, @"Error unlocking mutex: %d", v2, v3, v4, v5, v1);
   }
 
   return v1 == 0;
@@ -5175,7 +5196,7 @@ void DLWait(pthread_cond_t *a1, pthread_mutex_t *a2, _BYTE *a3)
     {
       if (DLShouldLog(5))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLWait", 5, @"Waiting for flag to be set...", v12, v13, v14, v15, v32);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLWait", 5, @"Waiting for flag to be set...", v12, v13, v14, v15);
       }
 
       v16 = pthread_cond_wait(a1, a2);
@@ -5193,7 +5214,7 @@ void DLWait(pthread_cond_t *a1, pthread_mutex_t *a2, _BYTE *a3)
 
     if (DLShouldLog(5))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLWait", 5, @"Done waiting for flag to be set, ready to rock and roll", v22, v23, v24, v25, v32);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLWait", 5, @"Done waiting for flag to be set, ready to rock and roll", v22, v23, v24, v25);
     }
 
     v26 = pthread_mutex_unlock(a2);
@@ -5267,7 +5288,7 @@ __CFMessagePort *DLThreadCreateReceivePort(uint64_t a1, uint64_t a2, uint64_t a3
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLThreadCreateReceivePort", 3, @"Can't create message port for %@ (%@)", v12, v13, v14, v15, a1);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "DLThreadCreateReceivePort", 3, @"Can't create message port for %@ (%@)", v12, v13, v14, v15, a1, v9);
     }
 
     v11 = 0;
@@ -5290,10 +5311,15 @@ uint64_t _DeviceLinkThreadMessageCallback(__CFMessagePort *a1, uint64_t a2, cons
     v12 = decodeMsgId(a2);
     if (a3)
     {
-      CFDataGetLength(a3);
+      Length = CFDataGetLength(a3);
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DeviceLinkThreadMessageCallback", 7, @"Callback with message %@-%d and %d bytes of data (0x%08x)", v8, v9, v10, v11, v12);
+    else
+    {
+      Length = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DeviceLinkThreadMessageCallback", 7, @"Callback with message %@-%d and %d bytes of data (0x%08x)", v8, v9, v10, v11, v12, a2 >> 8, Length, a3);
   }
 
   *buffer = 0;
@@ -5306,17 +5332,17 @@ uint64_t _DeviceLinkThreadMessageCallback(__CFMessagePort *a1, uint64_t a2, cons
 
   if (a1 && CFMessagePortIsValid(a1))
   {
-    v13 = (*(a4 + 8))(a1, a2, *buffer, *a4);
+    v14 = (*(a4 + 8))(a1, a2, *buffer, *a4);
   }
 
   else
   {
     if (DLShouldLog(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DeviceLinkThreadMessageCallback", 3, @"Can't send message to nil or invalid port", v14, v15, v16, v17, v19);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DeviceLinkThreadMessageCallback", 3, @"Can't send message to nil or invalid port", v15, v16, v17, v18);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
   if (*buffer)
@@ -5324,10 +5350,10 @@ uint64_t _DeviceLinkThreadMessageCallback(__CFMessagePort *a1, uint64_t a2, cons
     CFRelease(*buffer);
   }
 
-  return v13;
+  return v14;
 }
 
-void _DeviceLinkThreadPortInvalidationCallback(char a1)
+void _DeviceLinkThreadPortInvalidationCallback(uint64_t a1)
 {
   if (DLShouldLog(7))
   {
@@ -5398,7 +5424,7 @@ void DLThreadDeleteReceivePort(__CFMessagePort *a1)
   }
 }
 
-CFDataRef _DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a3, int a4)
+CFDataRef _DLThreadSendMessage(__CFMessagePort *a1, unsigned int a2, const __CFData *a3, int a4)
 {
   v5 = a3;
   returnData = 0;
@@ -5408,10 +5434,15 @@ CFDataRef _DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a
     v12 = decodeMsgId(a2);
     if (v5)
     {
-      CFDataGetLength(v5);
+      Length = CFDataGetLength(v5);
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DLThreadSendMessage", 7, @"Invoked with message %@-%d and %d bytes of data (0x%08x)", v8, v9, v10, v11, v12);
+    else
+    {
+      Length = 0;
+    }
+
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkThread.c", "_DLThreadSendMessage", 7, @"Invoked with message %@-%d and %d bytes of data (0x%08x)", v8, v9, v10, v11, v12, a2 >> 8, Length, v5);
   }
 
   if (v5)
@@ -5421,15 +5452,10 @@ CFDataRef _DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a
 
   if (a1 && CFMessagePortIsValid(a1) == 1)
   {
-    v13 = 0.0;
+    v14 = 0.0;
     if (a4)
     {
-      v13 = 86400.0;
-    }
-
-    v14 = *MEMORY[0x277CBF058];
-    if (a4)
-    {
+      v14 = 86400.0;
       v15 = *MEMORY[0x277CBF058];
     }
 
@@ -5438,7 +5464,7 @@ CFDataRef _DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a
       v15 = 0;
     }
 
-    v16 = CFMessagePortSendRequest(a1, a2, v5, 5.0, v13, v15, &returnData);
+    v16 = CFMessagePortSendRequest(a1, a2, v5, 5.0, v14, v15, &returnData);
     if (v16)
     {
       v17 = v16;
@@ -5475,7 +5501,7 @@ __CFString *decodeMsgId(unsigned int a1)
   }
 }
 
-void DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a3)
+void DLThreadSendMessage(__CFMessagePort *a1, unsigned int a2, const __CFData *a3)
 {
   v3 = _DLThreadSendMessage(a1, a2, a3, 0);
   if (v3)
@@ -5487,7 +5513,6 @@ void DLThreadSendMessage(__CFMessagePort *a1, SInt32 a2, const __CFData *a3)
 
 uint64_t DLSetStatus(uint64_t a1, CFTypeRef *a2, CFTypeRef cf)
 {
-  v3 = cf;
   if (a2)
   {
     *a2 = CFRetain(cf);
@@ -5495,27 +5520,30 @@ uint64_t DLSetStatus(uint64_t a1, CFTypeRef *a2, CFTypeRef cf)
 
   else if (DLLoggingEnabled(3) || DLOutputEnabled(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLSetStatus", 3, @"An error occured, but no error string pointer was passed to the function. The error was:\n%@", v5, v6, v7, v8, v3);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLSetStatus", 3, @"An error occured, but no error string pointer was passed to the function. The error was:\n%@", v5, v6, v7, v8, cf);
   }
 
   return a1;
 }
 
-BOOL DLShouldLog(int a1)
+BOOL DLShouldLog(uint64_t a1)
 {
+  v1 = a1;
   if (DLLoggingEnabled(a1))
   {
     return 1;
   }
 
-  return DLOutputEnabled(a1);
+  return DLOutputEnabled(v1);
 }
 
-void _DLLog(const char *a1, const char *a2, int a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void _DLLog(const char *a1, const char *a2, uint64_t a3, const __CFString *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v13 = 0x27F9E2000uLL;
-  v14 = sLogMutex;
-  v15 = (sLogMutex || (v14 = DLCreateMutex(), (sLogMutex = v14) != 0)) && DLLock(v14);
+  va_start(va, a8);
+  v9 = a3;
+  v12 = 0x27F9E2000uLL;
+  v13 = sLogMutex;
+  v14 = (sLogMutex || (v13 = DLCreateMutex(), (sLogMutex = v13) != 0)) && DLLock(v13);
   if (!a1)
   {
     a1 = "UNKNOWN";
@@ -5523,63 +5551,63 @@ void _DLLog(const char *a1, const char *a2, int a3, const __CFString *a4, uint64
 
   if (a2)
   {
-    v16 = a2;
+    v15 = a2;
   }
 
   else
   {
-    v16 = "UNKNOWN";
+    v15 = "UNKNOWN";
   }
 
-  v17 = strlen(a1) - 2;
-  v18 = &a1[v17];
+  v16 = strlen(a1) - 2;
+  v17 = &a1[v16];
   do
   {
-    v19 = v18;
-    v20 = v17;
-    if (v18 + 1 <= a1)
+    v18 = v17;
+    v19 = v16;
+    if (v17 + 1 <= a1)
     {
       break;
     }
 
-    --v18;
     --v17;
+    --v16;
   }
 
-  while (*v19 != 47);
-  if (v20)
+  while (*v18 != 47);
+  if (v19)
   {
-    v21 = v19 + 1;
-  }
-
-  else
-  {
-    v21 = v19;
-  }
-
-  if ((a3 - 3) > 4)
-  {
-    v22 = "UNKNOWN";
+    v20 = v18 + 1;
   }
 
   else
   {
-    v22 = (&off_2798E58B0)[a3 - 3];
+    v20 = v18;
   }
 
-  v23 = *MEMORY[0x277CBECE8];
-  v24 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a4, &a9);
-  if (!DLLoggingEnabled(a3))
+  if ((v9 - 3) > 4)
   {
-    v28 = @"Log error";
+    v21 = "UNKNOWN";
+  }
+
+  else
+  {
+    v21 = (&off_2798E58B0)[v9 - 3];
+  }
+
+  v22 = *MEMORY[0x277CBECE8];
+  v23 = CFStringCreateWithFormatAndArguments(*MEMORY[0x277CBECE8], 0, a4, va);
+  if (!DLLoggingEnabled(v9))
+  {
+    v27 = @"Log error";
     goto LABEL_47;
   }
 
-  v25 = dateFormat;
+  v24 = dateFormat;
   if (dateFormat)
   {
     Current = CFAbsoluteTimeGetCurrent();
-    StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(v23, v25, Current);
+    StringWithAbsoluteTime = CFDateFormatterCreateStringWithAbsoluteTime(v22, v24, Current);
   }
 
   else
@@ -5587,288 +5615,288 @@ void _DLLog(const char *a1, const char *a2, int a3, const __CFString *a4, uint64
     StringWithAbsoluteTime = &stru_286ABDCB8;
   }
 
-  v29 = DLGetProcessName();
-  v30 = getpid();
-  v31 = pthread_self();
-  v28 = CFStringCreateWithFormat(0, 0, @"%@|%@|%ld:%lu|%s:%s| %s: %@\n", StringWithAbsoluteTime, v29, v30, v31, v21, v16, v22, v24);
+  v28 = DLGetProcessName();
+  v29 = getpid();
+  v30 = pthread_self();
+  v27 = CFStringCreateWithFormat(0, 0, @"%@|%@|%ld:%lu|%s:%s| %s: %@\n", StringWithAbsoluteTime, v28, v29, v30, v20, v15, v21, v23);
   if (StringWithAbsoluteTime)
   {
     CFRelease(StringWithAbsoluteTime);
   }
 
-  v32 = 0x27F9E2000uLL;
+  v31 = 0x27F9E2000uLL;
   if ((logStream & 0x80000000) == 0)
   {
     goto LABEL_26;
   }
 
-  v35 = CFCopyHomeDirectoryURLForUser();
-  if (!v35)
+  v34 = CFCopyHomeDirectoryURLForUser();
+  if (!v34)
   {
     CFPrintf(@"Could not get a home directory path");
-    v13 = 0x27F9E2000;
+    v12 = 0x27F9E2000;
     goto LABEL_47;
   }
 
-  v36 = v35;
-  v37 = CFURLCreateCopyAppendingPathComponent(0, v35, @"Library/Logs", 1u);
-  CFRelease(v36);
-  v13 = 0x27F9E2000;
-  if (!v37)
+  v35 = v34;
+  v36 = CFURLCreateCopyAppendingPathComponent(0, v34, @"Library/Logs", 1u);
+  CFRelease(v35);
+  v12 = 0x27F9E2000;
+  if (!v36)
   {
     CFPrintf(@"Could not get a log directory path from %@", 0);
     goto LABEL_47;
   }
 
-  v82 = v16;
+  v81 = v15;
   if (sLogDirectoryName)
   {
-    v38 = sLogDirectoryName;
+    v37 = sLogDirectoryName;
   }
 
   else
   {
-    v38 = @"DeviceLink";
+    v37 = @"DeviceLink";
   }
 
-  v39 = CFURLCreateCopyAppendingPathComponent(0, v37, v38, 1u);
-  CFRelease(v37);
-  if (!v39)
+  v38 = CFURLCreateCopyAppendingPathComponent(0, v36, v37, 1u);
+  CFRelease(v36);
+  if (!v38)
   {
     CFPrintf(@"Could not get the current process' log directory path at %@", 0);
     goto LABEL_88;
   }
 
-  v40 = CFURLCopyFileSystemPath(v39, kCFURLPOSIXPathStyle);
-  if (!v40)
+  v39 = CFURLCopyFileSystemPath(v38, kCFURLPOSIXPathStyle);
+  if (!v39)
   {
-    CFPrintf(@"Could not get a string for the current process' log directory path at %@", v39);
-    v77 = v39;
+    CFPrintf(@"Could not get a string for the current process' log directory path at %@", v38);
+    v76 = v38;
 LABEL_84:
-    CFRelease(v77);
+    CFRelease(v76);
     goto LABEL_88;
   }
 
-  v41 = v40;
-  DLEnsureDirectoryExists(v40);
-  CFRelease(v41);
-  v42 = DLGetProcessName();
-  if (v42 && (v43 = v42, Length = CFStringGetLength(v42), v45.location = CFStringFind(v43, @"/", 4uLL).location + 1, Length - v45.location >= 1))
+  v40 = v39;
+  DLEnsureDirectoryExists(v39);
+  CFRelease(v40);
+  v41 = DLGetProcessName();
+  if (v41 && (v42 = v41, Length = CFStringGetLength(v41), v44.location = CFStringFind(v42, @"/", 4uLL).location + 1, Length - v44.location >= 1))
   {
-    v45.length = Length - v45.location;
-    v46 = CFStringCreateWithSubstring(0, v43, v45);
+    v44.length = Length - v44.location;
+    v45 = CFStringCreateWithSubstring(0, v42, v44);
   }
 
   else
   {
-    v46 = @"DeviceLink";
+    v45 = @"DeviceLink";
   }
 
-  v59 = CFURLCreateCopyAppendingPathComponent(0, v39, v46, 0);
-  CFRelease(v39);
-  if (!v59)
+  v58 = CFURLCreateCopyAppendingPathComponent(0, v38, v45, 0);
+  CFRelease(v38);
+  if (!v58)
   {
     CFPrintf(@"Could not create a log base filename from %@", 0);
-    if (v46)
+    if (v45)
     {
-      v77 = v46;
+      v76 = v45;
       goto LABEL_84;
     }
 
 LABEL_88:
-    v16 = v82;
+    v15 = v81;
     goto LABEL_47;
   }
 
-  v80 = v21;
-  StringForLogFile = _createStringForLogFile(v59, 0);
+  v79 = v20;
+  StringForLogFile = _createStringForLogFile(v58, 0);
   if (!StringForLogFile)
   {
-    CFPrintf(@"Could not get a string for the log file name %@", v59);
-    if (v46)
+    CFPrintf(@"Could not get a string for the log file name %@", v58);
+    if (v45)
     {
-      CFRelease(v46);
+      CFRelease(v45);
     }
 
-    CFRelease(v59);
+    CFRelease(v58);
     goto LABEL_88;
   }
 
-  v61 = StringForLogFile;
-  v62 = v15;
+  v60 = StringForLogFile;
+  v61 = v14;
   memset(&usedBufLen, 0, sizeof(usedBufLen));
-  v79 = DLCreateCStringFromCFString(StringForLogFile);
-  v63 = stat(v79, &usedBufLen);
-  CFRelease(v61);
-  v64 = 522;
-  if (v63)
+  v78 = DLCreateCStringFromCFString(StringForLogFile);
+  v62 = stat(v78, &usedBufLen);
+  CFRelease(v60);
+  v63 = 522;
+  if (v62)
   {
-    v15 = v62;
+    v14 = v61;
   }
 
   else
   {
-    v15 = v62;
+    v14 = v61;
     if (usedBufLen.st_size >= 16777217)
     {
-      cf = v22;
-      v65 = 1;
+      cf = v21;
+      v64 = 1;
       do
       {
-        v66 = _createStringForLogFile(v59, v65);
-        v67 = DLCreateCStringFromCFString(v66);
-        v68 = stat(v67, &usedBufLen);
-        free(v67);
-        if (v66)
+        v65 = _createStringForLogFile(v58, v64);
+        v66 = DLCreateCStringFromCFString(v65);
+        v67 = stat(v66, &usedBufLen);
+        free(v66);
+        if (v65)
         {
-          CFRelease(v66);
+          CFRelease(v65);
         }
 
-        if (v68)
+        if (v67)
         {
-          v65 = v65;
+          v64 = v64;
         }
 
         else
         {
-          v65 = (v65 + 1);
+          v64 = (v64 + 1);
         }
       }
 
-      while (!v68 && v65 < 0xB);
-      if (v65 >= 0xA)
+      while (!v67 && v64 < 0xB);
+      if (v64 >= 0xA)
       {
-        v65 = 10;
+        v64 = 10;
       }
 
       else
       {
-        v65 = v65;
+        v64 = v64;
       }
 
       do
       {
-        v69 = _createStringForLogFile(v59, v65);
-        v65 = (v65 - 1);
-        v70 = _createStringForLogFile(v59, v65);
+        v68 = _createStringForLogFile(v58, v64);
+        v64 = (v64 - 1);
+        v69 = _createStringForLogFile(v58, v64);
+        v70 = DLCreateCStringFromCFString(v68);
         v71 = DLCreateCStringFromCFString(v69);
-        v72 = DLCreateCStringFromCFString(v70);
-        rename(v72, v71, v73);
-        if (v74 < 0)
+        rename(v71, v70, v72);
+        if (v73 < 0)
         {
-          v75 = __error();
-          v76 = strerror(*v75);
-          CFPrintf(@"Could not move log file from %s to %s: %s", v72, v71, v76);
+          v74 = __error();
+          v75 = strerror(*v74);
+          CFPrintf(@"Could not move log file from %s to %s: %s", v71, v70, v75);
         }
 
+        free(v70);
         free(v71);
-        free(v72);
       }
 
-      while ((v65 + 1) > 1);
-      v64 = 1538;
-      v13 = 0x27F9E2000;
-      v15 = v62;
-      v22 = cf;
+      while ((v64 + 1) > 1);
+      v63 = 1538;
+      v12 = 0x27F9E2000;
+      v14 = v61;
+      v21 = cf;
     }
   }
 
-  logStream = open(v79, v64, 384);
-  CFRelease(v59);
-  v16 = v82;
-  v21 = v80;
+  logStream = open(v78, v63, 384);
+  CFRelease(v58);
+  v15 = v81;
+  v20 = v79;
   if ((logStream & 0x80000000) == 0)
   {
     atexit(_closeLogStream);
-    if (v46)
+    if (v45)
     {
-      CFRelease(v46);
+      CFRelease(v45);
     }
 
-    free(v79);
-    v32 = 0x27F9E2000;
+    free(v78);
+    v31 = 0x27F9E2000;
 LABEL_26:
-    v81 = v16;
-    v33 = 134217984;
+    v80 = v15;
+    v32 = 134217984;
     *&usedBufLen.st_dev = 0;
-    v84.length = CFStringGetLength(v28);
+    v84.length = CFStringGetLength(v27);
     v84.location = 0;
-    if (CFStringGetBytes(v28, v84, 0x8000100u, 0, 0, 0, v84.length, &usedBufLen.st_dev) <= 0)
+    if (CFStringGetBytes(v27, v84, 0x8000100u, 0, 0, 0, v84.length, &usedBufLen.st_dev) <= 0)
     {
-      CFPrintf(@"Can't determine byte count for log line, falling back to ASCII.\nLine is %@\n", v28);
-      v34 = CFStringGetLength(v28);
-      v33 = 1536;
+      CFPrintf(@"Can't determine byte count for log line, falling back to ASCII.\nLine is %@\n", v27);
+      v33 = CFStringGetLength(v27);
+      v32 = 1536;
     }
 
     else
     {
-      v34 = *&usedBufLen.st_dev;
+      v33 = *&usedBufLen.st_dev;
     }
 
-    v47 = malloc_type_malloc(((v34 << 32) + 0x100000000) >> 32, 0x100004077774924uLL);
-    if (CFStringGetCString(v28, v47, ((v34 << 32) + 0x100000000) >> 32, v33))
+    v46 = malloc_type_malloc(((v33 << 32) + 0x100000000) >> 32, 0x100004077774924uLL);
+    if (CFStringGetCString(v27, v46, ((v33 << 32) + 0x100000000) >> 32, v32))
     {
-      if (write(*(v32 + 1988), v47, v34) < 0 && DLOutputEnabled(3))
+      if (write(*(v31 + 1988), v46, v33) < 0 && DLOutputEnabled(3))
       {
-        CFPrintf(@"Error writing to the log file stream: %s\n", v47);
+        CFPrintf(@"Error writing to the log file stream: %s\n", v46);
       }
 
-      free(v47);
+      free(v46);
     }
 
     else
     {
-      FastestEncoding = CFStringGetFastestEncoding(v28);
-      v49 = CFStringGetFastestEncoding(v28);
-      NameOfEncoding = CFStringGetNameOfEncoding(v49);
-      SmallestEncoding = CFStringGetSmallestEncoding(v28);
-      v52 = CFStringGetSmallestEncoding(v28);
-      v53 = CFStringGetNameOfEncoding(v52);
-      CFPrintf(@"Could not get C string to log to the log file, fastest string encoding is %d: %@, smallest string encoding is %d: %@, line is %@\n", FastestEncoding, NameOfEncoding, SmallestEncoding, v53, v28);
+      FastestEncoding = CFStringGetFastestEncoding(v27);
+      v48 = CFStringGetFastestEncoding(v27);
+      NameOfEncoding = CFStringGetNameOfEncoding(v48);
+      SmallestEncoding = CFStringGetSmallestEncoding(v27);
+      v51 = CFStringGetSmallestEncoding(v27);
+      v52 = CFStringGetNameOfEncoding(v51);
+      CFPrintf(@"Could not get C string to log to the log file, fastest string encoding is %d: %@, smallest string encoding is %d: %@, line is %@\n", FastestEncoding, NameOfEncoding, SmallestEncoding, v52, v27);
     }
 
-    v16 = v81;
-    v13 = 0x27F9E2000uLL;
+    v15 = v80;
+    v12 = 0x27F9E2000uLL;
     goto LABEL_47;
   }
 
-  CFPrintf(@"Could not open log file at %s\n", v79);
-  if (v46)
+  CFPrintf(@"Could not open log file at %s\n", v78);
+  if (v45)
   {
-    CFRelease(v46);
+    CFRelease(v45);
   }
 
-  free(v79);
+  free(v78);
 LABEL_47:
-  if (DLOutputEnabled(a3))
+  if (DLOutputEnabled(v9))
   {
-    v54 = getpid();
-    v55 = pthread_self();
-    v56 = CFStringCreateWithFormat(0, 0, @"%ld:%lu|%s:%s| %s: %@", v54, v55, v21, v16, v22, v24);
-    v57 = DLCreateCStringFromCFString(v56);
-    if (v57)
+    v53 = getpid();
+    v54 = pthread_self();
+    v55 = CFStringCreateWithFormat(0, 0, @"%ld:%lu|%s:%s| %s: %@", v53, v54, v20, v15, v21, v23);
+    v56 = DLCreateCStringFromCFString(v55);
+    if (v56)
     {
-      v58 = v57;
-      syslog(a3, "%s", v57);
-      free(v58);
+      v57 = v56;
+      syslog(v9, "%s", v56);
+      free(v57);
     }
 
-    CFRelease(v56);
+    CFRelease(v55);
   }
 
-  if (v28)
+  if (v27)
   {
-    CFRelease(v28);
+    CFRelease(v27);
   }
 
-  if (v24)
+  if (v23)
   {
-    CFRelease(v24);
+    CFRelease(v23);
   }
 
-  if (v15)
+  if (v14)
   {
-    DLUnlock(*(v13 + 2024));
+    DLUnlock(*(v12 + 2024));
   }
 }
 
@@ -5897,7 +5925,7 @@ CFStringRef _DLWarnAboutUsingCopyHomeDirPathAndCallDLCopyHomeDirPath()
     _DLWarnAboutUsingCopyHomeDirPathAndCallDLCopyHomeDirPath_pScreamedAndShouted = 1;
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLWarnAboutUsingCopyHomeDirPathAndCallDLCopyHomeDirPath", 3, @"*** The function copyHomeDirPath has been deprecated and will be removed in a future release. Change your code to use DLCopyHomeDirPath.", v1, v2, v3, v4, vars0);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLWarnAboutUsingCopyHomeDirPathAndCallDLCopyHomeDirPath", 3, @"*** The function copyHomeDirPath has been deprecated and will be removed in a future release. Change your code to use DLCopyHomeDirPath.", v1, v2, v3, v4);
     }
 
     v0 = vars8;
@@ -5908,11 +5936,9 @@ CFStringRef _DLWarnAboutUsingCopyHomeDirPathAndCallDLCopyHomeDirPath()
 
 CFStringRef DLCopyTempDir()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   strcpy(buffer, "/tmp");
-  result = CFStringCreateWithFileSystemRepresentation(0, buffer);
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return CFStringCreateWithFileSystemRepresentation(0, buffer);
 }
 
 CFStringRef DLStringByAppendingPathComponent(const __CFString *a1, const __CFString *a2)
@@ -6229,7 +6255,7 @@ uint64_t DLGetProcessName()
   return result;
 }
 
-void DLSetProcessName(CFStringRef theString)
+void DLSetProcessName(const __CFString *theString)
 {
   if (theString)
   {
@@ -6391,7 +6417,7 @@ __CFData *createDecryptedData(const __CFData *a1, CFDataRef theData, const __CFD
   {
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createDecryptedData", 3, @"Cannot decrypt without a key or data!", v8, v9, v10, v11, dataOut);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createDecryptedData", 3, @"Cannot decrypt without a key or data!", v8, v9, v10, v11);
     }
 
     return 0;
@@ -6413,7 +6439,7 @@ __CFData *createDecryptedData(const __CFData *a1, CFDataRef theData, const __CFD
   Length = CFDataGetLength(a1);
   if (CCCrypt(1u, 0, 1u, BytePtr, 0x20uLL, v7, v12, Length, 0, 0, &dataOutMoved) != -4301 && CFDataGetLength(a1) && (DLLoggingEnabled(3) || DLOutputEnabled(3)))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createDecryptedData", 3, @"Woah- CCCrypt was ok with a 0 length buffer for the decrypted data. Something is going wrong.", v14, v15, v16, v17, dataOuta);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createDecryptedData", 3, @"Woah- CCCrypt was ok with a 0 length buffer for the decrypted data. Something is going wrong.", v14, v15, v16, v17);
   }
 
   Mutable = CFDataCreateMutable(0, dataOutMoved);
@@ -6426,8 +6452,8 @@ __CFData *createDecryptedData(const __CFData *a1, CFDataRef theData, const __CFD
 
   v20 = CFDataGetBytePtr(a1);
   v21 = CFDataGetLength(a1);
-  MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-  v23 = CCCrypt(1u, 0, 1u, v19, 0x20uLL, a3, v20, v21, MutableBytePtr, dataOutMoved, &dataOutMoved);
+  dataOut = CFDataGetMutableBytePtr(Mutable);
+  v23 = CCCrypt(1u, 0, 1u, v19, 0x20uLL, a3, v20, v21, dataOut, dataOutMoved, &dataOutMoved);
   CFDataSetLength(Mutable, dataOutMoved);
   if (v23)
   {
@@ -6452,7 +6478,7 @@ __CFData *createEncryptedData(const __CFData *a1, CFDataRef theData, const __CFD
   {
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createEncryptedData", 3, @"Cannot encrypt without a key or data!", v8, v9, v10, v11, dataOut);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createEncryptedData", 3, @"Cannot encrypt without a key or data!", v8, v9, v10, v11);
     }
 
     return 0;
@@ -6474,7 +6500,7 @@ __CFData *createEncryptedData(const __CFData *a1, CFDataRef theData, const __CFD
   Length = CFDataGetLength(a1);
   if (CCCrypt(0, 0, 1u, BytePtr, 0x20uLL, v7, v12, Length, 0, 0, &dataOutMoved) != -4301 && CFDataGetLength(a1) && (DLLoggingEnabled(3) || DLOutputEnabled(3)))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createEncryptedData", 3, @"Woah- CCCrypt was ok with a 0 length buffer for the encrypted data. Something is going wrong.", v14, v15, v16, v17, dataOuta);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createEncryptedData", 3, @"Woah- CCCrypt was ok with a 0 length buffer for the encrypted data. Something is going wrong.", v14, v15, v16, v17);
   }
 
   Mutable = CFDataCreateMutable(0, dataOutMoved);
@@ -6487,8 +6513,8 @@ __CFData *createEncryptedData(const __CFData *a1, CFDataRef theData, const __CFD
 
   v20 = CFDataGetBytePtr(a1);
   v21 = CFDataGetLength(a1);
-  MutableBytePtr = CFDataGetMutableBytePtr(Mutable);
-  v23 = CCCrypt(0, 0, 1u, v19, 0x20uLL, a3, v20, v21, MutableBytePtr, dataOutMoved, &dataOutMoved);
+  dataOut = CFDataGetMutableBytePtr(Mutable);
+  v23 = CCCrypt(0, 0, 1u, v19, 0x20uLL, a3, v20, v21, dataOut, dataOutMoved, &dataOutMoved);
   CFDataSetLength(Mutable, dataOutMoved);
   if (v23)
   {
@@ -6507,38 +6533,35 @@ __CFData *createEncryptedData(const __CFData *a1, CFDataRef theData, const __CFD
   return Mutable;
 }
 
-CFDataRef createRandomBytes(int a1)
+CFDataRef createRandomBytes(uint64_t a1)
 {
   v15[1] = *MEMORY[0x277D85DE8];
   MEMORY[0x28223BE20]();
   v3 = v15 - ((v2 + 15) & 0x1FFFFFFF0);
   v4 = open("/dev/random", 0);
-  if (v4)
+  if (!v4)
   {
-    v5 = v4;
-    v6 = read(v4, v3, a1);
-    if (v6 >= a1)
-    {
-      close(v5);
-      result = CFDataCreate(0, v3, a1);
-      goto LABEL_9;
-    }
+    return 0;
+  }
 
+  v5 = v4;
+  v6 = read(v4, v3, a1);
+  if (v6 < a1)
+  {
     v7 = v6;
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
       v8 = __error();
-      strerror(*v8);
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createRandomBytes", 3, @"Could not read bytes in from /dev/random. %ld bytes read, %d bytes desired: %s", v9, v10, v11, v12, v7);
+      v9 = strerror(*v8);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createRandomBytes", 3, @"Could not read bytes in from /dev/random. %ld bytes read, %d bytes desired: %s", v10, v11, v12, v13, v7, a1, v9);
     }
 
     close(v5);
+    return 0;
   }
 
-  result = 0;
-LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  close(v5);
+  return CFDataCreate(0, v3, a1);
 }
 
 __CFData *createFileAuthBlob(const __CFData *a1, const __CFData **a2, const __CFData **a3)
@@ -6554,11 +6577,11 @@ __CFData *createFileAuthBlob(const __CFData *a1, const __CFData **a2, const __CF
     v12 = Length + v11 + 2;
     Mutable = CFDataCreateMutable(0, (Length + v11 + 2) + 2);
     *bytes = bswap32(v12) >> 16;
-    v25 = 1;
-    v24 = 0;
+    v24 = 1;
+    v23 = 0;
     CFDataAppendBytes(Mutable, bytes, 2);
-    CFDataAppendBytes(Mutable, &v25, 1);
     CFDataAppendBytes(Mutable, &v24, 1);
+    CFDataAppendBytes(Mutable, &v23, 1);
     BytePtr = CFDataGetBytePtr(RandomBytes);
     v15 = CFDataGetLength(RandomBytes);
     CFDataAppendBytes(Mutable, BytePtr, v15);
@@ -6588,7 +6611,7 @@ LABEL_17:
   {
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileAuthBlob", 3, @"Could not create encrypted auth data", v18, v19, v20, v21, v23);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileAuthBlob", 3, @"Could not create encrypted auth data", v18, v19, v20, v21);
     }
 
     if (RandomBytes)
@@ -6650,7 +6673,7 @@ __CFData *createFileKeyFromAuthBlob(const __CFData *a1, const __CFData *a2, cons
   v14 = CFDataGetBytePtr(a1)[3];
   if (DLLoggingEnabled(6) || DLOutputEnabled(6))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 6, @"Unpacking auth data v%d.%d", v15, v16, v17, v18, v13);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 6, @"Unpacking auth data v%d.%d", v15, v16, v17, v18, v13, v14);
   }
 
   BytePtr = CFDataGetBytePtr(a1);
@@ -6665,7 +6688,7 @@ __CFData *createFileKeyFromAuthBlob(const __CFData *a1, const __CFData *a2, cons
     {
       if (DLLoggingEnabled(4) || DLOutputEnabled(4))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 4, @"Could not decrypt the encryption key", v30, v31, v32, v33, v35);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 4, @"Could not decrypt the encryption key", v30, v31, v32, v33);
       }
 
       v25 = 0;
@@ -6699,7 +6722,7 @@ LABEL_28:
 
   if (DLLoggingEnabled(3) || DLOutputEnabled(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 3, @"Could not extract an iv and/or encryption key from the auth data", v26, v27, v28, v29, v35);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "createFileKeyFromAuthBlob", 3, @"Could not extract an iv and/or encryption key from the auth data", v26, v27, v28, v29);
   }
 
   if (v20)
@@ -6964,7 +6987,7 @@ CFMutableArrayRef copyValuesFromDictionaryNoRetain(const __CFDictionary *a1)
   return Mutable;
 }
 
-__CFArray *copyKeysAndValuesFromDictionaryNoRetain(__CFArray *result)
+const __CFDictionary *copyKeysAndValuesFromDictionaryNoRetain(const __CFDictionary *result)
 {
   if (result)
   {
@@ -7018,15 +7041,14 @@ BOOL DLGetFlockForFileWithCancel(const __CFString *a1, unsigned int (*a2)(uint64
   {
     if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 3, @"Could not get a valid C string for the lock filename", v22, v23, v24, v25, v47);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 3, @"Could not get a valid C string for the lock filename", v22, v23, v24, v25);
     }
 
     return 0;
   }
 
   v9 = v8;
-  v48 = -74;
-  v10 = open(v8, 512);
+  v10 = open(v8, 512, 438);
   valuePtr = v10;
   if (v10 == -1)
   {
@@ -7034,8 +7056,8 @@ BOOL DLGetFlockForFileWithCancel(const __CFString *a1, unsigned int (*a2)(uint64
     {
       v26 = *__error();
       v27 = __error();
-      strerror(*v27);
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"Error: Can't get file descriptor for %s: (%d) %s", v28, v29, v30, v31, v9);
+      v28 = strerror(*v27);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"Error: Can't get file descriptor for %s: (%d) %s", v29, v30, v31, v32, v9, v26, v28);
     }
 
     free(v9);
@@ -7047,7 +7069,7 @@ BOOL DLGetFlockForFileWithCancel(const __CFString *a1, unsigned int (*a2)(uint64
   v13 = CFRunLoopTimerCreate(0, Current + (a4 + a4), 0.0, 0, 0, _DLGetFlockTimeoutCallback, 0);
   v14 = CFRunLoopGetCurrent();
   v15 = *MEMORY[0x277CBF058];
-  v49 = v13;
+  v48 = v13;
   CFRunLoopAddTimer(v14, v13, *MEMORY[0x277CBF058]);
   while (1)
   {
@@ -7069,17 +7091,17 @@ BOOL DLGetFlockForFileWithCancel(const __CFString *a1, unsigned int (*a2)(uint64
     {
       if (DLLoggingEnabled(5) || DLOutputEnabled(5))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"flock wait canceled by cancel function", v38, v39, v40, v41, v48);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"flock wait canceled by cancel function", v39, v40, v41, v42);
       }
 
 LABEL_31:
       if (DLLoggingEnabled(4) || DLOutputEnabled(4))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 4, @"Could not lock %s", v42, v43, v44, v45, v9);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 4, @"Could not lock %s", v43, v44, v45, v46, v9);
       }
 
       close(valuePtr);
-      v37 = v49;
+      v38 = v48;
       goto LABEL_35;
     }
 
@@ -7090,11 +7112,11 @@ LABEL_31:
     }
   }
 
-  v32 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  CFDictionarySetValue(_lockFds, a1, v32);
-  if (v32)
+  v33 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
+  CFDictionarySetValue(_lockFds, a1, v33);
+  if (v33)
   {
-    CFRelease(v32);
+    CFRelease(v33);
   }
 
   if (a4 < 0.0)
@@ -7102,15 +7124,15 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v37 = v49;
+  v38 = v48;
   if (DLLoggingEnabled(5) || DLOutputEnabled(5))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"Lock obtained for %s", v33, v34, v35, v36, v9);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetFlockForFileWithCancel", 5, @"Lock obtained for %s", v34, v35, v36, v37, v9);
   }
 
 LABEL_35:
-  CFRunLoopTimerInvalidate(v37);
-  CFRelease(v37);
+  CFRunLoopTimerInvalidate(v38);
+  CFRelease(v38);
   free(v9);
   return v21;
 }
@@ -7128,8 +7150,8 @@ void DLReleaseFlockForFile(void *key, uint64_t a2, uint64_t a3, uint64_t a4, uin
       {
         v11 = *__error();
         v12 = __error();
-        strerror(*v12);
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLReleaseFlockForFile", 4, @"Error: Can't unlock fd for filename %@: (%d) %s", v13, v14, v15, v16, key);
+        v13 = strerror(*v12);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLReleaseFlockForFile", 4, @"Error: Can't unlock fd for filename %@: (%d) %s", v14, v15, v16, v17, key, v11, v13);
       }
 
       close(valuePtr);
@@ -7139,7 +7161,7 @@ void DLReleaseFlockForFile(void *key, uint64_t a2, uint64_t a3, uint64_t a4, uin
     else if (DLLoggingEnabled(4) || DLOutputEnabled(4))
     {
 
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLReleaseFlockForFile", 4, @"Attempting to unlock a lock that doesn't exist", v17, v18, v19, v20, a9);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLReleaseFlockForFile", 4, @"Attempting to unlock a lock that doesn't exist", v18, v19, v20, v21);
     }
   }
 }
@@ -7184,7 +7206,7 @@ uint64_t DLGetListenerSocketFromLaunchd(int a1)
     {
       if (cnt >= 2 && (DLLoggingEnabled(5) || DLOutputEnabled(5)))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, @"More than one set of sockets for listening, ignoring all but Listeners", v9, v10, v11, v12, v28);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, @"More than one set of sockets for listening, ignoring all but Listeners", v9, v10, v11, v12);
       }
 
       memset(&changelist, 0, sizeof(changelist));
@@ -7198,7 +7220,7 @@ uint64_t DLGetListenerSocketFromLaunchd(int a1)
 
         v27 = @"Can't set up kqueue";
 LABEL_35:
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, v27, v23, v24, v25, v26, v28);
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, v27, v23, v24, v25, v26);
 LABEL_36:
         free(fds);
         return 0;
@@ -7238,11 +7260,11 @@ LABEL_36:
 LABEL_15:
       free(fds);
       fds = 0;
-      v29[0] = a1;
-      v29[1] = 0;
+      v31 = a1;
+      v32 = 0;
       if (a1)
       {
-        v16 = v29;
+        v16 = &v31;
       }
 
       else
@@ -7299,15 +7321,15 @@ LABEL_15:
       v22 = @"No listeners found";
     }
 
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, v22, v18, v19, v20, v21, v28);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 5, v22, v18, v19, v20, v21, v28, v29, v31, v32);
     return 0;
   }
 
   v3 = v2;
   if (DLLoggingEnabled(3) || (result = DLOutputEnabled(3), result))
   {
-    strerror(v3);
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 3, "Failed to launch_activate_socket: %d, %s", v5, v6, v7, v8, v3);
+    v30 = strerror(v3);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "DLGetListenerSocketFromLaunchd", 3, "Failed to launch_activate_socket: %d, %s", v5, v6, v7, v8, v3, v30, v31, v32);
     return 0;
   }
 
@@ -7330,7 +7352,7 @@ void _DLAddNumberToDict(void *valuePtr, CFNumberType a2, const void *a3, __CFDic
     else if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
 
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLAddNumberToDict", 3, @"Could not create a CFNumber from the passed in value", v13, v14, v15, v16, a9);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLAddNumberToDict", 3, @"Could not create a CFNumber from the passed in value", v13, v14, v15, v16);
     }
   }
 }
@@ -7351,7 +7373,7 @@ void _DLAddDateToDict(uint64_t *a1, const void *a2, __CFDictionary *a3, uint64_t
     else if (DLLoggingEnabled(3) || DLOutputEnabled(3))
     {
 
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLAddDateToDict", 3, @"Could not create a CFDate from the passed in value", v13, v14, v15, v16, a9);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/Utility/DeviceLinkUtility.c", "_DLAddDateToDict", 3, @"Could not create a CFDate from the passed in value", v13, v14, v15, v16);
     }
   }
 }
@@ -7565,7 +7587,7 @@ LABEL_7:
   return v5;
 }
 
-void *SocketConnect(const char *a1, unsigned int a2)
+char *SocketConnect(const char *a1, unsigned int a2)
 {
   v4 = malloc_type_calloc(0x30uLL, 1uLL, 0x102004092D5E0CCuLL);
   if (!v4)
@@ -7579,74 +7601,71 @@ void *SocketConnect(const char *a1, unsigned int a2)
   }
 
   *(v4 + 1) = 0;
-  v5 = gethostbyname(a1);
-  if (v5)
+  if (gethostbyname(a1))
   {
-    v6 = *v5->h_addr_list;
-    h_length = v5->h_length;
     __memcpy_chk();
   }
 
   else
   {
-    v19.fds_bits[0] = 0;
-    if (inet_pton(2, a1, &v19) != 1)
+    v16.fds_bits[0] = 0;
+    if (inet_pton(2, a1, &v16) != 1)
     {
       *(v4 + 1) = 5;
       return v4;
     }
 
-    *(v4 + 9) = v19.fds_bits[0];
+    *(v4 + 9) = v16.fds_bits[0];
   }
 
   *(v4 + 33) = 2;
   *(v4 + 17) = bswap32(a2) >> 16;
-  v8 = socket(2, 1, 0);
-  *v4 = v8;
-  if (v8 < 0)
+  v5 = socket(2, 1, 0);
+  *v4 = v5;
+  if (v5 < 0)
   {
     *(v4 + 1) = 1;
     return v4;
   }
 
-  v9 = fcntl(v8, 4, 4);
-  if (v9)
+  v6 = fcntl(v5, 4, 4);
+  if (v6)
   {
-    _SocketErrorCheckAndLogIfError("SocketConnect (fcntl to set non blocking for connect)", v9);
+    _SocketErrorCheckAndLogIfError("SocketConnect (fcntl to set non blocking for connect)", v6);
   }
 
-  v10 = connect(*v4, v4 + 2, 0x10u);
-  if ((v10 & 0x80000000) == 0)
+  v7 = connect(*v4, v4 + 2, 0x10u);
+  if ((v7 & 0x80000000) == 0)
   {
     return v4;
   }
 
-  v11 = v10;
+  v8 = v7;
   if (*__error() != 36)
   {
-    _SocketErrorCheckAndLogIfError("SocketConnect (connect)", v11);
+    _SocketErrorCheckAndLogIfError("SocketConnect (connect)", v8);
     *v4 = 0x6FFFFFFFFLL;
     return v4;
   }
 
-  v18 = xmmword_259AA24A0;
-  memset(&v19, 0, sizeof(v19));
-  v12 = *v4;
-  if (__darwin_check_fd_set_overflow(*v4, &v19, 0))
+  v15 = xmmword_259AA24A0;
+  memset(&v16, 0, sizeof(v16));
+  v9 = *v4;
+  if (__darwin_check_fd_set_overflow(*v4, &v16, 0))
   {
-    *(v19.fds_bits + ((v12 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v12;
+    *(v16.fds_bits + ((v9 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v9;
   }
 
-  v13 = select(*v4 + 1, &v19, 0, 0, &v18);
-  if (!v13)
+  v10 = select(*v4 + 1, &v16, 0, 0, &v15);
+  if (!v10)
   {
-    v14 = "SocketConnect timeout on select";
+    v11 = "SocketConnect timeout on select";
 LABEL_28:
-    SocketLog(v14);
+    SocketLog(v11);
     goto LABEL_29;
   }
 
-  if (v13 == -1)
+  if (v10 == -1)
   {
     _SocketErrorCheckAndLogIfError("SocketConnect (select)", 0xFFFFFFFFLL);
 LABEL_29:
@@ -7662,10 +7681,10 @@ LABEL_30:
     return v4;
   }
 
-  v15 = *v4;
-  if (!__darwin_check_fd_set_overflow(*v4, &v19, 0) || ((*(v19.fds_bits + ((v15 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v15) & 1) == 0)
+  v12 = *v4;
+  if (!__darwin_check_fd_set_overflow(*v4, &v16, 0) || ((*(v16.fds_bits + ((v12 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) >> v12) & 1) == 0)
   {
-    v14 = "SocketConnect: error connecting: read_fd not set";
+    v11 = "SocketConnect: error connecting: read_fd not set";
     goto LABEL_28;
   }
 
@@ -7674,10 +7693,10 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v16 = fcntl(*v4, 4, 0);
-  if (v16)
+  v13 = fcntl(*v4, 4, 0);
+  if (v13)
   {
-    _SocketErrorCheckAndLogIfError("SocketConnect (fcntl to set blocking for reads/writes)", v16);
+    _SocketErrorCheckAndLogIfError("SocketConnect (fcntl to set blocking for reads/writes)", v13);
   }
 
   return v4;
@@ -7685,7 +7704,7 @@ LABEL_30:
 
 uint64_t _SocketErrorCheckAndLogIfError(const char *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a2 <= 0)
   {
     if (a2)
@@ -7693,7 +7712,7 @@ uint64_t _SocketErrorCheckAndLogIfError(const char *a1, uint64_t a2)
       v4 = *__error();
       v5 = __error();
       v6 = strerror(*v5);
-      __sprintf_chk(v9, 0, 0x400uLL, "%s: error %d: %s", a1, v4, v6);
+      __sprintf_chk(v8, 0, 0x400uLL, "%s: error %d: %s", a1, v4, v6);
     }
 
     else
@@ -7702,10 +7721,9 @@ uint64_t _SocketErrorCheckAndLogIfError(const char *a1, uint64_t a2)
       __strcat_chk();
     }
 
-    SocketLog(v9);
+    SocketLog(v8);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -7777,8 +7795,7 @@ uint64_t SocketSend(uint64_t a1, const void *a2, size_t a3)
     v7 = "SocketSend called with NULL socketInfo";
 LABEL_9:
     SocketLog(v7);
-    result = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   if (!a3)
@@ -7810,29 +7827,25 @@ LABEL_9:
   }
 
   _SocketErrorCheckAndLogIfError("SocketSend (data)", v6);
-  result = v6;
-LABEL_12:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6;
 }
 
 uint64_t SocketRecv(uint64_t a1, void *a2, size_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  bzero(v13, 0x400uLL);
+  v13 = *MEMORY[0x277D85DE8];
+  bzero(v12, 0x400uLL);
   if (!a1)
   {
     v9 = "SocketSend called with NULL socketInfo";
 LABEL_9:
     SocketLog(v9);
-    result = 0;
-    goto LABEL_12;
+    return 0;
   }
 
   if (!a3)
   {
-    __sprintf_chk(v13, 0, 0x400uLL, "Skipping SocketRecv of bytes, length %d <= 0", 0);
-    v9 = v13;
+    __sprintf_chk(v12, 0, 0x400uLL, "Skipping SocketRecv of bytes, length %d <= 0", 0);
+    v9 = v12;
     goto LABEL_9;
   }
 
@@ -7858,10 +7871,7 @@ LABEL_9:
   }
 
   _SocketErrorCheckAndLogIfError("SocketRecv (data)", v8);
-  result = v8 & ~(v8 >> 31);
-LABEL_12:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8 & ~(v8 >> 31);
 }
 
 uint64_t SocketStreamHandlerCreator(void *a1, CFTypeRef *a2)
@@ -7918,19 +7928,19 @@ LABEL_25:
       if (!Server)
       {
 LABEL_28:
-        v18 = @"SocketStreamHandlerAccept: error calling accept on socket";
-        v19 = 0xFFFFFFFFLL;
-        return DLSetStatus(v19, a3, v18);
+        v19 = @"SocketStreamHandlerAccept: error calling accept on socket";
+        v20 = 0xFFFFFFFFLL;
+        return DLSetStatus(v20, a3, v19);
       }
 
       goto LABEL_26;
     }
 
-    v16 = CFStringCreateWithFormat(0, 0, @"SocketStreamHandlerAccept: Port in info dictionary is invalid: %@", Value);
+    v17 = CFStringCreateWithFormat(0, 0, @"SocketStreamHandlerAccept: Port in info dictionary is invalid: %@", Value);
 LABEL_22:
-    v18 = v16;
-    v19 = 4294967293;
-    return DLSetStatus(v19, a3, v18);
+    v19 = v17;
+    v20 = 4294967293;
+    return DLSetStatus(v20, a3, v19);
   }
 
   if (!v8)
@@ -7942,7 +7952,7 @@ LABEL_22:
   v25 = 0;
   if (!CFNumberGetValue(v8, kCFNumberIntType, &v25))
   {
-    v16 = CFStringCreateWithFormat(0, 0, @"SocketStreamHandlerAccept: Socket in info dictionary is invalid: %@", v8);
+    v17 = CFStringCreateWithFormat(0, 0, @"SocketStreamHandlerAccept: Socket in info dictionary is invalid: %@", v8);
     goto LABEL_22;
   }
 
@@ -7951,7 +7961,7 @@ LABEL_22:
   {
     if (DLShouldLog(4))
     {
-      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "SocketStreamHandlerAccept", 4, @"Not using lockdown", v20, v21, v22, v23, v24);
+      _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "SocketStreamHandlerAccept", 4, @"Not using lockdown", v21, v22, v23, v24);
     }
 
     goto LABEL_25;
@@ -7960,13 +7970,14 @@ LABEL_22:
   v11 = CFDictionaryGetValue(theDict, @"DLInfoLockdownConnection");
   if (v11)
   {
+    v12 = v11;
     CFNumberGetValue(v11, kCFNumberNSIntegerType, Server + 6);
     if (*(Server + 3))
     {
       *(Server + 2) = lockdown_get_securecontext();
       if (DLShouldLog(6))
       {
-        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "SocketStreamHandlerAccept", 6, @"Using SSL. SSL pointer is %p (lockConn: %@)", v12, v13, v14, v15, *(Server + 2));
+        _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "SocketStreamHandlerAccept", 6, @"Using SSL. SSL pointer is %p (lockConn: %@)", v13, v14, v15, v16, *(Server + 2), v12);
       }
     }
   }
@@ -8045,7 +8056,7 @@ uint64_t SocketStreamHandlerConnect(uint64_t a1, CFDictionaryRef theDict, CFType
     *(a1 + 48) = v16;
     if (v16)
     {
-      v17 = v16[1];
+      v17 = *(v16 + 1);
       if (!v17)
       {
         return 0;
@@ -8164,7 +8175,7 @@ void _SocketLogCallback(char *cStr)
   v1 = CFStringCreateWithCString(0, cStr, 0);
   if (DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "_SocketLogCallback", 3, v1, v2, v3, v4, v5, v6);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/SocketStreamHandler.c", "_SocketLogCallback", 3, v1, v2, v3, v4, v5);
   }
 
   CFRelease(v1);
@@ -8192,7 +8203,7 @@ uint64_t StreamHandlerRegisterCreatorForType(void *key, void *value, CFTypeRef *
   }
 }
 
-uint64_t StreamHandlerForType(void *key, uint64_t a2, CFTypeRef *a3)
+uint64_t StreamHandlerForType(void *key, uint64_t a2, CFStringRef *a3)
 {
   if ((sInitializedStreamHandlers & 1) == 0)
   {
@@ -8243,11 +8254,11 @@ uint64_t StreamHandlerForType(void *key, uint64_t a2, CFTypeRef *a3)
   return DLSetStatus(4294967293, a3, v8);
 }
 
-uint64_t StreamHandlerAccept(uint64_t (**a1)(void), int a2, CFTypeRef *a3)
+uint64_t StreamHandlerAccept(uint64_t (**a1)(uint64_t (**)(void), uint64_t, CFTypeRef *), uint64_t a2, CFTypeRef *a3)
 {
   if (a1)
   {
-    return (*a1)();
+    return (*a1)(a1, a2, a3);
   }
 
   else
@@ -8256,11 +8267,11 @@ uint64_t StreamHandlerAccept(uint64_t (**a1)(void), int a2, CFTypeRef *a3)
   }
 }
 
-uint64_t StreamHandlerConnect(uint64_t a1, int a2, CFTypeRef *a3)
+uint64_t StreamHandlerConnect(uint64_t a1, uint64_t a2, CFTypeRef *a3)
 {
   if (a1)
   {
-    return (*(a1 + 8))();
+    return (*(a1 + 8))(a1, a2, a3);
   }
 
   else
@@ -8273,7 +8284,7 @@ uint64_t StreamHandlerClose(uint64_t a1, CFTypeRef *a2)
 {
   if (a1)
   {
-    return (*(a1 + 16))();
+    return (*(a1 + 16))(a1, a2);
   }
 
   else
@@ -8339,7 +8350,7 @@ LABEL_11:
   return result;
 }
 
-uint64_t _Write(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _Write(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v10 = a3;
   cf = 0;
@@ -8422,7 +8433,7 @@ LABEL_10:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t _Read(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t _Read(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v10 = a3;
   cf = 0;
@@ -8454,7 +8465,7 @@ uint64_t StreamHandlerDeleteStreamHandler(uint64_t a1, CFTypeRef *a2)
 {
   if (a1)
   {
-    return (*(a1 + 40))();
+    return (*(a1 + 40))(a1, a2);
   }
 
   else
@@ -8467,7 +8478,7 @@ void _DLHandlerThreadMessagePortCallback_cold_1()
 {
   if (DLShouldLog(3))
   {
-    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not finalize encryption. Our buffer is too small", v0, v1, v2, v3, vars0);
+    _DLLog("/Library/Caches/com.apple.xbs/Sources/DeviceLink/WireProtocol/DeviceLinkConnection.c", "_DLWriteFileBytes", 3, @"Could not finalize encryption. Our buffer is too small", v0, v1, v2, v3);
   }
 
   __assert_rtn("_DLWriteFileBytes", "DeviceLinkConnection.c", 920, "false");
@@ -8475,20 +8486,18 @@ void _DLHandlerThreadMessagePortCallback_cold_1()
 
 void DLLockdownXPCCheckin_cold_1(int a1)
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "lockdown_checkin_xpc failed: %d", v2, 8u);
-  v1 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "lockdown_checkin_xpc failed: %d", v1, 8u);
 }
 
 void DLLockdownXPCCheckin_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 134217984;
-  v2 = 600;
-  _os_log_error_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "lockdown_checkin_xpc timed out after %llds", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 134217984;
+  v1 = 600;
+  _os_log_error_impl(&dword_259A8F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "lockdown_checkin_xpc timed out after %llds", &v0, 0xCu);
 }
 
 void _DLMainThreadMessagePortCallback_cold_1(const __CFArray *a1)

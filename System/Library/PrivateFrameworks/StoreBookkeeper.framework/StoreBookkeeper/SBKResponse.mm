@@ -11,16 +11,12 @@
 
 - (id)description
 {
-  v10.receiver = self;
-  v10.super_class = SBKResponse;
-  v3 = [(SBKResponse *)&v10 description];
-  responseDictionary = self->_responseDictionary;
-  responseCode = self->_responseCode;
-  v6 = objc_opt_class();
-  MIMEType = self->_MIMEType;
-  v8 = [v3 stringByAppendingFormat:@" [%ld]: responseDictionary = %@, (%@)\n%@", responseCode, v6, MIMEType, self->_responseHeaderFields];
+  v6.receiver = self;
+  v6.super_class = SBKResponse;
+  v3 = [(SBKResponse *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" [%ld]: responseDictionary = %@, (%@)\n%@", self->_responseCode, objc_opt_class(), self->_MIMEType, self->_responseHeaderFields];
 
-  return v8;
+  return v4;
 }
 
 - (SBKResponse)initWithCode:(unint64_t)code headerFields:(id)fields responseDictionary:(id)dictionary MIMEType:(id)type error:(id)error

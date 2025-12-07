@@ -1,341 +1,71 @@
-uint64_t ContactsSnippetFlowState.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 == 0x6D7269666E6F63 && a2 == 0xE700000000000000;
-  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else
-  {
-    v6 = a1 == 0x6148746E65746E69 && a2 == 0xED000064656C646ELL;
-    if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-    {
-
-      return 1;
-    }
-
-    else if (a1 == 0x726F707075736E75 && a2 == 0xEB00000000646574)
-    {
-
-      return 2;
-    }
-
-    else
-    {
-      v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v8)
-      {
-        return 2;
-      }
-
-      else
-      {
-        return 3;
-      }
-    }
-  }
-}
-
-uint64_t ContactsSnippetFlowState.CodingKeys.stringValue.getter(char a1)
-{
-  if (!a1)
-  {
-    return 0x6D7269666E6F63;
-  }
-
-  if (a1 == 1)
-  {
-    return 0x6148746E65746E69;
-  }
-
-  return 0x726F707075736E75;
-}
-
-uint64_t ContactsSnippetFlowState.ConfirmCodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
-{
-  v3 = a1 == 0xD000000000000011 && 0x8000000266863C40 == a2;
-  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-  {
-
-    return 0;
-  }
-
-  else if (a1 == 0xD000000000000010 && 0x8000000266863C60 == a2)
-  {
-
-    return 1;
-  }
-
-  else
-  {
-    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-    if (v7)
-    {
-      return 1;
-    }
-
-    else
-    {
-      return 2;
-    }
-  }
-}
-
-unint64_t ContactsSnippetFlowState.ConfirmCodingKeys.stringValue.getter(char a1)
-{
-  if (a1)
-  {
-    return 0xD000000000000010;
-  }
-
-  else
-  {
-    return 0xD000000000000011;
-  }
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ContactsSnippetFlowState.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = ContactsSnippetFlowState.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ContactsSnippetFlowState.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.CodingKeys and conformance ContactsSnippetFlowState.CodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ContactsSnippetFlowState.CodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.CodingKeys and conformance ContactsSnippetFlowState.CodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ContactsSnippetFlowState.ConfirmCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  result = ContactsSnippetFlowState.ConfirmCodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.init(intValue:) in conformance ContactsSnippetFlowState.ConfirmCodingKeys@<X0>(_BYTE *a1@<X8>)
-{
-  result = ContactsSnippetFlowState.ConfirmCodingKeys.init(intValue:)();
-  *a1 = result;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ContactsSnippetFlowState.ConfirmCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.ConfirmCodingKeys and conformance ContactsSnippetFlowState.ConfirmCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ContactsSnippetFlowState.ConfirmCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.ConfirmCodingKeys and conformance ContactsSnippetFlowState.ConfirmCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ContactsSnippetFlowState.IntentHandledCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.IntentHandledCodingKeys and conformance ContactsSnippetFlowState.IntentHandledCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ContactsSnippetFlowState.IntentHandledCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.IntentHandledCodingKeys and conformance ContactsSnippetFlowState.IntentHandledCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t _s18SiriContactsCommon0B16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOs0I3KeyAAsAGP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>)
-{
-  result = _s18SiriContactsCommon0B16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLO11stringValueAFSgSS_tcfC_0();
-  *a1 = result & 1;
-  return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ContactsSnippetFlowState.UnsupportedCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.UnsupportedCodingKeys and conformance ContactsSnippetFlowState.UnsupportedCodingKeys();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ContactsSnippetFlowState.UnsupportedCodingKeys(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type ContactsSnippetFlowState.UnsupportedCodingKeys and conformance ContactsSnippetFlowState.UnsupportedCodingKeys();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-void ContactsSnippetFlowState.encode(to:)()
+void ContactsSnippetFlowState.init(from:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_44();
-  v6 = v5;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v38);
-  v8 = *(v7 + 64);
+  v4 = v3;
+  v51 = v5;
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_19();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v11 = OUTLINED_FUNCTION_11_0(v10);
-  v35 = v12;
-  v36 = v11;
-  v14 = *(v13 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_77();
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v39);
-  v37 = v16;
-  v18 = *(v17 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v19);
-  OUTLINED_FUNCTION_46();
-  v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v40);
-  v21 = v20;
-  v23 = *(v22 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v24);
-  OUTLINED_FUNCTION_29();
-  v25 = v1[1];
-  v33 = v1[2];
-  v34 = *v1;
-  v32 = v1[3];
-  v26 = *(v6 + 24);
-  v27 = *(v6 + 32);
-  v28 = OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_42(v28, v29);
-  lazy protocol witness table accessor for type ContactsSnippetFlowState.CodingKeys and conformance ContactsSnippetFlowState.CodingKeys();
-  dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if ((v25 & 0xF000000000000000) == 0xB000000000000000)
-  {
-    lazy protocol witness table accessor for type ContactsSnippetFlowState.IntentHandledCodingKeys and conformance ContactsSnippetFlowState.IntentHandledCodingKeys();
-    OUTLINED_FUNCTION_75();
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    (*(v35 + 8))(v0, v36);
-    (*(v21 + 8))(v3, v40);
-  }
-
-  else if ((v25 & 0xF000000000000000) == 0x7000000000000000)
-  {
-    lazy protocol witness table accessor for type ContactsSnippetFlowState.UnsupportedCodingKeys and conformance ContactsSnippetFlowState.UnsupportedCodingKeys();
-    OUTLINED_FUNCTION_5_5();
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    v30 = OUTLINED_FUNCTION_55();
-    v31(v30, v38);
-    (*(v21 + 8))(v3, v0);
-  }
-
-  else
-  {
-    lazy protocol witness table accessor for type ContactsSnippetFlowState.ConfirmCodingKeys and conformance ContactsSnippetFlowState.ConfirmCodingKeys();
-    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-    lazy protocol witness table accessor for type Data and conformance Data();
-    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    if (!v2)
-    {
-      OUTLINED_FUNCTION_51();
-      KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    }
-
-    (*(v37 + 8))(v4, v39);
-    (*(v21 + 8))(v3, v40);
-  }
-
-  OUTLINED_FUNCTION_83();
-  OUTLINED_FUNCTION_45();
-}
-
-void ContactsSnippetFlowState.init(from:)()
-{
-  OUTLINED_FUNCTION_44();
-  v3 = v2;
-  v63 = v4;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO21UnsupportedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v64);
-  v6 = *(v5 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
   MEMORY[0x28223BE20](v7);
-  OUTLINED_FUNCTION_19();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO23IntentHandledCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v8);
-  v10 = *(v9 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v11);
   OUTLINED_FUNCTION_21_0();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v12);
-  v14 = *(v13 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO17ConfirmCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_13();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v16);
-  v18 = v17;
-  v20 = *(v19 + 64);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E16SnippetFlowStateO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v11 = v10;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v21);
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_16_0();
-  v22 = v3[4];
-  v66 = v3;
-  OUTLINED_FUNCTION_42(v3, v3[3]);
+  v54 = v4;
+  OUTLINED_FUNCTION_42(v4, v4[3]);
   lazy protocol witness table accessor for type ContactsSnippetFlowState.CodingKeys and conformance ContactsSnippetFlowState.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v0)
+  if (!v1)
   {
-    v67 = v18;
-    v23 = KeyedDecodingContainer.allKeys.getter();
-    started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v23, 0);
-    if (v26 != v25 >> 1)
+    v55 = v11;
+    v13 = KeyedDecodingContainer.allKeys.getter();
+    started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v13, 0);
+    if (v16 != v15 >> 1)
     {
       OUTLINED_FUNCTION_28();
       OUTLINED_FUNCTION_79();
-      if (v31 == v32)
+      if (v21 == v22)
       {
         __break(1u);
         return;
       }
 
-      v33 = *(v30 + v28);
-      specialized ArraySlice.subscript.getter(v28 + 1, v27, started, v30, v28, v29);
-      v35 = v34;
-      v37 = v36;
+      v23 = *(v20 + v18);
+      specialized ArraySlice.subscript.getter(v18 + 1, v17, started, v20, v18, v19);
+      v25 = v24;
+      v27 = v26;
       swift_unknownObjectRelease();
-      if (v35 == v37 >> 1)
+      if (v25 == v27 >> 1)
       {
-        if (v33)
+        if (v23)
         {
-          v38 = v63;
-          if (v33 == 1)
+          v28 = v51;
+          if (v23 == 1)
           {
             lazy protocol witness table accessor for type ContactsSnippetFlowState.IntentHandledCodingKeys and conformance ContactsSnippetFlowState.IntentHandledCodingKeys();
             OUTLINED_FUNCTION_57();
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
             swift_unknownObjectRelease();
-            v39 = OUTLINED_FUNCTION_34();
-            v40(v39);
-            v41 = OUTLINED_FUNCTION_11_2();
-            v42(v41);
-            v43 = 0;
-            v44 = 0uLL;
-            v45 = 0xB000000000000000;
+            v29 = OUTLINED_FUNCTION_34();
+            v30(v29);
+            v31 = OUTLINED_FUNCTION_11_2();
+            v32(v31);
+            v33 = 0;
+            v34 = 0uLL;
+            v35 = 0xB000000000000000;
           }
 
           else
@@ -344,80 +74,79 @@ void ContactsSnippetFlowState.init(from:)()
             OUTLINED_FUNCTION_57();
             KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
             swift_unknownObjectRelease();
-            v55 = OUTLINED_FUNCTION_34();
-            v56(v55, v64);
-            v57 = OUTLINED_FUNCTION_11_2();
-            v58(v57);
-            v43 = 0;
-            v44 = 0uLL;
-            v45 = 0x7000000000000000;
+            v43 = OUTLINED_FUNCTION_34();
+            v44(v43, v52);
+            v45 = OUTLINED_FUNCTION_11_2();
+            v46(v45);
+            v33 = 0;
+            v34 = 0uLL;
+            v35 = 0x7000000000000000;
           }
 
-          v62 = v66;
+          v50 = v54;
         }
 
         else
         {
-          LOBYTE(v69) = 0;
+          LOBYTE(v57) = 0;
           lazy protocol witness table accessor for type ContactsSnippetFlowState.ConfirmCodingKeys and conformance ContactsSnippetFlowState.ConfirmCodingKeys();
           OUTLINED_FUNCTION_57();
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          LOBYTE(v68) = 0;
+          LOBYTE(v56) = 0;
           lazy protocol witness table accessor for type Data and conformance Data();
           OUTLINED_FUNCTION_52();
           KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-          v43 = v69;
-          v45 = v70;
+          v33 = v57;
+          v35 = v58;
           OUTLINED_FUNCTION_51();
           OUTLINED_FUNCTION_68();
-          v65 = v59;
+          v53 = v47;
           KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
           swift_unknownObjectRelease();
-          v60 = OUTLINED_FUNCTION_56();
-          v61(v60, v65);
-          (*(v67 + 8))(v1, v16);
-          v44 = v68;
-          v62 = v66;
-          v38 = v63;
+          v48 = OUTLINED_FUNCTION_56();
+          v49(v48, v53);
+          (*(v55 + 8))(v2, v9);
+          v34 = v56;
+          v50 = v54;
+          v28 = v51;
         }
 
-        *v38 = v43;
-        *(v38 + 8) = v45;
-        *(v38 + 16) = v44;
-        __swift_destroy_boxed_opaque_existential_0(v62);
+        *v28 = v33;
+        *(v28 + 8) = v35;
+        *(v28 + 16) = v34;
+        __swift_destroy_boxed_opaque_existential_0(v50);
         goto LABEL_11;
       }
     }
 
-    v46 = type metadata accessor for DecodingError();
-    OUTLINED_FUNCTION_85();
-    v48 = v47;
-    v49 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v48 = &type metadata for ContactsSnippetFlowState;
-    v50 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_27(v50);
-    v51 = *MEMORY[0x277D84160];
-    OUTLINED_FUNCTION_26_0(v46);
-    (*(v52 + 104))(v48);
+    v36 = type metadata accessor for DecodingError();
+    OUTLINED_FUNCTION_85(v36, MEMORY[0x277D841A0]);
+    v38 = v37;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v38 = &type metadata for ContactsSnippetFlowState;
+    v39 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_27(v39);
+    OUTLINED_FUNCTION_26_0();
+    (*(v40 + 104))(v38);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v53 = OUTLINED_FUNCTION_11_2();
-    v54(v53);
+    v41 = OUTLINED_FUNCTION_11_2();
+    v42(v41);
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v66);
+  __swift_destroy_boxed_opaque_existential_0(v54);
 LABEL_11:
   OUTLINED_FUNCTION_45();
 }
 
-uint64_t GetContactSnippetModel.contact.getter()
+void *GetContactSnippetModel.contact.getter()
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
 
   return Loggable.wrappedValue.getter();
 }
 
-uint64_t key path getter for GetContactSnippetModel.contact : GetContactSnippetModel@<X0>(void *a1@<X8>)
+void *key path getter for GetContactSnippetModel.contact : GetContactSnippetModel@<X0>(void *a1@<X8>)
 {
   result = GetContactSnippetModel.contact.getter();
   *a1 = v3;
@@ -429,13 +158,6 @@ uint64_t key path setter for GetContactSnippetModel.contact : GetContactSnippetM
   v3 = *a1;
   v1 = v3;
   return GetContactSnippetModel.contact.setter(&v3);
-}
-
-uint64_t GetContactSnippetModel.contact.setter(uint64_t *a1)
-{
-  v2 = *a1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  return Loggable.wrappedValue.setter();
 }
 
 uint64_t (*GetContactSnippetModel.contact.modify())()
@@ -459,7 +181,7 @@ uint64_t GetContactSnippetModel.flowState.getter()
 {
   v2 = OUTLINED_FUNCTION_48();
   ContactSnippetModel = type metadata accessor for GetContactSnippetModel(v2);
-  v4 = OUTLINED_FUNCTION_50((v1 + *(ContactSnippetModel + 24)));
+  v4 = OUTLINED_FUNCTION_50(v1 + *(ContactSnippetModel + 24));
   *v0 = v4;
   v0[1] = v5;
   v0[2] = v6;
@@ -468,12 +190,12 @@ uint64_t GetContactSnippetModel.flowState.getter()
   return outlined copy of ContactsSnippetFlowState(v4, v5, v6, v7);
 }
 
-uint64_t GetContactSnippetModel.labelCATs.getter()
+void *GetContactSnippetModel.labelCATs.getter()
 {
   v0 = OUTLINED_FUNCTION_48();
-  v1 = *(type metadata accessor for GetContactSnippetModel(v0) + 28);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  return OUTLINED_FUNCTION_111();
+  type metadata accessor for GetContactSnippetModel(v0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  return OUTLINED_FUNCTION_111(v1);
 }
 
 double key path getter for GetContactSnippetModel.labelCATs : GetContactSnippetModel@<D0>(_OWORD *a1@<X8>)
@@ -486,8 +208,7 @@ double key path getter for GetContactSnippetModel.labelCATs : GetContactSnippetM
 
 uint64_t GetContactSnippetModel.labelCATs.setter(__int128 *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for GetContactSnippetModel(0) + 28);
+  type metadata accessor for GetContactSnippetModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
   return Loggable.wrappedValue.setter();
 }
@@ -497,9 +218,9 @@ uint64_t (*GetContactSnippetModel.labelCATs.modify())()
   v1 = OUTLINED_FUNCTION_81();
   v2 = __swift_coroFrameAllocStub(v1);
   v3 = OUTLINED_FUNCTION_47(v2);
-  v4 = *(type metadata accessor for GetContactSnippetModel(v3) + 28);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  *(v0 + 32) = OUTLINED_FUNCTION_72();
+  type metadata accessor for GetContactSnippetModel(v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  *(v0 + 32) = OUTLINED_FUNCTION_72(v4);
   return GetContactSnippetModel.labelCATs.modify;
 }
 
@@ -510,32 +231,28 @@ uint64_t GetContactSnippetModel.shouldDisplayLightText.setter(char a1)
   return result;
 }
 
-void GetContactSnippetModel.init(contact:directInvocationsModel:flowState:labelCATs:)()
+void GetContactSnippetModel.init(contact:directInvocationsModel:flowState:labelCATs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
 {
   OUTLINED_FUNCTION_110();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = *v8;
-  v10 = *v4;
-  v11 = v4[1];
-  v12 = v4[4];
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v27 = *v23;
+  v28 = v23[1];
+  v29 = v23[4];
   ContactSnippetModel = type metadata accessor for GetContactSnippetModel(0);
-  *(v7 + ContactSnippetModel[8]) = 0;
+  *(v26 + ContactSnippetModel[8]) = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriContactsCommon14CodableContactVySo9CNContactCGMd, &_s18SiriContactsCommon14CodableContactVySo9CNContactCGMR);
   Loggable.init(wrappedValue:)();
-  v14 = v7 + ContactSnippetModel[5];
-  *v14 = v10;
-  *(v14 + 8) = v11;
-  *(v14 + 16) = *(v5 + 1);
-  *(v14 + 32) = v12;
-  v15 = (v7 + ContactSnippetModel[6]);
-  v16 = v3[1];
-  *v15 = *v3;
-  v15[1] = v16;
-  v17 = ContactSnippetModel[7];
-  v18 = *v1;
+  v31 = v26 + ContactSnippetModel[5];
+  *v31 = v27;
+  *(v31 + 8) = v28;
+  *(v31 + 16) = *(v24 + 1);
+  *(v31 + 32) = v29;
+  v32 = (v26 + ContactSnippetModel[6]);
+  v33 = v22[1];
+  *v32 = *v22;
+  v32[1] = v33;
   Loggable.init(wrappedValue:)();
   OUTLINED_FUNCTION_109();
 }
@@ -543,76 +260,69 @@ void GetContactSnippetModel.init(contact:directInvocationsModel:flowState:labelC
 uint64_t GetContactSnippetModel.init(from:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   ContactSnippetModel = type metadata accessor for GetContactSnippetModel(0);
-  v25 = ContactSnippetModel[8];
+  v21 = ContactSnippetModel[8];
   ContactAttributeSnippetModel = type metadata accessor for GetContactAttributeSnippetModel(0);
-  v6 = *(ContactAttributeSnippetModel + 20);
-  v7 = ContactAttributeSnippetModel;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
   Loggable.wrappedValue.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriContactsCommon14CodableContactVySo9CNContactCGMd, &_s18SiriContactsCommon14CodableContactVySo9CNContactCGMR);
   Loggable.init(wrappedValue:)();
-  v8 = (a1 + v7[6]);
-  v9 = *v8;
-  v10 = v8[1];
-  v11 = v8[2];
-  v12 = v8[3];
-  v13 = v8[4];
-  v14 = (a2 + ContactSnippetModel[5]);
-  *v14 = v9;
-  v14[1] = v10;
-  v14[2] = v11;
-  v14[3] = v12;
-  v14[4] = v13;
-  v15 = (a1 + v7[7]);
-  v16 = *v15;
-  v17 = v15[1];
-  v19 = v15[2];
-  v18 = v15[3];
-  v20 = (a2 + ContactSnippetModel[6]);
-  *v20 = v16;
-  v20[1] = v17;
-  v20[2] = v19;
-  v20[3] = v18;
-  v21 = (a1 + v7[8]);
-  v22 = ContactSnippetModel[7];
-  v26 = *v21;
-  v27 = v21[1];
-  outlined copy of Data?(v9, v10);
+  v6 = (a1 + ContactAttributeSnippetModel[6]);
+  v7 = *v6;
+  v8 = v6[1];
+  v9 = v6[2];
+  v10 = v6[3];
+  v11 = v6[4];
+  v12 = (a2 + ContactSnippetModel[5]);
+  *v12 = v7;
+  v12[1] = v8;
+  v12[2] = v9;
+  v12[3] = v10;
+  v12[4] = v11;
+  v13 = (a1 + ContactAttributeSnippetModel[7]);
+  v14 = *v13;
+  v15 = v13[1];
+  v17 = v13[2];
+  v16 = v13[3];
+  v18 = (a2 + ContactSnippetModel[6]);
+  *v18 = v14;
+  v18[1] = v15;
+  v18[2] = v17;
+  v18[3] = v16;
+  outlined copy of Data?(v7, v8);
 
-  outlined copy of ContactsSnippetFlowState(v16, v17, v19, v18);
+  outlined copy of ContactsSnippetFlowState(v14, v15, v17, v16);
 
   Loggable.init(wrappedValue:)();
-  LOBYTE(v18) = *(a1 + v7[9]);
+  LOBYTE(v16) = *(a1 + ContactAttributeSnippetModel[9]);
   OUTLINED_FUNCTION_0_8();
-  result = outlined destroy of ModifyContactAttributeSnippetModel(a1, v23);
-  *(a2 + v25) = v18;
+  result = outlined destroy of ModifyContactAttributeSnippetModel(a1, v19);
+  *(a2 + v21) = v16;
   return result;
 }
 
-uint64_t GetContactAttributeSnippetModel.contact.getter()
+void *GetContactAttributeSnippetModel.contact.getter()
 {
   v0 = OUTLINED_FUNCTION_48();
-  v1 = *(type metadata accessor for GetContactAttributeSnippetModel(v0) + 20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  return OUTLINED_FUNCTION_111();
+  type metadata accessor for GetContactAttributeSnippetModel(v0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  return OUTLINED_FUNCTION_111(v1);
 }
 
 uint64_t outlined init with take of ModifyContactAttributeSnippetModel(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_101();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_6_5(v5);
-  v7 = *(v6 + 32);
-  v8 = OUTLINED_FUNCTION_6_2();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_6_5();
+  v5 = OUTLINED_FUNCTION_6_2();
+  v6(v5);
   return a2;
 }
 
 uint64_t outlined destroy of ModifyContactAttributeSnippetModel(uint64_t a1, uint64_t (*a2)(void))
 {
-  v3 = a2(0);
-  OUTLINED_FUNCTION_6_5(v3);
-  (*(v4 + 8))(a1);
+  a2(0);
+  OUTLINED_FUNCTION_6_5();
+  (*(v3 + 8))(a1);
   return a1;
 }
 
@@ -729,34 +439,31 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, ContactSnippet);
 }
 
-void GetContactSnippetModel.encode(to:)()
+void GetContactSnippetModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_44();
   OUTLINED_FUNCTION_76();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v3);
-  v5 = *(v4 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v25);
   OUTLINED_FUNCTION_13();
-  v7 = *(v0 + 24);
-  v8 = *(v0 + 32);
-  v9 = OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_42(v9, v10);
-  lazy protocol witness table accessor for type GetContactSnippetModel.CodingKeys and conformance GetContactSnippetModel.CodingKeys();
-  OUTLINED_FUNCTION_62();
-  LOBYTE(v31) = 0;
+  v26 = OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_42(v26, v27);
+  ContactSnippet = lazy protocol witness table accessor for type GetContactSnippetModel.CodingKeys and conformance GetContactSnippetModel.CodingKeys();
+  OUTLINED_FUNCTION_62(&unk_28781BF60, v29, ContactSnippet);
+  LOBYTE(v49) = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
   OUTLINED_FUNCTION_3_7();
-  lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v11);
-  OUTLINED_FUNCTION_18_0();
-  if (!v1)
+  lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v30);
+  OUTLINED_FUNCTION_18_0(v24);
+  if (!v23)
   {
     ContactSnippetModel = type metadata accessor for GetContactSnippetModel(0);
-    v13 = OUTLINED_FUNCTION_9_2(ContactSnippetModel[5]);
-    OUTLINED_FUNCTION_84(v13, v14, v15);
+    v32 = OUTLINED_FUNCTION_9_2(*(ContactSnippetModel + 20));
+    OUTLINED_FUNCTION_84(v32, v33, v34);
     OUTLINED_FUNCTION_51();
-    outlined copy of Data?(v16, v17);
+    outlined copy of Data?(v35, v36);
     ContactDirectInvocationsModel = lazy protocol witness table accessor for type GetContactDirectInvocationsModel and conformance GetContactDirectInvocationsModel();
 
     OUTLINED_FUNCTION_23_0();
@@ -764,116 +471,109 @@ void GetContactSnippetModel.encode(to:)()
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     if (ContactDirectInvocationsModel)
     {
-      outlined consume of Data?(v31, v33);
+      outlined consume of Data?(v49, v51);
     }
 
     else
     {
-      outlined consume of Data?(v31, v33);
+      outlined consume of Data?(v49, v51);
 
-      v32 = OUTLINED_FUNCTION_50((v2 + ContactSnippetModel[6]));
-      v34 = v19;
-      v35 = v20;
-      v36 = v21;
+      v50 = OUTLINED_FUNCTION_50(v24 + *(ContactSnippetModel + 24));
+      v52 = v38;
+      v53 = v39;
+      v54 = v40;
       OUTLINED_FUNCTION_71();
-      outlined copy of ContactsSnippetFlowState(v22, v23, v24, v25);
+      outlined copy of ContactsSnippetFlowState(v41, v42, v43, v44);
       lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
       OUTLINED_FUNCTION_17();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      outlined consume of ContactsSnippetFlowState(v32, v34, v35, v36);
-      v26 = ContactSnippetModel[7];
+      outlined consume of ContactsSnippetFlowState(v50, v52, v53, v54);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
       OUTLINED_FUNCTION_3_7();
-      lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v27);
-      OUTLINED_FUNCTION_102();
-      OUTLINED_FUNCTION_18_0();
-      v28 = *(v2 + ContactSnippetModel[8]);
+      lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v45);
+      v46 = OUTLINED_FUNCTION_102();
+      OUTLINED_FUNCTION_18_0(v46);
       OUTLINED_FUNCTION_17();
       KeyedEncodingContainer.encode(_:forKey:)();
     }
   }
 
-  v29 = OUTLINED_FUNCTION_78();
-  v30(v29);
+  v47 = OUTLINED_FUNCTION_78();
+  v48(v47);
   OUTLINED_FUNCTION_89();
   OUTLINED_FUNCTION_45();
 }
 
-void GetContactSnippetModel.init(from:)()
+void GetContactSnippetModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_44();
-  v3 = v2;
-  v37 = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  v6 = OUTLINED_FUNCTION_11_0(v5);
-  v38 = v7;
-  v39 = v6;
-  v9 = *(v8 + 64);
+  v26 = v25;
+  v49 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  OUTLINED_FUNCTION_11_0();
+  v50 = v29;
+  v51 = v28;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v30);
   OUTLINED_FUNCTION_16_0();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  OUTLINED_FUNCTION_11_0(v11);
-  v40 = v12;
-  v14 = *(v13 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  OUTLINED_FUNCTION_11_0();
+  v52 = v31;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v15);
+  MEMORY[0x28223BE20](v32);
   OUTLINED_FUNCTION_19();
-  v41 = v16;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v42);
-  v18 = *(v17 + 64);
+  v53 = v33;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon22GetContactSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v19);
+  MEMORY[0x28223BE20](v34);
   OUTLINED_FUNCTION_22_0();
   ContactSnippetModel = type metadata accessor for GetContactSnippetModel(0);
-  v21 = OUTLINED_FUNCTION_6_5(ContactSnippetModel);
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v21);
+  OUTLINED_FUNCTION_6_5();
+  MEMORY[0x28223BE20](v36);
   OUTLINED_FUNCTION_1_3();
-  v26 = v25 - v24;
-  v27 = v3[4];
-  OUTLINED_FUNCTION_42(v3, v3[3]);
+  v39 = v38 - v37;
+  OUTLINED_FUNCTION_42(v26, v26[3]);
   lazy protocol witness table accessor for type GetContactSnippetModel.CodingKeys and conformance GetContactSnippetModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    __swift_destroy_boxed_opaque_existential_0(v26);
   }
 
   else
   {
-    LOBYTE(v43) = 0;
+    LOBYTE(v54) = 0;
     OUTLINED_FUNCTION_2_7();
-    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v28);
+    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v40);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v40 + 32))(v26, v41);
+    (*(v52 + 32))(v39, v53);
     OUTLINED_FUNCTION_51();
     lazy protocol witness table accessor for type GetContactDirectInvocationsModel and conformance GetContactDirectInvocationsModel();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v29 = v26 + ContactSnippetModel[5];
-    *v29 = v43;
-    *(v29 + 16) = v44;
-    *(v29 + 32) = v45;
+    v41 = v39 + ContactSnippetModel[5];
+    *v41 = v54;
+    *(v41 + 16) = v55;
+    *(v41 + 32) = v56;
     OUTLINED_FUNCTION_71();
     lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v30 = (v26 + ContactSnippetModel[6]);
-    *v30 = v43;
-    v30[1] = v44;
+    v42 = (v39 + ContactSnippetModel[6]);
+    *v42 = v54;
+    v42[1] = v55;
     OUTLINED_FUNCTION_2_7();
-    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v31);
+    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v43);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v38 + 32))(v26 + ContactSnippetModel[7], v1, v39);
-    v32 = KeyedDecodingContainer.decode(_:forKey:)();
-    v33 = ContactSnippetModel[8];
-    v34 = OUTLINED_FUNCTION_98();
-    v35(v34);
-    *(v26 + v33) = v32 & 1;
-    outlined init with copy of ContactsSnippetPluginModel(v26, v37);
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    (*(v50 + 32))(v39 + ContactSnippetModel[7], v24, v51);
+    v44 = KeyedDecodingContainer.decode(_:forKey:)();
+    v45 = ContactSnippetModel[8];
+    v46 = OUTLINED_FUNCTION_98();
+    v47(v46);
+    *(v39 + v45) = v44 & 1;
+    outlined init with copy of ContactsSnippetPluginModel(v39, v49);
+    __swift_destroy_boxed_opaque_existential_0(v26);
     OUTLINED_FUNCTION_35();
-    outlined destroy of ModifyContactAttributeSnippetModel(v26, v36);
+    outlined destroy of ModifyContactAttributeSnippetModel(v39, v48);
   }
 
   OUTLINED_FUNCTION_45();
@@ -943,28 +643,13 @@ uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance Ge
   return result;
 }
 
-uint64_t GetContactAttributeSnippetModel.DisplayAttribute.id.getter()
+void __swiftcall GetContactAttributeSnippetModel.DisplayAttribute.init(id:displayLabel:displayValue:type:)(SiriContactsCommon::GetContactAttributeSnippetModel::DisplayAttribute *__return_ptr retstr, Swift::String id, Swift::String_optional displayLabel, Swift::String_optional displayValue, SiriContactsCommon::GetContactAttributeSnippetModel::DisplayAttribute::AttributeType type)
 {
-  v1 = *v0;
-  v2 = v0[1];
-
-  return OUTLINED_FUNCTION_6_2();
-}
-
-uint64_t GetContactAttributeSnippetModel.DisplayAttribute.displayLabel.getter()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-
-  return OUTLINED_FUNCTION_6_2();
-}
-
-uint64_t GetContactAttributeSnippetModel.DisplayAttribute.displayValue.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return OUTLINED_FUNCTION_6_2();
+  v5 = *type;
+  retstr->id = id;
+  retstr->displayLabel = displayLabel;
+  retstr->displayValue = displayValue;
+  retstr->type = v5;
 }
 
 uint64_t GetContactAttributeSnippetModel.DisplayAttribute.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
@@ -1060,30 +745,21 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, ContactAttributeSnippet);
 }
 
-void GetContactAttributeSnippetModel.DisplayAttribute.encode(to:)()
+void GetContactAttributeSnippetModel.DisplayAttribute.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   OUTLINED_FUNCTION_44();
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
+  v17 = v16;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v20 = v19;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v21);
   OUTLINED_FUNCTION_13();
-  v11 = *v0;
-  v12 = v0[1];
-  v17 = v0[3];
-  v18 = v0[2];
-  v15 = v0[5];
-  v16 = v0[4];
-  v14 = *(v0 + 48);
-  v13 = v4[4];
-  OUTLINED_FUNCTION_42(v4, v4[3]);
+  OUTLINED_FUNCTION_42(v17, v17[3]);
   lazy protocol witness table accessor for type GetContactAttributeSnippetModel.DisplayAttribute.CodingKeys and conformance GetContactAttributeSnippetModel.DisplayAttribute.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (!v1)
+  if (!v14)
   {
     OUTLINED_FUNCTION_103();
     OUTLINED_FUNCTION_4_2();
@@ -1095,55 +771,53 @@ void GetContactAttributeSnippetModel.DisplayAttribute.encode(to:)()
     KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  (*(v7 + 8))(v2, v5);
+  (*(v20 + 8))(v15, v18);
   OUTLINED_FUNCTION_89();
   OUTLINED_FUNCTION_45();
 }
 
-void GetContactAttributeSnippetModel.DisplayAttribute.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11)
+void GetContactAttributeSnippetModel.DisplayAttribute.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, __int16 a10, char a11, char a12, char a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
 {
   OUTLINED_FUNCTION_44();
-  v13 = v12;
-  v15 = v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v16);
-  v18 = *(v17 + 64);
+  v28 = v27;
+  v30 = v29;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayI0V10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v19);
+  MEMORY[0x28223BE20](v31);
   OUTLINED_FUNCTION_21_0();
-  v20 = v13[4];
-  OUTLINED_FUNCTION_42(v13, v13[3]);
+  OUTLINED_FUNCTION_42(v28, v28[3]);
   lazy protocol witness table accessor for type GetContactAttributeSnippetModel.DisplayAttribute.CodingKeys and conformance GetContactAttributeSnippetModel.DisplayAttribute.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v11)
+  if (v26)
   {
-    __swift_destroy_boxed_opaque_existential_0(v13);
+    __swift_destroy_boxed_opaque_existential_0(v28);
   }
 
   else
   {
-    v21 = KeyedDecodingContainer.decode(_:forKey:)();
-    v32 = v22;
+    v32 = KeyedDecodingContainer.decode(_:forKey:)();
+    v43 = v33;
     OUTLINED_FUNCTION_103();
-    v23 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v31 = v24;
-    v29 = v23;
-    v28 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-    v30 = v25;
+    v34 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v42 = v35;
+    v40 = v34;
+    v39 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v41 = v36;
     lazy protocol witness table accessor for type GetContactAttributeSnippetModel.DisplayAttribute.AttributeType and conformance GetContactAttributeSnippetModel.DisplayAttribute.AttributeType();
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v26 = OUTLINED_FUNCTION_31();
-    v27(v26);
-    *v15 = v21;
-    *(v15 + 8) = v32;
-    *(v15 + 16) = v29;
-    *(v15 + 24) = v31;
-    *(v15 + 32) = v28;
-    *(v15 + 40) = v30;
-    *(v15 + 48) = a11;
+    v37 = OUTLINED_FUNCTION_31();
+    v38(v37);
+    *v30 = v32;
+    *(v30 + 8) = v43;
+    *(v30 + 16) = v40;
+    *(v30 + 24) = v42;
+    *(v30 + 32) = v39;
+    *(v30 + 40) = v41;
+    *(v30 + 48) = a13;
 
-    __swift_destroy_boxed_opaque_existential_0(v13);
+    __swift_destroy_boxed_opaque_existential_0(v28);
   }
 
   OUTLINED_FUNCTION_83();
@@ -1158,7 +832,7 @@ uint64_t protocol witness for Identifiable.id.getter in conformance GetContactAt
   return result;
 }
 
-uint64_t key path getter for GetContactAttributeSnippetModel.contact : GetContactAttributeSnippetModel@<X0>(void *a1@<X8>)
+void *key path getter for GetContactAttributeSnippetModel.contact : GetContactAttributeSnippetModel@<X0>(void *a1@<X8>)
 {
   result = GetContactAttributeSnippetModel.contact.getter();
   *a1 = v3;
@@ -1174,8 +848,7 @@ uint64_t key path setter for GetContactAttributeSnippetModel.contact : GetContac
 
 uint64_t GetContactAttributeSnippetModel.contact.setter(uint64_t *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for GetContactAttributeSnippetModel(0) + 20);
+  type metadata accessor for GetContactAttributeSnippetModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
   return Loggable.wrappedValue.setter();
 }
@@ -1185,9 +858,9 @@ uint64_t (*GetContactAttributeSnippetModel.contact.modify())()
   v1 = OUTLINED_FUNCTION_81();
   v2 = __swift_coroFrameAllocStub(v1);
   v3 = OUTLINED_FUNCTION_47(v2);
-  v4 = *(type metadata accessor for GetContactAttributeSnippetModel(v3) + 20);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  *(v0 + 32) = OUTLINED_FUNCTION_72();
+  type metadata accessor for GetContactAttributeSnippetModel(v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  *(v0 + 32) = OUTLINED_FUNCTION_72(v4);
   return GetContactSnippetModel.labelCATs.modify;
 }
 
@@ -1206,7 +879,7 @@ uint64_t GetContactAttributeSnippetModel.flowState.getter()
 {
   v2 = OUTLINED_FUNCTION_48();
   v4 = v3(v2);
-  v5 = OUTLINED_FUNCTION_50((v1 + *(v4 + 28)));
+  v5 = OUTLINED_FUNCTION_50(v1 + *(v4 + 28));
   *v0 = v5;
   v0[1] = v6;
   v0[2] = v7;
@@ -1285,34 +958,32 @@ uint64_t static ContactsLabelCATContainer.empty.getter@<X0>(void *a1@<X8>)
   a1[1] = v2;
 }
 
-void GetContactAttributeSnippetModel.init(attributes:contact:flowState:directInvocationsModel:labelCATs:)()
+void GetContactAttributeSnippetModel.init(attributes:contact:flowState:directInvocationsModel:labelCATs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_110();
-  v1 = v0;
-  v3 = v2;
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = *v10;
-  v12 = *v2;
-  v13 = v2[1];
-  v14 = v2[4];
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  v32 = *v24;
+  v33 = v24[1];
+  v34 = v24[4];
   ContactAttributeSnippetModel = type metadata accessor for GetContactAttributeSnippetModel(0);
-  *(v9 + ContactAttributeSnippetModel[9]) = 0;
-  *v9 = v7;
-  v16 = ContactAttributeSnippetModel[5];
+  *(v31 + ContactAttributeSnippetModel[9]) = 0;
+  *v31 = v29;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriContactsCommon14CodableContactVySo9CNContactCGMd, &_s18SiriContactsCommon14CodableContactVySo9CNContactCGMR);
   Loggable.init(wrappedValue:)();
-  v17 = (v9 + ContactAttributeSnippetModel[7]);
-  v18 = v5[1];
-  *v17 = *v5;
-  v17[1] = v18;
-  v19 = v9 + ContactAttributeSnippetModel[6];
-  *v19 = v12;
-  *(v19 + 1) = v13;
-  *(v19 + 1) = *(v3 + 1);
-  *(v19 + 4) = v14;
-  *(v9 + ContactAttributeSnippetModel[8]) = *v1;
+  v36 = (v31 + ContactAttributeSnippetModel[7]);
+  v37 = v27[1];
+  *v36 = *v27;
+  v36[1] = v37;
+  v38 = v31 + ContactAttributeSnippetModel[6];
+  *v38 = v32;
+  *(v38 + 1) = v33;
+  *(v38 + 1) = *(v25 + 1);
+  *(v38 + 4) = v34;
+  *(v31 + ContactAttributeSnippetModel[8]) = *v23;
   OUTLINED_FUNCTION_109();
 }
 
@@ -1442,40 +1113,36 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, ContactAttributeSnippet);
 }
 
-void GetContactAttributeSnippetModel.encode(to:)()
+void GetContactAttributeSnippetModel.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_44();
   OUTLINED_FUNCTION_76();
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v3);
-  v5 = *(v4 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v25);
   OUTLINED_FUNCTION_13();
-  v7 = *(v0 + 24);
-  v8 = *(v0 + 32);
-  v9 = OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_42(v9, v10);
-  lazy protocol witness table accessor for type GetContactAttributeSnippetModel.CodingKeys and conformance GetContactAttributeSnippetModel.CodingKeys();
-  OUTLINED_FUNCTION_62();
-  v33 = *v2;
+  v26 = OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_42(v26, v27);
+  ContactAttributeSnippet = lazy protocol witness table accessor for type GetContactAttributeSnippetModel.CodingKeys and conformance GetContactAttributeSnippetModel.CodingKeys();
+  OUTLINED_FUNCTION_62(&unk_28781BE40, v29, ContactAttributeSnippet);
+  v51 = *v24;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayF0VGMd, &_sSay18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayF0VGMR);
   lazy protocol witness table accessor for type [GetContactAttributeSnippetModel.DisplayAttribute] and conformance <A> [A](&lazy protocol witness table cache variable for type [GetContactAttributeSnippetModel.DisplayAttribute] and conformance <A> [A]);
-  OUTLINED_FUNCTION_18_0();
-  if (!v1)
+  OUTLINED_FUNCTION_18_0(&v51);
+  if (!v23)
   {
     ContactAttributeSnippetModel = type metadata accessor for GetContactAttributeSnippetModel(0);
-    v12 = ContactAttributeSnippetModel[5];
-    LOBYTE(v33) = 1;
+    LOBYTE(v51) = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
     OUTLINED_FUNCTION_3_7();
-    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v13);
-    OUTLINED_FUNCTION_102();
-    OUTLINED_FUNCTION_18_0();
-    v14 = OUTLINED_FUNCTION_9_2(ContactAttributeSnippetModel[6]);
-    OUTLINED_FUNCTION_84(v14, v15, v16);
+    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v31);
+    v32 = OUTLINED_FUNCTION_102();
+    OUTLINED_FUNCTION_18_0(v32);
+    v33 = OUTLINED_FUNCTION_9_2(ContactAttributeSnippetModel[6]);
+    OUTLINED_FUNCTION_84(v33, v34, v35);
     OUTLINED_FUNCTION_71();
-    outlined copy of Data?(v17, v18);
+    outlined copy of Data?(v36, v37);
     ContactDirectInvocationsModel = lazy protocol witness table accessor for type GetContactDirectInvocationsModel and conformance GetContactDirectInvocationsModel();
 
     OUTLINED_FUNCTION_23_0();
@@ -1483,80 +1150,76 @@ void GetContactAttributeSnippetModel.encode(to:)()
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     if (ContactDirectInvocationsModel)
     {
-      outlined consume of Data?(v33, v36);
+      outlined consume of Data?(v51, v52);
     }
 
     else
     {
-      outlined consume of Data?(v33, v36);
+      outlined consume of Data?(v51, v52);
 
-      v34 = OUTLINED_FUNCTION_50((v2 + ContactAttributeSnippetModel[7]));
-      v37 = v20;
-      v38 = v21;
-      v39 = v22;
+      v51 = OUTLINED_FUNCTION_50(v24 + ContactAttributeSnippetModel[7]);
+      v52 = v39;
+      v53 = v40;
+      v54 = v41;
       OUTLINED_FUNCTION_73();
-      outlined copy of ContactsSnippetFlowState(v23, v24, v25, v26);
+      outlined copy of ContactsSnippetFlowState(v42, v43, v44, v45);
       lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
       OUTLINED_FUNCTION_17();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
-      outlined consume of ContactsSnippetFlowState(v34, v37, v38, v39);
-      v27 = (v2 + ContactAttributeSnippetModel[8]);
-      v28 = v27[1];
-      v35 = *v27;
-      v29 = lazy protocol witness table accessor for type ContactsLabelCATContainer and conformance ContactsLabelCATContainer();
+      outlined consume of ContactsSnippetFlowState(v51, v52, v53, v54);
+      v46 = (v24 + ContactAttributeSnippetModel[8]);
+      v47 = v46[1];
+      v51 = *v46;
+      v52 = v47;
+      v48 = lazy protocol witness table accessor for type ContactsLabelCATContainer and conformance ContactsLabelCATContainer();
 
       OUTLINED_FUNCTION_23_0();
       OUTLINED_FUNCTION_4_2();
       KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-      if (!v29)
+      if (!v48)
       {
-        v30 = *(v2 + ContactAttributeSnippetModel[9]);
+        LOBYTE(v51) = 5;
         OUTLINED_FUNCTION_17();
         KeyedEncodingContainer.encode(_:forKey:)();
       }
     }
   }
 
-  v31 = OUTLINED_FUNCTION_78();
-  v32(v31);
+  v49 = OUTLINED_FUNCTION_78();
+  v50(v49);
   OUTLINED_FUNCTION_89();
   OUTLINED_FUNCTION_45();
 }
 
-void GetContactAttributeSnippetModel.init(from:)()
+void GetContactAttributeSnippetModel.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_44();
-  v3 = v2;
-  v32 = v4;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  v6 = OUTLINED_FUNCTION_11_0(v5);
-  v33 = v7;
-  v34 = v6;
-  v9 = *(v8 + 64);
+  v26 = v25;
+  v57 = v27;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  OUTLINED_FUNCTION_11_0();
+  v58 = v29;
+  v59 = v28;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v30);
   OUTLINED_FUNCTION_46();
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v11);
-  v13 = *(v12 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon31GetContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v14);
+  MEMORY[0x28223BE20](v31);
   ContactAttributeSnippetModel = type metadata accessor for GetContactAttributeSnippetModel(0);
-  v15 = OUTLINED_FUNCTION_6_5(ContactAttributeSnippetModel);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
+  OUTLINED_FUNCTION_6_5();
+  MEMORY[0x28223BE20](v32);
   OUTLINED_FUNCTION_1_3();
-  v36 = (v19 - v18);
-  v21 = v3[3];
-  v20 = v3[4];
-  v22 = OUTLINED_FUNCTION_107();
-  OUTLINED_FUNCTION_42(v22, v23);
+  v61 = (v34 - v33);
+  v35 = OUTLINED_FUNCTION_107();
+  OUTLINED_FUNCTION_42(v35, v36);
   lazy protocol witness table accessor for type GetContactAttributeSnippetModel.CodingKeys and conformance GetContactAttributeSnippetModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v23)
   {
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    __swift_destroy_boxed_opaque_existential_0(v26);
   }
 
   else
@@ -1564,37 +1227,37 @@ void GetContactAttributeSnippetModel.init(from:)()
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayF0VGMd, &_sSay18SiriContactsCommon31GetContactAttributeSnippetModelV07DisplayF0VGMR);
     lazy protocol witness table accessor for type [GetContactAttributeSnippetModel.DisplayAttribute] and conformance <A> [A](&lazy protocol witness table cache variable for type [GetContactAttributeSnippetModel.DisplayAttribute] and conformance <A> [A]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *v36 = v37;
-    LOBYTE(v37) = 1;
+    *v61 = v62;
+    LOBYTE(v62) = 1;
     OUTLINED_FUNCTION_2_7();
-    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v24);
+    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v37);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v33 + 32))(&v36[ContactAttributeSnippetModel[5]], v1, v34);
+    (*(v58 + 32))(&v61[ContactAttributeSnippetModel[5]], v24, v59);
     OUTLINED_FUNCTION_71();
-    lazy protocol witness table accessor for type GetContactDirectInvocationsModel and conformance GetContactDirectInvocationsModel();
-    OUTLINED_FUNCTION_33();
-    v25 = &v36[ContactAttributeSnippetModel[6]];
-    *v25 = v37;
-    *(v25 + 1) = v38;
-    *(v25 + 4) = v39;
+    ContactDirectInvocationsModel = lazy protocol witness table accessor for type GetContactDirectInvocationsModel and conformance GetContactDirectInvocationsModel();
+    OUTLINED_FUNCTION_33(&type metadata for GetContactDirectInvocationsModel, v39, v40, v41, ContactDirectInvocationsModel);
+    v42 = &v61[ContactAttributeSnippetModel[6]];
+    *v42 = v62;
+    *(v42 + 1) = v63;
+    *(v42 + 4) = v64;
     OUTLINED_FUNCTION_73();
-    lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
-    OUTLINED_FUNCTION_33();
-    v26 = &v36[ContactAttributeSnippetModel[7]];
-    *v26 = v37;
-    *(v26 + 1) = v38;
-    lazy protocol witness table accessor for type ContactsLabelCATContainer and conformance ContactsLabelCATContainer();
-    OUTLINED_FUNCTION_33();
-    *&v36[ContactAttributeSnippetModel[8]] = v37;
-    v27 = KeyedDecodingContainer.decode(_:forKey:)();
-    v28 = ContactAttributeSnippetModel[9];
-    v29 = OUTLINED_FUNCTION_20_0();
-    v30(v29);
-    v36[v28] = v27 & 1;
-    outlined init with copy of ContactsSnippetPluginModel(v36, v32);
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    v43 = lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
+    OUTLINED_FUNCTION_33(&type metadata for ContactsSnippetFlowState, v44, v45, v46, v43);
+    v47 = &v61[ContactAttributeSnippetModel[7]];
+    *v47 = v62;
+    *(v47 + 1) = v63;
+    v48 = lazy protocol witness table accessor for type ContactsLabelCATContainer and conformance ContactsLabelCATContainer();
+    OUTLINED_FUNCTION_33(&type metadata for ContactsLabelCATContainer, v49, v50, v51, v48);
+    *&v61[ContactAttributeSnippetModel[8]] = v62;
+    v52 = KeyedDecodingContainer.decode(_:forKey:)();
+    v53 = ContactAttributeSnippetModel[9];
+    v54 = OUTLINED_FUNCTION_20_0();
+    v55(v54);
+    v61[v53] = v52 & 1;
+    outlined init with copy of ContactsSnippetPluginModel(v61, v57);
+    __swift_destroy_boxed_opaque_existential_0(v26);
     OUTLINED_FUNCTION_0_8();
-    outlined destroy of ModifyContactAttributeSnippetModel(v36, v31);
+    outlined destroy of ModifyContactAttributeSnippetModel(v61, v56);
   }
 
   OUTLINED_FUNCTION_83();
@@ -1663,9 +1326,9 @@ uint64_t ModifyContactAttributeSnippetModel.ContactAttributeToModify.NicknameCod
   return v4 & 1;
 }
 
-Swift::Int ContactsSnippetPluginModel.GetContactAttributeCodingKeys.hashValue.getter()
+Swift::Int ContactsSnippetPluginModel.GetContactAttributeCodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_88();
+  OUTLINED_FUNCTION_88(a1);
   MEMORY[0x26D5DE980](0);
   return Hasher._finalize()();
 }
@@ -1712,7 +1375,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ContactsSnippetPluginModel.GetContactAttributeCodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ContactsSnippetPluginModel.GetContactAttributeCodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x26D5DE980](0);
@@ -1733,51 +1396,43 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void ModifyContactAttributeSnippetModel.ContactAttributeToModify.encode(to:)()
+void ModifyContactAttributeSnippetModel.ContactAttributeToModify.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, __int16 a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   OUTLINED_FUNCTION_44();
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v6 = OUTLINED_FUNCTION_11_0(v5);
-  v32 = v7;
-  v33 = v6;
-  v9 = *(v8 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v43 = v27;
+  v44 = v26;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v28);
   OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_104(v11);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v13 = OUTLINED_FUNCTION_11_0(v12);
-  v29 = v14;
-  v30 = v13;
-  v16 = *(v15 + 64);
+  OUTLINED_FUNCTION_104(v29);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v40 = v31;
+  v41 = v30;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v17);
+  MEMORY[0x28223BE20](v32);
   OUTLINED_FUNCTION_21_0();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v18);
-  v20 = v19;
-  v22 = *(v21 + 64);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v35 = v34;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v23);
+  MEMORY[0x28223BE20](v36);
   OUTLINED_FUNCTION_16_0();
-  v34 = v0[1];
-  v35 = *v0;
-  v24 = *(v0 + 16);
-  v25 = *(v4 + 24);
-  v26 = *(v4 + 32);
-  v27 = OUTLINED_FUNCTION_100();
-  OUTLINED_FUNCTION_42(v27, v28);
+  v37 = *(v23 + 16);
+  v38 = OUTLINED_FUNCTION_100();
+  OUTLINED_FUNCTION_42(v38, v39);
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify.CodingKeys and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  if (v24)
+  if (v37)
   {
     OUTLINED_FUNCTION_51();
     lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify.RelationshipCodingKeys and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify.RelationshipCodingKeys();
     OUTLINED_FUNCTION_52();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     KeyedEncodingContainer.encode(_:forKey:)();
-    (*(v32 + 8))(v31, v33);
+    (*(v43 + 8))(v42, v44);
   }
 
   else
@@ -1786,82 +1441,77 @@ void ModifyContactAttributeSnippetModel.ContactAttributeToModify.encode(to:)()
     OUTLINED_FUNCTION_52();
     KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
     KeyedEncodingContainer.encode(_:forKey:)();
-    (*(v29 + 8))(v2, v30);
+    (*(v40 + 8))(v25, v41);
   }
 
-  (*(v20 + 8))(v1, v18);
+  (*(v35 + 8))(v24, v33);
   OUTLINED_FUNCTION_96();
   OUTLINED_FUNCTION_45();
 }
 
-void ModifyContactAttributeSnippetModel.ContactAttributeToModify.init(from:)()
+void ModifyContactAttributeSnippetModel.ContactAttributeToModify.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_44();
-  v62 = v2;
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v5);
-  v7 = *(v6 + 64);
+  v68 = v22;
+  v24 = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O22RelationshipCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v25);
   OUTLINED_FUNCTION_22_0();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v9);
-  v58 = v10;
-  v12 = *(v11 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O18NicknameCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v13);
+  MEMORY[0x28223BE20](v26);
   OUTLINED_FUNCTION_16_0();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v14);
-  v61 = v15;
-  v17 = *(v16 + 64);
+  v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV0hi2ToG0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v67 = v28;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v18);
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_29();
-  v19 = v4[4];
-  OUTLINED_FUNCTION_42(v4, v4[3]);
+  OUTLINED_FUNCTION_42(v24, v24[3]);
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify.CodingKeys and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v0)
+  if (!v20)
   {
-    v63 = v4;
-    v20 = KeyedDecodingContainer.allKeys.getter();
-    started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v20, 0);
-    if (v23 != v22 >> 1)
+    v69 = v24;
+    v30 = KeyedDecodingContainer.allKeys.getter();
+    started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v30, 0);
+    if (v33 != v32 >> 1)
     {
       OUTLINED_FUNCTION_28();
       OUTLINED_FUNCTION_79();
-      if (v28 == v29)
+      if (v38 == v39)
       {
         __break(1u);
         return;
       }
 
-      v30 = *(v27 + v25);
-      specialized ArraySlice.subscript.getter(v25 + 1, v24, started, v27, v25, v26);
-      v32 = v31;
-      v34 = v33;
+      v40 = *(v37 + v35);
+      specialized ArraySlice.subscript.getter(v35 + 1, v34, started, v37, v35, v36);
+      v42 = v41;
+      v44 = v43;
       swift_unknownObjectRelease();
-      if (v32 == v34 >> 1)
+      if (v42 == v44 >> 1)
       {
-        v35 = v14;
-        v36 = v30;
-        if (v30)
+        v45 = v27;
+        v46 = v40;
+        if (v40)
         {
-          v59 = v30;
+          v65 = v40;
           OUTLINED_FUNCTION_51();
           lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify.RelationshipCodingKeys and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify.RelationshipCodingKeys();
           OUTLINED_FUNCTION_75();
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          v37 = v62;
-          v38 = v61;
-          v49 = KeyedDecodingContainer.decode(_:forKey:)();
-          v51 = v50;
+          v47 = v68;
+          v48 = v67;
+          v57 = KeyedDecodingContainer.decode(_:forKey:)();
+          v59 = v58;
           swift_unknownObjectRelease();
-          v52 = OUTLINED_FUNCTION_91();
-          v53(v52);
-          v36 = v59;
+          v60 = OUTLINED_FUNCTION_91();
+          v61(v60);
+          v46 = v65;
         }
 
         else
@@ -1869,45 +1519,43 @@ void ModifyContactAttributeSnippetModel.ContactAttributeToModify.init(from:)()
           lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify.NicknameCodingKeys and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify.NicknameCodingKeys();
           OUTLINED_FUNCTION_75();
           KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-          v37 = v62;
-          v48 = KeyedDecodingContainer.decode(_:forKey:)();
-          v51 = v54;
-          v60 = v48;
+          v47 = v68;
+          v56 = KeyedDecodingContainer.decode(_:forKey:)();
+          v59 = v62;
+          v66 = v56;
           swift_unknownObjectRelease();
-          v55 = *(v58 + 8);
-          v56 = OUTLINED_FUNCTION_69();
-          v57(v56);
-          v49 = v60;
-          v38 = v61;
+          v63 = OUTLINED_FUNCTION_69();
+          v64(v63);
+          v57 = v66;
+          v48 = v67;
         }
 
-        (*(v38 + 8))(v1, v35);
-        *v37 = v49;
-        *(v37 + 8) = v51;
-        *(v37 + 16) = v36;
-        __swift_destroy_boxed_opaque_existential_0(v63);
+        (*(v48 + 8))(v21, v45);
+        *v47 = v57;
+        *(v47 + 8) = v59;
+        *(v47 + 16) = v46;
+        __swift_destroy_boxed_opaque_existential_0(v69);
         goto LABEL_11;
       }
     }
 
-    v39 = type metadata accessor for DecodingError();
-    OUTLINED_FUNCTION_85();
-    v41 = v40;
-    v42 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v41 = &type metadata for ModifyContactAttributeSnippetModel.ContactAttributeToModify;
-    v43 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_27(v43);
-    v44 = *MEMORY[0x277D84160];
-    OUTLINED_FUNCTION_26_0(v39);
-    (*(v45 + 104))(v41);
+    v49 = type metadata accessor for DecodingError();
+    OUTLINED_FUNCTION_85(v49, MEMORY[0x277D841A0]);
+    v51 = v50;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v51 = &type metadata for ModifyContactAttributeSnippetModel.ContactAttributeToModify;
+    v52 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_27(v52);
+    OUTLINED_FUNCTION_26_0();
+    (*(v53 + 104))(v51);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v46 = OUTLINED_FUNCTION_34();
-    v47(v46, v14);
-    v4 = v63;
+    v54 = OUTLINED_FUNCTION_34();
+    v55(v54, v27);
+    v24 = v69;
   }
 
-  __swift_destroy_boxed_opaque_existential_0(v4);
+  __swift_destroy_boxed_opaque_existential_0(v24);
 LABEL_11:
   OUTLINED_FUNCTION_83();
   OUTLINED_FUNCTION_45();
@@ -2062,192 +1710,175 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void ModifyContactAttributeSnippetModel.ModificationType.encode(to:)()
+void ModifyContactAttributeSnippetModel.ModificationType.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_44();
-  v4 = v3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v6 = OUTLINED_FUNCTION_11_0(v5);
-  v56 = v7;
-  v57 = v6;
-  v9 = *(v8 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v62 = v28;
+  v63 = v27;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_19();
-  v55 = v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v13 = OUTLINED_FUNCTION_11_0(v12);
-  v53 = v14;
-  v54 = v13;
-  v16 = *(v15 + 64);
+  v61 = v30;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v59 = v32;
+  v60 = v31;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v17);
-  OUTLINED_FUNCTION_12_0(v18, v46);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v20 = OUTLINED_FUNCTION_11_0(v19);
-  v50 = v21;
-  v51 = v20;
-  v23 = *(v22 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v24);
-  OUTLINED_FUNCTION_19();
-  v49 = v25;
-  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v27 = OUTLINED_FUNCTION_11_0(v26);
-  v47 = v28;
-  v48 = v27;
-  v30 = *(v29 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v31);
-  OUTLINED_FUNCTION_22_0();
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v32);
-  v34 = v33;
-  v36 = *(v35 + 64);
+  MEMORY[0x28223BE20](v33);
+  OUTLINED_FUNCTION_12_0(v34, v52);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v56 = v36;
+  v57 = v35;
   OUTLINED_FUNCTION_15_0();
   MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_19();
+  v55 = v38;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v53 = v40;
+  v54 = v39;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v41);
+  OUTLINED_FUNCTION_22_0();
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v44 = v43;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v45);
   OUTLINED_FUNCTION_46();
-  v38 = *v0;
-  v40 = *(v4 + 24);
-  v39 = *(v4 + 32);
-  v41 = OUTLINED_FUNCTION_70();
-  OUTLINED_FUNCTION_42(v41, v42);
+  v46 = *v24;
+  v47 = OUTLINED_FUNCTION_70();
+  OUTLINED_FUNCTION_42(v47, v48);
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.CodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  switch(v38)
+  switch(v46)
   {
     case 1:
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.AddCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.AddCodingKeys();
-      v43 = v49;
+      v49 = v55;
       OUTLINED_FUNCTION_52();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v45 = v50;
-      v44 = v51;
+      v51 = v56;
+      v50 = v57;
       goto LABEL_6;
     case 2:
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.ReplaceCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.ReplaceCodingKeys();
-      v43 = v52;
+      v49 = v58;
       OUTLINED_FUNCTION_52();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v45 = v53;
-      v44 = v54;
+      v51 = v59;
+      v50 = v60;
       goto LABEL_6;
     case 3:
       OUTLINED_FUNCTION_73();
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.DeleteCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.DeleteCodingKeys();
-      v43 = v55;
+      v49 = v61;
       OUTLINED_FUNCTION_52();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v45 = v56;
-      v44 = v57;
+      v51 = v62;
+      v50 = v63;
 LABEL_6:
-      (*(v45 + 8))(v43, v44);
+      (*(v51 + 8))(v49, v50);
       break;
     default:
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.UnknownCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.UnknownCodingKeys();
       OUTLINED_FUNCTION_52();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      (*(v47 + 8))(v1, v48);
+      (*(v53 + 8))(v25, v54);
       break;
   }
 
-  (*(v34 + 8))(v2, v32);
+  (*(v44 + 8))(v26, v42);
   OUTLINED_FUNCTION_45();
 }
 
-void ModifyContactAttributeSnippetModel.ModificationType.init(from:)()
+void ModifyContactAttributeSnippetModel.ModificationType.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, int a10, char a11, char a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   OUTLINED_FUNCTION_44();
-  v3 = v2;
-  v62 = v4;
-  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v64);
-  v61 = v5;
-  v7 = *(v6 + 64);
+  v27 = v26;
+  v67 = v28;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO16DeleteCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v29);
   OUTLINED_FUNCTION_19();
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v9);
-  v11 = *(v10 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17ReplaceCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_12_0(v13, v60);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v14);
-  v16 = *(v15 + 64);
+  MEMORY[0x28223BE20](v30);
+  OUTLINED_FUNCTION_12_0(v31, v66);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO13AddCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v17);
+  MEMORY[0x28223BE20](v32);
   OUTLINED_FUNCTION_16_0();
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v18);
-  v20 = *(v19 + 64);
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO17UnknownCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v21);
+  MEMORY[0x28223BE20](v34);
   OUTLINED_FUNCTION_22_0();
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v22);
-  v63 = v23;
-  v25 = *(v24 + 64);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV16ModificationTypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v68 = v36;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v26);
+  MEMORY[0x28223BE20](v37);
   OUTLINED_FUNCTION_13();
-  v27 = v3[4];
-  OUTLINED_FUNCTION_42(v3, v3[3]);
+  OUTLINED_FUNCTION_42(v27, v27[3]);
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.CodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v24)
   {
     goto LABEL_9;
   }
 
-  v65 = v3;
-  v28 = v1;
-  v29 = KeyedDecodingContainer.allKeys.getter();
-  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v29, 0);
-  if (v32 == v31 >> 1)
+  v69 = v27;
+  v38 = v25;
+  v39 = KeyedDecodingContainer.allKeys.getter();
+  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v39, 0);
+  if (v42 == v41 >> 1)
   {
     goto LABEL_8;
   }
 
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_79();
-  if (v37 == v38)
+  if (v47 == v48)
   {
     __break(1u);
     JUMPOUT(0x2668550A0);
   }
 
-  v39 = *(v36 + v34);
-  specialized ArraySlice.subscript.getter(v34 + 1, v33, started, v36, v34, v35);
-  v41 = v40;
-  v43 = v42;
+  v49 = *(v46 + v44);
+  specialized ArraySlice.subscript.getter(v44 + 1, v43, started, v46, v44, v45);
+  v51 = v50;
+  v53 = v52;
   swift_unknownObjectRelease();
-  if (v41 != v43 >> 1)
+  if (v51 != v53 >> 1)
   {
 LABEL_8:
-    v47 = type metadata accessor for DecodingError();
-    OUTLINED_FUNCTION_85();
-    v49 = v48;
-    v50 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v49 = &type metadata for ModifyContactAttributeSnippetModel.ModificationType;
-    v51 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_27(v51);
-    v52 = *MEMORY[0x277D84160];
-    OUTLINED_FUNCTION_26_0(v47);
-    (*(v53 + 104))(v49);
+    v57 = type metadata accessor for DecodingError();
+    OUTLINED_FUNCTION_85(v57, MEMORY[0x277D841A0]);
+    v59 = v58;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v59 = &type metadata for ModifyContactAttributeSnippetModel.ModificationType;
+    v60 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_27(v60);
+    OUTLINED_FUNCTION_26_0();
+    (*(v61 + 104))(v59);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v54 = *(v63 + 8);
-    v55 = OUTLINED_FUNCTION_70();
-    v56(v55);
-    v3 = v65;
+    v62 = OUTLINED_FUNCTION_70();
+    v63(v62);
+    v27 = v69;
 LABEL_9:
-    __swift_destroy_boxed_opaque_existential_0(v3);
+    __swift_destroy_boxed_opaque_existential_0(v27);
     goto LABEL_10;
   }
 
-  switch(v39)
+  switch(v49)
   {
     case 1:
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.AddCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.AddCodingKeys();
@@ -2261,7 +1892,7 @@ LABEL_9:
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       swift_unknownObjectRelease();
 LABEL_14:
-      v44 = OUTLINED_FUNCTION_55();
+      v54 = OUTLINED_FUNCTION_55();
       goto LABEL_15;
     case 3:
       OUTLINED_FUNCTION_73();
@@ -2269,23 +1900,22 @@ LABEL_14:
       OUTLINED_FUNCTION_57();
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       swift_unknownObjectRelease();
-      v57 = *(v61 + 8);
-      v58 = OUTLINED_FUNCTION_70();
-      v59(v58);
+      v64 = OUTLINED_FUNCTION_70();
+      v65(v64);
       goto LABEL_16;
     default:
       lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType.UnknownCodingKeys and conformance ModifyContactAttributeSnippetModel.ModificationType.UnknownCodingKeys();
       OUTLINED_FUNCTION_57();
       KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
       swift_unknownObjectRelease();
-      v44 = OUTLINED_FUNCTION_55();
-      v46 = v18;
+      v54 = OUTLINED_FUNCTION_55();
+      v56 = v33;
 LABEL_15:
-      v45(v44, v46);
+      v55(v54, v56);
 LABEL_16:
-      (*(v63 + 8))(v28, v22);
-      *v62 = v39;
-      __swift_destroy_boxed_opaque_existential_0(v65);
+      (*(v68 + 8))(v38, v35);
+      *v67 = v49;
+      __swift_destroy_boxed_opaque_existential_0(v69);
       break;
   }
 
@@ -2304,15 +1934,15 @@ uint64_t ModifyContactAttributeSnippetModel.attributeToModify.getter@<X0>(uint64
   return outlined copy of ModifyContactAttributeSnippetModel.ContactAttributeToModify();
 }
 
-uint64_t ModifyContactAttributeSnippetModel.contact.getter()
+void *ModifyContactAttributeSnippetModel.contact.getter()
 {
   v0 = OUTLINED_FUNCTION_48();
-  v1 = *(type metadata accessor for ModifyContactAttributeSnippetModel(v0) + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  return OUTLINED_FUNCTION_111();
+  type metadata accessor for ModifyContactAttributeSnippetModel(v0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  return OUTLINED_FUNCTION_111(v1);
 }
 
-uint64_t key path getter for ModifyContactAttributeSnippetModel.contact : ModifyContactAttributeSnippetModel@<X0>(void *a1@<X8>)
+void *key path getter for ModifyContactAttributeSnippetModel.contact : ModifyContactAttributeSnippetModel@<X0>(void *a1@<X8>)
 {
   result = ModifyContactAttributeSnippetModel.contact.getter();
   *a1 = v3;
@@ -2328,8 +1958,7 @@ uint64_t key path setter for ModifyContactAttributeSnippetModel.contact : Modify
 
 uint64_t ModifyContactAttributeSnippetModel.contact.setter(uint64_t *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for ModifyContactAttributeSnippetModel(0) + 24);
+  type metadata accessor for ModifyContactAttributeSnippetModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
   return Loggable.wrappedValue.setter();
 }
@@ -2339,18 +1968,18 @@ uint64_t (*ModifyContactAttributeSnippetModel.contact.modify())()
   v1 = OUTLINED_FUNCTION_81();
   v2 = __swift_coroFrameAllocStub(v1);
   v3 = OUTLINED_FUNCTION_47(v2);
-  v4 = *(type metadata accessor for ModifyContactAttributeSnippetModel(v3) + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  *(v0 + 32) = OUTLINED_FUNCTION_72();
+  type metadata accessor for ModifyContactAttributeSnippetModel(v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  *(v0 + 32) = OUTLINED_FUNCTION_72(v4);
   return GetContactSnippetModel.labelCATs.modify;
 }
 
-uint64_t ModifyContactAttributeSnippetModel.labelCATs.getter()
+void *ModifyContactAttributeSnippetModel.labelCATs.getter()
 {
   v0 = OUTLINED_FUNCTION_48();
-  v1 = *(type metadata accessor for ModifyContactAttributeSnippetModel(v0) + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  return OUTLINED_FUNCTION_111();
+  type metadata accessor for ModifyContactAttributeSnippetModel(v0);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  return OUTLINED_FUNCTION_111(v1);
 }
 
 double key path getter for ModifyContactAttributeSnippetModel.labelCATs : ModifyContactAttributeSnippetModel@<D0>(_OWORD *a1@<X8>)
@@ -2372,8 +2001,7 @@ uint64_t key path setter for GetContactSnippetModel.labelCATs : GetContactSnippe
 
 uint64_t ModifyContactAttributeSnippetModel.labelCATs.setter(__int128 *a1)
 {
-  v3 = *a1;
-  v1 = *(type metadata accessor for ModifyContactAttributeSnippetModel(0) + 32);
+  type metadata accessor for ModifyContactAttributeSnippetModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
   return Loggable.wrappedValue.setter();
 }
@@ -2383,9 +2011,9 @@ uint64_t (*ModifyContactAttributeSnippetModel.labelCATs.modify())()
   v1 = OUTLINED_FUNCTION_81();
   v2 = __swift_coroFrameAllocStub(v1);
   v3 = OUTLINED_FUNCTION_47(v2);
-  v4 = *(type metadata accessor for ModifyContactAttributeSnippetModel(v3) + 32);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  *(v0 + 32) = OUTLINED_FUNCTION_72();
+  type metadata accessor for ModifyContactAttributeSnippetModel(v3);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  *(v0 + 32) = OUTLINED_FUNCTION_72(v4);
   return GetContactSnippetModel.labelCATs.modify;
 }
 
@@ -2399,66 +2027,54 @@ void GetContactSnippetModel.contact.modify(void *a1)
 
 uint64_t ModifyContactAttributeSnippetModel.meCardPunchout.getter()
 {
-  v1 = (v0 + *(type metadata accessor for ModifyContactAttributeSnippetModel(0) + 36));
-  v2 = *v1;
-  v3 = v1[1];
-  v4 = OUTLINED_FUNCTION_6_2();
-  outlined copy of Data?(v4, v5);
+  type metadata accessor for ModifyContactAttributeSnippetModel(0);
+  v0 = OUTLINED_FUNCTION_6_2();
+  outlined copy of Data?(v0, v1);
   return OUTLINED_FUNCTION_6_2();
 }
 
 uint64_t ModifyContactAttributeSnippetModel.targetPunchout.getter()
 {
-  v1 = (v0 + *(type metadata accessor for ModifyContactAttributeSnippetModel(0) + 40));
-  v2 = *v1;
-  v3 = v1[1];
-  v4 = OUTLINED_FUNCTION_6_2();
-  outlined copy of Data?(v4, v5);
+  type metadata accessor for ModifyContactAttributeSnippetModel(0);
+  v0 = OUTLINED_FUNCTION_6_2();
+  outlined copy of Data?(v0, v1);
   return OUTLINED_FUNCTION_6_2();
 }
 
-uint64_t ModifyContactAttributeSnippetModel.modificationDisplayString.getter()
+uint64_t ModifyContactAttributeSnippetModel.modificationDisplayString.getter(uint64_t a1, uint64_t a2)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = *(v0 + 16);
   OUTLINED_FUNCTION_105();
   outlined copy of ModifyContactAttributeSnippetModel.ContactAttributeToModify();
   return OUTLINED_FUNCTION_105();
 }
 
-void ModifyContactAttributeSnippetModel.init(attributeToModify:modificationType:contact:flowState:labelCATs:meCardPunchout:targetPunchout:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
+void ModifyContactAttributeSnippetModel.init(attributeToModify:modificationType:contact:flowState:labelCATs:meCardPunchout:targetPunchout:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
 {
   OUTLINED_FUNCTION_110();
-  v24 = v23;
-  v26 = v25;
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
-  v34 = v33;
-  LOBYTE(v33) = *(v35 + 16);
-  v37 = *v36;
-  v39 = *v38;
-  *v34 = *v35;
-  *(v34 + 16) = v33;
-  *(v34 + 17) = v37;
-  v40 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
-  v41 = v40[6];
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
+  v29 = v28;
+  v31 = v30;
+  LOBYTE(v30) = *(v32 + 16);
+  v34 = *v33;
+  *v31 = *v32;
+  *(v31 + 16) = v30;
+  *(v31 + 17) = v34;
+  v35 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriContactsCommon14CodableContactVySo9CNContactCGMd, &_s18SiriContactsCommon14CodableContactVySo9CNContactCGMR);
   Loggable.init(wrappedValue:)();
-  v42 = (v34 + v40[7]);
-  v43 = v32[1];
-  *v42 = *v32;
-  v42[1] = v43;
-  v44 = v40[8];
-  v47 = *v30;
+  v36 = (v31 + v35[7]);
+  v37 = v29[1];
+  *v36 = *v29;
+  v36[1] = v37;
   Loggable.init(wrappedValue:)();
-  v45 = (v34 + v40[9]);
-  *v45 = v28;
-  v45[1] = v26;
-  v46 = (v34 + v40[10]);
-  *v46 = v24;
-  v46[1] = a23;
+  v38 = (v31 + v35[9]);
+  *v38 = v27;
+  v38[1] = v25;
+  v39 = (v31 + v35[10]);
+  *v39 = v23;
+  v39[1] = a22;
   OUTLINED_FUNCTION_109();
 }
 
@@ -2603,25 +2219,19 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t ModifyContactAttributeSnippetModel.encode(to:)()
+uint64_t ModifyContactAttributeSnippetModel.encode(to:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_76();
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v4);
+  OUTLINED_FUNCTION_11_0();
   v6 = v5;
-  v8 = *(v7 + 64);
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_13();
-  v10 = *(v0 + 24);
-  v11 = *(v0 + 32);
-  v12 = OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_42(v12, v13);
-  lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.CodingKeys and conformance ModifyContactAttributeSnippetModel.CodingKeys();
-  OUTLINED_FUNCTION_62();
-  v29 = *v3;
-  v34 = v3[1];
-  v38 = *(v3 + 16);
+  v8 = OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_42(v8, v9);
+  v10 = lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.CodingKeys and conformance ModifyContactAttributeSnippetModel.CodingKeys();
+  OUTLINED_FUNCTION_62(&unk_28781BAF0, v11, v10);
   outlined copy of ModifyContactAttributeSnippetModel.ContactAttributeToModify();
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ContactAttributeToModify and conformance ModifyContactAttributeSnippetModel.ContactAttributeToModify();
   OUTLINED_FUNCTION_17();
@@ -2629,94 +2239,85 @@ uint64_t ModifyContactAttributeSnippetModel.encode(to:)()
   outlined consume of ModifyContactAttributeSnippetModel.ContactAttributeToModify();
   if (!v1)
   {
-    v30 = *(v3 + 17);
     OUTLINED_FUNCTION_51();
     lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType and conformance ModifyContactAttributeSnippetModel.ModificationType();
     OUTLINED_FUNCTION_17();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    v14 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
-    v15 = v14[6];
+    v12 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
     OUTLINED_FUNCTION_3_7();
-    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v16);
-    OUTLINED_FUNCTION_102();
-    OUTLINED_FUNCTION_18_0();
-    v31 = OUTLINED_FUNCTION_50((v3 + v14[7]));
-    v35 = v17;
-    v39 = v18;
-    v40 = v19;
+    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v13);
+    v14 = OUTLINED_FUNCTION_102();
+    OUTLINED_FUNCTION_18_0(v14);
+    v27 = OUTLINED_FUNCTION_50(v3 + v12[7]);
+    v30 = v15;
+    v33 = v16;
+    v34 = v17;
     OUTLINED_FUNCTION_73();
-    outlined copy of ContactsSnippetFlowState(v20, v21, v22, v23);
+    outlined copy of ContactsSnippetFlowState(v18, v19, v20, v21);
     lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
     OUTLINED_FUNCTION_17();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
-    outlined consume of ContactsSnippetFlowState(v31, v35, v39, v40);
-    v24 = v14[8];
+    outlined consume of ContactsSnippetFlowState(v27, v30, v33, v34);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
     OUTLINED_FUNCTION_3_7();
-    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v25);
-    OUTLINED_FUNCTION_102();
-    OUTLINED_FUNCTION_18_0();
-    v32 = OUTLINED_FUNCTION_9_2(v14[9]);
-    v36 = v26;
-    outlined copy of Data?(v32, v26);
+    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v22);
+    v23 = OUTLINED_FUNCTION_102();
+    OUTLINED_FUNCTION_18_0(v23);
+    v28 = OUTLINED_FUNCTION_9_2(v12[9]);
+    v31 = v24;
+    outlined copy of Data?(v28, v24);
     lazy protocol witness table accessor for type Data and conformance Data();
     OUTLINED_FUNCTION_4_2();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Data?(v32, v36);
-    v33 = OUTLINED_FUNCTION_9_2(v14[10]);
-    v37 = v27;
-    outlined copy of Data?(v33, v27);
+    outlined consume of Data?(v28, v31);
+    v29 = OUTLINED_FUNCTION_9_2(v12[10]);
+    v32 = v25;
+    outlined copy of Data?(v29, v25);
     OUTLINED_FUNCTION_4_2();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    outlined consume of Data?(v33, v37);
+    outlined consume of Data?(v29, v32);
   }
 
   return (*(v6 + 8))(v2, v4);
 }
 
-void ModifyContactAttributeSnippetModel.init(from:)()
+void ModifyContactAttributeSnippetModel.init(from:)(uint64_t a1)
 {
   OUTLINED_FUNCTION_44();
-  v4 = v3;
-  v37 = v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-  v7 = OUTLINED_FUNCTION_11_0(v6);
-  v38 = v8;
-  v39 = v7;
-  v10 = *(v9 + 64);
+  v5 = v4;
+  v26 = v6;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+  OUTLINED_FUNCTION_11_0();
+  v27 = v8;
+  v28 = v7;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v11);
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_13();
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  v13 = OUTLINED_FUNCTION_11_0(v12);
-  v40 = v14;
-  v41 = v13;
-  v16 = *(v15 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  OUTLINED_FUNCTION_11_0();
+  v29 = v11;
+  v30 = v10;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v17);
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_22_0();
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v42);
-  v19 = *(v18 + 64);
+  v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon34ModifyContactAttributeSnippetModelV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v20);
+  MEMORY[0x28223BE20](v13);
   OUTLINED_FUNCTION_21_0();
-  v43 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
-  v21 = OUTLINED_FUNCTION_6_5(v43);
-  v23 = *(v22 + 64);
-  MEMORY[0x28223BE20](v21);
+  v32 = type metadata accessor for ModifyContactAttributeSnippetModel(0);
+  OUTLINED_FUNCTION_6_5();
+  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_1_3();
-  v26 = v25 - v24;
-  v28 = v4[3];
-  v27 = v4[4];
-  v29 = OUTLINED_FUNCTION_82();
-  OUTLINED_FUNCTION_42(v29, v30);
+  v17 = v16 - v15;
+  v18 = OUTLINED_FUNCTION_82();
+  OUTLINED_FUNCTION_42(v18, v19);
   lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.CodingKeys and conformance ModifyContactAttributeSnippetModel.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v0)
+  if (v1)
   {
-    __swift_destroy_boxed_opaque_existential_0(v4);
+    __swift_destroy_boxed_opaque_existential_0(v5);
   }
 
   else
@@ -2725,49 +2326,49 @@ void ModifyContactAttributeSnippetModel.init(from:)()
     OUTLINED_FUNCTION_68();
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *v26 = v44;
-    *(v26 + 16) = v45;
+    *v17 = v33;
+    *(v17 + 16) = v34;
     OUTLINED_FUNCTION_51();
     lazy protocol witness table accessor for type ModifyContactAttributeSnippetModel.ModificationType and conformance ModifyContactAttributeSnippetModel.ModificationType();
     OUTLINED_FUNCTION_68();
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    *(v26 + 17) = v44;
-    LOBYTE(v44) = 2;
+    *(v17 + 17) = v33;
+    LOBYTE(v33) = 2;
     OUTLINED_FUNCTION_2_7();
-    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v31);
+    lazy protocol witness table accessor for type Loggable<CodableContact<CNContact>> and conformance <A> Loggable<A>(v20);
     OUTLINED_FUNCTION_58();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v40 + 32))(v26 + v43[6], v2, v41);
+    (*(v29 + 32))(v17 + v32[6], v3, v30);
     OUTLINED_FUNCTION_73();
     lazy protocol witness table accessor for type ContactsSnippetFlowState and conformance ContactsSnippetFlowState();
     OUTLINED_FUNCTION_68();
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v32 = (v26 + v43[7]);
-    *v32 = v44;
-    v32[1] = v45;
-    LOBYTE(v44) = 4;
+    v21 = (v17 + v32[7]);
+    *v21 = v33;
+    v21[1] = v34;
+    LOBYTE(v33) = 4;
     OUTLINED_FUNCTION_2_7();
-    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v33);
+    lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(v22);
     OUTLINED_FUNCTION_58();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v38 + 32))(v26 + v43[8], v1, v39);
+    (*(v27 + 32))(v17 + v32[8], v2, v28);
     lazy protocol witness table accessor for type Data and conformance Data();
     OUTLINED_FUNCTION_68();
     OUTLINED_FUNCTION_58();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    *(v26 + v43[9]) = v44;
+    *(v17 + v32[9]) = v33;
     OUTLINED_FUNCTION_68();
     OUTLINED_FUNCTION_58();
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v34 = OUTLINED_FUNCTION_40();
-    v35(v34, v42);
-    *(v26 + v43[10]) = v44;
-    outlined init with copy of ContactsSnippetPluginModel(v26, v37);
-    __swift_destroy_boxed_opaque_existential_0(v4);
+    v23 = OUTLINED_FUNCTION_40();
+    v24(v23, v31);
+    *(v17 + v32[10]) = v33;
+    outlined init with copy of ContactsSnippetPluginModel(v17, v26);
+    __swift_destroy_boxed_opaque_existential_0(v5);
     OUTLINED_FUNCTION_4_6();
-    outlined destroy of ModifyContactAttributeSnippetModel(v26, v36);
+    outlined destroy of ModifyContactAttributeSnippetModel(v17, v25);
   }
 
   OUTLINED_FUNCTION_45();
@@ -2893,10 +2494,11 @@ uint64_t ContactsLabelCATContainer.LabelType.CodingKeys.init(stringValue:)(uint6
   }
 }
 
-Swift::Int ContactsSnippetPluginModel.CodingKeys.hashValue.getter(unsigned __int8 a1)
+Swift::Int ContactsSnippetPluginModel.CodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_88();
-  MEMORY[0x26D5DE980](a1);
+  v1 = a1;
+  OUTLINED_FUNCTION_88(a1);
+  MEMORY[0x26D5DE980](v1);
   return Hasher._finalize()();
 }
 
@@ -3090,119 +2692,108 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void ContactsLabelCATContainer.LabelType.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void ContactsLabelCATContainer.LabelType.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, char a11, char a12, char a13, char a14, char a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27)
 {
   OUTLINED_FUNCTION_44();
-  a19 = v23;
-  a20 = v24;
-  v25 = v21;
-  v27 = v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v29 = OUTLINED_FUNCTION_11_0(v28);
-  v120 = v30;
-  v121 = v29;
-  v32 = *(v31 + 64);
+  a26 = v30;
+  a27 = v31;
+  v32 = v28;
+  v34 = v33;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v100 = v36;
+  v101 = v35;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v33);
-  OUTLINED_FUNCTION_12_0(v34, v99);
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v36 = OUTLINED_FUNCTION_11_0(v35);
-  v118 = v37;
-  v119 = v36;
-  v39 = *(v38 + 64);
+  MEMORY[0x28223BE20](v37);
+  OUTLINED_FUNCTION_12_0(v38, v79);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v98 = v40;
+  v99 = v39;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v40);
+  MEMORY[0x28223BE20](v41);
   OUTLINED_FUNCTION_19();
-  v117 = v41;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v43 = OUTLINED_FUNCTION_11_0(v42);
-  v115 = v44;
-  v116 = v43;
-  v46 = *(v45 + 64);
+  v97 = v42;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v95 = v44;
+  v96 = v43;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v47);
+  MEMORY[0x28223BE20](v45);
   OUTLINED_FUNCTION_19();
-  v114 = v48;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v50 = OUTLINED_FUNCTION_11_0(v49);
-  v112 = v51;
-  v113 = v50;
-  v53 = *(v52 + 64);
+  v94 = v46;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v92 = v48;
+  v93 = v47;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v54);
+  MEMORY[0x28223BE20](v49);
   OUTLINED_FUNCTION_19();
-  v111 = v55;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v57 = OUTLINED_FUNCTION_11_0(v56);
-  v109 = v58;
-  v110 = v57;
-  v60 = *(v59 + 64);
+  v91 = v50;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v89 = v52;
+  v90 = v51;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v61);
+  MEMORY[0x28223BE20](v53);
   OUTLINED_FUNCTION_19();
-  v108 = v62;
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v64 = OUTLINED_FUNCTION_11_0(v63);
-  v106 = v65;
-  v107 = v64;
-  v67 = *(v66 + 64);
+  v88 = v54;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v86 = v56;
+  v87 = v55;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v57);
+  OUTLINED_FUNCTION_19();
+  v85 = v58;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v83 = v59;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v60);
+  OUTLINED_FUNCTION_19();
+  v82 = v61;
+  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v80 = v62;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v63);
+  v65 = &v79 - v64;
+  v66 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v79 = v67;
   OUTLINED_FUNCTION_15_0();
   MEMORY[0x28223BE20](v68);
-  OUTLINED_FUNCTION_19();
-  v105 = v69;
-  v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v104);
-  v103 = v70;
-  v72 = *(v71 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_19();
-  v102 = v74;
-  v101 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v101);
-  v100 = v75;
-  v77 = *(v76 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v78);
-  v80 = &v99 - v79;
-  v81 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v81);
-  v99 = v82;
-  v84 = *(v83 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v85);
   OUTLINED_FUNCTION_77();
-  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v122);
-  v87 = v86;
-  v89 = *(v88 + 64);
+  v102 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v70 = v69;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v90);
+  MEMORY[0x28223BE20](v71);
   OUTLINED_FUNCTION_46();
-  v91 = *v25;
-  v92 = v27[4];
-  OUTLINED_FUNCTION_42(v27, v27[3]);
+  v72 = *v32;
+  OUTLINED_FUNCTION_42(v34, v34[3]);
   lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CodingKeys and conformance ContactsLabelCATContainer.LabelType.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v93 = (v87 + 8);
-  switch(v91)
+  v73 = (v70 + 8);
+  switch(v72)
   {
     case 1:
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CallCodingKeys and conformance ContactsLabelCATContainer.LabelType.CallCodingKeys();
-      v20 = v122;
+      v27 = v102;
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v96 = *(v100 + 8);
-      v95 = v80;
-      v97 = &a15;
+      v76 = *(v80 + 8);
+      v75 = v65;
+      v77 = &a22;
       goto LABEL_8;
     case 2:
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CancelCodingKeys and conformance ContactsLabelCATContainer.LabelType.CancelCodingKeys();
       OUTLINED_FUNCTION_5_5();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      v95 = OUTLINED_FUNCTION_55();
-      v97 = &a18;
+      v75 = OUTLINED_FUNCTION_55();
+      v77 = &a25;
 LABEL_8:
-      v98 = *(v97 - 32);
+      v78 = *(v77 - 32);
       goto LABEL_13;
     case 3:
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.GoCodingKeys and conformance ContactsLabelCATContainer.LabelType.GoCodingKeys();
@@ -3234,30 +2825,30 @@ LABEL_8:
       OUTLINED_FUNCTION_5_5();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 LABEL_12:
-      v95 = OUTLINED_FUNCTION_55();
+      v75 = OUTLINED_FUNCTION_55();
 LABEL_13:
-      v96(v95, v98);
-      (*v93)(v22, v20);
+      v76(v75, v78);
+      (*v73)(v29, v27);
       break;
     default:
-      v123 = 0;
+      v103 = 0;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.AgeUnitsCodingKeys and conformance ContactsLabelCATContainer.LabelType.AgeUnitsCodingKeys();
-      v94 = v122;
+      v74 = v102;
       OUTLINED_FUNCTION_52();
       KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
-      (*(v99 + 8))(v20, v81);
-      (*v93)(v22, v94);
+      (*(v79 + 8))(v27, v66);
+      (*v73)(v29, v74);
       break;
   }
 
   OUTLINED_FUNCTION_45();
 }
 
-Swift::Int ModifyContactAttributeSnippetModel.ModificationType.hashValue.getter()
+Swift::Int ModifyContactAttributeSnippetModel.ModificationType.hashValue.getter(uint64_t a1)
 {
-  v1 = *v0;
-  OUTLINED_FUNCTION_88();
-  MEMORY[0x26D5DE980](v1);
+  v2 = *v1;
+  OUTLINED_FUNCTION_88(a1);
+  MEMORY[0x26D5DE980](v2);
   return Hasher._finalize()();
 }
 
@@ -3266,94 +2857,83 @@ void ContactsLabelCATContainer.LabelType.init(from:)(uint64_t a1, uint64_t a2, u
   OUTLINED_FUNCTION_44();
   a26 = v30;
   a27 = v31;
-  v159 = v27;
+  v128 = v27;
   v33 = v32;
-  v156 = v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v36 = OUTLINED_FUNCTION_11_0(v35);
-  v150 = v37;
-  v151 = v36;
-  v39 = *(v38 + 64);
+  v125 = v34;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15VideoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v119 = v36;
+  v120 = v35;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v40);
+  MEMORY[0x28223BE20](v37);
   OUTLINED_FUNCTION_19();
-  v155 = v41;
-  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v43 = OUTLINED_FUNCTION_11_0(v42);
-  v148 = v44;
-  v149 = v43;
-  v46 = *(v45 + 64);
+  v124 = v38;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO15SavedCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v117 = v40;
+  v118 = v39;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v47);
+  MEMORY[0x28223BE20](v41);
   OUTLINED_FUNCTION_19();
-  v152 = v48;
-  v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v50 = OUTLINED_FUNCTION_11_0(v49);
-  v146 = v51;
-  v147 = v50;
-  v53 = *(v52 + 64);
+  v121 = v42;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14SaveCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v115 = v44;
+  v116 = v43;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v54);
+  MEMORY[0x28223BE20](v45);
   OUTLINED_FUNCTION_19();
-  v157 = v55;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v57 = OUTLINED_FUNCTION_11_0(v56);
-  v144 = v58;
-  v145 = v57;
-  v60 = *(v59 + 64);
+  v126 = v46;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO17MessageCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v113 = v48;
+  v114 = v47;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v61);
+  MEMORY[0x28223BE20](v49);
   OUTLINED_FUNCTION_19();
-  OUTLINED_FUNCTION_104(v62);
-  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  v64 = OUTLINED_FUNCTION_11_0(v63);
-  v142 = v65;
-  v143 = v64;
-  v67 = *(v66 + 64);
+  OUTLINED_FUNCTION_104(v50);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14MailCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v111 = v52;
+  v112 = v51;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v53);
+  OUTLINED_FUNCTION_19();
+  v123 = v54;
+  v110 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v109 = v55;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v56);
+  OUTLINED_FUNCTION_19();
+  v122 = v57;
+  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v107 = v58;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v59);
+  OUTLINED_FUNCTION_12_0(v60, v99);
+  v106 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v105 = v61;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v62);
+  OUTLINED_FUNCTION_16_0();
+  v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v104 = v64;
+  OUTLINED_FUNCTION_15_0();
+  MEMORY[0x28223BE20](v65);
+  OUTLINED_FUNCTION_29();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
+  v67 = v66;
   OUTLINED_FUNCTION_15_0();
   MEMORY[0x28223BE20](v68);
-  OUTLINED_FUNCTION_19();
-  v154 = v69;
-  v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO12GoCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v141);
-  v140 = v70;
-  v72 = *(v71 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v73);
-  OUTLINED_FUNCTION_19();
-  v153 = v74;
-  v139 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO16CancelCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v139);
-  v138 = v75;
-  v77 = *(v76 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v78);
-  OUTLINED_FUNCTION_12_0(v79, v130);
-  v137 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO14CallCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v137);
-  v136 = v80;
-  v82 = *(v81 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v83);
-  OUTLINED_FUNCTION_16_0();
-  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO18AgeUnitsCodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v84);
-  v135 = v85;
-  v87 = *(v86 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v88);
-  OUTLINED_FUNCTION_29();
-  v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV0G4TypeO10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v89);
-  v91 = v90;
-  v93 = *(v92 + 64);
-  OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v94);
   OUTLINED_FUNCTION_21_0();
-  v95 = v33[3];
-  v96 = v33[4];
-  v158 = v33;
-  OUTLINED_FUNCTION_42(v33, v95);
+  v69 = v33[3];
+  v127 = v33;
+  OUTLINED_FUNCTION_42(v33, v69);
   lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CodingKeys and conformance ContactsLabelCATContainer.LabelType.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v27)
@@ -3361,132 +2941,129 @@ void ContactsLabelCATContainer.LabelType.init(from:)(uint64_t a1, uint64_t a2, u
     goto LABEL_9;
   }
 
-  v133 = v28;
-  v132 = v84;
-  v134 = v29;
-  v159 = v91;
-  v97 = KeyedDecodingContainer.allKeys.getter();
-  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v97, 0);
-  if (v100 == v99 >> 1)
+  v102 = v28;
+  v101 = v63;
+  v103 = v29;
+  v128 = v67;
+  v70 = KeyedDecodingContainer.allKeys.getter();
+  started = _ss12_SliceBufferV7_buffer19shiftedToStartIndexAByxGs016_ContiguousArrayB0VyxG_SitcfC18SiriContactsCommon34ModifyContactAttributeSnippetModelV0noeM0O10CodingKeys33_177E55D66B4B3431CB612B735686642ELLO_Tt1g5(v70, 0);
+  if (v73 == v72 >> 1)
   {
     goto LABEL_8;
   }
 
   OUTLINED_FUNCTION_28();
   OUTLINED_FUNCTION_79();
-  if (v105 == v106)
+  if (v78 == v79)
   {
     __break(1u);
     JUMPOUT(0x266857DECLL);
   }
 
-  v131 = *(v104 + v102);
-  specialized ArraySlice.subscript.getter(v102 + 1, v101, started, v104, v102, v103);
-  v108 = v107;
-  v110 = v109;
+  v100 = *(v77 + v75);
+  specialized ArraySlice.subscript.getter(v75 + 1, v74, started, v77, v75, v76);
+  v81 = v80;
+  v83 = v82;
   swift_unknownObjectRelease();
-  if (v108 != v110 >> 1)
+  if (v81 != v83 >> 1)
   {
 LABEL_8:
-    v115 = v159;
-    v116 = type metadata accessor for DecodingError();
-    OUTLINED_FUNCTION_85();
-    v118 = v117;
-    v119 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR) + 48);
-    *v118 = &type metadata for ContactsLabelCATContainer.LabelType;
-    v120 = KeyedDecodingContainer.codingPath.getter();
-    OUTLINED_FUNCTION_27(v120);
-    v121 = *MEMORY[0x277D84160];
-    OUTLINED_FUNCTION_26_0(v116);
-    (*(v122 + 104))(v118);
+    v88 = type metadata accessor for DecodingError();
+    OUTLINED_FUNCTION_85(v88, MEMORY[0x277D841A0]);
+    v90 = v89;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sypXmT_s13DecodingErrorO7ContextVtMd, &_sypXmT_s13DecodingErrorO7ContextVtMR);
+    *v90 = &type metadata for ContactsLabelCATContainer.LabelType;
+    v91 = KeyedDecodingContainer.codingPath.getter();
+    OUTLINED_FUNCTION_27(v91);
+    OUTLINED_FUNCTION_26_0();
+    (*(v92 + 104))(v90);
     swift_willThrow();
     swift_unknownObjectRelease();
-    v123 = *(v115 + 8);
-    v124 = OUTLINED_FUNCTION_70();
-    v125(v124);
+    v93 = OUTLINED_FUNCTION_70();
+    v94(v93);
 LABEL_9:
-    v126 = v158;
+    v95 = v127;
     goto LABEL_10;
   }
 
-  v111 = v156;
-  switch(v131)
+  v84 = v125;
+  switch(v100)
   {
     case 1:
       a10 = 1;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CallCodingKeys and conformance ContactsLabelCATContainer.LabelType.CallCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781B980);
       swift_unknownObjectRelease();
-      v112 = OUTLINED_FUNCTION_34();
-      v114 = &a21;
+      v85 = OUTLINED_FUNCTION_34();
+      v87 = &a21;
       goto LABEL_16;
     case 2:
       a11 = 2;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.CancelCodingKeys and conformance ContactsLabelCATContainer.LabelType.CancelCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781B9A0);
       swift_unknownObjectRelease();
-      v112 = OUTLINED_FUNCTION_34();
-      v114 = &a23;
+      v85 = OUTLINED_FUNCTION_34();
+      v87 = &a23;
       goto LABEL_16;
     case 3:
       a12 = 3;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.GoCodingKeys and conformance ContactsLabelCATContainer.LabelType.GoCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781B9C0);
       swift_unknownObjectRelease();
-      v112 = OUTLINED_FUNCTION_34();
-      v114 = &a25;
+      v85 = OUTLINED_FUNCTION_34();
+      v87 = &a25;
       goto LABEL_16;
     case 4:
       a13 = 4;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.MailCodingKeys and conformance ContactsLabelCATContainer.LabelType.MailCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781B9E0);
       swift_unknownObjectRelease();
       goto LABEL_20;
     case 5:
       a14 = 5;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.MessageCodingKeys and conformance ContactsLabelCATContainer.LabelType.MessageCodingKeys();
-      OUTLINED_FUNCTION_14_0();
+      OUTLINED_FUNCTION_14_0(&unk_28781BA00);
       swift_unknownObjectRelease();
       goto LABEL_20;
     case 6:
       a15 = 6;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.SaveCodingKeys and conformance ContactsLabelCATContainer.LabelType.SaveCodingKeys();
-      OUTLINED_FUNCTION_14_0();
+      OUTLINED_FUNCTION_14_0(&unk_28781BA20);
       swift_unknownObjectRelease();
       goto LABEL_20;
     case 7:
       a16 = 7;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.SavedCodingKeys and conformance ContactsLabelCATContainer.LabelType.SavedCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781BA40);
       swift_unknownObjectRelease();
       goto LABEL_20;
     case 8:
       a17 = 8;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.VideoCodingKeys and conformance ContactsLabelCATContainer.LabelType.VideoCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781BA60);
       swift_unknownObjectRelease();
 LABEL_20:
-      v112 = OUTLINED_FUNCTION_34();
+      v85 = OUTLINED_FUNCTION_34();
       break;
     default:
-      v160 = 0;
+      v129 = 0;
       lazy protocol witness table accessor for type ContactsLabelCATContainer.LabelType.AgeUnitsCodingKeys and conformance ContactsLabelCATContainer.LabelType.AgeUnitsCodingKeys();
-      OUTLINED_FUNCTION_10_3();
+      OUTLINED_FUNCTION_10_3(&unk_28781B960);
       swift_unknownObjectRelease();
-      v112 = OUTLINED_FUNCTION_34();
-      v114 = &a9;
+      v85 = OUTLINED_FUNCTION_34();
+      v87 = &a9;
 LABEL_16:
-      v127 = *(v114 - 32);
+      v96 = *(v87 - 32);
       break;
   }
 
-  v113(v112, v127);
-  v128 = OUTLINED_FUNCTION_90();
-  v129(v128);
-  v126 = v158;
-  *v111 = v131;
+  v86(v85, v96);
+  v97 = OUTLINED_FUNCTION_90();
+  v98(v97);
+  v95 = v127;
+  *v84 = v100;
 LABEL_10:
-  __swift_destroy_boxed_opaque_existential_0(v126);
+  __swift_destroy_boxed_opaque_existential_0(v95);
   OUTLINED_FUNCTION_45();
 }
 
@@ -3521,10 +3098,11 @@ uint64_t ContactsLabelCATContainer.CodingKeys.init(stringValue:)(uint64_t a1, ui
   }
 }
 
-Swift::Int ContactsSnippetFlowState.ConfirmCodingKeys.hashValue.getter(char a1)
+Swift::Int ContactsSnippetFlowState.ConfirmCodingKeys.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_88();
-  MEMORY[0x26D5DE980](a1 & 1);
+  v1 = a1;
+  OUTLINED_FUNCTION_88(a1);
+  MEMORY[0x26D5DE980](v1 & 1);
   return Hasher._finalize()();
 }
 
@@ -3562,36 +3140,38 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-void ContactsLabelCATContainer.encode(to:)()
+void ContactsLabelCATContainer.encode(to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_44();
-  v2 = v1;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v3);
-  v5 = *(v4 + 64);
+  a19 = v21;
+  a20 = v22;
+  v24 = v23;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedEncodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v25);
   OUTLINED_FUNCTION_13();
-  v7 = *v0;
-  v12 = v0[1];
-  v8 = v2[4];
-  OUTLINED_FUNCTION_42(v2, v2[3]);
-  v9 = lazy protocol witness table accessor for type ContactsLabelCATContainer.CodingKeys and conformance ContactsLabelCATContainer.CodingKeys();
+  v26 = *v20;
+  v30 = v20[1];
+  OUTLINED_FUNCTION_42(v24, v24[3]);
+  v27 = lazy protocol witness table accessor for type ContactsLabelCATContainer.CodingKeys and conformance ContactsLabelCATContainer.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
+  a10 = v26;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy18SiriContactsCommon0B17LabelCATContainerV0D4TypeOSSGMd, &_sSDy18SiriContactsCommon0B17LabelCATContainerV0D4TypeOSSGMR);
   lazy protocol witness table accessor for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B]);
-  OUTLINED_FUNCTION_18_0();
+  OUTLINED_FUNCTION_18_0(&a10);
 
-  if (!v9)
+  if (!v27)
   {
+    a10 = v30;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
     lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
-    OUTLINED_FUNCTION_18_0();
+    OUTLINED_FUNCTION_18_0(&a10);
   }
 
-  v10 = OUTLINED_FUNCTION_78();
-  v11(v10);
+  v28 = OUTLINED_FUNCTION_78();
+  v29(v28);
   OUTLINED_FUNCTION_89();
   OUTLINED_FUNCTION_45();
 }
@@ -3601,14 +3181,11 @@ void ContactsLabelCATContainer.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3
   OUTLINED_FUNCTION_44();
   v12 = v11;
   v14 = v13;
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
-  OUTLINED_FUNCTION_11_0(v15);
-  v17 = v16;
-  v19 = *(v18 + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMd, &_ss22KeyedDecodingContainerVy18SiriContactsCommon0E17LabelCATContainerV10CodingKeys33_177E55D66B4B3431CB612B735686642ELLOGMR);
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v20);
+  MEMORY[0x28223BE20](v15);
   OUTLINED_FUNCTION_16_0();
-  v21 = v12[4];
   OUTLINED_FUNCTION_42(v12, v12[3]);
   lazy protocol witness table accessor for type ContactsLabelCATContainer.CodingKeys and conformance ContactsLabelCATContainer.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -3620,14 +3197,13 @@ void ContactsLabelCATContainer.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3
   else
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDy18SiriContactsCommon0B17LabelCATContainerV0D4TypeOSSGMd, &_sSDy18SiriContactsCommon0B17LabelCATContainerV0D4TypeOSSGMR);
-    lazy protocol witness table accessor for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B]);
-    OUTLINED_FUNCTION_61();
+    v16 = lazy protocol witness table accessor for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [ContactsLabelCATContainer.LabelType : String] and conformance <> [A : B]);
+    OUTLINED_FUNCTION_61(v16);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
-    lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
-    OUTLINED_FUNCTION_61();
-    v22 = *(v17 + 8);
-    v23 = OUTLINED_FUNCTION_107();
-    v24(v23);
+    v17 = lazy protocol witness table accessor for type [String : String] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : String] and conformance <> [A : B]);
+    OUTLINED_FUNCTION_61(v17);
+    v18 = OUTLINED_FUNCTION_107();
+    v19(v18);
     *v14 = a10;
     v14[1] = a10;
 
@@ -3687,10 +3263,10 @@ BOOL protocol witness for RawRepresentable.init(rawValue:) in conformance Codabl
   return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance CodableContact<A>.CodingKeys@<X0>(_BYTE *a1@<X8>)
+BOOL protocol witness for CodingKey.init(stringValue:) in conformance CodableContact<A>.CodingKeys@<W0>(Swift::String a1@<X1:X0>, _BYTE *a2@<X8>)
 {
-  result = CodableContact.CodingKeys.init(stringValue:)();
-  *a1 = result & 1;
+  result = CodableContact.CodingKeys.init(stringValue:)(a1);
+  *a2 = result;
   return result;
 }
 
@@ -3708,66 +3284,62 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, WitnessTable);
 }
 
-Swift::Int CodableContact.Error.hashValue.getter()
+Swift::Int CodableContact.Error.hashValue.getter(uint64_t a1)
 {
-  OUTLINED_FUNCTION_88();
+  OUTLINED_FUNCTION_88(a1);
   MEMORY[0x26D5DE980](0);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CodableContact<A>.Error()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CodableContact<A>.Error(uint64_t a1)
 {
   Hasher.init(_seed:)();
   CodableContact.Error.hash(into:)();
   return Hasher._finalize()();
 }
 
-void CodableContact.init(from:)()
+void CodableContact.init(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   OUTLINED_FUNCTION_44();
-  v1 = v0;
-  v3 = v2;
-  v33 = v4;
-  type metadata accessor for CodableContact.CodingKeys();
+  v21 = v20;
+  v23 = v22;
+  v52 = v25;
+  v53 = v24;
+  type metadata accessor for CodableContact.CodingKeys(255, v24, v26, v27);
   OUTLINED_FUNCTION_41();
   swift_getWitnessTable();
-  v5 = type metadata accessor for KeyedDecodingContainer();
-  OUTLINED_FUNCTION_11_0(v5);
-  v7 = v6;
-  v9 = *(v8 + 64);
+  type metadata accessor for KeyedDecodingContainer();
+  OUTLINED_FUNCTION_11_0();
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v10);
+  MEMORY[0x28223BE20](v28);
   OUTLINED_FUNCTION_21_0();
-  v11 = v3[4];
-  __swift_project_boxed_opaque_existential_1(v3, v3[3]);
+  __swift_project_boxed_opaque_existential_1(v23, v23[3]);
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v0)
+  if (!v20)
   {
     lazy protocol witness table accessor for type Data and conformance Data();
     OUTLINED_FUNCTION_32();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     type metadata accessor for NSKeyedUnarchiver();
-    v15 = static NSKeyedUnarchiver.unarchivedObject<A>(ofClass:from:)();
-    v25 = v15;
-    if (v15)
+    v31 = static NSKeyedUnarchiver.unarchivedObject<A>(ofClass:from:)();
+    v43 = v31;
+    if (v31)
     {
-      v26 = *(v7 + 8);
-      v27 = OUTLINED_FUNCTION_69();
-      v28(v27);
-      v29 = OUTLINED_FUNCTION_100();
-      outlined consume of Data._Representation(v29, v30);
+      v44 = OUTLINED_FUNCTION_69();
+      v45(v44);
+      v46 = OUTLINED_FUNCTION_100();
+      outlined consume of Data._Representation(v46, v47);
       goto LABEL_8;
     }
 
-    type metadata accessor for CodableContact.Error();
-    swift_getWitnessTable();
-    v1 = OUTLINED_FUNCTION_85();
+    v48 = type metadata accessor for CodableContact.Error(0, v53, v32, v33);
+    WitnessTable = swift_getWitnessTable();
+    v21 = OUTLINED_FUNCTION_85(v48, WitnessTable);
     swift_willThrow();
-    v31 = OUTLINED_FUNCTION_100();
-    outlined consume of Data._Representation(v31, v32);
-    v12 = *(v7 + 8);
-    v13 = OUTLINED_FUNCTION_69();
-    v14(v13);
+    v50 = OUTLINED_FUNCTION_100();
+    outlined consume of Data._Representation(v50, v51);
+    v29 = OUTLINED_FUNCTION_69();
+    v30(v29);
   }
 
   if (one-time initialization token for siriContacts != -1)
@@ -3776,86 +3348,83 @@ void CodableContact.init(from:)()
     swift_once();
   }
 
-  v16 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v16, static Logger.siriContacts);
-  v17 = v1;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.error.getter();
+  v34 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v34, static Logger.siriContacts);
+  v35 = v21;
+  v36 = Logger.logObject.getter();
+  v37 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v18, v19))
+  if (os_log_type_enabled(v36, v37))
   {
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v34 = v21;
-    *v20 = 136315138;
+    v38 = swift_slowAlloc();
+    v39 = swift_slowAlloc();
+    v54 = v39;
+    *v38 = 136315138;
     swift_getErrorValue();
-    v22 = Error.localizedDescription.getter();
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v34);
+    v40 = Error.localizedDescription.getter();
+    v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v41, &v54);
 
-    *(v20 + 4) = v24;
-    _os_log_impl(&dword_26683A000, v18, v19, "Failed to decode, will make an empty CNContact instead. Error: %s", v20, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v21);
-    MEMORY[0x26D5DEEF0](v21, -1, -1);
-    MEMORY[0x26D5DEEF0](v20, -1, -1);
+    *(v38 + 4) = v42;
+    _os_log_impl(&dword_26683A000, v36, v37, "Failed to decode, will make an empty CNContact instead. Error: %s", v38, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v39);
+    MEMORY[0x26D5DEEF0](v39, -1, -1);
+    MEMORY[0x26D5DEEF0](v38, -1, -1);
   }
 
-  v25 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
+  v43 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
 LABEL_8:
-  *v33 = v25;
-  __swift_destroy_boxed_opaque_existential_0(v3);
+  *v52 = v43;
+  __swift_destroy_boxed_opaque_existential_0(v23);
   OUTLINED_FUNCTION_45();
 }
 
-void CodableContact.encode(to:)()
+void CodableContact.encode(to:)(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_44();
-  v2 = v1;
-  v21[2] = *MEMORY[0x277D85DE8];
-  v4 = *(v3 + 16);
-  type metadata accessor for CodableContact.CodingKeys();
+  v4 = v3;
+  v20[2] = *MEMORY[0x277D85DE8];
+  type metadata accessor for CodableContact.CodingKeys(255, *(v5 + 16), v6, v7);
   OUTLINED_FUNCTION_41();
   swift_getWitnessTable();
-  v5 = type metadata accessor for KeyedEncodingContainer();
-  v20 = OUTLINED_FUNCTION_11_0(v5);
-  v7 = *(v6 + 64);
+  type metadata accessor for KeyedEncodingContainer();
+  OUTLINED_FUNCTION_11_0();
+  v19 = v8;
   OUTLINED_FUNCTION_15_0();
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v9);
   OUTLINED_FUNCTION_29();
-  v9 = *v0;
-  v21[0] = 0;
-  v10 = [objc_opt_self() archivedDataWithRootObject:v9 requiringSecureCoding:1 error:v21];
-  v11 = v21[0];
-  if (v10)
+  v10 = *v2;
+  v20[0] = 0;
+  v11 = [objc_opt_self() archivedDataWithRootObject:v10 requiringSecureCoding:1 error:v20];
+  v12 = v20[0];
+  if (v11)
   {
-    v12 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = v13;
+    v13 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v15 = v14;
 
-    v15 = v2[4];
-    OUTLINED_FUNCTION_42(v2, v2[3]);
+    OUTLINED_FUNCTION_42(v4, v4[3]);
     dispatch thunk of Encoder.container<A>(keyedBy:)();
-    v21[0] = v12;
-    v21[1] = v14;
+    v20[0] = v13;
+    v20[1] = v15;
     lazy protocol witness table accessor for type Data and conformance Data();
     KeyedEncodingContainer.encode<A>(_:forKey:)();
     v16 = OUTLINED_FUNCTION_34();
-    v17(v16, v20);
-    outlined consume of Data._Representation(v12, v14);
+    v17(v16, v19);
+    outlined consume of Data._Representation(v13, v15);
   }
 
   else
   {
-    v18 = v11;
+    v18 = v12;
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_96();
   OUTLINED_FUNCTION_45();
 }
 
-uint64_t type metadata accessor for GetContactAttributeSnippetModel(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for GetContactAttributeSnippetModel(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -4364,16 +3933,14 @@ unint64_t lazy protocol witness table accessor for type ContactsSnippetFlowState
   return result;
 }
 
-uint64_t outlined consume of ContactsSnippetFlowState(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+void outlined consume of ContactsSnippetFlowState(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   if ((a2 & 0xF000000000000000) != 0xB000000000000000 && (a2 & 0xF000000000000000) != 0x7000000000000000)
   {
     outlined consume of Data?(result, a2);
 
-    return outlined consume of Data?(a3, a4);
+    outlined consume of Data?(a3, a4);
   }
-
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type Loggable<ContactsLabelCATContainer> and conformance <A> Loggable<A>(uint64_t a1)
@@ -4434,11 +4001,10 @@ unint64_t lazy protocol witness table accessor for type Loggable<CodableContact<
 uint64_t outlined init with copy of ContactsSnippetPluginModel(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_101();
-  v5 = v4(v3);
-  OUTLINED_FUNCTION_6_5(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_6_2();
-  v9(v8);
+  v4(v3);
+  OUTLINED_FUNCTION_6_5();
+  v5 = OUTLINED_FUNCTION_6_2();
+  v6(v5);
   return a2;
 }
 
@@ -5532,16 +5098,16 @@ unint64_t lazy protocol witness table accessor for type CodableContact<CNContact
   return result;
 }
 
-void type metadata completion function for ContactsSnippetPluginModel()
+void type metadata completion function for ContactsSnippetPluginModel(uint64_t a1)
 {
   type metadata accessor for (model: GetContactSnippetModel)(319, &lazy cache variable for type metadata for (model: GetContactSnippetModel), type metadata accessor for GetContactSnippetModel);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for (model: GetContactSnippetModel)(319, &lazy cache variable for type metadata for (model: GetContactAttributeSnippetModel), type metadata accessor for GetContactAttributeSnippetModel);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for (model: GetContactSnippetModel)(319, &lazy cache variable for type metadata for (model: ModifyContactAttributeSnippetModel), type metadata accessor for ModifyContactAttributeSnippetModel);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       }
@@ -5660,12 +5226,12 @@ void *destructiveInjectEnumTag for ContactsSnippetFlowState(void *result, unsign
 uint64_t sub_26685AAD0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   OUTLINED_FUNCTION_95();
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  v7 = OUTLINED_FUNCTION_97(v6);
-  if (*(v8 + 84) == v3)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  OUTLINED_FUNCTION_97();
+  if (*(v7 + 84) == v3)
   {
-    v9 = v7;
-    v10 = v4;
+    v8 = v6;
+    v9 = v4;
   }
 
   else
@@ -5675,22 +5241,22 @@ uint64_t sub_26685AAD0(uint64_t a1, uint64_t a2, uint64_t a3)
       return OUTLINED_FUNCTION_94(*(v4 + *(a3 + 20) + 16));
     }
 
-    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-    v10 = v4 + *(a3 + 28);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+    v9 = v4 + *(a3 + 28);
   }
 
-  return __swift_getEnumTagSinglePayload(v10, v3, v9);
+  return __swift_getEnumTagSinglePayload(v9, v3, v8);
 }
 
-uint64_t sub_26685ABBC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void sub_26685ABBC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
   OUTLINED_FUNCTION_95();
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-  result = OUTLINED_FUNCTION_97(v8);
-  if (*(v10 + 84) == a3)
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+  OUTLINED_FUNCTION_97();
+  if (*(v9 + 84) == a3)
   {
-    v11 = result;
-    v12 = v5;
+    v10 = v8;
+    v11 = v5;
   }
 
   else
@@ -5698,38 +5264,38 @@ uint64_t sub_26685ABBC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
     if (a3 == 0x7FFFFFFF)
     {
       *(v5 + *(a4 + 20) + 16) = (v4 - 1);
-      return result;
+      return;
     }
 
-    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-    v12 = v5 + *(a4 + 28);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
+    v11 = v5 + *(a4 + 28);
   }
 
-  return __swift_storeEnumTagSinglePayload(v12, v4, v4, v11);
+  __swift_storeEnumTagSinglePayload(v11, v4, v4, v10);
 }
 
-void type metadata completion function for GetContactSnippetModel()
+void type metadata completion function for GetContactSnippetModel(uint64_t a1)
 {
-  type metadata accessor for Loggable<CodableContact<CNContact>>();
-  if (v0 <= 0x3F)
+  type metadata accessor for Loggable<CodableContact<CNContact>>(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Loggable<ContactsLabelCATContainer>(319, &lazy cache variable for type metadata for Loggable<ContactsLabelCATContainer>, &type metadata for ContactsLabelCATContainer, MEMORY[0x277D637C8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for Loggable<CodableContact<CNContact>>()
+void type metadata accessor for Loggable<CodableContact<CNContact>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for Loggable<CodableContact<CNContact>>)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s18SiriContactsCommon14CodableContactVySo9CNContactCGMd, &_s18SiriContactsCommon14CodableContactVySo9CNContactCGMR);
-    v0 = type metadata accessor for Loggable();
-    if (!v1)
+    v1 = type metadata accessor for Loggable();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Loggable<CodableContact<CNContact>>);
+      atomic_store(v1, &lazy cache variable for type metadata for Loggable<CodableContact<CNContact>>);
     }
   }
 }
@@ -5765,13 +5331,13 @@ void sub_26685AE74()
   }
 }
 
-void type metadata completion function for GetContactAttributeSnippetModel()
+void type metadata completion function for GetContactAttributeSnippetModel(uint64_t a1)
 {
   type metadata accessor for Loggable<ContactsLabelCATContainer>(319, &lazy cache variable for type metadata for [GetContactAttributeSnippetModel.DisplayAttribute], &type metadata for GetContactAttributeSnippetModel.DisplayAttribute, MEMORY[0x277D83940]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for Loggable<CodableContact<CNContact>>();
-    if (v1 <= 0x3F)
+    type metadata accessor for Loggable<CodableContact<CNContact>>(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -5874,22 +5440,22 @@ uint64_t sub_26685B0B0(uint64_t a1, int a2, uint64_t a3)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-    OUTLINED_FUNCTION_97(v7);
-    if (*(v8 + 84) == a2)
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+    OUTLINED_FUNCTION_97();
+    if (*(v7 + 84) == a2)
     {
-      v9 = *(a3 + 24);
+      v8 = *(a3 + 24);
     }
 
     else
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-      v9 = *(a3 + 32);
+      v8 = *(a3 + 32);
     }
 
-    v10 = OUTLINED_FUNCTION_93(v9);
+    v9 = OUTLINED_FUNCTION_93(v8);
 
-    return __swift_getEnumTagSinglePayload(v10, v11, v12);
+    return __swift_getEnumTagSinglePayload(v9, v10, v11);
   }
 }
 
@@ -5905,35 +5471,35 @@ void sub_26685B198()
   {
     v4 = v3;
     v5 = v2;
-    v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
-    OUTLINED_FUNCTION_97(v6);
-    if (*(v7 + 84) == v5)
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon14CodableContactVySo9CNContactCGGMR);
+    OUTLINED_FUNCTION_97();
+    if (*(v6 + 84) == v5)
     {
-      v8 = *(v4 + 24);
+      v7 = *(v4 + 24);
     }
 
     else
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMd, &_s10SnippetKit8LoggableVy18SiriContactsCommon0E17LabelCATContainerVGMR);
-      v8 = *(v4 + 32);
+      v7 = *(v4 + 32);
     }
 
-    v9 = OUTLINED_FUNCTION_93(v8);
+    v8 = OUTLINED_FUNCTION_93(v7);
 
-    __swift_storeEnumTagSinglePayload(v9, v10, v0, v11);
+    __swift_storeEnumTagSinglePayload(v8, v9, v0, v10);
   }
 }
 
-void type metadata completion function for ModifyContactAttributeSnippetModel()
+void type metadata completion function for ModifyContactAttributeSnippetModel(uint64_t a1)
 {
-  type metadata accessor for Loggable<CodableContact<CNContact>>();
-  if (v0 <= 0x3F)
+  type metadata accessor for Loggable<CodableContact<CNContact>>(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Loggable<ContactsLabelCATContainer>(319, &lazy cache variable for type metadata for Loggable<ContactsLabelCATContainer>, &type metadata for ContactsLabelCATContainer, MEMORY[0x277D637C8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for Loggable<ContactsLabelCATContainer>(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -6022,7 +5588,7 @@ uint64_t storeEnumTagSinglePayload for ModifyContactAttributeSnippetModel.Contac
   return result;
 }
 
-uint64_t type metadata instantiation function for CodableContact()
+uint64_t type metadata instantiation function for CodableContact(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -7242,19 +6808,19 @@ LABEL_19:
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_10_3()
+uint64_t OUTLINED_FUNCTION_10_3(uint64_t a1)
 {
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_14_0()
+uint64_t OUTLINED_FUNCTION_14_0(uint64_t a1)
 {
 
   return KeyedDecodingContainer.nestedContainer<A>(keyedBy:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_18_0()
+uint64_t OUTLINED_FUNCTION_18_0(uint64_t a1)
 {
 
   return KeyedEncodingContainer.encode<A>(_:forKey:)();
@@ -7266,34 +6832,25 @@ uint64_t OUTLINED_FUNCTION_27(uint64_t a1)
   return MEMORY[0x2821FD170](a1, 0xD00000000000002BLL, v1 | 0x8000000000000000, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_33()
+void *OUTLINED_FUNCTION_33(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
 
   return KeyedDecodingContainer.decode<A>(_:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_50@<X0>(uint64_t *a1@<X8>)
-{
-  result = *a1;
-  v2 = a1[1];
-  v3 = a1[2];
-  v4 = a1[3];
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_61()
+void *OUTLINED_FUNCTION_61(uint64_t a1)
 {
 
   return KeyedDecodingContainer.decode<A>(_:forKey:)();
 }
 
-uint64_t OUTLINED_FUNCTION_62()
+uint64_t OUTLINED_FUNCTION_62(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
   return dispatch thunk of Encoder.container<A>(keyedBy:)();
 }
 
-uint64_t OUTLINED_FUNCTION_72()
+uint64_t OUTLINED_FUNCTION_72(uint64_t a1)
 {
 
   return Loggable.wrappedValue.modify();
@@ -7328,13 +6885,13 @@ uint64_t OUTLINED_FUNCTION_84@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, void 
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_85()
+uint64_t OUTLINED_FUNCTION_85(uint64_t a1, uint64_t a2)
 {
 
   return swift_allocError();
 }
 
-uint64_t OUTLINED_FUNCTION_88()
+void *OUTLINED_FUNCTION_88(uint64_t a1, ...)
 {
 
   return Hasher.init(_seed:)();
@@ -7350,15 +6907,7 @@ uint64_t OUTLINED_FUNCTION_94@<X0>(unint64_t a1@<X8>)
   return (a1 + 1);
 }
 
-uint64_t OUTLINED_FUNCTION_98()
-{
-  v2 = *(v0 + 8);
-  result = *(v1 - 152);
-  v4 = *(v1 - 144);
-  return result;
-}
-
-uint64_t OUTLINED_FUNCTION_111()
+void *OUTLINED_FUNCTION_111(uint64_t a1)
 {
 
   return Loggable.wrappedValue.getter();

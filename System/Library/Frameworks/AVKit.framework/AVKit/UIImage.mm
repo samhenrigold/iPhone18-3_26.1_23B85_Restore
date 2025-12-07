@@ -78,27 +78,27 @@ uint64_t __67__UIImage_AVAdditions__avkit_imageWithSymbolNamed_font_completion__
   return v3();
 }
 
-void __52__UIImage_AVAdditions__avkit_imageNamed_completion___block_invoke_2(uint64_t a1)
+void __52__UIImage_AVAdditions__avkit_imageNamed_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = AVBundle();
-  v4 = [AVImage imageNamed:v2 inBundle:v3 compatibleWithTraitCollection:0];
+  v3 = *(a1 + 32);
+  v4 = AVBundle();
+  v5 = [AVImage imageNamed:v3 inBundle:v4 compatibleWithTraitCollection:0];
 
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __52__UIImage_AVAdditions__avkit_imageNamed_completion___block_invoke_3;
   block[3] = &unk_1E7209088;
-  v12 = v4;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 56);
-  v7 = *(a1 + 40);
-  *&v8 = *(a1 + 48);
-  *(&v8 + 1) = v6;
-  *&v9 = v5;
+  v13 = v5;
+  v6 = *(a1 + 32);
+  v7 = *(a1 + 56);
+  v8 = *(a1 + 40);
+  *&v9 = *(a1 + 48);
   *(&v9 + 1) = v7;
-  v13 = v9;
-  v14 = v8;
-  v10 = v4;
+  *&v10 = v6;
+  *(&v10 + 1) = v8;
+  v14 = v10;
+  v15 = v9;
+  v11 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 

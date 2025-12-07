@@ -26,13 +26,12 @@ uint64_t __37__ISCurrentDeviceIcon_sharedInstance__block_invoke()
 
 - (ISCurrentDeviceIcon)init
 {
-  v3 = *MEMORY[0x1E69636E8];
-  v4 = _LSCreateDeviceTypeIdentifierWithModelCode();
-  v7.receiver = self;
-  v7.super_class = ISCurrentDeviceIcon;
-  v5 = [(ISTypeIcon *)&v7 initWithType:v4];
+  v3 = _LSCreateDeviceTypeIdentifierWithModelCode();
+  v6.receiver = self;
+  v6.super_class = ISCurrentDeviceIcon;
+  v4 = [(ISTypeIcon *)&v6 initWithType:v3];
 
-  return v5;
+  return v4;
 }
 
 @end

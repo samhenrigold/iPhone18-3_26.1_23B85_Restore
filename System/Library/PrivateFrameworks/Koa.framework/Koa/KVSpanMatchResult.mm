@@ -54,32 +54,32 @@
 
 - (id)fieldMatches
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBEB18]);
   v9 = objc_msgSend_fieldMatches(self->_spanMatchResult, v4, v5, v6, v7, v8);
   v15 = objc_msgSend_count(v9, v10, v11, v12, v13, v14);
   v20 = objc_msgSend_initWithCapacity_(v3, v16, v15, v17, v18, v19);
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v26 = objc_msgSend_fieldMatches(self->_spanMatchResult, v21, v22, v23, v24, v25, 0);
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v48, v52, 16, v28);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v27, &v47, v51, 16, v28);
   if (v29)
   {
     v30 = v29;
-    v31 = *v49;
+    v31 = *v48;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v49 != v31)
+        if (*v48 != v31)
         {
           objc_enumerationMutation(v26);
         }
 
-        v33 = *(*(&v48 + 1) + 8 * i);
+        v33 = *(*(&v47 + 1) + 8 * i);
         v34 = [KVFieldMatch alloc];
         v43 = objc_msgSend_initWithFieldMatch_(v34, v35, v33, v36, v37, v38);
         if (v43)
@@ -88,13 +88,11 @@
         }
       }
 
-      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v44, &v48, v52, 16, v45);
+      v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v26, v44, &v47, v51, 16, v45);
     }
 
     while (v30);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -119,28 +117,28 @@
 
 - (KVSpanMatchResult)initWithSpanMatchResult:(id)result
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v33.receiver = self;
-  v33.super_class = KVSpanMatchResult;
-  v6 = [(KVSpanMatchResult *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = KVSpanMatchResult;
+  v6 = [(KVSpanMatchResult *)&v32 init];
   p_isa = &v6->super.isa;
   if (v6 && (objc_storeStrong(&v6->_spanMatchResult, result), objc_msgSend_entityInfo(p_isa[1], v8, v9, v10, v11, v12), v13 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend_entityType(v13, v14, v15, v16, v17, v18), v13, v19 != 1))
   {
     v21 = qword_28106B3C0;
     if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
     {
-      v24 = p_isa[1];
-      v25 = v21;
-      v31 = objc_msgSend_entityInfo(v24, v26, v27, v28, v29, v30);
-      v32 = p_isa[1];
+      v23 = p_isa[1];
+      v24 = v21;
+      v30 = objc_msgSend_entityInfo(v23, v25, v26, v27, v28, v29);
+      v31 = p_isa[1];
       *buf = 136315650;
-      v35 = "[KVSpanMatchResult initWithSpanMatchResult:]";
-      v36 = 2112;
-      v37 = v31;
-      v38 = 2112;
-      v39 = v32;
-      _os_log_error_impl(&dword_2559A5000, v25, OS_LOG_TYPE_ERROR, "%s Unsupported entityInfo: %@ for result: %@", buf, 0x20u);
+      v34 = "[KVSpanMatchResult initWithSpanMatchResult:]";
+      v35 = 2112;
+      v36 = v30;
+      v37 = 2112;
+      v38 = v31;
+      _os_log_error_impl(&dword_2559A5000, v24, OS_LOG_TYPE_ERROR, "%s Unsupported entityInfo: %@ for result: %@", buf, 0x20u);
     }
 
     v20 = 0;
@@ -151,7 +149,6 @@
     v20 = p_isa;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

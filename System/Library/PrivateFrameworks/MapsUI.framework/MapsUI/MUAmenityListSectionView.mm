@@ -97,36 +97,36 @@ void __47__MUAmenityListSectionView__performCompression__block_invoke(uint64_t a
 
 void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = [WeakRetained arrangedSubviews];
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         v7 = 0;
         do
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(*(&v12 + 1) + 8 * v7++) setHidden:0];
+          [*(*(&v11 + 1) + 8 * v7++) setHidden:0];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -137,8 +137,6 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
     v10 = [v9 localizedUppercaseString];
     [v8 setTitle:v10 forState:0];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_moreButtonTapped
@@ -160,19 +158,19 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
 
 - (void)_setupSubviews
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v59 = 0u;
   v60 = 0u;
   v61 = 0u;
   v62 = 0u;
-  v63 = 0u;
   val = self;
   viewModels = [(MUAmenityListSectionConfiguration *)self->_configuration viewModels];
-  v5 = [viewModels countByEnumeratingWithState:&v60 objects:v65 count:16];
+  v5 = [viewModels countByEnumeratingWithState:&v59 objects:v64 count:16];
   v6 = 0;
   if (v5)
   {
-    v7 = *v61;
+    v7 = *v60;
     v8 = *MEMORY[0x1E695F058];
     v9 = *(MEMORY[0x1E695F058] + 8);
     v10 = *(MEMORY[0x1E695F058] + 16);
@@ -182,12 +180,12 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
       v12 = 0;
       do
       {
-        if (*v61 != v7)
+        if (*v60 != v7)
         {
           objc_enumerationMutation(viewModels);
         }
 
-        v13 = *(*(&v60 + 1) + 8 * v12);
+        v13 = *(*(&v59 + 1) + 8 * v12);
         v14 = [[MUAmenityItemView alloc] initWithFrame:v8, v9, v10, v11];
         [(MUAmenityItemView *)v14 setViewModel:v13];
         [v3 addObject:v14];
@@ -202,7 +200,7 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
       }
 
       while (v5 != v12);
-      v5 = [viewModels countByEnumeratingWithState:&v60 objects:v65 count:16];
+      v5 = [viewModels countByEnumeratingWithState:&v59 objects:v64 count:16];
     }
 
     while (v5);
@@ -254,12 +252,12 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
     objc_initWeak(&location, val);
     v33 = MEMORY[0x1E69DC738];
     v34 = MEMORY[0x1E69DC628];
-    v57[0] = MEMORY[0x1E69E9820];
-    v57[1] = 3221225472;
-    v57[2] = __42__MUAmenityListSectionView__setupSubviews__block_invoke;
-    v57[3] = &unk_1E82196D0;
-    objc_copyWeak(&v58, &location);
-    v35 = [v34 actionWithHandler:v57];
+    v56[0] = MEMORY[0x1E69E9820];
+    v56[1] = 3221225472;
+    v56[2] = __42__MUAmenityListSectionView__setupSubviews__block_invoke;
+    v56[3] = &unk_1E82196D0;
+    objc_copyWeak(&v57, &location);
+    v35 = [v34 actionWithHandler:v56];
     v36 = [v33 buttonWithConfiguration:_mapsui_textButtonConfiguration primaryAction:v35];
     moreButton = val->_moreButton;
     val->_moreButton = v36;
@@ -271,34 +269,32 @@ void __45__MUAmenityListSectionView__performExpansion__block_invoke(uint64_t a1)
     [v39 setAccessibilityIdentifier:@"AmenityListMoreButtonButtonContainer"];
     [(UIButton *)val->_moreButton setAccessibilityIdentifier:@"AmenityListMoreButton"];
     [v39 addSubview:val->_moreButton];
-    v48 = MEMORY[0x1E696ACD8];
+    v47 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIButton *)val->_moreButton leadingAnchor];
     leadingAnchor2 = [v39 leadingAnchor];
-    v52 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v64[0] = v52;
+    v51 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v63[0] = v51;
     topAnchor = [(UIButton *)val->_moreButton topAnchor];
     topAnchor2 = [v39 topAnchor];
-    v49 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:3.0];
-    v64[1] = v49;
+    v48 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:3.0];
+    v63[1] = v48;
     bottomAnchor = [(UIButton *)val->_moreButton bottomAnchor];
     bottomAnchor2 = [v39 bottomAnchor];
     v42 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v64[2] = v42;
+    v63[2] = v42;
     trailingAnchor = [(UIButton *)val->_moreButton trailingAnchor];
     trailingAnchor2 = [v39 trailingAnchor];
     v45 = [trailingAnchor constraintLessThanOrEqualToAnchor:trailingAnchor2];
-    v64[3] = v45;
-    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:4];
-    [v48 activateConstraints:v46];
+    v63[3] = v45;
+    v46 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:4];
+    [v47 activateConstraints:v46];
 
     [v3 addObject:v39];
-    objc_destroyWeak(&v58);
+    objc_destroyWeak(&v57);
     objc_destroyWeak(&location);
   }
 
   [(MUPlaceVerticalCardContainerView *)val setRowViews:v3];
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __42__MUAmenityListSectionView__setupSubviews__block_invoke(uint64_t a1)

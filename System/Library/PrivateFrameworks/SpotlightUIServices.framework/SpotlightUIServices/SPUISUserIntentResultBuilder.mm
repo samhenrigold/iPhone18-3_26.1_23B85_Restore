@@ -167,7 +167,7 @@ LABEL_8:
 
 - (id)buildDescriptions
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   result = [(SPUISResultBuilder *)self result];
   contentTypeTree = [result contentTypeTree];
   if ([contentTypeTree containsObject:*MEMORY[0x277CD3860]])
@@ -185,8 +185,8 @@ LABEL_8:
       v11 = [v9 stringWithFormat:v10, v8];
 
       v12 = [MEMORY[0x277D4C598] textWithString:v11];
-      v16[0] = v12;
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+      v15[0] = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
 
       goto LABEL_6;
     }
@@ -198,18 +198,16 @@ LABEL_8:
 
   v13 = 0;
 LABEL_6:
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)buildCommand
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "SPUISUserIntentResultBuilder: eror when converting intent to data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B882000, a2, OS_LOG_TYPE_ERROR, "SPUISUserIntentResultBuilder: eror when converting intent to data: %@", &v2, 0xCu);
 }
 
 @end

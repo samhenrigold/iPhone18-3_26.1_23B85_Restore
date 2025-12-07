@@ -55,10 +55,11 @@ void __55__ATXLockScreenNotificationRankerServer_sharedInstance__block_invoke()
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = [connectionCopy valueForEntitlement:*MEMORY[0x277CEBAF8]];
-  if (v8 && (objc_opt_respondsToSelector() & 1) != 0 && ([v8 BOOLValue] & 1) != 0)
+  v9 = v8;
+  if (v8 && (v8 = objc_opt_respondsToSelector(), (v8 & 1) != 0) && (v8 = [v9 BOOLValue], (v8 & 1) != 0))
   {
-    v9 = ATXLockScreenNotificationRankerXPCInterface();
-    [connectionCopy setExportedInterface:v9];
+    v10 = ATXLockScreenNotificationRankerXPCInterface();
+    [connectionCopy setExportedInterface:v10];
 
     [connectionCopy setExportedObject:self];
     objc_initWeak(&location, self);
@@ -74,39 +75,37 @@ void __55__ATXLockScreenNotificationRankerServer_sharedInstance__block_invoke()
     v17[3] = &unk_2785977B0;
     objc_copyWeak(&v18, &location);
     [connectionCopy setInvalidationHandler:v17];
-    [connectionCopy resume];
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = __atxlog_handle_notification_management([connectionCopy resume]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v11 = objc_loadWeakRetained(&location);
-      v12 = objc_opt_class();
-      [(ATXLockScreenNotificationRankerServer *)v12 listener:v22 shouldAcceptNewConnection:v10, v11];
+      v12 = objc_loadWeakRetained(&location);
+      v13 = objc_opt_class();
+      [(ATXLockScreenNotificationRankerServer *)v13 listener:v22 shouldAcceptNewConnection:v11, v12];
     }
 
     objc_destroyWeak(&v18);
     objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v14 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ATXLockScreenNotificationRankerServer listener:shouldAcceptNewConnection:];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(a1);
@@ -115,7 +114,7 @@ void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnect
 
 void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke_20(uint64_t a1)
 {
-  v2 = __atxlog_handle_notification_management();
+  v2 = __atxlog_handle_notification_management(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke_20_cold_1(a1);
@@ -135,7 +134,7 @@ void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnect
 
   else
   {
-    v10 = __atxlog_handle_notification_management();
+    v10 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXLockScreenNotificationRankerServer rankNotificationArrays:a2 reply:?];
@@ -170,10 +169,10 @@ void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnect
     {
       if (!v13)
       {
-        v22 = __atxlog_handle_notification_management();
+        v22 = __atxlog_handle_notification_management(0);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
         {
-          [ATXLockScreenNotificationRankerServer rankNewNotificationIntoNotificationArrays:newNotification:notificationArrayIndex:reply:];
+          [ATXLockScreenNotificationRankerServer rankNewNotificationIntoNotificationArrays:? newNotification:? notificationArrayIndex:? reply:?];
         }
       }
 
@@ -183,7 +182,7 @@ void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnect
 
   else
   {
-    v18 = __atxlog_handle_notification_management();
+    v18 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXLockScreenNotificationRankerServer rankNotificationArrays:a2 reply:?];
@@ -207,62 +206,49 @@ void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnect
 
 - (void)listener:shouldAcceptNewConnection:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_2263AA000, v1, OS_LOG_TYPE_ERROR, "Rejecting connection %@ without entitlement %@", v2, 0x16u);
 }
 
 void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v3 = v2;
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __76__ATXLockScreenNotificationRankerServer_listener_shouldAcceptNewConnection___block_invoke_20_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   v3 = v2;
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rankNotificationArrays:(uint64_t)a1 reply:(const char *)a2 .cold.1(uint64_t a1, const char *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v5, v6, OS_LOG_TYPE_ERROR, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)rankNewNotificationIntoNotificationArrays:newNotification:notificationArrayIndex:reply:.cold.1()
+- (void)rankNewNotificationIntoNotificationArrays:(uint64_t)a1 newNotification:notificationArrayIndex:reply:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_1_1();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, OS_LOG_TYPE_FAULT, v5, v6, 0xCu);
 }
 
 @end

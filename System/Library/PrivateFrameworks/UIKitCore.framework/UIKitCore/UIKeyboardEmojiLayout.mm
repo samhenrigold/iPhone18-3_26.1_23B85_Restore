@@ -457,9 +457,9 @@ LABEL_16:
     v76 = emojiGraphicsTraits2;
     if (emojiGraphicsTraits2 && (emojiGraphicsTraits2[8] & 1) != 0)
     {
-      v77 = [kindCopy isEqualToString:@"UICollectionElementKindSectionHeader"];
+      isEqualToString = objc_msgSend_isEqualToString_(kindCopy);
 
-      if (v77)
+      if (isEqualToString)
       {
         collectionView9 = [(UICollectionViewLayout *)self collectionView];
         superview = [collectionView9 superview];

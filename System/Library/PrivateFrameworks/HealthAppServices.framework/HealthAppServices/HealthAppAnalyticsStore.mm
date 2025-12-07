@@ -1,10 +1,31 @@
 @interface HealthAppAnalyticsStore
++ (void)setUserDidAccept:(BOOL)accept currentAgreement:(id)agreement completion:(id)completion;
 - (HealthAppAnalyticsStore)initWithHealthStore:(id)store;
 - (void)setUserDidAccept:(BOOL)accept agreement:(id)agreement version:(int64_t)version completion:(id)completion;
 - (void)setUserDidAccept:(BOOL)accept currentAgreement:(id)agreement completion:(id)completion;
 @end
 
 @implementation HealthAppAnalyticsStore
+
++ (void)setUserDidAccept:(BOOL)accept currentAgreement:(id)agreement completion:(id)completion
+{
+  acceptCopy = accept;
+  completionCopy = completion;
+  agreementCopy = agreement;
+  v9 = [HealthAppAnalyticsStore alloc];
+  v10 = objc_alloc_init(MEMORY[0x277CCD4D8]);
+  v11 = [(HealthAppAnalyticsStore *)v9 initWithHealthStore:v10];
+
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __72__HealthAppAnalyticsStore_setUserDidAccept_currentAgreement_completion___block_invoke;
+  v14[3] = &unk_2796B50E0;
+  v15 = v11;
+  v16 = completionCopy;
+  v12 = completionCopy;
+  v13 = v11;
+  [(HealthAppAnalyticsStore *)v13 setUserDidAccept:acceptCopy currentAgreement:agreementCopy completion:v14];
+}
 
 - (HealthAppAnalyticsStore)initWithHealthStore:(id)store
 {

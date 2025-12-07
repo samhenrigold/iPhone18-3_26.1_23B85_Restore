@@ -6,7 +6,7 @@
 
 - (uint64_t)copyGroupIntoDictionary:()ImageCaptureCoreAdditions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -14,30 +14,30 @@
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = v5[2](v5, v12);
         if (v13)
         {
-          array = [dictionary objectForKeyedSubscript:{v13, v18}];
+          array = [dictionary objectForKeyedSubscript:{v13, v17}];
           if (!array)
           {
             array = [MEMORY[0x1E695DF70] array];
@@ -48,14 +48,13 @@
         }
       }
 
-      v9 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v15 = [dictionary copy];
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

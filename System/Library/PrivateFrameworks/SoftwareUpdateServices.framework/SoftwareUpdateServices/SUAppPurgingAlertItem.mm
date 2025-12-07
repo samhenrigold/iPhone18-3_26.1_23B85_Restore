@@ -123,17 +123,16 @@
 
 uint64_t __35__SUAppPurgingAlertItem__yesButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User accepted.", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User accepted.", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;
@@ -156,25 +155,23 @@ uint64_t __35__SUAppPurgingAlertItem__yesButton__block_invoke(uint64_t a1)
 
 void __45__SUAppPurgingAlertItem__manageStorageButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User chose to manage storage.", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User chose to manage storage.", v4, v5, v6, v7, v8, v9, v3);
 
-  v11 = *(*(a1 + 32) + 40);
-  if (v11)
+  v10 = *(*(a1 + 32) + 40);
+  if (v10)
   {
-    (*(v11 + 16))(v11, 2);
+    (*(v10 + 16))(v10, 2);
   }
 
-  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/STORAGE_MGMT"];
-  v12 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  [v12 openSensitiveURL:v22 withOptions:0];
+  v21 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.General/STORAGE_MGMT"];
+  v11 = [MEMORY[0x277CC1E80] defaultWorkspace];
+  [v11 openSensitiveURL:v21 withOptions:0];
 
-  v13 = SULogAlerts();
-  v14 = *(a1 + 32);
-  v15 = objc_opt_class();
-  SULogInfoForSubsystem(v13, @"[%@] %@ to open the storage page", v16, v17, v18, v19, v20, v21, v15);
+  v13 = SULogAlerts(v12);
+  v14 = objc_opt_class();
+  SULogInfoForSubsystem(v13, @"[%@] %@ to open the storage page", v15, v16, v17, v18, v19, v20, v14);
 }
 
 - (id)_noButton
@@ -194,17 +191,16 @@ void __45__SUAppPurgingAlertItem__manageStorageButton__block_invoke(uint64_t a1)
 
 uint64_t __34__SUAppPurgingAlertItem__noButton__block_invoke(uint64_t a1)
 {
-  v2 = SULogAlerts();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  SULogInfoForSubsystem(v2, @"[%@] User declined.", v5, v6, v7, v8, v9, v10, v4);
+  v2 = SULogAlerts(a1);
+  v3 = objc_opt_class();
+  SULogInfoForSubsystem(v2, @"[%@] User declined.", v4, v5, v6, v7, v8, v9, v3);
 
   result = *(*(a1 + 32) + 40);
   if (result)
   {
-    v12 = *(result + 16);
+    v11 = *(result + 16);
 
-    return v12();
+    return v11();
   }
 
   return result;

@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRouteLine:(id)line;
 - (CPRouteLine)initWithCoder:(id)coder;
+- (CPRouteLine)initWithGeodeticSystem:(unsigned __int8)system origin:(id)origin destination:(id)destination routeLegs:(id)legs;
 - (CPRouteLine)initWithGeodeticSystem:(unsigned __int8)system originLocation:(id)location destinationLocation:(id)destinationLocation routeLegs:(id)legs;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -32,6 +33,25 @@
   }
 
   return v14;
+}
+
+- (CPRouteLine)initWithGeodeticSystem:(unsigned __int8)system origin:(id)origin destination:(id)destination routeLegs:(id)legs
+{
+  systemCopy = system;
+  originCopy = origin;
+  destinationCopy = destination;
+  legsCopy = legs;
+  v14 = [[CPNavigationWaypoint alloc] initWithMapItem:originCopy locationThreshold:0 entryPoints:0 entryPointsCount:0];
+  v15 = [[CPNavigationWaypoint alloc] initWithMapItem:destinationCopy locationThreshold:0 entryPoints:0 entryPointsCount:0];
+  v16 = [(CPRouteLine *)self initWithGeodeticSystem:systemCopy originLocation:v14 destinationLocation:v15 routeLegs:legsCopy];
+
+  if (v16)
+  {
+    objc_storeStrong(&v16->_origin, origin);
+    objc_storeStrong(&v16->_destination, destination);
+  }
+
+  return v16;
 }
 
 - (CPRouteLine)initWithCoder:(id)coder

@@ -344,7 +344,7 @@ LABEL_28:
 
 - (id)newTableCellFromZone:(id)zone
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v35[4] = *MEMORY[0x1E69E9840];
   v5 = [CPTableCell alloc];
   [zone zoneBounds];
   v6 = [(CPTableCell *)v5 initWithBounds:?];
@@ -352,16 +352,16 @@ LABEL_28:
   v34 = v6;
   [(CPTableCell *)v6 setBackgroundGraphics:v7];
 
-  if ([zone rectangleBordersAtLeft:v38 top:v35 right:&v36 bottom:&v37])
+  if ([zone rectangleBordersAtLeft:&v35[3] top:v35 right:&v35[1] bottom:&v35[2]])
   {
     for (i = 0; i != 4; ++i)
     {
-      [*&v35[8 * i] bounds];
+      [v35[i] bounds];
       v10 = v9;
       v12 = v11;
       v14 = v13;
       v16 = v15;
-      graphicObjects = [*&v35[8 * i] graphicObjects];
+      graphicObjects = [v35[i] graphicObjects];
       -[CPTableCell setBorder:bounds:graphics:](v34, "setBorder:bounds:graphics:", i, [graphicObjects sortedArrayUsingSelector:sel_compareZ_], v10, v12, v14, v16);
       v18 = 2 * self->cellIndex;
       if (i == 2)
@@ -454,14 +454,14 @@ LABEL_28:
         while (v27 != v28);
       }
 
-      neighborCount = [*&v35[8 * i] neighborCount];
+      neighborCount = [v35[i] neighborCount];
       if (neighborCount)
       {
         v31 = neighborCount;
         v32 = 0;
         do
         {
-          [objc_msgSend(objc_msgSend(*&v35[8 * i] neighborAtIndex:{v32), "neighborShape"), "setUser:", self->table}];
+          [objc_msgSend(objc_msgSend(v35[i] neighborAtIndex:{v32), "neighborShape"), "setUser:", self->table}];
           v32 = (v32 + 1);
         }
 
@@ -484,16 +484,16 @@ LABEL_28:
 - (id)newBackgroundGraphicArrayFromRectangularZone:(id)zone
 {
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v44 = 0;
-  v45 = 0;
-  v42 = 0;
-  v43 = 0;
-  if ([zone rectangleBordersAtLeft:&v45 top:&v44 right:&v43 bottom:&v42])
+  v37 = 0;
+  v38 = 0;
+  v35 = 0;
+  v36 = 0;
+  if ([zone rectangleBordersAtLeft:&v38 top:&v37 right:&v36 bottom:&v35])
   {
-    neighborCount = [v45 neighborCount];
-    neighborCount2 = [v44 neighborCount];
-    neighborCount3 = [v43 neighborCount];
-    neighborCount4 = [v42 neighborCount];
+    neighborCount = [v38 neighborCount];
+    neighborCount2 = [v37 neighborCount];
+    neighborCount3 = [v36 neighborCount];
+    neighborCount4 = [v35 neighborCount];
     if (neighborCount)
     {
       if (neighborCount2)
@@ -503,7 +503,7 @@ LABEL_28:
           v9 = neighborCount4;
           if (neighborCount4)
           {
-            v41 = v4;
+            v34 = v4;
             [zone zoneBounds];
             v11 = v10;
             v13 = v12;
@@ -512,76 +512,76 @@ LABEL_28:
             v18 = 0;
             do
             {
-              v19 = [v45 neighborAtIndex:v18];
+              v19 = [v38 neighborAtIndex:v18];
               neighborShape = [v19 neighborShape];
               fillColor = [neighborShape fillColor];
               if (fillColor)
               {
-                v29 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor, v22, v23, v24, v25, v26, v27, v28) : *(fillColor + 8 * *(fillColor + 56) + 64);
-                if (v29 != 0.0)
+                v22 = (fillColor & 0x8000000000000000) != 0 ? CGTaggedColorGetAlpha(fillColor) : *(fillColor + 8 * *(fillColor + 56) + 64);
+                if (v22 != 0.0)
                 {
                   [neighborShape renderedBounds];
-                  v47.origin.x = v30;
-                  v47.origin.y = v31;
-                  v47.size.width = v32;
-                  v47.size.height = v33;
-                  v46.origin.x = v11;
-                  v46.origin.y = v13;
-                  v46.size.width = v15;
-                  v46.size.height = v17;
-                  if (CGRectIntersectsRect(v46, v47) && [v19 shapeSide] == 2)
+                  v40.origin.x = v23;
+                  v40.origin.y = v24;
+                  v40.size.width = v25;
+                  v40.size.height = v26;
+                  v39.origin.x = v11;
+                  v39.origin.y = v13;
+                  v39.size.width = v15;
+                  v39.size.height = v17;
+                  if (CGRectIntersectsRect(v39, v40) && [v19 shapeSide] == 2)
                   {
-                    v34 = 0;
+                    v27 = 0;
                     while (1)
                     {
-                      v35 = [v44 neighborAtIndex:v34];
-                      if ([v35 neighborShape] == neighborShape && objc_msgSend(v35, "shapeSide") == 3)
+                      v28 = [v37 neighborAtIndex:v27];
+                      if ([v28 neighborShape] == neighborShape && objc_msgSend(v28, "shapeSide") == 3)
                       {
                         break;
                       }
 
 LABEL_25:
-                      v34 = (v34 + 1);
-                      if (v34 == neighborCount2)
+                      v27 = (v27 + 1);
+                      if (v27 == neighborCount2)
                       {
                         goto LABEL_28;
                       }
                     }
 
-                    v36 = 0;
+                    v29 = 0;
                     while (1)
                     {
-                      v37 = [v43 neighborAtIndex:v36];
-                      if ([v37 neighborShape] == neighborShape && objc_msgSend(v37, "shapeSide") == 4)
+                      v30 = [v36 neighborAtIndex:v29];
+                      if ([v30 neighborShape] == neighborShape && objc_msgSend(v30, "shapeSide") == 4)
                       {
                         break;
                       }
 
 LABEL_24:
-                      v36 = (v36 + 1);
-                      if (v36 >= neighborCount3)
+                      v29 = (v29 + 1);
+                      if (v29 >= neighborCount3)
                       {
                         goto LABEL_25;
                       }
                     }
 
-                    v38 = 0;
+                    v31 = 0;
                     while (1)
                     {
-                      v39 = [v42 neighborAtIndex:v38];
-                      if ([v39 neighborShape] == neighborShape && objc_msgSend(v39, "shapeSide") == 1)
+                      v32 = [v35 neighborAtIndex:v31];
+                      if ([v32 neighborShape] == neighborShape && objc_msgSend(v32, "shapeSide") == 1)
                       {
                         break;
                       }
 
-                      v38 = (v38 + 1);
-                      if (v9 == v38)
+                      v31 = (v31 + 1);
+                      if (v9 == v31)
                       {
                         goto LABEL_24;
                       }
                     }
 
-                    [v41 addObject:neighborShape];
+                    [v34 addObject:neighborShape];
                   }
                 }
               }
@@ -591,8 +591,8 @@ LABEL_28:
             }
 
             while (v18 != neighborCount);
-            v4 = v41;
-            [v41 sortUsingSelector:sel_compareZ_];
+            v4 = v34;
+            [v34 sortUsingSelector:sel_compareZ_];
           }
         }
       }

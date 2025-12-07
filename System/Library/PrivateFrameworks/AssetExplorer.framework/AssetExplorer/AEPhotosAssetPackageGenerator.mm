@@ -105,12 +105,12 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
 
 - (id)_assetPackageforPHAsset:(id)asset withAssetExportRequestFileURLs:(id)ls error:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   lsCopy = ls;
-  v51 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A50]];
-  v50 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A58]];
-  v49 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A48]];
+  v50 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A50]];
+  v49 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A58]];
+  v48 = [lsCopy objectForKeyedSubscript:*MEMORY[0x277CD9A48]];
   v8 = PLAssetExplorerGetLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
@@ -142,7 +142,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
     canPlayLoopingVideo = [assetCopy canPlayLoopingVideo];
   }
 
-  if (v51)
+  if (v50)
   {
     v12 = v10;
   }
@@ -154,10 +154,10 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
 
   if (v12 == 1)
   {
-    v13 = v51;
+    v13 = v50;
     if ([assetCopy playbackStyle] == 3)
     {
-      if (!v50)
+      if (!v49)
       {
         uuid4 = PLAssetExplorerGetLog();
         if (os_log_type_enabled(uuid4, OS_LOG_TYPE_ERROR))
@@ -172,7 +172,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
         goto LABEL_57;
       }
 
-      v14 = v50;
+      v14 = v49;
       aLAssetURL = 0;
     }
 
@@ -185,7 +185,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
 
   else
   {
-    if (v50)
+    if (v49)
     {
       v16 = canPlayLoopingVideo;
     }
@@ -212,7 +212,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
         }
 
         v19 = v18;
-        if (v51)
+        if (v50)
         {
           v20 = @"YES";
         }
@@ -236,7 +236,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
 
         v24 = v23;
         v25 = v21;
-        if (v50)
+        if (v49)
         {
           v26 = @"YES";
         }
@@ -253,11 +253,11 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
         *&buf[12] = 2114;
         *&buf[14] = v19;
         *&buf[22] = 2114;
-        v60 = v21;
-        *v61 = 2114;
-        *&v61[2] = v24;
-        *&v61[10] = 2114;
-        *&v61[12] = v27;
+        v59 = v21;
+        *v60 = 2114;
+        *&v60[2] = v24;
+        *&v60[10] = 2114;
+        *&v60[12] = v27;
         _os_log_impl(&dword_2411DE000, uuid4, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Could not retrieve valid URLs for creating a package for asset: %{public}@. Is image? %{public}@. Photo URL available? %{public}@. Is video or auto/loop? %{public}@. Video URL available? %{public}@.", buf, 0x34u);
       }
 
@@ -268,7 +268,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
       goto LABEL_57;
     }
 
-    v14 = v50;
+    v14 = v49;
     if ([assetCopy isHighFrameRateVideo])
     {
       aLAssetURL = [assetCopy ALAssetURL];
@@ -286,15 +286,15 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v60 = __Block_byref_object_copy__1254;
-  *v61 = __Block_byref_object_dispose__1255;
-  *&v61[8] = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__1254;
-  v57 = __Block_byref_object_dispose__1255;
-  v58 = 0;
+  v59 = __Block_byref_object_copy__1254;
+  *v60 = __Block_byref_object_dispose__1255;
+  *&v60[8] = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__1254;
+  v56 = __Block_byref_object_dispose__1255;
+  v57 = 0;
   defaultFormatChooser = [MEMORY[0x277D3B228] defaultFormatChooser];
   masterThumbnailFormat = [defaultFormatChooser masterThumbnailFormat];
 
@@ -307,17 +307,17 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
   [v37 setDeliveryMode:1];
   [v37 setNetworkAccessAllowed:0];
   defaultManager = [MEMORY[0x277CD9898] defaultManager];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = ___PreviewImageForAsset_block_invoke;
-  v52[3] = &unk_278CC7758;
-  v52[4] = buf;
-  v52[5] = &v53;
-  [defaultManager requestImageForAsset:v30 targetSize:0 contentMode:v37 options:v52 resultHandler:{v34, v36}];
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = ___PreviewImageForAsset_block_invoke;
+  v51[3] = &unk_278CC7758;
+  v51[4] = buf;
+  v51[5] = &v52;
+  [defaultManager requestImageForAsset:v30 targetSize:0 contentMode:v37 options:v51 resultHandler:{v34, v36}];
 
   if (error)
   {
-    v39 = v54[5];
+    v39 = v53[5];
     if (v39)
     {
       *error = v39;
@@ -326,7 +326,7 @@ uint64_t __73__AEPhotosAssetPackageGenerator_requestReviewAssetWithCompletionHan
 
   v29 = *(*&buf[8] + 40);
 
-  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v52, 8);
   _Block_object_dispose(buf, 8);
 
   if (!v29)
@@ -369,48 +369,46 @@ LABEL_57:
     [(AEMutableAssetPackage *)v40 storeURL:aLAssetURL forType:@"com.apple.assetexplorer.alasset.url"];
   }
 
-  [(AEMutableAssetPackage *)v40 storeMetadataFromPHAsset:v30 imageURL:v51 adjustmentURL:v49];
+  [(AEMutableAssetPackage *)v40 storeMetadataFromPHAsset:v30 imageURL:v50 adjustmentURL:v48];
 LABEL_58:
-
-  v45 = *MEMORY[0x277D85DE8];
 
   return v40;
 }
 
 - (id)_copyAssetExportFileURLs:(id)ls forAsset:(id)asset error:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   uuid = [asset uuid];
   v10 = [(AEPhotosAssetPackageGenerator *)self _createOutputDirectoryBaseURLWithIdentifier:uuid error:error];
 
-  v27 = v10;
+  v26 = v10;
   if (v10)
   {
     v11 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(lsCopy, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v12 = lsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
     if (v13)
     {
       v14 = v13;
-      v26 = lsCopy;
-      v15 = *v29;
+      v25 = lsCopy;
+      v15 = *v28;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v29 != v15)
+          if (*v28 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v28 + 1) + 8 * i);
-          v18 = [v12 objectForKeyedSubscript:v17, v26];
-          v19 = [(AEPhotosAssetPackageGenerator *)self _copyItemAtURL:v18 toOutputDirectory:v27 error:error];
+          v17 = *(*(&v27 + 1) + 8 * i);
+          v18 = [v12 objectForKeyedSubscript:v17, v25];
+          v19 = [(AEPhotosAssetPackageGenerator *)self _copyItemAtURL:v18 toOutputDirectory:v26 error:error];
           if (!v19)
           {
             v21 = PLAssetExplorerGetLog();
@@ -418,9 +416,9 @@ LABEL_58:
             {
               v22 = *error;
               *buf = 138543618;
-              v33 = v12;
-              v34 = 2114;
-              v35 = v22;
+              v32 = v12;
+              v33 = 2114;
+              v34 = v22;
               _os_log_impl(&dword_2411DE000, v21, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Error making local copy of asset export file URLs: %{public}@. Error: %{public}@", buf, 0x16u);
             }
 
@@ -432,7 +430,7 @@ LABEL_58:
           [v11 setObject:v19 forKeyedSubscript:v17];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
         if (v14)
         {
           continue;
@@ -442,7 +440,7 @@ LABEL_58:
       }
 
 LABEL_14:
-      lsCopy = v26;
+      lsCopy = v25;
     }
   }
 
@@ -453,20 +451,19 @@ LABEL_14:
     {
       v23 = *error;
       *buf = 138543362;
-      v33 = v23;
+      v32 = v23;
       _os_log_impl(&dword_2411DE000, v12, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Error making local copy of asset export file URLs because the temporary output directory coudln't be created: %{public}@", buf, 0xCu);
     }
 
     v11 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)_copyItemAtURL:(id)l toOutputDirectory:(id)directory error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v8 = MEMORY[0x277CCAA00];
   directoryCopy = directory;
@@ -485,25 +482,24 @@ LABEL_14:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = *error;
-      v18 = 138543874;
-      v19 = lCopy;
-      v20 = 2114;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_impl(&dword_2411DE000, v14, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Couldn't copy item at URL '%{public}@' to '%{public}@'. Error: %{public}@", &v18, 0x20u);
+      v17 = 138543874;
+      v18 = lCopy;
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_2411DE000, v14, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Couldn't copy item at URL '%{public}@' to '%{public}@'. Error: %{public}@", &v17, 0x20u);
     }
 
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_createOutputDirectoryBaseURLWithIdentifier:(id)identifier error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   lastPathComponent = [identifierCopy lastPathComponent];
   v7 = NSTemporaryDirectory();
@@ -516,11 +512,11 @@ LABEL_14:
     v11 = PLAssetExplorerGetLog();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138543618;
-      v22 = identifierCopy;
-      v23 = 2114;
-      v24 = v8;
-      _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_DEFAULT, "[AEPhotosAssetPackageGenerator] Output directory for identifier '%{public}@' already exists at: '%{public}@'. Deleting...", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = identifierCopy;
+      v22 = 2114;
+      v23 = v8;
+      _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_DEFAULT, "[AEPhotosAssetPackageGenerator] Output directory for identifier '%{public}@' already exists at: '%{public}@'. Deleting...", &v20, 0x16u);
     }
 
     if (([defaultManager removeItemAtURL:v10 error:error] & 1) == 0)
@@ -529,11 +525,11 @@ LABEL_14:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = *error;
-        v21 = 138543618;
-        v22 = v8;
-        v23 = 2114;
-        v24 = v13;
-        _os_log_impl(&dword_2411DE000, v12, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Error deleting directory '%{public}@'. Error: %{public}@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v8;
+        v22 = 2114;
+        v23 = v13;
+        _os_log_impl(&dword_2411DE000, v12, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Error deleting directory '%{public}@'. Error: %{public}@", &v20, 0x16u);
       }
     }
   }
@@ -551,13 +547,13 @@ LABEL_14:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v18 = *error;
-      v21 = 138543874;
-      v22 = v10;
-      v23 = 2114;
-      v24 = identifierCopy;
-      v25 = 2114;
-      v26 = v18;
-      _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Unable to create directory '%{public}@' for saving exported asset resources of identifier: %{public}@. Error: %{public}@", &v21, 0x20u);
+      v20 = 138543874;
+      v21 = v10;
+      v22 = 2114;
+      v23 = identifierCopy;
+      v24 = 2114;
+      v25 = v18;
+      _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Unable to create directory '%{public}@' for saving exported asset resources of identifier: %{public}@. Error: %{public}@", &v20, 0x20u);
     }
 
 LABEL_16:
@@ -567,17 +563,15 @@ LABEL_16:
 
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 138543618;
-    v22 = identifierCopy;
-    v23 = 2114;
-    v24 = v10;
-    _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_DEFAULT, "[AEPhotosAssetPackageGenerator] Created output directory for identifier '%{public}@' at: '%{public}@'.", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = identifierCopy;
+    v22 = 2114;
+    v23 = v10;
+    _os_log_impl(&dword_2411DE000, v16, OS_LOG_TYPE_DEFAULT, "[AEPhotosAssetPackageGenerator] Created output directory for identifier '%{public}@' at: '%{public}@'.", &v20, 0x16u);
   }
 
   v17 = v10;
 LABEL_17:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -640,16 +634,16 @@ LABEL_17:
 
 void __59__AEPhotosAssetPackageGenerator__generatePackageFromAsset___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([v5 count])
   {
     v7 = *(a1 + 32);
     v8 = *(a1 + 40);
-    v17 = 0;
-    v9 = [v7 _copyAssetExportFileURLs:v5 forAsset:v8 error:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [v7 _copyAssetExportFileURLs:v5 forAsset:v8 error:&v16];
+    v10 = v16;
     [*(a1 + 32) _generatePackageWithAssetExportFileURLs:v9 error:v10];
   }
 
@@ -660,9 +654,9 @@ void __59__AEPhotosAssetPackageGenerator__generatePackageFromAsset___block_invok
     {
       v12 = *(a1 + 40);
       *buf = 138543618;
-      v19 = v12;
-      v20 = 2114;
-      v21 = v6;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_ERROR, "[AEPhotosAssetPackageGenerator] Error during asset export request for asset: %{public}@. Error: %{public}@", buf, 0x16u);
     }
 
@@ -672,13 +666,11 @@ void __59__AEPhotosAssetPackageGenerator__generatePackageFromAsset___block_invok
     block[2] = __59__AEPhotosAssetPackageGenerator__generatePackageFromAsset___block_invoke_220;
     block[3] = &unk_278CC76A8;
     block[4] = *(a1 + 32);
-    v16 = v6;
+    v15 = v6;
     dispatch_sync(v13, block);
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generatePackageWithAssetExportFileURLs:(id)ls error:(id)error
@@ -793,10 +785,7 @@ uint64_t __59__AEPhotosAssetPackageGenerator__callCompletionWithResult___block_i
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1 + 32) _ivarQueue_lastError];
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _ivarQueue_lastError];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -928,7 +917,7 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
 
 - (void)_commonAEPhotosAssetPackageGeneratorInitWithAsset:(id)asset assetReference:(id)reference
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   referenceCopy = reference;
   v9 = dispatch_group_create();
@@ -953,9 +942,9 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
   {
   }
 
-  v23 = 0;
-  v15 = [MEMORY[0x277CD97D8] exportRequestForAsset:assetCopy error:&v23];
-  v16 = v23;
+  v22 = 0;
+  v15 = [MEMORY[0x277CD97D8] exportRequestForAsset:assetCopy error:&v22];
+  v16 = v22;
   exportRequest = self->__exportRequest;
   self->__exportRequest = v15;
 
@@ -980,13 +969,11 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
   v20 = dispatch_queue_create("com.apple.AssetExplorer.AEPhotosAssetPackageGenerator.ivarQueue", MEMORY[0x277D85CD8]);
   packagerIvarIsolationQueue = self->__packagerIvarIsolationQueue;
   self->__packagerIvarIsolationQueue = v20;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (void)deleteTemporaryStorageWithTimeout:(double)timeout
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = PLAssetExplorerGetLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -999,16 +986,16 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
   if (v5 && [v5 containsString:@"Plugin"] && objc_msgSend(defaultManager, "fileExistsAtPath:", v5))
   {
     v7 = [MEMORY[0x277CBEBC0] URLWithString:v5];
-    v17 = 0;
-    v8 = [defaultManager contentsOfDirectoryAtURL:v7 includingPropertiesForKeys:0 options:1 error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [defaultManager contentsOfDirectoryAtURL:v7 includingPropertiesForKeys:0 options:1 error:&v16];
+    v9 = v16;
     if (!v8)
     {
       v10 = PLAssetExplorerGetLog();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v19 = v9;
+        v18 = v9;
         _os_log_impl(&dword_2411DE000, v10, OS_LOG_TYPE_ERROR, "Failed to get contents of tmp directory with error %@", buf, 0xCu);
       }
     }
@@ -1022,14 +1009,14 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
   if ([v8 count])
   {
     v11 = px_dispatch_queue_create_serial();
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___block_invoke;
-    v13[3] = &unk_278CC7608;
-    v14 = v8;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___block_invoke;
+    v12[3] = &unk_278CC7608;
+    v13 = v8;
     timeoutCopy = timeout;
-    v15 = defaultManager;
-    dispatch_async(v11, v13);
+    v14 = defaultManager;
+    dispatch_async(v11, v12);
   }
 
   else
@@ -1041,36 +1028,34 @@ void __72__AEPhotosAssetPackageGenerator_retrieveGeneratedPackageWithCompletion_
       _os_log_impl(&dword_2411DE000, v11, OS_LOG_TYPE_DEFAULT, "No temporary asset packages to clean up", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   Current = CFAbsoluteTimeGetCurrent();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v23;
+    v8 = *v22;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v3);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         if (CFAbsoluteTimeGetCurrent() - Current > *(a1 + 48))
         {
           v16 = PLAssetExplorerGetLog();
@@ -1084,9 +1069,9 @@ void __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___blo
         }
 
         v11 = *(a1 + 40);
-        v21 = 0;
-        v12 = [v11 removeItemAtURL:v10 error:&v21];
-        v13 = v21;
+        v20 = 0;
+        v12 = [v11 removeItemAtURL:v10 error:&v20];
+        v13 = v20;
         if (v12)
         {
           ++v7;
@@ -1099,9 +1084,9 @@ void __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___blo
           {
             v15 = [v10 path];
             *buf = 138412546;
-            v27 = *&v15;
-            v28 = 2114;
-            v29 = v13;
+            v26 = *&v15;
+            v27 = 2114;
+            v28 = v13;
             _os_log_impl(&dword_2411DE000, v14, OS_LOG_TYPE_ERROR, "Failed to delete temporary asset package at %@: %{public}@", buf, 0x16u);
           }
 
@@ -1109,7 +1094,7 @@ void __67__AEPhotosAssetPackageGenerator_deleteTemporaryStorageWithTimeout___blo
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v34 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v33 count:16];
       if (v5)
       {
         continue;
@@ -1133,17 +1118,15 @@ LABEL_19:
   {
     v19 = [*(a1 + 32) count];
     *buf = 134218752;
-    v27 = v17 - Current;
-    v28 = 2048;
-    v29 = v7;
-    v30 = 2048;
-    v31 = v19;
-    v32 = 2048;
-    v33 = v6;
+    v26 = v17 - Current;
+    v27 = 2048;
+    v28 = v7;
+    v29 = 2048;
+    v30 = v19;
+    v31 = 2048;
+    v32 = v6;
     _os_log_impl(&dword_2411DE000, v18, OS_LOG_TYPE_DEFAULT, "Finished deleting temporary asset package storage in %lf seconds. Deleted %lu of %lu with %lu failures", buf, 0x2Au);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

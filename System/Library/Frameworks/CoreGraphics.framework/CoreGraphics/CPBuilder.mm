@@ -13,7 +13,7 @@
   v6 = v7;
   if (v5)
   {
-    [(CPBuilder *)self cluster:[(CPTextLineMaker *)v7 textLines] andPutTextLinesInto:zone];
+    [(CPBuilder *)self cluster:objc_msgSend_textLines(v7) andPutTextLinesInto:zone];
     if (v5 == 1 && [CPHighlighter reconstructHighlightFor:zone])
     {
 

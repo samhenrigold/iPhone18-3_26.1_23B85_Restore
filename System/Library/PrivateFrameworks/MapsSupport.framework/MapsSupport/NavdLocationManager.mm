@@ -4,6 +4,7 @@
 - (BOOL)_q_pivotShouldBeUpdatedDistanceToCandidate:(double)candidate;
 - (NavdLocationManager)init;
 - (NavdLocationManager)initWithLocationProvider:(id)provider;
+- (double)_q_desiredAccuracyForTransportType:(int)type motionType:(unint64_t)motionType;
 - (void)_q_badCandidateLocation:(id)location;
 - (void)_q_cancelStaleLocationTimer;
 - (void)_q_createActivityForLocationUpdate;
@@ -251,6 +252,101 @@
   v12 = v9 > v11;
 
   return v12;
+}
+
+- (double)_q_desiredAccuracyForTransportType:(int)type motionType:(unint64_t)motionType
+{
+  v5 = *&type;
+  if (type <= 1)
+  {
+    if (type)
+    {
+      if (type == 1)
+      {
+        if (motionType == 1)
+        {
+          v7 = +[GEONavdDefaults sharedInstance];
+          [v7 locationUpdatesDesiredAccuracyForTransit];
+          goto LABEL_24;
+        }
+
+        if (!motionType)
+        {
+          v7 = +[GEONavdDefaults sharedInstance];
+          [v7 locationUpdatesDesiredAccuracyWhileStationaryForTransit];
+LABEL_24:
+          v12 = v8;
+
+          return v12;
+        }
+      }
+
+      goto LABEL_15;
+    }
+
+LABEL_12:
+    if (motionType == 1)
+    {
+      v7 = +[GEONavdDefaults sharedInstance];
+      [v7 locationUpdatesDesiredAccuracyForDriving];
+      goto LABEL_24;
+    }
+
+    if (!motionType)
+    {
+      v7 = +[GEONavdDefaults sharedInstance];
+      [v7 locationUpdatesDesiredAccuracyWhileStationaryForDriving];
+      goto LABEL_24;
+    }
+
+    goto LABEL_15;
+  }
+
+  if (type == 3)
+  {
+    goto LABEL_12;
+  }
+
+  if (type == 2)
+  {
+    if (motionType == 1)
+    {
+      v7 = +[GEONavdDefaults sharedInstance];
+      [v7 locationUpdatesDesiredAccuracyForWalking];
+      goto LABEL_24;
+    }
+
+    if (!motionType)
+    {
+      v7 = +[GEONavdDefaults sharedInstance];
+      [v7 locationUpdatesDesiredAccuracyWhileStationaryForWalking];
+      goto LABEL_24;
+    }
+  }
+
+LABEL_15:
+  v9 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  {
+    if (v5 >= 7)
+    {
+      v10 = [NSString stringWithFormat:@"(unknown: %i)", v5];
+    }
+
+    else
+    {
+      v10 = *(&off_1000651F0 + v5);
+    }
+
+    *buf = 138543618;
+    v14 = v10;
+    v15 = 2048;
+    motionTypeCopy = motionType;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Unsupported transport type when calculating desired accuracy: %{public}@ (motion type was %lu)", buf, 0x16u);
+  }
+
+  [(NavdLocationProvider *)self->_locationProvider desiredAccuracy];
+  return result;
 }
 
 - (void)_q_updateDesiredAccuracyBasedOnCadidateDistanceToPivot:(double)pivot candidateDistanceToCurrent:(double)current
@@ -609,7 +705,7 @@ LABEL_16:
 LABEL_17:
 
 LABEL_18:
-    [(NavdLocationManager *)self _q_badCandidateLocation:locationCopy, *v36, *&v36[16], *&v37, *v38, *&v38[16]];
+    [(NavdLocationManager *)self _q_badCandidateLocation:locationCopy, *v36, *&v36[8], *&v37, *v38, *&v38[8]];
     goto LABEL_19;
   }
 

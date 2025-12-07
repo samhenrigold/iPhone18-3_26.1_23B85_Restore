@@ -171,7 +171,7 @@ uint64_t __39__AXCFXElementUtilities_sharedInstance__block_invoke()
     v50 = v49;
     if (v49)
     {
-      [v49 SIMDDouble4x4];
+      objc_msgSend_SIMDDouble4x4(v49);
       v51 = v59;
     }
 
@@ -267,7 +267,7 @@ LABEL_8:
   return v14;
 }
 
-uint64_t __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_2(uint64_t a1)
+void *__49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v9 = *MEMORY[0x29EDB93A0];
@@ -283,8 +283,8 @@ uint64_t __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_2(ui
 
 id __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_3(uint64_t a1)
 {
-  v26 = *MEMORY[0x29EDCA608];
-  v24 = 0;
+  v25 = *MEMORY[0x29EDCA608];
+  v23 = 0;
   objc_opt_class();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained safeValueForKey:@"accessibilityName"];
@@ -296,35 +296,35 @@ id __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_3(uint64_t
 
   if (v3)
   {
-    v24 = 0;
+    v23 = 0;
     objc_opt_class();
     v6 = objc_loadWeakRetained((a1 + 32));
     v7 = [v6 safeValueForKey:@"strings"];
     v8 = __UIAccessibilityCastAsClass();
 
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v21;
+      v13 = *v20;
       do
       {
         v14 = 0;
         v15 = v12;
         do
         {
-          if (*v21 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v19 = *(*(&v20 + 1) + 8 * v14);
+          v18 = *(*(&v19 + 1) + 8 * v14);
           v12 = __UIAXStringForVariables();
 
           ++v14;
@@ -332,7 +332,7 @@ id __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_3(uint64_t
         }
 
         while (v11 != v14);
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:{16, v19, @"__AXStringForVariablesSentinel"}];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:{16, v18, @"__AXStringForVariablesSentinel"}];
       }
 
       while (v11);
@@ -351,8 +351,6 @@ id __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_3(uint64_t
 
   v16 = __UIAXStringForVariables();
 
-  v17 = *MEMORY[0x29EDCA608];
-
   return v16;
 }
 
@@ -368,7 +366,7 @@ id __49__AXCFXElementUtilities_axElementForJTEffect_vc___block_invoke_4(id *a1)
   v6 = v5;
   if (v5)
   {
-    [v5 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v5);
     v7 = v44;
   }
 

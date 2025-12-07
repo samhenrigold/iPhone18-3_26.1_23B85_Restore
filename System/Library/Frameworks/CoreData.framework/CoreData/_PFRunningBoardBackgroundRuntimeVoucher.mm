@@ -20,13 +20,13 @@
 
 - (_PFRunningBoardBackgroundRuntimeVoucher)initWithTask:(id)task
 {
-  v22[1] = *MEMORY[0x1E69E9840];
-  v19.receiver = self;
-  v19.super_class = _PFRunningBoardBackgroundRuntimeVoucher;
-  v4 = [(_PFBackgroundRuntimeVoucher *)&v19 initWithTask:?];
+  v21[1] = *MEMORY[0x1E69E9840];
+  v18.receiver = self;
+  v18.super_class = _PFRunningBoardBackgroundRuntimeVoucher;
+  v4 = [(_PFBackgroundRuntimeVoucher *)&v18 initWithTask:?];
   if (!v4)
   {
-    goto LABEL_29;
+    return v4;
   }
 
   +[_PFRunningBoardBackgroundRuntimeVoucher _deferredInitialization];
@@ -34,8 +34,8 @@
   {
     v5 = objc_alloc(getRunningBoardServicesRBSAssertionClass());
     v6 = qword_1ED4BEB88;
-    v22[0] = [objc_opt_class() domainAttribute];
-    v7 = [v5 initWithExplanation:task target:v6 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v22, 1)}];
+    v21[0] = [objc_opt_class() domainAttribute];
+    v7 = [v5 initWithExplanation:task target:v6 attributes:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v21, 1)}];
     v4->_assertion = v7;
     if (v7)
     {
@@ -45,7 +45,7 @@
 LABEL_10:
     if (getRunningBoardServicesRBSAssertionClass() && getRunningBoardServicesRBSTargetClass() && getRunningBoardServicesRBSDomainAttributeClass() && qword_1ED4BEB88 != 0)
     {
-      goto LABEL_29;
+      return v4;
     }
 
     v11 = objc_autoreleasePoolPush();
@@ -75,7 +75,7 @@ LABEL_31:
     _NSCoreDataLog_console(1, "RBSAssertion returned nil initialization");
     objc_autoreleasePoolPop(v11);
     byte_1ED4BEB4D = 0;
-    goto LABEL_29;
+    return v4;
   }
 
   if (!v4->_assertion)
@@ -123,31 +123,29 @@ LABEL_4:
 
   _NSCoreDataLog_console(v16, "Initialized RunningBoard assertion for %@", task);
   objc_autoreleasePoolPop(v8);
-LABEL_29:
-  v17 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (id)_beginPowerAssertionNamed:(id)named
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   +[_PFRunningBoardBackgroundRuntimeVoucher _deferredInitialization];
   if (byte_1ED4BEB4D != 1)
   {
-    goto LABEL_14;
+    return [_PFBackgroundRuntimeVoucher _beginPowerAssertionNamed:named];
   }
 
   v4 = [[_PFRunningBoardBackgroundRuntimeVoucher alloc] initWithTask:named];
-  v17 = 0;
+  v16 = 0;
   objc_initWeak(&location, v4);
   assertion = [(_PFRunningBoardBackgroundRuntimeVoucher *)v4 assertion];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___block_invoke;
-  v14[3] = &unk_1E6EC5500;
-  objc_copyWeak(&v15, &location);
-  [(RBSAssertion *)assertion setInvalidationHandler:v14];
-  v6 = [(RBSAssertion *)[(_PFRunningBoardBackgroundRuntimeVoucher *)v4 assertion] acquireWithError:&v17];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __69___PFRunningBoardBackgroundRuntimeVoucher__beginPowerAssertionNamed___block_invoke;
+  v13[3] = &unk_1E6EC5500;
+  objc_copyWeak(&v14, &location);
+  [(RBSAssertion *)assertion setInvalidationHandler:v13];
+  v6 = [(RBSAssertion *)[(_PFRunningBoardBackgroundRuntimeVoucher *)v4 assertion] acquireWithError:&v16];
   v7 = objc_autoreleasePoolPush();
   if ((v6 & 1) == 0)
   {
@@ -171,22 +169,20 @@ LABEL_29:
 LABEL_22:
           *buf = 138412546;
           namedCopy3 = named;
-          v20 = 2112;
-          v21 = v17;
+          v19 = 2112;
+          v20 = v16;
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Failed to acquire RunningBoard assertion for task '%@' error: %@\n", buf, 0x16u);
         }
       }
     }
 
-    _NSCoreDataLog_console(1, "Failed to acquire RunningBoard assertion for task '%@' error: %@", named, v17);
+    _NSCoreDataLog_console(1, "Failed to acquire RunningBoard assertion for task '%@' error: %@", named, v16);
     objc_autoreleasePoolPop(v7);
     [(_PFRunningBoardBackgroundRuntimeVoucher *)v4 setAssertion:0];
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
-LABEL_14:
-    v4 = [_PFBackgroundRuntimeVoucher _beginPowerAssertionNamed:named];
-    goto LABEL_21;
+    return [_PFBackgroundRuntimeVoucher _beginPowerAssertionNamed:named];
   }
 
   _pflogInitialize(9);
@@ -228,145 +224,139 @@ LABEL_14:
   _NSCoreDataLog_console(v11, "Successfully acquired RunningBoard assertion for %@", named);
   objc_autoreleasePoolPop(v7);
   [(_PFBackgroundRuntimeVoucher *)v4 setStatus:2];
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-LABEL_21:
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 + (void)_endPowerAssertionWithVoucher:(id)voucher
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (!voucher)
+  v22 = *MEMORY[0x1E69E9840];
+  if (voucher)
   {
-    goto LABEL_31;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    if (byte_1ED4BEB4D != 1)
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
+      if (byte_1ED4BEB4D == 1)
+      {
+        v17 = 0;
+        v4 = [objc_msgSend(voucher "assertion")];
+        v5 = objc_autoreleasePoolPush();
+        if (v4)
+        {
+          _pflogInitialize(9);
+          if (_NSCoreDataIsLogEnabled(9) && _pflogging_enable_oslog >= 1)
+          {
+            if (_pflogging_catastrophic_mode)
+            {
+              LogStream = _PFLogGetLogStream(1);
+              if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+              {
+                v7 = *(voucher + 1);
+                *buf = 138412290;
+                v19 = v7;
+                _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Invalidated RunningBoard assertion for %@\n", buf, 0xCu);
+              }
+            }
+
+            else
+            {
+              v13 = _PFLogGetLogStream(9);
+              if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+              {
+                v14 = *(voucher + 1);
+                *buf = 138412290;
+                v19 = v14;
+                _os_log_impl(&dword_18565F000, v13, OS_LOG_TYPE_INFO, "CoreData: debug: Invalidated RunningBoard assertion for %@\n", buf, 0xCu);
+              }
+            }
+          }
+
+          if (_pflogging_catastrophic_mode)
+          {
+            v15 = 1;
+          }
+
+          else
+          {
+            v15 = 9;
+          }
+
+          _NSCoreDataLog_console(v15, "Invalidated RunningBoard assertion for %@", *(voucher + 1));
+          objc_autoreleasePoolPop(v5);
+          [voucher setStatus:4];
+          goto LABEL_30;
+        }
+
+        _pflogInitialize(1);
+        if (_pflogging_enable_oslog >= 1)
+        {
+          v10 = _pflogging_catastrophic_mode;
+          v11 = _PFLogGetLogStream(1);
+          v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
+          if (v10)
+          {
+            if (v12)
+            {
+              goto LABEL_32;
+            }
+          }
+
+          else if (v12)
+          {
+LABEL_32:
+            v16 = *(voucher + 1);
+            *buf = 138412546;
+            v19 = v16;
+            v20 = 2112;
+            v21 = v17;
+            _os_log_error_impl(&dword_18565F000, v11, OS_LOG_TYPE_ERROR, "CoreData: error: Failed to invalidate RunningBoard assertion for task '%@' error: %@\n", buf, 0x16u);
+          }
+        }
+
+        _NSCoreDataLog_console(1, "Failed to invalidate RunningBoard assertion for task '%@' error: %@", *(voucher + 1), v17);
+        objc_autoreleasePoolPop(v5);
+LABEL_30:
+        [voucher setAssertion:0];
+        [(_PFBackgroundRuntimeVoucher *)voucher _notifyEndAssertion];
+
+        return;
+      }
+
       if ([voucher assertion])
       {
-        LogStream = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+        v8 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal state trying to invalidate an RBSAssertion while RunningBoard services are disabled\n", buf, 2u);
+          _os_log_error_impl(&dword_18565F000, v8, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal state trying to invalidate an RBSAssertion while RunningBoard services are disabled\n", buf, 2u);
         }
 
-        v10 = _PFLogGetLogStream(17);
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+        v9 = _PFLogGetLogStream(17);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_18565F000, v10, OS_LOG_TYPE_FAULT, "CoreData: Illegal state trying to invalidate an RBSAssertion while RunningBoard services are disabled", buf, 2u);
+          _os_log_fault_impl(&dword_18565F000, v9, OS_LOG_TYPE_FAULT, "CoreData: Illegal state trying to invalidate an RBSAssertion while RunningBoard services are disabled", buf, 2u);
         }
       }
-
-      goto LABEL_31;
     }
 
-    v19 = 0;
-    v4 = [objc_msgSend(voucher "assertion")];
-    v5 = objc_autoreleasePoolPush();
-    if (v4)
+    else
     {
-      _pflogInitialize(9);
-      if (_NSCoreDataIsLogEnabled(9) && _pflogging_enable_oslog >= 1)
-      {
-        if (_pflogging_catastrophic_mode)
-        {
-          v6 = _PFLogGetLogStream(1);
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-          {
-            v7 = *(voucher + 1);
-            *buf = 138412290;
-            v21 = v7;
-            _os_log_error_impl(&dword_18565F000, v6, OS_LOG_TYPE_ERROR, "CoreData: error: Invalidated RunningBoard assertion for %@\n", buf, 0xCu);
-          }
-        }
 
-        else
-        {
-          v14 = _PFLogGetLogStream(9);
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-          {
-            v15 = *(voucher + 1);
-            *buf = 138412290;
-            v21 = v15;
-            _os_log_impl(&dword_18565F000, v14, OS_LOG_TYPE_INFO, "CoreData: debug: Invalidated RunningBoard assertion for %@\n", buf, 0xCu);
-          }
-        }
-      }
-
-      if (_pflogging_catastrophic_mode)
-      {
-        v16 = 1;
-      }
-
-      else
-      {
-        v16 = 9;
-      }
-
-      _NSCoreDataLog_console(v16, "Invalidated RunningBoard assertion for %@", *(voucher + 1));
-      objc_autoreleasePoolPop(v5);
-      [voucher setStatus:4];
-      goto LABEL_30;
+      [_PFBackgroundRuntimeVoucher _endPowerAssertionWithVoucher:voucher];
     }
-
-    _pflogInitialize(1);
-    if (_pflogging_enable_oslog >= 1)
-    {
-      v11 = _pflogging_catastrophic_mode;
-      v12 = _PFLogGetLogStream(1);
-      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
-      if (v11)
-      {
-        if (v13)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v13)
-      {
-LABEL_32:
-        v18 = *(voucher + 1);
-        *buf = 138412546;
-        v21 = v18;
-        v22 = 2112;
-        v23 = v19;
-        _os_log_error_impl(&dword_18565F000, v12, OS_LOG_TYPE_ERROR, "CoreData: error: Failed to invalidate RunningBoard assertion for task '%@' error: %@\n", buf, 0x16u);
-      }
-    }
-
-    _NSCoreDataLog_console(1, "Failed to invalidate RunningBoard assertion for task '%@' error: %@", *(voucher + 1), v19);
-    objc_autoreleasePoolPop(v5);
-LABEL_30:
-    [voucher setAssertion:0];
-    [(_PFBackgroundRuntimeVoucher *)voucher _notifyEndAssertion];
-
-LABEL_31:
-    v17 = *MEMORY[0x1E69E9840];
-    return;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-
-  [_PFBackgroundRuntimeVoucher _endPowerAssertionWithVoucher:voucher];
 }
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   assertion = self->_assertion;
   if (assertion)
   {
-    v11 = 0;
-    if (([(RBSAssertion *)assertion invalidateWithError:&v11]& 1) != 0)
+    v10 = 0;
+    if (([(RBSAssertion *)assertion invalidateWithError:&v10]& 1) != 0)
     {
 LABEL_10:
       v8 = self->_assertion;
@@ -385,7 +375,7 @@ LABEL_10:
         if (v7)
         {
           *buf = 138412290;
-          v13 = v11;
+          v12 = v10;
 LABEL_13:
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: Failed to invalidate RunningBoard assertion during dealloc: %@\n", buf, 0xCu);
         }
@@ -394,12 +384,12 @@ LABEL_13:
       else if (v7)
       {
         *buf = 138412290;
-        v13 = v11;
+        v12 = v10;
         goto LABEL_13;
       }
     }
 
-    _NSCoreDataLog_console(1, "Failed to invalidate RunningBoard assertion during dealloc: %@", v11);
+    _NSCoreDataLog_console(1, "Failed to invalidate RunningBoard assertion during dealloc: %@", v10);
     objc_autoreleasePoolPop(v4);
     goto LABEL_10;
   }
@@ -408,10 +398,9 @@ LABEL_13:
 LABEL_11:
 
   self->_assertion = 0;
-  v10.receiver = self;
-  v10.super_class = _PFRunningBoardBackgroundRuntimeVoucher;
-  [(_PFBackgroundRuntimeVoucher *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = _PFRunningBoardBackgroundRuntimeVoucher;
+  [(_PFBackgroundRuntimeVoucher *)&v9 dealloc];
 }
 
 @end

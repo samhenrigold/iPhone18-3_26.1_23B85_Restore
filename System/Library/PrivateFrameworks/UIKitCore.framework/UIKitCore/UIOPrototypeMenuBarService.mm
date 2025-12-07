@@ -38,12 +38,12 @@ uint64_t __96___UIOPrototypeMenuBarService_isUserAffordanceToShowPrototypeMenuBa
   return result;
 }
 
-uint64_t __53___UIOPrototypeMenuBarService_togglePrototypeMenuBar__block_invoke(uint64_t result, int a2)
+void *__53___UIOPrototypeMenuBarService_togglePrototypeMenuBar__block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    result = *(result + 32);
-    if ((*(result + 16) & 1) == 0)
+    result = result[4];
+    if ((result[2] & 1) == 0)
     {
       return [result _setMenuBarPresented:1];
     }

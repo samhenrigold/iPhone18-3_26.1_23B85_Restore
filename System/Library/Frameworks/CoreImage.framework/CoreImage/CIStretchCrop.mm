@@ -322,7 +322,7 @@ LABEL_61:
       __asm { FMOV            V15.2S, #1.0 }
 
       v107 = vadd_f32(v94, vmul_f32(v95, vdiv_f32(vmul_f32(__PAIR64__(LODWORD(v99), LODWORD(v96)), v70), vsub_f32(_D15, vminnm_f32(vmul_f32(*v88.i8, vabs_f32(v70)), v71)))));
-      Rectangle::Union(&v105, &v107, &v106);
+      Rectangle::Union(&v106, &v105, &v107);
       *&v105.var0 = *&v106.a;
       v77.f32[0] = fmax(x, v66);
       v78 = fmax(y, v68);
@@ -330,7 +330,7 @@ LABEL_61:
       *&v105.var2 = *&v106.c;
       v79 = vadd_f32(vdiv_f32(v77, v95), 0xBF000000BF000000);
       v107 = vadd_f32(v94, vmul_f32(v95, vdiv_f32(vmul_f32(__PAIR64__(LODWORD(v99), LODWORD(v96)), v79), vsub_f32(_D15, vminnm_f32(vmul_f32(*v88.i8, vabs_f32(v79)), v71)))));
-      Rectangle::Union(&v105, &v107, &v106);
+      Rectangle::Union(&v106, &v105, &v107);
       x = v106.a;
       y = v106.b;
       v105.var0 = v106.a;
@@ -412,14 +412,15 @@ void __28__CIStretchCrop_outputImage__block_invoke(uint64_t a1, double a2, CGFlo
   v23 = vextq_s8(v24, v24, 8uLL).u64[0];
   v19 = vdiv_f32(vsub_f32(v16, v10), v9);
   v25 = vmul_f32(v9, vadd_f32(vdiv_f32(v19, vadd_f32(*v24.i8, vmul_f32(v23, vabs_f32(v19)))), 0x3F0000003F000000));
-  Rectangle::Union(&v27, &v25, &v26);
-  v27 = v26;
+  Rectangle::Union(v26, &v27, &v25);
+  *&v27.var0 = v26[0];
+  *&v27.var2 = v26[1];
   v20.f32[0] = fmax(v8, v15);
   v21 = fmax(v11, v17);
   v20.f32[1] = v21;
   v22 = vdiv_f32(vsub_f32(v20, v10), v9);
   v25 = vmul_f32(v9, vadd_f32(vdiv_f32(v22, vadd_f32(*v24.i8, vmul_f32(v23, vabs_f32(v22)))), 0x3F0000003F000000));
-  Rectangle::Union(&v27, &v25, &v26);
+  Rectangle::Union(v26, &v27, &v25);
 }
 
 + (id)customAttributes

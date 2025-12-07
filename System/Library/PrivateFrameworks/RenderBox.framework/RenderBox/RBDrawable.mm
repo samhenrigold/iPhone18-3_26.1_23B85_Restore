@@ -230,7 +230,7 @@
         v20 = vdup_lane_s32(vcgt_s32(v18, vpmin_u32(v19, v19)), 0);
         RB::DisplayList::Builder::set_crop(v27, v33, vbsl_s8(v20, 0x100000001000000, vcvt_f32_s32(v17)), vbsl_s8(v20, vneg_f32(0x80000000800000), vcvt_f32_s32(v14)));
         RB::DisplayList::Builder::draw(v27, v16, v31, 1.0, 0, 0);
-        RB::DisplayList::Builder::move_contents(v27, v21, &v26);
+        RB::DisplayList::Builder::move_contents(&v26, v27, v21);
         v22 = v26;
         RB::DisplayList::Builder::~Builder(v27);
         v16 = v22;
@@ -254,7 +254,7 @@
       [(RBDrawable *)self renderWithFlags:v8 items:v27 count:1 displayList:list];
       if (v22)
       {
-        if (atomic_fetch_add_explicit(v22 + 2, 0xFFFFFFFF, memory_order_release) == 1)
+        if (atomic_fetch_add_explicit((v22 + 8), 0xFFFFFFFF, memory_order_release) == 1)
         {
           [RBDisplayList moveContents];
         }
@@ -437,204 +437,204 @@ LABEL_37:
 
 - (void)renderItems:(id)items flags:(unsigned int)flags
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   v7 = [items count];
   if (!(v7 >> 58))
   {
-    v51 = v7 << 6;
+    v50 = v7 << 6;
     if (v7 << 6 <= 0x1000)
     {
-      MEMORY[0x1EEE9AC00](v7, v8);
-      v9 = &v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v9, v10);
+      MEMORY[0x1EEE9AC00](v7);
+      v8 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v8, v9);
     }
 
     else
     {
-      v9 = malloc_type_malloc(v7 << 6, 0x10E004033E69A99uLL);
-      if (!v9)
+      v8 = malloc_type_malloc(v7 << 6, 0x10E004033E69A99uLL);
+      if (!v8)
       {
 LABEL_50:
-        free(v9);
+        free(v8);
         return;
       }
     }
 
-    v67 = 0;
-    v68 = 0x800000000;
+    v66 = 0;
+    v67 = 0x800000000;
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v11 = [items countByEnumeratingWithState:&v58 objects:v65 count:16];
+    v10 = [items countByEnumeratingWithState:&v57 objects:v64 count:16];
     selfCopy = self;
     flagsCopy = flags;
-    v12 = 0;
-    if (v11)
+    v11 = 0;
+    if (v10)
     {
-      v13 = *v59;
-      v14 = vneg_f32(0x80000000800000);
+      v12 = *v58;
+      v13 = vneg_f32(0x80000000800000);
       __asm { FMOV            V0.4S, #1.0 }
 
-      v52 = _Q0;
+      v51 = _Q0;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v59 != v13)
+          if (*v58 != v12)
           {
             objc_enumerationMutation(items);
           }
 
-          v21 = *(*(&v58 + 1) + 8 * i);
-          displayList = [v21 displayList];
+          v20 = *(*(&v57 + 1) + 8 * i);
+          displayList = [v20 displayList];
           if (displayList)
           {
             _rb_contents = [displayList _rb_contents];
             if (_rb_contents)
             {
-              v24 = 0uLL;
+              v23 = 0uLL;
+              v55 = 0u;
               v56 = 0u;
-              v57 = 0u;
-              if (v21)
+              if (v20)
               {
-                [v21 sourceRect];
-                v24 = vuzp1q_s32(v56, v57);
+                objc_msgSend_sourceRect(v20);
+                v23 = vuzp1q_s32(v55, v56);
               }
 
-              v54 = v24;
-              v53 = vextq_s8(v24, v24, 8uLL);
-              v25 = vclez_s32(*v53.i8);
-              if ((vpmax_u32(v25, v25).u32[0] & 0x80000000) == 0)
+              v53 = v23;
+              v52 = vextq_s8(v23, v23, 8uLL);
+              v24 = vclez_s32(*v52.i8);
+              if ((vpmax_u32(v24, v24).u32[0] & 0x80000000) == 0)
               {
                 if (*(_rb_contents + 424) == 1)
                 {
-                  RB::DisplayList::Builder::Builder(&v62);
-                  RB::DisplayList::Builder::set_optimized(&v62, 1);
-                  v26.i32[0] = 0;
-                  v27 = vceq_s32(*v53.i8, 0x8000000080000000);
-                  v28 = vdup_lane_s32(vcgt_s32(v26, vpmin_u32(v27, v27)), 0);
-                  RB::DisplayList::Builder::set_crop(&v62, v70, vbsl_s8(v28, 0x100000001000000, vcvt_f32_s32(*v54.i8)), vbsl_s8(v28, v14, vcvt_f32_s32(*v53.i8)));
-                  RB::DisplayList::Builder::draw(&v62, _rb_contents, v64, 1.0, 0, 0);
-                  RB::DisplayList::Builder::move_contents(&v62, v29, &v55);
-                  v30 = v68;
-                  v31 = v68 + 1;
-                  if (HIDWORD(v68) < (v68 + 1))
+                  RB::DisplayList::Builder::Builder(&v61);
+                  RB::DisplayList::Builder::set_optimized(&v61, 1);
+                  v25.i32[0] = 0;
+                  v26 = vceq_s32(*v52.i8, 0x8000000080000000);
+                  v27 = vdup_lane_s32(vcgt_s32(v25, vpmin_u32(v26, v26)), 0);
+                  RB::DisplayList::Builder::set_crop(&v61, v69, vbsl_s8(v27, 0x100000001000000, vcvt_f32_s32(*v53.i8)), vbsl_s8(v27, v13, vcvt_f32_s32(*v52.i8)));
+                  RB::DisplayList::Builder::draw(&v61, _rb_contents, v63, 1.0, 0, 0);
+                  RB::DisplayList::Builder::move_contents(&v54, &v61, v28);
+                  v29 = v67;
+                  v30 = v67 + 1;
+                  if (HIDWORD(v67) < (v67 + 1))
                   {
-                    RB::vector<RB::objc_ptr<void({block_pointer})(NSError *)>,8ul,unsigned int>::reserve_slow(__dst, v31);
-                    v30 = v68;
-                    v31 = v68 + 1;
+                    RB::vector<RB::objc_ptr<void({block_pointer})(NSError *)>,8ul,unsigned int>::reserve_slow(__dst, v30);
+                    v29 = v67;
+                    v30 = v67 + 1;
                   }
 
-                  v32 = v67;
-                  if (!v67)
+                  v31 = v66;
+                  if (!v66)
                   {
-                    v32 = __dst;
+                    v31 = __dst;
                   }
 
-                  *&v32[8 * v30] = v55;
-                  LODWORD(v68) = v31;
-                  _rb_contents = *&v32[8 * v30];
-                  RB::DisplayList::Builder::~Builder(&v62);
+                  v31[v29] = v54;
+                  LODWORD(v67) = v30;
+                  _rb_contents = v31[v29];
+                  RB::DisplayList::Builder::~Builder(&v61);
                 }
 
-                v33 = &v9[64 * v12];
-                v33->i64[0] = _rb_contents;
-                v34 = v53.i64[0];
-                v33[1].i64[0] = v54.i64[0];
-                v33[1].i64[1] = v34;
-                v62 = 0uLL;
-                v63 = 0;
-                if (v21)
+                v32 = &v8[64 * v11];
+                v32->i64[0] = _rb_contents;
+                v33 = v52.i64[0];
+                v32[1].i64[0] = v53.i64[0];
+                v32[1].i64[1] = v33;
+                v61 = 0uLL;
+                v62 = 0;
+                if (v20)
                 {
-                  [v21 destinationOffset];
-                  v35 = vmovn_s64(v62);
+                  objc_msgSend_destinationOffset(v20);
+                  v34 = vmovn_s64(v61);
                 }
 
                 else
                 {
-                  v35 = 0;
+                  v34 = 0;
                 }
 
-                *v33[2].f32 = v35;
-                [v21 targetHeadroom];
-                v33[2].i32[2] = v36;
-                initialState = [v21 initialState];
+                *v32[2].f32 = v34;
+                [v20 targetHeadroom];
+                v32[2].i32[2] = v35;
+                initialState = [v20 initialState];
                 switch(initialState)
                 {
                   case 2:
-                    v33[2].i32[3] = 2;
-                    [v21 clearColor];
-                    v40.i64[0] = __PAIR64__(v39, v38);
-                    v40.i64[1] = __PAIR64__(HIDWORD(v52), v41);
-                    v33[3] = vmulq_n_f32(v40, v42);
+                    v32[2].i32[3] = 2;
+                    [v20 clearColor];
+                    v39.i64[0] = __PAIR64__(v38, v37);
+                    v39.i64[1] = __PAIR64__(HIDWORD(v51), v40);
+                    v32[3] = vmulq_n_f32(v39, v41);
                     break;
                   case 1:
-                    v33[2].i32[3] = 1;
+                    v32[2].i32[3] = 1;
                     break;
                   case 0:
-                    v33[2].i32[3] = 0;
+                    v32[2].i32[3] = 0;
                     break;
                 }
 
-                ++v12;
+                ++v11;
               }
             }
           }
         }
 
-        v11 = [items countByEnumeratingWithState:&v58 objects:v65 count:16];
+        v10 = [items countByEnumeratingWithState:&v57 objects:v64 count:16];
       }
 
-      while (v11);
+      while (v10);
     }
 
     if ([items count] == 1)
     {
-      v43 = [objc_msgSend(items objectAtIndexedSubscript:{0), "displayList"}];
+      v42 = [objc_msgSend(items objectAtIndexedSubscript:{0), "displayList"}];
     }
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
-    [(RBDrawable *)selfCopy renderWithFlags:flagsCopy items:v9 count:v12 displayList:v43];
-    v44 = v67;
+    [(RBDrawable *)selfCopy renderWithFlags:flagsCopy items:v8 count:v11 displayList:v42];
+    v43 = v66;
+    if (v66)
+    {
+      v44 = v66;
+    }
+
+    else
+    {
+      v44 = __dst;
+    }
+
     if (v67)
     {
-      v45 = v67;
-    }
-
-    else
-    {
-      v45 = __dst;
-    }
-
-    if (v68)
-    {
-      v46 = 0;
+      v45 = 0;
       do
       {
-        v47 = *&v45[8 * v46];
-        if (v47 && atomic_fetch_add_explicit((v47 + 8), 0xFFFFFFFF, memory_order_release) == 1)
+        v46 = v44[v45];
+        if (v46 && atomic_fetch_add_explicit(v46 + 2, 0xFFFFFFFF, memory_order_release) == 1)
         {
           [RBDisplayList moveContents];
         }
 
-        ++v46;
+        ++v45;
       }
 
-      while (v46 < v68);
-      v44 = v67;
+      while (v45 < v67);
+      v43 = v66;
     }
 
-    if (v44)
+    if (v43)
     {
-      free(v44);
+      free(v43);
     }
 
-    if (v51 > 0x1000)
+    if (v50 > 0x1000)
     {
       goto LABEL_50;
     }
@@ -760,7 +760,7 @@ void __54__RBDrawable_renderWithFlags_items_count_displayList___block_invoke(uin
   if ((*(a1 + 160) & 2) != 0)
   {
     v31(v30);
-    RBStrokeRef::clip(v49);
+    RBStrokeRef::clip();
   }
 
   v24 = *(a1 + 144);
@@ -885,7 +885,7 @@ uint64_t __31__RBDrawable_dumpTexture_name___block_invoke(void *a1)
 
 - (id)statisticsHandler
 {
-  RB::Drawable::statistics_handler(*(self + 1), &v4);
+  RB::Drawable::statistics_handler(&v4, *(self + 1));
   if (!v4)
   {
     return 0;

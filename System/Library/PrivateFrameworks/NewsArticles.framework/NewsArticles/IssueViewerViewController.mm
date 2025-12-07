@@ -51,8 +51,8 @@
   v4 = v7.receiver;
   [(IssueViewerViewController *)&v7 viewDidAppear:appearCopy];
   __swift_project_boxed_opaque_existential_1(&v4[OBJC_IVAR____TtC12NewsArticles25IssueViewerViewController_sceneStateManager], *&v4[OBJC_IVAR____TtC12NewsArticles25IssueViewerViewController_sceneStateManager + 24]);
-  sub_1D7CCA100(&qword_1EC9E8440, v5, type metadata accessor for IssueViewerViewController);
-  sub_1D7D291FC();
+  sub_1D7CCA100(&qword_1EC9E8440, v5, type metadata accessor for IssueViewerViewController, &protocol conformance descriptor for IssueViewerViewController);
+  sub_1D7D291FC(v6);
 
   __swift_destroy_boxed_opaque_existential_1(v6);
 }

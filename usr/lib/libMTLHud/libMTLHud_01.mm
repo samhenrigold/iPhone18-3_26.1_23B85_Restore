@@ -54,7 +54,7 @@ LABEL_10:
   return result;
 }
 
-BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferEEbT1_S8_T0_(uint64_t a1, uint64_t a2)
+BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferEEbT1_S8_T0_(__int128 *a1, char *a2)
 {
   v3 = a1;
   v4 = 0x84BDA12F684BDA13 * ((a2 - a1) >> 3);
@@ -63,19 +63,19 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ
     switch(v4)
     {
       case 3:
-        v8 = *(a1 + 264);
-        v9 = *(a2 - 168);
-        if (v8 < *(a1 + 48))
+        v8 = *(a1 + 33);
+        v9 = *(a2 - 21);
+        if (v8 < *(a1 + 6))
         {
           if (v9 >= v8)
           {
             std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(a1, (a1 + 216));
-            if (*(a2 - 168) >= *(v3 + 264))
+            if (*(a2 - 21) >= *(v3 + 33))
             {
               return 1;
             }
 
-            a1 = v3 + 216;
+            a1 = (v3 + 216);
           }
 
           v5 = (a2 - 216);
@@ -91,36 +91,36 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ
         v7 = (a2 - 216);
         break;
       case 4:
-        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLi0EEEvT1_S8_S8_S8_T0_(a1, a1 + 216, a1 + 432, a2 - 216);
+        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLi0EEEvT1_S8_S8_S8_T0_(a1, a1 + 216, (a1 + 27), (a2 - 216));
         return 1;
       case 5:
-        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLi0EEEvT1_S8_S8_S8_T0_(a1, a1 + 216, a1 + 432, a1 + 648);
-        if (*(a2 - 168) >= *(v3 + 696))
+        _ZNSt3__17__sort4B8ne200100INS_17_ClassicAlgPolicyERZZ49_HUDGPUTimeTrackerWrapupFrameForPresentedDrawableP17HUDGPUTimeTrackermyEUb_E3__1P30HUDGPUTimeTrackerCommandBufferLi0EEEvT1_S8_S8_S8_T0_(a1, a1 + 216, (a1 + 27), a1 + 648);
+        if (*(a2 - 21) >= *(v3 + 87))
         {
           return 1;
         }
 
         std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>((v3 + 648), (a2 - 216));
-        if (*(v3 + 696) >= *(v3 + 480))
+        if (*(v3 + 87) >= *(v3 + 60))
         {
           return 1;
         }
 
-        std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>((v3 + 432), (v3 + 648));
-        if (*(v3 + 480) >= *(v3 + 264))
+        std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(v3 + 27, (v3 + 648));
+        if (*(v3 + 60) >= *(v3 + 33))
         {
           return 1;
         }
 
         v6 = (v3 + 216);
-        v7 = (v3 + 432);
+        v7 = v3 + 27;
         break;
       default:
         goto LABEL_16;
     }
 
     std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(v6, v7);
-    if (*(v3 + 264) < *(v3 + 48))
+    if (*(v3 + 33) < *(v3 + 6))
     {
       v5 = (v3 + 216);
       goto LABEL_24;
@@ -136,7 +136,7 @@ BOOL _ZNSt3__127__insertion_sort_incompleteB8ne200100INS_17_ClassicAlgPolicyERZZ
 
   if (v4 == 2)
   {
-    if (*(a2 - 168) < *(a1 + 48))
+    if (*(a2 - 21) < *(a1 + 6))
     {
       v5 = (a2 - 216);
 LABEL_24:
@@ -150,30 +150,30 @@ LABEL_31:
   }
 
 LABEL_16:
-  v10 = a1 + 432;
-  v11 = *(a1 + 264);
-  v12 = *(a1 + 480);
-  if (v11 < *(a1 + 48))
+  v10 = (a1 + 27);
+  v11 = *(a1 + 33);
+  v12 = *(a1 + 60);
+  if (v11 < *(a1 + 6))
   {
     if (v12 >= v11)
     {
       std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>(a1, (a1 + 216));
-      if (*(v3 + 480) >= *(v3 + 264))
+      if (*(v3 + 60) >= *(v3 + 33))
       {
         goto LABEL_36;
       }
 
-      a1 = v3 + 216;
+      a1 = (v3 + 216);
     }
 
-    v13 = (v3 + 432);
+    v13 = v3 + 27;
     goto LABEL_35;
   }
 
   if (v12 < v11)
   {
-    std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>((a1 + 216), (a1 + 432));
-    if (*(v3 + 264) < *(v3 + 48))
+    std::swap[abi:ne200100]<HUDGPUTimeTrackerCommandBuffer>((a1 + 216), a1 + 27);
+    if (*(v3 + 33) < *(v3 + 6))
     {
       v13 = (v3 + 216);
       a1 = v3;
@@ -193,23 +193,23 @@ LABEL_36:
   v16 = 0;
   while (1)
   {
-    if (*(v14 + 48) < *(v10 + 48))
+    if (*(v14 + 6) < *(v10 + 6))
     {
-      v33 = *(v14 + 64);
-      v34 = *(v14 + 80);
-      v35 = *(v14 + 96);
+      v33 = *(v14 + 4);
+      v34 = *(v14 + 5);
+      v35 = *(v14 + 12);
       v29 = *v14;
-      v30 = *(v14 + 16);
-      v31 = *(v14 + 32);
-      v32 = *(v14 + 48);
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__hash_table(v36, (v14 + 104));
-      *(&v36[2] + 8) = *(v14 + 144);
-      *(&v36[3] + 1) = *(v14 + 160);
-      *(v14 + 152) = 0;
-      *(v14 + 160) = 0;
-      *(v14 + 144) = 0;
-      objc_moveWeak(&v37, (v14 + 168));
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__hash_table(v38, (v14 + 176));
+      v30 = *(v14 + 1);
+      v31 = *(v14 + 2);
+      v32 = *(v14 + 3);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__hash_table(v36, v14 + 13);
+      *(&v36[2] + 8) = *(v14 + 9);
+      *(&v36[3] + 1) = *(v14 + 20);
+      *(v14 + 19) = 0;
+      *(v14 + 20) = 0;
+      *(v14 + 18) = 0;
+      objc_moveWeak(&v37, v14 + 21);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__hash_table(v38, v14 + 22);
       v17 = v15;
       while (1)
       {
@@ -227,18 +227,18 @@ LABEL_36:
         v19[3] = v22;
         std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign(v3 + v17 + 752, (v3 + v17 + 536));
         v23 = (v3 + v17 + 576);
-        std::vector<HUDGPUTimeTrackerEncoder>::__move_assign(v18 + 792, (v18 + 576));
+        std::vector<HUDGPUTimeTrackerEncoder>::__move_assign((v18 + 792), v18 + 36);
         WeakRetained = objc_loadWeakRetained((v3 + v17 + 600));
         objc_storeWeak((v3 + v17 + 816), WeakRetained);
 
-        std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign(v18 + 824, (v18 + 608));
+        std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign((v18 + 824), v18 + 76);
         if (v17 == -432)
         {
           break;
         }
 
         v17 -= 216;
-        if (v32 >= *(v18 + 264))
+        if (v32 >= *(v18 + 33))
         {
           v25 = v3 + v17 + 648;
           goto LABEL_44;
@@ -254,24 +254,24 @@ LABEL_44:
       *(v25 + 16) = v30;
       *(v25 + 32) = v31;
       *(v25 + 48) = v32;
-      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign(v18 + 536, v36);
-      v26 = *(v18 + 576);
+      std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long>>>::__move_assign((v18 + 536), v36);
+      v26 = *(v18 + 72);
       if (v26)
       {
         *(v25 + 152) = v26;
         operator delete(v26);
         *v23 = 0;
-        *(v18 + 584) = 0;
-        *(v18 + 592) = 0;
+        *(v18 + 73) = 0;
+        *(v18 + 74) = 0;
       }
 
       *v23 = *(&v36[2] + 1);
       *(v25 + 152) = v36[3];
       memset(&v36[2] + 8, 0, 24);
       v27 = objc_loadWeakRetained(&v37);
-      objc_storeWeak((v18 + 600), v27);
+      objc_storeWeak(v18 + 75, v27);
 
-      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign(v18 + 608, v38);
+      std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__move_assign((v18 + 608), v38);
       std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::~__hash_table(v38);
       objc_destroyWeak(&v37);
       if (*(&v36[2] + 1))
@@ -508,33 +508,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<HUDTimeRange>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long,HUDGPUTimeTrackerTopObjectHeapValue>>(void *a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -542,73 +542,73 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -616,47 +616,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_iter<HUDTimeRange*>,std::__wrap_iter<HUDTimeRange*>>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -665,8 +665,8 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_it
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 4)
   {
     v11 = *a1;
@@ -704,23 +704,24 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_it
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
 
     while (v34);
-    memcpy((v33 + 16 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 16 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 16 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 16 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -735,14 +736,14 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_it
   {
     v29 = &__dst[16 * a5];
     v30 = (v10 - 16 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[16 * a5], __dst, v10 - v29);
@@ -757,11 +758,11 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_it
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[16 * a5];
@@ -781,7 +782,7 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<std::__wrap_it
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[16 * a5], v5, v21 - v22);
@@ -800,7 +801,7 @@ LABEL_29:
   return v5;
 }
 
-uint64_t std::vector<MTL4CommandBufferCommit>::__init_with_size[abi:ne200100]<MTL4CommandBufferCommit*,MTL4CommandBufferCommit*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MTL4CommandBufferCommit>::__init_with_size[abi:ne200100]<MTL4CommandBufferCommit*,MTL4CommandBufferCommit*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -822,7 +823,7 @@ void sub_10D44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MTL4CommandBufferCommit>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTL4CommandBufferCommit>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -842,33 +843,33 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<MTL4CommandBufferComm
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerCommandBuffer>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long &&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -876,44 +877,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 void __cxx_global_array_dtor()
@@ -930,7 +931,7 @@ void __cxx_global_array_dtor()
   while (v1);
 }
 
-char *HUDGPUTimeTrackerEncoderTypeName(unsigned int a1)
+char *HUDGPUTimeTrackerEncoderTypeName(uint64_t a1, uint64_t a2)
 {
   if (a1 >= 7)
   {
@@ -940,7 +941,7 @@ char *HUDGPUTimeTrackerEncoderTypeName(unsigned int a1)
   return (&HUDGPUTimeTrackerEncoderTypeName_names)[a1];
 }
 
-void HUDInsightsCreatePrototypes()
+void HUDInsightsCreatePrototypes(uint64_t result, uint64_t a2)
 {
   if (HUDInsightsCreatePrototypes_onceToken != -1)
   {
@@ -1023,60 +1024,61 @@ void _HUDTargetBlitInsightReport(uint64_t a1, uint64_t a2)
   {
     if (!v6 && a1 && *(a1 + 788))
     {
-      v7 = @"Detected high number of interleaved blit command encoder and other types of encoders. Consider batching resource updates or adopting MTL4ComputeCommandEncoder.";
+      v9 = @"Detected high number of interleaved blit command encoder and other types of encoders. Consider batching resource updates or adopting MTL4ComputeCommandEncoder.";
       goto LABEL_9;
     }
   }
 
   else if (a1 && *(a1 + 788))
   {
-    v7 = @"Detected frequent resource copies interleaved with regular GPU commands. Consider batching resource updates.";
+    v9 = @"Detected frequent resource copies interleaved with regular GPU commands. Consider batching resource updates.";
 LABEL_9:
-    v8 = [NSString stringWithFormat:v7];
+    v7 = [NSString stringWithFormat:v9];
+    v10 = v7;
     goto LABEL_11;
   }
 
-  v8 = &stru_6ADA0;
+  v10 = &stru_6ADA0;
 LABEL_11:
-  v18 = 0;
-  v19 = 0;
-  v14 = @"com.apple.hud.insights.blitswap";
-  IsProcessTranslated = MTLHudIsProcessTranslated();
-  v10 = @"Interleaved Blit Command Encoders";
+  v20 = 0;
+  v21 = 0;
+  v16 = @"com.apple.hud.insights.blitswap";
+  IsProcessTranslated = MTLHudIsProcessTranslated(v7, v8);
+  v12 = @"Interleaved Blit Command Encoders";
   if (IsProcessTranslated)
   {
-    v10 = @"Interleaved Resource Copy";
+    v12 = @"Interleaved Resource Copy";
   }
 
-  v15 = v10;
-  v11 = v8;
-  v16 = v11;
-  v17 = @"API Usage Patterns";
+  v17 = v12;
+  v13 = v10;
+  v18 = v13;
+  v19 = @"API Usage Patterns";
   if (a1)
   {
-    v2 = [NSData dataWithBytes:a1 length:760, v14, v15, v16, v17, v18, v19];
-    v18 = v2;
-    v12 = [*(a1 + 824) subdataWithRange:{0, *(a1 + 832)}];
+    v2 = [NSData dataWithBytes:a1 length:760, v16, v17, v18, v19, v20, v21];
+    v20 = v2;
+    v14 = [*(a1 + 824) subdataWithRange:{0, *(a1 + 832)}];
   }
 
   else
   {
-    v12 = 0;
-    v18 = 0;
+    v14 = 0;
+    v20 = 0;
   }
 
-  v19 = v12;
-  v20 = &off_6F1D8;
-  v21 = &off_6F1F0;
-  v22 = xmmword_547F0;
+  v21 = v14;
+  v22 = &off_6F1D8;
+  v23 = &off_6F1F0;
+  v24 = xmmword_547F0;
   if (a1)
   {
   }
 
-  v13 = +[_CADeveloperHUDProperties instance];
-  [v13 addInsight:&v14 isPrototype:a2];
+  v15 = +[_CADeveloperHUDProperties instance];
+  [v15 addInsight:&v16 isPrototype:a2];
 
-  __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v14);
+  __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v16);
 }
 
 void _HUDTessellationInsightReport(uint64_t a1, uint64_t a2)
@@ -1229,19 +1231,19 @@ LABEL_9:
   __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(v11);
 }
 
-void _HUDGameModeInsightReport(uint64_t a1)
+void _HUDGameModeInsightReport(uint64_t a1, uint64_t a2)
 {
-  if ((MTLHudIsProcessTranslated() & 1) == 0)
+  if ((MTLHudIsProcessTranslated(a1, a2) & 1) == 0)
   {
-    v2 = +[_CADeveloperHUDProperties instance];
-    v3 = [v2 graphicsAPI];
+    v3 = +[_CADeveloperHUDProperties instance];
+    v4 = [v3 graphicsAPI];
 
-    if (!v3)
+    if (!v4)
     {
-      v4 = [_CADeveloperHUDProperties instance:@"com.apple.hud.insights.gamemode"];
-      [v4 addInsight:&v5 isPrototype:a1];
+      v5 = [_CADeveloperHUDProperties instance:@"com.apple.hud.insights.gamemode"];
+      [v5 addInsight:&v6 isPrototype:a1];
 
-      __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v5);
+      __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(&v6);
     }
   }
 }
@@ -1296,9 +1298,9 @@ LABEL_9:
 LABEL_10:
 }
 
-void sub_11BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_11BC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   __destructor_8_s0_s8_s16_s24_s32_s40_s48_s56(va);
   _Unwind_Resume(a1);
 }
@@ -1318,44 +1320,44 @@ double HUDCompilerStatisticsInit(_OWORD *a1)
 
 void HUDCompilerInsightHandleCompilerStatistics(uint64_t a1, int64x2_t *a2, __int128 *a3)
 {
-  if (*(HUDGetGlobalConfig() + 3) == 1)
+  if (*(HUDGetGlobalConfig(a1, a2) + 3) == 1)
   {
     v6 = HUDCurrentTimeInNs();
-    v7 = v6;
-    v8 = a2[2].i64[1];
-    if (v8)
+    v8 = v6;
+    v9 = a2[2].i64[1];
+    if (v9)
     {
       ++*(a1 + 40);
-      v9 = *(a1 + 8);
-      if (!v9)
+      v10 = *(a1 + 8);
+      if (!v10)
       {
-        v10 = *a3;
-        v11 = a3[1];
+        v11 = *a3;
+        v12 = a3[1];
         *(a1 + 88) = a3[2];
-        *(a1 + 72) = v11;
-        *(a1 + 56) = v10;
-        v12 = a3[3];
-        v13 = a3[4];
-        v14 = a3[5];
+        *(a1 + 72) = v12;
+        *(a1 + 56) = v11;
+        v13 = a3[3];
+        v14 = a3[4];
+        v15 = a3[5];
         *(a1 + 152) = a3[6];
-        *(a1 + 136) = v14;
-        *(a1 + 120) = v13;
-        *(a1 + 104) = v12;
-        v8 = a2[2].i64[1];
+        *(a1 + 136) = v15;
+        *(a1 + 120) = v14;
+        *(a1 + 104) = v13;
+        v9 = a2[2].i64[1];
       }
     }
 
     else
     {
-      v9 = *(a1 + 8);
+      v10 = *(a1 + 8);
     }
 
     *(a1 + 48) += a2[4].i64[0];
-    *(a1 + 8) = v9 + v8;
+    *(a1 + 8) = v10 + v9;
     *(a1 + 16) = vaddq_s64(*(a1 + 16), a2[3]);
     ++*(a1 + 32);
-    v15 = (v6 - *a1) / 1000000000.0;
-    if (v15 >= *(HUDGetGlobalConfig() + 31))
+    v16 = (v6 - *a1) / 1000000000.0;
+    if (v16 >= *(HUDGetGlobalConfig(v6, v7) + 31))
     {
       if (*a1)
       {
@@ -1368,7 +1370,7 @@ void HUDCompilerInsightHandleCompilerStatistics(uint64_t a1, int64x2_t *a2, __in
       *(a1 + 24) = 0u;
       *(a1 + 40) = 0u;
       *(a1 + 8) = 0u;
-      *a1 = v7;
+      *a1 = v8;
     }
   }
 }
@@ -1442,7 +1444,7 @@ uint64_t HUDTargetRebindingInsightContextInit(uint64_t a1)
   v5 = *(a1 + 848);
   *(a1 + 848) = v4;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v4, v5);
 }
 
 double _HUDTargetRebindCheckRenderEncoderGroup(uint64_t a1)
@@ -1557,27 +1559,27 @@ id HUDTargetRebindingInsightContextNextFrame(uint64_t a1, void *a2, void *a3, ui
 
   v17 = HUDCurrentTimeInNs();
   v18 = (v17 - *(a1 + 808));
-  if ((*(HUDGetGlobalConfig() + 31) * 1000000000.0) >= v18)
+  if ((*(HUDGetGlobalConfig(v17, v19) + 31) * 1000000000.0) >= v18)
   {
-    v20 = *(a1 + 788) + 1;
+    v21 = *(a1 + 788) + 1;
   }
 
   else
   {
-    v19 = *(a1 + 788);
-    if ((*(a1 + 760) / v19) >= 0.5)
+    v20 = *(a1 + 788);
+    if ((*(a1 + 760) / v20) >= 0.5)
     {
       _HUDTargetRebindingInsightReport(a1, 0);
-      v19 = *(a1 + 788);
+      v20 = *(a1 + 788);
     }
 
-    if ((*(a1 + 768) / v19) >= 0.5)
+    if ((*(a1 + 768) / v20) >= 0.5)
     {
       _HUDTargetBlitInsightReport(a1, 0);
-      v19 = *(a1 + 788);
+      v20 = *(a1 + 788);
     }
 
-    if ((*(a1 + 784) / v19) >= 0.5)
+    if ((*(a1 + 784) / v20) >= 0.5)
     {
       _HUDMetal3To4EfficientEncoderInsightReport(a1, 0);
     }
@@ -1586,10 +1588,10 @@ id HUDTargetRebindingInsightContextNextFrame(uint64_t a1, void *a2, void *a3, ui
     *(a1 + 760) = 0u;
     *(a1 + 776) = 0u;
     *(a1 + 788) = 0u;
-    v20 = 1;
+    v21 = 1;
   }
 
-  *(a1 + 788) = v20;
+  *(a1 + 788) = v21;
   if (a2)
   {
     memcpy(a2, a1, 0x2F8uLL);
@@ -1604,13 +1606,13 @@ id HUDTargetRebindingInsightContextNextFrame(uint64_t a1, void *a2, void *a3, ui
   {
     *(a1 + 817) = v12;
     *(a1 + 816) = 0;
-    v21 = [NSString stringWithFormat:@"====== Frame %zu Encoding ======", a4];
-    NSLog(@"[libMTLHud] %@", v21);
+    v22 = [NSString stringWithFormat:@"====== Frame %zu Encoding ======", a4];
+    NSLog(@"[libMTLHud] %@", v22);
   }
 
-  v22 = *(a1 + 840);
+  v23 = *(a1 + 840);
 
-  return [v22 removeAllObjects];
+  return [v23 removeAllObjects];
 }
 
 void HUDTargetRebindingInsightContextProcessCommandBuffer(uint64_t a1, uint64_t a2, unsigned int a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -1955,9 +1957,9 @@ void *HUDBarrierInsightContextInit(void *result)
 
 void HUDBarrierInsightCheck(uint64_t a1)
 {
-  v10 = +[_CADeveloperHUDProperties instance];
-  v2 = [v10 getMetric:@"com.apple.d3dmetal.skipped-global-barrier-count"];
-  v3 = [v10 getMetric:@"com.apple.d3dmetal.global-barrier-count"];
+  v11 = +[_CADeveloperHUDProperties instance];
+  v2 = [v11 getMetric:@"com.apple.d3dmetal.skipped-global-barrier-count"];
+  v3 = [v11 getMetric:@"com.apple.d3dmetal.global-barrier-count"];
   v4 = v3;
   if (v2)
   {
@@ -1984,7 +1986,7 @@ void HUDBarrierInsightCheck(uint64_t a1)
 
   v8 = HUDCurrentTimeInNs();
   v9 = (v8 - *a1);
-  if ((*(HUDGetGlobalConfig() + 31) * 1000000000.0) < v9)
+  if ((*(HUDGetGlobalConfig(v8, v10) + 31) * 1000000000.0) < v9)
   {
     if ((*(a1 + 8) / *(a1 + 12)) >= 0.5)
     {
@@ -1997,9 +1999,9 @@ void HUDBarrierInsightCheck(uint64_t a1)
 
 void HUDTessellationInsightCheck(uint64_t a1)
 {
-  v6 = +[_CADeveloperHUDProperties instance];
-  v2 = [v6 getMetric:@"com.apple.d3dmetal.tess-count"];
-  v3 = [v6 getMetric:@"com.apple.d3dmetal.tess-count"];
+  v7 = +[_CADeveloperHUDProperties instance];
+  v2 = [v7 getMetric:@"com.apple.d3dmetal.tess-count"];
+  v3 = [v7 getMetric:@"com.apple.d3dmetal.tess-count"];
   if (v2 | v3)
   {
     if ((++*(a1 + 12), v2) && [v2 intValue] > 0 || v3 && objc_msgSend(v3, "intValue") >= 1)
@@ -2010,7 +2012,7 @@ void HUDTessellationInsightCheck(uint64_t a1)
 
   v4 = HUDCurrentTimeInNs();
   v5 = (v4 - *a1);
-  if ((*(HUDGetGlobalConfig() + 31) * 1000000000.0) < v5)
+  if ((*(HUDGetGlobalConfig(v4, v6) + 31) * 1000000000.0) < v5)
   {
     if ((*(a1 + 8) / *(a1 + 12)) >= 0.5)
     {
@@ -2022,16 +2024,17 @@ void HUDTessellationInsightCheck(uint64_t a1)
   }
 }
 
-void HUDGameModeInsightCheck()
+void HUDGameModeInsightCheck(uint64_t a1, uint64_t a2)
 {
-  if ((MTLHudIsProcessTranslated() & 1) == 0 && !MTLHUDGetGameModeKeyState())
+  IsProcessTranslated = MTLHudIsProcessTranslated(a1, a2);
+  if ((IsProcessTranslated & 1) == 0 && !MTLHUDGetGameModeKeyState(IsProcessTranslated, v3))
   {
-    v0 = HUDCurrentTimeInNs();
-    v1 = (v0 - HUDGameModeInsightCheck_lastReportTime);
-    if ((*(HUDGetGlobalConfig() + 31) * 1000000000.0) < v1)
+    v4 = HUDCurrentTimeInNs();
+    v5 = (v4 - HUDGameModeInsightCheck_lastReportTime);
+    if ((*(HUDGetGlobalConfig(v4, v6) + 31) * 1000000000.0) < v5)
     {
-      _HUDGameModeInsightReport(0);
-      HUDGameModeInsightCheck_lastReportTime = v0;
+      _HUDGameModeInsightReport(0, v7);
+      HUDGameModeInsightCheck_lastReportTime = v4;
     }
   }
 }
@@ -2091,7 +2094,7 @@ void sub_130C0(_Unwind_Exception *a1, uint64_t a2, HUDInsightDescriptor *a3)
 
 void HUDInsightReportStart(uint64_t a1, void *a2)
 {
-  v9 = a2;
+  v18 = a2;
   v3 = *(a1 + 16);
   *(a1 + 16) = 0;
 
@@ -2101,8 +2104,8 @@ void HUDInsightReportStart(uint64_t a1, void *a2)
     *(a1 + 72) = 5000000000;
   }
 
-  *(a1 + 32) = *[v9 layerState];
-  *(a1 + 40) = *[v9 layerState];
+  *(a1 + 32) = *[v18 layerState];
+  *(a1 + 40) = *[v18 layerState];
   v4 = *(a1 + 72);
   if (v4 >= 0x34630B8A000)
   {
@@ -2114,14 +2117,15 @@ void HUDInsightReportStart(uint64_t a1, void *a2)
   *(a1 + 48) = v5;
   *(a1 + 56) = v5 + 3000000000u;
   *(a1 + 64) = *(a1 + 72) + v5 + 3000000000u;
-  *(a1 + 25) = *(HUDGetGlobalConfig() + 3);
-  *(a1 + 26) = *(HUDGetGlobalConfig() + 4);
+  v7 = HUDGetGlobalConfig(v5, v6);
+  *(a1 + 25) = *(v7 + 3);
+  *(a1 + 26) = *(HUDGetGlobalConfig(v7, v8) + 4);
   *(a1 + 80) = *(a1 + 48);
   *(a1 + 96) = 0u;
   *(a1 + 112) = 0u;
-  v6 = [NSMutableData dataWithLength:24000];
-  v7 = *(a1 + 240);
-  *(a1 + 240) = v6;
+  v9 = [NSMutableData dataWithLength:24000];
+  v10 = *(a1 + 240);
+  *(a1 + 240) = v9;
 
   *(a1 + 248) = 0;
   *(a1 + 88) = *(a1 + 48);
@@ -2132,9 +2136,11 @@ void HUDInsightReportStart(uint64_t a1, void *a2)
   *(a1 + 192) = 0u;
   *(a1 + 208) = 0u;
   *(a1 + 224) = 0u;
-  *(HUDGetGlobalConfig() + 3) = 1;
-  *(HUDGetGlobalConfig() + 4) = 1;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  v13 = HUDGetGlobalConfig(v11, v12);
+  *(v13 + 3) = 1;
+  v15 = HUDGetGlobalConfig(v13, v14);
+  *(v15 + 4) = 1;
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v15, v16);
   HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(GlobalInstance, 1);
   _HUDInsightReportGenerationInsight(a1, *(a1 + 48));
 }
@@ -2148,36 +2154,36 @@ BOOL HUDInsightReportHeartbeat(void *a1, void *a2, int a3)
   if (a1[10] < v8 && v6 >= v8)
   {
     a1[4] = *[v5 layerState];
-    v31 = 0;
-    HUDSystemStateGetSnapshot(&v31);
-    v10 = v31;
-    if (v31)
+    v46 = 0;
+    Snapshot = HUDSystemStateGetSnapshot(&v46, v10, v11, v12);
+    v15 = v46;
+    if (v46)
     {
-      a1[12] = v31[1];
-      a1[14] = *v10;
+      a1[12] = v46[1];
+      a1[14] = *v15;
     }
 
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(Snapshot, v14);
     TotalCompilerStatistics = HUDGPUTimeTrackerGetTotalCompilerStatistics(GlobalInstance);
-    v13 = *TotalCompilerStatistics;
-    v14 = TotalCompilerStatistics[2];
+    v18 = *TotalCompilerStatistics;
+    v19 = TotalCompilerStatistics[2];
     *(a1 + 9) = TotalCompilerStatistics[1];
-    *(a1 + 10) = v14;
-    *(a1 + 8) = v13;
-    v15 = TotalCompilerStatistics[3];
-    v16 = TotalCompilerStatistics[4];
-    v17 = TotalCompilerStatistics[6];
+    *(a1 + 10) = v19;
+    *(a1 + 8) = v18;
+    v20 = TotalCompilerStatistics[3];
+    v21 = TotalCompilerStatistics[4];
+    v22 = TotalCompilerStatistics[6];
     *(a1 + 13) = TotalCompilerStatistics[5];
-    *(a1 + 14) = v17;
-    *(a1 + 11) = v15;
-    *(a1 + 12) = v16;
-    HUDMTLOverlayResetStats();
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = __HUDInsightReportHeartbeat_block_invoke;
-    v30[3] = &__block_descriptor_40_e14_v24__0I8I12_16l;
-    v30[4] = a1;
-    [v5 snapshotNextDrawable:800 callback:v30];
+    *(a1 + 14) = v22;
+    *(a1 + 11) = v20;
+    *(a1 + 12) = v21;
+    HUDMTLOverlayResetStats(TotalCompilerStatistics, v23);
+    v45[0] = _NSConcreteStackBlock;
+    v45[1] = 3221225472;
+    v45[2] = __HUDInsightReportHeartbeat_block_invoke;
+    v45[3] = &__block_descriptor_40_e14_v24__0I8I12_16l;
+    v45[4] = a1;
+    [v5 snapshotNextDrawable:800 callback:v45];
   }
 
   if (v7 - a1[11] >= 0x3B9ACA00)
@@ -2187,58 +2193,60 @@ BOOL HUDInsightReportHeartbeat(void *a1, void *a2, int a3)
   }
 
   a1[10] = v7;
-  v18 = a1[8];
-  if (v7 < v18)
+  v24 = a1[8];
+  if (v7 < v24)
   {
     if (v7 > a1[7])
     {
-      v25 = a1[31];
-      if (v25 + 4 > [a1[30] length])
+      v40 = a1[31];
+      if (v40 + 4 > [a1[30] length])
       {
         [a1[30] increaseLengthBy:24000];
       }
 
-      v26 = [a1[30] bytes];
-      v27 = a1[31];
-      *&v26[v27] = a3;
-      a1[31] = v27 + 4;
+      v41 = [a1[30] bytes];
+      v42 = a1[31];
+      *&v41[v42] = a3;
+      a1[31] = v42 + 4;
     }
   }
 
   else
   {
-    a1[5] = *[v5 layerState];
-    v19 = *(a1 + 26);
-    *(HUDGetGlobalConfig() + 4) = v19 != 0;
-    v20 = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(v20, *(a1 + 26) != 0);
-    v31 = 0;
-    HUDSystemStateGetSnapshot(&v31);
-    v21 = v31;
-    if (v31)
+    v25 = [v5 layerState];
+    a1[5] = *v25;
+    v26 = *(a1 + 26);
+    v28 = HUDGetGlobalConfig(v25, v27);
+    *(v28 + 4) = v26 != 0;
+    v30 = HUDGPUTimeTrackerGetGlobalInstance(v28, v29);
+    HUDGPUTimeTrackerEnableEncoderGPUTimeSampling(v30, *(a1 + 26) != 0);
+    v46 = 0;
+    HUDSystemStateGetSnapshot(&v46, v31, v32, v33);
+    v34 = v46;
+    if (v46)
     {
-      a1[13] = v31[1];
-      a1[15] = *v21;
+      a1[13] = v46[1];
+      a1[15] = *v34;
     }
 
-    v22 = +[_CADeveloperHUDProperties instance];
-    [v22 pushGeneratedReportURL:*a1];
+    v35 = +[_CADeveloperHUDProperties instance];
+    [v35 pushGeneratedReportURL:*a1];
 
     _HUDInsightReportGenerationInsight(a1, v7);
     if (!*(a1 + 25))
     {
-      v23 = HUDGetGlobalConfig();
-      v24 = dispatch_time(0, (*(v23 + 30) * 1000000000.0));
+      v38 = HUDGetGlobalConfig(v36, v37);
+      v39 = dispatch_time(0, (*(v38 + 30) * 1000000000.0));
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __HUDInsightReportHeartbeat_block_invoke_2;
       block[3] = &__block_descriptor_40_e5_v8__0l;
       block[4] = a1;
-      dispatch_after(v24, &_dispatch_main_q, block);
+      dispatch_after(v39, &_dispatch_main_q, block);
     }
   }
 
-  return v7 >= v18;
+  return v7 >= v24;
 }
 
 void __HUDInsightReportHeartbeat_block_invoke(uint64_t a1, int a2, int a3, uint64_t a4)
@@ -2256,195 +2264,195 @@ void __HUDInsightReportHeartbeat_block_invoke(uint64_t a1, int a2, int a3, uint6
 
 void _HUDInsightReportGenerateFrameEncoding(uint64_t a1, void *a2, uint64_t a3, void *a4, unint64_t a5)
 {
-  v57 = a2;
+  v62 = a2;
   v8 = a4;
   v9 = v8;
   if (a3)
   {
     if (a5)
     {
-      v56 = [v8 bytes];
-      v54 = a5 / 0x110;
+      v61 = [v8 bytes];
+      v59 = a5 / 0x110;
       if (!(a5 % 0x110))
       {
-        [v57 appendFormat:@"<div id=frameencoding class=box><details open><summary class=sectionheader>Frame Encoding</summary><div>\n"];
-        [v57 appendFormat:@"<div><span class=infotitle>Frame</span> <span>%zu</span></div>\n", *(a3 + 752)];
-        [v57 appendFormat:@"<div><span class=infotitle>Command Buffer Count</span> <span>%u</span></div>\n", *(a3 + 728)];
-        v10 = 0;
-        v11 = a3 + 652;
+        [v62 appendFormat:@"<div id=frameencoding class=box><details open><summary class=sectionheader>Frame Encoding</summary><div>\n"];
+        [v62 appendFormat:@"<div><span class=infotitle>Frame</span> <span>%zu</span></div>\n", *(a3 + 752)];
+        [v62 appendFormat:@"<div><span class=infotitle>Command Buffer Count</span> <span>%u</span></div>\n", *(a3 + 728)];
+        v11 = 0;
+        v12 = a3 + 652;
         do
         {
-          v12 = dword_54890[v10];
-          if (*(v11 + 4 * v12))
+          v13 = dword_54890[v11];
+          if (*(v12 + 4 * v13))
           {
-            [v57 appendFormat:@"<div><span class=infotitle>%s Count</span> <span>%u</span></div>\n", HUDGPUTimeTrackerEncoderTypeName(dword_54890[v10]), *(v11 + 4 * v12)];
+            [v62 appendFormat:@"<div><span class=infotitle>%s Count</span> <span>%u</span></div>\n", HUDGPUTimeTrackerEncoderTypeName(dword_54890[v11], v10), *(v12 + 4 * v13)];
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v10 != 7);
+        while (v11 != 7);
         memset_pattern16(__b, &unk_54880, 0x38uLL);
-        v13 = objc_opt_new();
-        v47 = v13;
-        [v57 appendFormat:@"<div><table class=commandbuffertable>"];
+        v14 = objc_opt_new();
+        v52 = v14;
+        [v62 appendFormat:@"<div><table class=commandbuffertable>"];
         if (a5 >= 0x110)
         {
-          v37 = v9;
-          v14 = 0;
-          v15 = 0;
-          v53 = 0;
-          v52 = 0;
-          v16 = 1;
+          v42 = v9;
+          v16 = 0;
+          v17 = 0;
+          v58 = 0;
+          v57 = 0;
+          v18 = 1;
           while (1)
           {
-            v17 = &v56[v14];
-            v18 = *&v56[v14 + 216];
-            if (v18 == 1)
+            v19 = &v61[v16];
+            v20 = *&v61[v16 + 216];
+            if (v20 == 1)
             {
               break;
             }
 
-            if (!v18)
+            if (!v20)
             {
-              [v13 removeAllObjects];
-              v19 = v16 + 1;
-              if (v56[v14 + 4])
+              [v14 removeAllObjects];
+              v21 = v18 + 1;
+              if (v61[v16 + 4])
               {
-                [NSString stringWithUTF8String:&v56[v14 + 4]];
+                [NSString stringWithUTF8String:&v61[v16 + 4]];
               }
 
               else
               {
-                [NSString stringWithFormat:@"Command Buffer %zu", v19];
+                [NSString stringWithFormat:@"Command Buffer %zu", v21];
               }
-              v24 = ;
-              v55 = v19;
-              if (v15 < v54 - 1 && *&v56[v14 + 488])
+              v27 = ;
+              v60 = v21;
+              if (v17 < v59 - 1 && *&v61[v16 + 488])
               {
-                if (v53)
+                if (v58)
                 {
-                  [v57 appendString:@"</table></td></tr>\n"];
+                  [v62 appendString:@"</table></td></tr>\n"];
                 }
 
-                [v57 appendFormat:@"<tr><td>%@</td><td><table class=encodertable>\n", v24];
-                if (!v14)
+                [v62 appendFormat:@"<tr><td>%@</td><td><table class=encodertable>\n", v27];
+                if (!v16)
                 {
-                  [v57 appendFormat:@"<tr><th>Encoder</th><th>Color 0</th><th>Color 2</th><th>Color 3</th><th>Color 4</th><th>Color 5</th><th>Color 6</th><th>Color 7</th><th>Color 8</th><th>Depth</th><th>Stencil</th></tr>"];
+                  [v62 appendFormat:@"<tr><th>Encoder</th><th>Color 0</th><th>Color 2</th><th>Color 3</th><th>Color 4</th><th>Color 5</th><th>Color 6</th><th>Color 7</th><th>Color 8</th><th>Depth</th><th>Stencil</th></tr>"];
                 }
 
-                v53 = 1;
+                v58 = 1;
               }
 
               else
               {
-                if (v53)
+                if (v58)
                 {
-                  [v57 appendString:@"</table></td></tr>\n"];
+                  [v62 appendString:@"</table></td></tr>\n"];
                 }
 
-                [v57 appendFormat:@"<tr><td>%@</td><td>No encoders</td></tr>\n", v24];
-                v53 = 0;
+                [v62 appendFormat:@"<tr><td>%@</td><td>No encoders</td></tr>\n", v27];
+                v58 = 0;
               }
 
-              v52 = &v56[v14];
+              v57 = &v61[v16];
 LABEL_34:
 
               goto LABEL_35;
             }
 
-            v55 = v16;
+            v60 = v18;
 LABEL_35:
-            ++v15;
-            v14 += 272;
-            v16 = v55;
-            if (v54 == v15)
+            ++v17;
+            v16 += 272;
+            v18 = v60;
+            if (v59 == v17)
             {
-              v9 = v37;
-              if (v53)
+              v9 = v42;
+              if (v58)
               {
-                [v57 appendString:@"</td></table></tr>\n"];
+                [v62 appendString:@"</td></table></tr>\n"];
               }
 
               goto LABEL_59;
             }
           }
 
-          v55 = v16;
-          v20 = *(v17 + 20);
-          v21 = __b[v20] + 1;
-          __b[v20] = v21;
-          if (v20 == 1)
+          v60 = v18;
+          v22 = *(v19 + 20);
+          v23 = __b[v22] + 1;
+          __b[v22] = v23;
+          if (v22 == 1)
           {
-            if (v52 && v56[v14 + 84])
+            if (v57 && v61[v16 + 84])
             {
-              v22 = [NSString stringWithUTF8String:&v56[v14 + 84]];
-              v45 = 0;
-              v23 = 1;
-              v24 = v22;
+              v25 = [NSString stringWithUTF8String:&v61[v16 + 84]];
+              v50 = 0;
+              v26 = 1;
+              v27 = v25;
             }
 
             else
             {
-              v22 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(1u), v21];
-              v23 = 0;
-              v45 = 1;
-              v24 = v12;
-              v39 = v22;
+              v25 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(1, v15), v23];
+              v26 = 0;
+              v50 = 1;
+              v27 = v13;
+              v44 = v25;
             }
 
-            v46 = v23;
-            v28 = HUDGPUTimeTrackerEncoderTypeName(1u);
-            v44 = _HUDInsightReportColorAttachmentCell(*v17, v13);
-            v51 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 8], v13);
-            v50 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 16], v13);
-            v49 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 24], v13);
-            v48 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 32], v13);
-            v29 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 40], v13);
-            v30 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 48], v13);
-            v31 = _HUDInsightReportColorAttachmentCell(*&v56[v14 + 56], v13);
-            v43 = v22;
-            v32 = *&v56[v14 + 72];
-            v33 = v28;
-            if (v32)
+            v51 = v26;
+            v33 = HUDGPUTimeTrackerEncoderTypeName(1, v24);
+            v49 = _HUDInsightReportColorAttachmentCell(*v19, v14);
+            v56 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 8], v14);
+            v55 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 16], v14);
+            v54 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 24], v14);
+            v53 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 32], v14);
+            v34 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 40], v14);
+            v35 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 48], v14);
+            v36 = _HUDInsightReportColorAttachmentCell(*&v61[v16 + 56], v14);
+            v48 = v25;
+            v37 = *&v61[v16 + 72];
+            v38 = v33;
+            if (v37)
             {
-              v41 = [NSString stringWithFormat:@"0x%llx", v32];
-              v34 = v41;
+              v46 = [NSString stringWithFormat:@"0x%llx", v37];
+              v39 = v46;
             }
 
             else
             {
-              v34 = @"-";
+              v39 = @"-";
             }
 
-            v35 = *&v56[v14 + 64];
-            if (v35)
+            v40 = *&v61[v16 + 64];
+            if (v40)
             {
-              v40 = [NSString stringWithFormat:@"0x%llx", v35];
-              v36 = v40;
+              v45 = [NSString stringWithFormat:@"0x%llx", v40];
+              v41 = v45;
             }
 
             else
             {
-              v36 = @"-";
+              v41 = @"-";
             }
 
-            [v57 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td>%@%@%@%@%@%@%@%@<td>%@</td><td>%@</td></tr>\n", v43, v33, v44, v51, v50, v49, v48, v29, v30, v31, v34, v36];
-            if (v35)
+            [v62 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td>%@%@%@%@%@%@%@%@<td>%@</td><td>%@</td></tr>\n", v48, v38, v49, v56, v55, v54, v53, v34, v35, v36, v39, v41];
+            if (v40)
             {
             }
 
-            if (v32)
+            if (v37)
             {
             }
 
-            if (v45)
+            if (v50)
             {
             }
 
-            v12 = v24;
-            v13 = v47;
-            if ((v46 & 1) == 0)
+            v13 = v27;
+            v14 = v52;
+            if ((v51 & 1) == 0)
             {
               goto LABEL_35;
             }
@@ -2452,32 +2460,32 @@ LABEL_35:
 
           else
           {
-            [v13 removeAllObjects];
-            if (v52 && v56[v14 + 84])
+            [v14 removeAllObjects];
+            if (v57 && v61[v16 + 84])
             {
-              v25 = [NSString stringWithUTF8String:&v56[v14 + 84]];
-              v26 = 0;
-              v27 = 1;
-              v24 = v25;
+              v30 = [NSString stringWithUTF8String:&v61[v16 + 84]];
+              v31 = 0;
+              v32 = 1;
+              v27 = v30;
             }
 
             else
             {
-              v25 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(v20), v21];
-              v27 = 0;
-              v26 = 1;
-              v24 = v42;
-              v38 = v25;
+              v30 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(v22, v28), v23];
+              v32 = 0;
+              v31 = 1;
+              v27 = v47;
+              v43 = v30;
             }
 
-            [v57 appendFormat:@"<tr><td class=alignleft tdwithcomment>%@ <span class=tdcomment>%s</span></td><td colspan=10>-</td></tr>\n", v25, HUDGPUTimeTrackerEncoderTypeName(v20)];
-            if (v26)
+            [v62 appendFormat:@"<tr><td class=alignleft tdwithcomment>%@ <span class=tdcomment>%s</span></td><td colspan=10>-</td></tr>\n", v30, HUDGPUTimeTrackerEncoderTypeName(v22, v29)];
+            if (v31)
             {
             }
 
-            v42 = v24;
-            v13 = v47;
-            if ((v27 & 1) == 0)
+            v47 = v27;
+            v14 = v52;
+            if ((v32 & 1) == 0)
             {
               goto LABEL_35;
             }
@@ -2487,9 +2495,9 @@ LABEL_35:
         }
 
 LABEL_59:
-        [v57 appendString:@"</table></div>\n"];
+        [v62 appendString:@"</table></div>\n"];
 
-        [v57 appendFormat:@"</div></details></div>\n"];
+        [v62 appendFormat:@"</div></details></div>\n"];
       }
     }
   }
@@ -2503,383 +2511,384 @@ id _HUDInsightReportColorAttachmentCell(unint64_t a1, void *a2)
     v4 = [NSNumber numberWithUnsignedLongLong:a1];
     [v3 addObject:v4];
 
+    v12 = 0.0;
     v10 = 0.0;
-    v8 = 0.0;
-    v9 = 0.0;
-    MTLHUDRandomMaterialColor(&v10, &v9, &v8, a1);
-    v5 = [NSString stringWithFormat:@"<td style=background-color: rgba(%d, %d, %d, 0.5)>0x%llx</td>", (v10 * 255.0), (v9 * 255.0), (v8 * 255.0), a1];
+    v11 = 0.0;
+    v5.n128_f32[0] = a1;
+    MTLHUDRandomMaterialColor(v5, v6, &v12, &v11, &v10);
+    v7 = [NSString stringWithFormat:@"<td style=background-color: rgba(%d, %d, %d, 0.5)>0x%llx</td>", (v12 * 255.0), (v11 * 255.0), (v10 * 255.0), a1];
   }
 
   else
   {
-    v5 = [NSString stringWithFormat:@"<td>-</td>"];
+    v7 = [NSString stringWithFormat:@"<td>-</td>"];
   }
 
-  v6 = v5;
+  v8 = v7;
 
-  return v6;
+  return v8;
 }
 
 void _HUDInsightReportGenerateFrameTiming(uint64_t a1, void *a2, uint64_t a3, void *a4, unint64_t a5)
 {
-  v111 = a2;
-  v108 = a4;
+  v117 = a2;
+  v114 = a4;
   if (a3)
   {
     if (a5)
     {
-      v8 = [v108 bytes];
-      v110 = a5 / 0x110;
+      v8 = [v114 bytes];
+      v116 = a5 / 0x110;
       if (!(a5 % 0x110))
       {
         v9 = v8;
-        [v111 appendFormat:@"<div id=frametiming class=box><details open><summary class=sectionheader>Frame Timing</summary><div>\n"];
-        GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+        v10 = [v117 appendFormat:@"<div id=frametiming class=box><details open><summary class=sectionheader>Frame Timing</summary><div>\n"];
+        GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v10, v11);
         if ((HUDGPUTimeTrackerCanEnableGPUTimeSampling(GlobalInstance) & 1) == 0)
         {
-          [v111 appendFormat:@"<div class=warning><span>Encoder GPU timing cannot be enabled, either due to Metal Device does not support encoder stage GPU counter sampling or your app uses the Metal GPU counters API.</span></div>\n"];
-          [v111 appendFormat:@"<div class=gap></div>\n"];
+          [v117 appendFormat:@"<div class=warning><span>Encoder GPU timing cannot be enabled, either due to Metal Device does not support encoder stage GPU counter sampling or your app uses the Metal GPU counters API.</span></div>\n"];
+          [v117 appendFormat:@"<div class=gap></div>\n"];
         }
 
-        [v111 appendFormat:@"<div><span class=infotitle>Frame</span> <span>%zu</span></div>\n", *(a3 + 752)];
-        [v111 appendFormat:@"<div><span class=infotitle>Command Buffer Count</span> <span>%u</span></div>\n", *(a3 + 728)];
-        v11 = 0;
-        v12 = a3 + 652;
+        [v117 appendFormat:@"<div><span class=infotitle>Frame</span> <span>%zu</span></div>\n", *(a3 + 752)];
+        [v117 appendFormat:@"<div><span class=infotitle>Command Buffer Count</span> <span>%u</span></div>\n", *(a3 + 728)];
+        v14 = 0;
+        v15 = a3 + 652;
         do
         {
-          v13 = dword_54890[v11];
-          if (*(v12 + 4 * v13))
+          v16 = dword_54890[v14];
+          if (*(v15 + 4 * v16))
           {
-            [v111 appendFormat:@"<div><span class=infotitle>%s Count</span> <span>%u</span></div>\n", HUDGPUTimeTrackerEncoderTypeName(dword_54890[v11]), *(v12 + 4 * v13)];
+            [v117 appendFormat:@"<div><span class=infotitle>%s Count</span> <span>%u</span></div>\n", HUDGPUTimeTrackerEncoderTypeName(dword_54890[v14], v13), *(v15 + 4 * v16)];
           }
 
-          ++v11;
+          ++v14;
         }
 
-        while (v11 != 7);
+        while (v14 != 7);
         memset_pattern16(__b, &unk_54880, 0x38uLL);
         if (a5 >= 0x110)
         {
-          v17 = 0;
-          v18 = 0;
-          v19 = 0;
-          v109 = 0;
-          v20 = v9 + 264;
-          v21 = a5 / 0x110;
+          v20 = 0;
+          v21 = 0;
+          v22 = 0;
+          v115 = 0;
+          v23 = v9 + 264;
+          v24 = a5 / 0x110;
           do
           {
-            v23 = *(v20 - 5);
-            v22 = *(v20 - 4);
-            v41 = v22 >= v23;
-            v24 = v22 - v23;
-            if (v41)
+            v26 = *(v23 - 5);
+            v25 = *(v23 - 4);
+            v44 = v25 >= v26;
+            v27 = v25 - v26;
+            if (v44)
             {
-              v25 = v24;
+              v28 = v27;
             }
 
             else
-            {
-              v25 = 0;
-            }
-
-            v27 = *(v20 - 3);
-            v26 = *(v20 - 2);
-            v41 = v26 >= v27;
-            v28 = v26 - v27;
-            if (!v41)
             {
               v28 = 0;
             }
 
-            if (*(v20 - 12))
+            v30 = *(v23 - 3);
+            v29 = *(v23 - 2);
+            v44 = v29 >= v30;
+            v31 = v29 - v30;
+            if (!v44)
             {
-              if (v19 <= v25)
+              v31 = 0;
+            }
+
+            if (*(v23 - 12))
+            {
+              if (v22 <= v28)
               {
-                v19 = v25;
+                v22 = v28;
               }
 
-              v29 = *(v20 - 1);
-              v30 = *v20 - v29;
-              if (*v20 < v29)
+              v32 = *(v23 - 1);
+              v33 = *v23 - v32;
+              if (*v23 < v32)
               {
-                v30 = 0;
+                v33 = 0;
               }
 
-              v31 = v30 + v28;
-              v32 = v109;
-              if (v109 <= v31)
+              v34 = v33 + v31;
+              v35 = v115;
+              if (v115 <= v34)
               {
-                v32 = v31;
+                v35 = v34;
               }
 
-              v109 = v32;
+              v115 = v35;
             }
 
             else
             {
-              if (v17 <= v25)
+              if (v20 <= v28)
               {
-                v17 = v25;
+                v20 = v28;
               }
 
-              if (v18 <= v28)
+              if (v21 <= v31)
               {
-                v18 = v28;
+                v21 = v31;
               }
             }
 
-            v20 += 34;
-            --v21;
+            v23 += 34;
+            --v24;
           }
 
-          while (v21);
-          v16 = v17;
-          v15 = v18;
-          v14 = v19;
+          while (v24);
+          v19 = v20;
+          v18 = v21;
+          v17 = v22;
         }
 
         else
         {
-          v109 = 0;
-          v14 = 0.0;
-          v15 = 0.0;
-          v16 = 0.0;
+          v115 = 0;
+          v17 = 0.0;
+          v18 = 0.0;
+          v19 = 0.0;
         }
 
-        [v111 appendFormat:@"<div class=gap></div>\n"];
-        [v111 appendFormat:@"<div class=box>\n"];
-        [v111 appendFormat:@"<div><table class=commandbuffertimetable>\n"];
-        [v111 appendFormat:@"<tr><th>Command Buffer</th><th>CPU</th><th>GPU</th></tr>\n"];
+        [v117 appendFormat:@"<div class=gap></div>\n"];
+        [v117 appendFormat:@"<div class=box>\n"];
+        [v117 appendFormat:@"<div><table class=commandbuffertimetable>\n"];
+        [v117 appendFormat:@"<tr><th>Command Buffer</th><th>CPU</th><th>GPU</th></tr>\n"];
         if (a5 >= 0x110)
         {
-          v33 = 0;
-          v34 = 1;
-          v105 = v9;
-          v35 = v9;
-          v36 = a5 / 0x110;
+          v36 = 0;
+          v37 = 1;
+          v111 = v9;
+          v38 = v9;
+          v39 = a5 / 0x110;
           do
           {
-            if (!*(v35 + 54))
+            if (!*(v38 + 54))
             {
-              ++v34;
-              if (v35[4])
+              ++v37;
+              if (v38[4])
               {
-                [NSString stringWithUTF8String:v35 + 4];
+                [NSString stringWithUTF8String:v38 + 4];
               }
 
               else
               {
-                [NSString stringWithFormat:@"Command Buffer %zu", v34];
+                [NSString stringWithFormat:@"Command Buffer %zu", v37];
               }
-              v37 = ;
-              v39 = *(v35 + 28);
-              v38 = *(v35 + 29);
-              v40 = @"-";
-              v41 = v38 >= v39;
-              v42 = v38 - v39;
-              if (v41)
+              v40 = ;
+              v42 = *(v38 + 28);
+              v41 = *(v38 + 29);
+              v43 = @"-";
+              v44 = v41 >= v42;
+              v45 = v41 - v42;
+              if (v44)
               {
-                v43 = v42;
+                v46 = v45;
               }
 
               else
               {
-                v43 = 0;
+                v46 = 0;
               }
 
-              if (v42 != 0 && v41)
+              if (v45 != 0 && v44)
               {
-                MTLHUDFormattedTimeInNanosecond(v43, 3, "", __str, 0x200uLL);
-                v40 = [NSString stringWithUTF8String:__str];
+                MTLHUDFormattedTimeInNanosecond(v46, 3, "", __str, 0x200uLL);
+                v43 = [NSString stringWithUTF8String:__str];
               }
 
-              v45 = *(v35 + 30);
-              v44 = *(v35 + 31);
-              v46 = @"-";
-              v47 = v44 >= v45;
-              v48 = v44 - v45;
-              if (v47)
+              v48 = *(v38 + 30);
+              v47 = *(v38 + 31);
+              v49 = @"-";
+              v50 = v47 >= v48;
+              v51 = v47 - v48;
+              if (v50)
               {
-                v49 = v48;
+                v52 = v51;
               }
 
               else
               {
-                v49 = 0;
+                v52 = 0;
               }
 
-              if (v48 != 0 && v47)
+              if (v51 != 0 && v50)
               {
-                MTLHUDFormattedTimeInNanosecond(v49, 3, "", __str, 0x200uLL);
-                v46 = [NSString stringWithUTF8String:__str];
+                MTLHUDFormattedTimeInNanosecond(v52, 3, "", __str, 0x200uLL);
+                v49 = [NSString stringWithUTF8String:__str];
               }
 
-              [v111 appendFormat:@"<tr><td>%@</td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td></tr>\n", v37, (v43 / v16 * 100.0), v40, (v49 / v15 * 100.0), v46];
+              [v117 appendFormat:@"<tr><td>%@</td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td></tr>\n", v40, (v46 / v19 * 100.0), v43, (v52 / v18 * 100.0), v49];
 
-              v33 = v35;
+              v36 = v38;
             }
 
-            v35 += 272;
-            --v36;
+            v38 += 272;
+            --v39;
           }
 
-          while (v36);
-          v107 = v33 == 0;
-          v9 = v105;
+          while (v39);
+          v113 = v36 == 0;
+          v9 = v111;
         }
 
         else
         {
-          v107 = 1;
+          v113 = 1;
         }
 
-        [v111 appendString:@"</table></div></div>\n"];
-        [v111 appendFormat:@"<div class=gap></div>\n"];
-        [v111 appendFormat:@"<div class=box>\n"];
-        [v111 appendFormat:@"<div><table class=encodertimetable>\n"];
-        [v111 appendFormat:@"<tr><th>Encoder</th><th>CPU</th><th>GPU</th><th>Vertex</th><th>Fragment</th></tr>\n"];
+        [v117 appendString:@"</table></div></div>\n"];
+        [v117 appendFormat:@"<div class=gap></div>\n"];
+        [v117 appendFormat:@"<div class=box>\n"];
+        [v117 appendFormat:@"<div><table class=encodertimetable>\n"];
+        [v117 appendFormat:@"<tr><th>Encoder</th><th>CPU</th><th>GPU</th><th>Vertex</th><th>Fragment</th></tr>\n"];
         if (a5 >= 0x110)
         {
-          v50 = v9 + 264;
-          v51 = v109;
+          v54 = v9 + 264;
+          v55 = v115;
           do
           {
-            if (*(v50 - 12) == 1)
+            if (*(v54 - 12) == 1)
             {
-              v52 = *(v50 - 46);
-              v53 = __b[v52] + 1;
-              __b[v52] = v53;
-              if (v52 == 1)
+              v56 = *(v54 - 46);
+              v57 = __b[v56] + 1;
+              __b[v56] = v57;
+              if (v56 == 1)
               {
-                v55 = *(v50 - 3);
-                v54 = *(v50 - 2);
-                v41 = v54 >= v55;
-                v56 = v54 - v55;
-                if (v41)
+                v59 = *(v54 - 3);
+                v58 = *(v54 - 2);
+                v44 = v58 >= v59;
+                v60 = v58 - v59;
+                if (v44)
                 {
-                  v57 = v56;
-                }
-
-                else
-                {
-                  v57 = 0;
-                }
-
-                v58 = *(v50 - 1);
-                if (*v50 >= v58)
-                {
-                  v59 = *v50 - v58;
-                }
-
-                else
-                {
-                  v59 = 0;
-                }
-
-                if (v107 || !*(v50 - 180))
-                {
-                  v60 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(1u), v53];
-                  v103 = 0;
-                  v104 = 1;
-                  v61 = v105;
-                  v99 = v60;
-                }
-
-                else
-                {
-                  v60 = [NSString stringWithUTF8String:v50 - 180];
-                  v103 = 1;
-                  v104 = 0;
                   v61 = v60;
                 }
 
-                v102 = v61;
-                v66 = HUDGPUTimeTrackerEncoderTypeName(1u);
-                v68 = *(v50 - 5);
-                v67 = *(v50 - 4);
-                v69 = @"-";
-                v70 = v67 >= v68;
-                v71 = v67 - v68;
-                if (v70)
+                else
                 {
-                  v72 = v71;
+                  v61 = 0;
+                }
+
+                v62 = *(v54 - 1);
+                if (*v54 >= v62)
+                {
+                  v63 = *v54 - v62;
                 }
 
                 else
                 {
-                  v72 = 0;
+                  v63 = 0;
                 }
 
-                if (v71 != 0 && v70)
+                if (v113 || !*(v54 - 180))
                 {
-                  MTLHUDFormattedTimeInNanosecond(v72, 3, "", __str, 0x200uLL);
-                  v69 = [NSString stringWithUTF8String:__str];
-                }
-
-                v106 = v69;
-                v73 = v59 + v57;
-                if (v59 + v57)
-                {
-                  MTLHUDFormattedTimeInNanosecond(v59 + v57, 3, "", __str, 0x200uLL);
-                  v74 = [NSString stringWithUTF8String:__str];
-                  v75 = @"-";
+                  v65 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(1, v53), v57];
+                  v109 = 0;
+                  v110 = 1;
+                  v66 = v111;
+                  v105 = v65;
                 }
 
                 else
                 {
-                  v75 = @"-";
-                  v74 = @"-";
+                  v65 = [NSString stringWithUTF8String:v54 - 180];
+                  v109 = 1;
+                  v110 = 0;
+                  v66 = v65;
                 }
 
-                v90 = *(v50 - 3);
-                v89 = *(v50 - 2);
-                v91 = v89 >= v90;
-                v92 = v89 - v90;
-                if (v91)
+                v108 = v66;
+                v72 = HUDGPUTimeTrackerEncoderTypeName(1, v64);
+                v74 = *(v54 - 5);
+                v73 = *(v54 - 4);
+                v75 = @"-";
+                v76 = v73 >= v74;
+                v77 = v73 - v74;
+                if (v76)
                 {
-                  v93 = v92;
+                  v78 = v77;
                 }
 
                 else
                 {
-                  v93 = 0;
+                  v78 = 0;
                 }
 
-                if (v92 != 0 && v91)
+                if (v77 != 0 && v76)
                 {
-                  MTLHUDFormattedTimeInNanosecond(v93, 3, "", __str, 0x200uLL);
+                  MTLHUDFormattedTimeInNanosecond(v78, 3, "", __str, 0x200uLL);
                   v75 = [NSString stringWithUTF8String:__str];
                 }
 
-                v94 = v66;
-                v95 = v72;
-                v96 = *(v50 - 1);
-                v97 = @"-";
-                if (*v50 >= v96)
+                v112 = v75;
+                v79 = v63 + v61;
+                if (v63 + v61)
                 {
-                  v98 = *v50 - v96;
+                  MTLHUDFormattedTimeInNanosecond(v63 + v61, 3, "", __str, 0x200uLL);
+                  v80 = [NSString stringWithUTF8String:__str];
+                  v81 = @"-";
                 }
 
                 else
                 {
-                  v98 = 0;
+                  v81 = @"-";
+                  v80 = @"-";
                 }
 
-                if (*v50 > v96)
+                v96 = *(v54 - 3);
+                v95 = *(v54 - 2);
+                v97 = v95 >= v96;
+                v98 = v95 - v96;
+                if (v97)
                 {
-                  MTLHUDFormattedTimeInNanosecond(v98, 3, "", __str, 0x200uLL);
-                  v97 = [NSString stringWithUTF8String:__str];
+                  v99 = v98;
                 }
 
-                [v111 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td></tr>\n", v60, v94, (v95 / v14 * 100.0), v106, 100 * (v73 / v109), v74, (v93 / v51 * 100.0), v75, (v98 / v51 * 100.0), v97];
+                else
+                {
+                  v99 = 0;
+                }
 
-                if (v104)
+                if (v98 != 0 && v97)
+                {
+                  MTLHUDFormattedTimeInNanosecond(v99, 3, "", __str, 0x200uLL);
+                  v81 = [NSString stringWithUTF8String:__str];
+                }
+
+                v100 = v72;
+                v101 = v78;
+                v102 = *(v54 - 1);
+                v103 = @"-";
+                if (*v54 >= v102)
+                {
+                  v104 = *v54 - v102;
+                }
+
+                else
+                {
+                  v104 = 0;
+                }
+
+                if (*v54 > v102)
+                {
+                  MTLHUDFormattedTimeInNanosecond(v104, 3, "", __str, 0x200uLL);
+                  v103 = [NSString stringWithUTF8String:__str];
+                }
+
+                [v117 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td></tr>\n", v65, v100, (v101 / v17 * 100.0), v112, 100 * (v79 / v115), v80, (v99 / v55 * 100.0), v81, (v104 / v55 * 100.0), v103];
+
+                if (v110)
                 {
                 }
 
-                v65 = v102;
-                v105 = v102;
-                if ((v103 & 1) == 0)
+                v71 = v108;
+                v111 = v108;
+                if ((v109 & 1) == 0)
                 {
                   goto LABEL_112;
                 }
@@ -2887,47 +2896,26 @@ void _HUDInsightReportGenerateFrameTiming(uint64_t a1, void *a2, uint64_t a3, vo
 
               else
               {
-                if (v107 || !*(v50 - 180))
+                if (v113 || !*(v54 - 180))
                 {
-                  v62 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(v52), v53];
-                  v64 = 0;
-                  v63 = 1;
-                  v65 = v101;
-                  v100 = v62;
+                  v68 = [NSString stringWithFormat:@"%s %zu", HUDGPUTimeTrackerEncoderTypeName(v56, v53), v57];
+                  v70 = 0;
+                  v69 = 1;
+                  v71 = v107;
+                  v106 = v68;
                 }
 
                 else
                 {
-                  v62 = [NSString stringWithUTF8String:v50 - 180];
-                  v63 = 0;
-                  v64 = 1;
-                  v65 = v62;
+                  v68 = [NSString stringWithUTF8String:v54 - 180];
+                  v69 = 0;
+                  v70 = 1;
+                  v71 = v68;
                 }
 
-                v76 = HUDGPUTimeTrackerEncoderTypeName(v52);
-                v78 = *(v50 - 5);
-                v77 = *(v50 - 4);
-                v79 = @"-";
-                v80 = v77 >= v78;
-                v81 = v77 - v78;
-                if (v80)
-                {
-                  v82 = v81;
-                }
-
-                else
-                {
-                  v82 = 0;
-                }
-
-                if (v81 != 0 && v80)
-                {
-                  MTLHUDFormattedTimeInNanosecond(v82, 3, "", __str, 0x200uLL);
-                  v79 = [NSString stringWithUTF8String:__str];
-                }
-
-                v84 = *(v50 - 3);
-                v83 = *(v50 - 2);
+                v82 = HUDGPUTimeTrackerEncoderTypeName(v56, v67);
+                v84 = *(v54 - 5);
+                v83 = *(v54 - 4);
                 v85 = @"-";
                 v86 = v83 >= v84;
                 v87 = v83 - v84;
@@ -2947,14 +2935,35 @@ void _HUDInsightReportGenerateFrameTiming(uint64_t a1, void *a2, uint64_t a3, vo
                   v85 = [NSString stringWithUTF8String:__str];
                 }
 
-                [v111 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td>-</td><td>-</td></tr>\n", v62, v76, (v82 / v14 * 100.0), v79, (v88 / v51 * 100.0), v85];
+                v90 = *(v54 - 3);
+                v89 = *(v54 - 2);
+                v91 = @"-";
+                v92 = v89 >= v90;
+                v93 = v89 - v90;
+                if (v92)
+                {
+                  v94 = v93;
+                }
 
-                if (v63)
+                else
+                {
+                  v94 = 0;
+                }
+
+                if (v93 != 0 && v92)
+                {
+                  MTLHUDFormattedTimeInNanosecond(v94, 3, "", __str, 0x200uLL);
+                  v91 = [NSString stringWithUTF8String:__str];
+                }
+
+                [v117 appendFormat:@"<tr><td class=tdwithcomment>%@ <span class=tdcomment>%s</span></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar></div><span class=tdoverlay>%@</span></div></td><td><div style=position: relative;><div style=width: %d%%; class=hchartbar2></div><span class=tdoverlay>%@</span></div></td><td>-</td><td>-</td></tr>\n", v68, v82, (v88 / v17 * 100.0), v85, (v94 / v55 * 100.0), v91];
+
+                if (v69)
                 {
                 }
 
-                v101 = v65;
-                if ((v64 & 1) == 0)
+                v107 = v71;
+                if ((v70 & 1) == 0)
                 {
                   goto LABEL_112;
                 }
@@ -2962,15 +2971,15 @@ void _HUDInsightReportGenerateFrameTiming(uint64_t a1, void *a2, uint64_t a3, vo
             }
 
 LABEL_112:
-            v50 += 34;
-            --v110;
+            v54 += 34;
+            --v116;
           }
 
-          while (v110);
+          while (v116);
         }
 
-        [v111 appendString:@"</table></div></div>\n"];
-        [v111 appendFormat:@"</div></details></div>\n"];
+        [v117 appendString:@"</table></div></div>\n"];
+        [v117 appendFormat:@"</div></details></div>\n"];
       }
     }
   }
@@ -2979,59 +2988,59 @@ LABEL_112:
 void _HUDInsightReportGenerateShaderCompilation(const HUDInsightReportContext *a1, NSMutableString *a2, HUDCompilerStatistics *a3)
 {
   v5 = a2;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
   TotalCompilerStatistics = HUDGPUTimeTrackerGetTotalCompilerStatistics(GlobalInstance);
   if (a3)
   {
-    v8 = TotalCompilerStatistics[5];
-    if (v8 >= a3->totalSyncShaderCompilations)
+    v9 = TotalCompilerStatistics[5];
+    if (v9 >= a3->totalSyncShaderCompilations)
     {
-      v9 = TotalCompilerStatistics[6];
-      v10 = TotalCompilerStatistics[7];
-      v11 = TotalCompilerStatistics[8];
+      v10 = TotalCompilerStatistics[6];
+      v11 = TotalCompilerStatistics[7];
+      v12 = TotalCompilerStatistics[8];
       [(NSMutableString *)v5 appendFormat:@"<div id=shadercompilation class=box><details open><summary class=sectionheader>Shader Compilation</summary><div>\n"];
-      v12 = v9 + v8;
-      if (v9 + v8 != a3->totalAsyncShaderCompilations + a3->totalSyncShaderCompilations)
+      v13 = v10 + v9;
+      if (v10 + v9 != a3->totalAsyncShaderCompilations + a3->totalSyncShaderCompilations)
       {
         [(NSMutableString *)v5 appendFormat:@"<div class=sectionheader>Last %llu Frames</div>\n", a1->endFrameNumber - a1->startFrameNumber];
-        [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compiled Shaders</span> <span>%zu</span></div>\n", v12 - (a3->totalSyncShaderCompilations + a3->totalAsyncShaderCompilations)];
-        [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Cached Shaders</span> <span>%zu</span></div>\n", v10 - a3->totalCachedRequests];
-        MTLHUDFormattedTimeInNanosecond(v11 - a3->totalSyncCompileTime, 0, "", __str, 0x100uLL);
+        [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compiled Shaders</span> <span>%zu</span></div>\n", v13 - (a3->totalSyncShaderCompilations + a3->totalAsyncShaderCompilations)];
+        [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Cached Shaders</span> <span>%zu</span></div>\n", v11 - a3->totalCachedRequests];
+        MTLHUDFormattedTimeInNanosecond(v12 - a3->totalSyncCompileTime, 0, "", __str, 0x100uLL);
         [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compilation Time</span> <span>%s</span></div>\n", __str];
         [(NSMutableString *)v5 appendFormat:@"<div class=gap></div>\n"];
         [(NSMutableString *)v5 appendFormat:@"<details><summary>Shader Table</summary><div><table class=shadertable>\n"];
-        [(NSMutableString *)v5 appendFormat:@"<tr><th>Type</th><th>Name</th><th>Time</th></tr>\n"];
-        v13 = HUDGPUTimeTrackerGetGlobalInstance();
-        v20[0] = _NSConcreteStackBlock;
-        v20[1] = 3221225472;
-        v20[2] = ___Z42_HUDInsightReportGenerateShaderCompilationPK23HUDInsightReportContextP15NSMutableStringP21HUDCompilerStatistics_block_invoke;
-        v20[3] = &unk_68CC0;
-        v14 = v5;
-        v21 = v14;
-        HUDGPUTimeTrackerEnumerateCompilerStatistics(v13, a3, v20, v19);
-        [(NSMutableString *)v14 appendString:@"</table></div></details>\n"];
+        v14 = [(NSMutableString *)v5 appendFormat:@"<tr><th>Type</th><th>Name</th><th>Time</th></tr>\n"];
+        v16 = HUDGPUTimeTrackerGetGlobalInstance(v14, v15);
+        v25[0] = _NSConcreteStackBlock;
+        v25[1] = 3221225472;
+        v25[2] = ___Z42_HUDInsightReportGenerateShaderCompilationPK23HUDInsightReportContextP15NSMutableStringP21HUDCompilerStatistics_block_invoke;
+        v25[3] = &unk_68CC0;
+        v17 = v5;
+        v26 = v17;
+        HUDGPUTimeTrackerEnumerateCompilerStatistics(v16, a3, v25, v24);
+        [(NSMutableString *)v17 appendString:@"</table></div></details>\n"];
 
-        [(NSMutableString *)v14 appendFormat:@"<div class=sectionheader style=margin-top: 20px>All</div>\n"];
+        [(NSMutableString *)v17 appendFormat:@"<div class=sectionheader style=margin-top: 20px>All</div>\n"];
       }
 
-      [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compiled Shaders</span> <span>%zu</span></div>\n", v12];
-      [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Cached Shaders</span> <span>%zu</span></div>\n", v10];
-      MTLHUDFormattedTimeInNanosecond(v11, 0, "", __str, 0x100uLL);
+      [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compiled Shaders</span> <span>%zu</span></div>\n", v13];
+      [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Cached Shaders</span> <span>%zu</span></div>\n", v11];
+      MTLHUDFormattedTimeInNanosecond(v12, 0, "", __str, 0x100uLL);
       [(NSMutableString *)v5 appendFormat:@"<div><span class=infotitle>Compilation Time</span> <span>%s</span></div>\n", __str];
       [(NSMutableString *)v5 appendFormat:@"<div class=gap></div>\n"];
       [(NSMutableString *)v5 appendFormat:@"<details><summary>Shader Table</summary><div><table class=shadertable>\n"];
-      [(NSMutableString *)v5 appendFormat:@"<tr><th>Type</th><th>Name</th><th>Time</th></tr>\n"];
-      v15 = HUDGPUTimeTrackerGetGlobalInstance();
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = ___Z42_HUDInsightReportGenerateShaderCompilationPK23HUDInsightReportContextP15NSMutableStringP21HUDCompilerStatistics_block_invoke_2;
-      v17[3] = &unk_68CC0;
-      v16 = v5;
-      v18 = v16;
-      HUDGPUTimeTrackerEnumerateCompilerStatistics(v15, 0, v17, v19);
-      [(NSMutableString *)v16 appendString:@"</table></div></details>\n"];
+      v18 = [(NSMutableString *)v5 appendFormat:@"<tr><th>Type</th><th>Name</th><th>Time</th></tr>\n"];
+      v20 = HUDGPUTimeTrackerGetGlobalInstance(v18, v19);
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = ___Z42_HUDInsightReportGenerateShaderCompilationPK23HUDInsightReportContextP15NSMutableStringP21HUDCompilerStatistics_block_invoke_2;
+      v22[3] = &unk_68CC0;
+      v21 = v5;
+      v23 = v21;
+      HUDGPUTimeTrackerEnumerateCompilerStatistics(v20, 0, v22, v24);
+      [(NSMutableString *)v21 appendString:@"</table></div></details>\n"];
 
-      [(NSMutableString *)v16 appendFormat:@"</div></details></div>\n"];
+      [(NSMutableString *)v21 appendFormat:@"</div></details></div>\n"];
     }
   }
 }
@@ -3189,7 +3198,7 @@ void _HUDInsightReportGenerateFrameIntervalDistribution(const HUDInsightReportCo
         {
           v69 = (round(v12 / 10000.0) * 10000.0);
           *__str = &v69;
-          v14 = std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v71, &v69);
+          v14 = std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(&v71, &v69, &std::piecewise_construct, __str);
           ++v14[5];
           end = v70.__end_;
           if (v70.__end_ >= v70.__end_cap_.__value_)
@@ -3531,7 +3540,7 @@ void _HUDInsightReportGenerateFrameIntervalDistribution(const HUDInsightReportCo
   }
 }
 
-void sub_15A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, char a19, void *a20)
+void sub_15A34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, uint64_t a18, uint64_t a19, void *a20)
 {
   if (__p)
   {
@@ -3549,7 +3558,6 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(this, __n);
     }
 
@@ -3560,40 +3568,41 @@ void std::vector<unsigned int>::reserve(std::vector<unsigned int> *this, std::ve
 void _HUDInsightReportGenerateTopCommandBuffers(const HUDInsightReportContext *a1, NSMutableString *a2)
 {
   v2 = a2;
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-  if (HUDGPUTimeTrackerTopCommandBufferRecordsCount(GlobalInstance))
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v2, v3);
+  v5 = HUDGPUTimeTrackerTopCommandBufferRecordsCount(GlobalInstance);
+  if (v5)
   {
     [(NSMutableString *)v2 appendFormat:@"<div id=toplabeledcommandbuffers class=box><details open><summary class=sectionheader>Top Labeled Command Buffers</summary><div>\n"];
     [(NSMutableString *)v2 appendString:@"<div><table class=topobjecttable>\n"];
-    [(NSMutableString *)v2 appendString:@"<tr><th>Label</th><th>Occurances</th><th>CPU Average</th><th>GPU Average</th>\n"];
-    v4 = HUDGPUTimeTrackerGetGlobalInstance();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = ___Z42_HUDInsightReportGenerateTopCommandBuffersPK23HUDInsightReportContextP15NSMutableString_block_invoke;
-    v14[3] = &unk_68CE8;
-    v5 = v2;
-    v15 = v5;
-    HUDGPUTimeTrackerEnumerateTopCommandBufferRecords(v4, v14);
-    [(NSMutableString *)v5 appendString:@"</table></div>\n"];
-    [(NSMutableString *)v5 appendFormat:@"</div></details></div>\n"];
+    v7 = [(NSMutableString *)v2 appendString:@"<tr><th>Label</th><th>Occurances</th><th>CPU Average</th><th>GPU Average</th>\n"];
+    v9 = HUDGPUTimeTrackerGetGlobalInstance(v7, v8);
+    v21[0] = _NSConcreteStackBlock;
+    v21[1] = 3221225472;
+    v21[2] = ___Z42_HUDInsightReportGenerateTopCommandBuffersPK23HUDInsightReportContextP15NSMutableString_block_invoke;
+    v21[3] = &unk_68CE8;
+    v10 = v2;
+    v22 = v10;
+    HUDGPUTimeTrackerEnumerateTopCommandBufferRecords(v9, v21);
+    [(NSMutableString *)v10 appendString:@"</table></div>\n"];
+    [(NSMutableString *)v10 appendFormat:@"</div></details></div>\n"];
   }
 
-  v6 = HUDGPUTimeTrackerGetGlobalInstance();
-  if (HUDGPUTimeTrackerTopEncoderRecordsCount(v6))
+  v11 = HUDGPUTimeTrackerGetGlobalInstance(v5, v6);
+  if (HUDGPUTimeTrackerTopEncoderRecordsCount(v11))
   {
     [(NSMutableString *)v2 appendFormat:@"<div id=toplabeledencoders class=box><details open><summary class=sectionheader>Top Labeled Encoders</summary><div>\n"];
     [(NSMutableString *)v2 appendString:@"<div><table class=topobjecttable>\n"];
-    [(NSMutableString *)v2 appendString:@"<tr><th>Label</th><th>Occurances</th><th>CPU Average</th><th>GPU Average</th>\n"];
-    v7 = HUDGPUTimeTrackerGetGlobalInstance();
-    v9 = _NSConcreteStackBlock;
-    v10 = 3221225472;
-    v11 = ___Z42_HUDInsightReportGenerateTopCommandBuffersPK23HUDInsightReportContextP15NSMutableString_block_invoke_2;
-    v12 = &unk_68CE8;
-    v8 = v2;
-    v13 = v8;
-    HUDGPUTimeTrackerEnumerateTopEncoderRecords(v7, &v9);
-    [(NSMutableString *)v8 appendString:@"</table></div>\n", v9, v10, v11, v12];
-    [(NSMutableString *)v8 appendFormat:@"</div></details></div>\n"];
+    v12 = [(NSMutableString *)v2 appendString:@"<tr><th>Label</th><th>Occurances</th><th>CPU Average</th><th>GPU Average</th>\n"];
+    v14 = HUDGPUTimeTrackerGetGlobalInstance(v12, v13);
+    v16 = _NSConcreteStackBlock;
+    v17 = 3221225472;
+    v18 = ___Z42_HUDInsightReportGenerateTopCommandBuffersPK23HUDInsightReportContextP15NSMutableString_block_invoke_2;
+    v19 = &unk_68CE8;
+    v15 = v2;
+    v20 = v15;
+    HUDGPUTimeTrackerEnumerateTopEncoderRecords(v14, &v16);
+    [(NSMutableString *)v15 appendString:@"</table></div>\n", v16, v17, v18, v19];
+    [(NSMutableString *)v15 appendFormat:@"</div></details></div>\n"];
   }
 }
 
@@ -3783,187 +3792,187 @@ void _HUDInsightReportGenerateMetadata(const HUDInsightReportContext *a1, NSMuta
   v10 = +[NSDate date];
   v11 = [v8 stringFromDate:v10];
 
-  v28 = v11;
-  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Time</span> <span>%@</span></div>\n", v11];
+  v35 = v11;
+  v12 = [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Time</span> <span>%@</span></div>\n", v11];
   targetStartTime = a1->targetStartTime;
-  v13 = HUDGetGlobalConfig();
-  MTLHUDFormattedTimeInNanosecond(targetStartTime - *(v13 + 19), 0, "", __str, 0x200uLL);
-  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Start Frame</span> <span>%zu</span> (+ %s)</div>\n", a1->startFrameNumber, __str];
+  v15 = HUDGetGlobalConfig(v12, v14);
+  MTLHUDFormattedTimeInNanosecond(targetStartTime - *(v15 + 19), 0, "", __str, 0x200uLL);
+  v16 = [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Start Frame</span> <span>%zu</span> (+ %s)</div>\n", a1->startFrameNumber, __str];
   targetEndTime = a1->targetEndTime;
-  v15 = HUDGetGlobalConfig();
-  MTLHUDFormattedTimeInNanosecond(targetEndTime - *(v15 + 19), 0, "", __str, 0x200uLL);
+  v19 = HUDGetGlobalConfig(v16, v18);
+  MTLHUDFormattedTimeInNanosecond(targetEndTime - *(v19 + 19), 0, "", __str, 0x200uLL);
   [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>End Frame</span> <span>%zu</span> (+ %s)</div>\n", a1->endFrameNumber, __str];
   MTLHUDFormattedTimeInNanosecond(a1->targetEndTime - a1->targetStartTime, 0, "", __str, 0x200uLL);
   [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Total Frames</span> <span>%zu</span> (%s)</div>\n", a1->endFrameNumber - a1->startFrameNumber, __str];
-  [(NSMutableString *)v7 appendFormat:@"<div class=gap></div>\n"];
-  if (MTLHudIsProcessTranslated())
+  v20 = [(NSMutableString *)v7 appendFormat:@"<div class=gap></div>\n"];
+  if (MTLHudIsProcessTranslated(v20, v21))
   {
-    v16 = +[_CADeveloperHUDProperties instance];
-    v17 = [v16 graphicsAPI];
+    v22 = +[_CADeveloperHUDProperties instance];
+    v23 = [v22 graphicsAPI];
 
-    if (v17 >= 3)
+    if (v23 >= 3)
     {
-      v18 = 0;
+      v24 = 0;
     }
 
     else
     {
-      v18 = (&off_68D68)[v17];
+      v24 = (&off_68D68)[v23];
     }
 
-    [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Graphics API</span> <span>%s</span></div>\n", v18];
-    v19 = [NSBundle bundleWithIdentifier:@"com.apple.D3DMetal"];
-    v20 = [v19 infoDictionary];
-    v21 = [v20 objectForKeyedSubscript:@"CFBundleVersion"];
+    [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Graphics API</span> <span>%s</span></div>\n", v24];
+    v25 = [NSBundle bundleWithIdentifier:@"com.apple.D3DMetal"];
+    v26 = [v25 infoDictionary];
+    v27 = [v26 objectForKeyedSubscript:@"CFBundleVersion"];
 
-    [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>GPTK Version</span> <span>%@</span></div>\n", v21];
+    [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>GPTK Version</span> <span>%@</span></div>\n", v27];
   }
 
   [(NSMutableString *)v7 appendFormat:@"<div class=gap></div>\n"];
   [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Resolution</span> <span>%dx%d</span></div>\n", a4->drawableWidth, a4->drawableHeight];
   [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Content Scale</span> <span>%.2f</span></div>\n", a4->layerContentsScale];
-  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Pixel Format</span> <span>%s</span></div>\n", HUDMTLPixelFormatName(a3->pixelFormat)];
+  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Pixel Format</span> <span>%s</span></div>\n", HUDMTLPixelFormatName(a3->pixelFormat, v28)];
   [(NSMutableString *)v7 appendFormat:@"<div class=gap></div>\n"];
-  v22 = 0;
-  v29 = *&off_68D30;
-  v30 = @"com.apple.hud-label.metalfx.v2.target_resolution";
+  v29 = 0;
+  v36 = *&off_68D30;
+  v37 = @"com.apple.hud-label.metalfx.v2.target_resolution";
   do
   {
-    v23 = +[_CADeveloperHUDProperties instance];
-    v24 = [v23 getMetric:*(&v29 + v22)];
+    v30 = +[_CADeveloperHUDProperties instance];
+    v31 = [v30 getMetric:*(&v36 + v29)];
 
-    if (v24)
+    if (v31)
     {
-      v25 = [v24 name];
-      v26 = [v24 stringValue];
-      [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>%@</span> <span>%@</span></div>\n", v25, v26];
+      v32 = [v31 name];
+      v33 = [v31 stringValue];
+      [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>%@</span> <span>%@</span></div>\n", v32, v33];
     }
 
-    v22 += 8;
+    v29 += 8;
   }
 
-  while (v22 != 24);
+  while (v29 != 24);
   for (i = 16; i != -8; i -= 8)
   {
   }
 
   [(NSMutableString *)v7 appendFormat:@"<div class=gap></div>\n"];
   MTLHUDFormattedBytes(a1->startAppMemory, 0, "", __str, 0x100uLL);
-  MTLHUDFormattedBytes(a1->endAppMemory, 0, "", v32, 0x100uLL);
-  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>App Memory</span> <span>%s - %s</span></div>\n", __str, v32];
+  MTLHUDFormattedBytes(a1->endAppMemory, 0, "", v39, 0x100uLL);
+  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>App Memory</span> <span>%s - %s</span></div>\n", __str, v39];
   MTLHUDFormattedBytes(a1->startMetalMemory, 0, "", __str, 0x100uLL);
-  MTLHUDFormattedBytes(a1->endMetalMemory, 0, "", v32, 0x100uLL);
-  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Metal Allocated Size</span> <span>%s - %s</span></div>\n", __str, v32];
+  MTLHUDFormattedBytes(a1->endMetalMemory, 0, "", v39, 0x100uLL);
+  [(NSMutableString *)v7 appendFormat:@"<div><span class=infotitle>Metal Allocated Size</span> <span>%s - %s</span></div>\n", __str, v39];
   [(NSMutableString *)v7 appendFormat:@"</div></details></div>"];
 }
 
 void _HUDInsightReportGenerate(const HUDInsightReportContext *a1, const HUDMTLLayerState *a2, const HUDMTLLayerDrawableState *a3)
 {
   v5 = [NSMutableString stringWithFormat:@"<html><body><style>%@</style>", @".center { margin: auto width: 80%; display: block; }\n.insight { padding: 0; }\n.insightdetail { padding: 20px 0; }\n.sectionheader { background-color: rgba(0.1, 0.1, 0.1, 0.1); border-radius: 4px; padding: 0px 10px; font-size: medium; margin-bottom: 10px; }\n.infotitle { width: 30%; display: inline-block; padding: 0px 10px;}\ntable { border-collapse: collapse; width:100% }\ntable tr { border: none; }\ntable td { font-size:small; padding: 6px 6px; border-right: solid 1px black; border-bottom: solid 1px black; }\ntable th { font-size:small; padding: 6px 6px; border-right: solid 1px black; border-bottom: solid 1px black; }\ntable td:last-child { padding: 6px 6px; border-bottom: solid 1px black;  border-right: solid 0px; }\ntable th:last-child { padding: 6px 6px; border-bottom: solid 1px black;  border-right: solid 0px; }\n.alignleft { text-align: start;}\n.alignright { text-align: end;}\nbody { font-family: 'SF Mono', SFMono-Regular, ui-monospace, 'DejaVu Sans Mono', Menlo, Consolas, monospace; font-size: small; }\n.commandbuffertable {table-layout: fixed; word-break: break-all;}\n.encodertable {table-layout: fixed; word-break: break-all;}\n.commandbuffertable td:nth-child(1) { width: 20%; }\n.encodertable th:nth-child(1) { width: 20%; }\n.box { border-radius: 8px;  border: 1px solid gray; margin: 24px 0px; padding: 10px 10px; }\n.tdwithcomment { position:relative; }\n.tdcomment { display:none; position:absolute; z-index:100; border:1px; background-color:white; border-style:solid; border-width:1px; border-color:rgb(0, 0, 0); padding:3px; color:rgb(0, 0, 0); top:30x; left:20px; }\n.tdwithcomment:hover span.tdcomment { display:block; }\ntable tr:last-child td { border-bottom: none; }\n.encodertable td { border-bottom: solid 1px black !important; }\n.encodertable tr:last-child td { border-bottom: none !important; }\n.hcharttitle { width: 10%; text-align: right; }\n.hchartvalue { width: 10%; text-align: right; }\n.hchartbar   { text-align: start; vertical-align: center; height: 20px; background-color: rgba(0, 149, 255, 0.56);}\n.hchartbar2   { text-align: start; vertical-align: center; height: 20px; background-color: rgba(0, 255, 149, 0.56);}\n.shadertable {table-layout: fixed; word-break: break-all;}\n.shadertable th:nth-child(1) { width: 10%; }\n.shadertable th:nth-child(2) { width: 70%; }\n.gap { margin-top: 6px; }\n.commandbuffertimetable {table-layout: fixed; word-break: break-all;}\n.commandbuffertimetable th:nth-child(1) { width: 40%; }\n.encodertimetable {table-layout: fixed; word-break: break-all;}\n.encodertimetable th:nth-child(1) { width: 40%; }\n.encodertimetable td { border-bottom: solid 1px black !important; }\n.encodertimetable tr:last-child td { border-bottom: none !important; }\n.metricstable {table-layout: fixed; word-break: break-all;}\n.metricstable th:nth-child(1) { width: 40%; }\n.topobjecttable {table-layout: fixed; word-break: break-all;}\n.topobjecttable th:nth-child(1) { width: 40%; }\n.tdoverlay { position: absolute; top: 0; left: 0; }\n.warning { background-color: rgba(255, 218, 9, 0.53); border-radius: 4px; padding: 0px 10px; font-size: small; margin-bottom: 10px; }"];;
-  v40 = +[_CADeveloperHUDProperties instance];
+  v44 = +[_CADeveloperHUDProperties instance];
   v6 = +[_CADeveloperHUDProperties instance];
-  v41 = [v6 progName];
+  v45 = [v6 progName];
 
-  if (MTLHudIsProcessTranslated())
+  if (MTLHudIsProcessTranslated(v7, v8))
   {
-    v7 = +[_CADeveloperHUDProperties instance];
-    v8 = [v7 progName];
-    v9 = [NSString stringWithFormat:@"%@ (Rosetta x86_64)", v8];
+    v9 = +[_CADeveloperHUDProperties instance];
+    v10 = [v9 progName];
+    v11 = [NSString stringWithFormat:@"%@ (Rosetta x86_64)", v10];
   }
 
   else
   {
-    v9 = v41;
+    v11 = v45;
   }
 
-  v42 = v9;
-  [(NSMutableString *)v5 appendFormat:@"<div class=center><h1>%@</h1>\n", v9];
+  v46 = v11;
+  [(NSMutableString *)v5 appendFormat:@"<div class=center><h1>%@</h1>\n", v11];
   _HUDInsightReportGenerateMetadata(a1, v5, a2, a3);
-  v10 = [v40 getMetric:@"com.apple.hud-stat.frame-interval"];
-  v11 = v10;
-  if (v10)
+  v12 = [v44 getMetric:@"com.apple.hud-stat.frame-interval"];
+  v13 = v12;
+  if (v12)
   {
-    [v10 record];
+    [v12 record];
     _HUDInsightReportGenerateFrameIntervalDistribution(a1, v5);
   }
 
-  v12 = [v40 insightsWindow];
-  v13 = [v12 insightGroups];
-  v39 = [v13 copy];
+  v14 = [v44 insightsWindow];
+  v15 = [v14 insightGroups];
+  v43 = [v15 copy];
 
-  v14 = objc_opt_new();
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v15 = v39;
-  v16 = [v15 countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v16)
+  v16 = objc_opt_new();
+  v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v17 = v43;
+  v18 = [v17 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  if (v18)
   {
-    v17 = *v50;
+    v19 = *v54;
     do
     {
-      for (i = 0; i != v16; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v50 != v17)
+        if (*v54 != v19)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v17);
         }
 
-        v19 = [*(*(&v49 + 1) + 8 * i) insights];
-        [v14 addObjectsFromArray:v19];
+        v21 = [*(*(&v53 + 1) + 8 * i) insights];
+        [v16 addObjectsFromArray:v21];
       }
 
-      v16 = [v15 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v53 objects:v58 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
-  _HUDInsightReportGenerateInsightsSection(a1, v5, v14);
-  _HUDInsightReportGenerateTopCommandBuffers(v20, v5);
-  _HUDInsightReportGenerateMetrics(v21, v5);
-  _HUDInsightReportGenerateGPTKMetrics(v22, v5);
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  _HUDInsightReportGenerateInsightsSection(a1, v5, v16);
+  _HUDInsightReportGenerateTopCommandBuffers(v22, v5);
+  _HUDInsightReportGenerateMetrics(v23, v5);
+  _HUDInsightReportGenerateGPTKMetrics(v24, v5);
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v25, v26);
   TargetRebindingInsightContext = HUDGPUTimeTrackerGetTargetRebindingInsightContext(GlobalInstance);
-  v25 = TargetRebindingInsightContext;
+  v29 = TargetRebindingInsightContext;
   if (TargetRebindingInsightContext)
   {
     _HUDInsightReportGenerateFrameTiming(TargetRebindingInsightContext, v5, TargetRebindingInsightContext, *(TargetRebindingInsightContext + 824), *(TargetRebindingInsightContext + 832));
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v26 = v14;
-  v27 = [v26 countByEnumeratingWithState:&v45 objects:v53 count:16];
-  if (v27)
+  v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v30 = v16;
+  v31 = [v30 countByEnumeratingWithState:&v49 objects:v57 count:16];
+  if (v31)
   {
-    v28 = *v46;
+    v32 = *v50;
     while (2)
     {
-      for (j = 0; j != v27; j = j + 1)
+      for (j = 0; j != v31; j = j + 1)
       {
-        if (*v46 != v28)
+        if (*v50 != v32)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v30);
         }
 
-        v30 = *(*(&v45 + 1) + 8 * j);
-        if ([*objc_msgSend(v30 "descriptor")] && *(objc_msgSend(v30, "descriptor") + 4) && *(objc_msgSend(v30, "descriptor") + 5))
+        v34 = *(*(&v49 + 1) + 8 * j);
+        if ([*objc_msgSend(v34 "descriptor")] && *(objc_msgSend(v34, "descriptor") + 4) && *(objc_msgSend(v34, "descriptor") + 5))
         {
-          v32 = [*(objc_msgSend(v30 "descriptor") + 4)];
-          v33 = *([v30 descriptor] + 5);
-          v34 = [*(objc_msgSend(v30 "descriptor") + 5)];
-          _HUDInsightReportGenerateFrameEncoding(v34, v5, v32, v33, v34);
+          v36 = [*(objc_msgSend(v34 "descriptor") + 4)];
+          v37 = *([v34 descriptor] + 5);
+          v38 = [*(objc_msgSend(v34 "descriptor") + 5)];
+          _HUDInsightReportGenerateFrameEncoding(v38, v5, v36, v37, v38);
 
           goto LABEL_28;
         }
       }
 
-      v27 = [v26 countByEnumeratingWithState:&v45 objects:v53 count:16];
-      if (v27)
+      v31 = [v30 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      if (v31)
       {
         continue;
       }
@@ -3972,24 +3981,24 @@ void _HUDInsightReportGenerate(const HUDInsightReportContext *a1, const HUDMTLLa
     }
   }
 
-  if (v25)
+  if (v29)
   {
-    _HUDInsightReportGenerateFrameEncoding(v31, v5, v25, *(v25 + 824), *(v25 + 832));
+    _HUDInsightReportGenerateFrameEncoding(v35, v5, v29, *(v29 + 824), *(v29 + 832));
   }
 
 LABEL_28:
   _HUDInsightReportGenerateShaderCompilation(a1, v5, &a1->compilerStatStart);
   [(NSMutableString *)v5 appendString:@"</div>\n"];
   [(NSMutableString *)v5 appendString:@"</body></html>\n"];
-  v44 = 0;
-  v35 = +[NSFileManager defaultManager];
-  v36 = [(NSURL *)a1->outputURL path];
-  v37 = [v35 fileExistsAtPath:v36 isDirectory:&v44];
+  v48 = 0;
+  v39 = +[NSFileManager defaultManager];
+  v40 = [(NSURL *)a1->outputURL path];
+  v41 = [v39 fileExistsAtPath:v40 isDirectory:&v48];
 
-  if (v37 && (v44 & 1) == 0)
+  if (v41 && (v48 & 1) == 0)
   {
-    v38 = +[NSFileManager defaultManager];
-    [v38 removeItemAtURL:a1->outputURL error:0];
+    v42 = +[NSFileManager defaultManager];
+    [v42 removeItemAtURL:a1->outputURL error:0];
   }
 
   [(NSMutableString *)v5 writeToURL:a1->outputURL atomically:1 encoding:4 error:0];
@@ -4106,48 +4115,48 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 32);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned long>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned long>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned long>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -4173,12 +4182,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -4192,22 +4201,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -4241,13 +4250,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -4352,39 +4361,39 @@ id _HUDFontCreateMTLTexture(void *a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v7 = a1;
   v8 = [v7 commandBuffer];
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v8, v9);
   HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, v8, 1);
-  v10 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:a3 height:a4 mipmapped:0];
-  [v10 setStorageMode:2];
-  [v10 setMipmapLevelCount:vcvtpd_s64_f64(log2(a3))];
-  v11 = [v7 device];
-  v12 = [v11 newTextureWithDescriptor:v10];
+  v11 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:70 width:a3 height:a4 mipmapped:0];
+  [v11 setStorageMode:2];
+  [v11 setMipmapLevelCount:vcvtpd_s64_f64(log2(a3))];
+  v12 = [v7 device];
+  v13 = [v12 newTextureWithDescriptor:v11];
 
-  v13 = [v8 blitCommandEncoder];
-  v14 = [v7 device];
+  v14 = [v8 blitCommandEncoder];
+  v15 = [v7 device];
 
-  v15 = [v14 newBufferWithBytesNoCopy:a2 length:4 * a3 * a4 options:0 deallocator:&__block_literal_global_2];
-  v18[0] = a3;
-  v18[1] = a4;
-  v18[2] = 1;
-  memset(v17, 0, sizeof(v17));
-  [v13 copyFromBuffer:v15 sourceOffset:0 sourceBytesPerRow:4 * a3 sourceBytesPerImage:0 sourceSize:v18 toTexture:v12 destinationSlice:0 destinationLevel:0 destinationOrigin:v17 options:0];
-  [v13 generateMipmapsForTexture:v12];
-  [v13 endEncoding];
+  v16 = [v15 newBufferWithBytesNoCopy:a2 length:4 * a3 * a4 options:0 deallocator:&__block_literal_global_2];
+  v19[0] = a3;
+  v19[1] = a4;
+  v19[2] = 1;
+  memset(v18, 0, sizeof(v18));
+  [v14 copyFromBuffer:v16 sourceOffset:0 sourceBytesPerRow:4 * a3 sourceBytesPerImage:0 sourceSize:v19 toTexture:v13 destinationSlice:0 destinationLevel:0 destinationOrigin:v18 options:0];
+  [v14 generateMipmapsForTexture:v13];
+  [v14 endEncoding];
   [v8 commit];
   [v8 waitUntilCompleted];
 
-  return v12;
+  return v13;
 }
 
 id _HUDFontCreateTexture(uint64_t a1, void *a2, const __CTFont *a3, size_t a4, size_t a5)
 {
   v9 = a2;
   v10 = 0;
-  v128 = 0u;
-  v129 = 0u;
-  v127 = 0u;
-  memset(v126, 0, sizeof(v126));
+  v143 = 0u;
+  v144 = 0u;
+  v142 = 0u;
+  memset(v141, 0, sizeof(v141));
   v11 = xmmword_548B0;
   v12 = xmmword_548C0;
   v13 = xmmword_548D0;
@@ -4399,66 +4408,66 @@ id _HUDFontCreateTexture(uint64_t a1, void *a2, const __CTFont *a3, size_t a4, s
   {
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(v20, v18)), *v11.i8), *v11.i8).u8[0])
     {
-      v126[v10] = v10 + 32;
+      v141[v10] = v10 + 32;
     }
 
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v18)), *&v11), *&v11).i8[1])
     {
-      v126[v10 + 1] = v10 + 33;
+      v141[v10 + 1] = v10 + 33;
     }
 
     if (vuzp1_s8(vuzp1_s16(*&v11, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v17))), *&v11).i8[2])
     {
-      v126[v10 + 2] = v10 + 34;
-      v126[v10 + 3] = v10 + 35;
+      v141[v10 + 2] = v10 + 34;
+      v141[v10 + 3] = v10 + 35;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v16)), *&v11)).i32[1])
     {
-      v126[v10 + 4] = v10 + 36;
+      v141[v10 + 4] = v10 + 36;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v16)), *&v11)).i8[5])
     {
-      v126[v10 + 5] = v10 + 37;
+      v141[v10 + 5] = v10 + 37;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(*&v11, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v15)))).i8[6])
     {
-      v126[v10 + 6] = v10 + 38;
-      v126[v10 + 7] = v10 + 39;
+      v141[v10 + 6] = v10 + 38;
+      v141[v10 + 7] = v10 + 39;
     }
 
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), v14)), *v11.i8), *v11.i8).u8[0])
     {
-      v126[v10 + 8] = v10 + 40;
+      v141[v10 + 8] = v10 + 40;
     }
 
     if (vuzp1_s8(vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v14)), *&v11), *&v11).i8[1])
     {
-      v126[v10 + 9] = v10 + 41;
+      v141[v10 + 9] = v10 + 41;
     }
 
     if (vuzp1_s8(vuzp1_s16(*&v11, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v13))), *&v11).i8[2])
     {
-      v126[v10 + 10] = v10 + 42;
-      v126[v10 + 11] = v10 + 43;
+      v141[v10 + 10] = v10 + 42;
+      v141[v10 + 11] = v10 + 43;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v12)), *&v11)).i32[1])
     {
-      v126[v10 + 12] = v10 + 44;
+      v141[v10 + 12] = v10 + 44;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v12)), *&v11)).i8[5])
     {
-      v126[v10 + 13] = v10 + 45;
+      v141[v10 + 13] = v10 + 45;
     }
 
     if (vuzp1_s8(*&v11, vuzp1_s16(*&v11, vmovn_s64(vcgtq_u64(vdupq_n_s64(0x5FuLL), *&v11)))).i8[6])
     {
-      v126[v10 + 14] = v10 + 46;
-      v126[v10 + 15] = v10 + 47;
+      v141[v10 + 14] = v10 + 46;
+      v141[v10 + 15] = v10 + 47;
     }
 
     v16 = vaddq_s64(v16, v19);
@@ -4473,277 +4482,254 @@ id _HUDFontCreateTexture(uint64_t a1, void *a2, const __CTFont *a3, size_t a4, s
   }
 
   while (v10 != 96);
-  HIBYTE(v127) = 0;
-  v21 = [NSMutableString stringWithUTF8String:v126, *v11.i64, *v12.i64, *v13.i64, *v14.i64, *v15.i64, *v16.i64, *v17.i64, *v18.i64];
+  HIBYTE(v142) = 0;
+  v21 = [NSMutableString stringWithUTF8String:v141, *v11.i64, *v12.i64, *v13.i64, *v14.i64, *v15.i64, *v16.i64, *v17.i64, *v18.i64];
   v22 = malloc_type_malloc(4 * a4 * a5, 0x100004052888210uLL);
   bzero(v22, 4 * a4 * a5);
-  if (!v22)
+  if (v22 && (v133 = a1, v123 = v22, CGContext = _HUDFontCreateCGContext(v22, a4, a5, 1), v23 = [v21 length], v24 = v23, v124 = v21, v25 = 16 * v23, __chkstk_darwin(v23, v26, v27), v28 = (&v120 - 2 * v24), bzero(v28, v25), __chkstk_darwin(v29, 2 * v24, v30), v32 = (&v120 - v31), bzero(&v120 - v31, v33), __chkstk_darwin(v34, 32 * v24, v35), v36 = &v120 - 4 * v24, bzero(v36, v37), __chkstk_darwin(v38, v39, v40), v41 = v25, v21 = v124, bzero(v28, v41), CTFontGetGlyphsForCharacters(a3, objc_msgSend(v21, "cStringUsingEncoding:", 10), v32, v24)))
   {
-    goto LABEL_42;
-  }
-
-  v118 = a1;
-  v108 = v22;
-  CGContext = _HUDFontCreateCGContext(v22, a4, a5, 1);
-  v23 = [v21 length];
-  v109 = v21;
-  __chkstk_darwin();
-  v24 = (&v105 - 2 * v23);
-  bzero(v24, 16 * v23);
-  __chkstk_darwin();
-  v26 = (&v105 - v25);
-  bzero(&v105 - v25, v27);
-  __chkstk_darwin();
-  v28 = &v105 - 4 * v23;
-  bzero(v28, v29);
-  __chkstk_darwin();
-  v21 = v109;
-  bzero(v24, 16 * v23);
-  if (CTFontGetGlyphsForCharacters(a3, [v21 cStringUsingEncoding:10], v26, v23))
-  {
-    v107 = a4;
-    v114 = a5;
-    CTFontGetAdvancesForGlyphs(a3, kCTFontOrientationDefault, v26, &v105 - v23, v23);
-    CTFontGetBoundingRectsForGlyphs(a3, kCTFontOrientationDefault, v26, &v105 - v23, v23);
-    if (v23)
+    v122 = a4;
+    v129 = a5;
+    CTFontGetAdvancesForGlyphs(a3, kCTFontOrientationDefault, v32, &v120 - v24, v24);
+    CTFontGetBoundingRectsForGlyphs(a3, kCTFontOrientationDefault, v32, &v120 - v24, v24);
+    if (v24)
     {
-      v30 = v28 + 2;
-      v31 = v23;
+      v42 = v36 + 2;
+      v43 = v24;
       do
       {
-        *(v30 - 2) = CGRectIntegral(*(v30 - 2));
-        v30 += 4;
-        --v31;
+        *(v42 - 2) = CGRectIntegral(*(v42 - 2));
+        v42 += 4;
+        --v43;
       }
 
-      while (v31);
+      while (v43);
     }
 
-    v32 = CTFontGetAscent(a3);
-    v33 = CTFontGetDescent(a3);
-    v34 = CTFontGetLeading(a3);
-    v35 = (v32 + v33) + v34;
-    v36 = &v129 + 8;
-    v37 = v118;
-    *(v118 + 5496) = ceilf(v35);
-    if (v23)
+    v44 = CTFontGetAscent(a3);
+    v45 = CTFontGetDescent(a3);
+    v46 = CTFontGetLeading(a3);
+    v47 = (v44 + v45) + v46;
+    v48 = &v144 + 8;
+    v49 = v133;
+    *(v133 + 5496) = ceilf(v47);
+    if (v24)
     {
-      LODWORD(v36) = vcvtps_u32_f32(v35);
-      v38 = v37 + 16;
-      v39 = (v28 + 2);
-      v40 = (&v105 - 2 * v23 + 1);
-      v41 = 4;
+      LODWORD(v48) = vcvtps_u32_f32(v47);
+      v50 = v49 + 16;
+      v51 = (v36 + 2);
+      v52 = (&v120 - 2 * v24 + 1);
+      v53 = 4;
       __asm { FMOV            V1.2D, #1.0 }
 
-      v47 = v23;
-      v48 = 4;
-      v49 = v114;
-      v50 = v107;
+      v59 = v24;
+      v60 = 4;
+      v61 = v129;
+      v62 = v122;
       do
       {
-        v51.f64[0] = *v39;
-        v52 = (*v39 + 4.0);
-        v53 = v41 + v52;
-        if (v53 >= v50)
+        v63.f64[0] = *v51;
+        v64 = (*v51 + 4.0);
+        v65 = v53 + v64;
+        if (v65 >= v62)
         {
-          v54 = (v36 + 4);
+          v66 = (v48 + 4);
         }
 
         else
         {
-          v54 = 0;
+          v66 = 0;
         }
 
-        v48 += v54;
-        if (&v36[v48] >= v49)
+        v60 += v66;
+        if (&v48[v60] >= v61)
         {
           break;
         }
 
-        if (v53 >= v50)
+        if (v65 >= v62)
         {
-          v41 = 0;
+          v53 = 0;
         }
 
-        v55 = v39[1];
-        v57 = *(v39 - 2);
-        v56 = *(v39 - 1);
-        *(v40 - 1) = (v41 + 4) - v57;
-        *v40 = (v49 - v48) - v56 - v55;
-        *(v38 - 8) = v41 + 3;
-        *(v38 - 4) = v48 - 1;
-        v51.f64[1] = v55;
-        *(v38 + 12) = vcvt_f32_u32(vmovn_s64(vcvtq_u64_f64(vaddq_f64(v51, _Q1))));
-        v58 = *v24;
-        v24 += 2;
-        v59 = v58;
-        *&v57 = v57;
-        *v38 = v59;
-        *(v38 + 4) = LODWORD(v57);
-        v41 += v52;
-        v60 = v55 + v56;
-        *(v38 + 8) = v60;
-        v38 += 28;
-        v39 += 4;
-        v40 += 2;
-        --v47;
+        v67 = v51[1];
+        v69 = *(v51 - 2);
+        v68 = *(v51 - 1);
+        *(v52 - 1) = (v53 + 4) - v69;
+        *v52 = (v61 - v60) - v68 - v67;
+        *(v50 - 8) = v53 + 3;
+        *(v50 - 4) = v60 - 1;
+        v63.f64[1] = v67;
+        *(v50 + 12) = vcvt_f32_u32(vmovn_s64(vcvtq_u64_f64(vaddq_f64(v63, _Q1))));
+        v70 = *v28;
+        v28 += 2;
+        v71 = v70;
+        *&v69 = v69;
+        *v50 = v71;
+        *(v50 + 4) = LODWORD(v69);
+        v53 += v64;
+        v72 = v67 + v68;
+        *(v50 + 8) = v72;
+        v50 += 28;
+        v51 += 4;
+        v52 += 2;
+        --v59;
       }
 
-      while (v47);
-      v61 = v48;
+      while (v59);
+      v73 = v60;
     }
 
     else
     {
-      v61 = 4.0;
-      v49 = v114;
-      v50 = v107;
+      v73 = 4.0;
+      v61 = v129;
+      v62 = v122;
     }
 
-    v63 = (&v105 - 2 * v23);
-    v64 = v23;
-    v65 = CGContext;
-    CTFontDrawGlyphs(a3, v26, v63, v64, CGContext);
-    v66 = *(v37 + 5496);
-    v67 = objc_opt_new();
-    v68 = *(v37 + 5512);
-    *(v37 + 5512) = v67;
+    v75 = (&v120 - 2 * v24);
+    v76 = v24;
+    v77 = CGContext;
+    CTFontDrawGlyphs(a3, v32, v75, v76, CGContext);
+    v78 = *(v49 + 5496);
+    v79 = objc_opt_new();
+    v80 = *(v49 + 5512);
+    *(v49 + 5512) = v79;
 
     keys[0] = kCTFontAttributeName;
     keys[1] = kCTForegroundColorAttributeName;
     GenericRGB = CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
     values[0] = a3;
     values[1] = GenericRGB;
-    v111 = CFDictionaryCreate(0, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+    v126 = CFDictionaryCreate(0, keys, values, 2, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
     if ([&off_6F2C8 count])
     {
-      v105 = GenericRGB;
-      v106 = v9;
-      v70 = 0;
-      v71 = 0;
-      v72 = ((v66 + 4.0) + v61);
-      v110 = v37 + 2668;
-      v73 = v50;
-      v74 = v49;
+      v120 = GenericRGB;
+      v121 = v9;
+      v82 = 0;
+      v83 = 0;
+      v84 = ((v78 + 4.0) + v73);
+      v125 = v49 + 2668;
+      v85 = v62;
+      v86 = v61;
       do
       {
-        v75 = [&off_6F2C8 objectAtIndexedSubscript:{v70, v105, v106}];
-        v76 = *[v75 cStringUsingEncoding:2348810496];
-        v77 = [NSNumber numberWithInt:(v70 + 95)];
-        v78 = *(v37 + 5512);
-        v79 = [NSNumber numberWithUnsignedInt:v76];
-        [v78 setObject:v77 forKeyedSubscript:v79];
+        v87 = [&off_6F2C8 objectAtIndexedSubscript:{v82, v120, v121}];
+        v88 = *[v87 cStringUsingEncoding:2348810496];
+        v89 = [NSNumber numberWithInt:(v82 + 95)];
+        v90 = *(v49 + 5512);
+        v91 = [NSNumber numberWithUnsignedInt:v88];
+        [v90 setObject:v89 forKeyedSubscript:v91];
 
-        v112 = v75;
-        v80 = CTLineCreateWithString();
-        GlyphRuns = CTLineGetGlyphRuns(v80);
+        v127 = v87;
+        v92 = CTLineCreateWithString();
+        GlyphRuns = CTLineGetGlyphRuns(v92);
         Count = CFArrayGetCount(GlyphRuns);
-        v113 = v70;
+        v128 = v82;
         if (Count)
         {
-          v83 = 0;
-          v84 = v110 + 28 * v70;
-          v117 = Count;
-          v116 = GlyphRuns;
+          v95 = 0;
+          v96 = v125 + 28 * v82;
+          v132 = Count;
+          v131 = GlyphRuns;
           do
           {
-            ValueAtIndex = CFArrayGetValueAtIndex(GlyphRuns, v83);
+            ValueAtIndex = CFArrayGetValueAtIndex(GlyphRuns, v95);
             GlyphCount = CTRunGetGlyphCount(ValueAtIndex);
-            v87 = (&v105 - 2 * __chkstk_darwin());
-            bzero(v87, v88);
-            __chkstk_darwin();
-            v90 = (&v105 - v89);
-            bzero(&v105 - v89, v91);
-            v131.location = 0;
-            v131.length = GlyphCount;
-            CTRunGetGlyphs(ValueAtIndex, v131, v90);
-            v132.location = 0;
-            v132.length = GlyphCount;
-            CTRunGetAdvances(ValueAtIndex, v132, v87);
+            v100 = (&v120 - 2 * __chkstk_darwin(GlyphCount, 16 * GlyphCount, v99));
+            bzero(v100, v101);
+            __chkstk_darwin(v102, 2 * GlyphCount, v103);
+            v105 = (&v120 - v104);
+            bzero(&v120 - v104, v106);
+            v146.location = 0;
+            v146.length = GlyphCount;
+            CTRunGetGlyphs(ValueAtIndex, v146, v105);
+            v147.location = 0;
+            v147.length = GlyphCount;
+            CTRunGetAdvances(ValueAtIndex, v147, v100);
             ascent = 0.0;
             descent = 0.0;
             leading = 0.0;
-            v133.location = 0;
-            v133.length = GlyphCount;
-            v92.f64[0] = CTRunGetTypographicBounds(ValueAtIndex, v133, &ascent, &descent, &leading);
-            v93 = (v114 - v72);
-            v94 = v118;
-            v95 = *(v118 + 5496);
-            v92.f64[1] = ceil(ascent + descent + leading);
-            *&v92.f64[0] = vcvt_f32_f64(v92);
-            v119 = v92;
-            v96 = *(v92.f64 + 1);
-            *(v118 + 5496) = fmaxf(v95, ceilf(*(v92.f64 + 1)));
-            CGAffineTransformMakeTranslation(&v120, v71, (v93 - *(v92.f64 + 1)));
-            v97 = CGContext;
-            CGContextSetTextMatrix(CGContext, &v120);
-            v134.location = 0;
-            v134.length = GlyphCount;
-            GlyphRuns = v116;
-            CTRunDraw(ValueAtIndex, v97, v134);
-            v98 = v117;
-            *v84 = v71 + 3;
-            *(v84 + 4) = v72 - 1;
-            v99 = *v119.f64;
-            *(v84 + 20) = vcvt_f32_u32(vcvt_u32_f32(vadd_f32(*&v119.f64[0], 0x4000000040000000)));
-            *(v84 + 8) = v99;
-            *(v84 + 12) = 0;
-            *(v84 + 16) = v96 + -0.5;
-            v100 = *(v94 + 5496);
-            if ((v99 + ((v99 + 4.0) + v71)) < v73)
+            v148.location = 0;
+            v148.length = GlyphCount;
+            v107.f64[0] = CTRunGetTypographicBounds(ValueAtIndex, v148, &ascent, &descent, &leading);
+            v108 = (v129 - v84);
+            v109 = v133;
+            v110 = *(v133 + 5496);
+            v107.f64[1] = ceil(ascent + descent + leading);
+            *&v107.f64[0] = vcvt_f32_f64(v107);
+            v134 = v107;
+            v111 = *(v107.f64 + 1);
+            *(v133 + 5496) = fmaxf(v110, ceilf(*(v107.f64 + 1)));
+            CGAffineTransformMakeTranslation(&v135, v83, (v108 - *(v107.f64 + 1)));
+            v112 = CGContext;
+            CGContextSetTextMatrix(CGContext, &v135);
+            v149.location = 0;
+            v149.length = GlyphCount;
+            GlyphRuns = v131;
+            CTRunDraw(ValueAtIndex, v112, v149);
+            v113 = v132;
+            *v96 = v83 + 3;
+            *(v96 + 4) = v84 - 1;
+            v114 = *v134.f64;
+            *(v96 + 20) = vcvt_f32_u32(vcvt_u32_f32(vadd_f32(*&v134.f64[0], 0x4000000040000000)));
+            *(v96 + 8) = v114;
+            *(v96 + 12) = 0;
+            *(v96 + 16) = v111 + -0.5;
+            v115 = *(v109 + 5496);
+            if ((v114 + ((v114 + 4.0) + v83)) < v85)
             {
-              v71 = ((v99 + 4.0) + v71);
+              v83 = ((v114 + 4.0) + v83);
             }
 
             else
             {
-              v72 = ((v100 + 4.0) + v72);
-              v71 = 0;
+              v84 = ((v115 + 4.0) + v84);
+              v83 = 0;
             }
 
-            ++v83;
+            ++v95;
           }
 
-          while ((v100 + v72) < v74 && v98 > v83);
+          while ((v115 + v84) < v86 && v113 > v95);
         }
 
-        v70 = v113 + 1;
-        v102 = [&off_6F2C8 count];
-        v37 = v118;
+        v82 = v128 + 1;
+        v117 = [&off_6F2C8 count];
+        v49 = v133;
       }
 
-      while (v102 > v70);
-      v9 = v106;
-      v49 = v114;
-      v50 = v107;
-      v21 = v109;
-      v65 = CGContext;
-      GenericRGB = v105;
+      while (v117 > v82);
+      v9 = v121;
+      v61 = v129;
+      v62 = v122;
+      v21 = v124;
+      v77 = CGContext;
+      GenericRGB = v120;
     }
 
     else
     {
-      v73 = v50;
-      v74 = v49;
+      v85 = v62;
+      v86 = v61;
     }
 
     CGColorRelease(GenericRGB);
-    v103 = v108;
-    *v108 = -1;
-    *(v37 + 5500) = 0.5 / v73;
-    *(v37 + 5504) = 0.5 / v74;
-    v62 = _HUDFontCreateMTLTexture(v9, v103, v50, v49);
-    free(v103);
-    CGContextRelease(v65);
+    v118 = v123;
+    *v123 = -1;
+    *(v49 + 5500) = 0.5 / v85;
+    *(v49 + 5504) = 0.5 / v86;
+    v74 = _HUDFontCreateMTLTexture(v9, v118, v62, v61);
+    free(v118);
+    CGContextRelease(v77);
   }
 
   else
   {
-LABEL_42:
-    v62 = 0;
+    v74 = 0;
   }
 
-  return v62;
+  return v74;
 }
 
 BOOL HUDFontInit(uint64_t a1, char *a2, unsigned int a3, void *a4)
@@ -4775,7 +4761,7 @@ BOOL HUDFontInit(uint64_t a1, char *a2, unsigned int a3, void *a4)
   return v13;
 }
 
-uint64_t HUDFontGenerateVertices(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8, float a9, float a10, float a11, float a12, float a13, unint64_t a14, __int32 a15, float *a16, float *a17)
+uint64_t HUDFontGenerateVertices(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, float a7, float a8, float a9, float a10, float a11, uint64_t a12, uint64_t a13, unint64_t a14, uint64_t a15, float *a16, float *a17)
 {
   if (!a1)
   {
@@ -4794,16 +4780,16 @@ uint64_t HUDFontGenerateVertices(uint64_t a1, uint64_t a2, unint64_t a3, uint64_
       v27 = 0;
       v46 = 0;
       v28 = 1.0 / [*a1 height];
-      v29 = *(a1 + 5496) + a10;
+      v29 = *(a1 + 5496) + a8;
       v30 = 1;
-      v31 = a9;
+      v31 = a7;
       while (1)
       {
         v32 = *(a2 + v26);
         if (v32 == 10)
         {
-          v29 = v29 + (*(a1 + 5496) + a11);
-          v31 = a9;
+          v29 = v29 + (*(a1 + 5496) + a9);
+          v31 = a7;
         }
 
         Glyph = _HUDFontGetGlyph(a1, *(a2 + v26));
@@ -4813,25 +4799,25 @@ uint64_t HUDFontGenerateVertices(uint64_t a1, uint64_t a2, unint64_t a3, uint64_
         }
 
         v35 = Glyph;
-        if (a12 <= 1.0 || (v31 + *(Glyph + 8)) <= a12)
+        if (a10 <= 1.0 || (v31 + *(Glyph + 8)) <= a10)
         {
           break;
         }
 
-        v29 = v29 + (*(a1 + 5496) + a11);
+        v29 = v29 + (*(a1 + 5496) + a9);
         if (v30)
         {
           v18 = v27;
           v26 = v46 + 1;
         }
 
-        if ((v29 - a10) >= a13)
+        if ((v29 - a8) >= a11)
         {
           return v18;
         }
 
         v30 = 0;
-        v31 = a9;
+        v31 = a7;
 LABEL_21:
         if (v26 >= a3)
         {
@@ -4854,14 +4840,14 @@ LABEL_21:
           return v18;
         }
 
-        v37 = a8 + 6 * v18;
+        v37 = a13 + 6 * v18;
         if (v37 >= a14)
         {
           return v18;
         }
 
         v34.f32[0] = v31;
-        _HUDFontVerticesWrite(a4, v36, a7, v37, Glyph, a15, v34, v29, v39, v28);
+        _HUDFontVerticesWrite(a4, v36, a12, v37, Glyph, a15, v34, v29, v39, v28);
         ++v18;
       }
 
@@ -5088,7 +5074,7 @@ BOOL _HUDGPUTimelineSnapshotFrameTimingData(uint64_t a1, uint64_t a2)
 
     if (v3)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 24, *(a2 + 32), *(a1 + 48), (*(a1 + 48) + 16 * v3), v3);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 24), *(a2 + 32), *(a1 + 48), (*(a1 + 48) + 16 * v3), v3);
       v11 = *(a2 + 536);
       v12 = *(a1 + 48);
       v13 = *(a1 + 56);
@@ -5111,7 +5097,7 @@ BOOL _HUDGPUTimelineSnapshotFrameTimingData(uint64_t a1, uint64_t a2)
     v16 = *(a1 + 88);
     if (v16)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 48, *(a2 + 56), *(a1 + 80), (*(a1 + 80) + 16 * v16), v16);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 48), *(a2 + 56), *(a1 + 80), (*(a1 + 80) + 16 * v16), v16);
       v17 = *(a2 + 536);
       v18 = *(a1 + 80);
       v19 = *(a1 + 88);
@@ -5134,7 +5120,7 @@ BOOL _HUDGPUTimelineSnapshotFrameTimingData(uint64_t a1, uint64_t a2)
     v22 = *(a1 + 104);
     if (v22)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 72, *(a2 + 80), *(a1 + 96), (*(a1 + 96) + 16 * v22), v22);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 72), *(a2 + 80), *(a1 + 96), (*(a1 + 96) + 16 * v22), v22);
       v23 = *(a2 + 536);
       v24 = *(a1 + 96);
       v25 = *(a1 + 104);
@@ -5157,7 +5143,7 @@ BOOL _HUDGPUTimelineSnapshotFrameTimingData(uint64_t a1, uint64_t a2)
     v28 = *(a1 + 120);
     if (v28)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 96, *(a2 + 104), *(a1 + 112), (*(a1 + 112) + 16 * v28), v28);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 96), *(a2 + 104), *(a1 + 112), (*(a1 + 112) + 16 * v28), v28);
       v29 = *(a2 + 536);
       v30 = *(a1 + 112);
       v31 = *(a1 + 120);
@@ -5180,13 +5166,13 @@ BOOL _HUDGPUTimelineSnapshotFrameTimingData(uint64_t a1, uint64_t a2)
     v34 = *(a1 + 136);
     if (v34)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 120, *(a2 + 128), *(a1 + 128), (*(a1 + 128) + 16 * v34), v34);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 120), *(a2 + 128), *(a1 + 128), (*(a1 + 128) + 16 * v34), v34);
     }
 
     v35 = *(a1 + 152);
     if (v35)
     {
-      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(a2 + 144, *(a2 + 152), *(a1 + 144), (*(a1 + 144) + 16 * v35), v35);
+      std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>((a2 + 144), *(a2 + 152), *(a1 + 144), (*(a1 + 144) + 16 * v35), v35);
     }
 
     v36 = *(a1 + 240);
@@ -5553,7 +5539,7 @@ uint64_t _HUDGPUTimelineBuildUITimeline(uint64_t result, uint64x2_t **a2)
 
 void HUDGPUTimelineSnapshotFrame(uint64_t a1, uint64_t a2)
 {
-  v4 = HUDGetGlobalConfig();
+  v4 = HUDGetGlobalConfig(a1, a2);
   v5 = +[_CADeveloperHUDProperties instance];
   v6 = [v5 isHUDElementEnabled:512 mainLayer:1];
 
@@ -5735,7 +5721,7 @@ void HUDGPUTimelineSnapshotFrame(uint64_t a1, uint64_t a2)
   }
 }
 
-char **HUDGPUTimelineStore::operator=(char **a1, char **a2)
+void **HUDGPUTimelineStore::operator=(void **a1, char **a2)
 {
   if (a1 != a2)
   {
@@ -5786,21 +5772,19 @@ uint64_t HUDGPUTimelineGetCurrentTimeRange(os_unfair_lock_t lock)
   os_unfair_lock_lock(lock);
   if (*&lock[44]._os_unfair_lock_opaque == *&lock[46]._os_unfair_lock_opaque)
   {
-    v3 = 0;
+    v2 = 0;
   }
 
   else
   {
-    v2 = *&lock[284]._os_unfair_lock_opaque;
-    v3 = *&lock[136]._os_unfair_lock_opaque - v2;
-    v4 = *&lock[138]._os_unfair_lock_opaque - v2;
+    v2 = *&lock[136]._os_unfair_lock_opaque - *&lock[284]._os_unfair_lock_opaque;
   }
 
   os_unfair_lock_unlock(lock);
-  return v3;
+  return v2;
 }
 
-void *std::vector<HUDTimeRange>::__assign_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<HUDTimeRange>::__assign_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5875,7 +5859,7 @@ void *std::vector<HUDTimeRange>::__assign_with_size[abi:ne200100]<HUDTimeRange*,
   return result;
 }
 
-void std::vector<HUDTimeRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<HUDTimeRange>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -5885,7 +5869,7 @@ void std::vector<HUDTimeRange>::__vallocate[abi:ne200100](uint64_t a1, unint64_t
   std::vector<HUDGPUTimeTrackerEncoder>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -5960,7 +5944,7 @@ void *std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned
   return result;
 }
 
-void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<unsigned long long>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -6046,7 +6030,7 @@ void HUDGPUTimelineStore::~HUDGPUTimelineStore(HUDGPUTimelineStore *this)
   }
 }
 
-char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,HUDTimeRange*>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -6055,8 +6039,8 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 4)
   {
     v11 = *a1;
@@ -6094,23 +6078,24 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,
     v35 = (16 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 16;
       *v35++ = v36;
       v34 -= 16;
     }
 
     while (v34);
-    memcpy((v33 + 16 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 16 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 16 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 16 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -6125,14 +6110,14 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,
   {
     v29 = &__dst[16 * a5];
     v30 = (v10 - 16 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[16 * a5], __dst, v10 - v29);
@@ -6147,11 +6132,11 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[16 * a5];
@@ -6171,7 +6156,7 @@ char *std::vector<HUDTimeRange>::__insert_with_size[abi:ne200100]<HUDTimeRange*,
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[16 * a5], v5, v21 - v22);
@@ -6190,7 +6175,7 @@ LABEL_29:
   return v5;
 }
 
-void HUDMTLOverlayResetStats()
+void HUDMTLOverlayResetStats(uint64_t a1, uint64_t a2)
 {
   if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
   {
@@ -6198,13 +6183,13 @@ void HUDMTLOverlayResetStats()
   }
 
   HIBYTE(word_767B8) = 1;
-  HUDInternalPerfMetricsReset();
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
+  HUDInternalPerfMetricsReset(a1, a2);
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v2, v3);
 
   HUDGPUTimeTrackerReset(GlobalInstance);
 }
 
-uint64_t HUDMTLOverlayGetGlobalOverlay()
+uint64_t HUDMTLOverlayGetGlobalOverlay(uint64_t a1, uint64_t a2)
 {
   if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
   {
@@ -6214,7 +6199,7 @@ uint64_t HUDMTLOverlayGetGlobalOverlay()
   return _HUDMTLOverlayGlobalInstance_tracker;
 }
 
-uint64_t HUDMTLOverlayGetGlobalGPUTimeline()
+uint64_t HUDMTLOverlayGetGlobalGPUTimeline(uint64_t a1, uint64_t a2)
 {
   if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
   {
@@ -6224,17 +6209,18 @@ uint64_t HUDMTLOverlayGetGlobalGPUTimeline()
   return qword_767B0;
 }
 
-void HUDMTLOverlaySetIsInGPTK(char a1)
+void HUDMTLOverlaySetIsInGPTK(uint64_t result, uint64_t a2)
 {
+  v2 = result;
   if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
   {
     HUDMTLOverlayResetStats_cold_1();
   }
 
-  LOBYTE(word_767B8) = a1;
+  LOBYTE(word_767B8) = v2;
 }
 
-uint64_t HUDMTLOverlayIsInGPTK()
+uint64_t HUDMTLOverlayIsInGPTK(uint64_t a1, uint64_t a2)
 {
   if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
   {
@@ -6244,11 +6230,12 @@ uint64_t HUDMTLOverlayIsInGPTK()
   return word_767B8;
 }
 
-void sub_1C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_1C548(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
-  objc_destroyWeak((v30 + 40));
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v29 + 40));
   _Unwind_Resume(a1);
 }
 
@@ -6266,21 +6253,24 @@ void sub_1D0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void _HUDMTLLayerFrameSwap(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned int a4, uint64_t a5)
+void _HUDMTLLayerFrameSwap(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  if (a1)
+  if (result)
   {
     v6 = *a2;
-    if (*a2 != a1)
+    if (*a2 != result)
     {
-      *a2 = a1;
+      v7 = a5;
+      v8 = a4;
+      v9 = a3;
+      *a2 = result;
       a2[1] = v6;
       v10 = (a2 + 1);
       v14 = 0;
       HUDUIFrameGetSizeInPoints(v6, &v14 + 1, &v14);
-      if (a3)
+      if (v9)
       {
-        if (a4 && (v14 < a4 || HIDWORD(v14) != a3))
+        if (v8 && (v14 < v8 || HIDWORD(v14) != v9))
         {
           HUDUIReleaseFrame(v10);
           if (_HUDMTLOverlayGlobalInstance_onceToken != -1)
@@ -6289,9 +6279,9 @@ void _HUDMTLLayerFrameSwap(uint64_t a1, uint64_t *a2, unsigned int a3, unsigned 
           }
 
           v11 = _HUDMTLOverlayGlobalInstance_tracker;
-          Scale = HUDUIFrameGetScale(a1);
-          IsHDR = HUDUIFrameGetIsHDR(a1);
-          *v10 = HUDUICreateFrame(v11, a3, a4, Scale, a5, IsHDR);
+          Scale = HUDUIFrameGetScale(result);
+          IsHDR = HUDUIFrameGetIsHDR(result);
+          *v10 = HUDUICreateFrame(v11, v9, v8, v7, IsHDR, Scale);
         }
       }
     }
@@ -6430,14 +6420,15 @@ float32x4_t HUDUIRectMul(float32x4_t *a1, float a2)
   return result;
 }
 
-void _HUDUIAllocString(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>, float a7@<S1>)
+void _HUDUIAllocString(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X8>, float a6@<S0>, float a7@<S1>)
 {
   if (a1)
   {
+    v11 = a2;
     v13 = fmin(a4, 512.0);
     os_unfair_lock_lock((a1 + 6192));
     v14 = std::__string_view_hash<char>::operator()[abi:ne200100](&v23, a3, v13);
-    v15 = ~a2 + (a2 << 18);
+    v15 = ~v11 + (v11 << 18);
     v16 = 65 * ((21 * (v15 ^ (v15 >> 31))) ^ ((21 * (v15 ^ (v15 >> 31))) >> 11));
     v18 = ((v14 << 6) + ((v16 >> 22) ^ v16) + (v14 >> 2) + 2654435769u) ^ v14;
     v17 = std::__hash_table<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HUDGPUTimeTrackerLabel>>>::find<unsigned long long>((a1 + 5536), &v18);
@@ -6467,12 +6458,12 @@ void _HUDUIAllocString(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X2>
       memcpy(v17 + 3, a3, v13);
       *(v17 + v13 + 24) = 0;
       *(v17 + 134) = v13;
-      _HUDAllocStringVertexBuffer(a1, a2, (v17 + 3), v13, (v17 + 68), a6, a7);
+      _HUDAllocStringVertexBuffer(a1, v11, (v17 + 3), v13, (v17 + 68), a6, a7);
     }
 
     *a5 = v17 + 3;
     *(a5 + 8) = v17 + 68;
-    *(a5 + 16) = *(a1 + 4 * a2 + 5520);
+    *(a5 + 16) = *(a1 + 4 * v11 + 5520);
     *(a5 + 20) = 0;
     os_unfair_lock_unlock((a1 + 6192));
   }
@@ -6484,12 +6475,12 @@ void _HUDUIAllocString(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t *a3@<X2>
   }
 }
 
-void sub_1EAE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1EAE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::pair<unsigned long,HUDUIStringInternal>::~pair(&STACK[0x248]);
   HUDUIStringInternal::~HUDUIStringInternal(va);
-  os_unfair_lock_unlock(v2 + 1548);
+  os_unfair_lock_unlock(v3 + 1548);
   _Unwind_Resume(a1);
 }
 
@@ -6539,7 +6530,8 @@ void _HUDAllocStringVertexBuffer(uint64_t a1, unsigned int a2, uint64_t a3, unsi
   std::vector<HUDUIVertex>::resize(a5, (4 * a4));
   std::vector<unsigned short>::resize((a5 + 24), v14);
   v17 = a1 + 4 * a2;
-  Vertices = HUDFontGenerateVertices(a1, a3, a4, *a5, 0, 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 3), *(a5 + 24), 0, 0.0, 0.0, 0.0, *(v17 + 5520) * a6, *(v17 + 5520) * a7, (*(a5 + 32) - *(a5 + 24)) >> 1, -1, v15, v16);
+  LODWORD(v29) = -1;
+  Vertices = HUDFontGenerateVertices(a1, a3, a4, *a5, 0, 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 3), 0.0, 0.0, 0.0, *(v17 + 5520) * a6, *(v17 + 5520) * a7, *(a5 + 24), 0, (*(a5 + 32) - *(a5 + 24)) >> 1, v29, v15, v16);
   std::vector<HUDUIVertex>::resize(a5, 4 * Vertices);
   std::vector<unsigned short>::resize((a5 + 24), 6 * Vertices);
   *v15 = *v15 / *(v17 + 5520);
@@ -6593,12 +6585,13 @@ void _HUDAllocStringVertexBuffer(uint64_t a1, unsigned int a2, uint64_t a3, unsi
   }
 }
 
-double HUDUIAllocStringWithFormat@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, const char *a3@<X2>, uint64_t a4@<X8>, char a5)
+double HUDUIAllocStringWithFormat@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, const char *a3@<X2>, uint64_t a4@<X8>, ...)
 {
-  v8 = vsnprintf(__str, 0x200uLL, a3, &a5);
-  if (v8 < 0x200 && a1)
+  va_start(va, a4);
+  v7 = vsnprintf(__str, 0x200uLL, a3, va);
+  if (v7 < 0x200 && a1)
   {
-    _HUDUIAllocString(a1, a2, __str, v8, a4, 0.0, 0.0);
+    _HUDUIAllocString(a1, a2, __str, v7, a4, 0.0, 0.0);
   }
 
   else
@@ -6611,7 +6604,7 @@ double HUDUIAllocStringWithFormat@<D0>(uint64_t a1@<X0>, unsigned int a2@<W1>, c
   return result;
 }
 
-double HUDUIAllocString@<D0>(char *__s@<X2>, uint64_t a2@<X0>, unsigned int a3@<W1>, uint64_t a4@<X8>)
+double HUDUIAllocString@<D0>(char *__s@<X2>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X8>)
 {
   if (a2 && __s)
   {
@@ -6630,8 +6623,9 @@ double HUDUIAllocString@<D0>(char *__s@<X2>, uint64_t a2@<X0>, unsigned int a3@<
   return result;
 }
 
-void HUDUIAllocUnicodeString(uint64_t a1@<X0>, unsigned int a2@<W1>, void *a3@<X2>, uint64_t a4@<X8>)
+void HUDUIAllocUnicodeString(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
+  v4 = a2;
   v7 = a3;
   if (a1)
   {
@@ -6668,12 +6662,12 @@ void HUDUIAllocUnicodeString(uint64_t a1@<X0>, unsigned int a2@<W1>, void *a3@<X
       *(v9 + v11 + 24) = 0;
       *(v9 + 134) = v11;
       v12 = v7;
-      _HUDAllocStringVertexBufferUnichar(a1, a2, [v7 cStringUsingEncoding:2348810496], *(v9 + 134) >> 2, (v9 + 68), 0.0, 0.0);
+      _HUDAllocStringVertexBufferUnichar(a1, v4, [v7 cStringUsingEncoding:2348810496], *(v9 + 134) >> 2, (v9 + 68), 0.0, 0.0);
     }
 
     *a4 = v9 + 3;
     *(a4 + 8) = v9 + 68;
-    *(a4 + 16) = *(a1 + 4 * a2 + 5520);
+    *(a4 + 16) = *(a1 + 4 * v4 + 5520);
     *(a4 + 20) = 0;
     os_unfair_lock_unlock((a1 + 6192));
   }
@@ -6685,12 +6679,12 @@ void HUDUIAllocUnicodeString(uint64_t a1@<X0>, unsigned int a2@<W1>, void *a3@<X
   }
 }
 
-void sub_1F108(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1F108(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::pair<unsigned long,HUDUIStringInternal>::~pair(&STACK[0x248]);
   HUDUIStringInternal::~HUDUIStringInternal(va);
-  os_unfair_lock_unlock((v3 + v4));
+  os_unfair_lock_unlock((v4 + v5));
 
   _Unwind_Resume(a1);
 }
@@ -6786,6 +6780,13 @@ double _HUDUITemporaryString@<D0>(uint64_t *a1@<X0>, unsigned int a2@<W1>, const
   }
 
   return result;
+}
+
+double HUDUITemporaryStringWithFormat@<D0>(uint64_t *a1@<X0>, unsigned int a2@<W1>, const char *a3@<X2>, uint64_t a4@<X8>, ...)
+{
+  va_start(va, a4);
+  v7 = vsnprintf(__str, 0x200uLL, a3, va);
+  return _HUDUITemporaryString(a1, a2, __str, v7, a4, 0.0, 0.0);
 }
 
 double HUDUIWrappedTemporaryString@<D0>(char *__s@<X2>, uint64_t *a2@<X0>, unsigned int a3@<W1>, uint64_t a4@<X8>, float a5@<S0>, float a6@<S1>)
@@ -7070,21 +7071,21 @@ void sub_20340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-uint64_t HUDUICreateFrame(uint64_t a1, unsigned int a2, unsigned int a3, float a4, uint64_t a5, int a6)
+uint64_t HUDUICreateFrame(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, int a5, float a6)
 {
   if (!a1)
   {
     return HUDUIInvalidFrame;
   }
 
-  v6 = (a2 * a4);
-  v7 = a3 * a4;
+  v6 = (a2 * a6);
+  v7 = a3 * a6;
   if (!v6 || v7 == 0)
   {
     return HUDUIInvalidFrame;
   }
 
-  if (a6)
+  if (a5)
   {
     v11 = 71;
   }
@@ -7096,14 +7097,14 @@ uint64_t HUDUICreateFrame(uint64_t a1, unsigned int a2, unsigned int a3, float a
 
   v12 = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:v11 width:v6 height:v7 mipmapped:0];
   [v12 setUsage:{objc_msgSend(v12, "usage") | 4}];
-  if (![*(a1 + 6160) supportsFamily:1004] || !objc_msgSend(*(a1 + 6160), "supportsTextureSampleCount:", 4) || *(HUDGetGlobalConfig() + 21) != 1 || (objc_msgSend(v12, "setSampleCount:", 4), objc_msgSend(v12, "setTextureType:", 4), (v13 = objc_msgSend(*(a1 + 6160), "newTextureWithDescriptor:", v12)) == 0))
+  if (![*(a1 + 6160) supportsFamily:1004] || (v13 = objc_msgSend(*(a1 + 6160), "supportsTextureSampleCount:", 4), !v13) || *(HUDGetGlobalConfig(v13, v14) + 21) != 1 || (objc_msgSend(v12, "setSampleCount:", 4), objc_msgSend(v12, "setTextureType:", 4), (v15 = objc_msgSend(*(a1 + 6160), "newTextureWithDescriptor:", v12)) == 0))
   {
     [v12 setSampleCount:1];
     [v12 setTextureType:2];
-    v13 = [*(a1 + 6160) newTextureWithDescriptor:v12];
+    v15 = [*(a1 + 6160) newTextureWithDescriptor:v12];
   }
 
-  if (v13)
+  if (v15)
   {
     operator new();
   }
@@ -7260,8 +7261,8 @@ id _HUDUIDrawFrame(uint64_t a1, void *a2, id *a3, int a4, void *a5, uint64_t a6,
 {
   v16 = a2;
   v17 = a5;
-  v43 = a10;
-  v42 = a11;
+  v46 = a10;
+  v45 = a11;
   if (a4)
   {
     v18 = [*a3 sampleCount] > 1;
@@ -7281,96 +7282,97 @@ id _HUDUIDrawFrame(uint64_t a1, void *a2, id *a3, int a4, void *a5, uint64_t a6,
   if (v16)
   {
     v20 = v16;
+    v22 = v20;
     goto LABEL_8;
   }
 
-  v20 = [*(a1 + 6168) commandBuffer];
-  [v20 setLabel:@"libMTLHud_draw"];
-  if (!v20)
+  v22 = [*(a1 + 6168) commandBuffer];
+  v20 = [v22 setLabel:@"libMTLHud_draw"];
+  if (!v22)
   {
 LABEL_16:
-    v38 = 0;
+    v41 = 0;
     goto LABEL_17;
   }
 
 LABEL_8:
-  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-  HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, v20, 1);
-  v40 = v16;
-  v22 = objc_opt_new();
-  v23 = [v22 colorAttachments];
-  v24 = [v23 objectAtIndexedSubscript:0];
-  [v24 setTexture:v17];
-
-  v25 = [v22 colorAttachments];
+  GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v20, v21);
+  HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, v22, 1);
+  v43 = v16;
+  v24 = objc_opt_new();
+  v25 = [v24 colorAttachments];
   v26 = [v25 objectAtIndexedSubscript:0];
-  [v26 setLoadAction:a6];
+  [v26 setTexture:v17];
 
-  v27 = [v22 colorAttachments];
+  v27 = [v24 colorAttachments];
   v28 = [v27 objectAtIndexedSubscript:0];
-  [v28 setClearColor:{0.0, 0.0, 0.0, 0.0}];
+  [v28 setLoadAction:a6];
 
-  v29 = [v22 colorAttachments];
+  v29 = [v24 colorAttachments];
   v30 = [v29 objectAtIndexedSubscript:0];
-  [v30 setStoreAction:1];
+  [v30 setClearColor:{0.0, 0.0, 0.0, 0.0}];
 
-  v31 = [v17 width];
-  v32 = [v17 height];
-  LODWORD(v33) = 0;
-  *(&v33 + 1) = 2.0 / (0.0 - v32);
-  *&v34 = v31 / (0.0 - v31);
-  *(&v34 + 1) = v32 / v32;
-  DWORD2(v34) = 0x80000000;
-  HIDWORD(v34) = 1.0;
-  v49[0] = COERCE_UNSIGNED_INT(2.0 / v31);
-  v49[1] = v33;
-  v49[2] = xmmword_549E0;
-  v49[3] = v34;
-  v48 = 0;
-  v35 = [v20 renderCommandEncoderWithDescriptor:v22];
-  v36 = HUDGPUTimeTrackerGetGlobalInstance();
-  HUDGPUTimeTrackerMarkEncoder(v36, v35, 1);
-  v46[0] = 0;
-  v46[1] = 0;
-  *&v46[2] = v31;
-  *&v46[3] = v32;
-  v47 = xmmword_549F0;
-  [v35 setViewport:v46];
-  [v35 setDepthStencilState:*(a1 + 6176)];
-  [v35 setVertexBytes:v49 length:64 atIndex:1];
-  [v35 setVertexBytes:&v48 length:4 atIndex:2];
-  [v35 setRenderPipelineState:v19];
+  v31 = [v24 colorAttachments];
+  v32 = [v31 objectAtIndexedSubscript:0];
+  [v32 setStoreAction:1];
+
+  v33 = [v17 width];
+  v34 = [v17 height];
+  LODWORD(v35) = 0;
+  *(&v35 + 1) = 2.0 / (0.0 - v34);
+  *&v36 = v33 / (0.0 - v33);
+  *(&v36 + 1) = v34 / v34;
+  DWORD2(v36) = 0x80000000;
+  HIDWORD(v36) = 1.0;
+  v52[0] = COERCE_UNSIGNED_INT(2.0 / v33);
+  v52[1] = v35;
+  v52[2] = xmmword_549E0;
+  v52[3] = v36;
+  v51 = 0;
+  v37 = [v22 renderCommandEncoderWithDescriptor:v24];
+  v39 = HUDGPUTimeTrackerGetGlobalInstance(v37, v38);
+  HUDGPUTimeTrackerMarkEncoder(v39, v37, 1);
+  v49[0] = 0;
+  v49[1] = 0;
+  *&v49[2] = v33;
+  *&v49[3] = v34;
+  v50 = xmmword_549F0;
+  [v37 setViewport:v49];
+  [v37 setDepthStencilState:*(a1 + 6176)];
+  [v37 setVertexBytes:v52 length:64 atIndex:1];
+  [v37 setVertexBytes:&v51 length:4 atIndex:2];
+  [v37 setRenderPipelineState:v19];
   if (a3 && a4)
   {
-    [v35 setFragmentTextures:a3 withRange:{0, a4}];
+    [v37 setFragmentTextures:a3 withRange:{0, a4}];
   }
 
-  v43[2](v43, v35);
-  [v35 endEncoding];
+  v46[2](v46, v37);
+  [v37 endEncoding];
   if (a7)
   {
-    v37 = [v20 blitCommandEncoder];
-    [v37 generateMipmapsForTexture:v17];
-    [v37 endEncoding];
+    v40 = [v22 blitCommandEncoder];
+    [v40 generateMipmapsForTexture:v17];
+    [v40 endEncoding];
   }
 
   if (a9)
   {
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = ___Z15_HUDUIDrawFrameP12HUDUIOverlayPU27objcproto16MTLCommandBuffer11objc_objectPKPU21objcproto10MTLTexture11objc_objectiS4_13MTLLoadActionbmbU13block_pointerFvPU34objcproto23MTLRenderCommandEncoder11objc_objectEU13block_pointerFvvE_block_invoke;
-    v44[3] = &unk_69128;
-    v45 = v42;
-    [v20 addCompletedHandler:v44];
-    [v20 commit];
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = ___Z15_HUDUIDrawFrameP12HUDUIOverlayPU27objcproto16MTLCommandBuffer11objc_objectPKPU21objcproto10MTLTexture11objc_objectiS4_13MTLLoadActionbmbU13block_pointerFvPU34objcproto23MTLRenderCommandEncoder11objc_objectEU13block_pointerFvvE_block_invoke;
+    v47[3] = &unk_69128;
+    v48 = v45;
+    [v22 addCompletedHandler:v47];
+    [v22 commit];
   }
 
-  v38 = v20;
+  v41 = v22;
 
-  v16 = v40;
+  v16 = v43;
 LABEL_17:
 
-  return v38;
+  return v41;
 }
 
 void ___Z15_HUDUIDrawFrameP12HUDUIOverlayPU27objcproto16MTLCommandBuffer11objc_objectPKPU21objcproto10MTLTexture11objc_objectiS4_13MTLLoadActionbmbU13block_pointerFvPU34objcproto23MTLRenderCommandEncoder11objc_objectEU13block_pointerFvvE_block_invoke(uint64_t a1, void *a2)
@@ -7380,14 +7382,14 @@ void ___Z15_HUDUIDrawFrameP12HUDUIOverlayPU27objcproto16MTLCommandBuffer11objc_o
   (*(*(a1 + 32) + 16))();
 }
 
-uint64_t HUDUIBeginFrame(uint64_t a1)
+uint64_t HUDUIBeginFrame(os_unfair_lock_s **a1)
 {
   if (!a1)
   {
     return 0;
   }
 
-  os_unfair_lock_lock((a1 + 5856));
+  os_unfair_lock_lock(a1 + 1464);
   v2 = *(a1 + 5861);
   if ((v2 & 1) == 0)
   {
@@ -7395,8 +7397,8 @@ uint64_t HUDUIBeginFrame(uint64_t a1)
     v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v3 = *(a1 + 5824);
-    v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v3 = a1[728];
+    v4 = [(os_unfair_lock_s *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v4)
     {
       v5 = *v23;
@@ -7415,25 +7417,25 @@ uint64_t HUDUIBeginFrame(uint64_t a1)
         }
 
         while (v4 != v6);
-        v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v4 = [(os_unfair_lock_s *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v4);
     }
 
-    [*(a1 + 5824) removeAllObjects];
-    v7 = *(a1 + 32);
+    [(os_unfair_lock_s *)a1[728] removeAllObjects];
+    v7 = a1[4];
     *(a1 + 5860) = 0;
-    v8 = *(a1 + 40);
+    v8 = a1[5];
     if (v7 != v8)
     {
       do
       {
         v9 = *a1;
-        v10 = *(v7 + 96);
-        os_unfair_lock_lock((*a1 + 6192));
-        v11 = *&v9[1534]._os_unfair_lock_opaque;
-        v12 = *&v9[1536]._os_unfair_lock_opaque - v11;
+        v10 = *&v7[24]._os_unfair_lock_opaque;
+        os_unfair_lock_lock(*a1 + 1548);
+        v11 = *(v9 + 6136);
+        v12 = *(v9 + 6144) - v11;
         if (v12)
         {
           v13 = v12 >> 4;
@@ -7457,36 +7459,36 @@ uint64_t HUDUIBeginFrame(uint64_t a1)
           while (v13);
         }
 
-        os_unfair_lock_unlock(v9 + 1548);
-        v7 += 136;
+        os_unfair_lock_unlock((v9 + 6192));
+        v7 += 34;
       }
 
       while (v7 != v8);
-      v7 = *(a1 + 32);
-      v8 = *(a1 + 40);
+      v7 = a1[4];
+      v8 = a1[5];
     }
 
     while (v8 != v7)
     {
-      v8 -= 136;
-      std::allocator<HUDUIWindow>::destroy[abi:ne200100](a1 + 32, v8);
+      v8 -= 34;
+      std::allocator<HUDUIWindow>::destroy[abi:ne200100]((a1 + 4), v8);
     }
 
-    *(a1 + 40) = v7;
+    a1[5] = v7;
     v20 = HUDUIInvalidString;
     v21 = qword_784F8;
-    v15 = (a1 + 5844);
+    v15 = a1 + 1461;
     v16 = vld1_dup_f32(v15);
-    v17 = vdiv_f32(vcvt_f32_u32(*(a1 + 5832)), v16);
+    v17 = vdiv_f32(vcvt_f32_u32(a1[729]), v16);
     HUDUIFrameBeginWindow(a1, &v20, 0, 0, 0.0, 0.0, v17.f32[0], v17.f32[1], 0.0);
   }
 
   v18 = v2 ^ 1u;
-  os_unfair_lock_unlock((a1 + 5856));
+  os_unfair_lock_unlock(a1 + 1464);
   return v18;
 }
 
-uint64_t HUDUIFrameBeginWindow(uint64_t result, __int128 *a2, int a3, int a4, float a5, float a6, float a7, float a8, float a9)
+uint64_t HUDUIFrameBeginWindow(uint64_t result, __int128 *a2, uint64_t a3, int a4, float a5, float a6, float a7, float a8, float a9)
 {
   if (result)
   {
@@ -7498,6 +7500,7 @@ uint64_t HUDUIFrameBeginWindow(uint64_t result, __int128 *a2, int a3, int a4, fl
 
     else
     {
+      v12 = a3;
       result = HUDUIOverlayGetVertexBuffer(*result);
       if (result)
       {
@@ -7555,7 +7558,7 @@ uint64_t HUDUIFrameBeginWindow(uint64_t result, __int128 *a2, int a3, int a4, fl
         *(v25 - 120) = v26;
         *(v25 - 84) = 0;
         *(v25 - 8) = a4;
-        *(v25 - 76) = a3;
+        *(v25 - 76) = v12;
         *(v25 - 40) = v18;
         v27 = *(v9 + 5852);
         *(v25 - 68) = v27;
@@ -7563,7 +7566,7 @@ uint64_t HUDUIFrameBeginWindow(uint64_t result, __int128 *a2, int a3, int a4, fl
         if (a4)
         {
           *&v23 = a9;
-          HUDUIVertexBufferAddRoundedRectangle(*v9, v18, a3, a5, a6, a7, a8, v23, *(v9 + 5844));
+          HUDUIVertexBufferAddRoundedRectangle(*v9, v18, v12, a5, a6, a7, a8, v23, *(v9 + 5844));
           v27 = *(v9 + 5852);
         }
 
@@ -7794,47 +7797,47 @@ BOOL HUDUIDrawFrames(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5, uint6
   v20 = 0;
   if (v12 && a1)
   {
-    v27 = a8;
+    v28 = a8;
     v21 = [*(a1 + 6168) commandBuffer];
-    v22 = v21;
+    v23 = v21;
     if (v18)
     {
-      [v21 encodeWaitForEvent:v18 value:v27];
+      v21 = [v21 encodeWaitForEvent:v18 value:v28];
     }
 
-    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance();
-    HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, v22, 1);
-    [v22 setLabel:@"libMTLHud_BlitToDrawable"];
+    GlobalInstance = HUDGPUTimeTrackerGetGlobalInstance(v21, v22);
+    HUDGPUTimeTrackerMarkCommandBuffer(GlobalInstance, v23, 1);
+    [v23 setLabel:@"libMTLHud_BlitToDrawable"];
     if (v17)
     {
-      HUDUIDownloadTexture(a1, v22, v16, v17);
+      HUDUIDownloadTexture(a1, v23, v16, v17);
     }
 
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = __HUDUIDrawFrames_block_invoke;
-    v30[3] = &__block_descriptor_52_e35_v16__0___MTLRenderCommandEncoder__8l;
-    v31 = v12;
-    v30[4] = a4;
-    v30[5] = a6;
-    v25 = _HUDUIDrawFrame(a1, v22, 0, 0, v16, 1, 0, v24, 0, v30, &__block_literal_global_5);
-    v20 = v22 != 0;
-    if (v22)
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = __HUDUIDrawFrames_block_invoke;
+    v31[3] = &__block_descriptor_52_e35_v16__0___MTLRenderCommandEncoder__8l;
+    v32 = v12;
+    v31[4] = a4;
+    v31[5] = a6;
+    v26 = _HUDUIDrawFrame(a1, v23, 0, 0, v16, 1, 0, v25, 0, v31, &__block_literal_global_5);
+    v20 = v23 != 0;
+    if (v23)
     {
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = __HUDUIDrawFrames_block_invoke_2;
-      v28[3] = &unk_69128;
-      v29 = v19;
-      [v22 addCompletedHandler:v28];
+      v29[0] = _NSConcreteStackBlock;
+      v29[1] = 3221225472;
+      v29[2] = __HUDUIDrawFrames_block_invoke_2;
+      v29[3] = &unk_69128;
+      v30 = v19;
+      [v23 addCompletedHandler:v29];
       if (v18)
       {
-        [v22 encodeSignalEvent:v18 value:v27 + 1];
+        [v23 encodeSignalEvent:v18 value:v28 + 1];
       }
 
-      if (([v22 commitAndWaitUntilSubmitted] & 1) == 0)
+      if (([v23 commitAndWaitUntilSubmitted] & 1) == 0)
       {
-        [v22 waitUntilScheduled];
+        [v23 waitUntilScheduled];
       }
 
       v12 = v12;
@@ -7842,7 +7845,7 @@ BOOL HUDUIDrawFrames(uint64_t a1, void *a2, void *a3, uint64_t a4, int a5, uint6
       {
         if (*a4)
         {
-          [*(*a4 + 5824) addObject:v22];
+          [*(*a4 + 5824) addObject:v23];
         }
 
         a4 += 28;
@@ -7881,61 +7884,61 @@ void __HUDUIDrawFrames_block_invoke(uint64_t a1, void *a2)
         v17 = *(v8 + 5848);
         v18 = [*(v8 + 8) height];
         v19 = ((*(v7 + v5 + 8) * 255.0) << 24) | 0xFFFFFF;
-        *v34 = v9;
-        *&v34[1] = v10;
-        v35 = 0;
-        v36 = v19;
-        v37 = 0;
-        v38 = v9 + v12;
-        v39 = v10;
-        v40 = 1065353216;
-        v41 = v19;
-        v42 = 0;
-        v43 = v9 + v12;
-        v44 = v10 + v11;
-        v45 = 1065353216;
-        v46 = (((v11 * v16) / v17) / v18) / (((v12 * v13) / v14) / v15);
-        v47 = v19;
-        v48 = 0;
-        v49 = v9;
-        v50 = v10;
+        *v37 = v9;
+        *&v37[1] = v10;
+        v38 = 0;
+        v39 = v19;
+        v40 = 0;
+        v41 = v9 + v12;
+        v42 = v10;
+        v43 = 1065353216;
+        v44 = v19;
+        v45 = 0;
+        v46 = v9 + v12;
+        v47 = v10 + v11;
+        v48 = 1065353216;
+        v49 = (((v11 * v16) / v17) / v18) / (((v12 * v13) / v14) / v15);
+        v50 = v19;
         v51 = 0;
-        v52 = v19;
-        v53 = 0;
-        v54 = v9 + v12;
-        v55 = v10 + v11;
-        v56 = 1065353216;
-        v57 = v46;
-        v58 = v19;
-        v59 = 0;
-        v60 = v9;
-        v61 = v10 + v11;
+        v52 = v9;
+        v53 = v10;
+        v54 = 0;
+        v55 = v19;
+        v56 = 0;
+        v57 = v9 + v12;
+        v58 = v10 + v11;
+        v59 = 1065353216;
+        v60 = v49;
+        v61 = v19;
         v62 = 0;
-        v63 = v46;
-        v64 = v19;
+        v63 = v9;
+        v64 = v10 + v11;
         v65 = 0;
+        v66 = v49;
+        v67 = v19;
+        v68 = 0;
         [v3 setFragmentTexture:*(v8 + 8) atIndex:0];
-        [v3 setVertexBytes:v34 length:144 atIndex:0];
-        [v3 drawPrimitives:3 vertexStart:0 vertexCount:6];
-        if (*(HUDGetGlobalConfig() + 24) == 1)
+        [v3 setVertexBytes:v37 length:144 atIndex:0];
+        v20 = [v3 drawPrimitives:3 vertexStart:0 vertexCount:6];
+        if (*(HUDGetGlobalConfig(v20, v21) + 24) == 1)
         {
-          v20 = HUDSignpostGetOSLog(0);
-          if (os_signpost_enabled(v20) && os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v23 = HUDSignpostGetOSLog(0, v22);
+          if (os_signpost_enabled(v23) && os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
-            v21 = *(a1 + 40);
+            v24 = *(a1 + 40);
             *buf = 134219264;
-            v23 = v21;
-            v24 = 2048;
-            v25 = v8;
-            v26 = 2048;
-            v27 = v9;
-            v28 = 2048;
-            v29 = v10;
-            v30 = 2048;
-            v31 = v12;
-            v32 = 2048;
-            v33 = v11;
-            _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "[libMTLHud] Rendering frame %zu, opaque = %llx, rect = %f,%f,%f,%f", buf, 0x3Eu);
+            v26 = v24;
+            v27 = 2048;
+            v28 = v8;
+            v29 = 2048;
+            v30 = v9;
+            v31 = 2048;
+            v32 = v10;
+            v33 = 2048;
+            v34 = v12;
+            v35 = 2048;
+            v36 = v11;
+            _os_log_impl(&dword_0, v23, OS_LOG_TYPE_DEFAULT, "[libMTLHud] Rendering frame %zu, opaque = %llx, rect = %f,%f,%f,%f", buf, 0x3Eu);
           }
         }
 
@@ -8013,44 +8016,44 @@ LABEL_7:
   return v6;
 }
 
-uint64_t HUDUIVertexBufferAddRoundedRectangle(uint64_t a1, uint64_t a2, int a3, float a4, float a5, float a6, float a7, double a8, float a9)
+uint64_t HUDUIVertexBufferAddRoundedRectangle(uint64_t a1, int32x2_t *a2, int a3, float a4, float a5, float a6, float a7, double a8, float a9)
 {
-  if (!*(a2 + 8) || !*a2)
+  if (!*&a2[1] || !*a2)
   {
     return 0;
   }
 
-  v12 = *(a2 + 16) + 100;
-  v13 = *(a2 + 24);
+  v12 = a2[2].u32[0] + 100;
+  v13 = a2[3].u32[0];
   if (v12 >= v13)
   {
-    LODWORD(v14) = *(a2 + 28);
+    LODWORD(v14) = a2[3].i32[1];
   }
 
   else
   {
-    v14 = *(a2 + 28);
-    if (*(a2 + 20) + 294 < v14)
+    v14 = a2[3].u32[1];
+    if (a2[2].u32[1] + 294 < v14)
     {
       goto LABEL_8;
     }
   }
 
   HUDSimpleVertexBufferChunkRelocate(a1, a2, 2 * v13, 2 * v14);
-  v13 = *(a2 + 24);
-  v12 = *(a2 + 16) + 100;
+  v13 = a2[3].u32[0];
+  v12 = a2[2].u32[0] + 100;
 LABEL_8:
-  if (v12 >= v13 || *(a2 + 20) + 294 >= *(a2 + 28))
+  if (v12 >= v13 || a2[2].u32[1] + 294 >= a2[3].u32[1])
   {
     return 0;
   }
 
-  v15 = [*a2 contents] + 24 * *(a2 + 16);
-  v16 = [*(a2 + 8) contents];
-  v17 = *(a2 + 20);
+  v15 = [*a2 contents] + 24 * a2[2].u32[0];
+  v16 = [*&a2[1] contents];
+  v17 = a2[2].u32[1];
   bzero(v15, 0x960uLL);
-  v18 = *(a2 + 16);
-  *(a2 + 16) = vadd_s32(v18, 0x12600000064);
+  v18 = a2[2];
+  a2[2] = vadd_s32(v18, 0x12600000064);
   v19 = *(a1 + 5500);
   if (_HUDUIVertexBufferAddRoundedRectangle(HUDUIVertex *,unsigned short *,HUDUIRect,unsigned int,float,float,float,unsigned int,float)::onceToken != -1)
   {
@@ -8108,7 +8111,7 @@ LABEL_8:
     }
 
     _D4 = _HUDUIVertexBufferAddRoundedRectangle(HUDUIVertex *,unsigned short *,HUDUIRect,unsigned int,float,float,float,unsigned int,float)::sCircle[v42];
-    *&v44 = v22.f32[0] + (*&_D4 * v23.f32[0]);
+    *&v44 = v22.f32[0] + (_D4.f32[0] * v23.f32[0]);
     __asm { FMLA            S7, S3, V4.S[1] }
 
     HIDWORD(v44) = _S7;
@@ -8241,7 +8244,7 @@ void *HUDUIFrameEndWindow(void *result)
           {
             *v7 = v38[k];
             v7[1] = v12;
-            *(v7 + 4) = v10;
+            v7[2].i32[0] = v10;
             v7 += 3;
           }
 
@@ -8310,13 +8313,14 @@ float HUDUIWindowCurrentHeight(uint64_t a1)
   return result;
 }
 
-uint64_t HUDUIWindowAddLabelAtPoint(uint64_t result, uint64_t a2, __int32 a3, float32_t a4, float32_t a5, double a6, double a7)
+uint64_t HUDUIWindowAddLabelAtPoint(uint64_t result, uint64_t a2, uint64_t a3, __n128 a4, __n128 a5, double a6, double a7)
 {
   if (!result)
   {
     return result;
   }
 
+  v7 = a3;
   v9 = *(result + 5852);
   v10 = *(result + 40);
   if (v9 != -1)
@@ -8348,7 +8352,7 @@ LABEL_6:
   {
     v14 = *(v12 + 40);
     *&a7 = *(a2 + 16) / *(v14 + 5848);
-    HUDUIVertexBufferAddString(*v14, *(v12 + 96), v13, a3, a4, a5, *(v14 + 5844), *&a7);
+    HUDUIVertexBufferAddString(*v14, *(v12 + 96), v13, v7, a4.n128_f32[0], a5.n128_f32[0], *(v14 + 5844), *&a7);
     v15 = *(v12 + 56);
     v16 = *(*(v12 + 40) + 5844);
     if (v15 < (*(*(a2 + 8) + 52) * v16))
@@ -8362,7 +8366,7 @@ LABEL_6:
   return 1;
 }
 
-uint64_t HUDUIVertexBufferAddString(uint64_t a1, uint64_t a2, uint64_t *a3, __int32 a4, float32_t a5, float32_t a6, float a7, int32x2_t a8)
+uint64_t HUDUIVertexBufferAddString(uint64_t a1, uint64_t a2, const void **a3, __int32 a4, float32_t a5, float32_t a6, float a7, int32x2_t a8)
 {
   v12 = a3[1];
   v13 = *a3;
@@ -8748,49 +8752,49 @@ LABEL_6:
   return 1;
 }
 
-uint64_t HUDUIWindowAddGraph(uint64_t result, uint64_t a2, unsigned int a3, int a4, int a5, char a6, int a7, double a8, double a9, float a10, float a11, float a12, double a13, double a14, double a15, float a16, float a17, float a18, float a19)
+uint64_t HUDUIWindowAddGraph(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, double a8, double a9, float a10, float a11, float a12, __n128 a13, __n128 a14, __n128 a15, float a16, float a17, float a18, float a19)
 {
   if (!result)
   {
     return result;
   }
 
-  v17 = *(result + 5852);
-  v18 = *(result + 40);
-  if (v17 != -1)
+  v19 = *(result + 5852);
+  v20 = *(result + 40);
+  if (v19 != -1)
   {
-    v19 = *(result + 32);
-    if (0xF0F0F0F0F0F0F0F1 * ((v18 - v19) >> 3) > v17)
+    v21 = *(result + 32);
+    if (0xF0F0F0F0F0F0F0F1 * ((v20 - v21) >> 3) > v19)
     {
-      v20 = v19 + 136 * v17;
+      v22 = v21 + 136 * v19;
       goto LABEL_6;
     }
 
     return 0;
   }
 
-  v20 = *(result + 32);
-  if (v20 == v18)
+  v22 = *(result + 32);
+  if (v22 == v20)
   {
     return 0;
   }
 
 LABEL_6:
-  if (!v20)
+  if (!v22)
   {
     return 0;
   }
 
-  result = HUDUIVertexBufferAddGraph(**(v20 + 40), *(v20 + 96), a2, a3, a4, a5, a6, a7, a16, a17, a18, a19, a8, a9, a10, a11, a12, *(*(v20 + 40) + 5844));
+  result = HUDUIVertexBufferAddGraph(**(v22 + 40), *(v22 + 96), a2, a3, a4, a5, a6, a7, a16, a17, a18, a19, a8, a9, a10, a11, a12, *(*(v22 + 40) + 5844));
   if (result)
   {
-    v21 = *(v20 + 56);
-    if (v21 < a19)
+    v23 = *(v22 + 56);
+    if (v23 < a19)
     {
-      v21 = a19;
+      v23 = a19;
     }
 
-    *(v20 + 56) = v21;
+    *(v22 + 56) = v23;
     return 1;
   }
 
@@ -8817,9 +8821,9 @@ uint64_t HUDUIVertexBufferAddGraph(uint64_t a1, uint64_t a2, uint64_t a3, unsign
     v31 = v30 + 2 * a4 + 1;
   }
 
-  v32 = (6 * v31);
+  v32 = 6 * v31;
   v33 = *(a2 + 16);
-  std::vector<HUDUIVertex>::vector[abi:ne200100](v204, 4 * v31);
+  std::vector<HUDUIVertex>::vector[abi:ne200100](v204, (4 * v31));
   std::vector<unsigned short>::vector[abi:ne200100](__p, v32);
   *v34.i32 = a18;
   v35 = v204[0];
@@ -9546,48 +9550,55 @@ void sub_23E2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t HUDUIWindowAddStats(uint64_t result, unsigned int a2, __int128 *a3, float a4, double a5, double a6, float32_t a7, float32_t a8, float a9, float a10, uint64_t a11, int a12)
+uint64_t HUDUIWindowAddStats(uint64_t result, unsigned int a2, __int128 *a3, float a4, double a5, double a6, float32_t a7, float32_t a8, float a9, float a10, const char *a11, int a12)
 {
-  if (result)
+  if (!result)
   {
-    v17 = result;
-    v18 = *(result + 5852);
-    v19 = *(result + 40);
-    if (v18 == -1)
-    {
-      v21 = *(result + 32);
-      if (v21 != v19)
-      {
-LABEL_6:
-        if (v21)
-        {
-          v24 = *a3;
-          v25 = *(a3 + 2);
-          v26 = a12;
-          v27 = HUDUIInvalidString;
-          v28 = qword_784F8;
-          v29 = a12;
-          v22 = a4;
-          HUDUITemporaryStringWithFormat(result, a2, "%6.2f%s [%6.2f %6.2f]", v30, SLOBYTE(v22));
-          v30[6] = a12;
-          *&v23 = a10;
-          return HUDUIWindowAddSegmentedLabel(v17, &v24, 3u, a7, a8, a9, v23);
-        }
-      }
-    }
+    return result;
+  }
 
-    else
+  v17 = result;
+  v18 = *(result + 5852);
+  v19 = *(result + 40);
+  if (v18 != -1)
+  {
+    v20 = *(result + 32);
+    if (0xF0F0F0F0F0F0F0F1 * ((v19 - v20) >> 3) > v18)
     {
-      v20 = *(result + 32);
-      if (0xF0F0F0F0F0F0F0F1 * ((v19 - v20) >> 3) > v18)
-      {
-        v21 = v20 + 136 * v18;
-        goto LABEL_6;
-      }
+      v21 = v20 + 136 * v18;
+      goto LABEL_6;
     }
 
     return 0;
   }
 
-  return result;
+  v21 = *(result + 32);
+  if (v21 == v19)
+  {
+    return 0;
+  }
+
+LABEL_6:
+  if (!v21)
+  {
+    return 0;
+  }
+
+  v25 = *a3;
+  v26 = *(a3 + 2);
+  LODWORD(v27) = a12;
+  v28 = HUDUIInvalidString;
+  v29 = qword_784F8;
+  LODWORD(v30) = a12;
+  v22 = "";
+  v23 = a4;
+  if (a11)
+  {
+    v22 = a11;
+  }
+
+  HUDUITemporaryStringWithFormat(result, a2, "%6.2f%s [%6.2f %6.2f]", v31, *&v23, v22, *&a5, *&a6, v25, v26, v27, v28, v29, v30);
+  v31[6] = a12;
+  *&v24 = a10;
+  return HUDUIWindowAddSegmentedLabel(v17, &v25, 3u, a7, a8, a9, v24);
 }

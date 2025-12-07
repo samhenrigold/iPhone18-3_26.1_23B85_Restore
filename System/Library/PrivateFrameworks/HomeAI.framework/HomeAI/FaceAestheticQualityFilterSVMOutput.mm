@@ -24,24 +24,26 @@
 - (id)featureValueForName:(id)name
 {
   nameCopy = name;
-  if ([nameCopy isEqualToString:@"classLabel"])
+  if ([nameCopy isEqualToString:?])
   {
-    v5 = [MEMORY[0x277CBFEF8] featureValueWithInt64:{-[FaceAestheticQualityFilterSVMOutput classLabel](self, "classLabel")}];
+    v5 = MEMORY[0x277CBFEF8];
+    [(FaceAestheticQualityFilterSVMOutput *)self classLabel];
+    v6 = [v5 featureValueWithInt64:?];
   }
 
-  else if ([nameCopy isEqualToString:@"classProbability"])
+  else if ([nameCopy isEqualToString:?])
   {
-    v6 = MEMORY[0x277CBFEF8];
+    v7 = MEMORY[0x277CBFEF8];
     classProbability = [(FaceAestheticQualityFilterSVMOutput *)self classProbability];
-    v5 = [v6 featureValueWithDictionary:classProbability error:0];
+    v6 = [v7 featureValueWithDictionary:? error:?];
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

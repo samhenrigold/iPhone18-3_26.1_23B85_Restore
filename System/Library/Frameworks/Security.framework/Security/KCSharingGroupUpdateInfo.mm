@@ -23,11 +23,11 @@
 
 - (KCSharingGroupUpdateInfo)initWithCoder:(id)coder
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = KCSharingGroupUpdateInfo;
-  v5 = [(KCSharingGroupUpdateInfo *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = KCSharingGroupUpdateInfo;
+  v5 = [(KCSharingGroupUpdateInfo *)&v17 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"updateType"];
@@ -37,9 +37,9 @@
     v5->_updatedGroup = v7;
 
     v9 = MEMORY[0x1E695DFD8];
-    v19[0] = objc_opt_class();
-    v19[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[0] = objc_opt_class();
+    v18[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v11 = [v9 setWithArray:v10];
 
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"addedParticipants"];
@@ -51,7 +51,6 @@
     v5->_departedGroupID = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

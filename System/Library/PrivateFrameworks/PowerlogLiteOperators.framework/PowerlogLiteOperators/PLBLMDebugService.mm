@@ -4,7 +4,9 @@
 + (id)entryEventNoneDefinitions;
 + (void)load;
 - (PLBLMDebugService)init;
+- (double)energyForRootNodeID:(int)d withRange:(_PLTimeIntervalRange)range;
 - (id)Testservice:(id)testservice;
+- (id)logRailData:(int)data withTriggerName:(id)name inTimeRange:(_PLTimeIntervalRange)range;
 - (id)respondBLMDDebugQuery:(id)query;
 - (void)debugTrigger;
 - (void)initOperatorDependancies;
@@ -24,67 +26,63 @@
 
 + (id)entryEventNoneDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"BLMQADebug";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"BLMQADebug";
   entryEventNoneDefinitionBLMDebug = [self entryEventNoneDefinitionBLMDebug];
-  v7[0] = entryEventNoneDefinitionBLMDebug;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryEventNoneDefinitionBLMDebug;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryEventNoneDefinitionBLMDebug
 {
-  v30[2] = *MEMORY[0x277D85DE8];
-  v29[0] = *MEMORY[0x277D3F4E8];
-  v27 = *MEMORY[0x277D3F568];
-  v28 = &unk_282C1C4B8;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  v30[0] = v24;
-  v29[1] = *MEMORY[0x277D3F540];
-  v25[0] = @"trigger_name";
+  v29[2] = *MEMORY[0x277D85DE8];
+  v28[0] = *MEMORY[0x277D3F4E8];
+  v26 = *MEMORY[0x277D3F568];
+  v27 = &unk_282C1C4B8;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v29[0] = v23;
+  v28[1] = *MEMORY[0x277D3F540];
+  v24[0] = @"trigger_name";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v26[0] = commonTypeDict_StringFormat;
-  v25[1] = @"trigger_start_time";
+  v25[0] = commonTypeDict_StringFormat;
+  v24[1] = @"trigger_start_time";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v26[1] = commonTypeDict_DateFormat;
-  v25[2] = @"trigger_stop_time";
+  v25[1] = commonTypeDict_DateFormat;
+  v24[2] = @"trigger_stop_time";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_DateFormat];
-  v26[2] = commonTypeDict_DateFormat2;
-  v25[3] = @"trigger_start_time_monotonic";
+  v25[2] = commonTypeDict_DateFormat2;
+  v24[3] = @"trigger_start_time_monotonic";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat3 = [mEMORY[0x277D3F198]4 commonTypeDict_DateFormat];
-  v26[3] = commonTypeDict_DateFormat3;
-  v25[4] = @"trigger_stop_time_monotonic";
+  v25[3] = commonTypeDict_DateFormat3;
+  v24[4] = @"trigger_stop_time_monotonic";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat4 = [mEMORY[0x277D3F198]5 commonTypeDict_DateFormat];
-  v26[4] = commonTypeDict_DateFormat4;
-  v25[5] = @"trigger_diff_time";
+  v25[4] = commonTypeDict_DateFormat4;
+  v24[5] = @"trigger_diff_time";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198]6 commonTypeDict_RealFormat];
-  v26[5] = commonTypeDict_RealFormat;
-  v25[6] = @"rootnodeid";
+  v25[5] = commonTypeDict_RealFormat;
+  v24[6] = @"rootnodeid";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v26[6] = commonTypeDict_IntegerFormat;
-  v25[7] = @"railpower";
+  v25[6] = commonTypeDict_IntegerFormat;
+  v24[7] = @"railpower";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]8 commonTypeDict_RealFormat];
-  v26[7] = commonTypeDict_RealFormat2;
-  v25[8] = @"SafeTime";
+  v25[7] = commonTypeDict_RealFormat2;
+  v24[8] = @"SafeTime";
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]9 commonTypeDict_RealFormat];
-  v26[8] = commonTypeDict_RealFormat3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:9];
-  v30[1] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v25[8] = commonTypeDict_RealFormat3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:9];
+  v29[1] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
 
   return v11;
 }
@@ -99,7 +97,7 @@
   return _MergedGlobals_1_34;
 }
 
-uint64_t __38__PLBLMDebugService_isModelTriggerRun__block_invoke()
+void *__38__PLBLMDebugService_isModelTriggerRun__block_invoke()
 {
   result = [MEMORY[0x277D3F180] BOOLForKey:@"ModelTrigger"];
   _MergedGlobals_1_34 = result;
@@ -108,12 +106,12 @@ uint64_t __38__PLBLMDebugService_isModelTriggerRun__block_invoke()
 
 - (PLBLMDebugService)init
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277D3F208] isHomePod] & 1) == 0 && objc_msgSend(MEMORY[0x277D3F208], "internalBuild") && ((objc_msgSend(MEMORY[0x277D3F180], "isDevBoard") & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F180], "debugEnabled") & 1) != 0 || +[PLBLMDebugService isModelTriggerRun](PLBLMDebugService, "isModelTriggerRun")))
   {
-    v17.receiver = self;
-    v17.super_class = PLBLMDebugService;
-    v3 = [(PLOperator *)&v17 init];
+    v16.receiver = self;
+    v16.super_class = PLBLMDebugService;
+    v3 = [(PLOperator *)&v16 init];
     if (v3)
     {
       v4 = objc_opt_new();
@@ -146,7 +144,7 @@ uint64_t __38__PLBLMDebugService_isModelTriggerRun__block_invoke()
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v19 = v7;
+            v18 = v7;
             _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -162,11 +160,10 @@ uint64_t __38__PLBLMDebugService_isModelTriggerRun__block_invoke()
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
-uint64_t __25__PLBLMDebugService_init__block_invoke(uint64_t a1)
+void *__25__PLBLMDebugService_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD1 = result;
@@ -175,7 +172,7 @@ uint64_t __25__PLBLMDebugService_init__block_invoke(uint64_t a1)
 
 - (void)initOperatorDependancies
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] internalBuild] && ((objc_msgSend(MEMORY[0x277D3F180], "isDevBoard") & 1) != 0 || (objc_msgSend(MEMORY[0x277D3F180], "debugEnabled") & 1) != 0 || +[PLBLMDebugService isModelTriggerRun](PLBLMDebugService, "isModelTriggerRun")))
   {
     if ([MEMORY[0x277D3F180] debugEnabled])
@@ -204,26 +201,26 @@ uint64_t __25__PLBLMDebugService_init__block_invoke(uint64_t a1)
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v31 = v4;
+          v30 = v4;
           _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
         }
       }
     }
 
     v10 = objc_alloc(MEMORY[0x277D3F270]);
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66;
-    v28[3] = &unk_27825A1D8;
-    v28[4] = self;
-    v27 = [v10 initWithOperator:self withRegistration:&unk_282C184B8 withBlock:v28];
-    [(PLBLMDebugService *)self setXpcListenerBLMDebugTrigger:v27];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66;
+    v27[3] = &unk_27825A1D8;
+    v27[4] = self;
+    v26 = [v10 initWithOperator:self withRegistration:&unk_282C184B8 withBlock:v27];
+    [(PLBLMDebugService *)self setXpcListenerBLMDebugTrigger:v26];
     v11 = *MEMORY[0x277D3F5C8];
-    v26 = [(PLOperator *)PLIOReportAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"EnergyModel"];
-    v25 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v26 withBlock:&__block_literal_global_76];
-    [(PLBLMDebugService *)self setIoreportCallback:v25];
-    v24 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:v11 andName:@"Usage"];
-    v12 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v24 withBlock:&__block_literal_global_79];
+    v25 = [(PLOperator *)PLIOReportAgent entryKeyForType:*MEMORY[0x277D3F5C8] andName:@"EnergyModel"];
+    v24 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v25 withBlock:&__block_literal_global_76];
+    [(PLBLMDebugService *)self setIoreportCallback:v24];
+    v23 = [(PLOperator *)PLProcessNetworkAgent entryKeyForType:v11 andName:@"Usage"];
+    v12 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v23 withBlock:&__block_literal_global_79];
     [(PLBLMDebugService *)self setProcessnetworkCallback:v12];
     v13 = [(PLOperator *)PLWifiAgent entryKeyForType:v11 andName:@"DiffProperties"];
     v14 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v13 withBlock:&__block_literal_global_82];
@@ -241,11 +238,9 @@ uint64_t __25__PLBLMDebugService_init__block_invoke(uint64_t a1)
     v22 = [objc_alloc(MEMORY[0x277D3F1A8]) initWithOperator:self forEntryKey:v21 withBlock:&__block_literal_global_91];
     [(PLBLMDebugService *)self setDisplayAPLCallback:v22];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __45__PLBLMDebugService_initOperatorDependancies__block_invoke(uint64_t a1)
+void *__45__PLBLMDebugService_initOperatorDependancies__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD2 = result;
@@ -254,7 +249,7 @@ uint64_t __45__PLBLMDebugService_initOperatorDependancies__block_invoke(uint64_t
 
 void __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCACA8];
   v7 = a5;
   v8 = [v6 stringWithFormat:@"Asked Trigger: %@", v7];
@@ -268,26 +263,25 @@ void __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66(uint64_t 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v16 = v8;
+    v15 = v8;
     _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
   }
 
   [*(a1 + 32) registerTrigger:v7];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerTrigger:(id)trigger
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v35 = 3221225472;
-    v36 = __37__PLBLMDebugService_registerTrigger___block_invoke;
-    v37 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v38 = v5;
+    v34 = 3221225472;
+    v35 = __37__PLBLMDebugService_registerTrigger___block_invoke;
+    v36 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v37 = v5;
     if (qword_2811F4CF8 != -1)
     {
       dispatch_once(&qword_2811F4CF8, &block);
@@ -295,7 +289,7 @@ void __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66(uint64_t 
 
     if (byte_2811F4CD3 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got a trigger %@", triggerCopy, block, v35, v36, v37, v38];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Got a trigger %@", triggerCopy, block, v34, v35, v36, v37];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -306,7 +300,7 @@ void __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66(uint64_t 
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v42 = v6;
+        v41 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -355,15 +349,13 @@ void __45__PLBLMDebugService_initOperatorDependancies__block_invoke_66(uint64_t 
   [v31 setObject:v29 forKeyedSubscript:@"trigger_diff_time"];
 
   [(PLBLMDebugService *)self triggerSelectorAtDate:v23 withSelector:sel_triggerLoggersNow_ withUseInfo:0];
-  v39 = @"trigger_name";
-  v40 = v12;
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+  v38 = @"trigger_name";
+  v39 = v12;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
   [(PLBLMDebugService *)self triggerSelectorAtDate:v24 withSelector:sel_respondBLMDDebugQuery_ withUseInfo:v32];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__PLBLMDebugService_registerTrigger___block_invoke(uint64_t a1)
+void *__37__PLBLMDebugService_registerTrigger___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD3 = result;
@@ -372,7 +364,7 @@ uint64_t __37__PLBLMDebugService_registerTrigger___block_invoke(uint64_t a1)
 
 - (void)triggerSelectorAtDate:(id)date withSelector:(SEL)selector withUseInfo:(id)info
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   infoCopy = info;
   if ([MEMORY[0x277D3F180] debugEnabled])
@@ -401,7 +393,7 @@ uint64_t __37__PLBLMDebugService_registerTrigger___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v24 = infoCopy;
+        v23 = infoCopy;
         _os_log_debug_impl(&dword_21A4C6000, v16, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -413,11 +405,9 @@ uint64_t __37__PLBLMDebugService_registerTrigger___block_invoke(uint64_t a1)
 
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
   [mainRunLoop addTimer:v19 forMode:*MEMORY[0x277CBE640]];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo___block_invoke(uint64_t a1)
+void *__68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD4 = result;
@@ -426,16 +416,16 @@ uint64_t __68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo_
 
 - (void)triggerLoggersNow:(id)now
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nowCopy = now;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v5 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __39__PLBLMDebugService_triggerLoggersNow___block_invoke;
-    v19 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v20 = v5;
+    v16 = 3221225472;
+    v17 = __39__PLBLMDebugService_triggerLoggersNow___block_invoke;
+    v18 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v19 = v5;
     if (qword_2811F4D08 != -1)
     {
       dispatch_once(&qword_2811F4D08, &block);
@@ -443,7 +433,7 @@ uint64_t __68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo_
 
     if (byte_2811F4CD5 == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Triggering Now %@", nowCopy, block, v17, v18, v19, v20];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Triggering Now %@", nowCopy, block, v16, v17, v18, v19];
       v7 = MEMORY[0x277D3F178];
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
       lastPathComponent = [v8 lastPathComponent];
@@ -454,7 +444,7 @@ uint64_t __68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo_
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v22 = v6;
+        v21 = v6;
         _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -468,11 +458,9 @@ uint64_t __68__PLBLMDebugService_triggerSelectorAtDate_withSelector_withUseInfo_
   sleep(1u);
   bbCallback = [(PLBLMDebugService *)self bbCallback];
   [bbCallback requestEntry];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
+void *__39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD5 = result;
@@ -481,20 +469,20 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
 
 - (id)respondBLMDDebugQuery:(id)query
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v5 = 0x277D3F000uLL;
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v6 = objc_opt_class();
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke;
-    v62[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v62[4] = v6;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke;
+    v61[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v61[4] = v6;
     if (qword_2811F4D10 != -1)
     {
-      dispatch_once(&qword_2811F4D10, v62);
+      dispatch_once(&qword_2811F4D10, v61);
     }
 
     if (byte_2811F4CD6 == 1)
@@ -510,7 +498,7 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v65 = queryCopy;
+        v64 = queryCopy;
         _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -524,23 +512,23 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
 
   if (v17)
   {
-    v53 = queryCopy;
+    v52 = queryCopy;
     [v14 setObject:v15 forKeyedSubscript:@"trigger_name"];
     triggers2 = [(PLBLMDebugService *)self triggers];
     [triggers2 objectForKeyedSubscript:v15];
     v20 = v19 = v15;
     [v20 objectForKeyedSubscript:@"trigger_start_time"];
-    v21 = v55 = userInfo;
+    v21 = v54 = userInfo;
     [v14 setObject:v21 forKeyedSubscript:@"trigger_start_time"];
 
     triggers3 = [(PLBLMDebugService *)self triggers];
-    v51 = v19;
+    v50 = v19;
     v23 = [triggers3 objectForKeyedSubscript:v19];
     v24 = [v23 objectForKeyedSubscript:@"trigger_stop_time"];
     [v14 setObject:v24 forKeyedSubscript:@"trigger_stop_time"];
 
     v25 = [v14 objectForKeyedSubscript:@"trigger_start_time"];
-    userInfo = v55;
+    userInfo = v54;
     v26 = [v14 objectForKeyedSubscript:@"trigger_stop_time"];
     [v25 timeIntervalSince1970];
     v28 = v27;
@@ -548,32 +536,32 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
     v30 = v29;
 
     v31 = objc_opt_new();
-    v52 = v14;
+    v51 = v14;
     [v14 setObject:v31 forKeyedSubscript:@"trigger_rail_data"];
 
     deviceRootNodeIDs = [MEMORY[0x277D3F0C0] deviceRootNodeIDs];
+    v57 = 0u;
     v58 = 0u;
     v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v33 = [deviceRootNodeIDs countByEnumeratingWithState:&v58 objects:v63 count:16];
+    v33 = [deviceRootNodeIDs countByEnumeratingWithState:&v57 objects:v62 count:16];
     if (v33)
     {
       v34 = v33;
       v35 = v30 - v28;
-      v56 = *v59;
-      v54 = deviceRootNodeIDs;
+      v55 = *v58;
+      v53 = deviceRootNodeIDs;
       do
       {
         v36 = 0;
         do
         {
-          if (*v59 != v56)
+          if (*v58 != v55)
           {
             objc_enumerationMutation(deviceRootNodeIDs);
           }
 
-          intValue = [*(*(&v58 + 1) + 8 * v36) intValue];
+          intValue = [*(*(&v57 + 1) + 8 * v36) intValue];
           v38 = [userInfo objectForKeyedSubscript:@"trigger_name"];
           v39 = [(PLBLMDebugService *)self logRailData:intValue withTriggerName:v38 inTimeRange:v28, v35];
 
@@ -605,14 +593,14 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
               if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v65 = v43;
+                v64 = v43;
                 _os_log_debug_impl(&dword_21A4C6000, v48, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
               v5 = v42;
               self = selfCopy;
-              deviceRootNodeIDs = v54;
-              userInfo = v55;
+              deviceRootNodeIDs = v53;
+              userInfo = v54;
             }
           }
 
@@ -620,58 +608,307 @@ uint64_t __39__PLBLMDebugService_triggerLoggersNow___block_invoke(uint64_t a1)
         }
 
         while (v34 != v36);
-        v34 = [deviceRootNodeIDs countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v34 = [deviceRootNodeIDs countByEnumeratingWithState:&v57 objects:v62 count:16];
       }
 
       while (v34);
     }
 
-    v14 = v52;
-    queryCopy = v53;
-    v15 = v51;
+    v14 = v51;
+    queryCopy = v52;
+    v15 = v50;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
-uint64_t __43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke(uint64_t a1)
+void *__43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD6 = result;
   return result;
 }
 
-uint64_t __43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke_122(uint64_t a1)
+void *__43__PLBLMDebugService_respondBLMDDebugQuery___block_invoke_122(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD7 = result;
   return result;
 }
 
-uint64_t __61__PLBLMDebugService_logRailData_withTriggerName_inTimeRange___block_invoke(uint64_t a1)
+- (id)logRailData:(int)data withTriggerName:(id)name inTimeRange:(_PLTimeIntervalRange)range
+{
+  var1 = range.var1;
+  var0 = range.var0;
+  v7 = *&data;
+  v45 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v10 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __61__PLBLMDebugService_logRailData_withTriggerName_inTimeRange___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v10;
+    if (qword_2811F4D20 != -1)
+    {
+      dispatch_once(&qword_2811F4D20, block);
+    }
+
+    if (byte_2811F4CD8 == 1)
+    {
+      v11 = MEMORY[0x277CCACA8];
+      v12 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:var0];
+      var1 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSince1970:var0 + var1];
+      v14 = [v11 stringWithFormat:@"Start: %@, End %@", v12, var1];
+
+      v15 = [v11 stringWithFormat:@"Logging rail data %li %@ %@", v7, nameCopy, v14];
+
+      v16 = MEMORY[0x277D3F178];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
+      lastPathComponent = [v17 lastPathComponent];
+      v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLMDebugService logRailData:withTriggerName:inTimeRange:]"];
+      [v16 logMessage:v15 fromFile:lastPathComponent fromFunction:v19 fromLineNumber:239];
+
+      v20 = PLLogCommon();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v44 = v15;
+        _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  v41 = v7;
+  v21 = [(PLOperator *)PLBLMDebugService entryKeyForType:*MEMORY[0x277D3F5E0] andName:@"BLMQADebug"];
+  v22 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v21];
+  [v22 setObject:nameCopy forKeyedSubscript:@"trigger_name"];
+  triggers = [(PLBLMDebugService *)self triggers];
+  v24 = [triggers objectForKeyedSubscript:nameCopy];
+  v25 = [v24 objectForKeyedSubscript:@"trigger_start_time"];
+
+  triggers2 = [(PLBLMDebugService *)self triggers];
+  v27 = [triggers2 objectForKeyedSubscript:nameCopy];
+  v28 = [v27 objectForKeyedSubscript:@"trigger_stop_time"];
+
+  if (v25)
+  {
+    convertFromMonotonicToSystem = [v25 convertFromMonotonicToSystem];
+    [v22 setObject:convertFromMonotonicToSystem forKeyedSubscript:@"trigger_start_time"];
+
+    [v22 setObject:v25 forKeyedSubscript:@"trigger_start_time_monotonic"];
+  }
+
+  if (v28)
+  {
+    convertFromMonotonicToSystem2 = [v28 convertFromMonotonicToSystem];
+    [v22 setObject:convertFromMonotonicToSystem2 forKeyedSubscript:@"trigger_stop_time"];
+
+    [v22 setObject:v28 forKeyedSubscript:@"trigger_stop_time_monotonic"];
+  }
+
+  triggers3 = [(PLBLMDebugService *)self triggers];
+  v32 = [triggers3 objectForKeyedSubscript:nameCopy];
+  v33 = [v32 objectForKeyedSubscript:@"trigger_diff_time"];
+  [v22 setObject:v33 forKeyedSubscript:@"trigger_diff_time"];
+
+  v34 = [MEMORY[0x277CCABB0] numberWithInt:v41];
+  [v22 setObject:v34 forKeyedSubscript:@"rootnodeid"];
+
+  distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+  [distantFuture timeIntervalSince1970];
+  v37 = v36;
+
+  v38 = [MEMORY[0x277CCABB0] numberWithDouble:v37];
+  [v22 setObject:v38 forKeyedSubscript:@"SafeTime"];
+
+  if (v37 >= var0 + var1)
+  {
+    [(PLBLMDebugService *)self energyForRootNodeID:v41 withRange:var0, var1];
+    v39 = [MEMORY[0x277CCABB0] numberWithDouble:?];
+    [v22 setObject:v39 forKeyedSubscript:@"railpower"];
+  }
+
+  else
+  {
+    [v22 setObject:&unk_282C11940 forKeyedSubscript:@"railpower"];
+  }
+
+  [(PLOperator *)self logEntry:v22];
+
+  return v22;
+}
+
+void *__61__PLBLMDebugService_logRailData_withTriggerName_inTimeRange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD8 = result;
   return result;
 }
 
-uint64_t __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke(uint64_t a1)
+- (double)energyForRootNodeID:(int)d withRange:(_PLTimeIntervalRange)range
+{
+  v51 = *MEMORY[0x277D85DE8];
+  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"(timestamp+%@)>%f AND (timestamp+%@)<%f AND %@=%i", *MEMORY[0x277D3F360], *&range.var0, *MEMORY[0x277D3F3A0], range.var0 + range.var1, *MEMORY[0x277D3F370], *&d];
+  v6 = MEMORY[0x277CCACA8];
+  entryKey = [MEMORY[0x277D3F0B8] entryKey];
+  v8 = [v6 stringWithFormat:@"SELECT * FROM '%@' WHERE (%@)", entryKey, v5];;
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v9 = objc_opt_class();
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v9;
+    if (qword_2811F4D28 != -1)
+    {
+      dispatch_once(&qword_2811F4D28, block);
+    }
+
+    if (byte_2811F4CD9 == 1)
+    {
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"rootNodeEnergyQuery=%@", v8];
+      v11 = MEMORY[0x277D3F178];
+      v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
+      lastPathComponent = [v12 lastPathComponent];
+      v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLMDebugService energyForRootNodeID:withRange:]"];
+      [v11 logMessage:v10 fromFile:lastPathComponent fromFunction:v14 fromLineNumber:283];
+
+      v15 = PLLogCommon();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v50 = v10;
+        _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  v16 = objc_msgSend_storage(self);
+  entryKey2 = [MEMORY[0x277D3F0B8] entryKey];
+  v18 = [v16 entriesForKey:entryKey2 withQuery:v8];
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v19 = objc_opt_class();
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_143;
+    v46[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v46[4] = v19;
+    if (qword_2811F4D30 != -1)
+    {
+      dispatch_once(&qword_2811F4D30, v46);
+    }
+
+    if (byte_2811F4CDA == 1)
+    {
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"rootNodeEnergyEntries=%@", v18];
+      v21 = MEMORY[0x277D3F178];
+      v22 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
+      lastPathComponent2 = [v22 lastPathComponent];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLMDebugService energyForRootNodeID:withRange:]"];
+      [v21 logMessage:v20 fromFile:lastPathComponent2 fromFunction:v24 fromLineNumber:287];
+
+      v25 = PLLogCommon();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v50 = v20;
+        _os_log_debug_impl(&dword_21A4C6000, v25, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v26 = v18;
+  v27 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+  if (v27)
+  {
+    v28 = v27;
+    v29 = *v43;
+    v30 = 0.0;
+    do
+    {
+      for (i = 0; i != v28; ++i)
+      {
+        if (*v43 != v29)
+        {
+          objc_enumerationMutation(v26);
+        }
+
+        [*(*(&v42 + 1) + 8 * i) energy];
+        v30 = v30 + v32;
+      }
+
+      v28 = [v26 countByEnumeratingWithState:&v42 objects:v48 count:16];
+    }
+
+    while (v28);
+  }
+
+  else
+  {
+    v30 = 0.0;
+  }
+
+  if ([MEMORY[0x277D3F180] debugEnabled])
+  {
+    v33 = objc_opt_class();
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_149;
+    v41[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v41[4] = v33;
+    if (qword_2811F4D38 != -1)
+    {
+      dispatch_once(&qword_2811F4D38, v41);
+    }
+
+    if (byte_2811F4CDB == 1)
+    {
+      v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"totalEnergy=%f", *&v30];
+      v35 = MEMORY[0x277D3F178];
+      v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBLMDebugService.m"];
+      lastPathComponent3 = [v36 lastPathComponent];
+      v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBLMDebugService energyForRootNodeID:withRange:]"];
+      [v35 logMessage:v34 fromFile:lastPathComponent3 fromFunction:v38 fromLineNumber:294];
+
+      v39 = PLLogCommon();
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 138412290;
+        v50 = v34;
+        _os_log_debug_impl(&dword_21A4C6000, v39, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      }
+    }
+  }
+
+  return v30;
+}
+
+void *__51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CD9 = result;
   return result;
 }
 
-uint64_t __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_143(uint64_t a1)
+void *__51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_143(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CDA = result;
   return result;
 }
 
-uint64_t __51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_149(uint64_t a1)
+void *__51__PLBLMDebugService_energyForRootNodeID_withRange___block_invoke_149(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F4CDB = result;

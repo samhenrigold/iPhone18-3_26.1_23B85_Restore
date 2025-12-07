@@ -172,7 +172,7 @@
 - (void)_intelligenceCollectSubelementsIn:(CGRect)in using:(id)using transformToRoot:(id)root;
 - (void)_intrinsicContentSizeInvalidatedForChildView:(id)view;
 - (void)_invalidateForPropertyChange;
-- (void)_markAndLayoutAsNeededForField:(uint64_t)field state:;
+- (void)_markAndLayoutAsNeededForField:(void *)field state:;
 - (void)_populateArchivedSubviews:(id)subviews;
 - (void)_prepareForFirstIntrinsicContentSizeCalculation;
 - (void)_prepareForSecondIntrinsicContentSizeCalculationWithLayoutEngineBounds:(CGRect)bounds;
@@ -1907,9 +1907,9 @@ LABEL_36:
   if (userInterfaceIdiom == 5)
   {
     v43 = [off_1E70ECC18 systemFontOfSize:14.0];
-    v44 = [v40 isEqual:v43];
+    isEqual = objc_msgSend_isEqual_(v40);
 
-    if (!v44)
+    if (!isEqual)
     {
       goto LABEL_30;
     }
@@ -1918,7 +1918,7 @@ LABEL_36:
   }
 
   v45 = [off_1E70ECC18 systemFontOfSize:18.0];
-  v46 = [v40 isEqual:v45];
+  v46 = objc_msgSend_isEqual_(v40);
 
   if (v46)
   {
@@ -2841,8 +2841,8 @@ LABEL_5:
 
   [providerCopy setContextMenuIsPrimary:{-[UIControl showsMenuAsPrimaryAction](self, "showsMenuAsPrimaryAction")}];
   [(UIView *)self invalidateIntrinsicContentSize];
-  menu = [(UIButton *)self menu];
-  [providerCopy setMenu:menu];
+  v19 = objc_msgSend_menu(self);
+  [providerCopy setMenu:v19];
 }
 
 + (void)_registerVisualProviderClass:(Class)class forIdiom:(int64_t)idiom
@@ -3815,7 +3815,7 @@ void __28__UIButton_setSpringLoaded___block_invoke_2(uint64_t a1, void *a2)
       [self _setContent:v9 forState:field];
     }
 
-    if ([valueCopy isEqualToString:@"attributedTitle"])
+    if (objc_msgSend_isEqualToString_(valueCopy))
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -3835,21 +3835,21 @@ void __28__UIButton_setSpringLoaded___block_invoke_2(uint64_t a1, void *a2)
 
     else
     {
-      v13 = [v11 isEqual:v7];
-      v14 = v13 ^ 1u;
-      if ((~self[11] & 0x210000000000000) == 0 && (v13 & 1) == 0)
+      isEqual = objc_msgSend_isEqual_(v11);
+      v14 = isEqual ^ 1u;
+      if ((~self[11] & 0x210000000000000) == 0 && (isEqual & 1) == 0)
       {
         [self invalidateIntrinsicContentSize];
       }
     }
 
     [(UIButtonContent *)v9 setValue:v7 forKey:valueCopy];
-    if ([valueCopy isEqualToString:@"title"])
+    if (objc_msgSend_isEqualToString_(valueCopy))
     {
       [(UIButtonContent *)v9 updateVariableLengthStringForView:self];
     }
 
-    if ([valueCopy isEqualToString:@"titleColor"])
+    if (objc_msgSend_isEqualToString_(valueCopy))
     {
       self[77] |= 0x80000000uLL;
     }
@@ -3872,7 +3872,7 @@ void __28__UIButton_setSpringLoaded___block_invoke_2(uint64_t a1, void *a2)
       }
 
       v16 = v15;
-      if (!field && v16 && [valueCopy isEqualToString:@"background"] && objc_msgSend(self, "_wantsAccessibilityUnderline"))
+      if (!field && v16 && objc_msgSend_isEqualToString_(valueCopy) && [self _wantsAccessibilityUnderline])
       {
         _titleView = [self _titleView];
         [_titleView _setWantsUnderlineForAccessibilityButtonShapesEnabled:v7 == 0];
@@ -3888,7 +3888,7 @@ void __28__UIButton_setSpringLoaded___block_invoke_2(uint64_t a1, void *a2)
   return v14;
 }
 
-- (void)_markAndLayoutAsNeededForField:(uint64_t)field state:
+- (void)_markAndLayoutAsNeededForField:(void *)field state:
 {
   v8 = a2;
   if (self)
@@ -6250,11 +6250,11 @@ LABEL_29:
 
     _visualProvider5 = [(UIButton *)self _visualProvider];
     font3 = [_visualProvider5 font];
-    v23 = [font isEqual:font3];
+    isEqual = objc_msgSend_isEqual_(font);
 
     if (v19)
     {
-      if (v23)
+      if (isEqual)
       {
         goto LABEL_41;
       }
@@ -6263,7 +6263,7 @@ LABEL_29:
     else
     {
 
-      if (v23)
+      if (isEqual)
       {
         goto LABEL_41;
       }
@@ -6837,9 +6837,9 @@ LABEL_16:
 
   if (v6 && _visualProvider2)
   {
-    v7 = [(_UIButtonConfigurationShim *)_visualProvider2 isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(_visualProvider2);
 
-    if (v7)
+    if (isEqual)
     {
       goto LABEL_17;
     }

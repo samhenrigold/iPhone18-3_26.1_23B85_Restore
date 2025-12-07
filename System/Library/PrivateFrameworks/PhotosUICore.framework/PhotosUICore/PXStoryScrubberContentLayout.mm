@@ -259,55 +259,55 @@
 
 - (id)_assetFetchResultForTimelineIndex:(int64_t)index
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = __Block_byref_object_copy__87719;
-  v26 = __Block_byref_object_dispose__87720;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy__87719;
+  v25 = __Block_byref_object_dispose__87720;
   displayedTimeline = [(PXStoryTimelineLayout *)self displayedTimeline];
-  v20 = 0u;
-  v21 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v18 = 0u;
   displayedTimeline2 = [(PXStoryTimelineLayout *)self displayedTimeline];
-  v7 = displayedTimeline2;
+  v6 = displayedTimeline2;
   if (displayedTimeline2)
   {
-    [displayedTimeline2 timeRangeForSegmentWithIdentifier:index];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(displayedTimeline2);
   }
 
   else
   {
-    v20 = 0u;
-    v21 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v18 = 0u;
   }
 
   [(PXStoryTimelineLayout *)self displayedTimelineRect];
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__87719;
-  v17 = __Block_byref_object_dispose__87720;
-  v18 = 0;
-  v8 = v23[5];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __66__PXStoryScrubberContentLayout__assetFetchResultForTimelineIndex___block_invoke;
-  v12[3] = &unk_1E7736A30;
-  v12[4] = self;
-  v12[5] = &v22;
-  v12[6] = &v13;
-  v12[7] = a2;
-  v11[0] = v19;
-  v11[1] = v20;
-  v11[2] = v21;
-  [v8 enumerateClipsInTimeRange:v11 rect:v12 usingBlock:?];
-  v9 = v14[5];
-  _Block_object_dispose(&v13, 8);
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__87719;
+  v16 = __Block_byref_object_dispose__87720;
+  v17 = 0;
+  v7 = v22[5];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__PXStoryScrubberContentLayout__assetFetchResultForTimelineIndex___block_invoke;
+  v11[3] = &unk_1E7736A30;
+  v11[4] = self;
+  v11[5] = &v21;
+  v11[6] = &v12;
+  v11[7] = a2;
+  v10[0] = v18;
+  v10[1] = v19;
+  v10[2] = v20;
+  [v7 enumerateClipsInTimeRange:v10 rect:v11 usingBlock:?];
+  v8 = v13[5];
+  _Block_object_dispose(&v12, 8);
 
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v21, 8);
 
-  return v9;
+  return v8;
 }
 
 void __66__PXStoryScrubberContentLayout__assetFetchResultForTimelineIndex___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, _BYTE *a6)
@@ -327,7 +327,7 @@ void __66__PXStoryScrubberContentLayout__assetFetchResultForTimelineIndex___bloc
     v18 = a2;
     do
     {
-      v20 = [*(*(*(a1 + 40) + 8) + 40) clipWithIdentifier:{*a5, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
+      v20 = [*(*(*(a1 + 40) + 8) + 40) clipWithIdentifier:{*a5, a4, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36}];
       v21 = [v20 resource];
       v22 = [v21 px_storyResourceKind];
 
@@ -1151,7 +1151,7 @@ void __46__PXStoryScrubberContentLayout__updateCursors__block_invoke(uint64_t a1
   memset(&v80[2] + 8, 0, 24);
   if (v9)
   {
-    [v9 nominalPlaybackTime];
+    objc_msgSend_nominalPlaybackTime(v9);
   }
 
   v18 = [v9 currentSegmentIdentifier];
@@ -1159,7 +1159,7 @@ void __46__PXStoryScrubberContentLayout__updateCursors__block_invoke(uint64_t a1
   v79 = 0u;
   if (v17)
   {
-    [v17 timeRangeForSegmentWithIdentifier:v18];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v17);
   }
 
   memset(&v78, 0, sizeof(v78));
@@ -1285,7 +1285,7 @@ void __46__PXStoryScrubberContentLayout__updateCursors__block_invoke(uint64_t a1
   memset(&lhs, 0, sizeof(lhs));
   if (v9)
   {
-    [v9 currentScrollPosition];
+    objc_msgSend_currentScrollPosition(v9);
     v49 = v64;
     if (lhs.value)
     {
@@ -1561,7 +1561,7 @@ LABEL_5:
   v4 = viewModel;
   if (viewModel)
   {
-    [viewModel scrubberPosition];
+    objc_msgSend_scrubberPosition(viewModel);
   }
 
   else
@@ -2134,20 +2134,20 @@ void __72__PXStoryScrubberContentLayout__segmentIdentifierForHostingSpriteIndex_
   v21.receiver = self;
   v21.super_class = PXStoryScrubberContentLayout;
   v6 = [(PXStoryScrubberContentLayout *)&v21 hitTestResultForSpriteIndex:?];
-  layout = [v6 layout];
+  v7 = objc_msgSend_layout(v6);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
   if (isKindOfClass)
   {
-    layout2 = [v6 layout];
-    v10 = layout2;
+    v9 = objc_msgSend_layout(v6);
+    v10 = v9;
     v19 = 0u;
     v20 = 0u;
     v18 = 0u;
-    if (layout2)
+    if (v9)
     {
-      [layout2 clipTimeRange];
+      objc_msgSend_clipTimeRange(v9);
     }
 
     v11 = [(PXFeedHitTestResult *)[PXStoryHitTestResult alloc] initWithSpriteIndex:v3 layout:self];
@@ -2208,16 +2208,15 @@ uint64_t __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_
   return 1;
 }
 
-uint64_t __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
+void __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   if (a2 != 1)
   {
     PXAssertGetLog();
   }
 
-  *(*(*(result + 40) + 8) + 24) = *a4;
+  *(*(*(a1 + 40) + 8) + 24) = *a4;
   *a5 = 1;
-  return result;
 }
 
 void __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_invoke_219(uint64_t a1, void *a2)
@@ -2320,7 +2319,7 @@ void __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_invo
   v4 = displayedTimeline;
   if (displayedTimeline)
   {
-    [displayedTimeline timeRange];
+    objc_msgSend_timeRange(displayedTimeline);
   }
 
   else
@@ -2347,7 +2346,7 @@ void __60__PXStoryScrubberContentLayout_hitTestResultForSpriteIndex___block_invo
   v6 = viewModel;
   if (viewModel)
   {
-    [viewModel scrubberPosition];
+    objc_msgSend_scrubberPosition(viewModel);
   }
 
   else

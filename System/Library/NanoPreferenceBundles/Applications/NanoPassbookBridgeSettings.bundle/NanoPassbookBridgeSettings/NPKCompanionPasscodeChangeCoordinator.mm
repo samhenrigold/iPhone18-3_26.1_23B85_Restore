@@ -8,12 +8,16 @@
 - (void)_checkDeviceLockStateIfNeededWithCompletion:(id)completion;
 - (void)_displayInstructionViewControllerOnNavigationController:(id)controller;
 - (void)_endPasscodeChangeWithPasscodeChanged:(BOOL)changed error:(id)error;
+- (void)_finishRemoteAction:(BOOL)action;
+- (void)_invokePasscodeChangeCompletionWithPasscodeChanged:(BOOL)changed error:(id)error;
 - (void)_startPasscodeChange;
 - (void)_startRemoteAction:(int64_t)action type:(int64_t)type;
 - (void)_tellGizmoToPromptForPasscodeChange;
 - (void)changePasscodeCompanionInstructionViewController:(id)controller didChangeVisibilityWithIsVisible:(BOOL)visible;
+- (void)exitPasscodeChangeFlowWithPasscodeChanged:(BOOL)changed error:(id)error;
 - (void)handleGizmoPasscodeChangeWithVisibleViewController:(id)controller completion:(id)completion;
 - (void)setFlowController:(id)controller;
+- (void)unlockConnection:(id)connection remoteDeviceDidCompleteRemoteAction:(BOOL)action remoteDeviceState:(id)state error:(id)error;
 @end
 
 @implementation NPKCompanionPasscodeChangeCoordinator
@@ -132,6 +136,33 @@
   [(NPKCompanionPasscodeChangeCoordinator *)self setPasscodeChangeCompletion:completionCopy];
   [(NPKCompanionPasscodeChangeCoordinator *)self _displayInstructionViewControllerOnNavigationController:navigationController];
   [(NPKCompanionPasscodeChangeCoordinator *)self _tellGizmoToPromptForPasscodeChange];
+}
+
+- (void)exitPasscodeChangeFlowWithPasscodeChanged:(BOOL)changed error:(id)error
+{
+  changedCopy = changed;
+  errorCopy = error;
+  v7 = pk_Payment_log();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+  if (v8)
+  {
+    v9 = pk_Payment_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138543874;
+      v13 = v11;
+      v14 = 2048;
+      v15 = changedCopy;
+      v16 = 2112;
+      v17 = errorCopy;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Exiting passcode change flow with passcodeChanged: %ld error: %@", &v12, 0x20u);
+    }
+  }
+
+  [(NPKCompanionPasscodeChangeCoordinator *)self _endPasscodeChangeWithPasscodeChanged:changedCopy error:errorCopy];
 }
 
 - (void)setFlowController:(id)controller
@@ -342,6 +373,62 @@
   }
 }
 
+- (void)unlockConnection:(id)connection remoteDeviceDidCompleteRemoteAction:(BOOL)action remoteDeviceState:(id)state error:(id)error
+{
+  actionCopy = action;
+  connectionCopy = connection;
+  stateCopy = state;
+  errorCopy = error;
+  v13 = pk_Payment_log();
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+
+  if (v14)
+  {
+    v15 = pk_Payment_log();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = [NSNumber numberWithBool:actionCopy];
+      *buf = 138544386;
+      v23 = v17;
+      v24 = 2080;
+      v25 = "[NPKCompanionPasscodeChangeCoordinator unlockConnection:remoteDeviceDidCompleteRemoteAction:remoteDeviceState:error:]";
+      v26 = 2112;
+      v27 = v18;
+      v28 = 2048;
+      pendingAction = [(NPKCompanionPasscodeChangeCoordinator *)self pendingAction];
+      v30 = 2112;
+      v31 = errorCopy;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: %s completed: %@ forPendingAction: %ld error: %@", buf, 0x34u);
+    }
+  }
+
+  objc_initWeak(buf, self);
+  objc_copyWeak(&v20, buf);
+  v21 = actionCopy;
+  v19 = errorCopy;
+  NPKGuaranteeMainThread();
+
+  objc_destroyWeak(&v20);
+  objc_destroyWeak(buf);
+}
+
+- (void)_invokePasscodeChangeCompletionWithPasscodeChanged:(BOOL)changed error:(id)error
+{
+  changedCopy = changed;
+  errorCopy = error;
+  passcodeChangeCompletion = [(NPKCompanionPasscodeChangeCoordinator *)self passcodeChangeCompletion];
+
+  if (passcodeChangeCompletion)
+  {
+    passcodeChangeCompletion2 = [(NPKCompanionPasscodeChangeCoordinator *)self passcodeChangeCompletion];
+    (passcodeChangeCompletion2)[2](passcodeChangeCompletion2, changedCopy, errorCopy);
+
+    [(NPKCompanionPasscodeChangeCoordinator *)self setPasscodeChangeCompletion:0];
+  }
+}
+
 - (BOOL)_shouldUsePasscodeConnection
 {
   if (NPKPairedOrPairingDeviceIsTinker())
@@ -379,6 +466,35 @@
   [(NPKCompanionPasscodeChangeCoordinator *)self setPendingAction:action];
   passcodeConnection = [(NPKCompanionPasscodeChangeCoordinator *)self passcodeConnection];
   [passcodeConnection requestRemoteDeviceRemoteAction:action type:type];
+}
+
+- (void)_finishRemoteAction:(BOOL)action
+{
+  actionCopy = action;
+  v5 = pk_Payment_log();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+
+  if (v6)
+  {
+    v7 = pk_Payment_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      pendingAction = [(NPKCompanionPasscodeChangeCoordinator *)self pendingAction];
+      v11 = [NSNumber numberWithBool:actionCopy];
+      v12 = 138543874;
+      v13 = v9;
+      v14 = 2048;
+      v15 = pendingAction;
+      v16 = 2112;
+      v17 = v11;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Notice: %{public}@: Finished remote action %ld, completed = %@", &v12, 0x20u);
+    }
+  }
+
+  [(NPKCompanionPasscodeChangeCoordinator *)self setPasscodeConnection:0];
+  [(NPKCompanionPasscodeChangeCoordinator *)self setPendingAction:0];
 }
 
 - (void)_cancelRemoteAction

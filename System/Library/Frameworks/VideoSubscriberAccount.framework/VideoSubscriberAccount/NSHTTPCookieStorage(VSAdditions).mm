@@ -12,15 +12,15 @@
     +[NSHTTPCookieStorage(VSAdditions) vs_sharedCookieStorage];
   }
 
-  v1 = vs_sharedCookieStorage___vs_lazy_init_variable;
+  v2 = vs_sharedCookieStorage___vs_lazy_init_variable;
 
-  return v1;
+  return v2;
 }
 
 - (void)vs_saveCookies
 {
   v7 = *MEMORY[0x277D85DE8];
-  v2 = VSDefaultLogObject();
+  v2 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     cookies = [self cookies];
@@ -29,8 +29,7 @@
     _os_log_impl(&dword_23AB8E000, v2, OS_LOG_TYPE_DEFAULT, "Will save %@ cookies.", &v5, 0xCu);
   }
 
-  [self _saveCookies];
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject([self _saveCookies]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v5) = 0;

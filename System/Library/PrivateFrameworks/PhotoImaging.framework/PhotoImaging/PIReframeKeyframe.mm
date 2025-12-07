@@ -13,12 +13,12 @@
   v34[2] = *MEMORY[0x1E69E9840];
   v33[0] = @"timeValue";
   v3 = MEMORY[0x1E696AD98];
-  [(PIReframeKeyframe *)self time];
+  objc_msgSend_time(self, a2);
   v4 = [v3 numberWithLongLong:v31];
   v33[1] = @"timeScale";
   v34[0] = v4;
   v5 = MEMORY[0x1E696AD98];
-  [(PIReframeKeyframe *)self time];
+  objc_msgSend_time(self);
   v6 = [v5 numberWithInt:v30];
   v34[1] = v6;
   v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
@@ -69,7 +69,7 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  [(PIReframeKeyframe *)self time];
+  objc_msgSend_time(self);
   v5 = NUStringFromTime();
   v6 = [v3 stringWithFormat:@"<%@:%p time:%@>", v4, self, v5];
 

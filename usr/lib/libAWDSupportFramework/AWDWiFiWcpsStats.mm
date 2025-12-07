@@ -1122,7 +1122,6 @@ LABEL_44:
   has = self->_has;
   if ((*&has & 0x40000000000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x4000) == 0)
@@ -1142,7 +1141,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationBucket = self->_durationBucket;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -1157,7 +1155,6 @@ LABEL_4:
   }
 
 LABEL_47:
-  percentageActive = self->_percentageActive;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -1172,7 +1169,6 @@ LABEL_5:
   }
 
 LABEL_48:
-  percentagePowerSave = self->_percentagePowerSave;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000000000) == 0)
@@ -1187,7 +1183,6 @@ LABEL_6:
   }
 
 LABEL_49:
-  percentageWcpsEnabled = self->_percentageWcpsEnabled;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
@@ -1202,7 +1197,6 @@ LABEL_7:
   }
 
 LABEL_50:
-  percentageWcpsReduced = self->_percentageWcpsReduced;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
@@ -1217,7 +1211,6 @@ LABEL_8:
   }
 
 LABEL_51:
-  percentageWcpsDisabled = self->_percentageWcpsDisabled;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1232,7 +1225,6 @@ LABEL_9:
   }
 
 LABEL_52:
-  cntVoGoodPeriods = self->_cntVoGoodPeriods;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1247,7 +1239,6 @@ LABEL_10:
   }
 
 LABEL_53:
-  cntVoBadPeriods = self->_cntVoBadPeriods;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1262,7 +1253,6 @@ LABEL_11:
   }
 
 LABEL_54:
-  avgRssi = self->_avgRssi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1277,7 +1267,6 @@ LABEL_12:
   }
 
 LABEL_55:
-  avgSnr = self->_avgSnr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1292,7 +1281,6 @@ LABEL_13:
   }
 
 LABEL_56:
-  avgCca = self->_avgCca;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1307,7 +1295,6 @@ LABEL_14:
   }
 
 LABEL_57:
-  avgTxAirLatency = self->_avgTxAirLatency;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1322,7 +1309,6 @@ LABEL_15:
   }
 
 LABEL_58:
-  avgTxPacketLoss = self->_avgTxPacketLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1337,7 +1323,6 @@ LABEL_16:
   }
 
 LABEL_59:
-  avgTxRetrans = self->_avgTxRetrans;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1352,7 +1337,6 @@ LABEL_17:
   }
 
 LABEL_60:
-  avgRxRetry = self->_avgRxRetry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1367,7 +1351,6 @@ LABEL_18:
   }
 
 LABEL_61:
-  endRssi = self->_endRssi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1382,7 +1365,6 @@ LABEL_19:
   }
 
 LABEL_62:
-  endSnr = self->_endSnr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1397,7 +1379,6 @@ LABEL_20:
   }
 
 LABEL_63:
-  endCca = self->_endCca;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1412,7 +1393,6 @@ LABEL_21:
   }
 
 LABEL_64:
-  endTxAirLatency = self->_endTxAirLatency;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1427,7 +1407,6 @@ LABEL_22:
   }
 
 LABEL_65:
-  endTxPacketLoss = self->_endTxPacketLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1442,7 +1421,6 @@ LABEL_23:
   }
 
 LABEL_66:
-  endTxRetrans = self->_endTxRetrans;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1457,7 +1435,6 @@ LABEL_24:
   }
 
 LABEL_67:
-  endRxRetry = self->_endRxRetry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1472,7 +1449,6 @@ LABEL_25:
   }
 
 LABEL_68:
-  minRssi = self->_minRssi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1487,7 +1463,6 @@ LABEL_26:
   }
 
 LABEL_69:
-  minSnr = self->_minSnr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1502,7 +1477,6 @@ LABEL_27:
   }
 
 LABEL_70:
-  minCca = self->_minCca;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1517,7 +1491,6 @@ LABEL_28:
   }
 
 LABEL_71:
-  minTxAirLatency = self->_minTxAirLatency;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -1532,7 +1505,6 @@ LABEL_29:
   }
 
 LABEL_72:
-  minTxPacketLoss = self->_minTxPacketLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -1547,7 +1519,6 @@ LABEL_30:
   }
 
 LABEL_73:
-  minTxRetrans = self->_minTxRetrans;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1562,7 +1533,6 @@ LABEL_31:
   }
 
 LABEL_74:
-  minRxRetry = self->_minRxRetry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1577,7 +1547,6 @@ LABEL_32:
   }
 
 LABEL_75:
-  maxRssi = self->_maxRssi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1592,7 +1561,6 @@ LABEL_33:
   }
 
 LABEL_76:
-  maxnSnr = self->_maxnSnr;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1607,7 +1575,6 @@ LABEL_34:
   }
 
 LABEL_77:
-  maxCca = self->_maxCca;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1622,7 +1589,6 @@ LABEL_35:
   }
 
 LABEL_78:
-  maxTxAirLatency = self->_maxTxAirLatency;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1637,7 +1603,6 @@ LABEL_36:
   }
 
 LABEL_79:
-  maxTxPacketLoss = self->_maxTxPacketLoss;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -1652,7 +1617,6 @@ LABEL_37:
   }
 
 LABEL_80:
-  maxTxRetrans = self->_maxTxRetrans;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1667,7 +1631,6 @@ LABEL_38:
   }
 
 LABEL_81:
-  maxRxRetry = self->_maxRxRetry;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1682,7 +1645,6 @@ LABEL_39:
   }
 
 LABEL_82:
-  cntRedBtConnLatLow = self->_cntRedBtConnLatLow;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1697,7 +1659,6 @@ LABEL_40:
   }
 
 LABEL_83:
-  cntRedBtDisconnLatHi = self->_cntRedBtDisconnLatHi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1712,7 +1673,6 @@ LABEL_41:
   }
 
 LABEL_84:
-  cntDisBtConnLatHi = self->_cntDisBtConnLatHi;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1724,7 +1684,6 @@ LABEL_42:
     }
 
 LABEL_86:
-    cntAwdlActive = self->_cntAwdlActive;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10000) == 0)
     {
@@ -1735,7 +1694,6 @@ LABEL_86:
   }
 
 LABEL_85:
-  cntDisBtEv3 = self->_cntDisBtEv3;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) != 0)
@@ -1750,7 +1708,6 @@ LABEL_43:
   }
 
 LABEL_87:
-  endLinkState = self->_endLinkState;
 
   PBDataWriterWriteUint64Field();
 }

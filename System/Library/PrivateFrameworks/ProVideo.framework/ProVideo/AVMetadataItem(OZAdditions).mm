@@ -1,12 +1,12 @@
 @interface AVMetadataItem(OZAdditions)
 + (id)simplyCreateMetadataItemWithMediaCharacteristic:()OZAdditions;
 + (id)simplyCreateMetadataItemWithRawData:()OZAdditions identifier:timeRange:;
-+ (uint64_t)simplyCreateMetadataItemWithObject:()OZAdditions identifier:timeRange:error:;
++ (void)simplyCreateMetadataItemWithObject:()OZAdditions identifier:timeRange:error:;
 @end
 
 @implementation AVMetadataItem(OZAdditions)
 
-+ (uint64_t)simplyCreateMetadataItemWithObject:()OZAdditions identifier:timeRange:error:
++ (void)simplyCreateMetadataItemWithObject:()OZAdditions identifier:timeRange:error:
 {
   result = [a3 simplyEncode:a6];
   if (result)

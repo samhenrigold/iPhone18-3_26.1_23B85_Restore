@@ -106,25 +106,25 @@ LABEL_8:
 - (void)loadRequiredBundlesForUnmanagedASAM
 {
   [(GuidedAccessManager *)self _loadRequiredBundles];
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2050000000;
-  v2 = getAXReplayerClass_softClass;
-  v9 = getAXReplayerClass_softClass;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2050000000;
+  v3 = getAXReplayerClass_softClass;
+  v10 = getAXReplayerClass_softClass;
   if (!getAXReplayerClass_softClass)
   {
-    v5[0] = MEMORY[0x29EDCA5F8];
-    v5[1] = 3221225472;
-    v5[2] = __getAXReplayerClass_block_invoke;
-    v5[3] = &unk_29F29A5F8;
-    v5[4] = &v6;
-    __getAXReplayerClass_block_invoke(v5);
-    v2 = v7[3];
+    v6[0] = MEMORY[0x29EDCA5F8];
+    v6[1] = 3221225472;
+    v6[2] = __getAXReplayerClass_block_invoke;
+    v6[3] = &unk_29F29A5F8;
+    v6[4] = &v7;
+    __getAXReplayerClass_block_invoke(v6, v2);
+    v3 = v8[3];
   }
 
-  v3 = v2;
-  _Block_object_dispose(&v6, 8);
-  replayer = [v2 replayer];
+  v4 = v3;
+  _Block_object_dispose(&v7, 8);
+  replayer = [v3 replayer];
   [replayer replayWithName:@"Ping BackBoard for unmanaged ASAM" attempts:10 interval:1 async:MEMORY[0x29EDCA578] queue:&__block_literal_global_294_0 replayBlock:&__block_literal_global_297 completion:0.5];
 }
 
@@ -345,27 +345,11 @@ LABEL_11:
 LABEL_12:
 }
 
-void __58__GuidedAccessManager_loadRequiredBundlesForUnmanagedASAM__block_invoke_2_cold_1()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
-}
-
 void __51__GuidedAccessManager__loadSpringboardServerBundle__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __51__GuidedAccessManager__loadSpringboardServerBundle__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __51__GuidedAccessManager__loadSpringboardServerBundle__block_invoke_cold_3()
@@ -380,14 +364,6 @@ void __40__GuidedAccessManager__loadClientBundle__block_invoke_cold_1()
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __40__GuidedAccessManager__loadClientBundle__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x29EDCA608];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x29EDCA608];
 }
 
 void __40__GuidedAccessManager__loadClientBundle__block_invoke_cold_3()

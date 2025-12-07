@@ -653,8 +653,9 @@ LABEL_8:
 {
   size = range.size;
   cellIndex = range.cellIndex;
+  v8 = *&size.columns;
   selfCopy = self;
-  v10 = sub_1BEE2B6DC(*&size, cellIndex, size, flipped);
+  v10 = sub_1BEE2B6DC(v8, cellIndex, size, flipped);
 
   return v10;
 }
@@ -739,7 +740,7 @@ LABEL_8:
 - (int64_t)lastUsedGridCellIndex
 {
   selfCopy = self;
-  v3 = sub_1BEE2CA7C();
+  v3 = sub_1BEE2CA7C(selfCopy);
 
   return v3;
 }
@@ -879,7 +880,7 @@ LABEL_9:
   selfCopy = self;
   sub_1BEE2DCEC(cellIndex, size);
 
-  sub_1BEB20D28(0, &unk_1EBDC79D0);
+  sub_1BEB20D28(0, &unk_1EBDC79D0, off_1E8086E10);
   sub_1BEE332CC();
   v6 = sub_1BEE4724C();
 
@@ -890,7 +891,7 @@ LABEL_9:
 {
   selfCopy = self;
   v3 = [(SBIconListGridCellInfo *)selfCopy contiguousRegionsForGridRange:0, [(SBIconListGridCellInfo *)selfCopy gridSize]];
-  sub_1BEB20D28(0, &unk_1EBDC79D0);
+  sub_1BEB20D28(0, &unk_1EBDC79D0, off_1E8086E10);
   sub_1BEE332CC();
   sub_1BEE4726C();
 
@@ -935,10 +936,10 @@ LABEL_9:
 
 - (id)subgridCellInfoForGridRange:(SBHIconGridRange)range
 {
-  size = range.size;
+  v3 = *&range.size.columns;
   cellIndex = range.cellIndex;
   selfCopy = self;
-  v6 = sub_1BEE2E8C4(cellIndex, size);
+  v6 = sub_1BEE2E8C4(cellIndex, v3);
 
   return v6;
 }
@@ -961,8 +962,8 @@ LABEL_9:
 {
   infoCopy = info;
   selfCopy = self;
-  v6 = sub_1BEE2EF90(infoCopy);
-  layoutDescription = [v6 layoutDescription];
+  v7 = sub_1BEE2EF90(infoCopy, v6);
+  layoutDescription = [v7 layoutDescription];
   if (!layoutDescription)
   {
     sub_1BEE4708C();

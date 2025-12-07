@@ -24,44 +24,43 @@
 
 + (HDStateSyncEntitySchema)stateEntitySchema
 {
-  v8[7] = *MEMORY[0x277D85DE8];
+  v7[7] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB98]);
-  v8[0] = @"stateSyncBloodPressureJournalDelegateKey";
-  v8[1] = @"StateSyncBloodPressureSystolicSampleWindowKey";
-  v8[2] = @"StateSyncBloodPressureDiastolicSampleWindowKey";
-  v8[3] = @"StateSyncBloodPressureSystolicSampleOriginKey";
-  v8[4] = @"StateSyncBloodPressureDiastolicSampleOriginKey";
-  v8[5] = @"StateSyncBloodPressureSampleCorrelationsWindowKey";
-  v8[6] = @"StateSyncBloodPressureSampleCorrelationsOriginKey";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:7];
+  v7[0] = @"stateSyncBloodPressureJournalDelegateKey";
+  v7[1] = @"StateSyncBloodPressureSystolicSampleWindowKey";
+  v7[2] = @"StateSyncBloodPressureDiastolicSampleWindowKey";
+  v7[3] = @"StateSyncBloodPressureSystolicSampleOriginKey";
+  v7[4] = @"StateSyncBloodPressureDiastolicSampleOriginKey";
+  v7[5] = @"StateSyncBloodPressureSampleCorrelationsWindowKey";
+  v7[6] = @"StateSyncBloodPressureSampleCorrelationsOriginKey";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:7];
   v4 = [v2 initWithArray:v3];
 
   v5 = [objc_alloc(MEMORY[0x277D10888]) initWithWithDomain:@"CloudSyncStateEntityDomainBloodPressureJournal" dataKeys:v4];
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (BOOL)updateDataWithStateStorage:(id)storage profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   profileCopy = profile;
   transactionCopy = transaction;
   v13 = objc_alloc_init(HKHRStateSyncBloodPressureJournalDelegate);
-  v55 = 0;
-  v14 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v13 profile:profileCopy transaction:transactionCopy error:&v55];
-  v15 = v55;
+  v54 = 0;
+  v14 = [MEMORY[0x277D10600] updateDataWithStateStore:storageCopy delegate:v13 profile:profileCopy transaction:transactionCopy error:&v54];
+  v15 = v54;
   v16 = v15;
   if (v14)
   {
-    v50 = v15;
+    v49 = v15;
     v17 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC980]];
     v18 = +[HKHRBloodPressureJournalStateSyncEntity _windowUpdaterConfigurationForBloodPressureSamplesWithKey:sampleOriginKey:sampleType:syncEntityClass:sampleUUIDSFunction:](self, @"StateSyncBloodPressureSystolicSampleWindowKey", @"StateSyncBloodPressureSystolicSampleOriginKey", v17, [MEMORY[0x277D106A8] quantitySampleSyncEntityClass], bloodPressureSystolicDiastolicSampleUUIDsFromCodableObjectCollection);
 
-    v54 = 0;
-    LOBYTE(v17) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v18 profile:profileCopy transaction:transactionCopy error:&v54];
-    v51 = v54;
+    v53 = 0;
+    LOBYTE(v17) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v18 profile:profileCopy transaction:transactionCopy error:&v53];
+    v50 = v53;
     if ((v17 & 1) == 0)
     {
       errorCopy = error;
@@ -71,18 +70,18 @@
       {
         v41 = objc_opt_class();
         *buf = 138543874;
-        v57 = v41;
-        v58 = 2114;
-        v59 = v18;
-        v60 = 2114;
-        v61 = v51;
+        v56 = v41;
+        v57 = 2114;
+        v58 = v18;
+        v59 = 2114;
+        v60 = v50;
         _os_log_error_impl(&dword_229486000, v30, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
       }
 
-      v31 = v51;
-      v32 = v51;
+      v31 = v50;
+      v32 = v50;
       v20 = v32;
-      v16 = v50;
+      v16 = v49;
       if (v32)
       {
         if (errorCopy)
@@ -111,37 +110,37 @@
     v19 = [MEMORY[0x277CCD720] quantityTypeForIdentifier:*MEMORY[0x277CCC978]];
     v20 = +[HKHRBloodPressureJournalStateSyncEntity _windowUpdaterConfigurationForBloodPressureSamplesWithKey:sampleOriginKey:sampleType:syncEntityClass:sampleUUIDSFunction:](self, @"StateSyncBloodPressureDiastolicSampleWindowKey", @"StateSyncBloodPressureDiastolicSampleOriginKey", v19, [MEMORY[0x277D106A8] quantitySampleSyncEntityClass], bloodPressureSystolicDiastolicSampleUUIDsFromCodableObjectCollection);
 
-    v53 = 0;
-    LOBYTE(v19) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v20 profile:profileCopy transaction:transactionCopy error:&v53];
-    v21 = v53;
-    v49 = v21;
+    v52 = 0;
+    LOBYTE(v19) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v20 profile:profileCopy transaction:transactionCopy error:&v52];
+    v21 = v52;
+    v48 = v21;
     if (v19)
     {
       errorCopy = [MEMORY[0x277CCD250] correlationTypeForIdentifier:*MEMORY[0x277CCBBA8]];
       v22 = +[HKHRBloodPressureJournalStateSyncEntity _windowUpdaterConfigurationForBloodPressureSamplesWithKey:sampleOriginKey:sampleType:syncEntityClass:sampleUUIDSFunction:](self, @"StateSyncBloodPressureSampleCorrelationsWindowKey", @"StateSyncBloodPressureSampleCorrelationsOriginKey", errorCopy, [MEMORY[0x277D106A8] correlationSampleSyncEntityClass], correlationSampleUUIDsFromCodableObjectCollection);
 
-      v52 = 0;
-      LOBYTE(errorCopy) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v22 profile:profileCopy transaction:transactionCopy error:&v52];
-      v24 = v52;
-      v16 = v50;
+      v51 = 0;
+      LOBYTE(errorCopy) = [MEMORY[0x277D105F0] updateDataWithStateStorage:storageCopy configuration:v22 profile:profileCopy transaction:transactionCopy error:&v51];
+      v24 = v51;
+      v16 = v49;
       if ((errorCopy & 1) == 0)
       {
-        v47 = v24;
+        v46 = v24;
         _HKInitializeLogging();
-        v46 = HKLogBloodPressureJournal();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v45 = HKLogBloodPressureJournal();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v45 = objc_opt_class();
+          v44 = objc_opt_class();
           *buf = 138543874;
-          v57 = v45;
-          v58 = 2114;
-          v59 = v22;
-          v60 = 2114;
-          v61 = v47;
-          _os_log_error_impl(&dword_229486000, v46, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
+          v56 = v44;
+          v57 = 2114;
+          v58 = v22;
+          v59 = 2114;
+          v60 = v46;
+          _os_log_error_impl(&dword_229486000, v45, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
         }
 
-        v25 = v47;
+        v25 = v46;
         v26 = v25;
         if (v25)
         {
@@ -157,7 +156,7 @@
           }
         }
 
-        v24 = v47;
+        v24 = v46;
       }
 
       goto LABEL_34;
@@ -168,19 +167,19 @@
     v36 = HKLogBloodPressureJournal();
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      v44 = objc_opt_class();
+      v43 = objc_opt_class();
       *buf = 138543874;
-      v57 = v44;
-      v58 = 2114;
-      v59 = v20;
-      v60 = 2114;
-      v61 = v35;
+      v56 = v43;
+      v57 = 2114;
+      v58 = v20;
+      v59 = 2114;
+      v60 = v35;
       _os_log_error_impl(&dword_229486000, v36, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
     }
 
     v37 = v35;
     v22 = v37;
-    v16 = v50;
+    v16 = v49;
     if (v37)
     {
       if (errorCopy2)
@@ -190,7 +189,7 @@
         *errorCopy2 = v22;
 LABEL_34:
 
-        v31 = v51;
+        v31 = v50;
 LABEL_35:
 
         goto LABEL_36;
@@ -210,11 +209,11 @@ LABEL_35:
     v39 = objc_opt_class();
     v40 = objc_opt_class();
     *buf = 138543874;
-    v57 = v39;
-    v58 = 2114;
-    v59 = v40;
-    v60 = 2114;
-    v61 = v16;
+    v56 = v39;
+    v57 = 2114;
+    v58 = v40;
+    v59 = 2114;
+    v60 = v16;
     _os_log_error_impl(&dword_229486000, v28, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@ error: %{public}@", buf, 0x20u);
   }
 
@@ -237,7 +236,6 @@ LABEL_26:
   *error = v18;
 LABEL_36:
 
-  v42 = *MEMORY[0x277D85DE8];
   return errorCopy;
 }
 
@@ -379,7 +377,7 @@ void __82__HKHRBloodPressureJournalStateSyncEntity_codableJournalFromBloodPressu
 
 + (void)syncDidFinishWithResult:(int64_t)result stateStore:(id)store profile:(id)profile
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   _HKInitializeLogging();
   v8 = HKLogBloodPressureJournal();
@@ -388,16 +386,14 @@ void __82__HKHRBloodPressureJournalStateSyncEntity_codableJournalFromBloodPressu
     v9 = objc_opt_class();
     v10 = [(HKHRBloodPressureJournalStateSyncEntity *)self _stringFromSyncResult:result];
     profileIdentifier = [profileCopy profileIdentifier];
-    v13 = 138543874;
-    v14 = v9;
-    v15 = 2114;
-    v16 = v10;
-    v17 = 2114;
-    v18 = profileIdentifier;
-    _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state sync result '%{public}@' for %{public}@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v9;
+    v14 = 2114;
+    v15 = v10;
+    v16 = 2114;
+    v17 = profileIdentifier;
+    _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] state sync result '%{public}@' for %{public}@", &v12, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (__CFString)_stringFromSyncResult:(uint64_t)result
@@ -425,10 +421,10 @@ void __82__HKHRBloodPressureJournalStateSyncEntity_codableJournalFromBloodPressu
 {
   objc_opt_self();
   date = [MEMORY[0x277CBEAA8] date];
-  v1 = [date dateByAddingTimeInterval:-604800.0];
-  v2 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v1 duration:604800.0];
+  v2 = [date dateByAddingTimeInterval:-604800.0];
+  v3 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v2 duration:604800.0];
 
-  return v2;
+  return v3;
 }
 
 @end

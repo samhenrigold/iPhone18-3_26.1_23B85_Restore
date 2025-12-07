@@ -27,7 +27,7 @@
   v5 = NCLogForCategory(9uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_23BD676F4(waypointCopy, self, v5, v6);
+    sub_23BD676F4(waypointCopy, self, v5);
   }
 }
 
@@ -37,7 +37,7 @@
   v5 = NCLogForCategory(9uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_23BD67798(waypointCopy, self, v5, v6);
+    sub_23BD67798(waypointCopy, self, v5);
   }
 }
 

@@ -79,10 +79,7 @@
 
 uint64_t __50__SUCoreErrorInformation_safeUserInfoValueClasses__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) safeUserInfoValues];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) safeUserInfoValues];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -96,10 +93,10 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
 
 - (SUCoreErrorInformation)init
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = SUCoreErrorInformation;
-  v2 = [(SUCoreErrorInformation *)&v15 init];
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = SUCoreErrorInformation;
+  v2 = [(SUCoreErrorInformation *)&v14 init];
   if (v2)
   {
     uTF8String = [@"com.apple.su.core.error.info" UTF8String];
@@ -116,17 +113,16 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
     errorInformation = v2->_errorInformation;
     v2->_errorInformation = v9;
 
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v16[3] = objc_opt_class();
-    v16[4] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v15[2] = objc_opt_class();
+    v15[3] = objc_opt_class();
+    v15[4] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
     safeUserInfoValues = v2->_safeUserInfoValues;
     v2->_safeUserInfoValues = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -183,7 +179,7 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
 
 - (void)_attributesOfErrorForDomain:(id)domain withCode:(int64_t)code codeName:(id)name indicating:(int64_t)indicating ifKeyTrue:(id)true keyMatchTrueMap:(id)map
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   nameCopy = name;
   trueCopy = true;
@@ -211,7 +207,7 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
   }
 
   v24 = v23;
-  v34 = trueCopy;
+  v33 = trueCopy;
   indicatingCopy = indicating;
   domain = [v23 domain];
   if (+[SUCore stringIsEqual:to:](SUCore, "stringIsEqual:to:", domainCopy, domain) && [v24 code] == code)
@@ -221,8 +217,8 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
     if (codeName == nameCopy)
     {
       [v24 setIndications:indicatingCopy];
-      trueCopy = v34;
-      [v24 setKeyMatchTrue:v34];
+      trueCopy = v33;
+      [v24 setKeyMatchTrue:v33];
       [v24 setKeyMatchTrueMap:mapCopy];
       goto LABEL_13;
     }
@@ -241,24 +237,22 @@ uint64_t __48__SUCoreErrorInformation_sharedErrorInformation__block_invoke()
     code = [v24 code];
     codeName2 = [v24 codeName];
     *buf = 138544642;
-    v36 = domainCopy;
-    v37 = 1024;
+    v35 = domainCopy;
+    v36 = 1024;
     codeCopy = code;
-    v39 = 2114;
-    v40 = nameCopy;
-    v41 = 2114;
-    v42 = domain2;
-    v43 = 1024;
-    v44 = code;
-    v45 = 2114;
-    v46 = codeName2;
+    v38 = 2114;
+    v39 = nameCopy;
+    v40 = 2114;
+    v41 = domain2;
+    v42 = 1024;
+    v43 = code;
+    v44 = 2114;
+    v45 = codeName2;
     _os_log_error_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_ERROR, "[ERROR_INFORMATION] changing attributes of error [%{public}@:%d(%{public}@)] when already have attributes for error [%{public}@:%d(%{public}@)] | new attributes ignored", buf, 0x36u);
   }
 
-  trueCopy = v34;
+  trueCopy = v33;
 LABEL_13:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (void)associateLayer:(int64_t)layer withDomain:(id)domain minCode:(int64_t)code maxCode:(int64_t)maxCode indicating:(int64_t)indicating ifKeyTrue:(id)true keyMatchTrueMap:(id)map
@@ -792,28 +786,25 @@ uint64_t __53__SUCoreErrorInformation_codeNameForDomain_withCode___block_invoke(
 {
   if ([SUCore stringIsEqual:*(a1 + 32) to:@"SUCoreError"])
   {
-    v2 = [SUCoreErrorInformation nameForSUCoreCode:*(a1 + 56)];
-    v3 = *(*(a1 + 48) + 8);
-    v4 = *(v3 + 40);
-    *(v3 + 40) = v2;
+    *(*(*(a1 + 48) + 8) + 40) = [SUCoreErrorInformation nameForSUCoreCode:*(a1 + 56)];
   }
 
   else
   {
-    v5 = [*(a1 + 40) errorInformation];
-    v13 = [v5 safeDictionaryForKey:*(a1 + 32) fromBase:@"SUCoreErrorInformation{codeNameForDomain} errorInformation" withKeyDescription:@"error domain"];
+    v2 = [*(a1 + 40) errorInformation];
+    v10 = [v2 safeDictionaryForKey:*(a1 + 32) fromBase:@"SUCoreErrorInformation{codeNameForDomain} errorInformation" withKeyDescription:@"error domain"];
 
-    if (v13)
+    if (v10)
     {
-      v6 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 56)];
-      v7 = [v13 safeObjectForKey:v6 ofClass:objc_opt_class()];
-      v8 = v7;
-      if (v7)
+      v3 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInteger:*(a1 + 56)];
+      v4 = [v10 safeObjectForKey:v3 ofClass:objc_opt_class()];
+      v5 = v4;
+      if (v4)
       {
-        v9 = [v7 codeName];
-        v10 = *(*(a1 + 48) + 8);
-        v11 = *(v10 + 40);
-        *(v10 + 40) = v9;
+        v6 = [v4 codeName];
+        v7 = *(*(a1 + 48) + 8);
+        v8 = *(v7 + 40);
+        *(v7 + 40) = v6;
       }
     }
   }
@@ -1646,13 +1637,11 @@ void __51__SUCoreErrorInformation_setupCoreErrorInformation__block_invoke(uint64
 
 - (void)_associateLayer:(uint64_t)a1 withDomain:(NSObject *)a2 minCode:maxCode:indicating:ifKeyTrue:keyMatchTrueMap:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [SUCoreErrorInformation nameForSUCoreLayer:a1];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "[ERROR_INFORMATION] layer group(%{public}@) already defined", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1E0F71000, a2, OS_LOG_TYPE_ERROR, "[ERROR_INFORMATION] layer group(%{public}@) already defined", &v4, 0xCu);
 }
 
 @end

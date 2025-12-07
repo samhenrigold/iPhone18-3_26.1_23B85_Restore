@@ -859,7 +859,7 @@ LABEL_56:
     }
 
     self->_settledState = state;
-    if ([(RTPointOfInterestMetricsManager *)self samplingPointOfInterest])
+    if ([(RTPointOfInterestMetricsManager *)self samplingPointOfInterest:*v17])
     {
       settledState = self->_settledState;
       pointOfInterestSampler = [(RTPointOfInterestMetricsManager *)self pointOfInterestSampler];

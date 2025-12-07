@@ -16,9 +16,9 @@
 - (SCLSuppressSchoolModeAssertionManager)initWithTargetQueue:(id)queue
 {
   queueCopy = queue;
-  v21.receiver = self;
-  v21.super_class = SCLSuppressSchoolModeAssertionManager;
-  v6 = [(SCLSuppressSchoolModeAssertionManager *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SCLSuppressSchoolModeAssertionManager;
+  v6 = [(SCLSuppressSchoolModeAssertionManager *)&v20 init];
   if (v6)
   {
     v7 = [MEMORY[0x277CBEB58] set];
@@ -45,10 +45,9 @@
     [(NSXPCListener *)v6->_listener _setQueue:v6->_queue];
     [(NSXPCListener *)v6->_listener setDelegate:v6];
     objc_initWeak(&location, v6);
-    v17 = v6->_queue;
-    objc_copyWeak(&v19, &location);
+    objc_copyWeak(&v18, &location);
     v6->_stateHandle = os_state_add_handler();
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
@@ -65,12 +64,11 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
 
 - (void)dealloc
 {
-  stateHandle = self->_stateHandle;
   os_state_remove_handler();
   [(NSXPCListener *)self->_listener invalidate];
-  v4.receiver = self;
-  v4.super_class = SCLSuppressSchoolModeAssertionManager;
-  [(SCLSuppressSchoolModeAssertionManager *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = SCLSuppressSchoolModeAssertionManager;
+  [(SCLSuppressSchoolModeAssertionManager *)&v3 dealloc];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -90,7 +88,7 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
 
 - (void)clientDidAcquireAssertion:(id)assertion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
   queue = [(SCLSuppressSchoolModeAssertionManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -100,31 +98,29 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
   [acquiredClients addObject:assertionCopy];
 
   status2 = [(SCLSuppressSchoolModeAssertionManager *)self status];
-  v9 = scl_framework_log();
+  v9 = scl_framework_log(status2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v13 = assertionCopy;
+    v12 = assertionCopy;
     _os_log_impl(&dword_264829000, v9, OS_LOG_TYPE_DEFAULT, "Acquired suppression assertion for %@", buf, 0xCu);
   }
 
   if (status != status2)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __67__SCLSuppressSchoolModeAssertionManager_clientDidAcquireAssertion___block_invoke;
-    v11[3] = &unk_279B6CB30;
-    v11[4] = self;
-    v11[5] = status2;
-    [(SCLSuppressSchoolModeAssertionManager *)self performObserverBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __67__SCLSuppressSchoolModeAssertionManager_clientDidAcquireAssertion___block_invoke;
+    v10[3] = &unk_279B6CB30;
+    v10[4] = self;
+    v10[5] = status2;
+    [(SCLSuppressSchoolModeAssertionManager *)self performObserverBlock:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientDidInvalidate:(id)invalidate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
   queue = [(SCLSuppressSchoolModeAssertionManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -137,26 +133,24 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
   [clients removeObject:invalidateCopy];
 
   status2 = [(SCLSuppressSchoolModeAssertionManager *)self status];
-  v10 = scl_framework_log();
+  v10 = scl_framework_log(status2);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = invalidateCopy;
+    v13 = invalidateCopy;
     _os_log_impl(&dword_264829000, v10, OS_LOG_TYPE_DEFAULT, "Relinquished suppression assertion for %@", buf, 0xCu);
   }
 
   if (status != status2)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __61__SCLSuppressSchoolModeAssertionManager_clientDidInvalidate___block_invoke;
-    v12[3] = &unk_279B6CB30;
-    v12[4] = self;
-    v12[5] = status2;
-    [(SCLSuppressSchoolModeAssertionManager *)self performObserverBlock:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __61__SCLSuppressSchoolModeAssertionManager_clientDidInvalidate___block_invoke;
+    v11[3] = &unk_279B6CB30;
+    v11[4] = self;
+    v11[5] = status2;
+    [(SCLSuppressSchoolModeAssertionManager *)self performObserverBlock:v11];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)status
@@ -192,7 +186,7 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
 
 - (void)performObserverBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   targetQueue = [(SCLSuppressSchoolModeAssertionManager *)self targetQueue];
   dispatch_assert_queue_V2(targetQueue);
@@ -200,37 +194,35 @@ uint64_t __61__SCLSuppressSchoolModeAssertionManager_initWithTargetQueue___block
   observers = [(SCLSuppressSchoolModeAssertionManager *)self observers];
   allObjects = [observers allObjects];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = allObjects;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        blockCopy[2](blockCopy, *(*(&v14 + 1) + 8 * v12++));
+        blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * v12++));
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (os_state_data_s)_stateDataWithHints:(os_state_hints_s *)hints

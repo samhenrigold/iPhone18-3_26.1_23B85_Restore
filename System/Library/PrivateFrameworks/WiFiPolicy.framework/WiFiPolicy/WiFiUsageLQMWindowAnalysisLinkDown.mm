@@ -1,16 +1,32 @@
 @interface WiFiUsageLQMWindowAnalysisLinkDown
+- (WiFiUsageLQMWindowAnalysisLinkDown)initWithRollingWindow:(id)window WithIsInvoluntary:(BOOL)involuntary AndLinkChangeReason:(int64_t)reason AndLinkChangeSubreason:(int64_t)subreason AndDuration:(unint64_t)duration andContext:(context)context AndTimestamp:(id)timestamp onQueue:(id)self0;
 - (id)addDimensionsTo:(id)to;
 @end
 
 @implementation WiFiUsageLQMWindowAnalysisLinkDown
 
+- (WiFiUsageLQMWindowAnalysisLinkDown)initWithRollingWindow:(id)window WithIsInvoluntary:(BOOL)involuntary AndLinkChangeReason:(int64_t)reason AndLinkChangeSubreason:(int64_t)subreason AndDuration:(unint64_t)duration andContext:(context)context AndTimestamp:(id)timestamp onQueue:(id)self0
+{
+  involuntaryCopy = involuntary;
+  v17.receiver = self;
+  v17.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
+  v14 = [(WiFiUsageLQMWindowAnalysis *)&v17 initWithRollingWindow:window andReason:@"LinkDown" andContext:*&context.var0 & 0xFFFFFFLL andTimestamp:timestamp onQueue:queue];
+  [(WiFiUsageLQMWindowAnalysisLinkDown *)v14 setIsInvoluntary:involuntaryCopy];
+  v15 = [WiFiUsageSession disconnectReasonString:reason];
+  [(WiFiUsageLQMWindowAnalysisLinkDown *)v14 setLinkDownReason:v15];
+
+  [(WiFiUsageLQMWindowAnalysisLinkDown *)v14 setLinkDownSubreason:subreason];
+  [(WiFiUsageLQMWindowAnalysisLinkDown *)v14 setLinkUpDuration:duration];
+  return v14;
+}
+
 - (id)addDimensionsTo:(id)to
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   toCopy = to;
-  v45.receiver = self;
-  v45.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
-  v5 = [(WiFiUsageLQMWindowAnalysis *)&v45 addDimensionsTo:toCopy];
+  v44.receiver = self;
+  v44.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
+  v5 = [(WiFiUsageLQMWindowAnalysis *)&v44 addDimensionsTo:toCopy];
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", self->_isInvoluntary];
   [toCopy setObject:v6 forKeyedSubscript:@"linkdownIsInVoluntary"];
 
@@ -30,40 +46,40 @@
     [toCopy setObject:v9 forKeyedSubscript:@"linkupDuration"];
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v40.receiver = self;
-  v40.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
-  subsequentTriggers = [(WiFiUsageLQMWindowAnalysis *)&v40 subsequentTriggers];
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v39.receiver = self;
+  v39.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
+  subsequentTriggers = [(WiFiUsageLQMWindowAnalysis *)&v39 subsequentTriggers];
   v11 = MEMORY[0x277CBEA60];
   v12 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:1];
   v13 = [v11 arrayWithObject:v12];
   v14 = [subsequentTriggers sortedArrayUsingDescriptors:v13];
 
-  v15 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v42;
+    v17 = *v41;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v42 != v17)
+        if (*v41 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v41 + 1) + 8 * i);
+        v19 = *(*(&v40 + 1) + 8 * i);
         reason = [v19 reason];
 
         if (reason == @"Join")
         {
-          v39.receiver = self;
-          v39.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
-          timestamp = [(WiFiUsageLQMWindowAnalysis *)&v39 timestamp];
+          v38.receiver = self;
+          v38.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
+          timestamp = [(WiFiUsageLQMWindowAnalysis *)&v38 timestamp];
           timestamp2 = [v19 timestamp];
           [timestamp timeIntervalSinceDate:timestamp2];
           v23 = [WiFiUsageLQMTransformations getBinTimeIntervalUpTo60s:1 As:?];
@@ -73,7 +89,7 @@
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v40 objects:v45 count:16];
       if (v16)
       {
         continue;
@@ -85,9 +101,9 @@
 
 LABEL_14:
 
-  v38.receiver = self;
-  v38.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
-  windowBeforeTrigger = [(WiFiUsageLQMWindowAnalysis *)&v38 windowBeforeTrigger];
+  v37.receiver = self;
+  v37.super_class = WiFiUsageLQMWindowAnalysisLinkDown;
+  windowBeforeTrigger = [(WiFiUsageLQMWindowAnalysis *)&v37 windowBeforeTrigger];
   samples = [windowBeforeTrigger samples];
   lastObject = [samples lastObject];
 
@@ -115,8 +131,6 @@ LABEL_14:
   v34 = [WiFiUsageLQMTransformations numberForKeyPath:@"txLatencyP95" ofObject:lastObject];
   v35 = +[WiFiUsageLQMSample binLabelfromFieldName:value:](WiFiUsageLQMUserSample, "binLabelfromFieldName:value:", @"txLatencyP95", [v34 integerValue]);
   [toCopy setObject:v35 forKeyedSubscript:@"last_txLatencyP95_before"];
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return toCopy;
 }

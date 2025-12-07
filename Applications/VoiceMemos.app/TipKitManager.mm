@@ -9,9 +9,9 @@
 {
   v0 = type metadata accessor for Tips.ConfigurationOption.DatastoreLocation();
   v1 = *(v0 - 8);
-  __chkstk_darwin();
+  __chkstk_darwin(v0);
   v3 = &v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1000C773C(&qword_1002D6588);
+  sub_1000C773C(&qword_1002D6588, &unk_10024F810);
   type metadata accessor for Tips.ConfigurationOption();
   *(swift_allocObject() + 16) = xmmword_100242C70;
   static Tips.ConfigurationOption.DatastoreLocation.tipsGroupContainer.getter();

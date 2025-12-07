@@ -132,40 +132,40 @@ uint64_t __36__FedStatsDataCohort_sharedInstance__block_invoke(uint64_t a1)
 
 + (id)keysForCohorts:(id)cohorts namespaceID:(id)d parameters:(id)parameters possibleError:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   cohortsCopy = cohorts;
   dCopy = d;
   parametersCopy = parameters;
-  v35 = +[FedStatsDataCohort sharedInstance];
-  namespaceMap = [v35 namespaceMap];
-  v37 = dCopy;
+  v34 = +[FedStatsDataCohort sharedInstance];
+  namespaceMap = [v34 namespaceMap];
+  v36 = dCopy;
   v12 = [namespaceMap objectForKey:dCopy];
 
   if (v12)
   {
     errorCopy = error;
     v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(cohortsCopy, "count")}];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     obj = cohortsCopy;
-    v14 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v14 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v40;
-      v32 = cohortsCopy;
+      v16 = *v39;
+      v31 = cohortsCopy;
 LABEL_4:
       v17 = 0;
       while (1)
       {
-        if (*v40 != v16)
+        if (*v39 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v39 + 1) + 8 * v17);
+        v18 = *(*(&v38 + 1) + 8 * v17);
         if (([v12 containsObject:v18] & 1) == 0)
         {
           break;
@@ -174,30 +174,30 @@ LABEL_4:
         v19 = [FedStatsCohortFactory cohortQueryFieldByName:v18];
         if (!v19)
         {
-          cohortsCopy = v32;
+          cohortsCopy = v31;
           v27 = errorCopy;
           if (!errorCopy)
           {
             goto LABEL_31;
           }
 
-          [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not implemented.", v18, v31];
+          [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not implemented.", v18, v30];
           goto LABEL_26;
         }
 
         v20 = v19;
-        v38 = 0;
-        v21 = [v19 cohortKeyForParameters:parametersCopy possibleError:&v38];
-        v22 = v38;
-        if (([v35 checkCohortValue:v21 forCohortName:v18 namespaceIdentifier:v37] & 1) == 0)
+        v37 = 0;
+        v21 = [v19 cohortKeyForParameters:parametersCopy possibleError:&v37];
+        v22 = v37;
+        if (([v34 checkCohortValue:v21 forCohortName:v18 namespaceIdentifier:v36] & 1) == 0)
         {
           if (errorCopy)
           {
-            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cohort value '%@' for cohort '%@' is not allowed for the namespace '%@'", v21, v18, v37];
+            v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Cohort value '%@' for cohort '%@' is not allowed for the namespace '%@'", v21, v18, v36];
             *errorCopy = [FedStatsPluginError errorWithCode:300 description:v28];
           }
 
-          cohortsCopy = v32;
+          cohortsCopy = v31;
 LABEL_30:
 
 LABEL_31:
@@ -209,11 +209,11 @@ LABEL_31:
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412802;
-          v44 = v18;
-          v45 = 2112;
-          v46 = v21;
-          v47 = 2112;
-          v48 = v37;
+          v43 = v18;
+          v44 = 2112;
+          v45 = v21;
+          v46 = 2112;
+          v47 = v36;
           _os_log_debug_impl(&dword_24AB24000, v23, OS_LOG_TYPE_DEBUG, "cohortName:cohortValue => %@=%@ for namespace %@", buf, 0x20u);
         }
 
@@ -223,9 +223,9 @@ LABEL_31:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412546;
-            v44 = v18;
-            v45 = 2112;
-            v46 = v22;
+            v43 = v18;
+            v44 = 2112;
+            v45 = v22;
             _os_log_debug_impl(&dword_24AB24000, v24, OS_LOG_TYPE_DEBUG, "%@ cohort error while creating the key: %@", buf, 0x16u);
           }
         }
@@ -234,8 +234,8 @@ LABEL_31:
 
         if (v15 == ++v17)
         {
-          v15 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
-          cohortsCopy = v32;
+          v15 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+          cohortsCopy = v31;
           if (v15)
           {
             goto LABEL_4;
@@ -245,14 +245,14 @@ LABEL_31:
         }
       }
 
-      cohortsCopy = v32;
+      cohortsCopy = v31;
       v27 = errorCopy;
       if (!errorCopy)
       {
         goto LABEL_31;
       }
 
-      [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not approved for %@ namespace.", v18, v37];
+      [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cohort is not approved for %@ namespace.", v18, v36];
       v20 = LABEL_26:;
       *v27 = [FedStatsPluginError errorWithCode:300 description:v20];
       goto LABEL_30;
@@ -274,8 +274,6 @@ LABEL_32:
 
     v25 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

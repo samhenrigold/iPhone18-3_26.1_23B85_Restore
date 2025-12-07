@@ -56,7 +56,7 @@
 
   else
   {
-    v5 = _EXDefaultLog();
+    v5 = _EXDefaultLog(extensionRequest);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [EXExtensionContextImplementation _processAssertion];
@@ -70,10 +70,41 @@
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1847D1000, v0, v1, "invalidated extension context: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = _EXLegacyLog(self);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [EXExtensionContextImplementation invalidate];
+  }
+
+  requestCleanUpBlock = self->__requestCleanUpBlock;
+  if (requestCleanUpBlock)
+  {
+    requestCleanUpBlock[2]();
+    v5 = self->__requestCleanUpBlock;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  self->__requestCleanUpBlock = 0;
+
+  [(EXExtensionContextImplementation *)self _setExtensionHostProxy:0];
+  [(EXExtensionContextImplementation *)self _setTransaction:0];
+  extensionVendorProxy = self->__extensionVendorProxy;
+  self->__extensionVendorProxy = 0;
+
+  [(NSXPCConnection *)self->__auxiliaryConnection setInterruptionHandler:0];
+  [(NSXPCConnection *)self->__auxiliaryConnection setInvalidationHandler:0];
+  [(NSXPCConnection *)self->__auxiliaryConnection invalidate];
+  auxiliaryConnection = self->__auxiliaryConnection;
+  self->__auxiliaryConnection = 0;
+
+  [(NSXPCListener *)self->__auxiliaryListener invalidate];
+  [(NSXPCListener *)self->__auxiliaryListener setDelegate:0];
+  auxiliaryListener = self->__auxiliaryListener;
+  self->__auxiliaryListener = 0;
 }
 
 - (NSUUID)_pkUUID
@@ -87,7 +118,7 @@
 
   else
   {
-    v5 = _EXDefaultLog();
+    v5 = _EXDefaultLog(extensionRequest);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [EXExtensionContextImplementation _pkUUID];
@@ -143,7 +174,7 @@
 
   else
   {
-    v6 = _EXDefaultLog();
+    v6 = _EXDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [EXExtensionContextImplementation set_pkUUID:];
@@ -165,7 +196,7 @@
 
   else
   {
-    v6 = _EXDefaultLog();
+    v6 = _EXDefaultLog(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       [EXExtensionContextImplementation _setProcessAssertion:];
@@ -318,7 +349,7 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
     v6 = [v5 protocol];
     if (!v6)
     {
-      v7 = _EXDefaultLog();
+      v7 = _EXDefaultLog(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtocolWithContextClass___block_invoke_77_cold_1();
@@ -496,12 +527,12 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
       while (v51);
     }
 
-    v39 = _EXLegacyLog();
+    v40 = _EXLegacyLog(v39);
     dCopy = v46;
     endpointCopy = v47;
     v15 = v25;
     contextCopy = v45;
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       v42 = objc_opt_class();
       *buf = 138413314;
@@ -514,14 +545,13 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
       v73 = v46;
       v74 = 2114;
       v75 = v45;
-      _os_log_debug_impl(&dword_1847D1000, v39, OS_LOG_TYPE_DEBUG, "%@ initialized with inputItems: %@ endpoint: %{public}@ UUID: %{public}@ extensionContext: %{public}@", buf, 0x34u);
+      _os_log_debug_impl(&dword_1847D1000, v40, OS_LOG_TYPE_DEBUG, "%@ initialized with inputItems: %@ endpoint: %{public}@ UUID: %{public}@ extensionContext: %{public}@", buf, 0x34u);
     }
 
     [(EXExtensionContextImplementation *)v25 _initializeAuxillaryConnectionWithListenerEndpoint:v47];
     itemsCopy = v48;
   }
 
-  v40 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -538,8 +568,8 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
   inputItems = self->_inputItems;
   self->_inputItems = v7;
 
-  v9 = _EXLegacyLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v10 = _EXLegacyLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v13 = self->__UUID;
     v12 = self->_inputItems;
@@ -549,10 +579,9 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
     v17 = v12;
     v18 = 2114;
     v19 = v13;
-    _os_log_debug_impl(&dword_1847D1000, v9, OS_LOG_TYPE_DEBUG, "{public}%@ initialized with inputItems: %@ UUID: %{public}@ ", &v14, 0x20u);
+    _os_log_debug_impl(&dword_1847D1000, v10, OS_LOG_TYPE_DEBUG, "{public}%@ initialized with inputItems: %@ UUID: %{public}@ ", &v14, 0x20u);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -576,23 +605,23 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:(id)endpoint
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   extensionContext = [(EXExtensionContextImplementation *)self extensionContext];
   _extensionAuxiliaryVendorProtocol = [objc_opt_class() _extensionAuxiliaryVendorProtocol];
   _extensionAuxiliaryHostProtocol = [objc_opt_class() _extensionAuxiliaryHostProtocol];
-  v8 = _EXLegacyLog();
+  v8 = _EXLegacyLog(_extensionAuxiliaryHostProtocol);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v34 = 138413058;
-    v35 = endpointCopy;
-    v36 = 2112;
-    v37 = extensionContext;
+    v36 = 138413058;
+    v37 = endpointCopy;
     v38 = 2112;
-    v39 = _extensionAuxiliaryVendorProtocol;
+    v39 = extensionContext;
     v40 = 2112;
-    v41 = _extensionAuxiliaryHostProtocol;
-    _os_log_debug_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEBUG, "_initializeAuxillaryConnectionWithListenerEndpoint: %@ - extensionContext: %@ auxVendorProtocol: %@ auxHostProtocol:%@", &v34, 0x2Au);
+    v41 = _extensionAuxiliaryVendorProtocol;
+    v42 = 2112;
+    v43 = _extensionAuxiliaryHostProtocol;
+    _os_log_debug_impl(&dword_1847D1000, v8, OS_LOG_TYPE_DEBUG, "_initializeAuxillaryConnectionWithListenerEndpoint: %@ - extensionContext: %@ auxVendorProtocol: %@ auxHostProtocol:%@", &v36, 0x2Au);
   }
 
   if (endpointCopy)
@@ -600,8 +629,8 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
     p_auxiliaryConnection = &self->__auxiliaryConnection;
     if (self->__auxiliaryConnection)
     {
-      v10 = _EXLegacyLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _EXLegacyLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [EXExtensionContextImplementation _initializeAuxillaryConnectionWithListenerEndpoint:];
       }
@@ -609,14 +638,14 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
 
     else
     {
-      v11 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:endpointCopy];
-      v12 = *p_auxiliaryConnection;
-      *p_auxiliaryConnection = v11;
+      v12 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithListenerEndpoint:endpointCopy];
+      v13 = *p_auxiliaryConnection;
+      *p_auxiliaryConnection = v12;
 
       if (!_extensionAuxiliaryVendorProtocol || !_extensionAuxiliaryHostProtocol)
       {
-        v13 = _EXDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+        v15 = _EXDefaultLog(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
           [EXExtensionContextImplementation _initializeAuxillaryConnectionWithListenerEndpoint:];
         }
@@ -627,11 +656,10 @@ void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtoc
       _derivedExtensionAuxiliaryHostProtocol = [extensionContext _derivedExtensionAuxiliaryHostProtocol];
       [*p_auxiliaryConnection setRemoteObjectInterface:_derivedExtensionAuxiliaryHostProtocol];
 
-      [*p_auxiliaryConnection resume];
-      v10 = _EXLegacyLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = _EXLegacyLog([*p_auxiliaryConnection resume]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(EXExtensionContextImplementation *)p_auxiliaryConnection _initializeAuxillaryConnectionWithListenerEndpoint:v10, v15, v16, v17, v18, v19, v20];
+        [(EXExtensionContextImplementation *)p_auxiliaryConnection _initializeAuxillaryConnectionWithListenerEndpoint:v11, v17, v18, v19, v20, v21, v22];
       }
     }
 
@@ -644,8 +672,8 @@ LABEL_25:
   {
     if (self->__auxiliaryListener)
     {
-      v10 = _EXLegacyLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _EXLegacyLog(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [EXExtensionContextImplementation _initializeAuxillaryConnectionWithListenerEndpoint:];
       }
@@ -655,14 +683,14 @@ LABEL_25:
     {
       extensionContext2 = [(EXExtensionContextImplementation *)self extensionContext];
       protocol = [_extensionAuxiliaryHostProtocol protocol];
-      v23 = [extensionContext2 conformsToProtocol:protocol];
+      v25 = [extensionContext2 conformsToProtocol:protocol];
 
-      if ((v23 & 1) == 0)
+      if ((v25 & 1) == 0)
       {
-        v24 = _EXDefaultLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v27 = _EXDefaultLog(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
-          [(EXExtensionContextImplementation *)extensionContext _initializeAuxillaryConnectionWithListenerEndpoint:_extensionAuxiliaryHostProtocol, v24];
+          [(EXExtensionContextImplementation *)extensionContext _initializeAuxillaryConnectionWithListenerEndpoint:_extensionAuxiliaryHostProtocol, v27];
         }
       }
 
@@ -671,11 +699,10 @@ LABEL_25:
       self->__auxiliaryListener = anonymousListener;
 
       [(NSXPCListener *)self->__auxiliaryListener setDelegate:self];
-      [(NSXPCListener *)self->__auxiliaryListener resume];
-      v10 = _EXLegacyLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = _EXLegacyLog([(NSXPCListener *)self->__auxiliaryListener resume]);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(EXExtensionContextImplementation *)&self->__auxiliaryListener _initializeAuxillaryConnectionWithListenerEndpoint:v10, v27, v28, v29, v30, v31, v32];
+        [(EXExtensionContextImplementation *)&self->__auxiliaryListener _initializeAuxillaryConnectionWithListenerEndpoint:v11, v30, v31, v32, v33, v34, v35];
       }
     }
 
@@ -683,8 +710,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completeRequestReturningItems:(id)items completionHandler:(id)handler
@@ -692,7 +717,7 @@ LABEL_26:
   v61 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   handlerCopy = handler;
-  v7 = _EXLegacyLog();
+  v7 = _EXLegacyLog(handlerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     UUID = self->__UUID;
@@ -767,7 +792,7 @@ LABEL_26:
                 }
 
                 v22 = [v21 alloc];
-                [(EXExtensionContextImplementation *)self _extensionHostAuditToken];
+                objc_msgSend__extensionHostAuditToken(self);
                 v23 = [v22 initWithItemProvider:v18 destinationProcessAuditToken:buf];
                 [v18 set_loadOperator:v23];
               }
@@ -790,15 +815,15 @@ LABEL_26:
   }
 
   os_activity_scope_leave(&state);
-  v24 = _EXLegacyLog();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v25 = _EXLegacyLog(v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1847D1000, v24, OS_LOG_TYPE_DEFAULT, "call _completeRequestReturningItems:forExtensionContextWithUUID:", buf, 2u);
+    _os_log_impl(&dword_1847D1000, v25, OS_LOG_TYPE_DEFAULT, "call _completeRequestReturningItems:forExtensionContextWithUUID:", buf, 2u);
   }
 
   _extensionHostProxy = [(EXExtensionContextImplementation *)self _extensionHostProxy];
-  v26 = dispatch_get_global_queue(25, 0);
+  v27 = dispatch_get_global_queue(25, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __84__EXExtensionContextImplementation_completeRequestReturningItems_completionHandler___block_invoke;
@@ -809,14 +834,12 @@ LABEL_26:
   selfCopy = self;
   v46 = v33;
   v47 = handlerCopy;
-  v27 = handlerCopy;
-  v28 = v33;
-  v29 = v37;
-  v30 = _extensionHostProxy;
-  v31 = v34;
-  dispatch_async(v26, block);
-
-  v32 = *MEMORY[0x1E69E9840];
+  v28 = handlerCopy;
+  v29 = v33;
+  v30 = v37;
+  v31 = _extensionHostProxy;
+  v32 = v34;
+  dispatch_async(v27, block);
 }
 
 void __84__EXExtensionContextImplementation_completeRequestReturningItems_completionHandler___block_invoke(uint64_t a1)
@@ -845,7 +868,7 @@ void __84__EXExtensionContextImplementation_completeRequestReturningItems_comple
 
 void __84__EXExtensionContextImplementation_completeRequestReturningItems_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = _EXLegacyLog();
+  v2 = _EXLegacyLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -875,7 +898,7 @@ void __84__EXExtensionContextImplementation_completeRequestReturningItems_comple
   v4 = v1;
   v5 = v2;
   v6 = v3;
-  v7 = _EXLegacyLog();
+  v7 = _EXLegacyLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v12[0]) = 0;
@@ -898,9 +921,9 @@ void __84__EXExtensionContextImplementation_completeRequestReturningItems_comple
 
 - (void)cancelRequestWithError:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = _EXLegacyLog();
+  v5 = _EXLegacyLog(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     UUID = self->__UUID;
@@ -916,17 +939,16 @@ void __84__EXExtensionContextImplementation_completeRequestReturningItems_comple
   os_activity_scope_enter(v7, &buf);
   _extensionHostProxy = [(EXExtensionContextImplementation *)self _extensionHostProxy];
   v10 = self->__UUID;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __59__EXExtensionContextImplementation_cancelRequestWithError___block_invoke;
-  v13[3] = &unk_1E6E4DB10;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __59__EXExtensionContextImplementation_cancelRequestWithError___block_invoke;
+  v12[3] = &unk_1E6E4DB10;
   v11 = v8;
-  v14 = v11;
+  v13 = v11;
   selfCopy = self;
-  [_extensionHostProxy _cancelRequestWithError:errorCopy forExtensionContextWithUUID:v10 completion:v13];
+  [_extensionHostProxy _cancelRequestWithError:errorCopy forExtensionContextWithUUID:v10 completion:v12];
 
   os_activity_scope_leave(&buf);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __59__EXExtensionContextImplementation_cancelRequestWithError___block_invoke(uint64_t a1)
@@ -1003,12 +1025,11 @@ void __62__EXExtensionContextImplementation_openURL_completionHandler___block_in
 
 void __62__EXExtensionContextImplementation_openURL_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v3.opaque[0] = 0;
-  v3.opaque[1] = 0;
-  os_activity_scope_enter(*(a1 + 32), &v3);
-  v2 = *(a1 + 48);
+  v2.opaque[0] = 0;
+  v2.opaque[1] = 0;
+  os_activity_scope_enter(*(a1 + 32), &v2);
   (*(*(a1 + 40) + 16))();
-  os_activity_scope_leave(&v3);
+  os_activity_scope_leave(&v2);
 }
 
 - (void)_loadItemForPayload:(id)payload completionHandler:(id)handler
@@ -1020,10 +1041,10 @@ void __62__EXExtensionContextImplementation_openURL_completionHandler___block_in
 
   if (useItemProviderXPCConnection)
   {
-    v15 = _EXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = _EXDefaultLog(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
-      [(EXExtensionContextImplementation *)v15 _loadItemForPayload:v16 completionHandler:v17, v18, v19, v20, v21, v22];
+      [(EXExtensionContextImplementation *)v16 _loadItemForPayload:v17 completionHandler:v18, v19, v20, v21, v22, v23];
     }
 
     __break(1u);
@@ -1032,19 +1053,19 @@ void __62__EXExtensionContextImplementation_openURL_completionHandler___block_in
   else
   {
     _extensionHostProxy = [(EXExtensionContextImplementation *)self _extensionHostProxy];
-    v11 = dispatch_get_global_queue(25, 0);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __74__EXExtensionContextImplementation__loadItemForPayload_completionHandler___block_invoke;
-    v23[3] = &unk_1E6E4DC78;
-    v24 = _extensionHostProxy;
-    v25 = payloadCopy;
+    v12 = dispatch_get_global_queue(25, 0);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __74__EXExtensionContextImplementation__loadItemForPayload_completionHandler___block_invoke;
+    v24[3] = &unk_1E6E4DC78;
+    v25 = _extensionHostProxy;
+    v26 = payloadCopy;
     selfCopy = self;
-    v27 = handlerCopy;
-    v12 = handlerCopy;
-    v13 = payloadCopy;
-    v14 = _extensionHostProxy;
-    dispatch_async(v11, v23);
+    v28 = handlerCopy;
+    v13 = handlerCopy;
+    v14 = payloadCopy;
+    v15 = _extensionHostProxy;
+    dispatch_async(v12, v24);
   }
 }
 
@@ -1082,10 +1103,10 @@ void __74__EXExtensionContextImplementation__loadItemForPayload_completionHandle
 
   if (useItemProviderXPCConnection)
   {
-    v13 = _EXDefaultLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = _EXDefaultLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [(EXExtensionContextImplementation *)v13 _loadPreviewImageForPayload:v14 completionHandler:v15, v16, v17, v18, v19, v20];
+      [(EXExtensionContextImplementation *)v14 _loadPreviewImageForPayload:v15 completionHandler:v16, v17, v18, v19, v20, v21];
     }
 
     __break(1u);
@@ -1095,14 +1116,14 @@ void __74__EXExtensionContextImplementation__loadItemForPayload_completionHandle
   {
     _extensionHostProxy = [(EXExtensionContextImplementation *)self _extensionHostProxy];
     UUID = self->__UUID;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __82__EXExtensionContextImplementation__loadPreviewImageForPayload_completionHandler___block_invoke;
-    v21[3] = &unk_1E6E4E068;
-    v21[4] = self;
-    v22 = handlerCopy;
-    v12 = handlerCopy;
-    [_extensionHostProxy _loadPreviewImageForPayload:payloadCopy contextIdentifier:UUID completionHandler:v21];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __82__EXExtensionContextImplementation__loadPreviewImageForPayload_completionHandler___block_invoke;
+    v22[3] = &unk_1E6E4E068;
+    v22[4] = self;
+    v23 = handlerCopy;
+    v13 = handlerCopy;
+    [_extensionHostProxy _loadPreviewImageForPayload:payloadCopy contextIdentifier:UUID completionHandler:v22];
   }
 }
 
@@ -1211,7 +1232,7 @@ void __56__EXExtensionContextImplementation__openURL_completion___block_invoke(u
 void __61__EXExtensionContextImplementation__willPerformHostCallback___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _EXLegacyLog();
+  v3 = _EXLegacyLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __61__EXExtensionContextImplementation__willPerformHostCallback___block_invoke_cold_1(v2, v3);
@@ -1229,20 +1250,19 @@ void __61__EXExtensionContextImplementation__willPerformHostCallback___block_inv
   [connectionCopy setRemoteObjectInterface:_extensionAuxiliaryVendorProtocol];
 
   [connectionCopy setExportedInterface:_derivedExtensionAuxiliaryHostProtocol];
-  [connectionCopy setExportedObject:extensionContext];
+  v11 = [connectionCopy setExportedObject:extensionContext];
   if (self->__auxiliaryConnection)
   {
-    v11 = _EXDefaultLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = _EXDefaultLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [EXExtensionContextImplementation listener:shouldAcceptNewConnection:];
     }
   }
 
   objc_storeStrong(&self->__auxiliaryConnection, connection);
-  [connectionCopy resume];
-  v12 = _EXLegacyLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = _EXLegacyLog([connectionCopy resume]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     v18 = 138412802;
     v19 = connectionCopy;
@@ -1250,164 +1270,148 @@ void __61__EXExtensionContextImplementation__willPerformHostCallback___block_inv
     v21 = listenerCopy;
     v22 = 2114;
     v23 = _derivedExtensionAuxiliaryHostProtocol;
-    _os_log_debug_impl(&dword_1847D1000, v12, OS_LOG_TYPE_DEBUG, "New connection: %@ for listener: %{public}@ interface: %{public}@", &v18, 0x20u);
+    _os_log_debug_impl(&dword_1847D1000, v13, OS_LOG_TYPE_DEBUG, "New connection: %@ for listener: %{public}@ interface: %{public}@", &v18, 0x20u);
   }
 
   extensionContext2 = [(EXExtensionContextImplementation *)self extensionContext];
-  v14 = objc_opt_respondsToSelector();
+  v15 = objc_opt_respondsToSelector();
 
-  if (v14)
+  if (v15)
   {
     extensionContext3 = [(EXExtensionContextImplementation *)self extensionContext];
     [extensionContext3 didConnectToVendor:connectionCopy];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)set_pkUUID:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_pkUUID
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setProcessAssertion:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processAssertion
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __91__EXExtensionContextImplementation__derivedExtensionAuxiliaryHostProtocolWithContextClass___block_invoke_77_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: unexpected nil subclass aux host protocol!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: unexpected nil subclass aux host protocol!", v2, v3, v4, v5);
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_1847D1000, v1, OS_LOG_TYPE_ERROR, "%{public}@ : AUX connectino has already been created for endpoint '%{public}@'.", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_1847D1000, v1, OS_LOG_TYPE_ERROR, "%{public}@ : AUX connectino has already been created for endpoint '%{public}@'.", v2, 0x16u);
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: must define both host and vendor aux protocols!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: must define both host and vendor aux protocols!", v2, v3, v4, v5);
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:(uint64_t)a3 .cold.3(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_3(&dword_1847D1000, a2, a3, "AUX connection created: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3(&dword_1847D1000, a2, a3, "AUX connection created: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:.cold.4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1847D1000, v0, OS_LOG_TYPE_ERROR, "%{public}@ : AUX Listener has already been created.", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1847D1000, v0, OS_LOG_TYPE_ERROR, "%{public}@ : AUX Listener has already been created.", v1, 0xCu);
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:(NSObject *)a3 .cold.5(uint64_t a1, void *a2, NSObject *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = v5;
   v7 = [a2 protocol];
   v8 = NSStringFromProtocol(v7);
-  v10 = 136316162;
-  v11 = "[self.extensionContext conformsToProtocol:auxHostProtocol.protocol]";
-  v12 = 2080;
-  v13 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContextImplementation.m";
-  v14 = 1024;
-  v15 = 283;
-  v16 = 2112;
-  v17 = v5;
-  v18 = 2112;
-  v19 = v8;
-  _os_log_fault_impl(&dword_1847D1000, a3, OS_LOG_TYPE_FAULT, "%s - %s:%d: Class %@ does not conform to aux host protocol: %@", &v10, 0x30u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = 136316162;
+  v10 = "[self.extensionContext conformsToProtocol:auxHostProtocol.protocol]";
+  v11 = 2080;
+  v12 = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContextImplementation.m";
+  v13 = 1024;
+  v14 = 283;
+  v15 = 2112;
+  v16 = v5;
+  v17 = 2112;
+  v18 = v8;
+  _os_log_fault_impl(&dword_1847D1000, a3, OS_LOG_TYPE_FAULT, "%s - %s:%d: Class %@ does not conform to aux host protocol: %@", &v9, 0x30u);
 }
 
 - (void)_initializeAuxillaryConnectionWithListenerEndpoint:(uint64_t)a3 .cold.6(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_3(&dword_1847D1000, a2, a3, "AUX Listener created: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_3(&dword_1847D1000, a2, a3, "AUX Listener created: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_loadItemForPayload:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  *v8 = 136315650;
+  *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContextImplementation.m";
+  *&v8[12] = 1024;
+  *&v8[14] = 466;
+  *&v8[18] = 2080;
+  *&v8[20] = "[EXExtensionContextImplementation _loadItemForPayload:completionHandler:]";
 }
 
 - (void)_loadPreviewImageForPayload:(uint64_t)a3 completionHandler:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = *MEMORY[0x1E69E9840];
+  *v8 = 136315650;
+  *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/ExtensionFoundation/ExtensionFoundation/Source/NSExtension/NSExtensionSupport/EXExtensionContextImplementation.m";
+  *&v8[12] = 1024;
+  *&v8[14] = 481;
+  *&v8[18] = 2080;
+  *&v8[20] = "[EXExtensionContextImplementation _loadPreviewImageForPayload:completionHandler:]";
 }
 
 - (void)_willPerformHostCallback:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_6();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __61__EXExtensionContextImplementation__willPerformHostCallback___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_6();
-  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "failed to ping host: %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1847D1000, a2, OS_LOG_TYPE_ERROR, "failed to ping host: %{public}@", v4, 0xCu);
 }
 
 - (void)listener:shouldAcceptNewConnection:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: listener is one-shot!", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_7(&dword_1847D1000, v0, v1, "%s - %s:%d: listener is one-shot!", v2, v3, v4, v5);
 }
 
 @end

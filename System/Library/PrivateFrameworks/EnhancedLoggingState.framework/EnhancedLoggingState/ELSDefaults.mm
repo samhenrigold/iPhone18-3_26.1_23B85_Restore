@@ -41,7 +41,7 @@ uint64_t __29__ELSDefaults_sharedInstance__block_invoke()
 
 - (unint64_t)_getCloudKitEnvironment
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.enhanced-logging-state"];
   v3 = [v2 valueForKey:@"environment"];
   if (v3)
@@ -49,9 +49,9 @@ uint64_t __29__ELSDefaults_sharedInstance__block_invoke()
     v4 = ELSLogHandleForCategory(11);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v3;
-      _os_log_impl(&dword_24A07C000, v4, OS_LOG_TYPE_DEFAULT, "Using CloudKit environment set in user defaults: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v3;
+      _os_log_impl(&dword_24A07C000, v4, OS_LOG_TYPE_DEFAULT, "Using CloudKit environment set in user defaults: %@", &v11, 0xCu);
     }
 
     integerValue = [v3 integerValue];
@@ -67,8 +67,8 @@ uint64_t __29__ELSDefaults_sharedInstance__block_invoke()
     {
       if (v9)
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_24A07C000, v8, OS_LOG_TYPE_DEFAULT, "Using UAT CloudKit environment", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_24A07C000, v8, OS_LOG_TYPE_DEFAULT, "Using UAT CloudKit environment", &v11, 2u);
       }
 
       integerValue = 1;
@@ -78,15 +78,14 @@ uint64_t __29__ELSDefaults_sharedInstance__block_invoke()
     {
       if (v9)
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_24A07C000, v8, OS_LOG_TYPE_DEFAULT, "Using production CloudKit environment", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_24A07C000, v8, OS_LOG_TYPE_DEFAULT, "Using production CloudKit environment", &v11, 2u);
       }
 
       integerValue = 0;
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 

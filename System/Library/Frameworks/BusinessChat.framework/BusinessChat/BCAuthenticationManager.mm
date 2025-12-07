@@ -70,7 +70,7 @@ LABEL_44:
     v55 = v13;
     v20 = [requestCopy URL];
     fragments = [(NSURL *)v20 fragments];
-    v22 = completionCopy;
+    v23 = completionCopy;
     selfCopy = self;
     if (self)
     {
@@ -79,63 +79,63 @@ LABEL_44:
       v57 = 0u;
       v58 = 0u;
       allKeys = [fragments allKeys];
-      v24 = [allKeys countByEnumeratingWithState:&v57 objects:buf count:16];
-      if (v24)
+      v25 = [allKeys countByEnumeratingWithState:&v57 objects:buf count:16];
+      if (v25)
       {
-        v25 = v24;
-        v53 = v22;
+        v26 = v25;
+        v53 = v23;
         v54 = requestCopy;
-        v26 = *v58;
+        v27 = *v58;
 LABEL_10:
-        v27 = 0;
+        v28 = 0;
         while (1)
         {
-          if (*v58 != v26)
+          if (*v58 != v27)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v28 = *(*(&v57 + 1) + 8 * v27);
-          v29 = [fragments objectForKeyedSubscript:v28];
-          if (v29)
+          v29 = *(*(&v57 + 1) + 8 * v28);
+          v30 = [fragments objectForKeyedSubscript:v29];
+          if (v30)
           {
-            if ([v28 isEqualToString:@"code"])
+            if ([v29 isEqualToString:@"code"])
             {
-              v22 = v53;
-              [(BCAuthenticationManager *)selfCopy exchangeCode:v29 completion:v53];
+              v23 = v53;
+              [(BCAuthenticationManager *)selfCopy exchangeCode:v30 completion:v53];
 LABEL_22:
 
-              v30 = 1;
+              v31 = 1;
               requestCopy = v54;
               goto LABEL_23;
             }
 
-            if ([v28 isEqualToString:@"access_token"])
+            if ([v29 isEqualToString:@"access_token"])
             {
-              v22 = v53;
-              (v53)[2](v53, v29, 0);
+              v23 = v53;
+              (v53)[2](v53, v30, 0);
               goto LABEL_22;
             }
           }
 
-          if (v25 == ++v27)
+          if (v26 == ++v28)
           {
-            v25 = [allKeys countByEnumeratingWithState:&v57 objects:buf count:16];
-            if (v25)
+            v26 = [allKeys countByEnumeratingWithState:&v57 objects:buf count:16];
+            if (v26)
             {
               goto LABEL_10;
             }
 
-            v30 = 0;
+            v31 = 0;
             requestCopy = v54;
             v13 = v55;
-            v22 = v53;
+            v23 = v53;
             goto LABEL_24;
           }
         }
       }
 
-      v30 = 0;
+      v31 = 0;
 LABEL_23:
       v13 = v55;
 LABEL_24:
@@ -143,52 +143,52 @@ LABEL_24:
 
     else
     {
-      v30 = 0;
+      v31 = 0;
     }
 
-    v31 = LogCategory_Daemon();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = LogCategory_Daemon();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v64) = v30;
-      _os_log_impl(&dword_236EA0000, v31, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: fragements processed: %d", buf, 8u);
+      LODWORD(v64) = v31;
+      _os_log_impl(&dword_236EA0000, v32, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: fragements processed: %d", buf, 8u);
     }
 
-    if ((v30 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      v32 = [requestCopy valueForHTTPHeaderField:@"Content-Type"];
-      v33 = [v32 isEqualToString:@"application/x-www-form-urlencoded"];
+      v33 = [requestCopy valueForHTTPHeaderField:@"Content-Type"];
+      v34 = [v33 isEqualToString:@"application/x-www-form-urlencoded"];
 
-      if (v33)
+      if (v34)
       {
         hTTPBody = [requestCopy HTTPBody];
 
         if (hTTPBody)
         {
-          v35 = objc_alloc(MEMORY[0x277CCACA8]);
+          v36 = objc_alloc(MEMORY[0x277CCACA8]);
           hTTPBody2 = [requestCopy HTTPBody];
-          v37 = [v35 initWithData:hTTPBody2 encoding:4];
+          v38 = [v36 initWithData:hTTPBody2 encoding:4];
 
-          v38 = objc_alloc_init(MEMORY[0x277CCACE0]);
-          [v38 setQuery:v37];
-          queryItems4 = [v38 queryItems];
-          v40 = v22;
-          v41 = queryItems4;
-          v42 = v40;
-          v43 = [(BCAuthenticationManager *)selfCopy processQueryItems:queryItems4 completion:v40];
+          v39 = objc_alloc_init(MEMORY[0x277CCACE0]);
+          [v39 setQuery:v38];
+          queryItems4 = [v39 queryItems];
+          v41 = v23;
+          v42 = queryItems4;
+          v43 = v41;
+          v44 = [(BCAuthenticationManager *)selfCopy processQueryItems:queryItems4 completion:v41];
 
-          v44 = LogCategory_Daemon();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          v45 = LogCategory_Daemon();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v64 = v37;
+            v64 = v38;
             v65 = 1024;
-            v66 = v43;
-            _os_log_impl(&dword_236EA0000, v44, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: body %@ processed: %d", buf, 0x12u);
+            v66 = v44;
+            _os_log_impl(&dword_236EA0000, v45, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: body %@ processed: %d", buf, 0x12u);
           }
 
-          v22 = v42;
-          if (v43)
+          v23 = v43;
+          if (v44)
           {
             goto LABEL_40;
           }
@@ -196,45 +196,43 @@ LABEL_24:
 
         else
         {
-          v45 = LogCategory_Daemon();
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+          v46 = LogCategory_Daemon();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_236EA0000, v45, OS_LOG_TYPE_DEFAULT, "Request has Content-Type application/x-www-form-urlencoded but HTTPBody is empty.", buf, 2u);
+            _os_log_impl(&dword_236EA0000, v46, OS_LOG_TYPE_DEFAULT, "Request has Content-Type application/x-www-form-urlencoded but HTTPBody is empty.", buf, 2u);
           }
         }
       }
 
-      v46 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v47 = objc_alloc(MEMORY[0x277CCA9B8]);
       v61 = *MEMORY[0x277CCA450];
       v62 = @"Missing access token from response";
-      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-      v48 = [v46 initWithDomain:@"com.apple.icloud.messages.business.authentication.error" code:0 userInfo:v47];
+      v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      v49 = [v47 initWithDomain:@"com.apple.icloud.messages.business.authentication.error" code:0 userInfo:v48];
 
-      v49 = LogCategory_Daemon();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      v50 = LogCategory_Daemon();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        [v48 localizedDescription];
-        v52 = v51 = v22;
+        [v49 localizedDescription];
+        v52 = v51 = v23;
         *buf = 138412290;
         v64 = v52;
-        _os_log_error_impl(&dword_236EA0000, v49, OS_LOG_TYPE_ERROR, "BCAuthenticationManager: not enough information to process: %@", buf, 0xCu);
+        _os_log_error_impl(&dword_236EA0000, v50, OS_LOG_TYPE_ERROR, "BCAuthenticationManager: not enough information to process: %@", buf, 0xCu);
 
-        v22 = v51;
+        v23 = v51;
       }
 
-      (*(v22 + 2))(v22, 0, v48);
+      (*(v23 + 2))(v23, 0, v49);
     }
   }
 
 LABEL_40:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)processQueryItems:(void *)items completion:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   itemsCopy = items;
   if (!self)
@@ -249,12 +247,12 @@ LABEL_40:
     _os_log_impl(&dword_236EA0000, v7, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: process query items", buf, 2u);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (!v9)
   {
     self = 0;
@@ -263,19 +261,19 @@ LABEL_40:
 
   v10 = v9;
   selfCopy = self;
-  v22 = itemsCopy;
-  v23 = v5;
-  v11 = *v25;
+  v21 = itemsCopy;
+  v22 = v5;
+  v11 = *v24;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v25 != v11)
+      if (*v24 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v24 + 1) + 8 * i);
+      v13 = *(*(&v23 + 1) + 8 * i);
       value = [v13 value];
       if (value)
       {
@@ -284,8 +282,8 @@ LABEL_40:
 
         if (v16)
         {
-          itemsCopy = v22;
-          [(BCAuthenticationManager *)selfCopy exchangeCode:value completion:v22];
+          itemsCopy = v21;
+          [(BCAuthenticationManager *)selfCopy exchangeCode:value completion:v21];
         }
 
         else
@@ -298,19 +296,19 @@ LABEL_40:
             goto LABEL_12;
           }
 
-          itemsCopy = v22;
-          (v22)[2](v22, value, 0);
+          itemsCopy = v21;
+          (v21)[2](v21, value, 0);
         }
 
         self = 1;
-        v5 = v23;
+        v5 = v22;
         goto LABEL_19;
       }
 
 LABEL_12:
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v10)
     {
       continue;
@@ -320,18 +318,17 @@ LABEL_12:
   }
 
   self = 0;
-  itemsCopy = v22;
-  v5 = v23;
+  itemsCopy = v21;
+  v5 = v22;
 LABEL_19:
 
 LABEL_20:
-  v19 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (void)exchangeCode:(void *)code completion:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   v6 = a2;
   authenticationRequest = [self authenticationRequest];
@@ -343,7 +340,7 @@ LABEL_20:
   {
     absoluteString = [tokenExchangeURL absoluteString];
     *buf = 138412290;
-    v28 = absoluteString;
+    v27 = absoluteString;
     _os_log_impl(&dword_236EA0000, v10, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: exchange code url: %@", buf, 0xCu);
   }
 
@@ -358,22 +355,20 @@ LABEL_20:
   defaultSessionConfiguration = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
   v17 = [v15 sessionWithConfiguration:defaultSessionConfiguration delegate:self delegateQueue:0];
 
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __51__BCAuthenticationManager_exchangeCode_completion___block_invoke;
-  v24 = &unk_278A0E948;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __51__BCAuthenticationManager_exchangeCode_completion___block_invoke;
+  v23 = &unk_278A0E948;
   v18 = codeCopy;
   selfCopy = self;
-  v26 = v18;
-  v19 = [v17 dataTaskWithRequest:v14 completionHandler:&v21];
+  v25 = v18;
+  v19 = [v17 dataTaskWithRequest:v14 completionHandler:&v20];
   [v19 resume];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   v8 = LogCategory_Daemon();
@@ -389,7 +384,7 @@ void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v37 = v7;
+      v36 = v7;
       _os_log_impl(&dword_236EA0000, v9, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: failed to retrieve token: %@", buf, 0xCu);
     }
 
@@ -408,13 +403,13 @@ void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v37 = v12;
+        v36 = v12;
         _os_log_impl(&dword_236EA0000, v14, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: access token for data: %@", buf, 0xCu);
       }
 
-      v31 = 0;
-      v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v12 options:1 error:&v31];
-      v16 = v31;
+      v30 = 0;
+      v15 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v12 options:1 error:&v30];
+      v16 = v30;
       if (v16)
       {
         v17 = LogCategory_Daemon();
@@ -422,7 +417,7 @@ void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64
         {
           v18 = [v16 localizedDescription];
           *buf = 138412290;
-          v37 = v18;
+          v36 = v18;
           _os_log_impl(&dword_236EA0000, v17, OS_LOG_TYPE_DEFAULT, "BCAuthenticationManager: error serializing data to JSON: %@", buf, 0xCu);
         }
 
@@ -440,17 +435,17 @@ void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64
         else
         {
           v24 = objc_alloc(MEMORY[0x277CCA9B8]);
-          v34 = *MEMORY[0x277CCA450];
-          v35 = @"Missing access token from response";
-          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          v33 = *MEMORY[0x277CCA450];
+          v34 = @"Missing access token from response";
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
           v26 = [v24 initWithDomain:@"com.apple.icloud.messages.business.authentication.error" code:2 userInfo:v25];
 
           v27 = LogCategory_Daemon();
           if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            v30 = [v26 localizedDescription];
+            v29 = [v26 localizedDescription];
             *buf = 138412290;
-            v37 = v30;
+            v36 = v29;
             _os_log_error_impl(&dword_236EA0000, v27, OS_LOG_TYPE_ERROR, "BCAuthenticationManager: cannot parse access_token: %@", buf, 0xCu);
           }
 
@@ -463,24 +458,22 @@ void __51__BCAuthenticationManager_exchangeCode_completion___block_invoke(uint64
   else
   {
     v19 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v32 = *MEMORY[0x277CCA450];
-    v33 = @"Empty data received";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v31 = *MEMORY[0x277CCA450];
+    v32 = @"Empty data received";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v21 = [v19 initWithDomain:@"com.apple.icloud.messages.business.authentication.error" code:0 userInfo:v20];
 
     v22 = LogCategory_Daemon();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v29 = [v21 localizedDescription];
+      v28 = [v21 localizedDescription];
       *buf = 138412290;
-      v37 = v29;
+      v36 = v28;
       _os_log_error_impl(&dword_236EA0000, v22, OS_LOG_TYPE_ERROR, "BCAuthenticationManager: cannot parse access_token: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler

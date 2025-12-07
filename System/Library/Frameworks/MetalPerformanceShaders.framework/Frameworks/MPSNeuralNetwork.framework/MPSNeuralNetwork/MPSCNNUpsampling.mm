@@ -14,7 +14,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNUpsampling.mm", 0x89, @"Cannot directly initialize MPSCNNUpsampling. Use one of the sub-classes of MPSCNNUpsampling.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -22,9 +22,9 @@
 
 - (MPSCNNUpsampling)initWithDevice:(id)device filterType:(unint64_t)type integerScaleFactorX:(unint64_t)x integerScaleFactorY:(unint64_t)y alignCorners:(BOOL)corners
 {
-  v27.receiver = self;
-  v27.super_class = MPSCNNUpsampling;
-  result = [(MPSCNNKernel *)&v27 initWithDevice:device];
+  v33.receiver = self;
+  v33.super_class = MPSCNNUpsampling;
+  result = [(MPSCNNKernel *)&v33 initWithDevice:device];
   if (result)
   {
     if (x)
@@ -54,10 +54,12 @@
         v26 = result;
         if (MTLReportFailureTypeEnabled())
         {
-          goto LABEL_12;
+          v31 = @"invalid filter type (%lu)";
+          v32 = 157;
+          goto LABEL_13;
         }
 
-LABEL_13:
+LABEL_14:
 
         return 0;
       }
@@ -65,8 +67,11 @@ LABEL_13:
       v26 = result;
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
+
+      v31 = @"scale factor in the y dimension (%lu) must be > 0";
+      v32 = 154;
     }
 
     else
@@ -74,13 +79,16 @@ LABEL_13:
       v26 = result;
       if (!MTLReportFailureTypeEnabled())
       {
-        goto LABEL_13;
+        goto LABEL_14;
       }
+
+      v31 = @"scale factor in the x dimension (%lu) must be > 0";
+      v32 = 151;
     }
 
-LABEL_12:
-    MTLReportFailure();
-    goto LABEL_13;
+LABEL_13:
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNUpsampling.mm", v32, v31, v27, v28, v29, v30);
+    goto LABEL_14;
   }
 
   return result;
@@ -88,9 +96,9 @@ LABEL_12:
 
 - (MPSCNNUpsampling)initWithCoder:(id)coder device:(id)device
 {
-  v35.receiver = self;
-  v35.super_class = MPSCNNUpsampling;
-  v5 = [(MPSCNNKernel *)&v35 initWithCoder:coder device:device];
+  v39.receiver = self;
+  v39.super_class = MPSCNNUpsampling;
+  v5 = [(MPSCNNKernel *)&v39 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -115,7 +123,7 @@ LABEL_12:
   {
     v34 = objc_opt_class();
     NSStringFromClass(v34);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNUpsampling.mm", 0xC1, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v35, v36, v37, v38);
   }
 
   return 0;

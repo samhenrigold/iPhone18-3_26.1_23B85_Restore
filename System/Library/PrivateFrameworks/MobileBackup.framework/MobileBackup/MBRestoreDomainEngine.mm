@@ -114,7 +114,7 @@
       *buf = 138412290;
       v56 = v30;
       _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "=domain-engine= Failed to create performer: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "=domain-engine= Failed to create performer: %@", v30);
     }
 
     v35 = policyCopy2;
@@ -172,7 +172,7 @@
         _os_log_impl(&_mh_execute_header, domainName6, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: Starting restore", buf, 0xCu);
 
         domainName2 = [(MBRestoreDomainEngine *)self domainName];
-        _MBLog();
+        _MBLog(@"Df", "=domain-engine= %{public}@: Starting restore", domainName2);
 LABEL_11:
       }
     }
@@ -180,16 +180,16 @@ LABEL_11:
     else if (v9)
     {
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
-      v15 = sub_10024D9E0(v6);
+      v16 = sub_10024D9E0(v6);
       *buf = 138543618;
       v21 = domainName3;
       v22 = 2112;
-      v23 = v15;
+      v23 = v16;
       _os_log_impl(&_mh_execute_header, domainName6, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: Resuming restore at %@", buf, 0x16u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
-      v18 = sub_10024D9E0(v6);
-      _MBLog();
+      v17 = sub_10024D9E0(v6);
+      _MBLog(@"Df", "=domain-engine= %{public}@: Resuming restore at %@", domainName2, v17);
 
       goto LABEL_11;
     }
@@ -209,7 +209,7 @@ LABEL_11:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Unable to retrieve state to resume engine: %@", buf, 0x16u);
 
       domainName5 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Unable to retrieve state to resume engine: %@", domainName5, v7);
     }
 
     domainName6 = [(MBRestoreDomainEngine *)self domainName];
@@ -235,43 +235,41 @@ LABEL_11:
         name = [domain name];
         v10 = [MBError loggableDescriptionForError:engineError];
         *buf = 138543874;
-        v27 = name;
+        v25 = name;
+        v26 = 2112;
+        v27 = v10;
         v28 = 2112;
-        v29 = v10;
-        v30 = 2112;
-        v31 = engineError;
+        v29 = engineError;
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Restore failed: (%@), %@", buf, 0x20u);
 
         domain2 = [(MBRestoreDomainEngine *)self domain];
         name2 = [domain2 name];
-        v24 = [MBError loggableDescriptionForError:engineError];
-        v25 = engineError;
-        v21 = name2;
-        _MBLog();
+        v13 = [MBError loggableDescriptionForError:engineError];
+        _MBLog(@"E ", "=domain-engine= %{public}@: Restore failed: (%@), %@", name2, v13, engineError);
       }
 
       if (error)
       {
-        v13 = engineError;
+        v14 = engineError;
         *error = engineError;
       }
 
-      v14 = [(MBRestoreDomainPlan *)self->_plan domain:v21];
-      if (-[MBEngine isBackgroundRestore](self, "isBackgroundRestore") && !+[MBError isRetryableRestoreError:](MBError, "isRetryableRestoreError:", engineError) && [v14 isContainerizedDomain])
+      domain3 = [(MBRestoreDomainPlan *)self->_plan domain];
+      if (-[MBEngine isBackgroundRestore](self, "isBackgroundRestore") && !+[MBError isRetryableRestoreError:](MBError, "isRetryableRestoreError:", engineError) && [domain3 isContainerizedDomain])
       {
         restoreRootPath = [(MBRestoreDomainEngine *)self restoreRootPath];
-        v16 = MBGetDefaultLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v17 = MBGetDefaultLog();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          name3 = [v14 name];
+          name3 = [domain3 name];
           *buf = 138412546;
-          v27 = name3;
-          v28 = 2112;
-          v29 = restoreRootPath;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=domain-engine= Resetting container for %@ with root %@ after fatal restore error", buf, 0x16u);
+          v25 = name3;
+          v26 = 2112;
+          v27 = restoreRootPath;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=domain-engine= Resetting container for %@ with root %@ after fatal restore error", buf, 0x16u);
 
-          name4 = [v14 name];
-          _MBLog();
+          name4 = [domain3 name];
+          _MBLog(@"Df", "=domain-engine= Resetting container for %@ with root %@ after fatal restore error", name4, restoreRootPath);
         }
 
         [MBMobileInstallation resetContainerWithRoot:restoreRootPath error:0];
@@ -282,16 +280,16 @@ LABEL_11:
 
     else
     {
-      v18 = MBGetDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         domainName = [(MBRestoreDomainEngine *)self domainName];
         *buf = 138543362;
-        v27 = domainName;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@ restore finished successfully", buf, 0xCu);
+        v25 = domainName;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@ restore finished successfully", buf, 0xCu);
 
         domainName2 = [(MBRestoreDomainEngine *)self domainName];
-        _MBLog();
+        _MBLog(@"Df", "=domain-engine= %{public}@ restore finished successfully", domainName2);
       }
 
       [(MBStatefulEngine *)self cleanUpAfterError:0];
@@ -306,9 +304,9 @@ LABEL_11:
 {
   errorCopy = error;
   fetcher = self->_fetcher;
-  v27 = 0;
-  v6 = [(MBAssetFetcher *)fetcher disposeWithError:&v27];
-  v7 = v27;
+  v21 = 0;
+  v6 = [(MBAssetFetcher *)fetcher disposeWithError:&v21];
+  v7 = v21;
   if ((v6 & 1) == 0)
   {
     v8 = MBGetDefaultLog();
@@ -317,25 +315,22 @@ LABEL_11:
       domainName = [(MBRestoreDomainEngine *)self domainName];
       v10 = self->_fetcher;
       *buf = 138543874;
-      v29 = domainName;
-      v30 = 2112;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v7;
+      v23 = domainName;
+      v24 = 2112;
+      v25 = v10;
+      v26 = 2112;
+      v27 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed to dispose of fetcher %@: %@", buf, 0x20u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
-      v21 = self->_fetcher;
-      v23 = v7;
-      v19 = domainName2;
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed to dispose of fetcher %@: %@", domainName2, self->_fetcher, v7);
     }
   }
 
   performer = self->_performer;
-  v26 = v7;
-  v13 = [(MBRestorePerformer *)performer disposeAndReturnError:&v26, v19, v21, v23];
-  v14 = v26;
+  v20 = v7;
+  v13 = [(MBRestorePerformer *)performer disposeAndReturnError:&v20];
+  v14 = v20;
 
   if ((v13 & 1) == 0)
   {
@@ -345,24 +340,21 @@ LABEL_11:
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
       v17 = self->_performer;
       *buf = 138543874;
-      v29 = domainName3;
-      v30 = 2112;
-      v31 = v17;
-      v32 = 2112;
-      v33 = v14;
+      v23 = domainName3;
+      v24 = 2112;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed to dispose of performer %@: %@", buf, 0x20u);
 
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
-      v22 = self->_performer;
-      v24 = v14;
-      v20 = domainName4;
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed to dispose of performer %@: %@", domainName4, self->_performer, v14);
     }
   }
 
-  v25.receiver = self;
-  v25.super_class = MBRestoreDomainEngine;
-  [(MBStatefulEngine *)&v25 cleanUpOnceAfterError:errorCopy, v20, v22, v24];
+  v19.receiver = self;
+  v19.super_class = MBRestoreDomainEngine;
+  [(MBStatefulEngine *)&v19 cleanUpOnceAfterError:errorCopy];
 }
 
 - (void)_handleStateTransition
@@ -376,22 +368,22 @@ LABEL_11:
     {
       if (restoreState == 6)
       {
-        v38[0] = _NSConcreteStackBlock;
-        v38[1] = 3221225472;
-        v38[2] = sub_10024E6A8;
-        v38[3] = &unk_1003BC400;
-        v38[4] = self;
-        v6 = v38;
+        v36[0] = _NSConcreteStackBlock;
+        v36[1] = 3221225472;
+        v36[2] = sub_10024E6A8;
+        v36[3] = &unk_1003BC400;
+        v36[4] = self;
+        v6 = v36;
       }
 
       else
       {
-        v37[0] = _NSConcreteStackBlock;
-        v37[1] = 3221225472;
-        v37[2] = sub_10024E6B4;
-        v37[3] = &unk_1003BC400;
-        v37[4] = self;
-        v6 = v37;
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_10024E6B4;
+        v35[3] = &unk_1003BC400;
+        v35[4] = self;
+        v6 = v35;
       }
 
       goto LABEL_22;
@@ -400,20 +392,20 @@ LABEL_11:
     switch(restoreState)
     {
       case 8:
-        v36[0] = _NSConcreteStackBlock;
-        v36[1] = 3221225472;
-        v36[2] = sub_10024E6C0;
-        v36[3] = &unk_1003BC400;
-        v36[4] = self;
-        v6 = v36;
+        v34[0] = _NSConcreteStackBlock;
+        v34[1] = 3221225472;
+        v34[2] = sub_10024E6C0;
+        v34[3] = &unk_1003BC400;
+        v34[4] = self;
+        v6 = v34;
         goto LABEL_22;
       case 9:
-        v35[0] = _NSConcreteStackBlock;
-        v35[1] = 3221225472;
-        v35[2] = sub_10024E6CC;
-        v35[3] = &unk_1003BC400;
-        v35[4] = self;
-        v6 = v35;
+        v33[0] = _NSConcreteStackBlock;
+        v33[1] = 3221225472;
+        v33[2] = sub_10024E6CC;
+        v33[3] = &unk_1003BC400;
+        v33[4] = self;
+        v6 = v33;
         goto LABEL_22;
       case 10:
         [(MBStatefulEngine *)self setIsFinished:1];
@@ -428,32 +420,32 @@ LABEL_11:
     {
       if (restoreState == 3)
       {
-        v41[0] = _NSConcreteStackBlock;
-        v41[1] = 3221225472;
-        v41[2] = sub_10024E684;
-        v41[3] = &unk_1003BC400;
-        v41[4] = self;
-        v6 = v41;
+        v39[0] = _NSConcreteStackBlock;
+        v39[1] = 3221225472;
+        v39[2] = sub_10024E684;
+        v39[3] = &unk_1003BC400;
+        v39[4] = self;
+        v6 = v39;
       }
 
       else if (restoreState == 4)
       {
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_10024E690;
-        v40[3] = &unk_1003BC400;
-        v40[4] = self;
-        v6 = v40;
+        v38[0] = _NSConcreteStackBlock;
+        v38[1] = 3221225472;
+        v38[2] = sub_10024E690;
+        v38[3] = &unk_1003BC400;
+        v38[4] = self;
+        v6 = v38;
       }
 
       else
       {
-        v39[0] = _NSConcreteStackBlock;
-        v39[1] = 3221225472;
-        v39[2] = sub_10024E69C;
-        v39[3] = &unk_1003BC400;
-        v39[4] = self;
-        v6 = v39;
+        v37[0] = _NSConcreteStackBlock;
+        v37[1] = 3221225472;
+        v37[2] = sub_10024E69C;
+        v37[3] = &unk_1003BC400;
+        v37[4] = self;
+        v6 = v37;
       }
 
       goto LABEL_22;
@@ -461,45 +453,44 @@ LABEL_11:
 
     if (restoreState == 1)
     {
-      v43[0] = _NSConcreteStackBlock;
-      v43[1] = 3221225472;
-      v43[2] = sub_10024E66C;
-      v43[3] = &unk_1003BC400;
-      v43[4] = self;
-      v6 = v43;
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_10024E66C;
+      v41[3] = &unk_1003BC400;
+      v41[4] = self;
+      v6 = v41;
       goto LABEL_22;
     }
 
     if (restoreState == 2)
     {
-      v42[0] = _NSConcreteStackBlock;
-      v42[1] = 3221225472;
-      v42[2] = sub_10024E678;
-      v42[3] = &unk_1003BC400;
-      v42[4] = self;
-      v6 = v42;
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_10024E678;
+      v40[3] = &unk_1003BC400;
+      v40[4] = self;
+      v6 = v40;
 LABEL_22:
       [(MBStatefulEngine *)self performRetryablePhase:v6];
       goto LABEL_23;
     }
   }
 
-  v19 = MBGetDefaultLog();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+  v21 = MBGetDefaultLog();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
   {
     domainName = [(MBRestoreDomainEngine *)self domainName];
     *buf = 138412546;
-    v45 = domainName;
-    v46 = 2048;
-    v47 = v5;
-    _os_log_fault_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, "%@: Invalid restore engine state (%lu)", buf, 0x16u);
+    v43 = domainName;
+    v44 = 2048;
+    v45 = v5;
+    _os_log_fault_impl(&_mh_execute_header, v21, OS_LOG_TYPE_FAULT, "%@: Invalid restore engine state (%lu)", buf, 0x16u);
   }
 
   domainName2 = [(MBRestoreDomainEngine *)self domainName];
-  v32 = v5;
-  v28 = sub_10012F338(@"%@: Invalid restore engine state (%lu)", v21, v22, v23, v24, v25, v26, v27, domainName2);
+  v30 = sub_10012F338(@"%@: Invalid restore engine state (%lu)", v23, v24, v25, v26, v27, v28, v29, domainName2);
 
-  [(MBStatefulEngine *)self setEngineError:v28];
+  [(MBStatefulEngine *)self setEngineError:v30];
   [(MBStatefulEngine *)self setIsFinished:1];
 LABEL_23:
   if (![(MBStatefulEngine *)self isFinished])
@@ -518,40 +509,38 @@ LABEL_23:
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
       v12 = sub_10024D9E0(v5);
       *buf = 138543874;
-      v45 = domainName3;
-      v46 = 2114;
-      v47 = v12;
-      v48 = 2048;
-      v49 = v10;
+      v43 = domainName3;
+      v44 = 2114;
+      v45 = v12;
+      v46 = 2048;
+      v47 = v10;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: %{public}@ done in %.3fs", buf, 0x20u);
 
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
-      sub_10024D9E0(v5);
-      v33 = v10;
-      v32 = v30 = domainName4;
-      _MBLog();
+      v14 = sub_10024D9E0(v5);
+      _MBLog(@"Df", "=domain-engine= %{public}@: %{public}@ done in %.3fs", domainName4, v14, *&v10);
     }
   }
 
-  [(MBRestoreOperationLogger *)self->_logger flush:v30];
+  [(MBRestoreOperationLogger *)self->_logger flush];
   plan = self->_plan;
-  v34 = 0;
-  v15 = [(MBRestoreDomainPlan *)plan setDomainState:[(MBRestoreDomainEngine *)self restoreState] error:&v34];
-  v16 = v34;
-  if ((v15 & 1) == 0)
+  v32 = 0;
+  v16 = [(MBRestoreDomainPlan *)plan setDomainState:[(MBRestoreDomainEngine *)self restoreState] error:&v32];
+  v17 = v32;
+  if ((v16 & 1) == 0)
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       domainName5 = [(MBRestoreDomainEngine *)self domainName];
       *buf = 138543618;
-      v45 = domainName5;
-      v46 = 2112;
-      v47 = v16;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Unable to set resume engine state: %@", buf, 0x16u);
+      v43 = domainName5;
+      v44 = 2112;
+      v45 = v17;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Unable to set resume engine state: %@", buf, 0x16u);
 
       domainName6 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Unable to set resume engine state: %@", domainName6, v17);
     }
   }
 }
@@ -573,9 +562,9 @@ LABEL_23:
     __assert_rtn("[MBRestoreDomainEngine setUpWithError:]", "MBRestoreDomainEngine.m", 319, "error");
   }
 
-  v26.receiver = self;
-  v26.super_class = MBRestoreDomainEngine;
-  if (![(MBStatefulEngine *)&v26 setUpWithError:?])
+  v25.receiver = self;
+  v25.super_class = MBRestoreDomainEngine;
+  if (![(MBStatefulEngine *)&v25 setUpWithError:?])
   {
     return 0;
   }
@@ -591,53 +580,52 @@ LABEL_23:
       domain2 = [(MBRestoreDomainEngine *)self domain];
       restoreRootPath = self->_restoreRootPath;
       *buf = 138543618;
-      v28 = domain2;
-      v29 = 2114;
+      v27 = domain2;
+      v28 = 2114;
       selfCopy = restoreRootPath;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: Creating root path at %{public}@", buf, 0x16u);
 
       domain3 = [(MBRestoreDomainEngine *)self domain];
-      v24 = self->_restoreRootPath;
-      _MBLog();
+      _MBLog(@"Df", "=domain-engine= %{public}@: Creating root path at %{public}@", domain3, self->_restoreRootPath);
     }
 
     domainName6 = +[NSFileManager defaultManager];
-    if ([domainName6 fileExistsAtPath:self->_restoreRootPath] & 1) != 0 || (v11 = self->_restoreRootPath, MBMobileFileAttributes(), v12 = objc_claimAutoreleasedReturnValue(), LOBYTE(v11) = objc_msgSend(domainName6, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v11, 1, v12, error), v12, (v11))
+    if ([domainName6 fileExistsAtPath:self->_restoreRootPath] & 1) != 0 || (v12 = self->_restoreRootPath, MBMobileFileAttributes(), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v12) = objc_msgSend(domainName6, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v12, 1, v13, error), v13, (v12))
     {
-      domainName3 = [(MBRestoreDomainPlan *)self->_plan countsOfRestorablesByState:error, domain3, v24];
+      domainName3 = [(MBRestoreDomainPlan *)self->_plan countsOfRestorablesByState:error];
       if (domainName3)
       {
-        v14 = MBGetDefaultLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v15 = MBGetDefaultLog();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           domainName = [(MBRestoreDomainEngine *)self domainName];
-          v16 = MBDescriptionForStateSummaryDictionary(domainName3);
+          v17 = MBDescriptionForStateSummaryDictionary(domainName3);
           *buf = 138543618;
-          v28 = domainName;
-          v29 = 2114;
-          selfCopy = v16;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "=domain-engine= %{public}@: Starting domain restore: %{public}@", buf, 0x16u);
+          v27 = domainName;
+          v28 = 2114;
+          selfCopy = v17;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "=domain-engine= %{public}@: Starting domain restore: %{public}@", buf, 0x16u);
 
           domainName2 = [(MBRestoreDomainEngine *)self domainName];
-          v25 = MBDescriptionForStateSummaryDictionary(domainName3);
-          _MBLog();
+          v19 = MBDescriptionForStateSummaryDictionary(domainName3);
+          _MBLog(@"Db", "=domain-engine= %{public}@: Starting domain restore: %{public}@", domainName2, v19);
         }
 
-        v18 = 1;
+        v20 = 1;
       }
 
       else
       {
-        v18 = 0;
+        v20 = 0;
       }
     }
 
     else
     {
-      v20 = self->_restoreRootPath;
+      v23 = self->_restoreRootPath;
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
-      [MBError errorWithCode:100 path:v20 format:@"Failed creating root path for domain %@", domainName3];
-      *error = v18 = 0;
+      [MBError errorWithCode:100 path:v23 format:@"Failed creating root path for domain %@", domainName3];
+      *error = v20 = 0;
     }
   }
 
@@ -647,21 +635,21 @@ LABEL_23:
     {
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
       *buf = 138543618;
-      v28 = domainName4;
-      v29 = 2112;
+      v27 = domainName4;
+      v28 = 2112;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Unable to get domain for restore %@)", buf, 0x16u);
 
       domainName5 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Unable to get domain for restore %@)", domainName5, self);
     }
 
     domainName6 = [(MBRestoreDomainEngine *)self domainName];
     [MBError errorWithCode:205 format:@"Failed to get domain for %@", domainName6];
-    *error = v18 = 0;
+    *error = v20 = 0;
   }
 
-  return v18;
+  return v20;
 }
 
 - (BOOL)_downloadAssets:(id *)assets
@@ -681,23 +669,23 @@ LABEL_23:
     {
       if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 1;
+        v13 = 1;
         goto LABEL_15;
       }
 
       domainName = [(MBRestoreDomainEngine *)self domainName];
       assetFetchSummary = [(MBRestoreDomainEngine *)self assetFetchSummary];
       *buf = 138543618;
-      v24 = domainName;
-      v25 = 2112;
-      v26 = assetFetchSummary;
+      v21 = domainName;
+      v22 = 2112;
+      v23 = assetFetchSummary;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: Finished downloading assets: %@ assets", buf, 0x16u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
       assetFetchSummary2 = [(MBRestoreDomainEngine *)self assetFetchSummary];
-      _MBLog();
+      _MBLog(@"Df", "=domain-engine= %{public}@: Finished downloading assets: %@ assets", domainName2, assetFetchSummary2);
 
-      v12 = 1;
+      v13 = 1;
       goto LABEL_12;
     }
 
@@ -705,23 +693,22 @@ LABEL_23:
     {
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
       fetcher = self->_fetcher;
-      v17 = *assets;
+      v18 = *assets;
       *buf = 138543874;
-      v24 = domainName3;
-      v25 = 2112;
-      v26 = fetcher;
-      v27 = 2112;
-      v28 = v17;
+      v21 = domainName3;
+      v22 = 2112;
+      v23 = fetcher;
+      v24 = 2112;
+      v25 = v18;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed batch fetching assets with %@: %@", buf, 0x20u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
-      v18 = self->_fetcher;
-      v22 = *assets;
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed batch fetching assets with %@: %@", domainName2, self->_fetcher, *assets);
       goto LABEL_11;
     }
 
 LABEL_13:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_15;
   }
 
@@ -732,22 +719,21 @@ LABEL_13:
   }
 
   domainName4 = [(MBRestoreDomainEngine *)self domainName];
-  v14 = *assets;
+  v15 = *assets;
   *buf = 138543618;
-  v24 = domainName4;
-  v25 = 2112;
-  v26 = v14;
+  v21 = domainName4;
+  v22 = 2112;
+  v23 = v15;
   _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Fetcher failed to begin: %@", buf, 0x16u);
 
   domainName2 = [(MBRestoreDomainEngine *)self domainName];
-  v21 = *assets;
+  _MBLog(@"E ", "=domain-engine= %{public}@: Fetcher failed to begin: %@", domainName2, *assets);
 LABEL_11:
-  _MBLog();
-  v12 = 0;
+  v13 = 0;
 LABEL_12:
 
 LABEL_15:
-  return v12;
+  return v13;
 }
 
 - (BOOL)_downloadAssets:(id *)assets withFetcher:(id)fetcher
@@ -764,14 +750,14 @@ LABEL_15:
   }
 
   plan = self->_plan;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10024EFF8;
-  v16[3] = &unk_1003C23A8;
-  v16[4] = self;
+  v15 = _NSConcreteStackBlock;
+  v16 = 3221225472;
+  v17 = sub_10024EFF8;
+  v18 = &unk_1003C23A8;
+  selfCopy = self;
   v8 = fetcherCopy;
-  v17 = v8;
-  v9 = [(MBRestoreDomainPlan *)plan enumerateAssetsToDownload:assets enumerator:v16];
+  v20 = v8;
+  v9 = [(MBRestoreDomainPlan *)plan enumerateAssetsToDownload:assets enumerator:&v15];
   if ((v9 & 1) == 0)
   {
     v10 = MBGetDefaultLog();
@@ -780,14 +766,13 @@ LABEL_15:
       domainName = [(MBRestoreDomainEngine *)self domainName];
       v12 = *assets;
       *buf = 138543618;
-      v19 = domainName;
-      v20 = 2112;
-      v21 = v12;
+      v22 = domainName;
+      v23 = 2112;
+      v24 = v12;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed enumerating unfinished assets: %@", buf, 0x16u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
-      v15 = *assets;
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed enumerating unfinished assets: %@", domainName2, *assets, v15, v16, v17, v18, selfCopy);
     }
   }
 
@@ -841,8 +826,8 @@ LABEL_15:
 
     else
     {
-      v30 = MBGetDefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v32 = MBGetDefaultLog();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         domainName = [(MBRestoreDomainEngine *)self domainName];
         *buf = 138543874;
@@ -851,13 +836,13 @@ LABEL_15:
         v43 = assetCopy;
         v44 = 2112;
         v45 = v19;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as ready: %@", buf, 0x20u);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as ready: %@", buf, 0x20u);
 
         domainName2 = [(MBRestoreDomainEngine *)self domainName];
-        _MBLog();
+        _MBLog(@"E ", "=domain-engine= %{public}@: Failed marking asset %@ as ready: %@", domainName2, assetCopy, v19);
       }
 
-      v32 = v19;
+      v35 = v19;
       v22 = 0;
       *error = v19;
     }
@@ -882,19 +867,19 @@ LABEL_15:
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed depositing asset %@ at %@ into depot %@: %@", buf, 0x34u);
 
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed depositing asset %@ at %@ into depot %@: %@", domainName4, assetCopy, v13, self, v16);
     }
 
-    v25 = v16;
+    v26 = v16;
     *error = v16;
-    v26 = self->_plan;
+    v27 = self->_plan;
     v38 = 0;
-    v27 = [(MBRestoreDomainPlan *)v26 setAssetState:3 asset:assetCopy withFailure:v16 error:&v38];
+    v28 = [(MBRestoreDomainPlan *)v27 setAssetState:3 asset:assetCopy withFailure:v16 error:&v38];
     v19 = v38;
-    if ((v27 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      v28 = MBGetDefaultLog();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = MBGetDefaultLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         domainName5 = [(MBRestoreDomainEngine *)self domainName];
         *buf = 138543874;
@@ -903,10 +888,10 @@ LABEL_15:
         v43 = assetCopy;
         v44 = 2112;
         v45 = v19;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as failed failing to deposition err: %@", buf, 0x20u);
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as failed failing to deposition err: %@", buf, 0x20u);
 
         domainName6 = [(MBRestoreDomainEngine *)self domainName];
-        _MBLog();
+        _MBLog(@"E ", "=domain-engine= %{public}@: Failed marking asset %@ as failed failing to deposition err: %@", domainName6, assetCopy, v19);
       }
     }
 
@@ -952,17 +937,17 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Fetcher %@ failed to fetch %@: %@", buf, 0x2Au);
 
     domainName2 = [(MBRestoreDomainEngine *)self domainName];
-    _MBLog();
+    _MBLog(@"E ", "=domain-engine= %{public}@: Fetcher %@ failed to fetch %@: %@", domainName2, fetcherCopy, assetCopy, v11);
   }
 
   plan = self->_plan;
   v21 = 0;
-  v15 = [(MBRestoreDomainPlan *)plan setAssetState:3 asset:assetCopy withFailure:v11 error:&v21];
-  v16 = v21;
-  if ((v15 & 1) == 0)
+  v16 = [(MBRestoreDomainPlan *)plan setAssetState:3 asset:assetCopy withFailure:v11 error:&v21];
+  v17 = v21;
+  if ((v16 & 1) == 0)
   {
-    v17 = MBGetDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       domainName3 = [(MBRestoreDomainEngine *)self domainName];
       *buf = 138543874;
@@ -970,11 +955,11 @@ LABEL_15:
       v24 = 2112;
       v25 = assetCopy;
       v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as failed: %@", buf, 0x20u);
+      v27 = v17;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Failed marking asset %@ as failed: %@", buf, 0x20u);
 
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Failed marking asset %@ as failed: %@", domainName4, assetCopy, v17);
     }
   }
 }
@@ -1116,34 +1101,33 @@ LABEL_15:
 
   if (![(MBStatefulEngine *)self handleCancelation:error])
   {
-    v34 = 0;
-    if (![(MBRestoreDomainEngine *)self _shouldRestore:&v34 restorable:restorableCopy error:error])
+    v32 = 0;
+    if (![(MBRestoreDomainEngine *)self _shouldRestore:&v32 restorable:restorableCopy error:error])
     {
       progressModel = MBGetDefaultLog();
       if (os_log_type_enabled(progressModel, OS_LOG_TYPE_ERROR))
       {
         v13 = *error;
         *buf = 138412546;
-        v36 = restorableCopy;
-        v37 = 2112;
-        v38 = v13;
+        v34 = restorableCopy;
+        v35 = 2112;
+        v36 = v13;
         _os_log_impl(&_mh_execute_header, progressModel, OS_LOG_TYPE_ERROR, "=domain-engine= Failed determining if %@ should be restored: %@", buf, 0x16u);
-        v31 = *error;
-        _MBLog();
+        _MBLog(@"E ", "=domain-engine= Failed determining if %@ should be restored: %@", restorableCopy, *error);
       }
 
       goto LABEL_12;
     }
 
-    if ((v34 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
       v14 = MBGetDefaultLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = restorableCopy;
+        v34 = restorableCopy;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=domain-engine= Skipping restore of %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"Df", "=domain-engine= Skipping restore of %@", restorableCopy);
       }
 
       progressModel = [(MBRestoreDomainEngine *)self progressModel];
@@ -1189,10 +1173,10 @@ LABEL_12:
 
     appManager = [(MBRestorePolicy *)self->_policy appManager];
     persona = [(MBRestorePolicy *)self->_policy persona];
-    v33 = 0;
-    v32 = bundleID;
-    v22 = [appManager fetchAppWithIdentifier:bundleID persona:persona error:&v33];
-    v23 = v33;
+    v31 = 0;
+    v30 = bundleID;
+    v22 = [appManager fetchAppWithIdentifier:bundleID persona:persona error:&v31];
+    v23 = v31;
 
     if (v22)
     {
@@ -1206,10 +1190,9 @@ LABEL_12:
         {
           restoreRootPath = self->_restoreRootPath;
           *buf = 138412290;
-          v36 = restoreRootPath;
+          v34 = restoreRootPath;
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=domain-engine= Restore root does not exist at %@", buf, 0xCu);
-          v30 = self->_restoreRootPath;
-          _MBLog();
+          _MBLog(@"Df", "=domain-engine= Restore root does not exist at %@", self->_restoreRootPath);
         }
 
         v28 = [MBError errorWithCode:245 path:self->_restoreRootPath format:@"Restore root does not exist"];
@@ -1224,13 +1207,13 @@ LABEL_31:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v36 = v32;
+        v34 = v30;
+        v35 = 2112;
+        v36 = v23;
         v37 = 2112;
-        v38 = v23;
-        v39 = 2112;
-        v40 = progressModel;
+        v38 = progressModel;
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=domain-engine= App %@ was uninstalled while a it was being restored, reporting %@ instead of %@ ", buf, 0x20u);
-        _MBLog();
+        _MBLog(@"Df", "=domain-engine= App %@ was uninstalled while a it was being restored, reporting %@ instead of %@ ", v30, v23, progressModel);
       }
 
       v28 = v23;
@@ -1324,11 +1307,11 @@ LABEL_17:
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "=domain-engine= %{public}@: Restore verification passed in %0.3fs", buf, 0x16u);
 
         domainName2 = [(MBRestoreDomainEngine *)self domainName];
-        _MBLog();
+        _MBLog(@"I ", "=domain-engine= %{public}@: Restore verification passed in %0.3fs", domainName2, *&v11);
       }
 
 LABEL_13:
-      v15 = 1;
+      v16 = 1;
       goto LABEL_14;
     }
 
@@ -1344,26 +1327,26 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=domain-engine= %{public}@: Restore verification failed in %0.3fs: %@", buf, 0x20u);
 
       domainName4 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"E ", "=domain-engine= %{public}@: Restore verification failed in %0.3fs: %@", domainName4, *&v11, v10);
     }
 
-    v18 = +[MBBehaviorOptions sharedOptions];
-    isAutomation = [v18 isAutomation];
+    v21 = +[MBBehaviorOptions sharedOptions];
+    isAutomation = [v21 isAutomation];
 
     if (!isAutomation)
     {
       goto LABEL_13;
     }
 
-    v20 = v10;
-    v15 = 0;
+    v23 = v10;
+    v16 = 0;
     *_verify = v10;
   }
 
   else
   {
     v10 = MBGetDefaultLog();
-    v15 = 1;
+    v16 = 1;
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       domainName5 = [(MBRestoreDomainEngine *)self domainName];
@@ -1372,13 +1355,13 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=domain-engine= %{public}@: Skipped restore verification", buf, 0xCu);
 
       domainName6 = [(MBRestoreDomainEngine *)self domainName];
-      _MBLog();
+      _MBLog(@"I ", "=domain-engine= %{public}@: Skipped restore verification", domainName6);
     }
   }
 
 LABEL_14:
 
-  return v15;
+  return v16;
 }
 
 - (BOOL)_finalize:(id *)_finalize
@@ -1402,19 +1385,20 @@ LABEL_14:
     v9 = MBGetDefaultLog();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
+      v10 = Current - startTime;
       domainName = [(MBRestoreDomainEngine *)self domainName];
-      v11 = MBDescriptionForStateSummaryDictionary(v5);
+      v12 = MBDescriptionForStateSummaryDictionary(v5);
       *buf = 138543874;
-      v16 = domainName;
-      v17 = 2048;
-      v18 = Current - startTime;
-      v19 = 2112;
-      v20 = v11;
+      v17 = domainName;
+      v18 = 2048;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v12;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=domain-engine= %{public}@: Completed restore in %0.3fs: %@", buf, 0x20u);
 
       domainName2 = [(MBRestoreDomainEngine *)self domainName];
       v14 = MBDescriptionForStateSummaryDictionary(v5);
-      _MBLog();
+      _MBLog(@"Df", "=domain-engine= %{public}@: Completed restore in %0.3fs: %@", domainName2, *&v10, v14);
     }
   }
 

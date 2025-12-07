@@ -12,7 +12,7 @@
     signInController = [MEMORY[0x1E69A6138] signInController];
     if (os_log_type_enabled(signInController, OS_LOG_TYPE_ERROR))
     {
-      sub_195B28A4C();
+      sub_195B28A4C(self, signInController);
     }
 
     selfCopy = 0;

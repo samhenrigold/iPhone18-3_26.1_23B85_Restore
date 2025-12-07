@@ -22,6 +22,7 @@
 - (void)centralManager:(id)manager didUpdateConnectionParameters:(id)parameters interval:(id)interval latency:(id)latency supervisionTimeout:(id)timeout;
 - (void)centralManagerDidUpdateState:(id)state;
 - (void)checkChangeDeviceName:(unsigned int)name withName:(id)withName;
+- (void)connectDevice:(unsigned int)device withMTU:(unsigned int)u;
 - (void)dealloc;
 - (void)disconnectDevice:(unsigned int)device;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
@@ -42,7 +43,7 @@
 
 - (BLEMIDIDriverCentral)init
 {
-  sub_4A64();
+  sub_4A64(self, a2);
   v2 = qword_1D968;
   if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
   {
@@ -90,7 +91,7 @@
 
 - (void)startScan
 {
-  sub_4A64();
+  sub_4A64(self, a2);
   v3 = qword_1D968;
   if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
   {
@@ -188,36 +189,36 @@
 
 - (void)activateUUID:(id)d withName:(id)name
 {
-  sub_4A64();
+  sub_4A64(self, a2);
   v7 = qword_1D968;
   if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v40 = "BTLEMIDIDriverCentral.mm";
-    v41 = 1024;
-    v42 = 162;
-    v43 = 2112;
+    v54 = "BTLEMIDIDriverCentral.mm";
+    v55 = 1024;
+    v56 = 162;
+    v57 = 2112;
     dCopy7 = d;
-    v45 = 2112;
+    v59 = 2112;
     nameCopy = name;
     _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d activateUUID: %@ withName: %@", buf, 0x26u);
   }
 
   v8 = [BLEMIDIAccessor midiDeviceForUUID:d isLocalPeripheral:0 isRemotePeripheral:1];
-  sub_4A64();
-  v9 = qword_1D968;
-  v10 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
+  sub_4A64(v8, v9);
+  v10 = qword_1D968;
+  v11 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
   if (v8)
   {
-    if (v10)
+    if (v11)
     {
       *buf = 136315650;
-      v40 = "BTLEMIDIDriverCentral.mm";
-      v41 = 1024;
-      v42 = 165;
-      v43 = 1024;
+      v54 = "BTLEMIDIDriverCentral.mm";
+      v55 = 1024;
+      v56 = 165;
+      v57 = 1024;
       LODWORD(dCopy7) = v8;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d found device: %d", buf, 0x18u);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d found device: %d", buf, 0x18u);
     }
 
     [(BLEMIDIDriverCentral *)self checkChangeDeviceName:v8 withName:name];
@@ -229,87 +230,88 @@
     goto LABEL_14;
   }
 
-  if (v10)
+  if (v11)
   {
     *buf = 136315394;
-    v40 = "BTLEMIDIDriverCentral.mm";
-    v41 = 1024;
-    v42 = 170;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d No remote device found. Checking local devices ...", buf, 0x12u);
+    v54 = "BTLEMIDIDriverCentral.mm";
+    v55 = 1024;
+    v56 = 170;
+    _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d No remote device found. Checking local devices ...", buf, 0x12u);
   }
 
   v8 = [BLEMIDIAccessor midiDeviceForUUID:d];
-  sub_4A64();
-  v11 = qword_1D968;
-  v12 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
+  sub_4A64(v8, v12);
+  v13 = qword_1D968;
+  v14 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
   if (v8)
   {
-    if (v12)
+    if (v14)
     {
       *buf = 136315650;
-      v40 = "BTLEMIDIDriverCentral.mm";
-      v41 = 1024;
-      v42 = 173;
-      v43 = 1024;
+      v54 = "BTLEMIDIDriverCentral.mm";
+      v55 = 1024;
+      v56 = 173;
+      v57 = 1024;
       LODWORD(dCopy7) = v8;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Resetting local device: %d", buf, 0x18u);
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d Resetting local device: %d", buf, 0x18u);
     }
 
     [(BLEMIDIDriverCentral *)self resetDevice:v8];
 LABEL_14:
     [(BLEMIDIDriverCentral *)self checkChangeDeviceName:v8 withName:name];
-    v13 = [(BLEMIDIDriverCentral *)self verifyUUIDDiscovery:d];
-    if (v13)
+    v15 = [(BLEMIDIDriverCentral *)self verifyUUIDDiscovery:d];
+    if (v15)
     {
-      v14 = v13;
-      -[BLEMIDIDriverCentral connectDevice:withMTU:](self, "connectDevice:withMTU:", v8, [v13 mtuLength] - 3);
+      v17 = v15;
+      -[BLEMIDIDriverCentral connectDevice:withMTU:](self, "connectDevice:withMTU:", v8, [v15 mtuLength] - 3);
 LABEL_16:
-      [(CBCentralManager *)self->centralManager setDesiredConnectionLatency:-12 forPeripheral:v14];
+      [(CBCentralManager *)self->centralManager setDesiredConnectionLatency:-12 forPeripheral:v17];
       return;
     }
 
-    sub_4A64();
-    v15 = qword_1D968;
+    sub_4A64(0, v16);
+    v18 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v40 = "BTLEMIDIDriverCentral.mm";
-      v41 = 1024;
-      v42 = 182;
-      v43 = 2112;
+      v54 = "BTLEMIDIDriverCentral.mm";
+      v55 = 1024;
+      v56 = 182;
+      v57 = 2112;
       dCopy7 = d;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Will perform discovery for UUID %@", buf, 0x1Cu);
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "%25s:%-5d Will perform discovery for UUID %@", buf, 0x1Cu);
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
     connectedPeripherals = self->connectedPeripherals;
-    v17 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v32 objects:v38 count:16];
-    if (v17)
+    v20 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v46 objects:v52 count:16];
+    if (v20)
     {
-      v18 = v17;
-      v19 = *v33;
+      v21 = v20;
+      v22 = *v47;
 LABEL_21:
-      v20 = 0;
+      v23 = 0;
       while (1)
       {
-        if (*v33 != v19)
+        if (*v47 != v22)
         {
           objc_enumerationMutation(connectedPeripherals);
         }
 
-        v21 = *(*(&v32 + 1) + 8 * v20);
-        if ([objc_msgSend(objc_msgSend(v21 "identifier")])
+        v24 = *(*(&v46 + 1) + 8 * v23);
+        v25 = [objc_msgSend(objc_msgSend(v24 "identifier")];
+        if (v25)
         {
           break;
         }
 
-        if (v18 == ++v20)
+        if (v21 == ++v23)
         {
-          v18 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v32 objects:v38 count:16];
-          if (v18)
+          v21 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v46 objects:v52 count:16];
+          if (v21)
           {
             goto LABEL_21;
           }
@@ -318,38 +320,44 @@ LABEL_21:
         }
       }
 
-      sub_4A64();
-      v25 = qword_1D968;
+      sub_4A64(v25, v26);
+      v33 = qword_1D968;
       if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v40 = "BTLEMIDIDriverCentral.mm";
-        v41 = 1024;
-        v42 = 188;
-        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%25s:%-5d Peripheral is already in connectedPeripherals", buf, 0x12u);
+        v54 = "BTLEMIDIDriverCentral.mm";
+        v55 = 1024;
+        v56 = 188;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "%25s:%-5d Peripheral is already in connectedPeripherals", buf, 0x12u);
       }
 
-      if (!v21 || [v21 state] == &dword_0 + 2)
+      if (!v24)
       {
         goto LABEL_39;
       }
 
-      sub_4A64();
-      v29 = qword_1D968;
+      state = [v24 state];
+      if (state == &dword_0 + 2)
+      {
+        goto LABEL_39;
+      }
+
+      sub_4A64(state, v35);
+      v43 = qword_1D968;
       if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v40 = "BTLEMIDIDriverCentral.mm";
-        v41 = 1024;
-        v42 = 194;
-        v43 = 2112;
-        dCopy7 = v21;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "%25s:%-5d %@ needs to be reconnected.", buf, 0x1Cu);
+        v54 = "BTLEMIDIDriverCentral.mm";
+        v55 = 1024;
+        v56 = 194;
+        v57 = 2112;
+        dCopy7 = v24;
+        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "%25s:%-5d %@ needs to be reconnected.", buf, 0x1Cu);
       }
 
-      v26 = v21;
-      [(NSMutableArray *)self->connectedPeripherals removeObject:v21];
-      if (v26)
+      v38 = v24;
+      v36 = [(NSMutableArray *)self->connectedPeripherals removeObject:v24];
+      if (v38)
       {
         goto LABEL_40;
       }
@@ -358,100 +366,101 @@ LABEL_21:
     else
     {
 LABEL_39:
-      v26 = [(BLEMIDIDriverCentral *)self peripheralWithUUID:d];
-      if (v26)
+      v36 = [(BLEMIDIDriverCentral *)self peripheralWithUUID:d];
+      v38 = v36;
+      if (v36)
       {
 LABEL_40:
-        [(NSMutableArray *)self->peripheralsToConnect addObject:v26];
+        [(NSMutableArray *)self->peripheralsToConnect addObject:v38];
 
-        sub_4A64();
-        v27 = qword_1D968;
+        sub_4A64(v39, v40);
+        v41 = qword_1D968;
         if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v40 = "BTLEMIDIDriverCentral.mm";
-          v41 = 1024;
-          v42 = 204;
-          v43 = 2112;
+          v54 = "BTLEMIDIDriverCentral.mm";
+          v55 = 1024;
+          v56 = 204;
+          v57 = 2112;
           dCopy7 = d;
-          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "%25s:%-5d connectPeripheral: UUID %@ (MIDI low latency)", buf, 0x1Cu);
+          _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "%25s:%-5d connectPeripheral: UUID %@ (MIDI low latency)", buf, 0x1Cu);
         }
 
         centralManager = self->centralManager;
-        v36 = CBConnectPeripheralOptionConnectionUseCase;
-        v37 = &off_18EA8;
-        [(CBCentralManager *)centralManager connectPeripheral:v26 options:[NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1]];
+        v50 = CBConnectPeripheralOptionConnectionUseCase;
+        v51 = &off_18EA8;
+        [(CBCentralManager *)centralManager connectPeripheral:v38 options:[NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1]];
         return;
       }
     }
 
-    sub_4A64();
-    v30 = qword_1D968;
+    sub_4A64(v36, v37);
+    v44 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v40 = "BTLEMIDIDriverCentral.mm";
-      v41 = 1024;
-      v42 = 207;
-      v43 = 2112;
+      v54 = "BTLEMIDIDriverCentral.mm";
+      v55 = 1024;
+      v56 = 207;
+      v57 = 2112;
       dCopy7 = d;
-      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Found the device, but couldn't locate a peripheral with UUID %@", buf, 0x1Cu);
+      _os_log_impl(&dword_0, v44, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Found the device, but couldn't locate a peripheral with UUID %@", buf, 0x1Cu);
     }
 
     return;
   }
 
-  if (v12)
+  if (v14)
   {
     *buf = 136315650;
-    v40 = "BTLEMIDIDriverCentral.mm";
-    v41 = 1024;
-    v42 = 222;
-    v43 = 2112;
+    v54 = "BTLEMIDIDriverCentral.mm";
+    v55 = 1024;
+    v56 = 222;
+    v57 = 2112;
     dCopy7 = d;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Creating a new MIDI device for peripheral with UUID %@.", buf, 0x1Cu);
+    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d Creating a new MIDI device for peripheral with UUID %@.", buf, 0x1Cu);
   }
 
-  v22 = [(BLEMIDIDriverCentral *)self createDevice:d];
-  if (v22)
+  v27 = [(BLEMIDIDriverCentral *)self createDevice:d];
+  if (v27)
   {
-    [(BLEMIDIDriverCentral *)self checkChangeDeviceName:v22 withName:name];
-    v14 = [(BLEMIDIDriverCentral *)self peripheralWithUUID:d];
-    if (v14)
+    [(BLEMIDIDriverCentral *)self checkChangeDeviceName:v27 withName:name];
+    v17 = [(BLEMIDIDriverCentral *)self peripheralWithUUID:d];
+    if (v17)
     {
-      [(NSMutableArray *)self->peripheralsToConnect addObject:v14];
+      [(NSMutableArray *)self->peripheralsToConnect addObject:v17];
 
-      sub_4A64();
-      v23 = qword_1D968;
-      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
-      {
-        *buf = 136315650;
-        v40 = "BTLEMIDIDriverCentral.mm";
-        v41 = 1024;
-        v42 = 232;
-        v43 = 2112;
-        dCopy7 = d;
-        _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "%25s:%-5d connectPeripheral: UUID %@ (MIDI low latency)", buf, 0x1Cu);
-      }
-
-      v24 = +[NSMutableDictionary dictionary];
-      [v24 setObject:&off_18EA8 forKey:CBConnectPeripheralOptionConnectionUseCase];
-      [(CBCentralManager *)self->centralManager connectPeripheral:v14 options:v24];
-    }
-
-    else
-    {
-      sub_4A64();
+      sub_4A64(v29, v30);
       v31 = qword_1D968;
       if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v40 = "BTLEMIDIDriverCentral.mm";
-        v41 = 1024;
-        v42 = 237;
-        v43 = 2112;
+        v54 = "BTLEMIDIDriverCentral.mm";
+        v55 = 1024;
+        v56 = 232;
+        v57 = 2112;
         dCopy7 = d;
-        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "%25s:%-5d WARNING: Created a device, but couldn't locate a peripheral with UUID %@", buf, 0x1Cu);
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "%25s:%-5d connectPeripheral: UUID %@ (MIDI low latency)", buf, 0x1Cu);
+      }
+
+      v32 = +[NSMutableDictionary dictionary];
+      [v32 setObject:&off_18EA8 forKey:CBConnectPeripheralOptionConnectionUseCase];
+      [(CBCentralManager *)self->centralManager connectPeripheral:v17 options:v32];
+    }
+
+    else
+    {
+      sub_4A64(0, v28);
+      v45 = qword_1D968;
+      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+      {
+        *buf = 136315650;
+        v54 = "BTLEMIDIDriverCentral.mm";
+        v55 = 1024;
+        v56 = 237;
+        v57 = 2112;
+        dCopy7 = d;
+        _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "%25s:%-5d WARNING: Created a device, but couldn't locate a peripheral with UUID %@", buf, 0x1Cu);
       }
     }
 
@@ -515,19 +524,19 @@ LABEL_40:
   v8 = MIDIDeviceCreate(driver, v5, v6, v7, &outDevice);
   if (v8)
   {
-    v9 = v8;
-    sub_4A64();
-    v10 = qword_1D968;
+    v10 = v8;
+    sub_4A64(v8, v9);
+    v11 = qword_1D968;
     result = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR);
     if (result)
     {
       *buf = 136315650;
-      v15 = "BTLEMIDIDriverCentral.mm";
-      v16 = 1024;
-      v17 = 271;
-      v18 = 1024;
-      LODWORD(deviceCopy) = v9;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: MIDIDeviceCreate failed with error %d", buf, 0x18u);
+      v18 = "BTLEMIDIDriverCentral.mm";
+      v19 = 1024;
+      v20 = 271;
+      v21 = 1024;
+      LODWORD(deviceCopy) = v10;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: MIDIDeviceCreate failed with error %d", buf, 0x18u);
       return 0;
     }
   }
@@ -540,18 +549,18 @@ LABEL_40:
     MIDIObjectSetIntegerProperty(outDevice, @"MIDI Local Peripheral", 0);
     MIDIObjectSetIntegerProperty(outDevice, @"MIDI Remote Peripheral", 1);
     MIDIObjectSetIntegerProperty(outDevice, kMIDIPropertyOffline, 1);
-    MIDISetupAddDevice(outDevice);
-    sub_4A64();
-    v12 = qword_1D968;
+    v13 = MIDISetupAddDevice(outDevice);
+    sub_4A64(v13, v14);
+    v15 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v15 = "BTLEMIDIDriverCentral.mm";
-      v16 = 1024;
-      v17 = 290;
-      v18 = 2112;
+      v18 = "BTLEMIDIDriverCentral.mm";
+      v19 = 1024;
+      v20 = 290;
+      v21 = 2112;
       deviceCopy = device;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%25s:%-5d Created device with Bluetooth UUID %@", buf, 0x1Cu);
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Created device with Bluetooth UUID %@", buf, 0x1Cu);
     }
 
     return outDevice;
@@ -560,52 +569,227 @@ LABEL_40:
   return result;
 }
 
-- (void)disconnectDevice:(unsigned int)device
+- (void)connectDevice:(unsigned int)device withMTU:(unsigned int)u
 {
-  if (!device)
+  LODWORD(v4) = u;
+  v5 = *&device;
+  v7 = [BLEMIDIAccessor uuidForMIDIDevice:?];
+  v8 = [(BLEMIDIDriverCentral *)self peripheralWithUUID:v7];
+  v9 = [(NSMutableArray *)self->connectedPeripherals containsObject:v8];
+  if ((v9 & 1) == 0)
   {
-    sub_4A64();
-    v7 = qword_1D968;
+    sub_4A64(v9, v10);
+    v19 = qword_1D968;
     if (!os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
       return;
     }
 
-    v12 = 136315394;
-    v13 = "BTLEMIDIDriverCentral.mm";
-    v14 = 1024;
-    v15 = 384;
-    v8 = "%25s:%-5d Called disconnectDevice with a 0 MIDIDeviceRef. Please file a bug report for CoreMIDI.";
-    v9 = v7;
-    v10 = OS_LOG_TYPE_ERROR;
+    *buf = 136315650;
+    v34 = "BTLEMIDIDriverCentral.mm";
+    v35 = 1024;
+    v36 = 302;
+    v37 = 2112;
+    v38 = v7;
+    v20 = "%25s:%-5d ERROR: Can't call connectDevice on on MIDIDevice with UUID %@ because the peripheral is not connected.";
+    v21 = v19;
+    v22 = OS_LOG_TYPE_ERROR;
+LABEL_12:
+    _os_log_impl(&dword_0, v21, v22, v20, buf, 0x1Cu);
+    return;
+  }
+
+  if (!v8)
+  {
+    sub_4A64(v9, v10);
+    v23 = qword_1D968;
+    if (!os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    *buf = 136315650;
+    v34 = "BTLEMIDIDriverCentral.mm";
+    v35 = 1024;
+    v36 = 377;
+    v37 = 2112;
+    v38 = v7;
+    v20 = "%25s:%-5d connectDevice peripheral with UUID %@ not found!";
+    v21 = v23;
+    v22 = OS_LOG_TYPE_INFO;
+    goto LABEL_12;
+  }
+
+  v11 = [(BLEMIDIDriverCentral *)self midiCharacteristicForPeripheral:v8];
+  v13 = v11;
+  if (v11)
+  {
+    properties = [v11 properties];
+    sub_4A64(properties, v15);
+    v16 = qword_1D968;
+    v11 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
+    if (v11)
+    {
+      *buf = 136315906;
+      v34 = "BTLEMIDIDriverCentral.mm";
+      v35 = 1024;
+      v36 = 313;
+      v37 = 2112;
+      v38 = v8;
+      v39 = 2048;
+      v40 = properties;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "%25s:%-5d Found a MIDI I/O characteristic for peripheral: %@, props: 0x%lX)", buf, 0x26u);
+    }
+
+    v17 = (properties >> 4) & 1;
+    v18 = (properties >> 2) & 1;
+    if (v17 | v18)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+    v18 = 0;
+  }
+
+  sub_4A64(v11, v12);
+  v24 = qword_1D968;
+  if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v34 = "BTLEMIDIDriverCentral.mm";
+    v35 = 1024;
+    v36 = 320;
+    v37 = 2112;
+    v38 = v7;
+    _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "%25s:%-5d Could not locate a usable MIDI I/O characteristic on peripheral with UUID %@. Canceling connection.", buf, 0x1Cu);
+  }
+
+  [(BLEMIDIDriverCentral *)self cancelConnectionForPeripheral:v8];
+LABEL_17:
+  MIDIObjectSetIntegerProperty(v5, @"MIDI Output Supported", v17);
+  MIDIObjectSetIntegerProperty(v5, @"MIDI Input Supported", v18);
+  v25 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:v8];
+  if (v25)
+  {
+    [(NSMutableArray *)self->connectedDevices removeObject:v25];
+  }
+
+  if (v4)
+  {
+    v4 = v4;
+  }
+
+  else
+  {
+    v4 = 20;
+  }
+
+  v26 = [[BLEMIDIDevice alloc] initWithPeripheral:v8 mtu:v4];
+  [(BLEMIDIDevice *)v26 setDev:v5];
+  [(BLEMIDIDevice *)v26 setUuid:v7];
+  [(BLEMIDIDevice *)v26 setPeripheral:v8];
+  [(BLEMIDIDevice *)v26 setUsage:0];
+  [(NSMutableArray *)self->connectedDevices addObject:v26];
+  Entity = MIDIDeviceGetEntity(v5, 0);
+  newEntity = Entity;
+  if (Entity)
+  {
+    MIDIEntityAddOrRemoveEndpoints(Entity, v17, v18);
+  }
+
+  else
+  {
+    v28 = sub_F744();
+    v29 = MIDIDeviceAddEntity(v5, v28, 1u, v17, v18, &newEntity);
+    if (v29)
+    {
+      sub_4A64(v29, v30);
+      v31 = qword_1D968;
+      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136315394;
+        v34 = "BTLEMIDIDriverCentral.mm";
+        v35 = 1024;
+        v36 = 345;
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d Unable to create an entity for this MIDI device. Please try again.", buf, 0x12u);
+      }
+
+      [(BLEMIDIDevice *)v26 setDev:0];
+      [(BLEMIDIDriverCentral *)self cancelConnectionForPeripheral:v8];
+    }
+  }
+
+  if (v17)
+  {
+    [(BLEMIDIDevice *)v26 setOutEndpoint:MIDIEntityGetSource(newEntity, 0)];
+    [(BLEMIDIDevice *)v26 setDataReceiver:[[BLEMIDIDataReceiver alloc] initWithEndpoint:[(BLEMIDIDevice *)v26 outEndpoint] owner:self->driver]];
+    [v8 setNotifyValue:1 forCharacteristic:v13];
+  }
+
+  if (v18)
+  {
+    [(BLEMIDIDevice *)v26 setInEndpoint:MIDIEntityGetDestination(newEntity, 0)];
+    MIDIEndpointSetRefCons([(BLEMIDIDevice *)v26 inEndpoint], v8, v13);
+  }
+
+  if ([+[BLEMIDIAccessor nameForMIDIDevice:](BLEMIDIAccessor nameForMIDIDevice:{v5), "isEqualToString:", sub_F714()}] && objc_msgSend(v8, "name") && (objc_msgSend(objc_msgSend(v8, "name"), "isEqualToString:", &stru_18AF0) & 1) == 0)
+  {
+    MIDIObjectSetStringProperty(v5, kMIDIPropertyName, [v8 name]);
+  }
+
+  MIDIObjectSetIntegerProperty(v5, kMIDIPropertyOffline, 0);
+}
+
+- (void)disconnectDevice:(unsigned int)device
+{
+  if (!device)
+  {
+    sub_4A64(self, a2);
+    v8 = qword_1D968;
+    if (!os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    v13 = 136315394;
+    v14 = "BTLEMIDIDriverCentral.mm";
+    v15 = 1024;
+    v16 = 384;
+    v9 = "%25s:%-5d Called disconnectDevice with a 0 MIDIDeviceRef. Please file a bug report for CoreMIDI.";
+    v10 = v8;
+    v11 = OS_LOG_TYPE_ERROR;
 LABEL_10:
-    _os_log_impl(&dword_0, v9, v10, v8, &v12, 0x12u);
+    _os_log_impl(&dword_0, v10, v11, v9, &v13, 0x12u);
     return;
   }
 
   v4 = [(BLEMIDIDriverCentral *)self deviceForMIDIDevice:?];
   if (!v4)
   {
-    sub_4A64();
-    v11 = qword_1D968;
+    sub_4A64(0, v5);
+    v12 = qword_1D968;
     if (!os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
       return;
     }
 
-    v12 = 136315394;
-    v13 = "BTLEMIDIDriverCentral.mm";
-    v14 = 1024;
-    v15 = 394;
-    v8 = "%25s:%-5d The central doesn't know anything about this device (was connectDevice called?).";
-    v9 = v11;
-    v10 = OS_LOG_TYPE_INFO;
+    v13 = 136315394;
+    v14 = "BTLEMIDIDriverCentral.mm";
+    v15 = 1024;
+    v16 = 394;
+    v9 = "%25s:%-5d The central doesn't know anything about this device (was connectDevice called?).";
+    v10 = v12;
+    v11 = OS_LOG_TYPE_INFO;
     goto LABEL_10;
   }
 
-  v5 = v4;
+  v6 = v4;
   MIDIObjectSetIntegerProperty([v4 dev], kMIDIPropertyOffline, 1);
-  peripheral = [v5 peripheral];
+  peripheral = [v6 peripheral];
 
   [(BLEMIDIDriverCentral *)self removeDeviceForPeripheral:peripheral];
 }
@@ -621,50 +805,50 @@ LABEL_10:
 
 - (id)verifyUUIDDiscovery:(id)discovery
 {
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
   connectedPeripherals = self->connectedPeripherals;
-  v5 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v14 objects:v27 count:16];
+  v5 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v15 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(connectedPeripherals);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if ([objc_msgSend(objc_msgSend(v9 "identifier")])
         {
           if (v9 && [v9 state] == &dword_0 + 2)
           {
-            sub_4A64();
-            v10 = qword_1D968;
+            sub_4A64(2, v10);
+            v11 = qword_1D968;
             if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
             {
               services = [v9 services];
               *buf = 136315906;
-              v20 = "BTLEMIDIDriverCentral.mm";
-              v21 = 1024;
-              v22 = 423;
-              v23 = 2112;
-              v24 = v9;
-              v25 = 2112;
-              v26 = services;
-              _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempting to verify discovery for %@, services = %@", buf, 0x26u);
+              v21 = "BTLEMIDIDriverCentral.mm";
+              v22 = 1024;
+              v23 = 423;
+              v24 = 2112;
+              v25 = v9;
+              v26 = 2112;
+              v27 = services;
+              _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempting to verify discovery for %@, services = %@", buf, 0x26u);
             }
 
-            memset(v13, 0, sizeof(v13));
+            memset(v14, 0, sizeof(v14));
             if ([objc_msgSend(v9 services])
             {
-              [objc_msgSend(**(&v13[0] + 1) "UUID")];
+              [objc_msgSend(**(&v14[0] + 1) "UUID")];
             }
           }
 
@@ -672,7 +856,7 @@ LABEL_10:
         }
       }
 
-      v6 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v14 objects:v27 count:16];
+      v6 = [(NSMutableArray *)connectedPeripherals countByEnumeratingWithState:&v15 objects:v28 count:16];
       if (v6)
       {
         continue;
@@ -872,21 +1056,22 @@ LABEL_9:
 
 - (void)xpcReceiveUUID:(id)d withName:(id)name
 {
-  if (([(NSMutableArray *)self->xpcUUIDs containsObject:?]& 1) != 0)
+  v7 = [(NSMutableArray *)self->xpcUUIDs containsObject:?];
+  if (v7)
   {
-    sub_4A64();
-    v7 = qword_1D968;
+    sub_4A64(v7, v8);
+    v9 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 136315906;
-      v9 = "BTLEMIDIDriverCentral.mm";
-      v10 = 1024;
-      v11 = 516;
-      v12 = 2112;
-      dCopy = d;
+      v10 = 136315906;
+      v11 = "BTLEMIDIDriverCentral.mm";
+      v12 = 1024;
+      v13 = 516;
       v14 = 2112;
+      dCopy = d;
+      v16 = 2112;
       nameCopy = name;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d xpcReceiveUUID:%@ withName:%@ already contains UUID (skipping)", &v8, 0x26u);
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d xpcReceiveUUID:%@ withName:%@ already contains UUID (skipping)", &v10, 0x26u);
     }
   }
 
@@ -907,59 +1092,63 @@ LABEL_9:
   isLECapableHardware = [(BLEMIDIDriverCentral *)self isLECapableHardware];
   if (self->leCapable != isLECapableHardware)
   {
-    v6 = isLECapableHardware;
-    sub_4A64();
-    v7 = qword_1D968;
+    v7 = isLECapableHardware;
+    sub_4A64(isLECapableHardware, v6);
+    v8 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
-      v8 = "NO";
+      v9 = "NO";
       leCapable = self->leCapable;
-      *&v12[4] = "BTLEMIDIDriverCentral.mm";
-      *&v12[12] = 1024;
-      *&v12[14] = 529;
+      *&v15[4] = "BTLEMIDIDriverCentral.mm";
+      *&v15[12] = 1024;
+      *&v15[14] = 529;
       if (leCapable)
       {
-        v10 = "YES";
+        v11 = "YES";
       }
 
       else
       {
-        v10 = "NO";
+        v11 = "NO";
       }
 
-      *v12 = 136315906;
-      if (v6)
+      *v15 = 136315906;
+      if (v7)
       {
-        v8 = "YES";
+        v9 = "YES";
       }
 
-      *&v12[18] = 2080;
-      *&v12[20] = v10;
-      v13 = 2080;
-      v14 = v8;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d Central Manager LE Available State: %s -> %s", v12, 0x26u);
+      *&v15[18] = 2080;
+      *&v15[20] = v11;
+      v16 = 2080;
+      v17 = v9;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Central Manager LE Available State: %s -> %s", v15, 0x26u);
     }
 
-    self->leCapable = v6;
-    if (v6)
+    self->leCapable = v7;
+    if (v7)
     {
       [(BLEMIDIDriverCentral *)self activateConnectedUUIDs];
     }
 
-    else if ([state state] == &dword_0 + 1 || objc_msgSend(state, "state") == &dword_4)
+    else
     {
-      sub_4A64();
-      v11 = qword_1D968;
-      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+      state = [state state];
+      if (state == (&dword_0 + 1) || (state = [state state], state == &dword_4))
       {
-        *v12 = 136315394;
-        *&v12[4] = "BTLEMIDIDriverCentral.mm";
-        *&v12[12] = 1024;
-        *&v12[14] = 537;
-        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d   Setting all BLE MIDI devices to offline.", v12, 0x12u);
-      }
+        sub_4A64(state, v13);
+        v14 = qword_1D968;
+        if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+        {
+          *v15 = 136315394;
+          *&v15[4] = "BTLEMIDIDriverCentral.mm";
+          *&v15[12] = 1024;
+          *&v15[14] = 537;
+          _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%25s:%-5d   Setting all BLE MIDI devices to offline.", v15, 0x12u);
+        }
 
-      [(BLEMIDIDriverCentral *)self resetAllConnectedDevices:*v12];
+        [(BLEMIDIDriverCentral *)self resetAllConnectedDevices:*v15];
+      }
     }
   }
 }
@@ -968,42 +1157,43 @@ LABEL_9:
 {
   if (self->centralManager == manager)
   {
-    sub_4A64();
+    sub_4A64(self, a2);
     v7 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v11 = "BTLEMIDIDriverCentral.mm";
-      v12 = 1024;
-      v13 = 568;
-      v14 = 2112;
-      managerCopy = manager;
+      v13 = "BTLEMIDIDriverCentral.mm";
+      v14 = 1024;
+      v15 = 568;
       v16 = 2112;
+      managerCopy = manager;
+      v18 = 2112;
       peripheralCopy = peripheral;
       _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "%25s:%-5d centralManager: %@ didConnectPeripheral: %@", buf, 0x26u);
     }
 
     [(NSMutableArray *)self->connectedPeripherals addObject:peripheral];
     [(NSMutableArray *)self->peripheralsToConnect removeObject:peripheral];
-    if (-[BLEMIDIDriverCentral isAlreadyConnectedAsCentral:](self, "isAlreadyConnectedAsCentral:", [objc_msgSend(peripheral "identifier")]))
+    v8 = -[BLEMIDIDriverCentral isAlreadyConnectedAsCentral:](self, "isAlreadyConnectedAsCentral:", [objc_msgSend(peripheral "identifier")]);
+    if (v8)
     {
-      sub_4A64();
-      v8 = qword_1D968;
+      sub_4A64(v8, v9);
+      v10 = qword_1D968;
       if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v11 = "BTLEMIDIDriverCentral.mm";
-        v12 = 1024;
-        v13 = 574;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "%25s:%-5d Already connected as central. Canceling this connection.", buf, 0x12u);
+        v13 = "BTLEMIDIDriverCentral.mm";
+        v14 = 1024;
+        v15 = 574;
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "%25s:%-5d Already connected as central. Canceling this connection.", buf, 0x12u);
       }
 
       [(BLEMIDIDriverCentral *)self cancelConnectionForPeripheral:peripheral];
     }
 
     [peripheral setDelegate:self];
-    v9[1] = [CBUUID UUIDWithString:@"180A", [CBUUID UUIDWithString:@"03B80E5A-EDE8-4B33-A751-6CE34EC4C700"]];
-    [peripheral discoverServices:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v9, 2)}];
+    v11[1] = [CBUUID UUIDWithString:@"180A", [CBUUID UUIDWithString:@"03B80E5A-EDE8-4B33-A751-6CE34EC4C700"]];
+    [peripheral discoverServices:{+[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", v11, 2)}];
   }
 }
 
@@ -1011,7 +1201,7 @@ LABEL_9:
 {
   if (self->centralManager == manager)
   {
-    sub_4A64();
+    sub_4A64(self, a2);
     v9 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
@@ -1039,7 +1229,7 @@ LABEL_9:
 {
   if (self->centralManager == manager)
   {
-    sub_4A64();
+    sub_4A64(self, a2);
     v8 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
@@ -1064,125 +1254,135 @@ LABEL_9:
 
 - (void)centralManager:(id)manager didUpdateConnectionParameters:(id)parameters interval:(id)interval latency:(id)latency supervisionTimeout:(id)timeout
 {
-  if (self->centralManager == manager && [(BLEMIDIDriverCentral *)self deviceForPeripheral:parameters])
+  if (self->centralManager == manager)
   {
-    sub_4A64();
-    v9 = qword_1D968;
-    if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+    v9 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:parameters];
+    if (v9)
     {
-      [interval doubleValue];
-      v14 = 136315650;
-      v15 = "BTLEMIDIDriverCentral.mm";
-      v16 = 1024;
-      v17 = 623;
-      v18 = 2048;
-      v19 = v10;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "%25s:%-5d Updated connection parameters: interval = %f ms", &v14, 0x1Cu);
-    }
+      sub_4A64(v9, v10);
+      v11 = qword_1D968;
+      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+      {
+        [interval doubleValue];
+        v18 = 136315650;
+        v19 = "BTLEMIDIDriverCentral.mm";
+        v20 = 1024;
+        v21 = 623;
+        v22 = 2048;
+        v23 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d Updated connection parameters: interval = %f ms", &v18, 0x1Cu);
+      }
 
-    [interval doubleValue];
-    v12 = (v11 * 1000000.0);
-    sub_4A64();
-    v13 = qword_1D968;
-    if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
-    {
-      v14 = 136315650;
-      v15 = "BTLEMIDIDriverCentral.mm";
-      v16 = 1024;
-      v17 = 626;
-      v18 = 2048;
-      v19 = v12;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d Changing connection interval = %llu ns", &v14, 0x1Cu);
-    }
+      doubleValue = [interval doubleValue];
+      v15 = (v14 * 1000000.0);
+      sub_4A64(doubleValue, v16);
+      v17 = qword_1D968;
+      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
+      {
+        v18 = 136315650;
+        v19 = "BTLEMIDIDriverCentral.mm";
+        v20 = 1024;
+        v21 = 626;
+        v22 = 2048;
+        v23 = v15;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d Changing connection interval = %llu ns", &v18, 0x1Cu);
+      }
 
-    *(self->driver + 32) = v12;
+      *(self->driver + 32) = v15;
+    }
   }
 }
 
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services
 {
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = [peripheral services];
-  v7 = [obj countByEnumeratingWithState:&v19 objects:v31 count:16];
+  v7 = [obj countByEnumeratingWithState:&v22 objects:v34 count:16];
   if (!v7)
   {
     goto LABEL_17;
   }
 
-  v8 = v7;
+  v9 = v7;
   servicesCopy = services;
   selfCopy = self;
-  v9 = 0;
-  v17 = 0;
-  v10 = *v20;
+  v10 = 0;
+  v20 = 0;
+  v11 = *v23;
   do
   {
-    for (i = 0; i != v8; i = i + 1)
+    v12 = 0;
+    do
     {
-      if (*v20 != v10)
+      if (*v23 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v19 + 1) + 8 * i);
-      if ([objc_msgSend(v12 UUID])
+      v13 = *(*(&v22 + 1) + 8 * v12);
+      if ([objc_msgSend(v13 UUID])
       {
-        [peripheral discoverCharacteristics:0 forService:v12];
-        v17 = 1;
+        [peripheral discoverCharacteristics:0 forService:v13];
+        v20 = 1;
       }
 
-      if ([objc_msgSend(v12 "UUID")])
+      v14 = [objc_msgSend(v13 "UUID")];
+      if (v14)
       {
-        sub_4A64();
-        v13 = qword_1D968;
+        sub_4A64(v14, v15);
+        v16 = qword_1D968;
         if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315650;
-          v24 = "BTLEMIDIDriverCentral.mm";
-          v25 = 1024;
-          v26 = 656;
-          v27 = 2112;
+          v27 = "BTLEMIDIDriverCentral.mm";
+          v28 = 1024;
+          v29 = 656;
+          v30 = 2112;
           peripheralCopy2 = peripheral;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d Discovered device information service for peripheral: %@", buf, 0x1Cu);
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d Discovered device information service for peripheral: %@", buf, 0x1Cu);
         }
 
-        v9 = v12;
+        v10 = v13;
       }
+
+      v12 = v12 + 1;
     }
 
-    v8 = [obj countByEnumeratingWithState:&v19 objects:v31 count:16];
+    while (v9 != v12);
+    v7 = [obj countByEnumeratingWithState:&v22 objects:v34 count:16];
+    v9 = v7;
   }
 
-  while (v8);
+  while (v7);
   services = servicesCopy;
   self = selfCopy;
-  if (v17)
+  if (v20)
   {
-    if (v9)
+    if (v10)
     {
-      [peripheral discoverCharacteristics:0 forService:v9];
+      [peripheral discoverCharacteristics:0 forService:v10];
     }
   }
 
   else
   {
 LABEL_17:
-    sub_4A64();
-    v14 = qword_1D968;
+    sub_4A64(v7, v8);
+    v17 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
       *buf = 136315906;
-      v24 = "BTLEMIDIDriverCentral.mm";
-      v25 = 1024;
-      v26 = 660;
-      v27 = 2112;
+      v27 = "BTLEMIDIDriverCentral.mm";
+      v28 = 1024;
+      v29 = 660;
+      v30 = 2112;
       peripheralCopy2 = peripheral;
-      v29 = 2112;
+      v32 = 2112;
       servicesCopy2 = services;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%25s:%-5d MIDI service not discovered on peripheral: %@ (error: %@). Disconnecting ...", buf, 0x26u);
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d MIDI service not discovered on peripheral: %@ (error: %@). Disconnecting ...", buf, 0x26u);
     }
 
     [(CBCentralManager *)self->centralManager cancelPeripheralConnection:peripheral];
@@ -1193,37 +1393,38 @@ LABEL_17:
 {
   if ([(BLEMIDIDriverCentral *)self deviceForPeripheral:?])
   {
+    v16 = 0u;
+    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v7 = [services countByEnumeratingWithState:&v12 objects:v22 count:16];
+    v7 = [services countByEnumeratingWithState:&v14 objects:v24 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v15;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v13 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(services);
           }
 
-          if ([objc_msgSend(*(*(&v12 + 1) + 8 * i) "UUID")])
+          v11 = [objc_msgSend(*(*(&v14 + 1) + 8 * i) "UUID")];
+          if (v11)
           {
-            sub_4A64();
-            v11 = qword_1D968;
+            sub_4A64(v11, v12);
+            v13 = qword_1D968;
             if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
             {
               *buf = 136315650;
-              v17 = "BTLEMIDIDriverCentral.mm";
-              v18 = 1024;
-              v19 = 674;
-              v20 = 2112;
+              v19 = "BTLEMIDIDriverCentral.mm";
+              v20 = 1024;
+              v21 = 674;
+              v22 = 2112;
               peripheralCopy = peripheral;
-              _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d NOTICE: %@ has invalidated the MIDI service. Disconnecting ...", buf, 0x1Cu);
+              _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d NOTICE: %@ has invalidated the MIDI service. Disconnecting ...", buf, 0x1Cu);
             }
 
             [(CBCentralManager *)self->centralManager cancelPeripheralConnection:peripheral];
@@ -1231,7 +1432,7 @@ LABEL_17:
           }
         }
 
-        v8 = [services countByEnumeratingWithState:&v12 objects:v22 count:16];
+        v8 = [services countByEnumeratingWithState:&v14 objects:v24 count:16];
         if (v8)
         {
           continue;
@@ -1252,58 +1453,58 @@ LABEL_17:
       return;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     characteristics = [service characteristics];
-    v15 = [characteristics countByEnumeratingWithState:&v33 objects:v41 count:16];
-    if (!v15)
+    v18 = [characteristics countByEnumeratingWithState:&v43 objects:v51 count:16];
+    if (!v18)
     {
       return;
     }
 
-    v17 = v15;
-    v18 = *v34;
-    *&v16 = 136315650;
-    v32 = v16;
+    v20 = v18;
+    v21 = *v44;
+    *&v19 = 136315650;
+    v42 = v19;
 LABEL_16:
-    v19 = 0;
+    v22 = 0;
     while (1)
     {
-      if (*v34 != v18)
+      if (*v44 != v21)
       {
         objc_enumerationMutation(characteristics);
       }
 
-      v20 = *(*(&v33 + 1) + 8 * v19);
-      if (![objc_msgSend(v20 UUID])
+      v23 = *(*(&v43 + 1) + 8 * v22);
+      if (![objc_msgSend(v23 UUID])
       {
         break;
       }
 
-      [peripheral readValueForCharacteristic:v20];
-      sub_4A64();
-      v21 = qword_1D968;
+      v24 = [peripheral readValueForCharacteristic:v23];
+      sub_4A64(v24, v25);
+      v26 = qword_1D968;
       if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v32;
-        v43 = "BTLEMIDIDriverCentral.mm";
-        v44 = 1024;
-        v45 = 737;
-        v46 = 2112;
-        *v47 = peripheral;
-        v22 = v21;
-        v23 = "%25s:%-5d Discovered manufacturer name for %@";
+        *buf = v42;
+        v53 = "BTLEMIDIDriverCentral.mm";
+        v54 = 1024;
+        v55 = 737;
+        v56 = 2112;
+        *v57 = peripheral;
+        v27 = v26;
+        v28 = "%25s:%-5d Discovered manufacturer name for %@";
 LABEL_25:
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEBUG, v23, buf, 0x1Cu);
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEBUG, v28, buf, 0x1Cu);
       }
 
 LABEL_26:
-      if (v17 == ++v19)
+      if (v20 == ++v22)
       {
-        v17 = [characteristics countByEnumeratingWithState:&v33 objects:v41 count:16];
-        if (!v17)
+        v20 = [characteristics countByEnumeratingWithState:&v43 objects:v51 count:16];
+        if (!v20)
         {
           return;
         }
@@ -1312,139 +1513,146 @@ LABEL_26:
       }
     }
 
-    if (![objc_msgSend(v20 "UUID")])
+    if (![objc_msgSend(v23 "UUID")])
     {
       goto LABEL_26;
     }
 
-    [peripheral readValueForCharacteristic:v20];
-    sub_4A64();
-    v24 = qword_1D968;
+    v29 = [peripheral readValueForCharacteristic:v23];
+    sub_4A64(v29, v30);
+    v31 = qword_1D968;
     if (!os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_26;
     }
 
-    *buf = v32;
-    v43 = "BTLEMIDIDriverCentral.mm";
-    v44 = 1024;
-    v45 = 741;
-    v46 = 2112;
-    *v47 = peripheral;
-    v22 = v24;
-    v23 = "%25s:%-5d Discovered model number for %@";
+    *buf = v42;
+    v53 = "BTLEMIDIDriverCentral.mm";
+    v54 = 1024;
+    v55 = 741;
+    v56 = 2112;
+    *v57 = peripheral;
+    v27 = v31;
+    v28 = "%25s:%-5d Discovered model number for %@";
     goto LABEL_25;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   characteristics2 = [service characteristics];
-  v9 = [characteristics2 countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v9 = [characteristics2 countByEnumeratingWithState:&v47 objects:v58 count:16];
   if (!v9)
   {
     goto LABEL_10;
   }
 
-  v10 = v9;
-  v11 = *v38;
+  v11 = v9;
+  v12 = *v48;
   while (2)
   {
-    for (i = 0; i != v10; i = i + 1)
+    v13 = 0;
+    do
     {
-      if (*v38 != v11)
+      if (*v48 != v12)
       {
         objc_enumerationMutation(characteristics2);
       }
 
-      if ([objc_msgSend(*(*(&v37 + 1) + 8 * i) "UUID")])
+      v14 = [objc_msgSend(*(*(&v47 + 1) + 8 * v13) "UUID")];
+      if (v14)
       {
-        sub_4A64();
-        v25 = qword_1D968;
+        sub_4A64(v14, v15);
+        v32 = qword_1D968;
         if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
         {
           *buf = 136315650;
-          v43 = "BTLEMIDIDriverCentral.mm";
-          v44 = 1024;
-          v45 = 702;
-          v46 = 2112;
-          *v47 = peripheral;
-          _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "%25s:%-5d Setting MIDI low latency for peripheral: %@", buf, 0x1Cu);
+          v53 = "BTLEMIDIDriverCentral.mm";
+          v54 = 1024;
+          v55 = 702;
+          v56 = 2112;
+          *v57 = peripheral;
+          _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "%25s:%-5d Setting MIDI low latency for peripheral: %@", buf, 0x1Cu);
         }
 
         [(CBCentralManager *)self->centralManager setDesiredConnectionLatency:-12 forPeripheral:peripheral];
-        v26 = [peripheral mtuLength] - 3;
-        sub_4A64();
-        v27 = qword_1D968;
-        v28 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
-        if (v26 < 21)
+        mtuLength = [peripheral mtuLength];
+        v34 = (mtuLength - 3);
+        sub_4A64(mtuLength, v35);
+        v36 = qword_1D968;
+        v37 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO);
+        if (v34 < 21)
         {
-          v26 = 20;
-          if (!v28)
+          v34 = 20;
+          if (!v37)
           {
             goto LABEL_37;
           }
 
           *buf = 136315906;
-          v43 = "BTLEMIDIDriverCentral.mm";
-          v44 = 1024;
-          v45 = 710;
-          v46 = 1024;
-          *v47 = 20;
-          *&v47[4] = 2112;
-          *&v47[6] = peripheral;
-          v29 = "%25s:%-5d Keeping mtu value of %d bytes for peripheral: %@";
+          v53 = "BTLEMIDIDriverCentral.mm";
+          v54 = 1024;
+          v55 = 710;
+          v56 = 1024;
+          *v57 = 20;
+          *&v57[4] = 2112;
+          *&v57[6] = peripheral;
+          v38 = "%25s:%-5d Keeping mtu value of %d bytes for peripheral: %@";
         }
 
         else
         {
-          if (!v28)
+          if (!v37)
           {
             goto LABEL_37;
           }
 
           *buf = 136315906;
-          v43 = "BTLEMIDIDriverCentral.mm";
-          v44 = 1024;
-          v45 = 708;
-          v46 = 1024;
-          *v47 = v26;
-          *&v47[4] = 2112;
-          *&v47[6] = peripheral;
-          v29 = "%25s:%-5d Updating packet size to mtu value of %d bytes for peripheral: %@";
+          v53 = "BTLEMIDIDriverCentral.mm";
+          v54 = 1024;
+          v55 = 708;
+          v56 = 1024;
+          *v57 = v34;
+          *&v57[4] = 2112;
+          *&v57[6] = peripheral;
+          v38 = "%25s:%-5d Updating packet size to mtu value of %d bytes for peripheral: %@";
         }
 
-        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, v29, buf, 0x22u);
+        _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, v38, buf, 0x22u);
 LABEL_37:
-        v30 = +[BLEMIDIAccessor midiDeviceForUUID:](BLEMIDIAccessor, "midiDeviceForUUID:", [objc_msgSend(peripheral "identifier")]);
-        if (v30)
+        v39 = +[BLEMIDIAccessor midiDeviceForUUID:](BLEMIDIAccessor, "midiDeviceForUUID:", [objc_msgSend(peripheral "identifier")]);
+        if (v39)
         {
-          [(BLEMIDIDriverCentral *)self connectDevice:v30 withMTU:v26];
+          [(BLEMIDIDriverCentral *)self connectDevice:v39 withMTU:v34];
         }
 
         else
         {
-          sub_4A64();
-          v31 = qword_1D968;
+          sub_4A64(v39, v40);
+          v41 = qword_1D968;
           if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
           {
             *buf = 136315650;
-            v43 = "BTLEMIDIDriverCentral.mm";
-            v44 = 1024;
-            v45 = 726;
-            v46 = 2112;
-            *v47 = peripheral;
-            _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "%25s:%-5d Can't find a MIDI device for %@. Was activateUUID called?", buf, 0x1Cu);
+            v53 = "BTLEMIDIDriverCentral.mm";
+            v54 = 1024;
+            v55 = 726;
+            v56 = 2112;
+            *v57 = peripheral;
+            _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "%25s:%-5d Can't find a MIDI device for %@. Was activateUUID called?", buf, 0x1Cu);
           }
         }
 
         return;
       }
+
+      v13 = v13 + 1;
     }
 
-    v10 = [characteristics2 countByEnumeratingWithState:&v37 objects:v48 count:16];
-    if (v10)
+    while (v11 != v13);
+    v9 = [characteristics2 countByEnumeratingWithState:&v47 objects:v58 count:16];
+    v11 = v9;
+    if (v9)
     {
       continue;
     }
@@ -1453,17 +1661,17 @@ LABEL_37:
   }
 
 LABEL_10:
-  sub_4A64();
-  v13 = qword_1D968;
+  sub_4A64(v9, v10);
+  v16 = qword_1D968;
   if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v43 = "BTLEMIDIDriverCentral.mm";
-    v44 = 1024;
-    v45 = 717;
-    v46 = 2112;
-    *v47 = peripheral;
-    _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%25s:%-5d MIDI Service not discovered on %@. Disconnecting ...", buf, 0x1Cu);
+    v53 = "BTLEMIDIDriverCentral.mm";
+    v54 = 1024;
+    v55 = 717;
+    v56 = 2112;
+    *v57 = peripheral;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "%25s:%-5d MIDI Service not discovered on %@. Disconnecting ...", buf, 0x1Cu);
   }
 
   [(CBCentralManager *)self->centralManager cancelPeripheralConnection:peripheral];
@@ -1477,11 +1685,11 @@ LABEL_10:
     if (!error || value)
     {
       v10 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:peripheral];
-      if (v10 && (v11 = v10, [v10 outEndpoint]))
+      if (v10 && (v12 = v10, v10 = [v10 outEndpoint], v10))
       {
-        if ([v11 dataReceiver])
+        if ([v12 dataReceiver])
         {
-          dataReceiver = [v11 dataReceiver];
+          dataReceiver = [v12 dataReceiver];
           value2 = [characteristic value];
 
           [dataReceiver unpackValue:value2];
@@ -1490,15 +1698,15 @@ LABEL_10:
 
       else
       {
-        sub_4A64();
-        v23 = qword_1D968;
+        sub_4A64(v10, v11);
+        v26 = qword_1D968;
         if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
         {
-          v24 = 136315394;
-          v25 = "BTLEMIDIDriverCentral.mm";
-          v26 = 1024;
-          v27 = 759;
-          _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: No endpoint found for MIDI output!", &v24, 0x12u);
+          v27 = 136315394;
+          v28 = "BTLEMIDIDriverCentral.mm";
+          v29 = 1024;
+          v30 = 759;
+          _os_log_impl(&dword_0, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: No endpoint found for MIDI output!", &v27, 0x12u);
         }
       }
     }
@@ -1508,58 +1716,58 @@ LABEL_10:
 
   if ([objc_msgSend(characteristic "UUID")])
   {
-    v14 = [[NSString alloc] initWithData:objc_msgSend(characteristic encoding:{"value"), 4}];
-    sub_4A64();
-    v15 = qword_1D968;
+    v15 = [[NSString alloc] initWithData:objc_msgSend(characteristic encoding:{"value"), 4}];
+    sub_4A64(v15, v16);
+    v17 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
-      v24 = 136315650;
-      v25 = "BTLEMIDIDriverCentral.mm";
-      v26 = 1024;
-      v27 = 779;
-      v28 = 2112;
-      v29 = v14;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%25s:%-5d Discovered manufacturer name: %@", &v24, 0x1Cu);
+      v27 = 136315650;
+      v28 = "BTLEMIDIDriverCentral.mm";
+      v29 = 1024;
+      v30 = 779;
+      v31 = 2112;
+      v32 = v15;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "%25s:%-5d Discovered manufacturer name: %@", &v27, 0x1Cu);
     }
 
-    v16 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:peripheral];
-    if (v16)
+    v18 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:peripheral];
+    if (v18)
     {
-      v17 = v16;
-      if ([v16 dev])
+      v19 = v18;
+      if ([v18 dev])
       {
-        v18 = [v17 dev];
-        v19 = &kMIDIPropertyManufacturer;
+        v20 = [v19 dev];
+        v21 = &kMIDIPropertyManufacturer;
 LABEL_22:
-        MIDIObjectSetStringProperty(v18, *v19, v14);
+        MIDIObjectSetStringProperty(v20, *v21, v15);
       }
     }
   }
 
   else if ([objc_msgSend(characteristic "UUID")])
   {
-    v14 = [[NSString alloc] initWithData:objc_msgSend(characteristic encoding:{"value"), 4}];
-    sub_4A64();
-    v20 = qword_1D968;
+    v15 = [[NSString alloc] initWithData:objc_msgSend(characteristic encoding:{"value"), 4}];
+    sub_4A64(v15, v22);
+    v23 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
-      v24 = 136315650;
-      v25 = "BTLEMIDIDriverCentral.mm";
-      v26 = 1024;
-      v27 = 788;
-      v28 = 2112;
-      v29 = v14;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "%25s:%-5d Discovered model number: %@", &v24, 0x1Cu);
+      v27 = 136315650;
+      v28 = "BTLEMIDIDriverCentral.mm";
+      v29 = 1024;
+      v30 = 788;
+      v31 = 2112;
+      v32 = v15;
+      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_INFO, "%25s:%-5d Discovered model number: %@", &v27, 0x1Cu);
     }
 
-    v21 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:peripheral];
-    if (v21)
+    v24 = [(BLEMIDIDriverCentral *)self deviceForPeripheral:peripheral];
+    if (v24)
     {
-      v22 = v21;
-      if ([v21 dev])
+      v25 = v24;
+      if ([v24 dev])
       {
-        v18 = [v22 dev];
-        v19 = &kMIDIPropertyModel;
+        v20 = [v25 dev];
+        v21 = &kMIDIPropertyModel;
         goto LABEL_22;
       }
     }
@@ -1570,7 +1778,7 @@ LABEL_22:
 {
   if (error)
   {
-    sub_4A64();
+    sub_4A64(self, a2);
     v8 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
@@ -1591,56 +1799,61 @@ LABEL_22:
 
 - (void)peripheral:(id)peripheral didUpdateNotificationStateForCharacteristic:(id)characteristic error:(id)error
 {
-  sub_4A64();
+  sub_4A64(self, a2);
   v9 = qword_1D968;
-  if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
+  v10 = os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG);
+  if (v10)
   {
-    v13 = 136316162;
-    v14 = "BTLEMIDIDriverCentral.mm";
-    v15 = 1024;
-    v16 = 816;
-    v17 = 2112;
-    errorCopy2 = peripheral;
-    v19 = 2112;
-    characteristicCopy = characteristic;
+    v17 = 136316162;
+    v18 = "BTLEMIDIDriverCentral.mm";
+    v19 = 1024;
+    v20 = 816;
     v21 = 2112;
+    errorCopy2 = peripheral;
+    v23 = 2112;
+    characteristicCopy = characteristic;
+    v25 = 2112;
     errorCopy = error;
-    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d peripheral:%@ didUpdateNotificationStateForCharacteristic:%@ error:%@", &v13, 0x30u);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d peripheral:%@ didUpdateNotificationStateForCharacteristic:%@ error:%@", &v17, 0x30u);
   }
 
   if (error)
   {
-    sub_4A64();
-    v10 = qword_1D968;
+    sub_4A64(v10, v11);
+    v12 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
-      v13 = 136315650;
-      v14 = "BTLEMIDIDriverCentral.mm";
-      v15 = 1024;
-      v16 = 818;
-      v17 = 2112;
+      v17 = 136315650;
+      v18 = "BTLEMIDIDriverCentral.mm";
+      v19 = 1024;
+      v20 = 818;
+      v21 = 2112;
       errorCopy2 = error;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", &v13, 0x1Cu);
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", &v17, 0x1Cu);
     }
   }
 
   else
   {
-    v11 = [(BLEMIDIDriverCentral *)self midiCharacteristicForPeripheral:peripheral];
-    if (v11 && ([v11 isNotifying] & 1) == 0)
+    v13 = [(BLEMIDIDriverCentral *)self midiCharacteristicForPeripheral:peripheral];
+    if (v13)
     {
-      sub_4A64();
-      v12 = qword_1D968;
-      if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
+      isNotifying = [v13 isNotifying];
+      if ((isNotifying & 1) == 0)
       {
-        v13 = 136315394;
-        v14 = "BTLEMIDIDriverCentral.mm";
-        v15 = 1024;
-        v16 = 822;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d      canceling peripheral connection since notify was removed.", &v13, 0x12u);
-      }
+        sub_4A64(isNotifying, v15);
+        v16 = qword_1D968;
+        if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_DEBUG))
+        {
+          v17 = 136315394;
+          v18 = "BTLEMIDIDriverCentral.mm";
+          v19 = 1024;
+          v20 = 822;
+          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "%25s:%-5d      canceling peripheral connection since notify was removed.", &v17, 0x12u);
+        }
 
-      [(CBCentralManager *)self->centralManager cancelPeripheralConnection:peripheral];
+        [(CBCentralManager *)self->centralManager cancelPeripheralConnection:peripheral];
+      }
     }
   }
 }
@@ -1690,29 +1903,30 @@ LABEL_3:
 
 - (id)deviceForUUID:(id)d
 {
-  if (d && (v14 = 0u, v15 = 0u, v12 = 0u, v13 = 0u, connectedDevices = self->connectedDevices, (v5 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v12 objects:v22 count:16]) != 0))
+  if (d && (v13 = 0u, v14 = 0u, v11 = 0u, v12 = 0u, connectedDevices = self->connectedDevices, (self = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v11 objects:v21 count:16]) != 0))
   {
-    v6 = v5;
-    v7 = *v13;
+    selfCopy2 = self;
+    v6 = *v12;
 LABEL_4:
-    v8 = 0;
+    v7 = 0;
     while (1)
     {
-      if (*v13 != v7)
+      if (*v12 != v6)
       {
         objc_enumerationMutation(connectedDevices);
       }
 
-      v9 = *(*(&v12 + 1) + 8 * v8);
-      if ([objc_msgSend(v9 "uuid")])
+      v8 = *(*(&v11 + 1) + 8 * v7);
+      if ([objc_msgSend(v8 "uuid")])
       {
         break;
       }
 
-      if (v6 == ++v8)
+      if (selfCopy2 == ++v7)
       {
-        v6 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v12 objects:v22 count:16];
-        if (v6)
+        self = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v11 objects:v21 count:16];
+        selfCopy2 = self;
+        if (self)
         {
           goto LABEL_4;
         }
@@ -1725,23 +1939,23 @@ LABEL_4:
   else
   {
 LABEL_10:
-    sub_4A64();
-    v10 = qword_1D968;
+    sub_4A64(self, a2);
+    v9 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v17 = "BTLEMIDIDriverCentral.mm";
-      v18 = 1024;
-      v19 = 847;
-      v20 = 2112;
+      v16 = "BTLEMIDIDriverCentral.mm";
+      v17 = 1024;
+      v18 = 847;
+      v19 = 2112;
       dCopy = d;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d no device found with UUID %@", buf, 0x1Cu);
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d no device found with UUID %@", buf, 0x1Cu);
     }
 
     return 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (id)deviceForPeripheral:(id)peripheral
@@ -1873,35 +2087,40 @@ LABEL_3:
 
 - (void)removeDeviceForUUID:(id)d
 {
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   connectedDevices = self->connectedDevices;
-  v6 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v12 objects:v22 count:16];
+  v6 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v13 objects:v23 count:16];
   if (v6)
   {
-    v7 = v6;
-    v8 = *v13;
+    v8 = v6;
+    v9 = *v14;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v13 != v8)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(connectedDevices);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
-        if ([objc_msgSend(v10 "uuid")])
+        v11 = *(*(&v13 + 1) + 8 * v10);
+        if ([objc_msgSend(v11 "uuid")])
         {
-          [(NSMutableArray *)self->connectedDevices removeObject:v10];
+          [(NSMutableArray *)self->connectedDevices removeObject:v11];
           return;
         }
+
+        v10 = v10 + 1;
       }
 
-      v7 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v12 objects:v22 count:16];
-      if (v7)
+      while (v8 != v10);
+      v6 = [(NSMutableArray *)connectedDevices countByEnumeratingWithState:&v13 objects:v23 count:16];
+      v8 = v6;
+      if (v6)
       {
         continue;
       }
@@ -1910,17 +2129,17 @@ LABEL_3:
     }
   }
 
-  sub_4A64();
-  v11 = qword_1D968;
+  sub_4A64(v6, v7);
+  v12 = qword_1D968;
   if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "BTLEMIDIDriverCentral.mm";
-    v18 = 1024;
-    v19 = 887;
-    v20 = 2112;
+    v18 = "BTLEMIDIDriverCentral.mm";
+    v19 = 1024;
+    v20 = 887;
+    v21 = 2112;
     dCopy = d;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "%25s:%-5d removeDeviceForPeripheral: no device found with UUID %@", buf, 0x1Cu);
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%25s:%-5d removeDeviceForPeripheral: no device found with UUID %@", buf, 0x1Cu);
   }
 }
 
@@ -1962,50 +2181,51 @@ LABEL_3:
 {
   v5 = [[NSUUID alloc] initWithUUIDString:d];
   centralManager = self->centralManager;
-  v21 = v5;
-  v7 = [(CBCentralManager *)centralManager retrievePeripheralsWithIdentifiers:[NSArray arrayWithObjects:&v21 count:1]];
+  v24 = v5;
+  v7 = [(CBCentralManager *)centralManager retrievePeripheralsWithIdentifiers:[NSArray arrayWithObjects:&v24 count:1]];
   if (v7)
   {
-    v8 = v7;
-    if ([(NSArray *)v7 count]== &dword_0 + 1)
+    v9 = v7;
+    v10 = [(NSArray *)v7 count];
+    if (v10 == &dword_0 + 1)
     {
-      return [(NSArray *)v8 objectAtIndex:0];
+      return [(NSArray *)v9 objectAtIndex:0];
     }
 
-    sub_4A64();
-    v14 = qword_1D968;
+    sub_4A64(v10, v11);
+    v17 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315650;
-      v16 = "BTLEMIDIDriverCentral.mm";
-      v17 = 1024;
-      v18 = 911;
-      v19 = 2048;
-      dCopy = [(NSArray *)v8 count];
-      v11 = "%25s:%-5d Unexpected peripheral count (%lu)";
-      v12 = v14;
-      v13 = OS_LOG_TYPE_ERROR;
+      v18 = 136315650;
+      v19 = "BTLEMIDIDriverCentral.mm";
+      v20 = 1024;
+      v21 = 911;
+      v22 = 2048;
+      dCopy = [(NSArray *)v9 count];
+      v14 = "%25s:%-5d Unexpected peripheral count (%lu)";
+      v15 = v17;
+      v16 = OS_LOG_TYPE_ERROR;
       goto LABEL_8;
     }
   }
 
   else
   {
-    sub_4A64();
-    v10 = qword_1D968;
+    sub_4A64(0, v8);
+    v13 = qword_1D968;
     if (os_log_type_enabled(qword_1D968, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315650;
-      v16 = "BTLEMIDIDriverCentral.mm";
-      v17 = 1024;
-      v18 = 909;
-      v19 = 2112;
+      v18 = 136315650;
+      v19 = "BTLEMIDIDriverCentral.mm";
+      v20 = 1024;
+      v21 = 909;
+      v22 = 2112;
       dCopy = d;
-      v11 = "%25s:%-5d No peripheral with UUID %@";
-      v12 = v10;
-      v13 = OS_LOG_TYPE_INFO;
+      v14 = "%25s:%-5d No peripheral with UUID %@";
+      v15 = v13;
+      v16 = OS_LOG_TYPE_INFO;
 LABEL_8:
-      _os_log_impl(&dword_0, v12, v13, v11, &v15, 0x1Cu);
+      _os_log_impl(&dword_0, v15, v16, v14, &v18, 0x1Cu);
     }
   }
 

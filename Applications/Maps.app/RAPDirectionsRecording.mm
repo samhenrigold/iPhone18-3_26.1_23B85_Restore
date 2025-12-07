@@ -129,7 +129,7 @@
 
   else if (v17)
   {
-    [(RAPDirectionsRecording *)self setStartWaypoint:?];
+    objc_msgSend_setStartWaypoint_(self);
   }
 
   endWaypoint = self->_endWaypoint;
@@ -839,7 +839,7 @@ LABEL_52:
 
   if (self->_startWaypoint)
   {
-    [toCopy setStartWaypoint:?];
+    objc_msgSend_setStartWaypoint_(toCopy);
   }
 
   if (self->_endWaypoint)

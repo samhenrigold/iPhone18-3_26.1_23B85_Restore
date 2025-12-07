@@ -27,7 +27,7 @@
 
 - (void)addRequestForTimelapseFileForDelegate:(id)delegate forHighQualityClip:(id)clip andTimelapseClip:(id)timelapseClip atOffset:(double)offset
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   timelapseClipCopy = timelapseClip;
   clipCopy = clip;
   delegateCopy = delegate;
@@ -58,27 +58,26 @@
   {
     uniqueIdentifier2 = [timelapseClipCopy uniqueIdentifier];
     uUIDString2 = [uniqueIdentifier2 UUIDString];
-    v24 = 138412290;
-    v25 = uUIDString2;
-    _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "REQUEST: Adding request for timelapse clip %@", &v24, 0xCu);
+    v23 = 138412290;
+    v24 = uUIDString2;
+    _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "REQUEST: Adding request for timelapse clip %@", &v23, 0xCu);
   }
 
   [array addObject:v13];
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fulfillRequestsForTimelapseFileForTimelapseClip:(id)clip
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = HFLogForCategory(0x19uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = [clipCopy uniqueIdentifier];
     uUIDString = [uniqueIdentifier UUIDString];
-    v15 = 138412290;
-    v16 = uUIDString;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "REQUEST: Fulfilling all requests for timelapse clip %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = uUIDString;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "REQUEST: Fulfilling all requests for timelapse clip %@", &v14, 0xCu);
   }
 
   uniqueIdentifier2 = [clipCopy uniqueIdentifier];
@@ -90,14 +89,12 @@
   timelapseRequests2 = [(HFCameraPosterFrameRequests *)self timelapseRequests];
   [timelapseRequests2 setObject:0 forKeyedSubscript:uUIDString2];
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)addRequestsForPosterFrameGeneration:(id)generation forHighQualityClip:(id)clip
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   generationCopy = generation;
   clipCopy = clip;
   uniqueIdentifier = [clipCopy uniqueIdentifier];
@@ -111,31 +108,31 @@
     dictionary = [MEMORY[0x277CBEB38] dictionary];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v12 = generationCopy;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * i);
+        v17 = *(*(&v23 + 1) + 8 * i);
         offsetNumber = [v17 offsetNumber];
         [dictionary setObject:v17 forKeyedSubscript:offsetNumber];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v14);
@@ -150,11 +147,9 @@
     uniqueIdentifier2 = [clipCopy uniqueIdentifier];
     uUIDString2 = [uniqueIdentifier2 UUIDString];
     *buf = 138412290;
-    v29 = uUIDString2;
+    v28 = uUIDString2;
     _os_log_impl(&dword_20D9BF000, v20, OS_LOG_TYPE_DEFAULT, "REQUEST: Adding request for high quality clip %@", buf, 0xCu);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fulfillRequestForPosterFrameGenerationForHighQualityClip:(id)clip atOffset:(double)offset

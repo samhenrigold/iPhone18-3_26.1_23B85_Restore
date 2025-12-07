@@ -3,7 +3,6 @@
 + (id)archiveObject:(id)object error:(id *)error;
 + (id)buildArchiveClasses:(id)classes;
 + (id)manifestDictionaryForApplicationIdentifier:(id)identifier captureRequestIdentifier:(id)requestIdentifier photoDescriptors:(id)descriptors;
-+ (id)manifestDictionaryForURL:(id)l err:(int *)err;
 + (id)unarchiveObject:(id)object classes:(id)classes error:(id *)error;
 + (id)unarchiveObjectWithURL:(id)l classes:(id)classes error:(id *)error;
 + (int)validateManifestURLSize:(id)size;
@@ -21,21 +20,21 @@
 - (NSString)applicationID;
 - (NSString)captureRequestIdentifier;
 - (NSString)prettyDescription;
+- (const)_getUUIDBytes:(int)bytes high:;
+- (id)_containerManifestURL;
+- (id)_containerSessionDataURL;
+- (id)_intermediateArrayURLForTag:(id *)result;
+- (id)_intermediateBufferURLForTag:(int)tag compressionProfile:;
+- (id)_intermediateFolderURL;
+- (id)_pipelineParametersURL;
+- (id)_stillImageCaptureSettingsURL;
+- (id)_stillImageProcessingSettingsURL;
+- (id)_stillImageSettingsURL;
 - (id)description;
-- (uint64_t)_containerManifestURL;
-- (uint64_t)_containerSessionDataURL;
-- (uint64_t)_getUUIDBytes:(int)bytes high:;
-- (uint64_t)_intermediateArrayURLForTag:(uint64_t)result;
-- (uint64_t)_intermediateBufferURLForTag:(int)tag compressionProfile:;
-- (uint64_t)_intermediateFolderURL;
-- (uint64_t)_intermediateForTag:(uint64_t)result;
-- (uint64_t)_pipelineParametersURL;
-- (uint64_t)_stillImageCaptureSettingsURL;
-- (uint64_t)_stillImageProcessingSettingsURL;
-- (uint64_t)_stillImageSettingsURL;
 - (uint64_t)_validate;
 - (uint64_t)_writeManifest;
 - (unsigned)processingType;
+- (void)_intermediateForTag:(void *)result;
 - (void)dealloc;
 @end
 
@@ -197,7 +196,7 @@ uint64_t __33__BWDeferredContainer_initialize__block_invoke()
 
   else
   {
-    [BWDeferredContainer archiveObject:? error:?];
+    [BWDeferredContainer archiveObject:a2 error:?];
   }
 
   result = 0;
@@ -215,7 +214,7 @@ LABEL_4:
 {
   if (!size)
   {
-    +[BWDeferredContainer validateManifestURLSize:];
+    [(BWDeferredContainer *)self validateManifestURLSize:a2];
     return -16134;
   }
 
@@ -269,19 +268,19 @@ LABEL_4:
 {
   if (!identifier)
   {
-    +[BWDeferredContainer manifestDictionaryForApplicationIdentifier:captureRequestIdentifier:photoDescriptors:];
+    [(BWDeferredContainer *)self manifestDictionaryForApplicationIdentifier:a2 captureRequestIdentifier:0 photoDescriptors:requestIdentifier, descriptors];
     return 0;
   }
 
   if (!requestIdentifier)
   {
-    +[BWDeferredContainer manifestDictionaryForApplicationIdentifier:captureRequestIdentifier:photoDescriptors:];
+    [BWDeferredContainer manifestDictionaryForApplicationIdentifier:self captureRequestIdentifier:a2 photoDescriptors:?];
     return 0;
   }
 
   if (!descriptors)
   {
-    +[BWDeferredContainer manifestDictionaryForApplicationIdentifier:captureRequestIdentifier:photoDescriptors:];
+    [BWDeferredContainer manifestDictionaryForApplicationIdentifier:self captureRequestIdentifier:a2 photoDescriptors:?];
     return 0;
   }
 
@@ -309,7 +308,7 @@ LABEL_4:
         v9 = *(*(&v26 + 1) + 8 * i);
         if (v9)
         {
-          [v9 presentationTimeStamp];
+          objc_msgSend_presentationTimeStamp(v9);
         }
 
         else
@@ -318,7 +317,7 @@ LABEL_4:
         }
 
         v10 = CMTimeCopyAsDictionary(&time, allocator);
-        v11 = [sContainerDateFormatter stringFromDate:{objc_msgSend(v9, "time")}];
+        v11 = [sContainerDateFormatter stringFromDate:objc_msgSend_time(v9)];
         v22[0] = @"PhotoIdentifier";
         v23[0] = [v9 photoIdentifier];
         v23[1] = v11;
@@ -448,7 +447,8 @@ LABEL_4:
           objc_enumerationMutation(intermediates);
         }
 
-        if ([tag isEqualToString:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "tag")}])
+        [*(*(&v13 + 1) + 8 * i) tag];
+        if (objc_msgSend_isEqualToString_(tag))
         {
           v10 = 1;
           goto LABEL_11;
@@ -540,20 +540,20 @@ LABEL_11:
 uint64_t __43__BWDeferredContainer__intermediateForTag___block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v3 = [a2 tag];
+  [a2 tag];
 
-  return [v2 isEqualToString:v3];
+  return objc_msgSend_isEqualToString_(v2);
 }
 
 + (BOOL)archiveObjectWithURL:(id)l object:(id)object error:(id *)error
 {
-  v11 = 0;
+  v14 = 0;
   if (l)
   {
-    v7 = [self archiveObject:object error:&v11];
+    v7 = [self archiveObject:object error:&v14];
     if (v7)
     {
-      LOBYTE(v7) = [v7 writeToURL:l options:1 error:&v11];
+      LOBYTE(v7) = [v7 writeToURL:l options:1 error:&v14];
     }
 
     if (error)
@@ -565,14 +565,14 @@ uint64_t __43__BWDeferredContainer__intermediateForTag___block_invoke(uint64_t a
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13, v14, v15, v16, vars0, vars8);
     v9 = OUTLINED_FUNCTION_70_3(MEMORY[0x1E696ABC0], v8, *MEMORY[0x1E696A768]);
     LOBYTE(v7) = 0;
-    v11 = v9;
+    v14 = v9;
     if (error)
     {
 LABEL_5:
-      *error = v11;
+      *error = v14;
     }
   }
 
@@ -582,15 +582,15 @@ LABEL_5:
 + (id)unarchiveObject:(id)object classes:(id)classes error:(id *)error
 {
   objectCopy = object;
-  v11 = 0;
+  v14 = 0;
   if (object)
   {
-    objectCopy = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:object error:&v11];
+    objectCopy = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:object error:&v14];
     if (objectCopy)
     {
       +[FigCaptureCIFilterUnarchiverDelegate sharedInstance];
       [OUTLINED_FUNCTION_8() setDelegate:?];
-      v8 = [objectCopy decodeTopLevelObjectOfClasses:classes forKey:*MEMORY[0x1E696A508] error:&v11];
+      v8 = [objectCopy decodeTopLevelObjectOfClasses:classes forKey:*MEMORY[0x1E696A508] error:&v14];
     }
 
     else
@@ -602,14 +602,14 @@ LABEL_5:
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v11, v12, v13, v14, v15, v16, v17, v18);
     v8 = 0;
-    v11 = OUTLINED_FUNCTION_70_3(MEMORY[0x1E696ABC0], v10, *MEMORY[0x1E696A768]);
+    v14 = OUTLINED_FUNCTION_70_3(MEMORY[0x1E696ABC0], v10, *MEMORY[0x1E696A768]);
   }
 
   if (error)
   {
-    *error = v11;
+    *error = v14;
   }
 
   return v8;
@@ -617,14 +617,14 @@ LABEL_5:
 
 + (id)unarchiveObjectWithURL:(id)l classes:(id)classes error:(id *)error
 {
-  v9 = 0;
+  v12 = 0;
   if (!l)
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v10, v11, v12, v13, v14, v15, v16);
     v8 = OUTLINED_FUNCTION_70_3(MEMORY[0x1E696ABC0], v7, *MEMORY[0x1E696A768]);
     result = 0;
-    v9 = v8;
+    v12 = v8;
     if (!error)
     {
       return result;
@@ -633,7 +633,7 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  result = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:l options:0 error:&v9];
+  result = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:l options:0 error:&v12];
   if (result)
   {
     result = [OUTLINED_FUNCTION_8() unarchiveObject:? classes:? error:?];
@@ -642,215 +642,9 @@ LABEL_5:
   if (error)
   {
 LABEL_5:
-    *error = v9;
+    *error = v12;
   }
 
-  return result;
-}
-
-+ (id)manifestDictionaryForURL:(id)l err:(int *)err
-{
-  OUTLINED_FUNCTION_58_2();
-  v43 = v4;
-  v44 = v7;
-  v9 = v8;
-  v10 = v6;
-  v42[0] = 0;
-  if (!v6)
-  {
-    OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v18 = 0;
-    code = -16134;
-    goto LABEL_10;
-  }
-
-  v11 = v5;
-  v12 = MEMORY[0x1E696AEC0];
-  [v6 path];
-  [v12 stringWithFormat:@"%@/%@"];
-  v13 = [OUTLINED_FUNCTION_4() fileURLWithPath:?];
-  if (!v13)
-  {
-    OUTLINED_FUNCTION_62();
-    v27 = OUTLINED_FUNCTION_26_16();
-    OUTLINED_FUNCTION_71_4(v27);
-    OUTLINED_FUNCTION_115_0();
-    if (v29)
-    {
-      v30 = v28;
-    }
-
-    else
-    {
-      v30 = v41;
-    }
-
-    if (v30)
-    {
-      [v10 path];
-      OUTLINED_FUNCTION_23_8();
-      OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_13();
-      _os_log_send_and_compose_impl();
-    }
-
-    goto LABEL_38;
-  }
-
-  v14 = v13;
-  v15 = [(BWDeferredContainer *)BWDeferredProcessingContainer validateManifestURLSize:v13];
-  if (v15)
-  {
-LABEL_25:
-    code = v15;
-    v18 = 0;
-    goto LABEL_10;
-  }
-
-  v16 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v14];
-  if (!v16)
-  {
-    OUTLINED_FUNCTION_62();
-    v31 = OUTLINED_FUNCTION_26_16();
-    os_log_type_enabled(v31, v40);
-    OUTLINED_FUNCTION_39_7();
-    if (v29)
-    {
-      v33 = v32;
-    }
-
-    else
-    {
-      v33 = v41;
-    }
-
-    if (v33)
-    {
-      OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_13();
-      _os_log_send_and_compose_impl();
-    }
-
-LABEL_38:
-    OUTLINED_FUNCTION_1_4();
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    v18 = 0;
-    goto LABEL_41;
-  }
-
-  v17 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:v16 error:v42];
-  if (!v17)
-  {
-    OUTLINED_FUNCTION_2_6();
-    FigDebugAssert3();
-    [v42[0] code];
-    v15 = FigSignalErrorAtGM();
-    goto LABEL_25;
-  }
-
-  v18 = v17;
-  v19 = [v17 decodeTopLevelObjectOfClass:objc_opt_class() forKey:@"CaptureRequestIdentifier" error:v42];
-  if (!v19)
-  {
-    code = [v42[0] code];
-    OUTLINED_FUNCTION_62();
-    v34 = OUTLINED_FUNCTION_26_16();
-    if (OUTLINED_FUNCTION_71_4(v34))
-    {
-      v35 = v41;
-    }
-
-    else
-    {
-      v35 = v41 & 0xFFFFFFFE;
-    }
-
-    if (v35)
-    {
-      [v14 path];
-      [v42[0] description];
-      OUTLINED_FUNCTION_23_8();
-      OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_13();
-      _os_log_send_and_compose_impl();
-    }
-
-LABEL_39:
-    OUTLINED_FUNCTION_1_4();
-    fig_log_call_emit_and_clean_up_after_send_and_compose();
-    goto LABEL_10;
-  }
-
-  v20 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v19];
-  if (v20)
-  {
-    v21 = v20;
-    v22 = MEMORY[0x1E695DFD8];
-    v23 = objc_opt_class();
-    objc_opt_class();
-    v24 = [v18 decodeTopLevelObjectOfClasses:objc_msgSend(v22 forKey:"setWithObjects:" error:{v23), @"PhotoDescriptors", v42}];
-    if (v24)
-    {
-      [v11 manifestDictionaryForApplicationIdentifier:objc_msgSend(objc_msgSend(v10 captureRequestIdentifier:"URLByDeletingLastPathComponent") photoDescriptors:{"lastPathComponent"), objc_msgSend(v21, "UUIDString"), v24}];
-      code = 0;
-      goto LABEL_10;
-    }
-
-    code = [v42[0] code];
-    OUTLINED_FUNCTION_62();
-    OUTLINED_FUNCTION_56_12();
-    v39 = OUTLINED_FUNCTION_26_16();
-    OUTLINED_FUNCTION_71_4(v39);
-    OUTLINED_FUNCTION_37_11();
-    if (v23)
-    {
-      [v42[0] description];
-      OUTLINED_FUNCTION_23_8();
-      OUTLINED_FUNCTION_5();
-      OUTLINED_FUNCTION_13();
-      _os_log_send_and_compose_impl();
-    }
-
-    goto LABEL_39;
-  }
-
-  OUTLINED_FUNCTION_62();
-  OUTLINED_FUNCTION_56_12();
-  v36 = OUTLINED_FUNCTION_26_16();
-  OUTLINED_FUNCTION_71_4(v36);
-  OUTLINED_FUNCTION_115_0();
-  if (v29)
-  {
-    v38 = v37;
-  }
-
-  else
-  {
-    v38 = v41;
-  }
-
-  if (v38)
-  {
-    [v14 path];
-    OUTLINED_FUNCTION_23_8();
-    OUTLINED_FUNCTION_5();
-    OUTLINED_FUNCTION_13();
-    _os_log_send_and_compose_impl();
-  }
-
-  OUTLINED_FUNCTION_1_4();
-  fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_41:
-  code = -16132;
-LABEL_10:
-
-  if (v9)
-  {
-    *v9 = code;
-  }
-
-  OUTLINED_FUNCTION_56();
   return result;
 }
 
@@ -987,45 +781,45 @@ LABEL_27:
   return _validate == 0;
 }
 
-- (uint64_t)_getUUIDBytes:(int)bytes high:
+- (const)_getUUIDBytes:(int)bytes high:
 {
   if (!self)
   {
     return 0;
   }
 
-  v9[0] = 0;
-  v9[1] = 0;
+  v11 = 0;
+  v12 = 0;
   v4 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:a2];
   v5 = v4;
   if (v4)
   {
-    [v4 getUUIDBytes:v9];
+    [v4 getUUIDBytes:&v11];
     v6 = 1;
     if (!bytes)
     {
       v6 = 0;
     }
 
-    v7 = v9[v6];
+    v7 = (&v11)[v6];
   }
 
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9, v10, v11, v12, v13, v14, v15, v16);
     v7 = 0;
   }
 
   return v7;
 }
 
-- (uint64_t)_intermediateForTag:(uint64_t)result
+- (void)_intermediateForTag:(void *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 280);
+    v3 = result[35];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __43__BWDeferredContainer__intermediateForTag___block_invoke;
@@ -1040,7 +834,7 @@ LABEL_27:
 
     else
     {
-      return [*(v2 + 280) objectAtIndexedSubscript:v4];
+      return [v2[35] objectAtIndexedSubscript:v4];
     }
   }
 
@@ -1054,140 +848,141 @@ LABEL_27:
     return 0;
   }
 
-  v7 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-  if (v2)
+  v16 = 0;
+  v3 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+  if (v3)
   {
     pthread_rwlock_rdlock((self + 16));
-    [v2 encodeObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithLong:", *(self + 240)), @"Version"}];
-    [v2 encodeObject:*(self + 232) forKey:@"CaptureRequestIdentifier"];
-    [v2 encodeObject:*(self + 280) forKey:@"Intermediates"];
-    [v2 encodeObject:*(self + 288) forKey:@"PhotoDescriptors"];
+    [v3 encodeObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithLong:", *(self + 240)), @"Version"}];
+    [v3 encodeObject:*(self + 232) forKey:@"CaptureRequestIdentifier"];
+    [v3 encodeObject:*(self + 280) forKey:@"Intermediates"];
+    [v3 encodeObject:*(self + 288) forKey:@"PhotoDescriptors"];
     pthread_rwlock_unlock((self + 16));
-    [v2 finishEncoding];
-    encodedData = [v2 encodedData];
-    v4 = MEMORY[0x1E695DFF8];
-    v8[0] = [*(self + 216) path];
-    v8[1] = @"manifest.plist";
-    if (([encodedData writeToURL:objc_msgSend(v4 options:"fileURLWithPathComponents:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v8, 2)), 1, &v7}] & 1) == 0)
+    [v3 finishEncoding];
+    encodedData = [v3 encodedData];
+    v5 = MEMORY[0x1E695DFF8];
+    path = [*(self + 216) path];
+    v18 = @"manifest.plist";
+    if (([encodedData writeToURL:objc_msgSend(v5 options:"fileURLWithPathComponents:" error:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &path, 2)), 1, &v16}] & 1) == 0)
     {
       OUTLINED_FUNCTION_2_6();
-      FigDebugAssert3();
-      [v7 code];
-      FigSignalErrorAtGM();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v14, v15, v16, path, v18, v19, v20);
+      v8 = qword_1EB58E438;
+      code = [v16 code];
+      FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v8, code, "<<<< BWDeferredContainer >>>>", 0x50D, v1, v10, v11, v13);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
-    v5 = 4294951163;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v14, v15, v16, path, v18, v19, v20);
+    v6 = 4294951163;
   }
 
-  return v5;
+  return v6;
 }
 
-- (uint64_t)_containerManifestURL
+- (id)_containerManifestURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"manifest.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_containerSessionDataURL
+- (id)_containerSessionDataURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"session.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_pipelineParametersURL
+- (id)_pipelineParametersURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"BWDeferredPipelineParameters.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_stillImageCaptureSettingsURL
+- (id)_stillImageCaptureSettingsURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"BWStillImageCaptureSettings.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_stillImageSettingsURL
+- (id)_stillImageSettingsURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"FigCaptureStillImageSettings.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_stillImageProcessingSettingsURL
+- (id)_stillImageProcessingSettingsURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"BWStillImageProcessingSettings.plist");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_intermediateFolderURL
+- (id)_intermediateFolderURL
 {
   if (result)
   {
-    path = [*(result + 216) path];
-    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, path, @"Intermediates");
+    path = [result[27] path];
+    OUTLINED_FUNCTION_43_14(MEMORY[0x1E695DEC8], v2, v3, v4, v5, v6, v7, v8, path);
     return [OUTLINED_FUNCTION_17() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_intermediateArrayURLForTag:(uint64_t)result
+- (id)_intermediateArrayURLForTag:(id *)result
 {
   if (result)
   {
-    [*(result + 216) path];
+    [result[27] path];
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", a2, @"plist"];
-    OUTLINED_FUNCTION_72_4(MEMORY[0x1E695DEC8], v3, v4, v5, v6);
+    OUTLINED_FUNCTION_72_4(MEMORY[0x1E695DEC8], v3, v4, v5, v6, v7, v8);
     return [OUTLINED_FUNCTION_4() fileURLWithPathComponents:?];
   }
 
   return result;
 }
 
-- (uint64_t)_intermediateBufferURLForTag:(int)tag compressionProfile:
+- (id)_intermediateBufferURLForTag:(int)tag compressionProfile:
 {
   if (result)
   {
@@ -1210,8 +1005,8 @@ LABEL_27:
     result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", a2, v4];
     if (result)
     {
-      [*(v3 + 216) path];
-      OUTLINED_FUNCTION_72_4(MEMORY[0x1E695DEC8], v5, v6, v7, v8);
+      [v3[27] path];
+      OUTLINED_FUNCTION_72_4(MEMORY[0x1E695DEC8], v5, v6, v7, v8, v9, v10);
       return [OUTLINED_FUNCTION_8() fileURLWithPathComponents:?];
     }
   }
@@ -1222,18 +1017,10 @@ LABEL_27:
 + (uint64_t)archiveObject:(id *)a1 error:.cold.1(id *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  [*a1 code];
-  return FigSignalErrorAtGM();
-}
-
-+ (uint64_t)archiveObject:(uint64_t *)a1 error:.cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_0();
-  FigDebugAssert3();
-  result = OUTLINED_FUNCTION_70_3(MEMORY[0x1E696ABC0], v2, *MEMORY[0x1E696A768]);
-  *a1 = result;
-  return result;
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v10, v11, v12, v13, v14, vars0, vars8);
+  v3 = qword_1EB58E438;
+  v4 = [*a1 code];
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, "<<<< BWDeferredContainer >>>>", 0x2EF, v1, v5, v6, v9);
 }
 
 @end

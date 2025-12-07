@@ -1,4 +1,5 @@
 @interface ATXCloudKitClient
++ (ATXCloudKitClient)clientWithContainerIdentifier:(id)identifier useManatee:(BOOL)manatee callbackQueue:(id)queue;
 - (ATXCloudKitClient)initWithContainerIdentifier:(id)identifier useManatee:(BOOL)manatee callbackQueue:(id)queue;
 - (ATXCloudKitClient)initWithDatabase:(id)database inContainer:(id)container callbackQueue:(id)queue;
 - (void)deleteRecordZone:(id)zone completionHandler:(id)handler;
@@ -12,6 +13,16 @@
 @end
 
 @implementation ATXCloudKitClient
+
++ (ATXCloudKitClient)clientWithContainerIdentifier:(id)identifier useManatee:(BOOL)manatee callbackQueue:(id)queue
+{
+  manateeCopy = manatee;
+  queueCopy = queue;
+  identifierCopy = identifier;
+  v10 = [[self alloc] initWithContainerIdentifier:identifierCopy useManatee:manateeCopy callbackQueue:queueCopy];
+
+  return v10;
+}
 
 - (ATXCloudKitClient)initWithContainerIdentifier:(id)identifier useManatee:(BOOL)manatee callbackQueue:(id)queue
 {
@@ -159,26 +170,24 @@ void __59__ATXCloudKitClient_fetchAccountInfoWithCompletionHandler___block_invok
 
 - (void)fetchRecordZone:(id)zone completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x277CBC3D0]);
-  v20[0] = zoneCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = zoneCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordZoneIDs:v9];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __55__ATXCloudKitClient_fetchRecordZone_completionHandler___block_invoke;
-  v17 = &unk_27859AD30;
-  v18 = zoneCopy;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __55__ATXCloudKitClient_fetchRecordZone_completionHandler___block_invoke;
+  v16 = &unk_27859AD30;
+  v17 = zoneCopy;
+  v18 = handlerCopy;
   v11 = zoneCopy;
   v12 = handlerCopy;
-  [v10 setFetchRecordZonesCompletionBlock:&v14];
-  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setFetchRecordZonesCompletionBlock:&v13];
+  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v13, v14, v15, v16];
 }
 
 void __55__ATXCloudKitClient_fetchRecordZone_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -194,26 +203,24 @@ void __55__ATXCloudKitClient_fetchRecordZone_completionHandler___block_invoke(ui
 
 - (void)saveRecordZone:(id)zone completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   zoneCopy = zone;
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x277CBC490]);
-  v20[0] = zoneCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = zoneCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordZonesToSave:v9 recordZoneIDsToDelete:0];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __54__ATXCloudKitClient_saveRecordZone_completionHandler___block_invoke;
-  v17 = &unk_27859AD58;
-  v18 = zoneCopy;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __54__ATXCloudKitClient_saveRecordZone_completionHandler___block_invoke;
+  v16 = &unk_27859AD58;
+  v17 = zoneCopy;
+  v18 = handlerCopy;
   v11 = zoneCopy;
   v12 = handlerCopy;
-  [v10 setModifyRecordZonesCompletionBlock:&v14];
-  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setModifyRecordZonesCompletionBlock:&v13];
+  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v13, v14, v15, v16];
 }
 
 void __54__ATXCloudKitClient_saveRecordZone_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
@@ -229,26 +236,24 @@ void __54__ATXCloudKitClient_saveRecordZone_completionHandler___block_invoke(uin
 
 - (void)deleteRecordZone:(id)zone completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   zoneID = [zone zoneID];
   v8 = objc_alloc(MEMORY[0x277CBC490]);
-  v20[0] = zoneID;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = zoneID;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordZonesToSave:0 recordZoneIDsToDelete:v9];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __56__ATXCloudKitClient_deleteRecordZone_completionHandler___block_invoke;
-  v17 = &unk_27859AD58;
-  v18 = zoneID;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __56__ATXCloudKitClient_deleteRecordZone_completionHandler___block_invoke;
+  v16 = &unk_27859AD58;
+  v17 = zoneID;
+  v18 = handlerCopy;
   v11 = zoneID;
   v12 = handlerCopy;
-  [v10 setModifyRecordZonesCompletionBlock:&v14];
-  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setModifyRecordZonesCompletionBlock:&v13];
+  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v13, v14, v15, v16];
 }
 
 void __56__ATXCloudKitClient_deleteRecordZone_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -307,26 +312,24 @@ void __59__ATXCloudKitClient_fetchRecords_inZone_completionHandler___block_invok
 
 - (void)saveRecord:(id)record completionHandler:(id)handler
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x277CBC4A0]);
-  v20[0] = recordCopy;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v19[0] = recordCopy;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
   v10 = [v8 initWithRecordsToSave:v9 recordIDsToDelete:0];
 
-  v14 = MEMORY[0x277D85DD0];
-  v15 = 3221225472;
-  v16 = __50__ATXCloudKitClient_saveRecord_completionHandler___block_invoke;
-  v17 = &unk_27859AD58;
-  v18 = recordCopy;
-  v19 = handlerCopy;
+  v13 = MEMORY[0x277D85DD0];
+  v14 = 3221225472;
+  v15 = __50__ATXCloudKitClient_saveRecord_completionHandler___block_invoke;
+  v16 = &unk_27859AD58;
+  v17 = recordCopy;
+  v18 = handlerCopy;
   v11 = recordCopy;
   v12 = handlerCopy;
-  [v10 setModifyRecordsCompletionBlock:&v14];
-  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v14, v15, v16, v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [v10 setModifyRecordsCompletionBlock:&v13];
+  [(ATXCloudKitClient *)self scheduleDatabaseOperation:v10, v13, v14, v15, v16];
 }
 
 void __50__ATXCloudKitClient_saveRecord_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)

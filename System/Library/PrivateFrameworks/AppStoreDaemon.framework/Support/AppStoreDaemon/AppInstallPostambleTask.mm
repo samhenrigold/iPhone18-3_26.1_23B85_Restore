@@ -62,7 +62,7 @@
     }
   }
 
-  v13 = sub_1003BBF50();
+  v13 = sub_1003BBF50(Device);
   isHRNMode = [v13 isHRNMode];
 
   if (isHRNMode)
@@ -145,7 +145,7 @@ LABEL_26:
 
     else
     {
-      v33 = sub_1003BBF50();
+      v33 = sub_1003BBF50(Device);
       isHRNMode2 = [v33 isHRNMode];
 
       if (isHRNMode2)
@@ -230,7 +230,7 @@ LABEL_55:
     [v50 setIncludeArcade:1];
     [v50 setProperties:4];
     v129 = 0;
-    v53 = sub_10021CA38();
+    v53 = sub_10021CA38(PurchaseHistoryManager);
     v54 = sub_10021CDA0(v53, v50, &v129);
 
     if (v54)
@@ -547,7 +547,7 @@ LABEL_103:
   v115 = sub_10023E0F8(self->_install, @"bundle_id");
   if (v115)
   {
-    v116 = sub_1002B5560();
+    v116 = sub_1002B5560(MetricsCoordinator);
     *buf = v115;
     v117 = [NSArray arrayWithObjects:buf count:1];
     sub_1002B8950(v116, v117, unsignedCharValue, 1);
@@ -566,7 +566,7 @@ LABEL_103:
 
   if (v122)
   {
-    v126 = sub_1002856D4();
+    v126 = sub_1002856D4(RestoreManager);
     sub_100289F24(v126);
   }
 }

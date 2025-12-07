@@ -40,8 +40,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  credentialType = self->_credentialType;
-  v6 = toCopy;
   PBDataWriterWriteInt64Field();
   if (self->_credentialIdentifier)
   {

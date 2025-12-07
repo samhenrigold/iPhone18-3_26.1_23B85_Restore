@@ -133,14 +133,13 @@ LABEL_14:
 
   if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
   {
-    [ENXPCServiceConnection xpcConnectionRequest:];
+    [ENXPCServiceConnection xpcConnectionRequest:v5];
   }
 
   if (xpc_dictionary_expects_reply())
   {
-    v10 = v5;
-    v9 = ENErrorF();
-    [(ENXPCServiceConnection *)self xpcSendReplyError:v9 request:requestCopy, v10];
+    v9 = ENErrorF(5, "Unsupported message type: %lld", v5);
+    [(ENXPCServiceConnection *)self xpcSendReplyError:v9 request:requestCopy];
   }
 
 LABEL_16:
@@ -150,7 +149,7 @@ LABEL_16:
 {
   message = message;
   v4 = self->_xpcConnection;
-  v5 = v4;
+  v7 = v4;
   if (v4)
   {
     xpc_connection_send_message(v4, message);
@@ -158,7 +157,7 @@ LABEL_16:
 
   else
   {
-    [ENXPCServiceConnection xpcSendMessage:];
+    [(ENXPCServiceConnection *)0 xpcSendMessage:v5, v6];
   }
 }
 
@@ -166,25 +165,25 @@ LABEL_16:
 {
   errorCopy = error;
   requestCopy = request;
-  v7 = self->_xpcConnection;
-  if (v7)
+  v9 = self->_xpcConnection;
+  if (v9)
   {
     reply = xpc_dictionary_create_reply(requestCopy);
     if (reply)
     {
       CUXPCEncodeNSError();
-      xpc_connection_send_message(v7, reply);
+      xpc_connection_send_message(v9, reply);
     }
 
     else
     {
-      [ENXPCServiceConnection xpcSendReplyError:request:];
+      [ENXPCServiceConnection xpcSendReplyError:errorCopy request:?];
     }
   }
 
   else
   {
-    [ENXPCServiceConnection xpcSendReplyError:request:];
+    [(ENXPCServiceConnection *)0 xpcSendReplyError:v7 request:v8];
   }
 }
 
@@ -192,59 +191,59 @@ LABEL_16:
 {
   archiveCopy = archive;
   activateCopy = activate;
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x3032000000;
-  v69 = __Block_byref_object_copy__0;
-  v70 = __Block_byref_object_dispose__0;
-  v71 = 0;
-  v63[0] = MEMORY[0x277D85DD0];
-  v63[1] = 3221225472;
-  v63[2] = __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke;
-  v63[3] = &unk_278FD10D0;
-  v65 = &v66;
-  v63[4] = self;
+  v65 = 0;
+  v66 = &v65;
+  v67 = 0x3032000000;
+  v68 = __Block_byref_object_copy__0;
+  v69 = __Block_byref_object_dispose__0;
+  v70 = 0;
+  v62[0] = MEMORY[0x277D85DD0];
+  v62[1] = 3221225472;
+  v62[2] = __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke;
+  v62[3] = &unk_278FD10D0;
+  v64 = &v65;
+  v62[4] = self;
   v7 = activateCopy;
-  v64 = v7;
-  v8 = MEMORY[0x24C214430](v63);
+  v63 = v7;
+  v8 = MEMORY[0x24C214430](v62);
   p_fileSession = &self->_fileSession;
-  v49 = v8;
+  v48 = v8;
   if (self->_fileSession)
   {
-    v42 = ENErrorF();
-    v43 = v67[5];
-    v67[5] = v42;
+    v43 = ENErrorF(10, "File session already active");
+    v44 = v66[5];
+    v66[5] = v43;
 
     goto LABEL_38;
   }
 
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x2020000000;
-  v62 = xpc_dictionary_dup_fd(v7, "fd");
-  if ((v60[3] & 0x80000000) != 0)
+  v58 = 0;
+  v59 = &v58;
+  v60 = 0x2020000000;
+  v61 = xpc_dictionary_dup_fd(v7, "fd");
+  if ((v59[3] & 0x80000000) != 0)
   {
-    v44 = ENErrorF();
-    v10 = v67[5];
-    v67[5] = v44;
+    v45 = ENErrorF(2, "No file FD");
+    v10 = v66[5];
+    v66[5] = v45;
     goto LABEL_37;
   }
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke_2;
-  v58[3] = &unk_278FD10F8;
-  v58[4] = &v59;
-  v10 = MEMORY[0x24C214430](v58);
-  v11 = v67 + 5;
-  obj = v67[5];
-  v57 = 0;
-  v72 = 0;
-  v48 = v10;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke_2;
+  v57[3] = &unk_278FD10F8;
+  v57[4] = &v58;
+  v10 = MEMORY[0x24C214430](v57);
+  v11 = v66 + 5;
+  obj = v66[5];
+  v56 = 0;
+  *v71 = 0;
+  v47 = v10;
   v12 = CUXPCDecodeUInt64RangedEx();
   if (v12 == 6)
   {
-    v13 = v72;
+    v13 = *v71;
   }
 
   else
@@ -255,31 +254,31 @@ LABEL_16:
   objc_storeStrong(v11, obj);
   if (v12 != 5)
   {
-    v14 = v67 + 5;
-    v55 = v67[5];
-    v72 = 0;
+    v14 = v66 + 5;
+    v54 = v66[5];
+    *v71 = 0;
     v15 = CUXPCDecodeUInt64RangedEx();
-    v16 = v15 == 6 ? v72 : 0;
-    objc_storeStrong(v14, v55);
+    v16 = v15 == 6 ? v71[0] : 0;
+    objc_storeStrong(v14, v54);
     if (v15 != 5)
     {
-      v17 = v67;
-      v54 = v67[5];
+      v17 = v66;
+      v53 = v66[5];
       v18 = CUXPCDecodeNSData();
-      objc_storeStrong(v17 + 5, v54);
+      objc_storeStrong(v17 + 5, v53);
       if (v18)
       {
         selfCopy = self;
         v19 = objc_alloc_init(ENFileSessionDaemon);
         [(ENFileSessionDaemon *)v19 setBatchSize:v13];
         [(ENFileSessionDaemon *)v19 setFlags:v16];
-        v20 = *(v60 + 6);
+        v20 = *(v59 + 6);
         if (archiveCopy)
         {
-          v21 = v67;
-          v53 = v67[5];
-          v22 = [(ENFileSessionDaemon *)v19 activateWithArchiveFD:v20 error:&v53];
-          objc_storeStrong(v21 + 5, v53);
+          v21 = v66;
+          v52 = v66[5];
+          v22 = [(ENFileSessionDaemon *)v19 activateWithArchiveFD:v20 error:&v52];
+          objc_storeStrong(v21 + 5, v52);
           if (!v22)
           {
             goto LABEL_35;
@@ -288,15 +287,15 @@ LABEL_16:
 
         else
         {
-          v23 = v67;
-          v52 = v67[5];
-          v24 = [(ENFileSessionDaemon *)v19 activateWithFileFD:v20 signatureData:v57 error:&v52];
-          objc_storeStrong(v23 + 5, v52);
+          v23 = v66;
+          v51 = v66[5];
+          v24 = [(ENFileSessionDaemon *)v19 activateWithFileFD:v20 signatureData:v56 error:&v51];
+          objc_storeStrong(v23 + 5, v51);
           if (!v24)
           {
 LABEL_35:
 
-            v10 = v48;
+            v10 = v47;
             goto LABEL_36;
           }
         }
@@ -327,35 +326,34 @@ LABEL_35:
 
         v34 = data;
 
-        v51 = 0;
-        v35 = [(ENFileSessionDaemon *)v19 readSignaturesAndReturnError:&v51];
-        v50 = v51;
+        v50 = 0;
+        v35 = [(ENFileSessionDaemon *)v19 readSignaturesAndReturnError:&v50];
+        v49 = v50;
         if (!v35 && gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
         {
-          CUPrintNSError();
-          v46 = v45 = v34;
-          LogPrintF_safe();
+          v36 = CUPrintNSError();
+          LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionActivate:archive:]", 90, "### FileSessionActivate failed to read signature for file %@: %@", v34, v36);
         }
 
         objc_storeStrong(p_fileSession, v19);
-        *(v60 + 6) = -1;
+        *(v59 + 6) = -1;
         reply = xpc_dictionary_create_reply(v7);
         if (reply)
         {
           xpc_dictionary_set_cf_object();
           if (v34)
           {
-            v37 = v34;
             v38 = v34;
-            v39 = reply;
-            bytes = [v38 bytes];
-            v41 = [v38 length];
+            v39 = v34;
+            v40 = reply;
+            bytes = [v39 bytes];
+            v42 = [v39 length];
             if (!bytes)
             {
               bytes = "";
             }
 
-            xpc_dictionary_set_data(v39, "fileHash", bytes, v41);
+            xpc_dictionary_set_data(v40, "fileHash", bytes, v42);
           }
 
           if (v35)
@@ -363,12 +361,12 @@ LABEL_35:
             xpc_dictionary_set_value(reply, "sigA", v35);
           }
 
-          [(ENXPCServiceConnection *)selfCopy xpcSendMessage:reply, v45, v46];
+          [(ENXPCServiceConnection *)selfCopy xpcSendMessage:reply];
         }
 
         else if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionActivate:archive:]", 90, "### FileSessionActivate create reply failed");
         }
 
         goto LABEL_35;
@@ -378,52 +376,42 @@ LABEL_35:
 
 LABEL_36:
 
-  v8 = v49;
+  v8 = v48;
   v10[2](v10);
 LABEL_37:
 
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v58, 8);
 LABEL_38:
   v8[2](v8);
 
-  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(&v65, 8);
 }
 
-uint64_t __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke(void *a1)
+void *__57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENXPCServiceConnection <= 90)
-  {
-    if (gLogCategory__ENXPCServiceConnection == -1)
+    if (gLogCategory__ENXPCServiceConnection <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (gLogCategory__ENXPCServiceConnection != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionActivate:archive:]_block_invoke", 90, "### FileSessionActivate failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 uint64_t __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_invoke_2(uint64_t a1)
@@ -471,13 +459,13 @@ uint64_t __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_inv
 
     else if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionInvalidate:]", 90, "### FileSessionInvalidate create reply failed");
     }
   }
 
   else
   {
-    v11 = ENErrorF();
+    v11 = ENErrorF(10, "No active file session");
     reply = v16[5];
     v16[5] = v11;
   }
@@ -486,41 +474,31 @@ uint64_t __57__ENXPCServiceConnection_xpcFileSessionActivate_archive___block_inv
   _Block_object_dispose(&v15, 8);
 }
 
-uint64_t __51__ENXPCServiceConnection_xpcFileSessionInvalidate___block_invoke(void *a1)
+void *__51__ENXPCServiceConnection_xpcFileSessionInvalidate___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENXPCServiceConnection <= 90)
-  {
-    if (gLogCategory__ENXPCServiceConnection == -1)
+    if (gLogCategory__ENXPCServiceConnection <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (gLogCategory__ENXPCServiceConnection != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionInvalidate:]_block_invoke", 90, "### FileSessionInvalidate failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)xpcFileSessionReadTEKBatch:(id)batch
@@ -569,7 +547,7 @@ LABEL_7:
 
       else if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF_safe();
+        LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionReadTEKBatch:]", 90, "### FileSessionReadTEKBatch create reply failed");
       }
     }
 
@@ -586,7 +564,7 @@ LABEL_7:
 
       else
       {
-        v18 = ENErrorF();
+        v18 = ENErrorF(1, "Unknown error");
         v12 = v25[5];
         v25[5] = v18;
       }
@@ -595,7 +573,7 @@ LABEL_7:
 
   else
   {
-    v14 = ENErrorF();
+    v14 = ENErrorF(10, "No active file session");
     v10 = v25[5];
     v25[5] = v14;
   }
@@ -604,88 +582,78 @@ LABEL_7:
   _Block_object_dispose(&v24, 8);
 }
 
-uint64_t __53__ENXPCServiceConnection_xpcFileSessionReadTEKBatch___block_invoke(void *a1)
+void *__53__ENXPCServiceConnection_xpcFileSessionReadTEKBatch___block_invoke(void *a1)
 {
   v2 = a1[6];
   result = *(*(v2 + 8) + 40);
-  if (!result)
+  if (result)
   {
-    return result;
-  }
-
-  if (gLogCategory__ENXPCServiceConnection <= 90)
-  {
-    if (gLogCategory__ENXPCServiceConnection == -1)
+    if (gLogCategory__ENXPCServiceConnection <= 90)
     {
-      v4 = _LogCategory_Initialize();
-      v2 = a1[6];
-      if (!v4)
+      if (gLogCategory__ENXPCServiceConnection != -1 || (v5 = _LogCategory_Initialize(), v2 = a1[6], v5))
       {
-        goto LABEL_7;
-      }
+        v4 = CUPrintNSError();
+        LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcFileSessionReadTEKBatch:]_block_invoke", 90, "### FileSessionReadTEKBatch failed: %@", v4);
 
-      v8 = *(*(v2 + 8) + 40);
+        v2 = a1[6];
+      }
     }
 
-    v9 = CUPrintNSError();
-    LogPrintF_safe();
+    v6 = *(*(v2 + 8) + 40);
+    v7 = a1[4];
+    v8 = a1[5];
 
-    v2 = a1[6];
+    return [v7 xpcSendReplyError:v6 request:v8];
   }
 
-LABEL_7:
-  v5 = *(*(v2 + 8) + 40);
-  v6 = a1[4];
-  v7 = a1[5];
-
-  return [v6 xpcSendReplyError:v5 request:v7];
+  return result;
 }
 
 - (void)xpcConnectionEvent:.cold.1()
 {
   v0 = CUPrintXPC();
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcConnectionEvent:]", 90, "### XPC connection error: %@", v0);
 }
 
 - (void)xpcConnectionEvent:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = CUPrintPID();
-  LogPrintF_safe();
+  v1 = CUPrintPID();
+  LogPrintF_safe(&gLogCategory_ENXPCServiceConnection, "[ENXPCServiceConnection xpcConnectionEvent:]", 20, "XPC connection ended: %@", v1);
 }
 
-- (void)xpcSendMessage:.cold.1()
+- (void)xpcSendMessage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcSendMessage:]", a3, "### Send reply with no cnx");
   }
 }
 
-- (uint64_t)xpcSendReplyError:request:.cold.1()
+- (uint64_t)xpcSendReplyError:(uint64_t)result request:.cold.1(uint64_t result)
 {
   if (gLogCategory__ENXPCServiceConnection <= 90)
   {
+    v1 = result;
     if (gLogCategory__ENXPCServiceConnection != -1)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcSendReplyError:request:]", 90, "### Send reply error failed for error: %@", v1);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      return LogPrintF_safe();
+      return LogPrintF_safe(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcSendReplyError:request:]", 90, "### Send reply error failed for error: %@", v1);
     }
   }
 
   return result;
 }
 
-- (void)xpcSendReplyError:request:.cold.2()
+- (void)xpcSendReplyError:(uint64_t)a3 request:.cold.2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (gLogCategory__ENXPCServiceConnection <= 90 && (gLogCategory__ENXPCServiceConnection != -1 || _LogCategory_Initialize()))
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&gLogCategory__ENXPCServiceConnection, "[ENXPCServiceConnection xpcSendReplyError:request:]", a3, "### Send error with no cnx");
   }
 }
 

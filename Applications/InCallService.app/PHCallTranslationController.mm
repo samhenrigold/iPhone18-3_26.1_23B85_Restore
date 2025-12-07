@@ -59,7 +59,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_100201A5C();
+  sub_100201A5C(delegate);
 }
 
 @end

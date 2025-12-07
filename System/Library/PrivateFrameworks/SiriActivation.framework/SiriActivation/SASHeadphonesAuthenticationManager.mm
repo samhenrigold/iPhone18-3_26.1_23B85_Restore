@@ -25,7 +25,7 @@
 
 - (void)_recomputeAuthentication
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
@@ -34,20 +34,20 @@
     v5 = MEMORY[0x1E696AF00];
     v6 = v4;
     currentThread = [v5 currentThread];
-    v11 = 136315394;
-    v12 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
-    v13 = 2048;
+    v10 = 136315394;
+    v11 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
+    v12 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v11, 0x16u);
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v10, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_authenticatedLock);
   v8 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v10, 0xCu);
   }
 
   if ([(SASHeadphonesAuthenticationManager *)self _wearingSessionEligible])
@@ -60,17 +60,15 @@
   v9 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
-    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[SASHeadphonesAuthenticationManager _recomputeAuthentication]";
+    _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_wearingSessionEligible
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
@@ -82,39 +80,37 @@
     v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_routeEligible];
     v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_inEarStateEligible];
     v11 = [MEMORY[0x1E696AD98] numberWithBool:self->_sessionStateEligible];
-    v14 = 136316418;
-    v15 = "[SASHeadphonesAuthenticationManager _wearingSessionEligible]";
-    v16 = 2112;
-    v17 = v7;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v11;
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 _authenticated: %@, _lockStateEligible: %@, _routeEligible: %@, _inEarStateEligible: %@, _sessionStateEligible: %@", &v14, 0x3Eu);
+    v13 = 136316418;
+    v14 = "[SASHeadphonesAuthenticationManager _wearingSessionEligible]";
+    v15 = 2112;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v11;
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 _authenticated: %@, _lockStateEligible: %@, _routeEligible: %@, _inEarStateEligible: %@, _sessionStateEligible: %@", &v13, 0x3Eu);
   }
 
-  result = !self->_authenticated && self->_routeEligible && self->_lockStateEligible && self->_sessionStateEligible && self->_inEarStateEligible;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return !self->_authenticated && self->_routeEligible && self->_lockStateEligible && self->_sessionStateEligible && self->_inEarStateEligible;
 }
 
 - (SASHeadphonesAuthenticationManager)init
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11.receiver = self;
-  v11.super_class = SASHeadphonesAuthenticationManager;
-  v2 = [(SASHeadphonesAuthenticationManager *)&v11 init];
+  v13 = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = SASHeadphonesAuthenticationManager;
+  v2 = [(SASHeadphonesAuthenticationManager *)&v10 init];
   if (v2)
   {
     v3 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[SASHeadphonesAuthenticationManager init]";
+      v12 = "[SASHeadphonesAuthenticationManager init]";
       _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Initializing SASHeadphonesAuthenticationManager", buf, 0xCu);
     }
 
@@ -128,19 +124,18 @@
     block[1] = 3221225472;
     block[2] = __42__SASHeadphonesAuthenticationManager_init__block_invoke;
     block[3] = &unk_1E82F36D0;
-    objc_copyWeak(&v10, buf);
+    objc_copyWeak(&v9, buf);
     dispatch_async(v6, block);
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -152,9 +147,9 @@ void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
       v4 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315138;
-        v7 = "[SASHeadphonesAuthenticationManager init]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s 🎧 Headphones authentication is not supported on Shared iPads", &v6, 0xCu);
+        v5 = 136315138;
+        v6 = "[SASHeadphonesAuthenticationManager init]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s 🎧 Headphones authentication is not supported on Shared iPads", &v5, 0xCu);
       }
     }
 
@@ -165,8 +160,6 @@ void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
       [WeakRetained _fetchInitialState];
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_headphonesMonitor
@@ -201,13 +194,13 @@ void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
 
 - (void)_startObserving
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[SASHeadphonesAuthenticationManager _startObserving]";
-    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Adding delegates", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[SASHeadphonesAuthenticationManager _startObserving]";
+    _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Adding delegates", &v7, 0xCu);
   }
 
   _lockStateMonitor = [(SASHeadphonesAuthenticationManager *)self _lockStateMonitor];
@@ -218,18 +211,16 @@ void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
 
   _headphonesMonitor2 = [(SASHeadphonesAuthenticationManager *)self _headphonesMonitor];
   [_headphonesMonitor2 startObservingBluetoothConnections];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchInitialState
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[SASHeadphonesAuthenticationManager _fetchInitialState]";
+    v15 = "[SASHeadphonesAuthenticationManager _fetchInitialState]";
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Fetching initial state", buf, 0xCu);
   }
 
@@ -242,29 +233,27 @@ void __42__SASHeadphonesAuthenticationManager_init__block_invoke(uint64_t a1)
   {
     _headphonesMonitor2 = [(SASHeadphonesAuthenticationManager *)self _headphonesMonitor];
     btAddress = [currentAudioRoute btAddress];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke;
-    v12[3] = &unk_1E82F3CB8;
-    objc_copyWeak(&v14, buf);
-    v13 = currentAudioRoute;
-    [_headphonesMonitor2 fetchInEarDetctionStateForBTAddress:btAddress withCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke;
+    v11[3] = &unk_1E82F3CB8;
+    objc_copyWeak(&v13, buf);
+    v12 = currentAudioRoute;
+    [_headphonesMonitor2 fetchInEarDetctionStateForBTAddress:btAddress withCompletion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
 
   _headphonesMonitor3 = [(SASHeadphonesAuthenticationManager *)self _headphonesMonitor];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke_3;
-  v10[3] = &unk_1E82F3CE0;
-  objc_copyWeak(&v11, buf);
-  [_headphonesMonitor3 fetchPrivateSessionStateWithCompletion:v10];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke_3;
+  v9[3] = &unk_1E82F3CE0;
+  objc_copyWeak(&v10, buf);
+  [_headphonesMonitor3 fetchPrivateSessionStateWithCompletion:v9];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(buf);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke(uint64_t a1, void *a2)
@@ -334,17 +323,17 @@ void __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke_4
 
 - (id)_initForTesting
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = SASHeadphonesAuthenticationManager;
-  v2 = [(SASHeadphonesAuthenticationManager *)&v8 init];
+  v10 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = SASHeadphonesAuthenticationManager;
+  v2 = [(SASHeadphonesAuthenticationManager *)&v7 init];
   if (v2)
   {
     v3 = *MEMORY[0x1E698D0A0];
     if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "[SASHeadphonesAuthenticationManager _initForTesting]";
+      v9 = "[SASHeadphonesAuthenticationManager _initForTesting]";
       _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Initializing SASHeadphonesAuthenticationManager for testing", buf, 0xCu);
     }
 
@@ -353,7 +342,6 @@ void __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke_4
     v2->_queue = v4;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -374,7 +362,7 @@ void __56__SASHeadphonesAuthenticationManager__fetchInitialState__block_invoke_4
 
 void __72__SASHeadphonesAuthenticationManager_privateAudioSessionStateDidChange___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained && *(a1 + 40) != WeakRetained[9])
@@ -387,13 +375,13 @@ void __72__SASHeadphonesAuthenticationManager_privateAudioSessionStateDidChange_
       v7 = v4;
       v8 = [v5 numberWithUnsignedInteger:v6];
       v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 40)];
-      v12 = 136315650;
-      v13 = "[SASHeadphonesAuthenticationManager privateAudioSessionStateDidChange:]_block_invoke";
-      v14 = 2112;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s 🎧 AFPrivateAudioSessionState changed from %@ to %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[SASHeadphonesAuthenticationManager privateAudioSessionStateDidChange:]_block_invoke";
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s 🎧 AFPrivateAudioSessionState changed from %@ to %@", &v11, 0x20u);
     }
 
     [v3 _invalidateAuthenticationWithReason:4];
@@ -406,8 +394,6 @@ void __72__SASHeadphonesAuthenticationManager_privateAudioSessionStateDidChange_
       [v3 _recomputeAuthentication];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)currentAudioRouteDidChange:(id)change
@@ -430,7 +416,7 @@ void __72__SASHeadphonesAuthenticationManager_privateAudioSessionStateDidChange_
 
 void __65__SASHeadphonesAuthenticationManager_currentAudioRouteDidChange___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -443,11 +429,11 @@ void __65__SASHeadphonesAuthenticationManager_currentAudioRouteDidChange___block
         v5 = *(a1 + 32);
         v6 = v4;
         v7 = [v5 avscRouteDescription];
-        v10 = 136315394;
-        v11 = "[SASHeadphonesAuthenticationManager currentAudioRouteDidChange:]_block_invoke";
-        v12 = 2112;
-        v13 = v7;
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 AFSiriAudioRoute changed to %@", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "[SASHeadphonesAuthenticationManager currentAudioRouteDidChange:]_block_invoke";
+        v11 = 2112;
+        v12 = v7;
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 AFSiriAudioRoute changed to %@", &v9, 0x16u);
       }
 
       [WeakRetained _invalidateAuthenticationWithReason:2];
@@ -463,8 +449,6 @@ void __65__SASHeadphonesAuthenticationManager_currentAudioRouteDidChange___block
       }
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)inEarDetectionStateDidChangeForBTAddress:(id)address toState:(id)state
@@ -490,7 +474,7 @@ void __65__SASHeadphonesAuthenticationManager_currentAudioRouteDidChange___block
 
 void __87__SASHeadphonesAuthenticationManager_inEarDetectionStateDidChangeForBTAddress_toState___block_invoke(id *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained && (![a1[4] isEqualToString:WeakRetained[11]] || (objc_msgSend(a1[5], "isEqual:", WeakRetained[12]) & 1) == 0))
   {
@@ -500,13 +484,13 @@ void __87__SASHeadphonesAuthenticationManager_inEarDetectionStateDidChangeForBTA
     {
       v5 = a1[4];
       v6 = a1[5];
-      v9 = 136315650;
-      v10 = "[SASHeadphonesAuthenticationManager inEarDetectionStateDidChangeForBTAddress:toState:]_block_invoke";
-      v11 = 2112;
-      v12 = v5;
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s 🎧 InEarDetectionState changed to (%@)%@", &v9, 0x20u);
+      v8 = 136315650;
+      v9 = "[SASHeadphonesAuthenticationManager inEarDetectionStateDidChangeForBTAddress:toState:]_block_invoke";
+      v10 = 2112;
+      v11 = v5;
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_1C8137000, v4, OS_LOG_TYPE_DEFAULT, "%s 🎧 InEarDetectionState changed to (%@)%@", &v8, 0x20u);
     }
 
     if ([WeakRetained _shouldIgnoreConnectionChangesForState:a1[5]])
@@ -514,9 +498,9 @@ void __87__SASHeadphonesAuthenticationManager_inEarDetectionStateDidChangeForBTA
       v7 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315138;
-        v10 = "[SASHeadphonesAuthenticationManager inEarDetectionStateDidChangeForBTAddress:toState:]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s 🎧 Ignoring invalidation for in-ear detection state changes for the secondary bud inside the case", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[SASHeadphonesAuthenticationManager inEarDetectionStateDidChangeForBTAddress:toState:]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v7, OS_LOG_TYPE_DEFAULT, "%s 🎧 Ignoring invalidation for in-ear detection state changes for the secondary bud inside the case", &v8, 0xCu);
       }
 
       objc_storeStrong(WeakRetained + 12, a1[5]);
@@ -535,8 +519,6 @@ void __87__SASHeadphonesAuthenticationManager_inEarDetectionStateDidChangeForBTA
       }
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didChangeLockState:(unint64_t)state
@@ -556,7 +538,7 @@ void __87__SASHeadphonesAuthenticationManager_inEarDetectionStateDidChangeForBTA
 
 void __57__SASHeadphonesAuthenticationManager_didChangeLockState___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -574,10 +556,10 @@ void __57__SASHeadphonesAuthenticationManager_didChangeLockState___block_invoke(
         v15 = *(v3 + 40);
         v11 = v6;
         v12 = [v14 numberWithBool:v15];
-        v17 = 136315394;
-        v18 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
-        v19 = 2112;
-        v20 = v12;
+        v16 = 136315394;
+        v17 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
+        v18 = 2112;
+        v19 = v12;
         v13 = "%s 🎧 Phone locked! _authenticated: %@";
         goto LABEL_10;
       }
@@ -587,9 +569,9 @@ void __57__SASHeadphonesAuthenticationManager_didChangeLockState___block_invoke(
     {
       if (v7)
       {
-        v17 = 136315138;
-        v18 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
-        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 Phone unlocked!", &v17, 0xCu);
+        v16 = 136315138;
+        v17 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
+        _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 Phone unlocked!", &v16, 0xCu);
       }
 
       *(v3 + 58) = 1;
@@ -607,25 +589,23 @@ void __57__SASHeadphonesAuthenticationManager_didChangeLockState___block_invoke(
         v10 = v3[6];
         v11 = v8;
         v12 = [v9 numberWithDouble:v10];
-        v17 = 136315394;
-        v18 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
-        v19 = 2112;
-        v20 = v12;
+        v16 = 136315394;
+        v17 = "[SASHeadphonesAuthenticationManager didChangeLockState:]_block_invoke";
+        v18 = 2112;
+        v19 = v12;
         v13 = "%s 🎧 Authenticated time bumped to: %@";
 LABEL_10:
-        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, v13, &v17, 0x16u);
+        _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, v13, &v16, 0x16u);
       }
     }
   }
 
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isAuthenticated
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E698D0A0];
   v4 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -633,20 +613,20 @@ LABEL_12:
     v5 = MEMORY[0x1E696AF00];
     v6 = v4;
     currentThread = [v5 currentThread];
-    v15 = 136315394;
-    v16 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
-    v17 = 2048;
+    v14 = 136315394;
+    v15 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
+    v16 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v15, 0x16u);
+    _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v14, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_authenticatedLock);
   v8 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v14, 0xCu);
   }
 
   authenticated = self->_authenticated;
@@ -655,9 +635,9 @@ LABEL_12:
   v11 = *v3;
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315138;
-    v16 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
-    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[SASHeadphonesAuthenticationManager isAuthenticated]";
+    _os_log_impl(&dword_1C8137000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v14, 0xCu);
   }
 
   v12 = CFAbsoluteTimeGetCurrent() - authenticatedTime;
@@ -668,7 +648,6 @@ LABEL_12:
   }
 
   [(SASHeadphonesAuthenticationManager *)self _logEligibilityForAuthenticatedState:authenticated andTimedOut:v12 >= 5400.0];
-  v13 = *MEMORY[0x1E69E9840];
   return authenticated;
 }
 
@@ -690,7 +669,7 @@ LABEL_12:
 
 void __87__SASHeadphonesAuthenticationManager__logEligibilityForAuthenticatedState_andTimedOut___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -706,25 +685,23 @@ void __87__SASHeadphonesAuthenticationManager__logEligibilityForAuthenticatedSta
       v10 = [MEMORY[0x1E696AD98] numberWithBool:WeakRetained[56]];
       v11 = [MEMORY[0x1E696AD98] numberWithBool:WeakRetained[57]];
       v12 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 41)];
-      v14 = 136316674;
-      v15 = "[SASHeadphonesAuthenticationManager _logEligibilityForAuthenticatedState:andTimedOut:]_block_invoke";
-      v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v11;
-      v26 = 2112;
-      v27 = v12;
-      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 authenticated: %@, _lockStateEligible: %@, _routeEligible: %@, _inEarStateEligible: %@, _sessionStateEligible: %@, timedOut: %@", &v14, 0x48u);
+      v13 = 136316674;
+      v14 = "[SASHeadphonesAuthenticationManager _logEligibilityForAuthenticatedState:andTimedOut:]_block_invoke";
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = v8;
+      v19 = 2112;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v11;
+      v25 = 2112;
+      v26 = v12;
+      _os_log_impl(&dword_1C8137000, v6, OS_LOG_TYPE_DEFAULT, "%s 🎧 authenticated: %@, _lockStateEligible: %@, _routeEligible: %@, _inEarStateEligible: %@, _sessionStateEligible: %@, timedOut: %@", &v13, 0x48u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getHeadphonesAuthenticationStatusWithCompletion:(id)completion
@@ -777,7 +754,7 @@ void __86__SASHeadphonesAuthenticationManager_getHeadphonesAuthenticationStatusW
 
 - (BOOL)_shouldIgnoreConnectionChangesForState:(id)state
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   v5 = -[AFBluetoothHeadphoneInEarDetectionState secondaryInEarStatus](self->_inEarDetectionState, "secondaryInEarStatus") == 1 && [stateCopy secondaryInEarStatus] == 0;
   if ([(AFBluetoothHeadphoneInEarDetectionState *)self->_inEarDetectionState secondaryInEarStatus])
@@ -800,23 +777,22 @@ void __86__SASHeadphonesAuthenticationManager_getHeadphonesAuthenticationStatusW
       v10 = v8;
       v11 = [v9 numberWithBool:v5];
       v12 = [MEMORY[0x1E696AD98] numberWithBool:v6];
-      v15 = 136315650;
-      v16 = "[SASHeadphonesAuthenticationManager _shouldIgnoreConnectionChangesForState:]";
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v12;
-      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s 🎧 Secondary bud (in-case): disconnected: %@, reconnected: %@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[SASHeadphonesAuthenticationManager _shouldIgnoreConnectionChangesForState:]";
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v12;
+      _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s 🎧 Secondary bud (in-case): disconnected: %@, reconnected: %@", &v14, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)_invalidateAuthenticationWithReason:(int64_t)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E698D0A0];
   v6 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
@@ -824,20 +800,20 @@ void __86__SASHeadphonesAuthenticationManager_getHeadphonesAuthenticationStatusW
     v7 = MEMORY[0x1E696AF00];
     v8 = v6;
     currentThread = [v7 currentThread];
-    v16 = 136315394;
-    v17 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
-    v18 = 2048;
+    v15 = 136315394;
+    v16 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
+    v17 = 2048;
     qualityOfService = [currentThread qualityOfService];
-    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v16, 0x16u);
+    _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock about to lock with qos: %zd", &v15, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_authenticatedLock);
   v10 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
-    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
+    _os_log_impl(&dword_1C8137000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock successfully locked", &v15, 0xCu);
   }
 
   if (self->_authenticated)
@@ -847,11 +823,11 @@ void __86__SASHeadphonesAuthenticationManager_getHeadphonesAuthenticationStatusW
     {
       v12 = v11;
       v13 = SASHeadphonesAuthenticationInvalidationReasonGetName(reason);
-      v16 = 136315394;
-      v17 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
-      v18 = 2112;
+      v15 = 136315394;
+      v16 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
+      v17 = 2112;
       qualityOfService = v13;
-      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s 🎧 Invalidating authentication for reason: %@", &v16, 0x16u);
+      _os_log_impl(&dword_1C8137000, v12, OS_LOG_TYPE_DEFAULT, "%s 🎧 Invalidating authentication for reason: %@", &v15, 0x16u);
     }
 
     self->_authenticated = 0;
@@ -861,12 +837,10 @@ void __86__SASHeadphonesAuthenticationManager_getHeadphonesAuthenticationStatusW
   v14 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315138;
-    v17 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
-    _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v16, 0xCu);
+    v15 = 136315138;
+    v16 = "[SASHeadphonesAuthenticationManager _invalidateAuthenticationWithReason:]";
+    _os_log_impl(&dword_1C8137000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _authenticatedLock unlocked", &v15, 0xCu);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setHeadphoneVoiceTriggerDiscoveryNotificationAllowed:(BOOL)allowed
@@ -935,13 +909,13 @@ LABEL_9:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E698D0A0];
   if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "[SASHeadphonesAuthenticationManager dealloc]";
-    v9 = 2112;
+    v7 = "[SASHeadphonesAuthenticationManager dealloc]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C8137000, v3, OS_LOG_TYPE_DEFAULT, "%s 🎧 Deallocating: %@", buf, 0x16u);
   }
@@ -949,19 +923,17 @@ LABEL_9:
   lockStateMonitor = self->_lockStateMonitor;
   self->_lockStateMonitor = 0;
 
-  v6.receiver = self;
-  v6.super_class = SASHeadphonesAuthenticationManager;
-  [(SASHeadphonesAuthenticationManager *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = SASHeadphonesAuthenticationManager;
+  [(SASHeadphonesAuthenticationManager *)&v5 dealloc];
 }
 
 - (void)getHeadphonesAuthenticationStatusWithCompletion:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "[SASHeadphonesAuthenticationManager getHeadphonesAuthenticationStatusWithCompletion:]";
-  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s 🎧 No completion handler provided.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "[SASHeadphonesAuthenticationManager getHeadphonesAuthenticationStatusWithCompletion:]";
+  _os_log_error_impl(&dword_1C8137000, log, OS_LOG_TYPE_ERROR, "%s 🎧 No completion handler provided.", &v1, 0xCu);
 }
 
 @end

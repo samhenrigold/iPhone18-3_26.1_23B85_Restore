@@ -8,15 +8,14 @@
 
 - (void)dealloc
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC16ScreenSharingKit23UIViewDrawEventProducer_eventSubject);
-  v5 = 1;
+  v4 = 1;
   selfCopy = self;
 
   sub_264B409B4();
 
-  v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for UIViewDrawEventProducer();
-  [(UIViewDrawEventProducer *)&v4 dealloc];
+  v3.receiver = selfCopy;
+  v3.super_class = type metadata accessor for UIViewDrawEventProducer(0);
+  [(UIViewDrawEventProducer *)&v3 dealloc];
 }
 
 - (void)handleTap:(id)tap

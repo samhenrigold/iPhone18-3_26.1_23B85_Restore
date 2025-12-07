@@ -24,19 +24,21 @@
 - (void)_evictAtLeast:(unint64_t)least upTo:(unint64_t)to fromThreadScopesWithDatabaseIDs:(id)ds;
 - (void)_initializeThreadScopesIfNeeded;
 - (void)_sendEventForCoreAnalytics:(id)analytics;
+- (void)addThreadScope:(id)scope withDatabaseID:(int64_t)d needsUpdate:(BOOL)update lastViewedDate:(id)date;
 - (void)logExistingThreadScopes;
 - (void)removeAllThreadScopes;
 - (void)removeThreadScope:(id)scope;
 - (void)removeThreadScopesForMailboxScope:(id)scope;
 - (void)resetCache;
 - (void)setLastViewedDate:(id)date forThreadScope:(id)scope;
+- (void)setNeedsUpdate:(BOOL)update forThreadScope:(id)scope;
 @end
 
 @implementation EDThreadScopeManager
 
 - (void)_initializeThreadScopesIfNeeded
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_threadScopesLock);
   p_threadScopes = &self->_threadScopes;
   threadScopes = self->_threadScopes;
@@ -45,15 +47,15 @@
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
     dataSource = [(EDThreadScopeManager *)self dataSource];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __55__EDThreadScopeManager__initializeThreadScopesIfNeeded__block_invoke;
-    v16[3] = &unk_1E8258E60;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __55__EDThreadScopeManager__initializeThreadScopesIfNeeded__block_invoke;
+    v15[3] = &unk_1E8258E60;
     v7 = v5;
-    v17 = v7;
-    [dataSource threadScopeManager:self populateThreadScopesWithBlock:v16];
+    v16 = v7;
+    [dataSource threadScopeManager:self populateThreadScopesWithBlock:v15];
 
-    v15 = 0;
+    v14 = 0;
     os_unfair_lock_lock(&self->_threadScopesLock);
     if (*p_threadScopes)
     {
@@ -66,7 +68,7 @@
     {
       v9 = *p_threadScopes;
       *buf = 138543362;
-      v19 = v9;
+      v18 = v9;
       _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Loaded pre-computed thread scopes: %{public}@", buf, 0xCu);
     }
 
@@ -81,30 +83,31 @@ LABEL_9:
     else
     {
       _threadScopesWithLastViewedOlderThanLimit = [(EDThreadScopeManager *)self _threadScopesWithLastViewedOlderThanLimit];
-      v12 = [(EDThreadScopeManager *)self _numberOfThreadScopesToEvictFrom:_threadScopesWithLastViewedOlderThanLimit upTo:&v15];
+      v12 = [(EDThreadScopeManager *)self _numberOfThreadScopesToEvictFrom:_threadScopesWithLastViewedOlderThanLimit upTo:&v14];
       v13 = +[EDThreadScopeManager log];
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218754;
-        v19 = v12;
-        v20 = 2048;
-        v21 = v15;
-        v22 = 2048;
-        v23 = v10;
-        v24 = 2114;
-        v25 = _threadScopesWithLastViewedOlderThanLimit;
+        v18 = v12;
+        v19 = 2048;
+        v20 = v14;
+        v21 = 2048;
+        v22 = v10;
+        v23 = 2114;
+        v24 = _threadScopesWithLastViewedOlderThanLimit;
         _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Evicting %lu-%lu thread scopes (after initializing %lu thread scopes) from: %{public}@", buf, 0x2Au);
       }
     }
 
     os_unfair_lock_unlock(&self->_threadScopesLock);
-    if ([_threadScopesWithLastViewedOlderThanLimit count] && v15)
+    if ([_threadScopesWithLastViewedOlderThanLimit count])
     {
-      [(EDThreadScopeManager *)self _evictAtLeast:v12 upTo:v15 fromThreadScopesWithDatabaseIDs:_threadScopesWithLastViewedOlderThanLimit];
+      if (v14)
+      {
+        [(EDThreadScopeManager *)self _evictAtLeast:v12 upTo:v14 fromThreadScopesWithDatabaseIDs:_threadScopesWithLastViewedOlderThanLimit];
+      }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (OS_os_log)log
@@ -253,7 +256,7 @@ LABEL_4:
 
 - (id)precomputedMailboxScopeForThreadScope:(id)scope mailboxTypeResolver:(id)resolver foundPredicates:(unint64_t *)predicates
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   resolverCopy = resolver;
   mailboxScope = [scopeCopy mailboxScope];
@@ -327,9 +330,9 @@ LABEL_17:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       ef_publicDescription = [filterPredicate ef_publicDescription];
-      *v25 = 138543362;
-      *&v25[4] = ef_publicDescription;
-      _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Thread scope has unsupported filter predicate: %{public}@", v25, 0xCu);
+      *v24 = 138543362;
+      *&v24[4] = ef_publicDescription;
+      _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Thread scope has unsupported filter predicate: %{public}@", v24, 0xCu);
     }
 
 LABEL_8:
@@ -344,19 +347,17 @@ LABEL_9:
     goto LABEL_17;
   }
 
-  *v25 = 0;
-  v16 = [(EDThreadScopeManager *)self _precomputedMailboxScopeForFilterPredicate:filterPredicate mailboxTypeResolver:resolverCopy foundPredicates:v25];
+  *v24 = 0;
+  v16 = [(EDThreadScopeManager *)self _precomputedMailboxScopeForFilterPredicate:filterPredicate mailboxTypeResolver:resolverCopy foundPredicates:v24];
 
   if (predicates)
   {
-    *predicates = *v25;
+    *predicates = *v24;
   }
 
   mailboxScope = v16;
   v15 = mailboxScope;
 LABEL_18:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -457,74 +458,73 @@ LABEL_23:
 
 - (BOOL)_isBlackPearlPredicate:(id *)predicate
 {
-  v4 = *predicate;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v5 = *predicate;
-  if ([v5 compoundPredicateType] == 1 && (objc_msgSend(v5, "subpredicates"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v7 == 2))
+  v4 = *predicate;
+  if ([v4 compoundPredicateType] == 1 && (objc_msgSend(v4, "subpredicates"), v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6 == 2))
   {
-    subpredicates = [v5 subpredicates];
+    subpredicates = [v4 subpredicates];
     firstObject = [subpredicates firstObject];
 
-    subpredicates2 = [v5 subpredicates];
+    subpredicates2 = [v4 subpredicates];
     lastObject = [subpredicates2 lastObject];
 
     predicateForPrimaryMessages = [MEMORY[0x1E699ADA0] predicateForPrimaryMessages];
-    v13 = [firstObject isEqual:predicateForPrimaryMessages];
+    v12 = [firstObject isEqual:predicateForPrimaryMessages];
 
-    v14 = lastObject;
-    if (v13 & 1) != 0 || ([MEMORY[0x1E699ADA0] predicateForPrimaryMessages], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(lastObject, "isEqual:", v15), v15, v14 = firstObject, (v16))
+    v13 = lastObject;
+    if (v12 & 1) != 0 || ([MEMORY[0x1E699ADA0] predicateForPrimaryMessages], v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(lastObject, "isEqual:", v14), v14, v13 = firstObject, (v15))
     {
-      *predicate = v14;
-      v17 = 1;
+      *predicate = v13;
+      v16 = 1;
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)_findPredicateTypeWithCompoundPredicate:(id)predicate mailboxTypeResolver:(id)resolver outMailboxScope:(id *)scope
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   resolverCopy = resolver;
   [predicateCopy subpredicates];
+  v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v8 = v23 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v21 = 0u;
+  v8 = v22 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = 0;
     v11 = 0;
-    v12 = *v23;
+    v12 = *v22;
     scopeCopy = scope;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
-        if (v10 || ([(EDThreadScopeManager *)self _mailboxScopeFromPredicate:*(*(&v22 + 1) + 8 * i)], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
+        v14 = *(*(&v21 + 1) + 8 * i);
+        if (v10 || ([(EDThreadScopeManager *)self _mailboxScopeFromPredicate:*(*(&v21 + 1) + 8 * i)], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
         {
           if ((v11 & 1) != 0 || ![MEMORY[0x1E699ADA0] isPredicateForMessagesWithActiveFollowUp:v14 mailboxTypeResolver:resolverCopy inSent:0 sentMailboxObjectIDs:0])
           {
@@ -550,7 +550,7 @@ LABEL_23:
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       scope = scopeCopy;
       if (v9)
       {
@@ -574,19 +574,18 @@ LABEL_19:
     *scope = v10;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)_mailboxScopeFromPredicate:(id)predicate
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  v14 = 0;
-  v15 = -500;
-  v5 = [MEMORY[0x1E699ADA0] isPredicateForMessagesInMailboxObjectID:predicateCopy mailboxObjectID:&v14];
-  v6 = v14;
-  if (v5 & 1) != 0 || ([MEMORY[0x1E699ADA0] isPredicateForMessagesInMailboxWithType:predicateCopy mailboxType:&v15])
+  v13 = 0;
+  v14 = -500;
+  v5 = [MEMORY[0x1E699ADA0] isPredicateForMessagesInMailboxObjectID:predicateCopy mailboxObjectID:&v13];
+  v6 = v13;
+  if (v5 & 1) != 0 || ([MEMORY[0x1E699ADA0] isPredicateForMessagesInMailboxWithType:predicateCopy mailboxType:&v14])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -594,8 +593,8 @@ LABEL_19:
       if ([(EDThreadScopeManager *)self _shouldPrecomputeMailboxWithObjectID:v6])
       {
         v7 = MEMORY[0x1E699AD28];
-        v16[0] = v6;
-        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+        v15[0] = v6;
+        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
         v9 = [v7 mailboxScopeForMailboxObjectIDs:v8 forExclusion:0];
 
         goto LABEL_9;
@@ -604,12 +603,12 @@ LABEL_19:
 
     else
     {
-      v10 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
+      v10 = [MEMORY[0x1E696AD98] numberWithInteger:v14];
       v11 = [(EDThreadScopeManager *)self _shouldPrecomputeMailboxType:v10];
 
       if (v11)
       {
-        v9 = [MEMORY[0x1E699AD28] mailboxScopeForMailboxType:v15 forExclusion:0];
+        v9 = [MEMORY[0x1E699AD28] mailboxScopeForMailboxType:v14 forExclusion:0];
         goto LABEL_9;
       }
     }
@@ -617,8 +616,6 @@ LABEL_19:
 
   v9 = 0;
 LABEL_9:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -663,15 +660,15 @@ LABEL_4:
 - (id)threadScopeFromPrecomputedMailboxScope:(id)scope predicates:(unint64_t)predicates mailboxProvider:(id)provider
 {
   predicatesCopy = predicates;
-  v35[1] = *MEMORY[0x1E69E9840];
+  v34[1] = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   providerCopy = provider;
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if ((predicatesCopy & 3) != 0)
   {
-    v32 = 0;
-    v11 = [(EDThreadScopeManager *)self _mailboxFromPrecomputedMailboxScope:scopeCopy mailboxProvider:providerCopy mailboxPredicate:&v32];
-    v12 = v32;
+    v31 = 0;
+    v11 = [(EDThreadScopeManager *)self _mailboxFromPrecomputedMailboxScope:scopeCopy mailboxProvider:providerCopy mailboxPredicate:&v31];
+    v12 = v31;
     [v10 ef_addOptionalObject:v12];
     allMailboxesScope = [MEMORY[0x1E699AD28] allMailboxesScope];
 
@@ -681,8 +678,8 @@ LABEL_4:
       v14 = MEMORY[0x1E699ADA0];
       if (v11)
       {
-        v35[0] = v11;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+        v34[0] = v11;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
         predicateForMessagesWithActiveFollowUpInSent = [v14 predicateForMessagesWithActiveFollowUpInAccountsOfMailboxes:v15 mailboxTypeResolver:providerCopy];
       }
 
@@ -699,8 +696,8 @@ LABEL_4:
       v17 = MEMORY[0x1E699ADA0];
       if (v11)
       {
-        v34 = v11;
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+        v33 = v11;
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
         predicateForFiredReadLaterMessages = [v17 predicateForMessagesForFiredReadLaterDateInAccountsOfMailboxes:v18];
       }
 
@@ -740,22 +737,20 @@ LABEL_4:
     goto LABEL_21;
   }
 
-  v31 = 0;
-  v23 = [(EDThreadScopeManager *)self _mailboxFromPrecomputedMailboxScope:scopeCopy mailboxProvider:providerCopy mailboxPredicate:&v31];
-  v22 = v31;
+  v30 = 0;
+  v23 = [(EDThreadScopeManager *)self _mailboxFromPrecomputedMailboxScope:scopeCopy mailboxProvider:providerCopy mailboxPredicate:&v30];
+  v22 = v30;
 LABEL_20:
   v24 = MEMORY[0x1E696AE18];
-  v33[0] = v22;
+  v32[0] = v22;
   predicateForPrimaryMessages = [MEMORY[0x1E699ADA0] predicateForPrimaryMessages];
-  v33[1] = predicateForPrimaryMessages;
-  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[1] = predicateForPrimaryMessages;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   v27 = [v24 ef_andCompoundPredicateWithSubpredicates:v26];
 
   v21 = v27;
 LABEL_21:
   v28 = [objc_alloc(MEMORY[0x1E699AF08]) initWithMailboxScope:scopeCopy filterPredicate:v21];
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -845,19 +840,94 @@ void __48__EDThreadScopeManager_threadScopesByDatabaseID__block_invoke(uint64_t 
   [v6 setObject:v8 forKeyedSubscript:v7];
 }
 
+- (void)addThreadScope:(id)scope withDatabaseID:(int64_t)d needsUpdate:(BOOL)update lastViewedDate:(id)date
+{
+  updateCopy = update;
+  v27 = *MEMORY[0x1E69E9840];
+  scopeCopy = scope;
+  dateCopy = date;
+  v12 = [[_EDThreadScopeInfo alloc] initWithDatabaseID:d needsUpdate:updateCopy lastViewedDate:dateCopy];
+  v13 = +[EDThreadScopeManager log];
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543618;
+    v20 = scopeCopy;
+    v21 = 2114;
+    v22 = v12;
+    _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Adding pre-computed thread scope: %{public}@ -> %{public}@", buf, 0x16u);
+  }
+
+  v18 = 0;
+  os_unfair_lock_lock(&self->_threadScopesLock);
+  [(NSMutableDictionary *)self->_threadScopes setObject:v12 forKeyedSubscript:scopeCopy];
+  v14 = [(NSMutableDictionary *)self->_threadScopes count];
+  if (v14 < 0x10)
+  {
+    v16 = 0;
+    _threadScopesWithLastViewedOlderThanLimit = 0;
+  }
+
+  else
+  {
+    _threadScopesWithLastViewedOlderThanLimit = [(EDThreadScopeManager *)self _threadScopesWithLastViewedOlderThanLimit];
+    v16 = [(EDThreadScopeManager *)self _numberOfThreadScopesToEvictFrom:_threadScopesWithLastViewedOlderThanLimit upTo:&v18];
+    v17 = +[EDThreadScopeManager log];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134218754;
+      v20 = v16;
+      v21 = 2048;
+      v22 = v18;
+      v23 = 2048;
+      v24 = v14;
+      v25 = 2114;
+      v26 = _threadScopesWithLastViewedOlderThanLimit;
+      _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "Evicting %lu-%lu thread scopes (after adding %luth thread scope) from: %{public}@", buf, 0x2Au);
+    }
+  }
+
+  os_unfair_lock_unlock(&self->_threadScopesLock);
+  if ([_threadScopesWithLastViewedOlderThanLimit count] && v18)
+  {
+    [(EDThreadScopeManager *)self _evictAtLeast:v16 upTo:v18 fromThreadScopesWithDatabaseIDs:_threadScopesWithLastViewedOlderThanLimit];
+  }
+}
+
+- (void)setNeedsUpdate:(BOOL)update forThreadScope:(id)scope
+{
+  updateCopy = update;
+  v12 = *MEMORY[0x1E69E9840];
+  scopeCopy = scope;
+  v7 = +[EDThreadScopeManager log];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v9[0] = 67109378;
+    v9[1] = updateCopy;
+    v10 = 2114;
+    v11 = scopeCopy;
+    _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Setting needsUpdate=%u for thread scope: %{public}@", v9, 0x12u);
+  }
+
+  os_unfair_lock_lock(&self->_threadScopesLock);
+  v8 = [(NSMutableDictionary *)self->_threadScopes objectForKeyedSubscript:scopeCopy];
+  [v8 setNeedsUpdate:updateCopy];
+
+  os_unfair_lock_unlock(&self->_threadScopesLock);
+}
+
 - (void)setLastViewedDate:(id)date forThreadScope:(id)scope
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   scopeCopy = scope;
   v8 = +[EDThreadScopeManager log];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = dateCopy;
-    v13 = 2114;
-    v14 = scopeCopy;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Setting lastViewedDate=%{public}@ for thread scope: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = dateCopy;
+    v12 = 2114;
+    v13 = scopeCopy;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Setting lastViewedDate=%{public}@ for thread scope: %{public}@", &v10, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_threadScopesLock);
@@ -865,7 +935,6 @@ void __48__EDThreadScopeManager_threadScopesByDatabaseID__block_invoke(uint64_t 
   [v9 setLastViewedDate:dateCopy];
 
   os_unfair_lock_unlock(&self->_threadScopesLock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllThreadScopes
@@ -896,50 +965,46 @@ void __48__EDThreadScopeManager_threadScopesByDatabaseID__block_invoke(uint64_t 
 
 - (void)removeThreadScope:(id)scope
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   v5 = +[EDThreadScopeManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = scopeCopy;
-    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Resetting pre-computed thread scope: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = scopeCopy;
+    _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Resetting pre-computed thread scope: %{public}@", &v6, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_threadScopesLock);
   [(NSMutableDictionary *)self->_threadScopes removeObjectForKey:scopeCopy];
   os_unfair_lock_unlock(&self->_threadScopesLock);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeThreadScopesForMailboxScope:(id)scope
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   scopeCopy = scope;
   v5 = +[EDThreadScopeManager log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v14 = scopeCopy;
+    v13 = scopeCopy;
     _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "Resetting pre-computed thread scopes for mailbox scope: %{public}@", buf, 0xCu);
   }
 
   os_unfair_lock_lock(&self->_threadScopesLock);
   threadScopes = self->_threadScopes;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __58__EDThreadScopeManager_removeThreadScopesForMailboxScope___block_invoke;
-  v11[3] = &unk_1E8258E38;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __58__EDThreadScopeManager_removeThreadScopesForMailboxScope___block_invoke;
+  v10[3] = &unk_1E8258E38;
   v7 = scopeCopy;
-  v12 = v7;
-  v8 = [(NSMutableDictionary *)threadScopes keysOfEntriesPassingTest:v11];
+  v11 = v7;
+  v8 = [(NSMutableDictionary *)threadScopes keysOfEntriesPassingTest:v10];
   allObjects = [v8 allObjects];
 
   [(NSMutableDictionary *)self->_threadScopes removeObjectsForKeys:allObjects];
   os_unfair_lock_unlock(&self->_threadScopesLock);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __58__EDThreadScopeManager_removeThreadScopesForMailboxScope___block_invoke(uint64_t a1, void *a2)
@@ -1004,50 +1069,50 @@ void __55__EDThreadScopeManager__initializeThreadScopesIfNeeded__block_invoke(ui
 
 void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x1E69E9840];
-  v28 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v43 = *MEMORY[0x1E69E9840];
+  v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v2 = [*(a1 + 32) dataSource];
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_2;
-  v39[3] = &unk_1E8258E88;
-  v39[4] = v3;
-  v5 = v28;
-  v40 = v5;
-  [v2 threadScopeManager:v3 gatherStatisticsForThreadScopesWithDatabaseIDs:v4 block:v39];
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_2;
+  v38[3] = &unk_1E8258E88;
+  v38[4] = v3;
+  v5 = v27;
+  v39 = v5;
+  [v2 threadScopeManager:v3 gatherStatisticsForThreadScopesWithDatabaseIDs:v4 block:v38];
 
   v6 = [v5 allKeys];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_33;
-  v37[3] = &unk_1E8258EB0;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_33;
+  v36[3] = &unk_1E8258EB0;
   v7 = v5;
-  v38 = v7;
-  v29 = [v6 sortedArrayUsingComparator:v37];
+  v37 = v7;
+  v28 = [v6 sortedArrayUsingComparator:v36];
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v9 = v29;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v9 = v28;
+  v10 = [v9 countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v10)
   {
-    v11 = *v34;
+    v11 = *v33;
     do
     {
       v12 = 0;
       do
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * v12);
+        v13 = *(*(&v32 + 1) + 8 * v12);
         if ([v8 count] < *(a1 + 48))
         {
           [v8 addObject:v13];
@@ -1058,7 +1123,7 @@ void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseI
           }
 
           *buf = 138412290;
-          v42 = v13;
+          v41 = v13;
           v15 = v14;
           v16 = "Adding %@ for eviction: below min";
           goto LABEL_15;
@@ -1078,7 +1143,7 @@ void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseI
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v42 = v13;
+          v41 = v13;
           v15 = v14;
           v16 = "Adding %@ for eviction: score below threshold";
 LABEL_15:
@@ -1096,7 +1161,7 @@ LABEL_11:
       }
 
       while (v10 != v12);
-      v20 = [v9 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v20 = [v9 countByEnumeratingWithState:&v32 objects:v42 count:16];
       v10 = v20;
     }
 
@@ -1110,33 +1175,31 @@ LABEL_17:
   if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
   {
     *buf = 138543362;
-    v42 = v8;
+    v41 = v8;
     _os_signpost_emit_with_name_impl(&dword_1C61EF000, v21, OS_SIGNPOST_EVENT, v22, "THREAD MIGRATION SCOPE", "Attempting to evict thread scopes with database IDs: %{public}@", buf, 0xCu);
   }
 
   [*(a1 + 32) _sendEventForCoreAnalytics:@"Evict"];
   v23 = [*(a1 + 32) dataSource];
   v24 = *(a1 + 32);
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_38;
-  v30[3] = &unk_1E8258F00;
-  v30[4] = v24;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_38;
+  v29[3] = &unk_1E8258F00;
+  v29[4] = v24;
   v25 = v8;
-  v31 = v25;
+  v30 = v25;
   v26 = v7;
-  v32 = v26;
-  [v23 threadScopeManager:v24 evictThreadScopesWithDatabaseIDs:v25 completionBlock:v30];
-
-  v27 = *MEMORY[0x1E69E9840];
+  v31 = v26;
+  [v23 threadScopeManager:v24 evictThreadScopesWithDatabaseIDs:v25 completionBlock:v29];
 }
 
 void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v7 = a3;
   [v7 timeIntervalSinceNow];
-  v9 = v8;
+  v9 = *&v8;
   if (v8 <= 0.0)
   {
     v11 = -v8;
@@ -1147,13 +1210,13 @@ void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseI
     v10 = +[EDThreadScopeManager log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v19 = 134218498;
-      v20 = v9;
-      v21 = 2048;
-      v22 = a2;
-      v23 = 2114;
-      v24 = v7;
-      _os_log_error_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_ERROR, "Last viewed %f seconds in the future for thread scope %lld: %{public}@", &v19, 0x20u);
+      v18 = 134218498;
+      v19 = v9;
+      v20 = 2048;
+      v21 = a2;
+      v22 = 2114;
+      v23 = v7;
+      _os_log_error_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_ERROR, "Last viewed %f seconds in the future for thread scope %lld: %{public}@", &v18, 0x20u);
     }
 
     v11 = 0.0;
@@ -1169,18 +1232,16 @@ void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseI
   v17 = +[EDThreadScopeManager log];
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v19 = 134218752;
-    v20 = *&a2;
-    v21 = 2048;
-    v22 = v13;
-    v23 = 2048;
-    v24 = a4;
-    v25 = 2048;
-    v26 = v11;
-    _os_log_debug_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEBUG, "Eviction score for %llu: %f (%llu count, %f time)", &v19, 0x2Au);
+    v18 = 134218752;
+    v19 = a2;
+    v20 = 2048;
+    v21 = v13;
+    v22 = 2048;
+    v23 = a4;
+    v24 = 2048;
+    v25 = v11;
+    _os_log_debug_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEBUG, "Eviction score for %llu: %f (%llu count, %f time)", &v18, 0x2Au);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_33(uint64_t a1, uint64_t a2, void *a3)
@@ -1217,7 +1278,7 @@ void __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseI
 
 uint64_t __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatabaseIDs___block_invoke_2_39(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 databaseID];
@@ -1234,17 +1295,16 @@ uint64_t __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatab
       v13 = *(a1 + 48);
       v14 = [MEMORY[0x1E696AD98] numberWithLongLong:v7];
       v15 = [v13 objectForKeyedSubscript:v14];
-      v18 = 134218498;
-      v19 = v7;
-      v20 = 2114;
-      v21 = v5;
-      v22 = 2114;
-      v23 = v15;
-      _os_signpost_emit_with_name_impl(&dword_1C61EF000, v11, OS_SIGNPOST_EVENT, v12, "THREAD MIGRATION SCOPE", "Evicting thread scope with database ID: %llu -> %{public}@ = %{public}@", &v18, 0x20u);
+      v17 = 134218498;
+      v18 = v7;
+      v19 = 2114;
+      v20 = v5;
+      v21 = 2114;
+      v22 = v15;
+      _os_signpost_emit_with_name_impl(&dword_1C61EF000, v11, OS_SIGNPOST_EVENT, v12, "THREAD MIGRATION SCOPE", "Evicting thread scope with database ID: %llu -> %{public}@ = %{public}@", &v17, 0x20u);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1270,7 +1330,7 @@ uint64_t __75__EDThreadScopeManager__evictAtLeast_upTo_fromThreadScopesWithDatab
 
 BOOL __65__EDThreadScopeManager__threadScopesWithLastViewedOlderThanLimit__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a3;
   v4 = [v3 lastViewedDate];
   v5 = [v3 databaseID];
@@ -1287,19 +1347,18 @@ BOOL __65__EDThreadScopeManager__threadScopesWithLastViewedOlderThanLimit__block
     v9 = +[EDThreadScopeManager log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 134218498;
-      v14 = v8;
-      v15 = 2048;
-      v16 = v5;
-      v17 = 2114;
-      v18 = v6;
-      _os_log_error_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_ERROR, "Last viewed %f seconds in the future for thread scope %lld: %{public}@", &v13, 0x20u);
+      v12 = 134218498;
+      v13 = v8;
+      v14 = 2048;
+      v15 = v5;
+      v16 = 2114;
+      v17 = v6;
+      _os_log_error_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_ERROR, "Last viewed %f seconds in the future for thread scope %lld: %{public}@", &v12, 0x20u);
     }
 
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1364,7 +1423,7 @@ id __65__EDThreadScopeManager__threadScopesWithLastViewedOlderThanLimit__block_i
 
 - (void)logExistingThreadScopes
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_threadScopesLock);
   allKeys = [(NSMutableDictionary *)self->_threadScopes allKeys];
   os_unfair_lock_unlock(&self->_threadScopesLock);
@@ -1375,34 +1434,34 @@ id __65__EDThreadScopeManager__threadScopesWithLastViewedOlderThanLimit__block_i
     _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Existing thread scopes:", buf, 2u);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v6)
   {
-    v8 = *v16;
+    v8 = *v15;
     *&v7 = 138543362;
-    v14 = v7;
+    v13 = v7;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
-        v11 = [EDThreadScopeManager log:v14];
+        v10 = *(*(&v14 + 1) + 8 * v9);
+        v11 = [EDThreadScopeManager log:v13];
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           ef_publicDescription = [v10 ef_publicDescription];
-          *buf = v14;
-          v20 = ef_publicDescription;
+          *buf = v13;
+          v19 = ef_publicDescription;
           _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
         }
 
@@ -1410,13 +1469,11 @@ id __65__EDThreadScopeManager__threadScopesWithLastViewedOlderThanLimit__block_i
       }
 
       while (v6 != v9);
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (EDThreadScopeManagerDataSource)dataSource

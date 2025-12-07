@@ -40,10 +40,9 @@
 
 + (void)brc_loadForcedPackageExtensionsForCurrentPersona
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] migration completed already%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_223E7A000, v0, OS_LOG_TYPE_DEBUG, "[DEBUG] migration completed already%@", v1, 0xCu);
 }
 
 + (uint64_t)brc_addForcedPackageExtension:()BRCPackageAdditions
@@ -54,9 +53,9 @@
   lowercaseString = [v3 lowercaseString];
 
   [v4 addObject:lowercaseString];
-  pthread_rwlock_unlock(&_forcedPackageExtensionsMutex);
+  v6 = pthread_rwlock_unlock(&_forcedPackageExtensionsMutex);
 
-  return _BRCWritePackageExtensions();
+  return _BRCWritePackageExtensions(v6, v7);
 }
 
 @end

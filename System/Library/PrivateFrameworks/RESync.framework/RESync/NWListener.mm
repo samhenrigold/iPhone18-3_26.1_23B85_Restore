@@ -70,7 +70,7 @@
 
 void __26__NWListener_setListener___block_invoke(uint64_t a1, unsigned int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *re::networkLogObjects(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_INFO);
@@ -87,9 +87,9 @@ void __26__NWListener_setListener___block_invoke(uint64_t a1, unsigned int a2, v
       v9 = off_279AE3DD8[a2];
     }
 
-    v15 = 136315138;
-    v16 = v9;
-    _os_log_impl(&dword_26168F000, v8, OS_LOG_TYPE_INFO, "NWListener.stateChanged state=%s.", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = v9;
+    _os_log_impl(&dword_26168F000, v8, OS_LOG_TYPE_INFO, "NWListener.stateChanged state=%s.", &v14, 0xCu);
   }
 
   *(*(a1 + 32) + 40) = a2;
@@ -103,19 +103,17 @@ void __26__NWListener_setListener___block_invoke(uint64_t a1, unsigned int a2, v
     v10 = *re::networkLogObjects(v7);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = v10;
-      v13 = [(re *)v5 description];
-      v14 = [v13 UTF8String];
-      v15 = 136315138;
-      v16 = v14;
-      _os_log_error_impl(&dword_26168F000, v12, OS_LOG_TYPE_ERROR, "NWListener failed error=%s", &v15, 0xCu);
+      v11 = v10;
+      v12 = [(re *)v5 description];
+      v13 = [v12 UTF8String];
+      v14 = 136315138;
+      v15 = v13;
+      _os_log_error_impl(&dword_26168F000, v11, OS_LOG_TYPE_ERROR, "NWListener failed error=%s", &v14, 0xCu);
     }
 
 LABEL_10:
     dispatch_semaphore_signal(*(*(a1 + 32) + 24));
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __26__NWListener_setListener___block_invoke_3(uint64_t a1, void *a2)
@@ -153,7 +151,7 @@ void __26__NWListener_setListener___block_invoke_4(uint64_t a1)
       v5 = hostname;
       port = nw_endpoint_get_port(v3);
 
-      re::Address::makeFromIPAndPort(v5, port, v10);
+      re::Address::makeFromIPAndPort(v10, v5, port);
     }
 
     else

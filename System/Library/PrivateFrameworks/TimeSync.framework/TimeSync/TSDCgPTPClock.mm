@@ -18,6 +18,7 @@
 - (id)getMetricsWithDelta:(id)delta;
 - (unint64_t)convertFrom128BitgPTPTimeToMachAbsoluteTime:(id)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number;
 - (unint64_t)convertFrom128BitgPTPTimeToTimeSyncTime:(id)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number;
+- (unint64_t)convertFrom32BitASToMachAbsoluteTime:(unsigned int)time;
 - (unint64_t)convertFrom32BitASToTimeSyncTime:(unsigned int)time;
 - (unint64_t)convertFromDomainIntervalToMachAbsoluteInterval:(unint64_t)interval;
 - (unint64_t)convertFromDomainIntervalToTimeSyncTimeInterval:(unint64_t)interval;
@@ -30,7 +31,12 @@
 - (unint64_t)timeSyncTimeFromgPTPTime:(id)time;
 - (void)_getInitialSyncInfo;
 - (void)dealloc;
+- (void)didBeginClockGrandmasterChangeWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock;
+- (void)didChangeLocalPortWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock;
+- (void)didEndClockGrandmasterChangeWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock;
 - (void)updateGrandmasterIdentity:(unint64_t)identity andgPTPPath:(id)path;
+- (void)updateLockState:(int)state;
+- (void)updateWithSyncInfoValid:(BOOL)valid syncFlags:(unsigned __int8)flags timeSyncTime:(unint64_t)time domainTimeHi:(unint64_t)hi domainTimeLo:(unint64_t)lo cumulativeScaledRate:(unint64_t)rate inverseCumulativeScaledRate:(unint64_t)scaledRate grandmasterID:(unint64_t)self0 localPortNumber:(unsigned __int16)self1;
 @end
 
 @implementation TSDCgPTPClock
@@ -65,7 +71,7 @@
       timeSyncClock = selfCopy->_timeSyncClock;
       selfCopy->_timeSyncClock = timeSyncClock;
 
-      [(_TSF_TSDgPTPClock *)selfCopy->_gPTPClock addImplClock:selfCopy];
+      [(_TSF_TSDgPTPClock *)selfCopy->_gPTPClock addImplClock:?];
       [(TSDCgPTPClock *)selfCopy _getInitialSyncInfo];
     }
   }
@@ -80,7 +86,7 @@
 
 - (void)dealloc
 {
-  [(_TSF_TSDgPTPClock *)self->_gPTPClock removeImplClock:self];
+  [(_TSF_TSDgPTPClock *)self->_gPTPClock removeImplClock:?];
   v3.receiver = self;
   v3.super_class = TSDCgPTPClock;
   [(TSDCKernelClock *)&v3 dealloc];
@@ -99,8 +105,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *domainTimeCopy++ = [(TSDCgPTPClock *)self convertFromMachAbsoluteToDomainTime:v9 grandmasterUsed:0 portNumber:0];
+          ++timeCopy;
+          *domainTimeCopy++ = [TSDCgPTPClock convertFromMachAbsoluteToDomainTime:"convertFromMachAbsoluteToDomainTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
           --countCopy;
         }
 
@@ -113,14 +119,14 @@
     else
     {
       [TSDCgPTPClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFromMachAbsoluteTime:toDomainTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -137,8 +143,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *absoluteTimeCopy++ = [(TSDCgPTPClock *)self convertFromDomainToMachAbsoluteTime:v9 grandmasterUsed:0 portNumber:0];
+          ++timeCopy;
+          *absoluteTimeCopy++ = [TSDCgPTPClock convertFromDomainToMachAbsoluteTime:"convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
           --countCopy;
         }
 
@@ -151,38 +157,38 @@
     else
     {
       [TSDCgPTPClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFromDomainTime:toMachAbsoluteTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
 - (unint64_t)convertFromMachAbsoluteIntervalToDomainInterval:(unint64_t)interval
 {
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v6 = [translationClock convertFromMachAbsoluteIntervalToDomainInterval:interval];
+  [translationClock convertFromMachAbsoluteIntervalToDomainInterval:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v8 = [translationClock2 convertFromDomainIntervalToTimeSyncTimeInterval:v6];
+  [translationClock2 convertFromDomainIntervalToTimeSyncTimeInterval:?];
 
-  return [(TSDCgPTPClock *)self convertFromTimeSyncTimeIntervalToDomainInterval:v8];
+  return [(TSDCgPTPClock *)self convertFromTimeSyncTimeIntervalToDomainInterval:?];
 }
 
 - (unint64_t)convertFromDomainIntervalToMachAbsoluteInterval:(unint64_t)interval
 {
-  v4 = [(TSDCgPTPClock *)self convertFromDomainIntervalToTimeSyncTimeInterval:interval];
+  [(TSDCgPTPClock *)self convertFromDomainIntervalToTimeSyncTimeInterval:?];
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v6 = [translationClock convertFromTimeSyncTimeIntervalToDomainInterval:v4];
+  [translationClock convertFromTimeSyncTimeIntervalToDomainInterval:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v8 = [translationClock2 convertFromDomainIntervalToMachAbsoluteInterval:v6];
+  v6 = [translationClock2 convertFromDomainIntervalToMachAbsoluteInterval:?];
 
-  return v8;
+  return v6;
 }
 
 - (BOOL)convertFromTimeSyncTime:(unint64_t *)time toDomainTime:(unint64_t *)domainTime withCount:(unsigned int)count
@@ -198,15 +204,14 @@
         countCopy = count;
         do
         {
-          v10 = *timeCopy++;
-          v9 = v10;
-          v11 = -1;
-          if (v10)
+          v9 = *timeCopy++;
+          v10 = -1;
+          if (v9)
           {
-            v11 = [(TSDCgPTPClock *)self convertFromTimeSyncTimeToDomainTime:v9 grandmasterUsed:0 portNumber:0];
+            v10 = [TSDCgPTPClock convertFromTimeSyncTimeToDomainTime:"convertFromTimeSyncTimeToDomainTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
           }
 
-          *domainTimeCopy++ = v11;
+          *domainTimeCopy++ = v10;
           --countCopy;
         }
 
@@ -219,14 +224,14 @@
     else
     {
       [TSDCgPTPClock convertFromTimeSyncTime:toDomainTime:withCount:];
-      return v13;
+      return v12;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFromTimeSyncTime:toDomainTime:withCount:];
-    return v14;
+    return v13;
   }
 }
 
@@ -243,8 +248,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *syncTimeCopy++ = [(TSDCgPTPClock *)self convertFromDomainTimeToTimeSyncTime:v9 grandmasterUsed:0 portNumber:0];
+          ++timeCopy;
+          *syncTimeCopy++ = [TSDCgPTPClock convertFromDomainTimeToTimeSyncTime:"convertFromDomainTimeToTimeSyncTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
           --countCopy;
         }
 
@@ -257,14 +262,14 @@
     else
     {
       [TSDCgPTPClock convertFromDomainTime:toTimeSyncTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFromDomainTime:toTimeSyncTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
@@ -310,68 +315,66 @@
 
 - (id)gPTPTimeFromMachAbsoluteTime:(unint64_t)time
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog))
   {
-    v18 = 136315138;
-    v19 = "[TSDCgPTPClock gPTPTimeFromMachAbsoluteTime:]";
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[TSDCgPTPClock gPTPTimeFromMachAbsoluteTime:]";
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v17, 0xCu);
   }
 
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v8 = [translationClock convertFromMachAbsoluteToDomainTime:time];
+  v8 = [translationClock convertFromMachAbsoluteToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v10 = [translationClock2 convertFromDomainToTimeSyncTime:v8];
+  v10 = [translationClock2 convertFromDomainToTimeSyncTime:?];
 
-  v11 = [(TSDCgPTPClock *)self gPTPTimeFromTimeSyncTime:v10];
+  v11 = [(TSDCgPTPClock *)self gPTPTimeFromTimeSyncTime:?];
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog2))
   {
     seconds = [v11 seconds];
     nanoseconds = [v11 nanoseconds];
-    v18 = 136316418;
-    v19 = "[TSDCgPTPClock gPTPTimeFromMachAbsoluteTime:]";
-    v20 = 2048;
+    v17 = 136316418;
+    v18 = "[TSDCgPTPClock gPTPTimeFromMachAbsoluteTime:]";
+    v19 = 2048;
     timeCopy = time;
-    v22 = 2048;
-    v23 = v8;
-    v24 = 2048;
-    v25 = v10;
-    v26 = 2048;
-    v27 = seconds;
-    v28 = 1024;
-    v29 = nanoseconds;
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s MachAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu gPTPTime.seconds=%llu gPTPTime.nanoseconds=%u", &v18, 0x3Au);
+    v21 = 2048;
+    v22 = v8;
+    v23 = 2048;
+    v24 = v10;
+    v25 = 2048;
+    v26 = seconds;
+    v27 = 1024;
+    v28 = nanoseconds;
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s MachAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu gPTPTime.seconds=%llu gPTPTime.nanoseconds=%u", &v17, 0x3Au);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (unint64_t)machAbsoluteFromgPTPTime:(id)time
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   timeCopy = time;
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog))
   {
-    v18 = 136315138;
-    v19 = "[TSDCgPTPClock machAbsoluteFromgPTPTime:]";
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[TSDCgPTPClock machAbsoluteFromgPTPTime:]";
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v17, 0xCu);
   }
 
-  v7 = [(TSDCgPTPClock *)self timeSyncTimeFromgPTPTime:timeCopy];
+  v7 = [(TSDCgPTPClock *)self timeSyncTimeFromgPTPTime:?];
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v9 = [translationClock convertFromTimeSyncToDomainTime:v7];
+  v9 = [translationClock convertFromTimeSyncToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v11 = [translationClock2 convertFromDomainToMachAbsoluteTime:v9];
+  v11 = [translationClock2 convertFromDomainToMachAbsoluteTime:?];
 
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
@@ -379,22 +382,60 @@
   {
     seconds = [timeCopy seconds];
     nanoseconds = [timeCopy nanoseconds];
-    v18 = 136316418;
-    v19 = "[TSDCgPTPClock machAbsoluteFromgPTPTime:]";
-    v20 = 2048;
-    v21 = seconds;
-    v22 = 1024;
-    v23 = nanoseconds;
-    v24 = 2048;
-    v25 = v7;
-    v26 = 2048;
-    v27 = v9;
-    v28 = 2048;
-    v29 = v11;
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s gPTPTime.seconds=%llu gPTPTime.nanoseconds=%u timeSyncTime=%llu intermediateTime=%llu MachAbsoluteTime=%llu", &v18, 0x3Au);
+    v17 = 136316418;
+    v18 = "[TSDCgPTPClock machAbsoluteFromgPTPTime:]";
+    v19 = 2048;
+    v20 = seconds;
+    v21 = 1024;
+    v22 = nanoseconds;
+    v23 = 2048;
+    v24 = v7;
+    v25 = 2048;
+    v26 = v9;
+    v27 = 2048;
+    v28 = v11;
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s gPTPTime.seconds=%llu gPTPTime.nanoseconds=%u timeSyncTime=%llu intermediateTime=%llu MachAbsoluteTime=%llu", &v17, 0x3Au);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
+  return v11;
+}
+
+- (unint64_t)convertFrom32BitASToMachAbsoluteTime:(unsigned int)time
+{
+  v25 = *MEMORY[0x277D85DE8];
+  getOsLog = [(TSDCKernelClock *)self getOsLog];
+  getSignpostId = [(TSDCKernelClock *)self getSignpostId];
+  if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog))
+  {
+    v15 = 136315138;
+    v16 = "[TSDCgPTPClock convertFrom32BitASToMachAbsoluteTime:]";
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v15, 0xCu);
+  }
+
+  v7 = [(TSDCgPTPClock *)self convertFrom32BitASToTimeSyncTime:?];
+  translationClock = [(TSDCKernelClock *)self translationClock];
+  v9 = [translationClock convertFromTimeSyncToDomainTime:?];
+
+  translationClock2 = [(TSDCKernelClock *)self translationClock];
+  v11 = [translationClock2 convertFromDomainToMachAbsoluteTime:?];
+
+  getOsLog2 = [(TSDCKernelClock *)self getOsLog];
+  getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
+  if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog2))
+  {
+    v15 = 136316162;
+    v16 = "[TSDCgPTPClock convertFrom32BitASToMachAbsoluteTime:]";
+    v17 = 1024;
+    timeCopy = time;
+    v19 = 2048;
+    v20 = v7;
+    v21 = 2048;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v11;
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s domainTime=%u timeSyncTime=%llu intermediateTime=%llu MachAbsoluteTime=%llu", &v15, 0x30u);
+  }
+
   return v11;
 }
 
@@ -411,8 +452,8 @@
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *absoluteTimeCopy++ = [(TSDCgPTPClock *)self convertFrom32BitASToMachAbsoluteTime:v9];
+          ++timeCopy;
+          *absoluteTimeCopy++ = [(TSDCgPTPClock *)self convertFrom32BitASToMachAbsoluteTime:?];
           --countCopy;
         }
 
@@ -425,95 +466,93 @@
     else
     {
       [TSDCgPTPClock convertFrom32BitASTime:toMachAbsoluteTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFrom32BitASTime:toMachAbsoluteTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
 - (unint64_t)convertFromMachAbsoluteToDomainTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog))
   {
-    v20 = 136315138;
-    v21 = "[TSDCgPTPClock convertFromMachAbsoluteToDomainTime:grandmasterUsed:portNumber:]";
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v20, 0xCu);
+    v17 = 136315138;
+    v18 = "[TSDCgPTPClock convertFromMachAbsoluteToDomainTime:grandmasterUsed:portNumber:]";
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v17, 0xCu);
   }
 
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v12 = [translationClock convertFromMachAbsoluteToDomainTime:time];
+  v10 = [translationClock convertFromMachAbsoluteToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v14 = [translationClock2 convertFromDomainToTimeSyncTime:v12];
+  v12 = [translationClock2 convertFromDomainToTimeSyncTime:?];
 
-  v15 = [(TSDCgPTPClock *)self convertFromTimeSyncTimeToDomainTime:v14 grandmasterUsed:used portNumber:number];
+  v13 = [TSDCgPTPClock convertFromTimeSyncTimeToDomainTime:"convertFromTimeSyncTimeToDomainTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog2))
   {
-    v20 = 136316162;
-    v21 = "[TSDCgPTPClock convertFromMachAbsoluteToDomainTime:grandmasterUsed:portNumber:]";
-    v22 = 2048;
+    v17 = 136316162;
+    v18 = "[TSDCgPTPClock convertFromMachAbsoluteToDomainTime:grandmasterUsed:portNumber:]";
+    v19 = 2048;
     timeCopy = time;
-    v24 = 2048;
-    v25 = v12;
-    v26 = 2048;
-    v27 = v14;
-    v28 = 2048;
-    v29 = v15;
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s machAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu domainTime=%llu", &v20, 0x34u);
+    v21 = 2048;
+    v22 = v10;
+    v23 = 2048;
+    v24 = v12;
+    v25 = 2048;
+    v26 = v13;
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s machAbsoluteTime=%llu intermediateTime=%llu timeSyncTime=%llu domainTime=%llu", &v17, 0x34u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v13;
 }
 
 - (unint64_t)convertFromDomainToMachAbsoluteTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   getOsLog = [(TSDCKernelClock *)self getOsLog];
   getSignpostId = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog))
   {
-    v20 = 136315138;
-    v21 = "[TSDCgPTPClock convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:]";
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v20, 0xCu);
+    v17 = 136315138;
+    v18 = "[TSDCgPTPClock convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:]";
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog, OS_SIGNPOST_INTERVAL_BEGIN, getSignpostId, &unk_26F0DFDB1, "%s", &v17, 0xCu);
   }
 
-  v11 = [(TSDCgPTPClock *)self convertFromDomainTimeToTimeSyncTime:time grandmasterUsed:used portNumber:number];
+  v9 = [TSDCgPTPClock convertFromDomainTimeToTimeSyncTime:"convertFromDomainTimeToTimeSyncTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v13 = [translationClock convertFromTimeSyncToDomainTime:v11];
+  v11 = [translationClock convertFromTimeSyncToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v15 = [translationClock2 convertFromDomainToMachAbsoluteTime:v13];
+  v13 = [translationClock2 convertFromDomainToMachAbsoluteTime:?];
 
   getOsLog2 = [(TSDCKernelClock *)self getOsLog];
   getSignpostId2 = [(TSDCKernelClock *)self getSignpostId];
   if (getSignpostId2 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(getOsLog2))
   {
-    v20 = 136316162;
-    v21 = "[TSDCgPTPClock convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:]";
-    v22 = 2048;
+    v17 = 136316162;
+    v18 = "[TSDCgPTPClock convertFromDomainToMachAbsoluteTime:grandmasterUsed:portNumber:]";
+    v19 = 2048;
     timeCopy = time;
-    v24 = 2048;
-    v25 = v11;
-    v26 = 2048;
-    v27 = v13;
-    v28 = 2048;
-    v29 = v15;
-    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s domainTime=%llu timeSyncTime=%llu intermediateTime=%llu  machAbsoluteTime=%llu", &v20, 0x34u);
+    v21 = 2048;
+    v22 = v9;
+    v23 = 2048;
+    v24 = v11;
+    v25 = 2048;
+    v26 = v13;
+    _os_signpost_emit_with_name_impl(&dword_26F080000, getOsLog2, OS_SIGNPOST_INTERVAL_END, getSignpostId2, &unk_26F0DFDB1, "%s domainTime=%llu timeSyncTime=%llu intermediateTime=%llu  machAbsoluteTime=%llu", &v17, 0x34u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v13;
 }
 
 - (BOOL)getMachAbsoluteRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator machAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor forGrandmasterIdentity:(unint64_t *)identity portNumber:(unsigned __int16 *)number withError:(id *)error
@@ -538,43 +577,37 @@
     *domainAnchor = -1;
   }
 
-  v25 = 0;
-  v26 = 0;
-  v23 = 0;
-  v24 = 0;
-  v21 = 0;
-  v22 = 0;
-  v20 = 0;
-  if (![TSDCgPTPClock getTimeSyncTimeRateRatioNumerator:"getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:" denominator:&v26 timeSyncAnchor:&v25 andDomainAnchor:&v24 forGrandmasterIdentity:error portNumber:? withError:?])
+  if (![TSDCgPTPClock getTimeSyncTimeRateRatioNumerator:"getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:" denominator:error timeSyncAnchor:? andDomainAnchor:? forGrandmasterIdentity:? portNumber:? withError:?])
   {
     [TSDCgPTPClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:];
-    return v27;
+    return v20;
   }
 
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v14 = [translationClock getTimeSyncTimeRateRatioNumerator:&v23 denominator:&v22 timeSyncAnchor:0 andDomainAnchor:0 withError:0];
+  v14 = [translationClock getTimeSyncTimeRateRatioNumerator:? denominator:? timeSyncAnchor:? andDomainAnchor:? withError:?];
 
   if ((v14 & 1) == 0)
   {
     [TSDCgPTPClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:];
-    return v27;
+    return v20;
   }
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v16 = [translationClock2 getMachAbsoluteRateRatioNumerator:&v21 denominator:&v20 machAnchor:0 andDomainAnchor:0 withError:0];
+  v16 = [translationClock2 getMachAbsoluteRateRatioNumerator:? denominator:? machAnchor:? andDomainAnchor:? withError:?];
 
   if ((v16 & 1) == 0)
   {
     [TSDCgPTPClock getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:];
-    return v27;
+    return v20;
   }
 
-  __C(v26, v23, v21, v25, v22, v20, numerator, denominator);
+  __C(0, 0, 0, 0, 0, 0, numerator, denominator);
   if (anchor)
   {
     translationClock3 = [(TSDCKernelClock *)self translationClock];
     translationClock4 = [(TSDCKernelClock *)self translationClock];
-    *anchor = [translationClock3 convertFromDomainToMachAbsoluteTime:{objc_msgSend(translationClock4, "convertFromTimeSyncToDomainTime:", v24)}];
+    [translationClock4 convertFromTimeSyncToDomainTime:?];
+    *anchor = [translationClock3 convertFromDomainToMachAbsoluteTime:?];
   }
 
   return 1;
@@ -589,7 +622,7 @@
 
 - (id)getMetricsWithDelta:(id)delta
 {
-  v3 = [(_TSF_TSDgPTPClock *)self->_gPTPClock getMetricsWithDelta:delta];
+  v3 = [(_TSF_TSDgPTPClock *)self->_gPTPClock getMetricsWithDelta:?];
 
   return v3;
 }
@@ -597,51 +630,47 @@
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)convertFromMachAbsoluteTo128BitgPTPTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v10 = [translationClock convertFromMachAbsoluteToDomainTime:time];
+  [translationClock convertFromMachAbsoluteToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v12 = [translationClock2 convertFromDomainToTimeSyncTime:v10];
+  [translationClock2 convertFromDomainToTimeSyncTime:?];
 
-  v13 = [(TSDCgPTPClock *)self convertFromTimeSyncTimeTo128BitgPTPTime:v12 grandmasterUsed:used portNumber:number];
-  result.var1 = v14;
-  result.var0 = v13;
+  v8 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
+  result.var1 = v9;
+  result.var0 = v8;
   return result;
 }
 
 - (unint64_t)convertFrom128BitgPTPTimeToMachAbsoluteTime:(id)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  number = [(TSDCgPTPClock *)self convertFrom128BitgPTPTimeToTimeSyncTime:time.var0 grandmasterUsed:time.var1 portNumber:used, number];
+  [TSDCgPTPClock convertFrom128BitgPTPTimeToTimeSyncTime:"convertFrom128BitgPTPTimeToTimeSyncTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
   translationClock = [(TSDCKernelClock *)self translationClock];
-  v8 = [translationClock convertFromTimeSyncToDomainTime:number];
+  [translationClock convertFromTimeSyncToDomainTime:?];
 
   translationClock2 = [(TSDCKernelClock *)self translationClock];
-  v10 = [translationClock2 convertFromDomainToMachAbsoluteTime:v8];
+  v8 = [translationClock2 convertFromDomainToMachAbsoluteTime:?];
 
-  return v10;
+  return v8;
 }
 
 - (id)gPTPTimeFromTimeSyncTime:(unint64_t)time
 {
-  v19 = 0;
-  v20 = 0;
-  v18 = 0;
-  v3 = [(TSDCgPTPClock *)self convertFromTimeSyncTimeTo128BitgPTPTime:time grandmasterUsed:&v19 portNumber:&v18 flags:&v20];
+  v15 = 0;
+  v16 = 0;
+  v14 = 0;
+  v3 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:flags:" grandmasterUsed:? portNumber:? flags:?];
   v5 = 0;
   if (v3 != -1 || v4 != -1)
   {
-    v7 = v20;
-    v8 = (v20 >> 2) & 1;
-    *&v17 = v4;
-    *(&v17 + 1) = v3;
-    *v15 = xmmword_26F0DFC10;
-    v16[0] = IOTS_U128::operator/(&v17, v15);
-    v16[1] = v9;
-    operator*(v16, 0x3B9ACA00uLL, v15);
-    v10 = v15[0];
-    v11 = v17;
-    v12 = [TSgPTPTime alloc];
-    LOBYTE(v14) = v8;
-    v5 = [(TSgPTPTime *)v12 initWithSeconds:v16[0] nanoseconds:(v11 - v10) onGrandmaster:v19 withLocalPortNumber:v18 ptpTimescale:v7 & 1 timeTraceable:(v7 >> 1) & 1 frequencyTraceable:v14];
+    v7 = (v16 >> 2) & 1;
+    *&v13 = v4;
+    *(&v13 + 1) = v3;
+    *v11 = xmmword_26F0DFC10;
+    v12[0] = IOTS_U128::operator/(&v13, v11);
+    v12[1] = v8;
+    operator*(v12, 0x3B9ACA00uLL, v11);
+    LOBYTE(v10) = v7;
+    v5 = [TSgPTPTime initWithSeconds:"initWithSeconds:nanoseconds:onGrandmaster:withLocalPortNumber:ptpTimescale:timeTraceable:frequencyTraceable:" nanoseconds:v10 onGrandmaster:? withLocalPortNumber:? ptpTimescale:? timeTraceable:? frequencyTraceable:?];
   }
 
   return v5;
@@ -650,161 +679,148 @@
 - (unint64_t)timeSyncTimeFromgPTPTime:(id)time
 {
   timeCopy = time;
-  v5 = IOTS_uint64mul([timeCopy seconds], 1000000000);
-  v7 = v6;
-  nanoseconds = [timeCopy nanoseconds];
-  if (__CFADD__(v5, nanoseconds))
-  {
-    v9 = v7 + 1;
-  }
+  IOTS_uint64mul([timeCopy seconds], 1000000000);
+  [timeCopy nanoseconds];
+  v5 = [TSDCgPTPClock convertFrom128BitgPTPTimeToTimeSyncTime:"convertFrom128BitgPTPTimeToTimeSyncTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
 
-  else
-  {
-    v9 = v7;
-  }
-
-  v10 = [(TSDCgPTPClock *)self convertFrom128BitgPTPTimeToTimeSyncTime:v9 grandmasterUsed:v5 + nanoseconds portNumber:0, 0];
-
-  return v10;
+  return v5;
 }
 
 - (unint64_t)convertFrom32BitASToTimeSyncTime:(unsigned int)time
 {
-  v57 = *MEMORY[0x277D85DE8];
-  v37 = -1;
-  v36 = -1;
-  v31 = [(TSClock *)self->_timeSyncClock convertFromMachAbsoluteToDomainTime:mach_absolute_time()];
+  v53 = *MEMORY[0x277D85DE8];
+  timeSyncClock = self->_timeSyncClock;
+  mach_absolute_time();
+  selfCopy = self;
+  v31 = [(TSClock *)timeSyncClock convertFromMachAbsoluteToDomainTime:?];
   v32 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
-  v5 = v4;
-  if (v32 == -1 && v4 == -1)
+  v7 = v6;
+  if (v32 == -1 && v6 == -1)
   {
     [TSDCgPTPClock convertFrom32BitASToTimeSyncTime:];
-    v26 = *buf;
-    goto LABEL_64;
+    return *buf;
   }
 
-  v7 = v4 & 0xFFFFFFFF00000000 | time;
-  v8 = HIDWORD(v4) == 0;
-  v9 = v7 - 0x100000000;
-  v10 = v7 + 0x100000000;
-  v11 = v4 > 0xFFFFFFFEFFFFFFFFLL;
-  if (v4 <= 0xFFFFFFFEFFFFFFFFLL)
+  v9 = v6 & 0xFFFFFFFF00000000 | time;
+  v10 = HIDWORD(v6) == 0;
+  v11 = v9 - 0x100000000;
+  v12 = v9 + 0x100000000;
+  v13 = v6 > 0xFFFFFFFEFFFFFFFFLL;
+  if (v6 <= 0xFFFFFFFEFFFFFFFFLL)
   {
-    v12 = v32;
-  }
-
-  else
-  {
-    v12 = v32 + 1;
-  }
-
-  if (v7 <= v4)
-  {
-    v13 = v4 - v7;
+    v14 = v32;
   }
 
   else
   {
-    v13 = v7 - v4;
+    v14 = v32 + 1;
   }
 
-  v14 = (__PAIR128__(v32, HIDWORD(v4)) - 1) >> 64;
-  if (v9 <= v4)
+  if (v9 <= v6)
   {
-    v8 = 1;
-  }
-
-  if ((__PAIR128__(v32, HIDWORD(v4)) - 1) >> 64 <= v32 && v8)
-  {
-    v15 = v4 - v9;
+    v15 = v6 - v9;
   }
 
   else
   {
-    v15 = v9 - v4;
+    v15 = v9 - v6;
   }
 
-  if (v10 <= v4)
+  v16 = ((__PAIR128__(v32, HIDWORD(v6)) - 1) >> 64);
+  if (v11 <= v6)
   {
-    v11 = 1;
+    v10 = 1;
   }
 
-  if (v12 <= v32 && v11)
+  if ((__PAIR128__(v32, HIDWORD(v6)) - 1) >> 64 <= v32 && v10)
   {
-    v16 = v4 - v10;
+    v17 = v6 - v11;
   }
 
   else
   {
-    v16 = v10 - v4;
+    v17 = v11 - v6;
   }
 
-  v35 = -1;
-  v34 = -1;
-  if (v13 > v15 || v13 > v16)
+  if (v12 <= v6)
   {
-    if (v15 <= v13 && v15 <= v16)
+    v13 = 1;
+  }
+
+  if (v14 <= v32 && v13)
+  {
+    v18 = v6 - v12;
+  }
+
+  else
+  {
+    v18 = v12 - v6;
+  }
+
+  if (v15 > v17 || v15 > v18)
+  {
+    if (v17 <= v15 && v17 <= v18)
     {
-      if (v15 <= 0x59682EFF)
+      if (v17 <= 0x59682EFF)
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       else
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+          clockIdentifier = [(TSDCKernelClock *)selfCopy clockIdentifier];
           *buf = 134219008;
           *&buf[4] = clockIdentifier;
+          v35 = 2048;
+          v36 = 1500;
+          v37 = 2048;
+          v38 = v15;
           v39 = 2048;
-          v40 = 1500;
+          v40 = v17;
           v41 = 2048;
-          v42 = v13;
-          v43 = 2048;
-          v44 = v15;
-          v45 = 2048;
-          v46 = v16;
+          v42 = v18;
           _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Converted a 32 time with past which is more than %llu milliseconds from now. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n", buf, 0x34u);
         }
 
-        v23 = 1;
+        v25 = 1;
       }
 
-      v7 -= 0x100000000;
+      v9 -= 0x100000000;
       goto LABEL_57;
     }
 
-    if (v16 <= v13 && v16 <= v15)
+    if (v18 <= v15 && v18 <= v17)
     {
-      if (v16 <= 0x59682EFF)
+      if (v18 <= 0x59682EFF)
       {
-        v23 = 0;
+        v25 = 0;
       }
 
       else
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          clockIdentifier2 = [(TSDCKernelClock *)self clockIdentifier];
+          clockIdentifier2 = [(TSDCKernelClock *)selfCopy clockIdentifier];
           *buf = 134219008;
           *&buf[4] = clockIdentifier2;
+          v35 = 2048;
+          v36 = 1500;
+          v37 = 2048;
+          v38 = v15;
           v39 = 2048;
-          v40 = 1500;
+          v40 = v17;
           v41 = 2048;
-          v42 = v13;
-          v43 = 2048;
-          v44 = v15;
-          v45 = 2048;
-          v46 = v16;
+          v42 = v18;
           _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Converted a 32 time with future which is more than %llu milliseconds from now. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n", buf, 0x34u);
         }
 
-        v23 = 1;
+        v25 = 1;
       }
 
-      v14 = v12;
-      v7 += 0x100000000;
+      v16 = v14;
+      v9 += 0x100000000;
       goto LABEL_57;
     }
 
@@ -814,91 +830,77 @@
     }
 
     *buf = 134218752;
-    *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
+    *&buf[4] = [(TSDCKernelClock *)selfCopy clockIdentifier];
+    v35 = 2048;
+    v36 = v15;
+    v37 = 2048;
+    v38 = v17;
     v39 = 2048;
-    v40 = v13;
-    v41 = 2048;
-    v42 = v15;
-    v43 = 2048;
-    v44 = v16;
-    v20 = MEMORY[0x277D86220];
-    v21 = "TSDCgPTPClock(0x%016llx): Converted a 32 time which didn't match a closest one condition. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n";
-    v22 = 42;
+    v40 = v18;
+    v22 = MEMORY[0x277D86220];
+    v23 = "TSDCgPTPClock(0x%016llx): Converted a 32 time which didn't match a closest one condition. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n";
+    v24 = 42;
     goto LABEL_41;
   }
 
-  if (v13 <= 0x59682EFF)
+  if (v15 <= 0x59682EFF)
   {
-    v23 = 0;
+    v25 = 0;
     goto LABEL_48;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219008;
-    *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
+    *&buf[4] = [(TSDCKernelClock *)selfCopy clockIdentifier];
+    v35 = 2048;
+    v36 = 1500;
+    v37 = 2048;
+    v38 = v15;
     v39 = 2048;
-    v40 = 1500;
+    v40 = v17;
     v41 = 2048;
-    v42 = v13;
-    v43 = 2048;
-    v44 = v15;
-    v45 = 2048;
-    v46 = v16;
-    v20 = MEMORY[0x277D86220];
-    v21 = "TSDCgPTPClock(0x%016llx): Converted a 32 time with spliced which is more than %llu milliseconds from now. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n";
-    v22 = 52;
+    v42 = v18;
+    v22 = MEMORY[0x277D86220];
+    v23 = "TSDCgPTPClock(0x%016llx): Converted a 32 time with spliced which is more than %llu milliseconds from now. nowSplicedDiffMag %llu nowPastDiffMag %llu nowFutureDiffMag %llu\n";
+    v24 = 52;
 LABEL_41:
-    _os_log_impl(&dword_26F080000, v20, OS_LOG_TYPE_DEFAULT, v21, buf, v22);
+    _os_log_impl(&dword_26F080000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, v24);
   }
 
 LABEL_42:
-  v23 = 1;
+  v25 = 1;
 LABEL_48:
-  v14 = v32;
+  v16 = v32;
 LABEL_57:
-  v26 = [(TSDCgPTPClock *)self convertFrom128BitgPTPTimeToTimeSyncTime:v14 grandmasterUsed:v7 portNumber:&v35, &v34];
-  if ((v37 != v35 || v36 != v34) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v28 = [TSDCgPTPClock convertFrom128BitgPTPTimeToTimeSyncTime:selfCopy grandmasterUsed:"convertFrom128BitgPTPTimeToTimeSyncTime:grandmasterUsed:portNumber:" portNumber:?];
+  if (v25 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    clockIdentifier3 = [(TSDCKernelClock *)self clockIdentifier];
-    *buf = 134218496;
-    *&buf[4] = clockIdentifier3;
-    v39 = 2048;
-    v40 = v37;
-    v41 = 2048;
-    v42 = v35;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Converted a 32 time with the expansion performed on a different GrandMaster 0x%016llx than the conversion 0x%016llx.\n", buf, 0x20u);
-  }
-
-  if (v23 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    clockIdentifier4 = [(TSDCKernelClock *)self clockIdentifier];
+    clockIdentifier3 = [(TSDCKernelClock *)selfCopy clockIdentifier];
     *buf = 134220288;
-    *&buf[4] = clockIdentifier4;
+    *&buf[4] = clockIdentifier3;
+    v35 = 2048;
+    v36 = v7;
+    v37 = 2048;
+    v38 = v32;
     v39 = 2048;
-    v40 = v5;
+    v40 = v7;
     v41 = 2048;
-    v42 = v32;
+    v42 = v31;
     v43 = 2048;
-    v44 = v5;
+    v44 = v9;
     v45 = 2048;
-    v46 = v31;
+    v46 = v16;
     v47 = 2048;
-    v48 = v7;
+    v48 = v9;
     v49 = 2048;
-    v50 = v14;
+    v50 = v28;
     v51 = 2048;
-    v52 = v7;
-    v53 = 2048;
-    v54 = v26;
-    v55 = 2048;
-    v56 = v5 - v7;
+    v52 = v7 - v9;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Now gPTP %llu (%llx.%016llx) now mach %llu convert gPTP %llu (%llx.%016llx) mach %llu diff %lld\n", buf, 0x66u);
   }
 
-LABEL_64:
-  v29 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v28;
 }
 
 - (BOOL)convertFrom32BitASTime:(unsigned int *)time toTimeSyncTime:(unint64_t *)syncTime withCount:(unsigned int)count
@@ -914,8 +916,8 @@ LABEL_64:
         countCopy = count;
         do
         {
-          v9 = *timeCopy++;
-          *syncTimeCopy++ = [(TSDCgPTPClock *)self convertFrom32BitASToTimeSyncTime:v9];
+          ++timeCopy;
+          *syncTimeCopy++ = [(TSDCgPTPClock *)self convertFrom32BitASToTimeSyncTime:?];
           --countCopy;
         }
 
@@ -928,182 +930,228 @@ LABEL_64:
     else
     {
       [TSDCgPTPClock convertFrom32BitASTime:toTimeSyncTime:withCount:];
-      return v11;
+      return v10;
     }
   }
 
   else
   {
     [TSDCgPTPClock convertFrom32BitASTime:toTimeSyncTime:withCount:];
-    return v12;
+    return v11;
   }
 }
 
 - (unint64_t)convertFromDomainTimeToTimeSyncTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v61 = *MEMORY[0x277D85DE8];
-  v41 = -1;
-  v40 = -1;
-  v34 = [(TSClock *)self->_timeSyncClock convertFromMachAbsoluteToDomainTime:mach_absolute_time()];
-  v8 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
-  v9 = v7;
-  if (v8 == -1 && v7 == -1)
+  v56 = *MEMORY[0x277D85DE8];
+  timeSyncClock = self->_timeSyncClock;
+  mach_absolute_time();
+  v33 = [(TSClock *)timeSyncClock convertFromMachAbsoluteToDomainTime:?];
+  v9 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
+  v10 = v8;
+  if (v9 == -1 && v8 == -1)
   {
     [TSDCgPTPClock convertFromDomainTimeToTimeSyncTime:grandmasterUsed:portNumber:];
-    v29 = *buf;
-    goto LABEL_78;
+    return *buf;
   }
 
-  v11 = time - v7;
-  v35 = v7 - time;
-  if (v7 >= time)
+  v12 = time - v8;
+  v34 = v8 - time;
+  if (v8 >= time)
   {
-    v12 = v7 - time;
+    v13 = v8 - time;
   }
 
   else
   {
-    v12 = time - v7;
+    v13 = time - v8;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    if (v7 > time)
+    if (v8 > time)
     {
-      v13 = -2;
+      v14 = -2;
     }
 
     else
     {
-      v13 = -1;
+      v14 = -1;
     }
 
-    v14 = time - v7;
+    v15 = time - v8;
     goto LABEL_15;
   }
 
-  v13 = v7 >= time;
-  if (v8 != -1)
+  v14 = v8 >= time;
+  if (v9 != -1)
   {
-    v14 = v7 - time;
+    v15 = v8 - time;
 LABEL_15:
-    v15 = v7 <= time;
+    v16 = v8 <= time;
     goto LABEL_20;
   }
 
-  if (v7 < time)
+  if (v8 < time)
   {
-    v15 = -2;
+    v16 = -2;
   }
 
   else
   {
-    v15 = -1;
+    v16 = -1;
   }
 
-  v11 = v7 - time;
-  v14 = v7 - time;
+  v12 = v8 - time;
+  v15 = v8 - time;
 LABEL_20:
-  v39 = -1;
-  v38 = -1;
-  if (v13)
+  if (v14)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v16 = v14 >= v12;
+    v17 = v15 >= v13;
   }
 
-  if (v16)
+  if (!v17)
   {
-    if (v15)
+    if (v16 == v14)
     {
-      v17 = 1;
+      if (v12 >= v15)
+      {
+        goto LABEL_55;
+      }
+    }
+
+    else if (v16 > v14)
+    {
+      goto LABEL_55;
+    }
+
+LABEL_43:
+    if (v14)
+    {
+      v24 = 1;
     }
 
     else
     {
-      v17 = v11 >= v12;
+      v24 = v15 >= v12;
     }
 
-    if (v17)
+    v25 = !v24;
+    if (v13 >= v12 && (v25 & 1) == 0)
     {
-      if (v12 <= 0x8BB2C96FFFLL)
-      {
-        v28 = 0;
-        goto LABEL_66;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 134219776;
-        *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
-        v43 = 2048;
-        v44 = 600000;
-        v45 = 2048;
-        v46 = 0;
-        v47 = 2048;
-        v48 = v12;
-        v49 = 2048;
-        v50 = v13;
-        v51 = 2048;
-        timeCopy = v14;
-        v53 = 2048;
-        v54 = v15;
-        v55 = 2048;
-        timeCopy2 = v11;
-        v18 = MEMORY[0x277D86220];
-        v19 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with spliced which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
-        v20 = 82;
-LABEL_63:
-        _os_log_impl(&dword_26F080000, v18, OS_LOG_TYPE_DEFAULT, v19, buf, v20);
-      }
-
-LABEL_64:
-      v28 = 1;
-LABEL_66:
-      v25 = v8;
-      goto LABEL_67;
-    }
-
-    if (v13)
-    {
-      v21 = 0;
-    }
-
-    else
-    {
-      v21 = v12 >= v14;
-    }
-
-    if (v21 && v11 >= v14)
-    {
-LABEL_55:
-      v25 = v8 - 1;
-      if (v14 > 0x8BB2C96FFFLL)
+      v26 = v9 + 1;
+      if (v12 > 0x8BB2C96FFFLL)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134219776;
           *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
-          v43 = 2048;
-          v44 = 600000;
-          v45 = 2048;
-          v46 = 0;
-          v47 = 2048;
-          v48 = v12;
-          v49 = 2048;
-          v50 = v13;
-          v51 = 2048;
-          timeCopy = v14;
-          v53 = 2048;
-          v54 = v15;
-          v55 = 2048;
-          timeCopy2 = v11;
-          v26 = MEMORY[0x277D86220];
-          v27 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with past which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
+          v38 = 2048;
+          v39 = 600000;
+          v40 = 2048;
+          v41 = 0;
+          v42 = 2048;
+          v43 = v13;
+          v44 = 2048;
+          v45 = v14;
+          v46 = 2048;
+          timeCopy = v15;
+          v48 = 2048;
+          v49 = 0;
+          v50 = 2048;
+          timeCopy2 = v12;
+          v27 = MEMORY[0x277D86220];
+          v28 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with future which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
+LABEL_58:
+          _os_log_impl(&dword_26F080000, v27, OS_LOG_TYPE_DEFAULT, v28, buf, 0x52u);
+        }
+
+LABEL_59:
+        v29 = 1;
+        goto LABEL_67;
+      }
+
+      goto LABEL_60;
+    }
+
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_64;
+    }
+
+    *buf = 134219520;
+    *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
+    v38 = 2048;
+    v39 = 0;
+    v40 = 2048;
+    v41 = v13;
+    v42 = 2048;
+    v43 = v14;
+    v44 = 2048;
+    v45 = v15;
+    v46 = 2048;
+    timeCopy = v16;
+    v48 = 2048;
+    v49 = v12;
+    v19 = MEMORY[0x277D86220];
+    v20 = "TSDCgPTPClock(0x%016llx): Converted a 64 time which didn't match a closest one condition. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
+    v21 = 72;
+    goto LABEL_63;
+  }
+
+  if (v16)
+  {
+    v18 = 1;
+  }
+
+  else
+  {
+    v18 = v12 >= v13;
+  }
+
+  if (!v18)
+  {
+    if (v14)
+    {
+      v22 = 0;
+    }
+
+    else
+    {
+      v22 = v13 >= v15;
+    }
+
+    if (v22 && v12 >= v15)
+    {
+LABEL_55:
+      v26 = v9 - 1;
+      if (v15 > 0x8BB2C96FFFLL)
+      {
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 134219776;
+          *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
+          v38 = 2048;
+          v39 = 600000;
+          v40 = 2048;
+          v41 = 0;
+          v42 = 2048;
+          v43 = v13;
+          v44 = 2048;
+          v45 = v14;
+          v46 = 2048;
+          timeCopy = v15;
+          v48 = 2048;
+          v49 = v16;
+          v50 = 2048;
+          timeCopy2 = v12;
+          v27 = MEMORY[0x277D86220];
+          v28 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with past which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
           goto LABEL_58;
         }
 
@@ -1111,147 +1159,87 @@ LABEL_55:
       }
 
 LABEL_60:
-      v28 = 0;
+      v29 = 0;
       goto LABEL_67;
     }
+
+    goto LABEL_43;
   }
 
-  else if (v15 == v13)
+  if (v13 <= 0x8BB2C96FFFLL)
   {
-    if (v11 >= v14)
-    {
-      goto LABEL_55;
-    }
-  }
-
-  else if (v15 > v13)
-  {
-    goto LABEL_55;
-  }
-
-  if (v13)
-  {
-    v23 = 1;
-  }
-
-  else
-  {
-    v23 = v14 >= v11;
-  }
-
-  v24 = !v23;
-  if (v12 < v11 || (v24 & 1) != 0)
-  {
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 134219520;
-      *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
-      v43 = 2048;
-      v44 = 0;
-      v45 = 2048;
-      v46 = v12;
-      v47 = 2048;
-      v48 = v13;
-      v49 = 2048;
-      v50 = v14;
-      v51 = 2048;
-      timeCopy = v15;
-      v53 = 2048;
-      v54 = v11;
-      v18 = MEMORY[0x277D86220];
-      v19 = "TSDCgPTPClock(0x%016llx): Converted a 64 time which didn't match a closest one condition. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
-      v20 = 72;
-      goto LABEL_63;
-    }
-
-    goto LABEL_64;
-  }
-
-  v25 = v8 + 1;
-  if (v11 <= 0x8BB2C96FFFLL)
-  {
-    goto LABEL_60;
+    v29 = 0;
+    goto LABEL_66;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134219776;
     *&buf[4] = [(TSDCKernelClock *)self clockIdentifier];
-    v43 = 2048;
-    v44 = 600000;
-    v45 = 2048;
-    v46 = 0;
-    v47 = 2048;
-    v48 = v12;
-    v49 = 2048;
-    v50 = v13;
-    v51 = 2048;
-    timeCopy = v14;
-    v53 = 2048;
-    v54 = 0;
-    v55 = 2048;
-    timeCopy2 = v11;
-    v26 = MEMORY[0x277D86220];
-    v27 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with future which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
-LABEL_58:
-    _os_log_impl(&dword_26F080000, v26, OS_LOG_TYPE_DEFAULT, v27, buf, 0x52u);
+    v38 = 2048;
+    v39 = 600000;
+    v40 = 2048;
+    v41 = 0;
+    v42 = 2048;
+    v43 = v13;
+    v44 = 2048;
+    v45 = v14;
+    v46 = 2048;
+    timeCopy = v15;
+    v48 = 2048;
+    v49 = v16;
+    v50 = 2048;
+    timeCopy2 = v12;
+    v19 = MEMORY[0x277D86220];
+    v20 = "TSDCgPTPClock(0x%016llx): Converted a 64 time with spliced which is more than %llu milliseconds from now. nowSplicedDiffMag %llx.%016llx nowPastDiffMag %llx.%016llx nowFutureDiffMag %llx.%016llx\n";
+    v21 = 82;
+LABEL_63:
+    _os_log_impl(&dword_26F080000, v19, OS_LOG_TYPE_DEFAULT, v20, buf, v21);
   }
 
-LABEL_59:
-  v28 = 1;
+LABEL_64:
+  v29 = 1;
+LABEL_66:
+  v26 = v9;
 LABEL_67:
-  v29 = [(TSDCgPTPClock *)self convertFrom128BitgPTPTimeToTimeSyncTime:v25 grandmasterUsed:time portNumber:&v39, &v38];
-  if ((v41 != v39 || v40 != v38) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  v30 = [TSDCgPTPClock convertFrom128BitgPTPTimeToTimeSyncTime:"convertFrom128BitgPTPTimeToTimeSyncTime:grandmasterUsed:portNumber:" grandmasterUsed:? portNumber:?];
+  if (v29 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
-    *buf = 134218496;
-    *&buf[4] = clockIdentifier;
-    v43 = 2048;
-    v44 = v41;
-    v45 = 2048;
-    v46 = v39;
-    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Converted a 64 time with the expansion performed on a different GrandMaster 0x%016llx than the conversion 0x%016llx.\n", buf, 0x20u);
-  }
-
-  if (v28 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    clockIdentifier2 = [(TSDCKernelClock *)self clockIdentifier];
     *buf = 134220288;
-    *&buf[4] = clockIdentifier2;
-    v43 = 2048;
-    v44 = v9;
-    v45 = 2048;
-    v46 = v8;
-    v47 = 2048;
-    v48 = v9;
-    v49 = 2048;
-    v50 = v34;
-    v51 = 2048;
+    *&buf[4] = clockIdentifier;
+    v38 = 2048;
+    v39 = v10;
+    v40 = 2048;
+    v41 = v9;
+    v42 = 2048;
+    v43 = v10;
+    v44 = 2048;
+    v45 = v33;
+    v46 = 2048;
     timeCopy = time;
-    v53 = 2048;
-    v54 = v25;
-    v55 = 2048;
+    v48 = 2048;
+    v49 = v26;
+    v50 = 2048;
     timeCopy2 = time;
-    v57 = 2048;
-    v58 = v29;
-    v59 = 2048;
-    v60 = v35;
+    v52 = 2048;
+    v53 = v30;
+    v54 = 2048;
+    v55 = v34;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Now gPTP %llu (%llx.%016llx) now mach %llu convert gPTP %llu (%llx.%016llx) mach %llu diff %lld\n", buf, 0x66u);
   }
 
   if (used)
   {
-    *used = v39;
+    *used = -1;
   }
 
   if (number)
   {
-    *number = v38;
+    *number = -1;
   }
 
-LABEL_78:
-  v32 = *MEMORY[0x277D85DE8];
-  return v29;
+  return v30;
 }
 
 - (BOOL)getTimeSyncTimeRateRatioNumerator:(unint64_t *)numerator denominator:(unint64_t *)denominator timeSyncAnchor:(unint64_t *)anchor andDomainAnchor:(unint64_t *)domainAnchor forGrandmasterIdentity:(unint64_t *)identity portNumber:(unsigned __int16 *)number withError:(id *)error
@@ -1331,7 +1319,7 @@ LABEL_78:
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)convertFromTimeSyncTimeTo128BitgPTPTime:(unint64_t)time grandmasterUsed:(unint64_t *)used portNumber:(unsigned __int16 *)number
 {
-  v5 = [(TSDCgPTPClock *)self convertFromTimeSyncTimeTo128BitgPTPTime:time grandmasterUsed:used portNumber:number flags:0];
+  v5 = [TSDCgPTPClock convertFromTimeSyncTimeTo128BitgPTPTime:"convertFromTimeSyncTimeTo128BitgPTPTime:grandmasterUsed:portNumber:flags:" grandmasterUsed:? portNumber:? flags:?];
   result.var1 = v6;
   result.var0 = v5;
   return result;
@@ -1472,7 +1460,9 @@ LABEL_40:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     clockIdentifier2 = [(TSDCKernelClock *)self clockIdentifier];
-    v33 = [(TSClock *)self->_timeSyncClock convertFromMachAbsoluteToDomainTime:mach_absolute_time()];
+    timeSyncClock = self->_timeSyncClock;
+    mach_absolute_time();
+    v33 = [(TSClock *)timeSyncClock convertFromMachAbsoluteToDomainTime:?];
     v34 = v17->domainTime.lo;
     v35 = 134219008;
     clockIdentifier = clockIdentifier2;
@@ -1512,9 +1502,8 @@ LABEL_41:
   }
 
 LABEL_46:
-  v29 = *MEMORY[0x277D85DE8];
-  v30 = v11;
-  result.var1 = v30;
+  v29 = v11;
+  result.var1 = v29;
   result.var0 = v16;
   return result;
 }
@@ -1523,7 +1512,7 @@ LABEL_46:
 {
   var1 = time.var1;
   var0 = time.var0;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v10 = -1;
   validIndex = [(TSDCKernelClock *)self validIndex];
   v12 = validIndex;
@@ -1548,7 +1537,7 @@ LABEL_14:
       goto LABEL_19;
     }
 
-    v30 = 134217984;
+    v29 = 134217984;
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
     v17 = MEMORY[0x277D86220];
     v18 = "TSDCgPTPClock(0x%016llx): Attempting to convert to Mach but index == -1\n";
@@ -1564,15 +1553,15 @@ LABEL_14:
       goto LABEL_19;
     }
 
-    v30 = 134218240;
+    v29 = 134218240;
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
-    v32 = 1024;
-    LODWORD(v33) = v12;
+    v31 = 1024;
+    LODWORD(v32) = v12;
     v17 = MEMORY[0x277D86220];
     v18 = "TSDCgPTPClock(0x%016llx): Attempting to convert to Mach but sync info at index %u is not valid\n";
     v19 = 18;
 LABEL_18:
-    _os_log_impl(&dword_26F080000, v17, OS_LOG_TYPE_DEFAULT, v18, &v30, v19);
+    _os_log_impl(&dword_26F080000, v17, OS_LOG_TYPE_DEFAULT, v18, &v29, v19);
 LABEL_19:
     if (used)
     {
@@ -1584,10 +1573,10 @@ LABEL_19:
       localPortNumber = -1;
 LABEL_32:
       *number = localPortNumber;
-      goto LABEL_33;
+      return v10;
     }
 
-    goto LABEL_33;
+    return v10;
   }
 
   lo = v13->domainTime.lo;
@@ -1610,21 +1599,21 @@ LABEL_32:
       {
         clockIdentifier2 = [(TSDCKernelClock *)self clockIdentifier];
         v27 = v13->timeSyncTime;
-        v30 = 134219520;
+        v29 = 134219520;
         clockIdentifier = clockIdentifier2;
-        v32 = 2048;
-        v33 = var0;
-        v34 = 2048;
-        v35 = var1;
-        v36 = 2048;
-        v37 = var1;
-        v38 = 2048;
-        v39 = v24;
-        v40 = 2048;
-        v41 = v27;
-        v42 = 2048;
-        v43 = mach_absolute_time();
-        _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Trying to convert from a gPTP time %llx.%016llx (%llu) that would result in a negative mach_absolute time %llu %llu %llu\n", &v30, 0x48u);
+        v31 = 2048;
+        v32 = var0;
+        v33 = 2048;
+        v34 = var1;
+        v35 = 2048;
+        v36 = var1;
+        v37 = 2048;
+        v38 = v24;
+        v39 = 2048;
+        v40 = v27;
+        v41 = 2048;
+        v42 = mach_absolute_time();
+        _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx): Trying to convert from a gPTP time %llx.%016llx (%llu) that would result in a negative mach_absolute time %llu %llu %llu\n", &v29, 0x48u);
       }
     }
   }
@@ -1645,98 +1634,249 @@ LABEL_32:
     goto LABEL_32;
   }
 
-LABEL_33:
-  v28 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)_getInitialSyncInfo
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v34 = *MEMORY[0x277D85DE8];
   v19 = 0;
-  v20 = 0;
   v17 = 0;
   v18 = 0;
   v15 = 0;
   v16 = 0;
-  v14 = 0;
-  lockState = [(_TSF_TSDKernelClock *)self->_gPTPClock lockState];
-  gPTPClock = self->_gPTPClock;
   v13 = 0;
-  v5 = [(_TSF_TSDgPTPClock *)gPTPClock getSyncInfoWithSyncInfoValid:&v21 + 1 syncFlags:&v21 timeSyncTime:&v20 domainTimeHi:&v19 domainTimeLo:&v18 cumulativeScaledRate:&v17 inverseCumulativeScaledRate:&v16 grandmasterID:&v15 localPortNumber:&v14 error:&v13];
-  v6 = v13;
+  v14 = 0;
+  v12 = 0;
+  [(_TSF_TSDKernelClock *)self->_gPTPClock lockState];
+  gPTPClock = self->_gPTPClock;
+  v11 = 0;
+  v4 = [_TSF_TSDgPTPClock getSyncInfoWithSyncInfoValid:"getSyncInfoWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:error:" syncFlags:&v14 timeSyncTime:&v13 domainTimeHi:&v12 domainTimeLo:&v11 cumulativeScaledRate:? inverseCumulativeScaledRate:? grandmasterID:? localPortNumber:? error:?];
+  v5 = v11;
   gptpPath = [(_TSF_TSDgPTPClock *)self->_gPTPClock gptpPath];
-  if (!v5)
+  if ((v4 & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      *v24 = 136316418;
-      v25 = "success == YES";
+      *v22 = 136316418;
+      v23 = "success == YES";
+      v24 = 2048;
+      v25 = 0;
       v26 = 2048;
       v27 = 0;
-      v28 = 2048;
-      v29 = 0;
+      v28 = 2080;
+      v29 = "";
       v30 = 2080;
-      v31 = "";
-      v32 = 2080;
-      v33 = "/Library/Caches/com.apple.xbs/Sources/TimeSync/TimeSync/DC/TSDCgPTPClock.mm";
-      v34 = 1024;
-      v35 = 1070;
-      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v24, 0x3Au);
+      v31 = "/Library/Caches/com.apple.xbs/Sources/TimeSync/TimeSync/DC/TSDCgPTPClock.mm";
+      v32 = 1024;
+      v33 = 1070;
+      _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v22, 0x3Au);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = [v6 description];
-      v11 = v10;
-      -[TSDCTranslationClock getInitialSyncInfo].cold.1([v10 UTF8String], v24, v10);
+      v8 = [v5 description];
+      v9 = v8;
+      -[TSDCTranslationClock getInitialSyncInfo].cold.1([v8 UTF8String], v22, v8);
     }
 
-    lockState = 0;
-    v19 = -1;
-    v20 = -1;
-    v17 = 1;
+    v17 = -1;
     v18 = -1;
-    v16 = 1;
-    v15 = -1;
-    v14 = -1;
-    v21 = 0;
+    v15 = 1;
+    v16 = -1;
+    v14 = 1;
+    v13 = -1;
+    v12 = -1;
+    v19 = 0;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
     *buf = 134217984;
-    v23 = clockIdentifier;
+    v21 = clockIdentifier;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) _getInitialSyncInfo: response", buf, 0xCu);
   }
 
-  LOWORD(v12) = v14;
-  [(TSDCgPTPClock *)self updateWithSyncInfoValid:HIBYTE(v21) syncFlags:v21 timeSyncTime:v20 domainTimeHi:v19 domainTimeLo:v18 cumulativeScaledRate:v17 inverseCumulativeScaledRate:v16 grandmasterID:v15 localPortNumber:v12];
-  [(TSDCgPTPClock *)self updateGrandmasterIdentity:v15 andgPTPPath:gptpPath];
-  [(TSDCgPTPClock *)self updateLockState:lockState];
+  LOWORD(v10) = v12;
+  [TSDCgPTPClock updateWithSyncInfoValid:"updateWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:" syncFlags:v14 timeSyncTime:v13 domainTimeHi:v10 domainTimeLo:? cumulativeScaledRate:? inverseCumulativeScaledRate:? grandmasterID:? localPortNumber:?];
+  [TSDCgPTPClock updateGrandmasterIdentity:"updateGrandmasterIdentity:andgPTPPath:" andgPTPPath:?];
+  [(TSDCgPTPClock *)self updateLockState:?];
+}
 
+- (void)didBeginClockGrandmasterChangeWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock
+{
+  portCopy = port;
+  v17 = *MEMORY[0x277D85DE8];
+  clockCopy = clock;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 134218496;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v13 = 2048;
+    dCopy = d;
+    v15 = 1024;
+    v16 = portCopy;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) didBeginClockGrandmasterChangeWithGrandmasterID:0x%016llx localPort:%hu", &v11, 0x1Cu);
+  }
+
+  client = [(TSDCKernelClock *)self client];
+  [client didBeginClockGrandmasterChange];
+
+  client2 = [(TSDCKernelClock *)self client];
+  [client2 didBeginClockGrandmasterChangeWithGrandmasterID:? localPort:?];
+}
+
+- (void)didEndClockGrandmasterChangeWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock
+{
+  portCopy = port;
+  v17 = *MEMORY[0x277D85DE8];
+  clockCopy = clock;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 134218496;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v13 = 2048;
+    dCopy = d;
+    v15 = 1024;
+    v16 = portCopy;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) didEndClockGrandmasterChangeWithGrandmasterID:0x%016llx localPort:%hu", &v11, 0x1Cu);
+  }
+
+  client = [(TSDCKernelClock *)self client];
+  [client didEndClockGrandmasterChange];
+
+  client2 = [(TSDCKernelClock *)self client];
+  [client2 didEndClockGrandmasterChangeWithGrandmasterID:? localPort:?];
+}
+
+- (void)didChangeLocalPortWithGrandmasterID:(unint64_t)d localPort:(unsigned __int16)port forClock:(id)clock
+{
+  portCopy = port;
+  v16 = *MEMORY[0x277D85DE8];
+  clockCopy = clock;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = 134218496;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v12 = 2048;
+    dCopy = d;
+    v14 = 1024;
+    v15 = portCopy;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) didChangeLocalPortWithGrandmasterID:0x%016llx localPort:%hu", &v10, 0x1Cu);
+  }
+
+  client = [(TSDCKernelClock *)self client];
+  [client didChangeLocalPortWithGrandmasterID:? localPort:?];
+}
+
+- (void)updateLockState:(int)state
+{
   v9 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 134218240;
+    clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
+    v7 = 1024;
+    stateCopy = state;
+    _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) updateLockState:%d", &v5, 0x12u);
+  }
+
+  os_unfair_lock_lock([(TSDCKernelClock *)self getUpdateLock]);
+  [(TSDCKernelClock *)self setInternalLockState:?];
+  if ([(TSDCKernelClock *)self internalLockState]== 2)
+  {
+    [(TSDCKernelClock *)self validIndex];
+  }
+
+  os_unfair_lock_unlock([(TSDCKernelClock *)self getUpdateLock]);
+  [(TSDCKernelClock *)self postLockStateChange:?];
+}
+
+- (void)updateWithSyncInfoValid:(BOOL)valid syncFlags:(unsigned __int8)flags timeSyncTime:(unint64_t)time domainTimeHi:(unint64_t)hi domainTimeLo:(unint64_t)lo cumulativeScaledRate:(unint64_t)rate inverseCumulativeScaledRate:(unint64_t)scaledRate grandmasterID:(unint64_t)self0 localPortNumber:(unsigned __int16)self1
+{
+  lockState = [(TSDCKernelClock *)self lockState];
+  v25 = 0;
+  v26 = 0;
+  if (time == -1)
+  {
+    [TSDCgPTPClock updateWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:];
+  }
+
+  else if (hi == -1)
+  {
+    [TSDCgPTPClock updateWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:];
+  }
+
+  else
+  {
+    internalLockState = lockState;
+    os_unfair_lock_lock([(TSDCKernelClock *)self getUpdateLock]);
+    v19 = &self->_timeInfo[(([(TSDCKernelClock *)self validIndex]+ 1) & 7)];
+    v19->syncInfoValid = 1;
+    v19->syncFlags = flags;
+    v19->timeSyncTime = time;
+    v19->domainTime.lo = lo;
+    v19->domainTime.hi = hi;
+    v19->cumulativeScaledRate = rate;
+    v19->inverseCumulativeScaledRate = scaledRate;
+    v19->grandmasterID = d;
+    v19->localPortNumber = number;
+    [(TSDCKernelClock *)self setValidIndex:?];
+    [TSDCgPTPClock getMachAbsoluteRateRatioNumerator:"getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:withError:" denominator:? machAnchor:? andDomainAnchor:? withError:?];
+    mach_timebase_info(&info);
+    v25 /= info.denom;
+    v26 /= info.numer;
+    v20 = v26 / v25;
+    propertyUpdateQueue = [(TSDCKernelClock *)self propertyUpdateQueue];
+
+    if (propertyUpdateQueue)
+    {
+      propertyUpdateQueue2 = [(TSDCKernelClock *)self propertyUpdateQueue];
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __169__TSDCgPTPClock_updateWithSyncInfoValid_syncFlags_timeSyncTime_domainTimeHi_domainTimeLo_cumulativeScaledRate_inverseCumulativeScaledRate_grandmasterID_localPortNumber___block_invoke;
+      block[3] = &unk_279DBD9D8;
+      block[4] = self;
+      *&block[5] = v20;
+      dispatch_async(propertyUpdateQueue2, block);
+    }
+
+    else
+    {
+      [(TSDCKernelClock *)self setHostRateRatio:?];
+    }
+
+    if ([(TSDCKernelClock *)self internalLockState]== 2 && internalLockState != 2)
+    {
+      internalLockState = [(TSDCKernelClock *)self internalLockState];
+    }
+
+    os_unfair_lock_unlock([(TSDCKernelClock *)self getUpdateLock]);
+    if (internalLockState != [(TSDCKernelClock *)self lockState])
+    {
+      [(TSDCKernelClock *)self postLockStateChange:?];
+    }
+  }
 }
 
 void __169__TSDCgPTPClock_updateWithSyncInfoValid_syncFlags_timeSyncTime_domainTimeHi_domainTimeLo_cumulativeScaledRate_inverseCumulativeScaledRate_grandmasterID_localPortNumber___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setHostRateRatio:*(a1 + 40)];
+  [*(a1 + 32) setHostRateRatio:?];
 
   objc_autoreleasePoolPop(v2);
 }
 
 - (void)updateGrandmasterIdentity:(unint64_t)identity andgPTPPath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218240;
     clockIdentifier = [(TSDCKernelClock *)self clockIdentifier];
-    v16 = 2048;
+    v15 = 2048;
     identityCopy = identity;
     _os_log_impl(&dword_26F080000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "TSDCgPTPClock(0x%016llx) updateGrandmasterIdentity:0x%016llx andgPTPPath:...", buf, 0x16u);
   }
@@ -1746,8 +1886,8 @@ void __169__TSDCgPTPClock_updateWithSyncInfoValid_syncFlags_timeSyncTime_domainT
 
   if (v8)
   {
-    [(TSDCgPTPClock *)self setGrandmasterIdentity:identity];
-    [(TSDCgPTPClock *)self setGptpPath:pathCopy];
+    [(TSDCgPTPClock *)self setGrandmasterIdentity:?];
+    [(TSDCgPTPClock *)self setGptpPath:?];
   }
 
   else
@@ -1759,359 +1899,330 @@ void __169__TSDCgPTPClock_updateWithSyncInfoValid_syncFlags_timeSyncTime_domainT
     block[3] = &unk_279DBDA00;
     block[4] = self;
     identityCopy2 = identity;
-    v12 = pathCopy;
+    v11 = pathCopy;
     dispatch_async(propertyUpdateQueue2, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __55__TSDCgPTPClock_updateGrandmasterIdentity_andgPTPPath___block_invoke(uint64_t a1)
 {
   v2 = objc_autoreleasePoolPush();
-  [*(a1 + 32) setGrandmasterIdentity:*(a1 + 48)];
-  [*(a1 + 32) setGptpPath:*(a1 + 40)];
+  [*(a1 + 32) setGrandmasterIdentity:?];
+  [*(a1 + 32) setGptpPath:?];
 
   objc_autoreleasePoolPop(v2);
 }
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromMachAbsoluteTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toMachAbsoluteTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTime:toDomainTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTime:toTimeSyncTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromTimeSyncTimeIntervalToDomainInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainIntervalToTimeSyncTimeInterval:.cold.2()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFrom32BitASTime:toMachAbsoluteTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFrom32BitASTime:toMachAbsoluteTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMachAbsoluteRateRatioNumerator:denominator:machAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFrom32BitASToTimeSyncTime:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFrom32BitASTime:toTimeSyncTime:withCount:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFrom32BitASTime:toTimeSyncTime:withCount:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)convertFromDomainTimeToTimeSyncTime:grandmasterUsed:portNumber:.cold.1()
 {
   OUTLINED_FUNCTION_5();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getTimeSyncTimeRateRatioNumerator:denominator:timeSyncAnchor:andDomainAnchor:forGrandmasterIdentity:portNumber:withError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithSyncInfoValid:syncFlags:timeSyncTime:domainTimeHi:domainTimeLo:cumulativeScaledRate:inverseCumulativeScaledRate:grandmasterID:localPortNumber:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

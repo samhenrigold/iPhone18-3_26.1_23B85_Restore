@@ -17,30 +17,30 @@
 - (void)routeMessage:(id)message allowRemoteRelayFromPrimary:(BOOL)primary localHandler:(id)handler
 {
   primaryCopy = primary;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   routers = [(HMDDelegatingMessageRouter *)self routers];
-  v10 = [routers countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [routers countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v20;
+    v12 = *v19;
     while (2)
     {
       v13 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(routers);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * v13);
+        v14 = *(*(&v18 + 1) + 8 * v13);
         dataSource = [(HMDDelegatingMessageRouter *)self dataSource];
         v16 = [dataSource router:self shouldHandleMessage:messageCopy usingRouter:v14];
 
@@ -55,7 +55,7 @@
       }
 
       while (v11 != v13);
-      v11 = [routers countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [routers countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         continue;
@@ -67,8 +67,6 @@
 
   handlerCopy[2](handlerCopy, messageCopy);
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDelegatingMessageRouter)initWithMessageDispatcher:(id)dispatcher routers:(id)routers
@@ -82,7 +80,7 @@ LABEL_11:
   if (v9)
   {
     objc_storeStrong(&v9->_messageDispatcher, dispatcher);
-    v11 = [routersCopy copy];
+    v11 = objc_msgSend_copy(routersCopy);
     routers = v10->_routers;
     v10->_routers = v11;
   }
@@ -104,12 +102,11 @@ LABEL_11:
 
 uint64_t __41__HMDDelegatingMessageRouter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_167311;
-  logCategory__hmf_once_v1_167311 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_167311;
+  logCategory__hmf_once_v1_167311 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

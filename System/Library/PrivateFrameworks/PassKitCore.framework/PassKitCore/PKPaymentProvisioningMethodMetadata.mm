@@ -33,22 +33,22 @@
   {
     if (v13)
     {
-      v15 = [(NSString *)v13 isEqualToString:@"59F12F58E2D04C9180CFD6C2096C125F-caprieightball-DC5AC19A6D2D477D8765687C3C2D4CA5"];
+      isEqualToString = objc_msgSend_isEqualToString_(v13);
       goto LABEL_14;
     }
 
 LABEL_13:
-    v15 = 0;
+    isEqualToString = 0;
     goto LABEL_14;
   }
 
-  if (([v12 isEqualToString:@"RefundableDeposit"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
   {
-    if (([v12 isEqualToString:@"RefundableServiceFee"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v12) & 1) == 0)
     {
-      if ([v12 isEqualToString:@"ServiceFee"])
+      if (objc_msgSend_isEqualToString_(v12))
       {
-        v15 = 2;
+        isEqualToString = 2;
         goto LABEL_14;
       }
 
@@ -64,10 +64,10 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v15 = 1;
+  isEqualToString = 1;
 LABEL_14:
 
-  v5->_depositType = v15;
+  v5->_depositType = isEqualToString;
   v17 = [dictionaryCopy PKDecimalNumberFromStringForKey:@"depositAmount"];
   depositAmount = v5->_depositAmount;
   v5->_depositAmount = v17;

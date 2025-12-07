@@ -56,17 +56,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  width = self->_width;
   PBDataWriterWriteUint64Field();
-  height = self->_height;
   PBDataWriterWriteUint64Field();
-  bitsPerComponent = self->_bitsPerComponent;
   PBDataWriterWriteUint64Field();
-  bitsPerPixel = self->_bitsPerPixel;
   PBDataWriterWriteUint64Field();
-  bytesPerRow = self->_bytesPerRow;
   PBDataWriterWriteUint64Field();
-  bitmapInfo = self->_bitmapInfo;
   PBDataWriterWriteUint32Field();
   if (!self->_bitmapData)
   {

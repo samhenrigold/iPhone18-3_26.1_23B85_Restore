@@ -85,7 +85,7 @@
     *buf = 138412290;
     v6 = v2;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Open %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "Open %@", v2);
   }
 
   v4 = +[LSApplicationWorkspace defaultWorkspace];
@@ -103,7 +103,7 @@
       *buf = 138412290;
       v6 = v2;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Open %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "Open %@", v2);
     }
 
     v4 = +[LSApplicationWorkspace defaultWorkspace];
@@ -123,8 +123,8 @@
       v9 = v4;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received associated domain link: %{public}@", buf, 0xCu);
 
-      v7 = [(MBOpenURLWrapper *)self url];
-      _MBLog();
+      v5 = [(MBOpenURLWrapper *)self url];
+      _MBLog(@"Df", "Received associated domain link: %{public}@", v5);
     }
 
     if ([(MBOpenURLWrapper *)self _isPrepareBuddyURL])
@@ -142,12 +142,12 @@
           [delegate openURLWrapper:self willOpenURL:self->_url];
         }
 
-        v6 = MBGetDefaultLog();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = MBGetDefaultLog();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received Prebuddy link. Opening Settings.", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received Prebuddy link. Opening Settings.", buf, 2u);
+          _MBLog(@"Df", "Received Prebuddy link. Opening Settings.");
         }
 
         [(MBOpenURLWrapper *)self _openPrebuddyURL];

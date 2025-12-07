@@ -1,5 +1,6 @@
 @interface MAFloatMatrixWrapper
 + (id)onesWithRows:(int64_t)rows columns:(int64_t)columns;
++ (id)repeatingWithElement:(float)element rows:(int64_t)rows columns:(int64_t)columns;
 + (id)wrapperWithData:(id)data rows:(int64_t)rows columns:(int64_t)columns;
 + (id)zerosWithRows:(int64_t)rows columns:(int64_t)columns;
 - (BOOL)isApproximatelyEqualTo:(id)to;
@@ -70,6 +71,13 @@
   sub_255880874(v8, v10);
 
   return v11;
+}
+
++ (id)repeatingWithElement:(float)element rows:(int64_t)rows columns:(int64_t)columns
+{
+  v5 = _s17KnowledgeGraphKit20MAFloatMatrixWrapperC9repeating7element4rows7columnsACSf_S2itFZ_0(rows, columns, *&element);
+
+  return v5;
 }
 
 + (id)zerosWithRows:(int64_t)rows columns:(int64_t)columns
@@ -182,29 +190,23 @@ LABEL_14:
 
 - (float)sum
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8788];
+  v2 = MEMORY[0x277CB8788];
 
-  return sub_25589B604(self, a2, v3);
+  return sub_25589B604(self, a2, v2);
 }
 
 - (float)sumOfSquares
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8798];
+  v2 = MEMORY[0x277CB8798];
 
-  return sub_25589B604(self, a2, v3);
+  return sub_25589B604(self, a2, v2);
 }
 
 - (float)mean
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CB8768];
+  v2 = MEMORY[0x277CB8768];
 
-  return sub_25589B604(self, a2, v3);
+  return sub_25589B604(self, a2, v2);
 }
 
 - (id)array

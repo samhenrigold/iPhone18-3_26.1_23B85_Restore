@@ -257,7 +257,7 @@
   v19 = direction & 1;
   [(KNIrisBase *)self p_setupDataBuffersWithFrameRect:v19 openFromCenter:device device:v10, v12, v14, v16];
 
-  [(KNAnimationEffect *)self mvpMatrixWithContext:contextCopy];
+  objc_msgSend_mvpMatrixWithContext_(self);
   v30 = vcvt_hight_f32_f64(vcvt_f32_f64(0), 0);
   [firstObject frame];
   TSDRectWithSize();

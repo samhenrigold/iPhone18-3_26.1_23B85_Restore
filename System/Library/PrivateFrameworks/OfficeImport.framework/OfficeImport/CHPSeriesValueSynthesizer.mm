@@ -56,14 +56,14 @@
       v12 = 1;
       do
       {
-        CsData::CsData(&v16);
-        v15 = v12 - 1;
-        EDValue::makeWithNumber(v13, v12, &v14);
-        EDValue::operator=(&v16, &v14);
-        EDValue::~EDValue(&v14);
-        v17 = -1;
-        [dataValues addDataPoint:&v15];
-        EDValue::~EDValue(&v16);
+        CsData::CsData(&v15);
+        v14 = v12 - 1;
+        EDValue::makeWithNumber(&v13.type, v12);
+        EDValue::operator=(&v15, &v13);
+        EDValue::~EDValue(&v13);
+        v16 = -1;
+        [dataValues addDataPoint:&v14];
+        EDValue::~EDValue(&v15);
         ++v12;
       }
 

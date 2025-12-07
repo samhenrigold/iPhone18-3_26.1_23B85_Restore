@@ -292,7 +292,7 @@
   }
 }
 
-- (void)initWithService:(uint64_t *)a1 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)initWithService:(void *)a1 .cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -302,13 +302,12 @@
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-- (void)initWithServiceNamed:(uint64_t *)a1 parent:(_OWORD *)a2 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)initWithServiceNamed:(void *)a1 parent:(_OWORD *)a2 .cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -318,8 +317,7 @@
   *a2 = 0u;
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }

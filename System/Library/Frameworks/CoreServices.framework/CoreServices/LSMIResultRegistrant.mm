@@ -54,7 +54,7 @@
   placeholderCopy = placeholder;
   appCopy = app;
   successCopy = success;
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   journallerCopy = journaller;
   if (successCopy)
@@ -102,26 +102,24 @@
     v18 = 11;
   }
 
-  v22[0] = dCopy;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = dCopy;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   [journallerCopy sendNotification:v18 forApps:v20 withPlugins:0];
 
   [journallerCopy writeFinalJournal];
   [journallerCopy removeJournalAfterNotificationFence];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runWithCompletion:(id)completion
 {
-  v51[1] = *MEMORY[0x1E69E9840];
+  v50[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v4 = self->_miDict;
   v5 = [(NSDictionary *)v4 objectForKeyedSubscript:*MEMORY[0x1E695E4F0]];
   v6 = [(NSDictionary *)v4 objectForKeyedSubscript:@"Path"];
-  v32 = v6;
-  v34 = [(NSDictionary *)v4 objectForKeyedSubscript:@"ParallelPlaceholderPath"];
-  v31 = [(NSDictionary *)v4 objectForKey:@"ApplicationType"];
+  v31 = v6;
+  v33 = [(NSDictionary *)v4 objectForKeyedSubscript:@"ParallelPlaceholderPath"];
+  v30 = [(NSDictionary *)v4 objectForKey:@"ApplicationType"];
   if (v5)
   {
     v7 = v6 == 0;
@@ -154,10 +152,10 @@
 
     v12 = [(__CFString *)v9 stringByAppendingString:v11];
 
-    v50 = *MEMORY[0x1E696A278];
-    v51[0] = v12;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
-    v30 = v12;
+    v49 = *MEMORY[0x1E696A278];
+    v50[0] = v12;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v29 = v12;
     v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v13, "[LSMIResultRegistrant runWithCompletion:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Info/LSRegistrants.mm", 183);
 
     (*(completionCopy + 2))(completionCopy, 0, 0, v14);
@@ -179,27 +177,27 @@
       bOOLValue = [v18 BOOLValue];
     }
 
-    v30 = [(LSRegistrantStrategy *)self->_strategy notificationJournallerForBundleIdentifier:v5 registeringPlaceholder:bOOLValue];
+    v29 = [(LSRegistrantStrategy *)self->_strategy notificationJournallerForBundleIdentifier:v5 registeringPlaceholder:bOOLValue];
     v14 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v6 isDirectory:1];
-    if (v34)
+    if (v33)
     {
-      v29 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v34];
+      v28 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:v33];
     }
 
     else
     {
-      v29 = 0;
+      v28 = 0;
     }
 
-    v49 = 0;
-    v28 = [[FSNode alloc] initWithURL:v14 flags:0 error:&v49];
+    v48 = 0;
+    v27 = [[FSNode alloc] initWithURL:v14 flags:0 error:&v48];
     v19 = v16;
-    v20 = v49;
-    if (v29)
+    v20 = v48;
+    if (v28)
     {
-      v48 = v20;
-      v21 = [[FSNode alloc] initWithURL:v29 flags:0 error:&v48];
-      v22 = v48;
+      v47 = v20;
+      v21 = [[FSNode alloc] initWithURL:v28 flags:0 error:&v47];
+      v22 = v47;
 
       v20 = v22;
     }
@@ -209,7 +207,7 @@
       v21 = 0;
     }
 
-    if (v28 && (!v34 || v21))
+    if (v27 && (!v33 || v21))
     {
       if (v21)
       {
@@ -218,60 +216,58 @@
 
       else
       {
-        v23 = v28;
+        v23 = v27;
       }
 
       v24 = v23;
       [(LSRegistrantStrategy *)self->_strategy beginModificationOperation];
       strategy = self->_strategy;
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __42__LSMIResultRegistrant_runWithCompletion___block_invoke;
-      v35[3] = &unk_1E6A1E2D8;
-      v36 = v5;
-      v37 = v4;
-      v46 = bOOLValue;
-      v47 = v19;
-      v38 = v28;
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __42__LSMIResultRegistrant_runWithCompletion___block_invoke;
+      v34[3] = &unk_1E6A1E2D8;
+      v35 = v5;
+      v36 = v4;
+      v45 = bOOLValue;
+      v46 = v19;
+      v37 = v27;
       selfCopy = self;
-      v40 = v34;
+      v39 = v33;
       v25 = v24;
-      v41 = v25;
-      v42 = v20;
-      v43 = v31;
-      v44 = v30;
-      v45 = completionCopy;
-      [(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v35];
+      v40 = v25;
+      v41 = v20;
+      v42 = v30;
+      v43 = v29;
+      v44 = completionCopy;
+      [(LSRegistrantStrategy *)strategy runSyncBlockInWriteContext:v34];
     }
 
     else
     {
-      -[LSMIResultRegistrant runPostProcessingForBundleID:success:isSystemApp:isPlaceholder:registeredBothFullAppAndPlaceholder:notificationJournaller:](self, "runPostProcessingForBundleID:success:isSystemApp:isPlaceholder:registeredBothFullAppAndPlaceholder:notificationJournaller:", v5, 0, [v31 isEqualToString:@"System"], bOOLValue, 0, v30);
+      -[LSMIResultRegistrant runPostProcessingForBundleID:success:isSystemApp:isPlaceholder:registeredBothFullAppAndPlaceholder:notificationJournaller:](self, "runPostProcessingForBundleID:success:isSystemApp:isPlaceholder:registeredBothFullAppAndPlaceholder:notificationJournaller:", v5, 0, [v30 isEqualToString:@"System"], bOOLValue, 0, v29);
       (*(completionCopy + 2))(completionCopy, 0, 0, v20);
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __42__LSMIResultRegistrant_runWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   v3 = a2;
   _LSLogStepStart(4, 0, *(a1 + 32), &cfstr_RegisteringBun.isa);
+  v58 = 0;
   v55 = 0;
-  v52 = 0;
-  v53 = 0;
-  v54 = 0;
+  v56 = 0;
+  v57 = 0;
   v4 = [*(a1 + 40) mutableCopy];
-  v51 = 0;
-  v5 = [v3 databaseContextWithError:&v51];
-  v6 = v51;
+  v54 = 0;
+  v5 = [v3 databaseContextWithError:&v54];
+  v6 = v54;
   if (!v5)
   {
-    v7 = 0;
-    LODWORD(v8) = 0;
-    v9 = 0;
+    v8 = 0;
+    LODWORD(v9) = 0;
+    v10 = 0;
     goto LABEL_33;
   }
 
@@ -282,51 +278,52 @@ void __42__LSMIResultRegistrant_runWithCompletion___block_invoke(uint64_t a1, vo
 
   if (*(a1 + 113) == 1)
   {
-    if ([v5 fullBundleExistsForIdentifier:*(a1 + 32) matchingNode:*(a1 + 48)])
+    v7 = [v5 fullBundleExistsForIdentifier:*(a1 + 32) matchingNode:*(a1 + 48)];
+    if (v7)
     {
-      v7 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v13 = _LSInstallLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = _LSInstallLog(v7);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 138412290;
-        v57 = v14;
-        _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "%@ registration is for parallel placeholder but full app is not registered; registering it", buf, 0xCu);
+        v60 = v16;
+        _os_log_impl(&dword_18162D000, v15, OS_LOG_TYPE_DEFAULT, "%@ registration is for parallel placeholder but full app is not registered; registering it", buf, 0xCu);
       }
 
-      v16 = *(a1 + 40);
-      v15 = *(a1 + 48);
-      v17 = *(*(a1 + 56) + 32);
-      v50 = v6;
-      v18 = [v5 registerBundleNodeReinitializingContext:v15 inBundleContainer:1 installDictionary:v16 personasWithAttributes:v17 error:&v50];
-      v19 = v50;
+      v18 = *(a1 + 40);
+      v17 = *(a1 + 48);
+      v19 = *(*(a1 + 56) + 32);
+      v53 = v6;
+      v20 = [v5 registerBundleNodeReinitializingContext:v17 inBundleContainer:1 installDictionary:v18 personasWithAttributes:v19 error:&v53];
+      v21 = v53;
 
-      if (v18)
+      if (v20)
       {
-        v20 = _LSInstallLog();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v23 = _LSInstallLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = *(a1 + 32);
+          v24 = *(a1 + 32);
           *buf = 138412546;
-          v57 = v21;
-          v58 = 2048;
-          v59 = v18;
-          _os_log_impl(&dword_18162D000, v20, OS_LOG_TYPE_DEFAULT, "Successfully registered full app for %@: %llx", buf, 0x16u);
+          v60 = v24;
+          v61 = 2048;
+          v62 = v20;
+          _os_log_impl(&dword_18162D000, v23, OS_LOG_TYPE_DEFAULT, "Successfully registered full app for %@: %llx", buf, 0x16u);
         }
 
-        v7 = 1;
+        v8 = 1;
       }
 
       else
       {
-        v7 = 0;
+        v8 = 0;
       }
 
-      v6 = v19;
+      v6 = v21;
     }
 
     [v4 setObject:*(a1 + 64) forKeyedSubscript:@"Path"];
@@ -336,33 +333,34 @@ void __42__LSMIResultRegistrant_runWithCompletion___block_invoke(uint64_t a1, vo
   }
 
   [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"IsPlaceholder"];
-  if ([v5 fullBundleExistsForIdentifier:*(a1 + 32) matchingNode:0])
+  v11 = [v5 fullBundleExistsForIdentifier:*(a1 + 32) matchingNode:0];
+  if (v11)
   {
     goto LABEL_18;
   }
 
-  v10 = [*(a1 + 40) objectForKeyedSubscript:@"LSInstallType"];
-  v11 = [v10 integerValue];
-  v12 = v11;
-  if (v11 >= 7)
+  v12 = [*(a1 + 40) objectForKeyedSubscript:@"LSInstallType"];
+  v13 = [v12 integerValue];
+  v14 = v13;
+  if (v13 >= 7)
   {
-    if (v11 - 7 >= 4)
+    if (v13 - 7 >= 4)
     {
-      v36 = _LSDefaultLog();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
+      v39 = _LSDefaultLog(v13);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
       {
-        __42__LSMIResultRegistrant_runWithCompletion___block_invoke_cold_1(v12, v36);
+        __42__LSMIResultRegistrant_runWithCompletion___block_invoke_cold_1(v14, v39);
       }
 
       goto LABEL_9;
     }
 
 LABEL_18:
-    v22 = _LSInstallLog();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v25 = _LSInstallLog(v11);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_18162D000, v22, OS_LOG_TYPE_DEFAULT, "while registering placeholder, found existing full bundle but not registering a parallel placeholder; noting placeholder registration is a downgrade", buf, 2u);
+      _os_log_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEFAULT, "while registering placeholder, found existing full bundle but not registering a parallel placeholder; noting placeholder registration is a downgrade", buf, 2u);
     }
 
     [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"LSAppDowngrade"];
@@ -372,54 +370,54 @@ LABEL_18:
 LABEL_9:
 
 LABEL_21:
-  v7 = 0;
+  v8 = 0;
 LABEL_25:
   if (v6)
   {
 
-    v9 = 0;
+    v10 = 0;
 LABEL_34:
-    v30 = 0;
+    v33 = 0;
     _LSLogStepFinished(4, 0, *(a1 + 32), &cfstr_FailedToRegist.isa, *(a1 + 32));
-    v31 = 0;
+    v34 = 0;
     goto LABEL_36;
   }
 
-  v23 = *(a1 + 72);
-  v24 = *(*(a1 + 56) + 32);
-  v49 = 0;
-  v8 = [v5 registerBundleNodeReinitializingContext:v23 inBundleContainer:1 installDictionary:v4 personasWithAttributes:v24 error:&v49];
-  v25 = v49;
-  v26 = v25;
-  if (v8)
+  v26 = *(a1 + 72);
+  v27 = *(*(a1 + 56) + 32);
+  v52 = 0;
+  v9 = [v5 registerBundleNodeReinitializingContext:v26 inBundleContainer:1 installDictionary:v4 personasWithAttributes:v27 error:&v52];
+  v28 = v52;
+  v29 = v28;
+  if (v9)
   {
-    v48 = v25;
-    v27 = [v5 findContainerizedRecordForBundleUnit:v8 error:&v48];
-    v28 = v48;
+    v51 = v28;
+    v30 = [v5 findContainerizedRecordForBundleUnit:v9 error:&v51];
+    v31 = v51;
 
-    if (v27)
+    if (v30)
     {
-      v47 = v28;
-      v9 = [[LSRecordPromise alloc] initWithRecord:v27 error:&v47];
-      v29 = v47;
+      v50 = v31;
+      v10 = [[LSRecordPromise alloc] initWithRecord:v30 error:&v50];
+      v32 = v50;
 
-      v28 = v29;
+      v31 = v32;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v28 = *(a1 + 80);
-    v9 = 0;
-    v27 = v26;
+    v31 = *(a1 + 80);
+    v10 = 0;
+    v30 = v29;
   }
 
-  v6 = v28;
+  v6 = v31;
 LABEL_33:
 
   if (v6)
@@ -427,65 +425,63 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  _LSLogStepFinished(4, 1, *(a1 + 32), &cfstr_FinishedRegist.isa, *(a1 + 32), v8);
-  v32 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(*(a1 + 56) + 16)];
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __42__LSMIResultRegistrant_runWithCompletion___block_invoke_107;
-  v44[3] = &unk_1E6A1E288;
-  v46 = v8;
-  v30 = v32;
-  v45 = v30;
-  [v3 armSaveTimerIfNecessary:v44];
+  _LSLogStepFinished(4, 1, *(a1 + 32), &cfstr_FinishedRegist.isa, *(a1 + 32), v9);
+  v35 = [[_LSDModificationPendingSaveToken alloc] initWithUUID:*(*(a1 + 56) + 16)];
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __42__LSMIResultRegistrant_runWithCompletion___block_invoke_107;
+  v47[3] = &unk_1E6A1E288;
+  v49 = v9;
+  v33 = v35;
+  v48 = v33;
+  [v3 armSaveTimerIfNecessary:v47];
 
   v6 = 0;
-  v31 = 1;
+  v34 = 1;
 LABEL_36:
-  [*(*(a1 + 56) + 8) endModificationOperation];
-  if ((v31 & 1) == 0)
+  v36 = [*(*(a1 + 56) + 8) endModificationOperation];
+  if ((v34 & 1) == 0)
   {
-    [*(*(a1 + 56) + 8) flushModificationState];
+    v36 = [*(*(a1 + 56) + 8) flushModificationState];
   }
 
-  v33 = registrationCleanupQueue();
+  v37 = registrationCleanupQueue(v36);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __42__LSMIResultRegistrant_runWithCompletion___block_invoke_2;
   block[3] = &unk_1E6A1E2B0;
   block[4] = *(a1 + 56);
-  v38 = *(a1 + 32);
-  v34 = v6;
-  v39 = v34;
-  v40 = *(a1 + 88);
-  v42 = *(a1 + 112);
-  v43 = v7;
-  v41 = *(a1 + 96);
-  dispatch_async(v33, block);
+  v41 = *(a1 + 32);
+  v38 = v6;
+  v42 = v38;
+  v43 = *(a1 + 88);
+  v45 = *(a1 + 112);
+  v46 = v8;
+  v44 = *(a1 + 96);
+  dispatch_async(v37, block);
 
   (*(*(a1 + 104) + 16))();
-  if (v52 && v54 == 1)
+  if (v55 && v57 == 1)
   {
-    _LSContextDestroy(v52);
+    _LSContextDestroy(v55);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __42__LSMIResultRegistrant_runWithCompletion___block_invoke_107(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v7 = _LSInstallLog();
+  v7 = _LSInstallLog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 40);
-    v13 = 134218498;
-    v14 = v8;
-    v15 = 1024;
-    v16 = a2;
-    v17 = 2112;
-    v18 = v6;
-    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for unit %llx attempted: %d save error: %@", &v13, 0x1Cu);
+    v12 = 134218498;
+    v13 = v8;
+    v14 = 1024;
+    v15 = a2;
+    v16 = 2112;
+    v17 = v6;
+    _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Save after registration for unit %llx attempted: %d save error: %@", &v12, 0x1Cu);
   }
 
   v9 = v6;
@@ -498,8 +494,6 @@ void __42__LSMIResultRegistrant_runWithCompletion___block_invoke_107(uint64_t a1
   }
 
   [*(a1 + 32) saveDidHappen:v10 == 0 error:v10];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__LSMIResultRegistrant_runWithCompletion___block_invoke_2(uint64_t a1)
@@ -517,11 +511,10 @@ uint64_t __42__LSMIResultRegistrant_runWithCompletion___block_invoke_2(uint64_t 
 
 void __42__LSMIResultRegistrant_runWithCompletion___block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "install type %d not handled", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_18162D000, a2, OS_LOG_TYPE_FAULT, "install type %d not handled", v2, 8u);
 }
 
 @end

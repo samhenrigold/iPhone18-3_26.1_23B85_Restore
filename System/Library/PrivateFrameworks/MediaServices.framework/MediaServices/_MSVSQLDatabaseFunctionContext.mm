@@ -43,7 +43,7 @@
 
 - (id)returnJSON:(id)n error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   nCopy = n;
   if ([MEMORY[0x1E696ACB0] isValidJSONObject:nCopy])
   {
@@ -65,15 +65,13 @@
   else if (error)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v13 = @"jsonValue";
-    v14[0] = nCopy;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"jsonValue";
+    v13[0] = nCopy;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v9 msv_errorWithDomain:@"MSVSQLDatabaseError" code:2 userInfo:v10 debugDescription:{@"Not valid JSON object: %@", nCopy}];
 
     error = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return error;
 }

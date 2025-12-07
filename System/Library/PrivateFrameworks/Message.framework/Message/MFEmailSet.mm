@@ -60,30 +60,30 @@
 
 - (MFEmailSet)initWithSet:(id)set
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = -[MFEmailSet initWithCapacity:](self, "initWithCapacity:", [set count]);
   if (v4)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v5 = [set countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v5 = [set countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       do
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(set);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * v8);
+          v9 = *(*(&v13 + 1) + 8 * v8);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -99,14 +99,13 @@
         }
 
         while (v6 != v8);
-        v6 = [set countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [set countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v6);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -316,7 +315,7 @@
 
 - (void)addObject:(id)object
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
@@ -326,22 +325,19 @@
   v5 = [[_MFEmailSetEmail alloc] initWithAddress:object];
   if (v5)
   {
-    v9 = v5;
+    v7 = v5;
     CFSetAddValue(self->_set, v5);
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = MFLogGeneral();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = MFLogGeneral();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       objectCopy = object;
-      _os_log_impl(&dword_1B0389000, v7, OS_LOG_TYPE_INFO, "attempt to add illegal email address to email set, skipping '%@'", buf, 0xCu);
+      _os_log_impl(&dword_1B0389000, v6, OS_LOG_TYPE_INFO, "attempt to add illegal email address to email set, skipping '%@'", buf, 0xCu);
     }
-
-    v8 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -421,64 +417,62 @@
 
 - (void)intersectSet:(id)set
 {
-  v21 = *MEMORY[0x1E69E9840];
-  if (set == self)
+  v19 = *MEMORY[0x1E69E9840];
+  if (set != self)
   {
-    goto LABEL_16;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v6 = *(set + 2);
-    context[0] = v5;
-    context[1] = v6;
-    CFSetApplyFunction(self->_set, _intersectFunction, context);
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
-    if (v7)
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v8 = v7;
-      v9 = *v16;
-      do
+      v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v6 = *(set + 2);
+      context[0] = v5;
+      context[1] = v6;
+      CFSetApplyFunction(self->_set, _intersectFunction, context);
+      v15 = 0u;
+      v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      if (v7)
       {
-        for (i = 0; i != v8; ++i)
+        v8 = v7;
+        v9 = *v14;
+        do
         {
-          if (*v16 != v9)
+          for (i = 0; i != v8; ++i)
           {
-            objc_enumerationMutation(v5);
+            if (*v14 != v9)
+            {
+              objc_enumerationMutation(v5);
+            }
+
+            CFSetRemoveValue(self->_set, *(*(&v13 + 1) + 8 * i));
           }
 
-          CFSetRemoveValue(self->_set, *(*(&v15 + 1) + 8 * i));
+          v8 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        while (v8);
       }
-
-      while (v8);
     }
 
-    goto LABEL_16;
-  }
+    else
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v11 = [[MFEmailSet alloc] initWithSet:set];
+        [(MFEmailSet *)self intersectSet:?];
+      }
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v14.receiver = self;
-    v14.super_class = MFEmailSet;
-    [(EAEmailAddressSet *)&v14 intersectSet:set];
-LABEL_16:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
+      else
+      {
+        v12.receiver = self;
+        v12.super_class = MFEmailSet;
+        [(EAEmailAddressSet *)&v12 intersectSet:set];
+      }
+    }
   }
-
-  v13 = [[MFEmailSet alloc] initWithSet:set];
-  [(MFEmailSet *)self intersectSet:?];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSet:(id)set

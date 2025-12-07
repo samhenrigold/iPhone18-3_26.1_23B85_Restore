@@ -42,7 +42,7 @@
 
 void __41__APConnectionNotifier_remoteObjectProxy__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = +[APLogConfig sharedFrameworkConfig];
@@ -54,15 +54,13 @@ void __41__APConnectionNotifier_remoteObjectProxy__block_invoke(uint64_t a1, voi
   v6 = [v5 OSLogObject];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v7 = v10;
-    _os_log_impl(&dword_241063000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Remote object proxy error. Error:%{public}@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2114;
+    v11 = v3;
+    v7 = v9;
+    _os_log_impl(&dword_241063000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Remote object proxy error. Error:%{public}@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (APConnectionNotifier)sharedNotifier
@@ -117,7 +115,7 @@ void __41__APConnectionNotifier__remoteConnection__block_invoke(uint64_t a1)
 
 - (id)_newRemoteConnection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   connectionQueue = [(APConnectionNotifier *)self connectionQueue];
   dispatch_assert_queue_V2(connectionQueue);
 
@@ -131,8 +129,8 @@ void __41__APConnectionNotifier__remoteConnection__block_invoke(uint64_t a1)
   if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v21 = objc_opt_class();
-    v6 = v21;
+    v20 = objc_opt_class();
+    v6 = v20;
     _os_log_impl(&dword_241063000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: Creating a remote connection", buf, 0xCu);
   }
 
@@ -140,18 +138,18 @@ void __41__APConnectionNotifier__remoteConnection__block_invoke(uint64_t a1)
   v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2852E7BC8];
   [v7 setRemoteObjectInterface:v8];
   objc_initWeak(&location, self);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __44__APConnectionNotifier__newRemoteConnection__block_invoke;
-  v17[3] = &unk_278CC15D8;
-  objc_copyWeak(&v18, &location);
-  [v7 setInvalidationHandler:v17];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __44__APConnectionNotifier__newRemoteConnection__block_invoke_93;
-  v15[3] = &unk_278CC15D8;
-  objc_copyWeak(&v16, &location);
-  [v7 setInterruptionHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __44__APConnectionNotifier__newRemoteConnection__block_invoke;
+  v16[3] = &unk_278CC15D8;
+  objc_copyWeak(&v17, &location);
+  [v7 setInvalidationHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __44__APConnectionNotifier__newRemoteConnection__block_invoke_93;
+  v14[3] = &unk_278CC15D8;
+  objc_copyWeak(&v15, &location);
+  [v7 setInterruptionHandler:v14];
   v9 = +[APLogConfig sharedFrameworkConfig];
   if (!v9)
   {
@@ -163,23 +161,22 @@ void __41__APConnectionNotifier__remoteConnection__block_invoke(uint64_t a1)
   {
     v11 = objc_opt_class();
     *buf = 138543362;
-    v21 = v11;
+    v20 = v11;
     v12 = v11;
     _os_log_impl(&dword_241063000, oSLogObject2, OS_LOG_TYPE_DEFAULT, "%{public}@: Resuming remote connection", buf, 0xCu);
   }
 
   [v7 resume];
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __44__APConnectionNotifier__newRemoteConnection__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[APLogConfig sharedFrameworkConfig];
   if (!v2)
@@ -190,19 +187,18 @@ void __44__APConnectionNotifier__newRemoteConnection__block_invoke(uint64_t a1)
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_241063000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Remote connection invalidated", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_241063000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Remote connection invalidated", &v5, 0xCu);
   }
 
   [WeakRetained setUnderlyingRemoteConnection:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __44__APConnectionNotifier__newRemoteConnection__block_invoke_93(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = +[APLogConfig sharedFrameworkConfig];
   if (!v2)
@@ -213,14 +209,13 @@ void __44__APConnectionNotifier__newRemoteConnection__block_invoke_93(uint64_t a
   v3 = [v2 OSLogObject];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_241063000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Remote connection interrupted", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_241063000, v3, OS_LOG_TYPE_ERROR, "%{public}@: Remote connection interrupted", &v5, 0xCu);
   }
 
   [WeakRetained setUnderlyingRemoteConnection:0];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

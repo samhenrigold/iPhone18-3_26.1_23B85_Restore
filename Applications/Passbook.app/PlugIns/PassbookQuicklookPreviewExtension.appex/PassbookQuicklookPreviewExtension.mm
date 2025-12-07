@@ -47,9 +47,9 @@ void sub_100001B3C(uint64_t a1, void *a2)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         v7 = *(a1 + 40);
-        v14 = 138412290;
-        v15 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Transaction not found with identifier %@", &v14, 0xCu);
+        v12 = 138412290;
+        v13 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Transaction not found with identifier %@", &v12, 0xCu);
       }
 
       v8 = [NSError errorWithDomain:@"PassbookQuicklookPreviewExtensionErrorDomain" code:1 userInfo:0];
@@ -58,17 +58,15 @@ void sub_100001B3C(uint64_t a1, void *a2)
       *(v9 + 40) = v8;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(*(a1 + 48) + 16);
+    v11 = *(*(a1 + 48) + 16);
   }
 
   else
   {
-    v13 = *(a1 + 32);
-    v12 = *(*(a1 + 48) + 16);
+    v11 = *(*(a1 + 48) + 16);
   }
 
-  v12();
+  v11();
 }
 
 void sub_100001C94(uint64_t a1, void *a2, void *a3, void *a4)
@@ -95,17 +93,16 @@ void sub_100001C94(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_100001DB0(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    v4 = [[PKFamilyMemberCollection alloc] initWithFamilyMembers:v8];
+    v4 = [[PKFamilyMemberCollection alloc] initWithFamilyMembers:v7];
     v5 = *(*(a1 + 48) + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -163,9 +160,9 @@ void sub_100001F80(void *a1, void *a2)
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = a1[5];
-      v15 = 138412290;
-      v16 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Pass not found for transaction with identifier %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Pass not found for transaction with identifier %@", &v14, 0xCu);
     }
 
     v8 = [NSError errorWithDomain:@"PassbookQuicklookPreviewExtensionErrorDomain" code:2 userInfo:0];
@@ -176,7 +173,6 @@ void sub_100001F80(void *a1, void *a2)
   v13 = *(v12 + 40);
   *(v12 + 40) = v8;
 
-  v14 = a1[6];
   (*(a1[7] + 16))();
 }
 
@@ -212,14 +208,13 @@ void sub_10000210C(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_100002270(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -255,17 +250,16 @@ void sub_100002300(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_100002464(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  if (WeakRetained && [v8 count])
+  if (WeakRetained && [v7 count])
   {
-    v4 = [[PKAccountUserCollection alloc] initWithAccountUsers:v8];
+    v4 = [[PKAccountUserCollection alloc] initWithAccountUsers:v7];
     v5 = *(*(a1 + 48) + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -301,17 +295,16 @@ void sub_100002508(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_10000266C(uint64_t a1, void *a2)
 {
-  v8 = a2;
+  v7 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  if (WeakRetained && [v8 count])
+  if (WeakRetained && [v7 count])
   {
-    v4 = [v8 copy];
+    v4 = [v7 copy];
     v5 = *(*(a1 + 48) + 8);
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
   }
 
-  v7 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -345,10 +338,10 @@ void sub_1000027F0(uint64_t a1)
     v3 = objc_alloc_init(CNContactStore);
     v4 = [PKContactResolver alloc];
     v5 = [CNContactFormatter descriptorForRequiredKeysForStyle:0];
-    v14[0] = v5;
-    v14[1] = CNContactEmailAddressesKey;
-    v14[2] = CNContactPhoneNumbersKey;
-    v6 = [NSArray arrayWithObjects:v14 count:3];
+    v13[0] = v5;
+    v13[1] = CNContactEmailAddressesKey;
+    v13[2] = CNContactPhoneNumbersKey;
+    v6 = [NSArray arrayWithObjects:v13 count:3];
     v7 = [v4 initWithContactStore:v3 keysToFetch:v6];
 
     v8 = [PKPaymentTransactionDetailsFactory alloc];
@@ -362,7 +355,6 @@ void sub_1000027F0(uint64_t a1)
 
   else
   {
-    v13 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 }

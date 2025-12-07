@@ -22,37 +22,36 @@
 - (SecureAsset)initWithResourcePath:(id)path assetFileName:(id)name assetVersion:(id)version assetHash:(id)hash
 {
   v8 = sub_247994C14();
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_247994BC4();
-  v12 = sub_247994E84();
-  v14 = v13;
+  v11 = sub_247994E84();
+  v13 = v12;
   if (!version)
   {
-    v16 = 0;
+    v15 = 0;
     if (hash)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v17 = 0;
-    v19 = 0;
-    return SecureAsset.init(resourcePath:assetFileName:assetVersion:assetHash:)(v11, v12, v14, version, v16, v17, v19);
+    v16 = 0;
+    v18 = 0;
+    return SecureAsset.init(resourcePath:assetFileName:assetVersion:assetHash:)(v10, v11, v13, version, v15, v16, v18);
   }
 
   version = sub_247994E84();
-  v16 = v15;
+  v15 = v14;
   if (!hash)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v17 = sub_247994E84();
-  v19 = v18;
-  return SecureAsset.init(resourcePath:assetFileName:assetVersion:assetHash:)(v11, v12, v14, version, v16, v17, v19);
+  v16 = sub_247994E84();
+  v18 = v17;
+  return SecureAsset.init(resourcePath:assetFileName:assetVersion:assetHash:)(v10, v11, v13, version, v15, v16, v18);
 }
 
 - (id)assetPath
@@ -282,35 +281,34 @@ LABEL_3:
   {
     v5 = sub_247994E84();
     v7 = v6;
-    v8 = *(self + OBJC_IVAR___SecureAsset_assetLoader);
     selfCopy = self;
 
     resourcePath = [(SecureAsset *)selfCopy resourcePath];
-    v11 = sub_247994E84();
-    v13 = v12;
+    v10 = sub_247994E84();
+    v12 = v11;
 
-    v14 = sub_24798FDA4(v11, v13, v5, v7);
-    v16 = v15;
+    v13 = sub_24798FDA4(v10, v12, v5, v7);
+    v15 = v14;
 
-    if (v16 >> 60 == 15)
+    if (v15 >> 60 == 15)
     {
-      v17 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v19 = sub_247994C44();
-      sub_247978BF0(v14, v16);
-      v17 = v19;
+      v18 = sub_247994C44();
+      sub_247978BF0(v13, v15);
+      v16 = v18;
     }
   }
 
   else
   {
-    v17 = 0;
+    v16 = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 - (id)getConfigDataWithFileName:(id)name prefix:(id)prefix

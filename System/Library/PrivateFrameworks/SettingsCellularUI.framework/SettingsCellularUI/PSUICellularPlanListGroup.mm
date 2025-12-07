@@ -56,34 +56,34 @@
 
 - (id)specifiers
 {
-  v85 = *MEMORY[0x277D85DE8];
-  v66 = objc_opt_new();
+  v78 = *MEMORY[0x277D85DE8];
+  v59 = objc_opt_new();
   v3 = +[PSUICellularPlanManagerCache sharedInstance];
   planItems = [v3 planItems];
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   obj = planItems;
-  v5 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+  v5 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v77;
-    v63 = *MEMORY[0x277D3FE58];
-    v59 = *MEMORY[0x277D40128];
-    v61 = *MEMORY[0x277D3FE70];
+    v7 = *v70;
+    v56 = *MEMORY[0x277D3FE58];
+    v52 = *MEMORY[0x277D40128];
+    v54 = *MEMORY[0x277D3FE70];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v77 != v7)
+        if (*v70 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v76 + 1) + 8 * i);
+        v9 = *(*(&v69 + 1) + 8 * i);
         if ([v9 settingsMode] && objc_msgSend(v9, "settingsMode") != 1)
         {
           if ([v9 settingsMode] == 2)
@@ -100,7 +100,7 @@
             if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v83 = "[PSUICellularPlanListGroup specifiers]";
+              v76 = "[PSUICellularPlanListGroup specifiers]";
               _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "%s unexpected settings mode", buf, 0xCu);
             }
           }
@@ -115,7 +115,7 @@
         if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v83 = v9;
+          v76 = v9;
           _os_log_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_DEFAULT, "planItem: %@", buf, 0xCu);
         }
 
@@ -128,193 +128,167 @@
           v15 = MEMORY[0x277D3FAD8];
           name = [v9 name];
           v17 = [v15 preferenceSpecifierNamed:name target:self set:0 get:sel_planSpecifierDetailText_ detail:0 cell:16 edit:0];
-
-          v18 = off_279BA9370;
         }
 
         else if ([v9 isInstalling])
         {
-          v19 = MEMORY[0x277D3FAD8];
+          v18 = MEMORY[0x277D3FAD8];
           name2 = [v9 name];
-          v17 = [v19 preferenceSpecifierNamed:name2 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:3 edit:0];
-
-          v18 = off_279BA9358;
+          v17 = [v18 preferenceSpecifierNamed:name2 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:3 edit:0];
         }
 
         else if ([v9 transferredStatus] == 4)
         {
-          v21 = MEMORY[0x277D3FAD8];
+          v20 = MEMORY[0x277D3FAD8];
           name3 = [v9 name];
-          v17 = [v21 preferenceSpecifierNamed:name3 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:2 edit:0];
+          v17 = [v20 preferenceSpecifierNamed:name3 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:2 edit:0];
 
-          isSelected = [v9 isSelected];
-          v18 = off_279BA9390;
-          if (isSelected)
-          {
-            v18 = off_279BA9378;
-          }
+          [v9 isSelected];
         }
 
         else
         {
           transferredStatus = [v9 transferredStatus];
-          v25 = MEMORY[0x277D3FAD8];
+          v23 = MEMORY[0x277D3FAD8];
           name4 = [v9 name];
-          if (transferredStatus)
+          v17 = [v23 preferenceSpecifierNamed:name4 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:2 edit:0];
+
+          if (!transferredStatus)
           {
-            v17 = [v25 preferenceSpecifierNamed:name4 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:2 edit:0];
-
-            v18 = off_279BA9390;
-          }
-
-          else
-          {
-            v17 = [v25 preferenceSpecifierNamed:name4 target:self set:0 get:sel_planSpecifierDetailText_ detail:objc_opt_class() cell:2 edit:0];
-
-            isSelected2 = [v9 isSelected];
-            v18 = off_279BA9378;
-            if (!isSelected2)
-            {
-              v18 = off_279BA93B0;
-            }
+            [v9 isSelected];
           }
         }
 
-        v28 = *v18;
-        [v17 setProperty:objc_opt_class() forKey:v63];
-        v29 = [PSUICellularPlanUniversalReference referenceFromPlanItem:v9];
-        [v17 setProperty:v29 forKey:v61];
+        [v17 setProperty:objc_opt_class() forKey:v56];
+        v25 = [PSUICellularPlanUniversalReference referenceFromPlanItem:v9];
+        [v17 setProperty:v25 forKey:v54];
 
-        v30 = +[PSUICellularPlanManagerCache sharedInstance];
-        v31 = [v30 subscriptionContextForPlanItem:v9 cachedSubscriptionContexts:0];
-        [v17 setProperty:v31 forKey:v59];
+        v26 = +[PSUICellularPlanManagerCache sharedInstance];
+        v27 = [v26 subscriptionContextForPlanItem:v9 cachedSubscriptionContexts:0];
+        [v17 setProperty:v27 forKey:v52];
 
-        [v66 addObject:v17];
+        [v59 addObject:v17];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+      v6 = [obj countByEnumeratingWithState:&v69 objects:v77 count:16];
     }
 
     while (v6);
   }
 
-  v32 = +[PSUICellularPlanManagerCache sharedInstance];
-  danglingPlanItems = [v32 danglingPlanItems];
+  v28 = +[PSUICellularPlanManagerCache sharedInstance];
+  danglingPlanItems = [v28 danglingPlanItems];
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
-  v64 = danglingPlanItems;
-  v34 = [v64 countByEnumeratingWithState:&v72 objects:v81 count:16];
-  if (!v34)
+  v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v57 = danglingPlanItems;
+  v30 = [v57 countByEnumeratingWithState:&v65 objects:v74 count:16];
+  if (!v30)
   {
-    goto LABEL_47;
+    goto LABEL_43;
   }
 
-  v35 = v34;
-  v36 = *v73;
-  v37 = *MEMORY[0x277D3FE58];
-  v38 = *MEMORY[0x277D3FE70];
+  v31 = v30;
+  v32 = *v66;
+  v33 = *MEMORY[0x277D3FE58];
+  v34 = *MEMORY[0x277D3FE70];
   do
   {
-    for (j = 0; j != v35; ++j)
+    for (j = 0; j != v31; ++j)
     {
-      if (*v73 != v36)
+      if (*v66 != v32)
       {
-        objc_enumerationMutation(v64);
+        objc_enumerationMutation(v57);
       }
 
-      v40 = *(*(&v72 + 1) + 8 * j);
+      v36 = *(*(&v65 + 1) + 8 * j);
       if (self->_isPrivateNetworkPlansList)
       {
-        if (![*(*(&v72 + 1) + 8 * j) isPrivateNetworkSim])
+        if (![*(*(&v65 + 1) + 8 * j) isPrivateNetworkSim])
         {
           continue;
         }
 
         if (self->_isPrivateNetworkPlansList)
         {
-          goto LABEL_63;
+          goto LABEL_59;
         }
       }
 
-      if (([v40 isPrivateNetworkSim] & 1) == 0)
+      if (([v36 isPrivateNetworkSim] & 1) == 0)
       {
-LABEL_63:
-        if (!obj || (v71[0] = MEMORY[0x277D85DD0], v71[1] = 3221225472, v71[2] = __39__PSUICellularPlanListGroup_specifiers__block_invoke, v71[3] = &unk_279BAAD60, v71[4] = v40, [obj indexOfObjectPassingTest:v71] == 0x7FFFFFFFFFFFFFFFLL))
+LABEL_59:
+        if (!obj || (v64[0] = MEMORY[0x277D85DD0], v64[1] = 3221225472, v64[2] = __39__PSUICellularPlanListGroup_specifiers__block_invoke, v64[3] = &unk_279BAAD60, v64[4] = v36, [obj indexOfObjectPassingTest:v64] == 0x7FFFFFFFFFFFFFFFLL))
         {
-          v41 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:sel_danglingPlanSpecifierDetailText_ detail:0 cell:3 edit:0];
-          [v41 setProperty:objc_opt_class() forKey:v37];
-          v42 = [PSUICellularPlanUniversalReference referenceFromDanglingPlanItem:v40];
-          [v41 setProperty:v42 forKey:v38];
+          v37 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:sel_danglingPlanSpecifierDetailText_ detail:0 cell:3 edit:0];
+          [v37 setProperty:objc_opt_class() forKey:v33];
+          v38 = [PSUICellularPlanUniversalReference referenceFromDanglingPlanItem:v36];
+          [v37 setProperty:v38 forKey:v34];
 
-          [v41 setButtonAction:sel_danglingPlanPressed_];
-          [v66 addObject:v41];
+          [v37 setButtonAction:sel_danglingPlanPressed_];
+          [v59 addObject:v37];
         }
       }
     }
 
-    v35 = [v64 countByEnumeratingWithState:&v72 objects:v81 count:16];
+    v31 = [v57 countByEnumeratingWithState:&v65 objects:v74 count:16];
   }
 
-  while (v35);
-LABEL_47:
+  while (v31);
+LABEL_43:
 
   if (!self->_isPrivateNetworkPlansList)
   {
-    v43 = +[PSUICellularPlanManagerCache sharedInstance];
-    plansPendingTransfer = [v43 plansPendingTransfer];
+    v39 = +[PSUICellularPlanManagerCache sharedInstance];
+    plansPendingTransfer = [v39 plansPendingTransfer];
 
-    v69 = 0u;
-    v70 = 0u;
-    v67 = 0u;
-    v68 = 0u;
-    v62 = plansPendingTransfer;
-    v45 = [v62 countByEnumeratingWithState:&v67 objects:v80 count:16];
-    if (v45)
+    v62 = 0u;
+    v63 = 0u;
+    v60 = 0u;
+    v61 = 0u;
+    v55 = plansPendingTransfer;
+    v41 = [v55 countByEnumeratingWithState:&v60 objects:v73 count:16];
+    if (v41)
     {
-      v46 = v45;
-      v47 = *v68;
-      v60 = *MEMORY[0x277D3FE58];
-      v48 = *MEMORY[0x277D3FE70];
+      v42 = v41;
+      v43 = *v61;
+      v53 = *MEMORY[0x277D3FE58];
+      v44 = *MEMORY[0x277D3FE70];
       do
       {
-        for (k = 0; k != v46; ++k)
+        for (k = 0; k != v42; ++k)
         {
-          if (*v68 != v47)
+          if (*v61 != v43)
           {
-            objc_enumerationMutation(v62);
+            objc_enumerationMutation(v55);
           }
 
-          v50 = *(*(&v67 + 1) + 8 * k);
-          v51 = MEMORY[0x277D3FAD8];
-          carrierName = [v50 carrierName];
-          v53 = [v51 preferenceSpecifierNamed:carrierName target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
+          v46 = *(*(&v60 + 1) + 8 * k);
+          v47 = MEMORY[0x277D3FAD8];
+          carrierName = [v46 carrierName];
+          v49 = [v47 preferenceSpecifierNamed:carrierName target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
-          status = [v50 status];
-          if (status <= 3)
+          if ([v46 status] <= 3)
           {
-            v55 = *off_279BAAD80[status];
-            [v53 setProperty:objc_opt_class() forKey:v60];
+            [v49 setProperty:objc_opt_class() forKey:v53];
           }
 
-          v56 = [PSUICellularPlanUniversalReference referenceFromCellularPlanPendingTransfer:v50];
-          [v53 setProperty:v56 forKey:v48];
+          v50 = [PSUICellularPlanUniversalReference referenceFromCellularPlanPendingTransfer:v46];
+          [v49 setProperty:v50 forKey:v44];
 
-          [v66 addObject:v53];
+          [v59 addObject:v49];
         }
 
-        v46 = [v62 countByEnumeratingWithState:&v67 objects:v80 count:16];
+        v42 = [v55 countByEnumeratingWithState:&v60 objects:v73 count:16];
       }
 
-      while (v46);
+      while (v42);
     }
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-
-  return v66;
+  return v59;
 }
 
 uint64_t __39__PSUICellularPlanListGroup_specifiers__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

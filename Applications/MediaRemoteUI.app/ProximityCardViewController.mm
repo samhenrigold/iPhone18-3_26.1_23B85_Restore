@@ -21,7 +21,7 @@
   v7 = type metadata accessor for URL();
   (*(*(v7 - 8) + 56))(&self->PRXCardContentViewController_opaque[v6], 1, 1, v7);
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ProximityCardViewController();
+  v9.super_class = type metadata accessor for ProximityCardViewController(0);
   return [(ProximityCardViewController *)&v9 initWithContentView:view];
 }
 

@@ -370,7 +370,7 @@
 
 - (unint64_t)hash
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   builder = [MEMORY[0x1E698E6B8] builder];
   v4 = [builder appendObject:self->_identifier];
   v5 = [builder appendObject:self->_descriptorIdentifier];
@@ -386,61 +386,61 @@
   v15 = [builder appendInteger:self->_layoutType];
   v16 = [builder appendObject:self->_modeSemanticType];
   v17 = [builder appendObject:self->_modeUUID];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v18 = self->_complications;
-  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
+  v19 = [(NSArray *)v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v41;
+    v21 = *v40;
     do
     {
       v22 = 0;
       do
       {
-        if (*v41 != v21)
+        if (*v40 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [builder appendObject:*(*(&v40 + 1) + 8 * v22++)];
+        v23 = [builder appendObject:*(*(&v39 + 1) + 8 * v22++)];
       }
 
       while (v20 != v22);
-      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v20 = [(NSArray *)v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
     while (v20);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v24 = self->_landscapeComplications;
-  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
+  v25 = [(NSArray *)v24 countByEnumeratingWithState:&v35 objects:v43 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v37;
+    v27 = *v36;
     do
     {
       v28 = 0;
       do
       {
-        if (*v37 != v27)
+        if (*v36 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [builder appendObject:{*(*(&v36 + 1) + 8 * v28++), v36}];
+        v29 = [builder appendObject:{*(*(&v35 + 1) + 8 * v28++), v35}];
       }
 
       while (v26 != v28);
-      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v36 objects:v44 count:16];
+      v26 = [(NSArray *)v24 countByEnumeratingWithState:&v35 objects:v43 count:16];
     }
 
     while (v26);
@@ -451,7 +451,6 @@
   v32 = [builder appendInteger:self->_source];
   v33 = [builder hash];
 
-  v34 = *MEMORY[0x1E69E9840];
   return v33;
 }
 

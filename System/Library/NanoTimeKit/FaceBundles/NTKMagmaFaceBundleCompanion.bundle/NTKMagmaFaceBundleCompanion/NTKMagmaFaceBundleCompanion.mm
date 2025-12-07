@@ -70,71 +70,58 @@ void sub_3EE4(uint64_t a1)
   }
 }
 
-id sub_44B4()
+id sub_44B4(uint64_t a1)
 {
   if (qword_1C1B8 != -1)
   {
     sub_A52C();
   }
 
-  v1 = qword_1C1B0;
+  v2 = qword_1C1B0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_58A8(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = CLKUIConvertUIImageToMTLTexture();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 128);
-  *(v4 + 128) = v3;
+  v2 = CLKUIConvertUIImageToMTLTexture();
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 128);
+  *(v3 + 128) = v2;
 
-  v6 = *(a1 + 48);
-  v7 = CLKUIConvertUIImageToMTLTexture();
-  v8 = *(a1 + 32);
-  v9 = *(v8 + 136);
-  *(v8 + 136) = v7;
+  v5 = CLKUIConvertUIImageToMTLTexture();
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 136);
+  *(v6 + 136) = v5;
 
-  v10 = *(a1 + 56);
-  v11 = *(a1 + 64);
-  v12 = *(a1 + 32);
+  v8 = *(a1 + 56);
+  v9 = *(a1 + 64);
+  v10 = *(a1 + 32);
   [*(a1 + 40) size];
-  v15 = [v12 meshForRect:v10 maxPitch:{v11, v13, v14, 10.0}];
-  v16 = *(a1 + 32);
-  v17 = *(v16 + 160);
-  *(v16 + 160) = v15;
+  *(*(a1 + 32) + 160) = [v10 meshForRect:v8 maxPitch:{v9, v11, v12, 10.0}];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_5A3C(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = CLKUIConvertUIImageToMTLTexture();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 144);
-  *(v4 + 144) = v3;
+  v2 = CLKUIConvertUIImageToMTLTexture();
+  v3 = *(a1 + 32);
+  v4 = *(v3 + 144);
+  *(v3 + 144) = v2;
 
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v7 = *(a1 + 32);
   [*(a1 + 40) size];
-  v11 = [v8 meshForRect:v6 maxPitch:{v7, v9, v10, 10.0}];
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 168);
-  *(v12 + 168) = v11;
+  *(*(a1 + 32) + 168) = [v7 meshForRect:v5 maxPitch:{v6, v8, v9, 10.0}];
 
   return _objc_release_x1();
 }
 
 uint64_t sub_5B9C(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = CLKUIConvertUIImageToMTLTexture();
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 152);
-  *(v4 + 152) = v3;
+  *(*(a1 + 32) + 152) = CLKUIConvertUIImageToMTLTexture();
 
   return _objc_release_x1();
 }
@@ -146,10 +133,11 @@ void sub_645C(id a1)
   _objc_release_x1();
 }
 
-void sub_64B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_64B8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void sub_67BC(id a1, NTKFace *a2, unint64_t a3, BOOL *a4)

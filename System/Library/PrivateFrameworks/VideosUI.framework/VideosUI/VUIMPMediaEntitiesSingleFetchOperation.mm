@@ -242,7 +242,7 @@ LABEL_11:
 - (void)_processSortDescriptors
 {
   selfCopy = self;
-  v43 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   mediaEntityKind = [(VUIMPMediaEntitiesSingleFetchOperation *)self mediaEntityKind];
   request = [(VUIMPMediaEntitiesSingleFetchOperation *)selfCopy request];
   sortDescriptors = [request sortDescriptors];
@@ -251,36 +251,36 @@ LABEL_11:
     _shouldSortUsingMediaQuery = [(VUIMPMediaEntitiesSingleFetchOperation *)selfCopy _shouldSortUsingMediaQuery];
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
     obj = sortDescriptors;
-    v7 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+    v7 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v35;
-      v27 = request;
-      v28 = *MEMORY[0x1E695D940];
-      v25 = selfCopy;
-      v26 = sortDescriptors;
-      v30 = v5;
+      v9 = *v36;
+      v28 = request;
+      v29 = *MEMORY[0x1E695D940];
+      v26 = selfCopy;
+      v27 = sortDescriptors;
+      v31 = v5;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v35 != v9)
+          if (*v36 != v9)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v34 + 1) + 8 * i);
+          v11 = *(*(&v35 + 1) + 8 * i);
           v12 = [v11 key];
           v13 = [mediaEntityKind propertyDescriptorForName:v12];
           if (!v13)
           {
-            [MEMORY[0x1E695DF30] raise:v28 format:{@"Unknown key for sort descriptor! %@", v12}];
+            [MEMORY[0x1E695DF30] raise:v29 format:{@"Unknown key for sort descriptor! %@", v12}];
           }
 
           sourcePropertyNames = [v13 sourcePropertyNames];
@@ -288,27 +288,27 @@ LABEL_11:
           if (!_shouldSortUsingMediaQuery || [sourcePropertyNames count] >= 2)
           {
 
-            mediaEntityKind2 = [(VUIMPMediaEntitiesSingleFetchOperation *)v25 mediaEntityKind];
-            v33 = 0;
-            request = v27;
-            v22 = [v27 _manualSortDescriptorsWithMediaEntityKind:mediaEntityKind2 propertiesRequiredForSort:&v33];
-            v23 = v33;
+            mediaEntityKind2 = [(VUIMPMediaEntitiesSingleFetchOperation *)v26 mediaEntityKind];
+            v34 = 0;
+            request = v28;
+            v23 = [v28 _manualSortDescriptorsWithMediaEntityKind:mediaEntityKind2 propertiesRequiredForSort:&v34];
+            v24 = v34;
 
-            prefetchProperties = [(VUIMPMediaEntitiesSingleFetchOperation *)v25 prefetchProperties];
-            [prefetchProperties unionSet:v23];
+            prefetchProperties = [(VUIMPMediaEntitiesSingleFetchOperation *)v26 prefetchProperties];
+            [prefetchProperties unionSet:v24];
 
-            [(VUIMPMediaEntitiesSingleFetchOperation *)v25 setPostFetchSortDescriptors:v22];
-            [(VUIMPMediaEntitiesSingleFetchOperation *)v25 setProcessRangeAfterFetch:1];
+            [(VUIMPMediaEntitiesSingleFetchOperation *)v26 setPostFetchSortDescriptors:v23];
+            [(VUIMPMediaEntitiesSingleFetchOperation *)v26 setProcessRangeAfterFetch:1];
 
-            sortDescriptors = v26;
-            v5 = v30;
+            sortDescriptors = v27;
+            v5 = v31;
             goto LABEL_20;
           }
 
           allObjects = [v15 allObjects];
           firstObject = [allObjects firstObject];
 
-          [v30 addObject:firstObject];
+          [v31 addObject:firstObject];
           if ([v11 ascending])
           {
             v18 = 1;
@@ -323,11 +323,11 @@ LABEL_11:
           [v6 setObject:v19 forKey:firstObject];
         }
 
-        v8 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
-        sortDescriptors = v26;
-        request = v27;
-        selfCopy = v25;
-        v5 = v30;
+        v8 = [obj countByEnumeratingWithState:&v35 objects:v43 count:16];
+        sortDescriptors = v27;
+        request = v28;
+        selfCopy = v26;
+        v5 = v31;
         if (v8)
         {
           continue;
@@ -337,14 +337,14 @@ LABEL_11:
       }
     }
 
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = VUIDefaultLogObject(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v39 = v5;
-      v40 = 2112;
-      v41 = v6;
-      _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "Sorting will be performed by MPMediaLibrary using %@ (%@)", buf, 0x16u);
+      v40 = v5;
+      v41 = 2112;
+      v42 = v6;
+      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "Sorting will be performed by MPMediaLibrary using %@ (%@)", buf, 0x16u);
     }
 
     [(VUIMPMediaEntitiesSingleFetchOperation *)selfCopy setMediaQuerySortOrderingProperties:v5];
@@ -624,7 +624,7 @@ LABEL_8:
 
 - (id)_mediaEntityPropertyDescriptorForFilteringWithKeyPath:(id)path
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   mediaEntityKind = [(VUIMPMediaEntitiesSingleFetchOperation *)self mediaEntityKind];
   v6 = [mediaEntityKind propertyDescriptorForName:pathCopy];
@@ -633,25 +633,26 @@ LABEL_8:
     [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unknown keypath %@ for entity kind %@", pathCopy, mediaEntityKind}];
   }
 
-  if ([v6 sourceSupportsFiltering])
+  sourceSupportsFiltering = [v6 sourceSupportsFiltering];
+  if (sourceSupportsFiltering)
   {
-    v7 = v6;
+    v8 = v6;
   }
 
   else
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(sourceSupportsFiltering);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = pathCopy;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "Filtering is not supported for keypath %@. Predicate cannot be satisfied by the MPMediaLibrary directly", buf, 0xCu);
+      v12 = pathCopy;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "Filtering is not supported for keypath %@. Predicate cannot be satisfied by the MPMediaLibrary directly", buf, 0xCu);
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)_mediaEntityKind
@@ -663,37 +664,37 @@ LABEL_8:
 
     if (currentFetchMediaEntityType == v4)
     {
-      v10 = VUIMPShowMediaCollectionKind();
+      v12 = VUIMPShowMediaCollectionKind(v5);
     }
 
     else
     {
-      v5 = self->_currentFetchMediaEntityType;
-      v6 = +[VUIMediaEntityType season];
+      v6 = self->_currentFetchMediaEntityType;
+      v7 = +[VUIMediaEntityType season];
 
-      if (v5 == v6)
+      if (v6 == v7)
       {
-        v10 = VUIMPSeasonMediaCollectionKind();
+        v12 = VUIMPSeasonMediaCollectionKind(v8);
       }
 
       else
       {
-        v7 = MEMORY[0x1E695DF30];
-        v8 = *MEMORY[0x1E695D930];
+        v9 = MEMORY[0x1E695DF30];
+        v10 = *MEMORY[0x1E695D930];
         request = [(VUIMPMediaEntitiesSingleFetchOperation *)self request];
-        [v7 raise:v8 format:{@"Unable to determine the VUIMediaEntityKind to use for this request: %@", request}];
+        [v9 raise:v10 format:{@"Unable to determine the VUIMediaEntityKind to use for this request: %@", request}];
 
-        v10 = 0;
+        v12 = 0;
       }
     }
   }
 
   else
   {
-    v10 = VUIMPMediaItemKind();
+    v12 = VUIMPMediaItemKind(0);
   }
 
-  return v10;
+  return v12;
 }
 
 - (void)_populatePrefetchProperties
@@ -949,34 +950,36 @@ LABEL_16:
     }
 
     postFetchSortDescriptors = [(VUIMPMediaEntitiesSingleFetchOperation *)self postFetchSortDescriptors];
+    v9 = postFetchSortDescriptors;
     if (postFetchSortDescriptors)
     {
-      v9 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = VUIDefaultLogObject(postFetchSortDescriptors);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "Sorting media entities returned from MPMediaQuery", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "Sorting media entities returned from MPMediaQuery", buf, 2u);
       }
 
-      v10 = [entitiesCopy sortedArrayUsingDescriptors:postFetchSortDescriptors];
+      v11 = [entitiesCopy sortedArrayUsingDescriptors:v9];
 
-      entitiesCopy = v10;
+      entitiesCopy = v11;
     }
 
-    if ([(VUIMPMediaEntitiesSingleFetchOperation *)self processRangeAfterFetch])
+    processRangeAfterFetch = [(VUIMPMediaEntitiesSingleFetchOperation *)self processRangeAfterFetch];
+    if (processRangeAfterFetch)
     {
-      v11 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = VUIDefaultLogObject(processRangeAfterFetch);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "Processing range on media entities returned from MPMediaQuery", v17, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "Processing range on media entities returned from MPMediaQuery", v19, 2u);
       }
 
       request2 = [(VUIMPMediaEntitiesSingleFetchOperation *)self request];
       range = [request2 range];
-      v15 = [(VUIMPMediaEntitiesSingleFetchOperation *)self _mediaEntities:entitiesCopy subarrayWithRange:range, v14];
+      v17 = [(VUIMPMediaEntitiesSingleFetchOperation *)self _mediaEntities:entitiesCopy subarrayWithRange:range, v16];
 
-      entitiesCopy = v15;
+      entitiesCopy = v17;
     }
   }
 
@@ -1106,7 +1109,7 @@ LABEL_16:
 
         else
         {
-          v20 = VUIDefaultLogObject();
+          v20 = VUIDefaultLogObject(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;

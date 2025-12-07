@@ -184,15 +184,15 @@ LABEL_8:
 - (DAPartialIP)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v17.receiver = self;
-  v17.super_class = DAPartialIP;
-  v7 = [(DAPartialIP *)&v17 init];
+  v11.receiver = self;
+  v11.super_class = DAPartialIP;
+  v7 = [(DAPartialIP *)&v11 init];
   if (!v7)
   {
     if (error)
     {
       v10 = objc_opt_class();
-      DAErrorF(350001, "%@ super init failed", v11, v12, v13, v14, v15, v16, v10);
+      DAErrorF(350001, "%@ super init failed", v10);
       *error = v8 = 0;
       goto LABEL_5;
     }

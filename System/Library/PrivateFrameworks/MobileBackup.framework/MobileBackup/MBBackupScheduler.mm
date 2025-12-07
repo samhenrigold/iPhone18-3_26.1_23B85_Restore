@@ -11,6 +11,7 @@
 - (BOOL)_isBackupOnCellularAllowedForAccount:(id)account;
 - (BOOL)_shouldStartBackupWithAccount:(id)account reason:(int64_t)reason;
 - (BOOL)_startBackupForNextAvailableAccountWithRequest:(id)request;
+- (BOOL)_startBackupRequestForActivity:(int)activity;
 - (id)_backoffDateForAccount:(id)account softCancelled:(BOOL)cancelled;
 - (id)_conditionLossTimerWithSeconds:(int64_t)seconds changes:(id)changes;
 - (id)_dateOfLastBackupFromCloudWithConnection:(id)connection account:(id)account error:(id *)error;
@@ -28,6 +29,8 @@
 - (int64_t)_scheduleBackupOnWiFi:(BOOL)fi onCellular:(BOOL)cellular onBattery:(BOOL)battery;
 - (unint64_t)_lastPendingSnapshotSizeForAccount:(id)account;
 - (void)_cancelAlarm;
+- (void)_cancelBackupWithActivityType:(int)type changes:(id)changes;
+- (void)_cancelInitiatedBackupWithChanges:(id)changes isDeferred:(BOOL)deferred;
 - (void)_cancelInternalNotification;
 - (void)_cancelLossTimers;
 - (void)_cancelPowerLossTimer;
@@ -47,13 +50,20 @@
 - (void)_notifyStateChanged:(id)changed conditions:(id)conditions;
 - (void)_onQueue_warnUserOfDelayedRestoreWithAccount:(id)account;
 - (void)_onQueue_warnUserOfLateBackupWithAccount:(id)account;
+- (void)_refreshRetryAfterDateForAccount:(id)account softCancelled:(BOOL)cancelled;
 - (void)_registerAlarmHandler;
 - (void)_releaseWorkAssertion;
 - (void)_scheduleNextBackup;
+- (void)_setIsAutoBackupOnCellularAllowed:(BOOL)allowed;
 - (void)_setIsBackupOnCellularEnabled:(BOOL)enabled;
 - (void)_setIsEnabled:(BOOL)enabled;
+- (void)_setIsLocked:(BOOL)locked;
+- (void)_setIsOnCellular:(BOOL)cellular;
+- (void)_setIsOnExpensiveCellular:(BOOL)cellular;
 - (void)_setIsOnPower:(BOOL)power;
+- (void)_setIsOnWiFi:(BOOL)fi;
 - (void)_stateDidChange:(id)change conditions:(id)conditions;
+- (void)_tearDownScheduledBackupWithActivityType:(int)type;
 - (void)_triggerInternalNotificationWithAccount:(id)account;
 - (void)_updateFailureCountsForAccount:(id)account lastBackupError:(id)error canceled:(BOOL)canceled lowCellularBudget:(BOOL)budget;
 - (void)_updateNilBackupDateFetchDate:(id)date account:(id)account;
@@ -99,9 +109,9 @@
   }
 
   v6 = managerCopy;
-  v49.receiver = self;
-  v49.super_class = MBBackupScheduler;
-  v7 = [(MBBackupScheduler *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = MBBackupScheduler;
+  v7 = [(MBBackupScheduler *)&v48 init];
   if (v7)
   {
     v8 = time(0);
@@ -142,28 +152,27 @@
     block[2] = sub_1001D3920;
     block[3] = &unk_1003BC0B0;
     v23 = v7;
-    v48 = v23;
+    v47 = v23;
     dispatch_async(v22, block);
-    v46 = 0;
-    v24 = [MBPersona getPersonalBooleanValueForKey:@"AllowBackupOnExpensiveCellular" keyExists:&v46];
-    if (v46)
+    v45 = 0;
+    v24 = [MBPersona getPersonalBooleanValueForKey:@"AllowBackupOnExpensiveCellular" keyExists:&v45];
+    if (v45)
     {
       v25 = MBGetDefaultLog();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        LODWORD(v51) = v24;
+        LODWORD(v50) = v24;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= Backup on cellular allowed (plist override): %d", buf, 8u);
-        v42 = v24;
-        _MBLog();
+        _MBLog(@"Df", "=scheduler= Backup on cellular allowed (plist override): %d", v24);
       }
     }
 
     *(v23 + 124) = v24 != 0;
-    v46 = 0;
-    v26 = [MBPersona getPersonalBooleanValueForKey:@"AllowBackupOnBattery" keyExists:&v46, v42];
+    v45 = 0;
+    v26 = [MBPersona getPersonalBooleanValueForKey:@"AllowBackupOnBattery" keyExists:&v45];
     v27 = 0;
-    if (v46)
+    if (v45)
     {
       v28 = v26;
       if (v26)
@@ -172,10 +181,9 @@
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v51) = v28;
+          LODWORD(v50) = v28;
           _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=scheduler= Backup on battery allowed (plist override): %d", buf, 8u);
-          v43 = v28;
-          _MBLog();
+          _MBLog(@"Df", "=scheduler= Backup on battery allowed (plist override): %d", v28);
         }
 
         v27 = 1;
@@ -183,9 +191,9 @@
     }
 
     *(v23 + 125) = v27;
-    v46 = 0;
-    v30 = [MBPersona getPersonalBooleanValueForKey:@"IgnorePowerState" keyExists:&v46, v43];
-    if (v46)
+    v45 = 0;
+    v30 = [MBPersona getPersonalBooleanValueForKey:@"IgnorePowerState" keyExists:&v45];
+    if (v45)
     {
       v31 = v30 == 0;
     }
@@ -207,10 +215,11 @@
       v37 = MBGetDefaultLog();
       if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
+        v38 = v36 / 60.0;
         *buf = 134217984;
-        v51 = v36 / 60.0;
+        v50 = v38;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "=scheduler= Passcode was changed %.2f minutes ago", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "=scheduler= Passcode was changed %.2f minutes ago", v38);
       }
 
       if ([v33 isWithinDefaultBackupPeriod])
@@ -224,16 +233,16 @@
       }
     }
 
-    v38 = *(v7 + 2);
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_1001D39CC;
-    v44[3] = &unk_1003BC0B0;
-    v39 = v23;
-    v45 = v39;
-    dispatch_async(v38, v44);
-    v40 = v39[32];
-    v39[32] = 0;
+    v39 = *(v7 + 2);
+    v43[0] = _NSConcreteStackBlock;
+    v43[1] = 3221225472;
+    v43[2] = sub_1001D39CC;
+    v43[3] = &unk_1003BC0B0;
+    v40 = v23;
+    v44 = v40;
+    dispatch_async(v39, v43);
+    v41 = v40[32];
+    v40[32] = 0;
 
     dispatch_activate(*(v7 + 2));
   }
@@ -309,7 +318,7 @@
       v23 = 1024;
       v24 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=scheduler= notify_register_dispatch(%{public}s) failed: %u", buf, 0x12u);
-      _MBLog();
+      _MBLog(@"E ", "=scheduler= notify_register_dispatch(%{public}s) failed: %u", "com.apple.system.powersources.source", v7);
     }
   }
 
@@ -363,36 +372,35 @@
   persona = [account persona];
   v4 = [persona copyPreferencesValueForKey:@"LastOnConditionEvents" class:objc_opt_class()];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 
-          v11 = 0;
+          v10 = 0;
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -402,10 +410,10 @@
     }
   }
 
-  v11 = v5;
+  v10 = v5;
 LABEL_11:
 
-  return v11;
+  return v10;
 }
 
 + (void)_setLastOnConditionEvents:(id)events account:(id)account
@@ -418,8 +426,8 @@ LABEL_11:
 - (void)_checkinXPCActivities
 {
   v3 = [[MBXPCActivityCoordinator alloc] initWithDelegate:self];
-  v30 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:1];
-  v4 = xpc_activity_copy_criteria(v30);
+  v31 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:1];
+  v4 = xpc_activity_copy_criteria(v31);
   v5 = xpc_dictionary_get_value(v4, XPC_ACTIVITY_DELAY);
   v6 = +[NSDate now];
   if (v5)
@@ -428,8 +436,8 @@ LABEL_11:
     [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v7 forKeyedSubscript:&off_1003E0F90];
   }
 
-  v28 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:2];
-  v8 = xpc_activity_copy_criteria(v28);
+  v29 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:2];
+  v8 = xpc_activity_copy_criteria(v29);
 
   v9 = xpc_dictionary_get_value(v8, XPC_ACTIVITY_DELAY);
 
@@ -439,10 +447,10 @@ LABEL_11:
     [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v10 forKeyedSubscript:&off_1003E0FA8];
   }
 
-  v26 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:3];
-  v11 = xpc_activity_copy_criteria(v26);
+  v27 = [(MBXPCActivityCoordinator *)v3 checkInBackupActivity:3];
+  v11 = xpc_activity_copy_criteria(v27);
 
-  v27 = v11;
+  v28 = v11;
   v12 = xpc_dictionary_get_value(v11, XPC_ACTIVITY_DELAY);
 
   if (v12)
@@ -451,46 +459,46 @@ LABEL_11:
     [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v13 forKeyedSubscript:&off_1003E0FC0];
   }
 
-  v25 = v12;
-  v29 = v6;
-  v33 = 0u;
+  v26 = v12;
+  v30 = v6;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
+  v33 = 0u;
   v14 = self->_nextBackupDatesByActivityType;
-  v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v15 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v32;
+    v17 = *v33;
     do
     {
       for (i = 0; i != v16; i = i + 1)
       {
-        if (*v32 != v17)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v31 + 1) + 8 * i);
+        v19 = *(*(&v32 + 1) + 8 * i);
         v20 = MBGetDefaultLog();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           v21 = MBBackupXPCActivityNameWithType([v19 intValue]);
           v22 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:v19];
           *buf = 136315394;
-          v36 = v21;
-          v37 = 2114;
-          v38 = v22;
+          v37 = v21;
+          v38 = 2114;
+          v39 = v22;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=scheduler= Found already scheduled backup for %s at %{public}@", buf, 0x16u);
 
-          MBBackupXPCActivityNameWithType([v19 intValue]);
+          v23 = MBBackupXPCActivityNameWithType([v19 intValue]);
           v24 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:v19];
-          _MBLog();
+          _MBLog(@"Df", "=scheduler= Found already scheduled backup for %s at %{public}@", v23, v24);
         }
       }
 
-      v16 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v16 = [(NSMutableDictionary *)v14 countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v16);
@@ -513,75 +521,76 @@ LABEL_11:
   if (persona)
   {
     unsignedIntegerValue = [v13 unsignedIntegerValue];
-    v15 = MBGetDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = unsignedIntegerValue + 1;
+    v16 = MBGetDefaultLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       accountIdentifier = [accountCopy accountIdentifier];
       *buf = 138544130;
-      v32 = @"MissingEncryptionKeyFailureCount";
-      v33 = 2114;
-      v34 = accountIdentifier;
-      v35 = 2048;
-      v36 = unsignedIntegerValue + 1;
-      v37 = 2048;
-      v38 = unsignedIntegerValue;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", buf, 0x2Au);
+      v33 = @"MissingEncryptionKeyFailureCount";
+      v34 = 2114;
+      v35 = accountIdentifier;
+      v36 = 2048;
+      v37 = unsignedIntegerValue + 1;
+      v38 = 2048;
+      v39 = unsignedIntegerValue;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", buf, 0x2Au);
 
       accountIdentifier2 = [accountCopy accountIdentifier];
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", @"MissingEncryptionKeyFailureCount", accountIdentifier2, v15, unsignedIntegerValue);
     }
 
     persona2 = [accountCopy persona];
-    v18 = [NSNumber numberWithUnsignedInteger:unsignedIntegerValue + 1];
-    [persona2 setPreferencesValue:v18 forKey:@"MissingEncryptionKeyFailureCount"];
+    v20 = [NSNumber numberWithUnsignedInteger:v15];
+    [persona2 setPreferencesValue:v20 forKey:@"MissingEncryptionKeyFailureCount"];
   }
 
   else
   {
-    v19 = 1;
+    v21 = 1;
     if (v13)
     {
-      v19 = 2;
+      v21 = 2;
     }
 
     if (!canceledCopy || budgetCopy)
     {
-      v20 = v19;
+      v22 = v21;
     }
 
     else
     {
-      v20 = v13 != 0;
+      v22 = v13 != 0;
     }
 
-    if (v20)
+    if (v22)
     {
       persona3 = [accountCopy persona];
-      v22 = [persona3 copyPreferencesValueForKey:@"FailureCount" class:objc_opt_class()];
-      unsignedIntegerValue2 = [v22 unsignedIntegerValue];
+      v24 = [persona3 copyPreferencesValueForKey:@"FailureCount" class:objc_opt_class()];
+      unsignedIntegerValue2 = [v24 unsignedIntegerValue];
 
-      v24 = &unsignedIntegerValue2[v20];
-      v25 = MBGetDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = &unsignedIntegerValue2[v22];
+      v27 = MBGetDefaultLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         accountIdentifier3 = [accountCopy accountIdentifier];
         *buf = 138544130;
-        v32 = @"FailureCount";
-        v33 = 2114;
-        v34 = accountIdentifier3;
-        v35 = 2048;
-        v36 = v24;
-        v37 = 2048;
-        v38 = unsignedIntegerValue2;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", buf, 0x2Au);
+        v33 = @"FailureCount";
+        v34 = 2114;
+        v35 = accountIdentifier3;
+        v36 = 2048;
+        v37 = v26;
+        v38 = 2048;
+        v39 = unsignedIntegerValue2;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", buf, 0x2Au);
 
         accountIdentifier4 = [accountCopy accountIdentifier];
-        _MBLog();
+        _MBLog(@"Df", "=scheduler= Updating %{public}@ for account %{public}@: %lu(%lu)", @"FailureCount", accountIdentifier4, v26, unsignedIntegerValue2);
       }
 
       persona4 = [accountCopy persona];
-      v28 = [NSNumber numberWithUnsignedInteger:v24];
-      [persona4 setPreferencesValue:v28 forKey:@"FailureCount"];
+      v31 = [NSNumber numberWithUnsignedInteger:v26];
+      [persona4 setPreferencesValue:v31 forKey:@"FailureCount"];
     }
 
     if (v13)
@@ -616,7 +625,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=scheduler= Clearing %{public}@ (%{public}@) for account %{public}@", buf, 0x20u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Clearing %{public}@ (%{public}@) for account %{public}@", keyCopy, v8, accountIdentifier2);
   }
 
   persona2 = [accountCopy persona];
@@ -704,7 +713,7 @@ LABEL_11:
         *&v30[18] = 2048;
         *&v30[20] = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "=scheduler= %{public}@, failureCount:%lu, backoff:%G", buf, 0x20u);
-        _MBLog();
+        _MBLog(@"I ", "=scheduler= %{public}@, failureCount:%lu, backoff:%G", @"MissingEncryptionKeyFailureCount", v14, *&v16);
       }
 
       v10 = @"MissingEncryptionKeyRetryAfter";
@@ -733,7 +742,7 @@ LABEL_11:
         *&v30[18] = 2048;
         *&v30[20] = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "=scheduler= %{public}@, failureCount:%lu, backoff:%G", buf, 0x20u);
-        _MBLog();
+        _MBLog(@"I ", "=scheduler= %{public}@, failureCount:%lu, backoff:%G", @"FailureCount", unsignedIntegerValue2, *&v16);
       }
 
       v10 = @"RetryAfter";
@@ -773,7 +782,7 @@ LABEL_11:
 
     v26 = MBStringWithDate();
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"I ", "=scheduler= softCancelled:%d, backoff:%G, backoffDate:%{public}@, account:%{public}@", cancelledCopy, *&v8, v26, accountIdentifier2);
   }
 
   if ([v7 count] != 1)
@@ -874,7 +883,7 @@ LABEL_11:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=scheduler= Clearing %{public}@ for account %{public}@", buf, 0x16u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Clearing %{public}@ for account %{public}@", keyCopy, accountIdentifier2);
   }
 
   persona = [accountCopy persona];
@@ -965,13 +974,28 @@ LABEL_11:
     v22 = MBStringWithDate();
     v23 = MBStringWithDate();
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Updating %{public}@ from %{public}@ to %{public}@ for account %{public}@ (%d)", keyCopy, v22, v23, accountIdentifier2, existingDateCopy);
 
     dateCopy = v26;
   }
 
   persona2 = [accountCopy persona];
   [persona2 setPreferencesValue:v17 forKey:keyCopy];
+}
+
+- (void)_refreshRetryAfterDateForAccount:(id)account softCancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  accountCopy = account;
+  v7 = [(MBBackupScheduler *)self _backoffDateForAccount:accountCopy softCancelled:cancelledCopy];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_1001D5D48;
+  v9[3] = &unk_1003C1268;
+  v9[4] = self;
+  v10 = accountCopy;
+  v8 = accountCopy;
+  [v7 enumerateKeysAndObjectsUsingBlock:v9];
 }
 
 - (void)_holdWorkAssertion
@@ -989,6 +1013,173 @@ LABEL_11:
   {
     v3 = +[MBDaemon sharedDaemon];
     [v3 releaseWorkAssertionWithClass:objc_opt_class()];
+  }
+}
+
+- (void)_cancelInitiatedBackupWithChanges:(id)changes isDeferred:(BOOL)deferred
+{
+  deferredCopy = deferred;
+  changesCopy = changes;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
+  v8 = initiatedBackupRequest;
+  if (initiatedBackupRequest && ![initiatedBackupRequest cancelled])
+  {
+    v10 = MBGetDefaultLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412802;
+      v53 = v8;
+      v54 = 2114;
+      v55 = changesCopy;
+      v56 = 1024;
+      v57 = deferredCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceling initiated backup %@, changes:%{public}@ isDeferred:%d", buf, 0x1Cu);
+      _MBLog(@"Df", "=scheduler= Canceling initiated backup %@, changes:%{public}@ isDeferred:%d", v8, changesCopy, deferredCopy);
+    }
+
+    [(MBBackupScheduler *)self _cancelLossTimers];
+    conditions = [(MBBackupScheduler *)self conditions];
+    v12 = *&conditions.var0;
+    v13 = (*&conditions >> 40) & 1;
+    v14 = HIWORD(*&conditions) & 1;
+    v46 = HIBYTE(*&conditions) & 1;
+    v40 = v13;
+    v41 = v14;
+    if (changesCopy)
+    {
+      v15 = objc_msgSend_enabled(changesCopy);
+      onPower = [changesCopy onPower];
+      locked = [changesCopy locked];
+      onWiFi = [changesCopy onWiFi];
+      onCellular = [changesCopy onCellular];
+      onExpensiveCellular = [changesCopy onExpensiveCellular];
+      [changesCopy autoBackupOnCellularAllowed];
+    }
+
+    else
+    {
+      v15 = [NSNumber numberWithBool:conditions.var0];
+      v48 = [NSNumber numberWithBool:HIWORD(v12) & 1];
+      v18 = [NSNumber numberWithBool:(v12 >> 8) & 1];
+      onWiFi = [NSNumber numberWithBool:HIBYTE(v12) & 1];
+      v19 = v13;
+      locked = v18;
+      onPower = v48;
+      onCellular = [NSNumber numberWithBool:v19];
+      onExpensiveCellular = [NSNumber numberWithBool:v14];
+      [NSNumber numberWithBool:v46];
+    }
+    v20 = ;
+    if (deferredCopy)
+    {
+      v21 = 223;
+    }
+
+    else
+    {
+      v21 = 202;
+    }
+
+    v42 = locked;
+    v43 = changesCopy;
+    v49 = onPower;
+    if (v15 && ![v15 BOOLValue])
+    {
+      v21 = 217;
+    }
+
+    else if (onPower && ![onPower BOOLValue])
+    {
+      v21 = 219;
+    }
+
+    else if (locked && ![locked BOOLValue])
+    {
+      v21 = 218;
+    }
+
+    else if ([v8 activityType] == 2 && onWiFi && !objc_msgSend(onWiFi, "BOOLValue"))
+    {
+      v21 = 220;
+    }
+
+    else if ([v8 activityType] == 1)
+    {
+      v22 = onCellular;
+      if (onCellular && (v23 = [onCellular BOOLValue], v22 = onCellular, !v23))
+      {
+        v21 = 221;
+      }
+
+      else if (onExpensiveCellular && (v24 = [onExpensiveCellular BOOLValue], v22 = onCellular, (v24 & 1) != 0))
+      {
+        v21 = 222;
+      }
+
+      else
+      {
+        onCellular = v22;
+        if (v20 && ![v20 BOOLValue])
+        {
+          v21 = 224;
+        }
+      }
+    }
+
+    v39 = v20;
+    v25 = MBBackupXPCActivityNameWithType([v8 activityType]);
+    v26 = [MBEngine stringForEngineMode:1];
+    v27 = [MBError errorWithCode:v21 format:@"%@ cancelled (%s)", v26, v25];
+
+    if (([MBError isCancelledError:v27]& 1) == 0)
+    {
+      __assert_rtn("[MBBackupScheduler _cancelInitiatedBackupWithChanges:isDeferred:]", "MBBackupScheduler.m", 690, "[MBError isCancelledError:cancelError]");
+    }
+
+    [(MBCKManager *)self->_serviceManager cancelBackupEngineWithError:v27 connection:0];
+    v38 = v27;
+    v28 = [MBEngine stringForEngineType:3];
+    v36 = [NSString stringWithFormat:@"%@.%@.%@", @"com.apple.MobileBackup", v28, @"scheduler.cancel"];
+
+    v50[0] = @"onPower";
+    v37 = [NSNumber numberWithBool:HIWORD(v12) & 1];
+    v51[0] = v37;
+    v50[1] = @"locked";
+    v29 = [NSNumber numberWithBool:(v12 >> 8) & 1];
+    v51[1] = v29;
+    v50[2] = @"onWiFi";
+    v30 = [NSNumber numberWithBool:HIBYTE(v12) & 1];
+    v51[2] = v30;
+    v50[3] = @"onCellular";
+    v31 = [NSNumber numberWithBool:v40];
+    v51[3] = v31;
+    v50[4] = @"onExpensiveCellular";
+    v32 = [NSNumber numberWithBool:v41];
+    v51[4] = v32;
+    v50[5] = @"autoBackupOnCellularAllowed";
+    v33 = [NSNumber numberWithBool:v46];
+    v51[5] = v33;
+    v50[6] = @"enabled";
+    v34 = [NSNumber numberWithBool:v12 & 1];
+    v51[6] = v34;
+    v35 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:7];
+    v9 = v15;
+    [MBTelemetry submitEventName:v36 event:v35];
+
+    changesCopy = v43;
+  }
+
+  else
+  {
+    v9 = MBGetDefaultLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v53 = v8;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=scheduler= Not cancelling initiated backup request %@", buf, 0xCu);
+      _MBLog(@"I ", "=scheduler= Not cancelling initiated backup request %@", v8);
+    }
   }
 }
 
@@ -1012,26 +1203,26 @@ LABEL_11:
     if (reason != 4 || [(MBBackupScheduler *)self _isBackupOnCellularAllowedForAccount:v7])
     {
       accountIdentifier2 = +[NSDate now];
-      v43 = 0;
-      v44 = 0;
       v41 = 0;
       v42 = 0;
+      v39 = 0;
       v40 = 0;
-      v9 = [(MBBackupScheduler *)self _fetchNextBackupDateOnWiFi:&v44 nextBackupDateOnCellular:&v43 nextBackupDateOnBattery:&v42 lastBackupDate:&v41 account:v7 connection:0 error:&v40];
-      persona2 = v44;
-      personaIdentifier2 = v43;
-      v12 = v42;
-      v13 = v41;
-      v14 = v40;
+      v38 = 0;
+      v9 = [(MBBackupScheduler *)self _fetchNextBackupDateOnWiFi:&v42 nextBackupDateOnCellular:&v41 nextBackupDateOnBattery:&v40 lastBackupDate:&v39 account:v7 connection:0 error:&v38];
+      persona2 = v42;
+      personaIdentifier2 = v41;
+      v12 = v40;
+      v13 = v39;
+      v14 = v38;
       if ((v9 & 1) == 0)
       {
         v20 = MBGetDefaultLog();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v46 = *&v14;
+          v44 = *&v14;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=scheduler= Failed to fetch the last&next backup date: %{public}@", buf, 0xCu);
-          _MBLog();
+          _MBLog(@"E ", "=scheduler= Failed to fetch the last&next backup date: %{public}@", v14);
         }
 
         goto LABEL_40;
@@ -1059,27 +1250,25 @@ LABEL_11:
               v20 = MBGetDefaultLog();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
               {
-                dateOfLastPasscodeChange = self->_dateOfLastPasscodeChange;
-                v39 = MBStringWithDate();
-                v22 = MBStringWithDate();
+                v37 = MBStringWithDate();
+                v21 = MBStringWithDate();
                 *buf = 138412546;
-                v46 = *&v39;
-                v47 = 2112;
-                v48 = v22;
-                v23 = v22;
+                v44 = *&v37;
+                v45 = 2112;
+                v46 = v21;
+                v22 = v21;
                 _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=scheduler= Passcode change backup is no longer due - passcodeChangeDate: %@ lastBackupDate: %@", buf, 0x16u);
 
-                v24 = self->_dateOfLastPasscodeChange;
-                v25 = MBStringWithDate();
-                v26 = MBStringWithDate();
+                v23 = MBStringWithDate();
+                v24 = MBStringWithDate();
+                _MBLog(@"Df", "=scheduler= Passcode change backup is no longer due - passcodeChangeDate: %@ lastBackupDate: %@", v23, v24);
 LABEL_38:
-                _MBLog();
 
                 goto LABEL_39;
               }
 
 LABEL_40:
-              v30 = 0;
+              v28 = 0;
 LABEL_43:
 
               goto LABEL_44;
@@ -1095,15 +1284,15 @@ LABEL_24:
             goto LABEL_40;
           }
 
-          v34 = MBStringWithDate();
+          v32 = MBStringWithDate();
           *buf = 134218242;
-          v46 = v16;
-          v47 = 2114;
-          v48 = v34;
+          v44 = v16;
+          v45 = 2114;
+          v46 = v32;
           _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=scheduler= Already backed up recently (%.3fs): %{public}@", buf, 0x16u);
 
-          v25 = MBStringWithDate();
-          _MBLog();
+          v23 = MBStringWithDate();
+          _MBLog(@"Df", "=scheduler= Already backed up recently (%.3fs): %{public}@", *&v16, v23);
 LABEL_39:
 
           goto LABEL_40;
@@ -1143,20 +1332,21 @@ LABEL_33:
         if ([accountIdentifier2 compare:v20] == -1)
         {
           [v20 timeIntervalSinceDate:accountIdentifier2];
-          v36 = v35;
-          if (v35 > 60.0)
+          v34 = v33;
+          if (v33 > 60.0)
           {
-            v25 = MBGetDefaultLog();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v23 = MBGetDefaultLog();
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
             {
-              v37 = MBStringWithDate();
+              v35 = MBStringWithDate();
               *buf = 134218242;
-              v46 = v36;
-              v47 = 2114;
-              v48 = v37;
-              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= The next backup date was pushed later (%.3fs): %{public}@", buf, 0x16u);
+              v44 = v34;
+              v45 = 2114;
+              v46 = v35;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "=scheduler= The next backup date was pushed later (%.3fs): %{public}@", buf, 0x16u);
 
-              v26 = MBStringWithDate();
+              v24 = MBStringWithDate();
+              _MBLog(@"Df", "=scheduler= The next backup date was pushed later (%.3fs): %{public}@", *&v34, v24);
               goto LABEL_38;
             }
 
@@ -1166,7 +1356,7 @@ LABEL_33:
       }
 
 LABEL_42:
-      v30 = 1;
+      v28 = 1;
       goto LABEL_43;
     }
 
@@ -1177,14 +1367,15 @@ LABEL_42:
       persona = [v7 persona];
       personaIdentifier = [persona personaIdentifier];
       *buf = 138412546;
-      v46 = *&accountIdentifier;
-      v47 = 2112;
-      v48 = personaIdentifier;
+      v44 = *&accountIdentifier;
+      v45 = 2112;
+      v46 = personaIdentifier;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=scheduler= Not starting automatic backup on cellular for account %@/%@ because it's disabled from remote configuration", buf, 0x16u);
 
       accountIdentifier2 = [v7 accountIdentifier];
       persona2 = [v7 persona];
       personaIdentifier2 = [persona2 personaIdentifier];
+      _MBLog(@"Df", "=scheduler= Not starting automatic backup on cellular for account %@/%@ because it's disabled from remote configuration", accountIdentifier2, personaIdentifier2);
       goto LABEL_17;
     }
   }
@@ -1198,27 +1389,27 @@ LABEL_42:
       persona3 = [v7 persona];
       personaIdentifier3 = [persona3 personaIdentifier];
       *buf = 138412546;
-      v46 = *&accountIdentifier3;
-      v47 = 2112;
-      v48 = personaIdentifier3;
+      v44 = *&accountIdentifier3;
+      v45 = 2112;
+      v46 = personaIdentifier3;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=scheduler= Ignoring backup start request since the account %@/%@ isn't enabled", buf, 0x16u);
 
       accountIdentifier2 = [v7 accountIdentifier];
       persona2 = [v7 persona];
       personaIdentifier2 = [persona2 personaIdentifier];
+      _MBLog(@"Df", "=scheduler= Ignoring backup start request since the account %@/%@ isn't enabled", accountIdentifier2, personaIdentifier2);
 LABEL_17:
-      _MBLog();
-      v30 = 0;
+      v28 = 0;
 LABEL_44:
 
       goto LABEL_45;
     }
   }
 
-  v30 = 0;
+  v28 = 0;
 LABEL_45:
 
-  return v30;
+  return v28;
 }
 
 - (BOOL)_startBackupForNextAvailableAccountWithRequest:(id)request
@@ -1253,24 +1444,23 @@ LABEL_45:
 
     accountsToBackup4 = [(MBBackupScheduler *)self accountsToBackup];
     v13 = [accountsToBackup4 count];
-    [(MBBackupScheduler *)self accountsToBackup];
-    v33 = v32 = v13;
-    _MBLog();
+    accountsToBackup5 = [(MBBackupScheduler *)self accountsToBackup];
+    _MBLog(@"Df", "=scheduler= Found %lu accounts to back up: %@", v13, accountsToBackup5);
   }
 
   do
   {
 
-    accountsToBackup5 = [(MBBackupScheduler *)self accountsToBackup];
-    v15 = [accountsToBackup5 count];
+    accountsToBackup6 = [(MBBackupScheduler *)self accountsToBackup];
+    v16 = [accountsToBackup6 count];
 
-    if (!v15)
+    if (!v16)
     {
       goto LABEL_18;
     }
 
-    accountsToBackup6 = [(MBBackupScheduler *)self accountsToBackup];
-    popFirstObject = [accountsToBackup6 popFirstObject];
+    accountsToBackup7 = [(MBBackupScheduler *)self accountsToBackup];
+    popFirstObject = [accountsToBackup7 popFirstObject];
   }
 
   while (!-[MBBackupScheduler _shouldStartBackupWithAccount:reason:](self, "_shouldStartBackupWithAccount:reason:", popFirstObject, [requestCopy reason]));
@@ -1278,44 +1468,41 @@ LABEL_45:
   {
     if ([requestCopy reason] == 4)
     {
-      v17 = [(MBBackupScheduler *)self _lastPendingSnapshotSizeForAccount:popFirstObject];
+      v18 = [(MBBackupScheduler *)self _lastPendingSnapshotSizeForAccount:popFirstObject];
       +[MBCKManager inexpensiveCellularBalance];
-      v19 = v18;
-      v20 = MBGetDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v20 = v19;
+      v21 = MBGetDefaultLog();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218240;
-        *&buf[4] = v19;
+        *&buf[4] = v20;
         *&buf[12] = 2048;
-        *&buf[14] = v17;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched the inexpensive cellular balance (start): %.2f, lastPendingSnapshotSize:%llu", buf, 0x16u);
-        v33 = v17;
-        v32 = v19;
-        _MBLog();
+        *&buf[14] = v18;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched the inexpensive cellular balance (start): %.2f, lastPendingSnapshotSize:%llu", buf, 0x16u);
+        _MBLog(@"Df", "=scheduler= Fetched the inexpensive cellular balance (start): %.2f, lastPendingSnapshotSize:%llu", v20, v18);
       }
     }
 
-    v21 = [(MBBackupScheduler *)self activityCoordinator:v32];
-    v22 = [v21 xpcActivityForBackupActivity:{objc_msgSend(requestCopy, "activityType")}];
+    activityCoordinator = [(MBBackupScheduler *)self activityCoordinator];
+    v23 = [activityCoordinator xpcActivityForBackupActivity:{objc_msgSend(requestCopy, "activityType")}];
 
-    if (v22)
+    if (v23)
     {
-      if (xpc_activity_should_defer(v22))
+      if (xpc_activity_should_defer(v23))
       {
-        v23 = MBGetDefaultLog();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = MBGetDefaultLog();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           activityType = [requestCopy activityType];
           *buf = 67109378;
           *&buf[4] = activityType;
           *&buf[8] = 2114;
-          *&buf[10] = v22;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "=scheduler= Ignoring backup start request since the XPC activity (%d) needs to be deferred: %{public}@", buf, 0x12u);
-          [requestCopy activityType];
-          _MBLog();
+          *&buf[10] = v23;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=scheduler= Ignoring backup start request since the XPC activity (%d) needs to be deferred: %{public}@", buf, 0x12u);
+          _MBLog(@"Df", "=scheduler= Ignoring backup start request since the XPC activity (%d) needs to be deferred: %{public}@", [requestCopy activityType], v23);
         }
 
-        v25 = 0;
+        v26 = 0;
 LABEL_30:
 
         goto LABEL_21;
@@ -1327,42 +1514,42 @@ LABEL_30:
       __assert_rtn("[MBBackupScheduler _startBackupForNextAvailableAccountWithRequest:]", "MBBackupScheduler.m", 802, "xpcActivity || (![self.class backupOnWiFiWithDAS] && request.activityType == MBBackupXPCActivityTypeWiFi)");
     }
 
-    v27 = MBGetDefaultLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = MBGetDefaultLog();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = popFirstObject;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=scheduler= Starting automatic backup for %@ ", buf, 0xCu);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "=scheduler= Starting automatic backup for %@ ", buf, 0xCu);
+      _MBLog(@"Df", "=scheduler= Starting automatic backup for %@ ", popFirstObject);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v40 = 0;
+    v39 = 0;
     persona = [popFirstObject persona];
     personaIdentifier = [persona personaIdentifier];
 
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1001D7178;
-    v34[3] = &unk_1003C1290;
-    v38 = buf;
-    v34[4] = self;
-    v35 = requestCopy;
-    v36 = v22;
-    v30 = popFirstObject;
-    v37 = v30;
-    v31 = [DMCPersonaHelper performBlockUnderPersona:personaIdentifier block:v34];
+    v33[0] = _NSConcreteStackBlock;
+    v33[1] = 3221225472;
+    v33[2] = sub_1001D7178;
+    v33[3] = &unk_1003C1290;
+    v37 = buf;
+    v33[4] = self;
+    v34 = requestCopy;
+    v35 = v23;
+    v31 = popFirstObject;
+    v36 = v31;
+    v32 = [DMCPersonaHelper performBlockUnderPersona:personaIdentifier block:v33];
     if (*(*&buf[8] + 24) == 1)
     {
-      [(MBBackupScheduler *)self _refreshRetryAfterDateForAccount:v30 softCancelled:0];
-      v25 = *(*&buf[8] + 24);
+      [(MBBackupScheduler *)self _refreshRetryAfterDateForAccount:v31 softCancelled:0];
+      v26 = *(*&buf[8] + 24);
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     _Block_object_dispose(buf, 8);
@@ -1370,19 +1557,19 @@ LABEL_30:
   }
 
 LABEL_18:
-  [(MBBackupScheduler *)self setAccountsToBackup:0, v32, v33];
+  [(MBBackupScheduler *)self setAccountsToBackup:0];
   popFirstObject = MBGetDefaultLog();
   if (os_log_type_enabled(popFirstObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, popFirstObject, OS_LOG_TYPE_DEFAULT, "=scheduler= No accounts left to back up", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= No accounts left to back up");
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_21:
 
-  return v25 & 1;
+  return v26 & 1;
 }
 
 - (int64_t)_determineInternalNotificationActionForErrors:(id)errors dateOfLastUnlock:(id)unlock
@@ -1544,7 +1731,7 @@ LABEL_37:
     v43 = 2048;
     v44 = v27;
     _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "=scheduler= =ttr= Found %lu failures 1 day ago and %lu failures between 1 day and %lu days ago. dateOfLastUnlock:%{private}@ action:%ld", buf, 0x34u);
-    _MBLog();
+    _MBLog(@"I ", "=scheduler= =ttr= Found %lu failures 1 day ago and %lu failures between 1 day and %lu days ago. dateOfLastUnlock:%{private}@ action:%ld", v23, v24, 5, unlockCopy, v27);
   }
 
 LABEL_45:
@@ -1571,7 +1758,7 @@ LABEL_45:
           v10 = 1024;
           v11 = v6;
           _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "=scheduler= Failed to cancel internal notification %p (%d)", buf, 0x12u);
-          _MBLog();
+          _MBLog(@"E ", "=scheduler= Failed to cancel internal notification %p (%d)", v4, v6);
         }
       }
     }
@@ -1687,7 +1874,7 @@ LABEL_45:
                 *buf = 134217984;
                 v27 = internalNotificationRef;
                 _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "=scheduler= =ttr= Not posting internal notification, %p is in-flight", buf, 0xCu);
-                _MBLog();
+                _MBLog(@"I ", "=scheduler= =ttr= Not posting internal notification, %p is in-flight", internalNotificationRef);
               }
             }
 
@@ -1723,7 +1910,7 @@ LABEL_45:
     {
       *v6 = 0;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "=scheduler= Backup is disabled by the current MC policy - not checking for an overdue backup", v6, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=scheduler= Backup is disabled by the current MC policy - not checking for an overdue backup");
     }
   }
 
@@ -1747,11 +1934,11 @@ LABEL_45:
     date = [v7 date];
 
     v9 = +[NSFileManager defaultManager];
-    v69 = 0;
-    v10 = [v9 attributesOfItemAtPath:@"/private/var" error:&v69];
-    v11 = v69;
+    v68 = 0;
+    v10 = [v9 attributesOfItemAtPath:@"/private/var" error:&v68];
+    v11 = v68;
 
-    v67 = v10;
+    v66 = v10;
     if (v10)
     {
       v12 = [v10 objectForKeyedSubscript:NSFileCreationDate];
@@ -1771,16 +1958,16 @@ LABEL_45:
 LABEL_13:
         v16 = 0;
 LABEL_16:
-        [v6 timeIntervalSinceDate:{v14, v56, v58}];
+        [v6 timeIntervalSinceDate:v14];
         if (v19 > 604800.0)
         {
           [(MBBackupScheduler *)self _triggerInternalNotificationWithAccount:v5];
         }
 
 LABEL_18:
-        v68 = v11;
-        v20 = [(MBBackupScheduler *)self dateOfLastBackupWithAccount:v5 connection:0 error:&v68, v56];
-        v21 = v68;
+        v67 = v11;
+        v20 = [(MBBackupScheduler *)self dateOfLastBackupWithAccount:v5 connection:0 error:&v67];
+        v21 = v67;
 
         if (!v20 && v21)
         {
@@ -1790,8 +1977,8 @@ LABEL_18:
         v22 = v20;
 
         v14 = v22;
-        v65 = v21;
-        v66 = v6;
+        v64 = v21;
+        v65 = v6;
         if (!v20)
         {
           persona = [v5 persona];
@@ -1799,8 +1986,8 @@ LABEL_18:
 
           if (!v24)
           {
-            v21 = v65;
-            v6 = v66;
+            v21 = v64;
+            v6 = v65;
             if (![v5 isEnabled])
             {
               v14 = 0;
@@ -1808,7 +1995,7 @@ LABEL_18:
             }
 
             persona2 = [v5 persona];
-            [persona2 setPreferencesValue:v66 forKey:@"AccountEnabledDate"];
+            [persona2 setPreferencesValue:v65 forKey:@"AccountEnabledDate"];
             v14 = 0;
             goto LABEL_48;
           }
@@ -1819,41 +2006,40 @@ LABEL_18:
           {
             v26 = MBStringWithDate();
             *buf = 138543362;
-            v73 = v26;
+            v72 = v26;
             _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "=scheduler= Using the account enabled date a reference, referenceDate:%{public}@", buf, 0xCu);
 
-            v57 = MBStringWithDate();
-            _MBLog();
+            v27 = MBStringWithDate();
+            _MBLog(@"Db", "=scheduler= Using the account enabled date a reference, referenceDate:%{public}@", v27);
           }
 
-          v6 = v66;
+          v6 = v65;
         }
 
         if ((v16 & 1) == 0)
         {
-          v27 = MBGetDefaultLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+          v28 = MBGetDefaultLog();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
-            v28 = MBStringWithDate();
             v29 = MBStringWithDate();
-            *buf = 138543618;
-            v73 = v28;
-            v74 = 2114;
-            v75 = v29;
-            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "=scheduler= Using the foreground restore end date as a reference, fgRestoreEndDate:%{public}@, referenceDate:%{public}@", buf, 0x16u);
-
             v30 = MBStringWithDate();
-            MBStringWithDate();
-            v58 = v57 = v30;
-            _MBLog();
+            *buf = 138543618;
+            v72 = v29;
+            v73 = 2114;
+            v74 = v30;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "=scheduler= Using the foreground restore end date as a reference, fgRestoreEndDate:%{public}@, referenceDate:%{public}@", buf, 0x16u);
 
-            v6 = v66;
+            v31 = MBStringWithDate();
+            v32 = MBStringWithDate();
+            _MBLog(@"Db", "=scheduler= Using the foreground restore end date as a reference, fgRestoreEndDate:%{public}@, referenceDate:%{public}@", v31, v32);
+
+            v6 = v65;
           }
 
-          v31 = [v14 laterDate:date];
+          v33 = [v14 laterDate:date];
 
-          v14 = v31;
-          if (!v31)
+          v14 = v33;
+          if (!v33)
           {
             __assert_rtn("[MBBackupScheduler _onQueue_warnUserOfLateBackupWithAccount:]", "MBBackupScheduler.m", 1096, "referenceDate");
           }
@@ -1861,57 +2047,55 @@ LABEL_18:
 
         if (v12)
         {
-          v32 = MBGetDefaultLog();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+          v34 = MBGetDefaultLog();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
           {
-            v33 = MBStringWithDate();
-            v34 = MBStringWithDate();
-            *buf = 138543874;
-            v73 = @"/private/var";
-            v74 = 2114;
-            v75 = v33;
-            v76 = 2114;
-            v77 = v34;
-            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "=scheduler= Using the %{public}@ creation date as a reference, creationDate:%{public}@, referenceDate:%{public}@", buf, 0x20u);
-
             v35 = MBStringWithDate();
-            MBStringWithDate();
-            v59 = v58 = v35;
-            v57 = @"/private/var";
-            _MBLog();
+            v36 = MBStringWithDate();
+            *buf = 138543874;
+            v72 = @"/private/var";
+            v73 = 2114;
+            v74 = v35;
+            v75 = 2114;
+            v76 = v36;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "=scheduler= Using the %{public}@ creation date as a reference, creationDate:%{public}@, referenceDate:%{public}@", buf, 0x20u);
 
-            v6 = v66;
+            v37 = MBStringWithDate();
+            v38 = MBStringWithDate();
+            _MBLog(@"Db", "=scheduler= Using the %{public}@ creation date as a reference, creationDate:%{public}@, referenceDate:%{public}@", @"/private/var", v37, v38);
+
+            v6 = v65;
           }
 
-          v36 = [v14 laterDate:v12];
+          v39 = [v14 laterDate:v12];
 
-          v14 = v36;
-          if (!v36)
+          v14 = v39;
+          if (!v39)
           {
             __assert_rtn("[MBBackupScheduler _onQueue_warnUserOfLateBackupWithAccount:]", "MBBackupScheduler.m", 1102, "referenceDate");
           }
         }
 
-        [v6 timeIntervalSinceDate:{v14, v57, v58, v59}];
-        v38 = v37;
-        v39 = MBGetDefaultLog();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        [v6 timeIntervalSinceDate:v14];
+        v41 = v40;
+        v42 = MBGetDefaultLog();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = MBStringWithDate();
-          v41 = MBStringWithDate();
+          v43 = MBStringWithDate();
+          v44 = MBStringWithDate();
           *buf = 134218498;
-          v73 = *&v38;
-          v74 = 2114;
-          v75 = v40;
-          v76 = 2114;
-          v77 = v41;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "=scheduler= drySpellDuration:%.3fs, referenceDate:%{public}@, lastBackupDate:%{public}@", buf, 0x20u);
+          v72 = *&v41;
+          v73 = 2114;
+          v74 = v43;
+          v75 = 2114;
+          v76 = v44;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "=scheduler= drySpellDuration:%.3fs, referenceDate:%{public}@, lastBackupDate:%{public}@", buf, 0x20u);
 
-          v42 = MBStringWithDate();
-          v60 = MBStringWithDate();
-          _MBLog();
+          v45 = MBStringWithDate();
+          v46 = MBStringWithDate();
+          _MBLog(@"Df", "=scheduler= drySpellDuration:%.3fs, referenceDate:%{public}@, lastBackupDate:%{public}@", *&v41, v45, v46);
 
-          v6 = v66;
+          v6 = v65;
         }
 
         self->_initialBackupWarningPeriod = sub_1001D8C1C(v5, @"InitialBackupPeriod", 604800.0, 1209600.0);
@@ -1922,66 +2106,66 @@ LABEL_18:
           initialBackupWarningPeriod = self->_initialBackupWarningPeriod;
         }
 
-        if (v38 < initialBackupWarningPeriod)
+        if (v41 < initialBackupWarningPeriod)
         {
-          v21 = v65;
+          v21 = v64;
 LABEL_49:
 
           goto LABEL_50;
         }
 
-        v44 = MBGetDefaultLog();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        v48 = MBGetDefaultLog();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "=scheduler= Warning the user an iCloud backup is overdue", buf, 2u);
-          _MBLog();
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "=scheduler= Warning the user an iCloud backup is overdue", buf, 2u);
+          _MBLog(@"Df", "=scheduler= Warning the user an iCloud backup is overdue");
         }
 
-        v45 = +[MBFollowUpManager sharedManager];
-        v46 = [v45 postFollowUpForDrySpellForAccount:v5 duration:v20 == 0 firstBackup:v38];
+        v49 = +[MBFollowUpManager sharedManager];
+        v50 = [v49 postFollowUpForDrySpellForAccount:v5 duration:v20 == 0 firstBackup:v41];
 
-        if (v46)
+        if (v50)
         {
-          v64 = date;
-          v47 = [NSMutableDictionary alloc];
-          v63 = v46;
-          v71[0] = v46;
-          v70[0] = @"drySpellType";
-          v70[1] = @"lastBackup";
-          v62 = +[NSDateFormatter ISO8601Formatter];
-          v61 = [v62 stringFromDate:v14];
-          v71[1] = v61;
-          v70[2] = @"duration";
-          v48 = [NSString stringWithFormat:@"%.3f", *&v38];
-          v71[2] = v48;
-          v70[3] = @"notified";
-          v49 = +[NSDateFormatter ISO8601Formatter];
-          v50 = [v49 stringFromDate:v66];
-          v71[3] = v50;
-          v51 = [NSDictionary dictionaryWithObjects:v71 forKeys:v70 count:4];
-          v52 = [v47 initWithDictionary:v51];
+          v63 = date;
+          v51 = [NSMutableDictionary alloc];
+          v62 = v50;
+          v70[0] = v50;
+          v69[0] = @"drySpellType";
+          v69[1] = @"lastBackup";
+          v61 = +[NSDateFormatter ISO8601Formatter];
+          v60 = [v61 stringFromDate:v14];
+          v70[1] = v60;
+          v69[2] = @"duration";
+          v52 = [NSString stringWithFormat:@"%.3f", *&v41];
+          v70[2] = v52;
+          v69[3] = @"notified";
+          v53 = +[NSDateFormatter ISO8601Formatter];
+          v54 = [v53 stringFromDate:v65];
+          v70[3] = v54;
+          v55 = [NSDictionary dictionaryWithObjects:v70 forKeys:v69 count:4];
+          v56 = [v51 initWithDictionary:v55];
 
-          v53 = [MBBackupScheduler lastOnConditionEventsForAccount:v5];
-          if ([v53 count])
+          v57 = [MBBackupScheduler lastOnConditionEventsForAccount:v5];
+          if ([v57 count])
           {
-            lastObject = [v53 lastObject];
-            [v52 setValue:lastObject forKey:@"lastOnConditionEvent"];
+            lastObject = [v57 lastObject];
+            [v56 setValue:lastObject forKey:@"lastOnConditionEvent"];
           }
 
-          [MBCKStatusReporter reportStatusForAccount:v5 manager:self->_serviceManager key:@"BackupDrySpell" values:v52];
+          [MBCKStatusReporter reportStatusForAccount:v5 manager:self->_serviceManager key:@"BackupDrySpell" values:v56];
 
-          v21 = v65;
-          v6 = v66;
-          persona2 = v63;
-          date = v64;
+          v21 = v64;
+          v6 = v65;
+          persona2 = v62;
+          date = v63;
         }
 
         else
         {
           persona2 = 0;
-          v21 = v65;
-          v6 = v66;
+          v21 = v64;
+          v6 = v65;
         }
 
 LABEL_48:
@@ -1996,13 +2180,11 @@ LABEL_48:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v73 = @"/private/var";
-        v74 = 2112;
-        v75 = v11;
+        v72 = @"/private/var";
+        v73 = 2112;
+        v74 = v11;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=scheduler= Failed to fetch the attributes for %{public}@: %@", buf, 0x16u);
-        v56 = @"/private/var";
-        v58 = v11;
-        _MBLog();
+        _MBLog(@"E ", "=scheduler= Failed to fetch the attributes for %{public}@: %@", @"/private/var", v11);
       }
 
       v18 = date;
@@ -2069,7 +2251,7 @@ LABEL_15:
     _os_log_impl(&_mh_execute_header, date, OS_LOG_TYPE_DEFAULT, "=scheduler= The account %{public}@ is not enabled for backup", buf, 0xCu);
 
     accountIdentifier2 = [v5 accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= The account %{public}@ is not enabled for backup", accountIdentifier2);
 LABEL_14:
 
     goto LABEL_15;
@@ -2095,33 +2277,33 @@ LABEL_14:
         v28 = v12;
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=scheduler= Warning the user an iCloud backup is overdue, drySpellDuration:%.3fs, fgRestoreEndDate:%{public}@", buf, 0x16u);
 
-        v21 = MBStringWithDate();
-        _MBLog();
+        v13 = MBStringWithDate();
+        _MBLog(@"Df", "=scheduler= Warning the user an iCloud backup is overdue, drySpellDuration:%.3fs, fgRestoreEndDate:%{public}@", v10, v13);
       }
 
-      v13 = +[MBFollowUpManager sharedManager];
-      v14 = [v13 postFollowUpForRestoreTimeoutForAccount:v5];
+      v14 = +[MBFollowUpManager sharedManager];
+      v15 = [v14 postFollowUpForRestoreTimeoutForAccount:v5];
 
-      if (v14)
+      if (v15)
       {
         v23[0] = @"drySpellType";
         v23[1] = @"restoring";
-        v24[0] = v14;
+        v24[0] = v15;
         v24[1] = @"YES";
         v23[2] = @"fgRestoreEndDate";
         v22 = +[NSDateFormatter ISO8601Formatter];
-        v15 = [v22 stringFromDate:date];
-        v24[2] = v15;
+        v16 = [v22 stringFromDate:date];
+        v24[2] = v16;
         v23[3] = @"duration";
-        v16 = [NSString stringWithFormat:@"%.3f", v10];
-        v24[3] = v16;
+        v17 = [NSString stringWithFormat:@"%.3f", v10];
+        v24[3] = v17;
         v23[4] = @"notified";
-        v17 = +[NSDateFormatter ISO8601Formatter];
-        v18 = [v17 stringFromDate:accountIdentifier2];
-        v24[4] = v18;
-        v19 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:5];
+        v18 = +[NSDateFormatter ISO8601Formatter];
+        v19 = [v18 stringFromDate:accountIdentifier2];
+        v24[4] = v19;
+        v20 = [NSDictionary dictionaryWithObjects:v24 forKeys:v23 count:5];
 
-        [MBCKStatusReporter reportStatusForAccount:v5 manager:self->_serviceManager key:@"BackupDrySpell" values:v19];
+        [MBCKStatusReporter reportStatusForAccount:v5 manager:self->_serviceManager key:@"BackupDrySpell" values:v20];
       }
     }
 
@@ -2132,7 +2314,7 @@ LABEL_14:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, accountIdentifier2, OS_LOG_TYPE_ERROR, "=scheduler= nil foreground restore end date", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "=scheduler= nil foreground restore end date");
       }
 
       date = 0;
@@ -2177,7 +2359,7 @@ LABEL_16:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=scheduler= Scheduler received backup completion notification for account %{public}@", buf, 0xCu);
 
     accountIdentifier2 = [v5 accountIdentifier];
-    _MBLog();
+    _MBLog(@"I ", "=scheduler= Scheduler received backup completion notification for account %{public}@", accountIdentifier2);
   }
 
   [(MBBackupScheduler *)self _clearAllFailureCountsForAccount:v5];
@@ -2185,8 +2367,8 @@ LABEL_16:
   [(MBBackupScheduler *)self _clearLastPendingSnapshotSizeForAccount:v5];
   [(MBBackupScheduler *)self _clearDateOfLastPasscodeChange];
   [(MBBackupScheduler *)self clearNilBackupDateFetchDateForAccount:v5];
-  v8 = +[MBFollowUpManager sharedManager];
-  [v8 clearPendingFollowUpsWithAccount:v5 identifiers:&off_1003E2408];
+  v9 = +[MBFollowUpManager sharedManager];
+  [v9 clearPendingFollowUpsWithAccount:v5 identifiers:&off_1003E2408];
 
   initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
   if (!initiatedBackupRequest || ![(MBBackupScheduler *)self _startBackupForNextAvailableAccountWithRequest:initiatedBackupRequest])
@@ -2220,58 +2402,53 @@ LABEL_16:
   {
     accountIdentifier = [accountCopy accountIdentifier];
     *buf = 138543618;
-    v37 = accountIdentifier;
-    v38 = 2112;
-    *v39 = v8;
+    v35 = accountIdentifier;
+    v36 = 2112;
+    *v37 = v8;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduler received backup failure notification for account %{public}@: %@", buf, 0x16u);
 
-    [accountCopy accountIdentifier];
-    v29 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-    v30 = v8;
-    _MBLog();
+    accountIdentifier2 = [accountCopy accountIdentifier];
+    _MBLog(@"Df", "=scheduler= Scheduler received backup failure notification for account %{public}@: %@", accountIdentifier2, v8);
   }
 
   initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
-  v12 = [MBError isCancelledError:v8];
+  v13 = [MBError isCancelledError:v8];
   if (initiatedBackupRequest && [MBError isCancelledXPCActivityDeferredError:v8])
   {
     conditions = [(MBBackupScheduler *)self conditions];
-    v14 = 0;
+    v15 = 0;
     if ((~*&conditions & 0x10000010100) == 0)
     {
-      v15 = conditions;
+      v16 = conditions;
       if (conditions.var0)
       {
         +[MBCKManager inexpensiveCellularBalance];
-        v17 = v16;
-        if (v16 <= 0.0)
+        v18 = v17;
+        if (v17 <= 0.0)
         {
-          v14 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v14 = HIWORD(*&v15) & 1;
+          v15 = HIWORD(*&v16) & 1;
         }
 
-        v18 = MBGetDefaultLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = MBGetDefaultLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = (*&v15 & 0x1000000000000) >> 48;
+          v20 = (*&v16 & 0x1000000000000) >> 48;
           *buf = 134218496;
-          v37 = *&v17;
-          v38 = 1024;
-          *v39 = v14;
-          *&v39[4] = 1024;
-          *&v39[6] = v19;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched the inexpensive cellular balance (deferred): %.2f, lowCellularBudget:%d, isOnExpensiveCellular:%d", buf, 0x18u);
-          v30 = v14;
-          v32 = v19;
-          v29 = v17;
-          _MBLog();
+          v35 = *&v18;
+          v36 = 1024;
+          *v37 = v15;
+          *&v37[4] = 1024;
+          *&v37[6] = v20;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched the inexpensive cellular balance (deferred): %.2f, lowCellularBudget:%d, isOnExpensiveCellular:%d", buf, 0x18u);
+          _MBLog(@"Df", "=scheduler= Fetched the inexpensive cellular balance (deferred): %.2f, lowCellularBudget:%d, isOnExpensiveCellular:%d", v18, v15, v20);
         }
 
-        if (!(v12 & 1 | ((v14 & 1) == 0)))
+        if (!(v13 & 1 | ((v15 & 1) == 0)))
         {
           __assert_rtn("[MBBackupScheduler _managerDidFailBackupWithAccount:error:]", "MBBackupScheduler.m", 1252, "!lowCellularBudget || canceled");
         }
@@ -2281,23 +2458,23 @@ LABEL_16:
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  [(MBBackupScheduler *)self _updateFailureCountsForAccount:accountCopy lastBackupError:v8 canceled:v12 lowCellularBudget:v14, *&v29, v30, v32];
-  if (v12)
+  [(MBBackupScheduler *)self _updateFailureCountsForAccount:accountCopy lastBackupError:v8 canceled:v13 lowCellularBudget:v15];
+  if (v13)
   {
     [(MBBackupScheduler *)self _clearAllRetryAfterDatesForAccount:accountCopy];
     [(MBBackupScheduler *)self _refreshRetryAfterDateForAccount:accountCopy softCancelled:1];
   }
 
-  v35 = 0;
-  v20 = [MBError isRetryAfterError:v8 retryAfterDate:&v35];
-  v21 = v35;
-  v22 = v21;
-  if (!v20)
+  v33 = 0;
+  v21 = [MBError isRetryAfterError:v8 retryAfterDate:&v33];
+  v22 = v33;
+  v23 = v22;
+  if (!v21)
   {
-    v24 = v21;
+    v25 = v22;
     if (!initiatedBackupRequest)
     {
       goto LABEL_25;
@@ -2310,7 +2487,7 @@ LABEL_24:
     block[2] = sub_1001D9C14;
     block[3] = &unk_1003BC060;
     block[4] = self;
-    v34 = accountCopy;
+    v32 = accountCopy;
     dispatch_async(followUpQueue, block);
 
     activityCoordinator = [(MBBackupScheduler *)self activityCoordinator];
@@ -2325,26 +2502,26 @@ LABEL_24:
     goto LABEL_25;
   }
 
-  v23 = [NSDate dateWithTimeIntervalSinceNow:604800.0];
-  v24 = [v22 earlierDate:v23];
+  v24 = [NSDate dateWithTimeIntervalSinceNow:604800.0];
+  v25 = [v23 earlierDate:v24];
 
-  v25 = MBGetDefaultLog();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v26 = MBGetDefaultLog();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    accountIdentifier2 = [accountCopy accountIdentifier];
-    *buf = 138543874;
-    v37 = @"RetryAfter";
-    v38 = 2114;
-    *v39 = accountIdentifier2;
-    *&v39[8] = 2114;
-    v40 = v24;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ based on server response for account %{public}@: %{public}@", buf, 0x20u);
-
     accountIdentifier3 = [accountCopy accountIdentifier];
-    _MBLog();
+    *buf = 138543874;
+    v35 = @"RetryAfter";
+    v36 = 2114;
+    *v37 = accountIdentifier3;
+    *&v37[8] = 2114;
+    v38 = v25;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ based on server response for account %{public}@: %{public}@", buf, 0x20u);
+
+    accountIdentifier4 = [accountCopy accountIdentifier];
+    _MBLog(@"Df", "=scheduler= Updating %{public}@ based on server response for account %{public}@: %{public}@", @"RetryAfter", accountIdentifier4, v25);
   }
 
-  [(MBBackupScheduler *)self _updateRetryAfterDate:v24 forKey:@"RetryAfter" account:accountCopy];
+  [(MBBackupScheduler *)self _updateRetryAfterDate:v25 forKey:@"RetryAfter" account:accountCopy];
   if (initiatedBackupRequest)
   {
     goto LABEL_24;
@@ -2358,7 +2535,7 @@ LABEL_25:
   v4 = +[MBManagedPolicy sharedPolicy];
   v5 = [v4 checkIfCloudBackupIsAllowed:0];
 
-  v32 = v5;
+  v27 = v5;
   if ((v5 & 1) == 0)
   {
     v6 = MBGetDefaultLog();
@@ -2366,37 +2543,37 @@ LABEL_25:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "=scheduler= Backup is disabled by the current MC policy", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=scheduler= Backup is disabled by the current MC policy");
     }
   }
 
-  v35 = objc_opt_new();
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
+  v30 = objc_opt_new();
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = +[MBServiceAccount allServiceAccounts];
-  v7 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v47 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
     v10 = 0;
-    v11 = *v39;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v39 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         isEnabled = [v13 isEnabled];
-        v37 = 0;
+        v32 = 0;
         persona = [v13 persona];
-        v16 = [persona getBooleanValueForKey:@"EnableBackupScheduling" keyExists:&v37];
+        v16 = [persona getBooleanValueForKey:@"EnableBackupScheduling" keyExists:&v32];
 
         if (v16)
         {
@@ -2405,12 +2582,12 @@ LABEL_25:
 
         else
         {
-          v17 = v37 == 0;
+          v17 = v32 == 0;
         }
 
         if (v17 && (isEnabled & 1) != 0)
         {
-          [v35 addObject:v13];
+          [v30 addObject:v13];
           persona2 = [v13 persona];
           personaIdentifier = [persona2 personaIdentifier];
 
@@ -2421,24 +2598,19 @@ LABEL_25:
             accountIdentifier = [v13 accountIdentifier];
             isPrimaryAccount = [v13 isPrimaryAccount];
             *buf = 138413314;
-            v43 = accountIdentifier;
-            v44 = 2112;
-            v45 = personaIdentifier;
-            v46 = 1024;
-            v47 = isPrimaryAccount;
-            v48 = 1024;
-            v49 = 1;
-            v50 = 1024;
-            v51 = isBackupOnCellularEnabled & 1;
+            v38 = accountIdentifier;
+            v39 = 2112;
+            v40 = personaIdentifier;
+            v41 = 1024;
+            v42 = isPrimaryAccount;
+            v43 = 1024;
+            v44 = 1;
+            v45 = 1024;
+            v46 = isBackupOnCellularEnabled & 1;
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched account:(%@/%@), primary:%d, isEnabledForBackup:%d, isBackupOnCellularEnabled:%d", buf, 0x28u);
 
             accountIdentifier2 = [v13 accountIdentifier];
-            v30 = 1;
-            v31 = isBackupOnCellularEnabled & 1;
-            v28 = personaIdentifier;
-            isPrimaryAccount2 = [v13 isPrimaryAccount];
-            v27 = accountIdentifier2;
-            _MBLog();
+            _MBLog(@"Df", "=scheduler= Fetched account:(%@/%@), primary:%d, isEnabledForBackup:%d, isBackupOnCellularEnabled:%d", accountIdentifier2, personaIdentifier, [v13 isPrimaryAccount], 1, isBackupOnCellularEnabled & 1);
           }
 
           v9 |= isBackupOnCellularEnabled;
@@ -2452,15 +2624,14 @@ LABEL_25:
           if (os_log_type_enabled(personaIdentifier, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v43 = v13;
+            v38 = v13;
             _os_log_impl(&_mh_execute_header, personaIdentifier, OS_LOG_TYPE_DEFAULT, "=scheduler= Auto backup is not enabled for %@", buf, 0xCu);
-            v27 = v13;
-            _MBLog();
+            _MBLog(@"Df", "=scheduler= Auto backup is not enabled for %@", v13);
           }
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v47 count:16];
     }
 
     while (v8);
@@ -2472,9 +2643,9 @@ LABEL_25:
     v10 = 0;
   }
 
-  *enabled = v32 & v10;
+  *enabled = v27 & v10;
   *cellularEnabled = v10 & v9 & 1;
-  v25 = [v35 copy];
+  v25 = [v30 copy];
 
   return v25;
 }
@@ -2519,7 +2690,7 @@ LABEL_25:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=scheduler= Ignoring passcode changed notification", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= Ignoring passcode changed notification");
     }
   }
 }
@@ -2531,7 +2702,7 @@ LABEL_25:
   {
     *v5 = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "=scheduler= Clearing date of last passcode change", v5, 2u);
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Clearing date of last passcode change");
   }
 
   [MBPersona setPersonalPreferencesValue:0 forKey:@"DateOfLastPasscodeChange"];
@@ -2548,7 +2719,7 @@ LABEL_25:
     {
       *v5 = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceling the power loss timer", v5, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= Canceling the power loss timer");
     }
 
     dispatch_source_cancel(self->_powerLossTimer);
@@ -2566,7 +2737,7 @@ LABEL_25:
     {
       *v5 = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceling the WiFi loss timer", v5, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= Canceling the WiFi loss timer");
     }
 
     dispatch_source_cancel(self->_wifiLossTimer);
@@ -2654,32 +2825,101 @@ LABEL_25:
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=scheduler= Not updating %{public}@ for account %{public}@: %{public}@ (%.3f, %lu)", buf, 0x34u);
 
         accountIdentifier2 = [v5 accountIdentifier];
-        v20 = MBStringWithDate();
-        _MBLog();
+        v18 = MBStringWithDate();
+        _MBLog(@"Df", "=scheduler= Not updating %{public}@ for account %{public}@: %{public}@ (%.3f, %lu)", @"MissingEncryptionKeyRetryAfter", accountIdentifier2, v18, *&v13, v9);
       }
     }
 
     else
     {
-      v18 = 3;
+      v19 = 3;
       if (v9 < 3)
       {
-        v18 = v9;
+        v19 = v9;
       }
 
-      v19 = [NSDate dateWithTimeIntervalSinceNow:dbl_1002BA0E8[v18 - 1] + (drand48() + -0.5) * floor(dbl_1002BA0E8[v18 - 1] * 0.25)];
+      v20 = [NSDate dateWithTimeIntervalSinceNow:dbl_1002BA0E8[v19 - 1] + (drand48() + -0.5) * floor(dbl_1002BA0E8[v19 - 1] * 0.25)];
 
-      [(MBBackupScheduler *)self _updateRetryAfterDate:v19 forKey:@"MissingEncryptionKeyRetryAfter" account:v5 ignoreExistingDate:1];
-      v11 = v19;
+      [(MBBackupScheduler *)self _updateRetryAfterDate:v20 forKey:@"MissingEncryptionKeyRetryAfter" account:v5 ignoreExistingDate:1];
+      v11 = v20;
     }
   }
+}
+
+- (void)_cancelBackupWithActivityType:(int)type changes:(id)changes
+{
+  v4 = *&type;
+  changesCopy = changes;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
+  locked = [changesCopy locked];
+  v9 = locked;
+  if (!initiatedBackupRequest && locked)
+  {
+    if ([locked BOOLValue])
+    {
+      goto LABEL_15;
+    }
+
+    v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    accounts = [(MBBackupScheduler *)self accounts];
+    v11 = [accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v18;
+      do
+      {
+        v14 = 0;
+        do
+        {
+          if (*v18 != v13)
+          {
+            objc_enumerationMutation(accounts);
+          }
+
+          [(MBBackupScheduler *)self _updateRetryAfterDateAfterUnlockForAccount:*(*(&v17 + 1) + 8 * v14)];
+          v14 = v14 + 1;
+        }
+
+        while (v12 != v14);
+        v12 = [accounts countByEnumeratingWithState:&v17 objects:v21 count:16];
+      }
+
+      while (v12);
+    }
+  }
+
+  if (initiatedBackupRequest && [initiatedBackupRequest activityType] == v4)
+  {
+    [(MBBackupScheduler *)self _cancelInitiatedBackupWithChanges:changesCopy isDeferred:0];
+    goto LABEL_19;
+  }
+
+LABEL_15:
+  if (v4 == 2)
+  {
+    initial = [changesCopy initial];
+    bOOLValue = [initial BOOLValue];
+
+    if (bOOLValue)
+    {
+      [(MBBackupScheduler *)self _cancelAlarm];
+    }
+  }
+
+  [(MBBackupScheduler *)self _tearDownScheduledBackupWithActivityType:v4];
+LABEL_19:
 }
 
 - (void)_stateDidChange:(id)change conditions:(id)conditions
 {
   changeCopy = change;
   dispatch_assert_queue_V2(self->_stateQueue);
-  v122 = *&conditions.var0 & 0x1000000;
+  v111 = *&conditions.var0 & 0x1000000;
   v7 = [(NSMutableDictionary *)self->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0FA8];
 
   initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
@@ -2696,7 +2936,7 @@ LABEL_25:
     [(MBBackupScheduler *)self _cancelWiFiLossTimer];
   }
 
-  v123 = changeCopy;
+  v112 = changeCopy;
   if ((~*&conditions & 0x101010100000000) != 0)
   {
     allowBackupOnExpensiveCellular = (~*&conditions & 0x100010100000000) == 0;
@@ -2707,33 +2947,33 @@ LABEL_25:
     allowBackupOnExpensiveCellular = [(MBBackupScheduler *)self allowBackupOnExpensiveCellular];
   }
 
-  v121 = *&conditions.var0 & 0x10000;
-  v119 = *&conditions.var0 & 0x100;
+  v110 = *&conditions.var0 & 0x10000;
+  v108 = *&conditions.var0 & 0x100;
   isWithinDefaultBackupPeriod = [(NSDate *)self->_dateOfLastPasscodeChange isWithinDefaultBackupPeriod];
   allowBackupOnBattery = self->_allowBackupOnBattery;
   selfCopy = self;
   serviceStates = [(MBCKManager *)self->_serviceManager serviceStates];
   v10 = objc_opt_new();
-  v147 = 0u;
-  v148 = 0u;
-  v149 = 0u;
-  v150 = 0u;
+  v136 = 0u;
+  v137 = 0u;
+  v138 = 0u;
+  v139 = 0u;
   v11 = serviceStates;
-  v12 = [v11 countByEnumeratingWithState:&v147 objects:buf count:16];
+  v12 = [v11 countByEnumeratingWithState:&v136 objects:buf count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v148;
+    v14 = *v137;
     do
     {
       for (i = 0; i != v13; i = i + 1)
       {
-        if (*v148 != v14)
+        if (*v137 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v147 + 1) + 8 * i);
+        v16 = *(*(&v136 + 1) + 8 * i);
         if (([&off_1003E0FD8 isEqualToNumber:v16] & 1) == 0)
         {
           if ([v10 length])
@@ -2752,16 +2992,16 @@ LABEL_25:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v147 objects:buf count:16];
+      v13 = [v11 countByEnumeratingWithState:&v136 objects:buf count:16];
     }
 
     while (v13);
   }
 
-  v115 = *&conditions & 0x10000000000;
-  v116 = *&conditions & 0x1000000000000;
-  v113 = *&conditions & &_mh_execute_header;
-  v114 = *&conditions & 0x100000000000000;
+  v104 = *&conditions & 0x10000000000;
+  v105 = *&conditions & 0x1000000000000;
+  v102 = *&conditions & &_mh_execute_header;
+  v103 = *&conditions & 0x100000000000000;
 
   if ([v10 length])
   {
@@ -2773,16 +3013,16 @@ LABEL_25:
     v19 = 0;
   }
 
-  v120 = v19;
+  v109 = v19;
 
-  v20 = v123;
+  v20 = v112;
   v21 = selfCopy;
-  if ((v119 == 0) | (*&conditionsCopy.var0 ^ 1) & 1 || !((allowBackupOnBattery | isWithinDefaultBackupPeriod) & 1 | (v121 != 0)))
+  if ((v108 == 0) | (*&conditionsCopy.var0 ^ 1) & 1 || !((allowBackupOnBattery | isWithinDefaultBackupPeriod) & 1 | (v110 != 0)))
   {
 LABEL_28:
-    if (v119 != 0 && conditionsCopy.var0 && v121 != 0)
+    if (v108 != 0 && conditionsCopy.var0 && v110 != 0)
     {
-      if (v122)
+      if (v111)
       {
         v22 = 0.0;
         if ((*&conditionsCopy & 0x10100000000) != &_mh_execute_header)
@@ -2795,62 +3035,51 @@ LABEL_28:
     goto LABEL_43;
   }
 
-  if (v122)
+  if (v111)
   {
-    if (v120)
+    if (v109)
     {
       goto LABEL_28;
     }
 
 LABEL_36:
-    if (v123)
+    if (v112)
     {
       v24 = MBGetDefaultLog();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67111682;
-        *v154 = 1;
-        *&v154[4] = 1024;
-        *&v154[6] = 1;
-        *v155 = 1024;
-        *&v155[2] = (*&conditionsCopy.var0 & 0x10000u) >> 16;
-        *v156 = 1024;
-        *&v156[2] = v122 >> 24;
-        *v157 = 1024;
-        *&v157[2] = v115 >> 40;
-        *v158 = 1024;
-        *&v158[2] = HIWORD(v116);
-        *v159 = 1024;
-        *&v159[2] = HIDWORD(v113);
-        *v160 = 1024;
-        *&v160[2] = HIBYTE(v114);
-        *v161 = 1024;
-        *&v161[2] = isWithinDefaultBackupPeriod & 1;
-        *v162 = 2112;
-        *&v162[2] = v120;
-        v163 = 2114;
-        v164 = v123;
+        *v143 = 1;
+        *&v143[4] = 1024;
+        *&v143[6] = 1;
+        *v144 = 1024;
+        *&v144[2] = (*&conditionsCopy.var0 & 0x10000u) >> 16;
+        *v145 = 1024;
+        *&v145[2] = v111 >> 24;
+        *v146 = 1024;
+        *&v146[2] = v104 >> 40;
+        *v147 = 1024;
+        *&v147[2] = HIWORD(v105);
+        *v148 = 1024;
+        *&v148[2] = HIDWORD(v102);
+        *v149 = 1024;
+        *&v149[2] = HIBYTE(v103);
+        *v150 = 1024;
+        *&v150[2] = isWithinDefaultBackupPeriod & 1;
+        *v151 = 2112;
+        *&v151[2] = v109;
+        v152 = 2114;
+        v153 = v112;
         _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "=scheduler= [On condition] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", buf, 0x4Cu);
-        v110 = v120;
-        v111 = v123;
-        v108 = HIBYTE(v114);
-        v109 = isWithinDefaultBackupPeriod & 1;
         v21 = selfCopy;
-        v106 = HIWORD(v116);
-        v107 = HIDWORD(v113);
-        v104 = v122 >> 24;
-        v105 = v115 >> 40;
-        v102 = 1;
-        v103 = v121 >> 16;
-        var0 = 1;
-        _MBLog();
+        _MBLog(@"Df", "=scheduler= [On condition] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", 1, 1, v110 >> 16, v111 >> 24, v104 >> 40, HIWORD(v105), HIDWORD(v102), HIBYTE(v103), isWithinDefaultBackupPeriod & 1, v109, v112);
       }
     }
 
-    v25 = [NSDate now:var0];
+    v25 = +[NSDate now];
     v26 = MBGetChargingType();
-    v27 = [(MBBackupScheduler *)v21 _scheduleBackupOnWiFi:v122 != 0 onCellular:allowBackupOnExpensiveCellular onBattery:(allowBackupOnBattery | isWithinDefaultBackupPeriod) & 1];
-    if (v123)
+    v27 = [(MBBackupScheduler *)v21 _scheduleBackupOnWiFi:v111 != 0 onCellular:allowBackupOnExpensiveCellular onBattery:(allowBackupOnBattery | isWithinDefaultBackupPeriod) & 1];
+    if (v112)
     {
       v28 = v27;
       [(MBBackupScheduler *)v21 setLastOnConditionDate:v25];
@@ -2858,11 +3087,11 @@ LABEL_36:
       [(MBBackupScheduler *)v21 setLastOnConditionChargingType:v26];
     }
 
-    v20 = v123;
-    goto LABEL_78;
+    v20 = v112;
+    goto LABEL_77;
   }
 
-  if (v120)
+  if (v109)
   {
     v23 = 0;
   }
@@ -2884,7 +3113,7 @@ LABEL_43:
   {
     v30 = +[NSDate now];
     lastOnConditionDate2 = [(MBBackupScheduler *)selfCopy lastOnConditionDate];
-    v130 = v30;
+    v119 = v30;
     [v30 timeIntervalSinceDate:lastOnConditionDate2];
     v22 = v32;
 
@@ -2895,28 +3124,28 @@ LABEL_43:
 
     else
     {
-      v145 = 0u;
-      v146 = 0u;
-      v143 = 0u;
-      v144 = 0u;
+      v134 = 0u;
+      v135 = 0u;
+      v132 = 0u;
+      v133 = 0u;
       obj = [(MBBackupScheduler *)selfCopy accounts];
-      v129 = [obj countByEnumeratingWithState:&v143 objects:v152 count:16];
-      if (v129)
+      v118 = [obj countByEnumeratingWithState:&v132 objects:v141 count:16];
+      if (v118)
       {
-        v127 = v7 != 0;
-        v126 = *v144;
+        v116 = v7 != 0;
+        v115 = *v133;
         do
         {
           v33 = 0;
           do
           {
-            if (*v144 != v126)
+            if (*v133 != v115)
             {
               objc_enumerationMutation(obj);
             }
 
-            v138 = v33;
-            v34 = *(*(&v143 + 1) + 8 * v33);
+            v127 = v33;
+            v34 = *(*(&v132 + 1) + 8 * v33);
             v35 = [MBBackupScheduler lastOnConditionEventsForAccount:v34];
             v36 = [v35 mutableCopy];
             v37 = v36;
@@ -2945,7 +3174,7 @@ LABEL_43:
 
             if (v41)
             {
-              [v41 timeIntervalSinceDate:v130];
+              [v41 timeIntervalSinceDate:v119];
               v45 = v44;
             }
 
@@ -2963,7 +3192,7 @@ LABEL_43:
 
             if (v50)
             {
-              [v130 timeIntervalSinceDate:v50];
+              [v119 timeIntervalSinceDate:v50];
               v52 = v51;
             }
 
@@ -2972,10 +3201,10 @@ LABEL_43:
               v52 = 0;
             }
 
-            v135 = v39;
-            v134 = v41;
-            v132 = v45;
-            v131 = v52;
+            v124 = v39;
+            v123 = v41;
+            v121 = v45;
+            v120 = v52;
             if ([MBError isError:lastObject withCode:0])
             {
 
@@ -2996,23 +3225,23 @@ LABEL_43:
             v58 = +[NSDateFormatter ISO8601Formatter];
             lastOnConditionDate3 = [(MBBackupScheduler *)selfCopy lastOnConditionDate];
             v60 = [v58 stringFromDate:lastOnConditionDate3];
-            v61 = [NSString stringWithFormat:@"%@|%.3f|%d|%d|%d|%d|%d|%d|%lld|%lld|%lld|%lu|%@|%ld|%lu|%d|%d|%d|%lld", v60, *&v22, conditionsCopy.var0, v121 >> 16, v119 >> 8, v122 >> 24, v127, activityType == 2, [(MBBackupScheduler *)selfCopy nextBackupDelta], v132, v131, unsignedIntegerValue, v57, code, [(MBBackupScheduler *)selfCopy lastOnConditionChargingType], v115 >> 40, HIWORD(v116), HIBYTE(v114), [(MBBackupScheduler *)selfCopy ignoredLastOnConditionEvent]];
+            v61 = [NSString stringWithFormat:@"%@|%.3f|%d|%d|%d|%d|%d|%d|%lld|%lld|%lld|%lu|%@|%ld|%lu|%d|%d|%d|%lld", v60, *&v22, conditionsCopy.var0, v110 >> 16, v108 >> 8, v111 >> 24, v116, activityType == 2, [(MBBackupScheduler *)selfCopy nextBackupDelta], v121, v120, unsignedIntegerValue, v57, code, [(MBBackupScheduler *)selfCopy lastOnConditionChargingType], v104 >> 40, HIWORD(v105), HIBYTE(v103), [(MBBackupScheduler *)selfCopy ignoredLastOnConditionEvent]];
 
-            [v135 addObject:v61];
-            [MBBackupScheduler _setLastOnConditionEvents:v135 account:v34];
+            [v124 addObject:v61];
+            [MBBackupScheduler _setLastOnConditionEvents:v124 account:v34];
 
-            v33 = v138 + 1;
+            v33 = v127 + 1;
           }
 
-          while (v129 != (v138 + 1));
-          v129 = [obj countByEnumeratingWithState:&v143 objects:v152 count:16];
+          while (v118 != (v127 + 1));
+          v118 = [obj countByEnumeratingWithState:&v132 objects:v141 count:16];
         }
 
-        while (v129);
+        while (v118);
       }
 
       v62 = 0;
-      v20 = v123;
+      v20 = v112;
       v21 = selfCopy;
     }
 
@@ -3037,110 +3266,85 @@ LABEL_71:
       if (v63)
       {
         *buf = 67111682;
-        *v154 = conditionsCopy.var0;
-        *&v154[4] = 1024;
-        *&v154[6] = v119 >> 8;
-        *v155 = 1024;
-        *&v155[2] = (*&conditionsCopy.var0 & 0x10000u) >> 16;
-        *v156 = 1024;
-        *&v156[2] = v122 >> 24;
-        *v157 = 1024;
-        *&v157[2] = v115 >> 40;
-        *v158 = 1024;
-        *&v158[2] = HIWORD(v116);
-        *v159 = 1024;
-        *&v159[2] = HIDWORD(v113);
-        *v160 = 1024;
-        *&v160[2] = HIBYTE(v114);
-        *v161 = 1024;
-        *&v161[2] = isWithinDefaultBackupPeriod & 1;
-        *v162 = 2112;
-        *&v162[2] = v120;
-        v163 = 2114;
-        v164 = v123;
+        *v143 = conditionsCopy.var0;
+        *&v143[4] = 1024;
+        *&v143[6] = v108 >> 8;
+        *v144 = 1024;
+        *&v144[2] = (*&conditionsCopy.var0 & 0x10000u) >> 16;
+        *v145 = 1024;
+        *&v145[2] = v111 >> 24;
+        *v146 = 1024;
+        *&v146[2] = v104 >> 40;
+        *v147 = 1024;
+        *&v147[2] = HIWORD(v105);
+        *v148 = 1024;
+        *&v148[2] = HIDWORD(v102);
+        *v149 = 1024;
+        *&v149[2] = HIBYTE(v103);
+        *v150 = 1024;
+        *&v150[2] = isWithinDefaultBackupPeriod & 1;
+        *v151 = 2112;
+        *&v151[2] = v109;
+        v152 = 2114;
+        v153 = v112;
         _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= [Off condition] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", buf, 0x4Cu);
-        v110 = v120;
-        v111 = v123;
-        v108 = HIBYTE(v114);
-        v109 = isWithinDefaultBackupPeriod & 1;
         v21 = selfCopy;
-        v106 = HIWORD(v116);
-        v107 = HIDWORD(v113);
-        v104 = v122 >> 24;
-        v105 = v115 >> 40;
-        v20 = v123;
-        v102 = v119 >> 8;
-        v103 = v121 >> 16;
-        var0 = conditionsCopy.var0;
-        goto LABEL_77;
+        v20 = v112;
+        _MBLog(@"Df", "=scheduler= [Off condition] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", conditionsCopy.var0, v108 >> 8, v110 >> 16, v111 >> 24, v104 >> 40, HIWORD(v105), HIDWORD(v102), HIBYTE(v103), isWithinDefaultBackupPeriod & 1, v109, v112, v101);
       }
     }
 
     else if (v63)
     {
       *buf = 134220802;
-      *v154 = v22;
-      *&v154[8] = 1024;
-      *v155 = conditionsCopy.var0;
-      *&v155[4] = 1024;
-      *v156 = v119 >> 8;
-      *&v156[4] = 1024;
-      *v157 = (*&conditionsCopy.var0 & 0x10000u) >> 16;
-      *&v157[4] = 1024;
-      *v158 = v122 >> 24;
-      *&v158[4] = 1024;
-      *v159 = v115 >> 40;
-      *&v159[4] = 1024;
-      *v160 = HIWORD(v116);
-      *&v160[4] = 1024;
-      *v161 = HIDWORD(v113);
-      *&v161[4] = 1024;
-      *v162 = HIBYTE(v114);
-      *&v162[4] = 1024;
-      *&v162[6] = isWithinDefaultBackupPeriod & 1;
-      v163 = 2112;
-      v164 = v120;
-      v165 = 2114;
-      v166 = v123;
+      *v143 = v22;
+      *&v143[8] = 1024;
+      *v144 = conditionsCopy.var0;
+      *&v144[4] = 1024;
+      *v145 = v108 >> 8;
+      *&v145[4] = 1024;
+      *v146 = (*&conditionsCopy.var0 & 0x10000u) >> 16;
+      *&v146[4] = 1024;
+      *v147 = v111 >> 24;
+      *&v147[4] = 1024;
+      *v148 = v104 >> 40;
+      *&v148[4] = 1024;
+      *v149 = HIWORD(v105);
+      *&v149[4] = 1024;
+      *v150 = HIDWORD(v102);
+      *&v150[4] = 1024;
+      *v151 = HIBYTE(v103);
+      *&v151[4] = 1024;
+      *&v151[6] = isWithinDefaultBackupPeriod & 1;
+      v152 = 2112;
+      v153 = v109;
+      v154 = 2114;
+      v155 = v112;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=scheduler= [Off condition after %.1fs] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", buf, 0x56u);
-      v111 = v120;
-      v112 = v123;
-      v109 = HIBYTE(v114);
-      v110 = (isWithinDefaultBackupPeriod & 1);
       v21 = selfCopy;
-      v107 = HIWORD(v116);
-      v108 = HIDWORD(v113);
-      v105 = v122 >> 24;
-      v106 = v115 >> 40;
-      v103 = v119 >> 8;
-      v104 = v121 >> 16;
-      v20 = v123;
-      v102 = conditionsCopy.var0;
-      var0 = *&v22;
-LABEL_77:
-      _MBLog();
+      v20 = v112;
+      _MBLog(@"Df", "=scheduler= [Off condition after %.1fs] state changed, enabled:%d, locked:%d, onPower:%d, onWiFi:%d, onCellular:%d(%d), autoBackupOnCellularEnabled:%d, autoBackupOnCellularAllowedByProvider:%d, passcodeChanged:%d, managerStates:%@, changes:%{public}@", *&v22, conditionsCopy.var0, v108 >> 8, v110 >> 16, v111 >> 24, v104 >> 40, HIWORD(v105), HIDWORD(v102), HIBYTE(v103), isWithinDefaultBackupPeriod & 1, v109, v112);
     }
 
-LABEL_78:
+LABEL_77:
   }
 
-  v112 = [(NSMutableDictionary *)v21->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0FA8, var0, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112];
+  v64 = [(NSMutableDictionary *)v21->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0FA8];
 
-  if (!v112 && activityType != 2)
+  if (!v64 && activityType != 2)
   {
-    goto LABEL_92;
+    goto LABEL_91;
   }
 
-  if (v119 != 0 && conditionsCopy.var0 && v121 == 0 && v122)
+  if (v108 != 0 && conditionsCopy.var0 && v110 == 0 && v111)
   {
     v65 = MBGetDefaultLog();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v154 = 60;
+      *v143 = 60;
       _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "=scheduler= The device lost power but is otherwise still in condition - will wait %llds before canceling ongoing or scheduled backups", buf, 0xCu);
-      v101 = 60;
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= The device lost power but is otherwise still in condition - will wait %llds before canceling ongoing or scheduled backups", 60);
     }
 
     v66 = [(MBBackupScheduler *)v21 _conditionLossTimerWithSeconds:60 changes:v20];
@@ -3148,21 +3352,20 @@ LABEL_78:
     v21->_powerLossTimer = v66;
 
     v68 = v21->_powerLossTimer;
-LABEL_91:
+LABEL_90:
     dispatch_resume(v68);
-    goto LABEL_92;
+    goto LABEL_91;
   }
 
-  if (v119 != 0 && conditionsCopy.var0 && v121 != 0 && !v122)
+  if (v108 != 0 && conditionsCopy.var0 && v110 != 0 && !v111)
   {
     v69 = MBGetDefaultLog();
     if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      *v154 = 120;
+      *v143 = 120;
       _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "=scheduler= The device lost WiFi but is otherwise still in condition - will wait %llds before canceling ongoing or scheduled backups", buf, 0xCu);
-      v101 = 120;
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= The device lost WiFi but is otherwise still in condition - will wait %llds before canceling ongoing or scheduled backups", 120);
     }
 
     v70 = [(MBBackupScheduler *)v21 _conditionLossTimerWithSeconds:120 changes:v20];
@@ -3170,24 +3373,24 @@ LABEL_91:
     v21->_wifiLossTimer = v70;
 
     v68 = v21->_wifiLossTimer;
-    goto LABEL_91;
+    goto LABEL_90;
   }
 
-  if (v119 == 0 || !conditionsCopy.var0 || v121 == 0 || v122 == 0)
+  if (v108 == 0 || !conditionsCopy.var0 || v110 == 0 || v111 == 0)
   {
     [(MBBackupScheduler *)v21 _cancelBackupWithActivityType:2 changes:v20];
   }
 
-LABEL_92:
-  v101 = [(NSMutableDictionary *)v21->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0F90, v101];
+LABEL_91:
+  v72 = [(NSMutableDictionary *)v21->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0F90];
 
   initiatedBackupRequest2 = [(MBBackupScheduler *)v21 initiatedBackupRequest];
   activityType2 = [initiatedBackupRequest2 activityType];
 
-  v75 = activityType2 != 1 && v101 == 0;
-  if (!v75 && (v119 == 0 || !conditionsCopy.var0 || (~*&conditionsCopy & 0x10000010000) != 0))
+  v75 = activityType2 != 1 && v72 == 0;
+  if (!v75 && (v108 == 0 || !conditionsCopy.var0 || (~*&conditionsCopy & 0x10000010000) != 0))
   {
-    [(MBBackupScheduler *)v21 _cancelBackupWithActivityType:1 changes:v123];
+    [(MBBackupScheduler *)v21 _cancelBackupWithActivityType:1 changes:v112];
   }
 
   v76 = [(NSMutableDictionary *)v21->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FC0];
@@ -3196,46 +3399,46 @@ LABEL_92:
   activityType3 = [initiatedBackupRequest3 activityType];
 
   v79 = activityType3 != 3 && v76 == 0;
-  if (!v79 && (v119 == 0 || !conditionsCopy.var0 || v122 == 0))
+  if (!v79 && (v108 == 0 || !conditionsCopy.var0 || v111 == 0))
   {
-    [(MBBackupScheduler *)v21 _cancelBackupWithActivityType:3 changes:v123];
+    [(MBBackupScheduler *)v21 _cancelBackupWithActivityType:3 changes:v112];
   }
 
   if ((~*&conditionsCopy.var0 & 0x1010100) != 0 && conditionsCopy.var0)
   {
-    v141 = 0u;
-    v142 = 0u;
-    v139 = 0u;
-    v140 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
     accounts = [(MBBackupScheduler *)v21 accounts];
-    v81 = [accounts countByEnumeratingWithState:&v139 objects:v151 count:16];
+    v81 = [accounts countByEnumeratingWithState:&v128 objects:v140 count:16];
     if (v81)
     {
       v82 = v81;
-      v83 = *v140;
+      v83 = *v129;
       do
       {
         for (j = 0; j != v82; j = j + 1)
         {
-          if (*v140 != v83)
+          if (*v129 != v83)
           {
             objc_enumerationMutation(accounts);
           }
 
-          [(MBBackupScheduler *)v21 _warnUserOfLateBackupWithAccount:*(*(&v139 + 1) + 8 * j)];
+          [(MBBackupScheduler *)v21 _warnUserOfLateBackupWithAccount:*(*(&v128 + 1) + 8 * j)];
         }
 
-        v82 = [accounts countByEnumeratingWithState:&v139 objects:v151 count:16];
+        v82 = [accounts countByEnumeratingWithState:&v128 objects:v140 count:16];
       }
 
       while (v82);
     }
   }
 
-  v85 = v123;
+  v85 = v112;
   if ((*&conditionsCopy & 0x10001000000) != 0 && [(MBCKManager *)v21->_serviceManager isBackgroundRestoringAnyAccount])
   {
-    onWiFi = [v123 onWiFi];
+    onWiFi = [v112 onWiFi];
     bOOLValue = [onWiFi BOOLValue];
 
     if (bOOLValue)
@@ -3245,15 +3448,24 @@ LABEL_92:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=scheduler= Back on WiFi during background restore - retrying app downloads", buf, 2u);
-LABEL_132:
-        _MBLog();
-        goto LABEL_133;
+        _MBLog(@"Df", "=scheduler= Back on WiFi during background restore - retrying app downloads", v100);
       }
 
-      goto LABEL_133;
+LABEL_131:
+
+      networkPathMonitor = [(MBBackupScheduler *)v21 networkPathMonitor];
+      cellularRadioType = [networkPathMonitor cellularRadioType];
+      networkPathMonitor2 = [(MBBackupScheduler *)v21 networkPathMonitor];
+      backupOnCellularSupport = [networkPathMonitor2 backupOnCellularSupport];
+
+      *(&v99 + 1) = cellularRadioType;
+      *&v99 = v105;
+      [(MBCKManager *)v21->_serviceManager retryAppDataDownloadsWithNetworkConnectivity:HIDWORD(v104) | (*&conditionsCopy >> 24) & 1 | (v99 >> 32), backupOnCellularSupport];
+      v85 = v112;
+      goto LABEL_132;
     }
 
-    onCellular = [v123 onCellular];
+    onCellular = [v112 onCellular];
     bOOLValue2 = [onCellular BOOLValue];
 
     if (bOOLValue2)
@@ -3263,24 +3475,13 @@ LABEL_132:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=scheduler= Back on cellular during background restore - retrying app downloads", buf, 2u);
-        goto LABEL_132;
+        _MBLog(@"Df", "=scheduler= Back on cellular during background restore - retrying app downloads", v100);
       }
 
-LABEL_133:
-
-      networkPathMonitor = [(MBBackupScheduler *)v21 networkPathMonitor];
-      cellularRadioType = [networkPathMonitor cellularRadioType];
-      networkPathMonitor2 = [(MBBackupScheduler *)v21 networkPathMonitor];
-      backupOnCellularSupport = [networkPathMonitor2 backupOnCellularSupport];
-
-      *(&v99 + 1) = cellularRadioType;
-      *&v99 = v116;
-      [(MBCKManager *)v21->_serviceManager retryAppDataDownloadsWithNetworkConnectivity:HIDWORD(v115) | (*&conditionsCopy >> 24) & 1 | (v99 >> 32), backupOnCellularSupport];
-      v85 = v123;
-      goto LABEL_134;
+      goto LABEL_131;
     }
 
-    onPower = [v123 onPower];
+    onPower = [v112 onPower];
     bOOLValue3 = [onPower BOOLValue];
 
     if (bOOLValue3)
@@ -3290,20 +3491,20 @@ LABEL_133:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=scheduler= Back on external power during background restore - retrying app downloads", buf, 2u);
-        goto LABEL_132;
+        _MBLog(@"Df", "=scheduler= Back on external power during background restore - retrying app downloads");
       }
 
-      goto LABEL_133;
+      goto LABEL_131;
     }
 
-    locked = [v123 locked];
+    locked = [v112 locked];
 
     if (locked)
     {
       v88 = MBGetDefaultLog();
       if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
       {
-        if (v119)
+        if (v108)
         {
           v94 = "locked";
         }
@@ -3314,16 +3515,16 @@ LABEL_133:
         }
 
         *buf = 136315138;
-        *v154 = v94;
+        *v143 = v94;
         _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "=scheduler= Device %s - retrying app downloads", buf, 0xCu);
-        goto LABEL_132;
+        _MBLog(@"I ", "=scheduler= Device %s - retrying app downloads");
       }
 
-      goto LABEL_133;
+      goto LABEL_131;
     }
   }
 
-LABEL_134:
+LABEL_132:
 }
 
 - ($3C5213C2FB734B7CA09EF95E8A7A7A2F)conditions
@@ -3381,6 +3582,243 @@ LABEL_5:
 LABEL_14:
   objc_sync_exit(obj);
   v11 = obj;
+LABEL_15:
+}
+
+- (void)_setIsLocked:(BOOL)locked
+{
+  lockedCopy = locked;
+  obj = self;
+  objc_sync_enter(obj);
+  v4 = obj;
+  if (obj->_changedConditions.isLocked)
+  {
+    p_isLocked = &obj->_conditions.isLocked;
+    if (obj->_conditions.isLocked == lockedCopy)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    p_isLocked = &obj->_conditions.isLocked;
+    isLocked = obj->_conditions.isLocked;
+    obj->_changedConditions.isLocked = 1;
+    if (isLocked == lockedCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  *p_isLocked = lockedCopy;
+LABEL_6:
+  if (!lockedCopy)
+  {
+    v7 = +[NSDate now];
+    dateOfLastUnlockSeenByDaemon = obj->_dateOfLastUnlockSeenByDaemon;
+    obj->_dateOfLastUnlockSeenByDaemon = v7;
+
+    v4 = obj;
+  }
+
+  if (v4->_changedConditions.isEnabled && v4->_changedConditions.isLocked && v4->_changedConditions.isOnPower && v4->_changedConditions.isOnWiFi && v4->_changedConditions.isBackupOnCellularEnabled && v4->_changedConditions.isOnCellular && v4->_changedConditions.isOnExpensiveCellular && v4->_changedConditions.isAutoBackupOnCellularAllowed)
+  {
+    conditions = v4->_conditions;
+    objc_sync_exit(v4);
+
+    v10 = objc_opt_new();
+    v11 = [NSNumber numberWithBool:lockedCopy];
+    [(MBBackupScheduler *)v10 setLocked:v11];
+
+    [(MBBackupScheduler *)obj _notifyStateChanged:v10 conditions:conditions];
+    v12 = v10;
+    goto LABEL_18;
+  }
+
+LABEL_17:
+  objc_sync_exit(obj);
+  v12 = obj;
+LABEL_18:
+}
+
+- (void)_setIsOnWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_changedConditions.isOnWiFi)
+  {
+    p_isOnWiFi = &obj->_conditions.isOnWiFi;
+    if (obj->_conditions.isOnWiFi == fiCopy)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_5;
+  }
+
+  p_isOnWiFi = &obj->_conditions.isOnWiFi;
+  isOnWiFi = obj->_conditions.isOnWiFi;
+  obj->_changedConditions.isOnWiFi = 1;
+  if (isOnWiFi != fiCopy)
+  {
+LABEL_5:
+    *p_isOnWiFi = fiCopy;
+  }
+
+  if (obj->_changedConditions.isEnabled && obj->_changedConditions.isLocked && obj->_changedConditions.isOnPower && obj->_changedConditions.isBackupOnCellularEnabled && obj->_changedConditions.isOnCellular && obj->_changedConditions.isOnExpensiveCellular && obj->_changedConditions.isAutoBackupOnCellularAllowed)
+  {
+    conditions = obj->_conditions;
+    objc_sync_exit(obj);
+
+    v7 = objc_opt_new();
+    v8 = [NSNumber numberWithBool:fiCopy];
+    [(MBBackupScheduler *)v7 setOnWiFi:v8];
+
+    [(MBBackupScheduler *)obj _notifyStateChanged:v7 conditions:conditions];
+    v9 = v7;
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  objc_sync_exit(obj);
+  v9 = obj;
+LABEL_15:
+}
+
+- (void)_setIsOnCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_changedConditions.isOnCellular)
+  {
+    p_isOnCellular = &obj->_conditions.isOnCellular;
+    if (obj->_conditions.isOnCellular == cellularCopy)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_5;
+  }
+
+  p_isOnCellular = &obj->_conditions.isOnCellular;
+  isOnCellular = obj->_conditions.isOnCellular;
+  obj->_changedConditions.isOnCellular = 1;
+  if (isOnCellular != cellularCopy)
+  {
+LABEL_5:
+    *p_isOnCellular = cellularCopy;
+  }
+
+  if (obj->_changedConditions.isEnabled && obj->_changedConditions.isLocked && obj->_changedConditions.isOnPower && obj->_changedConditions.isOnWiFi && obj->_changedConditions.isBackupOnCellularEnabled && obj->_changedConditions.isOnExpensiveCellular && obj->_changedConditions.isAutoBackupOnCellularAllowed)
+  {
+    conditions = obj->_conditions;
+    objc_sync_exit(obj);
+
+    v7 = objc_opt_new();
+    v8 = [NSNumber numberWithBool:cellularCopy];
+    [(MBBackupScheduler *)v7 setOnCellular:v8];
+
+    [(MBBackupScheduler *)obj _notifyStateChanged:v7 conditions:conditions];
+    v9 = v7;
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  objc_sync_exit(obj);
+  v9 = obj;
+LABEL_15:
+}
+
+- (void)_setIsOnExpensiveCellular:(BOOL)cellular
+{
+  cellularCopy = cellular;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_changedConditions.isOnExpensiveCellular)
+  {
+    p_isOnExpensiveCellular = &obj->_conditions.isOnExpensiveCellular;
+    if (obj->_conditions.isOnExpensiveCellular == cellularCopy)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_5;
+  }
+
+  p_isOnExpensiveCellular = &obj->_conditions.isOnExpensiveCellular;
+  isOnExpensiveCellular = obj->_conditions.isOnExpensiveCellular;
+  obj->_changedConditions.isOnExpensiveCellular = 1;
+  if (isOnExpensiveCellular != cellularCopy)
+  {
+LABEL_5:
+    *p_isOnExpensiveCellular = cellularCopy;
+  }
+
+  if (obj->_changedConditions.isEnabled && obj->_changedConditions.isLocked && obj->_changedConditions.isOnPower && obj->_changedConditions.isOnWiFi && obj->_changedConditions.isBackupOnCellularEnabled && obj->_changedConditions.isOnCellular && obj->_changedConditions.isAutoBackupOnCellularAllowed)
+  {
+    conditions = obj->_conditions;
+    objc_sync_exit(obj);
+
+    v7 = objc_opt_new();
+    v8 = [NSNumber numberWithBool:cellularCopy];
+    [(MBBackupScheduler *)v7 setOnExpensiveCellular:v8];
+
+    [(MBBackupScheduler *)obj _notifyStateChanged:v7 conditions:conditions];
+    v9 = v7;
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  objc_sync_exit(obj);
+  v9 = obj;
+LABEL_15:
+}
+
+- (void)_setIsAutoBackupOnCellularAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  obj = self;
+  objc_sync_enter(obj);
+  if (obj->_changedConditions.isAutoBackupOnCellularAllowed)
+  {
+    p_isAutoBackupOnCellularAllowed = &obj->_conditions.isAutoBackupOnCellularAllowed;
+    if (obj->_conditions.isAutoBackupOnCellularAllowed == allowedCopy)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_5;
+  }
+
+  p_isAutoBackupOnCellularAllowed = &obj->_conditions.isAutoBackupOnCellularAllowed;
+  isAutoBackupOnCellularAllowed = obj->_conditions.isAutoBackupOnCellularAllowed;
+  obj->_changedConditions.isAutoBackupOnCellularAllowed = 1;
+  if (isAutoBackupOnCellularAllowed != allowedCopy)
+  {
+LABEL_5:
+    *p_isAutoBackupOnCellularAllowed = allowedCopy;
+  }
+
+  if (obj->_changedConditions.isEnabled && obj->_changedConditions.isLocked && obj->_changedConditions.isOnPower && obj->_changedConditions.isOnWiFi && obj->_changedConditions.isBackupOnCellularEnabled && obj->_changedConditions.isOnCellular && obj->_changedConditions.isOnExpensiveCellular)
+  {
+    conditions = obj->_conditions;
+    objc_sync_exit(obj);
+
+    v7 = objc_opt_new();
+    v8 = [NSNumber numberWithBool:allowedCopy];
+    [(MBBackupScheduler *)v7 setAutoBackupOnCellularAllowed:v8];
+
+    [(MBBackupScheduler *)obj _notifyStateChanged:v7 conditions:conditions];
+    v9 = v7;
+    goto LABEL_15;
+  }
+
+LABEL_14:
+  objc_sync_exit(obj);
+  v9 = obj;
 LABEL_15:
 }
 
@@ -3457,7 +3895,7 @@ LABEL_15:
         *buf = 138412290;
         v15 = v8;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=scheduler= Failed to fetch most recent snapshot from cache: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=scheduler= Failed to fetch most recent snapshot from cache: %@", v8);
       }
 
       v7 = 0;
@@ -3602,8 +4040,8 @@ LABEL_15:
       _os_log_impl(&_mh_execute_header, date, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched dateOfLastBackup from lockdown:%{public}@", buf, 0xCu);
 
       v15 = MBStringWithDate();
+      _MBLog(@"Df", "=scheduler= Fetched dateOfLastBackup from lockdown:%{public}@", v15);
 LABEL_14:
-      _MBLog();
 
       goto LABEL_29;
     }
@@ -3612,7 +4050,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, date, OS_LOG_TYPE_INFO, "=scheduler= No dateOfLastBackup available from lockdown", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=scheduler= No dateOfLastBackup available from lockdown");
     }
   }
 
@@ -3636,6 +4074,7 @@ LABEL_14:
       _os_log_impl(&_mh_execute_header, date, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched dateOfLastBackup from the cache:%{public}@", buf, 0xCu);
 
       v15 = MBStringWithDate();
+      _MBLog(@"Df", "=scheduler= Fetched dateOfLastBackup from the cache:%{public}@", v15);
       goto LABEL_14;
     }
 
@@ -3643,7 +4082,7 @@ LABEL_14:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, date, OS_LOG_TYPE_INFO, "=scheduler= No dateOfLastBackup available from the cache", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "=scheduler= No dateOfLastBackup available from the cache");
     }
   }
 
@@ -3676,7 +4115,7 @@ LABEL_14:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "=scheduler= No dateOfLastBackup available from the device record", buf, 2u);
-        _MBLog();
+        _MBLog(@"I ", "=scheduler= No dateOfLastBackup available from the device record");
       }
 
       _dateOfLastBackupFromLockdown = +[NSDate now];
@@ -3694,35 +4133,35 @@ LABEL_37:
       v39 = v28;
       _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched the dateOfLastBackup from the device record: %{public}@", buf, 0xCu);
 
-      v35 = MBStringWithDate();
-      _MBLog();
+      v29 = MBStringWithDate();
+      _MBLog(@"Df", "=scheduler= Fetched the dateOfLastBackup from the device record: %{public}@", v29);
     }
 
     [(MBBackupScheduler *)self clearNilBackupDateFetchDateForAccount:accountCopy];
 LABEL_29:
 
-    v29 = [MBCKManager restoreInfoForAccount:accountCopy];
-    date = [v29 date];
+    v30 = [MBCKManager restoreInfoForAccount:accountCopy];
+    date = [v30 date];
 
     if (!date || [_dateOfLastBackupFromLockdown compare:date] != -1)
     {
       goto LABEL_38;
     }
 
-    v30 = MBGetDefaultLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = MBGetDefaultLog();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = MBStringWithDate();
       v32 = MBStringWithDate();
-      *buf = 138543618;
-      v39 = v31;
-      v40 = 2114;
-      v41 = v32;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup date (%{public}@) is before the restore date (%{public}@) - ignoring", buf, 0x16u);
-
       v33 = MBStringWithDate();
-      v36 = MBStringWithDate();
-      _MBLog();
+      *buf = 138543618;
+      v39 = v32;
+      v40 = 2114;
+      v41 = v33;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup date (%{public}@) is before the restore date (%{public}@) - ignoring", buf, 0x16u);
+
+      v34 = MBStringWithDate();
+      v35 = MBStringWithDate();
+      _MBLog(@"Df", "=scheduler= Last backup date (%{public}@) is before the restore date (%{public}@) - ignoring", v34, v35);
     }
 
     goto LABEL_37;
@@ -3758,8 +4197,8 @@ LABEL_39:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "=scheduler= Fetched %{public}@ for account %{public}@: %{public}@", buf, 0x20u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    v11 = MBStringWithDate();
-    _MBLog();
+    v10 = MBStringWithDate();
+    _MBLog(@"Db", "=scheduler= Fetched %{public}@ for account %{public}@: %{public}@", @"NilBackupDateFetchDate", accountIdentifier2, v10);
   }
 
   return v5;
@@ -3779,7 +4218,7 @@ LABEL_39:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "=scheduler= Clearing %{public}@ for account %{public}@", buf, 0x16u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Db", "=scheduler= Clearing %{public}@ for account %{public}@", @"NilBackupDateFetchDate", accountIdentifier2);
   }
 
   persona = [accountCopy persona];
@@ -3804,8 +4243,8 @@ LABEL_39:
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "=scheduler= Updating %{public}@ for account %{public}@: %{public}@", buf, 0x20u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    v12 = MBStringWithDate();
-    _MBLog();
+    v11 = MBStringWithDate();
+    _MBLog(@"Df", "=scheduler= Updating %{public}@ for account %{public}@: %{public}@", @"NilBackupDateFetchDate", accountIdentifier2, v11);
   }
 
   persona = [accountCopy persona];
@@ -3884,13 +4323,13 @@ LABEL_39:
           v72 = v20;
           _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup date is forward in time (%{public}@)", buf, 0xCu);
 
-          v51 = MBStringWithDate();
-          _MBLog();
+          v21 = MBStringWithDate();
+          _MBLog(@"Df", "=scheduler= Last backup date is forward in time (%{public}@)", v21);
         }
 
-        v21 = v65;
-        v22 = v21;
-        v23 = v21;
+        v22 = v65;
+        v23 = v22;
+        v24 = v22;
       }
 
       else
@@ -3898,146 +4337,146 @@ LABEL_39:
         self->_backupPeriodOnWiFi = sub_1001D8C1C(accountCopy, @"BackupPeriod", 86400.0, 86400.0);
         self->_backupPeriodOnCellular = sub_1001D8C1C(accountCopy, @"BackupPeriodOnCellular", 172800.0, 172800.0);
         self->_backupPeriodOnBattery = sub_1001D8C1C(accountCopy, @"BackupPeriodOnBattery", 604800.0, 604800.0);
-        v23 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnWiFi];
-        v22 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnCellular];
+        v24 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnWiFi];
+        v23 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnCellular];
         if ([(NSDate *)self->_dateOfLastPasscodeChange isDueForPasscodeChangedBackupWithLastBackupDate:v15])
         {
-          v27 = self->_dateOfLastPasscodeChange;
+          v28 = self->_dateOfLastPasscodeChange;
         }
 
         else
         {
-          v27 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnBattery];
+          v28 = [v15 dateByAddingTimeInterval:self->_backupPeriodOnBattery];
         }
 
-        v21 = v27;
+        v22 = v28;
       }
     }
 
     else
     {
-      v26 = MBGetDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = MBGetDefaultLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup date is unknown", buf, 2u);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup date is unknown", buf, 2u);
+        _MBLog(@"Df", "=scheduler= Last backup date is unknown");
       }
 
-      v21 = 0;
       v22 = 0;
       v23 = 0;
+      v24 = 0;
     }
 
-    v28 = [(MBBackupScheduler *)self _retryAfterDateForAccount:accountCopy, v51];
+    v29 = [(MBBackupScheduler *)self _retryAfterDateForAccount:accountCopy];
     [(MBBackupScheduler *)self _onBatteryRetryAfterDateForAccount:accountCopy];
-    v67 = v66 = v28;
-    if (v23)
+    v67 = v66 = v29;
+    if (v24)
     {
-      if (v28)
+      if (v29)
       {
-        v29 = [v23 laterDate:v28];
+        v30 = [v24 laterDate:v29];
 
-        v30 = [v22 laterDate:v28];
+        v31 = [v23 laterDate:v29];
 
-        v31 = [v21 laterDate:v67];
+        v32 = [v22 laterDate:v67];
 
-        v21 = v31;
-        v22 = v30;
-        v23 = v29;
+        v22 = v32;
+        v23 = v31;
+        v24 = v30;
       }
 
       else if (v67)
       {
-        v32 = [v21 laterDate:v67];
+        v33 = [v22 laterDate:v67];
 
-        v21 = [v32 laterDate:0];
+        v22 = [v33 laterDate:0];
       }
     }
 
     else
     {
-      if (v22 | v21)
+      if (v23 | v22)
       {
         __assert_rtn("[MBBackupScheduler _fetchNextBackupDateOnWiFi:nextBackupDateOnCellular:nextBackupDateOnBattery:lastBackupDate:account:connection:error:]", "MBBackupScheduler.m", 2042, "!nextBackupDateOnCellular && !nextBackupDateOnBattery");
       }
 
-      v21 = v28;
-      v22 = v21;
-      v23 = v21;
+      v22 = v29;
+      v23 = v22;
+      v24 = v22;
     }
 
-    v33 = MBGetDefaultLog();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = MBGetDefaultLog();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = MBStringWithDate();
-      log = v33;
       v35 = MBStringWithDate();
+      log = v34;
+      v36 = MBStringWithDate();
       MBStringWithDate();
-      v36 = v57 = v15;
-      v37 = MBStringWithDate();
+      v37 = v57 = v15;
       v38 = MBStringWithDate();
+      v39 = MBStringWithDate();
       MBStringWithDate();
-      v39 = v56 = v23;
+      v40 = v56 = v24;
       [accountCopy persona];
-      v40 = v59 = accountCopy;
-      personaIdentifier = [v40 personaIdentifier];
+      v41 = v59 = accountCopy;
+      personaIdentifier = [v41 personaIdentifier];
       *buf = 138544898;
-      v72 = v34;
+      v72 = v35;
       v73 = 2114;
-      v74 = v35;
+      v74 = v36;
       v75 = 2114;
-      v76 = v36;
+      v76 = v37;
       v77 = 2114;
-      v78 = v37;
+      v78 = v38;
       v79 = 2114;
-      v80 = v38;
+      v80 = v39;
       v81 = 2114;
-      v82 = v39;
+      v82 = v40;
       v83 = 2112;
       v84 = personaIdentifier;
       _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "=scheduler= lastBackupDate:%{public}@, retryAfterDate:%{public}@(%{public}@, nextBackupDateOnWiFi:%{public}@, nextBackupDateOnCellular:%{public}@, nextBackupDateOnBattery:%{public}@, persona:%@", buf, 0x48u);
 
-      v23 = v56;
+      v24 = v56;
       v15 = v57;
 
       v55 = MBStringWithDate();
       v54 = MBStringWithDate();
       v53 = MBStringWithDate();
-      v42 = MBStringWithDate();
       v43 = MBStringWithDate();
       v44 = MBStringWithDate();
+      v45 = MBStringWithDate();
       persona = [v59 persona];
       personaIdentifier2 = [persona personaIdentifier];
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= lastBackupDate:%{public}@, retryAfterDate:%{public}@(%{public}@, nextBackupDateOnWiFi:%{public}@, nextBackupDateOnCellular:%{public}@, nextBackupDateOnBattery:%{public}@, persona:%@", v55, v54, v53, v43, v44, v45, personaIdentifier2);
 
-      v33 = log;
+      v34 = log;
       accountCopy = v59;
     }
 
-    if (!v23 && v22 && !v21)
+    if (!v24 && v23 && !v22)
     {
       __assert_rtn("[MBBackupScheduler _fetchNextBackupDateOnWiFi:nextBackupDateOnCellular:nextBackupDateOnBattery:lastBackupDate:account:connection:error:]", "MBBackupScheduler.m", 2057, "nextBackupDateOnWiFi || !nextBackupDateOnCellular || nextBackupDateOnBattery");
     }
 
-    v46 = v23;
-    *fiCopy = v23;
-    v47 = v22;
-    *cellularCopy = v22;
-    v48 = v21;
-    *v64 = v21;
-    v49 = v15;
+    v48 = v24;
+    *fiCopy = v24;
+    v49 = v23;
+    *cellularCopy = v23;
+    v50 = v22;
+    *v64 = v22;
+    v51 = v15;
     *date = v15;
 
     v18 = v63;
-    v25 = v60;
+    v26 = v60;
   }
 
   else
   {
-    v24 = v16;
-    *error = v24;
-    v25 = v24;
+    v25 = v16;
+    *error = v25;
+    v26 = v25;
   }
 
   return v18;
@@ -4115,7 +4554,7 @@ LABEL_39:
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=scheduler= Fetched %{public}@ for account %{public}@: %{public}@", buf, 0x20u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Fetched %{public}@ for account %{public}@: %{public}@", @"LastPendingSnapshotSize", accountIdentifier2, v5);
   }
 
   unsignedLongLongValue = [v5 unsignedLongLongValue];
@@ -4136,7 +4575,7 @@ LABEL_39:
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "=scheduler= Clearing %{public}@ for account %{public}@", buf, 0x16u);
 
     accountIdentifier2 = [accountCopy accountIdentifier];
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Clearing %{public}@ for account %{public}@", @"LastPendingSnapshotSize", accountIdentifier2);
   }
 
   persona = [accountCopy persona];
@@ -4159,7 +4598,7 @@ LABEL_39:
       v11 = 2114;
       v12 = v5;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=scheduler= %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=scheduler= %{public}@: %{public}@", @"AutomaticBackupOnCellularEnabled", v5);
     }
 
     bOOLValue = [v5 BOOLValue];
@@ -4176,55 +4615,55 @@ LABEL_39:
 - (BOOL)_fetchNextBackupDateAcrossAccountsOnWifi:(id *)wifi cellular:(id *)cellular battery:(id *)battery error:(id *)error
 {
   [(MBBackupScheduler *)self accounts];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
-  obj = v48 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+  obj = v47 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v7)
   {
     v8 = v7;
-    v37 = 0;
+    v36 = 0;
     v9 = 0;
     v10 = 0;
-    v11 = *v46;
-    v36 = *v46;
+    v11 = *v45;
+    v35 = *v45;
     do
     {
       v12 = 0;
-      v38 = v8;
+      v37 = v8;
       do
       {
-        if (*v46 != v11)
+        if (*v45 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v45 + 1) + 8 * v12);
+        v13 = *(*(&v44 + 1) + 8 * v12);
         if ([v13 isEnabledForBackup])
         {
-          v43 = 0;
-          v44 = 0;
-          v41 = 0;
           v42 = 0;
+          v43 = 0;
           v40 = 0;
-          v14 = [(MBBackupScheduler *)self _fetchNextBackupDateOnWiFi:&v44 nextBackupDateOnCellular:&v43 nextBackupDateOnBattery:&v42 lastBackupDate:&v41 account:v13 connection:0 error:&v40];
-          v15 = v44;
-          v16 = v43;
-          v17 = v42;
-          v18 = v41;
-          v19 = v40;
+          v41 = 0;
+          v39 = 0;
+          v14 = [(MBBackupScheduler *)self _fetchNextBackupDateOnWiFi:&v43 nextBackupDateOnCellular:&v42 nextBackupDateOnBattery:&v41 lastBackupDate:&v40 account:v13 connection:0 error:&v39];
+          v15 = v43;
+          v16 = v42;
+          v17 = v41;
+          v18 = v40;
+          v19 = v39;
           if (v14)
           {
-            v35 = [v15 earlierDate:v10];
+            v34 = [v15 earlierDate:v10];
 
             v20 = [v16 earlierDate:v9];
 
-            v21 = [v17 earlierDate:v37];
+            v21 = [v17 earlierDate:v36];
 
-            v37 = v21;
+            v36 = v21;
             v9 = v20;
-            v10 = v35;
+            v10 = v34;
           }
 
           else
@@ -4233,24 +4672,23 @@ LABEL_39:
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;
-              v50 = v19;
+              v49 = v19;
               _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "=scheduler= Failed to fetch the last&next backup date for account: %{public}@", buf, 0xCu);
-              v30 = v19;
-              _MBLog();
+              _MBLog(@"E ", "=scheduler= Failed to fetch the last&next backup date for account: %{public}@", v19);
             }
 
             [0 addObject:v19];
           }
 
-          v11 = v36;
-          v8 = v38;
+          v11 = v35;
+          v8 = v37;
         }
 
         v12 = v12 + 1;
       }
 
       while (v8 != v12);
-      v8 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v8 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v8);
@@ -4258,7 +4696,7 @@ LABEL_39:
 
   else
   {
-    v37 = 0;
+    v36 = 0;
     v9 = 0;
     v10 = 0;
   }
@@ -4276,7 +4714,7 @@ LABEL_39:
       v24 = 0;
     }
 
-    v26 = v37;
+    v26 = v36;
   }
 
   else
@@ -4287,7 +4725,7 @@ LABEL_39:
       *wifi = v10;
     }
 
-    v26 = v37;
+    v26 = v36;
     if (cellular)
     {
       v27 = v9;
@@ -4296,8 +4734,8 @@ LABEL_39:
 
     if (battery)
     {
-      v28 = v37;
-      *battery = v37;
+      v28 = v36;
+      *battery = v36;
     }
 
     v24 = 1;
@@ -4330,8 +4768,7 @@ LABEL_39:
         *buf = 67109120;
         *v119 = [initiatedBackupRequest activityType];
         _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling automatic backup - XPC activity is running (%d)", buf, 8u);
-        [initiatedBackupRequest activityType];
-        _MBLog();
+        _MBLog(@"Df", "=scheduler= Not scheduling automatic backup - XPC activity is running (%d)", [initiatedBackupRequest activityType]);
       }
 
       v12 = 0;
@@ -4358,7 +4795,7 @@ LABEL_39:
         *buf = 138412290;
         *v119 = v16;
         _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=scheduler= Failed to fetch the next backup date across all accounts: %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "=scheduler= Failed to fetch the next backup date across all accounts: %@", v16);
       }
 
       v12 = -1;
@@ -4476,37 +4913,36 @@ LABEL_39:
           v120 = v30;
           _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup on cellular was delayed (%{public}@) (%llds)", buf, 0x16u);
 
-          v94 = MBStringWithDate();
-          v96 = v30;
-          _MBLog();
+          v33 = MBStringWithDate();
+          _MBLog(@"Df", "=scheduler= Last backup on cellular was delayed (%{public}@) (%llds)", v33, v30);
 
           v28 = v109;
         }
 
-        v33 = [v108 dateByAddingTimeInterval:1.0];
+        v34 = [v108 dateByAddingTimeInterval:1.0];
 
         if (v27 >= v30)
         {
-          v34 = v30;
+          v35 = v30;
         }
 
         else
         {
-          v34 = v27;
+          v35 = v27;
         }
 
-        v35 = v27 - v34;
-        if (v35 <= 600)
+        v36 = v27 - v35;
+        if (v36 <= 600)
         {
           v27 = 600;
         }
 
         else
         {
-          v27 = v35;
+          v27 = v36;
         }
 
-        if (!v33)
+        if (!v34)
         {
           __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2232, "nextBackupDateOnCellular");
         }
@@ -4516,110 +4952,104 @@ LABEL_39:
 
       else
       {
-        v33 = v109;
+        v34 = v109;
       }
 
-      [v33 timeIntervalSinceDate:{v108, v94, v96}];
-      v37 = vcvtpd_s64_f64(v36);
-      if ((v37 & 0x8000000000000000) != 0)
+      [v34 timeIntervalSinceDate:v108];
+      v38 = vcvtpd_s64_f64(v37);
+      if ((v38 & 0x8000000000000000) != 0)
       {
         __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2234, "0 <= delta");
       }
 
-      v38 = (120 - v37) & ~((120 - v37) >> 63);
-      v12 = v38 + v37;
-      v39 = [v33 dateByAddingTimeInterval:v38];
+      v39 = (120 - v38) & ~((120 - v38) >> 63);
+      v12 = v39 + v38;
+      v40 = [v34 dateByAddingTimeInterval:v39];
 
-      v40 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0F90];
-      v41 = v40;
-      v109 = v39;
-      if (v40 && ([v40 timeIntervalSinceDate:v39], fabs(v42) <= 120.0))
+      v41 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0F90];
+      v42 = v41;
+      v109 = v40;
+      if (v41 && ([v41 timeIntervalSinceDate:v40], fabs(v43) <= 120.0))
       {
-        v47 = MBGetDefaultLog();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v48 = MBGetDefaultLog();
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
           *v119 = v109;
           *&v119[8] = 2112;
-          v120 = v41;
-          _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next cellular backup at %@ because there is a DAS backup scheduled at %@", buf, 0x16u);
-          v94 = v109;
-          v96 = v41;
-          _MBLog();
+          v120 = v42;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next cellular backup at %@ because there is a DAS backup scheduled at %@", buf, 0x16u);
+          _MBLog(@"Df", "=scheduler= Not scheduling the next cellular backup at %@ because there is a DAS backup scheduled at %@", v109, v42);
         }
       }
 
       else
       {
-        v100 = v41;
-        [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v39 forKeyedSubscript:&off_1003E0F90];
-        v43 = v21;
-        v44 = 209715200.0;
+        v100 = v42;
+        [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v40 forKeyedSubscript:&off_1003E0F90];
+        v44 = v21;
+        v45 = 209715200.0;
         if (v21 >> 22 < 0x7D)
         {
-          v44 = 157286400.0;
+          v45 = 157286400.0;
         }
 
         if (v21 >> 21 >= 0x7D)
         {
-          v43 = v44;
+          v44 = v45;
         }
 
-        v45 = round(fmax(v43, 75497472.0) * 9.31322575e-10 * 100.0) / 100.0;
-        if (v45 <= 0.0 || v45 > 1.0)
+        v46 = round(fmax(v44, 75497472.0) * 9.31322575e-10 * 100.0) / 100.0;
+        if (v46 <= 0.0 || v46 > 1.0)
         {
           __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2268, "0.0 < minCellularBudgetPercentage && minCellularBudgetPercentage <= 1.0");
         }
 
-        v47 = xpc_dictionary_create(0, 0, 0);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_REPEATING, 0);
-        xpc_dictionary_set_int64(v47, XPC_ACTIVITY_DELAY, v12);
-        xpc_dictionary_set_int64(v47, XPC_ACTIVITY_GRACE_PERIOD, v27);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, ![(MBBackupScheduler *)self allowBackupOnExpensiveCellular]);
-        xpc_dictionary_set_string(v47, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_ALLOW_BATTERY, 0);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
-        xpc_dictionary_set_int64(v47, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
-        xpc_dictionary_set_BOOL(v47, XPC_ACTIVITY_USES_DATA_BUDGETING, 1);
-        xpc_dictionary_set_int64(v47, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
         v48 = xpc_dictionary_create(0, 0, 0);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_REPEATING, 0);
+        xpc_dictionary_set_int64(v48, XPC_ACTIVITY_DELAY, v12);
+        xpc_dictionary_set_int64(v48, XPC_ACTIVITY_GRACE_PERIOD, v27);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, ![(MBBackupScheduler *)self allowBackupOnExpensiveCellular]);
+        xpc_dictionary_set_string(v48, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_ALLOW_BATTERY, 0);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
+        xpc_dictionary_set_int64(v48, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
+        xpc_dictionary_set_BOOL(v48, XPC_ACTIVITY_USES_DATA_BUDGETING, 1);
+        xpc_dictionary_set_int64(v48, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
+        v49 = xpc_dictionary_create(0, 0, 0);
         uTF8String = [_DASCTSMinDataBudgetPercentRemainingKey UTF8String];
-        v50 = xpc_double_create(v45);
-        xpc_dictionary_set_value(v48, uTF8String, v50);
+        v51 = xpc_double_create(v46);
+        xpc_dictionary_set_value(v49, uTF8String, v51);
 
-        xpc_dictionary_set_value(v47, XPC_ACTIVITY_DUET_ACTIVITY_SCHEDULER_DATA, v48);
+        xpc_dictionary_set_value(v48, XPC_ACTIVITY_DUET_ACTIVITY_SCHEDULER_DATA, v49);
         activityCoordinator = [(MBBackupScheduler *)self activityCoordinator];
-        [activityCoordinator registerBackupActivity:1 criteria:v47];
+        [activityCoordinator registerBackupActivity:1 criteria:v48];
 
-        v52 = MBGetDefaultLog();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v53 = MBGetDefaultLog();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
-          v53 = MBStringWithDate();
+          v54 = MBStringWithDate();
           *buf = 138544386;
-          *v119 = v53;
+          *v119 = v54;
           *&v119[8] = 2048;
           v120 = v12;
           v121 = 2048;
           v122 = v21;
           v123 = 2048;
-          v124 = v45;
+          v124 = v46;
           v125 = 2114;
-          v126 = v47;
+          v126 = v48;
           v11 = v108;
-          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on cellular at %{public}@ (delta:%llds, estimatedUploadSize:%llu, minCellularBudgetPercentage:%.2f): %{public}@", buf, 0x34u);
+          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on cellular at %{public}@ (delta:%llds, estimatedUploadSize:%llu, minCellularBudgetPercentage:%.2f): %{public}@", buf, 0x34u);
 
-          MBStringWithDate();
-          v99 = v47;
-          v98 = v45;
-          v96 = v12;
-          v94 = v97 = v21;
-          _MBLog();
+          v55 = MBStringWithDate();
+          _MBLog(@"Df", "=scheduler= Scheduled next backup on cellular at %{public}@ (delta:%llds, estimatedUploadSize:%llu, minCellularBudgetPercentage:%.2f): %{public}@", v55, v12, v21, *&v46, v48);
         }
 
         v12 = -1;
         v15 = v103;
-        v41 = v100;
+        v42 = v100;
       }
 
       v14 = v104;
@@ -4647,31 +5077,30 @@ LABEL_108:
           goto LABEL_109;
         }
 
-        v75 = os_transaction_create();
+        v79 = os_transaction_create();
         v105 = v14;
         if ([v11 compare:v15]== 1)
         {
           [v11 timeIntervalSinceDate:v15];
-          v77 = v76;
-          v78 = MBGetDefaultLog();
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+          v81 = v80;
+          v82 = MBGetDefaultLog();
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
-            v79 = MBStringWithDate();
+            v83 = MBStringWithDate();
             *buf = 138543618;
-            *v119 = v79;
+            *v119 = v83;
             *&v119[8] = 2048;
-            v120 = v77;
-            _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup on battery was delayed (%{public}@) (%llds)", buf, 0x16u);
+            v120 = v81;
+            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup on battery was delayed (%{public}@) (%llds)", buf, 0x16u);
 
-            v94 = MBStringWithDate();
-            v96 = v77;
+            v84 = MBStringWithDate();
             v11 = v108;
-            _MBLog();
+            _MBLog(@"Df", "=scheduler= Last backup on battery was delayed (%{public}@) (%llds)", v84, v81);
           }
 
-          v80 = [v11 dateByAddingTimeInterval:1.0];
+          v85 = [v11 dateByAddingTimeInterval:1.0];
 
-          if (!v80)
+          if (!v85)
           {
             __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2354, "nextBackupDateOnBattery");
           }
@@ -4679,33 +5108,33 @@ LABEL_108:
 
         else
         {
-          v80 = v15;
+          v85 = v15;
         }
 
-        [v80 timeIntervalSinceDate:{v11, v94, v96}];
-        v82 = vcvtpd_s64_f64(v81);
-        if ((v82 & 0x8000000000000000) != 0)
+        [v85 timeIntervalSinceDate:v11];
+        v87 = vcvtpd_s64_f64(v86);
+        if ((v87 & 0x8000000000000000) != 0)
         {
           __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2357, "0 <= onBatteryDelta");
         }
 
-        v83 = (120 - v82) & ~((120 - v82) >> 63);
-        v15 = [v80 dateByAddingTimeInterval:v83];
+        v88 = (120 - v87) & ~((120 - v87) >> 63);
+        v15 = [v85 dateByAddingTimeInterval:v88];
 
-        v84 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FC0];
-        v17 = v84;
-        if (v84 && ([v84 timeIntervalSinceDate:v15], fabs(v85) <= 120.0))
+        v89 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FC0];
+        v17 = v89;
+        if (v89 && ([v89 timeIntervalSinceDate:v15], fabs(v90) <= 120.0))
         {
-          v89 = MBGetDefaultLog();
+          v94 = MBGetDefaultLog();
           v16 = v101;
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
             *v119 = v15;
             *&v119[8] = 2112;
             v120 = v17;
-            _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next battery backup at %@ because there is already a DAS backup scheduled at %@", buf, 0x16u);
-            _MBLog();
+            _os_log_impl(&_mh_execute_header, v94, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next battery backup at %@ because there is already a DAS backup scheduled at %@", buf, 0x16u);
+            _MBLog(@"Df", "=scheduler= Not scheduling the next battery backup at %@ because there is already a DAS backup scheduled at %@", v15, v17);
           }
 
           v11 = v108;
@@ -4713,43 +5142,43 @@ LABEL_108:
 
         else
         {
-          v107 = v75;
-          v86 = v15;
-          v87 = v83 + v82;
-          v88 = v86;
+          v107 = v79;
+          v91 = v15;
+          v92 = v88 + v87;
+          v93 = v91;
           [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
-          v89 = xpc_dictionary_create(0, 0, 0);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REPEATING, 0);
-          xpc_dictionary_set_int64(v89, XPC_ACTIVITY_DELAY, v87);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
-          xpc_dictionary_set_string(v89, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REQUIRE_BATTERY_LEVEL, 1);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
-          xpc_dictionary_set_BOOL(v89, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
-          xpc_dictionary_set_int64(v89, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
-          xpc_dictionary_set_int64(v89, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
+          v94 = xpc_dictionary_create(0, 0, 0);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REPEATING, 0);
+          xpc_dictionary_set_int64(v94, XPC_ACTIVITY_DELAY, v92);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
+          xpc_dictionary_set_string(v94, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REQUIRE_BATTERY_LEVEL, 1);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
+          xpc_dictionary_set_BOOL(v94, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
+          xpc_dictionary_set_int64(v94, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
+          xpc_dictionary_set_int64(v94, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
           activityCoordinator2 = [(MBBackupScheduler *)self activityCoordinator];
-          [activityCoordinator2 registerBackupActivity:3 criteria:v89];
+          [activityCoordinator2 registerBackupActivity:3 criteria:v94];
 
-          v91 = MBGetDefaultLog();
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+          v96 = MBGetDefaultLog();
+          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
           {
-            v92 = MBStringWithDate();
+            v97 = MBStringWithDate();
             *buf = 138543618;
-            *v119 = v92;
+            *v119 = v97;
             *&v119[8] = 2048;
-            v120 = v87;
-            _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on battery at %{public}@ (%llds)", buf, 0x16u);
+            v120 = v92;
+            _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on battery at %{public}@ (%llds)", buf, 0x16u);
 
-            v95 = MBStringWithDate();
-            _MBLog();
+            v98 = MBStringWithDate();
+            _MBLog(@"Df", "=scheduler= Scheduled next backup on battery at %{public}@ (%llds)", v98, v92);
           }
 
           v16 = v101;
-          v15 = v88;
-          v75 = v107;
+          v15 = v93;
+          v79 = v107;
           v11 = v108;
         }
 
@@ -4760,12 +5189,12 @@ LABEL_106:
       }
     }
 
-    v54 = [(NSMutableDictionary *)self->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0FA8, v94, v96, v97, *&v98, v99];
+    v56 = [(NSMutableDictionary *)self->_osTransactionsByActivityType objectForKeyedSubscript:&off_1003E0FA8];
 
-    if (!v54)
+    if (!v56)
     {
-      v55 = os_transaction_create();
-      [(NSMutableDictionary *)self->_osTransactionsByActivityType setObject:v55 forKeyedSubscript:&off_1003E0FA8];
+      v57 = os_transaction_create();
+      [(NSMutableDictionary *)self->_osTransactionsByActivityType setObject:v57 forKeyedSubscript:&off_1003E0FA8];
 
       [(MBBackupScheduler *)self _holdWorkAssertion];
     }
@@ -4773,112 +5202,108 @@ LABEL_106:
     if ([v11 compare:v14]== 1)
     {
       [v11 timeIntervalSinceDate:v14];
-      v57 = v56;
-      v58 = MBGetDefaultLog();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+      v59 = v58;
+      v60 = MBGetDefaultLog();
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
-        v59 = MBStringWithDate();
+        v61 = MBStringWithDate();
         *buf = 138543618;
-        *v119 = v59;
+        *v119 = v61;
         *&v119[8] = 2048;
-        v120 = v57;
-        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup on WiFi was delayed (%{public}@) (%llds)", buf, 0x16u);
+        v120 = v59;
+        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "=scheduler= Last backup on WiFi was delayed (%{public}@) (%llds)", buf, 0x16u);
 
-        v94 = MBStringWithDate();
-        v96 = v57;
+        v62 = MBStringWithDate();
         v11 = v108;
-        _MBLog();
+        _MBLog(@"Df", "=scheduler= Last backup on WiFi was delayed (%{public}@) (%llds)", v62, v59);
       }
 
-      v60 = [v11 dateByAddingTimeInterval:1.0];
+      v63 = [v11 dateByAddingTimeInterval:1.0];
     }
 
     else
     {
-      v60 = v14;
+      v63 = v14;
     }
 
-    if (!v60)
+    if (!v63)
     {
       __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2304, "nextBackupDateOnWiFi");
     }
 
-    [v60 timeIntervalSinceDate:v11];
-    v62 = vcvtpd_s64_f64(v61);
-    if ((v62 & 0x8000000000000000) != 0)
+    [v63 timeIntervalSinceDate:v11];
+    v65 = vcvtpd_s64_f64(v64);
+    if ((v65 & 0x8000000000000000) != 0)
     {
       __assert_rtn("[MBBackupScheduler _scheduleBackupOnWiFi:onCellular:onBattery:]", "MBBackupScheduler.m", 2307, "0 <= delta");
     }
 
-    v63 = (120 - v62) & ~((120 - v62) >> 63);
-    v12 = v63 + v62;
-    v14 = [v60 dateByAddingTimeInterval:v63];
+    v66 = (120 - v65) & ~((120 - v65) >> 63);
+    v12 = v66 + v65;
+    v14 = [v63 dateByAddingTimeInterval:v66];
 
-    v64 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FA8];
-    v65 = v64;
-    if (v64 && ([v64 timeIntervalSinceDate:v14], fabs(v66) <= 120.0))
+    v67 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FA8];
+    v68 = v67;
+    if (v67 && ([v67 timeIntervalSinceDate:v14], fabs(v69) <= 120.0))
     {
-      v73 = MBGetDefaultLog();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+      v76 = MBGetDefaultLog();
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         *v119 = v14;
         *&v119[8] = 2112;
-        v120 = v65;
-        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next WiFi backup at %@ because there is already a DAS backup scheduled at %@", buf, 0x16u);
-        v94 = v14;
-        v96 = v65;
-        _MBLog();
+        v120 = v68;
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "=scheduler= Not scheduling the next WiFi backup at %@ because there is already a DAS backup scheduled at %@", buf, 0x16u);
+        _MBLog(@"Df", "=scheduler= Not scheduling the next WiFi backup at %@ because there is already a DAS backup scheduled at %@", v14, v68);
       }
     }
 
     else
     {
-      [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v14 forKeyedSubscript:&off_1003E0FA8, v94, v96];
+      [(NSMutableDictionary *)self->_nextBackupDatesByActivityType setObject:v14 forKeyedSubscript:&off_1003E0FA8];
       backupOnWiFiWithDAS = [objc_opt_class() backupOnWiFiWithDAS];
-      v68 = xpc_dictionary_create(0, 0, 0);
-      v69 = v68;
+      v71 = xpc_dictionary_create(0, 0, 0);
+      v72 = v71;
       if (backupOnWiFiWithDAS)
       {
-        xpc_dictionary_set_BOOL(v68, XPC_ACTIVITY_REPEATING, 0);
-        xpc_dictionary_set_int64(v69, XPC_ACTIVITY_DELAY, v12);
-        xpc_dictionary_set_BOOL(v69, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
-        xpc_dictionary_set_string(v69, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
-        xpc_dictionary_set_BOOL(v69, XPC_ACTIVITY_ALLOW_BATTERY, 0);
-        xpc_dictionary_set_BOOL(v69, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
-        xpc_dictionary_set_BOOL(v69, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
-        xpc_dictionary_set_BOOL(v69, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
-        xpc_dictionary_set_int64(v69, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
-        xpc_dictionary_set_int64(v69, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
+        xpc_dictionary_set_BOOL(v71, XPC_ACTIVITY_REPEATING, 0);
+        xpc_dictionary_set_int64(v72, XPC_ACTIVITY_DELAY, v12);
+        xpc_dictionary_set_BOOL(v72, XPC_ACTIVITY_REQUIRES_CLASS_C, 1);
+        xpc_dictionary_set_string(v72, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_UTILITY);
+        xpc_dictionary_set_BOOL(v72, XPC_ACTIVITY_ALLOW_BATTERY, 0);
+        xpc_dictionary_set_BOOL(v72, XPC_ACTIVITY_REQUIRE_SCREEN_SLEEP, 1);
+        xpc_dictionary_set_BOOL(v72, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
+        xpc_dictionary_set_BOOL(v72, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
+        xpc_dictionary_set_int64(v72, XPC_ACTIVITY_NETWORK_UPLOAD_SIZE, v21);
+        xpc_dictionary_set_int64(v72, XPC_ACTIVITY_EXPECTED_DURATION, XPC_ACTIVITY_INTERVAL_4_HOURS);
         activityCoordinator3 = [(MBBackupScheduler *)self activityCoordinator];
-        [activityCoordinator3 registerBackupActivity:2 criteria:v69];
+        [activityCoordinator3 registerBackupActivity:2 criteria:v72];
       }
 
       else
       {
-        xpc_dictionary_set_string(v68, "Type", "Monotonic");
-        xpc_dictionary_set_uint64(v69, "Date", v102 + 1000000000 * v12);
+        xpc_dictionary_set_string(v71, "Type", "Monotonic");
+        xpc_dictionary_set_uint64(v72, "Date", v102 + 1000000000 * v12);
         alarm = self->_alarm;
-        self->_alarm = v69;
-        v72 = v69;
+        self->_alarm = v72;
+        v75 = v72;
 
         v11 = v108;
         xpc_set_event();
       }
 
-      v73 = MBGetDefaultLog();
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+      v76 = MBGetDefaultLog();
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
-        v74 = MBStringWithDate();
+        v77 = MBStringWithDate();
         *buf = 138543618;
-        *v119 = v74;
+        *v119 = v77;
         *&v119[8] = 2048;
         v120 = v12;
-        _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on WiFi at %{public}@ (%llds)", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "=scheduler= Scheduled next backup on WiFi at %{public}@ (%llds)", buf, 0x16u);
 
-        v94 = MBStringWithDate();
-        v96 = v12;
-        _MBLog();
+        v78 = MBStringWithDate();
+        _MBLog(@"Df", "=scheduler= Scheduled next backup on WiFi at %{public}@ (%llds)", v78, v12);
       }
     }
 
@@ -4893,13 +5318,76 @@ LABEL_106:
     *&v119[4] = 1024;
     *&v119[6] = cellularCopy;
     _os_log_impl(&_mh_execute_header, initiatedBackupRequest, OS_LOG_TYPE_INFO, "=scheduler= Not scheduling automatic backup - no accounts, onWiFi:%d, onCellular:%d", buf, 0xEu);
-    _MBLog();
+    _MBLog(@"I ", "=scheduler= Not scheduling automatic backup - no accounts, onWiFi:%d, onCellular:%d", fiCopy, cellularCopy);
   }
 
   v12 = -1;
 LABEL_109:
 
   return v12;
+}
+
+- (void)_tearDownScheduledBackupWithActivityType:(int)type
+{
+  v3 = *&type;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  if (v3 == 2)
+  {
+    [(MBBackupScheduler *)self _cancelLossTimers];
+    if (self->_alarm)
+    {
+      v5 = MBGetDefaultLog();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FA8];
+        v7 = MBStringWithDate();
+        v8 = MBStringWithDate();
+        *buf = 138543618;
+        v24 = v7;
+        v25 = 2114;
+        v26 = v8;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceling the backup alarm (WiFi) scheduled for %{public}@ (scheduled at %{public}@)", buf, 0x16u);
+
+        v9 = [(NSMutableDictionary *)self->_nextBackupDatesByActivityType objectForKeyedSubscript:&off_1003E0FA8];
+        v10 = MBStringWithDate();
+        v11 = MBStringWithDate();
+        _MBLog(@"Df", "=scheduler= Canceling the backup alarm (WiFi) scheduled for %{public}@ (scheduled at %{public}@)", v10, v11);
+      }
+
+      alarm = self->_alarm;
+      self->_alarm = 0;
+
+      [(MBBackupScheduler *)self _cancelAlarm];
+    }
+  }
+
+  osTransactionsByActivityType = self->_osTransactionsByActivityType;
+  v14 = [NSNumber numberWithInt:v3];
+  v15 = [(NSMutableDictionary *)osTransactionsByActivityType objectForKeyedSubscript:v14];
+
+  if (v15)
+  {
+    v16 = self->_osTransactionsByActivityType;
+    v17 = [NSNumber numberWithInt:v3];
+    [(NSMutableDictionary *)v16 setObject:0 forKeyedSubscript:v17];
+
+    [(MBBackupScheduler *)self _releaseWorkAssertion];
+  }
+
+  nextBackupDatesByActivityType = self->_nextBackupDatesByActivityType;
+  v19 = [NSNumber numberWithInt:v3];
+  [(NSMutableDictionary *)nextBackupDatesByActivityType setObject:0 forKeyedSubscript:v19];
+
+  v20 = MBGetDefaultLog();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    v21 = MBBackupXPCActivityNameWithType(v3);
+    *buf = 136315138;
+    v24 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceled scheduled backup: %s", buf, 0xCu);
+    v22 = MBBackupXPCActivityNameWithType(v3);
+    _MBLog(@"Df", "=scheduler= Canceled scheduled backup: %s", v22);
+  }
 }
 
 - (void)_registerAlarmHandler
@@ -4922,7 +5410,7 @@ LABEL_109:
     *buf = 136315138;
     v4 = "com.apple.backupd.alarm";
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "=scheduler= Canceled alarm (%s)", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "=scheduler= Canceled alarm (%s)", "com.apple.backupd.alarm");
   }
 }
 
@@ -4932,6 +5420,92 @@ LABEL_109:
   [(MBBackupScheduler *)self _tearDownScheduledBackupWithActivityType:2];
 
   [(MBBackupScheduler *)self _releaseWorkAssertion];
+}
+
+- (BOOL)_startBackupRequestForActivity:(int)activity
+{
+  v3 = *&activity;
+  dispatch_assert_queue_V2(self->_stateQueue);
+  initiatedBackupRequest = [(MBBackupScheduler *)self initiatedBackupRequest];
+
+  if (!initiatedBackupRequest)
+  {
+    v6 = objc_opt_new();
+    switch(v3)
+    {
+      case 3:
+        v12 = 5;
+        break;
+      case 2:
+        v12 = 2;
+        break;
+      case 1:
+        v11 = objc_opt_new();
+        [v11 setAllowsExpensiveNetworkAccess:0];
+        [v11 setAllowsConstrainedNetworkAccess:0];
+        [v6 setCellularAccess:v11];
+
+        v12 = 4;
+        break;
+      default:
+        __assert_rtn("[MBBackupScheduler _startBackupRequestForActivity:]", "MBBackupScheduler.m", 2460, "0");
+    }
+
+    initiatedBackupRequest4 = [[MBAutomaticBackupRequest alloc] initWithReason:v12 activityType:v3 options:v6];
+    if ([(MBBackupScheduler *)self _startBackupForNextAvailableAccountWithRequest:initiatedBackupRequest4])
+    {
+      [(MBBackupScheduler *)self setInitiatedBackupRequest:initiatedBackupRequest4];
+      objc_initWeak(buf, self);
+      activityCoordinator = [(MBBackupScheduler *)self activityCoordinator];
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_1001E09A0;
+      v17[3] = &unk_1003C12E0;
+      objc_copyWeak(&v19, buf);
+      initiatedBackupRequest4 = initiatedBackupRequest4;
+      v18 = initiatedBackupRequest4;
+      [activityCoordinator pollForBackupActivityDeferrals:v3 block:v17];
+
+      objc_destroyWeak(&v19);
+      objc_destroyWeak(buf);
+      initiatedBackupRequest2 = [(MBBackupScheduler *)self initiatedBackupRequest];
+      if (!initiatedBackupRequest2)
+      {
+        __assert_rtn("[MBBackupScheduler _startBackupRequestForActivity:]", "MBBackupScheduler.m", 2480, "!started || self.initiatedBackupRequest");
+      }
+
+      v13 = 1;
+      goto LABEL_15;
+    }
+
+LABEL_14:
+    v13 = 0;
+LABEL_15:
+
+    goto LABEL_16;
+  }
+
+  v6 = MBGetDefaultLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = MBBackupXPCActivityNameWithType(v3);
+    initiatedBackupRequest3 = [(MBBackupScheduler *)self initiatedBackupRequest];
+    *buf = 136446466;
+    v21 = v7;
+    v22 = 2112;
+    v23 = initiatedBackupRequest3;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=scheduler= Ignoring ready XPC activity %{public}s, backup already initiated %@", buf, 0x16u);
+
+    v9 = MBBackupXPCActivityNameWithType(v3);
+    initiatedBackupRequest4 = [(MBBackupScheduler *)self initiatedBackupRequest];
+    _MBLog(@"Df", "=scheduler= Ignoring ready XPC activity %{public}s, backup already initiated %@", v9, initiatedBackupRequest4);
+    goto LABEL_14;
+  }
+
+  v13 = 0;
+LABEL_16:
+
+  return v13;
 }
 
 - (void)backupActivityIsRunnable:(int)runnable
@@ -4945,49 +5519,49 @@ LABEL_109:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v23 = MBBackupXPCActivityNameWithType(runnable);
+    v24 = MBBackupXPCActivityNameWithType(runnable);
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=scheduler= Received ready XPC activity %{public}s", buf, 0xCu);
-    MBBackupXPCActivityNameWithType(runnable);
-    _MBLog();
+    v6 = MBBackupXPCActivityNameWithType(runnable);
+    _MBLog(@"Df", "=scheduler= Received ready XPC activity %{public}s", v6);
   }
 
-  v6 = os_transaction_create();
+  v7 = os_transaction_create();
   firstConditionsGroup = [(MBBackupScheduler *)self firstConditionsGroup];
   if (!firstConditionsGroup)
   {
     goto LABEL_11;
   }
 
-  v8 = MBGetDefaultLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = MBGetDefaultLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=scheduler= Waiting for all conditions to update", buf, 2u);
-    _MBLog();
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=scheduler= Waiting for all conditions to update", buf, 2u);
+    _MBLog(@"Df", "=scheduler= Waiting for all conditions to update");
   }
 
-  v9 = dispatch_time(0, 60000000000);
-  if (dispatch_group_wait(firstConditionsGroup, v9))
+  v10 = dispatch_time(0, 60000000000);
+  if (dispatch_group_wait(firstConditionsGroup, v10))
   {
-    v10 = MBGetDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MBGetDefaultLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=scheduler= Timed out waiting for all conditions to update", buf, 2u);
-      _MBLog();
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=scheduler= Timed out waiting for all conditions to update", buf, 2u);
+      _MBLog(@"E ", "=scheduler= Timed out waiting for all conditions to update");
     }
 
     stateQueue = self->_stateQueue;
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_1001E0D3C;
-    v19[3] = &unk_1003C1328;
+    v20[0] = _NSConcreteStackBlock;
+    v20[1] = 3221225472;
+    v20[2] = sub_1001E0D3C;
+    v20[3] = &unk_1003C1328;
     runnableCopy = runnable;
-    v12 = &v20;
-    v19[4] = self;
-    v20 = v6;
-    v13 = v6;
-    v14 = v19;
+    v13 = &v21;
+    v20[4] = self;
+    v21 = v7;
+    v14 = v7;
+    v15 = v20;
   }
 
   else
@@ -4999,14 +5573,14 @@ LABEL_11:
     block[2] = sub_1001E0D88;
     block[3] = &unk_1003C1328;
     runnableCopy2 = runnable;
-    v12 = &v17;
+    v13 = &v18;
     block[4] = self;
-    v17 = v6;
-    v15 = v6;
-    v14 = block;
+    v18 = v7;
+    v16 = v7;
+    v15 = block;
   }
 
-  dispatch_async(stateQueue, v14);
+  dispatch_async(stateQueue, v15);
 }
 
 + (BOOL)backupOnWiFiWithDAS

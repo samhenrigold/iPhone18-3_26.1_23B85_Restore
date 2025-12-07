@@ -129,7 +129,7 @@
   ICUSearchContext = self->_ICUSearchContext;
   if (ICUSearchContext)
   {
-    sub_100018074(ICUSearchContext, a2);
+    sub_100018074(ICUSearchContext);
   }
 
   CRSearchContext = self->_CRSearchContext;

@@ -75,29 +75,29 @@
 
 - (ECDKIMPublicKey)initWithRecord:(id)record
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v17 = [record componentsSeparatedByString:@""];;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v24 = *MEMORY[0x277D85DE8];
+  v16 = [record componentsSeparatedByString:@""];;
   v21 = 0u;
-  v18 = objc_opt_new();
-  obj = v17;
-  v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = objc_opt_new();
+  obj = v16;
+  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v3)
   {
-    v4 = *v21;
+    v4 = *v20;
     do
     {
       v5 = 0;
       do
       {
-        if (*v21 != v4)
+        if (*v20 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = [*(*(&v20 + 1) + 8 * v5) ef_componentsSeparatedByString:@"=" maxSeparations:1];
+        v6 = [*(*(&v19 + 1) + 8 * v5) ef_componentsSeparatedByString:@"=" maxSeparations:1];
         if ([v6 count] == 2)
         {
           firstObject = [v6 firstObject];
@@ -108,21 +108,20 @@
           whitespaceAndNewlineCharacterSet2 = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
           v12 = [lastObject stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet2];
 
-          [v18 setObject:v12 forKeyedSubscript:v9];
+          [v17 setObject:v12 forKeyedSubscript:v9];
         }
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v3);
   }
 
-  v13 = [(ECDKIMPublicKey *)self initWithKeyValueDictionary:v18];
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [(ECDKIMPublicKey *)self initWithKeyValueDictionary:v17];
   return v13;
 }
 
@@ -151,34 +150,34 @@
 
 - (void)_parseAcceptableHashingAlgorithmsFromDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = [dictionary objectForKeyedSubscript:@"h"];
-  v14 = v4;
+  v13 = v4;
   if (v4)
   {
     [v4 componentsSeparatedByString:@":"];
+    v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v5 = v16 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v14 = 0u;
+    v5 = v15 = 0u;
+    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (!v6)
     {
       goto LABEL_14;
     }
 
-    v7 = *v16;
+    v7 = *v15;
     while (1)
     {
       v8 = 0;
       do
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
         v11 = [v9 stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
@@ -204,18 +203,16 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (!v6)
       {
 LABEL_14:
 
-        v4 = v14;
+        v4 = v13;
         break;
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_parseSigningAlgorithmFromDictionary:(id)dictionary

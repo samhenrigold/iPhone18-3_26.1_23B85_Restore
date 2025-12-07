@@ -5,7 +5,7 @@
 
 void __56__NSFileCoordinator_BRAdditions__br_boostFilePresenter___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -16,17 +16,15 @@ void __56__NSFileCoordinator_BRAdditions__br_boostFilePresenter___block_invoke(u
       v6 = [*(a1 + 32) presentedItemURL];
       v7 = [v6 path];
       v8 = [v7 fp_obfuscatedPath];
-      v10 = 138412802;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v4;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed boosting file presenter at %@ - %@%@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v8;
+      v11 = 2112;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed boosting file presenter at %@ - %@%@", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

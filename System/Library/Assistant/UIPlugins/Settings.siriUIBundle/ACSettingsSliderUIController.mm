@@ -8,6 +8,7 @@
 - (void)loadView;
 - (void)setSnippet:(id)snippet;
 - (void)settingChangedExternally:(id)externally;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ACSettingsSliderUIController
@@ -81,6 +82,53 @@
 
   slider4 = [(ACSettingsSliderView *)self->_settingView slider];
   [slider4 addTarget:self action:"_touchesEnded:" forControlEvents:192];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = ACSettingsSliderUIController;
+  [(ACSettingsSliderUIController *)&v14 viewWillAppear:appear];
+  if (![(ACSettingsSliderUIController *)self isVirgin]|| self->_viewHasAppeared)
+  {
+    goto LABEL_3;
+  }
+
+  if ([(SASettingFloatSnippet *)self->_snippet increment])
+  {
+    setting = self->_setting;
+    value = [(SASettingFloatSnippet *)self->_snippet value];
+    [value floatValue];
+    [(ACSettingsSliderSetting *)setting addDelta:v8];
+LABEL_9:
+
+    slider = [(ACSettingsSliderView *)self->_settingView slider];
+    [(ACSettingsSliderSetting *)self->_setting value];
+    *&v13 = v13;
+    [slider setValue:0 animated:v13];
+
+    goto LABEL_4;
+  }
+
+  value2 = [(SASettingFloatSnippet *)self->_snippet value];
+
+  if (value2)
+  {
+    v10 = self->_setting;
+    value = [(SASettingFloatSnippet *)self->_snippet value];
+    [value floatValue];
+    [(ACSettingsSliderSetting *)v10 setValue:0 isTracking:v11];
+    goto LABEL_9;
+  }
+
+LABEL_3:
+  slider2 = [(ACSettingsSliderView *)self->_settingView slider];
+  [(ACSettingsSliderSetting *)self->_setting value];
+  *&v5 = v5;
+  [slider2 setValue:0 animated:v5];
+
+LABEL_4:
+  self->_viewHasAppeared = 1;
 }
 
 - (void)_sliderChanged:(id)changed

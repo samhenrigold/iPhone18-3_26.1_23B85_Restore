@@ -21,21 +21,21 @@
 
 - (MTCCRoundButton)init
 {
-  v119 = *MEMORY[0x29EDCA608];
-  v115.receiver = self;
-  v115.super_class = MTCCRoundButton;
+  v118 = *MEMORY[0x29EDCA608];
+  v114.receiver = self;
+  v114.super_class = MTCCRoundButton;
   v2 = *MEMORY[0x29EDB90E0];
   v3 = *(MEMORY[0x29EDB90E0] + 8);
   v4 = *(MEMORY[0x29EDB90E0] + 16);
   v5 = *(MEMORY[0x29EDB90E0] + 24);
-  v6 = [(MTCCRoundButton *)&v115 initWithFrame:*MEMORY[0x29EDB90E0], v3, v4, v5];
+  v6 = [(MTCCRoundButton *)&v114 initWithFrame:*MEMORY[0x29EDB90E0], v3, v4, v5];
   if (v6)
   {
     v7 = MTLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v118 = v6;
+      v117 = v6;
       _os_log_impl(&dword_29C9FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ initialized", buf, 0xCu);
     }
 
@@ -55,8 +55,8 @@
     objc_msgSend_bounds(v6, v23, v24);
     v27 = objc_msgSend_initWithFrame_(v22, v25, v26);
     v29 = objc_msgSend_effectWithStyle_(MEMORY[0x29EDC7950], v28, 1);
-    v116 = v29;
-    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v30, &v116, 1);
+    v115 = v29;
+    v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v30, &v115, 1);
     objc_msgSend_setBackgroundEffects_(v27, v32, v31);
 
     objc_msgSend_setAutoresizingMask_(v27, v33, 18);
@@ -133,13 +133,12 @@
     objc_msgSend_addObserver_selector_name_object_(v111, v112, v6, sel_handleContentSizeChange_, *MEMORY[0x29EDC8078], 0);
   }
 
-  v113 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v3 = MTLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -151,10 +150,9 @@
   objc_msgSend_removeObserver_forKeyPath_(self, v4, self, @"enabled");
   objc_msgSend_removeObserver_forKeyPath_(self, v5, self, @"highlighted");
   objc_msgSend_removeObserver_forKeyPath_(self, v6, self, @"selected");
-  v8.receiver = self;
-  v8.super_class = MTCCRoundButton;
-  [(MTCCRoundButton *)&v8 dealloc];
-  v7 = *MEMORY[0x29EDCA608];
+  v7.receiver = self;
+  v7.super_class = MTCCRoundButton;
+  [(MTCCRoundButton *)&v7 dealloc];
 }
 
 - (void)setTitle:(id)title
@@ -373,11 +371,9 @@ LABEL_9:
 
 - (CGSize)intrinsicContentSize
 {
-  v2 = *MEMORY[0x29EDB90E8];
-  v3 = *(MEMORY[0x29EDB90E8] + 8);
   (MEMORY[0x2A1C70FE8])(self, sel_sizeThatFits_);
-  result.height = v5;
-  result.width = v4;
+  result.height = v3;
+  result.width = v2;
   return result;
 }
 

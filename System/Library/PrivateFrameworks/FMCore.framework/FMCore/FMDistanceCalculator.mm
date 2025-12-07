@@ -86,10 +86,11 @@
 
     else
     {
-      if (([v6 isEqualToString:@"km"] & 1) == 0)
+      v8 = [v6 isEqualToString:@"km"];
+      if ((v8 & 1) == 0)
       {
-        v8 = LogCategory_Unspecified();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = LogCategory_Unspecified(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           [(FMDistanceCalculator *)v6 measurementSystem];
         }
@@ -114,71 +115,70 @@
 
 - (void)setMeasurementSystem:(int64_t)system
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   userDefaults = [(FMDistanceCalculator *)self userDefaults];
   measurementSystem = [(FMDistanceCalculator *)self measurementSystem];
+  v22 = measurementSystem;
   if (system >= 2)
   {
     if (system == 2)
     {
-      v6 = @"km";
+      v7 = @"km";
       goto LABEL_6;
     }
 
     if (system == 3)
     {
-      v6 = @"mi";
+      v7 = @"mi";
 LABEL_6:
-      [userDefaults setObject:v6 forKey:@"distanceUnitPref"];
+      [userDefaults setObject:v7 forKey:@"distanceUnitPref"];
       goto LABEL_11;
     }
 
-    v7 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = LogCategory_Unspecified(measurementSystem);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(FMDistanceCalculator *)system setMeasurementSystem:v7];
+      [(FMDistanceCalculator *)system setMeasurementSystem:v8];
     }
   }
 
   [userDefaults removeObjectForKey:@"distanceUnitPref"];
 LABEL_11:
-  v8 = objc_opt_new();
-  v9 = MEMORY[0x277CBEB98];
-  v27[0] = @"distanceUnitPref";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
-  v11 = [v9 setWithArray:v10];
+  v9 = objc_opt_new();
+  v10 = MEMORY[0x277CBEB98];
+  v29[0] = @"distanceUnitPref";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v12 = [v10 setWithArray:v11];
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  [v8 synchronizeUserDefaultsDomain:@"group.com.apple.icloud.fm" keys:v11 container:bundleIdentifier appGroupContainer:@"group.com.apple.icloud.fm"];
+  [v9 synchronizeUserDefaultsDomain:@"group.com.apple.icloud.fm" keys:v12 container:bundleIdentifier appGroupContainer:@"group.com.apple.icloud.fm"];
 
-  v14 = LogCategory_Unspecified();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v16 = LogCategory_Unspecified(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier2 = [mainBundle2 bundleIdentifier];
     *buf = 138412802;
-    v22 = @"distanceUnitPref";
-    v23 = 2112;
-    v24 = bundleIdentifier2;
+    v24 = @"distanceUnitPref";
     v25 = 2112;
-    v26 = @"group.com.apple.icloud.fm";
-    _os_log_impl(&dword_24A2EE000, v14, OS_LOG_TYPE_INFO, "Syncronizing pref key: %@ for bundle: %@ container:%@", buf, 0x20u);
+    v26 = bundleIdentifier2;
+    v27 = 2112;
+    v28 = @"group.com.apple.icloud.fm";
+    _os_log_impl(&dword_24A2EE000, v16, OS_LOG_TYPE_INFO, "Syncronizing pref key: %@ for bundle: %@ container:%@", buf, 0x20u);
   }
 
-  if (measurementSystem != system)
+  if (v22 != system)
   {
-    v17 = LogCategory_Unspecified();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v20 = LogCategory_Unspecified(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_24A2EE000, v17, OS_LOG_TYPE_INFO, "Posting FMDistanceCalculatorMeasurementSystemChangedNotification", buf, 2u);
+      _os_log_impl(&dword_24A2EE000, v20, OS_LOG_TYPE_INFO, "Posting FMDistanceCalculatorMeasurementSystemChangedNotification", buf, 2u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"FMDistanceCalculatorMeasurementSystemChangedNotification" object:self];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (double)averageDistanceFromLocation:(id)location toLocation:(id)toLocation
@@ -253,10 +253,7 @@ LABEL_11:
 
 uint64_t __65__FMDistanceCalculator_localizedDistanceFromLocation_toLocation___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _localizedDistanceFromLocation:*(a1 + 40) toLocation:*(a1 + 48)];
-  v3 = *(*(a1 + 56) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 56) + 8) + 40) = [*(a1 + 32) _localizedDistanceFromLocation:*(a1 + 40) toLocation:*(a1 + 48)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -454,19 +451,8 @@ void __71__FMDistanceCalculator_futureLocalizedDistanceFromLocation_toLocation__
   tableCopy = table;
   v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   localizationDelegate = [(FMDistanceCalculator *)self localizationDelegate];
-  if (!localizationDelegate)
+  if (!localizationDelegate || (-[FMDistanceCalculator locale](self, "locale"), v13 = objc_claimAutoreleasedReturnValue(), [v13 languageCode], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(localizationDelegate, "localizedStringForKey:table:bundle:languageCode:", keyCopy, tableCopy, v11, v14), v15 = objc_claimAutoreleasedReturnValue(), v14, v13, v16 = tableCopy, !v15))
   {
-    goto LABEL_3;
-  }
-
-  locale = [(FMDistanceCalculator *)self locale];
-  languageCode = [locale languageCode];
-  v15 = [localizationDelegate localizedStringForKey:keyCopy table:tableCopy bundle:v11 languageCode:languageCode];
-
-  v16 = tableCopy;
-  if (!v15)
-  {
-LABEL_3:
     v16 = tableCopy;
     if ([tableCopy isEqualToString:&stru_285D714C0])
     {
@@ -508,22 +494,20 @@ LABEL_3:
 
 - (void)measurementSystem
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"distanceUnitPref";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"distanceUnitPref";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "Unknown value for %@ default key: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "Unknown value for %@ default key: %@", &v2, 0x16u);
 }
 
 - (void)setMeasurementSystem:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "Unknown value for setMeasurementSystem: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_24A2EE000, a2, OS_LOG_TYPE_ERROR, "Unknown value for setMeasurementSystem: %ld", &v2, 0xCu);
 }
 
 @end

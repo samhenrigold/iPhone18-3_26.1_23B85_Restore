@@ -1,4 +1,5 @@
 @interface TXRParserImageIO
++ (BOOL)exportImage:(id)image url:(id)url uttype:(__CFString *)uttype colorSpace:(CGColorSpace *)space orientation:(unsigned __int8)orientation error:(id *)error;
 + (CGImage)newCGImageFromImage:(id)image colorSpace:(CGColorSpace *)space error:(id *)error;
 + (id)decodeCGImage:(CGImage *)image desiredPixelFormat:(unint64_t)format bufferAllocator:(id)allocator options:(id)options error:(id *)error;
 + (id)decodeCGImageNonIndexed:(CGImage *)indexed desiredPixelFormat:(unint64_t)format bufferAllocator:(id)allocator options:(id)options error:(id *)error;
@@ -170,7 +171,7 @@ LABEL_9:
 
 + (id)decodeCGImageNonIndexed:(CGImage *)indexed desiredPixelFormat:(unint64_t)format bufferAllocator:(id)allocator options:(id)options error:(id *)error
 {
-  v75[2] = *MEMORY[0x277D85DE8];
+  v74[2] = *MEMORY[0x277D85DE8];
   allocatorCopy = allocator;
   optionsCopy = options;
   Width = CGImageGetWidth(indexed);
@@ -607,15 +608,15 @@ LABEL_55:
     }
   }
 
-  v59 = v24;
-  v57 = pixelBytes(v24);
-  v25 = Width * v57;
-  v63 = Height * v25;
-  v61 = [allocatorCopy newBufferWithLength:?];
-  v64 = [v61 map];
+  v58 = v24;
+  v56 = pixelBytes(v24);
+  v25 = Width * v56;
+  v62 = Height * v25;
+  v60 = [allocatorCopy newBufferWithLength:?];
+  v63 = [v60 map];
   originOperation = [optionsCopy originOperation];
-  v62 = allocatorCopy;
-  v58 = v20;
+  v61 = allocatorCopy;
+  v57 = v20;
   if (originOperation > 255)
   {
     switch(originOperation)
@@ -625,8 +626,8 @@ LABEL_55:
       case 768:
 LABEL_33:
         v28 = Height;
-        v29 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:v63];
-        bytes = [v64 bytes];
+        v29 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:v62];
+        bytes = [v63 bytes];
         goto LABEL_34;
       case 512:
         goto LABEL_31;
@@ -642,7 +643,7 @@ LABEL_33:
       {
 LABEL_31:
         v28 = Height;
-        v29 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:v63];
+        v29 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:v62];
         bytes = [v29 mutableBytes];
         goto LABEL_34;
       }
@@ -666,34 +667,34 @@ LABEL_199:
   }
 
   v28 = Height;
-  bytes = [v64 bytes];
+  bytes = [v63 bytes];
   v29 = 0;
 LABEL_34:
   v31 = v28;
-  v73[0] = bytes;
-  v73[1] = v28;
+  v72[0] = bytes;
+  v72[1] = v28;
   v32 = Width;
-  v73[2] = Width;
-  v73[3] = Width * v57;
-  v72 = 0;
-  v68[0] = v23;
-  v68[1] = ColorSpace;
-  v69 = v21;
-  v70 = 0;
+  v72[2] = Width;
+  v72[3] = Width * v56;
   v71 = 0;
+  v67[0] = v23;
+  v67[1] = ColorSpace;
+  v68 = v21;
+  v69 = 0;
+  v70 = 0;
   v33 = bytes;
-  if (MEMORY[0x2743860E0](v73, v68, 0, indexed, 512))
+  if (MEMORY[0x2743860E0](v72, v67, 0, indexed, 512))
   {
     _newTXRErrorWithCodeAndErrorString(0, @"Could retrieve image data from CGImageRef");
     *error = v34 = 0;
-    v35 = v61;
+    v35 = v60;
     v36 = v29;
     v37 = optionsCopy;
     goto LABEL_192;
   }
 
-  v55 = v28;
-  v56 = Width;
+  v54 = v28;
+  v55 = Width;
   CGColorSpaceRelease(ColorSpace);
   v36 = v29;
   v38 = v25;
@@ -715,13 +716,13 @@ LABEL_96:
             mutableBytes = [v36 mutableBytes];
             v40 = 0;
             bytes2 = 0;
-            v54 = 0x100000000;
+            v53 = 0x100000000;
             goto LABEL_102;
           }
 
 LABEL_124:
           v42 = v40;
-          [v64 bytes];
+          [v63 bytes];
           v40 = v41;
           goto LABEL_125;
         }
@@ -746,12 +747,12 @@ LABEL_123:
         }
 
 LABEL_101:
-        mutableBytes = [v64 bytes];
-        v54 = 0;
+        mutableBytes = [v63 bytes];
+        v53 = 0;
         v40 = 0;
         bytes2 = 0;
 LABEL_102:
-        v46 = componentsPerPixel(v59);
+        v46 = componentsPerPixel(v58);
         v43 = v46;
         src.data = v33;
         src.height = v31;
@@ -768,15 +769,15 @@ LABEL_102:
             +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
           }
 
-          if (v57 == 16)
+          if (v56 == 16)
           {
             v47 = vImageVerticalReflect_ARGBFFFF(&src, &dest, 0);
             goto LABEL_136;
           }
 
-          if (v57 != 8)
+          if (v56 != 8)
           {
-            if (v57 != 4)
+            if (v56 != 4)
             {
               +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
             }
@@ -789,7 +790,7 @@ LABEL_136:
             }
 
             v33 = mutableBytes;
-            if ((v54 & 1) == 0)
+            if ((v53 & 1) == 0)
             {
 LABEL_169:
               if (v40)
@@ -802,7 +803,7 @@ LABEL_169:
                 v50 = 1;
               }
 
-              if ((v40 & 1) == 0 && !HIDWORD(v54))
+              if ((v40 & 1) == 0 && !HIDWORD(v53))
               {
                 goto LABEL_191;
               }
@@ -811,13 +812,13 @@ LABEL_169:
               src.height = v31;
               src.width = v32;
               src.rowBytes = v38;
-              dest.data = [v64 bytes];
+              dest.data = [v63 bytes];
               dest.height = v31;
               dest.width = v32;
               dest.rowBytes = v38;
-              v75[0] = 0;
-              v75[1] = 0;
-              v74 = 0;
+              v74[0] = 0;
+              v74[1] = 0;
+              v73 = 0;
               *backColor = 0;
               if (v43 > 2)
               {
@@ -826,15 +827,15 @@ LABEL_169:
                   +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                 }
 
-                if (v57 == 16)
+                if (v56 == 16)
                 {
-                  vImageRotate90_ARGBFFFF(&src, &dest, v50, v75, 0);
+                  vImageRotate90_ARGBFFFF(&src, &dest, v50, v74, 0);
                   goto LABEL_191;
                 }
 
-                if (v57 != 8)
+                if (v56 != 8)
                 {
-                  if (v57 != 4)
+                  if (v56 != 4)
                   {
                     +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                   }
@@ -848,15 +849,15 @@ LABEL_169:
               {
                 if (v43 == 1)
                 {
-                  if (v57 == 4)
+                  if (v56 == 4)
                   {
                     vImageRotate90_PlanarF(&src, &dest, v50, 0.0, 0);
                     goto LABEL_191;
                   }
 
-                  if (v57 != 2)
+                  if (v56 != 2)
                   {
-                    if (v57 != 1)
+                    if (v56 != 1)
                     {
                       +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                     }
@@ -868,9 +869,9 @@ LABEL_169:
                   goto LABEL_187;
                 }
 
-                if (v57 != 4)
+                if (v56 != 4)
                 {
-                  if (v57 != 2)
+                  if (v56 != 2)
                   {
                     +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                   }
@@ -881,7 +882,7 @@ LABEL_187:
                 }
               }
 
-              vImageRotate90_ARGB16U(&src, &dest, v50, &v74, 0);
+              vImageRotate90_ARGB16U(&src, &dest, v50, &v73, 0);
               goto LABEL_191;
             }
 
@@ -901,15 +902,15 @@ LABEL_140:
                 +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
               }
 
-              if (v57 == 16)
+              if (v56 == 16)
               {
                 v49 = vImageHorizontalReflect_ARGBFFFF(&src, &dest, 0);
                 goto LABEL_165;
               }
 
-              if (v57 != 8)
+              if (v56 != 8)
               {
-                if (v57 != 4)
+                if (v56 != 4)
                 {
                   +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                 }
@@ -923,11 +924,11 @@ LABEL_140:
             {
               if (v43 == 1)
               {
-                if (v57 != 4)
+                if (v56 != 4)
                 {
-                  if (v57 != 2)
+                  if (v56 != 2)
                   {
-                    if (v57 != 1)
+                    if (v56 != 1)
                     {
                       +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                     }
@@ -950,9 +951,9 @@ LABEL_165:
                 goto LABEL_169;
               }
 
-              if (v57 != 4)
+              if (v56 != 4)
               {
-                if (v57 != 2)
+                if (v56 != 2)
                 {
                   +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
                 }
@@ -972,15 +973,15 @@ LABEL_153:
         {
           if (v46 == 1)
           {
-            if (v57 == 4)
+            if (v56 == 4)
             {
               v47 = vImageVerticalReflect_PlanarF(&src, &dest, 0);
               goto LABEL_136;
             }
 
-            if (v57 != 2)
+            if (v56 != 2)
             {
-              if (v57 != 1)
+              if (v56 != 1)
               {
                 +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
               }
@@ -994,9 +995,9 @@ LABEL_115:
             goto LABEL_136;
           }
 
-          if (v57 != 4)
+          if (v56 != 4)
           {
-            if (v57 != 2)
+            if (v56 != 2)
             {
               +[TXRParserImageIO decodeCGImageNonIndexed:desiredPixelFormat:bufferAllocator:options:error:];
             }
@@ -1023,9 +1024,9 @@ LABEL_115:
 
 LABEL_100:
         mutableBytes = [v36 mutableBytes];
-        bytes2 = [v64 bytes];
+        bytes2 = [v63 bytes];
         v40 = 0;
-        v54 = 1;
+        v53 = 1;
         goto LABEL_102;
       }
 
@@ -1091,8 +1092,8 @@ LABEL_68:
             }
 
 LABEL_125:
-            HIDWORD(v54) = v42;
-            v43 = componentsPerPixel(v59);
+            HIDWORD(v53) = v42;
+            v43 = componentsPerPixel(v58);
             goto LABEL_169;
           }
 
@@ -1101,7 +1102,7 @@ LABEL_125:
 
 LABEL_99:
         mutableBytes = [v36 mutableBytes];
-        v54 = 0;
+        v53 = 0;
         bytes2 = 0;
         v40 = 1;
         goto LABEL_102;
@@ -1120,23 +1121,107 @@ LABEL_99:
     }
 
 LABEL_94:
-    v43 = componentsPerPixel(v59);
+    v43 = componentsPerPixel(v58);
     v40 = 0;
-    HIDWORD(v54) = 0;
+    HIDWORD(v53) = 0;
     bytes2 = 0;
     mutableBytes = v33;
     goto LABEL_140;
   }
 
 LABEL_191:
-  v51 = COERCE_DOUBLE(__PAIR64__(v55, v56));
-  v35 = v61;
-  v34 = [[TXRImageIndependent alloc] initWithDimensions:v59 pixelFormat:v58 alphaInfo:v38 bytesPerRow:v63 bytesPerImage:v61 buffer:0 offset:v51];
+  v51 = COERCE_DOUBLE(__PAIR64__(v54, v55));
+  v35 = v60;
+  v34 = [[TXRImageIndependent alloc] initWithDimensions:v58 pixelFormat:v57 alphaInfo:v38 bytesPerRow:v62 bytesPerImage:v60 buffer:0 offset:v51];
 LABEL_192:
 
-  v52 = *MEMORY[0x277D85DE8];
-
   return v34;
+}
+
++ (BOOL)exportImage:(id)image url:(id)url uttype:(__CFString *)uttype colorSpace:(CGColorSpace *)space orientation:(unsigned __int8)orientation error:(id *)error
+{
+  orientationCopy = orientation;
+  v32[2] = *MEMORY[0x277D85DE8];
+  imageCopy = image;
+  urlCopy = url;
+  if (space)
+  {
+    v15 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF428]);
+    v16 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF4A8]);
+    v17 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF418]);
+    v18 = CGColorSpaceCreateWithName(*MEMORY[0x277CBF498]);
+    if (!CFEqual(v15, space) && !CFEqual(v16, space) && !CFEqual(v15, space))
+    {
+      CFEqual(v17, space);
+    }
+
+    CGColorSpaceRelease(v15);
+    CGColorSpaceRelease(v16);
+    CGColorSpaceRelease(v17);
+    CGColorSpaceRelease(v18);
+    CGColorSpaceRetain(space);
+  }
+
+  else
+  {
+    if (isSRGB([imageCopy pixelFormat]))
+    {
+      v19 = MEMORY[0x277CBF430];
+    }
+
+    else
+    {
+      v19 = MEMORY[0x277CBF428];
+    }
+
+    space = CGColorSpaceCreateWithName(*v19);
+  }
+
+  v20 = [TXRParserImageIO newCGImageFromImage:imageCopy colorSpace:space error:error];
+  if (v20)
+  {
+    v21 = v20;
+    v22 = urlCopy;
+    v23 = CGImageDestinationCreateWithURL(v22, uttype, 1uLL, 0);
+    if (v23)
+    {
+      v24 = v23;
+      v25 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedChar:orientationCopy];
+      v26 = CGColorSpaceCopyName(space);
+      v27 = *MEMORY[0x277CD3460];
+      v31[0] = *MEMORY[0x277CD3410];
+      v31[1] = v27;
+      v32[0] = v25;
+      v32[1] = v26;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+      CGImageDestinationSetProperties(v24, v28);
+      CGImageDestinationAddImage(v24, v21, 0);
+      v29 = CGImageDestinationFinalize(v24);
+      CGImageRelease(v21);
+      CFRelease(v24);
+      CFRelease(v22);
+    }
+
+    else
+    {
+      *error = _newTXRErrorWithCodeAndErrorString(0, @"Could not create CG Destination Image with URL");
+      CGImageRelease(v21);
+      if (v22)
+      {
+        CFRelease(v22);
+      }
+
+      v29 = 0;
+    }
+  }
+
+  else
+  {
+    _newTXRErrorWithCodeAndErrorString(0, @"Could not create CG Image with URL");
+    *error = v29 = 0;
+  }
+
+  return v29;
 }
 
 + (CGImage)newCGImageFromImage:(id)image colorSpace:(CGColorSpace *)space error:(id *)error

@@ -343,7 +343,7 @@ void __37__PUCleanupToolMaskView__debugColors__block_invoke()
 - (void)drawMask:(CGContext *)mask mask:(id)a4 fillColor:(CGColor *)color strokeColor:(CGColor *)strokeColor lineScale:(double)scale
 {
   v12 = a4;
-  [v12 extent];
+  objc_msgSend_extent(v12);
   if (!CGRectIsEmpty(v67))
   {
     [(PUCleanupToolMaskView *)self bounds];
@@ -359,9 +359,9 @@ void __37__PUCleanupToolMaskView__debugColors__block_invoke()
         v18 = v17;
 
         v19 = v16 / v18;
-        [v12 extent];
+        objc_msgSend_extent(v12);
         v21 = v20;
-        [v12 extent];
+        objc_msgSend_extent(v12);
         v23 = v19 / (v21 / v22);
         c = mask;
         if (fabs(v23 + -1.0) > 0.00000999999975)
@@ -394,7 +394,7 @@ void __37__PUCleanupToolMaskView__debugColors__block_invoke()
         [v30 getRed:&v66 green:&v64 blue:&v63 alpha:&v62];
         v31 = [MEMORY[0x1E695F610] colorWithRed:v66.a green:v64 blue:v63 alpha:v62];
         v32 = MEMORY[0x1E69BDF30];
-        [v29 extent];
+        objc_msgSend_extent(v29);
         v54 = v31;
         v33 = [v32 imageWithColor:v31 extent:?];
         multiplyCompositingFilter2 = [MEMORY[0x1E695F648] multiplyCompositingFilter];
@@ -411,7 +411,7 @@ void __37__PUCleanupToolMaskView__debugColors__block_invoke()
         v38 = [MEMORY[0x1E695F610] colorWithRed:v66.a green:v64 blue:v63 alpha:v62];
         v39 = MEMORY[0x1E69BDF30];
         v56 = v29;
-        [v29 extent];
+        objc_msgSend_extent(v29);
         v40 = [v39 imageWithColor:v38 extent:?];
         multiplyCompositingFilter3 = [MEMORY[0x1E695F648] multiplyCompositingFilter];
         v52 = v37;
@@ -421,7 +421,7 @@ void __37__PUCleanupToolMaskView__debugColors__block_invoke()
         v43 = outputImage2;
         v44 = [outputImage3 imageByCompositingOverImage:outputImage2];
         v45 = objc_opt_new();
-        [v44 extent];
+        objc_msgSend_extent(v44);
         v46 = [v45 createCGImage:v44 fromRect:?];
         if (v46)
         {

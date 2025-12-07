@@ -91,7 +91,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if (*&self->_has)
   {
@@ -112,29 +112,29 @@
   if ([(NSMutableArray *)self->_suggestions count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_suggestions, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     suggestions = self->_suggestions;
-    v7 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(suggestions);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v14 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v13 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -155,16 +155,14 @@
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithInt:", self->_durationSinceLastSuggestion), @"durationSinceLastSuggestion"}];
   }
 
-  v12 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -175,54 +173,48 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteInt32Field();
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   suggestions = self->_suggestions;
-  v7 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v7)
+  v5 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v5)
   {
-    v8 = v7;
-    v9 = *v17;
+    v6 = v5;
+    v7 = *v11;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v9)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v6);
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    reposponceTime = self->_reposponceTime;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    durationSinceLastSuggestion = self->_durationSinceLastSuggestion;
     PBDataWriterWriteInt32Field();
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -275,7 +267,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if (*&self->_has)
@@ -291,30 +283,30 @@
     *(v6 + 48) |= 2u;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   suggestions = self->_suggestions;
-  v8 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
+        v12 = [*(*(&v15 + 1) + 8 * i) copyWithZone:zone];
         [v6 addSuggestions:v12];
       }
 
-      v9 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -334,7 +326,6 @@
     *(v6 + 48) |= 4u;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -344,7 +335,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 48);
     if (has)
     {
       if ((*(equal + 48) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -372,7 +362,6 @@ LABEL_27:
       has = self->_has;
     }
 
-    v9 = *(equal + 48);
     if ((has & 2) != 0)
     {
       if ((*(equal + 48) & 2) == 0 || self->_confidence != *(equal + 4))
@@ -476,7 +465,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if (*(from + 48))
   {
     self->_timestamp = *(from + 1);
@@ -494,29 +483,29 @@ LABEL_9:
     *&self->_has |= 2u;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(from + 5);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDCoreRoutineMagicMomentsSuggestionInstance *)self addSuggestions:*(*(&v12 + 1) + 8 * i)];
+        [(AWDCoreRoutineMagicMomentsSuggestionInstance *)self addSuggestions:*(*(&v11 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -535,8 +524,6 @@ LABEL_9:
     self->_durationSinceLastSuggestion = *(from + 5);
     *&self->_has |= 4u;
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 @end

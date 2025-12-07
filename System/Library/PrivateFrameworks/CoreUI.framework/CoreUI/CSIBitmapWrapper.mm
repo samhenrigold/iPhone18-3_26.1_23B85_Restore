@@ -25,7 +25,7 @@
   result = self->_bitmapContext;
   if (!result)
   {
-    v11 = (self->_imageAlpha < 7) & (0x61u >> self->_imageAlpha);
+    v5 = (self->_imageAlpha < 7) & (0x61u >> self->_imageAlpha);
     pixelFormat = self->_pixelFormat;
     if (pixelFormat > 1195456543)
     {
@@ -34,38 +34,38 @@
         if (pixelFormat == 1380401751)
         {
           colorSpaceID = self->_colorSpaceID;
-          if (v11)
+          if (v5)
           {
-            v19 = 4101;
+            v13 = 4101;
           }
 
           else
           {
-            v19 = 4097;
+            v13 = 4097;
           }
 
-          v13 = colorSpaceID == 4;
-          v14 = v19 | ((colorSpaceID == 4) << 8);
+          v7 = colorSpaceID == 4;
+          v8 = v13 | ((colorSpaceID == 4) << 8);
           goto LABEL_32;
         }
 
 LABEL_21:
-        _CUILog(4, "Unsupported CSIGenerator pixel format: %d", v2, v3, v4, v5, v6, v7, self->_pixelFormat);
+        _CUILog(4, "Unsupported CSIGenerator pixel format: %d", self->_pixelFormat);
         return 0;
       }
 
-      if (v11)
+      if (v5)
       {
-        v14 = 0;
-        v16 = kCGColorSpaceGenericGrayGamma2_2;
-        v17 = 1;
+        v8 = 0;
+        v10 = kCGColorSpaceGenericGrayGamma2_2;
+        v11 = 1;
 LABEL_40:
-        v22 = 8;
+        v16 = 8;
         goto LABEL_41;
       }
 
-      v16 = kCGColorSpaceSRGB;
-      v14 = 8194;
+      v10 = kCGColorSpaceSRGB;
+      v8 = 8194;
     }
 
     else
@@ -74,54 +74,54 @@ LABEL_40:
       {
         if (pixelFormat == 1195454774)
         {
-          v13 = self->_colorSpaceID == 6;
-          if (v11)
+          v7 = self->_colorSpaceID == 6;
+          if (v5)
           {
             if (self->_colorSpaceID == 6)
             {
-              v14 = 4352;
+              v8 = 4352;
             }
 
             else
             {
-              v14 = 4096;
+              v8 = 4096;
             }
 
-            v15 = &kCGColorSpaceExtendedGray;
+            v9 = &kCGColorSpaceExtendedGray;
             if (self->_colorSpaceID != 6)
             {
-              v15 = &kCGColorSpaceGenericGrayGamma2_2;
+              v9 = &kCGColorSpaceGenericGrayGamma2_2;
             }
 
-            v16 = *v15;
-            v17 = 2;
+            v10 = *v9;
+            v11 = 2;
 LABEL_35:
-            v22 = 16;
+            v16 = 16;
 LABEL_41:
-            v23 = CGColorSpaceCreateWithName(v16);
+            v17 = CGColorSpaceCreateWithName(v10);
             allowsOptimalRowbytesPacking = [(CSIBitmapWrapper *)self allowsOptimalRowbytesPacking];
             width = self->_width;
-            AlignedBytesPerRow = width * v17;
+            AlignedBytesPerRow = width * v11;
             if (allowsOptimalRowbytesPacking)
             {
               AlignedBytesPerRow = CGBitmapGetAlignedBytesPerRow();
               width = self->_width;
             }
 
-            v27 = CGBitmapContextCreate(0, width, self->_height, v22, AlignedBytesPerRow, v23, v14);
-            self->_bitmapContext = v27;
-            if (!v27)
+            v21 = CGBitmapContextCreate(0, width, self->_height, v16, AlignedBytesPerRow, v17, v8);
+            self->_bitmapContext = v21;
+            if (!v21)
             {
-              [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"CSIGenerator.m" description:2437, @"CoreUI: Unable to create bitmap context for distill output target with _width %d _height %d PixelFormat: %d, ColorSpace: %@, BitsPerComponent: %d, bitmapInfo: %d", self->_width, self->_height, self->_pixelFormat, v23, v22, v14];
+              [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"CSIGenerator.m" description:2437, @"CoreUI: Unable to create bitmap context for distill output target with _width %d _height %d PixelFormat: %d, ColorSpace: %@, BitsPerComponent: %d, bitmapInfo: %d", self->_width, self->_height, self->_pixelFormat, v17, v16, v8];
             }
 
-            CGColorSpaceRelease(v23);
+            CGColorSpaceRelease(v17);
             flipped = [(CSIBitmapWrapper *)self flipped];
             result = self->_bitmapContext;
             if (flipped)
             {
-              LODWORD(v29) = self->_height;
-              CGContextTranslateCTM(result, 0.0, v29);
+              LODWORD(v23) = self->_height;
+              CGContextTranslateCTM(result, 0.0, v23);
               CGContextScaleCTM(self->_bitmapContext, 1.0, -1.0);
               return self->_bitmapContext;
             }
@@ -131,53 +131,53 @@ LABEL_41:
 
           if (self->_colorSpaceID == 6)
           {
-            v14 = 4353;
+            v8 = 4353;
           }
 
           else
           {
-            v14 = 4097;
+            v8 = 4097;
           }
 
 LABEL_32:
-          v21 = &kCGColorSpaceExtendedSRGB;
-          if (!v13)
+          v15 = &kCGColorSpaceExtendedSRGB;
+          if (!v7)
           {
-            v21 = &kCGColorSpaceDisplayP3;
+            v15 = &kCGColorSpaceDisplayP3;
           }
 
-          v16 = *v21;
-          v17 = 8;
+          v10 = *v15;
+          v11 = 8;
           goto LABEL_35;
         }
 
         goto LABEL_21;
       }
 
-      if ((v11 & [(CSIBitmapWrapper *)self allowsMultiPassEncoding]) != 0)
+      if ((v5 & [(CSIBitmapWrapper *)self allowsMultiPassEncoding]) != 0)
       {
-        v14 = 8198;
+        v8 = 8198;
       }
 
       else
       {
-        v14 = 8194;
+        v8 = 8194;
       }
 
       if (self->_colorSpaceID == 3)
       {
-        v20 = &kCGColorSpaceDisplayP3;
+        v14 = &kCGColorSpaceDisplayP3;
       }
 
       else
       {
-        v20 = &kCGColorSpaceSRGB;
+        v14 = &kCGColorSpaceSRGB;
       }
 
-      v16 = *v20;
+      v10 = *v14;
     }
 
-    v17 = 4;
+    v11 = 4;
     goto LABEL_40;
   }
 
@@ -211,13 +211,13 @@ LABEL_32:
   if (pixelFormat != 1195456544 && pixelFormat != 1195454774)
   {
     BytesPerRow = CGBitmapContextGetBytesPerRow(bitmapContext);
-    v30 = CGBitmapContextGetHeight(v8) * BytesPerRow;
-    self->_pixelData = [[NSData alloc] initWithBytesNoCopy:CGBitmapContextGetData(v8) length:v30 freeWhenDone:0];
+    v24 = CGBitmapContextGetHeight(v8) * BytesPerRow;
+    self->_pixelData = [[NSData alloc] initWithBytesNoCopy:CGBitmapContextGetData(v8) length:v24 freeWhenDone:0];
     self->_rowbytes = CGBitmapContextGetBytesPerRow(v8);
     return self->_pixelData;
   }
 
-  v34.data = 0;
+  v27.data = 0;
   Image = CGBitmapContextCreateImage(bitmapContext);
   BitmapInfo = CGImageGetBitmapInfo(Image);
   BitsPerComponent = CGImageGetBitsPerComponent(Image);
@@ -261,24 +261,24 @@ LABEL_32:
   }
 
   v20 = v19 | v14;
-  v34.height = CGImageGetHeight(Image);
-  v34.width = CGImageGetWidth(Image);
-  v34.rowBytes = CGBitmapGetAlignedBytesPerRow();
+  v27.height = CGImageGetHeight(Image);
+  v27.width = CGImageGetWidth(Image);
+  v27.rowBytes = CGBitmapGetAlignedBytesPerRow();
   ColorSpace = CGBitmapContextGetColorSpace(v8);
-  v33.bitsPerComponent = v17;
-  v33.bitsPerPixel = v18;
-  v33.colorSpace = v15;
-  v33.bitmapInfo = v20;
-  memset(&v33.version, 0, 20);
-  v22 = CUIConvertCGImageFormat(Image, ColorSpace, &v33, &v34);
+  v26.bitsPerComponent = v17;
+  v26.bitsPerPixel = v18;
+  v26.colorSpace = v15;
+  v26.bitmapInfo = v20;
+  memset(&v26.version, 0, 20);
+  v22 = CUIConvertCGImageFormat(Image, ColorSpace, &v26, &v27);
   CGColorSpaceRelease(v15);
-  self->_rowbytes = v34.rowBytes;
+  self->_rowbytes = v27.rowBytes;
   CFRelease(Image);
   if (!v22)
   {
-    v31 = [NSData alloc];
-    self->_pixelData = [v31 initWithBytes:v34.data length:v34.height * v34.rowBytes];
-    if (v34.data)
+    v25 = [NSData alloc];
+    self->_pixelData = [v25 initWithBytes:v27.data length:v27.height * v27.rowBytes];
+    if (v27.data)
     {
       CGBitmapFreeData();
     }
@@ -286,7 +286,7 @@ LABEL_32:
     return self->_pixelData;
   }
 
-  _CUILog(4, "CoreUI: Unable to create convert image to 16 Gray scale .", v23, v24, v25, v26, v27, v28, v32);
+  _CUILog(4, "CoreUI: Unable to create convert image to 16 Gray scale .");
   return 0;
 }
 
@@ -298,13 +298,13 @@ LABEL_32:
     result = *(result + 8);
     if (!result)
     {
-      result = v1[7];
+      result = *(v1 + 7);
       if (!result)
       {
-        result = CGBitmapContextCreateImage([v1 bitmapContext]);
+        result = CGBitmapContextCreateImage([(CGImage *)v1 bitmapContext]);
       }
 
-      v1[8] = result;
+      *(v1 + 8) = result;
     }
   }
 
@@ -392,7 +392,7 @@ LABEL_32:
   self->_allowsMultiPassEncoding = encoding;
   if (__coreThemeLoggingEnabled == 1)
   {
-    _CUILog(1, "CoreUI(DEBUG) setting allowsMultiPassEncoding to %d", encoding, v3, v4, v5, v6, v7, encoding);
+    _CUILog(1, "CoreUI(DEBUG) setting allowsMultiPassEncoding to %d", encoding);
   }
 }
 
@@ -401,7 +401,7 @@ LABEL_32:
   self->_allowsOptimalRowbytesPacking = packing;
   if (__coreThemeLoggingEnabled == 1)
   {
-    _CUILog(1, "CoreUI(DEBUG) setting allowsOptimalRowbytesPacking to %d", packing, v3, v4, v5, v6, v7, packing);
+    _CUILog(1, "CoreUI(DEBUG) setting allowsOptimalRowbytesPacking to %d", packing);
   }
 }
 
@@ -410,7 +410,7 @@ LABEL_32:
   self->_allowsCompactCompression = compression;
   if (__coreThemeLoggingEnabled == 1)
   {
-    _CUILog(1, "CoreUI(DEBUG) setting allowsCompactCompression to %d", compression, v3, v4, v5, v6, v7, compression);
+    _CUILog(1, "CoreUI(DEBUG) setting allowsCompactCompression to %d", compression);
   }
 }
 
@@ -419,7 +419,7 @@ LABEL_32:
   if ([(CSIBitmapWrapper *)self width]|| [(CSIBitmapWrapper *)self width]|| ![(CSIBitmapWrapper *)self pixelData]|| [(CSIBitmapWrapper *)self pixelFormat]!= 1346651680)
   {
     pixelData = [(CSIBitmapWrapper *)self pixelData];
-    v170 = [(NSData *)pixelData length];
+    v106 = [(NSData *)pixelData length];
     height = [(CSIBitmapWrapper *)self height];
     width = [(CSIBitmapWrapper *)self width];
     v12 = [(NSData *)pixelData length];
@@ -438,12 +438,12 @@ LABEL_32:
       [(CSIBitmapWrapper *)self setCompressionType:1];
     }
 
-    v181 = 0;
-    v180 = 0;
-    v179 = 0;
-    v178 = 0;
+    v118 = 0;
+    v117 = 0;
+    v116 = 0;
+    v115 = 0;
     compressionType = [(CSIBitmapWrapper *)self compressionType];
-    v19 = 0;
+    v17 = 0;
     if (compressionType <= 2)
     {
       if (!compressionType)
@@ -453,119 +453,128 @@ LABEL_32:
 
       if (compressionType != 1)
       {
+        v18 = 0;
         if (compressionType != 2)
         {
-          goto LABEL_110;
+          goto LABEL_112;
         }
 
 LABEL_21:
-        if ([(CSIBitmapWrapper *)self allowsPaletteImageCompression]&& ![(CSIBitmapWrapper *)self allowsDeepmap2ImageCompression]&& [(CSIBitmapWrapper *)self colorSpaceID]!= 2 && [(CSIBitmapWrapper *)self colorSpaceID]!= 6 && [(CSIBitmapWrapper *)self compressionType]!= 7)
+        if (![(CSIBitmapWrapper *)self allowsPaletteImageCompression]|| [(CSIBitmapWrapper *)self allowsDeepmap2ImageCompression]|| [(CSIBitmapWrapper *)self colorSpaceID]== 2 || [(CSIBitmapWrapper *)self colorSpaceID]== 6 || [(CSIBitmapWrapper *)self compressionType]== 7)
         {
-          v181 = 8;
-          destImage = [(CSIBitmapWrapper *)self destImage];
-          if (!destImage || (v134 = destImage, !CGImageGetWidth(destImage)) || !CGImageGetHeight(v134))
-          {
-            _CUILog(4, "CoreUI: Invalid image for lossless compression, fallback to Deepmap lossless compression...", v128, v129, v130, v131, v132, v133, v160);
-            goto LABEL_26;
-          }
+          goto LABEL_26;
+        }
 
-          memset(v182, 0, 40);
-          v177.data = 0;
-          v177.height = CGImageGetHeight(v134);
-          *&v177.width = CGImageGetWidth(v134);
+        v118 = 8;
+        destImage = [(CSIBitmapWrapper *)self destImage];
+        if (destImage && (v88 = destImage, CGImageGetWidth(destImage)) && CGImageGetHeight(v88))
+        {
+          memset(v119, 0, 40);
+          v114.data = 0;
+          v114.height = CGImageGetHeight(v88);
+          *&v114.width = CGImageGetWidth(v88);
           pixelData = self->_pixelData;
+          v108 = v12;
           if (pixelData)
           {
             bytes = [(NSData *)pixelData bytes];
-            v139 = self->_rowbytes;
-            v177.data = bytes;
-            v177.rowBytes = v139;
-          }
-
-          else
-          {
-            v153 = CUIGetRGBAImageBuffer(v134, v182, &v177);
-            if (v153 || !v177.width || !v177.height)
+            v91 = self->_rowbytes;
+            v114.data = bytes;
+            v114.rowBytes = v91;
+LABEL_165:
+            v113 = v114;
+            v94 = CUIImageCompressedWithColorQuantization(v88, &v113, 0, &v116, &v117, &v115);
+            if (!v94)
             {
-              if (v153)
+              if (!pixelData)
               {
-                _CUILog(4, "CoreUI: Image conversion failed vImage error %d, fallback to other lossless compression...", v154, v155, v156, v157, v137, v138, v153);
-              }
-
-              else
-              {
-                _CUILog(4, "CoreUI: Image conversion failed vImage returned degenerate image (width=%lu, height=%lu), fallback to other lossless compression...", v154, v155, v156, v157, v137, v138, v177.width);
+                CUIDeallocateRGBAImageBuffer(v119, &v114.data);
               }
 
               goto LABEL_26;
             }
-          }
 
-          v176 = v177;
-          v158 = CUIImageCompressedWithColorQuantization(v134, &v176, 0, &v179, &v180, &v178, v137, v138);
-          if (v158)
-          {
-            v159 = v158;
-            [(CSIBitmapWrapper *)self setPixelFormat:v179];
-            [(CSIBitmapWrapper *)self setColorSpaceID:v180];
-            self->_rowbytes = v178;
+            v95 = v94;
+            [(CSIBitmapWrapper *)self setPixelFormat:v116];
+            [(CSIBitmapWrapper *)self setColorSpaceID:v117];
+            self->_rowbytes = v115;
             *size = height;
-            v19 = [NSArray arrayWithObject:v159];
+            v17 = [NSArray arrayWithObject:v95];
 
             if (!pixelData)
             {
-              CUIDeallocateRGBAImageBuffer(v182, &v177.data);
+              CUIDeallocateRGBAImageBuffer(v119, &v114.data);
             }
 
             goto LABEL_110;
           }
 
-          if (!pixelData)
+          v93 = CUIGetRGBAImageBuffer(v88, v119, &v114);
+          if (!v93 && v114.width && v114.height)
           {
-            CUIDeallocateRGBAImageBuffer(v182, &v177.data);
+            goto LABEL_165;
           }
+
+          if (v93)
+          {
+            _CUILog(4, "CoreUI: Image conversion failed vImage error %d, fallback to other lossless compression...");
+          }
+
+          else
+          {
+            _CUILog(4, "CoreUI: Image conversion failed vImage returned degenerate image (width=%lu, height=%lu), fallback to other lossless compression...");
+          }
+        }
+
+        else
+        {
+          _CUILog(4, "CoreUI: Invalid image for lossless compression, fallback to Deepmap lossless compression...");
         }
 
 LABEL_26:
         if ([(CSIBitmapWrapper *)self compressionType]== 7)
         {
 LABEL_29:
-          v27 = rowbytes * v14;
-          v168 = v14;
+          v25 = rowbytes * v14;
+          v109 = v12;
+          v104 = v14;
           if (rowbytes * v14 <= 0xFFF)
           {
             pixelFormat = self->_pixelFormat;
             if (pixelFormat != 1195454774 && pixelFormat != 1380401751)
             {
-              v69 = v12 + 8 * v14 + 12;
-              if (v69 <= 0x800)
+              v49 = v12 + 8 * v14 + 12;
+              if (v49 <= 0x800)
               {
-                v70 = 2048;
+                v50 = 2048;
               }
 
               else
               {
-                v70 = v69;
+                v50 = v49;
               }
 
-              if (v69 >= 0x800)
+              if (v49 >= 0x800)
               {
-                v71 = malloc_type_malloc(v70, 0x704CA307uLL);
+                v51 = malloc_type_malloc(v50, 0x704CA307uLL);
               }
 
               else
               {
-                v71 = v182;
+                v51 = v119;
               }
 
               if (self->_sourceImage || self->_texturePixelFormat)
               {
-                v181 = 0;
-                if (v69 >= 0x800)
+                v118 = 0;
+                if (v49 >= 0x800)
                 {
-                  free(v71);
+                  free(v51);
                 }
 
+                v18 = 0;
+                v14 = v104;
+                v12 = v109;
                 sizeCopy3 = size;
               }
 
@@ -573,59 +582,64 @@ LABEL_29:
               {
                 if (self->_pixelFormat == 1195456544)
                 {
-                  v122 = 3;
+                  v83 = 3;
                 }
 
                 else
                 {
-                  v122 = 4;
+                  v83 = 4;
                 }
 
-                v123 = pk_compressData(Data, v122, v15, v168, rowbytes, v71, v70, v26);
-                if (v123 < 1 || v170 <= v123)
+                v84 = pk_compressData(Data, v83, v15, v104, rowbytes, v51, v50);
+                v18 = v84;
+                if (v84 < 1 || v106 <= v84)
                 {
-                  v181 = 0;
+                  v118 = 0;
+                  v12 = v109;
                   sizeCopy3 = size;
-                  if (v69 >= 0x800)
+                  if (v49 >= 0x800)
                   {
-                    free(v71);
+                    free(v51);
                   }
                 }
 
                 else
                 {
-                  v181 = 1;
+                  v118 = 1;
+                  v12 = v109;
                   sizeCopy3 = size;
-                  if (v69 > 0x7FF)
+                  if (v49 > 0x7FF)
                   {
-                    v124 = [NSData dataWithBytesNoCopy:v71 length:v123 freeWhenDone:1];
+                    v85 = [NSData dataWithBytesNoCopy:v51 length:v84 freeWhenDone:1];
                   }
 
                   else
                   {
-                    v124 = [NSData dataWithBytes:v71 length:v123];
+                    v85 = [NSData dataWithBytes:v51 length:v84];
                   }
 
-                  pixelData = v124;
+                  pixelData = v85;
                 }
+
+                v14 = v104;
               }
 
               *sizeCopy3 = height;
-              v19 = [NSArray arrayWithObject:pixelData];
-              goto LABEL_110;
+              v17 = [NSArray arrayWithObject:pixelData];
+              goto LABEL_112;
             }
           }
 
-          *&v182[0] = 0;
-          v177.data = 0;
+          *&v119[0] = 0;
+          v114.data = 0;
           if (__environmentRequestedCompression == 2)
           {
-            v29 = 4;
+            v27 = 4;
           }
 
           else if (__environmentRequestedCompression == 1)
           {
-            v29 = 3;
+            v27 = 3;
           }
 
           else
@@ -636,32 +650,32 @@ LABEL_48:
               allowsMultiPassEncoding = [(CSIBitmapWrapper *)self allowsMultiPassEncoding];
               if (v15 > 1)
               {
-                v41 = allowsMultiPassEncoding;
+                v34 = allowsMultiPassEncoding;
               }
 
               else
               {
-                v41 = 0;
+                v34 = 0;
               }
 
               if ((v15 * v14) > 0xFFF)
               {
-                v42 = v41;
+                v35 = v34;
               }
 
               else
               {
-                v42 = 0;
+                v35 = 0;
               }
 
-              if (v42 == 1)
+              if (v35 == 1)
               {
                 if (__coreThemeLoggingEnabled == 1)
                 {
-                  _CUILog(1, "CoreUI(DEBUG): doing multipass encoding", v35, v36, v37, v38, v39, v40, v160);
+                  _CUILog(1, "CoreUI(DEBUG): doing multipass encoding");
                 }
 
-                if (v27 < 0x5000)
+                if (v25 < 0x5000)
                 {
                   height >>= 1;
                 }
@@ -672,209 +686,211 @@ LABEL_48:
                 }
               }
 
+              v102 = v15;
               encodingCopy = encoding;
               *size = height;
               if (v12 >= 1)
               {
-                v19 = 0;
-                v43 = 0;
-                v44 = rowbytes * height;
+                v17 = 0;
+                v18 = 0;
+                v36 = rowbytes * height;
                 propertyNamea = kCFStreamPropertyDataWritten;
-                v45 = v12;
+                v37 = v12;
                 while (1)
                 {
-                  v46 = CFWriteStreamCreateWithAllocatedBuffers(kCFAllocatorDefault, kCFAllocatorDefault);
-                  CFWriteStreamOpen(v46);
-                  *&v182[0] = 0;
-                  _StreamSys_init_write(v182, v46);
-                  v177.data = 0;
-                  if (v181 == 3)
+                  v38 = CFWriteStreamCreateWithAllocatedBuffers(kCFAllocatorDefault, kCFAllocatorDefault);
+                  CFWriteStreamOpen(v38);
+                  *&v119[0] = 0;
+                  _StreamSys_init_write(v119, v38);
+                  v114.data = 0;
+                  if (v118 == 3)
                   {
-                    v47 = 4;
+                    v39 = 4;
                   }
 
                   else
                   {
-                    v47 = 5;
+                    v39 = 5;
                   }
 
-                  if (v181 == 2)
+                  if (v118 == 2)
                   {
-                    v48 = 1;
+                    v40 = 1;
                   }
 
                   else
                   {
-                    v48 = v47;
+                    v40 = v39;
                   }
 
-                  if (_BOMFileNewFromCFWriteStreamSys(&v177, *&v182[0], v48))
+                  if (_BOMFileNewFromCFWriteStreamSys(&v114, *&v119[0], v40))
                   {
-                    if (v46)
+                    if (v38)
                     {
-                      CFRelease(v46);
+                      CFRelease(v38);
                     }
 
-                    _CUILog(4, "CoreUI: Unable to create compressed output stream.", v49, v50, v51, v52, v53, v54, v160);
+                    _CUILog(4, "CoreUI: Unable to create compressed output stream.");
 
                     return 0;
                   }
 
-                  v55 = 0;
-                  if (v44)
+                  v41 = 0;
+                  if (v36)
                   {
                     break;
                   }
 
 LABEL_76:
-                  BOMFileClose(v177.data);
-                  BomSys_free(*&v182[0]);
-                  v58 = CFWriteStreamCopyProperty(v46, propertyNamea);
-                  v59 = v58;
+                  BOMFileClose(v114.data);
+                  BomSys_free(*&v119[0]);
+                  v44 = CFWriteStreamCopyProperty(v38, propertyNamea);
+                  v45 = v44;
                   if (__loggingEnabled == 1)
                   {
-                    v43 += CFDataGetLength(v58);
+                    v18 += CFDataGetLength(v44);
                   }
 
-                  if (!v19)
+                  if (!v17)
                   {
-                    v19 = objc_alloc_init(NSMutableArray);
+                    v17 = objc_alloc_init(NSMutableArray);
                   }
 
-                  Data += v55;
-                  [(NSArray *)v19 addObject:v59];
+                  Data += v41;
+                  [(NSArray *)v17 addObject:v45];
 
-                  CFRelease(v46);
-                  v45 -= v55;
-                  if (v45 > 0)
+                  CFRelease(v38);
+                  v37 -= v41;
+                  if (v37 > 0)
                   {
-                    v60 = v42;
+                    v46 = v35;
                   }
 
                   else
                   {
-                    v60 = 0;
+                    v46 = 0;
                   }
 
-                  if ((v60 & 1) == 0)
+                  v12 = v109;
+                  if ((v46 & 1) == 0)
                   {
                     goto LABEL_88;
                   }
                 }
 
-                if (v44 >= v45)
+                if (v36 >= v37)
                 {
-                  v56 = v45;
+                  v42 = v37;
                 }
 
                 else
                 {
-                  v56 = rowbytes * height;
+                  v42 = rowbytes * height;
                 }
 
                 while (1)
                 {
-                  v57 = BOMFileWrite(v177.data, &Data[v55], v56);
-                  if (v57 < 1)
+                  v43 = BOMFileWrite(v114.data, &Data[v41], v42);
+                  if (v43 < 1)
                   {
                     break;
                   }
 
-                  v55 += v57;
-                  v56 -= v57;
-                  if (!v56)
+                  v41 += v43;
+                  v42 -= v43;
+                  if (!v42)
                   {
                     goto LABEL_76;
                   }
                 }
 
-                BOMFileClose(v177.data);
-                CFRelease(v46);
-                _CUILog(4, "CoreUI: Failure to write to stream", v61, v62, v63, v64, v65, v66, v160);
-                v67 = v19;
+                BOMFileClose(v114.data);
+                CFRelease(v38);
+                _CUILog(4, "CoreUI: Failure to write to stream");
+                v47 = v17;
                 return 0;
               }
 
-              v19 = 0;
+              v18 = 0;
+              v17 = 0;
 LABEL_88:
-              v68 = v19;
+              v48 = v17;
+              v14 = v104;
               encoding = encodingCopy;
-LABEL_110:
+              v15 = v102;
+LABEL_112:
               if (__loggingEnabled == 1)
               {
-                v76 = CUIConvertCompressionTypeToString(v181);
-                NSLocalizedFileSizeDescription();
-                _CUILog(1, "CSI: %s Compressed [%lu x %lu]\t\t%lu\trowbytes %lu\t to size %@\twith compressionFactor:\t%.2f", v77, v78, v79, v80, v81, v82, v76);
+                v56 = v18 / v12;
+                v57 = v12;
+                v58 = CUIConvertCompressionTypeToString(v118);
+                v59 = NSLocalizedFileSizeDescription();
+                _CUILog(1, "CSI: %s Compressed [%lu x %lu]\t\t%lu\trowbytes %lu\t to size %@\twith compressionFactor:\t%.2f", v58, v15, v14, v57, rowbytes, v59, *&v56);
               }
 
               if (encoding)
               {
-                *encoding = v181;
+                *encoding = v118;
               }
 
-              return v19;
+              return v17;
             }
 
-            v29 = 2;
+            v27 = 2;
           }
 
-          v181 = v29;
+          v118 = v27;
           goto LABEL_48;
         }
 
         if ([(CSIBitmapWrapper *)self allowsDeepmap2ImageCompression])
         {
-          v181 = 11;
+          v118 = 11;
           destImage2 = [(CSIBitmapWrapper *)self destImage];
-          if (destImage2)
+          if (!destImage2 || (v65 = destImage2, !CGImageGetWidth(destImage2)) || !CGImageGetHeight(v65))
           {
-            v94 = destImage2;
-            if (CGImageGetWidth(destImage2))
-            {
-              if (CGImageGetHeight(v94))
-              {
-                v172 = v12;
-                v167 = v15;
-                v169 = v14;
-                encodingCopy3 = encoding;
-                bytes2 = [(NSData *)self->_pixelData bytes];
-                Height = CGImageGetHeight(v94);
-                Width = CGImageGetWidth(v94);
-                v96 = self->_rowbytes;
-                BitsPerPixel = CGImageGetBitsPerPixel(v94);
-                v98 = 8 * ((BitsPerPixel >> 3) / (BitsPerPixel / CGImageGetBitsPerComponent(v94)));
-                ColorSpace = CGImageGetColorSpace(v94);
-                BitmapInfo = CGImageGetBitmapInfo(v94);
-                v101 = self->_pixelFormat;
-                *&v182[0] = __PAIR64__(BitsPerPixel, v98);
-                *(&v182[0] + 1) = ColorSpace;
-                LODWORD(v182[1]) = BitmapInfo;
-                memset(&v182[1] + 4, 0, 20);
-                v177.data = bytes2;
-                v177.height = Height;
-                v177.width = Width;
-                v177.rowBytes = v96;
-                v103 = CUIImageCompressedWithDeepmap2(v182, &v177, v101, &v179, &v180, &v178, size, v102);
-                if (v103)
-                {
-LABEL_127:
-                  v121 = v103;
-                  [(CSIBitmapWrapper *)self setPixelFormat:v179];
-                  [(CSIBitmapWrapper *)self setColorSpaceID:v180];
-                  self->_rowbytes = v178;
-                  v19 = v121;
-                  encoding = encodingCopy3;
-                  goto LABEL_110;
-                }
-
-                v110 = "CoreUI: Deepmap 2.0 image compression returned nil, fallback to other lossless compression...";
-                v111 = 4;
-                goto LABEL_159;
-              }
-            }
+            _CUILog(4, "CoreUI: Invalid image for lossless compression with kCSICompressedDeepmap2Encoding encoding, fallback to default lossless compression...");
+            goto LABEL_29;
           }
 
-          v125 = "CoreUI: Invalid image for lossless compression with kCSICompressedDeepmap2Encoding encoding, fallback to default lossless compression...";
+          v108 = v12;
+          v103 = v15;
+          v105 = v14;
+          encodingCopy3 = encoding;
+          bytes2 = [(NSData *)self->_pixelData bytes];
+          Height = CGImageGetHeight(v65);
+          Width = CGImageGetWidth(v65);
+          v67 = self->_rowbytes;
+          BitsPerPixel = CGImageGetBitsPerPixel(v65);
+          v69 = 8 * ((BitsPerPixel >> 3) / (BitsPerPixel / CGImageGetBitsPerComponent(v65)));
+          ColorSpace = CGImageGetColorSpace(v65);
+          BitmapInfo = CGImageGetBitmapInfo(v65);
+          v72 = self->_pixelFormat;
+          *&v119[0] = __PAIR64__(BitsPerPixel, v69);
+          *(&v119[0] + 1) = ColorSpace;
+          LODWORD(v119[1]) = BitmapInfo;
+          memset(&v119[1] + 4, 0, 20);
+          v114.data = bytes2;
+          v114.height = Height;
+          v114.width = Width;
+          v114.rowBytes = v67;
+          v73 = CUIImageCompressedWithDeepmap2(v119, &v114, v72, &v116, &v117, &v115, size);
+          if (v73)
+          {
+LABEL_129:
+            v82 = v73;
+            [(CSIBitmapWrapper *)self setPixelFormat:v116];
+            [(CSIBitmapWrapper *)self setColorSpaceID:v117];
+            self->_rowbytes = v115;
+            v17 = v82;
+            v18 = 0;
+            encoding = encodingCopy3;
+            v15 = v103;
+            v14 = v105;
+            goto LABEL_111;
+          }
+
+          _CUILog(4, "CoreUI: Deepmap 2.0 image compression returned nil, fallback to other lossless compression...");
         }
 
         else
@@ -884,107 +900,87 @@ LABEL_127:
             goto LABEL_29;
           }
 
-          v181 = 10;
+          v118 = 10;
           destImage3 = [(CSIBitmapWrapper *)self destImage];
-          if (destImage3)
+          if (!destImage3 || (v75 = destImage3, !CGImageGetWidth(destImage3)) || !CGImageGetHeight(v75))
           {
-            v113 = destImage3;
-            if (CGImageGetWidth(destImage3))
-            {
-              if (CGImageGetHeight(v113))
-              {
-                v172 = v12;
-                v167 = v15;
-                v169 = v14;
-                encodingCopy3 = encoding;
-                bytes3 = [(NSData *)self->_pixelData bytes];
-                v164 = CGImageGetHeight(v113);
-                v162 = CGImageGetWidth(v113);
-                v114 = self->_rowbytes;
-                v115 = CGImageGetBitsPerPixel(v113);
-                v116 = 8 * ((v115 >> 3) / (v115 / CGImageGetBitsPerComponent(v113)));
-                v117 = CGImageGetColorSpace(v113);
-                v118 = CGImageGetBitmapInfo(v113);
-                v119 = self->_pixelFormat;
-                *&v182[0] = __PAIR64__(v115, v116);
-                *(&v182[0] + 1) = v117;
-                LODWORD(v182[1]) = v118;
-                memset(&v182[1] + 4, 0, 20);
-                v177.data = bytes3;
-                v177.height = v164;
-                v177.width = v162;
-                v177.rowBytes = v114;
-                v103 = CUIImageCompressedWithDeepmap(v182, &v177, v119, &v179, &v180, &v178, size, v120);
-                if (v103)
-                {
-                  goto LABEL_127;
-                }
-
-                v110 = "CoreUI: Deepmap image compression returned early, fallback to other lossless compression...";
-                v111 = 3;
-LABEL_159:
-                _CUILog(v111, v110, v104, v105, v106, v107, v108, v109, v160);
-                encoding = encodingCopy3;
-                v15 = v167;
-                v14 = v169;
-                goto LABEL_160;
-              }
-            }
+            _CUILog(4, "CoreUI: Invalid image for lossless compression with kCSICompressedDeepmapEncoding encoding, fallback to default lossless compression...");
+            goto LABEL_29;
           }
 
-          v125 = "CoreUI: Invalid image for lossless compression with kCSICompressedDeepmapEncoding encoding, fallback to default lossless compression...";
+          v108 = v12;
+          v103 = v15;
+          v105 = v14;
+          encodingCopy3 = encoding;
+          bytes3 = [(NSData *)self->_pixelData bytes];
+          v99 = CGImageGetHeight(v75);
+          v97 = CGImageGetWidth(v75);
+          v76 = self->_rowbytes;
+          v77 = CGImageGetBitsPerPixel(v75);
+          v78 = 8 * ((v77 >> 3) / (v77 / CGImageGetBitsPerComponent(v75)));
+          v79 = CGImageGetColorSpace(v75);
+          v80 = CGImageGetBitmapInfo(v75);
+          v81 = self->_pixelFormat;
+          *&v119[0] = __PAIR64__(v77, v78);
+          *(&v119[0] + 1) = v79;
+          LODWORD(v119[1]) = v80;
+          memset(&v119[1] + 4, 0, 20);
+          v114.data = bytes3;
+          v114.height = v99;
+          v114.width = v97;
+          v114.rowBytes = v76;
+          v73 = CUIImageCompressedWithDeepmap(v119, &v114, v81, &v116, &v117, &v115, size);
+          if (v73)
+          {
+            goto LABEL_129;
+          }
+
+          _CUILog(3, "CoreUI: Deepmap image compression returned early, fallback to other lossless compression...");
         }
 
-        _CUILog(4, v125, v88, v89, v90, v91, v92, v93, v160);
+        encoding = encodingCopy3;
+        v15 = v103;
+        v14 = v105;
+LABEL_161:
+        v12 = v108;
         goto LABEL_29;
       }
 
       sizeCopy5 = size;
       *size = height;
-      v19 = [NSArray arrayWithObject:pixelData];
-LABEL_37:
-      v181 = 6;
-      *&v182[0] = 0;
-      v177.data = 0;
-      *sizeCopy5 = height;
-      if ((encodeRadiosity(v15, height, rowbytes, Data, v182, &v177, v17, v18, 40.0) & 0x80000000) == 0)
-      {
-        v30 = [NSData alloc];
-        v31 = [v30 initWithBytesNoCopy:*&v182[0] length:v177.data freeWhenDone:1];
-        v19 = [NSArray arrayWithObject:v31];
-      }
-
-      goto LABEL_110;
+      v17 = [NSArray arrayWithObject:pixelData];
+      goto LABEL_37;
     }
 
     if (compressionType > 6)
     {
       if (compressionType != 7)
       {
-        goto LABEL_110;
+        v18 = 0;
+        goto LABEL_112;
       }
 
-      v172 = v12;
+      v108 = v12;
       if ((![(CSIBitmapWrapper *)self sourceAlphaInfo]|| [(CSIBitmapWrapper *)self sourceAlphaInfo]== 5 || [(CSIBitmapWrapper *)self sourceAlphaInfo]== 6) && self->_pixelFormat == 1095911234)
       {
         [(CSIBitmapWrapper *)self allowsCompactCompression];
         CGBitmapContextGetBitsPerPixel([(CSIBitmapWrapper *)self bitmapContext]);
         Image = CGBitmapContextCreateImage([(CSIBitmapWrapper *)self bitmapContext]);
-        v22 = CGBitmapContextGetColorSpace([(CSIBitmapWrapper *)self bitmapContext]);
-        v23 = CGBitmapContextCreate(0, width, height, 5uLL, 0, v22, 0x1006u);
-        v184.size.width = width;
-        v184.size.height = height;
-        v184.origin.x = 0.0;
-        v184.origin.y = 0.0;
-        CGContextDrawImage(v23, v184, Image);
+        v21 = CGBitmapContextGetColorSpace([(CSIBitmapWrapper *)self bitmapContext]);
+        v22 = CGBitmapContextCreate(0, width, height, 5uLL, 0, v21, 0x1006u);
+        v121.size.width = width;
+        v121.size.height = height;
+        v121.origin.x = 0.0;
+        v121.origin.y = 0.0;
+        CGContextDrawImage(v22, v121, Image);
         CGImageRelease(Image);
-        Data = CGBitmapContextGetData(v23);
+        Data = CGBitmapContextGetData(v22);
         CFRelease(self->_bitmapContext);
-        self->_bitmapContext = v23;
-        v24 = v23;
+        self->_bitmapContext = v22;
+        v23 = v22;
         v15 = width;
         v14 = height;
-        BytesPerRow = CGBitmapContextGetBytesPerRow(v24);
+        BytesPerRow = CGBitmapContextGetBytesPerRow(v23);
         self->_rowbytes = BytesPerRow;
         rowbytes = BytesPerRow;
         v12 = BytesPerRow * height;
@@ -992,7 +988,7 @@ LABEL_37:
         [(CSIBitmapWrapper *)self setPixelData:pixelData];
 
         [(CSIBitmapWrapper *)self setPixelFormat:1380401717];
-        v170 = v12;
+        v106 = v12;
         goto LABEL_21;
       }
     }
@@ -1002,29 +998,49 @@ LABEL_37:
       if (compressionType == 6)
       {
         sizeCopy5 = size;
-        goto LABEL_37;
+LABEL_37:
+        v118 = 6;
+        *&v119[0] = 0;
+        v114.data = 0;
+        *sizeCopy5 = height;
+        if ((encodeRadiosity(v15, height, rowbytes, Data, v119, &v114, 40.0) & 0x80000000) == 0)
+        {
+          v28 = [NSData alloc];
+          v29 = v12;
+          v30 = [v28 initWithBytesNoCopy:*&v119[0] length:v114.data freeWhenDone:1];
+          v17 = [NSArray arrayWithObject:v30];
+
+          v12 = v29;
+        }
+
+        goto LABEL_39;
       }
 
-      v172 = v12;
+      v108 = v12;
       if ((compressionType - 4) < 2)
       {
         destImage4 = [(CSIBitmapWrapper *)self destImage];
-        v74 = CUIImageCompressedWithATECompression(destImage4, [(CSIBitmapWrapper *)self compressionType], [(CSIBitmapWrapper *)self targetPlatform], &v181, &v179, &v180);
-        if (v74)
+        v54 = CUIImageCompressedWithATECompression(destImage4, [(CSIBitmapWrapper *)self compressionType], [(CSIBitmapWrapper *)self targetPlatform], &v118, &v116, &v117);
+        if (v54)
         {
-          v75 = v74;
-          [(CSIBitmapWrapper *)self setPixelFormat:v179];
-          [(CSIBitmapWrapper *)self setColorSpaceID:v180];
+          v55 = v54;
+          [(CSIBitmapWrapper *)self setPixelFormat:v116];
+          [(CSIBitmapWrapper *)self setColorSpaceID:v117];
           *size = height;
-          v19 = [NSArray arrayWithObject:v75];
+          v17 = [NSArray arrayWithObject:v55];
 
-          goto LABEL_110;
+LABEL_110:
+          v18 = 0;
+          goto LABEL_111;
         }
       }
 
       else if (compressionType != 3)
       {
-        goto LABEL_110;
+        v18 = 0;
+LABEL_111:
+        v12 = v108;
+        goto LABEL_112;
       }
     }
 
@@ -1032,12 +1048,22 @@ LABEL_37:
     if ([(CSIBitmapWrapper *)self allowsHevcCompression])
     {
       [(CSIBitmapWrapper *)self compressionQuality];
-      v85 = CUIImageCompressedWithHEVC(destImage5, &v179, &v180, &v178, v84);
-      if (v85)
+      v62 = CUIImageCompressedWithHEVC(destImage5, &v116, &v117, &v115, v61);
+      v12 = v108;
+      if (v62)
       {
-        v86 = v85;
-        v181 = 9;
-        goto LABEL_155;
+        v63 = v62;
+        v118 = 9;
+LABEL_156:
+        [(CSIBitmapWrapper *)self setPixelFormat:v116];
+        [(CSIBitmapWrapper *)self setColorSpaceID:v117];
+        self->_rowbytes = v115;
+        *size = height;
+        v17 = [NSArray arrayWithObject:v63];
+
+LABEL_39:
+        v18 = 0;
+        goto LABEL_112;
       }
 
       if ([(CSIBitmapWrapper *)self name])
@@ -1052,33 +1078,24 @@ LABEL_37:
 
       if ([(CSIBitmapWrapper *)self pixelFormat]== 1195456544)
       {
-        _CUILog(4, "CoreUI: HEVC lossy compression failed for %s. Re-try again with default lossless fallback.", v140, v141, v142, v143, v144, v145, uTF8String);
-LABEL_160:
-        v12 = v172;
-        goto LABEL_29;
+        _CUILog(4, "CoreUI: HEVC lossy compression failed for %s. Re-try again with default lossless fallback.", uTF8String);
+        goto LABEL_161;
       }
 
-      _CUILog(4, "CoreUI: HEVC lossy compression failed for %s. Re-try again with jpeg+lzfse fallback.", v140, v141, v142, v143, v144, v145, uTF8String);
+      _CUILog(4, "CoreUI: HEVC lossy compression failed for %s. Re-try again with jpeg+lzfse fallback.", uTF8String);
     }
 
     [(CSIBitmapWrapper *)self compressionQuality];
-    v86 = CUIImageCompressedWithJPEGandLZFSE(destImage5, &v179, &v180, &v178, v146);
-    v181 = 5;
-    v12 = v172;
-    if (!v86)
+    v63 = CUIImageCompressedWithJPEGandLZFSE(destImage5, &v116, &v117, &v115, v92);
+    v118 = 5;
+    v12 = v108;
+    if (!v63)
     {
-      _CUILog(4, "CoreUI: Lossy fallback compression failed. Re-try again with fallback.", v147, v148, v149, v150, v151, v152, v160);
+      _CUILog(4, "CoreUI: Lossy fallback compression failed. Re-try again with fallback.");
       goto LABEL_21;
     }
 
-LABEL_155:
-    [(CSIBitmapWrapper *)self setPixelFormat:v179];
-    [(CSIBitmapWrapper *)self setColorSpaceID:v180];
-    self->_rowbytes = v178;
-    *size = height;
-    v19 = [NSArray arrayWithObject:v86];
-
-    goto LABEL_110;
+    goto LABEL_156;
   }
 
   *size = 0;

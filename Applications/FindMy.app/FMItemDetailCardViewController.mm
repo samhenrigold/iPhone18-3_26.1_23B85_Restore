@@ -10,7 +10,7 @@
 
 - (_TtC6FindMy30FMItemDetailCardViewController)initWithCoder:(id)coder
 {
-  type metadata accessor for FMSelectedSection();
+  type metadata accessor for FMSelectedSection(0);
   swift_storeEnumTagMultiPayload();
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy30FMItemDetailCardViewController_selectionSubscription) = 0;
   *(&self->super.super.super.super.isa + OBJC_IVAR____TtC6FindMy30FMItemDetailCardViewController_isSharedLostItem) = 0;

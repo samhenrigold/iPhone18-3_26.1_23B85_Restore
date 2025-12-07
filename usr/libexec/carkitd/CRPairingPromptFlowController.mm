@@ -16,6 +16,7 @@
 - (id)_carKeyInfo;
 - (unint64_t)_nextStepAfterResponse:(id)response;
 - (unint64_t)_outOfBandPairingDeclineCount;
+- (void)_cancelWithRequiredStepsRemaining:(BOOL)remaining;
 - (void)_dismiss;
 - (void)_handleTimedOutWaitingOnMessagingVehicle:(id)vehicle;
 - (void)_incrementOutOfBandPairingDeclineCount;
@@ -42,10 +43,13 @@
 - (void)cancel;
 - (void)handleBluetoothPairingConfirmationRequestForDeviceIdentifier:(id)identifier vehicleName:(id)name numericCode:(id)code;
 - (void)handleBluetoothPairingFailedForDeviceIdentifier:(id)identifier vehicleName:(id)name isTimeout:(BOOL)timeout;
+- (void)handleBluetoothPairingStartedForDeviceIdentifier:(id)identifier showBluetoothOnlyOption:(BOOL)option;
+- (void)handleCarKeyInitiatedConfirmationForDeviceAddress:(id)address showBluetoothOnlyOption:(BOOL)option;
 - (void)handleCarKeyInitiatedPairingFailed;
 - (void)handleConnectedMessagingVehicle:(id)vehicle pairingAccepted:(id)accepted;
 - (void)handleDisconnectedMessagingVehicle:(id)vehicle;
 - (void)handleFailedToFindThemeAssetForMessagingVehicle:(id)vehicle shouldOfferSoftwareUpdate:(BOOL)update description:(id)description;
+- (void)handleReceivedStartSessionRequestWithThemeAssetInformation:(BOOL)information;
 - (void)handleUnsupportedMessagingConnectionForDeviceIdentifier:(id)identifier;
 @end
 
@@ -84,6 +88,22 @@
   }
 
   return v3;
+}
+
+- (void)handleBluetoothPairingStartedForDeviceIdentifier:(id)identifier showBluetoothOnlyOption:(BOOL)option
+{
+  optionCopy = option;
+  identifierCopy = identifier;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  v7 = CarPairingLogging();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "received Bluetooth pairing started", v8, 2u);
+  }
+
+  [(CRPairingPromptFlowController *)self setBluetoothDeviceIdentifier:identifierCopy];
+  [(CRPairingPromptFlowController *)self setShowBluetoothOnlyOption:optionCopy];
 }
 
 - (void)handleBluetoothPairingConfirmationRequestForDeviceIdentifier:(id)identifier vehicleName:(id)name numericCode:(id)code
@@ -268,6 +288,33 @@ LABEL_15:
   }
 }
 
+- (void)handleReceivedStartSessionRequestWithThemeAssetInformation:(BOOL)information
+{
+  informationCopy = information;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  v5 = CarPairingLogging();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (informationCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "received start session, continuing prompt flow. has asset info: %{public}@", &v8, 0xCu);
+  }
+
+  v7 = [NSNumber numberWithBool:informationCopy];
+  [(CRPairingPromptFlowController *)self setReceivedStartSessionWithThemeAssetInfo:v7];
+
+  if ([(CRPairingPromptFlowController *)self currentStep]== 10)
+  {
+    [(CRPairingPromptFlowController *)self _presentNextStepAfterResponse:&__kCFBooleanTrue];
+  }
+}
+
 - (void)handleFailedToFindThemeAssetForMessagingVehicle:(id)vehicle shouldOfferSoftwareUpdate:(BOOL)update description:(id)description
 {
   updateCopy = update;
@@ -301,6 +348,27 @@ LABEL_15:
   }
 }
 
+- (void)handleCarKeyInitiatedConfirmationForDeviceAddress:(id)address showBluetoothOnlyOption:(BOOL)option
+{
+  optionCopy = option;
+  addressCopy = address;
+  dispatch_assert_queue_V2(&_dispatch_main_q);
+  v7 = CarPairingLogging();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "received car key initiated confirmation", v8, 2u);
+  }
+
+  [(CRPairingPromptFlowController *)self setBluetoothDeviceIdentifier:addressCopy];
+  [(CRPairingPromptFlowController *)self setShowBluetoothOnlyOption:optionCopy];
+  [(CRPairingPromptFlowController *)self setStartedFromCarKey:1];
+  if (![(CRPairingPromptFlowController *)self currentStep])
+  {
+    [(CRPairingPromptFlowController *)self _presentNextStepAfterResponse:0];
+  }
+}
+
 - (void)handleCarKeyInitiatedPairingFailed
 {
   dispatch_assert_queue_V2(&_dispatch_main_q);
@@ -318,6 +386,22 @@ LABEL_15:
   v3 = [objc_opt_class() _isRequiredStep:{-[CRPairingPromptFlowController currentStep](self, "currentStep")}];
 
   [(CRPairingPromptFlowController *)self _cancelWithRequiredStepsRemaining:v3];
+}
+
+- (void)_cancelWithRequiredStepsRemaining:(BOOL)remaining
+{
+  remainingCopy = remaining;
+  promptDelegate = [(CRPairingPromptFlowController *)self promptDelegate];
+  if (promptDelegate)
+  {
+    v6 = promptDelegate;
+    if (objc_opt_respondsToSelector())
+    {
+      [v6 pairingPromptFlow:self didCancelWithRequiredStepsRemaining:remainingCopy];
+    }
+  }
+
+  _objc_release_x2();
 }
 
 - (BOOL)_isMessagingBluetoothConnected

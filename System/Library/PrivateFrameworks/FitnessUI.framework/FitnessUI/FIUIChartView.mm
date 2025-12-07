@@ -1007,10 +1007,10 @@ LABEL_14:
   dateInterval = self->_dateInterval;
   valueCopy = value;
   startDate = [(NSDateInterval *)dateInterval startDate];
-  v7 = (FIUIChartXAxisFloatValue)();
+  v7 = FIUIChartXAxisFloatValue(startDate);
 
   endDate = [(NSDateInterval *)self->_dateInterval endDate];
-  v9 = (FIUIChartXAxisFloatValue)();
+  v9 = FIUIChartXAxisFloatValue(endDate);
 
   v10 = FIUIChartXAxisFloatValue(valueCopy);
   return FIUIChartRelativePositionForXPlaneValue(v10, v7, v9);

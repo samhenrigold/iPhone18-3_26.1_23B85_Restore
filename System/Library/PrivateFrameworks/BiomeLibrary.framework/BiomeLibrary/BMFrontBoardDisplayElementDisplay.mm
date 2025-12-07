@@ -122,7 +122,7 @@ LABEL_22:
 
 - (id)jsonDictionary
 {
-  v26[7] = *MEMORY[0x1E69E9840];
+  v25[7] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMFrontBoardDisplayElementDisplay type](self, "type")}];
   name = [(BMFrontBoardDisplayElementDisplay *)self name];
   deviceName = [(BMFrontBoardDisplayElementDisplay *)self deviceName];
@@ -130,68 +130,68 @@ LABEL_22:
   v7 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMFrontBoardDisplayElementDisplay interfaceOrientation](self, "interfaceOrientation")}];
   v8 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMFrontBoardDisplayElementDisplay backlightStatus](self, "backlightStatus")}];
   _transitionReasonsJSONArray = [(BMFrontBoardDisplayElementDisplay *)self _transitionReasonsJSONArray];
-  v25[0] = @"type";
+  v24[0] = @"type";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v26[0] = null;
-  v25[1] = @"name";
+  v21 = null;
+  v25[0] = null;
+  v24[1] = @"name";
   null2 = name;
   if (!name)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null2;
-  v26[1] = null2;
-  v25[2] = @"deviceName";
+  v20 = null2;
+  v25[1] = null2;
+  v24[2] = @"deviceName";
   null3 = deviceName;
   if (!deviceName)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = v3;
-  v20 = null3;
-  v26[2] = null3;
-  v25[3] = @"hardwareIdentifier";
+  v23 = v3;
+  v19 = null3;
+  v25[2] = null3;
+  v24[3] = @"hardwareIdentifier";
   null4 = hardwareIdentifier;
   if (!hardwareIdentifier)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = name;
-  v26[3] = null4;
-  v25[4] = @"interfaceOrientation";
+  v22 = name;
+  v25[3] = null4;
+  v24[4] = @"interfaceOrientation";
   null5 = v7;
   if (!v7)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"backlightStatus";
+  v25[4] = null5;
+  v24[5] = @"backlightStatus";
   null6 = v8;
   if (!v8)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v25[6] = @"transitionReasons";
+  v25[5] = null6;
+  v24[6] = @"transitionReasons";
   null7 = _transitionReasonsJSONArray;
   if (!_transitionReasonsJSONArray)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[6] = null7;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
+  v25[6] = null7;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:7];
   if (_transitionReasonsJSONArray)
   {
     if (v8)
@@ -229,14 +229,14 @@ LABEL_18:
 
   if (deviceName)
   {
-    if (v23)
+    if (v22)
     {
       goto LABEL_22;
     }
 
 LABEL_30:
 
-    if (v24)
+    if (v23)
     {
       goto LABEL_23;
     }
@@ -244,13 +244,13 @@ LABEL_30:
     goto LABEL_31;
   }
 
-  if (!v23)
+  if (!v22)
   {
     goto LABEL_30;
   }
 
 LABEL_22:
-  if (v24)
+  if (v23)
   {
     goto LABEL_23;
   }
@@ -258,51 +258,48 @@ LABEL_22:
 LABEL_31:
 
 LABEL_23:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (id)_transitionReasonsJSONArray
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   transitionReasons = [(BMFrontBoardDisplayElementDisplay *)self transitionReasons];
-  v5 = [transitionReasons countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [transitionReasons countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(transitionReasons);
         }
 
-        [v3 addObject:*(*(&v11 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v6 = [transitionReasons countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [transitionReasons countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (BMFrontBoardDisplayElementDisplay)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v124[1] = *MEMORY[0x1E69E9840];
+  v123[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"type"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -325,15 +322,15 @@ LABEL_9:
         v34 = objc_alloc(MEMORY[0x1E696ABC0]);
         v35 = v7;
         v36 = *MEMORY[0x1E698F240];
-        v121 = *MEMORY[0x1E696A578];
+        v120 = *MEMORY[0x1E696A578];
         v37 = v9;
         v38 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v83 = objc_opt_class();
+        v82 = objc_opt_class();
         v39 = v38;
         v9 = v37;
-        v40 = [v39 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v83, @"name"];
-        v122 = v40;
-        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+        v40 = [v39 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v82, @"name"];
+        v121 = v40;
+        v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
         v42 = v34;
         v10 = v41;
         v43 = v36;
@@ -344,12 +341,12 @@ LABEL_9:
         goto LABEL_64;
       }
 
-      v98 = v9;
+      v97 = v9;
     }
 
     else
     {
-      v98 = 0;
+      v97 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"deviceName"];
@@ -362,32 +359,32 @@ LABEL_9:
         {
           v40 = 0;
           selfCopy3 = 0;
-          v31 = v98;
+          v31 = v97;
           goto LABEL_64;
         }
 
         v48 = objc_alloc(MEMORY[0x1E696ABC0]);
         v49 = v7;
         v50 = *MEMORY[0x1E698F240];
-        v119 = *MEMORY[0x1E696A578];
+        v118 = *MEMORY[0x1E696A578];
         v51 = v9;
         v52 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v84 = objc_opt_class();
+        v83 = objc_opt_class();
         v53 = v52;
         v9 = v51;
-        v99 = [v53 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v84, @"deviceName"];
-        v120 = v99;
-        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+        v98 = [v53 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v83, @"deviceName"];
+        v119 = v98;
+        v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v119 forKeys:&v118 count:1];
         v54 = v50;
         v7 = v49;
         v55 = [v48 initWithDomain:v54 code:2 userInfo:v33];
-        v100 = 0;
+        v99 = 0;
         selfCopy3 = 0;
         *error = v55;
-        v31 = v98;
+        v31 = v97;
 LABEL_63:
 
-        v40 = v100;
+        v40 = v99;
 LABEL_64:
 
         goto LABEL_65;
@@ -404,9 +401,9 @@ LABEL_64:
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"hardwareIdentifier"];
-    v95 = selfCopy2;
-    v97 = v10;
-    v100 = v12;
+    v94 = selfCopy2;
+    v96 = v10;
+    v99 = v12;
     if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -414,55 +411,55 @@ LABEL_64:
       {
         if (!error)
         {
-          v99 = 0;
+          v98 = 0;
           selfCopy3 = 0;
-          v31 = v98;
+          v31 = v97;
           v33 = v13;
-          self = v95;
+          self = v94;
           goto LABEL_63;
         }
 
-        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v60 = v7;
-        v61 = *MEMORY[0x1E698F240];
-        v117 = *MEMORY[0x1E696A578];
-        v62 = v9;
-        v63 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v85 = objc_opt_class();
-        v64 = v63;
-        v9 = v62;
-        v65 = [v64 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v85, @"hardwareIdentifier"];
-        v118 = v65;
-        v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
-        v67 = v59;
-        v16 = v65;
-        v68 = v61;
-        v7 = v60;
+        v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v59 = v7;
+        v60 = *MEMORY[0x1E698F240];
+        v116 = *MEMORY[0x1E696A578];
+        v61 = v9;
+        v62 = objc_alloc(MEMORY[0x1E696AEC0]);
+        v84 = objc_opt_class();
+        v63 = v62;
+        v9 = v61;
+        v64 = [v63 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", v84, @"hardwareIdentifier"];
+        v117 = v64;
+        v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v117 forKeys:&v116 count:1];
+        v66 = v58;
+        v16 = v64;
+        v67 = v60;
+        v7 = v59;
         v33 = v13;
-        v96 = v66;
-        v99 = 0;
+        v95 = v65;
+        v98 = 0;
         selfCopy3 = 0;
-        *error = [v67 initWithDomain:v68 code:2 userInfo:?];
-        v31 = v98;
-        self = v95;
+        *error = [v66 initWithDomain:v67 code:2 userInfo:?];
+        v31 = v97;
+        self = v94;
         goto LABEL_62;
       }
 
-      v93 = v13;
-      v99 = v13;
+      v92 = v13;
+      v98 = v13;
       self = selfCopy2;
     }
 
     else
     {
-      v93 = v13;
-      v99 = 0;
+      v92 = v13;
+      v98 = 0;
       self = selfCopy2;
     }
 
     v14 = [dictionaryCopy objectForKeyedSubscript:@"interfaceOrientation"];
-    v94 = v7;
-    v96 = v14;
+    v93 = v7;
+    v95 = v14;
     if (v14 && (v15 = v14, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -480,24 +477,24 @@ LABEL_64:
           {
             v16 = 0;
             selfCopy3 = 0;
-            v31 = v98;
-            v33 = v93;
+            v31 = v97;
+            v33 = v92;
             goto LABEL_62;
           }
 
-          v75 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v76 = v9;
-          v77 = *MEMORY[0x1E698F240];
-          v115 = *MEMORY[0x1E696A578];
+          v74 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v75 = v9;
+          v76 = *MEMORY[0x1E698F240];
+          v114 = *MEMORY[0x1E696A578];
           v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"interfaceOrientation"];
-          v116 = v30;
-          v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-          v79 = v77;
-          v9 = v76;
-          v92 = v78;
+          v115 = v30;
+          v77 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+          v78 = v76;
+          v9 = v75;
+          v91 = v77;
           v16 = 0;
           selfCopy3 = 0;
-          *error = [v75 initWithDomain:v79 code:2 userInfo:?];
+          *error = [v74 initWithDomain:v78 code:2 userInfo:?];
           goto LABEL_88;
         }
 
@@ -511,12 +508,12 @@ LABEL_64:
     }
 
     v17 = [dictionaryCopy objectForKeyedSubscript:@"backlightStatus"];
-    v90 = v6;
-    v91 = v9;
-    v92 = v17;
+    v89 = v6;
+    v90 = v9;
+    v91 = v17;
     if (!v17 || (v18 = v17, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v89 = 0;
+      v88 = 0;
 LABEL_24:
       v19 = [dictionaryCopy objectForKeyedSubscript:@"transitionReasons"];
       null = [MEMORY[0x1E695DFB0] null];
@@ -528,32 +525,32 @@ LABEL_24:
         v19 = 0;
 LABEL_32:
         v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v19, "count")}];
+        v101 = 0u;
         v102 = 0u;
         v103 = 0u;
         v104 = 0u;
-        v105 = 0u;
         v19 = v19;
-        v23 = [v19 countByEnumeratingWithState:&v102 objects:v110 count:16];
+        v23 = [v19 countByEnumeratingWithState:&v101 objects:v109 count:16];
         if (!v23)
         {
           goto LABEL_41;
         }
 
         v24 = v23;
-        v25 = *v103;
-        v88 = dictionaryCopy;
+        v25 = *v102;
+        v87 = dictionaryCopy;
 LABEL_34:
         v26 = v16;
         v27 = v12;
         v28 = 0;
         while (1)
         {
-          if (*v103 != v25)
+          if (*v102 != v25)
           {
             objc_enumerationMutation(v19);
           }
 
-          v29 = *(*(&v102 + 1) + 8 * v28);
+          v29 = *(*(&v101 + 1) + 8 * v28);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -563,24 +560,24 @@ LABEL_34:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            v31 = v98;
-            v33 = v93;
+            v31 = v97;
+            v33 = v92;
             v16 = v26;
-            dictionaryCopy = v88;
-            v30 = v89;
+            dictionaryCopy = v87;
+            v30 = v88;
             if (error)
             {
-              v87 = objc_alloc(MEMORY[0x1E696ABC0]);
-              v86 = *MEMORY[0x1E698F240];
-              v106 = *MEMORY[0x1E696A578];
+              v86 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v85 = *MEMORY[0x1E698F240];
+              v105 = *MEMORY[0x1E696A578];
               v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"transitionReasons"];
-              v107 = v44;
+              v106 = v44;
               v45 = MEMORY[0x1E695DF20];
-              v46 = &v107;
-              v47 = &v106;
+              v46 = &v106;
+              v47 = &v105;
 LABEL_57:
               v56 = [v45 dictionaryWithObjects:v46 forKeys:v47 count:1];
-              *error = [v87 initWithDomain:v86 code:2 userInfo:v56];
+              *error = [v86 initWithDomain:v85 code:2 userInfo:v56];
             }
 
             goto LABEL_58;
@@ -589,10 +586,10 @@ LABEL_57:
           [v22 addObject:v29];
           if (v24 == ++v28)
           {
-            v24 = [v19 countByEnumeratingWithState:&v102 objects:v110 count:16];
+            v24 = [v19 countByEnumeratingWithState:&v101 objects:v109 count:16];
             v12 = v27;
             v16 = v26;
-            dictionaryCopy = v88;
+            dictionaryCopy = v87;
             if (v24)
             {
               goto LABEL_34;
@@ -600,41 +597,41 @@ LABEL_57:
 
 LABEL_41:
 
-            v30 = v89;
-            v31 = v98;
-            self = -[BMFrontBoardDisplayElementDisplay initWithType:name:deviceName:hardwareIdentifier:interfaceOrientation:backlightStatus:transitionReasons:](v95, "initWithType:name:deviceName:hardwareIdentifier:interfaceOrientation:backlightStatus:transitionReasons:", [v94 intValue], v98, v12, v99, objc_msgSend(v16, "intValue"), objc_msgSend(v89, "intValue"), v22);
+            v30 = v88;
+            v31 = v97;
+            self = -[BMFrontBoardDisplayElementDisplay initWithType:name:deviceName:hardwareIdentifier:interfaceOrientation:backlightStatus:transitionReasons:](v94, "initWithType:name:deviceName:hardwareIdentifier:interfaceOrientation:backlightStatus:transitionReasons:", [v93 intValue], v97, v12, v98, objc_msgSend(v16, "intValue"), objc_msgSend(v88, "intValue"), v22);
             selfCopy3 = self;
 LABEL_42:
-            v33 = v93;
+            v33 = v92;
 LABEL_59:
 
-            v6 = v90;
+            v6 = v89;
             goto LABEL_60;
           }
         }
 
-        v31 = v98;
-        v33 = v93;
+        v31 = v97;
+        v33 = v92;
         v16 = v26;
-        dictionaryCopy = v88;
-        v30 = v89;
+        dictionaryCopy = v87;
+        v30 = v88;
         if (error)
         {
-          v87 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v86 = *MEMORY[0x1E698F240];
-          v108 = *MEMORY[0x1E696A578];
+          v86 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v85 = *MEMORY[0x1E698F240];
+          v107 = *MEMORY[0x1E696A578];
           v44 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type null for element of %@, must not be null", @"transitionReasons"];
-          v109 = v44;
+          v108 = v44;
           v45 = MEMORY[0x1E695DF20];
-          v46 = &v109;
-          v47 = &v108;
+          v46 = &v108;
+          v47 = &v107;
           goto LABEL_57;
         }
 
 LABEL_58:
 
         selfCopy3 = 0;
-        self = v95;
+        self = v94;
         goto LABEL_59;
       }
 
@@ -651,72 +648,72 @@ LABEL_58:
 
       if (error)
       {
-        v72 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v73 = *MEMORY[0x1E698F240];
-        v111 = *MEMORY[0x1E696A578];
+        v71 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v72 = *MEMORY[0x1E698F240];
+        v110 = *MEMORY[0x1E696A578];
         v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Expecting %@ as an array", @"transitionReasons"];
-        v112 = v22;
-        v74 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v112 forKeys:&v111 count:1];
-        *error = [v72 initWithDomain:v73 code:2 userInfo:v74];
+        v111 = v22;
+        v73 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+        *error = [v71 initWithDomain:v72 code:2 userInfo:v73];
 
         selfCopy3 = 0;
-        v31 = v98;
-        v33 = v93;
-        v30 = v89;
+        v31 = v97;
+        v33 = v92;
+        v30 = v88;
         goto LABEL_59;
       }
 
       selfCopy3 = 0;
-      v31 = v98;
-      v33 = v93;
-      v30 = v89;
+      v31 = v97;
+      v33 = v92;
+      v30 = v88;
 LABEL_60:
 
-      v9 = v91;
+      v9 = v90;
       goto LABEL_61;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v89 = v18;
+      v88 = v18;
       goto LABEL_24;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v89 = [MEMORY[0x1E696AD98] numberWithInt:BMFrontBoardDisplayElementDisplayBacklightStatusFromString(v18)];
+      v88 = [MEMORY[0x1E696AD98] numberWithInt:BMFrontBoardDisplayElementDisplayBacklightStatusFromString(v18)];
       goto LABEL_24;
     }
 
     if (error)
     {
-      v80 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v81 = *MEMORY[0x1E698F240];
-      v113 = *MEMORY[0x1E696A578];
+      v79 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v80 = *MEMORY[0x1E698F240];
+      v112 = *MEMORY[0x1E696A578];
       v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"backlightStatus"];
-      v114 = v19;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
-      v82 = [v80 initWithDomain:v81 code:2 userInfo:v22];
+      v113 = v19;
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
+      v81 = [v79 initWithDomain:v80 code:2 userInfo:v22];
       v30 = 0;
       selfCopy3 = 0;
-      *error = v82;
-      v31 = v98;
+      *error = v81;
+      v31 = v97;
       goto LABEL_42;
     }
 
     v30 = 0;
     selfCopy3 = 0;
 LABEL_88:
-    v31 = v98;
-    v33 = v93;
+    v31 = v97;
+    v33 = v92;
 LABEL_61:
 
-    v7 = v94;
+    v7 = v93;
 LABEL_62:
 
-    v10 = v97;
+    v10 = v96;
     goto LABEL_63;
   }
 
@@ -743,20 +740,19 @@ LABEL_8:
     goto LABEL_66;
   }
 
-  v69 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v70 = *MEMORY[0x1E698F240];
-  v123 = *MEMORY[0x1E696A578];
+  v68 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v69 = *MEMORY[0x1E698F240];
+  v122 = *MEMORY[0x1E696A578];
   v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"type"];
-  v124[0] = v31;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v124 forKeys:&v123 count:1];
-  v71 = [v69 initWithDomain:v70 code:2 userInfo:v9];
+  v123[0] = v31;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v123 forKeys:&v122 count:1];
+  v70 = [v68 initWithDomain:v69 code:2 userInfo:v9];
   v7 = 0;
   selfCopy3 = 0;
-  *error = v71;
+  *error = v70;
 LABEL_65:
 
 LABEL_66:
-  v57 = *MEMORY[0x1E69E9840];
   return selfCopy3;
 }
 
@@ -771,9 +767,8 @@ LABEL_66:
 
 - (void)writeTo:(id)to
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  type = self->_type;
   PBDataWriterWriteUint32Field();
   if (self->_name)
   {
@@ -790,43 +785,38 @@ LABEL_66:
     PBDataWriterWriteStringField();
   }
 
-  interfaceOrientation = self->_interfaceOrientation;
   PBDataWriterWriteUint32Field();
-  backlightStatus = self->_backlightStatus;
   PBDataWriterWriteUint32Field();
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v8 = self->_transitionReasons;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_transitionReasons;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v10 = v9;
-    v11 = *v16;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v12 = 0;
+      v9 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
         PBDataWriterWriteStringField();
-        ++v12;
+        ++v9;
       }
 
-      while (v10 != v12);
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v10);
+    while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initByReadFrom:(id)from
@@ -1158,30 +1148,28 @@ LABEL_78:
 
 + (id)protoFields
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"type" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"name" number:2 type:13 subMessageClass:{0, v2}];
-  v12[1] = v3;
+  v11[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"deviceName" number:3 type:13 subMessageClass:0];
-  v12[2] = v4;
+  v11[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"hardwareIdentifier" number:4 type:13 subMessageClass:0];
-  v12[3] = v5;
+  v11[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"interfaceOrientation" number:5 type:4 subMessageClass:0];
-  v12[4] = v6;
+  v11[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"backlightStatus" number:6 type:4 subMessageClass:0];
-  v12[5] = v7;
+  v11[5] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"transitionReasons" number:7 type:13 subMessageClass:0];
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
 + (id)columns
 {
-  v12[7] = *MEMORY[0x1E69E9840];
+  v11[7] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"type" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"name" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"deviceName" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
@@ -1189,27 +1177,25 @@ LABEL_78:
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"interfaceOrientation" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"backlightStatus" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"transitionReasons_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_107_59564];
-  v12[0] = v2;
-  v12[1] = v3;
-  v12[2] = v4;
-  v12[3] = v5;
-  v12[4] = v6;
-  v12[5] = v7;
-  v12[6] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[0] = v2;
+  v11[1] = v3;
+  v11[2] = v4;
+  v11[3] = v5;
+  v11[4] = v6;
+  v11[5] = v7;
+  v11[6] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
 
   return v9;
 }
 
-id __44__BMFrontBoardDisplayElementDisplay_columns__block_invoke(uint64_t a1, void *a2)
+id __44__BMFrontBoardDisplayElementDisplay_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 _transitionReasonsJSONArray];
-  v4 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 _transitionReasonsJSONArray];
+  v5 = BMConvertObjectToJSONString();
 
-  return v4;
+  return v5;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

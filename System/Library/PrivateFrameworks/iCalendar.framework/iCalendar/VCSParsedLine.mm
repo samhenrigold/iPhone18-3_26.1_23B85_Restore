@@ -85,7 +85,7 @@
 - (id)loadFromCString:(char *)string withParseState:(id)state
 {
   stateCopy = state;
-  v45 = 0;
+  v47 = 0;
   v7 = strlen(string);
   switch(v7)
   {
@@ -111,11 +111,11 @@
   }
 
   v12 = malloc_type_malloc(v7 + 1, 0x100004077774924uLL);
-  [(VCSParsedLine *)self reset];
+  reset = [(VCSParsedLine *)self reset];
   for (i = 0; ; ++i)
   {
-    v14 = string[i];
-    if (v14 != 45)
+    v15 = string[i];
+    if (v15 != 45)
     {
       if (!string[i])
       {
@@ -123,73 +123,36 @@
         goto LABEL_18;
       }
 
-      if ((v14 & 0xFFFFFFDF) - 65 >= 0x1A)
+      if ((v15 & 0xFFFFFFDF) - 65 >= 0x1A)
       {
         break;
       }
     }
   }
 
-  v15 = stateCopy;
+  v16 = stateCopy;
   memcpy(v12, string, i);
   *(v12 + i) = 0;
   [(VCSParsedLine *)self setKeywordFromCString:v12];
-  v16 = [VCSParsedLine tokenizeKeyword:v12 withType:&v45];
-  [(VCSParsedLine *)self setType:v45];
-  v17 = v16;
-  stateCopy = v15;
-  [(VCSParsedLine *)self setTokenID:v17];
+  v17 = [VCSParsedLine tokenizeKeyword:v12 withType:&v47];
+  [(VCSParsedLine *)self setType:v47];
+  v18 = v17;
+  stateCopy = v16;
+  reset = [(VCSParsedLine *)self setTokenID:v18];
 LABEL_18:
-  for (LODWORD(v18) = i; ; LODWORD(v18) = v18 + 1)
+  for (LODWORD(v19) = i; ; LODWORD(v19) = v19 + 1)
   {
-    v19 = string[v18];
-    if (v19 != 32)
+    v20 = string[v19];
+    if (v20 != 32)
     {
       break;
     }
   }
 
-  if ((v19 - 58) >= 2)
+  if ((v20 - 58) >= 2)
   {
-    v36 = VCSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
-    {
-      [VCSParsedLine loadFromCString:stateCopy withParseState:&string[v18]];
-    }
-
-    goto LABEL_65;
-  }
-
-  if (v45 == 1)
-  {
-    if (v19 == 58)
-    {
-      v38 = v18 + 1;
-      v44 = 0;
-      do
-      {
-        v39 = v38;
-        v40 = string[v38++];
-      }
-
-      while (v40 == 32);
-      v41 = v39;
-      [VCSParsedLine tokenizeKeyword:&string[v39] withType:&v44];
-      if (v44 != 2)
-      {
-        v42 = VCSLogHandle();
-        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
-        {
-          [VCSParsedLine loadFromCString:stateCopy withParseState:?];
-        }
-      }
-
-      v37 = &string[v41];
-      goto LABEL_57;
-    }
-
-    v36 = VCSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = VCSLogHandle(reset);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [VCSParsedLine loadFromCString:stateCopy withParseState:?];
     }
@@ -197,10 +160,47 @@ LABEL_18:
     goto LABEL_65;
   }
 
-  if (v45 != 3)
+  if (v47 == 1)
   {
-    v36 = VCSLogHandle();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    if (v20 == 58)
+    {
+      v39 = v19 + 1;
+      v46 = 0;
+      do
+      {
+        v40 = v39;
+        v41 = string[v39++];
+      }
+
+      while (v41 == 32);
+      v42 = v40;
+      v43 = [VCSParsedLine tokenizeKeyword:&string[v40] withType:&v46];
+      if (v46 != 2)
+      {
+        v44 = VCSLogHandle(v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+        {
+          [VCSParsedLine loadFromCString:stateCopy withParseState:?];
+        }
+      }
+
+      v38 = &string[v42];
+      goto LABEL_57;
+    }
+
+    v37 = VCSLogHandle(reset);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    {
+      [VCSParsedLine loadFromCString:stateCopy withParseState:?];
+    }
+
+    goto LABEL_65;
+  }
+
+  if (v47 != 3)
+  {
+    v37 = VCSLogHandle(reset);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
       [VCSParsedLine loadFromCString:v12 withParseState:stateCopy];
     }
@@ -213,98 +213,98 @@ LABEL_66:
     goto LABEL_67;
   }
 
-  while (v19 == 59)
+  while (v20 == 59)
   {
-    v20 = 0;
-    v21 = v18 + 1;
-    for (j = v18 + 1; ; ++j)
+    v21 = 0;
+    v22 = v19 + 1;
+    for (j = v19 + 1; ; ++j)
     {
-      v23 = string[j];
-      if (v23 != 45)
+      v24 = string[j];
+      if (v24 != 45)
       {
         if (!string[j])
         {
-          v24 = &string[j];
+          v25 = &string[j];
           goto LABEL_32;
         }
 
-        if ((v23 & 0xFFFFFFDF) - 65 >= 0x1A)
+        if ((v24 & 0xFFFFFFDF) - 65 >= 0x1A)
         {
           break;
         }
       }
 
-      ++v20;
+      ++v21;
     }
 
-    v24 = &string[j];
-    memcpy(v12, &string[v21], v20);
-    *(v12 + v20) = 0;
+    v25 = &string[j];
+    memcpy(v12, &string[v22], v21);
+    *(v12 + v21) = 0;
     i = j;
 LABEL_32:
-    for (LODWORD(v18) = i; ; LODWORD(v18) = v18 + 1)
+    for (LODWORD(v19) = i; ; LODWORD(v19) = v19 + 1)
     {
-      v25 = string[v18];
-      if (v25 != 32)
+      v26 = string[v19];
+      if (v26 != 32)
       {
         break;
       }
     }
 
-    if (v25 == 61)
+    if (v26 == 61)
     {
-      v26 = strlen(v24);
-      v27 = malloc_type_malloc(v26 + 1, 0x100004077774924uLL);
-      LODWORD(v18) = v18 + 1;
-      v28 = string[v18];
-      v29 = v27;
+      v27 = strlen(v25);
+      v28 = malloc_type_malloc(v27 + 1, 0x100004077774924uLL);
+      LODWORD(v19) = v19 + 1;
+      v29 = string[v19];
+      v30 = v28;
       do
       {
-        if (v28 == 92)
+        if (v29 == 92)
         {
-          if (string[(v18 + 1)] == 59)
+          if (string[(v19 + 1)] == 59)
           {
-            LODWORD(v18) = v18 + 1;
+            LODWORD(v19) = v19 + 1;
           }
 
-          LOBYTE(v28) = string[v18];
+          LOBYTE(v29) = string[v19];
         }
 
-        *v29++ = v28;
-        v18 = (v18 + 1);
-        v28 = string[v18];
+        *v30++ = v29;
+        v19 = (v19 + 1);
+        v29 = string[v19];
       }
 
-      while ((v28 & 0xFE) != 0x3A);
-      *v29 = 0;
+      while ((v29 & 0xFE) != 0x3A);
+      *v30 = 0;
       params = self->_params;
-      v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:v27];
-      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-      [(NSMutableDictionary *)params setObject:v31 forKey:v32];
+      v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:v28];
+      v33 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+      [(NSMutableDictionary *)params setObject:v32 forKey:v33];
 
-      free(v27);
-      v33 = v18;
+      free(v28);
+      v34 = v19;
     }
 
     else
     {
-      v33 = v18;
-      v34 = self->_params;
-      v35 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-      [(NSMutableDictionary *)v34 setObject:&stru_28841D818 forKey:v35];
+      v34 = v19;
+      v35 = self->_params;
+      v36 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
+      [(NSMutableDictionary *)v35 setObject:&stru_28841D818 forKey:v36];
     }
 
-    v19 = string[v33];
+    v20 = string[v34];
   }
 
-  if (v19 != 58)
+  if (v20 != 58)
   {
     goto LABEL_58;
   }
 
-  v37 = &string[(v18 + 1)];
+  v38 = &string[(v19 + 1)];
 LABEL_57:
-  [(VCSParsedLine *)self setContentFromCString:v37];
+  [(VCSParsedLine *)self setContentFromCString:v38];
 LABEL_58:
   if (self)
   {
@@ -320,9 +320,7 @@ LABEL_67:
 
 - (void)setKeywordFromCString:(char *)string
 {
-  v4 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
-  keyword = self->_keyword;
-  self->_keyword = v4;
+  self->_keyword = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:string];
 
   MEMORY[0x2821F96F8]();
 }
@@ -433,45 +431,34 @@ LABEL_18:
 
 - (void)loadFromCString:(void *)a1 withParseState:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 lineNumber];
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadFromCString:(uint64_t)a1 withParseState:(void *)a2 .cold.2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
   [a2 lineNumber];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadFromCString:(uint64_t)a1 withParseState:(void *)a2 .cold.3(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:a1];
   [a2 lineNumber];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-- (void)loadFromCString:(void *)a1 withParseState:(char *)a2 .cold.4(void *a1, char *a2)
+- (void)loadFromCString:(void *)a1 withParseState:.cold.4(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   [a1 lineNumber];
-  v9 = *a2;
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xEu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
 }
 
 @end

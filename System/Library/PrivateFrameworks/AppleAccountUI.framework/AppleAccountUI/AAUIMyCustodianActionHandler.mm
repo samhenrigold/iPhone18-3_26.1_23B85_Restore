@@ -57,21 +57,21 @@
   {
     dtoHelper = self->_dtoHelper;
     aa_altDSID = [v9 aa_altDSID];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke;
-    v13[3] = &unk_1E820DA18;
-    v13[4] = self;
-    v14 = actionCopy;
-    v15 = specifierCopy;
-    v16 = v9;
-    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v13];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke;
+    v14[3] = &unk_1E820DA18;
+    v14[4] = self;
+    v15 = actionCopy;
+    v16 = specifierCopy;
+    v17 = v9;
+    [(AAUIDTOHelper *)dtoHelper shouldGateUsingRatchetForAltDSID:aa_altDSID completion:v14];
   }
 
   else
   {
-    v12 = _AAUILogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       [AAUIRecoveryFactorController startAddingRecoveryContact];
     }
@@ -82,52 +82,53 @@ void __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_in
 {
   if (a2)
   {
-    v3 = _AAUILogSystem();
+    v3 = _AAUILogSystem(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_cold_1();
     }
 
-    if ([*(*(a1 + 32) + 48) isDTOGatingEnabled])
+    v4 = [*(*(a1 + 32) + 48) isDTOGatingEnabled];
+    if (v4)
     {
-      v4 = _AAUILogSystem();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+      v5 = _AAUILogSystem(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_cold_2();
       }
 
-      v5 = [*(*(a1 + 32) + 48) makeRatchetContextWithPresentationContext:*(*(a1 + 32) + 32) DTOContextType:2];
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_36;
-      v21[3] = &unk_1E820D9F0;
-      v15 = *(a1 + 32);
-      v6 = *(v15 + 48);
-      v7 = *(&v15 + 1);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 56);
-      *&v10 = v8;
-      *(&v10 + 1) = v9;
-      v22 = v15;
-      v23 = v10;
-      [v6 shouldAllowOpForContext:v5 completion:v21];
+      v6 = [*(*(a1 + 32) + 48) makeRatchetContextWithPresentationContext:*(*(a1 + 32) + 32) DTOContextType:2];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_36;
+      v22[3] = &unk_1E820D9F0;
+      v16 = *(a1 + 32);
+      v7 = *(v16 + 48);
+      v8 = *(&v16 + 1);
+      v9 = *(a1 + 48);
+      v10 = *(a1 + 56);
+      *&v11 = v9;
+      *(&v11 + 1) = v10;
+      v23 = v16;
+      v24 = v11;
+      [v7 shouldAllowOpForContext:v6 completion:v22];
     }
 
     else
     {
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_2;
-      v18[3] = &unk_1E820D9C8;
-      v16 = *(a1 + 32);
-      v11 = *(&v16 + 1);
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
-      *&v14 = v12;
-      *(&v14 + 1) = v13;
-      v19 = v16;
-      v20 = v14;
-      dispatch_async(MEMORY[0x1E69E96A0], v18);
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_2;
+      v19[3] = &unk_1E820D9C8;
+      v17 = *(a1 + 32);
+      v12 = *(&v17 + 1);
+      v13 = *(a1 + 48);
+      v14 = *(a1 + 56);
+      *&v15 = v13;
+      *(&v15 + 1) = v14;
+      v20 = v17;
+      v21 = v15;
+      dispatch_async(MEMORY[0x1E69E96A0], v19);
     }
   }
 
@@ -145,7 +146,7 @@ void __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_in
 void __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_36(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_35_cold_1(a2, v5, v6);
@@ -171,7 +172,7 @@ void __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_in
 
 uint64_t __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_2(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_2_cold_1();
@@ -182,7 +183,7 @@ uint64_t __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___bloc
 
 uint64_t __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___block_invoke_40(uint64_t a1)
 {
-  v2 = _AAUILogSystem();
+  v2 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__AAUIRecoveryFactorController_startAddingRecoveryContact__block_invoke_39_cold_1();
@@ -197,7 +198,7 @@ uint64_t __62__AAUIMyCustodianActionHandler_doDestructiveAction_specifier___bloc
   actionCopy = action;
   specifierCopy = specifier;
   accountCopy = account;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(accountCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     handle = [(AALocalContactInfo *)self->_contact handle];
@@ -231,7 +232,7 @@ void __82__AAUIMyCustodianActionHandler__continueDoingDestructiveAction_specifie
 {
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v7 = _AAUILogSystem();
+  v7 = _AAUILogSystem(WeakRetained);
   v8 = v7;
   if (!a2 || v5)
   {
@@ -277,15 +278,16 @@ void __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke(uint64_
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (v3)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AAUILogSystem(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke_cold_1();
     }
 
-    [WeakRetained _stopSpinners];
+    [v5 _stopSpinners];
   }
 
   else
@@ -295,10 +297,10 @@ void __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke(uint64_
     block[2] = __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke_45;
     block[3] = &unk_1E820DA90;
     block[4] = *(a1 + 32);
-    objc_copyWeak(&v7, (a1 + 40));
-    block[5] = WeakRetained;
+    objc_copyWeak(&v8, (a1 + 40));
+    block[5] = v5;
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    objc_destroyWeak(&v7);
+    objc_destroyWeak(&v8);
   }
 }
 
@@ -355,26 +357,27 @@ void __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke_2(uint6
 - (BOOL)_isWalrusEnabled
 {
   v2 = objc_alloc_init(MEMORY[0x1E6997808]);
-  v8 = 0;
-  v3 = [v2 walrusStatus:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [v2 walrusStatus:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v4)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [AAUIMyCustodianActionHandler _isWalrusEnabled];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = v3 == 1;
+    v7 = v3 == 1;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_dismissAndPopFromRecoveryContactRemovedScreen
@@ -396,10 +399,11 @@ void __50__AAUIMyCustodianActionHandler__doCustodianRemove__block_invoke_2(uint6
 void __51__AAUIMyCustodianActionHandler__performHealthCheck__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _AAUILogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _AAUILogSystem(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __45__AAUICDPRecoveryKeyHook__deleteRecoveryKey___block_invoke_49_cold_1();
     }
@@ -477,16 +481,17 @@ void __49__AAUIMyCustodianActionHandler__setupRecoveryKey__block_invoke_2(uint64
 {
   v4 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = WeakRetained;
   if (v4)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(WeakRetained);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __49__AAUIMyCustodianActionHandler__setupRecoveryKey__block_invoke_2_cold_1();
     }
   }
 
-  [WeakRetained _popToAccountRecoveryScreen];
+  [v6 _popToAccountRecoveryScreen];
 }
 
 - (void)_checkRecoveryContactAndRecoveryKeyStatus:(id)status
@@ -546,10 +551,11 @@ void __74__AAUIMyCustodianActionHandler__checkRecoveryContactAndRecoveryKeyStatu
 void __74__AAUIMyCustodianActionHandler__checkRecoveryContactAndRecoveryKeyStatus___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __74__AAUIMyCustodianActionHandler__checkRecoveryContactAndRecoveryKeyStatus___block_invoke_2_cold_1();
     }

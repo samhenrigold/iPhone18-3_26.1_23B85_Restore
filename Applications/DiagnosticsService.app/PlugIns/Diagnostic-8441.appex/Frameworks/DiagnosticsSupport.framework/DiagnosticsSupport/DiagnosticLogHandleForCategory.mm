@@ -6,8 +6,8 @@
 void __DiagnosticLogHandleForCategory_block_invoke(id a1)
 {
   v1 = os_log_create("com.apple.Diagnostics", "unspecified");
-  v2 = DiagnosticLogHandleForCategory_logHandles;
-  DiagnosticLogHandleForCategory_logHandles = v1;
+  v2 = DiagnosticLogHandleForCategory_logHandles[0];
+  DiagnosticLogHandleForCategory_logHandles[0] = v1;
 
   v3 = os_log_create("com.apple.Diagnostics", "host");
   v4 = qword_28088;

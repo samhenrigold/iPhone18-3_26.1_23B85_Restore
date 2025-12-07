@@ -10,8 +10,10 @@
 - (void)_addPointerDataSizeMapToPlayer;
 - (void)_allocateAndFillDataCache;
 - (void)_executeDeltaFSEs;
+- (void)_executeFunctionStreamEntriesPerformingLoopIterationActions:(BOOL)actions iteration:(unsigned int)iteration;
 - (void)_performPlaybackRequest:(unsigned int)request;
 - (void)dealloc;
+- (void)playbackToFunction:(unsigned int)function subCommandIndex:(int)index withLoops:(unsigned int)loops;
 @end
 
 @implementation DYPlaybackEngine
@@ -88,11 +90,10 @@
   v4 = host_statistics(v3, 2, host_info_out, host_info_outCnt);
   if (!v4)
   {
-    v5 = (*MEMORY[0x277D85FA0] >> 1) * host_info_out[0];
     captureStore = self->_captureStore;
     if (captureStore)
     {
-      [(DYCaptureStore *)captureStore getSortedFilePositionsForDataCaching];
+      objc_msgSend_getSortedFilePositionsForDataCaching(captureStore);
       if (v8 != *host_info_outCnt)
       {
         if (((v8 - *host_info_outCnt) & 0x8000000000000000) == 0)
@@ -115,8 +116,8 @@ LABEL_9:
     operator new();
   }
 
-  mach_error_string(v4);
-  dy_abort();
+  v6 = mach_error_string(v4);
+  dy_abort("host_statistics failed: %s", v6);
   goto LABEL_9;
 }
 
@@ -129,7 +130,7 @@ LABEL_9:
   {
     v4 = i[4];
     v11 = i + 3;
-    std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(v8, i + 3)[3] = v4;
+    std::__hash_table<std::__hash_value_type<void *,unsigned long>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,unsigned long>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,unsigned long>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,unsigned long>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void * const&>,std::tuple<>>(v8, i + 3, &std::piecewise_construct, &v11)[3] = v4;
   }
 
   [(DYFunctionPlayer *)self->_player addPointerDataSizeMap:v8];
@@ -276,27 +277,28 @@ LABEL_4:
   {
     v7 = *(stream + 63);
     v8 = *(v7 + 24);
-    GPUTools::FD::CoreFunction::CoreFunction(v40);
-    v41 = v8;
-    v42 = v8;
+    GPUTools::FD::CoreFunction::CoreFunction(v37);
+    v38 = v8;
+    v39 = v8;
     v9 = *(v7 + 8);
-    v43 = *(v7 + 24);
-    v44 = v9;
-    v45 = (*(*v9 + 16))(v9);
+    v40 = *(v7 + 24);
+    v41 = v9;
+    v42 = (*(*v9 + 16))(v9);
     v10 = stream + 472;
+    v11 = "fenum 0x%x: function stream is corrupted";
     while (1)
     {
-      v11 = *(stream + 58);
-      if (v11 != v41)
+      v12 = *(stream + 58);
+      if (v12 != v38)
       {
         break;
       }
 
-      v12 = 0;
+      v13 = 0;
 LABEL_29:
-      v24 = self->_cache;
-      v24[6] = v12;
-      v6 = [(DYPlaybackEngine *)self _executeFunctions:v24[5] count:v12];
+      v22 = self->_cache;
+      v22[6] = v13;
+      v6 = [(DYPlaybackEngine *)self _executeFunctions:v22[5] count:v13];
       if (v6)
       {
         if (!self->_functionBatchOffset)
@@ -307,100 +309,97 @@ LABEL_29:
         goto LABEL_38;
       }
 
-      if (!v12)
+      if (!v13)
       {
-        v25 = *stream;
+        v23 = *stream;
         if (*stream)
         {
-          GPUTools::FD::CoreFunction::CoreFunction(v35);
-          v26 = *(v25 + 456);
-          v36 = v26;
-          v27 = *(v25 + 464);
-          v37 = v27;
-          v28 = *(v25 + 480);
-          v38 = v28;
-          v29 = *(v25 + 488);
-          v39 = v29;
+          GPUTools::FD::CoreFunction::CoreFunction(v32);
+          v24 = *(v23 + 456);
+          v33 = v24;
+          v25 = *(v23 + 464);
+          v34 = v25;
+          v26 = *(v23 + 480);
+          v35 = v26;
+          v27 = *(v23 + 488);
+          v36 = v27;
         }
 
         else
         {
-          v30 = *(stream + 63);
-          v31 = v30[2];
-          GPUTools::FD::CoreFunction::CoreFunction(v35);
-          v36 = v31;
-          *&v37 = v31;
-          v32 = v30[1];
-          *(&v37 + 1) = v30[3];
-          v38 = v32;
-          v29 = (*(*v32 + 16))(v32);
-          v39 = v29;
-          v26 = v36;
-          v27 = v37;
-          v28 = v38;
+          v28 = *(stream + 63);
+          v29 = v28[2];
+          GPUTools::FD::CoreFunction::CoreFunction(v32);
+          v33 = v29;
+          *&v34 = v29;
+          v30 = v28[1];
+          *(&v34 + 1) = v28[3];
+          v35 = v30;
+          v27 = (*(*v30 + 16))(v30);
+          v36 = v27;
+          v24 = v33;
+          v25 = v34;
+          v26 = v35;
         }
 
-        *(stream + 58) = v26;
-        *v10 = v27;
-        *(stream + 61) = v28;
-        *(stream + 496) = v29;
-        GPUTools::FD::CoreFunction::~CoreFunction(v35);
+        *(stream + 58) = v24;
+        *v10 = v25;
+        *(stream + 61) = v26;
+        *(stream + 496) = v27;
+        GPUTools::FD::CoreFunction::~CoreFunction(v32);
 LABEL_37:
         *(self->_cache + 6) = 0;
 LABEL_38:
-        GPUTools::FD::CoreFunction::~CoreFunction(v40);
+        GPUTools::FD::CoreFunction::~CoreFunction(v37);
         return v6;
       }
     }
 
-    v12 = 0;
-    v13 = *v10;
+    v13 = 0;
+    v14 = *v10;
     while (1)
     {
-      if (*(stream + 2) == -1 || v13 == v11)
+      if (*(stream + 2) == -1 || v14 == v12)
       {
-        if (((*(**(stream + 61) + 64))(*(stream + 61), v11, *(stream + 60) - v11, stream + 8) & 1) == 0)
+        if (((*(**(stream + 61) + 64))(*(stream + 61), v12, *(stream + 60) - v12, stream + 8) & 1) == 0)
         {
-          goto LABEL_41;
+          goto LABEL_42;
         }
 
-        v15 = *(stream + 110) + *(stream + 58);
-        *(stream + 59) = v15;
-        v16 = *(stream + 3);
-        if ((v16 & 0x1000) != 0 && (v16 & 0x2000) == 0)
+        v16 = *(stream + 110) + *(stream + 58);
+        *(stream + 59) = v16;
+        v17 = *(stream + 3);
+        if ((v17 & 0x1000) != 0 && (v17 & 0x2000) == 0)
         {
           break;
         }
       }
 
 LABEL_17:
-      v17 = *(self->_cache + 5);
       GPUTools::FD::CoreFunction::operator=();
-      v18 = *(stream + 59);
-      if (v18 == *(stream + 58))
+      if (*(stream + 59) == *(stream + 58))
       {
         if (*(stream + 496) == 1)
         {
-          v19 = *(stream + 60) - v18;
-          v20 = (*(**(stream + 61) + 56))(*(stream + 61));
-          v21 = *(stream + 58);
-          *v10 = (*(**(stream + 61) + 48))(*(stream + 61), v21, *(stream + 60) - v21) + v21;
-          GPUTools::FD::TFunctionStream<GPUTools::FD::CoreFunction,void>::_Iterator<GPUTools::FD::CoreFunction>::_decode_associated(stream + 2, v20);
+          v18 = (*(**(stream + 61) + 56))(*(stream + 61));
+          v19 = *(stream + 58);
+          *v10 = (*(**(stream + 61) + 48))(*(stream + 61), v19, *(stream + 60) - v19) + v19;
+          GPUTools::FD::TFunctionStream<GPUTools::FD::CoreFunction,void>::_Iterator<GPUTools::FD::CoreFunction>::_decode_associated((stream + 8), v18);
         }
 
         else
         {
-          GPUTools::FD::TFunctionStream<GPUTools::FD::CoreFunction,void>::_Iterator<GPUTools::FD::CoreFunction>::_decode(stream + 2);
+          GPUTools::FD::TFunctionStream<GPUTools::FD::CoreFunction,void>::_Iterator<GPUTools::FD::CoreFunction>::_decode(stream + 8);
         }
       }
 
-      v13 = *(stream + 59);
-      *(stream + 58) = v13;
-      ++v12;
-      if (v13 != v41)
+      v14 = *(stream + 59);
+      *(stream + 58) = v14;
+      ++v13;
+      if (v14 != v38)
       {
-        v11 = v13;
-        if (v12 != 1149)
+        v12 = v14;
+        if (v13 != 1149)
         {
           continue;
         }
@@ -411,24 +410,24 @@ LABEL_17:
 
     while (1)
     {
-      v22 = *(stream + 60);
-      if (v15 >= v22)
+      v20 = *(stream + 60);
+      if (v16 >= v20)
       {
         break;
       }
 
-      v23 = (*(**(stream + 61) + 56))(*(stream + 61), v15, v22 - v15);
-      v15 = (*(**(stream + 61) + 48))(*(stream + 61), *(stream + 59), *(stream + 60) - *(stream + 59)) + *v10;
-      *v10 = v15;
-      if ((v23 & 0x2000) != 0)
+      v21 = (*(**(stream + 61) + 56))(*(stream + 61), v16, v20 - v16);
+      v16 = (*(**(stream + 61) + 48))(*(stream + 61), *(stream + 59), *(stream + 60) - *(stream + 59)) + *v10;
+      *v10 = v16;
+      if ((v21 & 0x2000) != 0)
       {
         goto LABEL_17;
       }
     }
 
-LABEL_41:
-    v34 = *(stream + 2);
-    result = dy_abort();
+    v11 = "fenum 0x%x: reached end of stream within open association chain";
+LABEL_42:
+    result = dy_abort(v11, *(stream + 2));
     __break(1u);
   }
 
@@ -512,6 +511,126 @@ LABEL_6:
   self->_fseIterator.__i_ = *(cache + 3);
 }
 
+- (void)_executeFunctionStreamEntriesPerformingLoopIterationActions:(BOOL)actions iteration:(unsigned int)iteration
+{
+  v4 = *&iteration;
+  actionsCopy = actions;
+  v7 = objc_autoreleasePoolPush();
+  v8 = @"NO";
+  if (actionsCopy)
+  {
+    v8 = @"YES";
+  }
+
+  v18 = v8;
+  v19 = v4;
+  _DYOCondLog();
+  i = self->_fseIterator.__i_;
+  v10 = *(self->_cache + 4);
+  if (v10 != i)
+  {
+    v11 = self->_fseIterator.__i_;
+    if (i < v10)
+    {
+      goto LABEL_5;
+    }
+
+LABEL_28:
+    [DYPlaybackEngine _executeFunctionStreamEntriesPerformingLoopIterationActions:iteration:];
+  }
+
+  [(DYPlaybackEngine *)self _executeDeltaFSEs:v18];
+  v11 = self->_fseIterator.__i_;
+  v10 = *(self->_cache + 4);
+  if (v11 >= v10)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_5:
+  v12 = v11;
+  if (actionsCopy)
+  {
+    while (1)
+    {
+      v13 = *(self->_cache + 3);
+      if (v11 == v13 && i != v13)
+      {
+        [(DYFunctionPlayer *)self->_player prepareForCaptureExecution];
+        [(DYPlaybackEngine *)self performPlaybackLoopIterationPreCaptureActions:v4];
+        v11 = self->_fseIterator.__i_;
+        i = v12;
+      }
+
+      if ([(DYPlaybackEngine *)self _executeFSE:*v11, v18, v19])
+      {
+        break;
+      }
+
+      v11 = self->_fseIterator.__i_ + 8;
+      self->_fseIterator.__i_ = v11;
+      v12 = v11;
+      if (v11 == v10)
+      {
+        goto LABEL_21;
+      }
+    }
+  }
+
+  else
+  {
+    while (1)
+    {
+      v15 = *(self->_cache + 3);
+      if (v11 == v15 && i != v15)
+      {
+        [(DYFunctionPlayer *)self->_player prepareForCaptureExecution];
+        v11 = self->_fseIterator.__i_;
+        i = v12;
+      }
+
+      if ([(DYPlaybackEngine *)self _executeFSE:*v11, v18, v19])
+      {
+        break;
+      }
+
+      v11 = self->_fseIterator.__i_ + 8;
+      self->_fseIterator.__i_ = v11;
+      v12 = v11;
+      if (v11 == v10)
+      {
+LABEL_21:
+        if (v10 != *(self->_cache + 4))
+        {
+          [DYPlaybackEngine _executeFunctionStreamEntriesPerformingLoopIterationActions:iteration:];
+        }
+
+        if (actionsCopy)
+        {
+          [(DYPlaybackEngine *)self performPlaybackLoopIterationPostCaptureActions:v4];
+        }
+
+        targetFunctionIndex = self->_targetFunctionIndex;
+        if (targetFunctionIndex >= self->_currentFunctionIndex)
+        {
+          self->_targetFunctionIndex = 0;
+        }
+
+        else if (targetFunctionIndex)
+        {
+          [(DYPlaybackEngine *)self _executeFunctionStreamEntriesPerformingLoopIterationActions:actionsCopy iteration:v4];
+          break;
+        }
+
+        self->_currentFunctionIndex = 0;
+        break;
+      }
+    }
+  }
+
+  objc_autoreleasePoolPop(v7);
+}
+
 - (void)_performPlaybackRequest:(unsigned int)request
 {
   [(DYPlaybackEngine *)self onPlaybackRequestStart];
@@ -565,6 +684,27 @@ LABEL_7:
   }
 
   [(DYPlaybackEngine *)self onPlaybackRequestCompleted];
+}
+
+- (void)playbackToFunction:(unsigned int)function subCommandIndex:(int)index withLoops:(unsigned int)loops
+{
+  v5 = *&loops;
+  self->_active = 1;
+  self->_targetFunctionIndex = function;
+  self->_targetSubCommandIndex = index;
+  if (!self->_cache)
+  {
+    [(DYPlaybackEngine *)self _allocateAndFillDataCache];
+    v7 = [[DYPlaybackEngineFSEBuilder alloc] initWithPlaybackEngineCache:self->_cache];
+    [(DYCaptureStore *)self->_captureStore acceptCaptureVisitor:v7];
+
+    self->_fseIterator.__i_ = *self->_cache;
+    [(DYFunctionPlayer *)[(DYPlaybackEngine *)self player] prepareForNonCaptureExecution];
+    [(DYPlaybackEngine *)self _addPointerDataSizeMapToPlayer];
+  }
+
+  [(DYPlaybackEngine *)self _performPlaybackRequest:v5];
+  self->_active = 0;
 }
 
 - (id)playbackToFunction:(unsigned int)function

@@ -1,6 +1,11 @@
 @interface TRIExperimentPostLaunchEvent
++ (id)_experimentStateNameForType:(unsigned __int8)type;
 + (id)activatedEventWithExperimentRecord:(id)record;
++ (id)allocationEventWithTriple:(id)triple isDynamicEnrollment:(BOOL)enrollment environment:(int)environment namespaces:(id)namespaces;
 + (id)deactivationEventWithTriggerEvent:(unint64_t)event experimentRecord:(id)record additionalTelemetry:(id)telemetry;
++ (id)eventWithEventType:(unsigned __int8)type experimentRecord:(id)record;
++ (id)eventWithEventType:(unsigned __int8)type treatmentTriple:(id)triple;
++ (id)failureEventWithEventType:(unsigned __int8)type treatmentTriple:(id)triple failureReason:(id)reason;
 + (id)fetchedEventWithExperimentRecord:(id)record;
 + (id)obsoletionOrDeactivationEventWithTriggerEvent:(unint64_t)event previousStateProvider:(id)provider experimentRecord:(id)record additionalTelemetry:(id)telemetry;
 - (TRIExperimentPostLaunchEvent)initWithEventType:(unsigned __int8)type experimentStateName:(id)name experimentRecord:(id)record errorOrDeactivationReason:(id)reason telemetry:(id)telemetry;
@@ -92,6 +97,56 @@
   return v25;
 }
 
++ (id)eventWithEventType:(unsigned __int8)type experimentRecord:(id)record
+{
+  typeCopy = type;
+  recordCopy = record;
+  if (!recordCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIExperimentPostLaunchEvent.m" lineNumber:111 description:{@"Invalid parameter not satisfying: %@", @"record"}];
+  }
+
+  if ([TRIExperimentPostLaunchEvent _isCategoricalLoggingEventType:typeCopy])
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v9 = [TRIExperimentPostLaunchEvent alloc];
+    v10 = [TRIExperimentPostLaunchEvent _experimentStateNameForType:typeCopy];
+    v8 = [(TRIExperimentPostLaunchEvent *)v9 initWithEventType:typeCopy experimentStateName:v10 experimentRecord:recordCopy errorOrDeactivationReason:0];
+  }
+
+  return v8;
+}
+
++ (id)eventWithEventType:(unsigned __int8)type treatmentTriple:(id)triple
+{
+  typeCopy = type;
+  tripleCopy = triple;
+  if (!tripleCopy)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIExperimentPostLaunchEvent.m" lineNumber:124 description:{@"Invalid parameter not satisfying: %@", @"treatmentTriple"}];
+  }
+
+  if ([TRIExperimentPostLaunchEvent _isCategoricalLoggingEventType:typeCopy])
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v9 = [TRIExperimentPostLaunchEvent alloc];
+    v10 = [TRIExperimentPostLaunchEvent _experimentStateNameForType:typeCopy];
+    v8 = [(TRIExperimentPostLaunchEvent *)v9 initWithEventType:typeCopy experimentStateName:v10 treatmentTriple:tripleCopy errorOrDeactivationReason:0 deploymentEnvironment:0 versionedNamespaces:0 telemetry:0];
+  }
+
+  return v8;
+}
+
 + (id)activatedEventWithExperimentRecord:(id)record
 {
   v5 = [TRIExperimentPostLaunchEvent eventWithEventType:2 experimentRecord:record];
@@ -152,6 +207,25 @@ LABEL_3:
   return v15;
 }
 
++ (id)allocationEventWithTriple:(id)triple isDynamicEnrollment:(BOOL)enrollment environment:(int)environment namespaces:(id)namespaces
+{
+  v7 = *&environment;
+  v9 = @"retargeting_by_dynamic_enrollment";
+  if (!enrollment)
+  {
+    v9 = 0;
+  }
+
+  v10 = v9;
+  tripleCopy = triple;
+  v12 = [namespaces _pas_mappedArrayWithTransform:&__block_literal_global_107_0];
+  v13 = [TRIExperimentPostLaunchEvent alloc];
+  v14 = [TRIExperimentPostLaunchEvent _experimentStateNameForType:1];
+  v15 = [(TRIExperimentPostLaunchEvent *)v13 initWithEventType:1 experimentStateName:v14 treatmentTriple:tripleCopy errorOrDeactivationReason:v10 deploymentEnvironment:v7 versionedNamespaces:v12 telemetry:0];
+
+  return v15;
+}
+
 id __115__TRIExperimentPostLaunchEvent_EventFactory__allocationEventWithTriple_isDynamicEnrollment_environment_namespaces___block_invoke(uint64_t a1, void *a2)
 {
   v2 = MEMORY[0x277D73808];
@@ -163,6 +237,26 @@ id __115__TRIExperimentPostLaunchEvent_EventFactory__allocationEventWithTriple_i
   v7 = [v4 initWithName:v5 compatibilityVersion:v6];
 
   return v7;
+}
+
++ (id)failureEventWithEventType:(unsigned __int8)type treatmentTriple:(id)triple failureReason:(id)reason
+{
+  typeCopy = type;
+  tripleCopy = triple;
+  reasonCopy = reason;
+  if ([self _isErrorType:typeCopy])
+  {
+    v10 = [TRIExperimentPostLaunchEvent alloc];
+    v11 = [TRIExperimentPostLaunchEvent _experimentStateNameForType:typeCopy];
+    v12 = [(TRIExperimentPostLaunchEvent *)v10 initWithEventType:typeCopy experimentStateName:v11 treatmentTriple:tripleCopy errorOrDeactivationReason:reasonCopy deploymentEnvironment:0 versionedNamespaces:0 telemetry:0];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 + (id)obsoletionOrDeactivationEventWithTriggerEvent:(unint64_t)event previousStateProvider:(id)provider experimentRecord:(id)record additionalTelemetry:(id)telemetry
@@ -242,6 +336,74 @@ LABEL_5:
   v25 = [(TRIExperimentPostLaunchEvent *)v23 initWithEventType:3 experimentStateName:off_279DE2188[v24] experimentRecord:recordCopy errorOrDeactivationReason:v22 telemetry:telemetryCopy];
 
   return v25;
+}
+
++ (id)_experimentStateNameForType:(unsigned __int8)type
+{
+  typeCopy = type;
+  result = 0;
+  v9 = *MEMORY[0x277D85DE8];
+  if (type <= 4)
+  {
+    if (type > 1)
+    {
+      if (type == 2)
+      {
+        return @"exp_st_AC";
+      }
+
+      if (type == 3)
+      {
+        return @"exp_st_DE";
+      }
+
+      return @"exp_st_FE";
+    }
+
+    if (!type)
+    {
+      return result;
+    }
+
+    if (type == 1)
+    {
+      return @"exp_st_AL";
+    }
+
+    goto LABEL_20;
+  }
+
+  if (type > 6)
+  {
+    switch(type)
+    {
+      case 7u:
+        return @"exp_st_FE_F";
+      case 8u:
+        return @"exp_st_AC_F";
+      case 9u:
+        return @"exp_st_DE_F";
+    }
+
+LABEL_20:
+    v5 = TRILogCategory_Server();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v6 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:typeCopy];
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_error_impl(&dword_26F567000, v5, OS_LOG_TYPE_ERROR, "Unexpected eventType %@ encountered", &v7, 0xCu);
+    }
+
+    return 0;
+  }
+
+  if (type != 5)
+  {
+    return @"exp_st_AL_F";
+  }
+
+  return result;
 }
 
 @end

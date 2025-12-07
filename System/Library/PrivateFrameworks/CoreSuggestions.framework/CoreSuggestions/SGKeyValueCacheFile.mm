@@ -28,7 +28,7 @@
 
 - (id)_map
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->_lock);
   memStore = self->_memStore;
   if (memStore && !self->_data)
@@ -51,17 +51,17 @@
     goto LABEL_17;
   }
 
-  memset(&v22, 0, sizeof(v22));
-  if (fstat(fd, &v22) != -1)
+  memset(&v21, 0, sizeof(v21));
+  if (fstat(fd, &v21) != -1)
   {
-    st_size = v22.st_size;
-    if (!v22.st_size)
+    st_size = v21.st_size;
+    if (!v21.st_size)
     {
       v10 = objc_opt_new();
       goto LABEL_14;
     }
 
-    v9 = mmap(0, v22.st_size, 1, 2, self->_fd, 0);
+    v9 = mmap(0, v21.st_size, 1, 2, self->_fd, 0);
     if (v9 != -1)
     {
       v10 = dispatch_data_create(v9, st_size, 0, *MEMORY[0x1E69E9650]);
@@ -79,13 +79,13 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    v19 = *__error();
-    v20 = __error();
-    v21 = strerror(*v20);
+    v18 = *__error();
+    v19 = __error();
+    v20 = strerror(*v19);
     *buf = 67109378;
-    v24 = v19;
-    v25 = 2080;
-    v26 = v21;
+    v23 = v18;
+    v24 = 2080;
+    v25 = v20;
     v15 = "Could not mmap fd: [%i] %s";
     goto LABEL_22;
   }
@@ -97,9 +97,9 @@ LABEL_14:
     v13 = __error();
     v14 = strerror(*v13);
     *buf = 67109378;
-    v24 = v12;
-    v25 = 2080;
-    v26 = v14;
+    v23 = v12;
+    v24 = 2080;
+    v25 = v14;
     v15 = "Could not stat fd: [%i] %s";
 LABEL_22:
     _os_log_error_impl(&dword_1BA729000, v11, OS_LOG_TYPE_ERROR, v15, buf, 0x12u);
@@ -111,7 +111,6 @@ LABEL_17:
   st_size = 0;
 LABEL_18:
   pthread_mutex_unlock(&self->_lock);
-  v17 = *MEMORY[0x1E69E9840];
 
   return st_size;
 }
@@ -257,7 +256,7 @@ void __34__SGKeyValueCacheFile_description__block_invoke(uint64_t a1, uint64_t a
 
 - (void)deleteValueByRecordIdSet:(id)set
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   setCopy = set;
   if (self->_fd < 0 && !self->_memStore)
   {
@@ -266,35 +265,35 @@ void __34__SGKeyValueCacheFile_description__block_invoke(uint64_t a1, uint64_t a
   }
 
   v6 = objc_opt_new();
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __48__SGKeyValueCacheFile_deleteValueByRecordIdSet___block_invoke;
-  v28[3] = &unk_1E7EFB4A8;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __48__SGKeyValueCacheFile_deleteValueByRecordIdSet___block_invoke;
+  v27[3] = &unk_1E7EFB4A8;
   v7 = setCopy;
-  v29 = v7;
+  v28 = v7;
   v8 = v6;
-  v30 = v8;
-  [(SGKeyValueCacheFile *)self enumerateRowsWithBlock:v28];
+  v29 = v8;
+  [(SGKeyValueCacheFile *)self enumerateRowsWithBlock:v27];
   if ([v8 count])
   {
     v9 = malloc_type_calloc([v8 count], 0x10uLL, 0x1000040D9A13B51uLL);
     if (!v9)
     {
-      v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-      objc_exception_throw(v23);
+      v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+      objc_exception_throw(v22);
     }
 
     v10 = v9;
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v31 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v30 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       v15 = v10;
       do
       {
@@ -302,12 +301,12 @@ void __34__SGKeyValueCacheFile_description__block_invoke(uint64_t a1, uint64_t a
         v17 = v15;
         do
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          longLongValue = [*(*(&v24 + 1) + 8 * v16) longLongValue];
+          longLongValue = [*(*(&v23 + 1) + 8 * v16) longLongValue];
           v15 = v17 + 2;
           ++v16;
           *v17 = longLongValue;
@@ -316,7 +315,7 @@ void __34__SGKeyValueCacheFile_description__block_invoke(uint64_t a1, uint64_t a
         }
 
         while (v13 != v16);
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v31 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v30 count:16];
       }
 
       while (v13);
@@ -340,8 +339,6 @@ void __34__SGKeyValueCacheFile_description__block_invoke(uint64_t a1, uint64_t a
     pthread_mutex_unlock(&self->_lock);
     free(v10);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __48__SGKeyValueCacheFile_deleteValueByRecordIdSet___block_invoke(uint64_t a1, uint64_t *a2)
@@ -440,7 +437,7 @@ void __45__SGKeyValueCacheFile_deleteValueByRecordId___block_invoke(uint64_t a1,
 
 - (void)setValueIfNotPresentWithDict:(id)dict fromRecordId:(id)id
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   idCopy = id;
   if (self->_fd < 0 && !self->_memStore)
@@ -451,42 +448,42 @@ void __45__SGKeyValueCacheFile_deleteValueByRecordId___block_invoke(uint64_t a1,
 
   v9 = objc_opt_new();
   numericValue = [idCopy numericValue];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __65__SGKeyValueCacheFile_setValueIfNotPresentWithDict_fromRecordId___block_invoke;
-  v45[3] = &unk_1E7EFB430;
-  v47 = numericValue;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __65__SGKeyValueCacheFile_setValueIfNotPresentWithDict_fromRecordId___block_invoke;
+  v44[3] = &unk_1E7EFB430;
+  v46 = numericValue;
   v11 = v9;
-  v46 = v11;
+  v45 = v11;
   selfCopy = self;
-  [(SGKeyValueCacheFile *)self enumerateRowsWithBlock:v45];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
+  [(SGKeyValueCacheFile *)self enumerateRowsWithBlock:v44];
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v40 objects:v48 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v42;
+    v16 = *v41;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v42 != v16)
+        if (*v41 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = [dictCopy objectForKeyedSubscript:*(*(&v41 + 1) + 8 * i)];
+        v18 = [dictCopy objectForKeyedSubscript:*(*(&v40 + 1) + 8 * i)];
         v19 = v18 == 0;
 
         v15 |= v19;
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v40 objects:v48 count:16];
     }
 
     while (v14);
@@ -497,13 +494,13 @@ void __45__SGKeyValueCacheFile_deleteValueByRecordId___block_invoke(uint64_t a1,
       v21 = selfCopy;
       [(SGKeyValueCacheFile *)selfCopy deleteValueByRecordId:idCopy];
 LABEL_25:
-      v35[0] = MEMORY[0x1E69E9820];
-      v35[1] = 3221225472;
-      v35[2] = __65__SGKeyValueCacheFile_setValueIfNotPresentWithDict_fromRecordId___block_invoke_2;
-      v35[3] = &unk_1E7EFB458;
-      v35[4] = v21;
-      v36 = idCopy;
-      [v20 enumerateKeysAndObjectsUsingBlock:v35];
+      v34[0] = MEMORY[0x1E69E9820];
+      v34[1] = 3221225472;
+      v34[2] = __65__SGKeyValueCacheFile_setValueIfNotPresentWithDict_fromRecordId___block_invoke_2;
+      v34[3] = &unk_1E7EFB458;
+      v34[4] = v21;
+      v35 = idCopy;
+      [v20 enumerateKeysAndObjectsUsingBlock:v34];
 
       goto LABEL_26;
     }
@@ -513,28 +510,28 @@ LABEL_25:
   {
   }
 
-  v33 = idCopy;
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
+  v32 = idCopy;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v22 = dictCopy;
-  v23 = [v22 countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v36 objects:v47 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v38;
+    v25 = *v37;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v38 != v25)
+        if (*v37 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v37 + 1) + 8 * j);
-        v28 = [v12 objectForKeyedSubscript:{v27, v33}];
+        v27 = *(*(&v36 + 1) + 8 * j);
+        v28 = [v12 objectForKeyedSubscript:{v27, v32}];
         v29 = [v22 objectForKeyedSubscript:v27];
         if ([v28 isEqual:v29])
         {
@@ -548,14 +545,14 @@ LABEL_25:
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v37 objects:v48 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v36 objects:v47 count:16];
     }
 
     while (v24);
   }
 
   v20 = v12;
-  idCopy = v33;
+  idCopy = v32;
   v21 = selfCopy;
   if ([v20 count])
   {
@@ -563,8 +560,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SGKeyValueCacheFile_setValueIfNotPresentWithDict_fromRecordId___block_invoke(uint64_t a1, uint64_t a2)
@@ -722,7 +717,7 @@ void __64__SGKeyValueCacheFile_setValueIfNotPresent_forKey_fromRecordId___block_
 
 - (void)setValue:(id)value forKey:(id)key fromRecordId:(id)id
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   keyCopy = key;
   idCopy = id;
@@ -788,7 +783,7 @@ LABEL_7:
     [currentHandler5 handleFailureInMethod:a2 object:self file:@"SGKeyValueCacheFile.m" lineNumber:388 description:{@"Invalid parameter not satisfying: %@", @"valLen < UINT16_MAX"}];
   }
 
-  v27 = 0;
+  v26 = 0;
   if (idCopy)
   {
     internalEntityId = [idCopy internalEntityId];
@@ -799,13 +794,13 @@ LABEL_7:
     internalEntityId = -1;
   }
 
-  v26 = internalEntityId;
-  LOWORD(v27) = v14;
-  WORD1(v27) = v15;
+  v25 = internalEntityId;
+  LOWORD(v26) = v14;
+  WORD1(v26) = v15;
   memStore = self->_memStore;
   if (memStore)
   {
-    [(NSMutableData *)memStore appendBytes:&v26 length:16];
+    [(NSMutableData *)memStore appendBytes:&v25 length:16];
     [(NSMutableData *)self->_memStore appendBytes:uTF8String length:v14];
     if (v15)
     {
@@ -815,12 +810,12 @@ LABEL_7:
 
   else
   {
-    v28.iov_base = &v26;
-    v28.iov_len = 16;
-    v29 = uTF8String;
-    v30 = v14;
-    v31 = uTF8String2;
-    v32 = v15;
+    v27.iov_base = &v25;
+    v27.iov_len = 16;
+    v28 = uTF8String;
+    v29 = v14;
+    v30 = uTF8String2;
+    v31 = v15;
     pthread_mutex_lock(&self->_lock);
     if (v15)
     {
@@ -832,7 +827,7 @@ LABEL_7:
       v19 = 2;
     }
 
-    writev(self->_fd, &v28, v19);
+    writev(self->_fd, &v27, v19);
   }
 
   data = self->_data;
@@ -840,8 +835,6 @@ LABEL_7:
 
   pthread_mutex_unlock(&self->_lock);
 LABEL_24:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)valueForKey:(id)key found:(BOOL *)found
@@ -979,7 +972,7 @@ void __41__SGKeyValueCacheFile_valueForKey_found___block_invoke(uint64_t a1, uin
 
 - (void)commitTemporaryFile
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = self->_other;
   v4 = v3;
   if (!v3)
@@ -990,11 +983,11 @@ void __41__SGKeyValueCacheFile_valueForKey_found___block_invoke(uint64_t a1, uin
       goto LABEL_14;
     }
 
-    LOWORD(v29) = 0;
+    LOWORD(v28) = 0;
     v8 = "Could not commit cache file as it is not temporary";
 LABEL_25:
-    v27 = v7;
-    v28 = 2;
+    v26 = v7;
+    v27 = 2;
     goto LABEL_26;
   }
 
@@ -1018,7 +1011,7 @@ LABEL_4:
       goto LABEL_14;
     }
 
-    LOWORD(v29) = 0;
+    LOWORD(v28) = 0;
     v8 = "Could not commit cache file as it is not temporary";
     goto LABEL_25;
   }
@@ -1042,21 +1035,21 @@ LABEL_4:
   v7 = sgLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v23 = v4->_path;
-    v24 = *__error();
-    v25 = __error();
-    v26 = strerror(*v25);
-    v29 = 138412802;
-    v30 = v23;
-    v31 = 1024;
-    v32 = v24;
-    v33 = 2080;
-    v34 = v26;
+    v22 = v4->_path;
+    v23 = *__error();
+    v24 = __error();
+    v25 = strerror(*v24);
+    v28 = 138412802;
+    v29 = v22;
+    v30 = 1024;
+    v31 = v23;
+    v32 = 2080;
+    v33 = v25;
     v8 = "Could not overwrite %@: [%i] %s";
-    v27 = v7;
-    v28 = 28;
+    v26 = v7;
+    v27 = 28;
 LABEL_26:
-    _os_log_error_impl(&dword_1BA729000, v27, OS_LOG_TYPE_ERROR, v8, &v29, v28);
+    _os_log_error_impl(&dword_1BA729000, v26, OS_LOG_TYPE_ERROR, v8, &v28, v27);
   }
 
 LABEL_14:
@@ -1096,8 +1089,6 @@ LABEL_15:
   {
     pthread_mutex_unlock(&v4->_lock);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -1135,7 +1126,7 @@ LABEL_15:
 
 - (id)initTemporaryForOverwritingCache:(id)cache
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   v6 = cacheCopy;
   if (cacheCopy[13])
@@ -1155,9 +1146,9 @@ LABEL_15:
   {
     v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v30 = 0;
-    v13 = [defaultManager URLForDirectory:99 inDomain:1 appropriateForURL:v11 create:1 error:&v30];
-    v14 = v30;
+    v29 = 0;
+    v13 = [defaultManager URLForDirectory:99 inDomain:1 appropriateForURL:v11 create:1 error:&v29];
+    v14 = v29;
     path = [v13 path];
 
     if (path)
@@ -1171,15 +1162,15 @@ LABEL_15:
         v23 = sgLogHandle();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v27 = *__error();
-          v28 = __error();
-          v29 = strerror(*v28);
+          v26 = *__error();
+          v27 = __error();
+          v28 = strerror(*v27);
           *buf = 138412802;
-          v32 = v17;
-          v33 = 1024;
-          v34 = v27;
-          v35 = 2080;
-          v36 = v29;
+          v31 = v17;
+          v32 = 1024;
+          v33 = v26;
+          v34 = 2080;
+          v35 = v28;
           _os_log_error_impl(&dword_1BA729000, v23, OS_LOG_TYPE_ERROR, "Could not open temporary cache file %@: [%i] %s", buf, 0x1Cu);
         }
 
@@ -1212,7 +1203,7 @@ LABEL_15:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v14;
+        v31 = v14;
         _os_log_error_impl(&dword_1BA729000, v22, OS_LOG_TYPE_ERROR, "Could not create temporary directory: %@", buf, 0xCu);
       }
 
@@ -1227,7 +1218,7 @@ LABEL_15:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v32 = v6;
+      v31 = v6;
       _os_log_error_impl(&dword_1BA729000, v21, OS_LOG_TYPE_ERROR, "Could not create temporary directory for readonly target: %@", buf, 0xCu);
     }
 
@@ -1235,13 +1226,12 @@ LABEL_15:
     v10 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (SGKeyValueCacheFile)initWithPath:(id)path
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = open_dprotected_np([pathCopy UTF8String], 522, 3, 0, 384);
   if ((v6 & 0x80000000) != 0)
@@ -1249,15 +1239,15 @@ LABEL_15:
     v11 = sgLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = *__error();
-      v15 = __error();
-      v16 = strerror(*v15);
+      v13 = *__error();
+      v14 = __error();
+      v15 = strerror(*v14);
       *buf = 138412802;
-      v18 = pathCopy;
-      v19 = 1024;
-      v20 = v14;
-      v21 = 2080;
-      v22 = v16;
+      v17 = pathCopy;
+      v18 = 1024;
+      v19 = v13;
+      v20 = 2080;
+      v21 = v15;
       _os_log_error_impl(&dword_1BA729000, v11, OS_LOG_TYPE_ERROR, "Could not open cache file %@: [%i] %s", buf, 0x1Cu);
     }
 
@@ -1278,7 +1268,6 @@ LABEL_15:
     v10 = initBlank;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -69,7 +69,7 @@
       *buf = 67109120;
       LODWORD(v16) = v4;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "=daemon= Unable to commit stash bag: %d", buf, 8u);
-      goto LABEL_6;
+      _MBLog(@"E ", "=daemon= Unable to commit stash bag: %d");
     }
   }
 
@@ -77,8 +77,7 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=daemon= Committed stash bag", buf, 2u);
-LABEL_6:
-    _MBLog();
+    _MBLog(@"Df", "=daemon= Committed stash bag");
   }
 
   v14 = 0;
@@ -94,7 +93,7 @@ LABEL_6:
       v17 = 2112;
       v18 = @"RestoreShouldReboot";
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "=daemon= Not rebooting after restore because %@ %@ preference is set", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=daemon= Not rebooting after restore because %@ %@ preference is set", @"com.apple.MobileBackup", @"RestoreShouldReboot");
     }
 
     _MBLogFlushDeprecated();
@@ -110,28 +109,20 @@ LABEL_6:
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (rebootCopy)
   {
-    if (!v11)
+    if (v11)
     {
-      goto LABEL_18;
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=daemon= Doing a full reboot", buf, 2u);
+      _MBLog(@"Df", "=daemon= Doing a full reboot");
     }
-
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=daemon= Doing a full reboot", buf, 2u);
   }
 
-  else
+  else if (v11)
   {
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=daemon= Doing a Userspace reboot", buf, 2u);
+    _MBLog(@"Df", "=daemon= Doing a Userspace reboot");
   }
-
-  _MBLog();
-LABEL_18:
 
   v12 = reboot3();
   if (v12)
@@ -142,7 +133,7 @@ LABEL_18:
       *buf = 67109120;
       LODWORD(v16) = v12;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=daemon= reboot3 failed: %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"E ", "=daemon= reboot3 failed: %d", v12);
     }
   }
 
@@ -160,10 +151,10 @@ LABEL_18:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "=daemon= SIGHUP", buf, 2u);
-        goto LABEL_16;
+        _MBLog(@"I ", "=daemon= SIGHUP");
       }
 
-      goto LABEL_17;
+      goto LABEL_16;
     }
 
     if (signal == 3)
@@ -173,15 +164,13 @@ LABEL_18:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "=daemon= SIGQUIT", buf, 2u);
-        goto LABEL_16;
+        _MBLog(@"I ", "=daemon= SIGQUIT");
       }
 
-LABEL_17:
-
-      return;
+      goto LABEL_16;
     }
 
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   if (signal == 15)
@@ -191,7 +180,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "=daemon= SIGTERM", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=daemon= SIGTERM");
     }
 
     MBExit(1);
@@ -206,22 +195,22 @@ LABEL_17:
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "=daemon= SIGUSR2", buf, 2u);
-LABEL_16:
-        _MBLog();
-        goto LABEL_17;
+        _MBLog(@"I ", "=daemon= SIGUSR2");
       }
 
-      goto LABEL_17;
+LABEL_16:
+
+      return;
     }
 
-LABEL_18:
+LABEL_17:
     v6 = MBGetDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
       signalCopy = signal;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "=daemon= Unhandled signal %d", buf, 8u);
-      _MBLog();
+      _MBLog(@"E ", "=daemon= Unhandled signal %d", signal);
     }
   }
 }
@@ -258,7 +247,7 @@ LABEL_18:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "=daemon= Not idle exiting while Setup is still running", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "=daemon= Not idle exiting while Setup is still running");
     }
 
     return 0;
@@ -371,11 +360,10 @@ LABEL_18:
     assertions = self->_assertions;
     *buf = 136315394;
     descriptionCopy = description;
-    v12 = 1024;
-    v13 = assertions;
+    v11 = 1024;
+    v12 = assertions;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=daemon= holdWorkAssertion: %s, %d", buf, 0x12u);
-    v9 = self->_assertions;
-    _MBLog();
+    _MBLog(@"I ", "=daemon= holdWorkAssertion: %s, %d", description, self->_assertions);
   }
 }
 
@@ -418,7 +406,7 @@ LABEL_18:
         *buf = 136315138;
         descriptionCopy2 = description;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "=daemon= Over-released work assertion: %s", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"F ", "=daemon= Over-released work assertion: %s", description);
       }
     }
 
@@ -438,11 +426,10 @@ LABEL_18:
     v8 = self->_assertions;
     *buf = 136315394;
     descriptionCopy2 = description;
-    v13 = 1024;
-    v14 = v8;
+    v12 = 1024;
+    v13 = v8;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=daemon= releaseWorkAssertion: %s, %d", buf, 0x12u);
-    v10 = self->_assertions;
-    _MBLog();
+    _MBLog(@"I ", "=daemon= releaseWorkAssertion: %s, %d", description, self->_assertions);
   }
 }
 

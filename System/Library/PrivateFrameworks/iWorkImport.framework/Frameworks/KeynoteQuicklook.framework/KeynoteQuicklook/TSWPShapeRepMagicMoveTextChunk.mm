@@ -30,13 +30,10 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = TSWPShapeRepMagicMoveTextChunk;
-  v4 = [(TSWPShapeRepMagicMoveTextChunk *)&v10 description];
-  rep = self->_rep;
-  stringValue = self->_stringValue;
-  v7 = NSStringFromRange(self->_range);
-  return objc_msgSend_stringWithFormat_(v3, v8, @"%@: %@ {rep:%@, range:%@, hasListLabel:%d, stage:%d}", v4, stringValue, rep, v7, self->_hasListLabel, self->_stageIndex);
+  v6.receiver = self;
+  v6.super_class = TSWPShapeRepMagicMoveTextChunk;
+  v4 = [(TSWPShapeRepMagicMoveTextChunk *)&v6 description];
+  return [v3 stringWithFormat:@"%@: %@ {rep:%@, range:%@, hasListLabel:%d, stage:%d}", v4, self->_stringValue, self->_rep, NSStringFromRange(self->_range), self->_hasListLabel, self->_stageIndex];
 }
 
 - (_NSRange)range

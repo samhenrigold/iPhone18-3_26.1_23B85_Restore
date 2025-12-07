@@ -40,14 +40,14 @@
 
 - (id)dictionaryRepresentation
 {
-  v18[2] = *MEMORY[0x277D85DE8];
-  v17[0] = 0x28822C548;
+  v17[2] = *MEMORY[0x277D85DE8];
+  v16[0] = 0x28822C548;
   identifier = [self identifier];
-  v17[1] = 0x28822C5E8;
-  v18[0] = identifier;
+  v16[1] = 0x28822C5E8;
+  v17[0] = identifier;
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(self, "importance")}];
-  v18[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v5 = [v4 mutableCopy];
 
   areaName = [self areaName];
@@ -73,8 +73,6 @@
     v14 = [v12 numberWithDouble:?];
     [v5 setObject:v14 forKey:0x28822C368];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

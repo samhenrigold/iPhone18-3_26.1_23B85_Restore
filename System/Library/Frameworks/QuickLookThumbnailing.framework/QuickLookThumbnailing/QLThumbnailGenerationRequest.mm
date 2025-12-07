@@ -19,6 +19,7 @@
 - (QLThumbnailGenerationRequest)initWithFPItem:(id)item size:(CGSize)size scale:(double)scale representationTypes:(unint64_t)types;
 - (QLThumbnailGenerationRequest)initWithFileAtURL:(NSURL *)url size:(CGSize)size scale:(CGFloat)scale representationTypes:(QLThumbnailGenerationRequestRepresentationTypes)representationTypes;
 - (QLThumbnailGenerationRequest)initWithSearchResultIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier contentType:(id)type size:(CGSize)size scale:(double)scale representationTypes:(unint64_t)types;
+- (QLThumbnailGenerationRequest)initWithSize:(CGSize)size scale:(double)scale representationTypes:(unint64_t)types;
 - (UTType)contentType;
 - (float)maximumPixelSize;
 - (id)_stateDescription;
@@ -31,7 +32,6 @@
 - (int64_t)requestedMostRepresentativeType;
 - (unint64_t)externalThumbnailGeneratorDataHash;
 - (unint64_t)hash;
-- (void)contentType;
 - (void)encodeWithCoder:(id)coder;
 - (void)markDidBegin;
 - (void)prepareForSending;
@@ -46,119 +46,119 @@
 
 - (BOOL)prepareForSending
 {
-  v68[1] = *MEMORY[0x1E69E9840];
+  v66[1] = *MEMORY[0x1E69E9840];
   if (!self->_item && ![(QLThumbnailGenerationRequest *)self isDataBased])
   {
-    v61 = 0;
-    v62 = &v61;
-    v63 = 0x3032000000;
-    v64 = __Block_byref_object_copy_;
-    v65 = __Block_byref_object_dispose_;
-    v66 = 0;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x3032000000;
+    v62 = __Block_byref_object_copy_;
+    v63 = __Block_byref_object_dispose_;
+    v64 = 0;
+    v56 = 0;
+    v57[0] = &v56;
+    v57[1] = 0x3032000000;
+    v57[2] = __Block_byref_object_copy_;
+    v57[3] = __Block_byref_object_dispose_;
     v58 = 0;
-    v59[0] = &v58;
-    v59[1] = 0x3032000000;
-    v59[2] = __Block_byref_object_copy_;
-    v59[3] = __Block_byref_object_dispose_;
-    v60 = 0;
     fileURL = [(QLThumbnailGenerationRequest *)self fileURL];
-    v7 = fileURL;
+    v6 = fileURL;
     if (fileURL)
     {
-      v57 = 0;
-      v8 = [fileURL checkResourceIsReachableAndReturnError:&v57];
-      v9 = v57;
-      if (v8)
+      v55 = 0;
+      v7 = [fileURL checkResourceIsReachableAndReturnError:&v55];
+      v8 = v55;
+      if (v7)
       {
-        ql_realpathURL = [v7 ql_realpathURL];
+        ql_realpathURL = [v6 ql_realpathURL];
         [(QLThumbnailGenerationRequest *)self setFileURL:ql_realpathURL];
         if (_CFURLIsItemPromiseAtURL())
         {
-          v56 = 0;
-          v11 = _CFURLCopyLogicalURLOfPromiseAtURL();
-          v12 = *(v59[0] + 40);
-          *(v59[0] + 40) = v11;
+          v54 = 0;
+          v10 = _CFURLCopyLogicalURLOfPromiseAtURL();
+          v11 = *(v57[0] + 40);
+          *(v57[0] + 40) = v10;
 
-          if (!*(v59[0] + 40))
+          if (!*(v57[0] + 40))
           {
             requestIsInvalidError = self->_requestIsInvalidError;
-            self->_requestIsInvalidError = v56;
+            self->_requestIsInvalidError = v54;
           }
 
-          v14 = v62[5];
-          v62[5] = ql_realpathURL;
+          v13 = v60[5];
+          v60[5] = ql_realpathURL;
         }
 
         else
         {
-          objc_storeStrong((v59[0] + 40), ql_realpathURL);
-          v22 = v62[5];
-          v62[5] = ql_realpathURL;
+          objc_storeStrong((v57[0] + 40), ql_realpathURL);
+          v21 = v60[5];
+          v60[5] = ql_realpathURL;
         }
       }
 
       else if (_CFURLIsItemPromiseAtURL())
       {
-        objc_storeStrong(v62 + 5, v7);
+        objc_storeStrong(v60 + 5, v6);
       }
 
       else
       {
-        objc_storeStrong((v59[0] + 40), v7);
-        v15 = _CFURLPromiseCopyPhysicalURL();
-        v16 = v62[5];
-        v62[5] = v15;
+        objc_storeStrong((v57[0] + 40), v6);
+        v14 = _CFURLPromiseCopyPhysicalURL();
+        v15 = v60[5];
+        v60[5] = v14;
 
-        v17 = v62[5];
-        if (!v17 || v17 == *(v59[0] + 40))
+        v16 = v60[5];
+        if (!v16 || v16 == *(v57[0] + 40))
         {
-          v18 = objc_alloc_init(MEMORY[0x1E696ABF8]);
-          v54[0] = MEMORY[0x1E69E9820];
-          v54[1] = 3221225472;
-          v54[2] = __49__QLThumbnailGenerationRequest_prepareForSending__block_invoke;
-          v54[3] = &unk_1E8369C98;
-          v54[4] = &v58;
-          v54[5] = &v61;
-          v55 = v9;
-          [v18 coordinateReadingItemAtURL:v7 options:5 error:&v55 byAccessor:v54];
-          v19 = v55;
-          v20 = v55;
+          v17 = objc_alloc_init(MEMORY[0x1E696ABF8]);
+          v52[0] = MEMORY[0x1E69E9820];
+          v52[1] = 3221225472;
+          v52[2] = __49__QLThumbnailGenerationRequest_prepareForSending__block_invoke;
+          v52[3] = &unk_1E8369C98;
+          v52[4] = &v56;
+          v52[5] = &v59;
+          v53 = v8;
+          [v17 coordinateReadingItemAtURL:v6 options:5 error:&v53 byAccessor:v52];
+          v18 = v53;
+          v19 = v53;
 
-          if (!*(v59[0] + 40))
+          if (!*(v57[0] + 40))
           {
-            v21 = _log();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+            v20 = _log();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               [QLThumbnailGenerationRequest prepareForSending];
             }
 
-            objc_storeStrong(&self->_requestIsInvalidError, v19);
+            objc_storeStrong(&self->_requestIsInvalidError, v18);
           }
 
-          v9 = v20;
+          v8 = v19;
         }
       }
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    v23 = v62[5];
-    if (!v23 || !*(v59[0] + 40))
+    v22 = v60[5];
+    if (!v22 || !*(v57[0] + 40))
     {
       if (self->_requestIsInvalidError)
       {
         goto LABEL_41;
       }
 
-      v45 = MEMORY[0x1E696ABC0];
-      if (v7)
+      v43 = MEMORY[0x1E696ABC0];
+      if (v6)
       {
-        v67 = *MEMORY[0x1E696A998];
-        v68[0] = v7;
-        p_super = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+        v65 = *MEMORY[0x1E696A998];
+        v66[0] = v6;
+        p_super = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
       }
 
       else
@@ -166,11 +166,11 @@
         p_super = 0;
       }
 
-      v48 = [v45 errorWithDomain:*MEMORY[0x1E696A250] code:4 userInfo:p_super];
-      v49 = self->_requestIsInvalidError;
-      self->_requestIsInvalidError = v48;
+      v46 = [v43 errorWithDomain:*MEMORY[0x1E696A250] code:4 userInfo:p_super];
+      v47 = self->_requestIsInvalidError;
+      self->_requestIsInvalidError = v46;
 
-      if (!v7)
+      if (!v6)
       {
         goto LABEL_41;
       }
@@ -178,80 +178,79 @@
       goto LABEL_40;
     }
 
-    v53 = v9;
-    v24 = [v23 checkResourceIsReachableAndReturnError:&v53];
-    v25 = v53;
+    v51 = v8;
+    v23 = [v22 checkResourceIsReachableAndReturnError:&v51];
+    v24 = v51;
 
-    if (v24)
+    if (v23)
     {
-      v26 = objc_opt_class();
-      v27 = v62[5];
-      v52 = v25;
-      v28 = [v26 _basicFileIdentifierForURL:v27 error:&v52];
-      v29 = v52;
+      v25 = objc_opt_class();
+      v26 = v60[5];
+      v50 = v24;
+      v27 = [v25 _basicFileIdentifierForURL:v26 error:&v50];
+      v28 = v50;
 
       basicFileIdentifier = self->_basicFileIdentifier;
-      self->_basicFileIdentifier = v28;
+      self->_basicFileIdentifier = v27;
 
       if (self->_basicFileIdentifier)
       {
         FPSandboxingURLWrapperClass = getFPSandboxingURLWrapperClass();
-        v32 = *(v59[0] + 40);
-        v51 = v29;
-        v33 = [FPSandboxingURLWrapperClass wrapperWithURL:v32 extensionClass:"com.apple.quicklook.readonly" error:&v51];
-        v34 = v51;
+        v31 = *(v57[0] + 40);
+        v49 = v28;
+        v32 = [FPSandboxingURLWrapperClass wrapperWithURL:v31 extensionClass:"com.apple.quicklook.readonly" error:&v49];
+        v33 = v49;
 
         quicklookSandboxWrapper = self->_quicklookSandboxWrapper;
-        self->_quicklookSandboxWrapper = v33;
+        self->_quicklookSandboxWrapper = v32;
 
-        v36 = getFPSandboxingURLWrapperClass();
-        v37 = *(v59[0] + 40);
-        v38 = *MEMORY[0x1E69E9BA8];
-        v50 = v34;
-        v39 = [v36 wrapperWithURL:v37 extensionClass:v38 error:&v50];
-        v40 = v50;
-        v9 = v50;
+        v35 = getFPSandboxingURLWrapperClass();
+        v36 = *(v57[0] + 40);
+        v37 = *MEMORY[0x1E69E9BA8];
+        v48 = v33;
+        v38 = [v35 wrapperWithURL:v36 extensionClass:v37 error:&v48];
+        v39 = v48;
+        v8 = v48;
 
         genericSandboxWrapper = self->_genericSandboxWrapper;
-        self->_genericSandboxWrapper = v39;
+        self->_genericSandboxWrapper = v38;
 
-        v42 = *(v59[0] + 40);
-        v43 = QLTSandboxWrapperForParentURLOf();
+        v41 = QLTSandboxWrapperForParentURLOf();
         parentDirectorySandboxWrapper = self->_parentDirectorySandboxWrapper;
-        self->_parentDirectorySandboxWrapper = v43;
+        self->_parentDirectorySandboxWrapper = v41;
 
         if (self->_genericSandboxWrapper && self->_quicklookSandboxWrapper)
         {
           v3 = 1;
 LABEL_42:
 
-          _Block_object_dispose(&v58, 8);
-          _Block_object_dispose(&v61, 8);
+          _Block_object_dispose(&v56, 8);
+          _Block_object_dispose(&v59, 8);
 
-          goto LABEL_4;
+          return v3;
         }
 
-        objc_storeStrong(&self->_requestIsInvalidError, v40);
+        objc_storeStrong(&self->_requestIsInvalidError, v39);
         p_super = _log();
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
-          [(QLThumbnailGenerationRequest *)v59 prepareForSending];
+          [(QLThumbnailGenerationRequest *)v57 prepareForSending];
         }
 
         goto LABEL_40;
       }
 
-      v47 = v29;
+      v45 = v28;
     }
 
     else
     {
-      v47 = v25;
+      v45 = v24;
     }
 
-    v9 = v47;
+    v8 = v45;
     p_super = &self->_requestIsInvalidError->super;
-    self->_requestIsInvalidError = v47;
+    self->_requestIsInvalidError = v45;
 LABEL_40:
 
 LABEL_41:
@@ -259,10 +258,7 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  v3 = 1;
-LABEL_4:
-  v4 = *MEMORY[0x1E69E9840];
-  return v3;
+  return 1;
 }
 
 + (id)customExtensionCommunicationEncodedClasses
@@ -549,31 +545,31 @@ LABEL_4:
 
 - (unint64_t)externalThumbnailGeneratorDataHash
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   externalThumbnailGeneratorData = self->_externalThumbnailGeneratorData;
   if (externalThumbnailGeneratorData && !self->_externalThumbnailGeneratorDataHash)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     allValues = [(NSDictionary *)externalThumbnailGeneratorData allValues];
-    v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       do
       {
         v8 = 0;
         do
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v9 = *(*(&v12 + 1) + 8 * v8);
+          v9 = *(*(&v11 + 1) + 8 * v8);
           if (objc_opt_respondsToSelector())
           {
             self->_externalThumbnailGeneratorDataHash ^= [v9 hash];
@@ -583,16 +579,88 @@ LABEL_4:
         }
 
         while (v6 != v8);
-        v6 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
     }
   }
 
-  result = self->_externalThumbnailGeneratorDataHash;
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_externalThumbnailGeneratorDataHash;
+}
+
+- (QLThumbnailGenerationRequest)initWithSize:(CGSize)size scale:(double)scale representationTypes:(unint64_t)types
+{
+  v41 = *MEMORY[0x1E69E9840];
+  width = size.width;
+  height = size.height;
+  v7 = size.height;
+  scaleCopy = scale;
+  v8 = vdupq_n_s64(0x408F400000000000uLL);
+  v9 = vdivq_f64(vrndaq_f64(vmulq_f64(vmulq_n_f64(size, scale), v8)), v8);
+  v10 = vmovn_s64(vceqq_f64(vrndpq_f64(v9), v9));
+  if ((vand_s8(v10, vdup_lane_s32(v10, 1)).u32[0] & 1) == 0)
+  {
+    v20 = v9;
+    v11 = _log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134219776;
+      v17 = round(width);
+      v18 = round(height);
+      v26 = width;
+      v19 = round(scaleCopy);
+      v27 = 2048;
+      v28 = height;
+      v29 = 2048;
+      v30 = scaleCopy;
+      v31 = 2048;
+      v32 = v20.f64[0];
+      v33 = 2048;
+      v34 = v20.f64[1];
+      v35 = 2048;
+      v36 = v17;
+      v37 = 2048;
+      v38 = v18;
+      v39 = 2048;
+      v40 = v19;
+      _os_log_error_impl(&dword_1CA1E7000, v11, OS_LOG_TYPE_ERROR, "Initialized QLThumbnailGenerationRequest with requested size of non-integer width or height. Passed (%f, %f, %f), making a scaled size of (%f, %f). Will round values to (%f, %f, %f)", buf, 0x52u);
+      scaleCopy = v19;
+      height = v18;
+      width = v17;
+    }
+
+    else
+    {
+      width = round(width);
+      height = round(height);
+      scaleCopy = round(scaleCopy);
+    }
+  }
+
+  v24.receiver = self;
+  v24.super_class = QLThumbnailGenerationRequest;
+  v12 = [(QLThumbnailGenerationRequest *)&v24 init];
+  if (v12)
+  {
+    uUID = [MEMORY[0x1E696AFB0] UUID];
+    uuid = v12->_uuid;
+    v12->_uuid = uUID;
+
+    v12->_size.width = width;
+    v12->_size.height = height;
+    v12->_scale = scaleCopy;
+    v12->_representationTypes = types;
+    v12->_generationBehavior = 2;
+    *&v12->_badgeType = xmmword_1CA21FE20;
+    v12->_downloadingAllowed = 1;
+    v12->_shouldUseRestrictedExtension = 0;
+    v12->_urlLock._os_unfair_lock_opaque = 0;
+    fileURL = v12->_fileURL;
+    v12->_fileURL = 0;
+  }
+
+  return v12;
 }
 
 - (QLThumbnailGenerationRequest)initWithFileAtURL:(NSURL *)url size:(CGSize)size scale:(CGFloat)scale representationTypes:(QLThumbnailGenerationRequestRepresentationTypes)representationTypes
@@ -1298,13 +1366,7 @@ LABEL_25:
 
       scale = self->_scale;
       [(QLThumbnailGenerationRequest *)v5 scale];
-      if (scale != v18)
-      {
-        goto LABEL_23;
-      }
-
-      iconMode = self->_iconMode;
-      if (iconMode != [(QLThumbnailGenerationRequest *)v5 iconMode]|| (badgeType = self->_badgeType, badgeType != [(QLThumbnailGenerationRequest *)v5 badgeType]) || (minimumDimension = self->_minimumDimension, [(QLThumbnailGenerationRequest *)v5 minimumDimension], minimumDimension != v22) || (representationTypes = self->_representationTypes, representationTypes != [(QLThumbnailGenerationRequest *)v5 representationTypes]) || (iconVariant = self->_iconVariant, iconVariant != [(QLThumbnailGenerationRequest *)v5 iconVariant]) || (wantsBaseline = self->_wantsBaseline, wantsBaseline != [(QLThumbnailGenerationRequest *)v5 wantsBaseline]) || (interpolationQuality = self->_interpolationQuality, interpolationQuality != [(QLThumbnailGenerationRequest *)v5 interpolationQuality]))
+      if (scale != v18 || (iconMode = self->_iconMode, iconMode != [(QLThumbnailGenerationRequest *)v5 iconMode]) || (badgeType = self->_badgeType, badgeType != [(QLThumbnailGenerationRequest *)v5 badgeType]) || (minimumDimension = self->_minimumDimension, [(QLThumbnailGenerationRequest *)v5 minimumDimension], minimumDimension != v22) || (representationTypes = self->_representationTypes, representationTypes != [(QLThumbnailGenerationRequest *)v5 representationTypes]) || (iconVariant = self->_iconVariant, iconVariant != [(QLThumbnailGenerationRequest *)v5 iconVariant]) || (wantsBaseline = self->_wantsBaseline, wantsBaseline != [(QLThumbnailGenerationRequest *)v5 wantsBaseline]) || (interpolationQuality = self->_interpolationQuality, interpolationQuality != [(QLThumbnailGenerationRequest *)v5 interpolationQuality]))
       {
 LABEL_23:
         v12 = 0;
@@ -1562,30 +1624,13 @@ void __49__QLThumbnailGenerationRequest_prepareForSending__block_invoke(uint64_t
   os_unfair_lock_unlock(&self->_urlLock);
 }
 
-- (void)setSaveURL:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Could not create a FPSandboxingURLWrapper for save URL %@ for thumbnail request. Error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)contentType
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, v0, v1, "Invalid type identifier %@ set on %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 - (void)prepareForSending
 {
-  *v4 = 138412546;
-  *&v4[4] = *(*self + 40);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1(&dword_1CA1E7000, a2, a3, "Could not create FPSandboxingURLWrapper with url: %@, error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(*self + 40);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1(&dword_1CA1E7000, a2, a3, "Could not create FPSandboxingURLWrapper with url: %@, error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

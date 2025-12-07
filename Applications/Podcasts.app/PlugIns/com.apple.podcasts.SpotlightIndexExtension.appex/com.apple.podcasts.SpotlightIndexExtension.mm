@@ -1,8 +1,8 @@
-void sub_1000020D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000020D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -135,9 +135,9 @@ uint64_t sub_100002A00(uint64_t result)
   return result;
 }
 
-void sub_100004298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100004298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -200,9 +200,9 @@ void sub_1000042B0(uint64_t a1)
   }
 }
 
-void sub_1000046A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000046A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -597,9 +597,9 @@ void sub_100006740(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000069B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000069B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -984,19 +984,18 @@ uint64_t sub_100009BF0(uint64_t a1, void *a2)
   v5 = [v3 attributeSet];
   [v5 setThumbnailURL:v4];
 
-  v6 = *(a1 + 32);
-  v7 = *(*(a1 + 56) + 16);
+  v6 = *(*(a1 + 56) + 16);
 
-  return v7();
+  return v6();
 }
 
 void sub_10000A218(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  if (v7)
+  v6 = a2;
+  if (v6)
   {
     v3 = [*(a1 + 32) attributeSet];
-    [v3 setThumbnailURL:v7];
+    [v3 setThumbnailURL:v6];
   }
 
   else
@@ -1007,7 +1006,6 @@ void sub_10000A218(uint64_t a1, void *a2)
     [v5 setExpirationDate:v4];
   }
 
-  v6 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -1017,7 +1015,7 @@ CSSearchableItem __swiftcall AppCoreSpotlightEntityAnnotator.annotate(item:with:
   if (swift_dynamicCastObjCClass())
   {
     *(&v10 + 1) = sub_10000AE68();
-    v11 = sub_10000AC94(&qword_10001A1B8, &type metadata accessor for EpisodeEntity);
+    v11 = sub_10000AC94(&qword_10001A1B8, &type metadata accessor for EpisodeEntity, &protocol conformance descriptor for EpisodeEntity);
     sub_10000AB88(&v9);
     v3 = with.super.isa;
     sub_10000AE58();
@@ -1033,7 +1031,7 @@ LABEL_9:
   if (swift_dynamicCastObjCClass())
   {
     *(&v10 + 1) = sub_10000AE28();
-    v11 = sub_10000AC94(&qword_10001A1B0, &type metadata accessor for ShowEntity);
+    v11 = sub_10000AC94(&qword_10001A1B0, &type metadata accessor for ShowEntity, &protocol conformance descriptor for ShowEntity);
     sub_10000AB88(&v9);
     v4 = with.super.isa;
     sub_10000AE18();
@@ -1044,7 +1042,7 @@ LABEL_9:
   if (swift_dynamicCastObjCClass())
   {
     *(&v10 + 1) = sub_10000AE48();
-    v11 = sub_10000AC94(&qword_10001A1A8, &type metadata accessor for ChannelEntity);
+    v11 = sub_10000AC94(&qword_10001A1A8, &type metadata accessor for ChannelEntity, &protocol conformance descriptor for ChannelEntity);
     sub_10000AB88(&v9);
     v5 = with.super.isa;
     sub_10000AE38();
@@ -1055,7 +1053,7 @@ LABEL_9:
   if (swift_dynamicCastObjCClass())
   {
     *(&v10 + 1) = sub_10000AE88();
-    v11 = sub_10000AC94(&qword_10001A1A0, &type metadata accessor for StationEntity);
+    v11 = sub_10000AC94(&qword_10001A1A0, &type metadata accessor for StationEntity, &protocol conformance descriptor for StationEntity);
     sub_10000AB88(&v9);
     v6 = with.super.isa;
     sub_10000AE78();
@@ -1077,7 +1075,7 @@ double sub_10000A890@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
   if (swift_dynamicCastObjCClass())
   {
     *(a2 + 24) = sub_10000AE68();
-    *(a2 + 32) = sub_10000AC94(&qword_10001A1B8, &type metadata accessor for EpisodeEntity);
+    *(a2 + 32) = sub_10000AC94(&qword_10001A1B8, &type metadata accessor for EpisodeEntity, &protocol conformance descriptor for EpisodeEntity);
     sub_10000AB88(a2);
     v4 = a1;
     sub_10000AE58();
@@ -1089,7 +1087,7 @@ double sub_10000A890@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
     if (swift_dynamicCastObjCClass())
     {
       *(a2 + 24) = sub_10000AE28();
-      *(a2 + 32) = sub_10000AC94(&qword_10001A1B0, &type metadata accessor for ShowEntity);
+      *(a2 + 32) = sub_10000AC94(&qword_10001A1B0, &type metadata accessor for ShowEntity, &protocol conformance descriptor for ShowEntity);
       sub_10000AB88(a2);
       v6 = a1;
       sub_10000AE18();
@@ -1101,7 +1099,7 @@ double sub_10000A890@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
       if (swift_dynamicCastObjCClass())
       {
         *(a2 + 24) = sub_10000AE48();
-        *(a2 + 32) = sub_10000AC94(&qword_10001A1A8, &type metadata accessor for ChannelEntity);
+        *(a2 + 32) = sub_10000AC94(&qword_10001A1A8, &type metadata accessor for ChannelEntity, &protocol conformance descriptor for ChannelEntity);
         sub_10000AB88(a2);
         v7 = a1;
         sub_10000AE38();
@@ -1113,7 +1111,7 @@ double sub_10000A890@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
         if (swift_dynamicCastObjCClass())
         {
           *(a2 + 24) = sub_10000AE88();
-          *(a2 + 32) = sub_10000AC94(&qword_10001A1A0, &type metadata accessor for StationEntity);
+          *(a2 + 32) = sub_10000AC94(&qword_10001A1A0, &type metadata accessor for StationEntity, &protocol conformance descriptor for StationEntity);
           sub_10000AB88(a2);
           v8 = a1;
           sub_10000AE78();
@@ -1145,7 +1143,6 @@ uint64_t sub_10000AB40(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1198,7 +1195,7 @@ uint64_t sub_10000AC48(void *a1)
   }
 }
 
-uint64_t sub_10000AC94(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10000AC94(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

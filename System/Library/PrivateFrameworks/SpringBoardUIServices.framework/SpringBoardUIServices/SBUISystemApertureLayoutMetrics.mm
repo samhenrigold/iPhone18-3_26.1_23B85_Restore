@@ -274,9 +274,11 @@ LABEL_8:
 
 uint64_t __67__SBUISystemApertureLayoutMetrics_sharedInstanceForEmbeddedDisplay__block_invoke(uint64_t a1)
 {
-  sharedInstanceForEmbeddedDisplay_sharedInstanceForEmbeddedDisplay = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = sharedInstanceForEmbeddedDisplay_sharedInstanceForEmbeddedDisplay;
+  sharedInstanceForEmbeddedDisplay_sharedInstanceForEmbeddedDisplay = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (CGSize)minimumMinimalSize

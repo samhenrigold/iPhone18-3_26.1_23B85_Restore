@@ -26,7 +26,7 @@
 
 - (void)userEngagedWithWidgetAtDate:(id)date actionURL:(id)l trackableWidgetState:(id)state
 {
-  v8 = sub_100017A54(&unk_1000E5DD0);
+  v8 = sub_100017A54(&unk_1000E5DD0, &unk_1000AB260);
   __chkstk_darwin(v8 - 8);
   v10 = &v18 - v9;
   v11 = sub_1000A1810();
@@ -52,7 +52,7 @@
   sub_100079BB4(selfCopy, v10, state);
   swift_unknownObjectRelease();
 
-  sub_10001FE6C(v10, &unk_1000E5DD0);
+  sub_10001FE6C(v10, &unk_1000E5DD0, &unk_1000AB260);
   (*(v12 + 8))(v14, v11);
 }
 
@@ -78,7 +78,7 @@
 
 - (void)submitEventsIfNeededWithCompletion:(id)completion
 {
-  v5 = sub_100017A54(&unk_1000E85D0);
+  v5 = sub_100017A54(&unk_1000E85D0, &qword_1000AEA98);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(completion);

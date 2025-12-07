@@ -2,6 +2,7 @@
 - (FTMutableRecognitionProgress)init;
 - (id)copyWithZone:(_NSZone *)zone;
 - (int)processed_audio_duration_ms;
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms;
 - (void)setSpeech_id:(id)speech_id;
 @end
 
@@ -38,6 +39,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setProcessed_audio_duration_ms:(int)processed_audio_duration_ms
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&processed_audio_duration_ms];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setSpeech_id:(id)speech_id

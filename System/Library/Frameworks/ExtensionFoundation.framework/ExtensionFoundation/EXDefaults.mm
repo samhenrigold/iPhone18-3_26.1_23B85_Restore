@@ -23,7 +23,7 @@ void __39___EXDefaults_preferInProcessDiscovery__block_invoke()
 
 void __33___EXDefaults_extensionItemTypes__block_invoke(uint64_t a1)
 {
-  v21[5] = *MEMORY[0x1E69E9840];
+  v20[5] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFA8];
   v3 = [*(a1 + 32) plistTypes];
   v4 = [v2 setWithSet:v3];
@@ -31,34 +31,34 @@ void __33___EXDefaults_extensionItemTypes__block_invoke(uint64_t a1)
   v5 = [*(a1 + 32) errorTypes];
   [v4 unionSet:v5];
 
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v21[2] = objc_opt_class();
-  v21[3] = objc_opt_class();
-  v21[4] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:5];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v20[2] = objc_opt_class();
+  v20[3] = objc_opt_class();
+  v20[4] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:5];
   [v4 addObjectsFromArray:v6];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v7 = [&unk_1EF29DE18 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v7 = [&unk_1EF29DE18 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(&unk_1EF29DE18);
         }
 
-        v11 = NSClassFromString(*(*(&v16 + 1) + 8 * v10));
+        v11 = NSClassFromString(*(*(&v15 + 1) + 8 * v10));
         if (v11)
         {
           [v4 addObject:v11];
@@ -68,7 +68,7 @@ void __33___EXDefaults_extensionItemTypes__block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [&unk_1EF29DE18 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [&unk_1EF29DE18 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -86,50 +86,44 @@ void __33___EXDefaults_extensionItemTypes__block_invoke(uint64_t a1)
   v13 = [v4 copy];
   v14 = extensionItemTypes_types;
   extensionItemTypes_types = v13;
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
-void __25___EXDefaults_errorTypes__block_invoke()
+void __25___EXDefaults_errorTypes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[8] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:8];
-  v2 = [v0 setWithArray:v1];
-  v3 = errorTypes_errorTypes;
-  errorTypes_errorTypes = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[8] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:8];
+  v4 = [v2 setWithArray:v3];
+  v5 = errorTypes_errorTypes;
+  errorTypes_errorTypes = v4;
 }
 
-void __25___EXDefaults_plistTypes__block_invoke()
+void __25___EXDefaults_plistTypes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[10] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:10];
-  v2 = [v0 setWithArray:v1];
-  v3 = plistTypes_plistTypes;
-  plistTypes_plistTypes = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[10] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:10];
+  v4 = [v2 setWithArray:v3];
+  v5 = plistTypes_plistTypes;
+  plistTypes_plistTypes = v4;
 }
 
 uint64_t __43___EXDefaults_useItemProviderXPCConnection__block_invoke()
@@ -149,7 +143,7 @@ void __33___EXDefaults_plistAndValueTypes__block_invoke(uint64_t a1)
 
 void __32___EXDefaults_itemProviderTypes__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFA8];
   v3 = [*(a1 + 32) plistTypes];
   v4 = [v2 setWithSet:v3];
@@ -160,26 +154,26 @@ void __32___EXDefaults_itemProviderTypes__block_invoke(uint64_t a1)
   [v4 addObject:objc_opt_class()];
   [v4 addObject:objc_opt_class()];
   [v4 addObject:objc_opt_class()];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v6 = [&unk_1EF29DE30 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v6 = [&unk_1EF29DE30 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(&unk_1EF29DE30);
         }
 
-        v10 = NSClassFromString(*(*(&v14 + 1) + 8 * v9));
+        v10 = NSClassFromString(*(*(&v13 + 1) + 8 * v9));
         if (v10)
         {
           [v4 addObject:v10];
@@ -189,7 +183,7 @@ void __32___EXDefaults_itemProviderTypes__block_invoke(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [&unk_1EF29DE30 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [&unk_1EF29DE30 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -198,34 +192,32 @@ void __32___EXDefaults_itemProviderTypes__block_invoke(uint64_t a1)
   v11 = [v4 copy];
   v12 = itemProviderTypes_types;
   itemProviderTypes_types = v11;
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __25___EXDefaults_imageTypes__block_invoke()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DFA8] set];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v1 = [&unk_1EF29DE48 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v1 = [&unk_1EF29DE48 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v1)
   {
     v2 = v1;
-    v3 = *v10;
+    v3 = *v9;
     do
     {
       v4 = 0;
       do
       {
-        if (*v10 != v3)
+        if (*v9 != v3)
         {
           objc_enumerationMutation(&unk_1EF29DE48);
         }
 
-        v5 = NSClassFromString(*(*(&v9 + 1) + 8 * v4));
+        v5 = NSClassFromString(*(*(&v8 + 1) + 8 * v4));
         if (v5)
         {
           [v0 addObject:v5];
@@ -235,7 +227,7 @@ void __25___EXDefaults_imageTypes__block_invoke()
       }
 
       while (v2 != v4);
-      v2 = [&unk_1EF29DE48 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v2 = [&unk_1EF29DE48 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v2);
@@ -244,8 +236,6 @@ void __25___EXDefaults_imageTypes__block_invoke()
   v6 = [v0 copy];
   v7 = imageTypes_types;
   imageTypes_types = v6;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __28___EXDefaults_appleInternal__block_invoke()
@@ -264,16 +254,16 @@ uint64_t __54___EXDefaults_alwaysEnabledExtensionBundleIdentifiers__block_invoke
 
 void __41___EXDefaults_enforceXPCCacheCodeSigning__block_invoke()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   bootarg_state = amfi_interface_query_bootarg_state();
   if (bootarg_state)
   {
     v1 = bootarg_state;
-    v2 = _EXDefaultLog();
+    v2 = _EXDefaultLog(bootarg_state);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v5 = strerror(v1);
+      v4 = strerror(v1);
       _os_log_impl(&dword_1847D1000, v2, OS_LOG_TYPE_DEFAULT, "amfi_interface_query_bootarg_state returned error %{public}s", buf, 0xCu);
     }
   }
@@ -282,8 +272,6 @@ void __41___EXDefaults_enforceXPCCacheCodeSigning__block_invoke()
   {
     enforceXPCCacheCodeSigning_codeSigningEnforcementIsDisabled = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __48___EXDefaults_allowedUnsandboxedExtensionPoints__block_invoke()

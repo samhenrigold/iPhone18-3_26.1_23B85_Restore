@@ -533,7 +533,7 @@ void __52__PUTileViewController__updateDynamicStateDebugging__block_invoke(uint6
   v134 = 0u;
   if (infoCopy)
   {
-    [v19 transform];
+    objc_msgSend_transform(v19);
     v42 = 0uLL;
   }
 
@@ -810,7 +810,7 @@ void __40__PUTileViewController_applyLayoutInfo___block_invoke(uint64_t a1, void
   memset(&v36, 0, sizeof(v36));
   if (v8)
   {
-    [v8 transform];
+    objc_msgSend_transform(v8);
     v20 = 0uLL;
   }
 

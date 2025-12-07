@@ -13,40 +13,52 @@
 
 - (DIBaseXPCHandler)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = DIBaseXPCHandler;
-  v2 = [(DIBaseXPCHandler *)&v12 init];
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = DIBaseXPCHandler;
+  v2 = [(DIBaseXPCHandler *)&v16 init];
   if (v2 && (v3 = dispatch_semaphore_create(0), [(DIBaseXPCHandler *)v2 setSemaphore:v3], v3, [(DIBaseXPCHandler *)v2 semaphore], v4 = objc_claimAutoreleasedReturnValue(), v4, !v4))
   {
     v6 = *__error();
-    if (DIForwardLogs())
+    v7 = DIForwardLogs();
+    if (v7)
     {
-      v7 = getDIOSLog();
-      os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-      *buf = 68157954;
-      v14 = 24;
-      v15 = 2080;
-      v16 = "[DIBaseXPCHandler init]";
-      v8 = _os_log_send_and_compose_impl();
-
-      if (v8)
+      v15 = 0;
+      v9 = getDIOSLog(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v8);
-        free(v8);
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      *buf = 68157954;
+      v18 = 24;
+      v19 = 2080;
+      v20 = "[DIBaseXPCHandler init]";
+      LODWORD(v14) = 18;
+      v11 = _os_log_send_and_compose_impl(v10, &v15, 0, 0, &dword_248DE0000, v9, 16, "%.*s: Failed creating semaphore", buf, v14);
+
+      if (v11)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
+        free(v11);
       }
     }
 
     else
     {
-      v9 = getDIOSLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v12 = getDIOSLog(v7, v8);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
-        v14 = 24;
-        v15 = 2080;
-        v16 = "[DIBaseXPCHandler init]";
-        _os_log_impl(&dword_248DE0000, v9, OS_LOG_TYPE_ERROR, "%.*s: Failed creating semaphore", buf, 0x12u);
+        v18 = 24;
+        v19 = 2080;
+        v20 = "[DIBaseXPCHandler init]";
+        _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_ERROR, "%.*s: Failed creating semaphore", buf, 0x12u);
       }
     }
 
@@ -59,7 +71,6 @@
     v5 = v2;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -125,7 +136,7 @@ void __37__DIBaseXPCHandler_connectWithError___block_invoke(uint64_t a1, void *a
 
 - (BOOL)completeCommandWithError:(id *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   semaphore = [(DIBaseXPCHandler *)self semaphore];
   dispatch_semaphore_wait(semaphore, 0xFFFFFFFFFFFFFFFFLL);
 
@@ -135,59 +146,69 @@ void __37__DIBaseXPCHandler_connectWithError___block_invoke(uint64_t a1, void *a
 
   if (!connection)
   {
-    v11 = [DIError failWithEnumValue:151 verboseInfo:@"XPC connection failed" error:error];
-LABEL_12:
-    v12 = v11;
-    goto LABEL_13;
+    v14 = [DIError failWithEnumValue:151 verboseInfo:@"XPC connection failed" error:error];
+LABEL_15:
+    v15 = v14;
+    goto LABEL_16;
   }
 
   if (xpcError)
   {
     v8 = *__error();
-    if (DIForwardLogs())
+    v9 = DIForwardLogs();
+    if (v9)
     {
-      v9 = getDIOSLog();
-      os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      v17 = 45;
-      v18 = 2080;
-      v19 = "[DIBaseXPCHandler completeCommandWithError:]";
-      v20 = 2114;
-      v21 = xpcError;
-      v10 = _os_log_send_and_compose_impl();
-
-      if (v10)
+      v18 = 0;
+      v11 = getDIOSLog(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
-        free(v10);
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      *buf = 68158210;
+      v20 = 45;
+      v21 = 2080;
+      v22 = "[DIBaseXPCHandler completeCommandWithError:]";
+      v23 = 2114;
+      v24 = xpcError;
+      v13 = _os_log_send_and_compose_impl(v12, &v18, 0, 0, &dword_248DE0000, v11, 0, "%.*s: Got error from last XPC command: %{public}@", buf, 28);
+
+      if (v13)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+        free(v13);
       }
     }
 
     else
     {
-      v13 = getDIOSLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v16 = getDIOSLog(v9, v10);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158210;
-        v17 = 45;
-        v18 = 2080;
-        v19 = "[DIBaseXPCHandler completeCommandWithError:]";
-        v20 = 2114;
-        v21 = xpcError;
-        _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Got error from last XPC command: %{public}@", buf, 0x1Cu);
+        v20 = 45;
+        v21 = 2080;
+        v22 = "[DIBaseXPCHandler completeCommandWithError:]";
+        v23 = 2114;
+        v24 = xpcError;
+        _os_log_impl(&dword_248DE0000, v16, OS_LOG_TYPE_DEFAULT, "%.*s: Got error from last XPC command: %{public}@", buf, 0x1Cu);
       }
     }
 
     *__error() = v8;
-    v11 = [DIError failWithInError:xpcError outError:error];
-    goto LABEL_12;
+    v14 = [DIError failWithInError:xpcError outError:error];
+    goto LABEL_15;
   }
 
-  v12 = 1;
-LABEL_13:
+  v15 = 1;
+LABEL_16:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v15;
 }
 
 - (void)closeConnection
@@ -227,54 +248,64 @@ void __39__DIBaseXPCHandler_dupStderrWithError___block_invoke(uint64_t a1, void 
 
 - (void)createConnection
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = *__error();
-  if (DIForwardLogs())
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v4 = getDIOSLog();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    [(DIBaseXPCHandler *)self serviceName];
-    *buf = 68158210;
-    v15 = 36;
-    v16 = 2080;
-    v17 = "[DIBaseXPCHandler createConnection]";
-    v19 = v18 = 2114;
-    v5 = _os_log_send_and_compose_impl();
-
-    if (v5)
+    v17 = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v5);
-      free(v5);
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    serviceName = [(DIBaseXPCHandler *)self serviceName];
+    *buf = 68158210;
+    v19 = 36;
+    v20 = 2080;
+    v21 = "[DIBaseXPCHandler createConnection]";
+    v22 = 2114;
+    v23 = serviceName;
+    v9 = _os_log_send_and_compose_impl(v7, &v17, 0, 0, &dword_248DE0000, v6, 0, "%.*s: Creating connection with %{public}@", buf, 28);
+
+    if (v9)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
+      free(v9);
     }
   }
 
   else
   {
-    v6 = getDIOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v10 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      serviceName = [(DIBaseXPCHandler *)self serviceName];
+      serviceName2 = [(DIBaseXPCHandler *)self serviceName];
       *buf = 68158210;
-      v15 = 36;
-      v16 = 2080;
-      v17 = "[DIBaseXPCHandler createConnection]";
-      v18 = 2114;
-      v19 = serviceName;
-      _os_log_impl(&dword_248DE0000, v6, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection with %{public}@", buf, 0x1Cu);
+      v19 = 36;
+      v20 = 2080;
+      v21 = "[DIBaseXPCHandler createConnection]";
+      v22 = 2114;
+      v23 = serviceName2;
+      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Creating connection with %{public}@", buf, 0x1Cu);
     }
   }
 
   *__error() = v3;
-  v8 = objc_alloc(MEMORY[0x277CCAE80]);
-  serviceName2 = [(DIBaseXPCHandler *)self serviceName];
-  v10 = [v8 initWithServiceName:serviceName2];
-  [(DIBaseXPCHandler *)self setConnection:v10];
+  v12 = objc_alloc(MEMORY[0x277CCAE80]);
+  serviceName3 = [(DIBaseXPCHandler *)self serviceName];
+  v14 = [v12 initWithServiceName:serviceName3];
+  [(DIBaseXPCHandler *)self setConnection:v14];
 
   remoteObjectInterface = [(DIBaseXPCHandler *)self remoteObjectInterface];
   connection = [(DIBaseXPCHandler *)self connection];
   [connection setRemoteObjectInterface:remoteObjectInterface];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

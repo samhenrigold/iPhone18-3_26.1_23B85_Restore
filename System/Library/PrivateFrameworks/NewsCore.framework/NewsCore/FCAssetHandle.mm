@@ -6,6 +6,7 @@
 - (NSString)uniqueKey;
 - (NSURL)fileURL;
 - (id)_downloadIfNeededWithPriority:(uint64_t)priority flags:(void *)flags completionQueue:(void *)queue completion:;
+- (id)_revisitDownloadRequestPriorities;
 - (id)downloadIfNeededWithCompletion:(id)completion;
 - (id)downloadIfNeededWithCompletionQueue:(id)queue completion:(id)completion;
 - (id)downloadIfNeededWithGroup:(id)group;
@@ -13,7 +14,6 @@
 - (id)fetchDataProviderWithCompletion:(id)completion;
 - (id)fetchDataProviderWithPriority:(int64_t)priority flags:(int64_t)flags completion:(id)completion;
 - (uint64_t)_canRetryDownload;
-- (uint64_t)_revisitDownloadRequestPriorities;
 - (void)dealloc;
 - (void)initWithDataProvider:(void *)provider;
 - (void)setFetchGroup:(uint64_t)group;
@@ -223,7 +223,7 @@ LABEL_9:
 - (uint64_t)_canRetryDownload
 {
   selfCopy = self;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (self)
   {
     downloadError = [self downloadError];
@@ -245,23 +245,23 @@ LABEL_9:
       {
         if (!*(selfCopy + 56) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't reach this point without at least one penalized download attempt"];
-          v12 = 136315906;
-          v13 = "[FCAssetHandle _canRetryDownload]";
-          v14 = 2080;
-          v15 = "FCAssetHandle.m";
-          v16 = 1024;
-          v17 = 381;
-          v18 = 2114;
-          v19 = v11;
-          _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+          v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't reach this point without at least one penalized download attempt"];
+          v11 = 136315906;
+          v12 = "[FCAssetHandle _canRetryDownload]";
+          v13 = 2080;
+          v14 = "FCAssetHandle.m";
+          v15 = 1024;
+          v16 = 381;
+          v17 = 2114;
+          v18 = v10;
+          _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
         }
 
         date = [MEMORY[0x1E695DF00] date];
-        [date timeIntervalSinceDate:{objc_getProperty(selfCopy, v8, 64, 1)}];
-        v10 = v9;
+        [date timeIntervalSinceDate:{objc_getProperty(selfCopy, v7, 64, 1)}];
+        v9 = v8;
 
-        selfCopy = v10 >= fmin(exp2((*(selfCopy + 56) - 1)) * 5.0, 60.0);
+        selfCopy = v9 >= fmin(exp2((*(selfCopy + 56) - 1)) * 5.0, 60.0);
       }
     }
 
@@ -271,13 +271,12 @@ LABEL_9:
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 void __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) dataProvider];
   if (v2)
   {
@@ -285,139 +284,59 @@ void __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_com
     goto LABEL_34;
   }
 
-  if ([(FCAssetHandle *)*(a1 + 32) _canRetryDownload])
+  if (![(FCAssetHandle *)*(a1 + 32) _canRetryDownload])
   {
-    v3 = *(a1 + 32);
-    if (!v3 || !v3[5])
+LABEL_34:
+    v27 = *(a1 + 48);
+    if (v27)
     {
-      v4 = [MEMORY[0x1E696AC70] hashTableWithOptions:512];
-      v5 = *(a1 + 32);
-      if (v5)
-      {
-        objc_storeStrong((v5 + 40), v4);
-      }
+      v28 = *(a1 + 40);
 
-      v3 = *(a1 + 32);
-      if (!v3)
-      {
-        goto LABEL_40;
-      }
+      dispatch_async(v28, v27);
     }
 
-    if (v3[6])
+    return;
+  }
+
+  v3 = *(a1 + 32);
+  if (!v3 || !v3[5])
+  {
+    v4 = [MEMORY[0x1E696AC70] hashTableWithOptions:512];
+    v5 = *(a1 + 32);
+    if (v5)
     {
-LABEL_23:
-      v15 = objc_alloc_init(FCAssetHandleDownloadRequest);
-      v16 = *(*(a1 + 64) + 8);
-      v17 = *(v16 + 40);
-      *(v16 + 40) = v15;
-
-      [*(*(*(a1 + 64) + 8) + 40) setRelativePriority:*(a1 + 80)];
-      objc_initWeak(location, *(a1 + 32));
-      objc_initWeak(from, *(*(*(a1 + 64) + 8) + 40));
-      newValue[0] = MEMORY[0x1E69E9820];
-      newValue[1] = 3221225472;
-      newValue[2] = __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_2;
-      newValue[3] = &unk_1E7C3A2B8;
-      objc_copyWeak(&v36, location);
-      objc_copyWeak(&v37, from);
-      v19 = *(*(*(a1 + 64) + 8) + 40);
-      if (v19)
-      {
-        objc_setProperty_nonatomic_copy(v19, v18, newValue, 16);
-      }
-
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_6;
-      v33[3] = &unk_1E7C3A300;
-      objc_copyWeak(&v34, location);
-      v21 = *(*(*(a1 + 64) + 8) + 40);
-      if (v21)
-      {
-        objc_setProperty_nonatomic_copy(v21, v20, v33, 24);
-      }
-
-      v22 = *(a1 + 32);
-      if (v22)
-      {
-        v22 = v22[5];
-      }
-
-      v23 = v22;
-      [v23 addObject:*(*(*(a1 + 64) + 8) + 40)];
-
-      [(FCAssetHandle *)*(a1 + 32) _revisitDownloadRequestPriorities];
-      v24 = *(a1 + 48);
-      if (v24)
-      {
-        v25 = *(a1 + 32);
-        if (v25)
-        {
-          v26 = *(v25 + 48);
-        }
-
-        else
-        {
-          v26 = 0;
-        }
-
-        dispatch_group_notify(v26, *(a1 + 40), v24);
-      }
-
-      objc_destroyWeak(&v34);
-      objc_destroyWeak(&v37);
-      objc_destroyWeak(&v36);
-      objc_destroyWeak(from);
-      objc_destroyWeak(location);
-      goto LABEL_38;
+      objc_storeStrong((v5 + 40), v4);
     }
-
-    if (!v3[4])
-    {
-      goto LABEL_12;
-    }
-
-    if (!os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_12;
-    }
-
-    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset handle should never have a non-nil fetch operation without a fetch group"];
-    *location = 136315906;
-    *&location[4] = "[FCAssetHandle _downloadIfNeededWithPriority:flags:completionQueue:completion:]_block_invoke";
-    v40 = 2080;
-    v41 = "FCAssetHandle.m";
-    v42 = 1024;
-    v43 = 150;
-    v44 = 2114;
-    v45 = v32;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
 
     v3 = *(a1 + 32);
-    if (v3)
+    if (!v3)
     {
-LABEL_12:
+      goto LABEL_40;
+    }
+  }
+
+  if (!v3[6])
+  {
+    if (!v3[4] || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR) || (v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset handle should never have a non-nil fetch operation without a fetch group"], *location = 136315906, *&location[4] = "-[FCAssetHandle _downloadIfNeededWithPriority:flags:completionQueue:completion:]_block_invoke", v38 = 2080, v39 = "FCAssetHandle.m", v40 = 1024, v41 = 150, v42 = 2114, v43 = v30, _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u), v30, (v3 = *(a1 + 32)) != 0))
+    {
       v6 = v3[5];
+      goto LABEL_13;
     }
 
-    else
-    {
 LABEL_40:
-      v6 = 0;
-    }
-
+    v6 = 0;
+LABEL_13:
     if ([v6 count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset handle should never have non-zero fetch interest without a fetch operation"];
+      v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"asset handle should never have non-zero fetch interest without a fetch operation"];
       *location = 136315906;
       *&location[4] = "[FCAssetHandle _downloadIfNeededWithPriority:flags:completionQueue:completion:]_block_invoke";
-      v40 = 2080;
-      v41 = "FCAssetHandle.m";
-      v42 = 1024;
-      v43 = 151;
-      v44 = 2114;
-      v45 = v31;
+      v38 = 2080;
+      v39 = "FCAssetHandle.m";
+      v40 = 1024;
+      v41 = 151;
+      v42 = 2114;
+      v43 = v29;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
     }
 
@@ -469,22 +388,71 @@ LABEL_40:
 
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v14);
     [*(*(*(a1 + 56) + 8) + 40) setFlags:*(a1 + 72)];
-    goto LABEL_23;
   }
 
-LABEL_34:
-  v27 = *(a1 + 48);
-  if (!v27)
+  v15 = objc_alloc_init(FCAssetHandleDownloadRequest);
+  v16 = *(*(a1 + 64) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = v15;
+
+  [*(*(*(a1 + 64) + 8) + 40) setRelativePriority:*(a1 + 80)];
+  objc_initWeak(location, *(a1 + 32));
+  objc_initWeak(from, *(*(*(a1 + 64) + 8) + 40));
+  newValue[0] = MEMORY[0x1E69E9820];
+  newValue[1] = 3221225472;
+  newValue[2] = __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_2;
+  newValue[3] = &unk_1E7C3A2B8;
+  objc_copyWeak(&v34, location);
+  objc_copyWeak(&v35, from);
+  v19 = *(*(*(a1 + 64) + 8) + 40);
+  if (v19)
   {
-LABEL_38:
-    v30 = *MEMORY[0x1E69E9840];
-    return;
+    objc_setProperty_nonatomic_copy(v19, v18, newValue, 16);
   }
 
-  v28 = *(a1 + 40);
-  v29 = *MEMORY[0x1E69E9840];
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_6;
+  v31[3] = &unk_1E7C3A300;
+  objc_copyWeak(&v32, location);
+  v21 = *(*(*(a1 + 64) + 8) + 40);
+  if (v21)
+  {
+    objc_setProperty_nonatomic_copy(v21, v20, v31, 24);
+  }
 
-  dispatch_async(v28, v27);
+  v22 = *(a1 + 32);
+  if (v22)
+  {
+    v22 = v22[5];
+  }
+
+  v23 = v22;
+  [v23 addObject:*(*(*(a1 + 64) + 8) + 40)];
+
+  [(FCAssetHandle *)*(a1 + 32) _revisitDownloadRequestPriorities];
+  v24 = *(a1 + 48);
+  if (v24)
+  {
+    v25 = *(a1 + 32);
+    if (v25)
+    {
+      v26 = *(v25 + 48);
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    dispatch_group_notify(v26, *(a1 + 40), v24);
+  }
+
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v34);
+  objc_destroyWeak(from);
+  objc_destroyWeak(location);
 }
 
 - (void)setFetchGroup:(uint64_t)group
@@ -578,7 +546,7 @@ void __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_com
   [v5 performWithLockSync:v7];
 }
 
-uint64_t __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_5(uint64_t a1)
+id *__80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue_completion___block_invoke_5(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
@@ -598,40 +566,40 @@ uint64_t __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue
   return [(FCAssetHandle *)v5 _revisitDownloadRequestPriorities];
 }
 
-- (uint64_t)_revisitDownloadRequestPriorities
+- (id)_revisitDownloadRequestPriorities
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v2 = *(result + 40);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v2 = result[5];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v11;
       v6 = -1;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          relativePriority = [*(*(&v11 + 1) + 8 * i) relativePriority];
+          relativePriority = [*(*(&v10 + 1) + 8 * i) relativePriority];
           if (v6 <= relativePriority)
           {
             v6 = relativePriority;
           }
         }
 
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
@@ -642,7 +610,7 @@ uint64_t __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue
       v6 = -1;
     }
 
-    [*(v1 + 32) setRelativePriority:v6];
+    [v1[4] setRelativePriority:v6];
     if (v6 <= 0)
     {
       v9 = -1;
@@ -653,10 +621,9 @@ uint64_t __80__FCAssetHandle__downloadIfNeededWithPriority_flags_completionQueue
       v9 = 25;
     }
 
-    result = [*(v1 + 32) setQualityOfService:{v9, v11}];
+    return [v1[4] setQualityOfService:{v9, v10}];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -835,11 +802,11 @@ void __64__FCAssetHandle_fetchDataProviderWithPriority_flags_completion___block_
 
 - (FCContentManifest)contentManifest
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = [FCContentManifest alloc];
   remoteURL = [(FCAssetHandle *)self remoteURL];
-  v17[0] = remoteURL;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = remoteURL;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   if (self)
   {
     Property = objc_getProperty(self, v5, 120, 1);
@@ -864,8 +831,8 @@ void __64__FCAssetHandle_fetchDataProviderWithPriority_flags_completion___block_
     }
 
     wrappingKeyID2 = [v10 wrappingKeyID];
-    v16 = wrappingKeyID2;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = wrappingKeyID2;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     v13 = [(FCContentManifest *)v3 initWithAssetURLs:v6 assetWrappingKeyIDs:v12];
   }
 
@@ -873,8 +840,6 @@ void __64__FCAssetHandle_fetchDataProviderWithPriority_flags_completion___block_
   {
     v13 = [(FCContentManifest *)v3 initWithAssetURLs:v6 assetWrappingKeyIDs:MEMORY[0x1E695E0F0]];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

@@ -6,11 +6,11 @@
 
 - (void)dealloc
 {
-  sub_10003ECB8(self);
-  sub_10001BB44(self);
-  v3.receiver = self;
-  v3.super_class = OS_launch_event_realm;
-  [(OS_launch_event_realm *)&v3 dealloc];
+  sub_10003ECB8(self, a2);
+  sub_10001BB44(self, v3);
+  v4.receiver = self;
+  v4.super_class = OS_launch_event_realm;
+  [(OS_launch_event_realm *)&v4 dealloc];
 }
 
 @end

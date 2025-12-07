@@ -1052,49 +1052,49 @@ LABEL_19:
 
 - (id)decodeObjectForKey:(id)key
 {
-  v17 = 0;
-  if (![(UINibStringIDTable *)self->keyIDTable lookupKey:key identifier:&v17])
+  v18 = 0;
+  if (![(UINibStringIDTable *)self->keyIDTable lookupKey:key identifier:&v18])
   {
     return 0;
   }
 
   objectID_low = LODWORD(self->recursiveState.objectID);
-  if (((self->keyMasks[objectID_low] >> v17) & 1) == 0)
+  if (((self->keyMasks[objectID_low] >> v18) & 1) == 0)
   {
     return 0;
   }
 
-  v5 = &self->objects[objectID_low];
-  var0 = v5->var0;
-  var1 = v5->var1;
+  v6 = &self->objects[objectID_low];
+  var0 = v6->var0;
+  var1 = v6->var1;
   nextValueSearchIndex = self->recursiveState.nextValueSearchIndex;
   if (nextValueSearchIndex < var1)
   {
-    v9 = -nextValueSearchIndex;
-    v10 = nextValueSearchIndex + var0;
+    v10 = -nextValueSearchIndex;
+    v11 = nextValueSearchIndex + var0;
     while (1)
     {
-      v11 = v10;
-      if (self->values[v10].var0 == v17)
+      v12 = v11;
+      if (self->values[v11].var0 == v18)
       {
         break;
       }
 
-      --v9;
-      ++v10;
-      if (-var1 == v9)
+      --v10;
+      ++v11;
+      if (-var1 == v10)
       {
         goto LABEL_7;
       }
     }
 
-    v15 = -v9;
+    v16 = -v10;
 LABEL_17:
-    self->recursiveState.nextValueSearchIndex = v15;
+    self->recursiveState.nextValueSearchIndex = v16;
     values = self->values;
     if (values)
     {
-      UINibDecoderDecodeObjectForValue(self, &values[v11], self->valueTypes[v11]);
+      UINibDecoderDecodeObjectForValue(self, &values[v12], self->valueTypes[v12], v4);
       return result;
     }
 
@@ -1104,24 +1104,24 @@ LABEL_17:
 LABEL_7:
   if (nextValueSearchIndex)
   {
-    v12 = 0;
+    v13 = 0;
     while (1)
     {
-      v11 = var0;
-      if (self->values[var0].var0 == v17)
+      v12 = var0;
+      if (self->values[var0].var0 == v18)
       {
         break;
       }
 
-      --v12;
+      --v13;
       ++var0;
-      if (-nextValueSearchIndex == v12)
+      if (-nextValueSearchIndex == v13)
       {
         goto LABEL_11;
       }
     }
 
-    v15 = -v12;
+    v16 = -v13;
     goto LABEL_17;
   }
 
@@ -1129,15 +1129,15 @@ LABEL_11:
   result = 0;
   if (nextValueSearchIndex + 1 < var1)
   {
-    v14 = nextValueSearchIndex + 1;
+    v15 = nextValueSearchIndex + 1;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  self->recursiveState.nextValueSearchIndex = v14;
+  self->recursiveState.nextValueSearchIndex = v15;
   return result;
 }
 

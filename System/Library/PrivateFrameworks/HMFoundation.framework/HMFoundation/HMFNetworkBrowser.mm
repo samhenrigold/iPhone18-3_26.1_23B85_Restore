@@ -27,20 +27,22 @@ void __33___HMFNetworkBrowser_workContext__block_invoke(uint64_t a1)
 
 uint64_t __33___HMFNetworkBrowser_logCategory__block_invoke()
 {
-  qword_280AFC3C0 = HMFCreateOSLogHandle(@"HMFNetworkBrowser", @"com.apple.HMFoundation");
+  v0 = HMFCreateOSLogHandle(@"HMFNetworkBrowser", @"com.apple.HMFoundation");
+  v1 = qword_280AFC3C0;
+  qword_280AFC3C0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMFNetworkBrowser)initWithQueue:(id)queue domain:(id)domain serviceTypes:(id)types
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   domainCopy = domain;
   typesCopy = types;
-  v39.receiver = self;
-  v39.super_class = HMFNetworkBrowser;
-  v10 = [(HMFNetworkBrowser *)&v39 init];
+  v38.receiver = self;
+  v38.super_class = HMFNetworkBrowser;
+  v10 = [(HMFNetworkBrowser *)&v38 init];
   v11 = v10;
   if (v10)
   {
@@ -64,31 +66,31 @@ uint64_t __33___HMFNetworkBrowser_logCategory__block_invoke()
     }
 
     objc_storeStrong(&v11->_workQueue, v17);
-    v32 = queueCopy;
+    v31 = queueCopy;
     if (!queueCopy)
     {
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = [MEMORY[0x277CBEB98] setWithArray:{typesCopy, typesCopy}];
-    v19 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+    v19 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v36;
+      v21 = *v35;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v36 != v21)
+          if (*v35 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v35 + 1) + 8 * i);
+          v23 = *(*(&v34 + 1) + 8 * i);
           v24 = [_HMFNetworkBrowser alloc];
           workQueue = [(HMFNetworkBrowser *)v11 workQueue];
           v26 = v11;
@@ -96,24 +98,23 @@ uint64_t __33___HMFNetworkBrowser_logCategory__block_invoke()
           aBlock[1] = 3221225472;
           aBlock[2] = __networkServiceDidUpdate_block_invoke;
           aBlock[3] = &unk_2786E7888;
-          v41 = v26;
+          v40 = v26;
           v27 = _Block_copy(aBlock);
 
           v28 = [(_HMFNetworkBrowser *)v24 initWithQueue:workQueue domain:domainCopy serviceType:v23 updateBlock:v27];
           [(NSMutableArray *)v11->_internalBrowsers addObject:v28];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+        v20 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
       }
 
       while (v20);
     }
 
-    typesCopy = v31;
-    queueCopy = v32;
+    typesCopy = v30;
+    queueCopy = v31;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -229,44 +230,44 @@ void __32__HMFNetworkBrowser_workContext__block_invoke(uint64_t a1)
 
 - (id)_startBrowsing
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   internalBrowsers = [(HMFNetworkBrowser *)self internalBrowsers];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(internalBrowsers, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = [(HMFNetworkBrowser *)self internalBrowsers];
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         startBrowsing = [v10 startBrowsing];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __35__HMFNetworkBrowser__startBrowsing__block_invoke;
-        v18[3] = &unk_2786E77E8;
-        v18[4] = self;
-        v18[5] = v10;
-        v12 = [startBrowsing then:v18];
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __35__HMFNetworkBrowser__startBrowsing__block_invoke;
+        v17[3] = &unk_2786E77E8;
+        v17[4] = self;
+        v17[5] = v10;
+        v12 = [startBrowsing then:v17];
 
         [v5 addObject:v12];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -274,8 +275,6 @@ void __32__HMFNetworkBrowser_workContext__block_invoke(uint64_t a1)
 
   v13 = [HMFFuture allSettled:v5];
   ignoreResult = [v13 ignoreResult];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return ignoreResult;
 }
@@ -298,44 +297,44 @@ uint64_t __35__HMFNetworkBrowser__startBrowsing__block_invoke(uint64_t a1)
 
 - (id)_stopBrowsing
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   internalBrowsers = [(HMFNetworkBrowser *)self internalBrowsers];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(internalBrowsers, "count")}];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = [(HMFNetworkBrowser *)self internalBrowsers];
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         stopBrowsing = [v10 stopBrowsing];
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __34__HMFNetworkBrowser__stopBrowsing__block_invoke;
-        v18[3] = &unk_2786E77E8;
-        v18[4] = self;
-        v18[5] = v10;
-        v12 = [stopBrowsing then:v18];
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 3221225472;
+        v17[2] = __34__HMFNetworkBrowser__stopBrowsing__block_invoke;
+        v17[3] = &unk_2786E77E8;
+        v17[4] = self;
+        v17[5] = v10;
+        v12 = [stopBrowsing then:v17];
 
         [v5 addObject:v12];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -343,8 +342,6 @@ uint64_t __35__HMFNetworkBrowser__startBrowsing__block_invoke(uint64_t a1)
 
   v13 = [HMFFuture allSettled:v5];
   ignoreResult = [v13 ignoreResult];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return ignoreResult;
 }

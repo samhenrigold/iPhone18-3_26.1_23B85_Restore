@@ -98,7 +98,7 @@ void __112__CLKComplicationTemplateGraphicExtraLargeCircularOpenGaugeImage__enum
   _enumerateFullColorImageProviderKeysWithBlock___pointSize_1650 = v6;
   qword_27DE91DD0 = (v5)[2](v5, v3);
   [v3 setNewestAllowedSizeClass:&unk_284A34128];
-  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1649 = (v5)[2](v5, v3);
+  _enumerateFullColorImageProviderKeysWithBlock___imageDiameter_1649[0] = (v5)[2](v5, v3);
 }
 
 @end

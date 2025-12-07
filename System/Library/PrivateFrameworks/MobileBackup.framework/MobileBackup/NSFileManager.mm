@@ -47,7 +47,7 @@
       *buf = 138543362;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: Nothing at %{public}@ to remove", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"Df", "=mbfm= rm: Nothing at %{public}@ to remove", v7);
     }
 
     v8 = 1;
@@ -77,9 +77,9 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v8;
+      v23 = v8;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "=mbfm= rm: Created move-aside temp dir: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=mbfm= rm: Created move-aside temp dir: %@", v8);
     }
 
     if ([(NSFileManager *)self _moveItemAtPath:v7 toTempDir:v8])
@@ -89,39 +89,38 @@
       {
         path = [v8 path];
         *buf = 138543362;
-        v25 = path;
+        v23 = path;
         _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: Removing temporary cleanup dir %{public}@", buf, 0xCu);
 
         path2 = [v8 path];
-        _MBLog();
+        _MBLog(@"Df", "=mbfm= rm: Removing temporary cleanup dir %{public}@", path2);
       }
 
-      v12 = [v8 disposeWithError:error];
+      v13 = [v8 disposeWithError:error];
     }
 
     else
     {
       *error = [MBError posixErrorWithPath:v7 format:@"Unable to move to temporary cleanup dir"];
-      v13 = MBGetDefaultLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = MBGetDefaultLog();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         path3 = [v8 path];
-        v15 = *error;
+        v16 = *error;
         *buf = 138543874;
-        v25 = v7;
-        v26 = 2114;
-        v27 = path3;
-        v28 = 2112;
-        v29 = v15;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=mbfm= rm: Unable to move %{public}@ to temporary cleanup dir %{public}@: %@", buf, 0x20u);
+        v23 = v7;
+        v24 = 2114;
+        v25 = path3;
+        v26 = 2112;
+        v27 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=mbfm= rm: Unable to move %{public}@ to temporary cleanup dir %{public}@: %@", buf, 0x20u);
 
         path4 = [v8 path];
-        v23 = *error;
-        _MBLog();
+        _MBLog(@"E ", "=mbfm= rm: Unable to move %{public}@ to temporary cleanup dir %{public}@: %@", v7, path4, *error);
       }
 
       [v8 dispose];
-      v12 = 0;
+      v13 = 0;
     }
   }
 
@@ -132,40 +131,39 @@
       goto LABEL_11;
     }
 
-    v16 = MBGetDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = MBGetDefaultLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v17 = *error;
+      v19 = *error;
       *buf = 138543618;
-      v25 = v7;
-      v26 = 2114;
-      v27 = v17;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=mbfm= rm: Unable to create temporary cleanup dir, removing %{public}@ in place: %{public}@", buf, 0x16u);
-      v22 = *error;
-      _MBLog();
+      v23 = v7;
+      v24 = 2114;
+      v25 = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=mbfm= rm: Unable to create temporary cleanup dir, removing %{public}@ in place: %{public}@", buf, 0x16u);
+      _MBLog(@"E ", "=mbfm= rm: Unable to create temporary cleanup dir, removing %{public}@ in place: %{public}@", v7, *error);
     }
 
-    v12 = [(NSFileManager *)self removeItemAtPath:v7 error:error];
-    if ((v12 & 1) != 0 || [(NSFileManager *)self fileExistsAtPath:v7])
+    v13 = [(NSFileManager *)self removeItemAtPath:v7 error:error];
+    if ((v13 & 1) != 0 || [(NSFileManager *)self fileExistsAtPath:v7])
     {
-      v18 = MBGetDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v25 = v7;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: Removed %{public}@ in place", buf, 0xCu);
-        _MBLog();
+        v23 = v7;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: Removed %{public}@ in place", buf, 0xCu);
+        _MBLog(@"Df", "=mbfm= rm: Removed %{public}@ in place", v7);
       }
     }
 
     else
     {
 LABEL_11:
-      v12 = 1;
+      v13 = 1;
     }
   }
 
-  return v12;
+  return v13;
 }
 
 - (BOOL)_moveItemAtPath:(id)path toTempDir:(id)dir
@@ -180,7 +178,7 @@ LABEL_11:
   {
     if (*__error() != 2)
     {
-      v15 = 0;
+      v17 = 0;
       goto LABEL_10;
     }
 
@@ -189,14 +187,15 @@ LABEL_11:
     {
       path = [dirCopy path];
       *buf = 138543618;
-      v19 = pathCopy;
-      v20 = 2114;
-      v21 = path;
+      v20 = pathCopy;
+      v21 = 2114;
+      v22 = path;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: Nothing at %{public}@ to move to temporary cleanup dir %{public}@", buf, 0x16u);
 
+      v14 = "=mbfm= rm: Nothing at %{public}@ to move to temporary cleanup dir %{public}@";
 LABEL_7:
       path2 = [dirCopy path];
-      _MBLog();
+      _MBLog(@"Df", v14, pathCopy, path2);
     }
   }
 
@@ -207,19 +206,20 @@ LABEL_7:
     {
       path3 = [dirCopy path];
       *buf = 138543618;
-      v19 = pathCopy;
-      v20 = 2114;
-      v21 = path3;
+      v20 = pathCopy;
+      v21 = 2114;
+      v22 = path3;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=mbfm= rm: moved item at %{public}@ to temp cleanup dir %{public}@", buf, 0x16u);
 
+      v14 = "=mbfm= rm: moved item at %{public}@ to temp cleanup dir %{public}@";
       goto LABEL_7;
     }
   }
 
-  v15 = 1;
+  v17 = 1;
 LABEL_10:
 
-  return v15;
+  return v17;
 }
 
 - (id)mb_moveAsideItemAtPath:(id)path error:(id *)error
@@ -253,7 +253,7 @@ LABEL_10:
       v24 = 2114;
       v25 = v14;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "=mbfm= ma: Moved aside %{public}@ to %{public}@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=mbfm= ma: Moved aside %{public}@ to %{public}@", v7, v14);
     }
 
     v18 = v14;
@@ -270,7 +270,7 @@ LABEL_10:
       v26 = 2112;
       v27 = v15;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "=mbfm= ma: Unable to move aside %{public}@ to %{public}@: %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"E ", "=mbfm= ma: Unable to move aside %{public}@ to %{public}@: %@", v7, v14, v15);
     }
 
     if (error)
@@ -305,7 +305,7 @@ LABEL_10:
       v14 = 2112;
       v15 = v7;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "=mbfm= =purge= Failed to mark %{public}@ as purgeable: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=mbfm= =purge= Failed to mark %{public}@ as purgeable: %@", pathCopy, v7);
     }
 
     if (error)
@@ -323,7 +323,7 @@ LABEL_10:
       *buf = 138543362;
       v13 = pathCopy;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "=mbfm= =purge= Marked %{public}@ as purgeable", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"I ", "=mbfm= =purge= Marked %{public}@ as purgeable", pathCopy);
     }
   }
 
@@ -344,27 +344,27 @@ LABEL_10:
     v8 = MBSQLiteJournalSuffixes();
     v9 = [v8 setByAddingObject:&stru_1003C3430];
 
-    v35 = 0u;
-    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = v9;
-    v10 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v10 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v34;
-      v30 = v7;
+      v12 = *v32;
+      v28 = v7;
 LABEL_5:
       v13 = 0;
       while (1)
       {
-        if (*v34 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [v7 stringByAppendingString:{*(*(&v33 + 1) + 8 * v13), v28, v29}];
+        v14 = [v7 stringByAppendingString:*(*(&v31 + 1) + 8 * v13)];
         if ([(NSFileManager *)self fileExistsAtPath:v14])
         {
           v15 = [(NSFileManager *)self mb_moveAsideItemAtPath:v14 error:error];
@@ -374,11 +374,11 @@ LABEL_5:
             if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v38 = v14;
-              v39 = 2112;
-              v40 = 0;
+              v36 = v14;
+              v37 = 2112;
+              v38 = 0;
               _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "=mbfm= Failed to move aside DB file %@: %@", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"E ", "=mbfm= Failed to move aside DB file %@: %@", v14, 0);
             }
 
             v24 = 0;
@@ -399,10 +399,10 @@ LABEL_28:
           }
 
           errorCopy = error;
-          v32 = 0;
+          v30 = 0;
           selfCopy = self;
-          v18 = [(NSFileManager *)self mb_markAsPurgeableItemAtPath:v15 error:&v32];
-          v19 = v32;
+          v18 = [(NSFileManager *)self mb_markAsPurgeableItemAtPath:v15 error:&v30];
+          v19 = v30;
           v20 = MBGetDefaultLog();
           v21 = v20;
           if ((v18 & 1) == 0)
@@ -410,11 +410,11 @@ LABEL_28:
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v38 = v15;
-              v39 = 2112;
-              v40 = v19;
+              v36 = v15;
+              v37 = 2112;
+              v38 = v19;
               _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "=mbfm= Failed to mark DB %@ as purgeable: %@", buf, 0x16u);
-              _MBLog();
+              _MBLog(@"E ", "=mbfm= Failed to mark DB %@ as purgeable: %@", v15, v19);
             }
 
             if (errorCopy)
@@ -422,35 +422,33 @@ LABEL_28:
               error = errorCopy;
               v26 = v19;
               v24 = v19;
-              v7 = v30;
+              v7 = v28;
               goto LABEL_26;
             }
 
             v25 = v15;
-            v7 = v30;
+            v7 = v28;
             goto LABEL_28;
           }
 
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v38 = v14;
-            v39 = 2112;
-            v40 = v15;
+            v36 = v14;
+            v37 = 2112;
+            v38 = v15;
             _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=mbfm= Moved aside DB file %@ to %@", buf, 0x16u);
-            v28 = v14;
-            v29 = v15;
-            _MBLog();
+            _MBLog(@"Df", "=mbfm= Moved aside DB file %@ to %@", v14, v15);
           }
 
           error = errorCopy;
-          v7 = v30;
+          v7 = v28;
           self = selfCopy;
         }
 
         if (v11 == ++v13)
         {
-          v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+          v11 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v11)
           {
             goto LABEL_5;
@@ -504,42 +502,42 @@ LABEL_29:
   v22 = v21;
   if (!v20)
   {
-    v25 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    v26 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
     if (v18)
     {
-      if (v25)
+      if (v26)
       {
-        v26 = [subPathsCopy componentsJoinedByString:{@", "}];
+        v27 = [subPathsCopy componentsJoinedByString:{@", "}];
         *buf = 138543874;
-        v33 = v26;
+        v33 = v27;
         v34 = 2114;
         v35 = sourceCopy;
         v36 = 2114;
         v37 = destinationCopy;
         _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=mbfm= mg: Migrating (%{public}@) from %{public}@ to %{public}@", buf, 0x20u);
 
-        v30 = [subPathsCopy componentsJoinedByString:{@", "}];
-        _MBLog();
+        v28 = [subPathsCopy componentsJoinedByString:{@", "}];
+        _MBLog(@"Df", "=mbfm= mg: Migrating (%{public}@) from %{public}@ to %{public}@", v28, sourceCopy, destinationCopy);
       }
 
-      v24 = [(NSFileManager *)self _migratePaths:v17 to:v19 error:errorCopy];
+      v25 = [(NSFileManager *)self _migratePaths:v17 to:v19 error:errorCopy];
       goto LABEL_13;
     }
 
-    if (v25)
+    if (v26)
     {
       *buf = 138543618;
       v33 = sourceCopy;
       v34 = 2114;
       v35 = destinationCopy;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=mbfm= mg: Nothing to migrate from %{public}@ to %{public}@", buf, 0x16u);
-      goto LABEL_18;
+      _MBLog(@"Df", "=mbfm= mg: Nothing to migrate from %{public}@ to %{public}@", sourceCopy, destinationCopy);
     }
 
-LABEL_19:
+LABEL_18:
 
-    v27 = 1;
-    goto LABEL_20;
+    v29 = 1;
+    goto LABEL_19;
   }
 
   if (!v18)
@@ -551,12 +549,10 @@ LABEL_19:
       v34 = 2114;
       v35 = destinationCopy;
       _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "=mbfm= mg: Nothing to migrate from %{public}@, already present in %{public}@", buf, 0x16u);
-LABEL_18:
-      _MBLog();
-      goto LABEL_19;
+      _MBLog(@"I ", "=mbfm= mg: Nothing to migrate from %{public}@, already present in %{public}@", sourceCopy, destinationCopy);
     }
 
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -570,16 +566,16 @@ LABEL_18:
     v37 = destinationCopy;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "=mbfm= mg: Cleaning up un-migrated (%{public}@) from %{public}@, already present in %{public}@", buf, 0x20u);
 
-    v29 = [pathsCopy componentsJoinedByString:{@", "}];
-    _MBLog();
+    v24 = [pathsCopy componentsJoinedByString:{@", "}];
+    _MBLog(@"Df", "=mbfm= mg: Cleaning up un-migrated (%{public}@) from %{public}@, already present in %{public}@", v24, sourceCopy, destinationCopy);
   }
 
-  v24 = [(NSFileManager *)self _removeAllPaths:v17 error:errorCopy];
+  v25 = [(NSFileManager *)self _removeAllPaths:v17 error:errorCopy];
 LABEL_13:
-  v27 = v24;
-LABEL_20:
+  v29 = v25;
+LABEL_19:
 
-  return v27;
+  return v29;
 }
 
 - (id)_pathsRootedAt:(id)at subpaths:(id)subpaths
@@ -784,7 +780,7 @@ LABEL_11:
     v26 = 2112;
     v27 = v16;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=mbfm= Updating plist at %@ to %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"Df", "=mbfm= Updating plist at %@ to %@", pathCopy, v16);
   }
 
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];

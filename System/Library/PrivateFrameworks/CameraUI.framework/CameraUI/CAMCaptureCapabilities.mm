@@ -254,11 +254,11 @@ void __38__CAMCaptureCapabilities_capabilities__block_invoke()
 
 - (CAMCaptureCapabilities)initWithHostProcess:(int64_t)process
 {
-  v460 = *MEMORY[0x1E69E9840];
+  v461 = *MEMORY[0x1E69E9840];
   CAMSignpostWithIDAndArgs(89, 0xEEEEB0B5B2B2EEEELL, 0, 0, 0, 0);
-  v437.receiver = self;
-  v437.super_class = CAMCaptureCapabilities;
-  v5 = [(CAMCaptureCapabilities *)&v437 init];
+  v438.receiver = self;
+  v438.super_class = CAMCaptureCapabilities;
+  v5 = [(CAMCaptureCapabilities *)&v438 init];
 
   if (!v5)
   {
@@ -280,7 +280,7 @@ void __38__CAMCaptureCapabilities_capabilities__block_invoke()
 
   v5->_hasNotch = v8;
   v9 = AVGestaltGetStringAnswerWithDefault();
-  v413 = v6;
+  v414 = v6;
   if (![v9 length])
   {
     goto LABEL_12;
@@ -315,7 +315,7 @@ LABEL_12:
   v18 = v13 >= 19.0 && v5->_iPhone;
 LABEL_13:
   v5->_shouldAlwaysApplySystemPressureMitigationInPhotoMode = v18;
-  v436 = 0;
+  v437 = 0;
   v5->_documentScanningMinimumConfidenceLevel = 0.95;
   v5->_smudgeDetectionAutoDismissTimeoutSeconds = 10;
   v5->__forcedBackCamera = 0;
@@ -324,56 +324,56 @@ LABEL_13:
   v5->_frontNightModePreviewOverlayStyle = 0;
   v5->_maximumNumberOfInflightRequests = 2;
   processCopy = process;
-  v404 = v9;
+  v405 = v9;
   if (!v5->_internalInstall)
   {
-    v408 = 0;
+    v409 = 0;
     v30 = 0;
     v31 = 0;
-    v411 = 0;
-    v402 = 0;
+    v412 = 0;
     v403 = 0;
-    v375 = 0;
-    v393 = 0;
+    v404 = 0;
+    v376 = 0;
     v394 = 0;
     v395 = 0;
+    v396 = 0;
     v32 = 0;
-    v416 = 0;
-    v385 = 0;
+    v417 = 0;
+    v386 = 0;
     v33 = 0;
-    v397 = 0;
     v398 = 0;
-    v379 = 0;
-    v391 = 0;
+    v399 = 0;
+    v380 = 0;
     v392 = 0;
-    v366 = 0;
-    v387 = 0;
-    v390 = 0;
-    v372 = 0;
+    v393 = 0;
+    v367 = 0;
+    v388 = 0;
+    v391 = 0;
+    v373 = 0;
     obj = 0;
     v34 = 0;
     v35 = 0;
     v36 = 0.0;
-    v380 = 0.0;
+    v381 = 0.0;
     v37 = 0.0;
     v38 = 0.0;
     v39 = 0.0;
-    v382 = -1;
-    v367 = 1;
-    v368 = 0;
-    v414 = 3;
-    v371 = 17;
-    v400 = 1;
+    v383 = -1;
+    v368 = 1;
+    v369 = 0;
+    v415 = 3;
+    v372 = 17;
     v401 = 1;
-    v399 = 1;
-    v365 = 1;
-    v405 = 1;
-    v407 = 1;
+    v402 = 1;
+    v400 = 1;
+    v366 = 1;
+    v406 = 1;
+    v408 = 1;
     goto LABEL_92;
   }
 
   v19 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowHapticsOnModeDialTap", @"com.apple.camera", 0) != 0;
-  v386 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentApplyNaturalLightingToOriginal", @"com.apple.camera", 0) != 0;
+  v387 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentApplyNaturalLightingToOriginal", @"com.apple.camera", 0) != 0;
   v20 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentUseReticleStroke", @"com.apple.camera", 0) != 0;
   v5->_featureDevelopmentEmulateSuperWide = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentEmulateSuperWide", @"com.apple.camera", 0) != 0;
   keyExistsAndHasValidFormat = 0;
@@ -388,35 +388,35 @@ LABEL_13:
   }
 
   v22 = _ZF;
-  v407 = v22;
+  v408 = v22;
   v23 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentDebugSemanticDevelopmentFilters", @"com.apple.camera", 0) != 0;
-  v434 = 0;
-  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowExposureClippingIndicator", @"com.apple.camera", &v434);
-  if (v434)
+  v435 = 0;
+  AppBooleanValue = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowExposureClippingIndicator", @"com.apple.camera", &v435);
+  if (v435)
   {
     v5->__forceEnableExposureClippingIndicator = AppBooleanValue != 0;
     v5->__forceDisableExposureClippingIndicator = AppBooleanValue == 0;
   }
 
+  v434 = 0;
+  v5->_featureDevelopmentForceSingleCamera = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentForceSingleCamera", @"com.apple.camera", &v434) != 0;
   v433 = 0;
-  v5->_featureDevelopmentForceSingleCamera = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentForceSingleCamera", @"com.apple.camera", &v433) != 0;
-  v432 = 0;
-  if (CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSuperBravo", @"com.apple.camera", &v432))
+  if (CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSuperBravo", @"com.apple.camera", &v433))
   {
     v25 = 1;
   }
 
   else
   {
-    v25 = v432 == 0;
+    v25 = v433 == 0;
   }
 
   v26 = v25;
-  v405 = v26;
+  v406 = v26;
   v5->_featureDevelopmentDefaultWideHighStabilization = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentDefault1xVideoStabilizationHigh", @"com.apple.camera", 0) != 0;
-  LOBYTE(v403) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowFocalLengthPicker", @"com.apple.camera", 0) != 0;
-  BYTE4(v403) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowOverlapping48MPCaptures", @"com.apple.camera", 0) != 0;
-  v368 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllow24MP", @"com.apple.camera", 0) != 0;
+  LOBYTE(v404) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowFocalLengthPicker", @"com.apple.camera", 0) != 0;
+  BYTE4(v404) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowOverlapping48MPCaptures", @"com.apple.camera", 0) != 0;
+  v369 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllow24MP", @"com.apple.camera", 0) != 0;
   v27 = CFPreferencesCopyAppValue(@"CAMFeatureDevelopmentForceBackCamera", @"com.apple.camera");
   lowercaseString = [v27 lowercaseString];
 
@@ -440,7 +440,7 @@ LABEL_42:
       }
 
       *buf = 138543362;
-      v457 = v42;
+      v458 = v42;
       _os_log_impl(&dword_1A3640000, v40, OS_LOG_TYPE_DEFAULT, "Forcing back camera to %{public}@ when possible", buf, 0xCu);
     }
 
@@ -482,15 +482,15 @@ LABEL_42:
 LABEL_48:
   [(CAMCaptureCapabilities *)v5 _doubleForKey:@"CAMFeatureDevelopmentInitialZoomFactor" applicationID:@"com.apple.camera"];
   v5->__forcedInitialZoomDisplayFactor = v43;
-  v431 = 0;
-  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentMaxInflightRequests", @"com.apple.camera", &v431);
-  if (v431)
+  v432 = 0;
+  AppIntegerValue = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentMaxInflightRequests", @"com.apple.camera", &v432);
+  if (v432)
   {
     v5->_maximumNumberOfInflightRequests = AppIntegerValue;
   }
 
   v45 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentNightModePreviewStyle", @"com.apple.camera", 0);
-  v388 = v19;
+  v389 = v19;
   if (v45 >= 4)
   {
     v47 = os_log_create("com.apple.camera", "Camera");
@@ -515,21 +515,21 @@ LABEL_48:
   v5->_imageAnalysisShowsInactiveTextRegions = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentShowInactiveTextRegions", @"com.apple.camera", 0) != 0;
   CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentForceEnableSuperBravoDevice", @"com.apple.camera", 0);
   CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentForceEnablePortraitBravoDevices", @"com.apple.camera", 0);
-  v372 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowAllProResConfigurations", @"com.apple.camera", 0) != 0;
+  v373 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowAllProResConfigurations", @"com.apple.camera", 0) != 0;
   [CAMPreferencesUtilities doubleForKey:@"CAMFeatureDevelopmentProResMinimumAvailableDiskSpaceOverride" applicationID:@"com.apple.camera" keyIsValidAndExists:0];
   v38 = v49;
-  v390 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentProResMinimumDiskSpaceOverrideMegabytesRelativeToFreeSpace", @"com.apple.camera", 0);
-  v387 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentZoomPinchScalingMethod", @"com.apple.camera", &v436);
+  v391 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentProResMinimumDiskSpaceOverrideMegabytesRelativeToFreeSpace", @"com.apple.camera", 0);
+  v388 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentZoomPinchScalingMethod", @"com.apple.camera", &v437);
   [CAMPreferencesUtilities doubleForKey:@"CAMFeatureDevelopmentZoomPinchExponentialFactorDistance" applicationID:@"com.apple.camera" keyIsValidAndExists:0];
   v37 = v50;
   [CAMPreferencesUtilities doubleForKey:@"CAMFeatureDevelopmentZoomPinchExponentialFactor" applicationID:@"com.apple.camera" keyIsValidAndExists:0];
-  v380 = v51;
+  v381 = v51;
   [CAMPreferencesUtilities doubleForKey:@"CAMFeatureDevelopmentZoomPinchHybridLerpDistance" applicationID:@"com.apple.camera" keyIsValidAndExists:0];
   v36 = v52;
-  v430 = 0;
-  v53 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentCacheDeleteUrgency", @"com.apple.camera", &v430);
+  v431 = 0;
+  v53 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentCacheDeleteUrgency", @"com.apple.camera", &v431);
   v54 = 3;
-  if (v430)
+  if (v431)
   {
     v55 = v53;
     if (v53 <= 4)
@@ -539,9 +539,9 @@ LABEL_48:
       {
         v57 = off_1E76FBFC8[v55 & 7];
         *buf = 138543618;
-        v457 = @"High";
-        v458 = 2114;
-        v459 = v57;
+        v458 = @"High";
+        v459 = 2114;
+        v460 = v57;
         _os_log_impl(&dword_1A3640000, v56, OS_LOG_TYPE_DEFAULT, "Overriding CacheDeleteUrgency from %{public}@ to %{public}@", buf, 0x16u);
       }
 
@@ -549,43 +549,43 @@ LABEL_48:
     }
   }
 
-  v414 = v54;
-  v383 = lowercaseString;
+  v415 = v54;
+  v384 = lowercaseString;
   obj = v20;
   v5->_shouldEnableUserNotifications = CFPreferencesGetAppBooleanValue(@"CAMDebugSuppressNotifications", @"com.apple.camera", 0) == 0;
   v5->_bypassWelcomeScreens = CFPreferencesGetAppBooleanValue(@"CAMUserPreferenceBypassWelcomeScreens", @"com.apple.camera", 0) != 0;
-  v381 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAspectRatioCropThreeTwoSupported", @"com.apple.camera", 0) != 0;
+  v382 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAspectRatioCropThreeTwoSupported", @"com.apple.camera", 0) != 0;
   buf[0] = 0;
   v58 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmartStyles", @"com.apple.camera", buf);
   v59 = v58;
-  LOBYTE(v366) = v58 != 0;
-  v378 = buf[0];
-  BYTE4(v366) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowExtraStylesControls", @"com.apple.camera", 0) != 0;
-  LOBYTE(v394) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowPortraitSemanticStyles", @"com.apple.camera", 0) != 0;
-  BYTE4(v392) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowPortraitAspectRatio", @"com.apple.camera", 0) != 0;
-  BYTE4(v379) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowContinuousZoomForPortraitMode"];
-  LOBYTE(v393) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowDeepFusionForPortraitMode"];
-  BYTE4(v393) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowDeepFusionForFrontPortraitMode"];
-  LOBYTE(v408) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowHalfPressSimulation", @"com.apple.camera", 0) != 0;
+  LOBYTE(v367) = v58 != 0;
+  v379 = buf[0];
+  BYTE4(v367) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowExtraStylesControls", @"com.apple.camera", 0) != 0;
+  LOBYTE(v395) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowPortraitSemanticStyles", @"com.apple.camera", 0) != 0;
+  BYTE4(v393) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowPortraitAspectRatio", @"com.apple.camera", 0) != 0;
+  BYTE4(v380) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowContinuousZoomForPortraitMode"];
+  LOBYTE(v394) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowDeepFusionForPortraitMode"];
+  BYTE4(v394) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowDeepFusionForFrontPortraitMode"];
+  LOBYTE(v409) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowHalfPressSimulation", @"com.apple.camera", 0) != 0;
   v5->__allowSpatialOverCaptureInPortraitMode = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowSpatialOverCaptureInPortraitMode"];
-  BYTE4(v391) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPhotoModeDepth"];
+  BYTE4(v392) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPhotoModeDepth"];
   v5->_featureDevelopmentForceDepthDataCaptureInPhotoMode = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentForceDepthDataCaptureInPhotoMode"];
-  LOBYTE(v392) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowFrontPhotoModeDepth"];
-  LOBYTE(v391) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPreviewQualityStillImageFilteringForPhotoMode"];
+  LOBYTE(v393) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowFrontPhotoModeDepth"];
+  LOBYTE(v392) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPreviewQualityStillImageFilteringForPhotoMode"];
   v5->_featureDevelopmentIgnoreDepthSuggestionInPhotoMode = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentIgnoreDepthSuggestionInPhotoMode"];
   v5->_featureDevelopmentForceDepthEffectInPhotoMode = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentForceDepthEffectInPhotoMode"];
-  LODWORD(v379) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowContinuousZoomForCinematicMode"];
-  v398 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowZoomPIPForSlomo", @"com.apple.camera", 0) != 0;
-  v385 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPortraitModeOverlappingCaptures"];
+  LODWORD(v380) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowContinuousZoomForCinematicMode"];
+  v399 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowZoomPIPForSlomo", @"com.apple.camera", 0) != 0;
+  v386 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPortraitModeOverlappingCaptures"];
   v5->_featureDevelopmentHidePreviewOverlayBars = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentHidePreviewOverlayBars"];
   v5->_featureDevelopmentAllowAllHEICOptionsInPhotoPicker = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowAllHEICOptionsInPhotoPicker"];
   v5->__disablePortraitFrontFacingZoomedCaptureDeviceFormat = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentDisableZoomedFFCPortrait", @"com.apple.camera", 0) != 0;
-  v416 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowActionModeAggregateDevice4k60"];
-  HIDWORD(v402) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPauseCinematic"];
+  v417 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowActionModeAggregateDevice4k60"];
+  HIDWORD(v403) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPauseCinematic"];
   v32 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowMixAudioWithOthers"];
-  v395 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPhotoModeNightModePortrait"];
+  v396 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowPhotoModeNightModePortrait"];
   v60 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentDocumentScanningEnabled", @"com.apple.camera", 0);
-  BYTE4(v394) = v60 != 0;
+  BYTE4(v395) = v60 != 0;
   [(CAMCaptureCapabilities *)v5 _doubleForKey:@"CAMFeatureDevelopmentDocumentScanningMininumConfidenceLevel" applicationID:@"com.apple.camera"];
   if (v60 && v61 > 0.0)
   {
@@ -596,9 +596,9 @@ LABEL_48:
   v5->__proResCinematicVideoSupported = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentCinematicProRes", @"com.apple.camera", 0) != 0;
   v5->__externalStorageSupportedForAllVideoFormats = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentExternalStorageAllVideoFormats", @"com.apple.camera", 0) != 0;
   v63 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentUnifiedPhotoAndPortraitHidePortraitMode"];
-  v429 = 0;
-  v64 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPortraitInPhotoModeBehavior", @"com.apple.camera", &v429);
-  if (v429)
+  v430 = 0;
+  v64 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPortraitInPhotoModeBehavior", @"com.apple.camera", &v430);
+  if (v430)
   {
     v65 = v64;
   }
@@ -608,20 +608,20 @@ LABEL_48:
     v65 = -1;
   }
 
-  v382 = v65;
+  v383 = v65;
   v5->_featureDevelopmentShowLockIndicator = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentShowLockIndicator"];
-  v375 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideo"];
+  v376 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideo"];
+  v429 = 0;
+  v66 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideoFrontCameraHDR10SupportedOverride" keyIsValidAndExists:&v429];
+  v67 = v429 ^ 1;
+  LOBYTE(v403) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideo60FPSSupported"];
   v428 = 0;
-  v66 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideoFrontCameraHDR10SupportedOverride" keyIsValidAndExists:&v428];
-  v67 = v428 ^ 1;
-  LOBYTE(v402) = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideo60FPSSupported"];
+  v68 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideoFrontVideoStabilizationSupported" keyIsValidAndExists:&v428];
+  v69 = v428 ^ 1;
   v427 = 0;
-  v68 = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentFrontRearSimultaneousVideoFrontVideoStabilizationSupported" keyIsValidAndExists:&v427];
-  v69 = v427 ^ 1;
-  v426 = 0;
-  if (CFPreferencesGetAppBooleanValue(@"frsv.disableDeferFrontCamera", @"com.apple.coremedia", &v426))
+  if (CFPreferencesGetAppBooleanValue(@"frsv.disableDeferFrontCamera", @"com.apple.coremedia", &v427))
   {
-    v70 = v426 == 0;
+    v70 = v427 == 0;
   }
 
   else
@@ -630,8 +630,8 @@ LABEL_48:
   }
 
   v71 = v70;
-  v401 = v71;
-  v411 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowFrontPanoramaCaptures", @"com.apple.camera", 0) != 0;
+  v402 = v71;
+  v412 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowFrontPanoramaCaptures", @"com.apple.camera", 0) != 0;
   v5->_featureDevelopmentSmudgeDetectionBaseTimeoutSeconds = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentSmudgeNotificationBaseTimeoutSeconds", @"com.apple.camera", 0);
   v72 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentSmudgeDetectionAutoDismissSeconds", @"com.apple.camera", 0);
   if (v72)
@@ -639,27 +639,27 @@ LABEL_48:
     v5->_smudgeDetectionAutoDismissTimeoutSeconds = v72;
   }
 
-  v397 = v23;
-  v399 = v67 | v66;
-  v400 = v69 | v68;
+  v398 = v23;
+  v400 = v67 | v66;
+  v401 = v69 | v68;
   v31 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowManualFocusControl", @"com.apple.camera", 0) != 0;
   v30 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowManualFocusControlForBravo", @"com.apple.camera", 0) != 0;
-  BYTE4(v408) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmallerFocusPointOfInterest", @"com.apple.camera", 0) != 0;
-  v425 = 0;
-  if (CFPreferencesGetAppBooleanValue(@"CAMDebugShowAlertForBundleMismatch", @"com.apple.camera", &v425))
+  BYTE4(v409) = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmallerFocusPointOfInterest", @"com.apple.camera", 0) != 0;
+  v426 = 0;
+  if (CFPreferencesGetAppBooleanValue(@"CAMDebugShowAlertForBundleMismatch", @"com.apple.camera", &v426))
   {
     v73 = 1;
   }
 
   else
   {
-    v73 = v425 == 0;
+    v73 = v426 == 0;
   }
 
   v74 = v73;
   v5->_shouldShowAlertForBundleMismatch = v74;
   v5->__frontFacingVideoModeBinnedSupported = [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowFrontFacingVideoModeBinned"];
-  v367 = v13 <= 26.0 || [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowSharedLibraryNewHardware"];
+  v368 = v13 <= 26.0 || [CAMPreferencesUtilities BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowSharedLibraryNewHardware"];
   process = processCopy;
   v5->_featureDevelopmentPreserveLastOpenedControlSupported = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPreserveLastOpenedControl", @"com.apple.camera", 0) != 0;
   v5->_featureDevelopmentCameraControlHalfPressTipEnabled = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentCameraControlHalfPressTipEnabled", @"com.apple.camera", 0) != 0;
@@ -671,21 +671,21 @@ LABEL_48:
 
   else
   {
-    v75 = v378 == 0;
+    v75 = v379 == 0;
   }
 
   v76 = v75;
-  v365 = v76;
+  v366 = v76;
   v77 = 17;
   if (v63)
   {
     v77 = 25;
   }
 
-  v371 = v77;
-  v35 = v388;
-  v34 = v386;
-  v33 = v381;
+  v372 = v77;
+  v35 = v389;
+  v34 = v387;
+  v33 = v382;
 LABEL_92:
   v78 = CEKDeviceRegionCode();
   deviceRegionCode = v5->_deviceRegionCode;
@@ -736,15 +736,15 @@ LABEL_92:
   v5->_disableAudio = v84;
   if (process > 4)
   {
-    v86 = v414;
+    v86 = v415;
   }
 
   else
   {
-    v86 = v414;
+    v86 = v415;
     if (((1 << process) & 0x15) != 0)
     {
-      v85 = v413 != 3 || v32;
+      v85 = v414 != 3 || v32;
     }
   }
 
@@ -752,23 +752,23 @@ LABEL_92:
   v5->_mixAudioWithOthersSupported = v85;
   if (process > 4)
   {
-    v88 = v413;
+    v88 = v414;
     v89 = obj;
   }
 
   else
   {
-    v88 = v413;
+    v88 = v414;
     v89 = obj;
     if (((1 << process) & 0x15) != 0)
     {
-      v87 = v413 != 3;
+      v87 = v414 != 3;
     }
   }
 
   v5->_aspectRatioCropSupported = v87;
   v5->__aspectRatioCropThreeTwoSupported = v33;
-  v415 = process & 0xFFFFFFFFFFFFFFFBLL;
+  v416 = process & 0xFFFFFFFFFFFFFFFBLL;
   v90 = (process & 0xFFFFFFFFFFFFFFFBLL) == 0;
   v5->_cacheDeleteSupported = v90;
   v5->_cacheDeleteUrgency = v86;
@@ -870,7 +870,7 @@ LABEL_92:
   v5->__backDualCameraVideoCapture4kMaxFPS = AVGestaltGetIntegerAnswerWithDefault();
   v5->__backWideDualCameraVideoCapture4kMaxFPS = AVGestaltGetIntegerAnswerWithDefault();
   v5->__backTripleCameraVideoCapture4kMaxFPS = AVGestaltGetIntegerAnswerWithDefault();
-  v5->__actionModeAggregateDevice4k60Supported = v416;
+  v5->__actionModeAggregateDevice4k60Supported = v417;
   v107 = v5->_hostProcess - 3;
   v108 = AVGestaltGetBoolAnswer();
   if ((v107 & 0xFFFFFFFFFFFFFFFDLL) != 0)
@@ -906,14 +906,14 @@ LABEL_92:
 
   v5->_longPressVideoCaptureFromPhotoModeSupported = v112;
   v5->_ctmSupportSuppressed = v111;
-  v376 = v110;
+  v377 = v110;
   v5->_deviceSupportsCTM = v110;
-  v417 = v88 != 3;
-  v5->_wantsFullscreenViewfinder = v417;
+  v418 = v88 != 3;
+  v5->_wantsFullscreenViewfinder = v418;
   v5->_ctmSupported = v112;
   v5->_useReticleStroke = v89;
   v5->_allowControlDrawer = v112;
-  if (v415)
+  if (v416)
   {
     v113 = 0;
   }
@@ -947,7 +947,7 @@ LABEL_92:
   }
 
   v5->_exposureSliderSupported = v115;
-  v5->_smallerFocusPointOfInterestSupported = BYTE4(v408);
+  v5->_smallerFocusPointOfInterestSupported = BYTE4(v409);
   v5->_lensPositionControlSupported = v31;
   v5->__lensPositionControlSupportedForAggregateCameras = v30;
   if (v109)
@@ -978,7 +978,7 @@ LABEL_92:
 LABEL_143:
     v5->_backNightModeSupported = AVGestaltGetBoolAnswer();
     v5->_frontNightModeSupported = AVGestaltGetBoolAnswer();
-    v118 = v13 >= 17.0 && (AVGestaltGetBoolAnswer() & 1) != 0 || v395;
+    v118 = v13 >= 17.0 && (AVGestaltGetBoolAnswer() & 1) != 0 || v396;
     v5->__backPhotoModeNightModeDepthSupported = v118;
     if ([(CAMCaptureCapabilities *)v5 isBackNightModeSupported])
     {
@@ -1006,7 +1006,7 @@ LABEL_151:
 LABEL_152:
   v5->_HEVCEncodingSupported = v117;
   v5->_backPanoramaSupported = AVGestaltGetBoolAnswer();
-  v5->_frontPanoramaSupported = AVGestaltGetBoolAnswer() & v411;
+  v5->_frontPanoramaSupported = AVGestaltGetBoolAnswer() & v412;
   v5->_backTimelapseSupported = v90;
   v5->_frontTimelapseSupported = v90;
   if (AVGestaltGetBoolAnswer())
@@ -1027,7 +1027,7 @@ LABEL_152:
     if (os_log_type_enabled(v123, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v457 = *&v39;
+      v458 = *&v39;
       _os_log_impl(&dword_1A3640000, v123, OS_LOG_TYPE_DEFAULT, "Overriding time-lapse first shot delay as %f seconds", buf, 0xCu);
     }
 
@@ -1036,10 +1036,10 @@ LABEL_152:
 
   *&v5->_timelapseFirstShotDelay = v120;
   *&v5->_backTorchPatternSupported = v5->_backFlashSupported;
-  v389 = v38;
-  v384 = v36;
-  v373 = v111;
-  v377 = v117;
+  v390 = v38;
+  v385 = v36;
+  v374 = v111;
+  v378 = v117;
   if (MGGetBoolAnswer())
   {
     v124 = 1;
@@ -1050,7 +1050,7 @@ LABEL_152:
     v124 = MGGetBoolAnswer();
   }
 
-  v412 = v112;
+  v413 = v112;
   v5->_splitScreenSupported = v124;
   v5->_lockButtonAppropriateForShutter = 0;
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
@@ -1089,10 +1089,10 @@ LABEL_152:
   v5->_forceTouchSupported = MGGetBoolAnswer();
   v142 = AVGestaltGetBoolAnswer();
   v143 = AVGestaltGetBoolAnswer();
-  v396 = mainScreen;
+  v397 = mainScreen;
   v144 = (AVGestaltGetBoolAnswer() & 1) != 0 || [(CAMCaptureCapabilities *)v5 featureDevelopmentEmulateSuperWide];
-  v374 = (process & 0xFFFFFFFFFFFFFFFBLL) == 0;
-  v409 = AVGestaltGetBoolAnswer();
+  v375 = (process & 0xFFFFFFFFFFFFFFFBLL) == 0;
+  v410 = AVGestaltGetBoolAnswer();
   v145 = AVGestaltGetBoolAnswer();
   obja = objc_opt_new();
   if (v143)
@@ -1101,7 +1101,7 @@ LABEL_152:
   }
 
   v146 = v142 & v143;
-  v147 = v142 & v144 & v407;
+  v147 = v142 & v144 & v408;
   if (v144)
   {
     [obja addObject:*MEMORY[0x1E6986948]];
@@ -1113,7 +1113,7 @@ LABEL_152:
     [obja addObject:*MEMORY[0x1E6986908]];
   }
 
-  v149 = v148 & v405;
+  v149 = v148 & v406;
   if (v146)
   {
     [obja addObject:*MEMORY[0x1E6986900]];
@@ -1126,9 +1126,9 @@ LABEL_152:
 
   v150 = v13 >= 17.0;
   objc_storeStrong(&v5->_expectedSupportedCameraModules, obja);
-  v5->_fallbackCameraSupported = v150 && v417;
-  v370 = v150 && v417;
-  if (v150 && v417)
+  v5->_fallbackCameraSupported = v150 && v418;
+  v371 = v150 && v418;
+  if (v150 && v418)
   {
     v151 = +[CAMFallbackConfiguration readFallbackDevicesFromDisk];
     fallbackCameraModules = v5->_fallbackCameraModules;
@@ -1167,9 +1167,9 @@ LABEL_181:
       {
 LABEL_186:
         LOBYTE(v146) = 0;
-        LOBYTE(v147) = v154 & v144 & v407;
+        LOBYTE(v147) = v154 & v144 & v408;
         v148 = v154 & v144 & v143;
-        LOBYTE(v149) = v148 & v405;
+        LOBYTE(v149) = v148 & v406;
         goto LABEL_187;
       }
 
@@ -1180,12 +1180,12 @@ LABEL_185:
   }
 
 LABEL_187:
-  v5->_backQuadraWideSupported = v409;
+  v5->_backQuadraWideSupported = v410;
   v5->_backQuadraTeleSupported = v145;
   v5->_frontQuadraWideSupported = 0;
-  v5->__quadraPortraitSupported = v409;
+  v5->__quadraPortraitSupported = v410;
   v155 = 1.0;
-  if (v409)
+  if (v410)
   {
     v155 = 2.0;
   }
@@ -1212,7 +1212,7 @@ LABEL_187:
     dynamicAspectRatioSupported = AVGestaltGetBoolAnswer();
   }
 
-  v158 = v415;
+  v158 = v416;
   v5->_frontSuperWideSupported = dynamicAspectRatioSupported;
   v5->_frontWideDualSupported = 0;
   v5->_frontTripleCameraSupported = 0;
@@ -1228,7 +1228,7 @@ LABEL_187:
   v162 = v161;
   v163 = v161;
   AVGestaltGetFloatAnswerWithDefault();
-  v369 = v164;
+  v370 = v164;
   v165 = v164;
   v166 = AVGestaltGetIntegerAnswerWithDefault();
   v5->_superWideDisplayZoomFactor = 0.5;
@@ -1265,7 +1265,7 @@ LABEL_187:
   __asm { FMOV            V1.2D, #1.0 }
 
   v179 = v172 / 100.0;
-  v406 = _Q1;
+  v407 = _Q1;
   if ((v148 | v173))
   {
     v5->__backTripleCameraPhotoModeMaximumZoomFactor = v174;
@@ -1274,7 +1274,7 @@ LABEL_187:
     v5->__backDualPhotoModeMaximumZoomFactor = v174 / v180;
     backTripleCameraVideoModeMaximumZoomFactor = v5->__backTripleCameraVideoModeMaximumZoomFactor;
     [(CAMCaptureCapabilities *)v5 _backWideDualCameraSwitchOverZoomFactor];
-    _Q1 = v406;
+    _Q1 = v407;
     v179 = backTripleCameraVideoModeMaximumZoomFactor / v182;
   }
 
@@ -1287,14 +1287,14 @@ LABEL_187:
   v5->__backDualVideoModeMaximumZoomFactor = v179;
   if (v148)
   {
-    v183 = v387;
+    v183 = v388;
   }
 
   else
   {
     if ([(CAMCaptureCapabilities *)v5 isQuadraWideBinningReconfigurationSupportedForMode:1 devicePosition:0 videoConfiguration:0])
     {
-      v183 = v387;
+      v183 = v388;
       if (![(CAMCaptureCapabilities *)v5 isQuadraWideBinningReconfigurationSupportedForMode:2 devicePosition:0 videoConfiguration:0])
       {
         v179 = v179 / v5->_quadraWideRelativeZoomFactor;
@@ -1303,10 +1303,10 @@ LABEL_187:
 
     else
     {
-      v183 = v387;
+      v183 = v388;
     }
 
-    _Q1 = v406;
+    _Q1 = v407;
   }
 
   v5->__backDualSlomoModeMaximumZoomFactor = v179;
@@ -1315,7 +1315,7 @@ LABEL_187:
   v5->__frontTripleCameraVideoModeMaximumZoomFactor = 1.0;
   AVGestaltGetFloatAnswerWithDefault();
   v185 = v184;
-  if (v379)
+  if (v380)
   {
     v185 = 6.0;
   }
@@ -1327,7 +1327,7 @@ LABEL_187:
   v188 = AVGestaltGetBoolAnswer();
   AVGestaltGetFloatAnswerWithDefault();
   v5->__backPortraitModeMaximumZoomFactor = v189;
-  v5->_continuousZoomSupportedForPortraitMode = (v189 > 1.0) | BYTE4(v379) & 1;
+  v5->_continuousZoomSupportedForPortraitMode = (v189 > 1.0) | BYTE4(v380) & 1;
   if ([(CAMCaptureCapabilities *)v5 isTripleCameraSupported])
   {
     v190 = 1;
@@ -1336,7 +1336,7 @@ LABEL_187:
 
   else
   {
-    v190 = v144 && v413 != 3 && v13 >= 13.0 || v5->_backQuadraWideSupported;
+    v190 = v144 && v414 != 3 && v13 >= 13.0 || v5->_backQuadraWideSupported;
     v191 = v127;
   }
 
@@ -1372,19 +1372,19 @@ LABEL_187:
 
   v195 = MGGetSInt32Answer();
   v196 = MGGetSInt32Answer();
-  v197 = v413 == 3;
+  v197 = v414 == 3;
   v5->_mainScreenSizePixels.width = v195;
   v5->_mainScreenSizePixels.height = v196;
   v5->_mainScreenSizePoints.width = v195 / v191;
   v5->_mainScreenSizePoints.height = v196 / v191;
-  if (v413 == 3)
+  if (v414 == 3)
   {
     v198 = 1;
   }
 
   else
   {
-    v198 = v376;
+    v198 = v377;
   }
 
   if (v196 / v195 <= 1.5)
@@ -1398,11 +1398,12 @@ LABEL_187:
   v5->_backTimeOfFlightSupported = AVGestaltGetBoolAnswer();
   v5->_frontTimeOfFlightSupported = 0;
   v199 = (processCopy < 5) & (processCopy ^ 1);
-  v5->_backSpatialOverCaptureSupported = v199 & AVGestaltGetBoolAnswer();
+  v200 = AVGestaltGetBoolAnswer();
+  v5->_backSpatialOverCaptureSupported = v199 & v200;
   v5->_frontSpatialOverCaptureSupported = v199 & v5->_dynamicAspectRatioSupported;
   if (v198)
   {
-    v200 = CAMPreferredLocale();
+    v201 = CAMPreferredLocale(v200);
     v5->_sfCameraFontSupported = CEKIsSFCameraSupportedForLocale();
   }
 
@@ -1412,94 +1413,83 @@ LABEL_187:
   }
 
   v5->_overContentFlipButtonSupported = v198;
-  v5->_imagePickerUsesModernLayout = v13 >= 14.1 && v417;
-  v201 = AVGestaltGetBoolAnswer();
-  v202 = 2;
-  if (!v201)
+  v5->_imagePickerUsesModernLayout = v13 >= 14.1 && v418;
+  v202 = AVGestaltGetBoolAnswer();
+  v203 = 2;
+  if (!v202)
   {
-    v202 = 0;
+    v203 = 0;
   }
 
-  if (v436)
+  if (v437)
   {
-    v203 = v183;
+    v204 = v183;
   }
 
   else
   {
-    v203 = v202;
+    v204 = v203;
   }
 
-  v5->_zoomPinchScalingMethod = v203;
-  v204 = 120.0;
+  v5->_zoomPinchScalingMethod = v204;
+  v205 = 120.0;
   if (v37 > 0.0)
   {
-    v204 = v37;
+    v205 = v37;
   }
 
-  v205 = 2.4;
-  if (v380 > 0.0)
+  v206 = 2.4;
+  if (v381 > 0.0)
   {
-    v205 = v380;
+    v206 = v381;
   }
 
-  v5->_zoomPinchExponentialFactorDistance = v204;
-  v5->_zoomPinchExponentialFactor = v205;
-  v206 = 180.0;
-  if (v384 > 0.0)
+  v5->_zoomPinchExponentialFactorDistance = v205;
+  v5->_zoomPinchExponentialFactor = v206;
+  v207 = 180.0;
+  if (v385 > 0.0)
   {
-    v206 = v384;
+    v207 = v385;
   }
 
-  v5->_zoomPinchHybridLerpDistance = v206;
+  v5->_zoomPinchHybridLerpDistance = v207;
   if (v5->_frontSuperWideZoomControlSupported)
   {
-    v454[0] = &unk_1F16C7DD8;
-    v454[1] = &unk_1F16C7E08;
-    v455[0] = &unk_1F16C7DF0;
-    v455[1] = &unk_1F16C7DF0;
-    v454[2] = &unk_1F16C7E20;
-    v455[2] = &unk_1F16C7E38;
-    v207 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v455 forKeys:v454 count:3];
-    v208 = v389;
+    v455[0] = &unk_1F16C7DD8;
+    v455[1] = &unk_1F16C7E08;
+    v456[0] = &unk_1F16C7DF0;
+    v456[1] = &unk_1F16C7DF0;
+    v455[2] = &unk_1F16C7E20;
+    v456[2] = &unk_1F16C7E38;
+    v208 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v456 forKeys:v455 count:3];
+    v209 = v390;
   }
 
   else
   {
-    LODWORD(v206) = 1.0;
-    *&v205 = v369;
-    v208 = v389;
-    if (v369 <= 1.0)
+    LODWORD(v207) = 1.0;
+    *&v206 = v370;
+    v209 = v390;
+    if (v370 <= 1.0)
     {
       goto LABEL_261;
     }
 
-    v452 = &unk_1F16C7DD8;
-    v453 = &unk_1F16C7E50;
-    v207 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v453 forKeys:&v452 count:{1, v206, v205}];
+    v453 = &unk_1F16C7DD8;
+    v454 = &unk_1F16C7E50;
+    v208 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v454 forKeys:&v453 count:{1, v207, v206}];
   }
 
   FFCZoomBehaviorForCaptureMode = v5->__FFCZoomBehaviorForCaptureMode;
-  v5->__FFCZoomBehaviorForCaptureMode = v207;
+  v5->__FFCZoomBehaviorForCaptureMode = v208;
 
 LABEL_261:
   v5->__processZoomWithoutUpscaleBack = 0;
   v5->__processZoomWithoutUpscaleFront = !v5->_frontSuperWideZoomControlSupported;
-  v210 = AVGestaltGetBoolAnswer();
   v211 = AVGestaltGetBoolAnswer();
-  v5->_backSingleCameraPortraitModeSupported = v210;
-  v5->_frontSingleCameraPortraitModeSupported = v211;
-  if (v13 < 19.0)
-  {
-    v212 = v210;
-  }
-
-  else
-  {
-    v212 = 0;
-  }
-
-  v5->__backPortraitModeRequiresSubject = v212;
+  v212 = AVGestaltGetBoolAnswer();
+  v5->_backSingleCameraPortraitModeSupported = v211;
+  v5->_frontSingleCameraPortraitModeSupported = v212;
   if (v13 < 19.0)
   {
     v213 = v211;
@@ -1510,7 +1500,18 @@ LABEL_261:
     v213 = 0;
   }
 
-  v5->__frontPortraitModeRequiresSubject = v213;
+  v5->__backPortraitModeRequiresSubject = v213;
+  if (v13 < 19.0)
+  {
+    v214 = v212;
+  }
+
+  else
+  {
+    v214 = 0;
+  }
+
+  v5->__frontPortraitModeRequiresSubject = v214;
   if (processCopy <= 5)
   {
     if (((1 << processCopy) & 0x2E) != 0)
@@ -1524,59 +1525,59 @@ LABEL_261:
     }
   }
 
-  v214 = AVGestaltGetIntegerAnswerWithDefault();
-  v215 = v214 > 0 && v377;
-  v5->_HDR10BitVideoSupported = v215;
-  v216 = v214 > 59 && v377;
-  v5->_HDR10BitVideoSupports60FPS = v216;
-  v217 = v214 > 119 && v377;
-  v5->__HDR10BitVideoSupports120FPS = v217;
-  v218 = v214 > 239 && v377;
-  v5->__HDR10BitVideoSupports240FPS = v218;
-  v219 = AVGestaltGetBoolAnswer();
-  if (v415)
+  v215 = AVGestaltGetIntegerAnswerWithDefault();
+  v216 = v215 > 0 && v378;
+  v5->_HDR10BitVideoSupported = v216;
+  v217 = v215 > 59 && v378;
+  v5->_HDR10BitVideoSupports60FPS = v217;
+  v218 = v215 > 119 && v378;
+  v5->__HDR10BitVideoSupports120FPS = v218;
+  v219 = v215 > 239 && v378;
+  v5->__HDR10BitVideoSupports240FPS = v219;
+  v220 = AVGestaltGetBoolAnswer();
+  if (v416)
   {
-    v220 = 0;
+    v221 = 0;
   }
 
   else
   {
-    v220 = v219;
+    v221 = v220;
   }
 
-  v5->_proResVideoSupported = v220;
-  v5->_proResMinimumDiskSpaceOverrideAsFractionOfSystemTotal = v208;
-  v5->_proResMinimumDiskSpaceOverrideMegabytesRelativeToFreeSpace = v390;
-  if (v220)
+  v5->_proResVideoSupported = v221;
+  v5->_proResMinimumDiskSpaceOverrideAsFractionOfSystemTotal = v209;
+  v5->_proResMinimumDiskSpaceOverrideMegabytesRelativeToFreeSpace = v391;
+  if (v221)
   {
-    v221 = MGCopyAnswer();
-    v222 = [v221 objectForKeyedSubscript:*MEMORY[0x1E69E5128]];
-    unsignedLongLongValue = [v222 unsignedLongLongValue];
+    v222 = MGCopyAnswer();
+    v223 = [v222 objectForKeyedSubscript:*MEMORY[0x1E69E5128]];
+    unsignedLongLongValue = [v223 unsignedLongLongValue];
 
-    v224 = 30;
+    v225 = 30;
     if (unsignedLongLongValue >= 0x1DCD650001)
     {
-      v225 = 60;
+      v226 = 60;
     }
 
     else
     {
-      v225 = 30;
+      v226 = 30;
     }
 
     if (unsignedLongLongValue < 0x1DCD650001)
     {
-      v224 = 0;
+      v225 = 0;
     }
 
-    if (v372)
+    if (v373)
     {
-      v225 = 240;
-      v224 = 120;
+      v226 = 240;
+      v225 = 120;
     }
 
-    v5->__proResVideoMaxFPS1080p = v225;
-    v5->__proResVideoMaxFPS4k = v224;
+    v5->__proResVideoMaxFPS1080p = v226;
+    v5->__proResVideoMaxFPS4k = v225;
     v5->__proResVideoExternalMaxFPS1080p = 60;
     v5->__proResVideoExternalMaxFPS4k = v5->_back4kMaxFPS;
   }
@@ -1585,34 +1586,34 @@ LABEL_261:
   {
     v5->_backPortraitModeSupported = AVGestaltGetBoolAnswer();
     p_backPortraitModeSupported = &v5->_backPortraitModeSupported;
-    v227 = AVGestaltGetBoolAnswer();
-  }
-
-  else
-  {
-    v227 = 0;
-    v5->_backPortraitModeSupported = 0;
-    p_backPortraitModeSupported = &v5->_backPortraitModeSupported;
-  }
-
-  v5->_frontPortraitModeSupported = v227;
-  if ([(CAMCaptureCapabilities *)v5 fallbackCameraEnabled]&& *p_backPortraitModeSupported)
-  {
-    v5->_backPortraitModeSupported = v5->_backWideDualSupported;
-  }
-
-  v5->_portraitModeOverlappingCapturesSupported = v385;
-  if ((processCopy | 4) == 4)
-  {
     v228 = AVGestaltGetBoolAnswer();
   }
 
   else
   {
     v228 = 0;
+    v5->_backPortraitModeSupported = 0;
+    p_backPortraitModeSupported = &v5->_backPortraitModeSupported;
   }
 
-  v5->_backCinematicModeSupported = v5->_backCameraSupported & v228;
+  v5->_frontPortraitModeSupported = v228;
+  if ([(CAMCaptureCapabilities *)v5 fallbackCameraEnabled]&& *p_backPortraitModeSupported)
+  {
+    v5->_backPortraitModeSupported = v5->_backWideDualSupported;
+  }
+
+  v5->_portraitModeOverlappingCapturesSupported = v386;
+  if ((processCopy | 4) == 4)
+  {
+    v229 = AVGestaltGetBoolAnswer();
+  }
+
+  else
+  {
+    v229 = 0;
+  }
+
+  v5->_backCinematicModeSupported = v5->_backCameraSupported & v229;
   fallbackCameraEnabled = [(CAMCaptureCapabilities *)v5 fallbackCameraEnabled];
   backCinematicModeSupported = v5->_backCinematicModeSupported;
   if (fallbackCameraEnabled && v5->_backCinematicModeSupported)
@@ -1621,189 +1622,189 @@ LABEL_261:
     v5->_backCinematicModeSupported = backCinematicModeSupported;
   }
 
-  v231 = v5->_frontCameraSupported & v228;
-  v5->_frontCinematicModeSupported = v231;
-  v5->_cinematicModeSupported = backCinematicModeSupported || v231;
-  if (v228)
+  v232 = v5->_frontCameraSupported & v229;
+  v5->_frontCinematicModeSupported = v232;
+  v5->_cinematicModeSupported = backCinematicModeSupported || v232;
+  if (v229)
   {
-    v232 = AVGestaltGetBoolAnswer();
+    v233 = AVGestaltGetBoolAnswer();
   }
 
   else
   {
-    v232 = 0;
+    v233 = 0;
   }
 
-  v5->_cinematic4KSupported = v232;
-  v233 = AVGestaltGetBoolAnswer();
-  v5->_backLiveStageLightSupported = v233;
-  v5->_frontLiveStageLightSupported = v233;
+  v5->_cinematic4KSupported = v233;
+  v234 = AVGestaltGetBoolAnswer();
+  v5->_backLiveStageLightSupported = v234;
+  v5->_frontLiveStageLightSupported = v234;
   v5->_hasFilteringEntitlement = (processCopy < 5) & (processCopy ^ 1);
   v5->_hasSystemTelephonyOfAnyKind = MGGetBoolAnswer();
   v5->_lowEndHardware = MGGetBoolAnswer();
   v5->_pipelinedStillImageProcessingSupported = AVGestaltGetBoolAnswer();
-  v234 = AVGestaltGetBoolAnswer();
-  v5->_portraitEffectsSupported = v234;
-  if (!v234)
+  v235 = AVGestaltGetBoolAnswer();
+  v5->_portraitEffectsSupported = v235;
+  if (!v235)
   {
     v5->__photoModeLightingControlSupported = 0;
-    v236 = off_1E76F4000;
+    v237 = off_1E76F4000;
     goto LABEL_314;
   }
 
-  v235 = v370 & ((processCopy > 5) | (0x11u >> processCopy));
-  v5->__photoModeLightingControlSupported = v235;
-  v236 = off_1E76F4000;
-  v237 = v371;
-  if ((v235 & 1) == 0)
+  v236 = v371 & ((processCopy > 5) | (0x11u >> processCopy));
+  v5->__photoModeLightingControlSupported = v236;
+  v237 = off_1E76F4000;
+  v238 = v372;
+  if ((v236 & 1) == 0)
   {
 LABEL_314:
-    v237 = 0;
+    v238 = 0;
   }
 
-  v5->_portraitInPhotoModeBehavior = v237;
-  if ((v382 & 0x8000000000000000) == 0)
+  v5->_portraitInPhotoModeBehavior = v238;
+  if ((v383 & 0x8000000000000000) == 0)
   {
-    v238 = os_log_create("com.apple.camera", "Camera");
-    if (os_log_type_enabled(v238, OS_LOG_TYPE_DEFAULT))
+    v239 = os_log_create("com.apple.camera", "Camera");
+    if (os_log_type_enabled(v239, OS_LOG_TYPE_DEFAULT))
     {
       portraitInPhotoModeBehavior = v5->_portraitInPhotoModeBehavior;
       *buf = 134218240;
-      v457 = portraitInPhotoModeBehavior;
-      v458 = 2048;
-      v459 = v382;
-      _os_log_impl(&dword_1A3640000, v238, OS_LOG_TYPE_DEFAULT, "Overriding Portrait in Photo mode behavior from %lu to %lu", buf, 0x16u);
+      v458 = portraitInPhotoModeBehavior;
+      v459 = 2048;
+      v460 = v383;
+      _os_log_impl(&dword_1A3640000, v239, OS_LOG_TYPE_DEFAULT, "Overriding Portrait in Photo mode behavior from %lu to %lu", buf, 0x16u);
     }
 
-    v5->_portraitInPhotoModeBehavior = v382;
+    v5->_portraitInPhotoModeBehavior = v383;
   }
 
   v5->__frontStageLightPortaitEffectsSupported = AVGestaltGetBoolAnswer();
   v5->__backStageLightPortaitEffectsSupported = AVGestaltGetBoolAnswer();
-  v240 = AVGestaltGetBoolAnswer();
-  v5->_portraitEffectIntensitySupported = v240 & v417;
+  v241 = AVGestaltGetBoolAnswer();
+  v5->_portraitEffectIntensitySupported = v241 & v418;
   portraitEffectsSupported = v5->_portraitEffectsSupported;
-  if ((portraitEffectsSupported & v240) != 0)
+  if ((portraitEffectsSupported & v241) != 0)
   {
     portraitEffectsSupported = 2;
   }
 
   v5->_supportedPortraitLightingVersion = portraitEffectsSupported;
-  if (v415)
+  if (v416)
   {
-    v242 = 0;
+    v243 = 0;
   }
 
   else
   {
-    v242 = AVGestaltGetBoolAnswer();
+    v243 = AVGestaltGetBoolAnswer();
   }
 
-  v5->_deferredPortraitRenderingSupported = v242;
-  v243 = AVGestaltGetBoolAnswer();
-  if (v415)
+  v5->_deferredPortraitRenderingSupported = v243;
+  v244 = AVGestaltGetBoolAnswer();
+  if (v416)
   {
-    v244 = 0;
+    v245 = 0;
   }
 
   else
   {
-    v244 = v243;
+    v245 = v244;
   }
 
-  v5->_deferredProcessingSupported = v244;
-  if (v244)
+  v5->_deferredProcessingSupported = v245;
+  if (v245)
   {
-    LOBYTE(v244) = AVGestaltGetBoolAnswer() ^ 1;
+    LOBYTE(v245) = AVGestaltGetBoolAnswer() ^ 1;
   }
 
-  v5->__frontDeferredProcessingPrewarmingSupported = v244;
-  v5->_allowPortraitDescriptionOverlay = v13 < 15.0 && v417;
-  v5->__rearPortraitAspectRatioSupported = (AVGestaltGetBoolAnswer() | BYTE4(v392)) & 1;
-  v5->__frontPortraitAspectRatioSupported = (AVGestaltGetBoolAnswer() | BYTE4(v392)) & 1;
-  v245 = (processCopy < 5) & (processCopy ^ 1);
-  v5->_previewQualityStillImageFilteringForPhotoModeSupported = (v415 == 0) & (v188 | v391);
-  v5->__rearPhotoModeDepthSuggestionSupported = v245 & (v188 | BYTE4(v391));
+  v5->__frontDeferredProcessingPrewarmingSupported = v245;
+  v5->_allowPortraitDescriptionOverlay = v13 < 15.0 && v418;
+  v5->__rearPortraitAspectRatioSupported = (AVGestaltGetBoolAnswer() | BYTE4(v393)) & 1;
+  v5->__frontPortraitAspectRatioSupported = (AVGestaltGetBoolAnswer() | BYTE4(v393)) & 1;
+  v246 = (processCopy < 5) & (processCopy ^ 1);
+  v5->_previewQualityStillImageFilteringForPhotoModeSupported = (v416 == 0) & (v188 | v392);
+  v5->__rearPhotoModeDepthSuggestionSupported = v246 & (v188 | BYTE4(v392));
   if ([(CAMCaptureCapabilities *)v5 fallbackCameraEnabled]&& v5->__rearPhotoModeDepthSuggestionSupported)
   {
     v5->__rearPhotoModeDepthSuggestionSupported = v5->_backWideDualSupported;
   }
 
-  v5->__frontPhotoModeDepthSuggestionSupported = v245 & (v188 | v392);
-  v5->_captureOnTouchDown = (AVGestaltGetBoolAnswer() | v412) & 1;
-  v246 = AVGestaltGetBoolAnswer();
-  v5->_neuralEngineSupported = v246;
+  v5->__frontPhotoModeDepthSuggestionSupported = v246 & (v188 | v393);
+  v5->_captureOnTouchDown = (AVGestaltGetBoolAnswer() | v413) & 1;
+  v247 = AVGestaltGetBoolAnswer();
+  v5->_neuralEngineSupported = v247;
   if ([(CAMCaptureCapabilities *)v5 fallbackCameraEnabled])
   {
-    v246 = 0;
-    v247 = v397;
+    v247 = 0;
+    v248 = v398;
   }
 
   else
   {
-    v247 = v397;
+    v248 = v398;
     if (!*p_backPortraitModeSupported && !v5->_frontPortraitModeSupported)
     {
-      v246 = 0;
+      v247 = 0;
     }
   }
 
-  v5->_depthEffectApertureSupported = v246;
-  v248 = ((v393 & 1) != 0 || AVGestaltGetBoolAnswer()) && v5->_deferredProcessingSupported;
-  v5->__rearPortraitDeferredProcessingSupported = v248;
-  v249 = ((v393 & 0x100000000) != 0 || AVGestaltGetBoolAnswer()) && v5->_deferredProcessingSupported;
-  v5->__frontPortraitDeferredProcessingSupported = v249;
-  v5->__rearPortraitSemanticStylesSupported = (AVGestaltGetBoolAnswer() | v394) & 1;
-  v5->__frontPortraitSemanticStylesSupported = (AVGestaltGetBoolAnswer() | v394) & 1;
+  v5->_depthEffectApertureSupported = v247;
+  v249 = ((v394 & 1) != 0 || AVGestaltGetBoolAnswer()) && v5->_deferredProcessingSupported;
+  v5->__rearPortraitDeferredProcessingSupported = v249;
+  v250 = ((v394 & 0x100000000) != 0 || AVGestaltGetBoolAnswer()) && v5->_deferredProcessingSupported;
+  v5->__frontPortraitDeferredProcessingSupported = v250;
+  v5->__rearPortraitSemanticStylesSupported = (AVGestaltGetBoolAnswer() | v395) & 1;
+  v5->__frontPortraitSemanticStylesSupported = (AVGestaltGetBoolAnswer() | v395) & 1;
   v5->_semanticDevelopmentSupported = AVGestaltGetBoolAnswer();
-  v5->_enableSemanticDevelopmentFilterDebugging = v247;
+  v5->_enableSemanticDevelopmentFilterDebugging = v248;
   v5->_contentAwareDistortionCorrectionSupported = AVGestaltGetBoolAnswer();
   if ((processCopy | 4) == 4)
   {
     v5->_linearDNGSupported = AVGestaltGetBoolAnswer();
   }
 
-  if (v412 && AVGestaltGetBoolAnswer())
+  if (v413 && AVGestaltGetBoolAnswer())
   {
     v5->_semanticStylesSupport = 15;
-    v250 = ((AVGestaltGetIntegerAnswerWithDefault() > 0) | v366) & v365;
-    v5->_smartStylesSupported = v250 & 1;
-    v5->_smartStylesOnboardingSupported = v250 & 1;
-    if (v250)
+    v251 = ((AVGestaltGetIntegerAnswerWithDefault() > 0) | v367) & v366;
+    v5->_smartStylesSupported = v251 & 1;
+    v5->_smartStylesOnboardingSupported = v251 & 1;
+    if (v251)
     {
-      v251 = _os_feature_enabled_impl();
+      v252 = _os_feature_enabled_impl();
       smartStylesSupported = v5->_smartStylesSupported;
     }
 
     else
     {
       smartStylesSupported = 0;
-      v251 = 0;
+      v252 = 0;
     }
 
-    v5->__smartStylesAdditionalSystemStyleSupport = v251;
+    v5->__smartStylesAdditionalSystemStyleSupport = v252;
     v5->_semanticStylesVersion = smartStylesSupported;
-    v5->_smartStylesShowExtraControls = smartStylesSupported & BYTE4(v366) & 1;
+    v5->_smartStylesShowExtraControls = smartStylesSupported & BYTE4(v367) & 1;
     v5->_allowSystemSmartStylesInPicker = smartStylesSupported;
   }
 
   else
   {
-    v5->_semanticStylesSupport = !v373 && AVGestaltGetBoolAnswer();
+    v5->_semanticStylesSupport = !v374 && AVGestaltGetBoolAnswer();
   }
 
   if (processCopy >= 3)
   {
     if (processCopy == 3)
     {
-      v253 = 1;
+      v254 = 1;
       goto LABEL_366;
     }
 
     if (processCopy != 4)
     {
 LABEL_363:
-      v253 = 0;
+      v254 = 0;
       goto LABEL_366;
     }
   }
@@ -1813,46 +1814,46 @@ LABEL_363:
     goto LABEL_363;
   }
 
-  v253 = AVGestaltGetBoolAnswer();
+  v254 = AVGestaltGetBoolAnswer();
 LABEL_366:
-  v5->_liveFilteringSupported = v253;
+  v5->_liveFilteringSupported = v254;
   v5->_actionModeControlSupported = AVGestaltGetBoolAnswer();
   v5->_enhancedStabilizationSupported = AVGestaltGetBoolAnswer();
   v5->__preferWideDualPortrait = v5->__quadraPortraitSupported;
   v5->__wideDualPortraitNightModeSupported = AVGestaltGetBoolAnswer();
   v5->_minimumMachineReadableCodeNormalizedHeight = 0.05;
-  v254 = v415 == 0 && v5->_neuralEngineSupported;
-  v5->_imageAnalysisSupported = v254;
-  v5->_documentScanningSupported = v254 & ((v413 == 3) | BYTE4(v394));
-  v255 = MGCopyAnswer();
-  v256 = 0.0;
-  if ([v255 count] >= 2)
+  v255 = v416 == 0 && v5->_neuralEngineSupported;
+  v5->_imageAnalysisSupported = v255;
+  v5->_documentScanningSupported = v255 & ((v414 == 3) | BYTE4(v395));
+  v256 = MGCopyAnswer();
+  v257 = 0.0;
+  if ([v256 count] >= 2)
   {
-    v257 = [v255 objectAtIndexedSubscript:1];
-    [v257 doubleValue];
-    v256 = v258;
+    v258 = [v256 objectAtIndexedSubscript:1];
+    [v258 doubleValue];
+    v257 = v259;
   }
 
-  v259 = [v255 objectAtIndexedSubscript:0];
-  [v259 doubleValue];
-  v261 = v260;
+  v260 = [v256 objectAtIndexedSubscript:0];
+  [v260 doubleValue];
+  v262 = v261;
 
-  v262 = v261 * (MGGetSInt32Answer() / -25.4);
-  v5->_frontCameraInset = vcvtd_n_f64_s32(MGGetSInt32Answer(), 1uLL) + v262;
-  v264 = v256 > v261 && v255 != 0;
-  v5->_frontCameraOnRightEdge = v264;
+  v263 = v262 * (MGGetSInt32Answer() / -25.4);
+  v5->_frontCameraInset = vcvtd_n_f64_s32(MGGetSInt32Answer(), 1uLL) + v263;
+  v265 = v257 > v262 && v256 != 0;
+  v5->_frontCameraOnRightEdge = v265;
   v5->_flashMitigationSupported = (processCopy < 5) & (processCopy ^ 1);
-  if (!v415)
+  if (!v416)
   {
     v5->_librarySelectionMockAutomationModeEnabled = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPeopleProximityMockAutomationMode", @"com.apple.camera", 0) != 0;
     v5->_librarySelectionMockLocationShiftingEnabled = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentLibrarySelectionMockLocationShiftingEnabled", @"com.apple.camera", 0) != 0;
-    v5->_librarySelectionSupported = v367;
-    v5->_peopleProximityDetectionSupported = v367;
-    if (v367)
+    v5->_librarySelectionSupported = v368;
+    v5->_peopleProximityDetectionSupported = v368;
+    if (v368)
     {
-      v266 = CFPreferencesCopyAppValue(@"CAMFeatureDevelopmentPeopleProximityDetectAdditionalEmail", @"com.apple.camera");
+      v267 = CFPreferencesCopyAppValue(@"CAMFeatureDevelopmentPeopleProximityDetectAdditionalEmail", @"com.apple.camera");
       peopleProximityDetectAdditionalEmail = v5->_peopleProximityDetectAdditionalEmail;
-      v5->_peopleProximityDetectAdditionalEmail = v266;
+      v5->_peopleProximityDetectAdditionalEmail = v267;
 
       buf[0] = 0;
       v5->_peopleProximityUsesDeviceDiscovery = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPeopleProximityUseDeviceDiscovery", @"com.apple.camera", buf) != 0;
@@ -1861,357 +1862,357 @@ LABEL_366:
         v5->_peopleProximityUsesDeviceDiscovery = 1;
       }
 
-      v268 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityInitialScanDuration", @"com.apple.camera", 0);
-      v269 = 5;
-      if (v268)
+      v269 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityInitialScanDuration", @"com.apple.camera", 0);
+      v270 = 5;
+      if (v269)
       {
-        v269 = v268;
+        v270 = v269;
       }
 
-      v5->_peopleProximityInitialScanDuration = v269;
-      v270 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySubsequentScanDuration", @"com.apple.camera", 0);
-      v271 = 20;
-      if (v270)
+      v5->_peopleProximityInitialScanDuration = v270;
+      v271 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySubsequentScanDuration", @"com.apple.camera", 0);
+      v272 = 20;
+      if (v271)
       {
-        v271 = v270;
+        v272 = v271;
       }
 
-      v5->_peopleProximitySubsequentScanDuration = v271;
-      v272 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityInitialScanRate", @"com.apple.camera", 0);
-      v273 = 30;
-      if (v272)
+      v5->_peopleProximitySubsequentScanDuration = v272;
+      v273 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityInitialScanRate", @"com.apple.camera", 0);
+      v274 = 30;
+      if (v273)
       {
-        v273 = v272;
+        v274 = v273;
       }
 
-      v5->_peopleProximityInitialScanRate = v273;
-      v274 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySubsequentScanRate", @"com.apple.camera", 0);
-      v275 = 10;
-      if (v274)
+      v5->_peopleProximityInitialScanRate = v274;
+      v275 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySubsequentScanRate", @"com.apple.camera", 0);
+      v276 = 10;
+      if (v275)
       {
-        v275 = v274;
+        v276 = v275;
       }
 
-      v5->_peopleProximitySubsequentScanRate = v275;
+      v5->_peopleProximitySubsequentScanRate = v276;
       v5->_peopleProximityScanWaitInterval = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityScanWaitInterval", @"com.apple.camera", 0);
       keyExistsAndHasValidFormat = 0;
       if (CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPeopleProximityScanIndefinitelyValue", @"com.apple.camera", &keyExistsAndHasValidFormat))
       {
-        v276 = keyExistsAndHasValidFormat == 0;
+        v277 = keyExistsAndHasValidFormat == 0;
       }
 
       else
       {
-        v276 = 1;
+        v277 = 1;
       }
 
-      v277 = !v276;
-      v5->_peopleProximityScanIndefinitely = v277;
-      v278 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityAutoOnResetTimeout", @"com.apple.camera", 0);
-      v279 = v278;
-      if (!v278)
+      v278 = !v277;
+      v5->_peopleProximityScanIndefinitely = v278;
+      v279 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityAutoOnResetTimeout", @"com.apple.camera", 0);
+      v280 = v279;
+      if (!v279)
       {
-        v279 = 300.0;
+        v280 = 300.0;
       }
 
-      v5->_librarySelectionAutoOnResetTimeout = v279;
-      v280 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityUserChoiceResetTimeout", @"com.apple.camera", 0);
-      v281 = v280;
-      if (!v280)
+      v5->_librarySelectionAutoOnResetTimeout = v280;
+      v281 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityUserChoiceResetTimeout", @"com.apple.camera", 0);
+      v282 = v281;
+      if (!v281)
       {
-        v281 = 300.0;
+        v282 = 300.0;
       }
 
-      v5->_librarySelectionUserChoiceResetTimeout = v281;
-      v282 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySameLocationResetTimeout", @"com.apple.camera", 0);
-      v283 = v282;
-      if (!v282)
+      v5->_librarySelectionUserChoiceResetTimeout = v282;
+      v283 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximitySameLocationResetTimeout", @"com.apple.camera", 0);
+      v284 = v283;
+      if (!v283)
       {
-        v283 = 3600.0;
+        v284 = 3600.0;
       }
 
-      v5->_librarySelectionSameLocationResetTimeout = v283;
-      v284 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityTripResetTimeout", @"com.apple.camera", 0);
-      v285 = v284;
-      if (!v284)
+      v5->_librarySelectionSameLocationResetTimeout = v284;
+      v285 = CFPreferencesGetAppIntegerValue(@"CAMFeatureDevelopmentPeopleProximityTripResetTimeout", @"com.apple.camera", 0);
+      v286 = v285;
+      if (!v285)
       {
-        v285 = 86400.0;
+        v286 = 86400.0;
       }
 
-      v5->_librarySelectionTripResetTimeout = v285;
-      v434 = 0;
-      if (CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPeopleProximityIgnoreNearbyRequirements", @"com.apple.camera", &v434))
+      v5->_librarySelectionTripResetTimeout = v286;
+      v435 = 0;
+      if (CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentPeopleProximityIgnoreNearbyRequirements", @"com.apple.camera", &v435))
       {
-        v286 = 1;
+        v287 = 1;
       }
 
       else
       {
-        v286 = v434 == 0;
+        v287 = v435 == 0;
       }
 
-      v287 = v286;
-      v5->_peopleProximityIgnoreNearbyRequirements = v287;
+      v288 = v287;
+      v5->_peopleProximityIgnoreNearbyRequirements = v288;
     }
 
-    v288 = 0;
+    v289 = 0;
     v5->_peopleProximityPersistenceSupported = 0;
     v5->_frontEnhancedHEICResolutionSupported = 0;
-    v289 = v409 & (v13 >= 17.0 || v368);
-    if (v289 == 1)
+    v290 = v410 & (v13 >= 17.0 || v369);
+    if (v290 == 1)
     {
-      v288 = v5->_dynamicAspectRatioSupported;
+      v289 = v5->_dynamicAspectRatioSupported;
     }
 
-    if (v409 && v5->_linearDNGSupported)
+    if (v410 && v5->_linearDNGSupported)
     {
-      v450 = &unk_1F16C7DD8;
-      v451 = &unk_1F16C97A0;
-      v290 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v451 forKeys:&v450 count:1];
+      v451 = &unk_1F16C7DD8;
+      v452 = &unk_1F16C97A0;
+      v291 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v452 forKeys:&v451 count:1];
       backCameraSupportedRAWResolutionsByMode = v5->__backCameraSupportedRAWResolutionsByMode;
-      v5->__backCameraSupportedRAWResolutionsByMode = v290;
+      v5->__backCameraSupportedRAWResolutionsByMode = v291;
 
-      v448 = &unk_1F16C7DD8;
-      v449 = &unk_1F16C7E68;
-      v292 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v449 forKeys:&v448 count:1];
+      v449 = &unk_1F16C7DD8;
+      v450 = &unk_1F16C7E68;
+      v293 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v450 forKeys:&v449 count:1];
       backCameraDefaultRAWResolutionByMode = v5->__backCameraDefaultRAWResolutionByMode;
-      v5->__backCameraDefaultRAWResolutionByMode = v292;
+      v5->__backCameraDefaultRAWResolutionByMode = v293;
 
-      if (v288)
+      if (v289)
       {
-        v446 = &unk_1F16C7DD8;
-        v447 = &unk_1F16C97B8;
-        v294 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v447 forKeys:&v446 count:1];
+        v447 = &unk_1F16C7DD8;
+        v448 = &unk_1F16C97B8;
+        v295 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v448 forKeys:&v447 count:1];
         frontCameraSupportedRAWResolutionsByMode = v5->__frontCameraSupportedRAWResolutionsByMode;
-        v5->__frontCameraSupportedRAWResolutionsByMode = v294;
+        v5->__frontCameraSupportedRAWResolutionsByMode = v295;
 
-        v444 = &unk_1F16C7DD8;
-        v445 = &unk_1F16C7E80;
-        v296 = MEMORY[0x1E695DF20];
-        v297 = &v445;
-        v298 = &v444;
+        v445 = &unk_1F16C7DD8;
+        v446 = &unk_1F16C7E80;
+        v297 = MEMORY[0x1E695DF20];
+        v298 = &v446;
+        v299 = &v445;
       }
 
       else
       {
-        v442 = &unk_1F16C7DD8;
-        v443 = &unk_1F16C97D0;
-        v299 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v443 forKeys:&v442 count:1];
-        v300 = v5->__frontCameraSupportedRAWResolutionsByMode;
-        v5->__frontCameraSupportedRAWResolutionsByMode = v299;
+        v443 = &unk_1F16C7DD8;
+        v444 = &unk_1F16C97D0;
+        v300 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v444 forKeys:&v443 count:1];
+        v301 = v5->__frontCameraSupportedRAWResolutionsByMode;
+        v5->__frontCameraSupportedRAWResolutionsByMode = v300;
 
-        v440 = &unk_1F16C7DD8;
-        v441 = &unk_1F16C7E20;
-        v296 = MEMORY[0x1E695DF20];
-        v297 = &v441;
-        v298 = &v440;
+        v441 = &unk_1F16C7DD8;
+        v442 = &unk_1F16C7E20;
+        v297 = MEMORY[0x1E695DF20];
+        v298 = &v442;
+        v299 = &v441;
       }
 
-      v301 = [v296 dictionaryWithObjects:v297 forKeys:v298 count:1];
+      v302 = [v297 dictionaryWithObjects:v298 forKeys:v299 count:1];
       frontCameraDefaultRAWResolutionByMode = v5->__frontCameraDefaultRAWResolutionByMode;
-      v5->__frontCameraDefaultRAWResolutionByMode = v301;
+      v5->__frontCameraDefaultRAWResolutionByMode = v302;
     }
 
-    else if ((v409 & 1) == 0)
+    else if ((v410 & 1) == 0)
     {
-      v265 = 0;
-      v158 = v415;
+      v266 = 0;
+      v158 = v416;
       goto LABEL_429;
     }
 
-    v303 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v304 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v418 = v255;
+    v305 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v419 = v256;
+    if (v290)
+    {
+      [v304 setObject:&unk_1F16C97E8 forKeyedSubscript:&unk_1F16C7E98];
+      v306 = &unk_1F16C7E80;
+      [v305 setObject:&unk_1F16C7E80 forKeyedSubscript:&unk_1F16C7E98];
+      v307 = &unk_1F16C9800;
+      v308 = &unk_1F16C9830;
+    }
+
+    else
+    {
+      v307 = &unk_1F16C9818;
+      v306 = &unk_1F16C7E20;
+      v308 = &unk_1F16C9848;
+    }
+
+    [v304 setObject:v307 forKeyedSubscript:&unk_1F16C7DD8];
+    [v305 setObject:v306 forKeyedSubscript:&unk_1F16C7DD8];
+    [v304 setObject:v308 forKeyedSubscript:&unk_1F16C7EB0];
+    [v305 setObject:v306 forKeyedSubscript:&unk_1F16C7EB0];
+    objc_storeStrong(&v5->__backCameraSupportedCompressedResolutionsByMode, v304);
+    objc_storeStrong(&v5->__backCameraDefaultCompressedResolutionByMode, v305);
+    v309 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v310 = objc_alloc_init(MEMORY[0x1E695DF90]);
     if (v289)
     {
-      [v303 setObject:&unk_1F16C97E8 forKeyedSubscript:&unk_1F16C7E98];
-      v305 = &unk_1F16C7E80;
-      [v304 setObject:&unk_1F16C7E80 forKeyedSubscript:&unk_1F16C7E98];
-      v306 = &unk_1F16C9800;
-      v307 = &unk_1F16C9830;
+      v311 = &unk_1F16C9860;
     }
 
     else
     {
-      v306 = &unk_1F16C9818;
-      v305 = &unk_1F16C7E20;
-      v307 = &unk_1F16C9848;
+      v311 = &unk_1F16C9878;
     }
 
-    [v303 setObject:v306 forKeyedSubscript:&unk_1F16C7DD8];
-    [v304 setObject:v305 forKeyedSubscript:&unk_1F16C7DD8];
-    [v303 setObject:v307 forKeyedSubscript:&unk_1F16C7EB0];
-    [v304 setObject:v305 forKeyedSubscript:&unk_1F16C7EB0];
-    objc_storeStrong(&v5->__backCameraSupportedCompressedResolutionsByMode, v303);
-    objc_storeStrong(&v5->__backCameraDefaultCompressedResolutionByMode, v304);
-    v308 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v309 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    if (v288)
+    if (v289)
     {
-      v310 = &unk_1F16C9860;
+      v312 = &unk_1F16C7E80;
     }
 
     else
     {
-      v310 = &unk_1F16C9878;
+      v312 = &unk_1F16C7E20;
     }
 
-    if (v288)
-    {
-      v311 = &unk_1F16C7E80;
-    }
-
-    else
-    {
-      v311 = &unk_1F16C7E20;
-    }
-
-    [v308 setObject:v310 forKeyedSubscript:&unk_1F16C7DD8];
     [v309 setObject:v311 forKeyedSubscript:&unk_1F16C7DD8];
-    objc_storeStrong(&v5->__frontCameraSupportedCompressedResolutionsByMode, v308);
-    objc_storeStrong(&v5->__frontCameraDefaultCompressedResolutionByMode, v309);
+    [v310 setObject:v312 forKeyedSubscript:&unk_1F16C7DD8];
+    objc_storeStrong(&v5->__frontCameraSupportedCompressedResolutionsByMode, v309);
+    objc_storeStrong(&v5->__frontCameraDefaultCompressedResolutionByMode, v310);
 
-    v265 = 1;
-    v236 = off_1E76F4000;
-    v158 = v415;
-    v255 = v418;
+    v266 = 1;
+    v237 = off_1E76F4000;
+    v158 = v416;
+    v256 = v419;
     goto LABEL_429;
   }
 
-  v265 = 0;
+  v266 = 0;
   v5->_frontEnhancedHEICResolutionSupported = 0;
 LABEL_429:
-  v5->_focalLengthPickerSupported = (AVGestaltGetBoolAnswer() | v403) & 1;
+  v5->_focalLengthPickerSupported = (AVGestaltGetBoolAnswer() | v404) & 1;
   backWideFocalLengthDisplayValue = v5->_backWideFocalLengthDisplayValue;
   if (backWideFocalLengthDisplayValue == 24)
   {
-    v314 = 0;
-    v313 = &unk_1F16C98A8;
+    v315 = 0;
+    v314 = &unk_1F16C98A8;
   }
 
   else if (backWideFocalLengthDisplayValue == 26)
   {
-    v313 = &unk_1F16C98C0;
-    v314 = 3;
+    v314 = &unk_1F16C98C0;
+    v315 = 3;
   }
 
   else
   {
-    v315 = os_log_create("com.apple.camera", "Camera");
-    if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
+    v316 = os_log_create("com.apple.camera", "Camera");
+    if (os_log_type_enabled(v316, OS_LOG_TYPE_ERROR))
     {
       [CAMCaptureCapabilities initWithHostProcess:];
     }
 
-    v314 = 0;
+    v315 = 0;
     v5->_focalLengthPickerSupported = 0;
-    v313 = &unk_1F16C9890;
+    v314 = &unk_1F16C9890;
   }
 
-  v5->_baseFocalLengthForWideCamera = v314;
+  v5->_baseFocalLengthForWideCamera = v315;
   availableCustomLenses = v5->_availableCustomLenses;
-  v5->_availableCustomLenses = v313;
+  v5->_availableCustomLenses = v314;
 
   if (v5->_focalLengthPickerSupported)
   {
-    v317 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v313, "count") + 1}];
-    [v317 addObject:&unk_1F16C98D8];
-    v423 = 0u;
+    v318 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](v314, "count") + 1}];
+    [v318 addObject:&unk_1F16C98D8];
     v424 = 0u;
-    v421 = 0u;
+    v425 = 0u;
     v422 = 0u;
-    v318 = [(NSArray *)v313 countByEnumeratingWithState:&v421 objects:v439 count:16];
-    if (v318)
+    v423 = 0u;
+    v319 = [(NSArray *)v314 countByEnumeratingWithState:&v422 objects:v440 count:16];
+    if (v319)
     {
-      v319 = v318;
-      v320 = *v422;
+      v320 = v319;
+      v321 = *v423;
       do
       {
-        for (i = 0; i != v319; ++i)
+        for (i = 0; i != v320; ++i)
         {
-          if (*v422 != v320)
+          if (*v423 != v321)
           {
-            objc_enumerationMutation(v313);
+            objc_enumerationMutation(v314);
           }
 
-          v322 = *(*(&v421 + 1) + 8 * i);
-          if ([v322 integerValue])
+          v323 = *(*(&v422 + 1) + 8 * i);
+          if ([v323 integerValue])
           {
-            v438[0] = &unk_1F16C7DD8;
-            v438[1] = v322;
-            v323 = [MEMORY[0x1E695DEC8] arrayWithObjects:v438 count:2];
-            [v317 addObject:v323];
+            v439[0] = &unk_1F16C7DD8;
+            v439[1] = v323;
+            v324 = [MEMORY[0x1E695DEC8] arrayWithObjects:v439 count:2];
+            [v318 addObject:v324];
           }
         }
 
-        v319 = [(NSArray *)v313 countByEnumeratingWithState:&v421 objects:v439 count:16];
+        v320 = [(NSArray *)v314 countByEnumeratingWithState:&v422 objects:v440 count:16];
       }
 
-      while (v319);
+      while (v320);
     }
 
-    [v317 addObject:v313];
-    objc_storeStrong(&v5->_supportedCustomLensGroups, v317);
+    [v318 addObject:v314];
+    objc_storeStrong(&v5->_supportedCustomLensGroups, v318);
 
-    v236 = off_1E76F4000;
-    v158 = v415;
+    v237 = off_1E76F4000;
+    v158 = v416;
   }
 
   AVGestaltGetFloatAnswerWithDefault();
-  v324 = 0;
-  v5->__maximumZoomFactorWithout24MPUpscale = v5->__backWideDualCameraSwitchOverZoomFactor * v325;
-  v5->__overlapping48MPCapturesSupported = BYTE4(v403);
-  v5->_useFullResolutionThumbnailForRAWCaptures = v265;
+  v325 = 0;
+  v5->__maximumZoomFactorWithout24MPUpscale = v5->__backWideDualCameraSwitchOverZoomFactor * v326;
+  v5->__overlapping48MPCapturesSupported = BYTE4(v404);
+  v5->_useFullResolutionThumbnailForRAWCaptures = v266;
   if (processCopy > 4)
   {
-    v326 = v404;
+    v327 = v405;
   }
 
   else
   {
-    v326 = v404;
+    v327 = v405;
     if (((1 << processCopy) & 0x15) != 0)
     {
-      v324 = AVGestaltGetBoolAnswer();
+      v325 = AVGestaltGetBoolAnswer();
     }
   }
 
-  v5->_zoomPIPSupported = v324;
-  v5->__zoomPIPSupportedForSlomo = v324 & v398;
-  v327 = AVGestaltGetBoolAnswer();
-  v328 = _os_feature_enabled_impl();
+  v5->_zoomPIPSupported = v325;
+  v5->__zoomPIPSupportedForSlomo = v325 & v399;
+  v328 = AVGestaltGetBoolAnswer();
+  v329 = _os_feature_enabled_impl();
   if (v158)
   {
-    v329 = 0;
+    v330 = 0;
   }
 
   else
   {
-    v329 = v328;
+    v330 = v329;
   }
 
-  v5->_externalStorageSupported = v329 & v327;
+  v5->_externalStorageSupported = v330 & v328;
   v5->_pipelinedStillImageProcessingSupported = 1;
   v5->_proResLogColorSpaceSupported = AVGestaltGetBoolAnswer();
-  v330 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v331 = v330;
+  v331 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v332 = v331;
   if (v5->_proResVideoSupported)
   {
-    [v330 addObject:&unk_1F16C7E80];
+    [v331 addObject:&unk_1F16C7E80];
     if (!v5->_back4k120VideoSupported)
     {
-      [v331 addObject:&unk_1F16C7DD8];
+      [v332 addObject:&unk_1F16C7DD8];
     }
 
     if (v5->_proResLogColorSpaceSupported)
     {
-      [v331 addObject:&unk_1F16C7E68];
+      [v332 addObject:&unk_1F16C7E68];
     }
   }
 
-  v332 = [v331 copy];
+  v333 = [v332 copy];
   supportedProResColorSpaces = v5->_supportedProResColorSpaces;
-  v5->_supportedProResColorSpaces = v332;
+  v5->_supportedProResColorSpaces = v333;
 
   v5->_shouldPersistPreferences = 0;
   hostProcess = v5->_hostProcess;
@@ -2223,39 +2224,39 @@ LABEL_429:
   v5->_actionButtonSupported = MGGetBoolAnswer();
   if ((processCopy | 4) != 4)
   {
-    LOBYTE(v408) = 0;
+    LOBYTE(v409) = 0;
   }
 
-  v335 = CAMIsCameraButtonAvailable();
-  v336 = v408 & (v335 ^ 1);
-  v5->_allowHalfPressSimulation = v336;
-  v5->_halfPressSupported = (v408 | v335) & 1;
-  v5->_halfPressOverlayInProcess = v336;
+  v336 = CAMIsCameraButtonAvailable();
+  v337 = v409 & (v336 ^ 1);
+  v5->_allowHalfPressSimulation = v337;
+  v5->_halfPressSupported = (v409 | v336) & 1;
+  v5->_halfPressOverlayInProcess = v337;
   CAMMGGetCGRectAnswer(@"CameraButtonNormalizedCGRect", 0.0);
   CEKExpandNormalizedRect();
   UIRectRoundToScale();
-  v5->__cameraButtonFrame.origin.x = v337;
-  v5->__cameraButtonFrame.origin.y = v338;
-  v5->__cameraButtonFrame.size.width = v339;
-  v5->__cameraButtonFrame.size.height = v340;
+  v5->__cameraButtonFrame.origin.x = v338;
+  v5->__cameraButtonFrame.origin.y = v339;
+  v5->__cameraButtonFrame.size.width = v340;
+  v5->__cameraButtonFrame.size.height = v341;
   v5->_cameraButtonSupported = v5->_halfPressSupported;
   v5->_whiteBalanceLockingForVideoRecordingSupported = (processCopy < 5) & (0x13u >> processCopy);
   v5->_minimumDiskSpaceReserved = AVGestaltGetIntegerAnswerWithDefault();
-  v341 = AVGestaltGetBoolAnswer();
-  if (v341)
+  v342 = AVGestaltGetBoolAnswer();
+  if (v342)
   {
-    if (([(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowSpatialMode"]& 1) != 0)
+    if (([(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowSpatialMode"]& 1) != 0)
     {
-      LOBYTE(v341) = 1;
+      LOBYTE(v342) = 1;
     }
 
     else
     {
-      LOBYTE(v341) = _os_feature_enabled_impl();
+      LOBYTE(v342) = _os_feature_enabled_impl();
     }
   }
 
-  v5->_spatialModeSupported = (v158 == 0) & v341;
+  v5->_spatialModeSupported = (v158 == 0) & v342;
   fallbackCameraEnabled2 = [(CAMCaptureCapabilities *)v5 fallbackCameraEnabled];
   spatialModeSupported = v5->_spatialModeSupported;
   if (fallbackCameraEnabled2 && v5->_spatialModeSupported)
@@ -2267,36 +2268,36 @@ LABEL_429:
   v5->_spatialModeTrueVideoSupported = spatialModeSupported;
   if (processCopy <= 4 && ((1 << processCopy) & 0x15) != 0)
   {
-    v344 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v345 = v344;
-    if (v412)
+    v345 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v346 = v345;
+    if (v413)
     {
-      [v344 addObject:&unk_1F16C7E20];
-      [v345 addObject:&unk_1F16C7EC8];
+      [v345 addObject:&unk_1F16C7E20];
+      [v346 addObject:&unk_1F16C7EC8];
     }
   }
 
   else
   {
-    v345 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v346 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   }
 
-  if (HIDWORD(v402))
+  if (HIDWORD(v403))
   {
-    [v345 addObject:&unk_1F16C7EE0];
+    [v346 addObject:&unk_1F16C7EE0];
   }
 
-  objc_storeStrong(&v5->__supportedModesForPauseResumeVideo, v345);
+  objc_storeStrong(&v5->__supportedModesForPauseResumeVideo, v346);
   v5->_proRawJpegXLSupported = AVGestaltGetBoolAnswer();
   v5->_backQuadraSuperWideSupported = AVGestaltGetBoolAnswer();
-  v346 = v5->_frontCameraSupported && AVGestaltGetBoolAnswer() && (_os_feature_enabled_impl() & 1) != 0 || v375;
-  v347 = (processCopy < 5) & (processCopy ^ 1) & v346;
-  v5->_useMultiCamSession = v347;
-  v5->_frontRearSimultaneousVideoSupported = v347;
-  v5->_frontRearSimultaneousVideoFrontCameraHDR10Supported = v347 & v399;
-  v5->_frontRearSimultaneousVideo60FPSSupported = v347 & v402;
-  v5->_frontRearSimultaneousVideoFrontVideoStabilizationSupported = v347 & v400;
-  v5->_frontRearSimultaneousVideoDeferredFrontCameraEnabled = v401;
+  v347 = v5->_frontCameraSupported && AVGestaltGetBoolAnswer() && (_os_feature_enabled_impl() & 1) != 0 || v376;
+  v348 = (processCopy < 5) & (processCopy ^ 1) & v347;
+  v5->_useMultiCamSession = v348;
+  v5->_frontRearSimultaneousVideoSupported = v348;
+  v5->_frontRearSimultaneousVideoFrontCameraHDR10Supported = v348 & v400;
+  v5->_frontRearSimultaneousVideo60FPSSupported = v348 & v403;
+  v5->_frontRearSimultaneousVideoFrontVideoStabilizationSupported = v348 & v401;
+  v5->_frontRearSimultaneousVideoDeferredFrontCameraEnabled = v402;
   if ((processCopy | 4) == 4)
   {
     v5->_shouldPreventConnectionHandover = 1;
@@ -2304,111 +2305,111 @@ LABEL_429:
 
   if (AVGestaltGetBoolAnswer())
   {
-    v348 = 1;
-  }
-
-  else
-  {
-    v348 = [(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowCinematicAudio"];
-  }
-
-  v5->_cinematicAudioSupported = v348;
-  v5->_windRemovalSupported = AVGestaltGetBoolAnswer();
-  if (AVGestaltGetBoolAnswer())
-  {
     v349 = 1;
   }
 
   else
   {
-    v349 = [(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowTrueVideo"];
+    v349 = [(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowCinematicAudio"];
   }
 
-  v5->_trueVideoSupported = v349;
-  v5->_viewportSpringAnimationSupported = [(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowViewportSpringAnimation"];
+  v5->_cinematicAudioSupported = v349;
+  v5->_windRemovalSupported = AVGestaltGetBoolAnswer();
+  if (AVGestaltGetBoolAnswer())
+  {
+    v350 = 1;
+  }
+
+  else
+  {
+    v350 = [(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowTrueVideo"];
+  }
+
+  v5->_trueVideoSupported = v350;
+  v5->_viewportSpringAnimationSupported = [(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMFeatureDevelopmentAllowViewportSpringAnimation"];
   if (v158)
   {
-    v350 = 0;
+    v351 = 0;
   }
 
   else
   {
-    v350 = AVGestaltGetBoolAnswer();
+    v351 = AVGestaltGetBoolAnswer();
   }
 
-  v5->_trueVideoCaptureStillOnCancelEnabled = v350;
+  v5->_trueVideoCaptureStillOnCancelEnabled = v351;
   if (MGGetBoolAnswer())
   {
-    v351 = 1;
+    v352 = 1;
   }
 
   else
   {
-    v351 = [(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMSimulateForcedShutterSound"];
+    v352 = [(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMSimulateForcedShutterSound"];
   }
 
-  v5->_regionalShutterSoundEnabled = v351;
+  v5->_regionalShutterSoundEnabled = v352;
   [(CAMCaptureCapabilities *)v5 _doubleForKey:@"CAMDebugZoomEventReportingInterval" applicationID:@"com.apple.camera"];
-  v5->_zoomEventReportingInterval = v352;
-  v5->_zoomEventReportAllChanges = [(__objc2_class *)v236[81] BOOLInCameraDomainForKey:@"CAMDebugZoomEventShouldReportAllChanges"];
-  v353 = AVGestaltGetBoolAnswer();
-  v354 = 0;
-  v5->_smudgeDetectionSupported = v353;
+  v5->_zoomEventReportingInterval = v353;
+  v5->_zoomEventReportAllChanges = [(__objc2_class *)v237[81] BOOLInCameraDomainForKey:@"CAMDebugZoomEventShouldReportAllChanges"];
+  v354 = AVGestaltGetBoolAnswer();
+  v355 = 0;
+  v5->_smudgeDetectionSupported = v354;
   if (processCopy <= 4 && ((1 << processCopy) & 0x15) != 0)
   {
     buf[0] = 0;
     keyExistsAndHasValidFormat = 0;
-    v355 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmartFraming", @"com.apple.camera", buf);
-    v356 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowAutoSmartFraming", @"com.apple.camera", &keyExistsAndHasValidFormat);
+    v356 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmartFraming", @"com.apple.camera", buf);
+    v357 = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowAutoSmartFraming", @"com.apple.camera", &keyExistsAndHasValidFormat);
     if (buf[0])
     {
-      v357 = v355 != 0;
+      v358 = v356 != 0;
     }
 
     else if (AVGestaltGetBoolAnswer())
     {
-      v357 = v5->_dynamicAspectRatioSupported;
+      v358 = v5->_dynamicAspectRatioSupported;
     }
 
     else
     {
-      v357 = 0;
+      v358 = 0;
     }
 
-    v5->_smartFramingSupported = v357;
+    v5->_smartFramingSupported = v358;
     if (keyExistsAndHasValidFormat)
     {
-      v357 = v356 != 0;
+      v358 = v357 != 0;
     }
 
-    v5->_autoSmartFramingSupported = v357;
-    v434 = 0;
-    smartFramingSupported = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmartFramingUsingDynamicAspectRatio", @"com.apple.camera", &v434);
-    if (!v434)
+    v5->_autoSmartFramingSupported = v358;
+    v435 = 0;
+    smartFramingSupported = CFPreferencesGetAppBooleanValue(@"CAMFeatureDevelopmentAllowSmartFramingUsingDynamicAspectRatio", @"com.apple.camera", &v435);
+    if (!v435)
     {
       smartFramingSupported = v5->_smartFramingSupported;
     }
 
     v5->_smartFramingUsingDynamicAspectRatioSupported = smartFramingSupported != 0;
     AVGestaltGetFloatAnswerWithDefault();
-    v5->_smartFramingFieldOfViewPortraitZoomFactor = v359;
+    v5->_smartFramingFieldOfViewPortraitZoomFactor = v360;
     AVGestaltGetFloatAnswerWithDefault();
-    v5->_smartFramingFieldOfViewLandscapeZoomFactor = v360;
+    v5->_smartFramingFieldOfViewLandscapeZoomFactor = v361;
     AVGestaltGetFloatAnswerWithDefault();
-    v5->_smartFramingFieldOfViewZoomedOutLandscapeZoomFactor = v361;
+    v5->_smartFramingFieldOfViewZoomedOutLandscapeZoomFactor = v362;
     AVGestaltGetFloatAnswerWithDefault();
-    v5->_smartFramingFieldOfViewZoomedOutPortraitZoomFactor = v362;
-    v354 = v374;
+    v5->_smartFramingFieldOfViewZoomedOutPortraitZoomFactor = v363;
+    v355 = v375;
   }
 
-  v5->_expandedModeWheelOnboardingSupported = v354;
+  v5->_expandedModeWheelOnboardingSupported = v355;
   if (processCopy <= 5)
   {
     v5->_multipleCaptureFeaturesSupported = 0x100000001uLL >> (8 * processCopy);
   }
 
   CAMSignpostWithIDAndArgs(90, 0xEEEEB0B5B2B2EEEELL, 0, 0, 0, 0);
-  v363 = v5;
+  v364 = v5;
 
 LABEL_511:
   return v5;
@@ -8883,14 +8884,14 @@ LABEL_10:
 {
   [a1 count];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_2(&dword_1A3640000, v1, v2, "Selected semantic style index %ld is out of range 0-%ld", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_2(&dword_1A3640000, v1, v2, "Selected semantic style index %ld is out of range 0-%ld", v3, v4, v5, v6);
 }
 
 - (void)captureStyleForCaptureWithSupport:(void *)a1 styles:selectedStyleIndex:smartStyleSystemStyleIndex:.cold.2(void *a1)
 {
   [a1 count];
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_2(&dword_1A3640000, v1, v2, "System style index %ld is out of range 0-%ld", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_2(&dword_1A3640000, v1, v2, "System style index %ld is out of range 0-%ld", v3, v4, v5, v6);
 }
 
 @end

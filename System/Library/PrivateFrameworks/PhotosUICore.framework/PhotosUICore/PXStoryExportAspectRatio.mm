@@ -171,7 +171,7 @@ LABEL_13:
   {
     v6->_type = type;
     v6->_ratio = ratio;
-    PXFloatApproximatelyEqualToFloat();
+    PXFloatApproximatelyEqualToFloat(ratio);
   }
 
   return 0;
@@ -225,13 +225,15 @@ uint64_t __84__PXStoryExportAspectRatio_pickableAspectRatiosForOrientation_fullS
 
 + (id)standardAspectRatioForSize:(CGSize)size
 {
-  v7 = *MEMORY[0x1E69E9840];
-  memset(v5, 0, sizeof(v5));
+  height = size.height;
+  width = size.width;
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v7, 0, sizeof(v7));
   standardAspects = [self standardAspects];
-  if ([standardAspects countByEnumeratingWithState:v5 objects:v6 count:16])
+  if ([standardAspects countByEnumeratingWithState:v7 objects:v8 count:16])
   {
-    [**(&v5[0] + 1) ratio];
-    PXFloatApproximatelyEqualToFloat();
+    [**(&v7[0] + 1) ratio];
+    PXFloatApproximatelyEqualToFloat(width / height);
   }
 
   return 0;

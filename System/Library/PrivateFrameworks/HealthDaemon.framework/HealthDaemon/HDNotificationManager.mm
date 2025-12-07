@@ -5,10 +5,10 @@
 - (BOOL)areHealthNotificationsAuthorized;
 - (BOOL)incrementBadgeForDomain:(int64_t)domain count:(int64_t)count error:(id *)error;
 - (HDNotificationManager)initWithProfile:(id)profile bundle:(int64_t)bundle;
+- (dispatch_queue_t)_resourceQueue_badgeForDomain:(dispatch_queue_t *)domain;
 - (id)_actionCompletionOnClientQueue:(void *)queue;
 - (id)_aggregateBadge;
 - (id)_badgeForDomain:(int64_t)domain error:(id *)error;
-- (id)_resourceQueue_badgeForDomain:(dispatch_queue_t *)domain;
 - (id)_resourceQueue_badgeForDomain:(int64_t)domain error:(id *)error;
 - (id)_resourceQueue_coaleseDomainBadges;
 - (id)diagnosticDescription;
@@ -125,7 +125,7 @@ LABEL_7:
 
 void __70__HDNotificationManager__registerWithUserNotificationCenterIfRequired__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC300];
@@ -136,21 +136,19 @@ void __70__HDNotificationManager__registerWithUserNotificationCenterIfRequired__
     v9 = v6;
     v10 = [(HDNotificationManager *)v7 identifierForBundle:v8];
     v11 = @"not granted";
-    v13 = 138412802;
-    v14 = v10;
-    v15 = 2112;
+    v12 = 138412802;
+    v13 = v10;
+    v14 = 2112;
     if (a2)
     {
       v11 = @"granted";
     }
 
-    v16 = v11;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%@] UNUserNotificationCenter request %@ error: %@", &v13, 0x20u);
+    v15 = v11;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%@] UNUserNotificationCenter request %@ error: %@", &v12, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)areHealthNotificationsAuthorized
@@ -197,7 +195,7 @@ void __51__HDNotificationManager_badgeForDomain_completion___block_invoke(uint64
     v10[3] = &unk_278623818;
     v10[4] = v2;
     v11 = v3;
-    v2 = [v10 copy];
+    v2 = objc_msgSend_copy(v10);
   }
 
   v5 = *(a1 + 32);
@@ -266,7 +264,7 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
 
 - (BOOL)_resourceQueue_setBadge:(uint64_t)badge domain:(void *)domain error:
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v7 = a2;
   if (self)
   {
@@ -279,16 +277,16 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
       v11 = [v7 description];
       v12 = NSStringFromHKNotificationDomain();
       *buf = 138412546;
-      v41 = v11;
-      v42 = 2112;
-      v43 = v12;
+      v40 = v11;
+      v41 = 2112;
+      v42 = v12;
       _os_log_impl(&dword_228986000, v10, OS_LOG_TYPE_INFO, "Setting badge to %@ for domain %@", buf, 0x16u);
     }
 
     WeakRetained = objc_loadWeakRetained((self + 8));
-    v39 = 0;
-    v14 = [HDUnprotectedKeyValueEntity setBadge:v7 forDomain:badge profile:WeakRetained error:&v39];
-    v15 = v39;
+    v38 = 0;
+    v14 = [HDUnprotectedKeyValueEntity setBadge:v7 forDomain:badge profile:WeakRetained error:&v38];
+    v15 = v38;
 
     _HKInitializeLogging();
     v16 = *v8;
@@ -301,9 +299,9 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
         v19 = [v7 description];
         v20 = NSStringFromHKNotificationDomain();
         *buf = 138543618;
-        v41 = v19;
-        v42 = 2114;
-        v43 = v20;
+        v40 = v19;
+        v41 = 2114;
+        v42 = v20;
         _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "Setting badge to %{public}@ for domain %{public}@", buf, 0x16u);
       }
 
@@ -316,7 +314,7 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
         v23 = v22;
         v24 = [_resourceQueue_coaleseDomainBadges description];
         *buf = 138543362;
-        v41 = v24;
+        v40 = v24;
         _os_log_impl(&dword_228986000, v23, OS_LOG_TYPE_DEFAULT, "Setting application badge to %{public}@", buf, 0xCu);
       }
 
@@ -326,14 +324,14 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
       [v26 setBadgeValue:value];
 
       v28 = *(self + 24);
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __62__HDNotificationManager__resourceQueue_setBadge_domain_error___block_invoke;
-      v36[3] = &unk_2786237F0;
-      v36[4] = self;
-      v37 = v7;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __62__HDNotificationManager__resourceQueue_setBadge_domain_error___block_invoke;
+      v35[3] = &unk_2786237F0;
+      v35[4] = self;
+      v36 = v7;
       badgeCopy = badge;
-      [v28 notifyObservers:v36];
+      [v28 notifyObservers:v35];
       if (notify_post(*MEMORY[0x277CCE398]))
       {
         _HKInitializeLogging();
@@ -350,15 +348,15 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v34 = v16;
-        v35 = NSStringFromHKNotificationDomain();
+        v33 = v16;
+        v34 = NSStringFromHKNotificationDomain();
         *buf = 138543874;
-        v41 = v7;
-        v42 = 2114;
-        v43 = v35;
-        v44 = 2114;
-        v45 = v15;
-        _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "Error setting badge to %{public}@ for domain %{public}@: %{public}@", buf, 0x20u);
+        v40 = v7;
+        v41 = 2114;
+        v42 = v34;
+        v43 = 2114;
+        v44 = v15;
+        _os_log_error_impl(&dword_228986000, v33, OS_LOG_TYPE_ERROR, "Error setting badge to %{public}@ for domain %{public}@: %{public}@", buf, 0x20u);
       }
 
       v30 = v15;
@@ -383,7 +381,6 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
     v14 = 0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -405,12 +402,12 @@ void __61__HDNotificationManager_incrementBadgeForDomain_count_error___block_inv
   dispatch_async(resourceQueue, v13);
 }
 
-void __55__HDNotificationManager_setBadge_forDomain_completion___block_invoke(uint64_t a1)
+void __55__HDNotificationManager_setBadge_forDomain_completion___block_invoke(void *a1)
 {
-  v2 = [(HDNotificationManager *)*(a1 + 32) _actionCompletionOnClientQueue:?];
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 56);
+  v2 = [(HDNotificationManager *)a1[4] _actionCompletionOnClientQueue:?];
+  v3 = a1[4];
+  v4 = a1[5];
+  v5 = a1[7];
   v8 = 0;
   v6 = [(HDNotificationManager *)v3 _resourceQueue_setBadge:v4 domain:v5 error:&v8];
   v7 = v8;
@@ -429,7 +426,7 @@ void __55__HDNotificationManager_setBadge_forDomain_completion___block_invoke(ui
     v6[3] = &unk_2786173C8;
     v6[4] = queue;
     v7 = v3;
-    queue = [v6 copy];
+    queue = objc_msgSend_copy(v6);
   }
 
   return queue;
@@ -512,7 +509,7 @@ void __55__HDNotificationManager_setBadge_forDomain_completion___block_invoke(ui
 
 void __64__HDNotificationManager_postNotificationWithRequest_completion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
@@ -521,7 +518,7 @@ void __64__HDNotificationManager_postNotificationWithRequest_completion___block_
     v4 = v2;
     v5 = [v3 identifier];
     *buf = 138543362;
-    v20 = v5;
+    v19 = v5;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "Posting notification: %{public}@", buf, 0xCu);
   }
 
@@ -536,10 +533,10 @@ void __64__HDNotificationManager_postNotificationWithRequest_completion___block_
   aBlock[2] = __64__HDNotificationManager_postNotificationWithRequest_completion___block_invoke_324;
   aBlock[3] = &unk_278623778;
   v10 = v9;
-  v18 = v10;
-  v15 = *(a1 + 32);
-  v11 = v15.i64[0];
-  v17 = vextq_s8(v15, v15, 8uLL);
+  v17 = v10;
+  v14 = *(a1 + 32);
+  v11 = v14.i64[0];
+  v16 = vextq_s8(v14, v14, 8uLL);
   v12 = _Block_copy(aBlock);
   v13 = v12;
   if (_HDIsUnitTesting)
@@ -551,8 +548,6 @@ void __64__HDNotificationManager_postNotificationWithRequest_completion___block_
   {
     [*(*(a1 + 40) + 64) addNotificationRequest:*(a1 + 32) withCompletionHandler:v12];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HDNotificationManager_postNotificationWithRequest_completion___block_invoke_324(void *a1, uint64_t a2)
@@ -667,40 +662,33 @@ void __72__HDNotificationManager_postCompanionUserNotificationOfType_completion_
 
 uint64_t __72__HDNotificationManager_postCompanionUserNotificationOfType_completion___block_invoke_3(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
-    v3 = *(a1 + 32);
-    v2 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
-    v5 = *MEMORY[0x277D85DE8];
+    v2 = *(*(a1 + 40) + 16);
 
-    return v4();
+    return v2();
   }
 
   else
   {
     _HKInitializeLogging();
-    v7 = *MEMORY[0x277CCC300];
+    v4 = *MEMORY[0x277CCC300];
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v10;
-      _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Error posting notification: %@", &v11, 0xCu);
+      v5 = *(a1 + 32);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Error posting notification: %@", &v6, 0xCu);
     }
 
-    v8 = *(a1 + 32);
-    result = (*(*(a1 + 40) + 16))();
-    v9 = *MEMORY[0x277D85DE8];
+    return (*(*(a1 + 40) + 16))();
   }
-
-  return result;
 }
 
 - (void)receivedCompanionUserNotificationRequest:(id)request completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   notificationConfiguration = [request notificationConfiguration];
   notificationType = [notificationConfiguration notificationType];
@@ -714,13 +702,13 @@ uint64_t __72__HDNotificationManager_postCompanionUserNotificationOfType_complet
     v13 = [v12 localizedStringForKey:@"NEW_ELECTROCARDIOGRAM_NOTIFICATION_BODY" value:&stru_283BF39C8 table:@"Localizable-Cinnamon"];
     v14 = HKConditionallyRedactedHeartRhythmString();
     _hk_urlForElectrocardiogramType = [MEMORY[0x277CBEBC0] _hk_urlForElectrocardiogramType];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __77__HDNotificationManager_receivedCompanionUserNotificationRequest_completion___block_invoke;
-    v19[3] = &unk_2786173C8;
-    v19[4] = self;
-    v20 = completionCopy;
-    [(HDNotificationManager *)self _postNotificationWithTitle:v11 body:v14 categoryIdentifier:@"com.apple.private.health.heartrhythm.phoneonly" subtitle:0 domain:4 url:_hk_urlForElectrocardiogramType accessoryImageName:0 header:0 completion:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __77__HDNotificationManager_receivedCompanionUserNotificationRequest_completion___block_invoke;
+    v18[3] = &unk_2786173C8;
+    v18[4] = self;
+    v19 = completionCopy;
+    [(HDNotificationManager *)self _postNotificationWithTitle:v11 body:v14 categoryIdentifier:@"com.apple.private.health.heartrhythm.phoneonly" subtitle:0 domain:4 url:_hk_urlForElectrocardiogramType accessoryImageName:0 header:0 completion:v18];
   }
 
   else
@@ -730,15 +718,13 @@ uint64_t __72__HDNotificationManager_postCompanionUserNotificationOfType_complet
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v22 = notificationType;
+      v21 = notificationType;
       _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Received unsupported user notification message of type %ld.", buf, 0xCu);
     }
 
     v17 = [MEMORY[0x277CCA9B8] hk_error:100 description:@"Unsupported companion notification type."];
     [(HDNotificationManager *)self _sendCompanionUserNotificationResponse:completionCopy error:v17];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendCompanionUserNotificationResponse:(void *)response error:
@@ -762,12 +748,12 @@ uint64_t __72__HDNotificationManager_postCompanionUserNotificationOfType_complet
 void __70__HDNotificationManager__sendCompanionUserNotificationResponse_error___block_invoke(uint64_t a1)
 {
   v2 = objc_alloc_init(HDCodableCompanionUserNotificationResponse);
-  v5 = v2;
+  v4 = v2;
   if (*(a1 + 32))
   {
     [(HDCodableCompanionUserNotificationResponse *)v2 setSuccess:0];
     v3 = [*(a1 + 32) hk_codableError];
-    [(HDCodableCompanionUserNotificationResponse *)v5 setError:v3];
+    [(HDCodableCompanionUserNotificationResponse *)v4 setError:v3];
   }
 
   else
@@ -775,7 +761,6 @@ void __70__HDNotificationManager__sendCompanionUserNotificationResponse_error___
     [(HDCodableCompanionUserNotificationResponse *)v2 setSuccess:1];
   }
 
-  v4 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -846,29 +831,29 @@ void __69__HDNotificationManager_removeDeliveredNotificationsWithIdentifiers___b
 
 void __94__HDNotificationManager_removeDeliveredNotificationsWithCategoryIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v23;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v23 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
+        v9 = *(*(&v22 + 1) + 8 * i);
         v10 = [v9 request];
         v11 = [v10 content];
         v12 = [v11 categoryIdentifier];
@@ -878,30 +863,28 @@ void __94__HDNotificationManager_removeDeliveredNotificationsWithCategoryIdentif
         {
           v14 = [v9 request];
           v15 = [v14 identifier];
-          [v20 addObject:v15];
+          [v19 addObject:v15];
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v6);
   }
 
-  [*(a1 + 40) removeDeliveredNotificationsWithIdentifiers:v20];
+  [*(a1 + 40) removeDeliveredNotificationsWithIdentifiers:v19];
   (*(*(a1 + 48) + 16))();
   v16 = *(a1 + 32);
   v17 = *(a1 + 40);
   v18 = *(v17 + 24);
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __94__HDNotificationManager_removeDeliveredNotificationsWithCategoryIdentifier_completionHandler___block_invoke_2;
-  v21[3] = &unk_278623750;
-  v21[4] = v17;
-  v22 = v16;
-  [v18 notifyObservers:v21];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __94__HDNotificationManager_removeDeliveredNotificationsWithCategoryIdentifier_completionHandler___block_invoke_2;
+  v20[3] = &unk_278623750;
+  v20[4] = v17;
+  v21 = v16;
+  [v18 notifyObservers:v20];
 }
 
 void __94__HDNotificationManager_removeDeliveredNotificationsWithCategoryIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1045,34 +1028,32 @@ uint64_t __40__HDNotificationManager__aggregateBadge__block_invoke(uint64_t a1)
   return zeroBadge;
 }
 
-- (id)_resourceQueue_badgeForDomain:(dispatch_queue_t *)domain
+- (dispatch_queue_t)_resourceQueue_badgeForDomain:(dispatch_queue_t *)domain
 {
   domainCopy = domain;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (domain)
   {
     dispatch_assert_queue_V2(domain[5]);
-    v10 = 0;
-    domainCopy = [domainCopy _resourceQueue_badgeForDomain:a2 error:&v10];
-    v4 = v10;
+    v9 = 0;
+    domainCopy = [(dispatch_queue_t *)domainCopy _resourceQueue_badgeForDomain:a2 error:&v9];
+    v4 = v9;
     if (v4)
     {
       _HKInitializeLogging();
       v5 = *MEMORY[0x277CCC300];
       if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
       {
-        v8 = v5;
-        v9 = NSStringFromHKNotificationDomain();
+        v7 = v5;
+        v8 = NSStringFromHKNotificationDomain();
         *buf = 138543618;
-        v12 = v9;
-        v13 = 2114;
-        v14 = v4;
-        _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "Error getting badge for domain %{public}@: %{public}@", buf, 0x16u);
+        v11 = v8;
+        v12 = 2114;
+        v13 = v4;
+        _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "Error getting badge for domain %{public}@: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return domainCopy;
 }
@@ -1182,37 +1163,36 @@ uint64_t __56__HDNotificationManager__objectCompletionOnClientQueue___block_invo
 
 void __46__HDNotificationManager_diagnosticDescription__block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 48);
-  v3 = HKDiagnosticStringFromDate();
-  v4 = *(*(a1 + 48) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  v2 = HKDiagnosticStringFromDate();
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
   for (i = 0; i != 18; ++i)
   {
-    v7 = NSStringFromHKNotificationDomain();
-    v8 = @"deprecated";
+    v6 = NSStringFromHKNotificationDomain();
+    v7 = @"deprecated";
     if ((HKNotificationDomainIsDeprecated() & 1) == 0)
     {
-      v9 = [(HDNotificationManager *)*(a1 + 32) _resourceQueue_badgeForDomain:?];
-      v10 = [v9 description];
-      v11 = v10;
-      if (v10)
+      v8 = [(HDNotificationManager *)*(a1 + 32) _resourceQueue_badgeForDomain:?];
+      v9 = [v8 description];
+      v10 = v9;
+      if (v9)
       {
-        v12 = v10;
+        v11 = v9;
       }
 
       else
       {
-        v12 = @"none";
+        v11 = @"none";
       }
 
-      v8 = v12;
+      v7 = v11;
     }
 
-    v13 = *(a1 + 40);
-    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@: %@", v7, v8];
-    [v13 addObject:v14];
+    v12 = *(a1 + 40);
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"\t\t%@: %@", v6, v7];
+    [v12 addObject:v13];
   }
 }
 

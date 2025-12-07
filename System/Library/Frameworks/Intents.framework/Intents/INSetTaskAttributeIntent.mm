@@ -32,8 +32,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v22[6] = *MEMORY[0x1E69E9840];
-  v21[0] = @"targetTask";
+  v21[6] = *MEMORY[0x1E69E9840];
+  v20[0] = @"targetTask";
   targetTask = [(INSetTaskAttributeIntent *)self targetTask];
   v4 = targetTask;
   if (!targetTask)
@@ -41,8 +41,8 @@
     targetTask = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[0] = targetTask;
-  v21[1] = @"taskTitle";
+  v21[0] = targetTask;
+  v20[1] = @"taskTitle";
   taskTitle = [(INSetTaskAttributeIntent *)self taskTitle];
   null = taskTitle;
   if (!taskTitle)
@@ -50,8 +50,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[1] = null;
-  v21[2] = @"status";
+  v21[1] = null;
+  v20[2] = @"status";
   status = [(INSetTaskAttributeIntent *)self status];
   v8 = @"unknown";
   if (status == INTaskStatusCompleted)
@@ -65,8 +65,8 @@
   }
 
   v9 = v8;
-  v22[2] = v9;
-  v21[3] = @"priority";
+  v21[2] = v9;
+  v20[3] = @"priority";
   priority = [(INSetTaskAttributeIntent *)self priority];
   v11 = @"unknown";
   if (priority == INTaskPriorityFlagged)
@@ -80,8 +80,8 @@
   }
 
   v12 = v11;
-  v22[3] = v12;
-  v21[4] = @"spatialEventTrigger";
+  v21[3] = v12;
+  v20[4] = @"spatialEventTrigger";
   spatialEventTrigger = [(INSetTaskAttributeIntent *)self spatialEventTrigger];
   null2 = spatialEventTrigger;
   if (!spatialEventTrigger)
@@ -89,8 +89,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[4] = null2;
-  v21[5] = @"temporalEventTrigger";
+  v21[4] = null2;
+  v20[5] = @"temporalEventTrigger";
   temporalEventTrigger = [(INSetTaskAttributeIntent *)self temporalEventTrigger];
   null3 = temporalEventTrigger;
   if (!temporalEventTrigger)
@@ -98,8 +98,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22[5] = null3;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:6];
+  v21[5] = null3;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:6];
   if (!temporalEventTrigger)
   {
   }
@@ -115,8 +115,6 @@
   if (!v4)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

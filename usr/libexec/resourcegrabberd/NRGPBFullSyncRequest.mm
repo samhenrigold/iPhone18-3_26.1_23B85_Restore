@@ -87,7 +87,6 @@
     v5 = 0;
     do
     {
-      v6 = self->_iconVariants.list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -95,33 +94,35 @@
     while (v5 < self->_iconVariants.count);
   }
 
-  v15 = 0u;
-  v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v7 = self->_bundleIDs;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v8)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_bundleIDs;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v14;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v14 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v13 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v10;
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 }
 

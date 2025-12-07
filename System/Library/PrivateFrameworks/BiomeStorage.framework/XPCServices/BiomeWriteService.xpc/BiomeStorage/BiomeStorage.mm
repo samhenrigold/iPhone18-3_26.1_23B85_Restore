@@ -54,8 +54,30 @@ LABEL_11:
   return 1;
 }
 
-void sub_100000B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100000B08(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
+}
+
+void sub_100000B28()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000B08(&_mh_execute_header, v0, v1, "Failed to set user dir suffix: %{darwin.errno}d", v2, v3, v4, v5, v6);
+}
+
+void sub_100000BA8()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000B08(&_mh_execute_header, v0, v1, "Failed to resolve temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
+}
+
+void sub_100000C28()
+{
+  LODWORD(v6) = 67109120;
+  HIDWORD(v6) = *__error();
+  sub_100000B08(&_mh_execute_header, v0, v1, "Failed to initialize temporary directory: %{darwin.errno}d", v2, v3, v4, v5, v6);
 }

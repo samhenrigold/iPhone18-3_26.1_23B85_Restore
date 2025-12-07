@@ -328,20 +328,20 @@ id __57__VKCDataDetectorElementView_subQuadsInBoundsCoordinates__block_invoke(do
     allDataDetectorElements = [(VKCDataDetectorElementView *)self allDataDetectorElements];
     v7 = [allDataDetectorElements vk_compactMap:&__block_literal_global_26];
 
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x2020000000;
     v8 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_0;
-    v31 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_0;
+    v32 = getkDataDetectorsAllResultsKeySymbolLoc_ptr_0;
     if (!getkDataDetectorsAllResultsKeySymbolLoc_ptr_0)
     {
       v9 = DataDetectorsUILibrary_3();
-      v29[3] = dlsym(v9, "kDataDetectorsAllResultsKey");
-      getkDataDetectorsAllResultsKeySymbolLoc_ptr_0 = v29[3];
-      v8 = v29[3];
+      v30[3] = dlsym(v9, "kDataDetectorsAllResultsKey");
+      getkDataDetectorsAllResultsKeySymbolLoc_ptr_0 = v30[3];
+      v8 = v30[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v29, 8);
     if (v8)
     {
       [(NSDictionary *)v5 vk_setNonNilObject:v7 forKey:*v8];
@@ -354,26 +354,27 @@ id __57__VKCDataDetectorElementView_subQuadsInBoundsCoordinates__block_invoke(do
         v12 = objc_alloc_init(VKCDataDetectorCatalystRevealHighlighter);
         [(VKCDataDetectorCatalystRevealHighlighter *)v12 setDelegate:self];
         [(VKCDataDetectorCatalystRevealHighlighter *)v12 setElementView:self];
-        v28 = 0;
-        v29 = &v28;
-        v30 = 0x2020000000;
+        v29 = 0;
+        v30 = &v29;
+        v31 = 0x2020000000;
         v13 = getkDDHighlighterKeySymbolLoc_ptr_0;
-        v31 = getkDDHighlighterKeySymbolLoc_ptr_0;
+        v32 = getkDDHighlighterKeySymbolLoc_ptr_0;
         if (!getkDDHighlighterKeySymbolLoc_ptr_0)
         {
           v14 = DataDetectorsUILibrary_3();
-          v29[3] = dlsym(v14, "kDDHighlighterKey");
-          getkDDHighlighterKeySymbolLoc_ptr_0 = v29[3];
-          v13 = v29[3];
+          v30[3] = dlsym(v14, "kDDHighlighterKey");
+          getkDDHighlighterKeySymbolLoc_ptr_0 = v30[3];
+          v13 = v30[3];
         }
 
-        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v29, 8);
         if (!v13)
         {
 LABEL_21:
-          v27 = getkDDRVInteractionDidFinishNotification_cold_1();
-          _Block_object_dispose(&v28, 8);
-          _Unwind_Resume(v27);
+          getkDDRVInteractionDidFinishNotification_cold_1();
+          v28 = v27;
+          _Block_object_dispose(&v29, 8);
+          _Unwind_Resume(v28);
         }
 
         [(NSDictionary *)v5 vk_setNonNilObject:v12 forKey:*v13];
@@ -394,20 +395,20 @@ LABEL_15:
       }
 
       value2 = [scannerResult value];
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x2020000000;
+      v29 = 0;
+      v30 = &v29;
+      v31 = 0x2020000000;
       v20 = getkDataDetectorsMiddleTextSymbolLoc_ptr;
-      v31 = getkDataDetectorsMiddleTextSymbolLoc_ptr;
+      v32 = getkDataDetectorsMiddleTextSymbolLoc_ptr;
       if (!getkDataDetectorsMiddleTextSymbolLoc_ptr)
       {
         v21 = DataDetectorsUILibrary_3();
-        v29[3] = dlsym(v21, "kDataDetectorsMiddleText");
-        getkDataDetectorsMiddleTextSymbolLoc_ptr = v29[3];
-        v20 = v29[3];
+        v30[3] = dlsym(v21, "kDataDetectorsMiddleText");
+        getkDataDetectorsMiddleTextSymbolLoc_ptr = v30[3];
+        v20 = v30[3];
       }
 
-      _Block_object_dispose(&v28, 8);
+      _Block_object_dispose(&v29, 8);
       if (v20)
       {
         [(NSDictionary *)v5 setObject:value2 forKeyedSubscript:*v20];

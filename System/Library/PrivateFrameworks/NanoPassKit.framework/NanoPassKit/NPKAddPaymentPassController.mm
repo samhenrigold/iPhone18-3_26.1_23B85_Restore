@@ -57,27 +57,25 @@ void __53__NPKAddPaymentPassController_presentWithCompletion___block_invoke(uint
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for set configuration invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for set configuration invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v8 + 16))(v8, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__NPKAddPaymentPassController_presentWithCompletion___block_invoke_56(uint64_t a1)
@@ -101,27 +99,25 @@ void __53__NPKAddPaymentPassController_presentWithCompletion___block_invoke_2(ui
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present add payment pass invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for present add payment pass invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, 0);
+    (*(v8 + 16))(v8, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__NPKAddPaymentPassController_presentWithCompletion___block_invoke_57(uint64_t a1)
@@ -158,27 +154,25 @@ void __53__NPKAddPaymentPassController_dismissWithCompletion___block_invoke(uint
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for dismiss add payment pass invoked: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_ERROR, "Error: Remote object proxy error handler for dismiss add payment pass invoked: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))();
+    (*(v8 + 16))();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __53__NPKAddPaymentPassController_dismissWithCompletion___block_invoke_60(uint64_t a1)
@@ -207,16 +201,16 @@ uint64_t __53__NPKAddPaymentPassController_dismissWithCompletion___block_invoke_
   nonceCopy = nonce;
   signatureCopy = signature;
   handlerCopy = handler;
-  v14 = pk_Payment_log();
+  v14 = pk_Payment_log(handlerCopy);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
   if (v15)
   {
-    v16 = pk_Payment_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_Payment_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Forwarding generate request to delegate", buf, 2u);
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Forwarding generate request to delegate", buf, 2u);
     }
   }
 
@@ -225,14 +219,14 @@ uint64_t __53__NPKAddPaymentPassController_dismissWithCompletion___block_invoke_
   block[2] = __106__NPKAddPaymentPassController_generateRequestWithCertificateChain_nonce_nonceSignature_completionHandler___block_invoke;
   block[3] = &unk_2799467F8;
   block[4] = self;
-  v22 = chainCopy;
-  v23 = nonceCopy;
-  v24 = signatureCopy;
-  v25 = handlerCopy;
-  v17 = handlerCopy;
-  v18 = signatureCopy;
-  v19 = nonceCopy;
-  v20 = chainCopy;
+  v23 = chainCopy;
+  v24 = nonceCopy;
+  v25 = signatureCopy;
+  v26 = handlerCopy;
+  v18 = handlerCopy;
+  v19 = signatureCopy;
+  v20 = nonceCopy;
+  v21 = chainCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
@@ -246,16 +240,16 @@ void __106__NPKAddPaymentPassController_generateRequestWithCertificateChain_nonc
 {
   passCopy = pass;
   errorCopy = error;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(errorCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Forwarding did finish to delegate", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Forwarding did finish to delegate", v12, 2u);
     }
   }
 

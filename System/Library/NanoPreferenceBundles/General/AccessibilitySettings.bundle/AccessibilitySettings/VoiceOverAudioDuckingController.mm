@@ -7,6 +7,7 @@
 - (void)setGizmoPref:(id)pref forKey:(id)key domainAccessor:(id)accessor;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateTableCheckedSelection:(id)selection;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverAudioDuckingController
@@ -28,29 +29,29 @@
 
 - (id)specifiers
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v32 = *MEMORY[0x277D3FC48];
+    v31 = *MEMORY[0x277D3FC48];
     selfCopy = self;
     [(VoiceOverAudioDuckingController *)self loadSpecifiersFromPlistName:@"VoiceOverAudioDuckingSettings" target:?];
+    v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
-    obj = v45 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+    obj = v44 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     if (v4)
     {
       v5 = v4;
-      v40 = *MEMORY[0x277D3FF88];
-      v41 = *v43;
+      v39 = *MEMORY[0x277D3FF88];
+      v40 = *v42;
       v6 = *MEMORY[0x277D3FFB8];
-      v37 = *MEMORY[0x277D400E0];
-      v38 = *MEMORY[0x277D400D0];
-      v35 = *MEMORY[0x277D3FEB8];
-      v36 = *MEMORY[0x277D3FFC8];
-      v34 = *MEMORY[0x277D3FEC0];
+      v36 = *MEMORY[0x277D400E0];
+      v37 = *MEMORY[0x277D400D0];
+      v34 = *MEMORY[0x277D3FEB8];
+      v35 = *MEMORY[0x277D3FFC8];
+      v33 = *MEMORY[0x277D3FEC0];
       v7 = *MEMORY[0x277D3FFE0];
       v8 = *MEMORY[0x277D40068];
       v9 = *MEMORY[0x277D3FEF8];
@@ -59,19 +60,19 @@
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v43 != v41)
+          if (*v42 != v40)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v42 + 1) + 8 * i);
+          v12 = *(*(&v41 + 1) + 8 * i);
           identifier = [v12 identifier];
           v14 = [identifier isEqualToString:@"VOICEOVER_DUCKING_MODE_GROUP"];
 
           if (v14)
           {
             v15 = settingsLocString(@"AUDIO_DUCKING_MODE_FOOTER", @"VoiceOverAudioDuckingSettings");
-            [v12 setProperty:v15 forKey:v40];
+            [v12 setProperty:v15 forKey:v39];
 
             [v12 setProperty:@"DuckingModeGroupIdentifier" forKey:v6];
           }
@@ -109,7 +110,7 @@
           if (v23)
           {
             v24 = settingsLocString(@"AUDIO_DUCKING_AMOUNT_FOOTER", @"VoiceOverAudioDuckingSettings");
-            [v12 setProperty:v24 forKey:v40];
+            [v12 setProperty:v24 forKey:v39];
 
             [v12 setProperty:@"DuckingAmountGroupIdentifier" forKey:v6];
           }
@@ -120,14 +121,14 @@
           if (v26)
           {
             v27 = AXVolumeMinImage();
-            [v12 setProperty:v27 forKey:v38];
+            [v12 setProperty:v27 forKey:v37];
 
             v28 = AXVolumeMaxImage();
-            [v12 setProperty:v28 forKey:v37];
+            [v12 setProperty:v28 forKey:v36];
 
-            [v12 setProperty:v10 forKey:v36];
-            [v12 setProperty:&unk_284E7E678 forKey:v35];
-            [v12 setProperty:&unk_284E7E688 forKey:v34];
+            [v12 setProperty:v10 forKey:v35];
+            [v12 setProperty:&unk_284E7E678 forKey:v34];
+            [v12 setProperty:&unk_284E7E688 forKey:v33];
             [v12 setProperty:@"DuckingAmountIdentifier" forKey:v6];
           }
 
@@ -136,21 +137,55 @@
           [v12 setProperty:@"com.apple.Accessibility" forKey:v9];
         }
 
-        v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+        v5 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
       }
 
       while (v5);
     }
 
-    v29 = *(&selfCopy->super.super.super.super.super.super.isa + v32);
-    *(&selfCopy->super.super.super.super.super.super.isa + v32) = obj;
+    v29 = *(&selfCopy->super.super.super.super.super.super.isa + v31);
+    *(&selfCopy->super.super.super.super.super.super.isa + v31) = obj;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v32);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v31);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v3;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v24[3] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = VoiceOverAudioDuckingController;
+  [(AccessibilityBridgeBaseController *)&v23 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"AUDIO_DUCKING" table:@"VoiceOverAudioSettings" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"AUDIO" table:@"VoiceOverSettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale4 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL4 = [v3 bundleURL];
+  v19 = [v16 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale4 bundleURL:bundleURL4];
+
+  v20 = MEMORY[0x277CF3470];
+  v24[0] = v19;
+  v24[1] = v15;
+  v24[2] = v11;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/AudioRow/AudioDuckingMode"];
+  [v20 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (int64_t)_selectedDuckingMode

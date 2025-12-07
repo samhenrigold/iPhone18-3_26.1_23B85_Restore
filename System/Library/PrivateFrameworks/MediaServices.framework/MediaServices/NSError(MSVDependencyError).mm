@@ -31,15 +31,13 @@
 
 + (id)MSVErrorWithMissingDependency:()MSVDependencyError
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v10 = a3;
+  v9 = a3;
   v4 = MEMORY[0x1E695DEC8];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [v3 MSVErrorWithMissingDependencies:{v6, v10, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [v3 MSVErrorWithMissingDependencies:{v6, v9, v10}];
 
   return v7;
 }

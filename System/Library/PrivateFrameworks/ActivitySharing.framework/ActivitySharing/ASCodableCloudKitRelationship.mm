@@ -111,7 +111,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   uuid = self->_uuid;
@@ -159,30 +159,30 @@
   if ([(NSMutableArray *)self->_events count])
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_events, "count")}];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v13 = self->_events;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
@@ -194,8 +194,8 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    v26 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_eventCount];
-    [v4 setObject:v26 forKey:@"eventCount"];
+    v25 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_eventCount];
+    [v4 setObject:v25 forKey:@"eventCount"];
 
     has = self->_has;
     if ((has & 4) == 0)
@@ -215,8 +215,8 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_supportedPhoneFeatures, v29}];
-  [v4 setObject:v27 forKey:@"supportedPhoneFeatures"];
+  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_supportedPhoneFeatures, v28}];
+  [v4 setObject:v26 forKey:@"supportedPhoneFeatures"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -231,13 +231,13 @@ LABEL_27:
   }
 
 LABEL_40:
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_supportedWatchFeatures, v29}];
-  [v4 setObject:v28 forKey:@"supportedWatchFeatures"];
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_supportedWatchFeatures, v28}];
+  [v4 setObject:v27 forKey:@"supportedWatchFeatures"];
 
   if (*&self->_has)
   {
 LABEL_28:
-    v20 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_cloudType, v29}];
+    v20 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_cloudType, v28}];
     [v4 setObject:v20 forKey:@"cloudType"];
   }
 
@@ -260,14 +260,12 @@ LABEL_29:
     [v4 setObject:receivedInvitation forKey:@"receivedInvitation"];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -289,30 +287,29 @@ LABEL_29:
     PBDataWriterWriteStringField();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = self->_addresses;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
@@ -328,39 +325,37 @@ LABEL_29:
     PBDataWriterWriteStringField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v11 = self->_events;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v10 = self->_events;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v24;
+    v12 = v11;
+    v13 = *v17;
     do
     {
-      for (j = 0; j != v13; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v24 != v14)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    eventCount = self->_eventCount;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -380,7 +375,6 @@ LABEL_29:
     goto LABEL_29;
   }
 
-  supportedPhoneFeatures = self->_supportedPhoneFeatures;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -395,12 +389,10 @@ LABEL_30:
   }
 
 LABEL_41:
-  supportedWatchFeatures = self->_supportedWatchFeatures;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_31:
-    cloudType = self->_cloudType;
     PBDataWriterWriteInt64Field();
   }
 
@@ -419,8 +411,6 @@ LABEL_32:
   {
     PBDataWriterWriteDataField();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -556,7 +546,7 @@ LABEL_26:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 112);
@@ -574,30 +564,30 @@ LABEL_26:
   v13 = *(v5 + 32);
   *(v5 + 32) = v12;
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v14 = self->_addresses;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v44;
+    v17 = *v43;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v44 != v17)
+        if (*v43 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v43 + 1) + 8 * i) copyWithZone:zone];
+        v19 = [*(*(&v42 + 1) + 8 * i) copyWithZone:zone];
         [v5 addAddresses:v19];
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v16);
@@ -611,30 +601,30 @@ LABEL_26:
   v23 = *(v5 + 72);
   *(v5 + 72) = v22;
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v24 = self->_events;
-  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v25 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v40;
+    v27 = *v39;
     do
     {
       for (j = 0; j != v26; ++j)
       {
-        if (*v40 != v27)
+        if (*v39 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [*(*(&v39 + 1) + 8 * j) copyWithZone:{zone, v39}];
+        v29 = [*(*(&v38 + 1) + 8 * j) copyWithZone:{zone, v38}];
         [v5 addEvents:v29];
       }
 
-      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v26 = [(NSMutableArray *)v24 countByEnumeratingWithState:&v38 objects:v46 count:16];
     }
 
     while (v26);
@@ -688,7 +678,7 @@ LABEL_19:
   }
 
 LABEL_20:
-  v31 = [(NSString *)self->_secureCloudUpgradeToken copyWithZone:zone, v39];
+  v31 = [(NSString *)self->_secureCloudUpgradeToken copyWithZone:zone, v38];
   v32 = *(v5 + 88);
   *(v5 + 88) = v31;
 
@@ -700,7 +690,6 @@ LABEL_20:
   v36 = *(v5 + 80);
   *(v5 + 80) = v35;
 
-  v37 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -784,7 +773,6 @@ LABEL_20:
     }
   }
 
-  v13 = *(equalCopy + 120);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 120) & 2) == 0 || self->_eventCount != *(equalCopy + 2))
@@ -796,7 +784,7 @@ LABEL_20:
   else if ((*(equalCopy + 120) & 2) != 0)
   {
 LABEL_44:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_45;
   }
 
@@ -857,17 +845,17 @@ LABEL_44:
   receivedInvitation = self->_receivedInvitation;
   if (receivedInvitation | *(equalCopy + 10))
   {
-    v17 = [(NSData *)receivedInvitation isEqual:?];
+    v16 = [(NSData *)receivedInvitation isEqual:?];
   }
 
   else
   {
-    v17 = 1;
+    v16 = 1;
   }
 
 LABEL_45:
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -938,7 +926,7 @@ LABEL_10:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 14))
   {
@@ -960,29 +948,29 @@ LABEL_10:
     [(ASCodableCloudKitRelationship *)self setCloudKitAddress:?];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v5 = *(fromCopy + 3);
-  v6 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(ASCodableCloudKitRelationship *)self addAddresses:*(*(&v21 + 1) + 8 * i)];
+        [(ASCodableCloudKitRelationship *)self addAddresses:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v7);
@@ -998,29 +986,29 @@ LABEL_10:
     [(ASCodableCloudKitRelationship *)self setPreferredReachableService:?];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = *(fromCopy + 5);
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(ASCodableCloudKitRelationship *)self addEvents:*(*(&v17 + 1) + 8 * j), v17];
+        [(ASCodableCloudKitRelationship *)self addEvents:*(*(&v16 + 1) + 8 * j), v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v12);
@@ -1088,8 +1076,6 @@ LABEL_32:
   {
     [(ASCodableCloudKitRelationship *)self setReceivedInvitation:?];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

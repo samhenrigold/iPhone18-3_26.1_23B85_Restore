@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)payloadAsString:(int)string;
 - (int)StringAsPayload:(id)payload;
 - (int)payload;
 - (unint64_t)hash;
@@ -91,6 +92,21 @@
   {
     return 0;
   }
+}
+
+- (id)payloadAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27991BD00[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPayload:(id)payload
@@ -371,7 +387,6 @@
     goto LABEL_19;
   }
 
-  v5 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_payload != *(equalCopy + 4))
@@ -383,7 +398,7 @@
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
@@ -432,17 +447,17 @@ LABEL_19:
   speechProfileResponse = self->_speechProfileResponse;
   if (speechProfileResponse | *(equalCopy + 7))
   {
-    v12 = [(MXSpeechProfileBuildResponse *)speechProfileResponse isEqual:?];
+    v11 = [(MXSpeechProfileBuildResponse *)speechProfileResponse isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

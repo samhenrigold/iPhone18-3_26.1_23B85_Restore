@@ -93,7 +93,7 @@ LABEL_20:
 
 - (id)jsonDictionary
 {
-  v17[4] = *MEMORY[0x1E69E9840];
+  v16[4] = *MEMORY[0x1E69E9840];
   appName = [(BMMediaStreamingStats *)self appName];
   eventName = [(BMMediaStreamingStats *)self eventName];
   if (![(BMMediaStreamingStats *)self hasMeasure]|| ([(BMMediaStreamingStats *)self measure], fabs(v5) == INFINITY))
@@ -110,39 +110,39 @@ LABEL_20:
   }
 
   extra = [(BMMediaStreamingStats *)self extra];
-  v16[0] = @"appName";
+  v15[0] = @"appName";
   null = appName;
   if (!appName)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[0] = null;
-  v16[1] = @"eventName";
+  v16[0] = null;
+  v15[1] = @"eventName";
   null2 = eventName;
   if (!eventName)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = null2;
-  v16[2] = @"measure";
+  v16[1] = null2;
+  v15[2] = @"measure";
   null3 = v7;
   if (!v7)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[2] = null3;
-  v16[3] = @"extra";
+  v16[2] = null3;
+  v15[3] = @"extra";
   null4 = extra;
   if (!extra)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[3] = null4;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:4];
+  v16[3] = null4;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:4];
   if (extra)
   {
     if (v7)
@@ -187,14 +187,13 @@ LABEL_16:
 LABEL_23:
 
 LABEL_17:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BMMediaStreamingStats)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"appName"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -216,10 +215,10 @@ LABEL_4:
         v19 = objc_alloc(MEMORY[0x1E696ABC0]);
         errorCopy = error;
         v20 = *MEMORY[0x1E698F240];
-        v38 = *MEMORY[0x1E696A578];
+        v37 = *MEMORY[0x1E696A578];
         v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"eventName"];
-        v39 = v12;
-        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v38 = v12;
+        v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
         v21 = [v19 initWithDomain:v20 code:2 userInfo:v10];
         error = 0;
         v15 = 0;
@@ -227,16 +226,16 @@ LABEL_4:
         goto LABEL_33;
       }
 
-      v32 = v9;
+      v31 = v9;
     }
 
     else
     {
-      v32 = 0;
+      v31 = 0;
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"measure"];
-    v31 = v7;
+    v30 = v7;
     if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -246,18 +245,18 @@ LABEL_4:
         {
           v12 = 0;
           v15 = 0;
-          error = v32;
+          error = v31;
           goto LABEL_33;
         }
 
         selfCopy3 = self;
-        v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v28 = objc_alloc(MEMORY[0x1E696ABC0]);
         v22 = *MEMORY[0x1E698F240];
-        v36 = *MEMORY[0x1E696A578];
+        v35 = *MEMORY[0x1E696A578];
         v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"measure"];
-        v37 = v14;
-        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-        v23 = [v29 initWithDomain:v22 code:2 userInfo:v13];
+        v36 = v14;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+        v23 = [v28 initWithDomain:v22 code:2 userInfo:v13];
         v12 = 0;
         v15 = 0;
         *error = v23;
@@ -279,13 +278,13 @@ LABEL_4:
     {
       v14 = 0;
 LABEL_13:
-      error = v32;
-      v15 = [(BMMediaStreamingStats *)selfCopy3 initWithAppName:v8 eventName:v32 measure:v12 extra:v14];
+      error = v31;
+      v15 = [(BMMediaStreamingStats *)selfCopy3 initWithAppName:v8 eventName:v31 measure:v12 extra:v14];
       selfCopy3 = v15;
 LABEL_32:
 
       self = selfCopy3;
-      v7 = v31;
+      v7 = v30;
 LABEL_33:
 
       goto LABEL_34;
@@ -300,19 +299,19 @@ LABEL_33:
 
     if (error)
     {
-      v30 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v28 = *MEMORY[0x1E698F240];
-      v34 = *MEMORY[0x1E696A578];
+      v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v27 = *MEMORY[0x1E698F240];
+      v33 = *MEMORY[0x1E696A578];
       v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"extra"];
-      v35 = v24;
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-      *error = [v30 initWithDomain:v28 code:2 userInfo:v25];
+      v34 = v24;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      *error = [v29 initWithDomain:v27 code:2 userInfo:v25];
     }
 
     v14 = 0;
     v15 = 0;
 LABEL_31:
-    error = v32;
+    error = v31;
     goto LABEL_32;
   }
 
@@ -332,10 +331,10 @@ LABEL_31:
 
   v16 = objc_alloc(MEMORY[0x1E696ABC0]);
   v17 = *MEMORY[0x1E698F240];
-  v40 = *MEMORY[0x1E696A578];
+  v39 = *MEMORY[0x1E696A578];
   v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"appName"];
-  v41[0] = v18;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+  v40[0] = v18;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
   v8 = 0;
   v15 = 0;
   *error = [v16 initWithDomain:v17 code:2 userInfo:v9];
@@ -343,7 +342,6 @@ LABEL_31:
 LABEL_34:
 
 LABEL_35:
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -359,30 +357,29 @@ LABEL_35:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_appName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_eventName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_hasMeasure)
   {
-    measure = self->_measure;
     PBDataWriterWriteFloatField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_extra)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -580,36 +577,32 @@ LABEL_37:
 
 + (id)protoFields
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"appName" number:1 type:13 subMessageClass:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"eventName" number:2 type:13 subMessageClass:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"measure" number:3 type:1 subMessageClass:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"extra" number:4 type:13 subMessageClass:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)columns
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"appName" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"eventName" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"measure" dataType:1 requestOnly:0 fieldNumber:3 protoDataType:1 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"extra" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
-  v9[0] = v2;
-  v9[1] = v3;
-  v9[2] = v4;
-  v9[3] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v2;
+  v8[1] = v3;
+  v8[2] = v4;
+  v8[3] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:4];
 
   return v6;
 }

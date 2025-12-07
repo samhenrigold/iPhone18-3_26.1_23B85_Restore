@@ -27,7 +27,7 @@
 {
   v5 = a4;
   v6 = a3;
-  v7 = CKFrameworkBundle();
+  v7 = CKFrameworkBundle(v6);
   v8 = [v7 URLForResource:v6 withExtension:v5];
 
   return v8;

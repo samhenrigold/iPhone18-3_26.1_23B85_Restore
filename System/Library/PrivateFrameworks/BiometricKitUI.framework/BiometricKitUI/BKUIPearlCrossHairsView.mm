@@ -1,5 +1,6 @@
 @interface BKUIPearlCrossHairsView
 - (BKUIPearlCrossHairsView)initWithFrame:(CGRect)frame;
+- (void)_setPitch:(double)pitch yaw:(double)yaw animated:(BOOL)animated;
 - (void)nudgeCrossHairsAtAngle:(double)angle completion:(id)completion;
 - (void)nudgeInDirection:(unint64_t)direction smallNudgePeak:(id)peak largeNudgePeak:(id)nudgePeak completion:(id)completion;
 @end
@@ -12,9 +13,9 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v25.receiver = self;
-  v25.super_class = BKUIPearlCrossHairsView;
-  v7 = [(BKUIPearlCrossHairsView *)&v25 initWithFrame:?];
+  v26.receiver = self;
+  v26.super_class = BKUIPearlCrossHairsView;
+  v7 = [(BKUIPearlCrossHairsView *)&v26 initWithFrame:?];
   v8 = v7;
   if (v7)
   {
@@ -24,28 +25,29 @@
     [layer setCompositingFilter:v9];
 
     [(BKUIPearlCrossHairsView *)v8 setAutoresizesSubviews:1];
-    v27 = 0;
-    v28 = &v27;
-    v29 = 0x2020000000;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x2020000000;
     v11 = getMTLCreateSystemDefaultDeviceSymbolLoc_ptr;
-    v30 = getMTLCreateSystemDefaultDeviceSymbolLoc_ptr;
+    v31 = getMTLCreateSystemDefaultDeviceSymbolLoc_ptr;
     if (!getMTLCreateSystemDefaultDeviceSymbolLoc_ptr)
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke;
-      v26[3] = &unk_278D09C88;
-      v26[4] = &v27;
-      __getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke(v26);
-      v11 = v28[3];
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke;
+      v27[3] = &unk_278D09C88;
+      v27[4] = &v28;
+      __getMTLCreateSystemDefaultDeviceSymbolLoc_block_invoke(v27);
+      v11 = v29[3];
     }
 
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v28, 8);
     if (!v11)
     {
-      BYFlowSkipIdentifierFaceID_cold_1 = getBYFlowSkipIdentifierFaceID_cold_1();
-      _Block_object_dispose(&v27, 8);
-      _Unwind_Resume(BYFlowSkipIdentifierFaceID_cold_1);
+      getBYFlowSkipIdentifierFaceID_cold_1();
+      v25 = v24;
+      _Block_object_dispose(&v28, 8);
+      _Unwind_Resume(v25);
     }
 
     v12 = v11();
@@ -76,6 +78,15 @@
   }
 
   return v8;
+}
+
+- (void)_setPitch:(double)pitch yaw:(double)yaw animated:(BOOL)animated
+{
+  pitchCopy = pitch;
+  *&v6 = pitchCopy;
+  yawCopy = yaw;
+  *(&v6 + 1) = yawCopy;
+  [(BKUIPearlCrossHairsRenderingView *)self->_renderingView setAxis:animated animated:v6];
 }
 
 - (void)nudgeCrossHairsAtAngle:(double)angle completion:(id)completion
@@ -164,11 +175,11 @@ uint64_t __61__BKUIPearlCrossHairsView_nudgeCrossHairsAtAngle_completion___block
 
 - (void)nudgeInDirection:(unint64_t)direction smallNudgePeak:(id)peak largeNudgePeak:(id)nudgePeak completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   peakCopy = peak;
   nudgePeakCopy = nudgePeak;
   completionCopy = completion;
-  v13 = _BKUILoggingFacility();
+  v13 = _BKUILoggingFacility(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -180,34 +191,32 @@ uint64_t __61__BKUIPearlCrossHairsView_nudgeCrossHairsAtAngle_completion___block
   dispatch_group_enter(v14);
   dispatch_group_enter(v14);
   v15 = MEMORY[0x277D75D18];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke;
-  v28[3] = &unk_278D09978;
-  v28[4] = self;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_2;
-  v23[3] = &unk_278D0A920;
-  v26 = nudgePeakCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke;
+  v27[3] = &unk_278D09978;
+  v27[4] = self;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_2;
+  v22[3] = &unk_278D0A920;
+  v25 = nudgePeakCopy;
   directionCopy2 = direction;
-  v23[4] = self;
-  v24 = v14;
-  v25 = peakCopy;
+  v22[4] = self;
+  v23 = v14;
+  v24 = peakCopy;
   v16 = nudgePeakCopy;
   v17 = peakCopy;
   v18 = v14;
-  [(UIView *)v15 bkui_animateWithDuration:v28 animations:v23 completion:0.3];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_15;
-  v21[3] = &unk_278D09E98;
-  v21[4] = self;
-  v22 = completionCopy;
+  [(UIView *)v15 bkui_animateWithDuration:v27 animations:v22 completion:0.3];
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_15;
+  v20[3] = &unk_278D09E98;
+  v20[4] = self;
+  v21 = completionCopy;
   v19 = completionCopy;
-  dispatch_group_notify(v18, MEMORY[0x277D85CD0], v21);
-
-  v20 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v18, MEMORY[0x277D85CD0], v20);
 }
 
 void __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_2(uint64_t a1)
@@ -250,7 +259,7 @@ void __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePea
   v22[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_5;
   v22[3] = &unk_278D09978;
   v22[4] = *(a1 + 32);
-  [(UIView *)0.3 bkui_animateWithDuration:v22 animations:?];
+  [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v22 animations:0.3];
   v11 = MEMORY[0x277D75D18];
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
@@ -399,7 +408,7 @@ void __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePea
   [(UIView *)v2 bkui_animateWithDuration:v5 delay:v3 options:0.75 animations:0.0 completion:?];
 }
 
-uint64_t __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_12(uint64_t a1)
+void __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_12(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 416);
   (*(*(a1 + 40) + 16))(*(a1 + 56) * 0.375, *(a1 + 56) * 0.5);
@@ -410,12 +419,12 @@ uint64_t __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudg
     (*(v3 + 16))();
   }
 
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_13;
-  v5[3] = &unk_278D09978;
-  v5[4] = *(a1 + 32);
-  return [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v5 delay:0 options:0.2 animations:0.5 completion:?];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_13;
+  v4[3] = &unk_278D09978;
+  v4[4] = *(a1 + 32);
+  [(UIView *)MEMORY[0x277D75D18] bkui_animateWithDuration:v4 delay:0 options:0.2 animations:0.5 completion:?];
 }
 
 uint64_t __85__BKUIPearlCrossHairsView_nudgeInDirection_smallNudgePeak_largeNudgePeak_completion___block_invoke_15(uint64_t a1)

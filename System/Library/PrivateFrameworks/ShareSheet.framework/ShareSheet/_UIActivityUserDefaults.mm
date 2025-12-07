@@ -629,14 +629,14 @@ LABEL_8:
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_5(&dword_18B359000, v2, v3, "Error opting in extension with identifier %{public}@ (%{public}@)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_18B359000, v2, v3, "Error opting in extension with identifier %{public}@ (%{public}@)", v4, v5, v6, v7);
 }
 
 - (void)setActivity:(void *)a1 asHidden:.cold.2(void *a1)
 {
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_5(&dword_18B359000, v2, v3, "Error opting out extension with identifier %{public}@ (%{public}@)", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_5(&dword_18B359000, v2, v3, "Error opting out extension with identifier %{public}@ (%{public}@)", v4, v5, v6, v7);
 }
 
 - (void)activityIdentifiersInUserOrder

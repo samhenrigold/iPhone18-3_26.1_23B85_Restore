@@ -7,127 +7,127 @@
 + (id)evaluateForArgsWithContext:(id)context functionSpec:(id)spec arguments:(const void *)arguments
 {
   v7 = **arguments;
-  v12 = v7;
-  v44 = 0;
+  v11 = v7;
+  v41 = 0;
   if (v7)
   {
-    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v44);
-    v13 = v44;
-    if (v13)
+    objc_msgSend_asRichTextStorage_functionSpec_argumentIndex_outError_(v7, v8, context, spec, 0, &v41);
+    v12 = v41;
+    if (v12)
     {
-      v14 = v13;
-      v15 = objc_msgSend_raiseErrorOrConvert_(context, v8, v13, v10, v11);
+      v13 = v12;
+      v14 = objc_msgSend_raiseErrorOrConvert_(context, v8, v12, v10);
       goto LABEL_30;
     }
   }
 
   else
   {
-    v45 = 0;
-    v46 = 0;
-    v47 = 0;
+    v42 = 0;
+    v43 = 0;
+    v44 = 0;
   }
 
-  if (sub_221078910(&v45, v8, v9, v10, v11))
+  if (sub_221078910(&v42, v8, v9, v10))
   {
-    v43 = 0;
-    v24 = sub_221078910(&v45, v16, v17, v18, v19);
-    v41 = 0;
-    v42 = 0;
+    v40 = 0;
+    v21 = sub_221078910(&v42, v15, v16, v17);
+    v38 = 0;
+    v39 = 0;
       ;
     }
 
-    v26 = v24 - 1;
+    v23 = v21 - 1;
     do
     {
-      v27 = v26;
-      if ((v26 & 0x8000000000000000) != 0)
+      v24 = v23;
+      if ((v23 & 0x8000000000000000) != 0)
       {
         break;
       }
 
-      v39 = v26;
-      v28 = sub_22107897C(&v45, &v39, v21, v22, v23);
-      v26 = v27 - 1;
+      v36 = v23;
+      v25 = sub_22107897C(&v42, &v36, v19, v20);
+      v23 = v24 - 1;
     }
 
-    while (v28 == 32);
-    v29 = v43;
-    v39 = 0;
-    v40[0] = 0;
-    *(v40 + 7) = 0;
-    if (v43 <= v27)
+    while (v25 == 32);
+    v26 = v40;
+    v36 = 0;
+    v37[0] = 0;
+    *(v37 + 7) = 0;
+    if (v40 <= v24)
     {
-      v30 = 0;
-      v31 = 0;
-      v32 = v43;
+      v27 = 0;
+      v28 = 0;
+      v29 = v40;
       do
       {
-        v37 = v29;
-        ++v31;
-        if (sub_22107897C(&v45, &v37, v21, v22, v23) == 32)
+        v34 = v26;
+        ++v28;
+        if (sub_22107897C(&v42, &v34, v19, v20) == 32)
         {
-          for (j = v29 + 1; ; ++j)
+          for (j = v26 + 1; ; ++j)
           {
-            v37 = j;
-            v34 = sub_22107897C(&v45, &v37, v21, v22, v23);
-            if (v34 != 32)
+            v34 = j;
+            v31 = sub_22107897C(&v42, &v34, v19, v20);
+            if (v31 != 32)
             {
               break;
             }
 
-            if ((v30 & 1) == 0)
+            if ((v27 & 1) == 0)
             {
-              v41 = v32;
-              v42 = v31;
-              sub_2210780F0(&v45, &v41, v21, v22, v23, &v37);
-              sub_221077424(&v39, &v37, context);
+              v38 = v29;
+              v39 = v28;
+              sub_2210780F0(&v42, &v38, &v34, v19, v20);
+              sub_221077424(&v36, &v34, context);
 
-              v31 = 0;
+              v28 = 0;
             }
 
-            v32 = v29 + 2;
-            ++v29;
-            v30 = 1;
+            v29 = v26 + 2;
+            ++v26;
+            v27 = 1;
           }
 
-          if (v34)
+          if (v31)
           {
-            ++v31;
-            v30 = 0;
+            ++v28;
+            v27 = 0;
           }
         }
 
         else
         {
-          j = v29;
+          j = v26;
         }
 
-        v29 = j + 1;
+        v26 = j + 1;
       }
 
-      while (j < v27);
-      if (v31)
+      while (j < v24);
+      if (v28)
       {
-        v36[0] = v32;
-        v36[1] = v31;
-        sub_2210780F0(&v45, v36, v21, v22, v23, &v37);
-        sub_221077424(&v39, &v37, context);
+        v33[0] = v29;
+        v33[1] = v28;
+        sub_2210780F0(&v42, v33, &v34, v19, v20);
+        sub_221077424(&v36, &v34, context);
       }
     }
 
-    v15 = sub_2210789F4(&v39, v20, v21, v22, v23);
+    v14 = sub_2210789F4(&v36, v18, v19, v20);
   }
 
   else
   {
-    v15 = sub_2210789F4(&v45, v16, v17, v18, v19);
+    v14 = sub_2210789F4(&v42, v15, v16, v17);
   }
 
-  v14 = 0;
+  v13 = 0;
 LABEL_30:
 
-  return v15;
+  return v14;
 }
 
 @end

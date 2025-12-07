@@ -14,7 +14,7 @@
   v6.receiver = self;
   v6.super_class = PFMetadataImageCaptureMovieProperties;
   plistForEncoding = [(PFMetadata *)&v6 plistForEncoding];
-  v4 = [plistForEncoding mutableCopy];
+  v4 = objc_msgSend_mutableCopy(plistForEncoding);
 
   [v4 setObject:self->_iccMovieProperties forKeyedSubscript:PFMetadataICCMovieProperties];
 

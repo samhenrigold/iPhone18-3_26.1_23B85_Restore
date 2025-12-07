@@ -28,7 +28,7 @@
 
 - (void)handleApplicationInfo:(id)info withID:(id)d fromDevice:(id)device completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   dCopy = d;
@@ -37,26 +37,45 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     name = [deviceCopy name];
-    v19 = 138412546;
-    v20 = deviceCopy;
-    v21 = 2112;
-    v22 = name;
-    _os_log_impl(&dword_230EF9000, v14, OS_LOG_TYPE_DEFAULT, "remoteDevice %@ deviceName %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = deviceCopy;
+    v20 = 2112;
+    v21 = name;
+    _os_log_impl(&dword_230EF9000, v14, OS_LOG_TYPE_DEFAULT, "remoteDevice %@ deviceName %@", &v18, 0x16u);
   }
 
   notificationPresenter = [(_DDUINotificationManager *)self notificationPresenter];
   name2 = [deviceCopy name];
   [notificationPresenter showNotificationForApplication:infoCopy deviceName:name2 identifier:dCopy completion:handlerCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleContinuityCameraConfirmationWithID:(id)d fromDevice:(id)device completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   dCopy = d;
+  v11 = _DDUICoreLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    name = [deviceCopy name];
+    v14 = 138412546;
+    v15 = deviceCopy;
+    v16 = 2112;
+    v17 = name;
+    _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "remoteDevice %@ deviceName %@", &v14, 0x16u);
+  }
+
+  notificationPresenter = [(_DDUINotificationManager *)self notificationPresenter];
+  [notificationPresenter showContinuityCameraConfirmation:deviceCopy identifier:dCopy completion:handlerCopy];
+}
+
+- (void)handleMicOnlyConfirmationWithID:(id)d fromDevice:(id)device completionHandler:(id)handler
+{
+  v19 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  deviceCopy = device;
+  handlerCopy = handler;
   v11 = _DDUICoreLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
@@ -66,29 +85,6 @@
     v17 = 2112;
     v18 = name;
     _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "remoteDevice %@ deviceName %@", &v15, 0x16u);
-  }
-
-  notificationPresenter = [(_DDUINotificationManager *)self notificationPresenter];
-  [notificationPresenter showContinuityCameraConfirmation:deviceCopy identifier:dCopy completion:handlerCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleMicOnlyConfirmationWithID:(id)d fromDevice:(id)device completionHandler:(id)handler
-{
-  v20 = *MEMORY[0x277D85DE8];
-  dCopy = d;
-  deviceCopy = device;
-  handlerCopy = handler;
-  v11 = _DDUICoreLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    name = [deviceCopy name];
-    v16 = 138412546;
-    v17 = deviceCopy;
-    v18 = 2112;
-    v19 = name;
-    _os_log_impl(&dword_230EF9000, v11, OS_LOG_TYPE_DEFAULT, "remoteDevice %@ deviceName %@", &v16, 0x16u);
   }
 
   if (SFDeviceClassCodeGet() == 1)
@@ -107,8 +103,6 @@
 
     handlerCopy[2](handlerCopy, 7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelMessageWithID:(id)d
@@ -120,7 +114,7 @@
 
 - (void)deepLinkToAppStoreForApplication:(id)application
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   v4 = _DDUICoreLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -132,11 +126,9 @@
 
   v5 = [@"itms-apps://apple.com/app/id" stringByAppendingFormat:@"%lld", objc_msgSend(applicationCopy, "adamID")];
   v6 = [MEMORY[0x277CBEBC0] URLWithString:v5];
-  v8 = *MEMORY[0x277D0AC58];
-  v9 = MEMORY[0x277CBEC38];
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D0AC58];
+  v8 = MEMORY[0x277CBEC38];
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
 }
 
 @end

@@ -2616,50 +2616,50 @@ LABEL_18:
     [styleCopy fontWidth];
     v20 = v19;
     keycapsFallback = [styleCopy keycapsFallback];
-    v22 = UIKBGlyphForCharacter(fontName, v13, keycapsFallback, v16, v18, v20);
+    LODWORD(v13) = UIKBGlyphForCharacter(fontName, v13, keycapsFallback, v16, v18, v20);
 
-    glyphs = v22;
-    if (!v22)
+    glyphs = v13;
+    if (!v13)
     {
       goto LABEL_16;
     }
 
-    v52 = x;
+    v51 = x;
     do
     {
       keycapsFallback2 = [styleCopy keycapsFallback];
-      v24 = UIKBCreateCTFont(fontName, keycapsFallback2, v16, v18, v20);
+      v23 = UIKBCreateCTFont(fontName, keycapsFallback2, v16, v18, v20);
 
-      OpticalBoundsForGlyphs = CTFontGetOpticalBoundsForGlyphs(v24, &glyphs, 0, 1, 0);
-      v25 = OpticalBoundsForGlyphs.size.width;
-      v26 = OpticalBoundsForGlyphs.size.width > width + -4.0;
+      OpticalBoundsForGlyphs = CTFontGetOpticalBoundsForGlyphs(v23, &glyphs, 0, 1, 0);
+      v24 = OpticalBoundsForGlyphs.size.width;
+      v25 = OpticalBoundsForGlyphs.size.width > width + -4.0;
       if (OpticalBoundsForGlyphs.size.height > height)
       {
-        v26 = 1;
+        v25 = 1;
       }
 
-      if (v26)
+      if (v25)
       {
         v16 = v16 + -1.0;
       }
     }
 
-    while (v26 && v16 > 0.0);
+    while (v25 && v16 > 0.0);
     [styleCopy minFontSize];
-    if (v16 >= v27)
+    if (v16 >= v26)
     {
       XHeight = UIKBGetXHeight(fontName, v16);
       if (XHeight == 0.0)
       {
-        XHeight = CTFontGetXHeight(v24);
+        XHeight = CTFontGetXHeight(v23);
       }
 
-      v29 = y + height * 0.5 + XHeight * 0.5;
+      v28 = y + height * 0.5 + XHeight * 0.5;
       textColor = [styleCopy textColor];
       CopyWithAlpha = UIKBGetNamedColor(textColor);
 
       [styleCopy textOpacity];
-      if (v32 == 1.0)
+      if (v31 == 1.0)
       {
         CGColorRetain(CopyWithAlpha);
       }
@@ -2667,54 +2667,54 @@ LABEL_18:
       else
       {
         [styleCopy textOpacity];
-        CopyWithAlpha = CGColorCreateCopyWithAlpha(CopyWithAlpha, v33);
+        CopyWithAlpha = CGColorCreateCopyWithAlpha(CopyWithAlpha, v32);
       }
 
-      v35 = -ceil(v29);
+      v34 = -ceil(v28);
       if (_UISolariumEnabled())
       {
-        [(UIKBRenderer *)self centroidOfGlyph:CTFontCreatePathForGlyph(v24, glyphs, 0)];
+        [(UIKBRenderer *)self centroidOfGlyph:CTFontCreatePathForGlyph(v23, glyphs, 0)];
         [(UIKBRenderer *)self scale];
         UIFloorToScale();
-        v37 = v36;
+        v36 = v35;
       }
 
       else
       {
-        v37 = floor(v52 + (width - ceil(v25)) * 0.5 + 0.5);
+        v36 = floor(v51 + (width - ceil(v24)) * 0.5 + 0.5);
       }
 
       CGContextSaveGState(self->_ctx);
       ctx = self->_ctx;
-      CGAffineTransformMakeScale(&v53, 1.0, -1.0);
-      CGContextSetTextMatrix(ctx, &v53);
+      CGAffineTransformMakeScale(&v52, 1.0, -1.0);
+      CGContextSetTextMatrix(ctx, &v52);
       [styleCopy textOffset];
-      v40 = v39;
+      v39 = v38;
       [styleCopy etchOffset];
-      v53.a = v37 + v40 + v41;
+      v52.a = v36 + v39 + v40;
       [styleCopy textOffset];
-      v43 = v42;
+      v42 = v41;
       [styleCopy etchOffset];
-      v53.b = v35 - (v43 + v44);
+      v52.b = v34 - (v42 + v43);
       etchColor = [styleCopy etchColor];
 
       if (etchColor)
       {
-        v46 = self->_ctx;
+        v45 = self->_ctx;
         etchColor2 = [styleCopy etchColor];
-        v48 = UIKBGetNamedColor(etchColor2);
-        CGContextSetFillColorWithColor(v46, v48);
+        v47 = UIKBGetNamedColor(etchColor2);
+        CGContextSetFillColorWithColor(v45, v47);
 
-        CTFontDrawGlyphs(v24, &glyphs, &v53, 1uLL, self->_ctx);
+        CTFontDrawGlyphs(v23, &glyphs, &v52, 1uLL, self->_ctx);
       }
 
       [styleCopy etchOffset];
-      v53.a = v53.a - v49;
+      v52.a = v52.a - v48;
       [styleCopy etchOffset];
-      v53.b = v53.b + v50;
+      v52.b = v52.b + v49;
       CGContextSetFillColorWithColor(self->_ctx, CopyWithAlpha);
-      v34 = 1;
-      CTFontDrawGlyphs(v24, &glyphs, &v53, 1uLL, self->_ctx);
+      v33 = 1;
+      CTFontDrawGlyphs(v23, &glyphs, &v52, 1uLL, self->_ctx);
       CGContextRestoreGState(self->_ctx);
       CGColorRelease(CopyWithAlpha);
     }
@@ -2722,16 +2722,16 @@ LABEL_18:
     else
     {
 LABEL_16:
-      v34 = 0;
+      v33 = 0;
     }
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
-  return v34;
+  return v33;
 }
 
 - (CGPoint)centroidOfGlyph:(CGPath *)glyph

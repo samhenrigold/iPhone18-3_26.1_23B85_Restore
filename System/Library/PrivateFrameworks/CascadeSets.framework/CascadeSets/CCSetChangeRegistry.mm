@@ -7,6 +7,7 @@
 - (BOOL)enumerateAllBookmarks:(id *)bookmarks usingBlock:(id)block;
 - (BOOL)updateBookmark:(id)bookmark forSet:(id)set error:(id *)error;
 - (CCSetChangeRegistry)init;
+- (CCSetChangeRegistry)initWithFilename:(id)filename directory:(id)directory protectionClass:(int)class error:(id *)error;
 - (id)_archiveBookmark:(id)bookmark error:(id *)error;
 - (id)_unarchiveBookmark:(id)bookmark error:(id *)error;
 - (id)bookmarkForSet:(id)set;
@@ -22,6 +23,27 @@
 {
   v2 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"init unsupported" userInfo:MEMORY[0x1E695E0F8]];
   objc_exception_throw(v2);
+}
+
+- (CCSetChangeRegistry)initWithFilename:(id)filename directory:(id)directory protectionClass:(int)class error:(id *)error
+{
+  v7 = *&class;
+  filenameCopy = filename;
+  directoryCopy = directory;
+  v17.receiver = self;
+  v17.super_class = CCSetChangeRegistry;
+  v12 = [(CCSetChangeRegistry *)&v17 init];
+  if (v12 && (v13 = [objc_alloc(MEMORY[0x1E698E9B0]) initWithFilename:filenameCopy protectionClass:v7 directory:directoryCopy readOnly:0 create:1 initialDictionary:0 error:error], log = v12->_log, v12->_log = v13, log, !v12->_log))
+  {
+    v15 = 0;
+  }
+
+  else
+  {
+    v15 = v12;
+  }
+
+  return v15;
 }
 
 - (id)description
@@ -106,20 +128,20 @@
 
 - (BOOL)updateBookmark:(id)bookmark forSet:(id)set error:(id *)error
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   setCopy = set;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     v15 = MEMORY[0x1E696ABC0];
-    v49 = *MEMORY[0x1E696A278];
+    v48 = *MEMORY[0x1E696A278];
     v16 = MEMORY[0x1E696AEC0];
     v17 = objc_opt_class();
     v10 = NSStringFromClass(v17);
     setCopy = [v16 stringWithFormat:@"Unexpected bookmark: %@ for set: %@", v10, setCopy];
-    v50[0] = setCopy;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+    v49[0] = setCopy;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
     v19 = [v15 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v18];
     CCSetError(error, v19);
 
@@ -132,10 +154,10 @@ LABEL_8:
   if (!v10)
   {
     v20 = MEMORY[0x1E696ABC0];
-    v47 = *MEMORY[0x1E696A278];
+    v46 = *MEMORY[0x1E696A278];
     v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to resolve key for set: %@ bookmark: %@", setCopy, setCopy];
-    v48 = v18;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+    v47 = v18;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
     v22 = [v20 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v21];
     CCSetError(error, v22);
 
@@ -151,16 +173,16 @@ LABEL_8:
       goto LABEL_12;
     }
 
-    v35 = MEMORY[0x1E696ABC0];
-    v43 = *MEMORY[0x1E696A278];
-    v36 = MEMORY[0x1E696AEC0];
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
-    setCopy2 = [v36 stringWithFormat:@"Unexpected bookmark value: %@ for set: %@", v38, setCopy];
-    v44 = setCopy2;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-    v41 = [v35 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v40];
-    CCSetError(error, v41);
+    v34 = MEMORY[0x1E696ABC0];
+    v42 = *MEMORY[0x1E696A278];
+    v35 = MEMORY[0x1E696AEC0];
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
+    setCopy2 = [v35 stringWithFormat:@"Unexpected bookmark value: %@ for set: %@", v37, setCopy];
+    v43 = setCopy2;
+    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    v40 = [v34 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v39];
+    CCSetError(error, v40);
 
 LABEL_9:
     v23 = 0;
@@ -173,16 +195,16 @@ LABEL_9:
 
   if (([v10 isEqual:v14] & 1) == 0)
   {
-    v42 = MEMORY[0x1E696ABC0];
-    v45 = *MEMORY[0x1E696A278];
-    v29 = MEMORY[0x1E696AEC0];
-    v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
-    v32 = [v29 stringWithFormat:@"Unexpected set: %@ (key: %@) for bookmark: %@ (key: %@)", v31, v10, setCopy, v14];
-    v46 = v32;
-    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-    v34 = [v42 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v33];
-    CCSetError(error, v34);
+    v41 = MEMORY[0x1E696ABC0];
+    v44 = *MEMORY[0x1E696A278];
+    v28 = MEMORY[0x1E696AEC0];
+    v29 = objc_opt_class();
+    v30 = NSStringFromClass(v29);
+    v31 = [v28 stringWithFormat:@"Unexpected set: %@ (key: %@) for bookmark: %@ (key: %@)", v30, v10, setCopy, v14];
+    v45 = v31;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v33 = [v41 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v32];
+    CCSetError(error, v33);
 
     goto LABEL_9;
   }
@@ -191,9 +213,9 @@ LABEL_12:
   pendingUpdates = self->_pendingUpdates;
   if (!pendingUpdates)
   {
-    v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v28 = self->_pendingUpdates;
-    self->_pendingUpdates = v27;
+    v26 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v27 = self->_pendingUpdates;
+    self->_pendingUpdates = v26;
 
     pendingUpdates = self->_pendingUpdates;
   }
@@ -202,7 +224,6 @@ LABEL_12:
   v23 = 1;
 LABEL_10:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -224,11 +245,11 @@ LABEL_10:
 
 - (BOOL)commitAllBookmarkUpdates:(id *)updates
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (self->_pendingClear && ![(CCSetChangeRegistry *)self _clear:updates])
   {
     [(CCSetChangeRegistry *)self rollbackAllBookmarkUpdates];
-    v16 = 0;
+    return 0;
   }
 
   else
@@ -238,26 +259,26 @@ LABEL_10:
     {
       v6 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableDictionary count](*p_pendingUpdates, "count")}];
       v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableDictionary count](*p_pendingUpdates, "count")}];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       obj = [(NSMutableDictionary *)*p_pendingUpdates allKeys];
-      v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v24;
+        v10 = *v23;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             v13 = [(NSMutableDictionary *)self->_pendingUpdates objectForKey:v12];
             v14 = [(CCSetChangeRegistry *)self _archiveBookmark:v13 error:updates];
 
@@ -271,7 +292,7 @@ LABEL_10:
             [v7 addObject:v14];
           }
 
-          v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v9 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v9)
           {
             continue;
@@ -282,9 +303,9 @@ LABEL_10:
       }
 
       log = self->_log;
-      v22 = 0;
-      v16 = [(BMFileBackedDictionary *)log writeUpdatedObjects:v7 forKeys:v6 error:&v22];
-      obj = v22;
+      v21 = 0;
+      v16 = [(BMFileBackedDictionary *)log writeUpdatedObjects:v7 forKeys:v6 error:&v21];
+      obj = v21;
       if ((v16 & 1) == 0)
       {
         v17 = __biome_log_for_category();
@@ -309,11 +330,10 @@ LABEL_17:
       }
 
       [(CCSetChangeRegistry *)self rollbackAllBookmarkUpdates];
-      v16 = 1;
+      return 1;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -339,53 +359,53 @@ LABEL_17:
 
 - (BOOL)cleanupWithAllSets:(id)sets error:(id *)error
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v93 = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   allKeys = [(BMFileBackedDictionary *)self->_log allKeys];
   v8 = __biome_log_for_category();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109634;
-    *v92 = [allKeys count];
-    *&v92[4] = 1024;
-    *&v92[6] = [setsCopy count];
-    *v93 = 2112;
-    *&v93[2] = setsCopy;
+    *v91 = [allKeys count];
+    *&v91[4] = 1024;
+    *&v91[6] = [setsCopy count];
+    *v92 = 2112;
+    *&v92[2] = setsCopy;
     _os_log_impl(&dword_1B6DB2000, v8, OS_LOG_TYPE_DEFAULT, "Starting cleanup with %u registry entries and %u available sets: %@", buf, 0x18u);
   }
 
   v9 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(setsCopy, "count")}];
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   v10 = setsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v77 objects:v90 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v76 objects:v89 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v78;
+    v13 = *v77;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v78 != v13)
+        if (*v77 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v77 + 1) + 8 * i);
+        v15 = *(*(&v76 + 1) + 8 * i);
         v16 = [objc_opt_class() _keyForSet:v15];
         if (!v16)
         {
           v38 = MEMORY[0x1E696ABC0];
-          v88 = *MEMORY[0x1E696A278];
+          v87 = *MEMORY[0x1E696A278];
           v39 = MEMORY[0x1E696AEC0];
           v40 = objc_opt_class();
           v41 = NSStringFromClass(v40);
           v42 = [v39 stringWithFormat:@"Unexpected set: %@", v41];
-          v89 = v42;
-          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+          v88 = v42;
+          v43 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
           v44 = [v38 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v43];
           CCSetError(error, v44);
 
@@ -398,36 +418,36 @@ LABEL_17:
         [v9 setObject:v15 forKey:v16];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v77 objects:v90 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v76 objects:v89 count:16];
     }
 
     while (v12);
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   obj = allKeys;
-  v70 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
-  if (!v70)
+  v69 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
+  if (!v69)
   {
     goto LABEL_32;
   }
 
-  v69 = *v74;
-  v66 = allKeys;
+  v68 = *v73;
+  v65 = allKeys;
   errorCopy = error;
   while (2)
   {
-    for (j = 0; j != v70; ++j)
+    for (j = 0; j != v69; ++j)
     {
-      if (*v74 != v69)
+      if (*v73 != v68)
       {
         objc_enumerationMutation(obj);
       }
 
-      v19 = *(*(&v73 + 1) + 8 * j);
+      v19 = *(*(&v72 + 1) + 8 * j);
       v20 = [(BMFileBackedDictionary *)self->_log objectForKey:v19];
       v21 = [(CCSetChangeRegistry *)self _unarchiveBookmark:v20 error:error];
 
@@ -456,10 +476,10 @@ LABEL_29:
           }
 
           v53 = MEMORY[0x1E696ABC0];
-          v83 = *MEMORY[0x1E696A278];
+          v82 = *MEMORY[0x1E696A278];
           v54 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Registry contains a bookmark with invalid software version (expected %d): %@", v26, value2];
-          v84 = v54;
-          v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v83 = v54;
+          v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
           v56 = [v53 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v55];
           CCSetError(errorCopy, v56);
         }
@@ -471,16 +491,16 @@ LABEL_29:
           if (!(v30 | v31))
           {
             log = self->_log;
-            v72 = 0;
-            v33 = [(BMFileBackedDictionary *)log clearObjectForKey:v19 error:&v72];
-            v34 = v72;
+            v71 = 0;
+            v33 = [(BMFileBackedDictionary *)log clearObjectForKey:v19 error:&v71];
+            v34 = v71;
             if (v33)
             {
               v35 = __biome_log_for_category();
               if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *v92 = value2;
+                *v91 = value2;
                 _os_log_impl(&dword_1B6DB2000, v35, OS_LOG_TYPE_DEFAULT, "Registry bookmark cleaned up: %@", buf, 0xCu);
               }
 
@@ -493,23 +513,23 @@ LABEL_29:
           }
 
           v57 = v31;
-          v71 = MEMORY[0x1E696ABC0];
-          v85 = *MEMORY[0x1E696A278];
+          v70 = MEMORY[0x1E696ABC0];
+          v84 = *MEMORY[0x1E696A278];
           v58 = MEMORY[0x1E696AEC0];
           v59 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v30];
-          v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v57];
-          v60 = [v58 stringWithFormat:@"Registry bookmark reflects non-removed state: {shared items: %@, local instances: %@} for a set which is no longer available: %@", v59, v65, value2];
-          v86 = v60;
-          v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-          v54 = [v71 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v61];
+          v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v57];
+          v60 = [v58 stringWithFormat:@"Registry bookmark reflects non-removed state: {shared items: %@, local instances: %@} for a set which is no longer available: %@", v59, v64, value2];
+          v85 = v60;
+          v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+          v54 = [v70 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v61];
 
           v62 = __biome_log_for_category();
           if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            *v92 = self;
-            *&v92[8] = 2112;
-            *v93 = v54;
+            *v91 = self;
+            *&v91[8] = 2112;
+            *v92 = v54;
             _os_log_impl(&dword_1B6DB2000, v62, OS_LOG_TYPE_DEFAULT, "Inconsistency detected in registry: %@ error: %@", buf, 0x16u);
           }
 
@@ -526,20 +546,20 @@ LABEL_43:
       if ((v27 & 1) == 0)
       {
         v45 = MEMORY[0x1E696ABC0];
-        v81 = *MEMORY[0x1E696A278];
+        v80 = *MEMORY[0x1E696A278];
         v46 = MEMORY[0x1E696AEC0];
         value3 = [v21 value];
         v48 = objc_opt_class();
         v49 = NSStringFromClass(v48);
         v50 = [v46 stringWithFormat:@"Unexpected bookmark value: %@ of bookmark: %@ key: %@", v49, v21, v19];
-        v82 = v50;
-        v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        v81 = v50;
+        v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
         v52 = [v45 errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v51];
         CCSetError(error, v52);
 
 LABEL_44:
         v37 = 0;
-        allKeys = v66;
+        allKeys = v65;
         v36 = obj;
         goto LABEL_45;
       }
@@ -550,18 +570,18 @@ LABEL_44:
         v28 = objc_opt_class();
         v29 = NSStringFromClass(v28);
         *buf = 138412546;
-        *v92 = v29;
-        *&v92[8] = 2112;
-        *v93 = v19;
+        *v91 = v29;
+        *&v91[8] = 2112;
+        *v92 = v19;
         _os_log_debug_impl(&dword_1B6DB2000, value2, OS_LOG_TYPE_DEBUG, "Skipping cleanup for serialized set bookmark (%@) key: %@", buf, 0x16u);
       }
 
 LABEL_30:
     }
 
-    allKeys = v66;
-    v70 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
-    if (v70)
+    allKeys = v65;
+    v69 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
+    if (v69)
     {
       continue;
     }
@@ -581,7 +601,6 @@ LABEL_32:
   v37 = 1;
 LABEL_45:
 
-  v63 = *MEMORY[0x1E69E9840];
   return v37;
 }
 
@@ -595,23 +614,23 @@ LABEL_45:
 
 - (BOOL)enumerateAllBookmarks:(id *)bookmarks usingBlock:(id)block
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   allKeys = [(BMFileBackedDictionary *)self->_log allKeys];
   v7 = __biome_log_for_category();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v35) = [allKeys count];
+    LODWORD(v34) = [allKeys count];
     _os_log_impl(&dword_1B6DB2000, v7, OS_LOG_TYPE_DEFAULT, "Enumerating %u registry entries", buf, 8u);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = allKeys;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (!v9)
   {
     v23 = 1;
@@ -622,23 +641,23 @@ LABEL_45:
   v10 = v9;
   bookmarksCopy = bookmarks;
   v11 = 0;
-  v12 = *v31;
+  v12 = *v30;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
       v14 = v11;
-      if (*v31 != v12)
+      if (*v30 != v12)
       {
         objc_enumerationMutation(v8);
       }
 
-      v15 = *(*(&v30 + 1) + 8 * i);
+      v15 = *(*(&v29 + 1) + 8 * i);
       v16 = objc_autoreleasePoolPush();
       v17 = [(BMFileBackedDictionary *)self->_log objectForKey:v15];
-      v29 = v11;
-      v18 = [(CCSetChangeRegistry *)self _unarchiveBookmark:v17 error:&v29];
-      v11 = v29;
+      v28 = v11;
+      v18 = [(CCSetChangeRegistry *)self _unarchiveBookmark:v17 error:&v28];
+      v11 = v28;
 
       if (!v18)
       {
@@ -676,7 +695,7 @@ LABEL_45:
 
         value3 = [v18 value];
         *buf = 138412290;
-        v35 = value3;
+        v34 = value3;
         _os_log_impl(&dword_1B6DB2000, value2, OS_LOG_TYPE_DEFAULT, "Skipping bookmark: %@", buf, 0xCu);
       }
 
@@ -684,7 +703,7 @@ LABEL_14:
       objc_autoreleasePoolPop(v16);
     }
 
-    v10 = [v8 countByEnumeratingWithState:&v30 objects:v36 count:16];
+    v10 = [v8 countByEnumeratingWithState:&v29 objects:v35 count:16];
     if (v10)
     {
       continue;
@@ -696,7 +715,6 @@ LABEL_14:
   v23 = 1;
 LABEL_21:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -740,115 +758,105 @@ LABEL_9:
 
 - (id)_unarchiveBookmark:(id)bookmark error:(id *)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   bm_allowedClassesForSecureCodingBMBookmark = [MEMORY[0x1E696AB10] bm_allowedClassesForSecureCodingBMBookmark];
-  v13 = 0;
-  v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:bm_allowedClassesForSecureCodingBMBookmark fromData:bookmarkCopy error:&v13];
-  v9 = v13;
+  v12 = 0;
+  v8 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:bm_allowedClassesForSecureCodingBMBookmark fromData:bookmarkCopy error:&v12];
+  v9 = v12;
   if (!v8)
   {
     v10 = __biome_log_for_category();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v15 = bookmarkCopy;
-      v16 = 2112;
+      v14 = bookmarkCopy;
+      v15 = 2112;
       selfCopy = self;
-      v18 = 2112;
-      v19 = v9;
+      v17 = 2112;
+      v18 = v9;
       _os_log_error_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_ERROR, "Failed to unarchive bookmark (%@) from registry: %@ error: %@", buf, 0x20u);
     }
 
     CCSetError(error, v9);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)_archiveBookmark:(id)bookmark error:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
-  v12 = 0;
-  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:bookmarkCopy requiringSecureCoding:1 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:bookmarkCopy requiringSecureCoding:1 error:&v11];
+  v8 = v11;
   if (!v7)
   {
     v9 = __biome_log_for_category();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v14 = bookmarkCopy;
-      v15 = 2112;
+      v13 = bookmarkCopy;
+      v14 = 2112;
       selfCopy = self;
-      v17 = 2112;
-      v18 = v8;
+      v16 = 2112;
+      v17 = v8;
       _os_log_error_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_ERROR, "Failed to archive bookmark (%@) to registry: %@ error: %@", buf, 0x20u);
     }
 
     CCSetError(error, v8);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (void)_keyForSet:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Unexpected set class: %@ expected: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Unexpected set class: %@ expected: %@", &v7, 0x16u);
 }
 
 - (void)bookmarkForSet:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, a2, a3, "failed to unarchive bookmark for set: %@ error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, a2, a3, "failed to unarchive bookmark for set: %@ error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)commitAllBookmarkUpdates:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, a2, a3, "Failed to commit pending updates: %@ error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, a2, a3, "Failed to commit pending updates: %@ error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_clear:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to commit clear registry: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to commit clear registry: %@", &v2, 0xCu);
 }
 
 - (void)enumerateAllBookmarks:(uint64_t)a1 usingBlock:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to complete bookmark enumeration: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to complete bookmark enumeration: %@", &v2, 0xCu);
 }
 
 @end

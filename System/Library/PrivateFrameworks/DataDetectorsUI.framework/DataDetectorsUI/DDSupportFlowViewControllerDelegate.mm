@@ -31,9 +31,9 @@
   {
     v5 = *&self->_closeHandler[8];
 
-    v6 = sub_21ABBC674(v4);
+    v6 = sub_21ABBC674(v4, v5);
     v4(v6);
-    sub_21ABBC684(v4);
+    sub_21ABBC684(v4, v5);
     v7 = *self->_closeHandler;
   }
 
@@ -46,7 +46,7 @@
   v8 = *&self->_closeHandler[8];
   *self->_closeHandler = 0;
   *&self->_closeHandler[8] = 0;
-  sub_21ABBC684(v7);
+  sub_21ABBC684(v7, v8);
 }
 
 @end

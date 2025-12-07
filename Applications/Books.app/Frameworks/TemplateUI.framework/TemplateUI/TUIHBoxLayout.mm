@@ -30,18 +30,18 @@
   v12 = v11;
   if (v11)
   {
-    [(TUILayout *)v11 specifiedWidth];
+    objc_msgSend_specifiedWidth(v11);
     if ((v13 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v12 setSpecifiedWidthComputeInherited:1];
     }
 
-    v14 = [(TUILayout *)v12 box];
+    v14 = objc_msgSend_box(v12);
     layoutMode = [v14 layoutMode];
 
     if (layoutMode != &dword_0 + 1)
     {
-      v18 = [(TUILayout *)v12 box];
+      v18 = objc_msgSend_box(v12);
       layoutMode2 = [v18 layoutMode];
 
       if (layoutMode2 == &dword_0 + 2)
@@ -51,7 +51,7 @@
 
       else
       {
-        v21 = [(TUILayout *)v12 box];
+        v21 = objc_msgSend_box(v12);
         layoutMode3 = [v21 layoutMode];
 
         if (layoutMode3 != &dword_0 + 3)
@@ -139,8 +139,8 @@ LABEL_11:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+  v3 = objc_msgSend_children(self, a3);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
   if (v4)
   {
     v5 = *v12;
@@ -150,7 +150,7 @@ LABEL_11:
       {
         if (*v12 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         *&v10 = [*(*(&v11 + 1) + 8 * i) validatedIntrinsicWidthConsideringSpecified];
@@ -158,7 +158,7 @@ LABEL_11:
         sub_57F44(&__p, &v10);
       }
 
-      v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
     while (v4);
@@ -183,8 +183,8 @@ LABEL_11:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+  v3 = objc_msgSend_children(self, a3);
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
   if (v4)
   {
     v5 = *v12;
@@ -194,7 +194,7 @@ LABEL_11:
       {
         if (*v12 != v5)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         *&v10 = [*(*(&v11 + 1) + 8 * i) computedWidth];
@@ -202,7 +202,7 @@ LABEL_11:
         sub_57F44(&__p, &v10);
       }
 
-      v4 = [children countByEnumeratingWithState:&v11 objects:v18 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v11 objects:v18 count:16];
     }
 
     while (v4);
@@ -222,12 +222,12 @@ LABEL_11:
 {
   [(TUILayout *)self computeWidth];
   v4 = v3;
-  specifiedHeight = [(TUILayout *)self specifiedHeight];
-  v7 = specifiedHeight;
+  v5 = objc_msgSend_specifiedHeight(self);
+  v7 = v5;
   v9 = v8;
   if ((v8 & 0x8000000000000) != 0)
   {
-    LODWORD(v6) = specifiedHeight;
+    LODWORD(v6) = v5;
     [(TUILayout *)self computeHeight];
     v10 = v11;
   }
@@ -238,15 +238,15 @@ LABEL_11:
   }
 
   v12 = [TUIHStack alloc];
-  children = [(TUILayout *)self children];
-  v16 = [(TUIHStack *)v12 initWithLayout:self children:children];
+  v13 = objc_msgSend_children(self);
+  v16 = [(TUIHStack *)v12 initWithLayout:self children:v13];
 
   [(TUIHStack *)v16 setComputedWidth:v4];
   [(TUIHStack *)v16 setComputedHeight:v10];
   [(TUILayout *)self containingWidth];
   [(TUIHStack *)v16 setContainingMaxWidth:?];
-  specifiedWidth = [(TUILayout *)self specifiedWidth];
-  [(TUIHStack *)v16 setSpecifiedWidth:specifiedWidth, v15];
+  v14 = objc_msgSend_specifiedWidth(self);
+  [(TUIHStack *)v16 setSpecifiedWidth:v14, v15];
   [(TUIHStack *)v16 setSpecifiedHeight:v7, v9];
   [(TUIHStack *)v16 setGuideLayoutController:self->_guideLayoutController];
   [(TUIHStack *)v16 setPrefersEqualWidth:(*&self->_flags >> 1) & 1];
@@ -313,14 +313,14 @@ LABEL_11:
 - (void)appendLayoutsWithSpecifiedWidthModifiedToArray:(id)array
 {
   arrayCopy = array;
-  children = [(TUILayout *)self children];
+  v5 = objc_msgSend_children(self);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_16D940;
   v7[3] = &unk_25ECF8;
   v6 = arrayCopy;
   v8 = v6;
-  [children enumerateObjectsUsingBlock:v7];
+  [v5 enumerateObjectsUsingBlock:v7];
 }
 
 - (void)onContainingWidthChange
@@ -363,7 +363,7 @@ LABEL_11:
 
 - ($E297CC25127479E857BE23A4F8632EA4)modifiedSpecifiedWidthForChild:(SEL)child
 {
-  v5 = [a4 box];
+  v5 = objc_msgSend_box(a4, child);
   relativeWidth = [v5 relativeWidth];
   v8 = v7;
 
@@ -384,9 +384,9 @@ LABEL_11:
   v29 = 0u;
   v26 = 0u;
   v27 = 0u;
-  children = [(TUILayout *)self children];
+  v3 = objc_msgSend_children(self);
   v4 = 0;
-  v5 = [children countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v5 = [v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v5)
   {
     v6 = *v27;
@@ -396,11 +396,11 @@ LABEL_11:
       {
         if (*v27 != v6)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         v8 = *(*(&v26 + 1) + 8 * i);
-        v9 = [v8 box];
+        v9 = objc_msgSend_box(v8);
         hasRelativeWidth = [v9 hasRelativeWidth];
 
         if (hasRelativeWidth)
@@ -410,7 +410,7 @@ LABEL_11:
         }
       }
 
-      v5 = [children countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v5);
@@ -491,8 +491,8 @@ LABEL_11:
     }
 
     v18 = objc_opt_new();
-    model = [(TUILayout *)self model];
-    [model appendLayoutChildrenToArray:v18];
+    v9 = objc_msgSend_model(self);
+    [v9 appendLayoutChildrenToArray:v18];
 
     v22 = 0u;
     v23 = 0u;

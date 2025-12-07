@@ -21,7 +21,7 @@
 - (void)setPerDeltaCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -52,7 +52,7 @@ LABEL_9:
 
 - (id)perDeltaCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -89,7 +89,7 @@ LABEL_9:
 - (void)setPerReplacementCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -120,7 +120,7 @@ LABEL_9:
 
 - (id)perReplacementCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -157,7 +157,7 @@ LABEL_9:
 - (void)setUploadDeltasCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -188,7 +188,7 @@ LABEL_9:
 
 - (id)uploadDeltasCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -376,7 +376,7 @@ LABEL_10:
 
 - (void)_finishOnCallbackQueueWithError:(id)error
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -392,7 +392,7 @@ LABEL_10:
 
     if (v7)
     {
-      v37 = @"CKPartialErrors";
+      v36 = @"CKPartialErrors";
       if (self)
       {
         perItemErrors = self->_perItemErrors;
@@ -403,10 +403,10 @@ LABEL_10:
         perItemErrors = 0;
       }
 
-      v38[0] = perItemErrors;
+      v37[0] = perItemErrors;
       v9 = MEMORY[0x1E695DF20];
       v10 = perItemErrors;
-      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v9, v11, v38, &v37, 1);
+      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v9, v11, v37, &v36, 1);
 
       errorCopy = objc_msgSend_errorWithDomain_code_userInfo_format_(CKPrettyError, v13, @"CKInternalErrorDomain", 1011, v12, @"Failed to upload some deltas");
     }
@@ -426,13 +426,13 @@ LABEL_10:
   v15 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v24 = v15;
-    v27 = objc_msgSend_operationID(self, v25, v26);
+    v23 = v15;
+    v26 = objc_msgSend_operationID(self, v24, v25);
     *buf = 138543618;
-    v34 = v27;
-    v35 = 2112;
-    v36 = v14;
-    _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling upload completion block with error: %@", buf, 0x16u);
+    v33 = v26;
+    v34 = 2112;
+    v35 = v14;
+    _os_log_debug_impl(&dword_1883EA000, v23, OS_LOG_TYPE_DEBUG, "Operation %{public}@ calling upload completion block with error: %@", buf, 0x16u);
   }
 
   v18 = objc_msgSend_uploadDeltasCompletionBlock(self, v16, v17);
@@ -451,20 +451,18 @@ LABEL_10:
   v22 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v28 = v22;
-    v31 = objc_msgSend_operationID(self, v29, v30);
+    v27 = v22;
+    v30 = objc_msgSend_operationID(self, v28, v29);
     *buf = 138543618;
-    v34 = v31;
-    v35 = 2112;
-    v36 = v14;
-    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling upload completion block with error: %@", buf, 0x16u);
+    v33 = v30;
+    v34 = 2112;
+    v35 = v14;
+    _os_log_debug_impl(&dword_1883EA000, v27, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished calling upload completion block with error: %@", buf, 0x16u);
   }
 
-  v32.receiver = self;
-  v32.super_class = CKUploadMergeableDeltasOperation;
-  [(CKOperation *)&v32 _finishOnCallbackQueueWithError:v14];
-
-  v23 = *MEMORY[0x1E69E9840];
+  v31.receiver = self;
+  v31.super_class = CKUploadMergeableDeltasOperation;
+  [(CKOperation *)&v31 _finishOnCallbackQueueWithError:v14];
 }
 
 - (id)activityCreate
@@ -476,7 +474,7 @@ LABEL_10:
 
 - (void)handleUploadForDeltaIdentifier:(id)identifier error:(id)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -489,13 +487,13 @@ LABEL_10:
     deltas = 0;
   }
 
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = sub_1885B7428;
-  v35[3] = &unk_1E70BEB88;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = sub_1885B7428;
+  v34[3] = &unk_1E70BEB88;
   v11 = identifierCopy;
-  v36 = v11;
-  v14 = objc_msgSend_CKFirstObjectPassingTest_(deltas, v12, v35);
+  v35 = v11;
+  v14 = objc_msgSend_CKFirstObjectPassingTest_(deltas, v12, v34);
   if (v14)
   {
     if (self)
@@ -516,15 +514,15 @@ LABEL_10:
     v15 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
     {
-      v29 = v15;
-      v32 = objc_msgSend_operationID(self, v30, v31);
+      v28 = v15;
+      v31 = objc_msgSend_operationID(self, v29, v30);
       *buf = 138543874;
-      v38 = v32;
-      v39 = 2112;
-      v40 = v11;
-      v41 = 2112;
-      v42 = v9;
-      _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received delta upload callback for identifier %@ with error: %@", buf, 0x20u);
+      v37 = v31;
+      v38 = 2112;
+      v39 = v11;
+      v40 = 2112;
+      v41 = v9;
+      _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received delta upload callback for identifier %@ with error: %@", buf, 0x20u);
     }
 
     v18 = objc_msgSend_perDeltaCompletionBlock(self, v16, v17);
@@ -546,11 +544,11 @@ LABEL_10:
       v23 = v22;
       v26 = objc_msgSend_operationID(self, v24, v25);
       *buf = 138543874;
-      v38 = v26;
-      v39 = 2112;
-      v40 = v11;
-      v41 = 2112;
-      v42 = v9;
+      v37 = v26;
+      v38 = 2112;
+      v39 = v11;
+      v40 = 2112;
+      v41 = v9;
       _os_log_debug_impl(&dword_1883EA000, v23, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished delta upload callback for identifier %@ with error: %@", buf, 0x20u);
 LABEL_21:
     }
@@ -567,22 +565,20 @@ LABEL_21:
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
       v23 = v27;
-      v26 = objc_msgSend_operationID(self, v33, v34);
+      v26 = objc_msgSend_operationID(self, v32, v33);
       *buf = 138543618;
-      v38 = v26;
-      v39 = 2112;
-      v40 = v11;
+      v37 = v26;
+      v38 = 2112;
+      v39 = v11;
       _os_log_error_impl(&dword_1883EA000, v23, OS_LOG_TYPE_ERROR, "Operation %{public}@ received delta upload callback for unknown delta with identifier: %@", buf, 0x16u);
       goto LABEL_21;
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleReplacementRequest:(id)request error:(id)error
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v9 = objc_msgSend_CKClientSuitableError(error, v7, v8);
   if (self)
@@ -607,15 +603,15 @@ LABEL_21:
   v16 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v25 = v16;
-    v28 = objc_msgSend_operationID(self, v26, v27);
-    v33 = 138543874;
-    v34 = v28;
-    v35 = 2112;
-    v36 = requestCopy;
-    v37 = 2112;
-    v38 = v9;
-    _os_log_debug_impl(&dword_1883EA000, v25, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received replacement callback for request %@ with error: %@", &v33, 0x20u);
+    v24 = v16;
+    v27 = objc_msgSend_operationID(self, v25, v26);
+    v32 = 138543874;
+    v33 = v27;
+    v34 = 2112;
+    v35 = requestCopy;
+    v36 = 2112;
+    v37 = v9;
+    _os_log_debug_impl(&dword_1883EA000, v24, OS_LOG_TYPE_DEBUG, "Operation %{public}@ received replacement callback for request %@ with error: %@", &v32, 0x20u);
   }
 
   v19 = objc_msgSend_perReplacementCompletionBlock(self, v17, v18);
@@ -634,14 +630,12 @@ LABEL_21:
   v23 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_DEBUG))
   {
-    v29 = v23;
-    v32 = objc_msgSend_operationID(self, v30, v31);
-    v33 = 138543362;
-    v34 = v32;
-    _os_log_debug_impl(&dword_1883EA000, v29, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished replacement callback", &v33, 0xCu);
+    v28 = v23;
+    v31 = objc_msgSend_operationID(self, v29, v30);
+    v32 = 138543362;
+    v33 = v31;
+    _os_log_debug_impl(&dword_1883EA000, v28, OS_LOG_TYPE_DEBUG, "Operation %{public}@ finished replacement callback", &v32, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 @end

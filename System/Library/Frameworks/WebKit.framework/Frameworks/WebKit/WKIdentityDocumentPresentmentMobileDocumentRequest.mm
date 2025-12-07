@@ -9,14 +9,12 @@
 
 - (NSArray)presentmentRequests
 {
-  v3 = OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentRequest_presentmentRequests;
-  v4 = swift_beginAccess();
-  v5 = *(self + v3);
-  type metadata accessor for WKIdentityDocumentPresentmentMobileDocumentPresentmentRequest(v4);
+  v2 = swift_beginAccess();
+  type metadata accessor for WKIdentityDocumentPresentmentMobileDocumentPresentmentRequest(v2);
 
-  v6 = sub_23B59D880();
+  v3 = sub_23B59D880();
 
-  return v6;
+  return v3;
 }
 
 - (void)setPresentmentRequests:(id)requests
@@ -25,7 +23,6 @@
   v4 = sub_23B59D890();
   v5 = OBJC_IVAR___WKIdentityDocumentPresentmentMobileDocumentRequest_presentmentRequests;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

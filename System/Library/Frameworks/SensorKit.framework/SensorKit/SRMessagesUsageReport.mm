@@ -149,18 +149,16 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v6[4] = *MEMORY[0x1E69E9840];
-  v5[0] = @"duration";
-  v6[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
-  v5[1] = @"totalOutgoingMsg";
-  v6[1] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalOutgoingMessages];
-  v5[2] = @"totalIncomingMsg";
-  v6[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalIncomingMessages];
-  v5[3] = @"totalUniqueContacts";
-  v6[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRMessagesUsageReport totalUniqueContacts](self, "totalUniqueContacts")}];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v5[4] = *MEMORY[0x1E69E9840];
+  v4[0] = @"duration";
+  v5[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_duration];
+  v4[1] = @"totalOutgoingMsg";
+  v5[1] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalOutgoingMessages];
+  v4[2] = @"totalIncomingMsg";
+  v5[2] = [MEMORY[0x1E696AD98] numberWithInteger:self->_totalIncomingMessages];
+  v4[3] = @"totalUniqueContacts";
+  v5[3] = [MEMORY[0x1E696AD98] numberWithInteger:{-[SRMessagesUsageReport totalUniqueContacts](self, "totalUniqueContacts")}];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
 }
 
 - (NSInteger)totalUniqueContacts

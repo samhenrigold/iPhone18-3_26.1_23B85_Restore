@@ -50,6 +50,7 @@
 - (void)fetchUpcomingNoticeWithCompletionHandler:(id)handler;
 - (void)generateLinkForConversationUUID:(id)d completionHandler:(id)handler;
 - (void)generateLinkWithInvitedMemberHandles:(id)handles linkLifetimeScope:(int64_t)scope completionHandler:(id)handler;
+- (void)getActiveLinksWithCreatedOnly:(BOOL)only completionHandler:(id)handler;
 - (void)getInactiveLinkWithCompletionHandler:(id)handler;
 - (void)getLatestRemoteScreenShareAttributesWithCompletionHandler:(id)handler;
 - (void)getMessagesGroupDetailsForConversationUUID:(id)d completionHandler:(id)handler;
@@ -61,8 +62,10 @@
 - (void)invalidateLink:(id)link deleteReason:(int64_t)reason completionHandler:(id)handler;
 - (void)joinConversationWithRequest:(id)request;
 - (void)kickMember:(id)member conversationUUID:(id)d;
+- (void)launchApplicationForActivitySessionUUID:(id)d authorizedExternally:(BOOL)externally forceBackground:(BOOL)background completionHandler:(id)handler;
 - (void)leaveActivitySession:(id)session onConversationWithUUID:(id)d;
 - (void)leaveConversationWithUUID:(id)d;
+- (void)linkSyncStateIncludeLinks:(BOOL)links WithCompletion:(id)completion;
 - (void)markCollaborationWithIdentifierOpened:(id)opened forConversationUUID:(id)d;
 - (void)notifyClientsOfConversationsByGroupUUIDUpdate;
 - (void)notifyClientsOfMediaPrioritiesChangedForConversation:(id)conversation;
@@ -78,10 +81,20 @@
 - (void)removeConversationNoticeWithUUID:(id)d;
 - (void)renewLink:(id)link expirationDate:(id)date reason:(unint64_t)reason completionHandler:(id)handler;
 - (void)requestParticipantToShareScreen:(id)screen forConversationUUID:(id)d;
+- (void)scheduleConversationLinkCheckInInitial:(BOOL)initial;
+- (void)setActivityAuthorization:(BOOL)authorization forBundleIdentifier:(id)identifier;
+- (void)setAutoSharePlayEnabled:(BOOL)enabled;
+- (void)setDownlinkMuted:(BOOL)muted forParticipants:(id)participants inConversationWithUUID:(id)d completionHandler:(id)handler;
+- (void)setDownlinkMuted:(BOOL)muted forRemoteParticipantsInConversationWithUUID:(id)d;
 - (void)setGridDisplayMode:(unint64_t)mode forConversationWithUUID:(id)d;
+- (void)setIgnoreLetMeInRequests:(BOOL)requests forConversationUUID:(id)d;
+- (void)setIsNearbySharePlay:(BOOL)play forConversationUUID:(id)d;
 - (void)setLinkName:(id)name forConversationLink:(id)link completionHandler:(id)handler;
 - (void)setLocalParticipantAudioVideoMode:(unint64_t)mode forConversationUUID:(id)d;
 - (void)setLocalParticipantCluster:(id)cluster forConversationUUID:(id)d;
+- (void)setScreenEnabled:(BOOL)enabled withScreenShareAttributes:(id)attributes forConversationWithUUID:(id)d;
+- (void)setSharePlayHandedOff:(BOOL)off onConversationWithUUID:(id)d;
+- (void)setSupportsMessagesGroupProviding:(BOOL)providing;
 - (void)setUsingAirplay:(BOOL)airplay onActivitySession:(id)session onConversationWithUUID:(id)d;
 - (void)startTrackingCollaborationWithIdentifier:(id)identifier collaborationURL:(id)l cloudKitAppBundleIDs:(id)ds forConversationUUID:(id)d completionHandler:(id)handler;
 - (void)unregisterClient:(id)client;
@@ -485,16 +498,16 @@ LABEL_26:
   dispatch_assert_queue_V2(queue);
 
   conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
-  v10 = 0;
-  v7 = [conversationManager activatedConversationLinksWithError:&v10];
-  v8 = v10;
+  v11 = 0;
+  v7 = [conversationManager activatedConversationLinksWithError:&v11];
+  v8 = v11;
 
   if (v8)
   {
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100004778(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10047ACEC(v8, v9);
+      sub_10047ACEC(v8, v10);
     }
   }
 
@@ -527,17 +540,17 @@ LABEL_26:
   clientManager = [(CSDConversationManagerXPCServer *)self clientManager];
   currentClient = [clientManager currentClient];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 0;
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1001EC894;
-  v17[3] = &unk_10061D3F0;
-  v17[4] = &v18;
-  sub_100004AA4(currentClient, @"override-activity-verification", v17, 0, "[CSDConversationManagerXPCServer createActivitySession:onConversationWithUUID:options:]");
-  if (*(v19 + 24) != 1 || ([sessionCopy bundleIdentifier], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1001EC894;
+  v18[3] = &unk_10061D3F0;
+  v18[4] = &v19;
+  sub_100004AA4(currentClient, @"override-activity-verification", v18, 0, "[CSDConversationManagerXPCServer createActivitySession:onConversationWithUUID:options:]");
+  if (*(v20 + 24) != 1 || ([sessionCopy bundleIdentifier], v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
   {
     processBundleIdentifier = [currentClient processBundleIdentifier];
     [sessionCopy setBundleIdentifier:processBundleIdentifier];
@@ -553,14 +566,14 @@ LABEL_26:
 
   else
   {
-    conversationManager = sub_100004778();
+    conversationManager = sub_100004778(v16);
     if (os_log_type_enabled(conversationManager, OS_LOG_TYPE_ERROR))
     {
       sub_10047AD64(conversationManager);
     }
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
 }
 
 - (void)leaveActivitySession:(id)session onConversationWithUUID:(id)d
@@ -616,6 +629,64 @@ LABEL_26:
   [conversationManager presentDismissalAlertForActivitySessionWithUUID:dCopy onConversationWithUUID:iDCopy];
 }
 
+- (void)setActivityAuthorization:(BOOL)authorization forBundleIdentifier:(id)identifier
+{
+  authorizationCopy = authorization;
+  identifierCopy = identifier;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setActivityAuthorization:authorizationCopy forBundleID:identifierCopy];
+}
+
+- (void)setAutoSharePlayEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setAutoSharePlayEnabled:enabledCopy];
+}
+
+- (void)launchApplicationForActivitySessionUUID:(id)d authorizedExternally:(BOOL)externally forceBackground:(BOOL)background completionHandler:(id)handler
+{
+  backgroundCopy = background;
+  externallyCopy = externally;
+  dCopy = d;
+  handlerCopy = handler;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (externallyCopy)
+  {
+    clientManager = [(CSDConversationManagerXPCServer *)self clientManager];
+    currentClient = [clientManager currentClient];
+
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = 0;
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1001ECE4C;
+    v17[3] = &unk_10061D3F0;
+    v17[4] = &v18;
+    sub_100004AA4(currentClient, @"supports-external-shareplay-authorization", v17, 0, "[CSDConversationManagerXPCServer launchApplicationForActivitySessionUUID:authorizedExternally:forceBackground:completionHandler:]");
+    v15 = *(v19 + 24);
+    _Block_object_dispose(&v18, 8);
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager launchApplicationForActivitySessionUUID:dCopy authorizedExternally:v15 & 1 forceBackground:backgroundCopy completionHandler:handlerCopy];
+}
+
 - (void)joinConversationWithRequest:(id)request
 {
   requestCopy = request;
@@ -634,6 +705,17 @@ LABEL_26:
 
   conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
   [conversationManager leaveConversationWithUUID:dCopy];
+}
+
+- (void)setIsNearbySharePlay:(BOOL)play forConversationUUID:(id)d
+{
+  playCopy = play;
+  dCopy = d;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setIsNearbySharePlay:playCopy forConversationWithUUID:dCopy];
 }
 
 - (void)buzzMember:(id)member destinationID:(id)d invitationContext:(id)context conversationUUID:(id)iD
@@ -660,6 +742,30 @@ LABEL_26:
   [conversationManager kickMember:memberCopy conversationUUID:dCopy];
 }
 
+- (void)setDownlinkMuted:(BOOL)muted forRemoteParticipantsInConversationWithUUID:(id)d
+{
+  mutedCopy = muted;
+  dCopy = d;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setDownlinkMuted:mutedCopy forRemoteParticipantsOnConversationWithUUID:dCopy];
+}
+
+- (void)setDownlinkMuted:(BOOL)muted forParticipants:(id)participants inConversationWithUUID:(id)d completionHandler:(id)handler
+{
+  mutedCopy = muted;
+  handlerCopy = handler;
+  dCopy = d;
+  participantsCopy = participants;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setDownlinkMuted:mutedCopy forParticipants:participantsCopy inConversationWithUUID:dCopy completionHandler:handlerCopy];
+}
+
 - (void)addScreenSharingType:(unint64_t)type forConversationUUID:(id)d
 {
   dCopy = d;
@@ -678,6 +784,17 @@ LABEL_26:
 
   conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
   [conversationManager getLatestRemoteScreenShareAttributesWithCompletionHandler:handlerCopy];
+}
+
+- (void)getActiveLinksWithCreatedOnly:(BOOL)only completionHandler:(id)handler
+{
+  onlyCopy = only;
+  handlerCopy = handler;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager getActiveLinksWithCreatedOnly:onlyCopy completionHandler:handlerCopy];
 }
 
 - (void)generateLinkForConversationUUID:(id)d completionHandler:(id)handler
@@ -839,6 +956,27 @@ LABEL_26:
   [conversationManager updateExternalParticipants:participantsCopy];
 }
 
+- (void)scheduleConversationLinkCheckInInitial:(BOOL)initial
+{
+  initialCopy = initial;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager scheduleConversationLinkCheckInInitial:initialCopy];
+}
+
+- (void)linkSyncStateIncludeLinks:(BOOL)links WithCompletion:(id)completion
+{
+  linksCopy = links;
+  completionCopy = completion;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager linkSyncStateIncludeLinks:linksCopy WithCompletion:completionCopy];
+}
+
 - (void)approvePendingMember:(id)member forConversationUUID:(id)d
 {
   dCopy = d;
@@ -859,6 +997,17 @@ LABEL_26:
 
   conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
   [conversationManager rejectPendingMember:memberCopy forConversationUUID:dCopy];
+}
+
+- (void)setIgnoreLetMeInRequests:(BOOL)requests forConversationUUID:(id)d
+{
+  requestsCopy = requests;
+  dCopy = d;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setIgnoreLetMeInRequests:requestsCopy forConversationUUID:dCopy];
 }
 
 - (void)updateConversationWithUUID:(id)d participantPresentationContexts:(id)contexts
@@ -1043,6 +1192,15 @@ LABEL_26:
   sub_100004AA4(currentClient, v11, v14, 0, "[CSDConversationManagerXPCServer addDisclosedCollaborationInitiator:toConversationUUID:]");
 }
 
+- (void)setSupportsMessagesGroupProviding:(BOOL)providing
+{
+  providingCopy = providing;
+  clientManager = [(CSDConversationManagerXPCServer *)self clientManager];
+  currentClient = [clientManager currentClient];
+
+  [currentClient setSupportsMessagesGroupProviding:providingCopy];
+}
+
 - (void)getMessagesGroupDetailsForConversationUUID:(id)d completionHandler:(id)handler
 {
   dCopy = d;
@@ -1053,12 +1211,12 @@ LABEL_26:
 
   if (!v10)
   {
-    v16 = sub_100004778();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004778(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = dCopy;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@", buf, 0xCu);
+      v33 = dCopy;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@", buf, 0xCu);
     }
 
     goto LABEL_9;
@@ -1075,56 +1233,56 @@ LABEL_9:
   if (messagesGroupUUID)
   {
     clientManager = [(CSDConversationManagerXPCServer *)self clientManager];
-    v13 = [clientManager clientsPassingTest:&stru_10061E360];
-    firstObject = [v13 firstObject];
+    v14 = [clientManager clientsPassingTest:&stru_10061E360];
+    firstObject = [v14 firstObject];
 
     if (firstObject)
     {
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_1001EF04C;
-      v23[3] = &unk_10061E388;
-      v24 = messagesGroupUUID;
-      v25 = handlerCopy;
-      [firstObject performBlock:v23];
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_1001EF04C;
+      v25[3] = &unk_10061E388;
+      v26 = messagesGroupUUID;
+      v27 = handlerCopy;
+      [firstObject performBlock:v25];
 
-      v15 = v24;
+      v17 = v26;
     }
 
     else
     {
-      v20 = sub_100004778();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_100004778(v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] No Messages group provider was registered", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[WARN] No Messages group provider was registered", buf, 2u);
       }
 
-      v21 = TUConversationManagerMessagesErrorDomain;
-      v26 = NSLocalizedDescriptionKey;
-      v27 = @"No messages group details provider available";
-      v22 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-      v15 = [NSError errorWithDomain:v21 code:1 userInfo:v22];
+      v23 = TUConversationManagerMessagesErrorDomain;
+      v28 = NSLocalizedDescriptionKey;
+      v29 = @"No messages group details provider available";
+      v24 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v17 = [NSError errorWithDomain:v23 code:1 userInfo:v24];
 
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v15);
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v17);
     }
   }
 
   else
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = dCopy;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Conversation with conversationUUID %@ is not associated with a Messages group", buf, 0xCu);
+      v33 = dCopy;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] Conversation with conversationUUID %@ is not associated with a Messages group", buf, 0xCu);
     }
 
-    v18 = TUConversationManagerMessagesErrorDomain;
-    v28 = NSLocalizedDescriptionKey;
-    v29 = @"Conversation is not associated with a Messages group";
-    v19 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-    firstObject = [NSError errorWithDomain:v18 code:2 userInfo:v19];
+    v20 = TUConversationManagerMessagesErrorDomain;
+    v30 = NSLocalizedDescriptionKey;
+    v31 = @"Conversation is not associated with a Messages group";
+    v21 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    firstObject = [NSError errorWithDomain:v20 code:2 userInfo:v21];
 
     (*(handlerCopy + 2))(handlerCopy, 0, 0, firstObject);
   }
@@ -1172,6 +1330,18 @@ LABEL_18:
   [conversationManager cancelOrDenyScreenShareRequest:requestCopy forConversationUUID:dCopy];
 }
 
+- (void)setScreenEnabled:(BOOL)enabled withScreenShareAttributes:(id)attributes forConversationWithUUID:(id)d
+{
+  enabledCopy = enabled;
+  dCopy = d;
+  attributesCopy = attributes;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setScreenEnabled:enabledCopy screenShareAttributes:attributesCopy forConversationWithUUID:dCopy];
+}
+
 - (void)prepareConversationWithUUID:(id)d withHandoffContext:(id)context
 {
   contextCopy = context;
@@ -1181,6 +1351,17 @@ LABEL_18:
 
   conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
   [conversationManager prepareConversationWithUUID:dCopy withHandoffContext:contextCopy];
+}
+
+- (void)setSharePlayHandedOff:(BOOL)off onConversationWithUUID:(id)d
+{
+  offCopy = off;
+  dCopy = d;
+  queue = [(CSDConversationManagerXPCServer *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  conversationManager = [(CSDConversationManagerXPCServer *)self conversationManager];
+  [conversationManager setSharePlayHandedOff:offCopy onConversationWithUUID:dCopy];
 }
 
 - (void)setLocalParticipantCluster:(id)cluster forConversationUUID:(id)d

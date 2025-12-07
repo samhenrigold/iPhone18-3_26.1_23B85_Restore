@@ -224,36 +224,36 @@ void __45__BSRBSService_launchIdentifiersForMachName___block_invoke_2(uint64_t a
 
 - (id)registerMonitor:(uint64_t)monitor
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (monitor)
   {
     if (!v3)
     {
-      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"monitorToRegister"];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"monitorToRegister"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v21 = NSStringFromSelector(sel_registerMonitor_);
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
+        v20 = NSStringFromSelector(sel_registerMonitor_);
+        v21 = objc_opt_class();
+        v22 = NSStringFromClass(v21);
         *buf = 138544642;
-        v36 = v21;
-        v37 = 2114;
-        v38 = v23;
-        v39 = 2048;
+        v35 = v20;
+        v36 = 2114;
+        v37 = v22;
+        v38 = 2048;
         monitorCopy3 = monitor;
-        v41 = 2114;
-        v42 = @"BSRBSService.m";
-        v43 = 1024;
-        v44 = 128;
-        v45 = 2114;
-        v46 = v20;
+        v40 = 2114;
+        v41 = @"BSRBSService.m";
+        v42 = 1024;
+        v43 = 128;
+        v44 = 2114;
+        v45 = v19;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v24 = v20;
-      [v20 UTF8String];
+      v23 = v19;
+      [v19 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A844FB4);
@@ -262,29 +262,29 @@ void __45__BSRBSService_launchIdentifiersForMachName___block_invoke_2(uint64_t a
     service = [v3 service];
     if (!service)
     {
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"asked to register a monitor with a nil service : monitor=%@", v4];
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"asked to register a monitor with a nil service : monitor=%@", v4];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v26 = NSStringFromSelector(sel_registerMonitor_);
-        v27 = objc_opt_class();
-        v28 = NSStringFromClass(v27);
+        v25 = NSStringFromSelector(sel_registerMonitor_);
+        v26 = objc_opt_class();
+        v27 = NSStringFromClass(v26);
         *buf = 138544642;
-        v36 = v26;
-        v37 = 2114;
-        v38 = v28;
-        v39 = 2048;
+        v35 = v25;
+        v36 = 2114;
+        v37 = v27;
+        v38 = 2048;
         monitorCopy3 = monitor;
-        v41 = 2114;
-        v42 = @"BSRBSService.m";
-        v43 = 1024;
-        v44 = 131;
-        v45 = 2114;
-        v46 = v25;
+        v40 = 2114;
+        v41 = @"BSRBSService.m";
+        v42 = 1024;
+        v43 = 131;
+        v44 = 2114;
+        v45 = v24;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v29 = v25;
-      [v25 UTF8String];
+      v28 = v24;
+      [v24 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A8450B0);
@@ -305,17 +305,17 @@ void __45__BSRBSService_launchIdentifiersForMachName___block_invoke_2(uint64_t a
           v10 = objc_opt_class();
           v11 = NSStringFromClass(v10);
           *buf = 138544642;
-          v36 = v9;
-          v37 = 2114;
-          v38 = v11;
-          v39 = 2048;
+          v35 = v9;
+          v36 = 2114;
+          v37 = v11;
+          v38 = 2048;
           monitorCopy3 = monitor;
-          v41 = 2114;
-          v42 = @"BSRBSService.m";
-          v43 = 1024;
-          v44 = 137;
-          v45 = 2114;
-          v46 = v8;
+          v40 = 2114;
+          v41 = @"BSRBSService.m";
+          v42 = 1024;
+          v43 = 137;
+          v44 = 2114;
+          v45 = v8;
           _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
@@ -353,23 +353,21 @@ void __45__BSRBSService_launchIdentifiersForMachName___block_invoke_2(uint64_t a
     os_unfair_lock_unlock((monitor + 68));
     objc_initWeak(&location, monitor);
     v16 = objc_alloc(MEMORY[0x1E698E778]);
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __32__BSRBSService_registerMonitor___block_invoke;
-    v30[3] = &unk_1E7520848;
-    objc_copyWeak(&v32, &location);
-    objc_copyWeak(&v33, buf);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __32__BSRBSService_registerMonitor___block_invoke;
+    v29[3] = &unk_1E7520848;
+    objc_copyWeak(&v31, &location);
+    objc_copyWeak(&v32, buf);
     v17 = service;
-    v31 = v17;
-    monitor = [v16 initWithIdentifier:@"com.apple.boardservices.manager.monitor" forReason:v17 invalidationBlock:v30];
+    v30 = v17;
+    monitor = [v16 initWithIdentifier:@"com.apple.boardservices.manager.monitor" forReason:v17 invalidationBlock:v29];
 
-    objc_destroyWeak(&v33);
     objc_destroyWeak(&v32);
+    objc_destroyWeak(&v31);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return monitor;
 }
@@ -402,43 +400,43 @@ void __32__BSRBSService_registerMonitor___block_invoke(uint64_t a1)
 
 - (void)_callOutLock_noteEndpointsChangedForServices:(os_unfair_lock_s *)services
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v26 = a2;
+  v52 = *MEMORY[0x1E69E9840];
+  v25 = a2;
   if (services)
   {
     os_unfair_lock_assert_owner(services + 17);
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     servicesCopy = services;
     os_unfair_lock_lock(services + 16);
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
     v47 = 0u;
-    obj = v26;
-    v28 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-    if (!v28)
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    obj = v25;
+    v27 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+    if (!v27)
     {
       goto LABEL_37;
     }
 
-    v29 = *v47;
+    v28 = *v46;
     while (1)
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v47 != v29)
+        if (*v46 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v33 = *(*(&v46 + 1) + 8 * i);
-        v30 = [*&servicesCopy[8]._os_unfair_lock_opaque objectForKey:?];
-        v3 = [v30 count];
+        v32 = *(*(&v45 + 1) + 8 * i);
+        v29 = [*&servicesCopy[8]._os_unfair_lock_opaque objectForKey:?];
+        v3 = [v29 count];
         v4 = *&servicesCopy[14]._os_unfair_lock_opaque;
         if (v3)
         {
-          v32 = [v4 objectForKey:v33];
-          v5 = [v32 mutableCopy];
+          v31 = [v4 objectForKey:v32];
+          v5 = [v31 mutableCopy];
           v6 = v5;
           if (v5)
           {
@@ -450,128 +448,126 @@ void __32__BSRBSService_registerMonitor___block_invoke(uint64_t a1)
             dictionary2 = [MEMORY[0x1E695DF90] dictionary];
           }
 
-          v36 = dictionary2;
+          v35 = dictionary2;
 
-          v44 = 0u;
-          v45 = 0u;
-          v42 = 0u;
           v43 = 0u;
-          v34 = v30;
-          v8 = [v34 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v44 = 0u;
+          v41 = 0u;
+          v42 = 0u;
+          v33 = v29;
+          v8 = [v33 countByEnumeratingWithState:&v41 objects:v50 count:16];
           if (v8)
           {
-            v9 = *v43;
+            v9 = *v42;
             do
             {
               for (j = 0; j != v8; ++j)
               {
-                if (*v43 != v9)
+                if (*v42 != v9)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v33);
                 }
 
-                v11 = *(*(&v42 + 1) + 8 * j);
+                v11 = *(*(&v41 + 1) + 8 * j);
                 v12 = [MEMORY[0x1E695DFA8] set];
-                v40 = 0u;
-                v41 = 0u;
-                v38 = 0u;
                 v39 = 0u;
+                v40 = 0u;
+                v37 = 0u;
+                v38 = 0u;
                 v13 = [*&servicesCopy[6]._os_unfair_lock_opaque objectForKey:v11];
-                v14 = [v13 countByEnumeratingWithState:&v38 objects:v50 count:16];
+                v14 = [v13 countByEnumeratingWithState:&v37 objects:v49 count:16];
                 if (v14)
                 {
-                  v15 = *v39;
+                  v15 = *v38;
                   do
                   {
                     for (k = 0; k != v14; ++k)
                     {
-                      if (*v39 != v15)
+                      if (*v38 != v15)
                       {
                         objc_enumerationMutation(v13);
                       }
 
-                      environment = [*(*(&v38 + 1) + 8 * k) environment];
+                      environment = [*(*(&v37 + 1) + 8 * k) environment];
                       if (environment)
                       {
                         [v12 addObject:environment];
                       }
                     }
 
-                    v14 = [v13 countByEnumeratingWithState:&v38 objects:v50 count:16];
+                    v14 = [v13 countByEnumeratingWithState:&v37 objects:v49 count:16];
                   }
 
                   while (v14);
                 }
 
-                v18 = [v36 objectForKey:v11];
+                v18 = [v35 objectForKey:v11];
                 v19 = BSEqualObjects();
 
                 if ((v19 & 1) == 0)
                 {
                   v20 = [v12 copy];
-                  [v36 setObject:v20 forKey:v11];
+                  [v35 setObject:v20 forKey:v11];
                 }
               }
 
-              v8 = [v34 countByEnumeratingWithState:&v42 objects:v51 count:16];
+              v8 = [v33 countByEnumeratingWithState:&v41 objects:v50 count:16];
             }
 
             while (v8);
           }
 
-          v21 = v36;
+          v21 = v35;
           if (BSEqualObjects())
           {
             goto LABEL_34;
           }
 
           v22 = *&servicesCopy[14]._os_unfair_lock_opaque;
-          v23 = [v36 copy];
-          [v22 setObject:v23 forKey:v33];
+          v23 = [v35 copy];
+          [v22 setObject:v23 forKey:v32];
         }
 
         else
         {
-          [v4 removeObjectForKey:v33];
+          [v4 removeObjectForKey:v32];
         }
 
-        v32 = [*&servicesCopy[10]._os_unfair_lock_opaque objectForKey:v33];
-        if (![v32 count])
+        v31 = [*&servicesCopy[10]._os_unfair_lock_opaque objectForKey:v32];
+        if (![v31 count])
         {
           goto LABEL_35;
         }
 
-        v21 = [v32 copy];
-        [dictionary setObject:v21 forKey:v33];
+        v21 = [v31 copy];
+        [dictionary setObject:v21 forKey:v32];
 LABEL_34:
 
 LABEL_35:
       }
 
-      v28 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
-      if (!v28)
+      v27 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      if (!v27)
       {
 LABEL_37:
 
         os_unfair_lock_unlock(servicesCopy + 16);
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_invoke;
-        v37[3] = &unk_1E7520870;
-        v37[4] = servicesCopy;
-        [dictionary enumerateKeysAndObjectsUsingBlock:v37];
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_invoke;
+        v36[3] = &unk_1E7520870;
+        v36[4] = servicesCopy;
+        [dictionary enumerateKeysAndObjectsUsingBlock:v36];
 
         break;
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = [*(*(a1 + 32) + 56) objectForKey:a2];
   v7 = v6;
@@ -583,71 +579,69 @@ void __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_inv
 
   v9 = v8;
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v11)
   {
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v15 + 1) + 8 * v13++) serialCallOut_didUpdateEndpointEnvironments:{v9, v15}];
+        [*(*(&v14 + 1) + 8 * v13++) serialCallOut_didUpdateEndpointEnvironments:{v9, v14}];
       }
 
       while (v11 != v13);
-      v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service didReceiveInheritances:(id)inheritances
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   inheritancesCopy = inheritances;
   v4 = BSServiceLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v31 = inheritancesCopy;
+    v30 = inheritancesCopy;
     _os_log_debug_impl(&dword_19A821000, v4, OS_LOG_TYPE_DEBUG, "BSServiceMonitor received inheritances %{public}@", buf, 0xCu);
   }
 
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v6 = inheritancesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v7)
   {
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         v11 = BSServiceEndpointGrantNamespace();
         endowmentNamespace = [v10 endowmentNamespace];
         v13 = [v11 isEqual:endowmentNamespace];
@@ -667,9 +661,9 @@ void __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_inv
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v31 = v10;
-              v32 = 2112;
-              v33 = endowment;
+              v30 = v10;
+              v31 = 2112;
+              v32 = endowment;
               _os_log_error_impl(&dword_19A821000, v16, OS_LOG_TYPE_ERROR, "Ignoring invalid service endowment : %@ -> %@", buf, 0x16u);
             }
           }
@@ -679,7 +673,7 @@ void __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_inv
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v7);
@@ -690,60 +684,57 @@ void __61__BSRBSService__callOutLock_noteEndpointsChangedForServices___block_inv
     os_unfair_lock_lock(&self->_callOutLock);
     os_unfair_lock_lock(&self->_lock);
     v17 = [MEMORY[0x1E695DFA8] set];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __47__BSRBSService_service_didReceiveInheritances___block_invoke;
-    v23[3] = &unk_1E7520898;
-    v23[4] = self;
-    v25 = a2;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __47__BSRBSService_service_didReceiveInheritances___block_invoke;
+    v22[3] = &unk_1E7520898;
+    v22[4] = self;
+    v24 = a2;
     v18 = v17;
-    v24 = v18;
-    [dictionary enumerateKeysAndObjectsUsingBlock:v23];
+    v23 = v18;
+    [dictionary enumerateKeysAndObjectsUsingBlock:v22];
     os_unfair_lock_unlock(&self->_lock);
     [(BSRBSService *)self _callOutLock_noteEndpointsChangedForServices:v18];
     os_unfair_lock_unlock(&self->_callOutLock);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v30 = a2;
+  v41 = *MEMORY[0x1E69E9840];
+  v28 = a2;
   v5 = a3;
-  v6 = [*(*(a1 + 32) + 16) objectForKey:v30];
+  v6 = [*(*(a1 + 32) + 16) objectForKey:v28];
 
   if (v6)
   {
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = [*(*(a1 + 32) + 16) objectForKey:v30];
-    v23 = [v21 stringWithFormat:@"already have an endpoint for inheritance=%@ : old=%@ new=%@", v30, v22, v5];
+    v20 = MEMORY[0x1E696AEC0];
+    v21 = [*(*(a1 + 32) + 16) objectForKey:v28];
+    v22 = [v20 stringWithFormat:@"already have an endpoint for inheritance=%@ : old=%@ new=%@", v28, v21, v5];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v24 = NSStringFromSelector(*(a1 + 48));
-      v25 = *(a1 + 32);
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
-      v28 = *(a1 + 32);
+      v23 = NSStringFromSelector(*(a1 + 48));
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
+      v26 = *(a1 + 32);
       *buf = 138544642;
-      v32 = v24;
-      v33 = 2114;
-      v34 = v27;
-      v35 = 2048;
-      v36 = v28;
-      v37 = 2114;
-      v38 = @"BSRBSService.m";
-      v39 = 1024;
-      v40 = 239;
-      v41 = 2114;
-      v42 = v23;
+      v30 = v23;
+      v31 = 2114;
+      v32 = v25;
+      v33 = 2048;
+      v34 = v26;
+      v35 = 2114;
+      v36 = @"BSRBSService.m";
+      v37 = 1024;
+      v38 = 239;
+      v39 = 2114;
+      v40 = v22;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v29 = v23;
-    [v23 UTF8String];
+    v27 = v22;
+    [v22 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A846090);
@@ -758,8 +749,8 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
     v11 = [v7 anyObject];
     v12 = [v10 objectForKey:v11];
 
-    [*(*(a1 + 32) + 16) setObject:v12 forKey:v30];
-    [v7 addObject:v30];
+    [*(*(a1 + 32) + 16) setObject:v12 forKey:v28];
+    [v7 addObject:v28];
     v13 = *(a1 + 40);
     v14 = [v12 service];
     [v13 addObject:v14];
@@ -768,10 +759,10 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
   else
   {
     v15 = *(v9 + 24);
-    v16 = [MEMORY[0x1E695DFA8] setWithObject:v30];
+    v16 = [MEMORY[0x1E695DFA8] setWithObject:v28];
     [v15 setObject:v16 forKey:v5];
 
-    [*(*(a1 + 32) + 16) setObject:v5 forKey:v30];
+    [*(*(a1 + 32) + 16) setObject:v5 forKey:v28];
     v12 = [v5 service];
     [*(a1 + 40) addObject:v12];
     v17 = [*(*(a1 + 32) + 32) objectForKey:v12];
@@ -790,66 +781,64 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
       v14 = 0;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)service:(id)service didLoseInheritances:(id)inheritances
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   inheritancesCopy = inheritances;
   os_unfair_lock_lock(&self->_callOutLock);
   os_unfair_lock_lock(&self->_lock);
   v7 = [MEMORY[0x1E695DFA8] set];
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v8 = inheritancesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v30 objects:v46 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v29 objects:v45 count:16];
   if (v9)
   {
-    v10 = *v31;
+    v10 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v30 + 1) + 8 * i);
+        v12 = *(*(&v29 + 1) + 8 * i);
         v13 = [(NSMutableDictionary *)self->_lock_inheritanceToEndpoint objectForKey:v12];
         if (v13)
         {
           v14 = [(NSMutableDictionary *)self->_lock_endpointToInheritances objectForKey:v13];
           if (([v14 containsObject:v12] & 1) == 0)
           {
-            v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"endpointToInheritances is missing an entry for an inheritance in inheritanceToEndpoint : inheritance=%@ endpoint=%@", v12, v13];
+            v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"endpointToInheritances is missing an entry for an inheritance in inheritanceToEndpoint : inheritance=%@ endpoint=%@", v12, v13];
             if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              v19 = NSStringFromSelector(a2);
-              v20 = objc_opt_class();
-              v21 = NSStringFromClass(v20);
+              v18 = NSStringFromSelector(a2);
+              v19 = objc_opt_class();
+              v20 = NSStringFromClass(v19);
               *buf = 138544642;
-              v35 = v19;
-              v36 = 2114;
-              v37 = v21;
-              v38 = 2048;
+              v34 = v18;
+              v35 = 2114;
+              v36 = v20;
+              v37 = 2048;
               selfCopy2 = self;
-              v40 = 2114;
-              v41 = @"BSRBSService.m";
-              v42 = 1024;
-              v43 = 273;
-              v44 = 2114;
-              v45 = v18;
+              v39 = 2114;
+              v40 = @"BSRBSService.m";
+              v41 = 1024;
+              v42 = 273;
+              v43 = 2114;
+              v44 = v17;
               _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
             }
 
-            v22 = v18;
-            [v18 UTF8String];
+            v21 = v17;
+            [v17 UTF8String];
             _bs_set_crash_log_message();
             __break(0);
             JUMPOUT(0x19A8464A0);
@@ -863,29 +852,29 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
             v16 = [(NSMutableDictionary *)self->_lock_serviceIdentifierToEndpoints objectForKey:service];
             if (([v16 containsObject:v13] & 1) == 0)
             {
-              v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"serviceIdentifierToEndpoints is missing an entry for a lost endpoint : service=%@ endpoint=%@", service, v13];
+              v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"serviceIdentifierToEndpoints is missing an entry for a lost endpoint : service=%@ endpoint=%@", service, v13];
               if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
-                v24 = NSStringFromSelector(a2);
-                v25 = objc_opt_class();
-                v26 = NSStringFromClass(v25);
+                v23 = NSStringFromSelector(a2);
+                v24 = objc_opt_class();
+                v25 = NSStringFromClass(v24);
                 *buf = 138544642;
-                v35 = v24;
-                v36 = 2114;
-                v37 = v26;
-                v38 = 2048;
+                v34 = v23;
+                v35 = 2114;
+                v36 = v25;
+                v37 = 2048;
                 selfCopy2 = self;
-                v40 = 2114;
-                v41 = @"BSRBSService.m";
-                v42 = 1024;
-                v43 = 284;
-                v44 = 2114;
-                v45 = v23;
+                v39 = 2114;
+                v40 = @"BSRBSService.m";
+                v41 = 1024;
+                v42 = 284;
+                v43 = 2114;
+                v44 = v22;
                 _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
               }
 
-              v27 = v23;
-              [v23 UTF8String];
+              v26 = v22;
+              [v22 UTF8String];
               _bs_set_crash_log_message();
               __break(0);
               JUMPOUT(0x19A84659CLL);
@@ -913,7 +902,7 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v30 objects:v46 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v29 objects:v45 count:16];
     }
 
     while (v9);
@@ -922,8 +911,6 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
   os_unfair_lock_unlock(&self->_lock);
   [(BSRBSService *)self _callOutLock_noteEndpointsChangedForServices:v7];
   os_unfair_lock_unlock(&self->_callOutLock);
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (__CFString)debugDescriptionWithMultilinePrefix:(uint64_t)prefix
@@ -979,75 +966,73 @@ void __47__BSRBSService_service_didReceiveInheritances___block_invoke(uint64_t a
 
 - (id)debugDescriptionWithMultilinePrefix:(id)prefix
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
-  v26 = [(BSRBSService *)self descriptionBuilderWithMultilinePrefix:prefixCopy];
+  v25 = [(BSRBSService *)self descriptionBuilderWithMultilinePrefix:prefixCopy];
   os_unfair_lock_lock(&self->_lock);
   allKeys = [(NSMutableDictionary *)self->_lock_endpointToInheritances allKeys];
   v6 = [allKeys mutableCopy];
 
   [v6 sortUsingSelector:sel_compare_];
   array = [MEMORY[0x1E695DF70] array];
-  v38 = 0u;
-  v39 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v36 = 0u;
+  v35 = 0u;
   allKeys2 = [(NSMutableDictionary *)self->_lock_serviceIdentifierToMonitors allKeys];
   v9 = [allKeys2 sortedArrayUsingSelector:sel_compare_];
 
-  v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v10)
   {
-    v11 = *v37;
+    v11 = *v36;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = [(NSMutableDictionary *)self->_lock_serviceIdentifierToMonitors objectForKey:*(*(&v36 + 1) + 8 * i), v26];
+        v13 = [(NSMutableDictionary *)self->_lock_serviceIdentifierToMonitors objectForKey:*(*(&v35 + 1) + 8 * i), v25];
         allObjects = [v13 allObjects];
         [array addObjectsFromArray:allObjects];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v10);
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke;
-  v32[3] = &unk_1E75205A8;
-  v15 = v26;
-  v33 = v15;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke;
+  v31[3] = &unk_1E75205A8;
+  v15 = v25;
+  v32 = v15;
   v16 = v6;
-  v34 = v16;
+  v33 = v16;
   v17 = array;
-  v35 = v17;
-  v18 = [v15 modifyProem:v32];
+  v34 = v17;
+  v18 = [v15 modifyProem:v31];
   activeMultilinePrefix = [v15 activeMultilinePrefix];
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke_2;
-  v27[3] = &unk_1E75208C0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke_2;
+  v26[3] = &unk_1E75208C0;
   v20 = v15;
-  v28 = v20;
+  v27 = v20;
   v21 = v16;
-  v29 = v21;
+  v28 = v21;
   selfCopy = self;
   v22 = v17;
-  v31 = v22;
-  [v20 appendBodySectionWithName:0 multilinePrefix:activeMultilinePrefix block:v27];
+  v30 = v22;
+  [v20 appendBodySectionWithName:0 multilinePrefix:activeMultilinePrefix block:v26];
 
   os_unfair_lock_unlock(&self->_lock);
   build = [v20 build];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return build;
 }
@@ -1075,41 +1060,39 @@ void __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke_2(uin
 
 void __52__BSRBSService_debugDescriptionWithMultilinePrefix___block_invoke_3(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v3)
   {
-    v4 = *v14;
+    v4 = *v13;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v14 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         v7 = *(a1 + 40);
-        v8 = [*(*(a1 + 48) + 24) objectForKey:{v6, v13}];
+        v8 = [*(*(a1 + 48) + 24) objectForKey:{v6, v12}];
         v9 = [v8 allObjects];
         v10 = [v6 description];
         v11 = [*(a1 + 40) activeMultilinePrefix];
         [v7 appendArraySection:v9 withName:v10 multilinePrefix:v11 skipIfEmpty:0];
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v3);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

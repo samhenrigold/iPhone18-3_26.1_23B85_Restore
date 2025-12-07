@@ -24,7 +24,7 @@
 
 - (id)serialize
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   signatureBlob = [(MIBUChallengeResponse *)self signatureBlob];
   v5 = signatureBlob;
@@ -33,7 +33,7 @@
     v5 = objc_opt_new();
   }
 
-  v15[0] = v5;
+  v14[0] = v5;
   certChainBlob = [(MIBUChallengeResponse *)self certChainBlob];
   v7 = certChainBlob;
   if (!certChainBlob)
@@ -41,8 +41,8 @@
     v7 = objc_opt_new();
   }
 
-  v15[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   if (!certChainBlob)
   {
   }
@@ -67,13 +67,11 @@
 
   else
   {
-    [(MIBUChallengeResponse *)&v14 serialize];
+    [(MIBUChallengeResponse *)&v13 serialize];
   }
 
-  serializedData = v14;
+  serializedData = v13;
 LABEL_12:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return serializedData;
 }
@@ -290,7 +288,7 @@ LABEL_8:
 
 - (void)serialize
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_10_0);
@@ -299,15 +297,14 @@ LABEL_8:
   v4 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v6 = v4;
+    v5 = v4;
     error = [self error];
-    v8 = 138543362;
-    v9 = error;
-    _os_log_error_impl(&dword_259ABF000, v6, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = error;
+    _os_log_error_impl(&dword_259ABF000, v5, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", &v7, 0xCu);
   }
 
   *a2 = 0;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

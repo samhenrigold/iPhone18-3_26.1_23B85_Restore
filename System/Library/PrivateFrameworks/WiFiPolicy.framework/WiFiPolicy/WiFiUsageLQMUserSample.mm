@@ -8,6 +8,8 @@
 - (int64_t)rssiForTD;
 - (void)appendBSSDetailsToDict:(id)dict;
 - (void)appendNetworkDetailsToDict:(id)dict;
+- (void)populateWithBspOverflowed:(BOOL)overflowed IsBSPActive:(BOOL)active BspTimeToTST:(unint64_t)t BspSampleDurationMS:(unint64_t)s IsScanActiveBSP:(BOOL)p IsP2PActiveBSP:(BOOL)sP BspTriggerCount:(unint64_t)count BspMutePercentage:(unint64_t)self0 BspMaxMuteMS:(unint64_t)self1 BspAvgMuteMS:(unint64_t)self2 BspErrorPercentage:(unint64_t)self3 BspTimeOutPercentageOfTriggers:(unint64_t)self4 BspRejectOrFailPercentageOfTriggers:(unint64_t)self5 BspMaxConsecutiveFails:(unint64_t)self6;
+- (void)populateWithMotionState:(id)state andAppState:(id)appState;
 - (void)populateWithPerMLOLinkStats:(apple_mlo_link_lqm *)stats;
 - (void)populateWithRssi:(int64_t)rssi noise:(int64_t)noise snr:(int64_t)snr selfCca:(unint64_t)cca otherCca:(unint64_t)otherCca interference:(unint64_t)interference totalReportedCca:(unint64_t)reportedCca beaconPer:(unint64_t)self0 rxCrsGlitch:(unint64_t)self1 rxBadPLCP:(unint64_t)self2 rxStart:(unint64_t)self3 sampleDuration:(unint64_t)self4;
 - (void)populateWithRssi:(int64_t)rssi rssiInUse:(int64_t)use rssi0:(int64_t)rssi0 rssi1:(int64_t)rssi1 rssiMode:(unint64_t)mode noise:(int64_t)noise noise0:(int64_t)noise0 noise1:(int64_t)self0 snr:(int64_t)self1 selfCca:(unint64_t)self2 otherCca:(unint64_t)self3 interference:(unint64_t)self4 totalReportedCca:(unint64_t)self5 beaconPer:(unint64_t)self6 rxCrsGlitch:(unint64_t)self7 rxBadPLCP:(unint64_t)self8 rxStart:(unint64_t)self9 rxBphyCrsGlitch:(unint64_t)crsGlitch rxBphyBadPLCP:(unint64_t)cP sampleDuration:(unint64_t)duration isHighCCAFor2GHz:(BOOL)hz;
@@ -170,7 +172,7 @@
 
   else
   {
-    [WiFiUsageLQMTransformations decodingAttemptsWithRxCrsGlitch:"decodingAttemptsWithRxCrsGlitch:rxBadPLCP:RxBphyCrsGlitch:rxBphyBadPLCP:rxStart:" rxBadPLCP:? RxBphyCrsGlitch:? rxBphyBadPLCP:? rxStart:?];
+    objc_msgSend_decodingAttemptsWithRxCrsGlitch_rxBadPLCP_RxBphyCrsGlitch_rxBphyBadPLCP_rxStart_(WiFiUsageLQMTransformations);
     [(WiFiUsageLQMUserSample *)self setDecodingAttempts:0];
     [(WiFiUsageLQMUserSample *)self setRxStartOverDecodingAttemptsPercentage:0];
     [(WiFiUsageLQMUserSample *)self setRxBadPlcpOverDecodingAttemptsPercentage:0];
@@ -256,7 +258,7 @@
 
   else
   {
-    [WiFiUsageLQMTransformations decodingAttemptsWithRxCrsGlitch:"decodingAttemptsWithRxCrsGlitch:rxBadPLCP:RxBphyCrsGlitch:rxBphyBadPLCP:rxStart:" rxBadPLCP:glitch RxBphyCrsGlitch:? rxBphyBadPLCP:? rxStart:?];
+    objc_msgSend_decodingAttemptsWithRxCrsGlitch_rxBadPLCP_RxBphyCrsGlitch_rxBphyBadPLCP_rxStart_(WiFiUsageLQMTransformations);
     [(WiFiUsageLQMUserSample *)self setDecodingAttempts:0];
     [(WiFiUsageLQMUserSample *)self setRxStartOverDecodingAttemptsPercentage:0];
     [(WiFiUsageLQMUserSample *)self setRxCrsGlitchOverDecodingAttemptsPercentage:0];
@@ -301,6 +303,41 @@
   }
 
   return !v6;
+}
+
+- (void)populateWithBspOverflowed:(BOOL)overflowed IsBSPActive:(BOOL)active BspTimeToTST:(unint64_t)t BspSampleDurationMS:(unint64_t)s IsScanActiveBSP:(BOOL)p IsP2PActiveBSP:(BOOL)sP BspTriggerCount:(unint64_t)count BspMutePercentage:(unint64_t)self0 BspMaxMuteMS:(unint64_t)self1 BspAvgMuteMS:(unint64_t)self2 BspErrorPercentage:(unint64_t)self3 BspTimeOutPercentageOfTriggers:(unint64_t)self4 BspRejectOrFailPercentageOfTriggers:(unint64_t)self5 BspMaxConsecutiveFails:(unint64_t)self6
+{
+  sPCopy = sP;
+  pCopy = p;
+  activeCopy = active;
+  [(WiFiUsageLQMUserSample *)self setIsBSPActive:active];
+  if (activeCopy && !overflowed && [(WiFiUsageLQMUserSample *)self isBspSampleDurationExpected:s])
+  {
+    [(WiFiUsageLQMUserSample *)self setBspTimeToTST:t];
+    [(WiFiUsageLQMUserSample *)self setIsScanActiveBSP:pCopy];
+    [(WiFiUsageLQMUserSample *)self setIsP2PActiveBSP:sPCopy];
+    [(WiFiUsageLQMUserSample *)self setBspTriggerCount:count];
+    [(WiFiUsageLQMUserSample *)self setBspMutePercentage:percentage];
+    [(WiFiUsageLQMUserSample *)self setBspMaxMuteMS:mS];
+    [(WiFiUsageLQMUserSample *)self setBspAvgMuteMS:muteMS];
+    [(WiFiUsageLQMUserSample *)self setBspErrorPercentage:errorPercentage];
+    [(WiFiUsageLQMUserSample *)self setBspTimeOutPercentageOfTriggers:triggers];
+    [(WiFiUsageLQMUserSample *)self setBspRejectOrFailPercentageOfTriggers:ofTriggers];
+
+    [(WiFiUsageLQMUserSample *)self setBspMaxConsecutiveFails:fails];
+  }
+}
+
+- (void)populateWithMotionState:(id)state andAppState:(id)appState
+{
+  v4 = *&appState.var0;
+  [(WiFiUsageLQMUserSample *)self setMotionState:state];
+  [(WiFiUsageLQMUserSample *)self setIsTimeSensitiveAppRunning:(v4 & 0xFF0000) != 0];
+  [(WiFiUsageLQMUserSample *)self setIsAnyAppInFG:v4 != 0];
+  [(WiFiUsageLQMUserSample *)self setIsFTactive:(v4 & 0xFF00) != 0];
+  [(WiFiUsageLQMUserSample *)self setIsAVcallOnWiFi:(v4 & 0xFF000000) != 0];
+
+  [(WiFiUsageLQMUserSample *)self setIsNwAppInFG:(v4 & 0xFF00000000) != 0];
 }
 
 - (void)populateWithPerMLOLinkStats:(apple_mlo_link_lqm *)stats
@@ -362,7 +399,8 @@
     bssDetails = self->_bssDetails;
     if (bssDetails)
     {
-      +[WiFiUsageLQMTransformations ratePercentagesWithTxRate:rxRate:txFallbackRate:txFrames:rxFrames:nss:bw:phyMode:band:deviceMaxRate:](WiFiUsageLQMTransformations, "ratePercentagesWithTxRate:rxRate:txFallbackRate:txFrames:rxFrames:nss:bw:phyMode:band:deviceMaxRate:", self->_txRate, self->_rxRate, 0, self->_txFrames, self->_rxFrames, -[WiFiUsageBssDetails nSS](bssDetails, "nSS"), -[WiFiUsageBssDetails channelWidth](self->_bssDetails, "channelWidth"), __PAIR64__(-[WiFiUsageBssDetails band](self->_bssDetails, "band"), -[WiFiUsageBssDetails phyMode](self->_bssDetails, "phyMode")), [capabilitiesCopy maxInterfacePHYRate]);
+      [(WiFiUsageBssDetails *)bssDetails nSS];
+      objc_msgSend_ratePercentagesWithTxRate_rxRate_txFallbackRate_txFrames_rxFrames_nss_bw_phyMode_band_deviceMaxRate_(WiFiUsageLQMTransformations, -[WiFiUsageBssDetails channelWidth](self->_bssDetails, "channelWidth"), __PAIR64__(-[WiFiUsageBssDetails band](self->_bssDetails, "band"), -[WiFiUsageBssDetails phyMode](self->_bssDetails, "phyMode")), [capabilitiesCopy maxInterfacePHYRate]);
       self->_txRateOverLinkTheoreticalMaxPercentage = 0;
       self->_rxRateOverLinkTheoreticalMaxPercentage = 0;
       self->_linkTheoreticalMaxRate = 0;

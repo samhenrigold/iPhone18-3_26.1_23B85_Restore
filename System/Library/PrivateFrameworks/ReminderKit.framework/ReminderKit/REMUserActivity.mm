@@ -538,10 +538,7 @@ uint64_t __50__REMUserActivity_decodeStorageIfNeededWithBlock___block_invoke(uin
     [*(a1 + 32) setL_decodedStorage:v5];
   }
 
-  v6 = [*(a1 + 32) l_decodedStorage];
-  v7 = *(*(a1 + 48) + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) l_decodedStorage];
 
   return MEMORY[0x1EEE66BB8]();
 }
@@ -652,55 +649,46 @@ LABEL_9:
 
 - (void)initWithUserActivity:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Error when archiving NSUserActivity. {userActivity: %@}", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Error when archiving NSUserActivity. {userActivity: %@}", v1, 0xCu);
 }
 
 - (void)initWithSiriIntent:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_fault_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_FAULT, "Error when archiving Siri Intent. {siriIntent: %@, error: %@}", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_19A0DB000, v1, OS_LOG_TYPE_FAULT, "Error when archiving Siri Intent. {siriIntent: %@, error: %@}", v2, 0x16u);
 }
 
 void __59__REMUserActivity_userActivityWithUserActivity_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithCoder:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMUserActivityType %ld", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_19A0DB000, v0, OS_LOG_TYPE_FAULT, "Unknown REMUserActivityType %ld", v1, 0xCu);
 }
 
 + (void)userActivityWithDictionaryData:error:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __29__REMUserActivity_siriIntent__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_8();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

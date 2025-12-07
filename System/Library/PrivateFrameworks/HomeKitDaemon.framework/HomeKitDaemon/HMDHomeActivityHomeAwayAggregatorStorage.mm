@@ -9,7 +9,7 @@
 
 - (id)fetchLegacyPresenceMapOnManagedObjectContext
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   home = [(HMDHomeActivityStateAggregatorStorage *)self home];
   usersSupportingPresence = [home usersSupportingPresence];
   v5 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(usersSupportingPresence, "count")}];
@@ -19,17 +19,17 @@
   if (v7)
   {
     homeMembers = [v7 homeMembers];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke;
-    v17[3] = &unk_2786784D0;
-    v18 = usersSupportingPresence;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke;
+    v16[3] = &unk_2786784D0;
+    v17 = usersSupportingPresence;
     selfCopy = self;
-    v20 = v5;
+    v19 = v5;
     v9 = v5;
-    [homeMembers hmf_enumerateWithAutoreleasePoolUsingBlock:v17];
+    [homeMembers hmf_enumerateWithAutoreleasePoolUsingBlock:v16];
 
-    v5 = [v9 copy];
+    v5 = objc_msgSend_copy(v9);
   }
 
   else
@@ -42,32 +42,30 @@
       v13 = HMFGetLogIdentifier();
       uuid2 = [home uuid];
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2112;
-      v24 = uuid2;
+      v21 = v13;
+      v22 = 2112;
+      v23 = uuid2;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Did not find the home with model id : %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 void __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke_2;
-  v37[3] = &unk_278688680;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke_2;
+  v36[3] = &unk_278688680;
   v5 = v3;
-  v38 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v37];
+  v37 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v36];
   if (v6)
   {
     v7 = [v5 presenceUpdateTimeStamp];
@@ -86,9 +84,9 @@ void __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnMana
         {
           v30 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v30;
-          v41 = 2112;
-          v42 = v5;
+          v39 = v30;
+          v40 = 2112;
+          v41 = v5;
           _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@No presence report for the home member [%@], no presenceRegionStatus", buf, 0x16u);
         }
 
@@ -123,11 +121,11 @@ void __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnMana
           v18 = [v6 shortDescription];
           v19 = off_278672FD8[v13];
           *buf = 138543874;
-          v40 = v17;
-          v41 = 2112;
-          v42 = v18;
-          v43 = 2112;
-          v44 = v19;
+          v39 = v17;
+          v40 = 2112;
+          v41 = v18;
+          v42 = 2112;
+          v43 = v19;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Ignoring presence region which is unknown for the user [%@], %@", buf, 0x20u);
         }
       }
@@ -141,9 +139,9 @@ void __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnMana
         {
           v31 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v40 = v31;
-          v41 = 2112;
-          v42 = v5;
+          v39 = v31;
+          v40 = 2112;
+          v41 = v5;
           _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@No presence report for the home member [%@], no presenceAuthorizationStatus", buf, 0x16u);
         }
       }
@@ -162,9 +160,9 @@ LABEL_22:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v23;
-      v41 = 2112;
-      v42 = v5;
+      v39 = v23;
+      v40 = 2112;
+      v41 = v5;
       v24 = "%{public}@No presence report for the home member [%@], no presenceUpdateTimeStamp";
       v25 = v22;
       v26 = OS_LOG_TYPE_INFO;
@@ -181,9 +179,9 @@ LABEL_22:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v23;
-      v41 = 2112;
-      v42 = v5;
+      v39 = v23;
+      v40 = 2112;
+      v41 = v5;
       v24 = "%{public}@Did not find the home member [%@] which exist in working store but not in HMDHome.users";
       v25 = v22;
       v26 = OS_LOG_TYPE_ERROR;
@@ -194,8 +192,6 @@ LABEL_12:
 
   objc_autoreleasePoolPop(v20);
 LABEL_23:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOnManagedObjectContext__block_invoke_2(uint64_t a1, void *a2)
@@ -211,10 +207,10 @@ uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOn
 
 - (id)fetchUserActivityReportsOnManagedObjectContext
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v40.receiver = self;
-  v40.super_class = HMDHomeActivityHomeAwayAggregatorStorage;
-  fetchUserActivityReportsOnManagedObjectContext = [(HMDHomeActivityStateAggregatorStorage *)&v40 fetchUserActivityReportsOnManagedObjectContext];
+  v47 = *MEMORY[0x277D85DE8];
+  v39.receiver = self;
+  v39.super_class = HMDHomeActivityHomeAwayAggregatorStorage;
+  fetchUserActivityReportsOnManagedObjectContext = [(HMDHomeActivityStateAggregatorStorage *)&v39 fetchUserActivityReportsOnManagedObjectContext];
   v4 = [fetchUserActivityReportsOnManagedObjectContext mutableCopy];
 
   fetchLegacyPresenceMapOnManagedObjectContext = [(HMDHomeActivityHomeAwayAggregatorStorage *)self fetchLegacyPresenceMapOnManagedObjectContext];
@@ -225,44 +221,44 @@ uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOn
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v43 = v9;
-    v44 = 2112;
-    v45 = v4;
-    v46 = 2112;
-    v47 = fetchLegacyPresenceMapOnManagedObjectContext;
+    v42 = v9;
+    v43 = 2112;
+    v44 = v4;
+    v45 = 2112;
+    v46 = fetchLegacyPresenceMapOnManagedObjectContext;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetched home away reports %@ and presence reports %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   obj = fetchLegacyPresenceMapOnManagedObjectContext;
-  v10 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v10 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v10)
   {
     v12 = v10;
-    v34 = *v37;
+    v33 = *v36;
     *&v11 = 138543874;
-    v32 = v11;
+    v31 = v11;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v34)
+        if (*v36 != v33)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v36 + 1) + 8 * i);
+        v14 = *(*(&v35 + 1) + 8 * i);
         allObjects = [v4 allObjects];
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __90__HMDHomeActivityHomeAwayAggregatorStorage_fetchUserActivityReportsOnManagedObjectContext__block_invoke;
-        v35[3] = &unk_2786784A8;
-        v35[4] = v14;
-        v16 = [allObjects hmf_objectPassingTest:v35];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __90__HMDHomeActivityHomeAwayAggregatorStorage_fetchUserActivityReportsOnManagedObjectContext__block_invoke;
+        v34[3] = &unk_2786784A8;
+        v34[4] = v14;
+        v16 = [allObjects hmf_objectPassingTest:v34];
 
         if (v16)
         {
@@ -282,12 +278,12 @@ uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOn
           if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             v24 = HMFGetLogIdentifier();
-            *buf = v32;
-            v43 = v24;
-            v44 = 2112;
-            v45 = v14;
-            v46 = 2112;
-            v47 = v16;
+            *buf = v31;
+            v42 = v24;
+            v43 = 2112;
+            v44 = v14;
+            v45 = 2112;
+            v46 = v16;
             _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Using presence report instead of home away report because its more recent %@, %@", buf, 0x20u);
           }
 
@@ -304,9 +300,9 @@ uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOn
           {
             v28 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v43 = v28;
-            v44 = 2112;
-            v45 = v14;
+            v42 = v28;
+            v43 = 2112;
+            v44 = v14;
             _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Merging presence report for user that does not have home away report %@", buf, 0x16u);
           }
 
@@ -317,14 +313,13 @@ uint64_t __88__HMDHomeActivityHomeAwayAggregatorStorage_fetchLegacyPresenceMapOn
 LABEL_17:
       }
 
-      v12 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v12 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v12);
   }
 
-  v29 = [v4 copy];
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = objc_msgSend_copy(v4);
 
   return v29;
 }
@@ -342,7 +337,7 @@ uint64_t __90__HMDHomeActivityHomeAwayAggregatorStorage_fetchUserActivityReports
 
 - (void)updateMKFUserActivityStatus:(id)status withReport:(id)report
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   reportCopy = report;
   v8 = +[HMCContext currentContext];
@@ -388,12 +383,12 @@ uint64_t __90__HMDHomeActivityHomeAwayAggregatorStorage_fetchUserActivityReports
   v19 = [lastReportTimestamp dateByAddingTimeInterval:3600.0];
   [v9 lastUpdateTimestamp];
   v21 = v20 = self;
-  v33 = [v19 compare:v21];
+  v32 = [v19 compare:v21];
 
   v22 = v20;
   v13 = 0x277CCA000;
 
-  if (v33 == -1)
+  if (v32 == -1)
   {
 LABEL_13:
     lastUpdateTimestamp = [v11 lastUpdateTimestamp];
@@ -418,14 +413,12 @@ LABEL_13:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v35 = v26;
+    v34 = v26;
     _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Not storing activity report because the lastUpdateTimestamp is within the update interval", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v23);
 LABEL_14:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 + (id)logCategory
@@ -442,10 +435,9 @@ LABEL_14:
 
 void __55__HMDHomeActivityHomeAwayAggregatorStorage_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v12_111041;
-  logCategory__hmf_once_v12_111041 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v12_111041;
+  logCategory__hmf_once_v12_111041 = v0;
 }
 
 @end

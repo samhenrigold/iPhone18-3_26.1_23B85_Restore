@@ -14,8 +14,8 @@
 - (uint64_t)ic_containsAttribute:()IC;
 - (uint64_t)ic_containsAttribute:()IC inRange:;
 - (uint64_t)ic_enclosingRangeContainingCharactersInSet:()IC forRange:;
-- (uint64_t)ic_rangeByTrimmingCharactersInSet:()IC inRange:;
 - (uint64_t)ic_whitespaceAndNewlineCoalescedAttributedString;
+- (unint64_t)ic_rangeByTrimmingCharactersInSet:()IC inRange:;
 - (void)ic_enumerateAttributesInClampedRange:()IC options:usingBlock:;
 - (void)ic_enumerateClampedAttribute:()IC inRange:options:usingBlock:;
 - (void)ic_enumerateUnclampedAttribute:()IC inRange:options:usingBlock:;
@@ -108,7 +108,7 @@ LABEL_11:
   return array;
 }
 
-- (uint64_t)ic_rangeByTrimmingCharactersInSet:()IC inRange:
+- (unint64_t)ic_rangeByTrimmingCharactersInSet:()IC inRange:
 {
   v8 = a3;
   string = [self string];

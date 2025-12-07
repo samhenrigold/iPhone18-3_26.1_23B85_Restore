@@ -42,7 +42,7 @@
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"type"];
   v6 = v5;
-  if (v5 == @"bitmap" || v5 && (v7 = [(__CFString *)v5 isEqualToString:@"bitmap"], v6, (v7 & 1) != 0))
+  if (v5 == @"bitmap" || v5 && (v7 = objc_msgSend_isEqualToString_(v5), v6, (v7 & 1) != 0))
   {
     v8 = 0;
   }
@@ -54,7 +54,7 @@
     if (v9 != @"symbol")
     {
       v10 = v9;
-      if (!v6 || (v11 = [(__CFString *)v9 isEqualToString:@"symbol"], v10, (v11 & 1) == 0))
+      if (!v6 || (isEqualToString = objc_msgSend_isEqualToString_(v9), v10, (isEqualToString & 1) == 0))
       {
 
 LABEL_15:
@@ -206,9 +206,9 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        v20 = [(objc_class *)v17 isEqualToString:v18];
+        isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-        if ((v20 & 1) == 0)
+        if ((isEqualToString & 1) == 0)
         {
           goto LABEL_25;
         }

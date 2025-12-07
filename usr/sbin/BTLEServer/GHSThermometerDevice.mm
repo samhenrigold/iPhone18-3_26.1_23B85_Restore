@@ -1,5 +1,7 @@
 @interface GHSThermometerDevice
 - (BOOL)extractHealthObservationBodyTemperatureWithStream:(id)stream observationType:(unsigned int)type timestamp:(id)timestamp isLive:(BOOL)live;
+- (BOOL)handleLiveHealthObservationsData:(id)data observationClassType:(unsigned __int8)type observationType:(unsigned int)observationType userID:(unsigned __int8)d observationID:(unsigned int)iD timestamp:(id)timestamp;
+- (BOOL)handleStoredHealthObservationsData:(id)data observationClassType:(unsigned __int8)type observationType:(unsigned int)observationType userID:(unsigned __int8)d observationID:(unsigned int)iD timestamp:(id)timestamp;
 - (GHSThermometerDevice)initWithProperties:(id)properties healthStore:(id)store;
 - (void)healthDataSyncBodyTemperature:(double)temperature unit:(id)unit startTime:(id)time endTime:(id)endTime sensorLocType:(int64_t)type;
 @end
@@ -23,6 +25,86 @@
   }
 
   return v10;
+}
+
+- (BOOL)handleLiveHealthObservationsData:(id)data observationClassType:(unsigned __int8)type observationType:(unsigned int)observationType userID:(unsigned __int8)d observationID:(unsigned int)iD timestamp:(id)timestamp
+{
+  dCopy = d;
+  v11 = *&observationType;
+  typeCopy = type;
+  dataCopy = data;
+  timestampCopy = timestamp;
+  v16 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v16;
+    peripheral = [(GHSBluetoothDevice *)self peripheral];
+    name = [peripheral name];
+    v22 = 141559299;
+    v23 = 1752392040;
+    v24 = 2113;
+    v25 = name;
+    v26 = 1024;
+    v27 = typeCopy;
+    v28 = 1024;
+    v29 = v11;
+    v30 = 1024;
+    v31 = dCopy;
+    v32 = 1024;
+    iDCopy = iD;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Handle live health observation for peripheral %{private, mask.hash}@: classType %u, observationType %u, userId %u, observationId %u", &v22, 0x2Eu);
+  }
+
+  if (typeCopy != 1 || ![(GHSThermometerDevice *)self extractHealthObservationBodyTemperatureWithStream:dataCopy observationType:v11 timestamp:timestampCopy isLive:1])
+  {
+    v20 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+    {
+      sub_100078EC0(v20);
+    }
+
+    LOBYTE(typeCopy) = 0;
+  }
+
+  return typeCopy;
+}
+
+- (BOOL)handleStoredHealthObservationsData:(id)data observationClassType:(unsigned __int8)type observationType:(unsigned int)observationType userID:(unsigned __int8)d observationID:(unsigned int)iD timestamp:(id)timestamp
+{
+  v9 = *&observationType;
+  typeCopy = type;
+  dataCopy = data;
+  timestampCopy = timestamp;
+  v14 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    peripheral = [(GHSBluetoothDevice *)self peripheral];
+    name = [peripheral name];
+    v21 = 141558275;
+    v22 = 1752392040;
+    v23 = 2113;
+    v24 = name;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Handle stored health observation for peripheral %{private, mask.hash}@", &v21, 0x16u);
+  }
+
+  if (typeCopy == 1 && [(GHSThermometerDevice *)self extractHealthObservationBodyTemperatureWithStream:dataCopy observationType:v9 timestamp:timestampCopy isLive:0])
+  {
+    v18 = 1;
+  }
+
+  else
+  {
+    v19 = qword_1000DDBC8;
+    if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+    {
+      sub_100078F6C(v19);
+    }
+
+    v18 = 0;
+  }
+
+  return v18;
 }
 
 - (void)healthDataSyncBodyTemperature:(double)temperature unit:(id)unit startTime:(id)time endTime:(id)endTime sensorLocType:(int64_t)type

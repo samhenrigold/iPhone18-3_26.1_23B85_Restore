@@ -18,14 +18,16 @@ void sub_1000013B0(id a1)
 
 void sub_1000014DC(id a1)
 {
-  qword_10002AC30 = objc_alloc_init(CHPKSettingsServer);
+  v1 = objc_alloc_init(CHPKSettingsServer);
+  v2 = qword_10002AC30;
+  qword_10002AC30 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_1000018C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000018C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -85,7 +87,7 @@ Class sub_1000023EC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -96,7 +98,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "LSApplicationWorkspace");
   }
 
   qword_10002AC40 = *(*(*(a1 + 32) + 8) + 24);
@@ -105,7 +107,6 @@ LABEL_4:
 
 uint64_t sub_100002540(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10002AC48 = result;
   return result;
@@ -113,10 +114,11 @@ uint64_t sub_100002540(uint64_t a1)
 
 uint64_t sub_100002A68(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  qword_10002AC50 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_10002AC50;
+  qword_10002AC50 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_100002E4C(uint64_t a1, void *a2)
@@ -677,9 +679,11 @@ void sub_100006D8C(id a1)
   v26 = qword_10002AD10;
   qword_10002AD10 = v25;
 
-  qword_10002AD18 = os_log_create("com.apple.corehandwriting", "SessionTracker");
+  v27 = os_log_create("com.apple.corehandwriting", "SessionTracker");
+  v28 = qword_10002AD18;
+  qword_10002AD18 = v27;
 
-  _objc_release_x1();
+  _objc_release_x1(v27, v28);
 }
 
 id sub_100006F4C(void *a1)
@@ -710,22 +714,23 @@ void sub_10000701C(_Unwind_Exception *a1)
 
 uint64_t sub_100007104(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  qword_10002AC78 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_10002AC78;
+  qword_10002AC78 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
-void sub_100007460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100007460(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = CHRemoteRecognitionServer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_1000075A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000075A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_10000A3C8(va);
 
   _Unwind_Resume(a1);
@@ -768,11 +773,13 @@ void sub_100008A30(id a1)
 
   else
   {
-    [NSSet setWithObjects:@"com.apple.mobilenotes", @"com.apple.freeform", 0, v1];
+    [NSSet setWithObjects:@"com.apple.mobilenotes", @"com.apple.freeform", 0, v3];
   }
-  qword_10002AC88 = ;
+  v1 = ;
+  v2 = qword_10002AC88;
+  qword_10002AC88 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000944C(_Unwind_Exception *a1)
@@ -933,9 +940,11 @@ const void **sub_10000A3C8(const void **a1)
 
 void sub_10000A4BC(id a1)
 {
-  qword_10002AC98 = objc_alloc_init(CHPKAnalyticsServer);
+  v1 = objc_alloc_init(CHPKAnalyticsServer);
+  v2 = qword_10002AC98;
+  qword_10002AC98 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10000AF30(uint64_t a1)
@@ -1173,49 +1182,47 @@ uint64_t sub_10000E4D4(uint64_t a1)
     [*(v2 + 64) clearCache];
   }
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   obj = *(a1 + 40);
-  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
-    v4 = *v17;
+    v4 = *v15;
     do
     {
       v5 = 0;
       do
       {
-        if (*v17 != v4)
+        if (*v15 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v16 + 1) + 8 * v5);
+        v6 = *(*(&v14 + 1) + 8 * v5);
         v7 = *(a1 + 32);
         v8 = v7[6];
         v9 = *(a1 + 48);
         v10 = [v7 serverQueue];
-        v15[0] = _NSConcreteStackBlock;
-        v15[1] = 3221225472;
-        v15[2] = sub_10000E6E4;
-        v15[3] = &unk_100024AA0;
-        v15[4] = *(a1 + 32);
-        [v8 checkInRecognizerForRequest:v9 locale:v6 onQueue:v10 idleCallbackBlock:v15];
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_10000E6E4;
+        v13[3] = &unk_100024AA0;
+        v13[4] = *(a1 + 32);
+        [v8 checkInRecognizerForRequest:v9 locale:v6 onQueue:v10 idleCallbackBlock:v13];
 
         v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v3);
   }
 
-  v11 = *(a1 + 64);
-  v12 = *(a1 + 56);
   return (*(*(a1 + 72) + 16))();
 }
 
@@ -1277,14 +1284,13 @@ uint64_t sub_10000EC94(void *a1)
   v3 = *(v2 + 48);
   v4 = a1[5];
   v5 = [v2 serverQueue];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_10000EDAC;
-  v8[3] = &unk_100024AA0;
-  v8[4] = a1[4];
-  [v3 checkInRecognizerForRequest:v4 locale:0 onQueue:v5 idleCallbackBlock:v8];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_10000EDAC;
+  v7[3] = &unk_100024AA0;
+  v7[4] = a1[4];
+  [v3 checkInRecognizerForRequest:v4 locale:0 onQueue:v5 idleCallbackBlock:v7];
 
-  v6 = a1[6];
   return (*(a1[7] + 16))();
 }
 
@@ -1366,15 +1372,13 @@ uint64_t sub_10000FF6C(uint64_t a1)
   v4 = [v2 locales];
   v5 = [v4 firstObject];
   v6 = [*(a1 + 32) serverQueue];
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000100A8;
-  v10[3] = &unk_100024AA0;
-  v10[4] = *(a1 + 32);
-  [v3 checkInRecognizerForRequest:v2 locale:v5 onQueue:v6 idleCallbackBlock:v10];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_1000100A8;
+  v8[3] = &unk_100024AA0;
+  v8[4] = *(a1 + 32);
+  [v3 checkInRecognizerForRequest:v2 locale:v5 onQueue:v6 idleCallbackBlock:v8];
 
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 48);
   return (*(*(a1 + 64) + 16))();
 }
 
@@ -1438,14 +1442,13 @@ uint64_t sub_100010734(void *a1)
   v3 = a1[5];
   v4 = v2[6];
   v5 = [v2 serverQueue];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100010814;
-  v8[3] = &unk_100024AA0;
-  v8[4] = a1[4];
-  [v4 checkInRecognizerForRequest:v3 locale:0 onQueue:v5 idleCallbackBlock:v8];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_100010814;
+  v7[3] = &unk_100024AA0;
+  v7[4] = a1[4];
+  [v4 checkInRecognizerForRequest:v3 locale:0 onQueue:v5 idleCallbackBlock:v7];
 
-  v6 = a1[6];
   return (*(a1[7] + 16))();
 }
 
@@ -1471,54 +1474,51 @@ uint64_t sub_100010AEC(uint64_t result, uint64_t a2)
 
 uint64_t sub_100010B04(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [*(a1 + 40) modelPowerLogger];
-    v3 = [v16 logModelLoaded:{objc_msgSend(*(a1 + 32), "modelIdentifier")}];
+    v13 = [*(a1 + 40) modelPowerLogger];
+    v2 = [v13 logModelLoaded:{objc_msgSend(*(a1 + 32), "modelIdentifier")}];
 LABEL_5:
-    v5 = v16;
+    v3 = v13;
     goto LABEL_6;
   }
 
-  v4 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = [*(a1 + 40) modelPowerLogger];
-    v3 = [v16 logModelUnloaded:{objc_msgSend(*(a1 + 32), "modelIdentifier")}];
+    v13 = [*(a1 + 40) modelPowerLogger];
+    v2 = [v13 logModelUnloaded:{objc_msgSend(*(a1 + 32), "modelIdentifier")}];
     goto LABEL_5;
   }
 
-  v6 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17 = *(a1 + 32);
-    v7 = [*(a1 + 40) modelPowerLogger];
-    v8 = [v17 modelIdentifier];
-    [v17 start];
-    v10 = v9;
-    [v17 end];
-    v12 = v11;
-    v13 = [v17 data];
-    [v7 logModelInference:v8 startTimestamp:v13 endTimestamp:v10 data:v12];
+    v14 = *(a1 + 32);
+    v4 = [*(a1 + 40) modelPowerLogger];
+    v5 = [v14 modelIdentifier];
+    [v14 start];
+    v7 = v6;
+    [v14 end];
+    v9 = v8;
+    v10 = [v14 data];
+    [v4 logModelInference:v5 startTimestamp:v10 endTimestamp:v7 data:v9];
 
-    v5 = v17;
+    v3 = v14;
   }
 
   else
   {
-    v3 = [objc_opt_class() invalidInputErrorWithDescription:@"Invalid Power Logging request" failureReason:@"Unknown subclass" recoverySuggestion:0 errorCode:-1006];
-    v14 = *(*(a1 + 48) + 8);
-    v5 = *(v14 + 40);
-    *(v14 + 40) = v3;
+    v2 = [objc_opt_class() invalidInputErrorWithDescription:@"Invalid Power Logging request" failureReason:@"Unknown subclass" recoverySuggestion:0 errorCode:-1006];
+    v11 = *(*(a1 + 48) + 8);
+    v3 = *(v11 + 40);
+    *(v11 + 40) = v2;
   }
 
 LABEL_6:
 
-  return _objc_release_x1(v3, v5);
+  return _objc_release_x1(v2, v3);
 }
 
 void sub_1000118E8(uint64_t a1)
@@ -1812,7 +1812,6 @@ void sub_100012ED0(void *a1, void *a2)
     v4 = v5;
   }
 
-  v6 = a1[4];
   if ((*(a1[6] + 16))())
   {
     [*(a1[5] + 88) addToHolderPersonalizedCharacterWithId:a1[7]];
@@ -1825,18 +1824,18 @@ void sub_100012ED0(void *a1, void *a2)
       dispatch_once(&qword_10002AD20, &stru_1000249F0);
     }
 
-    v7 = qword_10002ACF0;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v6 = qword_10002ACF0;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
+      v7 = a1[4];
       [v3 score];
-      v10 = 138740483;
-      v11 = v4;
-      v12 = 2117;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "Synthesizer contract violation found, result %{sensitive}@, expected %{sensitive}@ score %f", &v10, 0x20u);
+      v9 = 138740483;
+      v10 = v4;
+      v11 = 2117;
+      v12 = v7;
+      v13 = 2048;
+      v14 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Synthesizer contract violation found, result %{sensitive}@, expected %{sensitive}@ score %f", &v9, 0x20u);
     }
   }
 }
@@ -1849,7 +1848,7 @@ id sub_100013094(uint64_t a1)
   return [v2 checkInStyleInventory];
 }
 
-void sub_100013210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100013210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -1869,7 +1868,7 @@ id sub_100013230(uint64_t a1)
   return [v5 checkInStyleInventory];
 }
 
-void sub_1000135E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1000135E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -1878,38 +1877,37 @@ void sub_1000135E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_100013670(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v25 = 0;
-  v6 = [v3 isValidRemoteSynthesisRequest:v4 bundleIdentifier:v5 error:&v25];
-  v7 = v25;
-  if (v6)
+  v2 = objc_opt_class();
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v24 = 0;
+  v5 = [v2 isValidRemoteSynthesisRequest:v3 bundleIdentifier:v4 error:&v24];
+  v6 = v24;
+  if (v5)
   {
     [*(a1 + 32) checkOutStyleInventory];
     [*(a1 + 32) checkOutTextSynthesizer];
-    v8 = os_transaction_create();
+    v7 = os_transaction_create();
     +[NSDate timeIntervalSinceReferenceDate];
-    v10 = v9;
-    v11 = *(a1 + 40);
-    v12 = *(*(a1 + 32) + 88);
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_100013838;
-    v18[3] = &unk_100024D08;
-    v13 = v11;
-    v14 = *(a1 + 32);
+    v9 = v8;
+    v10 = *(a1 + 40);
+    v11 = *(*(a1 + 32) + 88);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100013838;
+    v17[3] = &unk_100024D08;
+    v12 = v10;
+    v13 = *(a1 + 32);
+    v18 = v12;
     v19 = v13;
-    v20 = v14;
-    v24 = v10;
-    v15 = *(a1 + 56);
-    v16 = *(a1 + 64);
+    v23 = v9;
+    v14 = *(a1 + 56);
+    v15 = *(a1 + 64);
+    v21 = v14;
     v22 = v15;
-    v23 = v16;
-    v17 = v8;
-    v21 = v17;
-    [v12 handleSynthesisRequest:v13 reply:v18];
+    v16 = v7;
+    v20 = v16;
+    [v11 handleSynthesisRequest:v12 reply:v17];
   }
 
   else
@@ -1923,30 +1921,29 @@ void sub_100013838(uint64_t a1, void *a2)
   v3 = a2;
   +[NSDate timeIntervalSinceReferenceDate];
   v5 = v4;
-  v17[0] = @"inputStringLength";
+  v16[0] = @"inputStringLength";
   v6 = [*(a1 + 32) string];
   v7 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v6 length]);
-  v17[1] = @"outputStrokeCount";
-  v18[0] = v7;
+  v16[1] = @"outputStrokeCount";
+  v17[0] = v7;
   v8 = [v3 drawing];
   v9 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v8 strokeCount]);
-  v18[1] = v9;
-  v10 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v17[1] = v9;
+  v10 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:2];
 
   v11 = [*(a1 + 40) modelPowerLogger];
   [v11 logModelInference:3 startTimestamp:v10 endTimestamp:*(a1 + 72) data:v5];
 
-  v12 = *(*(*(a1 + 64) + 8) + 40);
   (*(*(a1 + 56) + 16))();
-  v13 = [*(a1 + 40) serverQueue];
+  v12 = [*(a1 + 40) serverQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100013A9C;
   block[3] = &unk_100024A78;
-  v14 = *(a1 + 48);
+  v13 = *(a1 + 48);
   block[4] = *(a1 + 40);
-  v16 = v14;
-  dispatch_async(v13, block);
+  v15 = v13;
+  dispatch_async(v12, block);
 }
 
 id sub_100013A9C(uint64_t a1)

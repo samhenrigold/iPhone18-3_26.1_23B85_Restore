@@ -194,9 +194,9 @@ LABEL_15:
               continue;
             }
 
-            v17 = [v14 isEqualToString:v15];
+            isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-            if (!v17)
+            if (!isEqualToString)
             {
               goto LABEL_15;
             }
@@ -251,9 +251,9 @@ LABEL_12:
       goto LABEL_18;
     }
 
-    v14 = [(NSString *)altDSID isEqualToString:v12];
+    isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-    if (!v14)
+    if (!isEqualToString)
     {
       v15 = 0;
       goto LABEL_19;
@@ -328,9 +328,9 @@ LABEL_16:
       goto LABEL_17;
     }
 
-    v12 = [(NSString *)altDSID isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(altDSID);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       v11 = 0;
       goto LABEL_18;

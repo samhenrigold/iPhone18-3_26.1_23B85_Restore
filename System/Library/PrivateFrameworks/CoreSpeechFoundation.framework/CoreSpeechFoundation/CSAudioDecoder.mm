@@ -16,28 +16,28 @@
 
 - (void)addPackets:(id)packets audioStreamHandleId:(unint64_t)id remoteVAD:(id)d timestamp:(unint64_t)timestamp arrivalTimestampToAudioRecorder:(unint64_t)recorder wasBuffered:(BOOL)buffered receivedNumChannels:(unsigned int)channels
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   packetsCopy = packets;
   dCopy = d;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = packetsCopy;
-  v12 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v12)
   {
-    v32 = *v40;
+    v31 = *v39;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v40 != v32)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v39 + 1) + 8 * i);
+        v14 = *(*(&v38 + 1) + 8 * i);
         mFramesPerPacket = self->_inASBD.mFramesPerPacket;
         mFramesPerPacket = [objc_alloc(MEMORY[0x1E695DF88]) initWithLength:2 * mFramesPerPacket];
         memset(&outOutputData.mNumberBuffers + 1, 0, 20);
@@ -48,30 +48,30 @@
         outOutputData.mBuffers[0].mNumberChannels = 1;
         outOutputData.mBuffers[0].mDataByteSize = v18;
         ioOutputDataPacketSize = mFramesPerPacket;
-        v35[0] = 0;
-        v35[1] = v35;
-        v35[2] = 0x2020000000;
-        v36 = 0;
         v34[0] = 0;
         v34[1] = v34;
         v34[2] = 0x2020000000;
-        v34[3] = 1;
+        v35 = 0;
+        v33[0] = 0;
+        v33[1] = v33;
+        v33[2] = 0x2020000000;
+        v33[3] = 1;
         decoder = self->_decoder;
         inInputDataProcUserData[0] = MEMORY[0x1E69E9820];
         inInputDataProcUserData[1] = 3221225472;
         inInputDataProcUserData[2] = __133__CSAudioDecoder_addPackets_audioStreamHandleId_remoteVAD_timestamp_arrivalTimestampToAudioRecorder_wasBuffered_receivedNumChannels___block_invoke;
         inInputDataProcUserData[3] = &unk_1E865AF48;
         inInputDataProcUserData[4] = v14;
-        inInputDataProcUserData[5] = v34;
-        inInputDataProcUserData[6] = v35;
-        inInputDataProcUserData[7] = &v43;
+        inInputDataProcUserData[5] = v33;
+        inInputDataProcUserData[6] = v34;
+        inInputDataProcUserData[7] = &v42;
         v20 = AudioConverterFillComplexBuffer(decoder, AudioConverterFillComplexBuffer_BlockInvoke_7321, inInputDataProcUserData, &ioOutputDataPacketSize, &outOutputData, 0);
         if ((v20 == 1836086393 || !v20) && ioOutputDataPacketSize && outOutputData.mNumberBuffers)
         {
           if (2 * ioOutputDataPacketSize > outOutputData.mBuffers[0].mDataByteSize)
           {
+            _Block_object_dispose(v33, 8);
             _Block_object_dispose(v34, 8);
-            _Block_object_dispose(v35, 8);
 
             goto LABEL_19;
           }
@@ -81,25 +81,25 @@
           {
             v22 = [CSFLPCMTypeConverter convertToFloatLPCMBufFromShortLPCMBuf:v21];
             WeakRetained = objc_loadWeakRetained(&self->_delegate);
-            HIDWORD(v25) = channels;
-            LOBYTE(v25) = buffered;
-            [WeakRetained audioDecoderDidDecodePackets:self audioStreamHandleId:id buffer:v22 remoteVAD:dCopy timestamp:timestamp arrivalTimestampToAudioRecorder:recorder wasBuffered:v25 receivedNumChannels:?];
+            HIDWORD(v24) = channels;
+            LOBYTE(v24) = buffered;
+            [WeakRetained audioDecoderDidDecodePackets:self audioStreamHandleId:id buffer:v22 remoteVAD:dCopy timestamp:timestamp arrivalTimestampToAudioRecorder:recorder wasBuffered:v24 receivedNumChannels:?];
           }
 
           else
           {
             v22 = objc_loadWeakRetained(&self->_delegate);
-            HIDWORD(v25) = channels;
-            LOBYTE(v25) = buffered;
-            [v22 audioDecoderDidDecodePackets:self audioStreamHandleId:id buffer:v21 remoteVAD:dCopy timestamp:timestamp arrivalTimestampToAudioRecorder:recorder wasBuffered:v25 receivedNumChannels:?];
+            HIDWORD(v24) = channels;
+            LOBYTE(v24) = buffered;
+            [v22 audioDecoderDidDecodePackets:self audioStreamHandleId:id buffer:v21 remoteVAD:dCopy timestamp:timestamp arrivalTimestampToAudioRecorder:recorder wasBuffered:v24 receivedNumChannels:?];
           }
         }
 
+        _Block_object_dispose(v33, 8);
         _Block_object_dispose(v34, 8);
-        _Block_object_dispose(v35, 8);
       }
 
-      v12 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v12 = [obj countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (v12)
       {
         continue;
@@ -110,8 +110,6 @@
   }
 
 LABEL_19:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __133__CSAudioDecoder_addPackets_audioStreamHandleId_remoteVAD_timestamp_arrivalTimestampToAudioRecorder_wasBuffered_receivedNumChannels___block_invoke(uint64_t a1, _DWORD *a2, uint64_t a3, void *a4)

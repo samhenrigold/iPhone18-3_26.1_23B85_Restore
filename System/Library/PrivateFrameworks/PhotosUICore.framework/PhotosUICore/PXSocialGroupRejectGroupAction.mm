@@ -10,7 +10,7 @@
 
 - (NSString)localizedActionName
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000024);
   v2 = sub_1A524C634();
 
   return v2;
@@ -18,9 +18,9 @@
 
 - (PXSocialGroupRejectGroupAction)initWithSocialGroups:(id)groups
 {
-  sub_1A3FABA8C();
+  sub_1A3FABA8C(0, a2);
   v3 = sub_1A524CA34();
-  return sub_1A3FAB33C(v3);
+  return sub_1A3FAB33C(v3, v4);
 }
 
 - (void)performAction:(id)action

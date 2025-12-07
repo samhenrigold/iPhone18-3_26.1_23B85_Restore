@@ -64,7 +64,7 @@
 
     if (&v9->_rowUids != rowUids)
     {
-      sub_2210BD068(&v9->_rowUids.__begin_, *rowUids, *(rowUids + 1), (*(rowUids + 1) - *rowUids) >> 4);
+      sub_2210BD068(&v9->_rowUids, *rowUids, *(rowUids + 1), (*(rowUids + 1) - *rowUids) >> 4);
     }
 
     v11 = 1;
@@ -168,21 +168,21 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_opt_new();
-  v9 = objc_msgSend_columnUids(v4, v5, v6, v7, v8);
-  if (v9 != &self->_columnUids)
+  v8 = objc_msgSend_columnUids(v4, v5, v6, v7);
+  if (v8 != &self->_columnUids)
   {
-    sub_2210BD068(v9, self->_columnUids.__begin_, self->_columnUids.__end_, self->_columnUids.__end_ - self->_columnUids.__begin_);
+    sub_2210BD068(v8, self->_columnUids.__begin_, self->_columnUids.__end_, self->_columnUids.__end_ - self->_columnUids.__begin_);
   }
 
-  v14 = objc_msgSend_rowUids(v4, v10, v11, v12, v13);
-  if (v14 != &self->_rowUids)
+  v12 = objc_msgSend_rowUids(v4, v9, v10, v11);
+  if (v12 != &self->_rowUids)
   {
-    sub_2210BD068(v14, self->_rowUids.__begin_, self->_rowUids.__end_, self->_rowUids.__end_ - self->_rowUids.__begin_);
+    sub_2210BD068(v12, self->_rowUids.__begin_, self->_rowUids.__end_, self->_rowUids.__end_ - self->_rowUids.__begin_);
   }
 
-  objc_msgSend_setIsRangeRef_(v4, v15, self->_isRangeRef, v16, v17);
-  objc_msgSend_setPreserveRectangularRange_(v4, v18, self->_preserveRectangularRange, v19, v20);
-  objc_msgSend_setPurpose_(v4, v21, self->_purpose, v22, v23);
+  objc_msgSend_setIsRangeRef_(v4, v13, self->_isRangeRef, v14);
+  objc_msgSend_setPreserveRectangularRange_(v4, v15, self->_preserveRectangularRange, v16);
+  objc_msgSend_setPurpose_(v4, v17, self->_purpose, v18);
   return v4;
 }
 
@@ -199,7 +199,7 @@
       v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v15);
+    v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v15, a2);
     *(archive + 3) = v14;
   }
 
@@ -251,7 +251,7 @@ LABEL_14:
       v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v24 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v25);
+    v24 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v25, a2);
     *(archive + 4) = v24;
   }
 
@@ -319,7 +319,7 @@ LABEL_26:
       v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v15);
+    v14 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v15, a2);
     *(archive + 3) = v14;
   }
 
@@ -370,7 +370,7 @@ LABEL_14:
       v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v24 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v25);
+    v24 = google::protobuf::Arena::CreateMaybeMessage<TSCE::ASTNodeArrayArchive_ASTUidList>(v25, a2);
     *(archive + 4) = v24;
   }
 
@@ -426,13 +426,13 @@ LABEL_26:
 
 - (void)saveToArchive:(void *)archive
 {
-  v7 = objc_msgSend_columnUids(self, a2, archive, v3, v4);
-  v12 = objc_msgSend_rowUids(self, v8, v9, v10, v11);
-  objc_msgSend_purpose(self, v13, v14, v15, v16);
-  objc_msgSend_isRangeRef(self, v17, v18, v19, v20);
-  objc_msgSend_preserveRectangularRange(self, v21, v22, v23, v24);
+  v6 = objc_msgSend_columnUids(self, a2, archive, v3);
+  objc_msgSend_rowUids(self, v7, v8, v9);
+  objc_msgSend_purpose(self, v10, v11, v12);
+  objc_msgSend_isRangeRef(self, v13, v14, v15);
+  objc_msgSend_preserveRectangularRange(self, v16, v17, v18);
 
-  MEMORY[0x2821F9670](TSCEUndoTract, sel_saveToArchive_columnUids_rowUids_purpose_isRangeRef_preserveRectangularRange_, archive, v7, v12);
+  MEMORY[0x2821F9670](TSCEUndoTract, sel_saveToArchive_columnUids_rowUids_purpose_isRangeRef_preserveRectangularRange_, archive, v6);
 }
 
 - (BOOL)remapUsingColumnUidMap:(const void *)map rowUidMap:(const void *)uidMap clearIfMissing:(BOOL)missing
@@ -519,83 +519,83 @@ LABEL_21:
   equalCopy = equal;
   objc_opt_class();
   v5 = TSUDynamicCast();
-  v10 = v5;
+  v9 = v5;
   if (!v5)
   {
     goto LABEL_27;
   }
 
   purpose = self->_purpose;
-  if (purpose != objc_msgSend_purpose(v5, v6, v7, v8, v9))
+  if (purpose != objc_msgSend_purpose(v5, v6, v7, v8))
   {
     goto LABEL_27;
   }
 
   isRangeRef = self->_isRangeRef;
-  if (isRangeRef != objc_msgSend_isRangeRef(v10, v12, v13, v14, v15))
+  if (isRangeRef != objc_msgSend_isRangeRef(v9, v11, v12, v13))
   {
     goto LABEL_27;
   }
 
   preserveRectangularRange = self->_preserveRectangularRange;
-  if (preserveRectangularRange != objc_msgSend_preserveRectangularRange(v10, v17, v18, v19, v20))
+  if (preserveRectangularRange != objc_msgSend_preserveRectangularRange(v9, v15, v16, v17))
   {
     goto LABEL_27;
   }
 
   begin = self->_columnUids.__begin_;
   end = self->_columnUids.__end_;
-  v24 = v10[1];
-  if (end - begin != v10[2] - v24)
+  v21 = v9[1];
+  if (end - begin != v9[2] - v21)
   {
     goto LABEL_27;
   }
 
   while (begin != end)
   {
-    if (begin->_lower != *v24 || begin->_upper != v24[1])
+    if (begin->_lower != *v21 || begin->_upper != v21[1])
     {
       goto LABEL_27;
     }
 
     ++begin;
-    v24 += 2;
+    v21 += 2;
   }
 
-  v27 = self->_rowUids.__begin_;
-  v26 = self->_rowUids.__end_;
-  v28 = v10[4];
-  if (v26 - v27 == v10[5] - v28)
+  v24 = self->_rowUids.__begin_;
+  v23 = self->_rowUids.__end_;
+  v25 = v9[4];
+  if (v23 - v24 == v9[5] - v25)
   {
-    if (v27 == v26)
+    if (v24 == v23)
     {
-      LOBYTE(v34) = 1;
+      LOBYTE(v31) = 1;
     }
 
     else
     {
       do
       {
-        lower = v27->_lower;
-        upper = v27->_upper;
-        ++v27;
-        v31 = *v28;
-        v32 = v28[1];
-        v28 += 2;
-        v34 = lower == v31 && upper == v32;
+        lower = v24->_lower;
+        upper = v24->_upper;
+        ++v24;
+        v28 = *v25;
+        v29 = v25[1];
+        v25 += 2;
+        v31 = lower == v28 && upper == v29;
       }
 
-      while (v34 && v27 != v26);
+      while (v31 && v24 != v23);
     }
   }
 
   else
   {
 LABEL_27:
-    LOBYTE(v34) = 0;
+    LOBYTE(v31) = 0;
   }
 
-  return v34;
+  return v31;
 }
 
 - (id).cxx_construct

@@ -9,7 +9,7 @@
 + (NSString)reuseIdentifier
 {
   type metadata accessor for RAPPhotoCarouselCollectionViewCell();
-  sub_1000CE6B8(&unk_101926520);
+  sub_1000CE6B8(&unk_101926520, &qword_10120F910);
   String.init<A>(describing:)();
   v2 = String._bridgeToObjectiveC()();
 

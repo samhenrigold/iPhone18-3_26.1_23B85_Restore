@@ -44,33 +44,33 @@
 
 void __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = [MEMORY[0x277CBEB18] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v28;
+      v11 = *v27;
       do
       {
         v12 = 0;
         do
         {
-          if (*v28 != v11)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v27 + 1) + 8 * v12);
+          v13 = *(*(&v26 + 1) + 8 * v12);
           v14 = [*(a1 + 32) bundleIdentifier];
           v15 = [v13 controlConfigurationsForApplicationContainerBundleIdentifier:v14];
 
@@ -79,18 +79,18 @@ void __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v10);
     }
 
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_invoke_19;
-    v26[3] = &unk_279734A28;
-    v26[4] = *(a1 + 32);
-    v16 = [v7 na_map:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_invoke_19;
+    v25[3] = &unk_279734A28;
+    v25[4] = *(a1 + 32);
+    v16 = [v7 na_map:v25];
     v17 = objc_autoreleasePoolPush();
     v18 = *(a1 + 32);
     v19 = HMFGetOSLogHandle();
@@ -98,9 +98,9 @@ void __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v20;
-      v34 = 2112;
-      v35 = v16;
+      v32 = v20;
+      v33 = 2112;
+      v34 = v16;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetched configured controls: %@", buf, 0x16u);
     }
 
@@ -117,22 +117,20 @@ void __64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v33 = v24;
-      v34 = 2112;
-      v35 = v6;
+      v32 = v24;
+      v33 = 2112;
+      v34 = v6;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Fetched configured controls failed %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
     (*(*(a1 + 40) + 16))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 HMDWidget *__64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___block_invoke_19(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = v3;
@@ -180,11 +178,11 @@ HMDWidget *__64__HMDWidgetConfigurationReader_fetchHomeControlsWithCompletion___
       v19 = [v6 controlIdentity];
       v20 = [v19 intentReference];
       v21 = [v20 intent];
-      v28 = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = v21;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Ignoring control configuration because the intent is not INAppIntent: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v18;
+      v29 = 2112;
+      v30 = v21;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Ignoring control configuration because the intent is not INAppIntent: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -205,14 +203,12 @@ LABEL_12:
   v25 = 0;
 LABEL_14:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 - (__CFString)identifierForKind:(void *)kind intent:(int)intent requiresRecommendationsParameter:
 {
-  v86[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   kindCopy = kind;
   lockScreenWidgetKinds = [self lockScreenWidgetKinds];
@@ -225,11 +221,11 @@ LABEL_7:
     goto LABEL_55;
   }
 
-  v78 = 0;
+  v75 = 0;
   serializedParameters = [kindCopy serializedParameters];
-  v12 = [serializedParameters hmf_BOOLForKey:@"useHomeKitRecommendations" isPresent:&v78];
+  v12 = [serializedParameters hmf_BOOLForKey:@"useHomeKitRecommendations" isPresent:&v75];
 
-  if (intent && (v78 & 1) == 0)
+  if (intent && (v75 & 1) == 0)
   {
     v13 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -239,11 +235,11 @@ LABEL_7:
       v16 = HMFGetLogIdentifier();
       serializedParameters2 = [kindCopy serializedParameters];
       *buf = 138543874;
-      v80 = v16;
-      v81 = 2112;
-      v82 = @"useHomeKitRecommendations";
-      v83 = 2112;
-      v84[0] = serializedParameters2;
+      v77 = v16;
+      v78 = 2112;
+      v79 = @"useHomeKitRecommendations";
+      v80 = 2112;
+      v81[0] = serializedParameters2;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Ignoring widget configuration because %@ key is missing from serialized parameters: %@", buf, 0x20u);
     }
 
@@ -276,7 +272,7 @@ LABEL_7:
 
     else
     {
-      v72 = v23;
+      v69 = v23;
       selfCopy2 = self;
       v31 = v21;
       objc_opt_class();
@@ -297,167 +293,162 @@ LABEL_7:
         goto LABEL_21;
       }
 
-      v53 = v31;
+      v51 = v31;
       objc_opt_class();
-      v54 = (objc_opt_isKindOfClass() & 1) != 0 ? v53 : 0;
-      v55 = v54;
+      v52 = (objc_opt_isKindOfClass() & 1) != 0 ? v51 : 0;
+      v53 = v52;
 
-      if (!v55)
+      if (!v53)
       {
         goto LABEL_49;
       }
 
-      v56 = objc_autoreleasePoolPush();
+      v54 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v58 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      v56 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
       {
-        v59 = HMFGetLogIdentifier();
+        v57 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v80 = v59;
-        v81 = 2112;
-        v82 = v53;
-        _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_DEBUG, "%{public}@Handling single item accessories and scenes entry %@", buf, 0x16u);
+        v77 = v57;
+        v78 = 2112;
+        v79 = v51;
+        _os_log_impl(&dword_2531F8000, v56, OS_LOG_TYPE_DEBUG, "%{public}@Handling single item accessories and scenes entry %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v56);
-      v86[0] = v55;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v86 count:1];
+      objc_autoreleasePoolPop(v54);
+      v83[0] = v53;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
 
       if (v31)
       {
 LABEL_21:
-        v68 = v21;
-        v69 = kindCopy;
-        v70 = v7;
-        v76 = 0u;
-        v77 = 0u;
+        v65 = v21;
+        v66 = kindCopy;
+        v67 = v7;
+        v73 = 0u;
         v74 = 0u;
-        v75 = 0u;
+        v71 = 0u;
+        v72 = 0u;
         obj = v31;
-        v34 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
+        v34 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
         if (v34)
         {
           v35 = v34;
-          v36 = *v75;
-          v37 = 0x277CBE000uLL;
+          v36 = *v72;
           do
           {
             for (i = 0; i != v35; ++i)
             {
-              if (*v75 != v36)
+              if (*v72 != v36)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v39 = *(v37 + 2752);
-              v40 = *(*(&v74 + 1) + 8 * i);
+              v38 = *(*(&v71 + 1) + 8 * i);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v41 = v40;
+                v39 = v38;
               }
 
               else
               {
-                v41 = 0;
+                v39 = 0;
               }
 
-              v42 = v41;
+              v40 = v39;
 
-              if (v42)
+              if (v40)
               {
-                v43 = [(__CFString *)v40 hmf_stringForKey:@"identifier"];
-                if (v43)
+                v41 = [(__CFString *)v38 hmf_stringForKey:@"identifier"];
+                if (v41)
                 {
-                  v44 = [v72 combineContentsOfPropertyListObject:v43];
+                  v42 = [v69 combineContentsOfPropertyListObject:v41];
                 }
 
                 else
                 {
-                  v49 = objc_autoreleasePoolPush();
+                  v47 = objc_autoreleasePoolPush();
                   selfCopy4 = self;
-                  v51 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+                  v49 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
                   {
-                    v52 = HMFGetLogIdentifier();
+                    v50 = HMFGetLogIdentifier();
                     *buf = 138543618;
-                    v80 = v52;
-                    v81 = 2112;
-                    v82 = v40;
-                    _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly missing the identifier in %@", buf, 0x16u);
+                    v77 = v50;
+                    v78 = 2112;
+                    v79 = v38;
+                    _os_log_impl(&dword_2531F8000, v49, OS_LOG_TYPE_ERROR, "%{public}@Unexpectedly missing the identifier in %@", buf, 0x16u);
 
                     self = selfCopy2;
                   }
 
-                  objc_autoreleasePoolPop(v49);
-                  v37 = 0x277CBE000;
+                  objc_autoreleasePoolPop(v47);
                 }
               }
 
               else
               {
-                v45 = objc_autoreleasePoolPush();
+                v43 = objc_autoreleasePoolPush();
                 selfCopy5 = self;
-                v47 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                v45 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
                 {
-                  v48 = HMFGetLogIdentifier();
+                  v46 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v80 = v48;
-                  v81 = 2112;
-                  v82 = v40;
-                  _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@accessoryOrScene is not a dictionary! %@", buf, 0x16u);
-
-                  v37 = 0x277CBE000;
+                  v77 = v46;
+                  v78 = 2112;
+                  v79 = v38;
+                  _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_ERROR, "%{public}@accessoryOrScene is not a dictionary! %@", buf, 0x16u);
                 }
 
-                objc_autoreleasePoolPop(v45);
+                objc_autoreleasePoolPop(v43);
               }
             }
 
-            v35 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
+            v35 = [obj countByEnumeratingWithState:&v71 objects:v82 count:16];
           }
 
           while (v35);
         }
 
-        kindCopy = v69;
-        v7 = v70;
-        v21 = v68;
-        v24 = v72;
+        kindCopy = v66;
+        v7 = v67;
+        v21 = v65;
+        v24 = v69;
       }
 
       else
       {
 LABEL_49:
-        v24 = v72;
-        v60 = [v72 combineContentsOfPropertyListObject:v53];
+        v24 = v69;
+        v58 = [v69 combineContentsOfPropertyListObject:v51];
       }
 
       v19 = 0;
     }
 
-    v61 = [v24 finalize];
-    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", v61];
-    v62 = objc_autoreleasePoolPush();
+    v59 = [v24 finalize];
+    v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%llu", v59];
+    v60 = objc_autoreleasePoolPush();
     selfCopy6 = self;
-    v64 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+    v62 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
     {
-      v65 = HMFGetLogIdentifier();
+      v63 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v80 = v65;
-      v81 = 2114;
-      v82 = v18;
-      v83 = 1024;
-      LODWORD(v84[0]) = v19;
-      WORD2(v84[0]) = 2112;
-      *(v84 + 6) = v21;
-      _os_log_impl(&dword_2531F8000, v64, OS_LOG_TYPE_DEBUG, "%{public}@IFObjectHasher: computed widget identifier %{public}@ with useHomeKitRecommendations=%{BOOL}d, accessoriesAndScenes=%@", buf, 0x26u);
+      v77 = v63;
+      v78 = 2114;
+      v79 = v18;
+      v80 = 1024;
+      LODWORD(v81[0]) = v19;
+      WORD2(v81[0]) = 2112;
+      *(v81 + 6) = v21;
+      _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_DEBUG, "%{public}@IFObjectHasher: computed widget identifier %{public}@ with useHomeKitRecommendations=%{BOOL}d, accessoriesAndScenes=%@", buf, 0x26u);
     }
 
-    objc_autoreleasePoolPop(v62);
+    objc_autoreleasePoolPop(v60);
   }
 
   else
@@ -470,11 +461,11 @@ LABEL_49:
       v29 = HMFGetLogIdentifier();
       serializedParameters4 = [kindCopy serializedParameters];
       *buf = 138543874;
-      v80 = v29;
-      v81 = 2112;
-      v82 = @"accessoriesAndScenes";
-      v83 = 2112;
-      v84[0] = serializedParameters4;
+      v77 = v29;
+      v78 = 2112;
+      v79 = @"accessoriesAndScenes";
+      v80 = 2112;
+      v81[0] = serializedParameters4;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Ignoring widget configuration because %@ key is missing from serialized parameters: %@", buf, 0x20u);
     }
 
@@ -483,7 +474,6 @@ LABEL_49:
   }
 
 LABEL_55:
-  v66 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -512,33 +502,33 @@ LABEL_55:
 
 void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
     v7 = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v33;
+      v11 = *v32;
       do
       {
         v12 = 0;
         do
         {
-          if (*v33 != v11)
+          if (*v32 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v32 + 1) + 8 * v12);
+          v13 = *(*(&v31 + 1) + 8 * v12);
           v14 = [*(a1 + 32) bundleIdentifier];
           v15 = [v13 widgetConfigurationsForApplicationContainerBundleIdentifier:v14];
 
@@ -547,18 +537,18 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v10);
     }
 
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_17;
-    v31[3] = &unk_2797349B0;
-    v31[4] = *(a1 + 32);
-    v16 = [v7 na_map:v31];
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_17;
+    v30[3] = &unk_2797349B0;
+    v30[4] = *(a1 + 32);
+    v16 = [v7 na_map:v30];
     v17 = objc_autoreleasePoolPush();
     v18 = *(a1 + 32);
     v19 = HMFGetOSLogHandle();
@@ -566,24 +556,24 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v20;
-      v39 = 2112;
-      v40 = v16;
+      v37 = v20;
+      v38 = 2112;
+      v39 = v16;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Fetched configured widgets: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_18;
-    v29[3] = &unk_2797349D8;
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_18;
+    v28[3] = &unk_2797349D8;
     v21 = *(a1 + 32);
     v22 = *(a1 + 40);
     v23 = *(a1 + 32);
-    v29[4] = v16;
-    v29[5] = v23;
-    v30 = v22;
-    [v21 fetchHomeControlsWithCompletion:v29];
+    v28[4] = v16;
+    v28[5] = v23;
+    v29 = v22;
+    [v21 fetchHomeControlsWithCompletion:v28];
   }
 
   else
@@ -595,22 +585,20 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v38 = v27;
-      v39 = 2112;
-      v40 = v6;
+      v37 = v27;
+      v38 = 2112;
+      v39 = v6;
       _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_ERROR, "%{public}@Fetched configured widgets failed %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v24);
     (*(*(a1 + 40) + 16))();
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 HMDWidget *__63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_17(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = v3;
@@ -658,11 +646,11 @@ HMDWidget *__63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___b
       v19 = [v6 widget];
       v20 = [v19 intentReference];
       v21 = [v20 intent];
-      v28 = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = v21;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Ignoring widget configuration because the intent is not INAppIntent: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v18;
+      v29 = 2112;
+      v30 = v21;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Ignoring widget configuration because the intent is not INAppIntent: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -683,14 +671,12 @@ LABEL_12:
   v25 = 0;
 LABEL_14:
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
 void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -701,11 +687,11 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetched configured controls: %@", &v14, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetched configured controls: %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -715,11 +701,8 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
 
   else
   {
-    v12 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAutoBahnWidgetsWithCompletion:(id)completion
@@ -746,7 +729,7 @@ void __63__HMDWidgetConfigurationReader_fetchHomeWidgetsWithCompletion___block_i
 
 void __67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -756,27 +739,27 @@ void __67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___blo
   else
   {
     v6 = [MEMORY[0x277CBEB18] array];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v19;
+      v10 = *v18;
       do
       {
         v11 = 0;
         do
         {
-          if (*v19 != v10)
+          if (*v18 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v18 + 1) + 8 * v11);
+          v12 = *(*(&v17 + 1) + 8 * v11);
           v13 = [*(a1 + 32) bundleIdentifier];
           v14 = [v12 widgetConfigurationsForApplicationContainerBundleIdentifier:v13];
 
@@ -785,22 +768,20 @@ void __67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___blo
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v9);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___block_invoke_2;
-    v17[3] = &unk_2797349B0;
-    v17[4] = *(a1 + 32);
-    v15 = [v6 na_map:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___block_invoke_2;
+    v16[3] = &unk_2797349B0;
+    v16[4] = *(a1 + 32);
+    v15 = [v6 na_map:v16];
     (*(*(a1 + 40) + 16))();
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 HMDWidget *__67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion___block_invoke_2(uint64_t a1, void *a2)
@@ -853,7 +834,7 @@ HMDWidget *__67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion
 
     v6 = dispatch_time(0, 2000000000);
     dispatch_semaphore_wait(v5, v6);
-    v7 = [v13[5] copy];
+    v7 = objc_msgSend_copy(v13[5]);
 
     _Block_object_dispose(&v12, 8);
   }
@@ -868,31 +849,31 @@ HMDWidget *__67__HMDWidgetConfigurationReader_fetchAutoBahnWidgetsWithCompletion
 
 void __50__HMDWidgetConfigurationReader_fetchedHomeWidgets__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (!a3)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         v10 = 0;
         do
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * v10);
+          v11 = *(*(&v14 + 1) + 8 * v10);
           v12 = [*(a1 + 32) bundleIdentifier];
           v13 = [v11 widgetConfigurationsForApplicationContainerBundleIdentifier:v12];
 
@@ -901,7 +882,7 @@ void __50__HMDWidgetConfigurationReader_fetchedHomeWidgets__block_invoke(uint64_
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
@@ -909,8 +890,6 @@ void __50__HMDWidgetConfigurationReader_fetchedHomeWidgets__block_invoke(uint64_
 
     dispatch_semaphore_signal(*(a1 + 40));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDWidgetConfigurationReader)initWithWidgetInterface:(id)interface controlsInterface:(id)controlsInterface bundleIdentifier:(id)identifier lockScreenWidgetKinds:(id)kinds
@@ -959,12 +938,11 @@ void __50__HMDWidgetConfigurationReader_fetchedHomeWidgets__block_invoke(uint64_
 
 uint64_t __43__HMDWidgetConfigurationReader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_186714;
-  logCategory__hmf_once_v19_186714 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_186714;
+  logCategory__hmf_once_v19_186714 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

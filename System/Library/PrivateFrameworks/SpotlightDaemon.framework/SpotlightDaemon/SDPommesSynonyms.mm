@@ -57,10 +57,10 @@
   v13 = v12;
   if (*error)
   {
-    v48 = logForCSLogCategoryDefault();
+    v48 = logForCSLogCategoryDefault(v12);
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
-      [SDPommesSynonyms _loadSynonymsFromFile:fileCopy isFirstPass:error isDate:? error:?];
+      [SDPommesSynonyms _loadSynonymsFromFile:isFirstPass:isDate:error:];
     }
 
 LABEL_4:
@@ -70,7 +70,7 @@ LABEL_4:
 
   if (![v12 length])
   {
-    v48 = logForCSLogCategoryDefault();
+    v48 = logForCSLogCategoryDefault(0);
     if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
     {
       [SDPommesSynonyms _loadSynonymsFromFile:isFirstPass:isDate:error:];
@@ -194,44 +194,37 @@ LABEL_4:
   v36 = *p_firstPassSynonymDictionary;
   *p_firstPassSynonymDictionary = v11;
 
-  v37 = logForCSLogCategoryDefault();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+  v38 = logForCSLogCategoryDefault(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
   {
-    [SDPommesSynonyms _loadSynonymsFromFile:v11 isFirstPass:v43 isDate:v37 error:?];
+    [SDPommesSynonyms _loadSynonymsFromFile:v11 isFirstPass:v43 isDate:v38 error:?];
   }
 
   v14 = 1;
 LABEL_35:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)loadFirstPassSynonymDictionary
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadSecondPassSynonymDictionary
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadDateSynonymDictionary
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateDateSynonymsFromToken:(id)token previousToken:(id)previousToken isOrdinalToken:(BOOL *)ordinalToken
@@ -262,40 +255,37 @@ LABEL_35:
 
 uint64_t __79__SDPommesSynonyms_generateDateSynonymsFromToken_previousToken_isOrdinalToken___block_invoke()
 {
-  generateDateSynonymsFromToken_previousToken_isOrdinalToken__ordinalIndicators = [MEMORY[0x277CBEB98] setWithObjects:{@"st", @"nd", @"rd", @"th", 0}];
+  v0 = [MEMORY[0x277CBEB98] setWithObjects:{@"st", @"nd", @"rd", @"th", 0}];
+  v1 = generateDateSynonymsFromToken_previousToken_isOrdinalToken__ordinalIndicators;
+  generateDateSynonymsFromToken_previousToken_isOrdinalToken__ordinalIndicators = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-- (void)_loadSynonymsFromFile:(uint64_t)a1 isFirstPass:(uint64_t *)a2 isDate:error:.cold.1(uint64_t a1, uint64_t *a2)
+- (void)_loadSynonymsFromFile:isFirstPass:isDate:error:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_4_0();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_231A35000, v4, OS_LOG_TYPE_ERROR, "Failed to read synonym file: %@ with error: %@.", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_231A35000, v1, OS_LOG_TYPE_ERROR, "Failed to read synonym file: %@ with error: %@.", v2, 0x16u);
 }
 
 - (void)_loadSynonymsFromFile:(NSObject *)a3 isFirstPass:isDate:error:.cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_4_0();
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_231A35000, a3, OS_LOG_TYPE_ERROR, "Loaded %lu synonyms from file: %@.", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_231A35000, a3, OS_LOG_TYPE_ERROR, "Loaded %lu synonyms from file: %@.", v5, 0x16u);
 }
 
 - (void)_loadSynonymsFromFile:isFirstPass:isDate:error:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

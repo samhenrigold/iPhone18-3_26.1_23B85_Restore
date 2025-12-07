@@ -34,7 +34,7 @@
   v7 = 0;
   if (self && v5)
   {
-    if ([*(self + 8) isEqualToString:v5[1]])
+    if (objc_msgSend_isEqualToString_(*(self + 8)))
     {
       v7 = [pairCopy comparePosition:*(self + 16) toPosition:v5[2]] == 0;
     }

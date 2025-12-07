@@ -123,16 +123,16 @@
 {
   if (self->_gadgetSpec)
   {
-    layout = [(PXGadgetUIViewController *)self layout];
+    v3 = objc_msgSend_layout(self, a2);
     currentColumnSpan = [(PXHorizontalCollectionGadget *)self currentColumnSpan];
     [(PXGadgetSpec *)self->_gadgetSpec columnWidthForColumnSpan:currentColumnSpan];
     if (v5 > 0.0)
     {
-      [layout setColumnWidth:?];
+      [v3 setColumnWidth:?];
     }
 
     [(PXGadgetSpec *)self->_gadgetSpec columnSpacingForColumnSpan:currentColumnSpan];
-    [layout setInterSectionSpacing:?];
+    [v3 setInterSectionSpacing:?];
     sharedScheduler = [off_1E7721858 sharedScheduler];
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
@@ -187,7 +187,7 @@ void __62__PXHorizontalCollectionGadget__columnSpanForTraitCollection___block_in
   }
 }
 
-uint64_t __66__PXHorizontalCollectionGadget__ensureCachedHeightForColumnWidth___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__66__PXHorizontalCollectionGadget__ensureCachedHeightForColumnWidth___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   [a2 sizeThatFits:{*(a1 + 48), 1.79769313e308}];
   v6 = v5;
@@ -286,12 +286,12 @@ uint64_t __66__PXHorizontalCollectionGadget__ensureCachedHeightForColumnWidth___
 - (CGPoint)collectionView:(id)view targetContentOffsetForProposedContentOffset:(CGPoint)offset
 {
   viewCopy = view;
-  layout = [(PXGadgetUIViewController *)self layout];
+  v6 = objc_msgSend_layout(self);
   [viewCopy contentOffset];
   v8 = v7;
   v10 = v9;
 
-  [layout targetContentOffsetForProposedContentOffset:{v8, v10}];
+  [v6 targetContentOffsetForProposedContentOffset:{v8, v10}];
   v12 = v11;
   v14 = v13;
 
@@ -330,7 +330,7 @@ uint64_t __66__PXHorizontalCollectionGadget__ensureCachedHeightForColumnWidth___
     v9 = dataSource;
     if (dataSource)
     {
-      [dataSource firstItemIndexPath];
+      objc_msgSend_firstItemIndexPath(dataSource);
     }
 
     else
@@ -737,13 +737,13 @@ void __59__PXHorizontalCollectionGadget_gadgetControllerHasAppeared__block_invok
 - (void)_updateCollectionViewPaging
 {
   gadgetSpec = [(PXHorizontalCollectionGadget *)self gadgetSpec];
-  layout = [(PXGadgetUIViewController *)self layout];
+  v3 = objc_msgSend_layout(self);
   layoutSizeClass = [gadgetSpec layoutSizeClass];
   layoutOrientation = [gadgetSpec layoutOrientation];
   prefersPagingEnabled = 0;
   if (layoutSizeClass == 1 && layoutOrientation != 2)
   {
-    prefersPagingEnabled = [layout prefersPagingEnabled];
+    prefersPagingEnabled = [v3 prefersPagingEnabled];
   }
 
   collectionView = [(PXHorizontalCollectionGadget *)self collectionView];
@@ -751,7 +751,7 @@ void __59__PXHorizontalCollectionGadget_gadgetControllerHasAppeared__block_invok
   v9 = v8;
   [gadgetSpec contentInsets];
   [collectionView _setPagingOrigin:{-v10, 0.0}];
-  [layout columnWidth];
+  [v3 columnWidth];
   v12 = v11;
   [gadgetSpec layoutReferenceWidth];
   [collectionView _setInterpageSpacing:{v9 + v12 - v13, 0.0}];
@@ -819,8 +819,8 @@ uint64_t __46__PXHorizontalCollectionGadget_setGadgetSpec___block_invoke(uint64_
     v10 = v9;
     v12 = v11;
     v14 = v13;
-    layout = [(PXGadgetUIViewController *)self layout];
-    [layout columnWidth];
+    v15 = objc_msgSend_layout(self);
+    [v15 columnWidth];
     if (v16 == 0.0)
     {
       v16 = width - v10 - v14;
@@ -1030,8 +1030,8 @@ uint64_t __46__PXHorizontalCollectionGadget_setGadgetSpec___block_invoke(uint64_
   [collectionView setFocusGroupIdentifier:0];
   [collectionView setSelectionFollowsFocus:{-[PXHorizontalCollectionGadget selectionFollowsFocus](self, "selectionFollowsFocus")}];
   prefersPagingEnabled = self->_prefersPagingEnabled;
-  layout = [(PXGadgetUIViewController *)self layout];
-  [layout setPrefersPagingEnabled:prefersPagingEnabled];
+  v6 = objc_msgSend_layout(self);
+  [v6 setPrefersPagingEnabled:prefersPagingEnabled];
 
   px_extendedTraitCollection = [(PXHorizontalCollectionGadget *)self px_extendedTraitCollection];
   [px_extendedTraitCollection registerChangeObserver:self context:PXExtendedTraitCollectionObservationContext_176541];

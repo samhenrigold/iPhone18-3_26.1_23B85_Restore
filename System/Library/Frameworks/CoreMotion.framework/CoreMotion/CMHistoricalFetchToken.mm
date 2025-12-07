@@ -32,7 +32,7 @@
 
 + (id)cardioToken
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], a2, 8);
   v4 = [CMTableCursor alloc];
   v6 = objc_msgSend_initWithDatatype_(v4, v5, 0);
@@ -69,9 +69,9 @@
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v50 = 8;
-      v51 = 2048;
-      v52 = objc_msgSend_count(v3, v39, v40);
+      v55 = 8;
+      v56 = 2048;
+      v57 = objc_msgSend_count(v3, v39, v40);
       _os_log_impl(&dword_19B41C000, v38, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Expected %d cardio tables but initialized %lu", buf, 0x12u);
     }
 
@@ -84,25 +84,29 @@
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E296C0);
       }
 
-      objc_msgSend_count(v3, v42, v43);
-      v44 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMHistoricalFetchToken cardioToken]", "CoreLocation: %s\n", v44);
-      if (v44 != buf)
+      v44 = qword_1EAFE2AB0;
+      v51[0] = 67109376;
+      v51[1] = 8;
+      v52 = 2048;
+      v53 = objc_msgSend_count(v3, v42, v43);
+      LODWORD(v50) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v44, 16, "[HistoricalFetch] Expected %d cardio tables but initialized %lu", v51, v50);
+      v46 = v45;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMHistoricalFetchToken cardioToken]", "CoreLocation: %s\n", v45);
+      if (v46 != buf)
       {
-        free(v44);
+        free(v46);
       }
     }
   }
 
-  v45 = [self alloc];
-  result = objc_msgSend_initWithType_cursorList_(v45, v46, 0, v3);
-  v48 = *MEMORY[0x1E69E9840];
-  return result;
+  v47 = [self alloc];
+  return objc_msgSend_initWithType_cursorList_(v47, v48, 0, v3);
 }
 
 + (id)mobilityToken
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], a2, 5);
   v4 = [CMTableCursor alloc];
   v6 = objc_msgSend_initWithDatatype_(v4, v5, 0);
@@ -130,9 +134,9 @@
     if (os_log_type_enabled(qword_1EAFE2AB0, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109376;
-      v38 = 5;
-      v39 = 2048;
-      v40 = objc_msgSend_count(v3, v27, v28);
+      v43 = 5;
+      v44 = 2048;
+      v45 = objc_msgSend_count(v3, v27, v28);
       _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "[HistoricalFetch] Expected %d mobility tables but initialized %lu", buf, 0x12u);
     }
 
@@ -145,20 +149,24 @@
         dispatch_once(&qword_1EAFE2AA8, &unk_1F0E296C0);
       }
 
-      objc_msgSend_count(v3, v30, v31);
-      v32 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMHistoricalFetchToken mobilityToken]", "CoreLocation: %s\n", v32);
-      if (v32 != buf)
+      v32 = qword_1EAFE2AB0;
+      v39[0] = 67109376;
+      v39[1] = 5;
+      v40 = 2048;
+      v41 = objc_msgSend_count(v3, v30, v31);
+      LODWORD(v38) = 18;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v32, 16, "[HistoricalFetch] Expected %d mobility tables but initialized %lu", v39, v38);
+      v34 = v33;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "+[CMHistoricalFetchToken mobilityToken]", "CoreLocation: %s\n", v33);
+      if (v34 != buf)
       {
-        free(v32);
+        free(v34);
       }
     }
   }
 
-  v33 = [self alloc];
-  result = objc_msgSend_initWithType_cursorList_(v33, v34, 1, v3);
-  v36 = *MEMORY[0x1E69E9840];
-  return result;
+  v35 = [self alloc];
+  return objc_msgSend_initWithType_cursorList_(v35, v36, 1, v3);
 }
 
 - (void)dealloc
@@ -216,27 +224,7 @@
 - (BOOL)isEqual:(id)equal
 {
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = objc_msgSend_tables(self, v5, v6);
-  v10 = objc_msgSend_count(v7, v8, v9);
-  v13 = objc_msgSend_tables(equal, v11, v12);
-  if (v10 != objc_msgSend_count(v13, v14, v15))
-  {
-    goto LABEL_11;
-  }
-
-  v18 = objc_msgSend_version(self, v16, v17);
-  if (v18 != objc_msgSend_version(equal, v19, v20))
-  {
-    goto LABEL_11;
-  }
-
-  Type = objc_msgSend_fetchType(self, v21, v22);
-  if (Type == objc_msgSend_fetchType(equal, v24, v25) && (objc_msgSend_startTime(self, v26, v27), v29 = v28, objc_msgSend_startTime(equal, v30, v31), v29 == v34) && (objc_msgSend_endTime(self, v32, v33), v36 = v35, objc_msgSend_endTime(equal, v37, v38), v36 == v41))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v7 = objc_msgSend_tables(self, v5, v6), v10 = objc_msgSend_count(v7, v8, v9), v13 = objc_msgSend_tables(equal, v11, v12), v10 == objc_msgSend_count(v13, v14, v15)) && (v18 = objc_msgSend_version(self, v16, v17), v18 == objc_msgSend_version(equal, v19, v20)) && (Type = objc_msgSend_fetchType(self, v21, v22), Type == objc_msgSend_fetchType(equal, v24, v25)) && (objc_msgSend_startTime(self, v26, v27), v29 = v28, objc_msgSend_startTime(equal, v30, v31), v29 == v34) && (objc_msgSend_endTime(self, v32, v33), v36 = v35, objc_msgSend_endTime(equal, v37, v38), v36 == v41))
   {
     v42 = objc_msgSend_tables(self, v39, v40);
     if (objc_msgSend_count(v42, v43, v44))
@@ -265,7 +253,6 @@
 
   else
   {
-LABEL_11:
     LOBYTE(v48) = 0;
   }
 
@@ -274,44 +261,43 @@ LABEL_11:
 
 - (unint64_t)hash
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_version(self, a2, v2);
   v7 = (31 * (objc_msgSend_fetchType(self, v5, v6) - v4 + 32 * v4) + 29791);
   objc_msgSend_startTime(self, v8, v9);
   v11 = (31 * (v10 + v7));
   objc_msgSend_endTime(self, v12, v13);
   v15 = (v14 + v11);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v18 = objc_msgSend_tables(self, v16, v17, 0);
-  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v28, v32, 16);
+  v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v27, v31, 16);
   if (v20)
   {
     v23 = v20;
-    v24 = *v29;
+    v24 = *v28;
     do
     {
       v25 = 0;
       do
       {
-        if (*v29 != v24)
+        if (*v28 != v24)
         {
           objc_enumerationMutation(v18);
         }
 
-        v15 = objc_msgSend_hash(*(*(&v28 + 1) + 8 * v25++), v21, v22) - v15 + 32 * v15;
+        v15 = objc_msgSend_hash(*(*(&v27 + 1) + 8 * v25++), v21, v22) - v15 + 32 * v15;
       }
 
       while (v23 != v25);
-      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v28, v32, 16);
+      v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v27, v31, 16);
     }
 
     while (v23);
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

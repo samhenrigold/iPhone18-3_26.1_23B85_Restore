@@ -98,17 +98,15 @@ void __34__MNRouteGeniusRemoteService_stop__block_invoke(uint64_t a1)
 
 void __34__MNRouteGeniusRemoteService_stop__block_invoke_67(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "MNRouteGeniusRemoteService stop connection error : %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_1D311E000, v3, OS_LOG_TYPE_ERROR, "MNRouteGeniusRemoteService stop connection error : %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)start
@@ -142,13 +140,13 @@ void __34__MNRouteGeniusRemoteService_stop__block_invoke_67(uint64_t a1, void *a
 
 void __35__MNRouteGeniusRemoteService_start__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "MNRouteGeniusRemoteService start connection error : %@", buf, 0xCu);
   }
 
@@ -157,11 +155,9 @@ void __35__MNRouteGeniusRemoteService_start__block_invoke(uint64_t a1, void *a2)
   block[1] = 3221225472;
   block[2] = __35__MNRouteGeniusRemoteService_start__block_invoke_64;
   block[3] = &unk_1E8430EA0;
-  objc_copyWeak(&v8, (a1 + 40));
+  objc_copyWeak(&v7, (a1 + 40));
   dispatch_async(v5, block);
-  objc_destroyWeak(&v8);
-
-  v6 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v7);
 }
 
 void __35__MNRouteGeniusRemoteService_start__block_invoke_2(uint64_t a1)
@@ -266,13 +262,13 @@ void __35__MNRouteGeniusRemoteService_start__block_invoke_64(uint64_t a1)
 
 void __42__MNRouteGeniusRemoteService_forceReroute__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v10 = v3;
+    v9 = v3;
     _os_log_impl(&dword_1D311E000, v4, OS_LOG_TYPE_ERROR, "MNRouteGeniusRemoteService force reroute error : %@", buf, 0xCu);
   }
 
@@ -281,11 +277,9 @@ void __42__MNRouteGeniusRemoteService_forceReroute__block_invoke(uint64_t a1, vo
   block[1] = 3221225472;
   block[2] = __42__MNRouteGeniusRemoteService_forceReroute__block_invoke_62;
   block[3] = &unk_1E8430EA0;
-  objc_copyWeak(&v8, (a1 + 40));
+  objc_copyWeak(&v7, (a1 + 40));
   dispatch_async(v5, block);
-  objc_destroyWeak(&v8);
-
-  v6 = *MEMORY[0x1E69E9840];
+  objc_destroyWeak(&v7);
 }
 
 void __42__MNRouteGeniusRemoteService_forceReroute__block_invoke_2(uint64_t a1)

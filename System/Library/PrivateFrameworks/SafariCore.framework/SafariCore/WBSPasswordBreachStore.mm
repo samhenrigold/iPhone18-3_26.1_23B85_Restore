@@ -11,41 +11,40 @@
 
 - (WBSPasswordBreachStore)initWithBackingStoreURL:(id)l
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v18.receiver = self;
-  v18.super_class = WBSPasswordBreachStore;
-  v5 = [(WBSPasswordBreachStore *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = WBSPasswordBreachStore;
+  v5 = [(WBSPasswordBreachStore *)&v17 init];
   if (v5)
   {
     v6 = [WBSPersistentPropertyListStore alloc];
-    v19 = *MEMORY[0x1E695DB80];
-    v20[0] = MEMORY[0x1E695E118];
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E695DB80];
+    v19[0] = MEMORY[0x1E695E118];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v8 = [(WBSPersistentPropertyListStore *)v6 initWithBackingStoreURL:lCopy fileResourceValues:v7];
     store = v5->_store;
     v5->_store = v8;
 
-    v13 = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke;
-    v16 = &unk_1E7CF3408;
-    v17 = lCopy;
-    [(WBSPersistentPropertyListStore *)v5->_store setCreateEmptyStoreHandler:&v13];
-    [(WBSPersistentPropertyListStore *)v5->_store setValidateLoadedStoreHandler:&__block_literal_global_44, v13, v14, v15, v16];
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke;
+    v15 = &unk_1E7CF3408;
+    v16 = lCopy;
+    [(WBSPersistentPropertyListStore *)v5->_store setCreateEmptyStoreHandler:&v12];
+    [(WBSPersistentPropertyListStore *)v5->_store setValidateLoadedStoreHandler:&__block_literal_global_44, v12, v13, v14, v15];
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 id __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"Version";
-  v11[0] = &unk_1F308E3C0;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"Version";
+  v10[0] = &unk_1F308E3C0;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v3 = [v2 mutableCopy];
 
   if (*(a1 + 32))
@@ -67,8 +66,6 @@ id __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke(uint64_t 
   v5 = v3;
 LABEL_5:
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
@@ -80,41 +77,42 @@ id __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32(uint64
 
   if (v4 == 1)
   {
-    v5 = [v2 safari_dataForKey:@"KeychainPersistentIdentifierCanaryPersistentIdentifier"];
-    if (![v5 length])
+    v7 = [v2 safari_dataForKey:@"KeychainPersistentIdentifierCanaryPersistentIdentifier"];
+    if (![v7 length])
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v8);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_4();
       }
 
-      v9 = 0;
+      v15 = 0;
       goto LABEL_20;
     }
 
-    v6 = [v2 safari_stringForKey:@"KeychainPersistentIdentifierCanaryValue"];
-    if ([v6 length])
+    v9 = [v2 safari_stringForKey:@"KeychainPersistentIdentifierCanaryValue"];
+    if ([v9 length])
     {
-      if ([WBSPasswordBreachStore _readAndValidatePersistentIdentifierCanaryWithPersistentIdentifier:v5 expectedValue:v6])
+      v11 = [WBSPasswordBreachStore _readAndValidatePersistentIdentifierCanaryWithPersistentIdentifier:v7 expectedValue:v9];
+      if (v11)
       {
-        v7 = [v2 valueForKey:@"PasswordEvaluationResults"];
+        v13 = [v2 valueForKey:@"PasswordEvaluationResults"];
 
-        if (v7)
+        if (v13)
         {
-          v8 = [v2 mutableCopy];
-          [v8 removeObjectForKey:@"PasswordEvaluationResults"];
+          v14 = [v2 mutableCopy];
+          [v14 removeObjectForKey:@"PasswordEvaluationResults"];
 
-          v2 = v8;
+          v2 = v14;
         }
 
         v2 = v2;
-        v9 = v2;
+        v15 = v2;
         goto LABEL_19;
       }
 
-      v13 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v11, v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_2();
       }
@@ -122,30 +120,30 @@ id __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32(uint64
 
     else
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v10);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_3();
       }
     }
 
-    v9 = 0;
+    v15 = 0;
 LABEL_19:
 
 LABEL_20:
     goto LABEL_21;
   }
 
-  v10 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v5, v6);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
-    __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_1(v4, v10);
+    __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_1(v4, v16);
   }
 
-  v9 = 0;
+  v15 = 0;
 LABEL_21:
 
-  return v9;
+  return v15;
 }
 
 - (unint64_t)rampIdentifier
@@ -165,95 +163,97 @@ LABEL_21:
 
 + (id)_createPersistentIdentifierCanary
 {
-  v42[6] = *MEMORY[0x1E69E9840];
+  v49[6] = *MEMORY[0x1E69E9840];
   error = 0;
   v2 = SecAccessControlCreateWithFlags(0, *MEMORY[0x1E697ABE8], 0, &error);
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
 
-    v6 = *MEMORY[0x1E697AFF8];
-    v7 = *MEMORY[0x1E697B008];
-    v8 = *MEMORY[0x1E697AE88];
-    v41[0] = *MEMORY[0x1E697AFF8];
-    v41[1] = v8;
-    v42[0] = v7;
-    v42[1] = @"KeychainPersistentIdentifierCanaryPersistentIdentifier";
-    v9 = *MEMORY[0x1E697B3C0];
-    v41[2] = *MEMORY[0x1E697B3C0];
-    v34 = uUIDString;
-    v10 = [(__CFError *)uUIDString dataUsingEncoding:4];
-    v11 = *MEMORY[0x1E697B320];
-    v12 = *MEMORY[0x1E695E4D0];
-    v42[2] = v10;
-    v42[3] = v12;
-    v13 = *MEMORY[0x1E697ABC8];
-    v33 = v11;
-    v41[3] = v11;
-    v41[4] = v13;
-    v14 = *MEMORY[0x1E697ABD0];
-    v41[5] = *MEMORY[0x1E697ABD0];
-    v42[4] = v3;
-    v42[5] = @"com.apple.cfnetwork";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:v41 count:6];
+    v7 = *MEMORY[0x1E697AFF8];
+    v8 = *MEMORY[0x1E697B008];
+    v9 = *MEMORY[0x1E697AE88];
+    v48[0] = *MEMORY[0x1E697AFF8];
+    v48[1] = v9;
+    v49[0] = v8;
+    v49[1] = @"KeychainPersistentIdentifierCanaryPersistentIdentifier";
+    v10 = *MEMORY[0x1E697B3C0];
+    v48[2] = *MEMORY[0x1E697B3C0];
+    v41 = uUIDString;
+    v11 = [(__CFError *)uUIDString dataUsingEncoding:4];
+    v12 = *MEMORY[0x1E697B320];
+    v13 = *MEMORY[0x1E695E4D0];
+    v49[2] = v11;
+    v49[3] = v13;
+    v14 = *MEMORY[0x1E697ABC8];
+    v40 = v12;
+    v48[3] = v12;
+    v48[4] = v14;
+    v15 = *MEMORY[0x1E697ABD0];
+    v48[5] = *MEMORY[0x1E697ABD0];
+    v49[4] = v4;
+    v49[5] = @"com.apple.cfnetwork";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:v48 count:6];
 
     result = 0;
-    v16 = SecItemAdd(v15, &result);
-    if (v16)
+    v17 = SecItemAdd(v16, &result);
+    if (v17)
     {
-      v17 = v16;
-      if (v16 != -25299)
+      v19 = v17;
+      if (v17 != -25299)
       {
-        v25 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        v29 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v17, v18);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          +[(WBSPasswordBreachStore *)v17];
+          +[(WBSPasswordBreachStore *)v19];
         }
 
-        v24 = 0;
-        v19 = v34;
+        v28 = 0;
+        v21 = v41;
         goto LABEL_25;
       }
 
-      v32 = v15;
-      v39[0] = v6;
-      v39[1] = v8;
-      v40[0] = v7;
-      v40[1] = @"KeychainPersistentIdentifierCanaryPersistentIdentifier";
-      v39[2] = v14;
-      v40[2] = @"com.apple.cfnetwork";
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:3];
-      v37 = v9;
-      v19 = v34;
-      v20 = [(__CFError *)v34 dataUsingEncoding:4];
-      v38 = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      v39 = v16;
+      v46[0] = v7;
+      v46[1] = v9;
+      v47[0] = v8;
+      v47[1] = @"KeychainPersistentIdentifierCanaryPersistentIdentifier";
+      v46[2] = v15;
+      v47[2] = @"com.apple.cfnetwork";
+      v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
+      v44 = v10;
+      v21 = v41;
+      v22 = [(__CFError *)v41 dataUsingEncoding:4];
+      v45 = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
 
-      if (SecItemUpdate(v18, v21))
+      v24 = SecItemUpdate(v20, v23);
+      if (v24)
       {
-        v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v26 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           +[WBSPasswordBreachStore _createPersistentIdentifierCanary];
         }
 
 LABEL_17:
 
-        v24 = 0;
-        v15 = v32;
+        v28 = 0;
+        v16 = v39;
 LABEL_25:
 
         goto LABEL_26;
       }
 
-      v26 = [v18 mutableCopy];
-      [v26 setObject:v12 forKeyedSubscript:v33];
-      if (SecItemCopyMatching(v26, &result))
+      v30 = [(__CFDictionary *)v20 mutableCopy];
+      [v30 setObject:v13 forKeyedSubscript:v40];
+      v31 = SecItemCopyMatching(v30, &result);
+      if (v31)
       {
-        v27 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v33 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v31, v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           +[WBSPasswordBreachStore _createPersistentIdentifierCanary];
         }
@@ -261,135 +261,132 @@ LABEL_25:
         goto LABEL_17;
       }
 
-      v15 = v32;
+      v16 = v39;
     }
 
-    v28 = result;
+    v34 = result;
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v19 = v34;
-      v24 = [[WBSPair alloc] initWithFirst:v28 second:v34];
+      v21 = v41;
+      v28 = [[WBSPair alloc] initWithFirst:v34 second:v41];
     }
 
     else
     {
-      v29 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-      v19 = v34;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v37 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(isKindOfClass, v36);
+      v21 = v41;
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         +[WBSPasswordBreachStore _createPersistentIdentifierCanary];
       }
 
-      v24 = 0;
+      v28 = 0;
     }
 
     goto LABEL_25;
   }
 
-  v19 = error;
-  v23 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v21 = error;
+  v27 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(0, v3);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
-    +[(WBSPasswordBreachStore *)v23];
+    +[(WBSPasswordBreachStore *)v27];
   }
 
-  v24 = 0;
+  v28 = 0;
 LABEL_26:
 
-  v30 = *MEMORY[0x1E69E9840];
-
-  return v24;
+  return v28;
 }
 
 + (BOOL)_readAndValidatePersistentIdentifierCanaryWithPersistentIdentifier:(id)identifier expectedValue:(id)value
 {
-  v23[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   valueCopy = value;
   v7 = *MEMORY[0x1E697B3C8];
-  v22[0] = *MEMORY[0x1E697AFF8];
-  v22[1] = v7;
-  v23[0] = *MEMORY[0x1E697B008];
-  v23[1] = identifierCopy;
-  v22[2] = *MEMORY[0x1E697B318];
-  v23[2] = MEMORY[0x1E695E118];
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
-  v19[0] = 0;
-  v9 = SecItemCopyMatching(v8, v19);
+  v26[0] = *MEMORY[0x1E697AFF8];
+  v26[1] = v7;
+  v27[0] = *MEMORY[0x1E697B008];
+  v27[1] = identifierCopy;
+  v26[2] = *MEMORY[0x1E697B318];
+  v27[2] = MEMORY[0x1E695E118];
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
+  v23[0] = 0;
+  v9 = SecItemCopyMatching(v8, v23);
   if (v9)
   {
-    v10 = v9;
-    v11 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v11 = v9;
+    v12 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v21 = v10;
-      _os_log_impl(&dword_1B8447000, v11, OS_LOG_TYPE_DEFAULT, "Could not find canary in keychain: %d", buf, 8u);
+      v25 = v11;
+      _os_log_impl(&dword_1B8447000, v12, OS_LOG_TYPE_DEFAULT, "Could not find canary in keychain: %d", buf, 8u);
     }
 
 LABEL_10:
 
-    v13 = 0;
+    v16 = 0;
 LABEL_11:
-    v14 = 0;
+    v19 = 0;
     goto LABEL_12;
   }
 
-  v12 = v19[0];
+  v13 = v23[0];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v20 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(isKindOfClass, v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B8447000, v15, OS_LOG_TYPE_DEFAULT, "Canary item in keychain had unexpected type", buf, 2u);
+      _os_log_impl(&dword_1B8447000, v20, OS_LOG_TYPE_DEFAULT, "Canary item in keychain had unexpected type", buf, 2u);
     }
 
     goto LABEL_10;
   }
 
-  v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v12 encoding:4];
+  v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v13 encoding:4];
 
-  if (([v13 isEqualToString:valueCopy] & 1) == 0)
+  v17 = [v16 isEqualToString:valueCopy];
+  if ((v17 & 1) == 0)
   {
-    v18 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = WBS_LOG_CHANNEL_PREFIXPasswordBreachAwareness(v17, v18);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19[0]) = 0;
-      _os_log_impl(&dword_1B8447000, v18, OS_LOG_TYPE_DEFAULT, "Canary item in keychain did not match plist value.", v19, 2u);
+      LOWORD(v23[0]) = 0;
+      _os_log_impl(&dword_1B8447000, v22, OS_LOG_TYPE_DEFAULT, "Canary item in keychain did not match plist value.", v23, 2u);
     }
 
     goto LABEL_11;
   }
 
-  v14 = 1;
+  v19 = 1;
 LABEL_12:
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v19;
 }
 
 void __50__WBSPasswordBreachStore_initWithBackingStoreURL___block_invoke_32_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134349056;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unexpected store version %{public}lu, resetting store.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134349056;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Unexpected store version %{public}lu, resetting store.", &v2, 0xCu);
 }
 
 + (void)_createPersistentIdentifierCanary
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = safari_privacyPreservingDescription;
-  _os_log_error_impl(&dword_1B8447000, selfCopy, OS_LOG_TYPE_ERROR, "Could not create same device access ref: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = safari_privacyPreservingDescription;
+  _os_log_error_impl(&dword_1B8447000, selfCopy, OS_LOG_TYPE_ERROR, "Could not create same device access ref: %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -83,7 +83,7 @@
     atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v29 = geo::codec::copyFeatureStyleAttributes(&v177, v27);
+  geo::codec::copyFeatureStyleAttributes(&v177, v27);
   if (v28)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v28);

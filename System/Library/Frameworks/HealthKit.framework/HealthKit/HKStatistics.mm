@@ -169,15 +169,14 @@ LABEL_12:
     return 0;
   }
 
-  dataType = self->_dataType;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_dataType;
-  if ([(HKObjectType *)v4 _supportsRelativeDataCalculation])
+  v3 = self->_dataType;
+  if ([(HKObjectType *)v3 _supportsRelativeDataCalculation])
   {
     minimumQuantity = self->_minimumQuantity;
     if (!minimumQuantity)
@@ -185,40 +184,39 @@ LABEL_12:
       minimumQuantity = self->_maximumQuantity;
     }
 
-    v6 = minimumQuantity;
-    _unitForChangeInCanonicalUnit = [(HKObjectType *)v4 _unitForChangeInCanonicalUnit];
-    [(HKQuantity *)v6 doubleValueForUnit:_unitForChangeInCanonicalUnit];
-    v9 = v8;
+    v5 = minimumQuantity;
+    _unitForChangeInCanonicalUnit = [(HKObjectType *)v3 _unitForChangeInCanonicalUnit];
+    [(HKQuantity *)v5 doubleValueForUnit:_unitForChangeInCanonicalUnit];
+    v8 = v7;
 
-    v10 = &unk_1F0684638;
-    if (v9 == 1.79769313e308)
+    v9 = &unk_1F0684638;
+    if (v8 == 1.79769313e308)
     {
-      v10 = &unk_1F0684620;
+      v9 = &unk_1F0684620;
     }
 
-    if (v9 == -1.79769313e308)
+    if (v8 == -1.79769313e308)
     {
-      v11 = &unk_1F0684608;
+      v10 = &unk_1F0684608;
     }
 
     else
     {
-      v11 = v10;
+      v10 = v9;
     }
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setAverageQuantity:(id)quantity
 {
   quantityCopy = quantity;
-  dataType = self->_dataType;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -241,7 +239,6 @@ LABEL_12:
 - (void)setMinimumQuantity:(id)quantity
 {
   quantityCopy = quantity;
-  dataType = self->_dataType;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -264,7 +261,6 @@ LABEL_12:
 - (void)setMaximumQuantity:(id)quantity
 {
   quantityCopy = quantity;
-  dataType = self->_dataType;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -711,16 +707,15 @@ LABEL_61:
 
 - (HKQuantityType)quantityType
 {
-  dataType = self->_dataType;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     [(HKStatistics *)a2 quantityType];
   }
 
-  v5 = self->_dataType;
+  dataType = self->_dataType;
 
-  return v5;
+  return dataType;
 }
 
 - (void)_setSources:(id)sources
@@ -735,24 +730,24 @@ LABEL_61:
 - (BOOL)getData:(id *)data error:(id *)error
 {
   v7 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:self requiringSecureCoding:1 error:error];
-  v8 = v7;
+  v9 = v7;
   if (v7)
   {
-    v9 = v7;
-    *data = v8;
+    v10 = v7;
+    *data = v9;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v10 = HKLogInfrastructure();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(0, v8);
+    v13 = HKLogInfrastructure(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(HKStatistics *)self getData:error error:v10];
+      [(HKStatistics *)self getData:error error:v13];
     }
   }
 
-  return v8 != 0;
+  return v9 != 0;
 }
 
 - (NSString)description
@@ -807,14 +802,13 @@ LABEL_61:
 
 - (void)getData:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Error getting archived data from statistics %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Error getting archived data from statistics %@: %@", &v4, 0x16u);
 }
 
 @end

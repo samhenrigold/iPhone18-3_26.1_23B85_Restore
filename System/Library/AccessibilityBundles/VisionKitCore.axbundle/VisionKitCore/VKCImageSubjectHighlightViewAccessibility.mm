@@ -32,7 +32,7 @@
 
 - (id)accessibilityDragSourceDescriptors
 {
-  v11[1] = *MEMORY[0x29EDCA608];
+  v10[1] = *MEMORY[0x29EDCA608];
   _axDraggableView = [(VKCImageSubjectHighlightViewAccessibility *)self _axDraggableView];
   if (_axDraggableView)
   {
@@ -41,18 +41,16 @@
     [(VKCImageSubjectHighlightViewAccessibility *)self accessibilityActivationPoint];
     UIAccessibilityPointToPoint();
     v6 = [v4 initWithName:v5 point:_axDraggableView inView:?];
-    v11[0] = v6;
-    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v11 count:1];
+    v10[0] = v6;
+    accessibilityDragSourceDescriptors = [MEMORY[0x29EDB8D80] arrayWithObjects:v10 count:1];
   }
 
   else
   {
-    v10.receiver = self;
-    v10.super_class = VKCImageSubjectHighlightViewAccessibility;
-    accessibilityDragSourceDescriptors = [(VKCImageSubjectHighlightViewAccessibility *)&v10 accessibilityDragSourceDescriptors];
+    v9.receiver = self;
+    v9.super_class = VKCImageSubjectHighlightViewAccessibility;
+    accessibilityDragSourceDescriptors = [(VKCImageSubjectHighlightViewAccessibility *)&v9 accessibilityDragSourceDescriptors];
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 
   return accessibilityDragSourceDescriptors;
 }

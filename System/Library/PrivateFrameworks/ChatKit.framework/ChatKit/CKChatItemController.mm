@@ -13,7 +13,7 @@
 
 - (void)setChatItems:(id)items
 {
-  sub_1902188FC(0, &qword_1EAD450F0);
+  sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
   v4 = sub_190D57180();
   selfCopy = self;
   sub_190A0DD9C(v4);
@@ -21,7 +21,7 @@
 
 - (void)setAssociatedChatItems:(id)items
 {
-  sub_1902188FC(0, &qword_1EAD44F88);
+  sub_1902188FC(0, &qword_1EAD44F88, off_1E72E47F8);
   v4 = sub_190D57180();
   v5 = OBJC_IVAR___CKChatItemController_associatedChatItems;
   swift_beginAccess();
@@ -30,20 +30,20 @@
 
 - (id)initForCollectionView:(id)view chatItems:(id)items delegate:(id)delegate
 {
-  sub_1902188FC(0, &qword_1EAD450F0);
-  v6 = sub_190D57180();
+  sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
+  v7 = sub_190D57180();
   viewCopy = view;
   swift_unknownObjectRetain();
-  v8 = sub_190A0F4D8(viewCopy, v6);
+  v9 = sub_190A0F4D8(viewCopy, v7, delegate);
 
   swift_unknownObjectRelease();
-  return v8;
+  return v9;
 }
 
 - (id)setChatItems:(id)items completion:(id)completion
 {
   v5 = _Block_copy(completion);
-  sub_1902188FC(0, &qword_1EAD450F0);
+  sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
   v6 = sub_190D57180();
   if (v5)
   {
@@ -59,14 +59,14 @@
 
   selfCopy = self;
   v9 = sub_190A0E16C(v6, v5, v7);
-  sub_19022123C(v5);
+  sub_19022123C(v5, v7);
 
   return v9;
 }
 
 - (void)setChatItemsUsingReloadDataWithoutAnimation:(id)animation
 {
-  sub_1902188FC(0, &qword_1EAD450F0);
+  sub_1902188FC(0, &qword_1EAD450F0, off_1E72E4A90);
   v4 = sub_190D57180();
   selfCopy = self;
   sub_190A0EB80(v4);

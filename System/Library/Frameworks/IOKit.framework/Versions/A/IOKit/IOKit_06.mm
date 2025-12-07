@@ -1,3 +1,171 @@
+uint64_t macho_find_symtab(int *a1, unint64_t a2, void *a3)
+{
+  v5 = 0;
+  if (!a3)
+  {
+    return macho_scan_load_commands(a1, a2, __macho_lc_is_symtab, &v5);
+  }
+
+  *a3 = 0;
+  result = macho_scan_load_commands(a1, a2, __macho_lc_is_symtab, &v5);
+  if (!result)
+  {
+    *a3 = v5;
+  }
+
+  return result;
+}
+
+uint64_t macho_find_section_numbered(int *a1, unint64_t a2, char a3)
+{
+  v5 = 0;
+  v6 = 0;
+  BYTE1(v5) = a3;
+  if (*a1 == -17958193 || *a1 == -805638658)
+  {
+    LOBYTE(v5) = 1;
+  }
+
+  if (macho_scan_load_commands(a1, a2, __macho_sect_in_lc, &v5))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v6;
+  }
+}
+
+uint64_t macho_scan_load_commands(int *a1, unint64_t a2, uint64_t (*a3)(int *, unint64_t, uint64_t, uint64_t), uint64_t a4)
+{
+  v7 = *a1;
+  v8 = 0xFFFFFFFFLL;
+  if (*a1 <= -17958195)
+  {
+    if (v7 != -822415874)
+    {
+      if (v7 != -805638658)
+      {
+        return v8;
+      }
+
+      v9 = 0;
+      v10 = 1;
+      goto LABEL_7;
+    }
+
+    v9 = 0;
+    v10 = 1;
+LABEL_9:
+    v11 = 3;
+    v12 = 7;
+    goto LABEL_10;
+  }
+
+  v10 = 0;
+  v9 = 1;
+  if (v7 == -17958194)
+  {
+    goto LABEL_9;
+  }
+
+  if (v7 != -17958193)
+  {
+    return v8;
+  }
+
+LABEL_7:
+  v11 = 7;
+  v12 = 8;
+LABEL_10:
+  if (a1 < a2)
+  {
+    v13 = &a1[v12];
+    if (v13 <= a2)
+    {
+      v14 = a1[5];
+      v15 = bswap32(a1[4]);
+      v16 = bswap32(v14);
+      if (v9)
+      {
+        v17 = a1[4];
+      }
+
+      else
+      {
+        v17 = v15;
+      }
+
+      if (v9)
+      {
+        v18 = v14;
+      }
+
+      else
+      {
+        v18 = v16;
+      }
+
+      v19 = (v13 + v18);
+      if (v13 + v18 <= a2)
+      {
+        if (!v17)
+        {
+          return 2;
+        }
+
+        while (1)
+        {
+          LODWORD(v20) = v13[1];
+          v21 = bswap32(v20);
+          v20 = v9 ? v20 : v21;
+          v22 = (v13 + v20);
+          if ((v20 & v11) != 0 || v22 > v19)
+          {
+            break;
+          }
+
+          v24 = a3(v13, a2, v10, a4);
+          if (v24 != 2)
+          {
+            if (v24 == 3)
+            {
+              LODWORD(v8) = 2;
+            }
+
+            else
+            {
+              LODWORD(v8) = -1;
+            }
+
+            if (v24)
+            {
+              return v8;
+            }
+
+            else
+            {
+              return 0;
+            }
+          }
+
+          v8 = 2;
+          v13 = v22;
+          if (!--v17)
+          {
+            return v8;
+          }
+        }
+      }
+
+      return 0xFFFFFFFFLL;
+    }
+  }
+
+  return v8;
+}
+
 uint64_t __macho_lc_is_symtab(int *a1, unint64_t a2, int a3, int **a4)
 {
   if ((a1 + 16) > a2)
@@ -890,13 +1058,13 @@ CFTypeRef IOHIDDeviceGetProperty(IOHIDDeviceRef device, CFStringRef key)
 
 void _IOHIDDeviceReleasePrivate(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (*(a1 + 208))
   {
     v2 = atomic_load((a1 + 224));
     if (v2 != 3)
     {
-      _IOHIDDeviceReleasePrivate_cold_1(&v28, v29, (a1 + 224));
+      _IOHIDDeviceReleasePrivate_cold_1(&v26, v27, (a1 + 224));
     }
   }
 
@@ -1030,22 +1198,16 @@ void _IOHIDDeviceReleasePrivate(uint64_t a1)
   v25 = *(a1 + 288);
   if (v25)
   {
-    v26 = *MEMORY[0x1E69E9840];
 
     CFRelease(v25);
-  }
-
-  else
-  {
-    v27 = *MEMORY[0x1E69E9840];
   }
 }
 
 IOHIDDeviceRef IOHIDDeviceCreate(CFAllocatorRef allocator, io_service_t service)
 {
-  v24 = 0;
+  v25 = 0;
   theInterface = 0;
-  v23 = 0;
+  v24 = 0;
   theScore = 0;
   entryID = 0;
   if (__deviceInit != -1)
@@ -1056,8 +1218,8 @@ IOHIDDeviceRef IOHIDDeviceCreate(CFAllocatorRef allocator, io_service_t service)
   v3 = IOObjectRetain(service);
   if (v3)
   {
-    IOHIDDeviceCreate_cold_2(v3, &v26);
-    return v26;
+    IOHIDDeviceCreate_cold_2(v3, &v27);
+    return v27;
   }
 
   IORegistryEntryGetRegistryEntryID(service, &entryID);
@@ -1076,42 +1238,42 @@ LABEL_16:
   QueryInterface = (*theInterface)->QueryInterface;
   v9 = CFUUIDGetConstantUUIDWithBytes(0, 0x47u, 0x4Bu, 0xDCu, 0x8Eu, 0x9Fu, 0x4Au, 0x11u, 0xDAu, 0xB3u, 0x66u, 0, 0xDu, 0x93u, 0x6Du, 6u, 0xD2u);
   v10 = CFUUIDGetUUIDBytes(v9);
-  v11 = (QueryInterface)(v7, *&v10.byte0, *&v10.byte8, &v24);
+  v11 = (QueryInterface)(v7, *&v10.byte0, *&v10.byte8, &v25);
   if (v11)
   {
-    IOHIDDeviceCreate_cold_4(v11);
+    IOHIDDeviceCreate_cold_4(v11, v12);
 LABEL_15:
     IODestroyPlugInInterface(theInterface);
     goto LABEL_16;
   }
 
-  v12 = theInterface;
-  v13 = (*theInterface)->QueryInterface;
-  v14 = CFUUIDGetConstantUUIDWithBytes(0, 0xB4u, 0x73u, 0x25u, 0x6Cu, 0x6Au, 0x72u, 0x4Eu, 4u, 0xB6u, 0x94u, 0xC4u, 0, 0x1Du, 0x20u, 0x20u, 0x20u);
-  v15 = CFUUIDGetUUIDBytes(v14);
-  if ((v13)(v12, *&v15.byte0, *&v15.byte8, &v23))
+  v13 = theInterface;
+  v14 = (*theInterface)->QueryInterface;
+  v15 = CFUUIDGetConstantUUIDWithBytes(0, 0xB4u, 0x73u, 0x25u, 0x6Cu, 0x6Au, 0x72u, 0x4Eu, 4u, 0xB6u, 0x94u, 0xC4u, 0, 0x1Du, 0x20u, 0x20u, 0x20u);
+  v16 = CFUUIDGetUUIDBytes(v15);
+  if ((v14)(v13, *&v16.byte0, *&v16.byte8, &v24))
   {
-    v23 = 0;
+    v24 = 0;
   }
 
   Private = _IOHIDDeviceCreatePrivate();
   if (!Private)
   {
-    IOHIDDeviceCreate_cold_5(&v24, &v23);
+    IOHIDDeviceCreate_cold_5(&v25, &v24);
     goto LABEL_15;
   }
 
-  v17 = Private;
-  v18 = v24;
+  v18 = Private;
+  v19 = v25;
   *(Private + 40) = theInterface;
-  v19 = v23;
-  *(Private + 24) = v18;
-  *(Private + 32) = v19;
+  v20 = v24;
+  *(Private + 24) = v19;
+  *(Private + 32) = v20;
   *(Private + 8) = service;
   *(Private + 48) = 0;
   *(Private + 272) = 0;
   IORegistryEntryGetRegistryEntryID(service, (Private + 16));
-  return v17;
+  return v18;
 }
 
 Boolean IOHIDDeviceConformsTo(IOHIDDeviceRef device, uint32_t usagePage, uint32_t usage)
@@ -1181,6 +1343,65 @@ LABEL_8:
 
   CFRelease(v8);
   return v21;
+}
+
+CFArrayRef IOHIDDeviceCopyMatchingElements(IOHIDDeviceRef device, CFDictionaryRef matching, IOOptionBits options)
+{
+  theArray = 0;
+  if ((*(**(device + 3) + 72))(*(device + 3), matching, &theArray, *&options))
+  {
+    v4 = theArray == 0;
+  }
+
+  else
+  {
+    v4 = 1;
+  }
+
+  if (v4)
+  {
+    if (theArray)
+    {
+      Count = CFArrayGetCount(theArray);
+      if (Count >= 1)
+      {
+        v6 = Count;
+        v7 = 0;
+        v8 = MEMORY[0x1E695E9F8];
+        do
+        {
+          ValueAtIndex = CFArrayGetValueAtIndex(theArray, v7);
+          _IOHIDElementSetDevice(ValueAtIndex, device);
+          os_unfair_recursive_lock_lock_with_options();
+          Mutable = *(device + 8);
+          if (Mutable || (v11 = CFGetAllocator(device), Mutable = CFSetCreateMutable(v11, 0, v8), (*(device + 8) = Mutable) != 0))
+          {
+            if (!CFSetContainsValue(Mutable, ValueAtIndex))
+            {
+              CFSetSetValue(*(device + 8), ValueAtIndex);
+              if (*(device + 256))
+              {
+                __IOHIDElementLoadProperties(ValueAtIndex);
+              }
+            }
+          }
+
+          os_unfair_recursive_lock_unlock();
+          ++v7;
+        }
+
+        while (v6 != v7);
+      }
+    }
+  }
+
+  else
+  {
+    CFRelease(theArray);
+    return 0;
+  }
+
+  return theArray;
 }
 
 Boolean IOHIDDeviceSetProperty(IOHIDDeviceRef device, CFStringRef key, CFTypeRef property)
@@ -1280,7 +1501,7 @@ void IOHIDDeviceUnscheduleFromRunLoop(IOHIDDeviceRef device, CFRunLoopRef runLoo
 
 void __IOHIDDeviceSetupAsyncSupport(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   memset(&context.info, 0, 72);
   context.version = 1;
   if (*(a1 + 192) || *(a1 + 208))
@@ -1304,13 +1525,13 @@ void __IOHIDDeviceSetupAsyncSupport(uint64_t a1)
 
     if (v4)
     {
-      v10 = v2;
-      memset(v15, 0, sizeof(v15));
+      v9 = v2;
+      memset(v14, 0, sizeof(v14));
       os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      LODWORD(v12) = 67109376;
-      HIDWORD(v12) = v10;
-      v13 = 2048;
-      v14 = perform;
+      LODWORD(v11) = 67109376;
+      HIDWORD(v11) = v9;
+      v12 = 2048;
+      v13 = perform;
       _os_log_send_and_compose_impl();
       _os_crash_msg();
       __break(1u);
@@ -1337,56 +1558,51 @@ void __IOHIDDeviceSetupAsyncSupport(uint64_t a1)
           *(a1 + 88) = v8;
           if (!v8)
           {
-            __IOHIDDeviceSetupAsyncSupport_cold_2(&v12, v15);
+            __IOHIDDeviceSetupAsyncSupport_cold_2(&v11, v14);
           }
         }
 
-        goto LABEL_11;
+        return;
       }
     }
 
-    __IOHIDDeviceSetupAsyncSupport_cold_3(&v12, v15);
+    __IOHIDDeviceSetupAsyncSupport_cold_3(&v11, v14);
   }
-
-LABEL_11:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __IOHIDDeviceSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2)
+void __IOHIDDeviceSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 8)
   {
-    v4 = *(a1 + 32);
     os_unfair_recursive_lock_lock_with_options();
     dispatch_release(*(*(a1 + 32) + 216));
     *(*(a1 + 32) + 216) = 0;
     v5 = *(*(a1 + 32) + 240);
     os_unfair_recursive_lock_unlock();
-    v6 = *(a1 + 32);
     os_unfair_recursive_lock_lock_with_options();
-    v7 = *(*(a1 + 32) + 232);
-    if (v7)
+    v6 = *(*(a1 + 32) + 232);
+    if (v6)
     {
-      v8 = v5 == 0;
+      v7 = v5 == 0;
     }
 
     else
     {
-      v8 = 0;
+      v7 = 0;
     }
 
-    if (v8)
+    if (v7)
     {
-      (*(v7 + 16))();
+      (*(v6 + 16))();
       _Block_release(*(*(a1 + 32) + 232));
       *(*(a1 + 32) + 232) = 0;
     }
 
     os_unfair_recursive_lock_unlock();
     dispatch_release(*(*(a1 + 32) + 208));
-    v9 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    CFRelease(v9);
+    CFRelease(v8);
   }
 
   else if (a2 == 2)
@@ -1398,56 +1614,52 @@ void __IOHIDDeviceSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2)
 
 void __IOHIDDeviceSetDispatchQueue_block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_recursive_lock_lock_with_options();
   CFRelease(*(*(a1 + 32) + 240));
   *(*(a1 + 32) + 240) = 0;
-  v3 = *(*(a1 + 32) + 216);
+  v2 = *(*(a1 + 32) + 216);
   os_unfair_recursive_lock_unlock();
-  v4 = *(a1 + 32);
   os_unfair_recursive_lock_lock_with_options();
-  v5 = *(*(a1 + 32) + 232);
-  if (v5)
+  v3 = *(*(a1 + 32) + 232);
+  if (v3)
   {
-    v6 = v3 == 0;
+    v4 = v2 == 0;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  if (v6)
+  if (v4)
   {
-    (*(v5 + 16))();
+    (*(v3 + 16))();
     _Block_release(*(*(a1 + 32) + 232));
     *(*(a1 + 32) + 232) = 0;
   }
 
   os_unfair_recursive_lock_unlock();
-  v7 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  CFRelease(v7);
+  CFRelease(v5);
 }
 
 void IOHIDDeviceSetCancelHandler(IOHIDDeviceRef device, dispatch_block_t handler)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (!handler || *(device + 29))
   {
-    IOHIDDeviceSetCancelHandler_cold_1(&v5, v6);
+    IOHIDDeviceSetCancelHandler_cold_1(&v4, v5);
   }
 
   *(device + 29) = _Block_copy(handler);
-  v4 = *MEMORY[0x1E69E9840];
 
   os_unfair_recursive_lock_unlock();
 }
 
 void IOHIDDeviceActivate(IOHIDDeviceRef device)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (*(device + 26))
   {
     v1 = *(device + 24) == 0;
@@ -1467,22 +1679,22 @@ void IOHIDDeviceActivate(IOHIDDeviceRef device)
   }
 
   v2 = device;
-  if ((atomic_fetch_or(device + 56, 1u) & 1) != 0 || (v3 = *(device + 27), CFMachPortGetPort(*(device + 23)), dispatch_mach_connect(), IONotificationPortSetDispatchQueue(*(v2 + 11), *(v2 + 26)), (v4 = *(v2 + 30)) == 0))
+  if ((atomic_fetch_or(device + 56, 1u) & 1) == 0)
   {
-    v6 = *MEMORY[0x1E69E9840];
-  }
+    CFMachPortGetPort(*(device + 23));
+    dispatch_mach_connect();
+    IONotificationPortSetDispatchQueue(*(v2 + 11), *(v2 + 26));
+    v3 = *(v2 + 30);
+    if (v3)
+    {
 
-  else
-  {
-    v5 = *MEMORY[0x1E69E9840];
-
-    IOHIDQueueActivate(v4);
+      IOHIDQueueActivate(v3);
+    }
   }
 }
 
 void IOHIDDeviceCancel(IOHIDDeviceRef device)
 {
-  v8 = *MEMORY[0x1E69E9840];
   if (*(device + 26))
   {
     v1 = *(device + 24) == 0;
@@ -1502,32 +1714,22 @@ void IOHIDDeviceCancel(IOHIDDeviceRef device)
   }
 
   v2 = device;
-  if ((atomic_fetch_or(device + 56, 2u) & 2) != 0)
+  if ((atomic_fetch_or(device + 56, 2u) & 2) == 0)
   {
-    goto LABEL_13;
-  }
+    dispatch_mach_cancel();
+    v3 = *(v2 + 11);
+    if (v3)
+    {
+      IONotificationPortDestroy(v3);
+      *(v2 + 11) = 0;
+    }
 
-  v3 = *(device + 27);
-  dispatch_mach_cancel();
-  v4 = *(v2 + 11);
-  if (v4)
-  {
-    IONotificationPortDestroy(v4);
-    *(v2 + 11) = 0;
-  }
+    v4 = *(v2 + 30);
+    if (v4)
+    {
 
-  v5 = *(v2 + 30);
-  if (!v5)
-  {
-LABEL_13:
-    v7 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v6 = *MEMORY[0x1E69E9840];
-
-    IOHIDQueueCancel(v5);
+      IOHIDQueueCancel(v4);
+    }
   }
 }
 
@@ -1584,57 +1786,49 @@ void IOHIDDeviceRegisterRemovalCallback(IOHIDDeviceRef device, IOHIDCallback cal
 
 void __IOHIDDeviceNotification(CFSetRef *a1, uint64_t a2, int a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  if (!a1 || a3 != -536870896)
+  v14[1] = *MEMORY[0x1E69E9840];
+  if (a1 && a3 == -536870896)
   {
-LABEL_15:
-    v13 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  os_unfair_recursive_lock_lock_with_options();
-  v4 = a1[37];
-  if (v4)
-  {
-    Count = CFSetGetCount(v4);
-    if (Count)
+    os_unfair_recursive_lock_lock_with_options();
+    v4 = a1[37];
+    if (v4 && (Count = CFSetGetCount(v4)) != 0)
     {
       v6 = Count;
       v7 = CFRetain(a1);
       v8 = 8 * v6;
-      MEMORY[0x1EEE9AC00](v7);
-      v9 = (v15 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+      MEMORY[0x1EEE9AC00](v7, v9);
+      v10 = (v14 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0));
       if ((8 * v6) >= 0x200)
       {
-        v10 = 512;
+        v11 = 512;
       }
 
       else
       {
-        v10 = 8 * v6;
+        v11 = 8 * v6;
       }
 
-      bzero(v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
-      bzero(v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
-      CFSetGetValues(a1[37], (v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0)));
+      bzero(v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
+      bzero(v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
+      CFSetGetValues(a1[37], (v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0)));
       if (v6 >= 1)
       {
         do
         {
-          if (*v9)
+          if (*v10)
           {
-            BytePtr = CFDataGetBytePtr(*v9);
+            BytePtr = CFDataGetBytePtr(*v10);
             if (BytePtr)
             {
-              v12 = *(BytePtr + 1);
-              if (v12)
+              v13 = *(BytePtr + 1);
+              if (v13)
               {
-                v12(*BytePtr, 0, a1);
+                v13(*BytePtr, 0, a1);
               }
             }
           }
 
-          ++v9;
+          ++v10;
           --v6;
         }
 
@@ -1643,13 +1837,14 @@ LABEL_15:
 
       os_unfair_recursive_lock_unlock();
       CFRelease(a1);
-      goto LABEL_15;
+    }
+
+    else
+    {
+
+      os_unfair_recursive_lock_unlock();
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
-
-  os_unfair_recursive_lock_unlock();
 }
 
 void IOHIDDeviceRegisterInputValueCallback(IOHIDDeviceRef device, IOHIDValueCallback callback, void *context)
@@ -1775,36 +1970,34 @@ void __IOHIDDeviceRegisterMatchingInputElements(void *a1, __IOHIDQueue *a2, cons
 
 void __IOHIDDeviceRegisterInputValueCallback_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   os_unfair_recursive_lock_lock_with_options();
   CFRelease(*(*(a1 + 32) + 240));
   *(*(a1 + 32) + 240) = 0;
-  v3 = *(*(a1 + 32) + 216);
+  v2 = *(*(a1 + 32) + 216);
   os_unfair_recursive_lock_unlock();
-  v4 = *(a1 + 32);
   os_unfair_recursive_lock_lock_with_options();
-  v5 = *(*(a1 + 32) + 232);
-  if (v5)
+  v3 = *(*(a1 + 32) + 232);
+  if (v3)
   {
-    v6 = v3 == 0;
+    v4 = v2 == 0;
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  if (v6)
+  if (v4)
   {
-    (*(v5 + 16))();
+    (*(v3 + 16))();
     _Block_release(*(*(a1 + 32) + 232));
     *(*(a1 + 32) + 232) = 0;
   }
 
   os_unfair_recursive_lock_unlock();
-  v7 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  CFRelease(v7);
+  CFRelease(v5);
 }
 
 void __IOHIDDeviceInputElementValueCallback(CFSetRef *cf, int a2, __IOHIDQueue *a3)
@@ -1817,56 +2010,54 @@ void __IOHIDDeviceInputElementValueCallback(CFSetRef *cf, int a2, __IOHIDQueue *
     Count = CFSetGetCount(cf[39]);
     if (Count)
     {
-      v6 = Count;
-      v7 = 8 * Count;
-      MEMORY[0x1EEE9AC00]();
-      v8 = (v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v9 = v7 >= 0x200 ? 512 : v7;
-      bzero(v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
-      bzero(v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
-      CFSetGetValues(cf[39], (v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0)));
+      v7 = Count;
+      v8 = 8 * Count;
+      MEMORY[0x1EEE9AC00](Count, v6);
+      v9 = (v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v10 = v8 >= 0x200 ? 512 : v8;
+      bzero(v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+      bzero(v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
+      CFSetGetValues(cf[39], (v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0)));
       Value = IOHIDQueueCopyNextValue(a3);
       if (Value)
       {
-        v11 = Value;
+        v12 = Value;
         do
         {
-          if (v6 >= 1)
+          if (v7 >= 1)
           {
-            v12 = v8;
-            v13 = v6;
+            v13 = v9;
+            v14 = v7;
             do
             {
-              if (*v12)
+              if (*v13)
               {
-                BytePtr = CFDataGetBytePtr(*v12);
-                v15 = *(BytePtr + 1);
-                if (v15)
+                BytePtr = CFDataGetBytePtr(*v13);
+                v16 = *(BytePtr + 1);
+                if (v16)
                 {
-                  v15(*BytePtr, 0, cf, v11);
+                  v16(*BytePtr, 0, cf, v12);
                 }
               }
 
-              ++v12;
-              --v13;
+              ++v13;
+              --v14;
             }
 
-            while (v13);
+            while (v14);
           }
 
-          CFRelease(v11);
-          v11 = IOHIDQueueCopyNextValue(a3);
+          CFRelease(v12);
+          v12 = IOHIDQueueCopyNextValue(a3);
         }
 
-        while (v11);
+        while (v12);
       }
     }
 
     os_unfair_recursive_lock_unlock();
     CFRelease(cf);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDDeviceSetInputValueMatching(IOHIDDeviceRef device, CFDictionaryRef matching)
@@ -2301,6 +2492,28 @@ void IOHIDDeviceRegisterInputReportWithTimeStampCallback(IOHIDDeviceRef device, 
   __IOHIDDeviceRegisterInputReportCallback(device, report, reportLength, 0, callback, context);
 }
 
+IOReturn IOHIDDeviceSetReportWithCallback(IOHIDDeviceRef device, IOHIDReportType reportType, CFIndex reportID, const uint8_t *report, CFIndex reportLength, CFTimeInterval timeout, IOHIDReportCallback callback, void *context)
+{
+  v14 = *&reportType;
+  v16 = malloc_type_malloc(0x20uLL, 0xA00400770BE9BuLL);
+  if (!v16)
+  {
+    return -536870211;
+  }
+
+  v17 = v16;
+  *v16 = context;
+  v16[1] = callback;
+  v16[3] = device;
+  v18 = (*(**(device + 3) + 104))(*(device + 3), v14, reportID, report, reportLength, timeout, __IOHIDDeviceReportCallbackOnce, v16, 0);
+  if (v18)
+  {
+    free(v17);
+  }
+
+  return v18;
+}
+
 void __IOHIDDeviceReportCallbackOnce(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v14 = a1[3];
@@ -2323,6 +2536,29 @@ void __IOHIDDeviceReportCallbackOnce(void *a1, uint64_t a2, uint64_t a3, uint64_
   free(a1);
 
   CFRelease(v14);
+}
+
+IOReturn IOHIDDeviceGetReportWithCallback(IOHIDDeviceRef device, IOHIDReportType reportType, CFIndex reportID, uint8_t *report, CFIndex *pReportLength, CFTimeInterval timeout, IOHIDReportCallback callback, void *context)
+{
+  v14 = *&reportType;
+  v16 = malloc_type_malloc(0x20uLL, 0xA00400770BE9BuLL);
+  if (!v16)
+  {
+    return -536870211;
+  }
+
+  v17 = v16;
+  *v16 = context;
+  v16[1] = callback;
+  v16[2] = 0;
+  v16[3] = device;
+  v18 = (*(**(device + 3) + 112))(*(device + 3), v14, reportID, report, pReportLength, timeout, __IOHIDDeviceReportCallbackOnce, v16, 0);
+  if (v18)
+  {
+    free(v17);
+  }
+
+  return v18;
 }
 
 uint64_t __IOHIDDeviceGetRootKey(__IOHIDDevice *a1)
@@ -2572,7 +2808,7 @@ void __IOHIDSaveDeviceSet(uint64_t a1, CFStringRef *context)
 
 __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (cf)
   {
     v3 = cf;
@@ -2581,12 +2817,12 @@ __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
 
   else
   {
-    v25 = xmmword_19723D890;
-    MEMORY[0x1EEE9AC00]();
+    v24 = xmmword_19723D890;
+    MEMORY[0x1EEE9AC00](a1, 0);
     v4 = 0;
-    memset(v22, 0, sizeof(v22));
+    memset(v21, 0, sizeof(v21));
     keys = @"Type";
-    v5 = &v25;
+    v5 = &v24;
     v6 = MEMORY[0x1E695E528];
     v7 = MEMORY[0x1E695E9E8];
     do
@@ -2594,7 +2830,7 @@ __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
       v8 = CFGetAllocator(a1);
       values = CFNumberCreate(v8, kCFNumberIntType, v5);
       v9 = CFGetAllocator(a1);
-      v22[v4] = CFDictionaryCreate(v9, &keys, &values, 1, v6, v7);
+      v21[v4] = CFDictionaryCreate(v9, &keys, &values, 1, v6, v7);
       CFRelease(values);
       ++v4;
       v5 = (v5 + 4);
@@ -2602,16 +2838,15 @@ __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
 
     while (v4 != 4);
     v10 = CFGetAllocator(a1);
-    v3 = CFArrayCreate(v10, v22, 4, MEMORY[0x1E695E9C0]);
+    v3 = CFArrayCreate(v10, v21, 4, MEMORY[0x1E695E9C0]);
     for (i = 0; i != 4; ++i)
     {
-      CFRelease(v22[i]);
+      CFRelease(v21[i]);
     }
 
     if (!v3)
     {
-      MutableCopy = 0;
-      goto LABEL_19;
+      return 0;
     }
   }
 
@@ -2634,9 +2869,9 @@ __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
         v18 = v17;
         if (MutableCopy)
         {
-          v27.length = CFArrayGetCount(v17);
-          v27.location = 0;
-          CFArrayAppendArray(MutableCopy, v18, v27);
+          v26.length = CFArrayGetCount(v17);
+          v26.location = 0;
+          CFArrayAppendArray(MutableCopy, v18, v26);
         }
 
         else
@@ -2651,8 +2886,6 @@ __CFArray *__IOHIDDeviceCopyMatchingInputElements(void *a1, const __CFArray *cf)
   }
 
   CFRelease(v3);
-LABEL_19:
-  v20 = *MEMORY[0x1E69E9840];
   return MutableCopy;
 }
 
@@ -2696,7 +2929,7 @@ uint64_t __IODPPortRegister()
   return result;
 }
 
-uint64_t IODPPortCreate(uint64_t a1, int a2, int a3, int a4)
+uint64_t IODPPortCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (*MEMORY[0x1E695E480] == a1)
   {
@@ -2722,9 +2955,7 @@ uint64_t IODPPortSetVirtual(uint64_t a1, unsigned int a2)
   input[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v2, 0, input, 1u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 0, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IODPPortSetPortEvent(uint64_t a1, unsigned int a2)
@@ -2732,9 +2963,7 @@ uint64_t IODPPortSetPortEvent(uint64_t a1, unsigned int a2)
   input[1] = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v2, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v2, 3u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IODPPortSetVirtualEDID(uint64_t a1, CFDataRef theData)
@@ -2769,9 +2998,7 @@ uint64_t IODPPortSetVirtualDPCD(uint64_t a1, unsigned int a2, void *inputStruct,
 
   v5 = *(a1 + 20);
   input[0] = a2;
-  result = IOConnectCallMethod(v5, 5u, input, 1u, inputStruct, v4, 0, 0, 0, 0);
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(v5, 5u, input, 1u, inputStruct, v4, 0, 0, 0, 0);
 }
 
 uint64_t __IODPPortFree(uint64_t a1)
@@ -2815,7 +3042,7 @@ uint64_t _IOHIDGetMonotonicTime()
   return mach_absolute_time() * _IOHIDGetMonotonicTime_timebaseInfo / dword_1EAF1D8FC;
 }
 
-uint64_t _IOHIDSimpleQueuePeek(const __CFData *a1)
+const UInt8 *_IOHIDSimpleQueuePeek(const __CFData *a1)
 {
   BytePtr = CFDataGetBytePtr(a1);
   v2 = *(BytePtr + 3);
@@ -3257,29 +3484,29 @@ void IOHIDManagerSetInputValueMatchingMultiple(IOHIDManagerRef manager, CFArrayR
 
 void IOHIDManagerSetDispatchQueue(IOHIDManagerRef manager, dispatch_queue_t queue)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (*(manager + 10) || *(manager + 12))
   {
-    IOHIDManagerSetDispatchQueue_cold_1(&v8, __str);
+    IOHIDManagerSetDispatchQueue_cold_1(&v7, __str);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  *__str = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  *__str = 0u;
+  v9 = 0u;
   label = dispatch_queue_get_label(queue);
   v5 = "";
   if (label)
@@ -3295,30 +3522,26 @@ void IOHIDManagerSetDispatchQueue(IOHIDManagerRef manager, dispatch_queue_t queu
   {
     __ApplyToDevices(manager);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDManagerSetCancelHandler(IOHIDManagerRef manager, dispatch_block_t handler)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (!handler || *(manager + 13))
   {
-    IOHIDManagerSetCancelHandler_cold_1(&v5, v6);
+    IOHIDManagerSetCancelHandler_cold_1(&v4, v5);
   }
 
   _IOHIDObjectInternalRetain(manager);
   *(manager + 13) = _Block_copy(handler);
   os_unfair_recursive_lock_unlock();
-  v4 = *MEMORY[0x1E69E9840];
 
   __ApplyToDevices(manager);
 }
 
 void IOHIDManagerActivate(IOHIDManagerRef manager)
 {
-  v3 = *MEMORY[0x1E69E9840];
   if (*(manager + 12))
   {
     v1 = *(manager + 10) == 0;
@@ -3341,13 +3564,11 @@ void IOHIDManagerActivate(IOHIDManagerRef manager)
   {
     IOHIDManagerActivate_cold_1();
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDManagerCancel(IOHIDManagerRef manager)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1 = *(manager + 12);
   v2 = *(manager + 10);
   if (v1)
@@ -3363,16 +3584,16 @@ void IOHIDManagerCancel(IOHIDManagerRef manager)
   if (!v3)
   {
     block[5] = 0;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
     os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v12 = 134218240;
-    v13 = v1;
-    v14 = 2048;
-    v15 = v2;
+    v11 = 134218240;
+    v12 = v1;
+    v13 = 2048;
+    v14 = v2;
     _os_log_send_and_compose_impl();
     manager = _os_crash_msg();
     __break(1u);
@@ -3421,8 +3642,6 @@ void IOHIDManagerCancel(IOHIDManagerRef manager)
 
     os_unfair_recursive_lock_unlock();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __IOHIDManagerCancel_block_invoke(uint64_t a1)
@@ -3679,14 +3898,14 @@ __CFDictionary *__IOHIDPropertyLoadFromKeyWithSpecialKeys(const __CFString *a1, 
 
 uint64_t __IOHIDManagerExtRelease(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   if (*(a1 + 96))
   {
     v2 = atomic_load((a1 + 116));
     if (v2 != 3)
     {
-      __IOHIDManagerExtRelease_cold_1(&v10, v11, (a1 + 116));
+      __IOHIDManagerExtRelease_cold_1(&v9, v10, (a1 + 116));
     }
   }
 
@@ -3735,8 +3954,6 @@ uint64_t __IOHIDManagerExtRelease(uint64_t a1)
     _IOHIDObjectInternalRetain(a1);
     dispatch_release(*(a1 + 256));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return os_unfair_recursive_lock_unlock();
 }
@@ -3916,6 +4133,56 @@ CFTypeID IOHIDQueueGetTypeID(void)
   return result;
 }
 
+IOHIDQueueRef IOHIDQueueCreate(CFAllocatorRef allocator, IOHIDDeviceRef device, CFIndex depth, IOOptionBits options)
+{
+  v18 = 0;
+  if (!device)
+  {
+    return 0;
+  }
+
+  v4 = *&options;
+  IOCFPlugInInterface = _IOHIDDeviceGetIOCFPlugInInterface(device);
+  if (!IOCFPlugInInterface)
+  {
+    return 0;
+  }
+
+  v9 = IOCFPlugInInterface;
+  v10 = *(*IOCFPlugInInterface + 8);
+  v11 = CFUUIDGetConstantUUIDWithBytes(0, 0x2Eu, 0xC7u, 0x8Bu, 0xDBu, 0x9Fu, 0x4Eu, 0x11u, 0xDAu, 0xB6u, 0x5Cu, 0, 0xDu, 0x93u, 0x6Du, 6u, 0xD2u);
+  v12 = CFUUIDGetUUIDBytes(v11);
+  if (v10(v9, *&v12.byte0, *&v12.byte8, &v18) || v18 == 0)
+  {
+    return 0;
+  }
+
+  v16 = __kIOHIDQueueTypeID;
+  if (!__kIOHIDQueueTypeID)
+  {
+    pthread_once(&__queueTypeInit, __IOHIDQueueRegister);
+    v16 = __kIOHIDQueueTypeID;
+  }
+
+  Instance = _IOHIDObjectCreateInstance(allocator, v16, 0xB8uLL);
+  v17 = v18;
+  if (Instance)
+  {
+    *(Instance + 22) = device;
+    *(Instance + 3) = v17;
+    *(Instance + 4) = v9;
+    (*(*v9 + 16))(v9);
+    (*(**(Instance + 3) + 40))(*(Instance + 3), depth, v4);
+  }
+
+  else
+  {
+    (*(*v18 + 24))(v18);
+  }
+
+  return Instance;
+}
+
 CFIndex IOHIDQueueGetDepth(IOHIDQueueRef queue)
 {
   v2 = 0;
@@ -3954,25 +4221,24 @@ Boolean IOHIDQueueContainsElement(IOHIDQueueRef queue, IOHIDElementRef element)
 
 void IOHIDQueueScheduleWithRunLoop(IOHIDQueueRef queue, CFRunLoopRef runLoop, CFStringRef runLoopMode)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!__IOHIDQueueSetupAsyncSupport(queue))
   {
-    IOHIDQueueScheduleWithRunLoop_cold_1(&v8, v9);
+    IOHIDQueueScheduleWithRunLoop_cold_1(&v7, v8);
   }
 
   *(queue + 16) = runLoop;
   *(queue + 17) = runLoopMode;
   v6 = *(queue + 5);
-  v7 = *MEMORY[0x1E69E9840];
 
   CFRunLoopAddSource(runLoop, v6, runLoopMode);
 }
 
-BOOL __IOHIDQueueSetupAsyncSupport(void *a1)
+BOOL __IOHIDQueueSetupAsyncSupport(__CFRunLoopSource *a1)
 {
   memset(&v2.info, 0, 72);
   v2.version = 1;
-  if (a1[16] || a1[18])
+  if (*(a1 + 16) || *(a1 + 18))
   {
     __IOHIDQueueSetupAsyncSupport_cold_1();
   }
@@ -3995,43 +4261,42 @@ void IOHIDQueueUnscheduleFromRunLoop(IOHIDQueueRef queue, CFRunLoopRef runLoop, 
 
 void IOHIDQueueSetDispatchQueue(IOHIDQueueRef queue, dispatch_queue_t dispatchQueue)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (!__IOHIDQueueSetupAsyncSupport(queue))
   {
-    IOHIDQueueScheduleWithRunLoop_cold_1(&v6, v7);
+    IOHIDQueueScheduleWithRunLoop_cold_1(&v5, v6);
   }
 
-  IOHIDQueueSetDispatchQueue_cold_1(dispatchQueue, queue, v5);
-  v4 = *MEMORY[0x1E69E9840];
+  IOHIDQueueSetDispatchQueue_cold_1(dispatchQueue, queue, v4);
 }
 
-uint64_t __IOHIDQueueSetDispatchQueue_block_invoke(uint64_t result, uint64_t a2)
+uint64_t __IOHIDQueueSetDispatchQueue_block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v2 = result;
+  v3 = result;
   if (a2 == 8)
   {
     dispatch_release(*(*(result + 32) + 152));
-    *(*(v2 + 32) + 152) = 0;
-    v4 = *(v2 + 32);
-    v5 = *(v4 + 160);
-    if (v5)
+    *(*(v3 + 32) + 152) = 0;
+    v5 = *(v3 + 32);
+    v6 = *(v5 + 160);
+    if (v6)
     {
-      (*(v5 + 16))();
-      _Block_release(*(*(v2 + 32) + 160));
-      v4 = *(v2 + 32);
-      *(v4 + 160) = 0;
+      (*(v6 + 16))();
+      _Block_release(*(*(v3 + 32) + 160));
+      v5 = *(v3 + 32);
+      *(v5 + 160) = 0;
     }
 
-    dispatch_release(*(v4 + 144));
-    v6 = *(v2 + 32);
+    dispatch_release(*(v5 + 144));
+    v7 = *(v3 + 32);
 
-    return _IOHIDObjectInternalRelease(v6);
+    return _IOHIDObjectInternalRelease(v7);
   }
 
   else if (a2 == 2)
   {
     msg = dispatch_mach_msg_get_msg();
-    return (*(*(v2 + 32) + 112))(msg, 0, 0, *(*(v2 + 32) + 120));
+    return (*(*(v3 + 32) + 112))(msg, 0, 0, *(*(v3 + 32) + 120));
   }
 
   return result;
@@ -4039,19 +4304,17 @@ uint64_t __IOHIDQueueSetDispatchQueue_block_invoke(uint64_t result, uint64_t a2)
 
 void IOHIDQueueSetCancelHandler(IOHIDQueueRef queue, dispatch_block_t handler)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   if (!handler || *(queue + 20))
   {
-    IOHIDQueueSetCancelHandler_cold_1(&v3, v4);
+    IOHIDQueueSetCancelHandler_cold_1(&v2, v3);
   }
 
   *(queue + 20) = _Block_copy(handler);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void IOHIDQueueActivate(IOHIDQueueRef queue)
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (*(queue + 18))
   {
     v1 = *(queue + 16) == 0;
@@ -4071,26 +4334,18 @@ void IOHIDQueueActivate(IOHIDQueueRef queue)
   }
 
   v2 = queue;
-  if (atomic_fetch_or(queue + 42, 1u))
+  if ((atomic_fetch_or(queue + 42, 1u) & 1) == 0)
   {
-    v6 = *MEMORY[0x1E69E9840];
-  }
-
-  else
-  {
-    v3 = *(queue + 19);
     CFMachPortGetPort(*(queue + 15));
     dispatch_mach_connect();
-    v4 = *(**(v2 + 3) + 80);
-    v5 = *MEMORY[0x1E69E9840];
+    v3 = *(**(v2 + 3) + 80);
 
-    v4();
+    v3();
   }
 }
 
 void IOHIDQueueCancel(IOHIDQueueRef queue)
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (*(queue + 18))
   {
     v1 = *(queue + 16) == 0;
@@ -4109,17 +4364,9 @@ void IOHIDQueueCancel(IOHIDQueueRef queue)
     __break(1u);
   }
 
-  v2 = queue;
-  if ((atomic_fetch_or(queue + 42, 2u) & 2) != 0)
-  {
-    v5 = *MEMORY[0x1E69E9840];
-  }
-
-  else
+  if ((atomic_fetch_or(queue + 42, 2u) & 2) == 0)
   {
     (*(**(queue + 3) + 88))(*(queue + 3), 0);
-    v3 = *(v2 + 19);
-    v4 = *MEMORY[0x1E69E9840];
 
     dispatch_mach_cancel();
   }
@@ -4138,27 +4385,27 @@ void IOHIDQueueRegisterValueAvailableCallback(IOHIDQueueRef queue, IOHIDCallback
     if (Mutable || (Mutable = CFDictionaryCreateMutable(0, 0, 0, 0), (*(queue + 23) = Mutable) != 0))
     {
       CFDictionarySetValue(Mutable, callback, context);
-      v8 = *(**(queue + 3) + 96);
+      v9 = *(**(queue + 3) + 96);
 
-      v8();
+      v9();
     }
 
     else
     {
-      v10 = _IOHIDLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _IOHIDLog(0, v8);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        IOHIDQueueRegisterValueAvailableCallback_cold_2(v10);
+        IOHIDQueueRegisterValueAvailableCallback_cold_2(v11);
       }
     }
   }
 
   else
   {
-    v9 = _IOHIDLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _IOHIDLog(queue, 0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      IOHIDQueueRegisterValueAvailableCallback_cold_3(v9);
+      IOHIDQueueRegisterValueAvailableCallback_cold_3(v10);
     }
   }
 }
@@ -4219,13 +4466,13 @@ CFArrayRef _IOHIDQueueCopyElements(CFSetRef *a1)
 
 void __IOHIDQueueExtRelease(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (*(a1 + 144))
   {
     v2 = atomic_load((a1 + 168));
     if (v2 != 3)
     {
-      __IOHIDManagerExtRelease_cold_1(&v6, v7, (a1 + 168));
+      __IOHIDManagerExtRelease_cold_1(&v5, v6, (a1 + 168));
     }
   }
 
@@ -4247,8 +4494,6 @@ void __IOHIDQueueExtRelease(uint64_t a1)
     CFRelease(v4);
     *(a1 + 184) = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __IOHIDQueueIntRelease(uint64_t a1)
@@ -4287,6 +4532,63 @@ CFTypeID IOHIDTransactionGetTypeID(void)
   }
 
   return result;
+}
+
+IOHIDTransactionRef IOHIDTransactionCreate(CFAllocatorRef allocator, IOHIDDeviceRef device, IOHIDTransactionDirectionType direction, IOOptionBits options)
+{
+  v18 = 0;
+  if (!device)
+  {
+    return 0;
+  }
+
+  v4 = *&options;
+  v5 = *&direction;
+  v6 = device;
+  IOCFPlugInInterface = _IOHIDDeviceGetIOCFPlugInInterface(device);
+  if (!IOCFPlugInInterface)
+  {
+    return 0;
+  }
+
+  v9 = IOCFPlugInInterface;
+  v10 = *(*IOCFPlugInInterface + 8);
+  v11 = CFUUIDGetConstantUUIDWithBytes(0, 0x1Fu, 0x2Eu, 0x78u, 0xFAu, 0x9Fu, 0xFAu, 0x11u, 0xDAu, 0x90u, 0xB4u, 0, 0xDu, 0x93u, 0x6Du, 6u, 0xD2u);
+  v12 = CFUUIDGetUUIDBytes(v11);
+  if (v10(v9, *&v12.byte0, *&v12.byte8, &v18) || v18 == 0)
+  {
+    return 0;
+  }
+
+  v16 = __kIOHIDTransactionTypeID;
+  if (!__kIOHIDTransactionTypeID)
+  {
+    pthread_once(&__transactionTypeInit, __IOHIDTransactionRegister);
+    v16 = __kIOHIDTransactionTypeID;
+  }
+
+  Instance = _IOHIDObjectCreateInstance(allocator, v16, 0x38uLL);
+  v17 = v18;
+  if (Instance)
+  {
+    *(Instance + 24) = v18;
+    *(Instance + 64) = v4;
+    if ((v4 & 1) == 0)
+    {
+      v6 = CFRetain(v6);
+      v17 = *(Instance + 24);
+    }
+
+    *(Instance + 56) = v6;
+    (*(*v17 + 40))(v17, v5, v4);
+  }
+
+  else
+  {
+    (*(*v18 + 24))(v18);
+  }
+
+  return Instance;
 }
 
 IOHIDTransactionDirectionType IOHIDTransactionGetDirection(IOHIDTransactionRef transaction)
@@ -4361,6 +4663,20 @@ void IOHIDTransactionUnscheduleFromRunLoop(IOHIDTransactionRef transaction, CFRu
   }
 }
 
+IOHIDValueRef IOHIDTransactionGetValue(IOHIDTransactionRef transaction, IOHIDElementRef element, IOOptionBits options)
+{
+  v4 = 0;
+  if ((*(**(transaction + 3) + 88))(*(transaction + 3), element, &v4, *&options))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return v4;
+  }
+}
+
 IOReturn IOHIDTransactionCommitWithCallback(IOHIDTransactionRef transaction, CFTimeInterval timeout, IOHIDCallback callback, void *context)
 {
   v8 = malloc_type_malloc(0x18uLL, 0xA0040114AFA65uLL);
@@ -4391,7 +4707,7 @@ void __IOHIDTransactionCommitCallback(void *a1, uint64_t a2, uint64_t a3)
       v4 = a1[1];
       if (v4)
       {
-        v4(*a1);
+        v4(*a1, a2);
       }
     }
 
@@ -4431,12 +4747,12 @@ void _IOHIDEventRemoveAttachment(uint64_t a1, const void *a2)
   }
 }
 
-uint64_t IOHIDEventSetTimeStampOfType(uint64_t result, uint64_t a2, int a3)
+uint64_t (*IOHIDEventSetTimeStampOfType(uint64_t (*result)(void), uint64_t (*a2)(void), int a3))(void)
 {
   v5 = result;
-  if (_MergedGlobals[0])
+  if (_MergedGlobals)
   {
-    result = _MergedGlobals[0]();
+    result = _MergedGlobals();
     if (result)
     {
       if (off_1ED446908)
@@ -4447,10 +4763,10 @@ uint64_t IOHIDEventSetTimeStampOfType(uint64_t result, uint64_t a2, int a3)
     }
   }
 
-  *(v5 + 8) = a2;
+  *(v5 + 1) = a2;
   if (a3 == 1)
   {
-    v6 = *(v5 + 32) | 0x80;
+    v6 = *(v5 + 8) | 0x80;
   }
 
   else
@@ -4460,10 +4776,10 @@ uint64_t IOHIDEventSetTimeStampOfType(uint64_t result, uint64_t a2, int a3)
       return result;
     }
 
-    v6 = *(v5 + 32) & 0xFFFFFF7F;
+    v6 = *(v5 + 8) & 0xFFFFFF7F;
   }
 
-  *(v5 + 32) = v6;
+  *(v5 + 8) = v6;
   return result;
 }
 
@@ -4529,23 +4845,23 @@ const __CFArray *IOHIDEventCreateDigitizerStylusEventWithPolarOrientation(uint64
   return v22;
 }
 
-uint64_t IOHIDEventCreateCollectionEventWithUsage(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, char a5, int a6)
+HIDEvent *IOHIDEventCreateCollectionEventWithUsage(uint64_t a1, uint64_t a2, __int16 a3, __int16 a4, char a5, int a6)
 {
   result = IOHIDEventCreate(a1, 37, a2, a6 | 2u);
-  v10 = *(result + 96);
-  *(v10 + 16) = a3;
-  *(v10 + 18) = a4;
-  *(v10 + 20) = a5;
+  eventData = result->_event.eventData;
+  *(eventData + 8) = a3;
+  *(eventData + 9) = a4;
+  *(eventData + 20) = a5;
   return result;
 }
 
-uint64_t IOHIDEventCreateBrightnessEvent(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6)
+HIDEvent *IOHIDEventCreateBrightnessEvent(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6)
 {
   result = IOHIDEventCreate(a1, 38, a2, a6);
-  v10 = *(result + 96);
-  *(v10 + 16) = a3;
-  *(v10 + 20) = a4;
-  *(v10 + 24) = a5;
+  eventData = result->_event.eventData;
+  *(eventData + 4) = a3;
+  *(eventData + 5) = a4;
+  *(eventData + 3) = a5;
   return result;
 }
 
@@ -4585,32 +4901,29 @@ double IOHIDEventGetPositionWithOptions(const __CFArray *a1, uint64_t a2)
       v7 = vcvtd_n_f64_s32(v6, 0x10uLL);
       if (v6 == 0x80000000)
       {
-        v5 = NAN;
+        return NAN;
       }
 
       else
       {
-        v5 = v7;
+        return v7;
       }
-
-      v8 = vceq_s32(*(v3 + 20), 0x8000000080000000);
     }
 
     else if (((1 << v4) & 0x810) != 0)
     {
       if (a2)
       {
-        v12 = IOHIDEventGetEventWithOptions(a1, v4, a2);
-        if (!v12)
+        v10 = IOHIDEventGetEventWithOptions(a1, v4, a2);
+        if (!v10)
         {
           return v5;
         }
 
-        v3 = *(v12 + 12);
+        v3 = *(v10 + 12);
       }
 
-      v5 = *(v3 + 16);
-      v9 = *(v3 + 24);
+      return *(v3 + 16);
     }
   }
 
@@ -4682,7 +4995,7 @@ unint64_t IOHIDEventGetUInt64ValueWithOptions(const __CFArray *a1, int a2, uint6
   }
 
   result = 0;
-  v7 = *(v4 + 96);
+  v7 = *(v4 + 12);
   switch(v5)
   {
     case 0u:
@@ -7858,7 +8171,7 @@ LABEL_154:
   }
 }
 
-unint64_t IOHIDEventGetIntegerMultiple(unint64_t result, int *a2, unint64_t *a3, uint64_t a4)
+uint64_t IOHIDEventGetIntegerMultiple(uint64_t result, int *a2, unint64_t *a3, uint64_t a4)
 {
   if (a4 >= 1)
   {
@@ -7878,7 +8191,7 @@ unint64_t IOHIDEventGetIntegerMultiple(unint64_t result, int *a2, unint64_t *a3,
   return result;
 }
 
-unint64_t IOHIDEventGetIntegerMultipleWithOptions(unint64_t result, int *a2, unint64_t *a3, uint64_t a4, uint64_t a5)
+uint64_t IOHIDEventGetIntegerMultipleWithOptions(uint64_t result, int *a2, unint64_t *a3, uint64_t a4, uint64_t a5)
 {
   if (a4 >= 1)
   {
@@ -7932,7 +8245,7 @@ void IOHIDEventGetFloatMultipleWithOptions(const __CFArray *a1, int *a2, __n64 *
   }
 }
 
-unint64_t IOHIDEventGetUInt64Multiple(unint64_t result, int *a2, unint64_t *a3, uint64_t a4)
+const __CFArray *IOHIDEventGetUInt64Multiple(const __CFArray *result, int *a2, const __CFArray **a3, uint64_t a4)
 {
   if (a4 >= 1)
   {
@@ -7952,7 +8265,7 @@ unint64_t IOHIDEventGetUInt64Multiple(unint64_t result, int *a2, unint64_t *a3, 
   return result;
 }
 
-unint64_t IOHIDEventGetUInt64MultipleWithOptions(unint64_t result, int *a2, unint64_t *a3, uint64_t a4, uint64_t a5)
+const __CFArray *IOHIDEventGetUInt64MultipleWithOptions(const __CFArray *result, int *a2, const __CFArray **a3, uint64_t a4, uint64_t a5)
 {
   if (a4 >= 1)
   {
@@ -8144,7 +8457,7 @@ uint64_t __IOHIDEventFixTypeEventMask(void *a1)
         if (result)
         {
           v5 = result;
-          result = __IOHIDEventFixTypeEventMask();
+          result = __IOHIDEventFixTypeEventMask(result);
           a1[3] |= *(v5 + 24);
         }
       }
@@ -9204,13 +9517,13 @@ uint64_t initrosetta_convert_to_rosetta_absolute_time_0(uint64_t a1)
   }
 
   v3 = dlsym(v2, "rosetta_convert_to_rosetta_absolute_time");
-  dynLinkrosetta_convert_to_rosetta_absolute_time_0[0] = v3;
+  dynLinkrosetta_convert_to_rosetta_absolute_time_0 = v3;
   if (!v3)
   {
     return a1;
   }
 
-  return (v3)(a1);
+  return v3(a1);
 }
 
 uint64_t initrosetta_convert_to_system_absolute_time_0(uint64_t a1)
@@ -9229,7 +9542,7 @@ uint64_t initrosetta_convert_to_system_absolute_time_0(uint64_t a1)
     return a1;
   }
 
-  return (v3)(a1);
+  return v3(a1);
 }
 
 const __CFArray *OUTLINED_FUNCTION_21()
@@ -9424,9 +9737,9 @@ uint64_t IOHIDEventSystemGetTypeID()
 
 uint64_t __IOHIDEventSystemRegister()
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   size = 4;
-  v6 = 0;
+  v7 = 0;
   if (_os_feature_enabled_impl())
   {
     v0 = 0;
@@ -9438,8 +9751,8 @@ uint64_t __IOHIDEventSystemRegister()
     v0 = v1;
     if (v1)
     {
-      IORegistryEntryGetProperty(v1, "hid-workgroup-interval", &v6, &size);
-      if (v6)
+      IORegistryEntryGetProperty(v1, "hid-workgroup-interval", &v7, &size);
+      if (v7)
       {
         goto LABEL_6;
       }
@@ -9459,357 +9772,30 @@ LABEL_8:
   qword_1ED446AC0 = hid_workloop_create("IOHIDService Enumeration - Root", 63, 2, 0);
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    memset(&v7, 0, sizeof(v7));
-    if (hid_pthread_attr_init(&v7, 63, 2))
+    memset(&v8, 0, sizeof(v8));
+    if (hid_pthread_attr_init(&v8, 63, 2))
     {
       __IOHIDEventSystemRegister_cold_1();
     }
 
-    kIOHIDServerConnectionRootQueue = hid_dispatch_pthread_root_queue_create("IOHIDEvent Server Connection - Root", &v7, 0, 2u);
+    kIOHIDServerConnectionRootQueue = hid_dispatch_pthread_root_queue_create("IOHIDEvent Server Connection - Root", &v8, 0, 2u);
     if (!kIOHIDServerConnectionRootQueue)
     {
       __IOHIDEventSystemRegister_cold_2();
     }
 
-    pthread_attr_destroy(&v7);
+    pthread_attr_destroy(&v8);
   }
 
-  v7.__sig = 0;
-  mach_timebase_info(&v7);
-  _IOHIDLoadBundles();
+  v8.__sig = 0;
+  v3 = mach_timebase_info(&v8);
+  _IOHIDLoadBundles(v3, v4);
   result = _CFRuntimeRegisterClass();
   _MergedGlobals_2 = result;
   if (v0)
   {
-    result = IOObjectRelease(v0);
+    return IOObjectRelease(v0);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
-}
-
-void __IOHIDEventSystemServicePublished(void *a1, io_iterator_t iterator)
-{
-  v4 = IOIteratorNext(iterator);
-  if (v4)
-  {
-    v5 = v4;
-    Mutable = 0;
-    v7 = MEMORY[0x1E695E9C0];
-    do
-    {
-      v8 = CFGetAllocator(a1);
-      v9 = _IOHIDServiceCreate(v8, v5);
-      if (v9)
-      {
-        v10 = v9;
-        if (Mutable || (v11 = CFGetAllocator(a1), (Mutable = CFArrayCreateMutable(v11, 0, v7)) != 0))
-        {
-          CFArrayAppendValue(Mutable, v10);
-          if (a1[55])
-          {
-            if (!_IOHIDPlugInInstanceCacheIsEmpty())
-            {
-              v12 = a1[55];
-              v13 = dispatch_time(0, 300000000000);
-              dispatch_source_set_timer(v12, v13, 0xFFFFFFFFFFFFFFFFLL, 0);
-            }
-          }
-        }
-
-        CFRelease(v10);
-      }
-
-      IOObjectRelease(v5);
-      v5 = IOIteratorNext(iterator);
-    }
-
-    while (v5);
-    if (Mutable)
-    {
-      v14 = _IOHIDLog();
-      if (os_signpost_enabled(v14))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_197195000, v14, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemAddServices", &unk_19724ED59, buf, 2u);
-      }
-
-      __IOHIDEventSystemAddServices(a1, Mutable);
-      v15 = _IOHIDLog();
-      if (os_signpost_enabled(v15))
-      {
-        *v16 = 0;
-        _os_signpost_emit_with_name_impl(&dword_197195000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemAddServices", &unk_19724ED59, v16, 2u);
-      }
-
-      CFRelease(Mutable);
-    }
-  }
-}
-
-uint64_t IOHIDEventSystemSetCallback(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  a1[13] = a3;
-  a1[14] = a2;
-  a1[15] = a4;
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemRegisterPropertyChangedNotification(uint64_t a1, const void *a2, const void *a3)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  if (!*(a1 + 32))
-  {
-    *(a1 + 32) = a2;
-    CFRetain(a2);
-  }
-
-  if (!*(a1 + 88))
-  {
-    if (a3)
-    {
-      v6 = _Block_copy(a3);
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-
-    *(a1 + 88) = v6;
-  }
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemUnregisterPropertyChangedNotification(uint64_t a1)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    CFRelease(v2);
-    *(a1 + 32) = 0;
-  }
-
-  v3 = *(a1 + 88);
-  if (v3)
-  {
-    _Block_release(v3);
-    *(a1 + 88) = 0;
-  }
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-void IOHIDEventSystemClose(uint64_t a1)
-{
-  v2 = *(a1 + 152);
-  v4 = *(a1 + 128);
-  v3 = *(a1 + 136);
-  v5 = _IOHIDLog();
-  if (os_signpost_enabled(v5))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v5, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemClose", &unk_19724ED59, buf, 2u);
-  }
-
-  IONotificationPortSetDispatchQueue(*(a1 + 96), 0);
-  IOHIDEventServerUnscheduleFromDispatchQueue(v2, v3);
-  IOHIDSessionClose(v4, a1);
-  os_unfair_recursive_lock_lock_with_options();
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 120) = 0;
-  os_unfair_recursive_lock_unlock();
-  v6 = _IOHIDLog();
-  if (os_signpost_enabled(v6))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystem - service queue termination", &unk_19724ED59, buf, 2u);
-  }
-
-  CFRetain(a1);
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 0x40000000;
-  block[2] = __IOHIDEventSystemClose_block_invoke;
-  block[3] = &__block_descriptor_tmp_19_0;
-  block[4] = a1;
-  dispatch_async(v3, block);
-  v7 = _IOHIDLog();
-  if (os_signpost_enabled(v7))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystem - enumeration queue termination", &unk_19724ED59, buf, 2u);
-  }
-
-  CFRetain(a1);
-  v8 = *(a1 + 144);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 0x40000000;
-  v10[2] = __IOHIDEventSystemClose_block_invoke_20;
-  v10[3] = &__block_descriptor_tmp_21_0;
-  v10[4] = a1;
-  dispatch_async(v8, v10);
-  v9 = _IOHIDLog();
-  if (os_signpost_enabled(v9))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystemClose", &unk_19724ED59, buf, 2u);
-  }
-}
-
-void __IOHIDEventSystemClose_block_invoke(uint64_t a1)
-{
-  v2 = _IOHIDLogCategory(0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_197195000, v2, OS_LOG_TYPE_DEFAULT, "All actions on server queue completed.", buf, 2u);
-  }
-
-  v3 = _IOHIDLog();
-  if (os_signpost_enabled(v3))
-  {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystem - service queue termination", &unk_19724ED59, v4, 2u);
-  }
-
-  CFRelease(*(a1 + 32));
-}
-
-void __IOHIDEventSystemClose_block_invoke_20(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 24);
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 0x40000000;
-  v6[2] = ____IOHIDEventSystemInvalidateServiceRemovalNotifications_block_invoke;
-  v6[3] = &__block_descriptor_tmp_63;
-  v6[4] = v2;
-  _IOHIDCFDictionaryApplyBlock(v3, v6);
-  v4 = _IOHIDLogCategory(0);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v6[0]) = 0;
-    _os_log_impl(&dword_197195000, v4, OS_LOG_TYPE_DEFAULT, "All actions on enumeration queue completed.", v6, 2u);
-  }
-
-  v5 = _IOHIDLog();
-  if (os_signpost_enabled(v5))
-  {
-    LOWORD(v6[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_197195000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "IOHIDEventSystem - enumeration queue termination", &unk_19724ED59, v6, 2u);
-  }
-
-  CFRelease(*(a1 + 32));
-}
-
-__CFArray *IOHIDEventSystemGetProperty(uint64_t a1, const void *a2)
-{
-  v2 = _IOHIDEventSystemCopyPropertyForConnection(a1, a2, *MEMORY[0x1E695E738]);
-
-  return v2;
-}
-
-CFArrayRef IOHIDEventSystemCopyConnections(char *a1, unsigned int a2)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  if (a2 <= 2 && (v4 = &a1[8 * a2], (v5 = *(v4 + 7)) != 0) && (Count = CFSetGetCount(*(v4 + 7)), (v7 = malloc_type_malloc(8 * Count, 0xC0040B8AA526DuLL)) != 0))
-  {
-    v8 = v7;
-    bzero(v7, 8 * Count);
-    CFSetGetValues(v5, v8);
-    v9 = CFGetAllocator(a1);
-    v10 = CFArrayCreate(v9, v8, Count, MEMORY[0x1E695E9C0]);
-    free(v8);
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  os_unfair_recursive_lock_unlock();
-  return v10;
-}
-
-uint64_t IOHIDEventSystemRegisterConnectionAdditionCallback(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  v10 = (a1 + 24 * a2);
-  v10[23] = a4;
-  v10[24] = a3;
-  v10[25] = a5;
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemUnregisterConnectionAdditionCallback(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  v10 = (a1 + 24 * a2);
-  if (v10[24] == a3 && v10[23] == a4 && v10[25] == a5)
-  {
-    v10[23] = 0;
-    v10[24] = 0;
-    v10[25] = 0;
-  }
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemRegisterConnectionRemovalCallback(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  v10 = (a1 + 24 * a2);
-  v10[38] = a4;
-  v10[39] = a3;
-  v10[40] = a5;
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemUnregisterConnectionRemovalCallback(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  os_unfair_recursive_lock_lock_with_options();
-  v10 = (a1 + 24 * a2);
-  if (v10[39] == a3 && v10[38] == a4 && v10[40] == a5)
-  {
-    v10[38] = 0;
-    v10[39] = 0;
-    v10[40] = 0;
-  }
-
-  return os_unfair_recursive_lock_unlock();
-}
-
-uint64_t IOHIDEventSystemCopyServices(CFDictionaryRef *a1, const __CFDictionary *a2)
-{
-  v3 = 0;
-  __IOHIDEventSystemCopyMatchingServices(a1, a2, 0, 0, 0, 0, &v3);
-  return v3;
-}
-
-void IOHIDEventSystemRegisterServicesCallback(CFDictionaryRef *a1, const __CFDictionary *a2, uint64_t a3, const void *a4, uint64_t a5)
-{
-  value = 0;
-  __IOHIDEventSystemCopyMatchingServices(a1, a2, a3, a4, a5, &value, 0);
-  if (value)
-  {
-    v10 = CFGetAllocator(a1);
-    v11 = CFStringCreateWithFormat(v10, 0, @"%p%p%p%p", a2, a3, a4, a5);
-    if (v11)
-    {
-      v12 = v11;
-      os_unfair_recursive_lock_lock_with_options();
-      CFDictionarySetValue(a1[22], v12, value);
-      os_unfair_recursive_lock_unlock();
-      CFRelease(v12);
-    }
-
-    CFRelease(value);
-  }
 }

@@ -256,7 +256,7 @@ LABEL_7:
   v14[2] = v7;
   v13[3] = @"stillTime";
   v8 = MEMORY[0x1E696AD98];
-  [(VCPProtoLivePhotoKeyFrameStillResult *)self stillTime];
+  objc_msgSend_stillTime(self);
   v9 = [v8 numberWithFloat:?];
   v14[3] = v9;
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];

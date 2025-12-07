@@ -87,7 +87,7 @@ uint64_t __58__PBBridgeWatchAttributeController_sharedDeviceController__block_in
 
       v5 = MGCopyAnswer();
       integerValue = [v5 integerValue];
-      v7 = pbb_setup_log();
+      v7 = pbb_setup_log(integerValue);
       v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
       if (integerValue)
       {
@@ -147,17 +147,18 @@ LABEL_91:
 
 LABEL_97:
                 v28 = MGCopyAnswer();
-                v2->_stingButtonColor = [v28 integerValue];
-                v29 = pbb_setup_log();
-                if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+                integerValue2 = [v28 integerValue];
+                v2->_stingButtonColor = integerValue2;
+                v30 = pbb_setup_log(integerValue2);
+                if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
                 {
                   attributesDescription = [(PBBridgeWatchAttributeController *)v2 attributesDescription];
                   *buf = 138412290;
                   v35 = attributesDescription;
-                  _os_log_impl(&dword_25DE64000, v29, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+                  _os_log_impl(&dword_25DE64000, v30, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
                 }
 
-                goto LABEL_100;
+                return v2;
               }
 
               v14 = 2;
@@ -432,8 +433,6 @@ LABEL_93:
     }
   }
 
-LABEL_100:
-  v31 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -483,7 +482,7 @@ LABEL_100:
 
     v10 = [(NRDevice *)deviceCopy valueForProperty:*MEMORY[0x277D2BAC8]];
     integerValue = [v10 integerValue];
-    v12 = pbb_setup_log();
+    v12 = pbb_setup_log(integerValue);
     v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
     if (integerValue)
     {
@@ -680,20 +679,18 @@ LABEL_100:
 
     self->_internalSize = v17;
 
-    v25 = pbb_setup_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = pbb_setup_log(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       attributesDescription = [(PBBridgeWatchAttributeController *)self attributesDescription];
       v29 = 138543362;
       v30 = attributesDescription;
-      _os_log_impl(&dword_25DE64000, v25, OS_LOG_TYPE_DEFAULT, "Populating With Device: %{public}@", &v29, 0xCu);
+      _os_log_impl(&dword_25DE64000, v26, OS_LOG_TYPE_DEFAULT, "Populating With Device: %{public}@", &v29, 0xCu);
     }
   }
 
   device = self->_device;
   self->_device = deviceCopy;
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (PDRDevice)pdrDevice
@@ -783,7 +780,7 @@ LABEL_100:
 + (id)resourceString:(id)string material:(unint64_t)material size:(unint64_t)size forAttributes:(unint64_t)attributes
 {
   attributesCopy = attributes;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v9 = [MEMORY[0x277CCAB68] stringWithString:string];
   v10 = v9;
   if ((attributesCopy & 2) != 0)
@@ -817,7 +814,7 @@ LABEL_100:
 
   v13 = v12[v11];
 LABEL_10:
-  [v9 appendString:v13];
+  v9 = [v9 appendString:v13];
 LABEL_11:
   if ((attributesCopy & 4) != 0)
   {
@@ -831,18 +828,16 @@ LABEL_11:
       v14 = off_2799F4390[size - 1];
     }
 
-    [v10 appendString:v14];
+    v9 = [v10 appendString:v14];
   }
 
-  v15 = pbb_setup_log();
+  v15 = pbb_setup_log(v9);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = v10;
-    _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "+resourceString %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v10;
+    _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "+resourceString %@", &v17, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -863,36 +858,38 @@ LABEL_11:
 - (id)resourceString:(id)string forAttributes:(unint64_t)attributes
 {
   attributesCopy = attributes;
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   stringCopy = string;
+  v7 = stringCopy;
   if (self->_material - 29 <= 0xFFFFFFFFFFFFFFE3)
   {
-    v7 = pbb_setup_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pbb_setup_log(stringCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       material = self->_material;
-      v20 = 134217984;
-      v21 = material;
-      _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "Unknown Material: %lu -- Will fallback to M3.", &v20, 0xCu);
+      v21 = 134217984;
+      v22 = material;
+      _os_log_impl(&dword_25DE64000, v8, OS_LOG_TYPE_DEFAULT, "Unknown Material: %lu -- Will fallback to M3.", &v21, 0xCu);
     }
   }
 
-  v9 = [(NSCache *)self->_stringCache objectForKey:stringCopy];
-  if (!v9)
+  v10 = [(NSCache *)self->_stringCache objectForKey:v7];
+  v11 = v10;
+  if (!v10)
   {
-    v10 = [MEMORY[0x277CCAB68] stringWithString:stringCopy];
-    v9 = v10;
+    v12 = [MEMORY[0x277CCAB68] stringWithString:v7];
+    v11 = v12;
     if ((attributesCopy & 2) != 0)
     {
-      v14 = self->_material - 1;
-      if (v14 >= 0x26)
+      v16 = self->_material - 1;
+      if (v16 >= 0x26)
       {
-        v13 = @"-M3";
+        v15 = @"-M3";
       }
 
       else
       {
-        v13 = off_2799F4260[v14];
+        v15 = off_2799F4260[v16];
       }
     }
 
@@ -903,58 +900,56 @@ LABEL_11:
 LABEL_17:
         if ((attributesCopy & 4) != 0)
         {
-          v15 = self->_internalSize - 1;
-          if (v15 > 0x19)
+          v17 = self->_internalSize - 1;
+          if (v17 > 0x19)
           {
-            v16 = @"-448h";
+            v18 = @"-448h";
           }
 
           else
           {
-            v16 = off_2799F4390[v15];
+            v18 = off_2799F4390[v17];
           }
 
-          [v9 appendString:v16];
+          [v11 appendString:v18];
         }
 
-        [(NSCache *)self->_stringCache setObject:v9 forKey:stringCopy];
+        v10 = [(NSCache *)self->_stringCache setObject:v11 forKey:v7];
         goto LABEL_23;
       }
 
       edition = self->_edition;
-      v12 = @"-E2";
+      v14 = @"-E2";
       if (edition == 3)
       {
-        v12 = @"-E3";
+        v14 = @"-E3";
       }
 
       if (edition == 1)
       {
-        v13 = @"-E1";
+        v15 = @"-E1";
       }
 
       else
       {
-        v13 = v12;
+        v15 = v14;
       }
     }
 
-    [v10 appendString:v13];
+    [v12 appendString:v15];
     goto LABEL_17;
   }
 
 LABEL_23:
-  v17 = pbb_setup_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v19 = pbb_setup_log(v10);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = 138412290;
-    v21 = v9;
-    _os_log_impl(&dword_25DE64000, v17, OS_LOG_TYPE_DEFAULT, "-resourceString %@", &v20, 0xCu);
+    v21 = 138412290;
+    v22 = v11;
+    _os_log_impl(&dword_25DE64000, v19, OS_LOG_TYPE_DEFAULT, "-resourceString %@", &v21, 0xCu);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v11;
 }
 
 + (id)materialKeyColorForMaterial:(unint64_t)material

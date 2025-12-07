@@ -38,11 +38,10 @@
   [v3 setDateFormat:v6];
   v7 = [v3 stringFromDate:self->_eventTime];
   v8 = MEMORY[0x277CCACA8];
-  eventType = self->_eventType;
-  v10 = ATXNEventTypeToString();
-  v11 = [v8 stringWithFormat:@"%@: (%@, %@, %@)", v7, v10, self->_notificationId, self->_bundleId];
+  v9 = ATXNEventTypeToString();
+  v10 = [v8 stringWithFormat:@"%@: (%@, %@, %@)", v7, v9, self->_notificationId, self->_bundleId];
 
-  return v11;
+  return v10;
 }
 
 @end

@@ -45,6 +45,8 @@
 - (void)removeVoicemailFromTrashWithIdentifier:(int64_t)identifier;
 - (void)reportTranscriptionProblemForIdentifier:(int64_t)identifier;
 - (void)reportTranscriptionProblemForUUID:(id)d;
+- (void)reportTranscriptionRatedAccurate:(BOOL)accurate forIdentifier:(int64_t)identifier;
+- (void)reportTranscriptionRatedAccurateForUUID:(BOOL)d forVoicemailUUID:(id)iD;
 - (void)requestInitialState:(id)state;
 - (void)requestTranscriptionProgress:(id)progress;
 - (void)resetNetworkSettings;
@@ -60,8 +62,10 @@
 - (void)setTrashedForIdentifiers:(id)identifiers;
 - (void)storageUsageForAccountUUID:(id)d reply:(id)reply;
 - (void)synchronize;
+- (void)transcriptionAvailabilityChanged:(BOOL)changed;
 - (void)transcriptionController:(id)controller transcriptionProgressFractionCompletedChanged:(double)changed;
 - (void)transcriptionController:(id)controller transcriptionProgressTotalUnitCountChanged:(int64_t)changed;
+- (void)transcriptionController:(id)controller transcriptionStatusChanged:(BOOL)changed;
 @end
 
 @implementation VMVoicemailServiceController
@@ -111,9 +115,9 @@
   obj = controller;
   serviceCopy = service;
   clientCopy = client;
-  v43.receiver = self;
-  v43.super_class = VMVoicemailServiceController;
-  v17 = [(VMVoicemailServiceController *)&v43 init];
+  v44.receiver = self;
+  v44.super_class = VMVoicemailServiceController;
+  v17 = [(VMVoicemailServiceController *)&v44 init];
   if (v17)
   {
     vm_classIdentifier = [objc_opt_class() vm_classIdentifier];
@@ -166,10 +170,10 @@
     v33 = +[NSNotificationCenter defaultCenter];
     [v33 addObserver:v17 selector:"_handleVoicemailStorageUsageChanged:" name:@"VVServiceMailboxUsageChangedNotification" object:0];
 
-    v34 = sub_10000294C();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_10000294C(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = objc_opt_class();
+      v36 = objc_opt_class();
       if (*(&v17->procName.__rep_.__l + 23) < 0)
       {
         p_procName = *p_procName;
@@ -178,16 +182,16 @@
       procPid = v17->procPid;
       connection = [(VMVoicemailServiceController *)v17 connection];
       *buf = 138413314;
-      *&buf[4] = v35;
+      *&buf[4] = v36;
       *&buf[12] = 2048;
       *&buf[14] = v17;
       *&buf[22] = 2080;
-      v45 = p_procName;
-      v46 = 1024;
-      v47 = procPid;
-      v48 = 2048;
-      v49 = connection;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "<%@ %p> for client [%s:%d] (conn=%p) Created", buf, 0x30u);
+      v46 = p_procName;
+      v47 = 1024;
+      v48 = procPid;
+      v49 = 2048;
+      v50 = connection;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "<%@ %p> for client [%s:%d] (conn=%p) Created", buf, 0x30u);
     }
   }
 
@@ -204,10 +208,10 @@
   WeakRetained = objc_loadWeakRetained(&self->_transcriptionService);
   [WeakRetained removeTranscriptionDelegate:self];
 
-  v6 = sub_10000294C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_10000294C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = objc_opt_class();
+    v8 = objc_opt_class();
     p_procName = &self->procName;
     if (*(&self->procName.__rep_.__l + 23) < 0)
     {
@@ -217,21 +221,21 @@
     procPid = self->procPid;
     connection = [(VMVoicemailServiceController *)self connection];
     *buf = 138413314;
-    v13 = v7;
-    v14 = 2048;
+    v14 = v8;
+    v15 = 2048;
     selfCopy = self;
-    v16 = 2080;
-    v17 = p_procName;
-    v18 = 1024;
-    v19 = procPid;
-    v20 = 2048;
-    v21 = connection;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "<%@ %p> for client [%s:%d] (conn=%p) Deleted", buf, 0x30u);
+    v17 = 2080;
+    v18 = p_procName;
+    v19 = 1024;
+    v20 = procPid;
+    v21 = 2048;
+    v22 = connection;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "<%@ %p> for client [%s:%d] (conn=%p) Deleted", buf, 0x30u);
   }
 
-  v11.receiver = self;
-  v11.super_class = VMVoicemailServiceController;
-  [(VMVoicemailServiceController *)&v11 dealloc];
+  v12.receiver = self;
+  v12.super_class = VMVoicemailServiceController;
+  [(VMVoicemailServiceController *)&v12 dealloc];
 }
 
 - (NSString)description
@@ -327,6 +331,111 @@
     v4 = [connection remoteObjectProxyWithErrorHandler:&stru_1000ED9B8];
     carrierServicesController = [(VMVoicemailServiceController *)self carrierServicesController];
     [v4 setOnline:{objc_msgSend(carrierServicesController, "isOnline")}];
+  }
+}
+
+- (void)transcriptionAvailabilityChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v5 = vm_vmd_log();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    p_procName = &self->procName;
+    if (*(&self->procName.__rep_.__l + 23) < 0)
+    {
+      p_procName = p_procName->__rep_.__l.__data_;
+    }
+
+    procPid = self->procPid;
+    connection = [(VMVoicemailServiceController *)self connection];
+    v10 = asNSStringBOOL();
+    v13 = 138413570;
+    v14 = v6;
+    v15 = 2048;
+    selfCopy = self;
+    v17 = 2080;
+    v18 = p_procName;
+    v19 = 1024;
+    v20 = procPid;
+    v21 = 2048;
+    v22 = connection;
+    v23 = 2112;
+    v24 = v10;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "<%@ %p> updating client [%s:%d] (conn=%p) transcription availability status changed to %@", &v13, 0x3Au);
+  }
+
+  if (self->fStateSyncRequested)
+  {
+    connection2 = [(VMVoicemailServiceController *)self connection];
+    v12 = [connection2 remoteObjectProxyWithErrorHandler:&stru_1000ED9D8];
+    [v12 setTranscriptionServiceAvailable:changedCopy];
+  }
+}
+
+- (void)transcriptionController:(id)controller transcriptionStatusChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  controllerCopy = controller;
+  if (changedCopy)
+  {
+    transcriptionService = [(VMVoicemailServiceController *)self transcriptionService];
+    getTranscriptionProgress = [transcriptionService getTranscriptionProgress];
+    v10 = v9;
+    v11 = *&getTranscriptionProgress;
+
+    v12 = [NSNumber numberWithDouble:v11];
+    v13 = [NSNumber numberWithUnsignedLong:v10];
+    v14 = [NSString stringWithFormat:@" (fractionCompleted %@, totalUnitCount %@)", v12, v13];
+  }
+
+  else
+  {
+    v13 = 0;
+    v12 = 0;
+    v14 = &stru_1000F0098;
+  }
+
+  v15 = vm_vmd_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    v23 = v14;
+    v24 = controllerCopy;
+    v16 = objc_opt_class();
+    p_procName = &self->procName;
+    if (*(&self->procName.__rep_.__l + 23) < 0)
+    {
+      p_procName = p_procName->__rep_.__l.__data_;
+    }
+
+    procPid = self->procPid;
+    connection = [(VMVoicemailServiceController *)self connection];
+    v20 = asNSStringBOOL();
+    *buf = 138413826;
+    v26 = v16;
+    v27 = 2048;
+    selfCopy = self;
+    v29 = 2080;
+    v30 = p_procName;
+    v31 = 1024;
+    v32 = procPid;
+    v33 = 2048;
+    v34 = connection;
+    v35 = 2112;
+    v36 = v20;
+    v37 = 2112;
+    v14 = v23;
+    v38 = v23;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "<%@ %p> updating client [%s:%d] (conn=%p) transcribing status changed to %@%@", buf, 0x44u);
+
+    controllerCopy = v24;
+  }
+
+  if (self->fStateSyncRequested)
+  {
+    connection2 = [(VMVoicemailServiceController *)self connection];
+    v22 = [connection2 remoteObjectProxyWithErrorHandler:&stru_1000ED9F8];
+    [v22 setTranscribing:changedCopy fractionCompleted:v12 totalUnitCount:v13];
   }
 }
 
@@ -712,6 +821,85 @@
   }
 }
 
+- (void)reportTranscriptionRatedAccurate:(BOOL)accurate forIdentifier:(int64_t)identifier
+{
+  accurateCopy = accurate;
+  v7 = vm_vmd_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = asNSStringBOOL();
+    v9 = [NSNumber numberWithInteger:identifier];
+    v15 = 138412546;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Reporting transcription marked accurate (%@) for record <identifier=%@>", &v15, 0x16u);
+  }
+
+  v10 = VMStoreCopyRecordWithIdentifier();
+  if (v10)
+  {
+    carrierServicesController = [(VMVoicemailServiceController *)self carrierServicesController];
+    [carrierServicesController reportTranscriptionRatedAccurate:accurateCopy forRecord:v10];
+
+    CFRelease(v10);
+  }
+
+  else
+  {
+    v12 = vm_vmd_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = asNSStringBOOL();
+      v14 = [NSNumber numberWithInteger:identifier];
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Reporting transcription accurate (%@) for record <identifier=%@> failed with error record not found", &v15, 0x16u);
+    }
+  }
+}
+
+- (void)reportTranscriptionRatedAccurateForUUID:(BOOL)d forVoicemailUUID:(id)iD
+{
+  dCopy = d;
+  iDCopy = iD;
+  v7 = vm_vmd_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = asNSStringBOOL();
+    v13 = 138412546;
+    v14 = v8;
+    v15 = 2112;
+    v16 = iDCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Reporting transcription marked accurate (%@) for record <uuid identifier=%@>", &v13, 0x16u);
+  }
+
+  v9 = sub_10008C108(iDCopy);
+  if (v9)
+  {
+    carrierServicesController = [(VMVoicemailServiceController *)self carrierServicesController];
+    [carrierServicesController reportTranscriptionRatedAccurate:dCopy forRecord:v9];
+
+    CFRelease(v9);
+  }
+
+  else
+  {
+    v11 = vm_vmd_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = asNSStringBOOL();
+      v13 = 138412546;
+      v14 = v12;
+      v15 = 2112;
+      v16 = iDCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Reporting transcription marked accurate (%@) for record <uuid identifier=%@> failed with error record not found", &v13, 0x16u);
+    }
+  }
+}
+
 - (void)obliterate
 {
   v2 = vm_vmd_log();
@@ -765,49 +953,49 @@
 
   v12 = [NSUUID alloc];
   labelID = [firstObject labelID];
-  v52 = [v12 initWithUUIDString:labelID];
+  v51 = [v12 initWithUUIDString:labelID];
 
   phoneNumber = [firstObject phoneNumber];
   date = [voicemailCopy date];
   [date timeIntervalSince1970];
   v16 = v15;
   senderDestinationID = [voicemailCopy senderDestinationID];
-  v50 = [NSString stringWithFormat:@"%f_%@", v16, senderDestinationID];
+  v49 = [NSString stringWithFormat:@"%f_%@", v16, senderDestinationID];
 
-  remoteUID = [voicemailCopy remoteUID];
+  LODWORD(senderDestinationID) = [voicemailCopy remoteUID];
   date2 = [voicemailCopy date];
   [date2 timeIntervalSince1970];
-  v21 = v20;
+  v20 = v19;
   senderDestinationID2 = [voicemailCopy senderDestinationID];
   callbackDestinationID = [voicemailCopy callbackDestinationID];
-  [voicemailCopy duration];
-  v25 = VMStoreCreateAndAddRecord(remoteUID, v21, v50, senderDestinationID2, callbackDestinationID, v24, 0, 0, phoneNumber, v52);
+  objc_msgSend_duration(voicemailCopy);
+  v24 = VMStoreCreateAndAddRecord(senderDestinationID, v20, v49, senderDestinationID2, callbackDestinationID, v23, 0, 0, phoneNumber, v51);
 
   VMStoreSave();
-  v26 = VMStoreRecordCopyDescription(v25);
+  v25 = VMStoreRecordCopyDescription(v24);
   dataURL = [voicemailCopy dataURL];
   path = [dataURL path];
 
-  v49 = VMStoreRecordCopyDataPath();
-  v29 = +[NSFileManager defaultManager];
-  LODWORD(v12) = [v29 fileExistsAtPath:path];
+  v48 = VMStoreRecordCopyDataPath(v24);
+  v28 = +[NSFileManager defaultManager];
+  LODWORD(v12) = [v28 fileExistsAtPath:path];
 
   if (v12)
   {
-    v30 = +[NSFileManager defaultManager];
-    v55 = 0;
-    v31 = [v30 copyItemAtPath:path toPath:v49 error:&v55];
-    v32 = v55;
+    v29 = +[NSFileManager defaultManager];
+    v54 = 0;
+    v30 = [v29 copyItemAtPath:path toPath:v48 error:&v54];
+    v31 = v54;
 
-    if (v31)
+    if (v30)
     {
-      VMStoreRecordSetFlag(v52, v25, 2u);
+      VMStoreRecordSetFlag(v51, v24, 2u);
     }
 
     else
     {
-      v35 = vm_vmd_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v34 = vm_vmd_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_10009BA54();
       }
@@ -816,39 +1004,39 @@
 
   else
   {
-    v33 = vm_vmd_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = vm_vmd_log();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_10009B9EC();
     }
 
-    Flags = VMStoreRecordGetFlags(v25);
-    VMStoreRecordSetFlags(v52, v25, Flags & 0xFFFFFFFD);
+    Flags = VMStoreRecordGetFlags(v24);
+    VMStoreRecordSetFlags(v51, v24, Flags & 0xFFFFFFFD);
   }
 
   transcriptionURL = [voicemailCopy transcriptionURL];
   path2 = [transcriptionURL path];
 
-  v38 = VMStoreRecordCopyTranscriptionPath();
-  v39 = +[NSFileManager defaultManager];
-  v40 = [v39 fileExistsAtPath:path2];
+  v37 = VMStoreRecordCopyTranscriptionPath(v24);
+  v38 = +[NSFileManager defaultManager];
+  v39 = [v38 fileExistsAtPath:path2];
 
-  if (v40)
+  if (v39)
   {
-    v41 = +[NSFileManager defaultManager];
-    v54 = 0;
-    v42 = [v41 copyItemAtPath:path2 toPath:v38 error:&v54];
-    v43 = v54;
+    v40 = +[NSFileManager defaultManager];
+    v53 = 0;
+    v41 = [v40 copyItemAtPath:path2 toPath:v37 error:&v53];
+    v42 = v53;
 
-    if (v42)
+    if (v41)
     {
-      VMStoreRecordSetFlag(v52, v25, 0x100u);
+      VMStoreRecordSetFlag(v51, v24, 0x100u);
     }
 
     else
     {
-      v46 = vm_vmd_log();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+      v45 = vm_vmd_log();
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         sub_10009BB24();
       }
@@ -857,30 +1045,30 @@
 
   else
   {
-    v44 = vm_vmd_log();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    v43 = vm_vmd_log();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       sub_10009BABC();
     }
 
-    v45 = VMStoreRecordGetFlags(v25);
-    VMStoreRecordSetFlags(v52, v25, v45 & 0xFFFE6DFF | 0x1000);
+    v44 = VMStoreRecordGetFlags(v24);
+    VMStoreRecordSetFlags(v51, v24, v44 & 0xFFFE6DFF | 0x1000);
   }
 
-  v47 = VMStoreRecordCopyDescription(v25);
+  v46 = VMStoreRecordCopyDescription(v24);
 
-  v48 = vm_vmd_log();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v47 = vm_vmd_log();
+  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v57 = v47;
-    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Created record %@", buf, 0xCu);
+    v56 = v46;
+    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Created record %@", buf, 0xCu);
   }
 
   VMStoreSave();
-  if (v25)
+  if (v24)
   {
-    VMStoreRecordRelease(v25);
+    VMStoreRecordRelease(v24);
   }
 }
 
@@ -1171,7 +1359,7 @@
   else
   {
     invocationDescription = [invocationCopy invocationDescription];
-    v12 = sub_10000294C();
+    v12 = sub_10000294C(invocationDescription);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       p_procName = &self->procName;

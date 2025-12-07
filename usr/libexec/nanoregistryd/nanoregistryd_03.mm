@@ -1,40 +1,3 @@
-void sub_10009714C(uint64_t a1, void *a2)
-{
-  v6 = a2;
-  v3 = [v6 statusCodeVoteNumber];
-
-  if (v3)
-  {
-    v4 = *(a1 + 32);
-    v5 = [v6 statusCodeVoteNumber];
-    [v4 addObject:v5];
-  }
-}
-
-id sub_100097DB8(uint64_t a1)
-{
-  v2 = sub_1000A98C0();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-
-  if (v3)
-  {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(a1 + 32);
-      v9 = 134217984;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "EPPeripheralConnectorManager[%p]: Connection persistence timer timed out!", &v9, 0xCu);
-    }
-  }
-
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 96);
-  *(v6 + 96) = 0;
-
-  return [*(a1 + 32) update];
-}
-
 void sub_100098FF8(id a1)
 {
   v1 = objc_alloc_init(EPPeripheralConnectorManagerFactory);
@@ -170,15 +133,15 @@ void sub_10009A6DC(uint64_t a1)
   [v1 pairingCompleted];
 }
 
-void sub_10009A720(uint64_t a1)
+void sub_10009A720(uint64_t a1, uint64_t a2)
 {
-  v2 = networkrelay_pairing_log_handle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = networkrelay_pairing_log_handle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 32) UUIDString];
-    v4 = 138543362;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Device %{public}@ activated", &v4, 0xCu);
+    v4 = [*(*(a1 + 32) + 32) UUIDString];
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Device %{public}@ activated", &v5, 0xCu);
   }
 }
 
@@ -207,18 +170,17 @@ void sub_10009AA24(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10009AB48(uint64_t a1)
+void sub_10009AB48(uint64_t a1, uint64_t a2)
 {
-  v2 = networkrelay_pairing_log_handle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = networkrelay_pairing_log_handle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 40);
+    v4 = *(*(a1 + 32) + 40);
     *buf = 138412290;
-    v7 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingConnectPairedDevice %@", buf, 0xCu);
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingConnectPairedDevice %@", buf, 0xCu);
   }
 
-  v4 = *(*(a1 + 32) + 40);
   v5 = +[EPFactory queue];
   IDSLocalPairingConnectPairedDevice();
 }
@@ -271,31 +233,30 @@ void sub_10009AD7C(uint64_t a1, int a2)
   }
 }
 
-void sub_10009AE9C(uint64_t a1)
+void sub_10009AE9C(uint64_t a1, uint64_t a2)
 {
-  v2 = networkrelay_pairing_log_handle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = networkrelay_pairing_log_handle();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(*(a1 + 32) + 40) UUIDString];
-    v4 = v3;
+    v4 = [*(*(a1 + 32) + 40) UUIDString];
+    v5 = v4;
     if (*(*(a1 + 32) + 24))
     {
-      v5 = "PRESENT";
+      v6 = "PRESENT";
     }
 
     else
     {
-      v5 = "ABSENT";
+      v6 = "ABSENT";
     }
 
     *buf = 138412546;
-    v11 = v3;
+    v11 = v4;
     v12 = 2080;
-    v13 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s", buf, 0x16u);
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s", buf, 0x16u);
   }
 
-  v6 = *(a1 + 40);
   v8 = *(a1 + 32);
   v9 = *(a1 + 48);
   v7 = [EPFactory queue:_NSConcreteStackBlock];
@@ -430,14 +391,14 @@ void sub_10009B540(uint64_t a1)
   [v1 pairingCompleted];
 }
 
-void sub_10009B710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10009B710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -626,28 +587,29 @@ void sub_10009C754(uint64_t a1)
 void sub_10009CA54(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000034AC();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = sub_1000034AC(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = sub_1000034AC();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000034AC(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
+        v9 = *(a1 + 32);
         *buf = 138412546;
-        v11 = v7;
-        v12 = 2112;
-        v13 = v3;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "NetworkRelayPair: Ghost device UUID %@ matches paired NR device %@", buf, 0x16u);
+        v13 = v9;
+        v14 = 2112;
+        v15 = v4;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "NetworkRelayPair: Ghost device UUID %@ matches paired NR device %@", buf, 0x16u);
       }
     }
 
-    v8 = [*(a1 + 40) pairingDelegate];
-    LOBYTE(v9) = 0;
-    [v8 unpairDeviceWithPairingID:v3 obliterationString:0 shouldBrick:&__kCFBooleanFalse storeUnpair:&__kCFBooleanFalse migrationUnpair:&__kCFBooleanFalse shouldPreserveESim:&__kCFBooleanFalse pairingReport:0 remoteUnpairRequestUUID:0 shouldConnectionWithDevice:v9];
+    v10 = [*(a1 + 40) pairingDelegate];
+    LOBYTE(v11) = 0;
+    [v10 unpairDeviceWithPairingID:v4 obliterationString:0 shouldBrick:&__kCFBooleanFalse storeUnpair:&__kCFBooleanFalse migrationUnpair:&__kCFBooleanFalse shouldPreserveESim:&__kCFBooleanFalse pairingReport:0 remoteUnpairRequestUUID:0 shouldConnectionWithDevice:v11];
   }
 }
 
@@ -1033,47 +995,47 @@ void sub_10009FFE8(_Unwind_Exception *a1)
 
 void sub_1000A0008(uint64_t a1)
 {
-  v2 = sub_1000A98C0();
+  v2 = sub_1000A98C0(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000A98C0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Unpair Timeout- giving up", &v16, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Unpair Timeout- giving up", &v19, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = objc_loadWeakRetained(WeakRetained + 5);
-  v7 = objc_opt_respondsToSelector();
+  v7 = objc_loadWeakRetained(WeakRetained + 5);
+  v8 = objc_opt_respondsToSelector();
 
-  if (v7)
+  if (v8)
   {
-    v8 = sub_1000A98C0();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v10 = sub_1000A98C0(v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v9)
+    if (v11)
     {
-      v10 = sub_1000A98C0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000A98C0(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = objc_loadWeakRetained(WeakRetained + 5);
-        v12 = objc_opt_class();
-        v13 = NSStringFromClass(v12);
         v14 = objc_loadWeakRetained(WeakRetained + 5);
-        v16 = 138412546;
-        v17 = v13;
-        v18 = 2048;
-        v19 = v14;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Calling unpairerBluetoothMayHaveFailed: on %@[%p]", &v16, 0x16u);
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        v17 = objc_loadWeakRetained(WeakRetained + 5);
+        v19 = 138412546;
+        v20 = v16;
+        v21 = 2048;
+        v22 = v17;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Calling unpairerBluetoothMayHaveFailed: on %@[%p]", &v19, 0x16u);
       }
     }
 
-    v15 = objc_loadWeakRetained(WeakRetained + 5);
-    [v15 unpairerBluetoothMayHaveFailed:WeakRetained];
+    v18 = objc_loadWeakRetained(WeakRetained + 5);
+    [v18 unpairerBluetoothMayHaveFailed:WeakRetained];
   }
 
   if (WeakRetained)
@@ -1536,7 +1498,7 @@ void sub_1000A3128(void *a1)
 {
   if (!a1[4])
   {
-    v13 = 0;
+    v12 = 0;
     goto LABEL_18;
   }
 
@@ -1555,18 +1517,17 @@ void sub_1000A3128(void *a1)
       v7 = nr_daemon_log();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = a1[4];
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
-        v11 = a1[4];
-        v12 = a1[5];
-        v26 = 138412802;
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
+        v10 = a1[4];
+        v11 = a1[5];
+        v24 = 138412802;
+        v25 = v9;
+        v26 = 2048;
         v27 = v10;
-        v28 = 2048;
+        v28 = 2112;
         v29 = v11;
-        v30 = 2112;
-        v31 = v12;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Object %@[%p] already in %@", &v26, 0x20u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Object %@[%p] already in %@", &v24, 0x20u);
       }
     }
 
@@ -1577,65 +1538,64 @@ void sub_1000A3128(void *a1)
   {
     if (v6)
     {
-      v14 = nr_daemon_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = nr_daemon_log();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = a1[4];
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = a1[4];
-        v19 = a1[5];
-        v26 = 138412802;
-        v27 = v17;
-        v28 = 2048;
-        v29 = v18;
-        v30 = 2112;
-        v31 = v19;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Object %@[%p] added to %@", &v26, 0x20u);
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v16 = a1[4];
+        v17 = a1[5];
+        v24 = 138412802;
+        v25 = v15;
+        v26 = 2048;
+        v27 = v16;
+        v28 = 2112;
+        v29 = v17;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Object %@[%p] added to %@", &v24, 0x20u);
       }
     }
 
     [*(a1[5] + 48) setObject:a1[4] forKey:v2];
     os_unfair_lock_unlock((a1[5] + 44));
-    v20 = *(a1[5] + 56);
-    if (v20)
+    v18 = *(a1[5] + 56);
+    if (v18)
     {
-      (*(v20 + 16))(v20, a1[4]);
+      (*(v18 + 16))(v18, a1[4]);
     }
 
     if (!v4)
     {
-      v25 = *(a1[5] + 16);
-      if (v25)
+      v23 = *(a1[5] + 16);
+      if (v23)
       {
-        (*(v25 + 16))();
+        (*(v23 + 16))();
       }
 
-      v13 = 1;
+      v12 = 1;
       goto LABEL_17;
     }
   }
 
-  v13 = 0;
+  v12 = 0;
 LABEL_17:
 
 LABEL_18:
   if (a1[6])
   {
-    v21 = nr_daemon_log();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    v19 = nr_daemon_log();
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-    if (v22)
+    if (v20)
     {
-      v23 = nr_daemon_log();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v21 = nr_daemon_log();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = a1[5];
-        v26 = 138412546;
-        v27 = v24;
-        v28 = 1024;
-        LODWORD(v29) = v13;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%@ calling allocation block with %{BOOL}d", &v26, 0x12u);
+        v22 = a1[5];
+        v24 = 138412546;
+        v25 = v22;
+        v26 = 1024;
+        LODWORD(v27) = v12;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ calling allocation block with %{BOOL}d", &v24, 0x12u);
       }
     }
 
@@ -1662,120 +1622,118 @@ void sub_1000A35C0(void *a1)
         v7 = nr_daemon_log();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = a1[4];
-          v9 = objc_opt_class();
-          v10 = NSStringFromClass(v9);
-          v11 = a1[4];
-          v12 = a1[5];
-          v40 = 138412802;
+          v8 = objc_opt_class();
+          v9 = NSStringFromClass(v8);
+          v10 = a1[4];
+          v11 = a1[5];
+          v38 = 138412802;
+          v39 = v9;
+          v40 = 2048;
           v41 = v10;
-          v42 = 2048;
+          v42 = 2112;
           v43 = v11;
-          v44 = 2112;
-          v45 = v12;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Object %@[%p] removed from %@", &v40, 0x20u);
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Object %@[%p] removed from %@", &v38, 0x20u);
         }
       }
 
       [*(a1[5] + 48) removeObjectForKey:v2];
       os_unfair_lock_unlock((a1[5] + 44));
-      v13 = a1[6];
+      v12 = a1[6];
       if (v4 == 1)
       {
-        if (v13)
+        if (v12)
         {
-          v14 = nr_daemon_log();
-          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+          v13 = nr_daemon_log();
+          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-          if (v15)
+          if (v14)
           {
-            v16 = nr_daemon_log();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v15 = nr_daemon_log();
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
             {
-              v17 = a1[5];
-              v40 = 138412290;
-              v41 = v17;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "%@ emptied, calling clean-up block with YES", &v40, 0xCu);
+              v16 = a1[5];
+              v38 = 138412290;
+              v39 = v16;
+              _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ emptied, calling clean-up block with YES", &v38, 0xCu);
             }
           }
 
           (*(a1[6] + 16))();
         }
 
-        v18 = *(a1[5] + 24);
-        if (v18)
+        v17 = *(a1[5] + 24);
+        if (v17)
         {
-          (*(v18 + 16))();
+          (*(v17 + 16))();
         }
       }
 
-      else if (v13)
+      else if (v12)
       {
-        v35 = nr_daemon_log();
-        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+        v33 = nr_daemon_log();
+        v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
 
-        if (v36)
+        if (v34)
         {
-          v37 = nr_daemon_log();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+          v35 = nr_daemon_log();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
           {
-            v38 = a1[5];
-            v40 = 138412290;
-            v41 = v38;
-            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%@ not emptied, calling clean-up block with NO", &v40, 0xCu);
+            v36 = a1[5];
+            v38 = 138412290;
+            v39 = v36;
+            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%@ not emptied, calling clean-up block with NO", &v38, 0xCu);
           }
         }
 
         (*(a1[6] + 16))();
       }
 
-      v39 = *(a1[5] + 64);
-      if (v39)
+      v37 = *(a1[5] + 64);
+      if (v37)
       {
-        (*(v39 + 16))(v39, a1[4]);
+        (*(v37 + 16))(v37, a1[4]);
       }
     }
 
     else
     {
-      v23 = nr_daemon_log();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v22 = nr_daemon_log();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-      if (v24)
+      if (v23)
       {
-        v25 = nr_daemon_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v24 = nr_daemon_log();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = a1[4];
-          v27 = objc_opt_class();
-          v28 = NSStringFromClass(v27);
-          v29 = a1[4];
-          v30 = a1[5];
-          v40 = 138412802;
-          v41 = v28;
-          v42 = 2048;
-          v43 = v29;
-          v44 = 2112;
-          v45 = v30;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Object %@[%p] not in %@", &v40, 0x20u);
+          v25 = objc_opt_class();
+          v26 = NSStringFromClass(v25);
+          v27 = a1[4];
+          v28 = a1[5];
+          v38 = 138412802;
+          v39 = v26;
+          v40 = 2048;
+          v41 = v27;
+          v42 = 2112;
+          v43 = v28;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Object %@[%p] not in %@", &v38, 0x20u);
         }
       }
 
       os_unfair_lock_unlock((a1[5] + 44));
       if (a1[6])
       {
-        v31 = nr_daemon_log();
-        v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
+        v29 = nr_daemon_log();
+        v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
 
-        if (v32)
+        if (v30)
         {
-          v33 = nr_daemon_log();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v31 = nr_daemon_log();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = a1[5];
-            v40 = 138412290;
-            v41 = v34;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "%@ does not have the object, calling clean-up block with NO", &v40, 0xCu);
+            v32 = a1[5];
+            v38 = 138412290;
+            v39 = v32;
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "%@ does not have the object, calling clean-up block with NO", &v38, 0xCu);
           }
         }
 
@@ -1786,18 +1744,18 @@ void sub_1000A35C0(void *a1)
 
   else if (a1[6])
   {
-    v19 = nr_daemon_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v18 = nr_daemon_log();
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-    if (v20)
+    if (v19)
     {
-      v21 = nr_daemon_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v20 = nr_daemon_log();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = a1[5];
-        v40 = 138412290;
-        v41 = v22;
-        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@ object is nil, calling clean-up block with NO", &v40, 0xCu);
+        v21 = a1[5];
+        v38 = 138412290;
+        v39 = v21;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%@ object is nil, calling clean-up block with NO", &v38, 0xCu);
       }
     }
 
@@ -1813,33 +1771,32 @@ void sub_1000A3B20(uint64_t a1)
   v4 = [v3 copy];
 
   os_unfair_lock_unlock((*(a1 + 32) + 44));
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v11 + 1) + 8 * v9);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -1905,7 +1862,7 @@ LABEL_16:
 
     if ((v13 >> 3) == 1)
     {
-      if ((sub_100102080(a1, &v15, a2, &v16) & 1) == 0)
+      if ((sub_100102080(a1, v15, a2, &v16) & 1) == 0)
       {
         return v16;
       }
@@ -1933,10 +1890,11 @@ void sub_1000A4988(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000A59F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000A59F4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t sub_1000A5C84(uint64_t a1, void *a2)
@@ -2481,16 +2439,16 @@ void *sub_1000A93A8(void *result)
   return result;
 }
 
-id sub_1000A98C0()
+id sub_1000A98C0(uint64_t a1)
 {
   if (qword_1001B39C0 != -1)
   {
     sub_100102714();
   }
 
-  v1 = qword_1001B39B8;
+  v2 = qword_1001B39B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A9904(id a1)
@@ -2502,16 +2460,16 @@ void sub_1000A9904(id a1)
   _objc_release_x1(v1, v2);
 }
 
-id sub_1000A9948()
+id sub_1000A9948(uint64_t a1)
 {
   if (qword_1001B39D0 != -1)
   {
     sub_100102728();
   }
 
-  v1 = qword_1001B39C8;
+  v2 = qword_1001B39C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000A998C(id a1)
@@ -2640,8 +2598,10 @@ id sub_1000AA71C(void *a1)
     return [v2 characteristicReader:v4 didFailWithError:?];
   }
 
-  v5 = a1[7];
-  return [v2 characteristicReader:v4 didRead:?];
+  else
+  {
+    return [v2 characteristicReader:v4 didRead:?];
+  }
 }
 
 id sub_1000AABD0(uint64_t a1)
@@ -4254,9 +4214,9 @@ id sub_1000B38F8(id a1)
   return [NSNumber numberWithUnsignedInteger:v2];
 }
 
-void sub_1000B4464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000B4464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4531,57 +4491,58 @@ void sub_1000B6134(uint64_t a1)
 
 void sub_1000B622C(uint64_t a1)
 {
-  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v17;
+    v6 = *v18;
     *&v4 = 138412546;
-    v15 = v4;
+    v16 = v4;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
-        v9 = sub_1000034AC();
+        v8 = *(*(&v17 + 1) + 8 * v7);
+        v9 = sub_1000034AC(v3);
         v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
         if (v10)
         {
-          v11 = sub_1000034AC();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = sub_1000034AC(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = [v8 name];
-            v13 = [v8 uuid];
-            v14 = [v13 UUIDString];
-            *buf = v15;
-            v21 = v12;
-            v22 = 2112;
-            v23 = v14;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Forcing read for device %@ %@", buf, 0x16u);
+            v13 = [v8 name];
+            v14 = [v8 uuid];
+            v15 = [v14 UUIDString];
+            *buf = v16;
+            v22 = v13;
+            v23 = 2112;
+            v24 = v15;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPBulkCharacteristicReaderWriter: Forcing read for device %@ %@", buf, 0x16u);
           }
         }
 
-        [*(a1 + 40) discoverer:*(*(a1 + 40) + 32) deviceDidBecomeProximate:{v8, v15, v16}];
+        v3 = [*(a1 + 40) discoverer:*(*(a1 + 40) + 32) deviceDidBecomeProximate:{v8, v16, v17}];
         v7 = v7 + 1;
       }
 
       while (v5 != v7);
-      v5 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v5 = v3;
     }
 
-    while (v5);
+    while (v3);
   }
 }
 
@@ -4735,13 +4696,12 @@ void sub_1000B81A8(uint64_t a1)
     {
       v5 = [*(a1 + 32) UUIDString];
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingSetupCompletedForPairedDevice %@", buf, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v6 = *(a1 + 32);
   IDSLocalPairingSetupCompletedForPairedDevice();
 }
 
@@ -4827,55 +4787,54 @@ void sub_1000B89DC(uint64_t a1, int a2)
 
 void sub_1000B8C84(uint64_t a1)
 {
-  v2 = sub_1000034AC();
+  v2 = sub_1000034AC(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000034AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000034AC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "pipe assumed available after a 3 second wait", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "pipe assumed available after a 3 second wait", buf, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 72));
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_1000B8D88;
-  v6[3] = &unk_100175660;
-  v6[4] = *(a1 + 32);
-  [WeakRetained initializeAllIDSChannelsBlock:v6];
+  v7[0] = _NSConcreteStackBlock;
+  v7[1] = 3221225472;
+  v7[2] = sub_1000B8D88;
+  v7[3] = &unk_100175660;
+  v7[4] = *(a1 + 32);
+  [WeakRetained initializeAllIDSChannelsBlock:v7];
 }
 
 void sub_1000B8D98(uint64_t a1)
 {
-  v2 = sub_1000034AC();
+  v2 = sub_1000034AC(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000034AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000034AC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = "PRESENT";
-      v6 = *(a1 + 32);
+      v6 = "PRESENT";
+      v7 = *(a1 + 32);
       if (!*(a1 + 40))
       {
-        v5 = "ABSENT";
+        v6 = "ABSENT";
       }
 
       *buf = 138412546;
-      v12 = v6;
+      v12 = v7;
       v13 = 2080;
-      v14 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s", buf, 0x16u);
+      v14 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s", buf, 0x16u);
     }
   }
 
   dispatch_resume(*(a1 + 48));
-  v7 = *(a1 + 56);
   v9 = *(a1 + 64);
   v10 = *(a1 + 48);
   v8 = [*(a1 + 64) queue];
@@ -4885,34 +4844,34 @@ void sub_1000B8D98(uint64_t a1)
 void sub_1000B8F18(uint64_t a1, void *a2)
 {
   v4 = a2;
-  v5 = sub_1000034AC();
+  v5 = sub_1000034AC(v4);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = sub_1000034AC();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(*(a1 + 32) + 88);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingAddPairedDeviceWithInfo %@ completed with error %@", &v10, 0x16u);
+      v9 = *(*(a1 + 32) + 88);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingAddPairedDeviceWithInfo %@ completed with error %@", &v11, 0x16u);
     }
   }
 
-  v9 = *(a1 + 32);
+  v10 = *(a1 + 32);
   if (v4)
   {
-    objc_storeStrong((v9 + 64), a2);
+    objc_storeStrong((v10 + 64), a2);
     [*(a1 + 32) setAvailability:2 withError:v4];
     dispatch_source_cancel(*(a1 + 40));
   }
 
   else
   {
-    *(v9 + 56) = 1;
+    *(v10 + 56) = 1;
   }
 }
 
@@ -5137,30 +5096,30 @@ void sub_1000BAC38(uint64_t a1)
   v3 = *(v2 + 32);
   *(v2 + 32) = 0;
 
-  v4 = sub_1000034AC();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  v5 = sub_1000034AC(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
 
-  if (v5)
+  if (v6)
   {
-    v6 = sub_1000034AC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000034AC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100102E50(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_100102E50(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
-  if ([*(*(a1 + 32) + 208) count] && (objc_msgSend(*(a1 + 32), "isBluetoothPairComplete") & 1) == 0)
+  if ([*(*(a1 + 32) + 208) count] && (v16 = objc_msgSend(*(a1 + 32), "isBluetoothPairComplete"), (v16 & 1) == 0))
   {
-    v14 = sub_1000034AC();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v17 = sub_1000034AC(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v18)
     {
-      v16 = sub_1000034AC();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_1000034AC(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        *v17 = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "In the middle of pairing. Will cancel after next failure.", v17, 2u);
+        *v21 = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "In the middle of pairing. Will cancel after next failure.", v21, 2u);
       }
     }
   }
@@ -5291,28 +5250,29 @@ void sub_1000BCE68(uint64_t a1)
 void sub_1000BD83C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_1000034AC();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v5 = sub_1000034AC(v3);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v5)
+    if (v6)
     {
-      v6 = sub_1000034AC();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_1000034AC(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
+        v9 = *(a1 + 32);
         *buf = 138412546;
-        v11 = v7;
-        v12 = 2112;
-        v13 = v3;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Ghost device UUID %@ matches paired NR device %@", buf, 0x16u);
+        v13 = v9;
+        v14 = 2112;
+        v15 = v4;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Ghost device UUID %@ matches paired NR device %@", buf, 0x16u);
       }
     }
 
-    v8 = [*(a1 + 40) delegate];
-    LOBYTE(v9) = 0;
-    [v8 unpairDeviceWithPairingID:v3 obliterationString:0 shouldBrick:&__kCFBooleanFalse storeUnpair:&__kCFBooleanFalse migrationUnpair:&__kCFBooleanFalse shouldPreserveESim:&__kCFBooleanFalse pairingReport:0 remoteUnpairRequestUUID:0 shouldConnectionWithDevice:v9];
+    v10 = [*(a1 + 40) delegate];
+    LOBYTE(v11) = 0;
+    [v10 unpairDeviceWithPairingID:v4 obliterationString:0 shouldBrick:&__kCFBooleanFalse storeUnpair:&__kCFBooleanFalse migrationUnpair:&__kCFBooleanFalse shouldPreserveESim:&__kCFBooleanFalse pairingReport:0 remoteUnpairRequestUUID:0 shouldConnectionWithDevice:v11];
   }
 }
 
@@ -5351,22 +5311,21 @@ void sub_1000BD96C(uint64_t a1, uint64_t a2)
 
 void sub_1000BDAA8(uint64_t a1)
 {
-  v2 = sub_1000034AC();
+  v2 = sub_1000034AC(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000034AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000034AC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(*(a1 + 32) + 24);
+      v6 = *(*(a1 + 32) + 24);
       *buf = 138412290;
-      v9 = v5;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingConnectPairedDevice %@", buf, 0xCu);
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingConnectPairedDevice %@", buf, 0xCu);
     }
   }
 
-  v6 = *(*(a1 + 32) + 24);
   v7 = +[EPFactory queue];
   IDSLocalPairingConnectPairedDevice();
 }
@@ -5374,29 +5333,29 @@ void sub_1000BDAA8(uint64_t a1)
 void sub_1000BDBF4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000034AC();
+  v4 = sub_1000034AC(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = sub_1000034AC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000034AC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(*(a1 + 32) + 24);
-      v11 = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingConnectPairedDevice %@ completed with error %@", &v11, 0x16u);
+      v8 = *(*(a1 + 32) + 24);
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v3;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingConnectPairedDevice %@ completed with error %@", &v12, 0x16u);
     }
   }
 
   if (v3)
   {
-    v8 = nrGetPairingError();
-    v9 = [*(a1 + 32) delegate];
-    v10 = [v9 pairingReport];
-    [v10 setOriginalError:v8];
+    v9 = nrGetPairingError();
+    v10 = [*(a1 + 32) delegate];
+    v11 = [v10 pairingReport];
+    [v11 setOriginalError:v9];
 
     [*(a1 + 32) setPairingMode:5];
   }
@@ -5438,50 +5397,48 @@ void sub_1000BDD38(id *a1, int a2)
 
 void sub_1000BDEB4(uint64_t a1)
 {
-  v2 = sub_1000034AC();
+  v2 = sub_1000034AC(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000034AC();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000034AC(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) UUIDString];
+      v6 = [*(a1 + 32) UUIDString];
       if (*(a1 + 40))
       {
-        v6 = "PRESENT";
+        v7 = "PRESENT";
       }
 
       else
       {
-        v6 = "ABSENT";
+        v7 = "ABSENT";
       }
 
-      v7 = [*(a1 + 48) bluetoothMACAddress];
+      v8 = [*(a1 + 48) bluetoothMACAddress];
       *buf = 138412802;
-      if (v7)
+      if (v8)
       {
-        v8 = "PRESENT";
+        v9 = "PRESENT";
       }
 
       else
       {
-        v8 = "ABSENT";
+        v9 = "ABSENT";
       }
 
-      v15 = v5;
-      v16 = 2080;
-      v17 = v6;
-      v18 = 2080;
-      v19 = v8;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s btAddr=%s", buf, 0x20u);
+      v14 = v6;
+      v15 = 2080;
+      v16 = v7;
+      v17 = 2080;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Calling IDS IDSLocalPairingAddPairedDeviceWithInfo %@ key=%s btAddr=%s", buf, 0x20u);
     }
   }
 
-  v9 = *(a1 + 48);
   v11 = *(a1 + 32);
-  v12 = *(a1 + 56);
-  v13 = *(a1 + 64);
+  v12 = *(a1 + 64);
   v10 = +[EPFactory queue];
   IDSLocalPairingAddPairedDeviceWithInfo();
 }
@@ -5489,44 +5446,44 @@ void sub_1000BDEB4(uint64_t a1)
 void sub_1000BE084(id *a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_1000034AC();
+  v4 = sub_1000034AC(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = sub_1000034AC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_1000034AC(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [a1[4] UUIDString];
+      v8 = [a1[4] UUIDString];
       *buf = 138412546;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingAddPairedDeviceWithInfo %@ completed with error %@", buf, 0x16u);
+      v18 = v8;
+      v19 = 2112;
+      v20 = v3;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IDS IDSLocalPairingAddPairedDeviceWithInfo %@ completed with error %@", buf, 0x16u);
     }
   }
 
   if (v3)
   {
-    v8 = nrGetPairingError();
-    v9 = [a1[5] delegate];
-    v10 = [v9 pairingReport];
-    [v10 setOriginalError:v8];
+    v9 = nrGetPairingError();
+    v10 = [a1[5] delegate];
+    v11 = [v10 pairingReport];
+    [v11 setOriginalError:v9];
 
     [a1[5] setPairingMode:5];
   }
 
   else
   {
-    v11 = [a1[5] delegate];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000BE258;
-    v13[3] = &unk_100175688;
-    v12 = a1[6];
-    v14 = 0;
-    v15 = v12;
-    [v11 initializeAllIDSChannelsBlock:v13];
+    v12 = [a1[5] delegate];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000BE258;
+    v14[3] = &unk_100175688;
+    v13 = a1[6];
+    v15 = 0;
+    v16 = v13;
+    [v12 initializeAllIDSChannelsBlock:v14];
   }
 }
 
@@ -5916,10 +5873,11 @@ void sub_1000C14EC(uint64_t a1)
   }
 }
 
-void sub_1000C1B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_1000C1B44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6054,11 +6012,11 @@ void sub_1000C1FBC(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1000C2218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000C2218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6728,13 +6686,6 @@ void sub_1000C56D8(uint64_t a1)
   }
 }
 
-id sub_1000C62D8(uint64_t a1)
-{
-  v1 = *(a1 + 96);
-  LOBYTE(v3) = *(a1 + 122);
-  return [*(a1 + 32) _queueSendCloudMessage:*(a1 + 40) type:*(a1 + 120) responseToRequest:*(a1 + 48) withTimeout:*(a1 + 56) withResponseTimeout:*(a1 + 64) withDescription:*(a1 + 72) onlyOneFor:*(a1 + 80) priority:*(a1 + 112) toDestinations:*(a1 + 88) skipLookup:v3 didSend:v1 andResponse:*(a1 + 104)];
-}
-
 void sub_1000C63C4(uint64_t a1)
 {
   v2 = nr_daemon_log();
@@ -6781,15 +6732,14 @@ void sub_1000C83D4(uint64_t a1)
       v5 = [*(a1 + 32) trafficClasses];
       v6 = [v5 allObjects];
       v7 = [v6 componentsJoinedByString:@" "];
-      v11 = 138543362;
-      v12 = v7;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "setting traffic classes %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v7;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "setting traffic classes %{public}@", &v10, 0xCu);
     }
   }
 
   v8 = [*(a1 + 32) trafficClasses];
   v9 = [*(a1 + 40) mutableIDSDevice];
-  v10 = *(*(a1 + 48) + 40);
   IDSLocalPairingSetAllowedTrafficClassifiersForDevice();
 }
 
@@ -6825,13 +6775,12 @@ void sub_1000C8614(uint64_t a1)
     v4 = nr_daemon_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "dropping unmatching traffic", v7, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "dropping unmatching traffic", v6, 2u);
     }
   }
 
   v5 = [*(a1 + 32) mutableIDSDevice];
-  v6 = *(*(a1 + 40) + 40);
   IDSLocalPairingDropAllMessagesWithoutAnyAllowedTrafficClassifier();
 }
 
@@ -6907,10 +6856,11 @@ void sub_1000C9F44(id a1)
   _objc_release_x1(v1, v2);
 }
 
-void sub_1000CA1CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000CA1CC(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_1000CA3A8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
@@ -7123,40 +7073,39 @@ void sub_1000CDA50(uint64_t a1)
 
     if (v4)
     {
-      v5 = sub_1000A98C0();
-      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+      v6 = sub_1000A98C0(v5);
+      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-      if (v6)
+      if (v7)
       {
-        v7 = sub_1000A98C0();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_1000A98C0(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = *(a1 + 32);
-          v9 = objc_opt_class();
-          v10 = NSStringFromClass(v9);
-          v11 = [EPResourceManager stringForResourceAvailability:*(*(a1 + 32) + 16)];
-          v12 = *(a1 + 32);
-          v13 = *(v12 + 24);
-          v14 = objc_loadWeakRetained((v12 + 32));
-          v15 = objc_opt_class();
-          v16 = NSStringFromClass(v15);
-          v17 = objc_loadWeakRetained((*(a1 + 32) + 32));
-          v19 = 138413314;
-          v20 = v10;
-          v21 = 2112;
-          v22 = v11;
-          v23 = 2112;
-          v24 = v13;
-          v25 = 2112;
-          v26 = v16;
-          v27 = 2048;
-          v28 = v17;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Resource %@ calling resourceAvailabilityDidChange: with %@[%@] on %@[%p]", &v19, 0x34u);
+          v10 = objc_opt_class();
+          v11 = NSStringFromClass(v10);
+          v12 = [EPResourceManager stringForResourceAvailability:*(*(a1 + 32) + 16)];
+          v13 = *(a1 + 32);
+          v14 = *(v13 + 24);
+          v15 = objc_loadWeakRetained((v13 + 32));
+          v16 = objc_opt_class();
+          v17 = NSStringFromClass(v16);
+          v18 = objc_loadWeakRetained((*(a1 + 32) + 32));
+          v20 = 138413314;
+          v21 = v11;
+          v22 = 2112;
+          v23 = v12;
+          v24 = 2112;
+          v25 = v14;
+          v26 = 2112;
+          v27 = v17;
+          v28 = 2048;
+          v29 = v18;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Resource %@ calling resourceAvailabilityDidChange: with %@[%@] on %@[%p]", &v20, 0x34u);
         }
       }
 
-      v18 = objc_loadWeakRetained((*(a1 + 32) + 32));
-      [v18 resourceAvailabilityDidChange:*(a1 + 32)];
+      v19 = objc_loadWeakRetained((*(a1 + 32) + 32));
+      [v19 resourceAvailabilityDidChange:*(a1 + 32)];
     }
   }
 }
@@ -7839,9 +7788,11 @@ void sub_1000D39C4(id a1)
 
 uint64_t sub_1000D3C84(uint64_t a1)
 {
-  qword_1001B3A98 = [objc_alloc(*(a1 + 32)) initBase];
+  v1 = [objc_alloc(*(a1 + 32)) initBase];
+  v2 = qword_1001B3A98;
+  qword_1001B3A98 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_1000D3D04(id a1)
@@ -7965,9 +7916,9 @@ void sub_1000D75CC(void *a1)
   *(v4 + 40) = v3;
 }
 
-void sub_1000D7824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1000D7824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8413,25 +8364,8 @@ void sub_1000D9B68(uint64_t a1)
 
   if (!*(a1 + 72))
   {
-    if (v14)
+    if ((v14 & 1) != 0 || ([v12 pairingID], (v24 = objc_claimAutoreleasedReturnValue()) == 0) || (v25 = v24, objc_msgSend(v12, "pairingID"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend([NSUUID alloc], "initWithUUIDString:", @"8FC052B6-229F-49A7-BC78-3F56A5149994"), v28 = objc_msgSend(v26, "isEqual:", v27), v27, v26, v25, v28))
     {
-      goto LABEL_9;
-    }
-
-    v24 = [v12 pairingID];
-    if (!v24)
-    {
-      goto LABEL_9;
-    }
-
-    v25 = v24;
-    v26 = [v12 pairingID];
-    v27 = [[NSUUID alloc] initWithUUIDString:@"8FC052B6-229F-49A7-BC78-3F56A5149994"];
-    v28 = [v26 isEqual:v27];
-
-    if (v28)
-    {
-LABEL_9:
       v29 = [[NSUUID alloc] initWithUUIDString:@"8FC052B6-229F-49A7-BC78-3F56A5149994"];
       v30 = [v12 assertionWithPairingID:v29 isAltAccount:0 delegate:*(a1 + 80)];
       v31 = *(a1 + 80);
@@ -8494,9 +8428,9 @@ LABEL_12:
 LABEL_14:
 }
 
-void sub_1000DA2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000DA2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8853,35 +8787,117 @@ uint64_t sub_1000DC24C(uint64_t a1, void *a2)
 
 void sub_1000DC8C4(uint64_t a1)
 {
+  v6 = 0u;
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v3)
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v9;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v8 + 1) + 8 * v6) + 16))(*(*(&v8 + 1) + 8 * v6));
-        v6 = v6 + 1;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        v5 = v5 + 1;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
+}
+
+void sub_1000DCED0(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
+  v5 = a2;
+  v6 = [v3 createMigrationReporterWithPairingID:v4];
+  [v6 migrationWillBeginOnCompanionForPairingID:*(a1 + 40) withDeviceHistory:v5];
+}
+
+void sub_1000DD0D4(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = a2;
+  [NRCoreAnalyticsReporter reportMigrationWithDeviceHistory:v4 andError:v3];
+  [*(a1 + 40) finishMigrationMetricWithDeviceHistory:v4 success:objc_msgSend(*(a1 + 48) error:{"didFail") ^ 1, *(a1 + 32)}];
+}
+
+void sub_1000DD458(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 32);
+  v3 = [a2 activeDeviceID];
+  (*(v2 + 16))(v2, v3);
+}
+
+void sub_1000DD61C(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = 0;
+    v10 = *v21;
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v21 != v10)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v12 = *(*(&v20 + 1) + 8 * i);
+        v13 = [v5 objectForKeyedSubscript:v12];
+        if ([v13 migratable] && (objc_msgSend(v13, "isAltAccount") & 1) == 0)
+        {
+          if (!v9)
+          {
+            v9 = +[NSMutableArray array];
+          }
+
+          [v9 addObject:v12];
+        }
+      }
+
+      v8 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    }
+
+    while (v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v14 = [*(a1 + 32) queue];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1000DD810;
+  v17[3] = &unk_100175688;
+  v15 = *(a1 + 40);
+  v18 = v9;
+  v19 = v15;
+  v16 = v9;
+  dispatch_async(v14, v17);
 }

@@ -9,26 +9,25 @@
 - (_TtC18ActivityUIServices33ActivityCarPlayHostViewController)initWithActivityDescriptor:(id)descriptor systemMetricsRequest:(id)request targetBundleIdentifier:(id)identifier
 {
   v7 = sub_18E65F4C0();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_18E6220E4(&qword_1ED764FA8);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_18E6220E4(&qword_1ED764FA8, MEMORY[0x1E6959B90]);
   sub_18E65F670();
   if (identifier)
   {
-    v11 = sub_18E65F900();
-    identifier = v12;
+    v10 = sub_18E65F900();
+    identifier = v11;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   requestCopy = request;
-  v14 = sub_18E65DE64(v10, requestCopy, v11, identifier);
+  v13 = sub_18E65DE64(v9, requestCopy, v10, identifier);
 
-  return v14;
+  return v13;
 }
 
 - (_TtC18ActivityUIServices33ActivityCarPlayHostViewController)initWithCoder:(id)coder

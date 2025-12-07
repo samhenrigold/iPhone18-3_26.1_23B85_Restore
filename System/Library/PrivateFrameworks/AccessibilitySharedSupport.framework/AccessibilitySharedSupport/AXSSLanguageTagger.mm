@@ -7,10 +7,12 @@
 + (_NSRange)_extendRange:(_NSRange)range forContent:(id)content withRange:(_NSRange)withRange;
 + (_NSRange)_manuallyProcessContent:(id)content tokenRange:(_NSRange)range currentRange:(_NSRange)currentRange;
 + (float)_systemLanguageProbabilityForContent:(id)content;
++ (id)_createTagForContent:(id)content tokenRange:(_NSRange)range document:(id)document createdFromNewline:(BOOL)newline;
 + (id)_dialectWithHighestProbability:(id *)probability;
 + (id)_languageTagForDateIfNecessary:(id)necessary;
 + (id)_overrideLanguageDetection:(id)detection;
 + (id)_secondaryDialects:(id *)dialects;
++ (id)combineLanguageProbability:(id *)probability primaryLanguageID:(int)d secondaryLanguageID:(int)iD dialectMap:(id)map;
 + (id)langCodeForlangId:(int)id;
 + (id)languageTagsForContent:(id)content;
 + (id)markupLanguageTagForAttributedString:(id)string;
@@ -20,6 +22,7 @@
 + (id)systemLocale;
 + (int)langIDforLangCode:(id)code;
 + (void)_hypothesesForContent:(id)content withHints:(id *)hints guesses:(id *)guesses;
++ (void)_tagRange:(_NSRange)range document:(id)document tags:(id)tags createdFromNewline:(BOOL)newline;
 + (void)_taggerForContent:(id)content tagScheme:(id)scheme;
 + (void)initialize;
 @end
@@ -103,28 +106,26 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
 {
   v4 = *a2;
   v3 = a2[1];
-  v18 = [*(a1 + 32) substringWithRange:{*a2, v3}];
-  v5 = *(a1 + 72);
-  v6 = *MEMORY[0x1E6998268];
-  v7 = NLTaggerCopyTagForCurrentToken();
-  v8 = *(*(a1 + 48) + 8);
-  v10 = *(v8 + 40);
-  v9 = (v8 + 40);
-  if (!v10)
+  v16 = [*(a1 + 32) substringWithRange:{*a2, v3}];
+  v5 = NLTaggerCopyTagForCurrentToken();
+  v6 = *(*(a1 + 48) + 8);
+  v8 = *(v6 + 40);
+  v7 = (v6 + 40);
+  if (!v8)
   {
-    objc_storeStrong(v9, v7);
+    objc_storeStrong(v7, v5);
   }
 
-  v11 = [*(a1 + 80) _isNewline:v18];
-  if (v7)
+  v9 = [*(a1 + 80) _isNewline:v16];
+  if (v5)
   {
-    v12 = v11;
-    if ([*(*(*(a1 + 48) + 8) + 40) isEqualToString:v7])
+    v10 = v9;
+    if ([*(*(*(a1 + 48) + 8) + 40) isEqualToString:v5])
     {
-      v20.location = v4;
-      v20.length = v3;
-      *(*(*(a1 + 56) + 8) + 32) = NSUnionRange(*(*(*(a1 + 56) + 8) + 32), v20);
-      if (v12)
+      v18.location = v4;
+      v18.length = v3;
+      *(*(*(a1 + 56) + 8) + 32) = NSUnionRange(*(*(*(a1 + 56) + 8) + 32), v18);
+      if (v10)
       {
         [*(a1 + 80) _tagRange:*(*(*(a1 + 56) + 8) + 32) document:*(*(*(a1 + 56) + 8) + 40) tags:*(a1 + 32) createdFromNewline:{*(a1 + 40), 1}];
         *(*(*(a1 + 64) + 8) + 24) = 1;
@@ -133,63 +134,63 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
 
     else
     {
-      if (v12)
+      if (v10)
       {
-        v21.location = v4;
-        v21.length = v3;
-        *(*(*(a1 + 56) + 8) + 32) = NSUnionRange(*(*(*(a1 + 56) + 8) + 32), v21);
+        v19.location = v4;
+        v19.length = v3;
+        *(*(*(a1 + 56) + 8) + 32) = NSUnionRange(*(*(*(a1 + 56) + 8) + 32), v19);
       }
 
-      v16 = *(*(a1 + 56) + 8);
-      v17 = *(v16 + 40);
-      if (v17)
+      v14 = *(*(a1 + 56) + 8);
+      v15 = *(v14 + 40);
+      if (v15)
       {
-        [*(a1 + 80) _tagRange:*(v16 + 32) document:v17 tags:*(a1 + 32) createdFromNewline:{*(a1 + 40), v12}];
-        v16 = *(*(a1 + 56) + 8);
+        [*(a1 + 80) _tagRange:*(v14 + 32) document:v15 tags:*(a1 + 32) createdFromNewline:{*(a1 + 40), v10}];
+        v14 = *(*(a1 + 56) + 8);
       }
 
-      *(v16 + 32) = v4;
-      *(v16 + 40) = v3;
+      *(v14 + 32) = v4;
+      *(v14 + 40) = v3;
     }
 
-    if ([v7 length])
+    if ([v5 length])
     {
-      objc_storeStrong((*(*(a1 + 48) + 8) + 40), v7);
+      objc_storeStrong((*(*(a1 + 48) + 8) + 40), v5);
     }
   }
 
   else
   {
-    v13 = [*(a1 + 80) _manuallyProcessContent:*(a1 + 32) tokenRange:v4 currentRange:{v3, *(*(*(a1 + 56) + 8) + 32), *(*(*(a1 + 56) + 8) + 40)}];
-    v14 = *(*(a1 + 56) + 8);
-    *(v14 + 32) = v13;
-    *(v14 + 40) = v15;
+    v11 = [*(a1 + 80) _manuallyProcessContent:*(a1 + 32) tokenRange:v4 currentRange:{v3, *(*(*(a1 + 56) + 8) + 32), *(*(*(a1 + 56) + 8) + 40)}];
+    v12 = *(*(a1 + 56) + 8);
+    *(v12 + 32) = v11;
+    *(v12 + 40) = v13;
   }
 }
 
 + (id)primaryLanguageForContent:(id)content hints:(id *)hints
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   contentCopy = content;
   if ([contentCopy length])
   {
-    memset(v16, 0, 24);
-    [self _hypothesesForContent:contentCopy withHints:hints guesses:v16];
+    memset(v15, 0, 24);
+    [self _hypothesesForContent:contentCopy withHints:hints guesses:v15];
     v7 = +[AXSSLanguageManager shared];
     dialectForSystemLanguage = [v7 dialectForSystemLanguage];
 
-    LODWORD(v9) = HIDWORD(v16[0]);
-    if (*(v16 + 1) <= 0.8)
+    LODWORD(v9) = HIDWORD(v15[0]);
+    if (*(v15 + 1) <= 0.8)
     {
-      v10 = [self combineLanguageProbability:v16 primaryLanguageID:4 secondaryLanguageID:5 dialectMap:{dialectForSystemLanguage, v9}];
+      v10 = [self combineLanguageProbability:v15 primaryLanguageID:4 secondaryLanguageID:5 dialectMap:{dialectForSystemLanguage, v9}];
 
-      v12 = [self combineLanguageProbability:v16 primaryLanguageID:2 secondaryLanguageID:34 dialectMap:v10];
+      v12 = [self combineLanguageProbability:v15 primaryLanguageID:2 secondaryLanguageID:34 dialectMap:v10];
     }
 
     else
     {
       v10 = +[AXSSLanguageManager shared];
-      v11 = [self langCodeForlangId:LODWORD(v16[0])];
+      v11 = [self langCodeForlangId:LODWORD(v15[0])];
       v12 = [v10 dialectForLanguageID:v11];
     }
 
@@ -201,9 +202,30 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
     specificLanguageID = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return specificLanguageID;
+}
+
++ (id)combineLanguageProbability:(id *)probability primaryLanguageID:(int)d secondaryLanguageID:(int)iD dialectMap:(id)map
+{
+  v7 = *&d;
+  mapCopy = map;
+  v11 = mapCopy;
+  v12 = probability->var0 == v7 || probability->var0 == iD;
+  v13 = mapCopy;
+  if (v12)
+  {
+    var0 = probability[1].var0;
+    v15 = var0 == v7 || var0 == iD;
+    v13 = mapCopy;
+    if (v15)
+    {
+      v16 = +[AXSSLanguageManager shared];
+      v17 = [self langCodeForlangId:v7];
+      v13 = [v16 dialectForLanguageID:v17];
+    }
+  }
+
+  return v13;
 }
 
 + (id)primaryLanguageForContent:(id)content
@@ -236,32 +258,32 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
 
 + (id)markupLanguageTagForAttributedString:(id)string
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v5 = [objc_alloc(MEMORY[0x1E696AD40]) initWithAttributedString:stringCopy];
   string = [stringCopy string];
   v7 = [self languageTagsForContent:string];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         dialect = [v13 dialect];
         specificLanguageID = [dialect specificLanguageID];
 
@@ -272,38 +294,98 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   v18 = [v5 copy];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 + (void)_taggerForContent:(id)content tagScheme:(id)scheme
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v11[0] = scheme;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v10[0] = scheme;
   v5 = MEMORY[0x1E695DEC8];
   schemeCopy = scheme;
   contentCopy = content;
-  [v5 arrayWithObjects:v11 count:1];
+  [v5 arrayWithObjects:v10 count:1];
 
   v8 = NLTaggerCreate();
   NLTaggerSetString();
 
-  result = CFAutorelease(v8);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return CFAutorelease(v8);
+}
+
++ (void)_tagRange:(_NSRange)range document:(id)document tags:(id)tags createdFromNewline:(BOOL)newline
+{
+  newlineCopy = newline;
+  length = range.length;
+  location = range.location;
+  tagsCopy = tags;
+  documentCopy = document;
+  v12 = [documentCopy substringWithRange:{location, length}];
+  v13 = [self _createTagForContent:v12 tokenRange:location document:length createdFromNewline:{documentCopy, newlineCopy}];
+
+  if (v13)
+  {
+    [tagsCopy addObject:v13];
+  }
+}
+
++ (id)_createTagForContent:(id)content tokenRange:(_NSRange)range document:(id)document createdFromNewline:(BOOL)newline
+{
+  newlineCopy = newline;
+  length = range.length;
+  location = range.location;
+  v25[3] = *MEMORY[0x1E69E9840];
+  documentCopy = document;
+  v12 = MEMORY[0x1E696AB08];
+  contentCopy = content;
+  newlineCharacterSet = [v12 newlineCharacterSet];
+  v15 = [contentCopy stringByTrimmingCharactersInSet:newlineCharacterSet];
+
+  v16 = [documentCopy substringWithRange:{location, length}];
+  v17 = [self _languageTagForDateIfNecessary:v16];
+
+  if (v17)
+  {
+    newlineCopy = [[AXSSLanguageTag alloc] initWithDialect:v17 range:location content:length createdFromNewline:documentCopy, newlineCopy];
+  }
+
+  else
+  {
+    v19 = [self _createLanguageHintsForContent:v15];
+    memset(v25, 0, 24);
+    [self _hypothesesForContent:v15 withHints:v19 guesses:v25];
+    v20 = [self _dialectWithHighestProbability:v25];
+    dialectForSystemLanguage = [self combineLanguageProbability:v25 primaryLanguageID:2 secondaryLanguageID:34 dialectMap:v20];
+
+    if (!dialectForSystemLanguage)
+    {
+      v22 = +[AXSSLanguageManager shared];
+      dialectForSystemLanguage = [v22 dialectForSystemLanguage];
+    }
+
+    newlineCopy = [[AXSSLanguageTag alloc] initWithDialect:dialectForSystemLanguage range:location content:length createdFromNewline:documentCopy, newlineCopy];
+    v23 = [self _secondaryDialects:v25];
+    [(AXSSLanguageTag *)newlineCopy setPredictedSecondaryDialects:v23];
+
+    if (v19)
+    {
+      free(v19);
+    }
+  }
+
+  return newlineCopy;
 }
 
 + (id)_languageTagForDateIfNecessary:(id)necessary
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   v4 = [MEMORY[0x1E696AB60] dataDetectorWithTypes:8 error:0];
   v5 = [necessaryCopy length];
@@ -336,32 +418,32 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
     shortWeekdaySymbols = [v10 shortWeekdaySymbols];
     [array addObjectsFromArray:shortWeekdaySymbols];
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v18 = array;
-    v7 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v7 = [v18 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v7)
     {
-      v19 = *v24;
+      v19 = *v23;
       while (2)
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v24 != v19)
+          if (*v23 != v19)
           {
             objc_enumerationMutation(v18);
           }
 
-          if ([necessaryCopy containsString:{*(*(&v23 + 1) + 8 * i), v23}])
+          if ([necessaryCopy containsString:{*(*(&v22 + 1) + 8 * i), v22}])
           {
             v7 = dialectForSystemLanguage;
             goto LABEL_16;
           }
         }
 
-        v7 = [v18 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v7 = [v18 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v7)
         {
           continue;
@@ -373,8 +455,6 @@ void __45__AXSSLanguageTagger_languageTagsForContent___block_invoke(uint64_t a1,
 
 LABEL_16:
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -466,8 +546,6 @@ LABEL_16:
 
 uint64_t __59__AXSSLanguageTagger__systemLanguageProbabilityForContent___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(a1 + 40);
-  v6 = *MEMORY[0x1E6998270];
   result = NLTaggerCopyTagForCurrentToken();
   if (result == *MEMORY[0x1E69980B0] && ++*(*(*(a1 + 32) + 8) + 24) >= 41)
   {
@@ -515,7 +593,7 @@ uint64_t __59__AXSSLanguageTagger__systemLanguageProbabilityForContent___block_i
 
 + (id)_secondaryDialects:(id *)dialects
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
   for (i = 1; i != 3; ++i)
   {
@@ -528,28 +606,28 @@ uint64_t __59__AXSSLanguageTagger__systemLanguageProbabilityForContent___block_i
     if (v7->var1 > 0.2)
     {
       v8 = [self langCodeForlangId:?];
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       systemLocale = [self systemLocale];
       preferredLanguages = [systemLocale preferredLanguages];
 
-      v11 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [preferredLanguages countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v20;
+        v13 = *v19;
         while (2)
         {
           for (j = 0; j != v12; ++j)
           {
-            if (*v20 != v13)
+            if (*v19 != v13)
             {
               objc_enumerationMutation(preferredLanguages);
             }
 
-            if ([*(*(&v19 + 1) + 8 * j) hasPrefix:v8])
+            if ([*(*(&v18 + 1) + 8 * j) hasPrefix:v8])
             {
               v15 = +[AXSSLanguageManager shared];
               v16 = [v15 dialectForLanguageID:v8];
@@ -563,7 +641,7 @@ uint64_t __59__AXSSLanguageTagger__systemLanguageProbabilityForContent___block_i
             }
           }
 
-          v12 = [preferredLanguages countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v12 = [preferredLanguages countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v12)
           {
             continue;
@@ -576,8 +654,6 @@ uint64_t __59__AXSSLanguageTagger__systemLanguageProbabilityForContent___block_i
 LABEL_16:
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return orderedSet;
 }
@@ -598,35 +674,13 @@ LABEL_16:
 
   else
   {
-    if (([specificLanguageID hasPrefix:@"zh"] & 1) == 0 && (objc_msgSend(specificLanguageID, "hasPrefix:", @"ja") & 1) == 0 && !objc_msgSend(specificLanguageID, "hasPrefix:", @"ko"))
-    {
-      goto LABEL_12;
-    }
-
-    v10 = +[AXSSLanguageManager shared];
-    dialectForSystemLanguage3 = [v10 dialectForSystemLanguage];
-    languageMap = [dialectForSystemLanguage3 languageMap];
-    generalLanguageID = [languageMap generalLanguageID];
-    v14 = [detectionCopy hasPrefix:generalLanguageID];
-
-    if (v14)
-    {
-      goto LABEL_12;
-    }
-
-    v15 = +[AXSSLanguageManager shared];
-    v16 = [v15 dialectForLanguageID:detectionCopy];
-    languageMap2 = [v16 languageMap];
-    isWestern = [languageMap2 isWestern];
-
-    if (isWestern)
+    if ((([specificLanguageID hasPrefix:@"zh"] & 1) != 0 || (objc_msgSend(specificLanguageID, "hasPrefix:", @"ja") & 1) != 0 || objc_msgSend(specificLanguageID, "hasPrefix:", @"ko")) && (+[AXSSLanguageManager shared](AXSSLanguageManager, "shared"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "dialectForSystemLanguage"), v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "languageMap"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "generalLanguageID"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(detectionCopy, "hasPrefix:", v13), v13, v12, v11, v10, (v14 & 1) == 0) && (+[AXSSLanguageManager shared](AXSSLanguageManager, "shared"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "dialectForLanguageID:", detectionCopy), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "languageMap"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isWestern"), v17, v16, v15, v18))
     {
       v19 = specificLanguageID;
     }
 
     else
     {
-LABEL_12:
       v19 = detectionCopy;
     }
 

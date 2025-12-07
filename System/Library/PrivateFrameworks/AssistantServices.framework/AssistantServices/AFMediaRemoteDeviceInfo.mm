@@ -38,22 +38,20 @@ void __60__AFMediaRemoteDeviceInfo_getGroupIdentifierWithCompletion___block_invo
 
 void __60__AFMediaRemoteDeviceInfo_getGroupIdentifierWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = [a2 groupUID];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315395;
-    v7 = "[AFMediaRemoteDeviceInfo getGroupIdentifierWithCompletion:]_block_invoke_2";
-    v8 = 2113;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Retrieved groupId: %{private}@", &v6, 0x16u);
+    v5 = 136315395;
+    v6 = "[AFMediaRemoteDeviceInfo getGroupIdentifierWithCompletion:]_block_invoke_2";
+    v7 = 2113;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Retrieved groupId: %{private}@", &v5, 0x16u);
   }
 
   [*(a1 + 32) _updateWithRouteIdentifier:*(*(a1 + 32) + 8) groupIdentifier:v3];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getRouteIdentifierWithCompletion:(id)completion
@@ -84,7 +82,7 @@ void __60__AFMediaRemoteDeviceInfo_getRouteIdentifierWithCompletion___block_invo
 
 void __60__AFMediaRemoteDeviceInfo_getRouteIdentifierWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 32);
   v4 = a2;
   dispatch_assert_queue_V2(v3);
@@ -93,48 +91,44 @@ void __60__AFMediaRemoteDeviceInfo_getRouteIdentifierWithCompletion___block_invo
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315395;
-    v9 = "[AFMediaRemoteDeviceInfo getRouteIdentifierWithCompletion:]_block_invoke_2";
-    v10 = 2113;
-    v11 = v5;
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Retrieved routeId: %{private}@", &v8, 0x16u);
+    v7 = 136315395;
+    v8 = "[AFMediaRemoteDeviceInfo getRouteIdentifierWithCompletion:]_block_invoke_2";
+    v9 = 2113;
+    v10 = v5;
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Retrieved routeId: %{private}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) _updateWithRouteIdentifier:v5 groupIdentifier:*(*(a1 + 32) + 16)];
   (*(*(a1 + 40) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_getMRDeviceInfoWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke;
-  v11[3] = &unk_1E7344978;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke;
+  v10[3] = &unk_1E7344978;
   v5 = completionCopy;
-  v12 = v5;
-  v6 = MEMORY[0x193AFB7B0](v11);
+  v11 = v5;
+  v6 = MEMORY[0x193AFB7B0](v10);
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v14 = "[AFMediaRemoteDeviceInfo _getMRDeviceInfoWithCompletion:]";
+    v13 = "[AFMediaRemoteDeviceInfo _getMRDeviceInfoWithCompletion:]";
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s Retrieving MRDeviceInfo for local origin.", buf, 0xCu);
   }
 
   v8 = MEMORY[0x1E69B0A20];
   localOrigin = [MEMORY[0x1E69B0AA0] localOrigin];
   [v8 deviceInfoForOrigin:localOrigin queue:self->_serialQueue completion:v6];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -142,11 +136,11 @@ void __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke
     v7 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[AFMediaRemoteDeviceInfo _getMRDeviceInfoWithCompletion:]_block_invoke";
-      v12 = 2112;
-      v13 = v6;
-      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Error retrieving MRDeviceInfo: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFMediaRemoteDeviceInfo _getMRDeviceInfoWithCompletion:]_block_invoke";
+      v11 = 2112;
+      v12 = v6;
+      _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, "%s Error retrieving MRDeviceInfo: %@", &v9, 0x16u);
     }
 
     v8 = *(*(a1 + 32) + 16);
@@ -158,77 +152,75 @@ void __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke
   }
 
   v8();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateWithRouteIdentifier:(id)identifier groupIdentifier:(id)groupIdentifier
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   groupIdentifierCopy = groupIdentifier;
   routeIdentifier = self->_routeIdentifier;
-  if (routeIdentifier == identifierCopy || [(NSString *)routeIdentifier isEqualToString:identifierCopy])
+  if (routeIdentifier == identifierCopy || (objc_msgSend_isEqualToString_(routeIdentifier) & 1) != 0)
   {
     v9 = 0;
   }
 
   else
   {
-    v19 = [(NSString *)identifierCopy copy];
-    v20 = self->_routeIdentifier;
-    self->_routeIdentifier = v19;
+    v18 = [(NSString *)identifierCopy copy];
+    v19 = self->_routeIdentifier;
+    self->_routeIdentifier = v18;
 
-    v21 = AFSiriLogContextConnection;
+    v20 = AFSiriLogContextConnection;
     v9 = 1;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v22 = self->_routeIdentifier;
+      v21 = self->_routeIdentifier;
       *buf = 136315394;
-      v32 = "[AFMediaRemoteDeviceInfo _updateWithRouteIdentifier:groupIdentifier:]";
-      v33 = 2112;
-      v34 = v22;
-      _os_log_impl(&dword_1912FE000, v21, OS_LOG_TYPE_INFO, "%s Local route identifier: %@", buf, 0x16u);
+      v31 = "[AFMediaRemoteDeviceInfo _updateWithRouteIdentifier:groupIdentifier:]";
+      v32 = 2112;
+      v33 = v21;
+      _os_log_impl(&dword_1912FE000, v20, OS_LOG_TYPE_INFO, "%s Local route identifier: %@", buf, 0x16u);
     }
   }
 
   groupIdentifier = self->_groupIdentifier;
-  if (groupIdentifier == groupIdentifierCopy || [(NSString *)groupIdentifier isEqualToString:groupIdentifierCopy])
+  if (groupIdentifier == groupIdentifierCopy || (objc_msgSend_isEqualToString_(groupIdentifier) & 1) != 0)
   {
     v11 = 0;
   }
 
   else
   {
-    v23 = [(NSString *)groupIdentifierCopy copy];
-    v24 = self->_groupIdentifier;
-    self->_groupIdentifier = v23;
+    v22 = [(NSString *)groupIdentifierCopy copy];
+    v23 = self->_groupIdentifier;
+    self->_groupIdentifier = v22;
 
-    v25 = AFSiriLogContextConnection;
+    v24 = AFSiriLogContextConnection;
     v11 = 1;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v26 = self->_groupIdentifier;
+      v25 = self->_groupIdentifier;
       *buf = 136315394;
-      v32 = "[AFMediaRemoteDeviceInfo _updateWithRouteIdentifier:groupIdentifier:]";
-      v33 = 2112;
-      v34 = v26;
-      _os_log_impl(&dword_1912FE000, v25, OS_LOG_TYPE_INFO, "%s Local group identifier: %@", buf, 0x16u);
+      v31 = "[AFMediaRemoteDeviceInfo _updateWithRouteIdentifier:groupIdentifier:]";
+      v32 = 2112;
+      v33 = v25;
+      _os_log_impl(&dword_1912FE000, v24, OS_LOG_TYPE_INFO, "%s Local group identifier: %@", buf, 0x16u);
     }
   }
 
   if (v9)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v29 = @"identifier";
+    v28 = @"identifier";
     null = identifierCopy;
     if (!identifierCopy)
     {
       null = [MEMORY[0x1E695DFB0] null];
     }
 
-    v30 = null;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = null;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     [defaultCenter postNotificationName:@"AFMediaRemoteDeviceInfoRouteIdentifierDidChangeNotification" object:self userInfo:v14];
 
     if (!identifierCopy)
@@ -239,33 +231,31 @@ void __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke
   if (v11)
   {
     defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-    v27 = @"identifier";
+    v26 = @"identifier";
     null2 = groupIdentifierCopy;
     if (!groupIdentifierCopy)
     {
       null2 = [MEMORY[0x1E695DFB0] null];
     }
 
-    v28 = null2;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v27 = null2;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     [defaultCenter2 postNotificationName:@"AFMediaRemoteDeviceInfoGroupIdentifierDidChangeNotification" object:self userInfo:v17];
 
     if (!groupIdentifierCopy)
     {
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activeDeviceInfoChanged:(id)changed
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v9 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]";
+    v8 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]";
     _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -276,29 +266,21 @@ void __58__AFMediaRemoteDeviceInfo__getMRDeviceInfoWithCompletion___block_invoke
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(serialQueue, block);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t __52__AFMediaRemoteDeviceInfo__activeDeviceInfoChanged___block_invoke(uint64_t a1)
-{
-  MRMediaRemoteGetLocalOrigin();
-  v2 = *(*(a1 + 32) + 32);
-  return MRMediaRemoteGetDeviceInfo();
 }
 
 void __52__AFMediaRemoteDeviceInfo__activeDeviceInfoChanged___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v4 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
-      v11 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]_block_invoke";
-      v12 = 2112;
-      v13 = a3;
-      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Unable to fetch local route identifier: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]_block_invoke";
+      v11 = 2112;
+      v12 = a3;
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Unable to fetch local route identifier: %@", &v9, 0x16u);
     }
   }
 
@@ -309,19 +291,17 @@ void __52__AFMediaRemoteDeviceInfo__activeDeviceInfoChanged___block_invoke_2(uin
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315650;
-      v11 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]_block_invoke_2";
-      v12 = 2112;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v7;
-      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s Successfully fetched local route identifier: %@, group identifier: %@", &v10, 0x20u);
+      v9 = 136315650;
+      v10 = "[AFMediaRemoteDeviceInfo _activeDeviceInfoChanged:]_block_invoke_2";
+      v11 = 2112;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v7;
+      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s Successfully fetched local route identifier: %@, group identifier: %@", &v9, 0x20u);
     }
 
     [*(a1 + 32) _updateWithRouteIdentifier:v6 groupIdentifier:v7];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (AFMediaRemoteDeviceInfo)init

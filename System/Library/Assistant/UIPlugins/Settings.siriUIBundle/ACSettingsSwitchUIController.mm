@@ -6,12 +6,16 @@
 - (void)_bluetoothAvailabilityChanged:(id)changed;
 - (void)_setSettingFromExternalChangeIfNeeded;
 - (void)_setSettingFromSwitchTapIfNeeded;
+- (void)_setSettingIfNeeded:(BOOL)needed;
 - (void)_switchTapped:(id)tapped;
 - (void)_wiFiStateChangedWithOldState:(int64_t)state newState:(int64_t)newState;
 - (void)dealloc;
 - (void)loadView;
 - (void)setSnippet:(id)snippet;
 - (void)settingChangedExternally:(id)externally;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation ACSettingsSwitchUIController
@@ -126,6 +130,76 @@
 
   switchControl2 = [(ACSettingsSwitchView *)self->_settingView switchControl];
   [switchControl2 addTarget:self action:"_switchTapped:" forControlEvents:4096];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v6.receiver = self;
+  v6.super_class = ACSettingsSwitchUIController;
+  [(ACSettingsSwitchUIController *)&v6 viewWillAppear:?];
+  switchControl = [(ACSettingsSwitchView *)self->_settingView switchControl];
+  [switchControl setOn:-[ACSettingsSwitchSetting enabled](self->_setting animated:{"enabled"), appearCopy}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = ACSettingsSwitchUIController;
+  [(ACSettingsSwitchUIController *)&v5 viewDidAppear:?];
+  [(ACSettingsSwitchUIController *)self _setSettingIfNeeded:appearCopy];
+  [(WFWiFiStateMonitor *)self->_wiFiStateMonitor startMonitoring];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ACSettingsSwitchUIController;
+  [(ACSettingsSwitchUIController *)&v4 viewWillDisappear:disappear];
+  [(WFWiFiStateMonitor *)self->_wiFiStateMonitor stopMonitoring];
+}
+
+- (void)_setSettingIfNeeded:(BOOL)needed
+{
+  if (!self->_shouldSetSettingDueToFirstAppearance)
+  {
+    return;
+  }
+
+  neededCopy = needed;
+  if ([(ACSettingsSwitchUIController *)self _waitingOnSettingState])
+  {
+    return;
+  }
+
+  value = [(SASettingBoolSnippet *)self->_snippet value];
+  toggle = [(SASettingBoolSnippet *)self->_snippet toggle];
+  if (value)
+  {
+    p_setting = &self->_setting;
+    setting = self->_setting;
+    bOOLValue = [value BOOLValue];
+LABEL_8:
+    [(ACSettingsSwitchSetting *)setting setEnabled:bOOLValue];
+    switchControl = [(ACSettingsSwitchView *)self->_settingView switchControl];
+    [switchControl setOn:-[ACSettingsSwitchSetting enabled](*p_setting animated:{"enabled"), neededCopy}];
+
+    goto LABEL_9;
+  }
+
+  if (toggle)
+  {
+    p_setting = &self->_setting;
+    setting = self->_setting;
+    bOOLValue = ([(ACSettingsSwitchSetting *)setting enabled]^ 1);
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  self->_shouldSetSettingDueToFirstAppearance = 0;
+
+  _objc_release_x1();
 }
 
 - (void)_setSettingFromSwitchTapIfNeeded

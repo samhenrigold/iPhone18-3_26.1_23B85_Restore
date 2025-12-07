@@ -124,7 +124,7 @@
     v7 = v6;
     if (v6 >= 2.22044605e-16)
     {
-      [statusCopy currentTime];
+      objc_msgSend_currentTime(statusCopy);
       v8 = v9 / v7;
       *&v8 = v8;
     }
@@ -216,7 +216,7 @@
   [MEMORY[0x277D75D18] animateKeyframesWithDuration:197228 delay:v5 options:0 animations:1.0 completion:0.0];
 }
 
-uint64_t __60__SUUIPreviewProgressIndicator__beginIndeterminateAnimation__block_invoke(uint64_t a1)
+void *__60__SUUIPreviewProgressIndicator__beginIndeterminateAnimation__block_invoke(uint64_t a1)
 {
   v2 = 0;
   v3 = MEMORY[0x277D85DD0];

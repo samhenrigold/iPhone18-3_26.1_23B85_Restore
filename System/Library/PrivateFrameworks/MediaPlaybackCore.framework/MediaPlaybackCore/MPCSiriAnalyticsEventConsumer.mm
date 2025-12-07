@@ -4,6 +4,7 @@
 - (id)_validateAndBuildContextWithEvent:(id)event;
 - (void)_handleAssetLoadEnd:(id)end cursor:(id)cursor;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCSiriAnalyticsEventConsumer
@@ -117,7 +118,7 @@
       mEMORY[0x1E698D0C8] = [MEMORY[0x1E698D0C8] sharedAnalytics];
       if (endCopy)
       {
-        [endCopy monotonicTime];
+        objc_msgSend_monotonicTime(endCopy);
         v25 = *(&v26 + 1);
       }
 
@@ -132,6 +133,13 @@
       [mEMORY[0x1E698D0C8] logEventWithType:2903 machAbsoluteTime:v25 context:{v17, v26, v27, v28}];
     }
   }
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream
@@ -187,7 +195,7 @@ uint64_t __56__MPCSiriAnalyticsEventConsumer_subscribeToEventStream___block_invo
     v6 = [MEMORY[0x1E698D0C8] sharedAnalytics];
     if (v3)
     {
-      [v3 monotonicTime];
+      objc_msgSend_monotonicTime(v3);
       v7 = *(&v9 + 1);
     }
 
@@ -267,7 +275,7 @@ uint64_t __56__MPCSiriAnalyticsEventConsumer_subscribeToEventStream___block_invo
         v31 = [MEMORY[0x1E698D0C8] sharedAnalytics];
         if (v14)
         {
-          [v14 monotonicTime];
+          objc_msgSend_monotonicTime(v14);
           v32 = v36;
         }
 
@@ -374,7 +382,7 @@ uint64_t __56__MPCSiriAnalyticsEventConsumer_subscribeToEventStream___block_invo
 
         if (v4)
         {
-          [v4 monotonicTime];
+          objc_msgSend_monotonicTime(v4);
         }
 
         else

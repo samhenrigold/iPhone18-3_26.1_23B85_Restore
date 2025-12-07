@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)motionTypeAsString:(int)string;
 - (int)StringAsMotionType:(id)type;
 - (int)motionType;
 - (unint64_t)hash;
@@ -48,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFF7F | v3;
+}
+
+- (id)motionTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859C230[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsMotionType:(id)type
@@ -395,38 +411,36 @@ LABEL_22:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v16 = toCopy;
+  v6 = toCopy;
   if (self->_previousLOI)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v16;
+    toCopy = v6;
   }
 
   if (self->_currentLOI)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v16;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 0x80) != 0)
   {
-    motionType = self->_motionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v16;
+    toCopy = v6;
   }
 
   if (self->_currentLocation)
   {
     PBDataWriterWriteDataField();
-    toCopy = v16;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    locationEnabled = self->_locationEnabled;
     PBDataWriterWriteBOOLField();
-    toCopy = v16;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -445,9 +459,8 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  distanceFromHome = self->_distanceFromHome;
   PBDataWriterWriteDoubleField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -461,9 +474,8 @@ LABEL_12:
   }
 
 LABEL_24:
-  distanceFromWork = self->_distanceFromWork;
   PBDataWriterWriteDoubleField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -477,9 +489,8 @@ LABEL_13:
   }
 
 LABEL_25:
-  distanceFromSchool = self->_distanceFromSchool;
   PBDataWriterWriteDoubleField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -493,9 +504,8 @@ LABEL_14:
   }
 
 LABEL_26:
-  distanceFromGym = self->_distanceFromGym;
   PBDataWriterWriteDoubleField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -509,9 +519,8 @@ LABEL_15:
   }
 
 LABEL_27:
-  canPredictClipsGivenRecentMotion = self->_canPredictClipsGivenRecentMotion;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -525,9 +534,8 @@ LABEL_16:
   }
 
 LABEL_28:
-  geohash = self->_geohash;
   PBDataWriterWriteFixed64Field();
-  toCopy = v16;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -541,15 +549,13 @@ LABEL_17:
   }
 
 LABEL_29:
-  coarseGeohash = self->_coarseGeohash;
   PBDataWriterWriteFixed64Field();
-  toCopy = v16;
+  toCopy = v6;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_18:
-    largeGeohash = self->_largeGeohash;
     PBDataWriterWriteFixed64Field();
-    toCopy = v16;
+    toCopy = v6;
   }
 
 LABEL_19:
@@ -914,7 +920,6 @@ LABEL_12:
       goto LABEL_65;
     }
 
-    v11 = *(equalCopy + 97);
     if (self->_locationEnabled)
     {
       if ((*(equalCopy + 97) & 1) == 0)
@@ -994,7 +999,7 @@ LABEL_12:
     }
 
 LABEL_65:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_66;
   }
 
@@ -1003,7 +1008,6 @@ LABEL_65:
     goto LABEL_65;
   }
 
-  v12 = *(equalCopy + 96);
   if (self->_canPredictClipsGivenRecentMotion)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -1051,17 +1055,17 @@ LABEL_44:
       goto LABEL_65;
     }
 
-    v13 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v13 = (v10 & 0x40) == 0;
+    v11 = (v10 & 0x40) == 0;
   }
 
 LABEL_66:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

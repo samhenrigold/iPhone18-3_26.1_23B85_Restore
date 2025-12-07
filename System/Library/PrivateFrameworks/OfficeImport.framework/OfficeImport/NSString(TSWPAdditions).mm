@@ -3,15 +3,15 @@
 + (id)tswp_stringForValue:()TSWPAdditions withPageNumberFormat:;
 + (uint64_t)tswp_numberForString:()TSWPAdditions withListNumberFormat:;
 + (uint64_t)tswp_numberForString:()TSWPAdditions withPageNumberFormat:;
+- (BOOL)tswp_isLowerCaseFromIndex:()TSWPAdditions;
+- (NSUInteger)tswp_findIndexOfCharacter:()TSWPAdditions range:;
 - (__CFString)tswp_replaceOccurrencesOfCharactersInSet:()TSWPAdditions minimumConsecutiveLength:replaceString:;
 - (__CFString)tswp_stringByNormalizingParagraphBreaks;
 - (id)tswp_stringWithoutControlCharacters;
 - (uint64_t)tswp_NSDetectorMatchStringIsStrictPhoneNumber;
-- (uint64_t)tswp_findIndexOfCharacter:()TSWPAdditions range:;
-- (uint64_t)tswp_isLowerCaseFromIndex:()TSWPAdditions;
 - (uint64_t)tswp_rangeOfCharactersFromSet:()TSWPAdditions index:;
-- (uint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions;
-- (uint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions planeClassification:;
+- (unint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions;
+- (unint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions planeClassification:;
 @end
 
 @implementation NSString(TSWPAdditions)
@@ -247,7 +247,7 @@ LABEL_58:
   return selfCopy;
 }
 
-- (uint64_t)tswp_findIndexOfCharacter:()TSWPAdditions range:
+- (NSUInteger)tswp_findIndexOfCharacter:()TSWPAdditions range:
 {
   v36.length = [(__CFString *)self length];
   v34.location = a4;
@@ -830,280 +830,280 @@ LABEL_18:
 {
   switch(a4)
   {
-    case 0:
+    case 0uLL:
       v8 = v7 = MEMORY[0x277CCACA8];
       v9 = [v7 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 1:
+    case 1uLL:
       v8 = v35 = MEMORY[0x277CCACA8];
       v9 = [v35 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 2:
+    case 2uLL:
       v8 = v44 = MEMORY[0x277CCACA8];
       v9 = [v44 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 3:
+    case 3uLL:
       v8 = v40 = MEMORY[0x277CCACA8];
       v9 = [v40 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 4:
+    case 4uLL:
       v8 = v49 = MEMORY[0x277CCACA8];
       v9 = [v49 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 5:
+    case 5uLL:
       v8 = v53 = MEMORY[0x277CCACA8];
       v9 = [v53 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 6:
+    case 6uLL:
       v8 = v34 = MEMORY[0x277CCACA8];
       v9 = [v34 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 7:
+    case 7uLL:
       v8 = v27 = MEMORY[0x277CCACA8];
       v9 = [v27 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 8:
+    case 8uLL:
       v8 = v29 = MEMORY[0x277CCACA8];
       v9 = [v29 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 9:
+    case 9uLL:
       v8 = v56 = MEMORY[0x277CCACA8];
       v9 = [v56 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 10:
+    case 0xAuLL:
       v8 = v32 = MEMORY[0x277CCACA8];
       v9 = [v32 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 11:
+    case 0xBuLL:
       v8 = v42 = MEMORY[0x277CCACA8];
       v9 = [v42 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 12:
+    case 0xCuLL:
       v8 = v39 = MEMORY[0x277CCACA8];
       v9 = [v39 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 13:
+    case 0xDuLL:
       v8 = v26 = MEMORY[0x277CCACA8];
       v9 = [v26 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 14:
+    case 0xEuLL:
       v8 = v54 = MEMORY[0x277CCACA8];
       v9 = [v54 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 15:
+    case 0xFuLL:
       v8 = v55 = MEMORY[0x277CCACA8];
       v9 = [v55 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 16:
+    case 0x10uLL:
       v8 = v60 = MEMORY[0x277CCACA8];
       v9 = [v60 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 17:
+    case 0x11uLL:
       v8 = v58 = MEMORY[0x277CCACA8];
       v9 = [v58 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 18:
+    case 0x12uLL:
       v8 = v22 = MEMORY[0x277CCACA8];
       v9 = [v22 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 19:
+    case 0x13uLL:
       v8 = v41 = MEMORY[0x277CCACA8];
       v9 = [v41 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 20:
+    case 0x14uLL:
       v8 = v65 = MEMORY[0x277CCACA8];
       v9 = [v65 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 21:
+    case 0x15uLL:
       v8 = v25 = MEMORY[0x277CCACA8];
       v9 = [v25 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 22:
+    case 0x16uLL:
       v8 = v38 = MEMORY[0x277CCACA8];
       v9 = [v38 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 23:
+    case 0x17uLL:
       v8 = v30 = MEMORY[0x277CCACA8];
       v9 = [v30 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 24:
+    case 0x18uLL:
       v8 = v47 = MEMORY[0x277CCACA8];
       v9 = [v47 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 25:
+    case 0x19uLL:
       v8 = v28 = MEMORY[0x277CCACA8];
       v9 = [v28 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 26:
+    case 0x1AuLL:
       v8 = v20 = MEMORY[0x277CCACA8];
       v9 = [v20 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 27:
+    case 0x1BuLL:
       v8 = v68 = MEMORY[0x277CCACA8];
       v9 = [v68 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 28:
+    case 0x1CuLL:
       v8 = v33 = MEMORY[0x277CCACA8];
       v9 = [v33 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 29:
+    case 0x1DuLL:
       v8 = v36 = MEMORY[0x277CCACA8];
       v9 = [v36 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 30:
+    case 0x1EuLL:
       v8 = v52 = MEMORY[0x277CCACA8];
       v9 = [v52 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 31:
+    case 0x1FuLL:
       v8 = v37 = MEMORY[0x277CCACA8];
       v9 = [v37 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 32:
+    case 0x20uLL:
       v8 = v16 = MEMORY[0x277CCACA8];
       v9 = [v16 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 33:
+    case 0x21uLL:
       v8 = v24 = MEMORY[0x277CCACA8];
       v9 = [v24 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 34:
+    case 0x22uLL:
       v8 = v57 = MEMORY[0x277CCACA8];
       v9 = [v57 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 35:
+    case 0x23uLL:
       v8 = v70 = MEMORY[0x277CCACA8];
       v9 = [v70 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 36:
+    case 0x24uLL:
       v8 = v19 = MEMORY[0x277CCACA8];
       v9 = [v19 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 37:
+    case 0x25uLL:
       v8 = v50 = MEMORY[0x277CCACA8];
       v9 = [v50 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 38:
+    case 0x26uLL:
       v8 = v18 = MEMORY[0x277CCACA8];
       v9 = [v18 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 39:
+    case 0x27uLL:
       v8 = v17 = MEMORY[0x277CCACA8];
       v9 = [v17 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 40:
+    case 0x28uLL:
       v8 = v31 = MEMORY[0x277CCACA8];
       v9 = [v31 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 41:
+    case 0x29uLL:
       v8 = v43 = MEMORY[0x277CCACA8];
       v9 = [v43 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 42:
+    case 0x2AuLL:
       v8 = v61 = MEMORY[0x277CCACA8];
       v9 = [v61 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 43:
+    case 0x2BuLL:
       v8 = v11 = MEMORY[0x277CCACA8];
       v9 = [v11 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 44:
+    case 0x2CuLL:
       v8 = v21 = MEMORY[0x277CCACA8];
       v9 = [v21 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 45:
+    case 0x2DuLL:
       v8 = v45 = MEMORY[0x277CCACA8];
       v9 = [v45 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 46:
+    case 0x2EuLL:
       v8 = v48 = MEMORY[0x277CCACA8];
       v9 = [v48 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 47:
+    case 0x2FuLL:
       v8 = v71 = MEMORY[0x277CCACA8];
       v9 = [v71 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 48:
+    case 0x30uLL:
       v8 = v46 = MEMORY[0x277CCACA8];
       v9 = [v46 stringWithFormat:@"%@", v8];
       goto LABEL_71;
-    case 49:
+    case 0x31uLL:
       v8 = v15 = MEMORY[0x277CCACA8];
       v9 = [v15 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 50:
+    case 0x32uLL:
       v8 = v12 = MEMORY[0x277CCACA8];
       v9 = [v12 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 51:
+    case 0x33uLL:
       v8 = v73 = MEMORY[0x277CCACA8];
       v9 = [v73 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 52:
+    case 0x34uLL:
       v8 = v69 = MEMORY[0x277CCACA8];
       v9 = [v69 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 53:
+    case 0x35uLL:
       v8 = v14 = MEMORY[0x277CCACA8];
       v9 = [v14 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 54:
+    case 0x36uLL:
       v8 = v51 = MEMORY[0x277CCACA8];
       v9 = [v51 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 55:
+    case 0x37uLL:
       v8 = v59 = MEMORY[0x277CCACA8];
       v9 = [v59 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 56:
+    case 0x38uLL:
       v8 = v13 = MEMORY[0x277CCACA8];
       v9 = [v13 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 57:
+    case 0x39uLL:
       v8 = v66 = MEMORY[0x277CCACA8];
       v9 = [v66 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 58:
+    case 0x3AuLL:
       v8 = v62 = MEMORY[0x277CCACA8];
       v9 = [v62 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 59:
+    case 0x3BuLL:
       v8 = v75 = MEMORY[0x277CCACA8];
       v9 = [v75 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 60:
+    case 0x3CuLL:
       v8 = v72 = MEMORY[0x277CCACA8];
       v9 = [v72 stringWithFormat:@"%@"], v8);
       goto LABEL_71;
-    case 61:
+    case 0x3DuLL:
       v8 = v74 = MEMORY[0x277CCACA8];
       v9 = [v74 stringWithFormat:@"%@", v8];
       goto LABEL_71;
-    case 62:
+    case 0x3EuLL:
       v8 = v63 = MEMORY[0x277CCACA8];
       v9 = [v63 stringWithFormat:@"%@.", v8];
       goto LABEL_71;
-    case 63:
+    case 0x3FuLL:
       v8 = v64 = MEMORY[0x277CCACA8];
       v9 = [v64 stringWithFormat:@"(%@)", v8];
       goto LABEL_71;
-    case 64:
+    case 0x40uLL:
       v8 = v23 = MEMORY[0x277CCACA8];
       v9 = [v23 stringWithFormat:@"%@"], v8);
 LABEL_71:
       v67 = v9;
 
-      if ((a5 & 1) == 0)
+      if (!a5)
       {
         goto LABEL_72;
       }
 
       goto LABEL_75;
-      v10 = case 66:;
+      v10 = case 0x42uLL:;
       goto LABEL_61;
-      v10 = case 67:;
+      v10 = case 0x43uLL:;
 LABEL_61:
       v67 = v10;
-      if ((a5 & 1) == 0)
+      if (!a5)
       {
 LABEL_72:
         if (+[NSString(TSWPAdditions) tswp_stringForValue:withListNumberFormat:includeFormatting:]::s_predicate != -1)
@@ -1214,16 +1214,16 @@ LABEL_22:
 
 + (id)tswp_stringForValue:()TSWPAdditions withPageNumberFormat:
 {
-  v4 = 0;
+  v5 = 0;
   if (a4 > 2)
   {
     switch(a4)
     {
-        v4 = case 3:;
+        v5 = case 3:;
         break;
-        v4 = case 4:;
+        v5 = case 4:;
         break;
-        v4 = case 5:;
+        v5 = case 5:;
         break;
     }
   }
@@ -1231,22 +1231,22 @@ LABEL_22:
   else if (a4)
   {
     if (a4 == 1)
-      v4 = {;
+      v5 = {;
     }
 
     else if (a4 == 2)
-      v4 = {;
+      v5 = {;
     }
   }
 
   else
-    v4 = {;
+    v5 = {;
   }
 
-  return v4;
+  return v5;
 }
 
-- (uint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions
+- (unint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions
 {
   v5 = [self length];
   if (v5 <= a3)
@@ -1320,7 +1320,7 @@ LABEL_22:
   return v7;
 }
 
-- (uint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions planeClassification:
+- (unint64_t)tswp_utf32CharacterAtIndex:()TSWPAdditions planeClassification:
 {
   v7 = [self length];
   v8 = [self characterAtIndex:a3];
@@ -1331,7 +1331,7 @@ LABEL_22:
       *a4 = 1;
     }
 
-    if (v7 - 1 == a3)
+    if ((v7 - 1) == a3)
     {
       v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[NSString(TSWPAdditions) tswp_utf32CharacterAtIndex:planeClassification:]"];
       v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/OfficeImport/OfficeParser/TSNSStringAdditions.mm"];
@@ -1396,7 +1396,7 @@ LABEL_20:
   return v8;
 }
 
-- (uint64_t)tswp_isLowerCaseFromIndex:()TSWPAdditions
+- (BOOL)tswp_isLowerCaseFromIndex:()TSWPAdditions
 {
   v5 = [self length];
   v6 = v5 - a3;

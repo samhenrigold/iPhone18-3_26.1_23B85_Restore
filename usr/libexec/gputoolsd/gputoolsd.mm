@@ -31,18 +31,18 @@ void sub_1000019D4(uint64_t a1, void *a2, void *a3)
   if (v5)
   {
     v7 = [v5 description];
-    v9 = [v7 UTF8String];
-    DYLog();
+    v8 = [v7 UTF8String];
+    DYLog(kDYLoggingLevelError, "Cannot bring app to foreground: error = %s", v8);
 
-    [NSNumber numberWithBool:0, v9];
+    [NSNumber numberWithBool:0];
   }
 
   else
   {
     [NSNumber numberWithBool:1];
   }
-  v8 = ;
-  [*(a1 + 32) setResult:v8];
+  v9 = ;
+  [*(a1 + 32) setResult:v9];
 }
 
 void sub_1000021E0(uint64_t a1)
@@ -64,7 +64,7 @@ void sub_1000021E0(uint64_t a1)
   {
   }
 
-  DYLog();
+  DYLog(kDYLoggingLevelError, "launchGuestAppWithPath: helper transport error");
   [*(a1 + 32) terminate:1];
 LABEL_5:
 }
@@ -80,9 +80,9 @@ uint64_t sub_1000022C4(uint64_t a1, void *a2, void *a3)
   return 0;
 }
 
-void sub_100002768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, ...)
+void sub_100002768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -90,19 +90,19 @@ void sub_100002768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void sub_10000280C(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v9 = a2;
   v5 = a3;
   v6 = v5;
   if (v5)
   {
     v7 = [v5 description];
-    [v7 UTF8String];
-    DYLog();
+    v8 = [v7 UTF8String];
+    DYLog(kDYLoggingLevelError, "Cannot launch app: error = %s", v8);
   }
 
-  else if (v8)
+  else if (v9)
   {
-    *(*(*(a1 + 40) + 8) + 24) = [v8 pid];
+    *(*(*(a1 + 40) + 8) + 24) = [v9 pid];
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -152,12 +152,12 @@ void sub_100002D60(uint64_t a1)
 
   v8 = [*(*(a1 + 32) + 32) error];
   v9 = [v8 description];
-  [v9 UTF8String];
-  DYLog();
+  v10 = [v9 UTF8String];
+  DYLog(kDYLoggingLevelError, "helper transport error: %s", v10);
 
-  v10 = *(a1 + 32);
+  v11 = *(a1 + 32);
 
-  [v10 terminate:1];
+  [v11 terminate:1];
 }
 
 void sub_100002EFC(uint64_t a1)
@@ -166,28 +166,28 @@ void sub_100002EFC(uint64_t a1)
   {
     v9 = [*(a1 + 32) error];
     v2 = [v9 description];
-    v8 = [v2 UTF8String];
-    DYLog();
+    v3 = [v2 UTF8String];
+    DYLog(kDYLoggingLevelError, "failed to connect to helper: %s", v3);
 
-    [*(a1 + 40) terminate:{1, v8}];
-  }
-
-  v3 = kDYGuestAppLaunchEnvironmentKey;
-  v4 = *(a1 + 48);
-  v5 = kDYGuestAppLaunchArgumentsKey;
-  v6 = [*(a1 + 56) objectForKey:kDYGuestAppLaunchArgumentsKey];
-  v10 = [NSDictionary dictionaryWithObjectsAndKeys:v4, v3, v6, v5, 0];
-
-  v7 = [DYTransportMessage messageWithKind:1287 plistPayload:v10];
-  if (!v7)
-  {
-    DYLog();
     [*(a1 + 40) terminate:1];
   }
 
-  if (([*(*(a1 + 40) + 32) send:v7 error:0] & 1) == 0)
+  v4 = kDYGuestAppLaunchEnvironmentKey;
+  v5 = *(a1 + 48);
+  v6 = kDYGuestAppLaunchArgumentsKey;
+  v7 = [*(a1 + 56) objectForKey:kDYGuestAppLaunchArgumentsKey];
+  v10 = [NSDictionary dictionaryWithObjectsAndKeys:v5, v4, v7, v6, 0];
+
+  v8 = [DYTransportMessage messageWithKind:1287 plistPayload:v10];
+  if (!v8)
   {
-    DYLog();
+    DYLog(kDYLoggingLevelError, "failed to serialize environment plist for helper");
+    [*(a1 + 40) terminate:1];
+  }
+
+  if (([*(*(a1 + 40) + 32) send:v8 error:0] & 1) == 0)
+  {
+    DYLog(kDYLoggingLevelError, "failed to send reload UI server message to helper");
     [*(a1 + 40) terminate:1];
   }
 }
@@ -223,20 +223,15 @@ void sub_100003F80(uint64_t a1, void *a2)
 
 void sub_100004934(uint64_t a1)
 {
-  v2 = (*(a1 + 32) + 8);
-  v3 = *v2;
-  v4 = v2[1];
   if (CSIsNull())
   {
     [*(a1 + 32) inferiorPid];
-    v5 = CSSymbolicatorCreateWithPid();
-    v6 = (*(a1 + 32) + 8);
-    *v6 = v5;
-    v6[1] = v7;
+    v2 = CSSymbolicatorCreateWithPid();
+    v3 = (*(a1 + 32) + 8);
+    *v3 = v2;
+    v3[1] = v4;
   }
 
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(*(a1 + 32) + 16);
   if (CSIsNull())
   {
     Signature = 0;
@@ -244,14 +239,12 @@ void sub_100004934(uint64_t a1)
 
   else
   {
-    v10 = *(*(a1 + 32) + 8);
-    v11 = *(*(a1 + 32) + 16);
     Signature = CSSymbolicatorCreateSignature();
   }
 
-  v12 = [*(a1 + 32) transport];
-  v13 = [DYTransportMessage messageWithKind:1538 payload:Signature];
-  [v12 send:v13 inReplyTo:*(a1 + 40) error:0];
+  v5 = [*(a1 + 32) transport];
+  v6 = [DYTransportMessage messageWithKind:1538 payload:Signature];
+  [v5 send:v6 inReplyTo:*(a1 + 40) error:0];
 }
 
 NSObject *sub_100004C38(uint64_t a1, NSObject *a2, void *a3)
@@ -270,14 +263,14 @@ NSObject *sub_100004C38(uint64_t a1, NSObject *a2, void *a3)
   return v6;
 }
 
-void sub_100004D78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100004D78(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = DYGPUStatsReport;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-CFComparisonResult sub_100004E94(uint64_t a1)
+CFComparisonResult sub_100004E94(uint64_t a1, uint64_t a2)
 {
   Group = IOReportChannelGetGroup();
   if (CFStringCompare(Group, *(a1 + 32), 1uLL))
@@ -297,39 +290,36 @@ CFComparisonResult sub_100004E94(uint64_t a1)
 
 void sub_100004FB8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v4 = *(v2 + 16);
-  v3 = *(v2 + 24);
   Samples = IOReportCreateSamples();
   if (Samples)
   {
-    v6 = Samples;
+    v3 = Samples;
     if (*(*(a1 + 32) + 32))
     {
       SamplesDelta = IOReportCreateSamplesDelta();
       if (SamplesDelta)
       {
-        v8 = SamplesDelta;
-        v11 = 0;
-        v12 = &v11;
-        v13 = 0x3032000000;
-        v14 = sub_100005120;
-        v15 = sub_100005130;
-        v16 = objc_opt_new();
+        v5 = SamplesDelta;
+        v8 = 0;
+        v9 = &v8;
+        v10 = 0x3032000000;
+        v11 = sub_100005120;
+        v12 = sub_100005130;
+        v13 = objc_opt_new();
         IOReportIterate();
-        objc_storeStrong((*(a1 + 32) + 40), v12[5]);
-        CFRelease(v8);
-        _Block_object_dispose(&v11, 8);
+        objc_storeStrong((*(a1 + 32) + 40), v9[5]);
+        CFRelease(v5);
+        _Block_object_dispose(&v8, 8);
       }
     }
 
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 32);
-    *(v9 + 32) = v6;
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 32);
+    *(v6 + 32) = v3;
   }
 }
 
-void sub_100005100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_100005100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -343,7 +333,7 @@ uint64_t sub_100005120(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100005138(uint64_t a1)
+uint64_t sub_100005138(uint64_t a1, uint64_t a2)
 {
   if (IOReportChannelGetFormat() != 2)
   {
@@ -351,58 +341,58 @@ uint64_t sub_100005138(uint64_t a1)
   }
 
   Count = IOReportStateGetCount();
-  v3 = objc_alloc_init(NSNumberFormatter);
-  [v3 setNumberStyle:1];
+  v4 = objc_alloc_init(NSNumberFormatter);
+  [v4 setNumberStyle:1];
   if (Count >= 1)
   {
-    v4 = 0;
-    v5 = 0.0;
+    v5 = 0;
     v6 = 0.0;
+    v7 = 0.0;
     do
     {
       NameForIndex = IOReportStateGetNameForIndex();
       IOReportStateGetDutyCycle();
       if (NameForIndex)
       {
-        v9 = v8;
+        v10 = v9;
         if ([NameForIndex length])
         {
-          v10 = [NSNumber numberWithDouble:v9 * 100.0];
-          [*(*(*(a1 + 32) + 8) + 40) setObject:v10 forKeyedSubscript:NameForIndex];
+          v11 = [NSNumber numberWithDouble:v10 * 100.0];
+          [*(*(*(a1 + 32) + 8) + 40) setObject:v11 forKeyedSubscript:NameForIndex];
 
           if (([NameForIndex isEqualToString:@"OFF"] & 1) == 0)
           {
             if ([NameForIndex hasPrefix:@"P"])
             {
-              v11 = [NameForIndex substringFromIndex:1];
-              v12 = v11;
-              if (v11 && [v11 length])
+              v12 = [NameForIndex substringFromIndex:1];
+              v13 = v12;
+              if (v12 && [v12 length])
               {
-                v13 = v3;
-                v14 = [v3 numberFromString:v12];
-                v15 = v14;
-                if (v14)
+                v14 = v4;
+                v15 = [v4 numberFromString:v13];
+                v16 = v15;
+                if (v15)
                 {
-                  [v14 doubleValue];
-                  v5 = v5 + v16 * v9;
-                  v6 = v6 + v9;
+                  [v15 doubleValue];
+                  v6 = v6 + v17 * v10;
+                  v7 = v7 + v10;
                 }
 
-                v3 = v13;
+                v4 = v14;
               }
             }
           }
         }
       }
 
-      ++v4;
+      ++v5;
     }
 
-    while (Count != v4);
-    if (v6 > 2.22044605e-16)
+    while (Count != v5);
+    if (v7 > 2.22044605e-16)
     {
-      v17 = [NSNumber numberWithDouble:v5 / v6];
-      [*(*(*(a1 + 32) + 8) + 40) setObject:v17 forKeyedSubscript:kDYXPState];
+      v18 = [NSNumber numberWithDouble:v6 / v7];
+      [*(*(*(a1 + 32) + 8) + 40) setObject:v18 forKeyedSubscript:kDYXPState];
     }
   }
 
@@ -430,53 +420,49 @@ void sub_100005D2C(uint64_t a1)
   {
     if (![v2 connected])
     {
-      v8 = *(a1 + 32);
-      v9 = secure_lockdown_checkin();
-      if (v9)
+      v8 = secure_lockdown_checkin();
+      if (v8)
       {
-        v10 = v9;
-        if (v9 > 0xB)
+        v9 = v8;
+        if (v8 > 0xB)
         {
-          v11 = "unknown";
+          v10 = "unknown";
         }
 
         else
         {
-          v11 = (&off_10000C850)[v9 - 1];
+          v10 = (&off_10000C850)[v8 - 1];
         }
 
-        v19 = [NSString stringWithUTF8String:v11];
-        v20 = v10;
+        v15 = [NSString stringWithUTF8String:v10];
+        v16 = v9;
         _DYOLog();
 
-        v4 = v10;
+        v4 = v9;
         v3 = @"LockdownErrorDomain";
         goto LABEL_16;
       }
 
-      v12 = *(*(a1 + 32) + 272);
       *(*(a1 + 32) + 296) = lockdown_get_socket();
-      v13 = *(a1 + 32);
-      if (*(v13 + 296) == -1)
+      if (*(*(a1 + 32) + 296) == -1)
       {
         _DYOLog();
         v5 = 0;
         goto LABEL_5;
       }
 
-      v14 = *(v13 + 272);
       *(*(a1 + 32) + 288) = lockdown_get_securecontext();
-      v15 = *(a1 + 32);
-      v16 = *(v15 + 288);
-      if (v16 && *(v15 + 296) == *(v16 + 8))
+      v11 = *(a1 + 32);
+      v12 = *(v11 + 288);
+      if (v12 && *(v11 + 296) == *(v12 + 8))
       {
-        v16[2] = sub_100005F7C;
-        v16[3] = sub_100005F88;
-        v15 = *(a1 + 32);
-        v16[4] = v15;
+        v12[2] = sub_100005F7C;
+        v12[3] = sub_100005F88;
+        v11 = *(a1 + 32);
+        v12[4] = v11;
       }
 
-      [v15 runWithSocket:*(v15 + 296)];
+      [v11 runWithSocket:*(v11 + 296)];
     }
 
     v5 = 1;
@@ -489,14 +475,14 @@ LABEL_5:
   v3 = DYErrorDomain;
   v4 = 32;
 LABEL_16:
-  v17 = [DYError errorWithDomain:v3 code:v4 userInfo:0, v19, v20];
-  v18 = *(a1 + 40);
+  v13 = [DYError errorWithDomain:v3 code:v4 userInfo:0, v15, v16];
+  v14 = *(a1 + 40);
   v7 = (a1 + 40);
-  [v18 setError:v17];
+  [v14 setError:v13];
 
   v6 = [NSNumber numberWithBool:0];
 LABEL_17:
-  v21 = v6;
+  v17 = v6;
   [*v7 setResult:v6];
 }
 

@@ -10,10 +10,10 @@
 
 - (PowerUIIBLMNotificationManager)init
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v13.receiver = self;
-  v13.super_class = PowerUIIBLMNotificationManager;
-  v2 = [(PowerUIIBLMNotificationManager *)&v13 init];
+  v15 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = PowerUIIBLMNotificationManager;
+  v2 = [(PowerUIIBLMNotificationManager *)&v12 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.powerui.iblm", "NotificationManager");
@@ -35,12 +35,11 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = @"com.apple.osi.iblm.engagedNotification";
+      v14 = @"com.apple.osi.iblm.engagedNotification";
       _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "PowerUIIBLMNotificationManager initialized with bundle identifier: %@", buf, 0xCu);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -68,7 +67,7 @@ void __48__PowerUIIBLMNotificationManager_sharedInstance__block_invoke()
 
 - (void)displayIBLMEngagedNotification
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
@@ -92,9 +91,9 @@ void __48__PowerUIIBLMNotificationManager_sharedInstance__block_invoke()
     title = [v4 title];
     body = [v4 body];
     *buf = 138412546;
-    v23 = title;
-    v24 = 2112;
-    v25 = body;
+    v22 = title;
+    v23 = 2112;
+    v24 = body;
     _os_log_impl(&dword_21B766000, v10, OS_LOG_TYPE_DEFAULT, "Content title : %@, Body %@", buf, 0x16u);
   }
 
@@ -118,23 +117,21 @@ void __48__PowerUIIBLMNotificationManager_sharedInstance__block_invoke()
   [v16 setDestinations:3];
   objc_initWeak(buf, self);
   unCenter = self->_unCenter;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_invoke;
-  v19[3] = &unk_2782D4810;
-  objc_copyWeak(&v21, buf);
-  v20 = @"IBLM-Engaged";
-  [(UNUserNotificationCenter *)unCenter addNotificationRequest:v16 withCompletionHandler:v19];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_invoke;
+  v18[3] = &unk_2782D4810;
+  objc_copyWeak(&v20, buf);
+  v19 = @"IBLM-Engaged";
+  [(UNUserNotificationCenter *)unCenter addNotificationRequest:v16 withCompletionHandler:v18];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -153,18 +150,16 @@ void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_
     else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Successfully posted IBLM notification with identifier: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v8;
+      _os_log_impl(&dword_21B766000, v7, OS_LOG_TYPE_DEFAULT, "Successfully posted IBLM notification with identifier: %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordIBLMFirstUserNotificationResponse:(int64_t)response
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   userContext = [MEMORY[0x277CFE318] userContext];
   v7 = [PowerUISmartChargeUtilities currentBatteryLevelWithContext:userContext];
@@ -181,16 +176,14 @@ void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = v10;
+    v13 = v10;
     _os_log_impl(&dword_21B766000, log, OS_LOG_TYPE_DEFAULT, "Sending IBLM User Notification CA event: %@", buf, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   centerCopy = center;
   responseCopy = response;
   handlerCopy = handler;
@@ -199,9 +192,9 @@ void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_
   {
     v12 = log;
     actionIdentifier = [responseCopy actionIdentifier];
-    v20 = 138412290;
-    v21 = actionIdentifier;
-    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "IBLM notification response received: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = actionIdentifier;
+    _os_log_impl(&dword_21B766000, v12, OS_LOG_TYPE_DEFAULT, "IBLM notification response received: %@", &v19, 0xCu);
   }
 
   actionIdentifier2 = [responseCopy actionIdentifier];
@@ -230,20 +223,17 @@ void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_
 
   [(PowerUIIBLMNotificationManager *)self recordIBLMFirstUserNotificationResponse:v16];
   handlerCopy[2](handlerCopy);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __64__PowerUIIBLMNotificationManager_displayIBLMEngagedNotification__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_21B766000, log, OS_LOG_TYPE_ERROR, "Failed to post IBLM notification with identifier %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_21B766000, log, OS_LOG_TYPE_ERROR, "Failed to post IBLM notification with identifier %@: %@", &v4, 0x16u);
 }
 
 @end

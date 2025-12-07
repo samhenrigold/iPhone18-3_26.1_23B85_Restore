@@ -13,7 +13,7 @@
   {
     v4 = objc_opt_class();
     NSStringFromClass(v4);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryKernel.mm", 0x8FE, @"Internal error: [%@ initWithDevice:] unavailable", v5, v6, v7, v8);
   }
 
   return 0;
@@ -158,7 +158,7 @@ LABEL_9:
   {
     v3 = objc_opt_class();
     NSStringFromClass(v3);
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNBinaryKernel.mm", 0x935, @"Internal error: [%@ encodeWithCoder:] unavailable", v4, v5, v6, v7);
   }
 }
 

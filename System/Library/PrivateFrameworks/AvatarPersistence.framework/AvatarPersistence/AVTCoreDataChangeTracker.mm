@@ -189,49 +189,48 @@ uint64_t __91__AVTCoreDataChangeTracker_processChangeTransactionsWithChangeToken
 
 - (id)trackerChangesFromPersistentChanges:(id)changes managedObjectContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   contextCopy = context;
-  v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(changesCopy, "count")}];
+  v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(changesCopy, "count")}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = changesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         if ((*(AVTIsPersistentChangeOfInterest + 2))(AVTIsPersistentChangeOfInterest, v12))
         {
           v13 = [(AVTCoreDataChangeTracker *)self recordIdentifierForChange:v12 managedObjectContext:contextCopy];
           if (v13)
           {
             v14 = -[AVTCoreDataChangeTrackerChange initWithRecordIdentifier:changeType:]([AVTCoreDataChangeTrackerChange alloc], "initWithRecordIdentifier:changeType:", v13, +[AVTCoreDataChangeTrackerChange trackerChangeTypeFromPersistentChangeType:](AVTCoreDataChangeTrackerChange, "trackerChangeTypeFromPersistentChangeType:", [v12 changeType]));
-            [v18 addObject:v14];
+            [v17 addObject:v14];
           }
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
-  v15 = [v18 copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = [v17 copy];
 
   return v15;
 }
@@ -361,18 +360,17 @@ void __53__AVTCoreDataChangeTracker_saveToken_location_error___block_invoke(uint
   {
     v8 = *(a1 + 40);
     v9 = *(*(a1 + 64) + 8);
-    v16 = *(v9 + 40);
-    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v16];
-    objc_storeStrong((v9 + 40), v16);
+    v15 = *(v9 + 40);
+    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v15];
+    objc_storeStrong((v9 + 40), v15);
     if (v10)
     {
-      v11 = *(a1 + 48);
-      v12 = [objc_opt_class() tokenFileURLForLocation:*(a1 + 32)];
-      v13 = *(*(a1 + 64) + 8);
-      v15 = *(v13 + 40);
-      v14 = [v10 writeToURL:v12 options:1 error:&v15];
-      objc_storeStrong((v13 + 40), v15);
-      *(*(*(a1 + 56) + 8) + 24) = v14;
+      v11 = [objc_opt_class() tokenFileURLForLocation:*(a1 + 32)];
+      v12 = *(*(a1 + 64) + 8);
+      v14 = *(v12 + 40);
+      v13 = [v10 writeToURL:v11 options:1 error:&v14];
+      objc_storeStrong((v12 + 40), v14);
+      *(*(*(a1 + 56) + 8) + 24) = v13;
     }
 
     else
@@ -384,47 +382,47 @@ void __53__AVTCoreDataChangeTracker_saveToken_location_error___block_invoke(uint
 
 - (id)enumerateChangesAfterToken:(id)token managedObjectContext:(id)context changesHandler:(id)handler error:(id *)error
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v45[1] = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   contextCopy = context;
   handlerCopy = handler;
   v12 = [MEMORY[0x277CBE4B0] fetchHistoryAfterToken:tokenCopy];
   [v12 setResultType:5];
-  v43 = 0;
-  v13 = [contextCopy executeRequest:v12 error:&v43];
-  v14 = v43;
+  v42 = 0;
+  v13 = [contextCopy executeRequest:v12 error:&v42];
+  v14 = v42;
   v15 = v14;
   if (v13)
   {
-    v34 = v14;
-    v35 = v13;
-    v36 = v12;
-    v37 = contextCopy;
+    v33 = v14;
+    v34 = v13;
+    v35 = v12;
+    v36 = contextCopy;
     result = [v13 result];
     v17 = tokenCopy;
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v18 = result;
-    v19 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (!v19)
     {
       goto LABEL_15;
     }
 
     v20 = v19;
-    v21 = *v40;
+    v21 = *v39;
     while (1)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v40 != v21)
+        if (*v39 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v39 + 1) + 8 * i);
+        v23 = *(*(&v38 + 1) + 8 * i);
         token = [v23 token];
 
         changes = [v23 changes];
@@ -456,15 +454,15 @@ void __53__AVTCoreDataChangeTracker_saveToken_location_error___block_invoke(uint
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
       if (!v20)
       {
 LABEL_15:
 
-        contextCopy = v37;
-        v13 = v35;
-        v12 = v36;
-        v15 = v34;
+        contextCopy = v36;
+        v13 = v34;
+        v12 = v35;
+        v15 = v33;
         goto LABEL_21;
       }
     }
@@ -484,9 +482,9 @@ LABEL_18:
 
   else
   {
-    v45 = *MEMORY[0x277CCA470];
-    v46[0] = @"Got a nil NSPersistentHistoryResult, but no error filled in";
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:&v45 count:1];
+    v44 = *MEMORY[0x277CCA470];
+    v45[0] = @"Got a nil NSPersistentHistoryResult, but no error filled in";
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
     v15 = [AVTError errorWithCode:1 userInfo:v31];
 
     if (error)
@@ -497,8 +495,6 @@ LABEL_18:
 
   v17 = 0;
 LABEL_21:
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

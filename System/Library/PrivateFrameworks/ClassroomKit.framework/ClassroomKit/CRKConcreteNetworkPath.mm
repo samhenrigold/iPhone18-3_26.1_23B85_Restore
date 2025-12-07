@@ -39,7 +39,7 @@
     v7[2] = __36__CRKConcreteNetworkPath_interfaces__block_invoke;
     v7[3] = &unk_278DC2C38;
     v7[4] = self;
-    v4 = __36__CRKConcreteNetworkPath_interfaces__block_invoke(v7);
+    v4 = __36__CRKConcreteNetworkPath_interfaces__block_invoke(v7, a2);
     v5 = self->_interfaces;
     self->_interfaces = v4;
 
@@ -49,21 +49,21 @@
   return interfaces;
 }
 
-id __36__CRKConcreteNetworkPath_interfaces__block_invoke(uint64_t a1)
+id __36__CRKConcreteNetworkPath_interfaces__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = objc_opt_new();
-  v3 = [*(a1 + 32) underlyingPath];
+  v3 = objc_opt_new();
+  v4 = [*(a1 + 32) underlyingPath];
   enumerate_block[0] = MEMORY[0x277D85DD0];
   enumerate_block[1] = 3221225472;
   enumerate_block[2] = __36__CRKConcreteNetworkPath_interfaces__block_invoke_2;
   enumerate_block[3] = &unk_278DC2C10;
-  v8 = v2;
-  v4 = v2;
-  nw_path_enumerate_interfaces(v3, enumerate_block);
+  v9 = v3;
+  v5 = v3;
+  nw_path_enumerate_interfaces(v4, enumerate_block);
 
-  v5 = [v4 copy];
+  v6 = [v5 copy];
 
-  return v5;
+  return v6;
 }
 
 uint64_t __36__CRKConcreteNetworkPath_interfaces__block_invoke_2(uint64_t a1, void *a2)

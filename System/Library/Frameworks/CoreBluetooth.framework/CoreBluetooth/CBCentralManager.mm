@@ -14,6 +14,7 @@
 - (id)peripheralWithIdentifier:(id)identifier;
 - (id)peripheralWithInfo:(id)info;
 - (id)retrieveAddressForPeripheral:(id)peripheral;
+- (id)retrieveConnectedPeripheralsWithServices:(id)services allowAll:(BOOL)all;
 - (id)retrieveConnectingPeripherals;
 - (id)retrievePairingInfoForPeripheral:(id)peripheral;
 - (id)retrievePeripheralWithAddress:(id)address;
@@ -23,6 +24,7 @@
 - (id)stopConnectionEventCounterForPeripheral:(id)peripheral;
 - (unsigned)getRemainingAdvancedMatchingRule;
 - (unsigned)getTotalSupportedAdvancedMatchingRules;
+- (unsigned)retrieveMaxConnectionForUsecase:(unsigned int)usecase;
 - (void)HandleBluetoothPhyStatisticEventMsg:(id)msg;
 - (void)HandleBluetoothUsageEventMsg:(id)msg;
 - (void)HandleControllerBTClockUpdateMsg:(id)msg;
@@ -44,6 +46,8 @@
 - (void)connectCIS:(id)s;
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options;
 - (void)connectWhbCBPeripheral:(id)peripheral withCompletion:(id)completion;
+- (void)createOfflineLEDevices:(unsigned __int16)devices;
+- (void)createOfflineLEPairing:(unsigned __int16)pairing synced:(BOOL)synced ignoreMaxLimit:(BOOL)limit;
 - (void)createPeripheralFromIdentifier:(id)identifier completion:(id)completion;
 - (void)createXPCForLEAudio;
 - (void)csCreateConfig:(id)config options:(id)options;
@@ -62,6 +66,8 @@
 - (void)deleteDevice:(id)device;
 - (void)disconnectCIS:(id)s;
 - (void)enableMrc:(id)mrc options:(id)options;
+- (void)enablePrivateModeForPeripheral:(id)peripheral forDuration:(unsigned __int16)duration;
+- (void)enablePrivateModeForSessionWithIdentifier:(id)identifier forDuration:(unsigned __int16)duration;
 - (void)forEachPeripheral:(id)peripheral;
 - (void)handleActivePresetUpdated:(id)updated;
 - (void)handleAncsAuthChanged:(id)changed;
@@ -82,6 +88,7 @@
 - (void)handleLEAudioXpcInvalid;
 - (void)handleMicrophoneGainUpdated:(id)updated;
 - (void)handleMicrophoneMuteUpdated:(id)updated;
+- (void)handleMsg:(unsigned __int16)msg args:(id)args;
 - (void)handlePeerMTUChanged:(id)changed;
 - (void)handlePeripheralCLReady:(id)ready;
 - (void)handlePeripheralConnectionCompleted:(id)completed;
@@ -144,6 +151,7 @@
 - (void)setDesiredConnectionLatency:(int64_t)latency forPeripheral:(id)peripheral completion:(id)completion;
 - (void)setEnhancedScanEnable:(id)enable;
 - (void)setEnhancedSetScanParamtersMultiCore:(id)core;
+- (void)setHostState:(BOOL)state;
 - (void)setLESetPhy:(id)phy options:(id)options;
 - (void)setLeAFHMap:(id)map;
 - (void)setLePowerControl:(id)control options:(id)options completion:(id)completion;
@@ -270,35 +278,35 @@
 
 - (void)forEachPeripheral:(id)peripheral
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   v5 = objc_opt_new();
   pthread_mutex_lock(&self->peripheralsMutex);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   objectEnumerator = [(NSMapTable *)self->_peripherals objectEnumerator];
-  v7 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [v5 addObject:*(*(&v16 + 1) + 8 * v10++)];
+        [v5 addObject:*(*(&v15 + 1) + 8 * v10++)];
       }
 
       while (v8 != v10);
-      v8 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -320,8 +328,6 @@
 
     while (nextObject2);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)powerAssertionNearCompletion
@@ -349,39 +355,37 @@ void __37__CBCentralManager_orphanPeripherals__block_invoke(uint64_t a1, void *a
 
 - (id)dataArrayToUUIDArray:(id)array
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [CBUUID UUIDWithData:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [CBUUID UUIDWithData:*(*(&v12 + 1) + 8 * i), v12];
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -782,74 +786,69 @@ LABEL_93:
 
 - (void)setupCIG:(id)g completion:(id)completion
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   gCopy = g;
   v7 = MEMORY[0x1C68DF720](completion);
   setupCIGCompletion = self->_setupCIGCompletion;
   self->_setupCIGCompletion = v7;
 
-  v11 = @"kCBMsgArgOptions";
-  v12[0] = gCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"kCBMsgArgOptions";
+  v11[0] = gCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [(CBManager *)self sendMsg:156 args:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeCIG:(id)g completion:(id)completion
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   gCopy = g;
   v7 = MEMORY[0x1C68DF720](completion);
   removeCIGCompletion = self->_removeCIGCompletion;
   self->_removeCIGCompletion = v7;
 
-  v11 = @"kCBMsgArgOptions";
-  v12[0] = gCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = @"kCBMsgArgOptions";
+  v11[0] = gCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
 
   [(CBManager *)self sendMsg:158 args:v9];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectCIS:(id)s
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgOptions";
-  v9[0] = s;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgOptions";
+  v8[0] = s;
   v4 = MEMORY[0x1E695DF20];
   sCopy = s;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [(CBManager *)self sendMsg:160 args:v6];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)disconnectCIS:(id)s
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgOptions";
-  v9[0] = s;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgOptions";
+  v8[0] = s;
   v4 = MEMORY[0x1E695DF20];
   sCopy = s;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [(CBManager *)self sendMsg:164 args:v6];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (CBCentralManager)initWithDelegate:(id)delegate queue:(dispatch_queue_t)queue
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = @"kCBInitOptionShowPowerAlert";
-  v14[0] = MEMORY[0x1E695E118];
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12 = @"kCBInitOptionShowPowerAlert";
+  v13[0] = MEMORY[0x1E695E118];
   v6 = MEMORY[0x1E695DF20];
   v7 = queue;
   v8 = delegate;
-  v9 = [v6 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v9 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v10 = [(CBCentralManager *)self initWithDelegate:v8 queue:v7 options:v9];
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1096,66 +1095,62 @@ void __40__CBCentralManager_retrievePeripherals___block_invoke(uint64_t a1)
 
 - (id)retrievePairingInfoForPeripheral:(id)peripheral
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   if (!peripheralCopy)
   {
     [CBCentralManager retrievePairingInfoForPeripheral:];
   }
 
-  v10 = @"kCBMsgArgDeviceUUID";
+  v9 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v11[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [(CBManager *)self sendSyncMsg:118 args:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)createCBPeripheralsFromIDs:(id)ds
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = dsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(CBCentralManager *)self peripheralWithInfo:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(CBCentralManager *)self peripheralWithInfo:*(*(&v13 + 1) + 8 * i), v13];
         [v5 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (NSArray)retrievePeripheralsWithIdentifiers:(NSArray *)identifiers
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = identifiers;
   if (!v4)
   {
@@ -1164,29 +1159,29 @@ void __40__CBCentralManager_retrievePeripherals___block_invoke(uint64_t a1)
 
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = v4;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       for (i = 0; i != v9; ++i)
       {
         while (1)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
-          v13 = [(CBCentralManager *)self peripheralWithIdentifier:v12, v20];
+          v12 = *(*(&v19 + 1) + 8 * i);
+          v13 = [(CBCentralManager *)self peripheralWithIdentifier:v12, v19];
           if (v13)
           {
             break;
@@ -1204,7 +1199,7 @@ void __40__CBCentralManager_retrievePeripherals___block_invoke(uint64_t a1)
       }
 
 LABEL_5:
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v9);
@@ -1212,9 +1207,9 @@ LABEL_5:
 
   if ([v6 count])
   {
-    v24 = @"kCBMsgArgUUIDs";
-    v25 = v6;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = @"kCBMsgArgUUIDs";
+    v24 = v6;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     v15 = [(CBManager *)self sendSyncMsg:69 args:v14];
 
     v16 = [v15 objectForKeyedSubscript:@"kCBMsgArgDevices"];
@@ -1222,14 +1217,12 @@ LABEL_5:
     [v5 addObjectsFromArray:v17];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)retrievePeripheralsWithIdentifiers:(id)identifiers completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   completionCopy = completion;
   if (!identifiersCopy)
@@ -1239,28 +1232,28 @@ LABEL_5:
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v10 = identifiersCopy;
-  v11 = [v10 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
+    v13 = *v32;
     do
     {
       for (i = 0; i != v12; ++i)
       {
         while (1)
         {
-          if (*v33 != v13)
+          if (*v32 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v32 + 1) + 8 * i);
+          v15 = *(*(&v31 + 1) + 8 * i);
           v16 = [(CBCentralManager *)self peripheralWithIdentifier:v15];
           if (v16)
           {
@@ -1279,7 +1272,7 @@ LABEL_5:
       }
 
 LABEL_5:
-      v12 = [v10 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v12);
@@ -1287,22 +1280,22 @@ LABEL_5:
 
   if ([v9 count])
   {
-    v36 = @"kCBMsgArgUUIDs";
-    v37 = v9;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __66__CBCentralManager_retrievePeripheralsWithIdentifiers_completion___block_invoke;
-    v29[3] = &unk_1E811CF78;
-    v18 = v30;
-    v30[0] = v8;
-    v30[1] = self;
-    v31 = completionCopy;
+    v35 = @"kCBMsgArgUUIDs";
+    v36 = v9;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __66__CBCentralManager_retrievePeripheralsWithIdentifiers_completion___block_invoke;
+    v28[3] = &unk_1E811CF78;
+    v18 = v29;
+    v29[0] = v8;
+    v29[1] = self;
+    v30 = completionCopy;
     v19 = completionCopy;
     v20 = v8;
-    [(CBManager *)self sendMsg:69 args:v17 withReply:v29];
+    [(CBManager *)self sendMsg:69 args:v17 withReply:v28];
 
-    v21 = v31;
+    v21 = v30;
   }
 
   else
@@ -1312,68 +1305,63 @@ LABEL_5:
     block[1] = 3221225472;
     block[2] = __66__CBCentralManager_retrievePeripheralsWithIdentifiers_completion___block_invoke_2;
     block[3] = &unk_1E811CFA0;
-    v18 = &v28;
-    v27 = v8;
-    v28 = completionCopy;
+    v18 = &v27;
+    v26 = v8;
+    v27 = completionCopy;
     v23 = completionCopy;
     v24 = v8;
     dispatch_async(getCurrentQueue, block);
 
-    v21 = v27;
+    v21 = v26;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__CBCentralManager_retrievePeripheralsWithIdentifiers_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!a3)
   {
     v4 = [a2 objectForKeyedSubscript:@"kCBMsgArgDevices"];
+    v12 = 0u;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v13;
       do
       {
         v8 = 0;
         do
         {
-          if (*v15 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
           v9 = *(a1 + 32);
-          v10 = [*(a1 + 40) peripheralWithInfo:*(*(&v14 + 1) + 8 * v8)];
+          v10 = [*(a1 + 40) peripheralWithInfo:*(*(&v12 + 1) + 8 * v8)];
           [v9 addObject:v10];
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
     }
   }
 
-  v11 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 - (void)retrieveConnectionHandleWithIdentifier:(id)identifier completion:(id)completion
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   completionCopy = completion;
   if (!identifierCopy)
@@ -1381,18 +1369,16 @@ uint64_t __66__CBCentralManager_retrievePeripheralsWithIdentifiers_completion___
     [CBCentralManager retrieveConnectionHandleWithIdentifier:completion:];
   }
 
-  v13 = @"kCBMsgArgUUID";
-  v14[0] = identifierCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __70__CBCentralManager_retrieveConnectionHandleWithIdentifier_completion___block_invoke;
-  v11[3] = &unk_1E811CFC8;
-  v12 = completionCopy;
+  v12 = @"kCBMsgArgUUID";
+  v13[0] = identifierCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __70__CBCentralManager_retrieveConnectionHandleWithIdentifier_completion___block_invoke;
+  v10[3] = &unk_1E811CFC8;
+  v11 = completionCopy;
   v9 = completionCopy;
-  [(CBManager *)self sendMsg:70 args:v8 withReply:v11];
-
-  v10 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:70 args:v8 withReply:v10];
 }
 
 void __70__CBCentralManager_retrieveConnectionHandleWithIdentifier_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1432,7 +1418,7 @@ void __70__CBCentralManager_retrieveConnectionHandleWithIdentifier_completion___
 
 - (void)retrievePeripheralsWithTags:(id)tags completion:(id)completion
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   tagsCopy = tags;
   completionCopy = completion;
   if (!tagsCopy)
@@ -1441,69 +1427,64 @@ void __70__CBCentralManager_retrieveConnectionHandleWithIdentifier_completion___
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v17 = @"kCBMsgArgTags";
-  v18[0] = tagsCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __59__CBCentralManager_retrievePeripheralsWithTags_completion___block_invoke;
-  v13[3] = &unk_1E811CF78;
-  v14 = v8;
+  v16 = @"kCBMsgArgTags";
+  v17[0] = tagsCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __59__CBCentralManager_retrievePeripheralsWithTags_completion___block_invoke;
+  v12[3] = &unk_1E811CF78;
+  v13 = v8;
   selfCopy = self;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v10 = completionCopy;
   v11 = v8;
-  [(CBManager *)self sendMsg:71 args:v9 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:71 args:v9 withReply:v12];
 }
 
 void __59__CBCentralManager_retrievePeripheralsWithTags_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [a2 objectForKeyedSubscript:@"kCBMsgArgDevices"];
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = *(a1 + 32);
-        v9 = [*(a1 + 40) peripheralWithInfo:*(*(&v12 + 1) + 8 * v7)];
+        v9 = [*(a1 + 40) peripheralWithInfo:*(*(&v10 + 1) + 8 * v7)];
         [v8 addObject:v9];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrievePeripheralsWithCustomProperties:(id)properties completion:(id)completion
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   completionCopy = completion;
   if (!propertiesCopy)
@@ -1512,64 +1493,59 @@ void __59__CBCentralManager_retrievePeripheralsWithTags_completion___block_invok
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v17 = @"kCBMsgArgCustomProperties";
-  v18[0] = propertiesCopy;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __71__CBCentralManager_retrievePeripheralsWithCustomProperties_completion___block_invoke;
-  v13[3] = &unk_1E811CF78;
-  v14 = v8;
+  v16 = @"kCBMsgArgCustomProperties";
+  v17[0] = propertiesCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __71__CBCentralManager_retrievePeripheralsWithCustomProperties_completion___block_invoke;
+  v12[3] = &unk_1E811CF78;
+  v13 = v8;
   selfCopy = self;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v10 = completionCopy;
   v11 = v8;
-  [(CBManager *)self sendMsg:72 args:v9 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:72 args:v9 withReply:v12];
 }
 
 void __71__CBCentralManager_retrievePeripheralsWithCustomProperties_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [a2 objectForKeyedSubscript:@"kCBMsgArgDevices"];
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
         v8 = *(a1 + 32);
-        v9 = [*(a1 + 40) peripheralWithInfo:*(*(&v12 + 1) + 8 * v7)];
+        v9 = [*(a1 + 40) peripheralWithInfo:*(*(&v10 + 1) + 8 * v7)];
         [v8 addObject:v9];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
-  v10 = *(a1 + 32);
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)retrieveState
@@ -1619,9 +1595,40 @@ void __48__CBCentralManager_retrieveConnectedPeripherals__block_invoke(uint64_t 
   return v5;
 }
 
+- (id)retrieveConnectedPeripheralsWithServices:(id)services allowAll:(BOOL)all
+{
+  allCopy = all;
+  v16[2] = *MEMORY[0x1E69E9840];
+  if (services)
+  {
+    servicesCopy = services;
+  }
+
+  else
+  {
+    servicesCopy = MEMORY[0x1E695E0F0];
+  }
+
+  v15[0] = @"kCBMsgArgUUIDs";
+  v15[1] = @"kCBMsgArgState";
+  v16[0] = servicesCopy;
+  v7 = MEMORY[0x1E696AD98];
+  servicesCopy2 = services;
+  v9 = [v7 numberWithBool:allCopy];
+  v16[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
+
+  v11 = [(CBManager *)self sendSyncMsg:73 args:v10];
+
+  v12 = [v11 objectForKeyedSubscript:@"kCBMsgArgDevices"];
+  v13 = [(CBCentralManager *)self createCBPeripheralsFromIDs:v12];
+
+  return v13;
+}
+
 - (void)retrieveConnectedPeripheralsWithServices:(id)services completion:(id)completion
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   servicesCopy = MEMORY[0x1E695E0F0];
   if (services)
@@ -1629,23 +1636,21 @@ void __48__CBCentralManager_retrieveConnectedPeripherals__block_invoke(uint64_t 
     servicesCopy = services;
   }
 
-  v15[0] = @"kCBMsgArgUUIDs";
-  v15[1] = @"kCBMsgArgState";
-  v16[0] = servicesCopy;
-  v16[1] = MEMORY[0x1E695E118];
+  v14[0] = @"kCBMsgArgUUIDs";
+  v14[1] = @"kCBMsgArgState";
+  v15[0] = servicesCopy;
+  v15[1] = MEMORY[0x1E695E118];
   v8 = MEMORY[0x1E695DF20];
   servicesCopy2 = services;
-  v10 = [v8 dictionaryWithObjects:v16 forKeys:v15 count:2];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __72__CBCentralManager_retrieveConnectedPeripheralsWithServices_completion___block_invoke;
-  v13[3] = &unk_1E811CFF0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v10 = [v8 dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __72__CBCentralManager_retrieveConnectedPeripheralsWithServices_completion___block_invoke;
+  v12[3] = &unk_1E811CFF0;
+  v12[4] = self;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(CBManager *)self sendMsg:73 args:v10 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:73 args:v10 withReply:v12];
 }
 
 void __72__CBCentralManager_retrieveConnectedPeripheralsWithServices_completion___block_invoke(uint64_t a1, void *a2)
@@ -1659,54 +1664,53 @@ void __72__CBCentralManager_retrieveConnectedPeripheralsWithServices_completion_
 
 - (void)retrievePeripheralsWithFindMySerialNumbers:(id)numbers completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   numbersCopy = numbers;
   completionCopy = completion;
   v8 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = numbersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
+        v14 = *(*(&v17 + 1) + 8 * v13);
         v15 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v16 = [v15 initWithData:v14 encoding:{4, v18}];
+        v16 = [v15 initWithData:v14 encoding:{4, v17}];
         [v8 addObject:v16];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   [(CBCentralManager *)self retrievePeripheralsWithFindMySerialNumberStrings:v8 completion:completionCopy];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrievePeripheralsWithFindMySerialNumberStrings:(id)strings completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v15 = @"kCBMsgArgFindMySerialNumberString";
+  v14 = @"kCBMsgArgFindMySerialNumberString";
   if (strings)
   {
     stringsCopy = strings;
@@ -1717,20 +1721,18 @@ void __72__CBCentralManager_retrieveConnectedPeripheralsWithServices_completion_
     stringsCopy = MEMORY[0x1E695E0F0];
   }
 
-  v16[0] = stringsCopy;
+  v15[0] = stringsCopy;
   v8 = MEMORY[0x1E695DF20];
   stringsCopy2 = strings;
-  v10 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __80__CBCentralManager_retrievePeripheralsWithFindMySerialNumberStrings_completion___block_invoke;
-  v13[3] = &unk_1E811CFF0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __80__CBCentralManager_retrievePeripheralsWithFindMySerialNumberStrings_completion___block_invoke;
+  v12[3] = &unk_1E811CFF0;
+  v12[4] = self;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(CBManager *)self sendMsg:75 args:v10 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:75 args:v10 withReply:v12];
 }
 
 void __80__CBCentralManager_retrievePeripheralsWithFindMySerialNumberStrings_completion___block_invoke(uint64_t a1, void *a2)
@@ -1744,9 +1746,9 @@ void __80__CBCentralManager_retrievePeripheralsWithFindMySerialNumberStrings_com
 
 - (void)retrievePeripheralsWithFindMyIds:(id)ids completion:(id)completion
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v15 = @"kCBMsgArgUUIDs";
+  v14 = @"kCBMsgArgUUIDs";
   if (ids)
   {
     idsCopy = ids;
@@ -1757,20 +1759,18 @@ void __80__CBCentralManager_retrievePeripheralsWithFindMySerialNumberStrings_com
     idsCopy = MEMORY[0x1E695E0F0];
   }
 
-  v16[0] = idsCopy;
+  v15[0] = idsCopy;
   v8 = MEMORY[0x1E695DF20];
   idsCopy2 = ids;
-  v10 = [v8 dictionaryWithObjects:v16 forKeys:&v15 count:1];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_invoke;
-  v13[3] = &unk_1E811CFF0;
-  v13[4] = self;
-  v14 = completionCopy;
+  v10 = [v8 dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_invoke;
+  v12[3] = &unk_1E811CFF0;
+  v12[4] = self;
+  v13 = completionCopy;
   v11 = completionCopy;
-  [(CBManager *)self sendMsg:76 args:v10 withReply:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:76 args:v10 withReply:v12];
 }
 
 void __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_invoke(uint64_t a1, void *a2)
@@ -1793,7 +1793,7 @@ void __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_
 
 - (void)_scanForPeripheralsWithServices:(id)services options:(id)options completion:(id)completion
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   servicesCopy = services;
   completionCopy = completion;
   v10 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:options];
@@ -1819,17 +1819,17 @@ void __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_
     v14 = servicesCopy;
   }
 
-  v21[0] = @"kCBMsgArgUUIDs";
-  v21[1] = @"kCBMsgArgOptions";
+  v20[0] = @"kCBMsgArgUUIDs";
+  v20[1] = @"kCBMsgArgOptions";
   v15 = MEMORY[0x1E695E0F8];
   if (v10)
   {
     v15 = v10;
   }
 
-  v22[0] = v14;
-  v22[1] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v21[0] = v14;
+  v21[1] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
   v17 = [v10 objectForKeyedSubscript:@"kCBOptionUseCase"];
   unsignedLongValue = [v17 unsignedLongValue];
 
@@ -1843,8 +1843,6 @@ void __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_
   {
     [(CBCentralManager *)self setIsScanning:1];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectPeripheral:(CBPeripheral *)peripheral options:(NSDictionary *)options
@@ -1893,21 +1891,21 @@ void __64__CBCentralManager_retrievePeripheralsWithFindMyIds_completion___block_
 
 void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"kCBMsgArgDeviceUUID";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"kCBMsgArgDeviceUUID";
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) identifier];
   v4 = v3;
-  v10[1] = @"kCBMsgArgOptions";
+  v9[1] = @"kCBMsgArgOptions";
   v5 = *(a1 + 48);
   if (!v5)
   {
     v5 = MEMORY[0x1E695E0F8];
   }
 
-  v11[0] = v3;
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = v3;
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v2 sendMsg:79 args:v6];
 
   if (v7)
@@ -1918,13 +1916,11 @@ void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1
       [*(a1 + 40) setState:1];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enableMrc:(id)mrc options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   mrcCopy = mrc;
   optionsCopy = options;
   if (!mrcCopy)
@@ -1932,27 +1928,25 @@ void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1
     [CBCentralManager enableMrc:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [mrcCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:232 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)retrieveWhbCBPeripheralWithInfo:(id)info
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = [infoCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [infoCopy objectForKeyedSubscript:@"kCBMsgArgWhbStableIdentifier"];
@@ -1968,15 +1962,15 @@ void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v28 = v5;
-      v29 = 2112;
-      v30 = infoCopy;
+      v27 = v5;
+      v28 = 2112;
+      v29 = infoCopy;
       _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "Retrieving peripheral for device:%@ with info %@", buf, 0x16u);
     }
 
-    v25 = @"kCBMsgArgWhbStableIdentifier";
-    v26 = v6;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = @"kCBMsgArgWhbStableIdentifier";
+    v25 = v6;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v10 = [(CBManager *)self sendSyncMsg:153 args:v9];
 
     v11 = [v10 objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
@@ -2010,7 +2004,7 @@ void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1
       }
 
       *buf = 138412290;
-      v28 = v5;
+      v27 = v5;
       v15 = "Retrieved non local peripheral successfully for device:%@";
       v16 = v19;
       v17 = 12;
@@ -2039,9 +2033,9 @@ void __46__CBCentralManager_connectPeripheral_options___block_invoke(uint64_t a1
       {
 LABEL_10:
         *buf = 138412546;
-        v28 = v11;
-        v29 = 2112;
-        v30 = v5;
+        v27 = v11;
+        v28 = 2112;
+        v29 = v5;
         v15 = "Retrieved local peripheral:%@ successfully for device:%@";
         v16 = v14;
         v17 = 22;
@@ -2084,9 +2078,9 @@ LABEL_26:
     }
 
     *buf = 138412546;
-    v28 = v11;
-    v29 = 2112;
-    v30 = v5;
+    v27 = v11;
+    v28 = 2112;
+    v29 = v5;
     _os_log_impl(&dword_1C0AC1000, v22, OS_LOG_TYPE_DEFAULT, "Created local peripheral:%@ successfully for device:%@", buf, 0x16u);
     goto LABEL_26;
   }
@@ -2104,14 +2098,12 @@ LABEL_26:
   v18 = 0;
 LABEL_28:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (void)activateWhbCnxForCBPeripheral:(id)peripheral infoDict:(id)dict
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   dictCopy = dict;
   identifier = [peripheralCopy identifier];
@@ -2142,7 +2134,7 @@ LABEL_28:
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v33 = dictCopy;
+      v32 = dictCopy;
       _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "Setup WHB cnx: infoDict %@", buf, 0xCu);
     }
 
@@ -2158,30 +2150,28 @@ LABEL_28:
   delegateFlags = self->_delegateFlags;
   v17 = (*&delegateFlags >> 3) & 1;
   v18 = (*&delegateFlags >> 4) & 1;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke;
-  v28[3] = &unk_1E811D040;
-  v28[4] = self;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke;
+  v27[3] = &unk_1E811D040;
+  v27[4] = self;
   v19 = peripheralCopy;
-  v29 = v19;
+  v28 = v19;
   v20 = identifier4;
-  v30 = v20;
-  v31 = v18;
-  [v9 setInterruptionHandler:v28];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke_216;
-  v24[3] = &unk_1E811D068;
-  v24[4] = self;
-  v25 = v19;
-  v26 = v20;
-  v27 = v17;
+  v29 = v20;
+  v30 = v18;
+  [v9 setInterruptionHandler:v27];
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke_216;
+  v23[3] = &unk_1E811D068;
+  v23[4] = self;
+  v24 = v19;
+  v25 = v20;
+  v26 = v17;
   v21 = v20;
   v22 = v19;
-  [v9 activateWithCompletion:v24];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [v9 activateWithCompletion:v23];
 }
 
 void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke(uint64_t a1)
@@ -2211,7 +2201,7 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
 
 void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke_216(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (CBLogInitOnce != -1)
   {
@@ -2221,9 +2211,9 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
   v4 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "Got WHB CBConnection completed with error %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_1C0AC1000, v4, OS_LOG_TYPE_DEFAULT, "Got WHB CBConnection completed with error %@", &v8, 0xCu);
   }
 
   if (v3)
@@ -2239,13 +2229,11 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
       [v7 centralManager:*(a1 + 32) didFailToConnectPeripheral:*(a1 + 40) error:v3];
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectWhbCBPeripheral:(id)peripheral withCompletion:(id)completion
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   completionCopy = completion;
   remoteControllerId = [peripheralCopy remoteControllerId];
@@ -2286,10 +2274,10 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
   }
 
   v10 = MEMORY[0x1E695DF90];
-  v33 = @"kCBMsgArgDeviceUUID";
+  v32 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v34[0] = identifier;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+  v33[0] = identifier;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   v13 = [v10 dictionaryWithDictionary:v12];
 
   remoteControllerId2 = [peripheralCopy remoteControllerId];
@@ -2307,7 +2295,7 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
       v16 = v15;
       remoteControllerId3 = [peripheralCopy remoteControllerId];
       *buf = 138412290;
-      v32 = remoteControllerId3;
+      v31 = remoteControllerId3;
       _os_log_impl(&dword_1C0AC1000, v16, OS_LOG_TYPE_DEFAULT, "Setting up WhbCnx using manually entered remoteControllerId %@", buf, 0xCu);
     }
 
@@ -2320,31 +2308,30 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
 
   delegate = [peripheralCopy stableIdentifier];
   v20 = (*&self->_delegateFlags >> 3) & 1;
-  v29 = @"kCBMsgArgWhbStableIdentifier";
-  v30 = delegate;
-  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke;
-  v23[3] = &unk_1E811D090;
-  v28 = v20;
-  v24 = peripheralCopy;
+  v28 = @"kCBMsgArgWhbStableIdentifier";
+  v29 = delegate;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke;
+  v22[3] = &unk_1E811D090;
+  v27 = v20;
+  v23 = peripheralCopy;
   selfCopy = self;
-  v27 = completionCopy;
+  v26 = completionCopy;
   v13 = v13;
-  v26 = v13;
-  [(CBManager *)self sendMsg:152 args:v21 withReply:v23];
+  v25 = v13;
+  [(CBManager *)self sendMsg:152 args:v21 withReply:v22];
 
 LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:@"kCBMsgArgWhbRemoteControllerId"];
   v5 = [v3 objectForKeyedSubscript:@"kCBMsgArgWhbRemoteDeviceUUID"];
@@ -2357,11 +2344,11 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
-    v11 = 138412546;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_1C0AC1000, v6, OS_LOG_TYPE_DEFAULT, "Whb connect request to p %@, routing via %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_1C0AC1000, v6, OS_LOG_TYPE_DEFAULT, "Whb connect request to p %@, routing via %@", &v10, 0x16u);
   }
 
   if (v4)
@@ -2389,48 +2376,52 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     v9 = [*(a1 + 40) delegate];
     [v9 centralManager:*(a1 + 40) didFailToConnectPeripheral:*(a1 + 32) error:v8];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)randomizeAFHMapForPeripheral:(id)peripheral
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   if (!peripheralCopy)
   {
     [CBCentralManager randomizeAFHMapForPeripheral:];
   }
 
-  v8 = @"kCBMsgArgDeviceUUID";
+  v7 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v9[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CBManager *)self sendMsg:106 args:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLeAFHMap:(id)map
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   if (!mapCopy)
   {
     [CBCentralManager setLeAFHMap:];
   }
 
-  v7 = @"kCBMsgArgLeAFHMap";
-  v8[0] = mapCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"kCBMsgArgLeAFHMap";
+  v7[0] = mapCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [(CBManager *)self sendMsg:107 args:v5];
+}
 
-  v6 = *MEMORY[0x1E69E9840];
+- (void)setHostState:(BOOL)state
+{
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"kCBMsgArgState";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:state];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  [(CBManager *)self sendDebugMsg:1 args:v5];
 }
 
 - (void)setLePowerControl:(id)control options:(id)options completion:(id)completion
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (options)
   {
@@ -2442,27 +2433,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     optionsCopy = MEMORY[0x1E695E0F8];
   }
 
-  v17[0] = @"kCBMsgArgOptions";
-  v17[1] = @"kCBMsgArgDeviceUUID";
-  v18[0] = optionsCopy;
+  v16[0] = @"kCBMsgArgOptions";
+  v16[1] = @"kCBMsgArgDeviceUUID";
+  v17[0] = optionsCopy;
   optionsCopy2 = options;
   identifier = [control identifier];
-  v18[1] = identifier;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __57__CBCentralManager_setLePowerControl_options_completion___block_invoke;
-  v15[3] = &unk_1E811CFC8;
-  v16 = completionCopy;
+  v17[1] = identifier;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __57__CBCentralManager_setLePowerControl_options_completion___block_invoke;
+  v14[3] = &unk_1E811CFC8;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [(CBManager *)self sendMsg:231 args:v12 withReply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:231 args:v12 withReply:v14];
 }
 
 - (void)wipeDuplicateFilterList:(id)list
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (list)
   {
     listCopy = list;
@@ -2473,19 +2462,18 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     listCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = listCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = listCopy;
   v5 = MEMORY[0x1E695DF20];
   listCopy2 = list;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:108 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addAdvancedMatchingRule:(id)rule
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (rule)
   {
     ruleCopy = rule;
@@ -2496,19 +2484,18 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     ruleCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = ruleCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = ruleCopy;
   v5 = MEMORY[0x1E695DF20];
   ruleCopy2 = rule;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:115 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAdvancedMatchingRule:(id)rule
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (rule)
   {
     ruleCopy = rule;
@@ -2519,19 +2506,18 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     ruleCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = ruleCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = ruleCopy;
   v5 = MEMORY[0x1E695DF20];
   ruleCopy2 = rule;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:116 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEnhancedScanEnable:(id)enable
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (enable)
   {
     enableCopy = enable;
@@ -2542,19 +2528,18 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     enableCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = enableCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = enableCopy;
   v5 = MEMORY[0x1E695DF20];
   enableCopy2 = enable;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:113 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setEnhancedSetScanParamtersMultiCore:(id)core
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (core)
   {
     coreCopy = core;
@@ -2565,53 +2550,49 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     coreCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = coreCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = coreCopy;
   v5 = MEMORY[0x1E695DF20];
   coreCopy2 = core;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:114 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeSingleEntryDuplicateFilter:(id)filter
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgOptions";
-  v9[0] = filter;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgOptions";
+  v8[0] = filter;
   v4 = MEMORY[0x1E695DF20];
   filterCopy = filter;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [(CBManager *)self sendMsg:109 args:v6];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeMultipleEntriesDuplicateFilter:(id)filter
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgOptions";
-  v9[0] = filter;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgOptions";
+  v8[0] = filter;
   v4 = MEMORY[0x1E695DF20];
   filterCopy = filter;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [(CBManager *)self sendMsg:110 args:v6];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearDuplicateFilterCache:(id)cache
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgOptions";
-  v9[0] = cache;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgOptions";
+  v8[0] = cache;
   v4 = MEMORY[0x1E695DF20];
   cacheCopy = cache;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   [(CBManager *)self sendMsg:111 args:v6];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)getTotalSupportedAdvancedMatchingRules
@@ -2634,7 +2615,7 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
 
 - (void)setDataLengthChange:(id)change options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   changeCopy = change;
   optionsCopy = options;
   if (!changeCopy)
@@ -2642,45 +2623,41 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setDataLengthChange:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [changeCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:120 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csReadRemoteSupportedCapabilities:(id)capabilities
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   if (!capabilitiesCopy)
   {
     [CBCentralManager csReadRemoteSupportedCapabilities:];
   }
 
-  v8 = @"kCBMsgArgDeviceUUID";
+  v7 = @"kCBMsgArgDeviceUUID";
   identifier = [capabilitiesCopy identifier];
-  v9[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CBManager *)self sendMsg:122 args:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csWriteCachedRemoteSupportedCapabilities:(id)capabilities options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   capabilitiesCopy = capabilities;
   optionsCopy = options;
   if (!capabilitiesCopy)
@@ -2688,63 +2665,57 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager csWriteCachedRemoteSupportedCapabilities:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [capabilitiesCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:123 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csSecurityEnable:(id)enable
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   enableCopy = enable;
   if (!enableCopy)
   {
     [CBCentralManager csSecurityEnable:];
   }
 
-  v8 = @"kCBMsgArgDeviceUUID";
+  v7 = @"kCBMsgArgDeviceUUID";
   identifier = [enableCopy identifier];
-  v9[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CBManager *)self sendMsg:124 args:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csTest:(id)test
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   testCopy = test;
   if (!testCopy)
   {
     [CBCentralManager csTest:];
   }
 
-  v8 = @"kCBMsgArgDeviceUUID";
+  v7 = @"kCBMsgArgDeviceUUID";
   identifier = [testCopy identifier];
-  v9[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CBManager *)self sendMsg:125 args:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csCreateConfig:(id)config options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   configCopy = config;
   optionsCopy = options;
   if (!configCopy)
@@ -2752,27 +2723,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager csCreateConfig:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [configCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:126 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csRemoveConfig:(id)config options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   configCopy = config;
   optionsCopy = options;
   if (!configCopy)
@@ -2780,27 +2749,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager csRemoveConfig:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [configCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:127 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csProcedureEnable:(id)enable options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   enableCopy = enable;
   optionsCopy = options;
   if (!enableCopy)
@@ -2808,27 +2775,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager csProcedureEnable:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [enableCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:128 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csSetProcedureParams:(id)params options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   optionsCopy = options;
   if (!paramsCopy)
@@ -2836,27 +2801,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager csSetProcedureParams:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [paramsCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:129 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csSetAfh:(id)afh
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (afh)
   {
     afhCopy = afh;
@@ -2867,75 +2830,70 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     afhCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = afhCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = afhCopy;
   v5 = MEMORY[0x1E695DF20];
   afhCopy2 = afh;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:130 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csSetDefaultSettings:(id)settings options:(id)options
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"kCBMsgArgDeviceUUID";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"kCBMsgArgDeviceUUID";
   optionsCopy = options;
   identifier = [settings identifier];
   v8 = identifier;
-  v12[1] = @"kCBMsgArgOptions";
+  v11[1] = @"kCBMsgArgOptions";
   v9 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v9 = optionsCopy;
   }
 
-  v13[0] = identifier;
-  v13[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[0] = identifier;
+  v12[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   [(CBManager *)self sendMsg:131 args:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csReadRemoteFAETable:(id)table
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"kCBMsgArgDeviceUUID";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"kCBMsgArgDeviceUUID";
   identifier = [table identifier];
-  v8[0] = identifier;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = identifier;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [(CBManager *)self sendMsg:133 args:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)csWriteRemoteFAETable:(id)table options:(id)options
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"kCBMsgArgDeviceUUID";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"kCBMsgArgDeviceUUID";
   optionsCopy = options;
   identifier = [table identifier];
   v8 = identifier;
-  v12[1] = @"kCBMsgArgOptions";
+  v11[1] = @"kCBMsgArgOptions";
   v9 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v9 = optionsCopy;
   }
 
-  v13[0] = identifier;
-  v13[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[0] = identifier;
+  v12[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   [(CBManager *)self sendMsg:134 args:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLESetPhy:(id)phy options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   phyCopy = phy;
   optionsCopy = options;
   if (!phyCopy)
@@ -2943,27 +2901,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setLESetPhy:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [phyCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:135 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRSSIStatisticsDetection:(id)detection options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   detectionCopy = detection;
   optionsCopy = options;
   if (!detectionCopy)
@@ -2971,27 +2927,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setRSSIStatisticsDetection:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [detectionCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:149 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBluetoothUsageNotifications:(id)notifications options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   optionsCopy = options;
   if (!notificationsCopy)
@@ -2999,27 +2953,25 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setBluetoothUsageNotifications:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [notificationsCopy identifier];
   v9 = identifier;
-  v13[1] = @"kCBMsgArgOptions";
+  v12[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v10 = optionsCopy;
   }
 
-  v14[0] = identifier;
-  v14[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [(CBManager *)self sendMsg:150 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBluetoothPhyStatisticsNotifications:(id)notifications options:(id)options
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   optionsCopy = options;
   if (!notificationsCopy)
@@ -3027,8 +2979,34 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setBluetoothPhyStatisticsNotifications:options:];
   }
 
-  v13[0] = @"kCBMsgArgDeviceUUID";
+  v12[0] = @"kCBMsgArgDeviceUUID";
   identifier = [notificationsCopy identifier];
+  v9 = identifier;
+  v12[1] = @"kCBMsgArgOptions";
+  v10 = MEMORY[0x1E695E0F8];
+  if (optionsCopy)
+  {
+    v10 = optionsCopy;
+  }
+
+  v13[0] = identifier;
+  v13[1] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  [(CBManager *)self sendMsg:151 args:v11];
+}
+
+- (void)cancelPeripheralConnection:(id)connection options:(id)options
+{
+  v14[2] = *MEMORY[0x1E69E9840];
+  connectionCopy = connection;
+  optionsCopy = options;
+  if (!connectionCopy)
+  {
+    [CBCentralManager cancelPeripheralConnection:options:];
+  }
+
+  v13[0] = @"kCBMsgArgDeviceUUID";
+  identifier = [connectionCopy identifier];
   v9 = identifier;
   v13[1] = @"kCBMsgArgOptions";
   v10 = MEMORY[0x1E695E0F8];
@@ -3040,42 +3018,12 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
   v14[0] = identifier;
   v14[1] = v10;
   v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
-  [(CBManager *)self sendMsg:151 args:v11];
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)cancelPeripheralConnection:(id)connection options:(id)options
-{
-  v15[2] = *MEMORY[0x1E69E9840];
-  connectionCopy = connection;
-  optionsCopy = options;
-  if (!connectionCopy)
-  {
-    [CBCentralManager cancelPeripheralConnection:options:];
-  }
-
-  v14[0] = @"kCBMsgArgDeviceUUID";
-  identifier = [connectionCopy identifier];
-  v9 = identifier;
-  v14[1] = @"kCBMsgArgOptions";
-  v10 = MEMORY[0x1E695E0F8];
-  if (optionsCopy)
-  {
-    v10 = optionsCopy;
-  }
-
-  v15[0] = identifier;
-  v15[1] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v12 = [(CBManager *)self sendMsg:80 args:v11];
 
   if (v12 && ([connectionCopy state] - 1) <= 1)
   {
     [connectionCopy setState:3];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelPeripheralConnection:(CBPeripheral *)peripheral
@@ -3118,30 +3066,28 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
 
 - (void)setDesiredConnectionLatency:(int64_t)latency forPeripheral:(id)peripheral
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   if (!peripheralCopy)
   {
     [CBCentralManager setDesiredConnectionLatency:forPeripheral:];
   }
 
-  v11[0] = @"kCBMsgArgDeviceUUID";
+  v10[0] = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v12[0] = identifier;
-  v12[1] = MEMORY[0x1E695E110];
-  v11[1] = @"kCBMsgArgHasCompletionBlock";
-  v11[2] = @"kCBMsgArgConnectionLatency";
+  v11[0] = identifier;
+  v11[1] = MEMORY[0x1E695E110];
+  v10[1] = @"kCBMsgArgHasCompletionBlock";
+  v10[2] = @"kCBMsgArgConnectionLatency";
   v8 = [MEMORY[0x1E696AD98] numberWithInteger:latency];
-  v12[2] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
   [(CBManager *)self sendMsg:174 args:v9];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDesiredConnectionLatency:(int64_t)latency forPeripheral:(id)peripheral completion:(id)completion
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   completionCopy = completion;
   if (!peripheralCopy)
@@ -3149,24 +3095,22 @@ void __58__CBCentralManager_connectWhbCBPeripheral_withCompletion___block_invoke
     [CBCentralManager setDesiredConnectionLatency:forPeripheral:completion:];
   }
 
-  v17[0] = @"kCBMsgArgDeviceUUID";
+  v16[0] = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v18[0] = identifier;
-  v18[1] = MEMORY[0x1E695E118];
-  v17[1] = @"kCBMsgArgHasCompletionBlock";
-  v17[2] = @"kCBMsgArgConnectionLatency";
+  v17[0] = identifier;
+  v17[1] = MEMORY[0x1E695E118];
+  v16[1] = @"kCBMsgArgHasCompletionBlock";
+  v16[2] = @"kCBMsgArgConnectionLatency";
   v11 = [MEMORY[0x1E696AD98] numberWithInteger:latency];
-  v18[2] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:3];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion___block_invoke;
-  v15[3] = &unk_1E811CFC8;
-  v16 = completionCopy;
+  v17[2] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion___block_invoke;
+  v14[3] = &unk_1E811CFC8;
+  v15 = completionCopy;
   v13 = completionCopy;
-  [(CBManager *)self sendMsg:174 args:v12 withReply:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:174 args:v12 withReply:v14];
 }
 
 void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -3230,9 +3174,42 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
   }
 }
 
+- (void)enablePrivateModeForPeripheral:(id)peripheral forDuration:(unsigned __int16)duration
+{
+  durationCopy = duration;
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"kCBMsgArgPrivateModeTimeout";
+  v6 = MEMORY[0x1E696AD98];
+  peripheralCopy = peripheral;
+  v8 = [v6 numberWithUnsignedShort:durationCopy];
+  v11[1] = @"kCBMsgArgDeviceUUID";
+  v12[0] = v8;
+  identifier = [peripheralCopy identifier];
+
+  v12[1] = identifier;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  [(CBManager *)self sendMsg:48 args:v10];
+}
+
+- (void)enablePrivateModeForSessionWithIdentifier:(id)identifier forDuration:(unsigned __int16)duration
+{
+  durationCopy = duration;
+  v11[2] = *MEMORY[0x1E69E9840];
+  v10[0] = @"kCBMsgArgPrivateModeTimeout";
+  v6 = MEMORY[0x1E696AD98];
+  identifierCopy = identifier;
+  v8 = [v6 numberWithUnsignedShort:durationCopy];
+  v10[1] = @"kCBMsgArgPrivateModeSessionIdentifier";
+  v11[0] = v8;
+  v11[1] = identifierCopy;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+
+  [(CBManager *)self sendMsg:48 args:v9];
+}
+
 - (void)registerForConnectionEventsWithOptions:(NSDictionary *)options
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (options)
   {
     v4 = options;
@@ -3243,34 +3220,32 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
     v4 = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = v4;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = v4;
   v5 = MEMORY[0x1E695DF20];
   v6 = options;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:100 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendData:(id)data toPeripheral:(id)peripheral
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"kCBMsgArgDeviceUUID";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"kCBMsgArgDeviceUUID";
   dataCopy = data;
   identifier = [peripheral identifier];
-  v10[1] = @"kCBMsgArgObjectDiscoveryData";
-  v11[0] = identifier;
-  v11[1] = dataCopy;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v9[1] = @"kCBMsgArgObjectDiscoveryData";
+  v10[0] = identifier;
+  v10[1] = dataCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   [(CBManager *)self sendMsg:144 args:v8];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setConnectionEventOptions:(id)options
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (options)
   {
     optionsCopy = options;
@@ -3281,19 +3256,18 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
     optionsCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgOptions";
-  v10[0] = optionsCopy;
+  v8 = @"kCBMsgArgOptions";
+  v9[0] = optionsCopy;
   v5 = MEMORY[0x1E695DF20];
   optionsCopy2 = options;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:100 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMatchActionRules:(id)rules
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (rules)
   {
     rulesCopy = rules;
@@ -3304,62 +3278,83 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
     rulesCopy = MEMORY[0x1E695E0F8];
   }
 
-  v9 = @"kCBMsgArgRules";
-  v10[0] = rulesCopy;
+  v8 = @"kCBMsgArgRules";
+  v9[0] = rulesCopy;
   v5 = MEMORY[0x1E695DF20];
   rulesCopy2 = rules;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:119 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startConnectionEventCounterForPeripheral:(id)peripheral
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
-  v11 = @"kCBMsgArgDeviceUUID";
+  v10 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheral identifier];
-  v12[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [(CBManager *)self sendSyncMsg:147 args:v6];
   v8 = [v4 errorWithInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)stopConnectionEventCounterForPeripheral:(id)peripheral
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696ABC0];
-  v11 = @"kCBMsgArgDeviceUUID";
+  v10 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheral identifier];
-  v12[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [(CBManager *)self sendSyncMsg:148 args:v6];
   v8 = [v4 errorWithInfo:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (id)isApplicationConnectedToAnyPeripherals:(id)peripherals
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"kCBMsgArgAnyConnectedPeripheralsPerApp";
-  v11[0] = peripherals;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"kCBMsgArgAnyConnectedPeripheralsPerApp";
+  v10[0] = peripherals;
   v4 = MEMORY[0x1E695DF20];
   peripheralsCopy = peripherals;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v7 = [(CBManager *)self sendSyncMsg:84 args:v6];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
+}
+
+- (void)createOfflineLEPairing:(unsigned __int16)pairing synced:(BOOL)synced ignoreMaxLimit:(BOOL)limit
+{
+  limitCopy = limit;
+  syncedCopy = synced;
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"kCBMsgArgDevices";
+  v8 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:pairing];
+  v13[0] = v8;
+  v12[1] = @"kCBMsgArgFakeLeDeviceIgnoreMaxLimit";
+  v9 = [MEMORY[0x1E696AD98] numberWithBool:limitCopy];
+  v13[1] = v9;
+  v12[2] = @"kCBMsgArgFakeLeDeviceSynced";
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:syncedCopy];
+  v13[2] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  [(CBManager *)self sendMsg:85 args:v11];
+}
+
+- (void)createOfflineLEDevices:(unsigned __int16)devices
+{
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"kCBMsgArgDevices";
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:devices];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  [(CBManager *)self sendMsg:86 args:v5];
 }
 
 - (id)getLPEMData:(id)data
@@ -3374,68 +3369,78 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
   return v7;
 }
 
+- (unsigned)retrieveMaxConnectionForUsecase:(unsigned int)usecase
+{
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"kCBMsgArgUseCase";
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&usecase];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v6 = [(CBManager *)self sendSyncMsg:87 args:v5];
+
+  v7 = [v6 objectForKeyedSubscript:@"kCBMsgArgUsecaseCount"];
+  LOWORD(self) = [v7 intValue];
+
+  return self;
+}
+
 - (id)retrieveAddressForPeripheral:(id)peripheral
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   peripheralCopy = peripheral;
   if (!peripheralCopy)
   {
     [CBCentralManager retrieveAddressForPeripheral:];
   }
 
-  v11 = @"kCBMsgArgDeviceUUID";
+  v10 = @"kCBMsgArgDeviceUUID";
   identifier = [peripheralCopy identifier];
-  v12[0] = identifier;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = identifier;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v7 = [(CBManager *)self sendSyncMsg:229 args:v6];
 
   v8 = [v7 objectForKeyedSubscript:@"kCBMsgArgAddressString"];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (void)updatePeripheral:(id)peripheral options:(id)options
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"kCBMsgArgDeviceUUID";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"kCBMsgArgDeviceUUID";
   optionsCopy = options;
   identifier = [peripheral identifier];
   v8 = identifier;
-  v12[1] = @"kCBMsgArgOptions";
+  v11[1] = @"kCBMsgArgOptions";
   v9 = MEMORY[0x1E695E0F8];
   if (optionsCopy)
   {
     v9 = optionsCopy;
   }
 
-  v13[0] = identifier;
-  v13[1] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v12[0] = identifier;
+  v12[1] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   [(CBManager *)self sendMsg:88 args:v10];
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveBTDeviceCacheInfo:(id)info withCompletion:(id)completion
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v14 = @"kCBMsgArgOptions";
-  v15[0] = info;
+  v13 = @"kCBMsgArgOptions";
+  v14[0] = info;
   v7 = MEMORY[0x1E695DF20];
   infoCopy = info;
-  v9 = [v7 dictionaryWithObjects:v15 forKeys:&v14 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __61__CBCentralManager_retrieveBTDeviceCacheInfo_withCompletion___block_invoke;
-  v12[3] = &unk_1E811CFC8;
-  v13 = completionCopy;
+  v9 = [v7 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __61__CBCentralManager_retrieveBTDeviceCacheInfo_withCompletion___block_invoke;
+  v11[3] = &unk_1E811CFC8;
+  v12 = completionCopy;
   v10 = completionCopy;
-  [(CBManager *)self sendMsg:90 args:v9 withReply:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(CBManager *)self sendMsg:90 args:v9 withReply:v11];
 }
 
 - (void)handleSupportedFeatures:(id)features
@@ -3452,7 +3457,7 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
 
 - (void)handleRestoringState:(id)state
 {
-  v119 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   if ((*&self->_delegateFlags & 1) == 0)
   {
@@ -3493,33 +3498,33 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
     }
   }
 
-  v60 = v6;
+  v59 = v6;
   v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v106 = 0u;
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
-  v110 = 0u;
-  v62 = stateCopy;
+  v61 = stateCopy;
   obj = [stateCopy objectForKeyedSubscript:@"kCBMsgArgDevices"];
-  v67 = [obj countByEnumeratingWithState:&v107 objects:v118 count:16];
-  if (v67)
+  v66 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
+  if (v66)
   {
-    v64 = *v108;
-    v65 = v14;
+    v63 = *v107;
+    v64 = v14;
     selfCopy = self;
     do
     {
       v15 = 0;
       do
       {
-        if (*v108 != v64)
+        if (*v107 != v63)
         {
           objc_enumerationMutation(obj);
         }
 
-        v68 = v15;
-        v16 = *(*(&v107 + 1) + 8 * v15);
-        v17 = [(CBCentralManager *)self peripheralWithInfo:v16, v60];
+        v67 = v15;
+        v16 = *(*(&v106 + 1) + 8 * v15);
+        v17 = [(CBCentralManager *)self peripheralWithInfo:v16, v59];
         v18 = [v16 objectForKeyedSubscript:@"kCBMsgArgState"];
         if ([v18 BOOLValue])
         {
@@ -3534,124 +3539,124 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
         [v17 setState:v19];
 
         [v17 setCanSendWriteWithoutResponse:{objc_msgSend(v17, "state") == 2}];
-        v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v75 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        v76 = [v16 objectForKeyedSubscript:@"kCBMsgArgSubscribedHandles"];
+        v72 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v74 = objc_alloc_init(MEMORY[0x1E695DF70]);
+        v75 = [v16 objectForKeyedSubscript:@"kCBMsgArgSubscribedHandles"];
+        v102 = 0u;
         v103 = 0u;
         v104 = 0u;
         v105 = 0u;
-        v106 = 0u;
-        v69 = [v16 objectForKeyedSubscript:@"kCBMsgArgServices"];
-        v71 = [v69 countByEnumeratingWithState:&v103 objects:v117 count:16];
-        if (v71)
+        v68 = [v16 objectForKeyedSubscript:@"kCBMsgArgServices"];
+        v70 = [v68 countByEnumeratingWithState:&v102 objects:v116 count:16];
+        if (v70)
         {
-          v70 = *v104;
+          v69 = *v103;
           do
           {
             v20 = 0;
             do
             {
-              if (*v104 != v70)
+              if (*v103 != v69)
               {
-                objc_enumerationMutation(v69);
+                objc_enumerationMutation(v68);
               }
 
-              v72 = v20;
-              v22 = *(*(&v103 + 1) + 8 * v20);
+              v71 = v20;
+              v22 = *(*(&v102 + 1) + 8 * v20);
               v23 = [[CBService alloc] initWithPeripheral:v17 dictionary:v22];
               v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
+              v98 = 0u;
               v99 = 0u;
               v100 = 0u;
               v101 = 0u;
-              v102 = 0u;
               v25 = [v22 objectForKeyedSubscript:@"kCBMsgArgIncludedServices"];
-              v26 = [v25 countByEnumeratingWithState:&v99 objects:v116 count:16];
+              v26 = [v25 countByEnumeratingWithState:&v98 objects:v115 count:16];
               if (v26)
               {
                 v27 = v26;
-                v28 = *v100;
+                v28 = *v99;
                 do
                 {
                   for (i = 0; i != v27; ++i)
                   {
-                    if (*v100 != v28)
+                    if (*v99 != v28)
                     {
                       objc_enumerationMutation(v25);
                     }
 
-                    v30 = *(*(&v99 + 1) + 8 * i);
-                    v114[0] = @"service";
-                    v114[1] = @"incInfo";
-                    v115[0] = v23;
-                    v115[1] = v30;
-                    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v115 forKeys:v114 count:2];
-                    [v75 addObject:v31];
+                    v30 = *(*(&v98 + 1) + 8 * i);
+                    v113[0] = @"service";
+                    v113[1] = @"incInfo";
+                    v114[0] = v23;
+                    v114[1] = v30;
+                    v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v114 forKeys:v113 count:2];
+                    [v74 addObject:v31];
                   }
 
-                  v27 = [v25 countByEnumeratingWithState:&v99 objects:v116 count:16];
+                  v27 = [v25 countByEnumeratingWithState:&v98 objects:v115 count:16];
                 }
 
                 while (v27);
               }
 
-              v97 = 0u;
-              v98 = 0u;
-              v95 = 0u;
               v96 = 0u;
-              v74 = [v22 objectForKeyedSubscript:@"kCBMsgArgCharacteristics"];
-              v80 = [v74 countByEnumeratingWithState:&v95 objects:v113 count:16];
-              if (v80)
+              v97 = 0u;
+              v94 = 0u;
+              v95 = 0u;
+              v73 = [v22 objectForKeyedSubscript:@"kCBMsgArgCharacteristics"];
+              v79 = [v73 countByEnumeratingWithState:&v94 objects:v112 count:16];
+              if (v79)
               {
-                v77 = *v96;
-                v78 = v24;
-                v79 = v23;
+                v76 = *v95;
+                v77 = v24;
+                v78 = v23;
                 do
                 {
                   v32 = 0;
                   do
                   {
-                    if (*v96 != v77)
+                    if (*v95 != v76)
                     {
-                      objc_enumerationMutation(v74);
+                      objc_enumerationMutation(v73);
                     }
 
-                    v81 = v32;
-                    v35 = *(*(&v95 + 1) + 8 * v32);
+                    v80 = v32;
+                    v35 = *(*(&v94 + 1) + 8 * v32);
                     v36 = [[CBCharacteristic alloc] initWithService:v23 dictionary:v35];
                     v37 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                    v93[0] = MEMORY[0x1E69E9820];
-                    v93[1] = 3221225472;
-                    v93[2] = __41__CBCentralManager_handleRestoringState___block_invoke;
-                    v93[3] = &unk_1E811D0B8;
+                    v92[0] = MEMORY[0x1E69E9820];
+                    v92[1] = 3221225472;
+                    v92[2] = __41__CBCentralManager_handleRestoringState___block_invoke;
+                    v92[3] = &unk_1E811D0B8;
                     v38 = v36;
-                    v94 = v38;
-                    [v76 enumerateObjectsUsingBlock:v93];
-                    v91 = 0u;
-                    v92 = 0u;
-                    v89 = 0u;
+                    v93 = v38;
+                    [v75 enumerateObjectsUsingBlock:v92];
                     v90 = 0u;
+                    v91 = 0u;
+                    v88 = 0u;
+                    v89 = 0u;
                     v39 = [v35 objectForKeyedSubscript:@"kCBMsgArgDescriptors"];
-                    v40 = [v39 countByEnumeratingWithState:&v89 objects:v112 count:16];
+                    v40 = [v39 countByEnumeratingWithState:&v88 objects:v111 count:16];
                     if (v40)
                     {
                       v41 = v40;
-                      v42 = *v90;
+                      v42 = *v89;
                       do
                       {
                         for (j = 0; j != v41; ++j)
                         {
-                          if (*v90 != v42)
+                          if (*v89 != v42)
                           {
                             objc_enumerationMutation(v39);
                           }
 
-                          v44 = [[CBDescriptor alloc] initWithCharacteristic:v38 dictionary:*(*(&v89 + 1) + 8 * j)];
+                          v44 = [[CBDescriptor alloc] initWithCharacteristic:v38 dictionary:*(*(&v88 + 1) + 8 * j)];
                           [v37 addObject:v44];
                           handle = [(CBDescriptor *)v44 handle];
                           [v17 setAttribute:v44 forHandle:handle];
                         }
 
-                        v41 = [v39 countByEnumeratingWithState:&v89 objects:v112 count:16];
+                        v41 = [v39 countByEnumeratingWithState:&v88 objects:v111 count:16];
                       }
 
                       while (v41);
@@ -3662,23 +3667,23 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
                       [(CBCharacteristic *)v38 setDescriptors:v37];
                     }
 
-                    v24 = v78;
-                    [v78 addObject:v38];
+                    v24 = v77;
+                    [v77 addObject:v38];
                     handle2 = [(CBCharacteristic *)v38 handle];
                     [v17 setAttribute:v38 forHandle:handle2];
 
                     valueHandle = [(CBCharacteristic *)v38 valueHandle];
                     [v17 setAttribute:v38 forHandle:valueHandle];
 
-                    v32 = v81 + 1;
-                    v23 = v79;
+                    v32 = v80 + 1;
+                    v23 = v78;
                   }
 
-                  while (v81 + 1 != v80);
-                  v80 = [v74 countByEnumeratingWithState:&v95 objects:v113 count:16];
+                  while (v80 + 1 != v79);
+                  v79 = [v73 countByEnumeratingWithState:&v94 objects:v112 count:16];
                 }
 
-                while (v80);
+                while (v79);
               }
 
               if ([v24 count])
@@ -3686,79 +3691,79 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
                 [(CBService *)v23 setCharacteristics:v24];
               }
 
-              [v73 addObject:v23];
+              [v72 addObject:v23];
               startHandle = [(CBService *)v23 startHandle];
               [v17 setAttribute:v23 forHandle:startHandle];
 
-              v20 = v72 + 1;
+              v20 = v71 + 1;
             }
 
-            while (v72 + 1 != v71);
-            v71 = [v69 countByEnumeratingWithState:&v103 objects:v117 count:16];
+            while (v71 + 1 != v70);
+            v70 = [v68 countByEnumeratingWithState:&v102 objects:v116 count:16];
           }
 
-          while (v71);
+          while (v70);
         }
 
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
         v86 = 0u;
-        v46 = v75;
-        v47 = [v46 countByEnumeratingWithState:&v85 objects:v111 count:16];
+        v87 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v46 = v74;
+        v47 = [v46 countByEnumeratingWithState:&v84 objects:v110 count:16];
         if (v47)
         {
           v48 = v47;
-          v49 = *v86;
+          v49 = *v85;
           do
           {
             for (k = 0; k != v48; ++k)
             {
-              if (*v86 != v49)
+              if (*v85 != v49)
               {
                 objc_enumerationMutation(v46);
               }
 
-              v51 = *(*(&v85 + 1) + 8 * k);
+              v51 = *(*(&v84 + 1) + 8 * k);
               v52 = [v51 objectForKeyedSubscript:@"service"];
               v53 = [CBService alloc];
               v54 = [v51 objectForKeyedSubscript:@"incInfo"];
               v55 = [(CBService *)v53 initWithPeripheral:0 dictionary:v54];
 
-              v82[0] = MEMORY[0x1E69E9820];
-              v82[1] = 3221225472;
-              v82[2] = __41__CBCentralManager_handleRestoringState___block_invoke_2;
-              v82[3] = &unk_1E811D0E0;
-              v83 = v55;
-              v84 = v52;
+              v81[0] = MEMORY[0x1E69E9820];
+              v81[1] = 3221225472;
+              v81[2] = __41__CBCentralManager_handleRestoringState___block_invoke_2;
+              v81[3] = &unk_1E811D0E0;
+              v82 = v55;
+              v83 = v52;
               v56 = v52;
               v57 = v55;
-              [v73 enumerateObjectsUsingBlock:v82];
+              [v72 enumerateObjectsUsingBlock:v81];
             }
 
-            v48 = [v46 countByEnumeratingWithState:&v85 objects:v111 count:16];
+            v48 = [v46 countByEnumeratingWithState:&v84 objects:v110 count:16];
           }
 
           while (v48);
         }
 
-        if ([v73 count])
+        if ([v72 count])
         {
-          [v17 setServices:v73];
+          [v17 setServices:v72];
         }
 
-        v14 = v65;
-        [v65 addObject:v17];
+        v14 = v64;
+        [v64 addObject:v17];
 
-        v15 = v68 + 1;
+        v15 = v67 + 1;
         self = selfCopy;
       }
 
-      while (v68 + 1 != v67);
-      v67 = [obj countByEnumeratingWithState:&v107 objects:v118 count:16];
+      while (v67 + 1 != v66);
+      v66 = [obj countByEnumeratingWithState:&v106 objects:v117 count:16];
     }
 
-    while (v67);
+    while (v66);
   }
 
   if ([v14 count])
@@ -3768,8 +3773,6 @@ void __73__CBCentralManager_setDesiredConnectionLatency_forPeripheral_completion
 
   delegate = [(CBCentralManager *)self delegate];
   [delegate centralManager:self willRestoreState:v5];
-
-  v59 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CBCentralManager_handleRestoringState___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -3836,7 +3839,7 @@ LABEL_9:
 
 - (void)handlePeripheralDiscovered:(id)discovered
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   discoveredCopy = discovered;
   if (self->_isScanning && (*&self->_delegateFlags & 2) != 0)
   {
@@ -3870,8 +3873,8 @@ LABEL_9:
       goto LABEL_37;
     }
 
-    v43 = v5;
-    v41 = integerValue2;
+    v42 = v5;
+    v40 = integerValue2;
     v10 = [discoveredCopy objectForKeyedSubscript:@"kCBMsgArgAdvertisementData"];
     v11 = [v10 mutableCopy];
 
@@ -3884,13 +3887,13 @@ LABEL_9:
     }
 
     v15 = [v11 objectForKeyedSubscript:@"kCBAdvDataSolicitedServiceUUIDs"];
-    v45 = v15;
+    v44 = v15;
     if (v15)
     {
       v16 = [(CBCentralManager *)self dataArrayToUUIDArray:v15];
       [v11 setObject:v16 forKeyedSubscript:@"kCBAdvDataSolicitedServiceUUIDs"];
 
-      v15 = v45;
+      v15 = v44;
     }
 
     v17 = [v11 objectForKeyedSubscript:@"kCBAdvDataHashedServiceUUIDs"];
@@ -3899,10 +3902,10 @@ LABEL_9:
       v18 = [(CBCentralManager *)self dataArrayToUUIDArray:v17];
       [v11 setObject:v18 forKeyedSubscript:@"kCBAdvDataHashedServiceUUIDs"];
 
-      v15 = v45;
+      v15 = v44;
     }
 
-    v42 = v17;
+    v41 = v17;
     v19 = [discoveredCopy objectForKey:@"kCBScanOptionFilterIdentifierString"];
 
     if (v19)
@@ -3914,37 +3917,37 @@ LABEL_9:
     v21 = @"kCBAdvDataServiceData";
     [v11 objectForKeyedSubscript:@"kCBAdvDataServiceData"];
     v22 = v12;
-    v44 = v5 = v43;
-    if (v44)
+    v43 = v5 = v42;
+    if (v43)
     {
-      v39 = integerValue;
-      v40 = v13;
+      v38 = integerValue;
+      v39 = v13;
       v23 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
-      v24 = v44;
-      v25 = [v24 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v24 = v43;
+      v25 = [v24 countByEnumeratingWithState:&v45 objects:v49 count:16];
       if (v25)
       {
         v26 = v25;
-        v37 = @"kCBAdvDataServiceData";
-        v38 = v22;
+        v36 = @"kCBAdvDataServiceData";
+        v37 = v22;
         v27 = 0;
-        v28 = *v47;
+        v28 = *v46;
         do
         {
           for (i = 0; i != v26; ++i)
           {
             while (1)
             {
-              if (*v47 != v28)
+              if (*v46 != v28)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v30 = *(*(&v46 + 1) + 8 * i);
+              v30 = *(*(&v45 + 1) + 8 * i);
               if (!v27)
               {
                 break;
@@ -3963,25 +3966,25 @@ LABEL_9:
           }
 
 LABEL_15:
-          v26 = [v24 countByEnumeratingWithState:&v46 objects:v50 count:{16, v37, v38}];
+          v26 = [v24 countByEnumeratingWithState:&v45 objects:v49 count:{16, v36, v37}];
         }
 
         while (v26);
 
-        v5 = v43;
-        v21 = v37;
-        v22 = v38;
-        v15 = v45;
+        v5 = v42;
+        v21 = v36;
+        v22 = v37;
+        v15 = v44;
       }
 
       [v11 setObject:v23 forKeyedSubscript:v21];
-      integerValue = v39;
-      v13 = v40;
+      integerValue = v38;
+      v13 = v39;
     }
 
-    if (v41)
+    if (v40)
     {
-      v33 = v42;
+      v33 = v41;
       if ((*(&self->_delegateFlags + 1) & 0x40) == 0)
       {
 LABEL_36:
@@ -4000,7 +4003,7 @@ LABEL_37:
         delegate2 = [(CBCentralManager *)self delegate];
         [delegate2 centralManager:self didDiscoverMultiplePeripherals:self->_discoveredPeripherals];
 
-        v15 = v45;
+        v15 = v44;
         [(NSMutableArray *)self->_discoveredPeripherals removeAllObjects];
       }
     }
@@ -4011,13 +4014,11 @@ LABEL_37:
       [delegate3 centralManager:self didDiscoverPeripheral:v5 advertisementData:v11 RSSI:v22];
     }
 
-    v33 = v42;
+    v33 = v41;
     goto LABEL_36;
   }
 
 LABEL_38:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePeripheralInvalidated:(id)invalidated
@@ -4082,39 +4083,39 @@ LABEL_38:
 
 - (void)handleFindMyDevicesUpdated:(id)updated
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   if ((*(&self->_delegateFlags + 3) & 8) != 0)
   {
     v5 = objc_opt_new();
     v6 = [updatedCopy objectForKeyedSubscript:@"kCBMsgArgDevices"];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = [(CBCentralManager *)self peripheralWithInfo:*(*(&v14 + 1) + 8 * v10)];
+          v11 = [(CBCentralManager *)self peripheralWithInfo:*(*(&v13 + 1) + 8 * v10)];
           [v5 addObject:v11];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -4123,8 +4124,6 @@ LABEL_38:
     delegate = [(CBCentralManager *)self delegate];
     [delegate centralManager:self didUpdateFindMyPeripherals:v5];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSetupCIGComplete:(id)complete
@@ -4220,7 +4219,7 @@ LABEL_6:
 
 - (void)handlePeripheralConnectionCompleted:(id)completed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   v5 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4313,14 +4312,12 @@ LABEL_22:
   v11 = CBLogComponent;
   if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = completedCopy;
-    _os_log_impl(&dword_1C0AC1000, v11, OS_LOG_TYPE_DEFAULT, "No peripheral found for args %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = completedCopy;
+    _os_log_impl(&dword_1C0AC1000, v11, OS_LOG_TYPE_DEFAULT, "No peripheral found for args %@", &v16, 0xCu);
   }
 
 LABEL_23:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePeripheralCLReady:(id)ready
@@ -4344,7 +4341,7 @@ LABEL_23:
 
 - (void)handlePeripheralDisconnectionCompleted:(id)completed
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   v5 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4381,9 +4378,9 @@ LABEL_23:
     v15 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = 138412290;
-      v27 = v6;
-      _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "WHB device %@ disconnected", &v26, 0xCu);
+      v25 = 138412290;
+      v26 = v6;
+      _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "WHB device %@ disconnected", &v25, 0xCu);
     }
 
     peerDevice = [v14 peerDevice];
@@ -4427,7 +4424,6 @@ LABEL_15:
   }
 
 LABEL_19:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleApplicationConnectionEventDidOccur:(id)occur
@@ -4666,7 +4662,7 @@ LABEL_10:
 
 - (void)HandleLESynchronizationEventMsg:(id)msg
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   v5 = [msgCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4690,18 +4686,16 @@ LABEL_10:
     v8 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = msgCopy;
-      _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleLESynchronizationEventMsg for args %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = msgCopy;
+      _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleLESynchronizationEventMsg for args %@", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)HandleRssiDetectionUpdateMsg:(id)msg
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   v5 = [msgCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4726,18 +4720,16 @@ LABEL_10:
     v9 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = msgCopy;
-      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleRssiDetectionUpdateMsg for args %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = msgCopy;
+      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleRssiDetectionUpdateMsg for args %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)HandleBluetoothUsageEventMsg:(id)msg
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   v5 = [msgCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4762,13 +4754,11 @@ LABEL_10:
     v9 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = msgCopy;
-      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleBluetoothUsageEventMsg for args %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = msgCopy;
+      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in HandleBluetoothUsageEventMsg for args %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)HandleBluetoothPhyStatisticEventMsg:(id)msg
@@ -4787,7 +4777,7 @@ LABEL_10:
 
 - (void)handleCSProcedureEventMsg:(id)msg
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   v5 = [msgCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBCentralManager *)self peripheralWithIdentifier:v5];
@@ -4812,13 +4802,11 @@ LABEL_10:
     v9 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = msgCopy;
-      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in handleCSProcedureEventMsg for args %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = msgCopy;
+      _os_log_impl(&dword_1C0AC1000, v9, OS_LOG_TYPE_DEFAULT, "No peripheral found in handleCSProcedureEventMsg for args %@", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleConnectionParametersUpdated:(id)updated
@@ -4840,84 +4828,82 @@ LABEL_10:
 
 - (void)handleReadyForUpdates:(id)updates
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pthread_mutex_lock(&self->peripheralsMutex);
   v4 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   objectEnumerator = [(NSMapTable *)self->_peripherals objectEnumerator];
-  v6 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v6 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [v4 addObject:*(*(&v20 + 1) + 8 * v9++)];
+        [v4 addObject:*(*(&v19 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [objectEnumerator countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [objectEnumerator countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   pthread_mutex_unlock(&self->peripheralsMutex);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   objectEnumerator2 = [v4 objectEnumerator];
-  v11 = [objectEnumerator2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v11 = [objectEnumerator2 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(objectEnumerator2);
         }
 
-        [*(*(&v16 + 1) + 8 * v14++) isReadyForUpdates];
+        [*(*(&v15 + 1) + 8 * v14++) isReadyForUpdates];
       }
 
       while (v12 != v14);
-      v12 = [objectEnumerator2 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [objectEnumerator2 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)retrievePeripheralWithAddress:(id)address
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if ([addressCopy length])
   {
-    v13 = @"kCBMsgArgAddressString";
+    v12 = @"kCBMsgArgAddressString";
     whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
     v6 = [addressCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-    v14[0] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v8 = [(CBManager *)self sendSyncMsg:81 args:v7];
 
     v9 = [v8 objectForKeyedSubscript:@"kCBMsgArgDevices"];
@@ -4948,42 +4934,39 @@ LABEL_10:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 - (void)addIRKwithBTAddress:(id)address irk:(id)irk
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   addressCopy = MEMORY[0x1E695E0F0];
   if (address)
   {
     addressCopy = address;
   }
 
-  v13[0] = @"kCBSetIRKForAddressPublicAddress";
-  v13[1] = @"kCBSetIRKForAddressIRK";
+  v12[0] = @"kCBSetIRKForAddressPublicAddress";
+  v12[1] = @"kCBSetIRKForAddressIRK";
   irkCopy = MEMORY[0x1E695E0F8];
   if (irk)
   {
     irkCopy = irk;
   }
 
-  v14[0] = addressCopy;
-  v14[1] = irkCopy;
+  v13[0] = addressCopy;
+  v13[1] = irkCopy;
   v8 = MEMORY[0x1E695DF20];
   irkCopy2 = irk;
   addressCopy2 = address;
-  v11 = [v8 dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v11 = [v8 dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   [(CBManager *)self sendMsg:137 args:v11];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeIRKwithBTAddress:(id)address
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (address)
   {
     addressCopy = address;
@@ -4994,31 +4977,29 @@ LABEL_10:
     addressCopy = MEMORY[0x1E695E0F0];
   }
 
-  v9 = @"kCBSetIRKForAddressPublicAddress";
-  v10[0] = addressCopy;
+  v8 = @"kCBSetIRKForAddressPublicAddress";
+  v9[0] = addressCopy;
   v5 = MEMORY[0x1E695DF20];
   addressCopy2 = address;
-  v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v5 dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   [(CBManager *)self sendMsg:138 args:v7];
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteDevice:(id)device
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v8 = @"kCBMsgArgDeviceUUID";
-  v9[0] = device;
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"kCBMsgArgDeviceUUID";
+  v8[0] = device;
   v4 = MEMORY[0x1E695DF20];
   deviceCopy = device;
-  v6 = [v4 dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = [v4 dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CBManager *)self sendMsg:139 args:v6];
 
   pthread_mutex_lock(&self->peripheralsMutex);
   [(NSMapTable *)self->_peripherals removeObjectForKey:deviceCopy];
 
   pthread_mutex_unlock(&self->peripheralsMutex);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createPeripheralWithAddress:(id)address andIdentifier:(id)identifier
@@ -5071,24 +5052,23 @@ void __62__CBCentralManager_createPeripheralFromIdentifier_completion___block_in
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = [a2 objectForKeyedSubscript:@"kCBMsgArgDevices"];
-    v8 = v6;
-    if (v6)
+    v5 = [a2 objectForKeyedSubscript:@"kCBMsgArgDevices"];
+    v7 = v5;
+    if (v5)
     {
-      v7 = [*(a1 + 32) peripheralWithInfo:v6];
+      v6 = [*(a1 + 32) peripheralWithInfo:v5];
     }
 
     else
     {
-      v7 = 0;
+      v6 = 0;
     }
 
     (*(*(a1 + 40) + 16))();
@@ -5348,13 +5328,11 @@ LABEL_14:
   values = xpc_string_create([v7 UTF8String]);
   v8 = xpc_dictionary_create(keys, &values, 1uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgLEAudioRegister" args:v8 completion:&__block_literal_global_423];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CBCentralManager_registerLEAudioClient__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
@@ -5366,13 +5344,13 @@ void __41__CBCentralManager_registerLEAudioClient__block_invoke(uint64_t a1, voi
     v3 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v2;
+      v8 = 138412290;
+      v9 = v2;
       v4 = "Failed to send LE audio register message over XPC, %@";
       v5 = v3;
       v6 = 12;
 LABEL_10:
-      _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, v4, &v9, v6);
+      _os_log_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEFAULT, v4, &v8, v6);
     }
   }
 
@@ -5386,26 +5364,24 @@ LABEL_10:
     v7 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
+      LOWORD(v8) = 0;
       v4 = "Ready to use LE audio";
       v5 = v7;
       v6 = 2;
       goto LABEL_10;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendLEAudioMsg:(id)msg args:(id)args completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   argsCopy = args;
   completionCopy = completion;
   *keys = xmmword_1E811D198;
   values = xpc_string_create([msg UTF8String]);
   v10 = argsCopy;
-  v21 = v10;
+  v20 = v10;
   if (v10)
   {
     v11 = 2;
@@ -5425,7 +5401,7 @@ LABEL_10:
     handler[1] = 3221225472;
     handler[2] = __51__CBCentralManager_sendLEAudioMsg_args_completion___block_invoke;
     handler[3] = &unk_1E811D1B0;
-    v19 = completionCopy;
+    v18 = completionCopy;
     xpc_connection_send_message_with_reply(leAudioXpcConnection, v12, getCurrentQueue, handler);
   }
 
@@ -5439,115 +5415,103 @@ LABEL_10:
     v15 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "LE audio message is nil", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "LE audio message is nil", v16, 2u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void __51__CBCentralManager_sendLEAudioMsg_args_completion___block_invoke(uint64_t a1)
+void __51__CBCentralManager_sendLEAudioMsg_args_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CUXPCDecodeNSErrorIfNeeded();
+  v3 = CUXPCDecodeNSErrorIfNeeded();
   (*(*(a1 + 32) + 16))();
 }
 
 - (void)changeVolumeForSession:(id)session withVolume:(float)volume withResponse:(id)response
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   *uuid = 0;
-  v17 = 0;
+  v16 = 0;
   audioSessionIdentifier = [sessionCopy audioSessionIdentifier];
   [audioSessionIdentifier getUUIDBytes:uuid];
   *keys = xmmword_1E811D1D0;
-  v13 = xpc_uuid_create(uuid);
-  v14 = xpc_double_create(volume);
-  v11 = xpc_dictionary_create(keys, &v13, 2uLL);
+  v12 = xpc_uuid_create(uuid);
+  v13 = xpc_double_create(volume);
+  v11 = xpc_dictionary_create(keys, &v12, 2uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgChangeSessionVolume" args:v11 completion:responseCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeVolumeOffsetForSession:(id)session toLocation:(unsigned int)location withVolumeOffSet:(signed __int16)set withResponse:(id)response
 {
   setCopy = set;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   *uuid = 0;
-  v21 = 0;
+  v20 = 0;
   audioSessionIdentifier = [sessionCopy audioSessionIdentifier];
   [audioSessionIdentifier getUUIDBytes:uuid];
   *keys = xmmword_1E811D1E0;
-  v19 = "kCBMsgArgLEAudioLocation";
+  v18 = "kCBMsgArgLEAudioLocation";
   values = xpc_uuid_create(uuid);
-  v16 = xpc_int64_create(setCopy);
-  v17 = xpc_uint64_create(location);
+  v15 = xpc_int64_create(setCopy);
+  v16 = xpc_uint64_create(location);
   v13 = xpc_dictionary_create(keys, &values, 3uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgChangeSessionVolumeOffset" args:v13 completion:responseCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeVolumeMuteStateForSession:(id)session withVolumeMuteState:(int64_t)state withResponse:(id)response
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   *uuid = 0;
-  v17 = 0;
+  v16 = 0;
   audioSessionIdentifier = [sessionCopy audioSessionIdentifier];
   [audioSessionIdentifier getUUIDBytes:uuid];
   *keys = xmmword_1E811D1F8;
-  v13 = xpc_uuid_create(uuid);
-  v14 = xpc_uint64_create(state);
-  v11 = xpc_dictionary_create(keys, &v13, 2uLL);
+  v12 = xpc_uuid_create(uuid);
+  v13 = xpc_uint64_create(state);
+  v11 = xpc_dictionary_create(keys, &v12, 2uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgChangeSessionVolumeMuteState" args:v11 completion:responseCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMicrophoneMuteStateForSession:(id)session withMicMuteState:(int64_t)state withResponse:(id)response
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   *uuid = 0;
-  v17 = 0;
+  v16 = 0;
   audioSessionIdentifier = [sessionCopy audioSessionIdentifier];
   [audioSessionIdentifier getUUIDBytes:uuid];
   *keys = xmmword_1E811D208;
-  v13 = xpc_uuid_create(uuid);
-  v14 = xpc_uint64_create(state);
-  v11 = xpc_dictionary_create(keys, &v13, 2uLL);
+  v12 = xpc_uuid_create(uuid);
+  v13 = xpc_uint64_create(state);
+  v11 = xpc_dictionary_create(keys, &v12, 2uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgChangeSessionMicrophoneMuteState" args:v11 completion:responseCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)changeMicrophoneGainSettingForSession:(id)session forAudioInputType:(unsigned __int8)type withMicGain:(char)gain withResponse:(id)response
 {
   gainCopy = gain;
   typeCopy = type;
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   responseCopy = response;
   *uuid = 0;
-  v21 = 0;
+  v20 = 0;
   audioSessionIdentifier = [sessionCopy audioSessionIdentifier];
   [audioSessionIdentifier getUUIDBytes:uuid];
   *keys = xmmword_1E811D218;
-  v19 = "kCBMsgArgLEAudioMicrophoneGain";
+  v18 = "kCBMsgArgLEAudioMicrophoneGain";
   values = xpc_uuid_create(uuid);
-  v16 = xpc_int64_create(typeCopy);
-  v17 = xpc_int64_create(gainCopy);
+  v15 = xpc_int64_create(typeCopy);
+  v16 = xpc_int64_create(gainCopy);
   v13 = xpc_dictionary_create(keys, &values, 3uLL);
   [(CBCentralManager *)self sendLEAudioMsg:@"kCBMsgChangeSessionMicrophoneGain" args:v13 completion:responseCopy];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLEAudioXpcEvents:(id)events
@@ -5650,7 +5614,7 @@ LABEL_6:
 
 - (id)createSessionEvent:(int64_t)event withMsg:(id)msg
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   v6 = [[CBLEAudioSessionEvent alloc] initWithEventType:event withError:0];
   v7 = objc_alloc(MEMORY[0x1E696AFB0]);
@@ -5665,7 +5629,7 @@ LABEL_6:
     applier[1] = 3221225472;
     applier[2] = __47__CBCentralManager_createSessionEvent_withMsg___block_invoke;
     applier[3] = &unk_1E811D238;
-    v27 = v12;
+    v26 = v12;
     v13 = v12;
     xpc_array_apply(v11, applier);
     v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -5700,11 +5664,9 @@ LABEL_6:
     v22 = v21;
     v23 = [(CBLEAudioSessionEvent *)v6 description];
     *buf = 138412290;
-    v29 = v23;
+    v28 = v23;
     _os_log_impl(&dword_1C0AC1000, v22, OS_LOG_TYPE_DEFAULT, "Generated event: %@", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -5754,7 +5716,7 @@ LABEL_3:
 
 - (void)handleLEAudioMsg:(id)msg
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   msgCopy = msg;
   string = xpc_dictionary_get_string(msgCopy, "kCBMsgId");
   v6 = xpc_dictionary_get_value(msgCopy, "kCBMsgArgs");
@@ -5777,11 +5739,11 @@ LABEL_3:
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_4:
-      v10 = 136315394;
-      v11 = string;
-      v12 = 2112;
-      v13 = v6;
-      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "Received XPC message for LE audio - %s: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = string;
+      v11 = 2112;
+      v12 = v6;
+      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "Received XPC message for LE audio - %s: %@", &v9, 0x16u);
     }
   }
 
@@ -5807,8 +5769,8 @@ LABEL_5:
       }
     }
 
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "LE audio unregistered", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_1C0AC1000, v8, OS_LOG_TYPE_DEFAULT, "LE audio unregistered", &v9, 2u);
     goto LABEL_47;
   }
 
@@ -5926,8 +5888,6 @@ LABEL_24:
   }
 
 LABEL_47:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSessionCompleted:(id)completed
@@ -5950,7 +5910,7 @@ LABEL_47:
 
 - (void)handleSessionVolumeUpdated:(id)updated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [(CBCentralManager *)self createSessionEvent:2 withMsg:updatedCopy];
   v6 = MEMORY[0x1E696AD98];
@@ -5969,19 +5929,17 @@ LABEL_47:
   {
     v10 = v9;
     updatedValue = [v5 updatedValue];
-    v13 = 138412290;
-    v14 = updatedValue;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeUpdated - %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = updatedValue;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeUpdated - %@", &v12, 0xCu);
   }
 
   [(CBCentralManager *)self handleLEAudioSessionEvents:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSessionVolumeOffsetUpdated:(id)updated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [(CBCentralManager *)self createSessionEvent:3 withMsg:updatedCopy];
   v6 = MEMORY[0x1E696AD98];
@@ -6000,19 +5958,17 @@ LABEL_47:
   {
     v10 = v9;
     updatedValue = [v5 updatedValue];
-    v13 = 138412290;
-    v14 = updatedValue;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeOffsetUpdated - %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = updatedValue;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeOffsetUpdated - %@", &v12, 0xCu);
   }
 
   [(CBCentralManager *)self handleLEAudioSessionEvents:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSessionVolumeMuteUpdated:(id)updated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [(CBCentralManager *)self createSessionEvent:4 withMsg:updatedCopy];
   v6 = MEMORY[0x1E696AD98];
@@ -6031,19 +5987,17 @@ LABEL_47:
   {
     v10 = v9;
     updatedValue = [v5 updatedValue];
-    v13 = 138412290;
-    v14 = updatedValue;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeMuteUpdated - %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = updatedValue;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionVolumeMuteUpdated - %@", &v12, 0xCu);
   }
 
   [(CBCentralManager *)self handleLEAudioSessionEvents:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSessionMicrophoneMuteUpdated:(id)updated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [(CBCentralManager *)self createSessionEvent:5 withMsg:updatedCopy];
   v6 = MEMORY[0x1E696AD98];
@@ -6062,19 +6016,17 @@ LABEL_47:
   {
     v10 = v9;
     updatedValue = [v5 updatedValue];
-    v13 = 138412290;
-    v14 = updatedValue;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionMicrophoneMuteUpdated - %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = updatedValue;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionMicrophoneMuteUpdated - %@", &v12, 0xCu);
   }
 
   [(CBCentralManager *)self handleLEAudioSessionEvents:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleSessionMicrophoneGainUpdated:(id)updated
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   v5 = [(CBCentralManager *)self createSessionEvent:6 withMsg:updatedCopy];
   v6 = MEMORY[0x1E696AD98];
@@ -6093,14 +6045,12 @@ LABEL_47:
   {
     v10 = v9;
     updatedValue = [v5 updatedValue];
-    v13 = 138412290;
-    v14 = updatedValue;
-    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionMicrophoneGainUpdated - %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = updatedValue;
+    _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "handleSessionMicrophoneGainUpdated - %@", &v12, 0xCu);
   }
 
   [(CBCentralManager *)self handleLEAudioSessionEvents:v5];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleVolumeUpdated:(id)updated
@@ -6311,12 +6261,238 @@ uint64_t __41__CBCentralManager_handlePresetsUpdated___block_invoke_3(uint64_t a
   return result;
 }
 
-void __37__CBCentralManager_orphanPeripherals__block_invoke_cold_2()
+- (void)handleMsg:(unsigned __int16)msg args:(id)args
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_1C0AC1000, v0, v1, "Orphaning %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  msgCopy = msg;
+  argsCopy = args;
+  v7 = argsCopy;
+  v8 = 0;
+  switch(msgCopy)
+  {
+    case 18:
+    case 19:
+    case 20:
+      sharedPairingAgent = [(CBManager *)self sharedPairingAgent];
+      [sharedPairingAgent handlePairingMessage:msgCopy args:v7];
+      goto LABEL_14;
+    case 27:
+    case 28:
+    case 32:
+    case 176:
+    case 177:
+    case 189:
+    case 190:
+    case 191:
+    case 192:
+    case 193:
+    case 196:
+    case 201:
+    case 202:
+    case 208:
+    case 209:
+    case 210:
+    case 211:
+    case 212:
+    case 215:
+    case 216:
+      goto LABEL_2;
+    case 35:
+      [(CBCentralManager *)self handleSupportedFeatures:argsCopy];
+
+      return;
+    case 62:
+      v11 = 0;
+      v8 = sel_handleReadyForUpdates_;
+      goto LABEL_4;
+    case 65:
+      v8 = sel_handleAdvertisingAddressChanged_;
+      goto LABEL_46;
+    case 91:
+      v11 = 0;
+      v8 = sel_handlePeripheralDiscovered_;
+      goto LABEL_4;
+    case 92:
+      v11 = 0;
+      v8 = sel_handlePeripheralConnectionCompleted_;
+      goto LABEL_4;
+    case 93:
+      v11 = 0;
+      v8 = sel_handlePeripheralCLReady_;
+      goto LABEL_4;
+    case 94:
+      v11 = 0;
+      v8 = sel_handlePeripheralDisconnectionCompleted_;
+      goto LABEL_4;
+    case 95:
+      v11 = 0;
+      v8 = sel_handlePeripheralConnectionStateUpdated_;
+      goto LABEL_4;
+    case 96:
+      v11 = 0;
+      v8 = sel_handlePeripheralTrackingUpdated_;
+      goto LABEL_4;
+    case 97:
+      v11 = 0;
+      v8 = sel_handleZoneLost_;
+      goto LABEL_4;
+    case 98:
+      v11 = 0;
+      v8 = sel_handleApplicationActivityEvent_;
+      goto LABEL_4;
+    case 99:
+      v8 = sel_handleRestoringState_;
+LABEL_46:
+      v11 = 1;
+      goto LABEL_4;
+    case 101:
+      v11 = 0;
+      v8 = sel_handleApplicationConnectionEventDidOccur_;
+      goto LABEL_4;
+    case 117:
+      [(CBCentralManager *)self handleAncsAuthChanged:argsCopy];
+
+      return;
+    case 136:
+      v11 = 0;
+      v8 = sel_handleScanFailedToStartWithError_;
+      goto LABEL_4;
+    case 140:
+      [(CBCentralManager *)self handleScanComplete:argsCopy];
+
+      return;
+    case 141:
+      [(CBCentralManager *)self handleScanParamsUpdated:argsCopy];
+
+      return;
+    case 142:
+      [(CBCentralManager *)self handleFindMyDevicesUpdated:argsCopy];
+
+      return;
+    case 143:
+      v11 = 0;
+      v8 = sel_handlePeripheralInvalidated_;
+      goto LABEL_4;
+    case 145:
+      v11 = 0;
+      v8 = sel_handleDidSendBytesToPeripheralwithError_;
+      goto LABEL_4;
+    case 146:
+      v11 = 0;
+      v8 = sel_handleDidReceiveDataFromPeripheral_;
+      goto LABEL_4;
+    case 157:
+      [(CBCentralManager *)self handleSetupCIGComplete:argsCopy];
+
+      return;
+    case 159:
+      [(CBCentralManager *)self handleRemoveCIGComplete:argsCopy];
+
+      return;
+    case 161:
+      [(CBCentralManager *)self handleConnectCISComplete:argsCopy];
+
+      return;
+    case 165:
+      [(CBCentralManager *)self handleDisconnectCISComplete:argsCopy];
+
+      return;
+    case 175:
+      v8 = sel_handlePeerMTUChanged_;
+LABEL_2:
+      v9 = [argsCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
+      v10 = [(CBCentralManager *)self peripheralWithIdentifier:v9];
+
+      [v10 handleMsg:msgCopy args:v7];
+      if (msgCopy != 175)
+      {
+        goto LABEL_10;
+      }
+
+      v11 = 0;
+LABEL_4:
+      if ([(CBManager *)self state]!= CBManagerStatePoweredOn && (([(CBManager *)self state]!= 10) & ~v11) != 0)
+      {
+        if (CBLogInitOnce != -1)
+        {
+          [CBClassicPeer dealloc];
+        }
+
+        if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+        {
+          [CBCentralManager handleMsg:args:];
+        }
+
+        else
+        {
+LABEL_10:
+        }
+      }
+
+      else
+      {
+        [self v8];
+      }
+
+      break;
+    case 178:
+      v11 = 0;
+      v8 = sel_handleConnectionParametersUpdated_;
+      goto LABEL_4;
+    case 222:
+      v11 = 0;
+      v8 = sel_HandleControllerBTClockUpdateMsg_;
+      goto LABEL_4;
+    case 225:
+      v11 = 0;
+      v8 = sel_handleUpdateUsageNotificationForPeripheral_;
+      goto LABEL_4;
+    case 226:
+      v11 = 0;
+      v8 = sel_HandleRssiDetectionUpdateMsg_;
+      goto LABEL_4;
+    case 227:
+      v11 = 0;
+      v8 = sel_HandleBluetoothUsageEventMsg_;
+      goto LABEL_4;
+    case 228:
+      v11 = 0;
+      v8 = sel_HandleBluetoothPhyStatisticEventMsg_;
+      goto LABEL_4;
+    case 233:
+      v11 = 0;
+      v8 = sel_handleCSProcedureEventMsg_;
+      goto LABEL_4;
+    case 234:
+      v13 = [argsCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
+      sharedPairingAgent = [(CBCentralManager *)self peripheralWithIdentifier:v13];
+
+      [sharedPairingAgent handleMsg:234 args:v7];
+LABEL_14:
+
+      return;
+    case 235:
+      v11 = 0;
+      v8 = sel_HandleLESynchronizationEventMsg_;
+      goto LABEL_4;
+    case 236:
+      [(CBCentralManager *)self handleConnectLEAudioComplete:argsCopy];
+
+      return;
+    default:
+      if (CBLogInitOnce != -1)
+      {
+        [CBClassicPeer dealloc];
+      }
+
+      if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_10;
+      }
+
+      [CBCentralManager handleMsg:args:];
+
+      break;
+  }
 }
 
 - (void)initWithDelegate:queue:options:.cold.1()
@@ -6337,11 +6513,9 @@ void __37__CBCentralManager_orphanPeripherals__block_invoke_cold_2()
 
 - (void)initWithDelegate:queue:options:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrievePairingInfoForPeripheral:.cold.1()
@@ -6418,20 +6592,16 @@ void __37__CBCentralManager_orphanPeripherals__block_invoke_cold_2()
 
 - (void)retrieveWhbCBPeripheralWithInfo:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activateWhbCnxForCBPeripheral:infoDict:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invoke_cold_2()
@@ -6443,11 +6613,9 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
 
 - (void)connectWhbCBPeripheral:withCompletion:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)randomizeAFHMapForPeripheral:.cold.1()
@@ -6634,22 +6802,6 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)handleApplicationConnectionEventDidOccur:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_1C0AC1000, v0, v1, "ConnectionEventDidOccur %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleScanFailedToStartWithError:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_1C0AC1000, v0, v1, "handleScanFailedToStartWithError %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)retrievePeripheralWithAddress:.cold.2()
 {
   OUTLINED_FUNCTION_6();
@@ -6657,30 +6809,18 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)handlePeerMTUChanged:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_1C0AC1000, v0, v1, "handlePeerMTUChanged %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_handleLEAudioXpcEvents:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleLEAudioXpcEvents:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleLEAudioMsg:.cold.3()
@@ -6692,20 +6832,11 @@ void __59__CBCentralManager_activateWhbCnxForCBPeripheral_infoDict___block_invok
 
 - (void)handleMsg:args:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "%@ is not powered on, ignoring message: %u", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleMsg:args:.cold.4()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
   v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3();
+  v3 = 1024;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_DEBUG, "%@ is not powered on, ignoring message: %u", v2, 0x12u);
 }
 
 @end

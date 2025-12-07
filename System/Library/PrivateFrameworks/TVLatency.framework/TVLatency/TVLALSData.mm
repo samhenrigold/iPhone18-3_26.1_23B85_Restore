@@ -84,7 +84,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24[6] = *MEMORY[0x277D85DE8];
+  v23[6] = *MEMORY[0x277D85DE8];
   v3 = [(TVLALSData *)self x];
   if (!v3)
   {
@@ -130,25 +130,25 @@ LABEL_9:
 
   if (channelData)
   {
-    v23[0] = @"ALS_DATA_X";
+    v22[0] = @"ALS_DATA_X";
     v14 = [(TVLALSData *)self x];
-    v24[0] = v14;
-    v23[1] = @"ALS_DATA_Y";
+    v23[0] = v14;
+    v22[1] = @"ALS_DATA_Y";
     v15 = [(TVLALSData *)self y];
-    v24[1] = v15;
-    v23[2] = @"ALS_DATA_Z";
+    v23[1] = v15;
+    v22[2] = @"ALS_DATA_Z";
     v16 = [(TVLALSData *)self z];
-    v24[2] = v16;
-    v23[3] = @"ALS_DATA_LUX";
+    v23[2] = v16;
+    v22[3] = @"ALS_DATA_LUX";
     v17 = [(TVLALSData *)self lux];
-    v24[3] = v17;
-    v23[4] = @"ALS_DATA_CCT";
+    v23[3] = v17;
+    v22[4] = @"ALS_DATA_CCT";
     v18 = [(TVLALSData *)self cct];
-    v24[4] = v18;
-    v23[5] = @"ALS_DATA_CHANNELS";
+    v23[4] = v18;
+    v22[5] = @"ALS_DATA_CHANNELS";
     channelData2 = [(TVLALSData *)self channelData];
-    v24[5] = channelData2;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:6];
+    v23[5] = channelData2;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
 
     goto LABEL_13;
   }
@@ -156,7 +156,6 @@ LABEL_9:
 LABEL_12:
   v20 = MEMORY[0x277CBEC10];
 LABEL_13:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }

@@ -1,150 +1,149 @@
 uint64_t sub_260ECC640(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_280CCF568 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t sub_260ECD418(void *a1, const char *a2, uint64_t a3)
+uint64_t sub_260ECD418(void *a1)
 {
-  v4 = objc_msgSend_evaluationMetrics(a1, a2, a3);
-  v7 = objc_msgSend_count(v4, v5, v6);
+  v2 = [a1 evaluationMetrics];
+  v3 = [v2 count];
 
-  if (v7 < 1)
+  if (v3 < 1)
   {
-    v11 = 0.0;
+    v5 = 0.0;
   }
 
   else
   {
-    v10 = 0;
-    v11 = 0.0;
+    v4 = 0;
+    v5 = 0.0;
     do
     {
-      v12 = objc_msgSend_evaluationMetrics(a1, v8, v9);
-      v14 = objc_msgSend_featuresAtIndex_(v12, v13, v10);
+      v6 = [a1 evaluationMetrics];
+      v7 = [v6 featuresAtIndex:v4];
 
-      v16 = objc_msgSend_featureValueForName_(v14, v15, @"Identity_1");
-      v19 = objc_msgSend_multiArrayValue(v16, v17, v18);
-      v21 = objc_msgSend_objectAtIndexedSubscript_(v19, v20, 0);
+      v8 = [v7 featureValueForName:@"Identity_1"];
+      v9 = [v8 multiArrayValue];
+      v10 = [v9 objectAtIndexedSubscript:0];
 
-      objc_msgSend_doubleValue(v21, v22, v23);
-      v11 = v11 + v24;
+      [v10 doubleValue];
+      v5 = v5 + v11;
 
-      ++v10;
+      ++v4;
     }
 
-    while (v7 != v10);
+    while (v3 != v4);
   }
 
-  v25 = MEMORY[0x277CCABB0];
+  v12 = MEMORY[0x277CCABB0];
 
-  return objc_msgSend_numberWithDouble_(v25, v8, v9, v11 / v7);
+  return [v12 numberWithDouble:v5 / v3];
 }
 
 id sub_260ECD52C(void *a1, uint64_t a2, void *a3)
 {
-  v56 = a3;
-  v6 = objc_msgSend_evaluationMetrics(a1, v4, v5);
-  v9 = objc_msgSend_count(v6, v7, v8);
+  v32 = a3;
+  v4 = [a1 evaluationMetrics];
+  v5 = [v4 count];
 
-  if (v9 < 1)
+  if (v5 < 1)
   {
-    v52 = 0;
+    v28 = 0;
   }
 
   else
   {
-    v57 = 0;
-    v12 = 0;
-    v55 = v9;
+    v33 = 0;
+    v6 = 0;
+    v31 = v5;
     do
     {
-      v13 = objc_msgSend_evaluationMetrics(a1, v10, v11);
-      v15 = objc_msgSend_featuresAtIndex_(v13, v14, v12);
+      v7 = [a1 evaluationMetrics];
+      v8 = [v7 featuresAtIndex:v6];
 
-      v17 = objc_msgSend_featureValueForName_(v15, v16, @"Identity_0");
-      v20 = v17;
-      if (v17)
+      v9 = [v8 featureValueForName:@"Identity_0"];
+      v10 = v9;
+      if (v9)
       {
-        v21 = objc_msgSend_multiArrayValue(v17, v18, v19);
-        v23 = objc_msgSend_objectAtIndexedSubscript_(v21, v22, 0);
-        objc_msgSend_doubleValue(v23, v24, v25);
-        v27 = v26;
-        v30 = objc_msgSend_count(v21, v28, v29);
+        v11 = [v9 multiArrayValue];
+        v12 = [v11 objectAtIndexedSubscript:0];
+        [v12 doubleValue];
+        v14 = v13;
+        v15 = [v11 count];
 
-        v33 = objc_msgSend_count(v21, v31, v32);
-        v35 = objc_msgSend_featuresAtIndex_(v56, v34, v12);
-        v37 = objc_msgSend_featureValueForName_(v35, v36, @"label_input_0");
-        v40 = v37;
-        if (v37)
+        v16 = [v11 count];
+        v17 = [v32 featuresAtIndex:v6];
+        v18 = [v17 featureValueForName:@"label_input_0"];
+        v19 = v18;
+        if (v18)
         {
-          v41 = v27 + (v30 * v12);
-          v42 = v41 + v33;
-          if (v41 >= v42)
+          v20 = v14 + (v15 * v6);
+          v21 = v20 + v16;
+          if (v20 >= v21)
           {
-            v42 = v27 + (v30 * v12);
+            v21 = v14 + (v15 * v6);
           }
 
-          v43 = a1;
-          v44 = (v42 - v41);
-          v45 = objc_msgSend_multiArrayValue(v37, v38, v39);
-          v47 = objc_msgSend_objectAtIndexedSubscript_(v45, v46, 0);
+          v22 = a1;
+          v23 = (v21 - v20);
+          v24 = [v18 multiArrayValue];
+          v25 = [v24 objectAtIndexedSubscript:0];
 
-          v50 = objc_msgSend_intValue(v47, v48, v49) == v44;
-          a1 = v43;
-          v9 = v55;
-          if (v50)
+          v26 = [v25 intValue] == v23;
+          a1 = v22;
+          v5 = v31;
+          if (v26)
           {
-            v51 = v57 + 1;
+            v27 = v33 + 1;
           }
 
           else
           {
-            v51 = v57;
+            v27 = v33;
           }
 
-          v57 = v51;
+          v33 = v27;
         }
       }
 
-      ++v12;
+      ++v6;
     }
 
-    while (v9 != v12);
-    v52 = v57;
+    while (v5 != v6);
+    v28 = v33;
   }
 
-  v53 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v10, v52 / v9);
+  v29 = [MEMORY[0x277CCABB0] numberWithInteger:v28 / v5];
 
-  return v53;
+  return v29;
 }
 
 BOOL sub_260ECDD48(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if (objc_msgSend_isAppStoreVendable(v2, v3, v4))
+  if ([v2 isAppStoreVendable])
   {
-    v9 = objc_msgSend_bundleIdentifier(v2, v5, v6);
-    if (v9)
+    v3 = [v2 bundleIdentifier];
+    if (v3)
     {
-      v10 = objc_msgSend_bundleIdentifier(v2, v7, v8);
-      v13 = objc_msgSend_length(v10, v11, v12) != 0;
+      v4 = [v2 bundleIdentifier];
+      v5 = [v4 length] != 0;
     }
 
     else
     {
-      v13 = 0;
+      v5 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v5 = 0;
   }
 
-  return v13;
+  return v5;
 }
 
 uint64_t sub_260ECDE4C()
@@ -154,15 +153,15 @@ uint64_t sub_260ECDE4C()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_260ECE07C(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260ECE07C(uint64_t a1)
 {
-  if (objc_msgSend_respondToRefreshNotification(*(a1 + 32), a2, a3))
+  if ([*(a1 + 32) respondToRefreshNotification])
   {
-    v5 = *(a1 + 32);
-    v6 = MEMORY[0x277CBEA60];
-    v10 = objc_msgSend_numberWithUnsignedLong_(MEMORY[0x277CCABB0], v4, 0);
-    v8 = objc_msgSend_arrayWithObjects_(v6, v7, v10, 0);
-    objc_msgSend_refreshTrialClientForPlacementTypes_(v5, v9, v8);
+    v2 = *(a1 + 32);
+    v3 = MEMORY[0x277CBEA60];
+    v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:0];
+    v4 = [v3 arrayWithObjects:{v5, 0}];
+    [v2 refreshTrialClientForPlacementTypes:v4];
   }
 }
 
@@ -176,8 +175,8 @@ void sub_260ECE534(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_260ECE558(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v3 = objc_msgSend_trialClient(WeakRetained, v1, v2);
-  objc_msgSend_refresh(v3, v4, v5);
+  v1 = [WeakRetained trialClient];
+  [v1 refresh];
 }
 
 void sub_260ECF438(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -214,9 +213,9 @@ void sub_260ECFBE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_260ECFC4C(uint64_t a1, const char *a2, void *a3)
+void sub_260ECFC4C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = objc_msgSend_bufferPointer(a3, a2, a3);
+  v3 = [a3 bufferPointer];
   if (v3)
   {
 
@@ -234,17 +233,17 @@ void sub_260ECFC4C(uint64_t a1, const char *a2, void *a3)
   }
 }
 
-void *sub_260ECFE10(void *result, unint64_t a2)
+uint64_t *sub_260ECFE10(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_260ECFE88(result, a2);
+    sub_260ECFE88(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_260ECFE6C(_Unwind_Exception *exception_object)
@@ -259,7 +258,7 @@ void sub_260ECFE6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_260ECFE88(uint64_t a1, unint64_t a2)
+void sub_260ECFE88(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -302,389 +301,363 @@ void sub_260ECFFB4()
 
 id sub_260ED06E8(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v5 = a4;
-  v33[0] = v5;
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v33, 1);
-  v8 = objc_alloc(MEMORY[0x277CBFF48]);
-  v28 = 0;
-  v10 = objc_msgSend_initWithShape_dataType_error_(v8, v9, v7, 65600, &v28);
-  v13 = v28;
-  if (v13)
+  v22[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v17 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65600 error:&v17];
+  v8 = v17;
+  if (v8)
   {
-    v14 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138412546;
-      v30 = v15;
-      v31 = 2112;
-      v32 = v13;
-      v16 = v15;
-      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v19 = v10;
+      v20 = 2112;
+      v21 = v8;
+      v11 = v10;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
-    if (objc_msgSend_unsignedLongValue(v5, v11, v12))
+    if ([v5 unsignedLongValue])
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        LODWORD(v20) = *(a3 + 4 * v21);
-        v22 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v18, v19, v20);
-        objc_msgSend_setObject_atIndexedSubscript_(v10, v23, v22, v21);
+        LODWORD(v13) = *(a3 + 4 * v14);
+        v15 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+        [v7 setObject:v15 atIndexedSubscript:v14];
 
-        ++v21;
+        ++v14;
       }
 
-      while (v21 < objc_msgSend_unsignedLongValue(v5, v24, v25));
+      while (v14 < [v5 unsignedLongValue]);
     }
 
-    v17 = v10;
+    v12 = v7;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v12;
 }
 
 id sub_260ED08B0(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v5 = a4;
-  v33[0] = &unk_28736F1B8;
-  v33[1] = v5;
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v33, 2);
-  v8 = objc_alloc(MEMORY[0x277CBFF48]);
-  v28 = 0;
-  v10 = objc_msgSend_initWithShape_dataType_error_(v8, v9, v7, 65600, &v28);
-  v13 = v28;
-  if (v13)
+  v22[0] = &unk_28736F1B8;
+  v22[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v17 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v6 dataType:65600 error:&v17];
+  v8 = v17;
+  if (v8)
   {
-    v14 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v9 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v15 = objc_opt_class();
+      v10 = objc_opt_class();
       *buf = 138412546;
-      v30 = v15;
-      v31 = 2112;
-      v32 = v13;
-      v16 = v15;
-      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v19 = v10;
+      v20 = 2112;
+      v21 = v8;
+      v11 = v10;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v17 = 0;
+    v12 = 0;
   }
 
   else
   {
-    if (objc_msgSend_unsignedLongValue(v5, v11, v12))
+    if ([v5 unsignedLongValue])
     {
-      v21 = 0;
+      v14 = 0;
       do
       {
-        LODWORD(v20) = *(a3 + 4 * v21);
-        v22 = objc_msgSend_numberWithFloat_(MEMORY[0x277CCABB0], v18, v19, v20);
-        objc_msgSend_setObject_atIndexedSubscript_(v10, v23, v22, v21);
+        LODWORD(v13) = *(a3 + 4 * v14);
+        v15 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
+        [v7 setObject:v15 atIndexedSubscript:v14];
 
-        ++v21;
+        ++v14;
       }
 
-      while (v21 < objc_msgSend_unsignedLongValue(v5, v24, v25));
+      while (v14 < [v5 unsignedLongValue]);
     }
 
-    v17 = v10;
+    v12 = v7;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v12;
 }
 
 id sub_260ED0A80(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = MEMORY[0x277CCABB0];
-  v7 = objc_msgSend_count(v3, v5, v6);
-  v9 = objc_msgSend_numberWithUnsignedInteger_(v4, v8, v7);
-  v35[0] = v9;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v35, 1);
-  v12 = objc_alloc(MEMORY[0x277CBFF48]);
-  v30 = 0;
-  v14 = objc_msgSend_initWithShape_dataType_error_(v12, v13, v11, 65600, &v30);
-  v17 = v30;
-  if (v17)
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
+  v20[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+  v15 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v5 dataType:65600 error:&v15];
+  v7 = v15;
+  if (v7)
   {
-    v18 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v32 = v19;
-      v33 = 2112;
-      v34 = v17;
-      v20 = v19;
-      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v17 = v9;
+      v18 = 2112;
+      v19 = v7;
+      v10 = v9;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v21 = 0;
+    v11 = 0;
   }
 
   else
   {
-    if (objc_msgSend_count(v3, v15, v16))
+    if ([v3 count])
     {
-      v23 = 0;
+      v12 = 0;
       do
       {
-        v24 = objc_msgSend_objectAtIndexedSubscript_(v3, v22, v23);
-        objc_msgSend_setObject_atIndexedSubscript_(v14, v25, v24, v23);
+        v13 = [v3 objectAtIndexedSubscript:v12];
+        [v6 setObject:v13 atIndexedSubscript:v12];
 
-        ++v23;
+        ++v12;
       }
 
-      while (v23 < objc_msgSend_count(v3, v26, v27));
+      while (v12 < [v3 count]);
     }
 
-    v21 = v14;
+    v11 = v6;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v11;
 }
 
 id sub_260ED0C64(uint64_t a1, uint64_t a2, void *a3)
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = MEMORY[0x277CCABB0];
-  v7 = objc_msgSend_count(v3, v5, v6);
-  v9 = objc_msgSend_numberWithUnsignedInteger_(v4, v8, v7);
-  v35[0] = &unk_28736F1B8;
-  v35[1] = v9;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v35, 2);
-  v12 = objc_alloc(MEMORY[0x277CBFF48]);
-  v30 = 0;
-  v14 = objc_msgSend_initWithShape_dataType_error_(v12, v13, v11, 65600, &v30);
-  v17 = v30;
-  if (v17)
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
+  v20[0] = &unk_28736F1B8;
+  v20[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v15 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v5 dataType:65600 error:&v15];
+  v7 = v15;
+  if (v7)
   {
-    v18 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v32 = v19;
-      v33 = 2112;
-      v34 = v17;
-      v20 = v19;
-      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v17 = v9;
+      v18 = 2112;
+      v19 = v7;
+      v10 = v9;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v21 = 0;
+    v11 = 0;
   }
 
   else
   {
-    if (objc_msgSend_count(v3, v15, v16))
+    if ([v3 count])
     {
-      v23 = 0;
+      v12 = 0;
       do
       {
-        v24 = objc_msgSend_objectAtIndexedSubscript_(v3, v22, v23);
-        objc_msgSend_setObject_atIndexedSubscript_(v14, v25, v24, v23);
+        v13 = [v3 objectAtIndexedSubscript:v12];
+        [v6 setObject:v13 atIndexedSubscript:v12];
 
-        ++v23;
+        ++v12;
       }
 
-      while (v23 < objc_msgSend_count(v3, v26, v27));
+      while (v12 < [v3 count]);
     }
 
-    v21 = v14;
+    v11 = v6;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v11;
 }
 
 id sub_260ED0E50(uint64_t a1, uint64_t a2, void *a3)
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = objc_alloc(MEMORY[0x277CCABB0]);
-  v7 = objc_msgSend_doubleValuesCount(v3, v5, v6);
-  v9 = objc_msgSend_initWithUnsignedLong_(v4, v8, v7);
-  v38[0] = &unk_28736F1B8;
-  v38[1] = v9;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v38, 2);
-  v12 = objc_alloc(MEMORY[0x277CBFF48]);
-  v33 = 0;
-  v14 = objc_msgSend_initWithShape_dataType_error_(v12, v13, v11, 65600, &v33);
-  v17 = v33;
-  if (v17)
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedLong:{objc_msgSend(v3, "doubleValuesCount")}];
+  v21[0] = &unk_28736F1B8;
+  v21[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v16 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v5 dataType:65600 error:&v16];
+  v7 = v16;
+  if (v7)
   {
-    v18 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v35 = v19;
-      v36 = 2112;
-      v37 = v17;
-      v20 = v19;
-      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v18 = v9;
+      v19 = 2112;
+      v20 = v7;
+      v10 = v9;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v21 = 0;
+    v11 = 0;
   }
 
   else
   {
-    if (objc_msgSend_doubleValuesCount(v3, v15, v16))
+    if ([v3 doubleValuesCount])
     {
-      v22 = 0;
+      v12 = 0;
       do
       {
-        v23 = objc_alloc(MEMORY[0x277CCABB0]);
-        objc_msgSend_doubleValueAtIndex_(v3, v24, v22);
-        v27 = objc_msgSend_initWithDouble_(v23, v25, v26);
-        objc_msgSend_setObject_atIndexedSubscript_(v14, v28, v27, v22);
+        v13 = objc_alloc(MEMORY[0x277CCABB0]);
+        [v3 doubleValueAtIndex:v12];
+        v14 = [v13 initWithDouble:?];
+        [v6 setObject:v14 atIndexedSubscript:v12];
 
-        ++v22;
+        ++v12;
       }
 
-      while (v22 < objc_msgSend_doubleValuesCount(v3, v29, v30));
+      while (v12 < [v3 doubleValuesCount]);
     }
 
-    v21 = v14;
+    v11 = v6;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v11;
 }
 
 id sub_260ED1054(uint64_t a1, uint64_t a2, void *a3)
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  v4 = objc_alloc(MEMORY[0x277CCABB0]);
-  v7 = objc_msgSend_doubleValuesCount(v3, v5, v6);
-  v9 = objc_msgSend_initWithUnsignedLong_(v4, v8, v7);
-  v38[0] = v9;
-  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v10, v38, 1);
-  v12 = objc_alloc(MEMORY[0x277CBFF48]);
-  v33 = 0;
-  v14 = objc_msgSend_initWithShape_dataType_error_(v12, v13, v11, 65600, &v33);
-  v17 = v33;
-  if (v17)
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithUnsignedLong:{objc_msgSend(v3, "doubleValuesCount")}];
+  v21[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v16 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CBFF48]) initWithShape:v5 dataType:65600 error:&v16];
+  v7 = v16;
+  if (v7)
   {
-    v18 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
+      v9 = objc_opt_class();
       *buf = 138412546;
-      v35 = v19;
-      v36 = 2112;
-      v37 = v17;
-      v20 = v19;
-      _os_log_impl(&dword_260ECB000, v18, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
+      v18 = v9;
+      v19 = 2112;
+      v20 = v7;
+      v10 = v9;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "[%@] Error creating multiarray: %@", buf, 0x16u);
     }
 
-    v21 = 0;
+    v11 = 0;
   }
 
   else
   {
-    if (objc_msgSend_doubleValuesCount(v3, v15, v16))
+    if ([v3 doubleValuesCount])
     {
-      v22 = 0;
+      v12 = 0;
       do
       {
-        v23 = objc_alloc(MEMORY[0x277CCABB0]);
-        objc_msgSend_doubleValueAtIndex_(v3, v24, v22);
-        v27 = objc_msgSend_initWithDouble_(v23, v25, v26);
-        objc_msgSend_setObject_atIndexedSubscript_(v14, v28, v27, v22);
+        v13 = objc_alloc(MEMORY[0x277CCABB0]);
+        [v3 doubleValueAtIndex:v12];
+        v14 = [v13 initWithDouble:?];
+        [v6 setObject:v14 atIndexedSubscript:v12];
 
-        ++v22;
+        ++v12;
       }
 
-      while (v22 < objc_msgSend_doubleValuesCount(v3, v29, v30));
+      while (v12 < [v3 doubleValuesCount]);
     }
 
-    v21 = v14;
+    v11 = v6;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v11;
 }
 
-id sub_260ED1250(void *a1, const char *a2, uint64_t a3)
+id sub_260ED1250(void *a1)
 {
-  v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, a3);
-  if (objc_msgSend_count(a1, v5, v6) >= 1)
+  v2 = [MEMORY[0x277CBEB18] array];
+  if ([a1 count] >= 1)
   {
-    v9 = 0;
+    v3 = 0;
     do
     {
-      v10 = objc_msgSend_objectAtIndexedSubscript_(a1, v7, v9);
-      objc_msgSend_addObject_(v4, v11, v10);
+      v4 = [a1 objectAtIndexedSubscript:v3];
+      [v2 addObject:v4];
 
-      ++v9;
+      ++v3;
     }
 
-    while (v9 < objc_msgSend_count(a1, v12, v13));
+    while (v3 < [a1 count]);
   }
 
-  v14 = objc_msgSend_copy(v4, v7, v8);
+  v5 = [v2 copy];
 
-  return v14;
+  return v5;
 }
 
 void sub_260ED157C(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v5 = objc_msgSend_dictionary(a2, a2, a3);
+  v5 = [a2 dictionary];
   (*(v4 + 16))(v4, v5, a3);
 }
 
-uint64_t sub_260ED16E4(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_260ED16E4(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = objc_msgSend_dictionary(a2, a2, a3);
-  v5 = (*(v3 + 16))(v3, v4);
+  v2 = *(a1 + 32);
+  v3 = [a2 dictionary];
+  v4 = (*(v2 + 16))(v2, v3);
 
-  return v5;
+  return v4;
 }
 
 void sub_260ED1734(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v5 = objc_msgSend_dictionary(a2, a2, a3);
+  v5 = [a2 dictionary];
   (*(v4 + 16))(v4, v5, a3);
 }
 
-uint64_t sub_260ED18EC(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_260ED18EC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = objc_msgSend_eventBody(a2, a2, a3);
-  v5 = (*(v3 + 16))(v3, v4);
+  v2 = *(a1 + 32);
+  v3 = [a2 eventBody];
+  v4 = (*(v2 + 16))(v2, v3);
 
-  return v5;
+  return v4;
 }
 
 uint64_t sub_260ED19E4(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v5 = objc_msgSend_dictionary(a2, a2, a3);
+  v5 = [a2 dictionary];
   v6 = (*(v4 + 16))(v4, v5, a3);
 
   return v6;
@@ -693,7 +666,7 @@ uint64_t sub_260ED19E4(uint64_t a1, void *a2, uint64_t a3)
 uint64_t sub_260ED1AF0(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = *(a1 + 32);
-  v5 = objc_msgSend_eventBody(a2, a2, a3);
+  v5 = [a2 eventBody];
   v6 = (*(v4 + 16))(v4, v5, a3);
 
   return v6;
@@ -701,162 +674,149 @@ uint64_t sub_260ED1AF0(uint64_t a1, void *a2, uint64_t a3)
 
 void sub_260ED1CF4(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if (objc_msgSend_state(v3, v4, v5))
+  if ([v3 state])
   {
-    v6 = OdmlLogForCategory(0xCuLL);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = OdmlLogForCategory(0xCuLL);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v10 = v8;
-      v13 = objc_msgSend_streamName(v9, v11, v12);
-      v16 = objc_msgSend_error(v3, v14, v15);
-      v19 = objc_msgSend_code(v16, v17, v18);
-      v22 = objc_msgSend_error(v3, v20, v21);
-      v25 = objc_msgSend_localizedDescription(v22, v23, v24);
-      v27 = 138478595;
-      v28 = v8;
-      v29 = 2114;
-      v30 = v13;
-      v31 = 2048;
-      v32 = v19;
-      v33 = 2114;
-      v34 = v25;
-      _os_log_impl(&dword_260ECB000, v6, OS_LOG_TYPE_ERROR, "[%{private}@] Stream %{public}@ failed with error %ld: %{public}@", &v27, 0x2Au);
+      v5 = objc_opt_class();
+      v6 = *(a1 + 32);
+      v7 = v5;
+      v8 = [v6 streamName];
+      v9 = [v3 error];
+      v10 = [v9 code];
+      v11 = [v3 error];
+      v12 = [v11 localizedDescription];
+      v13 = 138478595;
+      v14 = v5;
+      v15 = 2114;
+      v16 = v8;
+      v17 = 2048;
+      v18 = v10;
+      v19 = 2114;
+      v20 = v12;
+      _os_log_impl(&dword_260ECB000, v4, OS_LOG_TYPE_ERROR, "[%{private}@] Stream %{public}@ failed with error %ld: %{public}@", &v13, 0x2Au);
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
-BOOL sub_260ED1E60(uint64_t a1, void *a2, uint64_t a3)
+BOOL sub_260ED1E60(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v5 = objc_msgSend_eventBody(a2, a2, a3);
-  (*(v4 + 16))(v4, v5, *(*(a1 + 40) + 8) + 24);
+  v3 = *(a1 + 32);
+  v4 = [a2 eventBody];
+  (*(v3 + 16))(v3, v4, *(*(a1 + 40) + 8) + 24);
 
   return (*(*(*(a1 + 40) + 8) + 24) & 1) == 0;
 }
 
-uint64_t sub_260ED2C54(uint64_t a1, const char *a2)
+uint64_t sub_260ED2C54(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(v2 + 16);
-  v5[0] = MEMORY[0x277D85DD0];
-  v5[1] = 3221225472;
-  v5[2] = sub_260ED2CC8;
-  v5[3] = &unk_279AC6160;
-  v5[4] = v2;
-  return objc_msgSend_loadPersistentStoresWithCompletionHandler_(v3, a2, v5);
+  v1 = *(a1 + 32);
+  v2 = *(v1 + 16);
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_260ED2CC8;
+  v4[3] = &unk_279AC6160;
+  v4[4] = v1;
+  return [v2 loadPersistentStoresWithCompletionHandler:v4];
 }
 
 void sub_260ED2CC8(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OdmlLogForCategory(4uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = v9;
-    v13 = objc_msgSend_options(v5, v11, v12);
-    v51 = 138478083;
-    v52 = v9;
-    v53 = 2113;
-    v54 = v13;
-    _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "[%{private}@] NSPersistentStoreDescription: %{private}@", &v51, 0x16u);
+    v8 = objc_opt_class();
+    v9 = v8;
+    v10 = [v5 options];
+    v28 = 138478083;
+    v29 = v8;
+    v30 = 2113;
+    v31 = v10;
+    _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "[%{private}@] NSPersistentStoreDescription: %{private}@", &v28, 0x16u);
   }
 
-  v14 = OdmlLogForCategory(4uLL);
-  v15 = v14;
+  v11 = OdmlLogForCategory(4uLL);
+  v12 = v11;
   if (v6)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
-      v17 = objc_opt_class();
-      v51 = 138478083;
-      v52 = v17;
-      v53 = 2112;
-      v54 = v6;
-      v18 = v17;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "[%{private}@] Failed to load Core Data stack with error: %@", &v51, 0x16u);
+      v13 = objc_opt_class();
+      v28 = 138478083;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v6;
+      v14 = v13;
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_ERROR, "[%{private}@] Failed to load Core Data stack with error: %@", &v28, 0x16u);
     }
 
-    v20 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v19, @"APOdmlFeatureStorageErrorDomain", 5002, 0);
-    v21 = MEMORY[0x277CBEAC0];
-    v22 = MEMORY[0x277CCABB0];
-    v25 = objc_msgSend_numLaunchesAttempted(*(a1 + 32), v23, v24);
-    v27 = objc_msgSend_numberWithInt_(v22, v26, v25);
-    v29 = objc_msgSend_dictionaryWithObject_forKey_(v21, v28, v27, @"numberAttempts");
+    v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureStorageErrorDomain" code:5002 userInfo:0];
+    v16 = MEMORY[0x277CBEAC0];
+    v17 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(*(a1 + 32), "numLaunchesAttempted")}];
+    v18 = [v16 dictionaryWithObject:v17 forKey:@"numberAttempts"];
 
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsFeatureStorage, v30, v20, v29);
-    v31 = *(a1 + 32);
-    v32 = v6;
-    v33 = *(v31 + 24);
-    *(v31 + 24) = v32;
+    [APOdmlAnalyticsFeatureStorage sendEvent:v15 additionalDetails:v18];
+    v19 = *(a1 + 32);
+    v20 = v6;
+    v21 = *(v19 + 24);
+    *(v19 + 24) = v20;
   }
 
   else
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = *(a1 + 32);
-      v35 = objc_opt_class();
-      v51 = 138477827;
-      v52 = v35;
-      v36 = v35;
-      _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_DEFAULT, "[%{private}@] Successfully loaded Core Data stack", &v51, 0xCu);
+      v22 = objc_opt_class();
+      v28 = 138477827;
+      v29 = v22;
+      v23 = v22;
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_DEFAULT, "[%{private}@] Successfully loaded Core Data stack", &v28, 0xCu);
     }
 
-    v20 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v37, @"APOdmlFeatureStorageErrorDomain", 5003, 0);
-    v38 = MEMORY[0x277CBEAC0];
-    v39 = MEMORY[0x277CCABB0];
-    v41 = *(a1 + 32);
-    v40 = (a1 + 32);
-    v44 = objc_msgSend_numLaunchesAttempted(v41, v42, v43);
-    v46 = objc_msgSend_numberWithInt_(v39, v45, v44);
-    v29 = objc_msgSend_dictionaryWithObject_forKey_(v38, v47, v46, @"numberAttempts");
+    v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureStorageErrorDomain" code:5003 userInfo:0];
+    v24 = MEMORY[0x277CBEAC0];
+    v26 = *(a1 + 32);
+    v25 = (a1 + 32);
+    v27 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v26, "numLaunchesAttempted")}];
+    v18 = [v24 dictionaryWithObject:v27 forKey:@"numberAttempts"];
 
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsFeatureStorage, v48, v20, v29);
-    v33 = *v40;
-    objc_sync_enter(v33);
-    objc_msgSend_setCoreDataIsInitialized_(*v40, v49, 1);
-    objc_sync_exit(v33);
+    [APOdmlAnalyticsFeatureStorage sendEvent:v15 additionalDetails:v18];
+    v21 = *v25;
+    objc_sync_enter(v21);
+    [*v25 setCoreDataIsInitialized:1];
+    objc_sync_exit(v21);
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t sub_260ED3158(void *a1, const char *a2, uint64_t a3)
+char *sub_260ED3158(void *a1)
 {
-  result = objc_msgSend_count(a1, a2, a3);
+  result = [a1 count];
   if (result >= 2)
   {
-    v5 = result;
-    v6 = 0;
+    v3 = result;
+    v4 = 0;
     do
     {
-      v7 = arc4random_uniform(v5);
-      result = objc_msgSend_exchangeObjectAtIndex_withObjectAtIndex_(a1, v8, v6, v6 + v7);
-      ++v6;
-      --v5;
+      result = [a1 exchangeObjectAtIndex:v4 withObjectAtIndex:v4 + arc4random_uniform(v3)];
+      ++v4;
+      --v3;
     }
 
-    while (v5 != 1);
+    while (v3 != 1);
   }
 
   return result;
 }
 
-void sub_260ED3598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_260ED3598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -868,94 +828,94 @@ uint64_t sub_260ED35D4(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_260ED35EC(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_260ED35EC(uint64_t a1)
 {
-  v4 = objc_msgSend_value(*(a1 + 32), a2, a3);
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) value];
 
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t sub_260ED39E4(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_260ED39E4(uint64_t a1)
 {
-  v4 = objc_msgSend_value(*(a1 + 32), a2, a3);
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) value];
 
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_260ED4114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_260ED4114(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 160), 8);
+  _Block_object_dispose((v22 - 160), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_260ED4170(void *a1, const char *a2)
+void sub_260ED4170(void *a1)
 {
-  v3 = a1[4];
-  v4 = a1[5];
-  v5 = *(a1[7] + 8);
-  obj = *(v5 + 40);
-  v6 = objc_msgSend_executeFetchRequest_error_(v3, a2, v4, &obj);
-  objc_storeStrong((v5 + 40), obj);
-  v7 = *(a1[6] + 8);
-  v8 = *(v7 + 40);
-  *(v7 + 40) = v6;
+  v2 = a1[4];
+  v3 = a1[5];
+  v4 = *(a1[7] + 8);
+  obj = *(v4 + 40);
+  v5 = [v2 executeFetchRequest:v3 error:&obj];
+  objc_storeStrong((v4 + 40), obj);
+  v6 = *(a1[6] + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 }
 
-void sub_260ED4560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_260ED4560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_260ED45A0(uint64_t a1, const char *a2)
+void sub_260ED45A0(uint64_t a1)
 {
-  v3 = objc_msgSend_insertNewObjectForEntityForName_inManagedObjectContext_(MEMORY[0x277CBE408], a2, @"Feature", *(a1 + 32));
-  v6 = objc_msgSend_date(MEMORY[0x277CBEAA8], v4, v5);
-  objc_msgSend_setCreatedAt_(v3, v7, v6);
+  v2 = [MEMORY[0x277CBE408] insertNewObjectForEntityForName:@"Feature" inManagedObjectContext:*(a1 + 32)];
+  v3 = [MEMORY[0x277CBEAA8] date];
+  [v2 setCreatedAt:v3];
 
-  v10 = objc_msgSend_deploymentID(*(a1 + 40), v8, v9);
-  objc_msgSend_setDeploymentID_(v3, v11, v10);
-  v14 = objc_msgSend_experimentID(*(a1 + 40), v12, v13);
-  objc_msgSend_setExperimentID_(v3, v15, v14);
+  [v2 setDeploymentID:{objc_msgSend(*(a1 + 40), "deploymentID")}];
+  v4 = [*(a1 + 40) experimentID];
+  [v2 setExperimentID:v4];
 
-  v18 = objc_msgSend_treatmentID(*(a1 + 40), v16, v17);
-  objc_msgSend_setTreatmentID_(v3, v19, v18);
+  v5 = [*(a1 + 40) treatmentID];
+  [v2 setTreatmentID:v5];
 
-  objc_msgSend_setFeatureType_(v3, v20, *(a1 + 48));
-  objc_msgSend_setValue_(v3, v21, *(a1 + 56));
-  v22 = *(a1 + 32);
-  v23 = *(*(a1 + 64) + 8);
-  obj = *(v23 + 40);
-  objc_msgSend_save_(v22, v24, &obj);
-  objc_storeStrong((v23 + 40), obj);
+  [v2 setFeatureType:*(a1 + 48)];
+  [v2 setValue:*(a1 + 56)];
+  v6 = *(a1 + 32);
+  v7 = *(*(a1 + 64) + 8);
+  obj = *(v7 + 40);
+  [v6 save:&obj];
+  objc_storeStrong((v7 + 40), obj);
 }
 
-void sub_260ED4B94(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260ED4B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id obj, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, ...)
 {
-  v9 = objc_msgSend_date(MEMORY[0x277CBEAA8], a2, a3);
-  v6 = objc_msgSend_createdAt(*(a1 + 32), v4, v5);
-  objc_msgSend_timeIntervalSinceDate_(v9, v7, v6);
-  *(*(*(a1 + 40) + 8) + 24) = v8;
+  va_start(va, a42);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-void sub_260ED4C1C(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260ED4B94(uint64_t a1)
 {
-  if (objc_msgSend_hasChanges(*(a1 + 32), a2, a3))
+  v4 = [MEMORY[0x277CBEAA8] date];
+  v2 = [*(a1 + 32) createdAt];
+  [v4 timeIntervalSinceDate:v2];
+  *(*(*(a1 + 40) + 8) + 24) = v3;
+}
+
+void sub_260ED4C1C(uint64_t a1)
+{
+  if ([*(a1 + 32) hasChanges])
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 8);
-    obj = *(v6 + 40);
-    objc_msgSend_save_(v5, v4, &obj);
-    objc_storeStrong((v6 + 40), obj);
+    v2 = *(a1 + 32);
+    v3 = *(*(a1 + 40) + 8);
+    obj = *(v3 + 40);
+    [v2 save:&obj];
+    objc_storeStrong((v3 + 40), obj);
   }
 }
 
@@ -974,22 +934,20 @@ uint64_t sub_260ED4D68(uint64_t a1)
   return byte_280CCF590;
 }
 
-void sub_260ED4DF8(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260ED4DF8(uint64_t a1)
 {
-  v5 = objc_msgSend_environment(*(a1 + 32), a2, a3);
-  v4 = objc_msgSend_objectForKeyedSubscript_(v5, v3, @"XCTestConfigurationFilePath");
-  byte_280CCF590 = v4 != 0;
+  v2 = [*(a1 + 32) environment];
+  v1 = [v2 objectForKeyedSubscript:@"XCTestConfigurationFilePath"];
+  byte_280CCF590 = v1 != 0;
 }
 
 void sub_260ED6BC4(uint64_t a1, void *a2)
 {
-  v9 = a2;
-  v3 = *(a1 + 48);
-  v4 = objc_opt_class();
-  v6 = objc_msgSend_translateFeatureKeyToDESKey_(v4, v5, v9);
-  if (objc_msgSend_containsObject_(*(a1 + 32), v7, v6))
+  v4 = a2;
+  v3 = [objc_opt_class() translateFeatureKeyToDESKey:v4];
+  if ([*(a1 + 32) containsObject:v3])
   {
-    objc_msgSend_setObject_forKeyedSubscript_(*(a1 + 40), v8, v6, v9);
+    [*(a1 + 40) setObject:v3 forKeyedSubscript:v4];
   }
 }
 
@@ -1047,24 +1005,24 @@ void sub_260EDC520(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_260EDCD48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_260EDCD48(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = APOdmlEspressoFacade;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void *sub_260EDCE2C(void *result, unint64_t a2)
+uint64_t *sub_260EDCE2C(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_260EDCEA4(result, a2);
+    sub_260EDCEA4(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_260EDCE88(_Unwind_Exception *exception_object)
@@ -1079,7 +1037,7 @@ void sub_260EDCE88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_260EDCEA4(uint64_t a1, unint64_t a2)
+void sub_260EDCEA4(uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -1099,7 +1057,7 @@ void sub_260EDCEE0(uint64_t a1, unint64_t a2)
   sub_260ECFFB4();
 }
 
-uint64_t sub_260EDCF28(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *sub_260EDCF28(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1121,17 +1079,17 @@ void sub_260EDCF88(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *sub_260EDCFA4(void *result, unint64_t a2)
+uint64_t *sub_260EDCFA4(uint64_t *a1, unint64_t a2, __int32 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_260EDCEA4(result, a2);
+    sub_260EDCEA4(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_260EDD09C(_Unwind_Exception *exception_object)
@@ -1151,8 +1109,8 @@ void sub_260EDE278(uint64_t a1, void *a2, void *a3)
   v4 = *(a1 + 32);
   v5 = a3;
   v6 = a2;
-  v10 = objc_msgSend_adamIDtoBundleID(v4, v7, v8);
-  objc_msgSend_setObject_forKeyedSubscript_(v10, v9, v6, v5);
+  v7 = [v4 adamIDtoBundleID];
+  [v7 setObject:v6 forKeyedSubscript:v5];
 }
 
 __CFString *sub_260EDE728(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1208,26 +1166,26 @@ __CFString *sub_260EDE780(uint64_t a1, uint64_t a2, unint64_t a3)
 
 void APOdmlSimulateCrash(uint64_t a1, void *a2, int a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = OdmlLogForCategory(0xAuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    v14 = 138412290;
-    v15 = v4;
-    _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_ERROR, "%@", &v14, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_ERROR, "%@", &v9, 0xCu);
   }
 
-  v8 = objc_msgSend_processInfo(MEMORY[0x277CCAC38], v6, v7);
-  isRunningTests = objc_msgSend_isRunningTests(v8, v9, v10);
+  v6 = [MEMORY[0x277CCAC38] processInfo];
+  v7 = [v6 isRunningTests];
 
-  if (isRunningTests)
+  if (v7)
   {
-    v12 = OdmlLogForCategory(0xAuLL);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v8 = OdmlLogForCategory(0xAuLL);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_ERROR, "SimCrash called; we should exit at this point. If you see this log outside of the Unit Tests, Please file a radar...", &v14, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "SimCrash called; we should exit at this point. If you see this log outside of the Unit Tests, Please file a radar...", &v9, 2u);
     }
   }
 
@@ -1240,80 +1198,69 @@ void APOdmlSimulateCrash(uint64_t a1, void *a2, int a3)
       exit(1);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t ADOdmlResponseV2ReadFrom(_BYTE *a1, void *a2, uint64_t a3)
+uint64_t ADOdmlResponseV2ReadFrom(_BYTE *a1, void *a2)
 {
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
+  v4 = [a2 position];
+  if (v4 < [a2 length])
   {
     do
     {
-      if (objc_msgSend_hasError(a2, v8, v9))
+      if ([a2 hasError])
       {
         break;
       }
 
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
       while (1)
       {
-        LOBYTE(v61[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v61[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        LOBYTE(v23[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
         {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v61, v24, 1);
+          v10 = [a2 data];
+          [v10 getBytes:v23 range:{objc_msgSend(a2, "position"), 1}];
 
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
 
         else
         {
-          objc_msgSend__setError(a2, v16, v17);
+          [a2 _setError];
         }
 
-        v12 |= (v61[0] & 0x7F) << v10;
-        if ((v61[0] & 0x80) == 0)
+        v7 |= (v23[0] & 0x7F) << v5;
+        if ((v23[0] & 0x80) == 0)
         {
           break;
         }
 
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
         {
-          v31 = 0;
+          v12 = 0;
           goto LABEL_15;
         }
       }
 
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+      v12 = [a2 hasError] ? 0 : v7;
 LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
       {
         break;
       }
 
-      v9 = v31 & 7;
-      if (v9 == 4)
+      if ((v12 >> 3) == 2)
       {
-        break;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) == 2)
-      {
-        v54 = objc_alloc_init(ADFeature);
-        objc_msgSend_addFeatures_(a1, v55, v54);
-        v61[0] = 0;
-        v61[1] = 0;
-        if (!PBReaderPlaceMark() || !ADFeatureReadFrom(v54, a2, v56))
+        v20 = objc_alloc_init(ADFeature);
+        [a1 addFeatures:v20];
+        v23[0] = 0;
+        v23[1] = 0;
+        if (!PBReaderPlaceMark() || !ADFeatureReadFrom(v20, a2))
         {
 
           return 0;
@@ -1322,49 +1269,47 @@ LABEL_15:
         PBReaderRecallMark();
       }
 
-      else if (v32 == 1)
+      else if ((v12 >> 3) == 1)
       {
-        v33 = 0;
-        v34 = 0;
-        v35 = 0;
+        v13 = 0;
+        v14 = 0;
+        v15 = 0;
         a1[20] |= 1u;
         while (1)
         {
-          LOBYTE(v61[0]) = 0;
-          v36 = objc_msgSend_position(a2, v32, v9, v61[0]) + 1;
-          if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+          LOBYTE(v23[0]) = 0;
+          v16 = [a2 position] + 1;
+          if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 1, v17 <= objc_msgSend(a2, "length")))
           {
-            v44 = objc_msgSend_data(a2, v39, v40);
-            v47 = objc_msgSend_position(a2, v45, v46);
-            objc_msgSend_getBytes_range_(v44, v48, v61, v47, 1);
+            v18 = [a2 data];
+            [v18 getBytes:v23 range:{objc_msgSend(a2, "position"), 1}];
 
-            v51 = objc_msgSend_position(a2, v49, v50);
-            objc_msgSend_setPosition_(a2, v52, v51 + 1);
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
           }
 
           else
           {
-            objc_msgSend__setError(a2, v39, v40);
+            [a2 _setError];
           }
 
-          v35 |= (v61[0] & 0x7F) << v33;
-          if ((v61[0] & 0x80) == 0)
+          v15 |= (v23[0] & 0x7F) << v13;
+          if ((v23[0] & 0x80) == 0)
           {
             break;
           }
 
-          v33 += 7;
-          v30 = v34++ >= 9;
-          if (v30)
+          v13 += 7;
+          v11 = v14++ >= 9;
+          if (v11)
           {
-            LOBYTE(v53) = 0;
+            LOBYTE(v19) = 0;
             goto LABEL_34;
           }
         }
 
-        v53 = (v35 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+        v19 = (v15 != 0) & ~[a2 hasError];
 LABEL_34:
-        a1[16] = v53;
+        a1[16] = v19;
       }
 
       else if ((PBReaderSkipValueWithTag() & 1) == 0)
@@ -1372,442 +1317,430 @@ LABEL_34:
         return 0;
       }
 
-      v57 = objc_msgSend_position(a2, v32, v9);
+      v21 = [a2 position];
     }
 
-    while (v57 < objc_msgSend_length(a2, v58, v59));
+    while (v21 < [a2 length]);
   }
 
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+  return [a2 hasError] ^ 1;
 }
 
-id sub_260EE0660(void *a1, const char *a2, uint64_t a3)
+id sub_260EE0660(void *a1)
 {
-  v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, a3);
-  v7 = objc_msgSend_appUsageVector(a1, v5, v6);
-  v8 = objc_opt_class();
-  v10 = objc_msgSend_keyForType_(v8, v9, @"appUsageVector");
-  objc_msgSend_setObject_forKey_(v4, v11, v7, v10);
+  v2 = [MEMORY[0x277CBEB38] dictionary];
+  v3 = [a1 appUsageVector];
+  v4 = [objc_opt_class() keyForType:@"appUsageVector"];
+  [v2 setObject:v3 forKey:v4];
 
-  v14 = objc_msgSend_appDownloadVector(a1, v12, v13);
-  v15 = objc_opt_class();
-  v17 = objc_msgSend_keyForType_(v15, v16, @"appDownloadVector");
-  objc_msgSend_setObject_forKey_(v4, v18, v14, v17);
+  v5 = [a1 appDownloadVector];
+  v6 = [objc_opt_class() keyForType:@"appDownloadVector"];
+  [v2 setObject:v5 forKey:v6];
 
-  v21 = objc_msgSend_installedAppVector(a1, v19, v20);
-  v22 = objc_opt_class();
-  v24 = objc_msgSend_keyForType_(v22, v23, @"installedAppVector");
-  objc_msgSend_setObject_forKey_(v4, v25, v21, v24);
+  v7 = [a1 installedAppVector];
+  v8 = [objc_opt_class() keyForType:@"installedAppVector"];
+  [v2 setObject:v7 forKey:v8];
 
-  v28 = objc_msgSend_userQueryVector(a1, v26, v27);
-  objc_msgSend_setObject_forKey_(v4, v29, v28, @"userQueryVector");
+  v9 = [a1 userQueryVector];
+  [v2 setObject:v9 forKey:@"userQueryVector"];
 
-  v32 = objc_msgSend_copy(v4, v30, v31);
+  v10 = [v2 copy];
 
-  return v32;
+  return v10;
 }
 
-id sub_260EE07C4(void *a1, const char *a2, uint64_t a3)
+id sub_260EE07C4(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = MEMORY[0x277CCAAB0];
-  v4 = objc_msgSend_dictionaryRepresentation(a1, a2, a3);
-  v12 = 0;
-  v6 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(v3, v5, v4, 1, &v12);
-  v7 = v12;
+  v11 = *MEMORY[0x277D85DE8];
+  v1 = MEMORY[0x277CCAAB0];
+  v2 = [a1 dictionaryRepresentation];
+  v8 = 0;
+  v3 = [v1 archivedDataWithRootObject:v2 requiringSecureCoding:1 error:&v8];
+  v4 = v8;
 
-  if (v7)
+  if (v4)
   {
-    v8 = OdmlLogForCategory(0xCuLL);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v5 = OdmlLogForCategory(0xCuLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
-      _os_log_impl(&dword_260ECB000, v8, OS_LOG_TYPE_ERROR, "Failed to archive training row data %@", buf, 0xCu);
+      v10 = v4;
+      _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_ERROR, "Failed to archive training row data %@", buf, 0xCu);
     }
 
-    v9 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v9 = v6;
+    v6 = v3;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v6;
 }
 
-id sub_260EE08E4(void *a1, const char *a2, uint64_t a3)
+id sub_260EE08E4(void *a1)
 {
-  v92[4] = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, a3);
-  v7 = objc_msgSend_onDeviceFeatures(a1, v5, v6);
-  objc_msgSend_setObject_forKey_(v4, v8, v7, @"OnDeviceFeatures");
+  v35[4] = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB38] dictionary];
+  v3 = [a1 onDeviceFeatures];
+  [v2 setObject:v3 forKey:@"OnDeviceFeatures"];
 
-  v9 = MEMORY[0x277CCAAC8];
-  v10 = MEMORY[0x277CBEB98];
-  v92[0] = objc_opt_class();
-  v92[1] = objc_opt_class();
-  v92[2] = objc_opt_class();
-  v92[3] = objc_opt_class();
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v92, 4);
-  v14 = objc_msgSend_setWithArray_(v10, v13, v12);
-  v17 = objc_msgSend_serverResponse(a1, v15, v16);
-  v87 = 0;
-  v19 = objc_msgSend_unarchivedObjectOfClasses_fromData_error_(v9, v18, v14, v17, &v87);
-  v20 = v87;
+  v4 = MEMORY[0x277CCAAC8];
+  v5 = MEMORY[0x277CBEB98];
+  v35[0] = objc_opt_class();
+  v35[1] = objc_opt_class();
+  v35[2] = objc_opt_class();
+  v35[3] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
+  v7 = [v5 setWithArray:v6];
+  v8 = [a1 serverResponse];
+  v30 = 0;
+  v9 = [v4 unarchivedObjectOfClasses:v7 fromData:v8 error:&v30];
+  v10 = v30;
 
-  if (v20)
+  if (v10)
   {
-    v23 = OdmlLogForCategory(0xCuLL);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v11 = OdmlLogForCategory(0xCuLL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v24 = objc_opt_class();
+      v12 = objc_opt_class();
       *buf = 138412546;
-      v89 = v24;
-      v90 = 2112;
-      v91 = v20;
-      v25 = v24;
-      _os_log_impl(&dword_260ECB000, v23, OS_LOG_TYPE_ERROR, "[%@] Failed to unarchive server response: %@", buf, 0x16u);
+      v32 = v12;
+      v33 = 2112;
+      v34 = v10;
+      v13 = v12;
+      _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Failed to unarchive server response: %@", buf, 0x16u);
     }
   }
 
   else
   {
-    v23 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], v21, v22);
-    v28 = objc_msgSend_featureValues(v19, v26, v27);
-    objc_msgSend_setValue_forKey_(v23, v29, v28, @"ServerResponse");
+    v11 = [MEMORY[0x277CBEB38] dictionary];
+    v14 = [v9 featureValues];
+    [v11 setValue:v14 forKey:@"ServerResponse"];
 
-    v32 = objc_msgSend_adamID(a1, v30, v31);
+    v15 = [a1 adamID];
 
-    if (v32)
+    if (v15)
     {
-      v35 = objc_msgSend_adamID(a1, v33, v34);
-      objc_msgSend_setValue_forKey_(v23, v36, v35, @"AdamID");
+      v16 = [a1 adamID];
+      [v11 setValue:v16 forKey:@"AdamID"];
     }
 
-    v37 = MEMORY[0x277CCABB0];
-    v38 = objc_msgSend_impressed(a1, v33, v34);
-    v40 = objc_msgSend_numberWithBool_(v37, v39, v38);
-    objc_msgSend_setValue_forKey_(v23, v41, v40, @"Impressed");
+    v17 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1, "impressed")}];
+    [v11 setValue:v17 forKey:@"Impressed"];
 
-    v42 = MEMORY[0x277CCABB0];
-    v45 = objc_msgSend_tapped(a1, v43, v44);
-    v47 = objc_msgSend_numberWithBool_(v42, v46, v45);
-    objc_msgSend_setValue_forKey_(v23, v48, v47, @"Tapped");
+    v18 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1, "tapped")}];
+    [v11 setValue:v18 forKey:@"Tapped"];
 
-    v49 = MEMORY[0x277CCABB0];
-    v52 = objc_msgSend_dupe(a1, v50, v51);
-    v54 = objc_msgSend_numberWithBool_(v49, v53, v52);
-    objc_msgSend_setValue_forKey_(v23, v55, v54, @"Dupe");
+    v19 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1, "dupe")}];
+    [v11 setValue:v19 forKey:@"Dupe"];
 
-    v56 = MEMORY[0x277CCABB0];
-    v59 = objc_msgSend_installed(a1, v57, v58);
-    v61 = objc_msgSend_numberWithBool_(v56, v60, v59);
-    objc_msgSend_setValue_forKey_(v23, v62, v61, @"AppInstalled");
+    v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(a1, "installed")}];
+    [v11 setValue:v20 forKey:@"AppInstalled"];
 
-    v63 = MEMORY[0x277CCABB0];
-    if (objc_msgSend_hasErrorCode(a1, v64, v65))
+    v21 = MEMORY[0x277CCABB0];
+    if ([a1 hasErrorCode])
     {
-      objc_msgSend_errorCode(a1, v66, v67);
+      [a1 errorCode];
     }
 
     else
     {
-      v68 = 0;
+      v22 = 0;
     }
 
-    v69 = objc_msgSend_numberWithDouble_(v63, v66, v67, v68);
-    objc_msgSend_setValue_forKey_(v23, v70, v69, @"rerankingErrorCode");
+    v23 = [v21 numberWithDouble:v22];
+    [v11 setValue:v23 forKey:@"rerankingErrorCode"];
 
-    v73 = objc_msgSend_recordID(a1, v71, v72);
-    objc_msgSend_setValue_forKey_(v23, v74, v73, @"InstanceID");
+    v24 = [a1 recordID];
+    [v11 setValue:v24 forKey:@"InstanceID"];
 
-    v75 = MEMORY[0x277CBEB38];
-    v78 = objc_msgSend_adamID(a1, v76, v77);
-    v80 = objc_msgSend_dictionaryWithObjectsAndKeys_(v75, v79, v23, v78, 0);
+    v25 = MEMORY[0x277CBEB38];
+    v26 = [a1 adamID];
+    v27 = [v25 dictionaryWithObjectsAndKeys:{v11, v26, 0}];
 
-    objc_msgSend_setValue_forKey_(v4, v81, v80, @"AdRecords");
+    [v2 setValue:v27 forKey:@"AdRecords"];
   }
 
-  v84 = objc_msgSend_copy(v4, v82, v83);
-  v85 = *MEMORY[0x277D85DE8];
+  v28 = [v2 copy];
 
-  return v84;
+  return v28;
 }
 
-id sub_260EE2D28(void *a1, const char *a2, uint64_t a3)
+id sub_260EE2D28(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = objc_msgSend_objectForKey_(a1, a2, a3);
+  v4 = [a1 objectForKey:a3];
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
-__CFString *sub_260EE2D90(void *a1, const char *a2, uint64_t a3)
+__CFString *sub_260EE2D90(void *a1, uint64_t a2, unsigned int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x277CCAAA0];
-  v6 = objc_msgSend_mlDictionaryForJSON(a1, a2, a3);
-  v22 = 0;
-  v8 = objc_msgSend_dataWithJSONObject_options_error_(v5, v7, v6, v4, &v22);
-  v9 = v22;
-
-  if (v9)
-  {
-    v10 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v13 = objc_msgSend_localizedDescription(v9, v11, v12);
-      v16 = objc_msgSend_mlDictionaryForJSON(a1, v14, v15);
-      *buf = 138412546;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v16;
-      _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "There was an error serializing the following dictionary into JSON (%@):\n%@", buf, 0x16u);
-    }
-  }
+  v6 = [a1 mlDictionaryForJSON];
+  v14 = 0;
+  v7 = [v5 dataWithJSONObject:v6 options:v4 error:&v14];
+  v8 = v14;
 
   if (v8)
   {
-    v17 = objc_alloc(MEMORY[0x277CCACA8]);
-    v19 = objc_msgSend_initWithData_encoding_(v17, v18, v8, 4);
+    v9 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = [v8 localizedDescription];
+      v11 = [a1 mlDictionaryForJSON];
+      *buf = 138412546;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "There was an error serializing the following dictionary into JSON (%@):\n%@", buf, 0x16u);
+    }
+  }
+
+  if (v7)
+  {
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v7 encoding:4];
   }
 
   else
   {
-    v19 = @"{}";
+    v12 = @"{}";
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v12;
 }
 
-id sub_260EE2F10(void *a1, const char *a2, uint64_t a3)
+id sub_260EE2F10(void *a1)
 {
-  v96 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_dictionary(MEMORY[0x277CBEB38], a2, a3);
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v5 = a1;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v87, v95, 16);
-  if (!v7)
+  v47 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB38] dictionary];
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v3 = a1;
+  v4 = [v3 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  if (!v4)
   {
-    goto LABEL_53;
+    goto LABEL_55;
   }
 
-  v9 = v7;
-  v10 = *v88;
+  v5 = v4;
+  v6 = *v39;
   while (2)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      if (*v88 != v10)
+      if (*v39 != v6)
       {
-        objc_enumerationMutation(v5);
+        objc_enumerationMutation(v3);
       }
 
-      v12 = *(*(&v87 + 1) + 8 * v11);
-      v13 = objc_msgSend_objectForKey_(v5, v8, v12);
+      v8 = *(*(&v38 + 1) + 8 * v7);
+      v9 = [v3 objectForKey:v8];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = objc_msgSend_stringValue(v12, v14, v15);
+        v10 = [v8 stringValue];
       }
 
       else
       {
         objc_opt_class();
-        v17 = @"UNKNOWN_KEY";
+        v11 = @"UNKNOWN_KEY";
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_11;
         }
 
-        v16 = v12;
+        v10 = v8;
       }
 
-      v17 = v16;
+      v11 = v10;
 LABEL_11:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = objc_msgSend_mlDictionaryForJSON(v13, v18, v19);
+        v12 = [(__CFString *)v9 mlDictionaryForJSON];
 LABEL_19:
-        v28 = v20;
-        objc_msgSend_setObject_forKey_(v4, v21, v20, v17);
-LABEL_20:
-
-        goto LABEL_21;
+        v13 = v12;
+        v14 = v2;
+        v15 = v13;
+        goto LABEL_20;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = objc_msgSend_APOdml_arrayForJSON(v13, v22, v23);
+        v12 = [(__CFString *)v9 APOdml_arrayForJSON];
         goto LABEL_19;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = objc_msgSend_APOdml_dataStringForJSON(v13, v24, v25);
+        v12 = [(__CFString *)v9 APOdml_dataStringForJSON];
         goto LABEL_19;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v20 = objc_msgSend_absoluteString(v13, v26, v27);
+        v12 = [(__CFString *)v9 absoluteString];
         goto LABEL_19;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        goto LABEL_26;
+        goto LABEL_27;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        objc_msgSend_doubleValue(v13, v30, v31);
-        if (fabs(v32) == INFINITY)
+        [(__CFString *)v9 doubleValue];
+        if (fabs(v16) == INFINITY)
         {
-          v75 = OdmlLogForCategory(6uLL);
-          if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
+          v28 = OdmlLogForCategory(6uLL);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
           {
-            v76 = objc_opt_class();
+            v29 = objc_opt_class();
             *buf = 138412546;
-            v92 = v13;
-            v93 = 2112;
-            v94 = v76;
-            v77 = v76;
-            _os_log_impl(&dword_260ECB000, v75, OS_LOG_TYPE_ERROR, "JSON array validation failed infinity check with the following value: %@ (%@).", buf, 0x16u);
+            v43 = v9;
+            v44 = 2112;
+            v45 = v29;
+            v30 = v29;
+            _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_ERROR, "JSON array validation failed infinity check with the following value: %@ (%@).", buf, 0x16u);
           }
 
-          objc_msgSend_setObject_forKey_(v4, v78, @"∞", v17);
-          goto LABEL_53;
+          [v2 setObject:@"∞" forKey:v11];
+          goto LABEL_55;
         }
 
-LABEL_26:
-        objc_msgSend_setObject_forKey_(v4, v29, v13, v17);
-        goto LABEL_21;
+LABEL_27:
+        v17 = v2;
+        v18 = v9;
+LABEL_28:
+        [v17 setObject:v18 forKey:v11];
+        goto LABEL_22;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v28 = v13;
-        if (objc_msgSend_isUndefined(v28, v33, v34))
+        v13 = v9;
+        if ([(__CFString *)v13 isUndefined])
         {
-          objc_msgSend_setObject_forKey_(v4, v35, @"UNDEFINED", v17);
-          goto LABEL_20;
+          v14 = v2;
+          v15 = @"UNDEFINED";
+LABEL_20:
+          [v14 setObject:v15 forKey:v11];
+LABEL_21:
+
+          goto LABEL_22;
         }
 
-        v85 = v28;
-        if (objc_msgSend_type(v28, v35, v36) == 2)
+        v36 = v13;
+        if ([(__CFString *)v13 type]== 2)
         {
-          v82 = MEMORY[0x277CCABB0];
-          objc_msgSend_doubleValue(v28, v43, v44);
-          v47 = objc_msgSend_numberWithDouble_(v82, v45, v46);
-LABEL_34:
-          v49 = v47;
-          objc_msgSend_setObject_forKey_(v4, v48, v47, v17);
+          v33 = MEMORY[0x277CCABB0];
+          [(__CFString *)v13 doubleValue];
+          v20 = [v33 numberWithDouble:?];
+LABEL_36:
+          v21 = v20;
+          [v2 setObject:v20 forKey:v11];
 
-          v28 = v85;
-          goto LABEL_20;
+          v13 = v36;
+          goto LABEL_21;
         }
 
-        if (objc_msgSend_type(v28, v43, v44) == 5)
+        if ([(__CFString *)v13 type]== 5)
         {
-          v83 = objc_msgSend_multiArrayValue(v28, v53, v54);
-          v57 = objc_msgSend_arrayFromMultiarray(v83, v55, v56);
-          goto LABEL_42;
+          v34 = [(__CFString *)v13 multiArrayValue];
+          v24 = [v34 arrayFromMultiarray];
+          goto LABEL_44;
         }
 
-        if (objc_msgSend_type(v28, v53, v54) == 7)
+        if ([(__CFString *)v13 type]== 7)
         {
-          v83 = objc_msgSend_sequenceValue(v28, v60, v61);
-          v57 = objc_msgSend_stringValues(v83, v62, v63);
-LABEL_42:
-          v64 = objc_msgSend_APOdml_arrayForJSON(v57, v58, v59, v57);
-          objc_msgSend_setObject_forKey_(v4, v65, v64, v17);
+          v34 = [(__CFString *)v13 sequenceValue];
+          v24 = [v34 stringValues];
+LABEL_44:
+          v25 = [v24 APOdml_arrayForJSON];
+          [v2 setObject:v25 forKey:v11];
 
-          v28 = v85;
+          v13 = v36;
         }
 
         else
         {
-          if (objc_msgSend_type(v28, v60, v61) != 6)
+          if ([(__CFString *)v13 type]!= 6)
           {
-            if (objc_msgSend_type(v28, v66, v67) != 3)
+            if ([(__CFString *)v13 type]!= 3)
             {
-              goto LABEL_20;
+              goto LABEL_21;
             }
 
-            v47 = objc_msgSend_stringValue(v28, v72, v73);
-            goto LABEL_34;
+            v20 = [(__CFString *)v13 stringValue];
+            goto LABEL_36;
           }
 
-          v83 = objc_msgSend_dictionaryValue(v28, v66, v67);
-          v70 = objc_msgSend_mlDictionaryForJSON(v83, v68, v69);
-          objc_msgSend_setObject_forKey_(v4, v71, v70, v17);
+          v34 = [(__CFString *)v13 dictionaryValue];
+          v26 = [v34 mlDictionaryForJSON];
+          [v2 setObject:v26 forKey:v11];
 
-          v28 = v85;
+          v13 = v36;
         }
 
-        goto LABEL_20;
+        goto LABEL_21;
       }
 
-      if (objc_opt_respondsToSelector())
+      if ((objc_opt_respondsToSelector() & 1) == 0)
       {
-        v84 = objc_msgSend_dictionaryRepresentation(v13, v37, v38);
-        v41 = objc_msgSend_mlDictionaryForJSON(v84, v39, v40);
-        objc_msgSend_setObject_forKey_(v4, v42, v41, v17);
-      }
-
-      else
-      {
-        v50 = OdmlLogForCategory(6uLL);
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+        v22 = OdmlLogForCategory(6uLL);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v51 = objc_opt_class();
+          v23 = objc_opt_class();
           *buf = 138412546;
-          v92 = v13;
-          v93 = 2112;
-          v94 = v51;
-          v86 = v51;
-          _os_log_impl(&dword_260ECB000, v50, OS_LOG_TYPE_ERROR, "WARNING: Unable to serialize the following object into JSON.\n%@ (%@)", buf, 0x16u);
+          v43 = v9;
+          v44 = 2112;
+          v45 = v23;
+          v37 = v23;
+          _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "WARNING: Unable to serialize the following object into JSON.\n%@ (%@)", buf, 0x16u);
         }
 
-        objc_msgSend_setObject_forKey_(v4, v52, @"INVALID", v17);
+        v17 = v2;
+        v18 = @"INVALID";
+        goto LABEL_28;
       }
 
-LABEL_21:
+      v35 = [(__CFString *)v9 dictionaryRepresentation];
+      v19 = [v35 mlDictionaryForJSON];
+      [v2 setObject:v19 forKey:v11];
 
-      ++v11;
+LABEL_22:
+      ++v7;
     }
 
-    while (v9 != v11);
-    v74 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v8, &v87, v95, 16);
-    v9 = v74;
-    if (v74)
+    while (v5 != v7);
+    v27 = [v3 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v5 = v27;
+    if (v27)
     {
       continue;
     }
@@ -1815,52 +1748,49 @@ LABEL_21:
     break;
   }
 
-LABEL_53:
+LABEL_55:
 
-  v79 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v2;
 }
 
-id sub_260EE37D4(void *a1, const char *a2, uint64_t a3)
+id sub_260EE37D4(void *a1)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, a3);
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v5 = a1;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v45, v53, 16);
-  if (!v7)
+  v33 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v3 = a1;
+  v4 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  if (!v4)
   {
     goto LABEL_29;
   }
 
-  v9 = v7;
-  v10 = *v46;
-  v11 = 0x277CBE000uLL;
-  v12 = 0x277CBE000uLL;
-  *&v8 = 138412546;
-  v44 = v8;
+  v6 = v4;
+  v7 = *v25;
+  v8 = 0x277CBE000uLL;
+  *&v5 = 138412546;
+  v23 = v5;
   while (2)
   {
-    v13 = 0;
+    v9 = 0;
     do
     {
-      if (*v46 != v10)
+      if (*v25 != v7)
       {
-        objc_enumerationMutation(v5);
+        objc_enumerationMutation(v3);
       }
 
-      v14 = *(*(&v45 + 1) + 8 * v13);
+      v10 = *(*(&v24 + 1) + 8 * v9);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = objc_msgSend_APOdml_arrayForJSON(v14, v15, v16);
+        v11 = [v10 APOdml_arrayForJSON];
 LABEL_14:
-        v27 = v17;
-        objc_msgSend_addObject_(v4, v18, v17, v44);
+        v12 = v11;
+        [v2 addObject:{v11, v23}];
 
         goto LABEL_15;
       }
@@ -1868,23 +1798,21 @@ LABEL_14:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = objc_msgSend_mlDictionaryForJSON(v14, v19, v20);
+        v11 = [v10 mlDictionaryForJSON];
         goto LABEL_14;
       }
 
-      v21 = *(v11 + 2704);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = objc_msgSend_APOdml_dataStringForJSON(v14, v22, v23);
+        v11 = [v10 APOdml_dataStringForJSON];
         goto LABEL_14;
       }
 
-      v24 = *(v12 + 3008);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v17 = objc_msgSend_absoluteString(v14, v25, v26);
+        v11 = [v10 absoluteString];
         goto LABEL_14;
       }
 
@@ -1897,53 +1825,52 @@ LABEL_14:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        objc_msgSend_doubleValue(v14, v30, v31);
-        if (fabs(v32) == INFINITY)
+        [v10 doubleValue];
+        if (fabs(v13) == INFINITY)
         {
-          v38 = OdmlLogForCategory(6uLL);
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+          v19 = OdmlLogForCategory(6uLL);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v39 = objc_opt_class();
-            *buf = v44;
-            v50 = v14;
-            v51 = 2112;
-            v52 = v39;
-            v40 = v39;
-            _os_log_impl(&dword_260ECB000, v38, OS_LOG_TYPE_ERROR, "JSON array validation failed infinity check with the following value: %@ (%@).", buf, 0x16u);
+            v20 = objc_opt_class();
+            *buf = v23;
+            v29 = v10;
+            v30 = 2112;
+            v31 = v20;
+            v21 = v20;
+            _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "JSON array validation failed infinity check with the following value: %@ (%@).", buf, 0x16u);
           }
 
-          objc_msgSend_addObject_(v4, v41, @"∞");
+          [v2 addObject:@"∞"];
           goto LABEL_29;
         }
 
 LABEL_20:
-        objc_msgSend_addObject_(v4, v29, v14, v44, v45);
+        [v2 addObject:{v10, v23, v24}];
         goto LABEL_15;
       }
 
-      v33 = v12;
-      v34 = OdmlLogForCategory(6uLL);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v14 = v8;
+      v15 = OdmlLogForCategory(6uLL);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v35 = objc_opt_class();
-        *buf = v44;
-        v50 = v14;
-        v51 = 2112;
-        v52 = v35;
-        v36 = v35;
-        _os_log_impl(&dword_260ECB000, v34, OS_LOG_TYPE_ERROR, "WARNING: Unable to serialize the following object into JSON.\n%@ (%@)", buf, 0x16u);
+        v16 = objc_opt_class();
+        *buf = v23;
+        v29 = v10;
+        v30 = 2112;
+        v31 = v16;
+        v17 = v16;
+        _os_log_impl(&dword_260ECB000, v15, OS_LOG_TYPE_ERROR, "WARNING: Unable to serialize the following object into JSON.\n%@ (%@)", buf, 0x16u);
       }
 
-      v12 = v33;
-      v11 = 0x277CBE000;
+      v8 = v14;
 LABEL_15:
-      ++v13;
+      ++v9;
     }
 
-    while (v9 != v13);
-    v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v28, &v45, v53, 16);
-    v9 = v37;
-    if (v37)
+    while (v6 != v9);
+    v18 = [v3 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v6 = v18;
+    if (v18)
     {
       continue;
     }
@@ -1953,94 +1880,89 @@ LABEL_15:
 
 LABEL_29:
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v2;
 }
 
-__CFString *sub_260EE3BB0(void *a1, const char *a2, uint64_t a3)
+__CFString *sub_260EE3BB0(void *a1, uint64_t a2, unsigned int a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = MEMORY[0x277CCAAA0];
-  v6 = objc_msgSend_APOdml_arrayForJSON(a1, a2, a3);
-  v22 = 0;
-  v8 = objc_msgSend_dataWithJSONObject_options_error_(v5, v7, v6, v4, &v22);
-  v9 = v22;
-
-  if (v9)
-  {
-    v10 = OdmlLogForCategory(6uLL);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      v13 = objc_msgSend_localizedDescription(v9, v11, v12);
-      v16 = objc_msgSend_APOdml_arrayForJSON(a1, v14, v15);
-      *buf = 138412546;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v16;
-      _os_log_impl(&dword_260ECB000, v10, OS_LOG_TYPE_ERROR, "There was an error serializing the following array into JSON (%@):\n%@", buf, 0x16u);
-    }
-  }
+  v6 = [a1 APOdml_arrayForJSON];
+  v14 = 0;
+  v7 = [v5 dataWithJSONObject:v6 options:v4 error:&v14];
+  v8 = v14;
 
   if (v8)
   {
-    v17 = objc_alloc(MEMORY[0x277CCACA8]);
-    v19 = objc_msgSend_initWithData_encoding_(v17, v18, v8, 4);
+    v9 = OdmlLogForCategory(6uLL);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      v10 = [v8 localizedDescription];
+      v11 = [a1 APOdml_arrayForJSON];
+      *buf = 138412546;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "There was an error serializing the following array into JSON (%@):\n%@", buf, 0x16u);
+    }
+  }
+
+  if (v7)
+  {
+    v12 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v7 encoding:4];
   }
 
   else
   {
-    v19 = @"[]";
+    v12 = @"[]";
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v12;
 }
 
-void sub_260EE4CE4(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EE4CE4(uint64_t a1)
 {
-  v4 = objc_msgSend_dictionary(*(a1 + 32), a2, a3);
-  v6 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 40), v5, *(a1 + 64));
-  objc_msgSend_logModelInputWithAdamID_adamID_(APOdmlLogUtility, v7, v4, v6);
+  v2 = [*(a1 + 32) dictionary];
+  v3 = [*(a1 + 40) objectAtIndexedSubscript:*(a1 + 64)];
+  [APOdmlLogUtility logModelInputWithAdamID:v2 adamID:v3];
 
-  v8 = *(a1 + 48);
-  v11 = objc_msgSend_objectAtIndexedSubscript_(*(a1 + 56), v9, *(a1 + 64));
-  objc_msgSend_saveFeaturesFromResponse_(v8, v10, v11);
+  v4 = *(a1 + 48);
+  v5 = [*(a1 + 56) objectAtIndexedSubscript:*(a1 + 64)];
+  [v4 saveFeaturesFromResponse:v5];
 }
 
-void sub_260EE6304(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EE6304(uint64_t a1)
 {
-  v4 = objc_msgSend_sharedInstance(APOdmlDatabaseConfiguration, a2, a3);
-  isDaemonProcess = objc_msgSend_isDaemonProcess(v4, v5, v6);
+  v2 = +[APOdmlDatabaseConfiguration sharedInstance];
+  v3 = [v2 isDaemonProcess];
 
-  if ((isDaemonProcess & 1) == 0)
+  if ((v3 & 1) == 0)
   {
-    v10 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, v8, v9);
-    v12 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v10, v11, *(a1 + 32), *(a1 + 40));
-    v15 = objc_msgSend_currentMLModel(v12, v13, v14);
+    v4 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+    v5 = [v4 assetManagerForPlacementType:*(a1 + 32) assetManagerType:*(a1 + 40)];
+    v6 = [v5 currentMLModel];
 
-    if (!v15)
+    if (!v6)
     {
-      v16 = OdmlLogForCategory(5uLL);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v7 = OdmlLogForCategory(5uLL);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        *v17 = 0;
-        _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "Unable to prewarm ML model", v17, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_ERROR, "Unable to prewarm ML model", v8, 2u);
       }
     }
   }
 }
 
-BOOL sub_260EE68BC(void *a1, const char *a2, uint64_t a3)
+BOOL sub_260EE68BC(void *a1)
 {
-  v4 = objc_msgSend_decimalDigitCharacterSet(MEMORY[0x277CCAB50], a2, a3);
-  objc_msgSend_addCharactersInString_(v4, v5, @".");
-  v8 = objc_msgSend_invertedSet(v4, v6, v7);
-  v10 = objc_msgSend_rangeOfCharacterFromSet_(a1, v9, v8) == 0x7FFFFFFFFFFFFFFFLL;
+  v2 = [MEMORY[0x277CCAB50] decimalDigitCharacterSet];
+  [v2 addCharactersInString:@"."];
+  v3 = [v2 invertedSet];
+  v4 = [a1 rangeOfCharacterFromSet:v3] == 0x7FFFFFFFFFFFFFFFLL;
 
-  return v10;
+  return v4;
 }
 
 uint64_t sub_260EE7FC8()
@@ -2049,15 +1971,14 @@ uint64_t sub_260EE7FC8()
   v1 = qword_27FE60368;
   qword_27FE60368 = v0;
 
-  objc_msgSend_setNumberStyle_(qword_27FE60368, v2, 1);
-  v3 = qword_27FE60368;
+  [qword_27FE60368 setNumberStyle:1];
+  v2 = qword_27FE60368;
 
-  return MEMORY[0x2821F9670](v3, sel_setDecimalSeparator_, @".");
+  return MEMORY[0x2821F9670](v2, sel_setDecimalSeparator_);
 }
 
 uint64_t sub_260EE85C8(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_280CCF570 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
@@ -2070,88 +1991,80 @@ uint64_t sub_260EE96DC()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t ADFeatureReadFrom(char *a1, void *a2, uint64_t a3)
+uint64_t ADFeatureReadFrom(char *a1, void *a2)
 {
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
+  v4 = [a2 position];
+  if (v4 < [a2 length])
   {
     do
     {
-      if (objc_msgSend_hasError(a2, v8, v9))
+      if ([a2 hasError])
       {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+        return [a2 hasError] ^ 1;
       }
 
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
       while (1)
       {
-        LOBYTE(v87[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        LOBYTE(v27[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
         {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v87, v24, 1);
+          v10 = [a2 data];
+          [v10 getBytes:v27 range:{objc_msgSend(a2, "position"), 1}];
 
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
         }
 
         else
         {
-          objc_msgSend__setError(a2, v16, v17);
+          [a2 _setError];
         }
 
-        v12 |= (v87[0] & 0x7F) << v10;
-        if ((v87[0] & 0x80) == 0)
+        v7 |= (v27[0] & 0x7F) << v5;
+        if ((v27[0] & 0x80) == 0)
         {
           break;
         }
 
-        v10 += 7;
-        if (v11++ >= 9)
+        v5 += 7;
+        if (v6++ >= 9)
         {
-          v31 = 0;
+          v12 = 0;
           goto LABEL_15;
         }
       }
 
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+      v12 = [a2 hasError] ? 0 : v7;
 LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
       {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+        return [a2 hasError] ^ 1;
       }
 
-      v9 = v31 & 7;
-      if (v9 == 4)
+      v13 = v12 >> 3;
+      if ((v12 >> 3) > 2)
       {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) > 2)
-      {
-        if (v32 == 3)
+        if (v13 == 3)
         {
-          v66 = PBReaderReadString();
-          if (v66)
+          v22 = PBReaderReadString();
+          if (v22)
           {
-            objc_msgSend_addStringValue_(a1, v65, v66);
+            [a1 addStringValue:v22];
           }
 
           goto LABEL_45;
         }
 
-        if (v32 == 4)
+        if (v13 == 4)
         {
-          v60 = PBReaderReadString();
-          v61 = 32;
+          v19 = PBReaderReadString();
+          v20 = 32;
 LABEL_35:
-          v64 = *&a1[v61];
-          *&a1[v61] = v60;
+          v21 = *&a1[v20];
+          *&a1[v20] = v19;
 
           goto LABEL_45;
         }
@@ -2159,19 +2072,19 @@ LABEL_35:
 
       else
       {
-        if (v32 == 1)
+        if (v13 == 1)
         {
-          v60 = PBReaderReadString();
-          v61 = 48;
+          v19 = PBReaderReadString();
+          v20 = 48;
           goto LABEL_35;
         }
 
-        if (v32 == 2)
+        if (v13 == 2)
         {
-          if (v9 == 2)
+          if ((v12 & 7) == 2)
           {
-            v87[0] = 0;
-            v87[1] = 0;
+            v27[0] = 0;
+            v27[1] = 0;
             result = PBReaderPlaceMark();
             if (!result)
             {
@@ -2180,27 +2093,25 @@ LABEL_35:
 
             while (1)
             {
-              v36 = objc_msgSend_position(a2, v34, v35);
-              if (v36 >= objc_msgSend_length(a2, v37, v38) || (objc_msgSend_hasError(a2, v39, v40) & 1) != 0)
+              v15 = [a2 position];
+              if (v15 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
               {
                 break;
               }
 
-              v88 = 0;
-              v43 = objc_msgSend_position(a2, v41, v42) + 8;
-              if (v43 >= objc_msgSend_position(a2, v44, v45) && (v48 = objc_msgSend_position(a2, v46, v47) + 8, v48 <= objc_msgSend_length(a2, v49, v50)))
+              v28 = 0;
+              v16 = [a2 position] + 8;
+              if (v16 >= [a2 position] && (v17 = objc_msgSend(a2, "position") + 8, v17 <= objc_msgSend(a2, "length")))
               {
-                v51 = objc_msgSend_data(a2, v46, v47);
-                v54 = objc_msgSend_position(a2, v52, v53);
-                objc_msgSend_getBytes_range_(v51, v55, &v88, v54, 8);
+                v18 = [a2 data];
+                [v18 getBytes:&v28 range:{objc_msgSend(a2, "position"), 8}];
 
-                v58 = objc_msgSend_position(a2, v56, v57);
-                objc_msgSend_setPosition_(a2, v59, v58 + 8);
+                [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
               }
 
               else
               {
-                objc_msgSend__setError(a2, v46, v47);
+                [a2 _setError];
               }
 
               PBRepeatedDoubleAdd();
@@ -2211,21 +2122,19 @@ LABEL_35:
 
           else
           {
-            v87[0] = 0;
-            v67 = objc_msgSend_position(a2, v32, v9) + 8;
-            if (v67 >= objc_msgSend_position(a2, v68, v69) && (v72 = objc_msgSend_position(a2, v70, v71) + 8, v72 <= objc_msgSend_length(a2, v73, v74)))
+            v27[0] = 0;
+            v23 = [a2 position] + 8;
+            if (v23 >= [a2 position] && (v24 = objc_msgSend(a2, "position") + 8, v24 <= objc_msgSend(a2, "length")))
             {
-              v75 = objc_msgSend_data(a2, v70, v71);
-              v78 = objc_msgSend_position(a2, v76, v77);
-              objc_msgSend_getBytes_range_(v75, v79, v87, v78, 8);
+              v25 = [a2 data];
+              [v25 getBytes:v27 range:{objc_msgSend(a2, "position"), 8}];
 
-              v82 = objc_msgSend_position(a2, v80, v81);
-              objc_msgSend_setPosition_(a2, v83, v82 + 8);
+              [a2 setPosition:{objc_msgSend(a2, "position") + 8}];
             }
 
             else
             {
-              objc_msgSend__setError(a2, v70, v71);
+              [a2 _setError];
             }
 
             PBRepeatedDoubleAdd();
@@ -2241,13 +2150,13 @@ LABEL_35:
       }
 
 LABEL_45:
-      v84 = objc_msgSend_position(a2, v62, v63);
+      v26 = [a2 position];
     }
 
-    while (v84 < objc_msgSend_length(a2, v85, v86));
+    while (v26 < [a2 length]);
   }
 
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+  return [a2 hasError] ^ 1;
 }
 
 uint64_t sub_260EEBA60(uint64_t a1)
@@ -2275,14 +2184,14 @@ uint64_t sub_260EEBE58(uint64_t a1)
 void sub_260EEBE70(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a2;
-  v10 = objc_msgSend_taskDeferred(*(a1 + 32), v8, v9);
+  v8 = [*(a1 + 32) taskDeferred];
 
-  if (v10)
+  if (v8)
   {
-    v13 = *(a1 + 40);
-    if (v13)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v13 + 16))();
+      (*(v9 + 16))();
     }
 
     *a4 = 1;
@@ -2290,97 +2199,92 @@ void sub_260EEBE70(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 
   else
   {
-    v14 = objc_msgSend_operationQueue(*(a1 + 32), v11, v12);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = sub_260EEBF88;
-    v16[3] = &unk_279AC63D0;
-    v16[4] = *(a1 + 32);
-    v17 = v7;
-    v19 = a3;
-    v18 = *(a1 + 40);
-    objc_msgSend_addOperationWithBlock_(v14, v15, v16);
+    v10 = [*(a1 + 32) operationQueue];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = sub_260EEBF88;
+    v11[3] = &unk_279AC63D0;
+    v11[4] = *(a1 + 32);
+    v12 = v7;
+    v14 = a3;
+    v13 = *(a1 + 40);
+    [v10 addOperationWithBlock:v11];
   }
 }
 
-void sub_260EEBF88(uint64_t a1, const char *a2)
+void sub_260EEBF88(uint64_t a1)
 {
-  objc_msgSend_runFeatureCalculator_(*(a1 + 32), a2, *(a1 + 40));
-  v3 = *(a1 + 56);
-  v6 = objc_msgSend_validFeatureCalculators(*(a1 + 32), v4, v5);
-  v9 = objc_msgSend_count(v6, v7, v8) - 1;
+  [*(a1 + 32) runFeatureCalculator:*(a1 + 40)];
+  v2 = *(a1 + 56);
+  v3 = [*(a1 + 32) validFeatureCalculators];
+  v4 = [v3 count] - 1;
 
-  if (v3 == v9)
+  if (v2 == v4)
   {
-    v12 = objc_msgSend_operationQueue(*(a1 + 32), v10, v11);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_260EEC06C;
-    v14[3] = &unk_279AC63A8;
-    v14[4] = *(a1 + 32);
-    v15 = *(a1 + 48);
-    objc_msgSend_addOperationWithBlock_(v12, v13, v14);
+    v5 = [*(a1 + 32) operationQueue];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = sub_260EEC06C;
+    v6[3] = &unk_279AC63A8;
+    v6[4] = *(a1 + 32);
+    v7 = *(a1 + 48);
+    [v5 addOperationWithBlock:v6];
   }
 }
 
-uint64_t sub_260EEC06C(uint64_t a1, const char *a2, uint64_t a3)
+uint64_t sub_260EEC06C(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_calculatorErrors(*(a1 + 32), a2, a3);
-  v7 = objc_msgSend_count(v4, v5, v6);
+  v16 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) calculatorErrors];
+  v3 = [v2 count];
 
-  v8 = OdmlLogForCategory(3uLL);
-  v9 = v8;
-  if (v7)
+  v4 = OdmlLogForCategory(3uLL);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
-      v11 = objc_opt_class();
-      v12 = *(a1 + 32);
-      v13 = v11;
-      v16 = objc_msgSend_calculatorErrors(v12, v14, v15);
-      v21 = 138478083;
-      v22 = v11;
-      v23 = 2113;
-      v24 = v16;
-      _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_ERROR, "[%{private}@] ERROR: Failed to calculate features with the following errors: %{private}@", &v21, 0x16u);
+      v6 = objc_opt_class();
+      v7 = *(a1 + 32);
+      v8 = v6;
+      v9 = [v7 calculatorErrors];
+      v12 = 138478083;
+      v13 = v6;
+      v14 = 2113;
+      v15 = v9;
+      _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_ERROR, "[%{private}@] ERROR: Failed to calculate features with the following errors: %{private}@", &v12, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 32);
-    v21 = 138477827;
-    v22 = objc_opt_class();
-    v18 = v22;
-    _os_log_impl(&dword_260ECB000, v9, OS_LOG_TYPE_DEFAULT, "[%{private}@] Successfully calculated all features.", &v21, 0xCu);
+    v12 = 138477827;
+    v13 = objc_opt_class();
+    v10 = v13;
+    _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_DEFAULT, "[%{private}@] Successfully calculated all features.", &v12, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_260EEC5DC(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EEC5DC(uint64_t a1)
 {
-  v4 = objc_msgSend_sharedAssetManagerCoordinator(APOdmlAssetManagerCoordinator, a2, a3);
-  v7 = objc_msgSend_placementType(*(a1 + 32), v5, v6);
-  v10 = objc_msgSend_assetManagerType(*(a1 + 32), v8, v9);
-  v15 = objc_msgSend_assetManagerForPlacementType_assetManagerType_(v4, v11, v7, v10);
+  v2 = +[APOdmlAssetManagerCoordinator sharedAssetManagerCoordinator];
+  v4 = [v2 assetManagerForPlacementType:objc_msgSend(*(a1 + 32) assetManagerType:{"placementType"), objc_msgSend(*(a1 + 32), "assetManagerType")}];
 
-  v13 = objc_msgSend_doubleValueForFactor_(v15, v12, @"LookbackWindow");
-  objc_msgSend_deleteExpiredFeaturesForName_lookbackWindow_(v15, v14, @"appUsageVector", v13);
+  v3 = [v4 doubleValueForFactor:@"LookbackWindow"];
+  [v4 deleteExpiredFeaturesForName:@"appUsageVector" lookbackWindow:v3];
 }
 
 id sub_260EEE380(uint64_t a1, uint64_t a2, void *a3, int a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = OdmlLogForCategory(5uLL);
   v7 = os_signpost_id_generate(v6);
@@ -2394,121 +2298,119 @@ id sub_260EEE380(uint64_t a1, uint64_t a2, void *a3, int a4)
     _os_signpost_emit_with_name_impl(&dword_260ECB000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "ML Model Loading", &unk_260EFF3C5, buf, 2u);
   }
 
-  v12 = objc_alloc_init(MEMORY[0x277CBFF38]);
+  v11 = objc_alloc_init(MEMORY[0x277CBFF38]);
   if (a4)
   {
-    v13 = OdmlLogForCategory(5uLL);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = objc_opt_class();
+      v13 = objc_opt_class();
       *buf = 138412290;
-      v31 = v14;
-      v15 = v14;
-      _os_log_impl(&dword_260ECB000, v13, OS_LOG_TYPE_DEFAULT, "[%@] Current model is explicitly asked to perform prediction on CPU only.", buf, 0xCu);
+      v28 = v13;
+      v14 = v13;
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_DEFAULT, "[%@] Current model is explicitly asked to perform prediction on CPU only.", buf, 0xCu);
     }
 
-    objc_msgSend_setComputeUnits_(v12, v16, 0);
+    [v11 setComputeUnits:0];
   }
 
-  v29 = 0;
-  v17 = objc_msgSend_modelWithContentsOfURL_configuration_error_(MEMORY[0x277CBFF20], v11, v5, v12, &v29);
-  v18 = v29;
-  if (v18)
+  v26 = 0;
+  v15 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v5 configuration:v11 error:&v26];
+  v16 = v26;
+  if (v16)
   {
-    v19 = OdmlLogForCategory(0);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = OdmlLogForCategory(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
+      v18 = objc_opt_class();
       *buf = 138412546;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v18;
-      v21 = v20;
-      _os_log_impl(&dword_260ECB000, v19, OS_LOG_TYPE_ERROR, "[%@] Error reading compiled MLModel from URL %@", buf, 0x16u);
+      v28 = v18;
+      v29 = 2112;
+      v30 = v16;
+      v19 = v18;
+      _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_ERROR, "[%@] Error reading compiled MLModel from URL %@", buf, 0x16u);
     }
 
-    v22 = OdmlLogForCategory(5uLL);
-    v23 = v22;
-    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v20 = OdmlLogForCategory(5uLL);
+    v21 = v20;
+    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_260ECB000, v23, OS_SIGNPOST_INTERVAL_END, v7, "ML Model Loading", &unk_260EFF3C5, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_260ECB000, v21, OS_SIGNPOST_INTERVAL_END, v7, "ML Model Loading", &unk_260EFF3C5, buf, 2u);
     }
 
-    v24 = 0;
+    v22 = 0;
   }
 
   else
   {
-    v25 = OdmlLogForCategory(5uLL);
-    v26 = v25;
-    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+    v23 = OdmlLogForCategory(5uLL);
+    v24 = v23;
+    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_260ECB000, v26, OS_SIGNPOST_INTERVAL_END, v7, "ML Model Loading", &unk_260EFF3C5, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_260ECB000, v24, OS_SIGNPOST_INTERVAL_END, v7, "ML Model Loading", &unk_260EFF3C5, buf, 2u);
     }
 
-    v24 = v17;
+    v22 = v15;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v22;
 }
 
-void sub_260EEEA00(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EEEA00(uint64_t a1)
 {
-  v4 = objc_msgSend_workQueue(*(a1 + 32), a2, a3);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = sub_260EEEAB8;
-  v7[3] = &unk_279AC68B0;
-  v5 = *(a1 + 40);
-  v7[4] = *(a1 + 32);
-  v8 = v5;
-  v9 = *(a1 + 48);
-  objc_msgSend_addOperationWithBlock_(v4, v6, v7);
+  v2 = [*(a1 + 32) workQueue];
+  v4[0] = MEMORY[0x277D85DD0];
+  v4[1] = 3221225472;
+  v4[2] = sub_260EEEAB8;
+  v4[3] = &unk_279AC68B0;
+  v3 = *(a1 + 40);
+  v4[4] = *(a1 + 32);
+  v5 = v3;
+  v6 = *(a1 + 48);
+  [v2 addOperationWithBlock:v4];
 }
 
 void sub_260EEEAB8(uint64_t a1)
 {
   obj = *(a1 + 32);
   objc_sync_enter(obj);
-  v3 = *(a1 + 32);
-  if (*(v3 + 8) == 1 && (objc_msgSend_isEqualToDate_(*(a1 + 40), v2, *(v3 + 32)) & 1) != 0)
+  v2 = *(a1 + 32);
+  if (*(v2 + 8) == 1 && ([*(a1 + 40) isEqualToDate:*(v2 + 32)] & 1) != 0)
   {
     objc_sync_exit(obj);
 
-    shouldDefer = objc_msgSend_shouldDefer(*(a1 + 32), v4, v5);
-    v9 = *(a1 + 32);
-    if (shouldDefer)
+    v3 = [*(a1 + 32) shouldDefer];
+    v4 = *(a1 + 32);
+    if (v3)
     {
-      objc_msgSend_endBackgroundDeferralCheck(v9, v6, v7);
-      objc_msgSend_deferTask(*(a1 + 32), v10, v11);
-      v12 = *(a1 + 48);
-      if (v12)
+      [v4 endBackgroundDeferralCheck];
+      [*(a1 + 32) deferTask];
+      v5 = *(a1 + 48);
+      if (v5)
       {
-        v13 = *(v12 + 16);
+        v6 = *(v5 + 16);
 
-        v13();
+        v6();
       }
     }
 
     else
     {
-      v15 = *(a1 + 40);
-      v16 = *(a1 + 48);
+      v8 = *(a1 + 40);
+      v9 = *(a1 + 48);
 
-      objc_msgSend__backgroundDeferralCheck_completion_(v9, v6, v15, v16);
+      [v4 _backgroundDeferralCheck:v8 completion:v9];
     }
   }
 
   else
   {
-    v14 = *(a1 + 48);
-    if (v14)
+    v7 = *(a1 + 48);
+    if (v7)
     {
-      (*(v14 + 16))(v14, 0);
+      (*(v7 + 16))(v7, 0);
     }
 
     objc_sync_exit(obj);
@@ -2602,40 +2504,35 @@ uint64_t sub_260EF0150(uint64_t result, uint64_t a2)
 
 void sub_260EF0168(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  if (objc_msgSend_state(v2, v3, v4) == 1)
+  if ([v2 state] == 1)
   {
-    v5 = OdmlLogForCategory(0xCuLL);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v3 = OdmlLogForCategory(0xCuLL);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v8 = objc_msgSend_error(v2, v6, v7);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_ERROR, "Failed to query TrainingRow data: %@", &v10, 0xCu);
+      v4 = [v2 error];
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_260ECB000, v3, OS_LOG_TYPE_ERROR, "Failed to query TrainingRow data: %@", &v5, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void sub_260EF0240(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v9 = objc_msgSend_eventBody(v4, v6, v7);
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = [v3 eventBody];
 
-  objc_msgSend_combineRecords_andSaveTo_(v5, v8, v9, *(*(*(a1 + 40) + 8) + 40));
+  [v4 combineRecords:v5 andSaveTo:*(*(*(a1 + 40) + 8) + 40)];
 }
 
 void sub_260EF02C8(void *a1, void *a2, void *a3)
 {
-  v5 = a1[4];
-  v6 = a3;
-  v9 = a2;
-  v7 = objc_opt_class();
-  objc_msgSend_trainingRowsFromBiomeEvent_recordID_requiredFeatures_andSaveTo_(v7, v8, v6, v9, a1[5], *(*(a1[6] + 8) + 40));
+  v5 = a3;
+  v6 = a2;
+  [objc_opt_class() trainingRowsFromBiomeEvent:v5 recordID:v6 requiredFeatures:a1[5] andSaveTo:*(*(a1[6] + 8) + 40)];
 }
 
 void sub_260EF0830(uint64_t a1, void *a2, uint64_t a3)
@@ -2643,391 +2540,378 @@ void sub_260EF0830(uint64_t a1, void *a2, uint64_t a3)
   v4 = *(a1 + 32);
   v5 = MEMORY[0x277CCACA8];
   v6 = a2;
-  v8 = objc_msgSend_stringWithFormat_(v5, v7, @"_%ld", a3);
-  v11 = objc_msgSend_stringByAppendingString_(v4, v9, v8);
+  v7 = [v5 stringWithFormat:@"_%ld", a3];
+  v8 = [v4 stringByAppendingString:v7];
 
-  objc_msgSend_setRowID_(v6, v10, v11);
+  [v6 setRowID:v8];
 }
 
-uint64_t sub_260EF09AC(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_260EF09AC(uint64_t a1, void *a2)
 {
-  result = objc_msgSend_isValidRow_(a2, a2, *(a1 + 32));
+  result = [a2 isValidRow:*(a1 + 32)];
   if ((result & 1) == 0)
   {
-    v6 = *(a1 + 40);
+    v4 = *(a1 + 40);
 
-    return MEMORY[0x2821F9670](v6, sel_addIndex_, a3);
+    return MEMORY[0x2821F9670](v4, sel_addIndex_);
   }
 
   return result;
 }
 
-uint64_t sub_260EF0E18(uint64_t a1, void *a2, uint64_t a3)
+uint64_t sub_260EF0E18(uint64_t a1, void *a2)
 {
-  v4 = objc_msgSend_lastPathComponent(a2, a2, a3);
-  isEqualToString = objc_msgSend_isEqualToString_(v4, v5, *(a1 + 32));
+  v3 = [a2 lastPathComponent];
+  v4 = [v3 isEqualToString:*(a1 + 32)];
 
-  return isEqualToString;
+  return v4;
 }
 
 id sub_260EF0EEC(uint64_t a1, uint64_t a2, void *a3)
 {
   v3 = MEMORY[0x277CBFF48];
   v4 = a3;
-  v5 = [v3 alloc];
-  v12 = 0;
-  v7 = objc_msgSend_initWithShape_dataType_error_(v5, v6, &unk_28736F290, 65600, &v12);
-  objc_msgSend_setObject_atIndexedSubscript_(v7, v8, v4, 0);
+  v8 = 0;
+  v5 = [[v3 alloc] initWithShape:&unk_28736F290 dataType:65600 error:&v8];
+  [v5 setObject:v4 atIndexedSubscript:0];
 
-  v10 = objc_msgSend_featureValueWithMultiArray_(MEMORY[0x277CBFEF8], v9, v7);
+  v6 = [MEMORY[0x277CBFEF8] featureValueWithMultiArray:v5];
 
-  return v10;
+  return v6;
 }
 
 uint64_t sub_260EF1028(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_280CCF578 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_260EF1454(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EF1454(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_listeningLock(*(a1 + 32), a2, a3);
-  objc_msgSend_lock(v4, v5, v6);
+  v28 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) listeningLock];
+  [v2 lock];
 
-  if (objc_msgSend_isListening(*(a1 + 32), v7, v8))
+  if (([*(a1 + 32) isListening] & 1) == 0)
   {
-    if (objc_msgSend_isListening(*(a1 + 32), v9, v10) && (objc_msgSend_listeningError(*(a1 + 32), v11, v12), v13 = objc_claimAutoreleasedReturnValue(), v13, !v13))
+    v12 = OdmlLogForCategory(4uLL);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = OdmlLogForCategory(4uLL);
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
-      {
-        v34 = *(a1 + 32);
-        *buf = 138477827;
-        *&buf[4] = objc_opt_class();
-        v35 = *&buf[4];
-        _os_log_impl(&dword_260ECB000, v33, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is listening, and did not have an error on previous attempt.", buf, 0xCu);
-      }
-
-      v38 = objc_msgSend_listeningLock(*(a1 + 32), v36, v37);
-      objc_msgSend_unlock(v38, v39, v40);
-    }
-
-    else if (objc_msgSend_isListening(*(a1 + 32), v11, v12))
-    {
-      v16 = objc_msgSend_listeningError(*(a1 + 32), v14, v15);
-
-      if (v16)
-      {
-        v17 = OdmlLogForCategory(4uLL);
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-        {
-          v18 = *(a1 + 32);
-          *buf = 138477827;
-          *&buf[4] = objc_opt_class();
-          v19 = *&buf[4];
-          _os_log_impl(&dword_260ECB000, v17, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is listening, but had an error on previous attempt.", buf, 0xCu);
-        }
-
-        v20 = *(a1 + 32);
-        v23 = objc_msgSend_modelURL(v20, v21, v22);
-        v25 = objc_msgSend_storeServerForModelURL_(v20, v24, v23);
-        objc_msgSend_setStoreServer_(*(a1 + 32), v26, v25);
-
-        objc_msgSend__startListening_(*(a1 + 32), v27, v41, MEMORY[0x277D85DD0], 3221225472, sub_260EF1798, &unk_279AC6188, *(a1 + 32), v42[0], v42[1], v42[2], v42[3], v42[4], *buf);
-      }
-    }
-  }
-
-  else
-  {
-    v28 = OdmlLogForCategory(4uLL);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
-    {
-      v29 = *(a1 + 32);
       *buf = 138477827;
       *&buf[4] = objc_opt_class();
-      v30 = *&buf[4];
-      _os_log_impl(&dword_260ECB000, v28, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is not listening; first attempt to launch the server.", buf, 0xCu);
+      v13 = *&buf[4];
+      _os_log_impl(&dword_260ECB000, v12, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is not listening; first attempt to launch the server.", buf, 0xCu);
     }
 
-    objc_msgSend__startListening_(*(a1 + 32), v31, v42, v41[0], v41[1], v41[2], v41[3], v41[4], MEMORY[0x277D85DD0], 3221225472, sub_260EF1754, &unk_279AC6188, *(a1 + 32), *buf);
+    v10 = *(a1 + 32);
+    v22 = MEMORY[0x277D85DD0];
+    v23 = 3221225472;
+    v24 = sub_260EF1754;
+    v25 = &unk_279AC6188;
+    v26 = v10;
+    v11 = &v22;
+    goto LABEL_12;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
+  if ([*(a1 + 32) isListening] && (objc_msgSend(*(a1 + 32), "listeningError"), v3 = objc_claimAutoreleasedReturnValue(), v3, !v3))
+  {
+    v14 = OdmlLogForCategory(4uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138477827;
+      *&buf[4] = objc_opt_class();
+      v15 = *&buf[4];
+      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is listening, and did not have an error on previous attempt.", buf, 0xCu);
+    }
+
+    v16 = [*(a1 + 32) listeningLock];
+    [v16 unlock];
+  }
+
+  else if ([*(a1 + 32) isListening])
+  {
+    v4 = [*(a1 + 32) listeningError];
+
+    if (v4)
+    {
+      v5 = OdmlLogForCategory(4uLL);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138477827;
+        *&buf[4] = objc_opt_class();
+        v6 = *&buf[4];
+        _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer startListening call while server is listening, but had an error on previous attempt.", buf, 0xCu);
+      }
+
+      v7 = *(a1 + 32);
+      v8 = [v7 modelURL];
+      v9 = [v7 storeServerForModelURL:v8];
+      [*(a1 + 32) setStoreServer:v9];
+
+      v10 = *(a1 + 32);
+      v17 = MEMORY[0x277D85DD0];
+      v18 = 3221225472;
+      v19 = sub_260EF1798;
+      v20 = &unk_279AC6188;
+      v21 = v10;
+      v11 = &v17;
+LABEL_12:
+      [v10 _startListening:{v11, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, *buf, *&buf[8]}];
+    }
+  }
 }
 
-void sub_260EF1754(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EF1754(uint64_t a1)
 {
-  v5 = objc_msgSend_listeningLock(*(a1 + 32), a2, a3);
-  objc_msgSend_unlock(v5, v3, v4);
+  v1 = [*(a1 + 32) listeningLock];
+  [v1 unlock];
 }
 
-void sub_260EF1798(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EF1798(uint64_t a1)
 {
-  v5 = objc_msgSend_listeningLock(*(a1 + 32), a2, a3);
-  objc_msgSend_unlock(v5, v3, v4);
+  v1 = [*(a1 + 32) listeningLock];
+  [v1 unlock];
 }
 
 void sub_260EF19E8(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = OdmlLogForCategory(4uLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = objc_opt_class();
-    v10 = v9;
-    v13 = objc_msgSend_options(v5, v11, v12);
-    v31 = 138478083;
-    v32 = v9;
-    v33 = 2113;
-    v34 = v13;
-    _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "[%{private}@] NSPersistentStoreDescription: %{private}@", &v31, 0x16u);
+    v8 = objc_opt_class();
+    v9 = v8;
+    v10 = [v5 options];
+    v19 = 138478083;
+    v20 = v8;
+    v21 = 2113;
+    v22 = v10;
+    _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_DEFAULT, "[%{private}@] NSPersistentStoreDescription: %{private}@", &v19, 0x16u);
   }
 
-  objc_msgSend_startListening(*(*(a1 + 32) + 16), v14, v15);
-  v16 = OdmlLogForCategory(4uLL);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  [*(*(a1 + 32) + 16) startListening];
+  v11 = OdmlLogForCategory(4uLL);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 32);
-    v18 = objc_opt_class();
-    v31 = 138477827;
-    v32 = v18;
-    v19 = v18;
-    _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer began listening.", &v31, 0xCu);
+    v12 = objc_opt_class();
+    v19 = 138477827;
+    v20 = v12;
+    v13 = v12;
+    _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_DEFAULT, "[%{private}@] StoreServer began listening.", &v19, 0xCu);
   }
 
-  objc_msgSend_setIsListening_(*(a1 + 32), v20, 1);
-  objc_msgSend_setListeningError_(*(a1 + 32), v21, v6);
+  [*(a1 + 32) setIsListening:1];
+  [*(a1 + 32) setListeningError:v6];
   if (v6)
   {
-    v22 = OdmlLogForCategory(4uLL);
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v14 = OdmlLogForCategory(4uLL);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v23 = *(a1 + 32);
-      v24 = objc_opt_class();
-      v31 = 138478083;
-      v32 = v24;
-      v33 = 2112;
-      v34 = v6;
-      v25 = v24;
-      _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, "[%{private}@] StoreServer failed to initialize DB with error: %@", &v31, 0x16u);
+      v15 = objc_opt_class();
+      v19 = 138478083;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v6;
+      v16 = v15;
+      _os_log_impl(&dword_260ECB000, v14, OS_LOG_TYPE_ERROR, "[%{private}@] StoreServer failed to initialize DB with error: %@", &v19, 0x16u);
     }
 
-    v27 = objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v26, @"APOdmlFeatureStorageErrorDomain", 5011, 0);
-    objc_msgSend_sendEvent_additionalDetails_(APOdmlAnalyticsFeatureStorage, v28, v27, 0);
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"APOdmlFeatureStorageErrorDomain" code:5011 userInfo:0];
+    [APOdmlAnalyticsFeatureStorage sendEvent:v17 additionalDetails:0];
   }
 
-  v29 = *(a1 + 40);
-  if (v29)
+  v18 = *(a1 + 40);
+  if (v18)
   {
-    (*(v29 + 16))();
+    (*(v18 + 16))();
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void sub_260EF20E4(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = OdmlLogForCategory(5uLL);
-  v5 = objc_msgSend_ident(*(a1 + 32), v3, v4);
-  if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+  v3 = [*(a1 + 32) ident];
+  if ((v3 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v6 = v5;
+    v4 = v3;
     if (os_signpost_enabled(v2))
     {
-      LOWORD(v59) = 0;
-      _os_signpost_emit_with_name_impl(&dword_260ECB000, v2, OS_SIGNPOST_INTERVAL_END, v6, "GCD Overhead", &unk_260EFF3C5, &v59, 2u);
+      LOWORD(v28) = 0;
+      _os_signpost_emit_with_name_impl(&dword_260ECB000, v2, OS_SIGNPOST_INTERVAL_END, v4, "GCD Overhead", &unk_260EFF3C5, &v28, 2u);
     }
   }
 
-  if (objc_msgSend_count(*(a1 + 40), v7, v8))
+  if (![*(a1 + 40) count])
   {
-    objc_msgSend_setOriginalAds_(*(a1 + 32), v9, *(a1 + 40));
-    v12 = objc_msgSend_date(MEMORY[0x277CBEAA8], v10, v11);
-    objc_msgSend_setRerankingStartDate_(*(a1 + 32), v13, v12);
-
-    v14 = *(a1 + 40);
-    isPersonalizedAdsEnabled = objc_msgSend_isPersonalizedAdsEnabled(*(a1 + 32), v15, v16);
-    v20 = objc_msgSend_assetManager(*(a1 + 32), v18, v19);
-    v22 = objc_msgSend_BOOLeanValueForFactor_(v20, v21, @"KillSwitch");
-    v25 = objc_msgSend_BOOLValue(v22, v23, v24);
-    v27 = objc_msgSend_permissionCheck_personalizedAdsEnabled_trialKillswitch_(APOdmlValidator, v26, v14, isPersonalizedAdsEnabled, v25);
-
-    if (!v27)
+    v16 = OdmlLogForCategory(5uLL);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v29 = objc_msgSend_predictAndExplore_(*(a1 + 32), v28, *(a1 + 40));
-      objc_msgSend_setRerankedAds_(*(a1 + 32), v30, v29);
-
-      v31 = *(a1 + 32);
-      v34 = objc_msgSend_rerankedAds(v31, v32, v33);
-      LODWORD(v31) = objc_msgSend_sendRerankResponseIfAvailable_error_(v31, v35, v34, 0);
-
-      if (v31)
-      {
-        v38 = objc_msgSend_rerankingStartDate(*(a1 + 32), v36, v37);
-        v41 = objc_msgSend_date(MEMORY[0x277CBEAA8], v39, v40);
-        objc_msgSend_sendTimedEvent_statusSuccess_additionalDetails_startDate_endDate_(APOdmlAnalyticsReranking, v42, 0, 0, 0, v38, v41);
-      }
-
-      goto LABEL_18;
+      v17 = objc_opt_class();
+      v18 = *(a1 + 40);
+      v28 = 138412546;
+      v29 = v17;
+      v30 = 2112;
+      v31 = v18;
+      v19 = v17;
+      _os_log_impl(&dword_260ECB000, v16, OS_LOG_TYPE_ERROR, "[%@] Reranking Error: Rankable objects list %@ is empty or nil.", &v28, 0x16u);
     }
 
-    v49 = OdmlLogForCategory(5uLL);
-    v50 = os_log_type_enabled(v49, OS_LOG_TYPE_ERROR);
-    if (v27 == 2003)
-    {
-      if (v50)
-      {
-        v51 = *(a1 + 32);
-        v52 = objc_opt_class();
-        v59 = 138412290;
-        v60 = v52;
-        v53 = v52;
-        v54 = "[%@] Reranking Error: Reranking not permitted.";
-LABEL_16:
-        _os_log_impl(&dword_260ECB000, v49, OS_LOG_TYPE_ERROR, v54, &v59, 0xCu);
-      }
-    }
-
-    else if (v50)
-    {
-      v55 = *(a1 + 32);
-      v56 = objc_opt_class();
-      v59 = 138412290;
-      v60 = v56;
-      v53 = v56;
-      v54 = "[%@] Reranking Error: Reranking not enabled.";
-      goto LABEL_16;
-    }
-
-    objc_msgSend__handleError_(*(a1 + 32), v57, v27);
+    v20 = *(a1 + 32);
+    v21 = 2004;
     goto LABEL_18;
   }
 
-  v43 = OdmlLogForCategory(5uLL);
-  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+  [*(a1 + 32) setOriginalAds:*(a1 + 40)];
+  v5 = [MEMORY[0x277CBEAA8] date];
+  [*(a1 + 32) setRerankingStartDate:v5];
+
+  v6 = *(a1 + 40);
+  v7 = [*(a1 + 32) isPersonalizedAdsEnabled];
+  v8 = [*(a1 + 32) assetManager];
+  v9 = [v8 BOOLeanValueForFactor:@"KillSwitch"];
+  v10 = +[APOdmlValidator permissionCheck:personalizedAdsEnabled:trialKillswitch:](APOdmlValidator, "permissionCheck:personalizedAdsEnabled:trialKillswitch:", v6, v7, [v9 BOOLValue]);
+
+  if (v10)
   {
-    v44 = *(a1 + 32);
-    v45 = objc_opt_class();
-    v46 = *(a1 + 40);
-    v59 = 138412546;
-    v60 = v45;
-    v61 = 2112;
-    v62 = v46;
-    v47 = v45;
-    _os_log_impl(&dword_260ECB000, v43, OS_LOG_TYPE_ERROR, "[%@] Reranking Error: Rankable objects list %@ is empty or nil.", &v59, 0x16u);
-  }
-
-  objc_msgSend__handleError_(*(a1 + 32), v48, 2004);
-LABEL_18:
-  v58 = *MEMORY[0x277D85DE8];
-}
-
-void sub_260EF2620(uint64_t a1, const char *a2, uint64_t a3)
-{
-  v53 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_rerankedAds(*(a1 + 32), a2, a3);
-
-  v7 = *(a1 + 32);
-  if (!v4)
-  {
-    v18 = objc_msgSend_rerankerError(*(a1 + 32), v5, v6);
-
-    if (v18)
+    v22 = OdmlLogForCategory(5uLL);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+    if (v10 == 2003)
     {
-      v21 = *(a1 + 32);
-      v22 = objc_msgSend_originalAds(v21, v19, v20);
-      v25 = objc_msgSend_rerankerError(*(a1 + 32), v23, v24);
-      LODWORD(v21) = objc_msgSend_sendRerankResponseIfAvailable_error_(v21, v26, v22, v25);
-
-      if (v21)
+      if (v23)
       {
-        v27 = OdmlLogForCategory(5uLL);
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
-        {
-          v28 = *(a1 + 32);
-          v29 = objc_opt_class();
-          v30 = *(a1 + 32);
-          v31 = v29;
-          v34 = objc_msgSend_rerankerError(v30, v32, v33);
-          *buf = 138412546;
-          v50 = v29;
-          v51 = 2048;
-          v52 = objc_msgSend_code(v34, v35, v36);
-          _os_log_impl(&dword_260ECB000, v27, OS_LOG_TYPE_ERROR, "[%@] Reranking Error: %ld.", buf, 0x16u);
-        }
-
-        v39 = objc_msgSend_rerankerError(*(a1 + 32), v37, v38);
-        v42 = objc_msgSend_rerankingStartDate(*(a1 + 32), v40, v41);
-        v45 = objc_msgSend_date(MEMORY[0x277CBEAA8], v43, v44);
-        objc_msgSend_sendTimedEvent_statusSuccess_additionalDetails_startDate_endDate_(APOdmlAnalyticsReranking, v46, v39, 0, 0, v42, v45);
+        v24 = objc_opt_class();
+        v28 = 138412290;
+        v29 = v24;
+        v25 = v24;
+        v26 = "[%@] Reranking Error: Reranking not permitted.";
+LABEL_16:
+        _os_log_impl(&dword_260ECB000, v22, OS_LOG_TYPE_ERROR, v26, &v28, 0xCu);
       }
     }
 
-    goto LABEL_11;
-  }
+    else if (v23)
+    {
+      v27 = objc_opt_class();
+      v28 = 138412290;
+      v29 = v27;
+      v25 = v27;
+      v26 = "[%@] Reranking Error: Reranking not enabled.";
+      goto LABEL_16;
+    }
 
-  v8 = objc_msgSend_rerankedAds(*(a1 + 32), v5, v6);
-  v10 = objc_msgSend_sendRerankResponseIfAvailable_error_(v7, v9, v8, 0);
-
-  if (!v10)
-  {
-LABEL_11:
-    v47 = *MEMORY[0x277D85DE8];
+    v20 = *(a1 + 32);
+    v21 = v10;
+LABEL_18:
+    [v20 _handleError:v21];
     return;
   }
 
-  v48 = objc_msgSend_rerankingStartDate(*(a1 + 32), v11, v12);
-  v15 = objc_msgSend_date(MEMORY[0x277CBEAA8], v13, v14);
-  objc_msgSend_sendTimedEvent_statusSuccess_additionalDetails_startDate_endDate_(APOdmlAnalyticsReranking, v16, 0, 0, 0, v48, v15);
+  v11 = [*(a1 + 32) predictAndExplore:*(a1 + 40)];
+  [*(a1 + 32) setRerankedAds:v11];
 
-  v17 = *MEMORY[0x277D85DE8];
+  v12 = *(a1 + 32);
+  v13 = [v12 rerankedAds];
+  LODWORD(v12) = [v12 sendRerankResponseIfAvailable:v13 error:0];
+
+  if (v12)
+  {
+    v14 = [*(a1 + 32) rerankingStartDate];
+    v15 = [MEMORY[0x277CBEAA8] date];
+    [APOdmlAnalyticsReranking sendTimedEvent:0 statusSuccess:0 additionalDetails:0 startDate:v14 endDate:v15];
+  }
 }
 
-void sub_260EF28B0(uint64_t a1, const char *a2, uint64_t a3)
+void sub_260EF2620(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = objc_msgSend_rerankDispatchGroup(*(a1 + 32), a2, a3);
-  v5 = dispatch_time(0, (*(a1 + 40) * 1000000000.0));
-  v6 = dispatch_group_wait(v4, v5);
+  v24 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) rerankedAds];
 
-  v7 = OdmlLogForCategory(5uLL);
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-  if (v6)
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    if (v8)
-    {
-      v9 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = objc_opt_class();
-      v10 = v17;
-      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_INFO, "[%@] Reranker failed to complete before SLA was reached", &v16, 0xCu);
-    }
+    v4 = [*(a1 + 32) rerankedAds];
+    v5 = [v3 sendRerankResponseIfAvailable:v4 error:0];
 
-    objc_msgSend_rerankResponseTimeout(*(a1 + 32), v11, v12);
+    if (v5)
+    {
+      v19 = [*(a1 + 32) rerankingStartDate];
+      v6 = [MEMORY[0x277CBEAA8] date];
+      [APOdmlAnalyticsReranking sendTimedEvent:0 statusSuccess:0 additionalDetails:0 startDate:v19 endDate:v6];
+    }
   }
 
   else
   {
-    if (v8)
+    v7 = [*(a1 + 32) rerankerError];
+
+    if (v7)
     {
-      v13 = *(a1 + 32);
-      v16 = 138412290;
-      v17 = objc_opt_class();
-      v14 = v17;
-      _os_log_impl(&dword_260ECB000, v7, OS_LOG_TYPE_INFO, "[%@] Reranker completed before SLA was reached", &v16, 0xCu);
+      v8 = *(a1 + 32);
+      v9 = [v8 originalAds];
+      v10 = [*(a1 + 32) rerankerError];
+      LODWORD(v8) = [v8 sendRerankResponseIfAvailable:v9 error:v10];
+
+      if (v8)
+      {
+        v11 = OdmlLogForCategory(5uLL);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          v12 = objc_opt_class();
+          v13 = *(a1 + 32);
+          v14 = v12;
+          v15 = [v13 rerankerError];
+          *buf = 138412546;
+          v21 = v12;
+          v22 = 2048;
+          v23 = [v15 code];
+          _os_log_impl(&dword_260ECB000, v11, OS_LOG_TYPE_ERROR, "[%@] Reranking Error: %ld.", buf, 0x16u);
+        }
+
+        v16 = [*(a1 + 32) rerankerError];
+        v17 = [*(a1 + 32) rerankingStartDate];
+        v18 = [MEMORY[0x277CBEAA8] date];
+        [APOdmlAnalyticsReranking sendTimedEvent:v16 statusSuccess:0 additionalDetails:0 startDate:v17 endDate:v18];
+      }
     }
   }
+}
 
-  v15 = *MEMORY[0x277D85DE8];
+void sub_260EF28B0(uint64_t a1)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) rerankDispatchGroup];
+  v3 = dispatch_time(0, (*(a1 + 40) * 1000000000.0));
+  v4 = dispatch_group_wait(v2, v3);
+
+  v5 = OdmlLogForCategory(5uLL);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+  if (v4)
+  {
+    if (v6)
+    {
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_INFO, "[%@] Reranker failed to complete before SLA was reached", &v9, 0xCu);
+    }
+
+    [*(a1 + 32) rerankResponseTimeout];
+  }
+
+  else
+  {
+    if (v6)
+    {
+      v9 = 138412290;
+      v10 = objc_opt_class();
+      v8 = v10;
+      _os_log_impl(&dword_260ECB000, v5, OS_LOG_TYPE_INFO, "[%@] Reranker completed before SLA was reached", &v9, 0xCu);
+    }
+  }
 }
 
 void sub_260EF3570()
@@ -3048,15 +2932,6 @@ void sub_260EF3638()
   v1 = dispatch_queue_create("com.apple.ap.rerankingTimeout", attr);
   v2 = qword_280CCF538;
   qword_280CCF538 = v1;
-}
-
-void *get_espresso_buffer_shape@<X0>(void *a1@<X8>)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  espresso_buffer_unpack_tensor_shape();
-  result = sub_260ECFE10(a1, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 float accuracy_in_batch(uint64_t *a1, void *a2)
@@ -3140,7 +3015,8 @@ void print_espresso_buffer(char *a1@<X0>, float **a2@<X1>, std::string *a3@<X8>)
   v7 = 1;
   while (v6 != v38)
   {
-    v8 = *v6++;
+    v8 = *v6;
+    v6 += 2;
     v7 *= v8;
   }
 
@@ -3370,7 +3246,7 @@ void sub_260EF3BEC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_260EF3CE0(_BYTE *a1, char *__s)
+void *sub_260EF3CE0(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -3384,13 +3260,13 @@ _BYTE *sub_260EF3CE0(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -3569,15 +3445,6 @@ void sub_260EF3FE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *get_espresso_blob_shape@<X0>(void *a1@<X8>)
-{
-  v4 = *MEMORY[0x277D85DE8];
-  espresso_network_query_blob_shape();
-  result = sub_260ECFE10(a1, 0);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
 void *nd_shape_to_5d_shape@<X0>(void *result@<X0>, _DWORD *a2@<X8>)
 {
   v2 = result[1] - *result;
@@ -3587,7 +3454,6 @@ void *nd_shape_to_5d_shape@<X0>(void *result@<X0>, _DWORD *a2@<X8>)
     goto LABEL_8;
   }
 
-  *result;
   v3 = result[1];
   *a2 = *(v3 - 8);
   if ((v2 >> 3) <= 1)
@@ -3775,125 +3641,120 @@ void sub_260EF4300(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 id sub_260EF5A3C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v12 = @"errorSource";
-  v13[0] = a3;
+  v9 = @"errorSource";
+  v10[0] = a3;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a3;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
-  v9 = objc_msgSend_errorWithDomain_code_userInfo_(v3, v8, @"APODMLDESPluginErrorDomain", 8034, v7);
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v3 errorWithDomain:@"APODMLDESPluginErrorDomain" code:8034 userInfo:v6];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v7;
 }
 
 id sub_260EF5B2C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v12 = @"errorSource";
-  v13[0] = a3;
+  v9 = @"errorSource";
+  v10[0] = a3;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a3;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
-  v9 = objc_msgSend_errorWithDomain_code_userInfo_(v3, v8, @"APODMLDESPluginErrorDomain", 8035, v7);
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v3 errorWithDomain:@"APODMLDESPluginErrorDomain" code:8035 userInfo:v6];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v7;
 }
 
 id sub_260EF5C1C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v12 = @"errorSource";
-  v13[0] = a3;
+  v9 = @"errorSource";
+  v10[0] = a3;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a3;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v13, &v12, 1);
-  v9 = objc_msgSend_errorWithDomain_code_userInfo_(v3, v8, @"APODMLDESPluginErrorDomain", 8036, v7);
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v7 = [v3 errorWithDomain:@"APODMLDESPluginErrorDomain" code:8036 userInfo:v6];
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v7;
 }
 
 id sub_260EF5D0C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a3;
-  if (objc_msgSend_isEqualToString_(v3, v4, @"AppDownloadVector"))
+  if ([v3 isEqualToString:@"AppDownloadVector"])
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindADVInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindADVInputFail;
 LABEL_8:
-    objc_msgSend_errorWithDomain_code_userInfo_(v6, v5, @"APODMLDESPluginErrorDomain", *v7, 0);
-    v8 = LABEL_9:;
+    v6 = *v5;
+LABEL_9:
+    v7 = [v4 errorWithDomain:@"APODMLDESPluginErrorDomain" code:v6 userInfo:0];
     goto LABEL_10;
   }
 
-  if (objc_msgSend_isEqualToString_(v3, v5, @"AppInstalledVector"))
+  if ([v3 isEqualToString:@"AppInstalledVector"])
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindIAVInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindIAVInputFail;
     goto LABEL_8;
   }
 
-  if ((objc_msgSend_isEqualToString_(v3, v5, @"AppUsageVector") & 1) != 0 || objc_msgSend_isEqualToString_(v3, v5, @"appUsageVector"))
+  if (([v3 isEqualToString:@"AppUsageVector"] & 1) != 0 || objc_msgSend(v3, "isEqualToString:", @"appUsageVector"))
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindAUVInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindAUVInputFail;
     goto LABEL_8;
   }
 
-  if (objc_msgSend_isEqualToString_(v3, v5, @"DupeFirstOrganic"))
+  if ([v3 isEqualToString:@"DupeFirstOrganic"])
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindDupeFirstOrganicInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindDupeFirstOrganicInputFail;
     goto LABEL_8;
   }
 
-  if (objc_msgSend_isEqualToString_(v3, v5, @"Installed"))
+  if ([v3 isEqualToString:@"Installed"])
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindInstalledInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindInstalledInputFail;
     goto LABEL_8;
   }
 
-  if (objc_msgSend_isEqualToString_(v3, v5, @"pTTRLogit"))
+  if ([v3 isEqualToString:@"pTTRLogit"])
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindPTTRInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindPTTRInputFail;
     goto LABEL_8;
   }
 
-  if ((objc_msgSend_isEqualToString_(v3, v5, @"Tapped") & 1) != 0 || objc_msgSend_isEqualToString_(v3, v5, @"Tap"))
+  if (([v3 isEqualToString:@"Tapped"] & 1) != 0 || objc_msgSend(v3, "isEqualToString:", @"Tap"))
   {
-    v6 = MEMORY[0x277CCA9B8];
-    v7 = &kAPODMLDESPluginBindLabelInputFail;
+    v4 = MEMORY[0x277CCA9B8];
+    v5 = &kAPODMLDESPluginBindLabelInputFail;
     goto LABEL_8;
   }
 
-  isEqualToString = objc_msgSend_isEqualToString_(v3, v5, @"AppVector");
-  v13 = MEMORY[0x277CCA9B8];
-  if (isEqualToString)
+  v9 = [v3 isEqualToString:@"AppVector"];
+  v10 = MEMORY[0x277CCA9B8];
+  if (v9)
   {
-    objc_msgSend_errorWithDomain_code_userInfo_(MEMORY[0x277CCA9B8], v12, @"APODMLDESPluginErrorDomain", 8018, 0);
+    v4 = MEMORY[0x277CCA9B8];
+    v6 = 8018;
     goto LABEL_9;
   }
 
-  v16 = @"errorSource";
-  v17[0] = v3;
-  v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v12, v17, &v16, 1);
-  v8 = objc_msgSend_errorWithDomain_code_userInfo_(v13, v15, @"APODMLDESPluginErrorDomain", 8018, v14);
+  v12 = @"errorSource";
+  v13[0] = v3;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v7 = [v10 errorWithDomain:@"APODMLDESPluginErrorDomain" code:8018 userInfo:v11];
 
 LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 
-  return v8;
+  return v7;
 }
 
 void operator delete(void *__p)

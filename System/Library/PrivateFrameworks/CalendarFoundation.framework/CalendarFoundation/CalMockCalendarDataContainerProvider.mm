@@ -32,45 +32,45 @@
 
 - (CalMockCalendarDataContainerProvider)initWithAccountDataContainerMap:(id)map defaultDataContainer:(id)container
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   mapCopy = map;
   containerCopy = container;
-  v28.receiver = self;
-  v28.super_class = CalMockCalendarDataContainerProvider;
-  v9 = [(CalMockCalendarDataContainerProvider *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = CalMockCalendarDataContainerProvider;
+  v9 = [(CalMockCalendarDataContainerProvider *)&v27 init];
   v10 = v9;
   if (v9)
   {
-    v23 = containerCopy;
+    v22 = containerCopy;
     objc_storeStrong(&v9->_calendarDataContainerURL, container);
     objc_storeStrong(&v10->_accountsWithSpecificContainers, map);
     v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(mapCopy, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v12 = mapCopy;
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           v18 = [v12 objectForKeyedSubscript:v17];
           v19 = [@"persona-for-" stringByAppendingString:v17];
           [(NSDictionary *)v11 setObject:v19 forKeyedSubscript:v18];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v14);
@@ -79,10 +79,9 @@
     personaIDsByContainer = v10->_personaIDsByContainer;
     v10->_personaIDsByContainer = v11;
 
-    containerCopy = v23;
+    containerCopy = v22;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -166,29 +165,29 @@
 
 - (id)containerInfoForPersonaIdentifier:(id)identifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_accountsWithSpecificContainers;
-  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [(CalMockCalendarDataContainerProvider *)self personaForAccountIdentifier:v10, v15];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [(CalMockCalendarDataContainerProvider *)self personaForAccountIdentifier:v10, v14];
         if ([identifierCopy isEqualToString:v11])
         {
           v12 = [(CalMockCalendarDataContainerProvider *)self containerInfoForAccountIdentifier:v10];
@@ -197,7 +196,7 @@
         }
       }
 
-      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -212,8 +211,6 @@
   [(CalMockCalendarDataContainerInfo *)v12 setContainerURL:self->_calendarDataContainerURL];
   [(CalMockCalendarDataContainerInfo *)v12 setUsesDataSeparatedContainer:0];
 LABEL_11:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

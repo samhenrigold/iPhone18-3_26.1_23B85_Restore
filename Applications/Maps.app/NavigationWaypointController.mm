@@ -20,7 +20,7 @@
 - (NSArray)displayedWaypoints
 {
   swift_beginAccess();
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -29,7 +29,7 @@
 
 - (void)setDisplayedWaypoints:(id)waypoints
 {
-  sub_100014C84(0, &qword_101914500);
+  sub_100014C84(0, &qword_101914500, GEOComposedWaypoint_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps28NavigationWaypointController_displayedWaypoints;
   swift_beginAccess();
@@ -100,7 +100,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_10022AF94(service);
+  sub_10022AF94(service, state, toState);
 }
 
 - (void)navigationService:(id)service didResumeNavigatingFromWaypoint:(id)waypoint endOfLegIndex:(unint64_t)index reason:(unint64_t)reason

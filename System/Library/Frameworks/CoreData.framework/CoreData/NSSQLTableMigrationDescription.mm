@@ -3,7 +3,7 @@
 
 @implementation NSSQLTableMigrationDescription
 
-uint64_t __97___NSSQLTableMigrationDescription__doAttributesHaveChangesRequiringCopyForMigration_withContext___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__97___NSSQLTableMigrationDescription__doAttributesHaveChangesRequiringCopyForMigration_withContext___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 count];
   if (result == 2)

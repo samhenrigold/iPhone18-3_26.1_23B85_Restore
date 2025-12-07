@@ -18,7 +18,6 @@
 - (int64_t)_lastDeltaDate;
 - (int64_t)_localResourceGenerationFromDatabaseDeviceMapping;
 - (void)_lastDeltaDate;
-- (void)_localResourceGenerationFromDatabaseDeviceMapping;
 - (void)dealloc;
 - (void)nextBookmark;
 @end
@@ -27,7 +26,7 @@
 
 - (id)next
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   if (!self->_provenanceEnumerator)
   {
     p_super = __biome_log_for_category();
@@ -41,7 +40,7 @@
 
   p_super = 0;
   *&v2 = 138412546;
-  v56 = v2;
+  v55 = v2;
   do
   {
     if (!self->_nextRow)
@@ -73,7 +72,7 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v66 = provenance;
+        v65 = provenance;
         _os_log_error_impl(&dword_1B6DB2000, v23, OS_LOG_TYPE_ERROR, "missing content hash, provenance row is not enumerable: %@", buf, 0xCu);
       }
 
@@ -83,7 +82,7 @@
       goto LABEL_43;
     }
 
-    v64 = contentData;
+    v63 = contentData;
     deviceRowId = [provenance deviceRowId];
     v17 = [(CCDatabaseDeviceMapping *)self->_deviceMapping siteIdentifierForDeviceRowId:deviceRowId];
     if (!v17)
@@ -91,10 +90,10 @@
       v25 = __biome_log_for_category();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        *buf = v56;
-        v66 = deviceRowId;
-        v67 = 2112;
-        v68 = provenance;
+        *buf = v55;
+        v65 = deviceRowId;
+        v66 = 2112;
+        v67 = provenance;
         _os_log_error_impl(&dword_1B6DB2000, v25, OS_LOG_TYPE_ERROR, "could not find device with rowId: %@ for provenance row: %@", buf, 0x16u);
       }
 
@@ -104,9 +103,9 @@
       goto LABEL_42;
     }
 
-    v62 = instanceHash;
-    v60 = v8;
-    v63 = [(CCDatabaseDeviceMapping *)self->_deviceMapping deviceForDeviceRowId:deviceRowId];
+    v61 = instanceHash;
+    v59 = v8;
+    v62 = [(CCDatabaseDeviceMapping *)self->_deviceMapping deviceForDeviceRowId:deviceRowId];
     contentState = [provenance contentState];
     unsignedIntValue = [contentState unsignedIntValue];
 
@@ -120,7 +119,7 @@
 
     if (([p_super containsContentHash:contentHash]& 1) != 0)
     {
-      v59 = p_super;
+      v58 = p_super;
       v22 = self->_nextRow;
       self->_nextRow = 0;
       goto LABEL_20;
@@ -133,39 +132,39 @@ LABEL_19:
       v27 = self->_nextRow;
       self->_nextRow = 0;
 
-      v22 = [(CCDatabaseSetChangeEnumerator *)self _contentMessageFromContentData:v64];
+      v22 = [(CCDatabaseSetChangeEnumerator *)self _contentMessageFromContentData:v63];
       v28 = [[CCSharedItem alloc] initWithSharedIdentifier:contentHash content:v22];
-      v59 = [[CCMutableSetChange alloc] initWithSharedItem:v28 changeType:1];
+      v58 = [[CCMutableSetChange alloc] initWithSharedItem:v28 changeType:1];
 
 LABEL_20:
       contentSequenceNumber = [provenance contentSequenceNumber];
       unsignedIntegerValue = [contentSequenceNumber unsignedIntegerValue];
 
-      v61 = [objc_alloc(getCKDistributedTimestampClass()) initWithSiteIdentifierObject:v17 clockValue:unsignedIntegerValue];
+      v60 = [objc_alloc(getCKDistributedTimestampClass()) initWithSiteIdentifierObject:v17 clockValue:unsignedIntegerValue];
       if (unsignedIntValue == 2)
       {
-        p_super = &v59->super;
-        if ([(CKDistributedTimestampStateVector *)self->_contentRemovalsVector atomStateForTimestamp:v61]== 2)
+        p_super = &v58->super;
+        if ([(CKDistributedTimestampStateVector *)self->_contentRemovalsVector atomStateForTimestamp:v60]== 2)
         {
-          [(CCMutableSetChange *)v59 appendRemovedDevices:v63];
+          [(CCMutableSetChange *)v58 appendRemovedDevices:v62];
           [(CCDatabaseSetStateVectorBuilder *)self->_seenContentBuilder addClockValue:unsignedIntegerValue withAtomState:2 forDeviceRowId:deviceRowId];
         }
       }
 
       else
       {
-        p_super = &v59->super;
+        p_super = &v58->super;
         if (unsignedIntValue == 1)
         {
-          if ([(CKDistributedTimestampStateVector *)self->_contentContentsVector atomStateForTimestamp:v61]== 1)
+          if ([(CKDistributedTimestampStateVector *)self->_contentContentsVector atomStateForTimestamp:v60]== 1)
           {
-            [(CCMutableSetChange *)v59 appendAddedDevices:v63];
+            [(CCMutableSetChange *)v58 appendAddedDevices:v62];
             [(CCDatabaseSetStateVectorBuilder *)self->_seenContentBuilder addClockValue:unsignedIntegerValue withAtomState:1 forDeviceRowId:deviceRowId];
           }
 
           if (unsignedIntValue2 != 2)
           {
-            [(CCMutableSetChange *)v59 appendAllDevices:v63];
+            [(CCMutableSetChange *)v58 appendAllDevices:v62];
           }
         }
       }
@@ -182,7 +181,7 @@ LABEL_20:
         {
           if ([(CKDistributedTimestampStateVector *)self->_metaContentRemovalsVector atomStateForTimestamp:v34]== 2)
           {
-            v39 = [[CCItemInstance alloc] initWithSharedIdentifier:contentHash instanceIdentifier:v62 content:0 metaContent:0];
+            v39 = [[CCItemInstance alloc] initWithSharedIdentifier:contentHash instanceIdentifier:v61 content:0 metaContent:0];
             [p_super appendRemovedLocalInstances:v39];
             [(CCDatabaseSetStateVectorBuilder *)self->_seenMetaContentBuilder addClockValue:unsignedIntegerValue2 withAtomState:2 forDeviceRowId:deviceRowId];
             goto LABEL_38;
@@ -191,17 +190,17 @@ LABEL_20:
 
         else if (unsignedIntValue2 == 1)
         {
-          v58 = v34;
+          v57 = v34;
           if ([(CKDistributedTimestampStateVector *)self->_metaContentContentsVector atomStateForTimestamp:v34]== 1 && metaContentData)
           {
-            v57 = [(CCDatabaseSetChangeEnumerator *)self _metaContentMessageFromMetaContentData:metaContentData];
+            v56 = [(CCDatabaseSetChangeEnumerator *)self _metaContentMessageFromMetaContentData:metaContentData];
             v35 = [CCItemInstance alloc];
             sharedItem = [p_super sharedItem];
             content = [sharedItem content];
-            v38 = [(CCItemInstance *)v35 initWithSharedIdentifier:contentHash instanceIdentifier:v62 content:content metaContent:v57];
+            v38 = [(CCItemInstance *)v35 initWithSharedIdentifier:contentHash instanceIdentifier:v61 content:content metaContent:v56];
 
-            p_super = &v59->super;
-            [(CCMutableSetChange *)v59 appendAddedLocalInstances:v38];
+            p_super = &v58->super;
+            [(CCMutableSetChange *)v58 appendAddedLocalInstances:v38];
             [(CCDatabaseSetStateVectorBuilder *)self->_seenMetaContentBuilder addClockValue:unsignedIntegerValue2 withAtomState:1 forDeviceRowId:deviceRowId];
 
             goto LABEL_37;
@@ -214,11 +213,11 @@ LABEL_37:
             v40 = [CCItemInstance alloc];
             sharedItem2 = [p_super sharedItem];
             content2 = [sharedItem2 content];
-            v43 = [(CCItemInstance *)v40 initWithSharedIdentifier:contentHash instanceIdentifier:v62 content:content2 metaContent:v39];
+            v43 = [(CCItemInstance *)v40 initWithSharedIdentifier:contentHash instanceIdentifier:v61 content:content2 metaContent:v39];
 
-            p_super = &v59->super;
-            v34 = v58;
-            [(CCMutableSetChange *)v59 appendAllLocalInstances:v43];
+            p_super = &v58->super;
+            v34 = v57;
+            [(CCMutableSetChange *)v58 appendAllLocalInstances:v43];
 
 LABEL_38:
           }
@@ -231,12 +230,12 @@ LABEL_38:
 
     v24 = 1;
 LABEL_41:
-    v8 = v60;
-    instanceHash = v62;
-    v26 = v63;
+    v8 = v59;
+    instanceHash = v61;
+    v26 = v62;
 LABEL_42:
 
-    contentData = v64;
+    contentData = v63;
 LABEL_43:
 
     objc_autoreleasePoolPop(v8);
@@ -290,8 +289,6 @@ LABEL_56:
 
   v49 = [p_super copy];
 LABEL_59:
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v49;
 }
@@ -355,7 +352,6 @@ LABEL_9:
 
 - (int64_t)_localResourceGenerationFromDatabaseDeviceMapping
 {
-  p_deviceMapping = &self->_deviceMapping;
   localDeviceSite = [(CCDatabaseDeviceMapping *)self->_deviceMapping localDeviceSite];
   resourceGeneration = [localDeviceSite resourceGeneration];
 
@@ -366,10 +362,10 @@ LABEL_9:
 
   else
   {
-    v6 = __biome_log_for_category();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(CCDatabaseSetChangeEnumerator *)p_deviceMapping _localResourceGenerationFromDatabaseDeviceMapping];
+      [CCDatabaseSetChangeEnumerator _localResourceGenerationFromDatabaseDeviceMapping];
     }
 
     longLongValue = -1;
@@ -411,7 +407,7 @@ LABEL_3:
   v9 = __biome_log_for_category();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(CCDatabaseSetChangeEnumerator *)self _lastDeltaDate];
+    [CCDatabaseSetChangeEnumerator _lastDeltaDate];
   }
 
   return -1;
@@ -419,10 +415,21 @@ LABEL_3:
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "dealloc - %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = 0;
+  v3 = [(CCDatabaseSetChangeEnumerator *)self reset:&v7];
+  v4 = v7;
+  if (!v3)
+  {
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [CCDatabaseSetChangeEnumerator dealloc];
+    }
+  }
+
+  v6.receiver = self;
+  v6.super_class = CCDatabaseSetChangeEnumerator;
+  [(CCDatabaseSetChangeEnumerator *)&v6 dealloc];
 }
 
 - (CCDatabaseSetChangeEnumerator)init
@@ -450,11 +457,11 @@ LABEL_3:
 
 - (BOOL)beginWithBookmark:(id)bookmark error:(id *)error
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
-  v70 = 0;
-  v7 = [(CCDatabaseSetChangeEnumerator *)self _obtainDatabaseAccess:&v70];
-  v8 = v70;
+  v69 = 0;
+  v7 = [(CCDatabaseSetChangeEnumerator *)self _obtainDatabaseAccess:&v69];
+  v8 = v69;
   v9 = v8;
   if (!v7)
   {
@@ -470,9 +477,9 @@ LABEL_3:
         {
           v26 = objc_opt_class();
           *buf = 138412546;
-          v84 = v26;
-          v85 = 2112;
-          v86 = v9;
+          v83 = v26;
+          v84 = 2112;
+          v85 = v9;
           _os_log_impl(&dword_1B6DB2000, lastMetaContentStateVector, OS_LOG_TYPE_DEFAULT, "%@: %@", buf, 0x16u);
         }
 
@@ -488,18 +495,18 @@ LABEL_19:
 
     v27 = MEMORY[0x1E696ABC0];
     v28 = *MEMORY[0x1E698F0B0];
-    v81[0] = *MEMORY[0x1E696A578];
+    v80[0] = *MEMORY[0x1E696A578];
     lastMetaContentStateVector = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ failed access database", objc_opt_class()];
-    v82[0] = lastMetaContentStateVector;
-    v81[1] = *MEMORY[0x1E696AA08];
+    v81[0] = lastMetaContentStateVector;
+    v80[1] = *MEMORY[0x1E696AA08];
     null = v9;
     if (!v9)
     {
       null = [MEMORY[0x1E695DFB0] null];
     }
 
-    v82[1] = null;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:v81 count:2];
+    v81[1] = null;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
     v31 = [v27 errorWithDomain:v28 code:3 userInfo:v30];
     CCSetError(error, v31);
 
@@ -511,31 +518,31 @@ LABEL_19:
   }
 
   stateReader = self->_stateReader;
-  v69 = v9;
-  v11 = [(CCDatabaseSetStateReader *)stateReader constructDeviceMapping:&v69];
-  v12 = v69;
+  v68 = v9;
+  v11 = [(CCDatabaseSetStateReader *)stateReader constructDeviceMapping:&v68];
+  v12 = v68;
 
   deviceMapping = self->_deviceMapping;
   self->_deviceMapping = v11;
 
   if (!self->_deviceMapping)
   {
-    v36 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E698F0B0];
-    v79[0] = *MEMORY[0x1E696A578];
+    v35 = MEMORY[0x1E696ABC0];
+    v36 = *MEMORY[0x1E698F0B0];
+    v78[0] = *MEMORY[0x1E696A578];
     lastMetaContentStateVector = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@ failed to construct device mapping", objc_opt_class()];
-    v80[0] = lastMetaContentStateVector;
-    v79[1] = *MEMORY[0x1E696AA08];
+    v79[0] = lastMetaContentStateVector;
+    v78[1] = *MEMORY[0x1E696AA08];
     null2 = v12;
     if (!v12)
     {
       null2 = [MEMORY[0x1E695DFB0] null];
     }
 
-    v80[1] = null2;
-    v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:v79 count:2];
-    v40 = [v36 errorWithDomain:v37 code:3 userInfo:v39];
-    CCSetError(error, v40);
+    v79[1] = null2;
+    v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:v78 count:2];
+    v39 = [v35 errorWithDomain:v36 code:3 userInfo:v38];
+    CCSetError(error, v39);
 
     if (v12)
     {
@@ -551,9 +558,9 @@ LABEL_19:
     lastMetaContentStateVector = __biome_log_for_category();
     if (os_log_type_enabled(lastMetaContentStateVector, OS_LOG_TYPE_DEFAULT))
     {
-      v41 = objc_opt_class();
+      v40 = objc_opt_class();
       *buf = 138412290;
-      v84 = v41;
+      v83 = v40;
       _os_log_impl(&dword_1B6DB2000, lastMetaContentStateVector, OS_LOG_TYPE_DEFAULT, "%@ Will complete enumeration without error due to invalid database state", buf, 0xCu);
     }
 
@@ -562,13 +569,13 @@ LABEL_19:
 
   if (!bookmarkCopy)
   {
-    v42 = objc_alloc_init(getCKDistributedTimestampStateVectorClass_0());
+    v41 = objc_alloc_init(getCKDistributedTimestampStateVectorClass_0());
     lastContentStateVector = self->_lastContentStateVector;
-    self->_lastContentStateVector = v42;
+    self->_lastContentStateVector = v41;
 
-    v44 = objc_alloc_init(getCKDistributedTimestampStateVectorClass_0());
+    v43 = objc_alloc_init(getCKDistributedTimestampStateVectorClass_0());
     lastMetaContentStateVector = self->_lastMetaContentStateVector;
-    self->_lastMetaContentStateVector = v44;
+    self->_lastMetaContentStateVector = v43;
     goto LABEL_29;
   }
 
@@ -576,18 +583,18 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v46 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v77 = *MEMORY[0x1E696A578];
-    v47 = MEMORY[0x1E696AEC0];
+    v45 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v76 = *MEMORY[0x1E696A578];
+    v46 = MEMORY[0x1E696AEC0];
+    v47 = objc_opt_class();
+    lastMetaContentStateVector = NSStringFromClass(v47);
     v48 = objc_opt_class();
-    lastMetaContentStateVector = NSStringFromClass(v48);
-    v49 = objc_opt_class();
-    v50 = NSStringFromClass(v49);
-    v51 = [v47 stringWithFormat:@"The provided bookmark was of class %@, but we expected %@", lastMetaContentStateVector, v50];
-    v78 = v51;
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-    v53 = [v46 initWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v52];
-    CCSetError(error, v53);
+    v49 = NSStringFromClass(v48);
+    v50 = [v46 stringWithFormat:@"The provided bookmark was of class %@, but we expected %@", lastMetaContentStateVector, v49];
+    v77 = v50;
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v52 = [v45 initWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:v51];
+    CCSetError(error, v52);
 
     goto LABEL_20;
   }
@@ -597,17 +604,17 @@ LABEL_19:
   bookmarkVersion = [lastMetaContentStateVector bookmarkVersion];
   if (bookmarkVersion != v17)
   {
-    v56 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E698F0B0];
-    v75 = *MEMORY[0x1E696A278];
+    v55 = MEMORY[0x1E696ABC0];
+    v56 = *MEMORY[0x1E698F0B0];
+    v74 = *MEMORY[0x1E696A278];
     null2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Current bookmark version requirement (%d) invalidates the provided bookmark (%d): %@", v17, bookmarkVersion, lastMetaContentStateVector];
-    v76 = null2;
-    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v75 = null2;
+    v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+    v58 = v55;
     v59 = v56;
-    v60 = v57;
 LABEL_42:
-    v67 = [v59 errorWithDomain:v60 code:2 userInfo:v58];
-    CCSetError(error, v67);
+    v66 = [v58 errorWithDomain:v59 code:2 userInfo:v57];
+    CCSetError(error, v66);
 
 LABEL_43:
     goto LABEL_20;
@@ -616,14 +623,14 @@ LABEL_43:
   localResourceGeneration = [lastMetaContentStateVector localResourceGeneration];
   if (!localResourceGeneration || localResourceGeneration != v15)
   {
-    v65 = MEMORY[0x1E696ABC0];
-    v66 = *MEMORY[0x1E698F0B0];
-    v73 = *MEMORY[0x1E696A278];
+    v64 = MEMORY[0x1E696ABC0];
+    v65 = *MEMORY[0x1E698F0B0];
+    v72 = *MEMORY[0x1E696A278];
     null2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Database resource generation (%lld) invalidates the provided bookmark (%lld): %@", v15, localResourceGeneration, lastMetaContentStateVector];
-    v74 = null2;
-    v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+    v73 = null2;
+    v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v58 = v64;
     v59 = v65;
-    v60 = v66;
     goto LABEL_42;
   }
 
@@ -636,11 +643,11 @@ LABEL_43:
   self->_lastMetaContentStateVector = metaContentVector;
 
 LABEL_29:
-  v68 = v12;
-  v45 = [(CCDatabaseSetChangeEnumerator *)self _imputeChanges:&v68];
-  v33 = v68;
+  v67 = v12;
+  v44 = [(CCDatabaseSetChangeEnumerator *)self _imputeChanges:&v67];
+  v33 = v67;
 
-  if (v45)
+  if (v44)
   {
     v32 = 1;
     goto LABEL_21;
@@ -649,27 +656,27 @@ LABEL_29:
   domain2 = [v33 domain];
   if ([domain2 isEqual:@"com.apple.CascadeSets.Set"])
   {
-    v55 = 2 * ([v33 code]== 2);
+    v54 = 2 * ([v33 code]== 2);
   }
 
   else
   {
-    v55 = 0;
+    v54 = 0;
   }
 
-  v61 = MEMORY[0x1E696ABC0];
-  v62 = *MEMORY[0x1E698F0B0];
-  v71 = *MEMORY[0x1E696AA08];
+  v60 = MEMORY[0x1E696ABC0];
+  v61 = *MEMORY[0x1E698F0B0];
+  v70 = *MEMORY[0x1E696AA08];
   lastMetaContentStateVector = v33;
   if (!v33)
   {
     lastMetaContentStateVector = [MEMORY[0x1E695DFB0] null];
   }
 
-  v72 = lastMetaContentStateVector;
-  v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-  v64 = [v61 errorWithDomain:v62 code:v55 userInfo:v63];
-  CCSetError(error, v64);
+  v71 = lastMetaContentStateVector;
+  v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+  v63 = [v60 errorWithDomain:v61 code:v54 userInfo:v62];
+  CCSetError(error, v63);
 
   if (v33)
   {
@@ -684,7 +691,6 @@ LABEL_20:
   v33 = v12;
 LABEL_21:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -766,7 +772,7 @@ LABEL_21:
 
 - (BOOL)_resetDatabaseAccess:(id *)access
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   databaseAccess = self->_databaseAccess;
   if (!databaseAccess)
   {
@@ -774,9 +780,9 @@ LABEL_21:
     goto LABEL_9;
   }
 
-  v16 = 0;
-  v5 = [(CCDatabaseReadOnlyAccess *)databaseAccess reset:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [(CCDatabaseReadOnlyAccess *)databaseAccess reset:&v15];
+  v6 = v15;
   v7 = v6;
   if (v5)
   {
@@ -787,17 +793,17 @@ LABEL_9:
 
   v8 = MEMORY[0x1E696ABC0];
   v9 = *MEMORY[0x1E698F0B0];
-  v17[0] = *MEMORY[0x1E696AA08];
+  v16[0] = *MEMORY[0x1E696AA08];
   null = v6;
   if (!v6)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v17[1] = *MEMORY[0x1E696A278];
-  v18[0] = null;
-  v18[1] = @"Failed to reset database";
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[1] = *MEMORY[0x1E696A278];
+  v17[0] = null;
+  v17[1] = @"Failed to reset database";
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
   v12 = [v8 errorWithDomain:v9 code:0 userInfo:v11];
   CCSetError(access, v12);
 
@@ -808,36 +814,35 @@ LABEL_9:
   v13 = 0;
 LABEL_10:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (id)sharedItemCount:(id *)count
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if ([(CCDatabaseSetChangeEnumerator *)self _obtainDatabaseAccess:?])
   {
     stateReader = self->_stateReader;
-    v17 = 0;
-    v6 = [(CCDatabaseSetStateReader *)stateReader sharedItemCount:&v17];
-    v7 = v17;
+    v16 = 0;
+    v6 = [(CCDatabaseSetStateReader *)stateReader sharedItemCount:&v16];
+    v7 = v16;
     v8 = v7;
     if (!v6)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E698F0B0];
-      v18[0] = *MEMORY[0x1E696AA08];
+      v17[0] = *MEMORY[0x1E696AA08];
       null = v7;
       if (!v7)
       {
         null = [MEMORY[0x1E695DFB0] null];
       }
 
-      v18[1] = *MEMORY[0x1E696A278];
-      v19[0] = null;
+      v17[1] = *MEMORY[0x1E696A278];
+      v18[0] = null;
       v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to count shared items in set: %@", self->_set];
-      v19[1] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      v18[1] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
       v14 = [v9 errorWithDomain:v10 code:0 userInfo:v13];
       CCSetError(count, v14);
 
@@ -851,38 +856,36 @@ LABEL_10:
   {
     v6 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)itemInstanceCount:(id *)count
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   if ([(CCDatabaseSetChangeEnumerator *)self _obtainDatabaseAccess:?])
   {
     stateReader = self->_stateReader;
-    v17 = 0;
-    v6 = [(CCDatabaseSetStateReader *)stateReader itemInstanceCount:&v17];
-    v7 = v17;
+    v16 = 0;
+    v6 = [(CCDatabaseSetStateReader *)stateReader itemInstanceCount:&v16];
+    v7 = v16;
     v8 = v7;
     if (!v6)
     {
       v9 = MEMORY[0x1E696ABC0];
       v10 = *MEMORY[0x1E698F0B0];
-      v18[0] = *MEMORY[0x1E696AA08];
+      v17[0] = *MEMORY[0x1E696AA08];
       null = v7;
       if (!v7)
       {
         null = [MEMORY[0x1E695DFB0] null];
       }
 
-      v18[1] = *MEMORY[0x1E696A278];
-      v19[0] = null;
+      v17[1] = *MEMORY[0x1E696A278];
+      v18[0] = null;
       v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to count item instances in set: %@", self->_set];
-      v19[1] = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+      v18[1] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
       v14 = [v9 errorWithDomain:v10 code:0 userInfo:v13];
       CCSetError(count, v14);
 
@@ -896,8 +899,6 @@ LABEL_10:
   {
     v6 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -911,7 +912,7 @@ LABEL_10:
     v6 = __biome_log_for_category();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [CCSerializedSetChangeEnumerator isBookmarkUpToDate:];
+      [CCSerializedSetChangeEnumerator isBookmarkUpToDate:dateCopy];
     }
 
     goto LABEL_10;
@@ -947,16 +948,16 @@ LABEL_11:
 
 - (BOOL)_imputeChanges:(id *)changes
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   stateReader = self->_stateReader;
   deviceMapping = self->_deviceMapping;
-  v93 = 0;
-  v94 = 0;
   v92 = 0;
-  v6 = [(CCDatabaseSetStateReader *)stateReader constructStateVectorsFromDatabaseWithDeviceMapping:deviceMapping outContent:&v94 outMetaContent:&v93 error:&v92];
-  v73 = v94;
-  v71 = v93;
-  v72 = v92;
+  v93 = 0;
+  v91 = 0;
+  v6 = [(CCDatabaseSetStateReader *)stateReader constructStateVectorsFromDatabaseWithDeviceMapping:deviceMapping outContent:&v93 outMetaContent:&v92 error:&v91];
+  v72 = v93;
+  v70 = v92;
+  v71 = v91;
   v7 = __biome_log_for_category();
   v8 = v7;
   if (!v6)
@@ -966,7 +967,7 @@ LABEL_11:
       [CCDatabaseSetChangeEnumerator _imputeChanges:];
     }
 
-    CCSetError(changes, v72);
+    CCSetError(changes, v71);
     goto LABEL_32;
   }
 
@@ -981,7 +982,7 @@ LABEL_11:
     [CCDatabaseSetChangeEnumerator _imputeChanges:];
   }
 
-  if (!v73)
+  if (!v72)
   {
     v18 = __biome_log_for_category();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -992,7 +993,7 @@ LABEL_11:
     goto LABEL_31;
   }
 
-  if (!v71)
+  if (!v70)
   {
     v18 = __biome_log_for_category();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -1007,62 +1008,62 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  v90 = 0u;
-  v91 = 0u;
-  v88 = 0u;
   v89 = 0u;
+  v90 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   p_lastContentStateVector = &self->_lastContentStateVector;
   obj = [(CKDistributedTimestampStateVector *)self->_lastContentStateVector allSiteIdentifiers];
-  v10 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+  v10 = [obj countByEnumeratingWithState:&v87 objects:v96 count:16];
   if (v10)
   {
-    v77 = 0;
-    v11 = *v89;
+    v76 = 0;
+    v11 = *v88;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v89 != v11)
+        if (*v88 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v88 + 1) + 8 * i);
+        v13 = *(*(&v87 + 1) + 8 * i);
         v14 = [(CCDatabaseDeviceMapping *)self->_deviceMapping deviceRowIdForSiteIdentifier:v13];
 
         if (!v14)
         {
-          v84 = 0;
-          v85 = &v84;
-          v86 = 0x2020000000;
-          v87 = 0;
+          v83 = 0;
+          v84 = &v83;
+          v85 = 0x2020000000;
+          v86 = 0;
           v15 = *p_lastContentStateVector;
-          v83[0] = MEMORY[0x1E69E9820];
-          v83[1] = 3221225472;
-          v83[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke;
-          v83[3] = &unk_1E7C8B800;
-          v83[4] = &v84;
-          [v15 enumerateClockValuesForSiteIdentifier:v13 usingBlock:v83];
-          if (*(v85 + 24) == 1)
+          v82[0] = MEMORY[0x1E69E9820];
+          v82[1] = 3221225472;
+          v82[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke;
+          v82[3] = &unk_1E7C8B800;
+          v82[4] = &v83;
+          [v15 enumerateClockValuesForSiteIdentifier:v13 usingBlock:v82];
+          if (*(v84 + 24) == 1)
           {
-            v22 = __biome_log_for_category();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v21 = __biome_log_for_category();
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
             {
-              v23 = [CCDatabaseDeviceMapping descriptionForSiteIdentifier:v13];
-              [(CCDatabaseSetChangeEnumerator *)v23 _imputeChanges:buf, v22];
+              v22 = [CCDatabaseDeviceMapping descriptionForSiteIdentifier:v13];
+              [(CCDatabaseSetChangeEnumerator *)v22 _imputeChanges:buf, v21];
             }
 
-            v24 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
-            CCSetError(changes, v24);
+            v23 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
+            CCSetError(changes, v23);
 
-            _Block_object_dispose(&v84, 8);
+            _Block_object_dispose(&v83, 8);
             v19 = 0;
             goto LABEL_92;
           }
 
-          if (!v77)
+          if (!v76)
           {
-            v77 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v76 = objc_alloc_init(MEMORY[0x1E695DF70]);
           }
 
           v16 = __biome_log_for_category();
@@ -1070,16 +1071,16 @@ LABEL_32:
           {
             v17 = [CCDatabaseDeviceMapping descriptionForSiteIdentifier:v13];
             *buf = 138412290;
-            v96 = v17;
+            v95 = v17;
             _os_log_impl(&dword_1B6DB2000, v16, OS_LOG_TYPE_DEFAULT, "Found expired site: %@ eligible for cleanup from the client provided state vector", buf, 0xCu);
           }
 
-          [v77 addObject:v13];
-          _Block_object_dispose(&v84, 8);
+          [v76 addObject:v13];
+          _Block_object_dispose(&v83, 8);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v88 objects:v97 count:16];
+      v10 = [obj countByEnumeratingWithState:&v87 objects:v96 count:16];
       if (v10)
       {
         continue;
@@ -1091,64 +1092,70 @@ LABEL_32:
 
   else
   {
-    v77 = 0;
+    v76 = 0;
   }
 
-  if ([v77 count])
+  if ([v76 count])
   {
-    [CCDatabaseSetStateVectorBuilder removeSiteIdentifiers:v77 fromStateVector:*p_lastContentStateVector];
+    [CCDatabaseSetStateVectorBuilder removeSiteIdentifiers:v76 fromStateVector:*p_lastContentStateVector];
+  }
+
+  v24 = __biome_log_for_category();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  {
+    [CCDatabaseSetChangeEnumerator _imputeChanges:];
   }
 
   v25 = __biome_log_for_category();
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    [CCDatabaseSetChangeEnumerator _imputeChanges:?];
-  }
-
-  v26 = __biome_log_for_category();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
-  {
     [CCDatabaseSetChangeEnumerator _imputeChanges:];
   }
 
   obj = [*p_lastContentStateVector clockVector];
-  v27 = [v73 isGreaterThanOrEqualToVector:obj];
-  v28 = __biome_log_for_category();
-  v29 = v28;
-  if (v27)
+  v26 = [v72 isGreaterThanOrEqualToVector:obj];
+  v27 = __biome_log_for_category();
+  v28 = v27;
+  if (v26)
   {
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      [CCDatabaseSetChangeEnumerator _imputeChanges:?];
+      [CCDatabaseSetChangeEnumerator _imputeChanges:];
     }
 
-    v30 = __biome_log_for_category();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v29 = __biome_log_for_category();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       [CCDatabaseSetChangeEnumerator _imputeChanges:];
     }
 
     clockVector = [(CKDistributedTimestampStateVector *)self->_lastMetaContentStateVector clockVector];
-    if (([v71 isGreaterThanOrEqualToVector:clockVector] & 1) == 0)
+    if (([v70 isGreaterThanOrEqualToVector:clockVector] & 1) == 0)
     {
-      v63 = __biome_log_for_category();
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
+      v62 = __biome_log_for_category();
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_FAULT))
       {
-        [(CCDatabaseSetChangeEnumerator *)v71 _imputeChanges:?];
+        [CCDatabaseSetChangeEnumerator _imputeChanges:];
       }
 
-      v32 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
-      CCSetError(changes, v32);
+      v31 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
+      CCSetError(changes, v31);
       v19 = 0;
       goto LABEL_90;
     }
 
-    v32 = [objc_alloc(getCKMergeableDeltaVectorsClass()) initWithPreviousStateVector:*p_lastContentStateVector currentStateVector:v73];
-    contents = [v32 contents];
-    removals = [v32 removals];
-    v75 = [objc_alloc(getCKMergeableDeltaVectorsClass()) initWithPreviousStateVector:self->_lastMetaContentStateVector currentStateVector:v71];
-    contents2 = [v75 contents];
-    removals2 = [v75 removals];
+    v31 = [objc_alloc(getCKMergeableDeltaVectorsClass()) initWithPreviousStateVector:*p_lastContentStateVector currentStateVector:v72];
+    contents = [v31 contents];
+    removals = [v31 removals];
+    v74 = [objc_alloc(getCKMergeableDeltaVectorsClass()) initWithPreviousStateVector:self->_lastMetaContentStateVector currentStateVector:v70];
+    contents2 = [v74 contents];
+    removals2 = [v74 removals];
+    v34 = __biome_log_for_category();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    {
+      [CCDatabaseSetChangeEnumerator _imputeChanges:];
+    }
+
     v35 = __biome_log_for_category();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
@@ -1167,29 +1174,48 @@ LABEL_32:
       [CCDatabaseSetChangeEnumerator _imputeChanges:];
     }
 
-    v38 = __biome_log_for_category();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v83 = 0;
+    v84 = &v83;
+    v85 = 0x2020000000;
+    v86 = 1;
+    v38 = objc_autoreleasePoolPush();
+    v39 = self->_stateReader;
+    v40 = self->_deviceMapping;
+    v80[4] = &v83;
+    v81 = 0;
+    v80[0] = MEMORY[0x1E69E9820];
+    v80[1] = 3221225472;
+    v80[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke_48;
+    v80[3] = &unk_1E7C8B828;
+    v41 = [(CCDatabaseSetStateReader *)v39 enumerateProvenanceRecordsForStateVector:removals withType:0 selectAtomsInState:2 skipOverAtomsInState:1 deviceMapping:v40 error:&v81 usingBlock:v80];
+    v42 = v81;
+    objc_autoreleasePoolPop(v38);
+    if (!v41)
     {
-      [CCDatabaseSetChangeEnumerator _imputeChanges:];
+      v63 = __biome_log_for_category();
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      {
+        [CCDatabaseSetChangeEnumerator _imputeChanges:];
+      }
+
+      CCSetError(changes, v42);
+      v19 = 0;
+      goto LABEL_89;
     }
 
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x2020000000;
-    v87 = 1;
-    v39 = objc_autoreleasePoolPush();
-    v40 = self->_stateReader;
-    v41 = self->_deviceMapping;
-    v81[4] = &v84;
-    v82 = 0;
-    v81[0] = MEMORY[0x1E69E9820];
-    v81[1] = 3221225472;
-    v81[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke_48;
-    v81[3] = &unk_1E7C8B828;
-    v42 = [(CCDatabaseSetStateReader *)v40 enumerateProvenanceRecordsForStateVector:removals withType:0 selectAtomsInState:2 skipOverAtomsInState:1 deviceMapping:v41 error:&v82 usingBlock:v81];
-    v43 = v82;
-    objc_autoreleasePoolPop(v39);
-    if (!v42)
+    v43 = objc_autoreleasePoolPush();
+    v44 = self->_stateReader;
+    v45 = self->_deviceMapping;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke_50;
+    v78[3] = &unk_1E7C8B828;
+    v78[4] = &v83;
+    v79 = 0;
+    v46 = [(CCDatabaseSetStateReader *)v44 enumerateProvenanceRecordsForStateVector:removals2 withType:1 selectAtomsInState:2 skipOverAtomsInState:1 deviceMapping:v45 error:&v79 usingBlock:v78];
+    v66 = v79;
+    objc_autoreleasePoolPop(v43);
+    if (!v46)
     {
       v64 = __biome_log_for_category();
       if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
@@ -1197,24 +1223,64 @@ LABEL_32:
         [CCDatabaseSetChangeEnumerator _imputeChanges:];
       }
 
-      CCSetError(changes, v43);
+      CCSetError(changes, v66);
       v19 = 0;
-      goto LABEL_89;
+      goto LABEL_88;
     }
 
-    v44 = objc_autoreleasePoolPush();
-    v45 = self->_stateReader;
-    v46 = self->_deviceMapping;
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __48__CCDatabaseSetChangeEnumerator__imputeChanges___block_invoke_50;
-    v79[3] = &unk_1E7C8B828;
-    v79[4] = &v84;
-    v80 = 0;
-    v47 = [(CCDatabaseSetStateReader *)v45 enumerateProvenanceRecordsForStateVector:removals2 withType:1 selectAtomsInState:2 skipOverAtomsInState:1 deviceMapping:v46 error:&v80 usingBlock:v79];
-    v67 = v80;
-    objc_autoreleasePoolPop(v44);
-    if (!v47)
+    if (v84[3])
+    {
+      objc_storeStrong(&self->_contentContentsVector, contents);
+      objc_storeStrong(&self->_contentRemovalsVector, removals);
+      objc_storeStrong(&self->_metaContentContentsVector, contents2);
+      objc_storeStrong(&self->_metaContentRemovalsVector, removals2);
+      v47 = [[CCDatabaseSetStateVectorBuilder alloc] initWithDeviceMapping:self->_deviceMapping missingAtomsImplied:0];
+      seenContentBuilder = self->_seenContentBuilder;
+      self->_seenContentBuilder = v47;
+
+      v49 = [[CCDatabaseSetStateVectorBuilder alloc] initWithDeviceMapping:self->_deviceMapping missingAtomsImplied:0];
+      seenMetaContentBuilder = self->_seenMetaContentBuilder;
+      self->_seenMetaContentBuilder = v49;
+
+      v51 = objc_autoreleasePoolPush();
+      v52 = self->_stateReader;
+      v53 = self->_seenContentBuilder;
+      v54 = self->_seenMetaContentBuilder;
+      v55 = self->_deviceMapping;
+      v77 = 0;
+      v56 = [(CCDatabaseSetStateReader *)v52 provenanceRecordEnumeratorForContentDeltaVector:v31 metaContentDeltaVector:v74 seenContentBuilder:v53 seenMetaContentBuilder:v54 deviceMapping:v55 error:&v77];
+      v57 = v77;
+      objc_autoreleasePoolPop(v51);
+      provenanceEnumerator = self->_provenanceEnumerator;
+      p_provenanceEnumerator = &self->_provenanceEnumerator;
+      *p_provenanceEnumerator = v56;
+
+      if (*p_provenanceEnumerator)
+      {
+        v60 = v57 == 0;
+      }
+
+      else
+      {
+        v60 = 0;
+      }
+
+      v19 = v60;
+      if (v60)
+      {
+        goto LABEL_87;
+      }
+
+      v61 = __biome_log_for_category();
+      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      {
+        [CCDatabaseSetChangeEnumerator _imputeChanges:];
+      }
+
+      CCSetError(changes, v57);
+    }
+
+    else
     {
       v65 = __biome_log_for_category();
       if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
@@ -1222,73 +1288,8 @@ LABEL_32:
         [CCDatabaseSetChangeEnumerator _imputeChanges:];
       }
 
-      CCSetError(changes, v67);
-      v19 = 0;
-      goto LABEL_88;
-    }
-
-    if (v85[3])
-    {
-      objc_storeStrong(&self->_contentContentsVector, contents);
-      objc_storeStrong(&self->_contentRemovalsVector, removals);
-      objc_storeStrong(&self->_metaContentContentsVector, contents2);
-      objc_storeStrong(&self->_metaContentRemovalsVector, removals2);
-      v48 = [[CCDatabaseSetStateVectorBuilder alloc] initWithDeviceMapping:self->_deviceMapping missingAtomsImplied:0];
-      seenContentBuilder = self->_seenContentBuilder;
-      self->_seenContentBuilder = v48;
-
-      v50 = [[CCDatabaseSetStateVectorBuilder alloc] initWithDeviceMapping:self->_deviceMapping missingAtomsImplied:0];
-      seenMetaContentBuilder = self->_seenMetaContentBuilder;
-      self->_seenMetaContentBuilder = v50;
-
-      v52 = objc_autoreleasePoolPush();
-      v53 = self->_stateReader;
-      v54 = self->_seenContentBuilder;
-      v55 = self->_seenMetaContentBuilder;
-      v56 = self->_deviceMapping;
-      v78 = 0;
-      v57 = [(CCDatabaseSetStateReader *)v53 provenanceRecordEnumeratorForContentDeltaVector:v32 metaContentDeltaVector:v75 seenContentBuilder:v54 seenMetaContentBuilder:v55 deviceMapping:v56 error:&v78];
-      v58 = v78;
-      objc_autoreleasePoolPop(v52);
-      provenanceEnumerator = self->_provenanceEnumerator;
-      p_provenanceEnumerator = &self->_provenanceEnumerator;
-      *p_provenanceEnumerator = v57;
-
-      if (*p_provenanceEnumerator)
-      {
-        v61 = v58 == 0;
-      }
-
-      else
-      {
-        v61 = 0;
-      }
-
-      v19 = v61;
-      if (v61)
-      {
-        goto LABEL_87;
-      }
-
-      v62 = __biome_log_for_category();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
-      {
-        [CCDatabaseSetChangeEnumerator _imputeChanges:?];
-      }
-
-      CCSetError(changes, v58);
-    }
-
-    else
-    {
-      v66 = __biome_log_for_category();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
-      {
-        [CCDatabaseSetChangeEnumerator _imputeChanges:];
-      }
-
-      v58 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
-      CCSetError(changes, v58);
+      v57 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
+      CCSetError(changes, v57);
     }
 
     v19 = 0;
@@ -1297,15 +1298,15 @@ LABEL_87:
 LABEL_88:
 LABEL_89:
 
-    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v83, 8);
 LABEL_90:
 
     goto LABEL_91;
   }
 
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
   {
-    [(CCDatabaseSetChangeEnumerator *)v73 _imputeChanges:?];
+    [CCDatabaseSetChangeEnumerator _imputeChanges:];
   }
 
   clockVector = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.CascadeSets.Set" code:2 userInfo:0];
@@ -1316,7 +1317,6 @@ LABEL_91:
 LABEL_92:
 LABEL_33:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1491,64 +1491,23 @@ uint64_t __68__CCDatabaseSetChangeEnumerator_localItemInstanceCountFromBookmark_
 
 - (void)nextBookmark
 {
-  v10 = *MEMORY[0x1E69E9840];
   error = [*self error];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1B6DB2000, v2, v3, "Returning nil bookmark after enumerator error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_localResourceGenerationFromDatabaseDeviceMapping
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *self;
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v2, v3, "Unexpected - local resource version not found in device mapping: %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_1B6DB2000, v2, v3, "Returning nil bookmark after enumerator error: %@", v4, v5, v6, v7);
 }
 
 - (void)_lastDeltaDate
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(self + 8);
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v2, v3, "failed to read last delta date for set: %@ error: %@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "failed to read last delta date for set: %@ error: %@");
 }
 
 - (void)isBookmarkUpToDate:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "Failed to access database for bookmark: %@ error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to construct content and metacontent state vectors from database: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "contentStateVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "metaContentStateVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_imputeChanges:(uint8_t *)buf .cold.4(void *a1, uint64_t *a2, uint8_t *buf, os_log_t log)
@@ -1561,106 +1520,11 @@ uint64_t __68__CCDatabaseSetChangeEnumerator_localItemInstanceCountFromBookmark_
   _os_log_error_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_ERROR, "Client provided state vector contains present content for site: %@ which has already expired and been cleaned up: %@", buf, 0x16u);
 }
 
-- (void)_imputeChanges:(uint64_t *)a1 .cold.5(uint64_t *a1)
+- (void)_imputeChanges:.cold.18()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v2, v3, "lastContentVector %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:(uint64_t)a1 .cold.7(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_8(&dword_1B6DB2000, v3, v4, "Current content state vector has regressed from last known client provided state vector current:%@ last:%@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:(uint64_t)a1 .cold.8(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v2, v3, "lastMetaContentVector %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:(uint64_t)a1 .cold.10(uint64_t a1, uint64_t *a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *a2;
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_8(&dword_1B6DB2000, v3, v4, "Current meta content state vector has regressed from last known client provided state vector current:%@ last:%@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.11()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "contentContentsVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.12()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "contentRemovalsVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.13()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "metaContentContentsVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.14()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_2(&dword_1B6DB2000, v0, v1, "metaContentRemovalsVector %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.15()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to enumerate provenance rows for tombstoned content: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:.cold.16()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to enumerate provenance rows for tombstoned metacontent: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imputeChanges:(uint64_t *)a1 .cold.18(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v2, v3, "Could not construct provenance enumerator %@ with error: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_contentMessageFromContentData:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "error initializing metacontent message: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1B6DB2000, v0, v1, "Could not construct provenance enumerator %@ with error: %@");
 }
 
 @end

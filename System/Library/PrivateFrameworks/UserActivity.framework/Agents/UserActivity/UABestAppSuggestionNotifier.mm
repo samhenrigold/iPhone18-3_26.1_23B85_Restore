@@ -11,6 +11,7 @@
 - (void)doConnected;
 - (void)doDetermineBestAppSuggestionWithCompletionHandler:(id)handler;
 - (void)doDetermineBestAppSuggestions:(int64_t)suggestions completionHandler:(id)handler;
+- (void)doLaunchFollowUp:(id)up interactionType:(unint64_t)type cancelled:(BOOL)cancelled;
 - (void)doQueueFetchOfPayloadForBestAppSuggestion:(id)suggestion completionHandler:(id)handler;
 - (void)doRegisterForBestAppChangeNotification;
 - (void)doRemoveBestAppSuggestion:(id)suggestion options:(id)options;
@@ -50,7 +51,7 @@
     v5 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -80,7 +81,7 @@
     v5 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -125,16 +126,16 @@
   v11 = v10;
   if (v10)
   {
-    [v10 auditToken];
+    objc_msgSend_auditToken(v10);
   }
 
   else
   {
-    memset(&v38, 0, sizeof(v38));
+    memset(&v40, 0, sizeof(v40));
   }
 
   pidp = 0;
-  atoken = v38;
+  atoken = v40;
   audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
   v12 = proc_pidpath(pidp, buffer, 0x1000u);
   if (v12 < 1 || !buffer[0])
@@ -172,16 +173,16 @@
 LABEL_14:
     if (v11)
     {
-      [v11 auditToken];
+      objc_msgSend_auditToken(v11);
     }
 
     else
     {
-      memset(&v38, 0, sizeof(v38));
+      memset(&v40, 0, sizeof(v40));
     }
 
     pidp = 0;
-    atoken = v38;
+    atoken = v40;
     audit_token_to_au32(&atoken, 0, 0, 0, 0, 0, &pidp, 0, 0);
     pidp = [NSString stringWithFormat:@"(PID:%ld)", pidp];
   }
@@ -196,9 +197,9 @@ LABEL_14:
     v18 = @"BestApp";
   }
 
-  v37.receiver = v7;
-  v37.super_class = UABestAppSuggestionNotifier;
-  v19 = [(UAActivityNotifier *)&v37 initWithManager:v9 name:v18];
+  v39.receiver = v7;
+  v39.super_class = UABestAppSuggestionNotifier;
+  v19 = [(UAActivityNotifier *)&v39 initWithManager:v9 name:v18];
   v20 = v19;
   if (v19)
   {
@@ -207,38 +208,38 @@ LABEL_14:
     [(UABestAppSuggestionNotifier *)v20 setSupressedUntil:v21];
 
     v22 = dispatch_get_global_queue(0, 0);
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10000EAB4;
-    v35[3] = &unk_1000C4D10;
+    v37[0] = _NSConcreteStackBlock;
+    v37[1] = 3221225472;
+    v37[2] = sub_10000EAB4;
+    v37[3] = &unk_1000C4D10;
     v23 = v20;
-    v36 = v23;
-    v24 = [UADispatchScheduler dispatchScheduler:@"bestApp" frequency:v22 queue:v35 block:0.0];
+    v38 = v23;
+    v24 = [UADispatchScheduler dispatchScheduler:@"bestApp" frequency:v22 queue:v37 block:0.0];
     [(UABestAppSuggestionNotifier *)v23 setScheduler:v24];
 
-    v25 = sub_100007154();
-    [v11 setExportedInterface:v25];
+    v26 = sub_100007154(v25);
+    [v11 setExportedInterface:v26];
 
-    v26 = sub_100007198();
-    [v11 setRemoteObjectInterface:v26];
+    v28 = sub_100007198(v27);
+    [v11 setRemoteObjectInterface:v28];
 
     [v11 setExportedObject:v23];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10000EAF8;
+    v35[3] = &unk_1000C4D10;
+    v29 = v23;
+    v36 = v29;
+    connection = [(UABestAppSuggestionNotifier *)v29 connection];
+    [connection setInvalidationHandler:v35];
+
     v33[0] = _NSConcreteStackBlock;
     v33[1] = 3221225472;
-    v33[2] = sub_10000EAF8;
+    v33[2] = sub_10000EC24;
     v33[3] = &unk_1000C4D10;
-    v27 = v23;
-    v34 = v27;
-    connection = [(UABestAppSuggestionNotifier *)v27 connection];
-    [connection setInvalidationHandler:v33];
-
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_10000EC24;
-    v31[3] = &unk_1000C4D10;
-    v32 = v11;
-    connection2 = [(UABestAppSuggestionNotifier *)v27 connection];
-    [connection2 setInterruptionHandler:v31];
+    v34 = v11;
+    connection2 = [(UABestAppSuggestionNotifier *)v29 connection];
+    [connection2 setInterruptionHandler:v33];
   }
 
   return v20;
@@ -1115,7 +1116,7 @@ LABEL_31:
   v5 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -1159,7 +1160,7 @@ LABEL_31:
     v5 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -1357,6 +1358,209 @@ LABEL_31:
     }
 
     objc_sync_exit(selfCopy);
+  }
+}
+
+- (void)doLaunchFollowUp:(id)up interactionType:(unint64_t)type cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  upCopy = up;
+  if (upCopy)
+  {
+    manager = [(UACornerActionManagerHandler *)self manager];
+    v10 = [manager cornerActionItemForUUID:upCopy];
+
+    if (v10)
+    {
+      v11 = sub_100001A30(@"Diagnostic");
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      {
+        v12 = @"No";
+        *buf = 138478339;
+        v66 = v10;
+        if (cancelledCopy)
+        {
+          v12 = @"Yes";
+        }
+
+        v67 = 2048;
+        typeCopy = type;
+        v69 = 2114;
+        v70 = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "doLaunchFollowUp cornerActionItem: %{private}@, interactionType: %lx, cancelled: %{public}@", buf, 0x20u);
+      }
+
+      wasContinuedInfo = [(__CFString *)v10 wasContinuedInfo];
+      v14 = wasContinuedInfo == 0;
+
+      if (v14)
+      {
+        v15 = sub_100001A30(@"Diagnostic");
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Empty wasContinuedInfo, creating it", buf, 2u);
+        }
+
+        v16 = objc_alloc_init(UAUserActivityAnalyticsInfo);
+        [(__CFString *)v10 setWasContinuedInfo:v16];
+
+        activityType = [(__CFString *)v10 activityType];
+        wasContinuedInfo2 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo2 setActivityType:activityType];
+
+        bundleIdentifier = [(__CFString *)v10 bundleIdentifier];
+        wasContinuedInfo3 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo3 setBundleIdentifier:bundleIdentifier];
+
+        type = [(__CFString *)v10 type];
+        wasContinuedInfo4 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo4 setSuggestedActionType:type];
+
+        uuid = [(__CFString *)v10 uuid];
+        wasContinuedInfo5 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo5 setUuid:uuid];
+      }
+
+      v25 = sub_100001A30(@"Diagnostic");
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        wasContinuedInfo6 = [(__CFString *)v10 wasContinuedInfo];
+        scheduledForSubmission = [wasContinuedInfo6 scheduledForSubmission];
+        v28 = @"No";
+        if (scheduledForSubmission)
+        {
+          v28 = @"Yes";
+        }
+
+        *buf = 138543362;
+        v66 = v28;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "WasContinuedInfo scheduledForSubmission: %{public}@", buf, 0xCu);
+      }
+
+      wasContinuedInfo7 = [(__CFString *)v10 wasContinuedInfo];
+      scheduledForSubmission2 = [wasContinuedInfo7 scheduledForSubmission];
+
+      if ((scheduledForSubmission2 & 1) == 0)
+      {
+        wasContinuedInfo8 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo8 setScheduledForSubmission:1];
+
+        wasContinuedInfo9 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo9 setInteractionType:type];
+
+        wasContinuedInfo10 = [(__CFString *)v10 wasContinuedInfo];
+        [wasContinuedInfo10 setCancelled:cancelledCopy];
+
+        v34 = sub_100001A30(@"Diagnostic");
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+        {
+          uuid2 = [(__CFString *)v10 uuid];
+          uUIDString = [uuid2 UUIDString];
+          wasContinuedInfo11 = [(__CFString *)v10 wasContinuedInfo];
+          *buf = 138543619;
+          v66 = uUIDString;
+          v67 = 2113;
+          typeCopy = wasContinuedInfo11;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "-- Scheduling messagetracer info for submission: %{public}@, %{private}@", buf, 0x16u);
+        }
+
+        v38 = dispatch_time(0, 90000000000);
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_10001278C;
+        block[3] = &unk_1000C4D10;
+        v61 = v10;
+        dispatch_after(v38, &_dispatch_main_q, block);
+      }
+
+      if (!cancelledCopy && [(__CFString *)v10 type]== 10)
+      {
+        bundleIdentifier2 = [(__CFString *)v10 bundleIdentifier];
+        if (bundleIdentifier2)
+        {
+          bundleIdentifier3 = [(__CFString *)v10 bundleIdentifier];
+          v41 = [bundleIdentifier3 caseInsensitiveCompare:@"com.apple.AppStore"] == 0;
+
+          if (v41)
+          {
+            webpageURL = [(__CFString *)v10 webpageURL];
+            v55 = webpageURL;
+            if (webpageURL)
+            {
+              v43 = [[NSURLComponents alloc] initWithURL:webpageURL resolvingAgainstBaseURL:1];
+              if (v43)
+              {
+                v58 = 0u;
+                v59 = 0u;
+                v56 = 0u;
+                v57 = 0u;
+                v54 = v43;
+                queryItems = [v43 queryItems];
+                v45 = [queryItems countByEnumeratingWithState:&v56 objects:v64 count:16];
+                if (v45)
+                {
+                  v46 = *v57;
+                  do
+                  {
+                    for (i = 0; i != v45; i = i + 1)
+                    {
+                      if (*v57 != v46)
+                      {
+                        objc_enumerationMutation(queryItems);
+                      }
+
+                      v48 = *(*(&v56 + 1) + 8 * i);
+                      name = [v48 name];
+                      if ([name isEqual:@"ids"])
+                      {
+                        value = [v48 value];
+                        v51 = value == 0;
+
+                        if (!v51)
+                        {
+                          v62 = _UAUserActivityDidContinueToAppStoreApplicationIdentifierKey;
+                          value2 = [v48 value];
+                          v63 = value2;
+                          v45 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+
+                          goto LABEL_39;
+                        }
+                      }
+
+                      else
+                      {
+                      }
+                    }
+
+                    v45 = [queryItems countByEnumeratingWithState:&v56 objects:v64 count:16];
+                  }
+
+                  while (v45);
+                }
+
+LABEL_39:
+
+                v43 = v54;
+              }
+
+              else
+              {
+                v45 = 0;
+              }
+            }
+
+            else
+            {
+              v45 = 0;
+            }
+
+            v53 = +[NSDistributedNotificationCenter defaultCenter];
+            [v53 postNotificationName:_UAUserActivityDidContinueToAppStoreNotification object:0 userInfo:v45];
+          }
+        }
+      }
+    }
   }
 }
 

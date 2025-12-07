@@ -20,12 +20,12 @@
 
 - (TAFilterSingleVisitSettings)initWithThresholdOfSignificantDuration:(double)duration thresholdOfSignificantDistance:(double)distance filterVisitsSettings:(id)settings enabledLoiTypes:(id)types arrivingWorkImmediacyType:(unint64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   typesCopy = types;
-  v25.receiver = self;
-  v25.super_class = TAFilterSingleVisitSettings;
-  v15 = [(TAFilterSingleVisitSettings *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = TAFilterSingleVisitSettings;
+  v15 = [(TAFilterSingleVisitSettings *)&v24 init];
   v16 = v15;
   if (v15)
   {
@@ -49,7 +49,7 @@
       v20 = v19;
       enabledLoiTypesToString = [(TAFilterSingleVisitSettings *)v16 enabledLoiTypesToString];
       *buf = 138477827;
-      v27 = enabledLoiTypesToString;
+      v26 = enabledLoiTypesToString;
       _os_log_impl(&dword_26F2E2000, v20, OS_LOG_TYPE_DEFAULT, "#TAFilterSingleVisit enabled LOI types: %{private}@", buf, 0xCu);
     }
   }
@@ -57,7 +57,6 @@
   v22 = v16;
 LABEL_7:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

@@ -268,7 +268,7 @@ uint64_t __63__SpeakTypingManager__installSpeakTypingSafeCategoriesIfNeeded__blo
   [v2 setOverrideProcessName:@"Speak Typing"];
   [v2 setDebugBuild:0];
 
-  return soft_AXPerformValidationChecks_0();
+  return soft_AXPerformValidationChecks_0(v3);
 }
 
 void __63__SpeakTypingManager__installSpeakTypingSafeCategoriesIfNeeded__block_invoke_6()
@@ -301,7 +301,7 @@ uint64_t __63__SpeakTypingManager__installSpeakTypingSafeCategoriesIfNeeded__blo
   [v2 setOverrideProcessName:@"Speak Typing (TextInputUI)"];
   [v2 setDebugBuild:0];
 
-  return soft_AXPerformValidationChecks_0();
+  return soft_AXPerformValidationChecks_0(v3);
 }
 
 void __63__SpeakTypingManager__installSpeakTypingSafeCategoriesIfNeeded__block_invoke_9(uint64_t a1, void *a2)

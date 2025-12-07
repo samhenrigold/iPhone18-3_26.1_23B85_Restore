@@ -210,7 +210,7 @@
 {
   enabledCopy = enabled;
   identifier = [specifier identifier];
-  v8 = MAPSGetVirtualGarageLog();
+  v8 = MAPSGetVirtualGarageLog(identifier);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v12 = 138412546;

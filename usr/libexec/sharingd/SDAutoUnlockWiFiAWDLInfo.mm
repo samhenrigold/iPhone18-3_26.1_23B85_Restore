@@ -143,19 +143,18 @@ LABEL_8:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_macAddress)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    discoveryMetric = self->_discoveryMetric;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -174,9 +173,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  masterChannel = self->_masterChannel;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -190,22 +188,20 @@ LABEL_6:
   }
 
 LABEL_15:
-  preferredChannel = self->_preferredChannel;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_7:
-    channelFlags = self->_channelFlags;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_8:
   if (self->_extraInfoData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -353,7 +349,6 @@ LABEL_6:
     }
   }
 
-  v6 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_discoveryMetric != *(equalCopy + 3))
@@ -365,7 +360,7 @@ LABEL_6:
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_26:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_27;
   }
 
@@ -411,17 +406,17 @@ LABEL_26:
   extraInfoData = self->_extraInfoData;
   if (extraInfoData | *(equalCopy + 2))
   {
-    v8 = [(NSData *)extraInfoData isEqual:?];
+    v7 = [(NSData *)extraInfoData isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_27:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

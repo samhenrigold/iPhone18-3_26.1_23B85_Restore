@@ -88,8 +88,8 @@
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration routes];
+  v4 = objc_msgSend_configuration(self);
+  routes = [v4 routes];
 
   v6 = [routes countByEnumeratingWithState:&v121 objects:v136 count:16];
   if (v6)
@@ -106,16 +106,16 @@
         }
 
         v10 = *(*(&v121 + 1) + 8 * i);
-        configuration2 = [(RouteAnnotationsController *)self configuration];
-        if ([configuration2 alternateRoutesEnabled])
+        v11 = objc_msgSend_configuration(self);
+        if ([v11 alternateRoutesEnabled])
         {
           v12 = 1;
         }
 
         else
         {
-          configuration3 = [(RouteAnnotationsController *)self configuration];
-          selectedRoute = [configuration3 selectedRoute];
+          v13 = objc_msgSend_configuration(self);
+          selectedRoute = [v13 selectedRoute];
           v12 = v10 == selectedRoute;
         }
 
@@ -244,8 +244,8 @@
   v112 = 0u;
   v109 = 0u;
   v110 = 0u;
-  configuration4 = [(RouteAnnotationsController *)self configuration];
-  routes2 = [configuration4 routes];
+  v40 = objc_msgSend_configuration(self);
+  routes2 = [v40 routes];
 
   v94 = routes2;
   v42 = [routes2 countByEnumeratingWithState:&v109 objects:v133 count:16];
@@ -337,8 +337,8 @@
     while (v44);
   }
 
-  configuration5 = [(RouteAnnotationsController *)self configuration];
-  originalRouteID = [configuration5 originalRouteID];
+  v62 = objc_msgSend_configuration(self);
+  originalRouteID = [v62 originalRouteID];
 
   v103 = 0u;
   v104 = 0u;
@@ -370,8 +370,8 @@
 
         if (v73)
         {
-          configuration6 = [(RouteAnnotationsController *)self configuration];
-          originalRouteDivergenceCoordinate = [configuration6 originalRouteDivergenceCoordinate];
+          v74 = objc_msgSend_configuration(self);
+          originalRouteDivergenceCoordinate = [v74 originalRouteDivergenceCoordinate];
 
           v76 = [OriginalRouteDivergencePosition alloc];
           composedRoute6 = [v70 composedRoute];
@@ -385,8 +385,8 @@
             v80 = sub_1000421A8();
             if (os_log_type_enabled(v80, OS_LOG_TYPE_INFO))
             {
-              configuration7 = [(RouteAnnotationsController *)self configuration];
-              [configuration7 originalRouteDivergenceCoordinate];
+              v81 = objc_msgSend_configuration(self);
+              [v81 originalRouteDivergenceCoordinate];
               v82 = GEOPolylineCoordinateAsFullString();
               *buf = 134349570;
               selfCopy3 = self;
@@ -410,14 +410,14 @@
     while (v67);
   }
 
-  configuration8 = [(RouteAnnotationsController *)self configuration];
-  if ([configuration8 selectsPolyline])
+  v83 = objc_msgSend_configuration(self);
+  if ([v83 selectsPolyline])
   {
     routesGroupOverlay4 = [(RouteAnnotationsController *)self routesGroupOverlay];
     selectedPolyline = [routesGroupOverlay4 selectedPolyline];
     composedRoute7 = [selectedPolyline composedRoute];
-    configuration9 = [(RouteAnnotationsController *)self configuration];
-    selectedRoute2 = [configuration9 selectedRoute];
+    v87 = objc_msgSend_configuration(self);
+    selectedRoute2 = [v87 selectedRoute];
 
     v89 = v100;
     if (composedRoute7 != selectedRoute2)
@@ -492,8 +492,8 @@ LABEL_7:
 
 - (void)_updateSelectedOverlayInGroupOverlay
 {
-  configuration = [(RouteAnnotationsController *)self configuration];
-  selectsPolyline = [configuration selectsPolyline];
+  v3 = objc_msgSend_configuration(self, a2);
+  selectsPolyline = [v3 selectsPolyline];
 
   if (selectsPolyline)
   {
@@ -519,8 +519,8 @@ LABEL_7:
 
           v10 = *(*(&v25 + 1) + 8 * i);
           composedRoute = [v10 composedRoute];
-          configuration2 = [(RouteAnnotationsController *)self configuration];
-          selectedRoute = [configuration2 selectedRoute];
+          v12 = objc_msgSend_configuration(self);
+          selectedRoute = [v12 selectedRoute];
           v14 = [composedRoute isEqual:selectedRoute];
 
           if (v14)
@@ -582,8 +582,8 @@ LABEL_13:
 
 - (void)_updateTrafficFeatures
 {
-  configuration = [(RouteAnnotationsController *)self configuration];
-  selectedRoute = [configuration selectedRoute];
+  v3 = objc_msgSend_configuration(self, a2);
+  selectedRoute = [v3 selectedRoute];
 
   v5 = sub_1000421A8();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -679,8 +679,8 @@ LABEL_13:
   [routeTrafficFeatureCalculator clearCachedTrafficFeaturesForRoute:routeCopy];
 
   routeTrafficFeatureCalculator2 = [(RouteAnnotationsController *)self routeTrafficFeatureCalculator];
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration routes];
+  v9 = objc_msgSend_configuration(self);
+  routes = [v9 routes];
   [routeTrafficFeatureCalculator2 clearCachedSharedTrafficFeaturesForRoutes:routes];
 
   v35 = 0u;
@@ -769,8 +769,8 @@ LABEL_11:
 - (void)composedRoute:(id)route changedSelectedRideInClusteredSegment:(id)segment fromIndex:(unint64_t)index toIndex:(unint64_t)toIndex
 {
   uniqueRouteID = [route uniqueRouteID];
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration routes];
+  v8 = objc_msgSend_configuration(self);
+  routes = [v8 routes];
   v12[0] = _NSConcreteStackBlock;
   v12[1] = 3221225472;
   v12[2] = sub_100B6FE40;
@@ -837,8 +837,8 @@ LABEL_11:
 - (void)updateMatchedLocation:(id)location
 {
   locationCopy = location;
-  configuration = [(RouteAnnotationsController *)self configuration];
-  selectedRoute = [configuration selectedRoute];
+  v5 = objc_msgSend_configuration(self);
+  selectedRoute = [v5 selectedRoute];
 
   if (selectedRoute)
   {
@@ -890,8 +890,8 @@ LABEL_11:
 - ($873BFAB23BBB6E2F0B0288ED2F935688)mapRectForRouteRemainingAtLocation:(id)location
 {
   locationCopy = location;
-  configuration = [(RouteAnnotationsController *)self configuration];
-  selectedRoute = [configuration selectedRoute];
+  v5 = objc_msgSend_configuration(self);
+  selectedRoute = [v5 selectedRoute];
 
   routeMatch = [locationCopy routeMatch];
   v8 = routeMatch;
@@ -997,8 +997,8 @@ LABEL_11:
   allKeys = [transitVehicleAnnotationsByTripID allKeys];
   v5 = [allKeys mutableCopy];
 
-  configuration = [(RouteAnnotationsController *)self configuration];
-  transitVehiclePositions = [configuration transitVehiclePositions];
+  v6 = objc_msgSend_configuration(self);
+  transitVehiclePositions = [v6 transitVehiclePositions];
   v8 = sub_100021DB0(transitVehiclePositions, &stru_10163B360);
 
   [v5 removeObjectsInArray:v8];
@@ -1076,22 +1076,22 @@ LABEL_11:
 
 - (void)_updateRouteOverlayForRouteIndex:(unint64_t)index
 {
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration routes];
+  v5 = objc_msgSend_configuration(self, a2);
+  routes = [v5 routes];
   v7 = [routes count];
 
   if (v7 > index)
   {
-    configuration2 = [(RouteAnnotationsController *)self configuration];
-    routes2 = [configuration2 routes];
+    v8 = objc_msgSend_configuration(self);
+    routes2 = [v8 routes];
     v10 = [routes2 objectAtIndexedSubscript:index];
 
     v11 = sub_1000421A8();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       uniqueRouteID = [v10 uniqueRouteID];
-      configuration3 = [(RouteAnnotationsController *)self configuration];
-      selectedRouteIndex = [configuration3 selectedRouteIndex];
+      v13 = objc_msgSend_configuration(self);
+      selectedRouteIndex = [v13 selectedRouteIndex];
       v15 = @"NO";
       if (selectedRouteIndex == index)
       {
@@ -1236,11 +1236,11 @@ LABEL_8:
       routesGroupOverlay3 = [(RouteAnnotationsController *)self routesGroupOverlay];
       [routesGroupOverlay3 addPolyline:v46];
 
-      configuration4 = [(RouteAnnotationsController *)self configuration];
-      if ([configuration4 selectedRouteIndex] == indexCopy2)
+      v48 = objc_msgSend_configuration(self);
+      if ([v48 selectedRouteIndex] == indexCopy2)
       {
-        configuration5 = [(RouteAnnotationsController *)self configuration];
-        selectsPolyline = [configuration5 selectsPolyline];
+        v49 = objc_msgSend_configuration(self);
+        selectsPolyline = [v49 selectsPolyline];
 
         v26 = v52;
         if (selectsPolyline)
@@ -1287,8 +1287,8 @@ LABEL_36:
 
 - (void)_updateTransitVehiclePositionAnnotations
 {
-  configuration = [(RouteAnnotationsController *)self configuration];
-  transitVehiclePositions = [configuration transitVehiclePositions];
+  v3 = objc_msgSend_configuration(self, a2);
+  transitVehiclePositions = [v3 transitVehiclePositions];
 
   if ([transitVehiclePositions count])
   {
@@ -1326,8 +1326,8 @@ LABEL_36:
   }
 
   selfCopy = self;
-  configuration = [(RouteAnnotationsController *)self configuration];
-  selectedRoute = [configuration selectedRoute];
+  v13 = objc_msgSend_configuration(self, trafficFeaturesCopy);
+  selectedRoute = [v13 selectedRoute];
 
   v63 = 0u;
   v64 = 0u;
@@ -1476,8 +1476,8 @@ LABEL_31:
 
   _mapLayer2 = [(MKMapView *)selfCopy->_mapView _mapLayer];
   array = [v50 array];
-  configuration2 = [(RouteAnnotationsController *)selfCopy configuration];
-  [_mapLayer2 setExternalTrafficFeatures:array areRouteTrafficFeaturesActive:{objc_msgSend(configuration2, "routeTrafficFeaturesActive")}];
+  v46 = objc_msgSend_configuration(selfCopy);
+  [_mapLayer2 setExternalTrafficFeatures:array areRouteTrafficFeaturesActive:{objc_msgSend(v46, "routeTrafficFeaturesActive")}];
 }
 
 - (void)_updateTrafficWithInitialTrafficFeatures:(id)features
@@ -1495,11 +1495,11 @@ LABEL_31:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "[%{public}p] Updating traffic features with %lu initial features: %{private}@", buf, 0x20u);
   }
 
-  configuration = [(RouteAnnotationsController *)self configuration];
-  alternateRoutesEnabled = [configuration alternateRoutesEnabled];
+  v6 = objc_msgSend_configuration(self);
+  alternateRoutesEnabled = [v6 alternateRoutesEnabled];
 
-  configuration2 = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration2 routes];
+  v8 = objc_msgSend_configuration(self);
+  routes = [v8 routes];
 
   if (!alternateRoutesEnabled)
   {
@@ -1551,14 +1551,14 @@ LABEL_9:
     contextCopy = self->_mapView;
   }
 
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routeMarkerOptions = [configuration routeMarkerOptions];
+  v8 = objc_msgSend_configuration(self);
+  routeMarkerOptions = [v8 routeMarkerOptions];
 
-  configuration2 = [(RouteAnnotationsController *)self configuration];
-  v11 = ([configuration2 routeMarkerOptions] >> 1) & 1;
+  v10 = objc_msgSend_configuration(self);
+  v11 = ([v10 routeMarkerOptions] >> 1) & 1;
 
-  configuration3 = [(RouteAnnotationsController *)self configuration];
-  selectedRoute = [configuration3 selectedRoute];
+  v12 = objc_msgSend_configuration(self);
+  selectedRoute = [v12 selectedRoute];
 
   v40 = selectedRoute;
   v14 = (selectedRoute == routeCopy) & routeMarkerOptions;
@@ -1674,12 +1674,12 @@ LABEL_9:
   }
 
   [(MKMapView *)contextCopy _setRouteContextAnnotationTexts:v34 forLegsInRoute:routeCopy];
-  configuration4 = [(RouteAnnotationsController *)self configuration];
-  focusedRoute = [configuration4 focusedRoute];
+  v35 = objc_msgSend_configuration(self);
+  focusedRoute = [v35 focusedRoute];
   if (focusedRoute)
   {
-    configuration5 = [(RouteAnnotationsController *)self configuration];
-    focusedRoute2 = [configuration5 focusedRoute];
+    v37 = objc_msgSend_configuration(self);
+    focusedRoute2 = [v37 focusedRoute];
     v39 = focusedRoute2 == routeCopy;
   }
 
@@ -1698,8 +1698,8 @@ LABEL_9:
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  configuration = [(RouteAnnotationsController *)self configuration];
-  routes = [configuration routes];
+  v5 = objc_msgSend_configuration(self, 0);
+  routes = [v5 routes];
 
   v7 = [routes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
@@ -1766,8 +1766,8 @@ LABEL_9:
     allObjects = [polylines3 allObjects];
     v18 = sub_100021DB0(allObjects, &stru_10163B1C0);
 
-    configuration = [(RouteAnnotationsController *)self configuration];
-    selectedRoute = [configuration selectedRoute];
+    v19 = objc_msgSend_configuration(self);
+    selectedRoute = [v19 selectedRoute];
 
     v69[0] = _NSConcreteStackBlock;
     v69[1] = 3221225472;
@@ -1780,8 +1780,8 @@ LABEL_9:
       v22 = sub_1000421A8();
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        configuration2 = [(RouteAnnotationsController *)self configuration];
-        selectedRoute2 = [configuration2 selectedRoute];
+        v23 = objc_msgSend_configuration(self);
+        selectedRoute2 = [v23 selectedRoute];
         uniqueRouteID = [selectedRoute2 uniqueRouteID];
         uUIDString = [uniqueRouteID UUIDString];
         sub_100021DB0(v18, &stru_10163B228);
@@ -1806,11 +1806,11 @@ LABEL_9:
     else
     {
       [(NSMutableArray *)self->_annotationTextUpdaters removeAllObjects];
-      configuration3 = [(RouteAnnotationsController *)self configuration];
-      routes = [configuration3 routes];
+      v38 = objc_msgSend_configuration(self);
+      routes = [v38 routes];
 
-      configuration4 = [(RouteAnnotationsController *)self configuration];
-      selectedRouteIndex = [configuration4 selectedRouteIndex];
+      v40 = objc_msgSend_configuration(self);
+      selectedRouteIndex = [v40 selectedRouteIndex];
 
       if (forcedCopy || [(MKMapView *)self->_mapView _shouldUpdateSelectedRouteFromRoutes:routes selectedRouteIndex:selectedRouteIndex])
       {
@@ -1827,11 +1827,11 @@ LABEL_9:
           _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_INFO, "[%{public}p] Initiating route context update for routes: %@ with selected index: %lu", buf, 0x20u);
         }
 
-        configuration5 = [(RouteAnnotationsController *)self configuration];
-        currentNavigationWaypoint = [configuration5 currentNavigationWaypoint];
+        v44 = objc_msgSend_configuration(self);
+        currentNavigationWaypoint = [v44 currentNavigationWaypoint];
 
-        configuration6 = [(RouteAnnotationsController *)self configuration];
-        proximityToCurrentNavigationWaypoint = [configuration6 proximityToCurrentNavigationWaypoint];
+        v46 = objc_msgSend_configuration(self);
+        proximityToCurrentNavigationWaypoint = [v46 proximityToCurrentNavigationWaypoint];
 
         objc_initWeak(buf, self);
         routeContextQueue = self->_routeContextQueue;
@@ -1878,14 +1878,14 @@ LABEL_9:
 
   else
   {
-    configuration7 = [(RouteAnnotationsController *)self configuration];
-    anchorPoints = [configuration7 anchorPoints];
+    v28 = objc_msgSend_configuration(self);
+    anchorPoints = [v28 anchorPoints];
     v30 = [anchorPoints count];
 
     if (v30)
     {
-      configuration8 = [(RouteAnnotationsController *)self configuration];
-      anchorPoints2 = [configuration8 anchorPoints];
+      v31 = objc_msgSend_configuration(self);
+      anchorPoints2 = [v31 anchorPoints];
 
       v33 = sub_1000421A8();
       if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
@@ -1943,8 +1943,8 @@ LABEL_9:
 
 - (void)_updateFocusedOverlayInGroupOverlay
 {
-  configuration = [(RouteAnnotationsController *)self configuration];
-  focusedRoute = [configuration focusedRoute];
+  v3 = objc_msgSend_configuration(self, a2);
+  focusedRoute = [v3 focusedRoute];
 
   if (focusedRoute)
   {
@@ -1970,8 +1970,8 @@ LABEL_9:
 
           v10 = *(*(&v19 + 1) + 8 * i);
           composedRoute = [v10 composedRoute];
-          configuration2 = [(RouteAnnotationsController *)self configuration];
-          focusedRoute2 = [configuration2 focusedRoute];
+          v12 = objc_msgSend_configuration(self);
+          focusedRoute2 = [v12 focusedRoute];
           v14 = [composedRoute isEqual:focusedRoute2];
 
           if (v14)
@@ -2342,8 +2342,8 @@ LABEL_78:
   if (block)
   {
     blockCopy = block;
-    configuration = [(RouteAnnotationsController *)self configuration];
-    v6 = [configuration mutableCopy];
+    v5 = objc_msgSend_configuration(self);
+    v6 = [v5 mutableCopy];
 
     blockCopy[2](blockCopy, v6);
     [(RouteAnnotationsController *)self setConfiguration:v6];

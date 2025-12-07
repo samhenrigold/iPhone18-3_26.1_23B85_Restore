@@ -90,13 +90,17 @@ void __52__WFObservableArrayResult_handleChangeNotification___block_invoke_3(uin
 
 void __52__WFObservableArrayResult_handleChangeNotification___block_invoke_4(id *a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = a1[5];
-  v20 = *(a1[4] + 8);
+  v18 = *(a1[4] + 8);
   v3 = v2;
-  if (v20 != v3)
+  if (v18 == v3)
   {
-    if (v20)
+  }
+
+  else
+  {
+    if (v18)
     {
       v4 = v3 == 0;
     }
@@ -112,65 +116,59 @@ void __52__WFObservableArrayResult_handleChangeNotification___block_invoke_4(id 
 
     else
     {
-      v6 = [v20 isEqual:v3];
+      v5 = [v18 isEqual:v3];
 
-      if (v6)
+      if (v5)
       {
-LABEL_20:
-        v19 = *MEMORY[0x1E69E9840];
         return;
       }
     }
 
-    v7 = [a1[5] copy];
-    v8 = a1[4];
-    v9 = v8[8];
-    v8[8] = v7;
+    v6 = [a1[5] copy];
+    v7 = a1[4];
+    v8 = v7[8];
+    v7[8] = v6;
 
     objc_storeStrong(a1[4] + 9, a1[6]);
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v10 = [a1[4] observers];
-    v11 = [v10 allObjects];
+    v20 = 0u;
+    v21 = 0u;
+    v9 = [a1[4] observers];
+    v10 = [v9 allObjects];
 
-    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
-    if (v12)
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v23;
+      v12 = v11;
+      v13 = *v21;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v14)
+          if (*v21 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v22 + 1) + 8 * i);
-          v17 = [a1[4] observerNotificationQueue];
+          v15 = *(*(&v20 + 1) + 8 * i);
+          v16 = [a1[4] observerNotificationQueue];
           block[0] = MEMORY[0x1E69E9820];
           block[1] = 3221225472;
           block[2] = __52__WFObservableArrayResult_handleChangeNotification___block_invoke_5;
           block[3] = &unk_1E7B02180;
-          v18 = a1[4];
-          block[4] = v16;
-          block[5] = v18;
-          dispatch_async(v17, block);
+          v17 = a1[4];
+          block[4] = v15;
+          block[5] = v17;
+          dispatch_async(v16, block);
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
-
-    goto LABEL_20;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (WFObservableArrayResult)initWithValueType:(Class)type glyphSize:(CGSize)size initialValues:(id)values query:(id)query resultState:(id)state

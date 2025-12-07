@@ -27,27 +27,25 @@
   v4 = sub_1B7CFDFF0();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for StorageInspectorReport();
+  v6.super_class = type metadata accessor for StorageInspectorReport(0);
   return [(StorageInspectorReport *)&v6 init];
 }
 
 - (id)encodeToData:(id *)data
 {
-  v4 = sub_1B7CFDC10();
-  v5 = *(v4 + 48);
-  v6 = *(v4 + 52);
+  sub_1B7CFDC10();
   swift_allocObject();
   selfCopy = self;
   sub_1B7CFDC00();
-  type metadata accessor for StorageInspectorReport();
-  sub_1B7C77334(&qword_1EBA52E38, type metadata accessor for StorageInspectorReport);
-  v8 = sub_1B7CFDBF0();
-  v10 = v9;
+  type metadata accessor for StorageInspectorReport(0);
+  sub_1B7C77334(&qword_1EBA52E38, type metadata accessor for StorageInspectorReport, &protocol conformance descriptor for StorageInspectorReport);
+  v5 = sub_1B7CFDBF0();
+  v7 = v6;
 
-  v11 = sub_1B7CFE010();
-  sub_1B7C204B0(v8, v10);
+  v8 = sub_1B7CFE010();
+  sub_1B7C204B0(v5, v7);
 
-  return v11;
+  return v8;
 }
 
 + (id)createFromData:(id)data error:(id *)error
@@ -56,17 +54,15 @@
   v5 = sub_1B7CFE020();
   v7 = v6;
 
-  v8 = sub_1B7CFDBE0();
-  v9 = *(v8 + 48);
-  v10 = *(v8 + 52);
+  sub_1B7CFDBE0();
   swift_allocObject();
   sub_1B7CFDBD0();
-  type metadata accessor for StorageInspectorReport();
-  sub_1B7C77334(&qword_1EBA52E40, type metadata accessor for StorageInspectorReport);
+  type metadata accessor for StorageInspectorReport(0);
+  sub_1B7C77334(&qword_1EBA52E40, type metadata accessor for StorageInspectorReport, &protocol conformance descriptor for StorageInspectorReport);
   sub_1B7CFDBC0();
   sub_1B7C204B0(v5, v7);
 
-  return v12;
+  return v9;
 }
 
 @end

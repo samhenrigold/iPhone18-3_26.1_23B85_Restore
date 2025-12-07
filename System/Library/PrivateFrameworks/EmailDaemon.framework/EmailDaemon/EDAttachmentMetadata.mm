@@ -37,44 +37,42 @@
 
 - (id)description
 {
-  v31[8] = *MEMORY[0x1E69E9840];
+  v30[8] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   attachmentID = [(EDAttachmentMetadata *)self attachmentID];
-  v29 = [v3 stringWithFormat:@"attachmentID: %@", attachmentID];
-  v31[0] = v29;
+  v28 = [v3 stringWithFormat:@"attachmentID: %@", attachmentID];
+  v30[0] = v28;
   v4 = MEMORY[0x1E696AEC0];
   attachmentHash = [(EDAttachmentMetadata *)self attachmentHash];
-  v27 = [v4 stringWithFormat:@"attachmentHash: %@", attachmentHash];
-  v31[1] = v27;
+  v26 = [v4 stringWithFormat:@"attachmentHash: %@", attachmentHash];
+  v30[1] = v26;
   v5 = MEMORY[0x1E696AEC0];
   nameOnDisk = [(EDAttachmentMetadata *)self nameOnDisk];
-  v25 = [v5 stringWithFormat:@"nameOnDisk: %@", nameOnDisk];
-  v31[2] = v25;
+  v24 = [v5 stringWithFormat:@"nameOnDisk: %@", nameOnDisk];
+  v30[2] = v24;
   v6 = MEMORY[0x1E696AEC0];
   downloadDate = [(EDAttachmentMetadata *)self downloadDate];
   v7 = [v6 stringWithFormat:@"downloadDate: %@", downloadDate];
-  v31[3] = v7;
+  v30[3] = v7;
   v8 = MEMORY[0x1E696AEC0];
   v9 = [(EDAttachmentMetadata *)self size];
   v10 = [v8 stringWithFormat:@"size: %@", v9];
-  v31[4] = v10;
+  v30[4] = v10;
   v11 = MEMORY[0x1E696AEC0];
   viewCount = [(EDAttachmentMetadata *)self viewCount];
   v13 = [v11 stringWithFormat:@"viewCount: %@", viewCount];
-  v31[5] = v13;
+  v30[5] = v13;
   v14 = MEMORY[0x1E696AEC0];
   lastViewed = [(EDAttachmentMetadata *)self lastViewed];
   v16 = [v14 stringWithFormat:@"lastViewed: %@", lastViewed];
-  v31[6] = v16;
+  v30[6] = v16;
   v17 = MEMORY[0x1E696AEC0];
   viewCountByTapped = [(EDAttachmentMetadata *)self viewCountByTapped];
   v19 = [v17 stringWithFormat:@"viewCountByTapped: %@", viewCountByTapped];
-  v31[7] = v19;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:8];
+  v30[7] = v19;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:8];
 
   v21 = [v20 componentsJoinedByString:@"\n"];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

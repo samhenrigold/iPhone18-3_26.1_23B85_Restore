@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)reset;
 - (void)writeToWithJavaIoOutputStream:(id)stream;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)writeWithInt:(int)int;
 @end
 
@@ -13,7 +14,7 @@
 
 - (JavaIoByteArrayOutputStream)init
 {
-  JavaIoOutputStream_init(self, a2);
+  JavaIoOutputStream_init();
   JreStrongAssignAndConsume(&self->buf_, [IOSByteArray newArrayWithLength:32]);
   return self;
 }
@@ -80,6 +81,27 @@
   return [NSString stringWithCharacters:v5];
 }
 
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  objc_sync_enter(self);
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, v5);
+  if (v5)
+  {
+    sub_100155114(self, v5);
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v6, self->buf_, self->count_, v5);
+    self->count_ += v5;
+  }
+
+  objc_sync_exit(self);
+}
+
 - (void)writeWithInt:(int)int
 {
   intCopy = int;
@@ -93,7 +115,7 @@
   count = self->count_;
   if (count == buf->super.size_)
   {
-    sub_100155114(&self->super.super.isa, 1);
+    sub_100155114(self, 1);
     buf = self->buf_;
     count = self->count_;
   }

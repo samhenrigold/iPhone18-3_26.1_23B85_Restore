@@ -27,11 +27,11 @@
 
 - (TPSExperiment)initWithCoder:(id)coder
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = TPSExperiment;
-  v5 = [(TPSExperiment *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = TPSExperiment;
+  v5 = [(TPSExperiment *)&v13 init];
   if (v5)
   {
     v5->_identifier = [coderCopy decodeIntegerForKey:@"id"];
@@ -55,14 +55,13 @@
       identifier = v5->_identifier;
       camp = v5->_camp;
       *buf = 134218240;
-      v16 = identifier;
-      v17 = 2048;
-      v18 = camp;
+      v15 = identifier;
+      v16 = 2048;
+      v17 = camp;
       _os_log_impl(&dword_1C00A7000, v9, OS_LOG_TYPE_DEFAULT, "Current experiment %zd, user camp %zd", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -86,7 +85,7 @@
 
 - (BOOL)updateWithExperimentDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v5 = dictionaryCopy;
   if (dictionaryCopy)
@@ -107,11 +106,11 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         holdoutAllocation = self->_holdoutAllocation;
-        v16 = 134218240;
-        v17 = v7;
-        v18 = 2048;
-        v19 = holdoutAllocation;
-        _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_DEFAULT, "Update experiment to identifier %zd, holdoutAllocation %.2f", &v16, 0x16u);
+        v15 = 134218240;
+        v16 = v7;
+        v17 = 2048;
+        v18 = holdoutAllocation;
+        _os_log_impl(&dword_1C00A7000, v10, OS_LOG_TYPE_DEFAULT, "Update experiment to identifier %zd, holdoutAllocation %.2f", &v15, 0x16u);
       }
 
       if (self->_camp)
@@ -120,8 +119,8 @@
         v12 = +[TPSLogger data];
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Experiment changes after camp has been assigned, rolling user back to all content group", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Experiment changes after camp has been assigned, rolling user back to all content group", &v15, 2u);
         }
       }
 
@@ -142,13 +141,12 @@ LABEL_17:
   v13 = 0;
 LABEL_18:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 - (BOOL)updateCampIfNeeded
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = +[TPSDefaultsManager holdoutGroup];
   v4 = v3;
   if (v3)
@@ -166,9 +164,9 @@ LABEL_18:
       v8 = +[TPSLogger data];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134217984;
-        v16 = *&v6;
-        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_DEFAULT, "Camp overrode to %zd", &v15, 0xCu);
+        v14 = 134217984;
+        v15 = *&v6;
+        _os_log_impl(&dword_1C00A7000, v8, OS_LOG_TYPE_DEFAULT, "Camp overrode to %zd", &v14, 0xCu);
       }
 
       v7 = 1;
@@ -195,11 +193,11 @@ LABEL_18:
       v12 = +[TPSLogger data];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 134218240;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v6;
-        _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Experiment dice roll %.2f, user camp %zd", &v15, 0x16u);
+        v14 = 134218240;
+        v15 = v11;
+        v16 = 2048;
+        v17 = v6;
+        _os_log_impl(&dword_1C00A7000, v12, OS_LOG_TYPE_DEFAULT, "Experiment dice roll %.2f, user camp %zd", &v14, 0x16u);
       }
     }
 
@@ -224,7 +222,6 @@ LABEL_20:
     v7 = 1;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

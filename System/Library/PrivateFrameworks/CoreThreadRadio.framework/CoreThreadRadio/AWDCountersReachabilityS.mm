@@ -62,12 +62,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    linkLossNbrRouterCount = self->_linkLossNbrRouterCount;
     PBDataWriterWriteUint32Field();
-    toCopy = v7;
+    toCopy = v5;
     if ((*&self->_has & 1) == 0)
     {
 LABEL_3:
@@ -81,9 +80,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  linkLossNbrChildCount = self->_linkLossNbrChildCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v7;
+  toCopy = v5;
 
 LABEL_5:
 }

@@ -784,12 +784,12 @@ LABEL_89:
 - (void)_setDownloadPropertiesForTrack:(id)track usingLibraryItem:(id)item
 {
   trackCopy = track;
-  itemDownloadIdentifier = [item itemDownloadIdentifier];
-  v11[0] = itemDownloadIdentifier;
+  v6 = objc_msgSend_itemDownloadIdentifier(item);
+  v11[0] = v6;
   v11[1] = &__kCFBooleanFalse;
   v10[0] = ML3TrackPropertyDownloadIdentifier;
   v10[1] = ML3TrackPropertyNeedsRestore;
-  if (itemDownloadIdentifier)
+  if (v6)
   {
     v7 = 1;
   }

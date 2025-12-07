@@ -29,7 +29,7 @@
 
 + (id)audioFileWriterForAttentiveSiri
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v2 = +[CSFPreferences sharedPreferences];
   isAttentiveSiriAudioLoggingEnabled = [v2 isAttentiveSiriAudioLoggingEnabled];
 
@@ -44,10 +44,10 @@
 
   v6 = [assistantLogDirectory stringByAppendingPathComponent:@"attsiri"];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v29 = 0;
-  if ([defaultManager fileExistsAtPath:v6 isDirectory:&v29])
+  v28 = 0;
+  if ([defaultManager fileExistsAtPath:v6 isDirectory:&v28])
   {
-    if (v29)
+    if (v28)
     {
 LABEL_18:
       v19 = MEMORY[0x1E696AEC0];
@@ -57,9 +57,9 @@ LABEL_18:
       v21 = [v6 stringByAppendingPathComponent:v10];
       v22 = [CSPlainAudioFileWriter alloc];
       v23 = [MEMORY[0x1E695DFF8] fileURLWithPath:v21];
-      +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-      +[CSFAudioStreamBasicDescriptionFactory utteranceFileASBD];
-      v15 = [(CSPlainAudioFileWriter *)v22 initWithURL:v23 inputFormat:buf outputFormat:v26];
+      objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+      objc_msgSend_utteranceFileASBD(CSFAudioStreamBasicDescriptionFactory);
+      v15 = [(CSPlainAudioFileWriter *)v22 initWithURL:v23 inputFormat:buf outputFormat:v25];
 
       goto LABEL_19;
     }
@@ -68,26 +68,26 @@ LABEL_18:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v31 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
-      v32 = 2112;
-      v33 = v6;
+      v30 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
+      v31 = 2112;
+      v32 = v6;
       _os_log_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_DEFAULT, "%s Removing non-dir at AttentiveSiri AudioLog dir: %@", buf, 0x16u);
     }
 
-    v28 = 0;
-    v9 = [defaultManager removeItemAtPath:v6 error:&v28];
-    v10 = v28;
+    v27 = 0;
+    v9 = [defaultManager removeItemAtPath:v6 error:&v27];
+    v10 = v27;
     if ((v9 & 1) == 0)
     {
       v11 = CSLogCategoryAudio;
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v31 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
-        v32 = 2112;
-        v33 = v6;
-        v34 = 2112;
-        v35 = v10;
+        v30 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
+        v31 = 2112;
+        v32 = v6;
+        v33 = 2112;
+        v34 = v10;
         v12 = "%s Error removing %@: err: %@";
         v13 = v11;
         v14 = 32;
@@ -106,9 +106,9 @@ LABEL_14:
   }
 
   v16 = v10;
-  v27 = v10;
-  [defaultManager createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:&v27];
-  v10 = v27;
+  v26 = v10;
+  [defaultManager createDirectoryAtPath:v6 withIntermediateDirectories:1 attributes:0 error:&v26];
+  v10 = v26;
 
   v17 = CSLogCategoryAudio;
   v18 = os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT);
@@ -117,9 +117,9 @@ LABEL_14:
     if (v18)
     {
       *buf = 136315394;
-      v31 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
-      v32 = 2112;
-      v33 = v6;
+      v30 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
+      v31 = 2112;
+      v32 = v6;
       _os_log_impl(&dword_1DDA4B000, v17, OS_LOG_TYPE_DEFAULT, "%s Created AudioLogging dir for AttentiveSiri at: %@", buf, 0x16u);
     }
 
@@ -129,9 +129,9 @@ LABEL_14:
   if (v18)
   {
     *buf = 136315394;
-    v31 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
-    v32 = 2112;
-    v33 = v10;
+    v30 = "+[CSAudioFileManager audioFileWriterForAttentiveSiri]";
+    v31 = 2112;
+    v32 = v10;
     v12 = "%s Failed to create AudioLogging directory for AttentiveSiri: %@";
     v13 = v17;
     v14 = 22;
@@ -143,43 +143,42 @@ LABEL_15:
 LABEL_19:
 
 LABEL_20:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 + (void)cleanupOrphanedGradingFiles
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v47[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFF8];
   v3 = +[CSFPreferences sharedPreferences];
   assistantAudioFileLogDirectory = [v3 assistantAudioFileLogDirectory];
-  v28 = [v2 URLWithString:assistantAudioFileLogDirectory];
+  v27 = [v2 URLWithString:assistantAudioFileLogDirectory];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__13638;
-  v39 = __Block_byref_object_dispose__13639;
-  v40 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__13638;
+  v38 = __Block_byref_object_dispose__13639;
+  v39 = 0;
   v6 = MEMORY[0x1E695DFF8];
-  path = [v28 path];
+  path = [v27 path];
   v8 = [v6 fileURLWithPath:path];
-  v48[0] = *MEMORY[0x1E695DC30];
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:1];
-  v10 = (v36 + 5);
-  obj = v36[5];
-  v27 = [defaultManager contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:v9 options:0 error:&obj];
+  v47[0] = *MEMORY[0x1E695DC30];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
+  v10 = (v35 + 5);
+  obj = v35[5];
+  v26 = [defaultManager contentsOfDirectoryAtURL:v8 includingPropertiesForKeys:v9 options:0 error:&obj];
   objc_storeStrong(v10, obj);
 
-  v11 = v36[5];
+  v11 = v35[5];
   if (v11)
   {
     domain = [v11 domain];
     if ([domain isEqual:*MEMORY[0x1E696A250]])
     {
-      v13 = [v36[5] code] == 260;
+      v13 = [v35[5] code] == 260;
 
       if (v13)
       {
@@ -194,13 +193,13 @@ LABEL_20:
     v24 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v26 = v36[5];
+      v25 = v35[5];
       *buf = 136315650;
-      v43 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]";
-      v44 = 2114;
-      v45 = v28;
-      v46 = 2114;
-      v47 = v26;
+      v42 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]";
+      v43 = 2114;
+      v44 = v27;
+      v45 = 2114;
+      v46 = v25;
       _os_log_error_impl(&dword_1DDA4B000, v24, OS_LOG_TYPE_ERROR, "%s ERR: reading contents of gradingDir: %{public}@ with error %{public}@", buf, 0x20u);
     }
   }
@@ -208,25 +207,25 @@ LABEL_20:
   else
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v15 = v27;
-    v16 = [v15 countByEnumeratingWithState:&v30 objects:v41 count:16];
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v15 = v26;
+    v16 = [v15 countByEnumeratingWithState:&v29 objects:v40 count:16];
     if (v16)
     {
-      v17 = *v31;
+      v17 = *v30;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v31 != v17)
+          if (*v30 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = *(*(&v30 + 1) + 8 * i);
+          v19 = *(*(&v29 + 1) + 8 * i);
           absoluteString = [v19 absoluteString];
           lastPathComponent = [absoluteString lastPathComponent];
           stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
@@ -245,44 +244,43 @@ LABEL_20:
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v30 objects:v41 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v29 objects:v40 count:16];
       }
 
       while (v16);
     }
 
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke;
-    v29[3] = &unk_1E865C748;
-    v29[4] = &v35;
-    [dictionary enumerateKeysAndObjectsUsingBlock:v29];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke;
+    v28[3] = &unk_1E865C748;
+    v28[4] = &v34;
+    [dictionary enumerateKeysAndObjectsUsingBlock:v28];
   }
 
 LABEL_19:
 
-  _Block_object_dispose(&v35, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v34, 8);
 }
 
 void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v19 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]_block_invoke";
-    v20 = 2114;
-    v21 = v6;
+    v18 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]_block_invoke";
+    v19 = 2114;
+    v20 = v6;
     _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Deleting orphaned grading file %{public}@", buf, 0x16u);
   }
 
-  v17 = 0;
+  v16 = 0;
   v8 = [MEMORY[0x1E696AC08] defaultManager];
-  v9 = [v8 fileExistsAtPath:v5 isDirectory:&v17];
+  v9 = [v8 fileExistsAtPath:v5 isDirectory:&v16];
 
   if (v9)
   {
@@ -297,19 +295,17 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
       v13 = CSLogCategoryAudio;
       if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
       {
-        v15 = *(*(*(a1 + 32) + 8) + 40);
+        v14 = *(*(*(a1 + 32) + 8) + 40);
         *buf = 136315650;
-        v19 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]_block_invoke";
-        v20 = 2114;
-        v21 = v5;
-        v22 = 2114;
-        v23 = v15;
+        v18 = "+[CSAudioFileManager cleanupOrphanedGradingFiles]_block_invoke";
+        v19 = 2114;
+        v20 = v5;
+        v21 = 2114;
+        v22 = v14;
         _os_log_error_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_ERROR, "%s ERR: Failed to delete %{public}@ with error %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneNumberOfGradingFilesTo:(unint64_t)to
@@ -326,28 +322,28 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
 
 + (void)pruneNumberOfLogFilesTo:(unint64_t)to
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E695DEC8] arrayWithObjects:{@"PCM-", @"OPUS_", @"OPP-", @"Ads-", @"PHS-", @"OSD-", 0}];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v3 = v39 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v3 = v38 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v37;
+    v6 = *v36;
     do
     {
       v7 = 0;
       do
       {
-        if (*v37 != v6)
+        if (*v36 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v36 + 1) + 8 * v7);
+        v8 = *(*(&v35 + 1) + 8 * v7);
         v9 = MEMORY[0x1E695DFF8];
         v10 = +[CSFPreferences sharedPreferences];
         assistantAudioFileLogDirectory = [v10 assistantAudioFileLogDirectory];
@@ -359,7 +355,7 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v5);
@@ -367,26 +363,26 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
 
   v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"-triggered", @"-almost", @"-rejected", @"-activation", @"-selfTrigger", 0}];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = v14;
-  v30 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
-  if (v30)
+  v29 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
+  if (v29)
   {
-    v29 = *v33;
+    v28 = *v32;
     do
     {
       v15 = 0;
       do
       {
-        if (*v33 != v29)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * v15);
+        v16 = *(*(&v31 + 1) + 8 * v15);
         v17 = MEMORY[0x1E695DFF8];
         v18 = +[CSFPreferences sharedPreferences];
         voiceTriggerAudioLogDirectory = [v18 voiceTriggerAudioLogDirectory];
@@ -404,14 +400,12 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
         ++v15;
       }
 
-      while (v30 != v15);
-      v30 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      while (v29 != v15);
+      v29 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 + (void)pruneLogFiles
@@ -483,7 +477,7 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
 
 + (id)_createAudioFileWriterForOSDWithLoggingDir:(id)dir inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696AEC0];
   dirCopy = dir;
   _getDateLabel = [self _getDateLabel];
@@ -504,21 +498,19 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
   v15 = *&format->mBytesPerPacket;
   *buf = *&format->mSampleRate;
   *&buf[16] = v15;
-  v23 = *&format->mBitsPerChannel;
+  v22 = *&format->mBitsPerChannel;
   v16 = *&outputFormat->mBytesPerPacket;
-  v20[0] = *&outputFormat->mSampleRate;
-  v20[1] = v16;
-  v21 = *&outputFormat->mBitsPerChannel;
-  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v20];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v19[0] = *&outputFormat->mSampleRate;
+  v19[1] = v16;
+  v20 = *&outputFormat->mBitsPerChannel;
+  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v19];
 
   return v17;
 }
 
 + (id)_createAudioFileWriterForPHSTrainingWithLoggingDir:(id)dir inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696AEC0];
   dirCopy = dir;
   _getDateLabel = [self _getDateLabel];
@@ -539,21 +531,19 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
   v15 = *&format->mBytesPerPacket;
   *buf = *&format->mSampleRate;
   *&buf[16] = v15;
-  v23 = *&format->mBitsPerChannel;
+  v22 = *&format->mBitsPerChannel;
   v16 = *&outputFormat->mBytesPerPacket;
-  v20[0] = *&outputFormat->mSampleRate;
-  v20[1] = v16;
-  v21 = *&outputFormat->mBitsPerChannel;
-  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v20];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v19[0] = *&outputFormat->mSampleRate;
+  v19[1] = v16;
+  v20 = *&outputFormat->mBitsPerChannel;
+  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v19];
 
   return v17;
 }
 
 + (id)_createAudioFileWriterWithLoggingDir:(id)dir withLoggingUUID:(id)d inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@%@.wav", dir, @"CS-", d];
   v9 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
@@ -571,21 +561,19 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
   v12 = *&format->mBytesPerPacket;
   *buf = *&format->mSampleRate;
   *&buf[16] = v12;
-  v20 = *&format->mBitsPerChannel;
+  v19 = *&format->mBitsPerChannel;
   v13 = *&outputFormat->mBytesPerPacket;
-  v17[0] = *&outputFormat->mSampleRate;
-  v17[1] = v13;
-  v18 = *&outputFormat->mBitsPerChannel;
-  v14 = [(CSPlainAudioFileWriter *)v10 initWithURL:v11 inputFormat:buf outputFormat:v17];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v16[0] = *&outputFormat->mSampleRate;
+  v16[1] = v13;
+  v17 = *&outputFormat->mBitsPerChannel;
+  v14 = [(CSPlainAudioFileWriter *)v10 initWithURL:v11 inputFormat:buf outputFormat:v16];
 
   return v14;
 }
 
 + (id)_createAudioFileWriterForOpportuneSpeakListenerWithLoggingDir:(id)dir inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v8 = MEMORY[0x1E696AEC0];
   dirCopy = dir;
   _getDateLabel = [self _getDateLabel];
@@ -607,21 +595,19 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
   v15 = *&format->mBytesPerPacket;
   *buf = *&format->mSampleRate;
   *&buf[16] = v15;
-  v23 = *&format->mBitsPerChannel;
+  v22 = *&format->mBitsPerChannel;
   v16 = *&outputFormat->mBytesPerPacket;
-  v20[0] = *&outputFormat->mSampleRate;
-  v20[1] = v16;
-  v21 = *&outputFormat->mBitsPerChannel;
-  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v20];
-
-  v18 = *MEMORY[0x1E69E9840];
+  v19[0] = *&outputFormat->mSampleRate;
+  v19[1] = v16;
+  v20 = *&outputFormat->mBitsPerChannel;
+  v17 = [(CSPlainAudioFileWriter *)v13 initWithURL:v14 inputFormat:buf outputFormat:v19];
 
   return v17;
 }
 
 + (id)_createAudioFileWriterForAdBlockerWithLoggingDir:(id)dir inputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat withAccessoryID:(id)d
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dirCopy = dir;
   dCopy = d;
   v12 = MEMORY[0x1E696AEC0];
@@ -634,7 +620,7 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
 
   else
   {
-    [v12 stringWithFormat:@"%@/%@%@.wav", dirCopy, @"Ads-", _getDateLabel, v24];
+    [v12 stringWithFormat:@"%@/%@%@.wav", dirCopy, @"Ads-", _getDateLabel, v23];
   }
   v15 = ;
 
@@ -654,14 +640,12 @@ void __49__CSAudioFileManager_cleanupOrphanedGradingFiles__block_invoke(uint64_t
   v19 = *&format->mBytesPerPacket;
   *buf = *&format->mSampleRate;
   *&buf[16] = v19;
-  v28 = *&format->mBitsPerChannel;
+  v27 = *&format->mBitsPerChannel;
   v20 = *&outputFormat->mBytesPerPacket;
-  v25[0] = *&outputFormat->mSampleRate;
-  v25[1] = v20;
-  v26 = *&outputFormat->mBitsPerChannel;
-  v21 = [(CSPlainAudioFileWriter *)v17 initWithURL:v18 inputFormat:buf outputFormat:v25];
-
-  v22 = *MEMORY[0x1E69E9840];
+  v24[0] = *&outputFormat->mSampleRate;
+  v24[1] = v20;
+  v25 = *&outputFormat->mBitsPerChannel;
+  v21 = [(CSPlainAudioFileWriter *)v17 initWithURL:v18 inputFormat:buf outputFormat:v24];
 
   return v21;
 }
@@ -746,25 +730,25 @@ LABEL_7:
       v13 = [v12 stringByAppendingPathComponent:v10];
       v14 = [v11 fileURLWithPath:v13];
 
-      v15 = [CSUtils getNumElementInBitset:bitset];
-      v28 = 0;
+      [CSUtils getNumElementInBitset:bitset];
+      v27 = 0;
+      v25 = 0u;
       v26 = 0u;
-      v27 = 0u;
       +[CSConfig inputRecordingSampleRate];
-      [CSFAudioStreamBasicDescriptionFactory lpcmNonInterleavedASBDWithSampleRate:v15 numberOfChannels:?];
-      v25 = 0;
+      objc_msgSend_lpcmNonInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
+      v24 = 0;
+      v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
       +[CSConfig inputRecordingSampleRate];
-      [CSFAudioStreamBasicDescriptionFactory lpcmInterleavedASBDWithSampleRate:v15 numberOfChannels:?];
-      v16 = [CSSelectiveChannelAudioFileWriter alloc];
-      v21[0] = v26;
-      v21[1] = v27;
-      v22 = v28;
-      v19[0] = v23;
-      v19[1] = v24;
-      v20 = v25;
-      v17 = [(CSSelectiveChannelAudioFileWriter *)v16 initWithURL:v14 inputFormat:v21 outputFormat:v19 channelBitset:bitset];
+      objc_msgSend_lpcmInterleavedASBDWithSampleRate_numberOfChannels_(CSFAudioStreamBasicDescriptionFactory);
+      v15 = [CSSelectiveChannelAudioFileWriter alloc];
+      v20[0] = v25;
+      v20[1] = v26;
+      v21 = v27;
+      v18[0] = v22;
+      v18[1] = v23;
+      v19 = v24;
+      v16 = [(CSSelectiveChannelAudioFileWriter *)v15 initWithURL:v14 inputFormat:v20 outputFormat:v18 channelBitset:bitset];
 
       goto LABEL_9;
     }
@@ -778,10 +762,10 @@ LABEL_7:
     }
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_9:
 
-  return v17;
+  return v16;
 }
 
 + (id)createAudioFileWriterWithInputFormat:(AudioStreamBasicDescription *)format outputFormat:(AudioStreamBasicDescription *)outputFormat withLoggingUUID:(id)d
@@ -924,7 +908,7 @@ LABEL_11:
 
 + (void)_readDataFromFileHandle:(id)handle toFileHandle:(id)fileHandle
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   fileHandleCopy = fileHandle;
   v7 = (10 * +[CSConfig inputRecordingNumberOfChannels]);
@@ -932,11 +916,11 @@ LABEL_11:
   v9 = ((v8 * v7) * +[CSConfig inputRecordingSampleByteDepth]);
   seekToEndOfFile = [handleCopy seekToEndOfFile];
   [handleCopy seekToFileOffset:16];
-  v33 = 0;
+  v32 = 0;
   v11 = [handleCopy readDataOfLength:4];
-  [v11 getBytes:&v33 length:8];
+  [v11 getBytes:&v32 length:8];
 
-  v12 = [handleCopy readDataOfLength:v33];
+  v12 = [handleCopy readDataOfLength:v32];
   v13 = objc_alloc(MEMORY[0x1E696AEC0]);
   v14 = [handleCopy readDataOfLength:4];
   v15 = [v13 initWithData:v14 encoding:4];
@@ -968,11 +952,11 @@ LABEL_11:
     v22 = v21;
     offsetInFile2 = [handleCopy offsetInFile];
     *buf = 136315650;
-    v35 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
-    v36 = 1026;
-    *v37 = v20;
-    *&v37[4] = 2050;
-    *&v37[6] = offsetInFile2;
+    v34 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
+    v35 = 1026;
+    *v36 = v20;
+    *&v36[4] = 2050;
+    *&v36[6] = offsetInFile2;
     _os_log_impl(&dword_1DDA4B000, v22, OS_LOG_TYPE_DEFAULT, "%s Start copying %{public}u bytes of data to crashreporter with wav file header offset %{public}llu", buf, 0x1Cu);
   }
 
@@ -980,21 +964,21 @@ LABEL_11:
   v25 = v24;
   if (v24 && [v24 length])
   {
-    v32 = 0;
-    [fileHandleCopy writeData:v25 error:&v32];
-    v26 = v32;
+    v31 = 0;
+    [fileHandleCopy writeData:v25 error:&v31];
+    v26 = v31;
     v27 = CSLogCategoryAudio;
     if (v26 && os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v30 = v27;
+      v29 = v27;
       localizedDescription = [v26 localizedDescription];
       *buf = 136315650;
-      v35 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
-      v36 = 2114;
-      *v37 = fileHandleCopy;
-      *&v37[8] = 2114;
-      *&v37[10] = localizedDescription;
-      _os_log_error_impl(&dword_1DDA4B000, v30, OS_LOG_TYPE_ERROR, "%s Unable to writeData to %{public}@ : %{public}@", buf, 0x20u);
+      v34 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
+      v35 = 2114;
+      *v36 = fileHandleCopy;
+      *&v36[8] = 2114;
+      *&v36[10] = localizedDescription;
+      _os_log_error_impl(&dword_1DDA4B000, v29, OS_LOG_TYPE_ERROR, "%s Unable to writeData to %{public}@ : %{public}@", buf, 0x20u);
 
       v27 = CSLogCategoryAudio;
     }
@@ -1002,7 +986,7 @@ LABEL_11:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
+      v34 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
       _os_log_impl(&dword_1DDA4B000, v27, OS_LOG_TYPE_DEFAULT, "%s Finished copying data to crashreporter.", buf, 0xCu);
     }
   }
@@ -1013,14 +997,12 @@ LABEL_11:
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v35 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
-      v36 = 2114;
-      *v37 = handleCopy;
+      v34 = "+[CSAudioFileManager _readDataFromFileHandle:toFileHandle:]";
+      v35 = 2114;
+      *v36 = handleCopy;
       _os_log_error_impl(&dword_1DDA4B000, v28, OS_LOG_TYPE_ERROR, "%s Failed to read data from %{public}@", buf, 0x16u);
     }
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 + (void)generateDeviceAudioLogging:(id)logging speechId:(id)id
@@ -1041,7 +1023,7 @@ LABEL_11:
 
 void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (CSIsHorseman_onceToken != -1)
   {
     dispatch_once(&CSIsHorseman_onceToken, &__block_literal_global_9);
@@ -1061,9 +1043,9 @@ void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke
         {
           v5 = *(a1 + 40);
           *buf = 136315394;
-          v50 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
-          v51 = 2114;
-          v52 = v5;
+          v49 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
+          v50 = 2114;
+          v51 = v5;
           _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s Extracted SpeechIdentifier: %{public}@", buf, 0x16u);
         }
 
@@ -1085,14 +1067,14 @@ void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke
         v19 = [v18 path];
         v20 = [v17 fileHandleForReadingAtPath:v19];
 
-        v46[1] = MEMORY[0x1E69E9820];
-        v46[2] = 3221225472;
-        v46[3] = __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke_47;
-        v46[4] = &unk_1E865C720;
+        v45[1] = MEMORY[0x1E69E9820];
+        v45[2] = 3221225472;
+        v45[3] = __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke_47;
+        v45[4] = &unk_1E865C720;
         v21 = v16;
-        v47 = v21;
+        v46 = v21;
         v22 = v20;
-        v48 = v22;
+        v47 = v22;
         if (OSAWriteLogForSubmission())
         {
           v23 = *(a1 + 32);
@@ -1125,33 +1107,33 @@ void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke
               v33 = v31;
               v34 = [v32 fileURL];
               *buf = 136315394;
-              v50 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
-              v51 = 2114;
-              v52 = v34;
+              v49 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
+              v50 = 2114;
+              v51 = v34;
               _os_log_impl(&dword_1DDA4B000, v33, OS_LOG_TYPE_DEFAULT, "%s Plan removing the temp file %{public}@", buf, 0x16u);
             }
 
             v35 = [MEMORY[0x1E696AC08] defaultManager];
             v36 = [*(a1 + 32) fileURL];
-            v46[0] = 0;
-            [v35 removeItemAtURL:v36 error:v46];
-            v37 = v46[0];
+            v45[0] = 0;
+            [v35 removeItemAtURL:v36 error:v45];
+            v37 = v45[0];
 
             if (v37)
             {
               v38 = CSLogCategoryAudio;
               if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
               {
-                v43 = *(a1 + 32);
-                v44 = v38;
-                v45 = [v43 fileURL];
+                v42 = *(a1 + 32);
+                v43 = v38;
+                v44 = [v42 fileURL];
                 *buf = 136315650;
-                v50 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
-                v51 = 2114;
-                v52 = v45;
-                v53 = 2114;
-                v54 = v37;
-                _os_log_error_impl(&dword_1DDA4B000, v44, OS_LOG_TYPE_ERROR, "%s Failed to remove temp file %{public}@ reason: %{public}@", buf, 0x20u);
+                v49 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
+                v50 = 2114;
+                v51 = v44;
+                v52 = 2114;
+                v53 = v37;
+                _os_log_error_impl(&dword_1DDA4B000, v43, OS_LOG_TYPE_ERROR, "%s Failed to remove temp file %{public}@ reason: %{public}@", buf, 0x20u);
               }
             }
           }
@@ -1164,16 +1146,16 @@ void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke
           {
 LABEL_21:
 
-            goto LABEL_22;
+            return;
           }
 
           v40 = *(a1 + 32);
           v27 = v39;
           v41 = [v40 fileURL];
           *buf = 136315394;
-          v50 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
-          v51 = 2114;
-          v52 = v41;
+          v49 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
+          v50 = 2114;
+          v51 = v41;
           _os_log_error_impl(&dword_1DDA4B000, v27, OS_LOG_TYPE_ERROR, "%s OSA write log failed for file %{public}@", buf, 0x16u);
         }
 
@@ -1181,39 +1163,34 @@ LABEL_21:
       }
     }
   }
-
-LABEL_22:
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CSAudioFileManager_generateDeviceAudioLogging_speechId___block_invoke_47(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
-  v10 = 0;
-  [v3 writeData:v4 error:&v10];
-  v5 = v10;
+  v9 = 0;
+  [v3 writeData:v4 error:&v9];
+  v5 = v9;
   if (v5)
   {
     v6 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v8 = v6;
-      v9 = [v5 localizedDescription];
+      v7 = v6;
+      v8 = [v5 localizedDescription];
       *buf = 136315650;
-      v12 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
-      v13 = 2114;
-      v14 = v3;
-      v15 = 2114;
-      v16 = v9;
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Unable to writeData to %{public}@ : %{public}@", buf, 0x20u);
+      v11 = "+[CSAudioFileManager generateDeviceAudioLogging:speechId:]_block_invoke";
+      v12 = 2114;
+      v13 = v3;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Unable to writeData to %{public}@ : %{public}@", buf, 0x20u);
     }
   }
 
   [CSAudioFileManager _readDataFromFileHandle:*(a1 + 40) toFileHandle:v3];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_sharedAudioLoggingQueue

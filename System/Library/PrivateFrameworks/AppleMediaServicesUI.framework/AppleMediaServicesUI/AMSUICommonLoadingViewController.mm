@@ -1,6 +1,7 @@
 @interface AMSUICommonLoadingViewController
 - (void)_setup;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
@@ -38,6 +39,15 @@
   v11 = v10;
   loadingView = [(AMSUICommonLoadingViewController *)self loadingView];
   [loadingView setFrame:{v5, v7, v9, v11}];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AMSUICommonLoadingViewController;
+  [(AMSUICommonLoadingViewController *)&v5 viewDidDisappear:disappear];
+  loadingView = [(AMSUICommonLoadingViewController *)self loadingView];
+  [loadingView stopAnimating];
 }
 
 - (void)_setup

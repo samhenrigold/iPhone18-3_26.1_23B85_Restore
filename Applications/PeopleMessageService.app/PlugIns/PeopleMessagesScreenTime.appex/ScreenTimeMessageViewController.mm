@@ -1,6 +1,7 @@
 @interface ScreenTimeMessageViewController
 - (_TtC24PeopleMessagesScreenTime31ScreenTimeMessageViewController)initWithCoder:(id)coder;
 - (_TtC24PeopleMessagesScreenTime31ScreenTimeMessageViewController)initWithNibName:(id)name bundle:(id)bundle;
+- (_TtC24PeopleMessagesScreenTime31ScreenTimeMessageViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate;
 - (void)viewDidLoad;
 @end
 
@@ -36,7 +37,7 @@
   }
 
   v17.receiver = self;
-  v17.super_class = type metadata accessor for ScreenTimeMessageViewController();
+  v17.super_class = type metadata accessor for ScreenTimeMessageViewController(0);
   v15 = [(RequestMessageViewController *)&v17 initWithNibName:v10 bundle:bundle];
 
   return v15;
@@ -49,7 +50,7 @@
   v7 = sub_100026974();
   (*(*(v7 - 8) + 104))(self + v5, v6, v7);
   v11.receiver = self;
-  v11.super_class = type metadata accessor for ScreenTimeMessageViewController();
+  v11.super_class = type metadata accessor for ScreenTimeMessageViewController(0);
   coderCopy = coder;
   v9 = [(RequestMessageViewController *)&v11 initWithCoder:coderCopy];
 
@@ -58,6 +59,18 @@
   }
 
   return v9;
+}
+
+- (_TtC24PeopleMessagesScreenTime31ScreenTimeMessageViewController)initWithShouldBeSheetPresentationControllerDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  v5 = OBJC_IVAR____TtC24PeopleMessagesScreenTime31ScreenTimeMessageViewController_fallbackThumbnail;
+  v6 = enum case for FirstPartyApps.screentime(_:);
+  v7 = sub_100026974();
+  (*(*(v7 - 8) + 104))(self + v5, v6, v7);
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for ScreenTimeMessageViewController(0);
+  return [(RequestMessageViewController *)&v9 initWithShouldBeSheetPresentationControllerDelegate:delegateCopy];
 }
 
 @end

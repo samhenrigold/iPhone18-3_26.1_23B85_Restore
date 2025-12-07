@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"hasCollabView";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"hasCollabView";
   hasCollabView = [(ICASPdfCollabIxData *)self hasCollabView];
   if (hasCollabView)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = hasCollabView2;
-  v12[1] = @"hasCollabEdit";
-  v13[0] = hasCollabView2;
+  v11[1] = @"hasCollabEdit";
+  v12[0] = hasCollabView2;
   hasCollabEdit = [(ICASPdfCollabIxData *)self hasCollabEdit];
   if (hasCollabEdit)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = hasCollabEdit2;
-  v13[1] = hasCollabEdit2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = hasCollabEdit2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

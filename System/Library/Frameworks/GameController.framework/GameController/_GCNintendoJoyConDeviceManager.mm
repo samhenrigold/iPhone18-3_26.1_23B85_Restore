@@ -54,10 +54,11 @@
 
 - (void)device:(id)device fusionGestureActive:(BOOL)active
 {
+  activeCopy = active;
   deviceCopy = device;
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(deviceCopy, v7))
   {
-    [_GCNintendoJoyConDeviceManager device:fusionGestureActive:];
+    [_GCNintendoJoyConDeviceManager device:activeCopy fusionGestureActive:?];
   }
 
   queue = self->_queue;
@@ -65,10 +66,10 @@
   block[1] = 3221225472;
   block[2] = __61___GCNintendoJoyConDeviceManager_device_fusionGestureActive___block_invoke;
   block[3] = &unk_1E8419B20;
-  activeCopy = active;
-  v10 = deviceCopy;
+  v13 = activeCopy;
+  v11 = deviceCopy;
   selfCopy = self;
-  v8 = deviceCopy;
+  v9 = deviceCopy;
   dispatch_async(queue, block);
 }
 
@@ -88,7 +89,7 @@
 
 - (id)makeDeviceWithConfiguration:(id)configuration dependencies:(id)dependencies
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   dependenciesCopy = dependencies;
   if ([dependenciesCopy count] == 1)
@@ -144,36 +145,36 @@
     {
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    v44 = dependenciesCopy;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v43 = dependenciesCopy;
     v23 = dependenciesCopy;
-    v24 = [v23 countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v24)
     {
       v25 = v24;
-      v41 = a2;
-      v42 = allObjects;
+      v40 = a2;
+      v41 = allObjects;
       selfCopy = self;
       obj = v23;
-      v46 = configurationCopy;
+      v45 = configurationCopy;
       v26 = 0;
       v27 = 0;
-      v28 = *v48;
+      v28 = *v47;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v48 != v28)
+          if (*v47 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v47 + 1) + 8 * i);
+          v30 = *(*(&v46 + 1) + 8 * i);
           identifier = [v30 identifier];
-          deviceDependencies = [v46 deviceDependencies];
+          deviceDependencies = [v45 deviceDependencies];
           firstObject = [deviceDependencies firstObject];
           v34 = [identifier isEqual:firstObject];
 
@@ -200,15 +201,15 @@
         }
 
         v23 = obj;
-        v25 = [obj countByEnumeratingWithState:&v47 objects:v51 count:16];
+        v25 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v25);
 
-      configurationCopy = v46;
-      allObjects = v42;
+      configurationCopy = v45;
+      allObjects = v41;
       self = selfCopy;
-      a2 = v41;
+      a2 = v40;
       if (v26)
       {
         goto LABEL_31;
@@ -226,7 +227,7 @@
 
     v26 = 0;
 LABEL_31:
-    dependenciesCopy = v44;
+    dependenciesCopy = v43;
     if (!v27)
     {
       [(_GCNintendoJoyConDeviceManager *)a2 makeDeviceWithConfiguration:v23 dependencies:?];
@@ -247,8 +248,6 @@ LABEL_11:
 
 LABEL_34:
 LABEL_35:
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return anyObject2;
 }
@@ -277,15 +276,15 @@ LABEL_35:
 
 - (void)_onqueue_registerFusionConfigurationWithLeftDevice:(id)device rightDevice:(id)rightDevice
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   rightDeviceCopy = rightDevice;
   deviceCopy = device;
   v8 = [_GCNintendoFusedJoyConDevice identifierForFusedJoyConDeviceWithLeftDevice:deviceCopy rightDevice:rightDeviceCopy];
   identifier = [deviceCopy identifier];
-  v21[0] = identifier;
+  v20[0] = identifier;
   identifier2 = [rightDeviceCopy identifier];
-  v21[1] = identifier2;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[1] = identifier2;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
 
   v12 = MEMORY[0x1E69A0710];
   identifier3 = [(_GCNintendoJoyConDeviceManager *)self identifier];
@@ -315,8 +314,6 @@ LABEL_5:
   deviceRegistry = [(_GCNintendoJoyConDeviceManager *)self deviceRegistry];
   deviceConfigurationRegistry = [deviceRegistry deviceConfigurationRegistry];
   [deviceConfigurationRegistry addConfiguration:v14 replaceExisting:0];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_tryRegisteringFusionConfigurationWithDevice:(id)device
@@ -384,7 +381,7 @@ LABEL_18:
 
 - (void)_onqueue_registerDefaultConfigurationForJoyConDevice:(id)device
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   deviceCopy = device;
   v6 = [v4 alloc];
@@ -394,8 +391,8 @@ LABEL_18:
   v9 = MEMORY[0x1E69A0710];
   identifier2 = [deviceCopy identifier];
   identifier3 = [deviceCopy identifier];
-  v19[0] = identifier3;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = identifier3;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   identifier4 = [(_GCNintendoJoyConDeviceManager *)self identifier];
   v14 = [v9 configurationWithIdentifier:v8 priority:10 deviceIdentifier:identifier2 deviceDependencies:v12 deviceBuilder:identifier4];
 
@@ -412,13 +409,11 @@ LABEL_18:
   deviceRegistry = [(_GCNintendoJoyConDeviceManager *)self deviceRegistry];
   deviceConfigurationRegistry = [deviceRegistry deviceConfigurationRegistry];
   [deviceConfigurationRegistry addConfiguration:v14 replaceExisting:0];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_registerDefaultConfigurationForDevice:(id)device
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AEC0];
   deviceCopy = device;
   v6 = [v4 alloc];
@@ -427,8 +422,8 @@ LABEL_18:
 
   v9 = MEMORY[0x1E69A0710];
   identifier2 = [deviceCopy identifier];
-  v18[0] = identifier2;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = identifier2;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
   identifier3 = [(_GCNintendoJoyConDeviceManager *)self identifier];
   v13 = [v9 configurationWithIdentifier:v8 priority:10 deviceIdentifier:v8 deviceDependencies:v11 deviceBuilder:identifier3];
 
@@ -445,8 +440,6 @@ LABEL_18:
   deviceRegistry = [(_GCNintendoJoyConDeviceManager *)self deviceRegistry];
   deviceConfigurationRegistry = [deviceRegistry deviceConfigurationRegistry];
   [deviceConfigurationRegistry addConfiguration:v13 replaceExisting:0];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_registerDefaultConfigurationsForDevice:(id)device
@@ -494,10 +487,11 @@ LABEL_18:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v7, v8);
+  if (isInternalBuild)
   {
-    v9 = getGCLogger();
-    [_GCNintendoJoyConDeviceManager claimHIDService:v9];
+    v12 = getGCLogger(isInternalBuild);
+    [_GCNintendoJoyConDeviceManager claimHIDService:v12];
   }
 
   if ([(NSMutableSet *)self->_claimedServices containsObject:serviceCopy])
@@ -512,10 +506,10 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __50___GCNintendoJoyConDeviceManager_claimHIDService___block_invoke;
   block[3] = &unk_1E8419B98;
-  v12 = serviceCopy;
+  v15 = serviceCopy;
   selfCopy = self;
-  v14 = a2;
-  v8 = serviceCopy;
+  v17 = a2;
+  v11 = serviceCopy;
   dispatch_async(queue, block);
 
   os_activity_scope_leave(&state);
@@ -526,33 +520,35 @@ LABEL_18:
   serviceCopy = service;
   dispatch_assert_queue_V2(self->_queue);
   v5 = [(NSMutableDictionary *)self->_physicalDevices objectForKey:serviceCopy];
+  v7 = v5;
   if (v5)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v5, v6))
     {
       [_GCNintendoJoyConDeviceManager _onqueue_relinquishHIDService:];
     }
 
     deviceRegistry = [(_GCNintendoJoyConDeviceManager *)self deviceRegistry];
-    [deviceRegistry deviceManager:self deviceDidDisconnect:v5];
+    [deviceRegistry deviceManager:self deviceDidDisconnect:v7];
 
-    [(NSMutableSet *)self->_fusionGestureDevices removeObject:v5];
+    [(NSMutableSet *)self->_fusionGestureDevices removeObject:v7];
     [(NSMutableDictionary *)self->_physicalDevices removeObjectForKey:serviceCopy];
   }
 
-  v7 = [(NSMutableDictionary *)self->_pendingDevices objectForKey:serviceCopy];
-  if (v7)
+  v9 = [(NSMutableDictionary *)self->_pendingDevices objectForKey:serviceCopy];
+  v11 = v9;
+  if (v9)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(v9, v10))
     {
       [_GCNintendoJoyConDeviceManager _onqueue_relinquishHIDService:];
     }
 
-    device = [v7 device];
+    device = [v11 device];
     [device cancel];
 
-    [v7 setFilterConnection:0 invalidatingPrevious:1];
-    [v7 setDriverConnection:0 invalidatingPrevious:1];
+    [v11 setFilterConnection:0 invalidatingPrevious:1];
+    [v11 setDriverConnection:0 invalidatingPrevious:1];
     [(NSMutableDictionary *)self->_pendingDevices removeObjectForKey:serviceCopy];
   }
 }
@@ -564,10 +560,11 @@ LABEL_18:
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v6, &state);
-  if (gc_isInternalBuild())
+  isInternalBuild = gc_isInternalBuild(v7, v8);
+  if (isInternalBuild)
   {
-    v9 = getGCLogger();
-    [_GCNintendoJoyConDeviceManager relinquishHIDService:v9];
+    v12 = getGCLogger(isInternalBuild);
+    [_GCNintendoJoyConDeviceManager relinquishHIDService:v12];
   }
 
   if (([(NSMutableSet *)self->_claimedServices containsObject:serviceCopy]& 1) == 0)
@@ -583,8 +580,8 @@ LABEL_18:
   block[2] = __55___GCNintendoJoyConDeviceManager_relinquishHIDService___block_invoke;
   block[3] = &unk_1E8418C50;
   block[4] = self;
-  v12 = serviceCopy;
-  v8 = serviceCopy;
+  v15 = serviceCopy;
+  v11 = serviceCopy;
   dispatch_async(queue, block);
 
   os_activity_scope_leave(&state);
@@ -657,18 +654,15 @@ LABEL_18:
   return v10;
 }
 
-- (void)device:fusionGestureActive:.cold.1()
+- (void)device:(uint64_t)a1 fusionGestureActive:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v1))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
     OUTLINED_FUNCTION_0_13();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)makeDeviceWithConfiguration:(uint64_t)a3 dependencies:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -680,40 +674,31 @@ LABEL_18:
 
 - (void)claimHIDService:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_1_9();
-    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v3, v4, "%@: Asked to claim %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v2, v3, "%@: Asked to claim %@", v4, v5, v6, v7);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onqueue_relinquishHIDService:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = getGCLogger();
-  if (OUTLINED_FUNCTION_9(v1))
+  v2 = getGCLogger(v1);
+  if (OUTLINED_FUNCTION_9(v2))
   {
     OUTLINED_FUNCTION_1_9();
-    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v3, v4, "%@: Removing %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v3, v4, "%@: Removing %@", v5, v6, v7, v8);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)relinquishHIDService:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_1_9();
-    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v3, v4, "%@: Asked to relinquish %@", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_2_6(&dword_1D2CD5000, v2, v3, "%@: Asked to relinquish %@", v4, v5, v6, v7);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

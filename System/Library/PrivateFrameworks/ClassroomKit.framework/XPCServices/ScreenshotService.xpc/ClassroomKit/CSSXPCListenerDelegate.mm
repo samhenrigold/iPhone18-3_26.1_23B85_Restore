@@ -61,56 +61,56 @@
 + (void)assertObjectConformsToExportedProtocols:(id)protocols
 {
   protocolsCopy = protocols;
-  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v6 = CSSAllRoles();
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v7)
+  v18 = 0u;
+  v7 = CSSAllRoles(protocolsCopy, v6);
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v8)
   {
-    v8 = v7;
-    v9 = *v15;
+    v9 = v8;
+    v10 = *v16;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      for (i = 0; i != v9; i = i + 1)
       {
-        if (*v15 != v9)
+        if (*v16 != v10)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
-        protocol = [v11 protocol];
-        v13 = [protocolsCopy conformsToProtocol:protocol];
+        v12 = *(*(&v15 + 1) + 8 * i);
+        protocol = [v12 protocol];
+        v14 = [protocolsCopy conformsToProtocol:protocol];
 
-        if ((v13 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
-          sub_100006010(v11, a2, self, protocolsCopy);
+          sub_100006010(v12, a2, self, protocolsCopy);
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 }
 
 - (id)denialMessageForConnection:(id)connection
 {
   connectionCopy = connection;
-  v4 = CSSAllRoles();
-  v5 = [v4 crk_mapUsingBlock:&stru_10000C638];
-  allObjects = [v5 allObjects];
+  v5 = CSSAllRoles(connectionCopy, v4);
+  v6 = [v5 crk_mapUsingBlock:&stru_10000C638];
+  allObjects = [v6 allObjects];
 
-  v7 = [allObjects sortedArrayUsingSelector:"compare:"];
-  v8 = [v7 componentsJoinedByString:@" or "];
+  v8 = [allObjects sortedArrayUsingSelector:"compare:"];
+  v9 = [v8 componentsJoinedByString:@" or "];
   processIdentifier = [connectionCopy processIdentifier];
 
-  v10 = [NSString stringWithFormat:@"Denying connection from (%d) as it lacks a valid entitlement (%@).", processIdentifier, v8];
+  v11 = [NSString stringWithFormat:@"Denying connection from (%d) as it lacks a valid entitlement (%@).", processIdentifier, v9];
 
-  return v10;
+  return v11;
 }
 
 - (id)exportedInterfaceForConnection:(id)connection
@@ -134,17 +134,17 @@
 - (id)rolesForConnection:(id)connection
 {
   connectionCopy = connection;
-  v5 = CSSAllRoles();
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100003F0C;
-  v9[3] = &unk_10000C660;
-  v9[4] = self;
-  v10 = connectionCopy;
-  v6 = connectionCopy;
-  v7 = [v5 crk_filterUsingBlock:v9];
+  v6 = CSSAllRoles(connectionCopy, v5);
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_100003F0C;
+  v10[3] = &unk_10000C660;
+  v10[4] = self;
+  v11 = connectionCopy;
+  v7 = connectionCopy;
+  v8 = [v6 crk_filterUsingBlock:v10];
 
-  return v7;
+  return v8;
 }
 
 - (id)exportedProtocolForRoles:(id)roles

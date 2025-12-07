@@ -18,6 +18,9 @@
 - (void)setTypeToSiriTrigger:(id)trigger forSpecifier:(id)specifier;
 - (void)setVoiceActivation:(id)activation forSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantActivationController
@@ -35,6 +38,92 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(AssistantActivationController *)self _updateSelectedPhrase];
+  v8.receiver = self;
+  v8.super_class = AssistantActivationController;
+  [(AssistantActivationController *)&v8 viewWillAppear:appearCopy];
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2050000000;
+  v5 = getVTUIEnrollTrainingViewControllerClass_softClass;
+  v13 = getVTUIEnrollTrainingViewControllerClass_softClass;
+  if (!getVTUIEnrollTrainingViewControllerClass_softClass)
+  {
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __getVTUIEnrollTrainingViewControllerClass_block_invoke;
+    v9[3] = &unk_278CD1658;
+    v9[4] = &v10;
+    __getVTUIEnrollTrainingViewControllerClass_block_invoke(v9);
+    v5 = v11[3];
+  }
+
+  v6 = v5;
+  _Block_object_dispose(&v10, 8);
+  v7 = objc_opt_new();
+  [v7 prewarm];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v26[2] = *MEMORY[0x277D85DE8];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_preferencesDidChange_ name:*MEMORY[0x277CEF060] object:0];
+
+  v25.receiver = self;
+  v25.super_class = AssistantActivationController;
+  [(AssistantActivationController *)&v25 viewDidAppear:appearCopy];
+  v24 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/ACTIVATION_COMPACT_ID"];
+  v6 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v8 bundleURL];
+  v10 = [v6 initWithKey:@"Listen for" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v11 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  LODWORD(v8) = [v11 deviceSupported];
+
+  if (v8)
+  {
+    v12 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v12 = @"Siri";
+  }
+
+  v13 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v15 bundleURL];
+  v17 = [v13 initWithKey:v12 table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v18 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v20 bundleURL];
+  v22 = [v18 initWithKey:@"Listen For" table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v26[0] = v17;
+  v26[1] = v22;
+  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+  [(AssistantActivationController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v10 localizedNavigationComponents:v23 deepLink:v24];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = AssistantActivationController;
+  [(AssistantActivationController *)&v5 viewDidDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CEF060] object:0];
 }
 
 - (void)preferencesDidChange:(id)change
@@ -172,13 +261,12 @@
 
 - (void)_updateSelectedPhrase
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[AssistantActivationController _updateSelectedPhrase]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[AssistantActivationController _updateSelectedPhrase]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Error updating preferred voice trigger phrase: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Error updating preferred voice trigger phrase: %@", &v2, 0x16u);
 }
 
 - (id)_updateAndGetCheckedSpecifier
@@ -306,12 +394,12 @@ LABEL_9:
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = AssistantActivationController;
+  v21 = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = AssistantActivationController;
   pathCopy = path;
-  [(AssistantActivationController *)&v17 tableView:view didSelectRowAtIndexPath:pathCopy];
-  v7 = [(AssistantActivationController *)self indexForIndexPath:pathCopy, v17.receiver, v17.super_class];
+  [(AssistantActivationController *)&v16 tableView:view didSelectRowAtIndexPath:pathCopy];
+  v7 = [(AssistantActivationController *)self indexForIndexPath:pathCopy, v16.receiver, v16.super_class];
 
   v8 = [(AssistantActivationController *)self specifierAtIndex:v7];
   v9 = v8;
@@ -323,9 +411,9 @@ LABEL_7:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v19 = "[AssistantActivationController tableView:didSelectRowAtIndexPath:]";
-      v20 = 2048;
-      v21 = v11;
+      v18 = "[AssistantActivationController tableView:didSelectRowAtIndexPath:]";
+      v19 = 2048;
+      v20 = v11;
       _os_log_impl(&dword_2413B9000, v12, OS_LOG_TYPE_DEFAULT, "%s Setting preferred voice trigger phrase: %lu", buf, 0x16u);
     }
 
@@ -352,8 +440,6 @@ LABEL_10:
     [(AssistantActivationController *)self _updateSpecifiersFromPreferences];
     [(AssistantActivationController *)self preferencesDidChange:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_localizeTriggerString:(id)string
@@ -462,14 +548,13 @@ void __65__AssistantActivationController_setVoiceActivation_forSpecifier___block
 
 - (void)_updateAndGetCheckedSpecifier
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *self;
-  v4 = 136315394;
-  v5 = "[AssistantActivationController _updateAndGetCheckedSpecifier]";
-  v6 = 2048;
-  v7 = v2;
-  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Error updating preferred voice trigger phrase specifier, unknown phrase type: %lu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[AssistantActivationController _updateAndGetCheckedSpecifier]";
+  v5 = 2048;
+  v6 = v2;
+  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Error updating preferred voice trigger phrase specifier, unknown phrase type: %lu", &v3, 0x16u);
 }
 
 @end

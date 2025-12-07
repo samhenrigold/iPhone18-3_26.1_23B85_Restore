@@ -1,3 +1,502 @@
+double CI::sw_ci_to_la16_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
+  *v8.i32 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65535.0;
+  v9.f32[0] = *v8.i32 + (floorf(*v8.i32 * 0.0039062) * -256.0);
+  v10 = vmuls_lane_f32(65535.0, *v7, 3);
+  v9.f32[1] = (*v8.i32 - v9.f32[0]) * 0.0039062;
+  v9.f32[2] = v10 + (floorf(v10 * 0.0039062) * -256.0);
+  v9.f32[3] = (v10 - v9.f32[2]) * 0.0039062;
+  *&result = vdivq_f32(v9, vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_la16_as_bgra8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
+  *v8.i32 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65535.0;
+  v9 = *v8.i32 + (floorf(*v8.i32 * 0.0039062) * -256.0);
+  v10 = vmuls_lane_f32(65535.0, *v7, 3);
+  v11.f32[0] = v10 + (floorf(v10 * 0.0039062) * -256.0);
+  v11.f32[1] = (*v8.i32 - v9) * 0.0039062;
+  v11.f32[2] = v9;
+  v11.f32[3] = (v10 - v11.f32[0]) * 0.0039062;
+  *&result = vdivq_f32(v11, vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+uint64_t CI::sw_ci_to_rgb_as_r(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = a3 + 16 * v5;
+  v7 = a2 + (v5 << 6);
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  return *v7;
+}
+
+double CI::sw_ci_to_rgb10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), vdupq_n_s32(0x447FC000u));
+  _Q1.i64[0] = 0x3F0000003F000000;
+  _Q1.i64[1] = 0x3F0000003F000000;
+  v14 = vaddq_f32(v13, _Q1);
+  *v14.i8 = vshl_u32(vcvt_s32_f32(*v14.i8), 0xA00000014);
+  v15 = vorr_s8(vdup_lane_s32(*v14.i8, 1), *v14.i8).u32[0] | *&v14.i32[2];
+  v16.i32[0] = *&v14.i32[2];
+  v16.i32[1] = v15 >> 8;
+  v16.u64[1] = vshl_u32(vdup_n_s32(v15), 0xFFFFFFE8FFFFFFF0);
+  v14.i64[0] = 0xFF000000FFLL;
+  v14.i64[1] = 0xFF000000FFLL;
+  v17 = vandq_s8(v16, v14);
+  v17.i32[3] = (v16.i64[1] | 0xC0000000C0uLL) >> 32;
+  *&result = vdivq_f32(vcvtq_f32_u32(v17), vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_a2bgr10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), xmmword_19CF226C0);
+  _Q1.i64[0] = 0x3F0000003F000000;
+  _Q1.i64[1] = 0x3F0000003F000000;
+  v14 = vaddq_f32(v13, _Q1);
+  v15 = *v14.i32;
+  v16 = *v14.i32 | (*&v14.i32[1] << 10);
+  v17 = vextq_s8(v14, v14, 8uLL);
+  *v17.i8 = vshl_u32(vcvt_s32_f32(*v17.i8), 0x1E00000014);
+  v18 = vorr_s8(*v17.i8, vdup_lane_s32(*v17.i8, 1)).u32[0] | v16;
+  v17.i32[0] = v15;
+  v17.i32[1] = v16 >> 8;
+  v17.i32[2] = HIWORD(v18);
+  _Q1.i64[0] = 0xFF000000FFLL;
+  _Q1.i64[1] = 0xFF000000FFLL;
+  v19 = vandq_s8(v17, _Q1);
+  v17.i32[3] = v18;
+  v19.i32[3] = vshrq_n_u32(*&v17, 0x18uLL).i32[3];
+  *&result = vdivq_f32(vcvtq_f32_u32(v19), vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_a2rgb10_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  v13 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(*v7, 0), _Q1), xmmword_19CF226C0);
+  _Q1.i64[0] = 0x3F0000003F000000;
+  _Q1.i64[1] = 0x3F0000003F000000;
+  v14 = vaddq_f32(v13, _Q1);
+  v15 = *&v14.i32[2] | (*&v14.i32[1] << 10);
+  v14.i32[1] = vextq_s8(v14, v14, 8uLL).i32[1];
+  *v14.i8 = vshl_u32(vcvt_s32_f32(*v14.i8), 0x1E00000014);
+  v16 = vorr_s8(*v14.i8, vdup_lane_s32(*v14.i8, 1)).u32[0] | v15;
+  v14.i32[0] = *&v14.i32[2];
+  v14.i32[1] = v15 >> 8;
+  v14.i32[2] = HIWORD(v16);
+  _Q1.i64[0] = 0xFF000000FFLL;
+  _Q1.i64[1] = 0xFF000000FFLL;
+  v17 = vandq_s8(v14, _Q1);
+  v14.i32[3] = v16;
+  v17.i32[3] = vshrq_n_u32(*&v14, 0x18uLL).i32[3];
+  *&result = vdivq_f32(vcvtq_f32_u32(v17), vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_rgb10wide_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vabsq_f32(*v7);
+  v22 = vcgtq_f32(vdupq_n_s32(0x3B4D2E1Cu), v8);
+  v9.i64[0] = 0x8000000080000000;
+  v9.i64[1] = 0x8000000080000000;
+  __asm { FMOV            V3.4S, #1.0 }
+
+  v23 = _Q3;
+  v8.i32[3] = 0;
+  v15 = vaddq_f32(vmulq_f32(vbslq_s8(v22, vmulq_f32(*v7, vdupq_n_s32(0x414EB852u)), vmulq_f32(vmlaq_f32(vdupq_n_s32(0xBD6147AE), vdupq_n_s32(0x3F870A3Du), _simd_pow_f4(v8, xmmword_19CF22D80)), vbslq_s8(vorrq_s8(vcltzq_f32(*v7), vcgtzq_f32(*v7)), vorrq_s8(vandq_s8(*v7, v9), _Q3), 0))), vdupq_n_s32(0x3EFF3FD0u)), vdupq_n_s32(0x3EC0300Cu));
+  v15.i32[3] = 1.0;
+  v16.i64[0] = 0x3F0000003F000000;
+  v16.i64[1] = 0x3F0000003F000000;
+  v17 = vaddq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(v15, 0), v23), xmmword_19CF226C0), v16);
+  v18 = *&v17.i32[2] | (*&v17.i32[1] << 10);
+  v17.i32[1] = vextq_s8(v17, v17, 8uLL).i32[1];
+  *v17.i8 = vshl_u32(vcvt_s32_f32(*v17.i8), 0x1E00000014);
+  v19 = vorr_s8(*v17.i8, vdup_lane_s32(*v17.i8, 1)).u32[0] | v18;
+  v17.i32[0] = *&v17.i32[2];
+  v17.i32[1] = v18 >> 8;
+  v17.i32[2] = HIWORD(v19);
+  v16.i64[0] = 0xFF000000FFLL;
+  v16.i64[1] = 0xFF000000FFLL;
+  v20 = vandq_s8(v17, v16);
+  v17.i32[3] = v19;
+  v20.i32[3] = vshrq_n_u32(*&v17, 0x18uLL).i32[3];
+  *&result = vdivq_f32(vcvtq_f32_u32(v20), vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_rgb10widelinear_as_rgba8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vaddq_f32(vmulq_f32(*v7, vdupq_n_s32(0x3EFF3FD0u)), vdupq_n_s32(0x3EC0300Cu));
+  v8.i32[3] = 1.0;
+  __asm { FMOV            V1.4S, #1.0 }
+
+  v14 = vmulq_f32(vminnmq_f32(vmaxnmq_f32(v8, 0), _Q1), xmmword_19CF226C0);
+  _Q1.i64[0] = 0x3F0000003F000000;
+  _Q1.i64[1] = 0x3F0000003F000000;
+  v15 = vaddq_f32(v14, _Q1);
+  v16 = *&v15.i32[2] | (*&v15.i32[1] << 10);
+  v15.i32[1] = vextq_s8(v15, v15, 8uLL).i32[1];
+  *v15.i8 = vshl_u32(vcvt_s32_f32(*v15.i8), 0x1E00000014);
+  v17 = vorr_s8(*v15.i8, vdup_lane_s32(*v15.i8, 1)).u32[0] | v16;
+  v15.i32[0] = *&v15.i32[2];
+  v15.i32[1] = v16 >> 8;
+  v15.i32[2] = HIWORD(v17);
+  _Q1.i64[0] = 0xFF000000FFLL;
+  _Q1.i64[1] = 0xFF000000FFLL;
+  v18 = vandq_s8(v15, _Q1);
+  v15.i32[3] = v17;
+  v18.i32[3] = vshrq_n_u32(*&v15, 0x18uLL).i32[3];
+  *&result = vdivq_f32(vcvtq_f32_u32(v18), vdupq_n_s32(0x437F0000u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_argb10wide_as_rgba16(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v20 = *v7;
+  v8 = vrev64q_s32(*v7);
+  v9 = vextq_s8(v8, v8, 0xCuLL);
+  v10 = vabsq_f32(v9);
+  v19 = vcgtq_f32(vdupq_n_s32(0x3B4D2E1Cu), v10);
+  v11.i64[0] = 0x8000000080000000;
+  v11.i64[1] = 0x8000000080000000;
+  __asm { FMOV            V3.4S, #1.0 }
+
+  v10.i32[3] = 0;
+  v17 = vbslq_s8(v19, vmulq_f32(v9, vdupq_n_s32(0x414EB852u)), vmulq_f32(vmlaq_f32(vdupq_n_s32(0xBD6147AE), vdupq_n_s32(0x3F870A3Du), _simd_pow_f4(v10, xmmword_19CF22D80)), vbslq_s8(vorrq_s8(vcltzq_f32(v9), vcgtzq_f32(v9)), vorrq_s8(vandq_s8(v9, v11), _Q3), 0)));
+  v17.i32[3] = v20.i32[3];
+  *&result = vdivq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(vaddq_f32(vmulq_f32(v17, vdupq_n_s32(0x43FF0000u)), vdupq_n_s32(0x43C00000u)), 0), vdupq_n_s32(0x447FC000u)), vdupq_n_s32(0x42800000u)), vdupq_n_s32(0x477FFF00u)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_argb10widelinear_as_rgba16(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vrev64q_s32(vdivq_f32(vmulq_f32(vminnmq_f32(vmaxnmq_f32(vaddq_f32(vmulq_f32(*v7, vdupq_n_s32(0x43FF0000u)), vdupq_n_s32(0x43C00000u)), 0), vdupq_n_s32(0x447FC000u)), vdupq_n_s32(0x42800000u)), vdupq_n_s32(0x477FFF00u)));
+  *&result = vextq_s8(v8, v8, 0xCuLL).u64[0];
+  return result;
+}
+
+double CI::sw_ci_argb10wide(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vrev64q_s32(vdivq_f32(vaddq_f32(vmulq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x3C800000u)), vdupq_n_s32(0xC3C00000)), vdupq_n_s32(0x43FF0000u)));
+  v9 = vextq_s8(v8, v8, 0xCuLL);
+  v10 = vabsq_f32(v9);
+  v20 = vmulq_f32(v9, vdupq_n_s32(0x3D9E8391u));
+  v11.i64[0] = 0x8000000080000000;
+  v11.i64[1] = 0x8000000080000000;
+  __asm { FMOV            V3.4S, #1.0 }
+
+  v19 = vbslq_s8(vorrq_s8(vcltzq_f32(v9), vcgtzq_f32(v9)), vorrq_s8(vandq_s8(v9, v11), _Q3), 0);
+  v17 = vmlaq_f32(vdupq_n_s32(0x3D558919u), vdupq_n_s32(0x3F72A76Eu), v10);
+  v17.i32[3] = 0;
+  *&result = vbslq_s8(vcgtq_f32(vdupq_n_s32(0x3D25AEE6u), v10), v20, vmulq_f32(_simd_pow_f4(v17, xmmword_19CF226D0), v19)).u64[0];
+  return result;
+}
+
+double CI::sw_ci_argb10widelinear(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vrev64q_s32(vdivq_f32(vaddq_f32(vmulq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x3C800000u)), vdupq_n_s32(0xC3C00000)), vdupq_n_s32(0x43FF0000u)));
+  *&result = vextq_s8(v8, v8, 0xCuLL).u64[0];
+  return result;
+}
+
+double CI::sw_ci_10of16(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  *&result = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x477FC000u)), 0), _Q1).u64[0];
+  return result;
+}
+
+uint64_t CI::sw_ci_l10(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  _Q1.i32[0] = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FFF00u)), vdupq_n_s32(0x477FC000u)), 0), _Q1).u32[0];
+  _Q1.i32[1] = _Q1.i32[0];
+  return _Q1.i64[0];
+}
+
+double CI::sw_ci_to_10of16(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  __asm { FMOV            V1.4S, #1.0 }
+
+  *&result = vminnmq_f32(vmaxnmq_f32(vdivq_f32(vmulq_f32(*v7, vdupq_n_s32(0x477FC000u)), vdupq_n_s32(0x477FFF00u)), 0), _Q1).u64[0];
+  return result;
+}
+
+double CI::sw_ci_to_l10_as_r16(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
+  *v8.i64 = vaddv_f32(vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL))) * 65472.0 / 65535.0;
+  *v8.i32 = *v8.i64;
+  v9 = vdupq_laneq_s32(*v7, 3);
+  *&result = vextq_s8(vextq_s8(v9, v8, 4uLL), v9, 0xCuLL).u64[0];
+  return result;
+}
+
+uint64_t CI::sw_ci_combine_420(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = a3 + 16 * v5;
+  v7 = a2 + (v5 << 6);
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  return *v7;
+}
+
+uint64_t CI::sw_ci_combine_422(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = a3 + 16 * v5;
+  v7 = a2 + (v5 << 6);
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  return *v7;
+}
+
+uint64_t CI::sw_ci_combine_444(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = a3 + 16 * v5;
+  v7 = a2 + (v5 << 6);
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  return *v7;
+}
+
+uint64_t CI::sw_ci_swizzle_to_4XX(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = a3 + 16 * v5;
+  v7 = a2 + (v5 << 6);
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  return *v7;
+}
+
+double CI::sw_ci_ycc_to_rgb(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  *&result = vuzp2q_s32(vextq_s8(*v7, *v7, 4uLL), *v7).u64[0];
+  return result;
+}
+
+double CI::sw_ci_swizzle_to_laaa(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 40);
+  v4 = *(v3 + 16);
+  v5 = *(v3 + 8);
+  v6 = (a3 + 16 * v5);
+  v7 = (a2 + (v5 << 6));
+  if (v4 == 5)
+  {
+    v7 = v6;
+  }
+
+  v8 = vmulq_f32(*v7, xmmword_19CF23D60);
+  *v8.i8 = vadd_f32(*v8.i8, *&vextq_s8(v8, v8, 8uLL));
+  *v8.i8 = vadd_f32(*v8.i8, vdup_lane_s32(*v8.i8, 1));
+  v9 = vdupq_laneq_s32(*v7, 3);
+  *&result = vextq_s8(vextq_s8(v9, v8, 4uLL), v9, 0xCuLL).u64[0];
+  return result;
+}
+
 int32x2_t CI::sw_ci_swizzle_rgba8_to_rgb10(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 40);
@@ -615,7 +1114,7 @@ FILE *__cdecl open_memstream(char **__bufp, size_t *__sizep)
   return result;
 }
 
-size_t memstream_read(uint64_t a1, void *__dst, int a3)
+size_t memstream_read(uint64_t a1, void *__dst, unsigned int a3)
 {
   v3 = *(a1 + 16);
   if (v3)
@@ -931,7 +1430,7 @@ uint64_t CI::AffineNode::output_format(CI::AffineNode *this)
   return result;
 }
 
-uint64_t CI::AffineNode::append_to_tree(CI::AffineNode *this, float64x2_t *a2, const CI::Affine *a3)
+CI::NodeWithChild *CI::AffineNode::append_to_tree(CI::AffineNode *this, float64x2_t *a2, const CI::Affine *a3)
 {
   v3 = a3;
   if (!CI::Affine::isIdentity(a2) || (v3 & 1) != 0)
@@ -978,7 +1477,7 @@ float64x2_t CI::Affine::operator*@<Q0>(double *a1@<X0>, float64x2_t *a2@<X1>, fl
   return result;
 }
 
-CI::AffineNode *CI::AffineNode::append_to_tree_with_quality(CI::AffineNode *this, float64x2_t *a2, const CI::Affine *a3, CI::Context *a4)
+CI::NodeWithChild *CI::AffineNode::append_to_tree_with_quality(CI::AffineNode *this, float64x2_t *a2, const CI::Affine *a3, CI::Context *a4)
 {
   v4 = a4;
   if (CI::Affine::isIdentity(a2))
@@ -991,51 +1490,51 @@ CI::AffineNode *CI::AffineNode::append_to_tree_with_quality(CI::AffineNode *this
     return CI::Object::ref(this);
   }
 
-  v8 = hypot(a2->f64[0], a2->f64[1]);
-  v9 = hypot(a2[1].f64[0], a2[1].f64[1]) < 1.0 || v8 < 1.0;
-  if (!v9 || (v4 & 1) == 0)
+  v9 = hypot(a2->f64[0], a2->f64[1]);
+  v10 = hypot(a2[1].f64[0], a2[1].f64[1]) < 1.0 || v9 < 1.0;
+  if (!v10 || (v4 & 1) == 0)
   {
 
     return CI::AffineNode::append_to_tree(this, a2, 0);
   }
 
-  v10 = a2[1];
-  v40 = *a2;
-  v41 = v10;
-  v42 = a2[2];
-  v11 = v40.f64[1];
-  v12 = v40.f64[0];
-  v13 = v10.f64[1];
-  v14 = v10.f64[0];
-  v15 = v42.f64[1];
-  v16 = v42.f64[0];
+  v11 = a2[1];
+  v44 = *a2;
+  v45 = v11;
+  v46 = a2[2];
+  v12 = v44.f64[1];
+  v13 = v44.f64[0];
+  v14 = v11.f64[1];
+  v15 = v11.f64[0];
+  v16 = v46.f64[1];
+  v17 = v46.f64[0];
   while (1)
   {
     if ((*(*this + 16))(this) == 34)
     {
-      v17 = *(this + 7);
-      v18 = *(this + 8);
-      v19 = v18 * v14;
-      v20 = *(this + 9);
-      v21 = *(this + 10);
-      v22 = *(this + 11);
-      v23 = *(this + 12);
-      v24 = v14 * v23;
-      v14 = v14 * v21 + v20 * v12;
-      v25 = v24 + v22 * v12;
-      v12 = v19 + v17 * v12;
-      v26 = v18 * v13;
-      v27 = v13 * v21;
-      v28 = v13 * v23;
-      v13 = v27 + v20 * v11;
-      v29 = v28 + v22 * v11;
-      v11 = v26 + v17 * v11;
-      v16 = v16 + v25;
-      v15 = v29 + v15;
-      v41.f64[0] = v14;
-      v41.f64[1] = v13;
-      v42.f64[0] = v16;
-      v42.f64[1] = v15;
+      v18 = *(this + 7);
+      v19 = *(this + 8);
+      v20 = v19 * v15;
+      v21 = *(this + 9);
+      v22 = *(this + 10);
+      v23 = *(this + 11);
+      v24 = *(this + 12);
+      v25 = v15 * v24;
+      v15 = v15 * v22 + v21 * v13;
+      v26 = v25 + v23 * v13;
+      v13 = v20 + v18 * v13;
+      v27 = v19 * v14;
+      v28 = v14 * v22;
+      v29 = v14 * v24;
+      v14 = v28 + v21 * v12;
+      v30 = v29 + v23 * v12;
+      v12 = v27 + v18 * v12;
+      v17 = v17 + v26;
+      v16 = v30 + v16;
+      v45.f64[0] = v15;
+      v45.f64[1] = v14;
+      v46.f64[0] = v17;
+      v46.f64[1] = v16;
       goto LABEL_17;
     }
 
@@ -1048,78 +1547,78 @@ LABEL_17:
     this = (*(*this + 48))(this, 0);
   }
 
-  v40.f64[0] = v12;
-  v40.f64[1] = v11;
-  if (v12 == 1.0 && v11 == 0.0 && v14 == 0.0 && v13 == 1.0 && v16 == 0.0 && v15 == 0.0)
+  v44.f64[0] = v13;
+  v44.f64[1] = v12;
+  if (v13 == 1.0 && v12 == 0.0 && v15 == 0.0 && v14 == 1.0 && v17 == 0.0 && v16 == 0.0)
   {
     CI::Object::ref(this);
   }
 
   else
   {
-    v30 = hypot(v12, v11);
-    v31 = hypot(v14, v13);
-    v32 = fmax(floor(-0.2 - log2(v30)), 0.0);
+    v31 = hypot(v13, v12);
+    v32 = hypot(v15, v14);
     v33 = fmax(floor(-0.2 - log2(v31)), 0.0);
-    v34 = CI::Object::ref(this);
-    if (v32 != 0.0 && v33 != 0.0)
+    v34 = fmax(floor(-0.2 - log2(v32)), 0.0);
+    v35 = CI::Object::ref(this);
+    if (v33 != 0.0 && v34 != 0.0)
     {
-      v36 = 0;
-      v35 = 0x3FE0000000000000uLL;
-      v37 = 0x3FE0000000000000;
-      v38 = 0;
-      v39 = 0;
-      CI::AffineNode::append_to_tree(v34, &v35, 0);
-      if (v34)
+      v40 = 0;
+      v39 = 0x3FE0000000000000uLL;
+      v41 = 0x3FE0000000000000;
+      v42 = 0;
+      v43 = 0;
+      v36 = CI::AffineNode::append_to_tree(v35, &v39, 0);
+      if (v35)
       {
-        CI::Object::unref(v34);
+        CI::Object::unref(v35);
       }
 
-      v40.f64[0] = v12 + v12;
-      v40.f64[1] = v11 + v11;
-      v41.f64[0] = v14 + v14;
-      v41.f64[1] = v13 + v13;
-      CI::NoopNode::append_to_tree_and_unref();
-    }
-
-    if (v32 != 0.0)
-    {
-      v36 = 0;
-      v35 = 0x3FE0000000000000uLL;
-      v37 = 0x3FF0000000000000;
-      v38 = 0;
-      v39 = 0;
-      CI::AffineNode::append_to_tree(v34, &v35, 0);
-      if (v34)
-      {
-        CI::Object::unref(v34);
-      }
-
-      v40 = vaddq_f64(v40, v40);
-      CI::NoopNode::append_to_tree_and_unref();
+      v44.f64[0] = v13 + v13;
+      v44.f64[1] = v12 + v12;
+      v45.f64[0] = v15 + v15;
+      v45.f64[1] = v14 + v14;
+      CI::NoopNode::append_to_tree_and_unref(v36, a3, 3);
     }
 
     if (v33 != 0.0)
     {
-      v36 = 0;
-      v35 = 0x3FF0000000000000uLL;
-      v37 = 0x3FE0000000000000;
-      v38 = 0;
-      v39 = 0;
-      CI::AffineNode::append_to_tree(v34, &v35, 0);
-      if (v34)
+      v40 = 0;
+      v39 = 0x3FE0000000000000uLL;
+      v41 = 0x3FF0000000000000;
+      v42 = 0;
+      v43 = 0;
+      v37 = CI::AffineNode::append_to_tree(v35, &v39, 0);
+      if (v35)
       {
-        CI::Object::unref(v34);
+        CI::Object::unref(v35);
       }
 
-      v41 = vaddq_f64(v41, v41);
-      CI::NoopNode::append_to_tree_and_unref();
+      v44 = vaddq_f64(v44, v44);
+      CI::NoopNode::append_to_tree_and_unref(v37, a3, 3);
     }
 
-    this = CI::AffineNode::append_to_tree(v34, &v40, 0);
-    if (v34)
+    if (v34 != 0.0)
     {
-      CI::Object::unref(v34);
+      v40 = 0;
+      v39 = 0x3FF0000000000000uLL;
+      v41 = 0x3FE0000000000000;
+      v42 = 0;
+      v43 = 0;
+      v38 = CI::AffineNode::append_to_tree(v35, &v39, 0);
+      if (v35)
+      {
+        CI::Object::unref(v35);
+      }
+
+      v45 = vaddq_f64(v45, v45);
+      CI::NoopNode::append_to_tree_and_unref(v38, a3, 3);
+    }
+
+    this = CI::AffineNode::append_to_tree(v35, &v44, 0);
+    if (v35)
+    {
+      CI::Object::unref(v35);
     }
   }
 
@@ -1144,20 +1643,20 @@ void CI::AffineNode::convert_to_kernel_node(CI::AffineNode *this, CI::Context *a
   v3[0] = *(this + 56);
   v3[1] = v2;
   v3[2] = *(this + 88);
-  CI::Affine::inverse(v3, &v4);
+  CI::Affine::inverse(&v4, v3);
   operator new();
 }
 
 void CI::AffineNode::~AffineNode(CI::AffineNode *this)
 {
   *(this + 6) = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -1169,7 +1668,7 @@ void CI::AffineNode::roi_of_child(CI::AffineNode *this, CGRect a2)
   width = a2.size.width;
   y = a2.origin.y;
   x = a2.origin.x;
-  CI::Affine::inverse((this + 56), v6);
+  CI::Affine::inverse(v6, (this + 56));
   v7.origin.x = x;
   v7.origin.y = y;
   v7.size.width = width;
@@ -1262,13 +1761,13 @@ uint64_t CI::AffineNode::output_depth(CI::AffineNode *this)
 void non-virtual thunk toCI::AffineNode::~AffineNode(CI::AffineNode *this)
 {
   *this = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -1277,14 +1776,14 @@ void non-virtual thunk toCI::AffineNode::~AffineNode(CI::AffineNode *this)
 void *CI::InstanceCounted<(CI::Type)34>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)34>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1038B88;
-  atomic_fetch_add(&dword_1ED7C47BC[32], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[25], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -1371,13 +1870,13 @@ void CI::NodeWithChild::~NodeWithChild(CI::NodeWithChild *this)
   CI::Node::~Node(this);
 }
 
-void CI::CGNode::CGNode(CI::Node *a1)
+void CI::CGNode::CGNode(CI::Node *a1, uint64_t a2, int a3, CI *a4, uint64_t a5, uint64_t a6, int a7, int a8, char a9, char a10)
 {
   CI::Node::Node(a1);
 }
 
 {
-  CI::CGNode::CGNode(a1);
+  CI::CGNode::CGNode(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
 CFStringRef CI::cacheID(CI *this, CGImage *a2)
@@ -1397,7 +1896,7 @@ void CI::CGNode::~CGNode(CI::CGNode *this)
   CI::CGNode::release_resources(this);
   CI::Tileable::~Tileable(v2);
   *(this + 5) = &unk_1F1038E38;
-  atomic_fetch_add(&dword_1ED7C47BC[33], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[26], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -1492,10 +1991,10 @@ void CI::CGNode::set_image(uint64_t a1, CGImageRef image, uint64_t a3, NSObject 
   CI::Tileable::updateCacheIdentity((a1 + 56), v10);
 }
 
-CGImageRef CI::CGNode::cgImageForROI@<X0>(CGImageRef *this@<X0>, const CGRect *a2@<X1>, CGImageRef *a3@<X8>)
+uint64_t *CI::CGNode::cgImageForROI@<X0>(uint64_t *__return_ptr a1@<X8>, CGImageRef *this@<X0>, const CGRect *a3@<X1>)
 {
-  result = CGImageCreateWithImageInRect(this[13], *a2);
-  *a3 = result;
+  result = CGImageCreateWithImageInRect(this[13], *a3);
+  *a1 = result;
   return result;
 }
 
@@ -1506,7 +2005,7 @@ void CI::CGNode::tileRect(CI::CGNode *this@<X0>, unint64_t a2@<X1>, unint64_t a3
   v9 = *(this + 9);
   if (v8 == v9 || 0xAAAAAAAAAAAAAAABLL * (v9 - v8) <= a2 || (v10 = v8[1], *v8 == v10) || 0xAAAAAAAAAAAAAAABLL * ((v10 - *v8) >> 3) <= a3)
   {
-    v31 = ci_logger_render();
+    v31 = ci_logger_render(this, a2);
     if (!os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
 LABEL_34:
@@ -1603,7 +2102,7 @@ LABEL_35:
   *(a4 + 16) = v19;
 }
 
-uint64_t CI::CGNode::surfaceFormat(CI::CGNode *this)
+uint64_t CI::CGNode::surfaceFormat(CI::CGNode *this, uint64_t a2)
 {
   if (!CGImageGetImageProvider())
   {
@@ -1616,16 +2115,17 @@ uint64_t CI::CGNode::surfaceFormat(CI::CGNode *this)
     return 0;
   }
 
-  v3 = *(this + 12);
+  v4 = *(this + 12);
 
-  return CI::PixelFormatType_approx_from_format(v3);
+  return CI::PixelFormatType_approx_from_format(v4);
 }
 
 __IOSurface *CI::CGNode::tileSurface(CI::CGNode *this, unint64_t a2, unint64_t a3, unint64_t *a4)
 {
   v5 = this;
-  memset(v13, 0, sizeof(v13));
-  (*(*this + 432))(v13);
+  v13 = 0uLL;
+  v14 = 0;
+  (*(*this + 432))(&v13);
   v6 = *(v5 + 7);
   v5 = (v5 + 56);
   v7 = *(v5 + 10);
@@ -1633,19 +2133,19 @@ __IOSurface *CI::CGNode::tileSurface(CI::CGNode *this, unint64_t a2, unint64_t a
   v9 = *(v5 - 2);
   v10 = *(v5 + 97) == 0;
   v11 = (*(v6 + 24))(v5, 0);
-  return CI::ioSurfaceFromCGImage(v7, v8, v9, v13, v10, v11, *(v5 + 13), a4);
+  return CI::ioSurfaceFromCGImage(v7, v8, v9, &v13, v10, v11, *(v5 + 13), a4);
 }
 
-__IOSurface *CI::ioSurfaceFromCGImage(int a1, CGImageRef image, int a3, uint64_t a4, int a5, uint64_t a6, uint64_t a7, void *a8)
+__IOSurface *CI::ioSurfaceFromCGImage(int a1, CGImageRef image, int a3, __int128 *a4, int a5, uint64_t a6, uint64_t a7, void *a8)
 {
   Width = CGImageGetWidth(image);
   Height = CGImageGetHeight(image);
   v18 = *a4;
-  v19 = *(a4 + 4);
-  v20 = *(a4 + 8);
-  v21 = *(a4 + 16);
-  v49 = a1;
-  v50 = a5;
+  v19 = *(a4 + 1);
+  v20 = *(a4 + 1);
+  v21 = *(a4 + 2);
+  v51 = a1;
+  v52 = a5;
   if (*a4 == -2147483647)
   {
     if (v19 != -2147483647 || v20 != 0xFFFFFFFF || v21 != 0xFFFFFFFF)
@@ -1682,8 +2182,8 @@ LABEL_24:
   v33 = 0;
   v34 = 0;
   v35 = Width;
-  v56 = CGRectIntersection(*&v29, *(&Height - 3));
-  v36 = CGImageCreateWithImageInRect(image, v56);
+  v58 = CGRectIntersection(*&v29, *(&Height - 3));
+  v36 = CGImageCreateWithImageInRect(image, v58);
   v37 = CGImageGetWidth(v36);
   v38 = CGImageGetHeight(v36);
   ImageProvider = CGImageGetImageProvider();
@@ -1705,7 +2205,7 @@ LABEL_24:
   }
 
   v42 = v40;
-  v48 = a6;
+  v50 = a6;
   v43 = CI::format_from_CGImageProvider(ImageProvider);
   if (!v43)
   {
@@ -1713,40 +2213,41 @@ LABEL_24:
   }
 
   v44 = v43;
-  if (v50)
+  if (v52)
   {
-    v54 = *a4;
-    v55 = *(a4 + 16);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 0x40000000;
-    v51[2] = ___ZN2CIL20ioSurfaceFromCGImageENS_10ImageIndexEP7CGImageNS_11PixelFormatERK5IRectbPK10__CFStringP16dispatch_queue_sRy_block_invoke;
-    v51[3] = &__block_descriptor_tmp_18;
-    v51[4] = v25;
-    v51[5] = a4;
-    v51[6] = ImageProvider;
-    v52 = v43;
-    v53 = a3;
-    SurfaceFromCacheAndFill = GetSurfaceFromCacheAndFill(&v54, v42, 0, v49, v48, a7, v51);
+    v56 = *a4;
+    v57 = *(a4 + 2);
+    v53[0] = MEMORY[0x1E69E9820];
+    v53[1] = 0x40000000;
+    v53[2] = ___ZN2CIL20ioSurfaceFromCGImageENS_10ImageIndexEP7CGImageNS_11PixelFormatERK5IRectbPK10__CFStringP16dispatch_queue_sRy_block_invoke;
+    v53[3] = &__block_descriptor_tmp_18;
+    v53[4] = v25;
+    v53[5] = a4;
+    v53[6] = ImageProvider;
+    v54 = v43;
+    v55 = a3;
+    SurfaceFromCacheAndFill = GetSurfaceFromCacheAndFill(&v56, v42, 0, v51, v50, a7, v53);
+    Surface = SurfaceFromCacheAndFill;
     if (!SurfaceFromCacheAndFill)
     {
 LABEL_33:
-      v46 = ci_logger_render();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
+      v48 = ci_logger_render(SurfaceFromCacheAndFill, v46);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
       {
         CI::ioSurfaceFromCGImage();
       }
 
 LABEL_35:
-      SurfaceFromCacheAndFill = 0;
+      Surface = 0;
     }
   }
 
   else
   {
-    SurfaceFromCacheAndFill = CreateSurface(v37, v38, 0x10uLL, v42, 0);
-    CI::fillBlock(ImageProvider, v44, a3, SurfaceFromCacheAndFill);
-    *v25 = *(a4 + 16) * *(a4 + 8);
-    if (!SurfaceFromCacheAndFill)
+    Surface = CreateSurface(v37, v38, 0x10uLL, v42, 0);
+    CI::fillBlock(ImageProvider, v44, a3, Surface);
+    *v25 = *(a4 + 2) * *(a4 + 1);
+    if (!Surface)
     {
       goto LABEL_33;
     }
@@ -1754,111 +2255,113 @@ LABEL_35:
 
   CGImageProviderRelease();
   CGImageRelease(v36);
-  return SurfaceFromCacheAndFill;
+  return Surface;
 }
 
 void CI::CGNode::surfaceForROI(uint64_t a1@<X0>, uint64_t a2@<X1>, CGFloat *a3@<X2>, uint64_t a4@<X3>, __IOSurface **a5@<X8>)
 {
-  v42 = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  v46 = *MEMORY[0x1E69E9840];
+  v10 = CI_VERBOSE_SIGNPOSTS();
+  if (v10)
   {
-    v10 = ci_signpost_log_render();
-    v11 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = ci_signpost_log_render(v10, v11);
+    v13 = *(a1 + 36) | ((*(*a2 + 280))(a2) << 32);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
-      v12 = *a3;
-      v13 = *(a3 + 1);
-      v14 = *(a3 + 2);
-      v15 = *(a3 + 3);
+      v14 = *a3;
+      v15 = *(a3 + 1);
+      v16 = *(a3 + 2);
+      v17 = *(a3 + 3);
       *buf = 134218752;
-      *v37 = v12;
-      *&v37[8] = 2048;
-      *&v37[10] = v13;
-      v38 = 2048;
-      v39 = v14;
-      v40 = 2048;
-      v41 = v15;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "surface_for_roi_from_cg", "[%g %g %g %g]", buf, 0x2Au);
+      *v41 = v14;
+      *&v41[8] = 2048;
+      *&v41[10] = v15;
+      v42 = 2048;
+      v43 = v16;
+      v44 = 2048;
+      v45 = v17;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v13, "surface_for_roi_from_cg", "[%g %g %g %g]", buf, 0x2Au);
     }
   }
 
-  v16 = (*(*a2 + 280))(a2);
-  TimerBase::TimerBase(buf, v16, *(a1 + 36), "surface_for_roi_from_cg", 22);
+  v18 = (*(*a2 + 280))(a2);
+  TimerBase::TimerBase(buf, v18, *(a1 + 36), "surface_for_roi_from_cg", 0x16u);
   Current = CFAbsoluteTimeGetCurrent();
-  v35 = 0;
-  v18 = *(a1 + 96);
-  v19 = *(a1 + 104);
-  v20 = *(a1 + 48);
-  v21 = *a3;
-  v22 = a3[1];
-  v23 = a3[2];
-  v24 = a3[3];
-  v43.origin.x = *a3;
-  v43.origin.y = v22;
-  v43.size.width = v23;
-  v43.size.height = v24;
-  if (CGRectIsNull(v43))
+  v39 = 0;
+  v20 = *(a1 + 96);
+  v21 = *(a1 + 104);
+  v22 = *(a1 + 48);
+  v23 = *a3;
+  v24 = a3[1];
+  v25 = a3[2];
+  v26 = a3[3];
+  v47.origin.x = *a3;
+  v47.origin.y = v24;
+  v47.size.width = v25;
+  v47.size.height = v26;
+  if (CGRectIsNull(v47))
   {
     height = 0;
-    v33 = IRectNull;
+    v37 = IRectNull;
   }
 
   else
   {
-    v44.origin.x = v21;
-    v44.origin.y = v22;
-    v44.size.width = v23;
-    v44.size.height = v24;
-    if (CGRectIsInfinite(v44))
+    v48.origin.x = v23;
+    v48.origin.y = v24;
+    v48.size.width = v25;
+    v48.size.height = v26;
+    if (CGRectIsInfinite(v48))
     {
-      v33 = IRectInfinite;
+      v37 = IRectInfinite;
       height = 0xFFFFFFFFLL;
     }
 
     else
     {
-      v45.origin.x = v21;
-      v45.origin.y = v22;
-      v45.size.width = v23;
-      v45.size.height = v24;
-      v46 = CGRectInset(v45, 0.000001, 0.000001);
-      v47 = CGRectIntegral(v46);
-      LODWORD(v33) = v47.origin.x;
-      DWORD1(v33) = v47.origin.y;
-      *(&v33 + 1) = v47.size.width;
-      height = v47.size.height;
+      v49.origin.x = v23;
+      v49.origin.y = v24;
+      v49.size.width = v25;
+      v49.size.height = v26;
+      v50 = CGRectInset(v49, 0.000001, 0.000001);
+      v51 = CGRectIntegral(v50);
+      LODWORD(v37) = v51.origin.x;
+      DWORD1(v37) = v51.origin.y;
+      *(&v37 + 1) = v51.size.width;
+      height = v51.size.height;
     }
   }
 
-  v26 = *(a1 + 56);
-  v25 = a1 + 56;
-  v27 = *(v25 + 97) == 0;
-  v28 = (*(v26 + 24))(v25, 0);
-  v29 = CI::ioSurfaceFromCGImage(v18, v19, v20, &v33, v27, v28, *(v25 + 104), &v35);
+  v28 = *(a1 + 56);
+  v27 = a1 + 56;
+  v29 = *(v27 + 97) == 0;
+  v30 = (*(v28 + 24))(v27, 0);
+  v31 = CI::ioSurfaceFromCGImage(v20, v21, v22, &v37, v29, v30, *(v27 + 104), &v39);
   *a4 = *a4 + CFAbsoluteTimeGetCurrent() - Current;
   *(a4 + 8) += a3[3] * a3[2];
-  if (v29)
+  if (v31)
   {
-    CFRetain(v29);
+    CFRetain(v31);
   }
 
-  *a5 = v29;
-  if (CI_VERBOSE_SIGNPOSTS())
+  *a5 = v31;
+  v32 = CI_VERBOSE_SIGNPOSTS();
+  if (v32)
   {
-    v30 = ci_signpost_log_render();
-    v31 = *&v37[4];
-    if ((*&v37[4] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
+    v34 = ci_signpost_log_render(v32, v33);
+    v35 = *&v41[4];
+    if ((*&v41[4] - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v32 = v30;
-      if (os_signpost_enabled(v30))
+      v36 = v34;
+      if (os_signpost_enabled(v34))
       {
-        LOWORD(v33) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v32, OS_SIGNPOST_INTERVAL_END, v31, "surface_for_roi_from_cg", &unk_19CFBCBAE, &v33, 2u);
+        LOWORD(v37) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v36, OS_SIGNPOST_INTERVAL_END, v35, "surface_for_roi_from_cg", &unk_19CFBCBAE, &v37, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(buf);
+  TimerBase::~TimerBase(buf, v33);
 }
 
 uint64_t CI::CGNode::print_for_graph_core(uint64_t a1, FILE *__stream)
@@ -2519,7 +3022,7 @@ LABEL_66:
   CI::Node::add_roi(v13, v14, v15, *&v16, a5);
 }
 
-uint64_t CI::CGNode::graphviz_add_images(CI::CGNode *this, void *a2)
+void *CI::CGNode::graphviz_add_images(CI::CGNode *this, void *a2)
 {
   result = CI_PRINT_TREE_dump_inputs();
   if (result)
@@ -2568,12 +3071,13 @@ uint64_t CI::CGNode::output_depth(CI::CGNode *this)
   }
 }
 
-void CI::fillBlock(uint64_t a1, int a2, int a3, IOSurfaceRef buffer)
+void CI::fillBlock(uint64_t a1, uint64_t a2, int a3, IOSurfaceRef buffer)
 {
   if (buffer)
   {
     if (a1)
     {
+      v6 = a2;
       Width = IOSurfaceGetWidth(buffer);
       Height = IOSurfaceGetHeight(buffer);
       BytesPerElement = IOSurfaceGetBytesPerElement(buffer);
@@ -2592,26 +3096,26 @@ void CI::fillBlock(uint64_t a1, int a2, int a3, IOSurfaceRef buffer)
         CFRelease(Mutable);
 LABEL_10:
         CGImageBlockSetGetRect();
-        v27.origin.x = 0.0;
-        v27.origin.y = 0.0;
-        v27.size.width = v15;
-        v27.size.height = v17;
-        if (CGRectContainsRect(v26, v27))
+        v29.origin.x = 0.0;
+        v29.origin.y = 0.0;
+        v29.size.width = v15;
+        v29.size.height = v17;
+        if (CGRectContainsRect(v28, v29))
         {
-          v23[0] = MEMORY[0x1E69E9820];
-          v23[1] = 0x40000000;
-          v23[2] = ___ZN2CIL9fillBlockEP15CGImageProviderNS_11PixelFormatES2_P11__IOSurface_block_invoke;
-          v23[3] = &__block_descriptor_tmp_20_2;
-          v23[5] = 0;
-          v23[6] = 0;
-          v23[4] = v19;
-          *&v23[7] = Width;
-          *&v23[8] = Height;
-          v23[9] = BytesPerElement;
-          v23[10] = PixelSize;
-          v24 = a2;
-          v25 = a3;
-          SurfaceApplyPlaneBlock(buffer, v23);
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 0x40000000;
+          v25[2] = ___ZN2CIL9fillBlockEP15CGImageProviderNS_11PixelFormatES2_P11__IOSurface_block_invoke;
+          v25[3] = &__block_descriptor_tmp_20_2;
+          v25[5] = 0;
+          v25[6] = 0;
+          v25[4] = v19;
+          *&v25[7] = Width;
+          *&v25[8] = Height;
+          v25[9] = BytesPerElement;
+          v25[10] = PixelSize;
+          v26 = v6;
+          v27 = a3;
+          SurfaceApplyPlaneBlock(buffer, v25);
         }
 
         CGImageBlockSetRelease();
@@ -2625,8 +3129,8 @@ LABEL_10:
         goto LABEL_10;
       }
 
-      v22 = ci_logger_render();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = ci_logger_render(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         CI::fillBlock();
       }
@@ -2634,7 +3138,7 @@ LABEL_10:
 
     else
     {
-      v21 = ci_logger_render();
+      v21 = ci_logger_render(0, a2);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         CI::fillBlock();
@@ -2644,7 +3148,7 @@ LABEL_10:
 
   else
   {
-    v20 = ci_logger_render();
+    v20 = ci_logger_render(a1, a2);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       CI::fillBlock();
@@ -2668,21 +3172,21 @@ void ___ZN2CIL9fillBlockEP15CGImageProviderNS_11PixelFormatES2_P11__IOSurface_bl
     CGImageBlockGetRect();
     v13 = v12;
     v15 = v14;
-    v33.size.width = v16;
-    v33.size.height = v17;
-    v33.origin.x = v12;
-    v33.origin.y = v14;
-    v31 = CGRectIntersection(*(a1 + 40), v33);
-    x = v31.origin.x;
-    y = v31.origin.y;
-    width = v31.size.width;
-    height = v31.size.height;
+    v34.size.width = v16;
+    v34.size.height = v17;
+    v34.origin.x = v12;
+    v34.origin.y = v14;
+    v32 = CGRectIntersection(*(a1 + 40), v34);
+    x = v32.origin.x;
+    y = v32.origin.y;
+    width = v32.size.width;
+    height = v32.size.height;
     BytesPerRow = CGImageBlockGetBytesPerRow();
-    v32.origin.x = x;
-    v32.origin.y = y;
-    v32.size.width = width;
-    v32.size.height = height;
-    if (!CGRectIsEmpty(v32))
+    v33.origin.x = x;
+    v33.origin.y = y;
+    v33.size.width = width;
+    v33.size.height = height;
+    if (!CGRectIsEmpty(v33))
     {
       break;
     }
@@ -2698,37 +3202,37 @@ LABEL_10:
   Data = CGImageBlockGetData();
   if (Data)
   {
-    v25 = height;
-    v26 = (a2 + v23 * x + y * a6);
-    v27 = (Data + *(a1 + 80) * (x - v13) + (y - v15) * BytesPerRow);
+    v26 = height;
+    v27 = (a2 + v23 * x + y * a6);
+    v28 = (Data + *(a1 + 80) * (x - v13) + (y - v15) * BytesPerRow);
     if (*(a1 + 88) == 1799 && *(a1 + 92) == 1800)
     {
       rgbSrc.data = (Data + *(a1 + 80) * (x - v13) + (y - v15) * BytesPerRow);
       rgbSrc.height = height;
       rgbSrc.width = width;
       rgbSrc.rowBytes = BytesPerRow;
-      v29.data = v26;
-      v29.height = height;
-      v29.width = width;
-      v29.rowBytes = a6;
-      vImageConvert_RGB16UtoRGBA16U(&rgbSrc, 0, 0xFFFFu, &v29, 0, 0);
+      v30.data = v27;
+      v30.height = height;
+      v30.width = width;
+      v30.rowBytes = a6;
+      vImageConvert_RGB16UtoRGBA16U(&rgbSrc, 0, 0xFFFFu, &v30, 0, 0);
     }
 
     else
     {
-      for (; v25; --v25)
+      for (; v26; --v26)
       {
-        memcpy(v26, v27, *(a1 + 80) * width);
-        v26 += a6;
-        v27 += BytesPerRow;
+        memcpy(v27, v28, *(a1 + 80) * width);
+        v27 += a6;
+        v28 += BytesPerRow;
       }
     }
 
     goto LABEL_10;
   }
 
-  v28 = ci_logger_render();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v29 = ci_logger_render(0, v25);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
   {
     ___ZN2CIL9fillBlockEP15CGImageProviderNS_11PixelFormatES2_P11__IOSurface_block_invoke_cold_1();
   }
@@ -2737,14 +3241,14 @@ LABEL_10:
 void *CI::InstanceCounted<(CI::Type)35>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1038E38;
-  atomic_fetch_add(&dword_1ED7C47BC[33], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[26], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)35>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1038E38;
-  atomic_fetch_add(&dword_1ED7C47BC[33], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[26], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -2796,7 +3300,7 @@ void CI::ClampNode::adjust_roi_for_clamp_rect(CI::ClampNode *this, CGRect a2, CG
   CGRectGetMaxY(v17);
 }
 
-uint64_t CI::ClampNode::append_to_tree(CI::ClampNode *this, CI::Node *a2, CGRect a3)
+CI::NodeWithChild *CI::ClampNode::append_to_tree(CI::ClampNode *this, CI::Node *a2, CGRect a3)
 {
   height = a3.size.height;
   width = a3.size.width;
@@ -2943,13 +3447,13 @@ LABEL_32:
 void CI::ClampNode::~ClampNode(CI::ClampNode *this)
 {
   *(this + 6) = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -3077,13 +3581,13 @@ BOOL CI::ClampNode::is_simple(CI::ClampNode *this)
 void non-virtual thunk toCI::ClampNode::~ClampNode(CI::ClampNode *this)
 {
   *this = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -3092,14 +3596,14 @@ void non-virtual thunk toCI::ClampNode::~ClampNode(CI::ClampNode *this)
 void *CI::InstanceCounted<(CI::Type)36>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)36>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039048;
-  atomic_fetch_add(&dword_1ED7C47BC[34], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[27], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -3118,7 +3622,7 @@ float32x2_t CI::sw_ci_clamp_rect(CI *a1, uint64_t a2, uint64_t a3)
   return vminnm_f32(vmaxnm_f32(*CI::getDC(a1), *v7), *&vextq_s8(*v7->f32, *v7->f32, 8uLL));
 }
 
-CI::Object *CI::ClampToAlphaNode::append_to_tree(CI::ClampToAlphaNode *this, CI::Node *a2)
+CI::ClampToAlphaNode *CI::ClampToAlphaNode::append_to_tree(CI::ClampToAlphaNode *this, CI::Node *a2)
 {
   v2 = this;
   if (a2 && (*(*this + 240))(this))
@@ -3172,7 +3676,7 @@ LABEL_8:
   return v2;
 }
 
-CI::Object *CI::ClampToZeroToOneNode::append_to_tree(CI::ClampToZeroToOneNode *this, CI::Node *a2)
+CI::ClampToZeroToOneNode *CI::ClampToZeroToOneNode::append_to_tree(CI::ClampToZeroToOneNode *this, CI::Node *a2)
 {
   v2 = this;
   if (a2 && (*(*this + 240))(this))
@@ -3229,13 +3733,13 @@ LABEL_8:
 void CI::ClampToAlphaNode::~ClampToAlphaNode(CI::ClampToAlphaNode *this)
 {
   *(this + 6) = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -3244,13 +3748,13 @@ void CI::ClampToAlphaNode::~ClampToAlphaNode(CI::ClampToAlphaNode *this)
 void non-virtual thunk toCI::ClampToAlphaNode::~ClampToAlphaNode(CI::ClampToAlphaNode *this)
 {
   *this = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -3259,13 +3763,13 @@ void non-virtual thunk toCI::ClampToAlphaNode::~ClampToAlphaNode(CI::ClampToAlph
 void CI::ClampToZeroToOneNode::~ClampToZeroToOneNode(CI::ClampToZeroToOneNode *this)
 {
   *(this + 6) = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -3286,13 +3790,13 @@ uint64_t CI::ClampToZeroToOneNode::may_be_extended_range(CI::ClampToZeroToOneNod
 void non-virtual thunk toCI::ClampToZeroToOneNode::~ClampToZeroToOneNode(CI::ClampToZeroToOneNode *this)
 {
   *this = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -3301,14 +3805,14 @@ void non-virtual thunk toCI::ClampToZeroToOneNode::~ClampToZeroToOneNode(CI::Cla
 void *CI::InstanceCounted<(CI::Type)37>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)37>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039430;
-  atomic_fetch_add(&dword_1ED7C47BC[35], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[28], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -3331,14 +3835,14 @@ double CI::sw_ci_clamp_to_alpha(uint64_t a1, uint64_t a2, uint64_t a3)
 void *CI::InstanceCounted<(CI::Type)38>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)38>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039458;
-  atomic_fetch_add(&dword_1ED7C47BC[36], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[29], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -3431,25 +3935,26 @@ uint64_t CI::ColorMatrixNode::alpha_one(CI::ColorMatrixNode *this, const double 
   return result;
 }
 
-CI::ColorMatrixNode *CI::ColorMatrixNode::append_to_tree(CI::ColorMatrixNode *this, CI::Node *a2, const double (*a3)[4], int a4)
+CI::ColorMatrixNode *CI::ColorMatrixNode::append_to_tree(CI::ColorMatrixNode *this, CI::Node *a2, const double (*a3)[4], BOOL a4, BOOL a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v5 = *a2;
-  v6 = *(a2 + 2);
-  v7 = 0;
-  v8 = *(a2 + 24);
-  v9 = *(a2 + 5);
-  v10 = 0;
-  v11 = *(a2 + 3);
-  v12 = *(a2 + 8);
-  v13 = 0;
-  v14 = xmmword_19CF2DB50;
-  v15 = unk_19CF2DB60;
-  v16 = 0u;
+  v19 = *MEMORY[0x1E69E9840];
+  v6 = *a2;
+  v7 = *(a2 + 2);
+  v8 = 0;
+  v9 = *(a2 + 24);
+  v10 = *(a2 + 5);
+  v11 = 0;
+  v12 = *(a2 + 3);
+  v13 = *(a2 + 8);
+  v14 = 0;
+  v15 = xmmword_19CF2DB50;
+  v16 = unk_19CF2DB60;
   v17 = 0u;
-  return CI::ColorMatrixNode::append_to_tree(this, &v5, a3, a4);
+  v18 = 0u;
+  return CI::ColorMatrixNode::append_to_tree(this, &v6, a3, a4);
 }
 
+CI::ColorMatrixNode *CI::ColorMatrixNode::append_to_tree(CI::ColorMatrixNode *this, CI::Node *a2, const double (*a3)[4], int a4)
 {
   v5 = a3;
   v37 = *MEMORY[0x1E69E9840];
@@ -3809,7 +4314,7 @@ const char *CI::name_matrix_3x3(CI *this, const double (*a2)[4])
   }
 
   v5 = *this;
-  v6 = &CI::name_matrix_3x3(double const(*)[4])::common;
+  v6 = CI::name_matrix_3x3(double const(*)[4])::common;
   v7 = 6;
   v8 = 1;
   result = "3x3";
@@ -3940,13 +4445,13 @@ LABEL_6:
 void CI::ColorMatrixNode::~ColorMatrixNode(CI::ColorMatrixNode *this)
 {
   *(this + 6) = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -3991,13 +4496,13 @@ uint64_t CI::ColorMatrixNode::output_depth(CI::ColorMatrixNode *this)
 void non-virtual thunk toCI::ColorMatrixNode::~ColorMatrixNode(CI::ColorMatrixNode *this)
 {
   *this = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -4006,14 +4511,14 @@ void non-virtual thunk toCI::ColorMatrixNode::~ColorMatrixNode(CI::ColorMatrixNo
 void *CI::InstanceCounted<(CI::Type)39>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)39>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039660;
-  atomic_fetch_add(&dword_1ED7C47BC[37], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[30], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -4479,7 +4984,7 @@ BOOL CI::CropNode::is_identity(CI::CropNode *this)
   return CGRectContainsRect(*&v15, *&v8);
 }
 
-uint64_t CI::CropNode::append_to_tree(CI::CropNode *this, CI::Node *a2, CGRect a3)
+CI::NodeWithChild *CI::CropNode::append_to_tree(CI::CropNode *this, CI::Node *a2, CGRect a3)
 {
   v3 = a2;
   height = a3.size.height;
@@ -4490,26 +4995,26 @@ uint64_t CI::CropNode::append_to_tree(CI::CropNode *this, CI::Node *a2, CGRect a
   {
     while (1)
     {
-      v35.origin.x = (*(*this + 168))(this);
-      v35.origin.y = v10;
-      v35.size.width = v11;
-      v35.size.height = v12;
-      v31.origin.x = x;
-      v31.origin.y = y;
-      v31.size.width = width;
-      v31.size.height = height;
-      if (!CGRectIntersectsRect(v31, v35))
+      v34.origin.x = (*(*this + 168))(this);
+      v34.origin.y = v10;
+      v34.size.width = v11;
+      v34.size.height = v12;
+      v30.origin.x = x;
+      v30.origin.y = y;
+      v30.size.width = width;
+      v30.size.height = height;
+      if (!CGRectIntersectsRect(v30, v34))
       {
         operator new();
       }
 
       if ((*(*this + 16))(this) == 40)
       {
-        v37.origin.x = x;
-        v37.origin.y = y;
-        v37.size.width = width;
-        v37.size.height = height;
-        CGRectIntersection(*(this + 56), v37);
+        v36.origin.x = x;
+        v36.origin.y = y;
+        v36.size.width = width;
+        v36.size.height = height;
+        CGRectIntersection(*(this + 56), v36);
         operator new();
       }
 
@@ -4518,22 +5023,22 @@ uint64_t CI::CropNode::append_to_tree(CI::CropNode *this, CI::Node *a2, CGRect a
         break;
       }
 
-      v36.origin.x = x;
-      v36.origin.y = y;
-      v36.size.width = width;
-      v36.size.height = height;
-      if (!CGRectContainsRect(*(this + 56), v36))
+      v35.origin.x = x;
+      v35.origin.y = y;
+      v35.size.width = width;
+      v35.size.height = height;
+      if (!CGRectContainsRect(*(this + 56), v35))
       {
         break;
       }
 
       this = (*(*this + 48))(this, 0);
-      v32.origin.x = x;
-      v32.origin.y = y;
-      v32.size.width = width;
-      v32.size.height = height;
+      v31.origin.x = x;
+      v31.origin.y = y;
+      v31.size.width = width;
+      v31.size.height = height;
       v3 = 0;
-      if (CGRectIsInfinite(v32))
+      if (CGRectIsInfinite(v31))
       {
         goto LABEL_2;
       }
@@ -4542,49 +5047,49 @@ uint64_t CI::CropNode::append_to_tree(CI::CropNode *this, CI::Node *a2, CGRect a
     if (*(*this + 16))(this) == 34 && (v3)
     {
       v13 = *(this + 72);
-      v27 = *(this + 56);
-      v28 = v13;
-      v29 = *(this + 88);
-      CI::Affine::inverse(&v27, v26);
-      if (fabs(*(&v27 + 1)) >= 0.0001 || (v14 = *&v28, fabs(*&v28) >= 0.0001))
+      v26 = *(this + 56);
+      v27 = v13;
+      v28 = *(this + 88);
+      CI::Affine::inverse(v25, &v26);
+      if (fabs(*(&v26 + 1)) >= 0.0001 || (v14 = *&v27, fabs(*&v27) >= 0.0001))
       {
-        v15 = *&v27;
-        if (fabs(*&v27) >= 0.0001)
+        v15 = *&v26;
+        if (fabs(*&v26) >= 0.0001)
         {
           goto LABEL_24;
         }
 
-        v16 = *(&v28 + 1);
-        if (fabs(*(&v28 + 1)) >= 0.0001)
+        v16 = *(&v27 + 1);
+        if (fabs(*(&v27 + 1)) >= 0.0001)
         {
           goto LABEL_24;
         }
 
-        v14 = *&v28;
+        v14 = *&v27;
       }
 
       else
       {
-        v15 = *&v27;
-        v16 = *(&v28 + 1);
+        v15 = *&v26;
+        v16 = *(&v27 + 1);
       }
 
-      if (fabs(fabs(v15 * v16 - v14 * *(&v27 + 1)) + -1.0) < 0.01)
+      if (fabs(fabs(v15 * v16 - v14 * *(&v26 + 1)) + -1.0) < 0.01)
       {
-        v33.origin.x = x;
-        v33.origin.y = y;
-        v33.size.width = width;
-        v33.size.height = height;
-        v17 = CI::Affine::applyToRect(v26, v33);
+        v32.origin.x = x;
+        v32.origin.y = y;
+        v32.size.width = width;
+        v32.size.height = height;
+        v17 = CI::Affine::applyToRect(v25, v32);
         v19 = v18;
         v21 = v20;
         v23 = v22;
         v24 = (*(*this + 48))(this, 0);
-        v34.origin.x = v17;
-        v34.origin.y = v19;
-        v34.size.width = v21;
-        v34.size.height = v23;
-        CI::CropNode::append_to_tree(v24, 0, v34, v25);
+        v33.origin.x = v17;
+        v33.origin.y = v19;
+        v33.size.width = v21;
+        v33.size.height = v23;
+        CI::CropNode::append_to_tree(v24, 0, v33);
         operator new();
       }
     }
@@ -4605,13 +5110,13 @@ LABEL_2:
 void CI::CropNode::~CropNode(CI::CropNode *this)
 {
   *(this + 6) = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -4751,13 +5256,13 @@ BOOL CI::CropNode::is_simple(CI::CropNode *this)
 void non-virtual thunk toCI::CropNode::~CropNode(CI::CropNode *this)
 {
   *this = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
@@ -4766,14 +5271,14 @@ void non-virtual thunk toCI::CropNode::~CropNode(CI::CropNode *this)
 void *CI::InstanceCounted<(CI::Type)40>::~InstanceCounted(void *result)
 {
   *result = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)40>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F10398D0;
-  atomic_fetch_add(&dword_1ED7C47BC[38], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[31], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -4826,7 +5331,7 @@ BOOL CI::CurveNode::is_inverse(CI::CurveNode *this, double a2, long double a3, d
   return vabdd_f64(1.0 / a2, *(this + 7)) < 0.00001 && vabdd_f64(v16, *(this + 8)) < 0.00001 && vabdd_f64(-(a7 * v16), *(this + 9)) < 0.00001 && vabdd_f64(1.0 / a5, *(this + 10)) < 0.00001 && vabdd_f64(a8 + a5 * a6, *(this + 11)) < 0.00001 && vabdd_f64(-a4 / a3, *(this + 12)) < 0.00001 && vabdd_f64(-a8 / a5, *(this + 13)) < 0.00001;
 }
 
-CI::Object *CI::CurveNode::append_to_tree(CI::CurveNode *this, CI::Node *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
+CI::CurveNode *CI::CurveNode::append_to_tree(CI::CurveNode *this, CI::Node *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
   v10 = this;
   if (a3 != 1.0)
@@ -4922,7 +5427,7 @@ void CI::CurveNode::~CurveNode(CI::CurveNode *this)
   *(this + 88) = 0u;
   *(this + 13) = 0;
   *(this + 6) = &unk_1F1039AE8;
-  atomic_fetch_add(&dword_1ED7C47BC[41], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[34], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
@@ -4933,7 +5438,7 @@ void CI::CurveNode::~CurveNode(CI::CurveNode *this)
   *(this + 88) = 0u;
   *(this + 13) = 0;
   *(this + 6) = &unk_1F1039AE8;
-  atomic_fetch_add(&dword_1ED7C47BC[41], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[34], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -4977,7 +5482,7 @@ void non-virtual thunk toCI::CurveNode::~CurveNode(CI::CurveNode *this)
   *(this + 40) = 0u;
   *(this + 7) = 0;
   *this = &unk_1F1039AE8;
-  atomic_fetch_add(&dword_1ED7C47BC[41], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[34], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
@@ -4988,14 +5493,14 @@ void non-virtual thunk toCI::CurveNode::~CurveNode(CI::CurveNode *this)
 void *CI::InstanceCounted<(CI::Type)43>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039AE8;
-  atomic_fetch_add(&dword_1ED7C47BC[41], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[34], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)43>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039AE8;
-  atomic_fetch_add(&dword_1ED7C47BC[41], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[34], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -5056,7 +5561,7 @@ void CI::FillNode::~FillNode(CI::FillNode *this)
 
   *(this + 5) = &unk_1F1039D00;
   *(this + 6) = 0;
-  atomic_fetch_add(&dword_1ED7C47BC[39], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[32], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -5215,18 +5720,18 @@ uint64_t CI::sw_ci_fill(uint64_t a1, uint64_t a2, uint64_t a3)
 void *CI::InstanceCounted<(CI::Type)41>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039D00;
-  atomic_fetch_add(&dword_1ED7C47BC[39], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[32], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)41>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039D00;
-  atomic_fetch_add(&dword_1ED7C47BC[39], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[32], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
-CI::Object *CI::GammaNode::append_to_tree(CI::GammaNode *this, CI::Node *a2, double a3)
+CI::GammaNode *CI::GammaNode::append_to_tree(CI::GammaNode *this, CI::Node *a2, double a3)
 {
   v4 = this;
   if (a3 != 1.0)
@@ -5274,14 +5779,14 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      v11 = *(v7 + 7) * a3;
-      *(v7 + 7) = v11;
+      v11 = *(v7 + 56) * a3;
+      *(v7 + 56) = v11;
       if (fabs(v11 + -1.0) >= 0.0001)
       {
         operator new();
       }
 
-      v7 = *(v7 + 5);
+      v7 = *(v7 + 40);
       if (!v7)
       {
 LABEL_20:
@@ -5395,7 +5900,7 @@ void CI::GammaNode::~GammaNode(CI::GammaNode *this)
   *this = &unk_1F1039D28;
   *(this + 6) = &unk_1F1039F08;
   *(this + 7) = 0;
-  atomic_fetch_add(&dword_1ED7C47BC[40], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[33], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
@@ -5403,7 +5908,7 @@ void CI::GammaNode::~GammaNode(CI::GammaNode *this)
   *this = &unk_1F1039D28;
   *(this + 6) = &unk_1F1039F08;
   *(this + 7) = 0;
-  atomic_fetch_add(&dword_1ED7C47BC[40], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[33], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -5451,7 +5956,7 @@ void non-virtual thunk toCI::GammaNode::~GammaNode(CI::GammaNode *this)
   *(this - 6) = &unk_1F1039D28;
   *this = &unk_1F1039F08;
   *(this + 1) = 0;
-  atomic_fetch_add(&dword_1ED7C47BC[40], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[33], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
@@ -5462,14 +5967,14 @@ void non-virtual thunk toCI::GammaNode::~GammaNode(CI::GammaNode *this)
 void *CI::InstanceCounted<(CI::Type)42>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1039F08;
-  atomic_fetch_add(&dword_1ED7C47BC[40], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[33], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)42>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1039F08;
-  atomic_fetch_add(&dword_1ED7C47BC[40], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[33], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -5577,7 +6082,7 @@ void CI::ColorKernelNode::~ColorKernelNode(CI::ColorKernelNode *this)
   _Block_release(*(this + 12));
   *(this + 12) = 0;
   *(this + 5) = &unk_1F103A118;
-  atomic_fetch_add(&dword_1ED7C47BC[55], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[48], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -5640,7 +6145,7 @@ uint64_t CI::ColorKernelNode::kernel_argument_type(CI::ColorKernelNode *this, si
   return type;
 }
 
-uint64_t CI::ColorKernelNode::get_argument(CI::ColorKernelNode *this, unsigned int a2)
+uint64_t CI::ColorKernelNode::get_argument(CI::ColorKernelNode *this, signed int a2)
 {
   result = 0;
   if ((a2 & 0x80000000) == 0)
@@ -5988,106 +6493,107 @@ uint64_t CI::ColorKernelNode::output_depth(CI::ColorKernelNode *this)
   }
 }
 
-uint64_t CI::ColorKernelNode::append_to_tree(uint64_t a1, CI::SerialObjectPtrArray *a2, uint64_t a3, int a4)
+CI::NodeWithChild *CI::ColorKernelNode::append_to_tree(uint64_t a1, CI::SerialObjectPtrArray *a2, const void *a3, uint64_t a4, uint64_t a5, int a6, CGFloat a7, CGFloat a8, CGFloat a9, CGFloat a10)
 {
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2000000000;
+  v10 = a4;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x2000000000;
+  v65 = 0;
+  v60[0] = 0;
+  v60[1] = v60;
+  v60[2] = 0x2000000000;
+  v61 = 0;
+  v58[0] = 0;
+  v58[1] = v58;
+  v58[2] = 0x2000000000;
   v59 = 0;
-  v54[0] = 0;
-  v54[1] = v54;
-  v54[2] = 0x2000000000;
-  v55 = 0;
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x2000000000;
-  v53 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x4002000000;
-  v47 = __Block_byref_object_copy__25;
-  v48 = __Block_byref_object_dispose__25;
-  __p = 0;
   v50 = 0;
-  v51 = 0;
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 0x40000000;
-  v37 = ___ZN2CI15ColorKernelNode14append_to_treeEPKNS_6KernelEPNS_20SerialObjectPtrArrayE6CGRectU13block_pointerFS6_iS6_EbbNS_11PixelFormatE_block_invoke;
-  v38 = &unk_1E75C6868;
-  v42 = &v44;
-  v43 = a1;
-  v39 = v52;
-  v40 = v54;
-  v41 = &v56;
+  v51 = &v50;
+  v52 = 0x4002000000;
+  v53 = __Block_byref_object_copy__25;
+  v54 = __Block_byref_object_dispose__25;
+  __p = 0;
+  v56 = 0;
+  v57 = 0;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 0x40000000;
+  v43 = ___ZN2CI15ColorKernelNode14append_to_treeEPKNS_6KernelEPNS_20SerialObjectPtrArrayE6CGRectU13block_pointerFS6_iS6_EbbNS_11PixelFormatE_block_invoke;
+  v44 = &unk_1E75C6868;
+  v48 = &v50;
+  v49 = a1;
+  v45 = v58;
+  v46 = v60;
+  v47 = &v62;
   if (*a2 >= 1)
   {
-    v7 = 0;
-    v8 = (a2 + 24);
+    v13 = 0;
+    v14 = a2 + 24;
     do
     {
-      v9 = v8;
-      if (v7 >= 0xA)
+      v15 = v14;
+      if (v13 >= 0xA)
       {
-        v9 = (*(a2 + 2) + 8 * v7 - 80);
+        v15 = (*(a2 + 2) + 8 * v13 - 80);
       }
 
-      v37(v36, v7++, *v9);
-      ++v8;
+      (v43)(v42, v13++, *v15, a4, a5);
+      v14 += 8;
     }
 
-    while (v7 < *a2);
+    while (v13 < *a2);
   }
 
-  if ((*(*a1 + 16))(a1) != 70 || *(v57 + 6) != 2 || !*(a1 + 168))
+  if ((*(*a1 + 16))(a1) != 70 || *(v63 + 6) != 2 || !*(a1 + 168))
   {
 LABEL_24:
-    if (a4 && *(a1 + 158) == 1)
+    if (v10 && *(a1 + 158) == 1)
     {
-      v14 = *(v57 + 6);
-      if (v14 == 1)
+      v20 = *(v63 + 6);
+      if (v20 == 1)
       {
-        v15 = *v45[5];
-        if (v15 > 9)
+        v21 = *v51[5];
+        if (v21 > 9)
         {
-          v16 = (*(a2 + 2) + 8 * v15 - 80);
+          v22 = (*(a2 + 2) + 8 * v21 - 80);
         }
 
         else
         {
-          v16 = (a2 + 8 * v15 + 24);
+          v22 = (a2 + 8 * v21 + 24);
         }
 
-        v26 = *v16;
-        if ((*(**v16 + 240))(*v16))
+        v32 = *v22;
+        if ((*(**v22 + 240))(*v22))
         {
-          if (((*(*v26 + 184))(v26) & 1) == 0)
+          if (((*(*v32 + 184))(v32) & 1) == 0)
           {
-            v28 = v26;
+            v34 = v32;
             while (1)
             {
-              v27 = v28;
-              v28 = (*(*v28 + 48))(v28, 0);
-              if (((*(*v28 + 240))(v28) & 1) == 0)
+              v33 = v34;
+              v34 = (*(*v34 + 48))(v34, 0);
+              if (((*(*v34 + 240))(v34) & 1) == 0)
               {
                 break;
               }
 
-              if ((*(*v28 + 184))(v28))
+              if ((*(*v34 + 184))(v34))
               {
                 goto LABEL_55;
               }
             }
 
 LABEL_56:
-            CI::Object::ref(v26);
-            CI::SerialObjectPtrArray::replace(a2, v28, v15);
+            CI::Object::ref(v32);
+            CI::SerialObjectPtrArray::replace(a2, v34, v21);
             operator new();
           }
 
-          v27 = 0;
-          v28 = v26;
+          v33 = 0;
+          v34 = v32;
 LABEL_55:
-          if (v27)
+          if (v33)
           {
             goto LABEL_56;
           }
@@ -6096,60 +6602,60 @@ LABEL_55:
         operator new();
       }
 
-      if (v14 >= 2)
+      if (v20 >= 2)
       {
-        v17 = 0;
-        v18 = 0;
-        v33 = 0x3FF0000000000000uLL;
-        *&v34 = 0;
-        *(&v34 + 1) = 0x3FF0000000000000;
-        v19 = 1;
-        v20 = 1;
-        v35 = 0uLL;
+        v23 = 0;
+        v24 = 0;
+        v39 = 0x3FF0000000000000uLL;
+        *&v40 = 0;
+        *(&v40 + 1) = 0x3FF0000000000000;
+        v25 = 1;
+        v26 = 1;
+        v41 = 0uLL;
         do
         {
-          v21 = *(v45[5] + 4 * v17);
-          if (v21 > 9)
+          v27 = *(v51[5] + 4 * v23);
+          if (v27 > 9)
           {
-            v22 = (*(a2 + 2) + 8 * v21 - 80);
+            v28 = (*(a2 + 2) + 8 * v27 - 80);
           }
 
           else
           {
-            v22 = (a2 + 8 * v21 + 24);
+            v28 = (a2 + 8 * v27 + 24);
           }
 
-          v23 = *v22;
-          if ((*(**v22 + 16))(*v22) != 34)
+          v29 = *v28;
+          if ((*(**v28 + 16))(*v28) != 34)
           {
-            v19 = ((*(*v23 + 16))(v23) == 41) & v19;
+            v25 = ((*(*v29 + 16))(v29) == 41) & v25;
           }
 
-          if ((*(*v23 + 16))(v23) == 34)
+          if ((*(*v29 + 16))(v29) == 34)
           {
-            v24 = *(v23 + 72);
-            v30 = *(v23 + 56);
-            v31 = v24;
-            v32 = *(v23 + 88);
-            isOrientationWithIntegralTranslation = CI::Affine::isOrientationWithIntegralTranslation(&v30);
-            if ((v18 & 1) == 0)
+            v30 = *(v29 + 72);
+            v36 = *(v29 + 56);
+            v37 = v30;
+            v38 = *(v29 + 88);
+            isOrientationWithIntegralTranslation = CI::Affine::isOrientationWithIntegralTranslation(&v36);
+            if ((v24 & 1) == 0)
             {
-              v33 = v30;
-              v34 = v31;
-              v35 = v32;
+              v39 = v36;
+              v40 = v37;
+              v41 = v38;
             }
 
-            v20 &= isOrientationWithIntegralTranslation;
-            v18 = 1;
+            v26 &= isOrientationWithIntegralTranslation;
+            v24 = 1;
           }
 
-          ++v17;
+          ++v23;
         }
 
-        while (v17 < *(v57 + 6));
-        if (v19 & v18 & v20)
+        while (v23 < *(v63 + 6));
+        if (v25 & v24 & v26)
         {
-          CI::Affine::inverse(&v33, &v30);
+          CI::Affine::inverse(&v36, &v39);
           operator new();
         }
       }
@@ -6158,12 +6664,12 @@ LABEL_55:
     operator new();
   }
 
-  v11 = *(a2 + 3);
-  v10 = *(a2 + 4);
-  if ((*(*v11 + 16))(v11) == 41)
+  v17 = *(a2 + 3);
+  v16 = *(a2 + 4);
+  if ((*(*v17 + 16))(v17) == 41)
   {
-    v60.origin.x = (*(*v11 + 168))(v11);
-    IsEmpty = CGRectIsEmpty(v60);
+    v66.origin.x = (*(*v17 + 168))(v17);
+    IsEmpty = CGRectIsEmpty(v66);
   }
 
   else
@@ -6171,10 +6677,10 @@ LABEL_55:
     IsEmpty = 0;
   }
 
-  if ((*(*v10 + 16))(v10) == 41)
+  if ((*(*v16 + 16))(v16) == 41)
   {
-    v61.origin.x = (*(*v10 + 168))(v10);
-    v13 = CGRectIsEmpty(v61);
+    v67.origin.x = (*(*v16 + 168))(v16);
+    v19 = CGRectIsEmpty(v67);
     if (!IsEmpty)
     {
       goto LABEL_18;
@@ -6183,7 +6689,7 @@ LABEL_55:
 
   else
   {
-    v13 = 0;
+    v19 = 0;
     if (!IsEmpty)
     {
       goto LABEL_18;
@@ -6199,42 +6705,42 @@ LABEL_43:
   }
 
 LABEL_18:
-  if (v13 && (*(a1 + 168) & 8) != 0)
+  if (v19 && (*(a1 + 168) & 8) != 0)
   {
     goto LABEL_43;
   }
 
   if (IsEmpty && (*(a1 + 168) & 1) != 0)
   {
-    CI::Object::ref(v10);
+    CI::Object::ref(v16);
     CI::SerialObjectPtrArray::~SerialObjectPtrArray(a2);
     MEMORY[0x19EAF5590]();
   }
 
   else
   {
-    if (!v13 || (*(a1 + 168) & 2) == 0)
+    if (!v19 || (*(a1 + 168) & 2) == 0)
     {
       goto LABEL_24;
     }
 
-    CI::Object::ref(v11);
+    CI::Object::ref(v17);
     CI::SerialObjectPtrArray::~SerialObjectPtrArray(a2);
     MEMORY[0x19EAF5590]();
-    v10 = v11;
+    v16 = v17;
   }
 
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v50, 8);
   if (__p)
   {
-    v50 = __p;
+    v56 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(v52, 8);
-  _Block_object_dispose(v54, 8);
-  _Block_object_dispose(&v56, 8);
-  return v10;
+  _Block_object_dispose(v58, 8);
+  _Block_object_dispose(v60, 8);
+  _Block_object_dispose(&v62, 8);
+  return v16;
 }
 
 __n128 __Block_byref_object_copy__25(void *a1, uint64_t a2)
@@ -6350,7 +6856,7 @@ LABEL_9:
   else
   {
     *v11 = a2;
-    v12 = v11 + 1;
+    v12 = v11 + 4;
   }
 
   v9[6] = v12;
@@ -6386,14 +6892,14 @@ CI::SerialObjectPtrArray *CI::SerialObjectPtrArray::SerialObjectPtrArray(CI::Ser
   return this;
 }
 
-void CI::ColorKernelNode::set_child(CI::ColorKernelNode *this, CI::Node *a2, int a3)
+void CI::ColorKernelNode::set_child(uint64_t this, CI::Node *a2, int a3)
 {
   if (a3 < 0)
   {
     return;
   }
 
-  v4 = **(this + 7);
+  v4 = **(this + 56);
   if (v4 < 1)
   {
     return;
@@ -6403,7 +6909,7 @@ void CI::ColorKernelNode::set_child(CI::ColorKernelNode *this, CI::Node *a2, int
   v8 = 0;
   for (i = -80; ; i += 8)
   {
-    v10 = *(this + 7);
+    v10 = *(this + 56);
     if (v7 > 9)
     {
       v11 = (*(v10 + 16) + i);
@@ -6433,7 +6939,7 @@ LABEL_11:
     }
   }
 
-  v13 = *(this + 7);
+  v13 = *(this + 56);
 
   CI::SerialObjectPtrArray::replace(v13, a2, v7);
 }
@@ -6781,14 +7287,14 @@ void CI::ColorKernelNode::extent_unclamped(CGRect *this)
 void *CI::InstanceCounted<(CI::Type)57>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103A118;
-  atomic_fetch_add(&dword_1ED7C47BC[55], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[48], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)57>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103A118;
-  atomic_fetch_add(&dword_1ED7C47BC[55], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[48], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -6819,7 +7325,7 @@ void CI::GeneralKernelNode::~GeneralKernelNode(CI::GeneralKernelNode *this)
   }
 
   *(this + 5) = &unk_1F103A338;
-  atomic_fetch_add(&dword_1ED7C47BC[57], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[50], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -7229,22 +7735,22 @@ double CI::GeneralKernelNode::roi_of_child(CI::GeneralKernelNode *this, CGRect a
   {
     if ((*(*this + 200))(this, a3))
     {
-      v9 = *(this + 15);
-      if (v9)
+      v10 = *(this + 15);
+      if (v10)
       {
-        return (*(v9 + 16))(v9, a3, x, y, width, height);
+        return (*(v10 + 16))(v10, a3, x, y, width, height);
       }
 
-      v10 = ci_logger_render();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = ci_logger_render(0, v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        CI::GeneralKernelNode::roi_of_child(this, v10);
+        CI::GeneralKernelNode::roi_of_child(this, v11);
       }
 
-      v9 = *(this + 15);
-      if (v9)
+      v10 = *(this + 15);
+      if (v10)
       {
-        return (*(v9 + 16))(v9, a3, x, y, width, height);
+        return (*(v10 + 16))(v10, a3, x, y, width, height);
       }
     }
 
@@ -7589,14 +8095,14 @@ BOOL CI::GeneralKernelNode::is_color_general(CI::GeneralKernelNode *this)
   return v4;
 }
 
-void CI::GeneralKernelNode::set_child(CI::GeneralKernelNode *this, CI::Node *a2, int a3)
+void CI::GeneralKernelNode::set_child(uint64_t this, CI::Node *a2, int a3)
 {
   if (a3 < 0)
   {
     return;
   }
 
-  v4 = **(this + 7);
+  v4 = **(this + 56);
   if (v4 < 1)
   {
     return;
@@ -7606,7 +8112,7 @@ void CI::GeneralKernelNode::set_child(CI::GeneralKernelNode *this, CI::Node *a2,
   v8 = 0;
   while (1)
   {
-    v9 = *(this + 6);
+    v9 = *(this + 48);
     if (*(v9 + 12) == 1)
     {
       type = CI::KernelArguments::get_type((v9 + 136), v7);
@@ -7638,7 +8144,7 @@ LABEL_8:
     goto LABEL_14;
   }
 
-  v12 = *(this + 7);
+  v12 = *(this + 56);
 
   CI::SerialObjectPtrArray::replace(v12, a2, v7);
 }
@@ -7683,7 +8189,7 @@ uint64_t CI::GeneralKernelNode::add_args_to_hash(CI::GeneralKernelNode *this, CI
   return XXH64_update(a2, &__src, 8uLL);
 }
 
-void *std::vector<CGRect>::__assign_with_size[abi:nn200100]<CGRect*,CGRect*>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<CGRect>::__assign_with_size[abi:nn200100]<CGRect*,CGRect*>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7761,14 +8267,14 @@ void *std::vector<CGRect>::__assign_with_size[abi:nn200100]<CGRect*,CGRect*>(voi
 void *CI::InstanceCounted<(CI::Type)59>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103A338;
-  atomic_fetch_add(&dword_1ED7C47BC[57], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[50], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)59>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103A338;
-  atomic_fetch_add(&dword_1ED7C47BC[57], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[50], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -7794,7 +8300,7 @@ void CI::WarpKernelNode::~WarpKernelNode(CI::WarpKernelNode *this)
   _Block_release(*(this + 12));
   *(this + 12) = 0;
   *(this + 5) = &unk_1F103A540;
-  atomic_fetch_add(&dword_1ED7C47BC[56], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[49], 0xFFFFFFFF);
 
   CI::Node::~Node(this);
 }
@@ -7923,14 +8429,14 @@ BOOL CI::WarpKernelNode::output_is_luma(CI::WarpKernelNode *this)
   return result;
 }
 
-void CI::WarpKernelNode::set_child(CI::WarpKernelNode *this, CI::Node *a2, int a3)
+void CI::WarpKernelNode::set_child(uint64_t this, CI::Node *a2, int a3)
 {
   if (a3 < 0)
   {
     return;
   }
 
-  v4 = **(this + 7);
+  v4 = **(this + 56);
   if (v4 < 1)
   {
     return;
@@ -7940,7 +8446,7 @@ void CI::WarpKernelNode::set_child(CI::WarpKernelNode *this, CI::Node *a2, int a
   v8 = 0;
   for (i = -80; ; i += 8)
   {
-    v10 = *(this + 7);
+    v10 = *(this + 56);
     if (v7 > 9)
     {
       v11 = (*(v10 + 16) + i);
@@ -7970,7 +8476,7 @@ LABEL_11:
     }
   }
 
-  v13 = *(this + 7);
+  v13 = *(this + 56);
 
   CI::SerialObjectPtrArray::replace(v13, a2, v7);
 }
@@ -8133,7 +8639,7 @@ double CI::WarpKernelNode::roi_of_child(CI::WarpKernelNode *this, CGRect a2, uin
       return (*(v9 + 16))(v9, a3, x, y, width, height);
     }
 
-    v10 = ci_logger_render();
+    v10 = ci_logger_render(0, a3);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       CI::WarpKernelNode::roi_of_child(this, v10);
@@ -8214,14 +8720,14 @@ uint64_t CI::WarpKernelNode::output_depth(CI::WarpKernelNode *this)
 void *CI::InstanceCounted<(CI::Type)58>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103A540;
-  atomic_fetch_add(&dword_1ED7C47BC[56], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[49], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)58>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103A540;
-  atomic_fetch_add(&dword_1ED7C47BC[56], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[49], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -8368,7 +8874,7 @@ uint64_t CI::NodeToNodeMap::findAndRef(CI::NodeToNodeMap *this, CI::Node *a2)
 
 void *CI::NodeToNodeMap::add(CI::NodeToNodeMap *this, CI::Node *a2, CI::Node *a3)
 {
-  v12[0] = a2;
+  v12 = a2;
   v6 = *(this + 2);
   result = (this + 16);
   v5 = v6;
@@ -8406,8 +8912,8 @@ LABEL_9:
       CI::Object::ref(a3);
     }
 
-    v12[2] = v12;
-    result = std::__tree<std::__value_type<CI::Node *,CI::Node *>,std::__map_value_compare<CI::Node *,std::__value_type<CI::Node *,CI::Node *>,std::less<CI::Node *>,true>,std::allocator<std::__value_type<CI::Node *,CI::Node *>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(v11, v12);
+    v13 = &v12;
+    result = std::__tree<std::__value_type<CI::Node *,CI::Node *>,std::__map_value_compare<CI::Node *,std::__value_type<CI::Node *,CI::Node *>,std::less<CI::Node *>,true>,std::allocator<std::__value_type<CI::Node *,CI::Node *>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(v11, &v12, &std::piecewise_construct, &v13);
     result[5] = a3;
   }
 
@@ -8417,13 +8923,13 @@ LABEL_9:
 void CI::NoopNode::~NoopNode(CI::NoopNode *this)
 {
   *(this + 6) = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
 {
   *(this + 6) = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -8432,53 +8938,53 @@ void CI::NoopNode::~NoopNode(CI::NoopNode *this)
 void non-virtual thunk toCI::NoopNode::~NoopNode(CI::NoopNode *this)
 {
   *this = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
 {
   *this = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 
   JUMPOUT(0x19EAF5590);
 }
 
-void *std::__tree<std::__value_type<CI::Node *,CI::Node *>,std::__map_value_compare<CI::Node *,std::__value_type<CI::Node *,CI::Node *>,std::less<CI::Node *>,true>,std::allocator<std::__value_type<CI::Node *,CI::Node *>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<CI::Node *,CI::Node *>,std::__map_value_compare<CI::Node *,std::__value_type<CI::Node *,CI::Node *>,std::less<CI::Node *>,true>,std::allocator<std::__value_type<CI::Node *,CI::Node *>>>::__emplace_unique_key_args<CI::Node *,std::piecewise_construct_t const&,std::tuple<CI::Node * const&>,std::tuple<>>(uint64_t a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = v4[4];
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -8488,18 +8994,18 @@ LABEL_8:
 void *CI::InstanceCounted<(CI::Type)45>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)45>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103A750;
-  atomic_fetch_add(&dword_1ED7C47BC[43], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[36], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
-CI::PremultiplyNode *CI::PremultiplyNode::append_to_tree(CI::PremultiplyNode *this, CI::Node *a2, int a3)
+CI::Node *CI::PremultiplyNode::append_to_tree(CI::PremultiplyNode *this, CI::Node *a2, int a3)
 {
   v3 = this;
   if (a2)
@@ -8537,9 +9043,9 @@ CI::PremultiplyNode *CI::PremultiplyNode::append_to_tree(CI::PremultiplyNode *th
 
     if ((*(*v7 + 16))(v7) == 46)
     {
-      if (!(*(v7 + 14) + v5))
+      if (!(*(v7 + 56) + v5))
       {
-        v7 = *(v7 + 5);
+        v7 = *(v7 + 40);
         if (!v7)
         {
 LABEL_26:
@@ -8631,7 +9137,7 @@ uint64_t CI::PremultiplyNode::convert_to_kernel_node(CI::PremultiplyNode *this, 
     operator new();
   }
 
-  v4 = ci_logger_render();
+  v4 = ci_logger_render(this, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     CI::PremultiplyNode::convert_to_kernel_node(v3, v4);
@@ -8645,7 +9151,7 @@ void CI::PremultiplyNode::~PremultiplyNode(CI::PremultiplyNode *this)
   *this = &unk_1F103A778;
   *(this + 14) = 0;
   *(this + 6) = &unk_1F103A958;
-  atomic_fetch_add(&dword_1ED7C47BC[44], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[37], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 }
 
@@ -8653,7 +9159,7 @@ void CI::PremultiplyNode::~PremultiplyNode(CI::PremultiplyNode *this)
   *this = &unk_1F103A778;
   *(this + 14) = 0;
   *(this + 6) = &unk_1F103A958;
-  atomic_fetch_add(&dword_1ED7C47BC[44], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[37], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild(this);
 
   JUMPOUT(0x19EAF5590);
@@ -8702,7 +9208,7 @@ void non-virtual thunk toCI::PremultiplyNode::~PremultiplyNode(CI::PremultiplyNo
   *(this - 6) = &unk_1F103A778;
   *(this + 2) = 0;
   *this = &unk_1F103A958;
-  atomic_fetch_add(&dword_1ED7C47BC[44], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[37], 0xFFFFFFFF);
   CI::NodeWithChild::~NodeWithChild((this - 48));
 }
 
@@ -8713,14 +9219,14 @@ void non-virtual thunk toCI::PremultiplyNode::~PremultiplyNode(CI::PremultiplyNo
 void *CI::InstanceCounted<(CI::Type)46>::~InstanceCounted(void *result)
 {
   *result = &unk_1F103A958;
-  atomic_fetch_add(&dword_1ED7C47BC[44], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[37], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)46>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F103A958;
-  atomic_fetch_add(&dword_1ED7C47BC[44], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[37], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -8752,19 +9258,6 @@ unint64_t CI::sw_ci_unpremul(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   return vdivq_f32(*v7, vdupq_laneq_s32(vmaxnmq_f32(*v7, vdupq_n_s32(0x3727C5ACu)), 3)).u64[0];
-}
-
-void CI::ProcessorNode::ProcessorNode(CI::Node *a1)
-{
-  CI::Node::Node(a1);
-}
-
-{
-  CI::Node::Node(a1);
-}
-
-{
-  CI::Node::Node(a1);
 }
 
 void CI::ProcessorNode::~ProcessorNode(CI::ProcessorNode *this)
@@ -8804,7 +9297,7 @@ void CI::ProcessorNode::~ProcessorNode(CI::ProcessorNode *this)
   }
 
   *(this + 6) = &unk_1F103B0D8;
-  atomic_fetch_add(&dword_1ED7C47BC[45], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[38], 0xFFFFFFFF);
 
   CI::NodeWithChildren::~NodeWithChildren(this);
 }
@@ -8991,19 +9484,19 @@ uint64_t CI::ProcessorOutputNode::print_for_graph_core(uint64_t a1, FILE *a2, ui
   return result;
 }
 
-void CI::ProcessorNode::regions_of_child(CGRect a1@<0:D0, 8:D1, 16:D2, 24:D3>, int a2@<W1>, void *a3@<X8>)
+void CI::ProcessorNode::regions_of_child(CGRect a2@<0:D0, 8:D1, 16:D2, 24:D3>, uint64_t a3@<X1>, const void **a4@<X8>)
 {
-  if ((a2 & 0x80000000) == 0 && !CGRectIsEmpty(a1))
+  if ((a3 & 0x80000000) == 0 && !CGRectIsEmpty(a2))
   {
     operator new();
   }
 
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   v5 = MEMORY[0x1E695F050];
 
-  std::vector<CGRect>::push_back[abi:nn200100](a3, v5);
+  std::vector<CGRect>::push_back[abi:nn200100](a4, v5);
 }
 
 uint64_t CI::ProcessorNode::output_depth(CI::ProcessorNode *this)
@@ -9147,7 +9640,7 @@ uint64_t CI::ProcessorNode::add_args_to_hash(CFStringRef *this, CI::XXHashHelper
   return XXH64_update(a2, &__src, 8uLL);
 }
 
-void CI::ProcessorNode::append_to_tree(CI::SerialObjectPtrArray *a1, uint64_t a2, uint64_t a3, double *a4)
+void CI::ProcessorNode::append_to_tree(CI::SerialObjectPtrArray *a1, void (**a2)(void *__return_ptr, void, void, double, double, double, double), const void *a3, double *a4, const void *a5, uint64_t a6, char a7, int a8, uint64_t a9, uint64_t a10, int a11, char a12, char a13, char a14, char a15, char a16, char a17, char a18)
 {
   if (*a1 < 1)
   {
@@ -9155,67 +9648,67 @@ LABEL_17:
     operator new();
   }
 
-  v7 = 0;
-  v8 = -80;
+  v21 = 0;
+  v22 = -80;
   while (1)
   {
-    if (v7 > 9)
+    if (v21 > 9)
     {
-      v9 = (*(a1 + 2) + v8);
+      v23 = (*(a1 + 2) + v22);
     }
 
     else
     {
-      v9 = (a1 + 8 * v7 + 24);
+      v23 = (a1 + 8 * v21 + 24);
     }
 
-    v10 = *v9;
-    (*(a2 + 16))(__p, a2, 0, *a4, a4[1], a4[2], a4[3]);
-    v11 = (*(*v10 + 16))(v10);
-    if (v11 == 36)
+    v24 = *v23;
+    (a2)[2](__p, a2, 0, *a4, a4[1], a4[2], a4[3]);
+    v25 = (*(*v24 + 16))(v24);
+    if (v25 == 36)
     {
-      v24 = v10[7];
-      v25 = v10[8];
-      v26 = v10[9];
-      v27 = v10[10];
+      v38 = v24[7];
+      v39 = v24[8];
+      v40 = v24[9];
+      v41 = v24[10];
       CI::ProcessorNode::unionROI(__p);
-      v37.origin.x = v28;
-      v37.origin.y = v29;
-      v37.size.width = v30;
-      v37.size.height = v31;
-      v35.origin.x = v24;
-      v35.origin.y = v25;
-      v35.size.width = v26;
-      v35.size.height = v27;
-      if (CGRectContainsRect(v35, v37))
+      v51.origin.x = v42;
+      v51.origin.y = v43;
+      v51.size.width = v44;
+      v51.size.height = v45;
+      v49.origin.x = v38;
+      v49.origin.y = v39;
+      v49.size.width = v40;
+      v49.size.height = v41;
+      if (CGRectContainsRect(v49, v51))
       {
         goto LABEL_13;
       }
     }
 
-    else if (v11 == 40)
+    else if (v25 == 40)
     {
-      v12 = (*(*v10 + 48))(v10, 0);
-      if ((*(*v12 + 16))(v12) >= 47 && (*(*v12 + 16))(v12) <= 49)
+      v26 = (*(*v24 + 48))(v24, 0);
+      if ((*(*v26 + 16))(v26) >= 47 && (*(*v26 + 16))(v26) <= 49)
       {
-        v13 = (*(*v10 + 168))(v10);
-        v15 = v14;
-        v17 = v16;
-        v19 = v18;
+        v27 = (*(*v24 + 168))(v24);
+        v29 = v28;
+        v31 = v30;
+        v33 = v32;
         CI::ProcessorNode::unionROI(__p);
-        v36.origin.x = v20;
-        v36.origin.y = v21;
-        v36.size.width = v22;
-        v36.size.height = v23;
-        v34.origin.x = v13;
-        v34.origin.y = v15;
-        v34.size.width = v17;
-        v34.size.height = v19;
-        if (CGRectContainsRect(v34, v36))
+        v50.origin.x = v34;
+        v50.origin.y = v35;
+        v50.size.width = v36;
+        v50.size.height = v37;
+        v48.origin.x = v27;
+        v48.origin.y = v29;
+        v48.size.width = v31;
+        v48.size.height = v33;
+        if (CGRectContainsRect(v48, v50))
         {
 LABEL_13:
-          v32 = (*(*v10 + 48))(v10, 0);
-          CI::SerialObjectPtrArray::replace(a1, v32, v7);
+          v46 = (*(*v24 + 48))(v24, 0);
+          CI::SerialObjectPtrArray::replace(a1, v46, v21);
         }
       }
     }
@@ -9226,16 +9719,16 @@ LABEL_13:
       operator delete(__p[0]);
     }
 
-    ++v7;
-    v8 += 8;
-    if (v7 >= *a1)
+    ++v21;
+    v22 += 8;
+    if (v21 >= *a1)
     {
       goto LABEL_17;
     }
   }
 }
 
-void CI::ProcessorNode::append_to_tree(CI::SerialObjectPtrArray *a1, uint64_t a2, double *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void CI::ProcessorNode::append_to_tree(CI::SerialObjectPtrArray *a1, unsigned int a2, double *a3, const void *a4, uint64_t a5, char a6, int a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, _BYTE *a12, char a13, char a14, char a15, char a16, char a17, void (**a18)(void *__return_ptr, void, void, double, double, double, double), const void *a19)
 {
   if (*a1 < 1)
   {
@@ -9243,161 +9736,164 @@ LABEL_17:
     operator new();
   }
 
-  v16 = 0;
-  v17 = -80;
+  v21 = 0;
+  v22 = -80;
   while (1)
   {
-    if (v16 > 9)
+    if (v21 > 9)
     {
-      v18 = (*(a1 + 2) + v17);
+      v23 = (*(a1 + 2) + v22);
     }
 
     else
     {
-      v18 = (a1 + 8 * v16 + 24);
+      v23 = (a1 + 8 * v21 + 24);
     }
 
-    v19 = *v18;
-    (*(a14 + 16))(v42, a14, 0, *a3, a3[1], a3[2], a3[3]);
-    v20 = (*(*v19 + 16))(v19);
-    if (v20 == 36)
+    v24 = *v23;
+    (a18)[2](v47, a18, 0, *a3, a3[1], a3[2], a3[3]);
+    v25 = (*(*v24 + 16))(v24);
+    if (v25 == 36)
     {
-      v33 = v19[7];
-      v34 = v19[8];
-      v35 = v19[9];
-      v36 = v19[10];
-      CI::ProcessorNode::unionROI(v42);
-      v46.origin.x = v37;
-      v46.origin.y = v38;
-      v46.size.width = v39;
-      v46.size.height = v40;
-      v44.origin.x = v33;
-      v44.origin.y = v34;
-      v44.size.width = v35;
-      v44.size.height = v36;
-      if (CGRectContainsRect(v44, v46))
+      v38 = v24[7];
+      v39 = v24[8];
+      v40 = v24[9];
+      v41 = v24[10];
+      CI::ProcessorNode::unionROI(v47);
+      v51.origin.x = v42;
+      v51.origin.y = v43;
+      v51.size.width = v44;
+      v51.size.height = v45;
+      v49.origin.x = v38;
+      v49.origin.y = v39;
+      v49.size.width = v40;
+      v49.size.height = v41;
+      if (CGRectContainsRect(v49, v51))
       {
         goto LABEL_13;
       }
     }
 
-    else if (v20 == 40)
+    else if (v25 == 40)
     {
-      v21 = (*(*v19 + 48))(v19, 0);
-      if ((*(*v21 + 16))(v21) >= 47 && (*(*v21 + 16))(v21) <= 49)
+      v26 = (*(*v24 + 48))(v24, 0);
+      if ((*(*v26 + 16))(v26) >= 47 && (*(*v26 + 16))(v26) <= 49)
       {
-        v22 = (*(*v19 + 168))(v19);
-        v24 = v23;
-        v26 = v25;
-        v28 = v27;
-        CI::ProcessorNode::unionROI(v42);
-        v45.origin.x = v29;
-        v45.origin.y = v30;
-        v45.size.width = v31;
-        v45.size.height = v32;
-        v43.origin.x = v22;
-        v43.origin.y = v24;
-        v43.size.width = v26;
-        v43.size.height = v28;
-        if (CGRectContainsRect(v43, v45))
+        v27 = (*(*v24 + 168))(v24);
+        v29 = v28;
+        v31 = v30;
+        v33 = v32;
+        CI::ProcessorNode::unionROI(v47);
+        v50.origin.x = v34;
+        v50.origin.y = v35;
+        v50.size.width = v36;
+        v50.size.height = v37;
+        v48.origin.x = v27;
+        v48.origin.y = v29;
+        v48.size.width = v31;
+        v48.size.height = v33;
+        if (CGRectContainsRect(v48, v50))
         {
 LABEL_13:
-          v41 = (*(*v19 + 48))(v19, 0);
-          CI::SerialObjectPtrArray::replace(a1, v41, v16);
+          v46 = (*(*v24 + 48))(v24, 0);
+          CI::SerialObjectPtrArray::replace(a1, v46, v21);
         }
       }
     }
 
-    if (v42[0])
+    if (v47[0])
     {
-      v42[1] = v42[0];
-      operator delete(v42[0]);
+      v47[1] = v47[0];
+      operator delete(v47[0]);
     }
 
-    ++v16;
-    v17 += 8;
-    if (v16 >= *a1)
+    ++v21;
+    v22 += 8;
+    if (v21 >= *a1)
     {
       goto LABEL_17;
     }
   }
 }
 
-void CI::ProcessorNode::render(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, void *a5, double *a6, int a7)
+void CI::ProcessorNode::render(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, void **a5, double *a6, int a7)
 {
-  v95 = *MEMORY[0x1E69E9840];
-  if (CI_VERBOSE_SIGNPOSTS())
+  v106 = *MEMORY[0x1E69E9840];
+  v11 = CI_VERBOSE_SIGNPOSTS();
+  v70 = a6;
+  if (v11)
   {
-    v10 = ci_signpost_log_render();
-    v11 = *(a1 + 36) | ((*(*a3 + 280))(a3) << 32);
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v13 = ci_signpost_log_render(v11, v12);
+    v14 = *(a1 + 36) | ((*(*a3 + 280))(a3) << 32);
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      v12 = *(a1 + 272);
+      v15 = *(a1 + 272);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v12;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v11, "processor_render", "%{public}@", &buf, 0xCu);
+      *(&buf + 4) = v15;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v14, "processor_render", "%{public}@", &buf, 0xCu);
     }
   }
 
-  v13 = (*(*a3 + 280))(a3);
-  TimerBase::TimerBase(v82, v13, *(a1 + 36), "processor_render", 15);
-  v15 = *a4;
-  v14 = a4[1];
-  v79 = 0;
-  v80 = 0;
+  v16 = (*(*a3 + 280))(a3);
+  TimerBase::TimerBase(&v93, v16, *(a1 + 36), "processor_render", 0xFu);
+  v18 = *a4;
+  v17 = a4[1];
+  v90 = 0;
+  v91 = 0;
+  v92 = 0;
+  v74 = v17;
+  v19 = (v17 - v18) >> 3;
+  if (v17 != v18)
+  {
+    std::vector<__IOSurface *>::__vallocate[abi:nn200100](&v90, (v17 - v18) >> 3);
+  }
+
+  v87 = 0;
+  v88 = 0;
+  v89 = 0;
+  v84 = 0;
+  v85 = 0;
+  v86 = 0;
   v81 = 0;
-  v63 = v14;
-  v16 = (v14 - v15) >> 3;
-  if (v14 != v15)
+  v82 = 0;
+  v83 = 0;
+  v20 = CI_VERBOSE_SIGNPOSTS();
+  if (v20)
   {
-    std::vector<__IOSurface *>::__vallocate[abi:nn200100](&v79, (v14 - v15) >> 3);
-  }
-
-  v76 = 0;
-  v77 = 0;
-  v78 = 0;
-  v73 = 0;
-  v74 = 0;
-  v75 = 0;
-  v70 = 0;
-  v71 = 0;
-  v72 = 0;
-  if (CI_VERBOSE_SIGNPOSTS())
-  {
-    v17 = ci_signpost_log_render();
-    v18 = *(a1 + 36) | ((*(*a3 + 280))(a3) << 32);
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+    v22 = ci_signpost_log_render(v20, v21);
+    v23 = *(a1 + 36) | ((*(*a3 + 280))(a3) << 32);
+    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
     {
-      v19 = *(a1 + 272);
+      v24 = *(a1 + 272);
       LODWORD(buf) = 138543362;
-      *(&buf + 4) = v19;
-      _os_signpost_emit_with_name_impl(&dword_19CC36000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v18, "processor_prepinputs", "%{public}@", &buf, 0xCu);
+      *(&buf + 4) = v24;
+      _os_signpost_emit_with_name_impl(&dword_19CC36000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v23, "processor_prepinputs", "%{public}@", &buf, 0xCu);
     }
   }
 
-  v20 = (*(*a3 + 280))(a3);
-  TimerBase::TimerBase(&buf, v20, *(a1 + 36), "processor_prepinputs", 0);
-  if (v63 != v15)
+  v25 = (*(*a3 + 280))(a3);
+  TimerBase::TimerBase(&buf, v25, *(a1 + 36), "processor_prepinputs", 0);
+  if (v74 != v18)
   {
-    v21 = 0;
-    v22 = 0;
+    v26 = 0;
+    v27 = 0;
     do
     {
-      v23 = (*(*a1 + 48))(a1, v22);
-      v24 = (*(**(*a4 + 8 * v21) + 32))(*(*a4 + 8 * v21));
-      v25 = v70 + 32 * v21;
-      v26 = v24[1];
-      *v25 = *v24;
-      v25[1] = v26;
-      if ((***(*a4 + 8 * v21))() || ((*(**(*a4 + 8 * v21) + 24))(v93), v93[0]))
+      v28 = (*(*a1 + 48))(a1, v27);
+      v29 = (*(**(*a4 + 8 * v26) + 32))(*(*a4 + 8 * v26));
+      v30 = v81 + 32 * v26;
+      v31 = v29[1];
+      *v30 = *v29;
+      v30[1] = v31;
+      if ((***(*a4 + 8 * v26))() || ((*(**(*a4 + 8 * v26) + 24))(v104), v104[0]))
       {
-        v27 = (***(*a4 + 8 * v21))(*(*a4 + 8 * v21));
-        *(v79 + v21) = v27;
-        RetainSurfaceFromCache(v27);
-        v28 = v76 + 8 * v21;
-        (*(**(*a4 + 8 * v21) + 24))(v93);
-        std::vector<void const*>::insert(&v76, v28, v93);
-        if (!v23)
+        v32 = (***(*a4 + 8 * v26))(*(*a4 + 8 * v26));
+        *(v90 + v26) = v32;
+        RetainSurfaceFromCache(v32);
+        v33 = v87 + 8 * v26;
+        (*(**(*a4 + 8 * v26) + 24))(v104);
+        std::vector<void const*>::insert(&v87, v33, v104, v34);
+        if (!v28)
         {
           goto LABEL_19;
         }
@@ -9405,439 +9901,235 @@ void CI::ProcessorNode::render(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4,
 
       else
       {
-        v96 = *(*(**(*a4 + 8 * v21) + 32))(*(*a4 + 8 * v21));
-        if (CGRectIsEmpty(v96))
+        v107 = *(*(**(*a4 + 8 * v26) + 32))(*(*a4 + 8 * v26));
+        if (CGRectIsEmpty(v107))
         {
-          *(v79 + v21) = 0;
-          if (!v23)
+          *(v90 + v26) = 0;
+          if (!v28)
           {
 LABEL_19:
-            v29 = 0;
+            v35 = 0;
             goto LABEL_20;
           }
         }
 
         else
         {
-          for (i = (*(*v23 + 16))(v23); i == 45; i = (*(*v23 + 16))(v23))
+          for (i = (*(*v28 + 16))(v28); i == 45; i = (*(*v28 + 16))(v28))
           {
-            v23 = (*(*v23 + 48))(v23, 0);
+            v28 = (*(*v28 + 48))(v28, 0);
           }
 
-          v31 = (*(**(*a4 + 8 * v21) + 32))(*(*a4 + 8 * v21));
-          v93[0] = 0;
-          v93[1] = 0;
-          v32 = (*(*v23 + 16))(v23);
-          if (v32 > 53)
+          v37 = (*(**(*a4 + 8 * v26) + 32))(*(*a4 + 8 * v26));
+          v104[0] = 0;
+          v104[1] = 0;
+          v38 = (*(*v28 + 16))(v28);
+          if (v38 > 53)
           {
-            if (v32 != 54)
+            if (v38 != 54)
             {
-              if (v32 == 56)
+              if (v38 == 56)
               {
-                std::vector<void const*>::insert(&v76, v76 + 8 * v21, v23 + 48);
+                std::vector<void const*>::insert(&v87, v87 + 8 * v26, v28 + 48, v39);
               }
 
               goto LABEL_16;
             }
 
-            CI::SurfaceNode::surfaceForROI(v23, a3, v93, v92, *v31, v31[1], v31[2], v31[3]);
+            CI::SurfaceNode::surfaceForROI(v28, a3, v104, v103, *v37, v37[1], v37[2], v37[3]);
             goto LABEL_34;
           }
 
-          if (v32 == 35)
+          if (v38 == 35)
           {
-            CI::CGNode::surfaceForROI(v23, a3, v31, v93, v92);
+            CI::CGNode::surfaceForROI(v28, a3, v37, v104, v103);
 LABEL_34:
-            v34 = v92[0];
-            v92[0] = 0;
-            *(v79 + v21) = v34;
-            v35 = v92[0];
-            v92[0] = 0;
-            if (v35)
+            v41 = v103[0];
+            v103[0] = 0;
+            *(v90 + v26) = v41;
+            v42 = v103[0];
+            v103[0] = 0;
+            if (v42)
             {
-              CFRelease(v35);
+              CFRelease(v42);
             }
 
             goto LABEL_16;
           }
 
-          if (v32 == 52)
+          if (v38 == 52)
           {
-            v33 = CI::ProviderNode::surfaceForROI(v23, a3, v31, v93);
-            *(v79 + v21) = v33;
+            v40 = CI::ProviderNode::surfaceForROI(v28, a3, v37, v104);
+            *(v90 + v26) = v40;
           }
         }
       }
 
 LABEL_16:
-      v29 = (*(*v23 + 400))(v23);
+      v35 = (*(*v28 + 400))(v28);
 LABEL_20:
-      *(v73 + v21) = v29;
-      v21 = (v22 + 1);
-      v22 = v21;
+      *(v84 + v26) = v35;
+      v26 = (v27 + 1);
+      v27 = v26;
     }
 
-    while (v16 > v21);
+    while (v19 > v26);
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v43 = CI_VERBOSE_SIGNPOSTS();
+  if (v43)
   {
-    v36 = ci_signpost_log_render();
-    v37 = *(&buf + 1);
+    v45 = ci_signpost_log_render(v43, v44);
+    v46 = *(&buf + 1);
     if ((*(&buf + 1) - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v38 = v36;
-      if (os_signpost_enabled(v36))
+      v47 = v45;
+      if (os_signpost_enabled(v45))
       {
-        LOWORD(v93[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v38, OS_SIGNPOST_INTERVAL_END, v37, "processor_prepinputs", &unk_19CFBCBAE, v93, 2u);
+        LOWORD(v104[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v47, OS_SIGNPOST_INTERVAL_END, v46, "processor_prepinputs", &unk_19CFBCBAE, v104, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(&buf);
-  v39 = *(a1 + 232);
-  if (v39)
+  TimerBase::~TimerBase(&buf, v44);
+  v48 = *(a1 + 232);
+  if (v48)
   {
-    v40 = (*(*a1 + 40))(a1);
-    v68 = 0;
-    v69 = 0;
-    v67 = 0;
-    std::vector<BOOL>::__init_with_size[abi:nn200100]<BOOL *,BOOL *>(&v67, v39, v39 + v40, v40);
+    v49 = (*(*a1 + 40))(a1);
+    v79 = 0;
+    v80 = 0;
+    v78 = 0;
+    std::vector<BOOL>::__init_with_size[abi:nn200100]<BOOL *,BOOL *>(&v78, v48, v48 + v49, v49);
   }
 
   else
   {
-    v67 = 0;
-    v68 = 0;
-    v69 = 0;
+    v78 = 0;
+    v79 = 0;
+    v80 = 0;
   }
 
-  v41 = *(a1 + 256);
-  if (v41)
+  v50 = *(a1 + 256);
+  if (v50)
   {
     if (*(a1 + 288) != 1)
     {
       goto LABEL_55;
     }
 
-    v42 = (****a5)(**a5);
+    v51 = (****a5)(**a5);
     (*(***a5 + 24))(&buf);
-    v43 = buf;
-    v44 = (*(*a1 + 400))(a1);
-    (*(v41 + 16))(v41, &v79, &v76, &v73, &v70, &v67, v42, v43, *a6, a6[1], a6[2], a6[3], v44, *(a1 + 208), a3, a2);
+    v52 = buf;
+    v53 = (*(*a1 + 400))(a1);
+    (*(v50 + 16))(v50, &v90, &v87, &v84, &v81, &v78, v51, v52, *v70, v70[1], v70[2], v70[3], v53, *(a1 + 208), a3, a2);
   }
 
   if (*(a1 + 264))
   {
-    *v93 = 0u;
-    v94 = 0u;
-    memset(v92, 0, sizeof(v92));
-    v90 = 0u;
-    v91 = 0u;
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
-    v87 = 0u;
+    *v104 = 0u;
+    v105 = 0u;
+    memset(v103, 0, sizeof(v103));
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v97 = 0u;
+    v98 = 0u;
     buf = 0u;
-    v85 = 0u;
+    v96 = 0u;
     std::vector<CI::intermediate_t const*>::vector[abi:nn200100](&__p, a5);
-    v45 = __p;
-    if (v66 != __p)
+    v54 = __p;
+    if (v77 != __p)
     {
-      v46 = 0;
+      v55 = 0;
       p_buf = &buf;
       do
       {
-        v93[v46] = (**v45[v46])(v45[v46]);
-        (*(**(__p + v46) + 24))(&v64);
-        v92[v46] = v64;
-        v48 = (*(**(__p + v46) + 32))(*(__p + v46));
-        v49 = v48[1];
-        *p_buf = *v48;
-        p_buf[1] = v49;
+        v104[v55] = (**v54[v55])(v54[v55]);
+        (*(**(__p + v55) + 24))(&v75);
+        v103[v55] = v75;
+        v57 = (*(**(__p + v55) + 32))(*(__p + v55));
+        v58 = v57[1];
+        *p_buf = *v57;
+        p_buf[1] = v58;
         p_buf += 2;
-        ++v46;
-        v45 = __p;
+        ++v55;
+        v54 = __p;
       }
 
-      while (v46 < (v66 - __p) >> 3);
+      while (v55 < (v77 - __p) >> 3);
     }
 
-    v50 = *(a1 + 264);
-    v51 = *(a1 + 288);
-    v52 = (*(*a1 + 400))(a1);
-    (*(v50 + 16))(v50, &v79, &v76, &v73, &v70, &v67, v51, v93, v92, v52, &buf, a1 + 208, a7, a3, a2);
+    v59 = *(a1 + 264);
+    v60 = *(a1 + 288);
+    v61 = (*(*a1 + 400))(a1);
+    (*(v59 + 16))(v59, &v90, &v87, &v84, &v81, &v78, v60, v104, v103, v61, &buf, a1 + 208, a7, a3, a2);
     if (__p)
     {
-      v66 = __p;
+      v77 = __p;
       operator delete(__p);
     }
   }
 
-  if (v63 != v15)
+  if (v74 != v18)
   {
-    v53 = 0;
-    v54 = 1;
+    v62 = 0;
+    v63 = 1;
     do
     {
-      ReturnSurfaceToCache(*(v79 + v53));
-      v53 = v54;
+      ReturnSurfaceToCache(*(v90 + v62));
+      v62 = v63;
     }
 
-    while (v16 > v54++);
+    while (v19 > v63++);
   }
 
 LABEL_55:
-  if (v67)
+  if (v78)
   {
-    operator delete(v67);
+    operator delete(v78);
   }
 
-  if (v70)
+  if (v81)
   {
-    v71 = v70;
-    operator delete(v70);
+    v82 = v81;
+    operator delete(v81);
   }
 
-  if (v73)
+  if (v84)
   {
-    v74 = v73;
-    operator delete(v73);
+    v85 = v84;
+    operator delete(v84);
   }
 
-  if (v76)
+  if (v87)
   {
-    v77 = v76;
-    operator delete(v76);
+    v88 = v87;
+    operator delete(v87);
   }
 
-  if (v79)
+  if (v90)
   {
-    v80 = v79;
-    operator delete(v79);
+    v91 = v90;
+    operator delete(v90);
   }
 
-  if (CI_VERBOSE_SIGNPOSTS())
+  v65 = CI_VERBOSE_SIGNPOSTS();
+  if (v65)
   {
-    v56 = ci_signpost_log_render();
-    v57 = v83;
-    if (v83 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    v67 = ci_signpost_log_render(v65, v66);
+    v68 = v94;
+    if (v94 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
     {
-      v58 = v56;
-      if (os_signpost_enabled(v56))
+      v69 = v67;
+      if (os_signpost_enabled(v67))
       {
         LOWORD(buf) = 0;
-        _os_signpost_emit_with_name_impl(&dword_19CC36000, v58, OS_SIGNPOST_INTERVAL_END, v57, "processor_render", &unk_19CFBCBAE, &buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_19CC36000, v69, OS_SIGNPOST_INTERVAL_END, v68, "processor_render", &unk_19CFBCBAE, &buf, 2u);
       }
     }
   }
 
-  TimerBase::~TimerBase(v82);
-}
-
-char *std::vector<void const*>::insert(void *a1, char *__src, void *a3)
-{
-  v4 = __src;
-  v6 = a1[1];
-  v7 = a1[2];
-  if (v6 >= v7)
-  {
-    v10 = *a1;
-    v11 = (&v6[-*a1] >> 3) + 1;
-    if (v11 >> 61)
-    {
-      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
-    }
-
-    v12 = __src - v10;
-    v13 = v7 - v10;
-    if (v13 >> 2 > v11)
-    {
-      v11 = v13 >> 2;
-    }
-
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v11;
-    }
-
-    v15 = v12 >> 3;
-    v27 = a1;
-    if (v14)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(a1, v14);
-    }
-
-    v24 = 0;
-    v25 = 8 * v15;
-    v26 = (8 * v15);
-    std::__split_buffer<void const*>::emplace_back<void const*>(&v24, a3);
-    v16 = v25;
-    memcpy(v26, v4, a1[1] - v4);
-    v17 = *a1;
-    v18 = v25;
-    *&v26 = v26 + a1[1] - v4;
-    a1[1] = v4;
-    v19 = v4 - v17;
-    v20 = (v18 - (v4 - v17));
-    memcpy(v20, v17, v19);
-    v21 = *a1;
-    *a1 = v20;
-    v22 = a1[2];
-    *(a1 + 1) = v26;
-    *&v26 = v21;
-    *(&v26 + 1) = v22;
-    v24 = v21;
-    v25 = v21;
-    if (v21)
-    {
-      operator delete(v21);
-    }
-
-    return v16;
-  }
-
-  else if (__src == v6)
-  {
-    *v6 = *a3;
-    a1[1] = v6 + 8;
-  }
-
-  else
-  {
-    v8 = __src + 8;
-    if (v6 < 8)
-    {
-      v9 = a1[1];
-    }
-
-    else
-    {
-      *v6 = *(v6 - 1);
-      v9 = v6 + 8;
-    }
-
-    a1[1] = v9;
-    if (v6 != v8)
-    {
-      memmove(__src + 8, __src, v6 - v8);
-    }
-
-    *v4 = *a3;
-  }
-
-  return v4;
-}
-
-char *std::vector<void const*>::insert(void *a1, char *__src, char *a3)
-{
-  v4 = __src;
-  v6 = a1[1];
-  v7 = a1[2];
-  if (v6 >= v7)
-  {
-    v10 = *a1;
-    v11 = (&v6[-*a1] >> 3) + 1;
-    if (v11 >> 61)
-    {
-      std::vector<CI::SWRendererFunctionInputNode>::__throw_length_error[abi:nn200100]();
-    }
-
-    v12 = __src - v10;
-    v13 = v7 - v10;
-    if (v13 >> 2 > v11)
-    {
-      v11 = v13 >> 2;
-    }
-
-    if (v13 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v14 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v14 = v11;
-    }
-
-    v15 = v12 >> 3;
-    v29 = a1;
-    if (v14)
-    {
-      std::__allocate_at_least[abi:nn200100]<std::allocator<void const*>>(a1, v14);
-    }
-
-    v26 = 0;
-    v27 = 8 * v15;
-    v28 = (8 * v15);
-    std::__split_buffer<void const*>::emplace_back<void const*>(&v26, a3);
-    v16 = v27;
-    memcpy(v28, v4, a1[1] - v4);
-    v17 = *a1;
-    v18 = v27;
-    *&v28 = v28 + a1[1] - v4;
-    a1[1] = v4;
-    v19 = v4 - v17;
-    v20 = (v18 - (v4 - v17));
-    memcpy(v20, v17, v19);
-    v21 = *a1;
-    *a1 = v20;
-    v22 = a1[2];
-    *(a1 + 1) = v28;
-    *&v28 = v21;
-    *(&v28 + 1) = v22;
-    v26 = v21;
-    v27 = v21;
-    if (v21)
-    {
-      operator delete(v21);
-    }
-
-    return v16;
-  }
-
-  else if (__src == v6)
-  {
-    *v6 = *a3;
-    a1[1] = v6 + 8;
-  }
-
-  else
-  {
-    v8 = __src + 8;
-    if (v6 < 8)
-    {
-      v9 = a1[1];
-    }
-
-    else
-    {
-      *v6 = *(v6 - 1);
-      v9 = v6 + 8;
-    }
-
-    a1[1] = v9;
-    if (v6 != v8)
-    {
-      memmove(__src + 8, __src, v6 - v8);
-      v9 = a1[1];
-    }
-
-    v23 = v9 <= a3 || v4 > a3;
-    v24 = 8;
-    if (v23)
-    {
-      v24 = 0;
-    }
-
-    *v4 = *&a3[v24];
-  }
-
-  return v4;
+  TimerBase::~TimerBase(&v93, v66);
 }

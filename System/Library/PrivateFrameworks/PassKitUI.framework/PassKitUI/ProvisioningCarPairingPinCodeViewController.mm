@@ -60,23 +60,23 @@
 {
   v4 = sub_1BE04A2E4();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BE04A2C4();
   selfCopy = self;
   view = [(ProvisioningCarPairingPinCodeViewController *)selfCopy view];
   if (view)
   {
-    v11 = view;
+    v10 = view;
     [view setNeedsLayout];
 
     view2 = [(ProvisioningCarPairingPinCodeViewController *)selfCopy view];
     if (view2)
     {
-      v13 = view2;
+      v12 = view2;
       [view2 layoutIfNeeded];
 
-      (*(v5 + 8))(v8, v4);
+      (*(v5 + 8))(v7, v4);
       return;
     }
   }

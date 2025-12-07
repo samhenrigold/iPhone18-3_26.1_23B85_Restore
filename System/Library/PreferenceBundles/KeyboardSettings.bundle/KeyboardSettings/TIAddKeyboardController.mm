@@ -15,7 +15,10 @@
 - (void)toggleInputMode:(id)mode;
 - (void)toggleMultilingualInputMode:(id)mode;
 - (void)updateDoneButton;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TIAddKeyboardController
@@ -28,6 +31,36 @@
   v3 = OBJC_IVAR___PSListController__table;
   [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] setEstimatedSectionHeaderHeight:0.0];
   [*&self->PSListController_opaque[v3] setEstimatedSectionFooterHeight:0.0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = TIAddKeyboardController;
+  [(TIAddKeyboardController *)&v6 viewWillAppear:appear];
+  navigationItem = [(TIAddKeyboardController *)self navigationItem];
+  specifier = [(TIAddKeyboardController *)self specifier];
+  [navigationItem setTitle:{objc_msgSend(specifier, "propertyForKey:", PSTitleKey)}];
+  [navigationItem setRightBarButtonItem:{objc_msgSend([UIBarButtonItem alloc], "initWithBarButtonSystemItem:target:action:", 0, self, "doneButtonTapped")}];
+  [objc_msgSend(navigationItem "rightBarButtonItem")];
+  [+[NSNotificationCenter defaultCenter](NSNotificationCenter addObserver:"addObserver:selector:name:object:" selector:self name:"doneButtonTapped" object:UIApplicationWillResignActiveNotification, 0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TIAddKeyboardController;
+  [(TIAddKeyboardController *)&v4 viewDidAppear:appear];
+  [(TIAddKeyboardController *)self updateDoneButton];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [+[NSNotificationCenter defaultCenter](NSNotificationCenter removeObserver:"removeObserver:", self];
+  v5.receiver = self;
+  v5.super_class = TIAddKeyboardController;
+  [(TIAddKeyboardController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (id)specifiers
@@ -59,25 +92,24 @@ LABEL_3:
   LODWORD(v4) = _os_feature_enabled_impl();
   if (v4)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
-    v4 = [modes countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    v4 = [modes countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v12;
+      v6 = *v11;
 LABEL_7:
       v7 = 0;
       while (1)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(modes);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
         NormalizedIdentifier = TIInputModeGetNormalizedIdentifier();
         if ([TIUIGetProposedMultilingualSetsForAddingInputMode(NormalizedIdentifier objc_msgSend(+[UIKeyboardInputModeController sharedInputModeController](UIKeyboardInputModeController])
         {
@@ -86,7 +118,7 @@ LABEL_7:
 
         if (v5 == ++v7)
         {
-          v5 = [modes countByEnumeratingWithState:&v11 objects:v15 count:16];
+          v5 = [modes countByEnumeratingWithState:&v10 objects:v14 count:16];
           LOBYTE(v4) = 0;
           if (v5)
           {

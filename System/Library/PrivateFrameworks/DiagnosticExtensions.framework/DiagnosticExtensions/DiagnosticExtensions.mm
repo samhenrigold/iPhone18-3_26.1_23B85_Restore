@@ -1,7 +1,8 @@
-void sub_248AB5A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, char a19)
+void sub_248AB5A74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, ...)
 {
+  va_start(va, location);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a19, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -12,16 +13,16 @@ void sub_248AB5D50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_248AB61D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248AB61D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248AB68AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248AB68AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -33,30 +34,30 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_248AB70D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248AB70D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248AB74F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248AB74F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id Log()
+id Log(uint64_t a1)
 {
   if (Log_onceToken != -1)
   {
     Log_cold_1();
   }
 
-  v1 = Log_log;
+  v2 = Log_log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Log_block_invoke()
@@ -66,10 +67,18 @@ uint64_t __Log_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_248AB8078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+{
+  va_start(va, a8);
+
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_248AB8D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, id location)
@@ -79,28 +88,30 @@ void sub_248AB8D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
-id Log_0()
+id Log_0(uint64_t a1)
 {
   if (Log_onceToken_0 != -1)
   {
     Log_cold_1_0();
   }
 
-  v1 = Log_handle;
+  v2 = Log_handle;
 
-  return v1;
+  return v2;
 }
 
 void sub_248ABAAA0(_Unwind_Exception *a1)
@@ -110,23 +121,23 @@ void sub_248ABAAA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_248ABCA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248ABCA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248ABCF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248ABCF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248ABD354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248ABD354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -138,16 +149,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_248ABD7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248ABD7FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_248ABDBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248ABDBB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -178,29 +189,30 @@ uint64_t OUTLINED_FUNCTION_5(uint64_t result, uint64_t a2, float a3)
   return result;
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_248AC052C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248AC052C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id Log_1()
+id Log_1(uint64_t a1)
 {
   if (Log_onceToken_1 != -1)
   {
     Log_cold_1_1();
   }
 
-  v1 = Log_Log;
+  v2 = Log_Log;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Log_block_invoke_1()
@@ -210,15 +222,16 @@ uint64_t __Log_block_invoke_1()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_248AC1300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_248AC1300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -232,34 +245,34 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
 
 uint64_t DEUtilsValidateConnection(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = Log_2();
+  v2 = Log_2(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v10 = 67109120;
-    v11 = [v1 processIdentifier];
-    _os_log_impl(&dword_248AB3000, v2, OS_LOG_TYPE_INFO, "Validating connection from pid %d", &v10, 8u);
+    v9 = 67109120;
+    v10 = [v1 processIdentifier];
+    _os_log_impl(&dword_248AB3000, v2, OS_LOG_TYPE_INFO, "Validating connection from pid %d", &v9, 8u);
   }
 
   v3 = [v1 valueForEntitlement:@"com.apple.DiagnosticExtensions.xpc-helper-access"];
   v4 = v3;
-  if (v3 && ([v3 BOOLValue] & 1) != 0)
+  if (v3 && (v3 = [v3 BOOLValue], (v3 & 1) != 0))
   {
-    v5 = Log_2();
+    v5 = Log_2(v3);
     v6 = 1;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v7 = [v1 processIdentifier];
-      v10 = 67109120;
-      v11 = v7;
-      _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_INFO, "Connection from pid %d is valid", &v10, 8u);
+      v9 = 67109120;
+      v10 = v7;
+      _os_log_impl(&dword_248AB3000, v5, OS_LOG_TYPE_INFO, "Connection from pid %d is valid", &v9, 8u);
     }
   }
 
   else
   {
-    v5 = Log_2();
+    v5 = Log_2(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       DEUtilsValidateConnection_cold_1(v5);
@@ -268,20 +281,19 @@ uint64_t DEUtilsValidateConnection(void *a1)
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-id Log_2()
+id Log_2(uint64_t a1)
 {
   if (Log_onceToken_2 != -1)
   {
     Log_cold_1_2();
   }
 
-  v1 = Log_handle_0;
+  v2 = Log_handle_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t DEUtilsValidateDestination(void *a1)
@@ -290,7 +302,7 @@ uint64_t DEUtilsValidateDestination(void *a1)
   {
     v1 = [a1 absoluteString];
     v2 = [v1 hasPrefix:@"file:///Users/"];
-    v3 = Log_2();
+    v3 = Log_2(v2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       DEUtilsValidateDestination_cold_1(v1, v2, v3);
@@ -298,17 +310,17 @@ uint64_t DEUtilsValidateDestination(void *a1)
 
     if ((v2 & 1) == 0)
     {
-      v4 = Log_2();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = Log_2(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        DEUtilsValidateDestination_cold_2(v1, v4);
+        DEUtilsValidateDestination_cold_2(v1, v5);
       }
     }
   }
 
   else
   {
-    v1 = Log_2();
+    v1 = Log_2(0);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       DEUtilsValidateDestination_cold_3(v1);
@@ -329,22 +341,20 @@ uint64_t __Log_block_invoke_2()
 
 uint64_t pgrep(const char *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  *v17 = xmmword_248ACC0D0;
-  v16 = 0;
-  if (sysctl(v17, 3u, 0, &v16, 0, 0) < 0)
+  v17 = *MEMORY[0x277D85DE8];
+  *v16 = xmmword_248ACC0D0;
+  v15 = 0;
+  if (sysctl(v16, 3u, 0, &v15, 0, 0) < 0)
   {
     v7 = *__error();
     v8 = __error();
     v9 = strerror(*v8);
     printf("failed to get process list: (%d) %s\n", v7, v9);
-LABEL_12:
-    v13 = 0xFFFFFFFFLL;
-    goto LABEL_16;
+    return 0xFFFFFFFFLL;
   }
 
-  v2 = v16 + 4096;
-  v16 = v2;
+  v2 = v15 + 4096;
+  v15 = v2;
   if (v2 <= 0x1000)
   {
     pgrep_cold_2();
@@ -357,18 +367,18 @@ LABEL_12:
   }
 
   v4 = v3;
-  if (sysctl(v17, 3u, v3, &v16, 0, 0) < 0)
+  if (sysctl(v16, 3u, v3, &v15, 0, 0) < 0)
   {
     v10 = *__error();
     v11 = __error();
     v12 = strerror(*v11);
     printf("failed to get process list: (%d) %s\n", v10, v12);
     free(v4);
-    goto LABEL_12;
+    return 0xFFFFFFFFLL;
   }
 
-  v5 = (v16 / 0x288);
-  if (!(v16 / 0x288))
+  v5 = (v15 / 0x288);
+  if (!(v15 / 0x288))
   {
     goto LABEL_14;
   }
@@ -392,21 +402,19 @@ LABEL_14:
   }
 
   free(v4);
-LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-id Log_3()
+id Log_3(uint64_t a1)
 {
   if (Log_onceToken_3 != -1)
   {
     Log_cold_1_3();
   }
 
-  v1 = Log_Log_0;
+  v2 = Log_Log_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __Log_block_invoke_3()
@@ -432,20 +440,18 @@ void sub_248AC6DD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void DEUtilsValidateDestination_cold_1(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_248AB3000, log, OS_LOG_TYPE_DEBUG, "Validating destination %@, valid? %i", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_248AB3000, log, OS_LOG_TYPE_DEBUG, "Validating destination %@, valid? %i", &v3, 0x12u);
 }
 
 void DEUtilsValidateDestination_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Destination path [%{public}@] failed validation", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_248AB3000, a2, OS_LOG_TYPE_ERROR, "Destination path [%{public}@] failed validation", &v2, 0xCu);
 }

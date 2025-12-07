@@ -101,7 +101,7 @@
   self->_isRegisteredWithCalcEngine = 1;
   if (engine)
   {
-    objc_msgSend_resetGroupingList(self, a2, engine, d, v4);
+    objc_msgSend_resetGroupingList(self, a2, engine, d);
   }
 
   return 0;
@@ -113,7 +113,7 @@
   self->_isRegisteredWithCalcEngine = 1;
   if (engine)
   {
-    objc_msgSend_resetGroupingList(self, a2, engine, v3, v4);
+    objc_msgSend_resetGroupingList(self, a2, engine, v3);
   }
 
   return 0;
@@ -121,9 +121,9 @@
 
 - (TSKUIDStruct)pivotDataTableUID
 {
-  v5 = sub_2212C4930(&self->_pivotTableUID._lower, 0x64, v2, v3, v4);
-  result._upper = v6;
-  result._lower = v5;
+  v4 = sub_2212C4930(&self->_pivotTableUID._lower, 0x64, v2, v3);
+  result._upper = v5;
+  result._lower = v4;
   return result;
 }
 
@@ -131,26 +131,26 @@
 {
   v3 = objc_opt_new();
   v4 = TSKUIDStruct::description(&self->_pivotTableUID);
-  objc_msgSend_appendFormat_(v3, v5, @"TSTGroupBySet<%p> for pivot: %@\n", v6, v7, self, v4);
+  objc_msgSend_appendFormat_(v3, v5, @"TSTGroupBySet<%p> for pivot: %@\n", v6, self, v4);
 
   begin = self->_inUseGroupBys.__begin_;
   var0 = self->_inUseGroupBys.var0;
   if (begin != var0)
   {
-    v10 = 0;
+    v9 = 0;
     do
     {
-      v11 = *begin;
-      v16 = v11;
-      if (v11)
+      v10 = *begin;
+      v14 = v10;
+      if (v10)
       {
-        v23._lower = objc_msgSend_ownerUID(v11, v12, v13, v14, v15);
-        v23._upper = v17;
-        v18 = TSKUIDStruct::description(&v23);
-        objc_msgSend_appendFormat_(v3, v19, @"  GroupBy %d: %@\n", v20, v21, v10, v18);
+        v20._lower = objc_msgSend_ownerUID(v10, v11, v12, v13);
+        v20._upper = v15;
+        v16 = TSKUIDStruct::description(&v20);
+        objc_msgSend_appendFormat_(v3, v17, @"  GroupBy %d: %@\n", v18, v9, v16);
       }
 
-      v10 = (v10 + 1);
+      v9 = (v9 + 1);
 
       ++begin;
     }
@@ -172,13 +172,13 @@
     while (begin != var0)
     {
       v7 = *begin;
-      objc_msgSend_setHiddenStates_(v7, v8, statesCopy, v9, v10);
-      v15 = objc_msgSend_calcEngine(v7, v11, v12, v13, v14);
+      objc_msgSend_setHiddenStates_(v7, v8, statesCopy, v9);
+      v13 = objc_msgSend_calcEngine(v7, v10, v11, v12);
 
-      if (v15)
+      if (v13)
       {
-        objc_msgSend_resetGroupings(v7, v16, v17, v18, v19);
-        objc_msgSend_didChangeGroupByStructure(v7, v20, v21, v22, v23);
+        objc_msgSend_resetGroupings(v7, v14, v15, v16);
+        objc_msgSend_didChangeGroupByStructure(v7, v17, v18, v19);
       }
 
       ++begin;
@@ -189,33 +189,33 @@
 - (BOOL)hasValidRunningTotalFieldForAggregate:(id)aggregate
 {
   aggregateCopy = aggregate;
-  if ((objc_msgSend_showAsType(aggregateCopy, v5, v6, v7, v8) == 6 || objc_msgSend_showAsType(aggregateCopy, v9, v10, v11, v12) == 7) && (v13 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v9, v10, v11, v12), v13 | v14))
+  if ((objc_msgSend_showAsType(aggregateCopy, v5, v6, v7) == 6 || objc_msgSend_showAsType(aggregateCopy, v8, v9, v10) == 7) && (v11 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v8, v9, v10), v11 | v12))
   {
-    v18 = objc_msgSend_rowGroupings(self, v14, v15, v16, v17);
-    v23 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v19, v20, v21, v22);
-    v26 = objc_msgSend_groupingColumnForColumnUID_(v18, v24, v23, v24, v25);
+    v15 = objc_msgSend_rowGroupings(self, v12, v13, v14);
+    v19 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v16, v17, v18);
+    v21 = objc_msgSend_groupingColumnForColumnUID_(v15, v20, v19, v20);
 
-    if (v26)
+    if (v21)
     {
-      v31 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v32 = objc_msgSend_columnGroupings(self, v27, v28, v29, v30);
-      v37 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v33, v34, v35, v36);
-      v26 = objc_msgSend_groupingColumnForColumnUID_(v32, v38, v37, v38, v39);
+      v26 = objc_msgSend_columnGroupings(self, v22, v23, v24);
+      v30 = objc_msgSend_runningTotalGroupingColumnUid(aggregateCopy, v27, v28, v29);
+      v21 = objc_msgSend_groupingColumnForColumnUID_(v26, v31, v30, v31);
 
-      v31 = v26 != 0;
+      v25 = v21 != 0;
     }
   }
 
   else
   {
-    v31 = 0;
+    v25 = 0;
   }
 
-  return v31;
+  return v25;
 }
 
 - (void)restoreFromPivotDataTable:(id)table columnGroupings:(id)groupings rowGroupings:(id)rowGroupings aggregates:(id)aggregates flatteningDimension:(int64_t)dimension
@@ -232,56 +232,57 @@
   pivotDataTable = self->_pivotDataTable;
   if (!pivotDataTable)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTGroupBySet restoreFromPivotDataTable:columnGroupings:rowGroupings:aggregates:flatteningDimension:]", v17, v18, groupingsCopy, tableCopy);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 200, 0, "Pivot data model missing when restoring rules for a pivot table");
+    v19 = MEMORY[0x277D81150];
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTGroupBySet restoreFromPivotDataTable:columnGroupings:rowGroupings:aggregates:flatteningDimension:]", v17, groupingsCopy, tableCopy);
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v22);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 200, 0, "Pivot data model missing when restoring rules for a pivot table");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
     pivotDataTable = self->_pivotDataTable;
   }
 
-  v31 = objc_msgSend_categoryOwner(pivotDataTable, v15, v16, v17, v18, groupingsCopy);
+  v28 = objc_msgSend_categoryOwner(pivotDataTable, v15, v16, v17, groupingsCopy);
   self->_aggregateUidList.__end_ = self->_aggregateUidList.__begin_;
   sub_221159728(&self->_aggregateUidMap);
-  v36 = objc_msgSend_count(self->_aggregates, v32, v33, v34, v35);
-  v45 = objc_msgSend_asArray(self->_aggregates, v37, v38, v39, v40);
-  if (v36)
+  v32 = objc_msgSend_count(self->_aggregates, v29, v30, v31);
+  v39 = objc_msgSend_asArray(self->_aggregates, v33, v34, v35);
+  if (v32)
   {
-    for (i = 0; i != v36; ++i)
+    for (i = 0; i != v32; ++i)
     {
-      v47 = objc_msgSend_objectAtIndex_(v45, v41, i, v43, v44);
-      *&v76 = objc_msgSend_columnAggregateUid(v47, v48, v49, v50, v51);
-      *(&v76 + 1) = v52;
-      sub_221083454(&self->_aggregateUidList, &v76);
-      *&v76 = objc_msgSend_columnAggregateUid(v47, v53, v54, v55, v56);
-      *(&v76 + 1) = v57;
-      *&v75 = i;
-      *(&v75 + 1) = v47;
-      sub_2211597C8(&self->_aggregateUidMap.__table_.__bucket_list_.__ptr_, &v76);
+      v41 = objc_msgSend_objectAtIndex_(v39, v36, i, v38);
+      *&v66 = objc_msgSend_columnAggregateUid(v41, v42, v43, v44);
+      *(&v66 + 1) = v45;
+      sub_221083454(&self->_aggregateUidList, &v66);
+      *&v66 = objc_msgSend_columnAggregateUid(v41, v46, v47, v48);
+      *(&v66 + 1) = v49;
+      *&v65 = i;
+      v50 = v41;
+      *(&v65 + 1) = v50;
+      sub_2211597C8(&self->_aggregateUidMap.__table_.__bucket_list_.__ptr_, &v66, &v66, &v65);
     }
   }
 
-  v58 = 0;
+  v51 = 0;
   for (j = 0; j != 1101; ++j)
   {
-    v76 = 0uLL;
-    *&v75 = objc_msgSend_pivotDataTableUID(self, v41, v42, v43, v44);
-    *(&v75 + 1) = v60;
-    *&v76 = sub_2212C4930(&v75, (j + 205), v61, v62, v63);
-    *(&v76 + 1) = v64;
-    v67 = objc_msgSend_groupByByUid_(v31, v64, &v76, v65, v66);
-    v71 = v67;
-    if (v67)
+    v66 = 0uLL;
+    *&v65 = objc_msgSend_pivotDataTableUID(self, v36, v37, v38);
+    *(&v65 + 1) = v53;
+    *&v66 = sub_2212C4930(&v65, (j + 205), v54, v55);
+    *(&v66 + 1) = v56;
+    v58 = objc_msgSend_groupByByUid_(v28, v56, &v66, v57);
+    v61 = v58;
+    if (v58)
     {
-      objc_msgSend_setGroupBySet_(v67, v68, self, v69, v70);
-      objc_storeStrong(&self->_inUseGroupBys.__begin_[v58], v71);
+      objc_msgSend_setGroupBySet_(v58, v59, self, v60);
+      objc_storeStrong(&self->_inUseGroupBys.__begin_[v51], v61);
     }
 
-    ++v58;
+    ++v51;
   }
 
-  objc_msgSend_resetGroupingList(self, v41, v42, v43, v44);
+  objc_msgSend_resetGroupingList(self, v36, v37, v38);
 }
 
 - (void)setPivotRulesWithPivotDataTable:(id)table columnGroupings:(id)groupings rowGroupings:(id)rowGroupings aggregates:(id)aggregates flatteningDimension:(int64_t)dimension
@@ -295,67 +296,68 @@
   objc_storeStrong(&self->_rowGroupings, rowGroupings);
   objc_storeStrong(&self->_aggregates, aggregates);
   self->_flatteningDimension = dimension;
-  objc_msgSend_clearMissingCombinations(self, v16, v17, v18, v19);
+  objc_msgSend_clearMissingCombinations(self, v16, v17, v18);
   pivotDataTable = self->_pivotDataTable;
   if (!pivotDataTable)
   {
-    v25 = MEMORY[0x277D81150];
-    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "[TSTGroupBySet setPivotRulesWithPivotDataTable:columnGroupings:rowGroupings:aggregates:flatteningDimension:]", v22, v23);
-    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v28, v29);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v31, v26, v30, 244, 0, "Pivot data model missing when setting rules for a pivot table");
+    v23 = MEMORY[0x277D81150];
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTGroupBySet setPivotRulesWithPivotDataTable:columnGroupings:rowGroupings:aggregates:flatteningDimension:]", v21);
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v26);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v23, v28, v24, v27, 244, 0, "Pivot data model missing when setting rules for a pivot table");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34, v35);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31);
     pivotDataTable = self->_pivotDataTable;
   }
 
-  v36 = objc_msgSend_categoryOwner(pivotDataTable, v20, v21, v22, v23);
+  v32 = objc_msgSend_categoryOwner(pivotDataTable, v19, v20, v21);
   self->_aggregateUidList.__end_ = self->_aggregateUidList.__begin_;
   sub_221159728(&self->_aggregateUidMap);
-  v45 = objc_msgSend_count(self->_aggregates, v37, v38, v39, v40);
-  if (v45)
+  v39 = objc_msgSend_count(self->_aggregates, v33, v34, v35);
+  if (v39)
   {
-    v46 = 0;
+    v40 = 0;
     do
     {
-      v47 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v41, v46, v43, v44);
-      *&v98 = objc_msgSend_columnAggregateUid(v47, v48, v49, v50, v51);
-      *(&v98 + 1) = v52;
-      sub_221083454(&self->_aggregateUidList, &v98);
-      *&v98 = objc_msgSend_columnAggregateUid(v47, v53, v54, v55, v56);
-      *(&v98 + 1) = v57;
-      v96 = v46;
-      v97 = v47;
-      sub_2211597C8(&self->_aggregateUidMap.__table_.__bucket_list_.__ptr_, &v98);
+      v41 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v36, v40, v38);
+      *&v84 = objc_msgSend_columnAggregateUid(v41, v42, v43, v44);
+      *(&v84 + 1) = v45;
+      sub_221083454(&self->_aggregateUidList, &v84);
+      *&v84 = objc_msgSend_columnAggregateUid(v41, v46, v47, v48);
+      *(&v84 + 1) = v49;
+      v82 = v40;
+      v50 = v41;
+      v83 = v50;
+      sub_2211597C8(&self->_aggregateUidMap.__table_.__bucket_list_.__ptr_, &v84, &v84, &v82);
 
-      ++v46;
+      ++v40;
     }
 
-    while (v45 != v46);
+    while (v39 != v40);
   }
 
-  if (self->_calcEngine && (objc_msgSend_minion(v36, v41, v42, v43, v44), v58 = objc_claimAutoreleasedReturnValue(), v58, !v58))
+  if (self->_calcEngine && (objc_msgSend_minion(v32, v36, v37, v38), v51 = objc_claimAutoreleasedReturnValue(), v51, !v51))
   {
-    v60 = [TSCEBulkCellChangeMinion alloc];
-    v59 = objc_msgSend_initWithCalcEngine_(v60, v61, self->_calcEngine, v62, v63);
-    objc_msgSend_setMinion_(v36, v64, v59, v65, v66);
+    v53 = [TSCEBulkCellChangeMinion alloc];
+    v52 = objc_msgSend_initWithCalcEngine_(v53, v54, self->_calcEngine, v55);
+    objc_msgSend_setMinion_(v32, v56, v52, v57);
   }
 
   else
   {
-    v59 = 0;
+    v52 = 0;
   }
 
-  v67 = objc_msgSend_numPracticalGroupBys(self, v41, v42, v43, v44);
+  v58 = objc_msgSend_numPracticalGroupBys(self, v36, v37, v38);
   for (i = 0; i != 1101; ++i)
   {
-    v69 = self->_inUseGroupBys.__begin_[i];
-    v73 = v69;
-    if (v69)
+    v60 = self->_inUseGroupBys.__begin_[i];
+    v63 = v60;
+    if (v60)
     {
-      objc_msgSend_setGroupBySet_(v69, v70, 0, v71, v72);
-      objc_msgSend_unregisterGroupBy_(v36, v74, v73, v75, v76);
+      objc_msgSend_setGroupBySet_(v60, v61, 0, v62);
+      objc_msgSend_unregisterGroupBy_(v32, v64, v63, v65);
       begin = self->_inUseGroupBys.__begin_;
-      v78 = begin[i];
+      v67 = begin[i];
       begin[i] = 0;
     }
   }
@@ -365,20 +367,20 @@
   block[2] = sub_2211527B4;
   block[3] = &unk_27845FB10;
   block[4] = self;
-  v79 = v36;
-  v95 = v79;
-  dispatch_apply(v67, 0, block);
-  objc_msgSend_resetGroupingList(self, v80, v81, v82, v83);
+  v68 = v32;
+  v81 = v68;
+  dispatch_apply(v58, 0, block);
+  objc_msgSend_resetGroupingList(self, v69, v70, v71);
   hiddenStates = self->_hiddenStates;
   if (hiddenStates)
   {
-    objc_msgSend_filterSetUpdated(hiddenStates, v84, v85, v86, v87);
+    objc_msgSend_filterSetUpdated(hiddenStates, v72, v73, v74);
   }
 
-  if (v59)
+  if (v52)
   {
-    objc_msgSend_setMinion_(v79, v84, 0, v86, v87);
-    objc_msgSend_flushAllChanges(v59, v89, v90, v91, v92);
+    objc_msgSend_setMinion_(v68, v72, 0, v74);
+    objc_msgSend_flushAllChanges(v52, v76, v77, v78);
   }
 }
 
@@ -391,36 +393,36 @@
   flatteningDimension = self->_flatteningDimension;
   if (flatteningDimension == 1)
   {
-    if (objc_msgSend_count(self->_aggregates, v3, v4, v5, v6) > 1)
+    if (objc_msgSend_count(self->_aggregates, v3, v4, v5) > 1)
     {
-      v8 = 1;
+      v7 = 1;
       goto LABEL_9;
     }
 
     flatteningDimension = self->_flatteningDimension;
   }
 
-  if (flatteningDimension || objc_msgSend_count(self->_aggregates, v3, v4, v5, v6) <= 1)
+  if (flatteningDimension || objc_msgSend_count(self->_aggregates, v3, v4, v5) <= 1)
   {
-    v8 = -1;
+    v7 = -1;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
 LABEL_9:
-  self->_activeFlatteningDimension = v8;
+  self->_activeFlatteningDimension = v7;
   if (self->_inUseGroupBys.var0 != self->_inUseGroupBys.__begin_)
   {
-    v25 = objc_msgSend_groupByForColumnGroups(self, v3, v4, v5, v6);
-    v13 = objc_msgSend_count(self->_columnGroupings, v9, v10, v11, v12);
-    objc_msgSend_p_resetAllGroupUids_baseGroupUids_summaryGroupUids_forGroupBy_uptoLevel_isFlattening_(self, v14, &self->_allColumnGroupUids, &self->_baseColumnGroupUids, &self->_summaryColumnGroupUids, v25, v13, self->_activeFlatteningDimension == 1);
+    v21 = objc_msgSend_groupByForColumnGroups(self, v3, v4, v5);
+    v11 = objc_msgSend_count(self->_columnGroupings, v8, v9, v10);
+    objc_msgSend_p_resetAllGroupUids_baseGroupUids_summaryGroupUids_forGroupBy_uptoLevel_isFlattening_(self, v12, &self->_allColumnGroupUids, &self->_baseColumnGroupUids, &self->_summaryColumnGroupUids, v21, v11, self->_activeFlatteningDimension == 1);
 
-    v26 = objc_msgSend_groupByForRowGroups(self, v15, v16, v17, v18);
-    v23 = objc_msgSend_count(self->_rowGroupings, v19, v20, v21, v22);
-    objc_msgSend_p_resetAllGroupUids_baseGroupUids_summaryGroupUids_forGroupBy_uptoLevel_isFlattening_(self, v24, &self->_allRowGroupUids, &self->_baseRowGroupUids, &self->_summaryRowGroupUids, v26, v23, self->_activeFlatteningDimension == 0);
+    v22 = objc_msgSend_groupByForRowGroups(self, v13, v14, v15);
+    v19 = objc_msgSend_count(self->_rowGroupings, v16, v17, v18);
+    objc_msgSend_p_resetAllGroupUids_baseGroupUids_summaryGroupUids_forGroupBy_uptoLevel_isFlattening_(self, v20, &self->_allRowGroupUids, &self->_baseRowGroupUids, &self->_summaryRowGroupUids, v22, v19, self->_activeFlatteningDimension == 0);
   }
 }
 
@@ -432,67 +434,67 @@ LABEL_9:
   *(uids + 1) = *uids;
   *(groupUids + 1) = *groupUids;
   *(summaryGroupUids + 1) = *summaryGroupUids;
-  v34 = byCopy;
+  v32 = byCopy;
   objc_msgSend_initialGroupOrderForGroupBy_baseLevel_outAllUids_outBaseUids_outSummaryUids_(TSTPivotRowColumnOrder, v15, byCopy, levelCopy, uids, groupUids, summaryGroupUids);
   if (flatteningCopy)
   {
-    v20 = objc_msgSend_count(self->_aggregates, v16, v17, v18, v19);
-    v24 = *uids;
-    v25 = *(uids + 1);
-    if (*uids != v25)
+    v19 = objc_msgSend_count(self->_aggregates, v16, v17, v18);
+    v22 = *uids;
+    v23 = *(uids + 1);
+    if (*uids != v23)
     {
-      v26 = 0;
-      v27 = v20;
+      v24 = 0;
+      v25 = v19;
       do
       {
         __p = 0;
-        v37 = 0;
-        v38 = 0;
-        if (v27)
+        v35 = 0;
+        v36 = 0;
+        if (v25)
         {
-          v28 = 0;
-          for (i = 0; i != v27; ++i)
+          v26 = 0;
+          for (i = 0; i != v25; ++i)
           {
-            *&v35 = sub_2211A8E7C(v24, i, v21, v22, v23);
-            *(&v35 + 1) = v30;
-            sub_221083454(&__p, &v35);
-            v35 = *v24;
-            v39 = __p + v28;
-            v31 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, __p + v28);
-            *(v31 + 2) = v35;
-            v31[6] = i;
-            v28 += 16;
+            *&v33 = sub_2211A8E7C(v22, i, v20, v21);
+            *(&v33 + 1) = v28;
+            sub_221083454(&__p, &v33);
+            v33 = *v22;
+            v37 = __p + v26;
+            v29 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, __p + v26, &unk_2217E0517, &v37);
+            *(v29 + 2) = v33;
+            v29[6] = i;
+            v26 += 16;
           }
         }
 
-        *&v35 = v24;
-        v32 = (sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, v24) + 4);
-        if (v32 != &__p)
+        *&v33 = v22;
+        v30 = sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, v22, &unk_2217E0517, &v33) + 4;
+        if (v30 != &__p)
         {
-          sub_2210BD068(v32, __p, v37, (v37 - __p) >> 4);
+          sub_2210BD068(v30, __p, v35, (v35 - __p) >> 4);
         }
 
-        sub_2210F0C88(&self->_allFlattenedUids.__begin_, self->_allFlattenedUids.__end_, __p, v37, (v37 - __p) >> 4);
-        if (v26 < (*(groupUids + 1) - *groupUids) >> 4)
+        sub_2210F0C88(&self->_allFlattenedUids.__begin_, self->_allFlattenedUids.__end_, __p, v35, (v35 - __p) >> 4);
+        if (v24 < (*(groupUids + 1) - *groupUids) >> 4)
         {
-          v33 = (*groupUids + 16 * v26);
-          if (*v24 == *v33 && v24[1] == v33[1])
+          v31 = (*groupUids + 16 * v24);
+          if (*v22 == *v31 && v22[1] == v31[1])
           {
-            sub_2210F0C88(&self->_baseFlattenedUids.__begin_, self->_baseFlattenedUids.__end_, __p, v37, (v37 - __p) >> 4);
-            ++v26;
+            sub_2210F0C88(&self->_baseFlattenedUids.__begin_, self->_baseFlattenedUids.__end_, __p, v35, (v35 - __p) >> 4);
+            ++v24;
           }
         }
 
         if (__p)
         {
-          v37 = __p;
+          v35 = __p;
           operator delete(__p);
         }
 
-        v24 += 2;
+        v22 += 2;
       }
 
-      while (v24 != v25);
+      while (v22 != v23);
     }
   }
 }
@@ -501,222 +503,222 @@ LABEL_9:
 {
   rowLevelCopy = rowLevel;
   levelCopy = level;
-  if (objc_msgSend_count(self->_columnGroupings, a2, level, rowLevel, v4) < level)
+  if (objc_msgSend_count(self->_columnGroupings, a2, level, rowLevel) < level)
   {
-    v12 = MEMORY[0x277D81150];
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v10, v11);
-    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v15, v16);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 376, 0, "columnLevel exceeds columnGroupings.count");
+    v10 = MEMORY[0x277D81150];
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v9);
+    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 376, 0, "columnLevel exceeds columnGroupings.count");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
   }
 
-  if (objc_msgSend_count(self->_rowGroupings, v8, v9, v10, v11) < rowLevelCopy)
+  if (objc_msgSend_count(self->_rowGroupings, v7, v8, v9) < rowLevelCopy)
   {
-    v27 = MEMORY[0x277D81150];
-    v28 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v25, v26);
-    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v29, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v30, v31);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v27, v33, v28, v32, 377, 0, "rowLevel exceeds rowGroupings.count");
+    v22 = MEMORY[0x277D81150];
+    v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v21);
+    v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v25);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 377, 0, "rowLevel exceeds rowGroupings.count");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36, v37);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
   }
 
   if (!self->_inUseGroupBys.__begin_[levelCopy])
   {
-    v38 = MEMORY[0x277D81150];
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v23, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v25, v26);
-    v43 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v41, v42);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v38, v44, v39, v43, 379, 0, "No groupBy set for columnLevel: %d", levelCopy);
+    v31 = MEMORY[0x277D81150];
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSTGroupBySet groupByForColumnLevel:rowLevel:]", v21);
+    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v34);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v31, v36, v32, v35, 379, 0, "No groupBy set for columnLevel: %d", levelCopy);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v45, v46, v47, v48);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39);
   }
 
-  v49 = self->_inUseGroupBys.__begin_[objc_msgSend_count(self->_columnGroupings, v23, v24, v25, v26) - levelCopy];
+  v40 = self->_inUseGroupBys.__begin_[objc_msgSend_count(self->_columnGroupings, v19, v20, v21) - levelCopy];
 
-  return v49;
+  return v40;
 }
 
 - (TSTGroupBy)groupByForRowGroups
 {
-  v5 = self->_inUseGroupBys.__begin_[objc_msgSend_count(self->_columnGroupings, a2, v2, v3, v4)];
+  v4 = self->_inUseGroupBys.__begin_[objc_msgSend_count(self->_columnGroupings, a2, v2, v3)];
 
-  return v5;
+  return v4;
 }
 
 - (unsigned)maxGroupByIndex
 {
-  v6 = objc_msgSend_count(self->_columnGroupings, a2, v2, v3, v4);
-  v11 = objc_msgSend_count(self->_rowGroupings, v7, v8, v9, v10);
-  if ((v11 + v6) < 2)
+  v5 = objc_msgSend_count(self->_columnGroupings, a2, v2, v3);
+  v9 = objc_msgSend_count(self->_rowGroupings, v6, v7, v8);
+  if ((v9 + v5) < 2)
   {
     return 214;
   }
 
-  v12 = v11 + v6 - 1;
-  v13 = 2;
+  v10 = v9 + v5 - 1;
+  v11 = 2;
   do
   {
-    v13 *= 2;
-    --v12;
+    v11 *= 2;
+    --v10;
   }
 
-  while (v12);
-  return v13 + 213;
+  while (v10);
+  return v11 + 213;
 }
 
 - (vector<unsigned)groupColumnIndexesForOwnerIndex:(TSTGroupBySet *)self
 {
-  v6 = a4;
+  v5 = a4;
   retstr->__begin_ = 0;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
-  v9 = objc_msgSend_count(self->_columnGroupings, a3, a4, v4, v5);
-  result = objc_msgSend_count(self->_rowGroupings, v10, v11, v12, v13);
-  if (v6 > 0xD6)
+  v8 = objc_msgSend_count(self->_columnGroupings, a3, a4, v4);
+  result = objc_msgSend_count(self->_rowGroupings, v9, v10, v11);
+  if (v5 > 0xD6)
   {
-    if (v6 <= 0x519)
+    if (v5 <= 0x519)
     {
-      if ((result + v9 - 1) >= 0)
+      if ((result + v8 - 1) >= 0)
       {
-        v33 = v6 - 214;
-        v34 = result + v9;
+        v28 = v5 - 214;
+        v29 = result + v8;
         do
         {
-          --v34;
-          if (v33)
+          --v29;
+          if (v28)
           {
-            v53 = v34;
-            sub_2211531C0(&retstr->__begin_, &v53);
+            v48 = v29;
+            sub_2211531C0(&retstr->__begin_, &v48);
           }
 
-          v33 >>= 1;
+          v28 >>= 1;
         }
 
-        while (v34 > 0);
+        while (v29 > 0);
       }
 
       begin = retstr->__begin_;
       end = retstr->__end_;
-      v37 = end - 1;
-      if (retstr->__begin_ != end && v37 > begin)
+      v32 = end - 1;
+      if (retstr->__begin_ != end && v32 > begin)
       {
-        v39 = begin + 1;
+        v34 = begin + 1;
         do
         {
-          v40 = *(v39 - 1);
-          *(v39 - 1) = *v37;
-          *v37-- = v40;
-          v20 = v39++ >= v37;
+          v35 = *(v34 - 1);
+          *(v34 - 1) = *v32;
+          *v32-- = v35;
+          v17 = v34++ >= v32;
         }
 
-        while (!v20);
+        while (!v17);
       }
     }
   }
 
   else
   {
-    v19 = v6 - 205;
-    v20 = v9 >= v19;
-    v21 = v9 - v19;
-    if (v20)
+    v16 = v5 - 205;
+    v17 = v8 >= v16;
+    v18 = v8 - v16;
+    if (v17)
     {
-      if (v21)
+      if (v18)
       {
-        v41 = 0;
-        if (v21 <= 1)
+        v36 = 0;
+        if (v18 <= 1)
         {
-          v42 = 1;
+          v37 = 1;
         }
 
         else
         {
-          v42 = v21;
+          v37 = v18;
         }
 
-        v43 = retstr->__end_;
+        v38 = retstr->__end_;
         do
         {
           cap = retstr->__cap_;
-          if (v43 >= cap)
+          if (v38 >= cap)
           {
-            v45 = retstr->__begin_;
-            v46 = v43 - retstr->__begin_;
-            v47 = v46 >> 3;
-            v48 = (v46 >> 3) + 1;
-            if (v48 >> 61)
+            v40 = retstr->__begin_;
+            v41 = v38 - retstr->__begin_;
+            v42 = v41 >> 3;
+            v43 = (v41 >> 3) + 1;
+            if (v43 >> 61)
             {
               sub_22107C148();
             }
 
-            v49 = cap - v45;
-            if (v49 >> 2 > v48)
+            v44 = cap - v40;
+            if (v44 >> 2 > v43)
             {
-              v48 = v49 >> 2;
+              v43 = v44 >> 2;
             }
 
-            if (v49 >= 0x7FFFFFFFFFFFFFF8)
+            if (v44 >= 0x7FFFFFFFFFFFFFF8)
             {
-              v50 = 0x1FFFFFFFFFFFFFFFLL;
+              v45 = 0x1FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v50 = v48;
+              v45 = v43;
             }
 
-            if (v50)
+            if (v45)
             {
-              sub_2210874C4(retstr, v50);
+              sub_2210874C4(retstr, v45);
             }
 
-            *(8 * v47) = v41;
-            v43 = (8 * v47 + 8);
-            memcpy(0, v45, v46);
-            v51 = retstr->__begin_;
+            *(8 * v42) = v36;
+            v38 = (8 * v42 + 8);
+            memcpy(0, v40, v41);
+            v46 = retstr->__begin_;
             retstr->__begin_ = 0;
-            retstr->__end_ = v43;
+            retstr->__end_ = v38;
             retstr->__cap_ = 0;
-            if (v51)
+            if (v46)
             {
-              operator delete(v51);
+              operator delete(v46);
             }
           }
 
           else
           {
-            *v43++ = v41;
+            *v38++ = v36;
           }
 
-          retstr->__end_ = v43;
-          ++v41;
+          retstr->__end_ = v38;
+          ++v36;
         }
 
-        while (v42 != v41);
+        while (v37 != v36);
       }
 
       for (i = 0; ; ++i)
       {
-        result = objc_msgSend_count(self->_rowGroupings, v15, v16, v17, v18);
+        result = objc_msgSend_count(self->_rowGroupings, v13, v14, v15);
         if (i >= result)
         {
           break;
         }
 
-        v53 = v9;
-        sub_2211531C0(&retstr->__begin_, &v53);
-        ++v9;
+        v48 = v8;
+        sub_2211531C0(&retstr->__begin_, &v48);
+        ++v8;
       }
     }
 
     else
     {
-      v22 = MEMORY[0x277D81150];
-      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTGroupBySet groupColumnIndexesForOwnerIndex:]", v17, v18);
-      v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v25, v26);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v28, v23, v27, 440, 0, "Exceeded our set of practical groupBys");
+      v19 = MEMORY[0x277D81150];
+      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTGroupBySet groupColumnIndexesForOwnerIndex:]", v15);
+      v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v22);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v24, v20, v23, 440, 0, "Exceeded our set of practical groupBys");
 
-      return objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v29, v30, v31, v32);
+      return objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v25, v26, v27);
     }
   }
 
@@ -726,106 +728,106 @@ LABEL_9:
 - (id)groupingColumnsForOwnerIndex:(unsigned __int16)index
 {
   indexCopy = index;
-  v9 = objc_opt_new();
+  v8 = objc_opt_new();
   columnGroupings = self->_columnGroupings;
   if (indexCopy == 205)
   {
-    v11 = objc_msgSend_groupingColumns(columnGroupings, v5, v6, v7, v8);
-    objc_msgSend_addObjectsFromArray_(v9, v12, v11, v13, v14);
+    v10 = objc_msgSend_groupingColumns(columnGroupings, v5, v6, v7);
+    objc_msgSend_addObjectsFromArray_(v8, v11, v10, v12);
 
-    v19 = objc_msgSend_groupingColumns(self->_rowGroupings, v15, v16, v17, v18);
-    objc_msgSend_addObjectsFromArray_(v9, v20, v19, v21, v22);
+    v16 = objc_msgSend_groupingColumns(self->_rowGroupings, v13, v14, v15);
+    objc_msgSend_addObjectsFromArray_(v8, v17, v16, v18);
   }
 
   else
   {
-    v23 = objc_msgSend_count(columnGroupings, v5, v6, v7, v8);
-    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v24, indexCopy, v25, v26);
-    v31 = v57;
-    if (v57 != v58)
+    v19 = objc_msgSend_count(columnGroupings, v5, v6, v7);
+    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v20, indexCopy, v21);
+    v25 = v46;
+    if (v46 != v47)
     {
       do
       {
-        v32 = *v31;
-        v33 = *v31 - v23;
-        if (*v31 >= v23)
+        v26 = *v25;
+        v27 = *v25 - v19;
+        if (*v25 >= v19)
         {
-          v34 = objc_msgSend_groupingColumns(self->_rowGroupings, v27, v28, v29, v30);
-          objc_msgSend_objectAtIndexedSubscript_(v34, v38, v33, v39, v40);
+          v28 = objc_msgSend_groupingColumns(self->_rowGroupings, v22, v23, v24);
+          objc_msgSend_objectAtIndexedSubscript_(v28, v31, v27, v32);
         }
 
         else
         {
-          v34 = objc_msgSend_groupingColumns(self->_columnGroupings, v27, v28, v29, v30);
-          objc_msgSend_objectAtIndexedSubscript_(v34, v35, v32, v36, v37);
+          v28 = objc_msgSend_groupingColumns(self->_columnGroupings, v22, v23, v24);
+          objc_msgSend_objectAtIndexedSubscript_(v28, v29, v26, v30);
         }
-        v41 = ;
+        v33 = ;
 
-        if (v41)
+        if (v33)
         {
-          objc_msgSend_addObject_(v9, v42, v41, v43, v44);
+          objc_msgSend_addObject_(v8, v34, v33, v35);
         }
 
         else
         {
-          v45 = MEMORY[0x277D81150];
-          v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v42, "[TSTGroupBySet groupingColumnsForOwnerIndex:]", v43, v44);
-          v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v48, v49);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 487, 0, "Expected to get a grouping column for index: %d", v32);
+          v36 = MEMORY[0x277D81150];
+          v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "[TSTGroupBySet groupingColumnsForOwnerIndex:]", v35);
+          v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v39);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v41, v37, v40, 487, 0, "Expected to get a grouping column for index: %d", v26);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44);
         }
 
-        ++v31;
+        ++v25;
       }
 
-      while (v31 != v58);
-      v31 = v57;
+      while (v25 != v47);
+      v25 = v46;
     }
 
-    if (v31)
+    if (v25)
     {
-      operator delete(v31);
+      operator delete(v25);
     }
   }
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)groupingIndexForColumnUID:(const TSKUIDStruct *)d
 {
-  v44 = *MEMORY[0x277D85DE8];
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v7 = objc_msgSend_groupingColumns(self->_columnGroupings, a2, d, v3, v4);
-  v9 = 0;
-  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v38, v43, 16);
-  if (v14)
+  v40 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v6 = objc_msgSend_groupingColumns(self->_columnGroupings, a2, d, v3);
+  v8 = 0;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v34, v39, 16);
+  if (v12)
   {
-    v15 = *v39;
+    v13 = *v35;
 LABEL_3:
-    v16 = 0;
-    v17 = v9;
-    v9 += v14;
+    v14 = 0;
+    v15 = v8;
+    v8 += v12;
     while (1)
     {
-      if (*v39 != v15)
+      if (*v35 != v13)
       {
-        objc_enumerationMutation(v7);
+        objc_enumerationMutation(v6);
       }
 
-      if (objc_msgSend_columnUid(*(*(&v38 + 1) + 8 * v16), v10, v11, v12, v13) == d->_lower && v10 == d->_upper)
+      if (objc_msgSend_columnUid(*(*(&v34 + 1) + 8 * v14), v9, v10, v11) == d->_lower && v9 == d->_upper)
       {
         break;
       }
 
-      ++v17;
-      if (v14 == ++v16)
+      ++v15;
+      if (v12 == ++v14)
       {
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v38, v43, 16);
-        if (v14)
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v34, v39, 16);
+        if (v12)
         {
           goto LABEL_3;
         }
@@ -834,10 +836,10 @@ LABEL_3:
       }
     }
 
-    v9 = 0x7FFFFFFFFFFFFFFFLL;
-    if (v17 != 0x7FFFFFFFFFFFFFFFLL)
+    v8 = 0x7FFFFFFFFFFFFFFFLL;
+    if (v15 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      return v17;
+      return v15;
     }
   }
 
@@ -846,36 +848,36 @@ LABEL_3:
 LABEL_12:
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
-  v23 = objc_msgSend_groupingColumns(self->_rowGroupings, v19, v20, v21, v22, 0);
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v34, v42, 16);
-  if (v29)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v20 = objc_msgSend_groupingColumns(self->_rowGroupings, v17, v18, v19, 0);
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v30, v38, 16);
+  if (v25)
   {
-    v30 = *v35;
+    v26 = *v31;
 LABEL_16:
-    v31 = 0;
-    v17 = v9;
-    v9 += v29;
+    v27 = 0;
+    v15 = v8;
+    v8 += v25;
     while (1)
     {
-      if (*v35 != v30)
+      if (*v31 != v26)
       {
-        objc_enumerationMutation(v23);
+        objc_enumerationMutation(v20);
       }
 
-      if (objc_msgSend_columnUid(*(*(&v34 + 1) + 8 * v31), v25, v26, v27, v28) == d->_lower && v25 == d->_upper)
+      if (objc_msgSend_columnUid(*(*(&v30 + 1) + 8 * v27), v22, v23, v24) == d->_lower && v22 == d->_upper)
       {
         break;
       }
 
-      ++v17;
-      if (v29 == ++v31)
+      ++v15;
+      if (v25 == ++v27)
       {
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v25, &v34, v42, 16);
-        if (v29)
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v30, v38, 16);
+        if (v25)
         {
           goto LABEL_16;
         }
@@ -888,157 +890,157 @@ LABEL_16:
   else
   {
 LABEL_25:
-    v17 = 0x7FFFFFFFFFFFFFFFLL;
+    v15 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  return v17;
+  return v15;
 }
 
 - (id)groupingColumnForIndex:(unint64_t)index
 {
-  v7 = objc_msgSend_count(self->_columnGroupings, a2, index, v3, v4);
-  v12 = index - v7;
-  if (index < v7)
+  v6 = objc_msgSend_count(self->_columnGroupings, a2, index, v3);
+  v10 = index - v6;
+  if (index < v6)
   {
-    v13 = objc_msgSend_groupingColumns(self->_columnGroupings, v8, v9, v10, v11);
-    v17 = objc_msgSend_objectAtIndexedSubscript_(v13, v14, index, v15, v16);
+    v11 = objc_msgSend_groupingColumns(self->_columnGroupings, v7, v8, v9);
+    v14 = objc_msgSend_objectAtIndexedSubscript_(v11, v12, index, v13);
 LABEL_5:
-    v25 = v17;
+    v20 = v14;
 
     goto LABEL_7;
   }
 
-  if (v12 < objc_msgSend_count(self->_rowGroupings, v8, v9, v10, v11))
+  if (v10 < objc_msgSend_count(self->_rowGroupings, v7, v8, v9))
   {
-    v13 = objc_msgSend_groupingColumns(self->_rowGroupings, v18, v19, v20, v21);
-    v17 = objc_msgSend_objectAtIndexedSubscript_(v13, v22, v12, v23, v24);
+    v11 = objc_msgSend_groupingColumns(self->_rowGroupings, v15, v16, v17);
+    v14 = objc_msgSend_objectAtIndexedSubscript_(v11, v18, v10, v19);
     goto LABEL_5;
   }
 
-  v25 = 0;
+  v20 = 0;
 LABEL_7:
 
-  return v25;
+  return v20;
 }
 
 - (unsigned)ownerIndexForGroupingCombination:(const TSUIndexSet *)combination
 {
-  v7 = objc_msgSend_count(self->_columnGroupings, a2, combination, v3, v4);
-  v12 = objc_msgSend_count(self->_rowGroupings, v8, v9, v10, v11) + v7;
-  v13 = TSUIndexSet::count(combination);
-  if (v13 > v12)
+  v6 = objc_msgSend_count(self->_columnGroupings, a2, combination, v3);
+  v10 = objc_msgSend_count(self->_rowGroupings, v7, v8, v9) + v6;
+  v11 = TSUIndexSet::count(combination);
+  if (v11 > v10)
   {
     return 0;
   }
 
-  v19 = v13;
-  v20 = v13 == v12 || v13 == 0;
-  if (v20)
+  v16 = v11;
+  v17 = v11 == v10 || v11 == 0;
+  if (v17)
   {
     return 205;
   }
 
-  v21 = objc_msgSend_numPracticalGroupBys(self, v14, v15, v16, v17);
-  v25 = v21 + 204;
-  if ((v21 + 204) < 0xCDu)
+  v18 = objc_msgSend_numPracticalGroupBys(self, v12, v13, v14);
+  v21 = v18 + 204;
+  if ((v18 + 204) < 0xCDu)
   {
     goto LABEL_27;
   }
 
-  v18 = 0;
-  v26 = 205;
-  *&v27.f64[0] = 0x8000000080000000;
-  *&v27.f64[1] = 0x8000000080000000;
-  v36 = vnegq_f64(v27);
+  v15 = 0;
+  v22 = 205;
+  *&v23.f64[0] = 0x8000000080000000;
+  *&v23.f64[1] = 0x8000000080000000;
+  v32 = vnegq_f64(v23);
   do
   {
-    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v22, v26, v23, v24, v36);
-    if (v19 <= (v39 - __p) >> 3)
+    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v19, v22, v20, v32);
+    if (v16 <= (v35 - __p) >> 3)
     {
-      *&v37 = -1;
-      v37._singleRange = v36;
-      v37._multipleRanges = 0;
+      *&v33 = -1;
+      v33._singleRange = v32;
+      v33._multipleRanges = 0;
       TSUIndexSet::operator=();
-      v28 = v39;
-      if (__p != v39)
+      v24 = v35;
+      if (__p != v35)
       {
-        v29 = __p + 8;
-        while ((TSUIndexSet::containsIndex(&v37) & 1) != 0)
+        v25 = __p + 8;
+        while ((TSUIndexSet::containsIndex(&v33) & 1) != 0)
         {
-          TSUIndexSet::removeIndex(&v37);
-          if (!TSUIndexSet::count(&v37))
+          TSUIndexSet::removeIndex(&v33);
+          if (!TSUIndexSet::count(&v33))
           {
-            v18 = v26;
+            v15 = v22;
             break;
           }
 
-          v20 = v29 == v28;
-          v29 += 8;
-          if (v20)
+          v17 = v25 == v24;
+          v25 += 8;
+          if (v17)
           {
             break;
           }
         }
       }
 
-      TSUIndexSet::~TSUIndexSet(&v37);
-      if (v18)
+      TSUIndexSet::~TSUIndexSet(&v33);
+      if (v15)
       {
-        v30 = 1;
+        v26 = 1;
         goto LABEL_23;
       }
 
-      v18 = 0;
+      v15 = 0;
     }
 
-    v30 = 0;
+    v26 = 0;
 LABEL_23:
     if (__p)
     {
-      v39 = __p;
+      v35 = __p;
       operator delete(__p);
     }
 
-    ++v26;
+    ++v22;
   }
 
-  while (((v26 <= v25) & ~v30) != 0);
-  if (!v18)
+  while (((v22 <= v21) & ~v26) != 0);
+  if (!v15)
   {
 LABEL_27:
-    v31 = v12 - 1;
-    if ((v12 - 1) < 0)
+    v27 = v10 - 1;
+    if ((v10 - 1) < 0)
     {
       return 214;
     }
 
     else
     {
-      v32 = 0;
-      v33 = 1;
+      v28 = 0;
+      v29 = 1;
       do
       {
         if (TSUIndexSet::containsIndex(combination))
         {
-          v34 = v33;
+          v30 = v29;
         }
 
         else
         {
-          v34 = 0;
+          v30 = 0;
         }
 
-        v32 += v34;
-        v33 *= 2;
-        --v31;
+        v28 += v30;
+        v29 *= 2;
+        --v27;
       }
 
-      while (v31 != -1);
-      return v32 + 214;
+      while (v27 != -1);
+      return v28 + 214;
     }
   }
 
-  return v18;
+  return v15;
 }
 
 - (void)clearMissingCombinations
@@ -1061,7 +1063,7 @@ LABEL_27:
   {
     if (begin == end)
     {
-      sub_221153A98(&self->_assertedOnMissingCombinations);
+      sub_221153A98(&self->_assertedOnMissingCombinations, combination);
       return 0;
     }
 
@@ -1079,110 +1081,110 @@ LABEL_27:
 - (id)groupByForOwnerIndex:(unsigned __int16)index createIfMissing:(BOOL)missing
 {
   indexCopy = index;
-  v6 = (index - 205);
-  if (v6 >= 0x44D)
+  v5 = (index - 205);
+  if (v5 >= 0x44D)
   {
-    v24 = MEMORY[0x277D81150];
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTGroupBySet groupByForOwnerIndex:createIfMissing:]", missing, v4);
-    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v26, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v27, v28);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v24, v30, v25, v29, 630, 0, "ownerIndex out of range: %d", indexCopy);
+    v20 = MEMORY[0x277D81150];
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTGroupBySet groupByForOwnerIndex:createIfMissing:]", missing);
+    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v23);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v25, v21, v24, 630, 0, "ownerIndex out of range: %d", indexCopy);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33, v34);
-    v12 = 0;
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28);
+    v10 = 0;
   }
 
   else
   {
     missingCopy = missing;
-    v12 = self->_inUseGroupBys.__begin_[v6];
-    if (v12)
+    v10 = self->_inUseGroupBys.__begin_[v5];
+    if (v10)
     {
-      v13 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v13 = !missingCopy;
+      v11 = !missingCopy;
     }
 
-    if (!v13)
+    if (!v11)
     {
-      v14 = objc_msgSend_groupingColumnsForOwnerIndex_(self, v9, indexCopy, v10, v11);
-      v19 = objc_msgSend_categoryOwner(self->_pivotDataTable, v15, v16, v17, v18);
-      v12 = objc_msgSend_registerGroupByForColumns_ownerIndex_hiddenStates_groupBySet_(v19, v20, v14, indexCopy, self->_hiddenStates, self);
-      objc_storeStrong(&self->_inUseGroupBys.__begin_[v6], v12);
-      objc_msgSend_setAggregates_(v12, v21, self->_aggregates, v22, v23);
+      v12 = objc_msgSend_groupingColumnsForOwnerIndex_(self, v8, indexCopy, v9);
+      v16 = objc_msgSend_categoryOwner(self->_pivotDataTable, v13, v14, v15);
+      v10 = objc_msgSend_registerGroupByForColumns_ownerIndex_hiddenStates_groupBySet_(v16, v17, v12, indexCopy, self->_hiddenStates, self);
+      objc_storeStrong(&self->_inUseGroupBys.__begin_[v5], v10);
+      objc_msgSend_setAggregates_(v10, v18, self->_aggregates, v19);
     }
   }
 
-  return v12;
+  return v10;
 }
 
 - (vector<TSTGroupNode)allGroupRoots
 {
-  v6 = 0;
+  v5 = 0;
   retstr->var0 = 0;
   retstr->var1 = 0;
   retstr->var2 = 0;
   do
   {
-    v7 = objc_msgSend_groupByForOwnerIndex_createIfMissing_(self, a3, (v6 + 205), 0, v3);
-    v12 = objc_msgSend_topLevelGroupNode(v7, v8, v9, v10, v11);
+    v6 = objc_msgSend_groupByForOwnerIndex_createIfMissing_(self, a3, (v5 + 205), 0);
+    v10 = objc_msgSend_topLevelGroupNode(v6, v7, v8, v9);
     var1 = retstr->var1;
     var2 = retstr->var2;
     if (var1 >= var2)
     {
-      v16 = var1 - retstr->var0;
-      if ((v16 + 1) >> 61)
+      v14 = var1 - retstr->var0;
+      if ((v14 + 1) >> 61)
       {
         sub_22107C148();
       }
 
-      v17 = var2 - retstr->var0;
-      v18 = v17 >> 2;
-      if (v17 >> 2 <= (v16 + 1))
+      v15 = var2 - retstr->var0;
+      v16 = v15 >> 2;
+      if (v15 >> 2 <= (v14 + 1))
       {
-        v18 = v16 + 1;
+        v16 = v14 + 1;
       }
 
-      if (v17 >= 0x7FFFFFFFFFFFFFF8)
+      if (v15 >= 0x7FFFFFFFFFFFFFF8)
       {
-        v19 = 0x1FFFFFFFFFFFFFFFLL;
+        v17 = 0x1FFFFFFFFFFFFFFFLL;
       }
 
       else
       {
-        v19 = v18;
+        v17 = v16;
       }
 
-      v25 = retstr;
-      if (v19)
+      v23 = retstr;
+      if (v17)
       {
-        sub_22107C1F0(retstr, v19);
+        sub_22107C1F0(retstr, v17);
       }
 
-      v21 = 0;
-      v22 = (8 * v16);
-      v24 = 0;
-      *v22 = v12;
-      v23 = 8 * v16 + 8;
-      sub_22107C098(retstr, &v21);
-      v15 = retstr->var1;
-      sub_22107C26C(&v21);
+      v19 = 0;
+      v20 = (8 * v14);
+      v22 = 0;
+      *v20 = v10;
+      v21 = 8 * v14 + 8;
+      sub_22107C098(retstr, &v19);
+      v13 = retstr->var1;
+      sub_22107C26C(&v19);
     }
 
     else
     {
-      *var1 = v12;
-      v15 = var1 + 1;
+      *var1 = v10;
+      v13 = var1 + 1;
     }
 
-    retstr->var1 = v15;
+    retstr->var1 = v13;
 
-    ++v6;
+    ++v5;
   }
 
-  while (v6 != 1101);
+  while (v5 != 1101);
   return result;
 }
 
@@ -1190,7 +1192,7 @@ LABEL_27:
 {
   if (self->_activeFlatteningDimension == 1)
   {
-    return objc_msgSend_count(self->_aggregates, a2, v2, v3, v4);
+    return objc_msgSend_count(self->_aggregates, a2, v2, v3);
   }
 
   else
@@ -1208,7 +1210,7 @@ LABEL_27:
 
   else
   {
-    return objc_msgSend_count(self->_aggregates, a2, v2, v3, v4);
+    return objc_msgSend_count(self->_aggregates, a2, v2, v3);
   }
 }
 
@@ -1260,66 +1262,68 @@ LABEL_27:
 {
   if (self->_activeFlatteningDimension != 1)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Asking for flattened column aggregate uids while not flattening on columns", a2, uid, "[TSTGroupBySet columnUidsForColumnGroupUid:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", 711);
     v4 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTGroupBySet columnUidsForColumnGroupUid:]", v6, v7, "[TSTGroupBySet columnUidsForColumnGroupUid:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", 711);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v13, v8, v12, 711, 1, "Asking for flattened column aggregate uids while not flattening on columns");
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTGroupBySet columnUidsForColumnGroupUid:]", v6);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v11, v7, v10, 711, 1, "Asking for flattened column aggregate uids while not flattening on columns");
 
     TSUCrashBreakpoint();
     abort();
   }
 
-  return sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, uid) + 4;
+  uidCopy = uid;
+  return sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, &uidCopy) + 4;
 }
 
 - (const)rowUidsForRowGroupUid:(const TSKUIDStruct *)uid
 {
   if (self->_activeFlatteningDimension)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Asking for flattened row aggregate uids while not flattening on rows", a2, uid, "[TSTGroupBySet rowUidsForRowGroupUid:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", 716);
     v4 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTGroupBySet rowUidsForRowGroupUid:]", v6, v7, "[TSTGroupBySet rowUidsForRowGroupUid:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", 716);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v13, v8, v12, 716, 1, "Asking for flattened row aggregate uids while not flattening on rows");
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSTGroupBySet rowUidsForRowGroupUid:]", v6);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v11, v7, v10, 716, 1, "Asking for flattened row aggregate uids while not flattening on rows");
 
     TSUCrashBreakpoint();
     abort();
   }
 
-  return sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, uid) + 4;
+  uidCopy = uid;
+  return sub_221159D74(&self->_groupAggregateUidFlatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, &uidCopy) + 4;
 }
 
 - (BOOL)hasRunningTotalAggregates
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v5 = objc_msgSend_asArray(self->_aggregates, a2, v2, v3, v4, 0);
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v15, v19, 16);
-  if (v11)
+  v4 = objc_msgSend_asArray(self->_aggregates, a2, v2, v3, 0);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v13, v17, 16);
+  if (v9)
   {
-    v12 = *v16;
+    v10 = *v14;
     while (2)
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v12)
+        if (*v14 != v10)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v4);
         }
 
-        if ((objc_msgSend_showAsType(*(*(&v15 + 1) + 8 * i), v7, v8, v9, v10) & 0xFE) == 6)
+        if ((objc_msgSend_showAsType(*(*(&v13 + 1) + 8 * i), v6, v7, v8) & 0xFE) == 6)
         {
-          LOBYTE(v11) = 1;
+          LOBYTE(v9) = 1;
           goto LABEL_11;
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v7, &v15, v19, 16);
-      if (v11)
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v6, &v13, v17, 16);
+      if (v9)
       {
         continue;
       }
@@ -1330,14 +1334,15 @@ LABEL_27:
 
 LABEL_11:
 
-  return v11;
+  return v9;
 }
 
 - (TSKUIDStruct)columnGroupUidForColumnUid:(const TSKUIDStruct *)uid outAggregateIndex:(unint64_t *)index
 {
   if (self->_activeFlatteningDimension == 1)
   {
-    v5 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid);
+    uidCopy = uid;
+    v5 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, &uidCopy);
     uid = v5 + 2;
     lower = v5[3]._lower;
   }
@@ -1368,7 +1373,8 @@ LABEL_11:
 
   else
   {
-    v6 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid);
+    uidCopy = uid;
+    v6 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, &uidCopy);
     uid = v6 + 2;
     lower = v6[3]._lower;
   }
@@ -1388,40 +1394,40 @@ LABEL_11:
 - (id)expandGroupUidsForFlattening:(id)flattening forDimension:(int64_t)dimension
 {
   flatteningCopy = flattening;
-  v11 = flatteningCopy;
+  v10 = flatteningCopy;
   if (self->_activeFlatteningDimension == dimension)
   {
-    v12 = objc_msgSend_count(self->_aggregates, v7, v8, v9, v10);
-    v17 = objc_msgSend_mutableCopy(v11, v13, v14, v15, v16);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = sub_2211543D8;
-    v23[3] = &unk_27845FB38;
-    v25 = v12;
-    v18 = v17;
-    v24 = v18;
-    objc_msgSend_foreachUuid_(v11, v19, v23, v20, v21);
+    v11 = objc_msgSend_count(self->_aggregates, v7, v8, v9);
+    v15 = objc_msgSend_mutableCopy(v10, v12, v13, v14);
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = sub_2211543D8;
+    v20[3] = &unk_27845FB38;
+    v22 = v11;
+    v16 = v15;
+    v21 = v16;
+    objc_msgSend_foreachUuid_(v10, v17, v20, v18);
   }
 
   else
   {
-    v18 = flatteningCopy;
+    v16 = flatteningCopy;
   }
 
-  return v18;
+  return v16;
 }
 
 - (unint64_t)aggregateIndexForColumnUid:(const TSKUIDStruct *)uid
 {
-  if (self->_activeFlatteningDimension == 1)
-  {
-    return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid)[6];
-  }
-
-  else
+  if (self->_activeFlatteningDimension != 1)
   {
     return 0;
   }
+
+  v6[1] = v3;
+  v6[2] = v4;
+  v6[0] = &uid->_lower;
+  return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, v6)[6];
 }
 
 - (unint64_t)aggregateIndexForRowUid:(const TSKUIDStruct *)uid
@@ -1431,10 +1437,10 @@ LABEL_11:
     return 0;
   }
 
-  else
-  {
-    return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid)[6];
-  }
+  v6[1] = v3;
+  v6[2] = v4;
+  v6[0] = &uid->_lower;
+  return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, uid, &unk_2217E0517, v6)[6];
 }
 
 - (unsigned)aggregateIndexForUidCoord:(const TSKUIDStructCoord *)coord
@@ -1458,24 +1464,24 @@ LABEL_11:
 
   v7 = column;
   v8 = &v7;
-  return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v7)[6];
+  return sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v7, &unk_2217E0517, &v8)[6];
 }
 
 - (id)aggregateForUidCoord:(const TSKUIDStructCoord *)coord
 {
-  v6 = objc_msgSend_aggregateIndexForUidCoord_(self, a2, coord, v3, v4);
-  if (objc_msgSend_count(self->_aggregates, v7, v8, v9, v10) <= v6)
+  v5 = objc_msgSend_aggregateIndexForUidCoord_(self, a2, coord, v3);
+  if (objc_msgSend_count(self->_aggregates, v6, v7, v8) <= v5)
   {
-    v19 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v15 = objc_msgSend_asArray(self->_aggregates, v11, v12, v13, v14);
-    v19 = objc_msgSend_objectAtIndex_(v15, v16, v6, v17, v18);
+    v12 = objc_msgSend_asArray(self->_aggregates, v9, v10, v11);
+    v15 = objc_msgSend_objectAtIndex_(v12, v13, v5, v14);
   }
 
-  return v19;
+  return v15;
 }
 
 - (id)columnNameForAggregateIndex:(unint64_t)index allowDuplicateNames:(BOOL)names
@@ -1483,43 +1489,43 @@ LABEL_11:
   namesCopy = names;
   if (!self->_calcEngine)
   {
-    v8 = MEMORY[0x277D81150];
-    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTGroupBySet columnNameForAggregateIndex:allowDuplicateNames:]", names, v4);
-    v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v11, v12);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v13, 824, 0, "Re-constructing a non-empty pivot table without the calc engine");
+    v7 = MEMORY[0x277D81150];
+    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTGroupBySet columnNameForAggregateIndex:allowDuplicateNames:]", names);
+    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v10);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v12, v8, v11, 824, 0, "Re-constructing a non-empty pivot table without the calc engine");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17, v18);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v13, v14, v15);
   }
 
-  if (objc_msgSend_count(self->_aggregates, a2, index, names, v4) <= index)
+  if (objc_msgSend_count(self->_aggregates, a2, index, names) <= index)
   {
-    v39 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v23 = objc_msgSend_asArray(self->_aggregates, v19, v20, v21, v22);
-    v27 = objc_msgSend_objectAtIndex_(v23, v24, index, v25, v26);
+    v19 = objc_msgSend_asArray(self->_aggregates, v16, v17, v18);
+    v22 = objc_msgSend_objectAtIndex_(v19, v20, index, v21);
 
-    v32 = objc_msgSend_columnUid(v27, v28, v29, v30, v31);
-    v36 = objc_msgSend_columnIndexForColumnUID_(self->_pivotDataTable, v33, v32, v33, v34);
-    v53 = v36;
+    v26 = objc_msgSend_columnUid(v22, v23, v24, v25);
+    v29 = objc_msgSend_columnIndexForColumnUID_(self->_pivotDataTable, v27, v26, v27);
+    v43 = v29;
     if (namesCopy)
     {
-      v39 = objc_msgSend_displayNameForColumnAtIndex_(self->_pivotDataTable, v35, v36, v37, v38);
+      v31 = objc_msgSend_displayNameForColumnAtIndex_(self->_pivotDataTable, v28, v29, v30);
     }
 
     else
     {
-      v40 = objc_msgSend_calcEngine(self, v35, v36, v37, v38);
-      v45 = objc_msgSend_namer(v40, v41, v42, v43, v44);
-      v52[0] = objc_msgSend_pivotDataTableUID(self, v46, v47, v48, v49);
-      v52[1] = v50;
-      v39 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v45, v50, &v53, v52, 1);
+      v32 = objc_msgSend_calcEngine(self, v28, v29, v30);
+      v36 = objc_msgSend_namer(v32, v33, v34, v35);
+      v42[0] = objc_msgSend_pivotDataTableUID(self, v37, v38, v39);
+      v42[1] = v40;
+      v31 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v36, v40, &v43, v42, 1);
     }
   }
 
-  return v39;
+  return v31;
 }
 
 - (id)descriptionForAggregateIndex:(unint64_t)index locale:(id)locale
@@ -1536,54 +1542,54 @@ LABEL_11:
   localeCopy = locale;
   if (!localeCopy)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTGroupBySet descriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 847, 0, "Requires a locale here");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTGroupBySet descriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 847, 0, "Requires a locale here");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self->_aggregates, v10, v11, v12, v13) <= index)
+  if (objc_msgSend_count(self->_aggregates, v10, v11, v12) <= index)
   {
-    v38 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v29 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v26, index, v27, v28);
-    v34 = objc_msgSend_aggregateType(v29, v30, v31, v32, v33);
+    v25 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v23, index, v24);
+    v29 = objc_msgSend_aggregateType(v25, v26, v27, v28);
     if (labelCopy)
     {
-      objc_msgSend_localizedShortLabelForAggType_(localeCopy, v35, v34, v36, v37);
+      objc_msgSend_localizedShortLabelForAggType_(localeCopy, v30, v29, v31);
     }
 
     else
     {
-      objc_msgSend_localizedLabelForAggType_(localeCopy, v35, v34, v36, v37);
+      objc_msgSend_localizedLabelForAggType_(localeCopy, v30, v29, v31);
     }
-    v39 = ;
-    v42 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v40, index, namesCopy, v41);
-    v48 = sub_221131078(localeCopy, v43);
-    if (!v39)
+    v33 = ;
+    v35 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v34, index, namesCopy);
+    v40 = sub_221131078(localeCopy, v36);
+    if (!v33)
     {
-      v49 = MEMORY[0x277CCACA8];
-      v50 = objc_msgSend_aggregateType(v29, v44, v45, v46, v47);
-      v55 = sub_2211CCD30(v50, v51, v52, v53, v54);
-      v39 = objc_msgSend_stringWithFormat_(v49, v56, @"<Invalid AggType>: %@", v57, v58, v55);
+      v41 = MEMORY[0x277CCACA8];
+      v42 = objc_msgSend_aggregateType(v25, v37, v38, v39);
+      v46 = sub_2211CCD30(v42, v43, v44, v45);
+      v33 = objc_msgSend_stringWithFormat_(v41, v47, @"<Invalid AggType>: %@", v48, v46);
 
-      v59 = MEMORY[0x277D81150];
-      v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "[TSTGroupBySet descriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v61, v62);
-      v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v65, v66);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v68, v63, v67, 859, 0, "Expecting to have localized label for all correct aggregate types");
+      v49 = MEMORY[0x277D81150];
+      v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "[TSTGroupBySet descriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v51);
+      v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v54);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v56, v52, v55, 859, 0, "Expecting to have localized label for all correct aggregate types");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v58, v59);
     }
 
-    v38 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v44, v48, v46, v47, v39, v42);
+    v32 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v37, v40, v39, v33, v35);
   }
 
-  return v38;
+  return v32;
 }
 
 - (id)compactDescriptionForAggregateIndex:(unint64_t)index locale:(id)locale
@@ -1600,187 +1606,187 @@ LABEL_11:
   localeCopy = locale;
   if (!localeCopy)
   {
-    v15 = MEMORY[0x277D81150];
-    v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTGroupBySet compactDescriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v12, v13);
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v18, v19);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v21, v16, v20, 872, 0, "Requires a locale here");
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTGroupBySet compactDescriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v12);
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v17);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v19, v15, v18, 872, 0, "Requires a locale here");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24, v25);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v20, v21, v22);
   }
 
-  if (objc_msgSend_count(self->_aggregates, v10, v11, v12, v13) <= index)
+  if (objc_msgSend_count(self->_aggregates, v10, v11, v12) <= index)
   {
-    v38 = 0;
+    v32 = 0;
   }
 
   else
   {
-    v29 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v26, index, v27, v28);
-    v34 = objc_msgSend_aggregateType(v29, v30, v31, v32, v33);
+    v25 = objc_msgSend_aggregateAtIndex_(self->_aggregates, v23, index, v24);
+    v29 = objc_msgSend_aggregateType(v25, v26, v27, v28);
     if (labelCopy)
     {
-      objc_msgSend_localizedShortLabelForAggType_(localeCopy, v35, v34, v36, v37);
+      objc_msgSend_localizedShortLabelForAggType_(localeCopy, v30, v29, v31);
     }
 
     else
     {
-      objc_msgSend_localizedLabelForAggType_(localeCopy, v35, v34, v36, v37);
+      objc_msgSend_localizedLabelForAggType_(localeCopy, v30, v29, v31);
     }
-    v39 = ;
-    v42 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v40, index, namesCopy, v41);
-    v48 = sub_221131094(localeCopy, v43);
-    if (!v39)
+    v33 = ;
+    v35 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v34, index, namesCopy);
+    v40 = sub_221131094(localeCopy, v36);
+    if (!v33)
     {
-      v49 = MEMORY[0x277CCACA8];
-      v50 = objc_msgSend_aggregateType(v29, v44, v45, v46, v47);
-      v55 = sub_2211CCD30(v50, v51, v52, v53, v54);
-      v39 = objc_msgSend_stringWithFormat_(v49, v56, @"<Invalid AggType>: %@", v57, v58, v55);
+      v41 = MEMORY[0x277CCACA8];
+      v42 = objc_msgSend_aggregateType(v25, v37, v38, v39);
+      v46 = sub_2211CCD30(v42, v43, v44, v45);
+      v33 = objc_msgSend_stringWithFormat_(v41, v47, @"<Invalid AggType>: %@", v48, v46);
 
-      v59 = MEMORY[0x277D81150];
-      v63 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v60, "[TSTGroupBySet compactDescriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v61, v62);
-      v67 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v64, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v65, v66);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v59, v68, v63, v67, 884, 0, "Expecting to have localized label for all correct aggregate types");
+      v49 = MEMORY[0x277D81150];
+      v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "[TSTGroupBySet compactDescriptionForAggregateIndex:useShortLabel:allowDuplicateNames:locale:]", v51);
+      v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v54);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v56, v52, v55, 884, 0, "Expecting to have localized label for all correct aggregate types");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v69, v70, v71, v72);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v57, v58, v59);
     }
 
-    v38 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v44, v48, v46, v47, v42, v39);
+    v32 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v37, v40, v39, v35, v33);
   }
 
-  return v38;
+  return v32;
 }
 
 - (unsigned)aggregateIndexForAggName:(id)name locale:(id)locale
 {
   nameCopy = name;
   localeCopy = locale;
-  v12 = objc_msgSend_aggregates(self, v8, v9, v10, v11);
-  v17 = objc_msgSend_count(v12, v13, v14, v15, v16);
+  v11 = objc_msgSend_aggregates(self, v8, v9, v10);
+  v15 = objc_msgSend_count(v11, v12, v13, v14);
 
-  if (v17)
+  if (v15)
   {
-    v20 = 0;
+    v17 = 0;
     while (1)
     {
-      v21 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v18, v20, 0, v19);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v22, v21, v23, v24))
+      v18 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v16, v17, 0);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v19, v18, v20))
       {
         break;
       }
 
-      v26 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v25, v20, 0, 0, localeCopy);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v27, v26, v28, v29))
+      v22 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v21, v17, 0, 0, localeCopy);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v23, v22, v24))
       {
 
         break;
       }
 
-      v31 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v30, v20, 0, 0, localeCopy);
-      v35 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v32, v31, v33, v34);
+      v26 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v25, v17, 0, 0, localeCopy);
+      v29 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v27, v26, v28);
 
-      if (!v35)
+      if (!v29)
       {
         goto LABEL_10;
       }
 
-      if (v17 == ++v20)
+      if (v15 == ++v17)
       {
         goto LABEL_11;
       }
     }
 
 LABEL_10:
-    if (v20 != 0xFFFF)
+    if (v17 != 0xFFFF)
     {
       goto LABEL_32;
     }
 
 LABEL_11:
-    v20 = 0;
+    v17 = 0;
     while (1)
     {
-      v36 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v18, v20, 1, 0, localeCopy);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v37, v36, v38, v39))
+      v30 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v16, v17, 1, 0, localeCopy);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v31, v30, v32))
       {
         break;
       }
 
-      v41 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v40, v20, 1, 0, localeCopy);
-      v45 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v42, v41, v43, v44);
+      v34 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v33, v17, 1, 0, localeCopy);
+      v37 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v35, v34, v36);
 
-      if (!v45)
+      if (!v37)
       {
         goto LABEL_17;
       }
 
-      if (v17 == ++v20)
+      if (v15 == ++v17)
       {
         goto LABEL_18;
       }
     }
 
 LABEL_17:
-    if (v20 != 0xFFFF)
+    if (v17 != 0xFFFF)
     {
       goto LABEL_32;
     }
 
 LABEL_18:
-    v20 = 0;
+    v17 = 0;
     while (1)
     {
-      v47 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v18, v20, 1, v46);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v48, v47, v49, v50))
+      v38 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v16, v17, 1);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v39, v38, v40))
       {
         break;
       }
 
-      v52 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v51, v20, 0, 1, localeCopy);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v53, v52, v54, v55))
+      v42 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v41, v17, 0, 1, localeCopy);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v43, v42, v44))
       {
 
         break;
       }
 
-      v57 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v56, v20, 0, 1, localeCopy);
-      v61 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v58, v57, v59, v60);
+      v46 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v45, v17, 0, 1, localeCopy);
+      v49 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v47, v46, v48);
 
-      if (!v61)
+      if (!v49)
       {
         goto LABEL_26;
       }
 
-      if (v17 == ++v20)
+      if (v15 == ++v17)
       {
         goto LABEL_27;
       }
     }
 
 LABEL_26:
-    if (v20 != 0xFFFF)
+    if (v17 != 0xFFFF)
     {
       goto LABEL_32;
     }
 
 LABEL_27:
-    v20 = 0;
+    v17 = 0;
     while (1)
     {
-      v62 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v18, v20, 1, 1, localeCopy);
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v63, v62, v64, v65))
+      v50 = objc_msgSend_descriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v16, v17, 1, 1, localeCopy);
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v51, v50, v52))
       {
         break;
       }
 
-      v67 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v66, v20, 1, 1, localeCopy);
-      v71 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v68, v67, v69, v70);
+      v54 = objc_msgSend_compactDescriptionForAggregateIndex_useShortLabel_allowDuplicateNames_locale_(self, v53, v17, 1, 1, localeCopy);
+      v57 = objc_msgSend_localizedCaseInsensitiveCompare_(nameCopy, v55, v54, v56);
 
-      if (!v71)
+      if (!v57)
       {
         goto LABEL_32;
       }
 
-      if (v17 == ++v20)
+      if (v15 == ++v17)
       {
         goto LABEL_31;
       }
@@ -1790,56 +1796,56 @@ LABEL_27:
   else
   {
 LABEL_31:
-    LOWORD(v20) = -1;
+    LOWORD(v17) = -1;
   }
 
 LABEL_32:
 
-  return v20;
+  return v17;
 }
 
 - (TSKUIDStruct)columnUIDForGroupingColumnName:(id)name
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v99 = 0u;
-  v100 = 0u;
-  v101 = 0u;
-  v102 = 0u;
-  v9 = objc_msgSend_groupingColumns(self->_rowGroupings, v5, v6, v7, v8);
-  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v99, v104, 16);
-  if (v15)
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v8 = objc_msgSend_groupingColumns(self->_rowGroupings, v5, v6, v7);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v83, v88, 16);
+  if (v13)
   {
-    v16 = *v100;
+    v14 = *v84;
 LABEL_3:
-    v17 = 0;
+    v15 = 0;
     while (1)
     {
-      if (*v100 != v16)
+      if (*v84 != v14)
       {
-        objc_enumerationMutation(v9);
+        objc_enumerationMutation(v8);
       }
 
-      v18 = *(*(&v99 + 1) + 8 * v17);
-      v98 = 0;
+      v16 = *(*(&v83 + 1) + 8 * v15);
+      v82 = 0;
       pivotDataTable = self->_pivotDataTable;
-      v20 = objc_msgSend_columnUid(v18, v11, v12, v13, v14);
-      v98 = objc_msgSend_columnIndexForColumnUID_(pivotDataTable, v21, v20, v21, v22);
-      v27 = objc_msgSend_calcEngine(self, v23, v24, v25, v26);
-      v32 = objc_msgSend_namer(v27, v28, v29, v30, v31);
-      v96 = objc_msgSend_pivotDataTableUID(self, v33, v34, v35, v36);
-      v97 = v37;
-      v38 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v32, v37, &v98, &v96, 1);
+      v18 = objc_msgSend_columnUid(v16, v10, v11, v12);
+      v82 = objc_msgSend_columnIndexForColumnUID_(pivotDataTable, v19, v18, v19);
+      v23 = objc_msgSend_calcEngine(self, v20, v21, v22);
+      v27 = objc_msgSend_namer(v23, v24, v25, v26);
+      v80 = objc_msgSend_pivotDataTableUID(self, v28, v29, v30);
+      v81 = v31;
+      v32 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v27, v31, &v82, &v80, 1);
 
-      if (!objc_msgSend_localizedCaseInsensitiveCompare_(v38, v39, nameCopy, v40, v41))
+      if (!objc_msgSend_localizedCaseInsensitiveCompare_(v32, v33, nameCopy, v34))
       {
         break;
       }
 
-      if (v15 == ++v17)
+      if (v13 == ++v15)
       {
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v11, &v99, v104, 16);
-        if (v15)
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v10, &v83, v88, 16);
+        if (v13)
         {
           goto LABEL_3;
         }
@@ -1848,17 +1854,17 @@ LABEL_3:
       }
     }
 
-    v87 = objc_msgSend_columnUid(v18, v42, v43, v44, v45);
-    v56 = v88;
+    v71 = objc_msgSend_columnUid(v16, v35, v36, v37);
+    v46 = v72;
 
-    if (v87)
+    if (v71)
     {
       goto LABEL_24;
     }
 
-    if (v56)
+    if (v46)
     {
-      v87 = 0;
+      v71 = 0;
       goto LABEL_24;
     }
   }
@@ -1868,50 +1874,50 @@ LABEL_3:
 LABEL_9:
   }
 
-  v94 = 0u;
-  v95 = 0u;
-  v92 = 0u;
-  v93 = 0u;
-  v50 = objc_msgSend_groupingColumns(self->_columnGroupings, v46, v47, v48, v49, 0);
-  v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v51, &v92, v103, 16);
-  if (v56)
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  v41 = objc_msgSend_groupingColumns(self->_columnGroupings, v38, v39, v40, 0);
+  v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v76, v87, 16);
+  if (v46)
   {
-    v57 = *v93;
+    v47 = *v77;
     while (2)
     {
-      v58 = 0;
+      v48 = 0;
       do
       {
-        if (*v93 != v57)
+        if (*v77 != v47)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v41);
         }
 
-        v59 = *(*(&v92 + 1) + 8 * v58);
-        v98 = 0;
-        v60 = self->_pivotDataTable;
-        v61 = objc_msgSend_columnUid(v59, v52, v53, v54, v55);
-        v98 = objc_msgSend_columnIndexForColumnUID_(v60, v62, v61, v62, v63);
-        v68 = objc_msgSend_calcEngine(self, v64, v65, v66, v67);
-        v73 = objc_msgSend_namer(v68, v69, v70, v71, v72);
-        v96 = objc_msgSend_pivotDataTableUID(self, v74, v75, v76, v77);
-        v97 = v78;
-        v79 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v73, v78, &v98, &v96, 1);
+        v49 = *(*(&v76 + 1) + 8 * v48);
+        v82 = 0;
+        v50 = self->_pivotDataTable;
+        v51 = objc_msgSend_columnUid(v49, v43, v44, v45);
+        v82 = objc_msgSend_columnIndexForColumnUID_(v50, v52, v51, v52);
+        v56 = objc_msgSend_calcEngine(self, v53, v54, v55);
+        v60 = objc_msgSend_namer(v56, v57, v58, v59);
+        v80 = objc_msgSend_pivotDataTableUID(self, v61, v62, v63);
+        v81 = v64;
+        v65 = objc_msgSend_nameForChromeColumnIndex_inTable_useSymbolicNames_(v60, v64, &v82, &v80, 1);
 
-        if (!objc_msgSend_localizedCaseInsensitiveCompare_(v79, v80, nameCopy, v81, v82))
+        if (!objc_msgSend_localizedCaseInsensitiveCompare_(v65, v66, nameCopy, v67))
         {
-          v87 = objc_msgSend_columnUid(v59, v83, v84, v85, v86);
-          v56 = v89;
+          v71 = objc_msgSend_columnUid(v49, v68, v69, v70);
+          v46 = v73;
 
           goto LABEL_23;
         }
 
-        ++v58;
+        ++v48;
       }
 
-      while (v56 != v58);
-      v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v50, v52, &v92, v103, 16);
-      if (v56)
+      while (v46 != v48);
+      v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v43, &v76, v87, 16);
+      if (v46)
       {
         continue;
       }
@@ -1920,138 +1926,138 @@ LABEL_9:
     }
   }
 
-  v87 = 0;
+  v71 = 0;
 LABEL_23:
 
 LABEL_24:
-  v90 = v87;
-  v91 = v56;
-  result._upper = v91;
-  result._lower = v90;
+  v74 = v71;
+  v75 = v46;
+  result._upper = v75;
+  result._lower = v74;
   return result;
 }
 
 - (unsigned)columnGroupLevelForColumnUID:(const TSKUIDStruct *)d
 {
-  v5 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, a2, d, 0, v3);
-  v7 = v6;
-  v11 = objc_msgSend_groupByForColumnGroups(self, v6, v8, v9, v10);
-  v14 = objc_msgSend_groupNodeForGroupUid_(v11, v12, v5, v7, v13);
+  v4 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, a2, d, 0);
+  v6 = v5;
+  v9 = objc_msgSend_groupByForColumnGroups(self, v5, v7, v8);
+  v11 = objc_msgSend_groupNodeForGroupUid_(v9, v10, v4, v6);
 
-  if (v14)
+  if (v11)
   {
-    v19 = objc_msgSend_groupLevel(v14, v15, v16, v17, v18);
+    v15 = objc_msgSend_groupLevel(v11, v12, v13, v14);
   }
 
   else
   {
-    v19 = -1;
+    v15 = -1;
   }
 
-  return v19;
+  return v15;
 }
 
 - (unsigned)rowGroupLevelForRowUID:(const TSKUIDStruct *)d
 {
-  v5 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, a2, d, 0, v3);
-  v7 = v6;
-  v11 = objc_msgSend_groupByForRowGroups(self, v6, v8, v9, v10);
-  v14 = objc_msgSend_groupNodeForGroupUid_(v11, v12, v5, v7, v13);
+  v4 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, a2, d, 0);
+  v6 = v5;
+  v9 = objc_msgSend_groupByForRowGroups(self, v5, v7, v8);
+  v11 = objc_msgSend_groupNodeForGroupUid_(v9, v10, v4, v6);
 
-  if (v14)
+  if (v11)
   {
-    v19 = objc_msgSend_groupLevel(v14, v15, v16, v17, v18);
+    v15 = objc_msgSend_groupLevel(v11, v12, v13, v14);
   }
 
   else
   {
-    v19 = -1;
+    v15 = -1;
   }
 
-  return v19;
+  return v15;
 }
 
 - (id)categoryRefForUidCoord:(const TSKUIDStructCoord *)coord outShowAsType:(unsigned __int8 *)type
 {
   column = coord->_column;
   row = coord->_row;
-  v95 = column;
+  v77 = column;
   activeFlatteningDimension = self->_activeFlatteningDimension;
   if (!activeFlatteningDimension)
   {
-    v93[0] = &row;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row);
-    row = *(v8 + 2);
+    v75[0] = &row;
+    v7 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row, &unk_2217E0517, v75);
+    row = *(v7 + 2);
     goto LABEL_5;
   }
 
   if (activeFlatteningDimension == 1)
   {
-    v93[0] = &v95;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v95);
-    v95 = *(v8 + 2);
+    v75[0] = &v77;
+    v7 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v77, &unk_2217E0517, v75);
+    v77 = *(v7 + 2);
 LABEL_5:
-    v9 = v8[6];
+    v8 = v7[6];
     goto LABEL_7;
   }
 
-  v9 = 0;
+  v8 = 0;
 LABEL_7:
-  v90 = objc_msgSend_groupByForColumnGroups(self, a2, coord, type, v4, type);
-  v89 = objc_msgSend_groupByForRowGroups(self, v10, v11, v12, v13);
-  v16 = objc_msgSend_groupNodeForGroupUid_(v90, v14, v95._lower, v95._upper, v15);
-  v19 = objc_msgSend_groupNodeForGroupUid_(v89, v17, row._lower, row._upper, v18);
-  v24 = objc_msgSend_groupLevel(v16, v20, v21, v22, v23);
-  v29 = objc_msgSend_groupLevel(v19, v25, v26, v27, v28);
-  v88 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v30, v24, v29, v31);
-  v36 = objc_msgSend_groupValueTuple(v16, v32, v33, v34, v35);
-  v41 = objc_msgSend_groupValueTuple(v19, v37, v38, v39, v40);
-  v44 = objc_msgSend_groupValueUidForTuple_appendingTuple_(TSTGroupValueTuple, v42, v36, v41, v43);
-  v46 = v45;
-  v93[0] = v44;
-  v93[1] = v45;
+  v72 = objc_msgSend_groupByForColumnGroups(self, a2, coord, type, type);
+  v71 = objc_msgSend_groupByForRowGroups(self, v9, v10, v11);
+  v13 = objc_msgSend_groupNodeForGroupUid_(v72, v12, v77._lower, v77._upper);
+  v15 = objc_msgSend_groupNodeForGroupUid_(v71, v14, row._lower, row._upper);
+  v19 = objc_msgSend_groupLevel(v13, v16, v17, v18);
+  v23 = objc_msgSend_groupLevel(v15, v20, v21, v22);
+  v70 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v24, v19, v23);
+  v28 = objc_msgSend_groupValueTuple(v13, v25, v26, v27);
+  v32 = objc_msgSend_groupValueTuple(v15, v29, v30, v31);
+  v34 = objc_msgSend_groupValueUidForTuple_appendingTuple_(TSTGroupValueTuple, v33, v28, v32);
+  v36 = v35;
+  v75[0] = v34;
+  v75[1] = v35;
 
-  if (v9 >= objc_msgSend_count(self->_aggregates, v47, v48, v49, v50))
+  if (v8 >= objc_msgSend_count(self->_aggregates, v37, v38, v39))
   {
-    v59 = 0;
+    v46 = 0;
     goto LABEL_15;
   }
 
-  v55 = objc_msgSend_asArray(self->_aggregates, v51, v52, v53, v54);
-  v59 = objc_msgSend_objectAtIndex_(v55, v56, v9, v57, v58);
+  v43 = objc_msgSend_asArray(self->_aggregates, v40, v41, v42);
+  v46 = objc_msgSend_objectAtIndex_(v43, v44, v8, v45);
 
-  if (!v59)
+  if (!v46)
   {
 LABEL_15:
-    v69 = 0;
-    v64 = v88;
+    v54 = 0;
+    v50 = v70;
     goto LABEL_16;
   }
 
-  v64 = v88;
-  v65 = objc_msgSend_showAsType(v59, v60, v61, v62, v63);
-  *v87 = v65;
-  if ((v65 & 0xFE) == 6 && (objc_msgSend_hasValidRunningTotalFieldForAggregate_(self, v66, v59, v67, v68) & 1) == 0)
+  v50 = v70;
+  v51 = objc_msgSend_showAsType(v46, v47, v48, v49);
+  *v69 = v51;
+  if ((v51 & 0xFE) == 6 && (objc_msgSend_hasValidRunningTotalFieldForAggregate_(self, v52, v46, v53) & 1) == 0)
   {
-    *v87 = 0;
+    *v69 = 0;
   }
 
-  v69 = objc_msgSend_groupNodeForGroupUid_(v88, v66, v44, v46, v68);
+  v54 = objc_msgSend_groupNodeForGroupUid_(v70, v52, v34, v36);
 
-  if (v69)
+  if (v54)
   {
-    v70 = [TSCECategoryRef alloc];
-    v92[0] = objc_msgSend_groupByUid(v88, v71, v72, v73, v74);
-    v92[1] = v75;
-    v91[0] = objc_msgSend_columnUid(v59, v75, v76, v77, v78);
-    v91[1] = v79;
-    v83 = objc_msgSend_aggregateType(v59, v79, v80, v81, v82);
-    v69 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v70, v84, v92, v93, v91, v83, (v29 + v24));
+    v55 = [TSCECategoryRef alloc];
+    v74[0] = objc_msgSend_groupByUid(v70, v56, v57, v58);
+    v74[1] = v59;
+    v73[0] = objc_msgSend_columnUid(v46, v59, v60, v61);
+    v73[1] = v62;
+    v65 = objc_msgSend_aggregateType(v46, v62, v63, v64);
+    v54 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v55, v66, v74, v75, v73, v65, (v23 + v19));
   }
 
 LABEL_16:
 
-  return v69;
+  return v54;
 }
 
 - (id)getPivotDataBundleForUidCoord:(const TSKUIDStructCoord *)coord upToLevel:(unsigned __int8)level
@@ -2059,21 +2065,21 @@ LABEL_16:
   levelCopy = level;
   column = coord->_column;
   row = coord->_row;
-  v137 = column;
+  v110 = column;
   activeFlatteningDimension = self->_activeFlatteningDimension;
   if (!activeFlatteningDimension)
   {
     p_row = &row;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row);
+    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row, &unk_2217E0517, &p_row);
     row = *(v8 + 2);
     goto LABEL_5;
   }
 
   if (activeFlatteningDimension == 1)
   {
-    p_row = &v137;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v137);
-    v137 = *(v8 + 2);
+    p_row = &v110;
+    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v110, &unk_2217E0517, &p_row);
+    v110 = *(v8 + 2);
 LABEL_5:
     v9 = *(v8 + 24);
     goto LABEL_7;
@@ -2082,183 +2088,183 @@ LABEL_5:
   v9 = 0;
 LABEL_7:
   v10 = objc_opt_new();
-  objc_msgSend_setAggregateIndex_(v10, v11, v9, v12, v13);
-  objc_msgSend_setAggregateType_(v10, v14, 0, v15, v16);
-  objc_msgSend_setShowAsType_(v10, v17, 0, v18, v19);
-  if (v137 == 0uLL)
+  objc_msgSend_setAggregateIndex_(v10, v11, v9, v12);
+  objc_msgSend_setAggregateType_(v10, v13, 0, v14);
+  objc_msgSend_setShowAsType_(v10, v15, 0, v16);
+  if (v110 == 0uLL)
   {
-    v133 = 0;
+    v106 = 0;
   }
 
   else
   {
-    v133 = objc_msgSend_groupByForColumnGroups(self, v20, v21, v22, v23);
+    v106 = objc_msgSend_groupByForColumnGroups(self, v17, v18, v19);
   }
 
   if (row == 0uLL)
   {
-    v132 = 0;
+    v105 = 0;
   }
 
   else
   {
-    v132 = objc_msgSend_groupByForRowGroups(self, v20, v21, v22, v23);
+    v105 = objc_msgSend_groupByForRowGroups(self, v17, v18, v19);
   }
 
-  v135 = objc_msgSend_groupNodeForGroupUid_(v133, v20, v137._lower, v137._upper, v23);
-  v134 = objc_msgSend_groupNodeForGroupUid_(v132, v24, row._lower, row._upper, v25);
-  if (v135)
+  v108 = objc_msgSend_groupNodeForGroupUid_(v106, v17, v110._lower, v110._upper);
+  v107 = objc_msgSend_groupNodeForGroupUid_(v105, v20, row._lower, row._upper);
+  if (v108)
   {
-    v30 = objc_msgSend_groupLevel(v135, v26, v27, v28, v29);
-  }
-
-  else
-  {
-    v30 = 0;
-  }
-
-  v31 = v134;
-  if (v134)
-  {
-    v31 = objc_msgSend_groupLevel(v134, v26, v27, v28, v29);
-  }
-
-  if (v30 >= levelCopy)
-  {
-    v32 = levelCopy;
+    v24 = objc_msgSend_groupLevel(v108, v21, v22, v23);
   }
 
   else
   {
-    v32 = v30;
+    v24 = 0;
   }
 
-  if (!v135)
+  v25 = v107;
+  if (v107)
   {
-    v32 = v30;
+    v25 = objc_msgSend_groupLevel(v107, v21, v22, v23);
   }
 
-  if (v31 >= levelCopy)
+  if (v24 >= levelCopy)
   {
-    v33 = levelCopy;
+    v26 = levelCopy;
   }
 
   else
   {
-    v33 = v31;
+    v26 = v24;
   }
 
-  if (!v134)
+  if (!v108)
   {
-    v33 = v31;
+    v26 = v24;
+  }
+
+  if (v25 >= levelCopy)
+  {
+    v27 = levelCopy;
+  }
+
+  else
+  {
+    v27 = v25;
+  }
+
+  if (!v107)
+  {
+    v27 = v25;
   }
 
   if (levelCopy == 255)
   {
-    v34 = v31;
+    v28 = v25;
   }
 
   else
   {
-    v34 = v33;
+    v28 = v27;
   }
 
   if (levelCopy == 255)
   {
-    v35 = v30;
+    v29 = v24;
   }
 
   else
   {
-    v35 = v32;
+    v29 = v26;
   }
 
-  v36 = v132;
-  v131 = v35;
-  if (v133 && (v36 = v133, v132))
+  v30 = v105;
+  v104 = v29;
+  if (v106 && (v30 = v106, v105))
   {
-    v37 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v26, v35, v34, v29);
+    v31 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v21, v29, v28);
   }
 
   else
   {
-    v37 = v36;
+    v31 = v30;
   }
 
-  v42 = v37;
-  if (v135)
+  v35 = v31;
+  if (v108)
   {
-    if (v134)
+    if (v107)
     {
-      v43 = objc_msgSend_groupValueTuple(v135, v38, v39, v40, v41);
-      v48 = objc_msgSend_groupValueTuple(v134, v44, v45, v46, v47);
-      v51 = objc_msgSend_groupValueUidForTuple_appendingTuple_(TSTGroupValueTuple, v49, v43, v48, v50);
-      v53 = v52;
+      v36 = objc_msgSend_groupValueTuple(v108, v32, v33, v34);
+      v40 = objc_msgSend_groupValueTuple(v107, v37, v38, v39);
+      v42 = objc_msgSend_groupValueUidForTuple_appendingTuple_(TSTGroupValueTuple, v41, v36, v40);
+      v44 = v43;
 
       goto LABEL_44;
     }
 
-    v43 = objc_msgSend_groupValueTuple(v135, v38, v39, v40, v41);
-    v58 = objc_msgSend_groupValueUid(v43, v60, v61, v62, v63);
+    v36 = objc_msgSend_groupValueTuple(v108, v32, v33, v34);
+    v48 = objc_msgSend_groupValueUid(v36, v50, v51, v52);
   }
 
   else
   {
-    v43 = objc_msgSend_groupValueTuple(v134, v38, v39, v40, v41);
-    v58 = objc_msgSend_groupValueUid(v43, v54, v55, v56, v57);
+    v36 = objc_msgSend_groupValueTuple(v107, v32, v33, v34);
+    v48 = objc_msgSend_groupValueUid(v36, v45, v46, v47);
   }
 
-  v51 = v58;
-  v53 = v59;
+  v42 = v48;
+  v44 = v49;
 LABEL_44:
 
-  if (objc_msgSend_count(self->_aggregates, v64, v65, v66, v67) <= v9)
+  if (objc_msgSend_count(self->_aggregates, v53, v54, v55) <= v9)
   {
-    v76 = 0;
+    v62 = 0;
   }
 
   else
   {
-    v72 = objc_msgSend_asArray(self->_aggregates, v68, v69, v70, v71);
-    v76 = objc_msgSend_objectAtIndex_(v72, v73, v9, v74, v75);
+    v59 = objc_msgSend_asArray(self->_aggregates, v56, v57, v58);
+    v62 = objc_msgSend_objectAtIndex_(v59, v60, v9, v61);
   }
 
-  v77 = objc_msgSend_groupNodeForGroupUid_(v42, v68, v51, v53, v71);
-  v81 = v77;
-  if (v76 && v77)
+  v63 = objc_msgSend_groupNodeForGroupUid_(v35, v56, v42, v44);
+  v66 = v63;
+  if (v62 && v63)
   {
-    objc_msgSend_setAggregateIndex_(v10, v78, v9, v79, v80);
-    v86 = objc_msgSend_aggregateType(v76, v82, v83, v84, v85);
-    objc_msgSend_setAggregateType_(v10, v87, v86, v88, v89);
-    v94 = objc_msgSend_showAsType(v76, v90, v91, v92, v93);
-    objc_msgSend_setShowAsType_(v10, v95, v94, v96, v97);
-    v100 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v98, v9, 0, v99);
-    objc_msgSend_setAggregateFieldName_(v10, v101, v100, v102, v103);
+    objc_msgSend_setAggregateIndex_(v10, v64, v9, v65);
+    v70 = objc_msgSend_aggregateType(v62, v67, v68, v69);
+    objc_msgSend_setAggregateType_(v10, v71, v70, v72);
+    v76 = objc_msgSend_showAsType(v62, v73, v74, v75);
+    objc_msgSend_setShowAsType_(v10, v77, v76, v78);
+    v80 = objc_msgSend_columnNameForAggregateIndex_allowDuplicateNames_(self, v79, v9, 0);
+    objc_msgSend_setAggregateFieldName_(v10, v81, v80, v82);
 
-    v108 = objc_msgSend_groupValueTuple(v81, v104, v105, v106, v107);
-    v113 = objc_msgSend_numberOfLevels(v108, v109, v110, v111, v112);
-    if ((v131 + v34) >= v113)
+    v86 = objc_msgSend_groupValueTuple(v66, v83, v84, v85);
+    v90 = objc_msgSend_numberOfLevels(v86, v87, v88, v89);
+    if ((v104 + v28) >= v90)
     {
-      v117 = v113;
+      v93 = v90;
     }
 
     else
     {
-      v117 = (v131 + v34);
+      v93 = (v104 + v28);
     }
 
-    if (v117)
+    if (v93)
     {
-      for (i = 1; i <= v117; ++i)
+      for (i = 1; i <= v93; ++i)
       {
-        v121 = objc_msgSend_groupValueAtLevel_(v108, v114, i, v115, v116);
-        if (v121)
+        v96 = objc_msgSend_groupValueAtLevel_(v86, v91, i, v92);
+        if (v96)
         {
-          v126 = objc_msgSend_columnNameForCategoryLevel_shortForm_(v42, v119, i, 0, v120);
-          if (v126)
+          v100 = objc_msgSend_columnNameForCategoryLevel_shortForm_(v35, v95, i, 0);
+          if (v100)
           {
-            v127 = objc_msgSend_tsceValue(v121, v122, v123, v124, v125);
-            objc_msgSend_addDataField_withValue_(v10, v128, v126, v127, v129);
+            v101 = objc_msgSend_tsceValue(v96, v97, v98, v99);
+            objc_msgSend_addDataField_withValue_(v10, v102, v100, v101);
           }
         }
       }
@@ -2279,11 +2285,11 @@ LABEL_44:
   {
     if (levelCopy == 1)
     {
-      v122 = MEMORY[0x277CCACA8];
-      v55 = sub_22113113C(localeCopy, v9);
-      v59 = objc_msgSend_groupValueAtLevel_(tupleCopy, v123, 1, v124, v125);
-      v19 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v126, v59, v127, v128);
-      v11 = objc_msgSend_stringWithFormat_(v122, v129, v55, v130, v131, v19);
+      v90 = MEMORY[0x277CCACA8];
+      v44 = sub_22113113C(localeCopy, v9);
+      v47 = objc_msgSend_groupValueAtLevel_(tupleCopy, v91, 1, v92);
+      v17 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v93, v47, v94);
+      v11 = objc_msgSend_stringWithFormat_(v90, v95, v44, v96, v17);
       goto LABEL_15;
     }
 
@@ -2292,45 +2298,45 @@ LABEL_44:
       goto LABEL_16;
     }
 
-    v54 = MEMORY[0x277CCACA8];
-    v55 = sub_221131120(localeCopy, v9);
-    v59 = objc_msgSend_groupValueAtLevel_(tupleCopy, v56, 1, v57, v58);
-    v19 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v60, v59, v61, v62);
-    v136 = objc_msgSend_groupValueAtLevel_(tupleCopy, v63, 2, v64, v65);
-    v26 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v66, v136, v67, v68);
-    v11 = objc_msgSend_stringWithFormat_(v54, v69, v55, v70, v71, v19, v26);
+    v43 = MEMORY[0x277CCACA8];
+    v44 = sub_221131120(localeCopy, v9);
+    v47 = objc_msgSend_groupValueAtLevel_(tupleCopy, v45, 1, v46);
+    v17 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v48, v47, v49);
+    v101 = objc_msgSend_groupValueAtLevel_(tupleCopy, v50, 2, v51);
+    v22 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v52, v101, v53);
+    v11 = objc_msgSend_stringWithFormat_(v43, v54, v44, v55, v17, v22);
   }
 
   else
   {
     if (levelCopy == 3)
     {
-      v72 = MEMORY[0x277CCACA8];
-      v55 = sub_221131104(localeCopy, v9);
-      v135 = objc_msgSend_groupValueAtLevel_(tupleCopy, v73, 1, v74, v75);
-      v19 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v76, v135, v77, v78);
-      v136 = objc_msgSend_groupValueAtLevel_(tupleCopy, v79, 2, v80, v81);
-      v26 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v82, v136, v83, v84);
-      v30 = objc_msgSend_groupValueAtLevel_(tupleCopy, v85, 3, v86, v87);
-      v34 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v88, v30, v89, v90);
-      v11 = objc_msgSend_stringWithFormat_(v72, v91, v55, v92, v93, v19, v26, v34);
+      v56 = MEMORY[0x277CCACA8];
+      v44 = sub_221131104(localeCopy, v9);
+      v100 = objc_msgSend_groupValueAtLevel_(tupleCopy, v57, 1, v58);
+      v17 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v59, v100, v60);
+      v101 = objc_msgSend_groupValueAtLevel_(tupleCopy, v61, 2, v62);
+      v22 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v63, v101, v64);
+      v25 = objc_msgSend_groupValueAtLevel_(tupleCopy, v65, 3, v66);
+      v28 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v67, v25, v68);
+      v11 = objc_msgSend_stringWithFormat_(v56, v69, v44, v70, v17, v22, v28);
     }
 
     else
     {
       if (levelCopy == 4)
       {
-        v94 = MEMORY[0x277CCACA8];
-        v134 = sub_2211310E8(localeCopy, v9);
-        v135 = objc_msgSend_groupValueAtLevel_(tupleCopy, v95, 1, v96, v97);
-        v19 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v98, v135, v99, v100);
-        v136 = objc_msgSend_groupValueAtLevel_(tupleCopy, v101, 2, v102, v103);
-        v26 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v104, v136, v105, v106);
-        v30 = objc_msgSend_groupValueAtLevel_(tupleCopy, v107, 3, v108, v109);
-        v34 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v110, v30, v111, v112);
-        v38 = objc_msgSend_groupValueAtLevel_(tupleCopy, v113, 4, v114, v115);
-        v42 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v116, v38, v117, v118);
-        v11 = objc_msgSend_stringWithFormat_(v94, v119, v134, v120, v121, v19, v26, v34, v42);
+        v71 = MEMORY[0x277CCACA8];
+        v99 = sub_2211310E8(localeCopy, v9);
+        v100 = objc_msgSend_groupValueAtLevel_(tupleCopy, v72, 1, v73);
+        v17 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v74, v100, v75);
+        v101 = objc_msgSend_groupValueAtLevel_(tupleCopy, v76, 2, v77);
+        v22 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v78, v101, v79);
+        v25 = objc_msgSend_groupValueAtLevel_(tupleCopy, v80, 3, v81);
+        v28 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v82, v25, v83);
+        v31 = objc_msgSend_groupValueAtLevel_(tupleCopy, v84, 4, v85);
+        v34 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v86, v31, v87);
+        v11 = objc_msgSend_stringWithFormat_(v71, v88, v99, v89, v17, v22, v28, v34);
       }
 
       else
@@ -2342,26 +2348,26 @@ LABEL_44:
 
         v12 = MEMORY[0x277CCACA8];
         sub_2211310CC(localeCopy, v9);
-        v134 = v133 = v10;
-        v135 = objc_msgSend_groupValueAtLevel_(tupleCopy, v13, 1, v14, v15);
-        v19 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v16, v135, v17, v18);
-        v136 = objc_msgSend_groupValueAtLevel_(tupleCopy, v20, 2, v21, v22);
-        v26 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v23, v136, v24, v25);
-        v30 = objc_msgSend_groupValueAtLevel_(tupleCopy, v27, 3, v28, v29);
-        v34 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v31, v30, v32, v33);
-        v38 = objc_msgSend_groupValueAtLevel_(tupleCopy, v35, 4, v36, v37);
-        v42 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v39, v38, v40, v41);
-        v46 = objc_msgSend_groupValueAtLevel_(tupleCopy, v43, 5, v44, v45);
-        v50 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v47, v46, v48, v49);
-        v11 = objc_msgSend_stringWithFormat_(v12, v51, v134, v52, v53, v19, v26, v34, v42, v50);
+        v99 = v98 = v10;
+        v100 = objc_msgSend_groupValueAtLevel_(tupleCopy, v13, 1, v14);
+        v17 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v15, v100, v16);
+        v101 = objc_msgSend_groupValueAtLevel_(tupleCopy, v18, 2, v19);
+        v22 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v20, v101, v21);
+        v25 = objc_msgSend_groupValueAtLevel_(tupleCopy, v23, 3, v24);
+        v28 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v26, v25, v27);
+        v31 = objc_msgSend_groupValueAtLevel_(tupleCopy, v29, 4, v30);
+        v34 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v32, v31, v33);
+        v37 = objc_msgSend_groupValueAtLevel_(tupleCopy, v35, 5, v36);
+        v40 = objc_msgSend_enclosingGroupNameForGroupCellValue_(TSTPivotOwner, v38, v37, v39);
+        v11 = objc_msgSend_stringWithFormat_(v12, v41, v99, v42, v17, v22, v28, v34, v40);
 
-        v10 = v133;
+        v10 = v98;
       }
 
-      v55 = v134;
+      v44 = v99;
     }
 
-    v59 = v135;
+    v47 = v100;
   }
 
 LABEL_15:
@@ -2373,57 +2379,24 @@ LABEL_16:
 - (id)descriptionForPivotGroupCellForColumnUid:(const TSKUIDStruct *)uid upToLevel:(unsigned __int8)level
 {
   levelCopy = level;
-  v8 = objc_msgSend_groupByForColumnGroups(self, a2, uid, level, v4);
-  v13 = objc_msgSend_groupByForColumnGroups(self, v9, v10, v11, v12);
-  v16 = objc_msgSend_groupNodeForGroupUid_(v13, v14, uid->_lower, uid->_upper, v15);
+  v7 = objc_msgSend_groupByForColumnGroups(self, a2, uid, level);
+  v11 = objc_msgSend_groupByForColumnGroups(self, v8, v9, v10);
+  v13 = objc_msgSend_groupNodeForGroupUid_(v11, v12, uid->_lower, uid->_upper);
 
-  v21 = objc_msgSend_groupLevel(v16, v17, v18, v19, v20);
-  if (v21 >= levelCopy)
-  {
-    v26 = levelCopy;
-  }
-
-  else
-  {
-    v26 = v21;
-  }
-
-  if (levelCopy == 255)
-  {
-    v27 = v21;
-  }
-
-  else
-  {
-    v27 = v26;
-  }
-
-  v28 = objc_msgSend_groupValueTuple(v16, v22, v23, v24, v25);
-  v33 = objc_msgSend_locale(v8, v29, v30, v31, v32);
-  v35 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v34, v28, v27, v33);
-
-  return v35;
-}
-
-- (id)descriptionForPivotGroupCellForRowUid:(const TSKUIDStruct *)uid upToLevel:(unsigned __int8)level
-{
-  levelCopy = level;
-  v8 = objc_msgSend_groupByForRowGroups(self, a2, uid, level, v4);
-  v11 = objc_msgSend_groupNodeForGroupUid_(v8, v9, uid->_lower, uid->_upper, v10);
-  v16 = objc_msgSend_groupLevel(v11, v12, v13, v14, v15);
-  if (v16 >= levelCopy)
+  v17 = objc_msgSend_groupLevel(v13, v14, v15, v16);
+  if (v17 >= levelCopy)
   {
     v21 = levelCopy;
   }
 
   else
   {
-    v21 = v16;
+    v21 = v17;
   }
 
   if (levelCopy == 255)
   {
-    v22 = v16;
+    v22 = v17;
   }
 
   else
@@ -2431,146 +2404,179 @@ LABEL_16:
     v22 = v21;
   }
 
-  v23 = objc_msgSend_groupValueTuple(v11, v17, v18, v19, v20);
-  v28 = objc_msgSend_locale(v8, v24, v25, v26, v27);
-  v30 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v29, v23, v22, v28);
+  v23 = objc_msgSend_groupValueTuple(v13, v18, v19, v20);
+  v27 = objc_msgSend_locale(v7, v24, v25, v26);
+  v29 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v28, v23, v22, v27);
 
-  return v30;
+  return v29;
+}
+
+- (id)descriptionForPivotGroupCellForRowUid:(const TSKUIDStruct *)uid upToLevel:(unsigned __int8)level
+{
+  levelCopy = level;
+  v7 = objc_msgSend_groupByForRowGroups(self, a2, uid, level);
+  v9 = objc_msgSend_groupNodeForGroupUid_(v7, v8, uid->_lower, uid->_upper);
+  v13 = objc_msgSend_groupLevel(v9, v10, v11, v12);
+  if (v13 >= levelCopy)
+  {
+    v17 = levelCopy;
+  }
+
+  else
+  {
+    v17 = v13;
+  }
+
+  if (levelCopy == 255)
+  {
+    v18 = v13;
+  }
+
+  else
+  {
+    v18 = v17;
+  }
+
+  v19 = objc_msgSend_groupValueTuple(v9, v14, v15, v16);
+  v23 = objc_msgSend_locale(v7, v20, v21, v22);
+  v25 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v24, v19, v18, v23);
+
+  return v25;
 }
 
 - (id)descriptionForPivotBodyCellForUidCoord:(const TSKUIDStructCoord *)coord
 {
   column = coord->_column;
   row = coord->_row;
-  v93 = column;
+  v76 = column;
   activeFlatteningDimension = self->_activeFlatteningDimension;
   if (activeFlatteningDimension)
   {
     if (activeFlatteningDimension != 1)
     {
-      v9 = 0;
+      v8 = 0;
       goto LABEL_7;
     }
 
-    p_row = &v93;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v93);
-    v93 = *(v8 + 2);
+    p_row = &v76;
+    v7 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v76, &unk_2217E0517, &p_row);
+    v76 = *(v7 + 2);
   }
 
   else
   {
     p_row = &row;
-    v8 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row);
-    row = *(v8 + 2);
+    v7 = sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row, &unk_2217E0517, &p_row);
+    row = *(v7 + 2);
   }
 
-  v9 = *(v8 + 24);
+  v8 = *(v7 + 24);
 LABEL_7:
-  if (v9 >= objc_msgSend_count(self->_aggregates, a2, coord, v3, v4) || (objc_msgSend_asArray(self->_aggregates, v10, v11, v12, v13), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectAtIndex_(v14, v15, v9, v16, v17), v18 = objc_claimAutoreleasedReturnValue(), v14, !v18))
+  if (v8 >= objc_msgSend_count(self->_aggregates, a2, coord, v3) || (objc_msgSend_asArray(self->_aggregates, v9, v10, v11), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectAtIndex_(v12, v13, v8, v14), v15 = objc_claimAutoreleasedReturnValue(), v12, !v15))
   {
-    v70 = 0;
+    v56 = 0;
     goto LABEL_21;
   }
 
-  v90 = v18;
-  v89 = objc_msgSend_groupByForColumnGroups(self, v19, v20, v21, v22);
-  v88 = objc_msgSend_groupByForRowGroups(self, v23, v24, v25, v26);
-  v29 = objc_msgSend_groupNodeForGroupUid_(v89, v27, v93._lower, v93._upper, v28);
-  v32 = objc_msgSend_groupNodeForGroupUid_(v88, v30, row._lower, row._upper, v31);
-  v37 = objc_msgSend_groupLevel(v29, v33, v34, v35, v36);
-  v42 = objc_msgSend_groupLevel(v32, v38, v39, v40, v41);
-  v91 = objc_msgSend_groupValueTuple(v29, v43, v44, v45, v46);
-  v51 = objc_msgSend_groupValueTuple(v32, v47, v48, v49, v50);
-  v56 = objc_msgSend_locale(v88, v52, v53, v54, v55);
-  v58 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v57, v51, v42, v56);
-  v60 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v59, v91, v37, v56);
-  v63 = v60;
-  if (v58 && v60)
+  v73 = v15;
+  v72 = objc_msgSend_groupByForColumnGroups(self, v16, v17, v18);
+  v71 = objc_msgSend_groupByForRowGroups(self, v19, v20, v21);
+  v23 = objc_msgSend_groupNodeForGroupUid_(v72, v22, v76._lower, v76._upper);
+  v25 = objc_msgSend_groupNodeForGroupUid_(v71, v24, row._lower, row._upper);
+  v29 = objc_msgSend_groupLevel(v23, v26, v27, v28);
+  v33 = objc_msgSend_groupLevel(v25, v30, v31, v32);
+  v74 = objc_msgSend_groupValueTuple(v23, v34, v35, v36);
+  v40 = objc_msgSend_groupValueTuple(v25, v37, v38, v39);
+  v44 = objc_msgSend_locale(v71, v41, v42, v43);
+  v46 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v45, v40, v33, v44);
+  v48 = objc_msgSend_p_descriptionForPivotGroupValueTuple_upToLevel_locale_(self, v47, v74, v29, v44);
+  v50 = v48;
+  if (v46 && v48)
   {
-    v64 = MEMORY[0x277CCACA8];
-    v65 = sub_221131158(v56, v61);
-    v69 = objc_msgSend_stringWithFormat_(v64, v66, v65, v67, v68, v63, v58);
+    v51 = MEMORY[0x277CCACA8];
+    v52 = sub_221131158(v44, v49);
+    v55 = objc_msgSend_stringWithFormat_(v51, v53, v52, v54, v50, v46);
   }
 
-  else if (v58)
+  else if (v46)
   {
-    v71 = MEMORY[0x277CCACA8];
-    v65 = sub_221131174(v56, v61);
-    v69 = objc_msgSend_stringWithFormat_(v71, v72, v65, v73, v74, v58);
+    v57 = MEMORY[0x277CCACA8];
+    v52 = sub_221131174(v44, v49);
+    v55 = objc_msgSend_stringWithFormat_(v57, v58, v52, v59, v46);
   }
 
   else
   {
-    if (!v60)
+    if (!v48)
     {
-      v79 = 0;
+      v63 = 0;
       goto LABEL_18;
     }
 
-    v75 = MEMORY[0x277CCACA8];
-    v65 = sub_221131174(v56, v61);
-    v69 = objc_msgSend_stringWithFormat_(v75, v76, v65, v77, v78, v63);
+    v60 = MEMORY[0x277CCACA8];
+    v52 = sub_221131174(v44, v49);
+    v55 = objc_msgSend_stringWithFormat_(v60, v61, v52, v62, v50);
   }
 
-  v79 = v69;
+  v63 = v55;
 
 LABEL_18:
-  v81 = objc_msgSend_descriptionForAggregateIndex_locale_(self, v61, v9, v56, v62);
-  v70 = v81;
-  if (v79)
+  v65 = objc_msgSend_descriptionForAggregateIndex_locale_(self, v49, v8, v44);
+  v56 = v65;
+  if (v63)
   {
-    v82 = MEMORY[0x277CCACA8];
-    v83 = sub_221131094(v56, v80);
-    v70 = objc_msgSend_stringWithFormat_(v82, v84, v83, v85, v86, v81, v79);
+    v66 = MEMORY[0x277CCACA8];
+    v67 = sub_221131094(v44, v64);
+    v56 = objc_msgSend_stringWithFormat_(v66, v68, v67, v69, v65, v63);
   }
 
 LABEL_21:
 
-  return v70;
+  return v56;
 }
 
 - (TSUIndexSet)pivotDataModelRowIndexesNeededForCell:(SEL)cell
 {
   TSUIndexSet::TSUIndexSet(retstr);
-  v11 = objc_msgSend_groupByForColumnGroups(self, v7, v8, v9, v10);
-  v16 = objc_msgSend_groupByForRowGroups(self, v12, v13, v14, v15);
-  v19 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v17, a4, 0, v18);
+  v10 = objc_msgSend_groupByForColumnGroups(self, v7, v8, v9);
+  v14 = objc_msgSend_groupByForRowGroups(self, v11, v12, v13);
+  v16 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v15, a4, 0);
+  v18 = v17;
+  v19 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v17, &a4->_row, 0);
   v21 = v20;
-  v23 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v20, &a4->_row, 0, v22);
-  v25 = v24;
-  v27 = objc_msgSend_groupNodeForGroupUid_(v11, v24, v19, v21, v26);
-  v30 = objc_msgSend_groupNodeForGroupUid_(v16, v28, v23, v25, v29);
-  v35 = v30;
-  if (v27)
+  v22 = objc_msgSend_groupNodeForGroupUid_(v10, v20, v16, v18);
+  v24 = objc_msgSend_groupNodeForGroupUid_(v14, v23, v19, v21);
+  v28 = v24;
+  if (v22)
   {
-    objc_msgSend_pivotOnlyRowIndexes(v27, v31, v32, v33, v34);
-    TSUIndexSet::addIndexes(retstr, &v47);
-    TSUIndexSet::~TSUIndexSet(&v47);
-    if (v35)
+    objc_msgSend_pivotOnlyRowIndexes(v22, v25, v26, v27);
+    TSUIndexSet::addIndexes(retstr, &v38);
+    TSUIndexSet::~TSUIndexSet(&v38);
+    if (v28)
     {
-      objc_msgSend_pivotOnlyRowIndexes(v35, v36, v37, v38, v39);
-      TSUIndexSet::intersectWithIndexes(retstr, &v47);
+      objc_msgSend_pivotOnlyRowIndexes(v28, v29, v30, v31);
+      TSUIndexSet::intersectWithIndexes(retstr, &v38);
 LABEL_6:
-      TSUIndexSet::~TSUIndexSet(&v47);
+      TSUIndexSet::~TSUIndexSet(&v38);
     }
   }
 
   else
   {
-    if (v30)
+    if (v24)
     {
-      objc_msgSend_pivotOnlyRowIndexes(v30, v31, v32, v33, v34);
-      TSUIndexSet::addIndexes(retstr, &v47);
+      objc_msgSend_pivotOnlyRowIndexes(v24, v25, v26, v27);
+      TSUIndexSet::addIndexes(retstr, &v38);
       goto LABEL_6;
     }
 
-    v41 = objc_msgSend_topLevelGroupNode(v16, v31, v32, v33, v34);
-    v46 = v41;
-    if (v41)
+    v33 = objc_msgSend_topLevelGroupNode(v14, v25, v26, v27);
+    v37 = v33;
+    if (v33)
     {
-      objc_msgSend_pivotOnlyRowIndexes(v41, v42, v43, v44, v45);
-      TSUIndexSet::addIndexes(retstr, &v47);
-      TSUIndexSet::~TSUIndexSet(&v47);
+      objc_msgSend_pivotOnlyRowIndexes(v33, v34, v35, v36);
+      TSUIndexSet::addIndexes(retstr, &v38);
+      TSUIndexSet::~TSUIndexSet(&v38);
     }
   }
 
@@ -2583,109 +2589,109 @@ LABEL_6:
   byCopy = by;
   if (byCopy)
   {
-    v92 = byCopy;
+    v77 = byCopy;
     v8 = objc_opt_new();
-    v13 = objc_msgSend_ownerIndex(byCopy, v9, v10, v11, v12);
-    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v14, v13, v15, v16);
-    v21 = objc_msgSend_ownerIndex(byCopy, v17, v18, v19, v20);
-    v25 = objc_msgSend_groupingColumnsForOwnerIndex_(self, v22, v21, v23, v24);
-    v30 = v25;
-    v32 = __p;
-    v31 = v98;
-    if (__p != v98)
+    v12 = objc_msgSend_ownerIndex(byCopy, v9, v10, v11);
+    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v13, v12, v14);
+    v18 = objc_msgSend_ownerIndex(byCopy, v15, v16, v17);
+    v21 = objc_msgSend_groupingColumnsForOwnerIndex_(self, v19, v18, v20);
+    v25 = v21;
+    v27 = __p;
+    v26 = v83;
+    if (__p != v83)
     {
-      v33 = 0;
-      v34 = 0;
+      v28 = 0;
+      v29 = 0;
       p_cache = TSCEFunction_XMATCH.cache;
-      v91 = v25;
+      v76 = v21;
       do
       {
-        v96 = v32[v34];
-        if (objc_msgSend_count(v8, v26, v27, v28, v29) >= level)
+        v81 = v27[v29];
+        if (objc_msgSend_count(v8, v22, v23, v24) >= level)
         {
           break;
         }
 
-        v36 = sub_2210BE864(values, &v96);
-        if (!v36)
+        v31 = sub_2210BE864(values, &v81);
+        if (!v31)
         {
           break;
         }
 
-        v37 = v36[3];
-        v42 = v37;
-        if (fieldsCopy && objc_msgSend_valueType(v37, v38, v39, v40, v41) == 7)
+        v32 = v31[3];
+        v36 = v32;
+        if (fieldsCopy && objc_msgSend_valueType(v32, v33, v34, v35) == 7)
         {
-          v43 = objc_msgSend_objectAtIndexedSubscript_(v30, v38, v34, v40, v41);
-          v48 = objc_msgSend_groupingType(v43, v44, v45, v46, v47);
-          if (objc_msgSend_groupingTypeIsAnyDateType_(p_cache + 473, v49, v48, v50, v51))
+          v37 = objc_msgSend_objectAtIndexedSubscript_(v25, v33, v29, v35);
+          v41 = objc_msgSend_groupingType(v37, v38, v39, v40);
+          if (objc_msgSend_groupingTypeIsAnyDateType_(p_cache + 473, v42, v41, v43))
           {
-            v56 = objc_msgSend_tsceValue(v42, v52, v53, v54, v55);
-            v61 = objc_msgSend_asStringValue(v56, v57, v58, v59, v60);
+            v47 = objc_msgSend_tsceValue(v36, v44, v45, v46);
+            v51 = objc_msgSend_asStringValue(v47, v48, v49, v50);
 
-            v90 = v61;
-            v66 = objc_msgSend_locale(v92, v62, v63, v64, v65);
-            v71 = objc_msgSend_asString(v61, v67, v68, v69, v70);
-            v72 = TSUCreateDateFromString();
+            v75 = v51;
+            v55 = objc_msgSend_locale(v77, v52, v53, v54);
+            v59 = objc_msgSend_asString(v51, v56, v57, v58);
+            v60 = TSUCreateDateFromString();
 
-            if (v72)
+            if (v60)
             {
-              v73 = [TSCEDateCellValue alloc];
-              v76 = objc_msgSend_initWithDate_locale_(v73, v74, v72, v66, v75);
+              v61 = [TSCEDateCellValue alloc];
+              v63 = objc_msgSend_initWithDate_locale_(v61, v62, v60, v55);
 
-              v42 = v76;
+              v36 = v63;
             }
 
             p_cache = (TSCEFunction_XMATCH + 16);
           }
 
-          v30 = v91;
+          v25 = v76;
         }
 
-        objc_msgSend_addObject_(v8, v38, v42, v40, v41);
+        objc_msgSend_addObject_(v8, v33, v36, v35);
 
-        ++v34;
-        ++v33;
+        ++v29;
+        ++v28;
       }
 
-      while (&v32[v33] != v31);
+      while (&v27[v28] != v26);
     }
 
-    v77 = [TSTGroupValueTuple alloc];
-    v81 = objc_msgSend_initWithValueArray_(v77, v78, v8, v79, v80);
-    byCopy = v92;
-    v86 = objc_msgSend_numberOfLevels(v81, v82, v83, v84, v85);
-    v88 = objc_msgSend_findGroupNodeForValue_atLevel_createIfMissing_(v92, v87, v81, v86, 0);
+    v64 = [TSTGroupValueTuple alloc];
+    v67 = objc_msgSend_initWithValueArray_(v64, v65, v8, v66);
+    byCopy = v77;
+    v71 = objc_msgSend_numberOfLevels(v67, v68, v69, v70);
+    v73 = objc_msgSend_findGroupNodeForValue_atLevel_createIfMissing_(v77, v72, v67, v71, 0);
 
     if (__p)
     {
-      v98 = __p;
+      v83 = __p;
       operator delete(__p);
     }
   }
 
   else
   {
-    v88 = 0;
+    v73 = 0;
   }
 
-  return v88;
+  return v73;
 }
 
 - (id)grandGrandTotalCategoryRefForAggregate:(id)aggregate
 {
   aggregateCopy = aggregate;
-  v9 = objc_msgSend_groupByForColumnGroups(self, v5, v6, v7, v8);
-  v10 = [TSCECategoryRef alloc];
-  v34[0] = objc_msgSend_groupByUid(v9, v11, v12, v13, v14);
-  v34[1] = v15;
-  v33[0] = objc_msgSend_topLevelGroupUid(v9, v15, v16, v17, v18);
-  v33[1] = v19;
-  v23 = objc_msgSend_columnUid(aggregateCopy, v19, v20, v21, v22);
-  v28 = objc_msgSend_aggregateType(aggregateCopy, v24, v25, v26, v27, v23, v24);
-  v30 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v10, v29, v34, v33, &v32, v28, 0);
+  v8 = objc_msgSend_groupByForColumnGroups(self, v5, v6, v7);
+  v9 = [TSCECategoryRef alloc];
+  v29[0] = objc_msgSend_groupByUid(v8, v10, v11, v12);
+  v29[1] = v13;
+  v28[0] = objc_msgSend_topLevelGroupUid(v8, v13, v14, v15);
+  v28[1] = v16;
+  v19 = objc_msgSend_columnUid(aggregateCopy, v16, v17, v18);
+  v23 = objc_msgSend_aggregateType(aggregateCopy, v20, v21, v22, v19, v20);
+  v25 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v9, v24, v29, v28, &v27, v23, 0);
 
-  return v30;
+  return v25;
 }
 
 - (id)firstAggregate
@@ -2715,54 +2721,54 @@ LABEL_6:
 - (id)grandTotalCategoryRefForColumn:(const TSKUIDStruct *)column forAggregate:(id)aggregate
 {
   aggregateCopy = aggregate;
-  v43 = 0;
-  v10 = objc_msgSend_groupByForColumnGroups(self, v6, v7, v8, v9, 0, 0, 0, 0);
-  objc_msgSend_topLevelGroupUid(v10, v11, v12, v13, v14);
+  v34 = 0;
+  v9 = objc_msgSend_groupByForColumnGroups(self, v6, v7, v8, 0, 0, 0, 0);
+  objc_msgSend_topLevelGroupUid(v9, v10, v11, v12);
   TSKMakeUIDStructCoord();
 
-  v21 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, v15, &v42, &v43, v16);
+  v17 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, v13, &v33, &v34);
   if (aggregateCopy)
   {
-    v22 = objc_msgSend_columnUid(aggregateCopy, v17, v18, v19, v20);
-    objc_msgSend_setColumnUid_(v21, v23, v22, v23, v24);
-    v29 = objc_msgSend_aggregateType(aggregateCopy, v25, v26, v27, v28);
-    objc_msgSend_setType_(v21, v30, v29, v31, v32);
+    v18 = objc_msgSend_columnUid(aggregateCopy, v14, v15, v16);
+    objc_msgSend_setColumnUid_(v17, v19, v18, v19);
+    v23 = objc_msgSend_aggregateType(aggregateCopy, v20, v21, v22);
+    objc_msgSend_setType_(v17, v24, v23, v25);
   }
 
   else
   {
-    v33 = objc_msgSend_firstAggregate(self, v17, v18, v19, v20);
-    aggregateCopy = v33;
-    if (v33)
+    v26 = objc_msgSend_firstAggregate(self, v14, v15, v16);
+    aggregateCopy = v26;
+    if (v26)
     {
-      v38 = objc_msgSend_columnUid(v33, v34, v35, v36, v37);
-      objc_msgSend_setColumnUid_(v21, v39, v38, v39, v40);
+      v30 = objc_msgSend_columnUid(v26, v27, v28, v29);
+      objc_msgSend_setColumnUid_(v17, v31, v30, v31);
     }
 
-    objc_msgSend_setType_(v21, v34, 1, v36, v37);
+    objc_msgSend_setType_(v17, v27, 1, v29);
   }
 
-  return v21;
+  return v17;
 }
 
 - (id)grandTotalCategoryRefForRow:(const TSKUIDStruct *)row forAggregate:(id)aggregate
 {
   aggregateCopy = aggregate;
-  v35 = 0;
-  v10 = objc_msgSend_groupByForColumnGroups(self, v6, v7, v8, v9, 0, 0, 0, 0);
-  objc_msgSend_topLevelGroupUid(v10, v11, v12, v13, v14);
+  v28 = 0;
+  v9 = objc_msgSend_groupByForColumnGroups(self, v6, v7, v8, 0, 0, 0, 0);
+  objc_msgSend_topLevelGroupUid(v9, v10, v11, v12);
   TSKMakeUIDStructCoord();
 
-  v21 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, v15, &v34, &v35, v16);
+  v17 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, v13, &v27, &v28);
   if (aggregateCopy)
   {
-    v22 = objc_msgSend_columnUid(aggregateCopy, v17, v18, v19, v20);
-    objc_msgSend_setColumnUid_(v21, v23, v22, v23, v24);
-    v29 = objc_msgSend_aggregateType(aggregateCopy, v25, v26, v27, v28);
-    objc_msgSend_setType_(v21, v30, v29, v31, v32);
+    v18 = objc_msgSend_columnUid(aggregateCopy, v14, v15, v16);
+    objc_msgSend_setColumnUid_(v17, v19, v18, v19);
+    v23 = objc_msgSend_aggregateType(aggregateCopy, v20, v21, v22);
+    objc_msgSend_setType_(v17, v24, v23, v25);
   }
 
-  return v21;
+  return v17;
 }
 
 - (id)percentParentDenominatorCategoryRefFor:(id)for inGroupBy:(id)by forAggregate:(id)aggregate forShowAsType:(unsigned __int8)type
@@ -2773,59 +2779,59 @@ LABEL_6:
   aggregateCopy = aggregate;
   if ((typeCopy & 0xFE) != 4)
   {
-    v17 = MEMORY[0x277D81150];
-    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTGroupBySet percentParentDenominatorCategoryRefFor:inGroupBy:forAggregate:forShowAsType:]", v14, v15);
-    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v20, v21);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v23, v18, v22, 1409, 0, "Only expecting these two showAsTypes, got: %d", typeCopy);
+    v16 = MEMORY[0x277D81150];
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTGroupBySet percentParentDenominatorCategoryRefFor:inGroupBy:forAggregate:forShowAsType:]", v14);
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v19);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v21, v17, v20, 1409, 0, "Only expecting these two showAsTypes, got: %d", typeCopy);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23, v24);
   }
 
-  v28 = objc_msgSend_ownerIndex(byCopy, v12, v13, v14, v15);
-  objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v29, v28, v30, v31);
-  if (objc_msgSend_groupLevel(forCopy, v32, v33, v34, v35) < ((v68 - __p) >> 3))
+  v25 = objc_msgSend_ownerIndex(byCopy, v12, v13, v14);
+  objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v26, v25, v27);
+  if (objc_msgSend_groupLevel(forCopy, v28, v29, v30) < ((v60 - __p) >> 3))
   {
-    v40 = objc_msgSend_groupLevel(forCopy, v36, v37, v38, v39);
-    sub_2211576E4(&__p, v40);
+    v34 = objc_msgSend_groupLevel(forCopy, v31, v32, v33);
+    sub_2211576E4(&__p, v34);
   }
 
-  v41 = objc_msgSend_count(self->_columnGroupings, v36, v37, v38, v39);
-  v46 = v41;
+  v35 = objc_msgSend_count(self->_columnGroupings, v31, v32, v33);
+  v39 = v35;
   if (typeCopy != 4)
   {
-    if (objc_msgSend_count(self->_rowGroupings, v42, v43, v44, v45))
+    if (objc_msgSend_count(self->_rowGroupings, v36, v37, v38))
     {
-      v52 = __p;
-      if (__p != v68)
+      v45 = __p;
+      if (__p != v60)
       {
-        v48 = 0x7FFFFFFFFFFFFFFFLL;
+        v41 = 0x7FFFFFFFFFFFFFFFLL;
         do
         {
-          v54 = *v52++;
-          v53 = v54;
-          if (v48 <= v54)
+          v47 = *v45++;
+          v46 = v47;
+          if (v41 <= v47)
           {
-            v55 = v53;
+            v48 = v46;
           }
 
           else
           {
-            v55 = v48;
+            v48 = v41;
           }
 
-          if (v48 == 0x7FFFFFFFFFFFFFFFLL)
+          if (v41 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v55 = v53;
+            v48 = v46;
           }
 
-          if (v53 >= v46)
+          if (v46 >= v39)
           {
-            v48 = v55;
+            v41 = v48;
           }
         }
 
-        while (v52 != v68);
-        if (v48 != 0x7FFFFFFFFFFFFFFFLL)
+        while (v45 != v60);
+        if (v41 != 0x7FFFFFFFFFFFFFFFLL)
         {
           goto LABEL_37;
         }
@@ -2833,80 +2839,80 @@ LABEL_6:
     }
 
 LABEL_31:
-    v56 = 0;
+    v49 = 0;
+    v50 = 0;
     v57 = 0;
-    v65 = 0;
-    v66 = 0;
+    v58 = 0;
     goto LABEL_32;
   }
 
-  if (!v41)
+  if (!v35)
   {
     goto LABEL_31;
   }
 
-  v47 = __p;
-  if (__p == v68)
+  v40 = __p;
+  if (__p == v60)
   {
     goto LABEL_31;
   }
 
-  v48 = 0x7FFFFFFFFFFFFFFFLL;
+  v41 = 0x7FFFFFFFFFFFFFFFLL;
   do
   {
-    v50 = *v47++;
-    v49 = v50;
-    if (v48 <= v50)
+    v43 = *v40++;
+    v42 = v43;
+    if (v41 <= v43)
     {
-      v51 = v49;
+      v44 = v42;
     }
 
     else
     {
-      v51 = v48;
+      v44 = v41;
     }
 
-    if (v48 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v41 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v51 = v49;
+      v44 = v42;
     }
 
-    if (v49 < v41)
+    if (v42 < v35)
     {
-      v48 = v51;
+      v41 = v44;
     }
   }
 
-  while (v47 != v68);
-  if (v48 == 0x7FFFFFFFFFFFFFFFLL)
+  while (v40 != v60);
+  if (v41 == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_31;
   }
 
 LABEL_37:
-  v59 = objc_msgSend_groupingColumnForIndex_(self, v42, v48, v44, v45);
-  v56 = v59;
-  v65 = 0;
-  v66 = 0;
-  if (v59 && (v65 = objc_msgSend_columnUid(v59, v60, v61, v62, v63), v66 = v64, v65 | v64))
+  v52 = objc_msgSend_groupingColumnForIndex_(self, v36, v41, v38);
+  v49 = v52;
+  v57 = 0;
+  v58 = 0;
+  if (v52 && (v57 = objc_msgSend_columnUid(v52, v53, v54, v55), v58 = v56, v57 | v56))
   {
-    v57 = objc_msgSend_percentRunningDenominatorCategoryRefFor_inGroupBy_runningOnColumnUid_forAggregate_(self, v64, forCopy, byCopy, &v65, aggregateCopy);
+    v50 = objc_msgSend_percentRunningDenominatorCategoryRefFor_inGroupBy_runningOnColumnUid_forAggregate_(self, v56, forCopy, byCopy, &v57, aggregateCopy);
   }
 
   else
   {
-    v57 = 0;
+    v50 = 0;
   }
 
 LABEL_32:
 
   if (__p)
   {
-    v68 = __p;
+    v60 = __p;
     operator delete(__p);
   }
 
-  return v57;
+  return v50;
 }
 
 - (id)percentRunningDenominatorCategoryRefFor:(id)for inGroupBy:(id)by runningOnColumnUid:(const TSKUIDStruct *)uid forAggregate:(id)aggregate
@@ -2914,126 +2920,126 @@ LABEL_32:
   forCopy = for;
   byCopy = by;
   aggregateCopy = aggregate;
-  v20 = objc_msgSend_groupingIndexForColumnUID_(self, v13, uid, v14, v15);
-  if (v20 == 0x7FFFFFFFFFFFFFFFLL)
+  v18 = objc_msgSend_groupingIndexForColumnUID_(self, v13, uid, v14);
+  if (v18 == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v21 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v84 = aggregateCopy;
-    v85 = byCopy;
-    v22 = objc_msgSend_groupValueTuple(forCopy, v16, v17, v18, v19);
-    v27 = objc_msgSend_ownerIndex(byCopy, v23, v24, v25, v26);
-    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v28, v27, v29, v30);
-    if (objc_msgSend_groupLevel(forCopy, v31, v32, v33, v34) < (v93 - v92))
+    v71 = aggregateCopy;
+    v72 = byCopy;
+    v20 = objc_msgSend_groupValueTuple(forCopy, v15, v16, v17);
+    v24 = objc_msgSend_ownerIndex(byCopy, v21, v22, v23);
+    objc_msgSend_groupColumnIndexesForOwnerIndex_(self, v25, v24, v26);
+    if (objc_msgSend_groupLevel(forCopy, v27, v28, v29) < (v80 - v79))
     {
-      v39 = objc_msgSend_groupLevel(forCopy, v35, v36, v37, v38);
-      sub_2211576E4(&v92, v39);
+      v33 = objc_msgSend_groupLevel(forCopy, v30, v31, v32);
+      sub_2211576E4(&v79, v33);
     }
 
-    memset(v90, 0, sizeof(v90));
-    v91 = 1065353216;
-    v40 = v92;
-    v41 = v93;
-    if (v92 != v93)
+    memset(v77, 0, sizeof(v77));
+    v78 = 1065353216;
+    v34 = v79;
+    v35 = v80;
+    if (v79 != v80)
     {
-      v42 = 1;
+      v36 = 1;
       do
       {
-        v88[0] = *v40;
-        v43 = objc_msgSend_groupValueAtLevel_(v22, v35, v42, v37, v38);
-        if (v43 && v88[0] != v20)
+        v75[0] = *v34;
+        v37 = objc_msgSend_groupValueAtLevel_(v20, v30, v36, v32);
+        if (v37 && v75[0] != v18)
         {
-          *&v89 = v88;
-          v44 = sub_22115A450(v90, v88);
-          objc_storeStrong(v44 + 3, v43);
+          *&v76 = v75;
+          v38 = sub_22115A450(v77, v75, &unk_2217E0517, &v76);
+          objc_storeStrong(v38 + 3, v37);
         }
 
-        ++v42;
+        ++v36;
 
-        ++v40;
+        ++v34;
       }
 
-      while (v40 != v41);
+      while (v34 != v35);
     }
 
-    TSUIndexSet::TSUIndexSet(&v89);
-    v48 = v92;
-    v49 = v93;
-    if (v92 == v93)
+    TSUIndexSet::TSUIndexSet(&v76);
+    v41 = v79;
+    v42 = v80;
+    if (v79 == v80)
     {
-      v50 = 0;
+      v43 = 0;
     }
 
     else
     {
-      v50 = 0;
+      v43 = 0;
       do
       {
-        v45 = *v48;
-        if (*v48 == v20)
+        v39 = *v41;
+        if (*v41 == v18)
         {
-          v50 = 1;
+          v43 = 1;
         }
 
         else
         {
-          TSUIndexSet::addIndex(&v89);
+          TSUIndexSet::addIndex(&v76);
         }
 
-        ++v48;
+        ++v41;
       }
 
-      while (v48 != v49);
+      while (v41 != v42);
     }
 
-    v52 = objc_msgSend_ownerIndexForGroupingCombination_(self, v45, &v89, v46, v47);
-    aggregateCopy = v84;
-    if ((v50 & (v52 != 0)) != 0)
+    v45 = objc_msgSend_ownerIndexForGroupingCombination_(self, v39, &v76, v40);
+    aggregateCopy = v71;
+    if ((v43 & (v45 != 0)) != 0)
     {
-      byCopy = v85;
-      v54 = objc_msgSend_groupByForOwnerIndex_createIfMissing_(self, v51, v52, 1, v53);
-      v55 = TSUIndexSet::count(&v89);
-      v57 = objc_msgSend_findExistingGroupNodeInGroupBy_usingValues_upToLevel_coerceForDateFields_(self, v56, v54, v90, v55, 0);
-      if (v57)
+      byCopy = v72;
+      v46 = objc_msgSend_groupByForOwnerIndex_createIfMissing_(self, v44, v45, 1);
+      v47 = TSUIndexSet::count(&v76);
+      v49 = objc_msgSend_findExistingGroupNodeInGroupBy_usingValues_upToLevel_coerceForDateFields_(self, v48, v46, v77, v47, 0);
+      if (v49)
       {
-        v58 = [TSCECategoryRef alloc];
-        v88[0] = objc_msgSend_groupByUid(v54, v59, v60, v61, v62);
-        v88[1] = v63;
-        v87[0] = objc_msgSend_groupUid(v57, v63, v64, v65, v66);
-        v87[1] = v67;
-        v86[0] = objc_msgSend_columnUid(v84, v67, v68, v69, v70);
-        v86[1] = v71;
-        v75 = objc_msgSend_aggregateType(v84, v71, v72, v73, v74);
-        v80 = objc_msgSend_groupLevel(v57, v76, v77, v78, v79);
-        v82 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v58, v81, v88, v87, v86, v75, v80);
+        v50 = [TSCECategoryRef alloc];
+        v75[0] = objc_msgSend_groupByUid(v46, v51, v52, v53);
+        v75[1] = v54;
+        v74[0] = objc_msgSend_groupUid(v49, v54, v55, v56);
+        v74[1] = v57;
+        v73[0] = objc_msgSend_columnUid(v71, v57, v58, v59);
+        v73[1] = v60;
+        v63 = objc_msgSend_aggregateType(v71, v60, v61, v62);
+        v67 = objc_msgSend_groupLevel(v49, v64, v65, v66);
+        v69 = objc_msgSend_initWithGroupByUID_absGroupUid_columnUid_aggType_groupLevel_(v50, v68, v75, v74, v73, v63, v67);
       }
 
       else
       {
-        v82 = 0;
+        v69 = 0;
       }
     }
 
     else
     {
-      v82 = 0;
-      byCopy = v85;
+      v69 = 0;
+      byCopy = v72;
     }
 
-    v21 = v82;
-    TSUIndexSet::~TSUIndexSet(&v89);
-    sub_221087B80(v90);
-    if (v92)
+    v19 = v69;
+    TSUIndexSet::~TSUIndexSet(&v76);
+    sub_221087B80(v77);
+    if (v79)
     {
-      v93 = v92;
-      operator delete(v92);
+      v80 = v79;
+      operator delete(v79);
     }
   }
 
-  return v21;
+  return v19;
 }
 
 - (id)restrictColumnIndexes:(id)indexes toColumnGroupLevel:(unsigned __int8)level forPivotTable:(id)table
@@ -3042,44 +3048,44 @@ LABEL_32:
   indexesCopy = indexes;
   tableCopy = table;
   v10 = indexesCopy;
-  if ((objc_msgSend_isAPivotTable(tableCopy, v11, v12, v13, v14) & 1) == 0)
+  if ((objc_msgSend_isAPivotTable(tableCopy, v11, v12, v13) & 1) == 0)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTGroupBySet restrictColumnIndexes:toColumnGroupLevel:forPivotTable:]", v17, v18);
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v22, v23);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v24, 1549, 0, "Only expected this call with pivotTableInfo");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "[TSTGroupBySet restrictColumnIndexes:toColumnGroupLevel:forPivotTable:]", v16);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v20);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 1549, 0, "Only expected this call with pivotTableInfo");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
   }
 
-  v30 = v10;
+  v26 = v10;
   if (levelCopy != 255)
   {
     if (levelCopy == 253)
     {
-      LOBYTE(levelCopy) = objc_msgSend_numberOfColumnLevels(tableCopy, v15, v16, v17, v18);
+      LOBYTE(levelCopy) = objc_msgSend_numberOfColumnLevels(tableCopy, v14, v15, v16);
     }
 
-    v31 = objc_opt_new();
-    v48 = MEMORY[0x277D85DD0];
-    v49 = 3221225472;
-    v50 = sub_221157CEC;
-    v51 = &unk_27845FB60;
-    v52 = tableCopy;
+    v27 = objc_opt_new();
+    v40 = MEMORY[0x277D85DD0];
+    v41 = 3221225472;
+    v42 = sub_221157CEC;
+    v43 = &unk_27845FB60;
+    v44 = tableCopy;
     selfCopy = self;
-    v55 = levelCopy;
-    v32 = v31;
-    v54 = v32;
-    objc_msgSend_enumerateIndexesUsingBlock_(v10, v33, &v48, v34, v35);
-    v30 = v10;
-    if (objc_msgSend_count(v32, v36, v37, v38, v39, v48, v49, v50, v51))
+    v47 = levelCopy;
+    v28 = v27;
+    v46 = v28;
+    objc_msgSend_enumerateIndexesUsingBlock_(v10, v29, &v40, v30);
+    v26 = v10;
+    if (objc_msgSend_count(v28, v31, v32, v33, v40, v41, v42, v43))
     {
-      v30 = objc_msgSend_mutableCopy(v10, v40, v41, v42, v43);
-      objc_msgSend_removeIndexes_(v30, v44, v32, v45, v46);
+      v26 = objc_msgSend_mutableCopy(v10, v34, v35, v36);
+      objc_msgSend_removeIndexes_(v26, v37, v28, v38);
     }
   }
 
-  return v30;
+  return v26;
 }
 
 - (id)restrictRowIndexes:(id)indexes toRowGroupLevel:(unsigned __int8)level forPivotTable:(id)table
@@ -3087,35 +3093,35 @@ LABEL_32:
   levelCopy = level;
   indexesCopy = indexes;
   tableCopy = table;
-  v14 = indexesCopy;
-  v15 = v14;
+  v13 = indexesCopy;
+  v14 = v13;
   if (levelCopy != 255)
   {
     if (levelCopy == 253)
     {
-      LOBYTE(levelCopy) = objc_msgSend_numberOfRowLevels(tableCopy, v10, v11, v12, v13);
+      LOBYTE(levelCopy) = objc_msgSend_numberOfRowLevels(tableCopy, v10, v11, v12);
     }
 
-    v16 = objc_opt_new();
-    v33 = MEMORY[0x277D85DD0];
-    v34 = 3221225472;
-    v35 = sub_221157EE0;
-    v36 = &unk_27845FB60;
-    v37 = tableCopy;
+    v15 = objc_opt_new();
+    v28 = MEMORY[0x277D85DD0];
+    v29 = 3221225472;
+    v30 = sub_221157EE0;
+    v31 = &unk_27845FB60;
+    v32 = tableCopy;
     selfCopy = self;
-    v40 = levelCopy;
-    v17 = v16;
-    v39 = v17;
-    objc_msgSend_enumerateIndexesUsingBlock_(v14, v18, &v33, v19, v20);
-    v15 = v14;
-    if (objc_msgSend_count(v17, v21, v22, v23, v24, v33, v34, v35, v36))
+    v35 = levelCopy;
+    v16 = v15;
+    v34 = v16;
+    objc_msgSend_enumerateIndexesUsingBlock_(v13, v17, &v28, v18);
+    v14 = v13;
+    if (objc_msgSend_count(v16, v19, v20, v21, v28, v29, v30, v31))
     {
-      v15 = objc_msgSend_mutableCopy(v14, v25, v26, v27, v28);
-      objc_msgSend_removeIndexes_(v15, v29, v17, v30, v31);
+      v14 = objc_msgSend_mutableCopy(v13, v22, v23, v24);
+      objc_msgSend_removeIndexes_(v14, v25, v16, v26);
     }
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)restrictColumnIndexes:(id)indexes forAggrIndexLevel:(unsigned __int16)level forPivotTable:(id)table
@@ -3123,35 +3129,35 @@ LABEL_32:
   levelCopy = level;
   indexesCopy = indexes;
   tableCopy = table;
-  v14 = indexesCopy;
-  v15 = v14;
+  v13 = indexesCopy;
+  v14 = v13;
   if (levelCopy != 0xFFFF)
   {
-    v15 = v14;
-    if (objc_msgSend_flatteningDimension(self, v10, v11, v12, v13) == 1)
+    v14 = v13;
+    if (objc_msgSend_flatteningDimension(self, v10, v11, v12) == 1)
     {
-      v16 = objc_opt_new();
-      v21 = objc_msgSend_translator(tableCopy, v17, v18, v19, v20);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = sub_2211580F8;
-      v39[3] = &unk_27845FB88;
-      v22 = v21;
-      v40 = v22;
-      v42 = levelCopy;
-      v23 = v16;
-      v41 = v23;
-      objc_msgSend_enumerateIndexesUsingBlock_(v14, v24, v39, v25, v26);
-      v15 = v14;
-      if (objc_msgSend_count(v23, v27, v28, v29, v30))
+      v15 = objc_opt_new();
+      v19 = objc_msgSend_translator(tableCopy, v16, v17, v18);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = sub_2211580F8;
+      v33[3] = &unk_27845FB88;
+      v20 = v19;
+      v34 = v20;
+      v36 = levelCopy;
+      v21 = v15;
+      v35 = v21;
+      objc_msgSend_enumerateIndexesUsingBlock_(v13, v22, v33, v23);
+      v14 = v13;
+      if (objc_msgSend_count(v21, v24, v25, v26))
       {
-        v15 = objc_msgSend_mutableCopy(v14, v31, v32, v33, v34);
-        objc_msgSend_removeIndexes_(v15, v35, v23, v36, v37);
+        v14 = objc_msgSend_mutableCopy(v13, v27, v28, v29);
+        objc_msgSend_removeIndexes_(v14, v30, v21, v31);
       }
     }
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)restrictRowIndexes:(id)indexes forAggrIndexLevel:(unsigned __int16)level forPivotTable:(id)table
@@ -3159,56 +3165,56 @@ LABEL_32:
   levelCopy = level;
   indexesCopy = indexes;
   tableCopy = table;
-  v14 = indexesCopy;
-  v15 = v14;
+  v13 = indexesCopy;
+  v14 = v13;
   if (levelCopy != 0xFFFF)
   {
-    v15 = v14;
-    if (!objc_msgSend_flatteningDimension(self, v10, v11, v12, v13))
+    v14 = v13;
+    if (!objc_msgSend_flatteningDimension(self, v10, v11, v12))
     {
-      v16 = objc_opt_new();
-      v21 = objc_msgSend_translator(tableCopy, v17, v18, v19, v20);
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = sub_22115830C;
-      v39[3] = &unk_27845FB88;
-      v22 = v21;
-      v40 = v22;
-      v42 = levelCopy;
-      v23 = v16;
-      v41 = v23;
-      objc_msgSend_enumerateIndexesUsingBlock_(v14, v24, v39, v25, v26);
-      v15 = v14;
-      if (objc_msgSend_count(v23, v27, v28, v29, v30))
+      v15 = objc_opt_new();
+      v19 = objc_msgSend_translator(tableCopy, v16, v17, v18);
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = sub_22115830C;
+      v33[3] = &unk_27845FB88;
+      v20 = v19;
+      v34 = v20;
+      v36 = levelCopy;
+      v21 = v15;
+      v35 = v21;
+      objc_msgSend_enumerateIndexesUsingBlock_(v13, v22, v33, v23);
+      v14 = v13;
+      if (objc_msgSend_count(v21, v24, v25, v26))
       {
-        v15 = objc_msgSend_mutableCopy(v14, v31, v32, v33, v34);
-        objc_msgSend_removeIndexes_(v15, v35, v23, v36, v37);
+        v14 = objc_msgSend_mutableCopy(v13, v27, v28, v29);
+        objc_msgSend_removeIndexes_(v14, v30, v21, v31);
       }
     }
   }
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)hasUnfilteredAt:(const TSKUIDStruct *)at forDimension:(int64_t)dimension
 {
   if (dimension)
   {
-    v7 = objc_msgSend_groupByForColumnGroups(self, a2, at, dimension, v4);
-    v10 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v8, at, 0, v9);
+    v6 = objc_msgSend_groupByForColumnGroups(self, a2, at, dimension);
+    v8 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v7, at, 0);
   }
 
   else
   {
-    v7 = objc_msgSend_groupByForRowGroups(self, a2, at, 0, v4);
-    v10 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v13, at, 0, v14);
+    v6 = objc_msgSend_groupByForRowGroups(self, a2, at, 0);
+    v8 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v10, at, 0);
   }
 
-  v15 = objc_msgSend_groupNodeForGroupUid_(v7, v11, v10, v11, v12);
-  v20 = v15;
-  if (v15)
+  v11 = objc_msgSend_groupNodeForGroupUid_(v6, v9, v8, v9);
+  v15 = v11;
+  if (v11)
   {
-    hasUnfilteredRows = objc_msgSend_hasUnfilteredRows(v15, v16, v17, v18, v19);
+    hasUnfilteredRows = objc_msgSend_hasUnfilteredRows(v11, v12, v13, v14);
   }
 
   else
@@ -3223,42 +3229,42 @@ LABEL_32:
 {
   if (dimension)
   {
-    v7 = objc_msgSend_groupByForColumnGroups(self, a2, at, dimension, v4);
-    v10 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v8, at, 0, v9);
+    v6 = objc_msgSend_groupByForColumnGroups(self, a2, at, dimension);
+    v8 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v7, at, 0);
   }
 
   else
   {
-    v7 = objc_msgSend_groupByForRowGroups(self, a2, at, 0, v4);
-    v10 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v13, at, 0, v14);
+    v6 = objc_msgSend_groupByForRowGroups(self, a2, at, 0);
+    v8 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v10, at, 0);
   }
 
-  v19 = objc_msgSend_groupNodeForGroupUid_(v7, v11, v10, v11, v12);
-  if (v19)
+  v14 = objc_msgSend_groupNodeForGroupUid_(v6, v9, v8, v9);
+  if (v14)
   {
-    v20 = objc_msgSend_anyAggregator(v7, v15, v16, v17, v18, 0, 0);
-    v25 = v20;
-    if (v20)
+    v15 = objc_msgSend_anyAggregator(v6, v11, v12, v13, 0, 0);
+    v19 = v15;
+    if (v15)
     {
-      v28[0] = objc_msgSend_columnUid(v20, v21, v22, v23, v24);
-      v28[1] = v21;
+      v22[0] = objc_msgSend_columnUid(v15, v16, v17, v18);
+      v22[1] = v16;
     }
 
-    v26 = objc_msgSend_aggregateRefForType_atLevel_forColumnUid_(v19, v21, 1, 0, v28);
+    v20 = objc_msgSend_aggregateRefForType_atLevel_forColumnUid_(v14, v16, 1, 0, v22);
   }
 
   else
   {
-    v26 = 0;
+    v20 = 0;
   }
 
-  return v26;
+  return v20;
 }
 
 - (void)getPivotHidingIndexesForGroupingColumn:(const TSKUIDStruct *)column columns:(id)columns rows:(id)rows forHiding:(BOOL)hiding forPivotTable:(id)table
 {
   hidingCopy = hiding;
-  v88 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   columnsCopy = columns;
   rowsCopy = rows;
   tableCopy = table;
@@ -3267,41 +3273,41 @@ LABEL_32:
     goto LABEL_40;
   }
 
-  v70 = tableCopy;
-  v17 = objc_msgSend_groupingColumns(self->_columnGroupings, v12, v13, v14, v15);
-  v71 = objc_msgSend_groupingColumns(self->_rowGroupings, v18, v19, v20, v21);
-  v69 = hidingCopy;
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v22 = v17;
-  v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v82, v87, 16);
-  if (v28)
+  v60 = tableCopy;
+  v16 = objc_msgSend_groupingColumns(self->_columnGroupings, v12, v13, v14);
+  v61 = objc_msgSend_groupingColumns(self->_rowGroupings, v17, v18, v19);
+  v59 = hidingCopy;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v20 = v16;
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v21, &v72, v77, 16);
+  if (v25)
   {
-    v29 = *v83;
-    v30 = 1;
+    v26 = *v73;
+    v27 = 1;
 LABEL_4:
-    v31 = 0;
-    v32 = v30;
-    v30 += v28;
+    v28 = 0;
+    v29 = v27;
+    v27 += v25;
     while (1)
     {
-      if (*v83 != v29)
+      if (*v73 != v26)
       {
-        objc_enumerationMutation(v22);
+        objc_enumerationMutation(v20);
       }
 
-      if (objc_msgSend_groupingColumnUid(*(*(&v82 + 1) + 8 * v31), v24, v25, v26, v27) == column->_lower && v24 == column->_upper)
+      if (objc_msgSend_groupingColumnUid(*(*(&v72 + 1) + 8 * v28), v22, v23, v24) == column->_lower && v22 == column->_upper)
       {
         break;
       }
 
-      ++v32;
-      if (v28 == ++v31)
+      ++v29;
+      if (v25 == ++v28)
       {
-        v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v24, &v82, v87, 16);
-        if (v28)
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v20, v22, &v72, v77, 16);
+        if (v25)
         {
           goto LABEL_4;
         }
@@ -3310,12 +3316,12 @@ LABEL_4:
       }
     }
 
-    if (v32 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v29 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_15;
     }
 
-    v49 = 1;
+    v44 = 1;
   }
 
   else
@@ -3323,40 +3329,40 @@ LABEL_4:
 LABEL_13:
 
 LABEL_15:
-    v80 = 0u;
-    v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    v38 = v71;
-    v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v78, v86, 16);
-    if (!v44)
+    v70 = 0u;
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v34 = v61;
+    v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v35, &v68, v76, 16);
+    if (!v39)
     {
       goto LABEL_38;
     }
 
-    v45 = *v79;
-    v46 = 1;
+    v40 = *v69;
+    v41 = 1;
 LABEL_17:
-    v47 = 0;
-    v32 = v46;
-    v46 += v44;
+    v42 = 0;
+    v29 = v41;
+    v41 += v39;
     while (1)
     {
-      if (*v79 != v45)
+      if (*v69 != v40)
       {
-        objc_enumerationMutation(v38);
+        objc_enumerationMutation(v34);
       }
 
-      if (objc_msgSend_groupingColumnUid(*(*(&v78 + 1) + 8 * v47), v40, v41, v42, v43) == column->_lower && v40 == column->_upper)
+      if (objc_msgSend_groupingColumnUid(*(*(&v68 + 1) + 8 * v42), v36, v37, v38) == column->_lower && v36 == column->_upper)
       {
         break;
       }
 
-      ++v32;
-      if (v44 == ++v47)
+      ++v29;
+      if (v39 == ++v42)
       {
-        v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v40, &v78, v86, 16);
-        if (v44)
+        v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(v34, v36, &v68, v76, 16);
+        if (v39)
         {
           goto LABEL_17;
         }
@@ -3365,76 +3371,76 @@ LABEL_17:
       }
     }
 
-    if (v32 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v29 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_39;
     }
 
-    v49 = 0;
+    v44 = 0;
   }
 
-  v54 = objc_msgSend_count(self->_aggregates, v34, v35, v36, v37);
-  if (v69)
+  v48 = objc_msgSend_count(self->_aggregates, v31, v32, v33);
+  if (v59)
   {
-    v38 = objc_msgSend_hiddenStates(v70, v50, v51, v52, v53);
-    if (!v49)
+    v34 = objc_msgSend_hiddenStates(v60, v45, v46, v47);
+    if (!v44)
     {
 LABEL_32:
-      if (objc_msgSend_count(self->_rowGroupings, v50, v51, v52, v53) <= v32)
+      if (objc_msgSend_count(self->_rowGroupings, v45, v46, v47) <= v29)
       {
         goto LABEL_38;
       }
 
-      v59 = objc_msgSend_groupByForRowGroups(self, v55, v56, v57, v58);
-      v60 = v74;
-      v74[0] = MEMORY[0x277D85DD0];
-      v74[1] = 3221225472;
-      v74[2] = sub_221158B64;
-      v74[3] = &unk_27845FBB0;
-      v74[4] = v70;
-      v75 = v69;
-      v74[5] = v38;
-      v74[6] = rowsCopy;
-      v74[7] = self;
-      v74[8] = v54;
-      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v59, v61, v32, v74, v62);
+      v52 = objc_msgSend_groupByForRowGroups(self, v49, v50, v51);
+      v53 = v64;
+      v64[0] = MEMORY[0x277D85DD0];
+      v64[1] = 3221225472;
+      v64[2] = sub_221158B64;
+      v64[3] = &unk_27845FBB0;
+      v64[4] = v60;
+      v65 = v59;
+      v64[5] = v34;
+      v64[6] = rowsCopy;
+      v64[7] = self;
+      v64[8] = v48;
+      objc_msgSend_enumerateGroupsAtLevel_withBlock_(v52, v54, v29, v64);
       goto LABEL_37;
     }
   }
 
   else
   {
-    v38 = 0;
-    if (!v49)
+    v34 = 0;
+    if (!v44)
     {
       goto LABEL_32;
     }
   }
 
-  if (objc_msgSend_count(self->_columnGroupings, v50, v51, v52, v53) <= v32)
+  if (objc_msgSend_count(self->_columnGroupings, v45, v46, v47) <= v29)
   {
     goto LABEL_38;
   }
 
-  v59 = objc_msgSend_groupByForColumnGroups(self, v63, v64, v65, v66);
-  v60 = v76;
-  v76[0] = MEMORY[0x277D85DD0];
-  v76[1] = 3221225472;
-  v76[2] = sub_221158A6C;
-  v76[3] = &unk_27845FBB0;
-  v76[4] = v70;
-  v77 = v69;
-  v76[5] = v38;
-  v76[6] = columnsCopy;
-  v76[7] = self;
-  v76[8] = v54;
-  objc_msgSend_enumerateGroupsAtLevel_withBlock_(v59, v67, v32, v76, v68);
+  v52 = objc_msgSend_groupByForColumnGroups(self, v55, v56, v57);
+  v53 = v66;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = sub_221158A6C;
+  v66[3] = &unk_27845FBB0;
+  v66[4] = v60;
+  v67 = v59;
+  v66[5] = v34;
+  v66[6] = columnsCopy;
+  v66[7] = self;
+  v66[8] = v48;
+  objc_msgSend_enumerateGroupsAtLevel_withBlock_(v52, v58, v29, v66);
 LABEL_37:
 
 LABEL_38:
 LABEL_39:
 
-  tableCopy = v70;
+  tableCopy = v60;
 LABEL_40:
 }
 
@@ -3446,54 +3452,54 @@ LABEL_40:
   activeFlatteningDimension = self->_activeFlatteningDimension;
   if (activeFlatteningDimension == 1)
   {
-    v15 = self->_aggregateUidList.__end_ - self->_aggregateUidList.__begin_;
+    v14 = self->_aggregateUidList.__end_ - self->_aggregateUidList.__begin_;
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
   if (activeFlatteningDimension)
   {
-    v16 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v16 = self->_aggregateUidList.__end_ - self->_aggregateUidList.__begin_;
+    v15 = self->_aggregateUidList.__end_ - self->_aggregateUidList.__begin_;
   }
 
-  v17 = objc_msgSend_groupByForColumnGroups(self, v9, v10, v11, v12);
-  v22 = objc_msgSend_topLevelGroupUid(v17, v18, v19, v20, v21);
-  v24 = v23;
+  v16 = objc_msgSend_groupByForColumnGroups(self, v9, v10, v11);
+  v20 = objc_msgSend_topLevelGroupUid(v16, v17, v18, v19);
+  v22 = v21;
 
-  v31 = objc_msgSend_columnIndexForColumnUID_(tableCopy, v25, v22, v24, v26);
-  if (v31 != 0x7FFF && v15)
+  v27 = objc_msgSend_columnIndexForColumnUID_(tableCopy, v23, v20, v22);
+  if (v27 != 0x7FFF && v14)
   {
     do
     {
-      objc_msgSend_addIndex_(columnsCopy, v27, v31++, v29, v30);
+      objc_msgSend_addIndex_(columnsCopy, v24, v27++, v26);
+      --v14;
+    }
+
+    while (v14);
+  }
+
+  v28 = objc_msgSend_groupByForRowGroups(self, v24, v25, v26);
+  v32 = objc_msgSend_topLevelGroupUid(v28, v29, v30, v31);
+  v34 = v33;
+
+  v38 = objc_msgSend_rowIndexForRowUID_(tableCopy, v35, v32, v34);
+  if (v38 != 0x7FFFFFFF && v15)
+  {
+    do
+    {
+      objc_msgSend_addIndex_(rowsCopy, v36, v38++, v37);
       --v15;
     }
 
     while (v15);
-  }
-
-  v32 = objc_msgSend_groupByForRowGroups(self, v27, v28, v29, v30);
-  v37 = objc_msgSend_topLevelGroupUid(v32, v33, v34, v35, v36);
-  v39 = v38;
-
-  v45 = objc_msgSend_rowIndexForRowUID_(tableCopy, v40, v37, v39, v41);
-  if (v45 != 0x7FFFFFFF && v16)
-  {
-    do
-    {
-      objc_msgSend_addIndex_(rowsCopy, v42, v45++, v43, v44);
-      --v16;
-    }
-
-    while (v16);
   }
 }
 
@@ -3501,147 +3507,147 @@ LABEL_40:
 {
   column = coord->_column;
   row = coord->_row;
-  v35 = column;
+  v28 = column;
   activeFlatteningDimension = self->_activeFlatteningDimension;
   if (activeFlatteningDimension)
   {
     if (activeFlatteningDimension == 1)
     {
-      p_row = &v35;
-      v35 = *(sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v35) + 2);
+      p_row = &v28;
+      v28 = *(sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &v28, &unk_2217E0517, &p_row) + 2);
     }
   }
 
   else
   {
     p_row = &row;
-    row = *(sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row) + 2);
+    row = *(sub_221159B34(&self->_groupAggregateUidUnflatteningMap.__table_.__bucket_list_.__ptr_, &row, &unk_2217E0517, &p_row) + 2);
   }
 
-  v8 = objc_msgSend_groupByForColumnGroups(self, a2, coord, v3, v4, row);
-  v11 = objc_msgSend_groupNodeForGroupUid_(v8, v9, v35._lower, v35._upper, v10);
+  v7 = objc_msgSend_groupByForColumnGroups(self, a2, coord, v3, row);
+  v9 = objc_msgSend_groupNodeForGroupUid_(v7, v8, v28._lower, v28._upper);
 
-  v16 = objc_msgSend_groupByForRowGroups(self, v12, v13, v14, v15);
-  v19 = objc_msgSend_groupNodeForGroupUid_(v16, v17, row._lower, row._upper, v18);
+  v13 = objc_msgSend_groupByForRowGroups(self, v10, v11, v12);
+  v15 = objc_msgSend_groupNodeForGroupUid_(v13, v14, row._lower, row._upper);
 
-  v24 = objc_msgSend_groupLevel(v11, v20, v21, v22, v23);
-  v29 = objc_msgSend_groupLevel(v19, v25, v26, v27, v28);
-  v32 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v30, v24, v29, v31);
+  v19 = objc_msgSend_groupLevel(v9, v16, v17, v18);
+  v23 = objc_msgSend_groupLevel(v15, v20, v21, v22);
+  v25 = objc_msgSend_groupByForColumnLevel_rowLevel_(self, v24, v19, v23);
 
-  return v32;
+  return v25;
 }
 
 - (id)groupNodeForUuidCoord:(const TSKUIDStructCoord *)coord
 {
-  v32 = 0;
-  v5 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, a2, coord, &v32, v3);
-  if (objc_msgSend_isValid(v5, v6, v7, v8, v9))
+  v26 = 0;
+  v4 = objc_msgSend_categoryRefForUidCoord_outShowAsType_(self, a2, coord, &v26);
+  if (objc_msgSend_isValid(v4, v5, v6, v7))
   {
-    v14 = objc_msgSend_groupByUid(v5, v10, v11, v12, v13);
-    v16 = v15;
-    v20 = objc_msgSend_calcEngine(self, v15, v17, v18, v19);
-    v22 = objc_msgSend_groupByForUID_withCalcEngine_(TSTGroupBy, v21, v14, v16, v20);
+    v11 = objc_msgSend_groupByUid(v4, v8, v9, v10);
+    v13 = v12;
+    v16 = objc_msgSend_calcEngine(self, v12, v14, v15);
+    v18 = objc_msgSend_groupByForUID_withCalcEngine_(TSTGroupBy, v17, v11, v13, v16);
 
-    v27 = objc_msgSend_absoluteGroupUid(v5, v23, v24, v25, v26);
-    v30 = objc_msgSend_groupNodeForGroupUid_(v22, v28, v27, v28, v29);
+    v22 = objc_msgSend_absoluteGroupUid(v4, v19, v20, v21);
+    v24 = objc_msgSend_groupNodeForGroupUid_(v18, v23, v22, v23);
   }
 
   else
   {
-    v30 = 0;
+    v24 = 0;
   }
 
-  return v30;
+  return v24;
 }
 
 - (id)groupValueTupleForUuidCoord:(const TSKUIDStructCoord *)coord createIfMissing:(BOOL)missing
 {
   missingCopy = missing;
-  v8 = objc_msgSend_groupNodeForUuidCoord_(self, a2, coord, missing, v4);
-  v13 = v8;
-  if (v8)
+  v7 = objc_msgSend_groupNodeForUuidCoord_(self, a2, coord, missing);
+  v11 = v7;
+  if (v7)
   {
-    v14 = objc_msgSend_groupValueTuple(v8, v9, v10, v11, v12);
+    v12 = objc_msgSend_groupValueTuple(v7, v8, v9, v10);
     goto LABEL_17;
   }
 
   if (!missingCopy)
   {
-    v14 = 0;
+    v12 = 0;
     goto LABEL_17;
   }
 
-  v18 = objc_msgSend_groupByForUuidCoord_(self, v9, coord, v11, v12);
-  if (v18)
+  v15 = objc_msgSend_groupByForUuidCoord_(self, v8, coord, v10);
+  if (v15)
   {
-    v19 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v15, &coord->_row, 0, v17);
-    v21 = v20;
-    v25 = objc_msgSend_groupByForRowGroups(self, v20, v22, v23, v24);
-    v28 = objc_msgSend_groupNodeForGroupUid_(v25, v26, v19, v21, v27);
+    v16 = objc_msgSend_rowGroupUidForRowUid_outAggregateIndex_(self, v13, &coord->_row, 0);
+    v18 = v17;
+    v21 = objc_msgSend_groupByForRowGroups(self, v17, v19, v20);
+    v23 = objc_msgSend_groupNodeForGroupUid_(v21, v22, v16, v18);
 
-    v31 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v29, coord, 0, v30);
-    v33 = v32;
-    v37 = objc_msgSend_groupByForColumnGroups(self, v32, v34, v35, v36);
-    v40 = objc_msgSend_groupNodeForGroupUid_(v37, v38, v31, v33, v39);
+    v25 = objc_msgSend_columnGroupUidForColumnUid_outAggregateIndex_(self, v24, coord, 0);
+    v27 = v26;
+    v30 = objc_msgSend_groupByForColumnGroups(self, v26, v28, v29);
+    v32 = objc_msgSend_groupNodeForGroupUid_(v30, v31, v25, v27);
 
-    if (!(v28 | v40))
+    if (!(v23 | v32))
     {
-      v45 = MEMORY[0x277D81150];
-      v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSTGroupBySet groupValueTupleForUuidCoord:createIfMissing:]", v43, v44);
-      v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v48, v49);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v51, v46, v50, 1881, 0, "Couldn't locate rowGroupNode or columnGroupNode");
+      v36 = MEMORY[0x277D81150];
+      v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v33, "[TSTGroupBySet groupValueTupleForUuidCoord:createIfMissing:]", v35);
+      v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v39);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v36, v41, v37, v40, 1881, 0, "Couldn't locate rowGroupNode or columnGroupNode");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53, v54, v55);
-      v14 = 0;
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v42, v43, v44);
+      v12 = 0;
 LABEL_15:
 
       goto LABEL_16;
     }
 
-    if (v40)
+    if (v32)
     {
-      if (v28)
+      if (v23)
       {
-        v67 = objc_msgSend_groupValueTuple(v28, v41, v42, v43, v44);
-        v72 = objc_msgSend_groupValueTuple(v40, v68, v69, v70, v71);
-        v14 = objc_msgSend_groupValueTupleByAppendingTuple_(v72, v73, v67, v74, v75);
+        v54 = objc_msgSend_groupValueTuple(v23, v33, v34, v35);
+        v58 = objc_msgSend_groupValueTuple(v32, v55, v56, v57);
+        v12 = objc_msgSend_groupValueTupleByAppendingTuple_(v58, v59, v54, v60);
 
         goto LABEL_15;
       }
 
-      v76 = objc_msgSend_groupValueTuple(v40, v41, v42, v43, v44);
+      v61 = objc_msgSend_groupValueTuple(v32, v33, v34, v35);
     }
 
     else
     {
-      v76 = objc_msgSend_groupValueTuple(v28, v41, v42, v43, v44);
+      v61 = objc_msgSend_groupValueTuple(v23, v33, v34, v35);
     }
 
-    v14 = v76;
+    v12 = v61;
     goto LABEL_15;
   }
 
-  v56 = MEMORY[0x277D81150];
-  v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSTGroupBySet groupValueTupleForUuidCoord:createIfMissing:]", v16, v17);
-  v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v59, v60);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v62, v57, v61, 1894, 0, "Need a groupBy for this coordinate - why didn't you help?");
+  v45 = MEMORY[0x277D81150];
+  v46 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "[TSTGroupBySet groupValueTupleForUuidCoord:createIfMissing:]", v14);
+  v49 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTGroupBySet.mm", v48);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v45, v50, v46, v49, 1894, 0, "Need a groupBy for this coordinate - why didn't you help?");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65, v66);
-  v14 = 0;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v51, v52, v53);
+  v12 = 0;
 LABEL_16:
 
 LABEL_17:
 
-  return v14;
+  return v12;
 }
 
 - (id)duplicateFilterSet
 {
   filterSet = self->_filterSet;
-  v6 = objc_msgSend_context(filterSet, a2, v2, v3, v4);
-  v10 = objc_msgSend_copyWithContext_(filterSet, v7, v6, v8, v9);
+  v5 = objc_msgSend_context(filterSet, a2, v2, v3);
+  v8 = objc_msgSend_copyWithContext_(filterSet, v6, v5, v7);
 
-  return v10;
+  return v8;
 }
 
 - (TSKUIDStruct)pivotTableUID

@@ -672,7 +672,7 @@ LABEL_8:
 LABEL_9:
 }
 
-uint64_t __69__PKTransactionSupportTopicsViewController_openBusinessChatForTopic___block_invoke_2(uint64_t a1)
+void *__69__PKTransactionSupportTopicsViewController_openBusinessChatForTopic___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _openBusinessChatForTopic:*(a1 + 40)];
   *(*(a1 + 32) + 1408) = 0;

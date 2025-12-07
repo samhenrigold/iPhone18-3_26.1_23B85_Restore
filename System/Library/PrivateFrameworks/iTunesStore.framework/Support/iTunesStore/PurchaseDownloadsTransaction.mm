@@ -240,33 +240,33 @@
   queryCopy = query;
   downloadsCopy = downloads;
   dCopy = d;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 1;
-  v30 = queryCopy;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 1;
+  v29 = queryCopy;
   copyEntityIdentifiers = [queryCopy copyEntityIdentifiers];
   v11 = objc_alloc_init(NSMutableArray);
   v12 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(downloadsCopy, "count")}];
   v13 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(downloadsCopy, "count")}];
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_100222090;
-  v32[3] = &unk_10032CB70;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100222090;
+  v31[3] = &unk_10032CB70;
   v14 = dCopy;
-  v33 = v14;
+  v32 = v14;
   selfCopy = self;
   v15 = v12;
-  v35 = v15;
+  v34 = v15;
   v16 = v13;
-  v36 = v16;
-  v39 = &v40;
+  v35 = v16;
+  v38 = &v39;
   v17 = v11;
-  v37 = v17;
+  v36 = v17;
   v18 = copyEntityIdentifiers;
-  v38 = v18;
-  [downloadsCopy enumerateObjectsUsingBlock:v32];
-  if (*(v41 + 24) == 1 && [v18 count])
+  v37 = v18;
+  [downloadsCopy enumerateObjectsUsingBlock:v31];
+  if (*(v40 + 24) == 1 && [v18 count])
   {
     v19 = +[SSLogConfig sharedDaemonConfig];
     if (!v19)
@@ -274,61 +274,65 @@
       v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v19 shouldLog];
+    LODWORD(v20) = [v19 shouldLog];
     shouldLogToDisk = [v19 shouldLogToDisk];
     oSLogObject = [v19 OSLogObject];
     v23 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v20) = v20 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v20 = v20;
     }
 
-    if (shouldLog)
+    else
+    {
+      v20 &= 2u;
+    }
+
+    if (v20)
     {
       v24 = objc_opt_class();
       v25 = [v18 count];
-      v44 = 138412546;
-      v45 = v24;
-      v46 = 2048;
-      v47 = v25;
-      LODWORD(v29) = 22;
-      v26 = _os_log_send_and_compose_impl();
+      v43 = 138412546;
+      v44 = v24;
+      v45 = 2048;
+      v46 = v25;
+      v26 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, v23, 1, "%@: Pruning %lu removed downloads", &v43, 22);
 
       if (!v26)
       {
-LABEL_13:
+LABEL_14:
 
         [(DownloadsTransaction *)self finishDownloadsWithIdentifiers:v18 finalPhase:SSDownloadPhaseCanceled];
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      v23 = [NSString stringWithCString:v26 encoding:4, &v44, v29];
+      v23 = [NSString stringWithCString:v26 encoding:4];
       free(v26);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
-LABEL_14:
-  if (*(v41 + 24) == 1 && [v15 count])
+LABEL_15:
+  if (*(v40 + 24) == 1 && [v15 count])
   {
     [AppStoreUtility sendSoftwareDownloads:v15 withReason:@"download queue request"];
   }
 
-  if (*(v41 + 24) == 1 && [v16 count])
+  if (*(v40 + 24) == 1 && [v16 count])
   {
     [BookAssetDaemonUtility sendBookStoreDownloads:v16 withReason:@"download queue request"];
   }
 
-  v27 = *(v41 + 24);
+  v27 = *(v40 + 24);
 
-  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v39, 8);
   return v27 & 1;
 }
 
@@ -390,16 +394,21 @@ LABEL_14:
     shouldLog = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      v20 = shouldLog | 2;
+      LODWORD(v20) = shouldLog | 2;
     }
 
     else
     {
-      v20 = shouldLog;
+      LODWORD(v20) = shouldLog;
     }
 
     oSLogObject = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v20 = v20;
+    }
+
+    else
     {
       v20 &= 2u;
     }
@@ -408,7 +417,7 @@ LABEL_14:
     {
 
       networkConstraints = 0;
-      goto LABEL_38;
+      goto LABEL_40;
     }
 
     v22 = objc_opt_class();
@@ -416,15 +425,13 @@ LABEL_14:
     v168 = v22;
     v169 = 2112;
     v170 = downloadPolicy;
-    LODWORD(v130) = 22;
-    v128 = &v167;
-    v23 = _os_log_send_and_compose_impl();
+    v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Using custom policy for purchase: %@", &v167, 22);
 
     if (v23)
     {
-      v130 = [NSString stringWithCString:v23 encoding:4, &v167, v130];
+      v24 = [NSString stringWithCString:v23 encoding:4];
       free(v23);
-      v128 = v130;
+      v128 = v24;
       SSFileLog();
     }
 
@@ -437,7 +444,7 @@ LABEL_14:
     if (!networkConstraints)
     {
       networkConstraints = 0;
-      goto LABEL_39;
+      goto LABEL_41;
     }
 
     v18 = +[SSLogConfig sharedDaemonConfig];
@@ -449,16 +456,21 @@ LABEL_14:
     shouldLog2 = [v18 shouldLog];
     if ([v18 shouldLogToDisk])
     {
-      v26 = shouldLog2 | 2;
+      LODWORD(v26) = shouldLog2 | 2;
     }
 
     else
     {
-      v26 = shouldLog2;
+      LODWORD(v26) = shouldLog2;
     }
 
     oSLogObject2 = [v18 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v26 = v26;
+    }
+
+    else
     {
       v26 &= 2u;
     }
@@ -466,7 +478,7 @@ LABEL_14:
     if (!v26)
     {
 
-      goto LABEL_38;
+      goto LABEL_40;
     }
 
     v28 = objc_opt_class();
@@ -474,23 +486,21 @@ LABEL_14:
     v168 = v28;
     v169 = 2112;
     v170 = networkConstraints;
-    LODWORD(v130) = 22;
-    v128 = &v167;
-    v29 = _os_log_send_and_compose_impl();
+    v29 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Using custom network constraints for purchase: %@", &v167, 22);
 
     if (v29)
     {
-      v1302 = [NSString stringWithCString:v29 encoding:4, &v167, v130];
+      v30 = [NSString stringWithCString:v29 encoding:4];
       free(v29);
-      v128 = v1302;
+      v128 = v30;
       SSFileLog();
     }
   }
 
   v17 = &CFDictionaryGetValue_ptr;
-LABEL_38:
+LABEL_40:
 
-LABEL_39:
+LABEL_41:
   requestProperties = [purchaseCopy requestProperties];
   uRLBagKey = [requestProperties URLBagKey];
   v33 = [uRLBagKey isEqualToString:@"subDownload"];
@@ -517,16 +527,21 @@ LABEL_39:
   shouldLog3 = [sharedDaemonConfig shouldLog];
   if ([sharedDaemonConfig shouldLogToDisk])
   {
-    v37 = shouldLog3 | 2;
+    LODWORD(v37) = shouldLog3 | 2;
   }
 
   else
   {
-    v37 = shouldLog3;
+    LODWORD(v37) = shouldLog3;
   }
 
   oSLogObject3 = [sharedDaemonConfig OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
+  {
+    v37 = v37;
+  }
+
+  else
   {
     v37 &= 2u;
   }
@@ -534,7 +549,7 @@ LABEL_39:
   v146 = downloadPolicy;
   if (!v37)
   {
-    goto LABEL_51;
+    goto LABEL_54;
   }
 
   v39 = responseCopy;
@@ -550,19 +565,18 @@ LABEL_39:
   v173 = 2112;
   v174 = filteredAssetTypes;
   LODWORD(v130) = 42;
-  v129 = &v167;
-  v43 = _os_log_send_and_compose_impl();
+  v43 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Replacing purchase %lld with %lu downloads, filtering asset types: %@", &v167, v130);
 
   responseCopy = v39;
   downloadPolicy = v146;
 
   if (v43)
   {
-    oSLogObject3 = [NSString stringWithCString:v43 encoding:4, &v167, v130];
+    oSLogObject3 = [NSString stringWithCString:v43 encoding:4];
     free(v43);
     v129 = oSLogObject3;
     SSFileLog();
-LABEL_51:
+LABEL_54:
   }
 
   v163 = 0u;
@@ -574,9 +588,9 @@ LABEL_51:
   if (!v150)
   {
     v111 = 1;
-LABEL_156:
+LABEL_159:
     v112 = v136;
-    goto LABEL_159;
+    goto LABEL_162;
   }
 
   v131 = responseCopy;
@@ -584,7 +598,7 @@ LABEL_156:
   v142 = *v162;
   v138 = SSDownloadPhaseCanceled;
   v143 = v9;
-LABEL_54:
+LABEL_57:
   v44 = 0;
   while (1)
   {
@@ -700,7 +714,7 @@ LABEL_54:
     [v140 addObject:v46];
     if (!v129)
     {
-      goto LABEL_97;
+      goto LABEL_100;
     }
 
     v62 = +[SSLogConfig sharedDaemonConfig];
@@ -733,7 +747,7 @@ LABEL_54:
 
     if (!v66)
     {
-      goto LABEL_93;
+      goto LABEL_96;
     }
 
     v67 = objc_opt_class();
@@ -744,24 +758,23 @@ LABEL_54:
     v169 = 2048;
     v170 = persistentID3;
     LODWORD(v130) = 22;
-    v129 = &v167;
-    v70 = _os_log_send_and_compose_impl();
+    v70 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Removing existing for software purchase: %lld", &v167, v130);
 
     if (v70)
     {
-      oSLogObject4 = [NSString stringWithCString:v70 encoding:4, &v167, v130];
+      oSLogObject4 = [NSString stringWithCString:v70 encoding:4];
       free(v70);
       v129 = oSLogObject4;
       SSFileLog();
-LABEL_93:
+LABEL_96:
     }
 
     -[DownloadsTransaction finishDownloadWithID:finalPhase:](self, "finishDownloadWithID:finalPhase:", [v129 persistentID], v138);
     persistentID7 = 0;
     v129 = 0;
-LABEL_98:
+LABEL_101:
     v74 = 1;
-LABEL_99:
+LABEL_102:
     v75 = [[NSNumber alloc] initWithLongLong:persistentID7];
     kind2 = [v45 kind];
     v77 = [ScratchManager directoryPathForDownloadID:persistentID7 kind:kind2 createIfNeeded:1];
@@ -804,10 +817,10 @@ LABEL_99:
         v111 = 1;
         responseCopy = v131;
         purchaseCopy = v132;
-        goto LABEL_156;
+        goto LABEL_159;
       }
 
-      goto LABEL_54;
+      goto LABEL_57;
     }
   }
 
@@ -817,9 +830,9 @@ LABEL_99:
   if (IsBookToShimKind)
   {
     [v137 addObject:v46];
-LABEL_97:
+LABEL_100:
     persistentID7 = 0;
-    goto LABEL_98;
+    goto LABEL_101;
   }
 
   if (v129)
@@ -856,34 +869,33 @@ LABEL_97:
       v169 = 2048;
       v170 = persistentID4;
       LODWORD(v130) = 22;
-      v129 = &v167;
-      v88 = _os_log_send_and_compose_impl();
+      v88 = _os_log_send_and_compose_impl(v85, 0, 0, 0, &_mh_execute_header, oSLogObject5, 1, "%@: Updating existing download: %lld", &v167, v130);
 
       if (v88)
       {
-        oSLogObject5 = [NSString stringWithCString:v88 encoding:4, &v167, v130];
+        oSLogObject5 = [NSString stringWithCString:v88 encoding:4];
         free(v88);
         v129 = oSLogObject5;
         SSFileLog();
-        goto LABEL_119;
+        goto LABEL_122;
       }
     }
 
     else
     {
-LABEL_119:
+LABEL_122:
     }
 
     v89 = -[DownloadsTransaction updateDownloadEntityWithIdentifier:withDownload:](self, "updateDownloadEntityWithIdentifier:withDownload:", [v129 persistentID], v46);
     persistentID5 = [v129 persistentID];
     if ((v89 & 1) == 0)
     {
-      goto LABEL_158;
+      goto LABEL_161;
     }
 
     persistentID7 = persistentID5;
     v74 = 0;
-    goto LABEL_99;
+    goto LABEL_102;
   }
 
   v91 = [obj count];
@@ -922,22 +934,21 @@ LABEL_119:
       v169 = 2048;
       v170 = persistentID6;
       LODWORD(v130) = 22;
-      v129 = &v167;
-      v99 = _os_log_send_and_compose_impl();
+      v99 = _os_log_send_and_compose_impl(v96, 0, 0, 0, &_mh_execute_header, oSLogObject6, 1, "%@: Updating placeholder download: %lld", &v167, v130);
 
       if (v99)
       {
-        oSLogObject6 = [NSString stringWithCString:v99 encoding:4, &v167, v130];
+        oSLogObject6 = [NSString stringWithCString:v99 encoding:4];
         free(v99);
         v129 = oSLogObject6;
         SSFileLog();
-        goto LABEL_134;
+        goto LABEL_137;
       }
     }
 
     else
     {
-LABEL_134:
+LABEL_137:
     }
 
     v100 = -[DownloadsTransaction updateDownloadEntityWithIdentifier:withDownload:](self, "updateDownloadEntityWithIdentifier:withDownload:", [v135 persistentID], v46);
@@ -946,12 +957,12 @@ LABEL_134:
     v135 = 0;
     if ((v100 & 1) == 0)
     {
-      goto LABEL_158;
+      goto LABEL_161;
     }
 
     v74 = 1;
     v129 = 0;
-    goto LABEL_99;
+    goto LABEL_102;
   }
 
   if (!v92)
@@ -982,22 +993,21 @@ LABEL_134:
     v167 = 138412290;
     v168 = v104;
     LODWORD(v130) = 12;
-    v129 = &v167;
-    v105 = _os_log_send_and_compose_impl();
+    v105 = _os_log_send_and_compose_impl(v103, 0, 0, 0, &_mh_execute_header, oSLogObject7, 1, "%@: Adding new download from purchase", &v167, v130);
 
     if (v105)
     {
-      oSLogObject7 = [NSString stringWithCString:v105 encoding:4, &v167, v130];
+      oSLogObject7 = [NSString stringWithCString:v105 encoding:4];
       free(v105);
       v129 = oSLogObject7;
       SSFileLog();
-      goto LABEL_147;
+      goto LABEL_150;
     }
   }
 
   else
   {
-LABEL_147:
+LABEL_150:
   }
 
   v106 = [NSArray arrayWithObject:v46];
@@ -1021,17 +1031,17 @@ LABEL_147:
     v74 = 1;
     v134 = longLongValue;
     persistentID7 = longLongValue;
-    goto LABEL_99;
+    goto LABEL_102;
   }
 
-LABEL_158:
+LABEL_161:
   v111 = 0;
   responseCopy = v131;
   purchaseCopy = v132;
   v9 = v143;
   v112 = v136;
   downloadPolicy = v146;
-LABEL_159:
+LABEL_162:
 
   if ([responseCopy triggeredQueueCheck])
   {
@@ -1054,16 +1064,21 @@ LABEL_159:
     shouldLog8 = [v114 shouldLog];
     if ([v114 shouldLogToDisk])
     {
-      v116 = shouldLog8 | 2;
+      LODWORD(v116) = shouldLog8 | 2;
     }
 
     else
     {
-      v116 = shouldLog8;
+      LODWORD(v116) = shouldLog8;
     }
 
     oSLogObject8 = [v114 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_INFO))
+    {
+      v116 = v116;
+    }
+
+    else
     {
       v116 &= 2u;
     }
@@ -1077,38 +1092,37 @@ LABEL_159:
       v169 = 2048;
       v170 = persistentID8;
       LODWORD(v130) = 22;
-      v129 = &v167;
-      v120 = _os_log_send_and_compose_impl();
+      v120 = _os_log_send_and_compose_impl(v116, 0, 0, 0, &_mh_execute_header, oSLogObject8, 1, "%@: Remove placeholder for purchase: %lld", &v167, v130);
 
       if (v120)
       {
-        oSLogObject8 = [NSString stringWithCString:v120 encoding:4, &v167, v130];
+        oSLogObject8 = [NSString stringWithCString:v120 encoding:4];
         free(v120);
         v129 = oSLogObject8;
         SSFileLog();
-        goto LABEL_174;
+        goto LABEL_178;
       }
     }
 
     else
     {
-LABEL_174:
+LABEL_178:
     }
 
     persistentID9 = [v135 persistentID];
     if (![(DownloadsTransaction *)self finishDownloadWithID:persistentID9 finalPhase:SSDownloadPhaseCanceled])
     {
-LABEL_176:
+LABEL_180:
 
       v9 = 0;
       v122 = v137;
-      goto LABEL_185;
+      goto LABEL_189;
     }
   }
 
   else if (!v111)
   {
-    goto LABEL_176;
+    goto LABEL_180;
   }
 
   if ([v112 count])
@@ -1135,7 +1149,7 @@ LABEL_176:
     [BookAssetDaemonUtility sendBookDownloads:v137 withReason:@"purchase response"];
   }
 
-LABEL_185:
+LABEL_189:
   v126 = v9;
 
   return v9;

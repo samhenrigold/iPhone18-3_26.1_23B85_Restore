@@ -303,7 +303,7 @@
 
 - (id)_activeCallbackQueue
 {
-  if (AVCaptureIsRunningInMediaserverd() && !self->_canSetClientDelegateCallbackQueueWhenRunningInsideMediaserverd)
+  if (AVCaptureIsRunningInMediaserverd(self, a2) && !self->_canSetClientDelegateCallbackQueueWhenRunningInsideMediaserverd)
   {
     return 0;
   }
@@ -341,7 +341,7 @@
 
 - (BOOL)_validateCallbackQueue:(id)queue exceptionReason:(id *)reason
 {
-  if (AVCaptureIsRunningInMediaserverd() && !self->_canSetClientDelegateCallbackQueueWhenRunningInsideMediaserverd)
+  if (AVCaptureIsRunningInMediaserverd(self, a2) && !self->_canSetClientDelegateCallbackQueueWhenRunningInsideMediaserverd)
   {
     if (!queue)
     {

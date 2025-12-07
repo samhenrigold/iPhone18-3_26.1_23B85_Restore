@@ -114,55 +114,60 @@ void __45__VUIHUDViewController_viewDidLayoutSubviews__block_invoke(uint64_t a1)
 
 - (CGSize)_computePreferredContentSize
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69DD2E8];
   [(VUIHUDViewController *)self _resolvedPlayerViewSize];
   v4 = [v3 vui_currentSizeClassForWindowWidth:?];
   [(VUIHUDViewController *)self _resolvedPlayerViewSize];
   v5 = [VUIUtilities shouldPlayerTabsUseVerticalLayoutForSize:v4 < 3 isPhoneSizeClass:?];
+  v6 = v5;
   if (v5)
   {
-    v6 = 1.79769313e308;
-  }
-
-  else if (+[VUIUtilities isIpadInterface])
-  {
-    v6 = 220.0;
+    v7 = 1.79769313e308;
   }
 
   else
   {
-    v6 = 160.0;
+    v5 = +[VUIUtilities isIpadInterface];
+    if (v5)
+    {
+      v7 = 220.0;
+    }
+
+    else
+    {
+      v7 = 160.0;
+    }
   }
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     tabIdentifier = [(VUIHUDViewController *)self tabIdentifier];
     [(VUIHUDViewController *)self _resolvedPlayerViewSize];
-    v9 = NSStringFromCGSize(v26);
-    v27.width = 0.0;
-    v27.height = v6;
     v10 = NSStringFromCGSize(v27);
-    v13 = 134219266;
+    v28.width = 0.0;
+    v28.height = v7;
+    v11 = NSStringFromCGSize(v28);
+    v14 = 134219266;
     selfCopy = self;
-    v15 = 2112;
-    v16 = tabIdentifier;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2048;
-    v20 = v4;
-    v21 = 1024;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v10;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIHUDViewController::(%p, %@) computePreferredContentSize, playerViewSize: %@, sizeClass: %ld, useVerticalLayout: %d, result: %@", &v13, 0x3Au);
+    v16 = 2112;
+    v17 = tabIdentifier;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2048;
+    v21 = v4;
+    v22 = 1024;
+    v23 = v6;
+    v24 = 2112;
+    v25 = v11;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIHUDViewController::(%p, %@) computePreferredContentSize, playerViewSize: %@, sizeClass: %ld, useVerticalLayout: %d, result: %@", &v14, 0x3Au);
   }
 
-  v11 = 0.0;
-  v12 = v6;
-  result.height = v12;
-  result.width = v11;
+  v12 = 0.0;
+  v13 = v7;
+  result.height = v13;
+  result.width = v12;
   return result;
 }
 

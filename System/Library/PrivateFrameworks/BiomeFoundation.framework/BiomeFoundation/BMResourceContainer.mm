@@ -38,7 +38,7 @@
 
 - (BMResourceContainer)initWithCoder:(id)coder
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"url"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"personaIdentifier"];
@@ -50,14 +50,13 @@
   if (!self)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = @"Decoding failure";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = @"Decoding failure";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"Biome" code:-1 userInfo:v8];
     [coderCopy failWithError:v9];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return self;
 }
 

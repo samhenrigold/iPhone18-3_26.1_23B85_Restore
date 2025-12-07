@@ -2,15 +2,25 @@
 - (FCNotificationsEndpointConnection)initWithBaseURLString:(id)string;
 - (FCNotificationsEndpointConnection)initWithConfigurationManager:(id)manager bundleSubscriptionManager:(id)subscriptionManager;
 - (FCNotificationsEndpointConnection)initWithEndpointConnection:(id)connection configurationManager:(id)manager bundleSubscriptionManager:(id)subscriptionManager;
+- (id)_deviceInfoWithDeviceToken:(id)token deviceDigestMode:(int)mode;
 - (id)_marketingSubscriptionRequestWithType:(int)type action:(int)action dsid:(id)dsid;
 - (id)_notificationDataInDropbox;
+- (id)_notificationEntitiesWithChannelIDs:(id)ds isPaid:(BOOL)paid paidBundleSubscriptionStatus:(unint64_t)status editorialChannelID:(id)d;
+- (id)_notificationEntityWithChannelIDs:(id)ds isPaid:(BOOL)paid paidBundleSubscriptionStatus:(unint64_t)status notificationType:(int)type;
+- (id)_pushNotifySubscriptionRequestWithChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode;
 - (id)_pushNotifySubscriptionRequestWithTopicIDs:(id)ds fromChannelID:(id)d withTopicGroupingID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode;
 - (int)_pbNotificationEntityPaidBundleSubscriptionStatusFromSubscriptionState:(unint64_t)state;
 - (void)_sendNotificationsSubscriptionRequest:(id)request pathComponent:(id)component callbackQueue:(id)queue completion:(id)completion;
 - (void)_updateNotificationDropboxDataWithBaseURL:(id)l notificationUserID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode;
 - (void)configurationManager:(id)manager configurationDidChange:(id)change;
+- (void)modifyMarketingSubscriptionWithType:(int)type action:(int)action dsid:(id)dsid callbackQueue:(id)queue completion:(id)completion;
+- (void)refreshNotificationsForChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)self0;
 - (void)refreshNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1;
+- (void)registerDeviceWithUserID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion;
+- (void)subscribeNotificationsForChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)self0;
 - (void)subscribeNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1;
+- (void)unregisterDeviceWithUserID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion;
+- (void)unsubscribeNotificationsForChannelIDs:(id)ds userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion;
 - (void)unsubscribeNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1;
 - (void)updateBaseURL:(id)l;
 @end
@@ -89,7 +99,7 @@ void __111__FCNotificationsEndpointConnection_initWithEndpointConnection_configu
 
 void __111__FCNotificationsEndpointConnection_initWithEndpointConnection_configurationManager_bundleSubscriptionManager___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -97,16 +107,14 @@ void __111__FCNotificationsEndpointConnection_initWithEndpointConnection_configu
     v7 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_error_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_ERROR, "Failed to fetch endpoint configuration with error: %{public}@", &v8, 0xCu);
     }
   }
 
   [*(a1 + 32) updateBaseURL:v5];
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (FCNotificationsEndpointConnection)initWithBaseURLString:(id)string
@@ -140,18 +148,159 @@ void __111__FCNotificationsEndpointConnection_initWithEndpointConnection_configu
   return v5;
 }
 
+- (void)registerDeviceWithUserID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion
+{
+  v10 = *&mode;
+  v48 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  tokenCopy = token;
+  iDCopy = iD;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    *buf = 136315906;
+    v41 = "[FCNotificationsEndpointConnection registerDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v42 = 2080;
+    v43 = "FCNotificationsEndpointConnection.m";
+    v44 = 1024;
+    v45 = 113;
+    v46 = 2114;
+    v47 = v34;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (tokenCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else if (tokenCopy)
+  {
+    goto LABEL_6;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    *buf = 136315906;
+    v41 = "[FCNotificationsEndpointConnection registerDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v42 = 2080;
+    v43 = "FCNotificationsEndpointConnection.m";
+    v44 = 1024;
+    v45 = 114;
+    v46 = 2114;
+    v47 = v35;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_6:
+  if (iDCopy)
+  {
+    if (dCopy && tokenCopy)
+    {
+      _notificationDataInDropbox = [(FCNotificationsEndpointConnection *)self _notificationDataInDropbox];
+      deviceToken = [_notificationDataInDropbox deviceToken];
+      v37 = _notificationDataInDropbox;
+      if ([tokenCopy isEqualToString:deviceToken])
+      {
+        notificationUserID = [_notificationDataInDropbox notificationUserID];
+        if ([dCopy isEqualToString:notificationUserID])
+        {
+          deviceDigestMode = [_notificationDataInDropbox deviceDigestMode];
+          v23 = v10;
+          v24 = queueCopy;
+          v25 = deviceDigestMode;
+
+          v26 = v25 == v23;
+          queueCopy = v24;
+          v10 = v23;
+          if (v26)
+          {
+            v27 = FCPushNotificationsLog;
+            if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
+            {
+              *buf = 138412802;
+              v41 = tokenCopy;
+              v42 = 2112;
+              v43 = dCopy;
+              v44 = 1024;
+              v45 = v23;
+              _os_log_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_INFO, "the device token is already registered: %@ for userID: %@ and the digestMode: %d hasn't changed", buf, 0x1Cu);
+            }
+
+            v28 = v37;
+            if (completionCopy)
+            {
+              completionCopy[2](completionCopy, 1, 0);
+            }
+
+            goto LABEL_25;
+          }
+
+LABEL_24:
+          v30 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithChannelIDs:0 paidChannelIDs:0 userID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __129__FCNotificationsEndpointConnection_registerDeviceWithUserID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+          v38[3] = &unk_1E7C42598;
+          v39 = completionCopy;
+          [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v30 pathComponent:@"pushnotify/subscribe" callbackQueue:queueCopy completion:v38];
+          [(FCNotificationsEndpointConnection *)self baseURL];
+          v32 = v31 = queueCopy;
+          absoluteString = [v32 absoluteString];
+          [(FCNotificationsEndpointConnection *)self _updateNotificationDropboxDataWithBaseURL:absoluteString notificationUserID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+
+          queueCopy = v31;
+          v28 = v37;
+LABEL_25:
+
+          goto LABEL_26;
+        }
+      }
+
+      goto LABEL_24;
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    *buf = 136315906;
+    v41 = "[FCNotificationsEndpointConnection registerDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v42 = 2080;
+    v43 = "FCNotificationsEndpointConnection.m";
+    v44 = 1024;
+    v45 = 115;
+    v46 = 2114;
+    v47 = v36;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  v29 = FCPushNotificationsLog;
+  if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1B63EF000, v29, OS_LOG_TYPE_ERROR, "failed to submit request for register device token, invalid parameters", buf, 2u);
+  }
+
+  completionCopy[2](completionCopy, 0, 0);
+LABEL_26:
+}
+
 void __129__FCNotificationsEndpointConnection_registerDeviceWithUserID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to register device token with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to register device token with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -160,22 +309,110 @@ void __129__FCNotificationsEndpointConnection_registerDeviceWithUserID_deviceTok
   {
     (*(v7 + 16))(v7, a2, v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)unregisterDeviceWithUserID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion
+{
+  v10 = *&mode;
+  v34 = *MEMORY[0x1E69E9840];
+  dCopy = d;
+  tokenCopy = token;
+  iDCopy = iD;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    *buf = 136315906;
+    v27 = "[FCNotificationsEndpointConnection unregisterDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v28 = 2080;
+    v29 = "FCNotificationsEndpointConnection.m";
+    v30 = 1024;
+    v31 = 169;
+    v32 = 2114;
+    v33 = v21;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (tokenCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else if (tokenCopy)
+  {
+    goto LABEL_6;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    *buf = 136315906;
+    v27 = "[FCNotificationsEndpointConnection unregisterDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v28 = 2080;
+    v29 = "FCNotificationsEndpointConnection.m";
+    v30 = 1024;
+    v31 = 170;
+    v32 = 2114;
+    v33 = v22;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_6:
+  if (iDCopy)
+  {
+    if (dCopy && tokenCopy)
+    {
+      v19 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithChannelIDs:0 paidChannelIDs:0 userID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __131__FCNotificationsEndpointConnection_unregisterDeviceWithUserID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+      v24[3] = &unk_1E7C42598;
+      v25 = completionCopy;
+      [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v19 pathComponent:@"pushnotify/unsubscribe" callbackQueue:queueCopy completion:v24];
+      [(FCNotificationsEndpointConnection *)self _updateNotificationDropboxDataWithBaseURL:0 notificationUserID:0 deviceToken:0 storefrontID:0 deviceDigestMode:0];
+
+      goto LABEL_15;
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    *buf = 136315906;
+    v27 = "[FCNotificationsEndpointConnection unregisterDeviceWithUserID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v28 = 2080;
+    v29 = "FCNotificationsEndpointConnection.m";
+    v30 = 1024;
+    v31 = 171;
+    v32 = 2114;
+    v33 = v23;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  v20 = FCPushNotificationsLog;
+  if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_ERROR, "failed to submit request to unregister device token, invalid parameters", buf, 2u);
+  }
+
+  (*(completionCopy + 2))(completionCopy, 0, 0);
+LABEL_15:
 }
 
 void __131__FCNotificationsEndpointConnection_unregisterDeviceWithUserID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unregister device token with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unregister device token with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -184,22 +421,149 @@ void __131__FCNotificationsEndpointConnection_unregisterDeviceWithUserID_deviceT
   {
     (*(v7 + 16))(v7, a2, v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)subscribeNotificationsForChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)self0
+{
+  v10 = *&mode;
+  v40 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  iDsCopy = iDs;
+  dCopy = d;
+  tokenCopy = token;
+  iDCopy = iD;
+  queueCopy = queue;
+  completionCopy = completion;
+  if ([dsCopy count] || objc_msgSend(iDsCopy, "count") || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    if (dCopy)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"either channelIDs or paidChannelIDs should include some values"];
+    *buf = 136315906;
+    v33 = "[FCNotificationsEndpointConnection subscribeNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v34 = 2080;
+    v35 = "FCNotificationsEndpointConnection.m";
+    v36 = 1024;
+    v37 = 217;
+    v38 = 2114;
+    v39 = v29;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (dCopy)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    *buf = 136315906;
+    v33 = "[FCNotificationsEndpointConnection subscribeNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v34 = 2080;
+    v35 = "FCNotificationsEndpointConnection.m";
+    v36 = 1024;
+    v37 = 218;
+    v38 = 2114;
+    v39 = v26;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_7:
+  if (!tokenCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    *buf = 136315906;
+    v33 = "[FCNotificationsEndpointConnection subscribeNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v34 = 2080;
+    v35 = "FCNotificationsEndpointConnection.m";
+    v36 = 1024;
+    v37 = 219;
+    v38 = 2114;
+    v39 = v27;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (iDCopy)
+    {
+      goto LABEL_12;
+    }
+  }
+
+  else if (iDCopy)
+  {
+    goto LABEL_12;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    *buf = 136315906;
+    v33 = "[FCNotificationsEndpointConnection subscribeNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v34 = 2080;
+    v35 = "FCNotificationsEndpointConnection.m";
+    v36 = 1024;
+    v37 = 220;
+    v38 = 2114;
+    v39 = v28;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_12:
+  if (![dsCopy count])
+  {
+    v23 = [iDsCopy count];
+    if (!dCopy || !tokenCopy || !iDCopy || !v23)
+    {
+      goto LABEL_22;
+    }
+
+LABEL_21:
+    v24 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithChannelIDs:dsCopy paidChannelIDs:iDsCopy userID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __162__FCNotificationsEndpointConnection_subscribeNotificationsForChannelIDs_paidChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+    v30[3] = &unk_1E7C42598;
+    v31 = completionCopy;
+    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v24 pathComponent:@"pushnotify/subscribe" callbackQueue:queueCopy completion:v30];
+
+    goto LABEL_25;
+  }
+
+  if (dCopy && tokenCopy && iDCopy)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_22:
+  v25 = FCPushNotificationsLog;
+  if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1B63EF000, v25, OS_LOG_TYPE_ERROR, "failed to submit request for subscribe notifications, invalid parameters", buf, 2u);
+  }
+
+  (*(completionCopy + 2))(completionCopy, 0, 0);
+LABEL_25:
 }
 
 void __162__FCNotificationsEndpointConnection_subscribeNotificationsForChannelIDs_paidChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to subscribe notifications for channels error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to subscribe notifications for channels error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -208,22 +572,133 @@ void __162__FCNotificationsEndpointConnection_subscribeNotificationsForChannelID
   {
     (*(v7 + 16))(v7, a2, v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)unsubscribeNotificationsForChannelIDs:(id)ds userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)completion
+{
+  v10 = *&mode;
+  v38 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dCopy = d;
+  tokenCopy = token;
+  iDCopy = iD;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (![dsCopy count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"channelIDs should not be empty"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 256;
+    v36 = 2114;
+    v37 = v24;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (dCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else if (dCopy)
+  {
+    goto LABEL_6;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 257;
+    v36 = 2114;
+    v37 = v25;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_6:
+  if (!tokenCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 258;
+    v36 = 2114;
+    v37 = v26;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (iDCopy)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else if (iDCopy)
+  {
+    goto LABEL_11;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 259;
+    v36 = 2114;
+    v37 = v27;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_11:
+  v21 = [dsCopy count];
+  if (iDCopy && tokenCopy && dCopy && v21)
+  {
+    v22 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithChannelIDs:dsCopy paidChannelIDs:0 userID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __149__FCNotificationsEndpointConnection_unsubscribeNotificationsForChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+    v28[3] = &unk_1E7C42598;
+    v29 = completionCopy;
+    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v22 pathComponent:@"pushnotify/unsubscribe" callbackQueue:queueCopy completion:v28];
+  }
+
+  else
+  {
+    v23 = FCPushNotificationsLog;
+    if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 0;
+      _os_log_error_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_ERROR, "failed to submit request for unsubscribe notifications, invalid parameters", buf, 2u);
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0, 0);
+  }
 }
 
 void __149__FCNotificationsEndpointConnection_unsubscribeNotificationsForChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unsubscribe notifications for channels with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unsubscribe notifications for channels with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -232,22 +707,111 @@ void __149__FCNotificationsEndpointConnection_unsubscribeNotificationsForChannel
   {
     (*(v7 + 16))(v7, a2, v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)refreshNotificationsForChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode callbackQueue:(id)queue completion:(id)self0
+{
+  v10 = *&mode;
+  v38 = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  iDsCopy = iDs;
+  dCopy = d;
+  tokenCopy = token;
+  iDCopy = iD;
+  queueCopy = queue;
+  completionCopy = completion;
+  if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection refreshNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 296;
+    v36 = 2114;
+    v37 = v25;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+
+    if (tokenCopy)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else if (tokenCopy)
+  {
+    goto LABEL_6;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection refreshNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 297;
+    v36 = 2114;
+    v37 = v26;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+LABEL_6:
+  if (iDCopy)
+  {
+    if (dCopy && tokenCopy)
+    {
+      v23 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithChannelIDs:dsCopy paidChannelIDs:iDsCopy userID:dCopy deviceToken:tokenCopy storefrontID:iDCopy deviceDigestMode:v10];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = __160__FCNotificationsEndpointConnection_refreshNotificationsForChannelIDs_paidChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+      v28[3] = &unk_1E7C42598;
+      v29 = completionCopy;
+      [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v23 pathComponent:@"pushnotify/updatetoken" callbackQueue:queueCopy completion:v28];
+
+      goto LABEL_15;
+    }
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    *buf = 136315906;
+    v31 = "[FCNotificationsEndpointConnection refreshNotificationsForChannelIDs:paidChannelIDs:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v32 = 2080;
+    v33 = "FCNotificationsEndpointConnection.m";
+    v34 = 1024;
+    v35 = 298;
+    v36 = 2114;
+    v37 = v27;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
+  }
+
+  v24 = FCPushNotificationsLog;
+  if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_error_impl(&dword_1B63EF000, v24, OS_LOG_TYPE_ERROR, "failed to submit refresh request for subscribe notifications, invalid parameters", buf, 2u);
+  }
+
+  (*(completionCopy + 2))(completionCopy, 0, 0);
+LABEL_15:
 }
 
 void __160__FCNotificationsEndpointConnection_refreshNotificationsForChannelIDs_paidChannelIDs_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to refresh notifications for channels with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to refresh notifications for channels with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -256,13 +820,11 @@ void __160__FCNotificationsEndpointConnection_refreshNotificationsForChannelIDs_
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscribeNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   iDCopy = iD;
@@ -273,15 +835,15 @@ void __160__FCNotificationsEndpointConnection_refreshNotificationsForChannelIDs_
   completionCopy = completion;
   if (![dsCopy count] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"topicIDs should include some values"];
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"topicIDs should include some values"];
     *buf = 136315906;
-    v38 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v39 = 2080;
-    v40 = "FCNotificationsEndpointConnection.m";
-    v41 = 1024;
-    v42 = 337;
-    v43 = 2114;
-    v44 = v29;
+    v37 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v38 = 2080;
+    v39 = "FCNotificationsEndpointConnection.m";
+    v40 = 1024;
+    v41 = 337;
+    v42 = 2114;
+    v43 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (iDCopy)
@@ -297,30 +859,30 @@ void __160__FCNotificationsEndpointConnection_refreshNotificationsForChannelIDs_
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
     *buf = 136315906;
-    v38 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v39 = 2080;
-    v40 = "FCNotificationsEndpointConnection.m";
-    v41 = 1024;
-    v42 = 338;
-    v43 = 2114;
-    v44 = v30;
+    v37 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v38 = 2080;
+    v39 = "FCNotificationsEndpointConnection.m";
+    v40 = 1024;
+    v41 = 338;
+    v42 = 2114;
+    v43 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!userIDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
     *buf = 136315906;
-    v38 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v39 = 2080;
-    v40 = "FCNotificationsEndpointConnection.m";
-    v41 = 1024;
-    v42 = 339;
-    v43 = 2114;
-    v44 = v31;
+    v37 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v38 = 2080;
+    v39 = "FCNotificationsEndpointConnection.m";
+    v40 = 1024;
+    v41 = 339;
+    v42 = 2114;
+    v43 = v30;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (tokenCopy)
@@ -336,44 +898,44 @@ LABEL_6:
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
     *buf = 136315906;
-    v38 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v39 = 2080;
-    v40 = "FCNotificationsEndpointConnection.m";
-    v41 = 1024;
-    v42 = 340;
-    v43 = 2114;
-    v44 = v32;
+    v37 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v38 = 2080;
+    v39 = "FCNotificationsEndpointConnection.m";
+    v40 = 1024;
+    v41 = 340;
+    v42 = 2114;
+    v43 = v31;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_11:
   if (!storefrontIDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
     *buf = 136315906;
-    v38 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v39 = 2080;
-    v40 = "FCNotificationsEndpointConnection.m";
-    v41 = 1024;
-    v42 = 341;
-    v43 = 2114;
-    v44 = v33;
+    v37 = "[FCNotificationsEndpointConnection subscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v38 = 2080;
+    v39 = "FCNotificationsEndpointConnection.m";
+    v40 = 1024;
+    v41 = 341;
+    v42 = 2114;
+    v43 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   v25 = [dsCopy count];
   if (storefrontIDCopy && tokenCopy && userIDCopy && iDCopy && v25)
   {
-    LODWORD(v34) = mode;
-    v26 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v34];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
-    v35[3] = &unk_1E7C42598;
-    v36 = completionCopy;
-    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v26 pathComponent:@"pushnotify/subscribe" callbackQueue:queueCopy completion:v35];
+    LODWORD(v33) = mode;
+    v26 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v33];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+    v34[3] = &unk_1E7C42598;
+    v35 = completionCopy;
+    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v26 pathComponent:@"pushnotify/subscribe" callbackQueue:queueCopy completion:v34];
   }
 
   else
@@ -387,22 +949,20 @@ LABEL_11:
 
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to subscribe notifications for topic error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to subscribe notifications for topic error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -411,13 +971,11 @@ void __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unsubscribeNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   iDCopy = iD;
@@ -430,13 +988,13 @@ void __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_
   {
     v26 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "channelID"];
     *buf = 136315906;
-    v36 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v37 = 2080;
-    v38 = "FCNotificationsEndpointConnection.m";
-    v39 = 1024;
-    v40 = 380;
-    v41 = 2114;
-    v42 = v26;
+    v35 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v36 = 2080;
+    v37 = "FCNotificationsEndpointConnection.m";
+    v38 = 1024;
+    v39 = 380;
+    v40 = 2114;
+    v41 = v26;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (userIDCopy)
@@ -454,13 +1012,13 @@ void __179__FCNotificationsEndpointConnection_subscribeNotificationsForTopicIDs_
   {
     v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
     *buf = 136315906;
-    v36 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v37 = 2080;
-    v38 = "FCNotificationsEndpointConnection.m";
-    v39 = 1024;
-    v40 = 381;
-    v41 = 2114;
-    v42 = v27;
+    v35 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v36 = 2080;
+    v37 = "FCNotificationsEndpointConnection.m";
+    v38 = 1024;
+    v39 = 381;
+    v40 = 2114;
+    v41 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -469,13 +1027,13 @@ LABEL_6:
   {
     v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
     *buf = 136315906;
-    v36 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v37 = 2080;
-    v38 = "FCNotificationsEndpointConnection.m";
-    v39 = 1024;
-    v40 = 382;
-    v41 = 2114;
-    v42 = v28;
+    v35 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v36 = 2080;
+    v37 = "FCNotificationsEndpointConnection.m";
+    v38 = 1024;
+    v39 = 382;
+    v40 = 2114;
+    v41 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (storefrontIDCopy)
@@ -486,15 +1044,15 @@ LABEL_6:
 LABEL_16:
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+      v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
       *buf = 136315906;
-      v36 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-      v37 = 2080;
-      v38 = "FCNotificationsEndpointConnection.m";
-      v39 = 1024;
-      v40 = 383;
-      v41 = 2114;
-      v42 = v31;
+      v35 = "[FCNotificationsEndpointConnection unsubscribeNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+      v36 = 2080;
+      v37 = "FCNotificationsEndpointConnection.m";
+      v38 = 1024;
+      v39 = 383;
+      v40 = 2114;
+      v41 = v30;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -509,14 +1067,14 @@ LABEL_16:
 LABEL_9:
   if (iDCopy && userIDCopy && tokenCopy)
   {
-    LODWORD(v32) = mode;
-    v25 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v32];
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
-    v33[3] = &unk_1E7C42598;
-    v34 = completionCopy;
-    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v25 pathComponent:@"pushnotify/unsubscribe" callbackQueue:queueCopy completion:v33];
+    LODWORD(v31) = mode;
+    v25 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v31];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+    v32[3] = &unk_1E7C42598;
+    v33 = completionCopy;
+    [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v25 pathComponent:@"pushnotify/unsubscribe" callbackQueue:queueCopy completion:v32];
 
     goto LABEL_21;
   }
@@ -531,22 +1089,20 @@ LABEL_18:
 
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_21:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unsubscribe notifications for topic error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to unsubscribe notifications for topic error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -555,13 +1111,11 @@ void __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicID
   {
     (*(v7 + 16))(v7, a2, v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)refreshNotificationsForTopicIDs:(id)ds withTopicGroupingID:(id)d fromChannelID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode callbackQueue:(id)self0 completion:(id)self1
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   dCopy = d;
   iDCopy = iD;
@@ -572,15 +1126,15 @@ void __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicID
   completionCopy = completion;
   if (!userIDCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
+    v27 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "userID"];
     *buf = 136315906;
-    v35 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v36 = 2080;
-    v37 = "FCNotificationsEndpointConnection.m";
-    v38 = 1024;
-    v39 = 424;
-    v40 = 2114;
-    v41 = v28;
+    v34 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v35 = 2080;
+    v36 = "FCNotificationsEndpointConnection.m";
+    v37 = 1024;
+    v38 = 424;
+    v39 = 2114;
+    v40 = v27;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (tokenCopy)
@@ -596,15 +1150,15 @@ void __181__FCNotificationsEndpointConnection_unsubscribeNotificationsForTopicID
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deviceToken"];
     *buf = 136315906;
-    v35 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v36 = 2080;
-    v37 = "FCNotificationsEndpointConnection.m";
-    v38 = 1024;
-    v39 = 425;
-    v40 = 2114;
-    v41 = v29;
+    v34 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v35 = 2080;
+    v36 = "FCNotificationsEndpointConnection.m";
+    v37 = 1024;
+    v38 = 425;
+    v39 = 2114;
+    v40 = v28;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -613,14 +1167,14 @@ LABEL_6:
   {
     if (userIDCopy && tokenCopy)
     {
-      LODWORD(v31) = mode;
-      v25 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v31];
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __177__FCNotificationsEndpointConnection_refreshNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
-      v32[3] = &unk_1E7C42598;
-      v33 = completionCopy;
-      [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v25 pathComponent:@"pushnotify/updatetoken" callbackQueue:queueCopy completion:v32];
+      LODWORD(v30) = mode;
+      v25 = [(FCNotificationsEndpointConnection *)self _pushNotifySubscriptionRequestWithTopicIDs:dsCopy fromChannelID:iDCopy withTopicGroupingID:dCopy userID:userIDCopy deviceToken:tokenCopy storefrontID:storefrontIDCopy deviceDigestMode:v30];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __177__FCNotificationsEndpointConnection_refreshNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke;
+      v31[3] = &unk_1E7C42598;
+      v32 = completionCopy;
+      [(FCNotificationsEndpointConnection *)self _sendNotificationsSubscriptionRequest:v25 pathComponent:@"pushnotify/updatetoken" callbackQueue:queueCopy completion:v31];
 
       goto LABEL_15;
     }
@@ -628,15 +1182,15 @@ LABEL_6:
 
   else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "storefrontID"];
     *buf = 136315906;
-    v35 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
-    v36 = 2080;
-    v37 = "FCNotificationsEndpointConnection.m";
-    v38 = 1024;
-    v39 = 426;
-    v40 = 2114;
-    v41 = v30;
+    v34 = "[FCNotificationsEndpointConnection refreshNotificationsForTopicIDs:withTopicGroupingID:fromChannelID:userID:deviceToken:storefrontID:deviceDigestMode:callbackQueue:completion:]";
+    v35 = 2080;
+    v36 = "FCNotificationsEndpointConnection.m";
+    v37 = 1024;
+    v38 = 426;
+    v39 = 2114;
+    v40 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -649,22 +1203,20 @@ LABEL_6:
 
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_15:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __177__FCNotificationsEndpointConnection_refreshNotificationsForTopicIDs_withTopicGroupingID_fromChannelID_userID_deviceToken_storefrontID_deviceDigestMode_callbackQueue_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
     v6 = FCPushNotificationsLog;
     if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to refresh notifications for topics with error: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_error_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_ERROR, "failed to refresh notifications for topics with error: %{public}@", &v8, 0xCu);
     }
   }
 
@@ -673,13 +1225,33 @@ void __177__FCNotificationsEndpointConnection_refreshNotificationsForTopicIDs_wi
   {
     (*(v7 + 16))(v7, a2, v5);
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)modifyMarketingSubscriptionWithType:(int)type action:(int)action dsid:(id)dsid callbackQueue:(id)queue completion:(id)completion
+{
+  v9 = *&action;
+  v10 = *&type;
+  queueCopy = queue;
+  completionCopy = completion;
+  v14 = [(FCNotificationsEndpointConnection *)self _marketingSubscriptionRequestWithType:v10 action:v9 dsid:dsid];
+  serialQueue = [(FCNotificationsEndpointConnection *)self serialQueue];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithType_action_dsid_callbackQueue_completion___block_invoke;
+  v19[3] = &unk_1E7C425C0;
+  v19[4] = self;
+  v20 = v14;
+  v21 = queueCopy;
+  v22 = completionCopy;
+  v16 = completionCopy;
+  v17 = queueCopy;
+  v18 = v14;
+  [serialQueue enqueueBlock:v19];
 }
 
 void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithType_action_dsid_callbackQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) baseURL];
 
@@ -693,9 +1265,9 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
     {
       v8 = *(a1 + 40);
       *buf = 138412546;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v8;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v8;
       _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_INFO, "ModifyMarketingSubscription url: %@ request: %@", buf, 0x16u);
     }
 
@@ -703,16 +1275,16 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
     v10 = [*(a1 + 40) data];
     v11 = *MEMORY[0x1E695ABC0];
     v12 = *(a1 + 48);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithType_action_dsid_callbackQueue_completion___block_invoke_34;
-    v18[3] = &unk_1E7C3BD48;
-    v19 = v6;
-    v20 = v3;
-    v21 = *(a1 + 56);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithType_action_dsid_callbackQueue_completion___block_invoke_34;
+    v17[3] = &unk_1E7C3BD48;
+    v18 = v6;
+    v19 = v3;
+    v20 = *(a1 + 56);
     v13 = v6;
     LODWORD(v14) = v11;
-    [v9 performHTTPRequestWithURL:v13 method:@"POST" data:v10 contentType:@"application/x-protobuf" priority:1 requiresMescalSigning:v12 callbackQueue:v14 completion:v18];
+    [v9 performHTTPRequestWithURL:v13 method:@"POST" data:v10 contentType:@"application/x-protobuf" priority:1 requiresMescalSigning:v12 callbackQueue:v14 completion:v17];
   }
 
   else
@@ -725,24 +1297,22 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
       (*(v15 + 16))(v15, 0, v16);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithType_action_dsid_callbackQueue_completion___block_invoke_34(void *a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412546;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_INFO, "ModifyMarketingSubscription response: %@ error: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_INFO, "ModifyMarketingSubscription response: %@ error: %@", &v14, 0x16u);
   }
 
   if (v8)
@@ -765,8 +1335,6 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
       (*(v13 + 16))(v13, 0, v9);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_marketingSubscriptionRequestWithType:(int)type action:(int)action dsid:(id)dsid
@@ -796,7 +1364,7 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
 
 - (void)_sendNotificationsSubscriptionRequest:(id)request pathComponent:(id)component callbackQueue:(id)queue completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   componentCopy = component;
   queueCopy = queue;
@@ -805,15 +1373,15 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionRequest"];
+      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "subscriptionRequest"];
       *buf = 136315906;
-      v23 = "[FCNotificationsEndpointConnection _sendNotificationsSubscriptionRequest:pathComponent:callbackQueue:completion:]";
-      v24 = 2080;
-      v25 = "FCNotificationsEndpointConnection.m";
-      v26 = 1024;
-      v27 = 522;
-      v28 = 2114;
-      v29 = v16;
+      v22 = "[FCNotificationsEndpointConnection _sendNotificationsSubscriptionRequest:pathComponent:callbackQueue:completion:]";
+      v23 = 2080;
+      v24 = "FCNotificationsEndpointConnection.m";
+      v25 = 1024;
+      v26 = 522;
+      v27 = 2114;
+      v28 = v15;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
       if (!completionCopy)
@@ -832,24 +1400,23 @@ void __110__FCNotificationsEndpointConnection_modifyMarketingSubscriptionWithTyp
   }
 
   serialQueue = [(FCNotificationsEndpointConnection *)self serialQueue];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke;
-  v17[3] = &unk_1E7C425E8;
-  v17[4] = self;
-  v18 = componentCopy;
-  v19 = requestCopy;
-  v20 = queueCopy;
-  v21 = completionCopy;
-  [serialQueue enqueueBlock:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke;
+  v16[3] = &unk_1E7C425E8;
+  v16[4] = self;
+  v17 = componentCopy;
+  v18 = requestCopy;
+  v19 = queueCopy;
+  v20 = completionCopy;
+  [serialQueue enqueueBlock:v16];
 
 LABEL_6:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) baseURL];
 
@@ -863,9 +1430,9 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
     {
       v8 = *(a1 + 48);
       *buf = 138412546;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v8;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v8;
       _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_INFO, "PushNotify url: %@ request: %@", buf, 0x16u);
     }
 
@@ -873,16 +1440,16 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
     v10 = [*(a1 + 48) data];
     v11 = *MEMORY[0x1E695ABC0];
     v12 = *(a1 + 56);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke_38;
-    v18[3] = &unk_1E7C3BD48;
-    v19 = v6;
-    v20 = v3;
-    v21 = *(a1 + 64);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke_38;
+    v17[3] = &unk_1E7C3BD48;
+    v18 = v6;
+    v19 = v3;
+    v20 = *(a1 + 64);
     v13 = v6;
     LODWORD(v14) = v11;
-    [v9 performHTTPRequestWithURL:v13 method:@"POST" data:v10 contentType:@"application/x-protobuf" priority:1 requiresMescalSigning:v12 callbackQueue:v14 completion:v18];
+    [v9 performHTTPRequestWithURL:v13 method:@"POST" data:v10 contentType:@"application/x-protobuf" priority:1 requiresMescalSigning:v12 callbackQueue:v14 completion:v17];
   }
 
   else
@@ -895,24 +1462,22 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
       (*(v15 + 16))(v15, 0, v16);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequest_pathComponent_callbackQueue_completion___block_invoke_38(void *a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   v10 = FCPushNotificationsLog;
   if (os_log_type_enabled(FCPushNotificationsLog, OS_LOG_TYPE_INFO))
   {
-    v15 = 138412546;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_INFO, "PushNotify response: %@ error: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    _os_log_impl(&dword_1B63EF000, v10, OS_LOG_TYPE_INFO, "PushNotify response: %@ error: %@", &v14, 0x16u);
   }
 
   if (v8)
@@ -935,13 +1500,82 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
       (*(v13 + 16))(v13, 0, v9);
     }
   }
+}
 
-  v14 = *MEMORY[0x1E69E9840];
+- (id)_pushNotifySubscriptionRequestWithChannelIDs:(id)ds paidChannelIDs:(id)iDs userID:(id)d deviceToken:(id)token storefrontID:(id)iD deviceDigestMode:(int)mode
+{
+  v8 = *&mode;
+  v38[1] = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  iDsCopy = iDs;
+  v16 = MEMORY[0x1E69B6F60];
+  iDCopy = iD;
+  tokenCopy = token;
+  dCopy = d;
+  v20 = objc_alloc_init(v16);
+  [v20 setNotificationUserId:dCopy];
+
+  [v20 setUserStorefrontId:iDCopy];
+  v21 = [(FCNotificationsEndpointConnection *)self _deviceInfoWithDeviceToken:tokenCopy deviceDigestMode:v8];
+
+  [v20 setDeviceInfo:v21];
+  configurationManager = [(FCNotificationsEndpointConnection *)self configurationManager];
+  configuration = [configurationManager configuration];
+  editorialChannelID = [configuration editorialChannelID];
+
+  bundleSubscriptionManager = [(FCNotificationsEndpointConnection *)self bundleSubscriptionManager];
+  if (bundleSubscriptionManager)
+  {
+    bundleSubscriptionManager2 = [(FCNotificationsEndpointConnection *)self bundleSubscriptionManager];
+    cachedSubscription = [bundleSubscriptionManager2 cachedSubscription];
+    subscriptionState = [cachedSubscription subscriptionState];
+  }
+
+  else
+  {
+    subscriptionState = 3;
+  }
+
+  if ([dsCopy containsObject:editorialChannelID] && subscriptionState <= 1)
+  {
+    v29 = [dsCopy fc_arrayByRemovingObject:editorialChannelID];
+
+    v30 = MEMORY[0x1E695DEC8];
+    v38[0] = editorialChannelID;
+    v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
+    v32 = [v30 fc_arrayByAddingUniqueObjectsFromArray:v31 toArray:iDsCopy];
+
+    iDsCopy = v32;
+    dsCopy = v29;
+  }
+
+  array = [MEMORY[0x1E695DF70] array];
+  if ([dsCopy count])
+  {
+    v34 = [(FCNotificationsEndpointConnection *)self _notificationEntitiesWithChannelIDs:dsCopy isPaid:0 paidBundleSubscriptionStatus:subscriptionState editorialChannelID:editorialChannelID];
+    [array addObjectsFromArray:v34];
+  }
+
+  if ([iDsCopy count])
+  {
+    v35 = [(FCNotificationsEndpointConnection *)self _notificationEntitiesWithChannelIDs:iDsCopy isPaid:1 paidBundleSubscriptionStatus:subscriptionState editorialChannelID:editorialChannelID];
+    [array addObjectsFromArray:v35];
+  }
+
+  if (![dsCopy count] && !objc_msgSend(iDsCopy, "count"))
+  {
+    v36 = [(FCNotificationsEndpointConnection *)self _notificationEntitiesWithChannelIDs:0 isPaid:0 paidBundleSubscriptionStatus:subscriptionState editorialChannelID:editorialChannelID];
+    [array addObjectsFromArray:v36];
+  }
+
+  [v20 setNotificationEntitys:array];
+
+  return v20;
 }
 
 - (id)_pushNotifySubscriptionRequestWithTopicIDs:(id)ds fromChannelID:(id)d withTopicGroupingID:(id)iD userID:(id)userID deviceToken:(id)token storefrontID:(id)storefrontID deviceDigestMode:(int)mode
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v15 = MEMORY[0x1E69B6F60];
   storefrontIDCopy = storefrontID;
   tokenCopy = token;
@@ -969,11 +1603,11 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
     subscriptionState = 3;
   }
 
-  v39 = dCopy;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v38 = dCopy;
+  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
   v28 = [(FCNotificationsEndpointConnection *)self _notificationEntityWithChannelIDs:v27 isPaid:0 paidBundleSubscriptionStatus:subscriptionState notificationType:3];
-  v40[0] = v28;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  v39[0] = v28;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
 
   v30 = [v29 mutableCopy];
   [v21 setNotificationEntitys:v30];
@@ -984,15 +1618,101 @@ void __114__FCNotificationsEndpointConnection__sendNotificationsSubscriptionRequ
   v32 = [dsCopy mutableCopy];
   [v31 setTopicIds:v32];
 
-  v38 = v31;
-  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+  v37 = v31;
+  v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
 
   v34 = [v33 mutableCopy];
   [v21 setTopicsFolloweds:v34];
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return v21;
+}
+
+- (id)_deviceInfoWithDeviceToken:(id)token deviceDigestMode:(int)mode
+{
+  v4 = *&mode;
+  v6 = MEMORY[0x1E69B6E08];
+  tokenCopy = token;
+  v8 = objc_alloc_init(v6);
+  [v8 setDevicePushToken:tokenCopy];
+
+  deviceType = [(FCNotificationsEndpointConnection *)self deviceType];
+  [v8 setDeviceType:deviceType];
+
+  [v8 setDeviceTokenEnv:2];
+  fc_preferredLanguageCodes = [MEMORY[0x1E695DF58] fc_preferredLanguageCodes];
+  v11 = [fc_preferredLanguageCodes mutableCopy];
+  [v8 setDevicePreferredLanguages:v11];
+
+  deviceOSVersion = [(FCNotificationsEndpointConnection *)self deviceOSVersion];
+  [v8 setDeviceOsVersion:deviceOSVersion];
+
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  v14 = [mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
+  [v8 setDeviceAppVersion:v14];
+
+  mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
+  bundleIdentifier = [mainBundle2 bundleIdentifier];
+  [v8 setDeviceAppBundleId:bundleIdentifier];
+
+  localTimeZone = [MEMORY[0x1E695DFE8] localTimeZone];
+  abbreviation = [localTimeZone abbreviation];
+  [v8 setDeviceTimezone:abbreviation];
+
+  [v8 setDeviceUtcOffset:{objc_msgSend(localTimeZone, "secondsFromGMT")}];
+  [localTimeZone daylightSavingTimeOffset];
+  [v8 setDeviceDstOffset:v19];
+  [v8 setDeviceDigestMode:v4];
+
+  return v8;
+}
+
+- (id)_notificationEntitiesWithChannelIDs:(id)ds isPaid:(BOOL)paid paidBundleSubscriptionStatus:(unint64_t)status editorialChannelID:(id)d
+{
+  paidCopy = paid;
+  v17[1] = *MEMORY[0x1E69E9840];
+  dsCopy = ds;
+  dCopy = d;
+  array = [MEMORY[0x1E695DF70] array];
+  if ([dsCopy containsObject:dCopy])
+  {
+    v17[0] = dCopy;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v14 = [(FCNotificationsEndpointConnection *)self _notificationEntityWithChannelIDs:v13 isPaid:status < 2 paidBundleSubscriptionStatus:status notificationType:2];
+
+    [array addObject:v14];
+  }
+
+  v15 = [(FCNotificationsEndpointConnection *)self _notificationEntityWithChannelIDs:dsCopy isPaid:paidCopy paidBundleSubscriptionStatus:status notificationType:1];
+  [array addObject:v15];
+
+  return array;
+}
+
+- (id)_notificationEntityWithChannelIDs:(id)ds isPaid:(BOOL)paid paidBundleSubscriptionStatus:(unint64_t)status notificationType:(int)type
+{
+  v6 = *&type;
+  paidCopy = paid;
+  v10 = MEMORY[0x1E69B6EC0];
+  dsCopy = ds;
+  v12 = objc_alloc_init(v10);
+  v13 = [dsCopy mutableCopy];
+
+  [v12 setTagIds:v13];
+  if (paidCopy)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  [v12 setSubscriberType:v14];
+  [v12 setPaidBundleSubscriptionStatus:{-[FCNotificationsEndpointConnection _pbNotificationEntityPaidBundleSubscriptionStatusFromSubscriptionState:](self, "_pbNotificationEntityPaidBundleSubscriptionStatusFromSubscriptionState:", status)}];
+  [v12 setNotificationType:v6];
+
+  return v12;
 }
 
 - (int)_pbNotificationEntityPaidBundleSubscriptionStatusFromSubscriptionState:(unint64_t)state

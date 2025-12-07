@@ -154,7 +154,7 @@
           v9 = v8;
           if ([v7 passthroughMode])
           {
-            if (self->_multiplePointCloudAttachmentsEnabled && [v9 isEqualToString:0x1F219CD30])
+            if (self->_multiplePointCloudAttachmentsEnabled && objc_msgSend_isEqualToString_(v9))
             {
               v34[0] = 0x1F219CD30;
               v34[1] = 0x1F21AAE50;
@@ -194,7 +194,7 @@
                   v19 = [v7 mediaPropertiesForAttachedMediaKey:v18];
                   if (!v19)
                   {
-                    if ([v18 isEqualToString:@"PrimaryFormat"])
+                    if (objc_msgSend_isEqualToString_(v18))
                     {
                       v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ output %@ has no media properties for the primary format (provided media key is %@)", self, v7, key];
                       objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0]);

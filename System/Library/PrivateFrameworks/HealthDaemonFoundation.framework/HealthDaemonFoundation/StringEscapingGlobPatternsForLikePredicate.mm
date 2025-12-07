@@ -9,7 +9,7 @@ void ___StringEscapingGlobPatternsForLikePredicate_block_invoke(uint64_t a1, voi
   v8 = v3;
   if (*(*(*(a1 + 40) + 8) + 24) != 1)
   {
-    if ([(__CFString *)v3 isEqualToString:@"\\""])
+    if ([(__CFString *)v3 isEqualToString:@"\"])
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
 LABEL_15:

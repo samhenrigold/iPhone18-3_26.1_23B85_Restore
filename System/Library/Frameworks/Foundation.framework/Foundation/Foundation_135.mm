@@ -1,87 +1,87 @@
-uint64_t PersonNameComponents.FormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void (*a3)(void)@<X3>, uint64_t a4@<X8>)
+uint64_t PersonNameComponents.FormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t (*a4)(void)@<X3>, uint64_t a6@<X8>)
 {
-  v16 = a4;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(a2);
-  v15 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v9 = &v15 - v8;
+  v18 = a6;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  v17 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v17 - v10;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  a3();
+  a4();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (!v4)
+  if (!v6)
   {
-    v11 = v15;
-    v10 = v16;
-    v18 = 0;
+    v13 = v17;
+    v12 = v18;
+    v20 = 0;
     lazy protocol witness table accessor for type PersonNameComponents.FormatStyle.Style and conformance PersonNameComponents.FormatStyle.Style();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v12 = v17;
-    v18 = 1;
+    v14 = v19;
+    v20 = 1;
     lazy protocol witness table accessor for type Locale and conformance Locale();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    (*(v11 + 8))(v9, v7);
-    v13 = v17;
-    *v10 = v12;
-    *(v10 + 8) = v13;
+    (*(v13 + 8))(v11, v9);
+    v15 = v19;
+    *v12 = v14;
+    *(v12 + 8) = v15;
   }
 
   return __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PersonNameComponents.FormatStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PersonNameComponents.FormatStyle(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 2);
+  v2 = *v1;
+  v3 = *(v1 + 2);
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1 + 1);
+  MEMORY[0x1865CD060](v2 + 1);
   ObjectType = swift_getObjectType();
-  if ((*(v2 + 48))(ObjectType, v2))
+  if ((*(v3 + 48))(ObjectType, v3))
   {
-    v4 = 1;
+    v5 = 1;
 LABEL_5:
-    Hasher._combine(_:)(v4);
+    Hasher._combine(_:)(v5);
     return Hasher._finalize()();
   }
 
   Hasher._combine(_:)(0);
-  (*(v2 + 64))(ObjectType, v2);
+  (*(v3 + 64))(ObjectType, v3);
   String.hash(into:)();
 
-  (*(v2 + 464))(&v37, ObjectType, v2);
-  v45[6] = v43;
-  v46[0] = *v44;
-  *(v46 + 12) = *&v44[12];
-  v45[2] = v39;
-  v45[3] = v40;
-  v45[4] = v41;
-  v45[5] = v42;
-  v45[0] = v37;
-  v45[1] = v38;
-  if (_s10Foundation17LocalePreferencesVSgWOg(v45) == 1)
+  (*(v3 + 464))(&v38, ObjectType, v3);
+  v46[6] = v44;
+  v47[0] = *v45;
+  *(v47 + 12) = *&v45[12];
+  v46[2] = v40;
+  v46[3] = v41;
+  v46[4] = v42;
+  v46[5] = v43;
+  v46[0] = v38;
+  v46[1] = v39;
+  if (_s10Foundation17LocalePreferencesVSgWOg(v46) == 1)
   {
-    v4 = 0;
+    v5 = 0;
     goto LABEL_5;
   }
 
-  v5 = v37;
-  v6 = *(&v37 + 1);
+  v6 = v38;
   v7 = *(&v38 + 1);
   v8 = *(&v39 + 1);
-  v9 = v40;
-  v31 = v41;
+  v9 = *(&v40 + 1);
+  v10 = v41;
   v32 = v42;
-  v10 = v43;
-  v11 = *v44;
-  v33 = v44[24];
-  v34 = *&v44[16];
-  v12 = v44[25];
-  v35 = v44[26];
-  v36 = v44[27];
+  v33 = v43;
+  v11 = v44;
+  v12 = *v45;
+  v34 = v45[24];
+  v35 = *&v45[16];
+  v13 = v45[25];
+  v36 = v45[26];
+  v37 = v45[27];
   Hasher._combine(_:)(1u);
-  if (v5 == 2)
+  if (v6 == 2)
   {
     Hasher._combine(_:)(0);
-    if (v6)
+    if (v7)
     {
       goto LABEL_8;
     }
@@ -90,29 +90,29 @@ LABEL_5:
   else
   {
     Hasher._combine(_:)(1u);
-    Hasher._combine(_:)(v5 & 1);
-    if (v6)
+    Hasher._combine(_:)(v6 & 1);
+    if (v7)
     {
 LABEL_8:
       Hasher._combine(_:)(1u);
-      MEMORY[0x1865CD060](*(v6 + 16));
-      v13 = *(v6 + 16);
-      if (v13)
+      MEMORY[0x1865CD060](*(v7 + 16));
+      v14 = *(v7 + 16);
+      if (v14)
       {
-        v14 = v6 + 40;
+        v15 = v7 + 40;
         do
         {
 
           String.hash(into:)();
 
-          v14 += 16;
-          --v13;
+          v15 += 16;
+          --v14;
         }
 
-        while (v13);
+        while (v14);
       }
 
-      if (v7)
+      if (v8)
       {
         goto LABEL_12;
       }
@@ -122,7 +122,7 @@ LABEL_8:
   }
 
   Hasher._combine(_:)(0);
-  if (v7)
+  if (v8)
   {
 LABEL_12:
     Hasher._combine(_:)(1u);
@@ -133,96 +133,10 @@ LABEL_12:
 LABEL_15:
   Hasher._combine(_:)(0);
 LABEL_16:
-  if (v8)
-  {
-    Hasher._combine(_:)(1u);
-    String.hash(into:)();
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
   if (v9)
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v47, v9, v15, v16, v17, v18, v19, v20);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  if (*(&v9 + 1))
-  {
-    Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v47, *(&v9 + 1), v21, v22, v23, v24, v25, v26);
-    if (v31)
-    {
-      goto LABEL_24;
-    }
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-    if (v31)
-    {
-LABEL_24:
-      Hasher._combine(_:)(1u);
-      type metadata accessor for CFDictionaryRef(0);
-      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-      _CFObject.hash(into:)();
-      if (*(&v31 + 1))
-      {
-        goto LABEL_25;
-      }
-
-LABEL_29:
-      v27 = v33;
-      Hasher._combine(_:)(0);
-      if (v32)
-      {
-        goto LABEL_26;
-      }
-
-      goto LABEL_30;
-    }
-  }
-
-  Hasher._combine(_:)(0);
-  if (!*(&v31 + 1))
-  {
-    goto LABEL_29;
-  }
-
-LABEL_25:
-  v27 = v33;
-  Hasher._combine(_:)(1u);
-  type metadata accessor for CFDictionaryRef(0);
-  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-  _CFObject.hash(into:)();
-  if (v32)
-  {
-LABEL_26:
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
-    goto LABEL_31;
-  }
-
-LABEL_30:
-  Hasher._combine(_:)(0);
-LABEL_31:
-  if (*(&v32 + 1))
-  {
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    String.hash(into:)();
   }
 
   else
@@ -233,9 +147,7 @@ LABEL_31:
   if (v10)
   {
     Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    specialized Dictionary<>.hash(into:)(v48, v10, v16, v17, v18, v19, v20, v21);
   }
 
   else
@@ -246,8 +158,96 @@ LABEL_31:
   if (*(&v10 + 1))
   {
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v47, *(&v10 + 1));
-    if (v11)
+    specialized Dictionary<>.hash(into:)(v48, *(&v10 + 1), v22, v23, v24, v25, v26, v27);
+    if (v32)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+    if (v32)
+    {
+LABEL_24:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      if (*(&v32 + 1))
+      {
+        goto LABEL_25;
+      }
+
+LABEL_29:
+      v28 = v34;
+      Hasher._combine(_:)(0);
+      if (v33)
+      {
+        goto LABEL_26;
+      }
+
+      goto LABEL_30;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+  if (!*(&v32 + 1))
+  {
+    goto LABEL_29;
+  }
+
+LABEL_25:
+  v28 = v34;
+  Hasher._combine(_:)(1u);
+  type metadata accessor for CFDictionaryRef(0);
+  _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+  _CFObject.hash(into:)();
+  if (v33)
+  {
+LABEL_26:
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    goto LABEL_31;
+  }
+
+LABEL_30:
+  Hasher._combine(_:)(0);
+LABEL_31:
+  if (*(&v33 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v11)
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (*(&v11 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    specialized Dictionary<>.hash(into:)(v48, *(&v11 + 1));
+    if (v12)
     {
       goto LABEL_39;
     }
@@ -256,12 +256,12 @@ LABEL_31:
   else
   {
     Hasher._combine(_:)(0);
-    if (v11)
+    if (v12)
     {
 LABEL_39:
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v47, v11);
-      if (v34)
+      specialized Dictionary<>.hash(into:)(v48, v12);
+      if (v35)
       {
         goto LABEL_40;
       }
@@ -271,12 +271,12 @@ LABEL_39:
   }
 
   Hasher._combine(_:)(0);
-  if (v34)
+  if (v35)
   {
 LABEL_40:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v27 == 2)
+    if (v28 == 2)
     {
       goto LABEL_41;
     }
@@ -286,61 +286,61 @@ LABEL_40:
 
 LABEL_46:
   Hasher._combine(_:)(0);
-  if (v27 == 2)
+  if (v28 == 2)
   {
 LABEL_41:
     Hasher._combine(_:)(0);
-    if (v12 != 2)
+    if (v13 != 2)
     {
       goto LABEL_42;
     }
 
 LABEL_48:
     Hasher._combine(_:)(0);
-    if (v35 != 2)
+    if (v36 != 2)
     {
       goto LABEL_43;
     }
 
 LABEL_49:
-    v28 = 0;
+    v29 = 0;
     goto LABEL_50;
   }
 
 LABEL_47:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v27 & 1);
-  if (v12 == 2)
+  MEMORY[0x1865CD060](v28 & 1);
+  if (v13 == 2)
   {
     goto LABEL_48;
   }
 
 LABEL_42:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v12 & 1);
-  if (v35 == 2)
+  MEMORY[0x1865CD060](v13 & 1);
+  if (v36 == 2)
   {
     goto LABEL_49;
   }
 
 LABEL_43:
   Hasher._combine(_:)(1u);
-  v28 = v35 & 1;
+  v29 = v36 & 1;
 LABEL_50:
-  Hasher._combine(_:)(v28);
-  if (v36 == 2)
+  Hasher._combine(_:)(v29);
+  if (v37 == 2)
   {
-    v29 = 0;
+    v30 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v29 = v36 & 1;
+    v30 = v37 & 1;
   }
 
-  Hasher._combine(_:)(v29);
-  outlined destroy of LocalePreferences?(&v37);
+  Hasher._combine(_:)(v30);
+  outlined destroy of LocalePreferences?(&v38);
   return Hasher._finalize()();
 }
 
@@ -351,7 +351,7 @@ void PersonNameComponents.ParseStrategy.parse(_:)(uint64_t *a1@<X8>)
   swift_unknownObjectRelease();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMd, &_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMR);
     v4 = swift_allocObject();
     [v3 copy];
     _bridgeAnyObjectToAny(_:)();
@@ -387,7 +387,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t PersonNameComponents.ParseStrategy.encode(to:)(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMd, &_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -399,7 +399,7 @@ uint64_t PersonNameComponents.ParseStrategy.encode(to:)(void *a1)
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance PersonNameComponents.ParseStrategy(void *a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMd, &_ss22KeyedEncodingContainerVy10Foundation20PersonNameComponentsV13ParseStrategyV10CodingKeys33_B9CD14CB2F013B0D23DE87D4C1A693FALLOGMR);
   v3 = *(v2 - 8);
   MEMORY[0x1EEE9AC00](v2);
   v5 = &v7 - v4;
@@ -414,7 +414,7 @@ Swift::String __swiftcall PersonNameComponents.formatted()()
   v1 = *v0;
   type metadata accessor for _LocaleAutoupdating();
   swift_initStaticObject();
-  v2 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  v2 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   v3 = [objc_allocWithZone(NSPersonNameComponentsFormatter) init];
   [v3 setStyle_];
   ObjectType = swift_getObjectType();
@@ -573,7 +573,7 @@ void PersonNameComponents.init(_:)(uint64_t *a1@<X8>)
   swift_unknownObjectRelease();
   if (v3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMd, &_s10Foundation14_MutableHandleCySo22NSPersonNameComponentsCGMR);
     v4 = swift_allocObject();
     [v3 copy];
     _bridgeAnyObjectToAny(_:)();
@@ -598,7 +598,7 @@ uint64_t static FormatStyle<>.name(style:)@<X0>(char *a1@<X0>, uint64_t a2@<X8>)
   v3 = *a1;
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_2(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   *a2 = v3;
   *(a2 + 8) = inited;
   *(a2 + 16) = result;
@@ -911,7 +911,7 @@ unint64_t lazy protocol witness table accessor for type PersonNameComponents.Par
 
 uint64_t instantiation function for generic protocol witness table for PersonNameComponents.FormatStyle(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void), uint64_t (*a6)(void))
 {
-  a1[1] = a4();
+  a1[1] = (a4)(a1, a2, a3);
   a1[2] = a5();
   result = a6();
   a1[3] = result;
@@ -981,15 +981,19 @@ unint64_t instantiation function for generic protocol witness table for PersonNa
   return result;
 }
 
-uint64_t _KeyValueCodingAndObservingSequence<>.changes<A>(for:options:)()
+uint64_t _KeyValueCodingAndObservingSequence<>.changes<A>(for:options:)(void *a1, uint64_t a2)
 {
+  v4 = (*a1 + *MEMORY[0x1E69E77B0]);
+  v5 = *v4;
+  v6 = v4[1];
   type metadata accessor for KeyPath();
 
   swift_dynamicCast();
-  type metadata accessor for NSObject.KeyValueObservedChanges();
-  v1 = swift_allocObject();
-  NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(v0);
-  return v1;
+  type metadata accessor for NSObject.KeyValueObservedChanges(0, v5, v6, v7);
+  v8 = swift_allocObject();
+  v9 = v2;
+  NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(v9, v12, a2, v10);
+  return v8;
 }
 
 uint64_t NSObject.KeyValueObservedChanges.Iterator.next()(uint64_t a1, uint64_t a2)
@@ -1018,13 +1022,13 @@ uint64_t NSObject.KeyValueObservedChanges.Iterator.next()()
   v6[4] = v2;
   v7 = swift_task_alloc();
   v0[7] = v7;
-  type metadata accessor for NSKeyValueObservedChange();
+  type metadata accessor for NSKeyValueObservedChange(255, v5, v8, v9);
   type metadata accessor for Optional();
   *v7 = v0;
   v7[1] = NSObject.KeyValueObservedChanges.Iterator.next();
-  v8 = v0[2];
+  v10 = v0[2];
 
-  return MEMORY[0x1EEE6DE18](v8, &async function pointer to partial apply for closure #1 in NSObject.KeyValueObservedChanges.Iterator.next());
+  return MEMORY[0x1EEE6DE18](v10, &async function pointer to partial apply for closure #1 in NSObject.KeyValueObservedChanges.Iterator.next());
 }
 
 void NSObject.KeyValueObservedChanges.Iterator.next()()
@@ -1075,7 +1079,7 @@ uint64_t closure #1 in NSObject.KeyValueObservedChanges.Iterator.next()()
 
 uint64_t closure #2 in NSObject.KeyValueObservedChanges.Iterator.next()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v12 - v7;
   v9 = type metadata accessor for TaskPriority();
@@ -1110,26 +1114,26 @@ uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance NSObje
   return NSObject.KeyValueObservedChanges.Iterator.next()(a1, a2);
 }
 
-uint64_t NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(void *a1)
+void *NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for NSObject.KeyValueObservedChanges.State();
+  type metadata accessor for NSObject.KeyValueObservedChanges.State(255, *(*v4 + 80), *(*v4 + 88), a4);
   type metadata accessor for os_unfair_lock_s(255);
   type metadata accessor for ManagedBuffer();
-  v3 = swift_allocObject();
-  *(v3 + 40) = 0;
-  v4 = (v3 + 40);
-  v5 = MEMORY[0x1E69E7CC0];
-  *(v3 + 16) = MEMORY[0x1E69E7CC0];
-  v6 = v3 + 16;
-  *(v3 + 24) = 0;
-  *(v3 + 32) = v5;
-  *(v1 + 16) = v3;
+  v6 = swift_allocObject();
+  *(v6 + 40) = 0;
+  v7 = (v6 + 40);
+  v8 = MEMORY[0x1E69E7CC0];
+  *(v6 + 16) = MEMORY[0x1E69E7CC0];
+  v9 = v6 + 16;
+  *(v6 + 24) = 0;
+  *(v6 + 32) = v8;
+  v4[2] = v6;
 
-  os_unfair_lock_lock(v4);
-  partial apply for closure #1 in NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(v6);
-  os_unfair_lock_unlock(v4);
+  os_unfair_lock_lock(v7);
+  partial apply for closure #1 in NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(v9);
+  os_unfair_lock_unlock(v7);
 
-  return v1;
+  return v4;
 }
 
 uint64_t partial apply for closure #1 in NSObject.KeyValueObservedChanges.Iterator.next()(uint64_t a1)
@@ -1159,74 +1163,74 @@ void closure #1 in NSObject.KeyValueObservedChanges.init(object:keyPath:options:
   *(a1 + 8) = v11;
 }
 
-uint64_t closure #1 in closure #1 in NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(uint64_t a1, uint64_t a2)
+uint64_t closure #1 in closure #1 in NSObject.KeyValueObservedChanges.init(object:keyPath:options:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = swift_weakLoadStrong();
   if (result)
   {
-    NSObject.KeyValueObservedChanges.send(_:)(a2);
+    NSObject.KeyValueObservedChanges.send(_:)(a2, v5, v6, v7);
   }
 
   return result;
 }
 
-uint64_t NSObject.KeyValueObservedChanges.send(_:)(uint64_t a1)
+uint64_t NSObject.KeyValueObservedChanges.send(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v36 = a1;
-  v2 = *v1;
-  v3 = *(*v1 + 88);
-  v4 = type metadata accessor for NSKeyValueObservedChange();
-  v5 = type metadata accessor for Optional();
-  v34 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v32 = &v31 - v6;
-  v35 = v7;
+  v39 = a1;
+  v5 = *v4;
+  v6 = *(*v4 + 88);
+  v7 = type metadata accessor for NSKeyValueObservedChange(255, v6, a3, a4);
+  v8 = type metadata accessor for Optional();
+  v37 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v35 = &v34 - v9;
+  v38 = v10;
   type metadata accessor for UnsafeContinuation();
-  v33 = v4;
+  v36 = v7;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v9 = *(TupleTypeMetadata2 - 8);
+  v12 = *(TupleTypeMetadata2 - 8);
   MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v31 = &v31 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = (&v31 - v12);
-  v14 = type metadata accessor for Optional();
-  v15 = *(v14 - 8);
+  v34 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v17 = &v31 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v31 - v19;
-  v21 = v2;
-  v22 = v1[2];
-  v37 = *(v21 + 80);
-  v38 = v3;
-  v39 = v36;
-  os_unfair_lock_lock((v22 + 40));
-  partial apply for closure #1 in NSObject.KeyValueObservedChanges.send(_:)((v22 + 16), v20);
-  os_unfair_lock_unlock((v22 + 40));
-  (*(v15 + 16))(v17, v20, v14);
-  if ((*(v9 + 48))(v17, 1, TupleTypeMetadata2) == 1)
+  v16 = (&v34 - v15);
+  v17 = type metadata accessor for Optional();
+  v18 = *(v17 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v20 = &v34 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v34 - v22;
+  v24 = v5;
+  v25 = v4[2];
+  v40 = *(v24 + 80);
+  v41 = v6;
+  v42 = v39;
+  os_unfair_lock_lock((v25 + 40));
+  partial apply for closure #1 in NSObject.KeyValueObservedChanges.send(_:)((v25 + 16), v23);
+  os_unfair_lock_unlock((v25 + 40));
+  (*(v18 + 16))(v20, v23, v17);
+  if ((*(v12 + 48))(v20, 1, TupleTypeMetadata2) == 1)
   {
-    v23 = *(v15 + 8);
-    v23(v20, v14);
-    return (v23)(v17, v14);
+    v26 = *(v18 + 8);
+    v26(v23, v17);
+    return (v26)(v20, v17);
   }
 
   else
   {
-    (*(v9 + 32))(v13, v17, TupleTypeMetadata2);
-    v25 = *v13;
-    v26 = v31;
-    (*(v9 + 16))(v31, v13, TupleTypeMetadata2);
-    v27 = v33;
-    v28 = *(v33 - 8);
-    v29 = &v26[*(TupleTypeMetadata2 + 48)];
-    v30 = v32;
-    (*(v28 + 32))(v32, v29, v33);
-    (*(v28 + 56))(v30, 0, 1, v27);
-    (*(v34 + 32))(*(*(v25 + 64) + 40), v30, v35);
+    (*(v12 + 32))(v16, v20, TupleTypeMetadata2);
+    v28 = *v16;
+    v29 = v34;
+    (*(v12 + 16))(v34, v16, TupleTypeMetadata2);
+    v30 = v36;
+    v31 = *(v36 - 8);
+    v32 = &v29[*(TupleTypeMetadata2 + 48)];
+    v33 = v35;
+    (*(v31 + 32))(v35, v32, v36);
+    (*(v31 + 56))(v33, 0, 1, v30);
+    (*(v37 + 32))(*(*(v28 + 64) + 40), v33, v38);
     swift_continuation_resume();
-    (*(v9 + 8))(v13, TupleTypeMetadata2);
-    return (*(v15 + 8))(v20, v14);
+    (*(v12 + 8))(v16, TupleTypeMetadata2);
+    return (*(v18 + 8))(v23, v17);
   }
 }
 
@@ -1239,25 +1243,25 @@ uint64_t NSObject.KeyValueObservedChanges.deinit()
 
 Swift::Void __swiftcall NSObject.KeyValueObservedChanges.teardown()()
 {
-  v1 = *v0;
-  v2 = *(*v0 + 88);
-  v3 = type metadata accessor for NSKeyValueObservedChange();
-  v4 = type metadata accessor for Optional();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v21 - v6;
-  v8 = v0[2];
-  v23 = *(v1 + 80);
-  v24 = v2;
-  os_unfair_lock_lock(v8 + 10);
-  partial apply for closure #1 in NSObject.KeyValueObservedChanges.teardown()(&v8[4], v25);
-  os_unfair_lock_unlock(v8 + 10);
-  v10 = v25[0];
-  v9 = v25[1];
-  if (v25[0])
+  v3 = *v2;
+  v4 = *(*v2 + 88);
+  v5 = type metadata accessor for NSKeyValueObservedChange(255, v4, v0, v1);
+  v6 = type metadata accessor for Optional();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v23 - v8;
+  v10 = v2[2];
+  v25 = *(v3 + 80);
+  v26 = v4;
+  os_unfair_lock_lock(v10 + 10);
+  partial apply for closure #1 in NSObject.KeyValueObservedChanges.teardown()(&v10[4], v27);
+  os_unfair_lock_unlock(v10 + 10);
+  v12 = v27[0];
+  v11 = v27[1];
+  if (v27[0])
   {
     Strong = swift_unknownObjectWeakLoadStrong();
-    v12 = v10;
+    v14 = v12;
     if (Strong)
     {
       NSKeyValueObservation.Helper.invalidate()();
@@ -1266,10 +1270,10 @@ Swift::Void __swiftcall NSObject.KeyValueObservedChanges.teardown()()
     swift_unknownObjectWeakAssign();
   }
 
-  v13 = type metadata accessor for UnsafeContinuation();
+  v15 = type metadata accessor for UnsafeContinuation();
 
-  v15 = MEMORY[0x1865CB560](v14, v13);
-  if (!v15)
+  v17 = MEMORY[0x1865CB560](v16, v15);
+  if (!v17)
   {
 
 LABEL_11:
@@ -1277,31 +1281,31 @@ LABEL_11:
     return;
   }
 
-  v16 = v15;
-  if (v15 >= 1)
+  v18 = v17;
+  if (v17 >= 1)
   {
-    v22 = v10;
-    v17 = *(*(v3 - 8) + 56);
-    v18 = (v5 + 32);
-    v19 = 32;
+    v24 = v12;
+    v19 = *(*(v5 - 8) + 56);
+    v20 = (v7 + 32);
+    v21 = 32;
     do
     {
-      v20 = *(v9 + v19);
-      v17(v7, 1, 1, v3);
-      (*v18)(*(*(v20 + 64) + 40), v7, v4);
+      v22 = *(v11 + v21);
+      v19(v9, 1, 1, v5);
+      (*v20)(*(*(v22 + 64) + 40), v9, v6);
       swift_continuation_resume();
-      v19 += 8;
-      --v16;
+      v21 += 8;
+      --v18;
     }
 
-    while (v16);
+    while (v18);
 
-    v10 = v22;
+    v12 = v24;
     goto LABEL_11;
   }
 
   __break(1u);
-  os_unfair_lock_unlock(v15);
+  os_unfair_lock_unlock(v17);
   __break(1u);
 }
 
@@ -1312,61 +1316,61 @@ uint64_t NSObject.KeyValueObservedChanges.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t closure #1 in NSObject.KeyValueObservedChanges.send(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void *closure #1 in NSObject.KeyValueObservedChanges.send(_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X8>)
 {
-  v38 = a2;
-  v6 = type metadata accessor for NSKeyValueObservedChange();
-  v39 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v8 = &v36 - v7;
-  v9 = type metadata accessor for Optional();
-  v10 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = &v36 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v13);
-  v16 = &v36 - v15;
+  v40 = a2;
+  v8 = type metadata accessor for NSKeyValueObservedChange(0, a4, a3, a4);
+  v41 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v38 - v9;
+  v11 = type metadata accessor for Optional();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v38 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v18 = &v38 - v17;
   if (!a1[1])
   {
     type metadata accessor for UnsafeContinuation();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    return (*(*(TupleTypeMetadata2 - 8) + 56))(a3, 1, 1, TupleTypeMetadata2);
+    return (*(*(TupleTypeMetadata2 - 8) + 56))(a5, 1, 1, TupleTypeMetadata2);
   }
 
-  v37 = a3;
-  v17 = *a1;
-  if (MEMORY[0x1865CB550](*a1, v6, v14) < 1)
+  v39 = a5;
+  v19 = *a1;
+  if (MEMORY[0x1865CB550](*a1, v8, v16) < 1)
   {
-    v27 = a1[2];
-    v28 = type metadata accessor for UnsafeContinuation();
-    if (!MEMORY[0x1865CB550](v27, v28))
+    v29 = a1[2];
+    v30 = type metadata accessor for UnsafeContinuation();
+    if (!MEMORY[0x1865CB550](v29, v30))
     {
-      (*(v39 + 16))(v8, v38, v6);
+      (*(v41 + 16))(v10, v40, v8);
       type metadata accessor for Array();
       Array._makeUniqueAndReserveCapacityIfNotUnique()();
       Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(*(*a1 + 16));
       Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v35 = swift_getTupleTypeMetadata2();
-      return (*(*(v35 - 8) + 56))(v37, 1, 1, v35);
+      v37 = swift_getTupleTypeMetadata2();
+      return (*(*(v37 - 8) + 56))(v39, 1, 1, v37);
     }
 
-    result = MEMORY[0x1865CB560](v27, v28);
+    result = MEMORY[0x1865CB560](v29, v30);
     if (result)
     {
       type metadata accessor for Array();
       swift_getWitnessTable();
       result = Collection.first.getter();
-      v29 = v40;
-      if (v40)
+      v31 = v42;
+      if (v42)
       {
         swift_getWitnessTable();
         RangeReplaceableCollection.removeFirst(_:)(1);
-        v30 = swift_getTupleTypeMetadata2();
-        v31 = *(v30 + 48);
-        v33 = v37;
-        v32 = v38;
-        *v37 = v29;
-        (*(v39 + 16))(&v33[v31], v32, v6);
-        return (*(*(v30 - 8) + 56))(v33, 0, 1, v30);
+        v32 = swift_getTupleTypeMetadata2();
+        v33 = *(v32 + 48);
+        v35 = v39;
+        v34 = v40;
+        *v39 = v31;
+        (*(v41 + 16))(&v35[v33], v34, v8);
+        return (*(*(v32 - 8) + 56))(v35, 0, 1, v32);
       }
 
       goto LABEL_29;
@@ -1375,39 +1379,39 @@ uint64_t closure #1 in NSObject.KeyValueObservedChanges.send(_:)@<X0>(void *a1@<
     goto LABEL_25;
   }
 
-  result = MEMORY[0x1865CB550](v17, v6);
+  result = MEMORY[0x1865CB550](v19, v8);
   if (__OFADD__(result, 1))
   {
     __break(1u);
     goto LABEL_22;
   }
 
-  v36 = v3;
+  v38 = v5;
   if (result + 1 < 8)
   {
 LABEL_8:
-    (*(v39 + 16))(v8, v38, v6);
+    (*(v41 + 16))(v10, v40, v8);
     type metadata accessor for Array();
     Array._makeUniqueAndReserveCapacityIfNotUnique()();
     Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(*(*a1 + 16));
     Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-    v19 = *a1;
-    v20 = a1[2];
-    v21 = type metadata accessor for UnsafeContinuation();
-    if (MEMORY[0x1865CB550](v20, v21) < 1)
+    v21 = *a1;
+    v22 = a1[2];
+    v23 = type metadata accessor for UnsafeContinuation();
+    if (MEMORY[0x1865CB550](v22, v23) < 1)
     {
-      v34 = swift_getTupleTypeMetadata2();
-      return (*(*(v34 - 8) + 56))(v37, 1, 1, v34);
+      v36 = swift_getTupleTypeMetadata2();
+      return (*(*(v36 - 8) + 56))(v39, 1, 1, v36);
     }
 
-    result = MEMORY[0x1865CB560](v20, v21);
+    result = MEMORY[0x1865CB560](v22, v23);
     if (result)
     {
       type metadata accessor for Array();
       swift_getWitnessTable();
       result = Collection.first.getter();
-      v22 = v40;
-      if (!v40)
+      v24 = v42;
+      if (!v42)
       {
 LABEL_26:
         __break(1u);
@@ -1418,22 +1422,22 @@ LABEL_27:
 
       swift_getWitnessTable();
       RangeReplaceableCollection.removeFirst(_:)(1);
-      *v37 = v22;
-      result = MEMORY[0x1865CB560](v19, v6);
+      *v39 = v24;
+      result = MEMORY[0x1865CB560](v21, v8);
       if (result)
       {
         swift_getWitnessTable();
         Collection.first.getter();
-        v23 = v39;
-        result = (*(v39 + 48))(v12, 1, v6);
+        v25 = v41;
+        result = (*(v41 + 48))(v14, 1, v8);
         if (result != 1)
         {
-          v24 = swift_getTupleTypeMetadata2();
-          v25 = v37;
-          (*(v23 + 32))(&v37[*(v24 + 48)], v12, v6);
+          v26 = swift_getTupleTypeMetadata2();
+          v27 = v39;
+          (*(v25 + 32))(&v39[*(v26 + 48)], v14, v8);
           swift_getWitnessTable();
           RangeReplaceableCollection.removeFirst(_:)(1);
-          return (*(*(v24 - 8) + 56))(v25, 0, 1, v24);
+          return (*(*(v26 - 8) + 56))(v27, 0, 1, v26);
         }
 
         goto LABEL_27;
@@ -1449,7 +1453,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  result = MEMORY[0x1865CB560](v17, v6);
+  result = MEMORY[0x1865CB560](v19, v8);
   if (!result)
   {
 LABEL_24:
@@ -1462,10 +1466,10 @@ LABEL_25:
   type metadata accessor for Array();
   swift_getWitnessTable();
   Collection.first.getter();
-  result = (*(v39 + 48))(v16, 1, v6);
+  result = (*(v41 + 48))(v18, 1, v8);
   if (result != 1)
   {
-    (*(v10 + 8))(v16, v9);
+    (*(v12 + 8))(v18, v11);
     swift_getWitnessTable();
     RangeReplaceableCollection.removeFirst(_:)(1);
     goto LABEL_8;
@@ -1478,19 +1482,19 @@ LABEL_29:
   return result;
 }
 
-uint64_t closure #1 in closure #1 in NSObject.KeyValueObservedChanges.next()(void *a1, uint64_t a2)
+uint64_t closure #1 in closure #1 in NSObject.KeyValueObservedChanges.next()(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = type metadata accessor for NSKeyValueObservedChange();
-  v6 = type metadata accessor for Optional();
-  v7 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x1EEE9AC00](v10);
-  v13 = v17 - v12;
-  v14 = *a1;
-  if (MEMORY[0x1865CB550](*a1, v5, v11) < 1)
+  v7 = type metadata accessor for NSKeyValueObservedChange(255, a4, a3, a4);
+  v8 = type metadata accessor for Optional();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v15 = v19 - v14;
+  v16 = *a1;
+  if (MEMORY[0x1865CB550](*a1, v7, v13) < 1)
   {
-    v17[3] = a2;
+    v19[3] = a2;
     type metadata accessor for UnsafeContinuation();
     type metadata accessor for Array();
     Array._makeUniqueAndReserveCapacityIfNotUnique()();
@@ -1500,23 +1504,23 @@ uint64_t closure #1 in closure #1 in NSObject.KeyValueObservedChanges.next()(voi
 
   else
   {
-    result = MEMORY[0x1865CB560](v14, v5);
+    result = MEMORY[0x1865CB560](v16, v7);
     if (result)
     {
-      v17[0] = a2;
-      v17[1] = v2;
+      v19[0] = a2;
+      v19[1] = v4;
       type metadata accessor for Array();
       swift_getWitnessTable();
       Collection.first.getter();
-      v16 = *(v5 - 8);
-      result = (*(v16 + 48))(v9, 1, v5);
+      v18 = *(v7 - 8);
+      result = (*(v18 + 48))(v11, 1, v7);
       if (result != 1)
       {
-        (*(v16 + 32))(v13, v9, v5);
+        (*(v18 + 32))(v15, v11, v7);
         swift_getWitnessTable();
         RangeReplaceableCollection.removeFirst(_:)(1);
-        (*(v16 + 56))(v13, 0, 1, v5);
-        (*(v7 + 32))(*(*(v17[0] + 64) + 40), v13, v6);
+        (*(v18 + 56))(v15, 0, 1, v7);
+        (*(v9 + 32))(*(*(v19[0] + 64) + 40), v15, v8);
         return swift_continuation_resume();
       }
     }
@@ -1537,14 +1541,14 @@ uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance N
   NSObject.KeyValueObservedChanges.makeAsyncIterator()(a1);
 }
 
-uint64_t type metadata instantiation function for NSObject.KeyValueObservedChanges.Iterator()
+uint64_t type metadata instantiation function for NSObject.KeyValueObservedChanges.Iterator(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for NSObject.KeyValueObservedChanges.State()
+uint64_t type metadata instantiation function for NSObject.KeyValueObservedChanges.State(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -1643,7 +1647,7 @@ uint64_t _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zi
         *&v42[16] = v14;
         v42[36] = BYTE4(v17);
         *&v42[32] = v17;
-        result = outlined destroy of TermOfAddress?(v42, &_sSS_10Foundation10MorphologyVtMd);
+        result = outlined destroy of TermOfAddress?(v42, &_sSS_10Foundation10MorphologyVtMd, &_sSS_10Foundation10MorphologyVtMR);
         v7 = v40;
         v45 = v40;
         v19 = *(v40 + 16);
@@ -1737,7 +1741,7 @@ LABEL_26:
       outlined init with copy of Morphology(v44, v41);
       outlined init with copy of Morphology(v44, v41);
 
-      result = outlined destroy of TermOfAddress?(v42, &_sSS_10Foundation10MorphologyVtMd);
+      result = outlined destroy of TermOfAddress?(v42, &_sSS_10Foundation10MorphologyVtMd, &_sSS_10Foundation10MorphologyVtMR);
       v45 = v7;
       v29 = *(v7 + 16);
       v30 = *(v7 + 24);
@@ -1789,7 +1793,7 @@ uint64_t one-time initialization function for termOfAddressToPronounMappings()
   v53 = 28261;
   v54 = 0xE200000000000000;
   v55 = String.lowercased()();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation10MorphologyVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation10MorphologyVGMd, &_ss23_ContiguousArrayStorageCy10Foundation10MorphologyVGMR);
   v1 = swift_allocObject();
   *(v1 + 16) = xmmword_1812354D0;
   if (one-time initialization token for nominative != -1)
@@ -1961,7 +1965,7 @@ LABEL_19:
   *(v33 + 93) = v37;
   v83 = v33;
   v84 = &outlined read-only object #42 of one-time initialization function for termOfAddressToPronounMappings;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV12LanguageCodeVAC27TermOfAddressPronounMappingVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV12LanguageCodeVAC27TermOfAddressPronounMappingVGMd, &_ss18_DictionaryStorageCy10Foundation6LocaleV12LanguageCodeVAC27TermOfAddressPronounMappingVGMR);
   v1 = static _DictionaryStorage.allocate(capacity:)();
   outlined init with copy of Morphology(v97, v51);
   outlined init with copy of Morphology(v98, v51);
@@ -2001,7 +2005,7 @@ LABEL_18:
     *(v1 + 16) = v48;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeV_AA27TermOfAddressPronounMappingVtMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleV12LanguageCodeV_AA27TermOfAddressPronounMappingVtMd, &_s10Foundation6LocaleV12LanguageCodeV_AA27TermOfAddressPronounMappingVtMR);
   result = swift_arrayDestroy();
   termOfAddressToPronounMappings._rawValue = v1;
   return result;
@@ -2020,21 +2024,21 @@ double TermOfAddress.extrapolatingPronouns(language:)@<D0>(__int128 *a1@<X0>, __
   v8 = a1[1];
   v101 = *a1;
   v102 = v8;
-  v9 = v2[5];
-  v111 = v2[4];
+  v9 = *(v2 + 80);
+  v111 = *(v2 + 64);
   v112 = v9;
-  v10 = v2[1];
+  v10 = *(v2 + 16);
   v107 = *v2;
   v108 = v10;
-  v11 = v2[3];
-  v109 = v2[2];
+  v11 = *(v2 + 48);
+  v109 = *(v2 + 32);
   v110 = v11;
   v93 = v103;
   v94 = v6;
   v12 = a1[5];
   v95 = v105;
   v96 = v12;
-  v113 = *(v2 + 12);
+  v113 = *(v2 + 96);
   v91 = v101;
   v92 = v5;
   Locale.Language.languageCode.getter(&v85);
@@ -2070,7 +2074,7 @@ LABEL_37:
     rawValue = termOfAddressToPronounMappings._rawValue;
     if (!*(termOfAddressToPronounMappings._rawValue + 2))
     {
-      outlined consume of Locale.LanguageCode?(v14, v13);
+      outlined consume of Locale.LanguageCode?(v14, v13, v15, v16);
       goto LABEL_36;
     }
 
@@ -2078,7 +2082,7 @@ LABEL_37:
     v19 = v13;
     v20 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v13, v15, v16);
     v22 = v21;
-    outlined consume of Locale.LanguageCode?(v18, v19);
+    outlined consume of Locale.LanguageCode?(v18, v19, v15, v16);
     if ((v22 & 1) == 0)
     {
       goto LABEL_36;
@@ -2179,7 +2183,7 @@ LABEL_34:
             goto LABEL_41;
           }
 
-          outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd);
+          outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMR);
           v61 = _sSTsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFs12Zip2SequenceVySaySSGSay10Foundation10MorphologyVGG_AK7PronounVs5NeverOTg5018_sSS10Foundation10g4VAC7h17VIggnr_SS_ACtAEs5I134OIegnrzr_TR090_s10Foundation13TermOfAddressV21extrapolatingPronouns8languageAcA6LocaleV8LanguageV_tFAA10b2V7C13VSS_AKtXEfU2_Tf3nnnpf_nTf1cn_n(v60, v75);
 
           v62 = v104;
@@ -2205,7 +2209,7 @@ LABEL_34:
         *&v84[32] = v87[0];
         *&v84[48] = v87[1];
         outlined init with copy of (pronouns: [String], termOfAddress: TermOfAddress?)(&v91, v83);
-        v14 = outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd);
+        v14 = outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMR);
         v16 += 112;
         v46 = v72;
         if (a2 == v47)
@@ -2364,7 +2368,7 @@ LABEL_12:
 
   __break(1u);
 LABEL_41:
-  outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd);
+  outlined destroy of TermOfAddress?(v84, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMR);
 
   v65 = v80;
   *(v22 + 32) = v79;
@@ -2449,7 +2453,7 @@ Swift::Bool __swiftcall NSTermOfAddress.containsPronoun(_:grammemes:)(Swift::Str
     v8 = v7;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo19NSMorphologyPronounCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo19NSMorphologyPronounCGMd, &_ss23_ContiguousArrayStorageCySo19NSMorphologyPronounCGMR);
   v9 = swift_dynamicCastClass();
   if (v9)
   {
@@ -2650,7 +2654,7 @@ LABEL_81:
       }
 
       isTaggedPointer = v61;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
       v34 = static _DictionaryStorage.allocate(capacity:)();
       v62 = v34[6];
       v63 = v34[7];
@@ -2766,7 +2770,7 @@ LABEL_111:
     }
 
     isTaggedPointer = v33;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v34 = static _DictionaryStorage.allocate(capacity:)();
     v35 = v34[6];
     v36 = v34[7];
@@ -2809,7 +2813,7 @@ LABEL_111:
         isTaggedPointer = v34[6] + 16 * v38;
 
         outlined destroy of String(isTaggedPointer);
-        __swift_destroy_boxed_opaque_existential_1(v34[7] + 32 * v38);
+        __swift_destroy_boxed_opaque_existential_1((v34[7] + 32 * v38));
         v51 = v34[2];
         v17 = __OFSUB__(v51, 1);
         v52 = v51 - 1;
@@ -3134,7 +3138,7 @@ double one-time initialization function for reflexive()
 
 uint64_t outlined init with copy of (pronouns: [String], termOfAddress: TermOfAddress?)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMd, &_sSaySSG8pronouns_10Foundation13TermOfAddressVSg04termdE0tMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -3155,7 +3159,7 @@ unint64_t type metadata accessor for NSMorphologyPronoun()
 uint64_t Int8.init(exactly:)(void *a1)
 {
   v1 = [a1 charValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v2 = [objc_allocWithZone(NSNumber) initWithChar_];
   v3 = static NSObject.== infix(_:_:)();
 
@@ -3183,7 +3187,7 @@ NSNumber __swiftcall Int8._bridgeToObjectiveC()()
 uint64_t static Int8._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, _BYTE *a2)
 {
   v3 = [a1 charValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithChar_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3202,7 +3206,7 @@ void *static Int8._unconditionallyBridgeFromObjectiveC(_:)(void *result)
   {
     v1 = result;
     v2 = [v1 charValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v3 = [objc_allocWithZone(NSNumber) initWithChar_];
     v4 = static NSObject.== infix(_:_:)();
 
@@ -3234,7 +3238,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v3 = a1;
     v4 = [v3 charValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v5 = [objc_allocWithZone(NSNumber) initWithChar_];
     v6 = static NSObject.== infix(_:_:)();
 
@@ -3260,7 +3264,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
 uint64_t UInt8.init(exactly:)(void *a1)
 {
   v1 = [a1 unsignedCharValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v2 = [objc_allocWithZone(NSNumber) initWithUnsignedChar_];
   v3 = static NSObject.== infix(_:_:)();
 
@@ -3288,7 +3292,7 @@ NSNumber __swiftcall UInt8._bridgeToObjectiveC()()
 uint64_t static UInt8._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, _BYTE *a2)
 {
   v3 = [a1 unsignedCharValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedChar_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3307,7 +3311,7 @@ void *static UInt8._unconditionallyBridgeFromObjectiveC(_:)(void *result)
   {
     v1 = result;
     v2 = [v1 unsignedCharValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v3 = [objc_allocWithZone(NSNumber) initWithUnsignedChar_];
     v4 = static NSObject.== infix(_:_:)();
 
@@ -3339,7 +3343,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v3 = a1;
     v4 = [v3 unsignedCharValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v5 = [objc_allocWithZone(NSNumber) initWithUnsignedChar_];
     v6 = static NSObject.== infix(_:_:)();
 
@@ -3365,7 +3369,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
 uint64_t Int16.init(exactly:)(void *a1)
 {
   v1 = [a1 shortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v2 = [objc_allocWithZone(NSNumber) initWithShort_];
   v3 = static NSObject.== infix(_:_:)();
 
@@ -3393,7 +3397,7 @@ NSNumber __swiftcall Int16._bridgeToObjectiveC()()
 uint64_t static Int16._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 shortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithShort_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3412,7 +3416,7 @@ void *static Int16._unconditionallyBridgeFromObjectiveC(_:)(void *result)
   {
     v1 = result;
     v2 = [v1 shortValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v3 = [objc_allocWithZone(NSNumber) initWithShort_];
     v4 = static NSObject.== infix(_:_:)();
 
@@ -3436,7 +3440,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v3 = a1;
     v4 = [v3 shortValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v5 = [objc_allocWithZone(NSNumber) initWithShort_];
     v6 = static NSObject.== infix(_:_:)();
 
@@ -3462,7 +3466,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
 uint64_t UInt16.init(exactly:)(void *a1)
 {
   v1 = [a1 unsignedShortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v2 = [objc_allocWithZone(NSNumber) initWithUnsignedShort_];
   v3 = static NSObject.== infix(_:_:)();
 
@@ -3490,7 +3494,7 @@ NSNumber __swiftcall UInt16._bridgeToObjectiveC()()
 uint64_t static UInt16._conditionallyBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 unsignedShortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedShort_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3509,7 +3513,7 @@ void *static UInt16._unconditionallyBridgeFromObjectiveC(_:)(void *result)
   {
     v1 = result;
     v2 = [v1 unsignedShortValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v3 = [objc_allocWithZone(NSNumber) initWithUnsignedShort_];
     v4 = static NSObject.== infix(_:_:)();
 
@@ -3541,7 +3545,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v3 = a1;
     v4 = [v3 unsignedShortValue];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v5 = [objc_allocWithZone(NSNumber) initWithUnsignedShort_];
     v6 = static NSObject.== infix(_:_:)();
 
@@ -3567,7 +3571,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
 unint64_t Int32.init(exactly:)(void *a1, SEL *a2, SEL *a3)
 {
   v4 = [a1 *a2];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v5 = [objc_allocWithZone(NSNumber) *a3];
   v6 = static NSObject.== infix(_:_:)();
 
@@ -3586,7 +3590,7 @@ void *static Int32._unconditionallyBridgeFromObjectiveC(_:)(void *result, SEL *a
   {
     v5 = result;
     v6 = [v5 *a2];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v7 = [objc_allocWithZone(NSNumber) *a3];
     LOBYTE(a2) = static NSObject.== infix(_:_:)();
 
@@ -3610,7 +3614,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v7 = a1;
     v8 = [v7 *a2];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v9 = [objc_allocWithZone(NSNumber) *a3];
     LOBYTE(a3) = static NSObject.== infix(_:_:)();
 
@@ -3644,7 +3648,7 @@ NSNumber __swiftcall Int64._bridgeToObjectiveC()()
 id Int64.init(exactly:)(void *a1, SEL *a2, SEL *a3)
 {
   v4 = [a1 *a2];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v5 = [objc_allocWithZone(NSNumber) *a3];
   v6 = static NSObject.== infix(_:_:)();
 
@@ -3665,7 +3669,7 @@ id static Int64._unconditionallyBridgeFromObjectiveC(_:)(id result, SEL *a2, SEL
   {
     v5 = result;
     v6 = [v5 *a2];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v7 = [objc_allocWithZone(NSNumber) *a3];
     LOBYTE(a2) = static NSObject.== infix(_:_:)();
 
@@ -3689,7 +3693,7 @@ void protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFro
   {
     v7 = a1;
     v8 = [v7 *a2];
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v9 = [objc_allocWithZone(NSNumber) *a3];
     LOBYTE(a3) = static NSObject.== infix(_:_:)();
 
@@ -3731,7 +3735,7 @@ void Bool.init(exactly:)(uint64_t a1)
 
   if (*MEMORY[0x1E695E4D0] != a1)
   {
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v2 = [objc_allocWithZone(NSNumber) initWithInteger_];
     v3 = static NSObject.== infix(_:_:)();
 
@@ -3797,7 +3801,7 @@ id protocol witness for ExpressibleByBooleanLiteral.init(BOOLeanLiteral:) in con
 void specialized static Int8._forceBridgeFromObjectiveC(_:result:)(void *a1, _BYTE *a2)
 {
   v3 = [a1 charValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithChar_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3811,7 +3815,7 @@ void specialized static Int8._forceBridgeFromObjectiveC(_:result:)(void *a1, _BY
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3825,7 +3829,7 @@ void specialized static Int8._forceBridgeFromObjectiveC(_:result:)(void *a1, _BY
 void specialized static UInt8._forceBridgeFromObjectiveC(_:result:)(void *a1, _BYTE *a2)
 {
   v3 = [a1 unsignedCharValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedChar_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3839,7 +3843,7 @@ void specialized static UInt8._forceBridgeFromObjectiveC(_:result:)(void *a1, _B
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3853,7 +3857,7 @@ void specialized static UInt8._forceBridgeFromObjectiveC(_:result:)(void *a1, _B
 void specialized static Int16._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 shortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithShort_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3867,7 +3871,7 @@ void specialized static Int16._forceBridgeFromObjectiveC(_:result:)(void *a1, ui
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3881,7 +3885,7 @@ void specialized static Int16._forceBridgeFromObjectiveC(_:result:)(void *a1, ui
 void specialized static UInt16._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 unsignedShortValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedShort_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3895,7 +3899,7 @@ void specialized static UInt16._forceBridgeFromObjectiveC(_:result:)(void *a1, u
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3909,7 +3913,7 @@ void specialized static UInt16._forceBridgeFromObjectiveC(_:result:)(void *a1, u
 void specialized static UInt32._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 unsignedIntValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedInt_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3923,7 +3927,7 @@ void specialized static UInt32._forceBridgeFromObjectiveC(_:result:)(void *a1, u
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3937,7 +3941,7 @@ void specialized static UInt32._forceBridgeFromObjectiveC(_:result:)(void *a1, u
 void specialized static Int64._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 longLongValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithLongLong_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3951,7 +3955,7 @@ void specialized static Int64._forceBridgeFromObjectiveC(_:result:)(void *a1, ui
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -3965,7 +3969,7 @@ void specialized static Int64._forceBridgeFromObjectiveC(_:result:)(void *a1, ui
 void specialized static UInt64._forceBridgeFromObjectiveC(_:result:)(void *a1, uint64_t a2)
 {
   v3 = [a1 unsignedLongLongValue];
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = [objc_allocWithZone(NSNumber) initWithUnsignedLongLong_];
   v5 = static NSObject.== infix(_:_:)();
 
@@ -3979,7 +3983,7 @@ void specialized static UInt64._forceBridgeFromObjectiveC(_:result:)(void *a1, u
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v6 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v6);
 
@@ -4008,7 +4012,7 @@ unint64_t specialized static Float._forceBridgeFromObjectiveC(_:result:)(unint64
 
     v12 = 0xD000000000000011;
     v13 = 0x80000001814811D0;
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v7 = _typeName(_:qualified:)();
     a2 = v8;
     MEMORY[0x1865CB0E0](v7);
@@ -4062,7 +4066,7 @@ LABEL_11:
     goto LABEL_9;
   }
 
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   v4 = 1;
   v5 = [objc_allocWithZone(NSNumber) initWithInteger_];
   v6 = static NSObject.== infix(_:_:)();
@@ -4088,7 +4092,7 @@ LABEL_9:
 LABEL_12:
   _StringGuts.grow(_:)(25);
 
-  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+  type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
   v9 = _typeName(_:qualified:)();
   MEMORY[0x1865CB0E0](v9);
 
@@ -4109,7 +4113,7 @@ void specialized static Bool._unconditionallyBridgeFromObjectiveC(_:)(void *a1)
         return;
       }
 
-      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject);
+      type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
       v2 = objc_allocWithZone(NSNumber);
       v3 = a1;
       v4 = [v2 initWithInteger_];
@@ -4150,7 +4154,7 @@ uint64_t specialized static CGFloat._forceBridgeFromObjectiveC(_:result:)(void *
   {
     _StringGuts.grow(_:)(25);
 
-    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSMorphologyPronoun(0, &lazy cache variable for type metadata for NSNumber, off_1E69EE6D0);
     v3 = _typeName(_:qualified:)();
     MEMORY[0x1865CB0E0](v3);
 
@@ -4678,7 +4682,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Date.ComponentsFormatStyle.Field.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v9 - v5;
@@ -4784,7 +4788,7 @@ unint64_t lazy protocol witness table accessor for type Date.ComponentsFormatSty
 
 uint64_t Date.ComponentsFormatStyle.Field.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV5FieldV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v10 - v7;
@@ -4818,7 +4822,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Date.ComponentsFormatStyle.Style.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v9 - v5;
@@ -4924,7 +4928,7 @@ unint64_t lazy protocol witness table accessor for type Date.ComponentsFormatSty
 
 uint64_t Date.ComponentsFormatStyle.Style.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV0H0V10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v10 - v7;
@@ -5075,7 +5079,7 @@ LABEL_2:
     goto LABEL_48;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
   v24 = static _SetStorage.allocate(capacity:)();
   v8 = v24 + 56;
   v25 = byte_1EEECEDF0;
@@ -5207,7 +5211,7 @@ LABEL_176:
 
   v157 = v24;
   v154 = v5;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV9ComponentOSo14NSCalendarUnitVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation8CalendarV9ComponentOSo14NSCalendarUnitVGMd, &_ss18_DictionaryStorageCy10Foundation8CalendarV9ComponentOSo14NSCalendarUnitVGMR);
   v59 = 16;
   v1 = static _DictionaryStorage.allocate(capacity:)();
   v7 = (v1 + 64);
@@ -5541,7 +5545,7 @@ LABEL_99:
       LOBYTE(v164) = 0;
       v167[0] = 0;
       LOBYTE(v165) = 0;
-      v166 = 0;
+      v166[0] = 0;
       IsCF = __CFStringIsCF();
       if (IsCF)
       {
@@ -5553,7 +5557,7 @@ LABEL_99:
           return v98;
         }
 
-        if (v166 == 1)
+        if (v166[0] == 1)
         {
           if (v164)
           {
@@ -5773,7 +5777,7 @@ LABEL_158:
 LABEL_159:
   v153 = v5;
   v155 = v61;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4DateV21ComponentsFormatStyleVSo06NSDateE9FormatterCGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation4DateV21ComponentsFormatStyleVSo06NSDateE9FormatterCGMd, &_ss18_DictionaryStorageCy10Foundation4DateV21ComponentsFormatStyleVSo06NSDateE9FormatterCGMR);
   v130 = static _DictionaryStorage.copy(original:)();
   v78 = v130;
   if (!*(v6 + 16))
@@ -5945,10 +5949,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Date.C
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Date.ComponentsFormatStyle.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Date.ComponentsFormatStyle.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized Date.ComponentsFormatStyle.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized Date.ComponentsFormatStyle.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -5968,7 +5972,7 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t Date.ComponentsFormatStyle.encode(to:)(void *a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedEncodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v11 - v6;
@@ -5989,8 +5993,8 @@ uint64_t Date.ComponentsFormatStyle.encode(to:)(void *a1)
   {
     *&v14 = v13;
     v16 = 1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMd);
-    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMd, &_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMR);
+    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E69E64F0]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
     v14 = v12;
     v16 = 2;
@@ -6021,7 +6025,7 @@ void Date.ComponentsFormatStyle.hash(into:)(Swift::Int a1)
   if (v3)
   {
     Hasher._combine(_:)(1u);
-    specialized Set.hash(into:)(a1, v3);
+    specialized Set.hash(into:)();
   }
 
   else
@@ -6176,7 +6180,7 @@ LABEL_25:
 LABEL_26:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v38 + 1))
     {
@@ -6193,7 +6197,7 @@ LABEL_37:
 LABEL_27:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v40)
     {
@@ -6210,7 +6214,7 @@ LABEL_38:
 LABEL_28:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v40 + 1))
     {
@@ -6227,7 +6231,7 @@ LABEL_39:
 LABEL_29:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (v42)
     {
@@ -6244,7 +6248,7 @@ LABEL_40:
 LABEL_30:
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     v33 = v44;
     if (*(&v42 + 1))
@@ -6358,7 +6362,7 @@ LABEL_56:
 
 uint64_t Date.ComponentsFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMd, &_ss22KeyedDecodingContainerVy10Foundation4DateV21ComponentsFormatStyleV10CodingKeys33_A95AAD4BE9B9AA48B183E68E3F6B3AACLLOGMR);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5);
   v8 = &v15 - v7;
@@ -6376,9 +6380,9 @@ uint64_t Date.ComponentsFormatStyle.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@
     lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Style and conformance Date.ComponentsFormatStyle.Style();
     KeyedDecodingContainer.decode<A>(_:forKey:)();
     v9 = v17;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMd, &_sShy10Foundation4DateV21ComponentsFormatStyleV5FieldVGMR);
     v19 = 1;
-    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field);
+    lazy protocol witness table accessor for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>(&lazy protocol witness table cache variable for type Set<Date.ComponentsFormatStyle.Field> and conformance <> Set<A>, lazy protocol witness table accessor for type Date.ComponentsFormatStyle.Field and conformance Date.ComponentsFormatStyle.Field, MEMORY[0x1E69E6510]);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
     v10 = v17;
     v19 = 2;
@@ -6432,19 +6436,19 @@ uint64_t protocol witness for FormatStyle.locale(_:) in conformance Date.Compone
   return swift_unknownObjectRetain();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.ComponentsFormatStyle()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Date.ComponentsFormatStyle(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 3);
-  v4 = *(v0 + 5);
-  v5 = v0[48];
+  v2 = *v1;
+  v3 = *(v1 + 1);
+  v4 = *(v1 + 3);
+  v5 = *(v1 + 5);
+  v6 = v1[48];
   Hasher.init(_seed:)();
-  MEMORY[0x1865CD060](v1);
-  if (v2)
+  MEMORY[0x1865CD060](v2);
+  if (v3)
   {
     Hasher._combine(_:)(1u);
-    specialized Set.hash(into:)(v54, v2);
+    specialized Set.hash(into:)();
   }
 
   else
@@ -6453,85 +6457,85 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Dat
   }
 
   ObjectType = swift_getObjectType();
-  (*(v3 + 120))(v54, ObjectType, v3);
-  v7 = swift_getObjectType();
-  if ((*(v4 + 48))(v7, v4))
+  (*(v4 + 120))(v55, ObjectType, v4);
+  v8 = swift_getObjectType();
+  if ((*(v5 + 48))(v8, v5))
   {
-    v8 = 1;
+    v9 = 1;
 LABEL_8:
-    Hasher._combine(_:)(v8);
+    Hasher._combine(_:)(v9);
     goto LABEL_59;
   }
 
   Hasher._combine(_:)(0);
-  (*(v4 + 64))(v7, v4);
+  (*(v5 + 64))(v8, v5);
   String.hash(into:)();
 
-  (*(v4 + 464))(&v44, v7, v4);
-  v52[6] = v50;
-  v53[0] = *v51;
-  *(v53 + 12) = *&v51[12];
-  v52[2] = v46;
-  v52[3] = v47;
-  v52[4] = v48;
-  v52[5] = v49;
-  v52[0] = v44;
-  v52[1] = v45;
-  if (_s10Foundation17LocalePreferencesVSgWOg(v52) == 1)
+  (*(v5 + 464))(&v45, v8, v5);
+  v53[6] = v51;
+  v54[0] = *v52;
+  *(v54 + 12) = *&v52[12];
+  v53[2] = v47;
+  v53[3] = v48;
+  v53[4] = v49;
+  v53[5] = v50;
+  v53[0] = v45;
+  v53[1] = v46;
+  if (_s10Foundation17LocalePreferencesVSgWOg(v53) == 1)
   {
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
-  v9 = v44;
-  v10 = *(&v44 + 1);
+  v10 = v45;
   v11 = *(&v45 + 1);
   v12 = *(&v46 + 1);
-  v13 = v47;
-  v39 = v48;
-  v14 = v49;
-  v40 = v50;
-  v15 = *v51;
-  v16 = v51[24];
-  v41 = *&v51[16];
-  v42 = v51[25];
-  v43 = v51[26];
-  v17 = v51[27];
+  v13 = *(&v47 + 1);
+  v14 = v48;
+  v40 = v49;
+  v15 = v50;
+  v41 = v51;
+  v16 = *v52;
+  v17 = v52[24];
+  v42 = *&v52[16];
+  v43 = v52[25];
+  v44 = v52[26];
+  v18 = v52[27];
   Hasher._combine(_:)(1u);
-  if (v9 == 2)
+  if (v10 == 2)
   {
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v18 = v9 & 1;
+    v19 = v10 & 1;
   }
 
-  v19 = v5;
-  Hasher._combine(_:)(v18);
-  if (v10)
+  v20 = v6;
+  Hasher._combine(_:)(v19);
+  if (v11)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1865CD060](*(v10 + 16));
-    v20 = *(v10 + 16);
-    if (v20)
+    MEMORY[0x1865CD060](*(v11 + 16));
+    v21 = *(v11 + 16);
+    if (v21)
     {
-      v21 = v10 + 40;
+      v22 = v11 + 40;
       do
       {
 
         String.hash(into:)();
 
-        v21 += 16;
-        --v20;
+        v22 += 16;
+        --v21;
       }
 
-      while (v20);
+      while (v21);
     }
 
-    if (v11)
+    if (v12)
     {
       goto LABEL_17;
     }
@@ -6540,7 +6544,7 @@ LABEL_8:
   else
   {
     Hasher._combine(_:)(0);
-    if (v11)
+    if (v12)
     {
 LABEL_17:
       Hasher._combine(_:)(1u);
@@ -6551,7 +6555,7 @@ LABEL_17:
 
   Hasher._combine(_:)(0);
 LABEL_20:
-  if (v12)
+  if (v13)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -6562,65 +6566,11 @@ LABEL_20:
     Hasher._combine(_:)(0);
   }
 
-  v5 = v19;
-  if (v13)
-  {
-    Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v54, v13, v22, v23, v24, v25, v26, v27);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  if (*(&v13 + 1))
-  {
-    Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v54, *(&v13 + 1), v28, v29, v30, v31, v32, v33);
-  }
-
-  else
-  {
-    Hasher._combine(_:)(0);
-  }
-
-  if (v39)
-  {
-    v34 = v16;
-    Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
-    if (*(&v39 + 1))
-    {
-LABEL_31:
-      Hasher._combine(_:)(1u);
-      type metadata accessor for CFDictionaryRef(0);
-      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-      _CFObject.hash(into:)();
-      goto LABEL_34;
-    }
-  }
-
-  else
-  {
-    v34 = v16;
-    Hasher._combine(_:)(0);
-    if (*(&v39 + 1))
-    {
-      goto LABEL_31;
-    }
-  }
-
-  Hasher._combine(_:)(0);
-LABEL_34:
+  v6 = v20;
   if (v14)
   {
     Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    specialized Dictionary<>.hash(into:)(v55, v14, v23, v24, v25, v26, v27, v28);
   }
 
   else
@@ -6631,9 +6581,7 @@ LABEL_34:
   if (*(&v14 + 1))
   {
     Hasher._combine(_:)(1u);
-    type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
-    _CFObject.hash(into:)();
+    specialized Dictionary<>.hash(into:)(v55, *(&v14 + 1), v29, v30, v31, v32, v33, v34);
   }
 
   else
@@ -6643,11 +6591,67 @@ LABEL_34:
 
   if (v40)
   {
+    v35 = v17;
     Hasher._combine(_:)(1u);
     type metadata accessor for CFDictionaryRef(0);
-    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
     _CFObject.hash(into:)();
     if (*(&v40 + 1))
+    {
+LABEL_31:
+      Hasher._combine(_:)(1u);
+      type metadata accessor for CFDictionaryRef(0);
+      _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+      _CFObject.hash(into:)();
+      goto LABEL_34;
+    }
+  }
+
+  else
+  {
+    v35 = v17;
+    Hasher._combine(_:)(0);
+    if (*(&v40 + 1))
+    {
+      goto LABEL_31;
+    }
+  }
+
+  Hasher._combine(_:)(0);
+LABEL_34:
+  if (v15)
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (*(&v15 + 1))
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+  }
+
+  else
+  {
+    Hasher._combine(_:)(0);
+  }
+
+  if (v41)
+  {
+    Hasher._combine(_:)(1u);
+    type metadata accessor for CFDictionaryRef(0);
+    _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type CFDictionaryRef and conformance CFDictionaryRef, type metadata accessor for CFDictionaryRef, &protocol conformance descriptor for CFDictionaryRef);
+    _CFObject.hash(into:)();
+    if (*(&v41 + 1))
     {
       goto LABEL_42;
     }
@@ -6656,12 +6660,12 @@ LABEL_34:
   else
   {
     Hasher._combine(_:)(0);
-    if (*(&v40 + 1))
+    if (*(&v41 + 1))
     {
 LABEL_42:
       Hasher._combine(_:)(1u);
-      specialized Dictionary<>.hash(into:)(v54, *(&v40 + 1));
-      if (v15)
+      specialized Dictionary<>.hash(into:)(v55, *(&v41 + 1));
+      if (v16)
       {
         goto LABEL_43;
       }
@@ -6671,13 +6675,13 @@ LABEL_42:
   }
 
   Hasher._combine(_:)(0);
-  if (v15)
+  if (v16)
   {
 LABEL_43:
     Hasher._combine(_:)(1u);
-    specialized Dictionary<>.hash(into:)(v54, v15);
-    v35 = v17;
-    if (v41)
+    specialized Dictionary<>.hash(into:)(v55, v16);
+    v36 = v18;
+    if (v42)
     {
       goto LABEL_44;
     }
@@ -6687,13 +6691,13 @@ LABEL_43:
 
 LABEL_50:
   Hasher._combine(_:)(0);
-  v35 = v17;
-  if (v41)
+  v36 = v18;
+  if (v42)
   {
 LABEL_44:
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    if (v34 == 2)
+    if (v35 == 2)
     {
       goto LABEL_45;
     }
@@ -6703,63 +6707,63 @@ LABEL_44:
 
 LABEL_51:
   Hasher._combine(_:)(0);
-  if (v34 == 2)
+  if (v35 == 2)
   {
 LABEL_45:
     Hasher._combine(_:)(0);
-    if (v42 != 2)
+    if (v43 != 2)
     {
       goto LABEL_46;
     }
 
 LABEL_53:
     Hasher._combine(_:)(0);
-    if (v43 != 2)
+    if (v44 != 2)
     {
       goto LABEL_47;
     }
 
 LABEL_54:
-    v36 = 0;
+    v37 = 0;
     goto LABEL_55;
   }
 
 LABEL_52:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v34 & 1);
-  if (v42 == 2)
+  MEMORY[0x1865CD060](v35 & 1);
+  if (v43 == 2)
   {
     goto LABEL_53;
   }
 
 LABEL_46:
   Hasher._combine(_:)(1u);
-  MEMORY[0x1865CD060](v42 & 1);
-  if (v43 == 2)
+  MEMORY[0x1865CD060](v43 & 1);
+  if (v44 == 2)
   {
     goto LABEL_54;
   }
 
 LABEL_47:
   Hasher._combine(_:)(1u);
-  v36 = v43 & 1;
+  v37 = v44 & 1;
 LABEL_55:
-  Hasher._combine(_:)(v36);
-  if (v35 == 2)
+  Hasher._combine(_:)(v37);
+  if (v36 == 2)
   {
-    v37 = 0;
+    v38 = 0;
   }
 
   else
   {
     Hasher._combine(_:)(1u);
-    v37 = v35 & 1;
+    v38 = v36 & 1;
   }
 
-  Hasher._combine(_:)(v37);
-  outlined destroy of LocalePreferences?(&v44);
+  Hasher._combine(_:)(v38);
+  outlined destroy of LocalePreferences?(&v45);
 LABEL_59:
-  Hasher._combine(_:)(v5);
+  Hasher._combine(_:)(v6);
   return Hasher._finalize()();
 }
 
@@ -6768,10 +6772,10 @@ uint64_t static FormatStyle<>.components(style:fields:)@<X0>(char *a1@<X0>, uint
   v5 = *a1;
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  v7 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  v7 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   type metadata accessor for _CalendarAutoupdating();
   v8 = swift_initStaticObject();
-  v9 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _CalendarAutoupdating and conformance _CalendarAutoupdating, type metadata accessor for _CalendarAutoupdating);
+  v9 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _CalendarAutoupdating and conformance _CalendarAutoupdating, type metadata accessor for _CalendarAutoupdating, &protocol conformance descriptor for _CalendarAutoupdating);
   *(a3 + 48) = 1;
   *a3 = v5;
   *(a3 + 8) = a2;
@@ -6785,10 +6789,10 @@ uint64_t static FormatStyle<>.timeDuration.getter@<X0>(uint64_t a1@<X8>)
 {
   type metadata accessor for _LocaleAutoupdating();
   inited = swift_initStaticObject();
-  v3 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating);
+  v3 = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _LocaleAutoupdating and conformance _LocaleAutoupdating, type metadata accessor for _LocaleAutoupdating, &protocol conformance descriptor for _LocaleAutoupdating);
   type metadata accessor for _CalendarAutoupdating();
   v4 = swift_initStaticObject();
-  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _CalendarAutoupdating and conformance _CalendarAutoupdating, type metadata accessor for _CalendarAutoupdating);
+  result = _sSo15CFDictionaryRefaAB14CoreFoundation9_CFObjectSCWlTm_0(&lazy protocol witness table cache variable for type _CalendarAutoupdating and conformance _CalendarAutoupdating, type metadata accessor for _CalendarAutoupdating, &protocol conformance descriptor for _CalendarAutoupdating);
   *(a1 + 48) = 1;
   *a1 = 5;
   *(a1 + 8) = 0;
@@ -6812,12 +6816,12 @@ void Date.ComponentsFormatStyle.discreteInput(before:)(double *a1@<X0>, uint64_t
 
   else
   {
-    v8 = a1[1];
+    v8 = *(a1 + 1);
   }
 
   if (*(v2 + 48))
   {
-    v9 = a1[1];
+    v9 = *(a1 + 1);
   }
 
   else
@@ -7339,12 +7343,12 @@ void Date.ComponentsFormatStyle.discreteInput(after:)(double *a1@<X0>, uint64_t 
 
   else
   {
-    v8 = a1[1];
+    v8 = *(a1 + 1);
   }
 
   if (*(v2 + 48))
   {
-    v9 = a1[1];
+    v9 = *(a1 + 1);
   }
 
   else
@@ -7796,30 +7800,28 @@ uint64_t specialized static Date.ComponentsFormatStyle.== infix(_:_:)(unsigned _
     return 0;
   }
 
-  v22 = v2;
-  v23 = v3;
-  v5 = *(a1 + 1);
-  v7 = *(a1 + 1);
-  v6 = *(a1 + 2);
-  v8 = a1[48];
-  v9 = *(a2 + 1);
-  v10 = *(a2 + 1);
-  v11 = a2[48];
-  if (v5)
+  v19 = v2;
+  v20 = v3;
+  v4 = *(a1 + 1);
+  v5 = a1[48];
+  v6 = *(a2 + 1);
+  v7 = *(a2 + 1);
+  v8 = a2[48];
+  if (*(a1 + 1))
   {
-    if (!v9)
+    if (!v6)
     {
       return 0;
     }
 
-    v17 = v6;
-    v18 = *(a2 + 2);
-    v19 = *(a2 + 1);
-    v16 = v7;
-    v12 = _sSh2eeoiySbShyxG_ABtFZs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_Tt1g5(v5, v9);
+    v14 = *(a1 + 2);
+    v15 = *(a2 + 2);
+    v16 = *(a2 + 1);
+    v13 = *(a1 + 1);
+    v9 = _sSh2eeoiySbShyxG_ABtFZs8DurationV10FoundationE16UnitsFormatStyleV4UnitV_Tt1g5();
+    v4 = v13;
     v7 = v16;
-    v10 = v19;
-    if ((v12 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       return 0;
     }
@@ -7827,36 +7829,36 @@ uint64_t specialized static Date.ComponentsFormatStyle.== infix(_:_:)(unsigned _
 
   else
   {
-    v17 = v6;
-    v18 = *(a2 + 2);
-    if (v9)
+    v14 = *(a1 + 2);
+    v15 = *(a2 + 2);
+    if (v6)
     {
       return 0;
     }
   }
 
-  v20 = v10;
-  v21 = v7;
+  v17 = v7;
+  v18 = v4;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v14 = specialized static Calendar.== infix(_:_:)(&v21, &v20);
+  v11 = specialized static Calendar.== infix(_:_:)(&v18, &v17);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  if ((v14 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
     return 0;
   }
 
-  v21 = v17;
-  v20 = v18;
+  v18 = v14;
+  v17 = v15;
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v15 = specialized static Locale.== infix(_:_:)(&v21, &v20);
+  v12 = specialized static Locale.== infix(_:_:)(&v18, &v17);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  if (v15)
+  if (v12)
   {
-    return v8 ^ v11 ^ 1u;
+    return v5 ^ v8 ^ 1u;
   }
 
   else
@@ -8025,7 +8027,7 @@ unint64_t lazy protocol witness table accessor for type [Date.ComponentsFormatSt
   result = lazy protocol witness table cache variable for type [Date.ComponentsFormatStyle.Field.Option] and conformance [A];
   if (!lazy protocol witness table cache variable for type [Date.ComponentsFormatStyle.Field.Option] and conformance [A])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation4DateV21ComponentsFormatStyleV5FieldV6OptionOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation4DateV21ComponentsFormatStyleV5FieldV6OptionOGMd, &_sSay10Foundation4DateV21ComponentsFormatStyleV5FieldV6OptionOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [Date.ComponentsFormatStyle.Field.Option] and conformance [A]);
   }
@@ -8126,17 +8128,17 @@ uint64_t amfi_launch_constraint_set_spawnattr(uint64_t a1, uint64_t a2, uint64_t
   }
 }
 
-void sub_181025988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_181025988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  _Block_object_dispose((v3 - 128), 8);
+  va_start(va, a5);
+  _Block_object_dispose((v5 - 128), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_181026030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_181026030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8264,7 +8266,7 @@ void _encodeOrReuseCString(void *a1, char *a2, CFDictionaryRef theDict)
   }
 }
 
-const char *_encodeValueOfObjCType(uint64_t a1, unsigned __int8 *a2, objc_class **a3)
+char *_encodeValueOfObjCType(uint64_t a1, unsigned __int8 *a2, SEL *a3)
 {
   sizep[1] = *MEMORY[0x1E69E9840];
   v7 = (a2 + 1);
@@ -8304,7 +8306,7 @@ const char *_encodeValueOfObjCType(uint64_t a1, unsigned __int8 *a2, objc_class 
               v34 = 10 * v29 + v30;
               do
               {
-                _encodeValueOfObjCType(a1, v7, a3 + sizep[0] * v33++);
+                _encodeValueOfObjCType(a1, v7, (a3 + sizep[0] * v33++));
               }
 
               while (v34 != v33);
@@ -8318,7 +8320,7 @@ const char *_encodeValueOfObjCType(uint64_t a1, unsigned __int8 *a2, objc_class 
             goto LABEL_113;
           }
 
-          return v32 + 1;
+          return (v32 + 1);
         }
 
         if (v6 == 99)
@@ -8486,14 +8488,14 @@ LABEL_105:
                   v21 = 0;
                 }
 
-                v19 = _encodeValueOfObjCType(a1, v19, a3 + v21);
+                v19 = _encodeValueOfObjCType(a1, v19, (a3 + v21));
                 v20 = sizep[0] + v21;
               }
 
               while (*v19 != 125);
             }
 
-            return (v19 + 1);
+            return v19 + 1;
           }
 
           goto LABEL_112;
@@ -8584,7 +8586,7 @@ LABEL_100:
             v36 = 0;
             do
             {
-              _encodeValueOfObjCType(a1, "C", a3 + v36++);
+              _encodeValueOfObjCType(a1, "C", (a3 + v36++));
             }
 
             while (v36 < sizep[0]);
@@ -8606,7 +8608,7 @@ LABEL_100:
 
           v10 = *(a1 + 8);
           v11 = *(a1 + 24);
-          Name = v9;
+          Name = *&v9;
 LABEL_101:
           _encodeOrReuseCString(v10, Name, v11);
           return v7;
@@ -9572,7 +9574,7 @@ __CFDictionary *buildTokenMapWithDictionary(void *a1)
   return Mutable;
 }
 
-uint64_t appendNumber(void *a1, uint64_t a2, const char *a3, const char *a4)
+uint64_t appendNumber(void *a1, uint64_t a2, const char *a3, const char *a4, ...)
 {
   v13 = *MEMORY[0x1E69E9840];
   v8 = [a1 length];
@@ -9615,7 +9617,7 @@ uint64_t skipWhitespace(void *a1)
   return [a1 setScanLocation:v4];
 }
 
-uint64_t absolute_from_gregorian(int a1)
+uint64_t absolute_from_gregorian(uint64_t a1)
 {
   v1 = a1 >> 16;
   if (a1 < 2uLL)
@@ -9627,10 +9629,10 @@ uint64_t absolute_from_gregorian(int a1)
   {
     v2 = 0;
     v3 = 0;
-    v4 = (SHIWORD(a1) % 400);
+    v4 = (SWORD1(a1) % 400);
     do
     {
-      if ((*&a1 & 0x30000) != 0 || v2 != 1 || v4 == 100 || v4 == 300 || v4 == 200)
+      if ((a1 & 0x30000) != 0 || v2 != 1 || v4 == 100 || v4 == 300 || v4 == 200)
       {
         v5 = days_per_month[v2];
       }
@@ -9687,9 +9689,9 @@ void sub_18104363C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1810443EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1810443EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9708,7 +9710,7 @@ void __NSCoderInvalidState(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     v9 = &stru_1EEEFDF90;
   }
 
-  objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:v9 userInfo:{0, v10, v11}]);
+  objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:v9 userInfo:{0, a6, a7, a8, v10, v11}]);
 }
 
 uint64_t __NSCoderDecodeObject(void *a1, const char *a2)
@@ -9793,19 +9795,20 @@ uint64_t NSDataDeallocatorUnmap_block_invoke_3(int a1, void *a2, size_t a3)
   return result;
 }
 
-void sub_18104BAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_18104BAA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_18104E190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_18104E190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   _Block_object_dispose(&a22, 8);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 136), 8);
-  _Block_object_dispose((v26 - 104), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 136), 8);
+  _Block_object_dispose((v25 - 104), 8);
   _Unwind_Resume(a1);
 }
 
@@ -9817,16 +9820,16 @@ void _NSDataReinitializationBreak()
   }
 }
 
-void sub_1810525D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1810525D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_181052820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_181052820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9836,34 +9839,4 @@ CFStringRef _NSNewStringFromCString(const char *a1)
   v2 = strlen(a1);
 
   return CFStringCreateWithBytes(0, a1, v2, 0x8000100u, 0);
-}
-
-uint64_t NSIsFreedObject(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    if (!NSIsFreedObject_freedClass)
-    {
-      NSIsFreedObject_freedClass = _objc_getFreedObjectClass();
-    }
-
-    Class = object_getClass(v1);
-    if (Class == NSIsFreedObject_freedClass)
-    {
-      return 1;
-    }
-
-    v3 = Class;
-    result = object_getClass(Class);
-    if (!result)
-    {
-      return result;
-    }
-
-    Name = class_getName(v3);
-    return Name && !strncmp(Name, "_NSZombie_", 0xAuLL);
-  }
-
-  return result;
 }

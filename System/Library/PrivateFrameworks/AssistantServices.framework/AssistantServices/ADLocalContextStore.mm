@@ -157,7 +157,7 @@ LABEL_4:
 {
   if (!class || class == 50)
   {
-    v5 = [(NSMutableDictionary *)self->_redactedContextByPrivacyClass objectForKey:&off_100533AB8];
+    v5 = objc_msgSend_objectForKey_(self->_redactedContextByPrivacyClass, a2, &off_100533AB8);
     v4 = [v5 mutableCopy];
   }
 

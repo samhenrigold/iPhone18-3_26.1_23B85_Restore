@@ -1,13 +1,13 @@
-id sub_100000DA8()
+id sub_100000DA8(uint64_t a1)
 {
   if (qword_10000D020 != -1)
   {
     sub_1000039F4();
   }
 
-  v1 = off_10000CDC8;
+  v2 = off_10000CDC8;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000DEC(id a1)
@@ -18,16 +18,16 @@ void sub_100000DEC(id a1)
   _objc_release_x1();
 }
 
-id sub_100000E30()
+id sub_100000E30(uint64_t a1)
 {
   if (qword_10000D028 != -1)
   {
     sub_100003A08();
   }
 
-  v1 = off_10000CDD0;
+  v2 = off_10000CDD0;
 
-  return v1;
+  return v2;
 }
 
 void sub_100000E74(id a1)
@@ -45,7 +45,7 @@ id sub_100000EB8(void *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a
   v17 = a4;
   v18 = a5;
   v19 = [NSString stringWithFormat:@"[%s:%d][%s] %@", a7, a8, a6, v16];
-  v20 = sub_100000DA8();
+  v20 = sub_100000DA8(v19);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     v25 = &stru_100008708;
@@ -97,7 +97,7 @@ id sub_100000EB8(void *a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a
 
 id sub_100001524(uint64_t a1)
 {
-  v2 = sub_100000DA8();
+  v2 = sub_100000DA8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -116,7 +116,7 @@ id sub_100001524(uint64_t a1)
 
 id sub_100001608(uint64_t a1)
 {
-  v2 = sub_100000DA8();
+  v2 = sub_100000DA8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -136,7 +136,7 @@ id sub_100001608(uint64_t a1)
 
 int main(int argc, const char **argv, const char **envp)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(*&argc);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 136446722;
@@ -164,7 +164,7 @@ int main(int argc, const char **argv, const char **envp)
 
 void sub_100001868(id a1)
 {
-  v1 = sub_100000DA8();
+  v1 = sub_100000DA8(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     v2 = 136446210;
@@ -205,14 +205,14 @@ id sub_100001FF4(uint64_t a1)
 
 void sub_10000236C(uint64_t a1)
 {
-  v84[0] = _NSConcreteStackBlock;
-  v84[1] = 3221225472;
-  v84[2] = sub_100002E98;
-  v84[3] = &unk_100008480;
+  v89[0] = _NSConcreteStackBlock;
+  v89[1] = 3221225472;
+  v89[2] = sub_100002E98;
+  v89[3] = &unk_100008480;
   v2 = (a1 + 32);
-  v84[4] = *(a1 + 32);
-  v85 = *(a1 + 64);
-  v75 = objc_retainBlock(v84);
+  v89[4] = *(a1 + 32);
+  v90 = *(a1 + 64);
+  v80 = objc_retainBlock(v89);
   v3 = [v2[1] objectForKeyedSubscript:@"STRemoteExtractorSessionID"];
   if (!v3 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -222,7 +222,7 @@ void sub_10000236C(uint64_t a1)
     v3 = v5;
   }
 
-  v74 = v3;
+  v79 = v3;
   [*(a1 + 32) setSessionID:v3];
   v6 = [*(a1 + 40) objectForKeyedSubscript:@"STRemoteExtractorOptionsUsesReservePolicy"];
   objc_opt_class();
@@ -231,58 +231,57 @@ void sub_10000236C(uint64_t a1)
     [*v2 setUsesReserveAccessPolicy:{objc_msgSend(v6, "BOOLValue")}];
   }
 
-  v73 = v6;
+  v78 = v6;
   v7 = [*(a1 + 40) mutableCopy];
-  v80 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v83 = 0u;
+  v85 = 0u;
+  v86 = 0u;
+  v87 = 0u;
+  v88 = 0u;
   v8 = [*(a1 + 40) keyEnumerator];
-  v9 = [v8 countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v85 objects:v96 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v81;
+    v11 = *v86;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v81 != v11)
+        if (*v86 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v80 + 1) + 8 * i);
+        v13 = *(*(&v85 + 1) + 8 * i);
         if ([v13 containsString:@"<Private>"])
         {
           [v7 setObject:@"<redacted>" forKeyedSubscript:v13];
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v85 objects:v96 count:16];
     }
 
     while (v10);
   }
 
-  v14 = sub_100000DA8();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100000DA8(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [*(a1 + 32) sessionID];
-    v16 = *(a1 + 48);
+    v16 = [*(a1 + 32) sessionID];
+    v17 = *(a1 + 48);
     *buf = 138413059;
-    *&buf[4] = v15;
+    *&buf[4] = v16;
     *&buf[12] = 2082;
     *&buf[14] = "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke";
     *&buf[22] = 2113;
-    *&buf[24] = v16;
-    v89 = 2112;
-    v90 = v7;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%@] %{public}s: sandbox_token: %{private}@ - options: %@", buf, 0x2Au);
+    *&buf[24] = v17;
+    v94 = 2112;
+    v95 = v7;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[%@] %{public}s: sandbox_token: %{private}@ - options: %@", buf, 0x2Au);
   }
 
-  v17 = *(a1 + 32);
-  [objc_opt_class() addActiveExtractionService:v17];
+  [objc_opt_class() addActiveExtractionService:*(a1 + 32)];
   v18 = [*(a1 + 40) objectForKeyedSubscript:@"STRemoteExtractorPluginBundlePath"];
   if (v18)
   {
@@ -290,7 +289,7 @@ void sub_10000236C(uint64_t a1)
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       sub_100003C48();
-      v76 = v86;
+      v81 = v91;
       goto LABEL_69;
     }
 
@@ -298,18 +297,18 @@ void sub_10000236C(uint64_t a1)
     if (v19)
     {
       v20 = v19;
-      v76 = 0;
+      v81 = 0;
       goto LABEL_29;
     }
   }
 
   v21 = [*(a1 + 40) objectForKeyedSubscript:@"STRemoteExtractorPluginBundleName"];
   objc_opt_class();
-  v76 = v21;
+  v81 = v21;
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_100003D60();
-    v23 = v86;
+    v23 = v91;
     goto LABEL_75;
   }
 
@@ -326,7 +325,7 @@ void sub_10000236C(uint64_t a1)
 
     sub_100003E78(buf);
 LABEL_75:
-    v33 = *buf;
+    v35 = *buf;
 
     goto LABEL_76;
   }
@@ -334,22 +333,22 @@ LABEL_75:
   v24 = v18;
   v23 = @"/System/Library/StreamingExtractorPlugins";
 LABEL_26:
-  v87[0] = v23;
-  v25 = [NSString stringWithFormat:@"%@.bundle", v76];
-  v87[1] = v25;
-  v26 = [NSArray arrayWithObjects:v87 count:2];
+  v92[0] = v23;
+  v25 = [NSString stringWithFormat:@"%@.bundle", v81];
+  v92[1] = v25;
+  v26 = [NSArray arrayWithObjects:v92 count:2];
   v27 = [NSString pathWithComponents:v26];
   v20 = [NSURL fileURLWithPath:v27];
 
-  v28 = sub_100000DA8();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = sub_100000DA8(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
-    v29 = [v20 path];
+    v30 = [v20 path];
     *buf = 136446466;
     *&buf[4] = "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke";
     *&buf[12] = 2112;
-    *&buf[14] = v29;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: pluginURL: %@", buf, 0x16u);
+    *&buf[14] = v30;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "%{public}s: pluginURL: %@", buf, 0x16u);
   }
 
   v18 = v24;
@@ -357,103 +356,105 @@ LABEL_26:
   {
     sub_1000045A0(buf);
 LABEL_69:
-    v33 = *buf;
+    v35 = *buf;
     goto LABEL_76;
   }
 
 LABEL_29:
-  v30 = [NSBundle bundleWithURL:v20];
-  if (!v30)
+  v31 = [NSBundle bundleWithURL:v20];
+  if (!v31)
   {
     sub_10000443C(v20, buf);
     goto LABEL_69;
   }
 
-  v31 = v30;
-  v79 = 0;
-  v32 = [v30 loadAndReturnError:&v79];
-  v33 = v79;
-  if ((v32 & 1) == 0)
+  v32 = v31;
+  v84 = 0;
+  v33 = [v31 loadAndReturnError:&v84];
+  v34 = v84;
+  v35 = v34;
+  if ((v33 & 1) == 0)
   {
-    v51 = sub_100000DA8();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+    v55 = sub_100000DA8(v34);
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_100003F9C();
     }
 
-    v52 = sub_100000DA8();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v57 = sub_100000DA8(v56);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
     {
-      sub_100004040(v2, v33, v52);
+      sub_100004040(v2, v35, v57);
     }
 
     goto LABEL_76;
   }
 
-  v34 = [v31 principalClass];
-  if (!v34)
+  v36 = [v32 principalClass];
+  if (!v36)
   {
-    v53 = sub_100000DA8();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v58 = sub_100000DA8(0);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
     {
       sub_100004398();
     }
 
-    v54 = STExtractorErrorDomain;
-    v55 = [NSString stringWithFormat:@"unable to get principal class from plugin: %@", v20];
-    v56 = v54;
-    v57 = v55;
-    v58 = 314;
+    v59 = STExtractorErrorDomain;
+    v60 = [NSString stringWithFormat:@"unable to get principal class from plugin: %@", v20];
+    v61 = v59;
+    v62 = v60;
+    v63 = 314;
     goto LABEL_64;
   }
 
-  v35 = v34;
-  if (([(objc_class *)v34 conformsToProtocol:&OBJC_PROTOCOL___STExtractionPlugin]& 1) == 0)
+  v37 = v36;
+  v38 = [(objc_class *)v36 conformsToProtocol:&OBJC_PROTOCOL___STExtractionPlugin];
+  if ((v38 & 1) == 0)
   {
-    v59 = sub_100000DA8();
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+    v64 = sub_100000DA8(v38);
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
       sub_100004108();
     }
 
-    v60 = STExtractorErrorDomain;
-    v55 = [NSString stringWithFormat:@"principal class for plugin does not conform to STExtractorPlugin protocol: %@", v20];
-    v56 = v60;
-    v57 = v55;
-    v58 = 315;
+    v65 = STExtractorErrorDomain;
+    v60 = [NSString stringWithFormat:@"principal class for plugin does not conform to STExtractorPlugin protocol: %@", v20];
+    v61 = v65;
+    v62 = v60;
+    v63 = 315;
 LABEL_64:
-    v61 = sub_1000010E0(v56, 6, v57, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", v58);
+    v66 = sub_1000010E0(v61, 6, v62, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", v63);
 
-    v33 = v61;
+    v35 = v66;
 LABEL_76:
-    v42 = v75;
+    v46 = v80;
 LABEL_42:
-    v45 = v73;
-    v44 = v74;
+    v49 = v78;
+    v48 = v79;
     goto LABEL_48;
   }
 
-  v36 = *(a1 + 48);
-  if (v36 && ([v36 UTF8String], objc_msgSend(*v2, "setSandboxToken:", sandbox_extension_consume()), objc_msgSend(*v2, "sandboxToken") == -1))
+  v39 = *(a1 + 48);
+  if (v39 && ([v39 UTF8String], objc_msgSend(*v2, "setSandboxToken:", sandbox_extension_consume()), objc_msgSend(*v2, "sandboxToken") == -1))
   {
-    v66 = v18;
-    v67 = sub_100000DA8();
-    v42 = v75;
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    v71 = v18;
+    v72 = sub_100000DA8(-1);
+    v46 = v80;
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
       sub_1000041AC();
     }
 
-    v68 = STExtractorErrorDomain;
-    v69 = __error();
-    v70 = strerror(*v69);
-    v71 = [NSString stringWithFormat:@"failed to consume sandbox token: %s (%d)", v70, *__error()];
-    v72 = sub_1000010E0(v68, 10, v71, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 319);
+    v73 = STExtractorErrorDomain;
+    v74 = __error();
+    v75 = strerror(*v74);
+    v76 = [NSString stringWithFormat:@"failed to consume sandbox token: %s (%d)", v75, *__error()];
+    v77 = sub_1000010E0(v73, 10, v76, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 319);
 
-    v33 = v72;
-    v45 = v73;
-    v44 = v74;
-    v18 = v66;
+    v35 = v77;
+    v49 = v78;
+    v48 = v79;
+    v18 = v71;
   }
 
   else
@@ -465,7 +466,7 @@ LABEL_42:
 
     if (*v2)
     {
-      [*v2 auditToken];
+      objc_msgSend_auditToken(*v2);
     }
 
     else
@@ -474,80 +475,81 @@ LABEL_42:
     }
 
     [*(a1 + 56) fileSystemRepresentation];
-    v37 = sandbox_check_by_audit_token();
-    if (!v37)
+    v40 = sandbox_check_by_audit_token();
+    if (!v40)
     {
 LABEL_40:
-      v38 = [[v35 alloc] initWithOptions:*(a1 + 40) delegate:*(a1 + 32)];
-      [*(a1 + 32) setPlugin:v38];
+      v41 = [[v37 alloc] initWithOptions:*(a1 + 40) delegate:*(a1 + 32)];
+      [*(a1 + 32) setPlugin:v41];
 
-      v39 = [*(a1 + 32) plugin];
+      v42 = [*(a1 + 32) plugin];
 
-      if (v39)
+      if (v42)
       {
-        v40 = [*(a1 + 32) plugin];
-        v41 = *(a1 + 56);
-        v77[0] = _NSConcreteStackBlock;
-        v77[1] = 3221225472;
-        v77[2] = sub_100002F34;
-        v77[3] = &unk_1000084A8;
-        v42 = v75;
-        v43 = v75;
-        v77[4] = *(a1 + 32);
-        v78 = v43;
-        [v40 prepareForExtractionToPath:v41 withCompletionBlock:v77];
+        v44 = [*(a1 + 32) plugin];
+        v45 = *(a1 + 56);
+        v82[0] = _NSConcreteStackBlock;
+        v82[1] = 3221225472;
+        v82[2] = sub_100002F34;
+        v82[3] = &unk_1000084A8;
+        v46 = v80;
+        v47 = v80;
+        v82[4] = *(a1 + 32);
+        v83 = v47;
+        [v44 prepareForExtractionToPath:v45 withCompletionBlock:v82];
       }
 
       else
       {
-        v62 = sub_100000DA8();
-        v42 = v75;
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        v67 = sub_100000DA8(v43);
+        v46 = v80;
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           sub_100004250();
         }
 
-        v63 = STExtractorErrorDomain;
-        v64 = [NSString stringWithFormat:@"failed to initialize plugin class: %@", v35];
-        v65 = sub_1000010E0(v63, 6, v64, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 331);
+        v68 = STExtractorErrorDomain;
+        v69 = [NSString stringWithFormat:@"failed to initialize plugin class: %@", v37];
+        v70 = sub_1000010E0(v68, 6, v69, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 331);
 
-        v33 = v65;
+        v35 = v70;
       }
 
       goto LABEL_42;
     }
 
-    if (v37 == -1)
+    if (v40 == -1)
     {
-      v46 = *__error();
+      v40 = __error();
+      v50 = *v40;
     }
 
     else
     {
-      v46 = 1;
+      v50 = 1;
     }
 
-    v47 = sub_100000DA8();
-    v42 = v75;
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v51 = sub_100000DA8(v40);
+    v46 = v80;
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
     {
       sub_1000042F4();
     }
 
-    v48 = STExtractorErrorDomain;
-    v49 = [NSString stringWithFormat:@"cannot write to path: %s (%d)", strerror(v46), v46];
-    v50 = sub_1000010E0(v48, 14, v49, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 327);
+    v52 = STExtractorErrorDomain;
+    v53 = [NSString stringWithFormat:@"cannot write to path: %s (%d)", strerror(v50), v50];
+    v54 = sub_1000010E0(v52, 14, v53, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 327);
 
-    v33 = v50;
-    v45 = v73;
-    v44 = v74;
+    v35 = v54;
+    v49 = v78;
+    v48 = v79;
   }
 
 LABEL_48:
 
-  if (v33)
+  if (v35)
   {
-    (v42)[2](v42, 0, 0, v33);
+    (v46)[2](v46, 0, 0, v35);
   }
 }
 
@@ -701,29 +703,25 @@ void sub_100003600(uint64_t a1)
   }
 }
 
-void sub_100003938(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003938(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-void sub_100003958(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003958(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
-void sub_100003978(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003978(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x3Au);
-}
-
-uint64_t sub_1000039B8(uint64_t result)
-{
-  *v1 = result;
-  v3 = *(v2 - 40);
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x3Au);
 }
 
 BOOL sub_1000039C4(NSObject *a1)
@@ -749,78 +747,82 @@ void sub_100003A1C(uint64_t a1, NSObject *a2)
 
 void sub_100003AA8(void *a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v10 = 136447490;
     sub_1000038D4();
     sub_100003994();
     sub_100003900();
-    sub_100003938(&_mh_execute_header, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, 2u);
+    sub_100003938(&_mh_execute_header, v4, v5, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v6, v7, v8, v9, v10);
   }
 }
 
-void sub_100003B70()
+void sub_100003B70(uint64_t a1)
 {
-  v0 = sub_100000DA8();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_100000DA8(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    v1[0] = 136447490;
+    v2[0] = 136447490;
     sub_1000038D4();
     sub_100003994();
-    v2 = "";
+    v3 = "";
     sub_100003900();
-    v3 = 215;
-    _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v1, 0x3Au);
+    v4 = 215;
+    _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, 0x3Au);
   }
 }
 
 uint64_t sub_100003C48()
 {
   sub_1000039AC();
-  v1 = sub_100000DA8();
-  if (sub_1000039C4(v1))
+  v2 = sub_100000DA8(v1);
+  if (sub_1000039C4(v2))
   {
+    v14 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003958(&_mh_execute_header, v7, v8, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v9, v10, v11, v12, 2u);
+    sub_100003958(&_mh_execute_header, v8, v9, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v10, v11, v12, v13, v14);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"bundle path option is not an NSString"];
-  sub_1000039A0(v3);
-  v5 = sub_1000010E0(v2, 3, v4, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 282);
-  return sub_1000039B8(v5);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"bundle path option is not an NSString"];
+  sub_1000039A0(v4);
+  v6 = sub_1000010E0(v3, 3, v5, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 282);
+  return sub_1000039B8(v6);
 }
 
 uint64_t sub_100003D60()
 {
   sub_1000039AC();
-  v1 = sub_100000DA8();
-  if (sub_1000039C4(v1))
+  v2 = sub_100000DA8(v1);
+  if (sub_1000039C4(v2))
   {
+    v14 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003958(&_mh_execute_header, v7, v8, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v9, v10, v11, v12, 2u);
+    sub_100003958(&_mh_execute_header, v8, v9, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v10, v11, v12, v13, v14);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"bundle name option is not an NSString"];
-  sub_1000039A0(v3);
-  v5 = sub_1000010E0(v2, 3, v4, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 290);
-  return sub_1000039B8(v5);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"bundle name option is not an NSString"];
+  sub_1000039A0(v4);
+  v6 = sub_1000010E0(v3, 3, v5, 0, "[STExtractionService remote_prepareForExtractionToPath:sandboxExtensionToken:options:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 290);
+  return sub_1000039B8(v6);
 }
 
 void sub_100003E78(uint64_t *a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v12 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003938(&_mh_execute_header, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, 2u);
+    sub_100003938(&_mh_execute_header, v6, v7, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v8, v9, v10, v11, v12);
   }
 
   v4 = STExtractorErrorDomain;
@@ -830,10 +832,11 @@ void sub_100003E78(uint64_t *a1)
 
 void sub_100003F9C()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_100004040(id *a1, uint64_t a2, NSObject *a3)
@@ -850,47 +853,52 @@ void sub_100004040(id *a1, uint64_t a2, NSObject *a3)
 
 void sub_100004108()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_1000041AC()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_100004250()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_1000042F4()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_100004398()
 {
+  v6 = 136447490;
   sub_1000038D4();
   sub_100003994();
   sub_100003900();
-  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, 2u);
+  sub_100003978(&_mh_execute_header, v0, v1, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v2, v3, v4, v5, v6);
 }
 
 void sub_10000443C(void *a1, uint64_t *a2)
 {
-  v5 = sub_100000DA8();
+  v5 = sub_100000DA8(a1);
   if (sub_1000039C4(v5))
   {
     *buf = 136447490;
@@ -915,13 +923,14 @@ void sub_10000443C(void *a1, uint64_t *a2)
 
 void sub_1000045A0(uint64_t *a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v17 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003938(&_mh_execute_header, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, 2u);
+    sub_100003938(&_mh_execute_header, v11, v12, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v13, v14, v15, v16, v17);
   }
 
   v4 = [NSString stringWithFormat:@"unable to get plugin URL"];
@@ -932,69 +941,73 @@ void sub_1000045A0(uint64_t *a1)
 uint64_t sub_1000046B8()
 {
   sub_1000039AC();
-  v1 = sub_100000DA8();
-  if (sub_1000039C4(v1))
+  v2 = sub_100000DA8(v1);
+  if (sub_1000039C4(v2))
   {
+    v14 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003958(&_mh_execute_header, v7, v8, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v9, v10, v11, v12, 2u);
+    sub_100003958(&_mh_execute_header, v8, v9, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v10, v11, v12, v13, v14);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"extraction is invalid - it likely has already been finished, suspended or terminated"];
-  sub_1000039A0(v3);
-  v5 = sub_1000010E0(v2, 8, v4, 0, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 361);
-  return sub_1000039B8(v5);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"extraction is invalid - it likely has already been finished, suspended or terminated"];
+  sub_1000039A0(v4);
+  v6 = sub_1000010E0(v3, 8, v5, 0, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 361);
+  return sub_1000039B8(v6);
 }
 
 uint64_t sub_1000047D0()
 {
   sub_1000039AC();
-  v1 = sub_100000DA8();
-  if (sub_1000039C4(v1))
+  v2 = sub_100000DA8(v1);
+  if (sub_1000039C4(v2))
   {
+    v14 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003958(&_mh_execute_header, v7, v8, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v9, v10, v11, v12, 2u);
+    sub_100003958(&_mh_execute_header, v8, v9, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v10, v11, v12, v13, v14);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"no plugin for -supplyBytes"];
-  sub_1000039A0(v3);
-  v5 = sub_1000010E0(v2, 6, v4, 0, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 360);
-  return sub_1000039B8(v5);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"no plugin for -supplyBytes"];
+  sub_1000039A0(v4);
+  v6 = sub_1000010E0(v3, 6, v5, 0, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 360);
+  return sub_1000039B8(v6);
 }
 
 uint64_t sub_1000048E8()
 {
   sub_1000039AC();
-  v1 = sub_100000DA8();
-  if (sub_1000039C4(v1))
+  v2 = sub_100000DA8(v1);
+  if (sub_1000039C4(v2))
   {
+    v14 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003958(&_mh_execute_header, v7, v8, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v9, v10, v11, v12, 2u);
+    sub_100003958(&_mh_execute_header, v8, v9, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v10, v11, v12, v13, v14);
   }
 
-  v2 = STExtractorErrorDomain;
-  v3 = [NSString stringWithFormat:@"extraction stopped - system is shutting down"];
-  sub_1000039A0(v3);
-  v5 = sub_100000EB8(v2, 13, v4, 0, &off_100008B80, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 359);
-  return sub_1000039B8(v5);
+  v3 = STExtractorErrorDomain;
+  v4 = [NSString stringWithFormat:@"extraction stopped - system is shutting down"];
+  sub_1000039A0(v4);
+  v6 = sub_100000EB8(v3, 13, v5, 0, &off_100008B80, "[STExtractionService remote_supplyBytes:withCompletionBlock:]_block_invoke", "/Library/Caches/com.apple.xbs/Sources/StreamingExtractorService/STExtractionService/STExtractionService.m", 359);
+  return sub_1000039B8(v6);
 }
 
 void sub_100004A08(uint64_t a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v18 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, 2u);
+    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
   v4 = [NSString stringWithFormat:@"no plugin for -suspendStream"];
@@ -1009,13 +1022,14 @@ void sub_100004A08(uint64_t a1)
 
 void sub_100004B40(uint64_t a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v18 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, 2u);
+    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
   v4 = [NSString stringWithFormat:@"no plugin for -finishStream"];
@@ -1030,13 +1044,14 @@ void sub_100004B40(uint64_t a1)
 
 void sub_100004C74(uint64_t a1)
 {
-  v3 = sub_100000DA8();
+  v3 = sub_100000DA8(a1);
   if (sub_1000039DC(v3))
   {
+    v18 = 136447490;
     sub_1000038EC();
     sub_100003914();
     sub_1000038BC();
-    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, 2u);
+    sub_100003938(&_mh_execute_header, v12, v13, "%{public}s: %s: AssertMacros: %s, %s file: %s, line: %d\n", v14, v15, v16, v17, v18);
   }
 
   v4 = [NSString stringWithFormat:@"no plugin for -terminateStream"];

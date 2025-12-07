@@ -34,28 +34,28 @@
 
 - (BOOL)hasFiringTimers
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   timersByID = [(AFClockTimerSnapshot *)self timersByID];
   allValues = [timersByID allValues];
 
-  v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         if ([v7 isFiring] && AFClockIsFiringTimerValid(v7))
         {
           LOBYTE(v4) = 1;
@@ -63,7 +63,7 @@
         }
       }
 
-      v4 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -75,13 +75,12 @@
 
 LABEL_12:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (id)buildDictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_generation];
   [v3 setObject:v4 forKey:@"generation"];
@@ -95,32 +94,32 @@ LABEL_12:
   if (self->_timersByID)
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[NSDictionary count](self->_timersByID, "count")}];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v7 = self->_timersByID;
-    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v8 = [(NSDictionary *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = *v30;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v31 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
+          v12 = *(*(&v29 + 1) + 8 * i);
           v13 = [(NSDictionary *)self->_timersByID objectForKey:v12];
           buildDictionaryRepresentation = [v13 buildDictionaryRepresentation];
           [v6 setObject:buildDictionaryRepresentation forKey:v12];
         }
 
-        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v9 = [(NSDictionary *)v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v9);
@@ -133,29 +132,29 @@ LABEL_12:
   if (self->_notifiedFiringTimerIDs)
   {
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSOrderedSet count](self->_notifiedFiringTimerIDs, "count")}];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v17 = self->_notifiedFiringTimerIDs;
-    v18 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    v18 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v27;
+      v20 = *v26;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v27 != v20)
+          if (*v26 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [v16 addObject:{*(*(&v26 + 1) + 8 * j), v26}];
+          [v16 addObject:{*(*(&v25 + 1) + 8 * j), v25}];
         }
 
-        v19 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v19 = [(NSOrderedSet *)v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
       while (v19);
@@ -167,14 +166,12 @@ LABEL_12:
 
   v23 = [v3 copy];
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v23;
 }
 
 - (AFClockTimerSnapshot)initWithDictionaryRepresentation:(id)representation
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = representationCopy;
   if (representationCopy)
@@ -196,42 +193,42 @@ LABEL_12:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v36 = v10;
+      v35 = v10;
     }
 
     else
     {
-      v36 = 0;
+      v35 = 0;
     }
 
     v11 = [v5 objectForKey:@"timersByID"];
     objc_opt_class();
-    v37 = unsignedLongLongValue;
+    v36 = unsignedLongLongValue;
     selfCopy = self;
     if (objc_opt_isKindOfClass())
     {
       v12 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v11, "count")}];
+      v42 = 0u;
       v43 = 0u;
       v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
-      v35 = v11;
+      v34 = v11;
       v13 = v11;
-      v14 = [v13 countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v44;
+        v16 = *v43;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v44 != v16)
+            if (*v43 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v43 + 1) + 8 * i);
+            v18 = *(*(&v42 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -253,15 +250,15 @@ LABEL_12:
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v43 objects:v48 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v42 objects:v47 count:16];
         }
 
         while (v15);
       }
 
       v21 = [v12 copy];
-      v11 = v35;
-      unsignedLongLongValue = v37;
+      v11 = v34;
+      unsignedLongLongValue = v36;
       self = selfCopy;
     }
 
@@ -276,26 +273,26 @@ LABEL_12:
     {
       v23 = v5;
       v24 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v22, "count")}];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
       v41 = 0u;
-      v42 = 0u;
       v25 = v22;
-      v26 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v26 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v40;
+        v28 = *v39;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v40 != v28)
+            if (*v39 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v39 + 1) + 8 * j);
+            v30 = *(*(&v38 + 1) + 8 * j);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -314,7 +311,7 @@ LABEL_12:
             }
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v38 objects:v46 count:16];
         }
 
         while (v27);
@@ -322,7 +319,7 @@ LABEL_12:
 
       v32 = [objc_alloc(MEMORY[0x1E695DFB8]) initWithArray:v24];
       v5 = v23;
-      unsignedLongLongValue = v37;
+      unsignedLongLongValue = v36;
       self = selfCopy;
     }
 
@@ -331,7 +328,7 @@ LABEL_12:
       v32 = 0;
     }
 
-    self = [(AFClockTimerSnapshot *)self initWithGeneration:unsignedLongLongValue date:v36 timersByID:v21 notifiedFiringTimerIDs:v32];
+    self = [(AFClockTimerSnapshot *)self initWithGeneration:unsignedLongLongValue date:v35 timersByID:v21 notifiedFiringTimerIDs:v32];
     selfCopy2 = self;
   }
 
@@ -340,7 +337,6 @@ LABEL_12:
     selfCopy2 = 0;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return selfCopy2;
 }
 
@@ -618,7 +614,7 @@ void __82__AFClockTimerSnapshot_initWithGeneration_date_timersByID_notifiedFirin
 
 void __45__AFClockTimerSnapshot_Utility__firingTimers__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 isFiring] && AFClockIsFiringTimerValid(v6))
@@ -634,10 +630,10 @@ void __45__AFClockTimerSnapshot_Utility__firingTimers__block_invoke(uint64_t a1,
       goto LABEL_8;
     }
 
-    *v10 = 136315394;
-    *&v10[4] = "[AFClockTimerSnapshot(Utility) firingTimers]_block_invoke";
-    *&v10[12] = 2112;
-    *&v10[14] = v6;
+    *v9 = 136315394;
+    *&v9[4] = "[AFClockTimerSnapshot(Utility) firingTimers]_block_invoke";
+    *&v9[12] = 2112;
+    *&v9[14] = v6;
     v8 = "%s Timer %@ is not in notifiedFiringTimerIDs, but isFiring is YES.";
     goto LABEL_11;
   }
@@ -648,51 +644,49 @@ void __45__AFClockTimerSnapshot_Utility__firingTimers__block_invoke(uint64_t a1,
     if (!os_log_type_enabled(AFSiriLogContextUtility, OS_LOG_TYPE_ERROR))
     {
 LABEL_8:
-      [*(a1 + 40) addObject:{v6, *v10, *&v10[16], v11}];
+      [*(a1 + 40) addObject:{v6, *v9, *&v9[8], v10}];
       goto LABEL_9;
     }
 
-    *v10 = 136315394;
-    *&v10[4] = "[AFClockTimerSnapshot(Utility) firingTimers]_block_invoke";
-    *&v10[12] = 2112;
-    *&v10[14] = v6;
+    *v9 = 136315394;
+    *&v9[4] = "[AFClockTimerSnapshot(Utility) firingTimers]_block_invoke";
+    *&v9[12] = 2112;
+    *&v9[14] = v6;
     v8 = "%s Timer %@ is in notifiedFiringTimerIDs, but isFiring is NO.";
 LABEL_11:
-    _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, v8, v10, 0x16u);
+    _os_log_error_impl(&dword_1912FE000, v7, OS_LOG_TYPE_ERROR, v8, v9, 0x16u);
     goto LABEL_8;
   }
 
 LABEL_9:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mostRecentFiringTimer
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   timersByID = [(AFClockTimerSnapshot *)self timersByID];
   allValues = [timersByID allValues];
 
-  v4 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if ([v9 isFiring] && AFClockIsFiringTimerValid(v9))
         {
           if (v6)
@@ -721,7 +715,7 @@ LABEL_9:
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -731,8 +725,6 @@ LABEL_9:
   {
     v6 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

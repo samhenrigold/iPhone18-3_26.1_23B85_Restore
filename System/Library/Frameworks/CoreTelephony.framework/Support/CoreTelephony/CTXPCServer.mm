@@ -96,8 +96,8 @@
 
     objc_storeStrong(v10 + 17, cntrl);
     factory = [v10 factory];
-    [v10 getQueue];
-    [v10 getLogContext];
+    objc_msgSend_getQueue(v10);
+    objc_msgSend_getLogContext(v10);
     v14 = [factory createListener:v21 name:"CTXPCServer" logContext:v17];
     v15 = *(v10 + 18);
     *(v10 + 18) = v14;
@@ -108,7 +108,7 @@
       dispatch_release(v21[0]);
     }
 
-    [v10 getQueue];
+    objc_msgSend_getQueue(v10);
     operator new();
   }
 
@@ -178,7 +178,7 @@
     operator new();
   }
 
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v8 = v10;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -204,7 +204,7 @@
     operator new();
   }
 
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v7 = v9;
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -696,7 +696,7 @@ LABEL_14:
   p_subInfoSink = &self->_subInfoSink;
   if (rest::operator==())
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v5 = *&v21[4];
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
@@ -759,7 +759,7 @@ LABEL_14:
       [(CTXPCServiceSubscriptionInfo *)self->_subInfo setSubscriptions:v9];
     }
 
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v17 = *&v21[4];
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -769,7 +769,7 @@ LABEL_14:
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Subscription info is changing from %@", &v20, 0xCu);
     }
 
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v18 = *&v21[4];
     ctu::OsLogContext::~OsLogContext(&v20);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -859,7 +859,7 @@ LABEL_14:
   objc_storeStrong(&self->_activeCtxs, v5);
   if (([(CTXPCContexts *)v29 isEqual:self->_activeCtxs]& 1) == 0)
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v26 = *&v31[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -954,7 +954,8 @@ LABEL_15:
   v6 = a3;
   *v5 = 0;
   v5[1] = 0;
-  -[CTXPCServer _getProcInfo_sync:](self, "_getProcInfo_sync:", [v6 processIdentifier]);
+  [v6 processIdentifier];
+  objc_msgSend__getProcInfo_sync_(self);
   if (!*v5)
   {
     [v6 processIdentifier];
@@ -983,7 +984,7 @@ LABEL_15:
     atomic_fetch_add_explicit(v5 + 1, 1uLL, memory_order_relaxed);
   }
 
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v16 = 0;
   rest::write_rest_value();
   sub_10000501C(&v15, "/cc/requests/get_app_state");
@@ -1015,7 +1016,7 @@ LABEL_8:
 
   if (info->var3)
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v10 = v18;
     ctu::OsLogContext::~OsLogContext(&__p);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
@@ -1043,7 +1044,7 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v11 = v18;
   ctu::OsLogContext::~OsLogContext(&__p);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
@@ -1098,7 +1099,7 @@ LABEL_8:
       {
         if ((v8 & 1) == 0)
         {
-          [(CTXPCServer *)self getLogContext];
+          objc_msgSend_getLogContext(self, a2);
           v9 = __p[1];
           ctu::OsLogContext::~OsLogContext(__p);
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -1181,7 +1182,7 @@ LABEL_6:
       goto LABEL_9;
     }
 
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v14 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG);
@@ -1214,9 +1215,9 @@ LABEL_6:
   }
 
 LABEL_9:
-  if (v7 != *(v6 + 48))
+  if (v7 != v6[12])
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v10 = *&buf[8];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -1306,7 +1307,7 @@ LABEL_9:
   {
     if (p_end_node[13].__left_)
     {
-      [(CTXPCServer *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = v33;
       ctu::OsLogContext::~OsLogContext(&__p);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -1336,7 +1337,7 @@ LABEL_9:
 
     else
     {
-      [(CTXPCServer *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v21 = v33;
       ctu::OsLogContext::~OsLogContext(&__p);
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
@@ -1428,7 +1429,7 @@ LABEL_7:
     }
   }
 
-  [(CTXPCServer *)self _getOrCreateProcInfo_sync:connectionCopy];
+  objc_msgSend__getOrCreateProcInfo_sync_(self);
   v10 = *buf;
   *buf = 0;
   *&buf[8] = 0;
@@ -1457,7 +1458,7 @@ LABEL_7:
 
   self->_nextClientID = v13;
   v14 = [CTXPCClientProxy alloc];
-  [(CTXPCServer *)self getQueue];
+  objc_msgSend_getQueue(self);
   v15 = [(CTXPCClientProxy *)v14 initWithRegistry:&self->_registry queue:&object connection:v5 clientID:v13];
   if (object)
   {
@@ -1466,7 +1467,7 @@ LABEL_7:
 
   [(CTXPCClientHandler *)v15 setDelegate:self];
   [(CTXPCClientHandler *)v15 setDataProviderDelegate:self];
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v16 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
@@ -1503,7 +1504,7 @@ LABEL_7:
   invalidatedCopy = invalidated;
   v48 = 0;
   v49 = 0;
-  [(CTXPCServer *)self _getOrCreateProcInfo_sync:invalidatedCopy];
+  objc_msgSend__getOrCreateProcInfo_sync_(self);
   p_clients = &self->_clients;
   p_end_node = &self->_clients.__tree_.__end_node_;
   left = self->_clients.__tree_.__end_node_.__left_;
@@ -1693,7 +1694,7 @@ LABEL_30:
     }
   }
 
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v35 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
@@ -1733,7 +1734,7 @@ LABEL_30:
   interruptedCopy = interrupted;
   v19 = 0;
   v20 = 0;
-  [(CTXPCServer *)self _getOrCreateProcInfo_sync:interruptedCopy];
+  objc_msgSend__getOrCreateProcInfo_sync_(self);
   p_clients = &self->_clients;
   left = self->_clients.__tree_.__end_node_.__left_;
   if (left)
@@ -1760,7 +1761,7 @@ LABEL_30:
       [(CTXPCServer *)self resetAvsTrafficStatus:&p_end_node[5]];
       [(CTXPCServer *)self resetIdsTrafficStatus:&p_end_node[5]];
       [(CTXPCServer *)self resetVoipCallTrafficStatus:&p_end_node[5]];
-      [(CTXPCServer *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v11 = *&v22[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -2160,7 +2161,7 @@ LABEL_12:
                 sub_100018A1C(1uLL);
               }
 
-              [(CTXPCServer *)self getLogContext];
+              objc_msgSend_getLogContext(self);
               v25 = *&__p[8];
               ctu::OsLogContext::~OsLogContext(__p);
               if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
@@ -2199,7 +2200,7 @@ LABEL_12:
 
         selectorsCopy = v36;
         v8 = v38;
-        [(CTXPCServer *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v30 = *&__p[8];
         ctu::OsLogContext::~OsLogContext(__p);
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
@@ -2247,7 +2248,7 @@ LABEL_12:
       else
       {
         p_end_node[8].__left_ = p_end_node[7].__left_;
-        [(CTXPCServer *)self getLogContext];
+        objc_msgSend_getLogContext(self);
         v15 = *&__p[8];
         ctu::OsLogContext::~OsLogContext(__p);
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -2285,8 +2286,8 @@ LABEL_12:
   if (connection)
   {
     processIdentifier = [connection processIdentifier];
-    [(CTXPCServer *)self _getProcInfo_sync:processIdentifier];
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend__getProcInfo_sync_(self);
+    objc_msgSend_getLogContext(self);
     v9 = v13;
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -2374,8 +2375,8 @@ LABEL_13:
   processIdentifier = [connectionCopy processIdentifier];
   v23 = 0;
   v24 = 0;
-  [(CTXPCServer *)self _getProcInfo_sync:processIdentifier];
-  [(CTXPCServer *)self getLogContext];
+  objc_msgSend__getProcInfo_sync_(self);
+  objc_msgSend_getLogContext(self);
   v22 = *&buf[8];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
@@ -2396,7 +2397,7 @@ LABEL_17:
     sub_10128CF00(&v20, &self->_clients.__tree_.__begin_node_);
     propertyList = 0;
     v4 = v20;
-    ctu::xpc_to_cf(&error, v20, v5);
+    ctu::xpc_to_cf(v20, v5);
     sub_100010180(&propertyList, &error);
     sub_10000A1EC(&error);
     err = 0;
@@ -2408,7 +2409,7 @@ LABEL_17:
     if (Data)
     {
       Length = CFDataGetLength(Data);
-      [(CTXPCServer *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v8 = *(&error + 1);
       ctu::OsLogContext::~OsLogContext(&error);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -2429,7 +2430,7 @@ LABEL_17:
     else
     {
       v16 = CFErrorCopyDescription(err);
-      [(CTXPCServer *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v14 = *(&error + 1);
       ctu::OsLogContext::~OsLogContext(&error);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
@@ -2451,7 +2452,7 @@ LABEL_17:
 
   else
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self, a2);
     v12 = *(&error + 1);
     ctu::OsLogContext::~OsLogContext(&error);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
@@ -2495,7 +2496,7 @@ LABEL_17:
   while (left);
   if (p_end_node != &self->_clients.__tree_.__end_node_ && p_end_node[4].__left_ <= faultCopy)
   {
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v15 = *&v24[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
@@ -2530,7 +2531,7 @@ LABEL_17:
   else
   {
 LABEL_9:
-    [(CTXPCServer *)self getLogContext];
+    objc_msgSend_getLogContext(self);
     v13 = *&v24[4];
     ctu::OsLogContext::~OsLogContext(buf);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
@@ -2630,10 +2631,8 @@ LABEL_9:
         if (!v13->__left_)
         {
 LABEL_20:
-          v18 = 0;
-          v19 = 0;
-          v20 = 0;
-          sub_1012934C8();
+          memset(v18, 0, sizeof(v18));
+          sub_1012934C8(v18, retstr, &left[1].__tree_.__end_node_);
         }
       }
 
@@ -2801,7 +2800,7 @@ LABEL_20:
                   v19 = v18;
                 }
 
-                sub_101293648((v9 + 7), v19);
+                sub_101293648(v9 + 7, v19);
               }
 
               sub_1000CE3D4();
@@ -2877,7 +2876,7 @@ LABEL_20:
                   v33 = v32;
                 }
 
-                sub_101293688((v9 + 10), v33);
+                sub_101293688(v9 + 10, v33);
               }
 
               sub_1000CE3D4();
@@ -3006,7 +3005,7 @@ LABEL_59:
       v47 = 0;
       v48 = 0;
       v49 = 0;
-      sub_1012934C8();
+      sub_1012934C8(&v47, p_clients, (begin_node + 4));
     }
   }
 }

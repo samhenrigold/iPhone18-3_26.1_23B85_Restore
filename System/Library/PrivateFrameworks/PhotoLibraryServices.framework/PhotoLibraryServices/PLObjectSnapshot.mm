@@ -85,8 +85,8 @@ void __49__PLObjectSnapshot__allSnapshotValuesDescription__block_invoke(uint64_t
   allKeys = [(NSKnownKeysDictionary *)self->_snapshotValues allKeys];
   v5 = MEMORY[0x1E696AD60];
   v6 = objc_opt_class();
-  entity = [(PLManagedObject *)self->_managedObject entity];
-  managedObjectClassName = [entity managedObjectClassName];
+  v7 = objc_msgSend_entity(self->_managedObject);
+  managedObjectClassName = [v7 managedObjectClassName];
   v9 = [allKeys componentsJoinedByString:{@", "}];
   v10 = [v5 stringWithFormat:@"<%@: %p> class: %@, keys: {%@}", v6, self, managedObjectClassName, v9];
 
@@ -217,16 +217,16 @@ void __49__PLObjectSnapshot__allSnapshotValuesDescription__block_invoke(uint64_t
 
           v27 = *(*(&v56 + 1) + 8 * i);
           v28 = objectCopy;
-          entity = [objectCopy entity];
-          name = [entity name];
+          v29 = objc_msgSend_entity(objectCopy);
+          name = [v29 name];
           v31 = +[PLManagedAsset entityName];
-          v32 = [name isEqualToString:v31];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
           v33 = v27;
-          if (v32)
+          if (isEqualToString)
           {
             v34 = @"orderedCloudComments";
-            if (([(__CFString *)v27 isEqualToString:@"cloudComments"]& 1) != 0 || (v34 = @"orderedLikeComments", v33 = v27, [(__CFString *)v27 isEqualToString:@"likeComments"]))
+            if ((objc_msgSend_isEqualToString_(v27) & 1) != 0 || (v34 = @"orderedLikeComments", v33 = v27, objc_msgSend_isEqualToString_(v27)))
             {
 
               v33 = v34;
@@ -382,9 +382,9 @@ void __86__PLObjectSnapshot__createIndexMapsSnapshotForManagedObject_changeNotif
   v11 = [centerCopy _orderedRelationshipsOfInterestForObject:objectCopy];
   v12 = [centerCopy _attributesOfInterestForObject:objectCopy];
   v13 = [centerCopy _toOneRelationshipsOfInterestForObject:objectCopy];
-  v14 = [v11 count];
-  v15 = [v12 count] + v14;
-  if (v15 + [v13 count])
+  v14 = objc_msgSend_count(v11);
+  v15 = objc_msgSend_count(v12) + v14;
+  if (v15 + objc_msgSend_count(v13))
   {
     context = objc_autoreleasePoolPush();
     v41 = v13;
@@ -483,9 +483,9 @@ void __86__PLObjectSnapshot__createIndexMapsSnapshotForManagedObject_changeNotif
         while (v26);
       }
 
-      v30 = [allObjects count];
-      v31 = [v12 count] + v30;
-      if (!(v31 + [allObjects2 count]))
+      v30 = objc_msgSend_count(allObjects);
+      v31 = objc_msgSend_count(v12) + v30;
+      if (!(v31 + objc_msgSend_count(allObjects2)))
       {
         v10 = 0;
         v11 = v37;

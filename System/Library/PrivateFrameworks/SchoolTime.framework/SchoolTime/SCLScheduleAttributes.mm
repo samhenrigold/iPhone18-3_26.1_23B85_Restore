@@ -27,43 +27,43 @@
 
 - (void)_prepareWithRecurrences:(id)recurrences
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   recurrencesCopy = recurrences;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2020000000;
+  v48 = 0;
   v5 = [MEMORY[0x277CBEB58] set];
   v6 = [MEMORY[0x277CBEB58] set];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __49__SCLScheduleAttributes__prepareWithRecurrences___block_invoke;
-  v34[3] = &unk_279B6CB08;
-  v40 = &v42;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x2020000000;
+  v44 = 0;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __49__SCLScheduleAttributes__prepareWithRecurrences___block_invoke;
+  v33[3] = &unk_279B6CB08;
+  v39 = &v41;
   v8 = dictionary;
-  v35 = v8;
+  v34 = v8;
   selfCopy = self;
-  v41 = &v46;
+  v40 = &v45;
   v9 = v6;
-  v37 = v9;
+  v36 = v9;
   v10 = recurrencesCopy;
-  v38 = v10;
+  v37 = v10;
   v11 = v5;
-  v39 = v11;
-  [v10 enumerateObjectsUsingBlock:v34];
-  self->_scheduledDays = v43[3];
-  v12 = v47[3];
+  v38 = v11;
+  [v10 enumerateObjectsUsingBlock:v33];
+  self->_scheduledDays = v42[3];
+  v12 = v46[3];
   self->_valid = v12 == 0;
   if (v12)
   {
     nextObject = objc_alloc_init(MEMORY[0x277CBEB38]);
     [nextObject setObject:@"Recurrence validation failed." forKeyedSubscript:*MEMORY[0x277CCA450]];
-    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v47[3]];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v46[3]];
     [nextObject setObject:v14 forKeyedSubscript:@"FailedValidations"];
 
     if ([v11 count])
@@ -87,35 +87,35 @@
     objectEnumerator = [v8 objectEnumerator];
     nextObject = [objectEnumerator nextObject];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     objectEnumerator2 = [v8 objectEnumerator];
-    v20 = [objectEnumerator2 countByEnumeratingWithState:&v30 objects:v50 count:16];
-    v26 = v11;
-    v27 = v9;
-    v28 = v8;
-    v29 = v10;
+    v20 = [objectEnumerator2 countByEnumeratingWithState:&v29 objects:v49 count:16];
+    v25 = v11;
+    v26 = v9;
+    v27 = v8;
+    v28 = v10;
     if (v20)
     {
-      v21 = *v31;
+      v21 = *v30;
       v22 = 1;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v31 != v21)
+          if (*v30 != v21)
           {
             objc_enumerationMutation(objectEnumerator2);
           }
 
-          v24 = *(*(&v30 + 1) + 8 * i);
-          v22 &= [v24 isEqual:{nextObject, v26, v27, v28, v29}];
+          v24 = *(*(&v29 + 1) + 8 * i);
+          v22 &= [v24 isEqual:{nextObject, v25, v26, v27, v28}];
           v17 &= [v24 count] < 2;
         }
 
-        v20 = [objectEnumerator2 countByEnumeratingWithState:&v30 objects:v50 count:16];
+        v20 = [objectEnumerator2 countByEnumeratingWithState:&v29 objects:v49 count:16];
       }
 
       while (v20);
@@ -126,18 +126,16 @@
       LOBYTE(v22) = 1;
     }
 
-    v8 = v28;
-    v10 = v29;
-    v11 = v26;
-    v9 = v27;
+    v8 = v27;
+    v10 = v28;
+    v11 = v25;
+    v9 = v26;
     self->_hasUniformIntervals = v22;
     self->_hasSingleIntervalPerDay = v17;
   }
 
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v46, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v45, 8);
 }
 
 void __49__SCLScheduleAttributes__prepareWithRecurrences___block_invoke(uint64_t a1, void *a2)

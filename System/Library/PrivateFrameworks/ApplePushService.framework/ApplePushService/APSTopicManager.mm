@@ -34,6 +34,7 @@
 - (void)_forgetRedListTopic:(id)topic;
 - (void)_pendingFilterTimerFired;
 - (void)_processPendingChangeIfNeeded;
+- (void)_processTopicChange:(id)change immediately:(BOOL)immediately alertDelegate:(BOOL)delegate;
 - (void)_rememberRedListTopic:(id)topic;
 - (void)_scheduleServerUpdateWithChange:(id)change timer:(BOOL)timer shortInterval:(BOOL)interval;
 - (void)addTopicsAndAttributes:(id)attributes connectionServer:(id)server;
@@ -1710,6 +1711,145 @@ LABEL_16:
   }
 }
 
+- (void)_processTopicChange:(id)change immediately:(BOOL)immediately alertDelegate:(BOOL)delegate
+{
+  delegateCopy = delegate;
+  immediatelyCopy = immediately;
+  changeCopy = change;
+  if ([(APSTopicManager *)self inTransaction])
+  {
+    goto LABEL_31;
+  }
+
+  v9 = +[APSLog topicManager];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = sub_1000066D0([changeCopy topicGroupChange]);
+    v11 = v10;
+    v12 = @"NO";
+    *v23 = 138413058;
+    *&v23[4] = self;
+    if (immediatelyCopy)
+    {
+      v13 = @"YES";
+    }
+
+    else
+    {
+      v13 = @"NO";
+    }
+
+    if (delegateCopy)
+    {
+      v12 = @"YES";
+    }
+
+    *&v23[12] = 2112;
+    *&v23[14] = v10;
+    v24 = 2112;
+    v25 = v13;
+    v26 = 2112;
+    v27 = v12;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@: process topic change with change = %@, immediately = %@, alert = %@", v23, 0x2Au);
+  }
+
+  if (![changeCopy topicGroupChange])
+  {
+    goto LABEL_31;
+  }
+
+  if (!immediatelyCopy)
+  {
+    topicGroupChange = [changeCopy topicGroupChange];
+    if (topicGroupChange <= 0xA)
+    {
+      if (((1 << topicGroupChange) & 0xF0) != 0)
+      {
+LABEL_29:
+        selfCopy2 = self;
+        v21 = changeCopy;
+        v22 = 0;
+        goto LABEL_30;
+      }
+
+      if (((1 << topicGroupChange) & 0x608) != 0)
+      {
+        [(APSTopicManager *)self _processTopicChange:changeCopy immediately:1 alertDelegate:delegateCopy];
+        goto LABEL_31;
+      }
+
+      if (topicGroupChange == 8)
+      {
+        selfCopy2 = self;
+        v21 = changeCopy;
+        v22 = 1;
+LABEL_30:
+        [(APSTopicManager *)selfCopy2 _scheduleServerUpdateWithChange:v21 timer:v22, *v23, *&v23[8]];
+        goto LABEL_31;
+      }
+    }
+
+    if (topicGroupChange != 1)
+    {
+      if (topicGroupChange == 2)
+      {
+        [(APSTopicManager *)self _scheduleServerUpdateWithChange:changeCopy timer:1 shortInterval:0];
+        goto LABEL_31;
+      }
+
+      v17 = +[APSLog topicManager];
+      if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_23;
+      }
+
+      *v23 = 138412290;
+      *&v23[4] = self;
+      v19 = "%@ no change detected";
+      goto LABEL_22;
+    }
+
+    goto LABEL_29;
+  }
+
+  if (!delegateCopy)
+  {
+    v17 = +[APSLog topicManager];
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      goto LABEL_23;
+    }
+
+    *v23 = 138412290;
+    *&v23[4] = self;
+    v19 = "%@ processed change -- would immediately tell our delegate but we were asked not to";
+LABEL_22:
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, v23, 0xCu);
+    goto LABEL_23;
+  }
+
+  [(APSTopicManager *)self _clearPendingFilterTimer];
+  v14 = +[APSLog topicManager];
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    *v23 = 138412290;
+    *&v23[4] = self;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ processing immediate change to server topics", v23, 0xCu);
+  }
+
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v16 = objc_opt_respondsToSelector();
+
+  if (v16)
+  {
+    v17 = objc_loadWeakRetained(&self->_delegate);
+    [v17 topicManagerRequestToSendFilter:self change:changeCopy];
+LABEL_23:
+  }
+
+LABEL_31:
+}
+
 - (int64_t)_potentiallyChangeChosenTopicStateForTopic:(id)topic
 {
   v4 = [(NSMutableDictionary *)self->_topicsToTopicsStates objectForKey:topic];
@@ -1995,7 +2135,7 @@ LABEL_17:
         v20 = 20.0;
       }
 
-      v21 = [NSTimer scheduledTimerWithTimeInterval:self target:"_pendingFilterTimerFired" selector:0 userInfo:0 repeats:v20, *v24, *&v24[16]];
+      v21 = [NSTimer scheduledTimerWithTimeInterval:self target:"_pendingFilterTimerFired" selector:0 userInfo:0 repeats:v20, *v24, *&v24[8]];
       pendingFilterTimer = self->_pendingFilterTimer;
       self->_pendingFilterTimer = v21;
 

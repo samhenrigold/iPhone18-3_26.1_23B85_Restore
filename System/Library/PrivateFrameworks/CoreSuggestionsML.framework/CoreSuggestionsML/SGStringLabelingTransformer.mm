@@ -65,12 +65,11 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   labelMapping = self->_labelMapping;
-  v7 = @"LABEL_MAPPING";
-  v8[0] = labelMapping;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = @"LABEL_MAPPING";
+  v7[0] = labelMapping;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -139,7 +138,7 @@
 
 + (id)convertLabelsToMapping:(id)mapping
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   mappingCopy = mapping;
   if (!mappingCopy)
   {
@@ -151,33 +150,33 @@
   if ([mappingCopy count])
   {
     v5 = 0;
-    v22 = mappingCopy;
+    v21 = mappingCopy;
     do
     {
       context = objc_autoreleasePoolPush();
       v6 = [mappingCopy objectAtIndex:v5];
-      v24 = v5 + 1;
+      v23 = v5 + 1;
       v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v5 + 1];
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v28;
+        v11 = *v27;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v28 != v11)
+            if (*v27 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v27 + 1) + 8 * i);
+            v13 = *(*(&v26 + 1) + 8 * i);
             v14 = [v4 objectForKeyedSubscript:v13];
             if (v14)
             {
@@ -195,21 +194,19 @@
             [v4 setObject:v7 forKey:v13];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v10);
       }
 
       objc_autoreleasePoolPop(context);
-      mappingCopy = v22;
-      v5 = v24;
+      mappingCopy = v21;
+      v5 = v23;
     }
 
-    while (v24 < [v22 count]);
+    while (v23 < [v21 count]);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

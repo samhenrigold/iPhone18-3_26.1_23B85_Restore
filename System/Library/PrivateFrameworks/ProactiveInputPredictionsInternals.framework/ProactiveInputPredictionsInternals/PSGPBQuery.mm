@@ -259,7 +259,6 @@ LABEL_16:
     goto LABEL_66;
   }
 
-  v5 = *(equalCopy + 88);
   if ((*&self->_has & 0x20) != 0)
   {
     if ((*(equalCopy + 88) & 0x20) == 0)
@@ -267,7 +266,6 @@ LABEL_16:
       goto LABEL_66;
     }
 
-    v10 = *(equalCopy + 82);
     if (self->_hasResponseContext)
     {
       if ((*(equalCopy + 82) & 1) == 0)
@@ -294,7 +292,6 @@ LABEL_16:
       goto LABEL_66;
     }
 
-    v11 = *(equalCopy + 84);
     if (self->_isResponseContextBlacklisted)
     {
       if ((*(equalCopy + 84) & 1) == 0)
@@ -321,7 +318,6 @@ LABEL_16:
       goto LABEL_66;
     }
 
-    v12 = *(equalCopy + 83);
     if (self->_isDocumentEmpty)
     {
       if ((*(equalCopy + 83) & 1) == 0)
@@ -365,7 +361,6 @@ LABEL_16:
     }
   }
 
-  v9 = *(equalCopy + 88);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0 || self->_maxTextualResponseItems != *(equalCopy + 12))
@@ -432,7 +427,6 @@ LABEL_16:
       goto LABEL_66;
     }
 
-    v17 = *(equalCopy + 80);
     if (self->_hasContextBeforeInput)
     {
       if ((*(equalCopy + 80) & 1) == 0)
@@ -482,19 +476,19 @@ LABEL_16:
         goto LABEL_66;
       }
 
-      v18 = 1;
+      v12 = 1;
       goto LABEL_67;
     }
 
 LABEL_66:
-    v18 = 0;
+    v12 = 0;
     goto LABEL_67;
   }
 
-  v18 = (*(equalCopy + 88) & 0x10) == 0;
+  v12 = (*(equalCopy + 88) & 0x10) == 0;
 LABEL_67:
 
-  return v18;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -748,7 +742,6 @@ LABEL_27:
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    hasResponseContext = self->_hasResponseContext;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -768,12 +761,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  isResponseContextBlacklisted = self->_isResponseContextBlacklisted;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_4:
-    isDocumentEmpty = self->_isDocumentEmpty;
     PBDataWriterWriteBOOLField();
   }
 
@@ -793,17 +784,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 4) != 0)
+  v5 = self->_has;
+  if ((v5 & 4) != 0)
   {
-    maxTextualResponseItems = self->_maxTextualResponseItems;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    maxStructuredInfoItems = self->_maxStructuredInfoItems;
     PBDataWriterWriteUint32Field();
   }
 
@@ -827,16 +816,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((v9 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    hasContextBeforeInput = self->_hasContextBeforeInput;
     PBDataWriterWriteBOOLField();
-    v9 = self->_has;
-    if ((v9 & 1) == 0)
+    v6 = self->_has;
+    if ((v6 & 1) == 0)
     {
 LABEL_25:
-      if ((v9 & 0x10) == 0)
+      if ((v6 & 0x10) == 0)
       {
         goto LABEL_27;
       }
@@ -850,12 +838,10 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  maxPredictionItems = self->_maxPredictionItems;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_26:
-    hasRecipientNames = self->_hasRecipientNames;
     PBDataWriterWriteBOOLField();
   }
 

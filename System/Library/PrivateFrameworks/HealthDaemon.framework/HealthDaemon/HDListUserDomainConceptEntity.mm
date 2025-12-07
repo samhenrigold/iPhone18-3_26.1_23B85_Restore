@@ -12,13 +12,11 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   v2 = +[HDUserDomainConceptEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -87,24 +85,23 @@ uint64_t __103__HDListUserDomainConceptEntity_updateConcreteUserDomainConcept_us
 
 + (BOOL)willDeleteConcreteUserDomainConcept:(id)concept userDomainConceptID:(int64_t)d syncProvenance:(int64_t)provenance profile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   conceptCopy = concept;
   _HKInitializeLogging();
   v12 = HKLogHealthOntology();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138413058;
+    v14 = 138413058;
     selfCopy = self;
-    v17 = 2112;
-    v18 = conceptCopy;
-    v19 = 2048;
+    v16 = 2112;
+    v17 = conceptCopy;
+    v18 = 2048;
     dCopy = d;
-    v21 = 2048;
+    v20 = 2048;
     provenanceCopy = provenance;
-    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%@ will delete list UDC %@, udc_id=%ld, sync_provenance=%ld", &v15, 0x2Au);
+    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%@ will delete list UDC %@, udc_id=%ld, sync_provenance=%ld", &v14, 0x2Au);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -117,7 +114,7 @@ uint64_t __103__HDListUserDomainConceptEntity_updateConcreteUserDomainConcept_us
 
 + (id)predicateMatchingSemanticDuplicatesOf:(id)of
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D10B20];
   v4 = MEMORY[0x277D10B18];
   ofCopy = of;
@@ -128,18 +125,16 @@ uint64_t __103__HDListUserDomainConceptEntity_updateConcreteUserDomainConcept_us
   identifier = [ofCopy identifier];
   v11 = [v9 numberWithInteger:{objc_msgSend(identifier, "code")}];
   v12 = [v8 predicateWithProperty:@"type" equalToValue:v11];
-  v22[1] = v12;
+  v21[1] = v12;
   v13 = MEMORY[0x277D10B18];
   v14 = MEMORY[0x277CCABB0];
   listType = [ofCopy listType];
 
   v16 = [v14 numberWithUnsignedInteger:listType];
   v17 = [v13 predicateWithProperty:@"list_type" equalToValue:v16];
-  v22[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
+  v21[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
   v19 = [v3 predicateMatchingAllPredicates:v18];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

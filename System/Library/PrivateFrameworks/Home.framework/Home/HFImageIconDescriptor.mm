@@ -14,30 +14,29 @@
 
 - (HFImageIconDescriptor)initWithImageIdentifier:(id)identifier
 {
-  v11[10] = *MEMORY[0x277D85DE8];
+  v10[10] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
-  v10.receiver = self;
-  v10.super_class = HFImageIconDescriptor;
-  v6 = [(HFImageIconDescriptor *)&v10 init];
+  v9.receiver = self;
+  v9.super_class = HFImageIconDescriptor;
+  v6 = [(HFImageIconDescriptor *)&v9 init];
   if (v6)
   {
-    v11[0] = @"HFImageIconIdentifierAppleTVRegular";
-    v11[1] = @"HFImageIconIdentifierAppleTVSmall";
-    v11[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
-    v11[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
-    v11[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
-    v11[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
-    v11[6] = @"HFCAPackageIconIdentifierAirport";
-    v11[7] = @"HFImageIconIdentifierGeneric";
-    v11[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
-    v11[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:10];
+    v10[0] = @"HFImageIconIdentifierAppleTVRegular";
+    v10[1] = @"HFImageIconIdentifierAppleTVSmall";
+    v10[2] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOn";
+    v10[3] = @"HFImageIconIdentifierServiceCarbonDioxideSensorOff";
+    v10[4] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOn";
+    v10[5] = @"HFImageIconIdentifierServiceCarbonMonoxideSensorOff";
+    v10[6] = @"HFCAPackageIconIdentifierAirport";
+    v10[7] = @"HFImageIconIdentifierGeneric";
+    v10[8] = @"HFCAPackageIconIdentifierCarbonMonoxideSensor";
+    v10[9] = @"HFCAPackageIconIdentifierCarbonDioxideSensor";
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:10];
     v6->_shouldForceLTR = [v7 containsObject:identifierCopy];
 
     objc_storeStrong(&v6->_imageIdentifier, identifier);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

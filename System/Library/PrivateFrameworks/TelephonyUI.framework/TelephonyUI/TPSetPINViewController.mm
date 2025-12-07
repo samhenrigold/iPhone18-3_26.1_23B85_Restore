@@ -1,6 +1,9 @@
 @interface TPSetPINViewController
 - (TPSetPINViewController)init;
 - (double)numberPadTopConstraintConstant;
+- (id)_initForMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n;
+- (id)initForChangePINWithMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n;
+- (id)initForNewPINWithMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n;
 - (void)_cancelButtonTapped;
 - (void)_doneButtonTapped;
 - (void)_updateDeleteAllowed;
@@ -33,6 +36,79 @@
   }
 
   return 0;
+}
+
+- (id)_initForMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n
+{
+  v5 = *&maxLength;
+  v6 = *&length;
+  if (length <= maxLength)
+  {
+    nCopy = n;
+    v23.receiver = self;
+    v23.super_class = TPSetPINViewController;
+    v13 = [(TPSetPINViewController *)&v23 init];
+    v11 = v13;
+    if (v13)
+    {
+      v15 = TelephonyUIBundle(v13, v14);
+      v16 = [v15 localizedStringForKey:@"PASSWORD" value:&stru_1F2CA8008 table:@"General"];
+      navigationItem = [(TPSetPINViewController *)v11 navigationItem];
+      [navigationItem setTitle:v16];
+
+      v18 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:0 target:v11 action:sel__doneButtonTapped];
+      navigationItem2 = [(TPSetPINViewController *)v11 navigationItem];
+      [navigationItem2 setRightBarButtonItem:v18];
+
+      v20 = [objc_alloc(MEMORY[0x1E69DC708]) initWithBarButtonSystemItem:1 target:v11 action:sel__cancelButtonTapped];
+      navigationItem3 = [(TPSetPINViewController *)v11 navigationItem];
+      [navigationItem3 setLeftBarButtonItem:v20];
+
+      [(TPSetPINViewController *)v11 setMinPINLength:v6];
+      [(TPSetPINViewController *)v11 setMaxPINLength:v5];
+      [(TPSetPINViewController *)v11 setConfirmPIN:nCopy];
+    }
+  }
+
+  else
+  {
+    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Min PIN length of %u exceeds max PIN length of %u.", *&length, *&maxLength];
+    NSLog(&cfstr_TuassertionFai.isa, v9);
+
+    if (_TUAssertShouldCrashApplication())
+    {
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"TPSetPINViewController.m" lineNumber:77 description:{@"Min PIN length of %u exceeds max PIN length of %u.", v6, v5}];
+    }
+
+    return 0;
+  }
+
+  return v11;
+}
+
+- (id)initForNewPINWithMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n
+{
+  v5 = [(TPSetPINViewController *)self _initForMinLength:*&length maxLength:*&maxLength confirmPIN:n];
+  v6 = v5;
+  if (v5)
+  {
+    [v5 setInitialState:1];
+  }
+
+  return v6;
+}
+
+- (id)initForChangePINWithMinLength:(unsigned int)length maxLength:(unsigned int)maxLength confirmPIN:(BOOL)n
+{
+  v5 = [(TPSetPINViewController *)self _initForMinLength:*&length maxLength:*&maxLength confirmPIN:n];
+  v6 = v5;
+  if (v5)
+  {
+    [v5 setInitialState:0];
+  }
+
+  return v6;
 }
 
 - (void)dealloc
@@ -180,28 +256,29 @@ LABEL_5:
     v9 = MEMORY[0x1E69DC650];
     if ([titleCopy length])
     {
-      v10 = [v9 alertControllerWithTitle:v8 message:promptCopy preferredStyle:1];
+      v11 = [v9 alertControllerWithTitle:v8 message:promptCopy preferredStyle:1];
+      v13 = v11;
     }
 
     else
     {
-      v11 = TelephonyUIBundle();
-      v12 = [v11 localizedStringForKey:@"ERROR" value:&stru_1F2CA8008 table:@"General"];
-      v10 = [v9 alertControllerWithTitle:v12 message:promptCopy preferredStyle:1];
+      v14 = TelephonyUIBundle(0, v10);
+      v15 = [v14 localizedStringForKey:@"ERROR" value:&stru_1F2CA8008 table:@"General"];
+      v13 = [v9 alertControllerWithTitle:v15 message:promptCopy preferredStyle:1];
     }
 
-    v13 = MEMORY[0x1E69DC648];
-    v14 = TelephonyUIBundle();
-    v15 = [v14 localizedStringForKey:@"OK" value:&stru_1F2CA8008 table:@"General"];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __53__TPSetPINViewController_resetWithErrorPrompt_title___block_invoke;
-    v17[3] = &unk_1E7C0C5A8;
-    v17[4] = self;
-    v16 = [v13 actionWithTitle:v15 style:0 handler:v17];
-    [v10 addAction:v16];
+    v16 = MEMORY[0x1E69DC648];
+    v17 = TelephonyUIBundle(v11, v12);
+    v18 = [v17 localizedStringForKey:@"OK" value:&stru_1F2CA8008 table:@"General"];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __53__TPSetPINViewController_resetWithErrorPrompt_title___block_invoke;
+    v20[3] = &unk_1E7C0C5A8;
+    v20[4] = self;
+    v19 = [v16 actionWithTitle:v18 style:0 handler:v20];
+    [v13 addAction:v19];
 
-    [(TPSetPINViewController *)self presentViewController:v10 animated:1 completion:0];
+    [(TPSetPINViewController *)self presentViewController:v13 animated:1 completion:0];
   }
 
   else
@@ -367,11 +444,11 @@ LABEL_6:
 
     else
     {
-      delegate2 = TelephonyUIBundle();
+      delegate2 = TelephonyUIBundle(v14, v15);
       oldPIN = [delegate2 localizedStringForKey:@"MISMATCH" value:&stru_1F2CA8008 table:@"General"];
-      unconfirmedPIN2 = TelephonyUIBundle();
-      v19 = [unconfirmedPIN2 localizedStringForKey:@"ERROR" value:&stru_1F2CA8008 table:@"General"];
-      [(TPSetPINViewController *)self resetWithErrorPrompt:oldPIN title:v19];
+      unconfirmedPIN2 = TelephonyUIBundle(oldPIN, v21);
+      v22 = [unconfirmedPIN2 localizedStringForKey:@"ERROR" value:&stru_1F2CA8008 table:@"General"];
+      [(TPSetPINViewController *)self resetWithErrorPrompt:oldPIN title:v22];
     }
 
     goto LABEL_18;

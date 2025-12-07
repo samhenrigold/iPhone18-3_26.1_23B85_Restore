@@ -1,5 +1,7 @@
 @interface TSSPropertySet
 + (TSSPropertySet)propertySetWithArray:(id)array;
++ (TSSPropertySet)propertySetWithProperties:(int)properties;
++ (TSSPropertySet)propertySetWithProperty:(int)property;
 + (id)p_mutableIndexSetWithFirstProperty:(int)property argumentList:(char *)list;
 + (id)propertySet;
 + (id)propertySetFromUnionOfPropertySets:(id)sets;
@@ -8,14 +10,19 @@
 - (BOOL)isEqual:(id)equal;
 - (NSSet)propertyStrings;
 - (TSSPropertySet)init;
+- (TSSPropertySet)initWithFirstProperty:(int)property argumentList:(char *)list;
 - (TSSPropertySet)initWithIndexSet:(id)set;
 - (TSSPropertySet)initWithPropertySet:(id)set;
 - (_NSRange)propertyRange;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
+- (id)propertySetByAddingProperties:(int)properties;
 - (id)propertySetByAddingPropertiesFromSet:(id)set;
+- (id)propertySetByAddingProperty:(int)property;
 - (id)propertySetByIntersectingWithPropertySet:(id)set;
+- (id)propertySetByRemovingProperties:(int)properties;
 - (id)propertySetByRemovingPropertiesFromSet:(id)set;
+- (id)propertySetByRemovingProperty:(int)property;
 - (void)enumeratePropertiesUsingBlock:(id)block;
 @end
 
@@ -82,6 +89,17 @@ LABEL_6:
   return i;
 }
 
+- (TSSPropertySet)initWithFirstProperty:(int)property argumentList:(char *)list
+{
+  v5 = *&property;
+  v7 = objc_opt_class();
+  v9 = objc_msgSend_p_mutableIndexSetWithFirstProperty_argumentList_(v7, v8, v5, list);
+  v12 = objc_msgSend_copy(v9, v10, v11);
+  v14 = objc_msgSend_initWithIndexSet_(self, v13, v12);
+
+  return v14;
+}
+
 - (TSSPropertySet)initWithPropertySet:(id)set
 {
   setCopy = set;
@@ -109,6 +127,24 @@ LABEL_6:
   return v18;
 }
 
++ (TSSPropertySet)propertySetWithProperty:(int)property
+{
+  v3 = *&property;
+  v4 = [self alloc];
+  v6 = objc_msgSend_initWithProperty_(v4, v5, v3);
+
+  return v6;
+}
+
++ (TSSPropertySet)propertySetWithProperties:(int)properties
+{
+  v3 = *&properties;
+  v4 = [self alloc];
+  v6 = objc_msgSend_initWithFirstProperty_argumentList_(v4, v5, v3, &v9);
+
+  return v6;
+}
+
 + (id)propertySet
 {
   objc_opt_class();
@@ -119,36 +155,36 @@ LABEL_6:
 
 + (TSSPropertySet)propertySetWithArray:(id)array
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v6 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v4, v5);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v7 = arrayCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v24, v28, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v23, v27, 16);
   if (v9)
   {
     v12 = v9;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = objc_msgSend_tss_propertyValue(*(*(&v24 + 1) + 8 * i), v10, v11, v24);
+        v15 = objc_msgSend_tss_propertyValue(*(*(&v23 + 1) + 8 * i), v10, v11, v23);
         if (v15)
         {
           objc_msgSend_addIndex_(v6, v10, v15);
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v24, v28, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v23, v27, 16);
     }
 
     while (v12);
@@ -158,39 +194,37 @@ LABEL_6:
   v19 = objc_msgSend_copy(v6, v17, v18);
   v21 = objc_msgSend_initWithIndexSet_(v16, v20, v19);
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 + (id)propertySetFromUnionOfPropertySets:(id)sets
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   setsCopy = sets;
   v6 = objc_msgSend_indexSet(MEMORY[0x277CCAB58], v4, v5);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = setsCopy;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
   if (v9)
   {
     v11 = v9;
-    v12 = *v23;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        objc_msgSend_addIndexes_(v6, v10, *(*(*(&v22 + 1) + 8 * i) + 8), v22);
+        objc_msgSend_addIndexes_(v6, v10, *(*(*(&v21 + 1) + 8 * i) + 8), v21);
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v22, v26, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v21, v25, 16);
     }
 
     while (v11);
@@ -199,8 +233,6 @@ LABEL_6:
   v14 = objc_alloc(objc_opt_class());
   v17 = objc_msgSend_copy(v6, v15, v16);
   v19 = objc_msgSend_initWithIndexSet_(v14, v18, v17);
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -276,6 +308,18 @@ LABEL_6:
   return v9;
 }
 
+- (id)propertySetByAddingProperties:(int)properties
+{
+  v3 = *&properties;
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_p_mutableIndexSetWithFirstProperty_argumentList_(v5, v6, v3, &v14);
+  objc_msgSend_addIndexes_(v7, v8, self->mIndexSet);
+  v9 = objc_alloc(objc_opt_class());
+  v11 = objc_msgSend_initWithIndexSet_(v9, v10, v7);
+
+  return v11;
+}
+
 - (id)propertySetByAddingPropertiesFromSet:(id)set
 {
   mIndexSet = self->mIndexSet;
@@ -288,6 +332,39 @@ LABEL_6:
   v12 = objc_msgSend_initWithIndexSet_(v10, v11, v7);
 
   return v12;
+}
+
+- (id)propertySetByAddingProperty:(int)property
+{
+  v4 = objc_msgSend_mutableCopy(self->mIndexSet, a2, *&property);
+  objc_msgSend_addIndex_(v4, v5, property);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithIndexSet_(v6, v7, v4);
+
+  return v8;
+}
+
+- (id)propertySetByRemovingProperty:(int)property
+{
+  v4 = objc_msgSend_mutableCopy(self->mIndexSet, a2, *&property);
+  objc_msgSend_removeIndex_(v4, v5, property);
+  v6 = objc_alloc(objc_opt_class());
+  v8 = objc_msgSend_initWithIndexSet_(v6, v7, v4);
+
+  return v8;
+}
+
+- (id)propertySetByRemovingProperties:(int)properties
+{
+  v3 = *&properties;
+  v5 = objc_opt_class();
+  v7 = objc_msgSend_p_mutableIndexSetWithFirstProperty_argumentList_(v5, v6, v3, &v17);
+  v10 = objc_msgSend_mutableCopy(self->mIndexSet, v8, v9);
+  objc_msgSend_removeIndexes_(v10, v11, v7);
+  v12 = objc_alloc(objc_opt_class());
+  v14 = objc_msgSend_initWithIndexSet_(v12, v13, v10);
+
+  return v14;
 }
 
 - (id)propertySetByRemovingPropertiesFromSet:(id)set

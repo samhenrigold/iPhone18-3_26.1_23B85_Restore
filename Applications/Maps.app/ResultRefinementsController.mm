@@ -15,9 +15,9 @@
 
 - (void)refinementBarButtonTappedWithRefinementID:(id)d submenuElementID:(id)iD viewModel:(id)model
 {
-  v8 = sub_1000CE6B8(&unk_101918E50);
+  v8 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v8 - 8);
-  v10 = &v18 - v9;
+  v10 = (&v18 - v9);
   v11 = type metadata accessor for UUID();
   v12 = *(v11 - 8);
   __chkstk_darwin(v11);

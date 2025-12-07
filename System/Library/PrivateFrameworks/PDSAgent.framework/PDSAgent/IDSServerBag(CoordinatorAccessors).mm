@@ -222,32 +222,30 @@
 
 - (uint64_t)allRequiredBagCoalescingValuesPresent
 {
-  v6[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"pds-batch-max-coalescing-period";
-  v6[1] = @"pds-batch-coalescing-delay";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"pds-batch-max-coalescing-period";
+  v5[1] = @"pds-batch-coalescing-delay";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [self _valuesDefinedAsNumbersInBagForKeys:v2];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (uint64_t)allRequiredBagTTLValuesPresent
 {
-  v6[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"pds-batch-register-ttl";
-  v6[1] = @"pds-batch-heartbeat-window";
-  v6[2] = @"pds-batch-heartbeat-before-ttl";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
+  v5[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"pds-batch-register-ttl";
+  v5[1] = @"pds-batch-heartbeat-window";
+  v5[2] = @"pds-batch-heartbeat-before-ttl";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
   v3 = [self _valuesDefinedAsNumbersInBagForKeys:v2];
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (id)nonCoalescingTopicsFromBag
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = [self objectForKey:@"pds-batch-non-coalescing-topics"];
   if (v3)
@@ -255,42 +253,40 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = 0u;
-      v15 = 0u;
-      v12 = 0u;
       v13 = 0u;
+      v14 = 0u;
+      v11 = 0u;
+      v12 = 0u;
       v4 = v3;
-      v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         v6 = v5;
-        v7 = *v13;
+        v7 = *v12;
         do
         {
           for (i = 0; i != v6; ++i)
           {
-            if (*v13 != v7)
+            if (*v12 != v7)
             {
               objc_enumerationMutation(v4);
             }
 
-            v9 = *(*(&v12 + 1) + 8 * i);
+            v9 = *(*(&v11 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v2 addObject:{v9, v12}];
+              [v2 addObject:{v9, v11}];
             }
           }
 
-          v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
         }
 
         while (v6);
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -327,35 +323,35 @@ LABEL_7:
 
 - (uint64_t)_valuesDefinedAsNumbersInBagForKeys:()CoordinatorAccessors
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [self objectForKey:*(*(&v13 + 1) + 8 * i)];
+        v10 = [self objectForKey:*(*(&v12 + 1) + 8 * i)];
         if (!v10 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           v8 = 0;
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -366,7 +362,6 @@ LABEL_7:
     v8 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8 & 1;
 }
 

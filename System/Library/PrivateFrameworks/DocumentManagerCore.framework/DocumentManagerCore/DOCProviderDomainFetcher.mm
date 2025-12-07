@@ -10,24 +10,25 @@
 
 - (DOCProviderDomainFetcher)init
 {
-  v8.receiver = self;
-  v8.super_class = DOCProviderDomainFetcher;
-  v2 = [(DOCProviderDomainFetcher *)&v8 init];
+  v10.receiver = self;
+  v10.super_class = DOCProviderDomainFetcher;
+  v2 = [(DOCProviderDomainFetcher *)&v10 init];
+  v4 = v2;
   if (v2)
   {
-    StartFINode();
+    StartFINode(v2, v3);
     providerDomainsContainer = [MEMORY[0x277D04700] providerDomainsContainer];
-    providerDomainsNode = v2->_providerDomainsNode;
-    v2->_providerDomainsNode = providerDomainsContainer;
+    providerDomainsNode = v4->_providerDomainsNode;
+    v4->_providerDomainsNode = providerDomainsContainer;
 
-    v5 = [MEMORY[0x277D04708] observerForFINode:v2->_providerDomainsNode withObserver:v2];
-    observer = v2->_observer;
-    v2->_observer = v5;
+    v7 = [MEMORY[0x277D04708] observerForFINode:v4->_providerDomainsNode withObserver:v4];
+    observer = v4->_observer;
+    v4->_observer = v7;
 
-    [(FINodeObserver *)v2->_observer startObserving:3];
+    [(FINodeObserver *)v4->_observer startObserving:3];
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)dealloc
@@ -120,7 +121,7 @@
 
 - (void)openSyncCompleted:(id)completed
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   selfCopy = self;
@@ -131,38 +132,38 @@
 
   if ([pendingQueuesAndCallbacks count])
   {
-    v16 = pendingQueuesAndCallbacks;
+    v15 = pendingQueuesAndCallbacks;
     providerDomainsNode = [(DOCProviderDomainFetcher *)selfCopy providerDomainsNode];
-    v17 = [providerDomainsNode iteratorWithOptions:0];
+    v16 = [providerDomainsNode iteratorWithOptions:0];
 
-    v7 = [(DOCProviderDomainFetcher *)selfCopy providersFromIterator:v17];
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v7 = [(DOCProviderDomainFetcher *)selfCopy providersFromIterator:v16];
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v8 = pendingQueuesAndCallbacks;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         v11 = 0;
         do
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v11);
+          v12 = *(*(&v21 + 1) + 8 * v11);
           v13 = [v8 objectForKey:v12];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __46__DOCProviderDomainFetcher_openSyncCompleted___block_invoke;
           block[3] = &unk_278F9B430;
-          v20 = v13;
-          v21 = v7;
+          v19 = v13;
+          v20 = v7;
           v14 = v13;
           dispatch_async(v12, block);
 
@@ -170,54 +171,49 @@
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
     }
 
-    pendingQueuesAndCallbacks = v16;
+    pendingQueuesAndCallbacks = v15;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __46__DOCProviderDomainFetcher_openSyncCompleted___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v1 = *(a1 + 32);
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(a1 + 40);
-        (*(*(*(&v9 + 1) + 8 * v6) + 16))(*(*(&v9 + 1) + 8 * v6));
-        ++v6;
+        (*(*(*(&v6 + 1) + 8 * v5) + 16))(*(*(&v6 + 1) + 8 * v5));
+        ++v5;
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

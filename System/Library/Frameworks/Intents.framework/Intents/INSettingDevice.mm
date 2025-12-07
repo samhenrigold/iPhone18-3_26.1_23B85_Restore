@@ -14,8 +14,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"deviceName";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"deviceName";
   deviceName = self->_deviceName;
   null = deviceName;
   if (!deviceName)
@@ -23,8 +23,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"deviceModel";
+  v11[0] = null;
+  v10[1] = @"deviceModel";
   deviceModel = self->_deviceModel;
   null2 = deviceModel;
   if (!deviceModel)
@@ -32,11 +32,11 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v11[2] = @"deviceCategory";
+  v11[1] = null2;
+  v10[2] = @"deviceCategory";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_deviceCategory];
-  v12[2] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
 
   if (deviceModel)
   {
@@ -56,7 +56,6 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

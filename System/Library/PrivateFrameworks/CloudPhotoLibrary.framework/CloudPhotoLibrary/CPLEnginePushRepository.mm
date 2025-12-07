@@ -197,22 +197,22 @@ void __33__CPLEnginePushRepository_status__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __51__CPLEnginePushRepository__timingStatisticStatuses__block_invoke(uint64_t result)
+void *__51__CPLEnginePushRepository__timingStatisticStatuses__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 88))
+  if (*(result[4] + 88))
   {
     v1 = result;
-    v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(*(result + 32) + 88), "count")}];
-    v3 = *(*(v1 + 40) + 8);
+    v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(result[4] + 88), "count")}];
+    v3 = *(v1[5] + 8);
     v4 = *(v3 + 40);
     *(v3 + 40) = v2;
 
-    v5 = *(*(v1 + 32) + 88);
+    v5 = *(v1[4] + 88);
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __51__CPLEnginePushRepository__timingStatisticStatuses__block_invoke_2;
     v6[3] = &unk_1E861BAB0;
-    v6[4] = *(v1 + 40);
+    v6[4] = v1[5];
     return [v5 enumerateKeysAndObjectsUsingBlock:v6];
   }
 
@@ -421,6 +421,7 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
   extractionStrategy = self->_extractionStrategy;
   if (extractionStrategy != strategyCopy)
   {
+    v10 = strategyCopy;
     if (strategyCopy)
     {
       lastStrategyName = self->_lastStrategyName;
@@ -436,9 +437,10 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
     }
 
     objc_storeStrong(&self->_extractionStrategy, strategy);
+    strategyCopy = v10;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](extractionStrategy, strategyCopy);
 }
 
 - (BOOL)checkInBatchStorage:(id)storage error:(id *)error
@@ -469,25 +471,25 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
 
 - (BOOL)reinjectChange:(id)change priority:(unint64_t)priority error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   _pushContext = [changeCopy _pushContext];
   if (!_pushContext)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLStorageOSLogDomain_909();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = __CPLStorageOSLogDomain_909();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v26 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_ERROR, "%@ should have a push context here", buf, 0xCu);
+        v25 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "%@ should have a push context here", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v20 lineNumber:254 description:{@"%@ should have a push context here", changeCopy}];
+    v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v19 lineNumber:254 description:{@"%@ should have a push context here", changeCopy}];
 
     abort();
   }
@@ -497,22 +499,22 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v21 = __CPLStorageOSLogDomain_909();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = __CPLStorageOSLogDomain_909();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v26 = changeCopy;
-        v27 = 2048;
+        v25 = changeCopy;
+        v26 = 2048;
         priorityCopy2 = priority;
-        v29 = 2048;
+        v28 = 2048;
         priority = [v11 priority];
-        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Trying to re-inject %@ with priority %lu while its priority is already %lu", buf, 0x20u);
+        _os_log_impl(&dword_1DC05A000, v20, OS_LOG_TYPE_ERROR, "Trying to re-inject %@ with priority %lu while its priority is already %lu", buf, 0x20u);
       }
     }
 
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:v23 lineNumber:255 description:{@"Trying to re-inject %@ with priority %lu while its priority is already %lu", changeCopy, priority, objc_msgSend(v11, "priority")}];
+    v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:v22 lineNumber:255 description:{@"Trying to re-inject %@ with priority %lu while its priority is already %lu", changeCopy, priority, objc_msgSend(v11, "priority")}];
 
     abort();
   }
@@ -520,25 +522,24 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
   v12 = [v11 copyContextWithPriority:priority];
   [changeCopy _setPushContext:v12];
   dequeueOrder = [changeCopy dequeueOrder];
-  v24 = 0;
+  v23 = 0;
   if ((_CPLSilentLogging & 1) == 0)
   {
     v14 = __CPLStorageOSLogDomain_909();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v26 = changeCopy;
-      v27 = 2048;
+      v25 = changeCopy;
+      v26 = 2048;
       priorityCopy2 = priority;
-      v29 = 2048;
+      v28 = 2048;
       priority = [v11 priority];
       _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "Re-injecting %@ with priority %lu (previously was %lu)", buf, 0x20u);
     }
   }
 
-  v15 = [(CPLEnginePushRepository *)self reinjectChange:changeCopy dequeueOrder:dequeueOrder overwrittenRecord:&v24 error:error];
+  v15 = [(CPLEnginePushRepository *)self reinjectChange:changeCopy dequeueOrder:dequeueOrder overwrittenRecord:&v23 error:error];
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -552,7 +553,7 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
 
 - (BOOL)reinjectExtractedBatch:(id)batch overwrittenRecordIdentifiers:(id *)identifiers error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   engineStore = [(CPLEngineStorage *)self engineStore];
   resourceStorage = [engineStore resourceStorage];
@@ -564,17 +565,17 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v38 = __CPLStorageOSLogDomain_909();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v37 = __CPLStorageOSLogDomain_909();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v38, OS_LOG_TYPE_ERROR, "Can't re-inject an extracted batch without a client cache identifier", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_ERROR, "Can't re-inject an extracted batch without a client cache identifier", buf, 2u);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v40 lineNumber:214 description:@"Can't re-inject an extracted batch without a client cache identifier"];
+    v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v39 lineNumber:214 description:@"Can't re-inject an extracted batch without a client cache identifier"];
 
     abort();
   }
@@ -585,10 +586,10 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
 
   if (clientCacheIdentifier2 && ([v14 isEqual:clientCacheIdentifier2] & 1) != 0)
   {
-    v41 = v14;
+    v40 = v14;
     identifiersCopy = identifiers;
     v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v43 = batchCopy;
+    v42 = batchCopy;
     batch = [batchCopy batch];
     records = [batch records];
 
@@ -597,27 +598,27 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
     v22 = v21;
     v23 = [records count];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v24 = records;
-    v25 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v25)
     {
       v26 = v25;
       v27 = v23 + v22;
-      v28 = *v45;
+      v28 = *v44;
       while (2)
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v45 != v28)
+          if (*v44 != v28)
           {
             objc_enumerationMutation(v24);
           }
 
-          v30 = *(*(&v44 + 1) + 8 * i);
+          v30 = *(*(&v43 + 1) + 8 * i);
           buf[0] = 0;
           if (![(CPLEnginePushRepository *)self reinjectChange:v30 dequeueOrder:v27 overwrittenRecord:buf error:error])
           {
@@ -637,7 +638,7 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
           --v27;
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v44 objects:v49 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
         if (v26)
         {
           continue;
@@ -653,8 +654,8 @@ double __57__CPLEnginePushRepository_updateApproximativeUploadRate___block_invok
     v33 = 1;
 LABEL_21:
 
-    batchCopy = v43;
-    v14 = v41;
+    batchCopy = v42;
+    v14 = v40;
   }
 
   else
@@ -673,13 +674,12 @@ LABEL_21:
     v33 = 1;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return v33;
 }
 
 - (BOOL)storeExtractedBatch:(id)batch error:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   if (batchCopy)
   {
@@ -716,9 +716,9 @@ LABEL_6:
             {
               clientCacheIdentifier4 = [batchCopy clientCacheIdentifier];
               *buf = 138412546;
-              v28 = v11;
-              v29 = 2112;
-              v30 = clientCacheIdentifier4;
+              v27 = v11;
+              v28 = 2112;
+              v29 = clientCacheIdentifier4;
               _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Trying to store extracted batch with the wrong client cache identifier (%@ vs. %@)", buf, 0x16u);
             }
           }
@@ -739,17 +739,17 @@ LABEL_6:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v24 = __CPLStorageOSLogDomain_909();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v23 = __CPLStorageOSLogDomain_909();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "Trying to store an extracted batch but we don't have a client cache identifier", buf, 2u);
+            _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Trying to store an extracted batch but we don't have a client cache identifier", buf, 2u);
           }
         }
 
         currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-        v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-        [currentHandler2 handleFailureInMethod:a2 object:self file:v26 lineNumber:198 description:@"Trying to store an extracted batch but we don't have a client cache identifier"];
+        v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+        [currentHandler2 handleFailureInMethod:a2 object:self file:v25 lineNumber:198 description:@"Trying to store an extracted batch but we don't have a client cache identifier"];
 
         abort();
       }
@@ -761,7 +761,6 @@ LABEL_6:
   platformObject = [(CPLEngineStorage *)self platformObject];
   v21 = [platformObject storeExtractedBatch:batchCopy error:error];
 
-  v22 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -801,25 +800,25 @@ LABEL_6:
 
 - (BOOL)reinjectChange:(id)change dequeueOrder:(int64_t)order overwrittenRecord:(BOOL *)record error:(id *)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   _pushContext = [changeCopy _pushContext];
   if (!_pushContext)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v24 = __CPLStorageOSLogDomain_909();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v23 = __CPLStorageOSLogDomain_909();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v29 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v24, OS_LOG_TYPE_ERROR, "%@ should come with a push context", buf, 0xCu);
+        v28 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "%@ should come with a push context", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v26 lineNumber:149 description:{@"%@ should come with a push context", changeCopy}];
+    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v25 lineNumber:149 description:{@"%@ should come with a push context", changeCopy}];
 
     abort();
   }
@@ -839,7 +838,7 @@ LABEL_6:
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v29 = changeCopy;
+            v28 = changeCopy;
             _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Trying to reinject %@ without an upload identifier", buf, 0xCu);
           }
         }
@@ -859,9 +858,9 @@ LABEL_6:
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v27 = 0;
-  v16 = [platformObject reinjectChange:changeCopy dequeueOrder:order discardedUploadIdentifier:&v27 overwrittenRecord:record error:error];
-  v17 = v27;
+  v26 = 0;
+  v16 = [platformObject reinjectChange:changeCopy dequeueOrder:order discardedUploadIdentifier:&v26 overwrittenRecord:record error:error];
+  v17 = v26;
 
   if (v16 && v17)
   {
@@ -889,31 +888,30 @@ LABEL_10:
   v20 = 1;
 LABEL_19:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
 - (BOOL)storeChange:(id)change pushContext:(id)context error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   changeCopy = change;
   contextCopy = context;
   if (!contextCopy)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v23 = __CPLStorageOSLogDomain_909();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v22 = __CPLStorageOSLogDomain_909();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v31 = changeCopy;
-        _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "%@ should be pushed with push context", buf, 0xCu);
+        v30 = changeCopy;
+        _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "%@ should be pushed with push context", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v25 lineNumber:123 description:{@"%@ should be pushed with push context", changeCopy}];
+    v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEnginePushRepository.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v24 lineNumber:123 description:{@"%@ should be pushed with push context", changeCopy}];
 
     abort();
   }
@@ -935,9 +933,9 @@ LABEL_19:
   }
 
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v29 = 0;
-  v15 = [platformObject storeChange:changeCopy pushContext:v11 discardedUploadIdentifier:&v29 error:error];
-  v16 = v29;
+  v28 = 0;
+  v15 = [platformObject storeChange:changeCopy pushContext:v11 discardedUploadIdentifier:&v28 error:error];
+  v16 = v28;
 
   if (!v15 || !v16)
   {
@@ -949,13 +947,13 @@ LABEL_19:
 LABEL_11:
     [(CPLBatchExtractionStrategy *)self->_extractionStrategy resetConditionallyFromNewIncomingChange:changeCopy];
     pushObservers = self->_pushObservers;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __57__CPLEnginePushRepository_storeChange_pushContext_error___block_invoke;
-    v26[3] = &unk_1E861BA38;
-    v27 = changeCopy;
-    v28 = v11;
-    [(NSMutableDictionary *)pushObservers enumerateKeysAndObjectsUsingBlock:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __57__CPLEnginePushRepository_storeChange_pushContext_error___block_invoke;
+    v25[3] = &unk_1E861BA38;
+    v26 = changeCopy;
+    v27 = v11;
+    [(NSMutableDictionary *)pushObservers enumerateKeysAndObjectsUsingBlock:v25];
     [(CPLEnginePushRepository *)self notePushRepositoryStoredSomeChanges];
 
     v19 = 1;
@@ -974,7 +972,6 @@ LABEL_9:
   v19 = 0;
 LABEL_12:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -1034,44 +1031,44 @@ LABEL_12:
 
 - (BOOL)deleteRecordsForScopeIndex:(int64_t)index maxCount:(int64_t)count deletedCount:(int64_t *)deletedCount error:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   platformObject = [(CPLEngineStorage *)self platformObject];
-  v26 = 0;
-  LODWORD(count) = [platformObject deleteRecordsForScopeIndex:index maxCount:count deletedCount:deletedCount discardedUploadIdentifiers:&v26 error:error];
-  v12 = v26;
+  v25 = 0;
+  LODWORD(count) = [platformObject deleteRecordsForScopeIndex:index maxCount:count deletedCount:deletedCount discardedUploadIdentifiers:&v25 error:error];
+  v12 = v25;
 
   if (count)
   {
     if ([v12 count])
     {
       _outgoingResources = [(CPLEnginePushRepository *)self _outgoingResources];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
       v14 = v12;
-      v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v23;
+        v17 = *v22;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v23 != v17)
+            if (*v22 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            if (![_outgoingResources deleteResourcesToUploadWithUploadIdentifier:*(*(&v22 + 1) + 8 * i) error:{error, v22}])
+            if (![_outgoingResources deleteResourcesToUploadWithUploadIdentifier:*(*(&v21 + 1) + 8 * i) error:{error, v21}])
             {
               v19 = 0;
               goto LABEL_14;
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
           if (v16)
           {
             continue;
@@ -1096,7 +1093,6 @@ LABEL_14:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

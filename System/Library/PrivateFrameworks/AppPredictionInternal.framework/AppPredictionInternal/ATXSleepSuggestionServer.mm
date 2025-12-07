@@ -34,27 +34,28 @@ void __42__ATXSleepSuggestionServer_sharedInstance__block_invoke()
 
 - (ATXSleepSuggestionServer)init
 {
-  v8.receiver = self;
-  v8.super_class = ATXSleepSuggestionServer;
-  v2 = [(ATXSleepSuggestionServer *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = ATXSleepSuggestionServer;
+  v2 = [(ATXSleepSuggestionServer *)&v9 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = __atxlog_handle_sleep_schedule();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_sleep_schedule(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "ATXSleepSuggestionServer: launched", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "ATXSleepSuggestionServer: launched", v8, 2u);
     }
 
-    v4 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.sleepSchedule"];
-    listener = v2->_listener;
-    v2->_listener = v4;
+    v5 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.proactive.sleepSchedule"];
+    listener = v3->_listener;
+    v3->_listener = v5;
 
-    [(NSXPCListener *)v2->_listener setDelegate:v2];
-    [(NSXPCListener *)v2->_listener resume];
+    [(NSXPCListener *)v3->_listener setDelegate:v3];
+    [(NSXPCListener *)v3->_listener resume];
   }
 
-  return v2;
+  return v3;
 }
 
 - (ATXSleepSuggestionServer)initWithEvents:(id)events
@@ -72,7 +73,7 @@ void __42__ATXSleepSuggestionServer_sharedInstance__block_invoke()
 
 - (void)predictedSleepSuggestionWithCompletionHandler:(id)handler
 {
-  v86[1] = *MEMORY[0x277D85DE8];
+  v91[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!self->_events)
   {
@@ -83,7 +84,7 @@ void __42__ATXSleepSuggestionServer_sharedInstance__block_invoke()
 
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   defaultTimeZone = [MEMORY[0x277CBEBB0] defaultTimeZone];
-  v73 = currentCalendar;
+  v78 = currentCalendar;
   [currentCalendar setTimeZone:defaultTimeZone];
 
   v9 = objc_alloc_init(MEMORY[0x277CCA968]);
@@ -91,196 +92,195 @@ void __42__ATXSleepSuggestionServer_sharedInstance__block_invoke()
   v10 = objc_opt_new();
   v11 = objc_opt_new();
   v12 = self->_events;
-  if (v12 && [(NSArray *)v12 count])
+  if (v12 && (v12 = [(NSArray *)v12 count]) != 0)
   {
-    v71 = handlerCopy;
+    v76 = handlerCopy;
     selfCopy = self;
-    v76 = 0u;
-    v77 = 0u;
-    v74 = 0u;
-    v75 = 0u;
+    v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v13 = self->_events;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v74 objects:v84 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v79 objects:v89 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v75;
+      v16 = *v80;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v75 != v16)
+          if (*v80 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v74 + 1) + 8 * i);
+          v18 = *(*(&v79 + 1) + 8 * i);
           sleepStartTime = [v18 sleepStartTime];
           v20 = [v9 stringFromDate:sleepStartTime];
           [v10 addObject:v20];
 
-          v21 = __atxlog_handle_sleep_schedule();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v22 = __atxlog_handle_sleep_schedule(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            [(ATXSleepSuggestionServer *)v83 predictedSleepSuggestionWithCompletionHandler:v18];
+            [(ATXSleepSuggestionServer *)v88 predictedSleepSuggestionWithCompletionHandler:v18];
           }
 
           wakeUpTime = [v18 wakeUpTime];
-          v23 = [v9 stringFromDate:wakeUpTime];
-          [v11 addObject:v23];
+          v24 = [v9 stringFromDate:wakeUpTime];
+          [v11 addObject:v24];
 
-          v24 = __atxlog_handle_sleep_schedule();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          v26 = __atxlog_handle_sleep_schedule(v25);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
           {
-            [(ATXSleepSuggestionServer *)v82 predictedSleepSuggestionWithCompletionHandler:v18];
+            [(ATXSleepSuggestionServer *)v87 predictedSleepSuggestionWithCompletionHandler:v18];
           }
         }
 
-        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v74 objects:v84 count:16];
+        v15 = [(NSArray *)v13 countByEnumeratingWithState:&v79 objects:v89 count:16];
       }
 
       while (v15);
     }
 
-    if ([v10 count] >= 3 && objc_msgSend(v11, "count") > 2)
+    v27 = [v10 count];
+    if (v27 >= 3 && (v27 = [v11 count], v27 > 2))
     {
       [v10 sortUsingSelector:sel_compare_];
-      [v11 sortUsingSelector:sel_compare_];
-      v39 = __atxlog_handle_sleep_schedule();
-      v26 = v73;
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+      v41 = __atxlog_handle_sleep_schedule([v11 sortUsingSelector:sel_compare_]);
+      v29 = v78;
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
-        [(ATXSleepSuggestionServer *)v10 predictedSleepSuggestionWithCompletionHandler:v39];
+        [(ATXSleepSuggestionServer *)v10 predictedSleepSuggestionWithCompletionHandler:v41];
       }
 
-      v40 = __atxlog_handle_sleep_schedule();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v43 = __atxlog_handle_sleep_schedule(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
-        [(ATXSleepSuggestionServer *)v11 predictedSleepSuggestionWithCompletionHandler:v40];
+        [(ATXSleepSuggestionServer *)v11 predictedSleepSuggestionWithCompletionHandler:v43];
       }
 
-      v32 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      v41 = [v11 objectAtIndexedSubscript:{objc_msgSend(v11, "count") >> 1}];
-      v42 = [v41 componentsSeparatedByString:@":"];
-      firstObject = [v42 firstObject];
-      [v32 setHour:{objc_msgSend(firstObject, "integerValue")}];
+      v35 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      v44 = [v11 objectAtIndexedSubscript:{objc_msgSend(v11, "count") >> 1}];
+      v45 = [v44 componentsSeparatedByString:@":"];
+      firstObject = [v45 firstObject];
+      [v35 setHour:{objc_msgSend(firstObject, "integerValue")}];
 
-      v70 = v41;
-      v44 = [v41 componentsSeparatedByString:@":"];
-      lastObject = [v44 lastObject];
-      [v32 setMinute:{objc_msgSend(lastObject, "integerValue")}];
+      v75 = v44;
+      v47 = [v44 componentsSeparatedByString:@":"];
+      lastObject = [v47 lastObject];
+      [v35 setMinute:{objc_msgSend(lastObject, "integerValue")}];
 
-      [v32 setCalendar:v73];
-      timeZone = [v73 timeZone];
-      [v32 setTimeZone:timeZone];
+      [v35 setCalendar:v78];
+      timeZone = [v78 timeZone];
+      [v35 setTimeZone:timeZone];
 
-      v47 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-      v48 = [v10 objectAtIndexedSubscript:{objc_msgSend(v10, "count") >> 1}];
-      v49 = [v48 componentsSeparatedByString:@":"];
-      firstObject2 = [v49 firstObject];
-      [v47 setHour:{objc_msgSend(firstObject2, "integerValue")}];
+      v50 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+      v51 = [v10 objectAtIndexedSubscript:{objc_msgSend(v10, "count") >> 1}];
+      v52 = [v51 componentsSeparatedByString:@":"];
+      firstObject2 = [v52 firstObject];
+      [v50 setHour:{objc_msgSend(firstObject2, "integerValue")}];
 
-      v51 = [v48 componentsSeparatedByString:@":"];
-      lastObject2 = [v51 lastObject];
-      [v47 setMinute:{objc_msgSend(lastObject2, "integerValue")}];
+      v54 = [v51 componentsSeparatedByString:@":"];
+      lastObject2 = [v54 lastObject];
+      [v50 setMinute:{objc_msgSend(lastObject2, "integerValue")}];
 
-      [v47 setCalendar:v73];
-      timeZone2 = [v73 timeZone];
-      [v47 setTimeZone:timeZone2];
+      [v50 setCalendar:v78];
+      timeZone2 = [v78 timeZone];
+      [v50 setTimeZone:timeZone2];
 
-      v54 = __atxlog_handle_sleep_schedule();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v58 = __atxlog_handle_sleep_schedule(v57);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
       {
-        [(ATXSleepSuggestionServer *)v47 predictedSleepSuggestionWithCompletionHandler:v32, v54];
+        [(ATXSleepSuggestionServer *)v50 predictedSleepSuggestionWithCompletionHandler:v35, v58];
       }
 
-      if ([(ATXSleepSuggestionServer *)selfCopy isSleepScheduleBetweenTheBoundariesWithBedtime:v47 wakeupTime:v32])
+      v59 = [(ATXSleepSuggestionServer *)selfCopy isSleepScheduleBetweenTheBoundariesWithBedtime:v50 wakeupTime:v35];
+      if (v59)
       {
-        v67 = [objc_alloc(MEMORY[0x277CEB838]) initWithBedtimeComponents:v47 wakeupComponents:v32 weekdays:127];
-        v55 = [objc_alloc(MEMORY[0x277CEB828]) initWithOccurence:v67];
-        v56 = objc_alloc(MEMORY[0x277CBEBD0]);
-        v57 = [v56 initWithSuiteName:*MEMORY[0x277CEBD00]];
-        v68 = v48;
-        v58 = 3600 * [v47 hour];
-        minute = [v47 minute];
-        [v57 setInteger:v58 + 60 * minute forKey:*MEMORY[0x277CEBDD8]];
-        v71[2](v71, v55, 0);
-        v60 = selfCopy->_events;
+        v72 = [objc_alloc(MEMORY[0x277CEB838]) initWithBedtimeComponents:v50 wakeupComponents:v35 weekdays:127];
+        v60 = [objc_alloc(MEMORY[0x277CEB828]) initWithOccurence:v72];
+        v61 = objc_alloc(MEMORY[0x277CBEBD0]);
+        v62 = [v61 initWithSuiteName:*MEMORY[0x277CEBD00]];
+        v73 = v51;
+        v63 = 3600 * [v50 hour];
+        minute = [v50 minute];
+        [v62 setInteger:v63 + 60 * minute forKey:*MEMORY[0x277CEBDD8]];
+        v76[2](v76, v60, 0);
+        v65 = selfCopy->_events;
         selfCopy->_events = 0;
 
-        handlerCopy = v71;
-        v61 = v67;
-        v48 = v68;
+        handlerCopy = v76;
+        v66 = v72;
+        v51 = v73;
       }
 
       else
       {
-        v62 = __atxlog_handle_sleep_schedule();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        v67 = __atxlog_handle_sleep_schedule(v59);
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           [ATXSleepSuggestionServer predictedSleepSuggestionWithCompletionHandler:];
         }
 
-        v69 = MEMORY[0x277CCA9B8];
-        v63 = *MEMORY[0x277CEB288];
-        v64 = *MEMORY[0x277CEB290];
-        v78 = *MEMORY[0x277CCA068];
-        v79 = @"Predicted schedule isn't between the boundaries";
-        v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-        v66 = [v69 errorWithDomain:v63 code:v64 userInfo:v65];
-        handlerCopy = v71;
-        (v71)[2](v71, 0, v66);
+        v74 = MEMORY[0x277CCA9B8];
+        v68 = *MEMORY[0x277CEB288];
+        v69 = *MEMORY[0x277CEB290];
+        v83 = *MEMORY[0x277CCA068];
+        v84 = @"Predicted schedule isn't between the boundaries";
+        v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+        v71 = [v74 errorWithDomain:v68 code:v69 userInfo:v70];
+        handlerCopy = v76;
+        (v76)[2](v76, 0, v71);
 
-        v61 = selfCopy->_events;
+        v66 = selfCopy->_events;
         selfCopy->_events = 0;
       }
     }
 
     else
     {
-      v25 = __atxlog_handle_sleep_schedule();
-      handlerCopy = v71;
-      v26 = v73;
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = __atxlog_handle_sleep_schedule(v27);
+      handlerCopy = v76;
+      v29 = v78;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [ATXSleepSuggestionServer predictedSleepSuggestionWithCompletionHandler:];
       }
 
-      v27 = MEMORY[0x277CCA9B8];
-      v28 = *MEMORY[0x277CEB288];
-      v29 = *MEMORY[0x277CEB280];
-      v80 = *MEMORY[0x277CCA068];
-      v81 = @"Couldn't find enough events to predict sleep schedule";
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-      v31 = [v27 errorWithDomain:v28 code:v29 userInfo:v30];
-      (v71)[2](v71, 0, v31);
+      v30 = MEMORY[0x277CCA9B8];
+      v31 = *MEMORY[0x277CEB288];
+      v32 = *MEMORY[0x277CEB280];
+      v85 = *MEMORY[0x277CCA068];
+      v86 = @"Couldn't find enough events to predict sleep schedule";
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+      v34 = [v30 errorWithDomain:v31 code:v32 userInfo:v33];
+      (v76)[2](v76, 0, v34);
 
-      v32 = selfCopy->_events;
+      v35 = selfCopy->_events;
       selfCopy->_events = 0;
     }
   }
 
   else
   {
-    v33 = __atxlog_handle_sleep_schedule();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v36 = __atxlog_handle_sleep_schedule(v12);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       [ATXSleepSuggestionServer predictedSleepSuggestionWithCompletionHandler:];
     }
 
-    v34 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CEB288];
-    v36 = *MEMORY[0x277CEB290];
-    v85 = *MEMORY[0x277CCA068];
-    v86[0] = @"ATXSleepSuggestionServer: Failed to retrieve sleep events from ATXSleepStream";
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:&v85 count:1];
-    v37 = [v34 errorWithDomain:v35 code:v36 userInfo:v32];
-    handlerCopy[2](handlerCopy, 0, v37);
+    v37 = MEMORY[0x277CCA9B8];
+    v38 = *MEMORY[0x277CEB288];
+    v39 = *MEMORY[0x277CEB290];
+    v90 = *MEMORY[0x277CCA068];
+    v91[0] = @"ATXSleepSuggestionServer: Failed to retrieve sleep events from ATXSleepStream";
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+    v40 = [v37 errorWithDomain:v38 code:v39 userInfo:v35];
+    handlerCopy[2](handlerCopy, 0, v40);
 
-    v26 = currentCalendar;
+    v29 = currentCalendar;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)queryEvents
@@ -337,53 +337,54 @@ void __39__ATXSleepSuggestionServer_queryEvents__block_invoke(uint64_t a1, void 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = __atxlog_handle_sleep_schedule();
+  v6 = __atxlog_handle_sleep_schedule(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSleepSuggestionServer: connection attempted", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "ATXSleepSuggestionServer: connection attempted", v13, 2u);
   }
 
   v7 = [connectionCopy valueForEntitlement:@"com.apple.proactive.sleepSchedule"];
-  if (v7 && (objc_opt_respondsToSelector() & 1) != 0 && ([v7 BOOLValue] & 1) != 0)
+  v8 = v7;
+  if (v7 && (v7 = objc_opt_respondsToSelector(), (v7 & 1) != 0) && (v7 = [v8 BOOLValue], (v7 & 1) != 0))
   {
-    v8 = ATXSleepSuggestionInterface();
-    [connectionCopy setExportedInterface:v8];
+    v9 = ATXSleepSuggestionInterface();
+    [connectionCopy setExportedInterface:v9];
 
     [connectionCopy setExportedObject:self];
     [connectionCopy setInterruptionHandler:&__block_literal_global_54_1];
     [connectionCopy setInvalidationHandler:&__block_literal_global_57];
     [connectionCopy resume];
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v10 = __atxlog_handle_sleep_schedule();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_sleep_schedule(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [ATXSleepSuggestionServer listener:connectionCopy shouldAcceptNewConnection:v10];
+      [ATXSleepSuggestionServer listener:connectionCopy shouldAcceptNewConnection:v11];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  return v9;
+  return v10;
 }
 
-void __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke()
+void __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_sleep_schedule();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_sleep_schedule(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_cold_1();
   }
 }
 
-void __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_55()
+void __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_55(uint64_t a1)
 {
-  v0 = __atxlog_handle_sleep_schedule();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_sleep_schedule(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_invoke_55_cold_1();
   }
@@ -407,46 +408,42 @@ void __63__ATXSleepSuggestionServer_listener_shouldAcceptNewConnection___block_i
 
 - (void)predictedSleepSuggestionWithCompletionHandler:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Sorted bedtime array:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Sorted bedtime array:%@", &v2, 0xCu);
 }
 
 - (void)predictedSleepSuggestionWithCompletionHandler:(uint64_t)a1 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Sorted wakeup time array:%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "Sorted wakeup time array:%@", &v2, 0xCu);
 }
 
 - (void)predictedSleepSuggestionWithCompletionHandler:(NSObject *)a3 .cold.5(void *a1, void *a2, NSObject *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v7 = 134218752;
-  v8 = [a1 hour];
-  v9 = 2048;
-  v10 = [a1 minute];
-  v11 = 2048;
-  v12 = [a2 hour];
-  v13 = 2048;
-  v14 = [a2 minute];
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "Predicted Bedtime: %ld:%ld, Wakeup: %ld:%ld", &v7, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v6 = 134218752;
+  v7 = [a1 hour];
+  v8 = 2048;
+  v9 = [a1 minute];
+  v10 = 2048;
+  v11 = [a2 hour];
+  v12 = 2048;
+  v13 = [a2 minute];
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "Predicted Bedtime: %ld:%ld, Wakeup: %ld:%ld", &v6, 0x2Au);
 }
 
 - (void)listener:(uint64_t)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = @"com.apple.proactive.sleepSchedule";
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSleepSuggestionServer: rejecting connection %@ without entitlement %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = @"com.apple.proactive.sleepSchedule";
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXSleepSuggestionServer: rejecting connection %@ without entitlement %@", &v2, 0x16u);
 }
 
 @end

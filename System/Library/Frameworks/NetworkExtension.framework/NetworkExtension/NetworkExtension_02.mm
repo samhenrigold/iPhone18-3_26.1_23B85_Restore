@@ -1,1110 +1,16 @@
-uint64_t sub_1BA8706CC()
-{
-  sub_1BA8517C0(v0[12] + 16, (v0 + 7));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAE8, &qword_1BAA4CE60);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EE90, &qword_1BAA4D918);
-  swift_dynamicCast();
-  v1 = v0[5];
-  v2 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v1);
-  v3 = *(v2 + 24);
-  v8 = (v3 + *v3);
-  v4 = v3[1];
-  v5 = swift_task_alloc();
-  v0[19] = v5;
-  *v5 = v0;
-  v5[1] = sub_1BA87084C;
-  v6 = v0[13];
-
-  return v8(v6, v1, v2);
-}
-
-uint64_t sub_1BA87084C()
-{
-  v1 = *v0;
-  v2 = *(*v0 + 152);
-  v6 = *v0;
-
-  v3 = *(v1 + 144);
-  v4 = *(v1 + 136);
-
-  return MEMORY[0x1EEE6DFA0](sub_1BA87096C, v4, v3);
-}
-
-uint64_t sub_1BA87096C()
-{
-  v2 = v0[15];
-  v1 = v0[16];
-  v3 = v0[14];
-
-  byte_1EBC0EE89 = 0;
-  v3(1);
-  __swift_destroy_boxed_opaque_existential_1(v0 + 2);
-  v4 = v0[1];
-
-  return v4();
-}
-
-uint64_t sub_1BA870A64(void *a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  v5 = *(*(v4 - 8) + 64);
-  result = MEMORY[0x1EEE9AC00](v4 - 8);
-  v8 = &v14 - v7;
-  if (byte_1EBC0EE89 == 1)
-  {
-    v9 = sub_1BAA39EFC();
-    (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
-    sub_1BAA39EDC();
-
-    v10 = a1;
-    v11 = sub_1BAA39ECC();
-    v12 = swift_allocObject();
-    v13 = MEMORY[0x1E69E85E0];
-    v12[2] = v11;
-    v12[3] = v13;
-    v12[4] = a2;
-    v12[5] = v10;
-    sub_1BA86F78C(0, 0, v8, &unk_1BAA4D948, v12);
-  }
-
-  return result;
-}
-
-uint64_t sub_1BA870BB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v5[12] = a4;
-  v5[13] = a5;
-  sub_1BAA39EDC();
-  v5[14] = sub_1BAA39ECC();
-  v7 = sub_1BAA39E8C();
-  v5[15] = v7;
-  v5[16] = v6;
-
-  return MEMORY[0x1EEE6DFA0](sub_1BA870C48, v7, v6);
-}
-
-uint64_t sub_1BA870C48()
-{
-  sub_1BA8517C0(v0[12] + 16, (v0 + 7));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAE8, &qword_1BAA4CE60);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EE90, &qword_1BAA4D918);
-  swift_dynamicCast();
-  v1 = v0[5];
-  v2 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v1);
-  v3 = *(v2 + 32);
-  v8 = (v3 + *v3);
-  v4 = v3[1];
-  v5 = swift_task_alloc();
-  v0[17] = v5;
-  *v5 = v0;
-  v5[1] = sub_1BA8507D0;
-  v6 = v0[13];
-
-  return v8(v6, v1, v2);
-}
-
-uint64_t sub_1BA870DC8(uint64_t a1, int *a2)
-{
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_1BA870EC0;
-
-  return v7(a1);
-}
-
-uint64_t sub_1BA870EC0()
-{
-  v1 = *(*v0 + 16);
-  v4 = *v0;
-
-  v2 = *(v4 + 8);
-
-  return v2();
-}
-
-uint64_t sub_1BA870FB8(uint64_t a1, void (**a2)(void, void))
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v20 - v6;
-  v8 = swift_allocObject();
-  *(v8 + 16) = a2;
-  v9 = byte_1EBC0EE89;
-  _Block_copy(a2);
-  if (v9 == 1)
-  {
-    a2[2](a2, 1);
-  }
-
-  v10 = swift_allocObject();
-  v11 = byte_1EBC0EE88;
-  *(v10 + 16) = byte_1EBC0EE88;
-  v12 = sub_1BAA39EFC();
-  (*(*(v12 - 8) + 56))(v7, 1, 1, v12);
-  sub_1BAA39EDC();
-
-  if (v11 == 1)
-  {
-    v13 = sub_1BAA39ECC();
-    v14 = swift_allocObject();
-    v15 = MEMORY[0x1E69E85E0];
-    v14[2] = v13;
-    v14[3] = v15;
-    v14[4] = a1;
-    v14[5] = sub_1BA871990;
-    v14[6] = v8;
-    v16 = &unk_1BAA4D938;
-  }
-
-  else
-  {
-
-    v17 = sub_1BAA39ECC();
-    v14 = swift_allocObject();
-    v18 = MEMORY[0x1E69E85E0];
-    v14[2] = v17;
-    v14[3] = v18;
-    v14[4] = v10;
-    v14[5] = a1;
-    v14[6] = sub_1BA871990;
-    v14[7] = v8;
-    v16 = &unk_1BAA4D928;
-  }
-
-  sub_1BA86F78C(0, 0, v7, v16, v14);
-}
-
-uint64_t sub_1BA8711F0(uint64_t a1, uint64_t a2, void (**a3)(void, void))
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v17 - v8;
-  v10 = swift_allocObject();
-  *(v10 + 16) = a3;
-  v11 = byte_1EBC0EE89;
-  _Block_copy(a3);
-  if ((v11 & 1) == 0)
-  {
-    a3[2](a3, 1);
-  }
-
-  v12 = sub_1BAA39EFC();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-  sub_1BAA39EDC();
-
-  v13 = sub_1BAA39ECC();
-  v14 = swift_allocObject();
-  v15 = MEMORY[0x1E69E85E0];
-  v14[2] = v13;
-  v14[3] = v15;
-  v14[4] = a2;
-  v14[5] = a1;
-  v14[6] = sub_1BA871394;
-  v14[7] = v10;
-  sub_1BA86F78C(0, 0, v9, &unk_1BAA4D8F8, v14);
-}
-
-uint64_t sub_1BA8713AC(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v9 = v1[6];
-  v8 = v1[7];
-  v10 = swift_task_alloc();
-  *(v2 + 16) = v10;
-  *v10 = v2;
-  v10[1] = sub_1BA84E9A0;
-
-  return sub_1BA870630(a1, v4, v5, v6, v7, v9, v8);
-}
-
-uint64_t sub_1BA871480(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t sub_1BA8714F0(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t sub_1BA871558(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1BA84E9A0;
-
-  return sub_1BA870DC8(a1, v5);
-}
-
-uint64_t sub_1BA871610(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1BA84E6FC;
-
-  return sub_1BA870DC8(a1, v5);
-}
-
-uint64_t sub_1BA8716C8(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v9 = v1[6];
-  v8 = v1[7];
-  v10 = swift_task_alloc();
-  *(v2 + 16) = v10;
-  *v10 = v2;
-  v10[1] = sub_1BA84E9A0;
-
-  return sub_1BA86FF28(a1, v4, v5, v6, v7, v9, v8);
-}
-
-uint64_t sub_1BA87179C(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v6 = v1[4];
-  v7 = v1[5];
-  v8 = v1[6];
-  v9 = swift_task_alloc();
-  *(v2 + 16) = v9;
-  *v9 = v2;
-  v9[1] = sub_1BA84E9A0;
-
-  return sub_1BA86FACC(a1, v4, v5, v6, v7, v8);
-}
-
-unint64_t sub_1BA871864()
-{
-  result = qword_1EBC0EB00;
-  if (!qword_1EBC0EB00)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_1EBC0EB00);
-  }
-
-  return result;
-}
-
-uint64_t block_copy_helper_8(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-uint64_t sub_1BA8718D0(uint64_t a1)
-{
-  v4 = v1[2];
-  v5 = v1[3];
-  v7 = v1[4];
-  v6 = v1[5];
-  v8 = swift_task_alloc();
-  *(v2 + 16) = v8;
-  *v8 = v2;
-  v8[1] = sub_1BA84E6FC;
-
-  return sub_1BA870BB0(a1, v4, v5, v7, v6);
-}
-
-void sub_1BA871994(uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
-
-  v5 = a2;
-  v4();
-}
-
-uint64_t sub_1BA8719FC(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
-
-  v4(a2);
-}
-
-void sub_1BA871AA8()
-{
-  v1 = v0;
-  if (qword_1EBC0E910 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = sub_1BAA398CC();
-  __swift_project_value_buffer(v2, qword_1EBC11B98);
-  v3 = sub_1BAA398AC();
-  v4 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    *v5 = 0;
-    _os_log_impl(&dword_1BA83C000, v3, v4, "NEHotspotAuthenticationProviderHost - init", v5, 2u);
-    MEMORY[0x1BFAFC150](v5, -1, -1);
-  }
-
-  v6 = sub_1BAA39D8C();
-  [v1 setExtensionPointName_];
-
-  v7 = sub_1BAA39D8C();
-  [v1 setExtensionBundleIdentifier_];
-
-  [v1 setExtensionXPCProtocol_];
-  [v1 setExtensionHostXPCProtocol_];
-  v8 = [objc_allocWithZone(type metadata accessor for NEHotspotAuthenticationProviderHostExportedObject()) init];
-  [v1 setExportedObject_];
-
-  v9 = [v1 exportedObject];
-  if (v9)
-  {
-    v10 = v9;
-    [v1 setExtensionExportedObject_];
-    v11 = [v1 extensionExportedObject];
-
-    if (v11)
-    {
-      v13 = *&v11[OBJC_IVAR____TtC16NetworkExtension41NEExtensionBaseProviderHostExportedObject_delegate];
-      *&v11[OBJC_IVAR____TtC16NetworkExtension41NEExtensionBaseProviderHostExportedObject_delegate] = v1;
-      v12 = v1;
-    }
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
-uint64_t sub_1BA871D8C()
-{
-  if (qword_1EBC0E910 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = sub_1BAA398CC();
-  __swift_project_value_buffer(v1, qword_1EBC11B98);
-  v2 = sub_1BAA398AC();
-  v3 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v2, v3))
-  {
-    v4 = swift_slowAlloc();
-    *v4 = 0;
-    _os_log_impl(&dword_1BA83C000, v2, v3, "NEHotspotAuthenticationProviderHost - start", v4, 2u);
-    MEMORY[0x1BFAFC150](v4, -1, -1);
-  }
-
-  v5 = swift_task_alloc();
-  *(v0 + 24) = v5;
-  *v5 = v0;
-  v5[1] = sub_1BA871ED8;
-  v6 = *(v0 + 16);
-
-  return sub_1BA854E8C();
-}
-
-uint64_t sub_1BA871ED8(uint64_t a1)
-{
-  v2 = *(*v1 + 24);
-  v4 = *v1;
-  *(*v1 + 32) = a1;
-
-  return MEMORY[0x1EEE6DFA0](sub_1BA871FD8, 0, 0);
-}
-
-uint64_t sub_1BA871FD8()
-{
-  v1 = v0[4];
-  v2 = swift_task_alloc();
-  v0[5] = v2;
-  *(v2 + 16) = v1;
-  v3 = *(MEMORY[0x1E69E8920] + 4);
-  v4 = swift_task_alloc();
-  v0[6] = v4;
-  *v4 = v0;
-  v4[1] = sub_1BA84C674;
-  v5 = MEMORY[0x1E69E6370];
-
-  return MEMORY[0x1EEE6DE38](v0 + 7, 0, 0, 0x29287472617473, 0xE700000000000000, sub_1BA873D88, v2, v5);
-}
-
-uint64_t sub_1BA8720C4(uint64_t a1, void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v24 - v7;
-  if (!a2)
-  {
-    goto LABEL_4;
-  }
-
-  v24 = *(v5 + 16);
-  v24(v8, a1, v4);
-  v25 = a1;
-  v9 = (*(v5 + 80) + 16) & ~*(v5 + 80);
-  v10 = swift_allocObject();
-  v11 = *(v5 + 32);
-  v11(v10 + v9, v8, v4);
-  v30 = sub_1BA873D90;
-  v31 = v10;
-  aBlock = MEMORY[0x1E69E9820];
-  v27 = 1107296256;
-  v28 = sub_1BA871994;
-  v29 = &block_descriptor_61;
-  v12 = _Block_copy(&aBlock);
-
-  v13 = [a2 remoteObjectProxyWithErrorHandler_];
-  _Block_release(v12);
-  sub_1BAA3A04C();
-  swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EEA8, &qword_1BAA4D9F0);
-  if (swift_dynamicCast())
-  {
-    v14 = aBlock;
-    v24(v8, v25, v4);
-    v15 = swift_allocObject();
-    v11(v15 + v9, v8, v4);
-    v30 = sub_1BA873D9C;
-    v31 = v15;
-    aBlock = MEMORY[0x1E69E9820];
-    v27 = 1107296256;
-    v28 = sub_1BA8719FC;
-    v29 = &block_descriptor_67;
-    v16 = _Block_copy(&aBlock);
-    swift_unknownObjectRetain();
-
-    [v14 startWithReply_];
-    _Block_release(v16);
-    return swift_unknownObjectRelease_n();
-  }
-
-  else
-  {
-LABEL_4:
-    if (qword_1EBC0E910 != -1)
-    {
-      swift_once();
-    }
-
-    v18 = sub_1BAA398CC();
-    __swift_project_value_buffer(v18, qword_1EBC11B98);
-    v19 = sub_1BAA398AC();
-    v20 = sub_1BAA39F9C();
-    if (os_log_type_enabled(v19, v20))
-    {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&dword_1BA83C000, v19, v20, "NEHotspotAuthenticationProviderHost - start - proxy not good", v21, 2u);
-      MEMORY[0x1BFAFC150](v21, -1, -1);
-    }
-
-    sub_1BA84E364();
-    v22 = swift_allocError();
-    *v23 = 1;
-    aBlock = v22;
-    return sub_1BAA39E9C();
-  }
-}
-
-uint64_t sub_1BA8724C0(char a1)
-{
-  if (qword_1EBC0E910 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = sub_1BAA398CC();
-  __swift_project_value_buffer(v2, qword_1EBC11B98);
-  v3 = sub_1BAA398AC();
-  v4 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    *v5 = 67109120;
-    *(v5 + 4) = a1 & 1;
-    _os_log_impl(&dword_1BA83C000, v3, v4, "NEHotspotAuthenticationProviderHost - proxy.start - done %{BOOL}d", v5, 8u);
-    MEMORY[0x1BFAFC150](v5, -1, -1);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80);
-  return sub_1BAA39EAC();
-}
-
-uint64_t sub_1BA872760(const void *a1, void *a2)
-{
-  v2[2] = a2;
-  v2[3] = _Block_copy(a1);
-  a2;
-  v4 = swift_task_alloc();
-  v2[4] = v4;
-  *v4 = v2;
-  v4[1] = sub_1BA84E9B0;
-
-  return sub_1BA871D6C();
-}
-
-uint64_t sub_1BA872808(uint64_t a1)
-{
-  *(v2 + 16) = a1;
-  *(v2 + 24) = v1;
-  return MEMORY[0x1EEE6DFA0](sub_1BA872828, 0, 0);
-}
-
-uint64_t sub_1BA872828()
-{
-  if (qword_1EBC0E910 != -1)
-  {
-    swift_once();
-  }
-
-  v1 = sub_1BAA398CC();
-  __swift_project_value_buffer(v1, qword_1EBC11B98);
-  v2 = sub_1BAA398AC();
-  v3 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v2, v3))
-  {
-    v4 = swift_slowAlloc();
-    *v4 = 0;
-    _os_log_impl(&dword_1BA83C000, v2, v3, "NEHotspotAuthenticationProviderHost - stop", v4, 2u);
-    MEMORY[0x1BFAFC150](v4, -1, -1);
-  }
-
-  v5 = swift_task_alloc();
-  *(v0 + 32) = v5;
-  *v5 = v0;
-  v5[1] = sub_1BA872974;
-  v6 = *(v0 + 24);
-
-  return sub_1BA854E8C();
-}
-
-uint64_t sub_1BA872974(uint64_t a1)
-{
-  v2 = *(*v1 + 32);
-  v4 = *v1;
-  *(*v1 + 40) = a1;
-
-  return MEMORY[0x1EEE6DFA0](sub_1BA872A74, 0, 0);
-}
-
-uint64_t sub_1BA872A74()
-{
-  v1 = v0[5];
-  v3 = v0[2];
-  v2 = v0[3];
-  v4 = swift_task_alloc();
-  v0[6] = v4;
-  v4[2] = v1;
-  v4[3] = v3;
-  v4[4] = v2;
-  v5 = *(MEMORY[0x1E69E8920] + 4);
-  v6 = swift_task_alloc();
-  v0[7] = v6;
-  *v6 = v0;
-  v6[1] = sub_1BA84D338;
-  v7 = MEMORY[0x1E69E6370];
-
-  return MEMORY[0x1EEE6DE38](v0 + 8, 0, 0, 0x74697728706F7473, 0xEB00000000293A68, sub_1BA873C04, v4, v7);
-}
-
-uint64_t sub_1BA872B78(uint64_t a1, void *a2, uint64_t a3, void *a4)
-{
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v32 - v11;
-  if (!a2)
-  {
-    goto LABEL_4;
-  }
-
-  v33 = a4;
-  v34 = a3;
-  v13 = *(v9 + 16);
-  v13(&v32 - v11, a1, v8);
-  v14 = (*(v9 + 80) + 16) & ~*(v9 + 80);
-  v15 = v14 + v10;
-  v16 = swift_allocObject();
-  v35 = a1;
-  v17 = v16;
-  v32 = *(v9 + 32);
-  v32(v16 + v14, v12, v8);
-  v40 = sub_1BA873C10;
-  v41 = v17;
-  aBlock = MEMORY[0x1E69E9820];
-  v37 = 1107296256;
-  v38 = sub_1BA871994;
-  v39 = &block_descriptor_9;
-  v18 = _Block_copy(&aBlock);
-
-  v19 = [a2 remoteObjectProxyWithErrorHandler_];
-  _Block_release(v18);
-  sub_1BAA3A04C();
-  swift_unknownObjectRelease();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EEA8, &qword_1BAA4D9F0);
-  if (swift_dynamicCast())
-  {
-    v20 = aBlock;
-    v13(v12, v35, v8);
-    v21 = swift_allocObject();
-    v32(v21 + v14, v12, v8);
-    v22 = v33;
-    *(v21 + ((v15 + 7) & 0xFFFFFFFFFFFFFFF8)) = v33;
-    v40 = sub_1BA873C34;
-    v41 = v21;
-    aBlock = MEMORY[0x1E69E9820];
-    v37 = 1107296256;
-    v38 = sub_1BA8719FC;
-    v39 = &block_descriptor_38;
-    v23 = _Block_copy(&aBlock);
-    swift_unknownObjectRetain();
-    v24 = v22;
-
-    [v20 stopWithStopReason:v34 reply:v23];
-    _Block_release(v23);
-    return swift_unknownObjectRelease_n();
-  }
-
-  else
-  {
-LABEL_4:
-    if (qword_1EBC0E910 != -1)
-    {
-      swift_once();
-    }
-
-    v26 = sub_1BAA398CC();
-    __swift_project_value_buffer(v26, qword_1EBC11B98);
-    v27 = sub_1BAA398AC();
-    v28 = sub_1BAA39F9C();
-    if (os_log_type_enabled(v27, v28))
-    {
-      v29 = swift_slowAlloc();
-      *v29 = 0;
-      _os_log_impl(&dword_1BA83C000, v27, v28, "NEHotspotAuthenticationProviderHost - stop - proxy not good", v29, 2u);
-      MEMORY[0x1BFAFC150](v29, -1, -1);
-    }
-
-    sub_1BA84E364();
-    v30 = swift_allocError();
-    *v31 = 1;
-    aBlock = v30;
-    return sub_1BAA39E9C();
-  }
-}
-
-id sub_1BA872F9C(char a1)
-{
-  if (qword_1EBC0E910 != -1)
-  {
-    swift_once();
-  }
-
-  v2 = sub_1BAA398CC();
-  __swift_project_value_buffer(v2, qword_1EBC11B98);
-  v3 = sub_1BAA398AC();
-  v4 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    *v5 = 67109120;
-    *(v5 + 4) = a1 & 1;
-    _os_log_impl(&dword_1BA83C000, v3, v4, "NEHotspotAuthenticationProviderHost - proxy.stop - done %{BOOL}d", v5, 8u);
-    MEMORY[0x1BFAFC150](v5, -1, -1);
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80);
-  sub_1BAA39EAC();
-  v6 = sub_1BAA398AC();
-  v7 = sub_1BAA39F9C();
-  if (os_log_type_enabled(v6, v7))
-  {
-    v8 = swift_slowAlloc();
-    *v8 = 0;
-    _os_log_impl(&dword_1BA83C000, v6, v7, "NEHotspotAuthenticationProviderHost - calling invalidateExtension", v8, 2u);
-    MEMORY[0x1BFAFC150](v8, -1, -1);
-  }
-
-  return sub_1BA85790C();
-}
-
-uint64_t sub_1BA8732D4(uint64_t a1, void *aBlock, void *a3)
-{
-  v3[2] = a3;
-  v3[3] = _Block_copy(aBlock);
-  a3;
-  v6 = swift_task_alloc();
-  v3[4] = v6;
-  *v6 = v3;
-  v6[1] = sub_1BA84DE80;
-
-  return sub_1BA872808(a1);
-}
-
-void __swiftcall NEHotspotAuthenticationProviderHost.init()(NEHotspotAuthenticationProviderHost *__return_ptr retstr)
-{
-  v1 = objc_allocWithZone(swift_getObjCClassFromMetadata());
-
-  [v1 init];
-}
-
-id NEHotspotAuthenticationProviderHost.init()()
-{
-  *(v0 + OBJC_IVAR___NEHotspotAuthenticationProviderHost_exportedObject) = 0;
-  v2.super_class = NEHotspotAuthenticationProviderHost;
-  return objc_msgSendSuper2(&v2, sel_init);
-}
-
-unint64_t type metadata accessor for NEHotspotAuthenticationProviderHost()
-{
-  result = qword_1EBC0EEA0;
-  if (!qword_1EBC0EEA0)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_1EBC0EEA0);
-  }
-
-  return result;
-}
-
-id sub_1BA8734FC()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NEHotspotAuthenticationProviderHostExportedObject();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-uint64_t sub_1BA873554()
-{
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = swift_task_alloc();
-  *(v1 + 16) = v5;
-  *v5 = v1;
-  v5[1] = sub_1BA84E9A0;
-
-  return sub_1BA8732D4(v2, v3, v4);
-}
-
-uint64_t sub_1BA873608(uint64_t a1, uint64_t a2, int *a3)
-{
-  v7 = (a3 + *a3);
-  v4 = a3[1];
-  v5 = swift_task_alloc();
-  *(v3 + 16) = v5;
-  *v5 = v3;
-  v5[1] = sub_1BA84E9A0;
-
-  return v7();
-}
-
-uint64_t sub_1BA8736F0(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
-{
-  v8 = (a4 + *a4);
-  v5 = a4[1];
-  v6 = swift_task_alloc();
-  *(v4 + 16) = v6;
-  *v6 = v4;
-  v6[1] = sub_1BA84E6FC;
-
-  return v8();
-}
-
-uint64_t sub_1BA8737D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC0, &qword_1BAA4CD50);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = v25 - v11;
-  sub_1BA871480(a3, v25 - v11);
-  v13 = sub_1BAA39EFC();
-  v14 = *(v13 - 8);
-  if ((*(v14 + 48))(v12, 1, v13) == 1)
-  {
-    sub_1BA8714F0(v12);
-    if (*(a5 + 16))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    v16 = 0;
-    v18 = 0;
-    if (a2)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_8;
-  }
-
-  sub_1BAA39EEC();
-  (*(v14 + 8))(v12, v13);
-  if (!*(a5 + 16))
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v15 = *(a5 + 24);
-  swift_getObjectType();
-  swift_unknownObjectRetain();
-  v16 = sub_1BAA39E8C();
-  v18 = v17;
-  swift_unknownObjectRelease();
-  if (a2)
-  {
-LABEL_4:
-    v19 = sub_1BAA39DDC() + 32;
-    v20 = swift_allocObject();
-    *(v20 + 16) = a4;
-    *(v20 + 24) = a5;
-
-    if (v18 | v16)
-    {
-      v26[0] = 0;
-      v26[1] = 0;
-      v21 = v26;
-      v26[2] = v16;
-      v26[3] = v18;
-    }
-
-    else
-    {
-      v21 = 0;
-    }
-
-    v25[1] = 7;
-    v25[2] = v21;
-    v25[3] = v19;
-    v23 = swift_task_create();
-
-    sub_1BA8714F0(a3);
-
-    return v23;
-  }
-
-LABEL_8:
-  sub_1BA8714F0(a3);
-  v22 = swift_allocObject();
-  *(v22 + 16) = a4;
-  *(v22 + 24) = a5;
-  if (v18 | v16)
-  {
-    v26[4] = 0;
-    v26[5] = 0;
-    v26[6] = v16;
-    v26[7] = v18;
-  }
-
-  return swift_task_create();
-}
-
-uint64_t sub_1BA873A94(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1BA84E9A0;
-
-  return sub_1BA870DC8(a1, v5);
-}
-
-uint64_t sub_1BA873B4C(uint64_t a1)
-{
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_1BA84E6FC;
-
-  return sub_1BA870DC8(a1, v5);
-}
-
-uint64_t block_copy_helper_9(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-id sub_1BA873C34(char a1)
-{
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80) - 8);
-  v4 = *(v1 + ((*(v3 + 64) + ((*(v3 + 80) + 16) & ~*(v3 + 80)) + 7) & 0xFFFFFFFFFFFFFFF8));
-
-  return sub_1BA872F9C(a1);
-}
-
-uint64_t sub_1BA873CDC()
-{
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  *v4 = v1;
-  v4[1] = sub_1BA84E9A0;
-
-  return sub_1BA872760(v2, v3);
-}
-
-uint64_t sub_1BA873D9C(char a1)
-{
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EAC8, &unk_1BAA4CD80) - 8) + 80);
-
-  return sub_1BA8724C0(a1);
-}
-
-uint64_t *NEHotspotAuthenticationProvider.configuration.getter(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a1 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for NEHotspotAuthenticationProviderConfiguration();
-  (*(v5 + 16))(v8, v2, a1);
-  return sub_1BA873FB8(v8, v9, a1, a2);
-}
-
-uint64_t NEHotspotAuthenticationProviderConfiguration.deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-
-  return v0;
-}
-
-uint64_t NEHotspotAuthenticationProviderConfiguration.__deallocating_deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
-
-  return MEMORY[0x1EEE6BDC0](v0, 80, 7);
-}
-
-uint64_t *sub_1BA873FB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v6 = *(a3 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](a1);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v16 - v11;
-  (*(v6 + 32))(&v16 - v11);
-  type metadata accessor for NEHotspotAuthenticationProviderConfiguration();
-  v13 = swift_allocObject();
-  (*(v6 + 16))(v10, v12, a3);
-  v14 = sub_1BA874480(v10, v13, a3, a4);
-  (*(v6 + 8))(v12, a3);
-  return v14;
-}
-
-uint64_t dispatch thunk of NEHotspotAuthenticationProvider.start()(uint64_t a1, uint64_t a2)
-{
-  v5 = *(a2 + 16);
-  v9 = (v5 + *v5);
-  v6 = v5[1];
-  v7 = swift_task_alloc();
-  *(v2 + 16) = v7;
-  *v7 = v2;
-  v7[1] = sub_1BA84EDFC;
-
-  return v9(a1, a2);
-}
-
-uint64_t dispatch thunk of NEHotspotAuthenticationProvider.stop(reason:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *(a3 + 24);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = sub_1BA84E6FC;
-
-  return v11(a1, a2, a3);
-}
-
-uint64_t dispatch thunk of NEHotspotAuthenticationProvider.handleCommand(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v7 = *(a3 + 32);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = sub_1BA84EDFC;
-
-  return v11(a1, a2, a3);
-}
-
-uint64_t *sub_1BA874480(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v7 = *(a3 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x1EEE9AC00](a1);
-  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = &v20 - v12;
-  (*(v7 + 32))(&v20 - v12);
-  (*(v7 + 16))(v11, v13, a3);
-  v14 = sub_1BA854D58(v11, a2, a3, *(a4 + 8));
-  v15 = v14[8];
-  v14[8] = &unk_1F38BCA50;
-
-  v16 = &unk_1F38BCA50;
-
-  v17 = v14[9];
-  v14[9] = &unk_1F38BC9F0;
-  v18 = &unk_1F38BC9F0;
-
-  (*(v7 + 8))(v13, a3);
-  return v14;
-}
-
 uint64_t sub_1BA8745F4(uint64_t a1)
 {
-  v7 = MEMORY[0x1E69E7CC0];
+  v6 = MEMORY[0x1E69E7CC0];
   v2 = *(a1 + 16);
   sub_1BAA3A0CC();
   if (!v2)
   {
-    return v7;
+    return v6;
   }
 
   for (i = a1 + 32; ; i += 32)
   {
-    sub_1BA85B4BC(i, v6);
+    sub_1BA85B4BC(i, v5);
     sub_1BA8474EC(0, &qword_1EBC0ED80, off_1E7F046A0);
     if ((swift_dynamicCast() & 1) == 0)
     {
@@ -1112,13 +18,12 @@ uint64_t sub_1BA8745F4(uint64_t a1)
     }
 
     sub_1BAA3A0AC();
-    v4 = *(v7 + 16);
     sub_1BAA3A0DC();
     sub_1BAA3A0EC();
     sub_1BAA3A0BC();
     if (!--v2)
     {
-      return v7;
+      return v6;
     }
   }
 
@@ -1127,20 +32,19 @@ uint64_t sub_1BA8745F4(uint64_t a1)
 
 uint64_t sub_1BA874700(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = sub_1BAA39E4C();
+    v5 = sub_1BAA39E4C();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 uint64_t static NEHotspotManager.shared.getter()
@@ -1170,37 +74,27 @@ uint64_t NEHotspotManager.Error.hashValue.getter()
 
 uint64_t sub_1BA8748BC()
 {
-  v10[0] = sub_1BAA39FBC();
-  v1 = *(v10[0] - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x1EEE9AC00](v10[0]);
-  v4 = v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_1BAA39FAC();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v7 = sub_1BAA3995C();
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
+  v7[0] = sub_1BAA39FBC();
+  v1 = *(v7[0] - 8);
+  MEMORY[0x1EEE9AC00](v7[0]);
+  v3 = v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_1BAA39FAC();
+  MEMORY[0x1EEE9AC00](v4);
+  v5 = sub_1BAA3995C();
+  MEMORY[0x1EEE9AC00](v5 - 8);
   sub_1BA8474EC(0, &qword_1EBC0EB00, 0x1E69E9610);
   sub_1BAA3994C();
-  v10[1] = MEMORY[0x1E69E7CC0];
+  v7[1] = MEMORY[0x1E69E7CC0];
   sub_1BA87945C();
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EE58, &qword_1BAA4D8C0);
   sub_1BA8794B4();
   sub_1BAA3A05C();
-  (*(v1 + 104))(v4, *MEMORY[0x1E69E8090], v10[0]);
+  (*(v1 + 104))(v3, *MEMORY[0x1E69E8090], v7[0]);
   *(v0 + 16) = sub_1BAA39FEC();
   *(v0 + 24) = 0;
   *(v0 + 32) = [objc_opt_self() sharedManager];
   *(v0 + 40) = 0;
   return v0;
-}
-
-uint64_t NEHotspotManager.isEnabled.getter()
-{
-  v1 = *(v0 + 16);
-  sub_1BAA39FDC();
-  return v3;
 }
 
 uint64_t sub_1BA874B60(char *a1, uint64_t *a2)
@@ -1358,7 +252,6 @@ void sub_1BA875034(uint64_t a1, char a2)
     v2[2] = sub_1BA863DB0;
     v2[3] = &block_descriptor_15_0;
     v8 = _Block_copy(v2);
-    v9 = v2[5];
 
     dispatch_sync(isEscapingClosureAtFileLocation, v8);
     _Block_release(v8);
@@ -1372,26 +265,25 @@ void sub_1BA875034(uint64_t a1, char a2)
     __break(1u);
   }
 
+  v9 = swift_allocObject();
+  *(v9 + 16) = v5;
+  *(v9 + 24) = v3;
   v10 = swift_allocObject();
-  *(v10 + 16) = v5;
-  *(v10 + 24) = v3;
-  v11 = swift_allocObject();
-  *(v11 + 16) = sub_1BA879578;
-  *(v11 + 24) = v10;
+  *(v10 + 16) = sub_1BA879578;
+  *(v10 + 24) = v9;
   v2[4] = sub_1BA87957C;
-  v2[5] = v11;
+  v2[5] = v10;
   *v2 = MEMORY[0x1E69E9820];
   v2[1] = 1107296256;
   v2[2] = sub_1BA863DB0;
   v2[3] = &block_descriptor_26_2;
-  v12 = _Block_copy(v2);
-  v13 = v2[5];
+  v11 = _Block_copy(v2);
 
-  dispatch_sync(isEscapingClosureAtFileLocation, v12);
-  _Block_release(v12);
-  v14 = swift_isEscapingClosureAtFileLocation();
+  dispatch_sync(isEscapingClosureAtFileLocation, v11);
+  _Block_release(v11);
+  v12 = swift_isEscapingClosureAtFileLocation();
 
-  if (v14)
+  if (v12)
   {
     __break(1u);
     return;
@@ -1497,24 +389,23 @@ void sub_1BA8756B0(uint64_t a1, char a2)
   v6 = *(*a1 + 56);
   if ((a2 & 1) == 0)
   {
-    v13 = swift_allocObject();
-    v13[2] = v5;
-    v13[3] = v3;
-    v13[4] = v6;
-    v14 = swift_allocObject();
-    *(v14 + 16) = sub_1BA879660;
-    *(v14 + 24) = v13;
+    v11 = swift_allocObject();
+    v11[2] = v5;
+    v11[3] = v3;
+    v11[4] = v6;
+    v12 = swift_allocObject();
+    *(v12 + 16) = sub_1BA879660;
+    *(v12 + 24) = v11;
     v2[4] = sub_1BA87957C;
-    v2[5] = v14;
+    v2[5] = v12;
     *v2 = MEMORY[0x1E69E9820];
     v2[1] = 1107296256;
     v2[2] = sub_1BA863DB0;
     v2[3] = &block_descriptor_59;
-    v15 = _Block_copy(v2);
-    v16 = v2[5];
+    v13 = _Block_copy(v2);
 
-    dispatch_sync(v4, v15);
-    _Block_release(v15);
+    dispatch_sync(v4, v13);
+    _Block_release(v13);
     isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
     if ((isEscapingClosureAtFileLocation & 1) == 0)
@@ -1541,32 +432,28 @@ LABEL_9:
   v2[2] = sub_1BA863DB0;
   v2[3] = &block_descriptor_48;
   v9 = _Block_copy(v2);
-  v10 = v2[5];
 
   dispatch_sync(v4, v9);
   _Block_release(v9);
-  v11 = swift_isEscapingClosureAtFileLocation();
+  v10 = swift_isEscapingClosureAtFileLocation();
 
-  if (v11)
+  if (v10)
   {
     __break(1u);
     goto LABEL_9;
   }
-
-  v12 = v2[7];
 
 LABEL_5:
 
   free(v2);
 }
 
-double sub_1BA875968@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+double sub_1BA875968@<D0>(_OWORD *a2@<X8>)
 {
-  v3 = *(*a1 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0ED70, &qword_1BAA4D470);
   sub_1BAA39FDC();
-  result = *&v5;
-  *a2 = v5;
+  result = *&v4;
+  *a2 = v4;
   return result;
 }
 
@@ -1733,24 +620,23 @@ void sub_1BA875F48(uint64_t a1, char a2)
   v6 = *(*a1 + 56);
   if ((a2 & 1) == 0)
   {
-    v13 = swift_allocObject();
-    v13[2] = v5;
-    v13[3] = v3;
-    v13[4] = v6;
-    v14 = swift_allocObject();
-    *(v14 + 16) = sub_1BA879664;
-    *(v14 + 24) = v13;
+    v11 = swift_allocObject();
+    v11[2] = v5;
+    v11[3] = v3;
+    v11[4] = v6;
+    v12 = swift_allocObject();
+    *(v12 + 16) = sub_1BA879664;
+    *(v12 + 24) = v11;
     v2[4] = sub_1BA87957C;
-    v2[5] = v14;
+    v2[5] = v12;
     *v2 = MEMORY[0x1E69E9820];
     v2[1] = 1107296256;
     v2[2] = sub_1BA863DB0;
     v2[3] = &block_descriptor_93_1;
-    v15 = _Block_copy(v2);
-    v16 = v2[5];
+    v13 = _Block_copy(v2);
 
-    dispatch_sync(v4, v15);
-    _Block_release(v15);
+    dispatch_sync(v4, v13);
+    _Block_release(v13);
     isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
     if ((isEscapingClosureAtFileLocation & 1) == 0)
@@ -1777,19 +663,16 @@ LABEL_9:
   v2[2] = sub_1BA863DB0;
   v2[3] = &block_descriptor_82_0;
   v9 = _Block_copy(v2);
-  v10 = v2[5];
 
   dispatch_sync(v4, v9);
   _Block_release(v9);
-  v11 = swift_isEscapingClosureAtFileLocation();
+  v10 = swift_isEscapingClosureAtFileLocation();
 
-  if (v11)
+  if (v10)
   {
     __break(1u);
     goto LABEL_9;
   }
-
-  v12 = v2[7];
 
 LABEL_5:
 
@@ -1880,29 +763,27 @@ void (*NEHotspotManager.safariDomains.modify(uint64_t *a1))(uint64_t a1, char a2
 void sub_1BA8765C8(uint64_t a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1 + 48);
-  v3 = *v4;
-  v6 = *(*a1 + 56);
-  v5 = *(*a1 + 64);
+  v3 = *(*a1 + 48);
+  v5 = *(*a1 + 56);
+  v4 = *(*a1 + 64);
   if ((a2 & 1) == 0)
   {
-    v13 = swift_allocObject();
-    *(v13 + 16) = v6;
-    *(v13 + 24) = v3;
-    v14 = swift_allocObject();
-    *(v14 + 16) = sub_1BA879580;
-    *(v14 + 24) = v13;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v5;
+    *(v10 + 24) = v3;
+    v11 = swift_allocObject();
+    *(v11 + 16) = sub_1BA879580;
+    *(v11 + 24) = v10;
     v2[4] = sub_1BA87957C;
-    v2[5] = v14;
+    v2[5] = v11;
     *v2 = MEMORY[0x1E69E9820];
     v2[1] = 1107296256;
     v2[2] = sub_1BA863DB0;
     v2[3] = &block_descriptor_126_0;
-    v15 = _Block_copy(v2);
-    v16 = v2[5];
+    v12 = _Block_copy(v2);
 
-    dispatch_sync(v5, v15);
-    _Block_release(v15);
+    dispatch_sync(v4, v12);
+    _Block_release(v12);
     isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
     if ((isEscapingClosureAtFileLocation & 1) == 0)
@@ -1915,52 +796,47 @@ LABEL_9:
     return;
   }
 
+  v6 = swift_allocObject();
+  *(v6 + 16) = v5;
+  *(v6 + 24) = v3;
   v7 = swift_allocObject();
-  *(v7 + 16) = v6;
-  *(v7 + 24) = v3;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_1BA879580;
-  *(v8 + 24) = v7;
+  *(v7 + 16) = sub_1BA879580;
+  *(v7 + 24) = v6;
   v2[4] = sub_1BA87957C;
-  v2[5] = v8;
+  v2[5] = v7;
   *v2 = MEMORY[0x1E69E9820];
   v2[1] = 1107296256;
   v2[2] = sub_1BA863DB0;
   v2[3] = &block_descriptor_115;
-  v9 = _Block_copy(v2);
-  v10 = v2[5];
+  v8 = _Block_copy(v2);
 
-  dispatch_sync(v5, v9);
-  _Block_release(v9);
-  v11 = swift_isEscapingClosureAtFileLocation();
+  dispatch_sync(v4, v8);
+  _Block_release(v8);
+  v9 = swift_isEscapingClosureAtFileLocation();
 
-  if (v11)
+  if (v9)
   {
     __break(1u);
     goto LABEL_9;
   }
-
-  v12 = *v4;
 
 LABEL_5:
 
   free(v2);
 }
 
-uint64_t sub_1BA87687C()
+uint64_t sub_1BA87687C(uint64_t a1)
 {
-  v1 = *(v0 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EEB8, &qword_1BAA4DAB8);
   sub_1BAA39FDC();
-  return v3;
+  return v2;
 }
 
-uint64_t sub_1BA8768E4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+void *sub_1BA8768E4@<X0>(void *a2@<X8>)
 {
-  v3 = *(*a1 + 16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EEB8, &qword_1BAA4DAB8);
   result = sub_1BAA39FDC();
-  *a2 = v5;
+  *a2 = v4;
   return result;
 }
 
@@ -2105,29 +981,27 @@ void (*NEHotspotManager.evaluatedSSIDs.modify(uint64_t *a1))(uint64_t a1, char a
 void sub_1BA876E98(uint64_t a1, char a2)
 {
   v2 = *a1;
-  v4 = (*a1 + 48);
-  v3 = *v4;
-  v6 = *(*a1 + 56);
-  v5 = *(*a1 + 64);
+  v3 = *(*a1 + 48);
+  v5 = *(*a1 + 56);
+  v4 = *(*a1 + 64);
   if ((a2 & 1) == 0)
   {
-    v13 = swift_allocObject();
-    *(v13 + 16) = v6;
-    *(v13 + 24) = v3;
-    v14 = swift_allocObject();
-    *(v14 + 16) = sub_1BA879584;
-    *(v14 + 24) = v13;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v5;
+    *(v10 + 24) = v3;
+    v11 = swift_allocObject();
+    *(v11 + 16) = sub_1BA879584;
+    *(v11 + 24) = v10;
     v2[4] = sub_1BA87957C;
-    v2[5] = v14;
+    v2[5] = v11;
     *v2 = MEMORY[0x1E69E9820];
     v2[1] = 1107296256;
     v2[2] = sub_1BA863DB0;
     v2[3] = &block_descriptor_160;
-    v15 = _Block_copy(v2);
-    v16 = v2[5];
+    v12 = _Block_copy(v2);
 
-    dispatch_sync(v5, v15);
-    _Block_release(v15);
+    dispatch_sync(v4, v12);
+    _Block_release(v12);
     isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
     if ((isEscapingClosureAtFileLocation & 1) == 0)
@@ -2140,32 +1014,29 @@ LABEL_9:
     return;
   }
 
+  v6 = swift_allocObject();
+  *(v6 + 16) = v5;
+  *(v6 + 24) = v3;
   v7 = swift_allocObject();
-  *(v7 + 16) = v6;
-  *(v7 + 24) = v3;
-  v8 = swift_allocObject();
-  *(v8 + 16) = sub_1BA879584;
-  *(v8 + 24) = v7;
+  *(v7 + 16) = sub_1BA879584;
+  *(v7 + 24) = v6;
   v2[4] = sub_1BA87957C;
-  v2[5] = v8;
+  v2[5] = v7;
   *v2 = MEMORY[0x1E69E9820];
   v2[1] = 1107296256;
   v2[2] = sub_1BA863DB0;
   v2[3] = &block_descriptor_149;
-  v9 = _Block_copy(v2);
-  v10 = v2[5];
+  v8 = _Block_copy(v2);
 
-  dispatch_sync(v5, v9);
-  _Block_release(v9);
-  v11 = swift_isEscapingClosureAtFileLocation();
+  dispatch_sync(v4, v8);
+  _Block_release(v8);
+  v9 = swift_isEscapingClosureAtFileLocation();
 
-  if (v11)
+  if (v9)
   {
     __break(1u);
     goto LABEL_9;
   }
-
-  v12 = *v4;
 
 LABEL_5:
 
@@ -2174,34 +1045,31 @@ LABEL_5:
 
 uint64_t sub_1BA877154()
 {
-  v1 = *(MEMORY[0x1E69E8920] + 4);
-  v2 = swift_task_alloc();
-  *(v0 + 128) = v2;
-  v3 = sub_1BA8474EC(0, &qword_1EBC0ED80, off_1E7F046A0);
-  *v2 = v0;
-  v2[1] = sub_1BA877240;
-  v4 = *(v0 + 120);
+  v1 = swift_task_alloc();
+  *(v0 + 128) = v1;
+  v2 = sub_1BA8474EC(0, &qword_1EBC0ED80, off_1E7F046A0);
+  *v1 = v0;
+  v1[1] = sub_1BA877240;
+  v3 = *(v0 + 120);
 
-  return MEMORY[0x1EEE6DE38](v0 + 112, 0, 0, 0xD000000000000015, 0x80000001BAA511C0, sub_1BA8779C4, v4, v3);
+  return MEMORY[0x1EEE6DE38](v0 + 112, 0, 0, 0xD000000000000015, 0x80000001BAA511C0, sub_1BA8779C4, v3, v2);
 }
 
 uint64_t sub_1BA877240()
 {
-  v2 = *(*v1 + 128);
-  v5 = *v1;
   *(*v1 + 136) = v0;
 
   if (v0)
   {
-    v3 = sub_1BA8774F4;
+    v2 = sub_1BA8774F4;
   }
 
   else
   {
-    v3 = sub_1BA877354;
+    v2 = sub_1BA877354;
   }
 
-  return MEMORY[0x1EEE6DFA0](v3, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
 }
 
 uint64_t sub_1BA877354()
@@ -2222,9 +1090,8 @@ uint64_t sub_1BA877354()
   v0[10] = sub_1BA863DB0;
   v0[11] = &block_descriptor_178;
   v6 = _Block_copy(v0 + 8);
-  v7 = v0[13];
 
-  v8 = v2;
+  v7 = v2;
 
   dispatch_sync(v3, v6);
 
@@ -2238,9 +1105,9 @@ uint64_t sub_1BA877354()
 
   else
   {
-    v10 = v0[1];
+    v9 = v0[1];
 
-    return v10();
+    return v9();
   }
 
   return result;
@@ -2289,7 +1156,6 @@ uint64_t sub_1BA8774F4()
   v0[4] = sub_1BA863DB0;
   v0[5] = &block_descriptor_167;
   v14 = _Block_copy(v0 + 2);
-  v15 = v0[7];
 
   dispatch_sync(v12, v14);
   _Block_release(v14);
@@ -2302,16 +1168,15 @@ uint64_t sub_1BA8774F4()
 
   else
   {
-    v17 = v0[17];
-    v18 = v0[15];
+    v16 = v0[17];
     sub_1BA877E1C();
     swift_allocError();
-    *v19 = 0;
+    *v17 = 0;
     swift_willThrow();
 
-    v20 = v0[1];
+    v18 = v0[1];
 
-    return v20();
+    return v18();
   }
 
   return result;
@@ -2531,7 +1396,6 @@ unint64_t sub_1BA877E1C()
 
 uint64_t sub_1BA877E90()
 {
-  v1 = *(*(v0 + 128) + 16);
   sub_1BAA39FDC();
 
   return MEMORY[0x1EEE6DFA0](sub_1BA877F64, 0, 0);
@@ -2563,7 +1427,6 @@ uint64_t sub_1BA877F64()
     v1[12] = sub_1BA8538E4;
     v1[13] = &block_descriptor_186;
     v12 = _Block_copy(v1 + 10);
-    v13 = v1[15];
 
     [v6 saveConfiguration:v9 withCompletionQueue:v10 handler:v12];
     _Block_release(v12);
@@ -2572,12 +1435,12 @@ uint64_t sub_1BA877F64()
   return MEMORY[0x1EEE6DEC8](v3);
 }
 
-uint64_t sub_1BA8780F8()
+uint64_t sub_1BA8780F8(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 136) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 136) = v3;
+  if (v3)
   {
     swift_willThrow();
 
@@ -2586,9 +1449,9 @@ uint64_t sub_1BA8780F8()
 
   else
   {
-    v3 = *(v1 + 8);
+    v4 = *(v2 + 8);
 
-    return v3();
+    return v4();
   }
 }
 
@@ -2673,7 +1536,6 @@ LABEL_10:
 
 uint64_t sub_1BA87854C()
 {
-  v1 = *(*(v0 + 128) + 16);
   sub_1BAA39FDC();
 
   return MEMORY[0x1EEE6DFA0](sub_1BA878620, 0, 0);
@@ -2705,7 +1567,6 @@ uint64_t sub_1BA878620()
     v1[12] = sub_1BA8538E4;
     v1[13] = &block_descriptor_193;
     v12 = _Block_copy(v1 + 10);
-    v13 = v1[15];
 
     [v6 removeConfiguration:v9 withCompletionQueue:v10 handler:v12];
     _Block_release(v12);
@@ -2714,12 +1575,12 @@ uint64_t sub_1BA878620()
   return MEMORY[0x1EEE6DEC8](v3);
 }
 
-uint64_t sub_1BA8787B4()
+uint64_t sub_1BA8787B4(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 136) = v2;
-  if (v2)
+  v2 = *v1;
+  v3 = *(*v1 + 48);
+  *(*v1 + 136) = v3;
+  if (v3)
   {
     swift_willThrow();
 
@@ -2728,9 +1589,9 @@ uint64_t sub_1BA8787B4()
 
   else
   {
-    v3 = *(v1 + 8);
+    v4 = *(v2 + 8);
 
-    return v3();
+    return v4();
   }
 }
 
@@ -2882,26 +1743,19 @@ unint64_t sub_1BA878E90()
 
 uint64_t objectdestroy_95Tm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
 
 uint64_t objectdestroy_28Tm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x1EEE6BDD0](v0, 40, 7);
 }
 
 id sub_1BA878FB0(uint64_t a1, void *a2)
 {
-  v5 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EE78, &qword_1BAA4D8D0) - 8);
-  v6 = *(v2 + ((*(v5 + 64) + ((*(v5 + 80) + 16) & ~*(v5 + 80)) + 7) & 0xFFFFFFFFFFFFFFF8));
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EE78, &qword_1BAA4D8D0);
 
   return sub_1BA8779CC(a1, a2);
 }
@@ -3035,22 +1889,21 @@ uint64_t NEAppProxyFlow.open(withLocalFlowEndpoint:completionHandler:)(uint64_t 
 {
   v4 = v3;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EBA0, &qword_1BAA4CF60);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = aBlock - v10;
-  sub_1BA84985C(a1, aBlock - v10, &qword_1EBC0EBA0, &qword_1BAA4CF60);
-  v12 = sub_1BAA398EC();
-  v13 = *(v12 - 8);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
+  v10 = aBlock - v9;
+  sub_1BA84985C(a1, aBlock - v9, &qword_1EBC0EBA0, &qword_1BAA4CF60);
+  v11 = sub_1BAA398EC();
+  v12 = *(v11 - 8);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    sub_1BA84BC58(v11, &qword_1EBC0EBA0, &qword_1BAA4CF60);
-    v14 = 0;
+    sub_1BA84BC58(v10, &qword_1EBC0EBA0, &qword_1BAA4CF60);
+    v13 = 0;
   }
 
   else
   {
-    v14 = sub_1BAA398DC();
-    (*(v13 + 8))(v11, v12);
+    v13 = sub_1BAA398DC();
+    (*(v12 + 8))(v10, v11);
   }
 
   aBlock[4] = a2;
@@ -3059,10 +1912,10 @@ uint64_t NEAppProxyFlow.open(withLocalFlowEndpoint:completionHandler:)(uint64_t 
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1BA8538E4;
   aBlock[3] = &block_descriptor_11;
-  v15 = _Block_copy(aBlock);
+  v14 = _Block_copy(aBlock);
 
-  [v4 openWithLocalFlowEndpoint:v14 completionHandler:v15];
-  _Block_release(v15);
+  [v4 openWithLocalFlowEndpoint:v13 completionHandler:v14];
+  _Block_release(v14);
   return swift_unknownObjectRelease();
 }
 
@@ -3083,14 +1936,13 @@ uint64_t NEAppProxyFlow.open(withLocalFlowEndpoint:)(uint64_t a1)
 uint64_t sub_1BA879884()
 {
   v1 = v0 + 2;
-  v3 = v0[10];
-  v2 = v0[11];
+  v2 = v0[10];
   v0[2] = v0;
   v0[3] = sub_1BA853A50;
-  v4 = swift_continuation_init();
-  v5 = swift_allocObject();
-  *(v5 + 16) = v4;
-  NEAppProxyFlow.open(withLocalFlowEndpoint:completionHandler:)(v3, sub_1BA853D60, v5);
+  v3 = swift_continuation_init();
+  v4 = swift_allocObject();
+  *(v4 + 16) = v3;
+  NEAppProxyFlow.open(withLocalFlowEndpoint:completionHandler:)(v2, sub_1BA853D60, v4);
 
   return MEMORY[0x1EEE6DEC8](v1);
 }
@@ -3144,47 +1996,43 @@ uint64_t sub_1BA879AAC@<X0>(id *a1@<X0>, uint64_t a2@<X8>)
   }
 }
 
-uint64_t sub_1BA879BA0(uint64_t a1, uint64_t *a2)
+uint64_t sub_1BA879BA0(uint64_t a1)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EED0, &qword_1BAA4DC00);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v10 - v6;
-  sub_1BA84985C(a1, &v10 - v6, &qword_1EBC0EED0, &qword_1BAA4DC00);
-  v8 = *a2;
-  return NEAppProxyFlow.interface.setter(v7);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EED0, &qword_1BAA4DC00);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = &v6 - v3;
+  sub_1BA84985C(a1, &v6 - v3, &qword_1EBC0EED0, &qword_1BAA4DC00);
+  return NEAppProxyFlow.interface.setter(v4);
 }
 
 uint64_t NEAppProxyFlow.interface.setter(uint64_t a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBC0EED0, &qword_1BAA4DC00);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v14 - v6;
-  v8 = sub_1BAA3991C();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v12 = &v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1BA84985C(a1, v7, &qword_1EBC0EED0, &qword_1BAA4DC00);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  v6 = &v12 - v5;
+  v7 = sub_1BAA3991C();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_1BA84985C(a1, v6, &qword_1EBC0EED0, &qword_1BAA4DC00);
+  if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    sub_1BA84BC58(v7, &qword_1EBC0EED0, &qword_1BAA4DC00);
+    sub_1BA84BC58(v6, &qword_1EBC0EED0, &qword_1BAA4DC00);
     [v2 setNetworkInterface_];
     return sub_1BA84BC58(a1, &qword_1EBC0EED0, &qword_1BAA4DC00);
   }
 
   else
   {
-    (*(v9 + 32))(v12, v7, v8);
+    (*(v8 + 32))(v10, v6, v7);
     result = sub_1BAA3990C();
     if (result)
     {
       [v2 setNetworkInterface_];
       swift_unknownObjectRelease();
       sub_1BA84BC58(a1, &qword_1EBC0EED0, &qword_1BAA4DC00);
-      return (*(v9 + 8))(v12, v8);
+      return (*(v8 + 8))(v10, v7);
     }
 
     else
@@ -3196,7 +2044,7 @@ uint64_t NEAppProxyFlow.interface.setter(uint64_t a1)
   return result;
 }
 
-void (*NEAppProxyFlow.interface.modify(void *a1))(uint64_t *a1, char a2)
+void (*NEAppProxyFlow.interface.modify(void *a1))(uint64_t a1, char a2)
 {
   v2 = v1;
   *a1 = v1;
@@ -3233,21 +2081,20 @@ void (*NEAppProxyFlow.interface.modify(void *a1))(uint64_t *a1, char a2)
   return sub_1BA879FC4;
 }
 
-void sub_1BA879FC4(uint64_t *a1, char a2)
+void sub_1BA879FC4(uint64_t a1, char a2)
 {
-  v2 = a1[1];
-  v3 = a1[2];
-  v4 = *a1;
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
   if (a2)
   {
-    sub_1BA84985C(a1[2], v2, &qword_1EBC0EED0, &qword_1BAA4DC00);
+    sub_1BA84985C(*(a1 + 16), v2, &qword_1EBC0EED0, &qword_1BAA4DC00);
     NEAppProxyFlow.interface.setter(v2);
     sub_1BA84BC58(v3, &qword_1EBC0EED0, &qword_1BAA4DC00);
   }
 
   else
   {
-    NEAppProxyFlow.interface.setter(a1[2]);
+    NEAppProxyFlow.interface.setter(*(a1 + 16));
   }
 
   free(v3);
@@ -3345,19 +2192,18 @@ unint64_t sub_1BA87A1F8()
 
 void NEVPNIKEv2SecurityAssociationParameters.postQuantumKeyExchangeMethods.setter(uint64_t a1)
 {
-  v7 = MEMORY[0x1E69E7CC0];
+  v5 = MEMORY[0x1E69E7CC0];
   v2 = *(a1 + 16);
   if (v2)
   {
-    v3 = (a1 + 32);
+    v3 = a1 + 32;
     do
     {
-      v4 = *v3++;
+      v3 += 8;
       sub_1BAA39F5C();
       MEMORY[0x1BFAF8B20]();
-      if (*((v7 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v7 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((v5 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v5 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v5 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
         sub_1BAA39E6C();
       }
 
@@ -3369,7 +2215,7 @@ void NEVPNIKEv2SecurityAssociationParameters.postQuantumKeyExchangeMethods.sette
   }
 
   sub_1BA87A1F8();
-  v6 = sub_1BAA39E3C();
+  v4 = sub_1BAA39E3C();
 
   [v1 setPostQuantumKeyExchangeMethods_];
 }
@@ -3383,13 +2229,10 @@ void (*NEVPNIKEv2SecurityAssociationParameters.postQuantumKeyExchangeMethods.mod
 
 void sub_1BA87A3A4(uint64_t *a1, char a2)
 {
-  v2 = *a1;
-  v3 = a1[1];
   if (a2)
   {
-    v4 = *a1;
 
-    NEVPNIKEv2SecurityAssociationParameters.postQuantumKeyExchangeMethods.setter(v5);
+    NEVPNIKEv2SecurityAssociationParameters.postQuantumKeyExchangeMethods.setter(v2);
   }
 
   else
@@ -4001,24 +2844,23 @@ LABEL_9:
 
 uint64_t DERParseInteger(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64(a1, v5);
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64(a1, v4);
   if (!result)
   {
-    if (HIDWORD(v5[0]))
+    if (HIDWORD(v4[0]))
     {
-      result = 7;
+      return 7;
     }
 
     else
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4084,24 +2926,23 @@ LABEL_7:
 
 uint64_t DERParseIntegerSigned(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64Signed(a1, v5);
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64Signed(a1, v4);
   if (!result)
   {
-    if (v5[0] == SLODWORD(v5[0]))
+    if (v4[0] == SLODWORD(v4[0]))
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
 
     else
     {
-      result = 7;
+      return 7;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4188,42 +3029,41 @@ LABEL_10:
 
 uint64_t DERDecodeSeqInit(uint64_t a1, void *a2, void *a3)
 {
-  v9[3] = *MEMORY[0x1E69E9840];
-  memset(v9, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v9, 0);
-  if (result)
+  v8[3] = *MEMORY[0x1E69E9840];
+  memset(v8, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v8, 0);
+  if (!result)
   {
-    goto LABEL_7;
-  }
-
-  v6 = v9[0];
-  *a2 = v9[0];
-  if (v6 >> 1 != 0x1000000000000008)
-  {
-    result = 2;
-    goto LABEL_7;
-  }
-
-  if (__CFADD__(v9[1], v9[2]))
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v7 = v9[1] + v9[2];
-    if (v9[1] <= v9[1] + v9[2])
+    v6 = v8[0];
+    *a2 = v8[0];
+    if (v6 >> 1 == 0x1000000000000008)
     {
-      result = 0;
-      *a3 = v9[1];
-      a3[1] = v7;
-LABEL_7:
-      v8 = *MEMORY[0x1E69E9840];
-      return result;
+      if (__CFADD__(v8[1], v8[2]))
+      {
+        __break(0x5513u);
+      }
+
+      else
+      {
+        v7 = v8[1] + v8[2];
+        if (v8[1] <= v8[1] + v8[2])
+        {
+          result = 0;
+          *a3 = v8[1];
+          a3[1] = v7;
+          return result;
+        }
+      }
+
+      __break(0x5519u);
+    }
+
+    else
+    {
+      return 2;
     }
   }
 
-  __break(0x5519u);
   return result;
 }
 
@@ -4253,71 +3093,66 @@ unint64_t *DERDecodeSeqContentInit(unint64_t *result, unint64_t *a2)
 
 uint64_t DERDecodeSeqNext(unint64_t *a1, unint64_t *a2)
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v11[0] = 0;
+  v10[2] = *MEMORY[0x1E69E9840];
+  v10[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 >= v3)
   {
-    result = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v11[0] = *a1;
-  v11[1] = v3 - v2;
-  result = DERDecodeItemPartialBufferGetLength(v11, a2, 0);
-  if (result)
+  v10[0] = *a1;
+  v10[1] = v3 - v2;
+  result = DERDecodeItemPartialBufferGetLength(v10, a2, 0);
+  if (!result)
   {
-LABEL_8:
-    v10 = *MEMORY[0x1E69E9840];
-    return result;
-  }
-
-  v8 = a2[1];
-  v7 = a2[2];
-  if (!__CFADD__(v8, v7))
-  {
-    v9 = v8 + v7;
-    if (v9 <= a1[1] && *a1 <= v9)
+    v8 = a2[1];
+    v7 = a2[2];
+    if (!__CFADD__(v8, v7))
     {
-      result = 0;
-      *a1 = v9;
-      goto LABEL_8;
+      v9 = v8 + v7;
+      if (v9 <= a1[1] && *a1 <= v9)
+      {
+        result = 0;
+        *a1 = v9;
+        return result;
+      }
+
+      __break(0x5519u);
     }
 
-    __break(0x5519u);
+    __break(0x5513u);
   }
 
-  __break(0x5513u);
   return result;
 }
 
 uint64_t DERParseSequenceToObject(uint64_t a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v13[3] = *MEMORY[0x1E69E9840];
-  memset(v13, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v13, 0);
+  v12[3] = *MEMORY[0x1E69E9840];
+  memset(v12, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v12, 0);
   if (!result)
   {
-    if (v13[0] == 0x2000000000000010)
+    if (v12[0] == 0x2000000000000010)
     {
-      result = DERParseSequenceContentToObject(&v13[1], a2, a3, a4, a5, a6);
+      return DERParseSequenceContentToObject(&v12[1], a2, a3, a4, a5, a6);
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t DERParseSequenceContentToObject(unint64_t *a1, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5, size_t a6)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v36 = 0;
+  v37 = *MEMORY[0x1E69E9840];
+  v35 = 0;
   if (a6)
   {
     if (a6 > a5)
@@ -4346,177 +3181,175 @@ LABEL_59:
     __break(0x5519u);
   }
 
-  v36 = *a1;
-  v37 = v13;
-  if (a2)
+  v35 = *a1;
+  v36 = v13;
+  if (!a2)
   {
-    v14 = 0;
-    while (1)
+LABEL_48:
+    if (v11 == v13)
     {
-      memset(v35, 170, sizeof(v35));
-      v16 = v36;
-      v15 = v37;
-      result = DERDecodeSeqNext(&v36, v35);
-      if (result)
-      {
-        if (result == 1)
-        {
-          if (a2 <= v14)
-          {
-            result = 0;
-          }
+      return 0;
+    }
 
-          else
-          {
-            v29 = (a3 + 24 * v14 + 16);
-            v30 = a2 - v14;
-            result = 0;
-            while (1)
-            {
-              v31 = *v29;
-              v29 += 12;
-              if ((v31 & 1) == 0)
-              {
-                break;
-              }
-
-              if (!--v30)
-              {
-                goto LABEL_51;
-              }
-            }
-
-            result = 5;
-          }
-        }
-
-        goto LABEL_51;
-      }
-
-      if (a2 <= v14)
-      {
-        result = 2;
-        goto LABEL_51;
-      }
-
-      while (1)
-      {
-        if (24 * v14 > ~a3)
-        {
-          goto LABEL_58;
-        }
-
-        v18 = a3 + 24 * v14;
-        v19 = *(v18 + 16);
-        if ((v19 & 2) != 0 || v35[0] == *(v18 + 8))
-        {
-          break;
-        }
-
-        result = 2;
-        if ((v19 & 1) != 0 && a2 > ++v14)
-        {
-          continue;
-        }
-
-        goto LABEL_51;
-      }
-
-      if ((v19 & 4) == 0)
-      {
-        v20 = *v18;
-        v21 = *v18 + 16;
-        if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
-        {
-          result = 7;
-          goto LABEL_51;
-        }
-
-        if (v20 > ~a4)
-        {
-          goto LABEL_58;
-        }
-
-        v23 = (a4 + v20);
-        v24 = v23 + 16;
-        if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
-        {
-          goto LABEL_59;
-        }
-
-        *v23 = *&v35[1];
-        if ((v19 & 8) != 0)
-        {
-          if (v16 >= v35[1])
-          {
-            if (v15 < v16 || *(v23 + 1) > v15 - v16)
-            {
-              goto LABEL_59;
-            }
-
-            *v23 = v16;
-            result = 3;
-            goto LABEL_51;
-          }
-
-          v27 = *(v23 + 1);
-          v28 = v27 + v35[1] - v16;
-          if (__CFADD__(v27, v35[1] - v16))
-          {
-            __break(0x5500u);
-            return result;
-          }
-
-          if (v15 < v16 || v28 > v15 - v16)
-          {
-            goto LABEL_59;
-          }
-
-          *v23 = v16;
-          *(v23 + 1) = v28;
-        }
-      }
-
-      if (a2 == ++v14)
-      {
-        if (!__CFADD__(v35[1], v35[2]))
-        {
-          v32 = a1[1];
-          if (!__CFADD__(*a1, v32))
-          {
-            v11 = v35[1] + v35[2];
-            v13 = *a1 + v32;
-            break;
-          }
-        }
-
-LABEL_58:
-        __break(0x5513u);
-        goto LABEL_59;
-      }
-
-      if (a2 <= v14)
-      {
-        v11 = v36;
-        v13 = v37;
-        break;
-      }
+    else
+    {
+      return 3;
     }
   }
 
-  if (v11 == v13)
+  v14 = 0;
+  while (1)
   {
-    result = 0;
+    memset(v34, 170, sizeof(v34));
+    v16 = v35;
+    v15 = v36;
+    result = DERDecodeSeqNext(&v35, v34);
+    if (result)
+    {
+      if (result == 1)
+      {
+        if (a2 <= v14)
+        {
+          return 0;
+        }
+
+        else
+        {
+          v29 = (a3 + 24 * v14 + 16);
+          v30 = a2 - v14;
+          result = 0;
+          while (1)
+          {
+            v31 = *v29;
+            v29 += 12;
+            if ((v31 & 1) == 0)
+            {
+              break;
+            }
+
+            if (!--v30)
+            {
+              return result;
+            }
+          }
+
+          return 5;
+        }
+      }
+
+      return result;
+    }
+
+    if (a2 <= v14)
+    {
+      return 2;
+    }
+
+    while (1)
+    {
+      if (24 * v14 > ~a3)
+      {
+        goto LABEL_58;
+      }
+
+      v18 = a3 + 24 * v14;
+      v19 = *(v18 + 16);
+      if ((v19 & 2) != 0 || v34[0] == *(v18 + 8))
+      {
+        break;
+      }
+
+      result = 2;
+      if ((v19 & 1) != 0 && a2 > ++v14)
+      {
+        continue;
+      }
+
+      return result;
+    }
+
+    if ((v19 & 4) == 0)
+    {
+      v20 = *v18;
+      v21 = *v18 + 16;
+      if (v20 > 0xFFFFFFFFFFFFFFEFLL || v21 > a5)
+      {
+        return 7;
+      }
+
+      if (v20 > ~a4)
+      {
+        goto LABEL_58;
+      }
+
+      v23 = (a4 + v20);
+      v24 = v23 + 16;
+      if (v23 < a4 || v24 > a4 + a5 || v23 >= v24)
+      {
+        goto LABEL_59;
+      }
+
+      *v23 = *&v34[1];
+      if ((v19 & 8) != 0)
+      {
+        break;
+      }
+    }
+
+LABEL_35:
+    if (a2 == ++v14)
+    {
+      if (!__CFADD__(v34[1], v34[2]))
+      {
+        v32 = a1[1];
+        if (!__CFADD__(*a1, v32))
+        {
+          v11 = v34[1] + v34[2];
+          v13 = *a1 + v32;
+          goto LABEL_48;
+        }
+      }
+
+LABEL_58:
+      __break(0x5513u);
+      goto LABEL_59;
+    }
+
+    if (a2 <= v14)
+    {
+      v11 = v35;
+      v13 = v36;
+      goto LABEL_48;
+    }
   }
 
-  else
+  if (v16 < v34[1])
   {
-    result = 3;
+    v27 = *(v23 + 1);
+    v28 = v27 + v34[1] - v16;
+    if (__CFADD__(v27, v34[1] - v16))
+    {
+      __break(0x5500u);
+      return result;
+    }
+
+    if (v15 < v16 || v28 > v15 - v16)
+    {
+      goto LABEL_59;
+    }
+
+    *v23 = v16;
+    *(v23 + 1) = v28;
+    goto LABEL_35;
   }
 
-LABEL_51:
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  if (v15 < v16 || *(v23 + 1) > v15 - v16)
+  {
+    goto LABEL_59;
+  }
+
+  *v23 = v16;
+  return 3;
 }
 
 uint64_t DERParseSequence(uint64_t result, unsigned int a2, uint64_t a3, unint64_t a4, size_t a5)
@@ -4543,30 +3376,29 @@ unint64_t *DERParseSequenceContent(unint64_t *result, unsigned int a2, uint64_t 
 
 uint64_t DERDecodeSequenceWithBlock(uint64_t a1, uint64_t a2)
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  memset(v5, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v5, 0);
+  v4[3] = *MEMORY[0x1E69E9840];
+  memset(v4, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v4, 0);
   if (!result)
   {
-    if (v5[0] - 0x2000000000000012 >= 0xFFFFFFFFFFFFFFFELL)
+    if (v4[0] - 0x2000000000000012 >= 0xFFFFFFFFFFFFFFFELL)
     {
-      result = DERDecodeSequenceContentWithBlock(&v5[1], a2);
+      return DERDecodeSequenceContentWithBlock(&v4[1], a2);
     }
 
     else
     {
-      result = 2;
+      return 2;
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t DERDecodeSequenceContentWithBlock(unint64_t *a1, uint64_t a2)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = 0;
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (__CFADD__(*a1, v3))
@@ -4582,41 +3414,36 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v10[0] = *a1;
-  v10[1] = v4;
-  memset(v9, 170, sizeof(v9));
-  v8 = 0;
+  v9[0] = *a1;
+  v9[1] = v4;
+  memset(v8, 170, sizeof(v8));
+  v7 = 0;
   do
   {
-    if (v8)
+    if (v7)
     {
-      result = 0;
-      goto LABEL_11;
+      return 0;
     }
 
-    LODWORD(result) = DERDecodeSeqNext(v10, v9);
+    LODWORD(result) = DERDecodeSeqNext(v9, v8);
     if (result)
     {
       break;
     }
 
-    LODWORD(result) = (*(a2 + 16))(a2, v9, &v8);
+    LODWORD(result) = (*(a2 + 16))(a2, v8, &v7);
   }
 
   while (!result);
   if (result <= 1)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-LABEL_11:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 BOOL DEROidCompare(uint64_t a1, uint64_t a2)
@@ -4631,11 +3458,25 @@ BOOL DEROidCompare(uint64_t a1, uint64_t a2)
   return result;
 }
 
+void sub_1BA87E2B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_1BA87FF38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__111(uint64_t result, uint64_t a2)
@@ -4653,9 +3494,10 @@ void sub_1BA88049C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1BA881788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id obj, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1BA881788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id obj, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose(&a39, 8);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
   objc_sync_exit(obj);
   _Unwind_Resume(a1);
 }
@@ -4669,7 +3511,7 @@ uint64_t __Block_byref_object_copy__170(uint64_t result, uint64_t a2)
 
 id setLocalCertificate(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
@@ -4683,24 +3525,22 @@ id setLocalCertificate(void *a1)
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = objc_opt_class();
-      v7 = v9;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "setLocalCertificate: unsupported data type %@.", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = objc_opt_class();
+      v6 = v8;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "setLocalCertificate: unsupported data type %@.", &v7, 0xCu);
     }
   }
 
   v3 = 0;
 LABEL_8:
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 uint64_t ingestIKEv2Dict(void *a1, void *a2, void *a3)
 {
-  v96 = *MEMORY[0x1E69E9840];
+  v95 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -4718,24 +3558,24 @@ uint64_t ingestIKEv2Dict(void *a1, void *a2, void *a3)
       }
 
       v11 = [v6 objectForKeyedSubscript:@"DeadPeerDetectionRate"];
-      if ([v11 isEqualToString:@"None"])
+      if (objc_msgSend_isEqualToString_(v11))
       {
         v12 = 0;
       }
 
-      else if ([v11 isEqualToString:@"Low"])
+      else if (objc_msgSend_isEqualToString_(v11))
       {
         v12 = 1;
       }
 
-      else if ([v11 isEqualToString:@"Medium"])
+      else if (objc_msgSend_isEqualToString_(v11))
       {
         v12 = 2;
       }
 
       else
       {
-        if (![v11 isEqualToString:@"High"])
+        if (!objc_msgSend_isEqualToString_(v11))
         {
 LABEL_18:
 
@@ -4917,19 +3757,19 @@ LABEL_78:
               }
 
               v64 = [v6 objectForKeyedSubscript:@"TLSMaximumVersion"];
-              if ([v64 isEqualToString:@"1.0"])
+              if (objc_msgSend_isEqualToString_(v64))
               {
                 v65 = 1;
               }
 
-              else if ([v64 isEqualToString:@"1.1"])
+              else if (objc_msgSend_isEqualToString_(v64))
               {
                 v65 = 2;
               }
 
               else
               {
-                if (![v64 isEqualToString:@"1.2"])
+                if (!objc_msgSend_isEqualToString_(v64))
                 {
 LABEL_86:
 
@@ -4945,13 +3785,13 @@ LABEL_87:
                       v69 = ne_log_obj();
                       if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
                       {
-                        v91[0] = 67109632;
-                        v91[1] = [v68 intValue];
-                        v92 = 1024;
-                        v93 = 1000;
-                        v94 = 1024;
-                        v95 = 1500;
-                        _os_log_error_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_ERROR, "invalid mtu size %d, should be between %d and %d", v91, 0x14u);
+                        v90[0] = 67109632;
+                        v90[1] = [v68 intValue];
+                        v91 = 1024;
+                        v92 = 1000;
+                        v93 = 1024;
+                        v94 = 1500;
+                        _os_log_error_impl(&dword_1BA83C000, v69, OS_LOG_TYPE_ERROR, "invalid mtu size %d, should be between %d and %d", v90, 0x14u);
                       }
 
                       goto LABEL_93;
@@ -5022,19 +3862,19 @@ LABEL_107:
             }
 
             v60 = [v6 objectForKeyedSubscript:@"TLSMinimumVersion"];
-            if ([v60 isEqualToString:@"1.0"])
+            if (objc_msgSend_isEqualToString_(v60))
             {
               v61 = 1;
             }
 
-            else if ([v60 isEqualToString:@"1.1"])
+            else if (objc_msgSend_isEqualToString_(v60))
             {
               v61 = 2;
             }
 
             else
             {
-              if (![v60 isEqualToString:@"1.2"])
+              if (!objc_msgSend_isEqualToString_(v60))
               {
 LABEL_77:
 
@@ -5049,39 +3889,39 @@ LABEL_77:
           }
 
           v32 = [v6 objectForKeyedSubscript:@"CertificateType"];
-          if ([v32 isEqualToString:@"RSA"])
+          if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 1;
           }
 
-          else if ([v32 isEqualToString:@"ECDSA256"])
+          else if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 2;
           }
 
-          else if ([v32 isEqualToString:@"ECDSA384"])
+          else if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 3;
           }
 
-          else if ([v32 isEqualToString:@"ECDSA521"])
+          else if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 4;
           }
 
-          else if ([v32 isEqualToString:@"Ed25519"])
+          else if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 5;
           }
 
-          else if ([v32 isEqualToString:@"Ed448"])
+          else if (objc_msgSend_isEqualToString_(v32))
           {
             v33 = 7;
           }
 
           else
           {
-            if (![v32 isEqualToString:@"RSA-PSS"])
+            if (!objc_msgSend_isEqualToString_(v32))
             {
 LABEL_47:
 
@@ -5105,7 +3945,7 @@ LABEL_47:
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v91[0]) = 0;
+      LOWORD(v90[0]) = 0;
       v14 = "ingestIKEv2Dict: uninitialized protocol";
       goto LABEL_10;
     }
@@ -5116,10 +3956,10 @@ LABEL_47:
     v13 = ne_log_obj();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v91[0]) = 0;
+      LOWORD(v90[0]) = 0;
       v14 = "ingestIKEv2Dict: empty dictionary";
 LABEL_10:
-      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, v14, v91, 2u);
+      _os_log_error_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_ERROR, v14, v90, 2u);
     }
   }
 
@@ -5127,7 +3967,6 @@ LABEL_93:
   v70 = 0;
 LABEL_108:
 
-  v89 = *MEMORY[0x1E69E9840];
   return v70;
 }
 
@@ -5141,39 +3980,39 @@ void ingestIKEv2SAParameters(void *a1, void *a2)
   if (v5)
   {
     v6 = [v21 objectForKeyedSubscript:@"EncryptionAlgorithm"];
-    if ([v6 isEqualToString:@"DES"])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 1;
     }
 
-    else if ([v6 isEqualToString:@"3DES"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 2;
     }
 
-    else if ([v6 isEqualToString:@"AES-128"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 3;
     }
 
-    else if ([v6 isEqualToString:@"AES-256"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 4;
     }
 
-    else if ([v6 isEqualToString:@"AES-128-GCM"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 5;
     }
 
-    else if ([v6 isEqualToString:@"AES-256-GCM"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 6;
     }
 
     else
     {
-      if (![v6 isEqualToString:@"ChaCha20Poly1305"])
+      if (!objc_msgSend_isEqualToString_(v6))
       {
 LABEL_17:
 
@@ -5197,7 +4036,7 @@ LABEL_18:
   }
 
   v10 = [v21 objectForKeyedSubscript:@"IntegrityAlgorithm"];
-  if ([v10 isEqualToString:@"SHA1-96"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 1;
 LABEL_29:
@@ -5205,25 +4044,25 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if ([v10 isEqualToString:@"SHA1-160"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 2;
     goto LABEL_29;
   }
 
-  if ([v10 isEqualToString:@"SHA2-256"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 3;
     goto LABEL_29;
   }
 
-  if ([v10 isEqualToString:@"SHA2-384"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 4;
     goto LABEL_29;
   }
 
-  if ([v10 isEqualToString:@"SHA2-512"])
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v11 = 5;
     goto LABEL_29;
@@ -5340,14 +4179,23 @@ void sub_1BA89E8D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t __getWriterSemaphore_block_invoke()
 {
-  getWriterSemaphore_semaphore = dispatch_semaphore_create(1);
+  v0 = dispatch_semaphore_create(1);
+  v1 = getWriterSemaphore_semaphore;
+  getWriterSemaphore_semaphore = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
+}
+
+void sub_1BA8A8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id NEDNSProxyMapError(void *a1)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (!v1)
@@ -5408,9 +4256,9 @@ LABEL_18:
     if (v5 != 7)
     {
 LABEL_26:
-      v13 = MEMORY[0x1E696AEC0];
-      v14 = [v2 localizedDescription];
-      v7 = [v13 stringWithFormat:@"Unknown: %@", v14];
+      v12 = MEMORY[0x1E696AEC0];
+      v13 = [v2 localizedDescription];
+      v7 = [v12 stringWithFormat:@"Unknown: %@", v13];
 
       goto LABEL_19;
     }
@@ -5423,15 +4271,13 @@ LABEL_19:
   v8 = 1;
 LABEL_20:
   v9 = MEMORY[0x1E696ABC0];
-  v16 = *MEMORY[0x1E696A578];
-  v17[0] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v15 = *MEMORY[0x1E696A578];
+  v16[0] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v6 = [v9 errorWithDomain:@"NEDNSProxyErrorDomain" code:v8 userInfo:v10];
 
 LABEL_21:
 LABEL_22:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -5513,7 +4359,7 @@ void sub_1BA8C58E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id NEFilterMapError(void *a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 domain];
   v3 = [v2 isEqual:@"NEConfigurationErrorDomain"];
@@ -5536,9 +4382,9 @@ LABEL_4:
       v6 = 1;
 LABEL_14:
       v7 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A578];
-      v16[0] = v5;
-      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A578];
+      v15[0] = v5;
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v9 = [v7 errorWithDomain:@"NEFilterErrorDomain" code:v6 userInfo:v8];
 
       goto LABEL_15;
@@ -5557,9 +4403,9 @@ LABEL_14:
     }
 
 LABEL_24:
-    v12 = MEMORY[0x1E696AEC0];
-    v13 = [v1 localizedDescription];
-    v5 = [v12 stringWithFormat:@"Unknown: %@", v13];
+    v11 = MEMORY[0x1E696AEC0];
+    v12 = [v1 localizedDescription];
+    v5 = [v11 stringWithFormat:@"Unknown: %@", v12];
 
     goto LABEL_13;
   }
@@ -5604,8 +4450,6 @@ LABEL_23:
   v9 = 0;
 LABEL_15:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -5623,9 +4467,9 @@ void sub_1BA8D02D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BA8D6524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BA8D6524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5646,9 +4490,9 @@ void sub_1BA8DBB14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BA8DE4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1BA8DE4AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5660,10 +4504,11 @@ uint64_t __Block_byref_object_copy__6849(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1BA8DFAE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id obj, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_1BA8DFAE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, id obj, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  _Block_object_dispose(&a51, 8);
-  _Block_object_dispose((v51 - 176), 8);
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v50 - 176), 8);
   objc_sync_exit(obj);
   _Unwind_Resume(a1);
 }
@@ -5899,29 +4744,28 @@ uint64_t NEIKEv2CreateErrorInternal(void *a1, uint64_t a2, uint64_t a3, uint64_t
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf[0]) = 136315138;
       *(buf + 4) = "NEIKEv2CreateErrorInternal";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
     }
 
     ErrorWithDescription = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return ErrorWithDescription;
 }
 
 uint64_t NEIKEv2CreateErrorWithDescription(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v9 = *MEMORY[0x1E696A578];
-  v10[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x1E696A578];
+  v9[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   v6 = [v4 initWithDomain:@"NEIKEv2ErrorDomain" code:a1 userInfo:v5];
 
   if (!v6)
@@ -5929,7 +4773,6 @@ uint64_t NEIKEv2CreateErrorWithDescription(uint64_t a1, void *a2)
     abort();
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6074,18 +4917,17 @@ uint64_t NEIKEv2CreateErrorFailedToSend(void *a1, uint64_t a2, uint64_t a3, uint
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf[0]) = 136315138;
       *(buf + 4) = "NEIKEv2CreateErrorFailedToSend";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
     }
 
     ErrorWithDescription = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return ErrorWithDescription;
 }
 
@@ -6103,18 +4945,17 @@ uint64_t NEIKEv2CreateErrorCrypto(void *a1, uint64_t a2, uint64_t a3, uint64_t a
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf[0]) = 136315138;
       *(buf + 4) = "NEIKEv2CreateErrorCrypto";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
     }
 
     ErrorWithDescription = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return ErrorWithDescription;
 }
 
@@ -6132,18 +4973,17 @@ uint64_t NEIKEv2CreateErrorPeerInvalidSyntax(void *a1, uint64_t a2, uint64_t a3,
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf[0]) = 136315138;
       *(buf + 4) = "NEIKEv2CreateErrorPeerInvalidSyntax";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
     }
 
     ErrorWithDescription = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return ErrorWithDescription;
 }
 
@@ -6161,18 +5001,17 @@ uint64_t NEIKEv2CreateErrorAuthentication(void *a1, uint64_t a2, uint64_t a3, ui
 
   else
   {
-    v15 = ne_log_obj();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v14 = ne_log_obj();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       LODWORD(buf[0]) = 136315138;
       *(buf + 4) = "NEIKEv2CreateErrorAuthentication";
-      _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
+      _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "%s called with null errorDescriptionFormat", buf, 0xCu);
     }
 
     ErrorWithDescription = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return ErrorWithDescription;
 }
 
@@ -6263,9 +5102,9 @@ uint64_t NEIKEv2ASN1DecodeIntegerItem(uint64_t a1, int *a2)
   return result;
 }
 
-void sub_1BA958A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA958A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6291,9 +5130,9 @@ void sub_1BA95B674(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BA95BC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BA95BC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6307,19 +5146,19 @@ void sub_1BA95EDA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t NEIKEv2PacketTunnelProviderGetSocket(void *a1, uint64_t a2, unsigned __int8 *a3, unsigned __int8 *a4, void *a5)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v9 = a1;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
-  v34 = -1;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x2020000000;
+  v33 = -1;
   if (objc_getProperty(v9, v10, 160, 1))
   {
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v36 = "NEIKEv2PacketTunnelProviderGetSocket";
+      v35 = "NEIKEv2PacketTunnelProviderGetSocket";
       _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%s: A previous call is in progress, ignore", buf, 0xCu);
     }
 
@@ -6332,19 +5171,19 @@ LABEL_4:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = "PFKey";
-    v36 = "NEIKEv2PacketTunnelProviderGetSocket";
-    v37 = 2112;
+    v35 = "NEIKEv2PacketTunnelProviderGetSocket";
+    v36 = 2112;
     *buf = 136315906;
-    v38 = v9;
+    v37 = v9;
     if (a2)
     {
       v14 = "IKE";
     }
 
-    v39 = 2080;
-    v40 = v14;
-    v41 = 2080;
-    v42 = a5;
+    v38 = 2080;
+    v39 = v14;
+    v40 = 2080;
+    v41 = a5;
     _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_INFO, "%s: %@: socket type %s (%s)", buf, 0x2Au);
   }
 
@@ -6356,9 +5195,9 @@ LABEL_4:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v36 = "NEIKEv2PacketTunnelProviderGetSocket";
-        v37 = 2112;
-        v38 = v9;
+        v35 = "NEIKEv2PacketTunnelProviderGetSocket";
+        v36 = 2112;
+        v37 = v9;
         _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_INFO, "%s: %@: Null local/remote", buf, 0x16u);
       }
 
@@ -6383,15 +5222,15 @@ LABEL_4:
   v16 = dispatch_semaphore_create(0);
   objc_setProperty_atomic(v9, v17, v16, 160);
 
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __NEIKEv2PacketTunnelProviderGetSocket_block_invoke;
-  v27[3] = &unk_1E7F088C8;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __NEIKEv2PacketTunnelProviderGetSocket_block_invoke;
+  v26[3] = &unk_1E7F088C8;
   v18 = v9;
-  v30 = a2;
-  v28 = v18;
-  v29 = &v31;
-  [v18 requestSocket:a2 interface:a5 local:v11 remote:v15 completionHandler:v27];
+  v29 = a2;
+  v27 = v18;
+  v28 = &v30;
+  [v18 requestSocket:a2 interface:a5 local:v11 remote:v15 completionHandler:v26];
   v20 = objc_getProperty(v18, v19, 160, 1);
   v21 = dispatch_time(0, 2000000000);
   v22 = dispatch_semaphore_wait(v20, v21);
@@ -6402,40 +5241,39 @@ LABEL_4:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v36 = "NEIKEv2PacketTunnelProviderGetSocket";
-      v37 = 2112;
-      v38 = v18;
+      v35 = "NEIKEv2PacketTunnelProviderGetSocket";
+      v36 = 2112;
+      v37 = v18;
       _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "%s: %@ Wait Timeout\n", buf, 0x16u);
     }
   }
 
   objc_setProperty_atomic(v18, v23, 0, 160);
-  v12 = *(v32 + 6);
+  v12 = *(v31 + 6);
 
 LABEL_20:
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v30, 8);
 
-  v25 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
-void sub_1BA95F268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BA95F268(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void NEIKEv2PacketTunnelHandleConnected(void *a1)
 {
-  v118 = *MEMORY[0x1E69E9840];
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x3032000000;
-  v107 = __Block_byref_object_copy__12503;
-  v108 = __Block_byref_object_dispose__12504;
+  v117 = *MEMORY[0x1E69E9840];
+  v103 = 0;
+  v104 = &v103;
+  v105 = 0x3032000000;
+  v106 = __Block_byref_object_copy__12503;
+  v107 = __Block_byref_object_dispose__12504;
   self = a1;
-  v109 = self;
+  v108 = self;
   v1 = ne_log_obj();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
@@ -6451,7 +5289,7 @@ void NEIKEv2PacketTunnelHandleConnected(void *a1)
     *&buf[12] = 2112;
     *&buf[14] = v3;
     *&buf[22] = 1024;
-    LODWORD(v115) = v2;
+    LODWORD(v114) = v2;
     _os_log_impl(&dword_1BA83C000, v1, OS_LOG_TYPE_DEFAULT, "%@: Tunnel flags - %@ <%X>", buf, 0x1Cu);
   }
 
@@ -6494,36 +5332,36 @@ LABEL_28:
 
   v16 = objc_getProperty(self, v15, 128, 1);
   Property = objc_getProperty(self, v17, 208, 1);
-  v96 = [(NEIKEv2Server *)v16 getViableServerAddressForPath:?];
+  v95 = [(NEIKEv2Server *)v16 getViableServerAddressForPath:?];
 
-  v97 = [(NETunnelNetworkSettings *)[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:v96];
+  v96 = [(NETunnelNetworkSettings *)[NEPacketTunnelNetworkSettings alloc] initWithTunnelRemoteAddress:v95];
   v20 = objc_getProperty(self, v19, 88, 1);
   objc_opt_self();
   v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v99 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
+  v98 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v111 = 0u;
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
   v22 = v20;
-  v23 = [v22 countByEnumeratingWithState:&v110 objects:buf count:16];
+  v23 = [v22 countByEnumeratingWithState:&v109 objects:buf count:16];
   if (!v23)
   {
     goto LABEL_24;
   }
 
-  v24 = *v111;
+  v24 = *v110;
   do
   {
     v25 = 0;
     do
     {
-      if (*v111 != v24)
+      if (*v110 != v24)
       {
         objc_enumerationMutation(v22);
       }
 
-      v26 = *(*(&v110 + 1) + 8 * v25);
+      v26 = *(*(&v109 + 1) + 8 * v25);
       objc_opt_class();
       if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
@@ -6539,7 +5377,7 @@ LABEL_18:
       if (objc_opt_isKindOfClass())
       {
         v27 = [v26 stringValue];
-        [v99 addObject:v27];
+        [v98 addObject:v27];
         goto LABEL_18;
       }
 
@@ -6548,7 +5386,7 @@ LABEL_19:
     }
 
     while (v23 != v25);
-    v29 = [v22 countByEnumeratingWithState:&v110 objects:buf count:16];
+    v29 = [v22 countByEnumeratingWithState:&v109 objects:buf count:16];
     v23 = v29;
   }
 
@@ -6558,9 +5396,9 @@ LABEL_24:
   if ([v21 count])
   {
     v30 = [[NEDNSSettings alloc] initWithServers:v21];
-    if ([v99 count])
+    if ([v98 count])
     {
-      [(NEDNSSettings *)v30 setMatchDomains:v99];
+      [(NEDNSSettings *)v30 setMatchDomains:v98];
     }
   }
 
@@ -6569,63 +5407,63 @@ LABEL_24:
     v30 = 0;
   }
 
-  [(NETunnelNetworkSettings *)v97 setDNSSettings:v30];
-  v36 = objc_getProperty(self, v35, 88, 1);
-  v38 = objc_getProperty(self, v37, 96, 1);
-  v40 = objc_getProperty(self, v39, 104, 1);
-  v41 = v36;
-  v42 = v38;
-  v100 = v40;
+  [(NETunnelNetworkSettings *)v96 setDNSSettings:v30];
+  v35 = objc_getProperty(self, v34, 88, 1);
+  v37 = objc_getProperty(self, v36, 96, 1);
+  v39 = objc_getProperty(self, v38, 104, 1);
+  v40 = v35;
+  v41 = v37;
+  v99 = v39;
   objc_opt_self();
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
   v111 = 0u;
-  v43 = v41;
-  v44 = [v43 countByEnumeratingWithState:&v110 objects:buf count:16];
-  if (!v44)
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  v42 = v40;
+  v43 = [v42 countByEnumeratingWithState:&v109 objects:buf count:16];
+  if (!v43)
   {
-    v46 = 0;
     v45 = 0;
-    v54 = v43;
+    v44 = 0;
+    v53 = v42;
     goto LABEL_56;
   }
 
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
-  v47 = *v111;
+  v46 = *v110;
   while (2)
   {
-    v48 = 0;
+    v47 = 0;
     while (2)
     {
-      if (*v111 != v47)
+      if (*v110 != v46)
       {
-        objc_enumerationMutation(v43);
+        objc_enumerationMutation(v42);
       }
 
-      v49 = *(*(&v110 + 1) + 8 * v48);
+      v48 = *(*(&v109 + 1) + 8 * v47);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v50 = [v49 address];
-        v51 = [v50 hostname];
-        v52 = v46;
-        v46 = v51;
+        v49 = [v48 address];
+        v50 = [v49 hostname];
+        v51 = v45;
+        v45 = v50;
         goto LABEL_46;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v50 = [v49 address];
-        v53 = [v50 hostname];
-        v52 = v45;
-        v45 = v53;
+        v49 = [v48 address];
+        v52 = [v49 hostname];
+        v51 = v44;
+        v44 = v52;
 LABEL_46:
       }
 
-      if (v44 != ++v48)
+      if (v43 != ++v47)
       {
         continue;
       }
@@ -6633,8 +5471,8 @@ LABEL_46:
       break;
     }
 
-    v44 = [v43 countByEnumeratingWithState:&v110 objects:buf count:16];
-    if (v44)
+    v43 = [v42 countByEnumeratingWithState:&v109 objects:buf count:16];
+    if (v43)
     {
       continue;
     }
@@ -6642,101 +5480,101 @@ LABEL_46:
     break;
   }
 
-  if (v46)
+  if (v45)
   {
-    v54 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v46, 0}];
-    if (v45)
+    v53 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v45, 0}];
+    if (v44)
     {
-      v55 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v45, 0}];
+      v54 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v44, 0}];
     }
 
     else
     {
-      v55 = 0;
+      v54 = 0;
     }
 
-    v44 = [[NEIPv4Settings alloc] initWithAddresses:v54 subnetMasks:v55];
-    v56 = [NEIKEv2Helper createRouteArrayFromTunnelConfig:v43 localTS:v42 remoteTS:v100 gatewayAddress:v46 isIPv4:1];
-    [(NEIPv4Settings *)v44 setIncludedRoutes:v56];
+    v43 = [[NEIPv4Settings alloc] initWithAddresses:v53 subnetMasks:v54];
+    v55 = [NEIKEv2Helper createRouteArrayFromTunnelConfig:v42 localTS:v41 remoteTS:v99 gatewayAddress:v45 isIPv4:1];
+    [(NEIPv4Settings *)v43 setIncludedRoutes:v55];
 
 LABEL_56:
   }
 
   else
   {
-    v44 = 0;
+    v43 = 0;
   }
 
-  [(NEPacketTunnelNetworkSettings *)v97 setIPv4Settings:v44];
-  v58 = objc_getProperty(self, v57, 88, 1);
-  v60 = objc_getProperty(self, v59, 96, 1);
-  v62 = objc_getProperty(self, v61, 104, 1);
-  v63 = v58;
-  v64 = v60;
-  v101 = v62;
+  [(NEPacketTunnelNetworkSettings *)v96 setIPv4Settings:v43];
+  v57 = objc_getProperty(self, v56, 88, 1);
+  v59 = objc_getProperty(self, v58, 96, 1);
+  v61 = objc_getProperty(self, v60, 104, 1);
+  v62 = v57;
+  v63 = v59;
+  v100 = v61;
   objc_opt_self();
-  v112 = 0u;
-  v113 = 0u;
-  v110 = 0u;
   v111 = 0u;
-  v65 = v63;
-  v66 = [(__CFString *)v65 countByEnumeratingWithState:&v110 objects:buf count:16];
-  if (!v66)
+  v112 = 0u;
+  v109 = 0u;
+  v110 = 0u;
+  v64 = v62;
+  v65 = [(__CFString *)v64 countByEnumeratingWithState:&v109 objects:buf count:16];
+  if (!v65)
   {
-    v81 = 0;
-    v68 = v65;
+    v80 = 0;
+    v67 = v64;
     goto LABEL_73;
   }
 
+  v66 = 0;
   v67 = 0;
-  v68 = 0;
-  v69 = *v111;
+  v68 = *v110;
   do
   {
-    for (i = 0; i != v66; ++i)
+    for (i = 0; i != v65; ++i)
     {
-      if (*v111 != v69)
+      if (*v110 != v68)
       {
-        objc_enumerationMutation(v65);
+        objc_enumerationMutation(v64);
       }
 
-      v71 = *(*(&v110 + 1) + 8 * i);
+      v70 = *(*(&v109 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v72 = [v71 address];
-        v73 = [v72 hostname];
+        v71 = [v70 address];
+        v72 = [v71 hostname];
 
-        v67 = [v71 prefix];
-        v68 = v73;
+        v66 = [v70 prefix];
+        v67 = v72;
       }
     }
 
-    v66 = [(__CFString *)v65 countByEnumeratingWithState:&v110 objects:buf count:16];
+    v65 = [(__CFString *)v64 countByEnumeratingWithState:&v109 objects:buf count:16];
   }
 
-  while (v66);
+  while (v65);
 
-  if (v68)
+  if (v67)
   {
-    v74 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v68, 0}];
-    v75 = objc_alloc(MEMORY[0x1E695DEC8]);
-    v76 = [MEMORY[0x1E696AD98] numberWithInt:v67];
-    v77 = [v75 initWithObjects:{v76, 0}];
+    v73 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{v67, 0}];
+    v74 = objc_alloc(MEMORY[0x1E695DEC8]);
+    v75 = [MEMORY[0x1E696AD98] numberWithInt:v66];
+    v76 = [v74 initWithObjects:{v75, 0}];
 
-    v78 = [[NEIPv6Settings alloc] initWithAddresses:v74 networkPrefixLengths:v77];
-    v79 = NECreateIPv6SubnetAddressWithPrefix(v68, v67);
-    if (v79)
+    v77 = [[NEIPv6Settings alloc] initWithAddresses:v73 networkPrefixLengths:v76];
+    v78 = NECreateIPv6SubnetAddressWithPrefix(v67, v66);
+    if (v78)
     {
-      v80 = [NEIKEv2Helper createRouteArrayFromTunnelConfig:v65 localTS:v64 remoteTS:v101 gatewayAddress:v79 isIPv4:0];
-      [(NEIPv6Settings *)v78 setIncludedRoutes:v80];
+      v79 = [NEIKEv2Helper createRouteArrayFromTunnelConfig:v64 localTS:v63 remoteTS:v100 gatewayAddress:v78 isIPv4:0];
+      [(NEIPv6Settings *)v77 setIncludedRoutes:v79];
 
-      v81 = v78;
+      v80 = v77;
     }
 
     else
     {
-      v81 = 0;
+      v80 = 0;
     }
 
 LABEL_73:
@@ -6744,14 +5582,14 @@ LABEL_73:
 
   else
   {
-    v81 = 0;
+    v80 = 0;
   }
 
-  [(NEPacketTunnelNetworkSettings *)v97 setIPv6Settings:v81];
-  v82 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1280];
-  [(NEPacketTunnelNetworkSettings *)v97 setMTU:v82];
+  [(NEPacketTunnelNetworkSettings *)v96 setIPv6Settings:v80];
+  v81 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:1280];
+  [(NEPacketTunnelNetworkSettings *)v96 setMTU:v81];
 
-  if (!v97)
+  if (!v96)
   {
 LABEL_29:
     v31 = ne_log_obj();
@@ -6762,18 +5600,18 @@ LABEL_29:
       _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "%@: Stopping tunnel because create tunnel settings failed", buf, 0xCu);
     }
 
-    v32 = v105[5];
+    v32 = v104[5];
     if (v32)
     {
       *(v32 + 77) = 1;
     }
 
-    v103[0] = MEMORY[0x1E69E9820];
-    v103[1] = 3221225472;
-    v103[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke;
-    v103[3] = &unk_1E7F087B8;
-    v103[4] = &v104;
-    [(NEIKEv2PacketTunnelProvider *)self stopIKEv2TunnelWithReason:v103 completionHandler:?];
+    v102[0] = MEMORY[0x1E69E9820];
+    v102[1] = 3221225472;
+    v102[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke;
+    v102[3] = &unk_1E7F087B8;
+    v102[4] = &v103;
+    [(NEIKEv2PacketTunnelProvider *)self stopIKEv2TunnelWithReason:v102 completionHandler:?];
     v33 = 0;
     goto LABEL_34;
   }
@@ -6781,78 +5619,77 @@ LABEL_29:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v115 = __Block_byref_object_copy__12503;
-  v116 = __Block_byref_object_dispose__12504;
-  v83 = self;
-  v117 = v83;
-  v102[0] = MEMORY[0x1E69E9820];
-  v102[1] = 3221225472;
-  v102[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke_2;
-  v102[3] = &unk_1E7F087E0;
-  v102[4] = buf;
-  [v83 setTunnelNetworkSettings:v97 completionHandler:v102];
-  v85 = objc_getProperty(v83, v84, 240, 1);
-  v87 = v85;
-  if (v85)
+  v114 = __Block_byref_object_copy__12503;
+  v115 = __Block_byref_object_dispose__12504;
+  v82 = self;
+  v116 = v82;
+  v101[0] = MEMORY[0x1E69E9820];
+  v101[1] = 3221225472;
+  v101[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke_2;
+  v101[3] = &unk_1E7F087E0;
+  v101[4] = buf;
+  [v82 setTunnelNetworkSettings:v96 completionHandler:v101];
+  v84 = objc_getProperty(v82, v83, 240, 1);
+  v86 = v84;
+  if (v84)
   {
-    v88 = objc_getProperty(v85, v86, 352, 1);
-    if (v88)
+    v87 = objc_getProperty(v84, v85, 352, 1);
+    if (v87)
     {
-      v89 = v88[12];
+      v88 = v87[12];
       goto LABEL_78;
     }
   }
 
   else
   {
-    v88 = 0;
+    v87 = 0;
   }
 
-  v89 = 0;
+  v88 = 0;
 LABEL_78:
-  v83[76] = v89 & 1;
+  v82[76] = v88 & 1;
 
-  v91 = objc_getProperty(v83, v90, 240, 1);
-  v93 = v91;
-  if (v91)
+  v90 = objc_getProperty(v82, v89, 240, 1);
+  v92 = v90;
+  if (v90)
   {
-    v94 = objc_getProperty(v91, v92, 352, 1);
-    if (v94)
+    v93 = objc_getProperty(v90, v91, 352, 1);
+    if (v93)
     {
-      v95 = v94[11];
+      v94 = v93[11];
       goto LABEL_81;
     }
   }
 
   else
   {
-    v94 = 0;
+    v93 = 0;
   }
 
-  v95 = 0;
+  v94 = 0;
 LABEL_81:
-  v83[79] = v95 & 1;
+  v82[79] = v94 & 1;
 
   _Block_object_dispose(buf, 8);
-  v33 = v97;
+  v33 = v96;
 LABEL_34:
 
 LABEL_35:
-  _Block_object_dispose(&v104, 8);
-
-  v34 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v103, 8);
 }
 
-void sub_1BA962EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_1BA962EFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose(&a39, 8);
+  va_start(va, a38);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a25, 8);
   _Unwind_Resume(a1);
 }
 
 void __NEIKEv2PacketTunnelHandleConnected_block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 32);
   Property = *(*(v5 + 8) + 40);
@@ -6918,25 +5755,23 @@ void __NEIKEv2PacketTunnelHandleConnected_block_invoke_2(uint64_t a1, void *a2)
       v17 = v16;
       v18 = [v16 interfaceName];
       *buf = 138412546;
-      v22 = v10;
-      v23 = 2112;
-      v24 = v18;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v18;
       _os_log_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEFAULT, "%@: Tunnel Status: UP - (scoped to %@)", buf, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __NEIKEv2PacketTunnelHandleConnected_block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(*(*(a1 + 32) + 8) + 40);
+    v6 = *(*(*(a1 + 32) + 8) + 40);
     *buf = 138412290;
-    v10 = v7;
+    v9 = v6;
     _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@: Stopping tunnel due to set tunnel network settings failed", buf, 0xCu);
   }
 
@@ -6954,13 +5789,12 @@ void __NEIKEv2PacketTunnelHandleConnected_block_invoke_3(uint64_t a1)
     v5 = 0;
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke_368;
-  v8[3] = &unk_1E7F087B8;
-  v8[4] = v3;
-  [(NEIKEv2PacketTunnelProvider *)v5 stopIKEv2TunnelWithReason:v8 completionHandler:?];
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __NEIKEv2PacketTunnelHandleConnected_block_invoke_368;
+  v7[3] = &unk_1E7F087B8;
+  v7[4] = v3;
+  [(NEIKEv2PacketTunnelProvider *)v5 stopIKEv2TunnelWithReason:v7 completionHandler:?];
 }
 
 void sub_1BA963CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -6970,9 +5804,9 @@ void sub_1BA963CC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1BA9641DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1BA9641DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6987,7 +5821,7 @@ void __NEIKEv2CompanionDatapathCopyQueue_block_invoke()
 
 void __NEIKEv2PacketTunnelProviderGetSocket_block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
@@ -7003,13 +5837,13 @@ void __NEIKEv2PacketTunnelProviderGetSocket_block_invoke(uint64_t a1, void *a2)
       v6 = "PFKEY";
     }
 
-    v15 = 136315650;
-    v16 = "NEIKEv2PacketTunnelProviderGetSocket_block_invoke";
-    v17 = 2112;
-    v18 = v5;
-    v19 = 2080;
-    v20 = v6;
-    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "%s: %@: completion handler invoked for %s socket request", &v15, 0x20u);
+    v14 = 136315650;
+    v15 = "NEIKEv2PacketTunnelProviderGetSocket_block_invoke";
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2080;
+    v19 = v6;
+    _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_INFO, "%s: %@: completion handler invoked for %s socket request", &v14, 0x20u);
   }
 
   if (v3)
@@ -7020,13 +5854,13 @@ void __NEIKEv2PacketTunnelProviderGetSocket_block_invoke(uint64_t a1, void *a2)
     {
       v9 = *(a1 + 32);
       v10 = *(*(*(a1 + 40) + 8) + 24);
-      v15 = 136315650;
-      v16 = "NEIKEv2PacketTunnelProviderGetSocket_block_invoke";
-      v17 = 2112;
-      v18 = v9;
-      v19 = 1024;
-      LODWORD(v20) = v10;
-      _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%s: %@: Got socket %d", &v15, 0x1Cu);
+      v14 = 136315650;
+      v15 = "NEIKEv2PacketTunnelProviderGetSocket_block_invoke";
+      v16 = 2112;
+      v17 = v9;
+      v18 = 1024;
+      LODWORD(v19) = v10;
+      _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%s: %@: Got socket %d", &v14, 0x1Cu);
     }
 
     close([v3 fileDescriptor]);
@@ -7043,8 +5877,6 @@ void __NEIKEv2PacketTunnelProviderGetSocket_block_invoke(uint64_t a1, void *a2)
 
     dispatch_semaphore_signal(Property);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __NEIKEv2PacketTunnelProviderCopyQueue_block_invoke()
@@ -7273,62 +6105,60 @@ uint64_t ne_loopback_connected(uint64_t result, uint64_t a2)
 
 void ne_loopback_output_finished(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 40);
-  v7 = v1;
+  v6 = v1;
   if (v1)
   {
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = v7[17];
+      v3 = v6[17];
       *buf = 134218240;
-      v9 = v3;
-      v10 = 1024;
-      v11 = nw_frame_array_unclaimed_length();
+      v8 = v3;
+      v9 = 1024;
+      v10 = nw_frame_array_unclaimed_length();
       _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEFAULT, "Loopback received output finished with %llu bytes received, current input bytes %u", buf, 0x12u);
     }
 
-    v1 = v7;
-    v4 = v7[11];
+    v1 = v6;
+    v4 = v6[11];
     if (v4)
     {
       v5 = *(*(v4 + 24) + 184);
       if (v5)
       {
         v5();
-        v1 = v7;
+        v1 = v6;
       }
     }
   }
 
   [(NELoopbackConnection *)v1 notifyInputHandler];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t ne_loopback_finalize_output_frames(uint64_t a1)
+uint64_t ne_loopback_finalize_output_frames(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
+  v2 = *(a1 + 40);
   nw_frame_array_foreach();
-  [(NELoopbackConnection *)v1 notifyInputHandler];
+  [(NELoopbackConnection *)v2 notifyInputHandler];
 
   return 1;
 }
 
 uint64_t __ne_loopback_finalize_output_frames_block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   nw_frame_array_remove();
   nw_frame_finalize();
 
   return 1;
 }
 
-uint64_t ne_loopback_get_output_frames(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
+uint64_t ne_loopback_get_output_frames(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, int a5, uint64_t a6)
 {
-  v5 = *(a1 + 40);
-  if (!v5)
+  v6 = *(a1 + 40);
+  if (!v6)
   {
     return 0;
   }
@@ -7337,51 +6167,51 @@ uint64_t ne_loopback_get_output_frames(uint64_t a1, uint64_t a2, uint64_t a3, un
   result = 0;
   if (a4 && a5)
   {
-    v9 = 0;
-    v10 = *(v5 + 128);
+    v10 = 0;
+    v11 = *(v6 + 128);
     while (1)
     {
-      v11 = *(v5 + 8 + 8 * v10);
-      v12 = v11 >= a4 ? a4 : v11;
-      if (!malloc_type_malloc(v12, 0x100004077774924uLL))
+      v12 = *(v6 + 8 + 8 * v11);
+      v13 = v12 >= a4 ? a4 : v12;
+      if (!malloc_type_malloc(v13, 0x100004077774924uLL))
       {
         break;
       }
 
       nw_frame_create();
       nw_frame_array_append();
-      v13 = *(v5 + 128);
-      if (v13 == 3)
+      v14 = *(v6 + 128);
+      if (v14 == 3)
       {
-        v10 = 0;
+        v11 = 0;
       }
 
       else
       {
-        v10 = v13 + 1;
+        v11 = v14 + 1;
       }
 
-      *(v5 + 128) = v10;
-      a4 -= v12;
-      result = (v9 + 1);
+      *(v6 + 128) = v11;
+      a4 -= v13;
+      result = (v10 + 1);
       if (a4)
       {
-        v14 = a5 - 1 == v9;
+        v15 = a5 - 1 == v10;
       }
 
       else
       {
-        v14 = 1;
+        v15 = 1;
       }
 
-      v9 = (v9 + 1);
-      if (v14)
+      v10 = (v10 + 1);
+      if (v15)
       {
         return result;
       }
     }
 
-    return v9;
+    return v10;
   }
 
   return result;
@@ -7417,13 +6247,12 @@ void ne_loopback_input_frame_finalizer(void *a1)
   free(buffer);
 }
 
-uint64_t ne_loopback_get_input_frames(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5)
+uint64_t ne_loopback_get_input_frames(uint64_t a1, uint64_t a2, unsigned int a3, unsigned int a4, unsigned int a5, uint64_t a6)
 {
   v33 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 40))
   {
-    v11 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   v24 = 0;
@@ -7433,16 +6262,16 @@ uint64_t ne_loopback_get_input_frames(uint64_t a1, uint64_t a2, unsigned int a3,
   nw_frame_array_init();
   if (!a4 || !a5)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109376;
       *&buf[4] = a5;
       LOWORD(v29) = 1024;
       *(&v29 + 2) = a4;
-      v9 = "Maximum frame count (%u) and/or maximum byte count (%u) is 0";
-      v10 = buf;
-      v14 = v8;
+      v10 = "Maximum frame count (%u) and/or maximum byte count (%u) is 0";
+      v11 = buf;
+      v14 = v9;
       v15 = 14;
       goto LABEL_27;
     }
@@ -7452,17 +6281,17 @@ uint64_t ne_loopback_get_input_frames(uint64_t a1, uint64_t a2, unsigned int a3,
 
   if (nw_frame_array_is_empty())
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      v9 = "No input data currently available";
-      v10 = buf;
+      v10 = "No input data currently available";
+      v11 = buf;
 LABEL_15:
-      v14 = v8;
+      v14 = v9;
       v15 = 2;
 LABEL_27:
-      _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, v9, v10, v15);
+      _os_log_debug_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_DEBUG, v10, v11, v15);
       goto LABEL_8;
     }
 
@@ -7477,23 +6306,23 @@ LABEL_27:
   nw_frame_array_foreach();
   if (*(v25 + 6) < a3)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = ne_log_obj();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       v23 = 0;
-      v9 = "Not enough data available to meet the required minimum";
-      v10 = &v23;
+      v10 = "Not enough data available to meet the required minimum";
+      v11 = &v23;
       goto LABEL_15;
     }
 
 LABEL_8:
-    v11 = 0;
+    v12 = 0;
     goto LABEL_9;
   }
 
   nw_frame_array_first();
-  v8 = v11 = 0;
-  if (!v8)
+  v9 = v12 = 0;
+  if (!v9)
   {
     goto LABEL_10;
   }
@@ -7501,7 +6330,7 @@ LABEL_8:
   v16 = 0;
   do
   {
-    if (v11 >= a5)
+    if (v12 >= a5)
     {
       break;
     }
@@ -7518,8 +6347,8 @@ LABEL_8:
       nw_frame_array_remove();
       nw_frame_array_append();
       v16 += nw_frame_unclaimed_length();
-      v21 = v8;
-      v8 = v18;
+      v21 = v9;
+      v9 = v18;
     }
 
     else
@@ -7540,22 +6369,20 @@ LABEL_8:
       v16 = a4;
     }
 
-    v11 = (v11 + 1);
+    v12 = (v12 + 1);
   }
 
-  while (v8);
+  while (v9);
 LABEL_9:
 
 LABEL_10:
   _Block_object_dispose(&v24, 8);
-LABEL_11:
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
-void sub_1BA96B0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1BA96B0FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7649,9 +6476,9 @@ __CFString *NEIKEv2CreateSessionStateString(unint64_t a1)
   }
 }
 
-void sub_1BA976C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1BA976C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7715,60 +6542,59 @@ uint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_2(uint64_t a1, 
 
 void __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_9(uint64_t a1, void *a2, uint64_t a3, size_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = a2;
   nw_framer_write_output(v5, _block_invoke_nonESPMarker, 4uLL);
   v6 = ne_log_obj();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 134217984;
-    v9 = a4;
-    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "UDP-NAT-T: Writing frame length %zu for NAT-T", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = a4;
+    _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "UDP-NAT-T: Writing frame length %zu for NAT-T", &v7, 0xCu);
   }
 
   nw_framer_write_output_no_copy(v5, a4);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = MEMORY[0x1E69E9820];
   while (1)
   {
-    v17 = 0;
-    v18 = &v17;
-    v19 = 0x2020000000;
-    v20 = 0;
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x2020000000;
     v16 = 0;
+    v17 = &v16;
+    v18 = 0x2020000000;
+    v19 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x2020000000;
+    v15 = 0;
     parse[0] = v3;
     parse[1] = 3221225472;
     parse[2] = __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_4;
     parse[3] = &unk_1E7F08CF0;
-    parse[4] = &v17;
-    parse[5] = &v13;
+    parse[4] = &v16;
+    parse[5] = &v12;
     if (!nw_framer_parse_input(v2, 1uLL, 0xFFFFFFFFuLL, 0, parse))
     {
       break;
     }
 
-    if (v14[3])
+    if (v13[3])
     {
-      if (*(v18 + 6))
+      if (*(v17 + 6))
       {
         v4 = ne_log_obj();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
-          v8 = v14[3];
-          v9 = bswap32(*(v18 + 6));
+          v8 = v13[3];
+          v9 = bswap32(*(v17 + 6));
           *buf = 134218240;
-          v22 = v8;
-          v23 = 1024;
-          v24 = v9;
+          v21 = v8;
+          v22 = 1024;
+          v23 = v9;
           _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "UDP-NAT-T: Reading frame length %zu for NAT-T, unexpected non-zero marker %04X", buf, 0x12u);
         }
       }
@@ -7778,15 +6604,15 @@ uint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_3(uint64_t a1, 
         v4 = ne_log_obj();
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          v7 = v14[3];
+          v7 = v13[3];
           *buf = 134217984;
-          v22 = v7;
+          v21 = v7;
           _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "UDP-NAT-T: Reading frame length %zu for NAT-T", buf, 0xCu);
         }
       }
 
       v5 = nw_framer_message_create(v2);
-      v6 = nw_framer_deliver_input_no_copy(v2, v14[3], v5, 1);
+      v6 = nw_framer_deliver_input_no_copy(v2, v13[3], v5, 1);
 
       if (!v6)
       {
@@ -7794,31 +6620,30 @@ uint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_3(uint64_t a1, 
       }
     }
 
-    _Block_object_dispose(&v13, 8);
-    _Block_object_dispose(&v17, 8);
+    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v16, 8);
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v16, 8);
 
-  v10 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
-void sub_1BA982FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA982FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_4(uint64_t a1, _DWORD *a2, unint64_t a3, int a4)
+unint64_t __NEIKEv2TransportCopyNATTFramerDefinition_block_invoke_4(uint64_t a1, _DWORD *a2, unint64_t a3, int a4)
 {
   v4 = 0;
   if (a2)
@@ -7871,63 +6696,62 @@ uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_2(uint64_t a1, v
 
 void __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_20(uint64_t a1, void *a2, uint64_t a3, size_t a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a4 + 6;
   *output_buffer = bswap32(a4 + 6) >> 16;
-  v10 = 0;
+  v9 = 0;
   v6 = a2;
   nw_framer_write_output(v6, output_buffer, 6uLL);
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109376;
-    v12 = v5;
-    v13 = 1024;
-    v14 = v10;
+    v11 = v5;
+    v12 = 1024;
+    v13 = v9;
     _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "IKE-TCP: Writing frame of length %u for SPI %04X", buf, 0xEu);
   }
 
   nw_framer_write_output_no_copy(v6, a4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_3(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E69E9820];
   do
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
     v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
+    v16 = 0;
     *temp_buffer = 0;
     parse[0] = v4;
     parse[1] = 3221225472;
     parse[2] = __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_4;
     parse[3] = &unk_1E7F08D38;
-    v15 = &v18;
+    v14 = &v17;
     v5 = v3;
-    v14 = v5;
+    v13 = v5;
     if (nw_framer_parse_input(v5, 6uLL, 6uLL, temp_buffer, parse))
     {
-      if (*(v19 + 6))
+      if (*(v18 + 6))
       {
         v6 = ne_log_obj();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v10 = *(v19 + 6);
+          v10 = *(v18 + 6);
           *buf = 67109376;
-          v23 = v10;
-          v24 = 1024;
-          v25 = 0;
+          v22 = v10;
+          v23 = 1024;
+          v24 = 0;
           _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "IKE-TCP: Reading frame of length %u for SPI %04X", buf, 0xEu);
         }
 
         v7 = nw_framer_message_create(v5);
-        v8 = nw_framer_deliver_input_no_copy(v5, *(v19 + 6), v7, 1);
+        v8 = nw_framer_deliver_input_no_copy(v5, *(v18 + 6), v7, 1);
         v9 = v8;
         if (!v8)
         {
@@ -7948,18 +6772,17 @@ uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_3(uint64_t a1, v
       v2 = 6;
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   while (v9);
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-void sub_1BA983410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA983410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7967,7 +6790,7 @@ void sub_1BA983410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_4(uint64_t a1, unsigned __int16 *a2, unint64_t a3)
 {
   result = 0;
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a2 && a3 >= 6)
   {
     *(*(*(a1 + 40) + 8) + 24) = bswap32(*a2) >> 16;
@@ -7978,13 +6801,13 @@ uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_4(uint64_t a1, u
       if (*(a2 + 1))
       {
         *(v5 + 24) = v6 - 2;
-        result = 2;
+        return 2;
       }
 
       else
       {
         *(v5 + 24) = v6 - 6;
-        result = 6;
+        return 6;
       }
     }
 
@@ -7993,18 +6816,17 @@ uint64_t __NEIKEv2TransportCopyTCPFramerDefinition_block_invoke_4(uint64_t a1, u
       v7 = ne_log_obj();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v9 = *(*(*(a1 + 40) + 8) + 24);
-        v10[0] = 67109120;
-        v10[1] = v9;
-        _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "IKE-TCP: Received invalid frame length %u", v10, 8u);
+        v8 = *(*(*(a1 + 40) + 8) + 24);
+        v9[0] = 67109120;
+        v9[1] = v8;
+        _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "IKE-TCP: Received invalid frame length %u", v9, 8u);
       }
 
       nw_framer_mark_failed_with_error(*(a1 + 32), 40);
-      result = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8015,9 +6837,9 @@ void sub_1BA98370C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t NEIPSecDBCreateSessionWithSocket(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
+void *NEIPSecDBCreateSessionWithSocket(uint64_t a1, const void *a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (__NEIPSecDBInitialize_onceToken != -1)
   {
     dispatch_once(&__NEIPSecDBInitialize_onceToken, &__block_literal_global_14276);
@@ -8025,14 +6847,14 @@ uint64_t NEIPSecDBCreateSessionWithSocket(uint64_t a1, const void *a2, uint64_t 
 
   if (!g_IPSecDBSessions)
   {
-    goto LABEL_14;
+    return 0;
   }
 
   Instance = _CFRuntimeCreateInstance();
   v10 = Instance;
   if (!Instance)
   {
-    goto LABEL_15;
+    return v10;
   }
 
   *(Instance + 104) = 0;
@@ -8058,27 +6880,10 @@ uint64_t NEIPSecDBCreateSessionWithSocket(uint64_t a1, const void *a2, uint64_t 
   v12 = _NEIPSecDBGetQueue();
   v13 = NEPFKeyOpen(v12, NEIPSecDBReceivePFKeyMessage, v10, a5);
   *(v10 + 64) = v13;
-  if (!v13)
+  if (!v13 || (pfkey_send_x3(v13, 7, 2u), pfkey_send_x3(*(v10 + 64), 7, 3u), *(v10 + 72) = 0x100000001, v14 = *MEMORY[0x1E695E480], v15 = MEMORY[0x1E695E9D8], v16 = MEMORY[0x1E695E9E8], *(v10 + 80) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]), Mutable = CFDictionaryCreateMutable(v14, 0, v15, v16), *(v10 + 88) = Mutable, !*(v10 + 80)) || !Mutable)
   {
-    goto LABEL_13;
-  }
-
-  pfkey_send_x3(v13, 7, 2u);
-  pfkey_send_x3(*(v10 + 64), 7, 3u);
-  *(v10 + 72) = 0x100000001;
-  v14 = *MEMORY[0x1E695E480];
-  v15 = MEMORY[0x1E695E9D8];
-  v16 = MEMORY[0x1E695E9E8];
-  *(v10 + 80) = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  Mutable = CFDictionaryCreateMutable(v14, 0, v15, v16);
-  *(v10 + 88) = Mutable;
-  if (!*(v10 + 80) || !Mutable)
-  {
-LABEL_13:
     CFRelease(v10);
-LABEL_14:
-    v10 = 0;
-    goto LABEL_15;
+    return 0;
   }
 
   v18 = _NEIPSecDBGetQueue();
@@ -8092,18 +6897,16 @@ LABEL_14:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v24 = v10;
+    v23 = v10;
     _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_INFO, "Created a new NEIPSecDB session %@", buf, 0xCu);
   }
 
-LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
-const __CFDictionary *NEIPSecDBGetSAWithMessage(uint64_t a1, uint64_t *a2, void *a3)
+const __CFDictionary *NEIPSecDBGetSAWithMessage(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     *a3 = -1;
@@ -8114,7 +6917,7 @@ const __CFDictionary *NEIPSecDBGetSAWithMessage(uint64_t a1, uint64_t *a2, void 
     v22 = ne_log_obj();
     if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_39;
+      return 0;
     }
 
     *buf = 138412290;
@@ -8122,7 +6925,7 @@ const __CFDictionary *NEIPSecDBGetSAWithMessage(uint64_t a1, uint64_t *a2, void 
     v23 = "%@ pfkey received message is NULL";
 LABEL_36:
     _os_log_error_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_ERROR, v23, buf, 0xCu);
-    goto LABEL_39;
+    return 0;
   }
 
   v5 = *a2;
@@ -8142,7 +6945,7 @@ LABEL_36:
     v22 = ne_log_obj();
     if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_39;
+      return 0;
     }
 
     *buf = 138412290;
@@ -8162,19 +6965,23 @@ LABEL_36:
       _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_INFO, "%@ pfkey received SA is NULL", buf, 0xCu);
     }
 
-    goto LABEL_39;
+    return 0;
   }
 
   v9 = *(a1 + 80);
-  if (!v9 || (Count = CFDictionaryGetCount(v9)) == 0)
+  if (!v9)
   {
-LABEL_39:
-    v25 = 0;
-    goto LABEL_40;
+    return 0;
+  }
+
+  Count = CFDictionaryGetCount(v9);
+  if (!Count)
+  {
+    return 0;
   }
 
   v11 = Count;
-  v29 = v7;
+  v28 = v7;
   v12 = malloc_type_calloc(Count, 8uLL, 0x6004044C4A2DFuLL);
   v13 = malloc_type_calloc(v11, 8uLL, 0x80040B8603338uLL);
   CFDictionaryGetKeysAndValues(*(a1 + 80), v12, v13);
@@ -8183,7 +6990,7 @@ LABEL_39:
 LABEL_41:
     v15 = 0;
     v25 = 0;
-    v28 = v12;
+    v27 = v12;
     if (v12)
     {
       goto LABEL_42;
@@ -8196,8 +7003,8 @@ LABEL_41:
   while (1)
   {
     *buf = 0;
-    v32 = 0;
     v31 = 0;
+    v30 = 0;
     v15 = v13[v14];
     Value = CFDictionaryGetValue(v15, @"Direction");
     if (Value)
@@ -8228,12 +7035,12 @@ LABEL_18:
       v20 = 0;
     }
 
-    if (!NEIPSecDBFilloutBasicSAInfo(v15, &v31 + 1, &v31, &v32, v19, v20, 0))
+    if (!NEIPSecDBFilloutBasicSAInfo(v15, &v30 + 1, &v30, &v31, v19, v20, 0))
     {
       goto LABEL_28;
     }
 
-    if (v32 && v32 != *(v8 + 4) || HIBYTE(v31) != *(v5 + 3))
+    if (v31 && v31 != *(v8 + 4) || HIBYTE(v30) != *(v5 + 3))
     {
       v21 = *buf;
       if (!*buf)
@@ -8247,7 +7054,7 @@ LABEL_27:
     }
 
     v21 = *buf;
-    if (NEIPSecDBAddressesMatch(*buf, v29))
+    if (NEIPSecDBAddressesMatch(*buf, v28))
     {
       break;
     }
@@ -8265,7 +7072,7 @@ LABEL_28:
   }
 
   valuePtr = 0;
-  v28 = v12;
+  v27 = v12;
   CFNumberGetValue(v12[v14], kCFNumberCFIndexType, &valuePtr);
   if (*buf)
   {
@@ -8278,7 +7085,7 @@ LABEL_28:
   }
 
 LABEL_42:
-  free(v28);
+  free(v27);
   v25 = v15;
 LABEL_43:
   if (v13)
@@ -8286,8 +7093,6 @@ LABEL_43:
     free(v13);
   }
 
-LABEL_40:
-  v26 = *MEMORY[0x1E69E9840];
   return v25;
 }
 
@@ -8318,18 +7123,18 @@ BOOL NEIPSecDBAddressesMatch(uint64_t a1, uint64_t a2)
 
 void NEIPSecDBNotifyClient(uint64_t a1, int a2, int a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (a1 && *(a1 + 32) && (*(a1 + 56) & 1) == 0 && *(a1 + 48))
   {
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v13 = a1;
-      v14 = 1024;
-      v15 = a3;
-      v16 = 1024;
-      v17 = a2;
+      v12 = a1;
+      v13 = 1024;
+      v14 = a3;
+      v15 = 1024;
+      v16 = a2;
       _os_log_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_INFO, "%@ received notification %#x for SAID %u", buf, 0x18u);
     }
 
@@ -8339,14 +7144,12 @@ void NEIPSecDBNotifyClient(uint64_t a1, int a2, int a3)
     block[1] = 0x40000000;
     block[2] = __NEIPSecDBNotifyClient_block_invoke;
     block[3] = &__block_descriptor_tmp_307;
-    v10 = a2;
-    v11 = a3;
+    v9 = a2;
+    v10 = a3;
     block[4] = a1;
     block[5] = 0;
     dispatch_async(v7, block);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __NEIPSecDBNotifyClient_block_invoke(uint64_t a1)
@@ -8415,7 +7218,7 @@ void __NEIPSecDBDeallocate(uint64_t a1)
 
 BOOL NEIPSecDBSetDispatchQueue(uint64_t a1, dispatch_object_t object)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v4 = *(a1 + 48);
@@ -8431,93 +7234,90 @@ BOOL NEIPSecDBSetDispatchQueue(uint64_t a1, dispatch_object_t object)
       dispatch_retain(object);
     }
 
-    result = 1;
+    return 1;
   }
 
   else
   {
-    v7 = ne_log_obj();
-    result = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
+    v6 = ne_log_obj();
+    result = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT);
     if (result)
     {
-      v8 = 136315138;
-      v9 = "NEIPSecDBSetDispatchQueue";
-      _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "%s called with null session", &v8, 0xCu);
-      result = 0;
+      v7 = 136315138;
+      v8 = "NEIPSecDBSetDispatchQueue";
+      _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null session", &v7, 0xCu);
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t NEIPSecDBAddLarvalSA(uint64_t a1, CFTypeRef cf, _DWORD *a3)
 {
-  v52[3] = *MEMORY[0x1E69E9840];
+  v51[3] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-LABEL_42:
-      v23 = 0;
-      goto LABEL_36;
+      return 0;
     }
 
-    LODWORD(v46) = 136315138;
-    *(&v46 + 4) = "NEIPSecDBAddLarvalSA";
-    v27 = "%s called with null session";
+    LODWORD(v45) = 136315138;
+    *(&v45 + 4) = "NEIPSecDBAddLarvalSA";
+    v26 = "%s called with null session";
 LABEL_44:
-    _os_log_fault_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_FAULT, v27, &v46, 0xCu);
-    goto LABEL_42;
+    _os_log_fault_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_FAULT, v26, &v45, 0xCu);
+    return 0;
   }
 
   if (!*(a1 + 80))
   {
-    v26 = ne_log_obj();
-    if (!os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v25 = ne_log_obj();
+    if (!os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_42;
+      return 0;
     }
 
-    LODWORD(v46) = 136315138;
-    *(&v46 + 4) = "NEIPSecDBAddLarvalSA";
-    v27 = "%s called with null session->sas";
+    LODWORD(v45) = 136315138;
+    *(&v45 + 4) = "NEIPSecDBAddLarvalSA";
+    v26 = "%s called with null session->sas";
     goto LABEL_44;
   }
 
-  v39 = 0;
-  v37 = 0;
   v38 = 0;
+  v36 = 0;
+  v37 = 0;
   valuePtr = 0;
-  v35 = 0;
   v34 = 0;
-  memset(v52, 0, 24);
-  *buffer = 0;
-  v50 = 0;
-  v51 = 0;
-  *&v46 = 0;
-  *(&v46 + 1) = &v46;
-  v47 = 0x2000000000;
-  v48 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2000000000;
   v33 = 0;
+  memset(v51, 0, 24);
+  *buffer = 0;
+  v49 = 0;
+  v50 = 0;
+  *&v45 = 0;
+  *(&v45 + 1) = &v45;
+  v46 = 0x2000000000;
+  v47 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2000000000;
+  v32 = 0;
   if (!NEIPSecDBValidateSADictionary(cf, 1, 0))
   {
     v19 = ne_log_obj();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v41 = a1;
+      v40 = a1;
       _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "%@ add larval SA dictionary validation failed", buf, 0xCu);
     }
 
     goto LABEL_29;
   }
 
-  if (NEIPSecDBFilloutBasicSAInfo(cf, &v39 + 1, &v39, &v34, &v38, &v37, v52))
+  if (NEIPSecDBFilloutBasicSAInfo(cf, &v38 + 1, &v38, &v33, &v37, &v36, v51))
   {
     Value = CFDictionaryGetValue(cf, @"UniqueID");
     if (Value)
@@ -8529,7 +7329,7 @@ LABEL_44:
     v8 = v7;
     if (v7)
     {
-      CFNumberGetValue(v7, kCFNumberLongLongType, &v35);
+      CFNumberGetValue(v7, kCFNumberLongLongType, &v34);
     }
 
     if (CFDictionaryContainsKey(cf, @"OutgoingInterface"))
@@ -8546,17 +7346,17 @@ LABEL_44:
     block[3] = &unk_1E7F08E68;
     block[6] = a1;
     block[7] = v10;
-    block[4] = &v46;
-    block[5] = &v30;
+    block[4] = &v45;
+    block[5] = &v29;
     dispatch_sync(v11, block);
     if (v10)
     {
       CFRelease(v10);
     }
 
-    v12 = bswap32(v34);
-    v13 = v52;
-    if (!LOBYTE(v52[0]))
+    v12 = bswap32(v33);
+    v13 = v51;
+    if (!LOBYTE(v51[0]))
     {
       v13 = 0;
     }
@@ -8567,13 +7367,13 @@ LABEL_44:
       v14 = 0;
     }
 
-    *&v28 = v13;
-    *(&v28 + 1) = v14;
-    if (NEPFKeySendGetSPI(*(a1 + 64), HIBYTE(v39), v39, v37, v38, v12, v12, valuePtr, v8 != 0, v35, 0, 1u, v28))
+    *&v27 = v13;
+    *(&v27 + 1) = v14;
+    if (NEPFKeySendGetSPI(*(a1 + 64), HIBYTE(v38), v38, v36, v37, v12, v12, valuePtr, v8 != 0, v34, 0, 1u, v27))
     {
-      if (NEIPSecDBCopyResponseForQueuedRequest(v31[3], 0))
+      if (NEIPSecDBCopyResponseForQueuedRequest(v30[3], 0))
       {
-        v15 = NEIPSecDBGetSPIForSA(a1, *(*(&v46 + 1) + 24));
+        v15 = NEIPSecDBGetSPIForSA(a1, *(*(&v45 + 1) + 24));
         v16 = v15;
         if (a3)
         {
@@ -8583,13 +7383,13 @@ LABEL_44:
         v17 = ne_log_obj();
         if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
         {
-          v18 = *(*(&v46 + 1) + 24);
+          v18 = *(*(&v45 + 1) + 24);
           *buf = 138412802;
-          v41 = a1;
-          v42 = 1024;
-          v43 = v18;
-          v44 = 1024;
-          v45 = v16;
+          v40 = a1;
+          v41 = 1024;
+          v42 = v18;
+          v43 = 1024;
+          v44 = v16;
           _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_INFO, "%@ added larval SAID %u SPI %08X", buf, 0x18u);
         }
 
@@ -8603,7 +7403,7 @@ LABEL_44:
       }
 
       *buf = 138412290;
-      v41 = a1;
+      v40 = a1;
       v21 = "%@ add larval SA, failed to receive response for pfkey get spi";
     }
 
@@ -8613,13 +7413,13 @@ LABEL_44:
       if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
 LABEL_28:
-        NEIPSecDBRemoveSAIDFromSAs(a1, *(*(&v46 + 1) + 24));
-        *(*(&v46 + 1) + 24) = 0;
+        NEIPSecDBRemoveSAIDFromSAs(a1, *(*(&v45 + 1) + 24));
+        *(*(&v45 + 1) + 24) = 0;
         goto LABEL_29;
       }
 
       *buf = 138412290;
-      v41 = a1;
+      v40 = a1;
       v21 = "%@ add larval SA, pfkey send get spi failed";
     }
 
@@ -8628,41 +7428,37 @@ LABEL_28:
   }
 
 LABEL_29:
-  if (v38)
-  {
-    free(v38);
-  }
-
   if (v37)
   {
     free(v37);
   }
 
-  v22 = v31[3];
+  if (v36)
+  {
+    free(v36);
+  }
+
+  v22 = v30[3];
   if (v22)
   {
     NEIPSecDBRemoveQueuedRequest(v22);
-    free(v31[3]);
+    free(v30[3]);
   }
 
-  v23 = *(*(&v46 + 1) + 24);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v46, 8);
-LABEL_36:
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *(*(&v45 + 1) + 24);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v45, 8);
   return v23;
 }
 
 BOOL NEIPSecDBValidateSADictionary(CFTypeRef cf, char a2, char a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (NEInitCFTypes_onceToken == -1)
   {
     if (!cf)
     {
-LABEL_93:
-      result = 0;
-      goto LABEL_94;
+      return 0;
     }
   }
 
@@ -8671,14 +7467,14 @@ LABEL_93:
     dispatch_once(&NEInitCFTypes_onceToken, &__block_literal_global_25529);
     if (!cf)
     {
-      goto LABEL_93;
+      return 0;
     }
   }
 
   v6 = CFDICTIONARY_TYPE;
   if (CFGetTypeID(cf) != v6)
   {
-    goto LABEL_93;
+    return 0;
   }
 
   if (!NEGetValueWithType(cf, @"LocalAddress", CFSTRING_TYPE))
@@ -8687,17 +7483,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3713;
-    v17 = 2112;
-    v18 = @"LocalAddress";
-    v19 = 2048;
-    TypeID = CFSTRING_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3713;
+    v16 = 2112;
+    v17 = @"LocalAddress";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
     v9 = "%s:%d: value for key %@ is missing or type != %lu";
     goto LABEL_92;
   }
@@ -8708,17 +7504,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3714;
-    v17 = 2112;
-    v18 = @"RemoteAddress";
-    v19 = 2048;
-    TypeID = CFSTRING_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3714;
+    v16 = 2112;
+    v17 = @"RemoteAddress";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
     v9 = "%s:%d: value for key %@ is missing or type != %lu";
     goto LABEL_92;
   }
@@ -8729,17 +7525,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3715;
-    v17 = 2112;
-    v18 = @"LocalPrefix";
-    v19 = 2048;
-    TypeID = CFNUMBER_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3715;
+    v16 = 2112;
+    v17 = @"LocalPrefix";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
@@ -8750,17 +7546,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3716;
-    v17 = 2112;
-    v18 = @"RemotePrefix";
-    v19 = 2048;
-    TypeID = CFNUMBER_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3716;
+    v16 = 2112;
+    v17 = @"RemotePrefix";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
@@ -8771,17 +7567,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3717;
-    v17 = 2112;
-    v18 = @"LocalPort";
-    v19 = 2048;
-    TypeID = CFNUMBER_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3717;
+    v16 = 2112;
+    v17 = @"LocalPort";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
@@ -8792,17 +7588,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3718;
-    v17 = 2112;
-    v18 = @"RemotePort";
-    v19 = 2048;
-    TypeID = CFNUMBER_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3718;
+    v16 = 2112;
+    v17 = @"RemotePort";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
@@ -8813,17 +7609,17 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3719;
-    v17 = 2112;
-    v18 = @"IPSecInterface";
-    v19 = 2048;
-    TypeID = CFSTRING_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3719;
+    v16 = 2112;
+    v17 = @"IPSecInterface";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
@@ -8834,382 +7630,384 @@ LABEL_93:
     result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_94;
+      return result;
     }
 
-    v13 = 136315906;
-    v14 = "NEIPSecDBValidateSADictionary";
-    v15 = 1024;
-    v16 = 3720;
-    v17 = 2112;
-    v18 = @"OutgoingInterface";
-    v19 = 2048;
-    TypeID = CFSTRING_TYPE;
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3720;
+    v16 = 2112;
+    v17 = @"OutgoingInterface";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
     v9 = "%s:%d: type of value for key %@ != %lu";
-LABEL_92:
-    _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, v9, &v13, 0x26u);
-    goto LABEL_93;
+    goto LABEL_92;
   }
 
-  if ((a3 & 1) == 0)
+  if (a3)
   {
-    if (NEGetValueWithType(cf, @"Mode", CFSTRING_TYPE))
+    return 1;
+  }
+
+  if (!NEGetValueWithType(cf, @"Mode", CFSTRING_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
     {
-      if (NEGetValueWithType(cf, @"IPSecProtocol", CFSTRING_TYPE))
-      {
-        if (a2)
-        {
-          goto LABEL_19;
-        }
-
-        if (NEGetValueWithType(cf, @"SPIValue", CFNUMBER_TYPE))
-        {
-          if (CFDictionaryContainsKey(cf, @"ReplayWindowSize") && !NEGetValueWithType(cf, @"ReplayWindowSize", CFNUMBER_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3727;
-            v17 = 2112;
-            v18 = @"ReplayWindowSize";
-            v19 = 2048;
-            TypeID = CFNUMBER_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"LifeTimeinSeconds") && !NEGetValueWithType(cf, @"LifeTimeinSeconds", CFNUMBER_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3728;
-            v17 = 2112;
-            v18 = @"LifeTimeinSeconds";
-            v19 = 2048;
-            TypeID = CFNUMBER_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"EncryptionAlgorithm") && !NEGetValueWithType(cf, @"EncryptionAlgorithm", CFSTRING_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3730;
-            v17 = 2112;
-            v18 = @"EncryptionAlgorithm";
-            v19 = 2048;
-            TypeID = CFSTRING_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"EncryptionKey") && (v10 = CFDataGetTypeID(), !NEGetValueWithType(cf, @"EncryptionKey", v10)))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3731;
-            v17 = 2112;
-            v18 = @"EncryptionKey";
-            v19 = 2048;
-            TypeID = CFDataGetTypeID();
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"AuthAlgorithm") && !NEGetValueWithType(cf, @"AuthAlgorithm", CFSTRING_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3733;
-            v17 = 2112;
-            v18 = @"AuthAlgorithm";
-            v19 = 2048;
-            TypeID = CFSTRING_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"AuthKey") && (v11 = CFDataGetTypeID(), !NEGetValueWithType(cf, @"AuthKey", v11)))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3734;
-            v17 = 2112;
-            v18 = @"AuthKey";
-            v19 = 2048;
-            TypeID = CFDataGetTypeID();
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"NATTraversal") && !NEGetValueWithType(cf, @"NATTraversal", CFBOOLEAN_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3736;
-            v17 = 2112;
-            v18 = @"NATTraversal";
-            v19 = 2048;
-            TypeID = CFBOOLEAN_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"NATTKeepAlive") && !NEGetValueWithType(cf, @"NATTKeepAlive", CFBOOLEAN_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3737;
-            v17 = 2112;
-            v18 = @"NATTKeepAlive";
-            v19 = 2048;
-            TypeID = CFBOOLEAN_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"NATTDetectedPeer") && !NEGetValueWithType(cf, @"NATTDetectedPeer", CFBOOLEAN_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3738;
-            v17 = 2112;
-            v18 = @"NATTDetectedPeer";
-            v19 = 2048;
-            TypeID = CFBOOLEAN_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else if (CFDictionaryContainsKey(cf, @"NATTPort") && !NEGetValueWithType(cf, @"NATTPort", CFNUMBER_TYPE))
-          {
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3739;
-            v17 = 2112;
-            v18 = @"NATTPort";
-            v19 = 2048;
-            TypeID = CFNUMBER_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-
-          else
-          {
-            if (!CFDictionaryContainsKey(cf, @"NATTSourcePort") || NEGetValueWithType(cf, @"NATTSourcePort", CFNUMBER_TYPE))
-            {
-              goto LABEL_19;
-            }
-
-            v8 = ne_log_obj();
-            result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-            if (!result)
-            {
-              goto LABEL_94;
-            }
-
-            v13 = 136315906;
-            v14 = "NEIPSecDBValidateSADictionary";
-            v15 = 1024;
-            v16 = 3740;
-            v17 = 2112;
-            v18 = @"NATTSourcePort";
-            v19 = 2048;
-            TypeID = CFNUMBER_TYPE;
-            v9 = "%s:%d: type of value for key %@ != %lu";
-          }
-        }
-
-        else
-        {
-          v8 = ne_log_obj();
-          result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-          if (!result)
-          {
-            goto LABEL_94;
-          }
-
-          v13 = 136315906;
-          v14 = "NEIPSecDBValidateSADictionary";
-          v15 = 1024;
-          v16 = 3726;
-          v17 = 2112;
-          v18 = @"SPIValue";
-          v19 = 2048;
-          TypeID = CFNUMBER_TYPE;
-          v9 = "%s:%d: value for key %@ is missing or type != %lu";
-        }
-      }
-
-      else
-      {
-        v8 = ne_log_obj();
-        result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-        if (!result)
-        {
-          goto LABEL_94;
-        }
-
-        v13 = 136315906;
-        v14 = "NEIPSecDBValidateSADictionary";
-        v15 = 1024;
-        v16 = 3723;
-        v17 = 2112;
-        v18 = @"IPSecProtocol";
-        v19 = 2048;
-        TypeID = CFSTRING_TYPE;
-        v9 = "%s:%d: value for key %@ is missing or type != %lu";
-      }
+      return result;
     }
 
-    else
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3722;
+    v16 = 2112;
+    v17 = @"Mode";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
+    v9 = "%s:%d: value for key %@ is missing or type != %lu";
+    goto LABEL_92;
+  }
+
+  if (!NEGetValueWithType(cf, @"IPSecProtocol", CFSTRING_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3723;
+    v16 = 2112;
+    v17 = @"IPSecProtocol";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
+    v9 = "%s:%d: value for key %@ is missing or type != %lu";
+    goto LABEL_92;
+  }
+
+  if (a2)
+  {
+    return 1;
+  }
+
+  if (!NEGetValueWithType(cf, @"SPIValue", CFNUMBER_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3726;
+    v16 = 2112;
+    v17 = @"SPIValue";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
+    v9 = "%s:%d: value for key %@ is missing or type != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"ReplayWindowSize") && !NEGetValueWithType(cf, @"ReplayWindowSize", CFNUMBER_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3727;
+    v16 = 2112;
+    v17 = @"ReplayWindowSize";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"LifeTimeinSeconds") && !NEGetValueWithType(cf, @"LifeTimeinSeconds", CFNUMBER_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3728;
+    v16 = 2112;
+    v17 = @"LifeTimeinSeconds";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"EncryptionAlgorithm") && !NEGetValueWithType(cf, @"EncryptionAlgorithm", CFSTRING_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3730;
+    v16 = 2112;
+    v17 = @"EncryptionAlgorithm";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"EncryptionKey"))
+  {
+    TypeID = CFDataGetTypeID();
+    if (!NEGetValueWithType(cf, @"EncryptionKey", TypeID))
     {
       v8 = ne_log_obj();
       result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
       if (!result)
       {
-        goto LABEL_94;
+        return result;
       }
 
-      v13 = 136315906;
-      v14 = "NEIPSecDBValidateSADictionary";
-      v15 = 1024;
-      v16 = 3722;
-      v17 = 2112;
-      v18 = @"Mode";
-      v19 = 2048;
-      TypeID = CFSTRING_TYPE;
-      v9 = "%s:%d: value for key %@ is missing or type != %lu";
+      v12 = 136315906;
+      v13 = "NEIPSecDBValidateSADictionary";
+      v14 = 1024;
+      v15 = 3731;
+      v16 = 2112;
+      v17 = @"EncryptionKey";
+      v18 = 2048;
+      v19 = CFDataGetTypeID();
+      v9 = "%s:%d: type of value for key %@ != %lu";
+      goto LABEL_92;
+    }
+  }
+
+  if (CFDictionaryContainsKey(cf, @"AuthAlgorithm") && !NEGetValueWithType(cf, @"AuthAlgorithm", CFSTRING_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
     }
 
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3733;
+    v16 = 2112;
+    v17 = @"AuthAlgorithm";
+    v18 = 2048;
+    v19 = CFSTRING_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
     goto LABEL_92;
   }
 
-LABEL_19:
-  result = 1;
-LABEL_94:
-  v12 = *MEMORY[0x1E69E9840];
+  if (CFDictionaryContainsKey(cf, @"AuthKey"))
+  {
+    v11 = CFDataGetTypeID();
+    if (!NEGetValueWithType(cf, @"AuthKey", v11))
+    {
+      v8 = ne_log_obj();
+      result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      if (!result)
+      {
+        return result;
+      }
+
+      v12 = 136315906;
+      v13 = "NEIPSecDBValidateSADictionary";
+      v14 = 1024;
+      v15 = 3734;
+      v16 = 2112;
+      v17 = @"AuthKey";
+      v18 = 2048;
+      v19 = CFDataGetTypeID();
+      v9 = "%s:%d: type of value for key %@ != %lu";
+      goto LABEL_92;
+    }
+  }
+
+  if (CFDictionaryContainsKey(cf, @"NATTraversal") && !NEGetValueWithType(cf, @"NATTraversal", CFBOOLEAN_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3736;
+    v16 = 2112;
+    v17 = @"NATTraversal";
+    v18 = 2048;
+    v19 = CFBOOLEAN_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"NATTKeepAlive") && !NEGetValueWithType(cf, @"NATTKeepAlive", CFBOOLEAN_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3737;
+    v16 = 2112;
+    v17 = @"NATTKeepAlive";
+    v18 = 2048;
+    v19 = CFBOOLEAN_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"NATTDetectedPeer") && !NEGetValueWithType(cf, @"NATTDetectedPeer", CFBOOLEAN_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3738;
+    v16 = 2112;
+    v17 = @"NATTDetectedPeer";
+    v18 = 2048;
+    v19 = CFBOOLEAN_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"NATTPort") && !NEGetValueWithType(cf, @"NATTPort", CFNUMBER_TYPE))
+  {
+    v8 = ne_log_obj();
+    result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (!result)
+    {
+      return result;
+    }
+
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3739;
+    v16 = 2112;
+    v17 = @"NATTPort";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+    goto LABEL_92;
+  }
+
+  if (!CFDictionaryContainsKey(cf, @"NATTSourcePort") || NEGetValueWithType(cf, @"NATTSourcePort", CFNUMBER_TYPE))
+  {
+    return 1;
+  }
+
+  v8 = ne_log_obj();
+  result = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  if (result)
+  {
+    v12 = 136315906;
+    v13 = "NEIPSecDBValidateSADictionary";
+    v14 = 1024;
+    v15 = 3740;
+    v16 = 2112;
+    v17 = @"NATTSourcePort";
+    v18 = 2048;
+    v19 = CFNUMBER_TYPE;
+    v9 = "%s:%d: type of value for key %@ != %lu";
+LABEL_92:
+    _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, v9, &v12, 0x26u);
+    return 0;
+  }
+
   return result;
 }
 
 __CFDictionary *NEIPSecDBCreateMutableDictionary(const __CFDictionary *a1, const void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315138;
-      v11 = "NEIPSecDBCreateMutableDictionary";
-      v9 = "%s called with null saData";
+      v9 = 136315138;
+      v10 = "NEIPSecDBCreateMutableDictionary";
+      v8 = "%s called with null saData";
       goto LABEL_13;
     }
 
-LABEL_11:
-    v5 = 0;
-    goto LABEL_5;
+    return 0;
   }
 
   if (!a2)
   {
-    v8 = ne_log_obj();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v10 = 136315138;
-      v11 = "NEIPSecDBCreateMutableDictionary";
-      v9 = "%s called with null direction";
+      v9 = 136315138;
+      v10 = "NEIPSecDBCreateMutableDictionary";
+      v8 = "%s called with null direction";
       goto LABEL_13;
     }
 
-    goto LABEL_11;
+    return 0;
   }
 
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
   if (!Mutable)
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_11;
+      return 0;
     }
 
-    v10 = 136315138;
-    v11 = "NEIPSecDBCreateMutableDictionary";
-    v9 = "%s called with null mutableSAData";
+    v9 = 136315138;
+    v10 = "NEIPSecDBCreateMutableDictionary";
+    v8 = "%s called with null mutableSAData";
 LABEL_13:
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v9, &v10, 0xCu);
-    goto LABEL_11;
+    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, v8, &v9, 0xCu);
+    return 0;
   }
 
   v5 = Mutable;
@@ -9223,8 +8021,6 @@ LABEL_13:
   NEIPSecDBCopyValueIfPresent(a1, v5, @"RemotePort");
   NEIPSecDBCopyValueIfPresent(a1, v5, @"IPSecInterface");
   NEIPSecDBCopyValueIfPresent(a1, v5, @"OutgoingInterface");
-LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -9313,56 +8109,52 @@ uint64_t NEIPSecDBCopyResponseForQueuedRequest(uint64_t a1, void *a2)
 
 uint64_t NEIPSecDBGetSPIForSA(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-LABEL_8:
-      v5 = 0;
-      goto LABEL_4;
+      return 0;
     }
 
     LODWORD(buf) = 136315138;
     *(&buf + 4) = "NEIPSecDBGetSPIForSA";
-    v9 = "%s called with null session";
+    v8 = "%s called with null session";
 LABEL_10:
-    _os_log_fault_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_FAULT, v9, &buf, 0xCu);
-    goto LABEL_8;
+    _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, v8, &buf, 0xCu);
+    return 0;
   }
 
   if (!*(a1 + 80))
   {
-    v8 = ne_log_obj();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = ne_log_obj();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_8;
+      return 0;
     }
 
     LODWORD(buf) = 136315138;
     *(&buf + 4) = "NEIPSecDBGetSPIForSA";
-    v9 = "%s called with null session->sas";
+    v8 = "%s called with null session->sas";
     goto LABEL_10;
   }
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v13 = 0x2000000000;
-  v14 = 0;
+  v12 = 0x2000000000;
+  v13 = 0;
   v4 = _NEIPSecDBGetQueue();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = __NEIPSecDBGetSPIForSA_block_invoke;
   block[3] = &unk_1E7F08E90;
-  v11 = a2;
+  v10 = a2;
   block[4] = &buf;
   block[5] = a1;
   dispatch_sync(v4, block);
   v5 = *(*(&buf + 1) + 24);
   _Block_object_dispose(&buf, 8);
-LABEL_4:
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -9403,7 +8195,7 @@ void __NEIPSecDBRemoveQueuedRequest_block_invoke(uint64_t a1)
 
 _OWORD *NEIPSecDBCreateQueuedRequest(uint64_t a1, int a2, int a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v6 = malloc_type_malloc(0x30uLL, 0x10E004027337507uLL);
@@ -9428,18 +8220,17 @@ _OWORD *NEIPSecDBCreateQueuedRequest(uint64_t a1, int a2, int a3)
 
   else
   {
-    v12 = ne_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v11 = ne_log_obj();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      v13 = 136315138;
-      v14 = "NEIPSecDBCreateQueuedRequest";
-      _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "%s called with null session", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "NEIPSecDBCreateQueuedRequest";
+      _os_log_fault_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_FAULT, "%s called with null session", &v12, 0xCu);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -9454,74 +8245,72 @@ void NEIPSecDBCopyValueIfPresent(const __CFDictionary *a1, __CFDictionary *a2, v
 
 uint64_t NEIPSecDBAddSA(uint64_t a1, CFTypeRef cf)
 {
-  v76[3] = *MEMORY[0x1E69E9840];
+  v75[3] = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    v47 = ne_log_obj();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v46 = ne_log_obj();
+    if (!os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
-LABEL_98:
-      v44 = 0;
-      goto LABEL_92;
+      return 0;
     }
 
-    LODWORD(v70) = 136315138;
-    *(&v70 + 4) = "NEIPSecDBAddSA";
-    v48 = "%s called with null session";
+    LODWORD(v69) = 136315138;
+    *(&v69 + 4) = "NEIPSecDBAddSA";
+    v47 = "%s called with null session";
 LABEL_108:
-    _os_log_fault_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_FAULT, v48, &v70, 0xCu);
-    goto LABEL_98;
+    _os_log_fault_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_FAULT, v47, &v69, 0xCu);
+    return 0;
   }
 
   if (!*(a1 + 80))
   {
-    v47 = ne_log_obj();
-    if (!os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v46 = ne_log_obj();
+    if (!os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
-      goto LABEL_98;
+      return 0;
     }
 
-    LODWORD(v70) = 136315138;
-    *(&v70 + 4) = "NEIPSecDBAddSA";
-    v48 = "%s called with null session->sas";
+    LODWORD(v69) = 136315138;
+    *(&v69 + 4) = "NEIPSecDBAddSA";
+    v47 = "%s called with null session->sas";
     goto LABEL_108;
   }
 
-  v62 = 0;
-  v63 = 0;
   v61 = 0;
+  v62 = 0;
   v60 = 0;
-  v59 = 1;
-  v58 = 0;
-  valuePtr = 0;
+  v59 = 0;
+  v58 = 1;
   v57 = 0;
-  memset(v76, 0, 24);
+  valuePtr = 0;
+  v56 = 0;
+  memset(v75, 0, 24);
   *buffer = 0;
+  v73 = 0;
   v74 = 0;
-  v75 = 0;
-  v55 = 0;
-  *&v70 = 0;
-  *(&v70 + 1) = &v70;
-  v71 = 0x2000000000;
-  v72 = 0;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2000000000;
   v54 = 0;
+  *&v69 = 0;
+  *(&v69 + 1) = &v69;
+  v70 = 0x2000000000;
+  v71 = 0;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2000000000;
+  v53 = 0;
   if (!NEIPSecDBValidateSADictionary(cf, 0, 0))
   {
     v10 = ne_log_obj();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v65 = a1;
+      v64 = a1;
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ add SA dictionary validation failed", buf, 0xCu);
     }
 
     goto LABEL_85;
   }
 
-  if (NEIPSecDBFilloutBasicSAInfo(cf, &v60 + 1, &v60, &v61, &v63, &v62, v76))
+  if (NEIPSecDBFilloutBasicSAInfo(cf, &v59 + 1, &v59, &v60, &v62, &v61, v75))
   {
     Value = CFDictionaryGetValue(cf, @"UniqueID");
     if (Value)
@@ -9532,7 +8321,7 @@ LABEL_108:
     v5 = CFDictionaryGetValue(cf, @"ReplayWindowSize");
     if (v5)
     {
-      CFNumberGetValue(v5, kCFNumberCharType, &v59);
+      CFNumberGetValue(v5, kCFNumberCharType, &v58);
     }
 
     v6 = CFDictionaryGetValue(cf, @"EncryptionAlgorithm");
@@ -9709,13 +8498,13 @@ LABEL_20:
         v25 = CFDictionaryGetValue(cf, @"NATTKeepAliveOffloadInterval");
         if (v25)
         {
-          CFNumberGetValue(v25, kCFNumberShortType, &v55);
+          CFNumberGetValue(v25, kCFNumberShortType, &v54);
         }
 
         v26 = CFDictionaryGetValue(cf, @"NATTKeepAliveInterval");
         if (v26)
         {
-          CFNumberGetValue(v26, kCFNumberShortType, &v55 + 2);
+          CFNumberGetValue(v26, kCFNumberShortType, &v54 + 2);
         }
 
         v27 = CFDictionaryGetValue(cf, @"NATTDetectedPeer");
@@ -9727,19 +8516,19 @@ LABEL_20:
         v28 = CFDictionaryGetValue(cf, @"LifeTimeinSeconds");
         if (v28)
         {
-          CFNumberGetValue(v28, kCFNumberLongLongType, &v58);
+          CFNumberGetValue(v28, kCFNumberLongLongType, &v57);
         }
 
         v29 = CFDictionaryGetValue(cf, @"NATTPort");
         if (v29)
         {
-          CFNumberGetValue(v29, kCFNumberShortType, &v57 + 2);
+          CFNumberGetValue(v29, kCFNumberShortType, &v56 + 2);
         }
 
         v30 = CFDictionaryGetValue(cf, @"NATTSourcePort");
         if (v30)
         {
-          CFNumberGetValue(v30, kCFNumberShortType, &v57);
+          CFNumberGetValue(v30, kCFNumberShortType, &v56);
         }
 
         if (CFDictionaryContainsKey(cf, @"OutgoingInterface"))
@@ -9767,16 +8556,16 @@ LABEL_20:
         block[3] = &unk_1E7F08EB8;
         block[6] = a1;
         block[7] = v34;
-        block[4] = &v70;
-        block[5] = &v51;
+        block[4] = &v69;
+        block[5] = &v50;
         dispatch_sync(v35, block);
         if (v34)
         {
           CFRelease(v34);
         }
 
-        v36 = v76;
-        if (!LOBYTE(v76[0]))
+        v36 = v75;
+        if (!LOBYTE(v75[0]))
         {
           v36 = 0;
         }
@@ -9787,24 +8576,24 @@ LABEL_20:
           v37 = 0;
         }
 
-        *&v49 = v36;
-        *(&v49 + 1) = v37;
-        if (NEPFKeySendAdd(*(a1 + 64), HIBYTE(v60), v60, v63, v62, v61, valuePtr, v59, BytePtr, v9, v17, v19, v13, v21, v8, v33, 0, 0, v58, 0, 0, v57, HIWORD(v57), HIWORD(v55), v55, 1, v49))
+        *&v48 = v36;
+        *(&v48 + 1) = v37;
+        if (NEPFKeySendAdd(*(a1 + 64), HIBYTE(v59), v59, v62, v61, v60, valuePtr, v58, BytePtr, v9, v17, v19, v13, v21, v8, v33, 0, 0, v57, 0, 0, v56, HIWORD(v56), HIWORD(v54), v54, 1, v48))
         {
-          v38 = NEIPSecDBCopyResponseForQueuedRequest(v52[3], 0);
+          v38 = NEIPSecDBCopyResponseForQueuedRequest(v51[3], 0);
           v39 = ne_log_obj();
           v40 = v39;
           if (v38)
           {
             if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
             {
-              v41 = *(*(&v70 + 1) + 24);
+              v41 = *(*(&v69 + 1) + 24);
               *buf = 138412802;
-              v65 = a1;
-              v66 = 1024;
-              v67 = v41;
-              v68 = 1024;
-              v69 = bswap32(v61);
+              v64 = a1;
+              v65 = 1024;
+              v66 = v41;
+              v67 = 1024;
+              v68 = bswap32(v60);
               _os_log_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_INFO, "%@ added SAID %u SPI %08X", buf, 0x18u);
             }
 
@@ -9817,7 +8606,7 @@ LABEL_20:
           }
 
           *buf = 138412290;
-          v65 = a1;
+          v64 = a1;
           v42 = "%@ add SA, failed to receive response for pfkey add SA";
         }
 
@@ -9827,13 +8616,13 @@ LABEL_20:
           if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
 LABEL_84:
-            NEIPSecDBRemoveSAIDFromSAs(a1, *(*(&v70 + 1) + 24));
-            *(*(&v70 + 1) + 24) = 0;
+            NEIPSecDBRemoveSAIDFromSAs(a1, *(*(&v69 + 1) + 24));
+            *(*(&v69 + 1) + 24) = 0;
             goto LABEL_85;
           }
 
           *buf = 138412290;
-          v65 = a1;
+          v64 = a1;
           v42 = "%@ add SA, pfkey add SA failed";
         }
 
@@ -9849,27 +8638,1067 @@ LABEL_84:
   }
 
 LABEL_85:
-  if (v63)
-  {
-    free(v63);
-  }
-
   if (v62)
   {
     free(v62);
   }
 
-  v43 = v52[3];
+  if (v61)
+  {
+    free(v61);
+  }
+
+  v43 = v51[3];
   if (v43)
   {
     NEIPSecDBRemoveQueuedRequest(v43);
-    free(v52[3]);
+    free(v51[3]);
   }
 
-  v44 = *(*(&v70 + 1) + 24);
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v70, 8);
-LABEL_92:
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *(*(&v69 + 1) + 24);
+  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v69, 8);
   return v44;
+}
+
+_OWORD *__NEIPSecDBAddSA_block_invoke(void *a1)
+{
+  v2 = a1[6];
+  v3 = a1[7];
+  v4 = *(v2 + 72);
+  if ((v4 + 1) > 1)
+  {
+    v5 = v4 + 1;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  *(v2 + 72) = v5;
+  *(*(a1[4] + 8) + 24) = v4;
+  if (v3)
+  {
+    NEAddValueToIntKeyedDictionary(*(v2 + 80), *(*(a1[4] + 8) + 24), v3);
+    v2 = a1[6];
+  }
+
+  result = NEIPSecDBCreateQueuedRequest(v2, 3, *(*(a1[4] + 8) + 24));
+  *(*(a1[5] + 8) + 24) = result;
+  return result;
+}
+
+uint64_t NEIPSecDBUpdateSA(uint64_t a1, int a2, CFTypeRef cf)
+{
+  v79[3] = *MEMORY[0x1E69E9840];
+  if (!a1)
+  {
+    v49 = ne_log_obj();
+    if (!os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+    {
+      return 0;
+    }
+
+    LODWORD(v76) = 136315138;
+    *(&v76 + 4) = "NEIPSecDBUpdateSA";
+    v50 = "%s called with null session";
+LABEL_108:
+    _os_log_fault_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_FAULT, v50, &v76, 0xCu);
+    return 0;
+  }
+
+  if (!*(a1 + 80))
+  {
+    v49 = ne_log_obj();
+    if (!os_log_type_enabled(v49, OS_LOG_TYPE_FAULT))
+    {
+      return 0;
+    }
+
+    LODWORD(v76) = 136315138;
+    *(&v76 + 4) = "NEIPSecDBUpdateSA";
+    v50 = "%s called with null session->sas";
+    goto LABEL_108;
+  }
+
+  v68 = 0;
+  v69 = 0;
+  v67 = 0;
+  v66 = 0;
+  memset(v79, 0, 24);
+  v65 = 1;
+  v64 = 0;
+  v63 = 0;
+  v61 = 0;
+  valuePtr = 0;
+  *&v76 = 0;
+  *(&v76 + 1) = &v76;
+  v77 = 0x2000000000;
+  v78 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2000000000;
+  v60 = 0;
+  if (!NEIPSecDBValidateSADictionary(cf, 0, 0))
+  {
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_83;
+    }
+
+    *buf = 138412290;
+    v71 = a1;
+    v15 = "%@ update SA dictionary validation failed";
+    goto LABEL_80;
+  }
+
+  v6 = _NEIPSecDBGetQueue();
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = __NEIPSecDBUpdateSA_block_invoke;
+  block[3] = &unk_1E7F08EE0;
+  block[4] = &v76;
+  block[5] = a1;
+  v56 = a2;
+  dispatch_sync(v6, block);
+  v7 = *(*(&v76 + 1) + 24);
+  if (!v7)
+  {
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_83;
+    }
+
+    *buf = 138412290;
+    v71 = a1;
+    v15 = "%@ update SA, failed to find existing SA";
+    goto LABEL_80;
+  }
+
+  if (!NEIPSecDBFilloutBasicSAInfo(v7, &v66 + 1, &v66, &v67, &v69, &v68, v79))
+  {
+    goto LABEL_83;
+  }
+
+  Value = CFDictionaryGetValue(cf, @"UniqueID");
+  if (Value)
+  {
+    CFNumberGetValue(Value, kCFNumberIntType, &valuePtr);
+  }
+
+  v9 = CFDictionaryGetValue(cf, @"ReplayWindowSize");
+  if (v9)
+  {
+    CFNumberGetValue(v9, kCFNumberCharType, &v65);
+  }
+
+  v10 = CFDictionaryGetValue(cf, @"EncryptionAlgorithm");
+  if (!v10)
+  {
+    v12 = 0;
+    v13 = 0;
+    goto LABEL_23;
+  }
+
+  v11 = v10;
+  if (CFEqual(v10, @"DES"))
+  {
+    v12 = 0;
+    v13 = 1;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"3DES"))
+  {
+    v12 = 0;
+    v13 = 2;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"AES-128") || CFEqual(v11, @"AES-256"))
+  {
+    v12 = 0;
+    v13 = 12;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"AES-128-GCM") || CFEqual(v11, @"AES-256-GCM"))
+  {
+    v12 = 0;
+    v13 = 13;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"ChaCha20-Poly1305"))
+  {
+    v12 = 0;
+    v13 = 14;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"ChaCha20-Poly1305-IIV"))
+  {
+    v13 = 14;
+LABEL_106:
+    v12 = 1024;
+    goto LABEL_23;
+  }
+
+  if (CFEqual(v11, @"AES-128-GCM-IIV") || CFEqual(v11, @"AES-256-GCM-IIV"))
+  {
+    v13 = 13;
+    goto LABEL_106;
+  }
+
+  if (CFEqual(v11, @"NULL-With-AES-128-GMAC") || CFEqual(v11, @"NULL-With-AES-256-GMAC"))
+  {
+    v12 = 0;
+    v13 = 15;
+  }
+
+  else
+  {
+    v12 = 0;
+    if (CFEqual(v11, @"NULL"))
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+LABEL_23:
+  v16 = CFDictionaryGetValue(cf, @"AuthAlgorithm");
+  if (v16)
+  {
+    v17 = v16;
+    if (CFEqual(v16, @"MD5-96"))
+    {
+      v18 = 1;
+    }
+
+    else if (CFEqual(v17, @"SHA1-96"))
+    {
+      v18 = 2;
+    }
+
+    else if (CFEqual(v17, @"SHA2-256"))
+    {
+      v18 = 6;
+    }
+
+    else if (CFEqual(v17, @"SHA2-384"))
+    {
+      v18 = 7;
+    }
+
+    else
+    {
+      v18 = 8 * (CFEqual(v17, @"SHA2-512") != 0);
+    }
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v19 = CFDictionaryGetValue(cf, @"EncryptionKey");
+  BytePtr = v19;
+  if (v19)
+  {
+    Length = CFDataGetLength(v19);
+    v22 = Length;
+    if (Length < 1)
+    {
+      BytePtr = 0;
+    }
+
+    else
+    {
+      BytePtr = CFDataGetBytePtr(BytePtr);
+    }
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v23 = CFDictionaryGetValue(cf, @"AuthKey");
+  v24 = v23;
+  if (v23)
+  {
+    v25 = CFDataGetLength(v23);
+    v26 = v25;
+    if (v25 < 1)
+    {
+      v24 = 0;
+    }
+
+    else
+    {
+      v24 = CFDataGetBytePtr(v24);
+    }
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  v27 = CFDictionaryGetValue(cf, @"NATTraversal");
+  if (v27 && CFBooleanGetValue(v27))
+  {
+    v12 |= 2u;
+  }
+
+  v28 = CFDictionaryGetValue(cf, @"NATTKeepAlive");
+  if (v28 && CFBooleanGetValue(v28))
+  {
+    v12 |= 4u;
+  }
+
+  v29 = CFDictionaryGetValue(cf, @"NATTKeepAliveOffload");
+  if (v29 && CFBooleanGetValue(v29))
+  {
+    v12 |= 0x8000u;
+  }
+
+  v30 = CFDictionaryGetValue(cf, @"NATTKeepAliveOffloadInterval");
+  if (v30)
+  {
+    CFNumberGetValue(v30, kCFNumberShortType, &v61);
+  }
+
+  v31 = CFDictionaryGetValue(cf, @"NATTKeepAliveInterval");
+  if (v31)
+  {
+    CFNumberGetValue(v31, kCFNumberShortType, &v61 + 2);
+  }
+
+  v32 = CFDictionaryGetValue(cf, @"NATTDetectedPeer");
+  if (v32 && CFBooleanGetValue(v32))
+  {
+    v12 |= 0x1000u;
+  }
+
+  v33 = CFDictionaryGetValue(cf, @"LifeTimeinSeconds");
+  if (v33)
+  {
+    CFNumberGetValue(v33, kCFNumberLongLongType, &v64);
+  }
+
+  v34 = CFDictionaryGetValue(cf, @"NATTPort");
+  if (v34)
+  {
+    CFNumberGetValue(v34, kCFNumberShortType, &v63);
+  }
+
+  v35 = CFDictionaryGetValue(cf, @"NATTSourcePort");
+  if (v35)
+  {
+    CFNumberGetValue(v35, kCFNumberShortType, &v63 + 2);
+  }
+
+  v36 = CFDictionaryGetValue(cf, @"sequencePerTrafficClass");
+  if (v36)
+  {
+    v37 = 2 * (CFBooleanGetValue(v36) != 0);
+  }
+
+  else
+  {
+    v37 = 0;
+  }
+
+  v38 = _NEIPSecDBGetQueue();
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 0x40000000;
+  v53[2] = __NEIPSecDBUpdateSA_block_invoke_117;
+  v53[3] = &unk_1E7F08F08;
+  v53[4] = &v57;
+  v53[5] = a1;
+  v54 = a2;
+  dispatch_sync(v38, v53);
+  v39 = v79;
+  if (!LOBYTE(v79[0]))
+  {
+    v39 = 0;
+  }
+
+  LOWORD(v52) = HIWORD(v61);
+  HIWORD(v52) = v61;
+  WORD2(v51) = HIWORD(v63);
+  HIWORD(v51) = v63;
+  LODWORD(v51) = 0;
+  if (!NEPFKeySendUpdate(*(a1 + 64), HIBYTE(v66), v66, v68, v69, v67, valuePtr, v65, BytePtr, v13, v22, v24, v18, v26, v12, v37, 0, 0, v64, 0, v51, v52, 1, v39))
+  {
+    v14 = ne_log_obj();
+    if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_83;
+    }
+
+    *buf = 138412290;
+    v71 = a1;
+    v15 = "%@ pfkey send update SA failed";
+LABEL_80:
+    v44 = v14;
+LABEL_81:
+    _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, v15, buf, 0xCu);
+    goto LABEL_83;
+  }
+
+  v40 = NEIPSecDBCopyResponseForQueuedRequest(v58[3], 0);
+  v41 = ne_log_obj();
+  v42 = v41;
+  if (v40)
+  {
+    v43 = 1;
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412802;
+      v71 = a1;
+      v72 = 1024;
+      v73 = a2;
+      v74 = 1024;
+      v75 = bswap32(v67);
+      _os_log_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_INFO, "%@ updated SAID %u SPI %08X", buf, 0x18u);
+    }
+
+    goto LABEL_84;
+  }
+
+  if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v71 = a1;
+    v15 = "%@ failed to receive response for pfkey update SA";
+    v44 = v42;
+    goto LABEL_81;
+  }
+
+LABEL_83:
+  v43 = 0;
+LABEL_84:
+  v45 = *(&v76 + 1);
+  v46 = *(*(&v76 + 1) + 24);
+  if (v46)
+  {
+    CFRelease(v46);
+    *(v45 + 24) = 0;
+  }
+
+  if (v69)
+  {
+    free(v69);
+  }
+
+  if (v68)
+  {
+    free(v68);
+  }
+
+  v47 = v58[3];
+  if (v47)
+  {
+    NEIPSecDBRemoveQueuedRequest(v47);
+    free(v58[3]);
+  }
+
+  _Block_object_dispose(&v57, 8);
+  _Block_object_dispose(&v76, 8);
+  return v43;
+}
+
+const void *__NEIPSecDBUpdateSA_block_invoke(uint64_t a1)
+{
+  result = NEGetValueFromIntKeyedDictionary(*(*(a1 + 40) + 80), *(a1 + 48));
+  if (result)
+  {
+    result = CFRetain(result);
+  }
+
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+_OWORD *__NEIPSecDBUpdateSA_block_invoke_117(uint64_t a1)
+{
+  result = NEIPSecDBCreateQueuedRequest(*(a1 + 40), 2, *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+uint64_t NEIPSecDBMigrateSA(uint64_t a1, int a2, CFTypeRef cf)
+{
+  v72[3] = *MEMORY[0x1E69E9840];
+  if (!a1)
+  {
+    v40 = ne_log_obj();
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    {
+      return 0;
+    }
+
+    LODWORD(v65) = 136315138;
+    *(&v65 + 4) = "NEIPSecDBMigrateSA";
+    v41 = "%s called with null session";
+LABEL_89:
+    _os_log_fault_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_FAULT, v41, &v65, 0xCu);
+    return 0;
+  }
+
+  if (!*(a1 + 80))
+  {
+    v40 = ne_log_obj();
+    if (!os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
+    {
+      return 0;
+    }
+
+    LODWORD(v65) = 136315138;
+    *(&v65 + 4) = "NEIPSecDBMigrateSA";
+    v41 = "%s called with null session->sas";
+    goto LABEL_89;
+  }
+
+  v58 = 0;
+  v56 = 0;
+  v57 = 0;
+  v55 = 0;
+  v53 = 0;
+  v54 = 0;
+  valuePtr = 0;
+  v51 = 0;
+  memset(v72, 0, 24);
+  memset(v71, 0, sizeof(v71));
+  *buffer = 0;
+  v69 = 0;
+  v70 = 0;
+  *&v65 = 0;
+  *(&v65 + 1) = &v65;
+  v66 = 0x2000000000;
+  v67 = 0;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2000000000;
+  v50 = 0;
+  if (!NEIPSecDBValidateSADictionary(cf, 0, 1))
+  {
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_67;
+    }
+
+    *buf = 138412290;
+    v60 = a1;
+    v11 = "%@ migrate SA dictionary validation failed";
+    goto LABEL_11;
+  }
+
+  v6 = _NEIPSecDBGetQueue();
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 0x40000000;
+  block[2] = __NEIPSecDBMigrateSA_block_invoke;
+  block[3] = &unk_1E7F08F30;
+  block[4] = &v65;
+  block[5] = a1;
+  v46 = a2;
+  dispatch_sync(v6, block);
+  v7 = *(*(&v65 + 1) + 24);
+  if (!v7)
+  {
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_67;
+    }
+
+    *buf = 138412290;
+    v60 = a1;
+    v11 = "%@ migrate SA, failed to find existing SA";
+    goto LABEL_11;
+  }
+
+  Value = CFDictionaryGetValue(v7, @"Direction");
+  if (Value)
+  {
+    v9 = CFEqual(Value, @"In") == 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if (!NEIPSecDBFilloutBasicSAInfo(*(*(&v65 + 1) + 24), &v51, 0, &v54, &v58, &v57, v72) || !NEIPSecDBFilloutBasicSAInfo(cf, 0, 0, 0, &v56, &v55, v71))
+  {
+    goto LABEL_67;
+  }
+
+  if (CFDictionaryContainsKey(cf, @"OutgoingInterface"))
+  {
+    v13 = CFDictionaryGetValue(cf, @"OutgoingInterface");
+    CFStringGetCString(v13, buffer, 24, 0x600u);
+  }
+
+  v14 = CFDictionaryGetValue(cf, @"EncryptionAlgorithm");
+  v15 = v14;
+  if (v14)
+  {
+    if (CFEqual(v14, @"ChaCha20-Poly1305-IIV") || CFEqual(v15, @"AES-128-GCM-IIV") || CFEqual(v15, @"AES-256-GCM-IIV"))
+    {
+      LODWORD(v15) = 1024;
+    }
+
+    else
+    {
+      LODWORD(v15) = 0;
+    }
+  }
+
+  v16 = CFDictionaryGetValue(cf, @"NATTraversal");
+  if (v16 && CFBooleanGetValue(v16))
+  {
+    LODWORD(v15) = v15 | 2;
+  }
+
+  v17 = CFDictionaryGetValue(cf, @"NATTKeepAlive");
+  if (v17 && CFBooleanGetValue(v17))
+  {
+    LODWORD(v15) = v15 | 4;
+  }
+
+  v18 = CFDictionaryGetValue(cf, @"NATTKeepAliveOffload");
+  if (v18 && CFBooleanGetValue(v18))
+  {
+    LODWORD(v15) = v15 | 0x8000;
+  }
+
+  v19 = CFDictionaryGetValue(cf, @"NATTKeepAliveOffloadInterval");
+  if (v19)
+  {
+    CFNumberGetValue(v19, kCFNumberShortType, &valuePtr);
+  }
+
+  v20 = CFDictionaryGetValue(cf, @"NATTKeepAliveInterval");
+  if (v20)
+  {
+    CFNumberGetValue(v20, kCFNumberShortType, &valuePtr + 2);
+  }
+
+  v21 = CFDictionaryGetValue(cf, @"NATTDetectedPeer");
+  if (v21 && CFBooleanGetValue(v21))
+  {
+    LODWORD(v15) = v15 | 0x1000;
+  }
+
+  v22 = CFDictionaryGetValue(cf, @"NATTPort");
+  if (v22)
+  {
+    CFNumberGetValue(v22, kCFNumberShortType, &v53);
+  }
+
+  v23 = CFDictionaryGetValue(cf, @"NATTSourcePort");
+  if (v23)
+  {
+    CFNumberGetValue(v23, kCFNumberShortType, &v53 + 2);
+  }
+
+  v24 = _NEIPSecDBGetQueue();
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 0x40000000;
+  v43[2] = __NEIPSecDBMigrateSA_block_invoke_123;
+  v43[3] = &unk_1E7F08F58;
+  v43[4] = &v47;
+  v43[5] = a1;
+  v44 = a2;
+  dispatch_sync(v24, v43);
+  if (!v48[3])
+  {
+    goto LABEL_67;
+  }
+
+  v25 = v57;
+  v26 = v72;
+  if (!LOBYTE(v72[0]))
+  {
+    v26 = 0;
+  }
+
+  if (v9)
+  {
+    v27 = v58;
+  }
+
+  else
+  {
+    v27 = v57;
+  }
+
+  if (!v9)
+  {
+    v25 = v58;
+  }
+
+  v28 = v55;
+  if (v9)
+  {
+    v29 = v56;
+  }
+
+  else
+  {
+    v29 = v55;
+  }
+
+  if (!v9)
+  {
+    v28 = v56;
+  }
+
+  v30 = v71;
+  if (!LOBYTE(v71[0]))
+  {
+    v30 = 0;
+  }
+
+  v31 = buffer;
+  if (!buffer[0])
+  {
+    v31 = 0;
+  }
+
+  *&v42 = v30;
+  *(&v42 + 1) = v31;
+  if (!NEPFKeySendMigrate(*(a1 + 64), v51, v54, v15, HIWORD(v53), v53, SHIWORD(valuePtr), valuePtr, v27, v25, v26, v29, v28, v42))
+  {
+    v10 = ne_log_obj();
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_67;
+    }
+
+    *buf = 138412290;
+    v60 = a1;
+    v11 = "%@ pfkey send migrate SA failed";
+LABEL_11:
+    v12 = v10;
+LABEL_12:
+    _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, v11, buf, 0xCu);
+    goto LABEL_67;
+  }
+
+  v32 = NEIPSecDBCopyResponseForQueuedRequest(v48[3], 0);
+  v33 = ne_log_obj();
+  v34 = v33;
+  if (v32)
+  {
+    v35 = 1;
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412802;
+      v60 = a1;
+      v61 = 1024;
+      v62 = a2;
+      v63 = 1024;
+      v64 = bswap32(v54);
+      _os_log_impl(&dword_1BA83C000, v34, OS_LOG_TYPE_INFO, "%@ migrated SAID %u SPI %08X", buf, 0x18u);
+    }
+
+    goto LABEL_68;
+  }
+
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 138412290;
+    v60 = a1;
+    v11 = "%@ failed to receive response for pfkey migrate SA";
+    v12 = v34;
+    goto LABEL_12;
+  }
+
+LABEL_67:
+  v35 = 0;
+LABEL_68:
+  v36 = *(&v65 + 1);
+  v37 = *(*(&v65 + 1) + 24);
+  if (v37)
+  {
+    CFRelease(v37);
+    *(v36 + 24) = 0;
+  }
+
+  if (v58)
+  {
+    free(v58);
+  }
+
+  if (v57)
+  {
+    free(v57);
+  }
+
+  if (v56)
+  {
+    free(v56);
+  }
+
+  if (v55)
+  {
+    free(v55);
+  }
+
+  v38 = v48[3];
+  if (v38)
+  {
+    NEIPSecDBRemoveQueuedRequest(v38);
+    free(v48[3]);
+  }
+
+  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v65, 8);
+  return v35;
+}
+
+const void *__NEIPSecDBMigrateSA_block_invoke(uint64_t a1)
+{
+  result = NEGetValueFromIntKeyedDictionary(*(*(a1 + 40) + 80), *(a1 + 48));
+  if (result)
+  {
+    result = CFRetain(result);
+  }
+
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+_OWORD *__NEIPSecDBMigrateSA_block_invoke_123(uint64_t a1)
+{
+  result = NEIPSecDBCreateQueuedRequest(*(a1 + 40), 26, *(a1 + 48));
+  *(*(*(a1 + 32) + 8) + 24) = result;
+  return result;
+}
+
+uint64_t NEIPSecDBDeleteSA(uint64_t a1, int a2)
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v4 = ne_log_obj();
+  v5 = v4;
+  if (a1)
+  {
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      *&buf[4] = a1;
+      *&buf[12] = 1024;
+      *&buf[14] = a2;
+      _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@ deleting SAID %u", buf, 0x12u);
+    }
+
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2000000000;
+    v27 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2000000000;
+    v21 = 0;
+    v6 = _NEIPSecDBGetQueue();
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 0x40000000;
+    v16[2] = __NEIPSecDBDeleteSA_block_invoke;
+    v16[3] = &unk_1E7F08F80;
+    v16[5] = &v18;
+    v16[6] = a1;
+    v17 = a2;
+    v16[4] = buf;
+    dispatch_sync(v6, v16);
+    v7 = *(*&buf[8] + 24);
+    if (v7)
+    {
+      if (!_NEIPSecDBDeleteSA(a1, v7) || (NEIPSecDBCopyResponseForQueuedRequest(v19[3], 0) & 1) == 0)
+      {
+        v11 = ne_log_obj();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          *v22 = 138412546;
+          v23 = a1;
+          v24 = 1024;
+          v25 = a2;
+          _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ failed to receive response for pfkey delete SAID %u", v22, 0x12u);
+        }
+
+        v9 = 0;
+        goto LABEL_15;
+      }
+
+      v8 = ne_log_obj();
+      v9 = 1;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        *v22 = 138412546;
+        v23 = a1;
+        v24 = 1024;
+        v25 = a2;
+        v10 = "%@ deleted SAID %u";
+LABEL_14:
+        _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, v10, v22, 0x12u);
+      }
+    }
+
+    else
+    {
+      v8 = ne_log_obj();
+      v9 = 1;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      {
+        *v22 = 138412546;
+        v23 = a1;
+        v24 = 1024;
+        v25 = a2;
+        v10 = "%@ delete SA, saData is NULL for SAID %u, may already be removed";
+        goto LABEL_14;
+      }
+    }
+
+LABEL_15:
+    v12 = *&buf[8];
+    v13 = *(*&buf[8] + 24);
+    if (v13)
+    {
+      CFRelease(v13);
+      *(v12 + 24) = 0;
+    }
+
+    v14 = v19[3];
+    if (v14)
+    {
+      NEIPSecDBRemoveQueuedRequest(v14);
+      free(v19[3]);
+    }
+
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(buf, 8);
+    return v9;
+  }
+
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 136315138;
+    *&buf[4] = "NEIPSecDBDeleteSA";
+    _os_log_fault_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_FAULT, "%s called with null session", buf, 0xCu);
+  }
+
+  return 0;
+}
+
+void __NEIPSecDBDeleteSA_block_invoke(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  if (*(v2 + 80))
+  {
+    v3 = NEGetValueFromIntKeyedDictionary(*(v2 + 80), *(a1 + 56));
+    if (v3)
+    {
+      v3 = CFRetain(v3);
+    }
+
+    *(*(*(a1 + 32) + 8) + 24) = v3;
+    v2 = *(a1 + 48);
+    if (*(*(*(a1 + 32) + 8) + 24))
+    {
+      *(*(*(a1 + 40) + 8) + 24) = NEIPSecDBCreateQueuedRequest(v2, 4, *(a1 + 56));
+      v2 = *(a1 + 48);
+    }
+  }
+
+  v4 = *(v2 + 104);
+  if (v4)
+  {
+    v5 = *(a1 + 56);
+    do
+    {
+      v6 = *v4;
+      v7 = *(v4 + 4);
+      if (v7)
+      {
+        v8 = v7 == v5;
+      }
+
+      else
+      {
+        v8 = 0;
+      }
+
+      if (v8)
+      {
+        *(v4 + 4) = 0;
+        if (!*(v4 + 5))
+        {
+          goto LABEL_24;
+        }
+      }
+
+      else
+      {
+        v9 = *(v4 + 5);
+        if (v9)
+        {
+          v10 = v9 == v5;
+        }
+
+        else
+        {
+          v10 = 0;
+        }
+
+        if (v10)
+        {
+          v9 = 0;
+          *(v4 + 5) = 0;
+        }
+
+        if (!v7 && !v9)
+        {
+LABEL_24:
+          v11 = *(v4 + 3);
+          if (v11)
+          {
+            if (!dispatch_source_testcancel(*(v4 + 3)))
+            {
+              dispatch_source_cancel(v11);
+              v6 = *v4;
+            }
+
+            *(v4 + 3) = 0;
+          }
+
+          v12 = *(v4 + 1);
+          if (v6)
+          {
+            v6[1] = v12;
+          }
+
+          *v12 = v6;
+
+          free(v4);
+          return;
+        }
+      }
+
+      v4 = v6;
+    }
+
+    while (v6);
+  }
 }

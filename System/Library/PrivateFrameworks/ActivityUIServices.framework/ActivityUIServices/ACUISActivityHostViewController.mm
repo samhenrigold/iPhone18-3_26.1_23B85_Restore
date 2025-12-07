@@ -1,5 +1,6 @@
 @interface ACUISActivityHostViewController
 - (ACUISActivityHostViewController)activityHostViewControllerWithViewController:(id)controller didReceiveAction:(id)action;
+- (ACUISActivityHostViewController)activityHostViewControllerWithViewController:(id)controller didSetIdleTimerDisabled:(BOOL)disabled;
 - (ACUISActivityHostViewController)activityHostViewControllerWithViewController:(id)controller requestsLaunchWithAction:(id)action;
 - (ACUISActivityHostViewController)initWithActivityHostViewController:(id)controller;
 - (ACUISActivityHostViewControllerDelegate)delegate;
@@ -189,6 +190,18 @@
   {
     [WeakRetained activityHostViewControllerSignificantUserInteractionEnded:self];
   }
+}
+
+- (ACUISActivityHostViewController)activityHostViewControllerWithViewController:(id)controller didSetIdleTimerDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  if (objc_opt_respondsToSelector())
+  {
+    [WeakRetained activityHostViewController:self didSetIdleTimerDisabled:disabledCopy];
+  }
+
+  return result;
 }
 
 - (void)activityHostViewControllerAudioCategoriesDisablingVolumeHUDDidChangeWithViewController:(id)controller

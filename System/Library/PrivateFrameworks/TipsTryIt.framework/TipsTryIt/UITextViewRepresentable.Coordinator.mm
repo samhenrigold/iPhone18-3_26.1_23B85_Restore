@@ -26,7 +26,6 @@
     v10 = v9;
 
     v11 = (selfCopy + OBJC_IVAR____TtCV9TipsTryIt23UITextViewRepresentable11Coordinator_text);
-    v12 = *&selfCopy->_disableInteraction[OBJC_IVAR____TtCV9TipsTryIt23UITextViewRepresentable11Coordinator_text];
     *v11 = v8;
     v11[1] = v10;
   }

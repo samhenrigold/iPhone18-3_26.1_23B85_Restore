@@ -8,7 +8,7 @@ void sub_21802BA8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::IRBlock>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRBlock>*,std::shared_ptr<MIL::IRBlock>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<MIL::IRBlock>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRBlock>*,std::shared_ptr<MIL::IRBlock>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -77,7 +77,7 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderI
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>(a1 + 40, *v13, v13[1], (v13[1] - *v13) >> 4);
+  std::vector<std::shared_ptr<MIL::IRNamedValueType>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRNamedValueType>*,std::shared_ptr<MIL::IRNamedValueType>*>((a1 + 40), *v13, v13[1], (v13[1] - *v13) >> 4);
   Attributes = MIL::IRObject::GetAttributes(a2);
   std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(a1 + 64, Attributes);
   LocationPtr = MIL::IRObject::GetLocationPtr(a2);
@@ -116,41 +116,41 @@ uint64_t MIL::Builder::OperationBuilder::OperationBuilderImpl::OperationBuilderI
   return a1;
 }
 
-void sub_21802BE78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21802BE78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::~__hash_table(v3);
-  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v2 + 224);
-  if (*(v2 + 223) < 0)
+  va_start(va, a3);
+  std::__hash_table<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::__unordered_map_hasher<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,true>,std::__unordered_map_equal<std::shared_ptr<MIL::IRValue const>,std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>,std::equal_to<std::shared_ptr<MIL::IRValue const>>,std::hash<std::shared_ptr<MIL::IRValue const>>,true>,std::allocator<std::__hash_value_type<std::shared_ptr<MIL::IRValue const>,std::unique_ptr<MIL::Builder::Variable const>>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::unique_ptr<MIL::Builder::Variable>>>>::~__hash_table(v3 + 224);
+  if (*(v3 + 223) < 0)
   {
-    operator delete(*v4);
+    operator delete(*v5);
   }
 
-  v6 = *(v2 + 192);
-  if (v6)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-  }
-
-  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 143) < 0)
-  {
-    operator delete(*(v2 + 120));
-  }
-
-  v7 = *(v2 + 112);
+  v7 = *(v3 + 192);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v2 + 64);
   std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(v2 + 16, *(v2 + 24));
-  v8 = *(v2 + 8);
+  if (*(v3 + 143) < 0)
+  {
+    operator delete(*(v3 + 120));
+  }
+
+  v8 = *(v3 + 112);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v3 + 64);
+  std::vector<std::shared_ptr<MIL::IRBlock>>::__destroy_vector::operator()[abi:ne200100](va);
+  std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::destroy(v3 + 16, *(v3 + 24));
+  v9 = *(v3 + 8);
+  if (v9)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   _Unwind_Resume(a1);
@@ -255,7 +255,7 @@ uint64_t std::__shared_ptr_pointer<MIL::Builder::OperationBuilder *,std::shared_
   }
 }
 
-uint64_t std::vector<MIL::Int4>::__init_with_size[abi:ne200100]<MIL::Int4 const*,MIL::Int4 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::Int4>::__init_with_size[abi:ne200100]<MIL::Int4 const*,MIL::Int4 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -277,7 +277,7 @@ void sub_21802C1D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::UInt1>::__init_with_size[abi:ne200100]<MIL::UInt1 const*,MIL::UInt1 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::UInt1>::__init_with_size[abi:ne200100]<MIL::UInt1 const*,MIL::UInt1 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -299,7 +299,7 @@ void sub_21802C24C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::UInt2>::__init_with_size[abi:ne200100]<MIL::UInt2 const*,MIL::UInt2 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::UInt2>::__init_with_size[abi:ne200100]<MIL::UInt2 const*,MIL::UInt2 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -321,7 +321,7 @@ void sub_21802C2C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::UInt3>::__init_with_size[abi:ne200100]<MIL::UInt3 const*,MIL::UInt3 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::UInt3>::__init_with_size[abi:ne200100]<MIL::UInt3 const*,MIL::UInt3 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -343,7 +343,7 @@ void sub_21802C334(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::UInt4>::__init_with_size[abi:ne200100]<MIL::UInt4 const*,MIL::UInt4 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::UInt4>::__init_with_size[abi:ne200100]<MIL::UInt4 const*,MIL::UInt4 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -365,7 +365,7 @@ void sub_21802C3A8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<MIL::UInt6>::__init_with_size[abi:ne200100]<MIL::UInt6 const*,MIL::UInt6 const*>(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::vector<MIL::UInt6>::__init_with_size[abi:ne200100]<MIL::UInt6 const*,MIL::UInt6 const*>(uint64_t *result, char *a2, char *a3, uint64_t a4)
 {
   if (a4)
   {
@@ -387,7 +387,7 @@ void sub_21802C41C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::shared_ptr<MIL::IRArgument>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRArgument> const*,std::shared_ptr<MIL::IRArgument> const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::shared_ptr<MIL::IRArgument>>::__init_with_size[abi:ne200100]<std::shared_ptr<MIL::IRArgument> const*,std::shared_ptr<MIL::IRArgument> const*>(uint64_t *result, void *a2, void *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -410,17 +410,6 @@ void OUTLINED_FUNCTION_1_0()
   JUMPOUT(0x21CEAFEA0);
 }
 
-void MIL::Builder::ProgramBuilder::ProgramBuilder(void *a1)
-{
-  *a1 = &unk_2829E4BB0;
-  operator new();
-}
-
-{
-  *a1 = &unk_2829E4BB0;
-  operator new();
-}
-
 void sub_21802C5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
 {
   if (a10)
@@ -428,7 +417,7 @@ void sub_21802C5AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CEAFEA0](v11, v10);
+  MEMORY[0x21CEAFEA0](v11, v10, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -439,7 +428,7 @@ void sub_21802C68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CEAFEA0](v11, v10);
+  MEMORY[0x21CEAFEA0](v11, v10, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -474,7 +463,7 @@ void MIL::Builder::ProgramBuilder::~ProgramBuilder(MIL::Builder::ProgramBuilder 
   JUMPOUT(0x21CEAFEA0);
 }
 
-const void **MIL::Builder::ProgramBuilder::GetFunction@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Builder::ProgramBuilder::GetFunction@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((*(a1 + 8) + 16), a2);
   if (!result)
@@ -539,15 +528,15 @@ void sub_21802CA34(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_21802CB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_21802CB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   MIL::ValidationResult::~ValidationResult(va);
-  v11 = *(v9 - 24);
-  *(v9 - 24) = 0;
-  if (v11)
+  v18 = *(v16 - 24);
+  *(v16 - 24) = 0;
+  if (v18)
   {
-    (*(*v11 + 8))(v11);
+    (*(*v18 + 8))(v18);
   }
 
   _Unwind_Resume(a1);
@@ -555,54 +544,54 @@ void sub_21802CB88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::CreateProgramWithoutValidation(MIL::Builder::ProgramBuilder::ProgramBuilderImpl *this)
 {
-  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v5, this + 72);
-  v2 = *(this + 4);
-  if (v2)
-  {
-    MIL::Builder::FunctionBuilder::CreateFunction(*(v2 + 40));
-  }
-
-  v3 = *(this + 1);
+  std::unordered_map<std::string,std::shared_ptr<MIL::IRValue const>>::unordered_map(v6, this + 72);
+  v3 = *(this + 4);
   if (v3)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    MIL::Builder::FunctionBuilder::CreateFunction(*(v3 + 40));
   }
 
-  v4 = *(this + 8);
+  v4 = *(this + 1);
   if (v4)
   {
     atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
+  v5 = *(this + 8);
+  if (v5)
+  {
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+  }
+
   MIL::IRProgram::Make();
 }
 
-void sub_21802CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, ...)
+void sub_21802CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, std::__shared_weak_count *a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  if (a4)
+  va_start(va, a13);
+  if (a10)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  if (a6)
+  if (a12)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a6);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a12);
   }
 
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(va);
-  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v7 - 72);
+  std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::~__hash_table(v13 - 72);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(uint64_t a1, const void **a2)
+void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(uint64_t *a1, uint64_t *a2)
 {
-  if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>((a1 + 16), a2))
+  if (!std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::find<std::string>(a1 + 2, a2))
   {
-    v3 = *(a1 + 8);
-    if (v3)
+    v4 = a1[1];
+    if (v4)
     {
-      atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
     }
 
     MIL::Builder::FunctionBuilder::Make();
@@ -610,14 +599,14 @@ void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(uint64_t a1, 
 
   exception = __cxa_allocate_exception(0x10uLL);
   std::operator+<char>();
-  v5 = std::string::append(&v7, " is already part of this ProgramBuilder.");
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v8.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
-  *&v8.__r_.__value_.__l.__data_ = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  std::runtime_error::runtime_error(exception, &v8);
+  v6 = std::string::append(&v8, " is already part of this ProgramBuilder.");
+  v7 = *&v6->__r_.__value_.__l.__data_;
+  v9.__r_.__value_.__r.__words[2] = v6->__r_.__value_.__r.__words[2];
+  *&v9.__r_.__value_.__l.__data_ = v7;
+  v6->__r_.__value_.__l.__size_ = 0;
+  v6->__r_.__value_.__r.__words[2] = 0;
+  v6->__r_.__value_.__r.__words[0] = 0;
+  std::runtime_error::runtime_error(exception, &v9);
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
@@ -651,8 +640,7 @@ void MIL::Builder::ProgramBuilder::SetLocation(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 8);
   v3 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetLocation(v2, &v3);
   if (*(&v3 + 1))
   {
@@ -693,18 +681,16 @@ void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetLocation(uint64_t a1, 
   }
 }
 
-void MIL::Builder::ProgramBuilder::SetAttribute(uint64_t a1, __int128 *a2, uint64_t a3)
+void MIL::Builder::ProgramBuilder::SetAttribute(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   v3 = *(a1 + 8);
   v4 = *a2;
   v7 = *(a2 + 2);
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   v5 = *a3;
   *__p = v4;
-  *a3 = 0;
-  *(a3 + 8) = 0;
+  *a3 = 0uLL;
   MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetAttribute(v3, __p, &v5);
   if (*(&v5 + 1))
   {
@@ -717,21 +703,22 @@ void MIL::Builder::ProgramBuilder::SetAttribute(uint64_t a1, __int128 *a2, uint6
   }
 }
 
-void sub_21802D178(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21802D178(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable(va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetAttribute(uint64_t a1, const void **a2, __int128 *a3)
+void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetAttribute(uint64_t a1, __int128 *a2, __int128 *a3)
 {
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 72), a2);
+  v7 = a2;
+  v4 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 72), a2, &std::piecewise_construct, &v7);
   v5 = *a3;
   *a3 = 0;
   *(a3 + 1) = 0;
@@ -743,7 +730,7 @@ void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::SetAttribute(uint64_t a1,
   }
 }
 
-const void **MIL::Builder::ProgramBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Builder::ProgramBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   result = std::__hash_table<std::__hash_value_type<std::string,MIL::IRValueType const*>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MIL::IRValueType const*>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MIL::IRValueType const*>>>::find<std::string>((*(a1 + 8) + 72), a2);
   if (result)
@@ -766,12 +753,11 @@ const void **MIL::Builder::ProgramBuilder::TryGetAttribute@<X0>(uint64_t a1@<X0>
   return result;
 }
 
-void MIL::Builder::ProgramBuilder::AddFunction(uint64_t a1, const void **a2, __int128 *a3)
+void MIL::Builder::ProgramBuilder::AddFunction(uint64_t a1, uint64_t *a2, __int128 *a3)
 {
   v3 = *(a1 + 8);
   v4 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(v3, a2, &v4);
   if (*(&v4 + 1))
   {
@@ -789,7 +775,7 @@ void sub_21802D290(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(uint64_t *a1, const void **a2, uint64_t *a3)
+void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::AddFunction(uint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   if (!*a3)
   {
@@ -830,7 +816,7 @@ LABEL_12:
   }
 
   v16.__r_.__value_.__r.__words[0] = a2;
-  v8 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 2, a2);
+  v8 = std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 2, a2, &std::piecewise_construct, &v16, &v15);
   v9 = *a3;
   *a3 = 0;
   a3[1] = 0;
@@ -909,35 +895,35 @@ void *std::shared_ptr<MIL::Builder::FunctionBuilder>::operator=[abi:ne200100]<MI
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Builder::FunctionBuilder>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -945,65 +931,65 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_21802D7EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_21802D7EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::shared_ptr<MIL::Builder::FunctionBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::FunctionBuilder,std::default_delete<MIL::Builder::FunctionBuilder>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<MIL::Builder::FunctionBuilder>::shared_ptr[abi:ne200100]<MIL::Builder::FunctionBuilder,std::default_delete<MIL::Builder::FunctionBuilder>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<MIL::Builder::FunctionBuilder  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -1049,7 +1035,7 @@ void MIL::Builder::ProgramBuilder::ProgramBuilderImpl::ProgramBuilderImpl(uint64
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 1065353216;
-  MIL::UnknownLocation::Make(a1);
+  MIL::UnknownLocation::Make();
 }
 
 void sub_21802DAAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -1150,14 +1136,14 @@ void MIL::Builder::Variable::Make()
   operator new();
 }
 
-void sub_21802DF68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_21802DF68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   if (a14 < 0)
   {
     operator delete(__p);
   }
 
-  MEMORY[0x21CEAFEA0](v15, v14);
+  MEMORY[0x21CEAFEA0](v15, v14, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -1172,27 +1158,27 @@ void sub_21802E050(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::Variable::Make(MIL::Builder::Variable *this, const MIL::IRArgument *a2, const MIL::Builder::OperationBuilder *a3)
+void MIL::Builder::Variable::Make(MIL::Builder::Variable *this)
 {
   if ((*(*this + 16))(this))
   {
     Name = MIL::IRArgument::GetName(this);
     if (*(Name + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v7, *Name, *(Name + 8));
+      std::string::__init_copy_ctor_external(&v8, *Name, *(Name + 8));
     }
 
     else
     {
-      v5 = *Name;
-      v7.__r_.__value_.__r.__words[2] = *(Name + 16);
-      *&v7.__r_.__value_.__l.__data_ = v5;
+      v6 = *Name;
+      v8.__r_.__value_.__r.__words[2] = *(Name + 16);
+      *&v8.__r_.__value_.__l.__data_ = v6;
     }
 
     MIL::Builder::Variable::Make();
   }
 
-  (*(*this + 48))(&v6, this);
+  (*(*this + 48))(&v7, this);
   MIL::Builder::Variable::Make();
 }
 
@@ -1206,12 +1192,7 @@ void sub_21802E174(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Builder::Variable::Variable(void *a1)
-{
-  *a1 = &unk_2829E4C40;
-  operator new();
-}
-
+void MIL::Builder::Variable::Variable(void *a1, uint64_t a2)
 {
   *a1 = &unk_2829E4C40;
   operator new();
@@ -1234,13 +1215,13 @@ void sub_21802E550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x21CEAFEA0](v11, v10);
+  MEMORY[0x21CEAFEA0](v11, v10, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
 uint64_t MIL::Builder::Variable::GetValue(MIL::Builder::Variable::VariableImpl **this)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(this[1], &v9);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v9, this[1]);
   v2 = v9;
   if (!v9)
   {
@@ -1298,7 +1279,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void MIL::Builder::Variable::VariableImpl::TryGetValue(MIL::Builder::Variable::VariableImpl *this@<X0>, void *a2@<X8>)
+void MIL::Builder::Variable::VariableImpl::TryGetValue(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
   v2 = *(this + 6);
   if (v2)
@@ -1314,9 +1295,9 @@ void MIL::Builder::Variable::VariableImpl::TryGetValue(MIL::Builder::Variable::V
     }
 
     v5 = *v3;
-    v4 = *(v3 + 1);
-    *a2 = v5;
-    a2[1] = v4;
+    v4 = v3[1];
+    *a1 = v5;
+    a1[1] = v4;
     if (v4)
     {
       atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
@@ -1325,11 +1306,11 @@ void MIL::Builder::Variable::VariableImpl::TryGetValue(MIL::Builder::Variable::V
 
   else
   {
-    MIL::Builder::Variable::VariableImpl::GetValueFromBuilder(this, this, a2);
+    MIL::Builder::Variable::VariableImpl::GetValueFromBuilder(this, this, a1);
   }
 }
 
-MIL::Builder::Variable::VariableImpl *MIL::Builder::Variable::VariableImpl::GetName(MIL::Builder::Variable::VariableImpl *this)
+uint64_t MIL::Builder::Variable::VariableImpl::GetName(MIL::Builder::Variable::VariableImpl *this)
 {
   result = MIL::Builder::Variable::VariableImpl::TryGetName(this);
   if (!result)
@@ -1342,9 +1323,9 @@ MIL::Builder::Variable::VariableImpl *MIL::Builder::Variable::VariableImpl::GetN
   return result;
 }
 
-uint64_t MIL::Builder::Variable::TryGetValue(MIL::Builder::Variable::VariableImpl **this)
+uint64_t MIL::Builder::Variable::TryGetValue(uint64_t **this)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(this[1], &v3);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v3, this[1]);
   v1 = v3;
   if (v4)
   {
@@ -1354,7 +1335,7 @@ uint64_t MIL::Builder::Variable::TryGetValue(MIL::Builder::Variable::VariableImp
   return v1;
 }
 
-MIL::Builder::Variable::VariableImpl *MIL::Builder::Variable::GetName(MIL::Builder::Variable::VariableImpl **this)
+uint64_t MIL::Builder::Variable::GetName(MIL::Builder::Variable::VariableImpl **this)
 {
   result = MIL::Builder::Variable::VariableImpl::TryGetName(this[1]);
   if (!result)
@@ -1367,11 +1348,11 @@ MIL::Builder::Variable::VariableImpl *MIL::Builder::Variable::GetName(MIL::Build
   return result;
 }
 
-MIL::Builder::Variable::VariableImpl *MIL::Builder::Variable::VariableImpl::TryGetName(MIL::Builder::Variable::VariableImpl *this)
+uint64_t MIL::Builder::Variable::VariableImpl::TryGetName(uint64_t this)
 {
-  if (!this || *(this + 6))
+  if (!this || *(this + 24))
   {
-    MIL::Builder::Variable::VariableImpl::TryGetValue(this, &v2);
+    MIL::Builder::Variable::VariableImpl::TryGetValue(&v2, this);
     v1 = (*(*v2 + 40))(v2);
     if (v3)
     {
@@ -1514,9 +1495,9 @@ void MIL::Builder::Variable::GetScalarValue<MIL::UInt1>()
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<BOOL>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<BOOL>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1544,9 +1525,9 @@ void sub_21802ECC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned char>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned char>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1574,9 +1555,9 @@ void sub_21802ED80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned short>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned short>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1604,9 +1585,9 @@ void sub_21802EE38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned int>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned int>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1634,9 +1615,9 @@ void sub_21802EEF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned long long>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<unsigned long long>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1664,9 +1645,9 @@ void sub_21802EFA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<signed char>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<signed char>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1694,9 +1675,9 @@ void sub_21802F060(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<short>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<short>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1724,9 +1705,9 @@ void sub_21802F118(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<int>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<int>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1754,9 +1735,9 @@ void sub_21802F1D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<long long>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<long long>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1784,9 +1765,9 @@ void sub_21802F288(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Bf16>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Bf16>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1814,9 +1795,9 @@ void sub_21802F340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp8E4M3FN>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp8E4M3FN>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1844,9 +1825,9 @@ void sub_21802F3F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp8E5M2>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp8E5M2>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1874,9 +1855,9 @@ void sub_21802F4B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp16>(MIL::Builder::Variable::VariableImpl *a1)
+uint64_t MIL::Builder::Variable::VariableImpl::GetScalarValue<MIL::Fp16>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1904,9 +1885,9 @@ void sub_21802F568(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-float MIL::Builder::Variable::VariableImpl::GetScalarValue<float>(MIL::Builder::Variable::VariableImpl *a1)
+float MIL::Builder::Variable::VariableImpl::GetScalarValue<float>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1934,9 +1915,9 @@ void sub_21802F628(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double MIL::Builder::Variable::VariableImpl::GetScalarValue<double>(MIL::Builder::Variable::VariableImpl *a1)
+double MIL::Builder::Variable::VariableImpl::GetScalarValue<double>(uint64_t *a1)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1964,9 +1945,9 @@ void sub_21802F6E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::Variable::VariableImpl::GetScalarValue<std::string>(MIL::Builder::Variable::VariableImpl *a1@<X0>, std::string *a2@<X8>)
+void MIL::Builder::Variable::VariableImpl::GetScalarValue<std::string>(uint64_t *a1@<X0>, std::string *a2@<X8>)
 {
-  MIL::Builder::Variable::VariableImpl::TryGetValue(a1, &v4);
+  MIL::Builder::Variable::VariableImpl::TryGetValue(&v4, a1);
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x10uLL);
@@ -1992,14 +1973,14 @@ void sub_21802F7A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Builder::Variable::VariableImpl::GetValueFromBuilder(uint64_t a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void MIL::Builder::Variable::VariableImpl::GetValueFromBuilder(void *result@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
-  v3 = *(a1 + 40);
+  v3 = *(result + 10);
   if (v3)
   {
     if (v3 == 1)
     {
-      MIL::Builder::BlockBuilder::GetValue(*(a1 + 32), a2, a3);
+      MIL::Builder::BlockBuilder::GetValue(result[4], a2, a3);
     }
 
     else
@@ -2011,7 +1992,7 @@ void MIL::Builder::Variable::VariableImpl::GetValueFromBuilder(uint64_t a1@<X0>,
 
   else
   {
-    MIL::Builder::OperationBuilder::TryGetConstant(*(a1 + 32), a3);
+    MIL::Builder::OperationBuilder::TryGetConstant(result[4], a3);
   }
 }
 
@@ -2157,28 +2138,28 @@ void MIL::Conversion::OpConversionImpl::RegisterConversion(uint64_t a1, const vo
   if (std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(a1 + 8, a2))
   {
     __p.__r_.__value_.__r.__words[0] = a2;
-    v8 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, a2);
-    v9 = *(v8 + 56);
-    for (i = *(v8 + 64); v9 != i; v9 += 3)
+    v8 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &__p, &v27);
+    v9 = v8[7];
+    for (i = v8[8]; v9 != i; v9 += 3)
     {
-      std::set<std::string>::set[abi:ne200100](&p_p, v9);
+      std::set<std::string>::set[abi:ne200100](&v27, v9);
       if (v28[1] == *(a3 + 16))
       {
-        v11 = p_p;
-        if (p_p == v28)
+        v11 = v27;
+        if (v27 == v28)
         {
 LABEL_22:
           std::pair<std::string,std::set<std::string>>::pair[abi:ne200100]<true,0>(&__p, a2, a3);
-          v28[3] = &__p;
-          v22 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>(a1 + 32, &__p);
-          std::function<void ()(MIL::Transform::ProgramTransformer &)>::operator=((v22 + 80), a4);
+          p_p = &__p;
+          v22 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>((a1 + 32), &__p, &std::piecewise_construct, &p_p, &v29);
+          std::function<void ()(MIL::Transform::ProgramTransformer &)>::operator=(v22 + 10, a4);
           std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v25, v26);
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&p_p, v28[0]);
+          std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v27, v28[0]);
           return;
         }
 
@@ -2242,12 +2223,12 @@ LABEL_22:
         }
       }
 
-      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&p_p, v28[0]);
+      std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v27, v28[0]);
     }
   }
 
   __p.__r_.__value_.__r.__words[0] = a2;
-  v18 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, a2);
+  v18 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &__p, &v27);
   v19 = v18;
   v20 = v18[8];
   if (v20 >= v18[9])
@@ -2264,9 +2245,9 @@ LABEL_22:
 
   v19[8] = v21;
   std::pair<std::string,std::set<std::string>>::pair[abi:ne200100]<true,0>(&__p, a2, a3);
-  p_p = &__p;
-  v23 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>(a1 + 32, &__p);
-  std::function<void ()(MIL::Transform::ProgramTransformer &)>::operator=((v23 + 80), a4);
+  v27 = &__p;
+  v23 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>((a1 + 32), &__p, &std::piecewise_construct, &v27, &p_p);
+  std::function<void ()(MIL::Transform::ProgramTransformer &)>::operator=(v23 + 10, a4);
   std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v25, v26);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -2276,44 +2257,44 @@ LABEL_22:
 
 void MIL::Conversion::OpConversionImpl::ConvertProgram(MIL::Conversion::OpConversionImpl *a1, const MIL::IRProgram *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (MIL::Conversion::OpConversionImpl::CanConvertProgram(a1, a2))
   {
-    MIL::Transform::ProgramTransformer::ProgramTransformer(v15, a2);
-    v14[0] = 0;
-    v14[1] = 0;
-    v13 = v14;
-    v6 = (*(*a2 + 72))(a2) + 16;
+    MIL::Transform::ProgramTransformer::ProgramTransformer(v16, a2);
+    v15[0] = 0;
+    v15[1] = 0;
+    v14 = v15;
+    v7 = (*(*a2 + 72))(a2) + 16;
     while (1)
     {
-      v6 = *v6;
-      if (!v6)
+      v7 = *v7;
+      if (!v7)
       {
         break;
       }
 
-      v7 = (*(**(v6 + 40) + 48))(*(v6 + 40));
-      v8 = (*(**(v6 + 40) + 32))(*(v6 + 40));
-      MIL::Conversion::OpConversionImpl::PopulateProgramOps(a1, a2, v8, v7, &v13);
+      v8 = (*(**(v7 + 40) + 48))(*(v7 + 40));
+      v9 = (*(**(v7 + 40) + 32))(*(v7 + 40));
+      MIL::Conversion::OpConversionImpl::PopulateProgramOps(a1, a2, v9, v8, &v14);
     }
 
-    MIL::Conversion::OpConversionImpl::GetValidConversion(a1, &v13, a3, v12);
-    v9 = v12[0];
-    v10 = v12[1];
-    while (v9 != v10)
+    MIL::Conversion::OpConversionImpl::GetValidConversion(a1, &v14, a3, v13);
+    v10 = v13[0];
+    v11 = v13[1];
+    while (v10 != v11)
     {
-      std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::__value_func[abi:ne200100](v16, v9);
-      if (!v17)
+      std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::__value_func[abi:ne200100](v17, v10);
+      if (!v18)
       {
         std::__throw_bad_function_call[abi:ne200100]();
       }
 
-      (*(*v17 + 48))(v17, v15);
-      std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::~__value_func[abi:ne200100](v16);
-      v9 += 32;
+      (*(*v18 + 48))(v18, v16);
+      std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::~__value_func[abi:ne200100](v17);
+      v10 += 32;
     }
 
-    MIL::Transform::ProgramTransformer::GetProgram(v15);
+    MIL::Transform::ProgramTransformer::GetProgram(v16);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -2323,94 +2304,94 @@ void MIL::Conversion::OpConversionImpl::ConvertProgram(MIL::Conversion::OpConver
 
 void MIL::Conversion::OpConversionImpl::ConvertProgram(MIL::Conversion::OpConversionImpl *a1, const MIL::IRProgram *a2, const void **a3)
 {
-  v25[0] = 0;
-  v25[1] = 0;
-  v24 = v25;
-  v6 = (*(*a2 + 40))(a2);
-  Opset = MIL::MILContext::GetOpset(v6);
-  MIL::IROpset::GetReversedOperatorNamesMap(Opset, v22);
-  for (i = v23; i; i = *i)
+  v26[0] = 0;
+  v26[1] = 0;
+  v25 = v26;
+  v7 = (*(*a2 + 40))(a2);
+  Opset = MIL::MILContext::GetOpset(v7, a3);
+  MIL::IROpset::GetReversedOperatorNamesMap(Opset, v23);
+  for (i = v24; i; i = *i)
   {
     if (*(a3 + 23) >= 0)
     {
-      v9 = *(a3 + 23);
+      v10 = *(a3 + 23);
     }
 
     else
     {
-      v9 = a3[1];
+      v10 = a3[1];
     }
 
-    std::string::basic_string[abi:ne200100](&v19, v9 + 2);
-    if ((v19.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::string::basic_string[abi:ne200100](&v20, v10 + 2);
+    if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v10 = &v19;
+      v11 = &v20;
     }
 
     else
     {
-      v10 = v19.__r_.__value_.__r.__words[0];
+      v11 = v20.__r_.__value_.__r.__words[0];
     }
 
-    if (v9)
+    if (v10)
     {
       if (*(a3 + 23) >= 0)
       {
-        v11 = a3;
+        v12 = a3;
       }
 
       else
       {
-        v11 = *a3;
+        v12 = *a3;
       }
 
-      memmove(v10, v11, v9);
+      memmove(v11, v12, v10);
     }
 
-    strcpy(v10 + v9, "::");
-    v12 = *(i + 63);
-    if (v12 >= 0)
+    strcpy(v11 + v10, "::");
+    v13 = *(i + 63);
+    if (v13 >= 0)
     {
-      v13 = (i + 5);
+      v14 = (i + 5);
     }
 
     else
     {
-      v13 = i[5];
+      v14 = i[5];
     }
 
-    if (v12 >= 0)
+    if (v13 >= 0)
     {
-      v14 = *(i + 63);
+      v15 = *(i + 63);
     }
 
     else
     {
-      v14 = i[6];
+      v15 = i[6];
     }
 
-    v15 = std::string::append(&v19, v13, v14);
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v21 = v15->__r_.__value_.__r.__words[2];
-    *__p = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v24, __p);
-    if (SHIBYTE(v21) < 0)
+    v16 = std::string::append(&v20, v14, v15);
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v22 = v16->__r_.__value_.__r.__words[2];
+    *__p = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v25, __p, __p);
+    if (SHIBYTE(v22) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19.__r_.__value_.__l.__data_);
+      operator delete(v20.__r_.__value_.__l.__data_);
     }
   }
 
-  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v22);
-  v17 = *(a3 + 23);
-  if (v17 < 0)
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v23);
+  v18 = *(a3 + 23);
+  if (v18 < 0)
   {
     if (a3[1] != 5)
     {
@@ -2420,40 +2401,40 @@ void MIL::Conversion::OpConversionImpl::ConvertProgram(MIL::Conversion::OpConver
     a3 = *a3;
   }
 
-  else if (v17 != 5)
+  else if (v18 != 5)
   {
     goto LABEL_40;
   }
 
   if (*a3 == 829648745 && *(a3 + 4) == 55)
   {
-    std::string::basic_string[abi:ne200100]<0>(v22, "ios16::non_maximum_suppression");
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v24, v22);
-    if (SHIBYTE(v23) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v23, "ios16::non_maximum_suppression");
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v25, v23, v23);
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v22, "ios16::resample");
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v24, v22);
-    if (SHIBYTE(v23) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v23, "ios16::resample");
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v25, v23, v23);
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v22, "ios16::crop_resize");
-    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v24, v22);
-    if (SHIBYTE(v23) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v23, "ios16::crop_resize");
+    std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(&v25, v23, v23);
+    if (SHIBYTE(v24) < 0)
     {
-      operator delete(v22[0]);
+      operator delete(v23[0]);
     }
   }
 
 LABEL_40:
-  MIL::Conversion::OpConversionImpl::ConvertProgram(a1, a2, &v24);
+  MIL::Conversion::OpConversionImpl::ConvertProgram(a1, a2, &v25);
 }
 
-void sub_218030500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, char a30, char *a31)
+void sub_218030500(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char *a31)
 {
   if (a27 < 0)
   {
@@ -2575,18 +2556,18 @@ uint64_t std::pair<std::string,std::set<std::string>>::~pair(uint64_t a1)
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v5 = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v7, a2);
+  if (!v5)
   {
     std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
   }
 
-  return v2;
+  return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::set<std::string>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::set<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::string,std::vector<std::set<std::string>>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::string,std::vector<std::set<std::string>>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -2640,9 +2621,9 @@ void std::vector<std::set<std::string>>::__destroy_vector::operator()[abi:ne2001
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__find_equal<std::pair<std::string,std::set<std::string>>>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__find_equal<std::pair<std::string,std::set<std::string>>>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>();
@@ -2651,7 +2632,7 @@ uint64_t std::__tree<std::__value_type<std::pair<std::string,std::set<std::strin
   return result;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__find_equal<std::pair<std::string,std::set<std::string>>>(uint64_t a1, void *a2, uint64_t a3)
+uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__find_equal<std::pair<std::string,std::set<std::string>>>(uint64_t a1, uint64_t **a2, uint64_t a3)
 {
   v5 = *(a1 + 8);
   result = (a1 + 8);
@@ -2662,11 +2643,11 @@ uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::set<std::stri
     {
       v36 = result;
       v6 = v4;
-      v7 = v4 + 4;
+      v7 = (v4 + 32);
       v8 = *(v4 + 55);
       v9 = *(a3 + 23);
       v10 = v9;
-      v37 = v4[5];
+      v37 = *(v4 + 40);
       v38 = *(a3 + 8);
       if ((v9 & 0x80u) == 0)
       {
@@ -2678,7 +2659,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::set<std::stri
         v11 = *(a3 + 8);
       }
 
-      v39 = v4[4];
+      v39 = *(v4 + 32);
       v40 = *a3;
       if ((v9 & 0x80u) == 0)
       {
@@ -2697,17 +2678,17 @@ uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::set<std::stri
 
       else
       {
-        v13 = v4[5];
+        v13 = *(v4 + 40);
       }
 
       if ((v8 & 0x80u) == 0)
       {
-        v14 = v4 + 4;
+        v14 = (v4 + 32);
       }
 
       else
       {
-        v14 = v4[4];
+        v14 = *(v4 + 32);
       }
 
       if (v13 >= v11)
@@ -3097,7 +3078,7 @@ void sub_21803142C(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-uint64_t std::vector<std::set<std::string>>::__emplace_back_slow_path<std::set<std::string> const&>(uint64_t *a1, const void ***a2)
+uint64_t std::vector<std::set<std::string>>::__emplace_back_slow_path<std::set<std::string> const&>(void *a1, const void ***a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -3147,9 +3128,9 @@ uint64_t std::vector<std::set<std::string>>::__emplace_back_slow_path<std::set<s
   return v12;
 }
 
-void sub_218031554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_218031554(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::set<std::string>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3267,10 +3248,10 @@ void std::__split_buffer<std::set<std::string>>::clear[abi:ne200100](uint64_t a1
   }
 }
 
-uint64_t MIL::Conversion::OpConversionImpl::PopulateProgramOps(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t a5)
+uint64_t MIL::Conversion::OpConversionImpl::PopulateProgramOps(uint64_t a1, uint64_t a2, const void **a3, uint64_t a4, uint64_t **a5)
 {
   v10 = (*(*a2 + 40))(a2);
-  Opset = MIL::MILContext::GetOpset(v10);
+  Opset = MIL::MILContext::GetOpset(v10, a3);
   MIL::IROpset::GetReversedOperatorNamesMap(Opset, v62);
   v12 = (*(*a4 + 56))(a4);
   v14 = **v12;
@@ -3348,7 +3329,7 @@ uint64_t MIL::Conversion::OpConversionImpl::PopulateProgramOps(uint64_t a1, uint
 
       strcpy(v39 + size, "::");
       v41 = (*(*a2 + 40))(a2);
-      v42 = MIL::MILContext::GetOpset(v41);
+      v42 = MIL::MILContext::GetOpset(v41, &__dst);
       MIL::IROpset::GetReversedOperatorNamesMap(v42, &v56);
       v43 = (*(*v15 + 64))(v15);
       v44 = (*(*v43 + 16))(v43);
@@ -3389,7 +3370,7 @@ uint64_t MIL::Conversion::OpConversionImpl::PopulateProgramOps(uint64_t a1, uint
       v52->__r_.__value_.__l.__size_ = 0;
       v52->__r_.__value_.__r.__words[2] = 0;
       v52->__r_.__value_.__r.__words[0] = 0;
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(a5, __p);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(a5, __p, __p);
       if (SHIBYTE(v60) < 0)
       {
         operator delete(__p[0]);
@@ -3481,7 +3462,7 @@ uint64_t MIL::Conversion::OpConversionImpl::PopulateProgramOps(uint64_t a1, uint
       v35->__r_.__value_.__l.__size_ = 0;
       v35->__r_.__value_.__r.__words[2] = 0;
       v35->__r_.__value_.__r.__words[0] = 0;
-      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(a5, &v56);
+      std::__tree<std::string>::__emplace_unique_key_args<std::string,std::string>(a5, &v56, &v56);
       if (SHIBYTE(v57) < 0)
       {
         v37 = v56;
@@ -3507,9 +3488,9 @@ void MIL::Conversion::OpConversionImpl::GetValidConversion(uint64_t a1@<X0>, con
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
-  v21[0] = 0;
-  v21[1] = 0;
-  v20 = v21;
+  v20[0] = 0;
+  v20[1] = 0;
+  v19 = v20;
   v5 = a2 + 1;
   v6 = *a2;
   if (*a2 != (a2 + 1))
@@ -3518,12 +3499,12 @@ void MIL::Conversion::OpConversionImpl::GetValidConversion(uint64_t a1@<X0>, con
     {
       if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(a3, v6 + 4))
       {
-        if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(&v20, v6 + 4) || (v18 = (v6 + 4), (*(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v20, v6 + 4) + 56) & 1) == 0))
+        if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(&v19, v6 + 4) || (v18[0] = (v6 + 4), (std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v19, v6 + 4, &std::piecewise_construct, v18, &v17)[7] & 1) == 0))
         {
-          v18 = (v6 + 4);
-          *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v20, v6 + 4) + 56) = 0;
-          MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(a1, v6 + 4, a3, &v20, &v18);
-          if (v18 == v19)
+          v18[0] = (v6 + 4);
+          *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&v19, v6 + 4, &std::piecewise_construct, v18, &v17) + 56) = 0;
+          MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(a1, v6 + 4, a3, &v19, v18);
+          if (v18[0] == v18[1])
           {
             exception = __cxa_allocate_exception(0x10uLL);
             std::operator+<char>();
@@ -3531,8 +3512,8 @@ void MIL::Conversion::OpConversionImpl::GetValidConversion(uint64_t a1@<X0>, con
             __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
           }
 
-          std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<std::function<void ()(MIL::Transform::ProgramTransformer &)>*>>,std::move_iterator<std::__wrap_iter<std::function<void ()(MIL::Transform::ProgramTransformer &)>*>>>(a4, a4[1], v18, v19, (v19 - v18) >> 5);
-          v17.__r_.__value_.__r.__words[0] = &v18;
+          std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__insert_with_size[abi:ne200100]<std::move_iterator<std::__wrap_iter<std::function<void ()(MIL::Transform::ProgramTransformer &)>*>>,std::move_iterator<std::__wrap_iter<std::function<void ()(MIL::Transform::ProgramTransformer &)>*>>>(a4, a4[1], v18[0], v18[1], (v18[1] - v18[0]) >> 5);
+          v17.__r_.__value_.__r.__words[0] = v18;
           std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__destroy_vector::operator()[abi:ne200100](&v17);
         }
       }
@@ -3581,7 +3562,7 @@ void MIL::Conversion::OpConversionImpl::GetValidConversion(uint64_t a1@<X0>, con
     }
   }
 
-  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v20, v21[0]);
+  std::__tree<std::__value_type<std::string,MIL::IRValueType const*>,std::__map_value_compare<std::string,std::__value_type<std::string,MIL::IRValueType const*>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MIL::IRValueType const*>>>::destroy(&v19, v20[0]);
 }
 
 void sub_218031F34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char *a20)
@@ -3609,13 +3590,14 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+void MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(uint64_t a1@<X0>, const void **a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X3>, uint64_t *a5@<X8>)
 {
-  *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, a2) + 56) = 0;
   __p.__r_.__value_.__r.__words[0] = a2;
-  v10 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, a2);
-  v11 = *(v10 + 56);
-  if (v11 == *(v10 + 64))
+  *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, a2, &std::piecewise_construct, &__p, &p_p) + 56) = 0;
+  __p.__r_.__value_.__r.__words[0] = a2;
+  v10 = std::__tree<std::__value_type<std::string,std::vector<std::set<std::string>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::set<std::string>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::set<std::string>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), a2, &std::piecewise_construct, &__p, &p_p);
+  v11 = v10[7];
+  if (v11 == v10[8])
   {
 LABEL_17:
     *a5 = 0;
@@ -3624,7 +3606,7 @@ LABEL_17:
     return;
   }
 
-  v19 = *(v10 + 64);
+  v19 = v10[8];
 LABEL_3:
   *a5 = 0;
   a5[1] = 0;
@@ -3636,9 +3618,9 @@ LABEL_3:
     {
       if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(a3, v12 + 4))
       {
-        if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(a4, v12 + 4) || (p_p = (v12 + 4), (*(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, v12 + 4) + 56) & 1) == 0))
+        if (!std::__tree<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<std::shared_ptr<MIL::IRArgument>>>>>::__count_unique<std::string>(a4, v12 + 4) || (p_p = (v12 + 4), (std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, v12 + 4, &std::piecewise_construct, &p_p, &v22)[7] & 1) == 0))
         {
-          MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(&__p, a1, v12 + 4, a3, a4);
+          MIL::Conversion::OpConversionImpl::GetConversionOrderReverse(a1, v12 + 2, a3, a4, &__p);
           if (__p.__r_.__value_.__r.__words[0] == __p.__r_.__value_.__l.__size_)
           {
             p_p = &__p;
@@ -3692,16 +3674,16 @@ LABEL_3:
 
   std::pair<std::string,std::set<std::string>>::pair[abi:ne200100]<true,0>(&__p, a2, v11);
   p_p = &__p;
-  v16 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>(a1 + 32, &__p);
+  v16 = std::__tree<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::__map_value_compare<std::pair<std::string,std::set<std::string>>,std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>,std::less<std::pair<std::string,std::set<std::string>>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::set<std::string>>,std::function<void ()(MIL::Transform::ProgramTransformer &)>>>>::__emplace_unique_key_args<std::pair<std::string,std::set<std::string>>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::set<std::string>>&&>,std::tuple<>>((a1 + 32), &__p, &std::piecewise_construct, &p_p, &v22);
   v17 = a5[1];
   if (v17 >= a5[2])
   {
-    v18 = std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__emplace_back_slow_path<std::function<void ()(MIL::Transform::ProgramTransformer &)> const&>(a5, v16 + 80);
+    v18 = std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__emplace_back_slow_path<std::function<void ()(MIL::Transform::ProgramTransformer &)> const&>(a5, (v16 + 10));
   }
 
   else
   {
-    std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::__value_func[abi:ne200100](a5[1], v16 + 80);
+    std::__function::__value_func<void ()(MIL::Transform::ProgramTransformer &)>::__value_func[abi:ne200100](a5[1], (v16 + 10));
     v18 = v17 + 32;
   }
 
@@ -3713,10 +3695,10 @@ LABEL_3:
   }
 
   p_p = a2;
-  *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, a2) + 56) = 1;
+  *(std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a4, a2, &std::piecewise_construct, &p_p, &v22) + 56) = 1;
 }
 
-void sub_218032220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void **a11)
+void sub_218032220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   *(v11 + 8) = v12;
   std::pair<std::string,std::set<std::string>>::~pair(&a11);
@@ -3725,9 +3707,9 @@ void sub_218032220(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+void *std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<MIL::IRBlock>>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,BOOL>,std::__map_value_compare<std::string,std::__value_type<std::string,BOOL>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,BOOL>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -3743,7 +3725,7 @@ void sub_2180323AC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__emplace_back_slow_path<std::function<void ()(MIL::Transform::ProgramTransformer &)> const&>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::__emplace_back_slow_path<std::function<void ()(MIL::Transform::ProgramTransformer &)> const&>(void *a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -3794,9 +3776,9 @@ uint64_t std::vector<std::function<void ()(MIL::Transform::ProgramTransformer &)
   return v13;
 }
 
-void sub_2180324C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2180324C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3954,9 +3936,9 @@ LABEL_18:
   return v5;
 }
 
-void sub_2180327A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180327A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::function<void ()(MIL::Transform::ProgramTransformer &)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -4154,13 +4136,13 @@ void MIL::Matching::CompiledPattern::CompiledPattern(MIL::Matching::CompiledPatt
   operator new();
 }
 
-void sub_218032D30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218032D30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v4 = *(v2 + 8);
-  if (v4)
+  va_start(va, a3);
+  v5 = *(v3 + 8);
+  if (v5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
   }
 
   _Unwind_Resume(a1);
@@ -4262,17 +4244,17 @@ void sub_21803314C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void anonymous namespace::InstructionBuilderImpl::CreateSetEdgePredicate(uint64_t a1, uint64_t a2, void *a3)
+void anonymous namespace::InstructionBuilderImpl::CreateSetEdgePredicate(void *a1, uint64_t a2, void *a3)
 {
   v5 = *MEMORY[0x277D85DE8];
   std::__function::__value_func<BOOL ()(MIL::Builder::DataDependency const&)>::__value_func[abi:ne200100](v4, a2);
   MIL::Matching::CreateSetEdgePredicateInstruction(v4, a3);
 }
 
-void sub_2180332F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2180332F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  if (a3)
+  va_start(va, a15);
+  if (a10)
   {
   }
 
@@ -4289,7 +4271,7 @@ void sub_218033468(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void anonymous namespace::InstructionBuilderImpl::CreateSplit(uint64_t a1, uint64_t a2)
+void anonymous namespace::InstructionBuilderImpl::CreateSplit(void *a1, uint64_t a2)
 {
   *__p = *a2;
   v3 = *(a2 + 16);
@@ -4484,7 +4466,7 @@ void std::__shared_ptr_emplace<MIL::Matching::CompiledPattern::CompiledPatternIm
 void MIL::EdgeIndexesImpl::~EdgeIndexesImpl(MIL::EdgeIndexesImpl *this)
 {
   *this = &unk_2829E4E98;
-  v2 = this + 8;
+  v2 = (this + 8);
   std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>>>::~__hash_table(this + 88);
   std::__hash_table<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>>>::~__hash_table(this + 48);
   std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::~__hash_table(v2);
@@ -4498,217 +4480,219 @@ void MIL::EdgeIndexesImpl::~EdgeIndexesImpl(MIL::EdgeIndexesImpl *this)
 
 void MIL::EdgeIndexes::BuildForBlock(MIL::EdgeIndexes *this, const MIL::IRBlock *a2)
 {
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 1065353216;
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 1065353216;
+  memset(v57, 0, sizeof(v57));
+  v58 = 1065353216;
   memset(v55, 0, sizeof(v55));
   v56 = 1065353216;
   memset(v53, 0, sizeof(v53));
   v54 = 1065353216;
-  memset(v51, 0, sizeof(v51));
-  v52 = 1065353216;
-  v3 = (*(*this + 40))(this, a2);
-  v4 = *v3;
-  v5 = *(v3 + 8);
-  if (*v3 != v5)
+  v4 = (*(*this + 40))(this, a2);
+  v5 = *v4;
+  v6 = *(v4 + 8);
+  if (*v4 != v6)
   {
     do
     {
-      Name = MIL::IRNamedValueType::GetName(*v4);
-      LODWORD(v50) = -1;
-      std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(v51, &Name);
-      v4 += 2;
+      MIL::IRNamedValueType::GetName(*v5);
+      *&v52 = v7;
+      DWORD2(v52) = -1;
+      std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(v53, &v52, &v52);
+      v5 += 2;
     }
 
-    while (v4 != v5);
+    while (v5 != v6);
   }
 
-  v43 = this;
-  v6 = (*(*this + 56))(this);
-  v7 = **v6;
-  v44 = (*v6)[1];
-  if (v7 != v44)
+  v46 = this;
+  v8 = (*(*this + 56))(this);
+  v9 = **v8;
+  v47 = (*v8)[1];
+  if (v9 != v47)
   {
-    v8 = 0;
-    v9 = this + 64;
+    v10 = 0;
+    v11 = this + 64;
     do
     {
-      v45 = v7;
-      v46 = *v7;
-      v10 = (*(**v7 + 160))();
-      v11 = *v10;
-      v47 = v10 + 1;
-      if (*v10 != v10 + 1)
+      v48 = v9;
+      v49 = *v9;
+      v12 = (*(**v9 + 160))();
+      v13 = *v12;
+      v50 = v12 + 1;
+      if (*v12 != v12 + 1)
       {
         do
         {
-          v12 = v11[7];
-          for (i = v11[8]; v12 != i; v12 += 2)
+          v14 = v13[7];
+          for (i = v13[8]; v14 != i; v14 += 2)
           {
-            if (((*(**v12 + 24))() & 1) == 0)
+            if (((*(**v14 + 24))() & 1) == 0)
             {
-              v14 = MIL::IRArgument::GetName(*v12);
-              Name = v14;
-              if (std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(v51, &Name))
+              Name = MIL::IRArgument::GetName(*v14);
+              *&v52 = Name;
+              if (std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(v53, &v52))
               {
                 operator new();
               }
 
-              if ((*(*v9 + 24))(v9, v14, 1))
+              if ((*(*v11 + 24))(v11, Name, 1))
               {
                 operator new();
               }
 
-              std::ostringstream::basic_ostringstream[abi:ne200100](&Name);
-              v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&Name, "Program parameter '", 19);
-              v28 = *(v14 + 23);
-              if (v28 >= 0)
+              std::ostringstream::basic_ostringstream[abi:ne200100](&v52);
+              v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52, "Program parameter '", 19);
+              v31 = *(Name + 23);
+              if (v31 >= 0)
               {
-                v29 = v14;
+                v32 = Name;
               }
 
               else
               {
-                v29 = *v14;
+                v32 = *Name;
               }
 
-              if (v28 >= 0)
+              if (v31 >= 0)
               {
-                v30 = *(v14 + 23);
+                v33 = *(Name + 23);
               }
 
               else
               {
-                v30 = *(v14 + 8);
+                v33 = *(Name + 8);
               }
 
-              v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, v29, v30);
-              v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "' from operation ", 17);
-              v33 = MEMORY[0x21CEAFB20](v32, v8);
-              v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, " does not resolve. ", 19);
-              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "Are the operations topologically sorted?", 40);
+              v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, v32, v33);
+              v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "' from operation ", 17);
+              v36 = MEMORY[0x21CEAFB20](v35, v10);
+              v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, " does not resolve. ", 19);
+              std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "Are the operations topologically sorted?", 40);
               exception = __cxa_allocate_exception(0x10uLL);
               std::stringbuf::str();
-              std::logic_error::logic_error(exception, &v48);
+              std::logic_error::logic_error(exception, &v51);
               exception->__vftable = (MEMORY[0x277D828F8] + 16);
               __cxa_throw(exception, off_278235F80, MEMORY[0x277D82610]);
             }
           }
 
-          v15 = v11[1];
-          if (v15)
+          v17 = v13[1];
+          if (v17)
           {
             do
             {
-              v16 = v15;
-              v15 = *v15;
+              v18 = v17;
+              v17 = *v17;
             }
 
-            while (v15);
+            while (v17);
           }
 
           else
           {
             do
             {
-              v16 = v11[2];
-              v17 = *v16 == v11;
-              v11 = v16;
+              v18 = v13[2];
+              v19 = *v18 == v13;
+              v13 = v18;
             }
 
-            while (!v17);
+            while (!v19);
           }
 
-          v11 = v16;
+          v13 = v18;
         }
 
-        while (v16 != v47);
+        while (v18 != v50);
       }
 
-      v18 = (*(*v46 + 208))(v46);
-      v19 = **v18;
-      v20 = (*v18)[1];
-      while (v19 != v20)
+      v20 = (*(*v49 + 208))(v49);
+      v21 = **v20;
+      v22 = (*v20)[1];
+      while (v21 != v22)
       {
-        v19 += 2;
+        v21 += 2;
       }
 
-      v21 = (*(*v46 + 176))(v46);
-      v22 = *v21;
-      v23 = *(v21 + 8);
-      while (v22 != v23)
+      v23 = (*(*v49 + 176))(v49);
+      v24 = *v23;
+      v25 = *(v23 + 8);
+      while (v24 != v25)
       {
-        Name = MIL::IRNamedValueType::GetName(*v22);
-        LODWORD(v50) = v8;
-        std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(v51, &Name);
-        if ((v24 & 1) == 0)
+        MIL::IRNamedValueType::GetName(*v24);
+        *&v52 = v26;
+        DWORD2(v52) = v10;
+        std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(v53, &v52, &v52);
+        if ((v27 & 1) == 0)
         {
-          v36 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v36, "Two first appears at inserted for the same output!");
-          __cxa_throw(v36, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+          v39 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v39, "Two first appears at inserted for the same output!");
+          __cxa_throw(v39, MEMORY[0x277D82760], MEMORY[0x277D82600]);
         }
 
-        v22 += 2;
+        v24 += 2;
       }
 
-      v8 = (v8 + 1);
-      v7 = v45 + 2;
+      v10 = (v10 + 1);
+      v9 = v48 + 2;
     }
 
-    while (v45 + 2 != v44);
+    while (v48 + 2 != v47);
   }
 
-  v25 = (*(*v43 + 88))(v43);
-  v26 = *v25;
-  if (*v25 != v25[1])
+  v28 = (*(*v46 + 88))(v46);
+  v29 = *v28;
+  if (*v28 != v28[1])
   {
-    Name = *v25;
-    if (std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(v51, &Name))
+    *&v52 = *v28;
+    if (std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(v53, &v52))
     {
       operator new();
     }
 
-    if ((*(*(v43 + 8) + 24))(v43 + 64, v26, 1))
+    if ((*(*(v46 + 8) + 24))(v46 + 64, v29, 1))
     {
       operator new();
     }
 
-    std::ostringstream::basic_ostringstream[abi:ne200100](&Name);
-    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&Name, "Program parameter '", 19);
-    v38 = *(v26 + 23);
-    if (v38 >= 0)
+    std::ostringstream::basic_ostringstream[abi:ne200100](&v52);
+    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v52, "Program parameter '", 19);
+    v41 = *(v29 + 23);
+    if (v41 >= 0)
     {
-      v39 = v26;
+      v42 = v29;
     }
 
     else
     {
-      v39 = *v26;
+      v42 = *v29;
     }
 
-    if (v38 >= 0)
+    if (v41 >= 0)
     {
-      v40 = *(v26 + 23);
+      v43 = *(v29 + 23);
     }
 
     else
     {
-      v40 = *(v26 + 8);
+      v43 = *(v29 + 8);
     }
 
-    v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, v39, v40);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "' from block output does not resolve.", 37);
-    v42 = __cxa_allocate_exception(0x10uLL);
+    v44 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, v42, v43);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v44, "' from block output does not resolve.", 37);
+    v45 = __cxa_allocate_exception(0x10uLL);
     std::stringbuf::str();
-    std::logic_error::logic_error(v42, &v48);
-    v42->__vftable = (MEMORY[0x277D828F8] + 16);
-    __cxa_throw(v42, off_278235F80, MEMORY[0x277D82610]);
+    std::logic_error::logic_error(v45, &v51);
+    v45->__vftable = (MEMORY[0x277D828F8] + 16);
+    __cxa_throw(v45, off_278235F80, MEMORY[0x277D82610]);
   }
 
   operator new();
 }
 
-void sub_218034908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_218034908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
 {
   if (a20 < 0)
   {
@@ -4720,7 +4704,7 @@ LABEL_6:
       std::__hash_table<MIL::IRValueType const*,std::hash<MIL::IRValueType const*>,std::equal_to<MIL::IRValueType const*>,std::allocator<MIL::IRValueType const*>>::~__hash_table(&a54);
       std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>>>::~__hash_table(v56 - 256);
       std::__hash_table<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>>>::~__hash_table(v56 - 208);
-      std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::~__hash_table(v56 - 160);
+      std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::~__hash_table((v56 - 160));
       _Unwind_Resume(a1);
     }
   }
@@ -4942,7 +4926,7 @@ BOOL MIL::operator==(uint64_t a1, uint64_t a2)
   return memcmp(v22, v23, v19) == 0;
 }
 
-const void ***MIL::EdgeIndexesImpl::ForwardEdgesForIdentifierName(uint64_t a1, uint64_t a2)
+const void ***MIL::EdgeIndexesImpl::ForwardEdgesForIdentifierName(uint64_t a1, uint64_t *a2)
 {
   v4 = a2;
   v2 = std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>((a1 + 88), &v4);
@@ -4957,11 +4941,11 @@ const void ***MIL::EdgeIndexesImpl::ForwardEdgesForIdentifierName(uint64_t a1, u
   }
 }
 
-uint64_t *MIL::EdgeIndexesImpl::BackwardEdgesForParameter(uint64_t a1, int a2, uint64_t a3)
+uint64_t *MIL::EdgeIndexesImpl::BackwardEdgesForParameter(uint64_t a1, int a2, uint64_t *a3)
 {
-  v5 = a2;
-  v6 = a3;
-  v3 = std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::find<MIL::ParameterSpec>((a1 + 8), &v5);
+  LODWORD(v5[0]) = a2;
+  v5[1] = a3;
+  v3 = std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::find<MIL::ParameterSpec>((a1 + 8), v5);
   if (!v3)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -4985,7 +4969,7 @@ uint64_t *MIL::EdgeIndexesImpl::BackwardLexicalEdgesByIdentifier(MIL::EdgeIndexe
   }
 }
 
-const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(void *a1, uint64_t *a2)
+const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::find<std::reference_wrapper<std::string const>>(void *a1, uint64_t **a2)
 {
   v4 = std::__string_hash<char>::operator()[abi:ne200100](&v14, *a2);
   v5 = a1[1];
@@ -5171,33 +5155,33 @@ BOOL MIL::ConstReferenceWrapperEq<std::string>::operator()(uint64_t a1, const vo
   return memcmp(v8, v9, v5) == 0;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5205,49 +5189,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_2180357FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2180357FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unordered_map<std::string,std::shared_ptr<MIL::Edge const>>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5269,35 +5253,35 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unorde
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::Edge const>>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::shared_ptr<MIL::Edge const>>>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::Edge const>>>>::__construct_node_hash<std::pair<std::string const,std::shared_ptr<MIL::Edge const>>>();
@@ -5305,49 +5289,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_218035AA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218035AA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5355,17 +5339,17 @@ void sub_218035AA4(_Unwind_Exception *a1, uint64_t a2, ...)
 void *MIL::EdgeIndexesImpl::EdgeIndexesImpl(void *a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   *a1 = &unk_2829E4E98;
-  v7 = (a1 + 11);
+  v7 = a1 + 11;
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table((a1 + 1), a2);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table((a1 + 6), a3);
   std::__hash_table<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::shared_ptr<MIL::IRValue const>>>>::__hash_table(v7, a4);
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::find<MIL::ParameterSpec>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::find<MIL::ParameterSpec>(void *a1, uint64_t **a2)
 {
   v4 = *a2;
-  v5 = std::__string_hash<char>::operator()[abi:ne200100](&v24, *(a2 + 1));
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](&v24, a2[1]);
   v6 = a1[1];
   if (!*&v6)
   {
@@ -5400,7 +5384,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::share
   if (*v11)
   {
     v13 = *a2;
-    v14 = *(a2 + 1);
+    v14 = a2[1];
     do
     {
       v15 = v12[1];
@@ -5424,7 +5408,7 @@ uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::share
           v20 = v19;
           if ((v19 & 0x80u) != 0)
           {
-            v19 = *(v14 + 8);
+            v19 = v14[1];
           }
 
           if (v18 == v19)
@@ -5579,35 +5563,35 @@ uint64_t std::__shared_ptr_pointer<MIL::Edge  *>::__get_deleter(uint64_t a1, uin
   }
 }
 
-const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::piecewise_construct_t const&,std::tuple<std::reference_wrapper<std::string const>&&>,std::tuple<>>(void *a1, uint64_t *a2)
+const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::piecewise_construct_t const&,std::tuple<std::reference_wrapper<std::string const>&&>,std::tuple<>>(void *a1, uint64_t **a2, uint64_t a3, uint64_t **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](v14, *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](v16, *a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -5615,44 +5599,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!MIL::ConstReferenceWrapperEq<std::string>::operator()(a1, v11 + 2, a2))
+  if (!MIL::ConstReferenceWrapperEq<std::string>::operator()(a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::reference_wrapper<std::string const>,std::vector<std::shared_ptr<MIL::Edge const>>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
@@ -5669,9 +5653,9 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   }
 }
 
-uint64_t std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::~__hash_table(uint64_t a1)
+void **std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::~__hash_table(void **a1)
 {
-  std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::__deallocate_node(a1, *(a1 + 16));
+  std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::__deallocate_node(a1, a1[2]);
   v2 = *a1;
   *a1 = 0;
   if (v2)
@@ -5765,91 +5749,14 @@ void std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string
   }
 }
 
-const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(void *a1, uint64_t *a2)
+const void ***std::__hash_table<std::__hash_value_type<std::reference_wrapper<std::string const>,int>,std::__unordered_map_hasher<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperHasher<std::string>,MIL::ConstReferenceWrapperEq<std::string>,true>,std::__unordered_map_equal<std::reference_wrapper<std::string const>,std::__hash_value_type<std::reference_wrapper<std::string const>,int>,MIL::ConstReferenceWrapperEq<std::string>,MIL::ConstReferenceWrapperHasher<std::string>,true>,std::allocator<std::__hash_value_type<std::reference_wrapper<std::string const>,int>>>::__emplace_unique_key_args<std::reference_wrapper<std::string const>,std::pair<std::reference_wrapper<std::string const> const,int>>(void *a1, uint64_t **a2, _OWORD *a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](&v14, *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!MIL::ConstReferenceWrapperEq<std::string>::operator()(a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::__emplace_unique_key_args<MIL::ParameterSpec,std::pair<MIL::ParameterSpec const,std::shared_ptr<MIL::Edge const>>>(void *a1, int *a2)
-{
-  v4 = *a2;
-  v5 = std::__string_hash<char>::operator()[abi:ne200100](v24, *(a2 + 1));
-  v6 = v4 ^ (2 * v5);
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](&v15, *a2);
+  v6 = v5;
   v7 = a1[1];
   if (!*&v7)
   {
-    goto LABEL_32;
+    goto LABEL_18;
   }
 
   v8 = vcnt_s8(v7);
@@ -5857,98 +5764,175 @@ uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::share
   v9 = v8.u32[0];
   if (v8.u32[0] > 1uLL)
   {
-    v10 = v4 ^ (2 * v5);
-    if (v6 >= *&v7)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v10 = v6 % *&v7;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v10 = (*&v7 - 1) & v5;
   }
 
   v11 = *(*a1 + 8 * v10);
   if (!v11 || (v12 = *v11) == 0)
   {
-LABEL_32:
+LABEL_18:
     operator new();
   }
 
-  v13 = *a2;
-  v14 = *(a2 + 1);
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v6)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
     if (v9 > 1)
     {
-      if (v15 >= *&v7)
+      if (v13 >= *&v7)
       {
-        v15 %= *&v7;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v15 &= *&v7 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v15 != v10)
+    if (v13 != v10)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (!MIL::ConstReferenceWrapperEq<std::string>::operator()(a1, v12 + 2, a2))
+  {
+    goto LABEL_17;
+  }
+
+  return v12;
+}
+
+uint64_t *std::__hash_table<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::__unordered_map_hasher<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::hash<MIL::ParameterSpec>,std::equal_to<MIL::ParameterSpec>,true>,std::__unordered_map_equal<MIL::ParameterSpec,std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,std::equal_to<MIL::ParameterSpec>,std::hash<MIL::ParameterSpec>,true>,std::allocator<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>>>::__emplace_unique_key_args<MIL::ParameterSpec,std::pair<MIL::ParameterSpec const,std::shared_ptr<MIL::Edge const>>>(void *a1, uint64_t **a2, uint64_t a3)
+{
+  v5 = *a2;
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](v25, a2[1]);
+  v7 = v5 ^ (2 * v6);
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_32;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
+  {
+    v11 = v5 ^ (2 * v6);
+    if (v7 >= *&v8)
+    {
+      v11 = v7 % *&v8;
+    }
+  }
+
+  else
+  {
+    v11 = (*&v8 - 1) & v7;
+  }
+
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
+  {
+LABEL_32:
+    operator new();
+  }
+
+  v14 = *a2;
+  v15 = a2[1];
+  while (1)
+  {
+    v16 = v13[1];
+    if (v16 == v7)
+    {
+      break;
+    }
+
+    if (v10 > 1)
+    {
+      if (v16 >= *&v8)
+      {
+        v16 %= *&v8;
+      }
+    }
+
+    else
+    {
+      v16 &= *&v8 - 1;
+    }
+
+    if (v16 != v11)
     {
       goto LABEL_32;
     }
 
 LABEL_31:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_32;
     }
   }
 
-  if (*(v12 + 4) != v13)
+  if (*(v13 + 4) != v14)
   {
     goto LABEL_31;
   }
 
-  v16 = v12[3];
-  v17 = *(v16 + 23);
-  if (v17 >= 0)
+  v17 = v13[3];
+  v18 = *(v17 + 23);
+  if (v18 >= 0)
   {
-    v18 = *(v16 + 23);
+    v19 = *(v17 + 23);
   }
 
   else
   {
-    v18 = *(v16 + 8);
+    v19 = *(v17 + 8);
   }
 
-  v19 = *(v14 + 23);
-  v20 = v19;
-  if ((v19 & 0x80u) != 0)
+  v20 = *(v15 + 23);
+  v21 = v20;
+  if ((v20 & 0x80u) != 0)
   {
-    v19 = *(v14 + 8);
+    v20 = v15[1];
   }
 
-  if (v18 != v19)
-  {
-    goto LABEL_31;
-  }
-
-  v21 = v17 >= 0 ? v12[3] : *v16;
-  v22 = v20 >= 0 ? v14 : *v14;
-  if (memcmp(v21, v22, v18))
+  if (v19 != v20)
   {
     goto LABEL_31;
   }
 
-  return v12;
+  v22 = v18 >= 0 ? v13[3] : *v17;
+  v23 = v21 >= 0 ? v15 : *v15;
+  if (memcmp(v22, v23, v19))
+  {
+    goto LABEL_31;
+  }
+
+  return v13;
 }
 
 void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MIL::ParameterSpec,std::shared_ptr<MIL::Edge const>>,void *>>>::operator()[abi:ne200100](uint64_t a1, void *__p)
@@ -6010,7 +5994,7 @@ void *MIL::Matching::anonymous namespace::AsInstructionBase(void *this, const MI
   return this;
 }
 
-void **std::unique_ptr<MIL::Matching::Machine::MachineImpl>::~unique_ptr[abi:ne200100](void **a1)
+uint64_t *std::unique_ptr<MIL::Matching::Machine::MachineImpl>::~unique_ptr[abi:ne200100](uint64_t *a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -6149,12 +6133,12 @@ void MIL::Matching::Machine::MachineImpl::MaybeCollectGarbage(MIL::Matching::Mac
   }
 }
 
-void MIL::Matching::CreateSplitInstruction(void *a1)
+void MIL::Matching::CreateSplitInstruction(void ***a1)
 {
-  v1 = a1[1];
-  if (v1 != *a1)
+  v3 = a1[1];
+  if (v3 != *a1)
   {
-    if (((v1 - *a1) & 0x8000000000000000) == 0)
+    if (((v3 - *a1) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -6194,47 +6178,47 @@ void *MIL::Matching::SetSplitInstructionAlternative(MIL::Matching *this, unint64
   return result;
 }
 
-void MIL::Matching::CreatePushTokenInstruction(int a1, MIL::Matching::_anonymous_namespace_ *this)
+void MIL::Matching::CreatePushTokenInstruction(uint64_t *a3, MIL::Matching::_anonymous_namespace_ *this)
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   operator new();
 }
 
-void sub_218037464(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218037464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x21CEAFEA0](v3, v2);
+  va_start(va, a3);
+  MEMORY[0x21CEAFEA0](v4, v3);
   _Unwind_Resume(a1);
 }
 
 void MIL::Matching::CreateSetEdgePredicateInstruction(uint64_t a1, void *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<BOOL ()(MIL::Builder::DataDependency const&)>::__value_func[abi:ne200100](v4, a1);
+  v6 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<BOOL ()(MIL::Builder::DataDependency const&)>::__value_func[abi:ne200100](v5, a1);
   operator new();
 }
 
-void sub_218037598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_218037598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
   std::__function::__value_func<BOOL ()(MIL::Builder::DataDependency const&)>::~__value_func[abi:ne200100](va1);
-  MEMORY[0x21CEAFEA0](v2, 0x10E1C40E2CB26B8);
+  MEMORY[0x21CEAFEA0](v3, 0x10E1C40E2CB26B8);
   std::__function::__value_func<BOOL ()(MIL::Builder::DataDependency const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void MIL::Matching::CreateParallelForwardInstruction(MIL::Matching *this, const MIL::Matching::Instruction *a2, const MIL::Matching::Instruction *a3, const MIL::Matching::Instruction *a4)
+void MIL::Matching::CreateParallelForwardInstruction(MIL::Matching *this, const MIL::Matching::Instruction *a3, const MIL::Matching::Instruction *a4)
 {
   operator new();
 }
@@ -6420,7 +6404,7 @@ uint64_t MIL::Matching::PersistentListArena<MIL::Matching::anonymous namespace::
   return result;
 }
 
-void std::vector<MIL::Matching::anonymous namespace::TreeNode<MIL::Matching::anonymous namespace::CoroutineData<MIL::Matching::anonymous namespace::CoroutineBodyContainer>> *,std::allocator<MIL::Matching::anonymous namespace::TreeNode<MIL::Matching::anonymous namespace::CoroutineData<MIL::Matching::anonymous namespace::CoroutineBodyContainer>> *>>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<MIL::Matching::anonymous namespace::TreeNode<MIL::Matching::anonymous namespace::CoroutineData<MIL::Matching::anonymous namespace::CoroutineBodyContainer>> *,std::allocator<MIL::Matching::anonymous namespace::TreeNode<MIL::Matching::anonymous namespace::CoroutineData<MIL::Matching::anonymous namespace::CoroutineBodyContainer>> *>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -6691,33 +6675,33 @@ void sub_2180380F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-unint64_t MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AllocateChunk(void *a1, uint64_t a2)
+unint64_t MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AllocateChunk(std::vector<unsigned int> *a1, uint64_t a2)
 {
-  v2 = a1[27];
-  if (v2 == -1)
+  begin = a1[9].__begin_;
+  if (begin == -1)
   {
-    MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AllocateBlock();
+    MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AllocateBlock(a1);
   }
 
-  v3 = a1[18];
-  v4 = *(v3 + ((a1[27] >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * (a1[27] & 0x3FLL);
-  if (v2 == *v4)
+  v3 = a1[6].__begin_;
+  v4 = *(v3 + ((a1[9].__begin_ >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * (a1[9].__begin_ & 0x3F);
+  if (begin == *v4)
   {
-    a1[27] = *(v4 + 8);
+    a1[9].__begin_ = *(v4 + 8);
   }
 
   else
   {
-    a1[27] = v2 + 1;
-    *(*(v3 + (((v2 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * ((v2 + 1) & 0x3F)) = *v4;
+    a1[9].__begin_ = (begin + 1);
+    *(*(v3 + (((begin + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * ((begin + 1) & 0x3F)) = *v4;
   }
 
   *(v4 + 144) = a2;
   *(v4 + 152) = 0;
-  *(a1[21] + ((v2 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v2;
-  --a1[28];
-  MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated(a1, v2);
-  return v2;
+  *(a1[7].__begin_ + ((begin >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << begin;
+  --a1[9].__end_;
+  MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated(a1, begin);
+  return begin;
 }
 
 void std::vector<unsigned int>::resize(std::vector<unsigned int> *this, std::vector<unsigned int>::size_type __sz)
@@ -6865,32 +6849,32 @@ uint64_t std::vector<std::unique_ptr<std::array<MIL::Matching::PersistentListAre
   return result;
 }
 
-unint64_t MIL::Matching::PersistentListArena<MIL::Matching::anonymous namespace::Position,6ul,6ul>::AllocateChunk(void *a1, uint64_t a2)
+unint64_t MIL::Matching::PersistentListArena<MIL::Matching::anonymous namespace::Position,6ul,6ul>::AllocateChunk(std::vector<unsigned int> *a1, uint64_t a2)
 {
-  v2 = a1[27];
-  if (v2 == -1)
+  begin = a1[9].__begin_;
+  if (begin == -1)
   {
     operator new();
   }
 
-  v3 = a1[18];
-  v4 = *(v3 + ((a1[27] >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * (a1[27] & 0x3FLL);
-  if (v2 == *v4)
+  v3 = a1[6].__begin_;
+  v4 = *(v3 + ((a1[9].__begin_ >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * (a1[9].__begin_ & 0x3F);
+  if (begin == *v4)
   {
-    a1[27] = *(v4 + 8);
+    a1[9].__begin_ = *(v4 + 8);
   }
 
   else
   {
-    a1[27] = v2 + 1;
-    *(*(v3 + (((v2 + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * ((v2 + 1) & 0x3F)) = *v4;
+    a1[9].__begin_ = (begin + 1);
+    *(*(v3 + (((begin + 1) >> 3) & 0x1FFFFFFFFFFFFFF8)) + 160 * ((begin + 1) & 0x3F)) = *v4;
   }
 
   *(v4 + 144) = a2;
   *(v4 + 152) = 0;
-  *(a1[21] + ((v2 >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << v2;
-  --a1[28];
-  return v2;
+  *(a1[7].__begin_ + ((begin >> 3) & 0x1FFFFFFFFFFFFFFCLL)) |= 1 << begin;
+  --a1[9].__end_;
+  return begin;
 }
 
 void *std::vector<std::unique_ptr<std::array<MIL::Matching::PersistentListArena<MIL::Matching::anonymous namespace::Position,6ul,6ul>::Chunk,64ul>>>::~vector[abi:ne200100](void *a1)
@@ -7078,7 +7062,7 @@ void *MIL::Matching::anonymous namespace::MemoryPool<216ul,8ul,16ul>::Allocate(u
   return result;
 }
 
-void std::vector<MIL::Matching::anonymous namespace::CoroutineHandle>::push_back[abi:ne200100](uint64_t a1, _DWORD *a2)
+void std::vector<MIL::Matching::anonymous namespace::CoroutineHandle>::push_back[abi:ne200100](uint64_t a1, int *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -7209,9 +7193,9 @@ uint64_t std::__function::__value_func<BOOL ()(MIL::Builder::OperationBuilder &)
   return a1;
 }
 
-uint64_t MIL::Matching::anonymous namespace::OperationPredicateCoroutine::Run(uint64_t a1, void *a2)
+uint64_t MIL::Matching::anonymous namespace::OperationPredicateCoroutine::Run(uint64_t a1, std::vector<unsigned int> *a2)
 {
-  if (!*(a2[84] + 176))
+  if (!a2[28].__begin_[44])
   {
     if (*(a1 + 24) != 2)
     {
@@ -7225,8 +7209,8 @@ uint64_t MIL::Matching::anonymous namespace::OperationPredicateCoroutine::Run(ui
     {
       while (1)
       {
-        MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated((a2 + 6), v4 & 0xFFFFFFFFFFFFFFLL);
-        v5 = *(a2[24] + ((v4 >> 3) & 0x1FFFFFFFFFFFF8));
+        MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated(&a2[2], v4 & 0xFFFFFFFFFFFFFFLL);
+        v5 = *(a2[8].__begin_ + ((v4 >> 3) & 0x1FFFFFFFFFFFF8));
         if (v5)
         {
           v6 = v5 + 160 * (v4 & 0x3F) + 24 * HIBYTE(v4) - 24;
@@ -7236,7 +7220,7 @@ uint64_t MIL::Matching::anonymous namespace::OperationPredicateCoroutine::Run(ui
           }
         }
 
-        v4 = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Pop((a2 + 6), v4);
+        v4 = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Pop(&a2[2], v4);
         if (!v4)
         {
           goto LABEL_8;
@@ -7259,7 +7243,7 @@ LABEL_8:
         *&v13 = *(a1 + 32);
         DWORD2(v13) = 0;
         *&v14 = *(a1 + 56);
-        *(a1 + 16) = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append(a2 + 6, v8, &v13);
+        *(a1 + 16) = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append(a2 + 2, v8, &v13);
         v9 = *(a1 + 8);
         v10 = *(a1 + 32);
         v13 = *(a1 + 16);
@@ -7309,14 +7293,14 @@ unint64_t MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>:
   return *(*(*(a1 + 144) + ((v3 >> 3) & 0x1FFFFFFFFFFFF8)) + 160 * (v2 & 0x3F) + 144);
 }
 
-unint64_t MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append(void *a1, unint64_t a2, __int128 *a3)
+unint64_t MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append(std::vector<unsigned int> *a1, unint64_t a2, __int128 *a3)
 {
   Chunk = a2 & 0xFFFFFFFFFFFFFFLL;
   MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated(a1, a2 & 0xFFFFFFFFFFFFFFLL);
-  if (a2 >> 57 > 2 || (v7 = *(a1[18] + ((a2 >> 3) & 0x1FFFFFFFFFFFF8)), HIBYTE(a2) != *(v7 + 160 * (a2 & 0x3F) + 152)))
+  if (a2 >> 57 > 2 || (v7 = *(a1[6].__begin_ + ((a2 >> 3) & 0x1FFFFFFFFFFFF8)), HIBYTE(a2) != *(v7 + 160 * (a2 & 0x3F) + 152)))
   {
     Chunk = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AllocateChunk(a1, a2);
-    v7 = *(a1[18] + ((Chunk >> 3) & 0x1FFFFFFFFFFFFFF8));
+    v7 = *(a1[6].__begin_ + ((Chunk >> 3) & 0x1FFFFFFFFFFFFFF8));
   }
 
   v8 = v7 + 160 * (Chunk & 0x3F);
@@ -7350,9 +7334,9 @@ __n128 MIL::Matching::anonymous namespace::InstructionImpl<MIL::Matching::anonym
   return result;
 }
 
-uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Run(uint64_t a1, uint64_t a2)
+uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Run(uint64_t a1, uint64_t *a2)
 {
-  v4 = *(*(a2 + 672) + 176);
+  v4 = *(a2[84] + 176);
   if (v4 == 472)
   {
     goto LABEL_35;
@@ -7382,7 +7366,7 @@ uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Run(
 
       v6 = (a1 + 40);
       {
-        *(a1 + 24) = *(a2 + 8);
+        *(a1 + 24) = a2[1];
         v7 = 2;
         *(a1 + 16) = 2;
         *v6 = 0;
@@ -7403,8 +7387,8 @@ uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Run(
     {
       while (1)
       {
-        MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated(a2 + 48, v10 & 0xFFFFFFFFFFFFFFLL);
-        v11 = *(*(a2 + 192) + ((v10 >> 3) & 0x1FFFFFFFFFFFF8));
+        MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::AssertChunkIsAllocated((a2 + 6), v10 & 0xFFFFFFFFFFFFFFLL);
+        v11 = *(a2[24] + ((v10 >> 3) & 0x1FFFFFFFFFFFF8));
         if (v11)
         {
           v12 = v11 + 160 * (v10 & 0x3F) + 24 * HIBYTE(v10) - 24;
@@ -7417,7 +7401,7 @@ uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Run(
           }
         }
 
-        v10 = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Pop(a2 + 48, v10);
+        v10 = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Pop((a2 + 6), v10);
         if (!v10)
         {
           goto LABEL_14;
@@ -7455,7 +7439,7 @@ LABEL_14:
         {
           MIL::Builder::DataDependency::GetConsumer(*(a1 + 72) + 16, &v37);
           v19 = 0;
-          if (v37 != *(a2 + 8))
+          if (v37 != a2[1])
           {
             goto LABEL_30;
           }
@@ -7505,7 +7489,7 @@ LABEL_32:
 
       if (v19)
       {
-        v23 = *(a2 + 672);
+        v23 = a2[84];
         v24 = 472;
         goto LABEL_54;
       }
@@ -7526,8 +7510,8 @@ LABEL_40:
   }
 
   v26 = *a2;
-  OutputName = MIL::Builder::OperationBuilder::GetOutputName(*(a1 + 24), *(a1 + 64));
-  v28 = MIL::Builder::BlockBuilder::GetDataDependenciesByVariableName(v26, OutputName);
+  MIL::Builder::OperationBuilder::GetOutputName(*(a1 + 24), *(a1 + 64));
+  v28 = MIL::Builder::BlockBuilder::GetDataDependenciesByVariableName(v26, v27);
   v29 = 0;
   v30 = v28[2];
   *(a1 + 72) = v30;
@@ -7579,7 +7563,7 @@ LABEL_51:
     *(a1 + 72) = v30;
   }
 
-  v23 = *(a2 + 672);
+  v23 = a2[84];
   v24 = 459;
 LABEL_54:
   *(v23 + 176) = v24;
@@ -7591,7 +7575,7 @@ void sub_218039934(_Unwind_Exception *a1)
 {
   if (v2)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100]();
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
   }
 
   _Unwind_Resume(a1);
@@ -7620,7 +7604,7 @@ uint64_t MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::Chec
     Parameters = MIL::BuilderPrivate::OperationBuilderPrivate::GetParameters(a2, v6);
     v22 = Parameters + 1;
     v23 = *Parameters;
-    if (*Parameters == (Parameters + 1))
+    if (*Parameters == Parameters + 1)
     {
       return 0;
     }
@@ -7732,7 +7716,7 @@ LABEL_46:
   v12 = MIL::BuilderPrivate::OperationBuilderPrivate::GetParameters(a2, v6);
   v13 = v12 + 1;
   v14 = *v12;
-  if (*v12 != (v12 + 1))
+  if (*v12 != v12 + 1)
   {
     do
     {
@@ -7835,21 +7819,21 @@ uint64_t MIL::Matching::CoroutineMacroHelper::SpawnDelegate<MIL::Matching::Corou
   return result;
 }
 
-void MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::CreateNewState(MIL::Builder::DataDependency *this@<X1>, _OWORD *a2@<X0>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void MIL::Matching::anonymous namespace::AdvanceCursorForwardCoroutine::CreateNewState(uint64_t *__return_ptr a1@<X8>, MIL::Builder::DataDependency *this@<X1>, _OWORD *a3@<X0>, uint64_t a4@<X2>)
 {
-  *a4 = *a2;
+  *a1 = *a3;
   MIL::Builder::DataDependency::GetConsumer(this, v8);
   v7 = v8[1];
-  *(a4 + 16) = v8[0];
+  a1[2] = v8[0];
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  *(a4 + 8) = 2;
-  *(a4 + 24) = a3 + 16;
-  *(a4 + 32) = 0;
-  *(a4 + 40) = this;
+  *(a1 + 2) = 2;
+  a1[3] = a4 + 16;
+  a1[4] = 0;
+  a1[5] = this;
 }
 
 unint64_t MIL::Matching::anonymous namespace::AdditionalContext::Pop(uint64_t a1, unint64_t a2)
@@ -7986,12 +7970,12 @@ __n128 std::__function::__func<MIL::Matching::CreatePushTokenInstruction(std::va
   return result;
 }
 
-unint64_t std::__function::__func<MIL::Matching::CreatePushTokenInstruction(std::variant<MIL::Builder::OperationBuilder *,MIL::Matching::BeginList,MIL::Matching::EndList> const&,MIL::Matching::Instruction const*)::$_0,std::allocator<MIL::Matching::CreatePushTokenInstruction(std::variant<MIL::Builder::OperationBuilder *,MIL::Matching::BeginList,MIL::Matching::EndList> const&,MIL::Matching::Instruction const*)::$_0>,void ()(MIL::Matching::CoroutineContext<MIL::Matching::anonymous namespace::AdditionalContext,MIL::Matching::anonymous namespace::CoroutineBodyContainer,MIL::Matching::anonymous namespace::MatchState> &,MIL::Matching::anonymous namespace::MatchState&)>::operator()(uint64_t a1, uint64_t a2, unint64_t *a3)
+unint64_t std::__function::__func<MIL::Matching::CreatePushTokenInstruction(std::variant<MIL::Builder::OperationBuilder *,MIL::Matching::BeginList,MIL::Matching::EndList> const&,MIL::Matching::Instruction const*)::$_0,std::allocator<MIL::Matching::CreatePushTokenInstruction(std::variant<MIL::Builder::OperationBuilder *,MIL::Matching::BeginList,MIL::Matching::EndList> const&,MIL::Matching::Instruction const*)::$_0>,void ()(MIL::Matching::CoroutineContext<MIL::Matching::anonymous namespace::AdditionalContext,MIL::Matching::anonymous namespace::CoroutineBodyContainer,MIL::Matching::anonymous namespace::MatchState> &,MIL::Matching::anonymous namespace::MatchState&)>::operator()(uint64_t a1, std::vector<unsigned int> *a2, unint64_t *a3)
 {
   v4 = *a3;
   v6 = *(a1 + 8);
   v7 = a3[5];
-  result = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append((a2 + 48), v4, &v6);
+  result = MIL::Matching::PersistentListArena<MIL::Matching::MatchToken,6ul,6ul>::Append(a2 + 2, v4, &v6);
   *a3 = result;
   return result;
 }
@@ -8677,7 +8661,7 @@ uint64_t MIL::Matching::MatchView::GetOutput@<X0>(MIL::MatchingPrivate::MatchIte
   {
     exception = __cxa_allocate_exception(0x18uLL);
     std::string::basic_string[abi:ne200100]<0>(v6, "The operation does not have exactly one output");
-    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, v6);
   }
 
   *a2 = Operation;
@@ -8706,7 +8690,7 @@ LABEL_6:
   goto LABEL_6;
 }
 
-unint64_t MIL::Matching::MatchView::GetOutput@<X0>(MIL::MatchingPrivate::MatchItem **this@<X0>, unint64_t a2@<X1>, MIL::Builder::OperationBuilder **a3@<X8>)
+MIL::Builder::OperationBuilder *MIL::Matching::MatchView::GetOutput@<X0>(MIL::MatchingPrivate::MatchItem **this@<X0>, MIL::Builder::OperationBuilder *a2@<X1>, MIL::Builder::OperationBuilder **a3@<X8>)
 {
   Operation = MIL::MatchingPrivate::MatchItem::GetOperation(*this);
   result = MIL::Builder::OperationBuilder::GetNumOutputs(Operation);
@@ -8714,7 +8698,7 @@ unint64_t MIL::Matching::MatchView::GetOutput@<X0>(MIL::MatchingPrivate::MatchIt
   {
     exception = __cxa_allocate_exception(0x18uLL);
     std::string::basic_string[abi:ne200100]<0>(v8, "Output index is out of range");
-    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, v8);
   }
 
   *a3 = Operation;
@@ -8757,8 +8741,8 @@ uint64_t MIL::Matching::MatchView::GetArgument@<X0>(MIL::MatchingPrivate::MatchI
   if (NumArguments != 1)
   {
     v25 = NumArguments;
-    std::ostringstream::basic_ostringstream[abi:ne200100](v26);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "The op ", 7);
+    std::ostringstream::basic_ostringstream[abi:ne200100](v27);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "The op ", 7);
     v10 = MIL::MatchingPrivate::MatchItem::GetOperation(*a1);
     Operator = MIL::Builder::OperationBuilder::GetOperator(v10);
     v12 = (*(*Operator + 16))(Operator);
@@ -8812,7 +8796,7 @@ uint64_t MIL::Matching::MatchView::GetArgument@<X0>(MIL::MatchingPrivate::MatchI
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, " parameter(s).", 14);
     exception = __cxa_allocate_exception(0x18uLL);
     std::stringbuf::str();
-    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, v26);
   }
 
   result = MIL::Builder::OperationBuilder::GetIRArgument(Operation, a2, 0);
@@ -8821,27 +8805,27 @@ uint64_t MIL::Matching::MatchView::GetArgument@<X0>(MIL::MatchingPrivate::MatchI
   return result;
 }
 
-void sub_21803B5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+void sub_21803B5E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a23);
-  if (a9 < 0)
+  va_start(va, a28);
+  if (SHIBYTE(a14) < 0)
   {
-    operator delete(__p);
-    if ((v24 & 1) == 0)
+    operator delete(a12);
+    if ((v29 & 1) == 0)
     {
 LABEL_6:
-      std::ostringstream::~ostringstream(&a10, MEMORY[0x277D82828]);
+      std::ostringstream::~ostringstream(&a15, MEMORY[0x277D82828]);
       MEMORY[0x21CEAFDA0](va);
       _Unwind_Resume(a1);
     }
   }
 
-  else if (!v24)
+  else if (!v29)
   {
     goto LABEL_6;
   }
 
-  __cxa_free_exception(v23);
+  __cxa_free_exception(v28);
   goto LABEL_6;
 }
 
@@ -8861,14 +8845,14 @@ uint64_t MIL::Matching::MatchView::GetVariadicArgument@<X0>(MIL::MatchingPrivate
   return result;
 }
 
-const void **MIL::Matching::MatchView::TryGetAttribute@<X0>(MIL::MatchingPrivate::MatchItem **a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Matching::MatchView::TryGetAttribute@<X0>(MIL::MatchingPrivate::MatchItem **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   Operation = MIL::MatchingPrivate::MatchItem::GetOperation(*a1);
 
   return MIL::Builder::OperationBuilder::TryGetAttribute(Operation, a2, a3);
 }
 
-const void **MIL::Matching::MatchView::GetAttribute@<X0>(MIL::MatchingPrivate::MatchItem **a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+const void **MIL::Matching::MatchView::GetAttribute@<X0>(MIL::MatchingPrivate::MatchItem **a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   Operation = MIL::MatchingPrivate::MatchItem::GetOperation(*a1);
   result = MIL::Builder::OperationBuilder::TryGetAttribute(Operation, a2, a3);
@@ -8881,7 +8865,7 @@ const void **MIL::Matching::MatchView::GetAttribute@<X0>(MIL::MatchingPrivate::M
     v8->__r_.__value_.__l.__size_ = 0;
     v8->__r_.__value_.__r.__words[2] = 0;
     v8->__r_.__value_.__r.__words[0] = 0;
-    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, &v10);
   }
 
   return result;
@@ -8926,7 +8910,7 @@ uint64_t MIL::Matching::MatchView::GetAttributes(MIL::MatchingPrivate::MatchItem
   return MIL::Builder::OperationBuilder::GetAttributes(Operation);
 }
 
-void MIL::Matching::MatchView::SetAttribute(MIL::MatchingPrivate::MatchItem **a1, uint64_t a2, uint64_t *a3)
+void MIL::Matching::MatchView::SetAttribute(MIL::MatchingPrivate::MatchItem **a1, uint64_t a2, const void **a3)
 {
   Operation = MIL::MatchingPrivate::MatchItem::GetOperation(*a1);
   if (*(a2 + 23) < 0)
@@ -8964,12 +8948,12 @@ void MIL::Matching::MatchView::SetAttribute(MIL::MatchingPrivate::MatchItem **a1
   }
 }
 
-void sub_21803B950(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, ...)
+void sub_21803B950(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, std::__shared_weak_count *a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a5);
   }
 
   MIL::Builder::BlockBuilder::ReplaceUsesOfInputVariable(va);
@@ -9014,7 +8998,7 @@ uint64_t MIL::Matching::MatchView::AsArray<2ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 2uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
+  a2[1] = (v5 + 32);
   return result;
 }
 
@@ -9124,8 +9108,8 @@ uint64_t MIL::Matching::MatchView::AsArray<3ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 3uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
   return result;
 }
 
@@ -9134,9 +9118,9 @@ uint64_t MIL::Matching::MatchView::AsArray<4ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 4uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
   return result;
 }
 
@@ -9145,10 +9129,10 @@ uint64_t MIL::Matching::MatchView::AsArray<5ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 5uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
   return result;
 }
 
@@ -9157,11 +9141,11 @@ uint64_t MIL::Matching::MatchView::AsArray<6ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 6uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
   return result;
 }
 
@@ -9170,12 +9154,12 @@ uint64_t MIL::Matching::MatchView::AsArray<7ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 7uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
   return result;
 }
 
@@ -9184,13 +9168,13 @@ uint64_t MIL::Matching::MatchView::AsArray<8ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 8uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
   return result;
 }
 
@@ -9199,14 +9183,14 @@ uint64_t MIL::Matching::MatchView::AsArray<9ul>@<X0>(MIL::MatchingPrivate::Match
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 9uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
   return result;
 }
 
@@ -9215,15 +9199,15 @@ uint64_t MIL::Matching::MatchView::AsArray<10ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xAuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
   return result;
 }
 
@@ -9232,16 +9216,16 @@ uint64_t MIL::Matching::MatchView::AsArray<11ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xBuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
   return result;
 }
 
@@ -9250,17 +9234,17 @@ uint64_t MIL::Matching::MatchView::AsArray<12ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xCuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
-  a2[11] = v5 + 352;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
+  a2[11] = (v5 + 352);
   return result;
 }
 
@@ -9269,18 +9253,18 @@ uint64_t MIL::Matching::MatchView::AsArray<13ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xDuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
-  a2[11] = v5 + 352;
-  a2[12] = v5 + 384;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
+  a2[11] = (v5 + 352);
+  a2[12] = (v5 + 384);
   return result;
 }
 
@@ -9289,19 +9273,19 @@ uint64_t MIL::Matching::MatchView::AsArray<14ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xEuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
-  a2[11] = v5 + 352;
-  a2[12] = v5 + 384;
-  a2[13] = v5 + 416;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
+  a2[11] = (v5 + 352);
+  a2[12] = (v5 + 384);
+  a2[13] = (v5 + 416);
   return result;
 }
 
@@ -9310,20 +9294,20 @@ uint64_t MIL::Matching::MatchView::AsArray<15ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0xFuLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
-  a2[11] = v5 + 352;
-  a2[12] = v5 + 384;
-  a2[13] = v5 + 416;
-  a2[14] = v5 + 448;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
+  a2[11] = (v5 + 352);
+  a2[12] = (v5 + 384);
+  a2[13] = (v5 + 416);
+  a2[14] = (v5 + 448);
   return result;
 }
 
@@ -9332,21 +9316,21 @@ uint64_t MIL::Matching::MatchView::AsArray<16ul>@<X0>(MIL::MatchingPrivate::Matc
   result = MIL::MatchingPrivate::MatchItem::CheckArrayLength(*a1, 0x10uLL);
   v5 = *a1 + 32 * *(*a1 + 3);
   *a2 = v5;
-  a2[1] = v5 + 32;
-  a2[2] = v5 + 64;
-  a2[3] = v5 + 96;
-  a2[4] = v5 + 128;
-  a2[5] = v5 + 160;
-  a2[6] = v5 + 192;
-  a2[7] = v5 + 224;
-  a2[8] = v5 + 256;
-  a2[9] = v5 + 288;
-  a2[10] = v5 + 320;
-  a2[11] = v5 + 352;
-  a2[12] = v5 + 384;
-  a2[13] = v5 + 416;
-  a2[14] = v5 + 448;
-  a2[15] = v5 + 480;
+  a2[1] = (v5 + 32);
+  a2[2] = (v5 + 64);
+  a2[3] = (v5 + 96);
+  a2[4] = (v5 + 128);
+  a2[5] = (v5 + 160);
+  a2[6] = (v5 + 192);
+  a2[7] = (v5 + 224);
+  a2[8] = (v5 + 256);
+  a2[9] = (v5 + 288);
+  a2[10] = (v5 + 320);
+  a2[11] = (v5 + 352);
+  a2[12] = (v5 + 384);
+  a2[13] = (v5 + 416);
+  a2[14] = (v5 + 448);
+  a2[15] = (v5 + 480);
   return result;
 }
 
@@ -9413,7 +9397,7 @@ uint64_t MIL::Matching::ArgumentView::GetType(MIL::Matching::ArgumentView *this)
       v8->__r_.__value_.__l.__size_ = 0;
       v8->__r_.__value_.__r.__words[2] = 0;
       v8->__r_.__value_.__r.__words[0] = 0;
-      MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+      MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, &v10);
     }
   }
 
@@ -9472,7 +9456,7 @@ uint64_t MIL::Matching::ArgumentView::GetValue(MIL::Matching::ArgumentView *this
   {
     exception = __cxa_allocate_exception(0x18uLL);
     std::string::basic_string[abi:ne200100]<0>(v3, "Selected argument doesn't have a known value");
-    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception);
+    MIL::Matching::InvalidMatchAccess::InvalidMatchAccess(exception, v3);
   }
 
   return result;
@@ -9505,7 +9489,7 @@ uint64_t MIL::Matching::ArgumentView::IsConnectedTo(MIL::Matching::ArgumentView 
   if (result)
   {
     v4 = result;
-    OutputName = MIL::Builder::OperationBuilder::GetOutputName(*a2, *(a2 + 1));
+    MIL::Builder::OperationBuilder::GetOutputName(*a2, *(a2 + 1));
     v6 = *(v4 + 23);
     if (v6 >= 0)
     {
@@ -9517,11 +9501,11 @@ uint64_t MIL::Matching::ArgumentView::IsConnectedTo(MIL::Matching::ArgumentView 
       v7 = *(v4 + 8);
     }
 
-    v8 = *(OutputName + 23);
+    v8 = *(v5 + 23);
     v9 = v8;
-    if ((v8 & 0x80u) != 0)
+    if (v8 < 0)
     {
-      v8 = *(OutputName + 8);
+      v8 = v5[1];
     }
 
     if (v7 == v8)
@@ -9538,12 +9522,12 @@ uint64_t MIL::Matching::ArgumentView::IsConnectedTo(MIL::Matching::ArgumentView 
 
       if (v9 >= 0)
       {
-        v11 = OutputName;
+        v11 = v5;
       }
 
       else
       {
-        v11 = *OutputName;
+        v11 = *v5;
       }
 
       return memcmp(v10, v11, v7) == 0;
@@ -9575,7 +9559,7 @@ const void **MIL::Matching::ArgumentView::IsSameVariableAs(MIL::Matching::Argume
 
       else
       {
-        v6 = *(v4 + 8);
+        v6 = v4[1];
       }
 
       v7 = *(result + 23);
@@ -9811,7 +9795,7 @@ void *MIL::Matching::Match::Match(void *result, uint64_t *a2)
   return result;
 }
 
-char ***MIL::Matching::Match::operator=(char ***a1, char ***a2)
+void ***MIL::Matching::Match::operator=(void ***a1, char ***a2)
 {
   v3 = *a1;
   if (v3 != *a2)
@@ -9834,4 +9818,23 @@ uint64_t *MIL::Matching::Match::operator=(uint64_t *a1, uint64_t *a2)
   }
 
   return a1;
+}
+
+void MIL::Matching::Match::~Match(MIL::Matching::Match *this)
+{
+  v1 = *this;
+  *this = 0;
+  if (v1)
+  {
+    std::default_delete<MIL::Matching::Match::MatchImpl>::operator()[abi:ne200100](this, v1);
+  }
+}
+
+{
+  v1 = *this;
+  *this = 0;
+  if (v1)
+  {
+    std::default_delete<MIL::Matching::Match::MatchImpl>::operator()[abi:ne200100](this, v1);
+  }
 }

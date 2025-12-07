@@ -13,9 +13,9 @@ void ___UILocalizedStringInSystemLanguage_block_invoke()
     v1 = _UIKitBundle();
     v2 = [v1 preferredLocalizations];
     v3 = [v2 firstObject];
-    v4 = [v3 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v5 = _UIKitBundle();
       v6 = [v5 pathForResource:v11 ofType:@"lproj"];

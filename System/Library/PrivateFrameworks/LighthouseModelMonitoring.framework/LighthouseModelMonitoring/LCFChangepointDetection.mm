@@ -7,48 +7,48 @@
 
 + (id)convertFeatureStoreToEvents:(id)events featureNames:(id)names labelName:(id)name valueName:(id)valueName timestampName:(id)timestampName
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   valueNameCopy = valueName;
   timestampNameCopy = timestampName;
-  v26 = [LCFChangepointDetection _generateFeatureDictionaryForFeatureStore:events featureNames:namesCopy labelName:name timestampName:timestampNameCopy];
-  v27 = objc_opt_new();
+  v25 = [LCFChangepointDetection _generateFeatureDictionaryForFeatureStore:events featureNames:namesCopy labelName:name timestampName:timestampNameCopy];
+  v26 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = namesCopy;
-  v28 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v27)
   {
-    v25 = *v32;
+    v24 = *v31;
     do
     {
       v14 = 0;
       do
       {
-        if (*v32 != v25)
+        if (*v31 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v14;
-        v29 = *(*(&v31 + 1) + 8 * v14);
-        v15 = [v26 objectForKeyedSubscript:?];
-        v16 = [v26 objectForKeyedSubscript:timestampNameCopy];
+        v29 = v14;
+        v28 = *(*(&v30 + 1) + 8 * v14);
+        v15 = [v25 objectForKeyedSubscript:?];
+        v16 = [v25 objectForKeyedSubscript:timestampNameCopy];
         v17 = objc_opt_new();
         if ([v15 count])
         {
           v18 = 0;
           do
           {
-            v35[0] = valueNameCopy;
+            v34[0] = valueNameCopy;
             v19 = [v15 objectAtIndexedSubscript:v18];
-            v35[1] = timestampNameCopy;
-            v36[0] = v19;
+            v34[1] = timestampNameCopy;
+            v35[0] = v19;
             v20 = [v16 objectAtIndexedSubscript:v18];
-            v36[1] = v20;
-            v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
+            v35[1] = v20;
+            v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
 
             [v17 addObject:v21];
             ++v18;
@@ -57,26 +57,24 @@
           while ([v15 count] > v18);
         }
 
-        [v27 setObject:v17 forKeyedSubscript:v29];
+        [v26 setObject:v17 forKeyedSubscript:v28];
 
-        v14 = v30 + 1;
+        v14 = v29 + 1;
       }
 
-      while (v30 + 1 != v28);
-      v28 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      while (v29 + 1 != v27);
+      v27 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v27;
+  return v26;
 }
 
 + (id)_generateFeatureDictionaryForFeatureStore:(id)store featureNames:(id)names labelName:(id)name timestampName:(id)timestampName
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   namesCopy = names;
   nameCopy = name;
@@ -85,43 +83,43 @@
   getFeatureVectorTimestamps = [storeCopy getFeatureVectorTimestamps];
   if ([v12 count] && (v14 = objc_msgSend(v12, "count"), v14 == objc_msgSend(getFeatureVectorTimestamps, "count")))
   {
-    v47 = nameCopy;
-    v48 = getFeatureVectorTimestamps;
+    v46 = nameCopy;
+    v47 = getFeatureVectorTimestamps;
     v15 = objc_opt_new();
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
-    v45 = namesCopy;
+    v44 = namesCopy;
     v16 = namesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v54;
+      v19 = *v53;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v54 != v19)
+          if (*v53 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v53 + 1) + 8 * i);
+          v21 = *(*(&v52 + 1) + 8 * i);
           v22 = objc_opt_new();
           [v15 setObject:v22 forKeyedSubscript:v21];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v53 objects:v57 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v52 objects:v56 count:16];
       }
 
       while (v18);
     }
 
     v23 = objc_opt_new();
-    nameCopy = v47;
-    [v15 setObject:v23 forKeyedSubscript:v47];
+    nameCopy = v46;
+    [v15 setObject:v23 forKeyedSubscript:v46];
 
     v24 = objc_opt_new();
     [v15 setObject:v24 forKeyedSubscript:timestampNameCopy];
@@ -135,15 +133,15 @@ LABEL_17:
     else
     {
       v25 = 0;
-      v46 = v12;
+      v45 = v12;
       while (1)
       {
         v26 = [v12 featuresAtIndex:v25];
         v27 = [v26 featureValueForName:@"vector"];
         multiArrayValue = [v27 multiArrayValue];
 
-        v51 = [v48 objectAtIndexedSubscript:v25];
-        v52 = v26;
+        v50 = [v47 objectAtIndexedSubscript:v25];
+        v51 = v26;
         v29 = [v26 featureValueForName:nameCopy];
         int64Value = [v29 int64Value];
 
@@ -174,37 +172,35 @@ LABEL_17:
           while ([v16 count] > v34);
         }
 
-        nameCopy = v47;
-        v39 = [v15 objectForKeyedSubscript:v47];
+        nameCopy = v46;
+        v39 = [v15 objectForKeyedSubscript:v46];
         v40 = [MEMORY[0x277CCABB0] numberWithDouble:int64Value];
         [v39 addObject:v40];
 
         v41 = [v15 objectForKeyedSubscript:timestampNameCopy];
-        [v41 addObject:v51];
+        [v41 addObject:v50];
 
         ++v25;
-        v12 = v46;
-        if ([v46 count] <= v25)
+        v12 = v45;
+        if ([v45 count] <= v25)
         {
           goto LABEL_17;
         }
       }
 
       v42 = 0;
-      v12 = v46;
+      v12 = v45;
     }
 
-    getFeatureVectorTimestamps = v48;
+    getFeatureVectorTimestamps = v47;
 
-    namesCopy = v45;
+    namesCopy = v44;
   }
 
   else
   {
     v42 = 0;
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 
   return v42;
 }

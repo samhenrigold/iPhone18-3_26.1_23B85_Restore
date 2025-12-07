@@ -40,44 +40,44 @@
   v21[1] = 0;
   *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
   v12 = *(requirementsCopy + 4);
-  *&v32.runtime = *(requirementsCopy + 3);
-  *&v32.lookup.index_count = v12;
-  *&v32.sorted = *(requirementsCopy + 5);
-  v32.var0.ccstate.der_end = *(requirementsCopy + 12);
+  *&v30.runtime = *(requirementsCopy + 3);
+  *&v30.lookup.index_count = v12;
+  *&v30.sorted = *(requirementsCopy + 5);
+  v30.var0.ccstate.der_end = *(requirementsCopy + 12);
   if (der_vm_context_is_valid())
   {
     v13 = *(requirementsCopy + 4);
-    *&v32.runtime = *(requirementsCopy + 3);
-    *&v32.lookup.index_count = v13;
-    *&v32.sorted = *(requirementsCopy + 5);
-    v32.var0.ccstate.der_end = *(requirementsCopy + 12);
-    v35 = 0;
-    v33 = 0u;
-    v34 = 0u;
-    LODWORD(v29) = 0;
-    v30 = 0;
-    v31 = 0;
-    TLE::Executor::getDependentOpsFromDictionary(&v33, v21, &v32);
-    if (v33)
+    *&v30.runtime = *(requirementsCopy + 3);
+    *&v30.lookup.index_count = v13;
+    *&v30.sorted = *(requirementsCopy + 5);
+    v30.var0.ccstate.der_end = *(requirementsCopy + 12);
+    v33 = 0;
+    v31 = 0u;
+    v32 = 0u;
+    LODWORD(v29[0]) = 0;
+    v29[1] = 0;
+    v29[2] = 0;
+    TLE::Executor::getDependentOpsFromDictionary(&v31, v21, &v30, v29, 1, 0, 0);
+    if (v31)
     {
-      v19 = v33;
-      v20 = v34;
+      v19 = v31;
+      v20 = v32;
     }
 
     else
     {
-      if (v35 != 1)
+      if (v33 != 1)
       {
         operator new();
       }
 
-      if (!*(&v34 + 1))
+      if (!*(&v32 + 1))
       {
         goto LABEL_19;
       }
 
-      v16 = 8 * v35;
-      if (*(&v34 + 1) + v16 < *(&v34 + 1) || HIDWORD(v16))
+      v16 = 8 * v33;
+      if (*(&v32 + 1) + v16 < *(&v32 + 1) || HIDWORD(v16))
       {
         os_detail::panic_trapping_policy::trap("The range of valid memory is too large to be represented by this type, or [begin, end) is not a well-formed range", v14);
       }
@@ -90,12 +90,12 @@ LABEL_19:
 
       v19 = 0;
       v20 = 0u;
-      libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v20 + 1, **(&v34 + 1));
+      libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>::reset(&v20 + 1, **(&v32 + 1));
     }
 
-    if (*(&v34 + 1))
+    if (*(&v32 + 1))
     {
-      libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(*(&v34 + 1), v35);
+      libkern::safe_allocation<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>,os_detail::IOKit_typed_allocator<libkern::intrusive_shared_ptr<TLE::Operation,TLE::RefCountPolicy>>,os_detail::panic_trapping_policy>::destroy_dealloc_(*(&v32 + 1), v33);
     }
 
     if (v19)
@@ -107,10 +107,10 @@ LABEL_19:
     {
       *&v17 = 0xAAAAAAAAAAAAAAAALL;
       *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      *&v32.runtime = v17;
-      *&v32.lookup.index_count = v17;
-      (*(**(&v20 + 1) + 16))(&v32);
-      v15 = (LODWORD(v32.runtime) == 0) & v32.dictionary_tag;
+      *&v30.runtime = v17;
+      *&v30.lookup.index_count = v17;
+      (*(**(&v20 + 1) + 16))(&v30);
+      v15 = (LODWORD(v30.runtime) == 0) & v30.dictionary_tag;
     }
   }
 

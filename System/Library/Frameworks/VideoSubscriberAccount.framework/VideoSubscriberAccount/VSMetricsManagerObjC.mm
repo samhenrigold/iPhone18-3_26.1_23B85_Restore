@@ -60,12 +60,12 @@
 
 + (void)recordNowPlayingBrokenEventWithBundleID:(id)d
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8758);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8758, &qword_23AC70E68);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v12 - v4;
   v6 = sub_23AC66364();
   v8 = v7;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8760);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8760, &qword_23AC70E70);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_23AC70E10;
   *(inited + 32) = 0;
@@ -74,7 +74,7 @@
 
   sub_23AC53C00(inited);
   swift_setDeallocating();
-  sub_23AC4CC70(inited + 32, &qword_27DFC8768);
+  sub_23AC4CC70(inited + 32, &qword_27DFC8768, &qword_23AC70E78);
 
   v10 = sub_23AC66444();
   (*(*(v10 - 8) + 56))(v5, 1, 1, v10);
@@ -95,7 +95,7 @@
 
 + (void)recordAccountUpdateWithAccount:(id)account source:(id)source updateType:(id)type completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8758);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DFC8758, &qword_23AC70E68);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v21 - v8;
   v10 = sub_23AC66364();

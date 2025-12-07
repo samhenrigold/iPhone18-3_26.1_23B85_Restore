@@ -147,7 +147,9 @@
   v5 = [(MTREventRequestPath *)&v23 init];
   if (!v5)
   {
-    goto LABEL_21;
+LABEL_21:
+    v15 = 0;
+    goto LABEL_22;
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"endpointIDKey"];
@@ -160,31 +162,26 @@
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v14 = sub_2393D9044(0);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = sub_2393D9044(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v15 = *p_endpoint;
+        v17 = *p_endpoint;
         *buf = 138412290;
-        v25 = v15;
-        _os_log_impl(&dword_238DAE000, v14, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for endpoint, not NSNumber.", buf, 0xCu);
+        v25 = v17;
+        _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for endpoint, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_21;
+        sub_2393D5320(0, 1, "MTREventRequestPath decoded %@ for endpoint, not NSNumber.", *p_endpoint);
       }
 
-LABEL_20:
-      v22 = *p_endpoint;
-      sub_2393D5320(0, 1);
-LABEL_21:
-      v13 = 0;
-      goto LABEL_22;
+      goto LABEL_21;
     }
   }
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"clusterIDKey"];
-  p_endpoint = &v5->_cluster;
+  p_cluster = &v5->_cluster;
   cluster = v5->_cluster;
   v5->_cluster = v9;
 
@@ -193,57 +190,56 @@ LABEL_21:
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v16 = sub_2393D9044(0);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = sub_2393D9044(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v17 = *p_endpoint;
+        v19 = *p_cluster;
         *buf = 138412290;
-        v25 = v17;
-        _os_log_impl(&dword_238DAE000, v16, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for cluster, not NSNumber.", buf, 0xCu);
+        v25 = v19;
+        _os_log_impl(&dword_238DAE000, v18, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for cluster, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_21;
+        sub_2393D5320(0, 1, "MTREventRequestPath decoded %@ for cluster, not NSNumber.", *p_cluster);
       }
 
-      goto LABEL_20;
+      goto LABEL_21;
     }
   }
 
-  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attributeIDKey"];
-  p_endpoint = &v5->_event;
+  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attributeIDKey"];
+  p_event = &v5->_event;
   event = v5->_event;
-  v5->_event = v11;
+  v5->_event = v12;
 
   if (v5->_event)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v18 = sub_2393D9044(0);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = sub_2393D9044(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v19 = *p_endpoint;
+        v21 = *p_event;
         *buf = 138412290;
-        v25 = v19;
-        _os_log_impl(&dword_238DAE000, v18, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for event, not NSNumber.", buf, 0xCu);
+        v25 = v21;
+        _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "MTREventRequestPath decoded %@ for event, not NSNumber.", buf, 0xCu);
       }
 
-      if (!sub_2393D5398(1u))
+      if (sub_2393D5398(1u))
       {
-        goto LABEL_21;
+        sub_2393D5320(0, 1, "MTREventRequestPath decoded %@ for event, not NSNumber.", *p_event);
       }
 
-      goto LABEL_20;
+      goto LABEL_21;
     }
   }
 
-  v13 = v5;
+  v15 = v5;
 LABEL_22:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v15;
 }
 
 - (void)encodeWithCoder:(id)coder

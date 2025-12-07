@@ -77,7 +77,7 @@
   [(WorkoutPlanAlternativesViewController *)&v12 viewWillDisappear:disappearCopy];
   v11[1] = selfCopy;
   sub_20C132E84();
-  sub_20B7FE61C(&qword_27C766020);
+  sub_20B7FE61C(&qword_27C766020, &protocol conformance descriptor for WorkoutPlanAlternativesViewController);
   sub_20C139274();
   (*(v7 + 8))(v9, v6);
 }

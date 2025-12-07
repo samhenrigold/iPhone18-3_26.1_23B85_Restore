@@ -5,6 +5,7 @@
 - (BOOL)shouldPerformMigration;
 - (CalDefaultReminderKitDatabaseMigrationContext)init;
 - (REMStore)reminderStore;
+- (void)didEndMigrationWithSuccess:(BOOL)success;
 - (void)migrationDidFinishWithResult:(unint64_t)result;
 - (void)recordMigrationFailure:(id)failure;
 - (void)willBeginMigration;
@@ -51,6 +52,13 @@
   [remDatabaseMigrationContext reportMigrationWillBegin];
 }
 
+- (void)didEndMigrationWithSuccess:(BOOL)success
+{
+  successCopy = success;
+  remDatabaseMigrationContext = [(CalDefaultReminderKitDatabaseMigrationContext *)self remDatabaseMigrationContext];
+  [remDatabaseMigrationContext reportMigrationDidFinishWithSuccess:successCopy];
+}
+
 - (void)recordMigrationFailure:(id)failure
 {
   failureCopy = failure;
@@ -95,7 +103,7 @@
 
 - (BOOL)shouldPerformMigration
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   remDatabaseMigrationContext = [(CalDefaultReminderKitDatabaseMigrationContext *)self remDatabaseMigrationContext];
   isDatabaseMigrated = [remDatabaseMigrationContext isDatabaseMigrated];
 
@@ -103,12 +111,11 @@
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = [MEMORY[0x277CCABB0] numberWithBool:isDatabaseMigrated];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_2428EA000, v4, OS_LOG_TYPE_INFO, "ReminderKit says isDatabaseMigrated = %{public}@", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_2428EA000, v4, OS_LOG_TYPE_INFO, "ReminderKit says isDatabaseMigrated = %{public}@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return isDatabaseMigrated ^ 1;
 }
 

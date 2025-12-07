@@ -2,6 +2,7 @@
 + (BOOL)hasActivity;
 + (void)endActivities;
 + (void)startActivityWithState:(id)state localState:(id)localState;
++ (void)updateActivityWithState:(id)state localState:(id)localState shouldNotify:(BOOL)notify;
 @end
 
 @implementation SMActivityManager
@@ -12,6 +13,15 @@
   stateCopy = state;
   v7 = +[SMActivityManager shared];
   [v7 startActivityWith:stateCopy localState:localStateCopy];
+}
+
++ (void)updateActivityWithState:(id)state localState:(id)localState shouldNotify:(BOOL)notify
+{
+  notifyCopy = notify;
+  localStateCopy = localState;
+  stateCopy = state;
+  v9 = +[SMActivityManager shared];
+  [v9 updateActivityWith:stateCopy localState:localStateCopy shouldNotify:notifyCopy];
 }
 
 + (void)endActivities

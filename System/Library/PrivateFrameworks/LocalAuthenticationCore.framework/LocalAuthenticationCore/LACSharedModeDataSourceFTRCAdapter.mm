@@ -45,11 +45,10 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ deallocated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ deallocated", &v2, 0xCu);
 }
 
 - (LACSharedModeDataSourceFTRCAdapter)initWithReplyQueue:(id)queue
@@ -77,9 +76,9 @@
 
   if ((featureFlagEssoniteClickEnabled & 1) == 0)
   {
-    v12 = +[LACSharedMode defaultSharedMode];
-    v13 = LACLogSharedMode();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v13 = +[LACSharedMode defaultSharedMode];
+    v14 = LACLogSharedMode(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [LACSharedModeDataSourceFTRCAdapter fetchSharedModeWithOptions:completion:];
     }
@@ -87,27 +86,27 @@
     goto LABEL_12;
   }
 
-  if (!getTUCallCenterClass() || !getTUUIXPCClientConnectionClass())
+  if (!getTUCallCenterClass() || (TUUIXPCClientConnectionClass = getTUUIXPCClientConnectionClass()) == 0)
   {
-    v12 = +[LACSharedMode defaultSharedMode];
-    v13 = LACLogSharedMode();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v13 = +[LACSharedMode defaultSharedMode];
+    v14 = LACLogSharedMode(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [LACSharedModeDataSourceFTRCAdapter fetchSharedModeWithOptions:completion:];
     }
 
 LABEL_12:
 
-    completionCopy[2](completionCopy, v12);
+    completionCopy[2](completionCopy, v13);
     goto LABEL_13;
   }
 
-  v10 = LACLogSharedMode();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = LACLogSharedMode(TUUIXPCClientConnectionClass);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
+    _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ will start query", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
@@ -124,8 +123,6 @@ LABEL_12:
   objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
 LABEL_13:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __76__LACSharedModeDataSourceFTRCAdapter_fetchSharedModeWithOptions_completion___block_invoke(uint64_t a1)
@@ -165,28 +162,25 @@ void __76__LACSharedModeDataSourceFTRCAdapter_fetchSharedModeWithOptions_complet
 
 uint64_t __76__LACSharedModeDataSourceFTRCAdapter_fetchSharedModeWithOptions_completion___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = LACLogSharedMode();
+  v10 = *MEMORY[0x1E69E9840];
+  v2 = LACLogSharedMode(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
     v4 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = WeakRetained;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v8, 0x16u);
+    v6 = 138543618;
+    v7 = WeakRetained;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1B0233000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ did finish query %{public}@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 - (void)_performFetchSharedModeWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   _callCenter = [objc_opt_class() _callCenter];
   v6 = [_callCenter countOfCallsPassingTest:&__block_literal_global_5];
@@ -195,35 +189,33 @@ uint64_t __76__LACSharedModeDataSourceFTRCAdapter_fetchSharedModeWithOptions_com
   {
     objc_initWeak(location, self);
     _callCenter2 = [objc_opt_class() _callCenter];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithCompletion___block_invoke_28;
-    v11[3] = &unk_1E7A95E30;
-    objc_copyWeak(&v13, location);
-    v12 = completionCopy;
-    [_callCenter2 fetchAnonymousXPCEndpoint:v11];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithCompletion___block_invoke_28;
+    v10[3] = &unk_1E7A95E30;
+    objc_copyWeak(&v12, location);
+    v11 = completionCopy;
+    [_callCenter2 fetchAnonymousXPCEndpoint:v10];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
   }
 
   else
   {
     v8 = [[LACSharedMode alloc] initWithActive:0 confirmed:1];
-    v9 = LACLogSharedMode();
+    v9 = LACLogSharedMode(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *location = 138543618;
       *&location[4] = self;
-      v15 = 2114;
-      v16 = v8;
+      v14 = 2114;
+      v15 = v8;
       _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ falling back to %{public}@ because the TUCallCenter has no active calls", location, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, v8);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithCompletion___block_invoke(uint64_t a1, void *a2)
@@ -248,21 +240,22 @@ void __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithComplet
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
     if (v6)
     {
-      v8 = +[LACSharedMode defaultSharedMode];
-      v9 = LACLogSharedMode();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v9 = +[LACSharedMode defaultSharedMode];
+      v10 = LACLogSharedMode(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v23 = WeakRetained;
+        v23 = v8;
         v24 = 2114;
         v25 = v6;
         v26 = 2114;
-        v27 = v8;
-        _os_log_error_impl(&dword_1B0233000, v9, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine current shared mode status %{public}@. Falling back to : %{public}@", buf, 0x20u);
+        v27 = v9;
+        _os_log_error_impl(&dword_1B0233000, v10, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine current shared mode status %{public}@. Falling back to : %{public}@", buf, 0x20u);
       }
 
 LABEL_12:
@@ -273,58 +266,56 @@ LABEL_12:
 
     if (!v5)
     {
-      v8 = [[LACSharedMode alloc] initWithActive:0 confirmed:1];
-      v9 = LACLogSharedMode();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v9 = [[LACSharedMode alloc] initWithActive:0 confirmed:1];
+      v10 = LACLogSharedMode(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = objc_loadWeakRetained((a1 + 40));
+        v18 = objc_loadWeakRetained((a1 + 40));
         *buf = 138543618;
-        v23 = v17;
+        v23 = v18;
         v24 = 2114;
-        v25 = v8;
-        _os_log_impl(&dword_1B0233000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ falling back to %{public}@ because the TUCallCenter endpoint was nil", buf, 0x16u);
+        v25 = v9;
+        _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ falling back to %{public}@ because the TUCallCenter endpoint was nil", buf, 0x16u);
       }
 
       goto LABEL_12;
     }
 
-    v10 = LACLogSharedMode();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = LACLogSharedMode(WeakRetained);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = objc_loadWeakRetained((a1 + 40));
+      v12 = objc_loadWeakRetained((a1 + 40));
       *buf = 138543618;
-      v23 = v11;
+      v23 = v12;
       v24 = 2112;
       v25 = v5;
-      _os_log_impl(&dword_1B0233000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ Obtained TUCallCenter endpoint %@", buf, 0x16u);
+      _os_log_impl(&dword_1B0233000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ Obtained TUCallCenter endpoint %@", buf, 0x16u);
     }
 
-    v12 = objc_alloc(getTUUIXPCClientConnectionClass());
-    v13 = [objc_opt_class() _callCenter];
-    v14 = [v12 initWithListenerEndpoint:v5 callCenter:v13];
-    v15 = WeakRetained[2];
-    WeakRetained[2] = v14;
+    v13 = objc_alloc(getTUUIXPCClientConnectionClass());
+    v14 = [objc_opt_class() _callCenter];
+    v15 = [v13 initWithListenerEndpoint:v5 callCenter:v14];
+    v16 = v8[2];
+    v8[2] = v15;
 
-    v16 = WeakRetained[2];
+    v17 = v8[2];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
     v19[2] = __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithCompletion___block_invoke_29;
     v19[3] = &unk_1E7A95E08;
     objc_copyWeak(&v21, (a1 + 40));
     v20 = *(a1 + 32);
-    [v16 fetchRemoteControlStatus:v19];
+    [v17 fetchRemoteControlStatus:v19];
 
     objc_destroyWeak(&v21);
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithCompletion___block_invoke_29(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -332,37 +323,35 @@ void __76__LACSharedModeDataSourceFTRCAdapter__performFetchSharedModeWithComplet
     if (v5)
     {
       v7 = +[LACSharedMode defaultSharedMode];
-      v8 = LACLogSharedMode();
+      v8 = LACLogSharedMode(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = 138543874;
-        v11 = WeakRetained;
-        v12 = 2114;
-        v13 = v5;
-        v14 = 2114;
-        v15 = v7;
-        _os_log_error_impl(&dword_1B0233000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine current shared mode status %{public}@. Falling back to : %{public}@", &v10, 0x20u);
+        v9 = 138543874;
+        v10 = WeakRetained;
+        v11 = 2114;
+        v12 = v5;
+        v13 = 2114;
+        v14 = v7;
+        _os_log_error_impl(&dword_1B0233000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine current shared mode status %{public}@. Falling back to : %{public}@", &v9, 0x20u);
       }
     }
 
     else
     {
       v7 = [[LACSharedMode alloc] initWithActive:a2 == 2 confirmed:1];
-      v8 = LACLogSharedMode();
+      v8 = LACLogSharedMode(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543618;
-        v11 = WeakRetained;
-        v12 = 2114;
-        v13 = v7;
-        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v10, 0x16u);
+        v9 = 138543618;
+        v10 = WeakRetained;
+        v11 = 2114;
+        v12 = v7;
+        _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v9, 0x16u);
       }
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __49__LACSharedModeDataSourceFTRCAdapter__callCenter__block_invoke(uint64_t a1)
@@ -378,7 +367,7 @@ void __49__LACSharedModeDataSourceFTRCAdapter__callCenter__block_invoke(uint64_t
 
   else
   {
-    v5 = LACLogSharedMode();
+    v5 = LACLogSharedMode(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __49__LACSharedModeDataSourceFTRCAdapter__callCenter__block_invoke_cold_1(a1, v5);
@@ -391,38 +380,20 @@ void __49__LACSharedModeDataSourceFTRCAdapter__callCenter__block_invoke(uint64_t
 
 void __48__LACSharedModeDataSourceFTRCAdapter__workQueue__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v5 = NSStringFromClass(v2);
-  v3 = [LACConcurrencyUtilities createUserInitiatedSerialQueueWithIdentifier:v5];
-  v4 = _workQueue__queue;
-  _workQueue__queue = v3;
-}
-
-- (void)fetchSharedModeWithOptions:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B0233000, v0, v1, "%{public}@ Required feature flags are not enabled %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)fetchSharedModeWithOptions:completion:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_1B0233000, v0, v1, "%{public}@ Unable to determine shared mode status due to missing dependencies %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v1 = objc_opt_class();
+  v4 = NSStringFromClass(v1);
+  v2 = [LACConcurrencyUtilities createUserInitiatedSerialQueueWithIdentifier:v4];
+  v3 = _workQueue__queue;
+  _workQueue__queue = v2;
 }
 
 void __49__LACSharedModeDataSourceFTRCAdapter__callCenter__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine shared mode status due to missing dependencies", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B0233000, a2, OS_LOG_TYPE_ERROR, "%{public}@ Unable to determine shared mode status due to missing dependencies", &v3, 0xCu);
 }
 
 @end

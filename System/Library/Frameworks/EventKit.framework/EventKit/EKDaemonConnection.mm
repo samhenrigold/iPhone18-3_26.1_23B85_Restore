@@ -10,12 +10,16 @@
 - (CADInterface)CADOperationProxySync;
 - (EKDaemonConnection)initWithConnectionFactory:(id)factory;
 - (EKDaemonConnectionDelegate)delegate;
+- (id)operationForToken:(unsigned int)token respondingToSelector:(SEL)selector finished:(BOOL)finished;
 - (int)databaseRestoreGeneration;
 - (int)eventAccessLevel;
 - (int64_t)eventAuthorization;
 - (int64_t)remindersAuthorization;
 - (unsigned)addCancellableRemoteOperation:(id)operation;
 - (void)CADClientReceiveDatabaseIntegrityErrors:(id)errors;
+- (void)CADClientReceiveDiagnosticsCollectionResults:(id)results forToken:(unsigned int)token finished:(BOOL)finished;
+- (void)CADClientReceiveOccurrenceCacheSearchResults:(id)results forSearchToken:(unsigned int)token finished:(BOOL)finished;
+- (void)CADClientReceivePredicateResults:(id)results forToken:(unsigned int)token;
 - (void)_createConnectionAndOperationProxyIfNeeded;
 - (void)_daemonRestarted;
 - (void)_eventAuthorization:(int64_t *)authorization remindersAuthorization:(int64_t *)remindersAuthorization;
@@ -26,6 +30,7 @@
 - (void)dealloc;
 - (void)disconnect;
 - (void)removeCancellableRemoteOperation:(unsigned int)operation;
+- (void)setDatabaseRestoreGeneration:(int)generation;
 - (void)setInitializationOptions:(id)options;
 @end
 
@@ -462,6 +467,28 @@ void __47__EKDaemonConnection_setInitializationOptions___block_invoke_2(uint64_t
   }
 }
 
+- (void)setDatabaseRestoreGeneration:(int)generation
+{
+  v3 = *&generation;
+  os_unfair_lock_lock(&self->_internalStateLock);
+  databaseRestoreGeneration = self->_databaseRestoreGeneration;
+  if (databaseRestoreGeneration == -1 || databaseRestoreGeneration == v3)
+  {
+    self->_databaseRestoreGeneration = v3;
+
+    os_unfair_lock_unlock(&self->_internalStateLock);
+  }
+
+  else
+  {
+    self->_databaseRestoreGenerationHasEverChangedSignificantly = 1;
+    self->_databaseRestoreGeneration = v3;
+    os_unfair_lock_unlock(&self->_internalStateLock);
+    delegate = [(EKDaemonConnection *)self delegate];
+    [delegate databaseRestoreGenerationChangedExternally:v3];
+  }
+}
+
 - (void)databaseRestoreGenerationChangedByThisClient:(int)client
 {
   os_unfair_lock_lock(&self->_internalStateLock);
@@ -614,34 +641,34 @@ uint64_t __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke(u
 
 void __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = EKLogHandle;
   if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
   {
     __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2_cold_1(a1, v2);
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v3 = *(*(*(a1 + 32) + 8) + 40);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(*(a1 + 32) + 8) + 40) objectForKey:{*(*(&v11 + 1) + 8 * v7), v11}];
+        v8 = [*(*(*(a1 + 32) + 8) + 40) objectForKey:{*(*(&v10 + 1) + 8 * v7), v10}];
         if (objc_opt_respondsToSelector())
         {
           [v8 disconnected];
@@ -651,7 +678,7 @@ void __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2(uin
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -662,8 +689,42 @@ void __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2(uin
   {
     __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2_cold_2(v9);
   }
+}
 
-  v10 = *MEMORY[0x1E69E9840];
+- (id)operationForToken:(unsigned int)token respondingToSelector:(SEL)selector finished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v6 = *&token;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__0;
+  v18 = __Block_byref_object_dispose__0;
+  v19 = 0;
+  replyHandlerLock = self->_replyHandlerLock;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __70__EKDaemonConnection_operationForToken_respondingToSelector_finished___block_invoke;
+  block[3] = &unk_1E77FD508;
+  block[4] = self;
+  block[5] = &v14;
+  tokenCopy = token;
+  dispatch_sync(replyHandlerLock, block);
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    v9 = v15[5];
+    v15[5] = 0;
+  }
+
+  if (finishedCopy)
+  {
+    [(EKDaemonConnection *)self removeCancellableRemoteOperation:v6];
+  }
+
+  v10 = v15[5];
+  _Block_object_dispose(&v14, 8);
+
+  return v10;
 }
 
 void __70__EKDaemonConnection_operationForToken_respondingToSelector_finished___block_invoke(uint64_t a1)
@@ -676,9 +737,64 @@ void __70__EKDaemonConnection_operationForToken_respondingToSelector_finished___
   *(v4 + 40) = v3;
 }
 
+- (void)CADClientReceiveOccurrenceCacheSearchResults:(id)results forSearchToken:(unsigned int)token finished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v6 = *&token;
+  resultsCopy = results;
+  v9 = [(EKDaemonConnection *)self operationForToken:v6 respondingToSelector:sel_receivedBatchResultsFromServer_finished_ finished:finishedCopy];
+  v10 = +[EKDaemonConnection sharedQueue];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __91__EKDaemonConnection_CADClientReceiveOccurrenceCacheSearchResults_forSearchToken_finished___block_invoke;
+  block[3] = &unk_1E77FD558;
+  v14 = v9;
+  v15 = resultsCopy;
+  v16 = finishedCopy;
+  v11 = resultsCopy;
+  v12 = v9;
+  dispatch_async(v10, block);
+}
+
+- (void)CADClientReceiveDiagnosticsCollectionResults:(id)results forToken:(unsigned int)token finished:(BOOL)finished
+{
+  finishedCopy = finished;
+  v6 = *&token;
+  resultsCopy = results;
+  v9 = [(EKDaemonConnection *)self operationForToken:v6 respondingToSelector:sel_receivedBatchResultsFromServer_finished_ finished:finishedCopy];
+  v10 = +[EKDaemonConnection sharedQueue];
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __85__EKDaemonConnection_CADClientReceiveDiagnosticsCollectionResults_forToken_finished___block_invoke;
+  block[3] = &unk_1E77FD558;
+  v14 = v9;
+  v15 = resultsCopy;
+  v16 = finishedCopy;
+  v11 = resultsCopy;
+  v12 = v9;
+  dispatch_async(v10, block);
+}
+
+- (void)CADClientReceivePredicateResults:(id)results forToken:(unsigned int)token
+{
+  v4 = *&token;
+  resultsCopy = results;
+  v7 = [(EKDaemonConnection *)self operationForToken:v4 respondingToSelector:sel_receivedBatchResultsFromServer_finished_ finished:0];
+  v8 = +[EKDaemonConnection sharedQueue];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__EKDaemonConnection_CADClientReceivePredicateResults_forToken___block_invoke;
+  v11[3] = &unk_1E77FD580;
+  v12 = v7;
+  v13 = resultsCopy;
+  v9 = resultsCopy;
+  v10 = v7;
+  dispatch_async(v8, v11);
+}
+
 - (void)CADClientReceiveDatabaseIntegrityErrors:(id)errors
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   if ([errorsCopy count])
   {
@@ -690,13 +806,11 @@ void __70__EKDaemonConnection_operationForToken_respondingToSelector_finished___
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v10 = @"integrityErrors";
-    v11[0] = errorsCopy;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"integrityErrors";
+    v10[0] = errorsCopy;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [defaultCenter postNotificationName:@"EKEventStoreIntegrityErrorsFoundNotification" object:WeakRetained userInfo:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_eventAuthorization:(int64_t *)authorization remindersAuthorization:(int64_t *)remindersAuthorization
@@ -768,7 +882,7 @@ void __70__EKDaemonConnection_operationForToken_respondingToSelector_finished___
 
 void __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   *(*(a1[4] + 8) + 24) = a2 == 0;
   *(*(a1[5] + 8) + 24) = a3;
   *(*(a1[6] + 8) + 24) = a4;
@@ -779,11 +893,11 @@ void __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block
     {
       v6 = *(*(a1[5] + 8) + 24);
       v7 = *(*(a1[6] + 8) + 24);
-      v10[0] = 67109376;
-      v10[1] = v6;
-      v11 = 1024;
-      v12 = v7;
-      _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "Loaded access. eventAuth = %d, remindersAuth = %d", v10, 0xEu);
+      v9[0] = 67109376;
+      v9[1] = v6;
+      v10 = 1024;
+      v11 = v7;
+      _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "Loaded access. eventAuth = %d, remindersAuth = %d", v9, 0xEu);
     }
   }
 
@@ -791,8 +905,6 @@ void __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block
   {
     __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block_invoke_cold_1(v4, a2);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (EKDaemonConnectionDelegate)delegate
@@ -804,45 +916,40 @@ void __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block
 
 void __47__EKDaemonConnection_setInitializationOptions___block_invoke_2_cold_1(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = a1;
   v5 = [v3 errorWithCADResult:a2];
-  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error setting initialization options: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error setting initialization options: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 void __52__EKDaemonConnection__finishAllRepliesOnServerDeath__block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(*(*(a1 + 32) + 8) + 40);
   v3 = a2;
-  v5[0] = 67109120;
-  v5[1] = [v2 count];
-  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Notifying %d asynchronous operations about the dropped XPC connection", v5, 8u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = 67109120;
+  v4[1] = [v2 count];
+  _os_log_error_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Notifying %d asynchronous operations about the dropped XPC connection", v4, 8u);
 }
 
 - (void)CADClientReceiveDatabaseIntegrityErrors:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Detected database integrity errors: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Detected database integrity errors: %@", &v2, 0xCu);
 }
 
 void __65__EKDaemonConnection__eventAuthorization_remindersAuthorization___block_invoke_cold_1(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = a1;
   v5 = [v3 errorWithCADResult:a2];
-  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error loading access: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x1E69E9840];
+  LODWORD(v12) = 138412290;
+  *(&v12 + 4) = v5;
+  OUTLINED_FUNCTION_0_1(&dword_1A805E000, v6, v7, "Error loading access: %@", v8, v9, v10, v11, v12, DWORD2(v12));
 }
 
 @end

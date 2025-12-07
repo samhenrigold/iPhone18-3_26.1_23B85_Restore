@@ -11,7 +11,7 @@
   v5 = sub_1A2D07F44();
   v7 = v6;
 
-  SubscriptionPreferencesObservationClient.subscriptionPreferencesDidChange(_:)();
+  SubscriptionPreferencesObservationClient.subscriptionPreferencesDidChange(_:)(v5, v7);
   sub_1A2C55840(v5, v7);
 }
 

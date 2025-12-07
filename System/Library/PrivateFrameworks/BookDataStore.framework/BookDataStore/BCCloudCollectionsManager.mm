@@ -4,6 +4,7 @@
 - (NSManagedObjectModel)objectModel;
 - (id)initClientXPCProxy;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
+- (void)setEnableCloudSync:(BOOL)sync;
 @end
 
 @implementation BCCloudCollectionsManager
@@ -65,10 +66,32 @@
   return objectModel;
 }
 
+- (void)setEnableCloudSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = BDSCloudKitLog(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (syncCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "BCCloudCollectionsManager #enableCloudSync setEnableCloudSync %@", &v8, 0xCu);
+  }
+
+  serviceProxy = [(BCCloudCollectionsManager *)self serviceProxy];
+  [serviceProxy setEnableCollectionSync:syncCopy];
+}
+
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = BDSCloudKitSyncLog();
+  v5 = BDSCloudKitSyncLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;

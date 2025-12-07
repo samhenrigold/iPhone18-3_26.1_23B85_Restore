@@ -183,47 +183,38 @@ void *__108__HFIncrementalStateControlItem_initWithValueSource_incrementalAndPri
 
 - (id)toggleValue
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v3 = +[HFHomeKitDispatcher sharedDispatcher];
   homeManager = [v3 homeManager];
-  hasOptedToHH2 = [homeManager hasOptedToHH2];
-  v6 = off_277DF0150;
-  if (!hasOptedToHH2)
-  {
-    v6 = off_277DF0158;
-  }
-
-  v7 = *v6;
-  v8 = objc_opt_new();
+  [homeManager hasOptedToHH2];
+  v5 = objc_opt_new();
 
   valueSource = [(HFControlItem *)self valueSource];
-  [valueSource beginTransactionWithReason:@"HFIncrementalStateControlItem-Toggle" readPolicy:v8 logger:0];
+  [valueSource beginTransactionWithReason:@"HFIncrementalStateControlItem-Toggle" readPolicy:v5 logger:0];
 
   valueSource2 = [(HFControlItem *)self valueSource];
-  v11 = MEMORY[0x277CBEB98];
+  v8 = MEMORY[0x277CBEB98];
   incrementalCharacteristicType = [(HFIncrementalStateControlItem *)self incrementalCharacteristicType];
-  v13 = [v11 setWithObject:incrementalCharacteristicType];
-  v14 = [valueSource2 readValuesForCharacteristicTypes:v13];
-  v24[0] = v14;
+  v10 = [v8 setWithObject:incrementalCharacteristicType];
+  v11 = [valueSource2 readValuesForCharacteristicTypes:v10];
+  v20[0] = v11;
   primaryStateControlItem = [(HFIncrementalStateControlItem *)self primaryStateControlItem];
   readValueAndPopulateStandardResults = [primaryStateControlItem readValueAndPopulateStandardResults];
-  v24[1] = readValueAndPopulateStandardResults;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  v20[1] = readValueAndPopulateStandardResults;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
 
-  v18 = [MEMORY[0x277D2C900] combineAllFutures:v17];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __44__HFIncrementalStateControlItem_toggleValue__block_invoke;
-  v23[3] = &unk_277DF5938;
-  v23[4] = self;
-  v19 = [v18 flatMap:v23];
+  v15 = [MEMORY[0x277D2C900] combineAllFutures:v14];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __44__HFIncrementalStateControlItem_toggleValue__block_invoke;
+  v19[3] = &unk_277DF5938;
+  v19[4] = self;
+  v16 = [v15 flatMap:v19];
 
   valueSource3 = [(HFControlItem *)self valueSource];
   [valueSource3 commitTransactionWithReason:@"HFIncrementalStateControlItem-Toggle"];
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v19;
+  return v16;
 }
 
 id __44__HFIncrementalStateControlItem_toggleValue__block_invoke(uint64_t a1, void *a2)
@@ -291,23 +282,21 @@ LABEL_9:
 
 - (id)updateWithOptions:(id)options
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   primaryStateControlItem = [(HFIncrementalStateControlItem *)self primaryStateControlItem];
   v6 = [primaryStateControlItem updateWithOptions:optionsCopy];
 
   v7 = MEMORY[0x277D2C900];
-  v14.receiver = self;
-  v14.super_class = HFIncrementalStateControlItem;
-  v8 = [(HFItem *)&v14 updateWithOptions:optionsCopy];
+  v13.receiver = self;
+  v13.super_class = HFIncrementalStateControlItem;
+  v8 = [(HFItem *)&v13 updateWithOptions:optionsCopy];
 
-  v15[0] = v8;
-  v15[1] = v6;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v8;
+  v14[1] = v6;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v10 = [v7 combineAllFutures:v9];
   v11 = [v10 flatMap:&__block_literal_global_33_0];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -391,7 +380,7 @@ LABEL_11:
 
 BOOL __80__HFIncrementalStateControlItem_valueForCharacteristicType_inBatchReadResponse___block_invoke(uint64_t a1, void *a2)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 value];
 
@@ -400,10 +389,10 @@ BOOL __80__HFIncrementalStateControlItem_valueForCharacteristicType_inBatchReadR
     v5 = [*(a1 + 32) primaryStateControlItem];
     v6 = [v3 characteristic];
     v7 = [v6 characteristicType];
-    v15 = v7;
+    v14 = v7;
     v8 = [v3 value];
-    v16[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     v10 = [v5 valueForCharacteristicValues:v9];
     v11 = [v10 integerValue];
 
@@ -415,14 +404,13 @@ BOOL __80__HFIncrementalStateControlItem_valueForCharacteristicType_inBatchReadR
     v12 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 id __80__HFIncrementalStateControlItem_valueForCharacteristicType_inBatchReadResponse___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = [a2 characteristic];
-  v3 = [v2 service];
+  v3 = objc_msgSend_service(v2);
   v4 = [v3 uniqueIdentifier];
 
   return v4;
@@ -432,7 +420,7 @@ uint64_t __80__HFIncrementalStateControlItem_valueForCharacteristicType_inBatchR
 {
   v2 = *(a1 + 32);
   v3 = [a2 characteristic];
-  v4 = [v3 service];
+  v4 = objc_msgSend_service(v3);
   v5 = [v4 uniqueIdentifier];
   v6 = [v2 containsObject:v5];
 

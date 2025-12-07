@@ -10,7 +10,7 @@
   v3 = objc_opt_class();
   if (v3)
   {
-    [v3 viewTileIdentifier];
+    objc_msgSend_viewTileIdentifier(v3);
   }
 
   else

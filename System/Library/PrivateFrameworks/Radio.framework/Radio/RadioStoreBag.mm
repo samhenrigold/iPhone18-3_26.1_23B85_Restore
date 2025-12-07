@@ -251,16 +251,15 @@
   path = [l path];
   if (path)
   {
-    mescalResponseAllowList = self->_mescalResponseAllowList;
-    v6 = SSVURLPathMatchesActionDictionary();
+    v4 = SSVURLPathMatchesActionDictionary();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)shouldMescalSignRequestWithURL:(id)l
@@ -273,16 +272,15 @@
   path = [l path];
   if (path)
   {
-    mescalRequestAllowList = self->_mescalRequestAllowList;
-    v6 = SSVURLPathMatchesActionDictionary();
+    v4 = SSVURLPathMatchesActionDictionary();
   }
 
   else
   {
-    v6 = 0;
+    v4 = 0;
   }
 
-  return v6;
+  return v4;
 }
 
 - (BOOL)isAdFreeRadioEnabled

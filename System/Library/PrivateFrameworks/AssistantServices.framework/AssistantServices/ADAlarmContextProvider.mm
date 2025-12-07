@@ -39,7 +39,7 @@
       v21 = AFDeviceContextKeyAlarm;
       deliveryDate = [metadataCopy deliveryDate];
       expirationDate = [metadataCopy expirationDate];
-      v30 = *(&AFClockAlarmSnapshotKey + 2);
+      v30 = AFClockAlarmSnapshotKey[2];
       v24 = [NSArray arrayWithObjects:&v30 count:1];
       v25 = [v20 initWithType:v21 deliveryDate:deliveryDate expirationDate:expirationDate redactedKeyPaths:v24 historyConfiguration:0];
 

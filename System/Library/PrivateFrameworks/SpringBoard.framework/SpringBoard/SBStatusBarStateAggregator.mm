@@ -864,28 +864,26 @@ uint64_t __60__SBStatusBarStateAggregator_setShowsOverridesForRecording___block_
 - (void)addPostingObserver:(id)observer
 {
   observerCopy = observer;
-  v7 = observerCopy;
   if (self->_notifyingPostObservers)
   {
     [SBStatusBarStateAggregator addPostingObserver:];
-    observerCopy = v7;
   }
 
-  if (![(NSHashTable *)self->_postObservers containsObject:observerCopy])
+  if ((objc_msgSend_containsObject_(self->_postObservers) & 1) == 0)
   {
-    [(NSHashTable *)self->_postObservers addObject:v7];
+    [(NSHashTable *)self->_postObservers addObject:observerCopy];
     if (self->_hasPostedOnce)
     {
-      [v7 statusBarStateAggregatorDidStartPost:self];
+      [observerCopy statusBarStateAggregatorDidStartPost:self];
       for (i = 0; i != 46; ++i)
       {
-        [v7 statusBarStateAggregator:self didVisitItem:i withUpdates:1 toData:&self->_data];
+        [observerCopy statusBarStateAggregator:self didVisitItem:i withUpdates:1 toData:&self->_data];
       }
 
-      [v7 statusBarStateAggregator:self didUpdateNonItemData:&self->_data];
+      [observerCopy statusBarStateAggregator:self didUpdateNonItemData:&self->_data];
       if (!self->_coalescentBlockDepth)
       {
-        [v7 statusBarStateAggregatorDidFinishPost:self withData:&self->_data actions:self->_actions];
+        [observerCopy statusBarStateAggregatorDidFinishPost:self withData:&self->_data actions:self->_actions];
       }
     }
 
@@ -893,7 +891,7 @@ uint64_t __60__SBStatusBarStateAggregator_setShowsOverridesForRecording___block_
     {
       if (self->_coalescentBlockDepth)
       {
-        [v7 statusBarStateAggregatorDidStartPost:self];
+        [observerCopy statusBarStateAggregatorDidStartPost:self];
       }
 
       [(SBStatusBarStateAggregator *)self beginCoalescentBlock];
@@ -1548,7 +1546,7 @@ void __55__SBStatusBarStateAggregator__registerForNotifications__block_invoke_26
 
   v7 = v6;
 
-  if (v7 && ([v11[1092] containsObject:v7] & 1) == 0)
+  if (v7 && (objc_msgSend_containsObject_(v11[1092]) & 1) == 0)
   {
     v8 = v11[1092];
     if (!v8)
@@ -1605,7 +1603,7 @@ void __55__SBStatusBarStateAggregator__registerForNotifications__block_invoke_28
 
   v7 = v6;
 
-  if (v7 && [v9[1092] containsObject:v7])
+  if (v7 && objc_msgSend_containsObject_(v9[1092]))
   {
     [v9[1092] removeObject:v7];
     if (![v9[1092] count])
@@ -1690,7 +1688,7 @@ double __55__SBStatusBarStateAggregator__updateTimeItemsWithDate___block_invoke(
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF48]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:3 enabled:v5];
 }
@@ -2662,7 +2660,7 @@ LABEL_34:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF68]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:40 enabled:v5];
 }
@@ -2869,7 +2867,7 @@ LABEL_27:
 {
   stateCopy = state;
   isConnectedToSystem = [stateCopy isConnectedToSystem];
-  v6 = [(NSMutableArray *)self->_connectedLEBluetoothDevices containsObject:stateCopy];
+  v6 = objc_msgSend_containsObject_(self->_connectedLEBluetoothDevices);
   if (isConnectedToSystem)
   {
     if (v6)
@@ -2979,7 +2977,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF80]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:17 enabled:v5];
 }
@@ -2988,7 +2986,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF50]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:18 enabled:v5];
 }
@@ -2997,7 +2995,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF88]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:29 enabled:v5];
 }
@@ -3006,7 +3004,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF78]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:27 enabled:v5];
 }
@@ -3107,7 +3105,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF70]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:22 enabled:v5];
 }
@@ -3123,7 +3121,7 @@ LABEL_10:
   {
     data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
     activeStatusItems = [data activeStatusItems];
-    v3 = [activeStatusItems containsObject:*MEMORY[0x277D6BF40]];
+    v3 = objc_msgSend_containsObject_(activeStatusItems);
   }
 
   [(SBStatusBarStateAggregator *)self _setItem:24 enabled:v3];
@@ -3170,7 +3168,7 @@ LABEL_10:
   v10 = *MEMORY[0x277D85DE8];
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF60]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   v6 = SBLogStatusBarish();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -3193,7 +3191,7 @@ LABEL_10:
 {
   data = [(STStatusItemsStatusDomain *)self->_statusItemsDomain data];
   activeStatusItems = [data activeStatusItems];
-  v5 = [activeStatusItems containsObject:*MEMORY[0x277D6BF58]];
+  v5 = objc_msgSend_containsObject_(activeStatusItems);
 
   [(SBStatusBarStateAggregator *)self _setItem:26 enabled:v5];
 }
@@ -3950,7 +3948,7 @@ LABEL_41:
           v24 = callProviderAttribution2;
           if (callProviderAttribution2)
           {
-            [callProviderAttribution2 auditToken];
+            objc_msgSend_auditToken(callProviderAttribution2);
           }
 
           else
@@ -4086,7 +4084,7 @@ uint64_t __91__SBStatusBarStateAggregator__updateCallingBackgroundActivityAssert
   {
     v5 = [*(a1 + 32) backgroundActivityIdentifiers];
     v6 = [v3 backgroundActivityIdentifier];
-    v7 = [v5 containsObject:v6];
+    v7 = objc_msgSend_containsObject_(v5);
   }
 
   else
@@ -4609,15 +4607,15 @@ LABEL_9:
   }
 }
 
-uint64_t __54__SBStatusBarStateAggregator__noteAirplaneModeChanged__block_invoke(uint64_t result)
+void *__54__SBStatusBarStateAggregator__noteAirplaneModeChanged__block_invoke(void *result)
 {
-  v2 = *(result + 32);
-  if (*(result + 40) == *(v2 + 8688))
+  v2 = *(result + 4);
+  if (*(result + 5) == *(v2 + 8688))
   {
     v3 = result;
     *(v2 + 8696) = 0;
-    [*(result + 32) updateStatusBarItem:6];
-    v4 = *(v3 + 32);
+    [*(result + 4) updateStatusBarItem:6];
+    v4 = v3[4];
 
     return [v4 updateStatusBarItem:7];
   }
@@ -4832,14 +4830,18 @@ void __91__SBStatusBarStateAggregator__updateCallingBackgroundActivityAssertions
 {
   v1 = [*(a1 + 40) backgroundActivityIdentifier];
   v2 = STBackgroundActivityIdentifierDescription();
-  OUTLINED_FUNCTION_2_39(&dword_21ED4E000, v3, v4, "failed to acquire calling background activity assertion for identifier: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_2_39(&dword_21ED4E000, v3, v4, "failed to acquire calling background activity assertion for identifier: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 void __91__SBStatusBarStateAggregator__updateCallingBackgroundActivityAssertionsForCallDescriptors___block_invoke_240_cold_1(uint64_t a1)
 {
   v1 = [*(a1 + 32) backgroundActivityIdentifier];
   v2 = STBackgroundActivityIdentifierDescription();
-  OUTLINED_FUNCTION_2_39(&dword_21ED4E000, v3, v4, "calling background activity assertion unexpectedly invalidated for identifier: %{public}@", v5, v6, v7, v8, 2u);
+  LODWORD(v9) = 138543362;
+  *(&v9 + 4) = v2;
+  OUTLINED_FUNCTION_2_39(&dword_21ED4E000, v3, v4, "calling background activity assertion unexpectedly invalidated for identifier: %{public}@", v5, v6, v7, v8, v9, DWORD2(v9));
 }
 
 - (void)updateStatusBarItem:(int)a1 .cold.1(int a1, NSObject *a2)

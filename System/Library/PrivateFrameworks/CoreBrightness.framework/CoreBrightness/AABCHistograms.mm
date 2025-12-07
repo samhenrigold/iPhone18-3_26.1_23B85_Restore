@@ -73,7 +73,6 @@
   [CBAnalytics illuminanceHistogram:self->_E];
   [(CBHistogramBuilder *)self->_E reset];
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)luminanceHistLogNitsSDR:(float)r andNitsEDR:(float)dR

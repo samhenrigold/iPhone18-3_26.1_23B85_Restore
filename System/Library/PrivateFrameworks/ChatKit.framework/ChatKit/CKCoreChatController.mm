@@ -1345,13 +1345,13 @@ void __89__CKCoreChatController_Backgrounds___transitionToPosterKitPosterConfigu
   objc_destroyWeak(&v14);
 }
 
-void __89__CKCoreChatController_Backgrounds___transitionToPosterKitPosterConfiguration_onChannel___block_invoke_257(uint64_t a1)
+void __89__CKCoreChatController_Backgrounds___transitionToPosterKitPosterConfiguration_onChannel___block_invoke_257(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __89__CKCoreChatController_Backgrounds___transitionToPosterKitPosterConfiguration_onChannel___block_invoke_257_cold_1();
     }
@@ -1361,28 +1361,28 @@ void __89__CKCoreChatController_Backgrounds___transitionToPosterKitPosterConfigu
   {
     if (IMOSLoggingEnabled())
     {
-      v3 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+      v4 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v4 = *(a1 + 48);
-        v5 = [v4 posterConfiguration];
-        v10 = 138412546;
-        v11 = v4;
-        v12 = 2112;
-        v13 = v5;
-        _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Updated channel %@ with config %@, will update UI", &v10, 0x16u);
+        v5 = *(a1 + 48);
+        v6 = [v5 posterConfiguration];
+        v11 = 138412546;
+        v12 = v5;
+        v13 = 2112;
+        v14 = v6;
+        _os_log_impl(&dword_19020E000, v4, OS_LOG_TYPE_INFO, "Updated channel %@ with config %@, will update UI", &v11, 0x16u);
       }
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 80));
     [WeakRetained _updateLastBackgroundTransferGUIDSetOnChannel:*(a1 + 56)];
 
-    v7 = objc_loadWeakRetained((a1 + 80));
-    [v7 __updateUIWithPosterChannel:*(a1 + 48)];
-
     v8 = objc_loadWeakRetained((a1 + 80));
-    v9 = [v8 transcriptBackground];
-    [v9 channelControllerDidUpdate];
+    [v8 __updateUIWithPosterChannel:*(a1 + 48)];
+
+    v9 = objc_loadWeakRetained((a1 + 80));
+    v10 = [v9 transcriptBackground];
+    [v10 channelControllerDidUpdate];
 
     [*(a1 + 64) cleanUpLegacyChannelsForChatGUID:*(a1 + 72) completion:0];
   }
@@ -5818,8 +5818,9 @@ LABEL_20:
 
 - (BOOL)isSafeToMarkAsRead
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v3 = [CKApplicationState isViewControllerForegroundActive:self]|| CKIsRunningInMessagesNotificationExtension() != 0;
+  v44 = *MEMORY[0x1E69E9840];
+  v3 = [CKApplicationState isViewControllerForegroundActive:self];
+  v4 = (v3 & 1) != 0 || CKIsRunningInMessagesNotificationExtension(v3) != 0;
   if ([(CKCoreChatController *)self ignoreLastBalloonVisibleInMarkAsReadCheck])
   {
     goto LABEL_7;
@@ -5830,16 +5831,17 @@ LABEL_20:
   {
 
 LABEL_7:
-    LODWORD(v5) = 1;
+    LODWORD(v6) = 1;
     goto LABEL_23;
   }
 
   chat = [(CKCoreChatController *)self chat];
-  if ([chat chatStyle] == 45)
+  chatStyle = [chat chatStyle];
+  if (chatStyle == 45)
   {
-    v7 = CKIsRunningInMessagesTranscriptExtension();
+    v9 = CKIsRunningInMessagesTranscriptExtension(chatStyle);
 
-    if (!v7)
+    if (!v9)
     {
       goto LABEL_7;
     }
@@ -5855,35 +5857,35 @@ LABEL_7:
   item = [indexPathForLastItem item];
 
   [collectionView visibleCells];
+  v31 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v12 = v28 = 0u;
-  v5 = [v12 countByEnumeratingWithState:&v27 objects:v41 count:16];
-  if (v5)
+  v14 = v30 = 0u;
+  v6 = [v14 countByEnumeratingWithState:&v29 objects:v43 count:16];
+  if (v6)
   {
-    v13 = *v28;
+    v15 = *v30;
     while (2)
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v28 != v13)
+        if (*v30 != v15)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v14);
         }
 
-        v15 = [collectionView indexPathForCell:{*(*(&v27 + 1) + 8 * i), v27}];
-        v16 = [v15 row] == item;
+        v17 = [collectionView indexPathForCell:{*(*(&v29 + 1) + 8 * i), v29}];
+        v18 = [v17 row] == item;
 
-        if (v16)
+        if (v18)
         {
-          LODWORD(v5) = 1;
+          LODWORD(v6) = 1;
           goto LABEL_22;
         }
       }
 
-      v5 = [v12 countByEnumeratingWithState:&v27 objects:v41 count:16];
-      if (v5)
+      v6 = [v14 countByEnumeratingWithState:&v29 objects:v43 count:16];
+      if (v6)
       {
         continue;
       }
@@ -5897,55 +5899,32 @@ LABEL_22:
 LABEL_23:
   if ([(CKViewController *)self appearing]|| [(CKViewController *)self appeared])
   {
-    v17 = v3 & v5;
+    v19 = v4 & v6;
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v18 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    v20 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      if (v17)
+      if (v19)
       {
-        v19 = @"YES";
+        v21 = @"YES";
       }
 
       else
       {
-        v19 = @"NO";
+        v21 = @"NO";
       }
 
       appearing = [(CKViewController *)self appearing];
       appeared = [(CKViewController *)self appeared];
       if (appearing)
-      {
-        v22 = @"YES";
-      }
-
-      else
-      {
-        v22 = @"NO";
-      }
-
-      *buf = 138413314;
-      if (appeared)
-      {
-        v23 = @"YES";
-      }
-
-      else
-      {
-        v23 = @"NO";
-      }
-
-      v32 = v19;
-      v33 = 2112;
-      if (v3)
       {
         v24 = @"YES";
       }
@@ -5955,8 +5934,8 @@ LABEL_23:
         v24 = @"NO";
       }
 
-      v34 = v22;
-      if (v5)
+      *buf = 138413314;
+      if (appeared)
       {
         v25 = @"YES";
       }
@@ -5966,17 +5945,40 @@ LABEL_23:
         v25 = @"NO";
       }
 
+      v34 = v21;
       v35 = 2112;
-      v36 = v23;
+      if (v4)
+      {
+        v26 = @"YES";
+      }
+
+      else
+      {
+        v26 = @"NO";
+      }
+
+      v36 = v24;
+      if (v6)
+      {
+        v27 = @"YES";
+      }
+
+      else
+      {
+        v27 = @"NO";
+      }
+
       v37 = 2112;
-      v38 = v24;
+      v38 = v25;
       v39 = 2112;
-      v40 = v25;
-      _os_log_impl(&dword_19020E000, v18, OS_LOG_TYPE_INFO, "MarkAsRead - isSafe %@ appearing %@ appeared %@ isActive %@ lastBalloonIsVisible %@", buf, 0x34u);
+      v40 = v26;
+      v41 = 2112;
+      v42 = v27;
+      _os_log_impl(&dword_19020E000, v20, OS_LOG_TYPE_INFO, "MarkAsRead - isSafe %@ appearing %@ appeared %@ isActive %@ lastBalloonIsVisible %@", buf, 0x34u);
     }
   }
 
-  return v17;
+  return v19;
 }
 
 - (void)_markAsReadIfNecessary
@@ -9016,11 +9018,11 @@ LABEL_16:
 - (void)presentAttachmentDownloadFailedErrorForTransfer:(id)transfer
 {
   transferCopy = transfer;
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(transferCopy);
   v5 = [v4 localizedStringForKey:@"TAP_TO_DOWNLOAD_ITEM_FAILED_ALERT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"TAP_TO_DOWNLOAD_ITEM_FAILED_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
+  v7 = CKFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"TAP_TO_DOWNLOAD_ITEM_FAILED_ALERT_MESSAGE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   mediaObjectToDownload = [(CKCoreChatController *)self mediaObjectToDownload];
 
@@ -9029,17 +9031,17 @@ LABEL_16:
     mediaObjectToDownload2 = [(CKCoreChatController *)self mediaObjectToDownload];
     transferGUID = [mediaObjectToDownload2 transferGUID];
     guid = [transferCopy guid];
-    v12 = [transferGUID isEqualToString:guid];
+    v13 = [transferGUID isEqualToString:guid];
 
-    if (v12)
+    if (v13)
     {
       mediaObjectToDownload3 = [(CKCoreChatController *)self mediaObjectToDownload];
       mediaType = [mediaObjectToDownload3 mediaType];
 
       if (mediaType == 3)
       {
-        v15 = @"TAP_TO_DOWNLOAD_IMAGE_FAILED_ALERT_MESSAGE";
-        v16 = @"TAP_TO_DOWNLOAD_IMAGE_FAILED_ALERT_TITLE";
+        v17 = @"TAP_TO_DOWNLOAD_IMAGE_FAILED_ALERT_MESSAGE";
+        v18 = @"TAP_TO_DOWNLOAD_IMAGE_FAILED_ALERT_TITLE";
       }
 
       else
@@ -9049,29 +9051,29 @@ LABEL_16:
           goto LABEL_8;
         }
 
-        v15 = @"TAP_TO_DOWNLOAD_VIDEO_FAILED_ALERT_MESSAGE";
-        v16 = @"TAP_TO_DOWNLOAD_VIDEO_FAILED_ALERT_TITLE";
+        v17 = @"TAP_TO_DOWNLOAD_VIDEO_FAILED_ALERT_MESSAGE";
+        v18 = @"TAP_TO_DOWNLOAD_VIDEO_FAILED_ALERT_TITLE";
       }
 
-      v17 = CKFrameworkBundle();
-      v18 = [v17 localizedStringForKey:v16 value:&stru_1F04268F8 table:@"ChatKit"];
+      v19 = CKFrameworkBundle(v16);
+      v20 = [v19 localizedStringForKey:v18 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v19 = CKFrameworkBundle();
-      v20 = [v19 localizedStringForKey:v15 value:&stru_1F04268F8 table:@"ChatKit"];
+      v22 = CKFrameworkBundle(v21);
+      v23 = [v22 localizedStringForKey:v17 value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v7 = v20;
-      v5 = v18;
+      v8 = v23;
+      v5 = v20;
     }
   }
 
 LABEL_8:
-  v21 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v5 message:v7 preferredStyle:1];
-  v22 = CKFrameworkBundle();
-  v23 = [v22 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
-  [v21 _addActionWithTitle:v23 style:0 handler:&__block_literal_global_293];
+  v24 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v5 message:v8 preferredStyle:1];
+  v25 = CKFrameworkBundle(v24);
+  v26 = [v25 localizedStringForKey:@"OK" value:&stru_1F04268F8 table:@"ChatKit"];
+  [v24 _addActionWithTitle:v26 style:0 handler:&__block_literal_global_293];
 
   navigationController = [(CKCoreChatController *)self navigationController];
-  [navigationController presentViewController:v21 animated:1 completion:0];
+  [navigationController presentViewController:v24 animated:1 completion:0];
 }
 
 - (void)showFullScreenAcknowledgmentPickerForChatItem:(id)item displayConfiguration:(id)configuration
@@ -9328,7 +9330,7 @@ LABEL_6:
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD55490);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD55490, &qword_190E08180);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v17 - v9;
   sub_190D51BC0();

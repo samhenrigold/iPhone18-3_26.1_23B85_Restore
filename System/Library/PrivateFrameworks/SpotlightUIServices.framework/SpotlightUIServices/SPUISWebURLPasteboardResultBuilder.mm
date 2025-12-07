@@ -48,7 +48,7 @@
     [(SPUISWebURLPasteboardResultBuilder *)v6 setThumbnailData:v9];
 
     v10 = [resultCopy valueForAttribute:*MEMORY[0x277CC31F0] withType:objc_opt_class()];
-    [(SPUISWebURLPasteboardResultBuilder *)v6 setTitle:v10];
+    objc_msgSend_setTitle_(v6);
   }
 
   return v6;
@@ -56,11 +56,11 @@
 
 - (id)buildTitle
 {
-  title = [(SPUISWebURLPasteboardResultBuilder *)self title];
-  v4 = title;
-  if (title)
+  v3 = objc_msgSend_title(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    absoluteString = title;
+    absoluteString = v3;
   }
 
   else
@@ -117,30 +117,26 @@
 
 - (id)buildCopyItems
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [(SPUISWebURLPasteboardResultBuilder *)self url];
   [v3 setUrl:v4];
 
-  v8[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }
 
 - (id)buildShareItems
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = [(SPUISWebURLPasteboardResultBuilder *)self url];
   [v3 setUrlValue:v4];
 
-  v8[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
 
   return v5;
 }
@@ -161,7 +157,7 @@
   [v8 setImage:v7];
   v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v10 = [v9 localizedStringForKey:@"Open in Browser" value:0 table:0];
-  [v8 setTitle:v10];
+  objc_msgSend_setTitle_(v8);
 
   v14.receiver = self;
   v14.super_class = SPUISWebURLPasteboardResultBuilder;

@@ -60,6 +60,7 @@
 - (void)_dismissDueToUnexpectedError:(id)error;
 - (void)_dismissSiriSetup;
 - (void)_emitInstrumentationDismissalStateWithReason:(int64_t)reason;
+- (void)_enableAudioInjection:(BOOL)injection audioFiles:(id)files;
 - (void)_enableSpringBoardIdleTimer;
 - (void)_enqueueTestInput:(id)input;
 - (void)_failedToPresentSiriWithError:(id)error;
@@ -101,10 +102,10 @@
 - (void)_setScreenOffDuringActivation:(BOOL)activation;
 - (void)_setSpringBoardIdleTimerDisabled:(BOOL)disabled;
 - (void)_setUpUnownedConnectionIfNecessary;
+- (void)_setWaitingForTelephonyToStart:(BOOL)start;
 - (void)_setupPongTimer;
 - (void)_setupSiriViewControllerPresentedSuccessHandler;
 - (void)_setupTamaleHaptic;
-- (void)_shouldProceedPresentingSiriViewController;
 - (void)_showPresentationAndActivateWithRequestOptions:(id)options;
 - (void)_showSetupViewControllerIfNecessary;
 - (void)_siriDidOpenURL:(id)l;
@@ -115,6 +116,7 @@
 - (void)_tearDownSiriEffectsViewController;
 - (void)_teardownPongTimer;
 - (void)_terminateVisualIntelligenceCamera;
+- (void)_updateAnnouncementRequestsPermittedWhilePresentationActive:(BOOL)active;
 - (void)_updateCurrentPresentationOptions:(id)options withCompletion:(id)completion;
 - (void)_updateHostedPresentationFrame;
 - (void)_updateLanguageCode;
@@ -131,6 +133,7 @@
 - (void)aggregateLockStateDidChange;
 - (void)animatedAppearanceWithFactory:(id)factory completion:(id)completion;
 - (void)animatedDisappearanceWithFactory:(id)factory completion:(id)completion;
+- (void)callStateChangedToIsActive:(BOOL)active isOutgoing:(BOOL)outgoing;
 - (void)cancelActivatedHintGlow;
 - (void)cancelPendingActivationEventWithReason:(id)reason;
 - (void)cancelPreheat;
@@ -155,6 +158,7 @@
 - (void)notePanBeganAtPoint:(CGPoint)point;
 - (void)noteTapAtPoint:(CGPoint)point;
 - (void)openSiriRequestedBySiriSetupViewController:(id)controller;
+- (void)openURL:(id)l bundleId:(id)id inPlace:(BOOL)place completion:(id)completion;
 - (void)openURL:(id)l bundleId:(id)id inPlace:(BOOL)place launchOptions:(id)options completion:(id)completion;
 - (void)ping;
 - (void)preheatWithOptions:(id)options;
@@ -183,6 +187,8 @@
 - (void)siriViewController:(id)controller requestsPresentation:(id)presentation;
 - (void)siriViewController:(id)controller siriIdleAndQuietStatusDidChange:(BOOL)change;
 - (void)siriViewController:(id)controller updateHomeAffordanceForBlurVisibilty:(BOOL)visibilty;
+- (void)siriViewController:(id)controller voiceActivationMaskViewIsVisible:(BOOL)visible;
+- (void)siriViewController:(id)controller willChangeKeyboardVisibility:(BOOL)visibility;
 - (void)siriViewController:(id)controller willProcessAppLaunchWithBundleIdentifier:(id)identifier;
 - (void)siriViewController:(id)controller willStartHostingSceneWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier;
 - (void)siriViewController:(id)controller willStopHostingSceneWithIdentifier:(id)identifier bundleIdentifier:(id)bundleIdentifier;
@@ -194,6 +200,7 @@
 - (void)startGuidedAccessForSiriViewController:(id)controller;
 - (void)stopAnimationDismissalWatchdogTimerIfNeededThen:(id)then onQueue:(id)queue;
 - (void)toggleHomeAffordanceHidden:(BOOL)hidden;
+- (void)toggleSiriHomeAffordanceGestureControl:(BOOL)control;
 - (void)updateCurrentLockState:(id)state;
 - (void)updateEdgeLightWindowLevel:(int64_t)level;
 - (void)viewWillLayoutSubviews;
@@ -243,15 +250,12 @@
 
 - (void)_updateHostedPresentationFrame
 {
-  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   [OUTLINED_FUNCTION_3_0() hostedPresentationFrame];
-  v3 = NSStringFromCGRect(v10);
+  v3 = NSStringFromCGRect(v8);
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (CGRect)hostedPresentationFrame
@@ -269,27 +273,28 @@
 
 - (void)_removeSetupViewControllerIfNecessary
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    v6 = 136315394;
-    v7 = "[SiriPresentationViewController _removeSetupViewControllerIfNecessary]";
-    v8 = 1024;
+    v5 = 136315394;
+    v6 = "[SiriPresentationViewController _removeSetupViewControllerIfNecessary]";
+    v7 = 1024;
     siriSetupViewControllerPresented = [(SiriPresentationViewController *)self siriSetupViewControllerPresented];
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation _removeSetupViewControllerIfNecessary siriSetupViewControllerPresented: %d", &v6, 0x12u);
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation _removeSetupViewControllerIfNecessary siriSetupViewControllerPresented: %d", &v5, 0x12u);
   }
 
-  if (self->_siriSetupViewController && [(SiriPresentationViewController *)self siriSetupViewControllerPresented])
+  if (self->_siriSetupViewController)
   {
-    [(UINavigationController *)self->_siriSetupNavigationController dismissViewControllerAnimated:0 completion:0];
-    [(SiriPresentationViewController *)self setSiriSetupNavigationController:0];
-    [(SiriPresentationViewController *)self setSiriSetupViewController:0];
-    [(SiriPresentationViewController *)self setSiriSetupViewControllerPresented:0];
+    if ([(SiriPresentationViewController *)self siriSetupViewControllerPresented])
+    {
+      [(UINavigationController *)self->_siriSetupNavigationController dismissViewControllerAnimated:0 completion:0];
+      [(SiriPresentationViewController *)self setSiriSetupNavigationController:0];
+      [(SiriPresentationViewController *)self setSiriSetupViewController:0];
+      [(SiriPresentationViewController *)self setSiriSetupViewControllerPresented:0];
+    }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_viewHostingInstrumentationHandler
@@ -300,12 +305,12 @@
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      [(SiriPresentationViewController *)v4 _viewHostingInstrumentationHandler:v5];
+      [(SiriPresentationViewController *)v4 _viewHostingInstrumentationHandler];
     }
 
-    v12 = objc_opt_new();
-    v13 = self->_viewHostingInstrumentationHandler;
-    self->_viewHostingInstrumentationHandler = v12;
+    v7 = objc_opt_new();
+    v8 = self->_viewHostingInstrumentationHandler;
+    self->_viewHostingInstrumentationHandler = v7;
 
     viewHostingInstrumentationHandler = self->_viewHostingInstrumentationHandler;
   }
@@ -349,9 +354,9 @@
 
 - (void)_viewHostingInstrumentationHandler
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_21FEE5000, self, a3, "%s SiriPresentationViewController initializing new platform hosting instrumentation handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 136315138;
+  *(&v3 + 4) = "[SiriPresentationViewController _viewHostingInstrumentationHandler]";
+  OUTLINED_FUNCTION_2(&dword_21FEE5000, self, a3, "%s SiriPresentationViewController initializing new platform hosting instrumentation handler", v3);
 }
 
 - (SiriPresentationControllerDelegate)siriPresentationControllerDelegate
@@ -363,59 +368,56 @@
 
 - (void)ping
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SiriPresentationViewController ping]";
+    v6 = "[SiriPresentationViewController ping]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #pingpong received ping", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v5, buf);
+  objc_copyWeak(&v4, buf);
   SiriUIInvokeOnMainQueue();
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v4);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __38__SiriPresentationViewController_ping__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationViewController ping]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #pingpong on main thread", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationViewController ping]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #pingpong on main thread", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _setupPongTimer];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupPongTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[SiriPresentationViewController _setupPongTimer]";
+    v11 = "[SiriPresentationViewController _setupPongTimer]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #pingpong", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v4 = MEMORY[0x277CBEBB8];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __49__SiriPresentationViewController__setupPongTimer__block_invoke;
-  v9[3] = &unk_278430978;
-  objc_copyWeak(&v10, buf);
-  v5 = [v4 timerWithTimeInterval:0 repeats:v9 block:1.0];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __49__SiriPresentationViewController__setupPongTimer__block_invoke;
+  v8[3] = &unk_278430978;
+  objc_copyWeak(&v9, buf);
+  v5 = [v4 timerWithTimeInterval:0 repeats:v8 block:1.0];
   pongTimer = [(SiriPresentationViewController *)self pongTimer];
   [pongTimer invalidate];
 
@@ -423,14 +425,13 @@ void __38__SiriPresentationViewController_ping__block_invoke(uint64_t a1)
   currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
   [currentRunLoop addTimer:v5 forMode:*MEMORY[0x277CBE738]];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(buf);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = [WeakRetained _shouldKeepPonging];
 
@@ -446,13 +447,13 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
       v9 = objc_loadWeakRetained((a1 + 32));
       v10 = [v9 connection];
       v11 = [v10 remoteTarget];
-      v17 = 136315650;
-      v18 = "[SiriPresentationViewController _setupPongTimer]_block_invoke";
-      v19 = 2112;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #pingpong sending pong and waiting for ping - connection: %@ | remoteTarget: %@", &v17, 0x20u);
+      v16 = 136315650;
+      v17 = "[SiriPresentationViewController _setupPongTimer]_block_invoke";
+      v18 = 2112;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #pingpong sending pong and waiting for ping - connection: %@ | remoteTarget: %@", &v16, 0x20u);
     }
 
     v12 = objc_loadWeakRetained((a1 + 32));
@@ -466,12 +467,10 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
 
   else if (v5)
   {
-    v17 = 136315138;
-    v18 = "[SiriPresentationViewController _setupPongTimer]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #pingpong tried to send pong but _shouldKeepPonging == NO", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[SiriPresentationViewController _setupPongTimer]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #pingpong tried to send pong but _shouldKeepPonging == NO", &v16, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldKeepPonging
@@ -515,50 +514,48 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
 
 - (void)_waitForPing
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v11 = "[SiriPresentationViewController _waitForPing]";
+    v10 = "[SiriPresentationViewController _waitForPing]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #pingpong", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v4 = MEMORY[0x277CBEBB8];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __46__SiriPresentationViewController__waitForPing__block_invoke;
-  v8[3] = &unk_278430978;
-  objc_copyWeak(&v9, buf);
-  v5 = [v4 scheduledTimerWithTimeInterval:0 repeats:v8 block:2.0];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __46__SiriPresentationViewController__waitForPing__block_invoke;
+  v7[3] = &unk_278430978;
+  objc_copyWeak(&v8, buf);
+  v5 = [v4 scheduledTimerWithTimeInterval:0 repeats:v7 block:2.0];
   pongTimer = [(SiriPresentationViewController *)self pongTimer];
   [pongTimer invalidate];
 
   [(SiriPresentationViewController *)self setPongTimer:v5];
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceWonMyriadElection
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationViewController deviceWonMyriadElection]";
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Device won myriad Election, hiding VoiceActivationMAskView", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationViewController deviceWonMyriadElection]";
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Device won myriad Election, hiding VoiceActivationMAskView", &v4, 0xCu);
   }
 
   [(AFUISiriViewController *)self->_siriViewController hideVoiceActivationMaskViewIfNecessary];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidateCarSiriButtonHoldToTalkTimer
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   _carSiriButtonHoldToTalkTimer = [(SiriPresentationViewController *)self _carSiriButtonHoldToTalkTimer];
 
   if (_carSiriButtonHoldToTalkTimer)
@@ -568,11 +565,11 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
     {
       v5 = v4;
       _carSiriButtonHoldToTalkTimer2 = [(SiriPresentationViewController *)self _carSiriButtonHoldToTalkTimer];
-      v9 = 136315394;
-      v10 = "[SiriPresentationViewController _invalidateCarSiriButtonHoldToTalkTimer]";
-      v11 = 2112;
-      v12 = _carSiriButtonHoldToTalkTimer2;
-      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_INFO, "%s #activation Invalidating _carSiriButtonHoldToTalkTimer (%@)…", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriPresentationViewController _invalidateCarSiriButtonHoldToTalkTimer]";
+      v10 = 2112;
+      v11 = _carSiriButtonHoldToTalkTimer2;
+      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_INFO, "%s #activation Invalidating _carSiriButtonHoldToTalkTimer (%@)…", &v8, 0x16u);
     }
 
     _carSiriButtonHoldToTalkTimer3 = [(SiriPresentationViewController *)self _carSiriButtonHoldToTalkTimer];
@@ -581,13 +578,11 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
     [(SiriPresentationViewController *)self _setCarSiriButtonHoldToTalkTimer:0];
     [(SiriPresentationViewController *)self _setCarSiriButtonTimeInterval:0.0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_releaseExistingTrigger
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
@@ -601,11 +596,11 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
       v4 = @"NO";
     }
 
-    v9 = 136315394;
-    v10 = "[SiriPresentationViewController _releaseExistingTrigger]";
-    v11 = 2112;
-    v12 = v4;
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s _buttonTrigger=%@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriPresentationViewController _releaseExistingTrigger]";
+    v10 = 2112;
+    v11 = v4;
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s _buttonTrigger=%@", &v8, 0x16u);
   }
 
   buttonTrigger = self->_buttonTrigger;
@@ -618,9 +613,7 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
     [(SiriPresentationViewController *)self _setButtonDownEventDidOccur:0];
   }
 
-  result = buttonTrigger != 0;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return buttonTrigger != 0;
 }
 
 - (id)_uiPresentationIdentifier
@@ -728,7 +721,7 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
 
 - (void)prewarmOrbViewShaders
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (([MEMORY[0x277CEF4D0] saeAvailable] & 1) == 0)
   {
     v2 = objc_alloc(MEMORY[0x277D61A68]);
@@ -737,7 +730,7 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v11 = "[SiriPresentationViewController(SUIC) prewarmOrbViewShaders]";
+      v10 = "[SiriPresentationViewController(SUIC) prewarmOrbViewShaders]";
       _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #orbView Creating temporary orbView for prewarming", buf, 0xCu);
     }
 
@@ -746,12 +739,10 @@ void __49__SiriPresentationViewController__setupPongTimer__block_invoke(uint64_t
     block[1] = 3221225472;
     block[2] = __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block_invoke;
     block[3] = &unk_27842FF78;
-    v9 = v3;
+    v8 = v3;
     v6 = v3;
     dispatch_async(v5, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block_invoke(uint64_t a1)
@@ -809,12 +800,12 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   kdebug_trace();
-  v52.receiver = self;
-  v52.super_class = SiriPresentationViewController;
-  v13 = [(SiriPresentationViewController *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = SiriPresentationViewController;
+  v13 = [(SiriPresentationViewController *)&v51 init];
   if (v13)
   {
     v14 = [objc_alloc(MEMORY[0x277CEF678]) initWithDelegate:v13];
@@ -840,9 +831,9 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
         {
           v21 = v13->_headphonesAuthenticationManager;
           *buf = 136315394;
-          v54 = "[SiriPresentationViewController initWithIdentifier:hostedPresentationFrame:displayConfiguration:]";
-          v55 = 2112;
-          v56 = v21;
+          v53 = "[SiriPresentationViewController initWithIdentifier:hostedPresentationFrame:displayConfiguration:]";
+          v54 = 2112;
+          v55 = v21;
           _os_log_impl(&dword_21FEE5000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation using 🎧 SASHeadphonesAuthenticationManager: %@", buf, 0x16u);
         }
       }
@@ -887,16 +878,16 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
 
     objc_initWeak(buf, v13);
     connection = [(SiriPresentationViewController *)v13 connection];
-    v46 = MEMORY[0x277D85DD0];
-    v47 = 3221225472;
-    v48 = __98__SiriPresentationViewController_initWithIdentifier_hostedPresentationFrame_displayConfiguration___block_invoke;
-    v49 = &unk_278430278;
+    v45 = MEMORY[0x277D85DD0];
+    v46 = 3221225472;
+    v47 = __98__SiriPresentationViewController_initWithIdentifier_hostedPresentationFrame_displayConfiguration___block_invoke;
+    v48 = &unk_278430278;
     v37 = v13;
-    v50 = v37;
-    objc_copyWeak(&v51, buf);
-    [connection configureConnection:&v46];
+    v49 = v37;
+    objc_copyWeak(&v50, buf);
+    [connection configureConnection:&v45];
 
-    v38 = [(SiriPresentationViewController *)v37 connection:v46];
+    v38 = [(SiriPresentationViewController *)v37 connection:v45];
     [v38 activate];
 
     v39 = dispatch_queue_create("Animation Dismissal watchdog queue", 0);
@@ -906,7 +897,7 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
     v41 = dispatch_get_global_queue(-2, 0);
     dispatch_async(v41, &__block_literal_global_106);
 
-    objc_destroyWeak(&v51);
+    objc_destroyWeak(&v50);
     objc_destroyWeak(buf);
   }
 
@@ -916,7 +907,7 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v54 = "[SiriPresentationViewController initWithIdentifier:hostedPresentationFrame:displayConfiguration:]";
+      v53 = "[SiriPresentationViewController initWithIdentifier:hostedPresentationFrame:displayConfiguration:]";
       _os_log_impl(&dword_21FEE5000, v42, OS_LOG_TYPE_DEFAULT, "%s #userAttention Setting up userAttentionController", buf, 0xCu);
     }
 
@@ -928,7 +919,6 @@ uint64_t __61__SiriPresentationViewController_SUIC__prewarmOrbViewShaders__block
   [(SiriPresentationViewController *)v13 _startDeviceScreenEngagementController];
   kdebug_trace();
 
-  v44 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1074,7 +1064,7 @@ void __98__SiriPresentationViewController_initWithIdentifier_hostedPresentationF
 
 void __53__SiriPresentationViewController_dismissWithOptions___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -1086,9 +1076,9 @@ void __53__SiriPresentationViewController_dismissWithOptions___block_invoke(uint
       v4 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315138;
-        v8 = "[SiriPresentationViewController dismissWithOptions:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController transition to activating state for a smoother dismissal", &v7, 0xCu);
+        v6 = 136315138;
+        v7 = "[SiriPresentationViewController dismissWithOptions:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController transition to activating state for a smoother dismissal", &v6, 0xCu);
       }
 
       [v2 setCurrentGlowState:1];
@@ -1096,24 +1086,22 @@ void __53__SiriPresentationViewController_dismissWithOptions___block_invoke(uint
       [v5 setSystemGlowStyle:0];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([(SiriPresentationOptions *)self->_currentPresentationOptions requestSource]== 54 || [(SiriPresentationOptions *)self->_currentPresentationOptions requestSource]== 57)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315138;
-      v12 = "[SiriPresentationViewController isEnabled]";
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #VisualIntelligence - presentation always enabled for Visual Intelligence", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[SiriPresentationViewController isEnabled]";
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #VisualIntelligence - presentation always enabled for Visual Intelligence", &v10, 0xCu);
     }
 
-    v4 = 1;
+    return 1;
   }
 
   else
@@ -1141,7 +1129,6 @@ void __53__SiriPresentationViewController_dismissWithOptions___block_invoke(uint
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -1187,7 +1174,7 @@ uint64_t __63__SiriPresentationViewController_hasContentAtPoint_completion___blo
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
   {
-    __63__SiriPresentationViewController_hasContentAtPoint_completion___block_invoke_cold_1(a1, v4);
+    __63__SiriPresentationViewController_hasContentAtPoint_completion___block_invoke_cold_1(a1, v4, a2);
   }
 
   result = *(a1 + 32);
@@ -1354,16 +1341,14 @@ void __78__SiriPresentationViewController_animatedDisappearanceWithFactory_compl
 
 - (void)aggregateLockStateDidChange
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[SiriPresentationViewController aggregateLockStateDidChange]";
-    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[SiriPresentationViewController aggregateLockStateDidChange]";
+    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (AFUISiriSAEEffectsViewController)siriEffectsViewController
@@ -1374,15 +1359,15 @@ void __78__SiriPresentationViewController_animatedDisappearanceWithFactory_compl
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEBUG))
     {
-      [(SiriPresentationViewController *)v4 siriEffectsViewController:v5];
+      [(SiriPresentationViewController *)v4 siriEffectsViewController];
     }
 
     [(SiriPresentationViewController *)self _updateHostedPresentationFrame];
-    v12 = objc_alloc(MEMORY[0x277CEF680]);
+    v7 = objc_alloc(MEMORY[0x277CEF680]);
     _viewHostingInstrumentationHandler = [(SiriPresentationViewController *)self _viewHostingInstrumentationHandler];
-    v14 = [v12 initWithDelegate:self instrumentationHandler:_viewHostingInstrumentationHandler];
-    v15 = self->_siriEffectsViewController;
-    self->_siriEffectsViewController = v14;
+    v9 = [v7 initWithDelegate:self instrumentationHandler:_viewHostingInstrumentationHandler];
+    v10 = self->_siriEffectsViewController;
+    self->_siriEffectsViewController = v9;
 
     siriEffectsViewController = self->_siriEffectsViewController;
   }
@@ -1428,7 +1413,7 @@ void __78__SiriPresentationViewController_animatedDisappearanceWithFactory_compl
 {
   y = point.y;
   x = point.x;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = [(NSMutableSet *)self->_activeTCCs count];
   if (v6)
   {
@@ -1439,24 +1424,24 @@ void __78__SiriPresentationViewController_animatedDisappearanceWithFactory_compl
 
     coordinateSpace = [screen coordinateSpace];
     [MEMORY[0x277CBEB98] setWithSet:self->_activeTCCs];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v12 = v25 = 0u;
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v12 = v24 = 0u;
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
-      v14 = *v23;
+      v14 = *v22;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v23 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          alertController = [*(*(&v22 + 1) + 8 * i) alertController];
+          alertController = [*(*(&v21 + 1) + 8 * i) alertController];
           view2 = [alertController view];
 
           [view2 convertPoint:coordinateSpace fromCoordinateSpace:{x, y}];
@@ -1469,7 +1454,7 @@ void __78__SiriPresentationViewController_animatedDisappearanceWithFactory_compl
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v13)
         {
           continue;
@@ -1493,7 +1478,6 @@ LABEL_12:
     [(SiriPresentationViewController *)v13 _activeTCCHasContentAtPoint:v6, v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1508,7 +1492,7 @@ LABEL_12:
 
 void __50__SiriPresentationViewController_activateHintGlow__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && [*(a1 + 32) _canShowHintGlow])
   {
@@ -1516,27 +1500,25 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke(uint64_
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v9 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
+      v8 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController can show hint glow", buf, 0xCu);
     }
 
     v4 = [WeakRetained siriEffectsViewController];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __50__SiriPresentationViewController_activateHintGlow__block_invoke_123;
-    v7[3] = &unk_278430390;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __50__SiriPresentationViewController_activateHintGlow__block_invoke_123;
+    v6[3] = &unk_278430390;
     v5 = *(a1 + 32);
-    v7[4] = WeakRetained;
-    v7[5] = v5;
-    [v4 requestPresentationWithHandler:v7];
+    v6[4] = WeakRetained;
+    v6[5] = v5;
+    [v4 requestPresentationWithHandler:v6];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SiriPresentationViewController_activateHintGlow__block_invoke_123(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     aBlock[0] = MEMORY[0x277D85DD0];
@@ -1557,22 +1539,20 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke_123(uin
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v14 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
+      v13 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController requesting .Activating hint glow effect", buf, 0xCu);
     }
 
     v7 = [MEMORY[0x277D66A98] sharedInstance];
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __50__SiriPresentationViewController_activateHintGlow__block_invoke_125;
-    v10[3] = &unk_278430368;
-    v10[4] = *(a1 + 32);
-    v11 = v3;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __50__SiriPresentationViewController_activateHintGlow__block_invoke_125;
+    v9[3] = &unk_278430368;
+    v9[4] = *(a1 + 32);
+    v10 = v3;
     v8 = v3;
-    [v7 requestSystemGlowEffectWithInitialStyle:0 completion:v10];
+    [v7 requestSystemGlowEffectWithInitialStyle:0 completion:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2(uint64_t a1)
@@ -1584,15 +1564,14 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2(uint6
 void __50__SiriPresentationViewController_activateHintGlow__block_invoke_125(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v4 = v3;
   SiriUIInvokeOnMainQueue();
 }
 
 void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2_126(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *MEMORY[0x277CEF098];
   v4 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
@@ -1600,9 +1579,9 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2_126(u
   {
     if (v4)
     {
-      v6 = 136315138;
-      v7 = "[SiriPresentationViewController activateHintGlow]_block_invoke_2";
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController began .Activating hint glow effect", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[SiriPresentationViewController activateHintGlow]_block_invoke_2";
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController began .Activating hint glow effect", &v5, 0xCu);
     }
 
     [*(a1 + 40) setCurrentGlowState:1];
@@ -1612,12 +1591,10 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2_126(u
 
   else if (v4)
   {
-    v6 = 136315138;
-    v7 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController failed to acquire .Activating hint glow effect", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SiriPresentationViewController activateHintGlow]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController failed to acquire .Activating hint glow effect", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_canShowHintGlow
@@ -1644,23 +1621,21 @@ void __50__SiriPresentationViewController_activateHintGlow__block_invoke_2_126(u
 
 void __57__SiriPresentationViewController_cancelActivatedHintGlow__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
     v2 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 136315138;
-      v5 = "[SiriPresentationViewController cancelActivatedHintGlow]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController cancel hint glow activation", &v4, 0xCu);
+      v3 = 136315138;
+      v4 = "[SiriPresentationViewController cancelActivatedHintGlow]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController cancel hint glow activation", &v3, 0xCu);
     }
 
     [WeakRetained _invalidateHintGlowAssertion];
     [WeakRetained _tearDownSiriEffectsViewController];
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentationRequestedWithPresentationOptions:(id)options requestOptions:(id)requestOptions
@@ -1731,7 +1706,7 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
 
 - (void)_presentationRequestedWithPresentationOptions:(id)options requestOptions:(id)requestOptions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   requestOptionsCopy = requestOptions;
   kdebug_trace();
@@ -1739,24 +1714,24 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
   v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315650;
-    v17 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
-    v18 = 2112;
-    v19 = optionsCopy;
-    v20 = 2112;
-    v21 = requestOptionsCopy;
-    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation presentationRequestedWithPresentationOptions:%@ requestOptions:%@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
+    v17 = 2112;
+    v18 = optionsCopy;
+    v19 = 2112;
+    v20 = requestOptionsCopy;
+    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation presentationRequestedWithPresentationOptions:%@ requestOptions:%@", &v15, 0x20u);
   }
 
   v10 = [optionsCopy wakeScreen] ^ 1;
   v11 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
-    v18 = 1024;
-    LODWORD(v19) = v10;
-    _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation Setting screen off during activation: %{BOOL}i", &v16, 0x12u);
+    v15 = 136315394;
+    v16 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
+    v17 = 1024;
+    LODWORD(v18) = v10;
+    _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation Setting screen off during activation: %{BOOL}i", &v15, 0x12u);
   }
 
   [(SiriPresentationViewController *)self _setScreenOffDuringActivation:v10];
@@ -1769,9 +1744,9 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
   {
     if (v14)
     {
-      v16 = 136315138;
-      v17 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
-      _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation showing setup view controller", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
+      _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation showing setup view controller", &v15, 0xCu);
     }
 
     [(SiriPresentationViewController *)self _showSetupViewControllerIfNecessary];
@@ -1781,9 +1756,9 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
   {
     if (v14)
     {
-      v16 = 136315138;
-      v17 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
-      _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation presenting Siri view controller", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[SiriPresentationViewController _presentationRequestedWithPresentationOptions:requestOptions:]";
+      _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation presenting Siri view controller", &v15, 0xCu);
     }
 
     [(SiriPresentationViewController *)self _removeSetupViewControllerIfNecessary];
@@ -1791,13 +1766,11 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
   }
 
   kdebug_trace();
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentSiriEffectsWithRequestOptions:(id)options
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if ([(SiriPresentationViewController *)self _canPresentSiriEffectsViewControllerWithRequestOptions:optionsCopy])
   {
@@ -1816,7 +1789,7 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
           if (v10)
           {
             *buf = 136315138;
-            v29 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
+            v28 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
             _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController #activation effects already presented for button invocation; starting effects animations", buf, 0xCu);
           }
 
@@ -1831,9 +1804,9 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
             [siriEffectsViewController state];
             v12 = NSStringFromAFUISiriSAEEffectsViewControllerState();
             *buf = 136315394;
-            v29 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
-            v30 = 2114;
-            v31 = v12;
+            v28 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
+            v29 = 2114;
+            v30 = v12;
             _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController #activation effects not presented for button invocation; requesting presentation, then animating (effects state: %{public}@)", buf, 0x16u);
           }
 
@@ -1855,9 +1828,9 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
           [siriEffectsViewController state];
           v15 = NSStringFromAFUISiriSAEEffectsViewControllerState();
           *buf = 136315394;
-          v29 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
-          v30 = 2114;
-          v31 = v15;
+          v28 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
+          v29 = 2114;
+          v30 = v15;
           _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController #activation requesting effects presentation and animating for voice invocation (effects state: %{public}@)", buf, 0x16u);
         }
 
@@ -1871,23 +1844,23 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
       v17 = v16;
       [(SiriPresentationViewController *)self hintGlowPresentedDelayIntervalInMs];
       *buf = 136315394;
-      v29 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
-      v30 = 2048;
-      v31 = v18;
+      v28 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]";
+      v29 = 2048;
+      v30 = v18;
       _os_log_impl(&dword_21FEE5000, v17, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController delaying %lf ms for hint glow presented state.", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
     [(SiriPresentationViewController *)self hintGlowPresentedDelayIntervalInMs];
     v20 = dispatch_time(0, (v19 / 1000.0 * 1000000000.0));
-    v22 = MEMORY[0x277D85DD0];
-    v23 = 3221225472;
-    v24 = __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke;
-    v25 = &unk_2784300F8;
-    objc_copyWeak(&v27, buf);
+    v21 = MEMORY[0x277D85DD0];
+    v22 = 3221225472;
+    v23 = __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke;
+    v24 = &unk_2784300F8;
+    objc_copyWeak(&v26, buf);
     selfCopy = self;
-    dispatch_after(v20, MEMORY[0x277D85CD0], &v22);
-    objc_destroyWeak(&v27);
+    dispatch_after(v20, MEMORY[0x277D85CD0], &v21);
+    objc_destroyWeak(&v26);
     objc_destroyWeak(buf);
   }
 
@@ -1895,13 +1868,11 @@ void __94__SiriPresentationViewController_presentationRequestedWithPresentationO
   {
     [(SiriPresentationViewController *)self _playTamaleHaptic];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -1914,7 +1885,7 @@ void __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions_
       if (v6)
       {
         *buf = 136315138;
-        v11 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]_block_invoke_3";
+        v10 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]_block_invoke_3";
         _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController transition to glow presented from activating state", buf, 0xCu);
       }
 
@@ -1927,17 +1898,17 @@ void __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions_
       if (v6)
       {
         *buf = 136315138;
-        v11 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]_block_invoke";
+        v10 = "[SiriPresentationViewController _presentSiriEffectsWithRequestOptions:]_block_invoke";
         _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController transition to hint glow presented directly because Siri is already presented", buf, 0xCu);
       }
 
       v7 = [MEMORY[0x277D66A98] sharedInstance];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke_130;
-      v9[3] = &unk_2784303E0;
-      v9[4] = v3;
-      [v7 requestSystemGlowEffectWithInitialStyle:1 completion:v9];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke_130;
+      v8[3] = &unk_2784303E0;
+      v8[4] = v3;
+      [v7 requestSystemGlowEffectWithInitialStyle:1 completion:v8];
     }
 
     if ([*(a1 + 32) _isPresentingVisualIntelligenceCamera])
@@ -1945,16 +1916,12 @@ void __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions_
       [v3 updateEdgeLightWindowLevel:1];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SiriPresentationViewController__presentSiriEffectsWithRequestOptions___block_invoke_130(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = v3;
-  v4 = v3;
+  v2 = v3;
   SiriUIInvokeOnMainQueue();
 }
 
@@ -2076,7 +2043,7 @@ void __68__SiriPresentationViewController__tearDownSiriEffectsViewController__bl
 
 void __68__SiriPresentationViewController__tearDownSiriEffectsViewController__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -2090,15 +2057,13 @@ void __68__SiriPresentationViewController__tearDownSiriEffectsViewController__bl
     v8 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[SiriPresentationViewController _tearDownSiriEffectsViewController]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController setting siriEffectsVC to nil after dismissal of effects window", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SiriPresentationViewController _tearDownSiriEffectsViewController]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController setting siriEffectsVC to nil after dismissal of effects window", &v9, 0xCu);
     }
 
     [WeakRetained setSiriEffectsViewController:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_animateOutSiriEffectsView
@@ -2145,7 +2110,7 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
 
 - (void)_removeSiriEffectsViewControllerIfNeededUsingBlock:(id)block
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   _isSpringBoardMainScreenPresentation = [(SiriPresentationViewController *)self _isSpringBoardMainScreenPresentation];
   if ([(AFUISiriSAEEffectsViewController *)self->_siriEffectsViewController state])
@@ -2163,9 +2128,9 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[SiriPresentationViewController _removeSiriEffectsViewControllerIfNeededUsingBlock:]";
-      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController don't need to remove siriEffectsVC, setting it to nil", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SiriPresentationViewController _removeSiriEffectsViewControllerIfNeededUsingBlock:]";
+      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController don't need to remove siriEffectsVC, setting it to nil", &v9, 0xCu);
     }
 
     [(SiriPresentationViewController *)self setSiriEffectsViewController:0];
@@ -2175,8 +2140,6 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
   {
     blockCopy[2](blockCopy);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldShowSetupViewControllerForRequestSource:(int64_t)source
@@ -2203,7 +2166,7 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
 
 - (void)wakeScreenAfterActivationWithReason:(id)reason
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
@@ -2212,59 +2175,56 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
     v7 = v6;
     [(SiriPresentationViewController *)self _wasScreenOffDuringActivation];
     v8 = NSStringFromBOOL();
-    shouldDeferWake = self->_shouldDeferWake;
-    v10 = NSStringFromBOOL();
+    v9 = NSStringFromBOOL();
     *buf = 136315650;
-    v22 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
+    v20 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
+    v21 = 2112;
+    v22 = v8;
     v23 = 2112;
-    v24 = v8;
-    v25 = 2112;
-    v26 = v10;
+    v24 = v9;
     _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Wake Screen was requested when _wasScreenOffDuringActivation was %@ and _shouldDeferOSiriActWake was %@", buf, 0x20u);
   }
 
   if ([(SiriPresentationViewController *)self _wasScreenOffDuringActivation])
   {
     siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
-    v12 = [objc_opt_class() conformsToProtocol:&unk_2833C6D08];
+    v11 = [objc_opt_class() conformsToProtocol:&unk_2833C6D08];
 
-    if (v12)
+    if (v11)
     {
       siriPresentationControllerDelegate2 = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
-      v14 = *v5;
+      v13 = *v5;
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v22 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
-        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Asking presentationControllerDelegate to wake screen", buf, 0xCu);
+        v20 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
+        _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Asking presentationControllerDelegate to wake screen", buf, 0xCu);
       }
 
       [siriPresentationControllerDelegate2 screenWakeRequested];
       _analytics = [(SiriPresentationViewController *)self _analytics];
-      v19 = @"reason";
-      v20 = reasonCopy;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-      [_analytics logEventWithType:1930 context:v16];
+      v17 = @"reason";
+      v18 = reasonCopy;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+      [_analytics logEventWithType:1930 context:v15];
     }
   }
 
   else
   {
-    v17 = *v5;
+    v16 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v22 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
-      _os_log_impl(&dword_21FEE5000, v17, OS_LOG_TYPE_DEFAULT, "%s #SiriPocketStateManager: Tried to turn the screen on but it wasn't kept off at activation.", buf, 0xCu);
+      v20 = "[SiriPresentationViewController wakeScreenAfterActivationWithReason:]";
+      _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_DEFAULT, "%s #SiriPocketStateManager: Tried to turn the screen on but it wasn't kept off at activation.", buf, 0xCu);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activationDeterminedShouldDeferWake:(id)wake
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   wakeCopy = wake;
   -[SiriPresentationViewController _setShouldDeferWake:](self, "_setShouldDeferWake:", [wakeCopy BOOLValue]);
   v5 = *MEMORY[0x277CEF098];
@@ -2273,19 +2233,17 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
     v6 = v5;
     [wakeCopy BOOLValue];
     v7 = NSStringFromBOOL();
-    v9 = 136315394;
-    v10 = "[SiriPresentationViewController activationDeterminedShouldDeferWake:]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Pocket determined should cancel screen wake - %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriPresentationViewController activationDeterminedShouldDeferWake:]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Pocket determined should cancel screen wake - %@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentSiriViewControllerWithPresentationOptions:(id)options requestOptions:(id)requestOptions
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   requestOptionsCopy = requestOptions;
   kdebug_trace();
@@ -2299,9 +2257,9 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
       v10 = v9;
       uiPresentationIdentifier = [requestOptionsCopy uiPresentationIdentifier];
       *buf = 136315394;
-      v37 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
-      v38 = 2112;
-      v39 = uiPresentationIdentifier;
+      v36 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
+      v37 = 2112;
+      v38 = uiPresentationIdentifier;
       _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation Not requesting presentation for %@, handling request directly", buf, 0x16u);
     }
 
@@ -2313,9 +2271,9 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
       currentThread = [v13 currentThread];
       qualityOfService = [currentThread qualityOfService];
       *buf = 136315394;
-      v37 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
-      v38 = 2048;
-      v39 = qualityOfService;
+      v36 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
+      v37 = 2048;
+      v38 = qualityOfService;
       _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock about to lock with qos: %zd", buf, 0x16u);
     }
 
@@ -2324,7 +2282,7 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v37 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
+      v36 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
       _os_log_impl(&dword_21FEE5000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock successfully locked", buf, 0xCu);
     }
 
@@ -2334,7 +2292,7 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v37 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
+      v36 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
       _os_log_impl(&dword_21FEE5000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock unlocked", buf, 0xCu);
     }
 
@@ -2348,14 +2306,14 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
   else
   {
     objc_initWeak(&location, self);
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke;
-    v32[3] = &unk_278430480;
-    objc_copyWeak(&v34, &location);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke;
+    v31[3] = &unk_278430480;
+    objc_copyWeak(&v33, &location);
     v22 = requestOptionsCopy;
-    v33 = v22;
-    [(SiriPresentationViewController *)self _requestPresentationWithOptions:optionsCopy completion:v32];
+    v32 = v22;
+    [(SiriPresentationViewController *)self _requestPresentationWithOptions:optionsCopy completion:v31];
     requestInfo = [v22 requestInfo];
     requiresUserInteraction = [requestInfo requiresUserInteraction];
 
@@ -2365,22 +2323,22 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v37 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
+        v36 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]";
         _os_log_impl(&dword_21FEE5000, v25, OS_LOG_TYPE_DEFAULT, "%s #activation Device is locked during handoff; presenting passcode unlock screen.", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
       siriViewController = self->_siriViewController;
       requestInfo2 = [v22 requestInfo];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke_246;
-      v29[3] = &unk_2784304A8;
-      objc_copyWeak(&v31, buf);
-      v30 = v22;
-      [(AFUISiriViewController *)siriViewController showPasscodeUnlockScreenForRequest:requestInfo2 passcodeUnlockClient:0 unlockCompletion:v29];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke_246;
+      v28[3] = &unk_2784304A8;
+      objc_copyWeak(&v30, buf);
+      v29 = v22;
+      [(AFUISiriViewController *)siriViewController showPasscodeUnlockScreenForRequest:requestInfo2 passcodeUnlockClient:0 unlockCompletion:v28];
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v30);
       objc_destroyWeak(buf);
     }
 
@@ -2389,13 +2347,11 @@ void __60__SiriPresentationViewController__animateOutSiriEffectsView__block_invo
       [(SiriPresentationViewController *)self _showPresentationAndActivateWithRequestOptions:v22];
     }
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 
   kdebug_trace();
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke(uint64_t a1, char a2, void *a3)
@@ -2412,7 +2368,7 @@ void __99__SiriPresentationViewController__presentSiriViewControllerWithPresenta
 
 void __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (!WeakRetained)
@@ -2428,9 +2384,9 @@ LABEL_11:
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke_2";
-      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Waking screen", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke_2";
+      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Waking screen", &v6, 0xCu);
     }
 
     [v3 wakeScreenAfterActivationWithReason:@"MyriadUI"];
@@ -2450,13 +2406,11 @@ LABEL_11:
 
   [v3 _presentationRequestedHandlerWithRequestOptions:*(a1 + 40)];
 LABEL_12:
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __99__SiriPresentationViewController__presentSiriViewControllerWithPresentationOptions_requestOptions___block_invoke_246(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
@@ -2466,11 +2420,11 @@ void __99__SiriPresentationViewController__presentSiriViewControllerWithPresenta
     {
       if (v6)
       {
-        v9 = 136315394;
-        v10 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke";
-        v11 = 2048;
-        v12 = a2;
-        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Device unlock aborted with result = %ld", &v9, 0x16u);
+        v8 = 136315394;
+        v9 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke";
+        v10 = 2048;
+        v11 = a2;
+        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Device unlock aborted with result = %ld", &v8, 0x16u);
       }
 
       v7 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:14];
@@ -2481,21 +2435,19 @@ void __99__SiriPresentationViewController__presentSiriViewControllerWithPresenta
     {
       if (v6)
       {
-        v9 = 136315138;
-        v10 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Device is now unlocked; proceeding with the handoff request.", &v9, 0xCu);
+        v8 = 136315138;
+        v9 = "[SiriPresentationViewController _presentSiriViewControllerWithPresentationOptions:requestOptions:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Device is now unlocked; proceeding with the handoff request.", &v8, 0xCu);
       }
 
       [WeakRetained _showPresentationAndActivateWithRequestOptions:*(a1 + 32)];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startDeviceScreenEngagementController
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = _os_feature_enabled_impl();
   v4 = *MEMORY[0x277CEF098];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
@@ -2504,32 +2456,30 @@ void __99__SiriPresentationViewController__presentSiriViewControllerWithPresenta
     if (v5)
     {
       *buf = 136315138;
-      v12 = "[SiriPresentationViewController _startDeviceScreenEngagementController]";
+      v11 = "[SiriPresentationViewController _startDeviceScreenEngagementController]";
       _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #userAttention Starting device screen engagement", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
     _deviceScreenEngagementController = [(SiriPresentationViewController *)self _deviceScreenEngagementController];
     v7 = MEMORY[0x277D85CD0];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __72__SiriPresentationViewController__startDeviceScreenEngagementController__block_invoke;
-    v9[3] = &unk_2784304D0;
-    objc_copyWeak(&v10, buf);
-    [_deviceScreenEngagementController startIfNeededForTypes:10 completionQueue:MEMORY[0x277D85CD0] completion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __72__SiriPresentationViewController__startDeviceScreenEngagementController__block_invoke;
+    v8[3] = &unk_2784304D0;
+    objc_copyWeak(&v9, buf);
+    [_deviceScreenEngagementController startIfNeededForTypes:10 completionQueue:MEMORY[0x277D85CD0] completion:v8];
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(buf);
   }
 
   else if (v5)
   {
     *buf = 136315138;
-    v12 = "[SiriPresentationViewController _startDeviceScreenEngagementController]";
+    v11 = "[SiriPresentationViewController _startDeviceScreenEngagementController]";
     _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #modes Response framework is not enabled.", buf, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SiriPresentationViewController__startDeviceScreenEngagementController__block_invoke(uint64_t a1, void *a2)
@@ -2547,16 +2497,15 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
 
 - (void)_stopDeviceScreenEngagement
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *self;
-  v5 = 136315650;
-  v6 = "[SiriPresentationViewController _stopDeviceScreenEngagement]";
-  v7 = 2114;
-  v8 = v3;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_21FEE5000, log, OS_LOG_TYPE_ERROR, "%s #userAttention Failed to stop device screen engagement: %{public}@, error: %{public}@", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315650;
+  v5 = "[SiriPresentationViewController _stopDeviceScreenEngagement]";
+  v6 = 2114;
+  v7 = v3;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_21FEE5000, log, OS_LOG_TYPE_ERROR, "%s #userAttention Failed to stop device screen engagement: %{public}@, error: %{public}@", &v4, 0x20u);
 }
 
 - (void)_setEngagementStatus:(id)status forType:(int64_t)type
@@ -2592,7 +2541,7 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
 
 - (void)_requestPresentationWithOptions:(id)options completion:(id)completion
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   objc_storeStrong(&self->_currentPresentationOptions, options);
@@ -2605,8 +2554,8 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
     v12 = v10;
     currentThread = [v11 currentThread];
     *buf = 136315394;
-    v31 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
-    v32 = 2048;
+    v30 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
+    v31 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -2616,7 +2565,7 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
+    v30 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
     _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock successfully locked", buf, 0xCu);
   }
 
@@ -2626,7 +2575,7 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
   if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v31 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
+    v30 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]";
     _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy self->_presentationStateProcessingLock unlocked", buf, 0xCu);
   }
 
@@ -2639,27 +2588,25 @@ void __72__SiriPresentationViewController__startDeviceScreenEngagementController
   [siriViewController siriWillBePresented:{objc_msgSend(v19, "requestSource")}];
   objc_initWeak(buf, self);
   siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __77__SiriPresentationViewController__requestPresentationWithOptions_completion___block_invoke;
-  v25[3] = &unk_2784304F8;
-  objc_copyWeak(&v29, buf);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __77__SiriPresentationViewController__requestPresentationWithOptions_completion___block_invoke;
+  v24[3] = &unk_2784304F8;
+  objc_copyWeak(&v28, buf);
   v22 = v19;
-  v26 = v22;
+  v25 = v22;
   selfCopy = self;
   v23 = completionCopy;
-  v28 = v23;
-  [siriPresentationControllerDelegate siriPresentation:self requestsPresentationWithOptions:optionsCopy withHandler:v25];
+  v27 = v23;
+  [siriPresentationControllerDelegate siriPresentation:self requestsPresentationWithOptions:optionsCopy withHandler:v24];
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __77__SiriPresentationViewController__requestPresentationWithOptions_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
@@ -2671,20 +2618,20 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
       v9 = MEMORY[0x277CCACC8];
       v10 = v8;
       v11 = [v9 currentThread];
-      v21 = 136315394;
-      v22 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
-      v23 = 2048;
-      v24 = [v11 qualityOfService];
-      _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock about to lock with qos: %zd", &v21, 0x16u);
+      v20 = 136315394;
+      v21 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
+      v22 = 2048;
+      v23 = [v11 qualityOfService];
+      _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock about to lock with qos: %zd", &v20, 0x16u);
     }
 
     os_unfair_lock_lock(WeakRetained + 272);
     v12 = *v7;
     if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315138;
-      v22 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock successfully locked", &v21, 0xCu);
+      v20 = 136315138;
+      v21 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock successfully locked", &v20, 0xCu);
     }
 
     if (v5 || !a2)
@@ -2694,9 +2641,9 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
       v15 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 136315138;
-        v22 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock unlocked", &v21, 0xCu);
+        v20 = 136315138;
+        v21 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock unlocked", &v20, 0xCu);
       }
 
       v16 = *&WeakRetained[336]._os_unfair_lock_opaque;
@@ -2722,16 +2669,24 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
       v14 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = 136315138;
-        v22 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock unlocked", &v21, 0xCu);
+        v20 = 136315138;
+        v21 = "[SiriPresentationViewController _requestPresentationWithOptions:completion:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock unlocked", &v20, 0xCu);
       }
     }
 
     (*(*(a1 + 48) + 16))();
   }
+}
 
-  v20 = *MEMORY[0x277D85DE8];
+- (void)_updateAnnouncementRequestsPermittedWhilePresentationActive:(BOOL)active
+{
+  activeCopy = active;
+  if ([(SiriPresentationViewController *)self siriViewControllerConfigured])
+  {
+    siriViewController = [(SiriPresentationViewController *)self siriViewController];
+    [siriViewController setAnnouncementRequestsPermittedWhilePresentationActive:activeCopy];
+  }
 }
 
 - (id)_createPresentationPropertiesWithRequestOptions:(id)options
@@ -2766,7 +2721,7 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
 
 - (void)_prepareSiriViewControllerWithRequestOptions:(id)options
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   kdebug_trace();
   [(SiriPresentationViewController *)self _updateHostedPresentationFrame];
@@ -2779,11 +2734,11 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
 
     v5 = MEMORY[0x277CCA9B8];
     v6 = *MEMORY[0x277CCA498];
-    v48[0] = *MEMORY[0x277CCA450];
-    v48[1] = v6;
-    v49[0] = @"Reusing AFUISiriViewController is currently unsupported.";
-    v49[1] = @"If this call is necessary, use siriViewControllerConfigured to check if it is ready to use";
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:2];
+    v47[0] = *MEMORY[0x277CCA450];
+    v47[1] = v6;
+    v48[0] = @"Reusing AFUISiriViewController is currently unsupported.";
+    v48[1] = @"If this call is necessary, use siriViewControllerConfigured to check if it is ready to use";
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
     v8 = [v5 errorWithDomain:@"com.apple.siri.activation" code:3 userInfo:v7];
 
     [(SiriPresentationViewController *)self _dismissDueToUnexpectedError:v8];
@@ -2800,7 +2755,7 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v51 = "[SiriPresentationViewController _prepareSiriViewControllerWithRequestOptions:]";
+      v50 = "[SiriPresentationViewController _prepareSiriViewControllerWithRequestOptions:]";
       _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation creating new AFUISiriViewController", buf, 0xCu);
     }
 
@@ -2848,14 +2803,14 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
         [v24 setAppIdentifyingInfo:v25];
         v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v27 = MEMORY[0x277CEF170];
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestOptions___block_invoke;
-        v45[3] = &unk_278430520;
-        v46 = v23;
-        v47 = v24;
+        v44[0] = MEMORY[0x277D85DD0];
+        v44[1] = 3221225472;
+        v44[2] = __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestOptions___block_invoke;
+        v44[3] = &unk_278430520;
+        v45 = v23;
+        v46 = v24;
         v28 = v24;
-        v29 = [v27 newWithBuilder:v45];
+        v29 = [v27 newWithBuilder:v44];
         [v26 addObject:v29];
       }
 
@@ -2873,13 +2828,13 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
         [v31 setAppIds:currentCarPlaySupportedOEMAppIdList2];
 
         v33 = MEMORY[0x277CEF170];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestOptions___block_invoke_2;
-        v43[3] = &unk_278430548;
-        v44 = v31;
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestOptions___block_invoke_2;
+        v42[3] = &unk_278430548;
+        v43 = v31;
         v34 = v31;
-        v35 = [v33 newWithBuilder:v43];
+        v35 = [v33 newWithBuilder:v42];
         [v8 addObject:v35];
       }
     }
@@ -2921,8 +2876,6 @@ void __77__SiriPresentationViewController__requestPresentationWithOptions_comple
 
     kdebug_trace();
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestOptions___block_invoke(uint64_t a1, void *a2)
@@ -2935,7 +2888,7 @@ void __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestO
 
 - (void)_presentationRequestedHandlerWithRequestOptions:(id)options
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   kdebug_trace();
   if ([optionsCopy requestSource] != 20)
@@ -2952,49 +2905,47 @@ void __79__SiriPresentationViewController__prepareSiriViewControllerWithRequestO
 
   else if ([MEMORY[0x277CEF688] availabilityState] == 2)
   {
-    v7 = *MEMORY[0x277CEF098];
+    v6 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v15 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]";
-      _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation Device not unlocked since boot; presenting passcode unlock screen", buf, 0xCu);
+      v14 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]";
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation Device not unlocked since boot; presenting passcode unlock screen", buf, 0xCu);
     }
 
     isVisualIntelligenceRequest = [optionsCopy isVisualIntelligenceRequest];
     objc_initWeak(buf, self);
     siriViewController = self->_siriViewController;
     requestInfo = [optionsCopy requestInfo];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __82__SiriPresentationViewController__presentationRequestedHandlerWithRequestOptions___block_invoke;
-    v11[3] = &unk_278430570;
-    v12 = optionsCopy;
-    objc_copyWeak(&v13, buf);
-    [(AFUISiriViewController *)siriViewController showPasscodeUnlockScreenForRequest:requestInfo passcodeUnlockClient:isVisualIntelligenceRequest unlockCompletion:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __82__SiriPresentationViewController__presentationRequestedHandlerWithRequestOptions___block_invoke;
+    v10[3] = &unk_278430570;
+    v11 = optionsCopy;
+    objc_copyWeak(&v12, buf);
+    [(AFUISiriViewController *)siriViewController showPasscodeUnlockScreenForRequest:requestInfo passcodeUnlockClient:isVisualIntelligenceRequest unlockCompletion:v10];
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 
   kdebug_trace();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __82__SiriPresentationViewController__presentationRequestedHandlerWithRequestOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CEF098];
   v5 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v5)
     {
-      v9 = 136315394;
-      v10 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]_block_invoke";
-      v11 = 2048;
-      v12 = a2;
-      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation Device unlock aborted with result = %ld", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]_block_invoke";
+      v10 = 2048;
+      v11 = a2;
+      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation Device unlock aborted with result = %ld", &v8, 0x16u);
     }
 
     v6 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:15];
@@ -3006,17 +2957,15 @@ void __82__SiriPresentationViewController__presentationRequestedHandlerWithReque
   {
     if (v5)
     {
-      v9 = 136315138;
-      v10 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation Device is now unlocked; proceeding with the request.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SiriPresentationViewController _presentationRequestedHandlerWithRequestOptions:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation Device is now unlocked; proceeding with the request.", &v8, 0xCu);
     }
 
     v6 = [objc_alloc(MEMORY[0x277D55198]) initWithRequestSource:{objc_msgSend(*(a1 + 32), "requestSource")}];
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     [WeakRetained activateWithRequestOptions:v6];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleRequestWithOptions:(id)options
@@ -3153,7 +3102,7 @@ uint64_t __83__SiriPresentationViewController__updateCurrentPresentationOptions_
 
 - (int64_t)_viewModeForRequestOptions:(id)options
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   uiPresentationIdentifier = [options uiPresentationIdentifier];
   v4 = [uiPresentationIdentifier isEqualToString:@"com.apple.siri.CarDisplay"];
   v5 = MEMORY[0x277CEF098];
@@ -3214,14 +3163,13 @@ LABEL_14:
   {
     v8 = v7;
     v9 = SiriUINSStringFromSiriUIViewMode();
-    v12 = 136315394;
-    v13 = "[SiriPresentationViewController _viewModeForRequestOptions:]";
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation: Returning SiriUIViewMode:%@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SiriPresentationViewController _viewModeForRequestOptions:]";
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation: Returning SiriUIViewMode:%@", &v11, 0x16u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3292,19 +3240,18 @@ LABEL_12:
 
 void __78__SiriPresentationViewController_activateWithSource_requestOptions_timestamp___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) _shouldShowSetupViewControllerForRequestSource:{objc_msgSend(*(a1 + 40), "requestSource")}])
   {
     v2 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v13 = "[SiriPresentationViewController activateWithSource:requestOptions:timestamp:]_block_invoke";
+      v11 = "[SiriPresentationViewController activateWithSource:requestOptions:timestamp:]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation showing setup view controller", buf, 0xCu);
     }
 
     [*(a1 + 32) _showSetupViewControllerIfNecessary];
-    v3 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -3314,42 +3261,40 @@ void __78__SiriPresentationViewController_activateWithSource_requestOptions_time
       if ([*(a1 + 40) isShortButtonPressAction] && (objc_msgSend(*(a1 + 40), "isATVRemotePTTEligible") & 1) == 0)
       {
         WeakRetained = objc_loadWeakRetained((a1 + 64));
-        v8 = [WeakRetained siriViewController];
-        [v8 shortTapActionWithRequestOptions:*(a1 + 40)];
+        v7 = [WeakRetained siriViewController];
+        [v7 shortTapActionWithRequestOptions:*(a1 + 40)];
 
-        v11 = objc_loadWeakRetained((a1 + 64));
-        v9 = [v11 siriViewController];
-        [v9 presentRemoteViewControllerIfNecessary];
+        v9 = objc_loadWeakRetained((a1 + 64));
+        v8 = [v9 siriViewController];
+        [v8 presentRemoteViewControllerIfNecessary];
       }
 
       else
       {
-        v11 = objc_loadWeakRetained((a1 + 64));
-        v4 = [v11 siriViewController];
-        [v4 startRequestWithActivationTrigger:*(a1 + 48)];
+        v9 = objc_loadWeakRetained((a1 + 64));
+        v3 = [v9 siriViewController];
+        [v3 startRequestWithActivationTrigger:*(a1 + 48)];
       }
     }
 
     else
     {
-      v5 = objc_loadWeakRetained((a1 + 64));
-      v6 = *(a1 + 40);
-      if (!v6)
+      v4 = objc_loadWeakRetained((a1 + 64));
+      v5 = *(a1 + 40);
+      if (!v5)
       {
-        v6 = *(a1 + 56);
+        v5 = *(a1 + 56);
       }
 
-      v11 = v5;
-      [v5 _startRequestWithOptions:v6];
+      v9 = v4;
+      [v4 _startRequestWithOptions:v5];
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_startRequestWithOptions:(id)options
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
@@ -3359,8 +3304,8 @@ void __78__SiriPresentationViewController_activateWithSource_requestOptions_time
     v8 = v6;
     currentThread = [v7 currentThread];
     *buf = 136315394;
-    v34 = "[SiriPresentationViewController _startRequestWithOptions:]";
-    v35 = 2048;
+    v33 = "[SiriPresentationViewController _startRequestWithOptions:]";
+    v34 = 2048;
     qualityOfService = [currentThread qualityOfService];
     _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock about to lock with qos: %zd", buf, 0x16u);
   }
@@ -3370,7 +3315,7 @@ void __78__SiriPresentationViewController_activateWithSource_requestOptions_time
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v34 = "[SiriPresentationViewController _startRequestWithOptions:]";
+    v33 = "[SiriPresentationViewController _startRequestWithOptions:]";
     _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock successfully locked", buf, 0xCu);
   }
 
@@ -3380,7 +3325,7 @@ void __78__SiriPresentationViewController_activateWithSource_requestOptions_time
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v34 = "[SiriPresentationViewController _startRequestWithOptions:]";
+    v33 = "[SiriPresentationViewController _startRequestWithOptions:]";
     _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock unlocked", buf, 0xCu);
   }
 
@@ -3419,27 +3364,27 @@ void __78__SiriPresentationViewController_activateWithSource_requestOptions_time
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v34 = "[SiriPresentationViewController _startRequestWithOptions:]";
+    v33 = "[SiriPresentationViewController _startRequestWithOptions:]";
     _os_log_impl(&dword_21FEE5000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation requesting presentation for new request.", buf, 0xCu);
   }
 
   v19 = objc_alloc(MEMORY[0x277D55208]);
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __59__SiriPresentationViewController__startRequestWithOptions___block_invoke;
-  v31[3] = &unk_278430610;
-  v32 = optionsCopy;
-  v20 = [v19 initWithBuilder:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __59__SiriPresentationViewController__startRequestWithOptions___block_invoke;
+  v30[3] = &unk_278430610;
+  v31 = optionsCopy;
+  v20 = [v19 initWithBuilder:v30];
   objc_initWeak(buf, self);
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = __59__SiriPresentationViewController__startRequestWithOptions___block_invoke_2;
-  v27 = &unk_278430638;
-  objc_copyWeak(&v29, buf);
-  v30 = v17;
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = __59__SiriPresentationViewController__startRequestWithOptions___block_invoke_2;
+  v26 = &unk_278430638;
+  objc_copyWeak(&v28, buf);
+  v29 = v17;
   selfCopy = self;
-  [(SiriPresentationViewController *)self _requestPresentationWithOptions:v20 completion:&v24];
-  objc_destroyWeak(&v29);
+  [(SiriPresentationViewController *)self _requestPresentationWithOptions:v20 completion:&v23];
+  objc_destroyWeak(&v28);
   objc_destroyWeak(buf);
 
 LABEL_18:
@@ -3451,7 +3396,7 @@ LABEL_18:
       [(SiriPresentationViewController *)self _prewarmCameraForBundleIdentifier:@"com.apple.VisualIntelligenceCamera"];
     }
 
-    v21 = [(SiriPresentationViewController *)self siriViewController:v24];
+    v21 = [(SiriPresentationViewController *)self siriViewController:v23];
     [v21 startRequestWithOptions:optionsCopy];
   }
 
@@ -3461,12 +3406,10 @@ LABEL_18:
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v34 = "[SiriPresentationViewController _startRequestWithOptions:]";
+      v33 = "[SiriPresentationViewController _startRequestWithOptions:]";
       _os_log_impl(&dword_21FEE5000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation ignoring starting a new request.", buf, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __59__SiriPresentationViewController__startRequestWithOptions___block_invoke(uint64_t a1, void *a2)
@@ -3496,7 +3439,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
 
 - (void)_restartVisualIntelligenceIfNeeded
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_cachedSceneHostedView)
   {
     if ([(SiriPresentationViewController *)self _isPresentingVisualIntelligenceCamera])
@@ -3504,9 +3447,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       v3 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315138;
-        v11 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
-        _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence visualIntelligence already active ignoring.", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
+        _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence visualIntelligence already active ignoring.", &v9, 0xCu);
       }
     }
 
@@ -3521,9 +3464,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
         v6 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315138;
-          v11 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
-          _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence - terminating VI camera for invoking while locked", &v10, 0xCu);
+          v9 = 136315138;
+          v10 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
+          _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence - terminating VI camera for invoking while locked", &v9, 0xCu);
         }
 
         [(SiriPresentationViewController *)self _terminateVisualIntelligenceCamera];
@@ -3546,9 +3489,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
           v8 = *MEMORY[0x277CEF098];
           if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
           {
-            v10 = 136315138;
-            v11 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
-            _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence - terminating VI camera for invoking 3x within restart period", &v10, 0xCu);
+            v9 = 136315138;
+            v10 = "[SiriPresentationViewController _restartVisualIntelligenceIfNeeded]";
+            _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #visualIntelligence - terminating VI camera for invoking 3x within restart period", &v9, 0xCu);
           }
 
           [(SiriPresentationViewController *)self _terminateVisualIntelligenceCamera];
@@ -3556,20 +3499,15 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_terminateVisualIntelligenceCamera
 {
-  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   localizedDescription = [OUTLINED_FUNCTION_3_0() localizedDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldRequestPresentationForState:(int64_t)state forNewRequest:(id)request currentRequest:(id)currentRequest
@@ -3709,7 +3647,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
 
 - (void)_presentationDismissalRequestedWithOptions:(id)options withCompletion:(id)completion
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   completionCopy = completion;
   v8 = MEMORY[0x277CEF098];
@@ -3717,9 +3655,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
-    v62 = 2112;
-    v63 = optionsCopy;
+    v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+    v56 = 2112;
+    v57 = optionsCopy;
     _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation %@", buf, 0x16u);
   }
 
@@ -3731,9 +3669,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
     currentThread = [v11 currentThread];
     qualityOfService = [currentThread qualityOfService];
     *buf = 136315394;
-    v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
-    v62 = 2048;
-    v63 = qualityOfService;
+    v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+    v56 = 2048;
+    v57 = qualityOfService;
     _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock about to lock with qos: %zd", buf, 0x16u);
   }
 
@@ -3742,7 +3680,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+    v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
     _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock successfully locked", buf, 0xCu);
   }
 
@@ -3754,7 +3692,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+      v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
       _os_log_impl(&dword_21FEE5000, v17, OS_LOG_TYPE_DEFAULT, "%s #activation isDismissing:YES", buf, 0xCu);
     }
   }
@@ -3764,7 +3702,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+    v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
     _os_log_impl(&dword_21FEE5000, v18, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy _presentationStateProcessingLock unlocked", buf, 0xCu);
   }
 
@@ -3791,11 +3729,11 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       [(SiriPresentationViewController *)self _isDelayingSessionEnd];
       v21 = NSStringFromBOOL();
       *buf = 136315650;
-      v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
-      v62 = 2112;
-      v63 = optionsCopy;
-      v64 = 2112;
-      v65 = v21;
+      v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+      v56 = 2112;
+      v57 = optionsCopy;
+      v58 = 2112;
+      v59 = v21;
       _os_log_impl(&dword_21FEE5000, v20, OS_LOG_TYPE_DEFAULT, "%s #activation options:%@ _isDelayingSessionEnd:%@", buf, 0x20u);
     }
 
@@ -3805,7 +3743,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+        v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
         _os_log_impl(&dword_21FEE5000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #noisy #punchout delaying session end, did not send willDismiss before dismissal", buf, 0xCu);
       }
     }
@@ -3824,7 +3762,7 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+        v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
         _os_log_impl(&dword_21FEE5000, v26, OS_LOG_TYPE_DEFAULT, "%s #cancellationReason: Passing through cancellationReason", buf, 0xCu);
       }
 
@@ -3855,9 +3793,9 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
     else if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
-      v62 = 2112;
-      v63 = v33;
+      v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+      v56 = 2112;
+      v57 = v33;
       _os_log_impl(&dword_21FEE5000, v35, OS_LOG_TYPE_DEFAULT, "%s %@", buf, 0x16u);
     }
 
@@ -3866,12 +3804,12 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
     aBlock[1] = 3221225472;
     aBlock[2] = __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke;
     aBlock[3] = &unk_2784306B0;
-    objc_copyWeak(v58, &location);
+    objc_copyWeak(v52, &location);
     v36 = optionsCopy;
-    v55 = v36;
-    v58[1] = v30;
+    v49 = v36;
+    v52[1] = v30;
     selfCopy = self;
-    v57 = completionCopy;
+    v51 = completionCopy;
     v37 = _Block_copy(aBlock);
     if (-[SiriPresentationViewController currentViewMode](self, "currentViewMode") == 7 && [v36 shouldTurnScreenOff])
     {
@@ -3879,22 +3817,22 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v61 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+        v55 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
         _os_log_impl(&dword_21FEE5000, v38, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI : Animating Orb before requesting dismissal", buf, 0xCu);
       }
 
       -[SiriPresentationViewController startAnimationDismissalWatchdogTimerWithTimeoutHandler:shouldTurnScreenOff:](self, "startAnimationDismissalWatchdogTimerWithTimeoutHandler:shouldTurnScreenOff:", v37, [v36 shouldTurnScreenOff]);
       objc_initWeak(buf, self);
       siriViewController3 = [(SiriPresentationViewController *)self siriViewController];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_291;
-      v51[3] = &unk_278430048;
-      objc_copyWeak(&v53, buf);
-      v52 = v37;
-      [siriViewController3 animateOrbViewDismissalIfNecessaryWithCompletion:v51];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_291;
+      v45[3] = &unk_278430048;
+      objc_copyWeak(&v47, buf);
+      v46 = v37;
+      [siriViewController3 animateOrbViewDismissalIfNecessaryWithCompletion:v45];
 
-      objc_destroyWeak(&v53);
+      objc_destroyWeak(&v47);
       objc_destroyWeak(buf);
     }
 
@@ -3903,23 +3841,21 @@ void __59__SiriPresentationViewController__startRequestWithOptions___block_invok
       v37[2](v37);
     }
 
-    objc_copyWeak(&v50, &location);
+    objc_copyWeak(&v44, &location);
     SiriUIInvokeOnMainQueue();
     v40 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
-      [(SiriPresentationViewController *)v40 _presentationDismissalRequestedWithOptions:v41 withCompletion:v42, v43, v44, v45, v46, v47];
+      [(SiriPresentationViewController *)v40 _presentationDismissalRequestedWithOptions:v41 withCompletion:v42];
     }
 
     viewHostingInstrumentationHandler = self->_viewHostingInstrumentationHandler;
     self->_viewHostingInstrumentationHandler = 0;
 
-    objc_destroyWeak(&v50);
-    objc_destroyWeak(v58);
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(v52);
     objc_destroyWeak(&location);
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke(uint64_t a1)
@@ -3946,14 +3882,14 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
 
 void __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = MEMORY[0x277CEF098];
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke_2";
+    v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke_2";
     _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation handler for siriPresentation:requestsDismissalWithOptions:WithHandler:", buf, 0xCu);
   }
 
@@ -3970,11 +3906,11 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
       v13 = v11;
       v14 = [v12 numberWithBool:a2];
       *buf = 136315650;
-      v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      v33 = 2112;
-      v34 = v14;
-      v35 = 2112;
-      v36 = v5;
+      v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v32 = 2112;
+      v33 = v14;
+      v34 = 2112;
+      v35 = v5;
       _os_log_impl(&dword_21FEE5000, v13, OS_LOG_TYPE_DEFAULT, "%s #activation handler for siriPresentation:requestsDismissalWithOptions:WithHandler: returned success:%@ error:%@. Aborting dismissal and calling resetSiriToActive to reset state.", buf, 0x20u);
     }
 
@@ -3990,9 +3926,9 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
       v20 = [v18 currentThread];
       v21 = [v20 qualityOfService];
       *buf = 136315394;
-      v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      v33 = 2048;
-      v34 = v21;
+      v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v32 = 2048;
+      v33 = v21;
       _os_log_impl(&dword_21FEE5000, v19, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock about to lock with qos: %zd", buf, 0x16u);
     }
 
@@ -4001,7 +3937,7 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v22, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy strongSelf->_presentationStateProcessingLock successfully locked", buf, 0xCu);
     }
 
@@ -4010,7 +3946,7 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v23, OS_LOG_TYPE_DEFAULT, "%s #activation isDismissing:NO", buf, 0xCu);
     }
 
@@ -4019,7 +3955,7 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v32 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v31 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
       _os_log_impl(&dword_21FEE5000, v24, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock unlocked", buf, 0xCu);
     }
 
@@ -4035,25 +3971,23 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     v10 = [WeakRetained siriViewController];
     [v10 siriWillBeginTearDownForDismissalReason:*(a1 + 72) withOriginalDismissalOptions:*(a1 + 32)];
 
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_290;
-    v27[3] = &unk_278430660;
-    objc_copyWeak(&v29, (a1 + 64));
-    v27[4] = WeakRetained;
-    v28 = *(a1 + 56);
-    v30 = a2;
-    [WeakRetained _wasDismissedWithCompletion:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_290;
+    v26[3] = &unk_278430660;
+    objc_copyWeak(&v28, (a1 + 64));
+    v26[4] = WeakRetained;
+    v27 = *(a1 + 56);
+    v29 = a2;
+    [WeakRetained _wasDismissedWithCompletion:v26];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_290(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4065,9 +3999,9 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
       v6 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 136315138;
-        v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #noisy #punchout delaying session end, did not send didDismiss on dismissal", &v23, 0xCu);
+        v21 = 136315138;
+        v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation #noisy #punchout delaying session end, did not send didDismiss on dismissal", &v21, 0xCu);
       }
     }
 
@@ -4087,62 +4021,59 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
       v11 = v9;
       v12 = [v10 currentThread];
       v13 = [v12 qualityOfService];
-      v23 = 136315394;
-      v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      v25 = 2048;
-      v26 = v13;
-      _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock about to lock with qos: %zd", &v23, 0x16u);
+      v21 = 136315394;
+      v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v23 = 2048;
+      v24 = v13;
+      _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock about to lock with qos: %zd", &v21, 0x16u);
     }
 
     os_unfair_lock_lock((*(a1 + 32) + 1088));
     v14 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock successfully locked", &v23, 0xCu);
+      v21 = 136315138;
+      v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock successfully locked", &v21, 0xCu);
     }
 
     [v3 setPresentationState:5];
     v15 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation isDismissing:NO", &v23, 0xCu);
+      v21 = 136315138;
+      v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #activation isDismissing:NO", &v21, 0xCu);
     }
 
     os_unfair_lock_unlock((*(a1 + 32) + 1088));
     v16 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315138;
-      v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock unlocked", &v23, 0xCu);
+      v21 = 136315138;
+      v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_DEFAULT, "%s #activation #locks #noisy innerStrongSelf->_presentationStateProcessingLock unlocked", &v21, 0xCu);
     }
 
     [v3 _setShouldDeferWake:0];
     v17 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(*(a1 + 32) + 1166);
-      v19 = v17;
-      v20 = NSStringFromBOOL();
-      v23 = 136315394;
-      v24 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
-      v25 = 2112;
-      v26 = v20;
-      _os_log_impl(&dword_21FEE5000, v19, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Resetting shouldDeferWake - %@", &v23, 0x16u);
+      v18 = v17;
+      v19 = NSStringFromBOOL();
+      v21 = 136315394;
+      v22 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke";
+      v23 = 2112;
+      v24 = v19;
+      _os_log_impl(&dword_21FEE5000, v18, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Resetting shouldDeferWake - %@", &v21, 0x16u);
     }
 
-    v21 = *(a1 + 40);
-    if (v21)
+    v20 = *(a1 + 40);
+    if (v20)
     {
-      (*(v21 + 16))(v21, *(a1 + 56));
+      (*(v20 + 16))(v20, *(a1 + 56));
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_291(uint64_t a1)
@@ -4157,7 +4088,7 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
 
 void __92__SiriPresentationViewController__presentationDismissalRequestedWithOptions_withCompletion___block_invoke_2_292(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -4167,9 +4098,9 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
       v3 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315138;
-        v7 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke_2";
-        _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController invalidate hint glow assertion for dismissal", &v6, 0xCu);
+        v5 = 136315138;
+        v6 = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]_block_invoke_2";
+        _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController invalidate hint glow assertion for dismissal", &v5, 0xCu);
       }
 
       *(v2 + 172) = 0;
@@ -4180,13 +4111,11 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
 
     [v2 _tearDownSiriEffectsViewController];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setUpUnownedConnectionIfNecessary
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF098];
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -4195,13 +4124,13 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     v6 = MEMORY[0x277CCABB0];
     v7 = v4;
     v8 = [v6 numberWithBool:{-[SiriPresentationViewController siriViewControllerConfigured](self, "siriViewControllerConfigured")}];
-    v14 = 136315650;
-    v15 = "[SiriPresentationViewController _setUpUnownedConnectionIfNecessary]";
-    v16 = 2112;
-    v17 = unownedConnection;
-    v18 = 2112;
-    v19 = v8;
-    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation _unownedConnection: %@ , siriViewControllerConfigured: %@", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "[SiriPresentationViewController _setUpUnownedConnectionIfNecessary]";
+    v15 = 2112;
+    v16 = unownedConnection;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation _unownedConnection: %@ , siriViewControllerConfigured: %@", &v13, 0x20u);
   }
 
   if (!self->_unownedConnection && ![(SiriPresentationViewController *)self siriViewControllerConfigured])
@@ -4214,31 +4143,29 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
     if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
     {
       v12 = self->_unownedConnection;
-      v14 = 136315394;
-      v15 = "[SiriPresentationViewController _setUpUnownedConnectionIfNecessary]";
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation created new _unownedConnection: %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SiriPresentationViewController _setUpUnownedConnectionIfNecessary]";
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation created new _unownedConnection: %@", &v13, 0x16u);
     }
 
     [(SiriPresentationViewController *)self _scheduleConnectionHouseKeepingAfterDelay:2.0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preheatWithOptions:(id)options
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   kdebug_trace();
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v11 = "[SiriPresentationViewController preheatWithOptions:]";
-    v12 = 2112;
-    v13 = optionsCopy;
+    v10 = "[SiriPresentationViewController preheatWithOptions:]";
+    v11 = 2112;
+    v12 = optionsCopy;
     _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Activation service requests preheat with options %@", buf, 0x16u);
   }
 
@@ -4248,18 +4175,16 @@ void __92__SiriPresentationViewController__presentationDismissalRequestedWithOpt
   if (!v7)
   {
     objc_initWeak(buf, self);
-    objc_copyWeak(&v9, buf);
+    objc_copyWeak(&v8, buf);
     SiriUIInvokeOnMainQueue();
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __53__SiriPresentationViewController_preheatWithOptions___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -4271,35 +4196,32 @@ void __53__SiriPresentationViewController_preheatWithOptions___block_invoke(uint
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v2[152];
-      v6 = 136315394;
-      v7 = "[SiriPresentationViewController preheatWithOptions:]_block_invoke";
-      v8 = 2112;
-      v9 = v4;
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation preheated _unownedConnection: %@", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[SiriPresentationViewController preheatWithOptions:]_block_invoke";
+      v7 = 2112;
+      v8 = v4;
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation preheated _unownedConnection: %@", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPreheat
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v5 = "[SiriPresentationViewController cancelPreheat]";
+    v4 = "[SiriPresentationViewController cancelPreheat]";
     _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation Cancel preheat", buf, 0xCu);
   }
 
   SiriUIInvokeOnMainQueue();
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __47__SiriPresentationViewController_cancelPreheat__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _cleanupUnownedConnection];
   v2 = *(a1 + 32);
   if (v2[171])
@@ -4307,9 +4229,9 @@ uint64_t __47__SiriPresentationViewController_cancelPreheat__block_invoke(uint64
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[SiriPresentationViewController cancelPreheat]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController invalidate hint glow assertion for cancel preheat", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[SiriPresentationViewController cancelPreheat]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s SiriPresentationViewController invalidate hint glow assertion for cancel preheat", &v7, 0xCu);
     }
 
     *(*(a1 + 32) + 1376) = 0;
@@ -4321,14 +4243,12 @@ uint64_t __47__SiriPresentationViewController_cancelPreheat__block_invoke(uint64
     v2 = *(a1 + 32);
   }
 
-  result = [v2 _tearDownSiriEffectsViewController];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v2 _tearDownSiriEffectsViewController];
 }
 
 - (void)handleButtonDownFromButtonIdentifier:(id)identifier timestamp:(id)timestamp context:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   timestampCopy = timestamp;
   contextCopy = context;
@@ -4337,30 +4257,28 @@ uint64_t __47__SiriPresentationViewController_cancelPreheat__block_invoke(uint64
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v18 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]";
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2112;
-    v22 = timestampCopy;
+    v17 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]";
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2112;
+    v21 = timestampCopy;
     _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s handleButtonDownFromButtonIdentifier:%@ timestamp:%@", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v16, buf);
-  v13 = identifierCopy;
-  v14 = timestampCopy;
-  v15 = contextCopy;
+  objc_copyWeak(&v15, buf);
+  v12 = identifierCopy;
+  v13 = timestampCopy;
+  v14 = contextCopy;
   SiriUIInvokeOnMainQueue();
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_timestamp_context___block_invoke(id *a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 7);
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4374,18 +4292,18 @@ void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_t
       if ((v6 & v5) == 1)
       {
         [v3 _setScreenOffDuringActivation:0];
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v6 & (v5 ^ 1);
+        v12 = v6 & (v5 ^ 1);
       }
 
-      v14 = [a1[4] siriButtonIdentifier];
-      if ((v14 > 9 || ((1 << v14) & 0x3E6) == 0) && v14 - 200 >= 2 && v14 - 100 > 1)
+      v13 = [a1[4] siriButtonIdentifier];
+      if ((v13 > 9 || ((1 << v13) & 0x3E6) == 0) && v13 - 200 >= 2 && v13 - 100 > 1)
       {
-        if (v13)
+        if (v12)
         {
           goto LABEL_36;
         }
@@ -4393,27 +4311,27 @@ void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_t
         goto LABEL_28;
       }
 
-      if ((v13 & 1) == 0 && ([v3 _cancelPendingPhoneCall] & 1) == 0)
+      if ((v12 & 1) == 0 && ([v3 _cancelPendingPhoneCall] & 1) == 0)
       {
 LABEL_28:
         [v3 activateWithSource:objc_msgSend(MEMORY[0x277D55160] timestamp:{"requestSourceForButtonIdentifier:", objc_msgSend(a1[4], "siriButtonIdentifier")), a1[5]}];
       }
     }
 
-    else if ([v3 identifier] == 4 && (v7 = a1[6], objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    else if ([v3 identifier] == 4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v8 = a1[6];
-      if ([v8 isListening])
+      v7 = a1[6];
+      if ([v7 isListening])
       {
-        v9 = *MEMORY[0x277CEF098];
+        v8 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315138;
-          v29 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke";
-          _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation Received Button Down While Listening", buf, 0xCu);
+          v27 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke";
+          _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation Received Button Down While Listening", buf, 0xCu);
         }
 
-        [v3 _handleButtonDownWhileListeningFromButtonIdentifier:a1[4] timestamp:a1[5] context:v8];
+        [v3 _handleButtonDownWhileListeningFromButtonIdentifier:a1[4] timestamp:a1[5] context:v7];
       }
     }
 
@@ -4421,74 +4339,72 @@ LABEL_28:
     {
       if ([v3 siriViewControllerConfigured])
       {
-        v10 = [v3 siriViewController];
-        v11 = [v10 isVisible];
+        v9 = [v3 siriViewController];
+        v10 = [v9 isVisible];
 
-        if (v11)
+        if (v10)
         {
           [v3 _setButtonDownEventDidOccur:1];
           [a1[5] timeInterval];
           [v3 _setButtonDownTimestamp:?];
         }
 
-        v12 = [v3 siriViewController];
-        if ([v12 isListening])
+        v11 = [v3 siriViewController];
+        if ([v11 isListening])
         {
         }
 
         else
         {
-          v16 = [v3 clearSiriViewControllerTimer];
+          v15 = [v3 clearSiriViewControllerTimer];
 
-          if (!v16)
+          if (!v15)
           {
             [v3 _invalidateCarSiriButtonHoldToTalkTimer];
             [a1[5] timeInterval];
             [v3 _setCarSiriButtonTimeInterval:?];
-            v17 = MEMORY[0x277CBEBB8];
-            v22 = MEMORY[0x277D85DD0];
-            v23 = 3221225472;
-            v24 = __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_timestamp_context___block_invoke_297;
-            v25 = &unk_2784306D8;
-            objc_copyWeak(&v27, a1 + 7);
-            v26 = a1[4];
-            v18 = [v17 scheduledTimerWithTimeInterval:0 repeats:&v22 block:0.4];
-            [v3 _setCarSiriButtonHoldToTalkTimer:{v18, v22, v23, v24, v25}];
+            v16 = MEMORY[0x277CBEBB8];
+            v20 = MEMORY[0x277D85DD0];
+            v21 = 3221225472;
+            v22 = __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_timestamp_context___block_invoke_297;
+            v23 = &unk_2784306D8;
+            objc_copyWeak(&v25, a1 + 7);
+            v24 = a1[4];
+            v17 = [v16 scheduledTimerWithTimeInterval:0 repeats:&v20 block:0.4];
+            [v3 _setCarSiriButtonHoldToTalkTimer:{v17, v20, v21, v22, v23}];
 
-            v19 = *MEMORY[0x277CEF098];
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            v18 = *MEMORY[0x277CEF098];
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
-              v20 = [v3 _carSiriButtonHoldToTalkTimer];
+              v19 = [v3 _carSiriButtonHoldToTalkTimer];
               *buf = 136315650;
-              v29 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke_2";
-              v30 = 2112;
-              v31 = v20;
-              v32 = 2048;
-              v33 = 0x3FD999999999999ALL;
-              _os_log_impl(&dword_21FEE5000, v19, OS_LOG_TYPE_INFO, "%s #activation Started Car Siri button long press timer (%@) for %f seconds", buf, 0x20u);
+              v27 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke_2";
+              v28 = 2112;
+              v29 = v19;
+              v30 = 2048;
+              v31 = 0x3FD999999999999ALL;
+              _os_log_impl(&dword_21FEE5000, v18, OS_LOG_TYPE_INFO, "%s #activation Started Car Siri button long press timer (%@) for %f seconds", buf, 0x20u);
             }
 
-            objc_destroyWeak(&v27);
+            objc_destroyWeak(&v25);
           }
         }
       }
 
       else
       {
-        v15 = *MEMORY[0x277CEF098];
+        v14 = *MEMORY[0x277CEF098];
         if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v29 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke";
-          _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_INFO, "%s #activation button pressed, but AFUISiriViewController is not set up, returning early.", buf, 0xCu);
+          v27 = "[SiriPresentationViewController handleButtonDownFromButtonIdentifier:timestamp:context:]_block_invoke";
+          _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_INFO, "%s #activation button pressed, but AFUISiriViewController is not set up, returning early.", buf, 0xCu);
         }
       }
     }
   }
 
 LABEL_36:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_timestamp_context___block_invoke_297(uint64_t a1)
@@ -4504,7 +4420,7 @@ void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_t
 
 - (void)_handleButtonDownWhileListeningFromButtonIdentifier:(id)identifier timestamp:(id)timestamp context:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   timestampCopy = timestamp;
   contextCopy = context;
@@ -4512,49 +4428,45 @@ void __89__SiriPresentationViewController_handleButtonDownFromButtonIdentifier_t
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "[SiriPresentationViewController _handleButtonDownWhileListeningFromButtonIdentifier:timestamp:context:]";
-    v18 = 2112;
-    v19 = identifierCopy;
-    v20 = 2112;
-    v21 = timestampCopy;
+    v16 = "[SiriPresentationViewController _handleButtonDownWhileListeningFromButtonIdentifier:timestamp:context:]";
+    v17 = 2112;
+    v18 = identifierCopy;
+    v19 = 2112;
+    v20 = timestampCopy;
     _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s _handleButtonDownWhileListeningFromButtonIdentifier:%@ timestamp:%@", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v15, buf);
-  v13 = identifierCopy;
-  v14 = contextCopy;
+  objc_copyWeak(&v14, buf);
+  v12 = identifierCopy;
+  v13 = contextCopy;
   SiriUIInvokeOnMainQueue();
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __104__SiriPresentationViewController__handleButtonDownWhileListeningFromButtonIdentifier_timestamp_context___block_invoke(id *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1 + 6);
   if (WeakRetained && [a1[4] siriButtonIdentifier] == 201 && objc_msgSend(a1[5], "isPTTEligible") && objc_msgSend(WeakRetained[174], "isListening"))
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[SiriPresentationViewController _handleButtonDownWhileListeningFromButtonIdentifier:timestamp:context:]_block_invoke";
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #ptt We are Listening, sending Button Down While Listening to Siri View Controller", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SiriPresentationViewController _handleButtonDownWhileListeningFromButtonIdentifier:timestamp:context:]_block_invoke";
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #ptt We are Listening, sending Button Down While Listening to Siri View Controller", &v4, 0xCu);
     }
 
     [WeakRetained[174] tvRemoteSentButtonDownWhileListening];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleButtonUpFromButtonIdentifier:(id)identifier deviceIdentifier:(id)deviceIdentifier timestamp:(id)timestamp context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   deviceIdentifierCopy = deviceIdentifier;
   timestampCopy = timestamp;
@@ -4568,11 +4480,11 @@ void __104__SiriPresentationViewController__handleButtonDownWhileListeningFromBu
     *&buf[12] = 2112;
     *&buf[14] = identifierCopy;
     *&buf[22] = 2112;
-    v24 = deviceIdentifierCopy;
-    v25 = 2112;
-    v26 = timestampCopy;
-    v27 = 2112;
-    v28 = contextCopy;
+    v23 = deviceIdentifierCopy;
+    v24 = 2112;
+    v25 = timestampCopy;
+    v26 = 2112;
+    v27 = contextCopy;
     _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonUpFromButtonIdentifier:%@ deviceIdentifier:%@ timestamp:%@ context:%@", buf, 0x34u);
   }
 
@@ -4589,25 +4501,23 @@ void __104__SiriPresentationViewController__handleButtonDownWhileListeningFromBu
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  LOBYTE(v24) = 0;
+  LOBYTE(v23) = 0;
   objc_initWeak(&location, self);
-  objc_copyWeak(&v21, &location);
-  v17 = identifierCopy;
-  v18 = v15;
-  v19 = contextCopy;
-  v20 = deviceIdentifierCopy;
+  objc_copyWeak(&v20, &location);
+  v16 = identifierCopy;
+  v17 = v15;
+  v18 = contextCopy;
+  v19 = deviceIdentifierCopy;
   SiriUIInvokeOnMainQueue();
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
   _Block_object_dispose(buf, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __104__SiriPresentationViewController_handleButtonUpFromButtonIdentifier_deviceIdentifier_timestamp_context___block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   if (WeakRetained && [WeakRetained _buttonIdentifierIsHoldToTalkTrigger:{objc_msgSend(*(a1 + 32), "siriButtonIdentifier")}])
   {
@@ -4623,24 +4533,24 @@ void __104__SiriPresentationViewController_handleButtonUpFromButtonIdentifier_de
   {
     if ([*(a1 + 40) isPTTEligible] && *(*(*(a1 + 72) + 8) + 24) == 1 && (AFPreferencesTypeToSiriEnabled() & 1) == 0)
     {
-      v18 = *MEMORY[0x277CEF098];
+      v17 = *MEMORY[0x277CEF098];
       if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_20;
       }
 
-      v19 = *(a1 + 40);
-      v8 = v18;
-      [v19 remoteType];
-      v20 = SiriTVStringForRemoteType();
-      v21 = *(*(*(a1 + 72) + 8) + 24);
-      v22 = 136315650;
-      v23 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
-      v24 = 2112;
-      v25 = v20;
-      v26 = 1024;
-      v27 = v21;
-      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #ptt Not stopping requests as the remote - %@ is PTT Eligible, and tap released trigger - %{BOOL}d", &v22, 0x1Cu);
+      v18 = *(a1 + 40);
+      v8 = v17;
+      [v18 remoteType];
+      v19 = SiriTVStringForRemoteType();
+      v20 = *(*(*(a1 + 72) + 8) + 24);
+      v21 = 136315650;
+      v22 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
+      v23 = 2112;
+      v24 = v19;
+      v25 = 1024;
+      v26 = v20;
+      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation #ptt Not stopping requests as the remote - %@ is PTT Eligible, and tap released trigger - %{BOOL}d", &v21, 0x1Cu);
     }
 
     else
@@ -4649,9 +4559,9 @@ void __104__SiriPresentationViewController_handleButtonUpFromButtonIdentifier_de
       v4 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315138;
-        v23 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v22, 0xCu);
+        v21 = 136315138;
+        v22 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v21, 0xCu);
       }
 
       v5 = [MEMORY[0x277D55160] requestSourceForButtonIdentifier:{objc_msgSend(*(a1 + 32), "siriButtonIdentifier")}];
@@ -4673,9 +4583,9 @@ void __104__SiriPresentationViewController_handleButtonUpFromButtonIdentifier_de
         v12 = *v3;
         if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = 136315138;
-          v23 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
-          _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v22, 0xCu);
+          v21 = 136315138;
+          v22 = "[SiriPresentationViewController handleButtonUpFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
+          _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v21, 0xCu);
         }
 
         v13 = objc_loadWeakRetained((a1 + 80));
@@ -4690,13 +4600,11 @@ void __104__SiriPresentationViewController_handleButtonUpFromButtonIdentifier_de
   }
 
 LABEL_20:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleButtonTapFromButtonIdentifier:(id)identifier timestamp:(id)timestamp context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   timestampCopy = timestamp;
   contextCopy = context;
@@ -4705,9 +4613,9 @@ LABEL_20:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v18 = "[SiriPresentationViewController handleButtonTapFromButtonIdentifier:timestamp:context:]";
-    v19 = 2112;
-    v20 = identifierCopy;
+    v17 = "[SiriPresentationViewController handleButtonTapFromButtonIdentifier:timestamp:context:]";
+    v18 = 2112;
+    v19 = identifierCopy;
     _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonTapFromButtonIdentifier:%@", buf, 0x16u);
   }
 
@@ -4722,10 +4630,10 @@ LABEL_20:
   {
 LABEL_8:
     objc_initWeak(buf, self);
-    v15 = identifierCopy;
-    objc_copyWeak(&v16, buf);
+    v14 = identifierCopy;
+    objc_copyWeak(&v15, buf);
     SiriUIInvokeOnMainQueue();
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
 
     objc_destroyWeak(buf);
     goto LABEL_9;
@@ -4735,16 +4643,15 @@ LABEL_8:
   [(SiriPresentationViewController *)self handleButtonUpFromButtonIdentifier:identifierCopy deviceIdentifier:activeDeviceBluetoothIdentifier timestamp:timestampCopy context:v12];
 
 LABEL_9:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SiriPresentationViewController_handleButtonTapFromButtonIdentifier_timestamp_context___block_invoke(id *a1)
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18 = @"eventSource";
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17 = @"eventSource";
   v2 = [MEMORY[0x277CCACA8] stringWithSiriButtonIdentifier:{objc_msgSend(a1[4], "siriButtonIdentifier")}];
-  v19[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   v4 = [MEMORY[0x277CEF158] sharedAnalytics];
   v5 = AFAnalyticsEventCreateCurrent();
@@ -4779,23 +4686,21 @@ void __88__SiriPresentationViewController_handleButtonTapFromButtonIdentifier_ti
     v9 = a1[4];
     WeakRetained = v7;
     v10 = [v8 stringWithSiriButtonIdentifier:{objc_msgSend(v9, "siriButtonIdentifier")}];
-    v14 = 136315394;
-    v15 = "[SiriPresentationViewController handleButtonTapFromButtonIdentifier:timestamp:context:]_block_invoke";
-    v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_21FEE5000, WeakRetained, OS_LOG_TYPE_DEFAULT, "%s #activation handled for %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[SiriPresentationViewController handleButtonTapFromButtonIdentifier:timestamp:context:]_block_invoke";
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_21FEE5000, WeakRetained, OS_LOG_TYPE_DEFAULT, "%s #activation handled for %@", &v13, 0x16u);
 LABEL_8:
   }
 
 LABEL_9:
   [a1[5] _setButtonDownEventDidOccur:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleButtonLongPressFromButtonIdentifier:(id)identifier deviceIdentifier:(id)deviceIdentifier timestamp:(id)timestamp context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   deviceIdentifierCopy = deviceIdentifier;
   timestampCopy = timestamp;
@@ -4805,33 +4710,31 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v22 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
-    v23 = 2112;
-    v24 = identifierCopy;
-    v25 = 2112;
-    v26 = deviceIdentifierCopy;
-    v27 = 2112;
-    v28 = timestampCopy;
+    v21 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]";
+    v22 = 2112;
+    v23 = identifierCopy;
+    v24 = 2112;
+    v25 = deviceIdentifierCopy;
+    v26 = 2112;
+    v27 = timestampCopy;
     _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s handleButtonLongPressFromButtonIdentifier:%@ deviceIdentifier:%@ timestamp:%@", buf, 0x2Au);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v20, buf);
-  v16 = identifierCopy;
-  v17 = contextCopy;
-  v18 = timestampCopy;
-  v19 = deviceIdentifierCopy;
+  objc_copyWeak(&v19, buf);
+  v15 = identifierCopy;
+  v16 = contextCopy;
+  v17 = timestampCopy;
+  v18 = deviceIdentifierCopy;
   SiriUIInvokeOnMainQueue();
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(buf);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdentifier_deviceIdentifier_timestamp_context___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -4844,11 +4747,11 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
       if (v6)
       {
         v7 = *(a1 + 32);
-        v14 = 136315394;
-        v15 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
-        v16 = 2112;
-        v17 = v7;
-        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonLongPressFromIdentifier:%@ whileListening:YES Ignoring", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
+        v15 = 2112;
+        v16 = v7;
+        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonLongPressFromIdentifier:%@ whileListening:YES Ignoring", &v13, 0x16u);
       }
     }
 
@@ -4857,11 +4760,11 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
       if (v6)
       {
         v8 = *(a1 + 32);
-        v14 = 136315394;
-        v15 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
-        v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonLongPressFromIdentifier:%@ whileListening:NO Starting a new request", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[SiriPresentationViewController handleButtonLongPressFromButtonIdentifier:deviceIdentifier:timestamp:context:]_block_invoke";
+        v15 = 2112;
+        v16 = v8;
+        _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation handleButtonLongPressFromIdentifier:%@ whileListening:NO Starting a new request", &v13, 0x16u);
       }
 
       v9 = [MEMORY[0x277D55160] requestSourceForButtonIdentifier:{objc_msgSend(*(a1 + 32), "siriButtonIdentifier")}];
@@ -4879,13 +4782,11 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
       [v3 activateWithSource:v9 requestOptions:v12 timestamp:*(a1 + 56)];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)presentationWithIdentifier:(id)identifier didUpdatePresentationState:(id)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -4893,21 +4794,19 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
     v7 = MEMORY[0x277CCACA8];
     v8 = v6;
     v9 = [v7 stringWithSiriPresentationIdentifier:{-[SiriPresentationViewController identifier](self, "identifier")}];
-    v11 = 136315650;
-    v12 = "[SiriPresentationViewController presentationWithIdentifier:didUpdatePresentationState:]";
-    v13 = 2112;
-    v14 = v9;
-    v15 = 2112;
-    v16 = stateCopy;
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s %@ received presentation state update %@", &v11, 0x20u);
+    v10 = 136315650;
+    v11 = "[SiriPresentationViewController presentationWithIdentifier:didUpdatePresentationState:]";
+    v12 = 2112;
+    v13 = v9;
+    v14 = 2112;
+    v15 = stateCopy;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s %@ received presentation state update %@", &v10, 0x20u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_handleTapButtonBehavior:(int64_t)behavior
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -4915,11 +4814,11 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
     v7 = MEMORY[0x277CCACA8];
     v8 = v6;
     v9 = [v7 stringWithSiriButtonIdentifier:behavior];
-    v29 = 136315394;
-    v30 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
-    v31 = 2112;
-    v32 = v9;
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation _handleTapButtonBehavior:%@", &v29, 0x16u);
+    v28 = 136315394;
+    v29 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
+    v30 = 2112;
+    v31 = v9;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation _handleTapButtonBehavior:%@", &v28, 0x16u);
   }
 
   v10 = objc_alloc(MEMORY[0x277D55198]);
@@ -4939,9 +4838,9 @@ void __111__SiriPresentationViewController_handleButtonLongPressFromButtonIdenti
       v14 = *v5;
       if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 136315138;
-        v30 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
-        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s Turning on the screen because pocket state kept the screen off during activation", &v29, 0xCu);
+        v28 = 136315138;
+        v29 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
+        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s Turning on the screen because pocket state kept the screen off during activation", &v28, 0xCu);
       }
 
       siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
@@ -4997,9 +4896,9 @@ LABEL_19:
     v22 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 136315138;
-      v30 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
-      _os_log_impl(&dword_21FEE5000, v22, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v29, 0xCu);
+      v28 = 136315138;
+      v29 = "[SiriPresentationViewController _handleTapButtonBehavior:]";
+      _os_log_impl(&dword_21FEE5000, v22, OS_LOG_TYPE_DEFAULT, "%s Stopping request due to wired mic tap", &v28, 0xCu);
     }
 
     siriPresentationControllerDelegate2 = [(SiriPresentationViewController *)self siriViewController];
@@ -5017,18 +4916,15 @@ LABEL_12:
   v21 = [(SiriPresentationViewController *)selfCopy2 _handleTapDismissal:behaviorCopy];
 LABEL_23:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (BOOL)_handleTapDismissal:(int64_t)dismissal
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([(SiriPresentationViewController *)self _cancelPendingPhoneCall])
   {
-LABEL_6:
-    v6 = 1;
-    goto LABEL_7;
+    return 1;
   }
 
   if (self->_siriSetupViewController)
@@ -5036,30 +4932,30 @@ LABEL_6:
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315138;
-      v21 = "[SiriPresentationViewController _handleTapDismissal:]";
-      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s Dismissing Siri setup due to button tap", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[SiriPresentationViewController _handleTapDismissal:]";
+      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s Dismissing Siri setup due to button tap", &v19, 0xCu);
     }
 
     [(SiriPresentationViewController *)self _dismissSiriSetup];
-    goto LABEL_6;
+    return 1;
   }
 
   siriViewControllerConfigured = [(SiriPresentationViewController *)self siriViewControllerConfigured];
-  v10 = *MEMORY[0x277CEF098];
-  v11 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
+  v9 = *MEMORY[0x277CEF098];
+  v10 = os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT);
   if (siriViewControllerConfigured)
   {
-    if (v11)
+    if (v10)
     {
-      v20 = 136315138;
-      v21 = "[SiriPresentationViewController _handleTapDismissal:]";
-      _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s Dismissing Siri due to button tap", &v20, 0xCu);
+      v19 = 136315138;
+      v20 = "[SiriPresentationViewController _handleTapDismissal:]";
+      _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s Dismissing Siri due to button tap", &v19, 0xCu);
     }
 
     if ((dismissal & 0xFFFFFFFFFFFFFFFELL) == 6)
     {
-      v12 = 20;
+      v11 = 20;
     }
 
     else if (dismissal == 5)
@@ -5070,46 +4966,44 @@ LABEL_6:
 
       if (requestSource == 38)
       {
-        v12 = 41;
+        v11 = 41;
       }
 
       else
       {
-        v12 = 50;
+        v11 = 50;
       }
     }
 
     else
     {
-      v12 = 5;
+      v11 = 5;
     }
 
     v6 = 1;
-    v19 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:v12];
-    [(SiriPresentationViewController *)self _requestDismissalWithOptions:v19];
+    v18 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:v11];
+    [(SiriPresentationViewController *)self _requestDismissalWithOptions:v18];
   }
 
   else
   {
-    if (v11)
+    if (v10)
     {
       activationHandled = self->_activationHandled;
       siriViewController = self->_siriViewController;
-      v15 = v10;
-      v20 = 136315650;
-      v21 = "[SiriPresentationViewController _handleTapDismissal:]";
-      v22 = 1024;
-      v23 = activationHandled;
-      v24 = 1024;
+      v14 = v9;
+      v19 = 136315650;
+      v20 = "[SiriPresentationViewController _handleTapDismissal:]";
+      v21 = 1024;
+      v22 = activationHandled;
+      v23 = 1024;
       isVisible = [(AFUISiriViewController *)siriViewController isVisible];
-      _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s Not handled: _activationHandled=%d [_siriViewController isVisible]=%d", &v20, 0x18u);
+      _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s Not handled: _activationHandled=%d [_siriViewController isVisible]=%d", &v19, 0x18u);
     }
 
-    v6 = 0;
+    return 0;
   }
 
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5134,7 +5028,7 @@ void __57__SiriPresentationViewController_updateCurrentLockState___block_invoke(
 
 - (void)setCurrentLockState:(unint64_t)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_currentLockState != state)
   {
     self->_currentLockState = state;
@@ -5142,11 +5036,11 @@ void __57__SiriPresentationViewController_updateCurrentLockState___block_invoke(
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       currentLockState = self->_currentLockState;
-      v9 = 136315394;
-      v10 = "[SiriPresentationViewController setCurrentLockState:]";
-      v11 = 2048;
-      v12 = currentLockState;
-      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Lock state in SiriPresentationViewController updated to %zd", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[SiriPresentationViewController setCurrentLockState:]";
+      v10 = 2048;
+      v11 = currentLockState;
+      _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation Lock state in SiriPresentationViewController updated to %zd", &v8, 0x16u);
     }
 
     if (self->_siriViewController)
@@ -5155,8 +5049,6 @@ void __57__SiriPresentationViewController_updateCurrentLockState___block_invoke(
       [siriViewController setLockState:state];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestDismissal
@@ -5167,35 +5059,33 @@ void __57__SiriPresentationViewController_updateCurrentLockState___block_invoke(
 
 - (void)_requestDismissalWithOptions:(id)options
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   [(SiriPresentationViewController *)self _invalidateCarSiriButtonHoldToTalkTimer];
   [(SiriPresentationViewController *)self _setScreenOffDuringActivation:0];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
-    v7 = 136315138;
-    v8 = "[SiriPresentationViewController _requestDismissalWithOptions:]";
-    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_INFO, "%s wantsDismissal", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriPresentationViewController _requestDismissalWithOptions:]";
+    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_INFO, "%s wantsDismissal", &v6, 0xCu);
   }
 
   [(SiriPresentationViewController *)self presentationDismissalRequestedWithOptions:optionsCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_carSiriButtonHoldToTalkIntervalFiredWithButtonIdentifier:(int64_t)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   [(SiriPresentationViewController *)self _carSiriButtonTimeInterval];
   if (v5 != 0.0)
   {
     v6 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v12 = 136315138;
-      v13 = "[SiriPresentationViewController _carSiriButtonHoldToTalkIntervalFiredWithButtonIdentifier:]";
-      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_INFO, "%s #activation Starting new Speech Request due to Car Siri button long press timer", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SiriPresentationViewController _carSiriButtonHoldToTalkIntervalFiredWithButtonIdentifier:]";
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_INFO, "%s #activation Starting new Speech Request due to Car Siri button long press timer", &v11, 0xCu);
     }
 
     v7 = objc_alloc(MEMORY[0x277D55198]);
@@ -5207,33 +5097,30 @@ void __57__SiriPresentationViewController_updateCurrentLockState___block_invoke(
   }
 
   [(SiriPresentationViewController *)self _invalidateCarSiriButtonHoldToTalkTimer];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPendingActivationEventWithReason:(id)reason
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   kdebug_trace();
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[SiriPresentationViewController cancelPendingActivationEventWithReason:]";
-    v11 = 2112;
-    v12 = reasonCopy;
+    v9 = "[SiriPresentationViewController cancelPendingActivationEventWithReason:]";
+    v10 = 2112;
+    v11 = reasonCopy;
     _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s cancelPendingActivationEventWithReason:%@", buf, 0x16u);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v8, buf);
-  v7 = reasonCopy;
+  objc_copyWeak(&v7, buf);
+  v6 = reasonCopy;
   SiriUIInvokeOnMainQueue();
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(buf);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason___block_invoke(uint64_t a1)
@@ -5244,7 +5131,7 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
 
 - (void)_cancelPendingActivationWithReason:(unint64_t)reason
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -5253,9 +5140,9 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     v8 = v6;
     v9 = [v7 stringWithSiriPresentationActivationCancelReason:reason];
     *buf = 136315394;
-    v19 = "[SiriPresentationViewController _cancelPendingActivationWithReason:]";
-    v20 = 2112;
-    v21 = v9;
+    v18 = "[SiriPresentationViewController _cancelPendingActivationWithReason:]";
+    v19 = 2112;
+    v20 = v9;
     _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s cancelReason=%@", buf, 0x16u);
   }
 
@@ -5280,8 +5167,8 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     }
 
     v11 = [MEMORY[0x277CCACA8] stringWithSiriPresentationActivationCancelReason:{reasonCopy, @"cancelReason"}];
-    v17 = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+    v16 = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
 
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
     v14 = AFAnalyticsEventCreateCurrent();
@@ -5293,28 +5180,25 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
       [(SiriPresentationViewController *)self _requestDismissal];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriSessionShouldExtendAudioSessionForImminentPhoneCall
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationViewController siriSessionShouldExtendAudioSessionForImminentPhoneCall]";
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler Extending audio session for imminent phone call. Setting _waitingForTelephonyToStart:YES", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationViewController siriSessionShouldExtendAudioSessionForImminentPhoneCall]";
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler Extending audio session for imminent phone call. Setting _waitingForTelephonyToStart:YES", &v4, 0xCu);
   }
 
   [(SiriPresentationViewController *)self _setWaitingForTelephonyToStart:1];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriSessionShouldEndExtendAudioSessionForImminentPhoneCall
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
@@ -5322,11 +5206,11 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     siriViewController = self->_siriViewController;
     v6 = v3;
     v7 = [v4 numberWithBool:{-[AFUISiriViewController isVisible](siriViewController, "isVisible")}];
-    v9 = 136315394;
-    v10 = "[SiriPresentationViewController siriSessionShouldEndExtendAudioSessionForImminentPhoneCall]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler stop extending audio session while visible: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriPresentationViewController siriSessionShouldEndExtendAudioSessionForImminentPhoneCall]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler stop extending audio session while visible: %@", &v8, 0x16u);
   }
 
   if ([(AFUISiriViewController *)self->_siriViewController isVisible])
@@ -5339,13 +5223,11 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
   {
     [(SiriPresentationViewController *)self _setWaitingForTelephonyToStart:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createSiriViewControllerWithRequestOptions:(id)options
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = optionsCopy;
   if (optionsCopy)
@@ -5389,13 +5271,13 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     v14 = v13;
     v15 = SASRequestSourceGetName();
     *buf = 136315906;
-    v36 = "[SiriPresentationViewController _createSiriViewControllerWithRequestOptions:]";
-    v37 = 2112;
-    v38 = v10;
-    v39 = 2112;
-    v40 = v9;
-    v41 = 2112;
-    v42 = v15;
+    v35 = "[SiriPresentationViewController _createSiriViewControllerWithRequestOptions:]";
+    v36 = 2112;
+    v37 = v10;
+    v38 = 2112;
+    v39 = v9;
+    v40 = 2112;
+    v41 = v15;
     _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation Creating new view controller with connection: %@, configuration: %@, requestSource: %@", buf, 0x2Au);
   }
 
@@ -5466,76 +5348,72 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     [v5 carOwnsMainAudio];
     v31 = NSStringFromBOOL();
     *buf = 136316418;
-    v36 = "[SiriPresentationViewController _createSiriViewControllerWithRequestOptions:]";
-    v37 = 2112;
-    v38 = v27;
+    v35 = "[SiriPresentationViewController _createSiriViewControllerWithRequestOptions:]";
+    v36 = 2112;
+    v37 = v27;
     v9 = v26;
     v10 = v25;
     siriEffectsViewController = v24;
-    v39 = 2112;
-    v40 = v28;
-    v41 = 2112;
-    v42 = v29;
-    v43 = 2112;
-    v44 = v30;
-    v45 = 2112;
-    v46 = v31;
+    v38 = 2112;
+    v39 = v28;
+    v40 = 2112;
+    v41 = v29;
+    v42 = 2112;
+    v43 = v30;
+    v44 = 2112;
+    v45 = v31;
     _os_log_impl(&dword_21FEE5000, log, OS_LOG_TYPE_DEFAULT, "%s #activation #carPlay #carDnd #eyesFree isForStark: %@, carDNDStatus: %@, eyesFree: %@, supportsCarPlayVehicleData: %@, carOwnsMainAudio: %@", buf, 0x3Eu);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (void)_scheduleConnectionHouseKeepingAfterDelay:(double)delay
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x277CCABB0];
     v7 = v5;
     v8 = [v6 numberWithDouble:delay];
-    v10 = 136315394;
-    v11 = "[SiriPresentationViewController _scheduleConnectionHouseKeepingAfterDelay:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation delay: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriPresentationViewController _scheduleConnectionHouseKeepingAfterDelay:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #activation delay: %@", &v9, 0x16u);
   }
 
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__processConnectionHouseKeeping object:0];
   [(SiriPresentationViewController *)self performSelector:sel__processConnectionHouseKeeping withObject:0 afterDelay:delay];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processConnectionHouseKeeping
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationViewController _processConnectionHouseKeeping]";
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationViewController _processConnectionHouseKeeping]";
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation", &v4, 0xCu);
   }
 
   [(SiriPresentationViewController *)self _cleanupUnownedConnection];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupUnownedConnection
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     unownedConnection = self->_unownedConnection;
-    v8 = 136315394;
-    v9 = "[SiriPresentationViewController _cleanupUnownedConnection]";
-    v10 = 2112;
-    v11 = unownedConnection;
-    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _unownedConnection: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriPresentationViewController _cleanupUnownedConnection]";
+    v9 = 2112;
+    v10 = unownedConnection;
+    _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation _unownedConnection: %@", &v7, 0x16u);
   }
 
   v5 = self->_unownedConnection;
@@ -5549,8 +5427,6 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
     v6 = self->_unownedConnection;
     self->_unownedConnection = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearSiriViewControllerWithCompletion:(id)completion
@@ -5577,12 +5453,12 @@ void __73__SiriPresentationViewController_cancelPendingActivationEventWithReason
 
 void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v20 = "[SiriPresentationViewController _clearSiriViewControllerWithCompletion:]_block_invoke";
+    v19 = "[SiriPresentationViewController _clearSiriViewControllerWithCompletion:]_block_invoke";
     _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation _clearSiriViewController", buf, 0xCu);
   }
 
@@ -5599,14 +5475,14 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
   if (v3)
   {
     v8 = MEMORY[0x277CBEBB8];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion___block_invoke_325;
-    v16 = &unk_2784306D8;
-    objc_copyWeak(&v18, buf);
-    v17 = v3;
-    v9 = [v8 scheduledTimerWithTimeInterval:0 repeats:&v13 block:3.0];
-    [v7 setClearSiriViewControllerTimer:{v9, v13, v14, v15, v16}];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion___block_invoke_325;
+    v15 = &unk_2784306D8;
+    objc_copyWeak(&v17, buf);
+    v16 = v3;
+    v9 = [v8 scheduledTimerWithTimeInterval:0 repeats:&v12 block:3.0];
+    [v7 setClearSiriViewControllerTimer:{v9, v12, v13, v14, v15}];
 
     [*(*(a1 + 32) + 1392) siriDidDeactivate];
     [*(*(a1 + 32) + 1392) setDataSource:0];
@@ -5620,7 +5496,7 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
     [*(*(a1 + 32) + 1392) removeFromParentViewController];
     [*(a1 + 32) setSiriViewController:0];
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v17);
   }
 
   else
@@ -5629,38 +5505,34 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
   }
 
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion___block_invoke_325(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[SiriPresentationViewController _clearSiriViewControllerWithCompletion:]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation calling didDismiss from inside clearSiriViewControllerTimer", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[SiriPresentationViewController _clearSiriViewControllerWithCompletion:]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #activation calling didDismiss from inside clearSiriViewControllerTimer", &v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained _finishClearingSiriViewController:*(a1 + 32)];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishClearingSiriViewController:(id)controller
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = MEMORY[0x277CEF098];
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation _finishClearingSiriViewController", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation _finishClearingSiriViewController", &v12, 0xCu);
   }
 
   [(SiriPresentationViewController *)self _invalidateCarSiriButtonHoldToTalkTimer];
@@ -5671,9 +5543,9 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
   v8 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation clearSiriViewControllerTimer was invalidated", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation clearSiriViewControllerTimer was invalidated", &v12, 0xCu);
   }
 
   [(AFUISiriViewController *)self->_siriViewController updatePresentationVisualState:0];
@@ -5682,9 +5554,9 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
   v9 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
-    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s Attempting to enable the SpringBoard idle timer because we are losing the SiriViewController", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SiriPresentationViewController _finishClearingSiriViewController:]";
+    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s Attempting to enable the SpringBoard idle timer because we are losing the SiriViewController", &v12, 0xCu);
   }
 
   [(SiriPresentationViewController *)self _enableSpringBoardIdleTimer];
@@ -5695,13 +5567,11 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
     v11 = self->_dismissalCompletion;
     self->_dismissalCompletion = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleContextClearForRequestOptions:(id)options
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (-[SiriPresentationViewController _isDelayingSessionEnd](self, "_isDelayingSessionEnd") && ([optionsCopy isForStark] & 1) != 0 || objc_msgSend(optionsCopy, "directActionEvent") && (objc_msgSend(optionsCopy, "isForStark") & 1) != 0)
   {
@@ -5718,9 +5588,9 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
     v6 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[SiriPresentationViewController _handleContextClearForRequestOptions:]";
-      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s Triggerless request, dont clear Siri context", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[SiriPresentationViewController _handleContextClearForRequestOptions:]";
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s Triggerless request, dont clear Siri context", &v8, 0xCu);
     }
 
     v5 = 3;
@@ -5728,8 +5598,6 @@ void __73__SiriPresentationViewController__clearSiriViewControllerWithCompletion
 
   siriViewController = [(SiriPresentationViewController *)self siriViewController];
   [siriViewController resetContextTypes:v5];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissSiriSetup
@@ -5773,7 +5641,7 @@ void __51__SiriPresentationViewController__dismissSiriSetup__block_invoke(uint64
 
 - (void)_wasDismissedWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   kdebug_trace();
   if ([(SiriPresentationViewController *)self _isDelayingSessionEnd])
@@ -5796,9 +5664,9 @@ LABEL_7:
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[SiriPresentationViewController _wasDismissedWithCompletion:]";
-      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s Attempting to enable the SpringBoard idle timer because we are losing the setupViewController", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = "[SiriPresentationViewController _wasDismissedWithCompletion:]";
+      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s Attempting to enable the SpringBoard idle timer because we are losing the setupViewController", &v11, 0xCu);
     }
 
     [(SiriPresentationViewController *)self _enableSpringBoardIdleTimer];
@@ -5825,8 +5693,6 @@ LABEL_9:
   {
     completionCopy[2](completionCopy);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_siriDidOpenURL:(id)l
@@ -5844,21 +5710,19 @@ LABEL_9:
 
 - (void)_enableSpringBoardIdleTimer
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([(SiriPresentationViewController *)self presentationHostedInSpringBoard])
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315138;
-      v6 = "[SiriPresentationViewController _enableSpringBoardIdleTimer]";
-      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s Siri enabled SpringBoard idle timer", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[SiriPresentationViewController _enableSpringBoardIdleTimer]";
+      _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s Siri enabled SpringBoard idle timer", &v4, 0xCu);
     }
 
     [(SiriPresentationViewController *)self _setSpringBoardIdleTimerDisabled:0];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissDueToUnexpectedError:(id)error
@@ -5905,34 +5769,31 @@ LABEL_9:
 
 - (void)_logDismissalRequestedForViewMode:(int64_t)mode withDismissalReason:(int64_t)reason
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v6 = SASDismissalReasonGetName();
   v7 = v6;
   if (v6)
   {
-    v11 = @"reason";
-    v12[0] = v6;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"reason";
+    v11[0] = v6;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     _analytics = [(SiriPresentationViewController *)self _analytics];
     [_analytics logEventWithType:1460 context:v8];
   }
 
   [(SiriPresentationViewController *)self _logDismissalToPowerLogWithReason:reason];
   [(SiriPresentationViewController *)self _emitInstrumentationDismissalStateWithReason:reason];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logDismissalToPowerLogWithReason:(int64_t)reason
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"ReasonEnd";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"ReasonEnd";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:reason];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   PLLogRegisteredEvent();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_instrumentSuccessfulAppLaunchIfNecessary
@@ -6052,16 +5913,16 @@ void __91__SiriPresentationViewController_siriViewController_failedToLaunchAppWi
 
 - (void)siriViewControllerDidFinishDismissing:(id)dismissing
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dismissingCopy = dismissing;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SiriPresentationViewController siriViewControllerDidFinishDismissing:]";
-    v10 = 2112;
-    v11 = dismissingCopy;
-    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation siriViewControllerDidFinishDismissing: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriPresentationViewController siriViewControllerDidFinishDismissing:]";
+    v9 = 2112;
+    v10 = dismissingCopy;
+    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #activation siriViewControllerDidFinishDismissing: %@", &v7, 0x16u);
   }
 
   if (self->_clearSiriViewControllerTimer)
@@ -6074,32 +5935,28 @@ void __91__SiriPresentationViewController_siriViewController_failedToLaunchAppWi
     v6 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:0];
     [(SiriPresentationViewController *)self dismissWithOptions:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissSiriViewController:(id)controller withReason:(int64_t)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v7 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     v9 = SASDismissalReasonGetName();
-    v12 = 136315650;
-    v13 = "[SiriPresentationViewController dismissSiriViewController:withReason:]";
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2112;
-    v17 = controllerCopy;
-    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #punchout #activation %@ %@", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[SiriPresentationViewController dismissSiriViewController:withReason:]";
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = controllerCopy;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #punchout #activation %@ %@", &v11, 0x20u);
   }
 
   v10 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:reason];
   [(SiriPresentationViewController *)self presentationDismissalRequestedWithOptions:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startGuidedAccessForSiriViewController:(id)controller
@@ -6171,7 +6028,7 @@ LABEL_8:
 
 - (BOOL)siriViewControllerShouldEndSession:(id)session
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   _isDelayingSessionEnd = [(SiriPresentationViewController *)self _isDelayingSessionEnd];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
@@ -6179,16 +6036,15 @@ LABEL_8:
     v6 = v5;
     v7 = NSStringFromBOOL();
     waitingForTelephonyToStart = self->_waitingForTelephonyToStart;
-    v11 = 136315650;
-    v12 = "[SiriPresentationViewController siriViewControllerShouldEndSession:]";
-    v13 = 2112;
-    v14 = v7;
-    v15 = 1024;
-    v16 = waitingForTelephonyToStart;
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #punchout shouldEnd:%@ waitingForTelephonyToStart:%i", &v11, 0x1Cu);
+    v10 = 136315650;
+    v11 = "[SiriPresentationViewController siriViewControllerShouldEndSession:]";
+    v12 = 2112;
+    v13 = v7;
+    v14 = 1024;
+    v15 = waitingForTelephonyToStart;
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #punchout shouldEnd:%@ waitingForTelephonyToStart:%i", &v10, 0x1Cu);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return !_isDelayingSessionEnd;
 }
 
@@ -6258,21 +6114,33 @@ void __90__SiriPresentationViewController_requestTamaleLaunchAnimationLayerProvi
 
 - (void)_setScreenOffDuringActivation:(BOOL)activation
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = v5;
     v7 = NSStringFromBOOL();
-    v9 = 136315394;
-    v10 = "[SiriPresentationViewController _setScreenOffDuringActivation:]";
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Setting wasScreenOffDuringActivation to %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[SiriPresentationViewController _setScreenOffDuringActivation:]";
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #myriadUI Setting wasScreenOffDuringActivation to %@", &v8, 0x16u);
   }
 
   self->_wasScreenOffDuringActivation = activation;
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (void)openURL:(id)l bundleId:(id)id inPlace:(BOOL)place completion:(id)completion
+{
+  placeCopy = place;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __70__SiriPresentationViewController_openURL_bundleId_inPlace_completion___block_invoke;
+  v12[3] = &unk_2784307C8;
+  v13 = completionCopy;
+  v11 = completionCopy;
+  [(SiriPresentationViewController *)self openURL:l bundleId:id inPlace:placeCopy launchOptions:0 completion:v12];
 }
 
 uint64_t __70__SiriPresentationViewController_openURL_bundleId_inPlace_completion___block_invoke(uint64_t a1)
@@ -6289,7 +6157,7 @@ uint64_t __70__SiriPresentationViewController_openURL_bundleId_inPlace_completio
 - (void)openURL:(id)l bundleId:(id)id inPlace:(BOOL)place launchOptions:(id)options completion:(id)completion
 {
   placeCopy = place;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   lCopy = l;
   idCopy = id;
   optionsCopy = options;
@@ -6300,13 +6168,13 @@ uint64_t __70__SiriPresentationViewController_openURL_bundleId_inPlace_completio
     v17 = v16;
     v18 = NSStringFromBOOL();
     *buf = 136315906;
-    v31 = "[SiriPresentationViewController openURL:bundleId:inPlace:launchOptions:completion:]";
-    v32 = 2112;
-    v33 = idCopy;
-    v34 = 2112;
-    v35 = v18;
-    v36 = 2112;
-    v37 = lCopy;
+    v30 = "[SiriPresentationViewController openURL:bundleId:inPlace:launchOptions:completion:]";
+    v31 = 2112;
+    v32 = idCopy;
+    v33 = 2112;
+    v34 = v18;
+    v35 = 2112;
+    v36 = lCopy;
     _os_log_impl(&dword_21FEE5000, v17, OS_LOG_TYPE_DEFAULT, "%s #punchout 2 bundleId:%@ inPlace:%@ url:%@", buf, 0x2Au);
   }
 
@@ -6335,17 +6203,17 @@ uint64_t __70__SiriPresentationViewController_openURL_bundleId_inPlace_completio
   {
     objc_initWeak(buf, self);
     v23 = MEMORY[0x277CC1E48];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __84__SiriPresentationViewController_openURL_bundleId_inPlace_launchOptions_completion___block_invoke;
-    v25[3] = &unk_2784307F0;
-    v26 = v21;
-    v27 = lCopy;
-    objc_copyWeak(&v29, buf);
-    v28 = completionCopy;
-    [v23 getAppLinkWithURL:v27 completionHandler:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __84__SiriPresentationViewController_openURL_bundleId_inPlace_launchOptions_completion___block_invoke;
+    v24[3] = &unk_2784307F0;
+    v25 = v21;
+    v26 = lCopy;
+    objc_copyWeak(&v28, buf);
+    v27 = completionCopy;
+    [v23 getAppLinkWithURL:v26 completionHandler:v24];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
 
@@ -6353,8 +6221,6 @@ uint64_t __70__SiriPresentationViewController_openURL_bundleId_inPlace_completio
   {
     [(SiriPresentationViewController *)self _punchout:v21 completion:completionCopy];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __84__SiriPresentationViewController_openURL_bundleId_inPlace_launchOptions_completion___block_invoke(uint64_t a1, void *a2)
@@ -6406,7 +6272,7 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke(ui
 
 void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = MEMORY[0x277CEF098];
   v7 = *MEMORY[0x277CEF098];
@@ -6423,13 +6289,13 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
       v9 = [v5 localizedDescription];
     }
 
-    v19 = 136315650;
-    v20 = "[SiriPresentationViewController _punchout:completion:]_block_invoke_2";
-    v21 = 2112;
-    v22 = v8;
-    v23 = 2112;
-    v24 = v9;
-    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #punchout 3 %@ %@", &v19, 0x20u);
+    v18 = 136315650;
+    v19 = "[SiriPresentationViewController _punchout:completion:]_block_invoke_2";
+    v20 = 2112;
+    v21 = v8;
+    v22 = 2112;
+    v23 = v9;
+    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #punchout 3 %@ %@", &v18, 0x20u);
     if ((a2 & 1) == 0)
     {
     }
@@ -6457,9 +6323,9 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
       v15 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 136315138;
-        v20 = "[SiriPresentationViewController _punchout:completion:]_block_invoke";
-        _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #punchout 4 Deactivating scene and returning focus back to CarPlay", &v19, 0xCu);
+        v18 = 136315138;
+        v19 = "[SiriPresentationViewController _punchout:completion:]_block_invoke";
+        _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s #punchout 4 Deactivating scene and returning focus back to CarPlay", &v18, 0xCu);
       }
 
       v16 = [v11 siriViewController];
@@ -6472,8 +6338,6 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
       (*(v17 + 16))(v17, a2, v5);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)siriViewController:(id)controller attemptUnlockWithPassword:(id)password
@@ -6524,7 +6388,7 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
 
 - (void)_requestHomeAffordanceSuppression:(int64_t)suppression
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
   v6 = objc_opt_respondsToSelector();
 
@@ -6541,11 +6405,11 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
         v10 = MEMORY[0x277CCACA8];
         v11 = v9;
         v12 = [v10 stringWithSiriHomeAffordanceSuppression:suppression];
-        v14 = 136315394;
-        v15 = "[SiriPresentationViewController _requestHomeAffordanceSuppression:]";
-        v16 = 2112;
-        v17 = v12;
-        _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #Compact: Telling SpringBoard that the Siri Home affordance state is %@", &v14, 0x16u);
+        v13 = 136315394;
+        v14 = "[SiriPresentationViewController _requestHomeAffordanceSuppression:]";
+        v15 = 2112;
+        v16 = v12;
+        _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s #Compact: Telling SpringBoard that the Siri Home affordance state is %@", &v13, 0x16u);
       }
     }
 
@@ -6554,14 +6418,12 @@ void __55__SiriPresentationViewController__punchout_completion___block_invoke_2(
       v7 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315138;
-        v15 = "[SiriPresentationViewController _requestHomeAffordanceSuppression:]";
-        _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #Compact: Not showing Home Affordance as we are showing voiceActivationMask, Returning", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[SiriPresentationViewController _requestHomeAffordanceSuppression:]";
+        _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #Compact: Not showing Home Affordance as we are showing voiceActivationMask, Returning", &v13, 0xCu);
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriViewController:(id)controller didCompleteRequestWithError:(id)error
@@ -6612,32 +6474,30 @@ LABEL_6:
 
 - (void)siriViewController:(id)controller requestsPresentation:(id)presentation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   presentationCopy = presentation;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[SiriPresentationViewController siriViewController:requestsPresentation:]";
+    v15 = "[SiriPresentationViewController siriViewController:requestsPresentation:]";
     _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #activation siriPresentationControllerDelegate called", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   v9 = [objc_alloc(MEMORY[0x277D55208]) initWithBuilder:0];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __74__SiriPresentationViewController_siriViewController_requestsPresentation___block_invoke;
-  v12[3] = &unk_278430868;
-  objc_copyWeak(&v14, buf);
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __74__SiriPresentationViewController_siriViewController_requestsPresentation___block_invoke;
+  v11[3] = &unk_278430868;
+  objc_copyWeak(&v13, buf);
   v10 = presentationCopy;
-  v13 = v10;
-  [(SiriPresentationViewController *)self _requestPresentationWithOptions:v9 completion:v12];
+  v12 = v10;
+  [(SiriPresentationViewController *)self _requestPresentationWithOptions:v9 completion:v11];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v13);
   objc_destroyWeak(buf);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SiriPresentationViewController_siriViewController_requestsPresentation___block_invoke(uint64_t a1, char a2, void *a3)
@@ -6674,24 +6534,52 @@ LABEL_6:
 
 - (void)siriViewController:(id)controller requestsDismissalWithReason:(int64_t)reason withCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v8 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v9 = v8;
     v10 = SASDismissalReasonGetName();
-    v13 = 136315394;
-    v14 = "[SiriPresentationViewController siriViewController:requestsDismissalWithReason:withCompletion:]";
-    v15 = 2112;
-    v16 = v10;
-    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation dismissal requested %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[SiriPresentationViewController siriViewController:requestsDismissalWithReason:withCompletion:]";
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation dismissal requested %@", &v12, 0x16u);
   }
 
   v11 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:reason];
   [(SiriPresentationViewController *)self _presentationDismissalRequestedWithOptions:v11 withCompletion:completionCopy];
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)siriViewController:(id)controller willChangeKeyboardVisibility:(BOOL)visibility
+{
+  visibilityCopy = visibility;
+  v15 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained(&self->siriPresentationControllerDelegate);
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    v8 = *MEMORY[0x277CEF098];
+    if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = @"Not Visible";
+      if (visibilityCopy)
+      {
+        v9 = @"Visible";
+      }
+
+      v11 = 136315394;
+      v12 = "[SiriPresentationViewController siriViewController:willChangeKeyboardVisibility:]";
+      v13 = 2112;
+      v14 = v9;
+      _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #SAE - telling delegate keyboard visibility will change to: %@", &v11, 0x16u);
+    }
+
+    siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
+    [siriPresentationControllerDelegate siriPresentation:self willChangeKeyboardVisibility:visibilityCopy];
+  }
 }
 
 - (void)siriViewController:(id)controller presentedIntentWithBundleId:(id)id
@@ -6735,7 +6623,7 @@ LABEL_6:
 
 - (id)bulletinsForSiriViewController:(id)controller
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   connection = [(SiriPresentationViewController *)self connection];
   remoteTarget = [connection remoteTarget];
@@ -6756,32 +6644,32 @@ LABEL_6:
       [remoteTarget allBulletins];
     }
 
+    v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v10 = v20 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v18 = 0u;
+    v10 = v19 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v19 + 1) + 8 * i);
+          v15 = *(*(&v18 + 1) + 8 * i);
           if (([v15 isRead] & 1) == 0)
           {
             [array addObject:v15];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v12);
@@ -6792,13 +6680,11 @@ LABEL_6:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v24 = "[SiriPresentationViewController bulletinsForSiriViewController:]";
-    v25 = 2112;
-    v26 = array;
+    v23 = "[SiriPresentationViewController bulletinsForSiriViewController:]";
+    v24 = 2112;
+    v25 = array;
     _os_log_impl(&dword_21FEE5000, v16, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -6818,23 +6704,21 @@ LABEL_6:
 
 - (void)siriViewControllerSpeechRequestStartedFromSiriOrb
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   connection = [(SiriPresentationViewController *)self connection];
   remoteTarget = [connection remoteTarget];
 
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SiriPresentationViewController siriViewControllerSpeechRequestStartedFromSiriOrb]";
-    v8 = 2112;
-    v9 = remoteTarget;
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech request was started from Siri orb button press %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriPresentationViewController siriViewControllerSpeechRequestStartedFromSiriOrb]";
+    v7 = 2112;
+    v8 = remoteTarget;
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech request was started from Siri orb button press %@", &v5, 0x16u);
   }
 
   [remoteTarget speechRequestStartedFromSiriOrb];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)siriViewControllerDidReactivateFromFlexibleFollowups
@@ -6851,23 +6735,38 @@ LABEL_6:
 
 - (void)siriViewControllerSpeechRequestCancelledFromSiriOrb
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   connection = [(SiriPresentationViewController *)self connection];
   remoteTarget = [connection remoteTarget];
 
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "[SiriPresentationViewController siriViewControllerSpeechRequestCancelledFromSiriOrb]";
-    v8 = 2112;
-    v9 = remoteTarget;
-    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech request was cancelled from Siri orb button press %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[SiriPresentationViewController siriViewControllerSpeechRequestCancelledFromSiriOrb]";
+    v7 = 2112;
+    v8 = remoteTarget;
+    _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s Speech request was cancelled from Siri orb button press %@", &v5, 0x16u);
   }
 
   [remoteTarget speechRequestCancelledFromSiriOrb];
+}
 
-  v5 = *MEMORY[0x277D85DE8];
+- (void)siriViewController:(id)controller voiceActivationMaskViewIsVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  [(SiriPresentationViewController *)self _setVoiceActivationMaskShown:visible];
+  if (visibleCopy)
+  {
+    v6 = 1;
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  [(SiriPresentationViewController *)self _requestHomeAffordanceSuppression:v6];
 }
 
 - (void)requestSystemApertureCollapse
@@ -6917,6 +6816,19 @@ LABEL_6:
   }
 
   [(SiriPresentationViewController *)self _requestHomeAffordanceSuppression:v4];
+}
+
+- (void)toggleSiriHomeAffordanceGestureControl:(BOOL)control
+{
+  controlCopy = control;
+  siriPresentationControllerDelegate = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    siriPresentationControllerDelegate2 = [(SiriPresentationViewController *)self siriPresentationControllerDelegate];
+    [siriPresentationControllerDelegate2 siriPresentation:self setSiriHomeAffordanceGestureControl:controlCopy];
+  }
 }
 
 - (void)updateEdgeLightWindowLevel:(int64_t)level
@@ -7130,7 +7042,7 @@ LABEL_26:
 
 - (void)_checkForGuideUpdatesIfNecessary
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -7157,7 +7069,7 @@ LABEL_26:
         {
 
 LABEL_15:
-          goto LABEL_16;
+          return;
         }
 
         availabilityState2 = [MEMORY[0x277CEF688] availabilityState];
@@ -7183,9 +7095,9 @@ LABEL_15:
       v12 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
-        v15 = 136315138;
-        v16 = "[SiriPresentationViewController _checkForGuideUpdatesIfNecessary]";
-        _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s Checking for guide updates", &v15, 0xCu);
+        v14 = 136315138;
+        v15 = "[SiriPresentationViewController _checkForGuideUpdatesIfNecessary]";
+        _os_log_impl(&dword_21FEE5000, v12, OS_LOG_TYPE_DEFAULT, "%s Checking for guide updates", &v14, 0xCu);
       }
 
       mEMORY[0x277CEF670]3 = [MEMORY[0x277CEF670] sharedManager];
@@ -7194,16 +7106,11 @@ LABEL_15:
 
     goto LABEL_15;
   }
-
-LABEL_16:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applicationsDidChange
 {
-  date = [MEMORY[0x277CBEAA8] date];
-  lastAppUpdateTimestamp = self->_lastAppUpdateTimestamp;
-  self->_lastAppUpdateTimestamp = date;
+  self->_lastAppUpdateTimestamp = [MEMORY[0x277CBEAA8] date];
 
   MEMORY[0x2821F96F8]();
 }
@@ -7211,7 +7118,7 @@ LABEL_16:
 - (void)_setSpringBoardIdleTimerDisabled:(BOOL)disabled
 {
   disabledCopy = disabled;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(SiriPresentationViewController *)self presentationHostedInSpringBoard])
   {
     v5 = *MEMORY[0x277CEF098];
@@ -7224,17 +7131,15 @@ LABEL_16:
       }
 
       *buf = 136315394;
-      v9 = "[SiriPresentationViewController _setSpringBoardIdleTimerDisabled:]";
-      v10 = 2112;
-      v11 = v6;
+      v8 = "[SiriPresentationViewController _setSpringBoardIdleTimerDisabled:]";
+      v9 = 2112;
+      v10 = v6;
       _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s %@ the SpringBoard idle timer", buf, 0x16u);
     }
 
     SiriUIInvokeOnMainQueue();
     self->_springBoardIdleTimerDisabled = disabledCopy;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __67__SiriPresentationViewController__setSpringBoardIdleTimerDisabled___block_invoke(uint64_t a1)
@@ -7245,60 +7150,139 @@ void __67__SiriPresentationViewController__setSpringBoardIdleTimerDisabled___blo
 
 - (BOOL)_cancelPendingPhoneCall
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _isWaitingForTelephonyToStart = [(SiriPresentationViewController *)self _isWaitingForTelephonyToStart];
   if (_isWaitingForTelephonyToStart)
   {
     v4 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[SiriPresentationViewController _cancelPendingPhoneCall]";
-      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler we are waiting for telephony to start, so cancelling pending phone call", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[SiriPresentationViewController _cancelPendingPhoneCall]";
+      _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler we are waiting for telephony to start, so cancelling pending phone call", &v6, 0xCu);
     }
 
     CTCallListDisconnect();
     [(SiriPresentationViewController *)self _setWaitingForTelephonyToStart:0];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return _isWaitingForTelephonyToStart;
+}
+
+- (void)_setWaitingForTelephonyToStart:(BOOL)start
+{
+  startCopy = start;
+  v30 = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x277CEF098];
+  v6 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = MEMORY[0x277CCABB0];
+    v8 = v6;
+    v9 = [v7 numberWithBool:startCopy];
+    *buf = 136315394;
+    v27 = "[SiriPresentationViewController _setWaitingForTelephonyToStart:]";
+    v28 = 2112;
+    v29 = v9;
+    _os_log_impl(&dword_21FEE5000, v8, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler setting _waitingForTelephonyToStart:%@", buf, 0x16u);
+  }
+
+  if (self->_waitingForTelephonyToStart != startCopy)
+  {
+    self->_waitingForTelephonyToStart = startCopy;
+    [(AFUISiriViewController *)self->_siriViewController setWaitingForTelephonyToStart:startCopy];
+    defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+    if (self->_waitingForTelephonyToStart)
+    {
+      mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
+      v12 = MEMORY[0x277D26B50];
+      v25 = *MEMORY[0x277D26B50];
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      [mEMORY[0x277D26E58] setAttribute:v13 forKey:*MEMORY[0x277D26DD0] error:0];
+      [defaultCenter addObserver:self selector:sel__callIsActiveDidChangeNotification_ name:*v12 object:0];
+      [(SiriPresentationViewController *)self _sendTelephonyHasStartedAfterDelay:10.0];
+      self->_instrumentationDismissalState.outgoingPhoneCallDetected = 1;
+    }
+
+    else
+    {
+      v14 = *v5;
+      if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136315138;
+        v27 = "[SiriPresentationViewController _setWaitingForTelephonyToStart:]";
+        _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler requesting dismissal", buf, 0xCu);
+      }
+
+      mEMORY[0x277D26E58] = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:3];
+      [(SiriPresentationViewController *)self dismissWithOptions:mEMORY[0x277D26E58]];
+      v24 = *MEMORY[0x277D26B50];
+      [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+      v19 = 0u;
+      v20 = 0u;
+      v21 = 0u;
+      v13 = v22 = 0u;
+      v15 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      if (v15)
+      {
+        v16 = v15;
+        v17 = *v20;
+        do
+        {
+          v18 = 0;
+          do
+          {
+            if (*v20 != v17)
+            {
+              objc_enumerationMutation(v13);
+            }
+
+            [defaultCenter removeObserver:self name:*(*(&v19 + 1) + 8 * v18++) object:{0, v19}];
+          }
+
+          while (v16 != v18);
+          v16 = [v13 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        }
+
+        while (v16);
+      }
+    }
+  }
 }
 
 - (void)_sendTelephonyHasStartedAfterDelay:(double)delay
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = MEMORY[0x277CCABB0];
     v7 = v5;
     v8 = [v6 numberWithDouble:delay];
-    v10 = 136315394;
-    v11 = "[SiriPresentationViewController _sendTelephonyHasStartedAfterDelay:]";
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler Setting %@ second audio session extension timer, if the timer fires, we'll stop extending the audio session", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriPresentationViewController _sendTelephonyHasStartedAfterDelay:]";
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_21FEE5000, v7, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler Setting %@ second audio session extension timer, if the timer fires, we'll stop extending the audio session", &v9, 0x16u);
   }
 
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__telephonyHasStarted object:0];
   [(SiriPresentationViewController *)self performSelector:sel__telephonyHasStarted withObject:0 afterDelay:delay];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callIsActiveDidChangeNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *MEMORY[0x277D26B50];
-    v8 = 136315394;
-    v9 = "[SiriPresentationViewController _callIsActiveDidChangeNotification:]";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler %@ posted: ending audio session", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriPresentationViewController _callIsActiveDidChangeNotification:]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_DEFAULT, "%s #PhoneCallAudioSessionHandler %@ posted: ending audio session", &v7, 0x16u);
   }
 
   [MEMORY[0x277D82BB8] cancelPreviousPerformRequestsWithTarget:self selector:sel__telephonyHasStarted object:0];
@@ -7306,19 +7290,67 @@ void __67__SiriPresentationViewController__setSpringBoardIdleTimerDisabled___blo
   {
     [(SiriPresentationViewController *)self _telephonyHasStarted];
   }
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)callStateChangedToIsActive:(BOOL)active isOutgoing:(BOOL)outgoing
+{
+  outgoingCopy = outgoing;
+  activeCopy = active;
+  v14 = *MEMORY[0x277D85DE8];
+  if (!outgoing)
+  {
+    self->_receivedIncomingPhoneCall = active;
+    [(AFUISiriViewController *)self->_siriViewController setReceivedIncomingPhoneCall:active];
+    if (activeCopy)
+    {
+      isVisible = [(AFUISiriViewController *)self->_siriViewController isVisible];
+    }
+
+    else
+    {
+      isVisible = 0;
+    }
+
+    self->_instrumentationDismissalState.incomingPhoneCallDetected = isVisible;
+  }
+
+  if ([(AFUISiriViewController *)self->_siriViewController isVisible])
+  {
+    currentRequestOptions = [(AFUISiriViewController *)self->_siriViewController currentRequestOptions];
+    if ([currentRequestOptions isTypeToSiriRequest])
+    {
+    }
+
+    else
+    {
+      _isWaitingForTelephonyToStart = [(SiriPresentationViewController *)self _isWaitingForTelephonyToStart];
+
+      if (!_isWaitingForTelephonyToStart && activeCopy && outgoingCopy)
+      {
+        v9 = *MEMORY[0x277CEF098];
+        if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136315138;
+          v13 = "[SiriPresentationViewController callStateChangedToIsActive:isOutgoing:]";
+          _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation Requesting dismissal for outgoing phone call", buf, 0xCu);
+        }
+
+        v10 = [objc_alloc(MEMORY[0x277D551F0]) initWithDeactivationOptions:0 animated:1 dismissalReason:3];
+        [(SiriPresentationViewController *)self dismissWithOptions:v10];
+      }
+    }
+  }
 }
 
 - (void)_showSetupViewControllerIfNecessary
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[SiriPresentationViewController _showSetupViewControllerIfNecessary]";
+    v16 = "[SiriPresentationViewController _showSetupViewControllerIfNecessary]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #activation Siri supported but not enabled, presenting an AFUISiriSetupViewController", buf, 0xCu);
   }
 
@@ -7364,19 +7396,17 @@ void __67__SiriPresentationViewController__setSpringBoardIdleTimerDisabled___blo
   else
   {
     objc_initWeak(buf, self);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __69__SiriPresentationViewController__showSetupViewControllerIfNecessary__block_invoke;
-    v14[3] = &unk_278430900;
-    objc_copyWeak(&v15, buf);
-    [(SiriPresentationViewController *)self siriViewController:0 requestsPresentation:v14];
-    objc_destroyWeak(&v15);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __69__SiriPresentationViewController__showSetupViewControllerIfNecessary__block_invoke;
+    v13[3] = &unk_278430900;
+    objc_copyWeak(&v14, buf);
+    [(SiriPresentationViewController *)self siriViewController:0 requestsPresentation:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(buf);
   }
 
   kdebug_trace();
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__SiriPresentationViewController__showSetupViewControllerIfNecessary__block_invoke(uint64_t a1, char a2)
@@ -7495,7 +7525,7 @@ void __109__SiriPresentationViewController_startAnimationDismissalWatchdogTimerW
 
 - (void)_watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler:(id)handler shouldTurnScreenOff:(BOOL)off
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   animationDismissalTimer = [(SiriPresentationViewController *)self animationDismissalTimer];
 
@@ -7516,34 +7546,32 @@ void __109__SiriPresentationViewController_startAnimationDismissalWatchdogTimerW
   objc_initWeak(&location, self);
   v10 = objc_alloc(MEMORY[0x277CEF530]);
   v11 = MEMORY[0x277D85CD0];
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 3221225472;
-  v19 = __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler_shouldTurnScreenOff___block_invoke;
-  v20 = &unk_278430928;
-  objc_copyWeak(&v22, &location);
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler_shouldTurnScreenOff___block_invoke;
+  v19 = &unk_278430928;
+  objc_copyWeak(&v21, &location);
   v12 = handlerCopy;
-  v21 = v12;
+  v20 = v12;
   offCopy = off;
-  v13 = [v10 initWithTimeoutInterval:MEMORY[0x277D85CD0] onQueue:&v17 timeoutHandler:0.75];
-  [(SiriPresentationViewController *)self setAnimationDismissalTimer:v13, v17, v18, v19, v20];
+  v13 = [v10 initWithTimeoutInterval:MEMORY[0x277D85CD0] onQueue:&v16 timeoutHandler:0.75];
+  [(SiriPresentationViewController *)self setAnimationDismissalTimer:v13, v16, v17, v18, v19];
 
   v14 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v26 = "[SiriPresentationViewController _watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler:shouldTurnScreenOff:]";
-    v27 = 2048;
-    v28 = 0x3FE8000000000000;
+    v25 = "[SiriPresentationViewController _watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler:shouldTurnScreenOff:]";
+    v26 = 2048;
+    v27 = 0x3FE8000000000000;
     _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI - Starting animation dismissal watchdog timer for %f seconds", buf, 0x16u);
   }
 
   animationDismissalTimer3 = [(SiriPresentationViewController *)self animationDismissalTimer];
   [animationDismissalTimer3 start];
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&location);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler_shouldTurnScreenOff___block_invoke(uint64_t a1)
@@ -7570,7 +7598,7 @@ void __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissa
 
 - (void)_watchdogQueue_stopAnimationDismissalWatchdogTimerIfNeededThen:(id)then onQueue:(id)queue
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   thenCopy = then;
   animationDismissalTimer = [(SiriPresentationViewController *)self animationDismissalTimer];
@@ -7581,9 +7609,9 @@ void __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissa
   {
     if (v10)
     {
-      v13 = 136315138;
-      v14 = "[SiriPresentationViewController _watchdogQueue_stopAnimationDismissalWatchdogTimerIfNeededThen:onQueue:]";
-      _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI - Animation dismissal watchdog timer request stopping", &v13, 0xCu);
+      v12 = 136315138;
+      v13 = "[SiriPresentationViewController _watchdogQueue_stopAnimationDismissalWatchdogTimerIfNeededThen:onQueue:]";
+      _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI - Animation dismissal watchdog timer request stopping", &v12, 0xCu);
     }
 
     animationDismissalTimer2 = [(SiriPresentationViewController *)self animationDismissalTimer];
@@ -7594,14 +7622,12 @@ void __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissa
 
   else if (v10)
   {
-    v13 = 136315138;
-    v14 = "[SiriPresentationViewController _watchdogQueue_stopAnimationDismissalWatchdogTimerIfNeededThen:onQueue:]";
-    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI - Animation dismissal watchdog timer request stopping, but not needed", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[SiriPresentationViewController _watchdogQueue_stopAnimationDismissalWatchdogTimerIfNeededThen:onQueue:]";
+    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s #activation #myriadUI - Animation dismissal watchdog timer request stopping, but not needed", &v12, 0xCu);
   }
 
   dispatch_async(queueCopy, thenCopy);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAnimationDismissalWatchdogTimerIfNeededThen:(id)then onQueue:(id)queue
@@ -7641,12 +7667,10 @@ void __90__SiriPresentationViewController_stopAnimationDismissalWatchdogTimerIfN
 
 - (unint64_t)supportedInterfaceOrientations
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([(SiriPresentationOptions *)self->_currentPresentationOptions requestSource]== 54 || [(SiriPresentationOptions *)self->_currentPresentationOptions requestSource]== 57)
   {
-LABEL_3:
-    supportedInterfaceOrientations = 2;
-    goto LABEL_4;
+    return 2;
   }
 
   siriViewController = self->_siriViewController;
@@ -7654,15 +7678,14 @@ LABEL_3:
   {
     if (SiriUIDeviceIsZoomed() & 1) == 0 && (SiriUIIsAllOrientationsSupported())
     {
-      supportedInterfaceOrientations = 30;
-      goto LABEL_4;
+      return 30;
     }
 
-    goto LABEL_3;
+    return 2;
   }
 
   currentViewMode = self->_currentViewMode;
-  v8 = currentViewMode == 8 || currentViewMode == 4;
+  v7 = currentViewMode == 8 || currentViewMode == 4;
   if (currentViewMode == 4 || currentViewMode == 8)
   {
     supportedInterfaceOrientations = 2;
@@ -7673,75 +7696,70 @@ LABEL_3:
     supportedInterfaceOrientations = [(AFUISiriViewController *)siriViewController supportedInterfaceOrientations];
   }
 
-  v10 = *MEMORY[0x277CEF098];
+  v9 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"NO";
-    if (v8)
+    v10 = @"NO";
+    if (v7)
     {
-      v11 = @"YES";
+      v10 = @"YES";
     }
 
-    v12 = 136315394;
-    v13 = "[SiriPresentationViewController supportedInterfaceOrientations]";
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&dword_21FEE5000, v10, OS_LOG_TYPE_DEFAULT, "%s 🚗📱 Forcing portrait mode for Siri EyesFree: %@", &v12, 0x16u);
+    v11 = 136315394;
+    v12 = "[SiriPresentationViewController supportedInterfaceOrientations]";
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s 🚗📱 Forcing portrait mode for Siri EyesFree: %@", &v11, 0x16u);
   }
 
-LABEL_4:
-  v4 = *MEMORY[0x277D85DE8];
   return supportedInterfaceOrientations;
 }
 
 void __46__SiriPresentationViewController__waitForPing__block_invoke(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     __46__SiriPresentationViewController__waitForPing__block_invoke_cold_1();
   }
 
   v2 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = @"SiriPresentationViewController expected ping from SiriActivationService but timed out.";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = @"SiriPresentationViewController expected ping from SiriActivationService but timed out.";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.siri.activation" code:4 userInfo:v3];
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _dismissDueToUnexpectedError:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_teardownPongTimer
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v7 = "[SiriPresentationViewController _teardownPongTimer]";
+    v6 = "[SiriPresentationViewController _teardownPongTimer]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s #pingpong", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  objc_copyWeak(&v5, buf);
+  objc_copyWeak(&v4, buf);
   SiriUIInvokeOnMainQueue();
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v4);
   objc_destroyWeak(buf);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SiriPresentationViewController__teardownPongTimer__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SiriPresentationViewController _teardownPongTimer]_block_invoke";
-    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #pingpong on main thread", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SiriPresentationViewController _teardownPongTimer]_block_invoke";
+    _os_log_impl(&dword_21FEE5000, v2, OS_LOG_TYPE_DEFAULT, "%s #pingpong on main thread", &v6, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -7750,8 +7768,6 @@ void __52__SiriPresentationViewController__teardownPongTimer__block_invoke(uint6
 
   v5 = objc_loadWeakRetained((a1 + 32));
   [v5 setPongTimer:0];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_foregroundAppInfosForUIPresentationIdentifier:(id)identifier
@@ -7824,28 +7840,26 @@ LABEL_4:
 
 - (void)presentationStateProvider:(id)provider presentationStateDidChange:(id)change
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v6 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[SiriPresentationViewController presentationStateProvider:presentationStateDidChange:]";
-    v12 = 2112;
-    v13 = changeCopy;
-    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[SiriPresentationViewController presentationStateProvider:presentationStateDidChange:]";
+    v11 = 2112;
+    v12 = changeCopy;
+    _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s %@", &v9, 0x16u);
   }
 
   connection = [(SiriPresentationViewController *)self connection];
   remoteTarget = [connection remoteTarget];
   [remoteTarget didUpdatePresentationState:changeCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPresentationState:(int64_t)state
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   presentationState = self->_presentationState;
   if (presentationState != state)
   {
@@ -7856,13 +7870,13 @@ LABEL_4:
       v6 = v5;
       v7 = SiriUIPresentationStateGetName();
       v8 = SiriUIPresentationStateGetName();
-      v11 = 136315650;
-      v12 = "[SiriPresentationViewController setPresentationState:]";
-      v13 = 2112;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation updating presentation state from %@ to %@", &v11, 0x20u);
+      v10 = 136315650;
+      v11 = "[SiriPresentationViewController setPresentationState:]";
+      v12 = 2112;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      _os_log_impl(&dword_21FEE5000, v6, OS_LOG_TYPE_DEFAULT, "%s #activation updating presentation state from %@ to %@", &v10, 0x20u);
     }
 
     if ([(SiriPresentationViewController *)self siriViewControllerConfigured])
@@ -7871,8 +7885,6 @@ LABEL_4:
       [siriViewController presentationStateUpdatedFromPresentationState:presentationState toPresentationState:self->_presentationState];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_failedToPresentSiriWithError:(id)error
@@ -7895,16 +7907,16 @@ LABEL_4:
 
 - (id)_createPatternFromAHAP:(id)p
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   pCopy = p;
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = [v4 URLForResource:pCopy withExtension:@"ahap"];
 
   if (v5)
   {
-    v20 = 0;
-    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5 options:0 error:&v20];
-    v7 = v20;
+    v19 = 0;
+    v6 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v5 options:0 error:&v19];
+    v7 = v19;
     if (v7)
     {
       v8 = v7;
@@ -7912,9 +7924,9 @@ LABEL_4:
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v22 = "[SiriPresentationViewController _createPatternFromAHAP:]";
-        v23 = 2112;
-        v24 = v8;
+        v21 = "[SiriPresentationViewController _createPatternFromAHAP:]";
+        v22 = 2112;
+        v23 = v8;
         _os_log_impl(&dword_21FEE5000, v9, OS_LOG_TYPE_DEFAULT, "%s Error reading pattern file: %@", buf, 0x16u);
       }
 
@@ -7922,9 +7934,9 @@ LABEL_4:
       goto LABEL_19;
     }
 
-    v19 = 0;
-    v12 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v19];
-    v13 = v19;
+    v18 = 0;
+    v12 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v18];
+    v13 = v18;
     if (v13)
     {
       v8 = v13;
@@ -7932,9 +7944,9 @@ LABEL_4:
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v22 = "[SiriPresentationViewController _createPatternFromAHAP:]";
-        v23 = 2112;
-        v24 = v8;
+        v21 = "[SiriPresentationViewController _createPatternFromAHAP:]";
+        v22 = 2112;
+        v23 = v8;
         _os_log_impl(&dword_21FEE5000, v14, OS_LOG_TYPE_DEFAULT, "%s Error parsing JSON data: %@", buf, 0x16u);
       }
     }
@@ -7944,9 +7956,9 @@ LABEL_4:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = 0;
-        v10 = [objc_alloc(MEMORY[0x277CBF6D0]) initWithDictionary:v12 error:&v18];
-        v8 = v18;
+        v17 = 0;
+        v10 = [objc_alloc(MEMORY[0x277CBF6D0]) initWithDictionary:v12 error:&v17];
+        v8 = v17;
 LABEL_18:
 
 LABEL_19:
@@ -7957,7 +7969,7 @@ LABEL_19:
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v22 = "[SiriPresentationViewController _createPatternFromAHAP:]";
+        v21 = "[SiriPresentationViewController _createPatternFromAHAP:]";
         _os_log_impl(&dword_21FEE5000, v15, OS_LOG_TYPE_DEFAULT, "%s Error creating haptic pattern returning nil", buf, 0xCu);
       }
 
@@ -7972,27 +7984,23 @@ LABEL_19:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[SiriPresentationViewController _createPatternFromAHAP:]";
-    v23 = 2112;
-    v24 = pCopy;
+    v21 = "[SiriPresentationViewController _createPatternFromAHAP:]";
+    v22 = 2112;
+    v23 = pCopy;
     _os_log_impl(&dword_21FEE5000, v11, OS_LOG_TYPE_DEFAULT, "%s Pattern file not found: %@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (void)_setupTamaleHaptic
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke(uint64_t a1, void *a2)
@@ -8014,48 +8022,45 @@ uint64_t __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke(u
 
 - (void)_playTamaleHaptic
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   [(SiriPresentationViewController *)self _setupTamaleHaptic];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[SiriPresentationViewController _playTamaleHaptic]";
+    v7 = "[SiriPresentationViewController _playTamaleHaptic]";
     _os_log_impl(&dword_21FEE5000, v3, OS_LOG_TYPE_DEFAULT, "%s Tamale Starting haptic playback", buf, 0xCu);
   }
 
   hapticPlayer = self->hapticPlayer;
-  v6 = 0;
-  [(CHHapticPatternPlayer *)hapticPlayer startAtTime:&v6 error:0.0];
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  [(CHHapticPatternPlayer *)hapticPlayer startAtTime:&v5 error:0.0];
 }
 
 - (void)_prewarmCameraForBundleIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v14 = "[SiriPresentationViewController _prewarmCameraForBundleIdentifier:]";
-    v15 = 2114;
-    v16 = identifierCopy;
+    v13 = "[SiriPresentationViewController _prewarmCameraForBundleIdentifier:]";
+    v14 = 2114;
+    v15 = identifierCopy;
     _os_log_impl(&dword_21FEE5000, v4, OS_LOG_TYPE_DEFAULT, "%s #activation prewarming camera for bundleID '%{public}@'", buf, 0x16u);
   }
 
   v5 = *MEMORY[0x277CE5900];
-  v12[0] = *MEMORY[0x277CE58F8];
+  v11[0] = *MEMORY[0x277CE58F8];
   v6 = *MEMORY[0x277CE5918];
   v7 = [MEMORY[0x277CCABB0] numberWithLongLong:{mach_absolute_time(), v5, v6}];
-  v12[1] = v7;
-  v11[2] = *MEMORY[0x277CE5928];
+  v11[1] = v7;
+  v10[2] = *MEMORY[0x277CE5928];
   v8 = [MEMORY[0x277CCABB0] numberWithLongLong:mach_continuous_time()];
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   AVCapturePrewarmWithOptions();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_applicationStateHelper
@@ -8080,76 +8085,76 @@ uint64_t __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke(u
 
 + (id)extractTestingInputsFromContext:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = objc_opt_new();
   [contextCopy objectForKey:*MEMORY[0x277D55280]];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  obj = v39 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+  obj = v38 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v37;
+    v7 = *v36;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v37 != v7)
+        if (*v36 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v36 + 1) + 8 * i);
+        v9 = *(*(&v35 + 1) + 8 * i);
         v10 = objc_alloc(MEMORY[0x277D551B8]);
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __75__SiriPresentationViewController_Testing__extractTestingInputsFromContext___block_invoke;
-        v35[3] = &unk_278430120;
-        v35[4] = v9;
-        v11 = [v10 initWithBuilder:v35];
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __75__SiriPresentationViewController_Testing__extractTestingInputsFromContext___block_invoke;
+        v34[3] = &unk_278430120;
+        v34[4] = v9;
+        v11 = [v10 initWithBuilder:v34];
         [v4 addObject:v11];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v6 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v6);
   }
 
   v12 = [contextCopy objectForKey:{*MEMORY[0x277D55260], self}];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v32;
+    v15 = *v31;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v31 + 1) + 8 * j);
+        v17 = *(*(&v30 + 1) + 8 * j);
         v18 = objc_alloc(MEMORY[0x277D551B8]);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __75__SiriPresentationViewController_Testing__extractTestingInputsFromContext___block_invoke_2;
-        v30[3] = &unk_278430120;
-        v30[4] = v17;
-        v19 = [v18 initWithBuilder:v30];
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __75__SiriPresentationViewController_Testing__extractTestingInputsFromContext___block_invoke_2;
+        v29[3] = &unk_278430120;
+        v29[4] = v17;
+        v19 = [v18 initWithBuilder:v29];
         [v4 addObject:v19];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v31 objects:v40 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
     }
 
     while (v14);
@@ -8163,10 +8168,8 @@ uint64_t __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke(u
     v22 = [contextCopy objectForKey:v20];
     v23 = [v22 objectForKeyedSubscript:*MEMORY[0x277D55278]];
     v24 = [v22 objectForKeyedSubscript:*MEMORY[0x277D55270]];
-    [v28 _failTestWithName:v23 andFailure:v24];
+    [v27 _failTestWithName:v23 andFailure:v24];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -8192,47 +8195,45 @@ void __75__SiriPresentationViewController_Testing__extractTestingInputsFromConte
 
 - (void)_processIncomingRequestOptionsForTestingPayload:(id)payload
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   testingContext = [payloadCopy testingContext];
 
   if (testingContext)
   {
     [(SiriPresentationViewController *)self _clearAllTestingInputs];
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     testingContext2 = [payloadCopy testingContext];
     v7 = [SiriPresentationViewController extractTestingInputsFromContext:testingContext2];
 
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [(SiriPresentationViewController *)self _enqueueTestInput:*(*(&v13 + 1) + 8 * v11++)];
+          [(SiriPresentationViewController *)self _enqueueTestInput:*(*(&v12 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearAllTestingInputs
@@ -8292,261 +8293,166 @@ void __75__SiriPresentationViewController_Testing__extractTestingInputsFromConte
   }
 }
 
-void __98__SiriPresentationViewController_initWithIdentifier_hostedPresentationFrame_displayConfiguration___block_invoke_2_cold_1()
+- (void)_enableAudioInjection:(BOOL)injection audioFiles:(id)files
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __98__SiriPresentationViewController_initWithIdentifier_hostedPresentationFrame_displayConfiguration___block_invoke_99_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  injectionCopy = injection;
+  value = files;
+  CFPreferencesSetAppValue(@"Audio Injection Enabled", [MEMORY[0x277CCABB0] numberWithBool:injectionCopy], @"com.apple.voicetrigger");
+  CFPreferencesSetAppValue(@"Audio Injection File Path", value, @"com.apple.voicetrigger");
+  CFPreferencesAppSynchronize(@"com.apple.voicetrigger");
 }
 
 - (void)hasContentAtPoint:(CGFloat)a3 completion:.cold.1(void *a1, CGFloat a2, CGFloat a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v15.x = a2;
-  v15.y = a3;
-  v6 = NSStringFromCGPoint(v15);
+  v14.x = a2;
+  v14.y = a3;
+  v6 = NSStringFromCGPoint(v14);
+  v13 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_21FEE5000, v7, v8, "%s #dismissal Checking for content at point: %@", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_21FEE5000, v7, v8, "%s #dismissal Checking for content at point: %@", v9, v10, v11, v12, v13);
 }
 
 - (void)hasContentAtPoint:(CGFloat)a3 completion:.cold.2(void *a1, CGFloat a2, CGFloat a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v15.x = a2;
-  v15.y = a3;
-  v6 = NSStringFromCGPoint(v15);
+  v14.x = a2;
+  v14.y = a3;
+  v6 = NSStringFromCGPoint(v14);
+  v13 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_21FEE5000, v7, v8, "%s #dismissal Siri has content at point %@? YES", v9, v10, v11, v12, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_21FEE5000, v7, v8, "%s #dismissal Siri has content at point %@? YES", v9, v10, v11, v12, v13);
 }
 
-void __63__SiriPresentationViewController_hasContentAtPoint_completion___block_invoke_cold_1(uint64_t a1, void *a2)
+void __63__SiriPresentationViewController_hasContentAtPoint_completion___block_invoke_cold_1(uint64_t a1, void *a2, char a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
-  v4 = a2;
-  v13.x = v2;
-  v13.y = v3;
-  v5 = NSStringFromCGPoint(v13);
+  v3 = *(a1 + 40);
+  v4 = *(a1 + 48);
+  v5 = a2;
+  v12.x = v3;
+  v12.y = v4;
+  v6 = NSStringFromCGPoint(v12);
   v11 = NSStringFromBOOL();
   OUTLINED_FUNCTION_2_0();
-  _os_log_debug_impl(v6, v7, OS_LOG_TYPE_DEBUG, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v7, v8, OS_LOG_TYPE_DEBUG, v9, v10, 0x20u);
 }
 
 - (void)siriEffectsViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_21FEE5000, self, a3, "%s SiriPresentationViewController creating siri effects VC", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 136315138;
+  *(&v3 + 4) = "[SiriPresentationViewController siriEffectsViewController]";
+  OUTLINED_FUNCTION_2(&dword_21FEE5000, self, a3, "%s SiriPresentationViewController creating siri effects VC", v3);
 }
 
 - (void)didPresentLocationTCC:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3_0() debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDismissLocationTCC:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3_0() debugDescription];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activeTCCHasContentAtPoint:(os_log_t)log .cold.1(char a1, uint64_t a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = @"was not";
-  v6 = "[SiriPresentationViewController _activeTCCHasContentAtPoint:]";
-  v5 = 136315650;
+  v5 = "[SiriPresentationViewController _activeTCCHasContentAtPoint:]";
+  v4 = 136315650;
   if (a1)
   {
     v3 = @"was";
   }
 
-  v7 = 2048;
-  v8 = a2;
-  v9 = 2112;
-  v10 = v3;
-  _os_log_debug_impl(&dword_21FEE5000, log, OS_LOG_TYPE_DEBUG, "%s #location #dismissal hit testing %lu alerts - touch %@ in content.", &v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = 2048;
+  v7 = a2;
+  v8 = 2112;
+  v9 = v3;
+  _os_log_debug_impl(&dword_21FEE5000, log, OS_LOG_TYPE_DEBUG, "%s #location #dismissal hit testing %lu alerts - touch %@ in content.", &v4, 0x20u);
 }
 
 void __68__SiriPresentationViewController__tearDownSiriEffectsViewController__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SiriPresentationViewController__startDeviceScreenEngagementController__block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = [WeakRetained _deviceScreenEngagementController];
-  v10[0] = 136315650;
+  v9[0] = 136315650;
   OUTLINED_FUNCTION_5();
-  v11 = v8;
-  v12 = a3;
-  _os_log_error_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_ERROR, "%s #userAttention Failed to start device screen engagement: %{public}@, error: %{public}@", v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_shouldProceedPresentingSiriViewController
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_prepareSiriViewControllerWithRequestOptions:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v10 = v8;
+  v11 = a3;
+  _os_log_error_impl(&dword_21FEE5000, v5, OS_LOG_TYPE_ERROR, "%s #userAttention Failed to start device screen engagement: %{public}@, error: %{public}@", v9, 0x20u);
 }
 
 - (void)_viewModeForRequestOptions:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentationDismissalRequestedWithOptions:withCompletion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_presentationDismissalRequestedWithOptions:(uint64_t)a3 withCompletion:(uint64_t)a4 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+- (void)_presentationDismissalRequestedWithOptions:(uint64_t)a3 withCompletion:.cold.2(NSObject *a1, uint64_t a2, uint64_t a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_21FEE5000, a1, a3, "%s SiriPresentationViewController invalidating platform hosting instrumentation handler for dismissal", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_presentationDismissalRequestedWithOptions:withCompletion:.cold.3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cancelPendingActivationWithReason:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  LODWORD(v3) = 136315138;
+  *(&v3 + 4) = "[SiriPresentationViewController _presentationDismissalRequestedWithOptions:withCompletion:]";
+  OUTLINED_FUNCTION_2(&dword_21FEE5000, a1, a3, "%s SiriPresentationViewController invalidating platform hosting instrumentation handler for dismissal", v3);
 }
 
 - (void)siriViewController
 {
-  v9 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   callStackSymbols = [OUTLINED_FUNCTION_3_0() callStackSymbols];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dismissDueToUnexpectedError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_logSignatureWithType:subType:context:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler:shouldTurnScreenOff:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __124__SiriPresentationViewController__watchdogQueue_startAnimationDismissalWatchdogTimerWithTimeoutHandler_shouldTurnScreenOff___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __46__SiriPresentationViewController__waitForPing__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentationIdentifierFromUIPresentationIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createPatternFromAHAP:(void *)a1 .cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = objc_begin_catch(a1);
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
@@ -8555,24 +8461,13 @@ void __46__SiriPresentationViewController__waitForPing__block_invoke_cold_1()
   }
 
   objc_end_catch();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__SiriPresentationViewController__setupTamaleHaptic__block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

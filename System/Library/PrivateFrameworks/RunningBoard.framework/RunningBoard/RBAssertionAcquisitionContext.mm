@@ -6,7 +6,7 @@
 
 + (id)contextForProcess:(id)process withDescriptor:(id)descriptor daemonContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   processCopy = process;
   descriptorCopy = descriptor;
   contextCopy = context;
@@ -33,35 +33,33 @@ LABEL_3:
   objc_storeStrong(&v11->_process, process);
   objc_storeStrong(&v11->_descriptor, descriptor);
   objc_storeStrong(&v11->_daemonContext, context);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   attributes = [descriptorCopy attributes];
-  v13 = [attributes countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v13 = [attributes countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(attributes);
         }
 
-        [*(*(&v19 + 1) + 8 * i) applyToAcquisitionContext:v11];
+        [*(*(&v18 + 1) + 8 * i) applyToAcquisitionContext:v11];
       }
 
-      v14 = [attributes countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v14 = [attributes countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

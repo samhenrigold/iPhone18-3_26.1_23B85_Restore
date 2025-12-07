@@ -197,7 +197,7 @@ uint64_t __52__MFSqliteMessageIDStore_messageIDsAddedBeforeDate___block_invoke(u
 
 uint64_t __47__MFSqliteMessageIDStore_deleteUIDsNotInArray___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) _loadMailboxRowidIfNecessary:v3];
   if (*(*(a1 + 32) + 16) == -1)
@@ -206,9 +206,9 @@ uint64_t __47__MFSqliteMessageIDStore_deleteUIDsNotInArray___block_invoke(uint64
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = *(*(a1 + 32) + 8);
-      v22 = 138412290;
-      v23 = v11;
-      _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "no entry for mailbox %@?", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v11;
+      _os_log_impl(&dword_1B0389000, v10, OS_LOG_TYPE_INFO, "no entry for mailbox %@?", &v21, 0xCu);
     }
   }
 
@@ -270,7 +270,6 @@ uint64_t __47__MFSqliteMessageIDStore_deleteUIDsNotInArray___block_invoke(uint64
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

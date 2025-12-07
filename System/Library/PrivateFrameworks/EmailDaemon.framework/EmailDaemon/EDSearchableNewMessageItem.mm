@@ -52,16 +52,15 @@
 {
   v3 = sub_1C645C674();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = self + OBJC_IVAR____TtC11EmailDaemon26EDSearchableNewMessageItem_message;
-  v9 = type metadata accessor for SearchableMessage(0);
-  (*(v4 + 16))(v7, &v8[*(v9 + 24)], v3);
-  v10 = sub_1C645C614();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = self + OBJC_IVAR____TtC11EmailDaemon26EDSearchableNewMessageItem_message;
+  v8 = type metadata accessor for SearchableMessage(0);
+  (*(v4 + 16))(v6, &v7[*(v8 + 24)], v3);
+  v9 = sub_1C645C614();
+  (*(v4 + 8))(v6, v3);
 
-  return v10;
+  return v9;
 }
 
 - (id)fetchIndexableAttachments

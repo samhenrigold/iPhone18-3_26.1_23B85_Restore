@@ -15,7 +15,7 @@
 - (NSDictionary)boardItemsByIndex
 {
 
-  sub_1005B981C(&qword_1019F5740);
+  sub_1005B981C(&qword_1019F5740, &unk_101479D10);
   v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -23,7 +23,7 @@
 
 - (_TtC8Freeform26CRLCommandInsertBoardItems)initWithParentContainer:(id)container boardItemsByIndex:(id)index
 {
-  sub_1005B981C(&qword_1019F5740);
+  sub_1005B981C(&qword_1019F5740, &unk_101479D10);
   v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjectType();
   v6 = sub_100BDF940(container, v5);
@@ -34,13 +34,12 @@
 - (_TtC8Freeform26CRLCommandInsertBoardItems)initWithParentContainer:(id)container boardItem:(id)item
 {
   swift_getObjectType();
-  sub_1005B981C(&unk_101A09DB0);
+  sub_1005B981C(&unk_101A09DB0, &unk_1014B9050);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   containerCopy = container;
   itemCopy = item;
   *(inited + 32) = NSNotFound.getter();
-  sub_1005B981C(&unk_1019F4D60);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_101465920;
   *(v9 + 32) = itemCopy;
@@ -58,11 +57,10 @@
 - (_TtC8Freeform26CRLCommandInsertBoardItems)initWithParentContainer:(id)container boardItem:(id)item index:(int64_t)index
 {
   swift_getObjectType();
-  sub_1005B981C(&unk_101A09DB0);
+  sub_1005B981C(&unk_101A09DB0, &unk_1014B9050);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   *(inited + 32) = index;
-  sub_1005B981C(&unk_1019F4D60);
   v9 = swift_allocObject();
   *(v9 + 16) = xmmword_101465920;
   *(v9 + 32) = item;
@@ -83,7 +81,7 @@
   type metadata accessor for CRLBoardItem(0);
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjectType();
-  sub_1005B981C(&unk_101A09DB0);
+  sub_1005B981C(&unk_101A09DB0, &unk_1014B9050);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   containerCopy = container;
@@ -102,7 +100,7 @@
   type metadata accessor for CRLBoardItem(0);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjectType();
-  sub_1005B981C(&unk_101A09DB0);
+  sub_1005B981C(&unk_101A09DB0, &unk_1014B9050);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_10146C6B0;
   *(inited + 32) = index;

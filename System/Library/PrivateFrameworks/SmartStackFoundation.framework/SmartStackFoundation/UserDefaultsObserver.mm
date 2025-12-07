@@ -18,31 +18,28 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v9, 0, sizeof(v9));
     selfCopy2 = self;
   }
 
-  v9 = *&self->defaults[OBJC_IVAR____TtC20SmartStackFoundation20UserDefaultsObserver_changeHandler];
   (*(&self->super.isa + OBJC_IVAR____TtC20SmartStackFoundation20UserDefaultsObserver_changeHandler))(selfCopy2);
-  sub_26A05F3B4(v10);
+  sub_26A05F3B4(v9);
 }
 
 - (void)dealloc
 {
   ObjectType = swift_getObjectType();
   v4 = *(&self->super.isa + OBJC_IVAR____TtC20SmartStackFoundation20UserDefaultsObserver_defaults);
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC20SmartStackFoundation20UserDefaultsObserver_preference);
-  v6 = *&self->defaults[OBJC_IVAR____TtC20SmartStackFoundation20UserDefaultsObserver_preference];
   selfCopy = self;
-  v8 = v4;
+  v6 = v4;
 
-  v9 = sub_26A061EFC();
+  v7 = sub_26A061EFC();
 
-  [v8 removeObserver:selfCopy forKeyPath:v9];
+  [v6 removeObserver:selfCopy forKeyPath:v7];
 
-  v10.receiver = selfCopy;
-  v10.super_class = ObjectType;
-  [(UserDefaultsObserver *)&v10 dealloc];
+  v8.receiver = selfCopy;
+  v8.super_class = ObjectType;
+  [(UserDefaultsObserver *)&v8 dealloc];
 }
 
 - (_TtC20SmartStackFoundation20UserDefaultsObserver)init

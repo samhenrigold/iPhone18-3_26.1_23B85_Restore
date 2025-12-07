@@ -1,4 +1,5 @@
 @interface HMDManagedObjectCodingModel
+- (BOOL)_prepareRelatedObject:(uint64_t)object ofManagedObject:(void *)managedObject relationship:(uint64_t)relationship byReference:(uint64_t)reference context:;
 - (BOOL)_processDeferredBlocks:(id *)blocks context:;
 - (BOOL)encodeRootObject:(id)object withWriter:(id)writer changes:(id)changes conditions:(id)conditions userContext:(id)context;
 - (BOOL)isRelevantChanges:(id)changes withRootObject:(id)object conditions:(id)conditions userContext:(id)context;
@@ -7,8 +8,8 @@
 - (HMDManagedObjectCodingModel)initWithModel:(id)model configNamespace:(id)namespace rootEntity:(id)entity options:(unint64_t)options;
 - (HMDManagedObjectCodingModel)initWithModel:(id)model configNamespace:(id)namespace rootEntityName:(id)name;
 - (HMDManagedObjectCodingModel)initWithModel:(id)model configNamespace:(id)namespace rootEntityName:(id)name options:(unint64_t)options;
-- (id)_decodeManagedObjectWithDescription:(int)description byReference:(int)reference useDynamicType:(uint64_t)type context:(uint64_t)context lookupBlock:(uint64_t)block emplaceBlock:;
-- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(uint64_t)reference useDynamicType:(uint64_t)type candidates:context:orEmplaceWithBlock:;
+- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type candidates:(uint64_t)candidates context:(uint64_t)context orEmplaceWithBlock:;
+- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type context:(uint64_t)context lookupBlock:(uint64_t)block emplaceBlock:;
 - (id)_managedObjectWithDescription:(void *)description matchingKeyAttributes:(uint64_t)attributes context:;
 - (id)_readKeyAttributesWithDescription:(void *)description typeID:(int)d byReference:(id *)reference context:;
 - (id)_readValueForAttribute:(void *)attribute context:(id *)context;
@@ -25,15 +26,14 @@
 - (id)reverseLookupTableForCodingKeyTable:(void *)table;
 - (id)subentityOfDescription:(id)description withTypeID:(id)d;
 - (id)typeIdForEntity:(uint64_t)entity;
-- (uint64_t)_conditionallyEncodeChildObject:(uint64_t)object withDescription:(void *)description forRelationship:(uint64_t)relationship byReference:(unsigned int)reference useDynamicType:(uint64_t)type context:;
+- (uint64_t)_conditionallyEncodeChildObject:(void *)object withDescription:(void *)description forRelationship:(uint64_t)relationship byReference:(int)reference useDynamicType:(uint64_t)type context:;
 - (uint64_t)_managedObject:(uint64_t)object withDescription:(void *)description matchesKeyAttributes:;
-- (uint64_t)_prepareRelatedObject:(uint64_t)object ofManagedObject:(void *)managedObject relationship:(char)relationship byReference:(uint64_t)reference context:;
 - (uint64_t)contextualizeConditions:(void *)conditions forManagedObject:(uint64_t)object userContext:;
 - (uint64_t)includeModeForProperty:(uint64_t)property withDefault:;
 - (void)_buildPredicateAtoms:(void *)atoms withDescription:(uint64_t)description keyPathPrefix:(void *)prefix values:;
 - (void)_encodeAttribute:(void *)attribute ofManagedObject:(uint64_t)object context:;
 - (void)_encodeKeyAttributesOfManagedObject:(void *)object withDescription:(uint64_t)description typeID:(int)d byReference:(id *)reference context:;
-- (void)_encodeManagedObject:(void *)object withDescription:(int)description byReference:(int)reference useDynamicType:(uint64_t)type context:;
+- (void)_encodeManagedObject:(void *)object withDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type context:;
 - (void)_encodeRelationship:(void *)relationship ofManagedObject:(uint64_t)object context:;
 - (void)_encodeValue:(void *)value forAttribute:(void *)attribute context:;
 @end
@@ -112,7 +112,7 @@
 
 - (HMDManagedObjectCodingModel)initWithModel:(id)model configNamespace:(id)namespace rootEntity:(id)entity options:(unint64_t)options
 {
-  v183 = *MEMORY[0x277D85DE8];
+  v179 = *MEMORY[0x277D85DE8];
   if (!model)
   {
     _HMFPreconditionFailure();
@@ -126,9 +126,8 @@ LABEL_108:
 LABEL_109:
     _HMFPreconditionFailure();
 LABEL_110:
-    [v146 name];
+    [v142 name];
     objc_claimAutoreleasedReturnValue();
-    keyAttributesConfigKey = v6->_keyAttributesConfigKey;
     _HMFPreconditionFailureWithFormat();
 LABEL_113:
     __break(1u);
@@ -139,49 +138,49 @@ LABEL_113:
     goto LABEL_109;
   }
 
-  v162.receiver = self;
-  v162.super_class = HMDManagedObjectCodingModel;
-  v10 = [(HMDManagedObjectCodingModel *)&v162 init];
-  v6 = v10;
-  if (v10)
+  v158.receiver = self;
+  v158.super_class = HMDManagedObjectCodingModel;
+  v9 = [(HMDManagedObjectCodingModel *)&v158 init];
+  v10 = v9;
+  if (v9)
   {
-    objc_storeStrong(&v10->_model, model);
-    v6->_options = options;
+    objc_storeStrong(&v9->_model, model);
+    v10->_options = options;
     v11 = [namespace stringByAppendingString:@"TypeID"];
-    typeIDConfigKey = v6->_typeIDConfigKey;
-    v6->_typeIDConfigKey = v11;
+    typeIDConfigKey = v10->_typeIDConfigKey;
+    v10->_typeIDConfigKey = v11;
 
     v13 = [namespace stringByAppendingString:@"KeyAttributes"];
-    v14 = v6->_keyAttributesConfigKey;
-    v6->_keyAttributesConfigKey = v13;
+    keyAttributesConfigKey = v10->_keyAttributesConfigKey;
+    v10->_keyAttributesConfigKey = v13;
 
     v15 = [namespace stringByAppendingString:@"RefContext"];
-    refContextConfigKey = v6->_refContextConfigKey;
-    v6->_refContextConfigKey = v15;
+    refContextConfigKey = v10->_refContextConfigKey;
+    v10->_refContextConfigKey = v15;
 
     v17 = [namespace stringByAppendingString:@"Include"];
-    includeConfigKey = v6->_includeConfigKey;
-    v6->_includeConfigKey = v17;
+    includeConfigKey = v10->_includeConfigKey;
+    v10->_includeConfigKey = v17;
 
     v19 = [namespace stringByAppendingString:@"Key"];
-    codingKeyConfigKey = v6->_codingKeyConfigKey;
-    v6->_codingKeyConfigKey = v19;
+    codingKeyConfigKey = v10->_codingKeyConfigKey;
+    v10->_codingKeyConfigKey = v19;
 
     v21 = [namespace stringByAppendingFormat:@"Transformer"];
-    transformerConfigKey = v6->_transformerConfigKey;
-    v6->_transformerConfigKey = v21;
+    transformerConfigKey = v10->_transformerConfigKey;
+    v10->_transformerConfigKey = v21;
 
     v23 = [namespace stringByAppendingString:@"Inline"];
-    inlineConfigKey = v6->_inlineConfigKey;
-    v6->_inlineConfigKey = v23;
+    inlineConfigKey = v10->_inlineConfigKey;
+    v10->_inlineConfigKey = v23;
 
     v25 = [namespace stringByAppendingString:@"Conditional"];
-    conditionalConfigKey = v6->_conditionalConfigKey;
-    v6->_conditionalConfigKey = v25;
+    conditionalConfigKey = v10->_conditionalConfigKey;
+    v10->_conditionalConfigKey = v25;
 
     v27 = [namespace stringByAppendingString:@"ContextualizeConditions:userContext:"];
     v28 = NSSelectorFromString(v27);
-    p_contextualizeConditionsSelector = &v6->_contextualizeConditionsSelector;
+    p_contextualizeConditionsSelector = &v10->_contextualizeConditionsSelector;
     if (v28)
     {
       v29 = v28;
@@ -192,11 +191,11 @@ LABEL_113:
       v29 = 0;
     }
 
-    v6->_contextualizeConditionsSelector = v29;
+    v10->_contextualizeConditionsSelector = v29;
 
     v30 = [namespace stringByAppendingString:@"AttributeValueForKey:userContext:"];
     v31 = NSSelectorFromString(v30);
-    p_attributeValueForKeySelector = &v6->_attributeValueForKeySelector;
+    p_attributeValueForKeySelector = &v10->_attributeValueForKeySelector;
     if (v31)
     {
       v32 = v31;
@@ -207,13 +206,13 @@ LABEL_113:
       v32 = 0;
     }
 
-    v6->_attributeValueForKeySelector = v32;
+    v10->_attributeValueForKeySelector = v32;
 
     v33 = objc_alloc_init(MEMORY[0x277CBEB40]);
-    conditions = v6->_conditions;
-    v6->_conditions = v33;
+    conditions = v10->_conditions;
+    v10->_conditions = v33;
 
-    v145 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v141 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v35 = [MEMORY[0x277CBEB18] arrayWithObject:entity];
     if ([v35 count])
     {
@@ -222,7 +221,7 @@ LABEL_113:
         obj = [v35 lastObject];
         [v35 removeLastObject];
         name = [obj name];
-        v36 = [v145 objectForKeyedSubscript:name];
+        v36 = [v141 objectForKeyedSubscript:name];
 
         if (!v36)
         {
@@ -238,76 +237,76 @@ LABEL_100:
       }
 
       v37 = [HMDEntityCodingDescription alloc];
-      if (!v37 || (v163.receiver = v37, v163.super_class = HMDEntityCodingDescription, v38 = [(HMDManagedObjectCodingModel *)&v163 init], (v147 = v38) == 0))
+      if (!v37 || (v159.receiver = v37, v159.super_class = HMDEntityCodingDescription, v38 = [(HMDManagedObjectCodingModel *)&v159 init], (v143 = v38) == 0))
       {
         v48 = 0;
 LABEL_80:
         v115 = v48;
-        [v145 setObject:? forKeyedSubscript:?];
-        v160 = 0u;
-        v161 = 0u;
-        v158 = 0u;
-        v159 = 0u;
+        [v141 setObject:? forKeyedSubscript:?];
+        v156 = 0u;
+        v157 = 0u;
+        v154 = 0u;
+        v155 = 0u;
         concreteSubentitiesByTypeID = [(HMDManagedObjectCodingModel *)v115 concreteSubentitiesByTypeID];
         allValues = [concreteSubentitiesByTypeID allValues];
 
-        v118 = [allValues countByEnumeratingWithState:&v158 objects:v175 count:16];
+        v118 = [allValues countByEnumeratingWithState:&v154 objects:v171 count:16];
         if (v118)
         {
-          v119 = *v159;
+          v119 = *v155;
           do
           {
             for (i = 0; i != v118; ++i)
             {
-              if (*v159 != v119)
+              if (*v155 != v119)
               {
                 objc_enumerationMutation(allValues);
               }
 
-              if (*(*(&v158 + 1) + 8 * i) != obj)
+              if (*(*(&v154 + 1) + 8 * i) != obj)
               {
                 [v35 addObject:?];
               }
             }
 
-            v118 = [allValues countByEnumeratingWithState:&v158 objects:v175 count:16];
+            v118 = [allValues countByEnumeratingWithState:&v154 objects:v171 count:16];
           }
 
           while (v118);
         }
 
-        v156 = 0u;
-        v157 = 0u;
-        v154 = 0u;
-        v155 = 0u;
+        v152 = 0u;
+        v153 = 0u;
+        v150 = 0u;
+        v151 = 0u;
         relationshipsByCodingKey = [(HMDManagedObjectCodingModel *)v115 relationshipsByCodingKey];
         allValues2 = [relationshipsByCodingKey allValues];
 
-        v123 = [allValues2 countByEnumeratingWithState:&v154 objects:v174 count:16];
+        v123 = [allValues2 countByEnumeratingWithState:&v150 objects:v170 count:16];
         if (v123)
         {
-          v124 = *v155;
+          v124 = *v151;
           do
           {
             for (j = 0; j != v123; ++j)
             {
-              if (*v155 != v124)
+              if (*v151 != v124)
               {
                 objc_enumerationMutation(allValues2);
               }
 
-              v126 = *(*(&v154 + 1) + 8 * j);
+              v126 = *(*(&v150 + 1) + 8 * j);
               relationship = [v126 relationship];
               destinationEntity = [relationship destinationEntity];
               [v35 addObject:destinationEntity];
 
-              if (!v6->_hasAnyReferenceRelationships && [v126 isReference])
+              if (!v10->_hasAnyReferenceRelationships && [v126 isReference])
               {
-                v6->_hasAnyReferenceRelationships = 1;
+                v10->_hasAnyReferenceRelationships = 1;
               }
             }
 
-            v123 = [allValues2 countByEnumeratingWithState:&v154 objects:v174 count:16];
+            v123 = [allValues2 countByEnumeratingWithState:&v150 objects:v170 count:16];
           }
 
           while (v123);
@@ -317,21 +316,21 @@ LABEL_80:
       }
 
       objc_storeStrong(&v38->_model, obj);
-      v39 = [(HMDManagedObjectCodingModel *)v6 typeIdForEntity:?];
-      options = v147->_options;
-      v147->_options = v39;
+      v39 = [(HMDManagedObjectCodingModel *)v10 typeIdForEntity:?];
+      options = v143->_options;
+      v143->_options = v39;
 
-      v41 = v6->_keyAttributesConfigKey;
+      v41 = v10->_keyAttributesConfigKey;
       v42 = obj;
-      v146 = v42;
+      v142 = v42;
       if (v42)
       {
-        v143 = v41;
+        v139 = v41;
         v43 = v42;
         do
         {
           userInfo = [v43 userInfo];
-          v45 = [userInfo objectForKeyedSubscript:v6->_keyAttributesConfigKey];
+          v45 = [userInfo objectForKeyedSubscript:v10->_keyAttributesConfigKey];
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -344,21 +343,21 @@ LABEL_80:
             v46 = 0;
           }
 
-          v151 = v46;
+          v147 = v46;
 
           superentity = [v43 superentity];
 
           v43 = superentity;
         }
 
-        while (superentity && !v151);
-        if (v151)
+        while (superentity && !v147);
+        if (v147)
         {
-          firstObject = [v151 componentsSeparatedByString:{@", "}];
+          firstObject = [v147 componentsSeparatedByString:{@", "}];
           goto LABEL_28;
         }
 
-        v41 = v143;
+        v41 = v139;
       }
 
       else
@@ -366,50 +365,47 @@ LABEL_80:
         superentity = 0;
       }
 
-      uniquenessConstraints = [v146 uniquenessConstraints];
+      uniquenessConstraints = [v142 uniquenessConstraints];
       firstObject = [uniquenessConstraints firstObject];
 
-      v151 = 0;
-      v143 = @"unique constraint";
+      v147 = 0;
+      v139 = @"unique constraint";
 LABEL_28:
       if (![firstObject count])
       {
         goto LABEL_110;
       }
 
-      attributesByName = [v146 attributesByName];
+      attributesByName = [v142 attributesByName];
       v51 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(firstObject, "count")}];
-      v166 = 0u;
-      v167 = 0u;
-      v164 = 0u;
-      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
+      v160 = 0u;
+      v161 = 0u;
       v52 = firstObject;
-      v53 = [v52 countByEnumeratingWithState:&v164 objects:buf count:16];
+      v53 = [v52 countByEnumeratingWithState:&v160 objects:buf count:16];
       if (v53)
       {
-        v54 = *v165;
+        v54 = *v161;
         do
         {
           for (k = 0; k != v53; ++k)
           {
-            if (*v165 != v54)
+            if (*v161 != v54)
             {
               objc_enumerationMutation(v52);
             }
 
-            v56 = [attributesByName objectForKeyedSubscript:*(*(&v164 + 1) + 8 * k)];
+            v56 = [attributesByName objectForKeyedSubscript:*(*(&v160 + 1) + 8 * k)];
             v57 = v56;
             if (!v56)
             {
-              [v146 name];
-              objc_claimAutoreleasedReturnValue();
-              _HMFPreconditionFailureWithFormat();
-              goto LABEL_113;
+              goto LABEL_110;
             }
 
             if ([v56 isOptional])
             {
-              [v146 name];
+              [v142 name];
               objc_claimAutoreleasedReturnValue();
               [v57 name];
               objc_claimAutoreleasedReturnValue();
@@ -420,85 +416,85 @@ LABEL_28:
             [v51 addObject:v57];
           }
 
-          v53 = [v52 countByEnumeratingWithState:&v164 objects:buf count:16];
+          v53 = [v52 countByEnumeratingWithState:&v160 objects:buf count:16];
         }
 
         while (v53);
       }
 
-      v58 = [v51 copy];
-      v59 = [(HMDManagedObjectCodingModel *)v6 mutableCodingKeyTableForProperties:v58];
-      v60 = [v59 copy];
-      v61 = *&v147->_hasAnyReferenceRelationships;
-      *&v147->_hasAnyReferenceRelationships = v60;
+      v58 = objc_msgSend_copy(v51);
+      v59 = [(HMDManagedObjectCodingModel *)v10 mutableCodingKeyTableForProperties:v58];
+      v60 = objc_msgSend_copy(v59);
+      v61 = *&v143->_hasAnyReferenceRelationships;
+      *&v143->_hasAnyReferenceRelationships = v60;
 
-      [*&v147->_hasAnyReferenceRelationships enumerateKeysAndObjectsUsingBlock:&__block_literal_global_64822];
-      attributesByName2 = [v146 attributesByName];
+      [*&v143->_hasAnyReferenceRelationships enumerateKeysAndObjectsUsingBlock:&__block_literal_global_64822];
+      attributesByName2 = [v142 attributesByName];
       allValues3 = [attributesByName2 allValues];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __57__HMDManagedObjectCodingModel_syncedAttributesForEntity___block_invoke;
-      v177 = &unk_2786751A8;
-      v178 = v6;
-      v152 = [allValues3 hmf_objectsPassingTest:buf];
+      v173 = &unk_2786751A8;
+      v174 = v10;
+      v148 = [allValues3 hmf_objectsPassingTest:buf];
 
-      v64 = [(HMDManagedObjectCodingModel *)v6 mutableCodingKeyTableForProperties:v152];
-      allKeys = [*&v147->_hasAnyReferenceRelationships allKeys];
+      v64 = [(HMDManagedObjectCodingModel *)v10 mutableCodingKeyTableForProperties:v148];
+      allKeys = [*&v143->_hasAnyReferenceRelationships allKeys];
       [v64 removeObjectsForKeys:allKeys];
 
-      v66 = [v64 copy];
-      v67 = v147->_typeIDConfigKey;
-      v147->_typeIDConfigKey = v66;
+      v66 = objc_msgSend_copy(v64);
+      v67 = v143->_typeIDConfigKey;
+      v143->_typeIDConfigKey = v66;
 
       v68 = [HMDManagedObjectCodingModel reverseLookupTableForCodingKeyTable:?];
-      v69 = v147->_keyAttributesConfigKey;
-      v147->_keyAttributesConfigKey = v68;
+      v69 = v143->_keyAttributesConfigKey;
+      v143->_keyAttributesConfigKey = v68;
 
-      relationshipsByName = [v146 relationshipsByName];
+      relationshipsByName = [v142 relationshipsByName];
       allValues4 = [relationshipsByName allValues];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __60__HMDManagedObjectCodingModel_syncedRelationshipsForEntity___block_invoke;
-      v177 = &unk_2786751D0;
-      v178 = v6;
-      v179 = v146;
-      v150 = [allValues4 hmf_objectsPassingTest:buf];
+      v173 = &unk_2786751D0;
+      v174 = v10;
+      v175 = v142;
+      v146 = [allValues4 hmf_objectsPassingTest:buf];
 
-      v72 = [(HMDManagedObjectCodingModel *)v6 mutableCodingKeyTableForProperties:v150];
-      v73 = [v72 copy];
-      v74 = v147->_refContextConfigKey;
-      v147->_refContextConfigKey = v73;
+      v72 = [(HMDManagedObjectCodingModel *)v10 mutableCodingKeyTableForProperties:v146];
+      v73 = objc_msgSend_copy(v72);
+      v74 = v143->_refContextConfigKey;
+      v143->_refContextConfigKey = v73;
 
       v75 = [HMDManagedObjectCodingModel reverseLookupTableForCodingKeyTable:?];
-      v76 = v147->_includeConfigKey;
-      v147->_includeConfigKey = v75;
+      v76 = v143->_includeConfigKey;
+      v143->_includeConfigKey = v75;
 
-      relationshipsByName2 = [v146 relationshipsByName];
+      relationshipsByName2 = [v142 relationshipsByName];
       allValues5 = [relationshipsByName2 allValues];
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __60__HMDManagedObjectCodingModel_parentRelationshipsForEntity___block_invoke;
-      v177 = &unk_2786751D0;
-      v178 = v6;
-      v179 = v146;
+      v173 = &unk_2786751D0;
+      v174 = v10;
+      v175 = v142;
       v79 = [allValues5 hmf_objectsPassingTest:buf];
 
-      v80 = v147->_codingKeyConfigKey;
-      v147->_codingKeyConfigKey = v79;
+      v80 = v143->_codingKeyConfigKey;
+      v143->_codingKeyConfigKey = v79;
 
       v81 = objc_alloc_init(MEMORY[0x277CBEB38]);
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __68__HMDManagedObjectCodingModel_concreteSubentitiesByTypeIDForEntity___block_invoke;
-      v177 = &unk_278675158;
-      v178 = v6;
-      v179 = v81;
-      v180 = v146;
+      v173 = &unk_278675158;
+      v174 = v10;
+      v175 = v81;
+      v176 = v142;
       v82 = v81;
-      [v146 hmd_recursivelyEnumerateSubentitiesUsingBlock:buf];
-      v83 = [v82 copy];
+      [v142 hmd_recursivelyEnumerateSubentitiesUsingBlock:buf];
+      v83 = objc_msgSend_copy(v82);
 
-      if ([v83 count] > 1 || objc_msgSend(v146, "isAbstract"))
+      if ([v83 count] > 1 || objc_msgSend(v142, "isAbstract"))
       {
         v84 = v83;
       }
@@ -508,9 +504,9 @@ LABEL_28:
         v84 = 0;
       }
 
-      objc_storeStrong(&v147->_transformerConfigKey, v84);
-      userInfo2 = [v146 userInfo];
-      v86 = [userInfo2 objectForKeyedSubscript:v6->_refContextConfigKey];
+      objc_storeStrong(&v143->_transformerConfigKey, v84);
+      userInfo2 = [v142 userInfo];
+      v86 = [userInfo2 objectForKeyedSubscript:v10->_refContextConfigKey];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -527,74 +523,69 @@ LABEL_28:
 
       if (v88)
       {
-        *&v164 = 0;
-        *(&v164 + 1) = &v164;
-        *&v165 = 0x3032000000;
-        *(&v165 + 1) = __Block_byref_object_copy__64831;
-        *&v166 = __Block_byref_object_dispose__64832;
-        *(&v166 + 1) = 0;
+        *&v160 = 0;
+        *(&v160 + 1) = &v160;
+        *&v161 = 0x3032000000;
+        *(&v161 + 1) = __Block_byref_object_copy__64831;
+        *&v162 = __Block_byref_object_dispose__64832;
+        *(&v162 + 1) = 0;
         v89 = [(NSDictionary *)v88 rangeOfString:@"="];
         v90 = v89;
         if (v89 != 0x7FFFFFFFFFFFFFFFLL)
         {
           if (!v89 || v89 + 1 >= [(NSDictionary *)v88 length])
           {
-            v138 = v6->_refContextConfigKey;
-            [v146 name];
-            objc_claimAutoreleasedReturnValue();
-            _HMFPreconditionFailureWithFormat();
-            goto LABEL_113;
+            goto LABEL_110;
           }
 
           v91 = [(NSDictionary *)v88 substringToIndex:v90];
-          v92 = *(*(&v164 + 1) + 40);
-          *(*(&v164 + 1) + 40) = v91;
+          v92 = *(*(&v160 + 1) + 40);
+          *(*(&v160 + 1) + 40) = v91;
 
           v86 = [(NSDictionary *)v88 substringFromIndex:v90 + 1];
         }
 
-        v168 = 0;
-        v169 = &v168;
-        v170 = 0x3032000000;
-        v171 = __Block_byref_object_copy__64831;
-        v172 = __Block_byref_object_dispose__64832;
-        v93 = v146;
-        v173 = v93;
+        v164 = 0;
+        v165 = &v164;
+        v166 = 0x3032000000;
+        v167 = __Block_byref_object_copy__64831;
+        v168 = __Block_byref_object_dispose__64832;
+        v93 = v142;
+        v169 = v93;
         v94 = [(NSDictionary *)v86 componentsSeparatedByString:@"."];
         v95 = [v94 count];
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __76__HMDManagedObjectCodingModel_refContextCodingKey_keyPath_entity_forEntity___block_invoke;
-        v177 = &unk_278675180;
-        v178 = v6;
-        v179 = v93;
-        v180 = &v168;
-        v181 = &v164;
-        v182 = v95 - 1;
+        v173 = &unk_278675180;
+        v174 = v10;
+        v175 = v93;
+        v176 = &v164;
+        v177 = &v160;
+        v178 = v95 - 1;
         [v94 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-        objc_storeStrong(&v147->_root, *(*(&v164 + 1) + 40));
-        descriptions = v147->_descriptions;
-        v147->_descriptions = v86;
+        objc_storeStrong(&v143->_root, *(*(&v160 + 1) + 40));
+        descriptions = v143->_descriptions;
+        v143->_descriptions = v86;
         v97 = v86;
 
-        objc_storeStrong(&v147->_conditions, v169[5]);
-        _Block_object_dispose(&v168, 8);
-
+        objc_storeStrong(&v143->_conditions, v165[5]);
         _Block_object_dispose(&v164, 8);
-        v98 = [*&v147->_hasAnyReferenceRelationships objectForKeyedSubscript:v147->_root];
+
+        _Block_object_dispose(&v160, 8);
+        v98 = [*&v143->_hasAnyReferenceRelationships objectForKeyedSubscript:v143->_root];
         LOBYTE(v97) = v98 == 0;
 
         if ((v97 & 1) == 0)
         {
           [v93 name];
           objc_claimAutoreleasedReturnValue();
-          root = v147->_root;
           _HMFPreconditionFailureWithFormat();
           goto LABEL_113;
         }
       }
 
-      managedObjectClassName = [v146 managedObjectClassName];
+      managedObjectClassName = [v142 managedObjectClassName];
       v100 = NSClassFromString(managedObjectClassName);
 
       if (*p_contextualizeConditionsSelector)
@@ -633,7 +624,7 @@ LABEL_28:
             *&buf[12] = 2114;
             *&buf[14] = v100;
             *&buf[22] = 2114;
-            v177 = v107;
+            v173 = v107;
             _os_log_impl(&dword_229538000, v104, OS_LOG_TYPE_ERROR, "%{public}@Failed to add default [%{public}@ %{public}@] implementation", buf, 0x20u);
           }
 
@@ -677,7 +668,7 @@ LABEL_28:
             *&buf[12] = 2114;
             *&buf[14] = v100;
             *&buf[22] = 2114;
-            v177 = v114;
+            v173 = v114;
             _os_log_impl(&dword_229538000, v111, OS_LOG_TYPE_ERROR, "%{public}@Failed to add default [%{public}@ %{public}@] implementation", buf, 0x20u);
           }
 
@@ -685,33 +676,32 @@ LABEL_28:
         }
       }
 
-      v48 = v147;
+      v48 = v143;
       goto LABEL_80;
     }
 
 LABEL_101:
     name2 = [entity name];
-    v130 = [v145 objectForKeyedSubscript:name2];
-    v131 = v6->_root;
-    v6->_root = v130;
+    v130 = [v141 objectForKeyedSubscript:name2];
+    root = v10->_root;
+    v10->_root = v130;
 
-    v132 = [v145 copy];
-    v133 = v6->_descriptions;
-    v6->_descriptions = v132;
+    v132 = objc_msgSend_copy(v141);
+    v133 = v10->_descriptions;
+    v10->_descriptions = v132;
 
-    v134 = [(NSOrderedSet *)v6->_conditions count];
-    v135 = v6->_conditions;
+    v134 = [(NSOrderedSet *)v10->_conditions count];
+    v135 = v10->_conditions;
     if (v134)
     {
-      v134 = [(NSOrderedSet *)v135 copy];
-      v135 = v6->_conditions;
+      v134 = objc_msgSend_copy(v135);
+      v135 = v10->_conditions;
     }
 
-    v6->_conditions = v134;
+    v10->_conditions = v134;
   }
 
-  v136 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v10;
 }
 
 - (id)typeIdForEntity:(uint64_t)entity
@@ -757,70 +747,69 @@ LABEL_101:
 
 - (id)mutableCodingKeyTableForProperties:(uint64_t)properties
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(a2, "count")}];
+  v45 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
   obj = a2;
-  v5 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
+  v5 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v49;
-    v8 = *MEMORY[0x277CCA310];
-    v44 = *MEMORY[0x277CCA310];
-    v45 = *v49;
+    v7 = *v46;
+    v41 = *MEMORY[0x277CCA310];
+    v42 = *v46;
     do
     {
-      v9 = 0;
-      v46 = v6;
+      v8 = 0;
+      v43 = v6;
       do
       {
-        if (*v49 != v7)
+        if (*v46 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v48 + 1) + 8 * v9);
-        v11 = [(HMDManagedObjectCodingModel *)properties codingKeyForProperty:v10];
-        v12 = [v4 objectForKeyedSubscript:v11];
-        if (v12)
+        v9 = *(*(&v45 + 1) + 8 * v8);
+        v10 = [(HMDManagedObjectCodingModel *)properties codingKeyForProperty:v9];
+        v11 = [v4 objectForKeyedSubscript:v10];
+        if (v11)
         {
-          v35 = v12;
-          [v10 entity];
+          v33 = v11;
+          [v9 entity];
           properties = [objc_claimAutoreleasedReturnValue() name];
-          name = [v35 name];
-          [v10 name];
-          v43 = v42 = name;
+          name = [v33 name];
+          [v9 name];
+          v40 = v39 = name;
           propertiesCopy = properties;
-          name3 = v11;
+          name3 = v10;
           _HMFPreconditionFailureWithFormat();
 LABEL_51:
-          v37 = *(properties + 96);
+          v35 = *(properties + 96);
 LABEL_53:
-          [v10 entity];
+          [v9 entity];
           name2 = [objc_claimAutoreleasedReturnValue() name];
-          [v10 name];
-          v42 = name3 = name2;
-          propertiesCopy = v37;
+          [v9 name];
+          v39 = name3 = name2;
+          propertiesCopy = v35;
           _HMFPreconditionFailureWithFormat();
 LABEL_54:
-          [v10 entity];
-          properties = [objc_claimAutoreleasedReturnValue() name];
-          name3 = [v10 name];
-          v42 = v7;
+          [v9 entity];
+          [objc_claimAutoreleasedReturnValue() name];
+          objc_claimAutoreleasedReturnValue();
+          name3 = [v9 name];
+          v39 = v7;
           _HMFPreconditionFailureWithFormat();
 LABEL_55:
           propertiesCopy = objc_opt_class();
           _HMFPreconditionFailureWithFormat();
 LABEL_56:
-          v39 = *(properties + 104);
-          [v10 entity];
+          [v9 entity];
           [objc_claimAutoreleasedReturnValue() name];
           objc_claimAutoreleasedReturnValue();
-          [v10 name];
+          [v9 name];
           objc_claimAutoreleasedReturnValue();
           _HMFPreconditionFailureWithFormat();
         }
@@ -828,104 +817,104 @@ LABEL_56:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13 = [HMDAttributeCodingDescription alloc];
-          if (v13)
+          v12 = [HMDAttributeCodingDescription alloc];
+          if (v12)
           {
-            v14 = [(HMDPropertyCodingDescription *)v13 initWithModel:properties property:v10];
-            if (!v14)
+            v13 = [(HMDPropertyCodingDescription *)v12 initWithModel:properties property:v9];
+            if (!v13)
             {
               goto LABEL_43;
             }
 
-            attributeType = [v10 attributeType];
-            userInfo = [v10 userInfo];
+            attributeType = [v9 attributeType];
+            userInfo = [v9 userInfo];
             v7 = [userInfo objectForKeyedSubscript:*(properties + 96)];
 
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v17 = v7;
+              v16 = v7;
             }
 
             else
             {
-              v17 = 0;
+              v16 = 0;
             }
 
-            v18 = v17;
+            v17 = v16;
 
-            if (v18 && attributeType != 1800)
+            if (v17 && attributeType != 1800)
             {
               goto LABEL_51;
             }
 
             if (attributeType != 1800)
             {
-              v19 = 0;
+              v18 = 0;
 LABEL_30:
 
-              v27 = v14[5];
-              v14[5] = v19;
+              v26 = v13[5];
+              v13[5] = v18;
 
-              attributeType2 = [v10 attributeType];
-              userInfo2 = [v10 userInfo];
+              attributeType2 = [v9 attributeType];
+              userInfo2 = [v9 userInfo];
               v7 = [userInfo2 objectForKeyedSubscript:*(properties + 104)];
 
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v30 = v7;
+                v29 = v7;
               }
 
               else
               {
-                v30 = 0;
+                v29 = 0;
               }
 
-              v31 = v30;
+              v30 = v29;
 
-              if (v31 && attributeType2 != 1800)
+              if (v30 && attributeType2 != 1800)
               {
-                v37 = *(properties + 104);
+                v35 = *(properties + 104);
                 goto LABEL_53;
               }
 
-              if (v31)
+              if (v30)
               {
-                v7 = v45;
-                if ([v31 isEqualToString:@"YES"])
+                v7 = v42;
+                if ([v30 isEqualToString:@"YES"])
                 {
-                  v21 = 1;
+                  v20 = 1;
                 }
 
                 else
                 {
-                  if (([v31 isEqualToString:@"NO"] & 1) == 0)
+                  if (([v30 isEqualToString:@"NO"] & 1) == 0)
                   {
                     goto LABEL_56;
                   }
 
-                  v21 = 0;
+                  v20 = 0;
                 }
               }
 
               else
               {
-                v21 = 1;
-                v7 = v45;
+                v20 = 1;
+                v7 = v42;
               }
 
-              v22 = &OBJC_IVAR___HMDAttributeCodingDescription__shouldInline;
-              v6 = v46;
+              v21 = &OBJC_IVAR___HMDAttributeCodingDescription__shouldInline;
+              v6 = v43;
 LABEL_42:
-              *(v14 + *v22) = v21;
+              *(v13 + *v21) = v20;
               goto LABEL_43;
             }
 
-            if (v18)
+            if (v17)
             {
-              v23 = @"HMDIdentityTransformer";
-              if (([v18 isEqualToString:@"none"] & 1) == 0)
+              v22 = @"HMDIdentityTransformer";
+              if (([v17 isEqualToString:@"none"] & 1) == 0)
               {
                 goto LABEL_28;
               }
@@ -933,27 +922,27 @@ LABEL_42:
 
             else
             {
-              valueTransformerName = [v10 valueTransformerName];
-              v18 = valueTransformerName;
-              v25 = v44;
+              valueTransformerName = [v9 valueTransformerName];
+              v17 = valueTransformerName;
+              v24 = v41;
               if (valueTransformerName)
               {
-                v25 = valueTransformerName;
+                v24 = valueTransformerName;
               }
 
-              v23 = v25;
+              v22 = v24;
             }
 
-            v7 = v23;
+            v7 = v22;
 LABEL_28:
-            v26 = [HMDValueTransformer valueTransformerForName:v7];
-            if (!v26)
+            v25 = [HMDValueTransformer valueTransformerForName:v7];
+            if (!v25)
             {
               goto LABEL_54;
             }
 
-            v19 = v26;
-            v18 = v7;
+            v18 = v25;
+            v17 = v7;
             goto LABEL_30;
           }
         }
@@ -966,37 +955,35 @@ LABEL_28:
             goto LABEL_55;
           }
 
-          v20 = [HMDRelationshipCodingDescription alloc];
-          if (v20)
+          v19 = [HMDRelationshipCodingDescription alloc];
+          if (v19)
           {
-            v14 = [(HMDPropertyCodingDescription *)v20 initWithModel:properties property:v10];
-            if (!v14)
+            v13 = [(HMDPropertyCodingDescription *)v19 initWithModel:properties property:v9];
+            if (!v13)
             {
               goto LABEL_43;
             }
 
-            v21 = [(HMDManagedObjectCodingModel *)properties includeModeForProperty:v10 withDefault:0]== 1;
-            v22 = &OBJC_IVAR___HMDRelationshipCodingDescription__parentChild;
+            v20 = [(HMDManagedObjectCodingModel *)properties includeModeForProperty:v9 withDefault:0]== 1;
+            v21 = &OBJC_IVAR___HMDRelationshipCodingDescription__parentChild;
             goto LABEL_42;
           }
         }
 
-        v14 = 0;
+        v13 = 0;
 LABEL_43:
-        [v4 setObject:v14 forKeyedSubscript:v11];
+        [v4 setObject:v13 forKeyedSubscript:v10];
 
-        ++v9;
+        ++v8;
       }
 
-      while (v6 != v9);
-      v32 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
-      v6 = v32;
+      while (v6 != v8);
+      v31 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+      v6 = v31;
     }
 
-    while (v32);
+    while (v31);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1024,22 +1011,21 @@ LABEL_43:
 void __76__HMDManagedObjectCodingModel_refContextCodingKey_keyPath_entity_forEntity___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = [*(*(*(a1 + 48) + 8) + 40) relationshipsByName];
-  v16 = [v6 objectForKeyedSubscript:a2];
+  v15 = [v6 objectForKeyedSubscript:a2];
 
-  if (!v16 || [v16 isToMany])
+  if (!v15 || [v15 isToMany])
   {
-    v13 = *(*(a1 + 32) + 72);
     [*(a1 + 40) name];
     objc_claimAutoreleasedReturnValue();
     [*(*(*(a1 + 48) + 8) + 40) name];
     objc_claimAutoreleasedReturnValue();
-    v14 = _HMFPreconditionFailureWithFormat();
-    [(HMDManagedObjectCodingModel *)v14 codingKeyForPropertyName:v15];
+    v13 = _HMFPreconditionFailureWithFormat();
+    [(HMDManagedObjectCodingModel *)v13 codingKeyForPropertyName:v14];
   }
 
   else
   {
-    v7 = [v16 destinationEntity];
+    v7 = [v15 destinationEntity];
     v8 = *(*(a1 + 48) + 8);
     v9 = *(v8 + 40);
     *(v8 + 40) = v7;
@@ -1086,7 +1072,7 @@ void __68__HMDManagedObjectCodingModel_concreteSubentitiesByTypeIDForEntity___bl
 {
   if (([a2 isAbstract] & 1) == 0)
   {
-    v7 = [(HMDManagedObjectCodingModel *)*(a1 + 32) typeIdForEntity:a2];
+    v8 = [(HMDManagedObjectCodingModel *)*(a1 + 32) typeIdForEntity:a2];
     v4 = [*(a1 + 40) objectForKeyedSubscript:?];
     if (v4)
     {
@@ -1098,12 +1084,12 @@ void __68__HMDManagedObjectCodingModel_concreteSubentitiesByTypeIDForEntity___bl
       [a2 name];
       objc_claimAutoreleasedReturnValue();
       v6 = _HMFPreconditionFailureWithFormat();
-      __60__HMDManagedObjectCodingModel_parentRelationshipsForEntity___block_invoke(v6);
+      __60__HMDManagedObjectCodingModel_parentRelationshipsForEntity___block_invoke(v6, v7);
     }
 
     else
     {
-      [*(a1 + 40) setObject:a2 forKeyedSubscript:v7];
+      [*(a1 + 40) setObject:a2 forKeyedSubscript:v8];
     }
   }
 }
@@ -1177,14 +1163,13 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v11 = *(self + 80);
   [a2 entity];
   [objc_claimAutoreleasedReturnValue() name];
   objc_claimAutoreleasedReturnValue();
   [a2 name];
   objc_claimAutoreleasedReturnValue();
-  v12 = _HMFPreconditionFailureWithFormat();
-  return __60__HMDManagedObjectCodingModel_syncedRelationshipsForEntity___block_invoke(v12);
+  v11 = _HMFPreconditionFailureWithFormat();
+  return __60__HMDManagedObjectCodingModel_syncedRelationshipsForEntity___block_invoke(v11, v12);
 }
 
 void __60__HMDManagedObjectCodingModel_syncedRelationshipsForEntity___block_invoke(uint64_t a1, void *a2)
@@ -1313,9 +1298,9 @@ LABEL_23:
     }
 
     [a2 entity];
-    v2 = [objc_claimAutoreleasedReturnValue() name];
+    v10 = [objc_claimAutoreleasedReturnValue() name];
     [a2 name];
-    v13 = v12 = v2;
+    v15 = v14 = v10;
     _HMFPreconditionFailureWithFormat();
   }
 
@@ -1324,14 +1309,13 @@ LABEL_23:
     return 0;
   }
 
-  v10 = *(v2 + 80);
   [a2 entity];
   [objc_claimAutoreleasedReturnValue() name];
   objc_claimAutoreleasedReturnValue();
   [a2 name];
   objc_claimAutoreleasedReturnValue();
   v11 = _HMFPreconditionFailureWithFormat();
-  return __51__HMDEntityCodingDescription_initWithModel_entity___block_invoke(v11);
+  return __51__HMDEntityCodingDescription_initWithModel_entity___block_invoke(v11, v12, v13);
 }
 
 - (id)codingKeyForProperty:(uint64_t)property
@@ -1502,24 +1486,25 @@ void __91__HMDManagedObjectCodingModel_Transmutation__insertOrUpdateRootObjectIn
   [v2 addObject:v3];
 }
 
-- (id)_decodeManagedObjectWithDescription:(int)description byReference:(int)reference useDynamicType:(uint64_t)type context:(uint64_t)context lookupBlock:(uint64_t)block emplaceBlock:
+- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type context:(uint64_t)context lookupBlock:(uint64_t)block emplaceBlock:
 {
   selfCopy = self;
   v137 = *MEMORY[0x277D85DE8];
   if (self)
   {
+    descriptionCopy = description;
     if ((description & 1) == 0)
     {
       [*type beginArray];
     }
 
     typeCopy = type;
-    v112 = selfCopy;
+    v111 = selfCopy;
     if (reference)
     {
-      v118[0] = 0;
-      v14 = [(HMDManagedObjectCodingModel *)selfCopy _readKeyAttributesWithDescription:a2 typeID:v118 byReference:description context:type];
-      v15 = v118[0];
+      v117 = 0;
+      v14 = [(HMDManagedObjectCodingModel *)selfCopy _readKeyAttributesWithDescription:a2 typeID:&v117 byReference:descriptionCopy context:type];
+      v15 = v117;
       if (v14)
       {
         v16 = [selfCopy subentityOfDescription:a2 withTypeID:v15];
@@ -1535,19 +1520,19 @@ void __91__HMDManagedObjectCodingModel_Transmutation__insertOrUpdateRootObjectIn
 LABEL_10:
         v19 = (*(context + 16))(context, v14);
         selfCopy = v19;
-        v104 = name;
+        v103 = name;
         if (v19)
         {
-          if ((description & 1) == 0)
+          if ((descriptionCopy & 1) == 0)
           {
             entity = [v19 entity];
             entity2 = [name entity];
 
             if (entity == entity2)
             {
-              v103 = v15;
+              v102 = v15;
               v22 = selfCopy;
-              v101 = v22;
+              v100 = v22;
 LABEL_40:
               v51 = typeCopy;
               [*typeCopy beginDictionary];
@@ -1577,12 +1562,12 @@ LABEL_40:
                   else
                   {
                     v59 = objc_autoreleasePoolPush();
-                    v60 = v112;
+                    v60 = v111;
                     v61 = HMFGetOSLogHandle();
                     if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                     {
                       v62 = HMFGetLogIdentifier();
-                      name4 = [v104 name];
+                      name4 = [v103 name];
                       *v124 = 138543874;
                       *&v124[4] = v62;
                       *&v124[12] = 2114;
@@ -1595,7 +1580,7 @@ LABEL_40:
                     objc_autoreleasePoolPop(v59);
                     v51 = typeCopy;
                     [*typeCopy skipLogicalValue];
-                    name = v104;
+                    name = v103;
                   }
                 }
 
@@ -1610,18 +1595,18 @@ LABEL_40:
                 [*v51 beginDictionary];
                 if ([*v51 tokenType] == 5)
                 {
-                  v99 = v14;
+                  v98 = v14;
                   do
                   {
                     readDictionaryKey2 = [*v51 readDictionaryKey];
                     relationshipsByCodingKey = [name relationshipsByCodingKey];
-                    v106 = readDictionaryKey2;
+                    v105 = readDictionaryKey2;
                     v67 = [relationshipsByCodingKey objectForKeyedSubscript:readDictionaryKey2];
 
                     if (!v67)
                     {
                       v71 = objc_autoreleasePoolPush();
-                      v72 = v112;
+                      v72 = v111;
                       v73 = HMFGetOSLogHandle();
                       if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
                       {
@@ -1630,7 +1615,7 @@ LABEL_40:
                         *v124 = 138543874;
                         *&v124[4] = v74;
                         *&v124[12] = 2114;
-                        *&v124[14] = v106;
+                        *&v124[14] = v105;
                         *&v124[22] = 2114;
                         v125 = v17Name;
                         _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_INFO, "%{public}@Skipping unexpected key attribute '%{public}@' for %{public}@", v124, 0x20u);
@@ -1643,9 +1628,9 @@ LABEL_40:
                       goto LABEL_95;
                     }
 
-                    v68 = [v112 descriptionForDestinationOfRelationship:v67];
+                    v68 = [v111 descriptionForDestinationOfRelationship:v67];
                     isParentChild = [v67 isParentChild];
-                    v109 = v68;
+                    v108 = v68;
                     if (isParentChild)
                     {
                       hasConcreteSubentities = [v68 hasConcreteSubentities];
@@ -1659,7 +1644,7 @@ LABEL_40:
                     relationship = [v67 relationship];
                     isToMany = [relationship isToMany];
 
-                    v111 = v67;
+                    v110 = v67;
                     name5 = [v67 name];
                     if (isToMany)
                     {
@@ -1712,8 +1697,8 @@ LABEL_40:
                             while (v86);
                           }
 
-                          v14 = v99;
-                          name = v104;
+                          v14 = v98;
+                          name = v103;
                           v51 = typeCopy;
                           break;
                         }
@@ -1722,13 +1707,13 @@ LABEL_40:
                         *&buf[8] = 3221225472;
                         *&buf[16] = __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_ofManagedObject_context___block_invoke;
                         v131 = &unk_27867BDB8;
-                        *&v132 = v112;
+                        *&v132 = v111;
                         *(&v132 + 1) = v22;
                         v136 = isParentChild;
-                        v133 = v111;
+                        v133 = v110;
                         v135 = v51;
                         v134 = v79;
-                        v82 = [HMDManagedObjectCodingModel _decodeManagedObjectWithDescription:v112 byReference:v109 useDynamicType:isParentChild ^ 1u candidates:hasConcreteSubentities context:v80 orEmplaceWithBlock:?];
+                        v82 = [(HMDManagedObjectCodingModel *)v111 _decodeManagedObjectWithDescription:v108 byReference:isParentChild ^ 1u useDynamicType:hasConcreteSubentities candidates:v80 context:v51 orEmplaceWithBlock:buf];
                         if (v82)
                         {
                           [v80 removeObject:v82];
@@ -1748,7 +1733,7 @@ LABEL_40:
                         goto LABEL_94;
                       }
 
-                      name6 = [v111 name];
+                      name6 = [v110 name];
                       [v22 setValue:0 forKey:name6];
 
                       if (!isParentChild)
@@ -1769,16 +1754,16 @@ LABEL_40:
                         v91 = 0;
                       }
 
-                      v118[1] = MEMORY[0x277D85DD0];
-                      v118[2] = 3221225472;
-                      v118[3] = __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_ofManagedObject_context___block_invoke_2;
-                      v118[4] = &unk_27867BDE0;
-                      v118[5] = v112;
-                      v118[6] = v22;
+                      v118[0] = MEMORY[0x277D85DD0];
+                      v118[1] = 3221225472;
+                      v118[2] = __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_ofManagedObject_context___block_invoke_2;
+                      v118[3] = &unk_27867BDE0;
+                      v118[4] = v111;
+                      v118[5] = v22;
                       v119 = isParentChild;
-                      v118[7] = v111;
-                      v118[8] = v51;
-                      v92 = [HMDManagedObjectCodingModel _decodeManagedObjectWithDescription:v112 byReference:v109 useDynamicType:isParentChild ^ 1u candidates:hasConcreteSubentities context:v91 orEmplaceWithBlock:?];
+                      v118[6] = v110;
+                      v118[7] = v51;
+                      v92 = [(HMDManagedObjectCodingModel *)v111 _decodeManagedObjectWithDescription:v108 byReference:isParentChild ^ 1u useDynamicType:hasConcreteSubentities candidates:v91 context:v51 orEmplaceWithBlock:v118];
                       if (v79)
                       {
                         v93 = v92 == 0;
@@ -1813,7 +1798,7 @@ LABEL_40:
                     [managedObjectContext2 deleteObject:v79];
 
 LABEL_94:
-                    v67 = v111;
+                    v67 = v110;
 LABEL_95:
                   }
 
@@ -1824,14 +1809,14 @@ LABEL_95:
               }
 
               [*v51 endArray];
-              selfCopy = v101;
+              selfCopy = v100;
 
-              v15 = v103;
+              v15 = v102;
               goto LABEL_98;
             }
 
 LABEL_19:
-            v103 = v15;
+            v102 = v15;
             v25 = objc_alloc(MEMORY[0x277CBE438]);
             entity3 = [name entity];
             v22 = [v25 initWithEntity:entity3 insertIntoManagedObjectContext:*(type + 8)];
@@ -1910,7 +1895,7 @@ LABEL_33:
               *&v124[8] = 3221225472;
               *&v124[16] = __113__HMDManagedObjectCodingModel_Transmutation___prepareReplacementObject_withDescription_forExistingManagedObject___block_invoke;
               v125 = &unk_27867BE08;
-              v126 = v112;
+              v126 = v111;
               v127 = selfCopy;
               v128 = v22;
               v43 = array;
@@ -1918,20 +1903,20 @@ LABEL_33:
               [relationshipsByName enumerateKeysAndObjectsUsingBlock:v124];
 
               v44 = objc_autoreleasePoolPush();
-              v45 = v112;
+              v45 = v111;
               v46 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
               {
-                v100 = HMFGetLogIdentifier();
+                v99 = HMFGetLogIdentifier();
                 objectID = [selfCopy objectID];
                 uRIRepresentation = [objectID URIRepresentation];
                 entity6 = [v22 entity];
                 name7 = [entity6 name];
                 [v43 sortedArrayUsingSelector:sel_compare_];
-                v48 = v108 = v43;
+                v48 = v107 = v43;
                 v49 = [v48 componentsJoinedByString:{@", "}];
                 *buf = 138544130;
-                *&buf[4] = v100;
+                *&buf[4] = v99;
                 *&buf[12] = 2114;
                 *&buf[14] = uRIRepresentation;
                 *&buf[22] = 2114;
@@ -1941,16 +1926,16 @@ LABEL_33:
                 v50 = v49;
                 _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_DEBUG, "%{public}@Recreating <%{public}@> as %{public}@, migrated relationships: %{public}@", buf, 0x2Au);
 
-                v43 = v108;
+                v43 = v107;
               }
 
               objc_autoreleasePoolPop(v44);
-              name = v104;
+              name = v103;
               block = blockCopy;
             }
 
             (*(block + 16))(block, v22);
-            v101 = 0;
+            v100 = 0;
             goto LABEL_40;
           }
 
@@ -1963,24 +1948,24 @@ LABEL_98:
 
         if (!error2)
         {
-          if ((description & 1) == 0)
+          if ((descriptionCopy & 1) == 0)
           {
             goto LABEL_19;
           }
 
           v24 = *(type + 16);
-          v113[0] = MEMORY[0x277D85DD0];
-          v113[1] = 3221225472;
-          v113[2] = __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithDescription_byReference_useDynamicType_context_lookupBlock_emplaceBlock___block_invoke;
-          v113[3] = &unk_278683AD8;
+          v112[0] = MEMORY[0x277D85DD0];
+          v112[1] = 3221225472;
+          v112[2] = __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithDescription_byReference_useDynamicType_context_lookupBlock_emplaceBlock___block_invoke;
+          v112[3] = &unk_278683AD8;
           blockCopy2 = block;
-          v113[4] = v112;
+          v112[4] = v111;
           name = name;
-          v114 = name;
+          v113 = name;
           v14 = v14;
-          v115 = v14;
+          v114 = v14;
           typeCopy2 = type;
-          (*(v24 + 16))(v24, v113);
+          (*(v24 + 16))(v24, v112);
         }
 
 LABEL_29:
@@ -1991,7 +1976,7 @@ LABEL_29:
 
     else
     {
-      v18 = [(HMDManagedObjectCodingModel *)selfCopy _readKeyAttributesWithDescription:a2 typeID:0 byReference:description context:type];
+      v18 = [(HMDManagedObjectCodingModel *)selfCopy _readKeyAttributesWithDescription:a2 typeID:0 byReference:descriptionCopy context:type];
       if (v18)
       {
         v14 = v18;
@@ -2006,8 +1991,6 @@ LABEL_29:
     selfCopy = 0;
 LABEL_99:
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
@@ -2050,7 +2033,7 @@ void __77__HMDManagedObjectCodingModel_Transmutation___processDeferredBlocks_con
 
 - (id)_readKeyAttributesWithDescription:(void *)description typeID:(int)d byReference:(id *)reference context:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   keyAttributesByCodingKey = [a2 keyAttributesByCodingKey];
   if (d)
   {
@@ -2073,14 +2056,14 @@ void __77__HMDManagedObjectCodingModel_Transmutation___processDeferredBlocks_con
     v12 = v11;
   }
 
-  v36 = v12;
+  v35 = v12;
   v13 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v12];
   [*reference beginDictionary];
   if ([*reference tokenType] == 5)
   {
     descriptionCopy = description;
     selfCopy = self;
-    v37 = v13;
+    v36 = v13;
     do
     {
       readDictionaryKey = [*reference readDictionaryKey];
@@ -2125,14 +2108,14 @@ void __77__HMDManagedObjectCodingModel_Transmutation___processDeferredBlocks_con
             v26 = HMFGetLogIdentifier();
             name2 = [a2 name];
             *buf = 138543874;
-            v42 = v26;
-            v43 = 2114;
-            v44 = v15;
-            v45 = 2114;
-            v46 = name2;
+            v41 = v26;
+            v42 = 2114;
+            v43 = v15;
+            v44 = 2114;
+            v45 = name2;
             _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Skipping unexpected key attribute '%{public}@' for %{public}@", buf, 0x20u);
 
-            v13 = v37;
+            v13 = v36;
             self = selfCopy;
           }
 
@@ -2151,9 +2134,9 @@ void __77__HMDManagedObjectCodingModel_Transmutation___processDeferredBlocks_con
 
   if (!error)
   {
-    if ([v13 count] == v36)
+    if ([v13 count] == v35)
     {
-      v29 = [v13 copy];
+      v29 = objc_msgSend_copy(v13);
       goto LABEL_29;
     }
 
@@ -2167,21 +2150,19 @@ void __77__HMDManagedObjectCodingModel_Transmutation___processDeferredBlocks_con
   v29 = 0;
 LABEL_29:
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
-void __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithDescription_byReference_useDynamicType_context_lookupBlock_emplaceBlock___block_invoke(uint64_t a1)
+void __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithDescription_byReference_useDynamicType_context_lookupBlock_emplaceBlock___block_invoke(void *a1)
 {
-  v1 = *(a1 + 56);
-  v2 = [(HMDManagedObjectCodingModel *)*(a1 + 32) _managedObjectWithDescription:*(a1 + 48) matchingKeyAttributes:*(a1 + 64) context:?];
+  v1 = a1[7];
+  v2 = [(HMDManagedObjectCodingModel *)a1[4] _managedObjectWithDescription:a1[6] matchingKeyAttributes:a1[8] context:?];
   (*(v1 + 16))(v1, v2);
 }
 
 - (id)_managedObjectWithDescription:(void *)description matchingKeyAttributes:(uint64_t)attributes context:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v8 = objc_alloc_init(MEMORY[0x277CBE428]);
@@ -2205,9 +2186,9 @@ void __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithD
     [v8 setPredicate:v11];
     [v8 setFetchLimit:2];
     v12 = *(attributes + 8);
-    v33 = 0;
-    v13 = [v12 executeFetchRequest:v8 error:&v33];
-    v14 = v33;
+    v32 = 0;
+    v13 = [v12 executeFetchRequest:v8 error:&v32];
+    v14 = v32;
     if (v13)
     {
       if ([v13 count] < 2)
@@ -2229,11 +2210,11 @@ void __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithD
         entity2 = [a2 entity];
         name = [entity2 name];
         *buf = 138543874;
-        v35 = v21;
-        v36 = 2114;
-        v37 = name;
-        v38 = 2114;
-        v39 = v17;
+        v34 = v21;
+        v35 = 2114;
+        v36 = name;
+        v37 = 2114;
+        v38 = v17;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@%{public}@: Fetch request with key(s) %{public}@ returned more than one result", buf, 0x20u);
       }
 
@@ -2251,11 +2232,11 @@ void __142__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithD
         entity3 = [a2 entity];
         name2 = [entity3 name];
         *buf = 138543874;
-        v35 = v27;
-        v36 = 2114;
-        v37 = name2;
-        v38 = 2114;
-        v39 = v14;
+        v34 = v27;
+        v35 = 2114;
+        v36 = name2;
+        v37 = 2114;
+        v38 = v14;
         _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@%{public}@: Fetch request failed: %{public}@", buf, 0x20u);
       }
 
@@ -2270,7 +2251,6 @@ LABEL_15:
 
   firstObject = 0;
 LABEL_16:
-  v31 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -2341,7 +2321,7 @@ uint64_t __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_of
   return result;
 }
 
-- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(uint64_t)reference useDynamicType:(uint64_t)type candidates:context:orEmplaceWithBlock:
+- (id)_decodeManagedObjectWithDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type candidates:(uint64_t)candidates context:(uint64_t)context orEmplaceWithBlock:
 {
   if (self)
   {
@@ -2352,16 +2332,16 @@ uint64_t __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_of
     aBlock[4] = self;
     aBlock[5] = type;
     aBlock[6] = a2;
-    v6 = _Block_copy(aBlock);
-    v7 = [HMDManagedObjectCodingModel _decodeManagedObjectWithDescription:self byReference:? useDynamicType:? context:? lookupBlock:? emplaceBlock:?];
+    v13 = _Block_copy(aBlock);
+    v14 = [(HMDManagedObjectCodingModel *)self _decodeManagedObjectWithDescription:a2 byReference:description useDynamicType:reference context:candidates lookupBlock:v13 emplaceBlock:context];
   }
 
   else
   {
-    v7 = 0;
+    v14 = 0;
   }
 
-  return v7;
+  return v14;
 }
 
 void __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_ofManagedObject_context___block_invoke_2(uint64_t a1, void *a2)
@@ -2374,7 +2354,7 @@ void __90__HMDManagedObjectCodingModel_Transmutation___updateRelationship_ofMana
   }
 }
 
-- (uint64_t)_prepareRelatedObject:(uint64_t)object ofManagedObject:(void *)managedObject relationship:(char)relationship byReference:(uint64_t)reference context:
+- (BOOL)_prepareRelatedObject:(uint64_t)object ofManagedObject:(void *)managedObject relationship:(uint64_t)relationship byReference:(uint64_t)reference context:
 {
   if (result)
   {
@@ -2449,11 +2429,11 @@ id __147__HMDManagedObjectCodingModel_Transmutation___decodeManagedObjectWithDes
   return v5;
 }
 
-void __106__HMDManagedObjectCodingModel_Transmutation___managedObjectFromSet_withDescription_matchingKeyAttributes___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void __106__HMDManagedObjectCodingModel_Transmutation___managedObjectFromSet_withDescription_matchingKeyAttributes___block_invoke(void *a1, void *a2, _BYTE *a3)
 {
-  if ([(HMDManagedObjectCodingModel *)*(a1 + 32) _managedObject:a2 withDescription:*(a1 + 40) matchesKeyAttributes:*(a1 + 48)])
+  if ([(HMDManagedObjectCodingModel *)a1[4] _managedObject:a2 withDescription:a1[5] matchesKeyAttributes:a1[6]])
   {
-    objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
+    objc_storeStrong((*(a1[7] + 8) + 40), a2);
     *a3 = 1;
   }
 }
@@ -2487,7 +2467,7 @@ void __106__HMDManagedObjectCodingModel_Transmutation___managedObjectFromSet_wit
   return v4 & 1;
 }
 
-void __98__HMDManagedObjectCodingModel_Transmutation___managedObject_withDescription_matchesKeyAttributes___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __98__HMDManagedObjectCodingModel_Transmutation___managedObject_withDescription_matchesKeyAttributes___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
   v8 = [a2 isEqualToString:@"$context"];
   v9 = *(a1 + 32);
@@ -2732,7 +2712,7 @@ LABEL_12:
 
 - (BOOL)updateRootObject:(id)object fromReader:(id)reader
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   rootDescription = [(HMDManagedObjectCodingModel *)self rootDescription];
   entity = [object entity];
   entity2 = [rootDescription entity];
@@ -2753,7 +2733,7 @@ LABEL_12:
       *&buf[12] = 2114;
       *&buf[14] = entity3;
       *&buf[22] = 2114;
-      v38 = entity4;
+      v37 = entity4;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Unexpected root entity: %{public}@, expecting %{public}@", buf, 0x20u);
     }
 
@@ -2780,23 +2760,22 @@ LABEL_12:
   aBlock[2] = __74__HMDManagedObjectCodingModel_Transmutation__updateRootObject_fromReader___block_invoke;
   aBlock[3] = &unk_27867BC58;
   v25 = array;
-  v36 = v25;
+  v35 = v25;
   *&buf[16] = _Block_copy(aBlock);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __74__HMDManagedObjectCodingModel_Transmutation__updateRootObject_fromReader___block_invoke_2;
-  v32[3] = &unk_27867BC80;
-  v32[4] = self;
-  v32[5] = object;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __74__HMDManagedObjectCodingModel_Transmutation__updateRootObject_fromReader___block_invoke_2;
+  v31[3] = &unk_27867BC80;
+  v31[4] = self;
+  v31[5] = object;
   v26 = rootDescription;
-  v33 = v26;
-  v34 = readerCopy;
-  v27 = _Block_copy(v32);
+  v32 = v26;
+  v33 = readerCopy;
+  v27 = _Block_copy(v31);
   v28 = -[HMDManagedObjectCodingModel _decodeManagedObjectWithDescription:byReference:useDynamicType:context:lookupBlock:emplaceBlock:](self, v26, 0, [v26 hasConcreteSubentities], buf, v27, 0);
   v29 = [(HMDManagedObjectCodingModel *)self _processDeferredBlocks:v25 context:buf];
 
   objc_autoreleasePoolPop(v22);
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -2829,10 +2808,10 @@ id __74__HMDManagedObjectCodingModel_Transmutation__updateRootObject_fromReader_
   {
     _HMFPreconditionFailure();
 LABEL_10:
-    v13 = _HMFPreconditionFailure();
-    __destructor_8_s0_s8_sb16(&readerCopy);
-    _Block_object_dispose(&v18, 8);
-    _Unwind_Resume(v13);
+    v14 = _HMFPreconditionFailure();
+    __destructor_8_s0_s8_sb16(&v16);
+    _Block_object_dispose(&v19, 8);
+    _Unwind_Resume(v14);
   }
 
   if (!reader)
@@ -2842,35 +2821,40 @@ LABEL_10:
 
   rootDescription = [(HMDManagedObjectCodingModel *)self rootDescription];
   v6 = objc_autoreleasePoolPush();
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__156312;
-  v22 = __Block_byref_object_dispose__156313;
-  v23 = 0;
-  v16 = 0;
-  v17 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__156312;
+  v23 = __Block_byref_object_dispose__156313;
+  v24 = 0;
   readerCopy = reader;
+  v17 = 0;
+  v18 = 0;
+  v16 = readerCopy;
   hasConcreteSubentities = [rootDescription hasConcreteSubentities];
-  v14 = MEMORY[0x277D85DD0];
-  v8 = [HMDManagedObjectCodingModel _decodeManagedObjectWithDescription:rootDescription byReference:0 useDynamicType:hasConcreteSubentities candidates:0 context:? orEmplaceWithBlock:?];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __73__HMDManagedObjectCodingModel_Transmutation__decodeRootObjectFromReader___block_invoke;
+  v15[3] = &unk_27867BC30;
+  v15[4] = &v19;
+  v9 = [(HMDManagedObjectCodingModel *)self _decodeManagedObjectWithDescription:rootDescription byReference:0 useDynamicType:hasConcreteSubentities candidates:0 context:&v16 orEmplaceWithBlock:v15];
   error = [readerCopy error];
   if (error)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = v19[5];
+    v11 = v20[5];
   }
 
-  v11 = v10;
+  v12 = v11;
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v19, 8);
   objc_autoreleasePoolPop(v6);
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)isRelevantChanges:(id)changes withRootObject:(id)object conditions:(id)conditions userContext:(id)context
@@ -2949,13 +2933,14 @@ LABEL_15:
   return v23;
 }
 
-- (void)_encodeManagedObject:(void *)object withDescription:(int)description byReference:(int)reference useDynamicType:(uint64_t)type context:
+- (void)_encodeManagedObject:(void *)object withDescription:(uint64_t)description byReference:(int)reference useDynamicType:(uint64_t)type context:
 {
   if (!self)
   {
     return;
   }
 
+  descriptionCopy = description;
   if ((description & 1) == 0)
   {
     [*type beginArrayOfSize:3];
@@ -2965,9 +2950,9 @@ LABEL_15:
   {
     objectCopy = [self descriptionForManagedObject:a2];
     typeID = [objectCopy typeID];
-    [(HMDManagedObjectCodingModel *)self _encodeKeyAttributesOfManagedObject:a2 withDescription:object typeID:typeID byReference:description context:type];
+    [(HMDManagedObjectCodingModel *)self _encodeKeyAttributesOfManagedObject:a2 withDescription:object typeID:typeID byReference:descriptionCopy context:type];
 
-    if (description)
+    if (descriptionCopy)
     {
       goto LABEL_21;
     }
@@ -3069,9 +3054,9 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  [(HMDManagedObjectCodingModel *)self _encodeKeyAttributesOfManagedObject:a2 withDescription:object typeID:0 byReference:description context:type];
+  [(HMDManagedObjectCodingModel *)self _encodeKeyAttributesOfManagedObject:a2 withDescription:object typeID:0 byReference:descriptionCopy context:type];
   objectCopy = object;
-  if ((description & 1) == 0)
+  if ((descriptionCopy & 1) == 0)
   {
     goto LABEL_8;
   }
@@ -3207,7 +3192,7 @@ void __103__HMDManagedObjectCodingModel_Transmutation___encodePropertiesOfManage
 
 - (void)_encodeRelationship:(void *)relationship ofManagedObject:(uint64_t)object context:
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v8 = [self descriptionForDestinationOfRelationship:a2];
@@ -3243,12 +3228,12 @@ void __103__HMDManagedObjectCodingModel_Transmutation___encodePropertiesOfManage
       }
 
       [v14 beginArrayOfSize:v15];
-      v35 = 0u;
-      v36 = 0u;
-      v33 = 0u;
       v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v18 = v13;
-      v19 = [v18 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (!v19)
       {
 
@@ -3257,19 +3242,19 @@ void __103__HMDManagedObjectCodingModel_Transmutation___encodePropertiesOfManage
 
       v20 = v19;
       v21 = v8;
-      v29 = 0;
-      v22 = *v34;
+      v28 = 0;
+      v22 = *v33;
       obj = v18;
 LABEL_14:
       v23 = 0;
       while (1)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * v23);
+        v24 = *(*(&v32 + 1) + 8 * v23);
         v25 = *(object + 8);
         objectID = [v24 objectID];
         v27 = [v25 changeScopeForObjectWithID:objectID attributeKeys:0 relationshipKeys:0];
@@ -3288,14 +3273,14 @@ LABEL_23:
         if (v20 == ++v23)
         {
           v18 = obj;
-          v20 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+          v20 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
           if (v20)
           {
             goto LABEL_14;
           }
 
           v8 = v21;
-          if (v29)
+          if (v28)
           {
 LABEL_32:
             [*object endArray];
@@ -3309,7 +3294,7 @@ LABEL_31:
         }
       }
 
-      v29 = 1;
+      v28 = 1;
 LABEL_21:
       [(HMDManagedObjectCodingModel *)self _conditionallyEncodeChildObject:v24 withDescription:v21 forRelationship:a2 byReference:isParentChild ^ 1u useDynamicType:hasConcreteSubentities context:object];
       if (!*object && (*(object + 32) & 1) != 0)
@@ -3341,11 +3326,9 @@ LABEL_21:
 
 LABEL_33:
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-- (uint64_t)_conditionallyEncodeChildObject:(uint64_t)object withDescription:(void *)description forRelationship:(uint64_t)relationship byReference:(unsigned int)reference useDynamicType:(uint64_t)type context:
+- (uint64_t)_conditionallyEncodeChildObject:(void *)object withDescription:(void *)description forRelationship:(uint64_t)relationship byReference:(int)reference useDynamicType:(uint64_t)type context:
 {
   v13 = *(type + 16);
   if (v13)
@@ -3367,10 +3350,10 @@ LABEL_33:
   }
 
   v15 = *(type + 24);
-  v16 = (self + 120);
-  if (*(self + 120))
+  v16 = self + 15;
+  if (self[15])
   {
-    v17 = *(self + 120);
+    v17 = self[15];
   }
 
   else
@@ -3640,7 +3623,7 @@ void __125__HMDManagedObjectCodingModel_Transmutation___encodeKeyAttributesOfMan
 
 - (BOOL)encodeRootObject:(id)object withWriter:(id)writer changes:(id)changes conditions:(id)conditions userContext:(id)context
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   rootDescription = [(HMDManagedObjectCodingModel *)self rootDescription];
   entity = [object entity];
   entity2 = [rootDescription entity];
@@ -3664,25 +3647,25 @@ LABEL_18:
 
     if (v17 != self)
     {
-      v35 = _HMFPreconditionFailure();
-      __destructor_8_s0_s8_s16_s24_s40(&v36);
-      _Unwind_Resume(v35);
+      v34 = _HMFPreconditionFailure();
+      __destructor_8_s0_s8_s16_s24_s40(&v35);
+      _Unwind_Resume(v34);
     }
   }
 
   v18 = objc_autoreleasePoolPush();
-  v40 = 0;
+  v39 = 0;
   writerCopy = writer;
-  v36 = writerCopy;
+  v35 = writerCopy;
   changesCopy = changes;
   conditionsCopy = conditions;
   if (!conditions)
   {
-    conditionsCopy = [[HMDCodingConditionSet alloc] initWithModel:self, v36, changesCopy];
+    conditionsCopy = [[HMDCodingConditionSet alloc] initWithModel:self, v35, changesCopy];
   }
 
   v21 = conditionsCopy;
-  v38 = v21;
+  v37 = v21;
   contextCopy = context;
   v22 = contextCopy;
   if ([v22 conformsToProtocol:&unk_283F57268])
@@ -3697,13 +3680,13 @@ LABEL_18:
 
   v24 = v23;
 
-  v41 = v24;
+  v40 = v24;
   if (!conditions)
   {
   }
 
   [(HMDManagedObjectCodingModel *)self contextualizeConditions:v21 forManagedObject:object userContext:v22];
-  -[HMDManagedObjectCodingModel _encodeManagedObject:withDescription:byReference:useDynamicType:context:](self, object, rootDescription, 0, [rootDescription hasConcreteSubentities], &v36);
+  -[HMDManagedObjectCodingModel _encodeManagedObject:withDescription:byReference:useDynamicType:context:](self, object, rootDescription, 0, [rootDescription hasConcreteSubentities], &v35);
   error = [writerCopy error];
 
   if (error)
@@ -3716,9 +3699,9 @@ LABEL_18:
       v29 = HMFGetLogIdentifier();
       error2 = [writerCopy error];
       *buf = 138543618;
-      v43 = v29;
-      v44 = 2114;
-      v45 = error2;
+      v42 = v29;
+      v43 = 2114;
+      v44 = error2;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode managed object with error:%{public}@", buf, 0x16u);
     }
 
@@ -3728,10 +3711,9 @@ LABEL_18:
   error3 = [writerCopy error];
   v32 = error3 == 0;
 
-  __destructor_8_s0_s8_s16_s24_s40(&v36);
+  __destructor_8_s0_s8_s16_s24_s40(&v35);
   objc_autoreleasePoolPop(v18);
 
-  v33 = *MEMORY[0x277D85DE8];
   return v32;
 }
 

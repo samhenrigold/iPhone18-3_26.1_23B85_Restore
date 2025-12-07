@@ -1,5 +1,6 @@
 @interface MSVSystemDialogTextField
 + (id)textFieldWithTitle:(id)title;
++ (id)textFieldWithTitle:(id)title secure:(BOOL)secure;
 - (MSVSystemDialogTextField)initWithTitle:(id)title;
 @end
 
@@ -21,6 +22,17 @@
   }
 
   return v5;
+}
+
++ (id)textFieldWithTitle:(id)title secure:(BOOL)secure
+{
+  secureCopy = secure;
+  titleCopy = title;
+  v6 = [[MSVSystemDialogTextField alloc] initWithTitle:titleCopy];
+
+  [(MSVSystemDialogTextField *)v6 setSecure:secureCopy];
+
+  return v6;
 }
 
 + (id)textFieldWithTitle:(id)title

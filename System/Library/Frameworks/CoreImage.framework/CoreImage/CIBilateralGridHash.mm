@@ -124,22 +124,22 @@
   v15 = region.size.width;
   v16 = region.origin.y;
   v17 = region.origin.x;
-  v24 = *MEMORY[0x1E69E9840];
-  result = [CIBilateralGridHash _createWithSurface:"_createWithSurface:region:cropRect:sigma_s:sigma_r_luma:sigma_r_chroma:" region:surface cropRect:*&sigma_s sigma_s:*&sigma_r_luma sigma_r_luma:*&sigma_r_chroma sigma_r_chroma:?];
-  if (result)
+  v26 = *MEMORY[0x1E69E9840];
+  v20 = [CIBilateralGridHash _createWithSurface:"_createWithSurface:region:cropRect:sigma_s:sigma_r_luma:sigma_r_chroma:" region:surface cropRect:*&sigma_s sigma_s:*&sigma_r_luma sigma_r_luma:*&sigma_r_chroma sigma_r_chroma:?];
+  if (v20)
   {
-    v21 = ci_logger_performance();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v22 = ci_logger_performance(v20, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v22 = 136446210;
-      v23 = "[CIBilateralGridHash createWithSurface:region:cropRect:sigma_s:sigma_r_luma:sigma_r_chroma:]";
-      _os_log_impl(&dword_19CC36000, v21, OS_LOG_TYPE_INFO, "%{public}s Using 3D bilateral grid hash instead of 5D.", &v22, 0xCu);
+      v24 = 136446210;
+      v25 = "[CIBilateralGridHash createWithSurface:region:cropRect:sigma_s:sigma_r_luma:sigma_r_chroma:]";
+      _os_log_impl(&dword_19CC36000, v22, OS_LOG_TYPE_INFO, "%{public}s Using 3D bilateral grid hash instead of 5D.", &v24, 0xCu);
     }
 
-    return [(CIBilateralGridHash *)self _createWithSurface:surface region:v9 cropRect:v8 sigma_s:255 sigma_r_luma:v17 sigma_r_chroma:v16, v15, v14, x, y, width, height];
+    LODWORD(v20) = [(CIBilateralGridHash *)self _createWithSurface:surface region:v9 cropRect:v8 sigma_s:255 sigma_r_luma:v17 sigma_r_chroma:v16, v15, v14, x, y, width, height];
   }
 
-  return result;
+  return v20;
 }
 
 - (void)splat:(__CVBuffer *)splat pout:(float *)pout

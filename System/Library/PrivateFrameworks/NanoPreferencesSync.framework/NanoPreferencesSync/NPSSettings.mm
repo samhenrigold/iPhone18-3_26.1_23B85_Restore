@@ -19,611 +19,605 @@
   self->_permittedUserDefaults = v5;
 
   v7 = [@"/" stringByAppendingPathComponent:@"System/Library/PreferencesSyncBundles"];
-  v226[0] = v7;
-  v226[1] = @"/System/Cryptexes/App/System/Library/PreferencesSyncBundles";
+  v221[0] = v7;
+  v221[1] = @"/System/Cryptexes/App/System/Library/PreferencesSyncBundles";
   v8 = &MKBDeviceUnlockedSinceBoot_ptr;
-  v9 = [NSArray arrayWithObjects:v226 count:2];
+  v9 = [NSArray arrayWithObjects:v221 count:2];
 
   v10 = [(NPSSettings *)self _settingBundlesInDirectories:v9];
   if ([v10 count])
   {
-    v119 = v10;
+    v114 = v10;
     selfCopy = self;
-    v208 = 0u;
-    v207 = 0u;
-    v206 = 0u;
-    v205 = 0u;
+    v203 = 0u;
+    v202 = 0u;
+    v201 = 0u;
+    v200 = 0u;
     obj = v10;
-    v11 = [obj countByEnumeratingWithState:&v205 objects:v225 count:16];
+    v11 = [obj countByEnumeratingWithState:&v200 objects:v220 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v206;
+      v13 = *v201;
       v14 = &MKBDeviceUnlockedSinceBoot_ptr;
-      v123 = *v206;
+      v118 = *v201;
       do
       {
         v15 = 0;
-        v124 = v12;
+        v119 = v12;
         do
         {
-          if (*v206 != v13)
+          if (*v201 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v205 + 1) + 8 * v15);
+          v16 = *(*(&v200 + 1) + 8 * v15);
           v17 = [objc_alloc(v14[198]) initWithPath:v16];
           v18 = v17;
           if (v17)
           {
             v19 = [(__CFString *)v17 objectForInfoDictionaryKey:@"NPSDomains"];
             v20 = v8;
-            if (!v19 || (v21 = v8[294], v22 = objc_opt_class(), sub_100002640(v18, @"NPSDomains", 0, v19, v22)))
+            if (!v19 || (v21 = objc_opt_class(), sub_100002640(v18, @"NPSDomains", 0, v19, v21)))
             {
-              v126 = v19;
-              v127 = v15;
-              v204 = 0u;
-              v202 = 0u;
-              v203 = 0u;
-              v201 = 0u;
-              v23 = v19;
-              v24 = &MKBDeviceUnlockedSinceBoot_ptr;
-              v148 = [v23 countByEnumeratingWithState:&v201 objects:v224 count:16];
-              if (!v148)
+              v121 = v19;
+              v122 = v15;
+              v199 = 0u;
+              v197 = 0u;
+              v198 = 0u;
+              v196 = 0u;
+              v22 = v19;
+              v143 = [v22 countByEnumeratingWithState:&v196 objects:v219 count:16];
+              if (!v143)
               {
                 goto LABEL_126;
               }
 
-              v147 = *v202;
-              v144 = v23;
+              v142 = *v197;
+              v139 = v22;
               while (1)
               {
-                v25 = 0;
+                v23 = 0;
                 do
                 {
-                  if (*v202 != v147)
+                  if (*v197 != v142)
                   {
-                    objc_enumerationMutation(v23);
+                    objc_enumerationMutation(v22);
                   }
 
-                  v26 = *(*(&v201 + 1) + 8 * v25);
-                  v27 = v24[297];
-                  v28 = objc_opt_class();
-                  if (sub_100002640(v18, @"NPSDomains", 1, v26, v28))
+                  v24 = *(*(&v196 + 1) + 8 * v23);
+                  v25 = objc_opt_class();
+                  if (sub_100002640(v18, @"NPSDomains", 1, v24, v25))
                   {
-                    v29 = [v26 objectForKey:@"NPSDefaultsDomain"];
-                    v30 = objc_opt_class();
-                    v146 = v29;
-                    if (!sub_100002640(v18, @"NPSDefaultsDomain", 0, v29, v30))
+                    v26 = [v24 objectForKey:@"NPSDefaultsDomain"];
+                    v27 = objc_opt_class();
+                    v141 = v26;
+                    if (!sub_100002640(v18, @"NPSDefaultsDomain", 0, v26, v27))
                     {
                       goto LABEL_101;
                     }
 
-                    v31 = [v26 objectForKey:@"NPSDefaultsKeys"];
-                    if (v31)
+                    v28 = [v24 objectForKey:@"NPSDefaultsKeys"];
+                    if (v28)
                     {
-                      v32 = *(v20 + 2352);
-                      v33 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSDefaultsKeys", 0, v31, v33))
+                      v29 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSDefaultsKeys", 0, v28, v29))
                       {
                         goto LABEL_100;
                       }
                     }
 
-                    v34 = [v26 objectForKey:{@"NPSDefaultsKeyPrefixes", v119}];
-                    if (v34)
+                    v30 = [v24 objectForKey:{@"NPSDefaultsKeyPrefixes", v114}];
+                    if (v30)
                     {
-                      v35 = *(v20 + 2352);
-                      v36 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSDefaultsKeyPrefixes", 0, v34, v36))
+                      v31 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSDefaultsKeyPrefixes", 0, v30, v31))
                       {
                         goto LABEL_99;
                       }
                     }
 
-                    v145 = v34;
-                    if (![v31 count] && !objc_msgSend(v34, "count"))
+                    v140 = v30;
+                    if (![v28 count] && !objc_msgSend(v30, "count"))
                     {
-                      v46 = nps_daemon_log;
+                      v41 = nps_daemon_log;
                       if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138412802;
-                        v216 = @"NPSDefaultsKeys";
-                        v217 = 2112;
-                        v218 = @"NPSDefaultsKeyPrefixes";
-                        v219 = 2112;
-                        v220 = v18;
-                        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Missing %@ or %@ entry for bundle: %@.", buf, 0x20u);
+                        v211 = @"NPSDefaultsKeys";
+                        v212 = 2112;
+                        v213 = @"NPSDefaultsKeyPrefixes";
+                        v214 = 2112;
+                        v215 = v18;
+                        _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Missing %@ or %@ entry for bundle: %@.", buf, 0x20u);
                       }
 
                       goto LABEL_99;
                     }
 
-                    v37 = [v26 objectForKey:@"NPSAction"];
-                    v38 = objc_opt_class();
-                    if (!sub_100002640(v18, @"NPSAction", 0, v37, v38))
+                    v32 = [v24 objectForKey:@"NPSAction"];
+                    v33 = objc_opt_class();
+                    if (!sub_100002640(v18, @"NPSAction", 0, v32, v33))
                     {
                       goto LABEL_98;
                     }
 
-                    v39 = [v26 objectForKey:@"NPSContainer"];
-                    if (v39)
+                    v34 = [v24 objectForKey:@"NPSContainer"];
+                    if (v34)
                     {
-                      v40 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSContainer", 0, v39, v40))
+                      v35 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSContainer", 0, v34, v35))
                       {
                         goto LABEL_97;
                       }
                     }
 
-                    v41 = [v26 objectForKey:@"NPSAppGroupContainer"];
-                    if (v41)
+                    v36 = [v24 objectForKey:@"NPSAppGroupContainer"];
+                    if (v36)
                     {
-                      v42 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSAppGroupContainer", 0, v41, v42))
+                      v37 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSAppGroupContainer", 0, v36, v37))
                       {
                         goto LABEL_96;
                       }
                     }
 
-                    v140 = v41;
-                    v141 = v39;
-                    v142 = v37;
-                    v43 = [v26 objectForKey:@"NPSChangeNotificationName"];
-                    v44 = +[NSMutableSet set];
+                    v135 = v36;
+                    v136 = v34;
+                    v137 = v32;
+                    v38 = [v24 objectForKey:@"NPSChangeNotificationName"];
+                    v39 = +[NSMutableSet set];
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v45 = [NSArray arrayWithObject:v43];
+                      v40 = [NSArray arrayWithObject:v38];
                     }
 
                     else
                     {
-                      v45 = v43;
+                      v40 = v38;
                     }
 
-                    v47 = v45;
-                    v143 = v45;
-                    v139 = v43;
-                    if (!v45)
+                    v42 = v40;
+                    v138 = v40;
+                    v134 = v38;
+                    if (!v40)
                     {
                       goto LABEL_45;
                     }
 
-                    v48 = objc_opt_class();
-                    if (!sub_100002640(v18, @"NPSChangeNotificationName", 0, v47, v48))
+                    v43 = objc_opt_class();
+                    if (!sub_100002640(v18, @"NPSChangeNotificationName", 0, v42, v43))
                     {
                       goto LABEL_95;
                     }
 
-                    v134 = v31;
-                    v199 = 0u;
-                    v200 = 0u;
-                    v197 = 0u;
-                    v198 = 0u;
-                    v49 = v47;
-                    v50 = [v49 countByEnumeratingWithState:&v197 objects:v223 count:16];
-                    if (v50)
+                    v129 = v28;
+                    v194 = 0u;
+                    v195 = 0u;
+                    v192 = 0u;
+                    v193 = 0u;
+                    v44 = v42;
+                    v45 = [v44 countByEnumeratingWithState:&v192 objects:v218 count:16];
+                    if (v45)
                     {
-                      v51 = v50;
-                      v52 = *v198;
+                      v46 = v45;
+                      v47 = *v193;
                       do
                       {
-                        for (i = 0; i != v51; i = i + 1)
+                        for (i = 0; i != v46; i = i + 1)
                         {
-                          if (*v198 != v52)
+                          if (*v193 != v47)
                           {
-                            objc_enumerationMutation(v49);
+                            objc_enumerationMutation(v44);
                           }
 
-                          v54 = *(*(&v197 + 1) + 8 * i);
-                          v55 = objc_opt_class();
-                          if (sub_100002640(v18, @"NPSChangeNotificationName", 1, v54, v55))
+                          v49 = *(*(&v192 + 1) + 8 * i);
+                          v50 = objc_opt_class();
+                          if (sub_100002640(v18, @"NPSChangeNotificationName", 1, v49, v50))
                           {
-                            [v44 addObject:v54];
+                            [v39 addObject:v49];
                           }
                         }
 
-                        v51 = [v49 countByEnumeratingWithState:&v197 objects:v223 count:16];
+                        v46 = [v44 countByEnumeratingWithState:&v192 objects:v218 count:16];
                       }
 
-                      while (v51);
+                      while (v46);
                     }
 
-                    v24 = &MKBDeviceUnlockedSinceBoot_ptr;
-                    v31 = v134;
+                    v28 = v129;
 LABEL_45:
-                    v56 = [v26 objectForKey:@"NPSCloudEnabled"];
-                    if (v56)
+                    v51 = [v24 objectForKey:@"NPSCloudEnabled"];
+                    if (v51)
                     {
-                      v57 = objc_opt_class();
-                      v47 = v143;
-                      if (sub_100002640(v18, @"NPSCloudEnabled", 0, v56, v57))
+                      v52 = objc_opt_class();
+                      v42 = v138;
+                      if (sub_100002640(v18, @"NPSCloudEnabled", 0, v51, v52))
                       {
-                        v137 = v56;
-                        bOOLValue = [v56 BOOLValue];
+                        v132 = v51;
+                        bOOLValue = [v51 BOOLValue];
                         goto LABEL_49;
                       }
 
 LABEL_94:
 
-                      v43 = v139;
+                      v38 = v134;
 LABEL_95:
 
-                      v39 = v141;
-                      v37 = v142;
-                      v41 = v140;
+                      v34 = v136;
+                      v32 = v137;
+                      v36 = v135;
 LABEL_96:
 
                       v20 = 0x10003C000;
 LABEL_97:
 
 LABEL_98:
-                      v34 = v145;
+                      v30 = v140;
 LABEL_99:
 
-                      v23 = v144;
+                      v22 = v139;
 LABEL_100:
 
 LABEL_101:
                       goto LABEL_102;
                     }
 
-                    v137 = 0;
+                    v132 = 0;
                     bOOLValue = 0;
 LABEL_49:
-                    v58 = [v26 objectForKey:@"NPSSyncGroups"];
-                    v136 = v58;
-                    if (v58)
+                    v53 = [v24 objectForKey:@"NPSSyncGroups"];
+                    v131 = v53;
+                    if (v53)
                     {
-                      v138 = [NSSet setWithArray:v58];
+                      v133 = [NSSet setWithArray:v53];
                     }
 
                     else
                     {
-                      v138 = 0;
+                      v133 = 0;
                     }
 
-                    v59 = [v26 objectForKey:@"NPSPerGizmo"];
-                    if (!v59)
+                    v54 = [v24 objectForKey:@"NPSPerGizmo"];
+                    if (!v54)
                     {
-                      v133 = 0;
+                      v128 = 0;
                       bOOLValue2 = 0;
-                      v47 = v143;
+                      v42 = v138;
                       goto LABEL_56;
                     }
 
-                    v60 = objc_opt_class();
-                    v47 = v143;
-                    if (!sub_100002640(v18, @"NPSPerGizmo", 0, v59, v60))
+                    v55 = objc_opt_class();
+                    v42 = v138;
+                    if (!sub_100002640(v18, @"NPSPerGizmo", 0, v54, v55))
                     {
                       goto LABEL_93;
                     }
 
-                    v133 = v59;
-                    bOOLValue2 = [v59 BOOLValue];
+                    v128 = v54;
+                    bOOLValue2 = [v54 BOOLValue];
 LABEL_56:
-                    v61 = [v26 objectForKey:@"NPSMirrorableBBDomain"];
-                    if (v61)
+                    v56 = [v24 objectForKey:@"NPSMirrorableBBDomain"];
+                    if (v56)
                     {
-                      v62 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSMirrorableBBDomain", 0, v61, v62))
+                      v57 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSMirrorableBBDomain", 0, v56, v57))
                       {
                         goto LABEL_92;
                       }
                     }
 
-                    v132 = v61;
-                    v63 = [v26 objectForKey:@"NPSMirrorableDomain"];
-                    if (v63)
+                    v127 = v56;
+                    v58 = [v24 objectForKey:@"NPSMirrorableDomain"];
+                    if (v58)
                     {
-                      v64 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSMirrorableDomain", 0, v63, v64))
+                      v59 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSMirrorableDomain", 0, v58, v59))
                       {
                         goto LABEL_91;
                       }
                     }
 
-                    v129 = v63;
-                    v65 = [v26 objectForKey:@"NPSMirrorableKey"];
-                    if (v65)
+                    v124 = v58;
+                    v60 = [v24 objectForKey:@"NPSMirrorableKey"];
+                    if (v60)
                     {
-                      v66 = objc_opt_class();
-                      if (!sub_100002640(v18, @"NPSMirrorableKey", 0, v65, v66))
+                      v61 = objc_opt_class();
+                      if (!sub_100002640(v18, @"NPSMirrorableKey", 0, v60, v61))
                       {
                         goto LABEL_90;
                       }
                     }
 
-                    if (v132 && v129 | v65)
+                    if (v127 && v124 | v60)
                     {
-                      v67 = nps_daemon_log;
+                      v62 = nps_daemon_log;
                       if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
                       {
                         *buf = 138413058;
-                        v216 = @"NPSMirrorableBBDomain";
-                        v217 = 2112;
-                        v218 = @"NPSMirrorableDomain";
-                        v219 = 2112;
-                        v220 = @"NPSMirrorableKey";
-                        v221 = 2112;
-                        v222 = v18;
-                        v68 = v67;
-                        v69 = "Key %@ mutually exclusive with keys %@ and %@ in bundle %@";
-                        v70 = 42;
+                        v211 = @"NPSMirrorableBBDomain";
+                        v212 = 2112;
+                        v213 = @"NPSMirrorableDomain";
+                        v214 = 2112;
+                        v215 = @"NPSMirrorableKey";
+                        v216 = 2112;
+                        v217 = v18;
+                        v63 = v62;
+                        v64 = "Key %@ mutually exclusive with keys %@ and %@ in bundle %@";
+                        v65 = 42;
                         goto LABEL_69;
                       }
 
 LABEL_90:
 
-                      v47 = v143;
-                      v63 = v129;
+                      v42 = v138;
+                      v58 = v124;
 LABEL_91:
 
-                      v61 = v132;
+                      v56 = v127;
 LABEL_92:
 
-                      v59 = v133;
+                      v54 = v128;
 LABEL_93:
 
-                      v56 = v137;
+                      v51 = v132;
                       goto LABEL_94;
                     }
 
-                    if ((v129 != 0) != (v65 != 0))
+                    if ((v124 != 0) != (v60 != 0))
                     {
-                      v71 = nps_daemon_log;
+                      v66 = nps_daemon_log;
                       if (!os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
                       {
                         goto LABEL_90;
                       }
 
                       *buf = 138412802;
-                      v216 = @"NPSMirrorableDomain";
-                      v217 = 2112;
-                      v218 = @"NPSMirrorableKey";
-                      v219 = 2112;
-                      v220 = v18;
-                      v68 = v71;
-                      v69 = "Keys %@ and %@ must go together in bundle %@";
-                      v70 = 32;
+                      v211 = @"NPSMirrorableDomain";
+                      v212 = 2112;
+                      v213 = @"NPSMirrorableKey";
+                      v214 = 2112;
+                      v215 = v18;
+                      v63 = v66;
+                      v64 = "Keys %@ and %@ must go together in bundle %@";
+                      v65 = 32;
                       goto LABEL_69;
                     }
 
-                    v135 = v31;
-                    v122 = v65;
-                    if (([(__CFString *)v142 isEqualToString:@"OneWaySync"]& 1) != 0 || [(__CFString *)v142 isEqualToString:@"TwoWaySync"])
+                    v130 = v28;
+                    v117 = v60;
+                    if (([(__CFString *)v137 isEqualToString:@"OneWaySync"]& 1) != 0 || [(__CFString *)v137 isEqualToString:@"TwoWaySync"])
                     {
-                      v72 = [(__CFString *)v142 isEqualToString:@"TwoWaySync"];
-                      v73 = [(NSMutableDictionary *)selfCopy->_syncedUserDefaults objectForKey:v146];
-                      v74 = v132;
-                      if (!v73)
+                      v67 = [(__CFString *)v137 isEqualToString:@"TwoWaySync"];
+                      v68 = [(NSMutableDictionary *)selfCopy->_syncedUserDefaults objectForKey:v141];
+                      v69 = v127;
+                      if (!v68)
                       {
-                        v73 = objc_opt_new();
-                        [v73 setDomain:v146];
-                        v75 = v65;
-                        v76 = objc_opt_new();
-                        [v73 setKeyArrays:v76];
+                        v68 = objc_opt_new();
+                        [v68 setDomain:v141];
+                        v70 = v60;
+                        v71 = objc_opt_new();
+                        [v68 setKeyArrays:v71];
 
-                        v77 = objc_opt_new();
-                        [v73 setKeyPrefixArrays:v77];
+                        v72 = objc_opt_new();
+                        [v68 setKeyPrefixArrays:v72];
 
-                        v65 = v75;
-                        v74 = v132;
-                        [(NSMutableDictionary *)selfCopy->_syncedUserDefaults setObject:v73 forKey:v146];
+                        v60 = v70;
+                        v69 = v127;
+                        [(NSMutableDictionary *)selfCopy->_syncedUserDefaults setObject:v68 forKey:v141];
                       }
 
-                      v182[0] = _NSConcreteStackBlock;
-                      v182[1] = 3221225472;
-                      v182[2] = sub_1000027CC;
-                      v182[3] = &unk_10003D360;
-                      v183 = v18;
-                      v121 = v73;
-                      v184 = v121;
-                      v194 = v72;
-                      v185 = v141;
-                      v186 = v140;
-                      v195 = bOOLValue;
-                      v187 = v138;
-                      v188 = v146;
-                      v196 = bOOLValue2;
-                      v189 = v74;
-                      v190 = v129;
-                      v191 = v65;
-                      v192 = selfCopy;
-                      v193 = v44;
-                      v78 = objc_retainBlock(v182);
-                      v178 = 0u;
-                      v179 = 0u;
-                      v180 = 0u;
-                      v181 = 0u;
-                      v79 = v31;
-                      v80 = [v79 countByEnumeratingWithState:&v178 objects:v214 count:16];
+                      v177[0] = _NSConcreteStackBlock;
+                      v177[1] = 3221225472;
+                      v177[2] = sub_1000027CC;
+                      v177[3] = &unk_10003D360;
+                      v178 = v18;
+                      v116 = v68;
+                      v179 = v116;
+                      v189 = v67;
+                      v180 = v136;
+                      v181 = v135;
+                      v190 = bOOLValue;
+                      v182 = v133;
+                      v183 = v141;
+                      v191 = bOOLValue2;
+                      v184 = v69;
+                      v185 = v124;
+                      v186 = v60;
+                      v187 = selfCopy;
+                      v188 = v39;
+                      v73 = objc_retainBlock(v177);
+                      v173 = 0u;
+                      v174 = 0u;
+                      v175 = 0u;
+                      v176 = 0u;
+                      v74 = v28;
+                      v75 = [v74 countByEnumeratingWithState:&v173 objects:v209 count:16];
+                      if (v75)
+                      {
+                        v76 = v75;
+                        v77 = *v174;
+                        do
+                        {
+                          for (j = 0; j != v76; j = j + 1)
+                          {
+                            if (*v174 != v77)
+                            {
+                              objc_enumerationMutation(v74);
+                            }
+
+                            (v73[2])(v73, *(*(&v173 + 1) + 8 * j), 0, @"NPSDefaultsKeys");
+                          }
+
+                          v76 = [v74 countByEnumeratingWithState:&v173 objects:v209 count:16];
+                        }
+
+                        while (v76);
+                      }
+
+                      v171 = 0u;
+                      v172 = 0u;
+                      v169 = 0u;
+                      v170 = 0u;
+                      v79 = v140;
+                      v80 = [v79 countByEnumeratingWithState:&v169 objects:v208 count:16];
                       if (v80)
                       {
                         v81 = v80;
-                        v82 = *v179;
+                        v82 = *v170;
                         do
                         {
-                          for (j = 0; j != v81; j = j + 1)
+                          for (k = 0; k != v81; k = k + 1)
                           {
-                            if (*v179 != v82)
+                            if (*v170 != v82)
                             {
                               objc_enumerationMutation(v79);
                             }
 
-                            (v78[2])(v78, *(*(&v178 + 1) + 8 * j), 0, @"NPSDefaultsKeys");
+                            (v73[2])(v73, *(*(&v169 + 1) + 8 * k), 1, @"NPSDefaultsKeyPrefixes");
                           }
 
-                          v81 = [v79 countByEnumeratingWithState:&v178 objects:v214 count:16];
+                          v81 = [v79 countByEnumeratingWithState:&v169 objects:v208 count:16];
                         }
 
                         while (v81);
                       }
 
-                      v176 = 0u;
-                      v177 = 0u;
-                      v174 = 0u;
-                      v175 = 0u;
-                      v84 = v145;
-                      v85 = [v84 countByEnumeratingWithState:&v174 objects:v213 count:16];
-                      if (v85)
-                      {
-                        v86 = v85;
-                        v87 = *v175;
-                        do
-                        {
-                          for (k = 0; k != v86; k = k + 1)
-                          {
-                            if (*v175 != v87)
-                            {
-                              objc_enumerationMutation(v84);
-                            }
-
-                            (v78[2])(v78, *(*(&v174 + 1) + 8 * k), 1, @"NPSDefaultsKeyPrefixes");
-                          }
-
-                          v86 = [v84 countByEnumeratingWithState:&v174 objects:v213 count:16];
-                        }
-
-                        while (v86);
-                      }
-
-                      v89 = v121;
+                      v84 = v116;
                     }
 
                     else
                     {
-                      if (([(__CFString *)v142 isEqualToString:@"Whitelist"]& 1) == 0 && ![(__CFString *)v142 isEqualToString:@"Permitlist"])
+                      if (([(__CFString *)v137 isEqualToString:@"Whitelist"]& 1) == 0 && ![(__CFString *)v137 isEqualToString:@"Permitlist"])
                       {
-                        v104 = nps_daemon_log;
+                        v99 = nps_daemon_log;
                         if (!os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
                         {
                           goto LABEL_90;
                         }
 
                         *buf = 138412546;
-                        v216 = v142;
-                        v217 = 2112;
-                        v218 = v18;
-                        v68 = v104;
-                        v69 = "Action %@ not supported in bundle (%@).";
-                        v70 = 22;
+                        v211 = v137;
+                        v212 = 2112;
+                        v213 = v18;
+                        v63 = v99;
+                        v64 = "Action %@ not supported in bundle (%@).";
+                        v65 = 22;
 LABEL_69:
-                        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, v69, buf, v70);
+                        _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, v64, buf, v65);
                         goto LABEL_90;
                       }
 
-                      v90 = [(NSMutableDictionary *)selfCopy->_permittedUserDefaults objectForKey:v146];
-                      if (!v90)
+                      v85 = [(NSMutableDictionary *)selfCopy->_permittedUserDefaults objectForKey:v141];
+                      if (!v85)
                       {
-                        v90 = objc_opt_new();
-                        [v90 setDomain:v146];
-                        v91 = objc_opt_new();
-                        [v90 setKeys:v91];
+                        v85 = objc_opt_new();
+                        [v85 setDomain:v141];
+                        v86 = objc_opt_new();
+                        [v85 setKeys:v86];
 
-                        v92 = objc_opt_new();
-                        [v90 setKeyPrefixes:v92];
+                        v87 = objc_opt_new();
+                        [v85 setKeyPrefixes:v87];
 
-                        [(NSMutableDictionary *)selfCopy->_permittedUserDefaults setObject:v90 forKey:v146];
+                        [(NSMutableDictionary *)selfCopy->_permittedUserDefaults setObject:v85 forKey:v141];
                       }
 
-                      v165[0] = _NSConcreteStackBlock;
-                      v165[1] = 3221225472;
-                      v165[2] = sub_100002CEC;
-                      v165[3] = &unk_10003D388;
-                      v166 = v18;
-                      v131 = v90;
-                      v167 = v131;
-                      v168 = v141;
-                      v169 = v146;
-                      v173 = bOOLValue2;
-                      v170 = v140;
-                      v171 = v138;
-                      v172 = v44;
-                      v93 = objc_retainBlock(v165);
-                      v161 = 0u;
-                      v162 = 0u;
-                      v163 = 0u;
-                      v164 = 0u;
-                      v94 = v31;
-                      v95 = [v94 countByEnumeratingWithState:&v161 objects:v212 count:16];
+                      v160[0] = _NSConcreteStackBlock;
+                      v160[1] = 3221225472;
+                      v160[2] = sub_100002CEC;
+                      v160[3] = &unk_10003D388;
+                      v161 = v18;
+                      v126 = v85;
+                      v162 = v126;
+                      v163 = v136;
+                      v164 = v141;
+                      v168 = bOOLValue2;
+                      v165 = v135;
+                      v166 = v133;
+                      v167 = v39;
+                      v88 = objc_retainBlock(v160);
+                      v156 = 0u;
+                      v157 = 0u;
+                      v158 = 0u;
+                      v159 = 0u;
+                      v89 = v28;
+                      v90 = [v89 countByEnumeratingWithState:&v156 objects:v207 count:16];
+                      if (v90)
+                      {
+                        v91 = v90;
+                        v92 = *v157;
+                        do
+                        {
+                          for (m = 0; m != v91; m = m + 1)
+                          {
+                            if (*v157 != v92)
+                            {
+                              objc_enumerationMutation(v89);
+                            }
+
+                            (v88[2])(v88, *(*(&v156 + 1) + 8 * m), 0, @"NPSDefaultsKeys");
+                          }
+
+                          v91 = [v89 countByEnumeratingWithState:&v156 objects:v207 count:16];
+                        }
+
+                        while (v91);
+                      }
+
+                      v154 = 0u;
+                      v155 = 0u;
+                      v152 = 0u;
+                      v153 = 0u;
+                      v94 = v140;
+                      v95 = [v94 countByEnumeratingWithState:&v152 objects:v206 count:16];
                       if (v95)
                       {
                         v96 = v95;
-                        v97 = *v162;
+                        v97 = *v153;
                         do
                         {
-                          for (m = 0; m != v96; m = m + 1)
+                          for (n = 0; n != v96; n = n + 1)
                           {
-                            if (*v162 != v97)
+                            if (*v153 != v97)
                             {
                               objc_enumerationMutation(v94);
                             }
 
-                            (v93[2])(v93, *(*(&v161 + 1) + 8 * m), 0, @"NPSDefaultsKeys");
+                            (v88[2])(v88, *(*(&v152 + 1) + 8 * n), 1, @"NPSDefaultsKeyPrefixes");
                           }
 
-                          v96 = [v94 countByEnumeratingWithState:&v161 objects:v212 count:16];
+                          v96 = [v94 countByEnumeratingWithState:&v152 objects:v206 count:16];
                         }
 
                         while (v96);
                       }
 
-                      v159 = 0u;
-                      v160 = 0u;
-                      v157 = 0u;
-                      v158 = 0u;
-                      v99 = v145;
-                      v100 = [v99 countByEnumeratingWithState:&v157 objects:v211 count:16];
-                      if (v100)
-                      {
-                        v101 = v100;
-                        v102 = *v158;
-                        do
-                        {
-                          for (n = 0; n != v101; n = n + 1)
-                          {
-                            if (*v158 != v102)
-                            {
-                              objc_enumerationMutation(v99);
-                            }
-
-                            (v93[2])(v93, *(*(&v157 + 1) + 8 * n), 1, @"NPSDefaultsKeyPrefixes");
-                          }
-
-                          v101 = [v99 countByEnumeratingWithState:&v157 objects:v211 count:16];
-                        }
-
-                        while (v101);
-                      }
-
-                      v89 = v131;
+                      v84 = v126;
                     }
 
-                    v24 = &MKBDeviceUnlockedSinceBoot_ptr;
-                    v31 = v135;
-                    v65 = v122;
+                    v28 = v130;
+                    v60 = v117;
                     goto LABEL_90;
                   }
 
 LABEL_102:
-                  v25 = v25 + 1;
+                  v23 = v23 + 1;
                 }
 
-                while (v25 != v148);
-                v105 = [v23 countByEnumeratingWithState:&v201 objects:v224 count:16];
-                v148 = v105;
-                if (!v105)
+                while (v23 != v143);
+                v100 = [v22 countByEnumeratingWithState:&v196 objects:v219 count:16];
+                v143 = v100;
+                if (!v100)
                 {
 LABEL_126:
 
-                  v13 = v123;
-                  v12 = v124;
+                  v13 = v118;
+                  v12 = v119;
                   v14 = &MKBDeviceUnlockedSinceBoot_ptr;
-                  v19 = v126;
-                  v15 = v127;
+                  v19 = v121;
+                  v15 = v122;
                   break;
                 }
               }
@@ -634,12 +628,12 @@ LABEL_126:
 
           else
           {
-            v106 = nps_daemon_log;
+            v101 = nps_daemon_log;
             if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v216 = v16;
-              _os_log_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEFAULT, "Unable to read bundle: %@", buf, 0xCu);
+              v211 = v16;
+              _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "Unable to read bundle: %@", buf, 0xCu);
             }
           }
 
@@ -647,71 +641,71 @@ LABEL_126:
         }
 
         while (v15 != v12);
-        v12 = [obj countByEnumeratingWithState:&v205 objects:v225 count:16];
+        v12 = [obj countByEnumeratingWithState:&v200 objects:v220 count:16];
       }
 
       while (v12);
     }
 
-    v155 = 0u;
-    v156 = 0u;
-    v153 = 0u;
-    v154 = 0u;
-    v107 = selfCopy->_syncedUserDefaults;
-    v108 = [(NSMutableDictionary *)v107 countByEnumeratingWithState:&v153 objects:v210 count:16];
-    if (v108)
-    {
-      v109 = v108;
-      v110 = *v154;
-      do
-      {
-        for (ii = 0; ii != v109; ii = ii + 1)
-        {
-          if (*v154 != v110)
-          {
-            objc_enumerationMutation(v107);
-          }
-
-          v119 = [(NSMutableDictionary *)selfCopy->_syncedUserDefaults objectForKeyedSubscript:*(*(&v153 + 1) + 8 * ii), v119];
-          [v119 log];
-        }
-
-        v109 = [(NSMutableDictionary *)v107 countByEnumeratingWithState:&v153 objects:v210 count:16];
-      }
-
-      while (v109);
-    }
-
-    v151 = 0u;
-    v152 = 0u;
-    v149 = 0u;
     v150 = 0u;
-    v113 = selfCopy->_permittedUserDefaults;
-    v114 = [(NSMutableDictionary *)v113 countByEnumeratingWithState:&v149 objects:v209 count:16];
-    if (v114)
+    v151 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v102 = selfCopy->_syncedUserDefaults;
+    v103 = [(NSMutableDictionary *)v102 countByEnumeratingWithState:&v148 objects:v205 count:16];
+    if (v103)
     {
-      v115 = v114;
-      v116 = *v150;
+      v104 = v103;
+      v105 = *v149;
       do
       {
-        for (jj = 0; jj != v115; jj = jj + 1)
+        for (ii = 0; ii != v104; ii = ii + 1)
         {
-          if (*v150 != v116)
+          if (*v149 != v105)
           {
-            objc_enumerationMutation(v113);
+            objc_enumerationMutation(v102);
           }
 
-          v1192 = [(NSMutableDictionary *)selfCopy->_permittedUserDefaults objectForKeyedSubscript:*(*(&v149 + 1) + 8 * jj), v119];
-          [v1192 log];
+          v114 = [(NSMutableDictionary *)selfCopy->_syncedUserDefaults objectForKeyedSubscript:*(*(&v148 + 1) + 8 * ii), v114];
+          [v114 log];
         }
 
-        v115 = [(NSMutableDictionary *)v113 countByEnumeratingWithState:&v149 objects:v209 count:16];
+        v104 = [(NSMutableDictionary *)v102 countByEnumeratingWithState:&v148 objects:v205 count:16];
       }
 
-      while (v115);
+      while (v104);
     }
 
-    v10 = v119;
+    v146 = 0u;
+    v147 = 0u;
+    v144 = 0u;
+    v145 = 0u;
+    v108 = selfCopy->_permittedUserDefaults;
+    v109 = [(NSMutableDictionary *)v108 countByEnumeratingWithState:&v144 objects:v204 count:16];
+    if (v109)
+    {
+      v110 = v109;
+      v111 = *v145;
+      do
+      {
+        for (jj = 0; jj != v110; jj = jj + 1)
+        {
+          if (*v145 != v111)
+          {
+            objc_enumerationMutation(v108);
+          }
+
+          v1142 = [(NSMutableDictionary *)selfCopy->_permittedUserDefaults objectForKeyedSubscript:*(*(&v144 + 1) + 8 * jj), v114];
+          [v1142 log];
+        }
+
+        v110 = [(NSMutableDictionary *)v108 countByEnumeratingWithState:&v144 objects:v204 count:16];
+      }
+
+      while (v110);
+    }
+
+    v10 = v114;
   }
 }
 

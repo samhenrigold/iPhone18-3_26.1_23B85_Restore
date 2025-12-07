@@ -1,3 +1,550 @@
+uint64_t _handleCalendarResultNotFound(date:calendar:comps:direction:matchingPolicy:repeatedTimePolicy:)(uint64_t *a1, uint64_t *a2, const void *a3, unsigned __int8 *a4, unsigned __int8 *a5, unsigned __int8 *a6)
+{
+  v12 = type metadata accessor for Mirror();
+  v71 = *(v12 - 8);
+  v72 = v12;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v64 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = type metadata accessor for Logger();
+  v74 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v64 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = *a1;
+  v20 = *a2;
+  v19 = a2[1];
+  memcpy(v87, a3, 0x11BuLL);
+  v73 = *a4;
+  v21 = *a5;
+  v22 = *a6;
+  if (one-time initialization token for log != -1)
+  {
+    swift_once();
+  }
+
+  v23 = static Calendar.log;
+  Logger.init(_:)();
+  swift_unknownObjectRetain();
+  outlined init with copy of DateComponents(v87, v86);
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.debug.getter();
+  swift_unknownObjectRelease();
+  outlined destroy of DateComponents(v87);
+  if (os_log_type_enabled(v24, v25))
+  {
+    v66 = v21;
+    v67 = v22;
+    v68 = v17;
+    v69 = v15;
+    v26 = swift_slowAlloc();
+    v64 = swift_slowAlloc();
+    v85 = v64;
+    *v26 = 134350338;
+    *(v26 + 4) = v18;
+    v70 = v26;
+    *(v26 + 12) = 2082;
+    v86[0] = 0;
+    v86[1] = 0xE000000000000000;
+    swift_unknownObjectRetain();
+    _StringGuts.grow(_:)(72);
+    ObjectType = swift_getObjectType();
+    (*(v19 + 24))(v83, ObjectType, v19);
+    _print_unlocked<A, B>(_:_:)();
+    MEMORY[0x1865CB0E0](10272, 0xE200000000000000);
+    *&v83[0] = v20;
+    *(&v83[0] + 1) = v19;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation17_CalendarProtocol_XlMd, &_s10Foundation17_CalendarProtocol_XlMR);
+    _print_unlocked<A, B>(_:_:)();
+    MEMORY[0x1865CB0E0](0x656C61636F6C2029, 0xEA0000000000203ALL);
+    v28 = (*(v19 + 32))(v83, ObjectType, v19);
+    v65 = v25;
+    if (*&v83[0])
+    {
+      v29 = *(&v83[0] + 1);
+    }
+
+    else
+    {
+      if (one-time initialization token for cache != -1)
+      {
+        v28 = swift_once();
+      }
+
+      v31 = static LocaleCache.cache;
+      MEMORY[0x1EEE9AC00](v28);
+      *(&v64 - 2) = 0;
+      *(&v64 - 1) = 0xE000000000000000;
+      os_unfair_lock_lock((v31 + 48));
+      partial apply for closure #1 in LocaleCache.fixed(_:)((v31 + 16), v80);
+      os_unfair_lock_unlock((v31 + 48));
+      v29 = *(&v80[0] + 1);
+    }
+
+    v32 = swift_getObjectType();
+    v33 = (*(v29 + 64))(v32, v29);
+    v35 = v34;
+    swift_unknownObjectRelease();
+    MEMORY[0x1865CB0E0](v33, v35);
+
+    MEMORY[0x1865CB0E0](0x6F7A20656D697420, 0xEC000000203A656ELL);
+    (*(v19 + 48))(v83, ObjectType, v19);
+    v36 = *&v83[0];
+    swift_getObjectType();
+    *&v80[0] = v36;
+    v37 = dispatch thunk of CustomDebugStringConvertible.debugDescription.getter();
+    MEMORY[0x1865CB0E0](v37);
+
+    swift_unknownObjectRelease();
+    MEMORY[0x1865CB0E0](0x6557747372696620, 0xEF203A7961646B65);
+    *&v83[0] = (*(v19 + 56))(ObjectType, v19);
+    v38 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1865CB0E0](v38);
+
+    MEMORY[0x1865CB0E0](0xD000000000000015, 0x8000000181480D50);
+    *&v83[0] = (*(v19 + 72))(ObjectType, v19);
+    v39 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1865CB0E0](v39);
+    swift_unknownObjectRelease();
+
+    v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86[0], v86[1], &v85);
+
+    v41 = v70;
+    *(v70 + 14) = v40;
+    *(v41 + 22) = 2082;
+    memcpy(v86, v87, 0x11BuLL);
+    outlined init with copy of DateComponents(v87, v83);
+    DateComponents.customMirror.getter(v14);
+    v42 = Mirror.children.getter();
+    (*(v71 + 8))(v14, v72);
+    v43 = 0xE000000000000000;
+    v81 = 0;
+    v82 = 0xE000000000000000;
+    dispatch thunk of _AnySequenceBox._makeIterator()();
+    dispatch thunk of _AnyIteratorBoxBase.next()();
+    if (*(&v84 + 1))
+    {
+      v71 = v42;
+      v72 = v24;
+      do
+      {
+        v80[0] = v83[0];
+        v80[1] = v83[1];
+        v80[2] = v84;
+        v78 = 0;
+        v79 = 0xE000000000000000;
+        outlined init with copy of (label: String?, value: Any)(v80, &v75);
+        if (v76)
+        {
+          v44 = v75;
+        }
+
+        else
+        {
+          v44 = 0;
+        }
+
+        if (v76)
+        {
+          v45 = v76;
+        }
+
+        else
+        {
+          v45 = 0xE000000000000000;
+        }
+
+        __swift_destroy_boxed_opaque_existential_1(v77);
+        MEMORY[0x1865CB0E0](v44, v45);
+
+        MEMORY[0x1865CB0E0](8250, 0xE200000000000000);
+        _print_unlocked<A, B>(_:_:)();
+        MEMORY[0x1865CB0E0](32, 0xE100000000000000);
+        MEMORY[0x1865CB0E0](v78, v79);
+
+        outlined destroy of TermOfAddress?(v80, &_sSSSg5label_yp5valuetMd, &_sSSSg5label_yp5valuetMR);
+        dispatch thunk of _AnyIteratorBoxBase.next()();
+      }
+
+      while (*(&v84 + 1));
+      v46 = v81;
+      v43 = v82;
+      v24 = v72;
+      v41 = v70;
+    }
+
+    else
+    {
+      v46 = 0;
+    }
+
+    outlined destroy of DateComponents(v87);
+
+    v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v43, &v85);
+
+    *(v41 + 24) = v47;
+    *(v41 + 32) = 2082;
+    if (v73)
+    {
+      v48 = 0x647261776B636162;
+    }
+
+    else
+    {
+      v48 = 0x64726177726F66;
+    }
+
+    if (v73)
+    {
+      v49 = 0xE800000000000000;
+    }
+
+    else
+    {
+      v49 = 0xE700000000000000;
+    }
+
+    v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v49, &v85);
+
+    *(v41 + 34) = v50;
+    *(v41 + 42) = 2082;
+    v51 = 0x656D69547478656ELL;
+    v52 = 0x8000000181480F30;
+    v53 = 0xD000000000000027;
+    v54 = v65;
+    if (v66 != 2)
+    {
+      v53 = 0x746369727473;
+      v52 = 0xE600000000000000;
+    }
+
+    v55 = 0x8000000181480F60;
+    if (v66)
+    {
+      v51 = 0xD000000000000023;
+    }
+
+    else
+    {
+      v55 = 0xE800000000000000;
+    }
+
+    if (v66 <= 1)
+    {
+      v56 = v51;
+    }
+
+    else
+    {
+      v56 = v53;
+    }
+
+    if (v66 <= 1)
+    {
+      v57 = v55;
+    }
+
+    else
+    {
+      v57 = v52;
+    }
+
+    v58 = v69;
+    v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v57, &v85);
+
+    *(v41 + 44) = v59;
+    *(v41 + 52) = 2080;
+    if (v67)
+    {
+      v60 = 1953718636;
+    }
+
+    else
+    {
+      v60 = 0x7473726966;
+    }
+
+    if (v67)
+    {
+      v61 = 0xE400000000000000;
+    }
+
+    else
+    {
+      v61 = 0xE500000000000000;
+    }
+
+    v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v61, &v85);
+
+    *(v41 + 54) = v62;
+    _os_log_impl(&dword_18075C000, v24, v54, "Unable to find Calendar enumeration result: %{public}f %{public}s %{public}s %{public}s %{public}s %s", v41, 0x3Eu);
+    v63 = v64;
+    swift_arrayDestroy();
+    MEMORY[0x1865D2690](v63, -1, -1);
+    MEMORY[0x1865D2690](v41, -1, -1);
+
+    return (*(v74 + 8))(v68, v58);
+  }
+
+  else
+  {
+
+    return (*(v74 + 8))(v17, v15);
+  }
+}
+
+Foundation::Date_optional __swiftcall Calendar.DatesByMatching.Iterator.next()()
+{
+  v4 = v0;
+  if (v1[47])
+  {
+    *v0 = 0;
+    *(v0 + 8) = 1;
+  }
+
+  else
+  {
+    v5 = v1;
+    v6 = *(v1 + 7);
+    v19 = *(v1 + 363);
+    v7 = *(v1 + 364);
+    v8 = *(v1 + 365);
+    v9 = *v1;
+    v10 = v5[1];
+    v11 = *(v5 + 16);
+    v18 = *(v5 + 4);
+    memcpy(__dst, v5 + 10, 0x11BuLL);
+    v12 = *&v9 + 1;
+    if (__OFADD__(*&v9, 1))
+    {
+      __break(1u);
+
+      v15 = _assertionFailure(_:_:file:line:flags:)();
+      __break(1u);
+    }
+
+    else
+    {
+      v13 = *(v5 + 3);
+      for (i = v18; ; i = v18)
+      {
+        v37 = i;
+        v36 = v6;
+        memcpy(__src, __dst, 0x11BuLL);
+        v34 = v19;
+        v33 = v7;
+        v32 = v8;
+        v31 = v13;
+        v29 = v10;
+        v30 = v11;
+        swift_unknownObjectRetain();
+        outlined init with copy of DateComponents(__dst, v28);
+        Calendar._enumerateDatesStep(startingAfter:matching:matchingPolicy:repeatedTimePolicy:direction:inSearchingDate:previouslyReturnedMatchDate:)(&v36, __src, &v34, &v33, &v32, &v31, &v29, &v38);
+        memcpy(v28, __src, 0x11BuLL);
+        outlined destroy of DateComponents(v28);
+        v15 = swift_unknownObjectRelease();
+        v16 = v38;
+        v17 = v39;
+        v13 = v40;
+        *(v5 + 3) = v40;
+        if (v17 != 2)
+        {
+          break;
+        }
+
+        if (v12 >= v5[46])
+        {
+          *v5 = v12;
+          v23 = v5[7];
+          v26 = *(v5 + 4);
+          memcpy(v24, v5 + 10, 0x11BuLL);
+          memcpy(v20, v5 + 10, 0x11BuLL);
+          v21[0] = *(v5 + 365);
+          v27[0] = *(v5 + 363);
+          v22[0] = *(v5 + 364);
+          swift_unknownObjectRetain();
+          outlined init with copy of DateComponents(v24, v25);
+          _handleCalendarResultNotFound(date:calendar:comps:direction:matchingPolicy:repeatedTimePolicy:)(&v23, &v26, v20, v21, v27, v22);
+          memcpy(v25, v20, 0x11BuLL);
+          outlined destroy of DateComponents(v25);
+          v15 = swift_unknownObjectRelease();
+          goto LABEL_13;
+        }
+
+        ++v12;
+      }
+
+      *v5 = v12;
+      if ((v5[6] & 1) != 0 || (v3 = v16, *(v5 + 4) <= v16) && *(v5 + 5) > v16)
+      {
+        *(v5 + 1) = v16;
+        *(v5 + 16) = 0;
+        *v4 = v16;
+        *(v4 + 8) = 0;
+        goto LABEL_15;
+      }
+
+LABEL_13:
+      *(v5 + 376) = 1;
+      *v4 = 0;
+      *(v4 + 8) = 1;
+    }
+  }
+
+LABEL_15:
+  result.value = *&v3;
+  result.is_nil = v15;
+  return result;
+}
+
+BOOL Calendar.DatesByMatching.makeIterator()@<W0>(uint64_t a1@<X8>)
+{
+  v3 = *v1;
+  v4 = *(v1 + 8);
+  v5 = *(v1 + 16);
+  v6 = *(v1 + 40);
+  memcpy(__dst, (v1 + 48), 0x11BuLL);
+  v7 = *(v1 + 331);
+  v8 = *(v1 + 332);
+  v9 = *(v1 + 333);
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 1;
+  *(a1 + 368) = 100;
+  *(a1 + 64) = v3;
+  *(a1 + 72) = v4;
+  *(a1 + 32) = *(v1 + 24);
+  *(a1 + 48) = v6;
+  memcpy((a1 + 80), (v1 + 48), 0x11BuLL);
+  *(a1 + 363) = v7;
+  *(a1 + 364) = v8;
+  *(a1 + 365) = v9;
+  *(a1 + 56) = v5;
+  *a1 = -1;
+  *(a1 + 24) = v5;
+  memcpy(v13, (v1 + 48), sizeof(v13));
+  v12[0] = v3;
+  v12[1] = v4;
+  swift_unknownObjectRetain();
+  outlined init with copy of DateComponents(__dst, &v11);
+  result = DateComponents._validate(for:)(v12);
+  *(a1 + 376) = !result;
+  return result;
+}
+
+uint64_t protocol witness for Sequence.makeIterator() in conformance Calendar.DatesByMatching@<X0>(uint64_t a1@<X8>)
+{
+  Calendar.DatesByMatching.makeIterator()(a1);
+  memcpy(v3, v1, 0x14EuLL);
+  return outlined destroy of Calendar.DatesByMatching(v3);
+}
+
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance Calendar.DatesByMatching()
+{
+  memcpy(__dst, v0, 0x14EuLL);
+  v1 = specialized _copySequenceToContiguousArray<A>(_:)(__dst);
+  outlined destroy of Calendar.DatesByMatching(__dst);
+  return v1;
+}
+
+unint64_t lazy protocol witness table accessor for type Calendar.DatesByAdding.Iterator and conformance Calendar.DatesByAdding.Iterator()
+{
+  result = lazy protocol witness table cache variable for type Calendar.DatesByAdding.Iterator and conformance Calendar.DatesByAdding.Iterator;
+  if (!lazy protocol witness table cache variable for type Calendar.DatesByAdding.Iterator and conformance Calendar.DatesByAdding.Iterator)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Calendar.DatesByAdding.Iterator and conformance Calendar.DatesByAdding.Iterator);
+  }
+
+  return result;
+}
+
+Foundation::Date_optional __swiftcall Calendar.DatesByAdding.Iterator.next()()
+{
+  v3 = v0;
+  if (*(v1 + 332))
+  {
+    *v0 = 0;
+LABEL_3:
+    *(v3 + 8) = 1;
+    goto LABEL_20;
+  }
+
+  memcpy(__dst, (v1 + 48), 0x11BuLL);
+  memcpy(__src, (v1 + 48), 0x11BuLL);
+  v4 = *(v1 + 336);
+  DateComponents.scaled(by:)(v4, v16);
+  memcpy(v18, __src, 0x11BuLL);
+  outlined init with copy of DateComponents(__dst, v14);
+  outlined destroy of DateComponents(v18);
+  memcpy(v19, v16, 0x11BuLL);
+  v5 = *(v1 + 8);
+  v6 = *(v1 + 16);
+  v7 = *(v1 + 331);
+  memcpy(v16, v19, 0x11BuLL);
+  v8 = one-time initialization token for validCalendarRange;
+  swift_unknownObjectRetain();
+  if (v8 != -1)
+  {
+    swift_once();
+  }
+
+  v9 = *(&static Date.validCalendarRange + 1);
+  if (*(&static Date.validCalendarRange + 1) >= v6)
+  {
+    v9 = v6;
+  }
+
+  if (*&static Date.validCalendarRange >= v9)
+  {
+    v10 = *&static Date.validCalendarRange;
+  }
+
+  else
+  {
+    v10 = v9;
+  }
+
+  ObjectType = swift_getObjectType();
+  *v14 = v10;
+  (*(v5 + 200))(__src, v16, v14, v7, ObjectType, v5);
+  outlined destroy of DateComponents(v19);
+  v12 = swift_unknownObjectRelease();
+  v13 = __src[0];
+  if (LOBYTE(__src[1]))
+  {
+    *(v1 + 332) = 1;
+    *v3 = v13;
+    *(v3 + 8) = 1;
+    goto LABEL_20;
+  }
+
+  if ((*(v1 + 40) & 1) == 0)
+  {
+    v2 = __src[0];
+    if (*(v1 + 24) > __src[0] || *(v1 + 32) <= __src[0])
+    {
+      *(v1 + 332) = 1;
+      *v3 = 0;
+      goto LABEL_3;
+    }
+  }
+
+  if (__OFADD__(v4, 1))
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v1 + 336) = v4 + 1;
+    *v3 = v13;
+    *(v3 + 8) = 0;
+  }
+
+LABEL_20:
+  result.value = *&v2;
+  result.is_nil = v12;
+  return result;
+}
+
 void *protocol witness for Sequence.makeIterator() in conformance Calendar.DatesByAdding@<X0>(uint64_t a1@<X8>)
 {
   v3 = v1[2];
@@ -23,7 +570,7 @@ void *protocol witness for Sequence.makeIterator() in conformance Calendar.Dates
   return result;
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance Calendar.DatesByAdding()
+void *protocol witness for Sequence._copyToContiguousArray() in conformance Calendar.DatesByAdding()
 {
   memcpy(__dst, v0, 0x14CuLL);
   v1 = specialized _copySequenceToContiguousArray<A>(_:)(__dst);
@@ -110,7 +657,7 @@ uint64_t Calendar._adjustedDateForMismatchedLeapMonthOrDay(start:searchingDate:m
   v174 = ObjectType;
   v261 = v41;
   v164 = v45;
-  v45(v237, v216, v215);
+  (v45)(v237, v216, v215);
   v46 = v239;
   v47 = *&v260[4];
   if ((BYTE8(v260[5]) & 1) != 0 || (v242 & 1) == 0 && v241 == *&v260[5]) && (v239 != *&v260[4] ? (v48 = 1) : (v48 = v240), (BYTE8(v260[4]) & 1) != 0 || (v48 & 1) == 0) || (((v238 | v240) | (BYTE8(v260[5]) | BYTE8(v260[4]))))
@@ -141,7 +688,7 @@ uint64_t Calendar._adjustedDateForMismatchedLeapMonthOrDay(start:searchingDate:m
     }
 
     LOBYTE(v213[0]) = 1;
-    DateComponents.init(component:value:)(v51, v213, v214);
+    DateComponents.init(component:value:)(v214, v51, v213);
     memcpy(v215, v214, 0x11BuLL);
     memcpy(v216, v214, 0x11BuLL);
     if (_s10Foundation13URLComponentsV01_B0VSgWOg(v216) != 1)
@@ -192,7 +739,7 @@ uint64_t Calendar._adjustedDateForMismatchedLeapMonthOrDay(start:searchingDate:m
       }
 
       v59 = static Calendar.compatibility2;
-      outlined destroy of TermOfAddress?(v215, &_s10Foundation14DateComponentsVSgMd);
+      outlined destroy of TermOfAddress?(v215, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
       if (v59)
       {
         v60 = v57;
@@ -660,7 +1207,7 @@ LABEL_129:
 
     LOBYTE(v213[0]) = 2;
     v92.value = 1;
-    DateComponents.init(component:value:)(v92, v213, v214);
+    DateComponents.init(component:value:)(v214, v92, v213);
     memcpy(v215, v214, 0x11BuLL);
     v25 = 0.0;
     if (_s10Foundation13URLComponentsV01_B0VSgWOg(v215) == 1)
@@ -715,7 +1262,7 @@ LABEL_129:
     }
 
     v107 = static Calendar.compatibility2;
-    outlined destroy of TermOfAddress?(v214, &_s10Foundation14DateComponentsVSgMd);
+    outlined destroy of TermOfAddress?(v214, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
     if (v107 == 1)
     {
       if (v106)
@@ -950,8 +1497,8 @@ LABEL_123:
       BYTE9(v208[17]) = v75;
       BYTE10(v208[17]) = v170;
       DateComponents.setUnits.getter(&v179);
-      v135 = LOWORD(v179);
-      v203[0] = v179;
+      v135 = v179;
+      *&v203[0] = v179;
       v136 = *(&static Date.validCalendarRange + 1);
       if (*(&static Date.validCalendarRange + 1) >= v25)
       {
@@ -975,7 +1522,7 @@ LABEL_123:
         {
           if (v160)
           {
-            *v203 = v178[1];
+            v203[0] = v178[1];
             swift_unknownObjectRetain();
             Calendar.timeZone.setter(v203);
           }
@@ -989,7 +1536,7 @@ LABEL_123:
         swift_unknownObjectRelease();
         if (*&v178[1])
         {
-          *v203 = v178[1];
+          v203[0] = v178[1];
           swift_unknownObjectRetain();
           Calendar.timeZone.setter(v203);
         }
@@ -997,7 +1544,7 @@ LABEL_123:
 
       if (v67)
       {
-        *v203 = v67;
+        v203[0] = v67;
         swift_unknownObjectRetain();
         DateComponents.timeZone.setter(v203);
       }
@@ -1368,7 +1915,7 @@ LABEL_106:
     LOBYTE(v87) = 1;
     v98 = __src;
     v96.value = 1;
-    DateComponents.init(component:value:)(v96, __src, __dst);
+    DateComponents.init(component:value:)(__dst, v96, __src);
     memcpy(v213, __dst, 0x11BuLL);
     v25 = 0.0;
     if (_s10Foundation13URLComponentsV01_B0VSgWOg(v213) == 1)
@@ -1456,7 +2003,7 @@ LABEL_138:
       v117 = *&static Date.validCalendarRange;
     }
 
-    v203[0] = v117;
+    *v203 = v117;
     (*(v261 + 200))(v209, __src, v203, 0, v174);
     v25 = *v209;
     v88 = BYTE8(v209[0]);
@@ -1591,7 +2138,7 @@ LABEL_267:
     swift_once();
 LABEL_178:
     v118 = static Calendar.compatibility2;
-    outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd);
+    outlined destroy of TermOfAddress?(__dst, &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
     if (v118 == 1)
     {
       if (v88)
@@ -1877,7 +2424,7 @@ LABEL_203:
       v132 = *&static Date.validCalendarRange;
     }
 
-    v203[0] = v132;
+    *v203 = v132;
     v133 = v261;
     v164(v204, v208, v203, v174, v261);
     if ((v131 & 0x4000) != 0)
@@ -1936,7 +2483,7 @@ LABEL_203:
     HIDWORD(v201[3]) = *(&v193 + 3);
     *&v201[4] = v154;
     BYTE8(v201[4]) = v141;
-    *(&v201[4] + 9) = LODWORD(v179);
+    *(&v201[4] + 9) = v179;
     HIDWORD(v201[4]) = *(&v179 + 3);
     *&v201[5] = v157;
     BYTE8(v201[5]) = v143;
@@ -2418,7 +2965,7 @@ uint64_t Calendar._adjustedDateForMismatchedChineseLeapMonth(start:searchingDate
     BYTE10(v120[17]) = v86;
     DateComponents.setUnits.getter(&v103);
     v56 = v103;
-    v101[0] = v103;
+    *&v101[0] = v103;
     v57 = *(&static Date.validCalendarRange + 1);
     if (*(&static Date.validCalendarRange + 1) >= v48)
     {
@@ -2434,16 +2981,15 @@ uint64_t Calendar._adjustedDateForMismatchedChineseLeapMonth(start:searchingDate
     v92(v102, v101, v100, v94, *&v160);
     if ((v56 & 0x4000) != 0)
     {
-      v102[0] = v30;
-      v102[1] = v160;
+      *v102 = v30;
+      *(v102 + 1) = v160;
       swift_unknownObjectRetain();
       swift_unknownObjectRelease();
-      if (*&v102[2])
+      if (*&v102[1])
       {
         if (v30 != 0.0)
         {
-          *v101 = v102[2];
-          *&v101[1] = v102[3];
+          v101[0] = v102[1];
           swift_unknownObjectRetain();
           Calendar.timeZone.setter(v101);
         }
@@ -2453,14 +2999,13 @@ uint64_t Calendar._adjustedDateForMismatchedChineseLeapMonth(start:searchingDate
     memcpy(v104, v102, 0x11BuLL);
     if (v35)
     {
-      v104[0] = v35;
-      v104[1] = v91;
+      *&v104[0] = v35;
+      *(&v104[0] + 1) = v91;
       swift_unknownObjectRetain();
       swift_unknownObjectRelease();
-      if (v104[2])
+      if (*&v104[1])
       {
-        v101[0] = v104[2];
-        v101[1] = v104[3];
+        v101[0] = v104[1];
         swift_unknownObjectRetain();
         Calendar.timeZone.setter(v101);
       }
@@ -2470,8 +3015,8 @@ uint64_t Calendar._adjustedDateForMismatchedChineseLeapMonth(start:searchingDate
     v58 = v90;
     if (v90)
     {
-      v101[0] = v90;
-      v101[1] = v87;
+      *&v101[0] = v90;
+      *(&v101[0] + 1) = v87;
       swift_unknownObjectRetain();
       DateComponents.timeZone.setter(v101);
       v58 = v90;
@@ -2633,7 +3178,7 @@ LABEL_32:
         v52 = *&static Date.validCalendarRange;
       }
 
-      v102[0] = v52;
+      *v102 = v52;
       v92(__src, v120, v102, v94, *&v160);
       if ((v51 & 0x4000) != 0)
       {
@@ -2737,7 +3282,7 @@ LABEL_32:
       goto LABEL_75;
     }
 
-    v99[0] = 4;
+    *&v99[0] = 4;
     v61 = *(&static Date.validCalendarRange + 1);
     if (*(&static Date.validCalendarRange + 1) >= v46)
     {
@@ -2758,15 +3303,15 @@ LABEL_32:
       {
         BYTE9(v141[17]) = 0;
         *__src = v30;
-        v65 = *&v160;
+        v65 = v160;
         *&__src[8] = v160;
         *&v120[0] = v20;
         memcpy(v129, v159, 0x11BuLL);
         Calendar.preserveSmallerUnits(_:compsToMatch:compsToModify:)(v120, v129, v141);
         if (v89 != 1)
         {
-          v102[0] = v30;
-          *&v102[1] = v65;
+          *v102 = v30;
+          *(v102 + 1) = v65;
           *v100 = v45;
           memcpy(v129, v141, 0x11BuLL);
           LOBYTE(v98[0]) = 0;
@@ -2779,8 +3324,8 @@ LABEL_32:
           outlined destroy of DateComponents(v157);
           memcpy(__src, v141, sizeof(__src));
           result = outlined destroy of DateComponents(__src);
-          v71 = v101[0];
-          v72 = LOBYTE(v101[1]);
+          v71 = *v101;
+          v72 = BYTE8(v101[0]);
           goto LABEL_115;
         }
 
@@ -2797,7 +3342,7 @@ LABEL_32:
         }
 
         *__src = v66;
-        v92(v129, v98, __src, v94, v65);
+        v92(v129, v98, __src, v94, *&v65);
         outlined destroy of DateComponents(v129);
         v67 = *&v129[4];
         if (BYTE8(v129[4]))
@@ -2815,7 +3360,7 @@ LABEL_32:
         v69 = v68;
         BYTE8(v141[4]) = v69;
         *v101 = v30;
-        v101[1] = v65;
+        *(v101 + 1) = v65;
         v127 = v46;
         memcpy(__src, v141, sizeof(__src));
         v123 = 0;
@@ -2872,7 +3417,7 @@ LABEL_32:
       }
 
       *__src = v30;
-      v62 = *&v160;
+      v62 = v160;
       *&__src[8] = v160;
       *&v120[0] = v20;
       memcpy(v129, v159, 0x11BuLL);
@@ -2895,12 +3440,12 @@ LABEL_32:
         }
 
         *v129 = v63;
-        v83(v102, __src, v129, v94, v62);
-        if ((LOBYTE(v102[2]) & 1) == 0)
+        v83(v102, __src, v129, v94, *&v62);
+        if ((v102[1] & 1) == 0)
         {
           *v101 = v30;
-          v101[1] = v62;
-          *v98 = v102[1] + v102[0];
+          *(v101 + 1) = v62;
+          *v98 = *(v102 + 1) + *v102;
           memcpy(v129, v141, 0x11BuLL);
           LOBYTE(v127) = 0;
           v123 = 1;
@@ -2914,14 +3459,14 @@ LABEL_32:
           v64 = __src;
 LABEL_113:
           result = outlined destroy of DateComponents(v64);
-          v71 = *&v100[0];
+          v71 = *v100;
 LABEL_114:
           v72 = BYTE8(v100[0]);
 LABEL_115:
           v70 = *&v84;
           if (!v72)
           {
-            v70 = *&v71;
+            v70 = v71;
           }
 
           goto LABEL_125;
@@ -2943,7 +3488,7 @@ LABEL_115:
         }
 
         *v129 = v74;
-        v83(__src, v120, v129, v94, v62);
+        v83(__src, v120, v129, v94, *&v62);
         if ((__src[16] & 1) == 0)
         {
           v75 = *&__src[8] + *__src + -1.0;
@@ -2960,7 +3505,7 @@ LABEL_115:
           }
 
           *v120 = v76;
-          v92(v129, __src, v120, v94, v62);
+          v92(v129, __src, v120, v94, *&v62);
           v77 = *&v129[4];
           if (*&v129[4] == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -3019,7 +3564,7 @@ LABEL_115:
           BYTE8(v141[5]) = v82;
           BYTE9(v141[17]) = 1;
           *v101 = v30;
-          v101[1] = v62;
+          *(v101 + 1) = v62;
           *v98 = v75;
           memcpy(__src, v141, sizeof(__src));
           LOBYTE(v127) = 1;
@@ -3033,7 +3578,7 @@ LABEL_115:
           outlined destroy of DateComponents(v157);
           memcpy(v120, v141, 0x11BuLL);
           result = outlined destroy of DateComponents(v120);
-          v71 = *&v100[0];
+          v71 = *v100;
           goto LABEL_114;
         }
       }
@@ -4199,7 +4744,7 @@ unint64_t lazy protocol witness table accessor for type CalendarEnumerationError
 
 uint64_t outlined init with copy of (label: String?, value: Any)(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg5label_yp5valuetMd, &_sSSSg5label_yp5valuetMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -5060,7 +5605,7 @@ LABEL_17:
     {
       v31 = *&v13._time;
       v14 = v13._time;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
       if (!swift_dynamicCast())
       {
 
@@ -5286,7 +5831,7 @@ LABEL_72:
     v27 = v18 + 86400.0;
     *&v61[0] = 112;
     v70 = v18 + 86400.0;
-    *v63 = *(v6 + 112);
+    v63[0] = *(v6 + 112);
     swift_unknownObjectRetain();
     _CalendarGregorian.dateComponents(_:from:in:)(v61, &v70, v63, v64);
     swift_unknownObjectRelease();
@@ -5418,7 +5963,7 @@ LABEL_46:
     }
 
     v48 = swift_getObjectType();
-    v63[0] = v36 + -172800.0;
+    *v63 = v36 + -172800.0;
     (*(v16 + 88))(v64, v63, v48, v16);
     if (BYTE8(v64[0]))
     {
@@ -5716,7 +6261,7 @@ LABEL_50:
   return result;
 }
 
-uint64_t _s10Foundation18_CalendarGregorianC9julianDay20usingJulianReference18resolvedComponentsSiSb_AA012ResolvedDateJ0OtAA0cB5ErrorOYKF(uint64_t result, uint64_t a2, uint64_t a3)
+Swift::Int _s10Foundation18_CalendarGregorianC9julianDay20usingJulianReference18resolvedComponentsSiSb_AA012ResolvedDateJ0OtAA0cB5ErrorOYKF(Swift::Int result, Swift::Int a2, uint64_t a3)
 {
   v4 = *a2;
   v5 = *(a2 + 8);
@@ -6333,7 +6878,7 @@ LABEL_21:
       v177[0] = v174;
       LOBYTE(v200) = 1;
       outlined init with copy of DateComponents(__dst, v209);
-      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(__src, v177, &v200, v205, &v183);
+      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v183, __src, v177, &v200, v205);
       if (v8)
       {
         memcpy(v208, __src, 0x11BuLL);
@@ -6399,7 +6944,7 @@ LABEL_43:
       v177[0] = v174;
       LOBYTE(v200) = 0;
       outlined init with copy of DateComponents(__dst, v209);
-      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v176, v177, &v200, v205, &v183);
+      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v183, v176, v177, &v200, v205);
       if (v8)
       {
         memcpy(v208, v176, 0x11BuLL);
@@ -6488,7 +7033,7 @@ LABEL_43:
       v183 = v174;
       LOBYTE(v178[0]) = 1;
       outlined init with copy of DateComponents(v209, v208);
-      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v204, &v183, v178, v177, &v200);
+      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v200, v204, &v183, v178, v177);
       if (v8)
       {
         memcpy(v205, v204, 0x11BuLL);
@@ -6768,7 +7313,7 @@ LABEL_295:
                   v183 = v174;
                   LOBYTE(v178[0]) = 1;
                   outlined init with copy of DateComponents(v209, v208);
-                  _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v206, &v183, v178, v177, &v200);
+                  _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v200, v206, &v183, v178, v177);
                   if (v169)
                   {
                     memcpy(v205, v206, 0x11BuLL);
@@ -7258,7 +7803,7 @@ LABEL_251:
                                                 v177[0] = v174;
                                                 LOBYTE(v200) = 1;
                                                 outlined init with copy of DateComponents(__dst, v209);
-                                                _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v207, v177, &v200, v205, &v183);
+                                                _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v183, v207, v177, &v200, v205);
                                                 if (v170)
                                                 {
                                                   memcpy(v208, v207, 0x11BuLL);
@@ -7512,7 +8057,7 @@ LABEL_129:
       v177[0] = v174;
       LOBYTE(v200) = 1;
       outlined init with copy of DateComponents(__dst, v209);
-      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v211, v177, &v200, v205, &v183);
+      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v183, v211, v177, &v200, v205);
       if (!v8)
       {
         memcpy(v208, v211, 0x11BuLL);
@@ -7638,7 +8183,7 @@ LABEL_171:
       v180 = 0;
       outlined init with copy of DateComponents(__dst, v205);
       outlined init with copy of DateComponents(v209, v205);
-      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(v208, &v181, &v180, v178, &v182);
+      _s10Foundation18_CalendarGregorianC4date4from10inTimeZone011dstRepeatedG6Policy0i7SkippedgK0AA4DateVAA0M10ComponentsV_AA0gH0VAN014DaylightSavinggK0OAPtAA0cB5ErrorOYKF(&v182, v208, &v181, &v180, v178);
       if (!v8)
       {
         outlined destroy of DateComponents(__dst);
@@ -7731,7 +8276,7 @@ LABEL_253:
   }
 }
 
-Swift::Int _s10Foundation18_CalendarGregorianC4date19byAddingAndWrapping2toAA4DateVAA0J10ComponentsV_AHtAA0cB5ErrorOYKF@<X0>(uint64_t a1@<X0>, double *a2@<X1>, uint64_t a3@<X2>, double *a4@<X8>)
+uint64_t _s10Foundation18_CalendarGregorianC4date19byAddingAndWrapping2toAA4DateVAA0J10ComponentsV_AHtAA0cB5ErrorOYKF@<X0>(uint64_t a1@<X0>, double *a2@<X1>, uint64_t a3@<X2>, double *a4@<X8>)
 {
   v6 = *(a1 + 48);
   v7 = *(a1 + 56);
@@ -7801,7 +8346,7 @@ LABEL_3:
     goto LABEL_42;
   }
 
-  v9 = v85[0];
+  v9 = *v85;
   if (v11)
   {
 LABEL_4:
@@ -7821,7 +8366,7 @@ LABEL_14:
       goto LABEL_42;
     }
 
-    v9 = v85[0];
+    v9 = *v85;
     if (v80)
     {
       goto LABEL_6;
@@ -7852,7 +8397,7 @@ LABEL_12:
     goto LABEL_42;
   }
 
-  v9 = v85[0];
+  v9 = *v85;
   if ((v8 & 1) == 0)
   {
     goto LABEL_14;
@@ -7881,7 +8426,7 @@ LABEL_6:
   }
 
 LABEL_17:
-  v9 = v85[0];
+  v9 = *v85;
 LABEL_18:
   if ((v77 & 1) == 0)
   {
@@ -7895,7 +8440,7 @@ LABEL_18:
       goto LABEL_42;
     }
 
-    v9 = v85[0];
+    v9 = *v85;
   }
 
   v16 = v74;
@@ -7909,7 +8454,7 @@ LABEL_18:
     *&v82 = 14;
     v84 = *&v9;
     *&v85[0] = v13;
-    *&v85[1] = v12;
+    *(&v85[0] + 1) = v12;
     _CalendarGregorian.dateComponents(_:from:in:)(&v82, &v84, v85, __src);
     result = memcpy(__dst, __src, 0x11BuLL);
     if (BYTE8(__dst[3]) & 1) != 0 || (BYTE8(__dst[5]) & 1) != 0 || (BYTE8(__dst[4]))
@@ -7954,7 +8499,7 @@ LABEL_18:
               {
                 *&v82 = v23 + v14._time;
                 *&v85[0] = v13;
-                *&v85[1] = v12;
+                *(&v85[0] + 1) = v12;
                 _CalendarGregorian.timeZoneTransitionInterval(at:timeZone:)(&v82, v85, __src);
                 if ((__src[2] & 1) == 0)
                 {
@@ -8009,7 +8554,7 @@ LABEL_42:
     return result;
   }
 
-  v9 = v85[0];
+  v9 = *v85;
 LABEL_40:
   if ((v68 & 1) == 0)
   {
@@ -8023,7 +8568,7 @@ LABEL_40:
       goto LABEL_42;
     }
 
-    v9 = v85[0];
+    v9 = *v85;
   }
 
   v29 = v64;
@@ -8036,7 +8581,7 @@ LABEL_40:
   {
     *&v82 = 128;
     v84 = *&v9;
-    *v85 = *(v4 + 112);
+    v85[0] = *(v4 + 112);
     swift_unknownObjectRetain();
     _CalendarGregorian.dateComponents(_:from:in:)(&v82, &v84, v85, __src);
     swift_unknownObjectRelease();
@@ -8076,7 +8621,7 @@ LABEL_126:
           {
             *&v82 = v33 + v34;
             *&v85[0] = v13;
-            *&v85[1] = v12;
+            *(&v85[0] + 1) = v12;
             _CalendarGregorian.timeZoneTransitionInterval(at:timeZone:)(&v82, v85, __src);
             if ((__src[2] & 1) == 0)
             {
@@ -8176,9 +8721,9 @@ LABEL_120:
       LOBYTE(v84) = 3;
       *&v82 = v9;
       *(&result - 1) = _CalendarGregorian.firstInstant(of:at:)(&v84, v41);
-      if ((LOBYTE(v85[1]) & 1) == 0)
+      if ((BYTE8(v85[0]) & 1) == 0)
       {
-        v9 = v85[0];
+        v9 = *v85;
       }
     }
 
@@ -8267,9 +8812,9 @@ LABEL_125:
       LOBYTE(v84) = 4;
       *&v82 = v9;
       *(&result - 1) = _CalendarGregorian.firstInstant(of:at:)(&v84, v48);
-      if ((LOBYTE(v85[1]) & 1) == 0)
+      if ((BYTE8(v85[0]) & 1) == 0)
       {
-        v9 = v85[0];
+        v9 = *v85;
       }
     }
 
@@ -8333,9 +8878,9 @@ LABEL_102:
         LOBYTE(v84) = 5;
         *&v82 = v9;
         _CalendarGregorian.firstInstant(of:at:)(&v84, v53);
-        if ((LOBYTE(v85[1]) & 1) == 0)
+        if ((BYTE8(v85[0]) & 1) == 0)
         {
-          v9 = v85[0];
+          v9 = *v85;
         }
 
         result = swift_unknownObjectRelease();
@@ -8539,7 +9084,7 @@ uint64_t destructiveInjectEnumTag for GregorianCalendarError(uint64_t result, ch
 
 uint64_t _CalendarProtocol.localeIdentifier.getter(uint64_t a1, uint64_t a2)
 {
-  (*(a2 + 32))(v6);
+  (*(a2 + 32))(v6, a1);
   if (!v6[0])
   {
     return 0;
@@ -8572,7 +9117,7 @@ uint64_t _CalendarProtocol.debugDescription.getter(uint64_t a1, uint64_t a2)
 {
   v4 = 0;
   v5 = 0xE000000000000000;
-  (*(a2 + 24))(&v3);
+  (*(a2 + 24))(&v3, a1);
   _print_unlocked<A, B>(_:_:)();
   return v4;
 }
@@ -8597,7 +9142,7 @@ uint64_t specialized _CalendarProtocol.localeIdentifier.getter()
       swift_once();
     }
 
-    v29 = *(&static LocaleCache.cache + 8);
+    v30 = *(&static LocaleCache.cache + 8);
     v3 = *(&static LocaleCache.cache + 1);
     os_unfair_lock_lock((*(&static LocaleCache.cache + 1) + 32));
     v5 = *(v3 + 16);
@@ -8606,136 +9151,138 @@ uint64_t specialized _CalendarProtocol.localeIdentifier.getter()
     os_unfair_lock_unlock((v3 + 32));
     if (!v5)
     {
-      LocaleCache.preferences()(&v40);
+      LocaleCache.preferences()(&v41);
       v7 = v6;
       type metadata accessor for _LocaleICU();
-      v4 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(&lazy protocol witness table cache variable for type _LocaleICU and conformance _LocaleICU, type metadata accessor for _LocaleICU);
-      v38 = v46;
-      v39[0] = v47[0];
-      *(v39 + 12) = *(v47 + 12);
-      v34 = v42;
+      v4 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(&lazy protocol witness table cache variable for type _LocaleICU and conformance _LocaleICU, type metadata accessor for _LocaleICU, &protocol conformance descriptor for _LocaleICU);
+      v39 = v47;
+      v40[0] = v48[0];
+      *(v40 + 12) = *(v48 + 12);
       v35 = v43;
       v36 = v44;
       v37 = v45;
-      v33[0] = v40;
-      v33[1] = v41;
+      v38 = v46;
+      v34[0] = v41;
+      v34[1] = v42;
       swift_allocObject();
-      outlined init with copy of LocalePreferences(&v40, v32);
-      v8 = _LocaleICU.init(name:prefs:disableBundleMatching:)(0, 0, v33, 0);
+      outlined init with copy of LocalePreferences(&v41, v33);
+      v8 = _LocaleICU.init(name:prefs:disableBundleMatching:)(0, 0, v34, 0);
       if (v7)
       {
         MEMORY[0x1EEE9AC00](v8);
         os_unfair_lock_lock((v3 + 32));
-        closure #2 in LocaleCache._currentAndCache.getterpartial apply((v3 + 16), v33);
+        closure #2 in LocaleCache._currentAndCache.getterpartial apply((v3 + 16), v34);
         os_unfair_lock_unlock((v3 + 32));
-        outlined destroy of LocalePreferences(&v40);
+        outlined destroy of LocalePreferences(&v41);
 
-        v4 = *(&v33[0] + 1);
+        v4 = *(&v34[0] + 1);
       }
 
       else
       {
-        outlined destroy of LocalePreferences(&v40);
+        outlined destroy of LocalePreferences(&v41);
       }
     }
 
     ObjectType = swift_getObjectType();
-    (*(v4 + 200))(&v40, ObjectType, v4);
+    (*(v4 + 200))(&v41, ObjectType, v4);
     swift_unknownObjectRelease();
-    v10 = v40;
-    if (v40 && v40 != 7)
+    v10 = v41;
+    if (v41 && v41 != 7)
     {
-      *&v29 = type metadata accessor for _CalendarICU();
+      *&v30 = type metadata accessor for _CalendarICU();
       v11 = &lazy protocol witness table cache variable for type _CalendarICU and conformance _CalendarICU;
       v12 = type metadata accessor for _CalendarICU;
+      v13 = &protocol conformance descriptor for _CalendarICU;
     }
 
     else
     {
-      *&v29 = type metadata accessor for _CalendarGregorian();
+      *&v30 = type metadata accessor for _CalendarGregorian();
       v11 = &lazy protocol witness table cache variable for type _CalendarGregorian and conformance _CalendarGregorian;
       v12 = type metadata accessor for _CalendarGregorian;
+      v13 = &protocol conformance descriptor for _CalendarGregorian;
     }
 
-    v13 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(v11, v12);
-    v31 = v10;
-    v30[0] = 0;
-    v30[1] = 0;
-    v14 = static LocaleCache.cache;
-    v28 = *(&static LocaleCache.cache + 8);
-    v15 = *(&static LocaleCache.cache + 1);
+    v14 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(v11, v12, v13);
+    v32 = v10;
+    v31[0] = 0;
+    v31[1] = 0;
+    v15 = static LocaleCache.cache;
+    v29 = *(&static LocaleCache.cache + 8);
+    v16 = *(&static LocaleCache.cache + 1);
     os_unfair_lock_lock((*(&static LocaleCache.cache + 1) + 32));
-    v17 = *(v15 + 16);
-    v16 = *(v15 + 24);
+    v18 = *(v16 + 16);
+    v17 = *(v16 + 24);
     swift_unknownObjectRetain();
-    os_unfair_lock_unlock((v15 + 32));
-    if (!v17)
+    os_unfair_lock_unlock((v16 + 32));
+    if (!v18)
     {
-      v27[1] = 0;
-      *&v33[0] = v14;
-      *(v33 + 8) = v28;
-      LocaleCache.preferences()(&v40);
-      v19 = v18;
+      v28[1] = 0;
+      *&v34[0] = v15;
+      *(v34 + 8) = v29;
+      LocaleCache.preferences()(&v41);
+      v20 = v19;
       type metadata accessor for _LocaleICU();
-      v16 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(&lazy protocol witness table cache variable for type _LocaleICU and conformance _LocaleICU, type metadata accessor for _LocaleICU);
-      v38 = v46;
-      v39[0] = v47[0];
-      *(v39 + 12) = *(v47 + 12);
-      v34 = v42;
+      v17 = lazy protocol witness table accessor for type _LocaleICU and conformance _LocaleICU(&lazy protocol witness table cache variable for type _LocaleICU and conformance _LocaleICU, type metadata accessor for _LocaleICU, &protocol conformance descriptor for _LocaleICU);
+      v39 = v47;
+      v40[0] = v48[0];
+      *(v40 + 12) = *(v48 + 12);
       v35 = v43;
       v36 = v44;
       v37 = v45;
-      v33[0] = v40;
-      v33[1] = v41;
+      v38 = v46;
+      v34[0] = v41;
+      v34[1] = v42;
       swift_allocObject();
-      outlined init with copy of LocalePreferences(&v40, v32);
-      v20 = _LocaleICU.init(name:prefs:disableBundleMatching:)(0, 0, v33, 0);
-      v17 = v20;
-      if (v19)
+      outlined init with copy of LocalePreferences(&v41, v33);
+      v21 = _LocaleICU.init(name:prefs:disableBundleMatching:)(0, 0, v34, 0);
+      v18 = v21;
+      if (v20)
       {
-        *&v28 = v27;
-        MEMORY[0x1EEE9AC00](v20);
-        os_unfair_lock_lock((v15 + 32));
-        partial apply for closure #2 in LocaleCache._currentAndCache.getter((v15 + 16), v33);
-        os_unfair_lock_unlock((v15 + 32));
-        outlined destroy of LocalePreferences(&v40);
+        *&v29 = v28;
+        MEMORY[0x1EEE9AC00](v21);
+        os_unfair_lock_lock((v16 + 32));
+        partial apply for closure #2 in LocaleCache._currentAndCache.getter((v16 + 16), v34);
+        os_unfair_lock_unlock((v16 + 32));
+        outlined destroy of LocalePreferences(&v41);
 
-        v16 = *(&v33[0] + 1);
-        v17 = *&v33[0];
+        v17 = *(&v34[0] + 1);
+        v18 = *&v34[0];
       }
 
       else
       {
-        outlined destroy of LocalePreferences(&v40);
+        outlined destroy of LocalePreferences(&v41);
       }
     }
 
-    *&v40 = v17;
-    *(&v40 + 1) = v16;
-    *&v33[0] = 0;
-    BYTE8(v33[0]) = 1;
-    v21 = (*(v13 + 16))(&v31, v30, &v40, 0, 1, 0, 1, v33, v29, v13);
-    MEMORY[0x1EEE9AC00](v21);
+    *&v41 = v18;
+    *(&v41 + 1) = v17;
+    *&v34[0] = 0;
+    BYTE8(v34[0]) = 1;
+    v22 = (*(v14 + 16))(&v32, v31, &v41, 0, 1, 0, 1, v34, v30, v14);
+    MEMORY[0x1EEE9AC00](v22);
     os_unfair_lock_lock((v0 + 32));
-    partial apply for closure #2 in CalendarCache.current.getter((v0 + 16), &v40);
+    partial apply for closure #2 in CalendarCache.current.getter((v0 + 16), &v41);
     os_unfair_lock_unlock((v0 + 32));
     swift_unknownObjectRelease();
-    v2 = *(&v40 + 1);
+    v2 = *(&v41 + 1);
   }
 
-  v22 = swift_getObjectType();
-  (*(v2 + 32))(v48, v22, v2);
+  v23 = swift_getObjectType();
+  (*(v2 + 32))(v49, v23, v2);
   swift_unknownObjectRelease();
-  if (!v48[0])
+  if (!v49[0])
   {
     return 0;
   }
 
-  v23 = v48[1];
-  v24 = swift_getObjectType();
-  v25 = (*(v23 + 64))(v24, v23);
+  v24 = v49[1];
+  v25 = swift_getObjectType();
+  v26 = (*(v24 + 64))(v25, v24);
   swift_unknownObjectRelease();
-  return v25;
+  return v26;
 }
 
 __n128 __swift_memcpy145_8(uint64_t a1, uint64_t a2)
@@ -9306,7 +9853,7 @@ Swift::Void __swiftcall Calendar.DatesByRecurring.Iterator.nextGroup()()
   }
 
   v0 = v1;
-  next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()(v1, &v213);
+  next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()(&v213, v1);
   if (v214)
   {
 LABEL_3:
@@ -9352,7 +9899,7 @@ LABEL_174:
       }
     }
 
-    next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()(v1, &v213);
+    next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()(&v213, v1);
     if (v214)
     {
       goto LABEL_3;
@@ -9394,8 +9941,8 @@ LABEL_174:
     if ((*(v0 + 26) & 0xFE) != 4)
     {
       swift_bridgeObjectRelease_n();
-      *&v189 = 0.0;
-      *&v190 = 0.0;
+      v189 = 0.0;
+      v190 = 0.0;
       goto LABEL_26;
     }
 
@@ -9405,20 +9952,20 @@ LABEL_174:
       swift_bridgeObjectRelease_n();
       v190 = *(v0 + 96);
 
-      *&v189 = 0.0;
+      v189 = 0.0;
 LABEL_26:
       v17 = 0;
       goto LABEL_36;
     }
 
     v17 = *(v0 + 104);
-    if (*(v17 + 16))
+    if (v17[2])
     {
     }
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV5MonthVGMR);
       v18 = swift_allocObject();
       *(v18 + 16) = xmmword_181218E20;
       if (v216)
@@ -9439,7 +9986,7 @@ LABEL_26:
 
     else
     {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
       *&v20 = COERCE_DOUBLE(swift_allocObject());
       *(v20 + 16) = xmmword_181218E20;
       if (v218)
@@ -9447,12 +9994,12 @@ LABEL_26:
         goto LABEL_185;
       }
 
-      v189 = v20;
+      v189 = *&v20;
       *(v20 + 32) = v217;
     }
 
     swift_bridgeObjectRelease_n();
-    *&v190 = 0.0;
+    v190 = 0.0;
 LABEL_36:
     v21 = *(v0 + 188);
     if (v21 == 2 || (v21 & 1) != 0)
@@ -9473,8 +10020,8 @@ LABEL_36:
       goto LABEL_51;
     }
 
-    *&v189 = 0.0;
-    *&v190 = 0.0;
+    v189 = 0.0;
+    v190 = 0.0;
     v17 = 0;
 LABEL_52:
     v188 = 0;
@@ -9506,7 +10053,7 @@ LABEL_52:
       else
       {
         v29 = v219;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
         v30 = swift_allocObject();
         *(v30 + 16) = xmmword_181218E20;
         v185 = v30;
@@ -9542,7 +10089,7 @@ LABEL_73:
     if ((v222 & 1) == 0)
     {
       v32 = v221;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
       v33 = swift_allocObject();
       *(v33 + 16) = xmmword_181218E20;
       v184 = v33;
@@ -9564,7 +10111,7 @@ LABEL_74:
       }
 
       v35 = v223;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
       v36 = swift_allocObject();
       *(v36 + 16) = xmmword_181218E20;
       v183 = v36;
@@ -9598,7 +10145,7 @@ LABEL_81:
 
     v38 = v203;
     v39 = v204 + v203;
-    v40 = *&v189;
+    v40 = v189;
     if (v204 + v203 < v203)
     {
       __break(1u);
@@ -9610,8 +10157,8 @@ LABEL_180:
     v203 = *&v3;
     v204 = *&v2;
     *&v192 = v38;
-    v230[0] = v189;
-    v230[1] = v190;
+    v230[0] = *&v189;
+    v230[1] = *&v190;
     v230[2] = v188;
     v230[3] = v186;
     v230[4] = v187;
@@ -10072,8 +10619,8 @@ LABEL_111:
           outlined destroy of DateComponents(&v213);
           swift_unknownObjectRelease();
           *(v0 + 584) = 1;
-          v203 = *&v189;
-          v204 = *&v190;
+          v203 = v189;
+          v204 = v190;
           v205 = v188;
           v206 = v186;
           v207 = v187;
@@ -10247,7 +10794,7 @@ LABEL_116:
     if (*&v2 == 0.0)
     {
 
-      v40 = *&v189;
+      v40 = v189;
 LABEL_168:
 
       v180 = specialized Sequence.reversed()(v179);
@@ -10256,7 +10803,7 @@ LABEL_168:
 
       *(v0 + 608) = v180;
       v203 = v40;
-      v204 = *&v190;
+      v204 = v190;
       v205 = v188;
       v206 = v186;
       v207 = v187;
@@ -10272,7 +10819,7 @@ LABEL_168:
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2, 0);
     v3 = 32;
     *&v175 = v203;
-    v40 = *&v189;
+    v40 = v189;
     v5 = (ObjectType + 4);
     while (1)
     {
@@ -10347,7 +10894,7 @@ LABEL_49:
     {
       v24 = v17;
       v25 = outlined read-only object #0 of one-time initialization function for weekdays[v225 + 31];
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMd, &_ss23_ContiguousArrayStorageCy10Foundation8CalendarV14RecurrenceRuleV7WeekdayOGMR);
       v26 = swift_allocObject();
       *(v26 + 16) = xmmword_181218E20;
       *(v26 + 32) = v25;
@@ -10356,8 +10903,8 @@ LABEL_49:
       *(v26 + 40) = 0;
 
 LABEL_51:
-      *&v189 = 0.0;
-      *&v190 = 0.0;
+      v189 = 0.0;
+      v190 = 0.0;
       goto LABEL_52;
     }
 

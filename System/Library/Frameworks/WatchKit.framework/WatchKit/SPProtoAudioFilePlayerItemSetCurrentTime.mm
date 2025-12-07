@@ -55,12 +55,9 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  identifier = self->_identifier;
-  v7 = toCopy;
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    currentTime = self->_currentTime;
     PBDataWriterWriteDoubleField();
   }
 }

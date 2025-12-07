@@ -19,42 +19,38 @@
 
 - (id)BOOLForKey:(id)key
 {
-  v5 = (&self->super.isa + OBJC_IVAR___Bag_bag);
-  v6 = v5[4];
-  sub_F19C(v5, v5[3]);
+  sub_F19C((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
   keyCopy = key;
   selfCopy = self;
-  v9 = sub_9D18();
-  if (v9 == 2)
+  v7 = sub_9D18();
+  if (v7 == 2)
   {
-    v10 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v10 = [objc_allocWithZone(NSNumber) initWithBool:v9 & 1];
+    v8 = [objc_allocWithZone(NSNumber) initWithBool:v7 & 1];
   }
 
-  return v10;
+  return v8;
 }
 
 - (BOOL)BOOLForKey:(id)key defaultValue:(BOOL)value
 {
-  v7 = (&self->super.isa + OBJC_IVAR___Bag_bag);
-  v8 = v7[4];
-  sub_F19C(v7, v7[3]);
+  sub_F19C((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
   keyCopy = key;
   selfCopy = self;
-  v11 = sub_9D18();
+  v9 = sub_9D18();
 
-  if (v11 == 2)
+  if (v9 == 2)
   {
     return value;
   }
 
   else
   {
-    return v11;
+    return v9;
   }
 }
 
@@ -146,59 +142,55 @@
 
 - (id)stringForKey:(id)key
 {
-  v5 = (&self->super.isa + OBJC_IVAR___Bag_bag);
-  v6 = v5[4];
-  sub_F19C(v5, v5[3]);
+  sub_F19C((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
   keyCopy = key;
   selfCopy = self;
   sub_A240();
-  v10 = v9;
+  v8 = v7;
 
-  if (v10)
+  if (v8)
   {
-    v11 = sub_1881C();
+    v9 = sub_1881C();
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 - (id)URLForKey:(id)key
 {
   v5 = sub_9C94(&qword_25898, &qword_1AC30);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v19 - v7;
-  v9 = *&self->bag[OBJC_IVAR___Bag_bag + 24];
+  v7 = &v17 - v6;
   sub_F19C((&self->super.isa + OBJC_IVAR___Bag_bag), *&self->bag[OBJC_IVAR___Bag_bag + 16]);
   keyCopy = key;
   selfCopy = self;
   sub_A35C();
 
-  v12 = sub_182CC();
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 48))(v8, 1, v12);
-  v15 = 0;
-  if (v14 != 1)
+  v10 = sub_182CC();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v7, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    sub_182BC(v14);
-    v17 = v16;
-    (*(v13 + 8))(v8, v12);
-    v15 = v17;
+    sub_182BC(v12);
+    v15 = v14;
+    (*(v11 + 8))(v7, v10);
+    v13 = v15;
   }
 
-  return v15;
+  return v13;
 }
 
 - (id)arrayOfStringsForKey:(id)key
 {
   keyCopy = key;
   selfCopy = self;
-  v6 = sub_A534();
+  v6 = sub_A534(keyCopy);
 
   if (v6)
   {

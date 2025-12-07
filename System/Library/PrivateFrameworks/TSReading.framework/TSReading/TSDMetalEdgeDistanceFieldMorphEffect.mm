@@ -154,86 +154,86 @@
   incomingColorCopy = incomingColor;
   contextCopy = context;
   capabilitiesCopy = capabilities;
-  v64.receiver = self;
-  v64.super_class = TSDMetalEdgeDistanceFieldMorphEffect;
-  v42 = objc_msgSendSuper2(&v64, sel_init);
-  if (v42)
+  v66.receiver = self;
+  v66.super_class = TSDMetalEdgeDistanceFieldMorphEffect;
+  v44 = objc_msgSendSuper2(&v66, sel_init);
+  if (v44)
   {
     device = [contextCopy device];
-    v44 = *(v42 + 30);
-    *(v42 + 30) = device;
+    v46 = *(v44 + 30);
+    *(v44 + 30) = device;
 
-    v45 = name / 3.0;
+    v47 = name / 3.0;
     if (a2 > name / 3.0)
     {
-      v45 = a2;
+      v47 = a2;
     }
 
-    v46 = a22 / 3.0;
+    v48 = a22 / 3.0;
     if (a21 > a22 / 3.0)
     {
-      v46 = a21;
+      v48 = a21;
     }
 
     textureNameCopy = textureName;
     colorCopy = color;
-    v47 = round(v45 * -0.05);
-    v48 = round(v46 * -0.05);
-    v49 = [TSDMetalEdgeDistanceField distanceFieldTextureWithTexture:textBoundsCopy textureSize:0 maxDistance:1 edgeInsets:0 downsampleScale:contextCopy floatTexture:capabilitiesCopy makeCPUReadable:a2 metalContext:name capabilities:0.0, v47, 0.0, v47, 1.0];
-    v50 = *(v42 + 32);
-    *(v42 + 32) = v49;
+    v49 = round(v47 * -0.05);
+    v50 = round(v48 * -0.05);
+    v51 = [TSDMetalEdgeDistanceField distanceFieldTextureWithTexture:textBoundsCopy textureSize:0 maxDistance:1 edgeInsets:0 downsampleScale:contextCopy floatTexture:capabilitiesCopy makeCPUReadable:a2 metalContext:name capabilities:0.0, v49, 0.0, v49, 1.0];
+    v52 = *(v44 + 32);
+    *(v44 + 32) = v51;
 
-    v51 = [TSDMetalEdgeDistanceField distanceFieldTextureWithTexture:incomingColorCopy textureSize:0 maxDistance:1 edgeInsets:0 downsampleScale:contextCopy floatTexture:capabilitiesCopy makeCPUReadable:a21 metalContext:a22 capabilities:0.0, v48, 0.0, v48, 1.0];
-    v52 = *(v42 + 33);
-    *(v42 + 33) = v51;
+    v53 = [TSDMetalEdgeDistanceField distanceFieldTextureWithTexture:incomingColorCopy textureSize:0 maxDistance:1 edgeInsets:0 downsampleScale:contextCopy floatTexture:capabilitiesCopy makeCPUReadable:a21 metalContext:a22 capabilities:0.0, v50, 0.0, v50, 1.0];
+    v54 = *(v44 + 33);
+    *(v44 + 33) = v53;
 
-    CGAffineTransformMakeScale(&v63, a2 / [*(v42 + 32) width], name / objc_msgSend(*(v42 + 32), "height"));
-    v53 = *&v63.c;
-    *(v42 + 7) = *&v63.a;
-    *(v42 + 8) = v53;
-    *(v42 + 9) = *&v63.tx;
-    v54 = *(v42 + 8);
-    *&v62.a = *(v42 + 7);
-    *&v62.c = v54;
-    *&v62.tx = *(v42 + 9);
-    CGAffineTransformTranslate(&v63, &v62, -v47 / a2, -0.0 / name);
-    v55 = *&v63.c;
-    *(v42 + 7) = *&v63.a;
-    *(v42 + 8) = v55;
-    *(v42 + 9) = *&v63.tx;
-    CGAffineTransformMakeScale(&v63, a21 / [*(v42 + 33) width], a22 / objc_msgSend(*(v42 + 33), "height"));
-    v56 = *&v63.c;
-    *(v42 + 10) = *&v63.a;
-    *(v42 + 11) = v56;
-    *(v42 + 12) = *&v63.tx;
-    v57 = *(v42 + 11);
-    *&v62.a = *(v42 + 10);
-    *&v62.c = v57;
-    *&v62.tx = *(v42 + 12);
-    CGAffineTransformTranslate(&v63, &v62, -v48 / a21, -0.0 / a22);
-    v58 = *&v63.c;
-    *(v42 + 10) = *&v63.a;
-    *(v42 + 11) = v58;
-    *(v42 + 12) = *&v63.tx;
-    *(v42 + 2) = size;
-    *(v42 + 3) = bounds;
-    *(v42 + 4) = colorCopy;
-    *(v42 + 5) = textureNameCopy;
-    *(v42 + 6) = a23;
-    *(v42 + 7) = a24;
-    *(v42 + 8) = a25;
-    *(v42 + 9) = a26;
-    *(v42 + 20) = a17;
-    *(v42 + 21) = a18;
-    *(v42 + 22) = a19;
-    *(v42 + 23) = a20;
-    *(v42 + 24) = a27;
-    *(v42 + 25) = a28;
-    *(v42 + 26) = a29;
-    *(v42 + 27) = a30;
+    CGAffineTransformMakeScale(&v65, a2 / [*(v44 + 32) width], name / objc_msgSend(*(v44 + 32), "height"));
+    v55 = *&v65.c;
+    *(v44 + 7) = *&v65.a;
+    *(v44 + 8) = v55;
+    *(v44 + 9) = *&v65.tx;
+    v56 = *(v44 + 8);
+    *&v64.a = *(v44 + 7);
+    *&v64.c = v56;
+    *&v64.tx = *(v44 + 9);
+    CGAffineTransformTranslate(&v65, &v64, -v49 / a2, -0.0 / name);
+    v57 = *&v65.c;
+    *(v44 + 7) = *&v65.a;
+    *(v44 + 8) = v57;
+    *(v44 + 9) = *&v65.tx;
+    CGAffineTransformMakeScale(&v65, a21 / [*(v44 + 33) width], a22 / objc_msgSend(*(v44 + 33), "height"));
+    v58 = *&v65.c;
+    *(v44 + 10) = *&v65.a;
+    *(v44 + 11) = v58;
+    *(v44 + 12) = *&v65.tx;
+    v59 = *(v44 + 11);
+    *&v64.a = *(v44 + 10);
+    *&v64.c = v59;
+    *&v64.tx = *(v44 + 12);
+    CGAffineTransformTranslate(&v65, &v64, -v50 / a21, -0.0 / a22);
+    v60 = *&v65.c;
+    *(v44 + 10) = *&v65.a;
+    *(v44 + 11) = v60;
+    *(v44 + 12) = *&v65.tx;
+    *(v44 + 2) = size;
+    *(v44 + 3) = bounds;
+    *(v44 + 4) = colorCopy;
+    *(v44 + 5) = textureNameCopy;
+    *(v44 + 6) = a23;
+    *(v44 + 7) = a24;
+    *(v44 + 8) = a25;
+    *(v44 + 9) = a26;
+    *(v44 + 20) = a17;
+    *(v44 + 21) = a18;
+    *(v44 + 22) = a19;
+    *(v44 + 23) = a20;
+    *(v44 + 24) = a27;
+    *(v44 + 25) = a28;
+    *(v44 + 26) = a29;
+    *(v44 + 27) = a30;
   }
 
-  return v42;
+  return v44;
 }
 
 - (void)dealloc
@@ -800,7 +800,7 @@ LABEL_4:
     var1 = adjustment.var1;
     v14 = (sample + 1) / (count + 2);
     [(TSDMetalTextureInfo *)self->_outgoingTextureInfo size];
-    [(TSDMetalEdgeDistanceFieldMorphEffect *)self p_affineTransformWithTextureAdjustment:var0 textureSize:var1, var2, v15, v16];
+    objc_msgSend_p_affineTransformWithTextureAdjustment_textureSize_(self, var0, var1, var2, v15, v16);
     return vabdd_f64(v14 * 0.0 + 0.0 * value + 0.0, incomingValue);
   }
 
@@ -1032,27 +1032,30 @@ LABEL_4:
   matricesCopy = matrices;
   withCopy = with;
   v13 = *(MEMORY[0x277CBF2C0] + 16);
-  *&v49.a = *MEMORY[0x277CBF2C0];
-  *&v49.c = v13;
-  *&v49.tx = *(MEMORY[0x277CBF2C0] + 32);
-  *&v48.a = *&v49.a;
-  *&v48.c = v13;
-  *&v48.tx = *&v49.tx;
+  *&v57.a = *MEMORY[0x277CBF2C0];
+  *&v57.c = v13;
+  *&v57.tx = *(MEMORY[0x277CBF2C0] + 32);
+  *&v56.a = *&v57.a;
+  *&v56.c = v13;
+  *&v56.tx = *&v57.tx;
   if (matricesCopy)
   {
-    if (![(TSDMetalEdgeDistanceFieldMorphEffect *)self isTextStyleIdenticalExceptSize]|| (v14 = *MEMORY[0x277CBF3A0], v15 = *(MEMORY[0x277CBF3A0] + 8), v16 = *(MEMORY[0x277CBF3A0] + 16), v17 = *(MEMORY[0x277CBF3A0] + 24), v50.origin.x = *MEMORY[0x277CBF3A0], v50.origin.y = v15, v50.size.width = v16, v50.size.height = v17, CGRectEqualToRect(v50, self->_outgoingTextBounds)) || (v51.origin.x = v14, v51.origin.y = v15, v51.size.width = v16, v51.size.height = v17, CGRectEqualToRect(v51, self->_incomingTextBounds)))
+    if (![(TSDMetalEdgeDistanceFieldMorphEffect *)self isTextStyleIdenticalExceptSize]|| (v14 = *MEMORY[0x277CBF3A0], v15 = *(MEMORY[0x277CBF3A0] + 8), v16 = *(MEMORY[0x277CBF3A0] + 16), v17 = *(MEMORY[0x277CBF3A0] + 24), v58.origin.x = *MEMORY[0x277CBF3A0], v58.origin.y = v15, v58.size.width = v16, v58.size.height = v17, CGRectEqualToRect(v58, self->_outgoingTextBounds)) || (v59.origin.x = v14, v59.origin.y = v15, v59.size.width = v16, v59.size.height = v17, CGRectEqualToRect(v59, self->_incomingTextBounds)))
     {
-      [(TSDMetalEdgeDistanceFieldMorphEffect *)self textureMatchingTextureAdjustment];
-      v18 = TSDMetalEdgeDistanceFieldTextureAdjustmentMix();
+      textureMatchingTextureAdjustment = [(TSDMetalEdgeDistanceFieldMorphEffect *)self textureMatchingTextureAdjustment];
       v20 = v19;
       v22 = v21;
-      v23 = TSDMetalEdgeDistanceFieldTextureAdjustmentMix();
-      v25 = v24;
+      v24 = v23;
+      v25 = TSDMetalEdgeDistanceFieldTextureAdjustmentMix(textureMatchingTextureAdjustment, 0.0, 0.0, 1.0, -v19, -v21, 1.0 / v23, percent);
       v27 = v26;
+      v29 = v28;
+      v31 = TSDMetalEdgeDistanceFieldTextureAdjustmentMix(v30, v20, v22, v24, 0.0, 0.0, 1.0, percent);
+      v33 = v32;
+      v35 = v34;
       [(TSDMetalTextureInfo *)self->_outgoingTextureInfo size];
-      [(TSDMetalEdgeDistanceFieldMorphEffect *)self p_affineTransformWithTextureAdjustment:v18 textureSize:v20, v22, v28, v29];
+      objc_msgSend_p_affineTransformWithTextureAdjustment_textureSize_(self, v25, v27, v29, v36, v37);
       [(TSDMetalTextureInfo *)self->_incomingTextureInfo size];
-      [(TSDMetalEdgeDistanceFieldMorphEffect *)self p_affineTransformWithTextureAdjustment:v23 textureSize:v25, v27, v30, v31];
+      objc_msgSend_p_affineTransformWithTextureAdjustment_textureSize_(self, v31, v33, v35, v38, v39);
     }
 
     else
@@ -1063,16 +1066,16 @@ LABEL_4:
         height = self->_outgoingTextBounds.size.height;
         if (height > 0.2)
         {
-          v38 = self->_incomingTextBounds.size.width;
-          if (v38 > 0.2)
+          v46 = self->_incomingTextBounds.size.width;
+          if (v46 > 0.2)
           {
-            v39 = self->_incomingTextBounds.size.height;
-            if (v39 > 0.2)
+            v47 = self->_incomingTextBounds.size.height;
+            if (v47 > 0.2)
             {
-              TSDTransformConvertingRectToRectAtPercent(&v42, self->_outgoingTextBounds.origin.x, width, height, self->_incomingTextBounds.origin.x, self->_incomingTextBounds.origin.y, v38, v39, percent);
-              CGAffineTransformInvert(&v49, &v42);
-              TSDTransformConvertingRectToRectAtPercent(&v42, self->_incomingTextBounds.origin.x, self->_incomingTextBounds.size.width, self->_incomingTextBounds.size.height, self->_outgoingTextBounds.origin.x, self->_outgoingTextBounds.origin.y, self->_outgoingTextBounds.size.width, self->_outgoingTextBounds.size.height, 1.0 - percent);
-              CGAffineTransformInvert(&v48, &v42);
+              TSDTransformConvertingRectToRectAtPercent(&v50, self->_outgoingTextBounds.origin.x, width, height, self->_incomingTextBounds.origin.x, self->_incomingTextBounds.origin.y, v46, v47, percent);
+              CGAffineTransformInvert(&v57, &v50);
+              TSDTransformConvertingRectToRectAtPercent(&v50, self->_incomingTextBounds.origin.x, self->_incomingTextBounds.size.width, self->_incomingTextBounds.size.height, self->_outgoingTextBounds.origin.x, self->_outgoingTextBounds.origin.y, self->_outgoingTextBounds.size.width, self->_outgoingTextBounds.size.height, 1.0 - percent);
+              CGAffineTransformInvert(&v56, &v50);
             }
           }
         }
@@ -1080,21 +1083,21 @@ LABEL_4:
     }
   }
 
-  v32 = *&matrix->m33;
-  v44 = *&matrix->m31;
-  v45 = v32;
-  v33 = *&matrix->m43;
-  v46 = *&matrix->m41;
-  v47 = v33;
-  v34 = *&matrix->m13;
-  *&v42.a = *&matrix->m11;
-  *&v42.c = v34;
-  v35 = *&matrix->m23;
-  *&v42.tx = *&matrix->m21;
-  v43 = v35;
-  v41 = v49;
-  v40 = v48;
-  [(TSDMetalEdgeDistanceFieldMorphEffect *)self encodeWith:withCopy morphPercent:&v42 MVPMatrix:&v41 opacity:&v40 outgoingTextureMatrix:percent incomingTextureMatrix:opacity];
+  v40 = *&matrix->m33;
+  v52 = *&matrix->m31;
+  v53 = v40;
+  v41 = *&matrix->m43;
+  v54 = *&matrix->m41;
+  v55 = v41;
+  v42 = *&matrix->m13;
+  *&v50.a = *&matrix->m11;
+  *&v50.c = v42;
+  v43 = *&matrix->m23;
+  *&v50.tx = *&matrix->m21;
+  v51 = v43;
+  v49 = v57;
+  v48 = v56;
+  [(TSDMetalEdgeDistanceFieldMorphEffect *)self encodeWith:withCopy morphPercent:&v50 MVPMatrix:&v49 opacity:&v48 outgoingTextureMatrix:percent incomingTextureMatrix:opacity];
 }
 
 @end

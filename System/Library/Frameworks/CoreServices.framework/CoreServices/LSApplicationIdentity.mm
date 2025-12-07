@@ -5,6 +5,7 @@
 + (id)identityStringsForApplicationWithBundleIdentifier:(id)identifier error:(id *)error;
 - (BOOL)isEqual:(id)equal;
 - (LSApplicationIdentity)initWithBundleIdentifier:(id)identifier URL:(id)l personaUniqueString:(id)string personaType:(unint64_t)type;
+- (LSApplicationIdentity)initWithBundleIdentifier:(id)identifier allowPlaceholder:(BOOL)placeholder personaUniqueString:(id)string error:(id *)error;
 - (LSApplicationIdentity)initWithCoder:(id)coder;
 - (LSApplicationIdentity)initWithIdentityBookmark:(id)bookmark identityString:(id)string personaUniqueString:(id)uniqueString personaType:(unint64_t)type;
 - (LSApplicationIdentity)initWithIdentityString:(id)string;
@@ -63,7 +64,7 @@ LABEL_9:
     }
   }
 
-  v16 = _LSDefaultLog();
+  v16 = _LSDefaultLog(v11);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     [LSApplicationIdentity initWithIdentityString:stringCopy parsedIdentityStringDictionary:v16 error:?];
@@ -183,51 +184,72 @@ LABEL_6:
   return v10;
 }
 
+- (LSApplicationIdentity)initWithBundleIdentifier:(id)identifier allowPlaceholder:(BOOL)placeholder personaUniqueString:(id)string error:(id *)error
+{
+  placeholderCopy = placeholder;
+  identifierCopy = identifier;
+  stringCopy = string;
+  v12 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy allowPlaceholder:placeholderCopy error:error];
+  v13 = v12;
+  if (error && !v12)
+  {
+    *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10814, 0, "[LSApplicationIdentity initWithBundleIdentifier:allowPlaceholder:personaUniqueString:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/RunIdentity/LSApplicationIdentity.mm", 348);
+  }
+
+  v14 = computeIdentityBookmark(v13);
+  v15 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:stringCopy personaUniqueString:?];
+  v16 = computeIdentityString(v13, v15);
+  v17 = [(LSApplicationIdentity *)self initWithIdentityBookmark:v14 identityString:v16 personaUniqueString:stringCopy personaType:0];
+
+  return v17;
+}
+
 - (LSApplicationIdentity)initWithBundleIdentifier:(id)identifier URL:(id)l personaUniqueString:(id)string personaType:(unint64_t)type
 {
   identifierCopy = identifier;
   lCopy = l;
   stringCopy = string;
+  v14 = stringCopy;
   if (!identifierCopy)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"LSApplicationIdentity.mm" lineNumber:364 description:@"bundleIdentifier was nil when creating application identity"];
   }
 
-  if (stringCopy)
+  if (v14)
   {
     if (type == 4)
     {
-      v14 = _LSDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      v15 = _LSDefaultLog(stringCopy);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        [(LSApplicationIdentity *)v14 initWithBundleIdentifier:v15 URL:v16 personaUniqueString:v17 personaType:v18, v19, v20, v21];
+        [(LSApplicationIdentity *)v15 initWithBundleIdentifier:v16 URL:v17 personaUniqueString:v18 personaType:v19, v20, v21, v22];
       }
     }
 
-    v22 = identifierCopy;
-    v24 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:type personaUniqueString:stringCopy];
+    v23 = identifierCopy;
+    v25 = [[_LSPersonaWithAttributes alloc] initWithPersonaType:type personaUniqueString:v14];
   }
 
   else
   {
     if (type != 4)
     {
-      v25 = _LSDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+      v26 = _LSDefaultLog(stringCopy);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
-        [(LSApplicationIdentity *)v25 initWithBundleIdentifier:v26 URL:v27 personaUniqueString:v28 personaType:v29, v30, v31, v32];
+        [(LSApplicationIdentity *)v26 initWithBundleIdentifier:v27 URL:v28 personaUniqueString:v29 personaType:v30, v31, v32, v33];
       }
     }
 
-    v33 = identifierCopy;
-    v24 = 0;
+    v34 = identifierCopy;
+    v25 = 0;
   }
 
-  v34 = computeIdentityString(identifierCopy, v24, v23);
-  v35 = [(LSApplicationIdentity *)self initWithIdentityBookmark:identifierCopy identityString:v34 personaUniqueString:stringCopy personaType:type];
+  v35 = computeIdentityString(identifierCopy, v25, v24);
+  v36 = [(LSApplicationIdentity *)self initWithIdentityBookmark:identifierCopy identityString:v35 personaUniqueString:v14 personaType:type];
 
-  return v35;
+  return v36;
 }
 
 - (LSApplicationIdentity)initWithIdentityBookmark:(id)bookmark identityString:(id)string personaUniqueString:(id)uniqueString personaType:(unint64_t)type
@@ -250,11 +272,11 @@ LABEL_6:
 
 - (LSApplicationIdentity)initWithCoder:(id)coder
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v18.receiver = self;
-  v18.super_class = LSApplicationIdentity;
-  v5 = [(LSBundleIdentity *)&v18 initWithCoder:coderCopy];
+  v17.receiver = self;
+  v17.super_class = LSApplicationIdentity;
+  v5 = [(LSBundleIdentity *)&v17 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
@@ -288,9 +310,9 @@ LABEL_6:
     if (!v5->_identityBookmark)
     {
 
-      v19 = *MEMORY[0x1E696A278];
-      v20[0] = @"could not decode identity (missing bundleID?)";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+      v18 = *MEMORY[0x1E696A278];
+      v19[0] = @"could not decode identity (missing bundleID?)";
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
       v15 = _LSMakeNSErrorImpl(@"LSApplicationWorkspaceErrorDomain", 118, v14, "[LSApplicationIdentity initWithCoder:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/RunIdentity/LSApplicationIdentity.mm", 414);
       [coderCopy failWithError:v15];
 
@@ -298,7 +320,6 @@ LABEL_6:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -411,11 +432,11 @@ LABEL_6:
 
 + (id)identityStringsForApplicationWithBundleIdentifier:(id)identifier error:(id *)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v18 = 0;
-  v5 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy fetchingPlaceholder:1 error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [[LSApplicationRecord alloc] initWithBundleIdentifier:identifierCopy fetchingPlaceholder:1 error:&v17];
+  v6 = v17;
   if (!v5)
   {
     v8 = 0;
@@ -429,29 +450,29 @@ LABEL_6:
 
   identities = [(LSApplicationRecord *)v5 identities];
   v8 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(identities, "count")}];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v9 = identities;
-  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        identityString = [*(*(&v19 + 1) + 8 * i) identityString];
+        identityString = [*(*(&v18 + 1) + 8 * i) identityString];
         [v8 addObject:identityString];
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -469,15 +490,13 @@ LABEL_12:
 
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (BOOL)personaWithUniqueString:(id)string getPersonaType:(unint64_t *)type error:(id *)error
 {
   stringCopy = string;
-  v8 = [getUMUserPersonaAttributesClass() personaAttributesForPersonaUniqueString:stringCopy withError:error];
+  v8 = [(objc_class *)getUMUserPersonaAttributesClass() personaAttributesForPersonaUniqueString:stringCopy withError:error];
   v9 = v8;
   if (v8)
   {
@@ -489,11 +508,10 @@ LABEL_14:
 
 - (void)initWithIdentityString:(uint64_t)a1 parsedIdentityStringDictionary:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "No bundleID in identity string %@; need one for an identity on this platform", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "No bundleID in identity string %@; need one for an identity on this platform", &v2, 0xCu);
 }
 
 @end

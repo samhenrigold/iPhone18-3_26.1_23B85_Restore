@@ -30,21 +30,21 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
-  v12 = objc_msgSend_init(v8, v9, v10, v11);
-  objc_msgSend_setCrop_(v12, v13, v14, v15, self->_crop.origin.x, self->_crop.origin.y, self->_crop.size.width, self->_crop.size.height);
-  objc_msgSend_setTimeLayout_(v12, v16, self->_timeLayout, v17);
-  objc_msgSend_setUseDepthEffect_(v12, v18, self->_useDepthEffect, v19);
-  return v12;
+  v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
+  v10 = objc_msgSend_init(v7, v8, v9);
+  objc_msgSend_setCrop_(v10, v11, v12, self->_crop.origin.x, self->_crop.origin.y, self->_crop.size.width, self->_crop.size.height);
+  objc_msgSend_setTimeLayout_(v10, v13, self->_timeLayout);
+  objc_msgSend_setUseDepthEffect_(v10, v14, self->_useDepthEffect);
+  return v10;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = NSStringFromCGRect(self->_crop);
-  v7 = objc_msgSend_stringWithFormat_(v3, v5, @"[UserOverride: crop=%@, timeLayout=%@, depthEffect=%d]", v6, v4, self->_timeLayout, self->_useDepthEffect);
+  v6 = objc_msgSend_stringWithFormat_(v3, v5, @"[UserOverride: crop=%@, timeLayout=%@, depthEffect=%d]", v4, self->_timeLayout, self->_useDepthEffect);
 
-  return v7;
+  return v6;
 }
 
 - (CGRect)crop

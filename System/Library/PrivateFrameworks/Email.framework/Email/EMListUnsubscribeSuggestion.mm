@@ -136,7 +136,7 @@ uint64_t __62__EMListUnsubscribeSuggestion_unsubscribeSuggestionComparator__bloc
 
 id __60__EMListUnsubscribeSuggestion__sendAnalyticsForUnsubscribe___block_invoke(uint64_t a1)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
+  v14[4] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695E118];
   v3 = MEMORY[0x1E695E110];
   if (*(a1 + 32))
@@ -172,18 +172,16 @@ id __60__EMListUnsubscribeSuggestion__sendAnalyticsForUnsubscribe___block_invoke
   }
 
   v9 = v8;
-  v14[0] = @"unsubscribeReason";
+  v13[0] = @"unsubscribeReason";
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v15[0] = v10;
-  v15[1] = v5;
-  v14[1] = @"mailto";
-  v14[2] = @"https";
-  v14[3] = @"post";
-  v15[2] = v7;
-  v15[3] = v9;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[0] = v10;
+  v14[1] = v5;
+  v13[1] = @"mailto";
+  v13[2] = @"https";
+  v13[3] = @"post";
+  v14[2] = v7;
+  v14[3] = v9;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
 
   return v11;
 }

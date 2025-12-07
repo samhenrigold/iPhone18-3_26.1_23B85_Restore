@@ -83,45 +83,45 @@
 
 + (id)menuActionsFromModel:(id)model menuInfo:(id)info menuDelegate:(id)delegate
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   infoCopy = info;
   delegateCopy = delegate;
   objc_initWeak(&location, delegateCopy);
-  v50[0] = 0;
-  v50[1] = v50;
-  v50[2] = 0x3032000000;
-  v50[3] = __Block_byref_object_copy_;
-  v50[4] = __Block_byref_object_dispose_;
+  v49[0] = 0;
+  v49[1] = v49;
+  v49[2] = 0x3032000000;
+  v49[3] = __Block_byref_object_copy_;
+  v49[4] = __Block_byref_object_dispose_;
   v8 = infoCopy;
-  v51 = v8;
+  v50 = v8;
   v9 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   actions = [modelCopy actions];
-  v11 = [actions countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v11 = [actions countByEnumeratingWithState:&v45 objects:v52 count:16];
   obj = actions;
-  v34 = v9;
+  v33 = v9;
   if (v11)
   {
-    v32 = *v47;
+    v31 = *v46;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v47 != v32)
+        if (*v46 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v46 + 1) + 8 * i);
-        v42 = 0;
-        v43 = &v42;
-        v44 = 0x2020000000;
+        v13 = *(*(&v45 + 1) + 8 * i);
+        v41 = 0;
+        v42 = &v41;
+        v43 = 0x2020000000;
         actionID = [v13 actionID];
-        if (v43[3] == 9)
+        if (v42[3] == 9)
         {
           contextDictionary = [v8 contextDictionary];
           v15 = [contextDictionary objectForKeyedSubscript:@"SCUIMoreHelpContextMenuShowContentNameKey"];
@@ -150,43 +150,42 @@
 
         v23 = MEMORY[0x1E69DC628];
         title = [v13 title];
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __70__SCUIMoreHelpContextMenu_menuActionsFromModel_menuInfo_menuDelegate___block_invoke;
-        v36[3] = &unk_1E7FF2538;
-        v37 = v8;
-        v38 = modelCopy;
-        v39 = &v42;
-        objc_copyWeak(v41, &location);
-        v40 = v50;
-        v41[1] = self;
-        v25 = [v23 actionWithTitle:title image:v22 identifier:0 handler:v36];
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __70__SCUIMoreHelpContextMenu_menuActionsFromModel_menuInfo_menuDelegate___block_invoke;
+        v35[3] = &unk_1E7FF2538;
+        v36 = v8;
+        v37 = modelCopy;
+        v38 = &v41;
+        objc_copyWeak(v40, &location);
+        v39 = v49;
+        v40[1] = self;
+        v25 = [v23 actionWithTitle:title image:v22 identifier:0 handler:v35];
 
         if ([v13 destructive])
         {
           [v25 setAttributes:2];
         }
 
-        v26 = [SCUIAXIdentifiers helpMenuAction:v43[3]];
+        v26 = [SCUIAXIdentifiers helpMenuAction:v42[3]];
         [v25 setAccessibilityIdentifier:v26];
 
-        [v34 addObject:v25];
-        objc_destroyWeak(v41);
+        [v33 addObject:v25];
+        objc_destroyWeak(v40);
 
-        _Block_object_dispose(&v42, 8);
+        _Block_object_dispose(&v41, 8);
       }
 
-      v11 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v11 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v11);
   }
 
-  v27 = [v34 copy];
-  _Block_object_dispose(v50, 8);
+  v27 = [v33 copy];
+  _Block_object_dispose(v49, 8);
 
   objc_destroyWeak(&location);
-  v28 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
@@ -464,11 +463,10 @@ LABEL_5:
 
 + (void)controllerToPresentFrom
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_debug_impl(&dword_1BC630000, a2, OS_LOG_TYPE_DEBUG, "Found a valid controller %d from rootViewController's presented controllers", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_debug_impl(&dword_1BC630000, a2, OS_LOG_TYPE_DEBUG, "Found a valid controller %d from rootViewController's presented controllers", v2, 8u);
 }
 
 @end

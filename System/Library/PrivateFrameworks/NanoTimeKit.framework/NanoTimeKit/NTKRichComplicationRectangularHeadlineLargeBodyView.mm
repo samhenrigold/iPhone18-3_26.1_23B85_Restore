@@ -39,7 +39,7 @@
   v4 = __64__NTKRichComplicationRectangularHeadlineLargeBodyView__bodySize__block_invoke(device, device);
 
   device2 = [(CDRichComplicationView *)self device];
-  v6 = NTKWhistlerLargeRectangularComplicationSize();
+  v6 = NTKWhistlerLargeRectangularComplicationSize(device2);
 
   [(NTKRichComplicationRectangularBaseView *)self contentMargin];
   v8 = v6 + v7 * -2.0;

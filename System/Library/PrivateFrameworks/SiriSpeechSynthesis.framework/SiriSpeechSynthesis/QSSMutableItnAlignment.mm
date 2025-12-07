@@ -5,9 +5,19 @@
 - (int)first_pre_itn_token_index;
 - (int)last_post_itn_char_pos;
 - (int)last_pre_itn_token_index;
+- (void)setFirst_post_itn_char_pos:(int)first_post_itn_char_pos;
+- (void)setFirst_pre_itn_token_index:(int)first_pre_itn_token_index;
+- (void)setLast_post_itn_char_pos:(int)last_post_itn_char_pos;
+- (void)setLast_pre_itn_token_index:(int)last_pre_itn_token_index;
 @end
 
 @implementation QSSMutableItnAlignment
+
+- (void)setLast_post_itn_char_pos:(int)last_post_itn_char_pos
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&last_post_itn_char_pos];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (int)last_post_itn_char_pos
 {
@@ -15,6 +25,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFirst_post_itn_char_pos:(int)first_post_itn_char_pos
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&first_post_itn_char_pos];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)first_post_itn_char_pos
@@ -25,12 +41,24 @@
   return intValue;
 }
 
+- (void)setLast_pre_itn_token_index:(int)last_pre_itn_token_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&last_pre_itn_token_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)last_pre_itn_token_index
 {
   v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"last_pre_itn_token_index"];
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setFirst_pre_itn_token_index:(int)first_pre_itn_token_index
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&first_pre_itn_token_index];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int)first_pre_itn_token_index

@@ -19,7 +19,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for FriendsSetupCoordinator();
+  v5.super_class = type metadata accessor for FriendsSetupCoordinator(0);
   [(FriendsSetupCoordinator *)&v5 dealloc];
 }
 
@@ -39,7 +39,7 @@
 - (BOOL)friendsSetupViewControllerShouldTransitionToCloudKitSignInPhase:(id)phase
 {
   selfCopy = self;
-  v4 = sub_10062DBBC();
+  v4 = sub_10062DBBC(selfCopy);
 
   return (v4 & 1) == 0;
 }

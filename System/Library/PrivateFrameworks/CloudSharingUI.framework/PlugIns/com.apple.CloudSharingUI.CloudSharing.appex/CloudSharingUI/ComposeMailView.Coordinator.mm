@@ -17,33 +17,32 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller shouldSendMail:(NSString *)mail toRecipients:(NSArray *)recipients completion:(id)completion
 {
   v11 = sub_10000FEB8(&qword_1001164E0, &unk_1000CDD50);
-  v12 = *(*(v11 - 8) + 64);
   __chkstk_darwin(v11 - 8);
-  v14 = &v24 - v13;
-  v15 = _Block_copy(completion);
-  v16 = swift_allocObject();
-  v16[2] = controller;
-  v16[3] = mail;
-  v16[4] = recipients;
-  v16[5] = v15;
-  v16[6] = self;
-  v17 = sub_1000C6F44();
-  (*(*(v17 - 8) + 56))(v14, 1, 1, v17);
+  v13 = &v23 - v12;
+  v14 = _Block_copy(completion);
+  v15 = swift_allocObject();
+  v15[2] = controller;
+  v15[3] = mail;
+  v15[4] = recipients;
+  v15[5] = v14;
+  v15[6] = self;
+  v16 = sub_1000C6F44();
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = swift_allocObject();
+  v17[2] = 0;
+  v17[3] = 0;
+  v17[4] = &unk_1000CCB68;
+  v17[5] = v15;
   v18 = swift_allocObject();
   v18[2] = 0;
   v18[3] = 0;
-  v18[4] = &unk_1000CCB68;
-  v18[5] = v16;
-  v19 = swift_allocObject();
-  v19[2] = 0;
-  v19[3] = 0;
-  v19[4] = &unk_1000CCB70;
-  v19[5] = v18;
+  v18[4] = &unk_1000CCB70;
+  v18[5] = v17;
   controllerCopy = controller;
   mailCopy = mail;
   recipientsCopy = recipients;
   selfCopy = self;
-  sub_1000BF368(0, 0, v14, &unk_1000CCB78, v19);
+  sub_1000BF368(0, 0, v13, &unk_1000CCB78, v18);
 }
 
 - (_TtCV37com_apple_CloudSharingUI_CloudSharing15ComposeMailView11Coordinator)init

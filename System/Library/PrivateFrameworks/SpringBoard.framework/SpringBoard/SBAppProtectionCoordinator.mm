@@ -65,9 +65,9 @@ void __34__SBAppProtectionCoordinator_init__block_invoke(uint64_t a1)
 
 - (SBAppProtectionCoordinator)init
 {
-  v21.receiver = self;
-  v21.super_class = SBAppProtectionCoordinator;
-  v2 = [(SBAppProtectionCoordinator *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = SBAppProtectionCoordinator;
+  v2 = [(SBAppProtectionCoordinator *)&v22 init];
   if (v2)
   {
     v3 = objc_alloc_init(_SBAppProtectionPlugin);
@@ -85,20 +85,20 @@ void __34__SBAppProtectionCoordinator_init__block_invoke(uint64_t a1)
 
     objc_initWeak(&location, v2);
     v9 = MEMORY[0x277CF0BD0];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __34__SBAppProtectionCoordinator_init__block_invoke;
-    v18 = &unk_2783AD688;
-    objc_copyWeak(&v19, &location);
-    v10 = [v9 assertionWithIdentifier:@"Suppress hiding hidden apps" stateDidChangeHandler:&v15];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __34__SBAppProtectionCoordinator_init__block_invoke;
+    v19 = &unk_2783AD688;
+    objc_copyWeak(&v20, &location);
+    v10 = [v9 assertionWithIdentifier:@"Suppress hiding hidden apps" stateDidChangeHandler:&v16];
     suppressHidingAssertions = v2->_suppressHidingAssertions;
     v2->_suppressHidingAssertions = v10;
 
     v12 = v2->_suppressHidingAssertions;
-    v13 = SBLogAppProtection();
-    [(BSCompoundAssertion *)v12 setLog:v13, v15, v16, v17, v18];
+    v14 = SBLogAppProtection(v13);
+    [(BSCompoundAssertion *)v12 setLog:v14, v16, v17, v18, v19];
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
@@ -192,7 +192,7 @@ void __34__SBAppProtectionCoordinator_init__block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
   assistantCopy = assistant;
-  v5 = SBLogAppProtection();
+  v5 = SBLogAppProtection(assistantCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     systemAppOutlet = self->_systemAppOutlet;
@@ -213,7 +213,7 @@ void __34__SBAppProtectionCoordinator_init__block_invoke(uint64_t a1)
 {
   v14 = *MEMORY[0x277D85DE8];
   assistantCopy = assistant;
-  v5 = SBLogAppProtection();
+  v5 = SBLogAppProtection(assistantCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     systemAppOutlet = self->_systemAppOutlet;

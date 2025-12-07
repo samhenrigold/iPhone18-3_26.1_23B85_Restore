@@ -158,17 +158,17 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
 
 - (void)invalidate
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = rbs_shim_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     processHandle = self->_processHandle;
-    v10 = 134218242;
+    v9 = 134218242;
     selfCopy = self;
-    v12 = 2114;
-    v13 = processHandle;
-    _os_log_impl(&dword_22EEB6000, v3, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] Invalidating BKSProcess for %{public}@", &v10, 0x16u);
+    v11 = 2114;
+    v12 = processHandle;
+    _os_log_impl(&dword_22EEB6000, v3, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] Invalidating BKSProcess for %{public}@", &v9, 0x16u);
   }
 
   [(RBSAssertion *)self->_assertion invalidate];
@@ -188,7 +188,6 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
   self->_monitor = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (double)backgroundTimeRemaining
@@ -233,7 +232,7 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
 - (void)setNowPlayingWithAudio:(BOOL)audio
 {
   audioCopy = audio;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_nowPlayingWithAudio != audioCopy)
   {
@@ -242,13 +241,13 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       processHandle = self->_processHandle;
-      v11 = 134218498;
+      v10 = 134218498;
       selfCopy = self;
-      v13 = 2114;
-      v14 = processHandle;
-      v15 = 1024;
-      v16 = audioCopy;
-      _os_log_impl(&dword_22EEB6000, v5, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] %{public}@ now playing with audio: %{BOOL}d", &v11, 0x1Cu);
+      v12 = 2114;
+      v13 = processHandle;
+      v14 = 1024;
+      v15 = audioCopy;
+      _os_log_impl(&dword_22EEB6000, v5, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] %{public}@ now playing with audio: %{BOOL}d", &v10, 0x1Cu);
     }
 
     if (self->_nowPlayingWithAudio)
@@ -269,13 +268,12 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRecordingAudio:(BOOL)audio
 {
   audioCopy = audio;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   if (self->_recordingAudio != audioCopy)
   {
@@ -284,13 +282,13 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       processHandle = self->_processHandle;
-      v11 = 134218498;
+      v10 = 134218498;
       selfCopy = self;
-      v13 = 2114;
-      v14 = processHandle;
-      v15 = 1024;
-      v16 = audioCopy;
-      _os_log_impl(&dword_22EEB6000, v5, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] %{public}@ now recording audio: %{BOOL}d", &v11, 0x1Cu);
+      v12 = 2114;
+      v13 = processHandle;
+      v14 = 1024;
+      v15 = audioCopy;
+      _os_log_impl(&dword_22EEB6000, v5, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] %{public}@ now recording audio: %{BOOL}d", &v10, 0x1Cu);
     }
 
     if (self->_recordingAudio)
@@ -311,59 +309,56 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)busyExtensionInstances:(id)instances
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   instancesCopy = instances;
   v4 = [MEMORY[0x277CBEB58] set];
   mEMORY[0x277D46E20] = [MEMORY[0x277D46E20] sharedInstance];
-  v21 = 0;
-  v6 = [mEMORY[0x277D46E20] busyExtensionInstancesFromSet:instancesCopy error:&v21];
-  v7 = v21;
+  v20 = 0;
+  v6 = [mEMORY[0x277D46E20] busyExtensionInstancesFromSet:instancesCopy error:&v20];
+  v7 = v20;
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v22 = @"ExtensionBundleID";
-        v23 = v13;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:{1, v17}];
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v21 = @"ExtensionBundleID";
+        v22 = v13;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:{1, v16}];
         [v4 addObject:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v23 count:16];
     }
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)_bootstrapWithError:(id *)error
 {
-  v70[5] = *MEMORY[0x277D85DE8];
+  v69[5] = *MEMORY[0x277D85DE8];
   if (!self->_identity)
   {
     [BKSProcess _bootstrapWithError:];
@@ -372,16 +367,16 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
   os_unfair_lock_lock(&self->_lock);
   self->_bootstrapped = 1;
   grant = [MEMORY[0x277D46EF8] grant];
-  v70[0] = grant;
+  v69[0] = grant;
   v6 = [MEMORY[0x277D46E48] invalidateAfterInterval:1.0];
-  v70[1] = v6;
+  v69[1] = v6;
   grantWithBackgroundPriority = [MEMORY[0x277D46EA8] grantWithBackgroundPriority];
-  v70[2] = grantWithBackgroundPriority;
+  v69[2] = grantWithBackgroundPriority;
   grant2 = [MEMORY[0x277D46DF0] grant];
-  v70[3] = grant2;
+  v69[3] = grant2;
   v9 = [MEMORY[0x277D46FC0] grantWithResistance:30];
-  v70[4] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:5];
+  v69[4] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:5];
 
   handle = self->_handle;
   if (handle)
@@ -389,9 +384,9 @@ uint64_t __28__BKSProcess_currentProcess__block_invoke()
     v12 = [(BSProcessHandle *)handle pid];
     v13 = MEMORY[0x277D46F48];
     v14 = [MEMORY[0x277CCABB0] numberWithInt:v12];
-    v60 = 0;
-    v15 = [v13 handleForIdentifier:v14 error:&v60];
-    v16 = v60;
+    v59 = 0;
+    v15 = [v13 handleForIdentifier:v14 error:&v59];
+    v16 = v59;
 
     if (v15)
     {
@@ -409,10 +404,10 @@ LABEL_7:
         shortDescription = [(RBSProcessIdentity *)self->_identity shortDescription];
         *buf = 134218498;
         selfCopy2 = self;
-        v66 = 2114;
-        v67 = v15;
-        v68 = 2114;
-        v69 = shortDescription;
+        v65 = 2114;
+        v66 = v15;
+        v67 = 2114;
+        v68 = shortDescription;
         _os_log_impl(&dword_22EEB6000, v25, OS_LOG_TYPE_DEFAULT, "[BKSProcess:%p] %{public}@ bootstrapped successfully as %{public}@", buf, 0x20u);
       }
 
@@ -451,13 +446,13 @@ LABEL_7:
     [v22 setExplanation:@"BKSProcessLaunch"];
     [v22 setAttributes:v10];
     v23 = [objc_alloc(MEMORY[0x277D46EC0]) initWithContext:v22];
-    v58 = 0;
-    v59 = 0;
     v57 = 0;
-    v24 = [v23 execute:&v59 assertion:&v58 error:&v57];
-    v15 = v59;
-    v21 = v58;
-    v16 = v57;
+    v58 = 0;
+    v56 = 0;
+    v24 = [v23 execute:&v58 assertion:&v57 error:&v56];
+    v15 = v58;
+    v21 = v57;
+    v16 = v56;
 
     if (v24)
     {
@@ -466,31 +461,31 @@ LABEL_7:
   }
 
   errorCopy = error;
-  v51 = v10;
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v50 = v10;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   underlyingErrors = [v16 underlyingErrors];
-  v33 = [underlyingErrors countByEnumeratingWithState:&v52 objects:v63 count:16];
+  v33 = [underlyingErrors countByEnumeratingWithState:&v51 objects:v62 count:16];
   if (!v33)
   {
     goto LABEL_26;
   }
 
   v34 = v33;
-  v35 = *v53;
+  v35 = *v52;
   v36 = *MEMORY[0x277CCA5B8];
   do
   {
     for (i = 0; i != v34; ++i)
     {
-      if (*v53 != v35)
+      if (*v52 != v35)
       {
         objc_enumerationMutation(underlyingErrors);
       }
 
-      v38 = *(*(&v52 + 1) + 8 * i);
+      v38 = *(*(&v51 + 1) + 8 * i);
       lastExitContext = [v38 domain];
       if ([lastExitContext isEqual:v36])
       {
@@ -508,7 +503,7 @@ LABEL_7:
       }
     }
 
-    v34 = [underlyingErrors countByEnumeratingWithState:&v52 objects:v63 count:16];
+    v34 = [underlyingErrors countByEnumeratingWithState:&v51 objects:v62 count:16];
   }
 
   while (v34);
@@ -520,32 +515,31 @@ LABEL_26:
     shortDescription2 = [(RBSProcessIdentity *)self->_identity shortDescription];
     *buf = 134218498;
     selfCopy2 = self;
-    v66 = 2114;
-    v67 = shortDescription2;
-    v68 = 2114;
-    v69 = v16;
+    v65 = 2114;
+    v66 = shortDescription2;
+    v67 = 2114;
+    v68 = v16;
     _os_log_error_impl(&dword_22EEB6000, v42, OS_LOG_TYPE_ERROR, "[BKSProcess:%p] Bootstrap failed for %{public}@ with error: <%{public}@>", buf, 0x20u);
   }
 
-  v10 = v51;
+  v10 = v50;
   if (errorCopy)
   {
     v43 = MEMORY[0x277CCA9B8];
     v44 = *MEMORY[0x277CCA7E8];
-    v61[0] = *MEMORY[0x277CCA470];
-    v61[1] = v44;
-    v62[0] = @"Bootstrap failed";
-    v62[1] = v16;
-    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
+    v60[0] = *MEMORY[0x277CCA470];
+    v60[1] = v44;
+    v61[0] = @"Bootstrap failed";
+    v61[1] = v16;
+    v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
     *errorCopy = [v43 errorWithDomain:@"BKSProcessErrorDomain" code:1 userInfo:v45];
   }
 
   v31 = 0;
-  v21 = v49;
+  v21 = v48;
 LABEL_31:
   os_unfair_lock_unlock(&self->_lock);
 
-  v46 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

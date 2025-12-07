@@ -38,7 +38,7 @@ uint64_t sub_1760(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_17E0@<X0>(void *a1@<X8>)
+uint64_t sub_17E0@<X0>(uint64_t *a1@<X8>)
 {
   sub_8DE4();
   v2 = sub_8DB4();
@@ -49,42 +49,42 @@ uint64_t sub_17E0@<X0>(void *a1@<X8>)
 
 uint64_t sub_1824(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_11390, type metadata accessor for DSSourceError);
+  v2 = sub_1DD0(&qword_11390, type metadata accessor for DSSourceError, &unk_A3A0);
 
   return Error<>._domain.getter(a1, v2);
 }
 
 uint64_t sub_1890(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_11390, type metadata accessor for DSSourceError);
+  v2 = sub_1DD0(&qword_11390, type metadata accessor for DSSourceError, &unk_A3A0);
 
   return Error<>._code.getter(a1, v2);
 }
 
 uint64_t sub_1900(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
 
   return _BridgedStoredNSError._getEmbeddedNSError()(a1, v2);
 }
 
 uint64_t sub_198C(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
 
   return _BridgedStoredNSError.errorCode.getter(a1, v2);
 }
 
 uint64_t sub_19F8(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v2 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
 
   return _BridgedStoredNSError.errorUserInfo.getter(a1, v2);
 }
 
 uint64_t sub_1A64(void *a1, uint64_t a2)
 {
-  v4 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v4 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
   v5 = a1;
 
   return _BridgedStoredNSError.init(_bridgedNSError:)(v5, a2, v4);
@@ -92,14 +92,13 @@ uint64_t sub_1A64(void *a1, uint64_t a2)
 
 uint64_t sub_1B18(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v4 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
 
   return _BridgedStoredNSError.hash(into:)(a1, a2, v4);
 }
 
-Swift::Int sub_1B94()
+Swift::Int sub_1B94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
   sub_9064();
   sub_8DA4();
   return sub_9084();
@@ -112,34 +111,31 @@ void *sub_1BF4@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_1C10@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_1C10@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_8DB4();
+  v3 = sub_8DB4();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_1C58@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = sub_8DE4();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_1C84(uint64_t a1)
 {
-  v2 = sub_1DD0(&qword_11300, type metadata accessor for DSSourceName);
-  v3 = sub_1DD0(&qword_11308, type metadata accessor for DSSourceName);
+  v2 = sub_1DD0(&qword_11300, type metadata accessor for DSSourceName, &unk_A1CC);
+  v3 = sub_1DD0(&qword_11308, type metadata accessor for DSSourceName, &unk_A174);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
 
-uint64_t sub_1DD0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1DD0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -154,55 +150,50 @@ uint64_t sub_1DD0(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1E18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError);
+  v6 = sub_1DD0(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
 
   return static _BridgedStoredNSError.== infix(_:_:)(a1, a2, a3, v6);
 }
 
 uint64_t sub_1EB0()
 {
-  v1 = *v0;
   sub_8DE4();
-  v2 = sub_8E24();
+  v0 = sub_8E24();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_1EEC()
+uint64_t sub_1EEC(uint64_t a1)
 {
-  v1 = *v0;
   sub_8DE4();
   sub_8E04();
 }
 
 Swift::Int sub_1F40()
 {
-  v1 = *v0;
   sub_8DE4();
   sub_9064();
   sub_8E04();
-  v2 = sub_9084();
+  v0 = sub_9084();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_1FB4(uint64_t *a1, uint64_t *a2)
+uint64_t sub_1FB4(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = sub_8DE4();
-  v6 = v5;
-  if (v4 == sub_8DE4() && v6 == v7)
+  v2 = sub_8DE4();
+  v4 = v3;
+  if (v2 == sub_8DE4() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = sub_8FE4();
+    v7 = sub_8FE4();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t sub_2084(uint64_t *a1, uint64_t *a2)
@@ -210,7 +201,6 @@ uint64_t sub_2084(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -218,12 +208,12 @@ uint64_t sub_2084(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-void sub_22A4(uint64_t a1, unint64_t *a2)
+void sub_22A4(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -245,8 +235,8 @@ unint64_t sub_233C()
 id sub_2440()
 {
   v1 = v0;
-  v2 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v2 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v2 - 8);
   v4 = &v15 - v3;
   v5 = DSSourceNameActivity;
   *&v0[OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationSource_name] = DSSourceNameActivity;
@@ -275,33 +265,30 @@ id sub_2440()
 
 uint64_t sub_25F4()
 {
-  v1 = *(*(v0 + 16) + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationSource_client);
-  v2 = *(&async function pointer to dispatch thunk of ActivitySharingClient.activate() + 1);
-  v5 = (&async function pointer to dispatch thunk of ActivitySharingClient.activate() + async function pointer to dispatch thunk of ActivitySharingClient.activate());
-  v3 = swift_task_alloc();
-  *(v0 + 24) = v3;
-  *v3 = v0;
-  v3[1] = sub_26A4;
+  v3 = (&async function pointer to dispatch thunk of ActivitySharingClient.activate() + async function pointer to dispatch thunk of ActivitySharingClient.activate());
+  v1 = swift_task_alloc();
+  *(v0 + 24) = v1;
+  *v1 = v0;
+  v1[1] = sub_26A4;
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_26A4()
 {
-  v1 = *(*v0 + 24);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_2798(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = v26 - v10;
-  sub_80C4(a3, v26 - v10, &qword_11500, &qword_A588);
+  v9 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v9 - 8);
+  v11 = v25 - v10;
+  sub_80C4(a3, v25 - v10, &qword_11500, &qword_A588);
   v12 = sub_8E64();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
@@ -317,53 +304,52 @@ uint64_t sub_2798(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     (*(v13 + 8))(v11, v12);
   }
 
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v16)
+  if (v15)
   {
     swift_getObjectType();
-    v17 = sub_8E44();
-    v19 = v18;
+    v16 = sub_8E44();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v20 = sub_8DF4() + 32;
-      v21 = swift_allocObject();
-      *(v21 + 16) = a4;
-      *(v21 + 24) = a5;
+      v19 = sub_8DF4() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v19 | v17)
+      if (v18 | v16)
       {
-        v27[0] = 0;
-        v27[1] = 0;
-        v22 = v27;
-        v27[2] = v17;
-        v27[3] = v19;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v26[1] = 7;
-      v26[2] = v22;
-      v26[3] = v20;
-      v24 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_7640(a3, &qword_11500, &qword_A588);
 
-      return v24;
+      return v23;
     }
   }
 
   else
   {
-    v17 = 0;
-    v19 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -371,15 +357,15 @@ LABEL_6:
   }
 
   sub_7640(a3, &qword_11500, &qword_A588);
-  v23 = swift_allocObject();
-  *(v23 + 16) = a4;
-  *(v23 + 24) = a5;
-  if (v19 | v17)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v27[4] = 0;
-    v27[5] = 0;
-    v27[6] = v17;
-    v27[7] = v19;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -400,29 +386,27 @@ uint64_t sub_2ABC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 uint64_t sub_2B50(uint64_t a1)
 {
   v3 = *v2;
-  v4 = *(*v2 + 48);
-  v7 = *v2;
   *(v3 + 56) = a1;
   *(v3 + 64) = v1;
 
   if (v1)
   {
-    v5 = sub_2EB0;
+    v4 = sub_2EB0;
   }
 
   else
   {
-    v5 = sub_2C64;
+    v4 = sub_2C64;
   }
 
-  return _swift_task_switch(v5, 0, 0);
+  return _swift_task_switch(v4, 0, 0);
 }
 
 uint64_t sub_2C64()
 {
-  v26 = v0;
+  v22 = v0;
   super_class = v0[3].super_class;
-  v25 = &_swiftEmptyArrayStorage;
+  v21 = &_swiftEmptyArrayStorage;
   if (super_class >> 62)
   {
     goto LABEL_17;
@@ -439,8 +423,7 @@ uint64_t sub_2C64()
     {
       if (v5)
       {
-        v11 = v24[3].super_class;
-        v9 = sub_8F24();
+        v8 = sub_8F24();
       }
 
       else
@@ -450,23 +433,22 @@ uint64_t sub_2C64()
           goto LABEL_16;
         }
 
-        v9 = *&v7[8 * v4];
+        v8 = *&v7[8 * v4];
       }
 
-      v10 = v9;
+      v9 = v8;
       v0 = (v4 + 1);
       if (__OFADD__(v4, 1))
       {
         break;
       }
 
-      if ([v9 isFriendshipCurrentlyActive] & 1) != 0 || (objc_msgSend(v10, "hasInviteRequestFromMe"))
+      if ([v8 isFriendshipCurrentlyActive] & 1) != 0 || (objc_msgSend(v9, "hasInviteRequestFromMe"))
       {
         sub_8F44();
-        v8 = v25[2];
         sub_8F74();
         sub_8F84();
-        super_class = &v25;
+        super_class = &v21;
         sub_8F54();
       }
 
@@ -477,9 +459,8 @@ uint64_t sub_2C64()
       ++v4;
       if (v0 == v2)
       {
-        v0 = v24;
-        v12 = v25;
-        v13 = v24[3].super_class;
+        v0 = v20;
+        v10 = v21;
         goto LABEL_19;
       }
     }
@@ -491,29 +472,28 @@ LABEL_17:
     v2 = sub_8FA4();
   }
 
-  v12 = &_swiftEmptyArrayStorage;
+  v10 = &_swiftEmptyArrayStorage;
 LABEL_19:
   receiver = v0[2].receiver;
-  v14 = v0[2].super_class;
 
-  v16 = sub_7748(v12);
+  v12 = sub_7748(v10);
 
-  v17 = type metadata accessor for ActivityDigitalSeparationSharedResource();
-  v18 = objc_allocWithZone(v17);
-  *&v18[OBJC_IVAR____TtC25ActivityDigitalSeparation39ActivityDigitalSeparationSharedResource_digitalSeparationFriends] = v16;
-  v0[1].receiver = v18;
-  v0[1].super_class = v17;
-  v19 = objc_msgSendSuper2(v0 + 1, "init");
+  v13 = type metadata accessor for ActivityDigitalSeparationSharedResource();
+  v14 = objc_allocWithZone(v13);
+  *&v14[OBJC_IVAR____TtC25ActivityDigitalSeparation39ActivityDigitalSeparationSharedResource_digitalSeparationFriends] = v12;
+  v0[1].receiver = v14;
+  v0[1].super_class = v13;
+  v15 = objc_msgSendSuper2(v0 + 1, "init");
   sub_2084(&qword_114F8, &qword_A580);
-  v20 = swift_allocObject();
-  *(v20 + 16) = xmmword_A500;
-  *(v20 + 32) = v19;
-  v21 = v19;
-  receiver(v20, 0);
+  v16 = swift_allocObject();
+  *(v16 + 16) = xmmword_A500;
+  *(v16 + 32) = v15;
+  v17 = v15;
+  receiver(v16, 0);
 
-  v22 = v0->super_class;
+  v18 = v0->super_class;
 
-  return v22();
+  return v18();
 }
 
 uint64_t sub_2EB0()
@@ -539,17 +519,15 @@ uint64_t sub_2EB0()
       sub_7640(v6, &qword_11518, &qword_A5C8);
     }
 
-    v9 = v0[8];
-    v11 = v0[4];
-    v10 = v0[5];
+    v9 = *(v0 + 32);
     sub_75EC();
-    v12 = swift_allocError();
-    *v13 = 0;
-    v11(&_swiftEmptyArrayStorage, v12);
+    v10 = swift_allocError();
+    *v11 = 0;
+    v9(&_swiftEmptyArrayStorage, v10);
 
-    v14 = v0[1];
+    v12 = *(v0 + 8);
 
-    return v14();
+    return v12();
   }
 
   else
@@ -580,24 +558,23 @@ void sub_30B8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_315C(void **a1@<X0>, char **a2@<X8>)
 {
-  v5 = (*(*(sub_2084(&unk_115F0, &qword_A770) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v7 = &v62 - v6;
+  v5 = sub_2084(&unk_115F0, &qword_A770);
+  __chkstk_darwin(v5 - 8);
+  v7 = &v61 - v6;
   v8 = sub_8CB4();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin();
-  v12 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = *a1;
-  v14 = type metadata accessor for ActivityDigitalSeparationFriend();
-  v15 = objc_allocWithZone(v14);
-  *&v15[OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend] = v13;
-  v70.receiver = v15;
-  v70.super_class = v14;
-  v16 = v13;
-  v17 = objc_msgSendSuper2(&v70, "init");
-  v18 = sub_8E94();
-  v19 = ASLogDefault;
+  __chkstk_darwin(v8);
+  v11 = &v61 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *a1;
+  v13 = type metadata accessor for ActivityDigitalSeparationFriend();
+  v14 = objc_allocWithZone(v13);
+  *&v14[OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend] = v12;
+  v69.receiver = v14;
+  v69.super_class = v13;
+  v15 = v12;
+  v16 = objc_msgSendSuper2(&v69, "init");
+  v17 = sub_8E94();
+  v18 = ASLogDefault;
   if (!ASLogDefault)
   {
 LABEL_39:
@@ -605,89 +582,89 @@ LABEL_39:
     goto LABEL_40;
   }
 
-  v69 = v18;
-  if (!os_log_type_enabled(ASLogDefault, v18))
+  v68 = v17;
+  if (!os_log_type_enabled(ASLogDefault, v17))
   {
 LABEL_36:
-    *a2 = v17;
+    *a2 = v16;
     return;
   }
 
-  v68 = a2;
-  v66 = v2;
-  v65 = v19;
-  v20 = swift_slowAlloc();
-  v64 = swift_slowAlloc();
-  v71 = v64;
-  *v20 = 136315650;
-  *(v20 + 4) = sub_628C(0xD00000000000001FLL, 0x80000000000099F0, &v71);
-  *(v20 + 12) = 2080;
-  v21 = v17;
-  v22 = OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend;
-  v67 = v21;
-  v23 = [*&v21[OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend] displayName];
-  if (v23)
+  v67 = a2;
+  v65 = v2;
+  v64 = v18;
+  v19 = swift_slowAlloc();
+  v63 = swift_slowAlloc();
+  v70 = v63;
+  *v19 = 136315650;
+  *(v19 + 4) = sub_628C(0xD00000000000001FLL, 0x80000000000099F0, &v70);
+  *(v19 + 12) = 2080;
+  v20 = v16;
+  v21 = OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend;
+  v66 = v20;
+  v22 = [*(v20 + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend) displayName];
+  if (v22)
   {
-    v24 = v23;
+    v23 = v22;
     sub_8DE4();
   }
 
   (*(v9 + 56))(v7, 1, 1, v8);
   sub_8C94();
-  v25 = sub_8C84();
-  v27 = v26;
-  (*(v9 + 8))(v12, v8);
-  if (v27)
+  v24 = sub_8C84();
+  v26 = v25;
+  (*(v9 + 8))(v11, v8);
+  if (v26)
   {
-    v28 = v25;
+    v27 = v24;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
-  v29 = 0xE000000000000000;
-  if (v27)
+  v28 = 0xE000000000000000;
+  if (v26)
   {
-    v30 = v27;
+    v29 = v26;
   }
 
   else
   {
-    v30 = 0xE000000000000000;
+    v29 = 0xE000000000000000;
   }
 
-  v31 = sub_628C(v28, v30, &v71);
+  v30 = sub_628C(v27, v29, &v70);
 
-  *(v20 + 14) = v31;
-  *(v20 + 22) = 2080;
-  v32 = *&v67[v22];
-  v17 = v67;
-  v33 = [v32 contact];
-  a2 = v68;
-  if (!v33 || (v34 = v33, v35 = [v33 primaryRelationship], v34, !v35))
+  *(v19 + 14) = v30;
+  *(v19 + 22) = 2080;
+  v31 = *(v66 + v21);
+  v16 = v66;
+  v32 = [v31 contact];
+  a2 = v67;
+  if (!v32 || (v33 = v32, v34 = [v32 primaryRelationship], v33, !v34))
   {
-    v38 = 0;
+    v37 = 0;
 LABEL_35:
-    v60 = sub_628C(v38, v29, &v71);
+    v59 = sub_628C(v37, v28, &v70);
 
-    *(v20 + 24) = v60;
-    v61 = v65;
-    _os_log_impl(&dword_0, v65, v69, "Created %s with name: %s and email: %s", v20, 0x20u);
+    *(v19 + 24) = v59;
+    v60 = v64;
+    _os_log_impl(&dword_0, v64, v68, "Created %s with name: %s and email: %s", v19, 0x20u);
     swift_arrayDestroy();
 
     goto LABEL_36;
   }
 
-  v36 = [v35 cloudKitAddress];
-  if (v36)
+  v35 = [v34 cloudKitAddress];
+  if (v35)
   {
-    v37 = v36;
-    v38 = sub_8DE4();
-    v29 = v39;
+    v36 = v35;
+    v37 = sub_8DE4();
+    v28 = v38;
 
-    v40 = sub_8DB4();
+    v39 = sub_8DB4();
     IsEmail = ASDestinationIsEmail();
 
     if (IsEmail)
@@ -696,20 +673,20 @@ LABEL_35:
     }
   }
 
-  v42 = [v35 preferredReachableAddress];
-  if (!v42)
+  v41 = [v34 preferredReachableAddress];
+  if (!v41)
   {
     goto LABEL_19;
   }
 
-  v43 = v42;
-  v38 = sub_8DE4();
-  v29 = v44;
+  v42 = v41;
+  v37 = sub_8DE4();
+  v28 = v43;
 
-  v45 = sub_8DB4();
-  v46 = ASDestinationIsEmail();
+  v44 = sub_8DB4();
+  v45 = ASDestinationIsEmail();
 
-  if (v46)
+  if (v45)
   {
 LABEL_34:
 
@@ -717,80 +694,80 @@ LABEL_34:
   }
 
 LABEL_19:
-  v47 = [v35 addresses];
-  if (v47)
+  v46 = [v34 addresses];
+  if (v46)
   {
-    v48 = v47;
-    v49 = sub_8E74();
+    v47 = v46;
+    v48 = sub_8E74();
 
-    v50 = v49 + 56;
-    v51 = 1 << *(v49 + 32);
-    v52 = -1;
-    if (v51 < 64)
+    v49 = v48 + 56;
+    v50 = 1 << *(v48 + 32);
+    v51 = -1;
+    if (v50 < 64)
     {
-      v52 = ~(-1 << v51);
+      v51 = ~(-1 << v50);
     }
 
-    v53 = v52 & *(v49 + 56);
-    v54 = (v51 + 63) >> 6;
-    v63 = v49;
+    v52 = v51 & *(v48 + 56);
+    v53 = (v50 + 63) >> 6;
+    v62 = v48;
 
-    v55 = 0;
-    if (v53)
+    v54 = 0;
+    if (v52)
     {
       while (1)
       {
-        v56 = v55;
+        v55 = v54;
 LABEL_28:
-        v57 = (*(v63 + 48) + ((v56 << 10) | (16 * __clz(__rbit64(v53)))));
-        v38 = *v57;
-        v29 = v57[1];
+        v56 = (*(v62 + 48) + ((v55 << 10) | (16 * __clz(__rbit64(v52)))));
+        v37 = *v56;
+        v28 = v56[1];
 
-        v58 = sub_8DB4();
-        v59 = ASDestinationIsEmail();
+        v57 = sub_8DB4();
+        v58 = ASDestinationIsEmail();
 
-        if (v59)
+        if (v58)
         {
           break;
         }
 
-        v53 &= v53 - 1;
+        v52 &= v52 - 1;
 
-        v55 = v56;
-        if (!v53)
+        v54 = v55;
+        if (!v52)
         {
           goto LABEL_24;
         }
       }
 
-      a2 = v68;
+      a2 = v67;
 LABEL_33:
 
-      v17 = v67;
-      v35 = v62;
+      v16 = v66;
+      v34 = v61;
       goto LABEL_34;
     }
 
 LABEL_24:
-    a2 = v68;
+    a2 = v67;
     while (1)
     {
-      v56 = v55 + 1;
-      if (__OFADD__(v55, 1))
+      v55 = v54 + 1;
+      if (__OFADD__(v54, 1))
       {
         break;
       }
 
-      if (v56 >= v54)
+      if (v55 >= v53)
       {
-        v38 = 0;
-        v29 = 0xE000000000000000;
+        v37 = 0;
+        v28 = 0xE000000000000000;
         goto LABEL_33;
       }
 
-      v53 = *(v50 + 8 * v56);
-      ++v55;
-      if (v53)
+      v52 = *(v49 + 8 * v55);
+      ++v54;
+      if (v52)
       {
         goto LABEL_28;
       }
@@ -837,12 +814,12 @@ uint64_t sub_385C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   v6[3] = a5;
   v6[4] = a6;
   v6[2] = a4;
-  v7 = *(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15;
+  sub_2084(&qword_11500, &qword_A588);
   v6[5] = swift_task_alloc();
-  v8 = swift_task_alloc();
-  v6[6] = v8;
-  *v8 = v6;
-  v8[1] = sub_392C;
+  v7 = swift_task_alloc();
+  v6[6] = v7;
+  *v7 = v6;
+  v7[1] = sub_392C;
 
   return sub_5A98();
 }
@@ -850,16 +827,14 @@ uint64_t sub_385C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 uint64_t sub_392C(uint64_t a1)
 {
   v4 = *v2;
-  v5 = *(*v2 + 48);
-  v6 = *v2;
+  v5 = *v2;
 
   if (v1)
   {
-    v7 = *(v4 + 40);
 
-    v8 = *(v6 + 8);
+    v6 = *(v5 + 8);
 
-    return v8();
+    return v6();
   }
 
   else
@@ -895,10 +870,10 @@ uint64_t sub_3A80()
 
 uint64_t sub_3BAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v8 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v10 = v23 - v9;
-  sub_80C4(a3, v23 - v9, &qword_11500, &qword_A588);
+  v8 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v8 - 8);
+  v10 = v22 - v9;
+  sub_80C4(a3, v22 - v9, &qword_11500, &qword_A588);
   v11 = sub_8E64();
   v12 = *(v11 - 8);
   v13 = (*(v12 + 48))(v10, 1, v11);
@@ -914,50 +889,49 @@ uint64_t sub_3BAC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     (*(v12 + 8))(v10, v11);
   }
 
-  v15 = *(a5 + 16);
-  v14 = *(a5 + 24);
+  v14 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v15)
+  if (v14)
   {
     swift_getObjectType();
-    v16 = sub_8E44();
-    v18 = v17;
+    v15 = sub_8E44();
+    v17 = v16;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v19 = sub_8DF4() + 32;
+      v18 = sub_8DF4() + 32;
 
-      if (v18 | v16)
+      if (v17 | v15)
       {
-        v24[0] = 0;
-        v24[1] = 0;
-        v20 = v24;
-        v24[2] = v16;
-        v24[3] = v18;
+        v23[0] = 0;
+        v23[1] = 0;
+        v19 = v23;
+        v23[2] = v15;
+        v23[3] = v17;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      v23[1] = 7;
-      v23[2] = v20;
-      v23[3] = v19;
-      v21 = swift_task_create();
+      v22[1] = 7;
+      v22[2] = v19;
+      v22[3] = v18;
+      v20 = swift_task_create();
 
       sub_7640(a3, &qword_11500, &qword_A588);
 
-      return v21;
+      return v20;
     }
   }
 
   else
   {
-    v16 = 0;
-    v18 = 0;
+    v15 = 0;
+    v17 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -965,12 +939,12 @@ LABEL_6:
   }
 
   sub_7640(a3, &qword_11500, &qword_A588);
-  if (v18 | v16)
+  if (v17 | v15)
   {
-    v24[4] = 0;
-    v24[5] = 0;
-    v24[6] = v16;
-    v24[7] = v18;
+    v23[4] = 0;
+    v23[5] = 0;
+    v23[6] = v15;
+    v23[7] = v17;
   }
 
   return swift_task_create();
@@ -984,9 +958,7 @@ uint64_t sub_3FA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
   v7[5] = a5;
   v8 = sub_8D74();
   v7[8] = v8;
-  v9 = *(v8 - 8);
-  v7[9] = v9;
-  v10 = *(v9 + 64) + 15;
+  v7[9] = *(v8 - 8);
   v7[10] = swift_task_alloc();
   v7[11] = swift_task_alloc();
   v7[12] = swift_task_alloc();
@@ -999,9 +971,9 @@ uint64_t sub_3FA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
 
 id sub_40A0()
 {
-  v68 = v0;
+  v51 = v0;
   count = v0[4].count;
-  v67 = &_swiftEmptyArrayStorage;
+  v50 = &_swiftEmptyArrayStorage;
   if (count >> 62)
   {
     goto LABEL_56;
@@ -1022,7 +994,6 @@ id sub_40A0()
       {
         if (v5)
         {
-          v12 = v64[4].count;
           v8 = sub_8F24();
         }
 
@@ -1049,10 +1020,9 @@ LABEL_53:
         if ([v8 isFriendshipCurrentlyActive])
         {
           sub_8F44();
-          v11 = v67[2];
           sub_8F74();
           sub_8F84();
-          count = &v67;
+          count = &v50;
           sub_8F54();
         }
 
@@ -1064,11 +1034,11 @@ LABEL_53:
       }
 
       while (v10 != i);
-      v0 = v64;
-      v13 = v67;
+      v0 = v48;
+      v11 = v50;
       v3 = &_swiftEmptyArrayStorage;
-      v64[17].count = v67;
-      if ((v13 & 0x8000000000000000) == 0)
+      v48[17].count = v50;
+      if ((v11 & 0x8000000000000000) == 0)
       {
         goto LABEL_17;
       }
@@ -1076,124 +1046,119 @@ LABEL_53:
 
     else
     {
-      v13 = &_swiftEmptyArrayStorage;
+      v11 = &_swiftEmptyArrayStorage;
       v0[17].count = &_swiftEmptyArrayStorage;
       if ((&_swiftEmptyArrayStorage & 0x8000000000000000) == 0)
       {
 LABEL_17:
-        if ((v13 & 0x4000000000000000) == 0)
+        if ((v11 & 0x4000000000000000) == 0)
         {
-          v14 = *(v13 + 16);
+          v12 = *(v11 + 16);
           goto LABEL_19;
         }
       }
     }
 
-    v14 = sub_8FA4();
+    v12 = sub_8FA4();
 LABEL_19:
     count = OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationSource_client;
-    v0[18].count = v14;
+    v0[18].count = v12;
     v0[19].count = count;
     v0[36].count = 0;
-    if (v14)
+    if (v12)
     {
-      v15 = v0[17].count;
-      if ((v15 & 0xC000000000000001) != 0)
+      v13 = v0[17].count;
+      if ((v13 & 0xC000000000000001) != 0)
       {
-        v16 = sub_8F24();
-        count = v0[19].count;
+        v14 = sub_8F24();
       }
 
       else
       {
-        if (!*(v15 + 16))
+        if (!*(v13 + 16))
         {
           __break(1u);
           goto LABEL_60;
         }
 
-        v16 = *(v15 + 32);
+        v14 = *(v13 + 32);
       }
 
-      v0[20].count = v16;
+      v0[20].count = v14;
       v0[21].count = 1;
-      v17 = *(v0[5].count + count);
-      result = [v16 UUID];
+      result = [v14 UUID];
       if (!result)
       {
         goto LABEL_63;
       }
 
-      v19 = result;
-      v20 = v0[15].count;
-      v21 = v0;
-      v22 = v0[9].count;
-      v23 = v21[8].count;
+      v16 = result;
+      v17 = v0[15].count;
+      v18 = v0;
+      v19 = v0[9].count;
+      v20 = v18[8].count;
       sub_8D64();
 
-      v24 = sub_8D54();
-      v26 = v25;
-      v21[24].count = v25;
-      v27 = *(v22 + 8);
-      v21[25].count = v27;
-      v21[26].count = (v22 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v27(v20, v23);
-      v28 = *(&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + 1);
-      v65 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
-      v29 = swift_task_alloc();
-      v21[27].count = v29;
-      *v29 = v21;
-      v30 = sub_4608;
+      v21 = sub_8D54();
+      v23 = v22;
+      v18[24].count = v22;
+      v24 = *(v19 + 8);
+      v18[25].count = v24;
+      v18[26].count = (v19 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v24(v17, v20);
+      v49 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
+      v25 = swift_task_alloc();
+      v18[27].count = v25;
+      *v25 = v18;
+      v26 = sub_4608;
 LABEL_46:
-      v29[1] = v30;
+      v25[1] = v26;
 
-      return v65(v24, v26);
+      return v49(v21, v23);
     }
 
-    v31 = v0[16].count;
-    v67 = &_swiftEmptyArrayStorage;
-    if (!v31)
+    v27 = v0[16].count;
+    v50 = &_swiftEmptyArrayStorage;
+    if (!v27)
     {
       break;
     }
 
-    v32 = 0;
-    v33 = v0[4].count;
-    v34 = v33 & 0xC000000000000001;
-    v35 = v33 & 0xFFFFFFFFFFFFFF8;
-    v36 = v33 + 32;
+    v28 = 0;
+    v29 = v0[4].count;
+    v30 = v29 & 0xC000000000000001;
+    v31 = v29 & 0xFFFFFFFFFFFFFF8;
+    v32 = v29 + 32;
     while (1)
     {
-      if (v34)
+      if (v30)
       {
-        v41 = v0[4].count;
-        v37 = sub_8F24();
+        v33 = sub_8F24();
       }
 
       else
       {
-        if (v32 >= *(v35 + 16))
+        if (v28 >= *(v31 + 16))
         {
           goto LABEL_55;
         }
 
-        v37 = *(v36 + 8 * v32);
+        v33 = *(v32 + 8 * v28);
       }
 
-      v38 = v37;
-      v39 = v32 + 1;
-      if (__OFADD__(v32, 1))
+      v34 = v33;
+      v35 = v28 + 1;
+      if (__OFADD__(v28, 1))
       {
         break;
       }
 
-      if ([v37 hasInviteRequestFromMe])
+      if ([v33 hasInviteRequestFromMe])
       {
         sub_8F44();
-        v40 = v67[2];
         sub_8F74();
         sub_8F84();
-        count = &v67;
+        count = &v50;
         sub_8F54();
       }
 
@@ -1201,10 +1166,10 @@ LABEL_46:
       {
       }
 
-      ++v32;
-      if (v39 == v0[16].count)
+      ++v28;
+      if (v35 == v0[16].count)
       {
-        v3 = v67;
+        v3 = v50;
         goto LABEL_37;
       }
     }
@@ -1229,16 +1194,16 @@ LABEL_60:
   result = sub_8FA4();
 LABEL_40:
   v0[23].count = result;
-  v42 = v0[36].count;
-  v0[37].count = v42;
-  v43 = v0[22].count;
+  v36 = v0[36].count;
+  v0[37].count = v36;
+  v37 = v0[22].count;
   if (result)
   {
-    if ((v43 & 0xC000000000000001) == 0)
+    if ((v37 & 0xC000000000000001) == 0)
     {
-      if (*(v43 + 16))
+      if (*(v37 + 16))
       {
-        v44 = *(v43 + 32);
+        v38 = *(v37 + 32);
         goto LABEL_44;
       }
 
@@ -1250,132 +1215,114 @@ LABEL_64:
       return result;
     }
 
-    v63 = v0[22].count;
-    v44 = sub_8F24();
+    v38 = sub_8F24();
 LABEL_44:
-    v0[29].count = v44;
+    v0[29].count = v38;
     v0[30].count = 1;
-    v45 = *(v0[5].count + v0[19].count);
-    result = [v44 UUID];
+    result = [v38 UUID];
     if (!result)
     {
       goto LABEL_64;
     }
 
-    v46 = result;
-    v47 = v0[14].count;
-    v48 = v0;
-    v49 = v0[9].count;
-    v50 = v48[8].count;
+    v39 = result;
+    v40 = v0[14].count;
+    v41 = v0;
+    v42 = v0[9].count;
+    v43 = v41[8].count;
     sub_8D64();
 
-    v24 = sub_8D54();
-    v26 = v51;
-    v48[31].count = v51;
-    v52 = *(v49 + 8);
-    v48[32].count = v52;
-    v48[33].count = (v49 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-    v52(v47, v50);
-    v53 = *(&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + 1);
-    v65 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
-    v29 = swift_task_alloc();
-    v48[34].count = v29;
-    *v29 = v48;
-    v30 = sub_4B78;
+    v21 = sub_8D54();
+    v23 = v44;
+    v41[31].count = v44;
+    v45 = *(v42 + 8);
+    v41[32].count = v45;
+    v41[33].count = (v42 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v45(v40, v43);
+    v49 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
+    v25 = swift_task_alloc();
+    v41[34].count = v25;
+    *v25 = v41;
+    v26 = sub_4B78;
     goto LABEL_46;
   }
 
-  v54 = v0[17].count;
-  v56 = v0[14].count;
-  v55 = v0[15].count;
-  v58 = v0[12].count;
-  v57 = v0[13].count;
-  v59 = v0[11].count;
-  v66 = v0[10].count;
-  v61 = v0[6].count;
-  v60 = v0[7].count;
+  v46 = v0[6].count;
 
-  v61(v42);
+  v46(v36);
 
-  v62 = v0[1].count;
+  v47 = v0[1].count;
 
-  return v62();
+  return v47();
 }
 
 uint64_t sub_4608()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 216);
-  v4 = *v1;
   *(*v1 + 224) = v0;
-
-  v5 = *(v2 + 192);
 
   if (v0)
   {
-    v6 = sub_4EFC;
+    v2 = sub_4EFC;
   }
 
   else
   {
-    v6 = sub_473C;
+    v2 = sub_473C;
   }
 
-  return _swift_task_switch(v6, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 id sub_473C()
 {
-  v54 = v0;
+  v39 = v0;
   v1 = *(v0 + 168);
   v2 = *(v0 + 144);
 
   if (v1 != v2)
   {
     v1 = *(v0 + 168);
-    v15 = *(v0 + 136);
-    if ((v15 & 0xC000000000000001) == 0)
+    v13 = *(v0 + 136);
+    if ((v13 & 0xC000000000000001) == 0)
     {
-      if (v1 >= *(v15 + 16))
+      if (v1 >= *(v13 + 16))
       {
 LABEL_39:
         __break(1u);
         goto LABEL_40;
       }
 
-      v16 = *(v15 + 8 * v1 + 32);
+      v14 = *(v13 + 8 * v1 + 32);
 LABEL_16:
-      *(v0 + 160) = v16;
+      *(v0 + 160) = v14;
       *(v0 + 168) = v1 + 1;
       if (!__OFADD__(v1, 1))
       {
-        v17 = *(*(v0 + 40) + *(v0 + 152));
-        result = [v16 UUID];
+        result = [v14 UUID];
         if (result)
         {
-          v19 = result;
-          v20 = *(v0 + 120);
-          v21 = *(v0 + 64);
-          v22 = *(v0 + 72);
+          v16 = result;
+          v17 = *(v0 + 120);
+          v18 = *(v0 + 64);
+          v19 = *(v0 + 72);
           sub_8D64();
 
-          v23 = sub_8D54();
-          v25 = v24;
-          *(v0 + 192) = v24;
-          v26 = *(v22 + 8);
-          *(v0 + 200) = v26;
-          *(v0 + 208) = (v22 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v26(v20, v21);
-          v27 = *(&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + 1);
-          v51 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
-          v28 = swift_task_alloc();
-          *(v0 + 216) = v28;
-          *v28 = v0;
-          v29 = sub_4608;
+          v20 = sub_8D54();
+          v22 = v21;
+          *(v0 + 192) = v21;
+          v23 = *(v19 + 8);
+          *(v0 + 200) = v23;
+          *(v0 + 208) = (v19 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v23(v17, v18);
+          v37 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
+          v24 = swift_task_alloc();
+          *(v0 + 216) = v24;
+          *v24 = v0;
+          v25 = sub_4608;
 LABEL_29:
-          v28[1] = v29;
+          v24[1] = v25;
 
-          return v51(v23, v25);
+          return v37(v20, v22);
         }
 
         goto LABEL_43;
@@ -1386,13 +1333,13 @@ LABEL_29:
     }
 
 LABEL_37:
-    v16 = sub_8F24();
+    v14 = sub_8F24();
     goto LABEL_16;
   }
 
   v3 = *(v0 + 128);
   v4 = &_swiftEmptyArrayStorage;
-  v53 = &_swiftEmptyArrayStorage;
+  v38 = &_swiftEmptyArrayStorage;
   if (v3)
   {
     v5 = 0;
@@ -1404,7 +1351,6 @@ LABEL_37:
     {
       if (v7)
       {
-        v14 = *(v0 + 32);
         v10 = sub_8F24();
       }
 
@@ -1428,10 +1374,9 @@ LABEL_37:
       if ([v10 hasInviteRequestFromMe])
       {
         sub_8F44();
-        v13 = v53[2];
         sub_8F74();
         sub_8F84();
-        v1 = &v53;
+        v1 = &v38;
         sub_8F54();
       }
 
@@ -1442,7 +1387,7 @@ LABEL_37:
       ++v5;
       if (v12 == *(v0 + 128))
       {
-        v4 = v53;
+        v4 = v38;
         goto LABEL_20;
       }
     }
@@ -1465,20 +1410,19 @@ LABEL_40:
   result = sub_8FA4();
 LABEL_23:
   *(v0 + 184) = result;
-  v30 = *(v0 + 288);
-  *(v0 + 296) = v30;
-  v31 = *(v0 + 176);
+  v26 = *(v0 + 288);
+  *(v0 + 296) = v26;
+  v27 = *(v0 + 176);
   if (result)
   {
-    if ((v31 & 0xC000000000000001) != 0)
+    if ((v27 & 0xC000000000000001) != 0)
     {
-      v50 = *(v0 + 176);
-      v32 = sub_8F24();
+      v28 = sub_8F24();
     }
 
     else
     {
-      if (!*(v31 + 16))
+      if (!*(v27 + 16))
       {
         __break(1u);
 LABEL_43:
@@ -1486,34 +1430,32 @@ LABEL_43:
         goto LABEL_44;
       }
 
-      v32 = *(v31 + 32);
+      v28 = *(v27 + 32);
     }
 
-    *(v0 + 232) = v32;
+    *(v0 + 232) = v28;
     *(v0 + 240) = 1;
-    v33 = *(*(v0 + 40) + *(v0 + 152));
-    result = [v32 UUID];
+    result = [v28 UUID];
     if (result)
     {
-      v34 = result;
-      v35 = *(v0 + 112);
-      v36 = *(v0 + 64);
-      v37 = *(v0 + 72);
+      v29 = result;
+      v30 = *(v0 + 112);
+      v31 = *(v0 + 64);
+      v32 = *(v0 + 72);
       sub_8D64();
 
-      v23 = sub_8D54();
-      v25 = v38;
-      *(v0 + 248) = v38;
-      v39 = *(v37 + 8);
-      *(v0 + 256) = v39;
-      *(v0 + 264) = (v37 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v39(v35, v36);
-      v40 = *(&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + 1);
-      v51 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
-      v28 = swift_task_alloc();
-      *(v0 + 272) = v28;
-      *v28 = v0;
-      v29 = sub_4B78;
+      v20 = sub_8D54();
+      v22 = v33;
+      *(v0 + 248) = v33;
+      v34 = *(v32 + 8);
+      *(v0 + 256) = v34;
+      *(v0 + 264) = (v32 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v34(v30, v31);
+      v37 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
+      v24 = swift_task_alloc();
+      *(v0 + 272) = v24;
+      *v24 = v0;
+      v25 = sub_4B78;
       goto LABEL_29;
     }
 
@@ -1522,43 +1464,30 @@ LABEL_44:
     return result;
   }
 
-  v41 = *(v0 + 136);
-  v43 = *(v0 + 112);
-  v42 = *(v0 + 120);
-  v45 = *(v0 + 96);
-  v44 = *(v0 + 104);
-  v46 = *(v0 + 88);
-  v52 = *(v0 + 80);
-  v48 = *(v0 + 48);
-  v47 = *(v0 + 56);
+  v35 = *(v0 + 48);
 
-  v48(v30);
+  v35(v26);
 
-  v49 = *(v0 + 8);
+  v36 = *(v0 + 8);
 
-  return v49();
+  return v36();
 }
 
 uint64_t sub_4B78()
 {
-  v2 = *v1;
-  v3 = *(*v1 + 272);
-  v4 = *v1;
   *(*v1 + 280) = v0;
-
-  v5 = *(v2 + 248);
 
   if (v0)
   {
-    v6 = sub_55C4;
+    v2 = sub_55C4;
   }
 
   else
   {
-    v6 = sub_4CAC;
+    v2 = sub_4CAC;
   }
 
-  return _swift_task_switch(v6, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 void sub_4CAC()
@@ -1569,95 +1498,82 @@ void sub_4CAC()
   if (v1 == v2)
   {
     v3 = *(v0 + 296);
-    v4 = *(v0 + 176);
-    v5 = *(v0 + 136);
-    v7 = *(v0 + 112);
-    v6 = *(v0 + 120);
-    v9 = *(v0 + 96);
-    v8 = *(v0 + 104);
-    v10 = *(v0 + 88);
-    v30 = *(v0 + 80);
-    v12 = *(v0 + 48);
-    v11 = *(v0 + 56);
+    v4 = *(v0 + 48);
 
-    v12(v3);
+    v4(v3);
 
-    v13 = *(v0 + 8);
+    v5 = *(v0 + 8);
 
-    v13();
+    v5();
     return;
   }
 
-  v14 = *(v0 + 240);
-  v15 = *(v0 + 176);
-  if ((v15 & 0xC000000000000001) != 0)
+  v6 = *(v0 + 240);
+  v7 = *(v0 + 176);
+  if ((v7 & 0xC000000000000001) != 0)
   {
-    v29 = *(v0 + 240);
-    v16 = sub_8F24();
+    v8 = sub_8F24();
   }
 
   else
   {
-    if (v14 >= *(v15 + 16))
+    if (v6 >= *(v7 + 16))
     {
 LABEL_15:
       __break(1u);
       goto LABEL_16;
     }
 
-    v16 = *(v15 + 8 * v14 + 32);
+    v8 = *(v7 + 8 * v6 + 32);
   }
 
-  *(v0 + 232) = v16;
-  *(v0 + 240) = v14 + 1;
-  if (__OFADD__(v14, 1))
+  *(v0 + 232) = v8;
+  *(v0 + 240) = v6 + 1;
+  if (__OFADD__(v6, 1))
   {
     __break(1u);
     goto LABEL_15;
   }
 
-  v17 = *(*(v0 + 40) + *(v0 + 152));
-  v18 = [v16 UUID];
-  if (!v18)
+  v9 = [v8 UUID];
+  if (!v9)
   {
 LABEL_16:
     __break(1u);
     return;
   }
 
-  v19 = v18;
-  v20 = *(v0 + 112);
-  v21 = *(v0 + 64);
-  v22 = *(v0 + 72);
+  v10 = v9;
+  v11 = *(v0 + 112);
+  v12 = *(v0 + 64);
+  v13 = *(v0 + 72);
   sub_8D64();
 
-  v23 = sub_8D54();
-  v25 = v24;
-  *(v0 + 248) = v24;
-  v26 = *(v22 + 8);
-  *(v0 + 256) = v26;
-  *(v0 + 264) = (v22 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v26(v20, v21);
-  v27 = *(&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + 1);
-  v31 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
-  v28 = swift_task_alloc();
-  *(v0 + 272) = v28;
-  *v28 = v0;
-  v28[1] = sub_4B78;
+  v14 = sub_8D54();
+  v16 = v15;
+  *(v0 + 248) = v15;
+  v17 = *(v13 + 8);
+  *(v0 + 256) = v17;
+  *(v0 + 264) = (v13 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v17(v11, v12);
+  v19 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
+  v18 = swift_task_alloc();
+  *(v0 + 272) = v18;
+  *v18 = v0;
+  v18[1] = sub_4B78;
 
-  v31(v23, v25);
+  v19(v14, v16);
 }
 
 void sub_4EFC()
 {
-  v87 = v0;
-  v1 = v0[36];
+  v69 = v0;
   sub_75EC();
-  v2 = swift_allocError();
-  *v3 = 1;
+  v1 = swift_allocError();
+  *v2 = 1;
 
-  v4 = sub_8E94();
-  v5 = ASLogDefault;
+  v3 = sub_8E94();
+  v4 = ASLogDefault;
   if (!ASLogDefault)
   {
 LABEL_48:
@@ -1665,28 +1581,26 @@ LABEL_48:
     goto LABEL_49;
   }
 
-  v6 = v4;
-  v7 = os_log_type_enabled(ASLogDefault, v4);
-  v8 = v0[28];
-  v9 = v0[20];
-  if (v7)
+  v5 = v3;
+  v6 = os_log_type_enabled(ASLogDefault, v3);
+  v7 = v0[20];
+  if (v6)
   {
-    v79 = v6;
-    v83 = v2;
-    log = v5;
-    v10 = v9;
+    v62 = v5;
+    v66 = v1;
+    log = v4;
+    v8 = v7;
     swift_errorRetain();
-    v11 = swift_slowAlloc();
-    v80 = swift_slowAlloc();
-    v81 = swift_slowAlloc();
-    v0[2] = v81;
-    *v11 = 136315394;
-    v12 = [v10 UUID];
-    v13 = v0[28];
-    if (!v12)
+    v9 = swift_slowAlloc();
+    v63 = swift_slowAlloc();
+    v64 = swift_slowAlloc();
+    v0[2] = v64;
+    *v9 = 136315394;
+    v10 = [v8 UUID];
+    if (!v10)
     {
 LABEL_49:
-      v77 = v0[20];
+      v60 = v0[20];
 
       __break(1u);
 LABEL_50:
@@ -1694,89 +1608,87 @@ LABEL_50:
       goto LABEL_51;
     }
 
-    v14 = v12;
-    v15 = v0[25];
-    v78 = v0[26];
-    v16 = v0[20];
-    v17 = v0[12];
-    v18 = v0[13];
-    v19 = v0[8];
-    v20 = v0[9];
+    v11 = v10;
+    v12 = v0[25];
+    v61 = v0[26];
+    v13 = v0[20];
+    v14 = v0[12];
+    v15 = v0[13];
+    v16 = v0[8];
+    v17 = v0[9];
 
     sub_8D64();
 
-    (*(v20 + 32))(v18, v17, v19);
-    sub_7F6C(&qword_11510, &type metadata accessor for UUID);
-    v21 = sub_8FD4();
-    v23 = v22;
-    v15(v18, v19);
-    v24 = sub_628C(v21, v23, v0 + 2);
+    (*(v17 + 32))(v15, v14, v16);
+    sub_7F6C(&qword_11510, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+    v18 = sub_8FD4();
+    v20 = v19;
+    v12(v15, v16);
+    v21 = sub_628C(v18, v20, v0 + 2);
 
-    *(v11 + 4) = v24;
-    *(v11 + 12) = 2112;
+    *(v9 + 4) = v21;
+    *(v9 + 12) = 2112;
     swift_errorRetain();
-    v25 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 14) = v25;
-    *v80 = v25;
-    _os_log_impl(&dword_0, log, v79, "Removing friend %s failed with error: %@", v11, 0x16u);
-    sub_7640(v80, &qword_11518, &qword_A5C8);
+    v22 = _swift_stdlib_bridgeErrorToNSError();
+    *(v9 + 14) = v22;
+    *v63 = v22;
+    _os_log_impl(&dword_0, log, v62, "Removing friend %s failed with error: %@", v9, 0x16u);
+    sub_7640(v63, &qword_11518, &qword_A5C8);
 
-    sub_76A0(v81);
+    sub_76A0(v64);
 
-    v2 = v83;
+    v1 = v66;
   }
 
   else
   {
   }
 
-  v26 = v0[21];
-  v0[36] = v2;
-  if (v26 != v0[18])
+  v23 = v0[21];
+  v0[36] = v1;
+  if (v23 != v0[18])
   {
-    v39 = v0[17];
-    if ((v39 & 0xC000000000000001) == 0)
+    v34 = v0[17];
+    if ((v34 & 0xC000000000000001) == 0)
     {
-      if (v26 >= *(v39 + 16))
+      if (v23 >= *(v34 + 16))
       {
 LABEL_44:
         __break(1u);
         goto LABEL_45;
       }
 
-      v40 = *(v39 + 8 * v26 + 32);
+      v35 = *(v34 + 8 * v23 + 32);
 LABEL_21:
-      v0[20] = v40;
-      v0[21] = v26 + 1;
-      if (!__OFADD__(v26, 1))
+      v0[20] = v35;
+      v0[21] = v23 + 1;
+      if (!__OFADD__(v23, 1))
       {
-        v41 = *(v0[5] + v0[19]);
-        v42 = [v40 UUID];
-        if (v42)
+        v36 = [v35 UUID];
+        if (v36)
         {
-          v43 = v42;
-          v44 = v0[15];
-          v45 = v0[8];
-          v46 = v0[9];
+          v37 = v36;
+          v38 = v0[15];
+          v39 = v0[8];
+          v40 = v0[9];
           sub_8D64();
 
-          v47 = sub_8D54();
-          v49 = v48;
-          v0[24] = v48;
-          v50 = *(v46 + 8);
-          v0[25] = v50;
-          v0[26] = (v46 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-          v50(v44, v45);
-          v51 = *(&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + 1);
-          v84 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
-          v52 = swift_task_alloc();
-          v0[27] = v52;
-          *v52 = v0;
-          v53 = sub_4608;
+          v41 = sub_8D54();
+          v43 = v42;
+          v0[24] = v42;
+          v44 = *(v40 + 8);
+          v0[25] = v44;
+          v0[26] = (v40 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+          v44(v38, v39);
+          v67 = (&async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:) + async function pointer to dispatch thunk of ActivitySharingClient.removeFriend(withUUID:));
+          v45 = swift_task_alloc();
+          v0[27] = v45;
+          *v45 = v0;
+          v46 = sub_4608;
 LABEL_34:
-          v52[1] = v53;
+          v45[1] = v46;
 
-          v84(v47, v49);
+          v67(v41, v43);
           return;
         }
 
@@ -1788,52 +1700,50 @@ LABEL_34:
     }
 
 LABEL_42:
-    v40 = sub_8F24();
+    v35 = sub_8F24();
     goto LABEL_21;
   }
 
-  v27 = v0[16];
-  v28 = &_swiftEmptyArrayStorage;
-  v86 = &_swiftEmptyArrayStorage;
-  if (v27)
+  v24 = v0[16];
+  v25 = &_swiftEmptyArrayStorage;
+  v68 = &_swiftEmptyArrayStorage;
+  if (v24)
   {
-    v29 = 0;
-    v30 = v0[4];
-    v31 = v30 & 0xC000000000000001;
-    v32 = v30 & 0xFFFFFFFFFFFFFF8;
-    v33 = v30 + 32;
+    v26 = 0;
+    v27 = v0[4];
+    v28 = v27 & 0xC000000000000001;
+    v29 = v27 & 0xFFFFFFFFFFFFFF8;
+    v30 = v27 + 32;
     while (1)
     {
-      if (v31)
+      if (v28)
       {
-        v38 = v0[4];
-        v34 = sub_8F24();
+        v31 = sub_8F24();
       }
 
       else
       {
-        if (v29 >= *(v32 + 16))
+        if (v26 >= *(v29 + 16))
         {
           goto LABEL_41;
         }
 
-        v34 = *(v33 + 8 * v29);
+        v31 = *(v30 + 8 * v26);
       }
 
-      v35 = v34;
-      v36 = v29 + 1;
-      if (__OFADD__(v29, 1))
+      v32 = v31;
+      v33 = v26 + 1;
+      if (__OFADD__(v26, 1))
       {
         break;
       }
 
-      if ([v34 hasInviteRequestFromMe])
+      if ([v31 hasInviteRequestFromMe])
       {
         sub_8F44();
-        v37 = v86[2];
         sub_8F74();
         sub_8F84();
-        v26 = &v86;
+        v23 = &v68;
         sub_8F54();
       }
 
@@ -1841,10 +1751,10 @@ LABEL_42:
       {
       }
 
-      ++v29;
-      if (v36 == v0[16])
+      ++v26;
+      if (v33 == v0[16])
       {
-        v28 = v86;
+        v25 = v68;
         goto LABEL_25;
       }
     }
@@ -1856,52 +1766,49 @@ LABEL_41:
   }
 
 LABEL_25:
-  v0[22] = v28;
-  if ((v28 & 0x8000000000000000) == 0 && (v28 & 0x4000000000000000) == 0)
+  v0[22] = v25;
+  if ((v25 & 0x8000000000000000) == 0 && (v25 & 0x4000000000000000) == 0)
   {
-    v54 = *(v28 + 16);
+    v47 = *(v25 + 16);
     goto LABEL_28;
   }
 
 LABEL_45:
-  v54 = sub_8FA4();
+  v47 = sub_8FA4();
 LABEL_28:
-  v0[23] = v54;
-  v55 = v0[36];
-  v0[37] = v55;
-  v56 = v0[22];
-  if (v54)
+  v0[23] = v47;
+  v48 = v0[36];
+  v0[37] = v48;
+  v49 = v0[22];
+  if (v47)
   {
-    if ((v56 & 0xC000000000000001) != 0)
+    if ((v49 & 0xC000000000000001) != 0)
     {
-      v76 = v0[22];
-      v57 = sub_8F24();
+      v50 = sub_8F24();
 LABEL_32:
-      v0[29] = v57;
+      v0[29] = v50;
       v0[30] = 1;
-      v58 = *(v0[5] + v0[19]);
-      v59 = [v57 UUID];
-      if (v59)
+      v51 = [v50 UUID];
+      if (v51)
       {
-        v60 = v59;
-        v61 = v0[14];
-        v62 = v0[8];
-        v63 = v0[9];
+        v52 = v51;
+        v53 = v0[14];
+        v54 = v0[8];
+        v55 = v0[9];
         sub_8D64();
 
-        v47 = sub_8D54();
-        v49 = v64;
-        v0[31] = v64;
-        v65 = *(v63 + 8);
-        v0[32] = v65;
-        v0[33] = (v63 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-        v65(v61, v62);
-        v66 = *(&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + 1);
-        v84 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
-        v52 = swift_task_alloc();
-        v0[34] = v52;
-        *v52 = v0;
-        v53 = sub_4B78;
+        v41 = sub_8D54();
+        v43 = v56;
+        v0[31] = v56;
+        v57 = *(v55 + 8);
+        v0[32] = v57;
+        v0[33] = (v55 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+        v57(v53, v54);
+        v67 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
+        v45 = swift_task_alloc();
+        v0[34] = v45;
+        *v45 = v0;
+        v46 = sub_4B78;
         goto LABEL_34;
       }
 
@@ -1910,9 +1817,9 @@ LABEL_51:
       return;
     }
 
-    if (*(v56 + 16))
+    if (*(v49 + 16))
     {
-      v57 = *(v56 + 32);
+      v50 = *(v49 + 32);
       goto LABEL_32;
     }
 
@@ -1920,132 +1827,111 @@ LABEL_51:
     goto LABEL_48;
   }
 
-  v67 = v0[17];
-  v69 = v0[14];
-  v68 = v0[15];
-  v71 = v0[12];
-  v70 = v0[13];
-  v72 = v0[11];
-  v85 = v0[10];
-  v74 = v0[6];
-  v73 = v0[7];
+  v58 = v0[6];
 
-  v74(v55);
+  v58(v48);
 
-  v75 = v0[1];
+  v59 = v0[1];
 
-  v75();
+  v59();
 }
 
 void sub_55C4()
 {
-  v1 = v0[37];
   sub_75EC();
-  v2 = swift_allocError();
-  *v3 = 1;
+  v1 = swift_allocError();
+  *v2 = 1;
 
-  v4 = sub_8E94();
-  v5 = ASLogDefault;
+  v3 = sub_8E94();
+  v4 = ASLogDefault;
   if (!ASLogDefault)
   {
     goto LABEL_21;
   }
 
-  v6 = v4;
-  v7 = os_log_type_enabled(ASLogDefault, v4);
-  v8 = v0[35];
-  v9 = v0[29];
-  if (v7)
+  v5 = v3;
+  v6 = os_log_type_enabled(ASLogDefault, v3);
+  v7 = v0[29];
+  if (v6)
   {
-    v53 = v6;
-    v57 = v2;
-    log = v5;
-    v10 = v9;
+    v39 = v5;
+    v43 = v1;
+    log = v4;
+    v8 = v7;
     swift_errorRetain();
-    v11 = swift_slowAlloc();
-    v54 = swift_slowAlloc();
-    v55 = swift_slowAlloc();
-    v0[3] = v55;
-    *v11 = 136315394;
-    v12 = [v10 UUID];
-    v13 = v0[35];
-    if (!v12)
+    v9 = swift_slowAlloc();
+    v40 = swift_slowAlloc();
+    v41 = swift_slowAlloc();
+    v0[3] = v41;
+    *v9 = 136315394;
+    v10 = [v8 UUID];
+    if (!v10)
     {
 LABEL_22:
-      v51 = v0[29];
+      v38 = v0[29];
 
       __break(1u);
       goto LABEL_23;
     }
 
-    v14 = v12;
-    v15 = v0[32];
-    v52 = v0[33];
-    v16 = v0[29];
-    v17 = v0[10];
-    v18 = v0[11];
-    v19 = v0[8];
-    v20 = v0[9];
+    v11 = v10;
+    v12 = v0[32];
+    v13 = v0[29];
+    v14 = v0[10];
+    v15 = v0[11];
+    v16 = v0[8];
+    v17 = v0[9];
 
     sub_8D64();
 
-    (*(v20 + 32))(v18, v17, v19);
-    sub_7F6C(&qword_11510, &type metadata accessor for UUID);
-    v21 = sub_8FD4();
-    v23 = v22;
-    v15(v18, v19);
-    v24 = sub_628C(v21, v23, v0 + 3);
+    (*(v17 + 32))(v15, v14, v16);
+    sub_7F6C(&qword_11510, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+    v18 = sub_8FD4();
+    v20 = v19;
+    v12(v15, v16);
+    v21 = sub_628C(v18, v20, v0 + 3);
 
-    *(v11 + 4) = v24;
-    *(v11 + 12) = 2112;
+    *(v9 + 4) = v21;
+    *(v9 + 12) = 2112;
     swift_errorRetain();
-    v25 = _swift_stdlib_bridgeErrorToNSError();
-    *(v11 + 14) = v25;
-    *v54 = v25;
-    _os_log_impl(&dword_0, log, v53, "Withdrawing invite to friend %s failed with error: %@", v11, 0x16u);
-    sub_7640(v54, &qword_11518, &qword_A5C8);
+    v22 = _swift_stdlib_bridgeErrorToNSError();
+    *(v9 + 14) = v22;
+    *v40 = v22;
+    _os_log_impl(&dword_0, log, v39, "Withdrawing invite to friend %s failed with error: %@", v9, 0x16u);
+    sub_7640(v40, &qword_11518, &qword_A5C8);
 
-    sub_76A0(v55);
+    sub_76A0(v41);
 
-    v2 = v57;
+    v1 = v43;
   }
 
   else
   {
   }
 
-  v26 = v0[30];
-  v0[37] = v2;
-  v27 = v0[22];
-  if (v26 == v0[23])
+  v23 = v0[30];
+  v0[37] = v1;
+  v24 = v0[22];
+  if (v23 == v0[23])
   {
-    v28 = v0[17];
-    v30 = v0[14];
-    v29 = v0[15];
-    v32 = v0[12];
-    v31 = v0[13];
-    v33 = v0[11];
-    v58 = v0[10];
-    v34 = v0[6];
-    v35 = v0[7];
+    v25 = v0[6];
 
-    v34(v2);
+    v25(v1);
 
-    v36 = v0[1];
+    v26 = v0[1];
 
-    v36();
+    v26();
     return;
   }
 
-  if ((v27 & 0xC000000000000001) != 0)
+  if ((v24 & 0xC000000000000001) != 0)
   {
-    v50 = v0[22];
-    v37 = sub_8F24();
+    v27 = sub_8F24();
   }
 
   else
   {
-    if (v26 >= *(v27 + 16))
+    if (v23 >= *(v24 + 16))
     {
 LABEL_20:
       __break(1u);
@@ -2054,73 +1940,68 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    v37 = *(v27 + 8 * v26 + 32);
+    v27 = *(v24 + 8 * v23 + 32);
   }
 
-  v0[29] = v37;
-  v0[30] = v26 + 1;
-  if (__OFADD__(v26, 1))
+  v0[29] = v27;
+  v0[30] = v23 + 1;
+  if (__OFADD__(v23, 1))
   {
     __break(1u);
     goto LABEL_20;
   }
 
-  v38 = *(v0[5] + v0[19]);
-  v39 = [v37 UUID];
-  if (!v39)
+  v28 = [v27 UUID];
+  if (!v28)
   {
 LABEL_23:
     __break(1u);
     return;
   }
 
-  v40 = v39;
-  v41 = v0[14];
-  v42 = v0[8];
-  v43 = v0[9];
+  v29 = v28;
+  v30 = v0[14];
+  v31 = v0[8];
+  v32 = v0[9];
   sub_8D64();
 
-  v44 = sub_8D54();
-  v46 = v45;
-  v0[31] = v45;
-  v47 = *(v43 + 8);
-  v0[32] = v47;
-  v0[33] = (v43 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v47(v41, v42);
-  v48 = *(&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + 1);
-  v59 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
-  v49 = swift_task_alloc();
-  v0[34] = v49;
-  *v49 = v0;
-  v49[1] = sub_4B78;
+  v33 = sub_8D54();
+  v35 = v34;
+  v0[31] = v34;
+  v36 = *(v32 + 8);
+  v0[32] = v36;
+  v0[33] = (v32 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v36(v30, v31);
+  v44 = (&async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:) + async function pointer to dispatch thunk of ActivitySharingClient.withdrawFriendInvite(to:));
+  v37 = swift_task_alloc();
+  v0[34] = v37;
+  *v37 = v0;
+  v37[1] = sub_4B78;
 
-  v59(v44, v46);
+  v44(v33, v35);
 }
 
 uint64_t sub_5AB8()
 {
-  v1 = *(*(v0 + 16) + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationSource_client);
-  v2 = *(&async function pointer to dispatch thunk of ActivitySharingClient.allFriends() + 1);
-  v5 = (&async function pointer to dispatch thunk of ActivitySharingClient.allFriends() + async function pointer to dispatch thunk of ActivitySharingClient.allFriends());
-  v3 = swift_task_alloc();
-  *(v0 + 24) = v3;
-  *v3 = v0;
-  v3[1] = sub_5B68;
+  v3 = (&async function pointer to dispatch thunk of ActivitySharingClient.allFriends() + async function pointer to dispatch thunk of ActivitySharingClient.allFriends());
+  v1 = swift_task_alloc();
+  *(v0 + 24) = v1;
+  *v1 = v0;
+  v1[1] = sub_5B68;
 
-  return v5();
+  return v3();
 }
 
 uint64_t sub_5B68(uint64_t a1)
 {
-  v3 = *(*v2 + 24);
-  v4 = *v2;
-  *(v4 + 32) = a1;
+  v3 = *v2;
+  *(v3 + 32) = a1;
 
   if (v1)
   {
-    v5 = *(v4 + 8);
+    v4 = *(v3 + 8);
 
-    return v5();
+    return v4();
   }
 
   else
@@ -2154,11 +2035,11 @@ uint64_t sub_5C9C()
   return v3(v2);
 }
 
-id sub_5D54()
+id sub_5D54(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ActivityDigitalSeparationSource();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ActivityDigitalSeparationSource();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }
 
 id sub_5E08(uint64_t a1, uint64_t a2, char a3)
@@ -2186,34 +2067,31 @@ id sub_5E08(uint64_t a1, uint64_t a2, char a3)
 
 uint64_t sub_5EE4(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_5FDC;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_5FDC;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_5FDC()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 unint64_t sub_60D4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_9064();
   sub_8E04();
-  v6 = sub_9084();
+  v4 = sub_9084();
 
-  return sub_614C(a1, a2, v6);
+  return sub_614C(a1, a2, v4);
 }
 
 unint64_t sub_614C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2279,7 +2157,7 @@ void *sub_6204(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_628C(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_628C(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_6358(v11, 0, 0, 1, a1, a2);
@@ -2379,11 +2257,9 @@ LABEL_8:
 
 char *sub_6464(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_64B0(a1, a2);
+  v3 = sub_64B0(a1, a2);
   sub_65E0(&off_C748);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_64B0(uint64_t a1, unint64_t a2)
@@ -2483,7 +2359,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -2497,15 +2372,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_6740(result, v12, 1, v3);
+  result = sub_6740(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -2520,15 +2395,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -2537,12 +2412,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2650,7 +2525,7 @@ char *sub_6740(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-void *sub_6834(unint64_t a1)
+uint64_t **sub_6834(uint64_t *a1)
 {
   v1 = a1;
   if ((a1 & 0xC000000000000001) == 0)
@@ -2669,7 +2544,7 @@ void *sub_6834(unint64_t a1)
     v3 = sub_6204(v2, 0);
 
     v1 = sub_68E4(&v5, v3 + 4, v2, v1);
-    sub_7218();
+    sub_7218(v5);
     if (v1 == v2)
     {
       break;
@@ -2687,7 +2562,7 @@ LABEL_5:
   return v3;
 }
 
-void *sub_68E4(void *result, void *a2, unint64_t a3, uint64_t a4)
+uint64_t *sub_68E4(uint64_t *result, uint64_t **a2, unint64_t a3, uint64_t a4)
 {
   v4 = a4;
   v7 = result;
@@ -2722,7 +2597,7 @@ LABEL_25:
 
   sub_8ED4();
   sub_71CC();
-  sub_7F6C(&qword_114F0, sub_71CC);
+  sub_7F6C(&qword_114F0, sub_71CC, &protocol conformance descriptor for NSObject);
   result = sub_8E84();
   v4 = v25;
   v8 = v26;
@@ -2912,8 +2787,8 @@ LABEL_10:
 
 void sub_6C40(void *a1, void (**a2)(void, void, void))
 {
-  v4 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v4 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v4 - 8);
   v6 = v19 - v5;
   v7 = swift_allocObject();
   *(v7 + 16) = a2;
@@ -2940,7 +2815,7 @@ void sub_6C40(void *a1, void (**a2)(void, void, void))
     type metadata accessor for DSSourceError(0);
     v19[1] = 0;
     sub_6B10(&_swiftEmptyArrayStorage);
-    sub_7F6C(&qword_113C8, type metadata accessor for DSSourceError);
+    sub_7F6C(&qword_113C8, type metadata accessor for DSSourceError, &unk_A3E0);
     sub_8D24();
     v10 = v19[2];
     sub_2084(&unk_11530, &qword_A5F0);
@@ -3181,12 +3056,11 @@ uint64_t sub_7268(uint64_t a1)
 
 uint64_t sub_7330()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_7428(uint64_t a1)
@@ -3207,21 +3081,19 @@ uint64_t sub_7428(uint64_t a1)
 
 uint64_t sub_74FC()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_7534(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_824C;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_824C;
 
-  return sub_5EE4(a1, v5);
+  return sub_5EE4(a1, v4);
 }
 
 unint64_t sub_75EC()
@@ -3243,15 +3115,17 @@ uint64_t sub_7640(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_76A0(uint64_t *a1)
+uint64_t sub_76A0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_76EC(uint64_t a1, uint64_t a2)
@@ -3277,7 +3151,7 @@ void *sub_7748(unint64_t a1)
       break;
     }
 
-    v11 = &_swiftEmptyArrayStorage;
+    v10 = &_swiftEmptyArrayStorage;
     sub_8F64();
     if (i < 0)
     {
@@ -3311,17 +3185,16 @@ void *sub_7748(unint64_t a1)
       }
 
       v7 = v6;
-      v9 = v6;
-      sub_315C(&v9, &v10);
+      v8 = v6;
+      sub_315C(&v8, &v9);
 
       sub_8F44();
-      v8 = v11[2];
       sub_8F74();
       sub_8F84();
       sub_8F54();
       if (v5 == i)
       {
-        return v11;
+        return v10;
       }
     }
 
@@ -3337,9 +3210,9 @@ LABEL_16:
 
 uint64_t sub_7898(uint64_t a1, void *a2, void (**a3)(void, void))
 {
-  v6 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v8 = &v26 - v7;
+  v6 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v24 - v7;
   v9 = swift_allocObject();
   *(v9 + 16) = a3;
   type metadata accessor for ActivityDigitalSeparationSharedResource();
@@ -3348,43 +3221,38 @@ uint64_t sub_7898(uint64_t a1, void *a2, void (**a3)(void, void))
   {
     sub_75EC();
     swift_allocError();
-    *v20 = 2;
+    *v19 = 2;
     _Block_copy(a3);
-    v21 = sub_8D34();
-    (a3)[2](a3, v21);
+    v20 = sub_8D34();
+    (a3)[2](a3, v20);
   }
 
   v11 = *(v10 + OBJC_IVAR____TtC25ActivityDigitalSeparation39ActivityDigitalSeparationSharedResource_digitalSeparationFriends);
   if (v11 >> 62)
   {
-    if (v11 < 0)
-    {
-      v22 = *(v10 + OBJC_IVAR____TtC25ActivityDigitalSeparation39ActivityDigitalSeparationSharedResource_digitalSeparationFriends);
-    }
-
     v12 = sub_8FA4();
     if (v12)
     {
       goto LABEL_4;
     }
 
-LABEL_17:
+LABEL_15:
     _Block_copy(a3);
     swift_unknownObjectRetain();
-    v19 = &_swiftEmptyArrayStorage;
-LABEL_18:
-    v23 = sub_8E64();
-    (*(*(v23 - 8) + 56))(v8, 1, 1, v23);
-    v24 = swift_allocObject();
-    v24[2] = 0;
-    v24[3] = 0;
-    v24[4] = v19;
-    v24[5] = a2;
-    v24[6] = sub_8250;
-    v24[7] = v9;
-    v25 = a2;
+    v18 = &_swiftEmptyArrayStorage;
+LABEL_16:
+    v21 = sub_8E64();
+    (*(*(v21 - 8) + 56))(v8, 1, 1, v21);
+    v22 = swift_allocObject();
+    v22[2] = 0;
+    v22[3] = 0;
+    v22[4] = v18;
+    v22[5] = a2;
+    v22[6] = sub_8250;
+    v22[7] = v9;
+    v23 = a2;
 
-    sub_2798(0, 0, v8, &unk_A5E0, v24);
+    sub_2798(0, 0, v8, &unk_A5E0, v22);
 
     return swift_unknownObjectRelease();
   }
@@ -3392,19 +3260,19 @@ LABEL_18:
   v12 = *(&dword_10 + (v11 & 0xFFFFFFFFFFFFFF8));
   if (!v12)
   {
-    goto LABEL_17;
+    goto LABEL_15;
   }
 
 LABEL_4:
-  v29 = &_swiftEmptyArrayStorage;
+  v27 = &_swiftEmptyArrayStorage;
   _Block_copy(a3);
   swift_unknownObjectRetain();
 
   result = sub_8F64();
   if ((v12 & 0x8000000000000000) == 0)
   {
-    v27 = a2;
-    v28 = a1;
+    v25 = a2;
+    v26 = a1;
     v14 = 0;
     do
     {
@@ -3423,7 +3291,6 @@ LABEL_4:
       v17 = *&v15[OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend];
 
       sub_8F44();
-      v18 = v29[2];
       sub_8F74();
       sub_8F84();
       sub_8F54();
@@ -3431,9 +3298,9 @@ LABEL_4:
 
     while (v12 != v14);
 
-    v19 = v29;
-    a2 = v27;
-    goto LABEL_18;
+    v18 = v27;
+    a2 = v25;
+    goto LABEL_16;
   }
 
   __break(1u);
@@ -3442,8 +3309,8 @@ LABEL_4:
 
 uint64_t sub_7BE0(uint64_t a1, void *a2, void (**a3)(void, void))
 {
-  v5 = (*(*(sub_2084(&qword_11500, &qword_A588) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = sub_2084(&qword_11500, &qword_A588);
+  __chkstk_darwin(v5 - 8);
   v7 = &v20 - v6;
   v8 = swift_allocObject();
   *(v8 + 16) = a3;
@@ -3502,16 +3369,12 @@ uint64_t sub_7E40(uint64_t a1)
 
 uint64_t sub_7F14()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 56);
 
   return _swift_deallocObject(v0, 64, 7);
 }
 
-uint64_t sub_7F6C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_7F6C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3526,10 +3389,7 @@ uint64_t sub_7F6C(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_7FB4()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-
-  v2 = *(v0 + 48);
 
   return _swift_deallocObject(v0, 56, 7);
 }
@@ -3566,7 +3426,6 @@ _OWORD *sub_812C(_OWORD *a1, _OWORD *a2)
 
 uint64_t sub_813C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 40, 7);
@@ -3775,7 +3634,7 @@ Swift::Int sub_84A8()
   return sub_9084();
 }
 
-id sub_88CC(void *a1, uint64_t a2, void (*a3)(void))
+id sub_88CC(void *a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v4 = a1;
   a3();
@@ -3794,7 +3653,7 @@ id sub_88CC(void *a1, uint64_t a2, void (*a3)(void))
   return v7;
 }
 
-id sub_8964(uint64_t (*a1)(void))
+id sub_8964(uint64_t (*a1)(void *))
 {
   v3 = [*(v1 + OBJC_IVAR____TtC25ActivityDigitalSeparation31ActivityDigitalSeparationFriend_sharingFriend) contact];
   if (!v3)
@@ -3815,7 +3674,7 @@ id sub_8964(uint64_t (*a1)(void))
   {
     v7 = v6;
     v8 = sub_8DE4();
-    v9 = (a1)(v7);
+    v9 = a1(v7);
 
     if (v9)
     {
@@ -3830,7 +3689,7 @@ LABEL_8:
   {
     v11 = v10;
     v8 = sub_8DE4();
-    v12 = (a1)(v11);
+    v12 = a1(v11);
 
     if (v12)
     {
@@ -3838,7 +3697,7 @@ LABEL_8:
     }
   }
 
-  v26 = v5;
+  v24 = v5;
   result = [v5 addresses];
   if (result)
   {
@@ -3862,14 +3721,12 @@ LABEL_8:
       {
         v21 = v20;
 LABEL_19:
-        v22 = (*(v15 + 48) + ((v21 << 10) | (16 * __clz(__rbit64(v18)))));
-        v8 = *v22;
-        v23 = v22[1];
+        v8 = *(*(v15 + 48) + ((v21 << 10) | (16 * __clz(__rbit64(v18)))));
 
-        v24 = sub_8DB4();
-        v25 = a1();
+        v22 = sub_8DB4();
+        v23 = (a1)();
 
-        if (v25)
+        if (v23)
         {
           break;
         }
@@ -3919,9 +3776,9 @@ LABEL_16:
   return result;
 }
 
-id sub_8C1C()
+id sub_8C1C(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ActivityDigitalSeparationFriend();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for ActivityDigitalSeparationFriend();
+  return objc_msgSendSuper2(&v3, "dealloc");
 }

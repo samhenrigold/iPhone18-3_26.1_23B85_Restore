@@ -49,10 +49,10 @@
 
 - (id)runAction
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = AMSUIWebCallbackAction;
-  runAction = [(AMSUIWebAction *)&v27 runAction];
+  v35 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = AMSUIWebCallbackAction;
+  runAction = [(AMSUIWebAction *)&v26 runAction];
   v4 = AMSGenerateLogCorrelationKey();
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
@@ -68,13 +68,13 @@
     logKey = [context logKey];
     service = [(AMSUIWebCallbackAction *)self service];
     *buf = 138544130;
-    v29 = v7;
-    v30 = 2114;
-    v31 = logKey;
-    v32 = 2114;
-    v33 = service;
-    v34 = 2114;
-    v35 = v4;
+    v28 = v7;
+    v29 = 2114;
+    v30 = logKey;
+    v31 = 2114;
+    v32 = service;
+    v33 = 2114;
+    v34 = v4;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Calling back to the JS service: %{public}@ key: %{public}@", buf, 0x2Au);
   }
 
@@ -94,15 +94,13 @@
   dataProvider = [context3 dataProvider];
   v21 = [dataProvider runJSRequest:v17];
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __35__AMSUIWebCallbackAction_runAction__block_invoke;
-  v25[3] = &unk_1E7F25DF0;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __35__AMSUIWebCallbackAction_runAction__block_invoke;
+  v24[3] = &unk_1E7F25DF0;
   v22 = v14;
-  v26 = v22;
-  [v21 addFinishBlock:v25];
-
-  v23 = *MEMORY[0x1E69E9840];
+  v25 = v22;
+  [v21 addFinishBlock:v24];
 
   return v22;
 }

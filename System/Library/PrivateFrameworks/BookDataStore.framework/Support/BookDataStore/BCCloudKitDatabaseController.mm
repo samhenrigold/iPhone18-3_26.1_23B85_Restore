@@ -155,7 +155,7 @@
 - (void)fetchChangesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100002660();
+  v5 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -224,7 +224,7 @@
   containerCopy = container;
   completionCopy = completion;
   subscriptionCompletionCopy = subscriptionCompletion;
-  v16 = sub_100002660();
+  v16 = sub_100002660(subscriptionCompletionCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [containerCopy containerIdentifier];
@@ -358,7 +358,7 @@
 
   else
   {
-    v11 = sub_100002660();
+    v11 = sub_100002660(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF1B8();
@@ -374,39 +374,40 @@
 {
   typeCopy = type;
   identifierCopy = identifier;
+  v8 = identifierCopy;
   if (!identifierCopy)
   {
     goto LABEL_6;
   }
 
-  v8 = [(BCCloudKitDatabaseController *)self saltedAndHashedIDFromLocalID:identifierCopy];
-  if (!v8)
+  identifierCopy = [(BCCloudKitDatabaseController *)self saltedAndHashedIDFromLocalID:identifierCopy];
+  if (!identifierCopy)
   {
     goto LABEL_6;
   }
 
-  v9 = v8;
+  v9 = identifierCopy;
   v10 = @"-";
   if (typeCopy)
   {
     v10 = typeCopy;
   }
 
-  v11 = [NSString stringWithFormat:@"%@.%@", v10, v8];
+  identifierCopy = [NSString stringWithFormat:@"%@.%@", v10, identifierCopy];
 
-  if (!v11)
+  if (!identifierCopy)
   {
 LABEL_6:
-    v12 = sub_100002660();
+    v12 = sub_100002660(identifierCopy);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF220();
     }
 
-    v11 = 0;
+    identifierCopy = 0;
   }
 
-  return v11;
+  return identifierCopy;
 }
 
 - (void)p_unsubscribeToContainer:(id)container
@@ -446,74 +447,73 @@ LABEL_6:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v6 = sub_100002660();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sub_100002660(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
     *buf = 138543362;
-    v34 = containerIdentifier;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "p_subscribeWithCompletion (%{public}@)", buf, 0xCu);
+    v36 = containerIdentifier;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "p_subscribeWithCompletion (%{public}@)", buf, 0xCu);
   }
 
-  if ([(BCCloudKitDatabaseController *)self hasSubscription]|| ([(BCCloudKitDatabaseController *)self database], v8 = objc_claimAutoreleasedReturnValue(), v9 = v8 == 0, v8, v9))
+  if ([(BCCloudKitDatabaseController *)self hasSubscription]|| ([(BCCloudKitDatabaseController *)self database], v9 = objc_claimAutoreleasedReturnValue(), v10 = v9 == 0, v9, v10))
   {
-    v24 = objc_retainBlock(completionCopy);
-    v13 = v24;
-    if (v24)
+    v26 = objc_retainBlock(completionCopy);
+    v15 = v26;
+    if (v26)
     {
-      (*(v24 + 2))(v24);
+      (*(v26 + 2))(v26);
     }
   }
 
   else
   {
-    v10 = sub_100002660();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v12 = sub_100002660(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Attempting CKModifySubscriptionsOperation", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Attempting CKModifySubscriptionsOperation", buf, 2u);
     }
 
-    v11 = [CKDatabaseSubscription alloc];
+    v13 = [CKDatabaseSubscription alloc];
     subscriptionID = [(BCCloudKitDatabaseController *)self subscriptionID];
-    v13 = [v11 initWithSubscriptionID:subscriptionID];
+    v15 = [v13 initWithSubscriptionID:subscriptionID];
 
-    v14 = objc_alloc_init(CKNotificationInfo);
-    [v14 setShouldSendContentAvailable:1];
-    [v13 setNotificationInfo:v14];
+    v16 = objc_alloc_init(CKNotificationInfo);
+    [v16 setShouldSendContentAvailable:1];
+    [v15 setNotificationInfo:v16];
     objc_initWeak(&location, self);
-    v15 = [CKModifySubscriptionsOperation alloc];
-    v35 = v13;
-    v16 = [NSArray arrayWithObjects:&v35 count:1];
-    v17 = [v15 initWithSubscriptionsToSave:v16 subscriptionIDsToDelete:0];
+    v17 = [CKModifySubscriptionsOperation alloc];
+    v37 = v15;
+    v18 = [NSArray arrayWithObjects:&v37 count:1];
+    v19 = [v17 initWithSubscriptionsToSave:v18 subscriptionIDsToDelete:0];
 
-    v18 = +[CKOperationConfiguration bds_defaultConfiguration];
+    v20 = +[CKOperationConfiguration bds_defaultConfiguration];
     container = [(BCCloudKitDatabaseController *)self container];
-    [v18 setContainer:container];
+    [v20 setContainer:container];
 
-    [v17 setConfiguration:v18];
+    [v19 setConfiguration:v20];
     database = [(BCCloudKitDatabaseController *)self database];
-    [v17 setDatabase:database];
+    [v19 setDatabase:database];
 
-    v25 = _NSConcreteStackBlock;
-    v26 = 3221225472;
-    v27 = sub_10002699C;
-    v28 = &unk_100240550;
-    objc_copyWeak(&v31, &location);
+    v27 = _NSConcreteStackBlock;
+    v28 = 3221225472;
+    v29 = sub_10002699C;
+    v30 = &unk_100240550;
+    objc_copyWeak(&v33, &location);
     selfCopy = self;
-    v30 = completionCopy;
-    [v17 setModifySubscriptionsCompletionBlock:&v25];
-    v21 = sub_100002660();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v32 = completionCopy;
+    v23 = sub_100002660([v19 setModifySubscriptionsCompletionBlock:&v27]);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      operationID = [v17 operationID];
-      sub_1001BF288(v17, operationID, buf, v21);
+      operationID = [v19 operationID];
+      sub_1001BF288(v19, operationID, buf, v23);
     }
 
     database2 = [(BCCloudKitDatabaseController *)self database];
-    [database2 addOperation:v17];
+    [database2 addOperation:v19];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 }
@@ -524,8 +524,8 @@ LABEL_6:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v6 = sub_100002660();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002660(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
     serverChangeToken = [(BCCloudKitDatabaseController *)self serverChangeToken];
@@ -533,100 +533,99 @@ LABEL_6:
     *&buf[4] = containerIdentifier;
     *&buf[12] = 2114;
     *&buf[14] = serverChangeToken;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@)- Adding fetch database changes, serverChangeToken: %{public}@", buf, 0x16u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@)- Adding fetch database changes, serverChangeToken: %{public}@", buf, 0x16u);
   }
 
   database = [(BCCloudKitDatabaseController *)self database];
   if (database)
   {
-    v10 = [CKFetchDatabaseChangesOperation alloc];
+    v11 = [CKFetchDatabaseChangesOperation alloc];
     serverChangeToken2 = [(BCCloudKitDatabaseController *)self serverChangeToken];
-    v12 = [v10 initWithPreviousServerChangeToken:serverChangeToken2];
+    v13 = [v11 initWithPreviousServerChangeToken:serverChangeToken2];
 
-    [v12 setFetchAllChanges:1];
-    v13 = +[CKOperationConfiguration bds_defaultConfiguration];
+    [v13 setFetchAllChanges:1];
+    v14 = +[CKOperationConfiguration bds_defaultConfiguration];
     container = [(BCCloudKitDatabaseController *)self container];
-    [v13 setContainer:container];
+    [v14 setContainer:container];
 
-    [v12 setConfiguration:v13];
+    [v13 setConfiguration:v14];
     database2 = [(BCCloudKitDatabaseController *)self database];
-    [v12 setDatabase:database2];
+    [v13 setDatabase:database2];
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v40 = sub_100027274;
-    v41 = sub_100027284;
-    v42 = objc_alloc_init(NSMutableOrderedSet);
+    v41 = sub_100027274;
+    v42 = sub_100027284;
+    v43 = objc_alloc_init(NSMutableOrderedSet);
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10002728C;
+    v35[3] = &unk_100240578;
+    v35[4] = self;
+    v35[5] = buf;
+    [v13 setRecordZoneWithIDWasDeletedBlock:v35];
     v34[0] = _NSConcreteStackBlock;
     v34[1] = 3221225472;
-    v34[2] = sub_10002728C;
+    v34[2] = sub_10002742C;
     v34[3] = &unk_100240578;
     v34[4] = self;
     v34[5] = buf;
-    [v12 setRecordZoneWithIDWasDeletedBlock:v34];
+    [v13 setRecordZoneWithIDWasPurgedBlock:v34];
     v33[0] = _NSConcreteStackBlock;
     v33[1] = 3221225472;
-    v33[2] = sub_10002742C;
+    v33[2] = sub_1000275CC;
     v33[3] = &unk_100240578;
     v33[4] = self;
     v33[5] = buf;
-    [v12 setRecordZoneWithIDWasPurgedBlock:v33];
+    [v13 setRecordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock:v33];
     v32[0] = _NSConcreteStackBlock;
     v32[1] = 3221225472;
-    v32[2] = sub_1000275CC;
-    v32[3] = &unk_100240578;
+    v32[2] = sub_10002776C;
+    v32[3] = &unk_1002405C0;
     v32[4] = self;
-    v32[5] = buf;
-    [v12 setRecordZoneWithIDWasDeletedDueToUserEncryptedDataResetBlock:v32];
-    v31[0] = _NSConcreteStackBlock;
-    v31[1] = 3221225472;
-    v31[2] = sub_10002776C;
-    v31[3] = &unk_1002405C0;
-    v31[4] = self;
-    [v12 setChangeTokenUpdatedBlock:v31];
+    [v13 setChangeTokenUpdatedBlock:v32];
     configuration = [(BCCloudKitDatabaseController *)self configuration];
     serviceZones = [configuration serviceZones];
-    v18 = [NSSet setWithArray:serviceZones];
+    v19 = [NSSet setWithArray:serviceZones];
 
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_10002794C;
-    v29[3] = &unk_100240608;
-    v29[4] = self;
-    v19 = v18;
-    v30 = v19;
-    [v12 setRecordZoneWithIDChangedBlock:v29];
-    v22 = _NSConcreteStackBlock;
-    v23 = 3221225472;
-    v24 = sub_100027B84;
-    v25 = &unk_100240658;
-    v28 = buf;
+    v30[0] = _NSConcreteStackBlock;
+    v30[1] = 3221225472;
+    v30[2] = sub_10002794C;
+    v30[3] = &unk_100240608;
+    v30[4] = self;
+    v20 = v19;
+    v31 = v20;
+    [v13 setRecordZoneWithIDChangedBlock:v30];
+    v23 = _NSConcreteStackBlock;
+    v24 = 3221225472;
+    v25 = sub_100027B84;
+    v26 = &unk_100240658;
+    v29 = buf;
     selfCopy = self;
-    v27 = changesCopy;
-    [v12 setFetchDatabaseChangesCompletionBlock:&v22];
-    v20 = sub_100002660();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v28 = changesCopy;
+    v21 = sub_100002660([v13 setFetchDatabaseChangesCompletionBlock:&v23]);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [(BCCloudKitDatabaseController *)self containerIdentifier:v22];
-      *v35 = 138543618;
-      v36 = v21;
-      v37 = 2112;
-      v38 = v12;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@)- Adding fetch database changes %@", v35, 0x16u);
+      v22 = [(BCCloudKitDatabaseController *)self containerIdentifier:v23];
+      *v36 = 138543618;
+      v37 = v22;
+      v38 = 2112;
+      v39 = v13;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@)- Adding fetch database changes %@", v36, 0x16u);
     }
 
-    [database addOperation:v12];
+    [database addOperation:v13];
     _Block_object_dispose(buf, 8);
 
     goto LABEL_9;
   }
 
-  v12 = objc_retainBlock(changesCopy);
-  if (v12)
+  v13 = objc_retainBlock(changesCopy);
+  if (v13)
   {
-    v13 = [NSError errorWithDomain:@"BDSErrorDomain" code:1004 userInfo:0];
-    (*(v12 + 2))(v12, v13);
+    v14 = [NSError errorWithDomain:@"BDSErrorDomain" code:1004 userInfo:0];
+    (*(v13 + 2))(v13, v14);
 LABEL_9:
   }
 }
@@ -639,7 +638,7 @@ LABEL_9:
   dispatch_assert_queue_V2(accessQueue);
 
   database = [(BCCloudKitDatabaseController *)self database];
-  v10 = sub_100002660();
+  v10 = sub_100002660(database);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -707,32 +706,32 @@ LABEL_9:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v6 = sub_100002660();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100002660(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
     database = [(BCCloudKitDatabaseController *)self database];
     *buf = 138543618;
-    v16 = containerIdentifier;
-    v17 = 2114;
-    v18 = database;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "(%{public}@) Establishing record salt, database:%{public}@", buf, 0x16u);
+    v17 = containerIdentifier;
+    v18 = 2114;
+    v19 = database;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "(%{public}@) Establishing record salt, database:%{public}@", buf, 0x16u);
   }
 
-  v9 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
+  v10 = [[CKRecordID alloc] initWithRecordName:@"recordIDSalt"];
   objc_initWeak(buf, self);
   database2 = [(BCCloudKitDatabaseController *)self database];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100029B18;
-  v12[3] = &unk_1002407C0;
-  objc_copyWeak(&v14, buf);
-  v12[4] = self;
-  v11 = completionCopy;
-  v13 = v11;
-  [database2 fetchRecordWithID:v9 completionHandler:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100029B18;
+  v13[3] = &unk_1002407C0;
+  objc_copyWeak(&v15, buf);
+  v13[4] = self;
+  v12 = completionCopy;
+  v14 = v12;
+  [database2 fetchRecordWithID:v10 completionHandler:v13];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 
@@ -742,13 +741,14 @@ LABEL_9:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  if ([(BCCloudKitDatabaseController *)self serverFetchPostponed])
+  serverFetchPostponed = [(BCCloudKitDatabaseController *)self serverFetchPostponed];
+  if (serverFetchPostponed)
   {
-    v6 = sub_100002660();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002660(serverFetchPostponed);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "fetch zone changes attempted while postponing such fetches.  Nil error, but this operation will be attempted again after the back-off period.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "fetch zone changes attempted while postponing such fetches.  Nil error, but this operation will be attempted again after the back-off period.", buf, 2u);
     }
 
     changesCopy[2](changesCopy, 0);
@@ -756,31 +756,31 @@ LABEL_9:
 
   else
   {
-    v7 = +[NSMutableArray array];
     v8 = +[NSMutableArray array];
+    v9 = +[NSMutableArray array];
     tokenStores = [(BCCloudKitDatabaseController *)self tokenStores];
     allKeys = [tokenStores allKeys];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10002AA34;
-    v18[3] = &unk_1002407E8;
-    v18[4] = self;
-    v19 = v7;
-    v11 = v8;
-    v20 = v11;
-    v12 = v7;
-    [allKeys enumerateObjectsUsingBlock:v18];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10002AA34;
+    v19[3] = &unk_1002407E8;
+    v19[4] = self;
+    v20 = v8;
+    v12 = v9;
+    v21 = v12;
+    v13 = v8;
+    [allKeys enumerateObjectsUsingBlock:v19];
 
-    v13 = [v12 copy];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10002AB2C;
-    v15[3] = &unk_100240460;
-    v15[4] = self;
-    v16 = v11;
-    v17 = changesCopy;
-    v14 = v11;
-    [(BCCloudKitDatabaseController *)self p_fetchRecordZoneChangesForRecordZoneIDs:v13 completionHandler:v15];
+    v14 = [v13 copy];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10002AB2C;
+    v16[3] = &unk_100240460;
+    v16[4] = self;
+    v17 = v12;
+    v18 = changesCopy;
+    v15 = v12;
+    [(BCCloudKitDatabaseController *)self p_fetchRecordZoneChangesForRecordZoneIDs:v14 completionHandler:v16];
   }
 }
 
@@ -792,7 +792,7 @@ LABEL_9:
   dispatch_assert_queue_V2(accessQueue);
 
   v9 = [dsCopy count];
-  v10 = sub_100002660();
+  v10 = sub_100002660(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
@@ -870,19 +870,7 @@ LABEL_9:
   v6 = [domain isEqualToString:CKErrorDomain];
 
   v7 = 5.0;
-  if (!v6)
-  {
-    goto LABEL_7;
-  }
-
-  objc_opt_class();
-  userInfo = [errorCopy userInfo];
-  v9 = [userInfo objectForKeyedSubscript:CKErrorRetryAfterKey];
-  v10 = BUDynamicCast();
-  [v10 doubleValue];
-  v7 = v11;
-
-  if (v7 > 0.0)
+  if (!v6 || (objc_opt_class(), [errorCopy userInfo], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "objectForKeyedSubscript:", CKErrorRetryAfterKey), v9 = objc_claimAutoreleasedReturnValue(), BUDynamicCast(), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "doubleValue"), v7 = v11, v10, v9, v8, v7 > 0.0))
   {
 LABEL_7:
     [(BCCloudKitDatabaseController *)self setBackOffInterval:v7];
@@ -911,7 +899,7 @@ LABEL_8:
   changesCopy = changes;
   dCopy = d;
   handlerCopy = handler;
-  v11 = sub_100002660();
+  v11 = sub_100002660(handlerCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -1008,8 +996,7 @@ LABEL_8:
     v30 = v23;
     v33 = buf;
     v31 = handlerCopy;
-    [v18 setFetchRecordZoneChangesCompletionBlock:v29];
-    v24 = sub_100002660();
+    v24 = sub_100002660([v18 setFetchRecordZoneChangesCompletionBlock:v29]);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       containerIdentifier2 = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -1054,7 +1041,7 @@ LABEL_8:
 
 - (void)p_informObserversOfAttachmentChange
 {
-  v3 = sub_100002660();
+  v3 = sub_100002660(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -1147,7 +1134,7 @@ LABEL_8:
 - (void)p_informObserversOfRecordsChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100002660();
+  v5 = sub_100002660(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -1195,62 +1182,62 @@ LABEL_8:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v9 = sub_100002660();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100002660(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
     *buf = 138543874;
-    v27 = containerIdentifier;
-    v28 = 2050;
-    v29 = [changedCopy count];
-    v30 = 2114;
-    v31 = typeCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) - p_informObserversOfRecordsChanged: changedRecords.count=%{public}lu recordType=%{public}@", buf, 0x20u);
+    v28 = containerIdentifier;
+    v29 = 2050;
+    v30 = [changedCopy count];
+    v31 = 2114;
+    v32 = typeCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BCCloudKitDatabaseController (%{public}@) - p_informObserversOfRecordsChanged: changedRecords.count=%{public}lu recordType=%{public}@", buf, 0x20u);
   }
 
   if ([changedCopy count])
   {
     observers = [(BCCloudKitDatabaseController *)self observers];
-    v12 = [observers objectForKeyedSubscript:typeCopy];
+    v13 = [observers objectForKeyedSubscript:typeCopy];
 
-    if ([v12 count])
+    if ([v13 count])
     {
-      v20 = typeCopy;
-      v23 = 0u;
+      v21 = typeCopy;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
-      v13 = v12;
-      v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v14)
+      v23 = 0u;
+      v14 = v13;
+      v15 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v15)
       {
-        v15 = v14;
-        v16 = *v22;
+        v16 = v15;
+        v17 = *v23;
         do
         {
-          v17 = 0;
+          v18 = 0;
           do
           {
-            if (*v22 != v16)
+            if (*v23 != v17)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v21 + 1) + 8 * v17);
-            v19 = [[NSArray alloc] initWithArray:changedCopy copyItems:1];
-            [v18 databaseController:self recordsChanged:v19];
+            v19 = *(*(&v22 + 1) + 8 * v18);
+            v20 = [[NSArray alloc] initWithArray:changedCopy copyItems:1];
+            [v19 databaseController:self recordsChanged:v20];
 
-            v17 = v17 + 1;
+            v18 = v18 + 1;
           }
 
-          while (v15 != v17);
-          v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          while (v16 != v18);
+          v16 = [v14 countByEnumeratingWithState:&v22 objects:v26 count:16];
         }
 
-        while (v15);
+        while (v16);
       }
 
-      typeCopy = v20;
+      typeCopy = v21;
     }
   }
 }
@@ -1261,83 +1248,83 @@ LABEL_8:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v6 = sub_100002660();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = sub_100002660(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
     *buf = 138543618;
-    v32 = containerIdentifier;
-    v33 = 2114;
-    v34 = zoneCopy;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "BCCloudKitDatabaseController (%{public}@) - p_informObserversOfCompletedFetchOfZone zoneName=%{public}@", buf, 0x16u);
+    v33 = containerIdentifier;
+    v34 = 2114;
+    v35 = zoneCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "BCCloudKitDatabaseController (%{public}@) - p_informObserversOfCompletedFetchOfZone zoneName=%{public}@", buf, 0x16u);
   }
 
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
+  v27 = 0u;
   obj = [(BCCloudKitDatabaseController *)self observers];
-  v8 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v26;
+    v10 = v9;
+    v11 = *v27;
     do
     {
-      v11 = 0;
+      v12 = 0;
       do
       {
-        if (*v26 != v10)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * v11);
+        v13 = *(*(&v26 + 1) + 8 * v12);
         observers = [(BCCloudKitDatabaseController *)self observers];
-        v14 = [observers objectForKeyedSubscript:v12];
+        v15 = [observers objectForKeyedSubscript:v13];
 
-        if ([v14 count])
+        if ([v15 count])
         {
-          v23 = 0u;
           v24 = 0u;
-          v21 = 0u;
+          v25 = 0u;
           v22 = 0u;
-          v15 = v14;
-          v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
-          if (v16)
+          v23 = 0u;
+          v16 = v15;
+          v17 = [v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          if (v17)
           {
-            v17 = v16;
-            v18 = *v22;
+            v18 = v17;
+            v19 = *v23;
             do
             {
-              v19 = 0;
+              v20 = 0;
               do
               {
-                if (*v22 != v18)
+                if (*v23 != v19)
                 {
-                  objc_enumerationMutation(v15);
+                  objc_enumerationMutation(v16);
                 }
 
-                [*(*(&v21 + 1) + 8 * v19) databaseController:self fetchedAllRecordsInZone:zoneCopy];
-                v19 = v19 + 1;
+                [*(*(&v22 + 1) + 8 * v20) databaseController:self fetchedAllRecordsInZone:zoneCopy];
+                v20 = v20 + 1;
               }
 
-              while (v17 != v19);
-              v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+              while (v18 != v20);
+              v18 = [v16 countByEnumeratingWithState:&v22 objects:v30 count:16];
             }
 
-            while (v17);
+            while (v18);
           }
         }
 
-        v11 = v11 + 1;
+        v12 = v12 + 1;
       }
 
-      while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      while (v12 != v10);
+      v10 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 }
 
@@ -1433,13 +1420,14 @@ LABEL_8:
 
   if (dataCopy)
   {
-    v16 = 0;
-    v6 = [[NSKeyedUnarchiver alloc] initForReadingFromData:dataCopy error:&v16];
-    v7 = v16;
+    v17 = 0;
+    v6 = [[NSKeyedUnarchiver alloc] initForReadingFromData:dataCopy error:&v17];
+    v7 = v17;
+    v8 = v7;
     if (v7)
     {
-      v8 = sub_100002660();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = sub_100002660(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1001BF5C8();
       }
@@ -1448,29 +1436,29 @@ LABEL_8:
     else
     {
       -[BCCloudKitDatabaseController setHasSubscription:](self, "setHasSubscription:", [v6 decodeIntegerForKey:@"hasUpdatedSubscription"] == 1);
-      v9 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"serverChangeToken"];
-      [(BCCloudKitDatabaseController *)self setServerChangeToken:v9];
+      v10 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"serverChangeToken"];
+      [(BCCloudKitDatabaseController *)self setServerChangeToken:v10];
 
-      v10 = objc_opt_class();
-      v11 = [NSSet setWithObjects:v10, objc_opt_class(), 0];
-      v8 = [v6 decodeObjectOfClasses:v11 forKey:@"changedRecordZoneIDs"];
+      v11 = objc_opt_class();
+      v12 = [NSSet setWithObjects:v11, objc_opt_class(), 0];
+      v9 = [v6 decodeObjectOfClasses:v12 forKey:@"changedRecordZoneIDs"];
 
-      if (v8)
+      if (v9)
       {
-        [(BCCloudKitDatabaseController *)self setChangedRecordZoneIDs:v8];
+        [(BCCloudKitDatabaseController *)self setChangedRecordZoneIDs:v9];
       }
 
       else
       {
-        v12 = objc_opt_new();
-        [(BCCloudKitDatabaseController *)self setChangedRecordZoneIDs:v12];
+        v13 = objc_opt_new();
+        [(BCCloudKitDatabaseController *)self setChangedRecordZoneIDs:v13];
       }
 
-      v13 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"containerIdentifier"];
-      [(BCCloudKitDatabaseController *)self setContainerIdentifier:v13];
+      v14 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"containerIdentifier"];
+      [(BCCloudKitDatabaseController *)self setContainerIdentifier:v14];
 
-      v14 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"userRecordID"];
-      [(BCCloudKitDatabaseController *)self setUserRecordID:v14];
+      v15 = [v6 decodeObjectOfClass:objc_opt_class() forKey:@"userRecordID"];
+      [(BCCloudKitDatabaseController *)self setUserRecordID:v15];
 
       [v6 finishDecoding];
     }
@@ -1494,28 +1482,29 @@ LABEL_8:
 + (id)decodeRecordFromSystemFields:(id)fields
 {
   fieldsCopy = fields;
-  v9 = 0;
-  v4 = [[NSKeyedUnarchiver alloc] initForReadingFromData:fieldsCopy error:&v9];
+  v10 = 0;
+  v4 = [[NSKeyedUnarchiver alloc] initForReadingFromData:fieldsCopy error:&v10];
 
-  v5 = v9;
+  v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_100002660();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100002660(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF5C8();
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = [[CKRecord alloc] initWithCoder:v4];
+    v8 = [[CKRecord alloc] initWithCoder:v4];
     [v4 finishDecoding];
   }
 
-  return v7;
+  return v8;
 }
 
 + (void)startInternetConnectionReachabilityNotifier
@@ -1531,39 +1520,39 @@ LABEL_8:
   accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
   dispatch_assert_queue_V2(accessQueue);
 
-  v11 = sub_100002660();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = sub_100002660(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v22 = dsCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Deleting zone: (%{public}@)", buf, 0xCu);
+    v23 = dsCopy;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Deleting zone: (%{public}@)", buf, 0xCu);
   }
 
   if (self->_container)
   {
-    v12 = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:0 recordZoneIDsToDelete:dsCopy];
-    v15 = _NSConcreteStackBlock;
-    v16 = 3221225472;
-    v17 = sub_10002F2C0;
-    v18 = &unk_100240AA8;
-    v19 = dsCopy;
-    v20 = completionCopy;
-    [v12 setModifyRecordZonesCompletionBlock:&v15];
-    [v12 setQualityOfService:{service, v15, v16, v17, v18}];
+    v13 = [[CKModifyRecordZonesOperation alloc] initWithRecordZonesToSave:0 recordZoneIDsToDelete:dsCopy];
+    v16 = _NSConcreteStackBlock;
+    v17 = 3221225472;
+    v18 = sub_10002F2C0;
+    v19 = &unk_100240AA8;
+    v20 = dsCopy;
+    v21 = completionCopy;
+    [v13 setModifyRecordZonesCompletionBlock:&v16];
+    [v13 setQualityOfService:{service, v16, v17, v18, v19}];
     privateCloudDatabase = [(CKContainer *)self->_container privateCloudDatabase];
-    [privateCloudDatabase addOperation:v12];
+    [privateCloudDatabase addOperation:v13];
 
-    v14 = v19;
+    v15 = v20;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v12 = objc_retainBlock(completionCopy);
-  if (v12)
+  v13 = objc_retainBlock(completionCopy);
+  if (v13)
   {
-    v14 = [NSError errorWithDomain:CKErrorDomain code:5 userInfo:0];
-    (*(v12 + 2))(v12, v14);
+    v15 = [NSError errorWithDomain:CKErrorDomain code:5 userInfo:0];
+    (*(v13 + 2))(v13, v15);
     goto LABEL_7;
   }
 
@@ -1574,7 +1563,7 @@ LABEL_8:
 {
   identityCopy = identity;
   completionCopy = completion;
-  v8 = sub_100002660();
+  v8 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1001BF6A0(self);
@@ -1597,7 +1586,7 @@ LABEL_8:
 {
   errorCopy = error;
   completionCopy = completion;
-  v8 = sub_100002660();
+  v8 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     sub_1001BF73C(self);
@@ -1620,7 +1609,7 @@ LABEL_8:
 {
   resetCopy = reset;
   completionCopy = completion;
-  v8 = sub_100002660();
+  v8 = sub_100002660(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     containerIdentifier = [(BCCloudKitDatabaseController *)self containerIdentifier];
@@ -1647,7 +1636,7 @@ LABEL_8:
   observerCopy = observer;
   typeCopy = type;
   v8 = typeCopy;
-  if (observerCopy && [typeCopy length])
+  if (observerCopy && (typeCopy = [typeCopy length]) != 0)
   {
     accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
     block[0] = _NSConcreteStackBlock;
@@ -1662,7 +1651,7 @@ LABEL_8:
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(typeCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF7D8();
@@ -1675,7 +1664,7 @@ LABEL_8:
   observerCopy = observer;
   typeCopy = type;
   v8 = typeCopy;
-  if (observerCopy && [typeCopy length])
+  if (observerCopy && (typeCopy = [typeCopy length]) != 0)
   {
     accessQueue = [(BCCloudKitDatabaseController *)self accessQueue];
     block[0] = _NSConcreteStackBlock;
@@ -1690,7 +1679,7 @@ LABEL_8:
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(typeCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF7D8();
@@ -1715,7 +1704,7 @@ LABEL_8:
 
   else
   {
-    v6 = sub_100002660();
+    v6 = sub_100002660(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1001BF92C(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -1764,7 +1753,7 @@ LABEL_8:
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(dCopy);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001BFA10();
@@ -1793,7 +1782,7 @@ LABEL_8:
 
   else
   {
-    v6 = sub_100002660();
+    v6 = sub_100002660(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1001BFAEC(v6);

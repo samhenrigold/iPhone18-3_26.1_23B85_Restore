@@ -6,7 +6,7 @@
 
 - (void)postNotificationForURL:(id)l payload:(id)payload completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   handlerCopy = handler;
   v10 = [BCSURLDataParser parseURL:l];
@@ -28,12 +28,12 @@
 
     v13 = [[BCSNFCCodePayload alloc] initWithNFCPayload:payloadCopy];
     v14 = self->_notificationServiceConnection;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __69__BCSNFCCodeParser_postNotificationForURL_payload_completionHandler___block_invoke;
-    v16[3] = &unk_278CFF398;
-    v17 = handlerCopy;
-    [(BCSNotificationServiceConnection *)v14 notifyParsedCodeWithData:v10 codePayload:v13 shouldReplacePreviousNotifications:0 withReply:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __69__BCSNFCCodeParser_postNotificationForURL_payload_completionHandler___block_invoke;
+    v15[3] = &unk_278CFF398;
+    v16 = handlerCopy;
+    [(BCSNotificationServiceConnection *)v14 notifyParsedCodeWithData:v10 codePayload:v13 shouldReplacePreviousNotifications:0 withReply:v15];
   }
 
   else
@@ -46,8 +46,6 @@
     v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"BCSErrorDomain" code:3 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v13);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BCSNFCCodeParser_postNotificationForURL_payload_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -80,13 +78,11 @@ void __69__BCSNFCCodeParser_postNotificationForURL_payload_completionHandler___b
 
 void __69__BCSNFCCodeParser_postNotificationForURL_payload_completionHandler___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 _bcs_privacyPreservingDescription];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSNFCCodeParser: Error posting notification: %@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSNFCCodeParser: Error posting notification: %@", &v2, 0xCu);
 }
 
 @end

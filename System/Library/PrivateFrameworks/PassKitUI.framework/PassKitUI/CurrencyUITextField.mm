@@ -23,21 +23,30 @@
   if (text)
   {
     v3 = text;
-    sub_1BE052434();
+    v4 = sub_1BE052434();
+    v6 = v5;
   }
 
-  sub_1BD3EBC7C();
+  else
+  {
+    v4 = 0;
+    v6 = 0xE000000000000000;
+  }
 
-  v4 = sub_1BD6447CC(1);
-  v6 = v5;
-  v8 = v7;
-  v10 = v9;
-
-  MEMORY[0x1BFB3F570](v4, v6, v8, v10);
-
-  v11 = sub_1BE052404();
-
-  [(CurrencyUITextField *)selfCopy setText:v11];
+  v7 = sub_1BD3EBC7C(v4, v6);
+  v9 = v8;
+  v6, v8, v10, v11, v12, v13, v14, v15;
+  v16 = sub_1BD6447CC(1, v7, v9);
+  v18 = v17;
+  v20 = v19;
+  v22 = v21;
+  v9, v17, v19, v21, v23, v24, v25, v26;
+  MEMORY[0x1BFB3F570](v16, v18, v20, v22);
+  v28 = v27;
+  v22, v27, v29, v30, v31, v32, v33, v34;
+  v35 = sub_1BE052404();
+  v28, v36, v37, v38, v39, v40, v41, v42;
+  [(CurrencyUITextField *)selfCopy setText:v35];
 
   [(CurrencyUITextField *)selfCopy sendActionsForControlEvents:0x20000];
 }
@@ -68,6 +77,7 @@
   selfCopy = self;
   LOBYTE(length) = sub_1BD644240(fieldCopy, location, length, v9, v11);
 
+  v11, v14, v15, v16, v17, v18, v19, v20;
   return length & 1;
 }
 

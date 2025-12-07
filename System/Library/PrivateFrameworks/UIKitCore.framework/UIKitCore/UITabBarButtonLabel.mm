@@ -426,7 +426,7 @@ LABEL_45:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:@"contents"])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v5 = 1;
   }
@@ -626,7 +626,7 @@ LABEL_45:
       {
         v12 = [_ui_attributesForDictionaryContainingUIStringDrawingKeys objectForKey:*off_1E70EC918];
         font = [(UILabel *)self font];
-        if (v12 | font && ([v12 isEqual:font] & 1) == 0)
+        if (v12 | font && (objc_msgSend_isEqual_(v12) & 1) == 0)
         {
           _screen = [(UIView *)self _screen];
           -[UITabBarButtonLabel _updateForFontChangeWithIdiom:](self, "_updateForFontChangeWithIdiom:", [_screen _userInterfaceIdiom]);

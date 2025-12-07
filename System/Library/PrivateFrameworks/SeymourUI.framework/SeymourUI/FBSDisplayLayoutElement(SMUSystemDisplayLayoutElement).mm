@@ -24,61 +24,61 @@
 
 - (id)extendedDescription
 {
-  v2 = MEMORY[0x277CCAB68];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v3 = MEMORY[0x277CCAB68];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   identifier = [self identifier];
   bundleIdentifier = [self bundleIdentifier];
   level = [self level];
   [self frame];
-  v8 = NSStringFromCGRect(v13);
-  v9 = [v2 stringWithFormat:@"<%@: %p> identifier=%@, bundle=%@, level=%lu, frame=%@", v4, self, identifier, bundleIdentifier, level, v8];
+  v9 = NSStringFromCGRect(v14);
+  v10 = [v3 stringWithFormat:@"<%@: %p> identifier=%@, bundle=%@, level=%lu, frame=%@", v5, self, identifier, bundleIdentifier, level, v9];
 
   [self layoutRole];
-  v10 = SBSDisplayLayoutRoleDescription();
-  [v9 appendFormat:@", role=%@", v10];
+  v11 = SBSDisplayLayoutRoleDescription();
+  [v10 appendFormat:@", role=%@", v11];
 
   if ([self smu_isPictureInPicture])
   {
-    [v9 appendFormat:@", %s", "isPictureInPicture"];
+    [v10 appendFormat:@", %s", "isPictureInPicture"];
   }
 
   if ([self smu_isPictureInPictureStashed])
   {
-    [v9 appendFormat:@", %s", "isPictureInPictureStashed"];
+    [v10 appendFormat:@", %s", "isPictureInPictureStashed"];
   }
 
   if ([self smu_isSystemOverlay])
   {
-    [v9 appendFormat:@", %s", "isSystemOverlay"];
+    [v10 appendFormat:@", %s", "isSystemOverlay"];
   }
 
   if ([self smu_isSystemIndicator])
   {
-    [v9 appendFormat:@", %s", "isSystemIndicator"];
+    [v10 appendFormat:@", %s", "isSystemIndicator"];
   }
 
   if ([self smu_isControlCenter])
   {
-    [v9 appendFormat:@", %s", "isControlCenter"];
+    [v10 appendFormat:@", %s", "isControlCenter"];
   }
 
   if ([self smu_isVolumeHUD])
   {
-    [v9 appendFormat:@", %s", "isVolumeHUD"];
+    [v10 appendFormat:@", %s", "isVolumeHUD"];
   }
 
   if ([self smu_isSystemNotification])
   {
-    [v9 appendFormat:@", %s", "isSystemNotification"];
+    [v10 appendFormat:@", %s", "isSystemNotification"];
   }
 
   if ([self smu_isBrightnessControlHUD])
   {
-    [v9 appendFormat:@", %s", "isBrightnessControlHUD"];
+    [v10 appendFormat:@", %s", "isBrightnessControlHUD"];
   }
 
-  return v9;
+  return v10;
 }
 
 @end

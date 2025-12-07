@@ -140,10 +140,10 @@ void __92__PXStoryKeyAssetVisualDiagnosticsProvider_addVisualDiagnosticsToContex
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v5 = [v4 firstSegmentIdentifier];
+  [v4 firstSegmentIdentifier];
   if (v4)
   {
-    [v4 timeRangeForSegmentWithIdentifier:v5];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(v4);
   }
 
   [*(a1 + 32) size];
@@ -273,7 +273,7 @@ void __96__PXStoryKeyAssetVisualDiagnosticsProvider__requestThumbnailTimelineWit
   configuration = [model configuration];
   v9 = [configuration copy];
 
-  [v9 setOptions:{objc_msgSend(v9, "options") & 0xFFFFFFFFFFFFFFFDLL}];
+  [v9 setOptions:objc_msgSend_options(v9) & 0xFFFFFFFFFFFFFFFDLL];
   v10 = objc_alloc_init(PXStoryDefaultAssetsProducerFactory);
   v11 = [(PXStoryDefaultAssetsProducerFactory *)v10 assetsProducerForConfiguration:v9];
   v18[0] = MEMORY[0x1E69E9820];

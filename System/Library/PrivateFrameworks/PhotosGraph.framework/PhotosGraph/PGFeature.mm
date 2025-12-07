@@ -84,18 +84,16 @@
 
 - (id)nodeInGraph:(id)graph
 {
-  v85[1] = *MEMORY[0x277D85DE8];
+  v79[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = graphCopy;
   v6 = 0;
   switch(self->_type)
   {
     case 1uLL:
-      typeSpecificIdentifier = self->_typeSpecificIdentifier;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v22 = self->_typeSpecificIdentifier;
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -110,43 +108,43 @@
     case 3uLL:
       meNode = [graphCopy meNode];
       localIdentifier = [meNode localIdentifier];
-      v39 = [localIdentifier isEqualToString:self->_typeSpecificIdentifier];
+      v35 = [localIdentifier isEqualToString:self->_typeSpecificIdentifier];
 
-      if (v39)
+      if (v35)
       {
-        v40 = meNode;
+        v36 = meNode;
       }
 
       else
       {
-        v40 = [v5 personNodeForPersonLocalIdentifier:self->_typeSpecificIdentifier];
+        v36 = [v5 personNodeForPersonLocalIdentifier:self->_typeSpecificIdentifier];
       }
 
-      v6 = v40;
+      v6 = v36;
 
       goto LABEL_51;
     case 4uLL:
-      v41 = self->_typeSpecificIdentifier;
-      v80 = @"id";
-      v81 = v41;
-      v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-      v6 = [v5 anyNodeForLabel:@"City" domain:200 properties:v42];
+      typeSpecificIdentifier = self->_typeSpecificIdentifier;
+      v74 = @"id";
+      v75 = typeSpecificIdentifier;
+      v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v6 = [v5 anyNodeForLabel:@"City" domain:200 properties:v38];
 
       goto LABEL_51;
     case 5uLL:
-      v29 = self->_typeSpecificIdentifier;
-      v78 = @"id";
-      v79 = v29;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-      v6 = [v5 anyNodeForLabel:@"State" domain:200 properties:v30];
+      v25 = self->_typeSpecificIdentifier;
+      v72 = @"id";
+      v73 = v25;
+      v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+      v6 = [v5 anyNodeForLabel:@"State" domain:200 properties:v26];
 
       goto LABEL_51;
     case 6uLL:
-      v33 = self->_typeSpecificIdentifier;
-      v76 = @"name";
-      v77 = v33;
-      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-      v6 = [v5 anyNodeForLabel:@"Country" domain:200 properties:v34];
+      v29 = self->_typeSpecificIdentifier;
+      v70 = @"name";
+      v71 = v29;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v6 = [v5 anyNodeForLabel:@"Country" domain:200 properties:v30];
 
       goto LABEL_51;
     case 7uLL:
@@ -156,9 +154,9 @@
     case 8uLL:
     case 0x14uLL:
       v7 = self->_typeSpecificIdentifier;
-      v70 = @"name";
-      v71 = v7;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v64 = @"name";
+      v65 = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
       v6 = [v5 anyNodeForLabel:@"Area" domain:201 properties:v8];
 
       goto LABEL_51;
@@ -184,19 +182,19 @@
       v15 = [graphCopy anyNodeForLabel:self->_typeSpecificIdentifier domain:700 properties:0];
       goto LABEL_35;
     case 0xEuLL:
-      v31 = self->_typeSpecificIdentifier;
-      v68 = @"name";
-      v69 = v31;
-      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
-      v6 = [v5 anyNodeForLabel:@"Season" domain:400 properties:v32];
+      v27 = self->_typeSpecificIdentifier;
+      v62 = @"name";
+      v63 = v27;
+      v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v6 = [v5 anyNodeForLabel:@"Season" domain:400 properties:v28];
 
       goto LABEL_51;
     case 0xFuLL:
-      v43 = self->_typeSpecificIdentifier;
-      v66 = @"name";
-      v67 = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-      v6 = [v5 anyNodeForLabel:@"Holiday" domain:401 properties:v44];
+      v39 = self->_typeSpecificIdentifier;
+      v60 = @"name";
+      v61 = v39;
+      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+      v6 = [v5 anyNodeForLabel:@"Holiday" domain:401 properties:v40];
 
       goto LABEL_51;
     case 0x10uLL:
@@ -204,7 +202,6 @@
       anyNode = [name anyNode];
       goto LABEL_49;
     case 0x11uLL:
-      v50 = self->_typeSpecificIdentifier;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -224,18 +221,18 @@
       v15 = [graphCopy sceneNodeForSceneName:self->_typeSpecificIdentifier];
       goto LABEL_35;
     case 0x13uLL:
-      v48 = self->_typeSpecificIdentifier;
-      v82 = @"id";
-      v83 = v48;
-      v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
-      v6 = [v5 anyNodeForLabel:@"District" domain:200 properties:v49];
+      v44 = self->_typeSpecificIdentifier;
+      v76 = @"id";
+      v77 = v44;
+      v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+      v6 = [v5 anyNodeForLabel:@"District" domain:200 properties:v45];
 
       goto LABEL_51;
     case 0x15uLL:
       v11 = self->_typeSpecificIdentifier;
-      v64 = @"id";
-      v65 = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+      v58 = @"id";
+      v59 = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
       v6 = [v5 anyNodeForLabel:@"PublicEvent" domain:900 properties:v12];
 
       goto LABEL_51;
@@ -252,16 +249,16 @@ LABEL_35:
       goto LABEL_51;
     case 0x1AuLL:
       v13 = self->_typeSpecificIdentifier;
-      v62 = @"name";
-      v63 = v13;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+      v56 = @"name";
+      v57 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
       v6 = [v5 anyNodeForLabel:@"Performer" domain:900 properties:v14];
 
       goto LABEL_51;
     case 0x1BuLL:
       name = [(PGFeature *)self name];
-      v46 = [PGGraphSceneFeatureNodeCollection sceneFeatureNodesForSceneName:name inGraph:v5];
-      anyNode2 = [v46 anyNode];
+      v42 = [PGGraphSceneFeatureNodeCollection sceneFeatureNodesForSceneName:name inGraph:v5];
+      anyNode2 = [v42 anyNode];
       goto LABEL_46;
     case 0x1CuLL:
       name = [PGGraphHighlightNodeCollection highlightNodeForUUID:self->_typeSpecificIdentifier inGraph:graphCopy];
@@ -269,68 +266,66 @@ LABEL_35:
       goto LABEL_49;
     case 0x1DuLL:
 LABEL_18:
-      v23 = self->_typeSpecificIdentifier;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v24 = self->_typeSpecificIdentifier;
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
 LABEL_21:
-          v27 = self->_typeSpecificIdentifier;
-          v84 = @"id";
-          v85[0] = v27;
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1];
-          v6 = [v5 anyNodeForLabel:@"SocialGroup" domain:302 properties:v28];
+          v23 = self->_typeSpecificIdentifier;
+          v78 = @"id";
+          v79[0] = v23;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:&v78 count:1];
+          v6 = [v5 anyNodeForLabel:@"SocialGroup" domain:302 properties:v24];
 
           goto LABEL_51;
         }
       }
 
-      v25 = +[PGGraphCalendarUnitNode monthDayValueForMonthDayNodeCalendarUnitValue:](PGGraphCalendarUnitNode, "monthDayValueForMonthDayNodeCalendarUnitValue:", [self->_typeSpecificIdentifier integerValue]);
-      name = [PGGraphMonthDayNodeCollection monthDayNodesForMonth:v25 day:v26 inGraph:v5];
+      v21 = +[PGGraphCalendarUnitNode monthDayValueForMonthDayNodeCalendarUnitValue:](PGGraphCalendarUnitNode, "monthDayValueForMonthDayNodeCalendarUnitValue:", [self->_typeSpecificIdentifier integerValue]);
+      name = [PGGraphMonthDayNodeCollection monthDayNodesForMonth:v21 day:v22 inGraph:v5];
       anyNode = [name anyNode];
 LABEL_49:
       v6 = anyNode;
       goto LABEL_50;
     case 0x1EuLL:
       *buf = 0;
-      v57 = buf;
-      v58 = 0x3032000000;
-      v59 = __Block_byref_object_copy__55574;
-      v60 = __Block_byref_object_dispose__55575;
-      v61 = 0;
+      v51 = buf;
+      v52 = 0x3032000000;
+      v53 = __Block_byref_object_copy__55574;
+      v54 = __Block_byref_object_dispose__55575;
+      v55 = 0;
       v18 = [PGGraphHomeWorkNodeCollection homeNodesInGraph:graphCopy];
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __25__PGFeature_nodeInGraph___block_invoke;
-      v55[3] = &unk_2788865C8;
-      v55[4] = self;
-      v55[5] = buf;
-      [v18 enumerateNodesUsingBlock:v55];
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __25__PGFeature_nodeInGraph___block_invoke;
+      v49[3] = &unk_2788865C8;
+      v49[4] = self;
+      v49[5] = buf;
+      [v18 enumerateNodesUsingBlock:v49];
 
-      v6 = *(v57 + 5);
+      v6 = *(v51 + 5);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_51;
     case 0x1FuLL:
       *buf = 0;
-      v57 = buf;
-      v58 = 0x3032000000;
-      v59 = __Block_byref_object_copy__55574;
-      v60 = __Block_byref_object_dispose__55575;
-      v61 = 0;
+      v51 = buf;
+      v52 = 0x3032000000;
+      v53 = __Block_byref_object_copy__55574;
+      v54 = __Block_byref_object_dispose__55575;
+      v55 = 0;
       v19 = [PGGraphHomeWorkNodeCollection workNodesInGraph:graphCopy];
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __25__PGFeature_nodeInGraph___block_invoke_2;
-      v54[3] = &unk_2788865C8;
-      v54[4] = self;
-      v54[5] = buf;
-      [v19 enumerateNodesUsingBlock:v54];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __25__PGFeature_nodeInGraph___block_invoke_2;
+      v48[3] = &unk_2788865C8;
+      v48[4] = self;
+      v48[5] = buf;
+      [v19 enumerateNodesUsingBlock:v48];
 
-      v6 = *(v57 + 5);
+      v6 = *(v51 + 5);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_51;
@@ -340,21 +335,21 @@ LABEL_49:
       goto LABEL_49;
     case 0x21uLL:
       *buf = 0;
-      v57 = buf;
-      v58 = 0x3032000000;
-      v59 = __Block_byref_object_copy__55574;
-      v60 = __Block_byref_object_dispose__55575;
-      v61 = 0;
+      v51 = buf;
+      v52 = 0x3032000000;
+      v53 = __Block_byref_object_copy__55574;
+      v54 = __Block_byref_object_dispose__55575;
+      v55 = 0;
       v20 = [(PGGraphNodeCollection *)PGGraphFrequentLocationNodeCollection nodesInGraph:graphCopy];
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __25__PGFeature_nodeInGraph___block_invoke_3;
-      v53[3] = &unk_2788865F0;
-      v53[4] = self;
-      v53[5] = buf;
-      [v20 enumerateNodesUsingBlock:v53];
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __25__PGFeature_nodeInGraph___block_invoke_3;
+      v47[3] = &unk_2788865F0;
+      v47[4] = self;
+      v47[5] = buf;
+      [v20 enumerateNodesUsingBlock:v47];
 
-      v6 = *(v57 + 5);
+      v6 = *(v51 + 5);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_51;
@@ -369,10 +364,10 @@ LABEL_49:
     case 0x24uLL:
       if (self->_name)
       {
-        v45 = self->_typeSpecificIdentifier;
+        v41 = self->_typeSpecificIdentifier;
         name = [MEMORY[0x277CBEB98] setWithObject:?];
-        v46 = [PGGraphPersonActivityMeaningNodeCollection personActivityMeaningNodesForActivityLabel:v45 personLocalIdentifiers:name inGraph:v5];
-        anyNode2 = [v46 anyNode];
+        v42 = [PGGraphPersonActivityMeaningNodeCollection personActivityMeaningNodesForActivityLabel:v41 personLocalIdentifiers:name inGraph:v5];
+        anyNode2 = [v42 anyNode];
 LABEL_46:
         v6 = anyNode2;
 
@@ -393,8 +388,6 @@ LABEL_60:
 
 LABEL_51:
 
-      v51 = *MEMORY[0x277D85DE8];
-
       return v6;
     case 0x25uLL:
       name = [PGGraphAudioFeatureNodeCollection audioFeatureNodesForLabel:self->_typeSpecificIdentifier inGraph:graphCopy];
@@ -402,18 +395,18 @@ LABEL_51:
       goto LABEL_49;
     case 0x26uLL:
       v9 = self->_typeSpecificIdentifier;
-      v74 = @"name";
-      v75 = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+      v68 = @"name";
+      v69 = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
       v6 = [v5 anyNodeForLabel:@"Subcontinent" domain:200 properties:v10];
 
       goto LABEL_51;
     case 0x27uLL:
-      v35 = self->_typeSpecificIdentifier;
-      v72 = @"name";
-      v73 = v35;
-      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
-      v6 = [v5 anyNodeForLabel:@"Continent" domain:200 properties:v36];
+      v31 = self->_typeSpecificIdentifier;
+      v66 = @"name";
+      v67 = v31;
+      v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
+      v6 = [v5 anyNodeForLabel:@"Continent" domain:200 properties:v32];
 
       goto LABEL_51;
     default:
@@ -527,41 +520,39 @@ void __25__PGFeature_nodeInGraph___block_invoke_3(uint64_t a1, void *a2, _BYTE *
 
 + (id)featuresForEncodedFeatures:(id)features
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   v4 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(featuresCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = featuresCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [PGFeature alloc];
-        v12 = [(PGFeature *)v11 initWithEncodedFeature:v10, v15];
+        v12 = [(PGFeature *)v11 initWithEncodedFeature:v10, v14];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

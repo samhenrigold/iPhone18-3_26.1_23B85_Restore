@@ -112,12 +112,10 @@ uint64_t __78___CDInteraction_fetchAndAddShareSheetContentToInteractionWithKnowl
 
 void __78___CDInteraction_fetchAndAddShareSheetContentToInteractionWithKnowledgeStore___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 error];
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Finalizing local events failed: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_191750000, a2, OS_LOG_TYPE_ERROR, "Finalizing local events failed: %@", v4, 0xCu);
 }
 
 @end

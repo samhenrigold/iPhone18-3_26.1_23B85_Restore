@@ -90,33 +90,28 @@ LABEL_19:
 
 - (void)hearing_addQuantitySamples:()HealthHearingDaemon calculator:error:.cold.1(void *a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 count];
   OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_251764000, v3, OS_LOG_TYPE_FAULT, "Unable to append samples (%ld) to calculator due to error: %{public}@.", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_251764000, v3, OS_LOG_TYPE_FAULT, "Unable to append samples (%ld) to calculator due to error: %{public}@.", v4, 0x16u);
 }
 
 - (void)hearing_addQuantitySamples:()HealthHearingDaemon calculator:error:.cold.2(void *a1, void *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = a1;
   [a2 count];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_251764000, v3, OS_LOG_TYPE_ERROR, "Unable to append samples (%ld) to calculator due to error: %{public}@.", v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251764000, v3, OS_LOG_TYPE_ERROR, "Unable to append samples (%ld) to calculator due to error: %{public}@.", v4, 0x16u);
 }
 
 - (void)hearing_addQuantitySamples:()HealthHearingDaemon calculator:error:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251764000, a2, OS_LOG_TYPE_ERROR, "Still unable to update calculator including series: %{public}@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251764000, a2, OS_LOG_TYPE_ERROR, "Still unable to update calculator including series: %{public}@.", &v2, 0xCu);
 }
 
 @end

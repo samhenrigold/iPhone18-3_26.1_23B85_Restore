@@ -26,7 +26,7 @@
   selfCopy = self;
   sub_1000134E4();
 
-  sub_100706B30(&qword_100CB4F40);
+  sub_100706B30(&qword_100CB4F40, &qword_1009B0C10);
   v3.super.isa = sub_100936A58().super.isa;
 
   return v3.super.isa;

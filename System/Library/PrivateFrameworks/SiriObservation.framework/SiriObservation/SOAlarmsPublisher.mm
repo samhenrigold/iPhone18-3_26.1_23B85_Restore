@@ -38,29 +38,29 @@
 
 void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v21 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v23 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = objc_alloc_init(MEMORY[0x277CBEB40]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v2;
-  v25 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v24)
   {
-    v23 = *v31;
+    v22 = *v30;
     do
     {
-      for (i = 0; i != v25; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v30 + 1) + 8 * i);
+        v4 = *(*(&v29 + 1) + 8 * i);
         v5 = [v4 alarmID];
         v6 = [SOAlarm alloc];
         v7 = [v4 alarmURL];
@@ -69,21 +69,21 @@ void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke(uin
         v10 = [v4 minute];
         v11 = [v4 repeatSchedule];
         v12 = [v4 isEnabled];
-        BYTE1(v19) = [v4 isFiring];
-        LOBYTE(v19) = v12;
-        v13 = [(SOAlarm *)v6 initWithAlarmID:v5 alarmURL:v7 title:v8 hour:v9 minute:v10 repeatSchedule:v11 isEnabled:v19 isFiring:?];
+        BYTE1(v18) = [v4 isFiring];
+        LOBYTE(v18) = v12;
+        v13 = [(SOAlarm *)v6 initWithAlarmID:v5 alarmURL:v7 title:v8 hour:v9 minute:v10 repeatSchedule:v11 isEnabled:v18 isFiring:?];
 
-        [v24 setObject:v13 forKey:v5];
+        [v23 setObject:v13 forKey:v5];
         if ([v4 isFiring])
         {
-          [v21 addObject:v5];
+          [v20 addObject:v5];
         }
       }
 
-      v25 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v24 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
   v14 = *(a1 + 32);
@@ -93,14 +93,12 @@ void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke(uin
   block[2] = __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_2;
   block[3] = &unk_279C3D030;
   block[4] = v14;
-  v27 = v21;
-  v28 = v24;
-  v29 = *(a1 + 40);
-  v16 = v24;
-  v17 = v21;
+  v26 = v20;
+  v27 = v23;
+  v28 = *(a1 + 40);
+  v16 = v23;
+  v17 = v20;
   dispatch_async(v15, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_3(uint64_t a1)
@@ -113,37 +111,37 @@ void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_3(u
 
 void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB40];
   v3 = [*(*(a1 + 32) + 40) firingAlarmIDs];
   v4 = [v2 orderedSetWithOrderedSet:v3];
 
   [v4 minusOrderedSet:*(a1 + 40)];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(a1 + 32) + 48) addObject:{*(*(&v20 + 1) + 8 * v9++), v20}];
+        [*(*(a1 + 32) + 48) addObject:{*(*(&v19 + 1) + 8 * v9++), v19}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
@@ -163,8 +161,6 @@ void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_2(u
 
   (*(*(a1 + 56) + 16))();
   dispatch_group_leave(*(*(a1 + 32) + 16));
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -218,35 +214,35 @@ void __54__SOAlarmsPublisher__createNewSnapshotWithCompletion___block_invoke_2(u
 
 void __47__SOAlarmsPublisher__notifySubscribersOfEvent___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5 && !v6)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v8 = *(*(a1 + 32) + 24);
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(*(&v14 + 1) + 8 * i) snapshotAvailable:v5 forEvent:{*(a1 + 40), v14}];
+          [*(*(&v13 + 1) + 8 * i) snapshotAvailable:v5 forEvent:{*(a1 + 40), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v10);
@@ -257,8 +253,6 @@ void __47__SOAlarmsPublisher__notifySubscribersOfEvent___block_invoke(uint64_t a
   {
     [*(*(a1 + 32) + 48) removeAllObjects];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeSubscriber:(id)subscriber

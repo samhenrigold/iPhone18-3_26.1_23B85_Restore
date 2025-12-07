@@ -46,8 +46,8 @@
   labelVectorsCopy = labelVectors;
   if ([labelVectorsCopy count] && objc_msgSend(vectorsCopy, "count"))
   {
-    options = [(PHADatasetBuilder *)self options];
-    labelPolicyString = [options labelPolicyString];
+    v12 = objc_msgSend_options(self);
+    labelPolicyString = [v12 labelPolicyString];
     v14 = [labelPolicyString isEqualToString:@"one-hot"];
 
     v15 = 0x277CCA000uLL;
@@ -57,8 +57,8 @@
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:size];
       v51[0] = v17;
       v18 = MEMORY[0x277CCABB0];
-      options2 = [(PHADatasetBuilder *)self options];
-      v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(options2, "labelSize")}];
+      v19 = objc_msgSend_options(self);
+      v20 = [v18 numberWithUnsignedInteger:{objc_msgSend(v19, "labelSize")}];
       v51[1] = v20;
       v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
       v22 = [v16 doubleMultiArrayWithShape:v21 valueArray:labelVectorsCopy error:error];
@@ -68,8 +68,8 @@
 
     else
     {
-      options3 = [(PHADatasetBuilder *)self options];
-      labelPolicyString2 = [options3 labelPolicyString];
+      v25 = objc_msgSend_options(self);
+      labelPolicyString2 = [v25 labelPolicyString];
       v27 = [labelPolicyString2 isEqualToString:@"indexed"];
 
       if (!v27)
@@ -80,8 +80,8 @@ LABEL_12:
         v30 = [*(v15 + 2992) numberWithUnsignedInteger:size];
         v49[0] = v30;
         v31 = *(v15 + 2992);
-        options4 = [(PHADatasetBuilder *)self options];
-        v33 = [v31 numberWithUnsignedInteger:{objc_msgSend(options4, "featureSize")}];
+        v32 = objc_msgSend_options(self);
+        v33 = [v31 numberWithUnsignedInteger:{objc_msgSend(v32, "featureSize")}];
         v49[1] = v33;
         v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
         v35 = [v29 doubleMultiArrayWithShape:v34 valueArray:vectorsCopy error:error];
@@ -92,12 +92,12 @@ LABEL_12:
           if (v35)
           {
             v45 = objc_alloc(MEMORY[0x277CBFED0]);
-            options5 = [(PHADatasetBuilder *)self options];
-            modelInputName = [options5 modelInputName];
+            v37 = objc_msgSend_options(self);
+            modelInputName = [v37 modelInputName];
             v47[0] = modelInputName;
             v48[0] = v35;
-            options6 = [(PHADatasetBuilder *)self options];
-            modelOutputName = [options6 modelOutputName];
+            v39 = objc_msgSend_options(self);
+            modelOutputName = [v39 modelOutputName];
             v47[1] = modelOutputName;
             v48[1] = v46;
             v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
@@ -112,7 +112,7 @@ LABEL_22:
 
           if (error)
           {
-            options5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to create MLMultiArray vector for feature"];
+            v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to create MLMultiArray vector for feature"];
             selfCopy2 = self;
             v43 = 15;
             goto LABEL_19;
@@ -121,11 +121,11 @@ LABEL_22:
 
         else if (error)
         {
-          options5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to create MLMultiArray vector for label"];
+          v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"Fail to create MLMultiArray vector for label"];
           selfCopy2 = self;
           v43 = 14;
 LABEL_19:
-          [(PHADatasetBuilder *)selfCopy2 _generateErrorWithErrorCode:v43 errorMessage:options5 underlyingError:0];
+          [(PHADatasetBuilder *)selfCopy2 _generateErrorWithErrorCode:v43 errorMessage:v37 underlyingError:0];
           *error = v24 = 0;
           goto LABEL_20;
         }
@@ -138,8 +138,8 @@ LABEL_19:
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:size];
       v50[0] = v17;
       v50[1] = &unk_2844CC900;
-      options2 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
-      v22 = [v28 doubleMultiArrayWithShape:options2 valueArray:labelVectorsCopy error:error];
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
+      v22 = [v28 doubleMultiArrayWithShape:v19 valueArray:labelVectorsCopy error:error];
     }
 
     v46 = v22;
@@ -195,15 +195,15 @@ LABEL_23:
 
       v10 = *(*(&v64 + 1) + 8 * i);
       v11 = MEMORY[0x277CD9918];
-      options = [(PHADatasetBuilder *)self options];
-      biomeInputName = [options biomeInputName];
+      v12 = objc_msgSend_options(self);
+      biomeInputName = [v12 biomeInputName];
       v14 = [v10 objectForKey:biomeInputName];
       v15 = [v11 uuidFromLocalIdentifier:v14];
 
       self = selfCopy;
       v16 = [MEMORY[0x277CD97A8] localIdentifierWithUUID:v15];
-      options2 = [(PHADatasetBuilder *)selfCopy options];
-      biomeLabelName = [options2 biomeLabelName];
+      v17 = objc_msgSend_options(selfCopy);
+      biomeLabelName = [v17 biomeLabelName];
       v19 = [v10 objectForKey:biomeLabelName];
 
       if (v16)
@@ -220,18 +220,18 @@ LABEL_23:
       {
         v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v19, "intValue")}];
         unsignedIntegerValue = [v21 unsignedIntegerValue];
-        options3 = [(PHADatasetBuilder *)selfCopy options];
-        numberOfClasses = [options3 numberOfClasses];
+        v23 = objc_msgSend_options(selfCopy);
+        numberOfClasses = [v23 numberOfClasses];
 
         if (unsignedIntegerValue <= numberOfClasses)
         {
           v25 = [v57 objectForKey:v21];
           if (!v25)
           {
-            options4 = [(PHADatasetBuilder *)selfCopy options];
-            labelPolicy = [options4 labelPolicy];
-            options5 = [(PHADatasetBuilder *)selfCopy options];
-            v25 = +[PHADatasetBuilder labelVectorForLabelPolicy:label:numberOfClasses:](PHADatasetBuilder, "labelVectorForLabelPolicy:label:numberOfClasses:", labelPolicy, v21, [options5 numberOfClasses]);
+            v26 = objc_msgSend_options(selfCopy);
+            labelPolicy = [v26 labelPolicy];
+            v28 = objc_msgSend_options(selfCopy);
+            v25 = +[PHADatasetBuilder labelVectorForLabelPolicy:label:numberOfClasses:](PHADatasetBuilder, "labelVectorForLabelPolicy:label:numberOfClasses:", labelPolicy, v21, [v28 numberOfClasses]);
 
             v8 = v55;
             [v57 setObject:v25 forKeyedSubscript:v21];
@@ -244,13 +244,13 @@ LABEL_23:
           v59 = array;
           if ([v25 count] && objc_msgSend(array, "count"))
           {
-            options6 = [(PHADatasetBuilder *)selfCopy options];
-            labelPolicyString = [options6 labelPolicyString];
+            v32 = objc_msgSend_options(selfCopy);
+            labelPolicyString = [v32 labelPolicyString];
             if ([labelPolicyString isEqualToString:@"one-hot"])
             {
               v51 = [v25 count];
-              options7 = [(PHADatasetBuilder *)selfCopy options];
-              labelSize = [options7 labelSize];
+              v34 = objc_msgSend_options(selfCopy);
+              labelSize = [v34 labelSize];
 
               v8 = v55;
               if (v51 != labelSize)
@@ -258,9 +258,9 @@ LABEL_23:
                 if (error)
                 {
                   v36 = MEMORY[0x277CCACA8];
-                  options8 = [(PHADatasetBuilder *)selfCopy options];
+                  v37 = objc_msgSend_options(selfCopy);
                   v8 = v55;
-                  v38 = [v36 stringWithFormat:@"Wrong label size %ld, expected: %ld", objc_msgSend(options8, "labelSize"), objc_msgSend(v25, "count")];
+                  v38 = [v36 stringWithFormat:@"Wrong label size %ld, expected: %ld", objc_msgSend(v37, "labelSize"), objc_msgSend(v25, "count")];
                   *error = [(PHADatasetBuilder *)selfCopy _generateErrorWithErrorCode:17 errorMessage:v38 underlyingError:0];
 
                   goto LABEL_25;
@@ -279,17 +279,17 @@ LABEL_23:
             ++v58;
           }
 
-          options9 = [(PHADatasetBuilder *)selfCopy options];
-          v40 = v58 % [options9 batchSize];
+          v39 = objc_msgSend_options(selfCopy);
+          v40 = v58 % [v39 batchSize];
 
           if (!v40)
           {
-            options10 = [(PHADatasetBuilder *)selfCopy options];
-            options8 = -[PHADatasetBuilder _featureProviderForFingerprintVectors:labelVectors:batchSize:error:](selfCopy, "_featureProviderForFingerprintVectors:labelVectors:batchSize:error:", v53, v54, [options10 batchSize], error);
+            v41 = objc_msgSend_options(selfCopy);
+            v37 = -[PHADatasetBuilder _featureProviderForFingerprintVectors:labelVectors:batchSize:error:](selfCopy, "_featureProviderForFingerprintVectors:labelVectors:batchSize:error:", v53, v54, [v41 batchSize], error);
 
-            if (options8)
+            if (v37)
             {
-              [v50 addObject:options8];
+              [v50 addObject:v37];
               [v53 removeAllObjects];
               [v54 removeAllObjects];
             }
@@ -318,8 +318,8 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  options11 = [(PHADatasetBuilder *)selfCopy options];
-  v43 = v58 % [options11 batchSize];
+  v42 = objc_msgSend_options(selfCopy);
+  v43 = v58 % [v42 batchSize];
 
   v63 = 0;
   v44 = [(PHADatasetBuilder *)selfCopy _featureProviderForFingerprintVectors:v53 labelVectors:v54 batchSize:v43 error:&v63];
@@ -455,12 +455,12 @@ LABEL_11:
 
         if (v14)
         {
-          options = [(PHADatasetBuilder *)self options];
-          biomeInputName = [options biomeInputName];
+          v15 = objc_msgSend_options(self);
+          biomeInputName = [v15 biomeInputName];
           v43[0] = biomeInputName;
           v44[0] = v13;
-          options2 = [(PHADatasetBuilder *)self options];
-          biomeLabelName = [options2 biomeLabelName];
+          v17 = objc_msgSend_options(self);
+          biomeLabelName = [v17 biomeLabelName];
           v43[1] = biomeLabelName;
           v44[1] = @"1";
           v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
@@ -483,12 +483,12 @@ LABEL_11:
             goto LABEL_19;
           }
 
-          options3 = [(PHADatasetBuilder *)self options];
-          biomeInputName2 = [options3 biomeInputName];
+          v22 = objc_msgSend_options(self);
+          biomeInputName2 = [v22 biomeInputName];
           v41[0] = biomeInputName2;
           v42[0] = v13;
-          options4 = [(PHADatasetBuilder *)self options];
-          biomeLabelName2 = [options4 biomeLabelName];
+          v24 = objc_msgSend_options(self);
+          biomeLabelName2 = [v24 biomeLabelName];
           v41[1] = biomeLabelName2;
           v42[1] = @"0";
           v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
@@ -538,11 +538,11 @@ LABEL_19:
   v45 = v6;
   v8 = [v6 objectForKeyedSubscript:@"negative"];
   [MEMORY[0x277D3B908] resetPreCalculatedFeatures];
-  options = [(PHADatasetBuilder *)self options];
-  positivesDatasetName = [options positivesDatasetName];
+  v9 = objc_msgSend_options(self);
+  positivesDatasetName = [v9 positivesDatasetName];
   positiveLocalIdentifiers = [(PHADatasetBuilder *)self positiveLocalIdentifiers];
-  options2 = [(PHADatasetBuilder *)self options];
-  filtersByDatasetName = [options2 filtersByDatasetName];
+  v12 = objc_msgSend_options(self);
+  filtersByDatasetName = [v12 filtersByDatasetName];
   v14 = [filtersByDatasetName objectForKeyedSubscript:@"positive"];
   v50 = 0;
   v46 = v7;
@@ -552,19 +552,19 @@ LABEL_19:
   if ([v15 count])
   {
     v42 = v15;
-    options3 = [(PHADatasetBuilder *)self options];
-    negativesDatasetName = [options3 negativesDatasetName];
+    v17 = objc_msgSend_options(self);
+    negativesDatasetName = [v17 negativesDatasetName];
     negativeLocalIdentifiers = [(PHADatasetBuilder *)self negativeLocalIdentifiers];
-    options4 = [(PHADatasetBuilder *)self options];
-    [options4 filtersByDatasetName];
+    v20 = objc_msgSend_options(self);
+    [v20 filtersByDatasetName];
     v22 = v21 = v8;
     v23 = [v22 objectForKeyedSubscript:@"negative"];
     v49 = v16;
     v43 = v21;
-    options6 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:negativesDatasetName localIdentifiers:negativeLocalIdentifiers labelName:@"negative" numberOfSamples:v21 filters:v23 error:&v49];
+    v24 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:negativesDatasetName localIdentifiers:negativeLocalIdentifiers labelName:@"negative" numberOfSamples:v21 filters:v23 error:&v49];
     v25 = v49;
 
-    if (![options6 count])
+    if (![v24 count])
     {
       v8 = v43;
       v38 = v46;
@@ -579,8 +579,8 @@ LABEL_23:
       }
 
       v39 = MEMORY[0x277CCACA8];
-      options5 = [(PHADatasetBuilder *)self options];
-      negativesDatasetName2 = [options5 negativesDatasetName];
+      positivesDatasetName2 = objc_msgSend_options(self);
+      negativesDatasetName2 = [positivesDatasetName2 negativesDatasetName];
       v40 = [v39 stringWithFormat:@"No data for negative datasetName %@", negativesDatasetName2];
       *errorCopy = [(PHADatasetBuilder *)self _generateErrorWithErrorCode:2 errorMessage:v40 underlyingError:v25];
 
@@ -596,8 +596,8 @@ LABEL_22:
     allKeys = [v42 allKeys];
     v28 = [v26 initWithArray:allKeys];
     v29 = objc_alloc(MEMORY[0x277CBEB98]);
-    [options6 allKeys];
-    v31 = v30 = options6;
+    [v24 allKeys];
+    v31 = v30 = v24;
     v32 = [v29 initWithArray:v31];
     v48 = v25;
     negativesDatasetName2 = [(PHADatasetBuilder *)self _mergeLocalIdentifiersFromPositiveLocalIdentifiers:v28 negativeLocalIdentifiers:v32 numberOfPositiveSamples:v46 numberOfNegativeSamples:v43 error:&v48];
@@ -606,12 +606,12 @@ LABEL_22:
     if ([negativesDatasetName2 count])
     {
       v47 = v16;
-      options5 = [(PHADatasetBuilder *)self _datasetBuilderHelperForLocalIdentifiers:negativesDatasetName2 positiveFingerprints:v42 negativeFingerprints:v30 error:&v47];
+      positivesDatasetName2 = [(PHADatasetBuilder *)self _datasetBuilderHelperForLocalIdentifiers:negativesDatasetName2 positiveFingerprints:v42 negativeFingerprints:v30 error:&v47];
       v35 = v47;
 
       v15 = v42;
-      options6 = v30;
-      if (!options5 || v35)
+      v24 = v30;
+      if (!positivesDatasetName2 || v35)
       {
         v38 = v46;
         if (errorCopy)
@@ -630,25 +630,25 @@ LABEL_22:
         goto LABEL_22;
       }
 
-      options5 = options5;
+      positivesDatasetName2 = positivesDatasetName2;
       v16 = 0;
-      v36 = options5;
+      v36 = positivesDatasetName2;
       v8 = v43;
     }
 
     else
     {
-      options6 = v30;
+      v24 = v30;
       if (errorCopy)
       {
         [(PHADatasetBuilder *)self _generateErrorWithErrorCode:2 errorMessage:@"No data after rebalancing dataset" underlyingError:v16];
-        options5 = 0;
+        positivesDatasetName2 = 0;
         *errorCopy = v36 = 0;
       }
 
       else
       {
-        options5 = 0;
+        positivesDatasetName2 = 0;
         v36 = 0;
       }
 
@@ -664,9 +664,9 @@ LABEL_21:
   if (errorCopy)
   {
     v37 = MEMORY[0x277CCACA8];
-    options6 = [(PHADatasetBuilder *)self options];
-    options5 = [options6 positivesDatasetName];
-    negativesDatasetName2 = [v37 stringWithFormat:@"No data for positive datasetName %@", options5];
+    v24 = objc_msgSend_options(self);
+    positivesDatasetName2 = [v24 positivesDatasetName];
+    negativesDatasetName2 = [v37 stringWithFormat:@"No data for positive datasetName %@", positivesDatasetName2];
     [(PHADatasetBuilder *)self _generateErrorWithErrorCode:2 errorMessage:negativesDatasetName2 underlyingError:v16];
     *errorCopy = v36 = 0;
     goto LABEL_21;
@@ -707,8 +707,8 @@ LABEL_25:
         }
 
         v13 = *(*(&v37 + 1) + 8 * i);
-        options = [(PHADatasetBuilder *)self options];
-        biomeInputName = [options biomeInputName];
+        v14 = objc_msgSend_options(self);
+        biomeInputName = [v14 biomeInputName];
         v16 = [v13 objectForKeyedSubscript:biomeInputName];
 
         if (v16)
@@ -724,27 +724,27 @@ LABEL_25:
   }
 
   v17 = [v7 count];
-  options2 = [(PHADatasetBuilder *)self options];
-  v19 = +[PHADatasetBuilder _randomIndicesWithUpperBound:count:](PHADatasetBuilder, "_randomIndicesWithUpperBound:count:", v17, [options2 totalNumberOfSamples]);
+  v18 = objc_msgSend_options(self);
+  v19 = +[PHADatasetBuilder _randomIndicesWithUpperBound:count:](PHADatasetBuilder, "_randomIndicesWithUpperBound:count:", v17, [v18 totalNumberOfSamples]);
 
   if (v19)
   {
     v20 = [v7 objectsAtIndexes:v19];
     [MEMORY[0x277D3B908] resetPreCalculatedFeatures];
-    options3 = [(PHADatasetBuilder *)self options];
-    photoLibrary = [options3 photoLibrary];
+    v21 = objc_msgSend_options(self);
+    photoLibrary = [v21 photoLibrary];
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
-    options4 = [(PHADatasetBuilder *)self options];
+    v24 = objc_msgSend_options(self);
     v34 = librarySpecificFetchOptions;
     v35 = v20;
     errorCopy = error;
-    v26 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:localIdentifiers:error:](self, "_fetchObjectsForFingerprintVersion:options:localIdentifiers:error:", [options4 fingerprintVersion], librarySpecificFetchOptions, v20, error);
+    v26 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:localIdentifiers:error:](self, "_fetchObjectsForFingerprintVersion:options:localIdentifiers:error:", [v24 fingerprintVersion], librarySpecificFetchOptions, v20, error);
 
     fetchedObjects = [v26 fetchedObjects];
-    options5 = [(PHADatasetBuilder *)self options];
+    v28 = objc_msgSend_options(self);
     v36 = 0;
-    v29 = -[PHADatasetBuilder _fingerprintsForObjects:fingerprintVersion:error:](self, "_fingerprintsForObjects:fingerprintVersion:error:", fetchedObjects, [options5 fingerprintVersion], &v36);
+    v29 = -[PHADatasetBuilder _fingerprintsForObjects:fingerprintVersion:error:](self, "_fingerprintsForObjects:fingerprintVersion:error:", fetchedObjects, [v28 fingerprintVersion], &v36);
     v30 = v36;
 
     if (v29 && [v29 count])
@@ -774,10 +774,10 @@ LABEL_25:
 
 - (id)dataLabelArrayForPhotosStyleWithError:(id *)error
 {
-  options = [(PHADatasetBuilder *)self options];
-  biomeInputName = [options biomeInputName];
-  options2 = [(PHADatasetBuilder *)self options];
-  biomeLabelName = [options2 biomeLabelName];
+  v5 = objc_msgSend_options(self, a2);
+  biomeInputName = [v5 biomeInputName];
+  v7 = objc_msgSend_options(self);
+  biomeLabelName = [v7 biomeLabelName];
   v9 = [PHABiomeUtilities readBiomeEventsForPhotoStyleWithInputName:biomeInputName labelName:biomeLabelName error:error];
 
   return v9;
@@ -861,11 +861,11 @@ LABEL_7:
 - (id)_currentFetchOptionPropertySet
 {
   v3 = MEMORY[0x277D3B908];
-  options = [(PHADatasetBuilder *)self options];
-  v5 = [v3 fetchOptionPropertySetForFingerprintVersion:{objc_msgSend(options, "fingerprintVersion")}];
+  v4 = objc_msgSend_options(self, a2);
+  v5 = [v3 fetchOptionPropertySetForFingerprintVersion:{objc_msgSend(v4, "fingerprintVersion")}];
 
-  options2 = [(PHADatasetBuilder *)self options];
-  filtersByDatasetName = [options2 filtersByDatasetName];
+  v6 = objc_msgSend_options(self);
+  filtersByDatasetName = [v6 filtersByDatasetName];
   v8 = [filtersByDatasetName objectForKeyedSubscript:@"positive"];
   if ([v8 count])
   {
@@ -873,8 +873,8 @@ LABEL_7:
 
   else
   {
-    options3 = [(PHADatasetBuilder *)self options];
-    filtersByDatasetName2 = [options3 filtersByDatasetName];
+    v9 = objc_msgSend_options(self);
+    filtersByDatasetName2 = [v9 filtersByDatasetName];
     v11 = [filtersByDatasetName2 objectForKeyedSubscript:@"negative"];
     v12 = [v11 count];
 
@@ -993,8 +993,8 @@ LABEL_9:
   v28 = 0u;
   v29 = 0u;
   selfCopy = self;
-  options = [(PHADatasetBuilder *)self options];
-  augmenters = [options augmenters];
+  v6 = objc_msgSend_options(self);
+  augmenters = [v6 augmenters];
 
   v8 = [augmenters countByEnumeratingWithState:&v26 objects:v30 count:16];
   v9 = samplesCopy;
@@ -1083,12 +1083,12 @@ LABEL_18:
   objectsCopy = objects;
   if ([MEMORY[0x277D3B908] isAssetFingerprintVersion:version])
   {
-    options = [(PHADatasetBuilder *)self options];
-    graphManager = [options graphManager];
-    options2 = [(PHADatasetBuilder *)self options];
-    fingerprintVersion = [options2 fingerprintVersion];
-    options3 = [(PHADatasetBuilder *)self options];
-    transformersForFeatureExtractors = [options3 transformersForFeatureExtractors];
+    version = objc_msgSend_options(self);
+    graphManager = [version graphManager];
+    v11 = objc_msgSend_options(self);
+    fingerprintVersion = [v11 fingerprintVersion];
+    v13 = objc_msgSend_options(self);
+    transformersForFeatureExtractors = [v13 transformersForFeatureExtractors];
     v15 = [graphManager assetFingerprintsWithVersion:fingerprintVersion forAssets:objectsCopy withTransformers:transformersForFeatureExtractors error:error];
 LABEL_6:
     v17 = v15;
@@ -1099,20 +1099,20 @@ LABEL_7:
 
   if (([MEMORY[0x277D3B908] isMomentFingerprintVersion:version] & 1) != 0 || objc_msgSend(MEMORY[0x277D3B908], "isMemoryFingerprintVersion:", version))
   {
-    options = [(PHADatasetBuilder *)self options];
-    graphManager = [options graphManager];
-    options2 = [(PHADatasetBuilder *)self options];
-    fingerprintVersion2 = [options2 fingerprintVersion];
-    options3 = [(PHADatasetBuilder *)self options];
-    transformersForFeatureExtractors = [options3 transformersForFeatureExtractors];
+    version = objc_msgSend_options(self);
+    graphManager = [version graphManager];
+    v11 = objc_msgSend_options(self);
+    fingerprintVersion2 = [v11 fingerprintVersion];
+    v13 = objc_msgSend_options(self);
+    transformersForFeatureExtractors = [v13 transformersForFeatureExtractors];
     v15 = [graphManager assetCollectionFingerprintsWithVersion:fingerprintVersion2 forAssetCollections:objectsCopy withTransformers:transformersForFeatureExtractors error:error];
     goto LABEL_6;
   }
 
   if (error)
   {
-    options = [MEMORY[0x277CCACA8] stringWithFormat:@"Fingerprint version not supported: %ld", version];
-    [(PHADatasetBuilder *)self _generateErrorWithErrorCode:5 errorMessage:options underlyingError:0];
+    version = [MEMORY[0x277CCACA8] stringWithFormat:@"Fingerprint version not supported: %ld", version];
+    [(PHADatasetBuilder *)self _generateErrorWithErrorCode:5 errorMessage:version underlyingError:0];
     *error = v17 = 0;
     goto LABEL_7;
   }
@@ -1243,8 +1243,8 @@ LABEL_13:
 
     if (((1 << featureValidatorType) & 0x50) != 0)
     {
-      options = [(PHADatasetBuilder *)self options];
-      graphManager = [options graphManager];
+      v12 = objc_msgSend_options(self);
+      graphManager = [v12 graphManager];
       _currentFetchOptionPropertySet = [(PHADatasetBuilder *)self _currentFetchOptionPropertySet];
       v5 = [graphManager validatePHObject:objectCopy featureAggregationValidator:validatorCopy assetFetchOptionPropertySet:_currentFetchOptionPropertySet error:error];
 
@@ -1253,8 +1253,8 @@ LABEL_13:
 
     if (featureValidatorType == 2)
     {
-      options2 = [(PHADatasetBuilder *)self options];
-      graphManager2 = [options2 graphManager];
+      v15 = objc_msgSend_options(self);
+      graphManager2 = [v15 graphManager];
       v5 = [graphManager2 validatePHObject:objectCopy graphRelationsFeatureValidator:validatorCopy error:error];
 
       goto LABEL_12;
@@ -1413,8 +1413,8 @@ LABEL_26:
   v41[2] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   keywordCopy = keyword;
-  options = [(PHADatasetBuilder *)self options];
-  photoLibrary = [options photoLibrary];
+  v12 = objc_msgSend_options(self);
+  photoLibrary = [v12 photoLibrary];
   librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
   _currentFetchOptionPropertySet = [(PHADatasetBuilder *)self _currentFetchOptionPropertySet];
@@ -1458,8 +1458,8 @@ LABEL_7:
 
   [librarySpecificFetchOptions setPredicate:v18];
 LABEL_8:
-  options2 = [(PHADatasetBuilder *)self options];
-  v26 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:error:](self, "_fetchObjectsForFingerprintVersion:options:error:", [options2 fingerprintVersion], librarySpecificFetchOptions, error);
+  v25 = objc_msgSend_options(self);
+  v26 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:error:](self, "_fetchObjectsForFingerprintVersion:options:error:", [v25 fingerprintVersion], librarySpecificFetchOptions, error);
 
   if (v26)
   {
@@ -1532,8 +1532,8 @@ void __85__PHADatasetBuilder__randomSamplesOfCount_filterPredicateForKeyword_lab
     if (v12)
     {
       v13 = [identifiersCopy objectsAtIndexes:v12];
-      options = [(PHADatasetBuilder *)self options];
-      photoLibrary = [options photoLibrary];
+      v14 = objc_msgSend_options(self);
+      photoLibrary = [v14 photoLibrary];
       librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
       [librarySpecificFetchOptions setIncludeHiddenAssets:1];
@@ -1558,8 +1558,8 @@ void __85__PHADatasetBuilder__randomSamplesOfCount_filterPredicateForKeyword_lab
         [librarySpecificFetchOptions setInternalPredicate:v19];
       }
 
-      options2 = [(PHADatasetBuilder *)self options];
-      v23 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:localIdentifiers:error:](self, "_fetchObjectsForFingerprintVersion:options:localIdentifiers:error:", [options2 fingerprintVersion], librarySpecificFetchOptions, v13, error);
+      v22 = objc_msgSend_options(self, keywordCopy);
+      v23 = -[PHADatasetBuilder _fetchObjectsForFingerprintVersion:options:localIdentifiers:error:](self, "_fetchObjectsForFingerprintVersion:options:localIdentifiers:error:", [v22 fingerprintVersion], librarySpecificFetchOptions, v13, error);
 
       v24 = MEMORY[0x277CBEB98];
       [v23 fetchedObjects];
@@ -1597,8 +1597,8 @@ void __85__PHADatasetBuilder__randomSamplesOfCount_filterPredicateForKeyword_lab
   negativeFingerprintsCopy = negativeFingerprints;
   v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
-  options = [(PHADatasetBuilder *)self options];
-  v37 = +[PHADatasetBuilder labelVectorsForLabelPolicy:](PHADatasetBuilder, "labelVectorsForLabelPolicy:", [options labelPolicy]);
+  v12 = objc_msgSend_options(self);
+  v37 = +[PHADatasetBuilder labelVectorsForLabelPolicy:](PHADatasetBuilder, "labelVectorsForLabelPolicy:", [v12 labelPolicy]);
 
   v41 = 0u;
   v42 = 0u;
@@ -1673,10 +1673,10 @@ void __85__PHADatasetBuilder__randomSamplesOfCount_filterPredicateForKeyword_lab
   if (v27)
   {
     v28 = [PHADataset alloc];
-    options2 = [(PHADatasetBuilder *)selfCopy options];
-    modelInputName = [options2 modelInputName];
-    options3 = [(PHADatasetBuilder *)selfCopy options];
-    labelName = [options3 labelName];
+    v29 = objc_msgSend_options(selfCopy);
+    modelInputName = [v29 modelInputName];
+    v31 = objc_msgSend_options(selfCopy);
+    labelName = [v31 labelName];
     v33 = [(PHADataset *)v28 initWithLabeledFeatureVectors:v27 inputName:modelInputName labelName:labelName];
   }
 
@@ -1696,15 +1696,15 @@ LABEL_19:
   localIdentifiersCopy = localIdentifiers;
   samplesCopy = samples;
   negativeSamplesCopy = negativeSamples;
-  options = [(PHADatasetBuilder *)self options];
-  positivesDatasetName = [options positivesDatasetName];
+  v16 = objc_msgSend_options(self);
+  positivesDatasetName = [v16 positivesDatasetName];
   if ([positivesDatasetName isEqualToString:@"noneDataset"])
   {
   }
 
   else
   {
-    [(PHADatasetBuilder *)self options];
+    objc_msgSend_options(self);
     selfCopy = self;
     v18 = identifiersCopy;
     v19 = localIdentifiersCopy;
@@ -1735,8 +1735,8 @@ LABEL_8:
     integerValue = [samplesCopy integerValue];
     if (integerValue != [identifiersCopy count] || (v28 = objc_msgSend(negativeSamplesCopy, "integerValue"), v28 != objc_msgSend(localIdentifiersCopy, "count")))
     {
-      options2 = [(PHADatasetBuilder *)self options];
-      datasetPolicy = [options2 datasetPolicy];
+      v29 = objc_msgSend_options(self);
+      datasetPolicy = [v29 datasetPolicy];
 
       if (datasetPolicy == 1)
       {
@@ -1752,8 +1752,8 @@ LABEL_8:
         goto LABEL_35;
       }
 
-      options3 = [(PHADatasetBuilder *)self options];
-      if ([options3 datasetPolicy] == 2 && !objc_msgSend(identifiersCopy, "count"))
+      v31 = objc_msgSend_options(self);
+      if ([v31 datasetPolicy] == 2 && !objc_msgSend(identifiersCopy, "count"))
       {
         v53 = [localIdentifiersCopy count];
 
@@ -1775,8 +1775,8 @@ LABEL_8:
       {
       }
 
-      options4 = [(PHADatasetBuilder *)self options];
-      if ([options4 datasetPolicy])
+      v32 = objc_msgSend_options(self);
+      if ([v32 datasetPolicy])
       {
         v33 = 1;
       }
@@ -1885,9 +1885,9 @@ LABEL_11:
       v42 = nameCopy;
       v44 = v18;
       allObjects = [v33 allObjects];
-      options = [(PHADatasetBuilder *)self options];
+      v35 = objc_msgSend_options(self);
       v48 = v28;
-      v36 = -[PHADatasetBuilder _fingerprintsForObjects:fingerprintVersion:error:](self, "_fingerprintsForObjects:fingerprintVersion:error:", allObjects, [options fingerprintVersion], &v48);
+      v36 = -[PHADatasetBuilder _fingerprintsForObjects:fingerprintVersion:error:](self, "_fingerprintsForObjects:fingerprintVersion:error:", allObjects, [v35 fingerprintVersion], &v48);
       v37 = v48;
 
       if (v36)
@@ -1942,8 +1942,8 @@ LABEL_23:
 
   v22 = [nameCopy isEqualToString:@"randomDataset"];
   integerValue = [samplesCopy integerValue];
-  options2 = [(PHADatasetBuilder *)self options];
-  v25 = [options2 oversamplingRate] * integerValue;
+  v24 = objc_msgSend_options(self);
+  v25 = [v24 oversamplingRate] * integerValue;
 
   if (v22)
   {
@@ -2039,15 +2039,15 @@ LABEL_24:
 - (id)_numberOfSamplesPerClassWithError:(id *)error
 {
   v56[2] = *MEMORY[0x277D85DE8];
-  options = [(PHADatasetBuilder *)self options];
-  positivesDatasetName = [options positivesDatasetName];
+  v5 = objc_msgSend_options(self, a2);
+  positivesDatasetName = [v5 positivesDatasetName];
   v7 = [positivesDatasetName isEqualToString:@"noneDataset"];
 
-  options2 = [(PHADatasetBuilder *)self options];
-  v9 = options2;
+  v8 = objc_msgSend_options(self);
+  v9 = v8;
   if (v7)
   {
-    totalNumberOfSamples = [options2 totalNumberOfSamples];
+    totalNumberOfSamples = [v8 totalNumberOfSamples];
 
     negativeLocalIdentifiers = [(PHADatasetBuilder *)self negativeLocalIdentifiers];
     v12 = [negativeLocalIdentifiers count];
@@ -2077,14 +2077,14 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  negativesDatasetName = [options2 negativesDatasetName];
+  negativesDatasetName = [v8 negativesDatasetName];
   v19 = [negativesDatasetName isEqualToString:@"noneDataset"];
 
-  options3 = [(PHADatasetBuilder *)self options];
-  v21 = options3;
+  v20 = objc_msgSend_options(self);
+  v21 = v20;
   if (v19)
   {
-    totalNumberOfSamples2 = [options3 totalNumberOfSamples];
+    totalNumberOfSamples2 = [v20 totalNumberOfSamples];
 
     positiveLocalIdentifiers = [(PHADatasetBuilder *)self positiveLocalIdentifiers];
     v24 = [positiveLocalIdentifiers count];
@@ -2110,14 +2110,14 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  datasetPolicy = [options3 datasetPolicy];
+  datasetPolicy = [v20 datasetPolicy];
 
   if (datasetPolicy > 0)
   {
     if (datasetPolicy == 1)
     {
-      options4 = [(PHADatasetBuilder *)self options];
-      v45 = [options4 totalNumberOfSamples] >> 1;
+      v44 = objc_msgSend_options(self);
+      v45 = [v44 totalNumberOfSamples] >> 1;
 
       v49[0] = @"positive";
       v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v45];
@@ -2133,8 +2133,8 @@ LABEL_12:
 
     if (datasetPolicy == 2)
     {
-      options5 = [(PHADatasetBuilder *)self options];
-      totalNumberOfSamples3 = [options5 totalNumberOfSamples];
+      v36 = objc_msgSend_options(self);
+      totalNumberOfSamples3 = [v36 totalNumberOfSamples];
 
       _minAvailableNumberOfSamples = [(PHADatasetBuilder *)self _minAvailableNumberOfSamples];
       if (totalNumberOfSamples3 >= _minAvailableNumberOfSamples)
@@ -2178,8 +2178,8 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      options6 = [(PHADatasetBuilder *)self options];
-      v29 = [options6 totalNumberOfSamples] >> 1;
+      v28 = objc_msgSend_options(self);
+      v29 = [v28 totalNumberOfSamples] >> 1;
 
       _minAvailableNumberOfSamples2 = [(PHADatasetBuilder *)self _minAvailableNumberOfSamples];
       if (v29 >= _minAvailableNumberOfSamples2)
@@ -2235,19 +2235,19 @@ LABEL_13:
     [v6 objectForKeyedSubscript:@"negative"];
     v8 = v33 = error;
     [MEMORY[0x277D3B908] resetPreCalculatedFeatures];
-    options = [(PHADatasetBuilder *)self options];
-    positivesDatasetName = [options positivesDatasetName];
+    v9 = objc_msgSend_options(self);
+    positivesDatasetName = [v9 positivesDatasetName];
     positiveLocalIdentifiers = [(PHADatasetBuilder *)self positiveLocalIdentifiers];
-    options2 = [(PHADatasetBuilder *)self options];
-    filtersByDatasetName = [options2 filtersByDatasetName];
+    v12 = objc_msgSend_options(self);
+    filtersByDatasetName = [v12 filtersByDatasetName];
     v14 = [filtersByDatasetName objectForKeyedSubscript:@"positive"];
     v34 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:positivesDatasetName localIdentifiers:positiveLocalIdentifiers labelName:@"positive" numberOfSamples:v7 filters:v14 error:v33];
 
-    options3 = [(PHADatasetBuilder *)self options];
-    negativesDatasetName = [options3 negativesDatasetName];
+    v15 = objc_msgSend_options(self);
+    negativesDatasetName = [v15 negativesDatasetName];
     negativeLocalIdentifiers = [(PHADatasetBuilder *)self negativeLocalIdentifiers];
-    options4 = [(PHADatasetBuilder *)self options];
-    filtersByDatasetName2 = [options4 filtersByDatasetName];
+    v18 = objc_msgSend_options(self);
+    filtersByDatasetName2 = [v18 filtersByDatasetName];
     v20 = [filtersByDatasetName2 objectForKeyedSubscript:@"negative"];
     v36 = v8;
     v21 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:negativesDatasetName localIdentifiers:negativeLocalIdentifiers labelName:@"negative" numberOfSamples:v8 filters:v20 error:v33];
@@ -2304,17 +2304,17 @@ LABEL_13:
   errorCopy = error;
   if ([labelCopy isEqualToString:@"positive"])
   {
-    options = [(PHADatasetBuilder *)self options];
-    positivesDatasetName = [options positivesDatasetName];
+    v33 = objc_msgSend_options(self);
+    positivesDatasetName = [v33 positivesDatasetName];
     positiveLocalIdentifiers = [(PHADatasetBuilder *)self positiveLocalIdentifiers];
     v9 = MEMORY[0x277CCABB0];
     positiveLocalIdentifiers2 = [(PHADatasetBuilder *)self positiveLocalIdentifiers];
-    options5 = [v9 numberWithUnsignedInteger:{objc_msgSend(positiveLocalIdentifiers2, "count")}];
-    options2 = [(PHADatasetBuilder *)self options];
-    filtersByDatasetName = [options2 filtersByDatasetName];
+    v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(positiveLocalIdentifiers2, "count")}];
+    filtersByDatasetName2 = objc_msgSend_options(self);
+    filtersByDatasetName = [filtersByDatasetName2 filtersByDatasetName];
     v14 = [filtersByDatasetName objectForKeyedSubscript:@"positive"];
-    options4 = options;
-    v16 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:positivesDatasetName localIdentifiers:positiveLocalIdentifiers labelName:@"positive" numberOfSamples:options5 filters:v14 error:error];
+    v15 = v33;
+    v16 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:positivesDatasetName localIdentifiers:positiveLocalIdentifiers labelName:@"positive" numberOfSamples:v11 filters:v14 error:error];
   }
 
   else
@@ -2322,8 +2322,8 @@ LABEL_13:
     negativeLocalIdentifiers = [(PHADatasetBuilder *)self negativeLocalIdentifiers];
     v18 = [negativeLocalIdentifiers count];
 
-    options3 = [(PHADatasetBuilder *)self options];
-    negativesDatasetName = [options3 negativesDatasetName];
+    v19 = objc_msgSend_options(self);
+    negativesDatasetName = [v19 negativesDatasetName];
     v21 = [negativesDatasetName isEqualToString:@"randomDataset"];
 
     if (v21)
@@ -2332,13 +2332,13 @@ LABEL_13:
       v18 = [positiveLocalIdentifiers3 count];
     }
 
-    options4 = [(PHADatasetBuilder *)self options];
-    positivesDatasetName = [options4 negativesDatasetName];
+    v15 = objc_msgSend_options(self);
+    positivesDatasetName = [v15 negativesDatasetName];
     positiveLocalIdentifiers = [(PHADatasetBuilder *)self negativeLocalIdentifiers];
     positiveLocalIdentifiers2 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18];
-    options5 = [(PHADatasetBuilder *)self options];
-    options2 = [options5 filtersByDatasetName];
-    filtersByDatasetName = [options2 objectForKeyedSubscript:@"negative"];
+    v11 = objc_msgSend_options(self);
+    filtersByDatasetName2 = [v11 filtersByDatasetName];
+    filtersByDatasetName = [filtersByDatasetName2 objectForKeyedSubscript:@"negative"];
     v16 = [(PHADatasetBuilder *)self _fingerprintsForDatasetName:positivesDatasetName localIdentifiers:positiveLocalIdentifiers labelName:@"negative" numberOfSamples:positiveLocalIdentifiers2 filters:filtersByDatasetName error:error];
   }
 
@@ -2390,17 +2390,17 @@ LABEL_13:
 {
   if (!self->_negativeLocalIdentifiers)
   {
-    options = [(PHADatasetBuilder *)self options];
-    datasetSource = [options datasetSource];
+    v3 = objc_msgSend_options(self, a2);
+    datasetSource = [v3 datasetSource];
     v5 = [datasetSource isEqualToString:@"CoreDuet"];
 
-    options2 = [(PHADatasetBuilder *)self options];
-    options4 = options2;
+    v6 = objc_msgSend_options(self);
+    v7 = v6;
     if (v5)
     {
-      negativesDatasetName = [options2 negativesDatasetName];
-      options3 = [(PHADatasetBuilder *)self options];
-      negativesSubsetName = [options3 negativesSubsetName];
+      negativesDatasetName = [v6 negativesDatasetName];
+      v9 = objc_msgSend_options(self);
+      negativesSubsetName = [v9 negativesSubsetName];
       v11 = [(PHADatasetBuilder *)self _localIdentifiersForCoreDuetDatasetName:negativesDatasetName subsetName:negativesSubsetName];
       negativeLocalIdentifiers = self->_negativeLocalIdentifiers;
       self->_negativeLocalIdentifiers = v11;
@@ -2408,7 +2408,7 @@ LABEL_13:
 
     else
     {
-      datasetSource2 = [options2 datasetSource];
+      datasetSource2 = [v6 datasetSource];
       v14 = [datasetSource2 isEqualToString:@"Biome"];
 
       if (!v14)
@@ -2416,11 +2416,11 @@ LABEL_13:
         goto LABEL_7;
       }
 
-      options4 = [(PHADatasetBuilder *)self options];
-      negativesDatasetName = [options4 negativesSubsetName];
-      options3 = [(PHADatasetBuilder *)self options];
-      negativesSubsetName = [options3 negativesSubsetName];
-      negativeLocalIdentifiers = [(PHADatasetBuilder *)self options];
+      v7 = objc_msgSend_options(self);
+      negativesDatasetName = [v7 negativesSubsetName];
+      v9 = objc_msgSend_options(self);
+      negativesSubsetName = [v9 negativesSubsetName];
+      negativeLocalIdentifiers = objc_msgSend_options(self);
       negativesDatasetType = [negativeLocalIdentifiers negativesDatasetType];
       v16 = [(PHADatasetBuilder *)self readLocalIdentifiersFromBiomeStream:negativesDatasetName subsetName:negativesSubsetName type:negativesDatasetType];
       v17 = self->_negativeLocalIdentifiers;
@@ -2461,17 +2461,17 @@ LABEL_7:
 {
   if (!self->_positiveLocalIdentifiers)
   {
-    options = [(PHADatasetBuilder *)self options];
-    datasetSource = [options datasetSource];
+    v3 = objc_msgSend_options(self, a2);
+    datasetSource = [v3 datasetSource];
     v5 = [datasetSource isEqualToString:@"CoreDuet"];
 
-    options2 = [(PHADatasetBuilder *)self options];
-    options4 = options2;
+    v6 = objc_msgSend_options(self);
+    v7 = v6;
     if (v5)
     {
-      positivesDatasetName = [options2 positivesDatasetName];
-      options3 = [(PHADatasetBuilder *)self options];
-      positivesSubsetName = [options3 positivesSubsetName];
+      positivesDatasetName = [v6 positivesDatasetName];
+      v9 = objc_msgSend_options(self);
+      positivesSubsetName = [v9 positivesSubsetName];
       v11 = [(PHADatasetBuilder *)self _localIdentifiersForCoreDuetDatasetName:positivesDatasetName subsetName:positivesSubsetName];
       positiveLocalIdentifiers = self->_positiveLocalIdentifiers;
       self->_positiveLocalIdentifiers = v11;
@@ -2479,7 +2479,7 @@ LABEL_7:
 
     else
     {
-      datasetSource2 = [options2 datasetSource];
+      datasetSource2 = [v6 datasetSource];
       v14 = [datasetSource2 isEqualToString:@"Biome"];
 
       if (!v14)
@@ -2487,11 +2487,11 @@ LABEL_7:
         goto LABEL_7;
       }
 
-      options4 = [(PHADatasetBuilder *)self options];
-      positivesDatasetName = [options4 positivesDatasetName];
-      options3 = [(PHADatasetBuilder *)self options];
-      positivesSubsetName = [options3 positivesSubsetName];
-      positiveLocalIdentifiers = [(PHADatasetBuilder *)self options];
+      v7 = objc_msgSend_options(self);
+      positivesDatasetName = [v7 positivesDatasetName];
+      v9 = objc_msgSend_options(self);
+      positivesSubsetName = [v9 positivesSubsetName];
+      positiveLocalIdentifiers = objc_msgSend_options(self);
       positivesDatasetType = [positiveLocalIdentifiers positivesDatasetType];
       v16 = [(PHADatasetBuilder *)self readLocalIdentifiersFromBiomeStream:positivesDatasetName subsetName:positivesSubsetName type:positivesDatasetType];
       v17 = self->_positiveLocalIdentifiers;

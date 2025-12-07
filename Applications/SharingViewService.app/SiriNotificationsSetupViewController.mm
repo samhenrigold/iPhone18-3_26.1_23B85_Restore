@@ -91,7 +91,7 @@
 {
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleDoNotAnnounceButton]", 30, "SiriNotifications Don't Announce Button\n");
   }
 
   model = [(SiriNotificationsSetupViewController *)self model];
@@ -111,7 +111,7 @@
   {
     if (dword_1001BE658 <= 90 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleDoNotAnnounceButton]", 90, "Unable to fully handle not now - unknown viewType %d", viewType);
     }
   }
 
@@ -138,7 +138,7 @@ LABEL_9:
 {
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleContinueButton]", 30, "SiriNotifications Continue Button\n");
   }
 
   model = [(SiriNotificationsSetupViewController *)self model];
@@ -161,7 +161,7 @@ LABEL_10:
   {
     if (dword_1001BE658 <= 90 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleContinueButton]", 90, "Unable to fully handle continue - unknown viewType %d", viewType);
     }
   }
 
@@ -187,7 +187,7 @@ LABEL_11:
 {
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleDismissButton]", 30, "SiriNotifications Dismiss button\n");
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_mainController);
@@ -211,8 +211,7 @@ LABEL_10:
   {
     if (dword_1001BE658 <= 90 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
     {
-      v5 = viewType;
-      LogPrintF();
+      LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController handleDismissButton]", 90, "Unable to fully handle dismiss - unknown viewType %d", viewType);
     }
   }
 
@@ -222,7 +221,7 @@ LABEL_10:
   }
 
 LABEL_11:
-  [WeakRetained dismiss:{5, v5}];
+  [WeakRetained dismiss:5];
 }
 
 - (void)handleDismissForMessages
@@ -400,7 +399,7 @@ LABEL_11:
   disappearCopy = disappear;
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController viewDidDisappear:]", 30, "SiriNotifications ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -418,7 +417,7 @@ LABEL_11:
 
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController viewDidAppear:]", 30, "Recording user has seen SiriNotifications opt-out card\n");
   }
 
   v5 = SFIsAnnounceCallsEnabled();
@@ -456,7 +455,7 @@ LABEL_11:
   appearCopy = appear;
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController viewWillAppear:]", 30, "SiriNotifications ViewWillAppear\n");
   }
 
   v7.receiver = self;
@@ -471,12 +470,12 @@ LABEL_11:
 {
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController viewDidLoad]", 30, "SiriNotifications ViewDidLoad\n");
   }
 
-  v32.receiver = self;
-  v32.super_class = SiriNotificationsSetupViewController;
-  [(SiriNotificationsSetupViewController *)&v32 viewDidLoad];
+  v31.receiver = self;
+  v31.super_class = SiriNotificationsSetupViewController;
+  [(SiriNotificationsSetupViewController *)&v31 viewDidLoad];
   extendedUserInfo = [(SiriNotificationsSetupViewController *)self extendedUserInfo];
   v3 = [objc_opt_class() modelForUserInfo:extendedUserInfo];
   [(SiriNotificationsSetupViewController *)self setModel:v3];
@@ -500,11 +499,10 @@ LABEL_11:
       v9 = off_100194D08[viewType];
     }
 
-    v24 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "[SiriNotificationsSetupViewController viewDidLoad]", 30, "View type: %@", v9);
   }
 
-  [(SiriNotificationsSetupViewController *)self setDismissalType:3, v24];
+  [(SiriNotificationsSetupViewController *)self setDismissalType:3];
   [(SiriNotificationsSetupViewController *)self setUpTitle];
   [(SiriNotificationsSetupViewController *)self setUpSubtitle];
   [(SiriNotificationsSetupViewController *)self setUpActions];
@@ -521,23 +519,23 @@ LABEL_11:
 
   topAnchor = [v12 topAnchor];
   topAnchor2 = [mainContentGuide topAnchor];
-  v28 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
-  v33[0] = v28;
+  v27 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2];
+  v32[0] = v27;
   centerXAnchor = [v12 centerXAnchor];
   centerXAnchor2 = [mainContentGuide centerXAnchor];
-  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v33[1] = v25;
+  v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v32[1] = v24;
   bottomAnchor = [v12 bottomAnchor];
   bottomAnchor2 = [mainContentGuide bottomAnchor];
   v18 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-  v33[2] = v18;
+  v32[2] = v18;
   heightAnchor = [v12 heightAnchor];
   v20 = [heightAnchor constraintEqualToConstant:76.0];
-  v33[3] = v20;
+  v32[3] = v20;
   widthAnchor = [v12 widthAnchor];
   v22 = [widthAnchor constraintEqualToConstant:76.0];
-  v33[4] = v22;
-  v23 = [NSArray arrayWithObjects:v33 count:5];
+  v32[4] = v22;
+  v23 = [NSArray arrayWithObjects:v32 count:5];
   [NSLayoutConstraint activateConstraints:v23];
 }
 
@@ -665,13 +663,13 @@ LABEL_11:
     return off_100194CF0[type];
   }
 
-  v3 = @"Localizable-AnnounceTelephony";
+  v4 = @"Localizable-AnnounceTelephony";
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "+[SiriNotificationsSetupViewController locTableForViewType:]", 30, "Unhandled view type %d, assuming %@", type, @"Localizable-AnnounceTelephony");
   }
 
-  return v3;
+  return v4;
 }
 
 + (id)locIntermediateStringForViewType:(int64_t)type
@@ -681,13 +679,13 @@ LABEL_11:
     return off_100194CD8[type];
   }
 
-  v3 = @"MESSAGES_AND_CALLS";
+  v4 = @"MESSAGES_AND_CALLS";
   if (dword_1001BE658 <= 30 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "+[SiriNotificationsSetupViewController locIntermediateStringForViewType:]", 30, "Unhandled view type %d, assuming %@", type, @"MESSAGES_AND_CALLS");
   }
 
-  return v3;
+  return v4;
 }
 
 + (id)modelForUserInfo:(id)info
@@ -736,7 +734,7 @@ LABEL_11:
 
   else if (dword_1001BE658 <= 115 && (dword_1001BE658 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE658, "+[SiriNotificationsSetupViewController modelForUserInfo:siriControllerClass:]", 115, "No user info");
   }
 
   return v6;

@@ -44,9 +44,9 @@ void __37__UpgradeSequencer_getSharedInstance__block_invoke(id a1)
 
 - (UpgradeSequencer)init
 {
-  v23.receiver = self;
-  v23.super_class = UpgradeSequencer;
-  v2 = [(UpgradeSequencer *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = UpgradeSequencer;
+  v2 = [(UpgradeSequencer *)&v22 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_initially_inactive(0);
@@ -55,44 +55,43 @@ void __37__UpgradeSequencer_getSharedInstance__block_invoke(id a1)
     v5 = *(v2 + 3);
     *(v2 + 3) = v4;
 
-    v6 = *(v2 + 3);
     dispatch_set_qos_class();
     dispatch_activate(*(v2 + 3));
-    v7 = dispatch_queue_create("com.apple.security.cryptexd.upgrade_sequencer_work", 0);
-    v8 = *(v2 + 2);
-    *(v2 + 2) = v7;
+    v6 = dispatch_queue_create("com.apple.security.cryptexd.upgrade_sequencer_work", 0);
+    v7 = *(v2 + 2);
+    *(v2 + 2) = v6;
 
     dispatch_set_target_queue(*(v2 + 2), *(v2 + 3));
-    v9 = dispatch_queue_create("com.apple.security.cryptexd.upgrade_sequencer_lock_acquire", 0);
-    v10 = *(v2 + 1);
-    *(v2 + 1) = v9;
+    v8 = dispatch_queue_create("com.apple.security.cryptexd.upgrade_sequencer_lock_acquire", 0);
+    v9 = *(v2 + 1);
+    *(v2 + 1) = v8;
 
     dispatch_set_target_queue(*(v2 + 1), *(v2 + 2));
     dispatch_suspend(*(v2 + 1));
-    v11 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(v2 + 2));
-    v12 = *(v2 + 8);
-    *(v2 + 8) = v11;
+    v10 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, *(v2 + 2));
+    v11 = *(v2 + 8);
+    *(v2 + 8) = v10;
 
     dispatch_source_set_timer(*(v2 + 8), 0xFFFFFFFFFFFFFFFFLL, 0xFFFFFFFFFFFFFFFFLL, 0);
-    v13 = *(v2 + 8);
+    v12 = *(v2 + 8);
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = __24__UpgradeSequencer_init__block_invoke;
     handler[3] = &unk_100071418;
-    v14 = v2;
-    v22 = v14;
-    dispatch_source_set_event_handler(v13, handler);
+    v13 = v2;
+    v21 = v13;
+    dispatch_source_set_event_handler(v12, handler);
     dispatch_resume(*(v2 + 8));
-    v15 = v14[6];
-    v14[6] = 0;
+    v14 = v13[6];
+    v13[6] = 0;
 
-    v16 = objc_alloc_init(NSMutableDictionary);
-    v17 = v14[4];
-    v14[4] = v16;
+    v15 = objc_alloc_init(NSMutableDictionary);
+    v16 = v13[4];
+    v13[4] = v15;
 
-    v18 = os_log_create("com.apple.libcryptex", "upgrade_sequencer");
-    v19 = v14[5];
-    v14[5] = v18;
+    v17 = os_log_create("com.apple.libcryptex", "upgrade_sequencer");
+    v18 = v13[5];
+    v13[5] = v17;
   }
 
   return v2;
@@ -147,138 +146,165 @@ int *__24__UpgradeSequencer_init__block_invoke(uint64_t a1)
 
 void __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke(uint64_t a1)
 {
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x3032000000;
-  v37 = __Block_byref_object_copy_;
-  v38 = __Block_byref_object_dispose_;
-  v39 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy_;
+  v41 = __Block_byref_object_dispose_;
+  v42 = 0;
   v2 = dispatch_group_create();
   if ([*(a1 + 32) _isInterfaceLocked])
   {
-    v3 = v35[5];
-    v35[5] = 0;
+    v3 = v38[5];
+    v38[5] = 0;
 
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_2;
-    v33[3] = &unk_1000714D0;
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_2;
+    v36[3] = &unk_1000714D0;
     v4 = *(a1 + 40);
-    v33[4] = *(a1 + 32);
-    v33[5] = &v34;
-    [v4 enumerateKeysAndObjectsUsingBlock:v33];
+    v36[4] = *(a1 + 32);
+    v36[5] = &v37;
+    [v4 enumerateKeysAndObjectsUsingBlock:v36];
     v5 = *(a1 + 32);
-    if (v35[5])
+    if (v38[5])
     {
       v6 = [v5 logHandle];
 
       if (v6)
       {
         v7 = [*(a1 + 32) logHandle];
-        os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-        LOWORD(v40) = 0;
-        v8 = _os_log_send_and_compose_impl();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          v8 = 3;
+        }
+
+        else
+        {
+          v8 = 2;
+        }
+
+        LOWORD(v43) = 0;
+        v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "Invalid input.", &v43, 2);
       }
 
       else
       {
-        LOWORD(v40) = 0;
-        v8 = _os_log_send_and_compose_impl();
+        LOWORD(v43) = 0;
+        v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Invalid input.", &v43, 2);
       }
 
-      Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 425, "com.apple.security.cryptex", 11, v35[5], v8);
-      free(v8);
-      v19 = v35[5];
-      v35[5] = Error;
-      goto LABEL_15;
+      Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 425, "com.apple.security.cryptex", 11, v38[5], v9);
+      free(v9);
+      v22 = v38[5];
+      v38[5] = Error;
+      goto LABEL_24;
     }
 
-    v12 = [v5 _setKernelUpgradeOngoing:1];
-    if (!v12)
+    v14 = [v5 _setKernelUpgradeOngoing:1];
+    if (!v14)
     {
       [*(a1 + 32) _disableInterfaceLockTimeout];
       dispatch_group_enter(v2);
-      v20 = *(a1 + 40);
-      v28[0] = _NSConcreteStackBlock;
-      v28[1] = 3221225472;
-      v28[2] = __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_2_108;
-      v28[3] = &unk_100071520;
-      v21 = v2;
-      v22 = *(a1 + 32);
-      v29 = v21;
-      v30 = v22;
-      v32 = *(a1 + 56);
-      v31 = &v34;
-      [v20 enumerateKeysAndObjectsUsingBlock:v28];
-      v23 = [*(a1 + 32) workQueue];
+      v23 = *(a1 + 40);
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_2_108;
+      v31[3] = &unk_100071520;
+      v24 = v2;
+      v25 = *(a1 + 32);
+      v32 = v24;
+      v33 = v25;
+      v35 = *(a1 + 56);
+      v34 = &v37;
+      [v23 enumerateKeysAndObjectsUsingBlock:v31];
+      v26 = [*(a1 + 32) workQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_110;
       block[3] = &unk_100071548;
-      v24 = *(a1 + 32);
-      v27 = &v34;
-      block[4] = v24;
-      v26 = *(a1 + 48);
-      dispatch_group_notify(v21, v23, block);
+      v27 = *(a1 + 32);
+      v30 = &v37;
+      block[4] = v27;
+      v29 = *(a1 + 48);
+      dispatch_group_notify(v24, v26, block);
 
-      dispatch_group_leave(v21);
-      v19 = v29;
-LABEL_15:
+      dispatch_group_leave(v24);
+      v22 = v32;
+LABEL_24:
 
-      goto LABEL_16;
+      goto LABEL_25;
     }
 
-    v13 = [*(a1 + 32) logHandle];
+    v15 = [*(a1 + 32) logHandle];
 
-    if (v13)
+    if (v15)
     {
-      v14 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
-      v40 = 67109120;
-      v41 = v12;
-      v11 = _os_log_send_and_compose_impl();
+      v16 = [*(a1 + 32) logHandle];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        v17 = 3;
+      }
+
+      else
+      {
+        v17 = 2;
+      }
+
+      v43 = 67109120;
+      v44 = v14;
+      v13 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, v16, 16, "Setting kernel flag failed. %{darwin.errno}d", &v43, 8);
     }
 
     else
     {
-      v40 = 67109120;
-      v41 = v12;
-      v11 = _os_log_send_and_compose_impl();
+      v43 = 67109120;
+      v44 = v14;
+      v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Setting kernel flag failed. %{darwin.errno}d", &v43, 8);
     }
 
-    v15 = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 435, "com.apple.security.cryptex.posix", v12, 0, v11);
+    v18 = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 435, "com.apple.security.cryptex.posix", v14, 0, v13);
   }
 
   else
   {
-    v9 = [*(a1 + 32) logHandle];
+    v10 = [*(a1 + 32) logHandle];
 
-    if (v9)
+    if (v10)
     {
-      v10 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      LOWORD(v40) = 0;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = [*(a1 + 32) logHandle];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      LOWORD(v43) = 0;
+      v13 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, v11, 16, "No one has locked the upgrade interface.", &v43, 2);
     }
 
     else
     {
-      LOWORD(v40) = 0;
-      v11 = _os_log_send_and_compose_impl();
+      LOWORD(v43) = 0;
+      v13 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "No one has locked the upgrade interface.", &v43, 2);
     }
 
-    v15 = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 393, "com.apple.security.cryptex", 11, 0, v11);
+    v18 = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 393, "com.apple.security.cryptex", 11, 0, v13);
   }
 
-  v16 = v15;
-  free(v11);
-  v17 = v35[5];
-  v35[5] = v16;
+  v19 = v18;
+  free(v13);
+  v20 = v38[5];
+  v38[5] = v19;
 
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v35[5]);
-LABEL_16:
+  (*(*(a1 + 48) + 16))();
+LABEL_25:
 
-  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v37, 8);
 }
 
 void __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -288,22 +314,33 @@ void __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion_
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v12 = [*(a1 + 32) logHandle];
+    v13 = [*(a1 + 32) logHandle];
 
-    if (v12)
+    if (v13)
     {
-      v13 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
-      v11 = _os_log_send_and_compose_impl();
+      v14 = [*(a1 + 32) logHandle];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v23[0] = 0;
+      v12 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v14, 16, "Invalid cryptex name.", v23, 2);
     }
 
     else
     {
-      v11 = _os_log_send_and_compose_impl();
+      v22[0] = 0;
+      v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Invalid cryptex name.", v22, 2);
     }
 
-    Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 407, "com.apple.security.cryptex", 11, 0, v11);
-    goto LABEL_11;
+    Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 407, "com.apple.security.cryptex", 11, 0, v12);
+    goto LABEL_17;
   }
 
   objc_opt_class();
@@ -314,22 +351,33 @@ void __72__UpgradeSequencer_startUpgradeForCryptexes_killingJobs_withCompletion_
     if (v9)
     {
       v10 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      v11 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      v21[0] = 0;
+      v12 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v10, 16, "Invalid path.", v21, 2);
     }
 
     else
     {
-      v11 = _os_log_send_and_compose_impl();
+      v20[0] = 0;
+      v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Invalid path.", v20, 2);
     }
 
-    Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 415, "com.apple.security.cryptex", 11, 0, v11);
-LABEL_11:
-    v15 = Error;
-    free(v11);
-    v16 = *(*(a1 + 40) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    Error = createError("[UpgradeSequencer startUpgradeForCryptexes:killingJobs:withCompletion:]_block_invoke", "upgrade_sequencer.m", 415, "com.apple.security.cryptex", 11, 0, v12);
+LABEL_17:
+    v17 = Error;
+    free(v12);
+    v18 = *(*(a1 + 40) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
     *a4 = 1;
   }
@@ -495,22 +543,33 @@ void __63__UpgradeSequencer_onUpgradeCompleteForCryptex_withCompletion___block_i
     if (v6)
     {
       v7 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-      v8 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v12[0] = 0;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v7, 16, "No upgrades underway for this cryptex.", v12, 2);
     }
 
     else
     {
-      v8 = _os_log_send_and_compose_impl();
+      v11[0] = 0;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "No upgrades underway for this cryptex.", v11, 2);
     }
 
-    Error = createError("[UpgradeSequencer onUpgradeCompleteForCryptex:withCompletion:]_block_invoke", "upgrade_sequencer.m", 497, "com.apple.security.cryptex", 8, 0, v8);
-    free(v8);
-    (*(*(a1 + 48) + 16))(*(a1 + 48), Error);
+    Error = createError("[UpgradeSequencer onUpgradeCompleteForCryptex:withCompletion:]_block_invoke", "upgrade_sequencer.m", 497, "com.apple.security.cryptex", 8, 0, v9);
+    free(v9);
+    (*(*(a1 + 48) + 16))();
   }
 
-  v9 = [*(a1 + 32) workQueue];
-  dispatch_resume(v9);
+  v10 = [*(a1 + 32) workQueue];
+  dispatch_resume(v10);
 }
 
 - (void)onUpgradeSessionComplete:(id)complete
@@ -561,7 +620,7 @@ void __58__UpgradeSequencer_lockInterfaceForClient_withCompletion___block_invoke
   if (v5)
   {
     buffer = *"unknown";
-    v63 = *&qword_100059128;
+    v65 = *&qword_100059128;
     v6 = [*(a1 + 32) lockingClient];
     v7 = [v6 conn];
     pid = xpc_connection_get_pid(v7);
@@ -572,243 +631,261 @@ void __58__UpgradeSequencer_lockInterfaceForClient_withCompletion___block_invoke
     if (v9)
     {
       v10 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      v11 = [*(a1 + 32) lockingClient];
-      v12 = [v11 conn];
-      if (v12)
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v2 = [*(a1 + 32) lockingClient];
-        v3 = [v2 conn];
-        v13 = xpc_connection_get_pid(v3);
+        v11 = 3;
       }
 
       else
       {
-        v13 = -1;
+        v11 = 2;
+      }
+
+      v12 = [*(a1 + 32) lockingClient];
+      v13 = [v12 conn];
+      if (v13)
+      {
+        v2 = [*(a1 + 32) lockingClient];
+        v3 = [v2 conn];
+        v14 = xpc_connection_get_pid(v3);
+      }
+
+      else
+      {
+        v14 = -1;
       }
 
       *buf = 136315650;
       p_buffer = &buffer;
-      v58 = 1024;
-      v59 = v13;
       v60 = 1024;
-      LODWORD(v61) = 16;
-      v36 = _os_log_send_and_compose_impl();
-      if (v12)
+      v61 = v14;
+      v62 = 1024;
+      LODWORD(v63) = 16;
+      v38 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, v10, 16, "XPC client <process=%s pid=%d>: already holding lock on upgrade interface %{darwin.errno}d", buf, 24);
+      if (v13)
       {
       }
     }
 
     else
     {
-      v24 = &_os_log_default;
-      v25 = [*(a1 + 32) lockingClient];
-      v26 = [v25 conn];
-      if (v26)
+      v25 = &_os_log_default;
+      v26 = [*(a1 + 32) lockingClient];
+      v27 = [v26 conn];
+      if (v27)
       {
         v1 = [*(a1 + 32) lockingClient];
         v2 = [v1 conn];
-        v27 = xpc_connection_get_pid(v2);
+        v28 = xpc_connection_get_pid(v2);
       }
 
       else
       {
-        v27 = -1;
+        v28 = -1;
       }
 
       *buf = 136315650;
       p_buffer = &buffer;
-      v58 = 1024;
-      v59 = v27;
       v60 = 1024;
-      LODWORD(v61) = 16;
-      v36 = _os_log_send_and_compose_impl();
-      if (v26)
+      v61 = v28;
+      v62 = 1024;
+      LODWORD(v63) = 16;
+      v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "XPC client <process=%s pid=%d>: already holding lock on upgrade interface %{darwin.errno}d", buf, 24);
+      if (v27)
       {
       }
 
       v10 = &_os_log_default;
     }
 
-    Error = createError("[UpgradeSequencer lockInterfaceForClient:withCompletion:]_block_invoke", "upgrade_sequencer.m", 524, "com.apple.security.cryptex.posix", 16, 0, v36);
+    Error = createError("[UpgradeSequencer lockInterfaceForClient:withCompletion:]_block_invoke", "upgrade_sequencer.m", 524, "com.apple.security.cryptex.posix", 16, 0, v38);
   }
 
   else
   {
     if (cryptex_xpc_connection_is_entitled(*(a1 + 40), "com.apple.private.security.cryptex.upgrade"))
     {
-      v14 = *(a1 + 40);
-      v15 = [*(a1 + 32) workQueue];
-      xpc_connection_set_target_queue(v14, v15);
+      v15 = *(a1 + 40);
+      v16 = [*(a1 + 32) workQueue];
+      xpc_connection_set_target_queue(v15, v16);
 
-      v16 = [UpgradeClient alloc];
-      v17 = *(a1 + 40);
-      v18 = [*(a1 + 32) logHandle];
-      v19 = [(UpgradeClient *)v16 initWithConn:v17 log:v18];
-      [*(a1 + 32) setLockingClient:v19];
-
-      v20 = [*(a1 + 32) lockingClient];
-      v55[0] = _NSConcreteStackBlock;
-      v55[1] = 3221225472;
-      v55[2] = __58__UpgradeSequencer_lockInterfaceForClient_withCompletion___block_invoke_2;
-      v55[3] = &unk_100071418;
-      v55[4] = *(a1 + 32);
-      [v20 onCancel:v55];
+      v17 = [UpgradeClient alloc];
+      v18 = *(a1 + 40);
+      v19 = [*(a1 + 32) logHandle];
+      v20 = [(UpgradeClient *)v17 initWithConn:v18 log:v19];
+      [*(a1 + 32) setLockingClient:v20];
 
       v21 = [*(a1 + 32) lockingClient];
-      [v21 activate];
+      v57[0] = _NSConcreteStackBlock;
+      v57[1] = 3221225472;
+      v57[2] = __58__UpgradeSequencer_lockInterfaceForClient_withCompletion___block_invoke_2;
+      v57[3] = &unk_100071418;
+      v57[4] = *(a1 + 32);
+      [v21 onCancel:v57];
 
-      v22 = [*(a1 + 32) workQueue];
+      v22 = [*(a1 + 32) lockingClient];
+      [v22 activate];
+
+      v23 = [*(a1 + 32) workQueue];
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = __58__UpgradeSequencer_lockInterfaceForClient_withCompletion___block_invoke_3;
       block[3] = &unk_100071418;
       block[4] = *(a1 + 32);
-      dispatch_async(v22, block);
+      dispatch_async(v23, block);
 
-      v23 = 0;
-      goto LABEL_33;
+      v24 = 0;
+      goto LABEL_39;
     }
 
     buffer = *"unknown";
-    v63 = *&qword_100059128;
-    v28 = [*(a1 + 32) lockingClient];
-    v29 = [v28 conn];
-    v30 = xpc_connection_get_pid(v29);
-    proc_name(v30, &buffer, 0x20u);
+    v65 = *&qword_100059128;
+    v29 = [*(a1 + 32) lockingClient];
+    v30 = [v29 conn];
+    v31 = xpc_connection_get_pid(v30);
+    proc_name(v31, &buffer, 0x20u);
 
-    v31 = [*(a1 + 32) logHandle];
+    v32 = [*(a1 + 32) logHandle];
 
-    if (v31)
+    if (v32)
     {
-      v32 = [*(a1 + 32) logHandle];
-      os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-      v33 = [*(a1 + 32) lockingClient];
-      v34 = [v33 conn];
-      if (v34)
+      v33 = [*(a1 + 32) logHandle];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      {
+        v34 = 3;
+      }
+
+      else
+      {
+        v34 = 2;
+      }
+
+      v35 = [*(a1 + 32) lockingClient];
+      v36 = [v35 conn];
+      if (v36)
       {
         v2 = [*(a1 + 32) lockingClient];
         v3 = [v2 conn];
-        v35 = xpc_connection_get_pid(v3);
+        v37 = xpc_connection_get_pid(v3);
       }
 
       else
       {
-        v35 = -1;
+        v37 = -1;
       }
 
       *buf = 136315650;
       p_buffer = &buffer;
-      v58 = 1024;
-      v59 = v35;
       v60 = 1024;
-      LODWORD(v61) = 144;
-      v36 = _os_log_send_and_compose_impl();
-      if (v34)
+      v61 = v37;
+      v62 = 1024;
+      LODWORD(v63) = 144;
+      v38 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &_mh_execute_header, v33, 16, "XPC client <process=%s pid=%d>: Client not appropriately entitled. %{darwin.errno}d", buf, 24);
+      if (v36)
       {
       }
     }
 
     else
     {
-      v38 = &_os_log_default;
-      v39 = [*(a1 + 32) lockingClient];
-      v40 = [v39 conn];
-      if (v40)
+      v40 = &_os_log_default;
+      v41 = [*(a1 + 32) lockingClient];
+      v42 = [v41 conn];
+      if (v42)
       {
         v1 = [*(a1 + 32) lockingClient];
         v2 = [v1 conn];
-        v41 = xpc_connection_get_pid(v2);
+        v43 = xpc_connection_get_pid(v2);
       }
 
       else
       {
-        v41 = -1;
+        v43 = -1;
       }
 
       *buf = 136315650;
       p_buffer = &buffer;
-      v58 = 1024;
-      v59 = v41;
       v60 = 1024;
-      LODWORD(v61) = 144;
-      v36 = _os_log_send_and_compose_impl();
-      if (v40)
+      v61 = v43;
+      v62 = 1024;
+      LODWORD(v63) = 144;
+      v38 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "XPC client <process=%s pid=%d>: Client not appropriately entitled. %{darwin.errno}d", buf, 24);
+      if (v42)
       {
       }
 
-      v32 = &_os_log_default;
+      v33 = &_os_log_default;
     }
 
-    Error = createError("[UpgradeSequencer lockInterfaceForClient:withCompletion:]_block_invoke", "upgrade_sequencer.m", 534, "com.apple.security.cryptex.posix", 144, 0, v36);
+    Error = createError("[UpgradeSequencer lockInterfaceForClient:withCompletion:]_block_invoke", "upgrade_sequencer.m", 534, "com.apple.security.cryptex.posix", 144, 0, v38);
   }
 
-  v23 = Error;
-  free(v36);
-LABEL_33:
+  v24 = Error;
+  free(v38);
+LABEL_39:
   buffer = *"unknown";
-  v63 = *&qword_100059128;
-  v42 = xpc_connection_get_pid(*(a1 + 40));
-  proc_name(v42, &buffer, 0x20u);
-  v43 = *__error();
-  v44 = [*(a1 + 32) logHandle];
-  v45 = v44;
-  if (v23)
+  v65 = *&qword_100059128;
+  v44 = xpc_connection_get_pid(*(a1 + 40));
+  proc_name(v44, &buffer, 0x20u);
+  v45 = *__error();
+  v46 = [*(a1 + 32) logHandle];
+  v47 = v46;
+  if (v24)
   {
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v46 = *(a1 + 40);
-      if (v46)
+      v48 = *(a1 + 40);
+      if (v48)
       {
-        v47 = xpc_connection_get_pid(v46);
+        v49 = xpc_connection_get_pid(v48);
       }
 
       else
       {
-        v47 = -1;
+        v49 = -1;
       }
 
       *buf = 136315650;
       p_buffer = &buffer;
-      v58 = 1024;
-      v59 = v47;
-      v60 = 2112;
-      v61 = v23;
-      v50 = "XPC client <process=%s pid=%d>: lock upgrade interface: %@";
-      v51 = v45;
-      v52 = OS_LOG_TYPE_ERROR;
-      v53 = 28;
-LABEL_44:
-      _os_log_impl(&_mh_execute_header, v51, v52, v50, buf, v53);
+      v60 = 1024;
+      v61 = v49;
+      v62 = 2112;
+      v63 = v24;
+      v52 = "XPC client <process=%s pid=%d>: lock upgrade interface: %@";
+      v53 = v47;
+      v54 = OS_LOG_TYPE_ERROR;
+      v55 = 28;
+LABEL_50:
+      _os_log_impl(&_mh_execute_header, v53, v54, v52, buf, v55);
     }
   }
 
-  else if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+  else if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
-    v48 = *(a1 + 40);
-    if (v48)
+    v50 = *(a1 + 40);
+    if (v50)
     {
-      v49 = xpc_connection_get_pid(v48);
+      v51 = xpc_connection_get_pid(v50);
     }
 
     else
     {
-      v49 = -1;
+      v51 = -1;
     }
 
     *buf = 136315394;
     p_buffer = &buffer;
-    v58 = 1024;
-    v59 = v49;
-    v50 = "XPC client <process=%s pid=%d>: lock upgrade interface [no error]";
-    v51 = v45;
-    v52 = OS_LOG_TYPE_DEBUG;
-    v53 = 18;
-    goto LABEL_44;
+    v60 = 1024;
+    v61 = v51;
+    v52 = "XPC client <process=%s pid=%d>: lock upgrade interface [no error]";
+    v53 = v47;
+    v54 = OS_LOG_TYPE_DEBUG;
+    v55 = 18;
+    goto LABEL_50;
   }
 
-  *__error() = v43;
-  (*(*(a1 + 48) + 16))(*(a1 + 48), v23);
+  *__error() = v45;
+  (*(*(a1 + 48) + 16))();
 }
 
 - (BOOL)lockIsHeldByClient:(_rpc_cred *)client
@@ -898,17 +975,30 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
     if (logHandle)
     {
       logHandle2 = [(UpgradeSequencer *)self logHandle];
-      os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR);
-      v8 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
+      {
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      v17 = 67109120;
+      v18 = v5;
+      v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, logHandle2, 16, "Clearing kernel flag failed. %{darwin.errno}d", &v17, 8);
     }
 
     else
     {
-      v8 = _os_log_send_and_compose_impl();
+      v17 = 67109120;
+      v18 = v5;
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Clearing kernel flag failed. %{darwin.errno}d", &v17, 8);
     }
 
-    Error = createError("[UpgradeSequencer _completeUpgradeSession]", "upgrade_sequencer.m", 611, "com.apple.security.cryptex.posix", v5, 0, v8);
-    free(v8);
+    Error = createError("[UpgradeSequencer _completeUpgradeSession]", "upgrade_sequencer.m", 611, "com.apple.security.cryptex.posix", v5, 0, v9);
+    free(v9);
   }
 
   else
@@ -921,17 +1011,30 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
       if (logHandle3)
       {
         logHandle4 = [(UpgradeSequencer *)self logHandle];
-        os_log_type_enabled(logHandle4, OS_LOG_TYPE_ERROR);
-        v12 = _os_log_send_and_compose_impl();
+        if (os_log_type_enabled(logHandle4, OS_LOG_TYPE_ERROR))
+        {
+          v13 = 3;
+        }
+
+        else
+        {
+          v13 = 2;
+        }
+
+        v17 = 67109120;
+        v18 = 26;
+        v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, logHandle4, 16, "Failed to unlock upgrade interface. %{darwin.errno}d", &v17, 8);
       }
 
       else
       {
-        v12 = _os_log_send_and_compose_impl();
+        v17 = 67109120;
+        v18 = 26;
+        v14 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Failed to unlock upgrade interface. %{darwin.errno}d", &v17, 8);
       }
 
-      Error = createError("[UpgradeSequencer _completeUpgradeSession]", "upgrade_sequencer.m", 620, "com.apple.security.cryptex.posix", 26, _unlockInterface, v12);
-      free(v12);
+      Error = createError("[UpgradeSequencer _completeUpgradeSession]", "upgrade_sequencer.m", 620, "com.apple.security.cryptex.posix", 26, _unlockInterface, v14);
+      free(v14);
     }
 
     else
@@ -1137,29 +1240,37 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
     if (logHandle)
     {
       logHandle2 = [(UpgradeSequencer *)self logHandle];
-      os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR);
+      if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
+      {
+        v13 = 3;
+      }
+
+      else
+      {
+        v13 = 2;
+      }
+
       lockingClient2 = [(UpgradeSequencer *)self lockingClient];
       conn2 = [lockingClient2 conn];
       if (conn2)
       {
         lockingClient3 = [(UpgradeSequencer *)self lockingClient];
         conn3 = [lockingClient3 conn];
-        v15 = xpc_connection_get_pid(conn3);
+        v16 = xpc_connection_get_pid(conn3);
       }
 
       else
       {
-        v15 = -1;
+        v16 = -1;
       }
 
       v24 = 136315650;
       v25 = buffer;
       v26 = 1024;
-      v27 = v15;
+      v27 = v16;
       v28 = 1024;
       v29 = 60;
-      LODWORD(v23) = 24;
-      v21 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, logHandle2, 16, "XPC client <process=%s pid=%d>: Upgrade interface lock timed out. %{darwin.errno}d", &v24, 24);
       if (conn2)
       {
       }
@@ -1167,29 +1278,28 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
 
     else
     {
-      v17 = &_os_log_default;
+      v18 = &_os_log_default;
       lockingClient4 = [(UpgradeSequencer *)self lockingClient];
       conn4 = [lockingClient4 conn];
       if (conn4)
       {
         lockingClient5 = [(UpgradeSequencer *)self lockingClient];
         lockingClient3 = [lockingClient5 conn];
-        v20 = xpc_connection_get_pid(lockingClient3);
+        v21 = xpc_connection_get_pid(lockingClient3);
       }
 
       else
       {
-        v20 = -1;
+        v21 = -1;
       }
 
       v24 = 136315650;
       v25 = buffer;
       v26 = 1024;
-      v27 = v20;
+      v27 = v21;
       v28 = 1024;
       v29 = 60;
-      LODWORD(v23) = 24;
-      v21 = _os_log_send_and_compose_impl();
+      v22 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "XPC client <process=%s pid=%d>: Upgrade interface lock timed out. %{darwin.errno}d", &v24, 24);
       if (conn4)
       {
       }
@@ -1197,17 +1307,17 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
       logHandle2 = &_os_log_default;
     }
 
-    Error = createError("[UpgradeSequencer _timeout]", "upgrade_sequencer.m", 697, "com.apple.security.cryptex.posix", 60, 0, v21);
-    free(v21);
-    v16 = [(UpgradeSequencer *)self _completeUpgradeWithError:Error, &v24, v23];
+    Error = createError("[UpgradeSequencer _timeout]", "upgrade_sequencer.m", 697, "com.apple.security.cryptex.posix", 60, 0, v22);
+    free(v22);
+    v17 = [(UpgradeSequencer *)self _completeUpgradeWithError:Error];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)_abort
@@ -1216,11 +1326,11 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
   dispatch_assert_queue_V2(workQueue);
 
   v9[0] = 0;
-  LODWORD(v8) = 2;
-  v4 = _os_log_send_and_compose_impl();
+  v8 = 2;
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Cryptex upgrade was aborted.", v9, v8);
   Error = createError("[UpgradeSequencer _abort]", "upgrade_sequencer.m", 712, "com.apple.security.cryptex", 27, 0, v4);
   free(v4);
-  v6 = [(UpgradeSequencer *)self _completeUpgradeWithError:Error, v9, v8];
+  v6 = [(UpgradeSequencer *)self _completeUpgradeWithError:Error];
 
   return v6;
 }
@@ -1244,17 +1354,30 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
     if (logHandle)
     {
       logHandle2 = [(UpgradeSequencer *)self logHandle];
-      os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR);
-      v18 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_ERROR))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v30 = 138543362;
+      v31 = cryptexCopy;
+      v19 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, logHandle2, 16, "Upgrade is already underway for cryptex '%{public}@'", &v30, 12);
     }
 
     else
     {
-      v18 = _os_log_send_and_compose_impl();
+      v30 = 138543362;
+      v31 = cryptexCopy;
+      v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Upgrade is already underway for cryptex '%{public}@'", &v30, 12);
     }
 
-    Error = createError("[UpgradeSequencer _startUpgradeForCryptex:withGraftPath:killingJobs:withCompletion:]", "upgrade_sequencer.m", 732, "com.apple.security.cryptex", 29, 0, v18);
-    free(v18);
+    Error = createError("[UpgradeSequencer _startUpgradeForCryptex:withGraftPath:killingJobs:withCompletion:]", "upgrade_sequencer.m", 732, "com.apple.security.cryptex", 29, 0, v19);
+    free(v19);
     completionCopy[2](completionCopy, Error);
   }
 
@@ -1263,17 +1386,17 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
     Error = 0;
   }
 
-  v20 = [[UpgradeOperation alloc] initWithCryptexName:cryptexCopy graftPath:pathCopy];
-  v21 = v20;
-  if (v20)
+  v21 = [[UpgradeOperation alloc] initWithCryptexName:cryptexCopy graftPath:pathCopy];
+  v22 = v21;
+  if (v21)
   {
-    [(UpgradeOperation *)v20 startUpgrade];
+    [(UpgradeOperation *)v21 startUpgrade];
     upgradesUnderway2 = [(UpgradeSequencer *)self upgradesUnderway];
-    [upgradesUnderway2 setObject:v21 forKeyedSubscript:cryptexCopy];
+    [upgradesUnderway2 setObject:v22 forKeyedSubscript:cryptexCopy];
 
     if (jobsCopy)
     {
-      [(UpgradeOperation *)v21 terminateJobsWithCompletion:completionCopy];
+      [(UpgradeOperation *)v22 terminateJobsWithCompletion:completionCopy];
     }
 
     else
@@ -1281,7 +1404,7 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
       completionCopy[2](completionCopy, 0);
     }
 
-    v26 = Error;
+    v28 = Error;
   }
 
   else
@@ -1291,19 +1414,32 @@ void __40__UpgradeSequencer_abortWithCompletion___block_invoke(uint64_t a1)
     if (logHandle3)
     {
       logHandle4 = [(UpgradeSequencer *)self logHandle];
-      os_log_type_enabled(logHandle4, OS_LOG_TYPE_ERROR);
-      v25 = _os_log_send_and_compose_impl();
+      if (os_log_type_enabled(logHandle4, OS_LOG_TYPE_ERROR))
+      {
+        v26 = 3;
+      }
+
+      else
+      {
+        v26 = 2;
+      }
+
+      LOWORD(v30) = 0;
+      LODWORD(v29) = 2;
+      v27 = _os_log_send_and_compose_impl(v26, 0, 0, 0, &_mh_execute_header, logHandle4, 16, "Failed to allocate upgrade object.", &v30, v29);
     }
 
     else
     {
-      v25 = _os_log_send_and_compose_impl();
+      LOWORD(v30) = 0;
+      LODWORD(v29) = 2;
+      v27 = _os_log_send_and_compose_impl(2, 0, 0, 0, &_mh_execute_header, &_os_log_default, 16, "Failed to allocate upgrade object.", &v30, v29);
     }
 
-    v26 = createError("[UpgradeSequencer _startUpgradeForCryptex:withGraftPath:killingJobs:withCompletion:]", "upgrade_sequencer.m", 742, "com.apple.security.cryptex", 24, 0, v25);
-    free(v25);
+    v28 = createError("[UpgradeSequencer _startUpgradeForCryptex:withGraftPath:killingJobs:withCompletion:]", "upgrade_sequencer.m", 742, "com.apple.security.cryptex", 24, 0, v27);
+    free(v27);
 
-    completionCopy[2](completionCopy, v26);
+    completionCopy[2](completionCopy, v28);
   }
 }
 

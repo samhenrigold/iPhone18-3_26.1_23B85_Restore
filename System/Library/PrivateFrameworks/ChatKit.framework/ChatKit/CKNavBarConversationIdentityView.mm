@@ -50,7 +50,7 @@
 {
   v5 = *(self + OBJC_IVAR___CKNavBarConversationIdentityView_conversation);
   *(self + OBJC_IVAR___CKNavBarConversationIdentityView_conversation) = conversation;
-  sub_1902188FC(0, &qword_1EAD466B0);
+  sub_1902188FC(0, &qword_1EAD466B0, off_1E72E4B40);
   conversationCopy = conversation;
   selfCopy = self;
   if ((sub_190D57D90() & 1) == 0)
@@ -158,7 +158,7 @@
 
 - (void)preferredContentSizeCategoryDidChangeWithView:(id)view previousTraitCollection:(id)collection
 {
-  sub_1902188FC(0, &qword_1EAD46500);
+  sub_1902188FC(0, &qword_1EAD46500, 0x1E69E58C0);
   viewCopy = view;
   selfCopy = self;
   if (sub_190D57D90())

@@ -1,5 +1,6 @@
 @interface NPKProtoStandalonePaymentPass
 - (BOOL)isEqual:(id)equal;
+- (id)activationStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,53 @@
   {
     return 100;
   }
+}
+
+- (id)activationStateAsString:(int)string
+{
+  if (string <= 119)
+  {
+    if (string == 100)
+    {
+      v4 = @"Activated";
+    }
+
+    else
+    {
+      if (string != 110)
+      {
+LABEL_22:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"RequiresActivation";
+    }
+  }
+
+  else
+  {
+    switch(string)
+    {
+      case 120:
+        v4 = @"Activating";
+
+        break;
+      case 130:
+        v4 = @"Suspended";
+
+        break;
+      case 140:
+        v4 = @"Deactivated";
+
+        return v4;
+      default:
+        goto LABEL_22;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsActivationState:(id)state
@@ -168,7 +216,7 @@ LABEL_25:
     [NPKProtoStandalonePaymentPass writeTo:];
   }
 
-  v7 = toCopy;
+  v6 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_primaryAccountIdentifier)
   {
@@ -180,30 +228,29 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v5 = v7;
+  v5 = v6;
   if (self->_deviceAccountIdentifier)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_deviceAccountNumberSuffix)
   {
     PBDataWriterWriteStringField();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (*&self->_has)
   {
-    activationState = self->_activationState;
     PBDataWriterWriteInt32Field();
-    v5 = v7;
+    v5 = v6;
   }
 
   if (self->_devicePrimaryPaymentApplication)
   {
     PBDataWriterWriteSubmessage();
-    v5 = v7;
+    v5 = v6;
   }
 }
 
@@ -336,7 +383,6 @@ LABEL_25:
     }
   }
 
-  v10 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((*(equalCopy + 64) & 1) == 0 || self->_activationState != *(equalCopy + 2))
@@ -348,24 +394,24 @@ LABEL_25:
   else if (*(equalCopy + 64))
   {
 LABEL_19:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_20;
   }
 
   devicePrimaryPaymentApplication = self->_devicePrimaryPaymentApplication;
   if (devicePrimaryPaymentApplication | *(equalCopy + 4))
   {
-    v12 = [(NPKProtoStandalonePaymentApplication *)devicePrimaryPaymentApplication isEqual:?];
+    v11 = [(NPKProtoStandalonePaymentApplication *)devicePrimaryPaymentApplication isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_20:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

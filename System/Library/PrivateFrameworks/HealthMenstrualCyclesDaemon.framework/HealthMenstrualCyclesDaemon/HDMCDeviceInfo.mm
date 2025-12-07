@@ -23,37 +23,37 @@
 
 + (id)deviceInfoFromStorageGroup:(id)group
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   groupCopy = group;
   storageEntries = [groupCopy storageEntries];
-  v4 = [storageEntries countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v4 = [storageEntries countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (!v4)
   {
     v6 = 0;
     v7 = 0;
-    v26 = 0;
+    v25 = 0;
     goto LABEL_17;
   }
 
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v26 = 0;
-  v8 = *v28;
+  v25 = 0;
+  v8 = *v27;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v28 != v8)
+      if (*v27 != v8)
       {
         objc_enumerationMutation(storageEntries);
       }
 
-      v10 = *(*(&v27 + 1) + 8 * i);
+      v10 = *(*(&v26 + 1) + 8 * i);
       v11 = [v10 key];
       v12 = [v11 isEqualToString:@"DayStreamProcessorAlgorithmVersion"];
 
@@ -87,13 +87,13 @@
           }
 
           v20 = [v10 numberValue:0];
-          v14 = v26;
-          v26 = v20;
+          v14 = v25;
+          v25 = v20;
         }
       }
     }
 
-    v5 = [storageEntries countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v5 = [storageEntries countByEnumeratingWithState:&v26 objects:v30 count:16];
   }
 
   while (v5);
@@ -102,19 +102,17 @@ LABEL_17:
   v21 = 0;
   if (v6)
   {
-    v22 = v26;
-    if (v7 && v26)
+    v22 = v25;
+    if (v7 && v25)
     {
-      v21 = -[HDMCDeviceInfo initWithDayStreamProcessorAlgorithmVersion:menstruationNotificationsEnabled:fertileWindowNotificationsEnabled:]([HDMCDeviceInfo alloc], "initWithDayStreamProcessorAlgorithmVersion:menstruationNotificationsEnabled:fertileWindowNotificationsEnabled:", [v6 integerValue], objc_msgSend(v7, "BOOLValue"), objc_msgSend(v26, "BOOLValue"));
+      v21 = -[HDMCDeviceInfo initWithDayStreamProcessorAlgorithmVersion:menstruationNotificationsEnabled:fertileWindowNotificationsEnabled:]([HDMCDeviceInfo alloc], "initWithDayStreamProcessorAlgorithmVersion:menstruationNotificationsEnabled:fertileWindowNotificationsEnabled:", [v6 integerValue], objc_msgSend(v7, "BOOLValue"), objc_msgSend(v25, "BOOLValue"));
     }
   }
 
   else
   {
-    v22 = v26;
+    v22 = v25;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

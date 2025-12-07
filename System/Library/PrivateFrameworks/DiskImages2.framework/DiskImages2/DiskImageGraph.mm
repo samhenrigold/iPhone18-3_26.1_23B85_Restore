@@ -10,10 +10,16 @@
 + (id)getFirstNonCacheAncestorWithNode:(id)node error:(id *)error;
 + (id)getImageInfoDictWithURL:(id)l error:(id *)error;
 + (id)getImageUUIDStrWithIdentityInfo:(id)info stackableUUIDFallback:(BOOL)fallback error:(id *)error;
++ (id)getImageUUIDWithURL:(id)l allowMissingUUID:(BOOL)d error:(id *)error;
 - (BOOL)appendCacheWithURL:(id)l tag:(id)tag error:(id *)error;
 - (BOOL)appendOverlayWithURL:(id)l tag:(id)tag error:(id *)error;
 - (BOOL)appendOverlayWithURL:(id)l tag:(id)tag numBlocks:(unint64_t)blocks error:(id *)error;
+- (BOOL)appendWithURL:(id)l isCache:(BOOL)cache tag:(id)tag numBlocks:(unint64_t)blocks setNewActive:(BOOL)active error:(id *)error;
+- (BOOL)appendWithURL:(id)l isCache:(BOOL)cache tag:(id)tag numBlocks:(unint64_t)blocks toNode:(id)node setNewActive:(BOOL)active error:(id *)error;
 - (BOOL)checkStackValidityWithError:(id *)error;
+- (BOOL)removeNodeWithTag:(id)tag recursive:(BOOL)recursive error:(id *)error;
+- (BOOL)removeNodeWithUUID:(id)d recursive:(BOOL)recursive error:(id *)error;
+- (BOOL)removeWithNode:(id)node recursive:(BOOL)recursive error:(id *)error;
 - (BOOL)savePstackWithURL:(id)l error:(id *)error;
 - (BOOL)setActiveNodeWithTag:(id)tag error:(id *)error;
 - (BOOL)setActiveNodeWithUUID:(id)d error:(id *)error;
@@ -25,9 +31,11 @@
 - (DiskImageGraph)initWithPstackURL:(id)l error:(id *)error;
 - (DiskImageGraphNode)rootNode;
 - (NSMutableArray)imagesDictsArray;
+- (id)activeInfoWithExtra:(BOOL)extra error:(id *)error;
 - (id)cloneToURL:(id)l error:(id *)error;
 - (id)getImageWithTag:(id)tag error:(id *)error;
 - (id)getImageWithUUID:(id)d error:(id *)error;
+- (id)infoWithExtra:(BOOL)extra error:(id *)error;
 - (void)setActiveNode:(id)node;
 @end
 
@@ -35,7 +43,7 @@
 
 + (BOOL)loadPlistDictFromFileHandle:(id)handle dict:(id *)dict error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = [handle readDataUpToLength:0x100000 error:error];
   if (v7)
   {
@@ -52,41 +60,51 @@
           v10 = v8;
           *dict = v8;
           v11 = 1;
-LABEL_15:
+LABEL_18:
 
-          goto LABEL_16;
+          goto LABEL_19;
         }
 
         v12 = *__error();
-        if (DIForwardLogs())
+        v13 = DIForwardLogs();
+        if (v13)
         {
-          v13 = getDIOSLog();
-          os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-          *buf = 68157954;
-          v21 = 57;
-          v22 = 2080;
-          v23 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
-          LODWORD(v19) = 18;
-          v18 = buf;
-          v14 = _os_log_send_and_compose_impl();
-
-          if (v14)
+          v21 = 0;
+          v15 = getDIOSLog(v13, v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v14);
-            free(v14);
+            v16 = 3;
+          }
+
+          else
+          {
+            v16 = 2;
+          }
+
+          *buf = 68157954;
+          v23 = 57;
+          v24 = 2080;
+          v25 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
+          LODWORD(v20) = 18;
+          v17 = _os_log_send_and_compose_impl(v16, &v21, 0, 0, &dword_248DE0000, v15, 0, "%.*s: A valid plist was given, but it has no pstack version key", buf, v20);
+
+          if (v17)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v17);
+            free(v17);
           }
         }
 
         else
         {
-          v15 = getDIOSLog();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v18 = getDIOSLog(v13, v14);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68157954;
-            v21 = 57;
-            v22 = 2080;
-            v23 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
-            _os_log_impl(&dword_248DE0000, v15, OS_LOG_TYPE_DEFAULT, "%.*s: A valid plist was given, but it has no pstack version key", buf, 0x12u);
+            v23 = 57;
+            v24 = 2080;
+            v25 = "+[DiskImageGraph loadPlistDictFromFileHandle:dict:error:]";
+            _os_log_impl(&dword_248DE0000, v18, OS_LOG_TYPE_DEFAULT, "%.*s: A valid plist was given, but it has no pstack version key", buf, 0x12u);
           }
         }
 
@@ -94,14 +112,13 @@ LABEL_15:
       }
     }
 
-    v11 = [DiskImageGraph failWithNoPstackError:error, v18, v19];
-    goto LABEL_15;
+    v11 = [DiskImageGraph failWithNoPstackError:error];
+    goto LABEL_18;
   }
 
   v11 = 0;
-LABEL_16:
+LABEL_19:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -136,13 +153,13 @@ LABEL_16:
 
 - (DiskImageGraph)initWithPluginName:(id)name pluginParams:(id)params tag:(id)tag error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   paramsCopy = params;
   tagCopy = tag;
-  v33.receiver = self;
-  v33.super_class = DiskImageGraph;
-  v12 = [(DiskImageGraph *)&v33 init];
+  v37.receiver = self;
+  v37.super_class = DiskImageGraph;
+  v12 = [(DiskImageGraph *)&v37 init];
   if (!v12)
   {
     goto LABEL_4;
@@ -152,8 +169,8 @@ LABEL_16:
   if (uUID)
   {
     v14 = uUID;
-    LOBYTE(v32) = 0;
-    v15 = [[PluginDiskImageGraphNode alloc] initWithPluginName:nameCopy pluginParams:paramsCopy tag:tagCopy UUID:uUID parentNode:0 metadata:0 isCache:v32];
+    LOBYTE(v34) = 0;
+    v15 = [[PluginDiskImageGraphNode alloc] initWithPluginName:nameCopy pluginParams:paramsCopy tag:tagCopy UUID:uUID parentNode:0 metadata:0 isCache:v34];
     activeNode = v12->_activeNode;
     v12->_activeNode = &v15->super;
     v17 = v15;
@@ -173,56 +190,67 @@ LABEL_16:
 
 LABEL_4:
     v25 = v12;
-    goto LABEL_12;
+    goto LABEL_15;
   }
 
   v26 = *__error();
-  if (DIForwardLogs())
+  v27 = DIForwardLogs();
+  if (v27)
   {
-    v27 = getDIOSLog();
-    os_log_type_enabled(v27, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v35 = 60;
-    v36 = 2080;
-    v37 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
-    v28 = _os_log_send_and_compose_impl();
-
-    if (v28)
+    v36 = 0;
+    v29 = getDIOSLog(v27, v28);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v28);
-      free(v28);
+      v30 = 3;
+    }
+
+    else
+    {
+      v30 = 2;
+    }
+
+    *buf = 68157954;
+    v39 = 60;
+    v40 = 2080;
+    v41 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
+    LODWORD(v35) = 18;
+    v31 = _os_log_send_and_compose_impl(v30, &v36, 0, 0, &dword_248DE0000, v29, 16, "%.*s: Failed to get UUID info of provided image.", buf, v35);
+
+    if (v31)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v31);
+      free(v31);
     }
   }
 
   else
   {
-    v29 = getDIOSLog();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v32 = getDIOSLog(v27, v28);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v35 = 60;
-      v36 = 2080;
-      v37 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
-      _os_log_impl(&dword_248DE0000, v29, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
+      v39 = 60;
+      v40 = 2080;
+      v41 = "[DiskImageGraph initWithPluginName:pluginParams:tag:error:]";
+      _os_log_impl(&dword_248DE0000, v32, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
     }
   }
 
   v25 = 0;
   *__error() = v26;
-LABEL_12:
+LABEL_15:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (DiskImageGraph)initWithBaseImageURL:(id)l tag:(id)tag error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   lCopy = l;
   tagCopy = tag;
-  v26.receiver = self;
-  v26.super_class = DiskImageGraph;
-  v10 = [(DiskImageGraph *)&v26 init];
+  v30.receiver = self;
+  v30.super_class = DiskImageGraph;
+  v10 = [(DiskImageGraph *)&v30 init];
   if (!v10)
   {
     goto LABEL_4;
@@ -247,45 +275,56 @@ LABEL_12:
 
 LABEL_4:
     v19 = v10;
-    goto LABEL_12;
+    goto LABEL_15;
   }
 
   v20 = *__error();
-  if (DIForwardLogs())
+  v21 = DIForwardLogs();
+  if (v21)
   {
-    v21 = getDIOSLog();
-    os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
-    *buf = 68157954;
-    v28 = 49;
-    v29 = 2080;
-    v30 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
-    v22 = _os_log_send_and_compose_impl();
-
-    if (v22)
+    v29 = 0;
+    v23 = getDIOSLog(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v22);
-      free(v22);
+      v24 = 3;
+    }
+
+    else
+    {
+      v24 = 2;
+    }
+
+    *buf = 68157954;
+    v32 = 49;
+    v33 = 2080;
+    v34 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
+    LODWORD(v28) = 18;
+    v25 = _os_log_send_and_compose_impl(v24, &v29, 0, 0, &dword_248DE0000, v23, 16, "%.*s: Failed to get UUID info of provided image.", buf, v28);
+
+    if (v25)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v25);
+      free(v25);
     }
   }
 
   else
   {
-    v23 = getDIOSLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v26 = getDIOSLog(v21, v22);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 68157954;
-      v28 = 49;
-      v29 = 2080;
-      v30 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
-      _os_log_impl(&dword_248DE0000, v23, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
+      v32 = 49;
+      v33 = 2080;
+      v34 = "[DiskImageGraph initWithBaseImageURL:tag:error:]";
+      _os_log_impl(&dword_248DE0000, v26, OS_LOG_TYPE_ERROR, "%.*s: Failed to get UUID info of provided image.", buf, 0x12u);
     }
   }
 
   v19 = 0;
   *__error() = v20;
-LABEL_12:
+LABEL_15:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -504,7 +543,7 @@ void __51__DiskImageGraph_copyDictNodesToFolder_dict_error___block_invoke(void *
 
 - (id)cloneToURL:(id)l error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v7 = MEMORY[0x277CBEB38];
   graphDB = [(DiskImageGraph *)self graphDB];
@@ -533,29 +572,29 @@ LABEL_15:
 
   selfCopy = self;
   errorCopy = error;
-  v32 = v9;
-  v33 = lCopy;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v31 = v9;
+  v32 = lCopy;
   v36 = 0u;
-  v31 = v11;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v30 = v11;
   obj = v11;
-  v13 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v13 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v36;
+    v15 = *v35;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v36 != v15)
+        if (*v35 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v35 + 1) + 8 * i);
+        v17 = *(*(&v34 + 1) + 8 * i);
         v18 = [v17 mutableCopy];
         v19 = [v17 objectForKeyedSubscript:@"FilePath"];
         v20 = [v19 componentsSeparatedByString:@"/"];
@@ -565,32 +604,30 @@ LABEL_15:
         [v12 addObject:v18];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v14 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
     }
 
     while (v14);
   }
 
   nodes = [(DiskImageGraph *)selfCopy nodes];
-  lCopy = v33;
-  v23 = [DiskImageGraph copyDictNodesToFolder:v33 dict:nodes error:errorCopy];
+  lCopy = v32;
+  v23 = [DiskImageGraph copyDictNodesToFolder:v32 dict:nodes error:errorCopy];
 
   if (v23)
   {
-    v9 = v32;
-    v24 = v32;
+    v9 = v31;
+    v24 = v31;
   }
 
   else
   {
     v24 = 0;
-    v9 = v32;
+    v9 = v31;
   }
 
-  v11 = v31;
+  v11 = v30;
 LABEL_16:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -876,6 +913,137 @@ uint64_t __40__DiskImageGraph_getImageWithTag_error___block_invoke(uint64_t a1, 
   return v5 != 0;
 }
 
+- (BOOL)removeNodeWithUUID:(id)d recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  dCopy = d;
+  nodes = [(DiskImageGraph *)self nodes];
+  uUIDString = [dCopy UUIDString];
+
+  v11 = [nodes objectForKeyedSubscript:uUIDString];
+
+  if (v11)
+  {
+    v12 = [(DiskImageGraph *)self removeWithNode:v11 recursive:recursiveCopy error:error];
+  }
+
+  else
+  {
+    v12 = [DIError failWithPOSIXCode:22 verboseInfo:@"Cannot find image with provided UUID." error:error];
+  }
+
+  v13 = v12;
+
+  return v13;
+}
+
+- (BOOL)removeNodeWithTag:(id)tag recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  v8 = [(DiskImageGraph *)self getImageWithTag:tag error:error];
+  if (v8)
+  {
+    v9 = [(DiskImageGraph *)self removeWithNode:v8 recursive:recursiveCopy error:error];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (BOOL)removeWithNode:(id)node recursive:(BOOL)recursive error:(id *)error
+{
+  recursiveCopy = recursive;
+  v34 = *MEMORY[0x277D85DE8];
+  nodeCopy = node;
+  parent = [nodeCopy parent];
+
+  if (parent)
+  {
+    getDescendants = [nodeCopy getDescendants];
+    if (![getDescendants count] || recursiveCopy)
+    {
+      activeNode = [(DiskImageGraph *)self activeNode];
+      v15 = activeNode;
+      if (activeNode == nodeCopy)
+      {
+      }
+
+      else
+      {
+        activeNode2 = [(DiskImageGraph *)self activeNode];
+        v17 = [getDescendants containsObject:activeNode2];
+
+        if (!v17)
+        {
+          v31 = 0u;
+          v32 = 0u;
+          v29 = 0u;
+          v30 = 0u;
+          mutableChildren = [nodeCopy mutableChildren];
+          v19 = [mutableChildren countByEnumeratingWithState:&v29 objects:v33 count:16];
+          if (v19)
+          {
+            v20 = v19;
+            v21 = *v30;
+            do
+            {
+              for (i = 0; i != v20; ++i)
+              {
+                if (*v30 != v21)
+                {
+                  objc_enumerationMutation(mutableChildren);
+                }
+
+                [(DiskImageGraph *)self removeWithNode:*(*(&v29 + 1) + 8 * i) recursive:recursiveCopy error:0];
+              }
+
+              v20 = [mutableChildren countByEnumeratingWithState:&v29 objects:v33 count:16];
+            }
+
+            while (v20);
+          }
+
+          [nodeCopy deleteImage];
+          imagesDictsArray = [(DiskImageGraph *)self imagesDictsArray];
+          pstackDict = [nodeCopy pstackDict];
+          [imagesDictsArray removeObject:pstackDict];
+
+          nodes = [(DiskImageGraph *)self nodes];
+          uUID = [nodeCopy UUID];
+          uUIDString = [uUID UUIDString];
+          [nodes removeObjectForKey:uUIDString];
+
+          v13 = 1;
+          goto LABEL_19;
+        }
+      }
+
+      v11 = @"The requested operation will delete the active node, please set another one first.";
+      v12 = 22;
+    }
+
+    else
+    {
+      v11 = @"The requested operation will delete all children of the provided node. use recursive removal to surpress this error.";
+      v12 = 1;
+    }
+
+    v13 = [DIError failWithPOSIXCode:v12 verboseInfo:v11 error:error];
+LABEL_19:
+
+    goto LABEL_20;
+  }
+
+  v13 = [DIError failWithPOSIXCode:22 verboseInfo:@"Cannot delete base image node." error:error];
+LABEL_20:
+
+  return v13;
+}
+
 - (BOOL)savePstackWithURL:(id)l error:(id *)error
 {
   lCopy = l;
@@ -912,6 +1080,55 @@ uint64_t __40__DiskImageGraph_getImageWithTag_error___block_invoke(uint64_t a1, 
   return parent2;
 }
 
+- (id)infoWithExtra:(BOOL)extra error:(id *)error
+{
+  extraCopy = extra;
+  rootNode = [(DiskImageGraph *)self rootNode];
+  v7 = [rootNode recursiveInfoWithExtra:extraCopy error:error];
+
+  return v7;
+}
+
+- (id)activeInfoWithExtra:(BOOL)extra error:(id *)error
+{
+  extraCopy = extra;
+  v7 = objc_opt_new();
+  activeNode = [(DiskImageGraph *)self activeNode];
+  if (activeNode)
+  {
+    reverseObjectEnumerator = activeNode;
+    while (1)
+    {
+      v10 = [reverseObjectEnumerator infoWithExtra:extraCopy error:error];
+      if (!v10)
+      {
+        break;
+      }
+
+      v11 = v10;
+      [v7 addObject:v10];
+      parent = [reverseObjectEnumerator parent];
+
+      reverseObjectEnumerator = parent;
+      if (!parent)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    allObjects = 0;
+  }
+
+  else
+  {
+LABEL_5:
+    reverseObjectEnumerator = [v7 reverseObjectEnumerator];
+    allObjects = [reverseObjectEnumerator allObjects];
+  }
+
+  return allObjects;
+}
+
 + (id)getImageInfoDictWithURL:(id)l error:(id *)error
 {
   lCopy = l;
@@ -933,7 +1150,7 @@ uint64_t __40__DiskImageGraph_getImageWithTag_error___block_invoke(uint64_t a1, 
 + (id)getImageUUIDStrWithIdentityInfo:(id)info stackableUUIDFallback:(BOOL)fallback error:(id *)error
 {
   fallbackCopy = fallback;
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v8 = [infoCopy objectForKey:@"Stable UUID"];
   if (!v8)
@@ -942,33 +1159,45 @@ uint64_t __40__DiskImageGraph_getImageWithTag_error___block_invoke(uint64_t a1, 
     {
       v8 = v9;
       v10 = *__error();
-      if (DIForwardLogs())
+      v11 = DIForwardLogs();
+      if (v11)
       {
-        v11 = getDIOSLog();
-        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-        *buf = 68157954;
-        v17 = 91;
-        v18 = 2080;
-        v19 = "+[DiskImageGraph(InfoPrivate) getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:]";
-        v12 = _os_log_send_and_compose_impl();
-
-        if (v12)
+        v19 = 0;
+        v13 = getDIOSLog(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
-          free(v12);
+          v14 = 3;
+        }
+
+        else
+        {
+          v14 = 2;
+        }
+
+        *buf = 68157954;
+        v21 = 91;
+        v22 = 2080;
+        v23 = "+[DiskImageGraph(InfoPrivate) getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:]";
+        LODWORD(v18) = 18;
+        v15 = _os_log_send_and_compose_impl(v14, &v19, 0, 0, &dword_248DE0000, v13, 0, "%.*s: Stable UUID not found in provided image, Falling back to using Stackable UUID.", buf, v18);
+
+        if (v15)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v15);
+          free(v15);
         }
       }
 
       else
       {
-        v13 = getDIOSLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v16 = getDIOSLog(v11, v12);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68157954;
-          v17 = 91;
-          v18 = 2080;
-          v19 = "+[DiskImageGraph(InfoPrivate) getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:]";
-          _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Stable UUID not found in provided image, Falling back to using Stackable UUID.", buf, 0x12u);
+          v21 = 91;
+          v22 = 2080;
+          v23 = "+[DiskImageGraph(InfoPrivate) getImageUUIDStrWithIdentityInfo:stackableUUIDFallback:error:]";
+          _os_log_impl(&dword_248DE0000, v16, OS_LOG_TYPE_DEFAULT, "%.*s: Stable UUID not found in provided image, Falling back to using Stackable UUID.", buf, 0x12u);
         }
       }
 
@@ -981,9 +1210,119 @@ uint64_t __40__DiskImageGraph_getImageWithTag_error___block_invoke(uint64_t a1, 
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
+}
+
++ (id)getImageUUIDWithURL:(id)l allowMissingUUID:(BOOL)d error:(id *)error
+{
+  dCopy = d;
+  v31 = *MEMORY[0x277D85DE8];
+  lCopy = l;
+  v8 = objc_opt_new();
+  v9 = [DiskImageGraph getImageInfoDictWithURL:lCopy error:error];
+
+  if (!v9)
+  {
+    v18 = 0;
+    v19 = 0;
+    goto LABEL_26;
+  }
+
+  v10 = [v9 objectForKeyedSubscript:@"Image Format"];
+  v11 = [v10 isEqualToString:@"RAW"];
+
+  if (v11)
+  {
+    if (dCopy)
+    {
+      v12 = *__error();
+      v13 = DIForwardLogs();
+      if (v13)
+      {
+        v26 = 0;
+        v15 = getDIOSLog(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 3;
+        }
+
+        else
+        {
+          v16 = 2;
+        }
+
+        *buf = 68157954;
+        v28 = 74;
+        v29 = 2080;
+        v30 = "+[DiskImageGraph(InfoPrivate) getImageUUIDWithURL:allowMissingUUID:error:]";
+        LODWORD(v25) = 18;
+        v17 = _os_log_send_and_compose_impl(v16, &v26, 0, 0, &dword_248DE0000, v15, 0, "%.*s: Base image is raw format, using nil UUID.", buf, v25);
+
+        if (v17)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v17);
+          free(v17);
+        }
+      }
+
+      else
+      {
+        v23 = getDIOSLog(v13, v14);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 68157954;
+          v28 = 74;
+          v29 = 2080;
+          v30 = "+[DiskImageGraph(InfoPrivate) getImageUUIDWithURL:allowMissingUUID:error:]";
+          _os_log_impl(&dword_248DE0000, v23, OS_LOG_TYPE_DEFAULT, "%.*s: Base image is raw format, using nil UUID.", buf, 0x12u);
+        }
+      }
+
+      *__error() = v12;
+      v22 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
+    }
+
+    else
+    {
+      v22 = [DIError nilWithPOSIXCode:22 verboseInfo:@"Provided image has no UUID info." error:error];
+    }
+
+    v19 = v22;
+    goto LABEL_23;
+  }
+
+  v20 = [v9 objectForKey:@"Identity Info"];
+
+  if (!v20)
+  {
+    v19 = [DIError nilWithPOSIXCode:22 verboseInfo:@"Provided image has no identity info." error:error];
+    v8 = 0;
+LABEL_23:
+    v18 = 0;
+    goto LABEL_26;
+  }
+
+  v18 = [DiskImageGraph getImageUUIDStrWithIdentityInfo:v20 stackableUUIDFallback:dCopy error:error];
+  if (v18)
+  {
+    v21 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v18];
+    if (!v21)
+    {
+      v21 = [DIError nilWithPOSIXCode:22 verboseInfo:@"Error in new image's UUID." error:error];
+    }
+
+    v19 = v21;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v8 = v20;
+LABEL_26:
+
+  return v19;
 }
 
 - (BOOL)appendOverlayWithURL:(id)l tag:(id)tag error:(id *)error
@@ -1107,6 +1446,190 @@ LABEL_7:
 LABEL_11:
 
   return v18;
+}
+
+- (BOOL)appendWithURL:(id)l isCache:(BOOL)cache tag:(id)tag numBlocks:(unint64_t)blocks setNewActive:(BOOL)active error:(id *)error
+{
+  activeCopy = active;
+  cacheCopy = cache;
+  tagCopy = tag;
+  lCopy = l;
+  activeNode = [(DiskImageGraph *)self activeNode];
+  LOBYTE(error) = [(DiskImageGraph *)self appendWithURL:lCopy isCache:cacheCopy tag:tagCopy numBlocks:blocks toNode:activeNode setNewActive:activeCopy error:error];
+
+  return error;
+}
+
+- (BOOL)appendWithURL:(id)l isCache:(BOOL)cache tag:(id)tag numBlocks:(unint64_t)blocks toNode:(id)node setNewActive:(BOOL)active error:(id *)error
+{
+  activeCopy = active;
+  cacheCopy = cache;
+  v61 = *MEMORY[0x277D85DE8];
+  lCopy = l;
+  tagCopy = tag;
+  nodeCopy = node;
+  v17 = [lCopy checkResourceIsReachableAndReturnError:0];
+  v18 = [DiskImageGraph getFirstNonCacheAncestorWithNode:nodeCopy error:error];
+  if (!v18)
+  {
+    v20 = 0;
+    goto LABEL_7;
+  }
+
+  v19 = v17 ^ 1;
+  if (!blocks)
+  {
+    v19 = 1;
+  }
+
+  if (v19)
+  {
+    v54 = nodeCopy;
+    if (v17)
+    {
+      if (![(DiskImageGraph *)self validateAppendedImageWithURL:lCopy parentNode:v18 isCache:cacheCopy error:error])
+      {
+        goto LABEL_26;
+      }
+    }
+
+    else
+    {
+      v52 = tagCopy;
+      v22 = [DIStackParams alloc];
+      v23 = [nodeCopy URL];
+      v24 = [(DIStackParams *)v22 initWithURL:v23 error:error];
+
+      LOBYTE(v23) = [(DIStackParams *)v24 appendWithURL:lCopy isCache:cacheCopy numBlocks:blocks error:error];
+      if ((v23 & 1) == 0)
+      {
+        v20 = 0;
+        v21 = lCopy;
+        tagCopy = v52;
+LABEL_33:
+        nodeCopy = v54;
+        goto LABEL_34;
+      }
+
+      tagCopy = v52;
+      if (![(DiskImageGraph *)self validateAppendedImageWithURL:lCopy parentNode:v18 isCache:cacheCopy error:error])
+      {
+        defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+        [defaultManager removeItemAtURL:lCopy error:0];
+
+LABEL_26:
+        v20 = 0;
+        v21 = lCopy;
+        goto LABEL_33;
+      }
+    }
+
+    v21 = [(DiskImageGraph *)self URLRelativeToPstackParentWithURL:lCopy];
+
+    v25 = [DiskImageGraph getImageUUIDWithURL:v21 allowMissingUUID:0 error:error];
+    v20 = v25 != 0;
+    if (v25)
+    {
+      v51 = v25;
+      v53 = tagCopy;
+      v26 = [[NativeDiskImageGraphNode alloc] initWithURL:v21 tag:tagCopy UUID:v25 parentNode:v54 metadata:0 isCache:cacheCopy];
+      nodes = [(DiskImageGraph *)self nodes];
+      uUID = [(DiskImageGraphNode *)v26 UUID];
+      uUIDString = [uUID UUIDString];
+      [nodes setObject:v26 forKey:uUIDString];
+
+      imagesDictsArray = [(DiskImageGraph *)self imagesDictsArray];
+      toDictionary = [(NativeDiskImageGraphNode *)v26 toDictionary];
+      [imagesDictsArray addObject:toDictionary];
+
+      nodes2 = [(DiskImageGraph *)self nodes];
+      parentUUID = [(DiskImageGraphNode *)v26 parentUUID];
+      uUIDString2 = [parentUUID UUIDString];
+      v35 = [nodes2 objectForKey:uUIDString2];
+      [(DiskImageGraphNode *)v26 setParent:v35];
+
+      imagesDictsArray2 = [(DiskImageGraph *)self imagesDictsArray];
+      lastObject = [imagesDictsArray2 lastObject];
+      [(DiskImageGraphNode *)v26 setPstackDict:lastObject];
+
+      if (activeCopy)
+      {
+        [(DiskImageGraph *)self setActiveNode:v26];
+      }
+
+      v25 = v51;
+      tagCopy = v53;
+    }
+
+    else
+    {
+      v38 = tagCopy;
+      v39 = *__error();
+      v40 = DIForwardLogs();
+      if (v40)
+      {
+        v56 = 0;
+        v42 = getDIOSLog(v40, v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+        {
+          v43 = 3;
+        }
+
+        else
+        {
+          v43 = 2;
+        }
+
+        *buf = 68157954;
+        v58 = 95;
+        v59 = 2080;
+        v60 = "[DiskImageGraph(AppendPrivate) appendWithURL:isCache:tag:numBlocks:toNode:setNewActive:error:]";
+        LODWORD(v50) = 18;
+        v44 = _os_log_send_and_compose_impl(v43, &v56, 0, 0, &dword_248DE0000, v42, 16, "%.*s: Failed to get info of newly created shadow/cache, will try to delete if an image was created.", buf, v50);
+
+        if (v44)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v44);
+          free(v44);
+        }
+
+        v25 = 0;
+      }
+
+      else
+      {
+        v46 = getDIOSLog(v40, v41);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 68157954;
+          v58 = 95;
+          v59 = 2080;
+          v60 = "[DiskImageGraph(AppendPrivate) appendWithURL:isCache:tag:numBlocks:toNode:setNewActive:error:]";
+          _os_log_impl(&dword_248DE0000, v46, OS_LOG_TYPE_ERROR, "%.*s: Failed to get info of newly created shadow/cache, will try to delete if an image was created.", buf, 0x12u);
+        }
+      }
+
+      *__error() = v39;
+      tagCopy = v38;
+      if ((v17 & 1) == 0)
+      {
+        [MEMORY[0x277CCAA00] defaultManager];
+        v48 = v47 = v25;
+        [v48 removeItemAtURL:v21 error:0];
+
+        v25 = v47;
+      }
+    }
+
+    goto LABEL_33;
+  }
+
+  v20 = [DIError failWithPOSIXCode:22 verboseInfo:@"Append of existing image with custom size is not supported." error:error];
+LABEL_7:
+  v21 = lCopy;
+LABEL_34:
+
+  return v20;
 }
 
 @end

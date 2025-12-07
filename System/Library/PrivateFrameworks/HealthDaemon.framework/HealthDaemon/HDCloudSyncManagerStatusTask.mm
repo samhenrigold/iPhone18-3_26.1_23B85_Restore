@@ -16,7 +16,7 @@
   if (v8)
   {
     objc_storeWeak(&v8->_manager, managerCopy);
-    v10 = [completionCopy copy];
+    v10 = objc_msgSend_copy(completionCopy);
     completion = v9->_completion;
     v9->_completion = v10;
   }
@@ -77,25 +77,25 @@
 
 void __36__HDCloudSyncManagerStatusTask_main__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = +[HDDatabaseTransactionContext contextForReading];
     v5 = [*(a1 + 40) profile];
     v6 = [v5 database];
-    v24 = 0;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __36__HDCloudSyncManagerStatusTask_main__block_invoke_2;
-    v19[3] = &unk_278620858;
-    v19[4] = *(a1 + 32);
-    v20 = v3;
-    v21 = *(a1 + 40);
-    v22 = *(a1 + 48);
-    v23 = *(a1 + 64);
-    v7 = [v6 performTransactionWithContext:v4 error:&v24 block:v19 inaccessibilityHandler:0];
-    v8 = v24;
+    v23 = 0;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __36__HDCloudSyncManagerStatusTask_main__block_invoke_2;
+    v18[3] = &unk_278620858;
+    v18[4] = *(a1 + 32);
+    v19 = v3;
+    v20 = *(a1 + 40);
+    v21 = *(a1 + 48);
+    v22 = *(a1 + 64);
+    v7 = [v6 performTransactionWithContext:v4 error:&v23 block:v18 inaccessibilityHandler:0];
+    v8 = v23;
 
     if (v7)
     {
@@ -111,15 +111,15 @@ void __36__HDCloudSyncManagerStatusTask_main__block_invoke(uint64_t a1, void *a2
         v15 = v9;
         v16 = [v13 profile];
         *buf = 138544386;
-        v26 = v14;
-        v27 = 2114;
-        v28 = v10;
-        v29 = 2114;
-        v30 = v11;
-        v31 = 2114;
-        v32 = v12;
-        v33 = 2114;
-        v34 = v16;
+        v25 = v14;
+        v26 = 2114;
+        v27 = v10;
+        v28 = 2114;
+        v29 = v11;
+        v30 = 2114;
+        v31 = v12;
+        v32 = 2114;
+        v33 = v16;
         _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@: Fetched Status: Push: %{public}@, Lite Push: %{public}@, Pull: %{public}@, Profile:%{public}@", buf, 0x34u);
       }
 
@@ -143,8 +143,6 @@ void __36__HDCloudSyncManagerStatusTask_main__block_invoke(uint64_t a1, void *a2
     (*(*(*(a1 + 32) + 64) + 16))();
     [*(a1 + 32) finish];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__HDCloudSyncManagerStatusTask_main__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)

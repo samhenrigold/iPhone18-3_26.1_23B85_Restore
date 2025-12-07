@@ -18,26 +18,21 @@
 
 + (BOOL)canRepresentURL:(id)l item:(id)item parentItems:(id)items
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (item)
+  v16 = *MEMORY[0x1E69E9840];
+  if (!item)
   {
-    itemCopy = item;
-    v7 = MEMORY[0x1E695DEC8];
-    itemsCopy = items;
-    itemCopy2 = item;
-    lCopy = l;
-    v11 = [v7 arrayWithObjects:&itemCopy count:1];
-    v12 = [v11 arrayByAddingObjectsFromArray:{itemsCopy, itemCopy, v17}];
-
-    v13 = [WFFileLocationUtilities isFileURL:lCopy withParentItems:v12 insideFolderType:1];
+    return 0;
   }
 
-  else
-  {
-    v13 = 0;
-  }
+  itemCopy = item;
+  v7 = MEMORY[0x1E695DEC8];
+  itemsCopy = items;
+  itemCopy2 = item;
+  lCopy = l;
+  v11 = [v7 arrayWithObjects:&itemCopy count:1];
+  v12 = [v11 arrayByAddingObjectsFromArray:{itemsCopy, itemCopy, v16}];
 
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = [WFFileLocationUtilities isFileURL:lCopy withParentItems:v12 insideFolderType:1];
   return v13;
 }
 

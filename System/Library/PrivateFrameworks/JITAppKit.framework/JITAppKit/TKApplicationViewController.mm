@@ -432,9 +432,7 @@ uint64_t __54__TKApplicationViewController_setChildViewController___block_invoke
   MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
   MEMORY[0x277D82BD8](v16);
-  result = MEMORY[0x277D82BD8](v17);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v17);
 }
 
 void __54__TKApplicationViewController_setChildViewController___block_invoke_2(uint64_t a1)
@@ -579,9 +577,7 @@ uint64_t __56__TKApplicationViewController_setLoadingViewController___block_invo
   MEMORY[0x277D82BD8](v13);
   MEMORY[0x277D82BD8](v14);
   MEMORY[0x277D82BD8](v15);
-  result = MEMORY[0x277D82BD8](v16);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](v16);
 }
 
 - (void)dismissApplicationControllerAnimated:(BOOL)animated

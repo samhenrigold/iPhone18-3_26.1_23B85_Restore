@@ -38,13 +38,13 @@
   return v5;
 }
 
-uint64_t __43__FCPersistedContentArchive_initWithCoder___block_invoke()
+uint64_t __43__FCPersistedContentArchive_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
-  v1 = qword_1EDB26E40;
-  qword_1EDB26E40 = v0;
+  v2 = [MEMORY[0x1E695DFD8] setWithObjects:{objc_opt_class(), 0}];
+  v3 = qword_1EDB26E40;
+  qword_1EDB26E40 = v2;
 
-  return MEMORY[0x1EEE66BB8](v0, v1);
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (id)unarchiveIntoContentContext:(id)context
@@ -75,22 +75,21 @@ uint64_t __43__FCPersistedContentArchive_initWithCoder___block_invoke()
 
 - (id)manifest
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"persisted content archive doesn't currently support providing its manifest"];
-    v5 = 136315906;
-    v6 = "[FCPersistedContentArchive manifest]";
-    v7 = 2080;
-    v8 = "FCContentArchive.m";
-    v9 = 1024;
-    v10 = 879;
-    v11 = 2114;
-    v12 = v4;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
+    v3 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"persisted content archive doesn't currently support providing its manifest"];
+    v4 = 136315906;
+    v5 = "[FCPersistedContentArchive manifest]";
+    v6 = 2080;
+    v7 = "FCContentArchive.m";
+    v8 = 1024;
+    v9 = 879;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v4, 0x26u);
   }
 
-  v2 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

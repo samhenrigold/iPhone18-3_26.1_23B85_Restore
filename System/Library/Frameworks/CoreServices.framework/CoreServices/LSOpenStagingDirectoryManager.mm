@@ -27,54 +27,53 @@
     *buf = 0;
     *&buf[8] = v8;
     *&buf[16] = -1;
-    v9 = std::__hash_table<std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,LaunchServices::OpenStaging::StagingDirectoryInfo>(&self->_stagingDirectoryInfoMap.__table_.__bucket_list_.__ptr_, &v20);
+    v9 = std::__hash_table<std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,LaunchServices::OpenStaging::StagingDirectoryInfo>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,LaunchServices::OpenStaging::StagingDirectoryInfo>(&self->_stagingDirectoryInfoMap.__table_.__bucket_list_.__ptr_, &v20, &v20, buf);
     v11 = v10;
     LaunchServices::OpenStaging::StagingDirectoryInfo::~StagingDirectoryInfo(buf);
     if (v11)
     {
-      v12 = _LSDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _LSDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%llu", v20];
-        v14 = [v8 URL];
+        v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%llu", v20];
+        v15 = [v8 URL];
         *buf = 138412546;
-        *&buf[4] = v13;
+        *&buf[4] = v14;
         *&buf[12] = 2112;
-        *&buf[14] = v14;
-        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Configured open staging directory for key %@ at %@", buf, 0x16u);
+        *&buf[14] = v15;
+        _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "Configured open staging directory for key %@ at %@", buf, 0x16u);
       }
     }
 
     else
     {
-      v12 = _LSDefaultLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = _LSDefaultLog(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%llu", v20];
-        v16 = [v9[4] URL];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%llu", v20];
+        v17 = [v9[4] URL];
         *buf = 138412546;
-        *&buf[4] = v15;
+        *&buf[4] = v16;
         *&buf[12] = 2112;
-        *&buf[14] = v16;
-        _os_log_impl(&dword_18162D000, v12, OS_LOG_TYPE_DEFAULT, "Already have a staging directory for key %@ at %@", buf, 0x16u);
+        *&buf[14] = v17;
+        _os_log_impl(&dword_18162D000, v13, OS_LOG_TYPE_DEFAULT, "Already have a staging directory for key %@ at %@", buf, 0x16u);
       }
     }
   }
 
-  v17.__val_ = v20;
-  v18 = v21;
-  v19 = *MEMORY[0x1E69E9840];
-  result.__engaged_ = v18;
-  result.var0 = v17;
+  v18.__val_ = v20;
+  v19 = v21;
+  result.__engaged_ = v19;
+  result.var0 = v18;
   return result;
 }
 
 - (LSOpenStagingDirectoryManager)initWithIOPersonality:(id)personality
 {
   personalityCopy = personality;
-  v33.receiver = self;
-  v33.super_class = LSOpenStagingDirectoryManager;
-  v6 = [(LSOpenStagingDirectoryManager *)&v33 init];
+  v36.receiver = self;
+  v36.super_class = LSOpenStagingDirectoryManager;
+  v6 = [(LSOpenStagingDirectoryManager *)&v36 init];
   v7 = v6;
   if (v6)
   {
@@ -86,19 +85,19 @@
     }
 
     ioPersonality = v7->_ioPersonality;
-    v32 = 0;
+    v35 = 0;
     v9 = ioPersonality;
     mainUserContainerURL = [(LSOpenStagingDirectoryManagerIOPersonality *)v9 mainUserContainerURL];
-    v11 = [(LSOpenStagingDirectoryManagerIOPersonality *)v9 makeStagingDirectoryNodeInContainer:mainUserContainerURL error:&v32];
+    v11 = [(LSOpenStagingDirectoryManagerIOPersonality *)v9 makeStagingDirectoryNodeInContainer:mainUserContainerURL error:&v35];
 
-    v12 = v32;
+    v12 = v35;
     v13 = v12;
     if (v11)
     {
-      v31 = v12;
-      v14 = [(LSOpenStagingDirectoryManager *)v7 bootstrapBaseStagingDirectoryNode:v11 error:&v31];
+      v34 = v12;
+      v14 = [(LSOpenStagingDirectoryManager *)v7 bootstrapBaseStagingDirectoryNode:v11 error:&v34];
       v16 = v15;
-      v17 = v31;
+      v17 = v34;
 
       v7->_mainStagingDirectoryKey.var0.__val_ = v14;
       v7->_mainStagingDirectoryKey.__engaged_ = v16;
@@ -107,8 +106,8 @@
         goto LABEL_12;
       }
 
-      v18 = _LSDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+      v19 = _LSDefaultLog(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
         [LSOpenStagingDirectoryManager initWithIOPersonality:];
       }
@@ -116,31 +115,31 @@
 
     else
     {
-      v18 = _LSDefaultLog();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v19 = _LSDefaultLog(v12);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [LSOpenStagingDirectoryManager initWithIOPersonality:?];
+        [LSOpenStagingDirectoryManager initWithIOPersonality:];
       }
 
       v17 = v13;
     }
 
 LABEL_12:
-    v19 = v7->_ioPersonality;
-    v30 = v17;
-    v20 = v19;
-    mainSystemContainerURL = [(LSOpenStagingDirectoryManagerIOPersonality *)v20 mainSystemContainerURL];
-    v22 = [(LSOpenStagingDirectoryManagerIOPersonality *)v20 makeStagingDirectoryNodeInContainer:mainSystemContainerURL error:&v30];
+    v20 = v7->_ioPersonality;
+    v33 = v17;
+    v21 = v20;
+    mainSystemContainerURL = [(LSOpenStagingDirectoryManagerIOPersonality *)v21 mainSystemContainerURL];
+    v23 = [(LSOpenStagingDirectoryManagerIOPersonality *)v21 makeStagingDirectoryNodeInContainer:mainSystemContainerURL error:&v33];
 
-    v23 = v30;
-    if (v22)
+    v24 = v33;
+    if (v23)
     {
-      v29 = v23;
-      [(LSOpenStagingDirectoryManager *)v7 bootstrapBaseStagingDirectoryNode:v22 error:&v29];
-      v25 = v24;
-      v26 = v29;
+      v32 = v24;
+      [(LSOpenStagingDirectoryManager *)v7 bootstrapBaseStagingDirectoryNode:v23 error:&v32];
+      v27 = v26;
+      v28 = v32;
 
-      if (v25)
+      if (v27)
       {
 LABEL_20:
 
@@ -148,8 +147,8 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v27 = _LSDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v30 = _LSDefaultLog(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         [LSOpenStagingDirectoryManager initWithIOPersonality:];
       }
@@ -157,13 +156,13 @@ LABEL_20:
 
     else
     {
-      v27 = _LSDefaultLog();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v30 = _LSDefaultLog(v25);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [LSOpenStagingDirectoryManager initWithIOPersonality:?];
+        [LSOpenStagingDirectoryManager initWithIOPersonality:];
       }
 
-      v26 = v23;
+      v28 = v24;
     }
 
     goto LABEL_20;
@@ -176,7 +175,7 @@ LABEL_21:
 
 + (id)sharedServerInstance
 {
-  _LSAssertRunningInServer("+[LSOpenStagingDirectoryManager sharedServerInstance]");
+  _LSAssertRunningInServer("+[LSOpenStagingDirectoryManager sharedServerInstance]", a2);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __53__LSOpenStagingDirectoryManager_sharedServerInstance__block_invoke;
@@ -203,10 +202,9 @@ void __53__LSOpenStagingDirectoryManager_sharedServerInstance__block_invoke(uint
 
 - (void)_locked_updatePersonaStagingDirectories
 {
-  OUTLINED_FUNCTION_17(self, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
-  _os_log_debug_impl(&dword_18162D000, v1, OS_LOG_TYPE_DEBUG, "Persona generation %llu of staging directory manager is current.", v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_18162D000, v0, OS_LOG_TYPE_DEBUG, "Persona generation %llu of staging directory manager is current.", v1, 0xCu);
 }
 
 - (id)_locked_stagingDirectoryForKey:(unint64_t)key
@@ -233,7 +231,7 @@ void __53__LSOpenStagingDirectoryManager_sharedServerInstance__block_invoke(uint
 
 - (id)stagingDirectoryForCloningURL:(id)l error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = [[FSNode alloc] initWithURL:lCopy flags:0 error:error];
   v8 = [(LSOpenStagingDirectoryManagerIOPersonality *)self->_ioPersonality stagingDirectoryKeyForNode:v7 error:error];
@@ -249,17 +247,15 @@ void __53__LSOpenStagingDirectoryManager_sharedServerInstance__block_invoke(uint
     v12 = lCopy;
     if (error)
     {
-      v16 = *MEMORY[0x1E696A278];
-      v17[0] = lCopy;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v15 = *MEMORY[0x1E696A278];
+      v16[0] = lCopy;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
       *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 2, v13, "[LSOpenStagingDirectoryManager stagingDirectoryForCloningURL:error:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 398);
     }
   }
 
   v10 = 0;
 LABEL_7:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -289,7 +285,7 @@ LABEL_7:
 
 - (id)mainDataVolumeStagingURLWithError:(id *)error
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_mutex);
   if (!self->_mainStagingDirectoryKey.__engaged_)
   {
@@ -300,9 +296,9 @@ LABEL_7:
     }
 
 LABEL_6:
-    v9 = *MEMORY[0x1E696A278];
-    v10[0] = @"Could not find open staging directory for main data volume?";
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = *MEMORY[0x1E696A278];
+    v9[0] = @"Could not find open staging directory for main data volume?";
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     *error = _LSMakeNSErrorImpl(*MEMORY[0x1E696A798], 2, v6, "[LSOpenStagingDirectoryManager mainDataVolumeStagingURLWithError:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSOpenStagingDirectoryManager.mm", 428);
 
     goto LABEL_7;
@@ -323,7 +319,6 @@ LABEL_6:
 LABEL_7:
   v5 = 0;
 LABEL_8:
-  v7 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -341,40 +336,34 @@ LABEL_8:
 
 - (void)initWithIOPersonality:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_4(&dword_18162D000, v0, v1, "Could not find volume identifier for main staging directory node %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithIOPersonality:(uint64_t *)a1 .cold.2(uint64_t *a1)
+- (void)initWithIOPersonality:.cold.2()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)initWithIOPersonality:.cold.3()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_2_4(&dword_18162D000, v0, v1, "Could not find volume identifier for system staging directory node %@: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)initWithIOPersonality:(uint64_t *)a1 .cold.4(uint64_t *a1)
+- (void)initWithIOPersonality:.cold.4()
 {
-  OUTLINED_FUNCTION_17(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_17(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_8();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

@@ -44,37 +44,37 @@ void __69__FCEditorialOperation_enumerateEditorialSectionsByRecencyWithBlock___b
 
 - (BOOL)validateOperation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   configuration = [(FCEditorialOperation *)self configuration];
 
   if (!configuration && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"editorial operation must have a configuration"];
-    v12 = 136315906;
-    v13 = "[FCEditorialOperation validateOperation]";
-    v14 = 2080;
-    v15 = "FCEditorialOperation.m";
-    v16 = 1024;
-    v17 = 65;
-    v18 = 2114;
-    v19 = v10;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"editorial operation must have a configuration"];
+    v11 = 136315906;
+    v12 = "[FCEditorialOperation validateOperation]";
+    v13 = 2080;
+    v14 = "FCEditorialOperation.m";
+    v15 = 1024;
+    v16 = 65;
+    v17 = 2114;
+    v18 = v9;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   context = [(FCEditorialOperation *)self context];
 
   if (!context && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"editorial catch-up operation must have a context"];
-    v12 = 136315906;
-    v13 = "[FCEditorialOperation validateOperation]";
-    v14 = 2080;
-    v15 = "FCEditorialOperation.m";
-    v16 = 1024;
-    v17 = 66;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"editorial catch-up operation must have a context"];
+    v11 = 136315906;
+    v12 = "[FCEditorialOperation validateOperation]";
+    v13 = 2080;
+    v14 = "FCEditorialOperation.m";
+    v15 = 1024;
+    v16 = 66;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   configuration2 = [(FCEditorialOperation *)self configuration];
@@ -89,13 +89,12 @@ void __69__FCEditorialOperation_enumerateEditorialSectionsByRecencyWithBlock___b
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (void)performOperation
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   configuration = [(FCEditorialOperation *)self configuration];
   v4 = objc_alloc_init(FCForYouConfigHeadlinesOperation);
   [(FCForYouConfigHeadlinesOperation *)v4 setConfiguration:configuration];
@@ -126,23 +125,21 @@ void __69__FCEditorialOperation_enumerateEditorialSectionsByRecencyWithBlock___b
   {
     [(FCForYouConfigHeadlinesOperation *)v4 setShouldFetchEditorialSectionTags:1];
     editorialChannelID2 = [configuration editorialChannelID];
-    v24[0] = editorialChannelID2;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = editorialChannelID2;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
     [(FCForYouConfigHeadlinesOperation *)v4 setAdditionalTagIDs:v15];
   }
 
-  v18 = MEMORY[0x1E69E9820];
-  v19 = 3221225472;
-  v20 = __40__FCEditorialOperation_performOperation__block_invoke;
-  v21 = &unk_1E7C47150;
+  v17 = MEMORY[0x1E69E9820];
+  v18 = 3221225472;
+  v19 = __40__FCEditorialOperation_performOperation__block_invoke;
+  v20 = &unk_1E7C47150;
   selfCopy = self;
-  v23 = configuration;
+  v22 = configuration;
   v16 = configuration;
-  [(FCForYouConfigHeadlinesOperation *)v4 setHeadlinesAndTagsCompletionHandler:&v18];
-  [(FCOperation *)self associateChildOperation:v4, v18, v19, v20, v21, selfCopy];
+  [(FCForYouConfigHeadlinesOperation *)v4 setHeadlinesAndTagsCompletionHandler:&v17];
+  [(FCOperation *)self associateChildOperation:v4, v17, v18, v19, v20, selfCopy];
   [(FCOperation *)v4 start];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __40__FCEditorialOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
@@ -210,28 +207,28 @@ void __40__FCEditorialOperation_performOperation__block_invoke(uint64_t a1, void
 
 void __40__FCEditorialOperation_performOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v4 = [*(a1 + 32) editorialGroupConfigs];
-  v33 = [v4 countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v33)
+  v32 = [v4 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v32)
   {
-    v31 = v4;
-    v32 = *v35;
+    v30 = v4;
+    v31 = *v34;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v35 != v32)
+        if (*v34 != v31)
         {
           objc_enumerationMutation(v4);
         }
 
-        v6 = *(*(&v34 + 1) + 8 * i);
+        v6 = *(*(&v33 + 1) + 8 * i);
         v7 = [v6 sectionID];
         if (v7)
         {
@@ -314,20 +311,18 @@ void __40__FCEditorialOperation_performOperation__block_invoke_3(uint64_t a1, vo
             [(FCEditorialOperationGroup *)v25 setPublishDate:v29];
 
             v3 = v28;
-            v4 = v31;
+            v4 = v30;
           }
 
           [v3 addObject:v25];
         }
       }
 
-      v33 = [v4 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v32 = [v4 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operationWillFinishWithError:(id)error

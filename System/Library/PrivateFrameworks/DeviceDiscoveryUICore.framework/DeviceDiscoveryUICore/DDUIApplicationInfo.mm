@@ -1,7 +1,6 @@
 @interface DDUIApplicationInfo
 - (DDUIApplicationInfo)initWithApplicationID:(id)d serviceIdentifier:(id)identifier bundleID:(id)iD appName:(id)name adamID:(unint64_t)adamID;
 - (DDUIApplicationInfo)initWithDictionaryRepresentation:(id)representation;
-- (id)description;
 - (id)dictionaryRepresentation;
 @end
 
@@ -62,35 +61,25 @@
 
 - (id)dictionaryRepresentation
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v11[0] = @"DDUIMessageApplicationIDKey";
+  v11[5] = *MEMORY[0x277D85DE8];
+  v10[0] = @"DDUIMessageApplicationIDKey";
   applicationID = [(DDUIApplicationInfo *)self applicationID];
-  v12[0] = applicationID;
-  v11[1] = @"DDUIMessageServiceIDKey";
+  v11[0] = applicationID;
+  v10[1] = @"DDUIMessageServiceIDKey";
   serviceIdentifier = [(DDUIApplicationInfo *)self serviceIdentifier];
-  v12[1] = serviceIdentifier;
-  v11[2] = @"DDUIMessageBundleIDKey";
+  v11[1] = serviceIdentifier;
+  v10[2] = @"DDUIMessageBundleIDKey";
   bundleID = [(DDUIApplicationInfo *)self bundleID];
-  v12[2] = bundleID;
-  v11[3] = @"DDUIMessageAppNameKey";
+  v11[2] = bundleID;
+  v10[3] = @"DDUIMessageAppNameKey";
   appName = [(DDUIApplicationInfo *)self appName];
-  v12[3] = appName;
-  v11[4] = @"DDUIMessageAdamIDKey";
+  v11[3] = appName;
+  v10[4] = @"DDUIMessageAdamIDKey";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[DDUIApplicationInfo adamID](self, "adamID")}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v11[4] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
-}
-
-- (id)description
-{
-  v3 = MEMORY[0x277CCACA8];
-  v4 = objc_opt_class();
-  v5 = *&self->_applicationID;
-  return [v3 stringWithFormat:@"<%@: %p; applicationID = %@; serviceIdentifier = %@; bundleID = %@; appName = %@; adamID = %llu>", v4, self, self->_applicationID, self->_serviceIdentifier, self->_bundleID, self->_appName, self->_adamID];
 }
 
 @end

@@ -33,7 +33,7 @@
 
 - (BOOL)isOverriddenForService:(id)service
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (!TCCAccessGetOverride())
   {
     v4 = SRLogTCCStore;
@@ -45,9 +45,7 @@
     }
   }
 
-  result = 0;
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 - (id)informationForBundleId:(id)id

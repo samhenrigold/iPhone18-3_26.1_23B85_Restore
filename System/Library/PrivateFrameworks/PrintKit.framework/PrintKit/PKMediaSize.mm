@@ -56,7 +56,7 @@
       v9 = v8;
       if (v8)
       {
-        [v8 range];
+        objc_msgSend_range(v8);
       }
 
       else

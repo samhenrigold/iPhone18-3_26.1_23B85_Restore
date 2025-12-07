@@ -45,7 +45,7 @@
 
 - (id)debugDescription
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   result = objc_lookUpClass("NSString");
   if (result)
   {
@@ -54,11 +54,10 @@
     result = [v4 stringWithUTF8String:"<%s: %s>"];
     if (result)
     {
-      result = [v4 stringWithFormat:result, object_getClassName(self), __str];
+      return [v4 stringWithFormat:result, object_getClassName(self), __str];
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -12,9 +12,9 @@
 - (PTDisparityFilterExponentialMovingAverageLKT)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v29.receiver = self;
-  v29.super_class = PTDisparityFilterExponentialMovingAverageLKT;
-  v6 = [(PTDisparityFilterExponentialMovingAverageLKT *)&v29 init];
+  v31.receiver = self;
+  v31.super_class = PTDisparityFilterExponentialMovingAverageLKT;
+  v6 = [(PTDisparityFilterExponentialMovingAverageLKT *)&v31 init];
   v7 = v6;
   if (!v6)
   {
@@ -29,38 +29,38 @@
 
   if (!v7->_temporalFilterExponentialMovingAverageLKT)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v10);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(PTDisparityFilterExponentialMovingAverageLKT *)v13 initWithMetalContext:v14, v15, v16, v17, v18, v19, v20];
+      [(PTDisparityFilterExponentialMovingAverageLKT *)v15 initWithMetalContext:v16, v17, v18, v19, v20, v21, v22];
     }
 
     goto LABEL_9;
   }
 
-  v10 = [contextCopy computePipelineStateFor:@"copyDisparityWithBias" withConstants:0];
+  v11 = [contextCopy computePipelineStateFor:@"copyDisparityWithBias" withConstants:0];
   copyDisparityWithBias = v7->_copyDisparityWithBias;
-  v7->_copyDisparityWithBias = v10;
+  v7->_copyDisparityWithBias = v11;
 
   if (!v7->_copyDisparityWithBias)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(PTDisparityFilterExponentialMovingAverageLKT *)v13 initWithMetalContext:v21, v22, v23, v24, v25, v26, v27];
+      [(PTDisparityFilterExponentialMovingAverageLKT *)v15 initWithMetalContext:v23, v24, v25, v26, v27, v28, v29];
     }
 
 LABEL_9:
 
 LABEL_10:
-    v12 = 0;
+    v14 = 0;
     goto LABEL_11;
   }
 
-  v12 = v7;
+  v14 = v7;
 LABEL_11:
 
-  return v12;
+  return v14;
 }
 
 - (PTDisparityFilterExponentialMovingAverageLKT)initWithMetalContext:(id)context disparitySize:(id *)size disparityFilteredSize:(id *)filteredSize disparityPixelFormat:(unint64_t)format colorSize:(id *)colorSize colorPixelFormat:(unint64_t)pixelFormat sensorPort:(id)port
@@ -130,15 +130,16 @@ LABEL_11:
   prevCopy = prev;
   disparityCopy = disparity;
   outDisparityCopy = outDisparity;
+  v21 = outDisparityCopy;
   if (prevCopy == outDisparityCopy)
   {
-    v22 = _PTLogSystem();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _PTLogSystem(outDisparityCopy);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [PTFilterEMA_LKT temporalDisparityFilter:v22 inDisplacement:? inDisparityPrev:? inDisparity:? outDisparity:? disparityBias:?];
+      [PTFilterEMA_LKT temporalDisparityFilter:v23 inDisplacement:? inDisparityPrev:? inDisparity:? outDisparity:? disparityBias:?];
     }
 
-    v21 = -1;
+    v22 = -1;
   }
 
   else
@@ -147,20 +148,20 @@ LABEL_11:
     {
       LOWORD(v19) = *self->_iirUpdateCoefficient;
       *&v20 = bias;
-      v21 = [(PTDisparityFilterExponentialMovingAverageLKT *)self exponentialMovingAverageFilter:filterCopy inDisplacement:displacementCopy inDisparityPrev:prevCopy inDisparity:disparityCopy outDisparity:outDisparityCopy updateCoefficient:v19 disparityBias:v20];
+      v22 = [(PTDisparityFilterExponentialMovingAverageLKT *)self exponentialMovingAverageFilter:filterCopy inDisplacement:displacementCopy inDisparityPrev:prevCopy inDisparity:disparityCopy outDisparity:outDisparityCopy updateCoefficient:v19 disparityBias:v20];
     }
 
     else
     {
       *&v19 = bias;
       [(PTDisparityFilterExponentialMovingAverageLKT *)self copyDisparityWithBias:filterCopy inDisparity:disparityCopy outDisparity:outDisparityCopy disparityBias:v19];
-      v21 = 0;
+      v22 = 0;
     }
 
     ++self->_frameCount;
   }
 
-  return v21;
+  return v22;
 }
 
 - (int)exponentialMovingAverageFilter:(PTDisparityFilterExponentialMovingAverageLKT *)self inDisplacement:(SEL)displacement inDisparityPrev:(id)prev inDisparity:(id)disparity outDisparity:(id)outDisparity updateCoefficient:(id)coefficient disparityBias:(id)bias
@@ -174,7 +175,7 @@ LABEL_11:
   computeCommandEncoder = [prev computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v19 = _PTLogSystem();
+    v19 = _PTLogSystem(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v19 disparityApplyPostModifier:v20 inDisparity:v21 outDisparity:v22 postModifier:v23, v24, v25, v26];
@@ -212,7 +213,7 @@ LABEL_11:
   computeCommandEncoder = [bias computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v12 = _PTLogSystem();
+    v12 = _PTLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v12 disparityApplyPostModifier:v13 inDisparity:v14 outDisparity:v15 postModifier:v16, v17, v18, v19];
@@ -236,6 +237,20 @@ LABEL_11:
   [computeCommandEncoder endEncoding];
 
   return 0;
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_copyDisparityWithBias";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_temporalFilterExponentialMovingAverageLKT";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

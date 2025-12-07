@@ -6,6 +6,7 @@
 + (void)addDependentOperationWithBlock:(id)block;
 + (void)addOperation:(id)operation;
 + (void)addOperationWithBlock:(id)block;
++ (void)addOperations:(id)operations waitUntilFinished:(BOOL)finished;
 + (void)performAfter:(double)after block:(id)block;
 + (void)performAsyncBlock:(id)block;
 + (void)performSyncBlock:(id)block;
@@ -82,6 +83,14 @@
   operationCopy = operation;
   v4 = +[_DKSyncSerializer sharedInstance];
   [(_DKSyncSerializer *)v4 addOperation:operationCopy];
+}
+
++ (void)addOperations:(id)operations waitUntilFinished:(BOOL)finished
+{
+  finishedCopy = finished;
+  operationsCopy = operations;
+  v6 = +[_DKSyncSerializer sharedInstance];
+  [(_DKSyncSerializer *)v6 addOperations:operationsCopy waitUntilFinished:finishedCopy];
 }
 
 + (void)addOperationWithBlock:(id)block

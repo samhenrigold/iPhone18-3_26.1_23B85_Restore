@@ -79,22 +79,22 @@
     eventName2 = [eventCopy eventName];
     v13 = [logs objectForKey:eventName2];
 
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = sub_10000AA24;
-    v34 = sub_100002ADC;
-    v35 = 0;
+    v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = sub_10000AA24;
+    v35 = sub_100002ADC;
+    v36 = 0;
     if (v13)
     {
-      v26[0] = _NSConcreteStackBlock;
-      v26[1] = 3221225472;
-      v26[2] = sub_100160D54;
-      v26[3] = &unk_1002CF0F8;
-      v29 = v10;
-      v27 = eventCopy;
-      v28 = &v30;
-      [v13 enumerateObjectsUsingBlock:v26];
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_100160D54;
+      v27[3] = &unk_1002CF0F8;
+      v30 = v10;
+      v28 = eventCopy;
+      v29 = &v31;
+      [v13 enumerateObjectsUsingBlock:v27];
     }
 
     else
@@ -103,36 +103,36 @@
       [logs setObject:v13 forKey:eventName];
     }
 
-    v14 = v31[5];
+    v14 = v32[5];
     if (v14)
     {
       statValue = [v14 statValue];
       integerValue = [statValue integerValue];
 
       v17 = [NSNumber numberWithInteger:integerValue + 1];
-      [v31[5] setStatValue:v17];
+      [v32[5] setStatValue:v17];
     }
 
     else
     {
       v18 = [[FMDEventLoggerEventStat alloc] initWithEventName:eventName];
-      v19 = v31[5];
-      v31[5] = v18;
+      v19 = v32[5];
+      v32[5] = v18;
 
-      [v31[5] setStatValue:&off_1002E7B58];
+      [v32[5] setStatValue:&off_1002E7B58];
       v20 = [NSNumber numberWithDouble:v10];
-      [v31[5] setGroupValue:v20];
+      [v32[5] setGroupValue:v20];
 
-      [v13 addObject:v31[5]];
+      [v13 addObject:v32[5]];
     }
 
     v21 = [v13 count];
     if (v21 > qword_100312CB8)
     {
-      [v13 removeObjectAtIndex:0];
+      v21 = [v13 removeObjectAtIndex:0];
     }
 
-    v22 = sub_100002880();
+    v22 = sub_100002880(v21);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       sub_100228CF0(logs, v22);
@@ -143,14 +143,14 @@
 
     if (v24)
     {
-      v25 = sub_100002880();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = sub_100002880(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
-        sub_100228D68(v24, v25);
+        sub_100228D68(v24, v26);
       }
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v31, 8);
   }
 }
 
@@ -159,16 +159,16 @@
   v3 = +[NSFileManager defaultManager];
   cachedLogFileURL = [(FMDEventLoggerFacilityOnDiskStats *)self cachedLogFileURL];
   path = [cachedLogFileURL path];
-  v8 = 0;
-  [v3 removeItemAtPath:path error:&v8];
-  v6 = v8;
+  v9 = 0;
+  [v3 removeItemAtPath:path error:&v9];
+  v6 = v9;
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100228DE0(self, v6, v7);
+      sub_100228DE0(self, v6, v8);
     }
   }
 
@@ -213,29 +213,29 @@
 {
   archiver = [(FMDEventLoggerFacilityOnDiskStats *)self archiver];
   v4 = [NSSet setWithObject:objc_opt_class()];
-  v15 = 0;
-  v5 = [archiver readDictionaryAndClasses:v4 error:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [archiver readDictionaryAndClasses:v4 error:&v16];
+  v6 = v16;
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v17 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "FMDEventLoggerFacilityOnDisk read error %@", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "FMDEventLoggerFacilityOnDisk read error %@", buf, 0xCu);
     }
 
-    v8 = +[FMDEventLoggerGeneral sharedInstance];
-    [v8 sendError:v6 forEventName:@"FMDEventLoggerFacilityOnDiskStatsFailedReadEventName"];
+    v9 = +[FMDEventLoggerGeneral sharedInstance];
+    [v9 sendError:v6 forEventName:@"FMDEventLoggerFacilityOnDiskStatsFailedReadEventName"];
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = [v5 mutableCopy];
+    v10 = [v5 mutableCopy];
   }
 
   objc_initWeak(buf, self);
@@ -244,12 +244,12 @@
   block[1] = 3221225472;
   block[2] = sub_100161328;
   block[3] = &unk_1002CD288;
-  objc_copyWeak(&v14, buf);
-  v13 = v9;
-  v11 = v9;
+  objc_copyWeak(&v15, buf);
+  v14 = v10;
+  v12 = v10;
   dispatch_async(serialQueue, block);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 

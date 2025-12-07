@@ -77,30 +77,30 @@
 
 - (id)schemesGroupedByStore:(id)store
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:1];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v6 = storeCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = [(MTIDCompositeSecretStore *)self storeKeyForScheme:v11, v19];
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [(MTIDCompositeSecretStore *)self storeKeyForScheme:v11, v18];
         v13 = [v5 objectForKeyedSubscript:v12];
         v14 = v13;
         if (v13)
@@ -119,13 +119,11 @@
         [v5 setObject:v16 forKeyedSubscript:v12];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -142,31 +140,31 @@
 
 - (id)resetSchemes:(id)schemes options:(id)options
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   schemesCopy = schemes;
   optionsCopy = options;
   array = [MEMORY[0x277CBEB18] array];
-  v22 = schemesCopy;
+  v21 = schemesCopy;
   v9 = [(MTIDCompositeSecretStore *)self schemesGroupedByStore:schemesCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [v9 objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
+        v14 = [v9 objectForKeyedSubscript:*(*(&v22 + 1) + 8 * i)];
         firstObject = [v14 firstObject];
         v16 = [(MTIDCompositeSecretStore *)self secretStoreForScheme:firstObject];
 
@@ -174,7 +172,7 @@
         [array addObject:v17];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -191,38 +189,36 @@
     v19 = [MTPromise promiseWithResult:MEMORY[0x277CBEC38]];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 - (id)maintainSchemes:(id)schemes options:(id)options
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   schemesCopy = schemes;
   optionsCopy = options;
   array = [MEMORY[0x277CBEB18] array];
-  v21 = schemesCopy;
+  v20 = schemesCopy;
   v8 = [(MTIDCompositeSecretStore *)self schemesGroupedByStore:schemesCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [v8 objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
+        v13 = [v8 objectForKeyedSubscript:*(*(&v22 + 1) + 8 * i)];
         firstObject = [v13 firstObject];
         v15 = [(MTIDCompositeSecretStore *)self secretStoreForScheme:firstObject];
 
@@ -233,7 +229,7 @@
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -249,8 +245,6 @@
   {
     v18 = [MTPromise promiseWithResult:MEMORY[0x277CBEC38]];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -268,7 +262,7 @@
 
 - (id)debugInfo
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   stores = [(MTIDCompositeSecretStore *)selfCopy stores];
@@ -276,18 +270,16 @@
 
   objc_sync_exit(selfCopy);
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
-  v10 = MEMORY[0x277D85DD0];
-  v11 = 3221225472;
-  v12 = __37__MTIDCompositeSecretStore_debugInfo__block_invoke;
-  v13 = &unk_2798CE8D0;
-  v14 = v5;
+  v9 = MEMORY[0x277D85DD0];
+  v10 = 3221225472;
+  v11 = __37__MTIDCompositeSecretStore_debugInfo__block_invoke;
+  v12 = &unk_2798CE8D0;
+  v13 = v5;
   v6 = v5;
-  [v4 enumerateKeysAndObjectsUsingBlock:&v10];
-  v15 = @"subStores";
-  v16[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:{1, v10, v11, v12, v13}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v4 enumerateKeysAndObjectsUsingBlock:&v9];
+  v14 = @"subStores";
+  v15[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:{1, v9, v10, v11, v12}];
 
   return v7;
 }
@@ -305,31 +297,31 @@ void __37__MTIDCompositeSecretStore_debugInfo__block_invoke(uint64_t a1, uint64_
 
 - (id)syncForSchemes:(id)schemes options:(id)options
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   schemesCopy = schemes;
   optionsCopy = options;
   array = [MEMORY[0x277CBEB18] array];
-  v22 = schemesCopy;
+  v21 = schemesCopy;
   v9 = [(MTIDCompositeSecretStore *)self schemesGroupedByStore:schemesCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [v9 objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
+        v14 = [v9 objectForKeyedSubscript:*(*(&v22 + 1) + 8 * i)];
         firstObject = [v14 firstObject];
         v16 = [(MTIDCompositeSecretStore *)self secretStoreForScheme:firstObject];
 
@@ -340,7 +332,7 @@ void __37__MTIDCompositeSecretStore_debugInfo__block_invoke(uint64_t a1, uint64_
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -356,8 +348,6 @@ void __37__MTIDCompositeSecretStore_debugInfo__block_invoke(uint64_t a1, uint64_
   {
     v19 = [MTPromise promiseWithResult:MEMORY[0x277CBEC28]];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

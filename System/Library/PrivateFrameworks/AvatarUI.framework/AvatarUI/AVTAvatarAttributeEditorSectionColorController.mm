@@ -521,7 +521,7 @@ void __69__AVTAvatarAttributeEditorSectionColorController_hideSliderAnimated___b
   v4 = v3;
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_transform(v3);
   }
 
   else

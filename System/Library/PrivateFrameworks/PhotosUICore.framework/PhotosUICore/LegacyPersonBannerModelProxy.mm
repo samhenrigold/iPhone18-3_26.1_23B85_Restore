@@ -66,7 +66,7 @@
 
   controllerCopy = controller;
   selfCopy = self;
-  sub_1A46BBFC4(controllerCopy, v7);
+  sub_1A46BBFC4(controllerCopy, v7, v10);
   sub_1A3C784D4(v7, v8);
 }
 

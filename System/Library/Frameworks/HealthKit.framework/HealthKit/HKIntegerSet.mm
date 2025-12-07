@@ -65,85 +65,83 @@
 
 - (HKIntegerSet)initWithSet:(id)set
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   setCopy = set;
   v5 = -[HKIntegerSet initWithCapacity:](self, "initWithCapacity:", [setCopy count]);
   if (v5)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = setCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          CFSetAddValue(v5->_set, [*(*(&v13 + 1) + 8 * v10++) integerValue]);
+          CFSetAddValue(v5->_set, [*(*(&v12 + 1) + 8 * v10++) integerValue]);
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (HKIntegerSet)initWithArray:(id)array
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v5 = -[HKIntegerSet initWithCapacity:](self, "initWithCapacity:", [arrayCopy count]);
   if (v5)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v6 = arrayCopy;
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         v10 = 0;
         do
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          CFSetAddValue(v5->_set, [*(*(&v13 + 1) + 8 * v10++) integerValue]);
+          CFSetAddValue(v5->_set, [*(*(&v12 + 1) + 8 * v10++) integerValue]);
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -279,7 +277,7 @@ void __27__HKIntegerSet_description__block_invoke(uint64_t a1, uint64_t a2)
   return v7 & 1;
 }
 
-uint64_t __24__HKIntegerSet_isEqual___block_invoke(uint64_t a1, uint64_t a2)
+void *__24__HKIntegerSet_isEqual___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) containsInteger:a2];
   if ((result & 1) == 0)

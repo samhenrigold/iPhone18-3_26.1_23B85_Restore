@@ -24,8 +24,8 @@
 
 - (id)toDict
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v12[0] = @"learnMoreTipName";
+  v12[2] = *MEMORY[0x277D85DE8];
+  v11[0] = @"learnMoreTipName";
   learnMoreTipName = [(ICASTipLearnMoreData *)self learnMoreTipName];
   if (learnMoreTipName)
   {
@@ -38,8 +38,8 @@
   }
 
   v5 = learnMoreTipName2;
-  v12[1] = @"tipFeature";
-  v13[0] = learnMoreTipName2;
+  v11[1] = @"tipFeature";
+  v12[0] = learnMoreTipName2;
   tipFeature = [(ICASTipLearnMoreData *)self tipFeature];
   if (tipFeature)
   {
@@ -52,10 +52,8 @@
   }
 
   v8 = tipFeature2;
-  v13[1] = tipFeature2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = tipFeature2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }

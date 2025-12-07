@@ -99,23 +99,23 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v80 = *MEMORY[0x277D85DE8];
-  v57[0] = 0;
-  v59 = 0;
-  v61 = 0;
-  v64 = 0;
-  v68 = 0;
-  v70 = 0;
-  v73 = 0;
+  v79 = *MEMORY[0x277D85DE8];
   v56[0] = 0;
-  v56[1] = 0;
-  v55 = v56;
+  v58 = 0;
+  v60 = 0;
+  v63 = 0;
+  v67 = 0;
+  v69 = 0;
+  v72 = 0;
+  v55[0] = 0;
+  v55[1] = 0;
+  v54 = v55;
   startTime = [(MTRChannelClusterGetProgramGuideParams *)self startTime];
   v5 = startTime == 0;
 
   if (!v5)
   {
-    v57[0] = 1;
+    v56[0] = 1;
     unsignedIntValue = 0;
     startTime2 = [(MTRChannelClusterGetProgramGuideParams *)self startTime];
     unsignedIntValue = [startTime2 unsignedIntValue];
@@ -126,7 +126,7 @@
 
   if (!v8)
   {
-    v59 = 1;
+    v58 = 1;
     unsignedIntValue2 = 0;
     endTime2 = [(MTRChannelClusterGetProgramGuideParams *)self endTime];
     unsignedIntValue2 = [endTime2 unsignedIntValue];
@@ -137,9 +137,9 @@
 
   if (!v11)
   {
-    v61 = 1;
+    v60 = 1;
+    v61 = 0;
     v62 = 0;
-    v63 = 0;
     channelList2 = [(MTRChannelClusterGetProgramGuideParams *)self channelList];
     v13 = [channelList2 count] == 0;
 
@@ -148,8 +148,8 @@
       operator new();
     }
 
+    v61 = 0;
     v62 = 0;
-    v63 = 0;
   }
 
   pageToken = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
@@ -157,21 +157,21 @@
 
   if (!v15)
   {
-    v64 = 1;
+    v63 = 1;
+    v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
-    memset(v67, 0, sizeof(v67));
+    memset(v66, 0, sizeof(v66));
     pageToken2 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
     limit = [pageToken2 limit];
     v18 = limit == 0;
 
     if (!v18)
     {
-      LOBYTE(v65) = 1;
-      WORD1(v65) = 0;
+      LOBYTE(v64) = 1;
+      WORD1(v64) = 0;
       pageToken3 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
       limit2 = [pageToken3 limit];
-      WORD1(v65) = [limit2 unsignedShortValue];
+      WORD1(v64) = [limit2 unsignedShortValue];
     }
 
     pageToken4 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
@@ -180,14 +180,14 @@
 
     if (!v23)
     {
-      BYTE8(v65) = 1;
-      v66 = 0uLL;
+      BYTE8(v64) = 1;
+      v65 = 0uLL;
       pageToken5 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
       after2 = [pageToken5 after];
       v26 = after2;
       sub_238DB9BD8(buf, [after2 UTF8String], objc_msgSend(after2, "lengthOfBytesUsingEncoding:", 4));
 
-      v66 = *buf;
+      v65 = *buf;
     }
 
     pageToken6 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
@@ -196,15 +196,15 @@
 
     if (!v29)
     {
-      v67[0] = 1;
-      *&v67[8] = 0;
-      *&v67[16] = 0;
+      v66[0] = 1;
+      *&v66[8] = 0;
+      *&v66[16] = 0;
       pageToken7 = [(MTRChannelClusterGetProgramGuideParams *)self pageToken];
       before2 = [pageToken7 before];
       v32 = before2;
       sub_238DB9BD8(buf, [before2 UTF8String], objc_msgSend(before2, "lengthOfBytesUsingEncoding:", 4));
 
-      *&v67[8] = *buf;
+      *&v66[8] = *buf;
     }
   }
 
@@ -213,7 +213,7 @@
 
   if (!v34)
   {
-    v68 = 1;
+    v67 = 1;
     unsignedIntValue3 = 0;
     recordingFlag2 = [(MTRChannelClusterGetProgramGuideParams *)self recordingFlag];
     unsignedIntValue3 = [recordingFlag2 unsignedIntValue];
@@ -224,9 +224,9 @@
 
   if (!v37)
   {
-    v70 = 1;
+    v69 = 1;
+    v70 = 0;
     v71 = 0;
-    v72 = 0;
     externalIDList2 = [(MTRChannelClusterGetProgramGuideParams *)self externalIDList];
     v39 = [externalIDList2 count] == 0;
 
@@ -235,8 +235,8 @@
       operator new();
     }
 
+    v70 = 0;
     v71 = 0;
-    v72 = 0;
   }
 
   data = [(MTRChannelClusterGetProgramGuideParams *)self data];
@@ -244,44 +244,44 @@
 
   if (!v41)
   {
-    v73 = 1;
-    v74 = 0uLL;
+    v72 = 1;
+    v73 = 0uLL;
     data2 = [(MTRChannelClusterGetProgramGuideParams *)self data];
     v43 = data2;
     sub_238DB6950(buf, [data2 bytes], objc_msgSend(data2, "length"));
 
-    v74 = *buf;
+    v73 = *buf;
   }
 
-  sub_2393D9C18(0x62FuLL, 0, &v54);
-  if (v54)
+  sub_2393D9C18(0x62FuLL, 0, &v53);
+  if (v53)
   {
     sub_2393C7B90(buf);
+    v76 = 0;
     v77 = 0;
+    v75 = &unk_284BB83A8;
     v78 = 0;
-    v76 = &unk_284BB83A8;
-    v79 = 0;
-    sub_238EA16C4(&v76, &v54, 0);
-    sub_2393C7BF0(buf, &v76, 0xFFFFFFFF);
-    v44 = sub_238F05BE4(v57, buf, 0x100uLL);
+    sub_238EA16C4(&v75, &v53, 0);
+    sub_2393C7BF0(buf, &v75, 0xFFFFFFFF);
+    v44 = sub_238F05BE4(v56, buf, 0x100uLL);
     v46 = v44;
-    if (v44 || (v44 = sub_238DD2EFC(buf, &v54), v46 = v44, v44))
+    if (v44 || (v44 = sub_238DD2EFC(buf, &v53), v46 = v44, v44))
     {
       v47 = v45;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v54);
+      sub_238DD2F90(reader, &v53);
       v44 = sub_2393C7114(reader, 21, 256);
-      v47 = v52;
+      v47 = v51;
       v46 = v44;
     }
 
     v48 = v44 & 0xFFFFFFFF00000000;
-    v76 = &unk_284BB83A8;
-    sub_238EA1758(&v78);
+    v75 = &unk_284BB83A8;
     sub_238EA1758(&v77);
+    sub_238EA1758(&v76);
   }
 
   else
@@ -291,14 +291,13 @@
     v46 = 11;
   }
 
-  sub_238EA1758(&v54);
-  sub_238EA1790(&v55);
-  v49 = *MEMORY[0x277D85DE8];
-  v50 = v46 | v48;
-  v51 = v47;
-  result.mFile = v51;
-  result.mError = v50;
-  result.mLine = HIDWORD(v50);
+  sub_238EA1758(&v53);
+  sub_238EA1790(&v54);
+  v49 = v46 | v48;
+  v50 = v47;
+  result.mFile = v50;
+  result.mError = v49;
+  result.mLine = HIDWORD(v49);
   return result;
 }
 

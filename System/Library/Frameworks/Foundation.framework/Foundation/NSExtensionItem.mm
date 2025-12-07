@@ -123,8 +123,8 @@
   {
     v12 = 0;
     v5 = [(NSAttributedString *)attributedTitle length];
-    v17 = _MergedGlobals_85[0]();
-    v18[0] = off_1ED439808[0]();
+    v17 = _MergedGlobals_85(v5);
+    v18[0] = (off_1ED439808)(v17);
     v6 = -[NSAttributedString dataFromRange:documentAttributes:error:](attributedTitle, "dataFromRange:documentAttributes:error:", 0, v5, [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1], &v12);
     if (v6)
     {
@@ -132,8 +132,8 @@
       if ([(NSAttributedString *)attributedTitle prefersRTFDInRange:0, [(NSAttributedString *)attributedTitle length]])
       {
         v7 = [(NSAttributedString *)attributedTitle length];
-        v15 = _MergedGlobals_85[0]();
-        v16 = off_1ED439810[0]();
+        v15 = _MergedGlobals_85(v7);
+        v16 = (off_1ED439810)(v15);
         v8 = -[NSAttributedString dataFromRange:documentAttributes:error:](attributedTitle, "dataFromRange:documentAttributes:error:", 0, v7, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1], &v12);
         if (v8)
         {
@@ -173,7 +173,7 @@
 {
   v18[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableDictionary *)self->_userInfo objectForKey:@"_NSExtensionItemRTFDAttributedTitleKey"];
-  if (!v3 || (v4 = v3, *buf = 0, UIFoundationLibrary(), v5 = [NSAttributedString alloc], v17 = _MergedGlobals_85[0](), v18[0] = off_1ED439810[0](), (v6 = -[NSAttributedString initWithData:options:documentAttributes:error:](v5, "initWithData:options:documentAttributes:error:", v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1], 0, buf)) == 0))
+  if (!v3 || (v4 = v3, *buf = 0, UIFoundationLibrary(), v5 = [NSAttributedString alloc], v17 = _MergedGlobals_85(v5), v18[0] = (off_1ED439810)(v17), (v6 = -[NSAttributedString initWithData:options:documentAttributes:error:](v5, "initWithData:options:documentAttributes:error:", v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1], 0, buf)) == 0))
   {
     result = [(NSMutableDictionary *)self->_userInfo objectForKey:@"NSExtensionItemAttributedTitleKey"];
     if (!result)
@@ -185,8 +185,8 @@
     v13 = 0;
     UIFoundationLibrary();
     v9 = [NSAttributedString alloc];
-    v15 = _MergedGlobals_85[0]();
-    v16 = off_1ED439808[0]();
+    v15 = _MergedGlobals_85(v9);
+    v16 = (off_1ED439808)(v15);
     v10 = -[NSAttributedString initWithData:options:documentAttributes:error:](v9, "initWithData:options:documentAttributes:error:", v8, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1], 0, &v13);
     if (!v10)
     {
@@ -212,14 +212,14 @@
   if (attributedContentText)
   {
     v5 = [(NSAttributedString *)attributedContentText length];
-    v11 = _MergedGlobals_85[0]();
-    v12[0] = off_1ED439808[0]();
+    v11 = _MergedGlobals_85(v5);
+    v12[0] = (off_1ED439808)(v11);
     -[NSMutableDictionary setValue:forKey:](self->_userInfo, "setValue:forKey:", -[NSAttributedString dataFromRange:documentAttributes:error:](attributedContentText, "dataFromRange:documentAttributes:error:", 0, v5, [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1], &v8), @"NSExtensionItemAttributedContentTextKey");
     if ([(NSAttributedString *)attributedContentText prefersRTFDInRange:0, [(NSAttributedString *)attributedContentText length]])
     {
       v6 = [(NSAttributedString *)attributedContentText length];
-      v9 = _MergedGlobals_85[0]();
-      v10 = off_1ED439810[0]();
+      v9 = _MergedGlobals_85(v6);
+      v10 = (off_1ED439810)(v9);
       -[NSMutableDictionary setValue:forKey:](self->_userInfo, "setValue:forKey:", -[NSAttributedString dataFromRange:documentAttributes:error:](attributedContentText, "dataFromRange:documentAttributes:error:", 0, v6, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1], &v8), @"_NSExtensionItemRTFDAttributedContentTextKey");
     }
   }
@@ -237,7 +237,7 @@
 {
   v14[1] = *MEMORY[0x1E69E9840];
   v3 = [(NSMutableDictionary *)self->_userInfo objectForKey:@"_NSExtensionItemRTFDAttributedContentTextKey"];
-  if (!v3 || (v4 = v3, v10 = 0, UIFoundationLibrary(), v5 = [NSAttributedString alloc], v13 = _MergedGlobals_85[0](), v14[0] = off_1ED439810[0](), (v6 = -[NSAttributedString initWithData:options:documentAttributes:error:](v5, "initWithData:options:documentAttributes:error:", v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:{1, 0}], 0, &v10)) == 0))
+  if (!v3 || (v4 = v3, v10 = 0, UIFoundationLibrary(), v5 = [NSAttributedString alloc], v13 = _MergedGlobals_85(v5), v14[0] = (off_1ED439810)(v13), (v6 = -[NSAttributedString initWithData:options:documentAttributes:error:](v5, "initWithData:options:documentAttributes:error:", v4, [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:{1, 0}], 0, &v10)) == 0))
   {
     result = [(NSMutableDictionary *)self->_userInfo objectForKey:@"NSExtensionItemAttributedContentTextKey"];
     if (!result)
@@ -249,8 +249,8 @@
     v10 = 0;
     UIFoundationLibrary();
     v9 = [NSAttributedString alloc];
-    v11 = _MergedGlobals_85[0]();
-    v12 = off_1ED439808[0]();
+    v11 = _MergedGlobals_85(v9);
+    v12 = (off_1ED439808)(v11);
     v6 = -[NSAttributedString initWithData:options:documentAttributes:error:](v9, "initWithData:options:documentAttributes:error:", v8, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1], 0, &v10);
   }
 
@@ -289,7 +289,7 @@
   if ([(NSArray *)[(NSExtensionItem *)self attachments] count])
   {
     v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v4 = off_1ED439818[0]();
+    v4 = off_1ED439818();
     v52 = 0u;
     v53 = 0u;
     v50 = 0u;
@@ -370,7 +370,7 @@ LABEL_13:
           {
             if (v13 == v4 && [copiedURL isFileURL])
             {
-              v13 = (off_1ED439830[0])(copiedURL, 0);
+              v13 = off_1ED439830(copiedURL, 0);
               v19 = 0;
               goto LABEL_25;
             }
@@ -410,7 +410,7 @@ LABEL_27:
 LABEL_31:
         if ([v12 count] >= 2)
         {
-          [v12 removeObject:off_1ED439828[0]()];
+          [v12 removeObject:off_1ED439828()];
         }
 
         if (v13)
@@ -461,64 +461,76 @@ LABEL_40:
 void __52__NSExtensionItem__matchingDictionaryRepresentation__block_invoke(uint64_t a1, __CFString *a2, void *a3)
 {
   v4 = a2;
-  v19 = *MEMORY[0x1E69E9840];
-  if ([(__CFString *)a2 isEqualToString:@"NSExtensionItemAttributedTitleKey"])
+  v21 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_isEqualToString_(a2, a2, @"NSExtensionItemAttributedTitleKey"))
   {
     v4 = @"title";
+    isEqualToString = objc_msgSend_isEqualToString_(@"title");
   }
 
-  if ([(__CFString *)v4 isEqualToString:@"NSExtensionItemAttributedContentTextKey"])
+  else
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
+  }
+
+  if (isEqualToString)
   {
     v4 = @"contentText";
+    v7 = objc_msgSend_isEqualToString_(@"contentText");
   }
 
-  if (([(__CFString *)v4 isEqualToString:@"NSExtensionItemAttachmentsKey"]& 1) == 0)
+  else
   {
-    if (-[__CFString isEqualToString:](v4, "isEqualToString:", @"supportsJavaScript") && (objc_getClass("NSNumber"), (objc_opt_isKindOfClass() & 1) != 0) && [a3 BOOLValue])
+    v7 = objc_msgSend_isEqualToString_(v4);
+  }
+
+  if ((v7 & 1) == 0)
+  {
+    if (objc_msgSend_isEqualToString_(v4) && (objc_getClass("NSNumber"), (objc_opt_isKindOfClass() & 1) != 0) && [a3 BOOLValue])
     {
       *(*(*(a1 + 32) + 8) + 24) = 1;
     }
 
     else if (([(__CFString *)v4 hasPrefix:@"com.apple.UIKit"]& 1) == 0)
     {
-      v11 = 0;
-      v12 = &v11;
-      v13 = 0x2020000000;
-      v14 = 0;
-      v6 = objc_opt_class();
-      v7 = +[NSExtensionContext _extensionContextHostProtocolAllowedClassesForItems];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __52__NSExtensionItem__matchingDictionaryRepresentation__block_invoke_2;
-      v10[3] = &unk_1E69F2800;
-      v10[4] = v6;
-      v10[5] = &v11;
-      [v7 enumerateObjectsUsingBlock:v10];
-      if (*(v12 + 24) == 1)
+      v13 = 0;
+      v14 = &v13;
+      v15 = 0x2020000000;
+      v16 = 0;
+      v8 = objc_opt_class();
+      v9 = +[NSExtensionContext _extensionContextHostProtocolAllowedClassesForItems];
+      v12[0] = MEMORY[0x1E69E9820];
+      v12[1] = 3221225472;
+      v12[2] = __52__NSExtensionItem__matchingDictionaryRepresentation__block_invoke_2;
+      v12[3] = &unk_1E69F2800;
+      v12[4] = v8;
+      v12[5] = &v13;
+      [v9 enumerateObjectsUsingBlock:v12];
+      if (*(v14 + 24) == 1)
       {
         [*(*(*(a1 + 40) + 8) + 40) setObject:a3 forKey:v4];
       }
 
       else
       {
-        v8 = _NSOSLog();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = _NSOSLog();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v9 = objc_opt_class();
+          v11 = objc_opt_class();
           *buf = 138412546;
-          v16 = v4;
-          v17 = 2112;
-          v18 = v9;
-          _os_log_error_impl(&dword_18075C000, v8, OS_LOG_TYPE_ERROR, "Unable to encode value for key %@ because it is of unsupported type %@", buf, 0x16u);
+          v18 = v4;
+          v19 = 2112;
+          v20 = v11;
+          _os_log_error_impl(&dword_18075C000, v10, OS_LOG_TYPE_ERROR, "Unable to encode value for key %@ because it is of unsupported type %@", buf, 0x16u);
         }
       }
 
-      _Block_object_dispose(&v11, 8);
+      _Block_object_dispose(&v13, 8);
     }
   }
 }
 
-uint64_t __52__NSExtensionItem__matchingDictionaryRepresentation__block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__52__NSExtensionItem__matchingDictionaryRepresentation__block_invoke_2(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) isSubclassOfClass:a2];
   if (result)

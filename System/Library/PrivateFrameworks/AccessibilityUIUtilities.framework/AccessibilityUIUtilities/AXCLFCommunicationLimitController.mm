@@ -674,74 +674,74 @@ LABEL_7:
 - (NSString)outgoingHeaderText
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 - (NSString)incomingHeaderText
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 - (NSString)favoritesFooterText
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 - (NSString)contactPickerPrompt
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 - (NSString)privacyAppBundleIdentifier
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return &stru_1F4041FC0;
 }
 
 - (NSArray)actionTypes
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return MEMORY[0x1E695E0F0];
 }
 
 - (NSArray)bundleIdentifiers
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return MEMORY[0x1E695E0F0];
 }
 
 - (CLFBaseCommunicationLimitSettings)settings
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
-  v2 = MEMORY[0x1E6994640];
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
+  v3 = MEMORY[0x1E6994640];
 
-  return [v2 sharedInstance];
+  return [v3 sharedInstance];
 }
 
 - (unint64_t)app
 {
   OUTLINED_FUNCTION_1();
-  objc_opt_class();
-  OUTLINED_FUNCTION_0();
+  v2 = objc_opt_class();
+  OUTLINED_FUNCTION_0(v2);
   return 0;
 }
 

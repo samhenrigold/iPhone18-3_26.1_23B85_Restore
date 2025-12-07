@@ -13,7 +13,7 @@
   if (!v5)
   {
     re::internal::assertLog(4, v4, "assertion failure: '%s' (%s:line %i) ", "endpoint", "[AVPlayer(RE) addEndpoint:]", 85);
-    _os_crash();
+    _os_crash("assertion failure: (endpoint) ");
     __break(1u);
   }
 

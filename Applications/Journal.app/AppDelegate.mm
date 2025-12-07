@@ -30,7 +30,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1004B6488(&qword_100AD1B20, type metadata accessor for LaunchOptionsKey);
+    sub_1004B6488(&qword_100AD1B20, type metadata accessor for LaunchOptionsKey, &unk_10093F638);
     optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -108,7 +108,7 @@
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
-    sub_1004B6488(&qword_100AD1B20, type metadata accessor for LaunchOptionsKey);
+    sub_1004B6488(&qword_100AD1B20, type metadata accessor for LaunchOptionsKey, &unk_10093F638);
     static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -151,7 +151,7 @@
 
 - (void)protectedDataWillBecomeUnavailable:(id)unavailable
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   v6 = type metadata accessor for Notification();
@@ -201,7 +201,7 @@
   UIApplication.activateSceneSession(for:errorHandler:)();
 
   (*(v5 + 8))(v7, v4);
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)buildMenuWithBuilder:(id)builder
@@ -236,15 +236,15 @@
   UIApplication.activateSceneSession(for:errorHandler:)();
 
   (*(v5 + 8))(v7, v4);
-  sub_100004F84(v9, &qword_100AD13D0);
+  sub_100004F84(v9, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)showMacNotificationsSettings:(id)settings
 {
-  v4 = sub_1000F24EC(&unk_100AD6DD0);
+  v4 = sub_1000F24EC(&unk_100AD6DD0, &qword_1009437C0);
   __chkstk_darwin(v4 - 8);
   v6 = v10 - v5;
-  v7 = type metadata accessor for OpenSensitiveURLAction.Destination();
+  v7 = type metadata accessor for OpenSensitiveURLAction.Destination(0);
   __chkstk_darwin(v7);
   v9 = v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (settings)
@@ -262,9 +262,9 @@
   swift_storeEnumTagMultiPayload();
   sub_1008B4384(v6);
   sub_1008B4EFC(v6, 0, 0, 0);
-  sub_100004F84(v6, &unk_100AD6DD0);
+  sub_100004F84(v6, &unk_100AD6DD0, &qword_1009437C0);
   sub_100439B24(v9, type metadata accessor for OpenSensitiveURLAction.Destination);
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
 }
 
 - (void)validateCommand:(id)command
@@ -304,7 +304,7 @@
 
   v8 = sub_1004B44A0(action, v10);
 
-  sub_100004F84(v10, &qword_100AD13D0);
+  sub_100004F84(v10, &qword_100AD13D0, &unk_100942DB0);
   return v8 & 1;
 }
 

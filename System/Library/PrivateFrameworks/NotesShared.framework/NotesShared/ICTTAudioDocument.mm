@@ -20,11 +20,11 @@
 - (ICTTAudioDocument)initWithReplicaID:(id)d compatibleDocument:(id)document
 {
   v5 = sub_2150A3A00();
-  MEMORY[0x28223BE20](v5 - 8);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_2150A39C0();
   documentCopy = document;
-  return ICTTAudioDocument.init(replicaID:compatibleDocument:)(v7, document);
+  return ICTTAudioDocument.init(replicaID:compatibleDocument:)(v8, document);
 }
 
 - (void)setDocument:(id)document
@@ -53,40 +53,40 @@
 {
   v6 = sub_2150A3A00();
   v7 = *(v6 - 8);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   dataCopy = data;
   dCopy = d;
-  v12 = sub_2150A37B0();
-  v14 = v13;
+  v13 = sub_2150A37B0();
+  v15 = v14;
 
   sub_2150A39C0();
   swift_getObjCClassMetadata();
-  v15 = sub_214F7835C();
-  sub_214F7EDE4(v12, v14);
-  (*(v7 + 8))(v9, v6);
+  v16 = sub_214F7835C(v13, v15);
+  sub_214F7EDE4(v13, v15);
+  (*(v7 + 8))(v10, v6);
 
-  return v15;
+  return v16;
 }
 
 - (unint64_t)mergeWithMergeableData:(id)data replicaID:(id)d
 {
   v7 = sub_2150A3A00();
   v8 = *(v7 - 8);
-  MEMORY[0x28223BE20](v7);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7, v9);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   dataCopy = data;
   dCopy = d;
   selfCopy = self;
-  v14 = sub_2150A37B0();
-  v16 = v15;
+  v15 = sub_2150A37B0();
+  v17 = v16;
 
   sub_2150A39C0();
-  v17 = ICTTAudioDocument.merge(withMergeableData:replicaID:)();
-  sub_214F7EDE4(v14, v16);
+  v18 = ICTTAudioDocument.merge(withMergeableData:replicaID:)(v15, v17);
+  sub_214F7EDE4(v15, v17);
 
-  (*(v8 + 8))(v10, v7);
-  return v17;
+  (*(v8 + 8))(v11, v7);
+  return v18;
 }
 
 - (NSArray)orderedFragmentUUIDs

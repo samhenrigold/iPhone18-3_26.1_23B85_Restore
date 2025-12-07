@@ -44,23 +44,22 @@
 
     if (self == preferencesCopy)
     {
-      v7 = 1;
+      v6 = 1;
     }
 
     else
     {
-      preferredZOrderLevel = self->_preferredZOrderLevel;
       [(TRAPreferencesZOrderLevel *)preferencesCopy preferredZOrderLevel];
-      v7 = BSFloatEqualToFloat();
+      v6 = BSFloatEqualToFloat();
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

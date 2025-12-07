@@ -1,6 +1,7 @@
 @interface HRCBLESource
 - (BOOL)available;
 - (HRCBLESource)init;
+- (void)_setDiscoveryEnabled:(BOOL)enabled;
 - (void)_setStreamingMode:(unint64_t)mode discoveryEnabled:(BOOL)enabled;
 - (void)activate;
 - (void)connectedDevicesDidChange:(id)change;
@@ -22,7 +23,7 @@
   v17.receiver = self;
   v17.super_class = HRCBLESource;
   v2 = [(HRCBLESource *)&v17 init];
-  v3 = sub_10000132C();
+  v3 = sub_10000132C(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -61,7 +62,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_10000132C();
+  v3 = sub_10000132C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -96,7 +97,7 @@
 {
   if (self->_bleHeartRate)
   {
-    v2 = sub_10000132C();
+    v2 = sub_10000132C(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
     {
       sub_100007C84(v2);
@@ -169,7 +170,7 @@
 
 - (void)setOpportunisticMode:(BOOL)mode
 {
-  v3 = sub_10000132C();
+  v3 = sub_10000132C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -196,7 +197,7 @@
   if (mode - 1 < 2)
   {
     LOBYTE(enabledCopy) = 0;
-    v7 = 2;
+    v8 = 2;
 LABEL_5:
     self->_discoveryEnabled = enabledCopy;
     goto LABEL_7;
@@ -204,26 +205,26 @@ LABEL_5:
 
   if (!mode)
   {
-    v7 = enabledCopy;
+    v8 = enabledCopy;
     goto LABEL_5;
   }
 
-  v7 = 0;
+  v8 = 0;
 LABEL_7:
-  v8 = sub_10000132C();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_10000132C(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     discoveryEnabled = self->_discoveryEnabled;
-    v10[0] = 67109632;
-    v10[1] = mode;
-    v11 = 1024;
-    v12 = discoveryEnabled;
-    v13 = 1024;
-    v14 = v7;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BLE streaming mode set to %u discovery %{BOOL}u HLE: %u", v10, 0x14u);
+    v11[0] = 67109632;
+    v11[1] = mode;
+    v12 = 1024;
+    v13 = discoveryEnabled;
+    v14 = 1024;
+    v15 = v8;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "BLE streaming mode set to %u discovery %{BOOL}u HLE: %u", v11, 0x14u);
   }
 
-  [(HLEHeartRateRequestor *)self->_bleHeartRate setHeartRateState:v7];
+  [(HLEHeartRateRequestor *)self->_bleHeartRate setHeartRateState:v8];
 }
 
 - (void)connectedDevicesDidChange:(id)change
@@ -231,33 +232,34 @@ LABEL_7:
   changeCopy = change;
   dispatch_assert_queue_V2(self->_queue);
   available = self->_available;
-  self->_available = [changeCopy count] != 0;
-  v5 = sub_10000132C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v5 = [changeCopy count];
+  self->_available = v5 != 0;
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     LODWORD(buf) = 134349056;
     *(&buf + 4) = [changeCopy count];
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "received updated bluetooth le source list with count : %{public}lu", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "received updated bluetooth le source list with count : %{public}lu", &buf, 0xCu);
   }
 
   bleSourcesUpdateHandler = self->_bleSourcesUpdateHandler;
   if (bleSourcesUpdateHandler)
   {
-    v7 = sub_1000018EC(changeCopy);
-    bleSourcesUpdateHandler[2](bleSourcesUpdateHandler, v7);
+    v9 = sub_1000018EC(changeCopy);
+    bleSourcesUpdateHandler[2](bleSourcesUpdateHandler, v9);
   }
 
   if (self->_available != available)
   {
-    v8 = sub_10000132C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000132C(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_available;
+      v11 = self->_available;
       LODWORD(buf) = 67109376;
       DWORD1(buf) = available;
       WORD4(buf) = 1024;
-      *(&buf + 10) = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "BLE availability changed: %{BOOL}u -> %{BOOL}u", &buf, 0xEu);
+      *(&buf + 10) = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "BLE availability changed: %{BOOL}u -> %{BOOL}u", &buf, 0xEu);
     }
 
     availabilityHandler = self->_availabilityHandler;
@@ -268,27 +270,26 @@ LABEL_7:
 
     if (self->_available)
     {
-      v11 = os_transaction_create();
-      [(HRCBLESource *)self setTransaction:v11];
+      v13 = os_transaction_create();
+      [(HRCBLESource *)self setTransaction:v13];
 
-      v12 = sub_10000132C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10000132C(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        v13 = "Holding transaction because BLE device is connected";
+        v16 = "Holding transaction because BLE device is connected";
 LABEL_15:
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v16, &buf, 2u);
       }
     }
 
     else
     {
-      [(HRCBLESource *)self setTransaction:0];
-      v12 = sub_10000132C();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_10000132C([(HRCBLESource *)self setTransaction:0]);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        v13 = "Releasing transaction because BLE device disconnected";
+        v16 = "Releasing transaction because BLE device disconnected";
         goto LABEL_15;
       }
     }
@@ -296,100 +297,100 @@ LABEL_15:
 
   if (self->_sourceUpdateHandler)
   {
-    v14 = objc_opt_new();
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v15 = changeCopy;
-    v16 = [v15 countByEnumeratingWithState:&v37 objects:v48 count:16];
-    if (v16)
+    v17 = objc_opt_new();
+    v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
+    v18 = changeCopy;
+    v19 = [v18 countByEnumeratingWithState:&v41 objects:v52 count:16];
+    if (v19)
     {
-      v17 = *v38;
+      v20 = *v42;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v19; i = i + 1)
         {
-          if (*v38 != v17)
+          if (*v42 != v20)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v18);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * i);
-          v20 = [NSUUID alloc];
-          localIdentifier = [v19 localIdentifier];
-          v22 = [v20 initWithUUIDString:localIdentifier];
+          v22 = *(*(&v41 + 1) + 8 * i);
+          v23 = [NSUUID alloc];
+          localIdentifier = [v22 localIdentifier];
+          v25 = [v23 initWithUUIDString:localIdentifier];
 
-          if (v22)
+          if (v25)
           {
-            if (([(NSMutableArray *)self->_activeDeviceUUIDs containsObject:v22]& 1) == 0)
+            if (([(NSMutableArray *)self->_activeDeviceUUIDs containsObject:v25]& 1) == 0)
             {
               *&buf = +[NSDate now];
               *(&buf + 1) = std::chrono::steady_clock::now();
-              v43 = 0;
-              v23 = v22;
-              v44 = v23;
-              v45 = 771;
+              v47 = 0;
+              v27 = v25;
+              v48 = v27;
+              v49 = 771;
               (*(self->_sourceUpdateHandler + 2))();
-              [(NSMutableArray *)v14 addObject:v23];
+              [(NSMutableArray *)v17 addObject:v27];
             }
           }
 
           else
           {
-            v24 = sub_10000132C();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v28 = sub_10000132C(v26);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
             {
-              localIdentifier2 = [v19 localIdentifier];
-              sub_100007CC8(localIdentifier2, v46, &v47, v24);
+              localIdentifier2 = [v22 localIdentifier];
+              sub_100007CC8(localIdentifier2, v50, &v51, v28);
             }
           }
         }
 
-        v16 = [v15 countByEnumeratingWithState:&v37 objects:v48 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v41 objects:v52 count:16];
       }
 
-      while (v16);
+      while (v19);
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v26 = self->_activeDeviceUUIDs;
-    v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v33 objects:v41 count:16];
-    if (v27)
+    v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v30 = self->_activeDeviceUUIDs;
+    v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v37 objects:v45 count:16];
+    if (v31)
     {
-      v28 = *v34;
+      v32 = *v38;
       do
       {
-        for (j = 0; j != v27; j = j + 1)
+        for (j = 0; j != v31; j = j + 1)
         {
-          if (*v34 != v28)
+          if (*v38 != v32)
           {
-            objc_enumerationMutation(v26);
+            objc_enumerationMutation(v30);
           }
 
-          v30 = *(*(&v33 + 1) + 8 * j);
-          if (([(NSMutableArray *)v14 containsObject:v30]& 1) == 0)
+          v34 = *(*(&v37 + 1) + 8 * j);
+          if (([(NSMutableArray *)v17 containsObject:v34]& 1) == 0)
           {
             *&buf = +[NSDate now];
             *(&buf + 1) = std::chrono::steady_clock::now();
-            v43 = 0;
-            v44 = v30;
-            v45 = 3;
+            v47 = 0;
+            v48 = v34;
+            v49 = 3;
             (*(self->_sourceUpdateHandler + 2))();
           }
         }
 
-        v27 = [(NSMutableArray *)v26 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v31 = [(NSMutableArray *)v30 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
-      while (v27);
+      while (v31);
     }
 
     activeDeviceUUIDs = self->_activeDeviceUUIDs;
-    self->_activeDeviceUUIDs = v14;
+    self->_activeDeviceUUIDs = v17;
   }
 }
 
@@ -406,56 +407,56 @@ LABEL_15:
   [quantity _beatsPerMinute];
   v13 = v12;
 
-  v14 = sub_10000132C();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_10000132C(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134546179;
-    v26 = v13;
-    v27 = 2114;
-    v28 = uUID;
-    v29 = 2114;
-    v30 = startDate;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "BLE HR %{sensitive}f %{public}@ TS: %{public}@", buf, 0x20u);
+    v29 = v13;
+    v30 = 2114;
+    v31 = uUID;
+    v32 = 2114;
+    v33 = startDate;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "BLE HR %{sensitive}f %{public}@ TS: %{public}@", buf, 0x20u);
   }
 
   if (deviceCopy)
   {
-    v15 = [NSUUID alloc];
+    v17 = [NSUUID alloc];
     localIdentifier = [deviceCopy localIdentifier];
-    v17 = [v15 initWithUUIDString:localIdentifier];
+    v19 = [v17 initWithUUIDString:localIdentifier];
 
-    if (v17)
+    if (v19)
     {
-      v18 = [HRCHeartRateData alloc];
-      v19 = [HRCUtilities translateToHRCDevice:deviceCopy];
-      LOBYTE(v24) = 0;
-      LOWORD(v23) = 3;
-      v20 = [v18 initWithHeartRate:0 confidence:0 confidenceLevel:0 arbitrationStatus:0 context:0 hrContext:startDate timestamp:v13 sampleUuid:uUID sourceType:v23 streamingThrottleStatus:v17 deviceUuid:v19 device:v24 sensorLocation:? flags:?];
+      v21 = [HRCHeartRateData alloc];
+      v22 = [HRCUtilities translateToHRCDevice:deviceCopy];
+      LOBYTE(v27) = 0;
+      LOWORD(v26) = 3;
+      v23 = [v21 initWithHeartRate:0 confidence:0 confidenceLevel:0 arbitrationStatus:0 context:0 hrContext:startDate timestamp:v13 sampleUuid:uUID sourceType:v26 streamingThrottleStatus:v19 deviceUuid:v22 device:v27 sensorLocation:? flags:?];
 
       heartRateHandler = self->_heartRateHandler;
       if (heartRateHandler)
       {
-        heartRateHandler[2](heartRateHandler, v20);
+        heartRateHandler[2](heartRateHandler, v23);
       }
     }
 
     else
     {
-      v20 = sub_10000132C();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+      v23 = sub_10000132C(v20);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         localIdentifier2 = [deviceCopy localIdentifier];
-        sub_100007D24(localIdentifier2, buf, v20);
+        sub_100007D24(localIdentifier2, buf, v23);
       }
     }
   }
 
   else
   {
-    v17 = sub_10000132C();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v19 = sub_10000132C(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      sub_100007D7C(v17);
+      sub_100007D7C(v19);
     }
   }
 }
@@ -470,6 +471,31 @@ LABEL_15:
   v4[4] = self;
   enabledCopy = enabled;
   dispatch_async(queue, v4);
+}
+
+- (void)_setDiscoveryEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  dispatch_assert_queue_V2(self->_queue);
+  v6 = sub_10000132C(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v10[0] = 67109120;
+    v10[1] = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "bluetooth le source discovery enabled : %{BOOL}u", v10, 8u);
+  }
+
+  [(HRCBLESource *)self _setStreamingMode:self->_streamingMode discoveryEnabled:enabledCopy];
+  if (enabledCopy)
+  {
+    bleSourcesUpdateHandler = self->_bleSourcesUpdateHandler;
+    if (bleSourcesUpdateHandler)
+    {
+      currentConnectedDevices = [(HLEHeartRateRequestor *)self->_bleHeartRate currentConnectedDevices];
+      v9 = sub_1000018EC(currentConnectedDevices);
+      bleSourcesUpdateHandler[2](bleSourcesUpdateHandler, v9);
+    }
+  }
 }
 
 @end

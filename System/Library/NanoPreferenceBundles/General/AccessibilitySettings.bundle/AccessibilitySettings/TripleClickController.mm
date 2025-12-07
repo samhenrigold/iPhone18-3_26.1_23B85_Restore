@@ -291,11 +291,11 @@ LABEL_15:
 
 - (void)viewWillAppear:(BOOL)appear
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   [*(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC60]) setDelegate:self];
-  v17.receiver = self;
-  v17.super_class = TripleClickController;
-  [(AccessibilityBridgeBaseController *)&v17 viewWillAppear:1];
+  v16.receiver = self;
+  v16.super_class = TripleClickController;
+  [(AccessibilityBridgeBaseController *)&v16 viewWillAppear:1];
   [(TripleClickController *)self willBecomeActive];
   v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v5 = objc_alloc(MEMORY[0x277CCAEB8]);
@@ -309,12 +309,10 @@ LABEL_15:
   v12 = [v9 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale2 bundleURL:bundleURL2];
 
   v13 = MEMORY[0x277CF3470];
-  v18[0] = v12;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v12;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   v15 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=AX_SHORTCUT_ID"];
   [v13 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v8 localizedNavigationComponents:v14 deepLink:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -329,40 +327,40 @@ LABEL_15:
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
-  v33.receiver = self;
-  v33.super_class = TripleClickController;
-  [(TripleClickController *)&v33 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
+  v32.receiver = self;
+  v32.super_class = TripleClickController;
+  [(TripleClickController *)&v32 tableView:viewCopy didSelectRowAtIndexPath:pathCopy];
   v8 = [viewCopy cellForRowAtIndexPath:pathCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     isChecked = [v8 isChecked];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     visibleCells = [viewCopy visibleCells];
-    v11 = [visibleCells countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v11 = [visibleCells countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v30;
+      v13 = *v29;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v30 != v13)
+          if (*v29 != v13)
           {
             objc_enumerationMutation(visibleCells);
           }
 
-          [*(*(&v29 + 1) + 8 * i) setChecked:0];
+          [*(*(&v28 + 1) + 8 * i) setChecked:0];
         }
 
-        v12 = [visibleCells countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v12 = [visibleCells countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v12);
@@ -416,13 +414,11 @@ LABEL_15:
       }
 
       v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v23];
-      v34 = v20;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+      v33 = v20;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
       [(TripleClickController *)self _saveTripleClickOptions:v24];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

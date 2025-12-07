@@ -12,18 +12,16 @@
 {
   if (*(self + OBJC_IVAR___CRXCPrescriptionState_rxUUID + 8))
   {
-    v2 = *(self + OBJC_IVAR___CRXCPrescriptionState_rxUUID);
-    v3 = *(self + OBJC_IVAR___CRXCPrescriptionState_rxUUID + 8);
 
-    v4 = sub_247365C44();
+    v2 = sub_247365C44();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (NSString)description

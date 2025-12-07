@@ -5,6 +5,7 @@
 - (void)fadeInFooterView;
 - (void)searchAgentUpdatedResults:(id)results;
 - (void)setFooterView:(id)view;
+- (void)updateWithResultSections:(id)sections resetScrollPoint:(BOOL)point animated:(BOOL)animated;
 @end
 
 @implementation SPUIProactiveResultsViewController
@@ -135,6 +136,26 @@ void __54__SPUIProactiveResultsViewController_fadeInFooterView__block_invoke_2(u
   {
     [(SPUIProactiveResultsViewController *)self fadeInFooterView];
   }
+}
+
+- (void)updateWithResultSections:(id)sections resetScrollPoint:(BOOL)point animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  pointCopy = point;
+  sectionsCopy = sections;
+  if ([sectionsCopy count])
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = animatedCopy;
+  }
+
+  v10.receiver = self;
+  v10.super_class = SPUIProactiveResultsViewController;
+  [(SearchUIResultsViewController *)&v10 updateWithResultSections:sectionsCopy resetScrollPoint:pointCopy animated:v9];
 }
 
 - (BOOL)searchAgentHasWindow:(id)window

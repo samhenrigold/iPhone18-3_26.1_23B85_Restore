@@ -51,51 +51,50 @@
 
 + (id)defaultRecipeParams
 {
-  v6[21] = *MEMORY[0x277D85DE8];
-  v5[0] = @"NumLocalIterations";
-  v5[1] = @"LearningRate";
-  v6[0] = &unk_2884B2330;
-  v6[1] = &unk_2884B23A8;
-  v5[2] = @"LearningRateDecay";
-  v5[3] = @"TrainLayers";
-  v6[2] = &unk_2884B23B8;
-  v6[3] = MEMORY[0x277CBEBF8];
-  v5[4] = @"GradientNormFactor";
-  v5[5] = @"BatchSize";
-  v6[4] = &unk_2884B23C8;
-  v6[5] = &unk_2884B2330;
-  v5[6] = @"L2NormBound";
-  v5[7] = @"GradientNormType";
-  v6[6] = &unk_2884B23D8;
-  v6[7] = @"NoGradNorm";
-  v5[8] = @"ObjectiveFunction";
-  v5[9] = @"FrozenComponentIds";
-  v6[8] = @"xent";
-  v6[9] = &stru_2884B1858;
-  v5[10] = @"ModelFeatures";
-  v5[11] = @"MinsUntil";
-  v6[10] = &stru_2884B1858;
-  v6[11] = &unk_2884B2348;
-  v5[12] = @"MinDaemonVersion";
-  v5[13] = @"DoDummyDataFilter";
-  v6[12] = &unk_2884B2360;
-  v6[13] = &unk_2884B2360;
-  v5[14] = @"ModelOutputName";
-  v5[15] = @"MinBatchSize";
-  v6[14] = @"propensity";
-  v6[15] = &unk_2884B2330;
-  v5[16] = @"NegativeSamplingRate";
-  v5[17] = @"LabelKeyName";
-  v6[16] = &unk_2884B23B8;
-  v6[17] = &unk_2884B2330;
-  v5[18] = @"ModelInputSchemaInputName";
-  v5[19] = @"ModelInputSchemaLabelName";
-  v6[18] = @"input_1";
-  v6[19] = @"label_input_0";
-  v5[20] = @"UseNewTrainingAPI";
-  v6[20] = &unk_2884B2360;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:21];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[21] = *MEMORY[0x277D85DE8];
+  v4[0] = @"NumLocalIterations";
+  v4[1] = @"LearningRate";
+  v5[0] = &unk_2884B2330;
+  v5[1] = &unk_2884B23A8;
+  v4[2] = @"LearningRateDecay";
+  v4[3] = @"TrainLayers";
+  v5[2] = &unk_2884B23B8;
+  v5[3] = MEMORY[0x277CBEBF8];
+  v4[4] = @"GradientNormFactor";
+  v4[5] = @"BatchSize";
+  v5[4] = &unk_2884B23C8;
+  v5[5] = &unk_2884B2330;
+  v4[6] = @"L2NormBound";
+  v4[7] = @"GradientNormType";
+  v5[6] = &unk_2884B23D8;
+  v5[7] = @"NoGradNorm";
+  v4[8] = @"ObjectiveFunction";
+  v4[9] = @"FrozenComponentIds";
+  v5[8] = @"xent";
+  v5[9] = &stru_2884B1858;
+  v4[10] = @"ModelFeatures";
+  v4[11] = @"MinsUntil";
+  v5[10] = &stru_2884B1858;
+  v5[11] = &unk_2884B2348;
+  v4[12] = @"MinDaemonVersion";
+  v4[13] = @"DoDummyDataFilter";
+  v5[12] = &unk_2884B2360;
+  v5[13] = &unk_2884B2360;
+  v4[14] = @"ModelOutputName";
+  v4[15] = @"MinBatchSize";
+  v5[14] = @"propensity";
+  v5[15] = &unk_2884B2330;
+  v4[16] = @"NegativeSamplingRate";
+  v4[17] = @"LabelKeyName";
+  v5[16] = &unk_2884B23B8;
+  v5[17] = &unk_2884B2330;
+  v4[18] = @"ModelInputSchemaInputName";
+  v4[19] = @"ModelInputSchemaLabelName";
+  v5[18] = @"input_1";
+  v5[19] = @"label_input_0";
+  v4[20] = @"UseNewTrainingAPI";
+  v5[20] = &unk_2884B2360;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:21];
 
   return v2;
 }
@@ -412,7 +411,7 @@
 
 - (void)filteringOperation
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [(NSDictionary *)self->_recipe objectForKeyedSubscript:@"MinDaemonVersion"];
   intValue = [v3 intValue];
 
@@ -421,9 +420,9 @@
     v5 = sLog;
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
     {
-      v14[0] = 67109120;
-      v14[1] = intValue;
-      _os_log_impl(&dword_275B9B000, v5, OS_LOG_TYPE_INFO, "About to select samples with daemon version >= %d only.", v14, 8u);
+      v13[0] = 67109120;
+      v13[1] = intValue;
+      _os_log_impl(&dword_275B9B000, v5, OS_LOG_TYPE_INFO, "About to select samples with daemon version >= %d only.", v13, 8u);
     }
 
     [(EvaluationDataSource *)self selectDaemonVersion:intValue];
@@ -437,8 +436,8 @@
     v8 = sLog;
     if (os_log_type_enabled(sLog, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v14[0]) = 0;
-      _os_log_impl(&dword_275B9B000, v8, OS_LOG_TYPE_INFO, "About to select samples with isDummyData == false", v14, 2u);
+      LOWORD(v13[0]) = 0;
+      _os_log_impl(&dword_275B9B000, v8, OS_LOG_TYPE_INFO, "About to select samples with isDummyData == false", v13, 2u);
     }
 
     [(EvaluationDataSource *)self filteroutDummyData];
@@ -464,7 +463,6 @@
   }
 
   [(EvaluationDataSource *)self filterInMatchedLabelData:v12];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)vectorForClassification:(int64_t)classification
@@ -715,9 +713,7 @@ LABEL_13:
         recordInfos = self->_recordInfos;
         self->_recordInfos = array;
 
-        array2 = [MEMORY[0x277CBEB18] array];
-        recordDatas = self->_recordDatas;
-        self->_recordDatas = array2;
+        self->_recordDatas = [MEMORY[0x277CBEB18] array];
 
         MEMORY[0x2821F96F8]();
       }
@@ -760,53 +756,53 @@ LABEL_13:
 
 - (id)extractFeatureDataForRecord:(unint64_t)record
 {
-  v47 = *MEMORY[0x277D85DE8];
-  v27 = [(EvaluationDataSource *)self dataForRecord:?];
+  v46 = *MEMORY[0x277D85DE8];
+  v26 = [(EvaluationDataSource *)self dataForRecord:?];
   modelFeatures = [(EvaluationDataSource *)self modelFeatures];
-  v30 = [(EvaluationDataSource *)self extractFullFeatureListForRecord:record];
-  v26 = modelFeatures;
+  v29 = [(EvaluationDataSource *)self extractFullFeatureListForRecord:record];
+  v25 = modelFeatures;
   v6 = [modelFeatures componentsSeparatedByString:{@", "}];
   array = [MEMORY[0x277CBEB18] array];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v6;
-  v31 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+  if (v30)
   {
-    v29 = *v41;
+    v28 = *v40;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v41 != v29)
+        if (*v40 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v40 + 1) + 8 * i);
+        v9 = *(*(&v39 + 1) + 8 * i);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v10 = v30;
-        v11 = [v10 countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v10 = v29;
+        v11 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
         if (v11)
         {
           v12 = v11;
           v13 = 0;
-          v14 = *v37;
+          v14 = *v36;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v37 != v14)
+              if (*v36 != v14)
               {
                 objc_enumerationMutation(v10);
               }
 
-              if ([*(*(&v36 + 1) + 8 * j) isEqualToString:v9])
+              if ([*(*(&v35 + 1) + 8 * j) isEqualToString:v9])
               {
                 v16 = [MEMORY[0x277CCABB0] numberWithInteger:v13];
                 [array addObject:v16];
@@ -815,50 +811,48 @@ LABEL_13:
               ++v13;
             }
 
-            v12 = [v10 countByEnumeratingWithState:&v36 objects:v45 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v35 objects:v44 count:16];
           }
 
           while (v12);
         }
       }
 
-      v31 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v30 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
   v17 = [MEMORY[0x277CBEB28] dataWithCapacity:0];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v18 = array;
-  v19 = [v18 countByEnumeratingWithState:&v32 objects:v44 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v31 objects:v43 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v33;
+    v21 = *v32;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v33 != v21)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = [v27 subdataWithRange:{4 * objc_msgSend(*(*(&v32 + 1) + 8 * k), "unsignedIntValue"), 4}];
+        v23 = [v26 subdataWithRange:{4 * objc_msgSend(*(*(&v31 + 1) + 8 * k), "unsignedIntValue"), 4}];
         [v17 appendData:v23];
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v32 objects:v44 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v31 objects:v43 count:16];
     }
 
     while (v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

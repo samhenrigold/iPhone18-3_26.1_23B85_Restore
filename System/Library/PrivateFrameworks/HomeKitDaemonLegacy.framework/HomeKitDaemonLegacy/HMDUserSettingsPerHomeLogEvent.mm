@@ -30,7 +30,7 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUserSettingsPerHomeLogEvent camerasAccessLevel](self, "camerasAccessLevel")}];
   [dictionary setObject:v10 forKeyedSubscript:@"camerasAccessLevel"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }

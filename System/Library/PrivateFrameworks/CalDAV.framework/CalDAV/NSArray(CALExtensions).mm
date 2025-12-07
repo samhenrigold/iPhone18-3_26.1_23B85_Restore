@@ -6,41 +6,39 @@
 
 - (id)allObjectsWithClass:()CALExtensions
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
-  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
   selfCopy = self;
-  v4 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v4)
+  v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
   {
-    v5 = v4;
-    v6 = *v12;
+    v7 = v6;
+    v8 = *v13;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v12 != v6)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          [array addObject:{v8, v11}];
+          [array addObject:{v10, v12}];
         }
       }
 
-      v5 = [selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v5);
+    while (v7);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return array;
 }

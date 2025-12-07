@@ -206,8 +206,8 @@ LABEL_26:
             }
 
             v23 = p_end_node->__left_;
-            v24 = v9 + 2;
-            v25 = v9 + 2;
+            v24 = &v9->_routeLineDatas.__tree_.__end_node_;
+            v25 = &v9->_routeLineDatas.__tree_.__end_node_;
             if (p_end_node->__left_)
             {
               do
@@ -236,7 +236,7 @@ LABEL_26:
             }
 
 LABEL_20:
-            std::__tree<unsigned short>::__insert_node_at(v9 + 1, v24, v25, v16);
+            std::__tree<unsigned short>::__insert_node_at(&v9->_routeLineDatas, v24, v25, v16);
             if (v17)
             {
               v17 = std::__tree<std::__value_type<unsigned long,std::shared_ptr<ggl::DeviceData>>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,std::shared_ptr<ggl::DeviceData>>,std::less<unsigned long>,true>,geo::allocator_adapter<std::__value_type<unsigned long,std::shared_ptr<ggl::DeviceData>>,ggl::zone_mallocator>>::_DetachedTreeCache::__detach_next(v17);
@@ -312,15 +312,15 @@ LABEL_38:
     }
   }
 
-  if (v9 + 8 != region)
+  if (&v9->_snappingRegion != region)
   {
-    std::__tree<gm::Box<double,2>,md::MultiRectSetCompare,std::allocator<gm::Box<double,2>>>::__assign_multi<std::__tree_const_iterator<gm::Box<double,2>,std::__tree_node<gm::Box<double,2>,void *> *,long>>((v9 + 8), *region, region + 1);
+    std::__tree<gm::Box<double,2>,md::MultiRectSetCompare,std::allocator<gm::Box<double,2>>>::__assign_multi<std::__tree_const_iterator<gm::Box<double,2>,std::__tree_node<gm::Box<double,2>,void *> *,long>>(&v9->_snappingRegion, *region, region + 1);
   }
 
-  v9[11] = *(region + 3);
-  v9[12] = *(region + 4);
-  v9[13] = *(region + 5);
-  v9[14] = *(region + 6);
+  v9->_snappingRegion._enclosingRect._minimum._e[0] = *(region + 3);
+  v9->_snappingRegion._enclosingRect._minimum._e[1] = *(region + 4);
+  v9->_snappingRegion._enclosingRect._maximum._e[0] = *(region + 5);
+  v9->_snappingRegion._enclosingRect._maximum._e[1] = *(region + 6);
   return v9;
 }
 

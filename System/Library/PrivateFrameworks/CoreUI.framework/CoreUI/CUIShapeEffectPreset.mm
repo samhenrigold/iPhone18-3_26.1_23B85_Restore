@@ -911,7 +911,7 @@ LABEL_5:
           if (mode != 1986227573 && mode != 1986229103)
           {
 LABEL_44:
-            _CUILog(4, "CUIEffectBlendMode can't be converted to CGBlendMode", *&mode, v3, v4, v5, v6, v7, v8);
+            _CUILog(4, "CUIEffectBlendMode can't be converted to CGBlendMode");
             return 0;
           }
         }
@@ -1310,8 +1310,8 @@ LABEL_45:
 
 + (_CUIVibrantColorMatrixOptions)standardVibrantColorMatrixOptionsForColor:(SEL)color
 {
-  SRGB = _CUIColorSpaceGetSRGB();
-  DisplayP3 = _CUIColorSpaceGetDisplayP3();
+  SRGB = _CUIColorSpaceGetSRGB(a2, color);
+  DisplayP3 = _CUIColorSpaceGetDisplayP3(SRGB, v7);
   ColorSpace = CGColorGetColorSpace(a4);
   if (ColorSpace == SRGB || ColorSpace == DisplayP3)
   {
@@ -1323,7 +1323,7 @@ LABEL_45:
     CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(SRGB, kCGRenderingIntentDefault, a4, 0);
   }
 
-  v10 = CopyByMatchingToColorSpace;
+  v11 = CopyByMatchingToColorSpace;
   Components = CGColorGetComponents(CopyByMatchingToColorSpace);
   *retstr->var0 = *Components;
   retstr->var0[2] = Components[2];
@@ -1337,7 +1337,7 @@ LABEL_45:
   *&retstr->var7 = xmmword_18E022190;
   *&retstr->var9 = xmmword_18E0221A0;
 
-  CGColorRelease(v10);
+  CGColorRelease(v11);
   return result;
 }
 
@@ -1347,18 +1347,18 @@ LABEL_45:
   {
     if (a2)
     {
-      result = [a2 standardVibrantColorMatrixOptionsForColor:saturation];
+      result = objc_msgSend_standardVibrantColorMatrixOptionsForColor_(a2);
       goto LABEL_7;
     }
 
 LABEL_6:
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v11 = 0u;
     goto LABEL_7;
   }
 
@@ -1367,15 +1367,15 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  result = [a2 monochromeVibrantColorMatrixOptions];
+  result = objc_msgSend_monochromeVibrantColorMatrixOptions(a2);
 LABEL_7:
-  *&retstr->var5 = v16;
-  *&retstr->var7 = v17;
-  *&retstr->var9 = v18;
-  *retstr->var0 = v12;
-  *&retstr->var0[2] = v13;
-  *&retstr->var1 = v14;
-  *&retstr->var3 = v15;
+  *&retstr->var5 = v15;
+  *&retstr->var7 = v16;
+  *&retstr->var9 = v17;
+  *retstr->var0 = v11;
+  *&retstr->var0[2] = v12;
+  *&retstr->var1 = v13;
+  *&retstr->var3 = v14;
   retstr->var3 = a6;
   retstr->var4 = brightness;
   return result;
@@ -1425,9 +1425,9 @@ LABEL_7:
 
 - (id)CUIEffectDataRepresentation
 {
-  v27 = xmmword_18E0222D0;
+  v21 = xmmword_18E0222D0;
   effectCount = [(CUIShapeEffectPreset *)self effectCount];
-  v28 = effectCount;
+  v22 = effectCount;
   v4 = malloc_type_calloc(effectCount + 1, 4uLL, 0x100004052888210uLL);
   v5 = [[NSMutableData alloc] initWithCapacity:{(8 * -[CUIShapeEffectPreset _parameterCount](self, "_parameterCount") + 8) * effectCount}];
   if (effectCount)
@@ -1448,59 +1448,59 @@ LABEL_7:
       }
 
       v10 = effectIndex[v6];
-      v26[0] = self->_parameterList[v9].effectType;
-      v26[1] = v10 - v9;
+      v20[0] = self->_parameterList[v9].effectType;
+      v20[1] = v10 - v9;
       v11 = v4[v6];
       v6 = (v7 + 1);
       v4[v6] = v11;
-      [v5 appendBytes:v26 length:8];
+      [v5 appendBytes:v20 length:8];
       v4[v6] += 8;
       if (v10 > v9)
       {
-        v18 = v9;
+        v12 = v9;
         p_effectValue = &self->_parameterList[v9].effectValue;
-        v20 = v10 - v18;
+        v14 = v10 - v12;
         do
         {
-          v25 = 0;
-          v21 = *(&p_effectValue[-1].angleValue + 1);
-          LODWORD(v25) = v21;
-          if (v21 < 0xC)
+          v19 = 0;
+          v15 = *(&p_effectValue[-1].angleValue + 1);
+          LODWORD(v19) = v15;
+          if (v15 < 0xC)
           {
-            if (((1 << v21) & 0xFB0) != 0)
+            if (((1 << v15) & 0xFB0) != 0)
             {
-              HIDWORD(v25) = p_effectValue->intValue;
+              HIDWORD(v19) = p_effectValue->intValue;
             }
 
-            else if (((1 << v21) & 0xC) != 0)
+            else if (((1 << v15) & 0xC) != 0)
             {
               floatValue = p_effectValue->floatValue;
-              *(&v25 + 1) = floatValue;
+              *(&v19 + 1) = floatValue;
             }
 
             else
             {
-              WORD2(v25) = p_effectValue->angleValue;
-              if (v21 != 6)
+              WORD2(v19) = p_effectValue->angleValue;
+              if (v15 != 6)
               {
-                BYTE6(v25) = p_effectValue->colorValue.b;
+                BYTE6(v19) = p_effectValue->colorValue.b;
               }
             }
 
-            [v5 appendBytes:&v25 length:8];
+            [v5 appendBytes:&v19 length:8];
             v4[v6] += 8;
           }
 
           else
           {
-            _CUILog(4, "distill: Unrecognized effect parameter type %d for effect component %u", v12, v13, v14, v15, v16, v17, v21);
+            _CUILog(4, "distill: Unrecognized effect parameter type %d for effect component %u", v15, v20[0]);
           }
 
           p_effectValue += 2;
-          --v20;
+          --v14;
         }
 
-        while (v20);
+        while (v14);
       }
 
       v7 = v6;
@@ -1509,13 +1509,13 @@ LABEL_7:
     while (effectCount > v6);
   }
 
-  v23 = +[NSMutableData dataWithCapacity:](NSMutableData, "dataWithCapacity:", [v5 length] + 4 * effectCount + 20);
-  [(NSMutableData *)v23 appendBytes:&v27 length:20];
-  [(NSMutableData *)v23 appendBytes:v4 length:4 * (effectCount + 1)];
-  [(NSMutableData *)v23 appendData:v5];
+  v17 = +[NSMutableData dataWithCapacity:](NSMutableData, "dataWithCapacity:", [v5 length] + 4 * effectCount + 20);
+  [(NSMutableData *)v17 appendBytes:&v21 length:20];
+  [(NSMutableData *)v17 appendBytes:v4 length:4 * (effectCount + 1)];
+  [(NSMutableData *)v17 appendData:v5];
   free(v4);
 
-  return v23;
+  return v17;
 }
 
 - (CUIShapeEffectPreset)initWithConstantPreset:(id *)preset

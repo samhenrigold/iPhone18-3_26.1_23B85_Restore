@@ -446,9 +446,9 @@ LABEL_39:
   environmentCopy = environment;
   v5 = [(UIPresentationController *)&v15 _traitCollectionForChildEnvironment:environmentCopy];
   presentedViewController = [(UIPresentationController *)self presentedViewController];
-  v7 = [environmentCopy isEqual:presentedViewController];
+  isEqual = objc_msgSend_isEqual_(environmentCopy);
 
-  if (v7)
+  if (isEqual)
   {
     [(_UIContextMenuPreviewPresentationController *)self platterContentSize];
     v9 = _UIUserInterfaceSizeClassForWidth(v8);

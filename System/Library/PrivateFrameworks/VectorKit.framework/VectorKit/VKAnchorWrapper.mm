@@ -53,7 +53,7 @@
     if (self->_cameraContext && self->_anchorManager)
     {
       self->_isUpdating = 1;
-      [(VKAnchorWrapper *)self _anchorWithContext:?];
+      objc_msgSend__anchorWithContext_(self, a2);
       v3 = (*(*v47 + 40))(v47);
       v5 = v4;
       v46[1] = v4;
@@ -154,7 +154,7 @@
 
 - ($1AB5FA073B851C12C2339EC22442E995)coordinate3D
 {
-  [(VKAnchorWrapper *)self coordinate];
+  objc_msgSend_coordinate(self, a2);
   v4 = v3;
   v6 = v5;
   [(VKAnchorWrapper *)self elevationOffset];
@@ -225,10 +225,10 @@
   {
 LABEL_10:
     [(VKAnchorWrapper *)self coordinate3D];
-    v22 = v17;
-    v23 = v18;
-    v24 = v19;
-    md::AnchorManager::newAnchorAtCoordinate(&v21);
+    *&v22 = v17;
+    *(&v22 + 1) = v18;
+    v23 = v19;
+    md::AnchorManager::newAnchorAtCoordinate(&v21, context, &v22, self->_followsTerrain);
   }
 
   if (*(ptr + 1) == context)
@@ -241,9 +241,9 @@ LABEL_10:
       {
         [(VKAnchorWrapper *)self coordinate3D];
         v12 = self->_anchor.__ptr_;
-        v22 = v13;
-        v23 = v14;
-        v24 = v15;
+        *&v22 = v13;
+        *(&v22 + 1) = v14;
+        v23 = v15;
         v10 = (*(*v12 + 88))(v12, &v22);
         goto LABEL_9;
       }

@@ -10,50 +10,47 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v7 = objc_msgSend_name(self, v5, v6);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v8, v7, @"nm");
+  name = [(KNAnimParameterSavedGroup *)self name];
+  [coderCopy encodeObject:name forKey:@"nm"];
 
-  v11 = objc_msgSend_version(self, v9, v10);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v12, v11, @"vers");
+  version = [(KNAnimParameterSavedGroup *)self version];
+  [coderCopy encodeObject:version forKey:@"vers"];
 
-  v16 = objc_msgSend_parameters(self, v13, v14);
-  objc_msgSend_encodeObject_forKey_(coderCopy, v15, v16, @"params");
+  parameters = [(KNAnimParameterSavedGroup *)self parameters];
+  [coderCopy encodeObject:parameters forKey:@"params"];
 }
 
 - (KNAnimParameterSavedGroup)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v32.receiver = self;
-  v32.super_class = KNAnimParameterSavedGroup;
-  v5 = [(KNAnimParameterSavedGroup *)&v32 init];
+  v21.receiver = self;
+  v21.super_class = KNAnimParameterSavedGroup;
+  v5 = [(KNAnimParameterSavedGroup *)&v21 init];
   if (v5)
   {
-    v6 = objc_opt_class();
-    v8 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v7, v6, @"nm");
-    v11 = objc_msgSend_copy(v8, v9, v10);
+    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"nm"];
+    v7 = [v6 copy];
     name = v5->_name;
-    v5->_name = v11;
+    v5->_name = v7;
 
-    v13 = objc_opt_class();
-    v15 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v14, v13, @"vers");
-    v18 = objc_msgSend_copy(v15, v16, v17);
+    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"vers"];
+    v10 = [v9 copy];
     version = v5->_version;
-    v5->_version = v18;
+    v5->_version = v10;
 
-    v20 = MEMORY[0x277CBEB98];
-    v21 = objc_opt_class();
-    v22 = objc_opt_class();
-    v23 = objc_opt_class();
-    v25 = objc_msgSend_setWithObjects_(v20, v24, v21, v22, v23, 0);
-    v27 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v26, v25, @"params");
+    v12 = MEMORY[0x277CBEB98];
+    v13 = objc_opt_class();
+    v14 = objc_opt_class();
+    v15 = [v12 setWithObjects:{v13, v14, objc_opt_class(), 0}];
+    v16 = [coderCopy decodeObjectOfClasses:v15 forKey:@"params"];
     parameters = v5->_parameters;
-    v5->_parameters = v27;
+    v5->_parameters = v16;
 
     if (!v5->_parameters)
     {
-      v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v30 = v5->_parameters;
-      v5->_parameters = v29;
+      v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v19 = v5->_parameters;
+      v5->_parameters = v18;
     }
   }
 
@@ -78,10 +75,10 @@
 - (id)parameterForName:(id)name
 {
   nameCopy = name;
-  v7 = objc_msgSend_parameters(self, v5, v6);
-  v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, nameCopy);
+  parameters = [(KNAnimParameterSavedGroup *)self parameters];
+  v6 = [parameters objectForKeyedSubscript:nameCopy];
 
-  return v9;
+  return v6;
 }
 
 @end

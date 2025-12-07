@@ -9,10 +9,9 @@
 
 + (id)supportedFileVersions
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"1.0.0";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"1.0.0";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -65,16 +64,16 @@ void __52__UAFAssetSetExperimentConfiguration_isValid_error___block_invoke(uint6
 
 + (id)fromContentsOfURL:(id)l error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (error)
   {
     *error = 0;
   }
 
-  v18 = 0;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:lCopy error:&v18];
-  v7 = v18;
+  v17 = 0;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfURL:lCopy error:&v17];
+  v7 = v17;
   v8 = v7;
   if (error)
   {
@@ -104,9 +103,9 @@ void __52__UAFAssetSetExperimentConfiguration_isValid_error___block_invoke(uint6
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "+[UAFAssetSetExperimentConfiguration fromContentsOfURL:error:]";
-      v21 = 2112;
-      v22 = lCopy;
+      v19 = "+[UAFAssetSetExperimentConfiguration fromContentsOfURL:error:]";
+      v20 = 2112;
+      v21 = lCopy;
       v12 = "%s Failed to validate UAFAssetSetExperimentConfiguration dictionary from %@";
       v13 = v11;
       v14 = 22;
@@ -120,11 +119,11 @@ void __52__UAFAssetSetExperimentConfiguration_isValid_error___block_invoke(uint6
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v20 = "+[UAFAssetSetExperimentConfiguration fromContentsOfURL:error:]";
-      v21 = 2112;
-      v22 = lCopy;
-      v23 = 2112;
-      v24 = v8;
+      v19 = "+[UAFAssetSetExperimentConfiguration fromContentsOfURL:error:]";
+      v20 = 2112;
+      v21 = lCopy;
+      v22 = 2112;
+      v23 = v8;
       v12 = "%s Failed to load UAFAssetSetExperimentConfiguration dictionary from %@: %@";
       v13 = v11;
       v14 = 32;
@@ -135,8 +134,6 @@ LABEL_19:
 
   v15 = 0;
 LABEL_15:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

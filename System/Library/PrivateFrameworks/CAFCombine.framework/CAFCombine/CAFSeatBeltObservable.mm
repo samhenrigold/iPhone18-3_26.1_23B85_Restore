@@ -23,23 +23,25 @@
 
 - (void)seatBeltService:(id)service didUpdateSeatOccupancy:(unsigned __int8)occupancy
 {
+  occupancyCopy = occupancy;
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatBeltObservable.seatBeltService(_:didUpdateSeatOccupancy:)(selfCopy, occupancy);
+  CAFSeatBeltObservable.seatBeltService(_:didUpdateSeatOccupancy:)(selfCopy, occupancyCopy);
 }
 
 - (void)seatBeltService:(id)service didUpdateBuckleState:(unsigned __int8)state
 {
+  stateCopy = state;
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatBeltObservable.seatBeltService(_:didUpdateBuckleState:)(selfCopy, state);
+  CAFSeatBeltObservable.seatBeltService(_:didUpdateBuckleState:)(selfCopy, stateCopy);
 }
 
 - (void)seatBeltService:(id)service didUpdateSeatBeltIndicator:(unsigned __int8)indicator
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSeatBeltObservable.seatBeltService(_:didUpdateSeatBeltIndicator:)();
+  CAFSeatBeltObservable.seatBeltService(_:didUpdateSeatBeltIndicator:)(selfCopy, indicator);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

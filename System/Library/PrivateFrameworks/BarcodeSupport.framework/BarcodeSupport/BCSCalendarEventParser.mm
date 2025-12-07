@@ -57,7 +57,7 @@ LABEL_13:
 
 + (id)_validatedICSString:(id)string
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v4 = [objc_alloc(getICSDocumentClass()) initWithICSString:stringCopy options:0 error:0];
   v5 = v4;
@@ -67,26 +67,26 @@ LABEL_13:
     v7 = calendar;
     if (calendar)
     {
-      v57 = 0u;
-      v58 = 0u;
-      v55 = 0u;
       v56 = 0u;
+      v57 = 0u;
+      v54 = 0u;
+      v55 = 0u;
       components = [calendar components];
-      v9 = [components countByEnumeratingWithState:&v55 objects:v59 count:16];
+      v9 = [components countByEnumeratingWithState:&v54 objects:v58 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v56;
+        v11 = *v55;
 LABEL_5:
         v12 = 0;
         while (1)
         {
-          if (*v56 != v11)
+          if (*v55 != v11)
           {
             objc_enumerationMutation(components);
           }
 
-          v13 = *(*(&v55 + 1) + 8 * v12);
+          v13 = *(*(&v54 + 1) + 8 * v12);
           getICSEventClass();
           if (objc_opt_isKindOfClass())
           {
@@ -95,7 +95,7 @@ LABEL_5:
 
           if (v10 == ++v12)
           {
-            v10 = [components countByEnumeratingWithState:&v55 objects:v59 count:16];
+            v10 = [components countByEnumeratingWithState:&v54 objects:v58 count:16];
             if (v10)
             {
               goto LABEL_5;
@@ -175,8 +175,6 @@ LABEL_27:
 
     v22 = 0;
   }
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

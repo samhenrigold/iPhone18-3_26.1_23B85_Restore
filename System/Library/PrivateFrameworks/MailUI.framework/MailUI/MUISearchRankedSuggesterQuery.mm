@@ -1,6 +1,6 @@
 @interface MUISearchRankedSuggesterQuery
 - (id)_createTopHitsQuery;
-- (uint64_t)initWithPhraseManager:(void *)manager handler:(void *)handler suggester:;
+- (id)initWithPhraseManager:(void *)manager handler:(void *)handler suggester:;
 - (void)cancel;
 @end
 
@@ -110,7 +110,7 @@ void __52__MUISearchRankedSuggesterQuery__createTopHitsQuery__block_invoke_86(ui
   }
 }
 
-- (uint64_t)initWithPhraseManager:(void *)manager handler:(void *)handler suggester:
+- (id)initWithPhraseManager:(void *)manager handler:(void *)handler suggester:
 {
   v8 = a2;
   managerCopy = manager;
@@ -125,8 +125,8 @@ void __52__MUISearchRankedSuggesterQuery__createTopHitsQuery__block_invoke_86(ui
     {
       objc_storeStrong(v11 + 1, a2);
       v12 = [managerCopy copy];
-      v13 = *(self + 16);
-      *(self + 16) = v12;
+      v13 = self[2];
+      self[2] = v12;
 
       if (handlerCopy)
       {
@@ -138,10 +138,10 @@ void __52__MUISearchRankedSuggesterQuery__createTopHitsQuery__block_invoke_86(ui
         v14 = 0;
       }
 
-      objc_storeStrong((self + 24), v14);
+      objc_storeStrong(self + 3, v14);
       _createTopHitsQuery = [(MUISearchRankedSuggesterQuery *)self _createTopHitsQuery];
-      v16 = *(self + 32);
-      *(self + 32) = _createTopHitsQuery;
+      v16 = self[4];
+      self[4] = _createTopHitsQuery;
     }
   }
 

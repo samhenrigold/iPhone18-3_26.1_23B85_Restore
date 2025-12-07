@@ -3,6 +3,7 @@
 - (NEProfileIngestionPayloadInfo)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -151,6 +152,57 @@ LABEL_17:
   }
 
   return v5;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  payloadUUID = [(NEProfileIngestionPayloadInfo *)self payloadUUID];
+  [v7 appendPrettyObject:payloadUUID withName:@"payloadUUID" andIndent:v5 options:options];
+
+  payloadOrganization = [(NEProfileIngestionPayloadInfo *)self payloadOrganization];
+  [v7 appendPrettyObject:payloadOrganization withName:@"payloadOrganization" andIndent:v5 options:options | 1];
+
+  profileUUID = [(NEProfileIngestionPayloadInfo *)self profileUUID];
+  [v7 appendPrettyObject:profileUUID withName:@"profileUUID" andIndent:v5 options:options];
+
+  profileIdentifier = [(NEProfileIngestionPayloadInfo *)self profileIdentifier];
+  [v7 appendPrettyObject:profileIdentifier withName:@"profileIdentifier" andIndent:v5 options:options | 1];
+
+  profileOrganization = [(NEProfileIngestionPayloadInfo *)self profileOrganization];
+  [v7 appendPrettyObject:profileOrganization withName:@"profileOrganization" andIndent:v5 options:options | 1];
+
+  payloadProtocolType = [(NEProfileIngestionPayloadInfo *)self payloadProtocolType];
+  [v7 appendPrettyObject:payloadProtocolType withName:@"payloadProtocolType" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NEProfileIngestionPayloadInfo isSetAside](self withName:"isSetAside") andIndent:@"isSetAside" options:{v5, options}];
+  profileIngestionDate = [(NEProfileIngestionPayloadInfo *)self profileIngestionDate];
+  [v7 appendPrettyObject:profileIngestionDate withName:@"profileIngestionDate" andIndent:v5 options:options];
+
+  systemVersion = [(NEProfileIngestionPayloadInfo *)self systemVersion];
+  [v7 appendPrettyObject:systemVersion withName:@"systemVersion" andIndent:v5 options:options];
+
+  profileSource = [(NEProfileIngestionPayloadInfo *)self profileSource];
+  v17 = @"unknown";
+  if (profileSource == 2)
+  {
+    v17 = @"mdm";
+  }
+
+  if (profileSource == 1)
+  {
+    v18 = @"user";
+  }
+
+  else
+  {
+    v18 = v17;
+  }
+
+  [v7 appendPrettyObject:v18 withName:@"profileSource" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

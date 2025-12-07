@@ -14,7 +14,7 @@
   return sharedInstance_sharedObject;
 }
 
-uint64_t __31__CBLinearCurve_sharedInstance__block_invoke()
+CBLinearCurve *__31__CBLinearCurve_sharedInstance__block_invoke()
 {
   result = objc_opt_new();
   sharedInstance_sharedObject = result;

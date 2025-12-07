@@ -33,30 +33,30 @@
 
 - (unsigned)_fieldNumberForFieldName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = objc_autoreleasePoolPush();
   descriptor = [MEMORY[0x277D73AD8] descriptor];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   fields = [descriptor fields];
-  v7 = [fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v21 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(fields);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * v10);
+      v11 = *(*(&v19 + 1) + 8 * v10);
       name = [v11 name];
       v13 = [nameCopy isEqualToString:name];
 
@@ -67,7 +67,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [fields countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [fields countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -97,13 +97,11 @@ LABEL_10:
   }
 
   objc_autoreleasePoolPop(v4);
-  v16 = *MEMORY[0x277D85DE8];
   return number;
 }
 
 - (BOOL)_streamExecWithError:(id *)error block:(id)block
 {
-  v12 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (!self->_stream)
   {
@@ -127,7 +125,6 @@ LABEL_10:
     LOBYTE(error) = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -212,7 +209,6 @@ void __56__TRIClientFactorPackStreamingWriter_appendFactorLevel___block_invoke(u
 
 - (BOOL)closeWithError:(id *)error
 {
-  v8 = *MEMORY[0x277D85DE8];
   [(TRIPBCodedOutputStream *)self->_stream flush];
   stream = self->_stream;
   self->_stream = 0;
@@ -222,9 +218,7 @@ void __56__TRIClientFactorPackStreamingWriter_appendFactorLevel___block_invoke(u
     objc_storeStrong(error, self->_firstError);
   }
 
-  result = self->_firstError == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_firstError == 0;
 }
 
 + (BOOL)copySourceFactorPack:(id)pack toDestPath:(id)path error:(id *)error modifyFactorLevel:(id)level

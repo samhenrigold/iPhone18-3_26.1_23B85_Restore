@@ -217,7 +217,7 @@
 
       else
       {
-        v19 = ![(_UIVibrantColorMatrixConfiguration *)v15 isEqual:darkConfigurationCopy2];
+        v19 = objc_msgSend_isEqual_(v15) ^ 1;
       }
     }
 
@@ -242,9 +242,9 @@
 
   if (v7 && v8)
   {
-    v10 = [(UIColor *)v7 isEqual:v8];
+    isEqual = objc_msgSend_isEqual_(v7);
 
-    if (!v10)
+    if (!isEqual)
     {
       goto LABEL_9;
     }
@@ -336,9 +336,9 @@ LABEL_22:
           goto LABEL_26;
         }
 
-        v14 = [(_UIVibrantColorMatrixConfiguration *)v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v14)
+        if (!isEqual)
         {
           goto LABEL_26;
         }
@@ -367,7 +367,7 @@ LABEL_22:
 
     if (!v17)
     {
-      v18 = [(_UIVibrantColorMatrixConfiguration *)v10 isEqual:v16];
+      v18 = objc_msgSend_isEqual_(v10);
 
       if (!v18)
       {
@@ -397,7 +397,7 @@ LABEL_28:
     lightConfiguration = self->_lightConfiguration;
     if (lightConfiguration)
     {
-      [(_UIVibrantColorMatrixConfiguration *)lightConfiguration colorMatrix];
+      objc_msgSend_colorMatrix(lightConfiguration);
     }
 
     else
@@ -422,7 +422,7 @@ LABEL_28:
       darkConfiguration = self->_darkConfiguration;
       if (darkConfiguration)
       {
-        [(_UIVibrantColorMatrixConfiguration *)darkConfiguration colorMatrix];
+        objc_msgSend_colorMatrix(darkConfiguration);
       }
 
       else
@@ -499,7 +499,7 @@ LABEL_28:
     selfCopy = self;
     if (v15)
     {
-      [v15 colorMatrix];
+      objc_msgSend_colorMatrix(v15);
     }
 
     else
@@ -581,7 +581,7 @@ LABEL_7:
     lightConfiguration = self->_lightConfiguration;
     if (lightConfiguration)
     {
-      [(_UIVibrantColorMatrixConfiguration *)lightConfiguration colorMatrix];
+      objc_msgSend_colorMatrix(lightConfiguration);
     }
 
     else
@@ -597,7 +597,7 @@ LABEL_7:
     darkConfiguration = self->_darkConfiguration;
     if (darkConfiguration)
     {
-      [(_UIVibrantColorMatrixConfiguration *)darkConfiguration colorMatrix];
+      objc_msgSend_colorMatrix(darkConfiguration);
     }
 
     else
@@ -618,7 +618,7 @@ LABEL_7:
     v9 = self->_lightConfiguration;
     if (v9)
     {
-      [(_UIVibrantColorMatrixConfiguration *)v9 colorMatrix];
+      objc_msgSend_colorMatrix(v9);
     }
 
     else

@@ -16,10 +16,10 @@
 {
   repCopy = rep;
   parentCopy = parent;
-  v17.receiver = self;
-  v17.super_class = CRLRepContainerAccessibilityElement;
-  v8 = [(CRLAccessibilityElement *)&v17 initWithAccessibilityParent:parentCopy];
-  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks();
+  v18.receiver = self;
+  v18.super_class = CRLRepContainerAccessibilityElement;
+  v8 = [(CRLAccessibilityElement *)&v18 initWithAccessibilityParent:parentCopy];
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v8, v9);
   if (repCopy || !ShouldPerformValidationChecks)
   {
     if (repCopy)
@@ -30,8 +30,8 @@
 
   else
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Cannot create a rep container with a nil rep!", v11, v12, v13, v14, v15, v17.receiver))
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Cannot create a rep container with a nil rep!", v12, v13, v14, v15, v16, v18.receiver))
     {
       abort();
     }

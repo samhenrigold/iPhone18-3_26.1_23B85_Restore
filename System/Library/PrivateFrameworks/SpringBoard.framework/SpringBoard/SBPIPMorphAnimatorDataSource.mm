@@ -102,7 +102,7 @@
     {
       windowScene = [animatorCopy windowScene];
       v20 = [(SBPIPController *)self->_pipController anyContentViewPresentedOnWindowScene:windowScene];
-      [v20 frame];
+      objc_msgSend_frame(v20);
 
       v21 = SBLogPIP();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
@@ -275,7 +275,7 @@
   if ([animatorCopy direction])
   {
     targetView = [animatorCopy targetView];
-    [targetView frame];
+    objc_msgSend_frame(targetView);
     v11 = v10;
     v13 = v12;
     v15 = v14;

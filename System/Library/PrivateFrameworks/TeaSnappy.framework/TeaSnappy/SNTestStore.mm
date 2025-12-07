@@ -63,7 +63,7 @@
 
 - (id)testRunForTestName:(id)name
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   testCases = [(SNTestStore *)self testCases];
   v6 = [testCases objectForKey:nameCopy];
@@ -75,26 +75,26 @@
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     testSuites = [(SNTestStore *)self testSuites];
-    v9 = [testSuites countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [testSuites countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(testSuites);
           }
 
-          v13 = [*(*(&v16 + 1) + 8 * i) testRunForTestName:nameCopy];
+          v13 = [*(*(&v15 + 1) + 8 * i) testRunForTestName:nameCopy];
           if (v13)
           {
             v7 = v13;
@@ -103,7 +103,7 @@
           }
         }
 
-        v10 = [testSuites countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [testSuites countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -117,8 +117,6 @@
   }
 
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

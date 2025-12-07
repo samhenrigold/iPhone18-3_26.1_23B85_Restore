@@ -7,11 +7,11 @@
 
 + (BOOL)workflowNeedsMigration:(id)migration fromClientVersion:(id)version
 {
-  sub_1CA94C1C8();
+  v4 = sub_1CA94C1C8();
   sub_1CA94C3A8();
-  v4 = static iWorkActionsMigration.workflowNeedsMigration(_:fromClientVersion:)();
+  v5 = static iWorkActionsMigration.workflowNeedsMigration(_:fromClientVersion:)(v4);
 
-  return v4;
+  return v5;
 }
 
 - (void)migrateWorkflow

@@ -65,9 +65,10 @@
 - (int64_t)hash
 {
   selfCopy = self;
-  v3 = WidgetEnvironment.Storage.hash.getter();
+  WidgetEnvironment.Storage.hash.getter();
+  v4 = v3;
 
-  return v3;
+  return v4;
 }
 
 @end

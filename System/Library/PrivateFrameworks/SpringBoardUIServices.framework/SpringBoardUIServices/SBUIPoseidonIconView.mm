@@ -779,9 +779,9 @@ void __37__SBUIPoseidonIconView__startShimmer__block_invoke(uint64_t a1)
   [MEMORY[0x1E69DD250] animateWithDuration:v3 animations:v2 completion:1.5];
 }
 
-uint64_t __49__SBUIPoseidonIconView__startReduceMotionShimmer__block_invoke(uint64_t result)
+void *__49__SBUIPoseidonIconView__startReduceMotionShimmer__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 536) == 1)
   {
     return [*(v1 + 432) setAlpha:1.0];
@@ -805,9 +805,9 @@ uint64_t __49__SBUIPoseidonIconView__startReduceMotionShimmer__block_invoke_2(ui
   return [MEMORY[0x1E69DD250] animateWithDuration:v3 animations:v2 completion:1.5];
 }
 
-uint64_t __49__SBUIPoseidonIconView__startReduceMotionShimmer__block_invoke_3(uint64_t result)
+void *__49__SBUIPoseidonIconView__startReduceMotionShimmer__block_invoke_3(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 536) == 1)
   {
     return [*(v1 + 432) setAlpha:0.7];

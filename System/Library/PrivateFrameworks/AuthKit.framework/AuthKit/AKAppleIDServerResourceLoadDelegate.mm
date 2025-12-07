@@ -61,218 +61,191 @@ uint64_t __55__AKAppleIDServerResourceLoadDelegate_sharedController__block_invok
 
 - (AKAppleIDServerResourceLoadDelegate)initWithCoder:(id)coder
 {
-  v138 = &selfCopy;
+  v111 = &selfCopy;
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, coder);
   v3 = selfCopy;
   selfCopy = 0;
-  v139.receiver = v3;
-  v139.super_class = AKAppleIDServerResourceLoadDelegate;
-  selfCopy = [(AKAppleIDServerResourceLoadDelegate *)&v139 init];
+  v112.receiver = v3;
+  v112.super_class = AKAppleIDServerResourceLoadDelegate;
+  selfCopy = [(AKAppleIDServerResourceLoadDelegate *)&v112 init];
   objc_storeStrong(&selfCopy, selfCopy);
   if (selfCopy)
   {
-    v94 = location[0];
-    v136 = 0x1E696A000uLL;
+    v67 = location[0];
+    v109 = 0x1E696A000uLL;
     v4 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_altDSID"];
     altDSID = selfCopy->_altDSID;
     selfCopy->_altDSID = v4;
     MEMORY[0x1E69E5920](altDSID);
-    v95 = location[0];
-    v6 = *(v136 + 3776);
-    v7 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_identityToken"];
+    v68 = location[0];
+    v6 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_identityToken"];
     identityToken = selfCopy->_identityToken;
-    selfCopy->_identityToken = v7;
+    selfCopy->_identityToken = v6;
     MEMORY[0x1E69E5920](identityToken);
-    v96 = location[0];
-    v9 = *(v136 + 3776);
-    v10 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_heartbeatToken"];
+    v69 = location[0];
+    v8 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_heartbeatToken"];
     heartbeatToken = selfCopy->_heartbeatToken;
-    selfCopy->_heartbeatToken = v10;
+    selfCopy->_heartbeatToken = v8;
     MEMORY[0x1E69E5920](heartbeatToken);
-    v97 = location[0];
-    v123 = 0x1E696A000uLL;
-    v98 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendSigningHeaders"];
-    bOOLValue = [v98 BOOLValue];
-    v13 = v98;
+    v70 = location[0];
+    v96 = 0x1E696A000uLL;
+    v71 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendSigningHeaders"];
+    bOOLValue = [v71 BOOLValue];
+    v11 = v71;
     selfCopy->_shouldSendSigningHeaders = bOOLValue;
-    MEMORY[0x1E69E5920](v13);
-    v99 = location[0];
-    v14 = *(v123 + 3480);
-    v100 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendEphemeralAuthHeader"];
-    bOOLValue2 = [v100 BOOLValue];
-    v16 = v100;
+    MEMORY[0x1E69E5920](v11);
+    v72 = location[0];
+    v73 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendEphemeralAuthHeader"];
+    bOOLValue2 = [v73 BOOLValue];
+    v13 = v73;
     selfCopy->_shouldSendEphemeralAuthHeader = bOOLValue2;
-    MEMORY[0x1E69E5920](v16);
-    v101 = location[0];
-    v17 = *(v123 + 3480);
-    v102 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceType"];
-    integerValue = [v102 integerValue];
-    v19 = v102;
+    MEMORY[0x1E69E5920](v13);
+    v74 = location[0];
+    v75 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceType"];
+    integerValue = [v75 integerValue];
+    v15 = v75;
     selfCopy->_serviceType = integerValue;
-    MEMORY[0x1E69E5920](v19);
-    v103 = location[0];
-    v20 = *(v136 + 3776);
-    v21 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_continuationToken"];
+    MEMORY[0x1E69E5920](v15);
+    v76 = location[0];
+    v16 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_continuationToken"];
     continuationToken = selfCopy->_continuationToken;
-    selfCopy->_continuationToken = v21;
+    selfCopy->_continuationToken = v16;
     MEMORY[0x1E69E5920](continuationToken);
-    v104 = location[0];
-    v23 = *(v136 + 3776);
-    v24 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_passwordResetToken"];
+    v77 = location[0];
+    v18 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_passwordResetToken"];
     passwordResetToken = selfCopy->_passwordResetToken;
-    selfCopy->_passwordResetToken = v24;
+    selfCopy->_passwordResetToken = v18;
     MEMORY[0x1E69E5920](passwordResetToken);
-    v105 = location[0];
-    v26 = *(v136 + 3776);
-    v27 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceToken"];
+    v78 = location[0];
+    v20 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceToken"];
     serviceToken = selfCopy->_serviceToken;
-    selfCopy->_serviceToken = v27;
+    selfCopy->_serviceToken = v20;
     MEMORY[0x1E69E5920](serviceToken);
-    v106 = location[0];
-    v29 = *(v136 + 3776);
-    v30 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceTokenIdentifier"];
+    v79 = location[0];
+    v22 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_serviceTokenIdentifier"];
     serviceTokenIdentifier = selfCopy->_serviceTokenIdentifier;
-    selfCopy->_serviceTokenIdentifier = v30;
+    selfCopy->_serviceTokenIdentifier = v22;
     MEMORY[0x1E69E5920](serviceTokenIdentifier);
-    v107 = location[0];
-    v32 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedDeviceAnisetteData"];
+    v80 = location[0];
+    v24 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedDeviceAnisetteData"];
     proxiedDeviceAnisetteData = selfCopy->_proxiedDeviceAnisetteData;
-    selfCopy->_proxiedDeviceAnisetteData = v32;
+    selfCopy->_proxiedDeviceAnisetteData = v24;
     MEMORY[0x1E69E5920](proxiedDeviceAnisetteData);
-    v108 = location[0];
-    v34 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedDevice"];
+    v81 = location[0];
+    v26 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedDevice"];
     proxiedDevice = selfCopy->_proxiedDevice;
-    selfCopy->_proxiedDevice = v34;
+    selfCopy->_proxiedDevice = v26;
     MEMORY[0x1E69E5920](proxiedDevice);
-    v109 = location[0];
-    v36 = *(v136 + 3776);
-    v37 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxyAppName"];
+    v82 = location[0];
+    v28 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxyAppName"];
     proxyAppName = selfCopy->_proxyAppName;
-    selfCopy->_proxyAppName = v37;
+    selfCopy->_proxyAppName = v28;
     MEMORY[0x1E69E5920](proxyAppName);
-    v110 = location[0];
-    v39 = *(v136 + 3776);
-    v40 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientAppName"];
+    v83 = location[0];
+    v30 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientAppName"];
     clientAppName = selfCopy->_clientAppName;
-    selfCopy->_clientAppName = v40;
+    selfCopy->_clientAppName = v30;
     MEMORY[0x1E69E5920](clientAppName);
-    v111 = location[0];
-    v42 = *(v136 + 3776);
-    v43 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientBundleID"];
+    v84 = location[0];
+    v32 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_clientBundleID"];
     clientBundleID = selfCopy->_clientBundleID;
-    selfCopy->_clientBundleID = v43;
+    selfCopy->_clientBundleID = v32;
     MEMORY[0x1E69E5920](clientBundleID);
-    v112 = location[0];
-    v45 = *(v123 + 3480);
-    v113 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendLocalUserHasAppleIDLoginHeader"];
-    bOOLValue3 = [v113 BOOLValue];
-    v47 = v113;
+    v85 = location[0];
+    v86 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_shouldSendLocalUserHasAppleIDLoginHeader"];
+    bOOLValue3 = [v86 BOOLValue];
+    v35 = v86;
     selfCopy->_shouldSendLocalUserHasAppleIDLoginHeader = bOOLValue3;
-    MEMORY[0x1E69E5920](v47);
-    v48 = [location[0] decodeBoolForKey:@"_shouldSendICSCIntentHeader"];
-    selfCopy->_shouldSendICSCIntentHeader = v48;
-    v116 = location[0];
-    v121 = 0x1E695D000uLL;
-    v115 = MEMORY[0x1E695DFD8];
-    v122 = 0x1E695D000uLL;
-    v114 = objc_opt_class();
-    v49 = *(v136 + 3776);
-    v117 = [v115 setWithObjects:{v114, objc_opt_class(), 0}];
-    v50 = [v116 decodeObjectOfClasses:? forKey:?];
+    MEMORY[0x1E69E5920](v35);
+    v36 = [location[0] decodeBoolForKey:@"_shouldSendICSCIntentHeader"];
+    selfCopy->_shouldSendICSCIntentHeader = v36;
+    v89 = location[0];
+    v94 = 0x1E695D000uLL;
+    v88 = MEMORY[0x1E695DFD8];
+    v95 = 0x1E695D000uLL;
+    v87 = objc_opt_class();
+    v90 = [v88 setWithObjects:{v87, objc_opt_class(), 0}];
+    v37 = [v89 decodeObjectOfClasses:? forKey:?];
     loggedInServices = selfCopy->_loggedInServices;
-    selfCopy->_loggedInServices = v50;
+    selfCopy->_loggedInServices = v37;
     MEMORY[0x1E69E5920](loggedInServices);
-    MEMORY[0x1E69E5920](v117);
-    v118 = location[0];
-    v52 = *(v123 + 3480);
-    v53 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_hasEmptyPasswordOverride"];
+    MEMORY[0x1E69E5920](v90);
+    v91 = location[0];
+    v39 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_hasEmptyPasswordOverride"];
     hasEmptyPasswordOverride = selfCopy->_hasEmptyPasswordOverride;
-    selfCopy->_hasEmptyPasswordOverride = v53;
+    selfCopy->_hasEmptyPasswordOverride = v39;
     MEMORY[0x1E69E5920](hasEmptyPasswordOverride);
-    v119 = location[0];
-    v55 = *(v136 + 3776);
-    v56 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_securityUpgradeContext"];
+    v92 = location[0];
+    v41 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_securityUpgradeContext"];
     securityUpgradeContext = selfCopy->_securityUpgradeContext;
-    selfCopy->_securityUpgradeContext = v56;
+    selfCopy->_securityUpgradeContext = v41;
     MEMORY[0x1E69E5920](securityUpgradeContext);
-    v58 = [location[0] decodeBoolForKey:@"_shouldOfferSecurityUpgrade"];
-    selfCopy->_shouldOfferSecurityUpgrade = v58;
-    v59 = [location[0] decodeBoolForKey:@"_shouldSendPhoneNumber"];
-    v60 = v136;
-    selfCopy->_shouldSendPhoneNumber = v59;
-    v120 = location[0];
-    v61 = *(v60 + 3776);
-    v62 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_phoneNumberCertificate"];
+    v43 = [location[0] decodeBoolForKey:@"_shouldOfferSecurityUpgrade"];
+    selfCopy->_shouldOfferSecurityUpgrade = v43;
+    v44 = [location[0] decodeBoolForKey:@"_shouldSendPhoneNumber"];
+    selfCopy->_shouldSendPhoneNumber = v44;
+    v93 = location[0];
+    v45 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_phoneNumberCertificate"];
     phoneNumberCertificate = selfCopy->_phoneNumberCertificate;
-    selfCopy->_phoneNumberCertificate = v62;
+    selfCopy->_phoneNumberCertificate = v45;
     MEMORY[0x1E69E5920](phoneNumberCertificate);
-    v128 = location[0];
-    v127 = *(v121 + 4056);
-    v64 = *(v122 + 3784);
-    v126 = objc_opt_class();
-    v124 = objc_opt_class();
-    v65 = *(v136 + 3776);
-    v125 = objc_opt_class();
-    v66 = *(v123 + 3480);
-    v129 = [v127 setWithObjects:{v126, v124, v125, objc_opt_class(), 0}];
-    v67 = [v128 decodeObjectOfClasses:? forKey:?];
+    v101 = location[0];
+    v100 = *(v94 + 4056);
+    v99 = objc_opt_class();
+    v97 = objc_opt_class();
+    v98 = objc_opt_class();
+    v102 = [v100 setWithObjects:{v99, v97, v98, objc_opt_class(), 0}];
+    v47 = [v101 decodeObjectOfClasses:? forKey:?];
     phoneInformation = selfCopy->_phoneInformation;
-    selfCopy->_phoneInformation = v67;
+    selfCopy->_phoneInformation = v47;
     MEMORY[0x1E69E5920](phoneInformation);
-    MEMORY[0x1E69E5920](v129);
-    v130 = location[0];
-    v69 = *(v136 + 3776);
-    v70 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_followupItems"];
+    MEMORY[0x1E69E5920](v102);
+    v103 = location[0];
+    v49 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_followupItems"];
     followupItems = selfCopy->_followupItems;
-    selfCopy->_followupItems = v70;
+    selfCopy->_followupItems = v49;
     MEMORY[0x1E69E5920](followupItems);
-    v131 = location[0];
-    v72 = *(v136 + 3776);
-    v73 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_appProvidedContext"];
+    v104 = location[0];
+    v51 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_appProvidedContext"];
     appProvidedContext = selfCopy->_appProvidedContext;
-    selfCopy->_appProvidedContext = v73;
+    selfCopy->_appProvidedContext = v51;
     MEMORY[0x1E69E5920](appProvidedContext);
-    v132 = location[0];
-    v75 = *(v136 + 3776);
-    v76 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedAltDSID"];
+    v105 = location[0];
+    v53 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedAltDSID"];
     proxiedAltDSID = selfCopy->_proxiedAltDSID;
-    selfCopy->_proxiedAltDSID = v76;
+    selfCopy->_proxiedAltDSID = v53;
     MEMORY[0x1E69E5920](proxiedAltDSID);
-    v133 = location[0];
-    v78 = *(v136 + 3776);
-    v79 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedIdentityToken"];
+    v106 = location[0];
+    v55 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_proxiedIdentityToken"];
     proxiedIdentityToken = selfCopy->_proxiedIdentityToken;
-    selfCopy->_proxiedIdentityToken = v79;
+    selfCopy->_proxiedIdentityToken = v55;
     MEMORY[0x1E69E5920](proxiedIdentityToken);
-    v134 = location[0];
-    v81 = *(v136 + 3776);
-    v82 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_custodianRecoveryToken"];
+    v107 = location[0];
+    v57 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_custodianRecoveryToken"];
     custodianRecoveryToken = selfCopy->_custodianRecoveryToken;
-    selfCopy->_custodianRecoveryToken = v82;
+    selfCopy->_custodianRecoveryToken = v57;
     MEMORY[0x1E69E5920](custodianRecoveryToken);
-    v135 = location[0];
-    v84 = *(v136 + 3776);
-    v85 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_telemetryDeviceSessionID"];
+    v108 = location[0];
+    v59 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_telemetryDeviceSessionID"];
     telemetryDeviceSessionID = selfCopy->_telemetryDeviceSessionID;
-    selfCopy->_telemetryDeviceSessionID = v85;
+    selfCopy->_telemetryDeviceSessionID = v59;
     MEMORY[0x1E69E5920](telemetryDeviceSessionID);
-    v137 = location[0];
-    v87 = *(v136 + 3776);
-    v88 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_telemetryFlowID"];
+    v110 = location[0];
+    v61 = [location[0] decodeObjectOfClass:objc_opt_class() forKey:@"_telemetryFlowID"];
     telemetryFlowID = selfCopy->_telemetryFlowID;
-    selfCopy->_telemetryFlowID = v88;
+    selfCopy->_telemetryFlowID = v61;
     MEMORY[0x1E69E5920](telemetryFlowID);
   }
 
-  v91 = &selfCopy;
-  v93 = MEMORY[0x1E69E5928](selfCopy);
+  v64 = &selfCopy;
+  v66 = MEMORY[0x1E69E5928](selfCopy);
   obj = 0;
   objc_storeStrong(location, 0);
-  objc_storeStrong(v91, obj);
-  return v93;
+  objc_storeStrong(v64, obj);
+  return v66;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -546,7 +519,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   (*(a1[5] + 16))();
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler___block_invoke_2(id *a1, void *a2, void *a3)
@@ -668,7 +640,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler___block_invoke_132(uint64_t a1, void *a2)
@@ -794,7 +765,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler___block_invoke_133(uint64_t a1, void *a2, void *a3)
@@ -835,7 +805,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   (*(*(a1 + 40) + 16))();
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler___block_invoke_135(void *a1)
@@ -931,7 +900,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   objc_storeStrong(&v9, 0);
   objc_storeStrong(&v10, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   v4 = localizedName;
 
   return v4;
@@ -1244,7 +1212,6 @@ void __73__AKAppleIDServerResourceLoadDelegate_signRequest_withCompletionHandler
   objc_storeStrong(&v64, 0);
   objc_storeStrong(&v65, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __52__AKAppleIDServerResourceLoadDelegate__signRequest___block_invoke(id *a1, void *a2, void *a3, void *a4)
@@ -1268,7 +1235,6 @@ void __52__AKAppleIDServerResourceLoadDelegate__signRequest___block_invoke(id *a
   [a1[4] setValue:v8 forHTTPHeaderField:location[0]];
   objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)signRequestWithCommonHeaders:(id)headers
@@ -1278,110 +1244,109 @@ void __52__AKAppleIDServerResourceLoadDelegate__signRequest___block_invoke(id *a
   location[0] = 0;
   objc_storeStrong(location, headers);
   [(AKAppleIDServerResourceLoadDelegate *)selfCopy signRequestWithBasicHeaders:location[0]];
-  v38 = _AKLogSystem();
-  v37 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  v37 = _AKLogSystem();
+  v36 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    log = v38;
-    v19 = v37;
-    __os_log_helper_16_0_0(v36);
-    _os_log_impl(&dword_193225000, log, v19, "Signing request with common headers", v36, 2u);
+    log = v37;
+    v18 = v36;
+    __os_log_helper_16_0_0(v35);
+    _os_log_impl(&dword_193225000, log, v18, "Signing request with common headers", v35, 2u);
   }
 
-  objc_storeStrong(&v38, 0);
+  objc_storeStrong(&v37, 0);
   if (selfCopy->_altDSID)
   {
     if (selfCopy->_serviceToken)
     {
-      v35 = _AKLogSystem();
-      v34 = 2;
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v34 = _AKLogSystem();
+      v33 = 2;
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        v16 = v35;
-        type = v34;
-        __os_log_helper_16_0_0(v33);
-        _os_log_debug_impl(&dword_193225000, v16, type, "Signing request with service token", v33, 2u);
+        v15 = v34;
+        type = v33;
+        __os_log_helper_16_0_0(v32);
+        _os_log_debug_impl(&dword_193225000, v15, type, "Signing request with service token", v32, 2u);
       }
 
-      objc_storeStrong(&v35, 0);
+      objc_storeStrong(&v34, 0);
       [location[0] ak_addAuthorizationHeaderWithServiceToken:selfCopy->_serviceToken forAltDSID:selfCopy->_altDSID];
     }
 
     else if (selfCopy->_identityToken)
     {
-      v32 = _AKLogSystem();
-      v31 = 2;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+      v31 = _AKLogSystem();
+      v30 = 2;
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v14 = v32;
-        v15 = v31;
-        __os_log_helper_16_0_0(v30);
-        _os_log_debug_impl(&dword_193225000, v14, v15, "Signing request with ID token", v30, 2u);
+        v13 = v31;
+        v14 = v30;
+        __os_log_helper_16_0_0(v29);
+        _os_log_debug_impl(&dword_193225000, v13, v14, "Signing request with ID token", v29, 2u);
       }
 
-      objc_storeStrong(&v32, 0);
+      objc_storeStrong(&v31, 0);
       [location[0] ak_addAuthorizationHeaderWithIdentityToken:selfCopy->_identityToken forAltDSID:selfCopy->_altDSID];
     }
 
     if (selfCopy->_heartbeatToken)
     {
-      v29 = _AKLogSystem();
-      v28 = 2;
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v28 = _AKLogSystem();
+      v27 = 2;
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v12 = v29;
-        v13 = v28;
-        __os_log_helper_16_0_0(v27);
-        _os_log_debug_impl(&dword_193225000, v12, v13, "Signing request with HB token", v27, 2u);
+        v11 = v28;
+        v12 = v27;
+        __os_log_helper_16_0_0(v26);
+        _os_log_debug_impl(&dword_193225000, v11, v12, "Signing request with HB token", v26, 2u);
       }
 
-      objc_storeStrong(&v29, 0);
+      objc_storeStrong(&v28, 0);
       [location[0] ak_addAuthorizationHeaderWithHeartbeatToken:selfCopy->_heartbeatToken forAltDSID:selfCopy->_altDSID];
     }
 
     if (selfCopy->_initialURLRequestKey)
     {
-      v26 = _AKLogSystem();
-      v25 = 2;
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v25 = _AKLogSystem();
+      v24 = 2;
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        v10 = v26;
-        v11 = v25;
-        __os_log_helper_16_0_0(v24);
-        _os_log_debug_impl(&dword_193225000, v10, v11, "Signing request with URLSwitching UrlKey", v24, 2u);
+        v9 = v25;
+        v10 = v24;
+        __os_log_helper_16_0_0(v23);
+        _os_log_debug_impl(&dword_193225000, v9, v10, "Signing request with URLSwitching UrlKey", v23, 2u);
       }
 
-      objc_storeStrong(&v26, 0);
+      objc_storeStrong(&v25, 0);
       [location[0] ak_addURLSwitchingHeaderWithURLKey:selfCopy->_initialURLRequestKey altDSID:selfCopy->_altDSID];
       objc_storeStrong(&selfCopy->_initialURLRequestKey, 0);
     }
 
     if (selfCopy->_custodianRecoveryToken)
     {
-      v23 = [AKToken tokenWithBase64String:selfCopy->_custodianRecoveryToken];
-      v22 = _AKLogSystem();
-      v21 = 2;
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v22 = [AKToken tokenWithBase64String:selfCopy->_custodianRecoveryToken];
+      v21 = _AKLogSystem();
+      v20 = 2;
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        v8 = v22;
-        v9 = v21;
-        __os_log_helper_16_0_0(v20);
-        _os_log_debug_impl(&dword_193225000, v8, v9, "Signing request with CR token", v20, 2u);
+        v7 = v21;
+        v8 = v20;
+        __os_log_helper_16_0_0(v19);
+        _os_log_debug_impl(&dword_193225000, v7, v8, "Signing request with CR token", v19, 2u);
       }
 
-      objc_storeStrong(&v22, 0);
-      v6 = location[0];
-      stringValue = [(AKToken *)v23 stringValue];
-      altDSID = selfCopy->_altDSID;
-      [v6 ak_addAuthorizationHeaderWithCustodianRecoveryToken:? forAltDSID:?];
+      objc_storeStrong(&v21, 0);
+      v5 = location[0];
+      stringValue = [(AKToken *)v22 stringValue];
+      [v5 ak_addAuthorizationHeaderWithCustodianRecoveryToken:? forAltDSID:?];
       MEMORY[0x1E69E5920](stringValue);
-      objc_storeStrong(&v23, 0);
+      objc_storeStrong(&v22, 0);
     }
 
     [location[0] ak_addOTStatusHeaderForAltDSID:selfCopy->_altDSID];
-    v4 = location[0];
+    v3 = location[0];
     _accountDSID = [(AKAppleIDServerResourceLoadDelegate *)selfCopy _accountDSID];
-    [v4 ak_addCDPStatusHeaderForDSID:?];
+    [v3 ak_addCDPStatusHeaderForDSID:?];
     MEMORY[0x1E69E5920](_accountDSID);
   }
 
@@ -1566,7 +1531,6 @@ void __52__AKAppleIDServerResourceLoadDelegate__signRequest___block_invoke(id *a
   objc_storeStrong(&v33, 0);
   objc_storeStrong(&v34, 0);
   objc_storeStrong(v4, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_signRequestWithServerBackoffInfoHeader:(id)header
@@ -1791,7 +1755,6 @@ void __52__AKAppleIDServerResourceLoadDelegate__signRequest___block_invoke(id *a
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1840,7 +1803,6 @@ void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___bloc
   dispatch_semaphore_signal(*(a1 + 40));
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___block_invoke_149(id *a1, void *a2, void *a3)
@@ -2075,7 +2037,6 @@ void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___bloc
   [(AKAppleIDServerResourceLoadDelegate *)v5 setPrivateEmailDomain:?];
   MEMORY[0x1E69E5920](v6);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)decorateWithContext:(id)context
@@ -2335,7 +2296,6 @@ void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___bloc
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)_harvestContinuationHeadersFromHeaders:(id)headers
@@ -2378,7 +2338,6 @@ void __66__AKAppleIDServerResourceLoadDelegate__signRequestWithBAAHeaders___bloc
   objc_storeStrong(&v15, 0);
   objc_storeStrong(&lowercaseString, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__AKAppleIDServerResourceLoadDelegate__harvestContinuationHeadersFromHeaders___block_invoke(void *a1, void *a2, void *a3)

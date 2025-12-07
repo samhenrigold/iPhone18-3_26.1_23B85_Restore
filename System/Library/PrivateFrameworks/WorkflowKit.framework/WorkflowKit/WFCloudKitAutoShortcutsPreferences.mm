@@ -73,28 +73,26 @@ LABEL_3:
 
 + (NSDictionary)properties
 {
-  v14[5] = *MEMORY[0x1E69E9840];
-  v13[0] = @"appDescriptor";
+  v13[5] = *MEMORY[0x1E69E9840];
+  v12[0] = @"appDescriptor";
   v2 = *MEMORY[0x1E6982D60];
   v3 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982D60]];
   v4 = [WFCloudKitItemProperty assetPropertyWithName:@"appDescriptorFileRepresentation" fileType:v3];
-  v14[0] = v4;
-  v13[1] = @"appName";
+  v13[0] = v4;
+  v12[1] = @"appName";
   v5 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v14[1] = v5;
-  v13[2] = @"disabledAutoShortcuts";
+  v13[1] = v5;
+  v12[2] = @"disabledAutoShortcuts";
   v6 = [MEMORY[0x1E69E0AF8] typeWithUTType:v2];
   v7 = [WFCloudKitItemProperty assetPropertyWithName:@"disabledAutoShortcutsFileRepresentation" fileType:v6];
-  v14[2] = v7;
-  v13[3] = @"isSiriEnabled";
+  v13[2] = v7;
+  v12[3] = @"isSiriEnabled";
   v8 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v14[3] = v8;
-  v13[4] = @"isSpotlightEnabled";
+  v13[3] = v8;
+  v12[4] = @"isSpotlightEnabled";
   v9 = [WFCloudKitItemProperty scalarPropertyWithName:"scalarPropertyWithName:nilValue:" nilValue:?];
-  v14[4] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[4] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
 
   return v10;
 }
@@ -161,19 +159,19 @@ LABEL_3:
 
 - (id)fileRepresentationFromObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v3 = [(WFCloudKitAutoShortcutsPreferences *)self dataFromObject:object error:&v11];
-  v4 = v11;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v3 = [(WFCloudKitAutoShortcutsPreferences *)self dataFromObject:object error:&v10];
+  v4 = v10;
   if (v4)
   {
     v5 = getWFDatabaseLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "[WFCloudKitAutoShortcutsPreferences fileRepresentationFromObject:]";
-      v14 = 2114;
-      v15 = v4;
+      v12 = "[WFCloudKitAutoShortcutsPreferences fileRepresentationFromObject:]";
+      v13 = 2114;
+      v14 = v4;
       _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_ERROR, "%s Error converting object to data: %{public}@", buf, 0x16u);
     }
   }
@@ -189,8 +187,6 @@ LABEL_3:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

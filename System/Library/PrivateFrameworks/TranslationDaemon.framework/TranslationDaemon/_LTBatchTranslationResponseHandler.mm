@@ -8,98 +8,99 @@
 
 - (void)streamDidReceiveBatchTranslationStreamingResponse:(id)response
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v5 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = _LTOSLogTranslationEngine(responseCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     request_id = [(FTMutableBatchTranslationRequest *)self->_request request_id];
-    v51 = 138543362;
-    v52 = request_id;
-    _os_log_impl(&dword_232E53000, v5, OS_LOG_TYPE_INFO, "streamDidReceiveBatchTranslationStreamingResponse request_id %{public}@", &v51, 0xCu);
+    v69 = 138543362;
+    v70 = request_id;
+    _os_log_impl(&dword_232E53000, v6, OS_LOG_TYPE_INFO, "streamDidReceiveBatchTranslationStreamingResponse request_id %{public}@", &v69, 0xCu);
   }
 
   if ([responseCopy content_type] == 1)
   {
-    v7 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = _LTOSLogTranslationEngine(1, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       request_id2 = [(FTMutableBatchTranslationRequest *)self->_request request_id];
-      v51 = 138543362;
-      v52 = request_id2;
-      _os_log_impl(&dword_232E53000, v7, OS_LOG_TYPE_INFO, "found BatchTranslationResponse request_id %{public}@", &v51, 0xCu);
+      v69 = 138543362;
+      v70 = request_id2;
+      _os_log_impl(&dword_232E53000, v9, OS_LOG_TYPE_INFO, "found BatchTranslationResponse request_id %{public}@", &v69, 0xCu);
     }
 
     contentAsFTBatchTranslationResponse = [responseCopy contentAsFTBatchTranslationResponse];
-    v10 = contentAsFTBatchTranslationResponse;
+    v13 = contentAsFTBatchTranslationResponse;
     if (contentAsFTBatchTranslationResponse)
     {
       batchedParagraphs = self->_batchedParagraphs;
       paragraph_id = [contentAsFTBatchTranslationResponse paragraph_id];
-      v13 = [(_LTBatchedParagraphsHolder *)batchedParagraphs paragraphWithId:paragraph_id];
+      v16 = [(_LTBatchedParagraphsHolder *)batchedParagraphs paragraphWithId:paragraph_id];
 
-      if ([v10 return_code] == 200)
+      return_code = [v13 return_code];
+      if (return_code == 200)
       {
-        requestParagraph = [v13 requestParagraph];
-        paragraph = [v13 paragraph];
-        v16 = _LTOSLogTranslationEngine();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+        requestParagraph = [v16 requestParagraph];
+        paragraph = [v16 paragraph];
+        v22 = _LTOSLogTranslationEngine(paragraph, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
           request_id3 = [(FTMutableBatchTranslationRequest *)self->_request request_id];
-          span = [v10 span];
-          v19 = [span count];
-          v51 = 138543618;
-          v52 = request_id3;
-          v53 = 2048;
-          v54 = v19;
-          _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Succeeded request %{public}@ (%zu alignments)", &v51, 0x16u);
+          span = [v13 span];
+          v25 = [span count];
+          v69 = 138543618;
+          v70 = request_id3;
+          v71 = 2048;
+          v72 = v25;
+          _os_log_impl(&dword_232E53000, v22, OS_LOG_TYPE_INFO, "Succeeded request %{public}@ (%zu alignments)", &v69, 0x16u);
         }
 
-        v20 = _LTOSLogTranslationEngine();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v28 = _LTOSLogTranslationEngine(v26, v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
         {
-          [v10 translated_text];
+          [v13 translated_text];
           objc_claimAutoreleasedReturnValue();
           [requestParagraph text];
           objc_claimAutoreleasedReturnValue();
           [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
         }
 
-        v21 = objc_alloc(MEMORY[0x277CE1C18]);
+        v29 = objc_alloc(MEMORY[0x277CE1C18]);
         text = [requestParagraph text];
-        v23 = [v21 initWithOspreyBatchResponse:v10 sourceText:text];
+        v31 = [v29 initWithOspreyBatchResponse:v13 sourceText:text];
 
-        [v23 setRoute:2];
+        [v31 setRoute:2];
         paragraph_id2 = [requestParagraph paragraph_id];
-        [v23 setIdentifier:paragraph_id2];
+        [v31 setIdentifier:paragraph_id2];
 
-        [v23 setLocale:self->_targetLocale];
+        [v31 setLocale:self->_targetLocale];
         text2 = [requestParagraph text];
-        [v23 setSourceString:text2];
+        [v31 setSourceString:text2];
 
         spans = [paragraph spans];
-        span2 = [v10 span];
-        [v23 updateAlignmentWithSourceSpan:spans targetSpan:span2];
+        span2 = [v13 span];
+        [v31 updateAlignmentWithSourceSpan:spans targetSpan:span2];
 
-        v28 = 0;
+        v36 = 0;
       }
 
       else
       {
-        v38 = _LTOSLogTranslationEngine();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v53 = _LTOSLogTranslationEngine(return_code, v18);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
-          [v10 return_code];
-          [v10 return_string];
+          [v13 return_code];
+          [v13 return_string];
           objc_claimAutoreleasedReturnValue();
           [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
         }
 
-        return_code = [v10 return_code];
-        return_string = [v10 return_string];
-        v28 = _LTErrorFromRemoteFailure(return_code, return_string);
+        return_code2 = [v13 return_code];
+        return_string = [v13 return_string];
+        v36 = _LTErrorFromRemoteFailure(return_code2, return_string);
 
-        requestParagraph = _LTOSLogTranslationEngine();
+        requestParagraph = _LTOSLogTranslationEngine(v56, v57);
         if (os_log_type_enabled(requestParagraph, OS_LOG_TYPE_ERROR))
         {
           [(FTMutableBatchTranslationRequest *)self->_request request_id];
@@ -107,18 +108,18 @@
           [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
         }
 
-        v23 = 0;
+        v31 = 0;
       }
 
-      completion = [v13 completion];
-      v42 = completion == 0;
+      completion = [v16 completion];
+      v59 = completion == 0;
 
-      if (v42)
+      if (v59)
       {
-        completion2 = _LTOSLogTranslationEngine();
+        completion2 = _LTOSLogTranslationEngine(v60, v61);
         if (os_log_type_enabled(completion2, OS_LOG_TYPE_ERROR))
         {
-          [v10 paragraph_id];
+          [v13 paragraph_id];
           objc_claimAutoreleasedReturnValue();
           [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
         }
@@ -126,101 +127,104 @@
 
       else
       {
-        completion2 = [v13 completion];
-        (completion2[2].isa)(completion2, v23, v28);
+        completion2 = [v16 completion];
+        (completion2[2].isa)(completion2, v31, v36);
       }
 
-      v44 = self->_batchedParagraphs;
-      paragraph_id3 = [v10 paragraph_id];
-      [(_LTBatchedParagraphsHolder *)v44 removeParagraphWithId:paragraph_id3];
+      v63 = self->_batchedParagraphs;
+      paragraph_id3 = [v13 paragraph_id];
+      [(_LTBatchedParagraphsHolder *)v63 removeParagraphWithId:paragraph_id3];
     }
 
     else
     {
-      v37 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v52 = _LTOSLogTranslationEngine(0, v12);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
       }
     }
-  }
-
-  else if ([responseCopy content_type] == 2)
-  {
-    [(_LTBatchTranslationResponseHandler *)self setHasFinalServerResponse:1];
-    contentAsFTFinalBlazarResponse = [responseCopy contentAsFTFinalBlazarResponse];
-    v30 = contentAsFTFinalBlazarResponse;
-    if (contentAsFTFinalBlazarResponse)
-    {
-      if ([contentAsFTFinalBlazarResponse return_code] != 200)
-      {
-        v31 = _LTOSLogTranslationEngine();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
-        {
-          [v30 return_code];
-          [v30 return_str];
-          objc_claimAutoreleasedReturnValue();
-          [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
-        }
-
-        return_code2 = [v30 return_code];
-        return_str = [v30 return_str];
-        v34 = _LTErrorFromRemoteFailure(return_code2, return_str);
-
-        v35 = _LTOSLogTranslationEngine();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-        {
-          [(FTMutableBatchTranslationRequest *)self->_request request_id];
-          objc_claimAutoreleasedReturnValue();
-          [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
-        }
-      }
-    }
-
-    else
-    {
-      v46 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
-      {
-        [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
-      }
-    }
-
-    v47 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
-    {
-      request_id4 = [(FTMutableBatchTranslationRequest *)self->_request request_id];
-      v49 = [(_LTBatchedParagraphsHolder *)self->_batchedParagraphs count];
-      v51 = 138543874;
-      v52 = request_id4;
-      v53 = 2048;
-      v54 = v49;
-      v55 = 2112;
-      v56 = 0;
-      _os_log_impl(&dword_232E53000, v47, OS_LOG_TYPE_INFO, "found FTFinalBlazarResponse request_id %{public}@ outstanding paragraphs %zu error %@", &v51, 0x20u);
-    }
-
-    [(_LTBatchTranslationResponseHandler *)self callCompletionHandlersWithError:0];
   }
 
   else
   {
-    v36 = _LTOSLogTranslationEngine();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    content_type = [responseCopy content_type];
+    if (content_type == 2)
     {
-      [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
+      [(_LTBatchTranslationResponseHandler *)self setHasFinalServerResponse:1];
+      contentAsFTFinalBlazarResponse = [responseCopy contentAsFTFinalBlazarResponse];
+      v41 = contentAsFTFinalBlazarResponse;
+      if (contentAsFTFinalBlazarResponse)
+      {
+        return_code3 = [contentAsFTFinalBlazarResponse return_code];
+        if (return_code3 != 200)
+        {
+          v44 = _LTOSLogTranslationEngine(return_code3, v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          {
+            [v41 return_code];
+            [v41 return_str];
+            objc_claimAutoreleasedReturnValue();
+            [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
+          }
+
+          return_code4 = [v41 return_code];
+          return_str = [v41 return_str];
+          v47 = _LTErrorFromRemoteFailure(return_code4, return_str);
+
+          v50 = _LTOSLogTranslationEngine(v48, v49);
+          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          {
+            [(FTMutableBatchTranslationRequest *)self->_request request_id];
+            objc_claimAutoreleasedReturnValue();
+            [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
+          }
+        }
+      }
+
+      else
+      {
+        v65 = _LTOSLogTranslationEngine(0, v40);
+        return_code3 = os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG);
+        if (return_code3)
+        {
+          [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
+        }
+      }
+
+      v66 = _LTOSLogTranslationEngine(return_code3, v43);
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+      {
+        request_id4 = [(FTMutableBatchTranslationRequest *)self->_request request_id];
+        v68 = [(_LTBatchedParagraphsHolder *)self->_batchedParagraphs count];
+        v69 = 138543874;
+        v70 = request_id4;
+        v71 = 2048;
+        v72 = v68;
+        v73 = 2112;
+        v74 = 0;
+        _os_log_impl(&dword_232E53000, v66, OS_LOG_TYPE_INFO, "found FTFinalBlazarResponse request_id %{public}@ outstanding paragraphs %zu error %@", &v69, 0x20u);
+      }
+
+      [(_LTBatchTranslationResponseHandler *)self callCompletionHandlersWithError:0];
+    }
+
+    else
+    {
+      v51 = _LTOSLogTranslationEngine(content_type, v38);
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      {
+        [_LTBatchTranslationResponseHandler streamDidReceiveBatchTranslationStreamingResponse:];
+      }
     }
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamFailVerifyBatchTranslationStreamingResponse:(id)response
 {
-  v7 = *MEMORY[0x277D85DE8];
   responseCopy = response;
-  v5 = _LTOSLogTranslationEngine();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v6 = _LTOSLogTranslationEngine(responseCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [(FTMutableBatchTranslationRequest *)self->_request request_id];
     objc_claimAutoreleasedReturnValue();
@@ -228,12 +232,11 @@
   }
 
   [(_LTBatchTranslationResponseHandler *)self callCompletionHandlersWithError:responseCopy];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)callCompletionHandlersWithError:(id)error
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -241,16 +244,16 @@
 
     if (request_id)
     {
-      v15[0] = @"request_id";
+      v14[0] = @"request_id";
       request_id2 = [(FTMutableBatchTranslationRequest *)self->_request request_id];
-      v16[0] = request_id2;
-      v15[1] = @"hasFinalServerResponse";
+      v15[0] = request_id2;
+      v14[1] = @"hasFinalServerResponse";
       v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasFinalServerResponse];
-      v16[1] = v7;
-      v15[2] = @"completionHandlerCalled";
+      v15[1] = v7;
+      v14[2] = @"completionHandlerCalled";
       v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_completionHandlerCalled];
-      v16[2] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+      v15[2] = v8;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
       request_id = v9;
     }
@@ -264,8 +267,6 @@
   }
 
   [(_LTBatchedParagraphsHolder *)self->_batchedParagraphs completeAllAndCleanWithError:errorCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)streamDidReceiveBatchTranslationStreamingResponse:.cold.1()

@@ -25,7 +25,7 @@
 - (id)iteratorWithOptions:(unsigned int)options
 {
   v3 = objc_allocWithZone(MEMORY[0x277D046C0]);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode, 0x277D04700);
   isa = Array._bridgeToObjectiveC()().super.isa;
   v5 = [v3 initWithChildren:isa fullyPopulated:1 options:0];
 

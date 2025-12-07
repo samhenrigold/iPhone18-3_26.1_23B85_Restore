@@ -2,6 +2,9 @@
 - (CADPredicateMonitorAgent)initWithPredicate:(id)predicate filter:(unint64_t)filter options:(unint64_t)options token:(int)token connection:(id)connection;
 - (id)filterWithPredicate:(id)predicate;
 - (void)handleChangeReport:(id)report;
+- (void)processChangeReport:(id)report forDatabaseID:(int)d;
+- (void)reportResultsReset:(BOOL)reset newAndUpdated:(id)updated removed:(id)removed databaseIDForRemovals:(int)removals reportPredicateGeneration:(BOOL)generation generation:(int)a8;
+- (void)reportResultsReset:(BOOL)reset newAndUpdated:(id)updated removed:(id)removed reportPredicateGeneration:(BOOL)generation generation:(int)a7;
 - (void)reset;
 - (void)start;
 - (void)stop;
@@ -117,7 +120,7 @@ void __33__CADPredicateMonitorAgent_reset__block_invoke_2(uint64_t a1)
 
 - (void)updatePredicate:(id)predicate propertyFilter:(unint64_t)filter options:(unint64_t)options generation:(int)generation
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   os_unfair_lock_lock(&self->_lock);
   predicate = self->_predicate;
@@ -129,114 +132,112 @@ void __33__CADPredicateMonitorAgent_reset__block_invoke_2(uint64_t a1)
   self->_options = options;
   resetGeneration = self->_resetGeneration;
   os_unfair_lock_unlock(&self->_lock);
-  v52 = 0;
-  v12 = [predicateCopy incrementalPredicatesToExpandResultsFromPredicate:predicateCopy2 filteringRequiredToRemoveEventsNoLongerMatched:&v52];
-  v29 = v12;
+  v51 = 0;
+  v12 = [predicateCopy incrementalPredicatesToExpandResultsFromPredicate:predicateCopy2 filteringRequiredToRemoveEventsNoLongerMatched:&v51];
+  v28 = v12;
   if (v12)
   {
-    v31 = [v12 count];
-    v50[0] = 0;
-    v50[1] = v50;
-    v50[2] = 0x3032000000;
-    v50[3] = __Block_byref_object_copy__1;
-    v50[4] = __Block_byref_object_dispose__1;
-    v51 = 0;
-    if (v52 == 1)
+    v30 = [v12 count];
+    v49[0] = 0;
+    v49[1] = v49;
+    v49[2] = 0x3032000000;
+    v49[3] = __Block_byref_object_copy__1;
+    v49[4] = __Block_byref_object_dispose__1;
+    v50 = 0;
+    if (v51 == 1)
     {
       v13 = [[CADClientBlockOperation alloc] initWithToken:self->_token];
       objc_initWeak(&location, v13);
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke;
-      v43[3] = &unk_27851A1E8;
-      v43[4] = self;
-      v47 = resetGeneration;
-      objc_copyWeak(v46, &location);
-      v45 = v50;
-      v44 = predicateCopy;
-      v46[1] = v31;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke;
+      v42[3] = &unk_27851A1E8;
+      v42[4] = self;
+      v46 = resetGeneration;
+      objc_copyWeak(v45, &location);
+      v44 = v49;
+      v43 = predicateCopy;
+      v45[1] = v30;
       generationCopy2 = generation;
-      [(NSBlockOperation *)v13 addExecutionBlock:v43];
+      [(NSBlockOperation *)v13 addExecutionBlock:v42];
       WeakRetained = objc_loadWeakRetained(&self->_conn);
       [WeakRetained addOperation:v13];
 
-      objc_destroyWeak(v46);
+      objc_destroyWeak(v45);
       objc_destroyWeak(&location);
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    obj = v29;
-    v15 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    obj = v28;
+    v15 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
     if (v15)
     {
       v16 = 0;
-      v17 = *v40;
+      v17 = *v39;
       v18 = MEMORY[0x277D85DD0];
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v17)
+          if (*v39 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v20 = *(*(&v39 + 1) + 8 * i);
+          v20 = *(*(&v38 + 1) + 8 * i);
           v21 = [CADFetchCalendarItemsWithPredicateOperation alloc];
           v22 = objc_loadWeakRetained(&self->_conn);
           token = self->_token;
-          v37[0] = v18;
-          v37[1] = 3221225472;
-          v37[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_2;
-          v37[3] = &unk_27851A210;
-          v37[4] = self;
-          v37[5] = v50;
-          v37[6] = v16;
-          v37[7] = v31;
-          v38 = generationCopy;
-          v24 = [(CADFetchCalendarItemsWithPredicateOperation *)v21 initWithPredicate:v20 entityType:2 connection:v22 fetchIdentifier:token completionHandler:v37];
+          v36[0] = v18;
+          v36[1] = 3221225472;
+          v36[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_2;
+          v36[3] = &unk_27851A210;
+          v36[4] = self;
+          v36[5] = v49;
+          v36[6] = v16;
+          v36[7] = v30;
+          v37 = generationCopy;
+          v24 = [(CADFetchCalendarItemsWithPredicateOperation *)v21 initWithPredicate:v20 entityType:2 connection:v22 fetchIdentifier:token completionHandler:v36];
 
           objc_initWeak(&location, v24);
-          v34[0] = v18;
-          v34[1] = 3221225472;
-          v34[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_3;
-          v34[3] = &unk_27851A238;
-          v34[4] = self;
-          v36 = resetGeneration;
-          objc_copyWeak(&v35, &location);
-          [(CADFetchCalendarItemsWithPredicateOperation *)v24 setStartCallback:v34];
+          v33[0] = v18;
+          v33[1] = 3221225472;
+          v33[2] = __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_3;
+          v33[3] = &unk_27851A238;
+          v33[4] = self;
+          v35 = resetGeneration;
+          objc_copyWeak(&v34, &location);
+          [(CADFetchCalendarItemsWithPredicateOperation *)v24 setStartCallback:v33];
           v25 = objc_loadWeakRetained(&self->_conn);
           [v25 addOperation:v24];
 
-          objc_destroyWeak(&v35);
+          objc_destroyWeak(&v34);
           objc_destroyWeak(&location);
 
           ++v16;
         }
 
-        v15 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
+        v15 = [obj countByEnumeratingWithState:&v38 objects:v52 count:16];
       }
 
       while (v15);
     }
 
-    if ((v52 & 1) == 0 && ![obj count])
+    if ((v51 & 1) == 0 && ![obj count])
     {
       [(CADPredicateMonitorAgent *)self reportResultsReset:0 newAndUpdated:0 removed:0 reportPredicateGeneration:1 generation:generationCopy];
     }
 
-    _Block_object_dispose(v50, 8);
+    _Block_object_dispose(v49, 8);
   }
 
   else
   {
     [(CADPredicateMonitorAgent *)self reset];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke(uint64_t a1)
@@ -279,31 +280,31 @@ void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_gener
 
 void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v20 = a1;
+  v19 = a1;
   v4 = *(*(a1 + 32) + 40);
-  v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = [v10 objectID];
         v12 = [v11 databaseID];
         v13 = [v11 entityID];
@@ -314,27 +315,27 @@ void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_gener
         {
           if (v15 == 2)
           {
-            [*(v20 + 32) reset];
+            [*(v19 + 32) reset];
 
             v17 = v5;
-            v18 = v21;
+            v18 = v20;
             goto LABEL_16;
           }
         }
 
         else
         {
-          [v21 addObject:v10];
+          [v20 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
 
-  v16 = *(v20 + 48);
+  v16 = *(v19 + 48);
   if (v16)
   {
     v17 = 0;
@@ -342,15 +343,13 @@ void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_gener
 
   else
   {
-    v17 = *(*(*(v20 + 40) + 8) + 40);
-    v16 = *(v20 + 48);
+    v17 = *(*(*(v19 + 40) + 8) + 40);
+    v16 = *(v19 + 48);
   }
 
-  v18 = v21;
-  [*(v20 + 32) reportResultsReset:0 newAndUpdated:v21 removed:v17 reportPredicateGeneration:v16 + 1 == *(v20 + 56) generation:*(v20 + 64)];
+  v18 = v20;
+  [*(v19 + 32) reportResultsReset:0 newAndUpdated:v20 removed:v17 reportPredicateGeneration:v16 + 1 == *(v19 + 56) generation:*(v19 + 64)];
 LABEL_16:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __78__CADPredicateMonitorAgent_updatePredicate_propertyFilter_options_generation___block_invoke_3(uint64_t a1)
@@ -439,15 +438,15 @@ void __48__CADPredicateMonitorAgent_filterWithPredicate___block_invoke_2(uint64_
 
 void __48__CADPredicateMonitorAgent_filterWithPredicate___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x22AA4B950](*(a1 + 64));
   if (v4)
   {
     v5 = v4;
     v6 = [*(a1 + 32) datesForDatabase:*(a1 + 72) rowID:a2];
-    v13 = 0;
-    v7 = [*(a1 + 40) matchingDatesForEvent:v5 modifiedProperties:0 dates:v6 inRange:0 database:*(a1 + 64) outReset:&v13];
-    if (v13 == 1)
+    v12 = 0;
+    v7 = [*(a1 + 40) matchingDatesForEvent:v5 modifiedProperties:0 dates:v6 inRange:0 database:*(a1 + 64) outReset:&v12];
+    if (v12 == 1)
     {
       v8 = CADLogHandle;
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
@@ -455,11 +454,11 @@ void __48__CADPredicateMonitorAgent_filterWithPredicate___block_invoke_3(uint64_
         v9 = *(a1 + 76);
         v10 = *(a1 + 40);
         *buf = 67109634;
-        v15 = v9;
-        v16 = 1024;
-        v17 = a2;
-        v18 = 2112;
-        v19 = v10;
+        v14 = v9;
+        v15 = 1024;
+        v16 = a2;
+        v17 = 2112;
+        v18 = v10;
         _os_log_impl(&dword_22430B000, v8, OS_LOG_TYPE_ERROR, "Told to reset while filtering old results: %i %i; predicate=%@", buf, 0x18u);
       }
     }
@@ -475,8 +474,6 @@ void __48__CADPredicateMonitorAgent_filterWithPredicate___block_invoke_3(uint64_
 
     CFRelease(v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -488,30 +485,30 @@ void __48__CADPredicateMonitorAgent_filterWithPredicate___block_invoke_3(uint64_
 
 void __33__CADPredicateMonitorAgent_reset__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(*(a1 + 32) + 40);
   [v4 clear];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [v10 objectID];
         v12 = [v11 databaseID];
         v13 = [v11 entityID];
@@ -519,14 +516,13 @@ void __33__CADPredicateMonitorAgent_reset__block_invoke(uint64_t a1, void *a2)
         [v4 addOccurrenceWithDB:v12 rowID:v13 date:v14];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 32) reportResultsReset:1 newAndUpdated:v5 removed:0 reportPredicateGeneration:1 generation:*(a1 + 40)];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleChangeReport:(id)report
@@ -577,6 +573,35 @@ void __47__CADPredicateMonitorAgent_handleChangeReport___block_invoke(uint64_t a
     v6 = *(a1 + 52);
 
     [v4 processChangeReport:v5 forDatabaseID:v6];
+  }
+}
+
+- (void)processChangeReport:(id)report forDatabaseID:(int)d
+{
+  v4 = *&d;
+  reportCopy = report;
+  if ([reportCopy reset])
+  {
+    [(CADPredicateMonitorAgent *)self reset];
+  }
+
+  else
+  {
+    os_unfair_lock_lock(&self->_lock);
+    v7 = self->_predicate;
+    filter = self->_filter;
+    os_unfair_lock_unlock(&self->_lock);
+    WeakRetained = objc_loadWeakRetained(&self->_conn);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___block_invoke;
+    v11[3] = &unk_27851A350;
+    v11[4] = self;
+    v12 = v7;
+    v13 = reportCopy;
+    v14 = filter;
+    v10 = v7;
+    [WeakRetained withDatabaseID:v4 perform:v11];
   }
 }
 
@@ -646,7 +671,7 @@ void __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___block_in
 
 uint64_t __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___block_invoke_2(uint64_t a1, uint64_t a2, char a3, uint64_t a4, void *a5)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = v9;
   if (a3)
@@ -675,7 +700,7 @@ uint64_t __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___bloc
       if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v37 = a2;
+        v36 = a2;
         _os_log_impl(&dword_22430B000, v15, OS_LOG_TYPE_ERROR, "Couldn't find event with id %i", buf, 8u);
       }
 
@@ -702,39 +727,39 @@ uint64_t __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___bloc
         v18 = v17;
         if (([*(a1 + 64) isEventBlocked:v17] & 1) == 0)
         {
-          v30 = v10;
+          v29 = v10;
           started = CalEventCopyStartTimeZone();
           if (!started)
           {
             started = CFTimeZoneCreateWithTimeIntervalFromGMT(0, 0.0);
           }
 
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v20 = v11;
-          v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+          v21 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
           if (v21)
           {
             v22 = v21;
-            v23 = *v32;
+            v23 = *v31;
             do
             {
               for (i = 0; i != v22; ++i)
               {
-                if (*v32 != v23)
+                if (*v31 != v23)
                 {
                   objc_enumerationMutation(v20);
                 }
 
-                [*(*(&v31 + 1) + 8 * i) timeIntervalSinceReferenceDate];
+                [*(*(&v30 + 1) + 8 * i) timeIntervalSinceReferenceDate];
                 v25 = CalEventOccurrenceCreate();
                 v26 = [*(a1 + 72) addEntity:v25];
                 CFRelease(v25);
               }
 
-              v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+              v22 = [v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
             }
 
             while (v22);
@@ -746,7 +771,7 @@ uint64_t __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___bloc
           }
 
           *(*(*(a1 + 96) + 8) + 24) = 1;
-          v10 = v30;
+          v10 = v29;
         }
 
         CFRelease(v18);
@@ -764,23 +789,88 @@ uint64_t __62__CADPredicateMonitorAgent_processChangeReport_forDatabaseID___bloc
 
 LABEL_33:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v14;
+}
+
+- (void)reportResultsReset:(BOOL)reset newAndUpdated:(id)updated removed:(id)removed databaseIDForRemovals:(int)removals reportPredicateGeneration:(BOOL)generation generation:(int)a8
+{
+  v8 = *&a8;
+  generationCopy = generation;
+  v10 = *&removals;
+  resetCopy = reset;
+  v20[1] = *MEMORY[0x277D85DE8];
+  updatedCopy = updated;
+  if (removed)
+  {
+    v15 = MEMORY[0x277CCABB0];
+    removedCopy = removed;
+    v17 = [v15 numberWithInt:v10];
+    v19 = v17;
+    v20[0] = removedCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  [(CADPredicateMonitorAgent *)self reportResultsReset:resetCopy newAndUpdated:updatedCopy removed:v18 reportPredicateGeneration:generationCopy generation:v8];
+}
+
+- (void)reportResultsReset:(BOOL)reset newAndUpdated:(id)updated removed:(id)removed reportPredicateGeneration:(BOOL)generation generation:(int)a7
+{
+  v7 = *&a7;
+  generationCopy = generation;
+  resetCopy = reset;
+  updatedCopy = updated;
+  removedCopy = removed;
+  if (!self->_shutdown)
+  {
+    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v14 = v13;
+    if (resetCopy)
+    {
+      [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"reset"];
+    }
+
+    if (updatedCopy)
+    {
+      [v14 setObject:updatedCopy forKeyedSubscript:@"new"];
+    }
+
+    if (removedCopy)
+    {
+      [v14 setObject:removedCopy forKeyedSubscript:@"removalsByDB"];
+    }
+
+    if (generationCopy)
+    {
+      v15 = [MEMORY[0x277CCABB0] numberWithInt:v7];
+      [v14 setObject:v15 forKeyedSubscript:@"generation"];
+    }
+
+    WeakRetained = objc_loadWeakRetained(&self->_conn);
+    v17 = [WeakRetained remoteObjectProxyWithErrorHandler:&__block_literal_global_6];
+    [v17 CADClientReceivePredicateResults:v14 forToken:self->_token];
+
+    v18 = objc_loadWeakRetained(&self->_conn);
+    v19 = [updatedCopy CalMap:&__block_literal_global_40];
+    [v18 logAccessToObjects:v19];
+  }
 }
 
 void __106__CADPredicateMonitorAgent_reportResultsReset_newAndUpdated_removed_reportPredicateGeneration_generation___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = CADLogHandle;
   if (os_log_type_enabled(CADLogHandle, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending predicate results: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_22430B000, v3, OS_LOG_TYPE_ERROR, "Error sending predicate results: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

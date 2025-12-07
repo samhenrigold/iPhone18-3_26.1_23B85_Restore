@@ -104,65 +104,65 @@ void __66__PKSharingMessageExtensionOpenGraphPresenter_extensionWillAppear__bloc
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __66__PKSharingMessageExtensionOpenGraphPresenter_extensionWillAppear__block_invoke_2(uint64_t a1)
+void __66__PKSharingMessageExtensionOpenGraphPresenter_extensionWillAppear__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(a1 + 40) absoluteString];
-    v5 = PKSharingLoggableMailboxAddress();
-    v22 = 138412546;
-    v23 = v3;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_INFO, "iMessage Extension: received metadata %@ for: '%@'", &v22, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = [*(a1 + 40) absoluteString];
+    v6 = PKSharingLoggableMailboxAddress();
+    v23 = 138412546;
+    v24 = v4;
+    v25 = 2112;
+    v26 = v6;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_INFO, "iMessage Extension: received metadata %@ for: '%@'", &v23, 0x16u);
   }
 
   [*(*(a1 + 48) + 24) setHasFetchedOpenGraphPreview:1];
-  v6 = *(a1 + 32);
-  if (v6)
+  v7 = *(a1 + 32);
+  if (v7)
   {
-    v7 = *(*(a1 + 48) + 24);
-    v8 = [v6 title];
-    [v7 setTitle:v8];
+    v8 = *(*(a1 + 48) + 24);
+    v9 = [v7 title];
+    [v8 setTitle:v9];
 
-    v9 = [*(a1 + 32) image];
-    v10 = [v9 data];
+    v10 = [*(a1 + 32) image];
+    v11 = [v10 data];
 
-    if (v10)
+    if (v11)
     {
-      v11 = PKCreateCGImage(v10);
-      if (v11)
+      v12 = PKCreateCGImage(v11);
+      if (v12)
       {
-        v12 = v11;
-        v13 = *(*(a1 + 48) + 24);
-        v14 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v11];
-        [v13 setThumbnail:v14];
+        v13 = v12;
+        v14 = *(*(a1 + 48) + 24);
+        v15 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v12];
+        [v14 setThumbnail:v15];
 
-        CGImageRelease(v12);
+        CGImageRelease(v13);
         goto LABEL_11;
       }
     }
   }
 
-  v15 = *(*(a1 + 48) + 24);
-  v16 = MEMORY[0x1E69DCAB8];
-  v17 = PKPassKitUIBundle();
-  v18 = [v16 imageNamed:@"Generic-Shared-Key" inBundle:v17];
-  [v15 setThumbnail:v18];
+  v16 = *(*(a1 + 48) + 24);
+  v17 = MEMORY[0x1E69DCAB8];
+  v18 = PKPassKitUIBundle();
+  v19 = [v17 imageNamed:@"Generic-Shared-Key" inBundle:v18];
+  [v16 setThumbnail:v19];
 
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v20 = [*(a1 + 40) absoluteString];
-    v21 = PKSharingLoggableMailboxAddress();
-    v22 = 138412290;
-    v23 = v21;
-    _os_log_error_impl(&dword_1BD026000, v2, OS_LOG_TYPE_ERROR, "iMessage Extension: no image present for open graph preview: '%@'", &v22, 0xCu);
+    v21 = [*(a1 + 40) absoluteString];
+    v22 = PKSharingLoggableMailboxAddress();
+    v23 = 138412290;
+    v24 = v22;
+    _os_log_error_impl(&dword_1BD026000, v3, OS_LOG_TYPE_ERROR, "iMessage Extension: no image present for open graph preview: '%@'", &v23, 0xCu);
   }
 
-  v10 = v2;
+  v11 = v3;
 LABEL_11:
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 48) + 32));

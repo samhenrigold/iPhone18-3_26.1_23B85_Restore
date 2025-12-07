@@ -67,25 +67,24 @@
   {
     v4 = MEMORY[0x277CCACA8];
     v5 = objc_opt_class();
-    v7 = self->_state;
-    uniqueID = self->_uniqueID;
-    v8 = v7 >= 3;
-    v9 = v7 - 3;
-    if (!v8)
+    v6 = self->_state;
+    v7 = v6 >= 3;
+    v8 = v6 - 3;
+    if (!v7)
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    [v4 stringWithFormat:@"<%@ %llu running retry: %ld>", v5, self->_uniqueID, v9];
+    [v4 stringWithFormat:@"<%@ %llu running retry: %ld>", v5, self->_uniqueID, v8];
   }
 
   else
   {
     [MEMORY[0x277CCACA8] stringWithFormat:@"<%@ %llu %@>", objc_opt_class(), self->_uniqueID, *(&off_278A75C40 + state)];
   }
-  v10 = ;
+  v9 = ;
 
-  return v10;
+  return v9;
 }
 
 @end

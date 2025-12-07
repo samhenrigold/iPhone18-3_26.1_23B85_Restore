@@ -12,12 +12,10 @@
 
 - (NSString)id
 {
-  v2 = *(self + 2);
-  v3 = *(self + 3);
 
-  v4 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
+  v2 = _sSS18PodcastsFoundationE18userDefaultsObjectSo8NSStringCSgyF_0();
 
-  return v4;
+  return v2;
 }
 
 - (void)setBypassCache:(BOOL)cache
@@ -79,7 +77,7 @@
   v8[1] = v7;
   withCopy = with;
 
-  sub_1D8D15664(v9);
+  sub_1D8D15664(v9, v10);
 
   v12 = sub_1D8EAE518();
   [v12 processKeyWithIdentifier_];

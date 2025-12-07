@@ -2637,7 +2637,7 @@ LABEL_3:
 
 + (id)textLineForReflowableSynthesisResultToken:(id)token locale:(id)locale
 {
-  v117 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   tokenCopy = token;
   localeCopy = locale;
   v7 = objc_opt_class();
@@ -2671,24 +2671,24 @@ LABEL_3:
 
     else
     {
-      v115 = 0u;
-      *v116 = 0u;
-      v113 = 0u;
+      v116 = 0u;
+      *v117 = 0u;
       v114 = 0u;
-      v111 = 0u;
+      v115 = 0u;
       v112 = 0u;
+      v113 = 0u;
       *buf = 0u;
-      v110 = 0u;
+      v111 = 0u;
     }
 
     v72 = objc_msgSend_drawing(tokenCopy, v55, v56, v57, v58, v59);
     objc_msgSend_bounds(v72, v73, v74, v75, v76, v77);
     v81 = v80;
     v83 = v82;
-    v105 = *&buf[8];
-    v106 = *buf;
-    v84 = v110;
-    v104 = *&v110;
+    v106 = *&buf[8];
+    v107 = *buf;
+    v84 = v111;
+    v105 = *&v111;
     if (v78 == 0.0)
     {
       v85 = 1.0;
@@ -2709,40 +2709,41 @@ LABEL_3:
       v86 = v79;
     }
 
-    v87 = v111;
-    v88 = v112;
-    v102 = *(&v113 + 1);
-    v103 = *&v113;
-    v100 = *(&v114 + 1);
-    v101 = *&v114;
-    v98 = *(&v115 + 1);
-    v99 = *&v115;
-    v89 = *v116;
+    v87 = v112;
+    v88 = v113;
+    v102 = *(&v114 + 1);
+    v103 = *&v114;
+    v100 = *(&v115 + 1);
+    v101 = *&v115;
+    v98 = *(&v116 + 1);
+    v99 = *&v116;
+    v97 = v117[0];
+    v104 = v117[1];
 
-    v90 = [CHTransformedTextLine alloc];
-    v108 = v54;
-    v94 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v91, &v108, 1, v92, v93);
-    *buf = v81 + v106 * v85;
-    *&buf[8] = v83 + v105 * v86;
-    *&v110 = v81 + v104 * v85;
-    *(&v110 + 1) = v83 + *(&v84 + 1) * v86;
-    *&v111 = v81 + *&v87 * v85;
-    *(&v111 + 1) = v83 + *(&v87 + 1) * v86;
-    *&v112 = v81 + *&v88 * v85;
-    *(&v112 + 1) = v83 + *(&v88 + 1) * v86;
-    *&v113 = v81 + v103 * v85;
-    *(&v113 + 1) = v83 + v102 * v86;
-    *&v114 = v81 + v101 * v85;
-    *(&v114 + 1) = v83 + v100 * v86;
-    *&v115 = v81 + v99 * v85;
-    *(&v115 + 1) = v83 + v98 * v86;
-    v116[0] = v81 + *&v89 * v85;
-    v116[1] = v83 + *(&v89 + 1) * v86;
-    v95 = *(MEMORY[0x1E695EFD0] + 16);
-    v107[0] = *MEMORY[0x1E695EFD0];
-    v107[1] = v95;
-    v107[2] = *(MEMORY[0x1E695EFD0] + 32);
-    v71 = objc_msgSend_initWithStrokes_tokens_locale_strokeClassification_principalLines_principalPoints_transform_(v90, v96, v17, v94, localeCopy, 1, buf, MEMORY[0x1E695E0F0], v107);
+    v89 = [CHTransformedTextLine alloc];
+    v109 = v54;
+    v93 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v90, &v109, 1, v91, v92);
+    *buf = v81 + v107 * v85;
+    *&buf[8] = v83 + v106 * v86;
+    *&v111 = v81 + v105 * v85;
+    *(&v111 + 1) = v83 + *(&v84 + 1) * v86;
+    *&v112 = v81 + *&v87 * v85;
+    *(&v112 + 1) = v83 + *(&v87 + 1) * v86;
+    *&v113 = v81 + *&v88 * v85;
+    *(&v113 + 1) = v83 + *(&v88 + 1) * v86;
+    *&v114 = v81 + v103 * v85;
+    *(&v114 + 1) = v83 + v102 * v86;
+    *&v115 = v81 + v101 * v85;
+    *(&v115 + 1) = v83 + v100 * v86;
+    *&v116 = v81 + v99 * v85;
+    *(&v116 + 1) = v83 + v98 * v86;
+    v117[0] = v81 + v97 * v85;
+    v117[1] = v83 + v104 * v86;
+    v94 = *(MEMORY[0x1E695EFD0] + 16);
+    v108[0] = *MEMORY[0x1E695EFD0];
+    v108[1] = v94;
+    v108[2] = *(MEMORY[0x1E695EFD0] + 32);
+    v71 = objc_msgSend_initWithStrokes_tokens_locale_strokeClassification_principalLines_principalPoints_transform_(v89, v95, v17, v93, localeCopy, 1, buf, MEMORY[0x1E695E0F0], v108);
   }
 
   else

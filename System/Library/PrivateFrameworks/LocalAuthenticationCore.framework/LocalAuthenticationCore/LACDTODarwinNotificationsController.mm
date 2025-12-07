@@ -23,7 +23,7 @@
 - (void)handleEvent:(id)event sender:(id)sender
 {
   eventCopy = event;
-  if (![eventCopy rawValue] || objc_msgSend(eventCopy, "rawValue") == 2 || objc_msgSend(eventCopy, "rawValue") == 3)
+  if (!objc_msgSend_rawValue(eventCopy) || objc_msgSend_rawValue(eventCopy) == 2 || objc_msgSend_rawValue(eventCopy) == 3)
   {
     [(LACDarwinNotificationCenter *)self->_notificationCenter postNotification:@"com.apple.LocalAuthentication.ratchet.StateDidChange"];
   }

@@ -33,7 +33,7 @@ uint64_t __42__CACUserAttentionInterface_sharedManager__block_invoke()
 
 - (void)startUserAttentionControllerIfNeededForTypes:(unint64_t)types
 {
-  v5 = CACLogAttentionAware();
+  v5 = CACLogAttentionAware(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -84,7 +84,7 @@ void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForType
 
   else
   {
-    v12 = CACLogAttentionAware();
+    v12 = CACLogAttentionAware(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForTypes___block_invoke_cold_1(v12);
@@ -95,12 +95,13 @@ void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForType
 void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForTypes___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = CACLogAttentionAware();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = CACLogAttentionAware(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForTypes___block_invoke_2_cold_1(a1, v3, v4);
+      __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForTypes___block_invoke_2_cold_1(a1, v4, v5);
     }
   }
 }
@@ -132,22 +133,23 @@ void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForType
 
 - (void)userAttentionController:(id)controller didLoseAttentionWithEvent:(int64_t)event
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = CACLogAttentionAware();
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = CACLogAttentionAware(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
+    v9 = 134217984;
     eventCopy = event;
-    _os_log_impl(&dword_26B354000, v6, OS_LOG_TYPE_INFO, "Attention was lost with event=%zd", &v8, 0xCu);
+    _os_log_impl(&dword_26B354000, v6, OS_LOG_TYPE_INFO, "Attention was lost with event=%zd", &v9, 0xCu);
   }
 
-  if ([(CACUserAttentionInterface *)self isAttentionAwarenessInterrupted])
+  isAttentionAwarenessInterrupted = [(CACUserAttentionInterface *)self isAttentionAwarenessInterrupted];
+  if (isAttentionAwarenessInterrupted)
   {
-    v7 = CACLogAttentionAware();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = CACLogAttentionAware(isAttentionAwarenessInterrupted);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_26B354000, v7, OS_LOG_TYPE_INFO, "Attention awareness was interrupted. Ignoring event.", &v8, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_26B354000, v8, OS_LOG_TYPE_INFO, "Attention awareness was interrupted. Ignoring event.", &v9, 2u);
     }
   }
 
@@ -158,29 +160,30 @@ void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForType
       return;
     }
 
-    v7 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    [v7 attentionAwareLost];
+    v8 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    [v8 attentionAwareLost];
   }
 }
 
 - (void)userAttentionController:(id)controller didGainAttentionWithEvent:(int64_t)event
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v6 = CACLogAttentionAware();
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = CACLogAttentionAware(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 134217984;
+    v9 = 134217984;
     eventCopy = event;
-    _os_log_impl(&dword_26B354000, v6, OS_LOG_TYPE_INFO, "Attention was gained with event=%zd", &v8, 0xCu);
+    _os_log_impl(&dword_26B354000, v6, OS_LOG_TYPE_INFO, "Attention was gained with event=%zd", &v9, 0xCu);
   }
 
-  if ([(CACUserAttentionInterface *)self isAttentionAwarenessInterrupted])
+  isAttentionAwarenessInterrupted = [(CACUserAttentionInterface *)self isAttentionAwarenessInterrupted];
+  if (isAttentionAwarenessInterrupted)
   {
-    v7 = CACLogAttentionAware();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = CACLogAttentionAware(isAttentionAwarenessInterrupted);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_26B354000, v7, OS_LOG_TYPE_INFO, "Attention awareness was interrupted. Ignoring event.", &v8, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_26B354000, v8, OS_LOG_TYPE_INFO, "Attention awareness was interrupted. Ignoring event.", &v9, 2u);
     }
   }
 
@@ -191,8 +194,8 @@ void __74__CACUserAttentionInterface_startUserAttentionControllerIfNeededForType
       return;
     }
 
-    v7 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
-    [v7 attentionAwareGained];
+    v8 = +[CACSpokenCommandManager sharedCACSpokenCommandManager];
+    [v8 attentionAwareGained];
   }
 }
 

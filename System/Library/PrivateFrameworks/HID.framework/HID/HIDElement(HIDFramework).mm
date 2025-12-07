@@ -1,15 +1,15 @@
 @interface HIDElement(HIDFramework)
-- (CFIndex)integerValue;
-- (double)scaleValue:()HIDFramework;
+- (double_t)scaleValue:()HIDFramework;
 - (id)dataValue;
-- (uint64_t)timestamp;
+- (void)integerValue;
 - (void)setDataValue:()HIDFramework;
 - (void)setIntegerValue:()HIDFramework;
+- (void)timestamp;
 @end
 
 @implementation HIDElement(HIDFramework)
 
-- (double)scaleValue:()HIDFramework
+- (double_t)scaleValue:()HIDFramework
 {
   if (![self valueRef])
   {
@@ -21,7 +21,7 @@
   return IOHIDValueGetScaledValue(valueRef, a3);
 }
 
-- (CFIndex)integerValue
+- (void)integerValue
 {
   result = [self valueRef];
   if (result)
@@ -77,7 +77,7 @@
   }
 }
 
-- (uint64_t)timestamp
+- (void)timestamp
 {
   result = [self valueRef];
   if (result)

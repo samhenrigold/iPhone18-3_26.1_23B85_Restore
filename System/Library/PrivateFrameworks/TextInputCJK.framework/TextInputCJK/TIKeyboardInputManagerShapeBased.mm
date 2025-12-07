@@ -1,6 +1,7 @@
 @interface TIKeyboardInputManagerShapeBased
 - (BOOL)hasCandidates;
 - (BOOL)shouldLookForCompletionCandidates;
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled;
 - (NSMutableString)searchString;
 - (id)candidateResultSet;
 - (id)deleteFromInput:(unint64_t *)input;
@@ -117,34 +118,34 @@ LABEL_15:
 
 - (id)didAcceptCandidate:(id)candidate
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
-  v27.receiver = self;
-  v27.super_class = TIKeyboardInputManagerShapeBased;
-  v5 = [(TIKeyboardInputManagerChinese *)&v27 didAcceptCandidate:candidateCopy];
+  v26.receiver = self;
+  v26.super_class = TIKeyboardInputManagerShapeBased;
+  v5 = [(TIKeyboardInputManagerChinese *)&v26 didAcceptCandidate:candidateCopy];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     autoconvertedCandidatePointerValues = [candidateCopy autoconvertedCandidatePointerValues];
-    v7 = [autoconvertedCandidatePointerValues countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [autoconvertedCandidatePointerValues countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(autoconvertedCandidatePointerValues);
           }
 
-          v11 = [(TIKeyboardInputManagerChinese *)self mecabraCandidateRefFromPointerValue:*(*(&v23 + 1) + 8 * i)];
+          v11 = [(TIKeyboardInputManagerChinese *)self mecabraCandidateRefFromPointerValue:*(*(&v22 + 1) + 8 * i)];
           wordSearch = [(TIKeyboardInputManagerChinese *)self wordSearch];
           v13 = wordSearch;
           if (v11)
@@ -159,7 +160,7 @@ LABEL_15:
           }
         }
 
-        v8 = [autoconvertedCandidatePointerValues countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [autoconvertedCandidatePointerValues countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
@@ -188,8 +189,6 @@ LABEL_15:
     candidate3 = [candidateCopy candidate];
     [v19 commitSurface:candidate3];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -292,10 +291,9 @@ LABEL_15:
   [(TIKeyboardInputManagerShapeBased *)self cancelCandidatesThread];
   if ([(TIKeyboardInputManagerShapeBased *)self previousActionWasAutoConfirmation])
   {
-    v5 = *MEMORY[0x277D6FB00];
     keyboardState = [(TIKeyboardInputManagerShapeBased *)self keyboardState];
     inputMode = [keyboardState inputMode];
-    v8 = TIStatisticGetKeyForCandidateAccepted();
+    v7 = TIStatisticGetKeyForCandidateAccepted();
     TIStatisticScalarDecrement();
 
     [(TIKeyboardInputManagerShapeBased *)self setPreviousActionWasAutoConfirmation:0];
@@ -303,18 +301,18 @@ LABEL_15:
 
   if ([(TIKeyboardInputManagerShapeBased *)self shouldSkipCandidateSelection])
   {
-    [(TIKeyboardInputManagerChinese *)&v25 deleteFromInput:input, v24.receiver, v24.super_class, self, TIKeyboardInputManagerShapeBased];
+    [(TIKeyboardInputManagerChinese *)&v24 deleteFromInput:input, v23.receiver, v23.super_class, self, TIKeyboardInputManagerShapeBased];
   }
 
   else
   {
     inputString = [(TIKeyboardInputManagerShapeBased *)self inputString];
-    v10 = [inputString hasSuffix:*MEMORY[0x277D6FF50]];
+    v9 = [inputString hasSuffix:*MEMORY[0x277D6FF50]];
 
-    if (v10)
+    if (v9)
     {
       [(TIKeyboardInputManagerShapeBased *)self clearInput];
-      v11 = 0;
+      v10 = 0;
       goto LABEL_22;
     }
 
@@ -326,36 +324,36 @@ LABEL_15:
         keyboardState2 = [(TIKeyboardInputManagerShapeBased *)self keyboardState];
         documentState = [keyboardState2 documentState];
         [documentState selectedRangeInMarkedText];
-        v16 = v15;
+        v15 = v14;
 
-        if (v16 <= 1)
+        if (v15 <= 1)
         {
-          v17 = 1;
+          v16 = 1;
         }
 
         else
         {
-          v17 = v16;
+          v16 = v15;
         }
 
-        *input = v17;
+        *input = v16;
       }
 
       searchString = [(TIKeyboardInputManagerShapeBased *)self searchString];
       if ([searchString length] >= *input)
       {
         searchString2 = [(TIKeyboardInputManagerShapeBased *)self searchString];
-        v19 = [searchString2 length] - *input;
+        v18 = [searchString2 length] - *input;
       }
 
       else
       {
-        v19 = 0;
+        v18 = 0;
       }
 
       searchString3 = [(TIKeyboardInputManagerShapeBased *)self searchString];
       searchString4 = [(TIKeyboardInputManagerShapeBased *)self searchString];
-      [searchString3 deleteCharactersInRange:{v19, objc_msgSend(searchString4, "length") - v19}];
+      [searchString3 deleteCharactersInRange:{v18, objc_msgSend(searchString4, "length") - v18}];
     }
 
     if (![(TIKeyboardInputManagerShapeBased *)self inputCount])
@@ -363,12 +361,12 @@ LABEL_15:
       [(TIKeyboardInputManagerMecabra *)self setWordSearchCandidateResultSet:0];
     }
 
-    [(TIKeyboardInputManagerChinese *)&v24 deleteFromInput:input, self, TIKeyboardInputManagerShapeBased, v25.receiver, v25.super_class];
+    [(TIKeyboardInputManagerChinese *)&v23 deleteFromInput:input, self, TIKeyboardInputManagerShapeBased, v24.receiver, v24.super_class];
   }
-  v11 = ;
+  v10 = ;
 LABEL_22:
 
-  return v11;
+  return v10;
 }
 
 - (void)cancelCandidatesThread
@@ -421,6 +419,34 @@ LABEL_6:
 LABEL_9:
 
   return dummySet;
+}
+
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v6 = MEMORY[0x277D6FF18];
+  searchCopy = search;
+  v8 = [v6 alloc];
+  wordSearch = [(TIKeyboardInputManagerChinese *)self wordSearch];
+  keyboardState = [(TIKeyboardInputManagerShapeBased *)self keyboardState];
+  LOBYTE(v15) = [keyboardState hardwareKeyboardMode];
+  v11 = [v8 initWithWordSearch:wordSearch inputString:searchCopy keyboardInput:0 segmentBreakIndex:0x7FFFFFFFFFFFFFFFLL predictionEnabled:enabledCopy reanalysisMode:0 autocapitalizationType:0 target:self action:sel_notifyUpdateCandidates_forOperation_ geometryModelData:0 hardwareKeyboardMode:v15 logger:0];
+
+  results = [v11 results];
+
+  if (results)
+  {
+    results2 = [v11 results];
+    [(TIKeyboardInputManagerMecabra *)self setWordSearchCandidateResultSet:results2];
+  }
+
+  else
+  {
+    results2 = [(TIKeyboardInputManagerChinese *)self wordSearch];
+    [results2 performOperationAsync:v11];
+  }
+
+  return results != 0;
 }
 
 - (BOOL)hasCandidates

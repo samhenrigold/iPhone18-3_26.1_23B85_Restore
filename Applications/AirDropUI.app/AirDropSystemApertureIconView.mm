@@ -12,7 +12,7 @@
   if (self->progress[OBJC_IVAR____TtC9AirDropUI29AirDropSystemApertureIconView_overrideIntrinsicContentSize])
   {
     v5.receiver = self;
-    v5.super_class = type metadata accessor for AirDropSystemApertureIconView();
+    v5.super_class = type metadata accessor for AirDropSystemApertureIconView(0);
     [(AirDropSystemApertureIconView *)&v5 intrinsicContentSize];
   }
 

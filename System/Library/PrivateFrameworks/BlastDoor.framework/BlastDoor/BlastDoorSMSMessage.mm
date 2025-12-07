@@ -59,9 +59,47 @@
 {
   if (*&self->sMSMessage[OBJC_IVAR___BlastDoorSMSMessage_sMSMessage + 48])
   {
-    v2 = *&self->sMSMessage[OBJC_IVAR___BlastDoorSMSMessage_sMSMessage + 48];
 
-    v3 = sub_2146D98E8();
+    v2 = sub_2146D98E8();
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return v2;
+}
+
+- (NSDate)date
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C913090, &unk_2146E9DB0);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v14 - v4;
+  v6 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
+  v7 = type metadata accessor for SMSMessage(0);
+  sub_213FB2E54(&v6[*(v7 + 40)], v5, &qword_27C913090, &unk_2146E9DB0);
+  v8 = sub_2146D8B08();
+  v9 = *(v8 - 8);
+  v10 = (*(v9 + 48))(v5, 1, v8);
+  v11 = 0;
+  if (v10 != 1)
+  {
+    v12 = sub_2146D8AD8();
+    (*(v9 + 8))(v5, v8);
+    v11 = v12;
+  }
+
+  return v11;
+}
+
+- (NSString)originatedDeviceNumber
+{
+  v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 56) + 8])
+  {
+
+    v3 = sub_2146D9588();
   }
 
   else
@@ -72,113 +110,61 @@
   return v3;
 }
 
-- (NSDate)date
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C913090, &unk_2146E9DB0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v15 - v5;
-  v7 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v8 = type metadata accessor for SMSMessage();
-  sub_213FB2E54(&v7[*(v8 + 40)], v6, &qword_27C913090, &unk_2146E9DB0);
-  v9 = sub_2146D8B08();
-  v10 = *(v9 - 8);
-  v11 = (*(v10 + 48))(v6, 1, v9);
-  v12 = 0;
-  if (v11 != 1)
-  {
-    v13 = sub_2146D8AD8();
-    (*(v10 + 8))(v6, v9);
-    v12 = v13;
-  }
-
-  return v12;
-}
-
-- (NSString)originatedDeviceNumber
-{
-  v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 56)];
-  if (*(v3 + 1))
-  {
-    v4 = *v3;
-    v5 = *(v3 + 1);
-
-    v6 = sub_2146D9588();
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6;
-}
-
 - (NSString)originatedDeviceEmail
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 60)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 60) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)originatedDeviceSIM
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 64)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 64) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)subject
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 68)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 68) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (int64_t)replaceMessage
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 76)];
+  v3 = &v2[*(type metadata accessor for SMSMessage(0) + 76)];
   if (v3[8])
   {
     return 0;
@@ -193,107 +179,92 @@
 - (NSString)fallbackHash
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 88)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 88) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)groupID
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 108)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 108) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)originalGroupID
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 112)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 112) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)displayName
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 116)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 116) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (NSString)originatedDeviceUniqueID
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = &v2[*(type metadata accessor for SMSMessage() + 120)];
-  if (*(v3 + 1))
+  if (*&v2[*(type metadata accessor for SMSMessage(0) + 120) + 8])
   {
-    v4 = *v3;
-    v5 = *(v3 + 1);
 
-    v6 = sub_2146D9588();
+    v3 = sub_2146D9588();
   }
 
   else
   {
-    v6 = 0;
+    v3 = 0;
   }
 
-  return v6;
+  return v3;
 }
 
 - (BlastDoorSMSMessage_SMSFilteringSettings)smsFilteringSettings
 {
   v2 = self + OBJC_IVAR___BlastDoorSMSMessage_sMSMessage;
-  v3 = type metadata accessor for SMSMessage();
+  v3 = type metadata accessor for SMSMessage(0);
   v4 = 0;
   v5 = &v2[*(v3 + 124)];
   v6 = *(v5 + 1);

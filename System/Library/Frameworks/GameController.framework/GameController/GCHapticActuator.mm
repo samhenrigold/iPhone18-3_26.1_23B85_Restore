@@ -89,19 +89,17 @@
 
 - (id)jsonDictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x1E69E9840];
+  v9[3] = *MEMORY[0x1E69E9840];
   type = self->_type;
-  v10[0] = self->_label;
-  v9[0] = @"label";
-  v9[1] = @"type";
+  v9[0] = self->_label;
+  v8[0] = @"label";
+  v8[1] = @"type";
   v4 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v10[1] = v4;
-  v9[2] = @"index";
+  v9[1] = v4;
+  v8[2] = @"index";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_index];
-  v10[2] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[2] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

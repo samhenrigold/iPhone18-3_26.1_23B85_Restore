@@ -15,46 +15,48 @@
 - (CERuleCriteria)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v14.receiver = self;
-  v14.super_class = CERuleCriteria;
-  v5 = [(CERuleCriteria *)&v14 init];
+  v16.receiver = self;
+  v16.super_class = CERuleCriteria;
+  v5 = [(CERuleCriteria *)&v16 init];
   v6 = v5;
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"min"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v7;
+      v9 = v7;
       p_super = &v6->_min->super.super;
-      v6->_min = v8;
+      v6->_min = v9;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleCriteria initWithDictionary:];
+        [CERuleCriteria initWithDictionary:v6];
       }
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"max"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"max"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    if (v12)
     {
-      v11 = v10;
-      v12 = &v6->_max->super.super;
-      v6->_max = v11;
+      v13 = v11;
+      v14 = &v6->_max->super.super;
+      v6->_max = v13;
     }
 
     else
     {
-      v12 = _CELogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = _CELogSystem(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleCriteria initWithDictionary:];
+        [CERuleCriteria initWithDictionary:v6];
       }
     }
   }
@@ -155,22 +157,20 @@
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ unable to parse min from dictionary.", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ unable to parse min from dictionary.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0(&dword_2439E1000, v1, v2, "%@ unable to parse max from dictionary.", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0(&dword_2439E1000, v2, v3, "%@ unable to parse max from dictionary.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

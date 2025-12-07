@@ -1,4 +1,5 @@
 @interface OrgApacheLuceneUtilPackedPackedInts_$1
+- (OrgApacheLuceneUtilPackedPackedInts_$1)initWithLong:(int64_t)long withInt:(int)int withInt:(int)withInt withOrgApacheLuceneStoreIndexInput:(id)input;
 - (int64_t)getWithInt:(int)int;
 @end
 
@@ -21,6 +22,13 @@
   }
 
   return v5;
+}
+
+- (OrgApacheLuceneUtilPackedPackedInts_$1)initWithLong:(int64_t)long withInt:(int)int withInt:(int)withInt withOrgApacheLuceneStoreIndexInput:(id)input
+{
+  self->val$endPointer_ = long;
+  OrgApacheLuceneUtilPackedDirectPackedReader_initWithInt_withInt_withOrgApacheLuceneStoreIndexInput_(self, int, withInt, input);
+  return self;
 }
 
 @end

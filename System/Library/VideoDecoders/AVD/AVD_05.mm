@@ -37,25 +37,25 @@ void CAVDMvHevcDecoder::flushMV_RLM(CAVDMvHevcDecoder *this)
   while (v7 < *(this + 931));
 }
 
-uint64_t CAVDMvHevcDecoder::VADecodeFrame(uint64_t a1, unsigned int *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t CAVDMvHevcDecoder::VADecodeFrame(_DWORD *a1, unsigned int *a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v12 = a4;
   v242 = *MEMORY[0x277D85DE8];
-  *(a1 + 2960) = 0;
+  a1[740] = 0;
   v227 = 0;
   v228 = 0;
   v226 = 0;
-  v223 = (a1 + 0x2000);
+  v223 = (a1 + 2048);
   *(a1 + 8994) = 0;
-  *(a1 + 8948) = 0;
-  *(a1 + 2968) = *(*(a1 + 2336) + 5668);
+  a1[2237] = 0;
+  a1[742] = *(*(a1 + 292) + 5668);
   v16 = a4 == 1;
   if (a4 == 1)
   {
     (*(*a1 + 256))(a1, 1);
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(*(a1 + 2336) + 5672);
+      v17 = *(*(a1 + 292) + 5672);
       *buf = 136315394;
       *&buf[4] = "VADecodeFrame";
       *&buf[12] = 1024;
@@ -63,13 +63,13 @@ uint64_t CAVDMvHevcDecoder::VADecodeFrame(uint64_t a1, unsigned int *a2, int a3,
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: %s MultiView client %d", buf, 0x12u);
     }
 
-    if (!*(*(a1 + 2336) + 5672))
+    if (!*(*(a1 + 292) + 5672))
     {
       v223[800] = 0;
     }
   }
 
-  v18 = *(a1 + 8160);
+  v18 = *(a1 + 1020);
   if (!v18)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -84,17 +84,17 @@ uint64_t CAVDMvHevcDecoder::VADecodeFrame(uint64_t a1, unsigned int *a2, int a3,
     goto LABEL_13;
   }
 
-  *(a1 + 2972) = *(v18 + 2 * *(a1 + 2968) + 580);
+  a1[743] = *(v18 + 2 * a1[742] + 580);
   if (a5 == -1)
   {
-    *(a1 + 8248) = 0;
-    *(a1 + 8240) = 0xFFFFFFFF00000000;
+    *(a1 + 1031) = 0;
+    *(a1 + 1030) = 0xFFFFFFFF00000000;
   }
 
   else
   {
-    CAVDHevcDecoder::setPixelBuffer(a1, a1 + 8240, a5, 1, &v228);
-    if (!*(a1 + 8248))
+    CAVDHevcDecoder::setPixelBuffer(a1, (a1 + 2060), a5, 1, &v228);
+    if (!*(a1 + 1031))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
@@ -111,8 +111,8 @@ LABEL_23:
     }
   }
 
-  CAVDHevcDecoder::setPixelBuffer(a1, a1 + 8224, a6, 0, (a1 + 2088));
-  if (!*(a1 + 8232))
+  CAVDHevcDecoder::setPixelBuffer(a1, (a1 + 2056), a6, 0, a1 + 261);
+  if (!*(a1 + 1029))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -127,12 +127,12 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  *(*(a1 + 2088) + 204) = *(a1 + 2744);
+  *(*(a1 + 261) + 204) = *(a1 + 343);
   v23 = (*(*a1 + 184))(a1);
   if (a7 != -1 && v23)
   {
-    CAVDHevcDecoder::setPixelBuffer(a1, a1 + 8256, a7, 0, &v227);
-    if (!*(a1 + 8264))
+    CAVDHevcDecoder::setPixelBuffer(a1, (a1 + 2064), a7, 0, &v227);
+    if (!*(a1 + 1033))
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
@@ -170,8 +170,8 @@ LABEL_37:
   }
 
 LABEL_38:
-  *(a1 + 2648) = *(*(a1 + 8232) + 160);
-  v29 = *(a1 + 8248);
+  a1[662] = *(*(a1 + 1029) + 160);
+  v29 = *(a1 + 1031);
   if (*(a1 + 9) == 1)
   {
     if (v29)
@@ -191,14 +191,14 @@ LABEL_43:
 
   v30 = (*(*a1 + 432))(a1, *(v29 + 148));
 LABEL_44:
-  *(a1 + 2644) = v30;
+  a1[661] = v30;
 LABEL_45:
-  if (*(a1 + 2948) == 1 && *(a1 + 2952) == 2 && !*(a1 + 2892))
+  if (*(a1 + 2948) == 1 && a1[738] == 2 && !*(a1 + 2892))
   {
-    if (*(a1 + 2924))
+    if (a1[731])
     {
-      CAVDHevcDecoder::setPixelBuffer(a1, a1 + 8272, 125, 0, &v226);
-      if (!*(a1 + 8280))
+      CAVDHevcDecoder::setPixelBuffer(a1, (a1 + 2068), 125, 0, &v226);
+      if (!*(a1 + 1035))
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
@@ -212,21 +212,21 @@ LABEL_45:
       }
     }
 
-    if (!*(a1 + 2644) && *(a1 + 2648) == 1)
+    if (!a1[661] && a1[662] == 1)
     {
       v223[802] = 1;
     }
   }
 
   v222 = a2;
-  v31 = *(a1 + 8248);
+  v31 = *(a1 + 1031);
   if (!v31)
   {
-    v31 = *(a1 + 8232);
+    v31 = *(a1 + 1029);
   }
 
   (*(*a1 + 104))(a1, 22, v31 + 148);
-  LODWORD(v32) = *(a1 + 2996);
+  LODWORD(v32) = a1[749];
   if (v32 > a3)
   {
     CAVDHevcDecoder::setHevcVideoParsingMode(a1);
@@ -243,7 +243,7 @@ LABEL_45:
   v43 = 0;
   v44 = 0;
   v45 = v222 + a3;
-  v219 = (a1 + 3712);
+  v219 = a1 + 928;
   v212 = 0;
   v46 = v222;
   v214 = a6;
@@ -310,8 +310,8 @@ LABEL_63:
 
   v55 = v43;
   v215 = v48;
-  HEVC_RBSP::setRBSP(*(a1 + 3000), v48, v50);
-  if ((HEVC_RBSP::parseNAL(*(a1 + 3000), &v229, 0) & 1) == 0)
+  HEVC_RBSP::setRBSP(*(a1 + 375), v48, v50);
+  if ((HEVC_RBSP::parseNAL(*(a1 + 375), &v229, 0) & 1) == 0)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -347,7 +347,7 @@ LABEL_241:
   v56 = v44;
   v220 = v33;
   v57 = v231;
-  v58 = *(a1 + 8088);
+  v58 = a1[2022];
   if (v231 > v58)
   {
     if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -374,7 +374,7 @@ LABEL_241:
   v33 = v220;
   do
   {
-    if (v231 == *(*(*(a1 + 8160) + 512) + 28 * v59 + 26))
+    if (v231 == *(*(*(a1 + 1020) + 512) + 28 * v59 + 26))
     {
       v61 = v230;
       v62 = v217;
@@ -394,7 +394,7 @@ LABEL_241:
       }
 
       v217 = v62;
-      v64 = *(a1 + 2968);
+      v64 = a1[742];
       if (v231 != v64 && v223[801] != 1)
       {
         a6 = v214;
@@ -422,16 +422,16 @@ LABEL_241:
           }
 
 LABEL_93:
-          if (*(a1 + 2688))
+          if (a1[672])
           {
-            v66 = a1 + 10832;
+            v66 = a1 + 2708;
           }
 
           else
           {
             v68 = &v215[v50 - 1];
             v69 = v65 + 1;
-            v66 = a1 + 10832;
+            v66 = a1 + 2708;
             do
             {
               v70 = *v68--;
@@ -478,8 +478,8 @@ LABEL_93:
             }
 
             *(a1 + 2725) = 0;
-            *(a1 + 8948) = 1;
-            v99 = *(a1 + 3016 + 8 * *(a1 + 2972));
+            a1[2237] = 1;
+            v99 = *&a1[2 * a1[743] + 754];
             if (v99)
             {
               HEVC_RLM::releaseAllPictures(v99);
@@ -487,7 +487,7 @@ LABEL_93:
           }
 
           v211 = v65;
-          v72 = *(a1 + 8184) + 2360 * v220;
+          v72 = *(a1 + 1023) + 2360 * v220;
           HevcReleaseSliceHeader(v72 + 24);
           bzero((v72 + 24), 0x808uLL);
           if (v223[800] == 1 && (v223[2176] & 1) == 0)
@@ -500,14 +500,14 @@ LABEL_93:
 
             v223[2176] = 1;
             v223[3868] = 1;
-            if (*(a1 + 3724) != -1)
+            if (a1[931] != -1)
             {
               v73 = 0;
-              v74 = *(a1 + 8984);
+              v74 = *(a1 + 1123);
               do
               {
-                *(v66 + 4 * v73) = 0x80000000;
-                v75 = (a1 + 10434 + v73);
+                v66[v73] = 0x80000000;
+                v75 = a1 + v73 + 10434;
                 v75[718] = 0;
                 *(v74 + 4 * v73) = 0;
                 v75[654] = 1;
@@ -516,20 +516,20 @@ LABEL_93:
                 ++v73;
               }
 
-              while (v73 < (*(a1 + 3724) + 1));
+              while (v73 < (a1[931] + 1));
             }
           }
 
-          if (HEVC_RBSP::parseSliceHeader(*(a1 + 3000), (v72 + 24), &v229, *(a1 + 8168), *(a1 + 8176), v219, 1, 0))
+          if (HEVC_RBSP::parseSliceHeader(*(a1 + 375), (v72 + 24), &v229, *(a1 + 1021), *(a1 + 1022), v219, 1u, 0))
           {
             if (v220 >= 1 && *(v72 + 32))
             {
-              HevcCopyDependentSliceHeader((v72 + 24), (*(a1 + 8184) + 2360 * v220 - 2336));
+              HevcCopyDependentSliceHeader((v72 + 24), (*(a1 + 1023) + 2360 * v220 - 2336));
             }
 
             else
             {
-              ++*(a1 + 2960);
+              ++a1[740];
             }
 
             if (CAVDHevcDecoder::activatePS(a1, v72 + 24))
@@ -546,29 +546,29 @@ LABEL_93:
               goto LABEL_330;
             }
 
-            v76 = *(a1 + 8176);
-            v77 = *(a1 + 8212);
-            v78 = *(a1 + 8168) + 23176 * *(a1 + 8208);
-            if (CAVDMvHevcDecoder::deriveSpsParamsFromActiveVps(a1, v78, *(a1 + 2968)))
+            v76 = *(a1 + 1022);
+            v77 = a1[2053];
+            v78 = *(a1 + 1021) + 23176 * a1[2052];
+            if (CAVDMvHevcDecoder::deriveSpsParamsFromActiveVps(a1, v78, a1[742]))
             {
               goto LABEL_361;
             }
 
             v208 = v16;
-            v79 = *(a1 + 8184) + 2360 * v220;
+            v79 = *(a1 + 1023) + 2360 * v220;
             *(v79 + 8) = v215;
             *(v79 + 16) = v211;
             *v79 = v230;
             *(v79 + 2084) = v232;
-            NumberOfBitsParsed = HEVC_RBSP::getNumberOfBitsParsed(*(a1 + 3000));
-            v81 = *(a1 + 8184) + 2360 * v220;
+            NumberOfBitsParsed = HEVC_RBSP::getNumberOfBitsParsed(*(a1 + 375));
+            v81 = *(a1 + 1023) + 2360 * v220;
             *(v81 + 2080) = NumberOfBitsParsed;
             v82 = *(v81 + 16);
             if (NumberOfBitsParsed <= 8 * v82)
             {
               if (CAVDDecoder::isADSDecryption(a1) && (*(a1 + 10) & 1) == 0)
               {
-                v83 = CAVDDecoder::calculateClearBytes(a1, v60, v211, *(*(a1 + 8184) + 2360 * v220 + 2080), *(a1 + 2944), *(a1 + 2928), *(a1 + 2936));
+                v83 = CAVDDecoder::calculateClearBytes(a1, v60, v211, *(*(a1 + 1023) + 2360 * v220 + 2080), a1[736], *(a1 + 366), *(a1 + 367));
                 if (v83 == -1)
                 {
                   v84 = 1023;
@@ -579,8 +579,8 @@ LABEL_93:
                   v84 = v83;
                 }
 
-                *(*(a1 + 8184) + 2360 * v220 + 2352) = v84;
-                if (*(a1 + 2420))
+                *(*(a1 + 1023) + 2360 * v220 + 2352) = v84;
+                if (a1[605])
                 {
                   v85 = 0x10000;
                 }
@@ -590,7 +590,7 @@ LABEL_93:
                   v85 = 0x200000;
                 }
 
-                *(a1 + 2504) |= v85;
+                a1[626] |= v85;
               }
 
               v216 = v76 + 9856 * v77;
@@ -648,14 +648,14 @@ LABEL_135:
                 v67 = v222;
                 if (!v220)
                 {
-                  *(a1 + 2976) = HEVC_RBSP::calcViewId(*(a1 + 3000), v219, v231);
-                  v94 = *(a1 + 2972);
-                  if (v94 <= 63 && (v95 = *(a1 + 9136 + 8 * v94)) != 0)
+                  a1[744] = HEVC_RBSP::calcViewId(*(a1 + 375), v219, v231);
+                  v94 = a1[743];
+                  if (v94 <= 63 && (v95 = *&a1[2 * v94 + 2284]) != 0)
                   {
-                    *(a1 + 2096) = v95;
-                    if (*(*(a1 + 8976) + 4 * v94))
+                    *(a1 + 262) = v95;
+                    if (*(*(a1 + 1122) + 4 * v94))
                     {
-                      v96 = *(*(a1 + 8984) + 4 * v94) != 0;
+                      v96 = *(*(a1 + 1123) + 4 * v94) != 0;
                     }
 
                     else
@@ -663,25 +663,25 @@ LABEL_135:
                       v96 = 1;
                     }
 
-                    if (!(*(*a1 + 320))(a1, v219, &v229, v78, v72 + 24, a1 + 3536, v96))
+                    if (!(*(*a1 + 320))(a1, v219, &v229, v78, v72 + 24, a1 + 884, v96))
                     {
-                      *(*(a1 + 8984) + 4 * *(a1 + 2972)) = 0;
-                      ++*(*(a1 + 8976) + 4 * *(a1 + 2972));
+                      *(*(a1 + 1123) + 4 * a1[743]) = 0;
+                      ++*(*(a1 + 1122) + 4 * a1[743]);
                       v223[3288] = 0;
                       v223[3868] = 0;
-                      *(a1 + 11476) = *(v72 + 328);
+                      a1[2869] = *(v72 + 328);
                       v223[3870] = 0;
 LABEL_164:
-                      if ((*(*a1 + 400))(a1, a1 + 3536, *(*(a1 + 8184) + 2360 * v220 + 44), v12))
+                      if ((*(*a1 + 400))(a1, a1 + 884, *(*(a1 + 1023) + 2360 * v220 + 44), v12))
                       {
                         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                         {
-                          v179 = *(a1 + 3540);
-                          v180 = *(a1 + 3548);
-                          v181 = *(a1 + 8220);
-                          v182 = *(a1 + 8944);
-                          v183 = *(a1 + 8948);
-                          v184 = *(*(a1 + 8184) + 2360 * v220 + 44);
+                          v179 = a1[885];
+                          v180 = a1[887];
+                          v181 = a1[2055];
+                          v182 = a1[2236];
+                          v183 = a1[2237];
+                          v184 = *(*(a1 + 1023) + 2360 * v220 + 44);
                           *buf = 136316930;
                           *&buf[4] = "VADecodeFrame";
                           *&buf[12] = 1024;
@@ -721,20 +721,20 @@ LABEL_322:
                       v112 = *(v104 + 22872);
                       v212 = v104;
                       v113 = *(v104 + 23172);
-                      v114 = *(a1 + 2968);
+                      v114 = a1[742];
                       if (*(a1 + 10))
                       {
-                        v115 = *(a1 + 8964);
+                        v115 = a1[2241];
                         if (v113 > v115)
                         {
                           goto LABEL_317;
                         }
 
 LABEL_176:
-                        v122 = *(a1 + 2972);
-                        v123 = *(a1 + 0x2000);
+                        v122 = a1[743];
+                        v123 = *(a1 + 1024);
                         v207 = 0;
-                        if (*(*(a1 + 8928) + 4 * v122))
+                        if (*(*(a1 + 1116) + 4 * v122))
                         {
                           v124 = v123 + 104 * v122;
                           if (*(v124 + 32) != v103 || v105 != *(v124 + 30) || *(v124 + 33) != v106 || *(v124 + 34) != v107 || v108 != *v124 || v112 != *(v124 + 24))
@@ -785,9 +785,9 @@ LABEL_176:
                         }
 
                         memcpy(&buf[92], (v216 + 148), 4 * v130);
-                        v131 = *(a1 + 2972);
-                        v132 = *(a1 + 8200);
-                        if (*(*(a1 + 8936) + 4 * v131))
+                        v131 = a1[743];
+                        v132 = *(a1 + 1025);
+                        if (*(*(a1 + 1117) + 4 * v131))
                         {
                           v133 = v132 + 180 * v131;
                           v71 = *v133 == v126;
@@ -879,7 +879,7 @@ LABEL_200:
 
 LABEL_203:
                         v142 = 1;
-                        v143 = AppleAVDCommandBuilder::waitNumInFlight(*(a1 + 2344), 1u);
+                        v143 = AppleAVDCommandBuilder::waitNumInFlight(*(a1 + 293), 1u);
                         if (v143)
                         {
                           v144 = v143;
@@ -898,12 +898,12 @@ LABEL_203:
 
                         v141 = v207;
 LABEL_212:
-                        v147 = *(a1 + 2972);
-                        if (((*(*(a1 + 8928) + 4 * v147) != 0) & ~v141) == 0)
+                        v147 = a1[743];
+                        if (((*(*(a1 + 1116) + 4 * v147) != 0) & ~v141) == 0)
                         {
-                          (*(**(a1 + 2096) + 144))(*(a1 + 2096));
-                          *(*(a1 + 8928) + 4 * *(a1 + 2972)) = 0;
-                          if ((*(**(a1 + 2096) + 136))(*(a1 + 2096), v212))
+                          (*(**(a1 + 262) + 144))(*(a1 + 262));
+                          *(*(a1 + 1116) + 4 * a1[743]) = 0;
+                          if ((*(**(a1 + 262) + 136))(*(a1 + 262), v212))
                           {
                             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                             {
@@ -922,11 +922,11 @@ LABEL_339:
                             goto LABEL_26;
                           }
 
-                          *(*(a1 + 8928) + 4 * *(a1 + 2972)) = 1;
-                          v147 = *(a1 + 2972);
+                          *(*(a1 + 1116) + 4 * a1[743]) = 1;
+                          v147 = a1[743];
                         }
 
-                        if (*(*(a1 + 8936) + 4 * v147))
+                        if (*(*(a1 + 1117) + 4 * v147))
                         {
                           v148 = v141;
                         }
@@ -941,7 +941,7 @@ LABEL_339:
                         if ((v149 & 1) == 0)
                         {
 LABEL_221:
-                          v150 = (*(*a1 + 328))(a1, v216, *(a1 + 8184) + 2360 * v220, a1 + 3536);
+                          v150 = (*(*a1 + 328))(a1, v216, *(a1 + 1023) + 2360 * v220, a1 + 884);
                           if (!v150)
                           {
                             v16 = v142 | v134;
@@ -988,7 +988,7 @@ LABEL_221:
 
                           if (v194)
                           {
-                            v195 = *(a1 + 8944);
+                            v195 = a1[2236];
                             *v235 = 136315650;
                             v236 = "VADecodeFrame";
                             v237 = 1024;
@@ -1005,11 +1005,11 @@ LABEL_221:
                           return 409;
                         }
 
-                        (*(**(a1 + 2096) + 160))(*(a1 + 2096), 0);
-                        *(*(a1 + 8936) + 4 * *(a1 + 2972)) = 0;
-                        if (!(*(**(a1 + 2096) + 152))(*(a1 + 2096), v212, v216, 0))
+                        (*(**(a1 + 262) + 160))(*(a1 + 262), 0);
+                        *(*(a1 + 1117) + 4 * a1[743]) = 0;
+                        if (!(*(**(a1 + 262) + 152))(*(a1 + 262), v212, v216, 0))
                         {
-                          *(*(a1 + 8936) + 4 * *(a1 + 2972)) = 1;
+                          *(*(a1 + 1117) + 4 * a1[743]) = 1;
                           goto LABEL_221;
                         }
 
@@ -1025,13 +1025,13 @@ LABEL_221:
                         goto LABEL_339;
                       }
 
-                      v116 = *(a1 + 2912);
+                      v116 = a1[728];
                       v117 = *(v104 + 3608);
                       if (v108 == v116)
                       {
-                        if (DWORD1(v108) == *(a1 + 2916))
+                        if (DWORD1(v108) == a1[729])
                         {
-                          v115 = *(a1 + 8964);
+                          v115 = a1[2241];
                           if (v113 > v115)
                           {
 LABEL_317:
@@ -1041,7 +1041,7 @@ LABEL_317:
                               goto LABEL_25;
                             }
 
-                            v192 = *(*(a1 + 0x2000) + 104 * *(a1 + 2972) + 35);
+                            v192 = *(*(a1 + 1024) + 104 * a1[743] + 35);
                             *buf = 67109632;
                             *&buf[4] = v115;
                             *&buf[8] = 1024;
@@ -1055,15 +1055,15 @@ LABEL_317:
                             goto LABEL_24;
                           }
 
-                          v118 = *(a1 + 2924);
+                          v118 = a1[731];
                           if (v103 == v118)
                           {
-                            v119 = *(a1 + 2920);
+                            v119 = a1[730];
                             if (v106 == v119)
                             {
-                              if (v107 == *(a1 + 8956))
+                              if (v107 == a1[2239])
                               {
-                                v120 = *(a1 + 8960);
+                                v120 = a1[2240];
                                 if (v112 == v120)
                                 {
                                   v67 = v222;
@@ -1119,7 +1119,7 @@ LABEL_317:
                               goto LABEL_25;
                             }
 
-                            v206 = *(a1 + 8956);
+                            v206 = a1[2239];
                             *buf = 67109888;
                             *&buf[4] = v205;
                             *&buf[8] = 1024;
@@ -1169,7 +1169,7 @@ LABEL_242:
                         goto LABEL_25;
                       }
 
-                      v204 = *(a1 + 2916);
+                      v204 = a1[729];
                       *buf = 67110144;
                       *&buf[4] = v218;
                       *&buf[8] = 1024;
@@ -1317,7 +1317,7 @@ LABEL_232:
           v65 = v50;
           if (v230 == 36)
           {
-            *(*(a1 + 8984) + 4 * *(a1 + 2972)) = 1;
+            *(*(a1 + 1123) + 4 * a1[743]) = 1;
             v146 = v43;
             (*(*a1 + 416))(a1, 0x7FFFFFFFLL);
             v43 = v146;
@@ -1328,7 +1328,7 @@ LABEL_232:
 
         v210 = v60;
         v100 = v43;
-        v151 = HEVC_RBSP::parsePPS(*(a1 + 3000), *(a1 + 8176), *(a1 + 8168));
+        v151 = HEVC_RBSP::parsePPS(*(a1 + 375), *(a1 + 1022), *(a1 + 1021));
         v65 = v50;
         if ((v151 & 0x80000000) != 0)
         {
@@ -1347,7 +1347,7 @@ LABEL_232:
         }
 
         v67 = v222;
-        if (*(*(a1 + 8176) + 9856 * v151 + 6465))
+        if (*(*(a1 + 1022) + 9856 * v151 + 6465))
         {
           v152 = CAVDHevcDecoder::areUnsupportedSPSExtensionFeaturesPresent(a1);
           v43 = v100;
@@ -1360,7 +1360,7 @@ LABEL_232:
 LABEL_233:
           v46 = (v67 + v43);
           v44 = v65 + v60;
-          v32 = *(a1 + 2996);
+          v32 = a1[749];
           v45 = v213;
           if (v46 + v32 <= v213)
           {
@@ -1388,7 +1388,7 @@ LABEL_233:
 LABEL_57:
           if (a8)
           {
-            v36 = *(a1 + 0x2000) + 104 * *(a1 + 2972);
+            v36 = *(a1 + 1024) + 104 * a1[743];
             v38 = *(v36 + 64);
             v37 = *(v36 + 80);
             v39 = *(v36 + 48);
@@ -1419,8 +1419,8 @@ LABEL_57:
           v42 = v34[51] == 1 && v34[33] == 1;
           *(a1 + 2700) = v42;
           *(a1 + 2701) = *(v35 + 10650) == 1;
-          *(a1 + 2696) = v33;
-          if ((*(*a1 + 336))(a1, v35, a1 + 3536, v33))
+          a1[674] = v33;
+          if ((*(*a1 + 336))(a1, v35, a1 + 884, v33))
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
@@ -1434,7 +1434,7 @@ LABEL_57:
           }
 
           v160 = v34[53] && !(*(*a1 + 408))(a1, *(v35 + 22880), v33);
-          *(a1 + 2964) = v160;
+          a1[741] = v160;
           while (!(*(*a1 + 392))(a1, v233))
           {
             (*(*a1 + 88))(a1, v234);
@@ -1476,9 +1476,9 @@ LABEL_57:
             v221 = v33;
             SizeOfPlane = IOSurfaceGetSizeOfPlane();
             CFRelease(v163);
-            v164 = *(a1 + 2896);
-            v165 = *(a1 + 8168);
-            v166 = *(a1 + 8208);
+            v164 = a1[724];
+            v165 = *(a1 + 1021);
+            v166 = a1[2052];
             v167 = *(v165 + 23176 * v166 + 3608);
             v218 = v12;
             if (__CFADD__(v164, v167 - 1))
@@ -1492,7 +1492,7 @@ LABEL_57:
 
             else
             {
-              v176 = *(a1 + 2900);
+              v176 = a1[725];
               v177 = *(v165 + 23176 * v166 + 3612) - 1;
               v170 = v176 + v177;
               if (!__CFADD__(v176, v177))
@@ -1518,7 +1518,7 @@ LABEL_57:
                 a6 = v16;
                 LOBYTE(v16) = v161;
                 v33 = v221;
-                if ((CAVDDecoder::calcLumaChromaTileOffset(a1, v164, v176, *(*(a1 + 8248) + 76), *(*(a1 + 8248) + 80), *(a1 + 3640), (a1 + 2904), (a1 + 2908)) & 1) == 0)
+                if ((CAVDDecoder::calcLumaChromaTileOffset(a1, v164, v176, *(*(a1 + 1031) + 76), *(*(a1 + 1031) + 80), *(a1 + 3640), a1 + 726, a1 + 727) & 1) == 0)
                 {
                   if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
@@ -1547,7 +1547,7 @@ LABEL_332:
               goto LABEL_361;
             }
 
-            v198 = *(a1 + 2900);
+            v198 = a1[725];
             v199 = *(v165 + 23176 * v166 + 3612);
             v200 = *(v228 + 84);
             *buf = 67111680;
@@ -1586,12 +1586,12 @@ LABEL_307:
 
           v189 = (*(*a1 + 304))(a1, v33, v12, v16 & 1);
           (*(*a1 + 256))(a1, 0);
-          v190 = *(a1 + 2096);
+          v190 = *(a1 + 262);
           *(v190 + 12) = v33;
-          AppleAVDCommandBuilder::setDecodeBufferSections(*(a1 + 2344), v190 + 8);
+          AppleAVDCommandBuilder::setDecodeBufferSections(*(a1 + 293), v190 + 8);
           if (*(a1 + 2356) == 1)
           {
-            *(a1 + 2332) = CAHDec::getDecBufIndex(*(a1 + 2096));
+            a1[583] = CAHDec::getDecBufIndex(*(a1 + 262));
           }
 
           if (!v189)
@@ -1624,7 +1624,7 @@ LABEL_24:
         a6 = v214;
         if (v230 != 32)
         {
-          v101 = HEVC_RBSP::parseSPS(*(a1 + 3000), v219, *(a1 + 8168), v231, 1);
+          v101 = HEVC_RBSP::parseSPS(*(a1 + 375), v219, *(a1 + 1021), v231, 1);
           v67 = v222;
           if ((v101 & 0x80000000) != 0)
           {
@@ -1648,8 +1648,8 @@ LABEL_24:
             goto LABEL_372;
           }
 
-          (*(*a1 + 424))(a1, *(a1 + 8168) + 23176 * v102);
-          *(*(a1 + 8168) + 23176 * v102 + 23172) = CAVDHevcDecoder::DpbMaxSize(a1, (*(a1 + 8168) + 23176 * v102));
+          (*(*a1 + 424))(a1, *(a1 + 1021) + 23176 * v102);
+          *(*(a1 + 1021) + 23176 * v102 + 23172) = CAVDHevcDecoder::DpbMaxSize(a1, (*(a1 + 1021) + 23176 * v102));
           a6 = v214;
           v43 = v100;
           v65 = v50;
@@ -1658,7 +1658,7 @@ LABEL_24:
 
         v67 = v222;
         v65 = v50;
-        if ((HEVC_RBSP::parseVPS(*(a1 + 3000), v219, 1, 1) & 1) == 0)
+        if ((HEVC_RBSP::parseVPS(*(a1 + 375), v219, 1, 1) & 1) == 0)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
@@ -1689,7 +1689,7 @@ LABEL_230:
     ++v59;
   }
 
-  while (*(a1 + 3724) >= v59);
+  while (a1[931] >= v59);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -1854,8 +1854,9 @@ uint64_t CAVDMvHevcDecoder::DecodePicture(CAVDMvHevcDecoder *this, uint64_t a2, 
   return 0;
 }
 
-uint64_t CAVDMvHevcDecoder::initPicture(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, _DWORD *a5, uint64_t a6, int a7)
+uint64_t CAVDMvHevcDecoder::initPicture(uint64_t a1, uint64_t a2, _DWORD *a3, uint64_t a4, _DWORD *a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
   v13 = a3[1];
   *(a6 + 144) = 0u;
   *(a6 + 160) = 0u;
@@ -1899,7 +1900,7 @@ uint64_t CAVDMvHevcDecoder::initPicture(uint64_t a1, uint64_t a2, _DWORD *a3, ui
   if (*(a1 + 8992) == 1)
   {
     CAVDMvHevcDecoder::checkNewPocResettingPeriod(a1, a3, a5);
-    if (CAVDMvHevcDecoder::deriveMvHevcOutputControlFlags(a1, a3, a5, a6, a7))
+    if (CAVDMvHevcDecoder::deriveMvHevcOutputControlFlags(a1, a3, a5, a6, v7))
     {
       return 0xFFFFFFFFLL;
     }
@@ -2960,7 +2961,7 @@ uint64_t CAVDMvHevcDecoder::createRefPicList(uint64_t a1, uint64_t a2, uint64_t 
     v5 = *(a1 + 8 * *(a1 + 2972) + 3016);
     v6 = a3 + 2088;
     v7 = a3 + 2216;
-    v8 = (*(*a1 + 184))(a1);
+    v8 = (*(*a1 + 184))(a1, a2);
     result = HEVC_RLM::getReferencePictureList(v5, a3 + 24, (a3 + 2088), (a3 + 2216), v8);
     if (result)
     {
@@ -4082,7 +4083,7 @@ uint64_t CAVDMvHevcDecoder::setAVDSharedMem(uint64_t this, uint64_t a2)
   return this;
 }
 
-void *createCloverLghDecoder(uint64_t a1)
+CAHDecCloverLgh *createCloverLghDecoder(CAVDLghDecoder *a1)
 {
   v2 = operator new(0xB98uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -8986,7 +8987,7 @@ uint64_t CAHDecCloverHevc::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-CAHDec *createCloverAvcDecoder(uint64_t a1)
+CAHDecCloverAvc *createCloverAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x3EE0uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -9132,8 +9133,9 @@ uint64_t CAHDecCloverAvc::populateSlices(CAHDecCloverAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecCloverAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecCloverAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = 0;
   v100 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 256);
@@ -9166,6 +9168,7 @@ uint64_t CAHDecCloverAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signe
     v17 = 0;
   }
 
+  v18 = a3;
   v19 = v17 | v16;
   *(a2 + 4) = v19;
   if (*(v14 + 24) == 1)
@@ -9275,7 +9278,7 @@ LABEL_20:
     v27 = *(a2 + 4);
   }
 
-  v84 = a3;
+  v84 = v3;
   v85 = a1;
   v83 = (v10 + 604 * v9);
   *(a2 + 4) = v27 & 0x77FFFF | 0x2D000000;
@@ -9283,7 +9286,7 @@ LABEL_20:
   if (v36 <= 1)
   {
     v37 = v7 + 6760;
-    v38 = v13 + 13040 * a3;
+    v38 = v13 + 13040 * v18;
     if (*(v38 + 13032))
     {
       v39 = 0;

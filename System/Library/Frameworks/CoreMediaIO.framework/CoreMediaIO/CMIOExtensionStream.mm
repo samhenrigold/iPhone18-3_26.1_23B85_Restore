@@ -31,7 +31,7 @@
   return internalProperties_gInternalStreamProperties;
 }
 
-uint64_t __41__CMIOExtensionStream_internalProperties__block_invoke()
+void *__41__CMIOExtensionStream_internalProperties__block_invoke()
 {
   result = [objc_alloc(MEMORY[0x277CBEB98]) initWithObjects:{0x284358E78, 0x284358E98, 0x284358EB8, 0x284358ED8, 0x284358EF8, 0x284358F18, 0}];
   internalProperties_gInternalStreamProperties = result;
@@ -111,7 +111,7 @@ uint64_t __41__CMIOExtensionStream_internalProperties__block_invoke()
 
 void __107__CMIOExtensionStream__initWithLocalizedName_streamID_direction_clockType_customClockConfiguration_source___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -122,31 +122,31 @@ void __107__CMIOExtensionStream__initWithLocalizedName_streamID_direction_clockT
       v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
       v5 = v2[18];
       [v4 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"Stats for %@ streaming type %c%c%c%c subtype %c%c%c%c %dx%d ", v2, HIBYTE(v5), BYTE2(v5), BYTE1(v5), v5, HIBYTE(v2[19]), BYTE2(v2[19]), BYTE1(v2[19]), v2[19], v2[28], v2[29])}];
-      v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
+      v23 = 0u;
       v6 = [v3 allValues];
-      v7 = [v6 countByEnumeratingWithState:&v21 objects:v28 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v22 objects:v29 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v22;
+        v9 = *v23;
         v10 = @"clients [%d";
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v22 != v9)
+            if (*v23 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            [v4 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v10, objc_msgSend(*(*(&v21 + 1) + 8 * i), "pid"))}];
+            [v4 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", v10, objc_msgSend(*(*(&v22 + 1) + 8 * i), "pid"))}];
             v10 = @", %d";
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v21 objects:v28 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v22 objects:v29 count:16];
           v10 = @", %d";
         }
 
@@ -169,34 +169,32 @@ void __107__CMIOExtensionStream__initWithLocalizedName_streamID_direction_clockT
         v14 = v15 / Seconds;
       }
 
-      [v4 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"received %lld fps %f ", Seconds, v13, *&v14)}];
-      v16 = CMIOLog();
-      if (v16)
+      v16 = [v4 appendString:{objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"received %lld fps %f ", Seconds, v13, *&v14)}];
+      v18 = CMIOLog(v16, v17);
+      if (v18)
       {
-        v17 = v16;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = v18;
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
+          v20 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
           *time = 136315907;
-          *&time[4] = v18;
+          *&time[4] = v20;
           *&time[12] = 1024;
           *&time[14] = 926;
           *&time[18] = 2080;
           *&time[20] = "[CMIOExtensionStream _initWithLocalizedName:streamID:direction:clockType:customClockConfiguration:source:]_block_invoke";
-          v26 = 2113;
-          v27 = v4;
-          _os_log_impl(&dword_22EA08000, v17, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@", time, 0x26u);
+          v27 = 2113;
+          v28 = v4;
+          _os_log_impl(&dword_22EA08000, v19, OS_LOG_TYPE_DEFAULT, "%s:%d:%s %{private}@", time, 0x26u);
         }
       }
     }
 
-    v19 = MEMORY[0x277CC08F0];
+    v21 = MEMORY[0x277CC08F0];
     *(v2 + 5) = *MEMORY[0x277CC08F0];
-    *(v2 + 12) = *(v19 + 16);
+    *(v2 + 12) = *(v21 + 16);
     *(v2 + 13) = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -380,7 +378,7 @@ LABEL_22:
   return valuesCopy;
 }
 
-uint64_t __101__CMIOExtensionStream__clientQueue_setAndRemoveInternalPropertyValuesForClient_propertyValues_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__101__CMIOExtensionStream__clientQueue_setAndRemoveInternalPropertyValuesForClient_propertyValues_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) containsObject:a2];
   if (result)
@@ -420,8 +418,8 @@ void __47__CMIOExtensionStream_notifyPropertiesChanged___block_invoke(uint64_t a
 
 - (void)sendSampleBuffer:(CMSampleBufferRef)sampleBuffer discontinuity:(CMIOExtensionStreamDiscontinuityFlags)discontinuity hostTimeInNanoseconds:(uint64_t)hostTimeInNanoseconds
 {
-  v64 = *MEMORY[0x277D85DE8];
-  v56 = hostTimeInNanoseconds;
+  v66 = *MEMORY[0x277D85DE8];
+  v58 = hostTimeInNanoseconds;
   if (self->_direction == 1)
   {
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"%@ You can't send sample from a sink stream.", self}];
@@ -461,12 +459,12 @@ LABEL_9:
     CFRelease(v14);
     if (hostTimeInNanoseconds)
     {
-      v15 = CFNumberCreate(v13, kCFNumberSInt64Type, &v56);
+      v15 = CFNumberCreate(v13, kCFNumberSInt64Type, &v58);
       CMSetAttachment(sampleBuffer, kCMIOSampleBufferAttachmentKey_HostTime, v15, 1u);
       CFRelease(v15);
     }
 
-    v54 = discontinuity;
+    v56 = discontinuity;
     v16 = CMGetAttachment(sampleBuffer, kCMIOSampleBufferAttachmentKey_DiscontinuityFlags, 0);
     if (v16)
     {
@@ -482,89 +480,89 @@ LABEL_9:
           v20 = 0;
         }
 
-        v54 = v20 | discontinuity;
+        v56 = v20 | discontinuity;
       }
     }
 
-    v21 = CFNumberCreate(v13, kCFNumberSInt32Type, &v54);
+    v21 = CFNumberCreate(v13, kCFNumberSInt32Type, &v56);
     CMSetAttachment(sampleBuffer, kCMIOSampleBufferAttachmentKey_DiscontinuityFlags, v21, 1u);
     CFRelease(v21);
-    memset(&v53, 0, sizeof(v53));
+    memset(&v55, 0, sizeof(v55));
     HostTimeClock = CMClockGetHostTimeClock();
-    CMClockGetTime(&v53, HostTimeClock);
-    *time = v53;
+    CMClockGetTime(&v55, HostTimeClock);
+    *time = v55;
     v23 = CMTimeCopyAsDictionary(time, v13);
     CMSetAttachment(sampleBuffer, @"com.apple.cmio.buffer_attachment.deliver_time", v23, 1u);
     CFRelease(v23);
-    v24 = CMIOLogLevel(2);
+    v25 = CMIOLogLevel(2, v24);
     if (v10)
     {
-      if (v24)
+      if (v25)
       {
-        memset(&v52, 0, sizeof(v52));
-        CMSampleBufferGetPresentationTimeStamp(&v52, sampleBuffer);
-        memset(&v51, 0, sizeof(v51));
-        *time = v53;
-        rhs = v52;
-        CMTimeSubtract(&v51, time, &rhs);
+        memset(&v54, 0, sizeof(v54));
+        CMSampleBufferGetPresentationTimeStamp(&v54, sampleBuffer);
+        memset(&v53, 0, sizeof(v53));
+        *time = v55;
+        rhs = v54;
+        CMTimeSubtract(&v53, time, &rhs);
         if (CMFormatDescriptionGetMediaType(v10) == 1986618469)
         {
-          v25 = CMIOLogLevel(2);
-          if (v25)
+          v27 = CMIOLogLevel(2, v26);
+          if (v27)
           {
-            v26 = v25;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v28 = v27;
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
-              *time = v52;
+              v29 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
+              *time = v54;
               Seconds = CMTimeGetSeconds(time);
-              *time = v51;
-              v29 = CMTimeGetSeconds(time);
+              *time = v53;
+              v31 = CMTimeGetSeconds(time);
               *time = 136316418;
-              *&time[4] = v27;
+              *&time[4] = v29;
               *&time[12] = 1024;
               *&time[14] = 1214;
               *&time[18] = 2080;
               *&time[20] = "[CMIOExtensionStream sendSampleBuffer:discontinuity:hostTimeInNanoseconds:]";
-              v58 = 2048;
-              v59 = Seconds;
               v60 = 2048;
-              v61 = v29;
+              v61 = Seconds;
               v62 = 2048;
-              v63 = valuePtr;
-              v30 = "%s:%d:%s video [time %.3f diff %.3f] %lld";
+              v63 = v31;
+              v64 = 2048;
+              v65 = valuePtr;
+              v32 = "%s:%d:%s video [time %.3f diff %.3f] %lld";
 LABEL_27:
-              _os_log_impl(&dword_22EA08000, v26, OS_LOG_TYPE_DEFAULT, v30, time, 0x3Au);
+              _os_log_impl(&dword_22EA08000, v28, OS_LOG_TYPE_DEFAULT, v32, time, 0x3Au);
             }
           }
         }
 
         else if (CMFormatDescriptionGetMediaType(v10) == 1936684398)
         {
-          v31 = CMIOLogLevel(2);
-          if (v31)
+          v34 = CMIOLogLevel(2, v33);
+          if (v34)
           {
-            v26 = v31;
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v28 = v34;
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
             {
-              v32 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
-              *time = v52;
-              v33 = CMTimeGetSeconds(time);
-              *time = v51;
-              v34 = CMTimeGetSeconds(time);
+              v35 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
+              *time = v54;
+              v36 = CMTimeGetSeconds(time);
+              *time = v53;
+              v37 = CMTimeGetSeconds(time);
               *time = 136316418;
-              *&time[4] = v32;
+              *&time[4] = v35;
               *&time[12] = 1024;
               *&time[14] = 1217;
               *&time[18] = 2080;
               *&time[20] = "[CMIOExtensionStream sendSampleBuffer:discontinuity:hostTimeInNanoseconds:]";
-              v58 = 2048;
-              v59 = v33;
               v60 = 2048;
-              v61 = v34;
+              v61 = v36;
               v62 = 2048;
-              v63 = valuePtr;
-              v30 = "%s:%d:%s audio [time %.3f diff %.3f] %lld";
+              v63 = v37;
+              v64 = 2048;
+              v65 = valuePtr;
+              v32 = "%s:%d:%s audio [time %.3f diff %.3f] %lld";
               goto LABEL_27;
             }
           }
@@ -573,40 +571,38 @@ LABEL_27:
     }
   }
 
-  v35 = [[CMIOExtensionSample alloc] initWithCMSampleBuffer:sampleBuffer];
-  if (v35)
+  v38 = [[CMIOExtensionSample alloc] initWithCMSampleBuffer:sampleBuffer];
+  if (v38)
   {
-    v36 = v35;
+    v39 = v38;
     memset(time, 0, 24);
     CMSampleBufferGetPresentationTimeStamp(time, sampleBuffer);
-    memset(&v53, 0, sizeof(v53));
-    CMSampleBufferGetDuration(&v53, sampleBuffer);
-    v37 = CMSampleBufferGetFormatDescription(sampleBuffer);
-    MediaType = CMFormatDescriptionGetMediaType(v37);
-    MediaSubType = CMFormatDescriptionGetMediaSubType(v37);
+    memset(&v55, 0, sizeof(v55));
+    CMSampleBufferGetDuration(&v55, sampleBuffer);
+    v40 = CMSampleBufferGetFormatDescription(sampleBuffer);
+    MediaType = CMFormatDescriptionGetMediaType(v40);
+    MediaSubType = CMFormatDescriptionGetMediaSubType(v40);
     Dimensions = 0;
     if (MediaType == 1986618469)
     {
-      Dimensions = CMVideoFormatDescriptionGetDimensions(v37);
+      Dimensions = CMVideoFormatDescriptionGetDimensions(v40);
     }
 
-    v41 = [+[CMIOExtensionProvider sharedProvider](CMIOExtensionProvider "sharedProvider")];
+    v44 = [+[CMIOExtensionProvider sharedProvider](CMIOExtensionProvider "sharedProvider")];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __76__CMIOExtensionStream_sendSampleBuffer_discontinuity_hostTimeInNanoseconds___block_invoke;
     block[3] = &unk_27885B910;
-    v44 = v53;
-    v45 = *time;
-    v46 = *&time[16];
-    v47 = MediaType;
-    v48 = MediaSubType;
-    v49 = Dimensions;
+    v46 = v55;
+    v47 = *time;
+    v48 = *&time[16];
+    v49 = MediaType;
+    v50 = MediaSubType;
+    v51 = Dimensions;
     block[4] = self;
-    block[5] = v36;
-    dispatch_async(v41, block);
+    block[5] = v39;
+    dispatch_async(v44, block);
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __76__CMIOExtensionStream_sendSampleBuffer_discontinuity_hostTimeInNanoseconds___block_invoke(uint64_t a1)
@@ -682,103 +678,96 @@ LABEL_7:
 
 - (void)enqueueReactionEffect:(id)effect completionHandler:(id)handler
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = CMIOLog();
+  v6 = *MEMORY[0x277D85DE8];
+  v5 = CMIOLog(self, a2);
   if (v5 && os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [CMIOExtensionStream enqueueReactionEffect:completionHandler:];
   }
 
-  v6 = *MEMORY[0x277CBECE8];
   FigCopyBacktrace();
   if (handler)
   {
     (*(handler + 2))(handler, 4294967293);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientQueue_addStreamingClient:(id)client
 {
-  v18 = *MEMORY[0x277D85DE8];
-  -[NSMutableDictionary setObject:forKey:](self->_streamingClientsMap, "setObject:forKey:", client, [client clientID]);
-  v5 = CMIOLog();
-  if (v5)
+  v19 = *MEMORY[0x277D85DE8];
+  v5 = -[NSMutableDictionary setObject:forKey:](self->_streamingClientsMap, "setObject:forKey:", client, [client clientID]);
+  v7 = CMIOLog(v5, v6);
+  if (v7)
   {
-    v6 = v5;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v8 = v7;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v8 = 136316163;
-      v9 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
-      v10 = 1024;
-      v11 = 1302;
-      v12 = 2080;
-      v13 = "[CMIOExtensionStream _clientQueue_addStreamingClient:]";
-      v14 = 2114;
+      v9 = 136316163;
+      v10 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
+      v11 = 1024;
+      v12 = 1302;
+      v13 = 2080;
+      v14 = "[CMIOExtensionStream _clientQueue_addStreamingClient:]";
+      v15 = 2114;
       selfCopy = self;
-      v16 = 1025;
-      v17 = [client pid];
-      _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_INFO, "%s:%d:%s %{public}@, adding streaming client with %{private}d pid", &v8, 0x2Cu);
+      v17 = 1025;
+      v18 = [client pid];
+      _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_INFO, "%s:%d:%s %{public}@, adding streaming client with %{private}d pid", &v9, 0x2Cu);
     }
   }
 
   [(CMIOExtensionStream *)self setStreamingClients:[(NSMutableDictionary *)self->_streamingClientsMap allValues]];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clientQueue_removeStreamingClient:(id)client
 {
-  v21 = *MEMORY[0x277D85DE8];
-  -[NSMutableDictionary removeObjectForKey:](self->_streamingClientsMap, "removeObjectForKey:", [client clientID]);
-  v5 = CMIOLog();
-  if (v5)
+  v22 = *MEMORY[0x277D85DE8];
+  v5 = -[NSMutableDictionary removeObjectForKey:](self->_streamingClientsMap, "removeObjectForKey:", [client clientID]);
+  v7 = CMIOLog(v5, v6);
+  if (v7)
   {
-    v6 = v5;
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v8 = v7;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v11 = 136316163;
-      v12 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
-      v13 = 1024;
-      v14 = 1311;
-      v15 = 2080;
-      v16 = "[CMIOExtensionStream _clientQueue_removeStreamingClient:]";
-      v17 = 2114;
+      v12 = 136316163;
+      v13 = CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
+      v14 = 1024;
+      v15 = 1311;
+      v16 = 2080;
+      v17 = "[CMIOExtensionStream _clientQueue_removeStreamingClient:]";
+      v18 = 2114;
       selfCopy = self;
-      v19 = 1025;
-      v20 = [client pid];
-      _os_log_impl(&dword_22EA08000, v6, OS_LOG_TYPE_INFO, "%s:%d:%s %{public}@, removing streaming client with %{private}d pid", &v11, 0x2Cu);
+      v20 = 1025;
+      v21 = [client pid];
+      _os_log_impl(&dword_22EA08000, v8, OS_LOG_TYPE_INFO, "%s:%d:%s %{public}@, removing streaming client with %{private}d pid", &v12, 0x2Cu);
     }
   }
 
   if (![(NSMutableDictionary *)self->_streamingClientsMap count])
   {
-    *&v7 = 0;
-    v8 = MEMORY[0x277CC0898];
+    *&v9 = 0;
+    v10 = MEMORY[0x277CC0898];
     *&self->_statsLastSampleTime.value = *MEMORY[0x277CC0898];
     *&self->_statsMediaType = 0;
-    v9 = MEMORY[0x277CC08F0];
+    v11 = MEMORY[0x277CC08F0];
     *&self->_statsTotalDuration.value = *MEMORY[0x277CC08F0];
-    self->_statsLastSampleTime.epoch = *(v8 + 16);
-    self->_statsTotalDuration.epoch = *(v9 + 16);
-    *&self->_statsTotalSampleCount = v7;
+    self->_statsLastSampleTime.epoch = *(v10 + 16);
+    self->_statsTotalDuration.epoch = *(v11 + 16);
+    *&self->_statsTotalSampleCount = v9;
   }
 
   [(CMIOExtensionStream *)self setStreamingClients:[(NSMutableDictionary *)self->_streamingClientsMap allValues]];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enqueueReactionEffect:completionHandler:.cold.1()
 {
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
   CMIOFilename("/Library/Caches/com.apple.xbs/Sources/CoreMediaIO/Sources/Extensions/Sources/CMIOExtensionProvider.m");
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

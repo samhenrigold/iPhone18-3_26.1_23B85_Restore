@@ -9,11 +9,11 @@
 
 - (MTRCommissioneeInfo)initWithCoder:(id)coder
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v38.receiver = self;
-  v38.super_class = MTRCommissioneeInfo;
-  v5 = [(MTRCommissioneeInfo *)&v38 init];
+  v36.receiver = self;
+  v36.super_class = MTRCommissioneeInfo;
+  v5 = [(MTRCommissioneeInfo *)&v36 init];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pi"];
   productIdentity = v5->_productIdentity;
   v5->_productIdentity = v6;
@@ -30,16 +30,16 @@
 
   if ((atomic_load_explicit(&qword_27DF77540, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_27DF77540))
   {
-    v26 = v5;
-    v27 = MEMORY[0x277CBEB98];
+    v25 = v5;
+    v26 = MEMORY[0x277CBEB98];
+    v27 = objc_opt_class();
     v28 = objc_opt_class();
     v29 = objc_opt_class();
     v30 = objc_opt_class();
     v31 = objc_opt_class();
-    v32 = objc_opt_class();
-    qword_27DF77538 = [v27 setWithObjects:{v28, v29, v30, v31, v32, objc_opt_class(), 0}];
+    qword_27DF77538 = [v26 setWithObjects:{v27, v28, v29, v30, v31, objc_opt_class(), 0}];
     __cxa_guard_release(&qword_27DF77540);
-    v5 = v26;
+    v5 = v25;
   }
 
   v11 = [coderCopy decodeObjectOfClasses:qword_27DF77538 forKey:@"at"];
@@ -51,26 +51,26 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v36 = 0u;
-      v37 = 0u;
       v34 = 0u;
       v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
       v13 = v5->_attributes;
-      v14 = [(NSDictionary *)v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v14 = [(NSDictionary *)v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
       if (v14)
       {
-        v15 = *v35;
+        v15 = *v33;
         while (2)
         {
           v16 = 0;
           do
           {
-            if (*v35 != v15)
+            if (*v33 != v15)
             {
               objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v34 + 1) + 8 * v16);
+            v17 = *(*(&v32 + 1) + 8 * v16);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -78,13 +78,13 @@
               if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v41 = v17;
+                v39 = v17;
                 _os_log_impl(&dword_238DAE000, v23, OS_LOG_TYPE_ERROR, "MTRCommissioneeInfo decoding: expected MTRAttributePath but found %@", buf, 0xCu);
               }
 
               if (sub_2393D5398(1u))
               {
-                sub_2393D5320(0, 1);
+                sub_2393D5320(0, 1, "MTRCommissioneeInfo decoding: expected MTRAttributePath but found %@", v17);
               }
 
               goto LABEL_30;
@@ -98,13 +98,13 @@
               if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v41 = v18;
+                v39 = v18;
                 _os_log_impl(&dword_238DAE000, v22, OS_LOG_TYPE_ERROR, "MTRCommissioneeInfo decoding: expected data-value dictionary but found %@", buf, 0xCu);
               }
 
               if (sub_2393D5398(1u))
               {
-                sub_2393D5320(0, 1);
+                sub_2393D5320(0, 1, "MTRCommissioneeInfo decoding: expected data-value dictionary but found %@", v18);
               }
 
 LABEL_30:
@@ -115,7 +115,7 @@ LABEL_30:
           }
 
           while (v14 != v16);
-          v14 = [(NSDictionary *)v13 countByEnumeratingWithState:&v34 objects:v39 count:16];
+          v14 = [(NSDictionary *)v13 countByEnumeratingWithState:&v32 objects:v37 count:16];
           if (v14)
           {
             continue;
@@ -133,14 +133,13 @@ LABEL_30:
     {
       v21 = v5->_attributes;
       *buf = 138412290;
-      v41 = v21;
+      v39 = v21;
       _os_log_impl(&dword_238DAE000, v20, OS_LOG_TYPE_ERROR, "MTRCommissioneeInfo decoding: attributes are not a dictionary: %@", buf, 0xCu);
     }
 
     if (sub_2393D5398(1u))
     {
-      v33 = v5->_attributes;
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRCommissioneeInfo decoding: attributes are not a dictionary: %@", v5->_attributes);
     }
 
 LABEL_31:
@@ -152,7 +151,6 @@ LABEL_16:
   v19 = v5;
 LABEL_32:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v19;
 }
 

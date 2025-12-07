@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)itemForItemIdentifier:(id)identifier;
 - (void)addUnavailableItemIdentifiers:(id)identifiers;
+- (void)init;
 - (void)setUnavailableItemIdentifiers:(id)identifiers;
 @end
 
@@ -122,6 +123,12 @@
   v5[7] = v14;
 
   return v5;
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPageComponentContext init]";
 }
 
 @end

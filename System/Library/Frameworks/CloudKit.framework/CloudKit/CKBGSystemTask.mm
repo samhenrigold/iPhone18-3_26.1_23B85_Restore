@@ -118,7 +118,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -129,40 +129,40 @@
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v14 = ck_log_facility_scheduler;
+    v13 = ck_log_facility_scheduler;
     if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
     {
-      v20 = v14;
-      v23 = objc_msgSend_ckShortDescription(self, v21, v22);
+      v19 = v13;
+      v22 = objc_msgSend_ckShortDescription(self, v20, v21);
       *buf = 138412290;
-      v28 = v23;
-      _os_log_debug_impl(&dword_1883EA000, v20, OS_LOG_TYPE_DEBUG, "[%@] Handling task state update", buf, 0xCu);
+      v27 = v22;
+      _os_log_debug_impl(&dword_1883EA000, v19, OS_LOG_TYPE_DEBUG, "[%@] Handling task state update", buf, 0xCu);
     }
 
-    v17 = objc_msgSend_state(objectCopy, v15, v16);
-    if (v17 > 2)
+    v16 = objc_msgSend_state(objectCopy, v14, v15);
+    if (v16 > 2)
     {
-      if (v17 == 3)
-      {
-        v26.receiver = self;
-        v26.super_class = CKBGSystemTask;
-        [(CKBackgroundTask *)&v26 expiredWithRetryAfter:0 error:0.0];
-      }
-
-      else if (v17 == 4)
+      if (v16 == 3)
       {
         v25.receiver = self;
         v25.super_class = CKBGSystemTask;
-        [(CKBackgroundTask *)&v25 complete];
+        [(CKBackgroundTask *)&v25 expiredWithRetryAfter:0 error:0.0];
+      }
+
+      else if (v16 == 4)
+      {
+        v24.receiver = self;
+        v24.super_class = CKBGSystemTask;
+        [(CKBackgroundTask *)&v24 complete];
       }
     }
 
-    else if (v17 == 1)
+    else if (v16 == 1)
     {
-      objc_msgSend_start(self, v18, v19);
+      objc_msgSend_start(self, v17, v18);
     }
 
-    else if (v17 == 2)
+    else if (v16 == 2)
     {
       sub_188645E6C(self);
     }
@@ -170,12 +170,10 @@
 
   else
   {
-    v24.receiver = self;
-    v24.super_class = CKBGSystemTask;
-    [(CKBGSystemTask *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v23.receiver = self;
+    v23.super_class = CKBGSystemTask;
+    [(CKBGSystemTask *)&v23 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)complete

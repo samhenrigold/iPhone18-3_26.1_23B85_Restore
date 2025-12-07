@@ -37,7 +37,7 @@
   v6 = v5;
   if (v5)
   {
-    [(TUILayout *)v5 specifiedWidth];
+    objc_msgSend_specifiedWidth(v5);
     if ((v7 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v6 setSpecifiedWidthComputeInherited:1];
@@ -45,7 +45,7 @@
 
     v6->_scale = 1.0;
     v6->_cachedSingleLineTypographicMax = NAN;
-    v8 = [(TUILayout *)v6 box];
+    v8 = objc_msgSend_box(v6);
     storage = [v8 storage];
     v10 = [storage paragraphStyleAtParIndex:0 effectiveRange:0];
 
@@ -57,7 +57,7 @@
 
 - (TUIWPStorage)storage
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   storage = [v2 storage];
 
   return storage;
@@ -65,7 +65,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  [(TUIWPLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   width = self->_intrinsicContentSize.width;
   if (width <= -3.40282347e38)
   {
@@ -88,7 +88,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  [(TUIWPLayout *)self _computeIntrinsicContentSize];
+  objc_msgSend__computeIntrinsicContentSize(self, a3);
   height = self->_intrinsicContentSize.height;
   if (height <= -3.40282347e38)
   {
@@ -117,8 +117,8 @@
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  children = [(TUILayout *)self children];
-  v6 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = objc_msgSend_children(self, 0);
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
@@ -130,15 +130,15 @@
       {
         if (*v11 != v8)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v5);
         }
 
-        [*(*(&v10 + 1) + 8 * v9) validateLayout];
+        objc_msgSend_validateLayout(*(*(&v10 + 1) + 8 * v9));
         v9 = v9 + 1;
       }
 
       while (v7 != v9);
-      v7 = [children countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -159,8 +159,8 @@
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  children = [(TUILayout *)self children];
-  v4 = [children countByEnumeratingWithState:&v76 objects:v80 count:16];
+  v3 = objc_msgSend_children(self, a2);
+  v4 = [v3 countByEnumeratingWithState:&v76 objects:v80 count:16];
   if (v4)
   {
     v5 = v4;
@@ -171,7 +171,7 @@
       {
         if (*v77 != v6)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v3);
         }
 
         v8 = *(*(&v76 + 1) + 8 * i);
@@ -179,10 +179,10 @@
         [v8 setContainingWidth:?];
         [(TUILayout *)self containingHeight];
         [v8 setContainingHeight:?];
-        [v8 validateLayout];
+        objc_msgSend_validateLayout(v8);
       }
 
-      v5 = [children countByEnumeratingWithState:&v76 objects:v80 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v76 objects:v80 count:16];
     }
 
     while (v5);
@@ -334,10 +334,10 @@
   *&v56 = v52;
   v58 = v54;
   self->_renderingInsets.bottom = fmin(v43 - CGRectGetMaxY(*(&v55 - 1)), 0.0);
-  LODWORD(v59) = [(TUILayout *)self specifiedHeight];
-  self->_renderingInsets.bottom = fmin(self->_renderingInsets.bottom - (v43 - COERCE_FLOAT([(TUILayout *)self specifiedHeight])), 0.0);
-  v60 = COERCE_FLOAT([(TUILayout *)self specifiedHeight]);
-  v61 = [(TUILayout *)self box];
+  LODWORD(v59) = objc_msgSend_specifiedHeight(self);
+  self->_renderingInsets.bottom = fmin(self->_renderingInsets.bottom - (v43 - COERCE_FLOAT(objc_msgSend_specifiedHeight(self, v59))), 0.0);
+  v60 = COERCE_FLOAT(objc_msgSend_specifiedHeight(self));
+  v61 = objc_msgSend_box(self);
   allowHangingPunctuation = [v61 allowHangingPunctuation];
 
   if (allowHangingPunctuation)
@@ -407,7 +407,7 @@
   v16 = TUIFloatRoundedForScale(v9 - self->_layoutFrameInsets.top, v7);
   v17 = [_TUIWPDraw alloc];
   wpColumns = self->_wpColumns;
-  v19 = [(TUILayout *)self box];
+  v19 = objc_msgSend_box(self);
   blendMode = [v19 blendMode];
   v21 = [(_TUIWPDraw *)v17 initWithColumns:wpColumns yOffset:blendMode compositingFilterType:v16];
 
@@ -417,7 +417,7 @@
   v26 = v25;
 
   [(TUIRenderModelDraw *)v22 setSize:v24, v26];
-  v27 = [(TUILayout *)self box];
+  v27 = objc_msgSend_box(self);
   identifier = [v27 identifier];
   [(TUIRenderModelDraw *)v22 setIdentifier:identifier];
 
@@ -453,21 +453,21 @@
 
   v10 = [[_TUIWPText alloc] initWithParagraphStyle:0 columnStyle:_columnStyle alignmentForNaturalAlignment:v9 naturalDirection:v9];
   [(_TUIWPText *)v10 setComputingIntrinsic:intrinsicCopy];
-  children = [(TUILayout *)self children];
-  [(_TUIWPText *)v10 updateWithAttachmentLayouts:children];
+  v11 = objc_msgSend_children(self);
+  [(_TUIWPText *)v10 updateWithAttachmentLayouts:v11];
 
-  v12 = [(TUILayout *)self box];
+  v12 = objc_msgSend_box(self);
   -[_TUIWPText setMaxLineCount:](v10, "setMaxLineCount:", [v12 maxLines]);
 
-  v13 = [(TUILayout *)self box];
+  v13 = objc_msgSend_box(self);
   -[_TUIWPText setAllowsLastLineTruncation:](v10, "setAllowsLastLineTruncation:", [v13 hideEllipses] ^ 1);
 
   [(TUIWPLayout *)self expandableMoreWidth];
   [(_TUIWPText *)v10 setReservedWidthWhenTruncating:?];
-  v14 = [(TUILayout *)self box];
+  v14 = objc_msgSend_box(self);
   -[_TUIWPText setUseShrinkToFit:](v10, "setUseShrinkToFit:", [v14 allowShrinkToFit]);
 
-  v15 = [(TUILayout *)self box];
+  v15 = objc_msgSend_box(self);
   allowShrinkToFit = [v15 allowShrinkToFit];
   v17 = 1.0;
   if ((allowShrinkToFit & 1) == 0)
@@ -499,7 +499,7 @@
 
 - (double)_maxHeight
 {
-  [(TUILayout *)self specifiedHeight];
+  objc_msgSend_specifiedHeight(self, a2);
   [(TUILayout *)self flexedHeight];
 
   [(TUILayout *)self flexedHeight];
@@ -779,7 +779,7 @@
   v4 = [v3 mutableCopy];
 
   v5 = [v4 length] - 1;
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   string = [v6 string];
   v8 = [NSString stringWithFormat:@" string='%@'>", string];
   [v4 replaceCharactersInRange:v5 withString:{1, v8}];
@@ -789,7 +789,7 @@
 
 - (id)debugContentDescription
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   storage = [v2 storage];
   string = [storage string];
   v5 = [NSString stringWithFormat:@"'%@'", string];

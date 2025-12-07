@@ -13,6 +13,7 @@
 - (unint64_t)_axPageIndexForPageView:(id)view;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAnnotateScrollView;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NTKPageScrollViewControllerAccessibility
@@ -248,6 +249,14 @@ uint64_t __68__NTKPageScrollViewControllerAccessibility__axPageIndexForPageView_
   }
 
   return v5;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = NTKPageScrollViewControllerAccessibility;
+  [(NTKPageScrollViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(NTKPageScrollViewControllerAccessibility *)self _axAnnotateScrollView];
 }
 
 - (NTKPageScrollViewControllerAccessibility)initWithScrollOrientation:(int64_t)orientation

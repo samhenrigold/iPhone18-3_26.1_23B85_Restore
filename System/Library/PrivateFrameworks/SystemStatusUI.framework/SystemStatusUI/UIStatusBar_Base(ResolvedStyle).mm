@@ -14,9 +14,9 @@
 
 - (uint64_t)requestResolvedStyle:()ResolvedStyle
 {
-  v2 = _UIStatusBarStyleFromResolvedStyle();
+  v4 = _UIStatusBarStyleFromResolvedStyle();
 
-  return [self requestStyle:v2];
+  return [self requestStyle:v4];
 }
 
 @end

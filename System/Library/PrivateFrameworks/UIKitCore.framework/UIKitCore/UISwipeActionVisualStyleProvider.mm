@@ -14,9 +14,9 @@
     dispatch_once(&_MergedGlobals_1059, &__block_literal_global_157);
   }
 
-  v0 = qword_1ED49D978;
+  v1 = qword_1ED49D978;
 
-  return v0;
+  return v1;
 }
 
 void __62__UISwipeActionVisualStyleProvider_idiomToVisualStyleClassMap__block_invoke()

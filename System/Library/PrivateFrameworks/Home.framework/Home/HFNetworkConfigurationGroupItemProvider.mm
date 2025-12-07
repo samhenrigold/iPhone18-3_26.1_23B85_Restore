@@ -38,8 +38,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFNetworkConfigurationGroupItemProvider *)self home];
-  v6 = [v4 initWithHome:home];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5];
 
   return v6;
 }
@@ -47,8 +47,8 @@
 - (id)reloadItems
 {
   objc_initWeak(&location, self);
-  home = [(HFNetworkConfigurationGroupItemProvider *)self home];
-  accessoryProtectionGroups = [home accessoryProtectionGroups];
+  v3 = objc_msgSend_home(self);
+  accessoryProtectionGroups = [v3 accessoryProtectionGroups];
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 3221225472;
   v10[2] = __54__HFNetworkConfigurationGroupItemProvider_reloadItems__block_invoke_2;
@@ -139,7 +139,7 @@ HFNetworkConfigurationGroupItem *__54__HFNetworkConfigurationGroupItemProvider_r
 LABEL_8:
 
   v11 = [HFNetworkConfigurationGroupItem alloc];
-  v12 = [WeakRetained home];
+  v12 = objc_msgSend_home(WeakRetained);
   v13 = [v12 hf_characteristicValueManager];
   v14 = [(HFNetworkConfigurationGroupItem *)v11 initWithGroup:v8 valueSource:v13];
 
@@ -165,15 +165,13 @@ id __54__HFNetworkConfigurationGroupItemProvider_reloadItems__block_invoke_3(uin
 
 - (id)invalidationReasons
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = HFNetworkConfigurationGroupItemProvider;
-  invalidationReasons = [(HFItemProvider *)&v7 invalidationReasons];
-  v8[0] = @"accessory";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = HFNetworkConfigurationGroupItemProvider;
+  invalidationReasons = [(HFItemProvider *)&v6 invalidationReasons];
+  v7[0] = @"accessory";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v4 = [invalidationReasons setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

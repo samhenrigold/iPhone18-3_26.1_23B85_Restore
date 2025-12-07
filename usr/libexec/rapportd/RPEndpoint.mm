@@ -389,215 +389,269 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v78 = 0;
-  NSAppendPrintF();
-  v5 = 0;
-  v6 = v5;
+  v91 = 0;
+  NSAppendPrintF(&v91, "RPEndpoint");
+  v5 = v91;
+  v7 = v5;
   identifier = self->_identifier;
   if (identifier)
   {
-    v77 = v5;
-    v46 = identifier;
-    NSAppendPrintF();
-    v8 = v77;
+    v90 = v5;
+    v9 = identifier;
+    NSAppendPrintF(&v90, ", ID %@", v9);
+    v10 = v90;
 
-    v6 = v8;
+    v7 = v10;
   }
 
-  if (sub_100009D00())
+  if (level <= 49)
+  {
+    v11 = 100;
+  }
+
+  else
+  {
+    v11 = 8;
+  }
+
+  if (sub_100009D00(v5, v6))
   {
     name = self->_name;
     if (name)
     {
-      v76 = v6;
-      v47 = name;
-      NSAppendPrintF();
-      v10 = v6;
+      v89 = v7;
+      v13 = name;
+      NSAppendPrintF(&v89, ", Nm '%@'", v13);
+      v14 = v89;
 
-      v6 = v10;
+      v7 = v14;
     }
 
     model = self->_model;
     if (model)
     {
-      v75 = v6;
-      v48 = model;
-      NSAppendPrintF();
-      v12 = v6;
+      v88 = v7;
+      v16 = model;
+      NSAppendPrintF(&v88, ", Md '%@'", v16);
+      v17 = v88;
 
-      v6 = v12;
+      v7 = v17;
     }
 
     accountAltDSID = self->_accountAltDSID;
     if (accountAltDSID)
     {
-      v74 = v6;
-      v54 = accountAltDSID;
-      NSAppendPrintF();
-      v14 = v6;
+      v87 = v7;
+      v19 = accountAltDSID;
+      NSAppendPrintF(&v87, ", AccountAltDSID '%.*@'", v11, v19);
+      v20 = v87;
 
-      v6 = v14;
+      v7 = v20;
     }
 
     accountID = self->_accountID;
     if (accountID)
     {
-      v73 = v6;
-      v55 = accountID;
-      NSAppendPrintF();
-      v16 = v6;
+      v86 = v7;
+      v22 = accountID;
+      NSAppendPrintF(&v86, ", AID '%.*@'", v11, v22);
+      v23 = v86;
 
-      v6 = v16;
+      v7 = v23;
     }
 
     activityLevel = self->_activityLevel;
     if (activityLevel)
     {
-      v72 = v6;
-      if (activityLevel <= 0xE)
+      v85 = v7;
+      if (activityLevel > 0xE)
       {
-        v18 = (&off_1001AC5C0)[activityLevel - 1];
+        v25 = "?";
       }
 
-      NSAppendPrintF();
-      v19 = v72;
+      else
+      {
+        v25 = (&off_1001AC5C0)[activityLevel - 1];
+      }
 
-      v6 = v19;
+      NSAppendPrintF(&v85, ", AcLv '%s'", v25);
+      v26 = v85;
+
+      v7 = v26;
     }
 
+    cameraState = self->_cameraState;
     if (self->_cameraState)
     {
-      self->_cameraState;
-      v71 = v6;
-      NSAppendPrintF();
-      v20 = v6;
+      v28 = "?";
+      if (cameraState == 1)
+      {
+        v28 = "Usable";
+      }
 
-      v6 = v20;
+      if (cameraState == 2)
+      {
+        v29 = "Magic";
+      }
+
+      else
+      {
+        v29 = v28;
+      }
+
+      v84 = v7;
+      NSAppendPrintF(&v84, ", CS '%s'", v29);
+      v30 = v84;
+
+      v7 = v30;
     }
 
     homeKitUserIdentifiers = self->_homeKitUserIdentifiers;
     if (homeKitUserIdentifiers)
     {
-      v70 = v6;
-      v56 = homeKitUserIdentifiers;
-      NSAppendPrintF();
-      v22 = v6;
+      v83 = v7;
+      v32 = homeKitUserIdentifiers;
+      NSAppendPrintF(&v83, ", HKUID '%.*@'", v11, v32);
+      v33 = v83;
 
-      v6 = v22;
+      v7 = v33;
     }
 
     idsDeviceIdentifier = self->_idsDeviceIdentifier;
     if (idsDeviceIdentifier)
     {
-      v69 = v6;
-      v57 = idsDeviceIdentifier;
-      NSAppendPrintF();
-      v24 = v6;
+      v82 = v7;
+      v35 = idsDeviceIdentifier;
+      NSAppendPrintF(&v82, ", IDS '%.*@'", v11, v35);
+      v36 = v82;
 
-      v6 = v24;
+      v7 = v36;
     }
 
     contactID = self->_contactID;
     if (contactID)
     {
-      v68 = v6;
-      v58 = contactID;
-      NSAppendPrintF();
-      v26 = v6;
+      v81 = v7;
+      v38 = contactID;
+      NSAppendPrintF(&v81, ", CNID '%.*@'", v11, v38);
+      v39 = v81;
 
-      v6 = v26;
+      v7 = v39;
     }
 
     mediaRemoteIdentifier = self->_mediaRemoteIdentifier;
     if (mediaRemoteIdentifier)
     {
-      v67 = v6;
-      v59 = mediaRemoteIdentifier;
-      NSAppendPrintF();
-      v28 = v6;
+      v80 = v7;
+      v41 = mediaRemoteIdentifier;
+      NSAppendPrintF(&v80, ", MRI '%.*@'", v11, v41);
+      v42 = v80;
 
-      v6 = v28;
+      v7 = v42;
     }
 
     mediaRouteIdentifier = self->_mediaRouteIdentifier;
     if (mediaRouteIdentifier)
     {
-      v66 = v6;
-      v60 = mediaRouteIdentifier;
-      NSAppendPrintF();
-      v30 = v6;
+      v79 = v7;
+      v44 = mediaRouteIdentifier;
+      NSAppendPrintF(&v79, ", MRtI '%.*@'", v11, v44);
+      v45 = v79;
 
-      v6 = v30;
+      v7 = v45;
     }
 
     sessionPairingIdentifier = self->_sessionPairingIdentifier;
     if (sessionPairingIdentifier)
     {
-      v65 = v6;
-      v61 = sessionPairingIdentifier;
-      NSAppendPrintF();
-      v32 = v6;
+      v78 = v7;
+      v47 = sessionPairingIdentifier;
+      NSAppendPrintF(&v78, ", spID '%.*@'", v11, v47);
+      v48 = v78;
 
-      v6 = v32;
+      v7 = v48;
     }
 
     if (self->_operatingSystemVersion.majorVersion)
     {
-      v62 = *&self->_operatingSystemVersion.majorVersion;
+      v75 = *&self->_operatingSystemVersion.majorVersion;
       patchVersion = self->_operatingSystemVersion.patchVersion;
-      v64 = v6;
-      v49 = sub_10000F224(&v62);
-      NSAppendPrintF();
-      v33 = v64;
+      v77 = v7;
+      v49 = sub_10000F224(&v75);
+      NSAppendPrintF(&v77, ", OSV %@", v49);
+      v50 = v77;
 
-      v6 = v33;
+      v7 = v50;
     }
 
     verifiedIdentity = self->_verifiedIdentity;
     if (verifiedIdentity)
     {
-      v50 = verifiedIdentity;
-      NSAppendPrintF();
-      v35 = v6;
+      v74 = v7;
+      v52 = verifiedIdentity;
+      NSAppendPrintF(&v74, ", VI %@", v52);
+      v53 = v74;
 
-      v6 = v35;
+      v7 = v53;
     }
 
     sourceVersion = self->_sourceVersion;
     if (sourceVersion)
     {
-      v51 = sourceVersion;
-      NSAppendPrintF();
-      v37 = v6;
+      v73 = v7;
+      v55 = sourceVersion;
+      NSAppendPrintF(&v73, ", SV %@", v55);
+      v56 = v73;
 
-      v6 = v37;
+      v7 = v56;
     }
 
-    if (self->_proximity)
+    proximity = self->_proximity;
+    if (proximity)
     {
-      NSAppendPrintF();
-      v39 = v6;
+      v72 = v7;
+      switch(proximity)
+      {
+        case 10:
+          v58 = "Immed";
+          break;
+        case 30:
+          v58 = "Far";
+          break;
+        case 20:
+          v58 = "Near";
+          break;
+        default:
+          v58 = "?";
+          break;
+      }
 
-      v6 = v39;
+      NSAppendPrintF(&v72, ", Px %s", v58);
+      v59 = v72;
+
+      v7 = v59;
     }
   }
 
   serviceType = self->_serviceType;
   if (serviceType)
   {
-    v52 = serviceType;
-    NSAppendPrintF();
-    v41 = v6;
+    v71 = v7;
+    v61 = serviceType;
+    NSAppendPrintF(&v71, ", ST %@", v61);
+    v62 = v71;
 
-    v6 = v41;
+    v7 = v62;
   }
 
-  if (self->_statusFlags)
+  statusFlags = self->_statusFlags;
+  if (statusFlags)
   {
-    NSAppendPrintF();
-    v42 = v6;
+    v70 = v7;
+    NSAppendPrintF(&v70, ", SF %#ll{flags}", statusFlags, &unk_100148110);
+    v64 = v70;
 
-    v6 = v42;
+    v7 = v64;
   }
 
   if (level >= 20)
@@ -605,15 +659,16 @@
     activityLevelTimeStamp = self->_activityLevelTimeStamp;
     if (activityLevelTimeStamp)
     {
-      v53 = activityLevelTimeStamp;
-      NSAppendPrintF();
-      v44 = v6;
+      v69 = v7;
+      v66 = activityLevelTimeStamp;
+      NSAppendPrintF(&v69, ", ACLTS %@", v66);
+      v67 = v69;
 
-      v6 = v44;
+      v7 = v67;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (unsigned)updateWithBonjourDevice:(id)device
@@ -697,10 +752,10 @@ LABEL_16:
   if (v8)
   {
     v21 = v20;
-    [(IDSDevice *)v8 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v8);
     if (v45 >= 1)
     {
-      [(IDSDevice *)v8 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v8);
       v22 = sub_10000F224(&v46);
       v23 = v21;
       v24 = v22;
@@ -725,7 +780,7 @@ LABEL_16:
         }
       }
 
-      [(IDSDevice *)v8 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v8);
       *&self->_operatingSystemVersion.majorVersion = v46;
       self->_operatingSystemVersion.patchVersion = patchVersion;
       v44 |= 2u;
@@ -749,7 +804,7 @@ LABEL_28:
   v28 = v31;
   if (v8 && !v31)
   {
-    [(IDSDevice *)v8 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v8);
     v28 = sub_10001AF18(modelIdentifier, &v46);
   }
 
@@ -1077,13 +1132,13 @@ LABEL_26:
   v29 = sub_10000F224(&v44);
   if (deviceCopy)
   {
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     if (v43 < 1)
     {
       goto LABEL_38;
     }
 
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     v30 = sub_10000F224(&v44);
     v31 = v29;
     v32 = v30;
@@ -1111,12 +1166,12 @@ LABEL_38:
           goto LABEL_43;
         }
 
-        [deviceCopy operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(deviceCopy);
         goto LABEL_41;
       }
     }
 
-    [deviceCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(deviceCopy);
     *&self->_operatingSystemVersion.majorVersion = v44;
     self->_operatingSystemVersion.patchVersion = patchVersion;
     v13 |= 2u;
@@ -1598,10 +1653,10 @@ LABEL_95:
   }
 
   v84 = v83;
-  [(IDSDevice *)v43 operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(v43);
   if (v133 >= 1)
   {
-    [(IDSDevice *)v43 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v43);
     v85 = sub_10000F224(&v134);
     v86 = v84;
     v87 = v85;
@@ -1626,7 +1681,7 @@ LABEL_95:
         }
       }
 
-      [(IDSDevice *)v43 operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(v43);
       *&self->_operatingSystemVersion.majorVersion = v134;
       self->_operatingSystemVersion.patchVersion = patchVersion;
       v45 |= 2u;
@@ -1636,7 +1691,7 @@ LABEL_95:
 LABEL_104:
   if (!self->_sourceVersion)
   {
-    [(IDSDevice *)v43 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v43);
     v90 = sub_10001AF18(v74, &v134);
     sourceVersion = self->_sourceVersion;
     self->_sourceVersion = v90;
@@ -2323,10 +2378,10 @@ LABEL_59:
 
   if (endpointCopy)
   {
-    [endpointCopy operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(endpointCopy);
     if (v65 >= 1)
     {
-      [endpointCopy operatingSystemVersion];
+      objc_msgSend_operatingSystemVersion(endpointCopy);
       *&self->_operatingSystemVersion.majorVersion = v63;
       self->_operatingSystemVersion.patchVersion = v64;
       v12 |= 2u;

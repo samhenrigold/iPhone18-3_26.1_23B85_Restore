@@ -389,7 +389,7 @@ void __96__PLAssetResourceUploadJobConfiguration__configurationWithPredicate_man
     }
   }
 
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v10 = [v7 firstObject];
     v11 = *(a1[7] + 8);
@@ -510,7 +510,7 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  if (![v11 count])
+  if (!objc_msgSend_count(v11))
   {
     v13 = PLBackendGetLog();
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))

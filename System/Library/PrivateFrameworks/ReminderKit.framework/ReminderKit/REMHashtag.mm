@@ -16,16 +16,16 @@
 
 id __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDBlock__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v8 = a2;
-  v31[0] = v8;
+  v30[0] = v8;
   v9 = MEMORY[0x1E695DEC8];
   v10 = a4;
-  v11 = [v9 arrayWithObjects:v31 count:1];
-  v24 = 0;
-  v12 = [v10 fetchHashtagsWithObjectIDs:v11 includeConcealedObjects:a3 error:&v24];
+  v11 = [v9 arrayWithObjects:v30 count:1];
+  v23 = 0;
+  v12 = [v10 fetchHashtagsWithObjectIDs:v11 includeConcealedObjects:a3 error:&v23];
 
-  v13 = v24;
+  v13 = v23;
   if ([v12 count] >= 2)
   {
     __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDBlock__block_invoke_cold_1();
@@ -37,14 +37,14 @@ id __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByOb
     v15 = +[REMLog changeTracking];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-      v21 = [v13 localizedDescription];
+      v19 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+      v20 = [v13 localizedDescription];
       *buf = 138543874;
-      v26 = v8;
-      v27 = 2114;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v21;
+      v25 = v8;
+      v26 = 2114;
+      v27 = v19;
+      v28 = 2112;
+      v29 = v20;
       _os_log_error_impl(&dword_19A0DB000, v15, OS_LOG_TYPE_ERROR, "REMDAChangeTrackingHelper:_REMDAChangeTrackableModel: ERROR: LOOKATME Requested REMHashtag not found {objectID: %{public}@, includeConcealedObjects: %{public}@, error: %@}.", buf, 0x20u);
     }
   }
@@ -54,14 +54,14 @@ id __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByOb
     v16 = +[REMLog changeTracking];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v22 = [MEMORY[0x1E696AD98] numberWithBool:a3];
-      v23 = [v13 localizedDescription];
+      v21 = [MEMORY[0x1E696AD98] numberWithBool:a3];
+      v22 = [v13 localizedDescription];
       *buf = 138543874;
-      v26 = v8;
-      v27 = 2114;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v23;
+      v25 = v8;
+      v26 = 2114;
+      v27 = v21;
+      v28 = 2112;
+      v29 = v22;
       _os_log_error_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_ERROR, "REMDAChangeTrackingHelper:_REMDAChangeTrackableModel: ERROR: LOOKATME Failed to fetch REMHashtag {objectID: %{public}@, includeConcealedObjects: %{public}@, error: %@}.", buf, 0x20u);
     }
   }
@@ -71,8 +71,6 @@ id __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByOb
     v17 = v13;
     *a5 = v13;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -475,30 +473,18 @@ void __85__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchBy
 void __86__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_fetchByObjectIDsBlock__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5_0();
-  v0 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_4_3(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_4_3(v0 v1)];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
-}
-
-void __104__REMHashtag_REMDAChangeTrackingHelper_PrivateAdditions__rem_DA_deletedKeyFromConcealedModelObjectBlock__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_19A0DB000, v0, v1, "REMDAChangeTrackingHelper:_REMDAChangeTrackableModel: LOOKATME: Can't cast concealed object to REMHashtag {concealedObject: %@}.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMHashtagType %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_fault_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_FAULT, "Unknown REMHashtagType %ld", &v2, 0xCu);
 }
 
 @end

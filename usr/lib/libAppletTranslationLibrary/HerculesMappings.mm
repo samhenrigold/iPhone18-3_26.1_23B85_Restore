@@ -225,7 +225,7 @@ LABEL_20:
 
 + (id)mergeTaps:(id)taps forCity:(id)city outEnRoute:(id *)route
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   tapsCopy = taps;
   if ([tapsCopy count])
   {
@@ -271,29 +271,28 @@ LABEL_20:
               [v14 setObject:@"Merged" forKeyedSubscript:@"IgnoreReason"];
               [tapsCopy setObject:v14 atIndexedSubscript:v10];
               [MEMORY[0x277CBEB38] dictionaryWithDictionary:v8];
-              v24 = v23 = v14;
+              v23 = v22 = v14;
               v15 = [v14 objectForKeyedSubscript:@"StartStation"];
               if (v15)
               {
-                [v24 setObject:v15 forKeyedSubscript:@"StartStation"];
+                [v23 setObject:v15 forKeyedSubscript:@"StartStation"];
               }
 
-              v22 = v15;
-              [v24 setObject:v23 forKeyedSubscript:@"MergedStartRecord"];
-              [tapsCopy setObject:v24 atIndexedSubscript:v6];
-              v16 = ATLLogObject();
+              v21 = v15;
+              [v23 setObject:v22 forKeyedSubscript:@"MergedStartRecord"];
+              v16 = ATLLogObject([tapsCopy setObject:v23 atIndexedSubscript:v6]);
               if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
               {
-                v17 = [v23 objectForKeyedSubscript:@"SerialNumber"];
-                v18 = [v24 objectForKeyedSubscript:@"SerialNumber"];
+                v17 = [v22 objectForKeyedSubscript:@"SerialNumber"];
+                v18 = [v23 objectForKeyedSubscript:@"SerialNumber"];
                 *buf = 67109890;
-                v27 = v10;
-                v28 = 2112;
-                v29 = v17;
-                v30 = 1024;
-                v31 = v6;
-                v32 = 2112;
-                v33 = v18;
+                v26 = v10;
+                v27 = 2112;
+                v28 = v17;
+                v29 = 1024;
+                v30 = v6;
+                v31 = 2112;
+                v32 = v18;
                 v19 = v18;
                 _os_log_impl(&dword_22EEF5000, v16, OS_LOG_TYPE_DEFAULT, "Merged events %u (SN %@) --> %u (SN %@)", buf, 0x22u);
               }
@@ -316,8 +315,6 @@ LABEL_15:
     while (v10 + 1 < [tapsCopy count]);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return tapsCopy;
 }
 
@@ -331,150 +328,152 @@ LABEL_15:
   {
     v63 = 0;
     v12 = [HerculesVCReader readBalancesFromVC:transceiverCopy forCity:cityCopy withError:&v63];
-    v13 = v63;
-    v14 = 0x278874000uLL;
-    if (v13 && +[AppletTranslator isInternalBuild])
+    v14 = v63;
+    v15 = 0x278874000uLL;
+    if (v14 && +[AppletTranslator isInternalBuild])
     {
       if (error)
       {
-        v15 = v13;
-        v16 = 0;
-        *error = v13;
+        v16 = v14;
+        v17 = 0;
+        *error = v14;
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
     }
 
     else
     {
       errorCopy = error;
-      v52 = v13;
+      v52 = v14;
       v54 = cityCopy;
       v55 = transceiverCopy;
-      v17 = [cCopy mutableCopy];
+      v18 = [cCopy mutableCopy];
       v59 = 0u;
       v60 = 0u;
       v61 = 0u;
       v62 = 0u;
       v53 = v12;
-      v18 = v12;
-      v19 = v17;
+      v19 = v12;
       v20 = v18;
-      v21 = [v18 countByEnumeratingWithState:&v59 objects:v72 count:16];
-      if (v21)
+      v21 = v19;
+      v22 = [v19 countByEnumeratingWithState:&v59 objects:v72 count:16];
+      if (v22)
       {
-        v22 = v21;
-        v23 = *v60;
-        v56 = v20;
+        v23 = v22;
+        v24 = *v60;
+        v56 = v21;
         while (2)
         {
-          for (i = 0; i != v22; ++i)
+          for (i = 0; i != v23; ++i)
           {
-            if (*v60 != v23)
+            if (*v60 != v24)
             {
-              objc_enumerationMutation(v20);
+              objc_enumerationMutation(v21);
             }
 
-            v25 = *(*(&v59 + 1) + 8 * i);
+            v26 = *(*(&v59 + 1) + 8 * i);
             v58[0] = MEMORY[0x277D85DD0];
             v58[1] = 3221225472;
             v58[2] = __72__HerculesMappings_addBalancesFromVC_withTransceiver_forCity_withError___block_invoke;
             v58[3] = &unk_278875318;
-            v58[4] = v25;
-            v26 = Find(cCopy, v58);
-            if (v26)
+            v58[4] = v26;
+            v28 = Find(cCopy, v58);
+            if (v28)
             {
-              v27 = *(v14 + 1168);
-              if (+[AppletTranslator isInternalBuild]() && ([v25 isEqual:v26] & 1) == 0)
+              if (+[(AppletTranslator *)*(v15])
               {
-                v57 = v19;
-                v35 = ATLLogObject();
-                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+                v29 = [v26 isEqual:v28];
+                if ((v29 & 1) == 0)
                 {
-                  *buf = 138412546;
-                  v69 = v25;
-                  v70 = 2112;
-                  v71 = v26;
-                  _os_log_impl(&dword_22EEF5000, v35, OS_LOG_TYPE_ERROR, "Found a balance discrepancy %@ %@", buf, 0x16u);
-                }
-
-                v37 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Found a balance discrepancy %@ %@", v25, v26];
-                v38 = v37;
-                cityCopy = v54;
-                transceiverCopy = v55;
-                v13 = v52;
-                v12 = v53;
-                if (errorCopy)
-                {
-                  v39 = cCopy;
-                  v40 = *errorCopy;
-                  v41 = MEMORY[0x277CCA9B8];
-                  v42 = *MEMORY[0x277CCA450];
-                  if (*errorCopy)
+                  v57 = v20;
+                  v37 = ATLLogObject(v29);
+                  if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                   {
-                    v43 = *MEMORY[0x277CCA7E8];
-                    v64[0] = *MEMORY[0x277CCA450];
-                    v64[1] = v43;
-                    v65[0] = v37;
-                    v65[1] = v40;
-                    v44 = MEMORY[0x277CBEAC0];
-                    v45 = v65;
-                    v46 = v64;
-                    v47 = 2;
+                    *buf = 138412546;
+                    v69 = v26;
+                    v70 = 2112;
+                    v71 = v28;
+                    _os_log_impl(&dword_22EEF5000, v37, OS_LOG_TYPE_ERROR, "Found a balance discrepancy %@ %@", buf, 0x16u);
                   }
 
-                  else
+                  v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Found a balance discrepancy %@ %@", v26, v28];
+                  v40 = v39;
+                  cityCopy = v54;
+                  transceiverCopy = v55;
+                  v14 = v52;
+                  v12 = v53;
+                  if (errorCopy)
                   {
-                    v66 = *MEMORY[0x277CCA450];
-                    v67 = v37;
-                    v44 = MEMORY[0x277CBEAC0];
-                    v45 = &v67;
-                    v46 = &v66;
-                    v47 = 1;
+                    v41 = cCopy;
+                    v42 = *errorCopy;
+                    v43 = MEMORY[0x277CCA9B8];
+                    if (*errorCopy)
+                    {
+                      v44 = *MEMORY[0x277CCA7E8];
+                      v64[0] = *MEMORY[0x277CCA450];
+                      v64[1] = v44;
+                      v65[0] = v39;
+                      v65[1] = v42;
+                      v45 = MEMORY[0x277CBEAC0];
+                      v46 = v65;
+                      v47 = v64;
+                      v48 = 2;
+                    }
+
+                    else
+                    {
+                      v66 = *MEMORY[0x277CCA450];
+                      v67 = v39;
+                      v45 = MEMORY[0x277CBEAC0];
+                      v46 = &v67;
+                      v47 = &v66;
+                      v48 = 1;
+                    }
+
+                    v49 = [v45 dictionaryWithObjects:v46 forKeys:v47 count:v48];
+                    *errorCopy = [v43 errorWithDomain:@"ATL" code:3 userInfo:v49];
+
+                    cCopy = v41;
                   }
 
-                  v48 = [v44 dictionaryWithObjects:v45 forKeys:v46 count:v47];
-                  *errorCopy = [v41 errorWithDomain:@"ATL" code:3 userInfo:v48];
-
-                  cCopy = v39;
+                  v17 = 0;
+                  v36 = v57;
+                  goto LABEL_31;
                 }
-
-                v16 = 0;
-                v34 = v57;
-                goto LABEL_31;
               }
             }
 
             else
             {
-              v28 = v23;
-              v29 = v14;
-              v30 = ATLLogObject();
-              if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+              v30 = v24;
+              v31 = v15;
+              v32 = ATLLogObject(0);
+              if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
               {
-                [v25 objectForKeyedSubscript:@"BalanceIdentifier"];
-                v31 = v19;
-                v33 = v32 = cCopy;
+                [v26 objectForKeyedSubscript:@"BalanceIdentifier"];
+                v33 = v20;
+                v35 = v34 = cCopy;
                 *buf = 138412290;
-                v69 = v33;
-                _os_log_impl(&dword_22EEF5000, v30, OS_LOG_TYPE_DEFAULT, "Adding missing balance %@", buf, 0xCu);
+                v69 = v35;
+                _os_log_impl(&dword_22EEF5000, v32, OS_LOG_TYPE_DEFAULT, "Adding missing balance %@", buf, 0xCu);
 
-                cCopy = v32;
-                v19 = v31;
-                v20 = v56;
+                cCopy = v34;
+                v20 = v33;
+                v21 = v56;
               }
 
-              [v19 addObject:v25];
-              v14 = v29;
-              v23 = v28;
+              [v20 addObject:v26];
+              v15 = v31;
+              v24 = v30;
             }
           }
 
-          v22 = [v20 countByEnumeratingWithState:&v59 objects:v72 count:16];
-          if (v22)
+          v23 = [v21 countByEnumeratingWithState:&v59 objects:v72 count:16];
+          if (v23)
           {
             continue;
           }
@@ -483,11 +482,11 @@ LABEL_15:
         }
       }
 
-      v16 = v19;
+      v17 = v20;
       cityCopy = v54;
       transceiverCopy = v55;
-      v34 = v19;
-      v13 = v52;
+      v36 = v20;
+      v14 = v52;
       v12 = v53;
 LABEL_31:
     }
@@ -495,12 +494,10 @@ LABEL_31:
 
   else
   {
-    v16 = cCopy;
+    v17 = cCopy;
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
-  return v16;
+  return v17;
 }
 
 uint64_t __72__HerculesMappings_addBalancesFromVC_withTransceiver_forCity_withError___block_invoke(uint64_t a1, void *a2)

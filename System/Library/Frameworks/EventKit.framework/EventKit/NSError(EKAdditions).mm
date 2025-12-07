@@ -52,12 +52,11 @@
 
 - (void)cal_trustInfoCopy
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *self;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Deserialization of trust error [%@]", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "Deserialization of trust error [%@]", &v3, 0xCu);
 }
 
 + (BOOL)_cal_serializedEntryForKey:()EKAdditions value:outKey:outValue:
@@ -134,38 +133,38 @@ LABEL_14:
 
 - (id)cal_serializableUserInfo
 {
-  v23[7] = *MEMORY[0x1E69E9840];
+  v22[7] = *MEMORY[0x1E69E9840];
   userInfo = [self userInfo];
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__7;
-  v21 = __Block_byref_object_dispose__7;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__7;
+  v20 = __Block_byref_object_dispose__7;
+  v21 = 0;
   v2 = MEMORY[0x1E695DFD8];
   v3 = *MEMORY[0x1E696A990];
-  v23[0] = *MEMORY[0x1E696A980];
-  v23[1] = v3;
-  v23[2] = *MEMORY[0x1E696A988];
-  v23[3] = @"NSErrorPeerCertificateChainKey";
+  v22[0] = *MEMORY[0x1E696A980];
+  v22[1] = v3;
+  v22[2] = *MEMORY[0x1E696A988];
+  v22[3] = @"NSErrorPeerCertificateChainKey";
   v4 = *MEMORY[0x1E696A598];
-  v23[4] = *MEMORY[0x1E696A578];
-  v23[5] = v4;
-  v23[6] = *MEMORY[0x1E696AA08];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:7];
+  v22[4] = *MEMORY[0x1E696A578];
+  v22[5] = v4;
+  v22[6] = *MEMORY[0x1E696AA08];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:7];
   v6 = [v2 setWithArray:v5];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __48__NSError_EKAdditions__cal_serializableUserInfo__block_invoke;
-  v13[3] = &unk_1E77FE0E8;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __48__NSError_EKAdditions__cal_serializableUserInfo__block_invoke;
+  v12[3] = &unk_1E77FE0E8;
   v7 = v6;
-  v14 = v7;
-  v16 = &v17;
+  v13 = v7;
+  v15 = &v16;
   v8 = userInfo;
-  v15 = v8;
-  [v8 enumerateKeysAndObjectsUsingBlock:v13];
-  v9 = v18[5];
+  v14 = v8;
+  [v8 enumerateKeysAndObjectsUsingBlock:v12];
+  v9 = v17[5];
   if (!v9)
   {
     v9 = v8;
@@ -173,8 +172,7 @@ LABEL_14:
 
   v10 = v9;
 
-  _Block_object_dispose(&v17, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v16, 8);
 
   return v10;
 }
@@ -200,12 +198,11 @@ LABEL_14:
 
 + (void)_cal_serializedEntryForKey:()EKAdditions value:outKey:outValue:.cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "We were unable to serialize the trust for a certificate error [%@].", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A805E000, a2, OS_LOG_TYPE_ERROR, "We were unable to serialize the trust for a certificate error [%@].", &v3, 0xCu);
 }
 
 @end

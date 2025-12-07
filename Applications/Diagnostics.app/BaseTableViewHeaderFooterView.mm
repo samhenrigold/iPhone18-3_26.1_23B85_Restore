@@ -10,19 +10,21 @@
   if (identifier)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v4 = String._bridgeToObjectiveC()();
+    v5 = v4;
+    v6 = String._bridgeToObjectiveC()();
+    v5, v7, v8, v9, v10, v11, v12, v13;
   }
 
   else
   {
-    v4 = 0;
+    v6 = 0;
   }
 
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for BaseTableViewHeaderFooterView();
-  v5 = [(BaseTableViewHeaderFooterView *)&v7 initWithReuseIdentifier:v4];
+  v16.receiver = self;
+  v16.super_class = type metadata accessor for BaseTableViewHeaderFooterView();
+  v14 = [(BaseTableViewHeaderFooterView *)&v16 initWithReuseIdentifier:v6];
 
-  return v5;
+  return v14;
 }
 
 - (_TtC11Diagnostics29BaseTableViewHeaderFooterView)initWithCoder:(id)coder

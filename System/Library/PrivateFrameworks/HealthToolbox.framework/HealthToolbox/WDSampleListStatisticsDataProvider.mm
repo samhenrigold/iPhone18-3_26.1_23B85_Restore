@@ -54,13 +54,11 @@
 
 - (id)sampleTypes
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   displayType = [(WDSampleListStatisticsDataProvider *)self displayType];
   sampleType = [displayType sampleType];
-  v7[0] = sampleType;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[0] = sampleType;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -197,62 +195,62 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
 
 - (void)startCollectingDataWithUpdateHandler:(id)handler
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   [(WDSampleListStatisticsDataProvider *)self setHasCompleteDataSet:0];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = self->_activeDataQueries;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v34 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         profile = [(WDSampleListStatisticsDataProvider *)self profile];
         healthStore = [profile healthStore];
         [healthStore stopQuery:v10];
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v34 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   sampleTypes = [(WDSampleListStatisticsDataProvider *)self sampleTypes];
-  v14 = [sampleTypes countByEnumeratingWithState:&v21 objects:v33 count:16];
+  v14 = [sampleTypes countByEnumeratingWithState:&v20 objects:v32 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(sampleTypes);
         }
 
-        v18 = *(*(&v21 + 1) + 8 * v17);
+        v18 = *(*(&v20 + 1) + 8 * v17);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -267,8 +265,8 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
           {
             *buf = 138543618;
             selfCopy = self;
-            v31 = 2114;
-            v32 = v18;
+            v30 = 2114;
+            v31 = v18;
             _os_log_error_impl(&dword_251E85000, v19, OS_LOG_TYPE_ERROR, "Data provider %{public}@ can only show hierarchical data on quantity types. Encountered type %{public}@. Skipping.", buf, 0x16u);
           }
         }
@@ -277,13 +275,11 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
       }
 
       while (v15 != v17);
-      v15 = [sampleTypes countByEnumeratingWithState:&v21 objects:v33 count:16];
+      v15 = [sampleTypes countByEnumeratingWithState:&v20 objects:v32 count:16];
     }
 
     while (v15);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_statisticsOptionsForSampleType:(id)type
@@ -308,34 +304,34 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
 
 - (void)stopCollectingData
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   healthStore = [(WDProfile *)self->_profile healthStore];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_activeDataQueries;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [healthStore stopQuery:{*(*(&v10 + 1) + 8 * v8++), v10}];
+        [healthStore stopQuery:{*(*(&v9 + 1) + 8 * v8++), v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -343,8 +339,6 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
 
   [(NSMutableArray *)self->_activeDataQueries removeAllObjects];
   [(NSMutableSet *)self->_activeQueryTypes removeAllObjects];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteAllData
@@ -359,31 +353,31 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
 - (void)deleteObjectsAtIndexPath:(id)path healthStore:(id)store options:(unint64_t)options completion:(id)completion
 {
   optionsCopy = options;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   completionCopy = completion;
   v9 = -[NSMutableArray objectAtIndexedSubscript:](self->_data, "objectAtIndexedSubscript:", [path row]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = [(WDSampleListStatisticsDataProvider *)self sampleTypes];
-  v10 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v23 = *v31;
+    v22 = *v30;
     do
     {
       v12 = 0;
       do
       {
-        if (*v31 != v23)
+        if (*v30 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * v12);
+        v13 = *(*(&v29 + 1) + 8 * v12);
         defaultQueryPredicate = [(WDSampleListStatisticsDataProvider *)self defaultQueryPredicate];
         v15 = MEMORY[0x277CCD838];
         startDate = [v9 startDate];
@@ -392,28 +386,26 @@ uint64_t __120__WDSampleListStatisticsDataProvider__handleResultsCollection_from
 
         v19 = WDPredicateMatchingPredicates(defaultQueryPredicate, v18);
 
-        v27[0] = MEMORY[0x277D85DD0];
-        v27[1] = 3221225472;
-        v27[2] = __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthStore_options_completion___block_invoke;
-        v27[3] = &unk_2796E80F8;
-        v27[4] = self;
-        v27[5] = v13;
-        v28 = v19;
-        v29 = completionCopy;
+        v26[0] = MEMORY[0x277D85DD0];
+        v26[1] = 3221225472;
+        v26[2] = __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthStore_options_completion___block_invoke;
+        v26[3] = &unk_2796E80F8;
+        v26[4] = self;
+        v26[5] = v13;
+        v27 = v19;
+        v28 = completionCopy;
         v20 = v19;
-        [storeCopy deleteObjectsOfType:v13 predicate:v20 options:optionsCopy & 2 withCompletion:v27];
+        [storeCopy deleteObjectsOfType:v13 predicate:v20 options:optionsCopy & 2 withCompletion:v26];
 
         ++v12;
       }
 
       while (v11 != v12);
-      v11 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v11);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthStore_options_completion___block_invoke(void *a1, uint64_t a2, uint64_t a3, void *a4)
@@ -463,7 +455,7 @@ void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthSto
 
 - (void)_startPartialDataStatisticsCollectionQueryForSampleType:(id)type updateHandler:(id)handler
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   handlerCopy = handler;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
@@ -474,10 +466,10 @@ void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthSto
   if (defaultQueryPredicate)
   {
     v11 = MEMORY[0x277CCA920];
-    v38[0] = defaultQueryPredicate;
+    v37[0] = defaultQueryPredicate;
     _predicateForTheLastMonth = [(WDSampleListStatisticsDataProvider *)self _predicateForTheLastMonth];
-    v38[1] = _predicateForTheLastMonth;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
+    v37[1] = _predicateForTheLastMonth;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
     _predicateForTheLastMonth2 = [v11 andPredicateWithSubpredicates:v13];
   }
 
@@ -494,26 +486,26 @@ void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthSto
   v20 = [v15 initWithQuantityType:typeCopy quantitySamplePredicate:_predicateForTheLastMonth2 options:v16 anchorDate:v19 intervalComponents:v8];
 
   objc_initWeak(&location, self);
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __108__WDSampleListStatisticsDataProvider__startPartialDataStatisticsCollectionQueryForSampleType_updateHandler___block_invoke;
-  v33[3] = &unk_2796E8120;
-  objc_copyWeak(&v36, &location);
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __108__WDSampleListStatisticsDataProvider__startPartialDataStatisticsCollectionQueryForSampleType_updateHandler___block_invoke;
+  v32[3] = &unk_2796E8120;
+  objc_copyWeak(&v35, &location);
   v21 = typeCopy;
-  v34 = v21;
+  v33 = v21;
   v22 = handlerCopy;
-  v35 = v22;
-  [v20 setInitialResultsHandler:v33];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __108__WDSampleListStatisticsDataProvider__startPartialDataStatisticsCollectionQueryForSampleType_updateHandler___block_invoke_3;
-  v29[3] = &unk_2796E8148;
-  objc_copyWeak(&v32, &location);
+  v34 = v22;
+  [v20 setInitialResultsHandler:v32];
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __108__WDSampleListStatisticsDataProvider__startPartialDataStatisticsCollectionQueryForSampleType_updateHandler___block_invoke_3;
+  v28[3] = &unk_2796E8148;
+  objc_copyWeak(&v31, &location);
   v23 = v21;
-  v30 = v23;
+  v29 = v23;
   v24 = v22;
-  v31 = v24;
-  [v20 setStatisticsUpdateHandler:v29];
+  v30 = v24;
+  [v20 setStatisticsUpdateHandler:v28];
   profile = [(WDSampleListStatisticsDataProvider *)self profile];
   healthStore = [profile healthStore];
   [healthStore executeQuery:v20];
@@ -522,12 +514,10 @@ void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthSto
   [activeDataQueries addObject:v20];
 
   [(NSMutableSet *)self->_activeQueryTypes addObject:v23];
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
 
-  objc_destroyWeak(&v36);
+  objc_destroyWeak(&v35);
   objc_destroyWeak(&location);
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __108__WDSampleListStatisticsDataProvider__startPartialDataStatisticsCollectionQueryForSampleType_updateHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -669,64 +659,61 @@ void __109__WDSampleListStatisticsDataProvider__startCompleteDataStatisticsColle
 
 - (id)textForObject:(id)object
 {
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5();
+  v3 = OUTLINED_FUNCTION_1_1(self);
+  OUTLINED_FUNCTION_0_5(v3);
   return 0;
 }
 
 - (double)customCellHeight
 {
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_1(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0.0;
 }
 
 - (double)customEstimatedCellHeight
 {
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5();
+  v2 = OUTLINED_FUNCTION_1_1(self);
+  OUTLINED_FUNCTION_0_5(v2);
   return 0.0;
 }
 
 - (id)customCellForObject:(id)object indexPath:(id)path tableView:(id)view
 {
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5();
+  v5 = OUTLINED_FUNCTION_1_1(self);
+  OUTLINED_FUNCTION_0_5(v5);
   return 0;
 }
 
 - (void)_handleResultsCollection:fromQuery:sampleType:areComplete:withError:updateHandler:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(&dword_251E85000, v0, OS_LOG_TYPE_ERROR, "Data provider %@ stats collection quey initial handler returned error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_251E85000, v0, OS_LOG_TYPE_ERROR, "Data provider %@ stats collection quey initial handler returned error: %@", v1, 0x16u);
 }
 
 - (void)_handleResultsCollection:fromQuery:sampleType:areComplete:withError:updateHandler:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_2();
-  _os_log_debug_impl(&dword_251E85000, v0, OS_LOG_TYPE_DEBUG, "Data provider %@ stats collection quey initial handler returned error: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_251E85000, v0, OS_LOG_TYPE_DEBUG, "Data provider %@ stats collection quey initial handler returned error: %@", v1, 0x16u);
 }
 
 void __94__WDSampleListStatisticsDataProvider_deleteObjectsAtIndexPath_healthStore_options_completion___block_invoke_cold_1(void *a1, uint64_t a2, os_log_t log)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = a1[5];
   v5 = a1[6];
-  v7 = 138544130;
-  v8 = v3;
-  v9 = 2114;
-  v10 = v4;
-  v11 = 2114;
-  v12 = v5;
-  v13 = 2114;
-  v14 = a2;
-  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "%{public}@: Error deleting objects of type %{public}@ with predicate %{public}@: %{public}@", &v7, 0x2Au);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138544130;
+  v7 = v3;
+  v8 = 2114;
+  v9 = v4;
+  v10 = 2114;
+  v11 = v5;
+  v12 = 2114;
+  v13 = a2;
+  _os_log_error_impl(&dword_251E85000, log, OS_LOG_TYPE_ERROR, "%{public}@: Error deleting objects of type %{public}@ with predicate %{public}@: %{public}@", &v6, 0x2Au);
 }
 
 @end

@@ -6,40 +6,40 @@
 
 - (id)init:(id)init forceSegments:(BOOL)segments withCompletion:(id)completion
 {
-  v21[3] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = ADJingleSegmentRequest;
-  v6 = [(ADJingleRequest *)&v17 init:init withCompletion:completion];
+  v20[3] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = ADJingleSegmentRequest;
+  v6 = [(ADJingleRequest *)&v16 init:init withCompletion:completion];
   v7 = v6;
   if (v6)
   {
     [v6 setBagKey:*MEMORY[0x277CE9710]];
     if (segments)
     {
-      v20[0] = @"dsid";
+      v19[0] = @"dsid";
       dSID = [v7 DSID];
-      v21[0] = dSID;
-      v21[1] = @"1";
-      v20[1] = @"ioflag";
-      v20[2] = @"gflag";
-      v21[2] = @"1";
+      v20[0] = dSID;
+      v20[1] = @"1";
+      v19[1] = @"ioflag";
+      v19[2] = @"gflag";
+      v20[2] = @"1";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v21;
-      v11 = v20;
+      v10 = v20;
+      v11 = v19;
     }
 
     else
     {
-      v18[0] = @"dsid";
+      v17[0] = @"dsid";
       dSID = [v7 DSID];
-      v19[0] = dSID;
-      v19[1] = @"0";
-      v18[1] = @"ioflag";
-      v18[2] = @"gflag";
-      v19[2] = @"1";
+      v18[0] = dSID;
+      v18[1] = @"0";
+      v17[1] = @"ioflag";
+      v17[2] = @"gflag";
+      v18[2] = @"1";
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v19;
-      v11 = v18;
+      v10 = v18;
+      v11 = v17;
     }
 
     v12 = [v9 dictionaryWithObjects:v10 forKeys:v11 count:3];
@@ -49,7 +49,6 @@
     [v7 setRequestBody:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

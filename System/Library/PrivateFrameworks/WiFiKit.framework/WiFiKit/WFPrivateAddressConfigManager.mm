@@ -10,18 +10,17 @@
 
 - (WFPrivateAddressConfigManager)init
 {
-  v6.receiver = self;
-  v6.super_class = WFPrivateAddressConfigManager;
-  v2 = [(WFPrivateAddressConfigManager *)&v6 init];
+  v5.receiver = self;
+  v5.super_class = WFPrivateAddressConfigManager;
+  v2 = [(WFPrivateAddressConfigManager *)&v5 init];
   if (!v2)
   {
     goto LABEL_5;
   }
 
-  v3 = *MEMORY[0x277CBECE8];
-  v4 = SCPreferencesCreateWithOptions();
-  v2->_prefs = v4;
-  if (!v4)
+  v3 = SCPreferencesCreateWithOptions();
+  v2->_prefs = v3;
+  if (!v3)
   {
     [WFPrivateAddressConfigManager init];
 LABEL_5:
@@ -70,28 +69,28 @@ LABEL_5:
 
 - (void)init
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    OUTLINED_FUNCTION_0_6(&dword_273ECD000, v2, v3, "%s: failed to get SCPreferencesRef", v4, v5, v6, v7, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "[WFPrivateAddressConfigManager init]";
+    OUTLINED_FUNCTION_0_6(&dword_273ECD000, v4, v5, "%s: failed to get SCPreferencesRef", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)privateAddressConfig
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    OUTLINED_FUNCTION_0_6(&dword_273ECD000, v2, v3, "%s: failed to get SCPreferencesRef", v4, v5, v6, v7, 2u);
+    LODWORD(v10) = 136315138;
+    *(&v10 + 4) = "[WFPrivateAddressConfigManager privateAddressConfig]";
+    OUTLINED_FUNCTION_0_6(&dword_273ECD000, v4, v5, "%s: failed to get SCPreferencesRef", v6, v7, v8, v9, v10, DWORD2(v10));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

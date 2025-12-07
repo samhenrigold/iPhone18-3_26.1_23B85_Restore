@@ -99,7 +99,7 @@ void __38___UIResponderIntegrityProtection_rip__block_invoke()
               v17 = *(__UILogGetCategoryCachedImpl("ResponderIntegrityProtection", &qword_1ED49E198) + 8);
               if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
-                *v18 = 0;
+                v18[0] = 0;
                 _os_log_impl(&dword_188A29000, v17, OS_LOG_TYPE_ERROR, "Unable to fetch class list.", v18, 2u);
               }
 

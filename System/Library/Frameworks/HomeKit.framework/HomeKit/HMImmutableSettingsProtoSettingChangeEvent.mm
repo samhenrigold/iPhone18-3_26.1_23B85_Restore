@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)settingChangeEventAsString:(int)string;
 - (int)StringAsSettingChangeEvent:(id)event;
 - (int)settingChangeEvent;
 - (unint64_t)hash;
@@ -249,7 +250,6 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v15 = *(equalCopy + 64);
   if (self->_readOnly)
   {
     if ((*(equalCopy + 64) & 1) == 0)
@@ -412,48 +412,47 @@ LABEL_24:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_keyPath)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    readOnly = self->_readOnly;
     PBDataWriterWriteBOOLField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_stringSetting)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_boundedIntegerSetting)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_BOOLSetting)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_languageSetting)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_availableLanguages)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -595,6 +594,21 @@ LABEL_24:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)settingChangeEventAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E754D0D0[string];
   }
 
   return v4;

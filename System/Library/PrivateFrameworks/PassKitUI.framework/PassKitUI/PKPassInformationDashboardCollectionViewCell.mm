@@ -73,9 +73,9 @@
 
 - (void)layoutSubviews
 {
-  v37.receiver = self;
-  v37.super_class = PKPassInformationDashboardCollectionViewCell;
-  [(PKDashboardCollectionViewCell *)&v37 layoutSubviews];
+  v79.receiver = self;
+  v79.super_class = PKPassInformationDashboardCollectionViewCell;
+  [(PKDashboardCollectionViewCell *)&v79 layoutSubviews];
   if ([(PKPassInformationDashboardCollectionViewCell *)self _shouldReverseLayoutDirection])
   {
     v3 = CGRectMinXEdge;
@@ -87,7 +87,7 @@
   }
 
   [(PKPassInformationDashboardCollectionViewCell *)self bounds];
-  memset(&v35, 0, sizeof(v35));
+  memset(&v77, 0, sizeof(v77));
   v5 = v4 + 16.0;
   v7 = v6 + 16.0;
   v9 = v8 + -32.0;
@@ -101,70 +101,100 @@
   slice.size = v12;
   [(UIImageView *)self->_disclosureView sizeThatFits:v8 + -32.0, v10 + -28.0];
   v14 = v13;
-  v38.origin.x = v5;
-  v38.origin.y = v7;
-  v38.size.width = v9;
-  v38.size.height = v11;
-  CGRectDivide(v38, &slice, &remainder, v14, v3);
-  CGRectDivide(remainder, &v35, &remainder, 8.0, v3);
-  v33 = remainder;
+  v70 = v15;
+  v80.origin.x = v5;
+  v80.origin.y = v7;
+  v80.size.width = v9;
+  v80.size.height = v11;
+  CGRectDivide(v80, &slice, &remainder, v14, v3);
+  CGRectDivide(remainder, &v77, &remainder, 8.0, v3);
+  v75 = remainder;
   size = remainder.size;
   [(UILabel *)self->_titleLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v17 = v16;
+  v18 = v17;
+  v20 = v19;
   [(UILabel *)self->_secondaryLabel sizeThatFits:size];
-  v19 = v18;
+  v22 = v21;
+  v24 = v23;
   [(UILabel *)self->_tertiaryLabel sizeThatFits:size];
-  v21 = v20;
-  v22 = fmax(v17, 0.0);
-  v23 = -0.0;
-  if (v19 > 0.0)
+  v71 = v25;
+  v27 = v26;
+  v28 = fmax(v20, 0.0);
+  v29 = -0.0;
+  if (v24 > 0.0)
   {
-    v23 = v19;
+    v29 = v24;
   }
 
-  v24 = v22 + v23;
-  if (v21 <= 0.0)
+  v30 = v28 + v29;
+  if (v27 <= 0.0)
   {
-    v25 = v24;
+    v31 = v30;
   }
 
   else
   {
-    v25 = v24 + v21;
+    v31 = v30 + v27;
   }
 
-  v33.size.height = v25;
+  v75.size.height = v31;
   if (self->_showsDisclosureView)
   {
-    memset(&v32, 0, sizeof(v32));
-    CGRectDivide(slice, &slice, &v32, v17, CGRectMinYEdge);
+    memset(&v74, 0, sizeof(v74));
+    CGRectDivide(slice, &slice, &v74, v20, CGRectMinYEdge);
     disclosureView = self->_disclosureView;
-    PKContentAlignmentMake();
-    PKSizeAlignedInRect();
+    v33 = PKContentAlignmentMake();
+    v34.n128_u64[0] = *&slice.origin.x;
+    v35.n128_u64[0] = *&slice.origin.y;
+    v36.n128_u64[0] = *&slice.size.width;
+    v37.n128_u64[0] = *&slice.size.height;
+    v38.n128_f64[0] = v14;
+    v39.n128_u64[0] = v70;
+    PKSizeAlignedInRect(v33, v38, v39, v34, v35, v36, v37, v40);
     [(UIImageView *)disclosureView setFrame:?];
   }
 
-  memset(&v32, 0, sizeof(v32));
-  v39.origin.x = v33.origin.x;
-  v39.origin.y = v33.origin.y;
-  v39.size.width = size.width;
-  v39.size.height = v25;
-  CGRectDivide(v39, &v32, &v33, v17, CGRectMinYEdge);
+  memset(&v74, 0, sizeof(v74));
+  v81.origin.x = v75.origin.x;
+  v81.origin.y = v75.origin.y;
+  v81.size.width = size.width;
+  v81.size.height = v31;
+  CGRectDivide(v81, &v74, &v75, v20, CGRectMinYEdge);
   titleLabel = self->_titleLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v42 = PKContentAlignmentMake();
+  v43.n128_u64[0] = *&v74.origin.x;
+  v44.n128_u64[0] = *&v74.origin.y;
+  v45.n128_u64[0] = *&v74.size.width;
+  v46.n128_u64[0] = *&v74.size.height;
+  v47.n128_u64[0] = fmin(v18, size.width);
+  v48.n128_f64[0] = v20;
+  PKSizeAlignedInRect(v42, v47, v48, v43, v44, v45, v46, v49);
   [(UILabel *)titleLabel setFrame:?];
-  memset(&v31, 0, sizeof(v31));
-  CGRectDivide(v33, &v31, &v33, v19, CGRectMinYEdge);
+  v50 = fmin(v22, v75.size.width);
+  memset(&v73, 0, sizeof(v73));
+  CGRectDivide(v75, &v73, &v75, v24, CGRectMinYEdge);
   secondaryLabel = self->_secondaryLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v52 = PKContentAlignmentMake();
+  v53.n128_u64[0] = *&v73.origin.x;
+  v54.n128_u64[0] = *&v73.origin.y;
+  v55.n128_u64[0] = *&v73.size.width;
+  v56.n128_u64[0] = *&v73.size.height;
+  v57.n128_f64[0] = v50;
+  v58.n128_f64[0] = v24;
+  PKSizeAlignedInRect(v52, v57, v58, v53, v54, v55, v56, v59);
   [(UILabel *)secondaryLabel setFrame:?];
-  memset(&v30, 0, sizeof(v30));
-  CGRectDivide(v33, &v30, &v33, v21, CGRectMinYEdge);
+  v60 = fmin(v71, v75.size.width);
+  memset(&v72, 0, sizeof(v72));
+  CGRectDivide(v75, &v72, &v75, v27, CGRectMinYEdge);
   tertiaryLabel = self->_tertiaryLabel;
-  PKContentAlignmentMake();
-  PKSizeAlignedInRect();
+  v62 = PKContentAlignmentMake();
+  v63.n128_u64[0] = *&v72.origin.x;
+  v64.n128_u64[0] = *&v72.origin.y;
+  v65.n128_u64[0] = *&v72.size.width;
+  v66.n128_u64[0] = *&v72.size.height;
+  v67.n128_f64[0] = v60;
+  v68.n128_f64[0] = v27;
+  PKSizeAlignedInRect(v62, v67, v68, v63, v64, v65, v66, v69);
   [(UILabel *)tertiaryLabel setFrame:?];
 }
 
@@ -173,16 +203,20 @@
   width = fits.width;
   v5 = [(UILabel *)self->_titleLabel font:fits.width];
   [v5 lineHeight];
+  v7 = v6 + 16.0;
   font = [(UILabel *)self->_secondaryLabel font];
   [font lineHeight];
+  v10 = v7 + v9;
   font2 = [(UILabel *)self->_tertiaryLabel font];
   [font2 lineHeight];
+  v13 = v10 + v12 + 12.0;
 
-  PKFloatRoundToPixel();
-  v9 = v8;
-  v10 = width;
-  result.height = v9;
-  result.width = v10;
+  v14.n128_f64[0] = fmax(v13, 76.0);
+  PKFloatRoundToPixel(v14, v15);
+  v17 = v16;
+  v18 = width;
+  result.height = v17;
+  result.width = v18;
   return result;
 }
 

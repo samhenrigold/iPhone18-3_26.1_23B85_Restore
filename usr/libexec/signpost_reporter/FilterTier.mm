@@ -9,17 +9,8 @@
 {
   queryCopy = query;
   v5 = [(FilterTier *)self keyForChildren:queryCopy];
-  if (!v5)
+  if (!v5 || (-[FilterTier childTiers](self, "childTiers"), v6 = objc_claimAutoreleasedReturnValue(), [v6 objectForKeyedSubscript:v5], v7 = objc_claimAutoreleasedReturnValue(), v6, !v7) || (objc_msgSend(v7, "entryForQuery:", queryCopy), downsampleEntry = objc_claimAutoreleasedReturnValue(), v7, !downsampleEntry))
   {
-    goto LABEL_4;
-  }
-
-  childTiers = [(FilterTier *)self childTiers];
-  v7 = [childTiers objectForKeyedSubscript:v5];
-
-  if (!v7 || ([v7 entryForQuery:queryCopy], downsampleEntry = objc_claimAutoreleasedReturnValue(), v7, !downsampleEntry))
-  {
-LABEL_4:
     downsampleEntry = [(FilterTier *)self downsampleEntry];
   }
 

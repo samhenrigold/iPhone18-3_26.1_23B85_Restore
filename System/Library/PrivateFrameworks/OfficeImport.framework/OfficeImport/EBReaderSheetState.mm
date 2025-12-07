@@ -77,7 +77,7 @@
 {
   colCopy = col;
   v5 = &colCopy;
-  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->mSharedFormulas, &colCopy)[5] = index;
+  std::__tree<std::__value_type<int,unsigned long>,std::__map_value_compare<int,std::__value_type<int,unsigned long>,std::less<int>,true>,std::allocator<std::__value_type<int,unsigned long>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(&self->mSharedFormulas, &colCopy, &std::piecewise_construct, &v5)[5] = index;
 }
 
 - (void)reportWorksheetWarning:(id)warning

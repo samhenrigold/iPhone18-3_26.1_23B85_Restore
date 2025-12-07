@@ -144,18 +144,17 @@ void __40__AFAnalyticsConnection__startIdleTimer__block_invoke(uint64_t a1)
 
 - (void)_idleTimerFired
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[AFAnalyticsConnection _idleTimerFired]";
-    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFAnalyticsConnection _idleTimerFired]";
+    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s ", &v4, 0xCu);
   }
 
   [(AFAnalyticsConnection *)self _stopIdleTimer];
   [(AFAnalyticsConnection *)self _cleanUpConnection];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cleanUpConnection
@@ -222,23 +221,23 @@ void __36__AFAnalyticsConnection__connection__block_invoke(uint64_t a1)
 
 - (void)_handleFailureCallbackForEvents:(id)events error:(id)error numberOfRetries:(unint64_t)retries completion:(id)completion
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   errorCopy = error;
   completionCopy = completion;
   v13 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
-    v19 = v13;
+    v18 = v13;
     *buf = 136315906;
-    v25 = "[AFAnalyticsConnection _handleFailureCallbackForEvents:error:numberOfRetries:completion:]";
-    v26 = 2048;
-    v27 = [eventsCopy count];
-    v28 = 2112;
-    v29 = errorCopy;
-    v30 = 2048;
+    v24 = "[AFAnalyticsConnection _handleFailureCallbackForEvents:error:numberOfRetries:completion:]";
+    v25 = 2048;
+    v26 = [eventsCopy count];
+    v27 = 2112;
+    v28 = errorCopy;
+    v29 = 2048;
     retriesCopy = retries;
-    _os_log_error_impl(&dword_1912FE000, v19, OS_LOG_TYPE_ERROR, "%s Failed to send %tu events due to %@. (numberOfRetries = %tu)", buf, 0x2Au);
+    _os_log_error_impl(&dword_1912FE000, v18, OS_LOG_TYPE_ERROR, "%s Failed to send %tu events due to %@. (numberOfRetries = %tu)", buf, 0x2Au);
   }
 
   if (retries > 2)
@@ -247,9 +246,9 @@ void __36__AFAnalyticsConnection__connection__block_invoke(uint64_t a1)
     if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[AFAnalyticsConnection _handleFailureCallbackForEvents:error:numberOfRetries:completion:]";
-      v26 = 2112;
-      v27 = eventsCopy;
+      v24 = "[AFAnalyticsConnection _handleFailureCallbackForEvents:error:numberOfRetries:completion:]";
+      v25 = 2112;
+      v26 = eventsCopy;
       _os_log_error_impl(&dword_1912FE000, v16, OS_LOG_TYPE_ERROR, "%s Dropping %@ because the maximum number of retries was reached.", buf, 0x16u);
       if (!completionCopy)
       {
@@ -270,18 +269,17 @@ void __36__AFAnalyticsConnection__connection__block_invoke(uint64_t a1)
 
   v14 = dispatch_time(0, 1000000000);
   queue = self->_queue;
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __90__AFAnalyticsConnection__handleFailureCallbackForEvents_error_numberOfRetries_completion___block_invoke;
-  v20[3] = &unk_1E7343940;
-  v20[4] = self;
-  v21 = eventsCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __90__AFAnalyticsConnection__handleFailureCallbackForEvents_error_numberOfRetries_completion___block_invoke;
+  v19[3] = &unk_1E7343940;
+  v19[4] = self;
+  v20 = eventsCopy;
   retriesCopy2 = retries;
-  v22 = completionCopy;
-  dispatch_after(v14, queue, v20);
+  v21 = completionCopy;
+  dispatch_after(v14, queue, v19);
 
 LABEL_8:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendEvents:(id)events numberOfRetries:(unint64_t)retries completion:(id)completion
@@ -349,77 +347,72 @@ void __64__AFAnalyticsConnection__sendEvents_numberOfRetries_completion___block_
 
 - (void)boostQueuedEvents:(id)events
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   v5 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v12 = "[AFAnalyticsConnection boostQueuedEvents:]";
+    v11 = "[AFAnalyticsConnection boostQueuedEvents:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   v6 = +[AFAnalytics sharedAnalytics];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke;
-  v9[3] = &unk_1E7349838;
-  v9[4] = self;
-  v10 = eventsCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke;
+  v8[3] = &unk_1E7349838;
+  v8[4] = self;
+  v9 = eventsCopy;
   v7 = eventsCopy;
-  [v6 boostQueuedEvents:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v6 boostQueuedEvents:v8];
 }
 
 void __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
     v3 = *(*(a1 + 32) + 8);
     *buf = 136315394;
-    v10 = "[AFAnalyticsConnection boostQueuedEvents:]_block_invoke";
-    v11 = 2112;
-    v12 = v3;
+    v9 = "[AFAnalyticsConnection boostQueuedEvents:]_block_invoke";
+    v10 = 2112;
+    v11 = v3;
     _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Boosting XPC queue %@", buf, 0x16u);
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke_7;
-  v7[3] = &unk_1E7349838;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke_7;
+  v6[3] = &unk_1E7349838;
   v4 = *(a1 + 40);
-  v7[4] = *(a1 + 32);
-  v8 = v4;
-  v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v7);
+  v6[4] = *(a1 + 32);
+  v7 = v4;
+  v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v6);
   dispatch_async(*(*(a1 + 32) + 8), v5);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke_7(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
     v3 = *(*(a1 + 32) + 8);
-    v6 = 136315394;
-    v7 = "[AFAnalyticsConnection boostQueuedEvents:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Completed boosting XPC queue %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFAnalyticsConnection boostQueuedEvents:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s Completed boosting XPC queue %@", &v5, 0x16u);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))(result, 0);
+    return (*(result + 16))(result, 0);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -439,10 +432,10 @@ uint64_t __43__AFAnalyticsConnection_boostQueuedEvents___block_invoke_7(uint64_t
 
 void __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v2 = AFAnalyticsEventCreateCurrent(2, 0);
-  v18[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
 
   v4 = *(a1 + 32);
   v5 = *(v4 + 8);
@@ -452,23 +445,21 @@ void __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke(uint6
   block[3] = &unk_1E7349860;
   block[4] = v4;
   v6 = v3;
-  v17 = v6;
+  v16 = v6;
   dispatch_async(v5, block);
   v8 = *(a1 + 32);
   v7 = *(a1 + 40);
   v9 = *(v8 + 40);
   v10 = *(v8 + 8);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke_3;
-  v13[3] = &unk_1E73496E8;
-  v13[4] = v8;
-  v14 = v6;
-  v15 = v7;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke_3;
+  v12[3] = &unk_1E73496E8;
+  v12[4] = v8;
+  v13 = v6;
+  v14 = v7;
   v11 = v6;
-  dispatch_group_notify(v9, v10, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  dispatch_group_notify(v9, v10, v12);
 }
 
 void __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke_3(uint64_t a1)
@@ -498,45 +489,43 @@ void __52__AFAnalyticsConnection_flushStagedEventsWithReply___block_invoke_4(uin
 
 - (void)_stageUEIEventData:(id)data timestamp:(unint64_t)timestamp completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
   v10 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v27 = "[AFAnalyticsConnection _stageUEIEventData:timestamp:completion:]";
+    v26 = "[AFAnalyticsConnection _stageUEIEventData:timestamp:completion:]";
     _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   [(AFAnalyticsConnection *)self _stopIdleTimer];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke;
-  v24[3] = &unk_1E7349838;
-  v24[4] = self;
-  v25 = completionCopy;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke;
+  v23[3] = &unk_1E7349838;
+  v23[4] = self;
+  v24 = completionCopy;
   v11 = completionCopy;
-  v12 = MEMORY[0x193AFB7B0](v24);
+  v12 = MEMORY[0x193AFB7B0](v23);
   _connection = [(AFAnalyticsConnection *)self _connection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke_2;
-  v21[3] = &unk_1E7348AD0;
-  v22 = dataCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke_2;
+  v20[3] = &unk_1E7348AD0;
+  v21 = dataCopy;
   v14 = v12;
-  v23 = v14;
+  v22 = v14;
   v15 = dataCopy;
-  v16 = [_connection remoteObjectProxyWithErrorHandler:v21];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke_5;
-  v19[3] = &unk_1E73494D8;
-  v20 = v14;
+  v16 = [_connection remoteObjectProxyWithErrorHandler:v20];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke_5;
+  v18[3] = &unk_1E73494D8;
+  v19 = v14;
   v17 = v14;
-  [v16 stageUEIEventData:v15 timestamp:timestamp completion:v19];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [v16 stageUEIEventData:v15 timestamp:timestamp completion:v18];
 }
 
 uint64_t __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke(uint64_t a1)
@@ -555,24 +544,22 @@ uint64_t __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___b
 
 void __65__AFAnalyticsConnection__stageUEIEventData_timestamp_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[AFAnalyticsConnection _stageUEIEventData:timestamp:completion:]_block_invoke_2";
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Failed to stage UEI event: %@ error: %@", &v7, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = 136315650;
+    v7 = "[AFAnalyticsConnection _stageUEIEventData:timestamp:completion:]_block_invoke_2";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Failed to stage UEI event: %@ error: %@", &v6, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stageUEIEventData:(id)data timestamp:(unint64_t)timestamp completion:(id)completion
@@ -620,49 +607,45 @@ void __82__AFAnalyticsConnection_logInstrumentationOfType_machAbsoluteTime_turnI
 
 void __82__AFAnalyticsConnection_logInstrumentationOfType_machAbsoluteTime_turnIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315394;
-    v6 = "[AFAnalyticsConnection logInstrumentationOfType:machAbsoluteTime:turnIdentifier:]_block_invoke_2";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Error with remoteObjectProxy: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFAnalyticsConnection logInstrumentationOfType:machAbsoluteTime:turnIdentifier:]_block_invoke_2";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Error with remoteObjectProxy: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endEventsGrouping
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFAnalyticsConnection endEventsGrouping]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFAnalyticsConnection endEventsGrouping]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   dispatch_group_leave(self->_group);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginEventsGrouping
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFAnalyticsConnection beginEventsGrouping]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFAnalyticsConnection beginEventsGrouping]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   dispatch_group_enter(self->_group);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stageEvents:(id)events completion:(id)completion
@@ -728,21 +711,20 @@ uint64_t __48__AFAnalyticsConnection_stageEvents_completion___block_invoke_3(uin
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextAnalytics;
   if (os_log_type_enabled(AFSiriLogContextAnalytics, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v7 = "[AFAnalyticsConnection dealloc]";
+    v6 = "[AFAnalyticsConnection dealloc]";
     _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   [(AFAnalyticsConnection *)self _stopIdleTimer];
   [(AFAnalyticsConnection *)self _cleanUpConnection];
-  v5.receiver = self;
-  v5.super_class = AFAnalyticsConnection;
-  [(AFAnalyticsConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AFAnalyticsConnection;
+  [(AFAnalyticsConnection *)&v4 dealloc];
 }
 
 - (AFAnalyticsConnection)init

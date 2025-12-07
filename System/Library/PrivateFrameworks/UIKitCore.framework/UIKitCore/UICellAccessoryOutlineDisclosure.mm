@@ -86,7 +86,7 @@
       v12 = v11;
       if (v10 == v11)
       {
-        v7 = 1;
+        isEqual = 1;
       }
 
       else
@@ -103,28 +103,28 @@
 
         if (v13)
         {
-          v7 = 0;
+          isEqual = 0;
         }
 
         else
         {
-          v7 = [(UIImage *)v10 isEqual:v11];
+          isEqual = objc_msgSend_isEqual_(v10);
         }
       }
     }
 
     else
     {
-      v7 = 0;
+      isEqual = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    isEqual = 0;
   }
 
-  return v7;
+  return isEqual;
 }
 
 - (BOOL)_canDirectlyUpdateExistingAccessoryViewFrom:(id)from

@@ -26,7 +26,7 @@
   return v2;
 }
 
-uint64_t __51__GKScreenConfigurationController_sharedController__block_invoke()
+uint64_t __51__GKScreenConfigurationController_sharedController__block_invoke(uint64_t a1)
 {
   sharedController_sharedController = objc_alloc_init(objc_opt_class());
 
@@ -52,7 +52,7 @@ uint64_t __51__GKScreenConfigurationController_sharedController__block_invoke()
   return v3;
 }
 
-uint64_t __71__GKScreenConfigurationController__scaleForCurrentDisplayConfiguration__block_invoke(uint64_t a1, void *a2)
+void *__71__GKScreenConfigurationController__scaleForCurrentDisplayConfiguration__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 scale];
   v5 = *(*(a1 + 32) + 8);

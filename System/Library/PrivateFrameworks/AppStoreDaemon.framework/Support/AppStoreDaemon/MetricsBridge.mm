@@ -34,7 +34,7 @@
 
 + (void)metricsFieldsFrom:(NSURLSessionTask *)from taskMetrics:(NSURLSessionTaskMetrics *)metrics error:(NSError *)error session:(NSURLSession *)session bag:(AMSBagProtocol *)bag completionHandler:(id)handler
 {
-  v15 = sub_100085D40(&qword_10059C3E0);
+  v15 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v15 - 8);
   v17 = &v27 - v16;
   v18 = _Block_copy(handler);

@@ -7,12 +7,14 @@
 - (AFDictationConnection)init;
 - (AFDictationConnection)initWithInstanceContext:(id)context;
 - (AFDictationDelegate)delegate;
+- (BOOL)dictationIsAvailableForLanguage:(id)language synchronous:(BOOL)synchronous;
 - (BOOL)forcedOfflineDictationIsAvailableForLanguage:(id)language synchronous:(BOOL)synchronous;
 - (id)_connection;
 - (id)_dequeueAudioWithLength:(unint64_t)length;
 - (id)_dictationService;
 - (id)_dictationServiceWithErrorHandler:(id)handler;
 - (id)startRecordingForPendingDictationWithLanguageCode:(id)code options:(id)options speechOptions:(id)speechOptions;
+- (void)_LogUEIRequestCategorization:(int)categorization;
 - (void)_addPreheatAnalyticsEvent;
 - (void)_cancelBufferFlushTimer;
 - (void)_cancelRequestTimeout;
@@ -139,22 +141,21 @@ void __63__AFDictationConnection__tellSpeechDelegateAvailabilityChanged__block_i
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(NSXPCConnection *)self->_connection invalidate];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[AFDictationConnection dealloc]";
-    v8 = 2048;
+    v6 = "[AFDictationConnection dealloc]";
+    v7 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
 
-  v5.receiver = self;
-  v5.super_class = AFDictationConnection;
-  [(AFDictationConnection *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = AFDictationConnection;
+  [(AFDictationConnection *)&v4 dealloc];
 }
 
 - (AFDictationDelegate)delegate
@@ -343,40 +344,37 @@ void __65__AFDictationConnection_preheatEuclidModelWithLanguage_clientID___block
 
 void __82__AFDictationConnection_resumeRecognitionWithPrefixText_postfixText_selectedText___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 57) == 1)
   {
-    v6 = [*(a1 + 32) _dictationService];
-    [v6 resumeRecognitionWithPrefixText:*(a1 + 40) postfixText:*(a1 + 48) selectedText:*(a1 + 56)];
-    v3 = *MEMORY[0x1E69E9840];
+    v4 = [*(a1 + 32) _dictationService];
+    [v4 resumeRecognitionWithPrefixText:*(a1 + 40) postfixText:*(a1 + 48) selectedText:*(a1 + 56)];
   }
 
   else
   {
-    v4 = AFSiriLogContextConnection;
+    v3 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v8 = "[AFDictationConnection resumeRecognitionWithPrefixText:postfixText:selectedText:]_block_invoke";
-      v9 = 2048;
-      v10 = v1;
-      _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s %p ignoring - no active request", buf, 0x16u);
+      v6 = "[AFDictationConnection resumeRecognitionWithPrefixText:postfixText:selectedText:]_block_invoke";
+      v7 = 2048;
+      v8 = v1;
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p ignoring - no active request", buf, 0x16u);
     }
-
-    v5 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)pauseRecognition
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFDictationConnection pauseRecognition]";
-    v9 = 2048;
+    v7 = "[AFDictationConnection pauseRecognition]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -388,33 +386,29 @@ void __82__AFDictationConnection_resumeRecognitionWithPrefixText_postfixText_sel
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __41__AFDictationConnection_pauseRecognition__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (*(v1 + 57) == 1)
   {
-    v5 = [*(a1 + 32) _dictationService];
-    [v5 pauseRecognition];
-    v2 = *MEMORY[0x1E69E9840];
+    v3 = [*(a1 + 32) _dictationService];
+    [v3 pauseRecognition];
   }
 
   else
   {
-    v3 = AFSiriLogContextConnection;
+    v2 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v7 = "[AFDictationConnection pauseRecognition]_block_invoke";
-      v8 = 2048;
-      v9 = v1;
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p ignoring - no active request", buf, 0x16u);
+      v5 = "[AFDictationConnection pauseRecognition]_block_invoke";
+      v6 = 2048;
+      v7 = v1;
+      _os_log_impl(&dword_1912FE000, v2, OS_LOG_TYPE_INFO, "%s %p ignoring - no active request", buf, 0x16u);
     }
-
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -474,14 +468,14 @@ void __41__AFDictationConnection_pauseRecognition__block_invoke(uint64_t a1)
 
 - (void)_updateBufferFlushTimerWithDelay:(double)delay
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_internalQueue);
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[AFDictationConnection _updateBufferFlushTimerWithDelay:]";
-    v16 = 2048;
+    v14 = "[AFDictationConnection _updateBufferFlushTimerWithDelay:]";
+    v15 = 2048;
     delayCopy = delay;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Schedule timer with delay: %.2f", buf, 0x16u);
   }
@@ -499,17 +493,16 @@ void __41__AFDictationConnection_pauseRecognition__block_invoke(uint64_t a1)
     handler[1] = 3221225472;
     handler[2] = __58__AFDictationConnection__updateBufferFlushTimerWithDelay___block_invoke;
     handler[3] = &unk_1E7348A80;
-    objc_copyWeak(&v13, buf);
+    objc_copyWeak(&v12, buf);
     dispatch_source_set_event_handler(v9, handler);
     dispatch_resume(self->_bufferTimer);
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
     bufferTimer = self->_bufferTimer;
   }
 
   v10 = dispatch_time(0, (delay * 1000000000.0));
   dispatch_source_set_timer(bufferTimer, v10, 0xFFFFFFFFFFFFFFFFLL, 0);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AFDictationConnection__updateBufferFlushTimerWithDelay___block_invoke(uint64_t a1)
@@ -535,79 +528,73 @@ void __58__AFDictationConnection__updateBufferFlushTimerWithDelay___block_invoke
 
 - (void)_sendDataIfNeeded
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_internalQueue);
   if (self->_stopOptions && ![(NSMutableData *)self->_buffer length])
   {
     stopOptions = self->_stopOptions;
-    v19 = *MEMORY[0x1E69E9840];
 
     [(AFDictationConnection *)self _delayedStopSpeechWithOptions:stopOptions];
   }
 
-  else
+  else if (!self->_bufferTimer && [(NSMutableData *)self->_buffer length])
   {
-    if (!self->_bufferTimer && [(NSMutableData *)self->_buffer length])
+    if (self->_audioStartTime < 0.0)
     {
-      if (self->_audioStartTime < 0.0)
-      {
-        processInfo = [MEMORY[0x1E696AE30] processInfo];
-        [processInfo systemUptime];
-        self->_audioStartTime = v4;
-      }
-
-      processInfo2 = [MEMORY[0x1E696AE30] processInfo];
-      [processInfo2 systemUptime];
-      v7 = v6 - self->_audioStartTime;
-
-      v8 = v7 + 15.0 - self->_amountDataSent;
-      v9 = [(NSMutableData *)self->_buffer length];
-      v10 = 32000.0;
-      if (self->_narrowband)
-      {
-        v10 = 16000.0;
-      }
-
-      v11 = fmin(v8, v9 / v10);
-      v12 = v10 * v11;
-      v13 = [(NSMutableData *)self->_buffer length];
-      if (v12 < v13)
-      {
-        v13 = v12;
-      }
-
-      v14 = [(AFDictationConnection *)self _dequeueAudioWithLength:v13];
-      _dictationService = [(AFDictationConnection *)self _dictationService];
-      [_dictationService addRecordedSpeechSampleData:v14];
-
-      v16 = v11 + self->_amountDataSent;
-      self->_amountDataSent = v16;
-      v17 = AFSiriLogContextConnection;
-      if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
-      {
-        v21 = 136315906;
-        v22 = "[AFDictationConnection _sendDataIfNeeded]";
-        v23 = 2048;
-        v24 = v7;
-        v25 = 2048;
-        v26 = v16;
-        v27 = 2048;
-        v28 = v11;
-        _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s Sent data from buffer, actualRuntime=%f, amountSent=%f, outgoingDuration=%f", &v21, 0x2Au);
-      }
-
-      if ([(NSMutableData *)self->_buffer length])
-      {
-        [(AFDictationConnection *)self _updateBufferFlushTimerWithDelay:2.0];
-      }
-
-      else if (self->_stopOptions)
-      {
-        [(AFDictationConnection *)self _delayedStopSpeechWithOptions:?];
-      }
+      processInfo = [MEMORY[0x1E696AE30] processInfo];
+      [processInfo systemUptime];
+      self->_audioStartTime = v4;
     }
 
-    v20 = *MEMORY[0x1E69E9840];
+    processInfo2 = [MEMORY[0x1E696AE30] processInfo];
+    [processInfo2 systemUptime];
+    v7 = v6 - self->_audioStartTime;
+
+    v8 = v7 + 15.0 - self->_amountDataSent;
+    v9 = [(NSMutableData *)self->_buffer length];
+    v10 = 32000.0;
+    if (self->_narrowband)
+    {
+      v10 = 16000.0;
+    }
+
+    v11 = fmin(v8, v9 / v10);
+    v12 = v10 * v11;
+    v13 = [(NSMutableData *)self->_buffer length];
+    if (v12 < v13)
+    {
+      v13 = v12;
+    }
+
+    v14 = [(AFDictationConnection *)self _dequeueAudioWithLength:v13];
+    _dictationService = [(AFDictationConnection *)self _dictationService];
+    [_dictationService addRecordedSpeechSampleData:v14];
+
+    v16 = v11 + self->_amountDataSent;
+    self->_amountDataSent = v16;
+    v17 = AFSiriLogContextConnection;
+    if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
+    {
+      v19 = 136315906;
+      v20 = "[AFDictationConnection _sendDataIfNeeded]";
+      v21 = 2048;
+      v22 = v7;
+      v23 = 2048;
+      v24 = v16;
+      v25 = 2048;
+      v26 = v11;
+      _os_log_impl(&dword_1912FE000, v17, OS_LOG_TYPE_INFO, "%s Sent data from buffer, actualRuntime=%f, amountSent=%f, outgoingDuration=%f", &v19, 0x2Au);
+    }
+
+    if ([(NSMutableData *)self->_buffer length])
+    {
+      [(AFDictationConnection *)self _updateBufferFlushTimerWithDelay:2.0];
+    }
+
+    else if (self->_stopOptions)
+    {
+      [(AFDictationConnection *)self _delayedStopSpeechWithOptions:?];
+    }
   }
 }
 
@@ -680,13 +667,13 @@ void __78__AFDictationConnection_requestOfflineAssistantSupportForLanguage_compl
 
 - (void)endSession
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFDictationConnection endSession]";
-    v9 = 2048;
+    v7 = "[AFDictationConnection endSession]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -698,7 +685,6 @@ void __78__AFDictationConnection_requestOfflineAssistantSupportForLanguage_compl
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __35__AFDictationConnection_endSession__block_invoke(uint64_t a1)
@@ -719,15 +705,15 @@ uint64_t __35__AFDictationConnection_endSession__block_invoke(uint64_t a1)
   {
     objc_initWeak(location, self);
     internalQueue = self->_internalQueue;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __74__AFDictationConnection_sendUserSelectedAlternativeDictationLanguageCode___block_invoke;
-    v8[3] = &unk_1E73470E0;
-    objc_copyWeak(&v10, location);
-    v9 = codeCopy;
-    dispatch_async(internalQueue, v8);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __74__AFDictationConnection_sendUserSelectedAlternativeDictationLanguageCode___block_invoke;
+    v7[3] = &unk_1E73470E0;
+    objc_copyWeak(&v9, location);
+    v8 = codeCopy;
+    dispatch_async(internalQueue, v7);
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v9);
     objc_destroyWeak(location);
   }
 
@@ -741,8 +727,6 @@ uint64_t __35__AFDictationConnection_endSession__block_invoke(uint64_t a1)
       _os_log_error_impl(&dword_1912FE000, v6, OS_LOG_TYPE_ERROR, "%s Language code is nil.", location, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __74__AFDictationConnection_sendUserSelectedAlternativeDictationLanguageCode___block_invoke(uint64_t a1)
@@ -800,31 +784,29 @@ void __60__AFDictationConnection_sendSpeechCorrection_forIdentifier___block_invo
 
 - (void)updateSpeechOptions:(id)options
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v13 = "[AFDictationConnection updateSpeechOptions:]";
-    v14 = 2048;
+    v12 = "[AFDictationConnection updateSpeechOptions:]";
+    v13 = 2048;
     selfCopy = self;
-    v16 = 2112;
-    v17 = optionsCopy;
+    v15 = 2112;
+    v16 = optionsCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p %@", buf, 0x20u);
   }
 
   internalQueue = self->_internalQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __45__AFDictationConnection_updateSpeechOptions___block_invoke;
-  v9[3] = &unk_1E7349860;
-  v10 = optionsCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __45__AFDictationConnection_updateSpeechOptions___block_invoke;
+  v8[3] = &unk_1E7349860;
+  v9 = optionsCopy;
   selfCopy2 = self;
   v7 = optionsCopy;
-  dispatch_async(internalQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v8);
 }
 
 void __45__AFDictationConnection_updateSpeechOptions___block_invoke(uint64_t a1)
@@ -839,16 +821,16 @@ void __45__AFDictationConnection_updateSpeechOptions___block_invoke(uint64_t a1)
 
 - (void)_delayedStopSpeechWithOptions:(id)options
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   internalQueue = self->_internalQueue;
   optionsCopy = options;
   dispatch_assert_queue_V2(internalQueue);
   v6 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315138;
-    v12 = "[AFDictationConnection _delayedStopSpeechWithOptions:]";
-    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Delayed stop after buffer cleared", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[AFDictationConnection _delayedStopSpeechWithOptions:]";
+    _os_log_impl(&dword_1912FE000, v6, OS_LOG_TYPE_INFO, "%s Delayed stop after buffer cleared", &v10, 0xCu);
   }
 
   kdebug_trace();
@@ -859,42 +841,38 @@ void __45__AFDictationConnection_updateSpeechOptions___block_invoke(uint64_t a1)
   [(AFDictationConnection *)self _checkAndSetIsCapturingSpeech:0];
   _dictationService = [(AFDictationConnection *)self _dictationService];
   [_dictationService stopSpeechWithOptions:optionsCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopSpeechWithOptions:(id)options
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "[AFDictationConnection stopSpeechWithOptions:]";
-    v13 = 2048;
+    v11 = "[AFDictationConnection stopSpeechWithOptions:]";
+    v12 = 2048;
     selfCopy = self;
-    v15 = 2112;
-    v16 = optionsCopy;
+    v14 = 2112;
+    v15 = optionsCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p %@", buf, 0x20u);
   }
 
   internalQueue = self->_internalQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __47__AFDictationConnection_stopSpeechWithOptions___block_invoke;
-  v9[3] = &unk_1E7349860;
-  v9[4] = self;
-  v10 = optionsCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __47__AFDictationConnection_stopSpeechWithOptions___block_invoke;
+  v8[3] = &unk_1E7349860;
+  v8[4] = self;
+  v9 = optionsCopy;
   v7 = optionsCopy;
-  dispatch_async(internalQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v8);
 }
 
 void __47__AFDictationConnection_stopSpeechWithOptions___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if ((*(v2 + 96) & 1) == 0)
   {
@@ -903,9 +881,9 @@ void __47__AFDictationConnection_stopSpeechWithOptions___block_invoke(uint64_t a
       v3 = AFSiriLogContextConnection;
       if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
       {
-        v9 = 136315138;
-        v10 = "[AFDictationConnection stopSpeechWithOptions:]_block_invoke";
-        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Stop requested, delaying till buffer is empty", &v9, 0xCu);
+        v7 = 136315138;
+        v8 = "[AFDictationConnection stopSpeechWithOptions:]_block_invoke";
+        _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Stop requested, delaying till buffer is empty", &v7, 0xCu);
       }
 
       if (*(a1 + 40))
@@ -918,10 +896,9 @@ void __47__AFDictationConnection_stopSpeechWithOptions___block_invoke(uint64_t a
         v4 = objc_alloc_init(AFSpeechRequestOptions);
       }
 
-      v7 = v4;
+      v6 = v4;
       objc_storeStrong((*(a1 + 32) + 104), v4);
 
-      v8 = *MEMORY[0x1E69E9840];
       return;
     }
 
@@ -929,20 +906,19 @@ void __47__AFDictationConnection_stopSpeechWithOptions___block_invoke(uint64_t a
   }
 
   v5 = *(a1 + 40);
-  v6 = *MEMORY[0x1E69E9840];
 
   [v2 _delayedStopSpeechWithOptions:v5];
 }
 
 - (void)cancelSpeech
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[AFDictationConnection cancelSpeech]";
-    v9 = 2048;
+    v7 = "[AFDictationConnection cancelSpeech]";
+    v8 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -954,7 +930,6 @@ void __47__AFDictationConnection_stopSpeechWithOptions___block_invoke(uint64_t a
   block[3] = &unk_1E73497C8;
   block[4] = self;
   dispatch_async(internalQueue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __37__AFDictationConnection_cancelSpeech__block_invoke(uint64_t a1)
@@ -1004,41 +979,39 @@ void __53__AFDictationConnection_addRecordedSpeechSampleData___block_invoke(uint
 - (void)startRecordedAudioDictationWithOptions:(id)options forLanguage:(id)language narrowband:(BOOL)narrowband forceSampling:(BOOL)sampling
 {
   narrowbandCopy = narrowband;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   languageCopy = language;
   v12 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v24 = "[AFDictationConnection startRecordedAudioDictationWithOptions:forLanguage:narrowband:forceSampling:]";
-    v25 = 2048;
+    v23 = "[AFDictationConnection startRecordedAudioDictationWithOptions:forLanguage:narrowband:forceSampling:]";
+    v24 = 2048;
     selfCopy = self;
-    v27 = 2112;
-    v28 = optionsCopy;
-    v29 = 2112;
-    v30 = languageCopy;
-    v31 = 1024;
-    v32 = narrowbandCopy;
+    v26 = 2112;
+    v27 = optionsCopy;
+    v28 = 2112;
+    v29 = languageCopy;
+    v30 = 1024;
+    v31 = narrowbandCopy;
     _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s %p %@ %@ %d", buf, 0x30u);
   }
 
   v13 = [optionsCopy copy];
   internalQueue = self->_internalQueue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLanguage_narrowband_forceSampling___block_invoke;
-  v18[3] = &unk_1E7344340;
-  v18[4] = self;
-  v19 = languageCopy;
-  v20 = v13;
-  v21 = narrowbandCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLanguage_narrowband_forceSampling___block_invoke;
+  v17[3] = &unk_1E7344340;
+  v17[4] = self;
+  v18 = languageCopy;
+  v19 = v13;
+  v20 = narrowbandCopy;
   samplingCopy = sampling;
   v15 = v13;
   v16 = languageCopy;
-  dispatch_async(internalQueue, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v17);
 }
 
 void __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLanguage_narrowband_forceSampling___block_invoke(uint64_t a1)
@@ -1069,21 +1042,19 @@ void __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLang
 
 void __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLanguage_narrowband_forceSampling___block_invoke_2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[AFDictationConnection startRecordedAudioDictationWithOptions:forLanguage:narrowband:forceSampling:]_block_invoke_2";
-    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Recorded audio dictation request completed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[AFDictationConnection startRecordedAudioDictationWithOptions:forLanguage:narrowband:forceSampling:]_block_invoke_2";
+    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Recorded audio dictation request completed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startDictationWithLanguageCode:(id)code options:(id)options speechOptions:(id)speechOptions
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   speechOptionsCopy = speechOptions;
   v10 = [code stringByReplacingOccurrencesOfString:@"_" withString:@"-"];
@@ -1091,34 +1062,32 @@ void __101__AFDictationConnection_startRecordedAudioDictationWithOptions_forLang
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v23 = "[AFDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
-    v24 = 2048;
+    v22 = "[AFDictationConnection startDictationWithLanguageCode:options:speechOptions:]";
+    v23 = 2048;
     selfCopy = self;
-    v26 = 2112;
-    v27 = v10;
-    v28 = 2112;
-    v29 = optionsCopy;
-    v30 = 2112;
-    v31 = speechOptionsCopy;
+    v25 = 2112;
+    v26 = v10;
+    v27 = 2112;
+    v28 = optionsCopy;
+    v29 = 2112;
+    v30 = speechOptionsCopy;
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s %p %@ %@ %@", buf, 0x34u);
   }
 
   v12 = [optionsCopy copy];
   internalQueue = self->_internalQueue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOptions___block_invoke;
-  v18[3] = &unk_1E7349398;
-  v18[4] = self;
-  v19 = speechOptionsCopy;
-  v20 = v10;
-  v21 = v12;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOptions___block_invoke;
+  v17[3] = &unk_1E7349398;
+  v17[4] = self;
+  v18 = speechOptionsCopy;
+  v19 = v10;
+  v20 = v12;
   v14 = v12;
   v15 = v10;
   v16 = speechOptionsCopy;
-  dispatch_async(internalQueue, v18);
-
-  v17 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v17);
 }
 
 void __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOptions___block_invoke(uint64_t a1)
@@ -1154,21 +1123,19 @@ void __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOp
 
 void __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOptions___block_invoke_2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[AFDictationConnection startDictationWithLanguageCode:options:speechOptions:]_block_invoke_2";
-    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Dictation request completed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[AFDictationConnection startDictationWithLanguageCode:options:speechOptions:]_block_invoke_2";
+    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Dictation request completed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startRecordingForPendingDictationWithLanguageCode:(id)code options:(id)options speechOptions:(id)speechOptions
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   optionsCopy = options;
   speechOptionsCopy = speechOptions;
@@ -1180,26 +1147,26 @@ void __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOp
     *&buf[12] = 2048;
     *&buf[14] = self;
     *&buf[22] = 2112;
-    v36 = codeCopy;
-    *v37 = 2112;
-    *&v37[2] = optionsCopy;
-    *&v37[10] = 2112;
-    *&v37[12] = speechOptionsCopy;
+    v35 = codeCopy;
+    *v36 = 2112;
+    *&v36[2] = optionsCopy;
+    *&v36[10] = 2112;
+    *&v36[12] = speechOptionsCopy;
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s %p %@ %@ %@", buf, 0x34u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v36 = __Block_byref_object_copy__13433;
-  *v37 = __Block_byref_object_dispose__13434;
-  *&v37[8] = 0;
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__296;
-  v33[4] = __Block_byref_object_dispose__297;
-  v34 = 0;
+  v35 = __Block_byref_object_copy__13433;
+  *v36 = __Block_byref_object_dispose__13434;
+  *&v36[8] = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__296;
+  v32[4] = __Block_byref_object_dispose__297;
+  v33 = 0;
   v12 = dispatch_group_create();
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
@@ -1207,31 +1174,29 @@ void __78__AFDictationConnection_startDictationWithLanguageCode_options_speechOp
   block[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke;
   block[3] = &unk_1E73442C8;
   block[4] = self;
-  v27 = speechOptionsCopy;
-  v28 = codeCopy;
-  v29 = optionsCopy;
+  v26 = speechOptionsCopy;
+  v27 = codeCopy;
+  v28 = optionsCopy;
   v14 = v12;
-  v30 = v14;
-  v31 = v33;
-  v32 = buf;
+  v29 = v14;
+  v30 = v32;
+  v31 = buf;
   v15 = optionsCopy;
   v16 = codeCopy;
   v17 = speechOptionsCopy;
   dispatch_sync(internalQueue, block);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_3;
-  v22[3] = &unk_1E7344318;
-  v23 = v14;
-  v24 = v33;
-  v25 = buf;
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_3;
+  v21[3] = &unk_1E7344318;
+  v22 = v14;
+  v23 = v32;
+  v24 = buf;
   v18 = v14;
-  v19 = MEMORY[0x193AFB7B0](v22);
+  v19 = MEMORY[0x193AFB7B0](v21);
 
-  _Block_object_dispose(v33, 8);
+  _Block_object_dispose(v32, 8);
   _Block_object_dispose(buf, 8);
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
@@ -1326,32 +1291,30 @@ uint64_t __97__AFDictationConnection_startRecordingForPendingDictationWithLangua
 
 void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_300(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = 136315394;
-    v7 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
-    v8 = 2114;
-    v9 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %{public}@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
+    v7 = 2114;
+    v8 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s %{public}@", &v5, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 32));
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_301(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
+    v17 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
     _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -1364,33 +1327,32 @@ void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCo
 
   [v5 _setQueue:v8];
   [v5 resume];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_302;
-  v14[3] = &unk_1E7344278;
-  v15 = *(a1 + 32);
-  v16 = v5;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_302;
+  v13[3] = &unk_1E7344278;
+  v14 = *(a1 + 32);
+  v15 = v5;
   v9 = v5;
-  v10 = MEMORY[0x193AFB7B0](v14);
+  v10 = MEMORY[0x193AFB7B0](v13);
   v11 = *(*(a1 + 48) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v10;
 
   dispatch_group_leave(*(a1 + 40));
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_302(uint64_t a1, double a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     v5 = *(a1 + 32);
     *buf = 136315394;
-    v12 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
-    v13 = 2048;
-    v14 = v5;
+    v11 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
+    v12 = 2048;
+    v13 = v5;
     _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Continuing pending speech request %p", buf, 0x16u);
   }
 
@@ -1398,50 +1360,44 @@ void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCo
   [v6 continuePendingSpeechRequestFromTimestamp:a2];
 
   v7 = *(a1 + 40);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_306;
-  v9[3] = &unk_1E73497C8;
-  v10 = v7;
-  [v10 addBarrierBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_306;
+  v8[3] = &unk_1E73497C8;
+  v9 = v7;
+  [v9 addBarrierBlock:v8];
 }
 
 void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_303(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
-    v7 = 2114;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %{public}@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke";
+    v6 = 2114;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s %{public}@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCode_options_speechOptions___block_invoke_2()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   v0 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke_2";
-    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Pending dictation request completed", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[AFDictationConnection startRecordingForPendingDictationWithLanguageCode:options:speechOptions:]_block_invoke_2";
+    _os_log_impl(&dword_1912FE000, v0, OS_LOG_TYPE_INFO, "%s Pending dictation request completed", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setActivationTimeOnOptionsIfNecessary:(id)necessary
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   [necessaryCopy expectedActivationEventTime];
   if (v4 <= 0.0)
@@ -1449,9 +1405,9 @@ void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCo
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v11 = 136315138;
-      v12 = "[AFDictationConnection _setActivationTimeOnOptionsIfNecessary:]";
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Inserting activation timestamps since client did not set them", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[AFDictationConnection _setActivationTimeOnOptionsIfNecessary:]";
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s Inserting activation timestamps since client did not set them", &v10, 0xCu);
     }
 
     [necessaryCopy activationEventTime];
@@ -1467,37 +1423,33 @@ void __97__AFDictationConnection_startRecordingForPendingDictationWithLanguageCo
     [necessaryCopy activationEventTime];
     [necessaryCopy setExpectedActivationEventTime:?];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preheatWithRecordDeviceIdentifier:(id)identifier
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v12 = "[AFDictationConnection preheatWithRecordDeviceIdentifier:]";
-    v13 = 2048;
+    v11 = "[AFDictationConnection preheatWithRecordDeviceIdentifier:]";
+    v12 = 2048;
     selfCopy = self;
-    v15 = 2112;
-    v16 = identifierCopy;
+    v14 = 2112;
+    v15 = identifierCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p %@", buf, 0x20u);
   }
 
   internalQueue = self->_internalQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invoke;
-  v9[3] = &unk_1E7349860;
-  v9[4] = self;
-  v10 = identifierCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invoke;
+  v8[3] = &unk_1E7349860;
+  v8[4] = self;
+  v9 = identifierCopy;
   v7 = identifierCopy;
-  dispatch_async(internalQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(internalQueue, v8);
 }
 
 void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invoke(uint64_t a1)
@@ -1516,15 +1468,15 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
 
 - (void)_sendPendingAnalyticsEvents
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if (self->_preheatEvent)
   {
     v3 = AFSiriLogContextSpeech;
     if (os_log_type_enabled(AFSiriLogContextSpeech, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "[AFDictationConnection _sendPendingAnalyticsEvents]";
-      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Sending 1 event", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AFDictationConnection _sendPendingAnalyticsEvents]";
+      _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s Sending 1 event", &v6, 0xCu);
     }
 
     v4 = +[AFAnalytics sharedAnalytics];
@@ -1533,8 +1485,6 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     preheatEvent = self->_preheatEvent;
     self->_preheatEvent = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addPreheatAnalyticsEvent
@@ -1546,13 +1496,13 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
 
 - (void)_willCompleteDictation
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[AFDictationConnection _willCompleteDictation]";
-    v16 = 2048;
+    v14 = "[AFDictationConnection _willCompleteDictation]";
+    v15 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -1591,9 +1541,9 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     requestIdString = self->_requestIdString;
     if (requestIdString)
     {
-      v12 = @"id";
-      v13 = requestIdString;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+      v11 = @"id";
+      v12 = requestIdString;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     }
 
     else
@@ -1607,20 +1557,18 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     [(AFDictationConnection *)self _logRequestCompetionStatusWithEventType:2207 error:0];
     +[AFAggregator logDictationSucceeded];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willFailDictationWithError:(id)error
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v27 = "[AFDictationConnection _willFailDictationWithError:]";
-    v28 = 2048;
+    v26 = "[AFDictationConnection _willFailDictationWithError:]";
+    v27 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -1655,9 +1603,9 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     requestIdString = self->_requestIdString;
     if (requestIdString)
     {
-      v23 = @"id";
-      v24 = requestIdString;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+      v22 = @"id";
+      v23 = requestIdString;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     }
 
     else
@@ -1665,10 +1613,10 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
       v16 = MEMORY[0x1E695E0F8];
     }
 
-    v25[0] = v16;
+    v24[0] = v16;
     v17 = AFAnalyticsContextCreateWithError(errorCopy);
-    v25[1] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
+    v24[1] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
     v19 = AFAnalyticsContextsMerge(v18);
 
     if (requestIdString)
@@ -1685,19 +1633,17 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
 
     [(AFDictationConnection *)self reportIssueForError:errorCopy eventType:2206 subtype:@"Dictation" context:v19];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willCancelDictation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v11 = "[AFDictationConnection _willCancelDictation]";
-    v12 = 2048;
+    v10 = "[AFDictationConnection _willCancelDictation]";
+    v11 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -1714,9 +1660,9 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     requestIdString = self->_requestIdString;
     if (requestIdString)
     {
-      v8 = @"id";
-      v9 = requestIdString;
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+      v7 = @"id";
+      v8 = requestIdString;
+      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
     }
 
     else
@@ -1730,13 +1676,20 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     [(AFDictationConnection *)self _logRequestCompetionStatusWithEventType:2205 error:0];
     +[AFAggregator logDictationCancelled];
   }
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)_LogUEIRequestCategorization:(int)categorization
+{
+  v3 = *&categorization;
+  v5 = objc_alloc_init(MEMORY[0x1E69CF628]);
+  [v5 setRequestStatus:v3];
+  [v5 setRequestType:6];
+  [(AFAnalyticsTurnBasedInstrumentationContext *)self->_intstrumentationContext emitInstrumentation:v5];
 }
 
 - (void)_logRequestCompetionStatusWithEventType:(int64_t)type error:(id)error
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v7 = errorCopy;
   if (self->_onDeviceDictationUIInteractionIdentifier)
@@ -1750,10 +1703,10 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
         if (errorCopy)
         {
           domain = [errorCopy domain];
-          v10 = [domain isEqualToString:@"kAFAssistantErrorDomain"];
+          isEqualToString = objc_msgSend_isEqualToString_(domain);
 
           v8 = @"failure";
-          if (v10)
+          if (isEqualToString)
           {
             code = [v7 code];
             v12 = @"interrupted";
@@ -1789,21 +1742,19 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     }
 
     v13 = +[AFAnalytics sharedAnalytics];
-    v17[0] = @"requestStatus";
-    v17[1] = @"dictationUIInteractionIdentifier";
+    v16[0] = @"requestStatus";
+    v16[1] = @"dictationUIInteractionIdentifier";
     onDeviceDictationUIInteractionIdentifier = self->_onDeviceDictationUIInteractionIdentifier;
-    v18[0] = v8;
-    v18[1] = onDeviceDictationUIInteractionIdentifier;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[0] = v8;
+    v17[1] = onDeviceDictationUIInteractionIdentifier;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
     [v13 logEventWithType:2222 context:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_willStartDictationWithLanguageCode:(id)code options:(id)options speechOptions:(id)speechOptions machAbsoluteTime:(unint64_t)time
 {
-  v91 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   codeCopy = code;
   optionsCopy = options;
   speechOptionsCopy = speechOptions;
@@ -1811,16 +1762,16 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136316418;
-    v80 = "[AFDictationConnection _willStartDictationWithLanguageCode:options:speechOptions:machAbsoluteTime:]";
-    v81 = 2048;
+    v79 = "[AFDictationConnection _willStartDictationWithLanguageCode:options:speechOptions:machAbsoluteTime:]";
+    v80 = 2048;
     selfCopy = self;
-    v83 = 2112;
-    v84 = codeCopy;
-    v85 = 2112;
-    v86 = optionsCopy;
-    v87 = 2112;
-    v88 = speechOptionsCopy;
-    v89 = 2048;
+    v82 = 2112;
+    v83 = codeCopy;
+    v84 = 2112;
+    v85 = optionsCopy;
+    v86 = 2112;
+    v87 = speechOptionsCopy;
+    v88 = 2048;
     timeCopy = time;
     _os_log_impl(&dword_1912FE000, v13, OS_LOG_TYPE_INFO, "%s %p %@ %@ %@ %llu", buf, 0x3Eu);
   }
@@ -1864,7 +1815,7 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
   onDeviceDictationUIInteractionIdentifier = self->_onDeviceDictationUIInteractionIdentifier;
   self->_onDeviceDictationUIInteractionIdentifier = 0;
 
-  v72 = speechOptionsCopy;
+  v71 = speechOptionsCopy;
   if (AFIsDictationRequestEligibleForOnDeviceDictation(optionsCopy))
   {
     v30 = [AFPreferences sharedPreferencesWithInstanceContext:self->_instanceContext];
@@ -1939,12 +1890,12 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
   }
 
   +[AFAggregator logDictationStarted];
-  v69 = codeCopy;
+  v68 = codeCopy;
   if (codeCopy)
   {
-    v76 = @"languageCode";
-    v77 = codeCopy;
-    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+    v75 = @"languageCode";
+    v76 = codeCopy;
+    v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
   }
 
   else
@@ -1952,36 +1903,36 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
     v50 = MEMORY[0x1E695E0F8];
   }
 
-  v67 = v50;
-  v78[0] = v50;
-  v68 = AFAnalyticsContextCreateWithSpeechRequestOptions(v72);
-  v78[1] = v68;
-  v71 = optionsCopy;
+  v66 = v50;
+  v77[0] = v50;
+  v67 = AFAnalyticsContextCreateWithSpeechRequestOptions(v71);
+  v77[1] = v67;
+  v70 = optionsCopy;
   v51 = AFAnalyticsContextCreateWithDictationOptions(optionsCopy);
-  v78[2] = v51;
+  v77[2] = v51;
   v52 = AFAnalyticsContextCreateForCurrentProcess();
-  v78[3] = v52;
-  v74[0] = @"unixTime";
+  v77[3] = v52;
+  v73[0] = @"unixTime";
   v53 = MEMORY[0x1E696AD98];
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
   v55 = [v53 numberWithDouble:?];
   v56 = self->_requestIdString;
-  v75[0] = v55;
-  v75[1] = v56;
-  v74[1] = @"id";
-  v74[2] = @"systemVersion";
+  v74[0] = v55;
+  v74[1] = v56;
+  v73[1] = @"id";
+  v73[2] = @"systemVersion";
   v57 = AFProductAndBuildVersion();
-  v75[2] = v57;
-  v74[3] = @"isOnDeviceDictationExpected";
+  v74[2] = v57;
+  v73[3] = @"isOnDeviceDictationExpected";
   v58 = [MEMORY[0x1E696AD98] numberWithBool:v43 != 0];
-  v75[3] = v58;
-  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:4];
-  v78[4] = v59;
-  v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:5];
+  v74[3] = v58;
+  v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:4];
+  v77[4] = v59;
+  v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:5];
   v61 = AFAnalyticsContextsMerge(v60);
 
-  if (v69)
+  if (v68)
   {
   }
 
@@ -1992,10 +1943,10 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
 
   if (AFIsInternalInstall_isInternal == 1)
   {
-    v73[0] = v61;
-    v62 = AFAnalyticsTurnContextCreateWithSpeechRequestOptions(v72);
-    v73[1] = v62;
-    v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v73 count:2];
+    v72[0] = v61;
+    v62 = AFAnalyticsTurnContextCreateWithSpeechRequestOptions(v71);
+    v72[1] = v62;
+    v63 = [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:2];
     v64 = AFAnalyticsContextsMerge(v63);
 
     v61 = v64;
@@ -2004,8 +1955,6 @@ void __59__AFDictationConnection_preheatWithRecordDeviceIdentifier___block_invok
   [(AFDictationConnection *)self _sendPendingAnalyticsEvents];
   v65 = +[AFAnalytics sharedAnalytics];
   [v65 logEventWithType:2201 machAbsoluteTime:timeCopy2 context:v61];
-
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (void)networkAvailability:(id)availability isAvailable:(BOOL)available
@@ -2065,9 +2014,189 @@ uint64_t __82__AFDictationConnection_forcedOfflineDictationIsAvailableForLanguag
   return v5;
 }
 
+- (BOOL)dictationIsAvailableForLanguage:(id)language synchronous:(BOOL)synchronous
+{
+  synchronousCopy = synchronous;
+  v43 = *MEMORY[0x1E69E9840];
+  languageCopy = language;
+  if (languageCopy)
+  {
+    languagesLoggingInfo = self->_languagesLoggingInfo;
+    if (!languagesLoggingInfo)
+    {
+      v8 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v9 = self->_languagesLoggingInfo;
+      self->_languagesLoggingInfo = v8;
+
+      languagesLoggingInfo = self->_languagesLoggingInfo;
+    }
+
+    v10 = [(NSMutableDictionary *)languagesLoggingInfo objectForKeyedSubscript:languageCopy];
+    v11 = v10;
+    if (v10)
+    {
+      v12 = v10;
+    }
+
+    else
+    {
+      v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    }
+
+    v14 = v12;
+
+    v15 = [v14 objectForKeyedSubscript:@"CheckLanguageAvailable"];
+    bOOLValue = [v15 BOOLValue];
+
+    v17 = [v14 objectForKeyedSubscript:@"LanguageAvailableOverNetwork"];
+    bOOLValue2 = [v17 BOOLValue];
+
+    v19 = [v14 objectForKeyedSubscript:@"HQAssetsAvailable"];
+    bOOLValue3 = [v19 BOOLValue];
+
+    v21 = [v14 objectForKeyedSubscript:@"LQAssetsAvailable"];
+    bOOLValue4 = [v21 BOOLValue];
+
+    if ((bOOLValue & 1) == 0)
+    {
+      v23 = AFSiriLogContextConnection;
+      if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
+      {
+        *v40 = 136315650;
+        *&v40[4] = "[AFDictationConnection dictationIsAvailableForLanguage:synchronous:]";
+        *&v40[12] = 2048;
+        *&v40[14] = self;
+        *&v40[22] = 2112;
+        v41 = languageCopy;
+        _os_log_debug_impl(&dword_1912FE000, v23, OS_LOG_TYPE_DEBUG, "%s %p Checking if language %@ is available", v40, 0x20u);
+      }
+
+      v24 = [MEMORY[0x1E696AD98] numberWithBool:1];
+      [v14 setObject:v24 forKeyedSubscript:@"CheckLanguageAvailable"];
+
+      [(NSMutableDictionary *)self->_languagesLoggingInfo setObject:v14 forKeyedSubscript:languageCopy];
+    }
+
+    v25 = +[AFPreferences sharedPreferences];
+    isDictationHIPAACompliant = [v25 isDictationHIPAACompliant];
+
+    if (isDictationHIPAACompliant)
+    {
+      v27 = +[AFPreferences sharedPreferences];
+      offlineDictationStatus = [v27 offlineDictationStatus];
+      v13 = AFIsDictationLanguageSupportedForOnDeviceDictation(languageCopy, offlineDictationStatus);
+
+      if (!v14 || bOOLValue3 == v13)
+      {
+        goto LABEL_29;
+      }
+
+      v29 = AFSiriLogContextConnection;
+      if (!os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_24;
+      }
+
+      v30 = "is not";
+      *&v40[4] = "[AFDictationConnection dictationIsAvailableForLanguage:synchronous:]";
+      *&v40[12] = 2048;
+      *v40 = 136315906;
+      *&v40[14] = self;
+      if (v13)
+      {
+        v30 = "is";
+      }
+
+      *&v40[22] = 2112;
+      v41 = languageCopy;
+      LOWORD(v42) = 2080;
+      *(&v42 + 2) = v30;
+      v31 = "%s %p Language %@ %s available on-device (HQ assets)";
+      goto LABEL_34;
+    }
+
+    v32 = +[AFNetworkAvailability sharedAvailability];
+    isAvailable = [v32 isAvailable];
+
+    if (isAvailable)
+    {
+      if ((bOOLValue2 & 1) == 0)
+      {
+        v36 = AFSiriLogContextConnection;
+        if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
+        {
+          *v40 = 136315650;
+          *&v40[4] = "[AFDictationConnection dictationIsAvailableForLanguage:synchronous:]";
+          *&v40[12] = 2048;
+          *&v40[14] = self;
+          *&v40[22] = 2112;
+          v41 = languageCopy;
+          _os_log_debug_impl(&dword_1912FE000, v36, OS_LOG_TYPE_DEBUG, "%s %p Language %@ is available over network", v40, 0x20u);
+        }
+
+        v34 = MEMORY[0x1E696AD98];
+        LOBYTE(v13) = 1;
+        v35 = 1;
+        goto LABEL_28;
+      }
+
+      LOBYTE(v13) = 1;
+    }
+
+    else
+    {
+      v13 = [(AFDictationConnection *)self forcedOfflineDictationIsAvailableForLanguage:languageCopy synchronous:synchronousCopy];
+      if (bOOLValue4 != v13)
+      {
+        v29 = AFSiriLogContextConnection;
+        if (!os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_DEBUG))
+        {
+LABEL_24:
+          v34 = MEMORY[0x1E696AD98];
+          v35 = v13;
+LABEL_28:
+          v37 = [v34 numberWithBool:{v35, *v40, *&v40[8], v41, v42}];
+          [v14 setObject:v37 forKeyedSubscript:@"LanguageAvailableOverNetwork"];
+
+          [(NSMutableDictionary *)self->_languagesLoggingInfo setObject:v14 forKeyedSubscript:languageCopy];
+          goto LABEL_29;
+        }
+
+        v39 = "is not";
+        *&v40[4] = "[AFDictationConnection dictationIsAvailableForLanguage:synchronous:]";
+        *&v40[12] = 2048;
+        *v40 = 136315906;
+        *&v40[14] = self;
+        if (v13)
+        {
+          v39 = "is";
+        }
+
+        *&v40[22] = 2112;
+        v41 = languageCopy;
+        LOWORD(v42) = 2080;
+        *(&v42 + 2) = v39;
+        v31 = "%s %p Language %@ %s available on-device (LQ assets)";
+LABEL_34:
+        _os_log_debug_impl(&dword_1912FE000, v29, OS_LOG_TYPE_DEBUG, v31, v40, 0x2Au);
+        goto LABEL_24;
+      }
+    }
+
+LABEL_29:
+
+    goto LABEL_30;
+  }
+
+  LOBYTE(v13) = 0;
+LABEL_30:
+
+  return v13;
+}
+
 - (void)_stopInputAudioPowerUpdates
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_internalQueue);
   inputAudioPowerUpdater = self->_inputAudioPowerUpdater;
   if (inputAudioPowerUpdater)
@@ -2080,20 +2209,18 @@ uint64_t __82__AFDictationConnection_forcedOfflineDictationIsAvailableForLanguag
     v5 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315394;
-      v8 = "[AFDictationConnection _stopInputAudioPowerUpdates]";
-      v9 = 2048;
+      v6 = 136315394;
+      v7 = "[AFDictationConnection _stopInputAudioPowerUpdates]";
+      v8 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p Stopped input audio power updates.", &v7, 0x16u);
+      _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p Stopped input audio power updates.", &v6, 0x16u);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startInputAudioPowerUpdatesWithXPCWrapper:(id)wrapper
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   wrapperCopy = wrapper;
   [(AFDictationConnection *)self _stopInputAudioPowerUpdates];
   dispatch_assert_queue_V2(self->_internalQueue);
@@ -2108,15 +2235,13 @@ uint64_t __82__AFDictationConnection_forcedOfflineDictationIsAvailableForLanguag
     v8 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[AFDictationConnection _startInputAudioPowerUpdatesWithXPCWrapper:]";
-      v12 = 2048;
+      v9 = 136315394;
+      v10 = "[AFDictationConnection _startInputAudioPowerUpdatesWithXPCWrapper:]";
+      v11 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p Started input audio power updates.", &v10, 0x16u);
+      _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p Started input audio power updates.", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_extendRequestTimeout
@@ -2304,17 +2429,17 @@ void __70__AFDictationConnection__registerInvalidationHandlerForXPCConnection___
 - (void)_connectionClearedForInterruption:(BOOL)interruption
 {
   interruptionCopy = interruption;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v11 = 136315650;
-    v12 = "[AFDictationConnection _connectionClearedForInterruption:]";
-    v13 = 2048;
+    v10 = 136315650;
+    v11 = "[AFDictationConnection _connectionClearedForInterruption:]";
+    v12 = 2048;
     selfCopy = self;
-    v15 = 1024;
-    v16 = interruptionCopy;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p %d", &v11, 0x1Cu);
+    v14 = 1024;
+    v15 = interruptionCopy;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p %d", &v10, 0x1Cu);
   }
 
   dispatch_assert_queue_V2(self->_internalQueue);
@@ -2369,29 +2494,27 @@ void __70__AFDictationConnection__registerInvalidationHandlerForXPCConnection___
   }
 
   [(AFDictationConnection *)self _stopInputAudioPowerUpdates];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tellSpeechDelegateDidPauseRecognition
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[AFDictationConnection _tellSpeechDelegateDidPauseRecognition]";
-    v8 = 2048;
+    v6 = "[AFDictationConnection _tellSpeechDelegateDidPauseRecognition]";
+    v7 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s %p Speech recognition is paused", buf, 0x16u);
   }
 
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __63__AFDictationConnection__tellSpeechDelegateDidPauseRecognition__block_invoke;
-  v5[3] = &unk_1E73440C0;
-  v5[4] = self;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __63__AFDictationConnection__tellSpeechDelegateDidPauseRecognition__block_invoke;
+  v4[3] = &unk_1E73440C0;
+  v4[4] = self;
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v4];
 }
 
 void __63__AFDictationConnection__tellSpeechDelegateDidPauseRecognition__block_invoke(uint64_t a1, void *a2)
@@ -2405,30 +2528,28 @@ void __63__AFDictationConnection__tellSpeechDelegateDidPauseRecognition__block_i
 
 - (void)_tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo:(id)info
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v11 = "[AFDictationConnection _tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo:]";
-    v12 = 2048;
+    v10 = "[AFDictationConnection _tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo:]";
+    v11 = 2048;
     selfCopy = self;
-    v14 = 2112;
-    v15 = infoCopy;
+    v13 = 2112;
+    v14 = infoCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %p Local speech recognizer model info: %@", buf, 0x20u);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __82__AFDictationConnection__tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = infoCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __82__AFDictationConnection__tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = infoCopy;
   v6 = infoCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __82__AFDictationConnection__tellSpeechDelegateDidBeginLocalRecognitionWithModelInfo___block_invoke(uint64_t a1, void *a2)
@@ -2442,26 +2563,24 @@ void __82__AFDictationConnection__tellSpeechDelegateDidBeginLocalRecognitionWith
 
 - (void)_tellSpeechDelegateLanguageDetectorDidFail:(id)fail
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   failCopy = fail;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateLanguageDetectorDidFail:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateLanguageDetectorDidFail:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __68__AFDictationConnection__tellSpeechDelegateLanguageDetectorDidFail___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = failCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __68__AFDictationConnection__tellSpeechDelegateLanguageDetectorDidFail___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = failCopy;
   v6 = failCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __68__AFDictationConnection__tellSpeechDelegateLanguageDetectorDidFail___block_invoke(uint64_t a1, void *a2)
@@ -2475,26 +2594,24 @@ void __68__AFDictationConnection__tellSpeechDelegateLanguageDetectorDidFail___bl
 
 - (void)_tellSpeechDelegateMultilingualSpeechRecognized:(id)recognized
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   recognizedCopy = recognized;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateMultilingualSpeechRecognized:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateMultilingualSpeechRecognized:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __73__AFDictationConnection__tellSpeechDelegateMultilingualSpeechRecognized___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = recognizedCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __73__AFDictationConnection__tellSpeechDelegateMultilingualSpeechRecognized___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = recognizedCopy;
   v6 = recognizedCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __73__AFDictationConnection__tellSpeechDelegateMultilingualSpeechRecognized___block_invoke(uint64_t a1, void *a2)
@@ -2508,30 +2625,28 @@ void __73__AFDictationConnection__tellSpeechDelegateMultilingualSpeechRecognized
 
 - (void)_tellSpeechDelegateLanguageDetected:(id)detected confidenceScores:(id)scores isConfident:(BOOL)confident
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   detectedCopy = detected;
   scoresCopy = scores;
   v10 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v19 = "[AFDictationConnection _tellSpeechDelegateLanguageDetected:confidenceScores:isConfident:]";
+    v18 = "[AFDictationConnection _tellSpeechDelegateLanguageDetected:confidenceScores:isConfident:]";
     _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __90__AFDictationConnection__tellSpeechDelegateLanguageDetected_confidenceScores_isConfident___block_invoke;
-  v14[3] = &unk_1E7344228;
-  v14[4] = self;
-  v15 = detectedCopy;
-  v16 = scoresCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __90__AFDictationConnection__tellSpeechDelegateLanguageDetected_confidenceScores_isConfident___block_invoke;
+  v13[3] = &unk_1E7344228;
+  v13[4] = self;
+  v14 = detectedCopy;
+  v15 = scoresCopy;
   confidentCopy = confident;
   v11 = scoresCopy;
   v12 = detectedCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v13];
 }
 
 void __90__AFDictationConnection__tellSpeechDelegateLanguageDetected_confidenceScores_isConfident___block_invoke(uint64_t a1, void *a2)
@@ -2550,31 +2665,29 @@ void __90__AFDictationConnection__tellSpeechDelegateLanguageDetected_confidenceS
 
 - (void)_tellSpeechDelegateSearchResultsReceived:(id)received recognitionText:(id)text stable:(BOOL)stable final:(BOOL)final
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   receivedCopy = received;
   textCopy = text;
   v12 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v22 = "[AFDictationConnection _tellSpeechDelegateSearchResultsReceived:recognitionText:stable:final:]";
+    v21 = "[AFDictationConnection _tellSpeechDelegateSearchResultsReceived:recognitionText:stable:final:]";
     _os_log_impl(&dword_1912FE000, v12, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __95__AFDictationConnection__tellSpeechDelegateSearchResultsReceived_recognitionText_stable_final___block_invoke;
-  v16[3] = &unk_1E7344200;
-  v16[4] = self;
-  v17 = receivedCopy;
-  v18 = textCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __95__AFDictationConnection__tellSpeechDelegateSearchResultsReceived_recognitionText_stable_final___block_invoke;
+  v15[3] = &unk_1E7344200;
+  v15[4] = self;
+  v16 = receivedCopy;
+  v17 = textCopy;
   stableCopy = stable;
   finalCopy = final;
   v13 = textCopy;
   v14 = receivedCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v15];
 }
 
 void __95__AFDictationConnection__tellSpeechDelegateSearchResultsReceived_recognitionText_stable_final___block_invoke(uint64_t a1, void *a2)
@@ -2616,23 +2729,22 @@ void __68__AFDictationConnection__tellSpeechDelegateAudioFileFinished_error___bl
 
 - (void)_tellSpeechDelegateSpeechRecognitionDidSucceed
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v7 = "[AFDictationConnection _tellSpeechDelegateSpeechRecognitionDidSucceed]";
+    v6 = "[AFDictationConnection _tellSpeechDelegateSpeechRecognitionDidSucceed]";
     _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   [(AFDictationConnection *)self _willCompleteDictation];
-  v5[0] = MEMORY[0x1E69E9820];
-  v5[1] = 3221225472;
-  v5[2] = __71__AFDictationConnection__tellSpeechDelegateSpeechRecognitionDidSucceed__block_invoke;
-  v5[3] = &unk_1E73440C0;
-  v5[4] = self;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v5];
-  v4 = *MEMORY[0x1E69E9840];
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __71__AFDictationConnection__tellSpeechDelegateSpeechRecognitionDidSucceed__block_invoke;
+  v4[3] = &unk_1E73440C0;
+  v4[4] = self;
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v4];
 }
 
 void __71__AFDictationConnection__tellSpeechDelegateSpeechRecognitionDidSucceed__block_invoke(uint64_t a1, void *a2)
@@ -2646,27 +2758,25 @@ void __71__AFDictationConnection__tellSpeechDelegateSpeechRecognitionDidSucceed_
 
 - (void)_tellSpeechDelegateRecognitionDidFail:(id)fail
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   failCopy = fail;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateRecognitionDidFail:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateRecognitionDidFail:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   [(AFDictationConnection *)self _willFailDictationWithError:failCopy];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __63__AFDictationConnection__tellSpeechDelegateRecognitionDidFail___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = failCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __63__AFDictationConnection__tellSpeechDelegateRecognitionDidFail___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = failCopy;
   v6 = failCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __63__AFDictationConnection__tellSpeechDelegateRecognitionDidFail___block_invoke(uint64_t a1, void *a2)
@@ -2680,30 +2790,28 @@ void __63__AFDictationConnection__tellSpeechDelegateRecognitionDidFail___block_i
 
 - (void)_tellSpeechDelegateDidRecognizeTranscriptionObjects:(id)objects languageModel:(id)model
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   modelCopy = model;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeTranscriptionObjects:languageModel:]";
+    v15 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeTranscriptionObjects:languageModel:]";
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   [(AFDictationConnection *)self _willCompleteDictation];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __91__AFDictationConnection__tellSpeechDelegateDidRecognizeTranscriptionObjects_languageModel___block_invoke;
-  v12[3] = &unk_1E7344110;
-  v12[4] = self;
-  v13 = objectsCopy;
-  v14 = modelCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __91__AFDictationConnection__tellSpeechDelegateDidRecognizeTranscriptionObjects_languageModel___block_invoke;
+  v11[3] = &unk_1E7344110;
+  v11[4] = self;
+  v12 = objectsCopy;
+  v13 = modelCopy;
   v9 = modelCopy;
   v10 = objectsCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v11];
 }
 
 void __91__AFDictationConnection__tellSpeechDelegateDidRecognizeTranscriptionObjects_languageModel___block_invoke(void *a1, void *a2)
@@ -2737,7 +2845,7 @@ void __68__AFDictationConnection__tellSpeechDelegateDidProcessAudioDuration___bl
 
 - (void)_tellSpeechDelegateDidRecognizePartialSpeechPackage:(id)package nluResult:(id)result languageModel:(id)model
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   resultCopy = result;
   modelCopy = model;
@@ -2745,29 +2853,27 @@ void __68__AFDictationConnection__tellSpeechDelegateDidProcessAudioDuration___bl
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePartialSpeechPackage:nluResult:languageModel:]";
+    v20 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePartialSpeechPackage:nluResult:languageModel:]";
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __101__AFDictationConnection__tellSpeechDelegateDidRecognizePartialSpeechPackage_nluResult_languageModel___block_invoke;
-  v16[3] = &unk_1E73441B0;
-  v16[4] = self;
-  v17 = packageCopy;
-  v18 = resultCopy;
-  v19 = modelCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __101__AFDictationConnection__tellSpeechDelegateDidRecognizePartialSpeechPackage_nluResult_languageModel___block_invoke;
+  v15[3] = &unk_1E73441B0;
+  v15[4] = self;
+  v16 = packageCopy;
+  v17 = resultCopy;
+  v18 = modelCopy;
   v12 = modelCopy;
   v13 = resultCopy;
   v14 = packageCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v15];
 }
 
 - (void)_tellSpeechDelegateDidRecognizeSpeechTokens:(id)tokens nluResult:(id)result languageModel:(id)model
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   resultCopy = result;
   modelCopy = model;
@@ -2775,24 +2881,22 @@ void __68__AFDictationConnection__tellSpeechDelegateDidProcessAudioDuration___bl
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v21 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeSpeechTokens:nluResult:languageModel:]";
+    v20 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeSpeechTokens:nluResult:languageModel:]";
     _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __93__AFDictationConnection__tellSpeechDelegateDidRecognizeSpeechTokens_nluResult_languageModel___block_invoke;
-  v16[3] = &unk_1E73441B0;
-  v16[4] = self;
-  v17 = tokensCopy;
-  v18 = resultCopy;
-  v19 = modelCopy;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __93__AFDictationConnection__tellSpeechDelegateDidRecognizeSpeechTokens_nluResult_languageModel___block_invoke;
+  v15[3] = &unk_1E73441B0;
+  v15[4] = self;
+  v16 = tokensCopy;
+  v17 = resultCopy;
+  v18 = modelCopy;
   v12 = modelCopy;
   v13 = resultCopy;
   v14 = tokensCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v15];
 }
 
 - (void)_tellSpeechDelegateDidRecognizePartialResult:(id)result
@@ -2810,7 +2914,7 @@ void __68__AFDictationConnection__tellSpeechDelegateDidProcessAudioDuration___bl
 
 void __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) language];
   v5 = [v4 copy];
@@ -2823,23 +2927,23 @@ void __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___
   {
     v9 = *(a1 + 32);
     *buf = 136315650;
-    v23 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePartialResult:]_block_invoke";
-    v24 = 2112;
-    v25 = v9;
-    v26 = 2112;
-    v27 = v5;
+    v22 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePartialResult:]_block_invoke";
+    v23 = 2112;
+    v24 = v9;
+    v25 = 2112;
+    v26 = v5;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %@ - %@", buf, 0x20u);
   }
 
   v10 = +[AFAnalytics sharedAnalytics];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___block_invoke_73;
-  v19 = &unk_1E7344188;
-  v21 = v7;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___block_invoke_73;
+  v18 = &unk_1E7344188;
+  v20 = v7;
   v11 = v5;
-  v20 = v11;
-  [v10 logEventWithType:2214 contextProvider:&v16];
+  v19 = v11;
+  [v10 logEventWithType:2214 contextProvider:&v15];
 
   v12 = *(a1 + 40);
   if ((v12[59] & 1) != 0 || (v13 = objc_opt_respondsToSelector(), v12 = *(a1 + 40), (v13 & 1) == 0))
@@ -2850,10 +2954,8 @@ void __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___
 
   else
   {
-    [v3 dictationConnection:*(a1 + 40) didRecognizePartialResult:{*(a1 + 32), v16, v17, v18, v19}];
+    [v3 dictationConnection:*(a1 + 40) didRecognizePartialResult:{*(a1 + 32), v15, v16, v17, v18}];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___block_invoke_73(uint64_t a1)
@@ -2873,7 +2975,7 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
 
 - (void)_delegateDidRecognizePartialSpeechPackage:(id)package nluResult:(id)result languageModel:(id)model delegate:(id)delegate
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   resultCopy = result;
   modelCopy = model;
@@ -2881,9 +2983,9 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
   v14 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v17 = 136315138;
-    v18 = "[AFDictationConnection _delegateDidRecognizePartialSpeechPackage:nluResult:languageModel:delegate:]";
-    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s ", &v17, 0xCu);
+    v16 = 136315138;
+    v17 = "[AFDictationConnection _delegateDidRecognizePartialSpeechPackage:nluResult:languageModel:delegate:]";
+    _os_log_impl(&dword_1912FE000, v14, OS_LOG_TYPE_INFO, "%s ", &v16, 0xCu);
   }
 
   if (self->_shouldClassifyIntent || self->_shouldRecognizeCommands) && (objc_opt_respondsToSelector())
@@ -2896,18 +2998,16 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
     v15 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
-      v17 = 136315138;
-      v18 = "[AFDictationConnection _delegateDidRecognizePartialSpeechPackage:nluResult:languageModel:delegate:]";
-      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s No opt-in to command recognition, intent classification or no partial package delegate callback implemented. Dropping.", &v17, 0xCu);
+      v16 = 136315138;
+      v17 = "[AFDictationConnection _delegateDidRecognizePartialSpeechPackage:nluResult:languageModel:delegate:]";
+      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s No opt-in to command recognition, intent classification or no partial package delegate callback implemented. Dropping.", &v16, 0xCu);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_delegateDidRecognizeSpeechTokens:(id)tokens nluResult:(id)result languageModel:(id)model delegate:(id)delegate
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   resultCopy = result;
   modelCopy = model;
@@ -2923,8 +3023,8 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
   if (self->_recognizingIncrementally && (objc_opt_respondsToSelector() & 1) != 0)
   {
     selfCopy = self;
-    v32 = modelCopy;
-    v33 = resultCopy;
+    v31 = modelCopy;
+    v32 = resultCopy;
     v15 = AFSiriLogContextConnection;
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
@@ -2934,39 +3034,39 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
     }
 
     v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(tokensCopy, "count")}];
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     obj = tokensCopy;
-    v17 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v17 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v36;
+      v19 = *v35;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v36 != v19)
+          if (*v35 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v35 + 1) + 8 * i);
+          v21 = *(*(&v34 + 1) + 8 * i);
           v22 = objc_alloc_init(AFSpeechInterpretation);
-          v40 = v21;
-          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
+          v39 = v21;
+          v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
           [(AFSpeechInterpretation *)v22 setTokens:v23];
 
           v24 = [AFSpeechPhrase alloc];
-          v39 = v22;
-          v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+          v38 = v22;
+          v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
           v26 = [(AFSpeechPhrase *)v24 initWithInterpretations:v25 isLowConfidence:0];
           [v16 addObject:v26];
         }
 
-        v18 = [obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+        v18 = [obj countByEnumeratingWithState:&v34 objects:v40 count:16];
       }
 
       while (v18);
@@ -2974,13 +3074,13 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
 
     *buf = 0;
     v27 = DeltaPhrases(v16, selfCopy->_previouslyRecognizedPhrases, buf);
-    modelCopy = v32;
-    [delegateCopy dictationConnection:selfCopy didRecognizePhrases:v27 languageModel:v32 correctionIdentifier:0 replacingPreviousPhrasesCount:*buf];
+    modelCopy = v31;
+    [delegateCopy dictationConnection:selfCopy didRecognizePhrases:v27 languageModel:v31 correctionIdentifier:0 replacingPreviousPhrasesCount:*buf];
     v28 = [v16 copy];
     previouslyRecognizedPhrases = selfCopy->_previouslyRecognizedPhrases;
     selfCopy->_previouslyRecognizedPhrases = v28;
 
-    resultCopy = v33;
+    resultCopy = v32;
   }
 
   else if (self->_shouldClassifyIntent || self->_shouldRecognizeCommands) && (objc_opt_respondsToSelector())
@@ -2992,13 +3092,11 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
   {
     [delegateCopy dictationConnection:self didRecognizeTokens:tokensCopy languageModel:modelCopy];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_tellSpeechDelegateDidRecognizeSpeechPhrases:(id)phrases rawPhrases:(id)rawPhrases utterances:(id)utterances rawUtterances:(id)rawUtterances nluResult:(id)result languageModel:(id)model correctionIdentifier:(id)identifier audioAnalytics:(id)self0
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   phrasesCopy = phrases;
   rawPhrasesCopy = rawPhrases;
   utterancesCopy = utterances;
@@ -3011,7 +3109,7 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v45 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeSpeechPhrases:rawPhrases:utterances:rawUtterances:nluResult:languageModel:correctionIdentifier:audioAnalytics:]";
+    v44 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeSpeechPhrases:rawPhrases:utterances:rawUtterances:nluResult:languageModel:correctionIdentifier:audioAnalytics:]";
     _os_log_impl(&dword_1912FE000, v24, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
@@ -3020,19 +3118,19 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
     [(AFDictationConnection *)self _willCompleteDictation];
   }
 
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __166__AFDictationConnection__tellSpeechDelegateDidRecognizeSpeechPhrases_rawPhrases_utterances_rawUtterances_nluResult_languageModel_correctionIdentifier_audioAnalytics___block_invoke;
-  v34[3] = &unk_1E7344160;
-  v35 = phrasesCopy;
-  v36 = utterancesCopy;
-  v37 = rawPhrasesCopy;
-  v38 = rawUtterancesCopy;
-  v39 = analyticsCopy;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __166__AFDictationConnection__tellSpeechDelegateDidRecognizeSpeechPhrases_rawPhrases_utterances_rawUtterances_nluResult_languageModel_correctionIdentifier_audioAnalytics___block_invoke;
+  v33[3] = &unk_1E7344160;
+  v34 = phrasesCopy;
+  v35 = utterancesCopy;
+  v36 = rawPhrasesCopy;
+  v37 = rawUtterancesCopy;
+  v38 = analyticsCopy;
   selfCopy = self;
-  v41 = modelCopy;
-  v42 = identifierCopy;
-  v43 = resultCopy;
+  v40 = modelCopy;
+  v41 = identifierCopy;
+  v42 = resultCopy;
   v25 = resultCopy;
   v26 = identifierCopy;
   v27 = modelCopy;
@@ -3041,9 +3139,7 @@ id __70__AFDictationConnection__tellSpeechDelegateDidRecognizePartialResult___bl
   v30 = rawPhrasesCopy;
   v31 = utterancesCopy;
   v32 = phrasesCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v34];
-
-  v33 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v33];
 }
 
 void __166__AFDictationConnection__tellSpeechDelegateDidRecognizeSpeechPhrases_rawPhrases_utterances_rawUtterances_nluResult_languageModel_correctionIdentifier_audioAnalytics___block_invoke(uint64_t a1, void *a2)
@@ -3138,29 +3234,27 @@ LABEL_7:
 
 - (void)_tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage:(id)package nluResult:(id)result
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   resultCopy = result;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v16 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage:nluResult:]";
+    v15 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage:nluResult:]";
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __95__AFDictationConnection__tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage_nluResult___block_invoke;
-  v12[3] = &unk_1E7344110;
-  v12[4] = self;
-  v13 = packageCopy;
-  v14 = resultCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __95__AFDictationConnection__tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage_nluResult___block_invoke;
+  v11[3] = &unk_1E7344110;
+  v11[4] = self;
+  v12 = packageCopy;
+  v13 = resultCopy;
   v9 = resultCopy;
   v10 = packageCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v11];
 }
 
 void __95__AFDictationConnection__tellSpeechDelegateDidRecognizeVoiceCommandCandidatePackage_nluResult___block_invoke(void *a1, void *a2)
@@ -3174,26 +3268,24 @@ void __95__AFDictationConnection__tellSpeechDelegateDidRecognizeVoiceCommandCand
 
 - (void)_tellSpeechDelegateDidRecognizeFinalResultCandidatePackage:(id)package
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeFinalResultCandidatePackage:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateDidRecognizeFinalResultCandidatePackage:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __84__AFDictationConnection__tellSpeechDelegateDidRecognizeFinalResultCandidatePackage___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = packageCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __84__AFDictationConnection__tellSpeechDelegateDidRecognizeFinalResultCandidatePackage___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = packageCopy;
   v6 = packageCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __84__AFDictationConnection__tellSpeechDelegateDidRecognizeFinalResultCandidatePackage___block_invoke(uint64_t a1, void *a2)
@@ -3207,27 +3299,25 @@ void __84__AFDictationConnection__tellSpeechDelegateDidRecognizeFinalResultCandi
 
 - (void)_tellSpeechDelegateDidRecognizePackage:(id)package
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePackage:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateDidRecognizePackage:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   [(AFDictationConnection *)self _willCompleteDictation];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __64__AFDictationConnection__tellSpeechDelegateDidRecognizePackage___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = packageCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __64__AFDictationConnection__tellSpeechDelegateDidRecognizePackage___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = packageCopy;
   v6 = packageCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __64__AFDictationConnection__tellSpeechDelegateDidRecognizePackage___block_invoke(uint64_t a1, void *a2)
@@ -3326,27 +3416,25 @@ void __59__AFDictationConnection__tellSpeechDelegateRecordingDidEnd__block_invok
 
 - (void)_tellSpeechDelegateRecordingDidBeginWithOptions:(id)options
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v11 = "[AFDictationConnection _tellSpeechDelegateRecordingDidBeginWithOptions:]";
+    v10 = "[AFDictationConnection _tellSpeechDelegateRecordingDidBeginWithOptions:]";
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
   self->_isDetectingUtterances = [optionsCopy detectUtterances];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __73__AFDictationConnection__tellSpeechDelegateRecordingDidBeginWithOptions___block_invoke;
-  v8[3] = &unk_1E73440E8;
-  v8[4] = self;
-  v9 = optionsCopy;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __73__AFDictationConnection__tellSpeechDelegateRecordingDidBeginWithOptions___block_invoke;
+  v7[3] = &unk_1E73440E8;
+  v7[4] = self;
+  v8 = optionsCopy;
   v6 = optionsCopy;
-  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v8];
-
-  v7 = *MEMORY[0x1E69E9840];
+  [(AFDictationConnection *)self _dispatchCallbackGroupBlock:v7];
 }
 
 void __73__AFDictationConnection__tellSpeechDelegateRecordingDidBeginWithOptions___block_invoke(uint64_t a1, void *a2)
@@ -3436,7 +3524,7 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
 - (void)_checkAndSetIsCapturingSpeech:(BOOL)speech
 {
   speechCopy = speech;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_internalQueue);
   if (speechCopy && self->_isCapturingSpeech)
   {
@@ -3444,7 +3532,7 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v14 = "[AFDictationConnection _checkAndSetIsCapturingSpeech:]";
+      v13 = "[AFDictationConnection _checkAndSetIsCapturingSpeech:]";
       _os_log_fault_impl(&dword_1912FE000, v5, OS_LOG_TYPE_FAULT, "%s Trying to start speech capture while we are already capturing. This is a client app logic error, cancelling dictation", buf, 0xCu);
     }
 
@@ -3452,9 +3540,9 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
     [_dictationService cancelSpeech];
 
     v7 = MEMORY[0x1E696ABC0];
-    v11 = *MEMORY[0x1E696A578];
-    v12 = @"Trying to start speech capture while we are already capturing. This is a client app logic error, cancelling dictation";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x1E696A578];
+    v11 = @"Trying to start speech capture while we are already capturing. This is a client app logic error, cancelling dictation";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v9 = [v7 errorWithDomain:@"kAFAssistantErrorDomain" code:205 userInfo:v8];
     [(AFDictationConnection *)self _tellSpeechDelegateRecordingDidFail:v9];
 
@@ -3466,25 +3554,23 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
     [(AFDictationConnection *)self _stopInputAudioPowerUpdates];
     self->_isCapturingSpeech = speechCopy;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (AFDictationConnection)initWithInstanceContext:(id)context
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v29.receiver = self;
-  v29.super_class = AFDictationConnection;
-  v6 = [(AFDictationConnection *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = AFDictationConnection;
+  v6 = [(AFDictationConnection *)&v28 init];
   if (v6)
   {
-    if (v3 && (memset(&v30, 0, sizeof(v30)), dladdr(v3, &v30)))
+    if (v3 && (memset(&v29, 0, sizeof(v29)), dladdr(v3, &v29)))
     {
-      if (v30.dli_fname && *v30.dli_fname)
+      if (v29.dli_fname && *v29.dli_fname)
       {
         v7 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v8 = [v7 initWithUTF8String:v30.dli_fname];
+        v8 = [v7 initWithUTF8String:v29.dli_fname];
       }
 
       else
@@ -3492,10 +3578,10 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
         v8 = 0;
       }
 
-      if (v30.dli_sname && *v30.dli_sname)
+      if (v29.dli_sname && *v29.dli_sname)
       {
         v10 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v11 = [v10 initWithUTF8String:v30.dli_sname];
+        v11 = [v10 initWithUTF8String:v29.dli_sname];
       }
 
       else
@@ -3503,15 +3589,15 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
         v11 = 0;
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __49__AFDictationConnection_initWithInstanceContext___block_invoke;
-      v26[3] = &unk_1E7347250;
-      v27 = v8;
-      v28 = v11;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __49__AFDictationConnection_initWithInstanceContext___block_invoke;
+      v25[3] = &unk_1E7347250;
+      v26 = v8;
+      v27 = v11;
       v12 = v11;
       v13 = v8;
-      v9 = [AFCallSiteInfo newWithBuilder:v26];
+      v9 = [AFCallSiteInfo newWithBuilder:v25];
     }
 
     else
@@ -3526,13 +3612,13 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       v16 = v6->_initiationCallSiteInfo;
-      LODWORD(v30.dli_fname) = 136315650;
-      *(&v30.dli_fname + 4) = "[AFDictationConnection initWithInstanceContext:]";
-      WORD2(v30.dli_fbase) = 2048;
-      *(&v30.dli_fbase + 6) = v6;
-      HIWORD(v30.dli_sname) = 2112;
-      v30.dli_saddr = v16;
-      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s %p (Caller = %@)", &v30, 0x20u);
+      LODWORD(v29.dli_fname) = 136315650;
+      *(&v29.dli_fname + 4) = "[AFDictationConnection initWithInstanceContext:]";
+      WORD2(v29.dli_fbase) = 2048;
+      *(&v29.dli_fbase + 6) = v6;
+      HIWORD(v29.dli_sname) = 2112;
+      v29.dli_saddr = v16;
+      _os_log_impl(&dword_1912FE000, v15, OS_LOG_TYPE_INFO, "%s %p (Caller = %@)", &v29, 0x20u);
     }
 
     v17 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -3560,7 +3646,6 @@ void __53__AFDictationConnection__dispatchCallbackGroupBlock___block_invoke_2(ui
     v6->_instanceContext = v22;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -3726,22 +3811,20 @@ LABEL_11:
 
 void __83__AFDictationConnection_getForcedOfflineDictationSupportedLanguagesWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v6 = 136315394;
-    v7 = "+[AFDictationConnection getForcedOfflineDictationSupportedLanguagesWithCompletion:]_block_invoke";
-    v8 = 2112;
-    v9 = v3;
-    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Offline language fetch failed: %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[AFDictationConnection getForcedOfflineDictationSupportedLanguagesWithCompletion:]_block_invoke";
+    v7 = 2112;
+    v8 = v3;
+    _os_log_impl(&dword_1912FE000, v4, OS_LOG_TYPE_INFO, "%s Offline language fetch failed: %@", &v5, 0x16u);
   }
 
   [*(a1 + 32) invalidate];
   (*(*(a1 + 40) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__AFDictationConnection_getForcedOfflineDictationSupportedLanguagesWithCompletion___block_invoke_244(uint64_t a1)
@@ -3806,15 +3889,15 @@ void __101__AFDictationConnection_Private__startDictationWithSpeechFileAtURL_isN
 
 - (void)preheatTestWithLanguage:(id)language options:(id)options
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   optionsCopy = options;
   v8 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[AFDictationConnection(Private) preheatTestWithLanguage:options:]";
-    v18 = 2048;
+    v16 = "[AFDictationConnection(Private) preheatTestWithLanguage:options:]";
+    v17 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_1912FE000, v8, OS_LOG_TYPE_INFO, "%s %p", buf, 0x16u);
   }
@@ -3825,13 +3908,11 @@ void __101__AFDictationConnection_Private__startDictationWithSpeechFileAtURL_isN
   block[2] = __66__AFDictationConnection_Private__preheatTestWithLanguage_options___block_invoke;
   block[3] = &unk_1E73494B0;
   block[4] = self;
-  v14 = languageCopy;
-  v15 = optionsCopy;
+  v13 = languageCopy;
+  v14 = optionsCopy;
   v10 = optionsCopy;
   v11 = languageCopy;
   dispatch_async(internalQueue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66__AFDictationConnection_Private__preheatTestWithLanguage_options___block_invoke(uint64_t a1)

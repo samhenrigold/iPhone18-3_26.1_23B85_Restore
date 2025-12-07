@@ -56,7 +56,6 @@
 {
   sub_100008BB8(0, &qword_1016CDD08, CBPeripheral_ptr);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC12searchpartyd14CentralManager_lock);
   selfCopy = self;
   Lock.callAsFunction<A>(_:)();
 }
@@ -66,7 +65,7 @@
   managerCopy = manager;
   peripheralCopy = peripheral;
   selfCopy = self;
-  sub_10132A9C8();
+  sub_10132A9C8(peripheralCopy);
 }
 
 - (void)centralManager:(id)manager didSendBytes:(id)bytes toPeripheral:(id)peripheral withError:(id)error
@@ -76,7 +75,7 @@
   peripheralCopy = peripheral;
   errorCopy = error;
   selfCopy = self;
-  sub_10132AD94(bytesCopy);
+  sub_10132AD94(bytesCopy, peripheralCopy);
 }
 
 - (void)centralManager:(id)manager didReceiveData:(id)data fromPeripheral:(id)peripheral
@@ -88,7 +87,7 @@
   v11 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
 
-  sub_10132B370(v11, v13);
+  sub_10132B370(v11, v13, peripheralCopy);
   sub_100016590(v11, v13);
 }
 

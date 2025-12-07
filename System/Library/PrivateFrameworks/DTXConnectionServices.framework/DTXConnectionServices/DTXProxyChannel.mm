@@ -129,70 +129,69 @@
   }
 
   v7 = objc_msgSend_selector(dispatchCopy, v4, v5);
-  exportedInterface = self->_exportedInterface;
   MethodTypeEncoding = _protocol_getMethodTypeEncoding();
   if (!MethodTypeEncoding)
   {
-    v11 = MEMORY[0x277CBEAD8];
-    v12 = NSStringFromSelector(v7);
-    objc_msgSend_raise_format_(v11, v13, @"DTXSelectorNotAllowedException", @"Selector %@ is not part of the exported interface", v12);
+    v10 = MEMORY[0x277CBEAD8];
+    v11 = NSStringFromSelector(v7);
+    objc_msgSend_raise_format_(v10, v12, @"DTXSelectorNotAllowedException", @"Selector %@ is not part of the exported interface", v11);
   }
 
-  v14 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x277CBEB08], v9, MethodTypeEncoding);
-  v17 = objc_msgSend_methodSignature(dispatchCopy, v15, v16);
-  v20 = objc_msgSend_numberOfArguments(v17, v18, v19);
-  v23 = objc_msgSend_numberOfArguments(v14, v21, v22);
+  v13 = objc_msgSend_signatureWithObjCTypes_(MEMORY[0x277CBEB08], v8, MethodTypeEncoding);
+  v16 = objc_msgSend_methodSignature(dispatchCopy, v14, v15);
+  v19 = objc_msgSend_numberOfArguments(v16, v17, v18);
+  v22 = objc_msgSend_numberOfArguments(v13, v20, v21);
 
-  if (v20 != v23)
+  if (v19 != v22)
   {
-    v26 = MEMORY[0x277CBEAD8];
-    v27 = NSStringFromSelector(v7);
-    objc_msgSend_raise_format_(v26, v28, @"DTXSelectorMismatchException", @"Incorrect number of arguments in incoming message with selector %@", v27);
+    v25 = MEMORY[0x277CBEAD8];
+    v26 = NSStringFromSelector(v7);
+    objc_msgSend_raise_format_(v25, v27, @"DTXSelectorMismatchException", @"Incorrect number of arguments in incoming message with selector %@", v26);
   }
 
-  v55 = dispatchCopy;
-  v29 = objc_msgSend_target(dispatchCopy, v24, v25);
-  v30 = objc_opt_respondsToSelector();
+  v54 = dispatchCopy;
+  v28 = objc_msgSend_target(dispatchCopy, v23, v24);
+  v29 = objc_opt_respondsToSelector();
 
-  if ((v30 & 1) == 0)
+  if ((v29 & 1) == 0)
   {
-    v33 = MEMORY[0x277CBEAD8];
-    v34 = NSStringFromSelector(v7);
-    objc_msgSend_raise_format_(v33, v35, @"DTXSelectorUnimplementedException", @"Selector %@ is a valid part of the exported interface, but the exported object does not implement it.", v34);
+    v32 = MEMORY[0x277CBEAD8];
+    v33 = NSStringFromSelector(v7);
+    objc_msgSend_raise_format_(v32, v34, @"DTXSelectorUnimplementedException", @"Selector %@ is a valid part of the exported interface, but the exported object does not implement it.", v33);
   }
 
-  if (objc_msgSend_numberOfArguments(v14, v31, v32) >= 3)
+  if (objc_msgSend_numberOfArguments(v13, v30, v31) >= 3)
   {
-    v36 = 2;
+    v35 = 2;
     do
     {
-      v37 = v14;
-      ArgumentTypeAtIndex = objc_msgSend_getArgumentTypeAtIndex_(v37, v38, v36);
+      v36 = v13;
+      ArgumentTypeAtIndex = objc_msgSend_getArgumentTypeAtIndex_(v36, v37, v35);
       if (*ArgumentTypeAtIndex != 64)
       {
-        v42 = ArgumentTypeAtIndex;
-        v43 = MEMORY[0x277CBEAD8];
-        v44 = NSStringFromSelector(v7);
-        objc_msgSend_raise_format_(v43, v45, @"DTXSelectorInvalidArgumentTypeException", @"Invalid argument type %s at index %lu of selector %@", v42, v36, v44);
+        v41 = ArgumentTypeAtIndex;
+        v42 = MEMORY[0x277CBEAD8];
+        v43 = NSStringFromSelector(v7);
+        objc_msgSend_raise_format_(v42, v44, @"DTXSelectorInvalidArgumentTypeException", @"Invalid argument type %s at index %lu of selector %@", v41, v35, v43);
       }
 
-      ++v36;
+      ++v35;
     }
 
-    while (v36 < objc_msgSend_numberOfArguments(v14, v40, v41));
+    while (v35 < objc_msgSend_numberOfArguments(v13, v39, v40));
   }
 
-  v46 = v14;
-  if (*objc_msgSend_methodReturnType(v46, v47, v48) != 64)
+  v45 = v13;
+  if (*objc_msgSend_methodReturnType(v45, v46, v47) != 64)
   {
-    v50 = MEMORY[0x277CBEAD8];
-    v51 = NSStringFromSelector(v7);
-    objc_msgSend_raise_format_(v50, v52, @"DTXSelectorInvalidReturnTypeException", @"Selector %@ is a part of the exported interface, but return type is not an object.", v51);
+    v49 = MEMORY[0x277CBEAD8];
+    v50 = NSStringFromSelector(v7);
+    objc_msgSend_raise_format_(v49, v51, @"DTXSelectorInvalidReturnTypeException", @"Selector %@ is a part of the exported interface, but return type is not an object.", v50);
   }
 
-  v53 = objc_msgSend__allowedClassesForArgumentsOfRemoteInterfaceSelector_methodSignature_(self, v49, v7, v14);
+  v52 = objc_msgSend__allowedClassesForArgumentsOfRemoteInterfaceSelector_methodSignature_(self, v48, v7, v13);
 
-  return v53;
+  return v52;
 }
 
 - (void)setExportedObject:(id)object queue:(id)queue

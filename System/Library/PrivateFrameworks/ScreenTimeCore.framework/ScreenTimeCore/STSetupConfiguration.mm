@@ -8,6 +8,7 @@
 - (STSetupConfiguration)configurationWithUpdatedPasscode:(id)passcode;
 - (STSetupConfiguration)configurationWithUpdatedScreenTimeState:(int64_t)state error:(id *)error;
 - (STSetupConfiguration)initWithCoder:(id)coder;
+- (STSetupConfiguration)initWithUser:(id)user screenTimeState:(int64_t)state passcode:(id)passcode contactManagementState:(int64_t)managementState userHasContacts:(BOOL)contacts error:(id *)error;
 - (id)_descriptionForContactManagementStates:(id)states;
 - (id)_descriptionForScreenTimeStates:(id)states;
 - (id)_initWithUser:(id)user screenTimeState:(int64_t)state passcode:(id)passcode contactManagementState:(int64_t)managementState userHasContacts:(BOOL)contacts;
@@ -18,6 +19,29 @@
 @end
 
 @implementation STSetupConfiguration
+
+- (STSetupConfiguration)initWithUser:(id)user screenTimeState:(int64_t)state passcode:(id)passcode contactManagementState:(int64_t)managementState userHasContacts:(BOOL)contacts error:(id *)error
+{
+  contactsCopy = contacts;
+  userCopy = user;
+  passcodeCopy = passcode;
+  if ([STSetupConfiguration _isContactManagementStateValid:managementState pairedWithUserHasContacts:contactsCopy])
+  {
+    self = [(STSetupConfiguration *)self _initWithUser:userCopy screenTimeState:state passcode:passcodeCopy contactManagementState:managementState userHasContacts:contactsCopy];
+    selfCopy = self;
+  }
+
+  else
+  {
+    selfCopy = 0;
+    if (error)
+    {
+      *error = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"STErrorDomain" code:41 userInfo:0];
+    }
+  }
+
+  return selfCopy;
+}
 
 - (id)_initWithUser:(id)user screenTimeState:(int64_t)state passcode:(id)passcode contactManagementState:(int64_t)managementState userHasContacts:(BOOL)contacts
 {
@@ -98,35 +122,35 @@
 
 - (id)_descriptionForScreenTimeStates:(id)states
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = statesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        integerValue = [*(*(&v17 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v16 + 1) + 8 * i) integerValue];
         if (integerValue >= 3)
         {
-          v14 = integerValue;
+          v13 = integerValue;
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull STGetDescriptionForSetupConfigurationScreenTimeState(STSetupConfigurationScreenTimeState)"];
-          [currentHandler handleFailureInFunction:v16 file:@"STSetupConfiguration.h" lineNumber:32 description:{@"Unexpected Screen Time state %ld", v14}];
+          v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull STGetDescriptionForSetupConfigurationScreenTimeState(STSetupConfigurationScreenTimeState)"];
+          [currentHandler handleFailureInFunction:v15 file:@"STSetupConfiguration.h" lineNumber:32 description:{@"Unexpected Screen Time state %ld", v13}];
 
           __break(1u);
           return result;
@@ -135,7 +159,7 @@
         [v4 addObject:off_1E7CE7CC8[integerValue]];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -146,42 +170,41 @@
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 - (id)_descriptionForContactManagementStates:(id)states
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = statesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        integerValue = [*(*(&v17 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v16 + 1) + 8 * i) integerValue];
         if (integerValue >= 3)
         {
-          v14 = integerValue;
+          v13 = integerValue;
           currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-          v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull STGetDescriptionForSetupConfigurationContactManagementState(STSetupConfigurationContactManagementState)"];
-          [currentHandler handleFailureInFunction:v16 file:@"STSetupConfiguration.h" lineNumber:53 description:{@"Unexpected contact management state %ld", v14}];
+          v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull STGetDescriptionForSetupConfigurationContactManagementState(STSetupConfigurationContactManagementState)"];
+          [currentHandler handleFailureInFunction:v15 file:@"STSetupConfiguration.h" lineNumber:53 description:{@"Unexpected contact management state %ld", v13}];
 
           __break(1u);
           return result;
@@ -190,7 +213,7 @@
         [v4 addObject:off_1E7CE7CE0[integerValue]];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -201,7 +224,6 @@
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

@@ -1,98 +1,98 @@
-uint64_t simResizeVisPipeBilinear(uint64_t *a1, uint64_t *a2, float a3, float a4, float a5, float a6)
+uint64_t simResizeVisPipeBilinear(uint64_t *a1, uint64_t *a2, __n128 a3, __n128 a4, __n128 a5, __n128 a6, __n128 a7, __n128 a8)
 {
-  v6 = *(a2 + 2);
-  if (v6)
+  v8 = *(a2 + 2);
+  if (v8)
   {
-    v7 = *(a1 + 3);
-    if (v7)
+    v9 = *(a1 + 3);
+    if (v9)
     {
-      v8 = *(a2 + 3);
-      v9 = vcvtas_u32_f32(a6 * 8.0) << 13;
-      v10 = *(a1 + 2);
-      v11 = v10 - 1;
-      if (v8)
+      v10 = *(a2 + 3);
+      v11 = vcvtas_u32_f32(a6.n128_f32[0] * 8.0) << 13;
+      v12 = *(a1 + 2);
+      v13 = v12 - 1;
+      if (v10)
       {
-        v12 = 0;
-        v13 = vcvtas_u32_f32(65536.0 / a3);
-        v14 = vcvtas_u32_f32(65536.0 / a4);
-        v15 = vcvtas_u32_f32(a5 * 8.0) << 13;
-        v16 = *a1;
-        v17 = *(a1 + 4);
-        v18 = *a2;
-        v19 = *(a2 + 4);
-        v20 = v7 - 1;
+        v14 = 0;
+        v15 = vcvtas_u32_f32(65536.0 / a3.n128_f32[0]);
+        v16 = vcvtas_u32_f32(65536.0 / a4.n128_f32[0]);
+        v17 = vcvtas_u32_f32(a5.n128_f32[0] * 8.0) << 13;
+        v18 = *a1;
+        v19 = *(a1 + 4);
+        v20 = *a2;
+        v21 = *(a2 + 4);
+        v22 = v9 - 1;
         while (1)
         {
-          v21 = HIWORD(v9);
-          v22 = v11 >= HIWORD(v9) ? HIWORD(v9) : v11;
-          v23 = *(a1 + 2);
-          if (v23 <= v22)
+          v23 = HIWORD(v11);
+          v24 = v13 >= HIWORD(v11) ? HIWORD(v11) : v13;
+          v25 = *(a1 + 2);
+          if (v25 <= v24)
           {
             break;
           }
 
-          if (v11 >= v21 + 1)
+          if (v13 >= v23 + 1)
           {
-            v24 = v21 + 1;
+            v26 = v23 + 1;
           }
 
           else
           {
-            v24 = v11;
+            v26 = v13;
           }
 
-          if (v23 <= v24)
+          if (v25 <= v26)
           {
             simResizeVisPipeBinning();
           }
 
-          if (v12 >= *(a2 + 2))
+          if (v14 >= *(a2 + 2))
           {
             goto LABEL_28;
           }
 
-          v25 = v16 + v17 * v22;
-          v26 = v16 + v17 * v24;
-          v27 = (v18 + (v19 * v12));
-          v28 = v8;
-          v29 = v15;
+          v27 = v18 + v19 * v24;
+          v28 = v18 + v19 * v26;
+          v29 = (v20 + (v21 * v14));
+          v30 = v10;
+          v31 = v17;
           do
           {
-            v30 = HIWORD(v29);
-            if (v20 >= HIWORD(v29))
+            v32 = HIWORD(v31);
+            if (v22 >= HIWORD(v31))
             {
-              v31 = HIWORD(v29);
+              v33 = HIWORD(v31);
             }
 
             else
             {
-              v31 = v20;
+              v33 = v22;
             }
 
-            if (v20 >= v30 + 1)
+            if (v22 >= v32 + 1)
             {
-              v32 = v30 + 1;
+              v34 = v32 + 1;
             }
 
             else
             {
-              v32 = v20;
+              v34 = v22;
             }
 
-            v33 = *(v25 + 2 * v31);
-            v34 = (*(v25 + 2 * v32) - v33) * v29 + (v33 << 16);
-            v35 = *(v26 + 2 * v31);
-            v36 = (*(v26 + 2 * v32) - v35) * v29 + (v35 << 16);
-            v37 = ((v34 + (v34 >> 31) + 0x8000) & 0xFFFF0000) + (((v36 + (v36 >> 31) + 0x8000) >> 16) - ((v34 + (v34 >> 31) + 0x8000) >> 16)) * v9;
-            *v27++ = ((v37 + (v37 >> 31) + 0x8000) >> 16) & ~((v37 + (v37 >> 31) + 0x8000) >> 31);
-            v29 += v13;
-            --v28;
+            v35 = *(v27 + 2 * v33);
+            v36 = (*(v27 + 2 * v34) - v35) * v31 + (v35 << 16);
+            v37 = *(v28 + 2 * v33);
+            v38 = (*(v28 + 2 * v34) - v37) * v31 + (v37 << 16);
+            v39 = ((v36 + (v36 >> 31) + 0x8000) & 0xFFFF0000) + (((v38 + (v38 >> 31) + 0x8000) >> 16) - ((v36 + (v36 >> 31) + 0x8000) >> 16)) * v11;
+            *v29++ = ((v39 + (v39 >> 31) + 0x8000) >> 16) & ~((v39 + (v39 >> 31) + 0x8000) >> 31);
+            v31 += v15;
+            --v30;
           }
 
-          while (v28);
-          ++v12;
-          v9 += v14;
-          if (v12 == v6)
+          while (v30);
+          ++v14;
+          v11 += v16;
+          if (v14 == v8)
           {
             return 1;
           }
@@ -101,13 +101,13 @@ uint64_t simResizeVisPipeBilinear(uint64_t *a1, uint64_t *a2, float a3, float a4
 
       else
       {
-        v39 = HIWORD(v9);
-        if (v11 < HIWORD(v9))
+        v41 = HIWORD(v11);
+        if (v13 < HIWORD(v11))
         {
-          v39 = v10 - 1;
+          v41 = v12 - 1;
         }
 
-        if (v10 > v39)
+        if (v12 > v41)
         {
 LABEL_28:
           simResizeVisPipeBinning();
@@ -121,50 +121,54 @@ LABEL_28:
   return 1;
 }
 
-uint64_t simResizeVisPipe(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, unsigned int a5, float a6, float a7, float a8, float a9)
+uint64_t simResizeVisPipe(int32x4_t *a1, uint64_t a2, uint64_t *a3, int a4, unsigned int a5, int32x4_t a6, int32x4_t a7, __n128 a8, __n128 a9, uint32x4_t a10, uint32x4_t a11)
 {
-  if (a6 > 4.0 || a7 > 4.0)
+  v11 = a6.i32[0];
+  if (*a6.i32 > 4.0 || *a7.i32 > 4.0)
   {
     simResizeVisPipe();
   }
 
-  if (a6 < 0.0625 || a7 < 0.0625)
+  v13 = a7.i32[0];
+  if (*a6.i32 < 0.0625 || *a7.i32 < 0.0625)
   {
     simResizeVisPipe();
   }
 
-  v16 = a1;
-  v18 = a7 <= 1.0 && a6 <= 1.0;
-  if (!v18 && !a4)
+  v16 = a9.n128_u32[0];
+  v17 = a8.n128_u32[0];
+  v19 = a1;
+  v21 = *a7.i32 <= 1.0 && *a6.i32 <= 1.0;
+  if (!v21 && !a4)
   {
     simResizeVisPipe();
   }
 
-  v19 = *(a2 + 12);
-  if (v19 >= 0x901)
+  v22 = *(a2 + 12);
+  if (v22 >= 0x901)
   {
     simResizeVisPipe();
   }
 
-  v20 = *(a2 + 8);
-  if (v20 > 0x2000)
+  v23 = *(a2 + 8);
+  if (v23 > 0x2000)
   {
     simResizeVisPipe();
   }
 
-  if (!*(a1 + 12))
+  if (!a1->i32[3])
   {
     return 0;
   }
 
-  v21 = *(a1 + 8);
-  if (!v21)
+  v24 = a1->i32[2];
+  if (!v24)
   {
     return 0;
   }
 
   result = 1;
-  if (!v19 || !v20)
+  if (!v22 || !v23)
   {
     return result;
   }
@@ -177,130 +181,139 @@ uint64_t simResizeVisPipe(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, unsign
     }
 
 LABEL_39:
-    simResizeVisPipeBinning(v16, a2, v19, a6, a7, a8, a9);
+    simResizeVisPipeBinning(v19, a2, v22, *&v11, *&v13, *&v17, *&v16);
     goto LABEL_58;
   }
 
-  v23 = *(v16 + 4);
-  if (v23 * v21)
+  v26 = v19[1].i32[0];
+  if (v26 * v24)
   {
     operator new();
   }
 
-  v64 = *v16;
-  v65 = *(v16 + 2);
-  *&v64 = 0;
-  if (v23)
+  a6 = *v19;
+  v64 = *v19;
+  v65 = v19[1].i64[0];
+  v64.i64[0] = 0;
+  if (v26)
   {
-    v34 = "input.rowBytes % sizeof(uint16_t) == 0";
-    v35 = 216;
+    v36 = "input.rowBytes % sizeof(uint16_t) == 0";
+    v37 = 216;
     goto LABEL_88;
   }
 
-  if (v23 != v65)
+  if (v26 != v65)
   {
-    v34 = "input.rowBytes == shiftedInput.rowBytes";
-    v35 = 217;
+    v36 = "input.rowBytes == shiftedInput.rowBytes";
+    v37 = 217;
     goto LABEL_88;
   }
 
-  v24 = *(v16 + 3);
-  if (v24 != HIDWORD(v64))
+  v27 = v19->u32[3];
+  if (v27 != v64.i32[3])
   {
-    v34 = "input.width == shiftedInput.width";
-    v35 = 218;
+    v36 = "input.width == shiftedInput.width";
+    v37 = 218;
     goto LABEL_88;
   }
 
-  v25 = *(v16 + 2);
-  if (v25 != DWORD2(v64))
+  v28 = v19->i32[2];
+  if (v28 != v64.i32[2])
   {
-    v34 = "input.height == shiftedInput.height";
-    v35 = 219;
+    v36 = "input.height == shiftedInput.height";
+    v37 = 219;
     goto LABEL_88;
   }
 
-  v26 = *(v16 + 5);
-  if (v26 != HIDWORD(v65))
+  v29 = v19[1].i32[1];
+  if (v29 != HIDWORD(v65))
   {
-    v34 = "input.pixelFormat == shiftedInput.pixelFormat";
-    v35 = 220;
+    v36 = "input.pixelFormat == shiftedInput.pixelFormat";
+    v37 = 220;
     goto LABEL_88;
   }
 
-  if (v26 != 5)
+  if (v29 != 5)
   {
-    v34 = "input.pixelFormat == kBmBufferPixelFormatType_UInt16";
-    v35 = 221;
+    v36 = "input.pixelFormat == kBmBufferPixelFormatType_UInt16";
+    v37 = 221;
 LABEL_88:
-    __assert_rtn("inputHandler", "simresizevispipe.cpp", v35, v34);
+    __assert_rtn("inputHandler", "simresizevispipe.cpp", v37, v36);
   }
 
-  v27 = *v16;
-  v28 = ((v25 - 1) * v23);
-  v29 = 2 * v24;
-  v19 = *v16 + v29 + v28;
-  if (*v16 == v19)
+  v30 = v19->i64[0];
+  v31 = ((v28 - 1) * v26);
+  v32 = 2 * v27;
+  v22 = v19->i64[0] + v32 + v31;
+  if (v19->i64[0] == v22)
   {
     goto LABEL_53;
   }
 
-  v30 = v29 + v28 - 2;
-  if (v30 < 6 || -v27 < 0x20)
+  v33 = v32 + v31 - 2;
+  if (v33 < 6 || -v30 < 0x20)
   {
-    v36 = 0;
-    v37 = *v16;
+    v38 = 0;
+    v39 = v19->i64[0];
     goto LABEL_52;
   }
 
-  v31 = (v30 >> 1) + 1;
-  v32 = vdupq_n_s32(a5);
-  if (v30 < 0x1E)
+  v34 = (v33 >> 1) + 1;
+  a6 = vdupq_n_s32(a5);
+  if (v33 < 0x1E)
   {
-    v33 = 0;
+    v35 = 0;
     goto LABEL_47;
   }
 
-  v33 = v31 & 0xFFFFFFFFFFFFFFF0;
-  v38 = v27 + 2;
-  v39 = 16;
-  v40 = vnegq_s32(v32);
-  v41 = v31 & 0xFFFFFFFFFFFFFFF0;
+  v35 = v34 & 0xFFFFFFFFFFFFFFF0;
+  v40 = (v30 + 16);
+  v41 = 16;
+  a7 = vnegq_s32(a6);
+  v42 = v34 & 0xFFFFFFFFFFFFFFF0;
   do
   {
-    v42 = *&vuzp1q_s16(vshlq_u32(vmovl_u16(*v38), v40), vshlq_u32(vmovl_high_u16(*v38->i8), v40)) & __PAIR128__(0xFFF0FFF0FFF0FFFLL, 0xFFF0FFF0FFF0FFFLL);
-    *(v39 - 16) = *&vuzp1q_s16(vshlq_u32(vmovl_u16(v38[-2]), v40), vshlq_u32(vmovl_high_u16(*v38[-2].i8), v40)) & __PAIR128__(0xFFF0FFF0FFF0FFFLL, 0xFFF0FFF0FFF0FFFLL);
-    *v39 = v42;
-    v38 += 4;
-    v39 += 32;
-    v41 -= 16;
+    v43 = *v40[-2].i8;
+    a10 = vshlq_u32(vmovl_u16(*v43.i8), a7);
+    a11 = vshlq_u32(vmovl_u16(*v40), a7);
+    a8 = (*&vuzp1q_s16(a10, vshlq_u32(vmovl_high_u16(v43), a7)) & __PAIR128__(0xFFF0FFF0FFF0FFFLL, 0xFFF0FFF0FFF0FFFLL));
+    a9 = (*&vuzp1q_s16(a11, vshlq_u32(vmovl_high_u16(*v40->i8), a7)) & __PAIR128__(0xFFF0FFF0FFF0FFFLL, 0xFFF0FFF0FFF0FFFLL));
+    *(v41 - 16) = a8;
+    *v41 = a9;
+    v40 += 4;
+    v41 += 32;
+    v42 -= 16;
   }
 
-  while (v41);
-  if (v31 != v33)
+  while (v42);
+  if (v34 != v35)
   {
-    if ((v31 & 0xC) == 0)
+    if ((v34 & 0xC) == 0)
     {
-      v37 = v27 + v33;
-      v36 = (2 * v33);
+      v39 = (v30 + 2 * v35);
+      v38 = (2 * v35);
       goto LABEL_52;
     }
 
 LABEL_47:
-    v36 = (2 * (v31 & 0xFFFFFFFFFFFFFFFCLL));
-    v37 = (v36 + v27);
-    v43 = (2 * v33);
-    v44 = v33 - (v31 & 0xFFFFFFFFFFFFFFFCLL);
-    v45 = vnegq_s32(v32);
+    v38 = (2 * (v34 & 0xFFFFFFFFFFFFFFFCLL));
+    v39 = (v38 + v30);
+    v44 = (2 * v35);
+    v45 = v35 - (v34 & 0xFFFFFFFFFFFFFFFCLL);
+    a6 = vnegq_s32(a6);
     do
     {
-      *v43 = *&vmovn_s32(vshlq_u32(vmovl_u16(*(v43 + v27)), v45)) & 0xFFF0FFF0FFF0FFFLL;
-      ++v43;
-      v44 += 4;
+      a7 = vshlq_u32(vmovl_u16(*(v44 + v30)), a6);
+      *a7.i8 = vmovn_s32(a7);
+      a7.i32[0] &= 0xFFF0FFFu;
+      a7.i16[2] &= 0xFFFu;
+      a7.i16[3] &= 0xFFFu;
+      *v44++ = a7.i64[0];
+      v45 += 4;
     }
 
-    while (v44);
-    if (v31 == (v31 & 0xFFFFFFFFFFFFFFFCLL))
+    while (v45);
+    if (v34 == (v34 & 0xFFFFFFFFFFFFFFFCLL))
     {
       goto LABEL_53;
     }
@@ -308,15 +321,15 @@ LABEL_47:
     do
     {
 LABEL_52:
-      v46 = *v37++;
-      *v36++ = (v46 >> a5) & 0xFFF;
+      v46 = *v39++;
+      *v38++ = (v46 >> a5) & 0xFFF;
     }
 
-    while (v37 != v19);
+    while (v39 != v22);
   }
 
 LABEL_53:
-  v16 = &v64;
+  v19 = &v64;
   if (a4 == 2)
   {
     goto LABEL_39;
@@ -325,7 +338,11 @@ LABEL_53:
 LABEL_54:
   if (a4 == 1)
   {
-    simResizeVisPipeBilinear(v16, a2, a6, a7, a8, a9);
+    a6.i32[0] = v11;
+    a7.i32[0] = v13;
+    a8.n128_u32[0] = v17;
+    a9.n128_u32[0] = v16;
+    simResizeVisPipeBilinear(v19->i64, a2, a6, a7, a8, a9, a10, a11);
 LABEL_58:
     result = 1;
     if (!a5)
@@ -338,7 +355,11 @@ LABEL_58:
 
   if (!a4)
   {
-    simResizeVisPipeArea(v16, a2, a3, a6, a7, a8, a9);
+    a6.i32[0] = v11;
+    a7.i32[0] = v13;
+    a8.n128_u32[0] = v17;
+    a9.n128_u32[0] = v16;
+    simResizeVisPipeArea(v19->i64, a2, a3, a6, a7, a8, a9, a10, a11);
     goto LABEL_58;
   }
 
@@ -448,7 +469,7 @@ void sub_24BC42A70(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t AcDetCreate(uint64_t a1, uint64_t a2)
+uint64_t AcDetCreate(uint64_t *a1, uint64_t a2, _DWORD *a3)
 {
   result = 4294967292;
   if (a1)
@@ -557,42 +578,42 @@ uint64_t AcDetGetParams(uint64_t *a1, _DWORD *a2, uint64_t a3)
   return result;
 }
 
-uint64_t AcDetPreProcessRef(void *a1)
+uint64_t AcDetPreProcessRef(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a1 || !*a1)
   {
     return 4294967292;
   }
 
-  v5 = MEMORY[0x28223BE20]();
+  v8 = MEMORY[0x28223BE20](a1, a2, a3, a4);
   result = 4294967292;
-  if (v7)
+  if (v10)
   {
-    if (v2)
+    if (v5)
     {
-      if (v3)
+      if (v6)
       {
-        if (*v1)
+        if (*v4)
         {
-          if (*v3)
+          if (*v6)
           {
-            v8 = v1;
-            v9 = v3;
-            v10 = v2;
-            result = AcDetNode::getParams(v4, v2, v15, 0);
+            v11 = v4;
+            v12 = v6;
+            v13 = v5;
+            result = AcDetNode::getParams(v7, v5, v18, 0);
             if (!result)
             {
-              result = AcSaliencyNode::getParams(*(v5 + 8), v10 + 3, v15);
+              result = AcSaliencyNode::getParams(*(v8 + 8), v13 + 3, v18);
               if (!result)
               {
-                v11 = *(v8 + 3);
-                if ((v11 & 3) == 0 && (v12 = *(v9 + 3), v12 == 4 * v15[1]) && (v13 = *(v9 + 2), v13 == v15[0]))
+                v14 = *(v11 + 3);
+                if ((v14 & 3) == 0 && (v15 = *(v12 + 3), v15 == 4 * v18[1]) && (v16 = *(v12 + 2), v16 == v18[0]))
                 {
-                  v14 = *(v9 + 4);
+                  v17 = *(v12 + 4);
                   result = 4294967292;
-                  if (v14 >= v12 && (v14 & 0x3F) == 0)
+                  if (v17 >= v15 && (v17 & 0x3F) == 0)
                   {
-                    if (rtcv::simResize(*v8, v11 >> 2, *(v8 + 2), *(v8 + 4), 0, 0, 0, *v9, v12 >> 2, v13, v14))
+                    if (rtcv::simResize(*v11, v14 >> 2, *(v11 + 2), *(v11 + 4), 0, 0, 0, *v12, v15 >> 2, v16, v17))
                     {
                       return 0;
                     }
@@ -1041,7 +1062,7 @@ unint64_t acNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
 
   bmHeapsort(a1, a2, 0x24uLL, acDetRectScoreCompare);
   v6 = 0;
-  v7 = a1 + 36;
+  v7 = (a1 + 36);
   v8 = 1;
   do
   {
@@ -1054,7 +1075,7 @@ unint64_t acNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
       v13 = v8;
       do
       {
-        if (*(v11 + 16) != *(v12 + 16) || (acDetRectOverlap(v11, v12), v14 <= a3))
+        if (*(v11 + 16) != *(v12 + 4) || (acDetRectOverlap(v11, v12), v14 <= a3))
         {
           if (v13 < v10)
           {
@@ -1063,13 +1084,13 @@ unint64_t acNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
 
           v15 = a1 + 36 * v10++;
           v16 = *v12;
-          v17 = *(v12 + 16);
-          *(v15 + 32) = *(v12 + 32);
+          v17 = v12[1];
+          *(v15 + 32) = *(v12 + 8);
           *v15 = v16;
           *(v15 + 16) = v17;
         }
 
-        v12 += 36;
+        v12 = (v12 + 36);
         ++v13;
       }
 
@@ -1077,7 +1098,7 @@ unint64_t acNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
     }
 
     ++v8;
-    v7 += 36;
+    v7 = (v7 + 36);
     v6 = v9;
     v3 = v10;
   }
@@ -1101,7 +1122,7 @@ unint64_t acCrossClassSuppression(uint64_t a1, int a2, int a3, unsigned int a4, 
 
   bmHeapsort(a1, a4, 0x24uLL, acDetRectClassCompare);
   v10 = 0;
-  v11 = a1 + 36;
+  v11 = (a1 + 36);
   v12 = 1;
   do
   {
@@ -1114,7 +1135,7 @@ unint64_t acCrossClassSuppression(uint64_t a1, int a2, int a3, unsigned int a4, 
       v15 = v12;
       do
       {
-        if (*(v14 + 16) != a2 || *(v11 + 16) != a3 || (acDetRectOverlap(v14, v11), v16 <= a5))
+        if (*(v14 + 16) != a2 || *(v11 + 4) != a3 || (acDetRectOverlap(v14, v11), v16 <= a5))
         {
           if (v15 < v13)
           {
@@ -1123,21 +1144,21 @@ unint64_t acCrossClassSuppression(uint64_t a1, int a2, int a3, unsigned int a4, 
 
           v17 = a1 + 36 * v13++;
           v18 = *v11;
-          v19 = *(v11 + 16);
-          *(v17 + 32) = *(v11 + 32);
+          v19 = v11[1];
+          *(v17 + 32) = *(v11 + 8);
           *v17 = v18;
           *(v17 + 16) = v19;
         }
 
         ++v15;
-        v11 += 36;
+        v11 = (v11 + 36);
       }
 
       while (v5 != v15);
     }
 
     ++v12;
-    v11 = v22 + 36;
+    v11 = (v22 + 36);
     v10 = v21;
     v5 = v13;
   }
@@ -1161,7 +1182,7 @@ unint64_t acNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
 
   bmHeapsort(a1, a2, 0x24uLL, acDetRectScoreCompare);
   v6 = 0;
-  v7 = a1 + 36;
+  v7 = (a1 + 36);
   v8 = 1;
   do
   {
@@ -1174,7 +1195,7 @@ unint64_t acNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
       v13 = v8;
       do
       {
-        if (*(v11 + 16) != *(v12 + 16) || (acDetRectOverlapSmallbox(v11, v12), v14 <= a3))
+        if (*(v11 + 16) != *(v12 + 4) || (acDetRectOverlapSmallbox(v11, v12), v14 <= a3))
         {
           if (v13 < v10)
           {
@@ -1183,13 +1204,13 @@ unint64_t acNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
 
           v15 = a1 + 36 * v10++;
           v16 = *v12;
-          v17 = *(v12 + 16);
-          *(v15 + 32) = *(v12 + 32);
+          v17 = v12[1];
+          *(v15 + 32) = *(v12 + 8);
           *v15 = v16;
           *(v15 + 16) = v17;
         }
 
-        v12 += 36;
+        v12 = (v12 + 36);
         ++v13;
       }
 
@@ -1197,7 +1218,7 @@ unint64_t acNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
     }
 
     ++v8;
-    v7 += 36;
+    v7 = (v7 + 36);
     v6 = v9;
     v3 = v10;
   }
@@ -1272,9 +1293,9 @@ uint64_t acRemoveOverlapBoxes(__int128 *a1, unsigned int a2, unsigned __int8 *a3
       v20 = a1 + 36 * result;
       v21 = *v18;
       v22 = v18[1];
-      *(v20 + 32) = *(v18 + 8);
+      *(v20 + 8) = *(v18 + 8);
       *v20 = v21;
-      *(v20 + 16) = v22;
+      *(v20 + 1) = v22;
       result = (result + 1);
     }
 
@@ -1331,7 +1352,7 @@ void ft::Detector::Detector(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
-      *(a1 + 24) = (*(*v4 + 16))(v4);
+      *(a1 + 24) = (*(*v4 + 16))(v4, a2);
     }
   }
 
@@ -1573,119 +1594,119 @@ LABEL_7:
 
 void ft::Detector::Detect(ft::Detector *this, CVPixelBufferRef pixelBuffer)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v4 = *(this + 11);
-  *(v4 + 4368) = 0;
-  *(v4 + 5292) = 0;
-  *(v4 + 5616) = 0;
-  *(v4 + 4148) = 0;
+  v49 = *MEMORY[0x277D85DE8];
+  v5 = *(this + 11);
+  *(v5 + 4368) = 0;
+  *(v5 + 5292) = 0;
+  *(v5 + 5616) = 0;
+  *(v5 + 4148) = 0;
   Width = CVPixelBufferGetWidth(pixelBuffer);
   Height = CVPixelBufferGetHeight(pixelBuffer);
-  v7 = *(this + 11);
-  *(v7 + 32) = Width;
-  *(v7 + 36) = Height;
-  v8 = CVPixelBufferGetWidth(*(*(this + 9) + 8));
-  v9 = CVPixelBufferGetHeight(*(*(this + 9) + 8));
-  v10.i64[0] = Width;
-  v10.i64[1] = Height;
-  v11 = vcvtq_f64_u64(v10);
-  v12 = vmuld_lane_f64(v8, v11, 1);
-  v13 = v9 * v11.f64[0] > v12;
-  v14 = round(v12 / v11.f64[0]);
-  v15 = round(v9 * v11.f64[0] / v11.f64[1]);
-  if (v13)
+  v8 = *(this + 11);
+  *(v8 + 32) = Width;
+  *(v8 + 36) = Height;
+  v9 = CVPixelBufferGetWidth(*(*(this + 9) + 8));
+  v10 = CVPixelBufferGetHeight(*(*(this + 9) + 8));
+  v11.i64[0] = Width;
+  v11.i64[1] = Height;
+  v12 = vcvtq_f64_u64(v11);
+  v13 = vmuld_lane_f64(v9, v12, 1);
+  v14 = v10 * v12.f64[0] > v13;
+  v15 = round(v13 / v12.f64[0]);
+  v16 = round(v10 * v12.f64[0] / v12.f64[1]);
+  if (v14)
   {
-    v9 = v14;
-    v15 = v8;
+    v10 = v15;
+    v16 = v9;
   }
 
-  v16 = *(*(this + 9) + 8);
-  v40[0] = 0;
-  v40[1] = 0;
-  v41 = v15;
-  v42 = v9;
-  *&v36[0] = pixelBuffer;
-  *&v46 = v16;
-  v17 = *(this + 3);
-  if (!v17)
+  v17 = *(*(this + 9) + 8);
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = v16;
+  v43 = v10;
+  *&v37[0] = pixelBuffer;
+  *&v47 = v17;
+  v18 = *(this + 3);
+  if (!v18)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v17 + 48))(v17, v36, &v46, v40);
-  memset(v36, 0, sizeof(v36));
-  v37 = 1065353216;
-  std::pair<std::string const,ik::Tensor>::pair[abi:ne200100]<char const(&)[6],ik::PixelBufferTensor &,0>(v40, "image", this + 32);
-  *v33 = 0u;
+  (*(*v18 + 48))(v18, v37, &v47, v41);
+  memset(v37, 0, sizeof(v37));
+  v38 = 1065353216;
+  std::pair<std::string const,ik::Tensor>::pair[abi:ne200100]<char const(&)[6],ik::PixelBufferTensor &,0>(v41, "image", this + 32);
+  *v34 = 0u;
   *__p = 0u;
-  v35 = 1065353216;
-  std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(v33, v40);
-  v18 = *(this + 13);
-  v20 = *(v18 + 56);
-  v21 = *(v18 + 64);
-  v19 = (v18 + 56);
-  if (v20 == v21)
+  v36 = 1065353216;
+  std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(v34, v41, v41);
+  v19 = *(this + 13);
+  v21 = *(v19 + 56);
+  v22 = *(v19 + 64);
+  v20 = (v19 + 56);
+  if (v21 == v22)
   {
     exception = __cxa_allocate_exception(0x10uLL);
     std::runtime_error::runtime_error(exception, "Model has no pre-declared outputs.");
     exception->__vftable = &unk_285F8F310;
   }
 
-  ik::EspressoNet::Predict(this + 96, v33, v19, &v46);
-  std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__move_assign(v36, &v46);
-  std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::~__hash_table(&v46);
-  v22 = __p[0];
+  ik::EspressoNet::Predict(this + 96, v34, v20, &v47);
+  std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__move_assign(v37, &v47);
+  std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::~__hash_table(&v47);
+  v23 = __p[0];
   if (!__p[0])
   {
 LABEL_16:
-    v26 = v33[0];
-    v33[0] = 0;
-    if (v26)
+    v27 = v34[0];
+    v34[0] = 0;
+    if (v27)
     {
-      operator delete(v26);
+      operator delete(v27);
     }
 
-    v42 = COERCE_DOUBLE(&unk_285F8F1D8);
-    v27 = v45;
-    if (v45 && !atomic_fetch_add(&v45->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v43 = COERCE_DOUBLE(&unk_285F8F1D8);
+    v28 = v46;
+    if (v46 && !atomic_fetch_add(&v46->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v27->__on_zero_shared)(v27);
-      std::__shared_weak_count::__release_weak(v27);
+      (v28->__on_zero_shared)(v28);
+      std::__shared_weak_count::__release_weak(v28);
     }
 
-    if (v43)
+    if (v44)
     {
-      v44 = v43;
-      operator delete(v43);
+      v45 = v44;
+      operator delete(v44);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v42) < 0)
     {
-      operator delete(v40[0]);
+      operator delete(v41[0]);
     }
 
-    v28 = 0;
-    v29 = *(this + 13);
+    v29 = 0;
+    v30 = *(this + 13);
     while (1)
     {
-      v30 = std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(v36, *(v29 + 56) + v28 * 8);
-      if (!v30)
+      v31 = std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(v37, (*(v30 + 56) + v29 * 8));
+      if (!v31)
       {
         break;
       }
 
-      ft::BmBufferFromTensor<float>((v30 + 5), &v46);
-      v31 = &v40[v28];
-      *v31 = v46;
-      v31[2] = v47;
-      v28 += 3;
-      if (v28 == 72)
+      ft::BmBufferFromTensor<float>((v31 + 5), &v47);
+      v32 = &v41[v29];
+      *v32 = v47;
+      v32[2] = v48;
+      v29 += 3;
+      if (v29 == 72)
       {
-        *&v46 = v40;
-        v47 = 0;
-        *(&v46 + 1) = 0;
-        v39 = 0;
-        v38 = 24;
+        *&v47 = v41;
+        v48 = 0;
+        *(&v47 + 1) = 0;
+        v40 = 0;
+        v39 = 24;
         operator new();
       }
     }
@@ -1695,56 +1716,57 @@ LABEL_16:
 
   while (1)
   {
-    v23 = *v22;
-    v22[5] = &unk_285F8F1D8;
-    v24 = v22[11];
-    if (v24)
+    v24 = *v23;
+    v23[5] = &unk_285F8F1D8;
+    v25 = v23[11];
+    if (v25)
     {
-      if (!atomic_fetch_add(&v24->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
         break;
       }
     }
 
-    v25 = v22[7];
-    if (v25)
+    v26 = v23[7];
+    if (v26)
     {
       goto LABEL_11;
     }
 
 LABEL_12:
-    if (*(v22 + 39) < 0)
+    if (*(v23 + 39) < 0)
     {
-      operator delete(v22[2]);
+      operator delete(v23[2]);
     }
 
-    operator delete(v22);
-    v22 = v23;
-    if (!v23)
+    operator delete(v23);
+    v23 = v24;
+    if (!v24)
     {
       goto LABEL_16;
     }
   }
 
-  (v24->__on_zero_shared)(v24);
-  std::__shared_weak_count::__release_weak(v24);
-  v25 = v22[7];
-  if (!v25)
+  (v25->__on_zero_shared)(v25);
+  std::__shared_weak_count::__release_weak(v25);
+  v26 = v23[7];
+  if (!v26)
   {
     goto LABEL_12;
   }
 
 LABEL_11:
-  v22[8] = v25;
-  operator delete(v25);
+  v23[8] = v26;
+  operator delete(v26);
   goto LABEL_12;
 }
 
-void sub_24BC45524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_24BC45524(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  __cxa_free_exception(v27);
+  va_start(va, a26);
+  __cxa_free_exception(v26);
   std::unordered_map<std::string,ik::Tensor>::~unordered_map[abi:ne200100](&a13);
-  std::pair<std::string const,ik::Tensor>::~pair(&a27);
+  std::pair<std::string const,ik::Tensor>::~pair(va);
   std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::~__hash_table(&a19);
   _Unwind_Resume(a1);
 }
@@ -1761,9 +1783,9 @@ void sub_24BC45578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   JUMPOUT(0x24BC455A4);
 }
 
-void sub_24BC4559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_24BC4559C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -1798,7 +1820,7 @@ LABEL_6:
   return result;
 }
 
-void ft::EnsureOK(uint64_t a1, int *a2)
+void ft::EnsureOK(uint64_t result, int *a2)
 {
   if (*a2)
   {
@@ -2020,33 +2042,33 @@ void std::__shared_ptr_emplace<ik::core::EspressoNetState>::~__shared_ptr_emplac
   JUMPOUT(0x24C253380);
 }
 
-void ik::core::EspressoNetState::EspressoNetState(uint64_t a1, __int128 *a2, ik::EspressoConfig *a3)
+void ik::core::EspressoNetState::EspressoNetState(void *a1, __int128 *a2, ik::EspressoConfig *a3)
 {
   v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  v6 = (a1 + 16);
-  *(a1 + 24) = 0;
+  *(a1 + 2) = 0;
+  a1[2] = 0;
+  v6 = a1 + 2;
+  a1[3] = 0;
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external((a1 + 32), *a2, *(a2 + 1));
+    std::string::__init_copy_ctor_external((a1 + 4), *a2, *(a2 + 1));
   }
 
   else
   {
     v7 = *a2;
-    *(a1 + 48) = *(a2 + 2);
-    *(a1 + 32) = v7;
+    a1[6] = *(a2 + 2);
+    *(a1 + 2) = v7;
   }
 
-  ik::EspressoConfig::EspressoConfig((a1 + 56), a3);
-  *(a1 + 192) = 0u;
-  *(a1 + 208) = 0u;
-  *(a1 + 224) = 1065353216;
-  *(a1 + 232) = 0u;
-  *(a1 + 248) = 0u;
-  *(a1 + 264) = 1065353216;
+  ik::EspressoConfig::EspressoConfig((a1 + 7), a3);
+  *(a1 + 12) = 0u;
+  *(a1 + 13) = 0u;
+  *(a1 + 56) = 1065353216;
+  *(a1 + 29) = 0u;
+  *(a1 + 31) = 0u;
+  *(a1 + 66) = 1065353216;
   if ((*(a3 + 28) & 1) == 0 && qword_280F7C008 != -1)
   {
     ik::core::EspressoNetState::EspressoNetState();
@@ -2057,7 +2079,7 @@ void ik::core::EspressoNetState::EspressoNetState(uint64_t a1, __int128 *a2, ik:
   if (context)
   {
     plan = espresso_create_plan();
-    *(a1 + 24) = plan;
+    a1[3] = plan;
     if (plan)
     {
       if (*(a3 + 48) == 1 && (LODWORD(v20.__r_.__value_.__l.__data_) = espresso_plan_set_priority(), *(&__p.__r_.__value_.__s + 23) = 20, strcpy(&__p, "Setting plan priorty"), ik::VerifyEspressoStatus(&v20, &__p), SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0))
@@ -2198,7 +2220,7 @@ void sub_24BC46234(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ik::VerifyEspressoStatus(int *a1, uint64_t *a2)
+uint64_t ik::VerifyEspressoStatus(unsigned int *a1, uint64_t *a2)
 {
   result = *a1;
   if (result)
@@ -2403,7 +2425,7 @@ LABEL_17:
 LABEL_18:
   for (i = *(a2 + 11); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,espresso_simple_image_preprocessing_params_t> const&>(v8, (i + 2));
+    std::__hash_table<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,espresso_simple_image_preprocessing_params_t> const&>(v8, i + 2, (i + 2));
   }
 
   if (*(a2 + 135) < 0)
@@ -2435,11 +2457,11 @@ void sub_24BC46704(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, void *a2)
+std::string **std::vector<std::string>::vector[abi:ne200100](std::string **a1, __int128 **a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
@@ -2451,13 +2473,14 @@ void *std::vector<std::string>::vector[abi:ne200100](void *result, void *a2)
     std::vector<long long>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24BC4684C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, char a11)
+void sub_24BC4684C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -2516,99 +2539,99 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,espresso_simple_image_preprocessing_params_t> const&>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_simple_image_preprocessing_params_t>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,espresso_simple_image_preprocessing_params_t> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v3 = a2;
+  v5 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v25, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_43;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_43:
     operator new();
   }
 
-  v13 = v2[23];
-  if (v13 >= 0)
+  v14 = *(v3 + 23);
+  if (v14 >= 0)
   {
-    v14 = v2[23];
+    v15 = *(v3 + 23);
   }
 
   else
   {
-    v14 = *(v2 + 1);
+    v15 = v3[1];
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
-    v2 = *v2;
+    v3 = *v3;
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v19 = v12[1];
-      if (v19 == v7)
+      v20 = v13[1];
+      if (v20 == v8)
       {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
+        v21 = *(v13 + 39);
+        v22 = v21;
+        if (v21 < 0)
         {
-          v20 = v12[3];
+          v21 = v13[3];
         }
 
-        if (v20 == v14)
+        if (v21 == v15)
         {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
+          v23 = v22 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v23, v3, v15))
           {
-            return v12;
+            return v13;
           }
         }
       }
 
-      else if ((v19 & (*&v8 - 1)) != v10)
+      else if ((v20 & (*&v9 - 1)) != v11)
       {
         goto LABEL_43;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_43;
       }
@@ -2617,61 +2640,61 @@ LABEL_43:
 
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v7)
+    v16 = v13[1];
+    if (v16 == v8)
     {
       break;
     }
 
-    if (v15 >= *&v8)
+    if (v16 >= *&v9)
     {
-      v15 %= *&v8;
+      v16 %= *&v9;
     }
 
-    if (v15 != v10)
+    if (v16 != v11)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_43;
     }
   }
 
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
+  v17 = *(v13 + 39);
+  v18 = v17;
+  if (v17 < 0)
   {
-    v16 = v12[3];
+    v17 = v13[3];
   }
 
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
+  if (v17 != v15)
   {
     goto LABEL_20;
   }
 
-  return v12;
+  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v19, v3, v15))
+  {
+    goto LABEL_20;
+  }
+
+  return v13;
 }
 
-void sub_24BC46D5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC46D5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,espresso_buffer_t>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,espresso_buffer_t>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC46D70(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC46D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,espresso_buffer_t>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,espresso_buffer_t>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -2694,14 +2717,7 @@ void ik::LogEspressoError(uint64_t a1, uint64_t *a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    ik::LogEspressoError(a2);
-  }
-}
-
-{
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    ik::LogEspressoError(a2);
+    ik::LogEspressoError(a2, a1);
   }
 }
 
@@ -2726,7 +2742,7 @@ void ik::core::EspressoNetState::~EspressoNetState(ik::core::EspressoNetState *t
   }
 }
 
-void ik::EspressoConfig::~EspressoConfig(void **this)
+void ik::EspressoConfig::~EspressoConfig(void ***this)
 {
   if (*(this + 135) < 0)
   {
@@ -2793,9 +2809,10 @@ void ik::Dict::~Dict(const void **this)
   }
 }
 
-void sub_24BC4732C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15)
+void sub_24BC4732C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  std::shared_ptr<ft::Track>::~shared_ptr[abi:ne200100](&a15);
+  va_start(va, a14);
+  std::shared_ptr<ft::Track>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<ft::Track>::~shared_ptr[abi:ne200100](&a13);
   _Unwind_Resume(a1);
 }
@@ -3122,7 +3139,7 @@ void *ik::core::PixelBufferStorage::Data(CVPixelBufferRef *this)
   return v3;
 }
 
-void ik::core::PixelBufferStorage::Strides(ik::core **this@<X0>, __CVBuffer *a2@<X1>, void *a3@<X8>)
+void ik::core::PixelBufferStorage::Strides(ik::core **this@<X0>, __CVBuffer *a2@<X1>, size_t **a3@<X8>)
 {
   ik::core::DataTypeFromPixelBuffer(this[1], a2);
   CVPixelBufferGetBytesPerRow(this[1]);
@@ -3133,13 +3150,14 @@ void ik::core::PixelBufferStorage::Strides(ik::core **this@<X0>, __CVBuffer *a2@
   operator new();
 }
 
-void ik::core::PixelBufferStorage::CopyData(CVPixelBufferRef *this)
+void ik::core::PixelBufferStorage::CopyData(CVPixelBufferRef *this@<X0>, uint64_t a2@<X8>)
 {
   if (!CVPixelBufferLockBaseAddress(this[1], 1uLL))
   {
-    (*(*this + 3))(this);
+    v4 = (*(*this + 3))(this);
+    v6 = v5;
     (*(*this + 4))(&__p, this);
-    ik::StridedArray::StridedArray();
+    ik::StridedArray::StridedArray(a2, v4, v6, &__p);
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
@@ -3159,11 +3177,12 @@ void sub_24BC47A8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ik::TensorStorage::CopyData(ik::TensorStorage *this)
+void ik::TensorStorage::CopyData(ik::TensorStorage *this@<X0>, uint64_t a2@<X8>)
 {
-  (*(*this + 24))(this);
+  v4 = (*(*this + 24))(this);
+  v6 = v5;
   (*(*this + 32))(&__p, this);
-  ik::StridedArray::StridedArray();
+  ik::StridedArray::StridedArray(a2, v4, v6, &__p);
 }
 
 void sub_24BC47B6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -3731,29 +3750,29 @@ void sub_24BC48424(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, char **a3@<X2>, uint64_t a4@<X8>)
 {
   v6 = *(a1 + 8);
   for (i = *(a2 + 16); i; i = *i)
   {
-    *v20 = &unk_285F8F298;
+    *v26 = &unk_285F8F298;
     if (*(i + 39) < 0)
     {
-      std::string::__init_copy_ctor_external(&v20[8], i[2], i[3]);
+      std::string::__init_copy_ctor_external(&v26[8], i[2], i[3]);
     }
 
     else
     {
       v8 = *(i + 1);
-      v21 = i[4];
-      *&v20[8] = v8;
+      v27 = i[4];
+      *&v26[8] = v8;
     }
 
-    v22 = *v6;
-    (*(*i[10] + 16))(i[10], v20);
-    if (SHIBYTE(v21) < 0)
+    v28 = *v6;
+    (*(*i[10] + 16))(i[10], v26);
+    if (SHIBYTE(v27) < 0)
     {
-      operator delete(*&v20[8]);
+      operator delete(*&v26[8]);
     }
   }
 
@@ -3765,17 +3784,17 @@ void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<
     {
       if (!std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(v6 + 24, v9))
       {
-        v19 = espresso_network_bind_buffer();
-        HIBYTE(v18[2]) = 21;
-        strcpy(v18, "Binding output buffer");
-        ik::VerifyEspressoStatus(&v19, v18);
-        if (SHIBYTE(v18[2]) < 0)
+        v25 = espresso_network_bind_buffer();
+        HIBYTE(v24[2]) = 21;
+        strcpy(v24, "Binding output buffer");
+        ik::VerifyEspressoStatus(&v25, v24);
+        if (SHIBYTE(v24[2]) < 0)
         {
-          operator delete(v18[0]);
+          operator delete(v24[0]);
         }
 
-        LOWORD(v18[0]) = 0;
-        ik::EspressoTensor::EspressoTensor();
+        LOWORD(v24[0]) = 0;
+        ik::EspressoTensor::EspressoTensor(&v17, v26, v24);
       }
 
       v11 = std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(v6 + 24, v9);
@@ -3784,6 +3803,11 @@ void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<
         std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
       }
 
+      v17 = &unk_285F8F1D8;
+      v18 = *(v11 + 12);
+      v20 = 0;
+      v21 = 0;
+      v19 = 0;
       v13 = v11[7];
       v12 = v11[8];
       if (v12 != v13)
@@ -3797,30 +3821,37 @@ void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<
       }
 
       v14 = v11[11];
-      v17 = v14;
+      v22 = v11[10];
+      v23 = v14;
       if (v14)
       {
-        atomic_fetch_add_explicit(v14 + 1, 1uLL, memory_order_relaxed);
-        if (!atomic_fetch_add(v14 + 1, 0xFFFFFFFFFFFFFFFFLL))
+        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        v17 = &unk_285F8F1D8;
+        if (!atomic_fetch_add(&v23->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (*(*v14 + 16))(v14);
-          std::__shared_weak_count::__release_weak(v17);
+          (v23->__on_zero_shared)(v23);
+          std::__shared_weak_count::__release_weak(v23);
         }
       }
 
-      v9 += 24;
+      else
+      {
+        v17 = &unk_285F8F1D8;
+      }
+
+      v9 += 3;
     }
 
     while (v9 != v10);
   }
 
-  LODWORD(v18[0]) = espresso_plan_execute_sync();
-  v20[23] = 14;
-  strcpy(v20, "Executing plan");
-  ik::VerifyEspressoStatus(v18, v20);
-  if ((v20[23] & 0x80000000) != 0)
+  LODWORD(v24[0]) = espresso_plan_execute_sync();
+  v26[23] = 14;
+  strcpy(v26, "Executing plan");
+  ik::VerifyEspressoStatus(v24, v26);
+  if ((v26[23] & 0x80000000) != 0)
   {
-    operator delete(*v20);
+    operator delete(*v26);
   }
 
   *a4 = 0u;
@@ -3830,9 +3861,9 @@ void ik::EspressoNet::Predict(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<
   if (prime == 1)
   {
     prime = 2;
-LABEL_32:
+LABEL_33:
     std::__hash_table<std::__hash_value_type<std::string,espresso_buffer_t>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,espresso_buffer_t>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,espresso_buffer_t>>>::__do_rehash<true>(a4, prime);
-    goto LABEL_33;
+    goto LABEL_34;
   }
 
   if ((prime & (prime - 1)) != 0)
@@ -3842,13 +3873,13 @@ LABEL_32:
 
   if (prime)
   {
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
-LABEL_33:
+LABEL_34:
   for (j = *(v6 + 26); j; j = *j)
   {
-    std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::EspressoTensor> const&>(a4, (j + 2));
+    std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::EspressoTensor> const&>(a4, j + 2, (j + 2));
   }
 }
 
@@ -3879,46 +3910,46 @@ void ik::core::EspressoBinder::~EspressoBinder(void **this)
   JUMPOUT(0x24C253380);
 }
 
-void ik::core::EspressoBinder::Bind(uint64_t a1, uint64_t a2, int *a3)
+void ik::core::EspressoBinder::Bind(uint64_t a1, _OWORD *a2, int *a3, uint64_t a4)
 {
-  v3 = *a3;
+  v4 = *a3;
   if (*a3 > 1)
   {
-    if (v3 == 2)
+    if (v4 == 2)
     {
-      *&__p[2] = *(a2 + 16);
-      v6 = espresso_network_bind_input_vimagebuffer_argb8();
+      *&__p[2] = a2[1];
+      v7 = espresso_network_bind_input_vimagebuffer_argb8();
       HIBYTE(__p[2]) = 21;
       strcpy(__p, "Binding vImage_Buffer");
-      ik::VerifyEspressoStatus(&v6, __p);
+      ik::VerifyEspressoStatus(&v7, __p);
     }
 
     else
     {
-      if (v3 != 3)
+      if (v4 != 3)
       {
         goto LABEL_12;
       }
 
-      *&__p[2] = *(a2 + 16);
-      v6 = espresso_network_bind_input_vimagebuffer_planar8();
+      *&__p[2] = a2[1];
+      v7 = espresso_network_bind_input_vimagebuffer_planar8();
       HIBYTE(__p[2]) = 21;
       strcpy(__p, "Binding vImage_Buffer");
-      ik::VerifyEspressoStatus(&v6, __p);
+      ik::VerifyEspressoStatus(&v7, __p);
     }
   }
 
   else
   {
-    if (v3)
+    if (v4)
     {
-      if (v3 == 1)
+      if (v4 == 1)
       {
-        *&__p[2] = *(a2 + 16);
-        v6 = espresso_network_bind_input_vimagebuffer_rgba8();
+        *&__p[2] = a2[1];
+        v7 = espresso_network_bind_input_vimagebuffer_rgba8();
         HIBYTE(__p[2]) = 21;
         strcpy(__p, "Binding vImage_Buffer");
-        ik::VerifyEspressoStatus(&v6, __p);
+        ik::VerifyEspressoStatus(&v7, __p);
         goto LABEL_10;
       }
 
@@ -3928,11 +3959,11 @@ LABEL_12:
       __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
     }
 
-    *&__p[2] = *(a2 + 16);
-    v6 = espresso_network_bind_input_vimagebuffer_bgra8();
+    *&__p[2] = a2[1];
+    v7 = espresso_network_bind_input_vimagebuffer_bgra8();
     HIBYTE(__p[2]) = 21;
     strcpy(__p, "Binding vImage_Buffer");
-    ik::VerifyEspressoStatus(&v6, __p);
+    ik::VerifyEspressoStatus(&v7, __p);
   }
 
 LABEL_10:
@@ -3984,10 +4015,10 @@ void sub_24BC48F50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::find<std::string>(void *a1, uint64_t *a2)
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -4032,15 +4063,15 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTens
   v12 = *v11;
   if (*v11)
   {
-    v13 = v2[23];
+    v13 = *(v2 + 23);
     if (v13 >= 0)
     {
-      v14 = v2[23];
+      v14 = *(v2 + 23);
     }
 
     else
     {
-      v14 = *(v2 + 1);
+      v14 = v2[1];
     }
 
     if (v13 < 0)
@@ -4132,7 +4163,7 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTens
 
 {
   v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2[1];
   if (*(a2 + 23) >= 0)
   {
     v5 = *(a2 + 23);
@@ -4177,15 +4208,15 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTens
   v12 = *v11;
   if (*v11)
   {
-    v13 = v2[23];
+    v13 = *(v2 + 23);
     if (v13 >= 0)
     {
-      v14 = v2[23];
+      v14 = *(v2 + 23);
     }
 
     else
     {
-      v14 = *(v2 + 1);
+      v14 = v2[1];
     }
 
     if (v13 < 0)
@@ -4312,7 +4343,7 @@ void ik::EspressoTensor::~EspressoTensor(ik::EspressoTensor *this)
   }
 }
 
-void sub_24BC49594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_24BC49594(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   std::shared_ptr<ft::Track>::~shared_ptr[abi:ne200100](&a11);
   std::shared_ptr<ft::Track>::~shared_ptr[abi:ne200100](&a9);
@@ -4419,99 +4450,99 @@ LABEL_8:
   goto LABEL_8;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v4 = a2;
+  v6 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v26, a2, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_43;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v12 = v8;
+    if (v8 >= *&v10)
     {
-      v10 = v6 % *&v8;
+      v12 = v8 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v12 = (*&v10 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_43:
     operator new();
   }
 
-  v13 = v2[23];
-  if (v13 >= 0)
+  v15 = *(v4 + 23);
+  if (v15 >= 0)
   {
-    v14 = v2[23];
+    v16 = *(v4 + 23);
   }
 
   else
   {
-    v14 = *(v2 + 1);
+    v16 = v4[1];
   }
 
-  if (v13 < 0)
+  if (v15 < 0)
   {
-    v2 = *v2;
+    v4 = *v4;
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v11.u32[0] < 2uLL)
   {
     while (1)
     {
-      v19 = v12[1];
-      if (v19 == v7)
+      v21 = v14[1];
+      if (v21 == v9)
       {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
+        v22 = *(v14 + 39);
+        v23 = v22;
+        if (v22 < 0)
         {
-          v20 = v12[3];
+          v22 = v14[3];
         }
 
-        if (v20 == v14)
+        if (v22 == v16)
         {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
+          v24 = v23 >= 0 ? (v14 + 2) : v14[2];
+          if (!memcmp(v24, v4, v16))
           {
-            return v12;
+            return v14;
           }
         }
       }
 
-      else if ((v19 & (*&v8 - 1)) != v10)
+      else if ((v21 & (*&v10 - 1)) != v12)
       {
         goto LABEL_43;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v14 = *v14;
+      if (!v14)
       {
         goto LABEL_43;
       }
@@ -4520,61 +4551,61 @@ LABEL_43:
 
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v7)
+    v17 = v14[1];
+    if (v17 == v9)
     {
       break;
     }
 
-    if (v15 >= *&v8)
+    if (v17 >= *&v10)
     {
-      v15 %= *&v8;
+      v17 %= *&v10;
     }
 
-    if (v15 != v10)
+    if (v17 != v12)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_43;
     }
   }
 
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
+  v18 = *(v14 + 39);
+  v19 = v18;
+  if (v18 < 0)
   {
-    v16 = v12[3];
+    v18 = v14[3];
   }
 
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
+  if (v18 != v16)
   {
     goto LABEL_20;
   }
 
-  return v12;
+  v20 = v19 >= 0 ? (v14 + 2) : v14[2];
+  if (memcmp(v20, v4, v16))
+  {
+    goto LABEL_20;
+  }
+
+  return v14;
 }
 
-void sub_24BC49D84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC49D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_24BC49D98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC49D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4614,99 +4645,99 @@ uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik
   return a1;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::EspressoTensor> const&>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::EspressoTensor> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v3 = a2;
+  v5 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v25, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_43;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_43:
     std::__hash_table<std::__hash_value_type<std::string,ik::EspressoTensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::EspressoTensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::EspressoTensor>>>::__construct_node_hash<std::pair<std::string const,ik::EspressoTensor> const&>();
   }
 
-  v13 = v2[23];
-  if (v13 >= 0)
+  v14 = *(v3 + 23);
+  if (v14 >= 0)
   {
-    v14 = v2[23];
+    v15 = *(v3 + 23);
   }
 
   else
   {
-    v14 = *(v2 + 1);
+    v15 = v3[1];
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
-    v2 = *v2;
+    v3 = *v3;
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v19 = v12[1];
-      if (v19 == v7)
+      v20 = v13[1];
+      if (v20 == v8)
       {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
+        v21 = *(v13 + 39);
+        v22 = v21;
+        if (v21 < 0)
         {
-          v20 = v12[3];
+          v21 = v13[3];
         }
 
-        if (v20 == v14)
+        if (v21 == v15)
         {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
+          v23 = v22 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v23, v3, v15))
           {
-            return v12;
+            return v13;
           }
         }
       }
 
-      else if ((v19 & (*&v8 - 1)) != v10)
+      else if ((v20 & (*&v9 - 1)) != v11)
       {
         goto LABEL_43;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_43;
       }
@@ -4715,54 +4746,54 @@ LABEL_43:
 
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v7)
+    v16 = v13[1];
+    if (v16 == v8)
     {
       break;
     }
 
-    if (v15 >= *&v8)
+    if (v16 >= *&v9)
     {
-      v15 %= *&v8;
+      v16 %= *&v9;
     }
 
-    if (v15 != v10)
+    if (v16 != v11)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_43;
     }
   }
 
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
+  v17 = *(v13 + 39);
+  v18 = v17;
+  if (v17 < 0)
   {
-    v16 = v12[3];
+    v17 = v13[3];
   }
 
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
+  if (v17 != v15)
   {
     goto LABEL_20;
   }
 
-  return v12;
+  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v19, v3, v15))
+  {
+    goto LABEL_20;
+  }
+
+  return v13;
 }
 
-void sub_24BC4A2D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC4A2D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::EspressoTensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4943,11 +4974,11 @@ uint64_t std::pair<std::string const,ik::Tensor>::~pair(uint64_t a1)
   return a1;
 }
 
-void *std::vector<std::string>::vector[abi:ne200100](void *result, uint64_t a2, unint64_t a3)
+std::string **std::vector<std::string>::vector[abi:ne200100](std::string **a1, __int128 *a2, unint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a3)
   {
     if (a3 < 0xAAAAAAAAAAAAAABLL)
@@ -4958,13 +4989,14 @@ void *std::vector<std::string>::vector[abi:ne200100](void *result, uint64_t a2, 
     std::vector<long long>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-void sub_24BC4AA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, char a11)
+void sub_24BC4AA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void ***a9, uint64_t a10, ...)
 {
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](&a11);
-  *(v11 + 8) = v12;
+  va_start(va, a10);
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*>>::~__exception_guard_exceptions[abi:ne200100](va);
+  *(v10 + 8) = v11;
   std::__exception_guard_exceptions<std::vector<std::string>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4976,7 +5008,7 @@ ft::DetectorInternals *ft::DetectorInternals::DetectorInternals(ft::DetectorInte
   v6 = 0;
   v5 = 15;
   strcpy(__p, "Create detector");
-  Params = AcDetCreate(this, &v6);
+  Params = AcDetCreate(this, &v6, this + 2);
   ft::EnsureOK(__p, &Params);
   if (v5 < 0)
   {
@@ -5060,99 +5092,99 @@ void std::__throw_bad_function_call[abi:ne200100]()
   __cxa_throw(exception, MEMORY[0x277D82728], MEMORY[0x277D82660]);
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,ik::Tensor> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = a2;
-  v4 = *(a2 + 8);
+  v3 = a2;
+  v5 = a2[1];
   if (*(a2 + 23) >= 0)
   {
-    v5 = *(a2 + 23);
+    v6 = *(a2 + 23);
   }
 
   else
   {
     a2 = *a2;
-    v5 = v4;
+    v6 = v5;
   }
 
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
+  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](v25, a2, v6);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_43;
   }
 
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v6;
-    if (v6 >= *&v8)
+    v11 = v7;
+    if (v7 >= *&v9)
     {
-      v10 = v6 % *&v8;
+      v11 = v7 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v8 - 1) & v6;
+    v11 = (*&v9 - 1) & v7;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_43:
     std::__hash_table<std::__hash_value_type<std::string,ik::Tensor>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,ik::Tensor>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,ik::Tensor>>>::__construct_node_hash<std::pair<std::string const,ik::Tensor> const&>();
   }
 
-  v13 = v2[23];
-  if (v13 >= 0)
+  v14 = *(v3 + 23);
+  if (v14 >= 0)
   {
-    v14 = v2[23];
+    v15 = *(v3 + 23);
   }
 
   else
   {
-    v14 = *(v2 + 1);
+    v15 = v3[1];
   }
 
-  if (v13 < 0)
+  if (v14 < 0)
   {
-    v2 = *v2;
+    v3 = *v3;
   }
 
-  if (v9.u32[0] < 2uLL)
+  if (v10.u32[0] < 2uLL)
   {
     while (1)
     {
-      v19 = v12[1];
-      if (v19 == v7)
+      v20 = v13[1];
+      if (v20 == v8)
       {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
+        v21 = *(v13 + 39);
+        v22 = v21;
+        if (v21 < 0)
         {
-          v20 = v12[3];
+          v21 = v13[3];
         }
 
-        if (v20 == v14)
+        if (v21 == v15)
         {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
+          v23 = v22 >= 0 ? (v13 + 2) : v13[2];
+          if (!memcmp(v23, v3, v15))
           {
-            return v12;
+            return v13;
           }
         }
       }
 
-      else if ((v19 & (*&v8 - 1)) != v10)
+      else if ((v20 & (*&v9 - 1)) != v11)
       {
         goto LABEL_43;
       }
 
-      v12 = *v12;
-      if (!v12)
+      v13 = *v13;
+      if (!v13)
       {
         goto LABEL_43;
       }
@@ -5161,54 +5193,54 @@ LABEL_43:
 
   while (1)
   {
-    v15 = v12[1];
-    if (v15 == v7)
+    v16 = v13[1];
+    if (v16 == v8)
     {
       break;
     }
 
-    if (v15 >= *&v8)
+    if (v16 >= *&v9)
     {
-      v15 %= *&v8;
+      v16 %= *&v9;
     }
 
-    if (v15 != v10)
+    if (v16 != v11)
     {
       goto LABEL_43;
     }
 
 LABEL_20:
-    v12 = *v12;
-    if (!v12)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_43;
     }
   }
 
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
+  v17 = *(v13 + 39);
+  v18 = v17;
+  if (v17 < 0)
   {
-    v16 = v12[3];
+    v17 = v13[3];
   }
 
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
+  if (v17 != v15)
   {
     goto LABEL_20;
   }
 
-  return v12;
+  v19 = v18 >= 0 ? (v13 + 2) : v13[2];
+  if (memcmp(v19, v3, v15))
+  {
+    goto LABEL_20;
+  }
+
+  return v13;
 }
 
-void sub_24BC4B118(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24BC4B118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5238,7 +5270,7 @@ LABEL_3:
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5246,7 +5278,7 @@ uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,ik:
   {
     if (*(a1 + 16) == 1)
     {
-      std::allocator_traits<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>>>::destroy[abi:ne200100]<std::pair<std::string const,ik::Tensor>,void,0>(*(a1 + 8), v2 + 16);
+      std::allocator_traits<std::allocator<std::__hash_node<std::__hash_value_type<std::string,ik::Tensor>,void *>>>::destroy[abi:ne200100]<std::pair<std::string const,ik::Tensor>,void,0>(a1[1], v2 + 16);
     }
 
     operator delete(v2);
@@ -6034,14 +6066,14 @@ LABEL_85:
   while (v63);
 }
 
-void bmBufferResizeCoordConvert(unsigned int a1, unsigned int a2, unsigned int a3, unsigned int a4, int a5, float *a6, float *a7, float a8, float a9)
+void bmBufferResizeCoordConvert(uint64_t result, unsigned int a2, unsigned int a3, unsigned int a4, int a5, float *a6, float *a7, float a8, float a9)
 {
   if (a5 >= 3)
   {
     bmBufferResizeCoordConvert();
   }
 
-  if (!a1 || !a2 || !a3 || !a4)
+  if (!result || !a2 || !a3 || !a4)
   {
     bmBufferResizeCoordConvert();
   }
@@ -6049,10 +6081,10 @@ void bmBufferResizeCoordConvert(unsigned int a1, unsigned int a2, unsigned int a
   if (a5)
   {
     v14 = a3;
-    v15 = a1;
+    v15 = result;
     v16 = a4;
     v17 = a2;
-    v18 = bmMinimum(a3 / a1, a4 / a2);
+    v18 = bmMinimum(a3 / result, a4 / a2);
     *a6 = v18 * a8;
     *a7 = v18 * a9;
     if (a5 != 2)
@@ -6066,7 +6098,7 @@ void bmBufferResizeCoordConvert(unsigned int a1, unsigned int a2, unsigned int a
 
   else
   {
-    *a6 = (a8 / a1) * a3;
+    *a6 = (a8 / result) * a3;
     v19 = (a9 / a2) * a4;
   }
 
@@ -6121,7 +6153,7 @@ float bmBufferResizeCoordConvertReversed(unsigned int a1, unsigned int a2, unsig
   return result;
 }
 
-uint64_t TtTrkRpnCreate(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t TtTrkRpnCreate(void *a1, uint64_t a2, void *a3)
 {
   result = 4294967292;
   if (a1 && a2)
@@ -6524,7 +6556,7 @@ __n128 TtTrkRpnExemplarPostProcess(uint64_t a1, uint64_t a2, uint64_t a3, uint64
     v11 = &a6[20 * *a6];
     *(v11 + 21) = xmmword_24BC6CE81;
     *(v11 + 37) = 0;
-    v12 = TtTrkRpnNode::config(*a1);
+    TtTrkRpnNode::config(*a1);
     result = *v12;
     *(v11 + 97) = v12[1].n128_u32[0];
     *(v11 + 81) = result;
@@ -6580,33 +6612,33 @@ uint64_t TtTrkRpnInstancePostProcess(uint64_t a1, unsigned int *a2, uint64_t a3,
   return result;
 }
 
-uint64_t bmQsort(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4)
+uint64_t bmQsort(uint64_t result, unint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (a2 >= 2 && a3)
   {
-    v8[4] = v4;
-    v8[5] = v5;
+    v10[4] = v6;
+    v10[5] = v7;
     if ((a3 & 3) != 0)
     {
-      v6 = a3;
+      v8 = a3;
     }
 
     else
     {
-      v6 = a3 >> 2;
+      v8 = a3 >> 2;
     }
 
-    v7 = swap8;
-    v8[0] = a3;
-    v8[1] = v6;
+    v9 = swap8;
+    v10[0] = a3;
+    v10[1] = v8;
     if ((a3 & 3) == 0)
     {
-      v7 = swap32;
+      v9 = swap32;
     }
 
-    v8[2] = a4;
-    v8[3] = v7;
-    return qsort_internal(result, a2, v8);
+    v10[2] = a4;
+    v10[3] = v9;
+    return qsort_internal(result, a2, v10);
   }
 
   return result;
@@ -7055,10 +7087,11 @@ void sub_24BC4D804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 float bmMinimum(float result, float a2)
@@ -7133,7 +7166,7 @@ uint64_t bmMaximum(uint64_t result, int a2)
   }
 }
 
-uint64_t bmClamp(signed int a1, unsigned int a2, signed int a3)
+uint64_t bmClamp(signed int a1, int a2, signed int a3)
 {
   if (a3 >= a1)
   {
@@ -7360,18 +7393,18 @@ void bmSoftmax(float32x4_t *a1, float *a2, unsigned int a3, unsigned int a4, dou
   v7 = 4 * a4;
   if (a4 * a3 > a4)
   {
-    v8 = &a1->f32[v7 / 4];
+    v8 = (a1 + v7);
     do
     {
       if (*&a5 < *v8)
       {
-        *&a5 = *v8;
+        LODWORD(a5) = *v8;
       }
 
       v8 = (v8 + v7);
     }
 
-    while (v8 < &a1->f32[a4 * a3]);
+    while (v8 < &a1->i32[a4 * a3]);
   }
 
   if (a3)
@@ -7492,10 +7525,8 @@ __n128 ft::TrackPool::TrackPool(__n128 *a1, __n128 *a2)
   result = *a2;
   v3 = a2[1].n128_u64[0];
   *a1 = *a2;
-  a1[1].n128_u64[0] = v3;
-  a1[1].n128_u64[1] = 0;
-  a1[2].n128_u64[0] = 0;
-  a1[2].n128_u64[1] = 0;
+  a1[1] = v3;
+  a1[2] = 0uLL;
   return result;
 }
 
@@ -7503,10 +7534,8 @@ __n128 ft::TrackPool::TrackPool(__n128 *a1, __n128 *a2)
   result = *a2;
   v3 = a2[1].n128_u64[0];
   *a1 = *a2;
-  a1[1].n128_u64[0] = v3;
-  a1[1].n128_u64[1] = 0;
-  a1[2].n128_u64[0] = 0;
-  a1[2].n128_u64[1] = 0;
+  a1[1] = v3;
+  a1[2] = 0uLL;
   return result;
 }
 
@@ -7575,15 +7604,15 @@ void ft::TrackPool::~TrackPool(ft::TrackPool *this)
   }
 }
 
-uint64_t ft::TrackPool::GetTrackById@<X0>(uint64_t this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *ft::TrackPool::GetTrackById@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, uint64_t a3@<X1>)
 {
-  v3 = *(this + 24);
-  v4 = *(this + 32);
+  v3 = this[3];
+  v4 = this[4];
   if (v3 == v4)
   {
 LABEL_4:
-    *a3 = 0;
-    a3[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 
   else
@@ -7591,7 +7620,7 @@ LABEL_4:
     while (1)
     {
       v5 = *v3;
-      if (*(*v3 + 16) == a2)
+      if (*(*v3 + 16) == a3)
       {
         break;
       }
@@ -7604,8 +7633,8 @@ LABEL_4:
     }
 
     v6 = v3[1];
-    *a3 = v5;
-    a3[1] = v6;
+    *a1 = v5;
+    a1[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -7615,7 +7644,7 @@ LABEL_4:
   return this;
 }
 
-uint64_t ft::TrackPool::MaybeCreateNewTrack@<X0>(uint64_t result@<X0>, int **a2@<X1>, void *a3@<X8>)
+uint64_t ft::TrackPool::MaybeCreateNewTrack@<X0>(uint64_t result@<X0>, int **a2@<X1>, uint64_t *a3@<X8>)
 {
   if (*(result + 8) != 1 || *result > ((*(result + 32) - *(result + 24)) >> 4))
   {
@@ -7631,16 +7660,16 @@ uint64_t ft::TrackPool::MaybeCreateNewTrack@<X0>(uint64_t result@<X0>, int **a2@
   return result;
 }
 
-void ft::TrackPool::CreateNewTrack(int **a1@<X1>, uint64_t a2@<X3>, void *a3@<X8>)
+void ft::TrackPool::CreateNewTrack(int **a2@<X1>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  if (*(a2 + 8) == 1)
+  *a5 = 0;
+  a5[1] = 0;
+  if (*(a4 + 8) == 1)
   {
-    v17 = *a2;
-    v3 = *a1;
-    v4 = a1[1];
-    if (v4 != 5)
+    v19 = *a4;
+    v5 = *a2;
+    v6 = a2[1];
+    if (v6 != 5)
     {
       goto LABEL_3;
     }
@@ -7648,20 +7677,20 @@ void ft::TrackPool::CreateNewTrack(int **a1@<X1>, uint64_t a2@<X3>, void *a3@<X8
 
   else
   {
-    v17 = atomic_fetch_add(&ft::ReserveNewTrackId(void)::track_id_ctr, 1uLL) | 0x100000000;
-    v3 = *a1;
-    v4 = a1[1];
-    if (v4 != 5)
+    v19 = atomic_fetch_add(&ft::ReserveNewTrackId(void)::track_id_ctr, 1uLL) | 0x100000000;
+    v5 = *a2;
+    v6 = a2[1];
+    if (v6 != 5)
     {
 LABEL_3:
-      if (v4 == 6)
+      if (v6 == 6)
       {
-        v5 = *v3;
-        v6 = *(v3 + 2);
-        if (v5 == 1835819371 && v6 == 28257)
+        v7 = *v5;
+        v8 = *(v5 + 2);
+        if (v7 == 1835819371 && v8 == 28257)
         {
-          *v16 = xmmword_24BC6CF40;
-          *&v16[16] = xmmword_24BC6CF50;
+          *v18 = xmmword_24BC6CF40;
+          *&v18[16] = xmmword_24BC6CF50;
           operator new();
         }
       }
@@ -7670,24 +7699,24 @@ LABEL_3:
     }
   }
 
-  v8 = *v3;
-  v9 = *(v3 + 4);
-  if (v8 == 2020569712 && v9 == 121)
+  v10 = *v5;
+  v11 = *(v5 + 4);
+  if (v10 == 2020569712 && v11 == 121)
   {
     operator new();
   }
 
 LABEL_17:
   exception = __cxa_allocate_exception(0x10uLL);
-  std::string::basic_string<std::string_view,0>(&__dst, a1);
-  v13 = std::string::insert(&__dst, 0, "Unknown track type encountered: ");
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  *&v16[16] = *(&v13->__r_.__value_.__l + 2);
-  *v16 = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  std::runtime_error::runtime_error(exception, v16);
+  std::string::basic_string<std::string_view,0>(&__dst, a2);
+  v15 = std::string::insert(&__dst, 0, "Unknown track type encountered: ");
+  v16 = *&v15->__r_.__value_.__l.__data_;
+  *&v18[16] = *(&v15->__r_.__value_.__l + 2);
+  *v18 = v16;
+  v15->__r_.__value_.__l.__size_ = 0;
+  v15->__r_.__value_.__r.__words[2] = 0;
+  v15->__r_.__value_.__r.__words[0] = 0;
+  std::runtime_error::runtime_error(exception, v18);
   __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
 }
 
@@ -7718,7 +7747,7 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void ft::TrackPool::CreateNewDetectionlessTrack(void *a1@<X8>)
+void ft::TrackPool::CreateNewDetectionlessTrack(uint64_t *__return_ptr a1@<X8>)
 {
   v2[0] = 0;
   v2[8] = 0;
@@ -7986,11 +8015,11 @@ void ft::TrackPool::Reset(ft::TrackPool *this)
   *(this + 4) = v2;
 }
 
-void ft::TrackPool::ReincarnateTrack(uint64_t a1@<X0>, uint64_t a2@<X1>, int **a3@<X2>, void *a4@<X8>)
+void ft::TrackPool::ReincarnateTrack(void *a1@<X0>, uint64_t a2@<X1>, int **a3@<X2>, uint64_t *a4@<X8>)
 {
-  v9 = *(a1 + 24);
-  v10 = *(a1 + 32);
-  v8 = (a1 + 24);
+  v9 = a1[3];
+  v10 = a1[4];
+  v8 = a1 + 3;
   if (v9 != v10)
   {
     v11 = *(*a2 + 16);
@@ -7999,7 +8028,7 @@ void ft::TrackPool::ReincarnateTrack(uint64_t a1@<X0>, uint64_t a2@<X1>, int **a
       v9 += 2;
       if (v9 == v10)
       {
-        v9 = *(a1 + 32);
+        v9 = a1[4];
         goto LABEL_16;
       }
     }
@@ -8036,7 +8065,7 @@ void ft::TrackPool::ReincarnateTrack(uint64_t a1@<X0>, uint64_t a2@<X1>, int **a
         }
 
         while (v12 != v10);
-        v10 = *(a1 + 32);
+        v10 = a1[4];
       }
     }
   }
@@ -8048,18 +8077,18 @@ LABEL_16:
   ft::TrackPool::CreateNewTrack(a3, &v16, a4);
 }
 
-void ft::TrackPool::UpdateForeignTracks(uint64_t this@<X0>, const Frame *a2@<X1>, void *a3@<X8>)
+void ft::TrackPool::UpdateForeignTracks(uint64_t *__return_ptr a1@<X8>, uint64_t this@<X0>, const Frame *a3@<X1>)
 {
   v3 = this;
   v61 = *MEMORY[0x277D85DE8];
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   *v44 = 0u;
   *__p = 0u;
   v46 = 1065353216;
-  v5 = *(a2 + 4);
-  v6 = *(a2 + 5);
+  v5 = *(a3 + 4);
+  v6 = *(a3 + 5);
   if (v5 != v6)
   {
     __asm { FMOV            V8.2S, #-1.0 }
@@ -8068,7 +8097,7 @@ void ft::TrackPool::UpdateForeignTracks(uint64_t this@<X0>, const Frame *a2@<X1>
     {
       if (*(v5 + 104) != 1)
       {
-        std::vector<ft::Observation>::push_back[abi:ne200100](a3, v5);
+        std::vector<ft::Observation>::push_back[abi:ne200100](a1, v5);
         goto LABEL_4;
       }
 
@@ -8179,7 +8208,7 @@ LABEL_38:
         }
 
 LABEL_29:
-        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v44, &v43);
+        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v44, &v43, &v43);
         v21 = *(v3 + 24);
         v22 = *(v3 + 32);
         if (v21 == v22)
@@ -8234,7 +8263,7 @@ LABEL_32:
         v58 = 0;
         v59 = 0;
         v60 = _D8;
-        this = ft::Track::Update(v23, a2, buf);
+        this = ft::Track::Update(v23, a3, buf);
         v32 = *(&v47 + 1);
         if (*(&v47 + 1) && !atomic_fetch_add((*(&v47 + 1) + 8), 0xFFFFFFFFFFFFFFFFLL))
         {
@@ -8287,22 +8316,22 @@ LABEL_4:
   }
 }
 
-void sub_24BC4F080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_24BC4F080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::unordered_map<long long,CMTime>::~unordered_map[abi:ne200100](va);
-  v11 = *v9;
-  if (!*v9)
+  v18 = *v16;
+  if (!*v16)
   {
     _Unwind_Resume(a1);
   }
 
-  *(v9 + 8) = v11;
-  operator delete(v11);
+  *(v16 + 8) = v18;
+  operator delete(v18);
   _Unwind_Resume(a1);
 }
 
-void **std::vector<std::shared_ptr<ft::Track>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::shared_ptr<ft::Track>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -8350,7 +8379,7 @@ void std::__shared_ptr_emplace<ft::ProxyTrack>::~__shared_ptr_emplace(std::__sha
   JUMPOUT(0x24C253380);
 }
 
-_BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
+void *std::string::basic_string<std::string_view,0>(void *__dst, uint64_t a2)
 {
   v2 = *(a2 + 8);
   if (v2 >= 0x7FFFFFFFFFFFFFF8)
@@ -8364,68 +8393,68 @@ _BYTE *std::string::basic_string<std::string_view,0>(_BYTE *__dst, uint64_t a2)
     operator new();
   }
 
-  __dst[23] = v2;
+  *(__dst + 23) = v2;
   if (v2)
   {
     memmove(__dst, v4, v2);
   }
 
-  __dst[v2] = 0;
+  *(__dst + v2) = 0;
   return __dst;
 }
 
-void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *a1, unint64_t *a2)
+void *std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(void *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_23;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_23:
     operator new();
   }
 
-  if (v4.u32[0] < 2uLL)
+  if (v5.u32[0] < 2uLL)
   {
     while (1)
     {
-      v9 = v7[1];
-      if (v9 == v2)
+      v10 = v8[1];
+      if (v10 == v3)
       {
-        if (v7[2] == v2)
+        if (v8[2] == v3)
         {
-          return v7;
+          return v8;
         }
       }
 
-      else if ((v9 & (*&v3 - 1)) != v5)
+      else if ((v10 & (*&v4 - 1)) != v6)
       {
         goto LABEL_23;
       }
 
-      v7 = *v7;
-      if (!v7)
+      v8 = *v8;
+      if (!v8)
       {
         goto LABEL_23;
       }
@@ -8434,36 +8463,36 @@ LABEL_23:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v8 >= *&v3)
+    if (v9 >= *&v4)
     {
-      v8 %= *&v3;
+      v9 %= *&v4;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_23;
     }
 
 LABEL_12:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_23;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_12;
   }
 
-  return v7;
+  return v8;
 }
 
 void ***std::__exception_guard_exceptions<std::vector<std::shared_ptr<ft::Track>>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](void ***a1)
@@ -8877,7 +8906,7 @@ uint64_t ___ZL27SearchForEspressoNetInPathsP7NSArrayIP8NSStringES1__block_invoke
   return v4;
 }
 
-int *ik::VerifyEspressoStatus(int *result, uint64_t *a2)
+unsigned int *ik::VerifyEspressoStatus(unsigned int *result, uint64_t **a2)
 {
   if (*result)
   {
@@ -9126,6 +9155,14 @@ uint64_t ___ZN2ikL28IsAppleNeuralEngineAvailableEv_block_invoke_0()
   return result;
 }
 
+void ik::LogEspressoError(unsigned int *a1, uint64_t **a2)
+{
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    ik::LogEspressoError(a2, a1);
+  }
+}
+
 double ft::Track::Track(ft::Track *this, const uint64_t *a2)
 {
   *this = &unk_285F8F378;
@@ -9166,7 +9203,7 @@ uint64_t ft::Track::Update(uint64_t a1, uint64_t a2, _OWORD *a3)
 {
   *(a1 + 248) = 0x3FF0000000000000;
   *(a1 + 256) = 0;
-  result = (*(*a1 + 32))(a1);
+  result = (*(*a1 + 32))(a1, a2);
   v6 = *(a1 + 232);
   v8 = a3[1];
   v7 = a3[2];
@@ -9417,7 +9454,7 @@ unint64_t ttNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
 
   bmHeapsort(a1, a2, 0x24uLL, ttDetRectScoreCompare);
   v6 = 0;
-  v7 = a1 + 36;
+  v7 = (a1 + 36);
   v8 = 1;
   do
   {
@@ -9440,21 +9477,21 @@ unint64_t ttNonMaxSuppression(uint64_t a1, unsigned int a2, float a3)
 
           v15 = a1 + 36 * v10++;
           v16 = *v12;
-          v17 = *(v12 + 16);
-          *(v15 + 32) = *(v12 + 32);
+          v17 = v12[1];
+          *(v15 + 32) = *(v12 + 8);
           *v15 = v16;
           *(v15 + 16) = v17;
         }
 
         ++v13;
-        v12 += 36;
+        v12 = (v12 + 36);
       }
 
       while (v3 != v13);
     }
 
     ++v8;
-    v7 += 36;
+    v7 = (v7 + 36);
     v6 = v9;
     v3 = v10;
   }
@@ -9478,7 +9515,7 @@ unint64_t ttNonMaxSuppression2(uint64_t a1, unsigned int a2, float a3)
 
   bmHeapsort(a1, a2, 0x24uLL, ttDetRectScoreCompare);
   v6 = 0;
-  v7 = a1 + 36;
+  v7 = (a1 + 36);
   v8 = 1;
   do
   {
@@ -9501,21 +9538,21 @@ unint64_t ttNonMaxSuppression2(uint64_t a1, unsigned int a2, float a3)
 
           v15 = a1 + 36 * v10++;
           v16 = *v12;
-          v17 = *(v12 + 16);
-          *(v15 + 32) = *(v12 + 32);
+          v17 = v12[1];
+          *(v15 + 32) = *(v12 + 8);
           *v15 = v16;
           *(v15 + 16) = v17;
         }
 
         ++v13;
-        v12 += 36;
+        v12 = (v12 + 36);
       }
 
       while (v3 != v13);
     }
 
     ++v8;
-    v7 += 36;
+    v7 = (v7 + 36);
     v6 = v9;
     v3 = v10;
   }
@@ -9539,7 +9576,7 @@ unint64_t ttNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
 
   bmHeapsort(a1, a2, 0x24uLL, ttDetRectScoreCompare);
   v6 = 0;
-  v7 = a1 + 36;
+  v7 = (a1 + 36);
   v8 = 1;
   do
   {
@@ -9552,7 +9589,7 @@ unint64_t ttNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
       v13 = v8;
       do
       {
-        if (*(v11 + 16) != *(v12 + 16) || (ttDetRectOverlapSmallbox(v11, v12), v14 <= a3))
+        if (*(v11 + 16) != *(v12 + 4) || (ttDetRectOverlapSmallbox(v11, v12), v14 <= a3))
         {
           if (v13 < v10)
           {
@@ -9561,13 +9598,13 @@ unint64_t ttNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
 
           v15 = a1 + 36 * v10++;
           v16 = *v12;
-          v17 = *(v12 + 16);
-          *(v15 + 32) = *(v12 + 32);
+          v17 = v12[1];
+          *(v15 + 32) = *(v12 + 8);
           *v15 = v16;
           *(v15 + 16) = v17;
         }
 
-        v12 += 36;
+        v12 = (v12 + 36);
         ++v13;
       }
 
@@ -9575,7 +9612,7 @@ unint64_t ttNonMaxSuppressionSmallbox(uint64_t a1, unsigned int a2, float a3)
     }
 
     ++v8;
-    v7 += 36;
+    v7 = (v7 + 36);
     v6 = v9;
     v3 = v10;
   }
@@ -9650,9 +9687,9 @@ uint64_t ttRemoveOverlapBoxes(__int128 *a1, unsigned int a2, unsigned __int8 *a3
       v20 = a1 + 36 * result;
       v21 = *v18;
       v22 = v18[1];
-      *(v20 + 32) = *(v18 + 8);
+      *(v20 + 8) = *(v18 + 8);
       *v20 = v21;
-      *(v20 + 16) = v22;
+      *(v20 + 1) = v22;
       result = (result + 1);
     }
 
@@ -9694,38 +9731,4 @@ BOOL ttCheckOverlapBox(float *a1, unsigned int a2, float *a3, float a4)
 
   while (v13 <= a4);
   return v12 < a2;
-}
-
-uint64_t rtcv::simResize(uint64_t a1, unsigned int a2, unsigned int a3, unsigned int a4, int a5, int a6, uint64_t a7, int a8, float a9, float a10, float a11, float a12, int a13, int a14)
-{
-  if (a5 != 1)
-  {
-    return 0;
-  }
-
-  *&v22 = a1;
-  *(&v22 + 1) = __PAIR64__(a2, a3);
-  v23 = a4 | 0x500000000;
-  v20 = v22;
-  v21 = v23;
-  if (a4 * a3)
-  {
-    operator new();
-  }
-
-  *&v20 = 0;
-  v15 = a7;
-  v16 = a13;
-  v17 = a8;
-  v18 = a14;
-  v19 = 5;
-  if ((a6 - 1) > 2)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return simResizeVisPipe(&v22, &v15, &v20, dword_24BC6D3BC[a6 - 1], 2u, a9, a10, a11, a12);
-  }
 }

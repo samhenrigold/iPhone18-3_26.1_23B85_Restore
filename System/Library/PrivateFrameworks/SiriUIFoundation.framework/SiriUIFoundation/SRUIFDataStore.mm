@@ -218,40 +218,36 @@ void __53__SRUIFDataStore_initWithPropertyListRepresentation___block_invoke_30(u
 
 - (void)imageDataForKey:(void *)a3 .cold.1(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 value];
-  v8 = 136315650;
-  v9 = "[SRUIFDataStore imageDataForKey:]";
-  v10 = 2112;
-  v11 = a1;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s returning nil because value for key %@ is %@, which cannot be coerced to an image", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 136315650;
+  v8 = "[SRUIFDataStore imageDataForKey:]";
+  v9 = 2112;
+  v10 = a1;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_error_impl(&dword_26951F000, v5, OS_LOG_TYPE_ERROR, "%s returning nil because value for key %@ is %@, which cannot be coerced to an image", &v7, 0x20u);
 }
 
 - (void)initWithPropertyListRepresentation:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_26951F000, v0, OS_LOG_TYPE_ERROR, "%s unable to deserialize property list with version %{public}ld; returning nil", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26951F000, v0, OS_LOG_TYPE_ERROR, "%s unable to deserialize property list with version %{public}ld; returning nil", v1, 0x16u);
 }
 
 - (void)initWithPropertyListRepresentation:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[SRUIFDataStore initWithPropertyListRepresentation:]";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s returning nil; passed invalid property list (%@): %{public}@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[SRUIFDataStore initWithPropertyListRepresentation:]";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_26951F000, log, OS_LOG_TYPE_ERROR, "%s returning nil; passed invalid property list (%@): %{public}@", &v3, 0x20u);
 }
 
 @end

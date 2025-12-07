@@ -134,7 +134,7 @@ LABEL_10:
   if (self->_fileLength > 0x2F)
   {
     filePointer = self->_filePointer;
-    v5 = (filePointer + 32);
+    v5 = filePointer + 32;
     if (*(filePointer + 4) == 0x42415446534F4B52 || *v5 == 0x62617466736F6B72)
     {
       v6 = [NSData dataWithBytes:v5 length:8];
@@ -196,7 +196,7 @@ LABEL_10:
           v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
           if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
           {
-            sub_100036558(v15);
+            sub_100036558();
           }
 
           goto LABEL_26;
@@ -227,7 +227,7 @@ LABEL_10:
       v2 = os_log_create("com.apple.accessoryupdater.ftab", "parsing");
       if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
-        sub_1000362E8(v5, filePointer);
+        sub_1000362E8();
       }
     }
   }

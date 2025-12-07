@@ -179,7 +179,7 @@ void __71__UIItemProvider_initWithPBItem_loadRequestContext_secureRetryHandler__
   }
 
   v16 = [v14 domain];
-  if (![v16 isEqualToString:*MEMORY[0x1E69BC840]] || objc_msgSend(v14, "code") != 20)
+  if (!objc_msgSend_isEqualToString_(v16) || [v14 code] != 20)
   {
 
     goto LABEL_7;

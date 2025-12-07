@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)layoutSubviews;
+- (void)setCinematographyFrame:(id)frame animate:(BOOL)animate;
 @end
 
 @implementation PXSubjectTrackingViewAccessibility
@@ -78,6 +79,14 @@ void __80__PXSubjectTrackingViewAccessibility__accessibilityLoadAccessibilityInf
   v3.receiver = self;
   v3.super_class = PXSubjectTrackingViewAccessibility;
   [(PXSubjectTrackingViewAccessibility *)&v3 layoutSubviews];
+  [(PXSubjectTrackingViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setCinematographyFrame:(id)frame animate:(BOOL)animate
+{
+  v5.receiver = self;
+  v5.super_class = PXSubjectTrackingViewAccessibility;
+  [(PXSubjectTrackingViewAccessibility *)&v5 setCinematographyFrame:frame animate:animate];
   [(PXSubjectTrackingViewAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

@@ -46,42 +46,41 @@
 
 - (id)queueIdentifier
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   actionContext = [(WFContextualActionRunRequest *)self actionContext];
   files = [actionContext files];
 
-  v6 = [files countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [files countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(files);
         }
 
-        fileURL = [*(*(&v15 + 1) + 8 * i) fileURL];
+        fileURL = [*(*(&v14 + 1) + 8 * i) fileURL];
         absoluteString = [fileURL absoluteString];
         [v3 addObject:absoluteString];
       }
 
-      v7 = [files countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [files countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   v12 = [v3 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -114,11 +113,11 @@
 
 void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  v42 = v5;
+  v41 = v5;
   if (v5)
   {
     [*(a1 + 32) setInput:v5];
@@ -127,7 +126,7 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
 
   else
   {
-    v41 = v6;
+    v40 = v6;
     if (v6)
     {
       v8 = getWFVoiceShortcutClientLogObject();
@@ -139,7 +138,7 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
         *&buf[12] = 2112;
         *&buf[14] = v9;
         *&buf[22] = 2112;
-        v60 = v41;
+        v59 = v40;
         _os_log_impl(&dword_1B1DE3000, v8, OS_LOG_TYPE_ERROR, "%s %@ tried to self-populate its input, but it failed: %@", buf, 0x20u);
       }
     }
@@ -147,26 +146,26 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
     v10 = [*(a1 + 32) actionContext];
     v11 = [v10 files];
 
-    v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v11, "count")}];
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
+    v43 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v11, "count")}];
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     obj = v11;
-    v12 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v12 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v12)
     {
-      v13 = *v50;
+      v13 = *v49;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v50 != v13)
+          if (*v49 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v49 + 1) + 8 * i);
+          v15 = *(*(&v48 + 1) + 8 * i);
           v16 = [v15 type];
 
           if (v16)
@@ -175,24 +174,24 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
             v16 = [WFFileType typeWithUTType:v17];
           }
 
-          v53 = 0;
-          v54 = &v53;
-          v55 = 0x2050000000;
+          v52 = 0;
+          v53 = &v52;
+          v54 = 0x2050000000;
           v18 = getWFFileRepresentationClass_softClass;
-          v56 = getWFFileRepresentationClass_softClass;
+          v55 = getWFFileRepresentationClass_softClass;
           if (!getWFFileRepresentationClass_softClass)
           {
             *buf = MEMORY[0x1E69E9820];
             *&buf[8] = 3221225472;
             *&buf[16] = __getWFFileRepresentationClass_block_invoke;
-            v60 = &unk_1E7B02C60;
-            v61 = &v53;
+            v59 = &unk_1E7B02C60;
+            v60 = &v52;
             __getWFFileRepresentationClass_block_invoke(buf);
-            v18 = v54[3];
+            v18 = v53[3];
           }
 
           v19 = v18;
-          _Block_object_dispose(&v53, 8);
+          _Block_object_dispose(&v52, 8);
           v20 = [v15 fileURL];
           v21 = [v18 fileWithURL:v20 options:29 ofType:v16];
 
@@ -207,7 +206,7 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
               *&buf[12] = 2112;
               *&buf[14] = v15;
               *&buf[22] = 2112;
-              v60 = v37;
+              v59 = v37;
               _os_log_impl(&dword_1B1DE3000, v36, OS_LOG_TYPE_FAULT, "%s Couldn't represent contextual action file: %@ (%@)", buf, 0x20u);
             }
 
@@ -219,10 +218,10 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
             goto LABEL_37;
           }
 
-          [v44 addObject:v21];
+          [v43 addObject:v21];
         }
 
-        v12 = [obj countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v12 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
         if (v12)
         {
           continue;
@@ -232,62 +231,62 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
       }
     }
 
-    v53 = 0;
-    v54 = &v53;
-    v55 = 0x2050000000;
+    v52 = 0;
+    v53 = &v52;
+    v54 = 0x2050000000;
     v22 = getWFContentCollectionClass_softClass;
-    v56 = getWFContentCollectionClass_softClass;
+    v55 = getWFContentCollectionClass_softClass;
     if (!getWFContentCollectionClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getWFContentCollectionClass_block_invoke;
-      v60 = &unk_1E7B02C60;
-      v61 = &v53;
+      v59 = &unk_1E7B02C60;
+      v60 = &v52;
       __getWFContentCollectionClass_block_invoke(buf);
-      v22 = v54[3];
+      v22 = v53[3];
     }
 
     v23 = v22;
-    _Block_object_dispose(&v53, 8);
+    _Block_object_dispose(&v52, 8);
     v24 = objc_alloc_init(v22);
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
-    v25 = v44;
-    v26 = [v25 countByEnumeratingWithState:&v45 objects:v57 count:16];
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v25 = v43;
+    v26 = [v25 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v26)
     {
-      v27 = *v46;
+      v27 = *v45;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v46 != v27)
+          if (*v45 != v27)
           {
             objc_enumerationMutation(v25);
           }
 
-          v29 = *(*(&v45 + 1) + 8 * j);
-          v53 = 0;
-          v54 = &v53;
-          v55 = 0x2050000000;
+          v29 = *(*(&v44 + 1) + 8 * j);
+          v52 = 0;
+          v53 = &v52;
+          v54 = 0x2050000000;
           v30 = getWFContentLocationClass_softClass;
-          v56 = getWFContentLocationClass_softClass;
+          v55 = getWFContentLocationClass_softClass;
           if (!getWFContentLocationClass_softClass)
           {
             *buf = MEMORY[0x1E69E9820];
             *&buf[8] = 3221225472;
             *&buf[16] = __getWFContentLocationClass_block_invoke;
-            v60 = &unk_1E7B02C60;
-            v61 = &v53;
+            v59 = &unk_1E7B02C60;
+            v60 = &v52;
             __getWFContentLocationClass_block_invoke(buf);
-            v30 = v54[3];
+            v30 = v53[3];
           }
 
           v31 = v30;
-          _Block_object_dispose(&v53, 8);
+          _Block_object_dispose(&v52, 8);
           v32 = [v30 contentLocationForFile:v29];
           if (v32)
           {
@@ -300,7 +299,7 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
           }
         }
 
-        v26 = [v25 countByEnumeratingWithState:&v45 objects:v57 count:16];
+        v26 = [v25 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v26);
@@ -314,10 +313,8 @@ void __62__WFContextualActionRunRequest_getInputWithCompletionHandler___block_in
     (*(*(a1 + 48) + 16))();
 LABEL_37:
 
-    v7 = v41;
+    v7 = v40;
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (WFContextualActionRunRequest)initWithAction:(id)action actionContext:(id)context

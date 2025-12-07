@@ -170,37 +170,37 @@
 
 - (PLSubmissionRecord)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"filePath"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"tagUUID"];
   v7 = MEMORY[0x1E695DFD8];
+  v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
-  v19 = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:3];
-  v9 = [v7 setWithArray:{v8, v17, v18}];
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:3];
+  v9 = [v7 setWithArray:{v8, v16, v17}];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"tagConfig"];
   v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"configUUID"];
   v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"configDateReceived"];
   v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"configDateApplied"];
 
   v14 = [(PLSubmissionRecord *)self initWithCKFilePath:v5 tagUUID:v6 tagConfig:v10 configUUID:v11 configDateReceived:v12 configDateApplied:v13];
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)cleanup
 {
   v14 = *MEMORY[0x1E69E9840];
-  if ([PLDefaults BOOLForKey:@"PLSubmissionCleanup" ifNotSet:1])
+  v3 = [PLDefaults BOOLForKey:@"PLSubmissionCleanup" ifNotSet:1];
+  if (v3)
   {
-    v3 = PLLogSubmission();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PLLogSubmission(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1D8611000, v3, OS_LOG_TYPE_DEFAULT, "Cleaning up files for submission record %@", &v12, 0xCu);
+      _os_log_impl(&dword_1D8611000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up files for submission record %@", &v12, 0xCu);
     }
 
     filePath = [(PLSubmissionRecord *)self filePath];
@@ -212,14 +212,12 @@
     ckFileDirPath = [(PLSubmissionRecord *)self ckFileDirPath];
     [(PLSubmissionRecord *)self removeFileAtPath:ckFileDirPath];
 
-    v7 = NSTemporaryDirectory();
-    v8 = [v7 stringByAppendingPathComponent:@"PLSubmissionConfig"];
+    v8 = NSTemporaryDirectory();
+    v9 = [v8 stringByAppendingPathComponent:@"PLSubmissionConfig"];
     tagUUID = [(PLSubmissionRecord *)self tagUUID];
-    v10 = [v8 stringByAppendingPathComponent:tagUUID];
-    [(PLSubmissionRecord *)self removeFileAtPath:v10];
+    v11 = [v9 stringByAppendingPathComponent:tagUUID];
+    [(PLSubmissionRecord *)self removeFileAtPath:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFileAtPath:(id)path
@@ -236,33 +234,23 @@
     v7 = [defaultManager2 removeItemAtPath:pathCopy error:&v12];
     v8 = v12;
 
-    v9 = PLLogSubmission();
-    v10 = v9;
+    v10 = PLLogSubmission(v9);
+    v11 = v10;
     if (v7)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
         v14 = pathCopy;
-        _os_log_impl(&dword_1D8611000, v10, OS_LOG_TYPE_DEFAULT, "Removed item at %@", buf, 0xCu);
+        _os_log_impl(&dword_1D8611000, v11, OS_LOG_TYPE_DEFAULT, "Removed item at %@", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PLSubmissionRecord removeFileAtPath:];
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeFileAtPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1_0(&dword_1D8611000, v0, v1, "Failed to remove item at %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

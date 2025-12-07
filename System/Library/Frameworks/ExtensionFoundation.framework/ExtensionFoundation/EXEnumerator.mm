@@ -78,7 +78,7 @@ uint64_t __22__EXEnumerator_config__block_invoke()
 
 + (id)extensionPointDefinitionDirectoryURLs
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = +[_EXDefaults sharedInstance];
   supportExtensionKitConfigPath = [v4 supportExtensionKitConfigPath];
@@ -89,8 +89,8 @@ uint64_t __22__EXEnumerator_config__block_invoke()
     rootURL = [config rootURL];
     v8 = [rootURL URLByAppendingPathComponent:@"System/Library/ExtensionKit" isDirectory:1];
     v9 = [v8 URLByAppendingPathComponent:@"ExtensionPoints" isDirectory:1];
-    v23[0] = v9;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v9;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [v3 addObjectsFromArray:v10];
 
     v11 = +[_EXDefaults sharedInstance];
@@ -114,14 +114,12 @@ uint64_t __22__EXEnumerator_config__block_invoke()
 
   v20 = [v3 copy];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 + (id)extensionInstallDirectoryURLs
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   v4 = +[_EXDefaults sharedInstance];
   supportExtensionKitConfigPath = [v4 supportExtensionKitConfigPath];
@@ -132,14 +130,14 @@ uint64_t __22__EXEnumerator_config__block_invoke()
     rootURL = [config rootURL];
     v8 = [rootURL URLByAppendingPathComponent:@"System/Library/ExtensionKit" isDirectory:1];
     v9 = [v8 URLByAppendingPathComponent:@"Extensions"];
-    v28[0] = v9;
+    v27[0] = v9;
     [self config];
-    v10 = v27 = self;
+    v10 = v26 = self;
     rootURL2 = [v10 rootURL];
     v12 = [rootURL2 URLByAppendingPathComponent:@"/System/Cryptexes/OS/System/Library/ExtensionKit" isDirectory:1];
     v13 = [v12 URLByAppendingPathComponent:@"Extensions"];
-    v28[1] = v13;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+    v27[1] = v13;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
     [v3 addObjectsFromArray:v14];
 
     v15 = +[_EXDefaults sharedInstance];
@@ -147,13 +145,13 @@ uint64_t __22__EXEnumerator_config__block_invoke()
 
     if (config)
     {
-      config2 = [v27 config];
+      config2 = [v26 config];
       rootURL3 = [config2 rootURL];
       v18 = [rootURL3 URLByAppendingPathComponent:@"AppleInternal/System/Library/ExtensionKit" isDirectory:1];
       v19 = [v18 URLByAppendingPathComponent:@"Extensions"];
       [v3 addObject:v19];
 
-      config3 = [v27 config];
+      config3 = [v26 config];
       rootURL4 = [config3 rootURL];
       v22 = [rootURL4 URLByAppendingPathComponent:@"AppleInternal/Library/ExtensionKit" isDirectory:1];
       v23 = [v22 URLByAppendingPathComponent:@"Extensions"];
@@ -163,195 +161,196 @@ uint64_t __22__EXEnumerator_config__block_invoke()
 
   v24 = [v3 copy];
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 + (id)extensionURLEnumerator
 {
-  v2 = _EXRegistrationLog();
+  v2 = _EXRegistrationLog(self);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = _EXRegistrationLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = _EXRegistrationLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionURLEnumerator", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionURLEnumerator", "", buf, 2u);
   }
 
   extensionCacheFileURLs = [objc_opt_class() extensionCacheFileURLs];
   if ([extensionCacheFileURLs count])
   {
     extensionInstallDirectoryURLs = [objc_opt_class() extensionInstallDirectoryURLs];
-    v8 = [extensionCacheFileURLs arrayByAddingObjectsFromArray:extensionInstallDirectoryURLs];
+    v9 = [extensionCacheFileURLs arrayByAddingObjectsFromArray:extensionInstallDirectoryURLs];
 
-    _extensionLiveEnumerator = [[EXOSExtensionEnumerator alloc] initWithCacheURLs:v8];
-    extensionCacheFileURLs = v8;
+    _extensionLiveEnumerator = [[EXOSExtensionEnumerator alloc] initWithCacheURLs:v9];
+    v11 = _extensionLiveEnumerator;
+    extensionCacheFileURLs = v9;
   }
 
   else
   {
-    v10 = _EXRegistrationLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-    {
-      *v15 = 0;
-      _os_log_impl(&dword_1847D1000, v10, OS_LOG_TYPE_DEFAULT, "Failed to load or create cache extension/extension point info.", v15, 2u);
-    }
-
-    _extensionLiveEnumerator = [objc_opt_class() _extensionLiveEnumerator];
-  }
-
-  v11 = _EXRegistrationLog();
-  v12 = v11;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
-  {
-    *v14 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v12, OS_SIGNPOST_INTERVAL_END, v3, "extensionURLEnumerator", "", v14, 2u);
-  }
-
-  return _extensionLiveEnumerator;
-}
-
-+ (id)_extensionLiveEnumerator
-{
-  v2 = _EXRegistrationLog();
-  v3 = os_signpost_id_generate(v2);
-
-  v4 = _EXRegistrationLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "_extensionLiveEnumerator", "", buf, 2u);
-  }
-
-  config = [objc_opt_class() config];
-  rootURL = [config rootURL];
-
-  v8 = [[EXFrameworkScanner alloc] initWithSourceURL:rootURL];
-  [(EXFrameworkScanner *)v8 start];
-  extensionPaths = [(EXFrameworkScanner *)v8 extensionPaths];
-  v10 = +[_EXDefaults sharedInstance];
-  appleInternal = [v10 appleInternal];
-
-  if (appleInternal)
-  {
-    appleInternalExtensionPaths = [(EXFrameworkScanner *)v8 appleInternalExtensionPaths];
-    v13 = [extensionPaths arrayByAddingObjectsFromArray:appleInternalExtensionPaths];
-
-    extensionPaths = v13;
-  }
-
-  v14 = [EXOSExtensionEnumerator alloc];
-  extensionInstallDirectoryURLs = [objc_opt_class() extensionInstallDirectoryURLs];
-  v16 = [(EXOSExtensionEnumerator *)v14 initWithCacheURLs:extensionInstallDirectoryURLs paths:extensionPaths];
-
-  v17 = _EXRegistrationLog();
-  v18 = v17;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
-  {
-    *v20 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v18, OS_SIGNPOST_INTERVAL_END, v3, "_extensionLiveEnumerator", "", v20, 2u);
-  }
-
-  return v16;
-}
-
-+ (id)extensionPointDefinitionEnumerator
-{
-  v2 = _EXRegistrationLog();
-  v3 = os_signpost_id_generate(v2);
-
-  v4 = _EXRegistrationLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
-  {
-    *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionPointDefinitionEnumerator", "", buf, 2u);
-  }
-
-  extensionPointCacheFileURLs = [objc_opt_class() extensionPointCacheFileURLs];
-  if ([extensionPointCacheFileURLs count])
-  {
-    extensionPointDefinitionDirectoryURLs = [objc_opt_class() extensionPointDefinitionDirectoryURLs];
-    v8 = [extensionPointCacheFileURLs arrayByAddingObjectsFromArray:extensionPointDefinitionDirectoryURLs];
-
-    v9 = [EXExtensionPointEnumerator alloc];
-    config = [objc_opt_class() config];
-    _extensionPointLiveEnumerator = [(EXExtensionPointEnumerator *)v9 initWithCacheURLs:v8 config:config];
-
-    extensionPointCacheFileURLs = v8;
-  }
-
-  else
-  {
-    v12 = _EXRegistrationLog();
+    v12 = _EXRegistrationLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *v17 = 0;
       _os_log_impl(&dword_1847D1000, v12, OS_LOG_TYPE_DEFAULT, "Failed to load or create cache extension/extension point info.", v17, 2u);
     }
 
-    _extensionPointLiveEnumerator = [objc_opt_class() _extensionPointLiveEnumerator];
+    _extensionLiveEnumerator = [objc_opt_class() _extensionLiveEnumerator];
+    v11 = _extensionLiveEnumerator;
   }
 
-  v13 = _EXRegistrationLog();
+  v13 = _EXRegistrationLog(_extensionLiveEnumerator);
   v14 = v13;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *v16 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v14, OS_SIGNPOST_INTERVAL_END, v3, "extensionPointDefinitionEnumerator", "", v16, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v14, OS_SIGNPOST_INTERVAL_END, v3, "extensionURLEnumerator", "", v16, 2u);
   }
 
-  return _extensionPointLiveEnumerator;
+  return v11;
 }
 
-+ (id)_extensionPointLiveEnumerator
++ (id)_extensionLiveEnumerator
 {
-  v2 = _EXRegistrationLog();
+  v2 = _EXRegistrationLog(self);
   v3 = os_signpost_id_generate(v2);
 
-  v4 = _EXRegistrationLog();
-  v5 = v4;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+  v5 = _EXRegistrationLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "_extensionPointLiveEnumerator", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "_extensionLiveEnumerator", "", buf, 2u);
   }
 
   config = [objc_opt_class() config];
   rootURL = [config rootURL];
 
-  v8 = [[EXFrameworkScanner alloc] initWithSourceURL:rootURL];
-  [(EXFrameworkScanner *)v8 start];
-  combinedExtensionSDK = [(EXFrameworkScanner *)v8 combinedExtensionSDK];
-  v10 = +[_EXDefaults sharedInstance];
-  allowsAppleInternalComponents = [v10 allowsAppleInternalComponents];
+  v9 = [[EXFrameworkScanner alloc] initWithSourceURL:rootURL];
+  [(EXFrameworkScanner *)v9 start];
+  extensionPaths = [(EXFrameworkScanner *)v9 extensionPaths];
+  v11 = +[_EXDefaults sharedInstance];
+  appleInternal = [v11 appleInternal];
 
-  if (allowsAppleInternalComponents)
+  if (appleInternal)
   {
-    combinedAppleInternalExtensionSDK = [(EXFrameworkScanner *)v8 combinedAppleInternalExtensionSDK];
-    v13 = [combinedExtensionSDK _EX_dictionaryBySettingValuesForKeysWithDictionary:combinedAppleInternalExtensionSDK];
+    appleInternalExtensionPaths = [(EXFrameworkScanner *)v9 appleInternalExtensionPaths];
+    v14 = [extensionPaths arrayByAddingObjectsFromArray:appleInternalExtensionPaths];
 
-    combinedExtensionSDK = v13;
+    extensionPaths = v14;
   }
 
-  extensionPointDefinitionDirectoryURLs = [objc_opt_class() extensionPointDefinitionDirectoryURLs];
-  v15 = [EXExtensionPointEnumerator alloc];
-  config2 = [objc_opt_class() config];
-  v17 = [(EXExtensionPointEnumerator *)v15 initWithSDKDictionary:combinedExtensionSDK urls:extensionPointDefinitionDirectoryURLs config:config2];
+  v15 = [EXOSExtensionEnumerator alloc];
+  extensionInstallDirectoryURLs = [objc_opt_class() extensionInstallDirectoryURLs];
+  v17 = [(EXOSExtensionEnumerator *)v15 initWithCacheURLs:extensionInstallDirectoryURLs paths:extensionPaths];
 
-  v18 = _EXRegistrationLog();
-  v19 = v18;
-  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v19 = _EXRegistrationLog(v18);
+  v20 = v19;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
-    *v21 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1847D1000, v19, OS_SIGNPOST_INTERVAL_END, v3, "_extensionPointLiveEnumerator", "", v21, 2u);
+    *v22 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v20, OS_SIGNPOST_INTERVAL_END, v3, "_extensionLiveEnumerator", "", v22, 2u);
   }
 
   return v17;
+}
+
++ (id)extensionPointDefinitionEnumerator
+{
+  v2 = _EXRegistrationLog(self);
+  v3 = os_signpost_id_generate(v2);
+
+  v5 = _EXRegistrationLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "extensionPointDefinitionEnumerator", "", buf, 2u);
+  }
+
+  extensionPointCacheFileURLs = [objc_opt_class() extensionPointCacheFileURLs];
+  if ([extensionPointCacheFileURLs count])
+  {
+    extensionPointDefinitionDirectoryURLs = [objc_opt_class() extensionPointDefinitionDirectoryURLs];
+    v9 = [extensionPointCacheFileURLs arrayByAddingObjectsFromArray:extensionPointDefinitionDirectoryURLs];
+
+    v10 = [EXExtensionPointEnumerator alloc];
+    config = [objc_opt_class() config];
+    v12 = [(EXExtensionPointEnumerator *)v10 initWithCacheURLs:v9 config:config];
+
+    extensionPointCacheFileURLs = v9;
+  }
+
+  else
+  {
+    v14 = _EXRegistrationLog(0);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      *v19 = 0;
+      _os_log_impl(&dword_1847D1000, v14, OS_LOG_TYPE_DEFAULT, "Failed to load or create cache extension/extension point info.", v19, 2u);
+    }
+
+    _extensionPointLiveEnumerator = [objc_opt_class() _extensionPointLiveEnumerator];
+    v12 = _extensionPointLiveEnumerator;
+  }
+
+  v15 = _EXRegistrationLog(_extensionPointLiveEnumerator);
+  v16 = v15;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  {
+    *v18 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v16, OS_SIGNPOST_INTERVAL_END, v3, "extensionPointDefinitionEnumerator", "", v18, 2u);
+  }
+
+  return v12;
+}
+
++ (id)_extensionPointLiveEnumerator
+{
+  v2 = _EXRegistrationLog(self);
+  v3 = os_signpost_id_generate(v2);
+
+  v5 = _EXRegistrationLog(v4);
+  v6 = v5;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  {
+    *buf = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v3, "_extensionPointLiveEnumerator", "", buf, 2u);
+  }
+
+  config = [objc_opt_class() config];
+  rootURL = [config rootURL];
+
+  v9 = [[EXFrameworkScanner alloc] initWithSourceURL:rootURL];
+  [(EXFrameworkScanner *)v9 start];
+  combinedExtensionSDK = [(EXFrameworkScanner *)v9 combinedExtensionSDK];
+  v11 = +[_EXDefaults sharedInstance];
+  allowsAppleInternalComponents = [v11 allowsAppleInternalComponents];
+
+  if (allowsAppleInternalComponents)
+  {
+    combinedAppleInternalExtensionSDK = [(EXFrameworkScanner *)v9 combinedAppleInternalExtensionSDK];
+    v14 = [combinedExtensionSDK _EX_dictionaryBySettingValuesForKeysWithDictionary:combinedAppleInternalExtensionSDK];
+
+    combinedExtensionSDK = v14;
+  }
+
+  extensionPointDefinitionDirectoryURLs = [objc_opt_class() extensionPointDefinitionDirectoryURLs];
+  v16 = [EXExtensionPointEnumerator alloc];
+  config2 = [objc_opt_class() config];
+  v18 = [(EXExtensionPointEnumerator *)v16 initWithSDKDictionary:combinedExtensionSDK urls:extensionPointDefinitionDirectoryURLs config:config2];
+
+  v20 = _EXRegistrationLog(v19);
+  v21 = v20;
+  if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+  {
+    *v23 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1847D1000, v21, OS_SIGNPOST_INTERVAL_END, v3, "_extensionPointLiveEnumerator", "", v23, 2u);
+  }
+
+  return v18;
 }
 
 + (id)extensionPointDefinitionEnumeratorWithSDKDictionary:(id)dictionary

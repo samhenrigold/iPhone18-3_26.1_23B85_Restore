@@ -95,7 +95,7 @@ void __60__ApplicationShortcutController_updateShortcutItemsIfNeeded__block_invo
   return v5;
 }
 
-uint64_t __54__ApplicationShortcutController_handleActionWithType___block_invoke(uint64_t a1)
+void *__54__ApplicationShortcutController_handleActionWithType___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _handleActionWithType:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;

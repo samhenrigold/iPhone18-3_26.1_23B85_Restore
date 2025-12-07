@@ -94,7 +94,7 @@
 
 - (void)_pairingFinishedWithError:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   operationQueue = [(HAP2AccessoryServerPairingDriver *)self operationQueue];
   [operationQueue assertCurrentQueue];
@@ -115,8 +115,8 @@
 
     *buf = 138412546;
     selfCopy2 = self;
-    v24 = 2112;
-    v25 = errorCopy;
+    v23 = 2112;
+    v24 = errorCopy;
     v8 = "%@ Finished with error: %@";
     v9 = v6;
     v10 = 22;
@@ -142,14 +142,14 @@ LABEL_9:
   [(HAP2AccessoryServerPairingDriver *)self setPairingRequest:0];
   [(HAP2AccessoryServerPairingDriver *)self setPairingSession:0];
   objc_initWeak(buf, self);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __62__HAP2AccessoryServerPairingDriver__pairingFinishedWithError___block_invoke;
-  v19[3] = &unk_2786D6EB0;
-  objc_copyWeak(&v21, buf);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __62__HAP2AccessoryServerPairingDriver__pairingFinishedWithError___block_invoke;
+  v18[3] = &unk_2786D6EB0;
+  objc_copyWeak(&v20, buf);
   v12 = errorCopy;
-  v20 = v12;
-  v13 = MEMORY[0x231885210](v19);
+  v19 = v12;
+  v13 = MEMORY[0x231885210](v18);
   v14 = v13;
   if (v11)
   {
@@ -159,19 +159,17 @@ LABEL_9:
   else
   {
     transport = [(HAP2AccessoryServerPairingDriver *)self transport];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __62__HAP2AccessoryServerPairingDriver__pairingFinishedWithError___block_invoke_2;
-    v17[3] = &unk_2786D5D70;
-    v17[4] = self;
-    v18 = v14;
-    [transport closeWithError:0 completion:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __62__HAP2AccessoryServerPairingDriver__pairingFinishedWithError___block_invoke_2;
+    v16[3] = &unk_2786D5D70;
+    v16[4] = self;
+    v17 = v14;
+    [transport closeWithError:0 completion:v16];
   }
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HAP2AccessoryServerPairingDriver__pairingFinishedWithError___block_invoke(uint64_t a1)
@@ -417,10 +415,7 @@ void __74__HAP2AccessoryServerPairingDriver_pairAccessory_pairingRequest_delegat
 
 uint64_t __44__HAP2AccessoryServerPairingDriver_delegate__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 64));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -464,10 +459,7 @@ uint64_t __44__HAP2AccessoryServerPairingDriver_delegate__block_invoke(uint64_t 
 
 uint64_t __51__HAP2AccessoryServerPairingDriver_accessoryServer__block_invoke(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 80));
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = WeakRetained;
+  *(*(*(a1 + 40) + 8) + 40) = objc_loadWeakRetained((*(a1 + 32) + 80));
 
   return MEMORY[0x2821F96F8]();
 }
@@ -705,7 +697,7 @@ uint64_t __51__HAP2AccessoryServerPairingDriver_accessoryServer__block_invoke(ui
 + (id)_generateWorkItemsForAuthMethod:(unint64_t)method
 {
   v3 = 0;
-  v21[7] = *MEMORY[0x277D85DE8];
+  v20[7] = *MEMORY[0x277D85DE8];
   if (method > 2)
   {
     if (method <= 4)
@@ -713,15 +705,15 @@ uint64_t __51__HAP2AccessoryServerPairingDriver_accessoryServer__block_invoke(ui
       if (method != 3)
       {
         v4 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-        v20[0] = v4;
+        v19[0] = v4;
         v5 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:5];
-        v20[1] = v5;
+        v19[1] = v5;
         v6 = +[HAP2AccessoryServerPairingDriverMFiCertWorkItem checkCertificate];
-        v20[2] = v6;
+        v19[2] = v6;
         v7 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-        v20[3] = v7;
+        v19[3] = v7;
         v8 = MEMORY[0x277CBEA60];
-        v9 = v20;
+        v9 = v19;
 LABEL_15:
         v3 = [v8 arrayWithObjects:v9 count:4];
         goto LABEL_16;
@@ -729,15 +721,15 @@ LABEL_15:
 
 LABEL_14:
       v4 = [HAP2AccessoryServerPairingDriverAuthPromptWorkItem promptForType:2];
-      v17[0] = v4;
+      v16[0] = v4;
       v5 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-      v17[1] = v5;
+      v16[1] = v5;
       v6 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:1];
-      v17[2] = v6;
+      v16[2] = v6;
       v7 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-      v17[3] = v7;
+      v16[3] = v7;
       v8 = MEMORY[0x277CBEA60];
-      v9 = v17;
+      v9 = v16;
       goto LABEL_15;
     }
 
@@ -749,35 +741,35 @@ LABEL_14:
       }
 
       v4 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-      v19[0] = v4;
+      v18[0] = v4;
       v5 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:6];
-      v19[1] = v5;
+      v18[1] = v5;
       v6 = +[HAP2AccessoryServerPairingDriverMFiCertWorkItem checkCertificate];
-      v19[2] = v6;
+      v18[2] = v6;
       v7 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-      v19[3] = v7;
+      v18[3] = v7;
       v10 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-      v19[4] = v10;
+      v18[4] = v10;
       v11 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:7];
-      v19[5] = v11;
+      v18[5] = v11;
       v12 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-      v19[6] = v12;
+      v18[6] = v12;
       v13 = MEMORY[0x277CBEA60];
-      v14 = v19;
+      v14 = v18;
       goto LABEL_12;
     }
 
 LABEL_13:
     v4 = [HAP2AccessoryServerPairingDriverAuthPromptWorkItem promptForType:1];
-    v18[0] = v4;
+    v17[0] = v4;
     v5 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-    v18[1] = v5;
+    v17[1] = v5;
     v6 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:0];
-    v18[2] = v6;
+    v17[2] = v6;
     v7 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-    v18[3] = v7;
+    v17[3] = v7;
     v8 = MEMORY[0x277CBEA60];
-    v9 = v18;
+    v9 = v17;
     goto LABEL_15;
   }
 
@@ -797,27 +789,26 @@ LABEL_13:
   }
 
   v4 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:3];
-  v21[1] = v5;
+  v20[1] = v5;
   v6 = +[HAP2AccessoryServerPairingDriverSoftwareAuthWorkItem doSoftwareAuth];
-  v21[2] = v6;
+  v20[2] = v6;
   v7 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-  v21[3] = v7;
+  v20[3] = v7;
   v10 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem openConnection];
-  v21[4] = v10;
+  v20[4] = v10;
   v11 = [HAP2AccessoryServerPairingDriverPairSetupWorkItem pairSetupWithType:4];
-  v21[5] = v11;
+  v20[5] = v11;
   v12 = +[HAP2AccessoryServerPairingDriverTransportControlWorkItem closeConnection];
-  v21[6] = v12;
+  v20[6] = v12;
   v13 = MEMORY[0x277CBEA60];
-  v14 = v21;
+  v14 = v20;
 LABEL_12:
   v3 = [v13 arrayWithObjects:v14 count:7];
 
 LABEL_16:
 LABEL_17:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

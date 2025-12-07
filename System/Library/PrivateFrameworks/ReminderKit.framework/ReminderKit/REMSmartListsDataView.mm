@@ -5,6 +5,7 @@
 - (id)fetchCustomSmartListsInAccount:(id)account error:(id *)error;
 - (id)fetchCustomSmartListsInGroup:(id)group error:(id *)error;
 - (id)fetchCustomSmartListsWithError:(id *)error;
+- (id)fetchNonCustomSmartListWithSmartListType:(id)type createIfNeeded:(BOOL)needed error:(id *)error;
 @end
 
 @implementation REMSmartListsDataView
@@ -22,6 +23,37 @@
   }
 
   return v7;
+}
+
+- (id)fetchNonCustomSmartListWithSmartListType:(id)type createIfNeeded:(BOOL)needed error:(id *)error
+{
+  neededCopy = needed;
+  typeCopy = type;
+  v9 = [[REMSmartListsDataViewInvocation_fetchSmartList alloc] initWithSmartListType:typeCopy objectID:0 createIfNeeded:neededCopy];
+
+  store = [(REMSmartListsDataView *)self store];
+  v11 = [store resultFromPerformingInvocation:v9 error:error];
+
+  v12 = objc_opt_class();
+  v13 = REMDynamicCast(v12, v11);
+  smartListStorages = [v13 smartListStorages];
+
+  if (smartListStorages)
+  {
+    smartListStorages2 = [v13 smartListStorages];
+    accountStorages = [v13 accountStorages];
+    parentListStorages = [v13 parentListStorages];
+    store2 = [(REMSmartListsDataView *)self store];
+    v19 = [REMSmartListsDataView smartListsFromSmartListStorages:smartListStorages2 accountStorages:accountStorages parentListStorages:parentListStorages store:store2];
+    firstObject = [v19 firstObject];
+  }
+
+  else
+  {
+    firstObject = 0;
+  }
+
+  return firstObject;
 }
 
 - (id)fetchCustomSmartListWithObjectID:(id)d error:(id *)error
@@ -180,32 +212,32 @@
 
 + (id)smartListsFromSmartListStorages:(id)storages accountStorages:(id)accountStorages parentListStorages:(id)listStorages store:(id)store
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   storagesCopy = storages;
   accountStoragesCopy = accountStorages;
   listStoragesCopy = listStorages;
   storeCopy = store;
-  v30 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(storagesCopy, "count")}];
+  v29 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(storagesCopy, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = storagesCopy;
-  v11 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v11 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         remObjectID = [v15 remObjectID];
         v17 = [accountStoragesCopy objectForKey:remObjectID];
 
@@ -228,7 +260,7 @@
         if (v22)
         {
           v23 = [[REMSmartList alloc] initWithStore:storeCopy storage:v15];
-          [v30 addObject:v23];
+          [v29 addObject:v23];
         }
 
         else
@@ -246,37 +278,33 @@
           }
 
           v26 = [[REMSmartList alloc] initWithStore:storeCopy account:v23 parentList:v25 storage:v15];
-          [v30 addObject:v26];
+          [v29 addObject:v26];
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v12);
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v30;
+  return v29;
 }
 
 - (void)fetchCustomSmartListsInAccount:(void *)a1 error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
-  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "The given account does not support CSL fetching {accountID: %{public}@}", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "The given account does not support CSL fetching {accountID: %{public}@}", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)fetchCustomSmartListsInGroup:(void *)a1 error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v1 = [a1 objectID];
-  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "The given group is not from an account that supports CSL fetching {groupID: %{public}@}", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "The given group is not from an account that supports CSL fetching {groupID: %{public}@}", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

@@ -265,46 +265,46 @@ LABEL_2:
 
 - (id)menuActions
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = [(DDPreviewAction *)self menuActionClasses];
-  v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
   v3 = 0;
-  if (v18)
+  if (v17)
   {
-    v17 = *v25;
+    v16 = *v24;
     do
     {
       v4 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = v4;
-        v5 = *(*(&v24 + 1) + 8 * v4);
+        v18 = v4;
+        v5 = *(*(&v23 + 1) + 8 * v4);
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v6 = v5;
-        v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v21;
+          v9 = *v20;
           do
           {
             for (i = 0; i != v8; ++i)
             {
-              if (*v21 == v9)
+              if (*v20 == v9)
               {
-                v11 = *(*(&v20 + 1) + 8 * i);
+                v11 = *(*(&v19 + 1) + 8 * i);
                 if (![v11 isAvailable])
                 {
                   continue;
@@ -314,7 +314,7 @@ LABEL_2:
               else
               {
                 objc_enumerationMutation(v6);
-                v11 = *(*(&v20 + 1) + 8 * i);
+                v11 = *(*(&v19 + 1) + 8 * i);
                 if (![v11 isAvailable])
                 {
                   continue;
@@ -333,25 +333,23 @@ LABEL_2:
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
           }
 
           while (v8);
         }
 
-        v4 = v19 + 1;
+        v4 = v18 + 1;
       }
 
-      while (v19 + 1 != v18);
-      v18 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      while (v18 + 1 != v17);
+      v17 = [obj countByEnumeratingWithState:&v23 objects:v28 count:16];
     }
 
-    while (v18);
+    while (v17);
   }
 
   v13 = [DDActionGroup groupWithActions:v3];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -367,26 +365,24 @@ LABEL_2:
 
 + (void)previewActionForURL:(uint64_t)a1 result:(uint64_t)a2 context:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown result type %@ in the Misc category; no actions found (URL %@)", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown result type %@ in the Misc category; no actions found (URL %@)", &v2, 0x16u);
 }
 
 + (void)previewActionForURL:(uint64_t)a1 result:(uint64_t)a2 context:(int)a3 .cold.2(uint64_t a1, uint64_t a2, int a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109634;
-  v4[1] = a3;
-  v5 = 2112;
-  v6 = a1;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown DDResult category %d for result %@; could not find any actions for URL %@", v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109634;
+  v3[1] = a3;
+  v4 = 2112;
+  v5 = a1;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_21AB70000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unknown DDResult category %d for result %@; could not find any actions for URL %@", v3, 0x1Cu);
 }
 
 @end

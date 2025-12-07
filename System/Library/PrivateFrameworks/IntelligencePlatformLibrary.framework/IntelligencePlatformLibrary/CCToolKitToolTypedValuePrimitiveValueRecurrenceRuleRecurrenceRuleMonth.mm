@@ -210,7 +210,6 @@ LABEL_50:
             NSStringFromClass(v41);
             errorCopy = error;
             v44 = v43 = dataCopy;
-            v45 = *&v7[*v10];
             v11 = CCSkipFieldErrorForMessage();
 
             dataCopy = v43;
@@ -292,22 +291,21 @@ LABEL_46:
 LABEL_56:
   if (!*&v7[*v10])
   {
-    v49 = 1;
+    v47 = 1;
     goto LABEL_60;
   }
 
 LABEL_57:
-  v46 = objc_opt_class();
-  v11 = NSStringFromClass(v46);
-  v47 = *&v7[*v10];
-  v48 = CCInvalidBufferErrorForMessage();
+  v45 = objc_opt_class();
+  v11 = NSStringFromClass(v45);
+  v46 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_58:
-  v49 = 0;
+  v47 = 0;
 LABEL_60:
 
-  return v49;
+  return v47;
 }
 
 - (CCToolKitToolTypedValuePrimitiveValueRecurrenceRuleRecurrenceRuleMonth)initWithIndex:(id)index isLeap:(id)leap error:(id *)error

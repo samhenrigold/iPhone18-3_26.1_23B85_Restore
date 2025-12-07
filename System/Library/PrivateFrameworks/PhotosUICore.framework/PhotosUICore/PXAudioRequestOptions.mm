@@ -49,10 +49,10 @@
   if (objc_opt_isKindOfClass())
   {
     v5 = equalCopy;
-    [(PXAudioRequestOptions *)self preferredDuration];
+    objc_msgSend_preferredDuration(self);
     if (v5)
     {
-      [v5 preferredDuration];
+      objc_msgSend_preferredDuration(v5);
     }
 
     else
@@ -69,10 +69,10 @@
         goto LABEL_18;
       }
 
-      [(PXAudioRequestOptions *)self fadeOutDuration:v12.value];
+      objc_msgSend_fadeOutDuration(self, v12.value, *&v12.timescale, v12.epoch);
       if (v5)
       {
-        [v5 fadeOutDuration];
+        objc_msgSend_fadeOutDuration(v5);
       }
 
       else
@@ -82,10 +82,10 @@
 
       if (!CMTimeCompare(&time1, &v12))
       {
-        [(PXAudioRequestOptions *)self maximumDuration];
+        objc_msgSend_maximumDuration(self);
         if (v5)
         {
-          [v5 maximumDuration];
+          objc_msgSend_maximumDuration(v5);
         }
 
         else
@@ -120,7 +120,7 @@ LABEL_18:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(PXAudioRequestOptions);
-  [(PXAudioRequestOptions *)self preferredDuration];
+  objc_msgSend_preferredDuration(self);
   v11 = v13;
   v12 = v14;
   [(PXAudioRequestOptions *)v4 setPreferredDuration:&v11];
@@ -129,11 +129,11 @@ LABEL_18:
   entryPoint = [(PXAudioRequestOptions *)self entryPoint];
   [(PXAudioRequestOptions *)v4 setEntryPoint:entryPoint];
 
-  [(PXAudioRequestOptions *)self fadeOutDuration];
+  objc_msgSend_fadeOutDuration(self);
   v11 = v9;
   v12 = v10;
   [(PXAudioRequestOptions *)v4 setFadeOutDuration:&v11];
-  [(PXAudioRequestOptions *)self maximumDuration];
+  objc_msgSend_maximumDuration(self);
   v11 = v7;
   v12 = v8;
   [(PXAudioRequestOptions *)v4 setMaximumDuration:&v11];

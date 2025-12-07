@@ -9641,7 +9641,7 @@ void __57__SMInitiatorCacheManager__storeInitiatorContactInStore___block_invoke(
   }
 }
 
-uint64_t __57__SMInitiatorCacheManager__storeInitiatorContactInStore___block_invoke_418(uint64_t a1)
+void *__57__SMInitiatorCacheManager__storeInitiatorContactInStore___block_invoke_418(uint64_t a1)
 {
   v26 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setInitiatorContactStoreInProgress:0];

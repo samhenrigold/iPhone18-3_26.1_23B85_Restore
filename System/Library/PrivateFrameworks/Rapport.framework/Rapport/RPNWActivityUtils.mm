@@ -9,12 +9,12 @@
 
 + (id)tokenForActivity:(id)activity
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   if (activityCopy && nw_activity_is_activated())
   {
     *uu = 0;
-    v8 = 0;
+    v7 = 0;
     nw_activity_get_token();
     v4 = 0;
     if (!uuid_is_null(uu))
@@ -28,24 +28,20 @@
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)activityFromToken:(id)token
 {
   tokenCopy = token;
-  v6[2] = *MEMORY[0x1E69E9840];
+  v5[2] = *MEMORY[0x1E69E9840];
   if (token)
   {
-    v6[0] = 0;
-    v6[1] = 0;
-    [token getUUIDBytes:v6];
+    v5[0] = 0;
+    v5[1] = 0;
+    [token getUUIDBytes:v5];
     tokenCopy = nw_activity_create_from_token();
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return tokenCopy;
 }

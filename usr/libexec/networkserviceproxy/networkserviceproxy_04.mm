@@ -884,7 +884,7 @@ LABEL_11:
                           [v65 addObject:v68];
                         }
 
-                        if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+                        if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
                         {
                           v69 = +[NEPolicyCondition platformBinary];
                           [v65 addObject:v69];
@@ -1044,7 +1044,7 @@ LABEL_81:
                                   [v83 addObject:v90];
                                 }
 
-                                if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+                                if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
                                 {
                                   v91 = +[NEPolicyCondition platformBinary];
                                   [v83 addObject:v91];
@@ -1079,7 +1079,7 @@ LABEL_81:
                                   [v83 addObject:v97];
                                 }
 
-                                if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+                                if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
                                 {
                                   v98 = +[NEPolicyCondition platformBinary];
                                   [v83 addObject:v98];
@@ -1144,7 +1144,7 @@ LABEL_120:
                                   [v107 addObject:v111];
                                 }
 
-                                if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+                                if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
                                 {
                                   v112 = +[NEPolicyCondition platformBinary];
                                   [v107 addObject:v112];
@@ -1247,7 +1247,7 @@ LABEL_141:
                 [v21 addObject:v27];
               }
 
-              if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+              if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
               {
                 v28 = +[NEPolicyCondition platformBinary];
                 [v21 addObject:v28];
@@ -1275,7 +1275,7 @@ LABEL_141:
               [v21 addObject:v33];
             }
 
-            if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+            if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
             {
               v34 = +[NEPolicyCondition platformBinary];
               [v21 addObject:v34];
@@ -1344,7 +1344,7 @@ LABEL_42:
                 [v46 addObject:v49];
               }
 
-              if ([v9 systemProcessOnly] && (sub_100054100() & 1) == 0)
+              if ([v9 systemProcessOnly] && (sub_100054100(NSPServer) & 1) == 0)
               {
                 v50 = +[NEPolicyCondition platformBinary];
                 [v46 addObject:v50];
@@ -1761,63 +1761,63 @@ id sub_100086870(uint64_t a1, void *a2, void *a3)
   return v7;
 }
 
-id sub_100086944()
+id sub_100086944(uint64_t a1)
 {
-  v0 = objc_opt_self();
-  v1 = objc_alloc_init(NSMutableArray);
+  v1 = objc_opt_self();
   v2 = objc_alloc_init(NSMutableArray);
-  v3 = [NPUtilities machoUUIDFromPID:getpid()];
-  if (!v3)
+  v3 = objc_alloc_init(NSMutableArray);
+  v4 = [NPUtilities machoUUIDFromPID:getpid()];
+  if (!v4)
   {
     goto LABEL_6;
   }
 
-  v4 = nplog_obj();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v5 = nplog_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412546;
-    v17 = v0;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ adding probe policy using uuid: %@", &v16, 0x16u);
+    v17 = 138412546;
+    v18 = v1;
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ adding probe policy using uuid: %@", &v17, 0x16u);
   }
 
-  v5 = [NSURL URLWithString:@"http://netcts.cdn-apple.com"];
-  v6 = [v5 host];
-  v7 = [NEPolicyCondition domain:v6];
-  [v2 addObject:v7];
+  v6 = [NSURL URLWithString:@"http://netcts.cdn-apple.com"];
+  v7 = [v6 host];
+  v8 = [NEPolicyCondition domain:v7];
+  [v3 addObject:v8];
 
-  v8 = [NEPolicyCondition accountIdentifier:@"com.apple.nsp.proxyAgentProbe"];
-  [v2 addObject:v8];
+  v9 = [NEPolicyCondition accountIdentifier:@"com.apple.nsp.proxyAgentProbe"];
+  [v3 addObject:v9];
 
-  v9 = +[NEPolicyCondition platformBinary];
-  [v2 addObject:v9];
+  v10 = +[NEPolicyCondition platformBinary];
+  [v3 addObject:v10];
 
-  v10 = +[NSPPrivacyProxyAgentManager multiHopProxyAgentUUID];
-  v11 = [NEPolicyResult netAgentUUID:v10];
-  v12 = sub_10007F790(NSPPrivacyProxyPolicySerialization, 350, v11, v3, 80, 6, v2, 0);
+  v11 = +[NSPPrivacyProxyAgentManager multiHopProxyAgentUUID];
+  v12 = [NEPolicyResult netAgentUUID:v11];
+  v13 = sub_10007F790(NSPPrivacyProxyPolicySerialization, 350, v12, v4, 80, 6, v3, 0);
 
-  if (v12)
+  if (v13)
   {
-    [v1 addObject:v12];
+    [v2 addObject:v13];
 
 LABEL_6:
-    v13 = v1;
+    v14 = v2;
     goto LABEL_10;
   }
 
-  v14 = nplog_obj();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = nplog_obj();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    v16 = 138412290;
-    v17 = v0;
-    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%@ failed to create probe policy", &v16, 0xCu);
+    v17 = 138412290;
+    v18 = v1;
+    _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%@ failed to create probe policy", &v17, 0xCu);
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_10:
 
-  return v13;
+  return v14;
 }
 
 id sub_100086BFC(uint64_t a1, void *a2)
@@ -2049,9 +2049,9 @@ LABEL_8:
   _Block_object_dispose(buf, 8);
 }
 
-void sub_10008759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10008759C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2300,9 +2300,9 @@ void sub_100087D6C(uint64_t a1, void *a2)
   _Block_object_dispose(v11, 8);
 }
 
-void sub_100087EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100087EA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2342,9 +2342,9 @@ void sub_100087EB8(uint64_t a1)
   }
 }
 
-void sub_100087FD4(uint64_t a1)
+void sub_100087FD4(uint64_t result)
 {
-  if (a1)
+  if (result)
   {
     v2 = nplog_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
@@ -2353,13 +2353,13 @@ void sub_100087FD4(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "reset config fetch timer", v4, 2u);
     }
 
-    sub_100088340(a1, 0x15180uLL);
-    *(a1 + 80) = 0;
-    *(a1 + 8) = 0;
-    v3 = *(a1 + 96);
-    *(a1 + 96) = 0;
+    sub_100088340(result, 0x15180uLL);
+    *(result + 80) = 0;
+    *(result + 8) = 0;
+    v3 = *(result + 96);
+    *(result + 96) = 0;
 
-    sub_10008888C(a1);
+    sub_10008888C(result);
   }
 }
 
@@ -2613,9 +2613,9 @@ void sub_10008888C(uint64_t a1)
   _Block_object_dispose(v4, 8);
 }
 
-void sub_10008897C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008897C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2997,9 +2997,9 @@ void sub_100089818(uint64_t a1)
   }
 }
 
-void sub_10008990C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008990C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3093,9 +3093,9 @@ void sub_100089A74(uint64_t a1)
   }
 }
 
-void sub_100089B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100089B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3222,9 +3222,9 @@ void sub_100089D94(uint64_t a1)
   }
 }
 
-void sub_100089E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100089E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3278,9 +3278,9 @@ void sub_100089F10(void *a1, char a2)
   }
 }
 
-void sub_10008A03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008A03C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3330,9 +3330,9 @@ void sub_10008A0CC(uint64_t a1)
   }
 }
 
-void sub_10008A1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008A1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3382,9 +3382,9 @@ void sub_10008A248(uint64_t a1)
   }
 }
 
-void sub_10008A33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008A33C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3434,9 +3434,9 @@ void sub_10008A3C4(uint64_t a1)
   }
 }
 
-void sub_10008A4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008A4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3584,7 +3584,7 @@ LABEL_13:
   return v1;
 }
 
-uint64_t sub_10008B3A0(uint64_t a1, void *a2, void *a3)
+BOOL sub_10008B3A0(_BOOL8 a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -3683,9 +3683,9 @@ void sub_100091650(uint64_t a1)
   *(v1 + 40) = 0;
 }
 
-void sub_100091C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100091C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3795,9 +3795,9 @@ uint64_t sub_100091ECC(uint64_t a1)
   return v9();
 }
 
-void sub_100092278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100092278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4586,45 +4586,43 @@ void sub_100093DFC(uint64_t a1, void *a2, void *a3, void *a4)
   v10 = *(a1 + 32);
   v11 = v8;
   v12 = v7;
-  v13 = &AnalyticsSendEventLazy_ptr;
   if (v10)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = v11;
-      v15 = [v14 statusCode];
-      if ((v15 - 503) < 2)
+      v13 = v11;
+      v14 = [v13 statusCode];
+      if ((v14 - 503) < 2)
       {
-        v19 = [v14 allHeaderFields];
-        v20 = [v19 objectForKeyedSubscript:@"Retry-After"];
+        v18 = [v13 allHeaderFields];
+        v19 = [v18 objectForKeyedSubscript:@"Retry-After"];
 
-        if (v20)
+        if (v19)
         {
-          v21 = objc_alloc_init(NSNumberFormatter);
-          [v21 numberFromString:v20];
-          v23 = v22 = v9;
-          v18 = [v23 unsignedIntegerValue];
+          v20 = objc_alloc_init(NSNumberFormatter);
+          [v20 numberFromString:v19];
+          v22 = v21 = v9;
+          v17 = [v22 unsignedIntegerValue];
 
-          v9 = v22;
-          v13 = &AnalyticsSendEventLazy_ptr;
+          v9 = v21;
         }
 
         else
         {
-          v18 = 0;
+          v17 = 0;
         }
       }
 
       else
       {
-        if (v15 == 200 || v15 == 304)
+        if (v14 == 200 || v14 == 304)
         {
 
           goto LABEL_19;
         }
 
-        v18 = 0;
+        v17 = 0;
       }
     }
 
@@ -4632,10 +4630,10 @@ void sub_100093DFC(uint64_t a1, void *a2, void *a3, void *a4)
     {
       if (v12)
       {
-        v16 = [v12 domain];
-        v17 = [v16 isEqualToString:NSURLErrorDomain];
+        v15 = [v12 domain];
+        v16 = [v15 isEqualToString:NSURLErrorDomain];
 
-        if (v17)
+        if (v16)
         {
           if ([v12 code] == -999)
           {
@@ -4645,11 +4643,11 @@ void sub_100093DFC(uint64_t a1, void *a2, void *a3, void *a4)
         }
       }
 
-      v18 = 0;
+      v17 = 0;
     }
 
-    *(v10 + 9) = v18 == 0;
-    sub_100088340(v10, v18);
+    *(v10 + 9) = v17 == 0;
+    sub_100088340(v10, v17);
   }
 
 LABEL_19:
@@ -4657,45 +4655,45 @@ LABEL_19:
   if (v12)
   {
 LABEL_20:
-    v24 = nplog_obj();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = nplog_obj();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = *(a1 + 40);
-      v52 = 138412546;
-      v53 = v12;
-      v54 = 2112;
-      v55 = v25;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Received error %@ for %@", &v52, 0x16u);
+      v24 = *(a1 + 40);
+      v50 = 138412546;
+      v51 = v12;
+      v52 = 2112;
+      v53 = v24;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Received error %@ for %@", &v50, 0x16u);
     }
 
-    v26 = [v12 domain];
-    if ([v26 isEqualToString:NSURLErrorDomain])
+    v25 = [v12 domain];
+    if ([v25 isEqualToString:NSURLErrorDomain])
     {
-      v27 = [v12 code];
+      v26 = [v12 code];
 
-      if (v27 == -999)
+      if (v26 == -999)
       {
-        v28 = *(*(a1 + 48) + 16);
+        v27 = *(*(a1 + 48) + 16);
 LABEL_30:
-        v28();
-        v30 = objc_alloc_init(NSPConfigurationFetchAnalytics);
-        v32 = [*(a1 + 40) absoluteString];
-        [(NSPConfigurationFetchAnalytics *)v30 setConfigFetchURL:v32];
+        v27();
+        v28 = objc_alloc_init(NSPConfigurationFetchAnalytics);
+        v30 = [*(a1 + 40) absoluteString];
+        [(NSPConfigurationFetchAnalytics *)v28 setConfigFetchURL:v30];
 
-        [(NSPConfigurationFetchAnalytics *)v30 setRequestedServerUUID:0];
-        [(NSPConfigurationFetchAnalytics *)v30 setHttpCode:0];
-        v33 = [v12 domain];
-        v34 = [v33 isEqualToString:NSURLErrorDomain];
+        [(NSPConfigurationFetchAnalytics *)v28 setRequestedServerUUID:0];
+        [(NSPConfigurationFetchAnalytics *)v28 setHttpCode:0];
+        v31 = [v12 domain];
+        v32 = [v31 isEqualToString:NSURLErrorDomain];
 
-        if (v34)
+        if (v32)
         {
-          -[NSPConfigurationFetchAnalytics setNsurlErrorCode:](v30, "setNsurlErrorCode:", [v12 code]);
+          -[NSPConfigurationFetchAnalytics setNsurlErrorCode:](v28, "setNsurlErrorCode:", [v12 code]);
         }
 
-        v35 = sub_10009280C(NSPConfigurationManager, *(a1 + 56));
-        [(NSPConfigurationFetchAnalytics *)v30 setReason:v35];
+        v33 = sub_10009280C(NSPConfigurationManager, *(a1 + 56));
+        [(NSPConfigurationFetchAnalytics *)v28 setReason:v33];
 
-        [(NSPProxyAnalytics *)v30 sendAnalytics];
+        [(NSPProxyAnalytics *)v28 sendAnalytics];
 LABEL_46:
 
         goto LABEL_47;
@@ -4706,88 +4704,87 @@ LABEL_46:
     {
     }
 
-    v28 = *(*(a1 + 48) + 16);
+    v27 = *(*(a1 + 48) + 16);
     goto LABEL_30;
   }
 
-  v29 = v13[414];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = v11;
+    v28 = v11;
     if (os_variant_has_internal_diagnostics())
     {
-      v31 = [(NSPConfigurationFetchAnalytics *)v30 valueForHTTPHeaderField:@"x-apple-request-uuid"];
+      v29 = [(NSPConfigurationFetchAnalytics *)v28 valueForHTTPHeaderField:@"x-apple-request-uuid"];
     }
 
     else
     {
-      v31 = 0;
+      v29 = 0;
     }
 
-    v36 = nplog_obj();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v34 = nplog_obj();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v37 = [(NSPConfigurationFetchAnalytics *)v30 statusCode];
-      v38 = *(a1 + 40);
-      v52 = 134218498;
-      v53 = v37;
+      v35 = [(NSPConfigurationFetchAnalytics *)v28 statusCode];
+      v36 = *(a1 + 40);
+      v50 = 134218498;
+      v51 = v35;
+      v52 = 2112;
+      v53 = v36;
       v54 = 2112;
-      v55 = v38;
-      v56 = 2112;
-      v57 = v31;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", &v52, 0x20u);
+      v55 = v29;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", &v50, 0x20u);
     }
 
-    if ([(NSPConfigurationFetchAnalytics *)v30 statusCode]== 200)
+    if ([(NSPConfigurationFetchAnalytics *)v28 statusCode]== 200)
     {
-      v39 = [(NSPConfigurationFetchAnalytics *)v30 valueForHTTPHeaderField:@"Etag"];
-      v40 = [(NSPConfigurationFetchAnalytics *)v30 valueForHTTPHeaderField:@"proxy-config-epoch"];
-      v41 = v40;
-      if (v40 && (v42 = [v40 intValue], (v42 - 1) <= 0xFFFE))
+      v37 = [(NSPConfigurationFetchAnalytics *)v28 valueForHTTPHeaderField:@"Etag"];
+      v38 = [(NSPConfigurationFetchAnalytics *)v28 valueForHTTPHeaderField:@"proxy-config-epoch"];
+      v39 = v38;
+      if (v38 && (v40 = [v38 intValue], (v40 - 1) <= 0xFFFE))
       {
-        v43 = [NSNumber numberWithInt:v42];
+        v41 = [NSNumber numberWithInt:v40];
       }
 
       else
       {
-        v43 = &off_1001142C0;
+        v41 = &off_1001142C0;
       }
 
-      v44 = v9;
+      v42 = v9;
       (*(*(a1 + 48) + 16))();
     }
 
     else
     {
-      [(NSPConfigurationFetchAnalytics *)v30 statusCode];
-      v44 = v9;
+      [(NSPConfigurationFetchAnalytics *)v28 statusCode];
+      v42 = v9;
       (*(*(a1 + 48) + 16))();
     }
 
-    v45 = mach_absolute_time();
-    v46 = objc_alloc_init(NSPConfigurationFetchAnalytics);
-    v47 = [*(a1 + 40) absoluteString];
-    [(NSPConfigurationFetchAnalytics *)v46 setConfigFetchURL:v47];
+    v43 = mach_absolute_time();
+    v44 = objc_alloc_init(NSPConfigurationFetchAnalytics);
+    v45 = [*(a1 + 40) absoluteString];
+    [(NSPConfigurationFetchAnalytics *)v44 setConfigFetchURL:v45];
 
-    v48 = [(NSPConfigurationFetchAnalytics *)v30 valueForHTTPHeaderField:@"x-apple-request-uuid"];
-    [(NSPConfigurationFetchAnalytics *)v46 setRequestedServerUUID:v48];
+    v46 = [(NSPConfigurationFetchAnalytics *)v28 valueForHTTPHeaderField:@"x-apple-request-uuid"];
+    [(NSPConfigurationFetchAnalytics *)v44 setRequestedServerUUID:v46];
 
-    [(NSPConfigurationFetchAnalytics *)v46 setHttpCode:[(NSPConfigurationFetchAnalytics *)v30 statusCode]];
-    v49 = [0 domain];
-    v50 = [v49 isEqualToString:NSURLErrorDomain];
+    [(NSPConfigurationFetchAnalytics *)v44 setHttpCode:[(NSPConfigurationFetchAnalytics *)v28 statusCode]];
+    v47 = [0 domain];
+    v48 = [v47 isEqualToString:NSURLErrorDomain];
 
-    if (v50)
+    if (v48)
     {
-      -[NSPConfigurationFetchAnalytics setNsurlErrorCode:](v46, "setNsurlErrorCode:", [0 code]);
+      -[NSPConfigurationFetchAnalytics setNsurlErrorCode:](v44, "setNsurlErrorCode:", [0 code]);
     }
 
-    [(NSPConfigurationFetchAnalytics *)v46 setLatency:*&qword_100129840 * (v45 - *(a1 + 64))];
-    v51 = sub_10009280C(NSPConfigurationManager, *(a1 + 56));
-    [(NSPConfigurationFetchAnalytics *)v46 setReason:v51];
+    [(NSPConfigurationFetchAnalytics *)v44 setLatency:*&qword_100129840 * (v43 - *(a1 + 64))];
+    v49 = sub_10009280C(NSPConfigurationManager, *(a1 + 56));
+    [(NSPConfigurationFetchAnalytics *)v44 setReason:v49];
 
-    [(NSPProxyAnalytics *)v46 sendAnalytics];
-    v9 = v44;
+    [(NSPProxyAnalytics *)v44 sendAnalytics];
+    v9 = v42;
     goto LABEL_46;
   }
 
@@ -4903,18 +4900,15 @@ void sub_100094694(uint64_t a1, void *a2, void *a3, void *a4)
   dispatch_async(v10, block);
 }
 
-uint64_t sub_1000947B0(void *a1)
+uint64_t sub_1000947B0(uint64_t a1)
 {
-  v2 = *(a1[8] + 8);
+  v2 = *(*(a1 + 64) + 8);
   v3 = *(v2 + 40);
   *(v2 + 40) = 0;
 
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = *(a1[7] + 16);
+  v4 = *(*(a1 + 56) + 16);
 
-  return v7();
+  return v4();
 }
 
 void sub_100094804(uint64_t a1)
@@ -4945,14 +4939,14 @@ void sub_100094804(uint64_t a1)
     v6[2] = sub_100094968;
     v6[3] = &unk_10010A058;
     v6[4] = buf;
-    sub_1000875D4(v4, 10, v6);
+    sub_1000875D4(v4, 0xA, v6);
     _Block_object_dispose(buf, 8);
   }
 }
 
-void sub_100094950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100094950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5026,7 +5020,7 @@ Class sub_1000950CC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -5037,7 +5031,7 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "PCCServerEnvironment");
   }
 
   qword_100129848 = *(*(*(a1 + 32) + 8) + 24);
@@ -5046,7 +5040,6 @@ LABEL_4:
 
 uint64_t sub_100095220(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100129850 = result;
   return result;
@@ -5131,9 +5124,9 @@ LABEL_11:
   return v15;
 }
 
-void sub_1000957E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000957E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6709,30 +6702,13 @@ void sub_10009F750(void *a1, void *a2, void *a3)
           v15 = *(*(&v23 + 1) + 8 * i);
           if ([v15 appStatus] == 1)
           {
-            if (v12 > 0x14)
-            {
-              goto LABEL_12;
-            }
-
-            v16 = [v15 activeDate];
-            if (!v16)
-            {
-              goto LABEL_12;
-            }
-
-            v17 = v16;
-            v18 = [v15 activeDate];
-            [v6 timeIntervalSinceDate:v18];
-            v20 = v19;
-
-            if (v20 < 86400.0)
+            if (v12 <= 0x14 && ([v15 activeDate], (v16 = objc_claimAutoreleasedReturnValue()) != 0) && (v17 = v16, objc_msgSend(v15, "activeDate"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSinceDate:", v18), v20 = v19, v18, v17, v20 < 86400.0))
             {
               ++v12;
             }
 
             else
             {
-LABEL_12:
               [v8 addObject:v15];
             }
           }
@@ -6922,25 +6898,25 @@ void sub_1000A09AC(uint64_t a1)
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v27 = 0x3032000000;
-      v28 = sub_100001F94;
-      v29 = sub_1000A0F38;
-      v30 = 0;
+      v26 = 0x3032000000;
+      v27 = sub_100001F94;
+      v28 = sub_1000A0F38;
+      v29 = 0;
       v5 = +[NEFileHandleMaintainer sharedMaintainer];
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_1000A0F40;
-      v23[3] = &unk_10010AC60;
-      v23[4] = &buf;
-      [v5 iterateFileHandlesWithBlock:v23];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_1000A0F40;
+      v22[3] = &unk_10010AC60;
+      v22[4] = &buf;
+      [v5 iterateFileHandlesWithBlock:v22];
 
       if (*(*(&buf + 1) + 40))
       {
         v6 = nplog_obj();
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Re-using existing flow divert control socket", v24, 2u);
+          *v23 = 0;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Re-using existing flow divert control socket", v23, 2u);
         }
       }
 
@@ -6949,9 +6925,9 @@ void sub_1000A09AC(uint64_t a1)
         v7 = nplog_obj();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          *v24 = 138412290;
-          v25 = a1;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Creating a new flow divert control socket", v24, 0xCu);
+          *v23 = 138412290;
+          v24 = a1;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ Creating a new flow divert control socket", v23, 0xCu);
         }
 
         v8 = [[NEFlowDivertFileHandle alloc] initFlowDivertControlSocketDisableAppMap:1];
@@ -6972,9 +6948,9 @@ void sub_1000A09AC(uint64_t a1)
           v6 = nplog_obj();
           if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
           {
-            *v24 = 138412290;
-            v25 = a1;
-            _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@: Failed to create a flow divert control socket", v24, 0xCu);
+            *v23 = 138412290;
+            v24 = a1;
+            _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@: Failed to create a flow divert control socket", v23, 0xCu);
           }
         }
       }
@@ -6998,10 +6974,10 @@ LABEL_19:
         {
           if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
-            v21 = [*(a1 + 16) handle];
-            v22 = [v21 fileDescriptor];
+            v20 = [*(a1 + 16) handle];
+            v21 = [v20 fileDescriptor];
             LODWORD(buf) = 67109376;
-            DWORD1(buf) = v22;
+            DWORD1(buf) = v21;
             WORD4(buf) = 1024;
             *(&buf + 10) = v14;
             _os_log_fault_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Unable to dup flow divert handle %d (%d)", &buf, 0xEu);
@@ -7012,19 +6988,18 @@ LABEL_19:
         {
           if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
-            v19 = [*(a1 + 16) handle];
-            v20 = [v19 fileDescriptor];
+            v18 = [*(a1 + 16) handle];
+            v19 = [v18 fileDescriptor];
             LODWORD(buf) = 67109376;
             DWORD1(buf) = v14;
             WORD4(buf) = 1024;
-            *(&buf + 10) = v20;
+            *(&buf + 10) = v19;
             _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "Created fd %d from %d for flow divert", &buf, 0xEu);
           }
 
           objc_getProperty(a1, v17, 32, 1);
           *(a1 + 24) = NEFlowDirectorCreateBridge();
           NEFlowDirectorAllowProcessDelegation();
-          v18 = *(a1 + 24);
           NEFlowDirectorStart();
         }
       }
@@ -7032,9 +7007,9 @@ LABEL_19:
   }
 }
 
-void sub_1000A0E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000A0E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7104,7 +7079,7 @@ uint64_t start()
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Starting NSPServer", buf, 2u);
   }
 
-  v3 = sub_100053E68();
+  v3 = sub_100053E68(NSPServer);
   sub_100061C9C(v3);
 
   objc_autoreleasePoolPop(v1);
@@ -7317,9 +7292,9 @@ void sub_1000A2F60(uint64_t a1)
       v4 = *(a1 + 40);
       v5 = [*(a1 + 56) URL];
       *buf = 138412546;
-      v39 = v4;
-      v40 = 2112;
-      v41 = v5;
+      v34 = v4;
+      v35 = 2112;
+      v36 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received token fetch error %@ for %@", buf, 0x16u);
     }
 
@@ -7330,13 +7305,12 @@ void sub_1000A2F60(uint64_t a1)
 
       if (v7 == -999)
       {
-        v8 = *(a1 + 40);
-        v9 = *(*(a1 + 128) + 16);
+        v8 = *(*(a1 + 128) + 16);
 LABEL_11:
-        v9();
+        v8();
 LABEL_12:
-        v11 = 0;
-        v12 = 0;
+        v9 = 0;
+        v10 = 0;
         goto LABEL_13;
       }
     }
@@ -7345,133 +7319,129 @@ LABEL_12:
     {
     }
 
-    v10 = *(a1 + 40);
-    v9 = *(*(a1 + 128) + 16);
+    v8 = *(*(a1 + 128) + 16);
     goto LABEL_11;
   }
 
-  v21 = *(a1 + 64);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     goto LABEL_12;
   }
 
-  v11 = *(a1 + 64);
+  v9 = *(a1 + 64);
   if (os_variant_has_internal_diagnostics())
   {
-    v22 = [v11 allHeaderFields];
-    v12 = [v22 objectForKeyedSubscript:@"x-apple-request-uuid"];
+    v19 = [v9 allHeaderFields];
+    v10 = [v19 objectForKeyedSubscript:@"x-apple-request-uuid"];
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  v23 = nplog_obj();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v20 = nplog_obj();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [v11 statusCode];
-    v25 = [*(a1 + 56) URL];
+    v21 = [v9 statusCode];
+    v22 = [*(a1 + 56) URL];
     *buf = 134218498;
-    v39 = v24;
-    v40 = 2112;
-    v41 = v25;
-    v42 = 2112;
-    v43 = v12;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
+    v34 = v21;
+    v35 = 2112;
+    v36 = v22;
+    v37 = 2112;
+    v38 = v10;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
   }
 
-  if ([v11 statusCode] == 200)
+  if ([v9 statusCode] == 200)
   {
-    v26 = [[NSPPrivacyProxyTokenActivationResponse alloc] initWithData:*(a1 + 48)];
-    v27 = objc_alloc_init(NSPPrivacyProxyTokenKey);
-    [v27 setKey:*(a1 + 72)];
-    v28 = *(a1 + 80);
-    v29 = *(a1 + 88);
-    v37 = *(a1 + 96);
-    v30 = [v26 activatedTokenLists];
-    v13 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v28, v29, v27, v37, v30);
+    v23 = [[NSPPrivacyProxyTokenActivationResponse alloc] initWithData:*(a1 + 48)];
+    v24 = objc_alloc_init(NSPPrivacyProxyTokenKey);
+    [v24 setKey:*(a1 + 72)];
+    v25 = *(a1 + 80);
+    v26 = *(a1 + 88);
+    v32 = *(a1 + 96);
+    v27 = [v23 activatedTokenLists];
+    v11 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v25, v26, v24, v32, v27);
 
-    if ([v26 tokenExpiryTimestamp])
+    if ([v23 tokenExpiryTimestamp])
     {
-      v31 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", ([v26 tokenExpiryTimestamp] / 0x3E8));
+      v28 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", ([v23 tokenExpiryTimestamp] / 0x3E8));
     }
 
     else
     {
-      v31 = 0;
+      v28 = 0;
     }
 
-    v33 = nplog_obj();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v29 = nplog_obj();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v34 = [v13 count];
-      v35 = *(a1 + 104);
+      v30 = [v11 count];
+      v31 = *(a1 + 104);
       *buf = 134218242;
-      v39 = v34;
-      v40 = 2112;
-      v41 = v35;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "activated %lu tokens for %@", buf, 0x16u);
+      v34 = v30;
+      v35 = 2112;
+      v36 = v31;
+      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "activated %lu tokens for %@", buf, 0x16u);
     }
 
-    *(WeakRetained + 11) += [v13 count];
-    v36 = *(a1 + 40);
+    *(WeakRetained + 11) += [v11 count];
     (*(*(a1 + 128) + 16))();
 
     goto LABEL_14;
   }
 
-  if ([v11 statusCode] == 401)
+  if ([v9 statusCode] == 401)
   {
     [*(WeakRetained + 2) authenticationFailure];
   }
 
-  v32 = *(a1 + 40);
   (*(*(a1 + 128) + 16))();
 LABEL_13:
-  v13 = 0;
+  v11 = 0;
 LABEL_14:
   [*(a1 + 32) invalidateAndCancel];
-  v14 = mach_absolute_time();
-  v15 = objc_alloc_init(NSPTokenFetchAnalytics);
-  [(NSPTokenFetchAnalytics *)v15 setProxyURL:*(a1 + 112)];
-  [(NSPTokenFetchAnalytics *)v15 setProxyVendor:*(a1 + 104)];
-  [(NSPTokenFetchAnalytics *)v15 setTierType:*(a1 + 120)];
-  v16 = *(a1 + 160);
-  if (v16 >= 5)
+  v12 = mach_absolute_time();
+  v13 = objc_alloc_init(NSPTokenFetchAnalytics);
+  [(NSPTokenFetchAnalytics *)v13 setProxyURL:*(a1 + 112)];
+  [(NSPTokenFetchAnalytics *)v13 setProxyVendor:*(a1 + 104)];
+  [(NSPTokenFetchAnalytics *)v13 setTierType:*(a1 + 120)];
+  v14 = *(a1 + 160);
+  if (v14 >= 5)
   {
-    v17 = [NSString stringWithFormat:@"(unknown: %i)", *(a1 + 160)];
+    v15 = [NSString stringWithFormat:@"(unknown: %i)", *(a1 + 160)];
   }
 
   else
   {
-    v17 = off_10010B0E8[v16];
+    v15 = off_10010B0E8[v14];
   }
 
-  [(NSPTokenFetchAnalytics *)v15 setAuthenticationType:v17];
+  [(NSPTokenFetchAnalytics *)v13 setAuthenticationType:v15];
 
-  [(NSPTokenFetchAnalytics *)v15 setRequestedServerUUID:v12];
-  [(NSPTokenFetchAnalytics *)v15 setRequestedTokenCount:*(a1 + 144)];
-  -[NSPTokenFetchAnalytics setActivatedCount:](v15, "setActivatedCount:", [v13 count]);
-  -[NSPTokenFetchAnalytics setHttpCode:](v15, "setHttpCode:", [v11 statusCode]);
-  v18 = [*(a1 + 40) domain];
-  v19 = [v18 isEqualToString:NSURLErrorDomain];
+  [(NSPTokenFetchAnalytics *)v13 setRequestedServerUUID:v10];
+  [(NSPTokenFetchAnalytics *)v13 setRequestedTokenCount:*(a1 + 144)];
+  -[NSPTokenFetchAnalytics setActivatedCount:](v13, "setActivatedCount:", [v11 count]);
+  -[NSPTokenFetchAnalytics setHttpCode:](v13, "setHttpCode:", [v9 statusCode]);
+  v16 = [*(a1 + 40) domain];
+  v17 = [v16 isEqualToString:NSURLErrorDomain];
 
-  if (v19)
+  if (v17)
   {
-    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v15, "setNsurlErrorCode:", [*(a1 + 40) code]);
+    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v13, "setNsurlErrorCode:", [*(a1 + 40) code]);
   }
 
-  v20 = (v14 - *(a1 + 152));
+  v18 = (v12 - *(a1 + 152));
   if (qword_100129878 != -1)
   {
     dispatch_once(&qword_100129878, &stru_10010B0A8);
   }
 
-  [(NSPTokenFetchAnalytics *)v15 setLatency:*&qword_100129880 * v20];
-  [(NSPProxyAnalytics *)v15 sendAnalytics];
+  [(NSPTokenFetchAnalytics *)v13 setLatency:*&qword_100129880 * v18];
+  [(NSPProxyAnalytics *)v13 sendAnalytics];
 
 LABEL_22:
 }
@@ -8077,24 +8047,23 @@ void sub_1000A497C(uint64_t a1)
     {
       v8 = *(a1 + 48);
       *buf = 138412290;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "TDM succeeded for namespace %@", buf, 0xCu);
     }
 
     v5 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"rs=%dns=%d", [*(a1 + 32) reportedScore], objc_msgSend(*(a1 + 32), "newScore"));;
-    v14[0] = @"tdm-fsr-namespace";
-    v14[1] = @"tdm-fsr-tid";
+    v13[0] = @"tdm-fsr-namespace";
+    v13[1] = @"tdm-fsr-tid";
     v9 = *(a1 + 56);
-    v15[0] = *(a1 + 48);
-    v15[1] = v9;
-    v15[2] = v5;
-    v14[2] = @"tdm-fsr-data";
-    v14[3] = @"tdm-fsr-token";
+    v14[0] = *(a1 + 48);
+    v14[1] = v9;
+    v14[2] = v5;
+    v13[2] = @"tdm-fsr-data";
+    v13[3] = @"tdm-fsr-token";
     v10 = [*(a1 + 32) finalizedElement];
-    v15[3] = v10;
-    v11 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:4];
+    v14[3] = v10;
+    v11 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:4];
 
-    v12 = *(a1 + 136);
     sub_1000A4BD4(*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104), *(a1 + 184), *(a1 + 112), *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), *(a1 + 152), *(a1 + 160), *(a1 + 168), v11, *(a1 + 176));
   }
 
@@ -8103,9 +8072,9 @@ void sub_1000A497C(uint64_t a1)
     v3 = nplog_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 40);
+      v12 = *(a1 + 40);
       *buf = 138412290;
-      v17 = v13;
+      v16 = v12;
       _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "TDM failed, error %@", buf, 0xCu);
     }
 
@@ -8380,7 +8349,7 @@ LABEL_101:
 
     if (os_variant_has_internal_diagnostics())
     {
-      v64 = sub_100053E68();
+      v64 = sub_100053E68(NSPServer);
       v65 = v64;
       if (v64)
       {
@@ -8680,9 +8649,9 @@ void sub_1000A6024(uint64_t a1)
       v4 = *(a1 + 32);
       v5 = [*(a1 + 48) URL];
       *buf = 138412546;
-      v52 = v4;
-      v53 = 2112;
-      v54 = v5;
+      v51 = v4;
+      v52 = 2112;
+      v53 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received token fetch error %@ for %@", buf, 0x16u);
     }
 
@@ -8698,17 +8667,17 @@ void sub_1000A6024(uint64_t a1)
     else if (!v6)
     {
 LABEL_20:
-      v47 = 0;
+      v46 = 0;
       (*(*(a1 + 128) + 16))(*(a1 + 128));
       goto LABEL_21;
     }
 
-    v11 = [v6 domain];
-    if (v11 != NSPOSIXErrorDomain || [*(a1 + 32) code] != 50)
+    v10 = [v6 domain];
+    if (v10 != NSPOSIXErrorDomain || [*(a1 + 32) code] != 50)
     {
-      v12 = [*(a1 + 32) domain];
-      v13 = v12;
-      if (v12 != NSURLErrorDomain)
+      v11 = [*(a1 + 32) domain];
+      v12 = v11;
+      if (v11 != NSURLErrorDomain)
       {
 
         goto LABEL_20;
@@ -8725,183 +8694,182 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v7 = *(a1 + 56);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_21:
-    v8 = 0;
-    v10 = 0;
+    v7 = 0;
+    v9 = 0;
     goto LABEL_22;
   }
 
-  v8 = *(a1 + 56);
+  v7 = *(a1 + 56);
   if (os_variant_has_internal_diagnostics())
   {
-    v9 = [v8 allHeaderFields];
-    v10 = [v9 objectForKeyedSubscript:@"x-apple-request-uuid"];
+    v8 = [v7 allHeaderFields];
+    v9 = [v8 objectForKeyedSubscript:@"x-apple-request-uuid"];
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  v23 = nplog_obj();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = nplog_obj();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = [v8 statusCode];
-    v25 = [*(a1 + 48) URL];
+    v23 = [v7 statusCode];
+    v24 = [*(a1 + 48) URL];
     *buf = 134218498;
-    v52 = v24;
-    v53 = 2112;
-    v54 = v25;
-    v55 = 2112;
-    v56 = v10;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
+    v51 = v23;
+    v52 = 2112;
+    v53 = v24;
+    v54 = 2112;
+    v55 = v9;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
   }
 
-  if ([v8 statusCode] == 200)
+  if ([v7 statusCode] == 200)
   {
-    v26 = sub_1000B48AC(*(a1 + 64), *(a1 + 40));
-    v27 = v26;
-    if (v26)
+    v25 = sub_1000B48AC(*(a1 + 64), *(a1 + 40));
+    v26 = v25;
+    if (v25)
     {
-      v28 = *(a1 + 72);
-      v29 = *(a1 + 80);
-      v30 = *(a1 + 88);
-      v31 = *(a1 + 96);
-      v48 = v26;
-      v50 = v26;
-      v32 = [NSArray arrayWithObjects:&v50 count:1];
-      v33 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v28, v29, v30, v31, v32);
+      v27 = *(a1 + 72);
+      v28 = *(a1 + 80);
+      v29 = *(a1 + 88);
+      v30 = *(a1 + 96);
+      v47 = v25;
+      v49 = v25;
+      v31 = [NSArray arrayWithObjects:&v49 count:1];
+      v32 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v27, v28, v29, v30, v31);
 
-      if ([v33 count] && v33)
+      if ([v32 count] && v32)
       {
-        v14 = [v33 firstObject];
+        v13 = [v32 firstObject];
         if ([*(a1 + 88) expiration])
         {
-          v34 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", [*(a1 + 88) expiration]);
+          v33 = +[NSDate dateWithTimeIntervalSince1970:](NSDate, "dateWithTimeIntervalSince1970:", [*(a1 + 88) expiration]);
         }
 
         else
         {
-          v34 = 0;
+          v33 = 0;
         }
 
-        v45 = *(a1 + 128);
-        v49 = v14;
-        v46 = [NSArray arrayWithObjects:&v49 count:1];
-        (*(v45 + 16))(v45, v46, 0, *(a1 + 104), v34, 0, 0, 0, v10);
+        v44 = *(a1 + 128);
+        v48 = v13;
+        v45 = [NSArray arrayWithObjects:&v48 count:1];
+        (*(v44 + 16))(v44, v45, 0, *(a1 + 104), v33, 0, 0, 0, v9);
       }
 
       else
       {
-        v38 = nplog_obj();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v37 = nplog_obj();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "token activation failed", buf, 2u);
+          _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "token activation failed", buf, 2u);
         }
 
-        v47 = v10;
+        v46 = v9;
         (*(*(a1 + 128) + 16))(*(a1 + 128));
-        v14 = 0;
+        v13 = 0;
       }
 
-      v27 = v48;
+      v26 = v47;
     }
 
     else
     {
-      v37 = nplog_obj();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v36 = nplog_obj();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Failed to decrypt token response", buf, 2u);
+        _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Failed to decrypt token response", buf, 2u);
       }
 
-      v47 = v10;
+      v46 = v9;
       (*(*(a1 + 128) + 16))(*(a1 + 128));
-      v14 = 0;
+      v13 = 0;
     }
 
     goto LABEL_23;
   }
 
-  if ([v8 statusCode] == 401)
+  if ([v7 statusCode] == 401)
   {
     [WeakRetained[2] authenticationFailure];
   }
 
-  else if ([v8 statusCode] == 429)
+  else if ([v7 statusCode] == 429)
   {
-    v35 = *(a1 + 112);
-    v36 = [*(a1 + 80) issuerName];
-    sub_1000A3D18(v35, v8, v36);
+    v34 = *(a1 + 112);
+    v35 = [*(a1 + 80) issuerName];
+    sub_1000A3D18(v34, v7, v35);
   }
 
-  else if ([v8 statusCode] >= 400)
+  else if ([v7 statusCode] >= 400)
   {
-    [v8 statusCode];
+    [v7 statusCode];
   }
 
-  v39 = [v8 allHeaderFields];
-  v40 = [v39 objectForKeyedSubscript:@"Error-Reason"];
+  v38 = [v7 allHeaderFields];
+  v39 = [v38 objectForKeyedSubscript:@"Error-Reason"];
 
-  v47 = v10;
+  v46 = v9;
   (*(*(a1 + 128) + 16))(*(a1 + 128));
-  v41 = sub_100053E68();
-  v42 = *(a1 + 120);
-  v43 = [*(a1 + 80) issuerName];
-  v44 = [v8 statusCode];
-  if (v41)
+  v40 = sub_100053E68(NSPServer);
+  v41 = *(a1 + 120);
+  v42 = [*(a1 + 80) issuerName];
+  v43 = [v7 statusCode];
+  if (v40)
   {
-    [v41[9] sendRTCReportWithFailureType:1003 errorCode:v44 url:v42 ingressProxy:0 egressProxy:0 tokenServer:v43];
+    [v40[9] sendRTCReportWithFailureType:1003 errorCode:v43 url:v41 ingressProxy:0 egressProxy:0 tokenServer:v42];
   }
 
 LABEL_22:
-  v14 = 0;
+  v13 = 0;
 LABEL_23:
-  v15 = mach_absolute_time();
-  v16 = objc_alloc_init(NSPTokenFetchAnalytics);
-  [(NSPTokenFetchAnalytics *)v16 setProxyURL:*(a1 + 120)];
-  v17 = [*(a1 + 80) issuerName];
-  [(NSPTokenFetchAnalytics *)v16 setProxyVendor:v17];
+  v14 = mach_absolute_time();
+  v15 = objc_alloc_init(NSPTokenFetchAnalytics);
+  [(NSPTokenFetchAnalytics *)v15 setProxyURL:*(a1 + 120)];
+  v16 = [*(a1 + 80) issuerName];
+  [(NSPTokenFetchAnalytics *)v15 setProxyVendor:v16];
 
-  v18 = *(a1 + 152);
-  if (v18 >= 5)
+  v17 = *(a1 + 152);
+  if (v17 >= 5)
   {
-    v19 = [NSString stringWithFormat:@"(unknown: %i)", *(a1 + 152)];
+    v18 = [NSString stringWithFormat:@"(unknown: %i)", *(a1 + 152)];
   }
 
   else
   {
-    v19 = off_10010B0E8[v18];
+    v18 = off_10010B0E8[v17];
   }
 
-  [(NSPTokenFetchAnalytics *)v16 setAuthenticationType:v19, v47];
+  [(NSPTokenFetchAnalytics *)v15 setAuthenticationType:v18, v46];
 
-  [(NSPTokenFetchAnalytics *)v16 setRequestedServerUUID:v10];
-  [(NSPTokenFetchAnalytics *)v16 setRequestedTokenCount:*(a1 + 156)];
-  [(NSPTokenFetchAnalytics *)v16 setActivatedCount:v14 != 0];
-  -[NSPTokenFetchAnalytics setHttpCode:](v16, "setHttpCode:", [v8 statusCode]);
-  v20 = [*(a1 + 32) domain];
-  v21 = [v20 isEqualToString:NSURLErrorDomain];
+  [(NSPTokenFetchAnalytics *)v15 setRequestedServerUUID:v9];
+  [(NSPTokenFetchAnalytics *)v15 setRequestedTokenCount:*(a1 + 156)];
+  [(NSPTokenFetchAnalytics *)v15 setActivatedCount:v13 != 0];
+  -[NSPTokenFetchAnalytics setHttpCode:](v15, "setHttpCode:", [v7 statusCode]);
+  v19 = [*(a1 + 32) domain];
+  v20 = [v19 isEqualToString:NSURLErrorDomain];
 
-  if (v21)
+  if (v20)
   {
-    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v16, "setNsurlErrorCode:", [*(a1 + 32) code]);
+    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v15, "setNsurlErrorCode:", [*(a1 + 32) code]);
   }
 
-  v22 = (v15 - *(a1 + 144));
+  v21 = (v14 - *(a1 + 144));
   if (qword_100129878 != -1)
   {
     dispatch_once(&qword_100129878, &stru_10010B0A8);
   }
 
-  [(NSPTokenFetchAnalytics *)v16 setLatency:*&qword_100129880 * v22];
-  [(NSPProxyAnalytics *)v16 sendAnalytics];
+  [(NSPTokenFetchAnalytics *)v15 setLatency:*&qword_100129880 * v21];
+  [(NSPProxyAnalytics *)v15 sendAnalytics];
 
 LABEL_31:
 }
@@ -8999,9 +8967,9 @@ void sub_1000A6BB0(uint64_t a1)
       v4 = *(v1 + 32);
       v5 = [*(v1 + 48) URL];
       *buf = 138412546;
-      *v119 = v4;
-      *&v119[8] = 2112;
-      v120 = v5;
+      *v117 = v4;
+      *&v117[8] = 2112;
+      v118 = v5;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received token fetch error %@ for %@", buf, 0x16u);
     }
 
@@ -9017,17 +8985,17 @@ void sub_1000A6BB0(uint64_t a1)
     else if (!v6)
     {
 LABEL_20:
-      v87 = 0;
+      v85 = 0;
       (*(*(v1 + 216) + 16))(*(v1 + 216));
       goto LABEL_21;
     }
 
-    v10 = [v6 domain];
-    if (v10 != NSPOSIXErrorDomain || [*(v1 + 32) code] != 50)
+    v9 = [v6 domain];
+    if (v9 != NSPOSIXErrorDomain || [*(v1 + 32) code] != 50)
     {
-      v11 = [*(v1 + 32) domain];
-      v12 = v11;
-      if (v11 != NSURLErrorDomain)
+      v10 = [*(v1 + 32) domain];
+      v11 = v10;
+      if (v10 != NSURLErrorDomain)
       {
 
         goto LABEL_20;
@@ -9044,352 +9012,350 @@ LABEL_20:
     goto LABEL_20;
   }
 
-  v7 = *(v1 + 56);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = *(v1 + 56);
+    v7 = *(v1 + 56);
     if (os_variant_has_internal_diagnostics())
     {
-      v9 = [v8 allHeaderFields];
-      v96 = [v9 objectForKeyedSubscript:@"x-apple-request-uuid"];
+      v8 = [v7 allHeaderFields];
+      v94 = [v8 objectForKeyedSubscript:@"x-apple-request-uuid"];
     }
 
     else
     {
-      v96 = 0;
+      v94 = 0;
     }
 
-    v21 = nplog_obj();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = nplog_obj();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [v8 statusCode];
-      v23 = [*(v1 + 48) URL];
+      v21 = [v7 statusCode];
+      v22 = [*(v1 + 48) URL];
       *buf = 134218498;
-      *v119 = v22;
-      *&v119[8] = 2112;
-      v120 = v23;
-      *v121 = 2112;
-      *&v121[2] = v96;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
+      *v117 = v21;
+      *&v117[8] = 2112;
+      v118 = v22;
+      *v119 = 2112;
+      *&v119[2] = v94;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Received HTTP response code %ld for %@ with request UUID %@", buf, 0x20u);
     }
 
-    v24 = [v8 allHeaderFields];
-    v25 = [v24 objectForKeyedSubscript:@"tdm-fsr-tid"];
+    v23 = [v7 allHeaderFields];
+    v24 = [v23 objectForKeyedSubscript:@"tdm-fsr-tid"];
 
-    v26 = [v8 allHeaderFields];
-    v27 = [v26 objectForKeyedSubscript:@"tdm-fsr-data"];
+    v25 = [v7 allHeaderFields];
+    v26 = [v25 objectForKeyedSubscript:@"tdm-fsr-data"];
 
-    v28 = [v8 allHeaderFields];
-    v29 = [v28 objectForKeyedSubscript:@"tdm-fsr-namespace"];
+    v27 = [v7 allHeaderFields];
+    v28 = [v27 objectForKeyedSubscript:@"tdm-fsr-namespace"];
 
-    if (v29 && ([&off_100113CD8 containsObject:v29] & 1) == 0)
+    if (v28 && ([&off_100113CD8 containsObject:v28] & 1) == 0)
     {
-      v30 = nplog_obj();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v29 = nplog_obj();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v119 = v29;
-        _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Received challenge for non-allowed TDM namespace: %@", buf, 0xCu);
+        *v117 = v28;
+        _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Received challenge for non-allowed TDM namespace: %@", buf, 0xCu);
       }
     }
 
-    v95 = v8;
-    if ([v8 statusCode] != 200)
+    v93 = v7;
+    if ([v7 statusCode] != 200)
     {
-      v39 = [v8 statusCode];
-      if (v29 && v39 == 401 && v25 && v27 && [&off_100113CD8 containsObject:v29] && !*(v1 + 104))
+      v38 = [v7 statusCode];
+      if (v28 && v38 == 401 && v24 && v26 && [&off_100113CD8 containsObject:v28] && !*(v1 + 104))
       {
-        v93 = [v8 allHeaderFields];
-        sub_1000A4290(WeakRetained, v93, *(v1 + 72), *(v1 + 120), *(v1 + 128), *(v1 + 136), *(v1 + 80), *(v1 + 248), *(v1 + 144), *(v1 + 152), *(v1 + 96), *(v1 + 160), *(v1 + 168), *(v1 + 176), *(v1 + 184), *(v1 + 192), *(v1 + 216));
-        v94 = 0;
+        v91 = [v7 allHeaderFields];
+        sub_1000A4290(WeakRetained, v91, *(v1 + 72), *(v1 + 120), *(v1 + 128), *(v1 + 136), *(v1 + 80), *(v1 + 248), *(v1 + 144), *(v1 + 152), *(v1 + 96), *(v1 + 160), *(v1 + 168), *(v1 + 176), *(v1 + 184), *(v1 + 192), *(v1 + 216));
+        v92 = 0;
       }
 
       else
       {
-        if ([v8 statusCode] == 401)
+        if ([v7 statusCode] == 401)
         {
-          v40 = v29;
-          v41 = v27;
-          v42 = v25;
+          v39 = v28;
+          v40 = v26;
+          v41 = v24;
           [*(v1 + 232) authenticationFailure];
         }
 
-        else if ([v8 statusCode] == 429)
+        else if ([v7 statusCode] == 429)
         {
-          v40 = v29;
-          v41 = v27;
-          v42 = v25;
-          v43 = *(v1 + 200);
-          v44 = [*(v1 + 72) issuerName];
-          sub_1000A3D18(v43, v8, v44);
+          v39 = v28;
+          v40 = v26;
+          v41 = v24;
+          v42 = *(v1 + 200);
+          v43 = [*(v1 + 72) issuerName];
+          sub_1000A3D18(v42, v7, v43);
         }
 
         else
         {
-          v40 = v29;
-          v41 = v27;
-          v42 = v25;
-          if ([v8 statusCode] >= 400)
+          v39 = v28;
+          v40 = v26;
+          v41 = v24;
+          if ([v7 statusCode] >= 400)
           {
-            [v8 statusCode];
+            [v7 statusCode];
           }
         }
 
-        v80 = [v8 allHeaderFields];
-        v81 = [v80 objectForKeyedSubscript:@"Error-Reason"];
+        v79 = [v7 allHeaderFields];
+        v80 = [v79 objectForKeyedSubscript:@"Error-Reason"];
 
-        v87 = v96;
-        v93 = v81;
+        v85 = v94;
+        v91 = v80;
         (*(*(v1 + 216) + 16))(*(v1 + 216));
-        v82 = sub_100053E68();
-        v83 = *(v1 + 208);
-        v84 = [*(v1 + 72) issuerName];
-        v85 = [v8 statusCode];
-        if (v82)
+        v81 = sub_100053E68(NSPServer);
+        v82 = *(v1 + 208);
+        v83 = [*(v1 + 72) issuerName];
+        v84 = [v7 statusCode];
+        if (v81)
         {
-          [v82[9] sendRTCReportWithFailureType:1003 errorCode:v85 url:v83 ingressProxy:0 egressProxy:0 tokenServer:v84];
+          [v81[9] sendRTCReportWithFailureType:1003 errorCode:v84 url:v82 ingressProxy:0 egressProxy:0 tokenServer:v83];
         }
 
-        v94 = 0;
-        v25 = v42;
-        v27 = v41;
-        v29 = v40;
+        v92 = 0;
+        v24 = v41;
+        v26 = v40;
+        v28 = v39;
       }
 
       goto LABEL_108;
     }
 
-    v88 = v29;
-    v89 = v27;
-    v90 = v25;
-    v91 = WeakRetained;
-    v31 = [[NSPPrivacyProxyTokenActivationResponse alloc] initWithData:*(v1 + 40)];
-    v32 = *(v1 + 64);
-    v33 = *(v1 + 72);
-    v34 = *(v1 + 80);
-    v35 = *(v1 + 88);
-    [v31 activatedTokenLists];
-    v36 = v102 = v1;
-    v92 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v32, v33, v34, v35, v36);
+    v86 = v28;
+    v87 = v26;
+    v88 = v24;
+    v89 = WeakRetained;
+    v30 = [[NSPPrivacyProxyTokenActivationResponse alloc] initWithData:*(v1 + 40)];
+    v31 = *(v1 + 64);
+    v32 = *(v1 + 72);
+    v33 = *(v1 + 80);
+    v34 = *(v1 + 88);
+    [v30 activatedTokenLists];
+    v35 = v100 = v1;
+    v90 = sub_1000B99D0(NSPPrivateAccessTokenFetcher, v31, v32, v33, v34, v35);
 
-    if ([*(v102 + 80) expiration])
+    if ([*(v100 + 80) expiration])
     {
-      v37 = [*(v102 + 80) expiration];
-      v38 = v31;
+      v36 = [*(v100 + 80) expiration];
+      v37 = v30;
     }
 
     else
     {
-      v38 = v31;
-      if (![v31 tokenExpiryTimestamp])
+      v37 = v30;
+      if (![v30 tokenExpiryTimestamp])
       {
-        v101 = 0;
+        v99 = 0;
         goto LABEL_56;
       }
 
-      v37 = [v31 tokenExpiryTimestamp] / 0x3E8;
+      v36 = [v30 tokenExpiryTimestamp] / 0x3E8;
     }
 
-    v101 = [NSDate dateWithTimeIntervalSince1970:v37];
+    v99 = [NSDate dateWithTimeIntervalSince1970:v36];
 LABEL_56:
-    v94 = [v92 count];
-    v45 = nplog_obj();
-    v93 = v38;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    v92 = [v90 count];
+    v44 = nplog_obj();
+    v91 = v37;
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
     {
-      v46 = [v38 activatedTokenLists];
-      v47 = [v46 count];
-      v48 = *(v102 + 248);
-      v49 = [*(v102 + 72) issuerName];
+      v45 = [v37 activatedTokenLists];
+      v46 = [v45 count];
+      v47 = *(v100 + 248);
+      v48 = [*(v100 + 72) issuerName];
       *buf = 67109890;
-      *v119 = v94;
-      *&v119[4] = 1024;
-      *&v119[6] = v47;
-      v38 = v93;
-      LOWORD(v120) = 1024;
-      *(&v120 + 2) = v48;
-      HIWORD(v120) = 2112;
-      *v121 = v49;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Received %u/%u/%u tokens from %@", buf, 0x1Eu);
+      *v117 = v92;
+      *&v117[4] = 1024;
+      *&v117[6] = v46;
+      v37 = v91;
+      LOWORD(v118) = 1024;
+      *(&v118 + 2) = v47;
+      HIWORD(v118) = 2112;
+      *v119 = v48;
+      _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Received %u/%u/%u tokens from %@", buf, 0x1Eu);
     }
 
-    v50 = *(v102 + 96);
-    if (v50)
+    v49 = *(v100 + 96);
+    if (v49)
     {
-      sub_10003D924(NSPPrivateAccessTokenCache, v50, 0);
-      v113 = 0u;
-      v114 = 0u;
+      sub_10003D924(NSPPrivateAccessTokenCache, v49, 0);
       v111 = 0u;
       v112 = 0u;
-      obj = [v38 auxiliaryAuthArrays];
-      v51 = [obj countByEnumeratingWithState:&v111 objects:v117 count:16];
-      if (v51)
+      v109 = 0u;
+      v110 = 0u;
+      obj = [v37 auxiliaryAuthArrays];
+      v50 = [obj countByEnumeratingWithState:&v109 objects:v115 count:16];
+      if (v50)
       {
-        v52 = v51;
-        v53 = *v112;
-        v97 = *v112;
+        v51 = v50;
+        v52 = *v110;
+        v95 = *v110;
         do
         {
-          v54 = 0;
-          v98 = v52;
+          v53 = 0;
+          v96 = v51;
           do
           {
-            if (*v112 != v53)
+            if (*v110 != v52)
             {
               objc_enumerationMutation(obj);
             }
 
-            v55 = *(*(&v111 + 1) + 8 * v54);
-            if ([v55 authType] != 2)
+            v54 = *(*(&v109 + 1) + 8 * v53);
+            if ([v54 authType] != 2)
             {
-              v100 = v54;
-              v109 = 0u;
-              v110 = 0u;
+              v98 = v53;
               v107 = 0u;
               v108 = 0u;
-              v56 = [v55 contentLists];
-              v57 = [v56 countByEnumeratingWithState:&v107 objects:v116 count:16];
-              if (v57)
+              v105 = 0u;
+              v106 = 0u;
+              v55 = [v54 contentLists];
+              v56 = [v55 countByEnumeratingWithState:&v105 objects:v114 count:16];
+              if (v56)
               {
-                v58 = v57;
-                v59 = *v108;
+                v57 = v56;
+                v58 = *v106;
                 do
                 {
-                  for (i = 0; i != v58; i = i + 1)
+                  for (i = 0; i != v57; i = i + 1)
                   {
-                    if (*v108 != v59)
+                    if (*v106 != v58)
                     {
-                      objc_enumerationMutation(v56);
+                      objc_enumerationMutation(v55);
                     }
 
-                    v61 = *(*(&v107 + 1) + 8 * i);
-                    v62 = nplog_obj();
-                    if (os_log_type_enabled(v62, OS_LOG_TYPE_INFO))
+                    v60 = *(*(&v105 + 1) + 8 * i);
+                    v61 = nplog_obj();
+                    if (os_log_type_enabled(v61, OS_LOG_TYPE_INFO))
                     {
-                      v63 = [v55 label];
-                      v64 = [*(v102 + 72) issuerName];
+                      v62 = [v54 label];
+                      v63 = [*(v100 + 72) issuerName];
                       *buf = 138412546;
-                      *v119 = v63;
-                      *&v119[8] = 2112;
-                      v120 = v64;
-                      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_INFO, "Received auxiliary data with label %@ for %@", buf, 0x16u);
+                      *v117 = v62;
+                      *&v117[8] = 2112;
+                      v118 = v63;
+                      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_INFO, "Received auxiliary data with label %@ for %@", buf, 0x16u);
                     }
 
-                    v65 = [v55 authType];
-                    v66 = *(v102 + 96);
-                    v67 = [v55 label];
-                    sub_10003E06C(NSPPrivateAccessTokenCache, v61, v65, v66, v67, v101, 1);
+                    v64 = [v54 authType];
+                    v65 = *(v100 + 96);
+                    v66 = [v54 label];
+                    sub_10003E06C(NSPPrivateAccessTokenCache, v60, v64, v65, v66, v99, 1);
                   }
 
-                  v58 = [v56 countByEnumeratingWithState:&v107 objects:v116 count:16];
+                  v57 = [v55 countByEnumeratingWithState:&v105 objects:v114 count:16];
                 }
 
-                while (v58);
+                while (v57);
               }
 
-              v53 = v97;
-              v52 = v98;
-              v54 = v100;
+              v52 = v95;
+              v51 = v96;
+              v53 = v98;
             }
 
-            v54 = v54 + 1;
+            v53 = v53 + 1;
           }
 
-          while (v54 != v52);
-          v52 = [obj countByEnumeratingWithState:&v111 objects:v117 count:16];
+          while (v53 != v51);
+          v51 = [obj countByEnumeratingWithState:&v109 objects:v115 count:16];
         }
 
-        while (v52);
+        while (v51);
       }
 
-      v38 = v93;
+      v37 = v91;
     }
 
-    v105 = 0u;
-    v106 = 0u;
     v103 = 0u;
     v104 = 0u;
-    v68 = [v38 auxiliaryAuthArrays];
-    v69 = [v68 countByEnumeratingWithState:&v103 objects:v115 count:16];
-    if (v69)
+    v101 = 0u;
+    v102 = 0u;
+    v67 = [v37 auxiliaryAuthArrays];
+    v68 = [v67 countByEnumeratingWithState:&v101 objects:v113 count:16];
+    if (v68)
     {
-      v70 = v69;
-      v71 = 0;
-      v72 = *v104;
+      v69 = v68;
+      v70 = 0;
+      v71 = *v102;
       do
       {
-        for (j = 0; j != v70; j = j + 1)
+        for (j = 0; j != v69; j = j + 1)
         {
-          if (*v104 != v72)
+          if (*v102 != v71)
           {
-            objc_enumerationMutation(v68);
+            objc_enumerationMutation(v67);
           }
 
-          v74 = *(*(&v103 + 1) + 8 * j);
-          if ([v74 authType] == 2)
+          v73 = *(*(&v101 + 1) + 8 * j);
+          if ([v73 authType] == 2)
           {
-            v75 = nplog_obj();
-            if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
+            v74 = nplog_obj();
+            if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
             {
-              v76 = [v74 label];
-              v77 = [*(v102 + 72) issuerName];
+              v75 = [v73 label];
+              v76 = [*(v100 + 72) issuerName];
               *buf = 138412546;
-              *v119 = v76;
-              *&v119[8] = 2112;
-              v120 = v77;
-              _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_INFO, "Received auxiliary response with label %@ for %@", buf, 0x16u);
+              *v117 = v75;
+              *&v117[8] = 2112;
+              v118 = v76;
+              _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_INFO, "Received auxiliary response with label %@ for %@", buf, 0x16u);
             }
 
-            v78 = [v74 contentLists];
+            v77 = [v73 contentLists];
 
-            v71 = v78;
+            v70 = v77;
           }
         }
 
-        v70 = [v68 countByEnumeratingWithState:&v103 objects:v115 count:16];
+        v69 = [v67 countByEnumeratingWithState:&v101 objects:v113 count:16];
       }
 
-      while (v70);
+      while (v69);
     }
 
     else
     {
-      v71 = 0;
+      v70 = 0;
     }
 
-    v79 = 0;
-    v29 = v88;
-    if (v88)
+    v78 = 0;
+    v28 = v86;
+    if (v86)
     {
-      v1 = v102;
-      v25 = v90;
-      WeakRetained = v91;
-      v27 = v89;
-      if (*(v102 + 248) > v94 && v90 && v89)
+      v1 = v100;
+      v24 = v88;
+      WeakRetained = v89;
+      v26 = v87;
+      if (*(v100 + 248) > v92 && v88 && v87)
       {
-        if ([&off_100113CD8 containsObject:v88] && !*(v102 + 104))
+        if ([&off_100113CD8 containsObject:v86] && !*(v100 + 104))
         {
-          v79 = [v95 allHeaderFields];
+          v78 = [v93 allHeaderFields];
         }
 
         else
         {
-          v79 = 0;
+          v78 = 0;
         }
       }
     }
 
     else
     {
-      v25 = v90;
-      WeakRetained = v91;
-      v1 = v102;
-      v27 = v89;
+      v24 = v88;
+      WeakRetained = v89;
+      v1 = v100;
+      v26 = v87;
     }
 
-    v86 = *(v1 + 112);
-    v87 = v96;
+    v85 = v94;
     (*(*(v1 + 216) + 16))(*(v1 + 216));
 
 LABEL_108:
@@ -9397,49 +9363,49 @@ LABEL_108:
   }
 
 LABEL_21:
+  v92 = 0;
+  v93 = 0;
   v94 = 0;
-  v95 = 0;
-  v96 = 0;
 LABEL_22:
-  v13 = mach_absolute_time();
-  v14 = objc_alloc_init(NSPTokenFetchAnalytics);
-  [(NSPTokenFetchAnalytics *)v14 setProxyURL:*(v1 + 208)];
-  v15 = [*(v1 + 72) issuerName];
-  [(NSPTokenFetchAnalytics *)v14 setProxyVendor:v15];
+  v12 = mach_absolute_time();
+  v13 = objc_alloc_init(NSPTokenFetchAnalytics);
+  [(NSPTokenFetchAnalytics *)v13 setProxyURL:*(v1 + 208)];
+  v14 = [*(v1 + 72) issuerName];
+  [(NSPTokenFetchAnalytics *)v13 setProxyVendor:v14];
 
-  v16 = *(v1 + 252);
-  if (v16 >= 5)
+  v15 = *(v1 + 252);
+  if (v15 >= 5)
   {
-    v17 = [NSString stringWithFormat:@"(unknown: %i)", *(v1 + 252)];
+    v16 = [NSString stringWithFormat:@"(unknown: %i)", *(v1 + 252)];
   }
 
   else
   {
-    v17 = off_10010B0E8[v16];
+    v16 = off_10010B0E8[v15];
   }
 
-  [(NSPTokenFetchAnalytics *)v14 setAuthenticationType:v17, v87];
+  [(NSPTokenFetchAnalytics *)v13 setAuthenticationType:v16, v85];
 
-  [(NSPTokenFetchAnalytics *)v14 setRequestedServerUUID:v96];
-  [(NSPTokenFetchAnalytics *)v14 setRequestedTokenCount:*(v1 + 248)];
-  [(NSPTokenFetchAnalytics *)v14 setActivatedCount:v94];
-  -[NSPTokenFetchAnalytics setHttpCode:](v14, "setHttpCode:", [v95 statusCode]);
-  v18 = [*(v1 + 32) domain];
-  v19 = [v18 isEqualToString:NSURLErrorDomain];
+  [(NSPTokenFetchAnalytics *)v13 setRequestedServerUUID:v94];
+  [(NSPTokenFetchAnalytics *)v13 setRequestedTokenCount:*(v1 + 248)];
+  [(NSPTokenFetchAnalytics *)v13 setActivatedCount:v92];
+  -[NSPTokenFetchAnalytics setHttpCode:](v13, "setHttpCode:", [v93 statusCode]);
+  v17 = [*(v1 + 32) domain];
+  v18 = [v17 isEqualToString:NSURLErrorDomain];
 
-  if (v19)
+  if (v18)
   {
-    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v14, "setNsurlErrorCode:", [*(v1 + 32) code]);
+    -[NSPTokenFetchAnalytics setNsurlErrorCode:](v13, "setNsurlErrorCode:", [*(v1 + 32) code]);
   }
 
-  v20 = (v13 - *(v1 + 240));
+  v19 = (v12 - *(v1 + 240));
   if (qword_100129878 != -1)
   {
     dispatch_once(&qword_100129878, &stru_10010B0A8);
   }
 
-  [(NSPTokenFetchAnalytics *)v14 setLatency:*&qword_100129880 * v20];
-  [(NSPProxyAnalytics *)v14 sendAnalytics];
+  [(NSPTokenFetchAnalytics *)v13 setLatency:*&qword_100129880 * v19];
+  [(NSPProxyAnalytics *)v13 sendAnalytics];
 
 LABEL_30:
 }

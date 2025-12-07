@@ -202,35 +202,36 @@ LABEL_6:
 
 - (void)_updateCallGroups
 {
-  if (![(PHCallParticipantsViewController *)self callIsAboutToEndForStewie])
+  callIsAboutToEndForStewie = [(PHCallParticipantsViewController *)self callIsAboutToEndForStewie];
+  if (!callIsAboutToEndForStewie)
   {
     currentCallGroups = [(PHCallParticipantsViewController *)self currentCallGroups];
-    v5 = [currentCallGroups mutableCopy];
+    v6 = [currentCallGroups mutableCopy];
 
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       callGroups = [(PHCallParticipantsViewController *)self callGroups];
       *buf = 138412546;
-      v133 = callGroups;
-      v134 = 2112;
-      v135 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "_updateCallGroups: CACHED: %@ -> CURRENT: %@", buf, 0x16u);
+      v137 = callGroups;
+      v138 = 2112;
+      v139 = v6;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "_updateCallGroups: CACHED: %@ -> CURRENT: %@", buf, 0x16u);
     }
 
-    v8 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
-    v9 = +[TUCallCenter sharedInstance];
-    v10 = [v9 callWithStatus:1];
-    v11 = v10;
-    if (v10)
+    v10 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
+    v11 = +[TUCallCenter sharedInstance];
+    v12 = [v11 callWithStatus:1];
+    v13 = v12;
+    if (v12)
     {
-      v12 = v10;
+      v14 = v12;
     }
 
     else
     {
-      v13 = +[TUCallCenter sharedInstance];
-      v12 = [v13 callWithStatus:2];
+      v15 = +[TUCallCenter sharedInstance];
+      v14 = [v15 callWithStatus:2];
     }
 
     if ([(PHCallParticipantsViewController *)self usesCompactMulticallUI])
@@ -239,54 +240,54 @@ LABEL_6:
 
       if (prioritizedCall)
       {
-        v124 = 0u;
-        v125 = 0u;
-        v122 = 0u;
-        v123 = 0u;
-        view2 = v5;
-        v99 = [view2 countByEnumeratingWithState:&v122 objects:v131 count:16];
-        if (!v99)
+        v128 = 0u;
+        v129 = 0u;
+        v126 = 0u;
+        v127 = 0u;
+        view2 = v6;
+        v103 = [view2 countByEnumeratingWithState:&v126 objects:v135 count:16];
+        if (!v103)
         {
           goto LABEL_26;
         }
 
-        v16 = *v123;
-        v101 = v12;
-        v98 = v5;
+        v18 = *v127;
+        v105 = v14;
+        v102 = v6;
 LABEL_13:
-        v17 = 0;
+        v19 = 0;
         while (1)
         {
-          v18 = v16;
-          if (*v123 != v16)
+          v20 = v18;
+          if (*v127 != v18)
           {
             objc_enumerationMutation(view2);
           }
 
-          v19 = *(*(&v122 + 1) + 8 * v17);
-          v118 = 0u;
-          v119 = 0u;
-          v120 = 0u;
-          v121 = 0u;
-          v100 = v19;
-          calls = [v19 calls];
-          v21 = [calls countByEnumeratingWithState:&v118 objects:v130 count:16];
-          if (v21)
+          v21 = *(*(&v126 + 1) + 8 * v19);
+          v122 = 0u;
+          v123 = 0u;
+          v124 = 0u;
+          v125 = 0u;
+          v104 = v21;
+          calls = [v21 calls];
+          v23 = [calls countByEnumeratingWithState:&v122 objects:v134 count:16];
+          if (v23)
           {
             break;
           }
 
 LABEL_24:
 
-          v17 = v17 + 1;
-          v5 = v98;
-          v12 = v101;
-          v16 = v18;
-          if (v17 == v99)
+          v19 = v19 + 1;
+          v6 = v102;
+          v14 = v105;
+          v18 = v20;
+          if (v19 == v103)
           {
-            v8 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
-            v99 = [view2 countByEnumeratingWithState:&v122 objects:v131 count:16];
-            if (!v99)
+            v10 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
+            v103 = [view2 countByEnumeratingWithState:&v126 objects:v135 count:16];
+            if (!v103)
             {
 LABEL_26:
 
@@ -297,30 +298,30 @@ LABEL_26:
           }
         }
 
-        v22 = v21;
-        v23 = *v119;
+        v24 = v23;
+        v25 = *v123;
 LABEL_18:
-        v24 = 0;
+        v26 = 0;
         while (1)
         {
-          if (*v119 != v23)
+          if (*v123 != v25)
           {
             objc_enumerationMutation(calls);
           }
 
-          v25 = *(*(&v118 + 1) + 8 * v24);
+          v27 = *(*(&v122 + 1) + 8 * v26);
           prioritizedCall2 = [(PHCallParticipantsViewController *)self prioritizedCall];
-          LODWORD(v25) = [v25 isEqualToCall:prioritizedCall2];
+          LODWORD(v27) = [v27 isEqualToCall:prioritizedCall2];
 
-          if (v25)
+          if (v27)
           {
             break;
           }
 
-          if (v22 == ++v24)
+          if (v24 == ++v26)
           {
-            v22 = [calls countByEnumeratingWithState:&v118 objects:v130 count:16];
-            if (!v22)
+            v24 = [calls countByEnumeratingWithState:&v122 objects:v134 count:16];
+            if (!v24)
             {
               goto LABEL_24;
             }
@@ -329,20 +330,20 @@ LABEL_18:
           }
         }
 
-        v37 = sub_100004F84();
-        v12 = v101;
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v40 = sub_100004F84(v29);
+        v14 = v105;
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           prioritizedCall3 = [(PHCallParticipantsViewController *)self prioritizedCall];
           *buf = 138412290;
-          v133 = prioritizedCall3;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Updated call groups using prioritizedCall: %@", buf, 0xCu);
+          v137 = prioritizedCall3;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Updated call groups using prioritizedCall: %@", buf, 0xCu);
         }
 
-        v129 = v100;
-        v39 = [NSArray arrayWithObjects:&v129 count:1];
-        v40 = [v39 mutableCopy];
-        [(PHCallParticipantsViewController *)self setCallGroups:v40];
+        v133 = v104;
+        v42 = [NSArray arrayWithObjects:&v133 count:1];
+        v43 = [v42 mutableCopy];
+        [(PHCallParticipantsViewController *)self setCallGroups:v43];
 
         participantsView = [(PHCallParticipantsViewController *)self participantsView];
         [participantsView updateParticipantsAnimated:1];
@@ -351,108 +352,108 @@ LABEL_18:
         participantsView2 = [(PHCallParticipantsViewController *)self participantsView];
         [participantsView2 setShouldShowSingleDurationLabel:shouldShowSingleDurationLabel];
 
-        v3 = view2;
+        v4 = view2;
         goto LABEL_106;
       }
     }
 
 LABEL_27:
-    v27 = v5;
-    if ([v5 count])
+    v30 = v6;
+    if ([v6 count])
     {
-      v102 = v12;
-      v116 = 0u;
-      v117 = 0u;
-      v114 = 0u;
-      v115 = 0u;
+      v106 = v14;
+      v120 = 0u;
+      v121 = 0u;
+      v118 = 0u;
+      v119 = 0u;
       callGroups2 = [(PHCallParticipantsViewController *)self callGroups];
-      v29 = [callGroups2 countByEnumeratingWithState:&v114 objects:v128 count:16];
-      if (v29)
+      v32 = [callGroups2 countByEnumeratingWithState:&v118 objects:v132 count:16];
+      if (v32)
       {
-        v30 = v29;
-        v31 = *v115;
-        v32 = 1;
+        v33 = v32;
+        v34 = *v119;
+        v35 = 1;
         do
         {
-          for (i = 0; i != v30; i = i + 1)
+          for (i = 0; i != v33; i = i + 1)
           {
-            if (*v115 != v31)
+            if (*v119 != v34)
             {
               objc_enumerationMutation(callGroups2);
             }
 
-            v34 = *(*(&v114 + 1) + 8 * i);
-            calls2 = [v34 calls];
-            v36 = [calls2 count];
+            v37 = *(*(&v118 + 1) + 8 * i);
+            calls2 = [v37 calls];
+            v39 = [calls2 count];
 
-            if (v36)
+            if (v39)
             {
-              v32 &= [v34 disconnectedReasonRequiresCallBackUI] ^ 1;
+              v35 &= [v37 disconnectedReasonRequiresCallBackUI] ^ 1;
             }
           }
 
-          v30 = [callGroups2 countByEnumeratingWithState:&v114 objects:v128 count:16];
+          v33 = [callGroups2 countByEnumeratingWithState:&v118 objects:v132 count:16];
         }
 
-        while (v30);
+        while (v33);
       }
 
       else
       {
-        LOBYTE(v32) = 1;
+        LOBYTE(v35) = 1;
       }
 
-      v12 = v102;
-      v8 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
+      v14 = v106;
+      v10 = &_s16CommunicationsUI29CallTranslationLanguagePickerV05SwiftB04ViewAAMc_ptr;
     }
 
     else
     {
-      LOBYTE(v32) = 1;
+      LOBYTE(v35) = 1;
     }
 
-    sharedInstance = [v8[391] sharedInstance];
+    sharedInstance = [v10[391] sharedInstance];
     incomingCall = [sharedInstance incomingCall];
-    if (incomingCall && v12 && [v27 count]>= 2)
+    if (incomingCall && v14 && [v30 count]>= 2)
     {
       handlesCallWaitingCalls = [(PHCallParticipantsViewController *)self handlesCallWaitingCalls];
 
       if ((handlesCallWaitingCalls & 1) == 0)
       {
-        v3 = +[NSMutableArray array];
-        v110 = 0u;
-        v111 = 0u;
-        v112 = 0u;
-        v113 = 0u;
-        v47 = v27;
-        v48 = [v47 countByEnumeratingWithState:&v110 objects:v127 count:16];
-        if (v48)
+        v4 = +[NSMutableArray array];
+        v114 = 0u;
+        v115 = 0u;
+        v116 = 0u;
+        v117 = 0u;
+        v50 = v30;
+        v51 = [v50 countByEnumeratingWithState:&v114 objects:v131 count:16];
+        if (v51)
         {
-          v49 = v48;
-          v50 = *v111;
+          v52 = v51;
+          v53 = *v115;
           do
           {
-            for (j = 0; j != v49; j = j + 1)
+            for (j = 0; j != v52; j = j + 1)
             {
-              if (*v111 != v50)
+              if (*v115 != v53)
               {
-                objc_enumerationMutation(v47);
+                objc_enumerationMutation(v50);
               }
 
-              v52 = *(*(&v110 + 1) + 8 * j);
-              if ([v52 status] != 4)
+              v55 = *(*(&v114 + 1) + 8 * j);
+              if ([v55 status] != 4)
               {
-                [v3 addObject:v52];
+                [v4 addObject:v55];
               }
             }
 
-            v49 = [v47 countByEnumeratingWithState:&v110 objects:v127 count:16];
+            v52 = [v50 countByEnumeratingWithState:&v114 objects:v131 count:16];
           }
 
-          while (v49);
+          while (v52);
         }
 
-        if ((v32 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
           goto LABEL_91;
         }
@@ -465,7 +466,7 @@ LABEL_27:
     {
     }
 
-    sharedInstance2 = [v8[391] sharedInstance];
+    sharedInstance2 = [v10[391] sharedInstance];
     incomingCalls = [sharedInstance2 incomingCalls];
     if ([incomingCalls count] <= 1)
     {
@@ -473,66 +474,66 @@ LABEL_27:
 
       if ((handlesCallWaitingCalls2 & 1) == 0)
       {
-        v3 = v27;
-        if ((v32 & 1) == 0)
+        v4 = v30;
+        if ((v35 & 1) == 0)
         {
           goto LABEL_91;
         }
 
 LABEL_78:
         callGroups3 = [(PHCallParticipantsViewController *)self callGroups];
-        v63 = [callGroups3 count];
+        v66 = [callGroups3 count];
 
-        if (!v63)
+        if (!v66)
         {
           goto LABEL_91;
         }
 
-        v64 = 0;
+        v67 = 0;
         while (1)
         {
           callGroups4 = [(PHCallParticipantsViewController *)self callGroups];
-          v66 = [callGroups4 objectAtIndex:v64];
+          v69 = [callGroups4 objectAtIndex:v67];
 
-          if (([v3 containsObject:v66]& 1) == 0)
+          if (([v4 containsObject:v69]& 1) == 0)
           {
-            calls3 = [v66 calls];
+            calls3 = [v69 calls];
             if ([calls3 count] == 1)
             {
-              isConferenced = [v66 isConferenced];
+              isConferenced = [v69 isConferenced];
 
-              if ((isConferenced & 1) != 0 || [v3 count]> 1)
+              if ((isConferenced & 1) != 0 || [v4 count]> 1)
               {
                 goto LABEL_90;
               }
 
-              v69 = [v3 count];
-              v70 = v69 >= v64 ? v64 : v69;
-              [v3 insertObject:v66 atIndex:v70];
-              if ([v66 disconnectedReasonRequiresCallBackUI])
+              v72 = [v4 count];
+              v73 = v72 >= v67 ? v67 : v72;
+              [v4 insertObject:v69 atIndex:v73];
+              if ([v69 disconnectedReasonRequiresCallBackUI])
               {
                 goto LABEL_90;
               }
 
-              v71 = dispatch_time(0, 3000000000);
+              v74 = dispatch_time(0, 3000000000);
               block[0] = _NSConcreteStackBlock;
               block[1] = 3221225472;
               block[2] = sub_1000CACC4;
               block[3] = &unk_100357110;
-              v104 = v66;
+              v108 = v69;
               selfCopy = self;
-              dispatch_after(v71, &_dispatch_main_q, block);
-              calls3 = v104;
+              dispatch_after(v74, &_dispatch_main_q, block);
+              calls3 = v108;
             }
           }
 
 LABEL_90:
 
-          ++v64;
+          ++v67;
           callGroups5 = [(PHCallParticipantsViewController *)self callGroups];
-          v73 = [callGroups5 count];
+          v76 = [callGroups5 count];
 
-          if (v73 <= v64)
+          if (v76 <= v67)
           {
             goto LABEL_91;
           }
@@ -544,36 +545,36 @@ LABEL_90:
     {
     }
 
-    v56 = +[NSMutableArray array];
-    v106 = 0u;
-    v107 = 0u;
-    v108 = 0u;
-    v109 = 0u;
-    v3 = v27;
-    v57 = [v3 countByEnumeratingWithState:&v106 objects:v126 count:16];
-    if (v57)
+    v59 = +[NSMutableArray array];
+    v110 = 0u;
+    v111 = 0u;
+    v112 = 0u;
+    v113 = 0u;
+    v4 = v30;
+    v60 = [v4 countByEnumeratingWithState:&v110 objects:v130 count:16];
+    if (v60)
     {
-      v58 = v57;
-      v59 = *v107;
+      v61 = v60;
+      v62 = *v111;
       while (2)
       {
-        for (k = 0; k != v58; k = k + 1)
+        for (k = 0; k != v61; k = k + 1)
         {
-          if (*v107 != v59)
+          if (*v111 != v62)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          v61 = *(*(&v106 + 1) + 8 * k);
-          if ([v61 status] == 4)
+          v64 = *(*(&v110 + 1) + 8 * k);
+          if ([v64 status] == 4)
           {
-            [v56 addObject:v61];
+            [v59 addObject:v64];
             goto LABEL_73;
           }
         }
 
-        v58 = [v3 countByEnumeratingWithState:&v106 objects:v126 count:16];
-        if (v58)
+        v61 = [v4 countByEnumeratingWithState:&v110 objects:v130 count:16];
+        if (v61)
         {
           continue;
         }
@@ -584,14 +585,14 @@ LABEL_90:
 
 LABEL_73:
 
-    if ([v56 count])
+    if ([v59 count])
     {
 
-      v3 = v56;
+      v4 = v59;
       goto LABEL_91;
     }
 
-    if ((v32 & 1) == 0)
+    if ((v35 & 1) == 0)
     {
 LABEL_91:
       features = [(PHCallParticipantsViewController *)self features];
@@ -610,48 +611,48 @@ LABEL_91:
       {
       }
 
-      v77 = [v3 __imArrayByFilteringWithBlock:&stru_100358F98];
-      v78 = [v77 mutableCopy];
+      v80 = [v4 __imArrayByFilteringWithBlock:&stru_100358F98];
+      v81 = [v80 mutableCopy];
 
-      v3 = v78;
+      v4 = v81;
 LABEL_96:
-      if (![v3 count])
+      if (![v4 count])
       {
-        v79 = +[UIApplication sharedApplication];
-        delegate = [v79 delegate];
+        v82 = +[UIApplication sharedApplication];
+        delegate = [v82 delegate];
         mostRecentlyDisconnectedAudioCall = [delegate mostRecentlyDisconnectedAudioCall];
 
         if (mostRecentlyDisconnectedAudioCall)
         {
-          v82 = [TUCallGroup alloc];
-          v83 = +[UIApplication sharedApplication];
-          delegate2 = [v83 delegate];
+          v85 = [TUCallGroup alloc];
+          v86 = +[UIApplication sharedApplication];
+          delegate2 = [v86 delegate];
           mostRecentlyDisconnectedAudioCall2 = [delegate2 mostRecentlyDisconnectedAudioCall];
-          v86 = [v82 initWithCall:mostRecentlyDisconnectedAudioCall2];
+          v89 = [v85 initWithCall:mostRecentlyDisconnectedAudioCall2];
 
-          [v3 addObject:v86];
+          [v4 addObject:v89];
         }
       }
 
       callGroups6 = [(PHCallParticipantsViewController *)self callGroups];
-      v88 = [callGroups6 count];
-      if (v88 != [v3 count])
+      v91 = [callGroups6 count];
+      if (v91 != [v4 count])
       {
         delegate3 = [(PHCallParticipantsViewController *)self delegate];
-        v90 = objc_opt_respondsToSelector();
+        v93 = objc_opt_respondsToSelector();
 
-        if ((v90 & 1) == 0)
+        if ((v93 & 1) == 0)
         {
 LABEL_103:
-          v91 = sub_100004F84();
-          if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
+          v95 = sub_100004F84(v94);
+          if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v133 = v3;
-            _os_log_impl(&_mh_execute_header, v91, OS_LOG_TYPE_DEFAULT, "Updated call groups: %@", buf, 0xCu);
+            v137 = v4;
+            _os_log_impl(&_mh_execute_header, v95, OS_LOG_TYPE_DEFAULT, "Updated call groups: %@", buf, 0xCu);
           }
 
-          [(PHCallParticipantsViewController *)self setCallGroups:v3];
+          [(PHCallParticipantsViewController *)self setCallGroups:v4];
           participantsView3 = [(PHCallParticipantsViewController *)self participantsView];
           [participantsView3 updateParticipantsAnimated:1];
 
@@ -661,7 +662,7 @@ LABEL_103:
 
           view = [(PHCallParticipantsViewController *)self view];
           [view bounds];
-          [(PHCallParticipantsViewController *)self updateParticipantViewWithSize:v96, v97];
+          [(PHCallParticipantsViewController *)self updateParticipantViewWithSize:v100, v101];
 
           view2 = [(PHCallParticipantsViewController *)self view];
           [view2 setNeedsLayout];
@@ -671,7 +672,7 @@ LABEL_106:
         }
 
         callGroups6 = [(PHCallParticipantsViewController *)self delegate];
-        [callGroups6 callParticipantsViewController:self willShowMultipleLabel:{-[NSObject count](v3, "count") > 1}];
+        [callGroups6 callParticipantsViewController:self willShowMultipleLabel:{-[NSObject count](v4, "count") > 1}];
       }
 
       goto LABEL_103;
@@ -680,11 +681,11 @@ LABEL_106:
     goto LABEL_78;
   }
 
-  v3 = sub_100004F84();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = sub_100004F84(callIsAboutToEndForStewie);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Call is about to be ended by presenting Stewie, skip all the updates from now on", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Call is about to be ended by presenting Stewie, skip all the updates from now on", buf, 2u);
   }
 
 LABEL_107:
@@ -1077,7 +1078,7 @@ LABEL_6:
 - (void)callStatusChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1091,7 +1092,7 @@ LABEL_6:
 - (void)localSenderIdentityAccountUUIDChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1105,7 +1106,7 @@ LABEL_6:
 - (void)conferenceParticipantsChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1119,7 +1120,7 @@ LABEL_6:
 - (void)isThirdPartyVideoChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1135,18 +1136,18 @@ LABEL_6:
   v4 = +[TUCallCenter sharedInstance];
   isAmbiguous = [v4 isAmbiguous];
 
-  v6 = sub_100004F84();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004F84(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = @"NOT AMBIGUOUS";
+    v8 = @"NOT AMBIGUOUS";
     if (isAmbiguous)
     {
-      v7 = @"AMBIGUOUS";
+      v8 = @"AMBIGUOUS";
     }
 
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "callModelChanged: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "callModelChanged: %@", &v11, 0xCu);
   }
 
   shouldShowSingleDurationLabel = [(PHCallParticipantsViewController *)self shouldShowSingleDurationLabel];
@@ -1156,7 +1157,7 @@ LABEL_6:
 
 - (void)displayContextChangedNotification:(id)notification
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -1179,7 +1180,7 @@ LABEL_6:
 - (void)callContinuityChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1193,7 +1194,7 @@ LABEL_6:
 - (void)handleAlertDisconnectingCallsNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -1207,7 +1208,7 @@ LABEL_6:
 - (void)tuCallHasBeenRedirectedChangedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2293,22 +2294,26 @@ LABEL_21:
   v5 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
   v6 = [nameOverrideString stringByTrimmingCharactersInSet:v5];
 
-  if ([v6 length] && (PHLaunchFieldTestApplicationIfNecessaryForDestinationID() & 1) == 0)
+  if ([v6 length])
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v7 = PHLaunchFieldTestApplicationIfNecessaryForDestinationID();
+    if ((v7 & 1) == 0)
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Field Mode: Dialing digits %@", &v12, 0xCu);
+      v8 = sub_100004F84(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = 138412290;
+        v14 = v6;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Field Mode: Dialing digits %@", &v13, 0xCu);
+      }
+
+      callGroups = [(PHCallParticipantsViewController *)self callGroups];
+      lastObject = [callGroups lastObject];
+
+      v11 = +[TUCallCenter sharedInstance];
+      provider = [lastObject provider];
+      [v11 sendFieldModeDigits:v6 forProvider:provider];
     }
-
-    callGroups = [(PHCallParticipantsViewController *)self callGroups];
-    lastObject = [callGroups lastObject];
-
-    v10 = +[TUCallCenter sharedInstance];
-    provider = [lastObject provider];
-    [v10 sendFieldModeDigits:v6 forProvider:provider];
   }
 }
 

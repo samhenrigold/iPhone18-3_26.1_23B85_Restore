@@ -1,3 +1,986 @@
+void sub_248F05488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, unint64_t *a13)
+{
+  sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x900]);
+  DiskImage::extents_t::~extents_t((v13 - 184));
+  sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x480]);
+  sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x560]);
+  v15 = STACK[0x648];
+  if (STACK[0x648] <= STACK[0x640])
+  {
+    v15 = STACK[0x640];
+  }
+
+  *a13 = v15;
+  _Unwind_Resume(a1);
+}
+
+BOOL DiskImage::extents_t::empty(DiskImage::extents_t *this)
+{
+  DiskImage::extents_t::begin(v7, this);
+  DiskImage::extents_t::end(v6, this);
+  v2 = DiskImage::const_extents_iterator_t::operator==(v7, v6);
+  v3 = v6[0];
+  v6[0] = 0;
+  if (v3)
+  {
+    (*(*v3 + 24))(v3);
+  }
+
+  v4 = v7[0];
+  v7[0] = 0;
+  if (v4)
+  {
+    (*(*v4 + 24))(v4);
+  }
+
+  return v2;
+}
+
+void sub_248F05760(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
+{
+  if (a9)
+  {
+    diskimage_uio::details::extents_db_impl::begin();
+  }
+
+  if (a15)
+  {
+    (*(*a15 + 24))(a15, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t DiskImageStackable::verify_image(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  if (v3 == v4)
+  {
+    return 1;
+  }
+
+  v7 = v3 + 48;
+  do
+  {
+    result = (*(**(v7 - 40) + 64))(*(v7 - 40), a2, a3);
+    if (result)
+    {
+      v9 = v7 == v4;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v7 += 48;
+  }
+
+  while (!v9);
+  return result;
+}
+
+uint64_t DiskImageStackable::unmap(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  if (*v2 || !(*(**(v2 + 8) + 88))(*(v2 + 8)) || **(a1 + 16))
+  {
+    return 0;
+  }
+
+  v6 = **(a2 + 16);
+
+  return DiskImage::Context::unmap(v6);
+}
+
+std::string *DiskImageStackable::cacheFlusher_t::cacheFlusher_t(std::string *a1, uint64_t a2, uint64_t a3)
+{
+  std::string::basic_string[abi:ne200100]<0>(__p, "com.apple.di_stackable.cache.flusher");
+  workqueue::workqueue::workqueue(a1, __p, 1);
+  if (v8 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  workqueue::workqueue::create_recurrent_block(a1, a2, a3, &a1[2].__r_.__value_.__r.__words[2]);
+  return a1;
+}
+
+double DiskImageStackable::stackable_extents_iterator_interface::_make_val@<D0>(DiskImageStackable::stackable_extents_iterator_interface *this@<X0>, uint64x2_t *a2@<X8>)
+{
+  v2 = *(this + 3);
+  v4.n128_u64[0] = *(this + 5);
+  v4.n128_u64[1] = v2;
+  v5 = 2;
+  *&result = DiskImageStackable::stackable_extents_iterator_interface::get_next_extent_recursive(this, &v4, 0, a2).n128_u64[0];
+  return result;
+}
+
+__n128 DiskImageStackable::stackable_extents_iterator_interface::get_next_extent_recursive@<Q0>(uint64_t a1@<X0>, __n128 *a2@<X1>, uint64_t a3@<X2>, uint64x2_t *a4@<X8>)
+{
+  v46[4] = *MEMORY[0x277D85DE8];
+  v6 = *(a1 + 48);
+  v7 = *(v6 + 16);
+  if (0xAAAAAAAAAAAAAAABLL * ((*(v6 + 24) - v7) >> 4) == a3)
+  {
+    goto LABEL_37;
+  }
+
+  v10 = a2[1].n128_u8[0];
+  v12 = a2->n128_u64[0];
+  v11 = a2->n128_u64[1];
+  if (!a2[1].n128_u8[0])
+  {
+    if (v12 < v11 && v12 + 1 < v11)
+    {
+      goto LABEL_36;
+    }
+
+LABEL_5:
+    if (boost::icl::identity_element<unsigned long long>::value(void)::_value)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_37:
+    result = *a2;
+    *a4 = *a2;
+    a4[1].i64[0] = a2[1].n128_i64[0];
+    a4[1].i32[2] = 0;
+    return result;
+  }
+
+  if (v10 != 3)
+  {
+    if (v12 < v11)
+    {
+      goto LABEL_36;
+    }
+
+    goto LABEL_5;
+  }
+
+  if (v11 < v12)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_36:
+  if (!(v11 + (v10 & 1) - v12 + (((v10 >> 1) & 1) - 1)))
+  {
+    goto LABEL_37;
+  }
+
+LABEL_6:
+  v13 = *(a1 + 56);
+  v14 = (*(**(v7 + 48 * a3 + 8) + 32))(*(v7 + 48 * a3 + 8));
+  v15 = *(*(v13 + 16) + 16 * a3);
+  v40 = *(*(v6 + 16) + 48 * a3 + 8);
+  v16 = *a2;
+  v17 = vdupq_n_s64(v14);
+  v41 = vbslq_s8(vcgtq_u64(v17, *a2), *a2, v17);
+  v42 = 2;
+  v43 = 0;
+  v44 = v15;
+  v45 = 7;
+  v46[0] = &unk_285BDD6E8;
+  v46[3] = v46;
+  if (v14 < v16.n128_u64[1])
+  {
+    *&v33 = v14;
+    *(&v33 + 1) = v16.n128_u64[1];
+    v34 = 2;
+    v35 = 2;
+    v31 = 0;
+    __p = 0uLL;
+    std::vector<DiskImage::diskimage_extent_t>::__init_with_size[abi:ne200100]<DiskImage::diskimage_extent_t const*,DiskImage::diskimage_extent_t const*>(__p.i64, &v33, &v36, 1uLL);
+    DiskImage::extents_t_transformer::make_transformed_extents(&v40);
+  }
+
+  if ((a2[1].n128_u8[0] & 2) != 0)
+  {
+    v18 = v16.n128_u64[0];
+  }
+
+  else
+  {
+    v18 = v16.n128_u64[0] + 1;
+  }
+
+  DiskImage::extents_t::begin(v37, &v40);
+  v19 = v39;
+  v20 = v37[0];
+  v37[0] = 0;
+  if (v20)
+  {
+    (*(*v20 + 24))(v20);
+  }
+
+  DiskImage::extents_t::begin(v37, &v40);
+  DiskImage::extents_t::end(&v33, &v40);
+  while (DiskImage::const_extents_iterator_t::operator!=(v37, &v33))
+  {
+    v21 = v38;
+    if (v39)
+    {
+      if (v39 != v19)
+      {
+        break;
+      }
+    }
+
+    else
+    {
+      v28.i64[0] = v18;
+      v28.i64[1] = v38;
+      v29 = 2;
+      DiskImageStackable::stackable_extents_iterator_interface::get_next_extent_recursive(a1, &v28, a3 + 1, &__p);
+      if (v19)
+      {
+        if (v32 != v19)
+        {
+          break;
+        }
+      }
+
+      else
+      {
+        v19 = v32;
+      }
+
+      v18 = __p.i64[1];
+      if (__p.i64[1] != v21)
+      {
+        break;
+      }
+    }
+
+    DiskImage::const_extents_iterator_t::operator++(v37);
+    v18 = v21;
+  }
+
+  v22 = v33;
+  *&v33 = 0;
+  if (v22)
+  {
+    (*(*v22 + 24))(v22);
+  }
+
+  v23 = v37[0];
+  v37[0] = 0;
+  if (v23)
+  {
+    (*(*v23 + 24))(v23);
+  }
+
+  v24 = a2->n128_u64[0];
+  if ((a2[1].n128_u8[0] & 2) == 0)
+  {
+    ++v24;
+  }
+
+  a4->i64[0] = v24;
+  a4->i64[1] = v18;
+  a4[1].i8[0] = 2;
+  a4[1].i32[2] = v19;
+  std::__function::__value_func<std::unique_ptr<DiskImage::base_extents_iterator_interface> ()(DiskImage::extents_t const&,unsigned long long)>::~__value_func[abi:ne200100](v46);
+  v26 = v43;
+  v43 = 0;
+  if (v26)
+  {
+    (*(*v26 + 40))(v26);
+  }
+
+  return result;
+}
+
+void sub_248F05DC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22)
+{
+  DiskImage::extents_t::~extents_t(&a22);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  DiskImage::extents_t::~extents_t((v22 - 176));
+  _Unwind_Resume(a1);
+}
+
+uint64_t DiskImageStackable::get_user_data@<X0>(uint64_t this@<X0>, CFDictionaryRef *a2@<X8>)
+{
+  v3 = *(this + 16);
+  if (v3 != *(this + 24))
+  {
+    v4 = this;
+    do
+    {
+      (*(**(v3 + 24) + 112))(*(v3 + 24));
+      this = CFDictionaryGetCount(*a2);
+      if (this)
+      {
+        break;
+      }
+
+      v3 += 48;
+      if (v3 == *(v4 + 24))
+      {
+        break;
+      }
+
+      this = CFAutoRelease<__CFDictionary const*>::~CFAutoRelease(a2);
+    }
+
+    while (v3 != *(v4 + 24));
+  }
+
+  return this;
+}
+
+uint64_t DiskImageStackable::is_writable(DiskImageStackable *this)
+{
+  v1 = *(this + 2);
+  v2 = *(this + 3);
+  if (v1 == v2)
+  {
+    return 0;
+  }
+
+  v3 = v1 + 48;
+  do
+  {
+    LODWORD(result) = (*(**(v3 - 40) + 40))(*(v3 - 40));
+    if (*(v3 - 48))
+    {
+      result = 0;
+    }
+
+    else
+    {
+      result = result;
+    }
+
+    if (result)
+    {
+      break;
+    }
+
+    v5 = v3 == v2;
+    v3 += 48;
+  }
+
+  while (!v5);
+  return result;
+}
+
+uint64_t DiskImageStackable::supports_unmap(DiskImageStackable *this)
+{
+  v1 = *(this + 2);
+  v2 = *(this + 3);
+  if (v1 == v2)
+  {
+    return 0;
+  }
+
+  v3 = v1 + 48;
+  do
+  {
+    LODWORD(result) = (*(**(v3 - 40) + 88))(*(v3 - 40));
+    if (*(v3 - 48))
+    {
+      result = 0;
+    }
+
+    else
+    {
+      result = result;
+    }
+
+    if (result)
+    {
+      break;
+    }
+
+    v5 = v3 == v2;
+    v3 += 48;
+  }
+
+  while (!v5);
+  return result;
+}
+
+unint64_t DiskImageStackable::read(DiskImageStackable *this, DiskImage::Context *a2, const sg_vec_ns::details::sg_vec_iterator *a3, const sg_vec_ns::details::sg_vec_iterator *a4)
+{
+  v8 = *(a4 + 26);
+  v9 = (*(*this + 32))(this);
+  if (v8 > (*(*this + 24))(this) * v9)
+  {
+    return -5;
+  }
+
+  v13[0] = 0;
+  v20 = 0;
+  v10 = DiskImageStackable::read_from_idx(this, a2, a3, a4, 0, 1, 0, &v12, v13);
+  if (v20 == 1)
+  {
+    if (v19)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    }
+
+    if (v18)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    }
+
+    if (v17)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
+    }
+
+    if (v16)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    }
+
+    if (v15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    }
+
+    if (v14)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    }
+  }
+
+  return v10;
+}
+
+void sub_248F06468(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::optional<sg_vec_ref>::~optional(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::vector<DiskImageStackable::stackable_layer>::__emplace_back_slow_path<DiskImageStackable::stackable_layer&>(unint64_t *a1, uint64_t a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0x555555555555555)
+  {
+    std::vector<iovec>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v3)
+  {
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  {
+    v6 = 0x555555555555555;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v16 = a1;
+  if (v6)
+  {
+    std::allocator<DiskImageStackable::stackable_layer>::allocate_at_least[abi:ne200100](a1, v6);
+  }
+
+  v13 = 0;
+  v14 = 48 * v2;
+  std::construct_at[abi:ne200100]<DiskImageStackable::stackable_layer,DiskImageStackable::stackable_layer&,DiskImageStackable::stackable_layer*>(48 * v2, a2);
+  v15 = 48 * v2 + 48;
+  v7 = a1[1];
+  v8 = 48 * v2 + *a1 - v7;
+  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<DiskImageStackable::stackable_layer>,DiskImageStackable::stackable_layer*>(a1, *a1, v7, v8);
+  v9 = *a1;
+  *a1 = v8;
+  v10 = a1[2];
+  v12 = v15;
+  *(a1 + 1) = v15;
+  *&v15 = v9;
+  *(&v15 + 1) = v10;
+  v13 = v9;
+  v14 = v9;
+  std::__split_buffer<DiskImageStackable::stackable_layer>::~__split_buffer(&v13);
+  return v12;
+}
+
+void sub_248F06654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+{
+  va_start(va, a7);
+  std::__split_buffer<DiskImageStackable::stackable_layer>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::construct_at[abi:ne200100]<DiskImageStackable::stackable_layer,DiskImageStackable::stackable_layer&,DiskImageStackable::stackable_layer*>(uint64_t result, uint64_t a2)
+{
+  *result = *a2;
+  v2 = *(a2 + 16);
+  *(result + 8) = *(a2 + 8);
+  *(result + 16) = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v3 = *(a2 + 32);
+  *(result + 24) = *(a2 + 24);
+  *(result + 32) = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(result + 40) = *(a2 + 40);
+  return result;
+}
+
+void std::allocator<DiskImageStackable::stackable_layer>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0x555555555555556)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<DiskImageStackable::stackable_layer>,DiskImageStackable::stackable_layer*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 != a3)
+  {
+    v5 = a2;
+    v6 = a2;
+    do
+    {
+      *a4 = *v6;
+      *(a4 + 8) = *(v6 + 8);
+      *(v6 + 8) = 0;
+      *(v6 + 16) = 0;
+      *(a4 + 24) = *(v6 + 24);
+      *(v6 + 24) = 0;
+      *(v6 + 32) = 0;
+      *(a4 + 40) = *(v6 + 40);
+      v6 += 48;
+      a4 += 48;
+    }
+
+    while (v6 != a3);
+    while (v5 != a3)
+    {
+      std::__destroy_at[abi:ne200100]<DiskImageStackable::stackable_layer,0>(v5);
+      v5 += 48;
+    }
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<DiskImageStackable::stackable_layer,0>(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+uint64_t std::__split_buffer<DiskImageStackable::stackable_layer>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    *(a1 + 16) = i - 48;
+    std::__destroy_at[abi:ne200100]<DiskImageStackable::stackable_layer,0>(i - 48);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void DiskImageStackable::stackable_layer::~stackable_layer(DiskImageStackable::stackable_layer *this)
+{
+  v2 = *(this + 4);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  v3 = *(this + 2);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+uint64_t std::optional<DiskImageStackable::cacheFlusher_t>::~optional(uint64_t a1)
+{
+  if (*(a1 + 88) == 1)
+  {
+    workqueue::recurrent_block::~recurrent_block((a1 + 64));
+    v3 = (a1 + 24);
+    std::vector<gcd::gcd_queue>::__destroy_vector::operator()[abi:ne200100](&v3);
+    if (*(a1 + 23) < 0)
+    {
+      operator delete(*a1);
+    }
+  }
+
+  return a1;
+}
+
+void std::vector<DiskImageStackable::stackable_layer>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 48;
+        std::__destroy_at[abi:ne200100]<DiskImageStackable::stackable_layer,0>(v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+uint64_t *std::vector<DiskImage::diskimage_extent_t>::__init_with_size[abi:ne200100]<DiskImage::diskimage_extent_t const*,DiskImage::diskimage_extent_t const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<DiskImage::diskimage_extent_t>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_248F069A0(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<DiskImage::diskimage_extent_t>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (!(a2 >> 59))
+  {
+    std::allocator<DiskImage::diskimage_extent_t>::allocate_at_least[abi:ne200100](a1, a2);
+  }
+
+  std::vector<iovec>::__throw_length_error[abi:ne200100]();
+}
+
+void std::allocator<DiskImage::diskimage_extent_t>::allocate_at_least[abi:ne200100](uint64_t a1, unint64_t a2)
+{
+  if (!(a2 >> 59))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+BOOL std::equal[abi:ne200100]<DiskImage::const_extents_iterator_t,DiskImage::const_extents_iterator_t,std::__equal_to>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(v34, a1);
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(&v39, v34);
+  v35 = v39;
+  v36 = v40;
+  v37 = v41;
+  v38 = v42;
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(v29, a2);
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(&v39, v29);
+  v30 = v39;
+  v31 = v40;
+  v32 = v41;
+  v33 = v42;
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(v24, a3);
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(&v39, v24);
+  v25 = v39;
+  v26 = v40;
+  v27 = v41;
+  v28 = v42;
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(v19, a4);
+  DiskImage::const_extents_iterator_t::const_extents_iterator_t(&v39, v19);
+  v20 = v39;
+  v21 = v40;
+  v22 = v41;
+  v23 = v42;
+  if (DiskImage::const_extents_iterator_t::operator!=(&v35, &v30))
+  {
+    while (DiskImage::const_extents_iterator_t::operator!=(&v25, &v20))
+    {
+      v7 = boost::icl::operator==<boost::icl::discrete_interval<unsigned long long,std::less>>(&v36, &v26);
+      if (DWORD2(v37) != DWORD2(v27) || !v7)
+      {
+        goto LABEL_10;
+      }
+
+      DiskImage::const_extents_iterator_t::operator++(&v35);
+      DiskImage::const_extents_iterator_t::operator++(&v25);
+      if (!DiskImage::const_extents_iterator_t::operator!=(&v35, &v30))
+      {
+        break;
+      }
+    }
+  }
+
+  if (DiskImage::const_extents_iterator_t::operator==(&v35, &v30))
+  {
+    v9 = DiskImage::const_extents_iterator_t::operator==(&v25, &v20);
+  }
+
+  else
+  {
+LABEL_10:
+    v9 = 0;
+  }
+
+  v10 = v20;
+  v20 = 0;
+  if (v10)
+  {
+    (*(*v10 + 24))(v10);
+  }
+
+  v11 = v19[0];
+  v19[0] = 0;
+  if (v11)
+  {
+    (*(*v11 + 24))(v11);
+  }
+
+  v12 = v25;
+  v25 = 0;
+  if (v12)
+  {
+    (*(*v12 + 24))(v12);
+  }
+
+  v13 = v24[0];
+  v24[0] = 0;
+  if (v13)
+  {
+    (*(*v13 + 24))(v13);
+  }
+
+  v14 = v30;
+  v30 = 0;
+  if (v14)
+  {
+    (*(*v14 + 24))(v14);
+  }
+
+  v15 = v29[0];
+  v29[0] = 0;
+  if (v15)
+  {
+    (*(*v15 + 24))(v15);
+  }
+
+  v16 = v35;
+  v35 = 0;
+  if (v16)
+  {
+    (*(*v16 + 24))(v16);
+  }
+
+  v17 = v34[0];
+  v34[0] = 0;
+  if (v17)
+  {
+    (*(*v17 + 24))(v17);
+  }
+
+  return v9;
+}
+
+void sub_248F06D84(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39)
+{
+  if (a27)
+  {
+    (*(*a27 + 24))(a27, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (a21)
+  {
+    (*(*a21 + 24))(a21, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (a39)
+  {
+    (*(*a39 + 24))(a39, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  if (a33)
+  {
+    (*(*a33 + 24))(a33, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  v41 = *(v39 - 144);
+  *(v39 - 144) = 0;
+  if (v41)
+  {
+    (*(*v41 + 24))(v41, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  v42 = *(v39 - 192);
+  *(v39 - 192) = 0;
+  if (v42)
+  {
+    (*(*v42 + 24))(v42, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sg_vec::sg_vec(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5)
+{
+  v9 = sg_vec_ns::details::sg_vec_data::sg_vec_data(a1, a2);
+  v10 = v9[1];
+  v17 = *v9;
+  v11 = v17 + 24 * v10;
+  v12 = v9[19];
+  v15 = v9[18];
+  v16 = v11;
+  v14 = &v15[v12];
+  sg_vec_ref::sg_vec_ref((v9 + 26), &v17, &v16, &v15, &v14, a3, a4, a5);
+  return a1;
+}
+
+void boost::container::vector<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>>>(__n128 **a1@<X0>, __n128 *a2@<X1>, const char *a3@<X2>, __n128 *a4@<X3>, void *a5@<X8>)
+{
+  v10 = *a1;
+  v11 = boost::container::vector_alloc_holder<boost::container::small_vector_allocator<lw_future<int>,boost::container::new_allocator<void>,void>,unsigned long,boost::move_detail::integral_constant<unsigned int,1u>>::next_capacity<boost::container::growth_factor_60>(a1, a3);
+  if (v11 >= 0x555555555555556)
+  {
+    boost::container::throw_length_error("get_next_capacity, allocator's max size reached", v12);
+  }
+
+  v13 = v11;
+  v14 = operator new(24 * v11);
+  boost::container::vector<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>>>(a1, v14, v13, a2, a3, a4);
+  *a5 = *a1 + a2 - v10;
+}
+
+void boost::container::vector<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,void>::priv_insert_forward_range_new_allocation<boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>>>(__n128 **a1, __n128 *a2, __n128 *a3, __n128 *a4, uint64_t a5, __n128 *a6)
+{
+  v10 = *a1;
+  boost::container::uninitialized_move_and_insert_alloc<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>*,boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>>>(a1, *a1, a4, (*a1 + 24 * a1[1]), a2, a5, a6);
+  if (v10)
+  {
+    v11 = a1[1];
+    if (v11)
+    {
+      v12 = &v10->n128_u64[1];
+      do
+      {
+        if (*v12)
+        {
+          std::__shared_weak_count::__release_shared[abi:ne200100](*v12);
+        }
+
+        v12 += 3;
+        v11 = (v11 - 1);
+      }
+
+      while (v11);
+    }
+
+    if (a1 + 3 != *a1)
+    {
+      operator delete(*a1);
+    }
+  }
+
+  v13 = (a1[1] + a5);
+  *a1 = a2;
+  a1[1] = v13;
+  a1[2] = a3;
+}
+
+void sub_248F07134(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    if ((v2 + 24) != v1)
+    {
+      operator delete(v1);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+__n128 boost::container::uninitialized_move_and_insert_alloc<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>*,boost::container::dtl::insert_emplace_proxy<boost::container::small_vector_allocator<std::pair<std::shared_ptr<char>,unsigned long>,boost::container::new_allocator<void>,void>,std::pair<std::shared_ptr<char>,unsigned long>*,std::pair<std::shared_ptr<char>,unsigned long>>>(uint64_t a1, __n128 *a2, __n128 *a3, __n128 *a4, __n128 *a5, uint64_t a6, __n128 *a7)
+{
+  while (a2 != a3)
+  {
+    *a5 = *a2;
+    *a2 = 0uLL;
+    a5[1].n128_u64[0] = a2[1].n128_u64[0];
+    a2 = (a2 + 24);
+    a5 = (a5 + 24);
+  }
+
+  result = *a7;
+  *a5 = *a7;
+  *a7 = 0uLL;
+  a5[1].n128_u64[0] = a7[1].n128_u64[0];
+  if (a3 != a4)
+  {
+    v8 = (a5 + 24 * a6);
+    do
+    {
+      result = *a3;
+      *v8 = *a3;
+      *a3 = 0uLL;
+      v8[1].n128_u64[0] = a3[1].n128_u64[0];
+      a3 = (a3 + 24);
+      v8 = (v8 + 24);
+    }
+
+    while (a3 != a4);
+  }
+
+  return result;
+}
+
 void std::__shared_ptr_emplace<DiskImageIOBreaker>::__shared_ptr_emplace[abi:ne200100]<DiskImage &,BOOL,std::allocator<DiskImageIOBreaker>,0>(uint64_t a1, uint64_t a2, char *a3)
 {
   *(a1 + 8) = 0;
@@ -40,7 +1023,7 @@ uint64_t _ZNKSt3__120__shared_ptr_pointerIDnN18DiskImageIOBreaker10shared_refMUl
   }
 }
 
-uint64_t getDIOSLog()
+uint64_t getDIOSLog(uint64_t a1, uint64_t a2)
 {
   if (getDIOSLog_onceToken != -1)
   {
@@ -120,82 +1103,83 @@ void sub_248F09E24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void BaseFolderCopier::traverseSrcFolder(BaseFolderCopier *this)
 {
-  v88 = *MEMORY[0x277D85DE8];
-  *v87 = xmmword_278F81328;
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v72, "Cleanup At Startup");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v72[24], "Temporary Items");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v74, ".Trashes");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v75, "cores");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v76, "private/var/db/BootCache.playlist");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v77, "Library/Caches/TemporaryItems");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v78, ".hotfiles.btree");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v79, ".Spotlight-V100");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v80, ".fseventsd");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v81, "Network Trash Folder");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v82, ".Trash");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v83, ".FBCLockFolder");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v84, ".FBCIndex");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v85, ".DS_Store");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v86, ".VolumeIcon");
-  std::set<std::__fs::filesystem::path>::set[abi:ne200100](&v70, v72, 15);
-  v2 = 360;
+  v104 = *MEMORY[0x277D85DE8];
+  *v103 = xmmword_278F81328;
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v88, "Cleanup At Startup");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v88[24], "Temporary Items");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v90, ".Trashes");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v91, "cores");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v92, "private/var/db/BootCache.playlist");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v93, "Library/Caches/TemporaryItems");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v94, ".hotfiles.btree");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v95, ".Spotlight-V100");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v96, ".fseventsd");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v97, "Network Trash Folder");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v98, ".Trash");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v99, ".FBCLockFolder");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v100, ".FBCIndex");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v101, ".DS_Store");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v102, ".VolumeIcon");
+  std::set<std::__fs::filesystem::path>::set[abi:ne200100](&v86, v88, 15);
+  v2 = 45;
   do
   {
-    if (v72[v2 - 1] < 0)
+    if (v88[v2 * 8 - 1] < 0)
     {
-      operator delete(*(&v70 + v2));
+      operator delete((&v86)[v2]);
     }
 
-    v2 -= 24;
+    v2 -= 3;
   }
 
-  while (v2);
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v72, "Volumes");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v72[24], ".vol");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v74, "private/tmp");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v75, "private/var/vm");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v76, "private/var/folders");
-  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v77, "private/var/db/dyld");
-  std::set<std::__fs::filesystem::path>::set[abi:ne200100](&v68, v72, 6);
+  while (v2 * 8);
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(v88, "Volumes");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v88[24], ".vol");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v90, "private/tmp");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v91, "private/var/vm");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v92, "private/var/folders");
+  std::__fs::filesystem::path::path[abi:ne200100]<char [19],void>(&v93, "private/var/db/dyld");
+  std::set<std::__fs::filesystem::path>::set[abi:ne200100](v84, v88, 6);
   for (i = 0; i != -18; i -= 3)
   {
-    if (SHIBYTE(v77.__r_.__value_.__r.__words[i + 2]) < 0)
+    if (SHIBYTE(v93.__r_.__value_.__r.__words[i + 2]) < 0)
     {
-      operator delete(*(&v77.__r_.__value_.__l.__data_ + i * 8));
+      operator delete(*(&v93.__r_.__value_.__l.__data_ + i * 8));
     }
   }
 
-  std::__fs::filesystem::__current_path(&v67, 0);
+  std::__fs::filesystem::__current_path(&v83, 0);
   v4 = (this + 8);
   if (*(this + 31) < 0)
   {
     v4 = *v4;
   }
 
-  v66.__pn_.__r_.__value_.__r.__words[0] = v4;
-  std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(v72, &v66);
-  std::__fs::filesystem::__current_path(v72, 0);
-  if ((v72[23] & 0x80000000) != 0)
+  v82.__pn_.__r_.__value_.__r.__words[0] = v4;
+  std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(v88, &v82);
+  std::__fs::filesystem::__current_path(v88, 0);
+  if ((v88[23] & 0x80000000) != 0)
   {
-    operator delete(*v72);
+    operator delete(*v88);
   }
 
-  v65 = getuid();
-  v5 = fts_open(v87, 16, 0);
+  v80 = getuid();
+  v5 = fts_open(v103, 16, 0);
   if (!v5)
   {
-    v59 = @"Failed to start folder traversal";
-    goto LABEL_113;
+    v72 = @"Failed to start folder traversal";
+    goto LABEL_126;
   }
 
   v6 = v5;
   if (*(this + 88))
   {
-LABEL_109:
+LABEL_122:
     exception = __cxa_allocate_exception(0x10uLL);
     errnoException::errnoException(exception, &cfstr_CopyAbortedByU.isa, 89);
   }
 
+  v79 = &v85;
   while (1)
   {
     v7 = fts_read(v6);
@@ -210,67 +1194,79 @@ LABEL_109:
     {
       if (fts_info == 4 || fts_info == 10 || fts_info == 7)
       {
-        v51 = __cxa_allocate_exception(0x10uLL);
+        v64 = __cxa_allocate_exception(0x10uLL);
         fts_errno = v8->fts_errno;
-        v53 = @"Failure during source folder traversal";
-        goto LABEL_108;
+        v66 = @"Failure during source folder traversal";
+        goto LABEL_121;
       }
 
-LABEL_26:
-      std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(v72, &v7->fts_path);
-      std::__fs::filesystem::path::lexically_normal(&v66, v72);
-      if ((v72[23] & 0x80000000) != 0)
+LABEL_27:
+      std::__fs::filesystem::path::path[abi:ne200100]<char const*,void>(v88, &v7->fts_path);
+      std::__fs::filesystem::path::lexically_normal(&v82, v88);
+      if ((v88[23] & 0x80000000) != 0)
       {
-        operator delete(*v72);
+        operator delete(*v88);
       }
 
-      v12.__data_ = &v66;
-      if (&v71 != std::__tree<std::__fs::filesystem::path>::find<std::__fs::filesystem::path>(&v70, v12))
+      v12.__data_ = &v82;
+      if (&v87 != std::__tree<std::__fs::filesystem::path>::find<std::__fs::filesystem::path>(&v86, v12))
       {
         if (DIDebugLogsEnabled())
         {
           v14 = *__error();
-          if (DIForwardLogs())
+          v15 = DIForwardLogs();
+          if (v15)
           {
-            v15 = getDIOSLog();
-            os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
-            v16 = &v66;
-            if ((v66.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            v81 = 0;
+            v17 = getDIOSLog(v15, v16);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
             {
-              v16 = v66.__pn_.__r_.__value_.__r.__words[0];
+              v18 = 3;
             }
 
-            *v72 = 0x2A04100302;
-            *&v72[8] = 2080;
-            *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-            *&v72[18] = 2080;
-            *&v72[20] = v16;
-            v17 = _os_log_send_and_compose_impl();
-
-            if (v17)
+            else
             {
-              fprintf(*MEMORY[0x277D85DF8], "%s\n", v17);
-              free(v17);
+              v18 = 2;
+            }
+
+            v19 = &v82;
+            if ((v82.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+            {
+              v19 = v82.__pn_.__r_.__value_.__r.__words[0];
+            }
+
+            *v88 = 0x2A04100302;
+            *&v88[8] = 2080;
+            *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+            *&v88[18] = 2080;
+            *&v88[20] = v19;
+            LODWORD(v78) = 28;
+            v20 = _os_log_send_and_compose_impl(v18, &v81, 0, 0, &dword_248DE0000, v17, 2, "%.*s: Skipping %s", v88, v78, v79);
+
+            if (v20)
+            {
+              fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
+              free(v20);
             }
           }
 
           else
           {
-            v24 = getDIOSLog();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            v31 = getDIOSLog(v15, v16);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
-              v25 = &v66;
-              if ((v66.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+              v32 = &v82;
+              if ((v82.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
-                v25 = v66.__pn_.__r_.__value_.__r.__words[0];
+                v32 = v82.__pn_.__r_.__value_.__r.__words[0];
               }
 
-              *v72 = 0x2A04100302;
-              *&v72[8] = 2080;
-              *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-              *&v72[18] = 2080;
-              *&v72[20] = v25;
-              _os_log_impl(&dword_248DE0000, v24, OS_LOG_TYPE_DEBUG, "%.*s: Skipping %s", v72, 0x1Cu);
+              *v88 = 0x2A04100302;
+              *&v88[8] = 2080;
+              *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+              *&v88[18] = 2080;
+              *&v88[20] = v32;
+              _os_log_impl(&dword_248DE0000, v31, OS_LOG_TYPE_DEBUG, "%.*s: Skipping %s", v88, 0x1Cu);
             }
           }
 
@@ -279,200 +1275,225 @@ LABEL_26:
 
         if (v8->fts_info == 1 && fts_set(v6, v8, 4))
         {
-          v57 = __cxa_allocate_exception(0x10uLL);
-          errnoException::errnoException(v57, &cfstr_FtsSetFailed.isa, 0);
+          v70 = __cxa_allocate_exception(0x10uLL);
+          errnoException::errnoException(v70, &cfstr_FtsSetFailed.isa, 0);
         }
 
-LABEL_57:
-        if (SHIBYTE(v66.__pn_.__r_.__value_.__r.__words[2]) < 0)
+LABEL_64:
+        if (SHIBYTE(v82.__pn_.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v66.__pn_.__r_.__value_.__l.__data_);
+          operator delete(v82.__pn_.__r_.__value_.__l.__data_);
         }
 
-        goto LABEL_59;
+        goto LABEL_66;
       }
 
       st_mode = v8->fts_statp->st_mode;
-      v19 = st_mode & 0xF000;
-      if (v19 < 0x6000)
+      v22 = st_mode & 0xF000;
+      if (v22 < 0x6000)
       {
-        if (v19 != 4096 && v19 != 0x2000)
+        if (v22 != 4096 && v22 != 0x2000)
         {
-          goto LABEL_61;
+          goto LABEL_68;
         }
 
-LABEL_41:
-        v20 = *__error();
-        if (DIForwardLogs())
+LABEL_45:
+        v23 = *__error();
+        v24 = DIForwardLogs();
+        if (v24)
         {
-          v21 = getDIOSLog();
-          os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+          v81 = 0;
+          v26 = getDIOSLog(v24, v25);
+          v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
           fts_path = v8->fts_path;
-          *v72 = 0x2A04100302;
-          *&v72[8] = 2080;
-          *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-          *&v72[18] = 2080;
-          *&v72[20] = fts_path;
-          v23 = _os_log_send_and_compose_impl();
-
-          if (v23)
+          if (v27)
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v23);
-            free(v23);
+            v29 = 3;
+          }
+
+          else
+          {
+            v29 = 2;
+          }
+
+          *v88 = 0x2A04100302;
+          *&v88[8] = 2080;
+          *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+          *&v88[18] = 2080;
+          *&v88[20] = fts_path;
+          LODWORD(v78) = 28;
+          v30 = _os_log_send_and_compose_impl(v29, &v81, 0, 0, &dword_248DE0000, v26, 0, "%.*s: Skipping invalid file type: %s", v88, v78, v79);
+
+          if (v30)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v30);
+            free(v30);
           }
         }
 
         else
         {
-          v26 = getDIOSLog();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v33 = getDIOSLog(v24, v25);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
           {
-            v27 = v8->fts_path;
-            *v72 = 0x2A04100302;
-            *&v72[8] = 2080;
-            *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-            *&v72[18] = 2080;
-            *&v72[20] = v27;
-            _os_log_impl(&dword_248DE0000, v26, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping invalid file type: %s", v72, 0x1Cu);
+            v34 = v8->fts_path;
+            *v88 = 0x2A04100302;
+            *&v88[8] = 2080;
+            *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+            *&v88[18] = 2080;
+            *&v88[20] = v34;
+            _os_log_impl(&dword_248DE0000, v33, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping invalid file type: %s", v88, 0x1Cu);
           }
         }
 
-        *__error() = v20;
-        goto LABEL_57;
+        *__error() = v23;
+        goto LABEL_64;
       }
 
-      if (v19 == 49152 || v19 == 24576)
+      if (v22 == 49152 || v22 == 24576)
       {
-        goto LABEL_41;
+        goto LABEL_45;
       }
 
-LABEL_61:
-      if (v65 && access(v8->fts_accpath, 4) && *__error() != 2)
+LABEL_68:
+      if (v80 && access(v8->fts_accpath, 4) && *__error() != 2)
       {
         BaseFolderCopier::print_permissions(this, st_mode, v8->fts_accpath);
-        v62 = __cxa_allocate_exception(0x10uLL);
-        v63 = [MEMORY[0x277CCACA8] stringWithFormat:@"No read permissions for file %s", v8->fts_accpath];
-        errnoException::errnoException(v62, v63, 13);
+        v75 = __cxa_allocate_exception(0x10uLL);
+        v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"No read permissions for file %s", v8->fts_accpath];
+        errnoException::errnoException(v75, v76, 13);
       }
 
-      v28 = v8->fts_info;
-      if (v28 == 1)
+      v35 = v8->fts_info;
+      if (v35 == 1)
       {
         st_size = 0;
-        v30 = 786445;
-        goto LABEL_73;
+        v37 = 786445;
+        goto LABEL_80;
       }
 
-      if (v28 != 6)
+      if (v35 != 6)
       {
-        if (v28 == 8)
+        if (v35 == 8)
         {
           st_size = v8->fts_statp->st_size;
           if (st_size >= 1)
           {
-            v30 = (*(*this + 8))(this) | 0xC0000;
-LABEL_73:
-            if (SHIBYTE(v66.__pn_.__r_.__value_.__r.__words[2]) < 0)
+            v37 = (*(*this + 8))(this) | 0xC0000;
+LABEL_80:
+            if (SHIBYTE(v82.__pn_.__r_.__value_.__r.__words[2]) < 0)
             {
-              std::string::__init_copy_ctor_external(v72, v66.__pn_.__r_.__value_.__l.__data_, v66.__pn_.__r_.__value_.__l.__size_);
+              std::string::__init_copy_ctor_external(v88, v82.__pn_.__r_.__value_.__l.__data_, v82.__pn_.__r_.__value_.__l.__size_);
             }
 
             else
             {
-              *v72 = v66;
+              *v88 = v82;
             }
 
-            *&v72[24] = st_size;
-            v73 = v30;
-            v31 = *(this + 9);
-            if (v31 >= *(this + 10))
+            *&v88[24] = st_size;
+            v89 = v37;
+            v38 = *(this + 9);
+            if (v38 >= *(this + 10))
             {
-              v34 = std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(this + 64, v72);
-              v35 = v72[23];
-              *(this + 9) = v34;
-              if (v35 < 0)
+              v41 = std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(this + 8, v88);
+              v42 = v88[23];
+              *(this + 9) = v41;
+              if (v42 < 0)
               {
-                operator delete(*v72);
+                operator delete(*v88);
               }
             }
 
             else
             {
-              v32 = *v72;
-              *(v31 + 16) = *&v72[16];
-              *v31 = v32;
-              memset(v72, 0, 24);
-              v33 = v73;
-              *(v31 + 24) = *&v72[24];
-              *(v31 + 32) = v33;
-              *(this + 9) = v31 + 40;
+              v39 = *v88;
+              *(v38 + 16) = *&v88[16];
+              *v38 = v39;
+              memset(v88, 0, 24);
+              v40 = v89;
+              *(v38 + 24) = *&v88[24];
+              *(v38 + 32) = v40;
+              *(this + 9) = v38 + 40;
             }
 
             *(this + 7) += st_size;
             if (v8->fts_info == 1)
             {
-              v13.__data_ = &v66;
-              if (&v69 != std::__tree<std::__fs::filesystem::path>::find<std::__fs::filesystem::path>(&v68, v13))
+              v13.__data_ = &v82;
+              if (v79 != std::__tree<std::__fs::filesystem::path>::find<std::__fs::filesystem::path>(v84, v13))
               {
                 if (DIDebugLogsEnabled())
                 {
-                  v36 = *__error();
-                  if (DIForwardLogs())
+                  v43 = *__error();
+                  v44 = DIForwardLogs();
+                  if (v44)
                   {
-                    v37 = getDIOSLog();
-                    os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG);
-                    v38 = &v66;
-                    if ((v66.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                    v81 = 0;
+                    v46 = getDIOSLog(v44, v45);
+                    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
                     {
-                      v38 = v66.__pn_.__r_.__value_.__r.__words[0];
+                      v47 = 3;
                     }
 
-                    *v72 = 0x2A04100302;
-                    *&v72[8] = 2080;
-                    *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-                    *&v72[18] = 2080;
-                    *&v72[20] = v38;
-                    v39 = _os_log_send_and_compose_impl();
-
-                    if (v39)
+                    else
                     {
-                      fprintf(*MEMORY[0x277D85DF8], "%s\n", v39);
-                      free(v39);
+                      v47 = 2;
+                    }
+
+                    v48 = &v82;
+                    if ((v82.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                    {
+                      v48 = v82.__pn_.__r_.__value_.__r.__words[0];
+                    }
+
+                    *v88 = 0x2A04100302;
+                    *&v88[8] = 2080;
+                    *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+                    *&v88[18] = 2080;
+                    *&v88[20] = v48;
+                    LODWORD(v78) = 28;
+                    v49 = _os_log_send_and_compose_impl(v47, &v81, 0, 0, &dword_248DE0000, v46, 2, "%.*s: Skipping content of folder %s", v88, v78, v79);
+
+                    if (v49)
+                    {
+                      fprintf(*MEMORY[0x277D85DF8], "%s\n", v49);
+                      free(v49);
                     }
                   }
 
                   else
                   {
-                    v40 = getDIOSLog();
-                    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+                    v50 = getDIOSLog(v44, v45);
+                    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
                     {
-                      v41 = &v66;
-                      if ((v66.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+                      v51 = &v82;
+                      if ((v82.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
                       {
-                        v41 = v66.__pn_.__r_.__value_.__r.__words[0];
+                        v51 = v82.__pn_.__r_.__value_.__r.__words[0];
                       }
 
-                      *v72 = 0x2A04100302;
-                      *&v72[8] = 2080;
-                      *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-                      *&v72[18] = 2080;
-                      *&v72[20] = v41;
-                      _os_log_impl(&dword_248DE0000, v40, OS_LOG_TYPE_DEBUG, "%.*s: Skipping content of folder %s", v72, 0x1Cu);
+                      *v88 = 0x2A04100302;
+                      *&v88[8] = 2080;
+                      *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+                      *&v88[18] = 2080;
+                      *&v88[20] = v51;
+                      _os_log_impl(&dword_248DE0000, v50, OS_LOG_TYPE_DEBUG, "%.*s: Skipping content of folder %s", v88, 0x1Cu);
                     }
                   }
 
-                  *__error() = v36;
+                  *__error() = v43;
                 }
 
                 if (fts_set(v6, v8, 4))
                 {
-                  v42 = __cxa_allocate_exception(0x10uLL);
-                  errnoException::errnoException(v42, &cfstr_FtsSetFailed.isa, 0);
+                  v52 = __cxa_allocate_exception(0x10uLL);
+                  errnoException::errnoException(v52, &cfstr_FtsSetFailed.isa, 0);
                 }
               }
             }
 
-            goto LABEL_57;
+            goto LABEL_64;
           }
         }
 
@@ -481,90 +1502,102 @@ LABEL_73:
           st_size = 0;
         }
 
-        v30 = 786439;
-        goto LABEL_73;
+        v37 = 786439;
+        goto LABEL_80;
       }
 
       st_size = 0;
-      v30 = 786434;
-      goto LABEL_73;
+      v37 = 786434;
+      goto LABEL_80;
     }
 
     if (fts_info != 2)
     {
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
-LABEL_59:
+LABEL_66:
     if (*(this + 88))
     {
-      goto LABEL_109;
+      goto LABEL_122;
     }
   }
 
   if (*__error())
   {
-    v51 = __cxa_allocate_exception(0x10uLL);
-    v53 = @"Error reported from fts_read";
+    v64 = __cxa_allocate_exception(0x10uLL);
+    v66 = @"Error reported from fts_read";
     fts_errno = 0;
-LABEL_108:
-    errnoException::errnoException(v51, &v53->isa, fts_errno);
+LABEL_121:
+    errnoException::errnoException(v64, &v66->isa, fts_errno);
   }
 
   if (fts_close(v6))
   {
-    v59 = @"Failed to cleanup folder traversal";
-LABEL_113:
-    v60 = __cxa_allocate_exception(0x10uLL);
-    errnoException::errnoException(v60, &v59->isa, 0);
+    v72 = @"Failed to cleanup folder traversal";
+LABEL_126:
+    v73 = __cxa_allocate_exception(0x10uLL);
+    errnoException::errnoException(v73, &v72->isa, 0);
   }
 
-  v44 = *__error();
-  if (DIForwardLogs())
+  v54 = *__error();
+  v55 = DIForwardLogs();
+  if (v55)
   {
-    v66.__pn_.__r_.__value_.__r.__words[0] = 0;
-    v45 = getDIOSLog();
-    os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
-    v46 = *(this + 7);
-    *v72 = 0x2A04100302;
-    *&v72[8] = 2080;
-    *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-    *&v72[18] = 2048;
-    *&v72[20] = v46;
-    v47 = _os_log_send_and_compose_impl();
-
-    if (v47)
+    v82.__pn_.__r_.__value_.__r.__words[0] = 0;
+    v57 = getDIOSLog(v55, v56);
+    v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT);
+    v59 = *(this + 7);
+    *v88 = 68158210;
+    if (v58)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v47);
-      free(v47);
+      v60 = 3;
+    }
+
+    else
+    {
+      v60 = 2;
+    }
+
+    *&v88[4] = 42;
+    *&v88[8] = 2080;
+    *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+    *&v88[18] = 2048;
+    *&v88[20] = v59;
+    LODWORD(v78) = 28;
+    v61 = _os_log_send_and_compose_impl(v60, &v82, 0, 0, &dword_248DE0000, v57, 0, "%.*s: Folder size: %llu", v88, v78, v79);
+
+    if (v61)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v61);
+      free(v61);
     }
   }
 
   else
   {
-    v48 = getDIOSLog();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v62 = getDIOSLog(v55, v56);
+    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = *(this + 7);
-      *v72 = 0x2A04100302;
-      *&v72[8] = 2080;
-      *&v72[10] = "void BaseFolderCopier::traverseSrcFolder()";
-      *&v72[18] = 2048;
-      *&v72[20] = v49;
-      _os_log_impl(&dword_248DE0000, v48, OS_LOG_TYPE_DEFAULT, "%.*s: Folder size: %llu", v72, 0x1Cu);
+      v63 = *(this + 7);
+      *v88 = 0x2A04100302;
+      *&v88[8] = 2080;
+      *&v88[10] = "void BaseFolderCopier::traverseSrcFolder()";
+      *&v88[18] = 2048;
+      *&v88[20] = v63;
+      _os_log_impl(&dword_248DE0000, v62, OS_LOG_TYPE_DEFAULT, "%.*s: Folder size: %llu", v88, 0x1Cu);
     }
   }
 
-  *__error() = v44;
-  std::__fs::filesystem::__current_path(&v67, 0);
-  if (SHIBYTE(v67.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  *__error() = v54;
+  std::__fs::filesystem::__current_path(&v83, 0);
+  if (SHIBYTE(v83.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v67.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v83.__pn_.__r_.__value_.__l.__data_);
   }
 
-  std::__tree<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>>>::destroy(&v68, v69);
-  std::__tree<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>>>::destroy(&v70, v71);
-  v50 = *MEMORY[0x277D85DE8];
+  std::__tree<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>>>::destroy(v84, v85);
+  std::__tree<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::pair<_di_plugin_t * (*)(unsigned long long),unsigned long long>>>>::destroy(&v86, v87);
 }
 
 void sub_248F0ACAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, std::__fs::filesystem::path *a23, char a24, uint64_t a25, uint64_t a26, char *a27, uint64_t a28, uint64_t a29, char *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35)
@@ -649,18 +1682,16 @@ void sub_248F0B0A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t BaseFolderCopier::copy(uint64_t a1, const std::string *a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   std::string::operator=((a1 + 32), a2);
-  std::__function::__value_func<void ()(long long)>::__value_func[abi:ne200100](v7, a3);
-  (**a1)(a1, v7);
-  result = std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100](v7);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<void ()(long long)>::__value_func[abi:ne200100](v6, a3);
+  (**a1)(a1, v6);
+  return std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_248F0B2E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F0B2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -680,52 +1711,27 @@ void errnoException::~errnoException(std::exception *this)
 
 int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, char *a3)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v5 = *__error();
-  if (DIForwardLogs())
+  v6 = DIForwardLogs();
+  if (v6)
   {
-    v6 = getDIOSLog();
-    os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v33 = 0;
+    v8 = getDIOSLog(v6, v7);
     *buf = 0x3804100C02;
-    v30 = 2080;
-    v31 = "void BaseFolderCopier::print_permissions(mode_t, char *)";
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 3;
+    }
+
+    else
+    {
+      v9 = 2;
+    }
+
+    v35 = 2080;
+    v36 = "void BaseFolderCopier::print_permissions(mode_t, char *)";
     if ((a2 & 0x100) != 0)
-    {
-      v7 = 114;
-    }
-
-    else
-    {
-      v7 = 45;
-    }
-
-    v32 = 2080;
-    v33 = a3;
-    if ((a2 & 0x80) != 0)
-    {
-      v8 = 119;
-    }
-
-    else
-    {
-      v8 = 45;
-    }
-
-    v34 = 1024;
-    v35 = v7;
-    if ((a2 & 0x40) != 0)
-    {
-      v9 = 120;
-    }
-
-    else
-    {
-      v9 = 45;
-    }
-
-    v36 = 1024;
-    v37 = v8;
-    if ((a2 & 0x20) != 0)
     {
       v10 = 114;
     }
@@ -735,9 +1741,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v10 = 45;
     }
 
-    v38 = 1024;
-    v39 = v9;
-    if ((a2 & 0x10) != 0)
+    v37 = 2080;
+    v38 = a3;
+    if ((a2 & 0x80) != 0)
     {
       v11 = 119;
     }
@@ -747,8 +1753,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v11 = 45;
     }
 
-    v40 = 1024;
-    if ((a2 & 8) != 0)
+    v39 = 1024;
+    v40 = v10;
+    if ((a2 & 0x40) != 0)
     {
       v12 = 120;
     }
@@ -758,8 +1765,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v12 = 45;
     }
 
-    v41 = v10;
-    if ((a2 & 4) != 0)
+    v41 = 1024;
+    v42 = v11;
+    if ((a2 & 0x20) != 0)
     {
       v13 = 114;
     }
@@ -769,8 +1777,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v13 = 45;
     }
 
-    v42 = 1024;
-    if ((a2 & 2) != 0)
+    v43 = 1024;
+    v44 = v12;
+    if ((a2 & 0x10) != 0)
     {
       v14 = 119;
     }
@@ -780,8 +1789,8 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v14 = 45;
     }
 
-    v43 = v11;
-    if (a2)
+    v45 = 1024;
+    if ((a2 & 8) != 0)
     {
       v15 = 120;
     }
@@ -791,67 +1800,66 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
       v15 = 45;
     }
 
-    v44 = 1024;
-    v45 = v12;
-    v46 = 1024;
-    v47 = v13;
-    v48 = 1024;
-    v49 = v14;
-    v50 = 1024;
-    v51 = v15;
-    v16 = _os_log_send_and_compose_impl();
-
-    if (v16)
+    v46 = v13;
+    if ((a2 & 4) != 0)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v16);
-      free(v16);
+      v16 = 114;
+    }
+
+    else
+    {
+      v16 = 45;
+    }
+
+    v47 = 1024;
+    if ((a2 & 2) != 0)
+    {
+      v17 = 119;
+    }
+
+    else
+    {
+      v17 = 45;
+    }
+
+    v48 = v14;
+    if (a2)
+    {
+      v18 = 120;
+    }
+
+    else
+    {
+      v18 = 45;
+    }
+
+    v49 = 1024;
+    v50 = v15;
+    v51 = 1024;
+    v52 = v16;
+    v53 = 1024;
+    v54 = v17;
+    v55 = 1024;
+    v56 = v18;
+    LODWORD(v31) = 82;
+    v19 = _os_log_send_and_compose_impl(v9, &v33, 0, 0, &dword_248DE0000, v8, 0, "%.*s: permissions for current path %s: %c%c%c%c%c%c%c%c%c", buf, v31, v32);
+
+    if (v19)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v19);
+      free(v19);
     }
   }
 
   else
   {
-    v17 = getDIOSLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = getDIOSLog(v6, v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0x3804100C02;
-      v30 = 2080;
-      v31 = "void BaseFolderCopier::print_permissions(mode_t, char *)";
+      v35 = 2080;
+      v36 = "void BaseFolderCopier::print_permissions(mode_t, char *)";
       if ((a2 & 0x100) != 0)
-      {
-        v18 = 114;
-      }
-
-      else
-      {
-        v18 = 45;
-      }
-
-      v32 = 2080;
-      v33 = a3;
-      if ((a2 & 0x80) != 0)
-      {
-        v19 = 119;
-      }
-
-      else
-      {
-        v19 = 45;
-      }
-
-      v34 = 1024;
-      v35 = v18;
-      if ((a2 & 0x40) != 0)
-      {
-        v20 = 120;
-      }
-
-      else
-      {
-        v20 = 45;
-      }
-
-      v36 = 1024;
-      if ((a2 & 0x20) != 0)
       {
         v21 = 114;
       }
@@ -861,8 +1869,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v21 = 45;
       }
 
-      v37 = v19;
-      if ((a2 & 0x10) != 0)
+      v37 = 2080;
+      v38 = a3;
+      if ((a2 & 0x80) != 0)
       {
         v22 = 119;
       }
@@ -872,8 +1881,9 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v22 = 45;
       }
 
-      v38 = 1024;
-      if ((a2 & 8) != 0)
+      v39 = 1024;
+      v40 = v21;
+      if ((a2 & 0x40) != 0)
       {
         v23 = 120;
       }
@@ -883,8 +1893,8 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v23 = 45;
       }
 
-      v39 = v20;
-      if ((a2 & 4) != 0)
+      v41 = 1024;
+      if ((a2 & 0x20) != 0)
       {
         v24 = 114;
       }
@@ -894,8 +1904,8 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v24 = 45;
       }
 
-      v40 = 1024;
-      if ((a2 & 2) != 0)
+      v42 = v22;
+      if ((a2 & 0x10) != 0)
       {
         v25 = 119;
       }
@@ -905,8 +1915,8 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v25 = 45;
       }
 
-      v41 = v21;
-      if (a2)
+      v43 = 1024;
+      if ((a2 & 8) != 0)
       {
         v26 = 120;
       }
@@ -916,23 +1926,55 @@ int *BaseFolderCopier::print_permissions(BaseFolderCopier *this, __int16 a2, cha
         v26 = 45;
       }
 
-      v42 = 1024;
-      v43 = v22;
-      v44 = 1024;
-      v45 = v23;
-      v46 = 1024;
-      v47 = v24;
-      v48 = 1024;
-      v49 = v25;
-      v50 = 1024;
-      v51 = v26;
-      _os_log_impl(&dword_248DE0000, v17, OS_LOG_TYPE_DEFAULT, "%.*s: permissions for current path %s: %c%c%c%c%c%c%c%c%c", buf, 0x52u);
+      v44 = v23;
+      if ((a2 & 4) != 0)
+      {
+        v27 = 114;
+      }
+
+      else
+      {
+        v27 = 45;
+      }
+
+      v45 = 1024;
+      if ((a2 & 2) != 0)
+      {
+        v28 = 119;
+      }
+
+      else
+      {
+        v28 = 45;
+      }
+
+      v46 = v24;
+      if (a2)
+      {
+        v29 = 120;
+      }
+
+      else
+      {
+        v29 = 45;
+      }
+
+      v47 = 1024;
+      v48 = v25;
+      v49 = 1024;
+      v50 = v26;
+      v51 = 1024;
+      v52 = v27;
+      v53 = 1024;
+      v54 = v28;
+      v55 = 1024;
+      v56 = v29;
+      _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEFAULT, "%.*s: permissions for current path %s: %c%c%c%c%c%c%c%c%c", buf, 0x52u);
     }
   }
 
   result = __error();
   *result = v5;
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -962,12 +2004,12 @@ void sub_248F0B70C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::set<std::__fs::filesystem::path>::set[abi:ne200100](void *a1, std::basic_string_view<_CharT, _Traits>::size_type a2, uint64_t a3)
+uint64_t **std::set<std::__fs::filesystem::path>::set[abi:ne200100](uint64_t **a1, std::basic_string_view<_CharT, _Traits>::size_type a2, uint64_t a3)
 {
   a1[1] = 0;
   v4 = (a1 + 1);
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   if (a3)
   {
     v6 = 24 * a3;
@@ -975,7 +2017,7 @@ void *std::set<std::__fs::filesystem::path>::set[abi:ne200100](void *a1, std::ba
     {
       v8.__data_ = v4;
       v8.__size_ = a2;
-      std::__tree<std::__fs::filesystem::path>::__emplace_hint_unique_key_args<std::__fs::filesystem::path,std::__fs::filesystem::path const&>(a1, v8);
+      std::__tree<std::__fs::filesystem::path>::__emplace_hint_unique_key_args<std::__fs::filesystem::path,std::__fs::filesystem::path const&>(a1, v8, a2);
       a2 += 24;
       v6 -= 24;
     }
@@ -986,11 +2028,11 @@ void *std::set<std::__fs::filesystem::path>::set[abi:ne200100](void *a1, std::ba
   return a1;
 }
 
-uint64_t std::__tree<std::__fs::filesystem::path>::__emplace_hint_unique_key_args<std::__fs::filesystem::path,std::__fs::filesystem::path const&>(uint64_t a1, std::__fs::filesystem::path::__string_view a2)
+void *std::__tree<std::__fs::filesystem::path>::__emplace_hint_unique_key_args<std::__fs::filesystem::path,std::__fs::filesystem::path const&>(uint64_t **a1, std::__fs::filesystem::path::__string_view a2, uint64_t a4)
 {
   size = a2.__size_;
-  a2.__size_ = &v5;
-  result = *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::filesystem::path>(a1, a2, &v4, size);
+  a2.__size_ = &v6;
+  result = *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::filesystem::path>(a1, a2, &v5, size);
   if (!result)
   {
     std::__tree<std::__fs::filesystem::path>::__construct_node<std::__fs::filesystem::path const&>();
@@ -999,12 +2041,12 @@ uint64_t std::__tree<std::__fs::filesystem::path>::__emplace_hint_unique_key_arg
   return result;
 }
 
-uint64_t *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::filesystem::path>(uint64_t a1, std::__fs::filesystem::path::__string_view a2, const std::string_view::value_type **a3, const std::__fs::filesystem::path *a4)
+uint64_t *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::filesystem::path>(void *a1, std::__fs::filesystem::path::__string_view a2, const std::string_view::value_type **a4, const std::__fs::filesystem::path *a5)
 {
   size = a2.__size_;
   data = a2.__data_;
-  v8 = a1 + 8;
-  if ((a1 + 8) == a2.__data_ || (a2.__data_ += 32, (std::__fs::filesystem::operator<=>[abi:ne200100](a4, a2) & 0x80) != 0))
+  v8 = (a1 + 1);
+  if (a1 + 1 == a2.__data_ || (a2.__data_ += 32, (std::__fs::filesystem::operator<=>[abi:ne200100](a5, a2) & 0x80) != 0))
   {
     if (*a1 == data)
     {
@@ -1038,7 +2080,7 @@ uint64_t *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::file
         while (v17);
       }
 
-      a2.__data_ = a4;
+      a2.__data_ = a5;
       if ((std::__fs::filesystem::operator<=>[abi:ne200100]((v12 + 32), a2) & 0x80) == 0)
       {
         goto LABEL_17;
@@ -1058,15 +2100,15 @@ uint64_t *std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::file
     }
   }
 
-  a2.__data_ = a4;
+  a2.__data_ = a5;
   if ((std::__fs::filesystem::operator<=>[abi:ne200100]((data + 32), a2) & 0x80) == 0)
   {
     *size = data;
-    *a3 = data;
-    return a3;
+    *a4 = data;
+    return a4;
   }
 
-  a3 = (data + 8);
+  a4 = (data + 8);
   v13 = *(data + 1);
   if (v13)
   {
@@ -1107,19 +2149,19 @@ LABEL_29:
       *size = data;
     }
 
-    return a3;
+    return a4;
   }
 
   v10.__data_ = v15 + 32;
-  if ((std::__fs::filesystem::operator<=>[abi:ne200100](a4, v10) & 0x80) != 0)
+  if ((std::__fs::filesystem::operator<=>[abi:ne200100](a5, v10) & 0x80) != 0)
   {
-    v13 = *a3;
+    v13 = *a4;
     goto LABEL_29;
   }
 
 LABEL_17:
   v18.__data_ = size;
-  v18.__size_ = a4;
+  v18.__size_ = a5;
 
   return std::__tree<std::__fs::filesystem::path>::__find_equal<std::__fs::filesystem::path>(a1, v18);
 }
@@ -1278,21 +2320,21 @@ uint64_t std::__tree<std::__fs::filesystem::path>::find<std::__fs::filesystem::p
   return v5;
 }
 
-uint64_t std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(uint64_t a1, __int128 *a2)
+uint64_t std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(unint64_t *a1, __int128 *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x666666666666666)
   {
     std::vector<iovec>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 3) >= 0x333333333333333)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 3) >= 0x333333333333333)
   {
     v6 = 0x666666666666666;
   }
@@ -1322,14 +2364,14 @@ uint64_t std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(uint64_t 
   *(v7 + 32) = *(a2 + 8);
   *(v7 + 24) = v9;
   *&v18 = 40 * v2 + 40;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 40 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<fileItem_t>,fileItem_t*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -1338,9 +2380,9 @@ uint64_t std::vector<fileItem_t>::__emplace_back_slow_path<fileItem_t>(uint64_t 
   return v15;
 }
 
-void sub_248F0BE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F0BE2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<fileItem_t>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1593,88 +2635,102 @@ void BaseFolderCopier::~BaseFolderCopier(BaseFolderCopier *this)
   }
 }
 
-void ParallelFolderCopier::copyFiles(uint64_t a1)
+void ParallelFolderCopier::copyFiles(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = *__error();
-  if (DIForwardLogs())
+  v32 = *MEMORY[0x277D85DE8];
+  v3 = *__error();
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v3 = getDIOSLog();
-    os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-    v4 = (a1 + 8);
+    v20[0] = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v8 = (a1 + 8);
     if (*(a1 + 31) < 0)
     {
-      v4 = *v4;
+      v8 = *v8;
     }
 
-    v5 = (a1 + 32);
+    v9 = (a1 + 32);
     if (*(a1 + 55) < 0)
     {
-      v5 = *v5;
+      v9 = *v9;
     }
 
-    v6 = *(a1 + 96);
+    v10 = *(a1 + 96);
     *buf = 0x4204100502;
-    v14 = 2080;
-    v15 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const";
-    v16 = 2080;
-    v17 = v4;
-    v18 = 2080;
-    v19 = v5;
-    v20 = 2048;
-    v21 = v6;
-    v7 = _os_log_send_and_compose_impl();
+    v24 = 2080;
+    v25 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const";
+    v26 = 2080;
+    v27 = v8;
+    v28 = 2080;
+    v29 = v9;
+    v30 = 2048;
+    v31 = v10;
+    LODWORD(v16) = 48;
+    v11 = _os_log_send_and_compose_impl(v7, v20, 0, 0, &dword_248DE0000, v6, 0, "%.*s: Copying: %s -> %s (%ld threads)", buf, v16, v17, v18, v19);
 
-    if (v7)
+    if (v11)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v7);
-      free(v7);
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v11);
+      free(v11);
     }
   }
 
   else
   {
-    v8 = getDIOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v12 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = (a1 + 8);
+      v13 = (a1 + 8);
       if (*(a1 + 31) < 0)
       {
-        v9 = *v9;
+        v13 = *v13;
       }
 
-      v10 = (a1 + 32);
+      v14 = (a1 + 32);
       if (*(a1 + 55) < 0)
       {
-        v10 = *v10;
+        v14 = *v14;
       }
 
-      v11 = *(a1 + 96);
+      v15 = *(a1 + 96);
       *buf = 0x4204100502;
-      v14 = 2080;
-      v15 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const";
-      v16 = 2080;
-      v17 = v9;
-      v18 = 2080;
-      v19 = v10;
-      v20 = 2048;
-      v21 = v11;
-      _os_log_impl(&dword_248DE0000, v8, OS_LOG_TYPE_DEFAULT, "%.*s: Copying: %s -> %s (%ld threads)", buf, 0x30u);
+      v24 = 2080;
+      v25 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const";
+      v26 = 2080;
+      v27 = v13;
+      v28 = 2080;
+      v29 = v14;
+      v30 = 2048;
+      v31 = v15;
+      _os_log_impl(&dword_248DE0000, v12, OS_LOG_TYPE_DEFAULT, "%.*s: Copying: %s -> %s (%ld threads)", buf, 0x30u);
     }
   }
 
-  *__error() = v2;
-  v12[0] = 0;
-  v12[1] = v12;
-  v12[2] = 0x3812000000;
-  v12[3] = __Block_byref_object_copy__7;
-  v12[4] = __Block_byref_object_dispose__7;
-  v12[5] = &unk_248FE5F72;
-  v12[6] = 0;
+  *__error() = v3;
+  v22[0] = 0;
+  v22[1] = v22;
+  v22[2] = 0x3812000000;
+  v22[3] = __Block_byref_object_copy__7;
+  v22[4] = __Block_byref_object_dispose__7;
+  v22[5] = &unk_248FE5F72;
+  v22[6] = 0;
+  v21 = 1;
+  v20[8] = 0;
   operator new();
 }
 
-void sub_248F0CE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_248F0CE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   if (a22 < 0)
   {
@@ -1686,14 +2742,14 @@ void sub_248F0CE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a23);
   }
 
-  workqueue::transaction::~transaction(&a71);
+  workqueue::transaction::~transaction(&a65);
   workqueue::workqueue::~workqueue(&a29);
   _Block_object_dispose(&a39, 8);
-  v73 = a45;
+  v67 = a45;
   a45 = 0;
-  if (v73)
+  if (v67)
   {
-    (*(*v73 + 8))(v73);
+    (*(*v67 + 8))(v67);
   }
 
   _Unwind_Resume(a1);
@@ -1755,20 +2811,19 @@ uint64_t __Block_byref_object_dispose__7(uint64_t a1)
   return result;
 }
 
-std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::__fs::filesystem::path *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    a1->__pn_ = *a3;
   }
 
-  return std::__fs::filesystem::path::operator/=[abi:ne200100](a3, this);
+  return std::__fs::filesystem::path::operator/=[abi:ne200100](a1, this);
 }
 
 void sub_248F0D140(_Unwind_Exception *exception_object)
@@ -1783,7 +2838,7 @@ void sub_248F0D140(_Unwind_Exception *exception_object)
 
 uint64_t copyfileWithClassFHandling(const char *a1, const char *a2, copyfile_flags_t flags)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v4 = copyfile(a1, a2, 0, flags);
   if (v4 && (*__error() == 1 || *__error() == 13))
   {
@@ -1796,35 +2851,47 @@ uint64_t copyfileWithClassFHandling(const char *a1, const char *a2, copyfile_fla
       if (v7 == 6)
       {
         v8 = *__error();
-        if (DIForwardLogs())
+        v9 = DIForwardLogs();
+        if (v9)
         {
-          v9 = getDIOSLog();
-          os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+          v18 = 0;
+          v11 = getDIOSLog(v9, v10);
           *buf = 0x5E04100302;
-          v15 = 2080;
-          v16 = "int copyfileWithClassFHandling(const char *, const char *, copyfile_state_t, copyfile_flags_t)";
-          v17 = 2080;
-          v18 = a1;
-          v10 = _os_log_send_and_compose_impl();
-
-          if (v10)
+          v20 = 2080;
+          v21 = "int copyfileWithClassFHandling(const char *, const char *, copyfile_state_t, copyfile_flags_t)";
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
-            free(v10);
+            v12 = 3;
+          }
+
+          else
+          {
+            v12 = 2;
+          }
+
+          v22 = 2080;
+          v23 = a1;
+          LODWORD(v16) = 28;
+          v13 = _os_log_send_and_compose_impl(v12, &v18, 0, 0, &dword_248DE0000, v11, 0, "%.*s: Skipping Class F protected file: %s", buf, v16, v17);
+
+          if (v13)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
+            free(v13);
           }
         }
 
         else
         {
-          v11 = getDIOSLog();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v14 = getDIOSLog(v9, v10);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0x5E04100302;
-            v15 = 2080;
-            v16 = "int copyfileWithClassFHandling(const char *, const char *, copyfile_state_t, copyfile_flags_t)";
-            v17 = 2080;
-            v18 = a1;
-            _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping Class F protected file: %s", buf, 0x1Cu);
+            v20 = 2080;
+            v21 = "int copyfileWithClassFHandling(const char *, const char *, copyfile_state_t, copyfile_flags_t)";
+            v22 = 2080;
+            v23 = a1;
+            _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Skipping Class F protected file: %s", buf, 0x1Cu);
           }
         }
 
@@ -1834,14 +2901,13 @@ uint64_t copyfileWithClassFHandling(const char *a1, const char *a2, copyfile_fla
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 uint64_t ___ZNK20ParallelFolderCopier9copyFilesENSt3__18functionIFvxEEE_block_invoke(uint64_t result)
 {
   v1 = result;
-  v36 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = *(result + 40);
   if (*(v2 + 88) == 1)
   {
@@ -1859,167 +2925,188 @@ uint64_t ___ZNK20ParallelFolderCopier9copyFilesENSt3__18functionIFvxEEE_block_in
     if (DIDebugLogsEnabled())
     {
       v5 = *__error();
-      if (DIForwardLogs())
+      v6 = DIForwardLogs();
+      if (v6)
       {
-        v6 = getDIOSLog();
-        os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
-        v7 = (v1 + 56);
-        if (*(v1 + 79) < 0)
+        v34 = 0;
+        v8 = getDIOSLog(v6, v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v7 = *v7;
+          v9 = 3;
         }
 
-        v8 = (v1 + 80);
+        else
+        {
+          v9 = 2;
+        }
+
+        v10 = (v1 + 56);
+        if (*(v1 + 79) < 0)
+        {
+          v10 = *v10;
+        }
+
+        v11 = (v1 + 80);
         if (*(v1 + 103) < 0)
         {
-          v8 = *v8;
+          v11 = *v11;
         }
 
         *buf = 68158466;
-        v29 = 79;
-        v30 = 2080;
-        v31 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
-        v32 = 2080;
-        v33 = v7;
-        v34 = 2080;
-        v35 = v8;
-        LODWORD(v27) = 38;
-        v9 = _os_log_send_and_compose_impl();
+        v36 = 79;
+        v37 = 2080;
+        v38 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
+        v39 = 2080;
+        v40 = v10;
+        v41 = 2080;
+        v42 = v11;
+        LODWORD(v32) = 38;
+        v12 = _os_log_send_and_compose_impl(v9, &v34, 0, 0, &dword_248DE0000, v8, 2, "%.*s: Background copy of %s to %s", buf, v32, v33);
 
-        if (v9)
+        if (v12)
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-          free(v9);
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+          free(v12);
         }
       }
 
       else
       {
-        v10 = getDIOSLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v13 = getDIOSLog(v6, v7);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
-          v11 = (v1 + 56);
+          v14 = (v1 + 56);
           if (*(v1 + 79) < 0)
           {
-            v11 = *v11;
+            v14 = *v14;
           }
 
-          v12 = (v1 + 80);
+          v15 = (v1 + 80);
           if (*(v1 + 103) < 0)
           {
-            v12 = *v12;
+            v15 = *v15;
           }
 
           *buf = 68158466;
-          v29 = 79;
-          v30 = 2080;
-          v31 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
-          v32 = 2080;
-          v33 = v11;
-          v34 = 2080;
-          v35 = v12;
-          _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEBUG, "%.*s: Background copy of %s to %s", buf, 0x26u);
+          v36 = 79;
+          v37 = 2080;
+          v38 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
+          v39 = 2080;
+          v40 = v14;
+          v41 = 2080;
+          v42 = v15;
+          _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEBUG, "%.*s: Background copy of %s to %s", buf, 0x26u);
         }
       }
 
       *__error() = v5;
     }
 
-    v13 = (v1 + 56);
-    v14 = (v1 + 56);
+    v16 = (v1 + 56);
+    v17 = (v1 + 56);
     if (*(v1 + 79) < 0)
     {
-      v14 = *v13;
+      v17 = *v16;
     }
 
-    v15 = (v1 + 80);
+    v18 = (v1 + 80);
     if (*(v1 + 103) < 0)
     {
-      v15 = *v15;
+      v18 = *v18;
     }
 
-    if (copyfileWithClassFHandling(v14, v15, 0x800000Eu))
+    if (copyfileWithClassFHandling(v17, v18, 0x800000Eu))
     {
       if (DIDebugLogsEnabled())
       {
-        v16 = *__error();
-        if (DIForwardLogs())
+        v19 = *__error();
+        v20 = DIForwardLogs();
+        if (v20)
         {
-          v17 = getDIOSLog();
-          os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG);
-          v18 = (v1 + 56);
-          if (*(v1 + 79) < 0)
+          v34 = 0;
+          v22 = getDIOSLog(v20, v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
           {
-            v18 = *v13;
+            v23 = 3;
           }
 
-          v19 = *__error();
-          *buf = 68158466;
-          v29 = 79;
-          v30 = 2080;
-          v31 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
-          v32 = 2080;
-          v33 = v18;
-          v34 = 1024;
-          LODWORD(v35) = v19;
-          LODWORD(v27) = 34;
-          v20 = _os_log_send_and_compose_impl();
-
-          if (v20)
+          else
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
-            free(v20);
+            v23 = 2;
+          }
+
+          v24 = (v1 + 56);
+          if (*(v1 + 79) < 0)
+          {
+            v24 = *v16;
+          }
+
+          v25 = *__error();
+          *buf = 68158466;
+          v36 = 79;
+          v37 = 2080;
+          v38 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
+          v39 = 2080;
+          v40 = v24;
+          v41 = 1024;
+          LODWORD(v42) = v25;
+          LODWORD(v32) = 34;
+          v26 = _os_log_send_and_compose_impl(v23, &v34, 0, 0, &dword_248DE0000, v22, 2, "%.*s: Failed to copy %s (errno %d)", buf, v32, v33);
+
+          if (v26)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+            free(v26);
           }
         }
 
         else
         {
-          v21 = getDIOSLog();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          v27 = getDIOSLog(v20, v21);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            v22 = (v1 + 56);
+            v28 = (v1 + 56);
             if (*(v1 + 79) < 0)
             {
-              v22 = *v13;
+              v28 = *v16;
             }
 
-            v23 = *__error();
+            v29 = *__error();
             *buf = 68158466;
-            v29 = 79;
-            v30 = 2080;
-            v31 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
-            v32 = 2080;
-            v33 = v22;
-            v34 = 1024;
-            LODWORD(v35) = v23;
-            _os_log_impl(&dword_248DE0000, v21, OS_LOG_TYPE_DEBUG, "%.*s: Failed to copy %s (errno %d)", buf, 0x22u);
+            v36 = 79;
+            v37 = 2080;
+            v38 = "virtual void ParallelFolderCopier::copyFiles(progressFunc_t) const_block_invoke";
+            v39 = 2080;
+            v40 = v28;
+            v41 = 1024;
+            LODWORD(v42) = v29;
+            _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEBUG, "%.*s: Failed to copy %s (errno %d)", buf, 0x22u);
           }
         }
 
-        *__error() = v16;
+        *__error() = v19;
       }
 
-      v24 = 1;
-      atomic_compare_exchange_strong(*(v1 + 48), &v24, 0);
-      if (v24 == 1)
+      v30 = 1;
+      atomic_compare_exchange_strong(*(v1 + 48), &v30, 0);
+      if (v30 == 1)
       {
         if (*(v1 + 79) < 0)
         {
-          v13 = *v13;
+          v16 = *v16;
         }
 
-        [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to copy %s", v13, v27];
+        [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to copy %s", v16];
         objc_claimAutoreleasedReturnValue();
         operator new();
       }
     }
 
     atomic_fetch_add(*(v1 + 104), *(v1 + 112));
-    v25 = atomic_load(*(v1 + 104));
-    result = std::function<void ()(long long)>::operator()(v1 + 120, 100 * v25 / *(v2 + 56));
+    v31 = atomic_load(*(v1 + 104));
+    return std::function<void ()(long long)>::operator()(v1 + 120, 100 * v31 / *(v2 + 56));
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2182,103 +3269,127 @@ void sub_248F0DCB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void SerialFolderCopier::copyFiles(uint64_t a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v44 = a2;
+  v58 = *MEMORY[0x277D85DE8];
   v3 = *__error();
-  if (DIForwardLogs())
+  v4 = DIForwardLogs();
+  if (v4)
   {
-    v37.__pn_.__r_.__value_.__r.__words[0] = 0;
-    v4 = getDIOSLog();
-    os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
-    v5 = (a1 + 8);
-    if (*(a1 + 31) < 0)
+    v47.__pn_.__r_.__value_.__r.__words[0] = 0;
+    v6 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = v5->__pn_.__r_.__value_.__r.__words[0];
+      v7 = 3;
     }
 
-    v6 = (a1 + 32);
+    else
+    {
+      v7 = 2;
+    }
+
+    v8 = (a1 + 8);
+    if (*(a1 + 31) < 0)
+    {
+      v8 = v8->__pn_.__r_.__value_.__r.__words[0];
+    }
+
+    v9 = (a1 + 32);
     if (*(a1 + 55) < 0)
     {
-      v6 = v6->__pn_.__r_.__value_.__r.__words[0];
+      v9 = v9->__pn_.__r_.__value_.__r.__words[0];
     }
 
     *buf = 68158466;
-    v39 = 64;
-    v40 = 2080;
-    v41 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
-    v42 = 2080;
-    v43 = v5;
-    v44 = 2080;
-    v45 = v6;
-    LODWORD(v34) = 38;
-    v7 = _os_log_send_and_compose_impl();
+    v49 = 64;
+    v50 = 2080;
+    v51 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
+    v52 = 2080;
+    v53 = v8;
+    v54 = 2080;
+    v55 = v9;
+    LODWORD(v40) = 38;
+    v10 = _os_log_send_and_compose_impl(v7, &v47, 0, 0, &dword_248DE0000, v6, 0, "%.*s: Copying: %s -> %s", buf, v40, v41, v43);
 
-    if (v7)
+    if (v10)
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v7);
-      free(v7);
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v10);
+      free(v10);
     }
   }
 
   else
   {
-    v8 = getDIOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v11 = getDIOSLog(v4, v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = (a1 + 8);
+      v12 = (a1 + 8);
       if (*(a1 + 31) < 0)
       {
-        v9 = v9->__pn_.__r_.__value_.__r.__words[0];
+        v12 = v12->__pn_.__r_.__value_.__r.__words[0];
       }
 
-      v10 = (a1 + 32);
+      v13 = (a1 + 32);
       if (*(a1 + 55) < 0)
       {
-        v10 = v10->__pn_.__r_.__value_.__r.__words[0];
+        v13 = v13->__pn_.__r_.__value_.__r.__words[0];
       }
 
       *buf = 68158466;
-      v39 = 64;
-      v40 = 2080;
-      v41 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
-      v42 = 2080;
-      v43 = v9;
-      v44 = 2080;
-      v45 = v10;
-      _os_log_impl(&dword_248DE0000, v8, OS_LOG_TYPE_DEFAULT, "%.*s: Copying: %s -> %s", buf, 0x26u);
+      v49 = 64;
+      v50 = 2080;
+      v51 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
+      v52 = 2080;
+      v53 = v12;
+      v54 = 2080;
+      v55 = v13;
+      _os_log_impl(&dword_248DE0000, v11, OS_LOG_TYPE_DEFAULT, "%.*s: Copying: %s -> %s", buf, 0x26u);
     }
   }
 
   *__error() = v3;
-  v11 = *(a1 + 64);
-  v12 = *(a1 + 72);
-  if (v11 != v12)
+  v15 = *(a1 + 64);
+  v16 = *(a1 + 72);
+  if (v15 != v16)
   {
-    v13 = 0;
+    v17 = 0;
+    *&v14 = 68158722;
+    v42 = v14;
     do
     {
       if (*(a1 + 88) == 1)
       {
         exception = __cxa_allocate_exception(0x10uLL);
-        v29 = errnoException::errnoException(exception, &cfstr_CopyAbortedByU.isa, 89);
+        errnoException::errnoException(exception, &cfstr_CopyAbortedByU.isa, 89);
       }
 
-      std::__fs::filesystem::operator/[abi:ne200100](v11, a1 + 8, &v37);
-      std::__fs::filesystem::operator/[abi:ne200100](v11, a1 + 32, &__p);
+      std::__fs::filesystem::operator/[abi:ne200100](&v47, v15, a1 + 8);
+      std::__fs::filesystem::operator/[abi:ne200100](&__p, v15, a1 + 32);
       if (DIDebugLogsEnabled())
       {
-        v14 = *__error();
-        if (DIForwardLogs())
+        v18 = *__error();
+        v19 = DIForwardLogs();
+        if (v19)
         {
-          v15 = getDIOSLog();
-          os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG);
-          if ((v37.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          v45 = 0;
+          v21 = getDIOSLog(v19, v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
-            v16 = &v37;
+            v22 = 3;
           }
 
           else
           {
-            v16 = v37.__pn_.__r_.__value_.__r.__words[0];
+            v22 = 2;
+          }
+
+          if ((v47.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          {
+            v23 = &v47;
+          }
+
+          else
+          {
+            v23 = v47.__pn_.__r_.__value_.__r.__words[0];
           }
 
           if ((__p.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -2291,108 +3402,108 @@ void SerialFolderCopier::copyFiles(uint64_t a1, uint64_t a2)
             p_p = __p.__pn_.__r_.__value_.__r.__words[0];
           }
 
-          v18 = *(v11 + 32);
-          *buf = 68158722;
-          v39 = 64;
-          v40 = 2080;
-          v41 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
-          v42 = 2080;
-          v43 = v16;
-          v44 = 2080;
-          v45 = p_p;
-          v46 = 1024;
-          v47 = v18;
-          LODWORD(v34) = 44;
-          v19 = _os_log_send_and_compose_impl();
+          v25 = *(v15 + 32);
+          *buf = v42;
+          v49 = 64;
+          v50 = 2080;
+          v51 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
+          v52 = 2080;
+          v53 = v23;
+          v54 = 2080;
+          v55 = p_p;
+          v56 = 1024;
+          v57 = v25;
+          LODWORD(v40) = 44;
+          v26 = _os_log_send_and_compose_impl(v22, &v45, 0, 0, &dword_248DE0000, v21, 2, "%.*s: Copying %s to %s, flags 0x%x", buf, v40, v42, *(&v42 + 1), v44);
 
-          if (v19)
+          if (v26)
           {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v19);
-            free(v19);
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+            free(v26);
           }
         }
 
         else
         {
-          v20 = getDIOSLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+          v27 = getDIOSLog(v19, v20);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
-            if ((v37.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            if ((v47.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v21 = &v37;
+              v28 = &v47;
             }
 
             else
             {
-              v21 = v37.__pn_.__r_.__value_.__r.__words[0];
+              v28 = v47.__pn_.__r_.__value_.__r.__words[0];
             }
 
             if ((__p.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v22 = &__p;
+              v29 = &__p;
             }
 
             else
             {
-              v22 = __p.__pn_.__r_.__value_.__r.__words[0];
+              v29 = __p.__pn_.__r_.__value_.__r.__words[0];
             }
 
-            v23 = *(v11 + 32);
-            *buf = 68158722;
-            v39 = 64;
-            v40 = 2080;
-            v41 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
-            v42 = 2080;
-            v43 = v21;
-            v44 = 2080;
-            v45 = v22;
-            v46 = 1024;
-            v47 = v23;
-            _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEBUG, "%.*s: Copying %s to %s, flags 0x%x", buf, 0x2Cu);
+            v30 = *(v15 + 32);
+            *buf = v42;
+            v49 = 64;
+            v50 = 2080;
+            v51 = "virtual void SerialFolderCopier::copyFiles(progressFunc_t) const";
+            v52 = 2080;
+            v53 = v28;
+            v54 = 2080;
+            v55 = v29;
+            v56 = 1024;
+            v57 = v30;
+            _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEBUG, "%.*s: Copying %s to %s, flags 0x%x", buf, 0x2Cu);
           }
         }
 
-        *__error() = v14;
+        *__error() = v18;
       }
 
-      if ((v37.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v47.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v24 = &v37;
+        v31 = &v47;
       }
 
       else
       {
-        v24 = v37.__pn_.__r_.__value_.__r.__words[0];
+        v31 = v47.__pn_.__r_.__value_.__r.__words[0];
       }
 
       if ((__p.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v25 = &__p;
+        v32 = &__p;
       }
 
       else
       {
-        v25 = __p.__pn_.__r_.__value_.__r.__words[0];
+        v32 = __p.__pn_.__r_.__value_.__r.__words[0];
       }
 
-      if (copyfileWithClassFHandling(v24, v25, *(v11 + 32)))
+      if (copyfileWithClassFHandling(v31, v32, *(v15 + 32)))
       {
-        v30 = __cxa_allocate_exception(0x10uLL);
-        v31 = &v37;
-        if ((v37.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v36 = __cxa_allocate_exception(0x10uLL);
+        v37 = &v47;
+        if ((v47.__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v31 = v37.__pn_.__r_.__value_.__r.__words[0];
+          v37 = v47.__pn_.__r_.__value_.__r.__words[0];
         }
 
-        v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed copying %s", v31, v34];
-        errnoException::errnoException(v30, v32, 0);
+        v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed copying %s", v37];
+        errnoException::errnoException(v36, v38, 0);
       }
 
-      v26 = *(v11 + 24);
-      if (v26)
+      v33 = *(v15 + 24);
+      if (v33)
       {
-        v13 += v26;
-        std::function<void ()(long long)>::operator()(a2, (100 * v13) / *(a1 + 56));
+        v17 += v33;
+        std::function<void ()(long long)>::operator()(v44, (100 * v17) / *(a1 + 56));
       }
 
       if (SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) < 0)
@@ -2400,18 +3511,16 @@ void SerialFolderCopier::copyFiles(uint64_t a1, uint64_t a2)
         operator delete(__p.__pn_.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v37.__pn_.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v47.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v37.__pn_.__r_.__value_.__l.__data_);
+        operator delete(v47.__pn_.__r_.__value_.__l.__data_);
       }
 
-      v11 += 40;
+      v15 += 40;
     }
 
-    while (v11 != v12);
+    while (v15 != v16);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void sub_248F0E208(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -2631,7 +3740,7 @@ void ref::details::ref_cnt_handle::~ref_cnt_handle(ref::details::ref_cnt_handle 
   JUMPOUT(0x24C1ED730);
 }
 
-ref::ref_cnt *ref::details::ref_cnt_handle::upgrade_to_exclusive@<X0>(ref::details::ref_cnt_handle *this@<X0>, const void *a2@<X1>, uint64_t a3@<X8>)
+uint64_t *ref::details::ref_cnt_handle::upgrade_to_exclusive@<X0>(uint64_t *__return_ptr a1@<X8>, ref::details::ref_cnt_handle *this@<X0>, const void *a3@<X1>)
 {
   v6 = *(this + 16);
   result = *(this + 1);
@@ -2639,21 +3748,21 @@ ref::ref_cnt *ref::details::ref_cnt_handle::upgrade_to_exclusive@<X0>(ref::detai
   {
     if (atomic_fetch_add_explicit(result, 0xFFFFFFFFFFFFFFFFLL, memory_order_relaxed) == 1)
     {
-      ref::ref_cnt::notify(result, a2);
+      ref::ref_cnt::notify(result, a3);
     }
 
     *(this + 16) = 0;
     v8 = *(this + 1);
 
-    return ref::ref_cnt::take_exclusive(v8, a2, a3);
+    return ref::ref_cnt::take_exclusive(a1, v8, a3);
   }
 
   else
   {
-    *(a3 + 16) = 0;
-    *a3 = &unk_285BF4C70;
-    *(a3 + 8) = result;
-    *(a3 + 24) = a2;
+    *(a1 + 16) = 0;
+    *a1 = &unk_285BF4C70;
+    a1[1] = result;
+    a1[3] = a3;
   }
 
   return result;
@@ -2810,72 +3919,68 @@ void smart_enums::validators::validator_exception<int>::~validator_exception(std
   JUMPOUT(0x24C1ED730);
 }
 
-void smart_enums::validators::validator_exception<int>::reason(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
+void smart_enums::validators::validator_exception<int>::reason(smart_enums::validators::validator_exception_base *a1@<X0>, void *a2@<X8>)
 {
-  v4 = smart_enums::validators::validator_exception_base::what(a1);
-  std::string::basic_string[abi:ne200100]<0>(v18, v4);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v12);
-  if ((v19 & 0x80u) == 0)
+  v3 = smart_enums::validators::validator_exception_base::what(a1);
+  std::string::basic_string[abi:ne200100]<0>(v16, v3);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
+  if ((v17 & 0x80u) == 0)
   {
-    v5 = v18;
+    v4 = v16;
   }
 
   else
   {
-    v5 = v18[0];
+    v4 = v16[0];
   }
 
-  if ((v19 & 0x80u) == 0)
+  if ((v17 & 0x80u) == 0)
   {
-    v6 = v19;
+    v5 = v17;
   }
 
   else
   {
-    v6 = v18[1];
+    v5 = v16[1];
   }
 
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, v5, v6);
-  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " [", 2);
-  *(v8 + *(*v8 - 24) + 8) = *(v8 + *(*v8 - 24) + 8) & 0xFFFFFFB5 | 8;
-  v9 = a1[8];
-  v10 = MEMORY[0x24C1ED390]();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "]", 1);
-  std::stringbuf::str[abi:ne200100](&v14, a2);
-  v12[0] = *MEMORY[0x277D82818];
-  v11 = *(MEMORY[0x277D82818] + 72);
-  *(v12 + *(v12[0] - 24)) = *(MEMORY[0x277D82818] + 64);
-  v13 = v11;
-  v14 = MEMORY[0x277D82878] + 16;
-  if (v16 < 0)
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, v4, v5);
+  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, " [", 2);
+  *(v7 + *(*v7 - 24) + 8) = *(v7 + *(*v7 - 24) + 8) & 0xFFFFFFB5 | 8;
+  v8 = MEMORY[0x24C1ED390]();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "]", 1);
+  std::stringbuf::str[abi:ne200100](&v12, a2);
+  v10[0] = *MEMORY[0x277D82818];
+  v9 = *(MEMORY[0x277D82818] + 72);
+  *(v10 + *(v10[0] - 24)) = *(MEMORY[0x277D82818] + 64);
+  v11 = v9;
+  v12 = MEMORY[0x277D82878] + 16;
+  if (v14 < 0)
   {
-    operator delete(v15[7].__locale_);
+    operator delete(v13[7].__locale_);
   }
 
-  v14 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v15);
+  v12 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v13);
   std::iostream::~basic_iostream();
-  MEMORY[0x24C1ED6A0](&v17);
-  if (v19 < 0)
+  MEMORY[0x24C1ED6A0](&v15);
+  if (v17 < 0)
   {
-    operator delete(v18[0]);
+    operator delete(v16[0]);
   }
 }
 
-void *std::vector<char *>::reserve(void *result, unint64_t a2)
+void std::vector<char *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::allocator<unsigned long long *>::allocate_at_least[abi:ne200100](result, a2);
+      std::allocator<unsigned long long *>::allocate_at_least[abi:ne200100](a1, a2);
     }
 
     std::vector<iovec>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void BufferAllocator::~BufferAllocator(BufferAllocator *this)
@@ -2944,7 +4049,7 @@ void BufferAllocator::BufferAllocator(BufferAllocator *this, uint64_t a2, unsign
   }
 }
 
-void BufferAllocator::allocate(std::condition_variable *this@<X0>, void *a2@<X8>)
+void BufferAllocator::allocate(uint64_t *__return_ptr a1@<X8>, std::condition_variable *this@<X0>)
 {
   __lk.__m_ = &this[2];
   __lk.__owns_ = 1;
@@ -2969,7 +4074,7 @@ void BufferAllocator::allocate(std::condition_variable *this@<X0>, void *a2@<X8>
   v5 = *(v4 - 8);
   *&this->__cv_.__opaque[24] = v4 - 8;
   v7 = this;
-  *a2 = v5;
+  *a1 = v5;
   operator new();
 }
 
@@ -3026,7 +4131,7 @@ uint64_t std::__shared_ptr_pointer<char *,BufferAllocator::allocate(void)::$_0,s
   }
 }
 
-uint64_t std::vector<char *>::emplace_back<char * const&>(uint64_t a1, void *a2)
+void *std::vector<char *>::emplace_back<char * const&>(uint64_t a1, void *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -3083,12 +4188,12 @@ uint64_t std::vector<char *>::emplace_back<char * const&>(uint64_t a1, void *a2)
   }
 
   *(a1 + 8) = v6;
-  return v6 - 8;
+  return (v6 - 8);
 }
 
-void toNativeType(const __CFString *a1)
+void toNativeType(const __CFString *a2)
 {
-  Length = CFStringGetLength(a1);
+  Length = CFStringGetLength(a2);
   CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
   operator new[]();
 }
@@ -3171,60 +4276,61 @@ __CFDictionary *cf::make_dict@<X0>(const void **keys@<X0>, const void **values@<
   return result;
 }
 
-CFMutableDictionaryRef cf::make_empty_dict@<X0>(CFMutableDictionaryRef *a1@<X8>)
+uint64_t *cf::make_empty_dict@<X0>(uint64_t *__return_ptr a1@<X8>)
 {
   result = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   *a1 = result;
   return result;
 }
 
-const void **cf::serialize_to_xml_plist@<X0>(CFPropertyListRef propertyList@<X0>, const __CFData **a2@<X8>)
+const void **cf::serialize_to_xml_plist@<X0>(const __CFData **__return_ptr a1@<X8>, CFPropertyListRef propertyList@<X0>)
 {
   error = 0;
-  v4 = CFPropertyListCreateData(*MEMORY[0x277CBECE8], propertyList, kCFPropertyListXMLFormat_v1_0, 0, &error);
-  v5 = v4;
-  if (v4)
+  v3 = CFPropertyListCreateData(*MEMORY[0x277CBECE8], propertyList, kCFPropertyListXMLFormat_v1_0, 0, &error);
+  v4 = v3;
+  if (v3)
   {
-    v6 = error == 0;
+    v5 = error == 0;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (!v6)
+  if (!v5)
   {
     exception = __cxa_allocate_exception(0x40uLL);
     *exception = &unk_285BF4E60;
-    v11 = std::generic_category();
+    v10 = std::generic_category();
     exception[1] = 22;
-    exception[2] = v11;
+    exception[2] = v10;
     *(exception + 24) = 0;
     *(exception + 48) = 0;
     exception[7] = "Can't serialize property list";
   }
 
-  Length = CFDataGetLength(v4);
+  Length = CFDataGetLength(v3);
   TypeID = CFDataGetTypeID();
-  if (CFGetTypeID(v5) != TypeID)
+  if (CFGetTypeID(v4) != TypeID)
   {
-    v12 = __cxa_allocate_exception(0x40uLL);
-    v13 = CFGetTypeID(v5);
-    v14 = cf::CFUtilException::CFUtilException(v12, v13, TypeID);
+    v11 = __cxa_allocate_exception(0x40uLL);
+    v12 = CFGetTypeID(v4);
+    v13 = cf::CFUtilException::CFUtilException(v11, v12, TypeID);
   }
 
-  v15 = 0;
-  *a2 = v5;
-  a2[1] = Length;
-  CFAutoRelease<__CFData const*>::~CFAutoRelease(&v15);
+  v14 = 0;
+  *a1 = v4;
+  a1[1] = Length;
+  CFAutoRelease<__CFData const*>::~CFAutoRelease(&v14);
   return CFAutoRelease<__CFError *>::~CFAutoRelease(&error);
 }
 
-void sub_248F12E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10)
+void sub_248F12E58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  __cxa_free_exception(v10);
-  CFAutoRelease<__CFError *>::~CFAutoRelease(&a10);
+  va_start(va, a9);
+  __cxa_free_exception(v9);
+  CFAutoRelease<__CFError *>::~CFAutoRelease(va);
   _Unwind_Resume(a1);
 }
 
@@ -3292,22 +4398,22 @@ void sub_248F13064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-char *CFDataCopyToVector@<X0>(const __CFData *a1@<X0>, unsigned int a2@<W1>, unint64_t a3@<X2>, char **a4@<X8>)
+char *CFDataCopyToVector@<X0>(char **__return_ptr a1@<X8>, const __CFData *a2@<X0>, unsigned int a3@<W1>, unint64_t a4@<X2>)
 {
-  Length = CFDataGetLength(a1);
-  v9 = a3 + a2;
-  v10 = __CFADD__(a3, a2);
-  if (__CFADD__(a3, a2))
+  Length = CFDataGetLength(a2);
+  v9 = a4 + a3;
+  v10 = __CFADD__(a4, a3);
+  if (__CFADD__(a4, a3))
   {
     v11 = -1;
   }
 
   else
   {
-    v11 = a3 + a2;
+    v11 = a4 + a3;
   }
 
-  if (__CFADD__(a3, a2))
+  if (__CFADD__(a4, a3))
   {
     v9 = v11;
   }
@@ -3315,9 +4421,9 @@ char *CFDataCopyToVector@<X0>(const __CFData *a1@<X0>, unsigned int a2@<W1>, uni
   v18 = v9;
   v19 = v10;
   v12 = safe_number<unsigned long long>::operator unsigned long long<unsigned long long>(&v18);
-  if (!a3)
+  if (!a4)
   {
-    a3 = Length;
+    a4 = Length;
   }
 
   if (Length < v12)
@@ -3327,12 +4433,12 @@ char *CFDataCopyToVector@<X0>(const __CFData *a1@<X0>, unsigned int a2@<W1>, uni
   }
 
   v13 = v12;
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  BytePtr = CFDataGetBytePtr(a1);
-  std::vector<std::byte>::reserve(a4, a3);
-  return std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,std::byte const*>(a4, *a4, &BytePtr[a2], &BytePtr[v13], v13 - a2);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  BytePtr = CFDataGetBytePtr(a2);
+  std::vector<std::byte>::reserve(a1, a4);
+  return std::vector<std::byte>::__insert_with_size[abi:ne200100]<std::byte const*,std::byte const*>(a1, *a1, &BytePtr[a3], &BytePtr[v13], v13 - a3);
 }
 
 void sub_248F1319C(_Unwind_Exception *exception_object)
@@ -3370,9 +4476,9 @@ BOOL addCFStringToDict(__CFDictionary *a1, const void *a2, uint64_t a3)
   return v6 != 0;
 }
 
-void sub_248F13248(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F13248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CFAutoRelease<__CFString const*>::~CFAutoRelease(va);
   _Unwind_Resume(a1);
 }
@@ -3407,99 +4513,99 @@ const void **CFAutoRelease<__CFError *>::~CFAutoRelease(const void **a1)
   return a1;
 }
 
-void convertHexToBytes(char *__s, unint64_t *a2)
+void convertHexToBytes(char *__s, unint64_t *a3)
 {
-  v3 = &v17;
-  std::string::basic_string[abi:ne200100]<0>(&v17, __s);
-  v4 = HIBYTE(v17.__r_.__value_.__r.__words[2]);
-  v5 = HIBYTE(v17.__r_.__value_.__r.__words[2]);
-  size = v17.__r_.__value_.__l.__size_;
-  v6 = v17.__r_.__value_.__r.__words[0];
-  if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v4 = &v18;
+  std::string::basic_string[abi:ne200100]<0>(&v18, __s);
+  v5 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
+  v6 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
+  size = v18.__r_.__value_.__l.__size_;
+  v7 = v18.__r_.__value_.__r.__words[0];
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = (&v17 + HIBYTE(v17.__r_.__value_.__r.__words[2]));
+    v9 = (&v18 + HIBYTE(v18.__r_.__value_.__r.__words[2]));
   }
 
   else
   {
-    v8 = (v17.__r_.__value_.__r.__words[0] + v17.__r_.__value_.__l.__size_);
+    v9 = (v18.__r_.__value_.__r.__words[0] + v18.__r_.__value_.__l.__size_);
   }
 
-  if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v3 = v17.__r_.__value_.__r.__words[0];
+    v4 = v18.__r_.__value_.__r.__words[0];
   }
 
-  if (v3 != v8)
+  if (v4 != v9)
   {
     do
     {
-      v3->__r_.__value_.__s.__data_[0] = __tolower(v3->__r_.__value_.__s.__data_[0]);
-      v3 = (v3 + 1);
+      v4->__r_.__value_.__s.__data_[0] = __tolower(v4->__r_.__value_.__s.__data_[0]);
+      v4 = (v4 + 1);
     }
 
-    while (v3 != v8);
-    v4 = HIBYTE(v17.__r_.__value_.__r.__words[2]);
-    size = v17.__r_.__value_.__l.__size_;
-    v6 = v17.__r_.__value_.__r.__words[0];
-    v5 = HIBYTE(v17.__r_.__value_.__r.__words[2]);
+    while (v4 != v9);
+    v5 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
+    size = v18.__r_.__value_.__l.__size_;
+    v7 = v18.__r_.__value_.__r.__words[0];
+    v6 = HIBYTE(v18.__r_.__value_.__r.__words[2]);
   }
 
-  if (v5 >= 0)
+  if (v6 >= 0)
   {
-    v9 = &v17;
+    v10 = &v18;
   }
 
   else
   {
-    v9 = v6;
+    v10 = v7;
   }
 
-  if (v5 < 0)
+  if (v6 < 0)
   {
-    v4 = size;
+    v5 = size;
   }
 
-  if (v4 >= 2)
+  if (v5 >= 2)
   {
-    v10 = v9 + v4;
-    v11 = v9;
+    v11 = v10 + v5;
+    v12 = v10;
     while (1)
     {
-      v12 = memchr(v11, 48, v4 - 1);
-      if (!v12)
+      v13 = memchr(v12, 48, v5 - 1);
+      if (!v13)
       {
         goto LABEL_22;
       }
 
-      if (LOWORD(v12->__r_.__value_.__l.__data_) == 30768)
+      if (LOWORD(v13->__r_.__value_.__l.__data_) == 30768)
       {
         break;
       }
 
-      v11 = (&v12->__r_.__value_.__l.__data_ + 1);
-      v4 = v10 - v11;
-      if (v10 - v11 < 2)
+      v12 = (&v13->__r_.__value_.__l.__data_ + 1);
+      v5 = v11 - v12;
+      if (v11 - v12 < 2)
       {
         goto LABEL_22;
       }
     }
 
-    if (v12 == v9)
+    if (v13 == v10)
     {
-      v13 = std::string::erase(&v17, 0, 2uLL);
-      std::string::operator=(&v17, v13);
+      v14 = std::string::erase(&v18, 0, 2uLL);
+      std::string::operator=(&v18, v14);
     }
   }
 
 LABEL_22:
-  v14 = 0;
   v15 = 0;
   v16 = 0;
-  boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vector<unsigned char>>>(&v17, &v14);
-  if (a2)
+  v17 = 0;
+  boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vector<unsigned char>>>(&v18, &v15);
+  if (a3)
   {
-    *a2 = v15 - v14;
+    *a3 = v16 - v15;
   }
 
   operator new[]();
@@ -3549,7 +4655,7 @@ void sub_248F134E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vector<unsigned char>>>(uint64_t a1, uint64_t a2)
+uint64_t boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vector<unsigned char>>>(uint64_t **a1, uint64_t a2)
 {
   v3 = *(a1 + 23);
   v4 = *a1;
@@ -3560,7 +4666,7 @@ uint64_t boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vect
 
   if (v3 < 0)
   {
-    v3 = *(a1 + 8);
+    v3 = a1[1];
   }
 
   v7 = v4;
@@ -3580,12 +4686,10 @@ uint64_t boost::algorithm::unhex<std::string,std::back_insert_iterator<std::vect
 
 uint64_t di_utils::buffer_to_uuid(di_utils *this, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
-  v4[1] = 0;
-  result = boost::uuids::basic_name_generator<boost::uuids::detail::sha1>::operator()(v4, this, a2);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v3[2] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
+  v3[1] = 0;
+  return boost::uuids::basic_name_generator<boost::uuids::detail::sha1>::operator()(v3, this, a2);
 }
 
 void *operator<<(void *a1, unsigned int *a2)
@@ -3618,11 +4722,9 @@ uint64_t DiskImagesRuntimeException::what(DiskImagesRuntimeException *this)
 
 uint64_t di_utils::random_uuid(di_utils *this)
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   uuid_generate_random(out);
-  result = *out;
-  v2 = *MEMORY[0x277D85DE8];
-  return result;
+  return *out;
 }
 
 void *details::get_dummy_shared_ptr(void)
@@ -3676,9 +4778,9 @@ uint64_t process_terminator::terminate(process_terminator *this)
   return result;
 }
 
-void sub_248F13A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F13A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<137ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -3703,74 +4805,74 @@ unint64_t trim_data(sg_vec_ns::details::sg_vec_iterator *a1, uint64_t a2, unint6
     goto LABEL_69;
   }
 
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v46, a1);
-  sg_vec_ns::details::sg_vec_iterator::operator+=(&v46, v7 + v8);
-  sg_vec_ns::details::buffer_iterator::rtrim_written(v49);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v33, a1);
-  sg_vec_ns::generate_vec_ref(v33, a2, a4[1], v7 + v8, 0xFFFFFFFFFFFFFFFFLL, &v36);
-  if (v35)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
-  }
-
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v45, a1);
+  sg_vec_ns::details::sg_vec_iterator::operator+=(v45, v7 + v8);
+  sg_vec_ns::details::buffer_iterator::rtrim_written(v48);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v32, a1);
+  sg_vec_ns::generate_vec_ref(v32, a2, a4[1], v7 + v8, 0xFFFFFFFFFFFFFFFFLL, &v35);
   if (v34)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   }
 
-  sg_vec_ref::begin(&v36, v62);
-  sg_entry::operator=(&v46, v62);
-  v48 = v63;
-  v49[0] = v64;
-  v49[1] = v65;
-  v49[2] = v66;
-  v50 = v67;
-  v11 = v68;
-  v68 = 0uLL;
-  v12 = *(&v51 + 1);
-  v51 = v11;
+  if (v33)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v33);
+  }
+
+  sg_vec_ref::begin(&v35, v61);
+  sg_entry::operator=(v45, v61);
+  v47 = v62;
+  v48[0] = v63;
+  v48[1] = v64;
+  v48[2] = v65;
+  v49 = v66;
+  v11 = v67;
+  v67 = 0uLL;
+  v12 = *(&v50 + 1);
+  v50 = v11;
   if (v12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    v51 = v68;
     v52 = v69;
     v53 = v70;
-    v54 = v71;
-    if (*(&v68 + 1))
+    if (*(&v67 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v68 + 1));
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v67 + 1));
     }
   }
 
   else
   {
+    v51 = v68;
     v52 = v69;
     v53 = v70;
-    v54 = v71;
   }
 
-  if (*(&v62[0] + 1))
+  if (*(&v61[0] + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v62[0] + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v61[0] + 1));
   }
 
-  sg_vec_ns::details::sg_vec_iterator::operator+=(&v46, v8);
-  sg_vec_ref::end(&v36, v30);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&__src, &v46);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v21, a1);
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&__dst, &v21);
+  sg_vec_ns::details::sg_vec_iterator::operator+=(v45, v8);
+  sg_vec_ref::end(&v35, v29);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&__src, v45);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(v20, a1);
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&__dst, v20);
   v13 = 0;
-  v59 = 0;
-  while (!sg_vec_ns::details::sg_vec_iterator::operator==(&__src, v30))
+  v58 = 0;
+  while (!sg_vec_ns::details::sg_vec_iterator::operator==(&__src, v29))
   {
-    sg_vec_ns::details::buffer_iterator::sync(&v27);
-    v14 = v28;
-    if (v28)
+    sg_vec_ns::details::buffer_iterator::sync(&v26);
+    v14 = v27;
+    if (v27)
     {
-      atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v15 = v29;
-    if (!v29)
+    v15 = v28;
+    if (!v28)
     {
       sg_vec_ns::details::sg_vec_iterator::operator++(&__src);
       v18 = 2;
@@ -3782,15 +4884,15 @@ unint64_t trim_data(sg_vec_ns::details::sg_vec_iterator *a1, uint64_t a2, unint6
       goto LABEL_28;
     }
 
-    v16 = v57;
-    if (v26 < v57)
+    v16 = v56;
+    if (v25 < v56)
     {
-      v16 = v26;
+      v16 = v25;
     }
 
-    if (v16 >= v29)
+    if (v16 >= v28)
     {
-      v17 = v29;
+      v17 = v28;
     }
 
     else
@@ -3800,36 +4902,36 @@ unint64_t trim_data(sg_vec_ns::details::sg_vec_iterator *a1, uint64_t a2, unint6
 
     if (!v16)
     {
-      *&v60 = "trim_data(const sg_vec::iterator &, const sg_vec::iterator &, size_t, const io_result_t &)::(anonymous class)::operator()(const auto &, const auto &, size_t) const [src:auto = sg_vec_ns::details::sg_vec_iterator, dst:auto = sg_vec_ns::details::sg_vec_iterator]";
-      *(&v60 + 1) = 121;
-      v61 = 16;
-      di_log::logger<di_log::log_printer<183ul>>::logger(v62, &v60);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, "Trimming: Written ", 18);
-      MEMORY[0x24C1ED3C0](&v72, v15);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, ", dest buffer_size ", 19);
-      MEMORY[0x24C1ED3C0](&v72, v57);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, " src size ", 10);
-      MEMORY[0x24C1ED3C0](&v72, v26);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, ", trimmed size", 14);
-      MEMORY[0x24C1ED3C0](&v72, 0);
+      *&v59 = "trim_data(const sg_vec::iterator &, const sg_vec::iterator &, size_t, const io_result_t &)::(anonymous class)::operator()(const auto &, const auto &, size_t) const [src:auto = sg_vec_ns::details::sg_vec_iterator, dst:auto = sg_vec_ns::details::sg_vec_iterator]";
+      *(&v59 + 1) = 121;
+      v60 = 16;
+      di_log::logger<di_log::log_printer<183ul>>::logger(v61, &v59);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "Trimming: Written ", 18);
+      MEMORY[0x24C1ED3C0](&v71, v15);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, ", dest buffer_size ", 19);
+      MEMORY[0x24C1ED3C0](&v71, v56);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, " src size ", 10);
+      MEMORY[0x24C1ED3C0](&v71, v25);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, ", trimmed size", 14);
+      MEMORY[0x24C1ED3C0](&v71, 0);
       std::ostream::~ostream();
-      di_log::logger_buf<di_log::log_printer<183ul>>::~logger_buf(v62);
-      MEMORY[0x24C1ED6A0](v73);
+      di_log::logger_buf<di_log::log_printer<183ul>>::~logger_buf(v61);
+      MEMORY[0x24C1ED6A0](v72);
       memmove(__dst, __src, v17);
 LABEL_34:
-      *&v60 = "transform(Fn &&, sg_vec_ref::iterator, const sg_vec_ref::iterator &, sg_vec_ref::iterator) [Fn = (lambda at /Library/Caches/com.apple.xbs/Sources/DiskImages2/app/utils.cpp:180:13)]";
-      *(&v60 + 1) = 97;
-      v61 = 16;
-      di_log::logger<di_log::log_printer<694ul>>::logger(v62, &v60);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, "IO error with sg: ", 18);
-      operator<<(&v72, &__src);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, " dest ", 6);
-      operator<<(&v72, &__dst);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v72, " returned status ", 17);
-      MEMORY[0x24C1ED3B0](&v72, v17);
+      *&v59 = "transform(Fn &&, sg_vec_ref::iterator, const sg_vec_ref::iterator &, sg_vec_ref::iterator) [Fn = (lambda at /Library/Caches/com.apple.xbs/Sources/DiskImages2/app/utils.cpp:180:13)]";
+      *(&v59 + 1) = 97;
+      v60 = 16;
+      di_log::logger<di_log::log_printer<694ul>>::logger(v61, &v59);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, "IO error with sg: ", 18);
+      operator<<(&v71, &__src);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, " dest ", 6);
+      operator<<(&v71, &__dst);
+      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v71, " returned status ", 17);
+      MEMORY[0x24C1ED3B0](&v71, v17);
       std::ostream::~ostream();
-      di_log::logger_buf<di_log::log_printer<694ul>>::~logger_buf(v62);
-      MEMORY[0x24C1ED6A0](v73);
+      di_log::logger_buf<di_log::log_printer<694ul>>::~logger_buf(v61);
+      MEMORY[0x24C1ED6A0](v72);
       v18 = 1;
       if (!v14)
       {
@@ -3863,21 +4965,16 @@ LABEL_29:
     }
   }
 
-  sg_vec_ns::details::sg_vec_iterator::operator+=(&v21, v13);
+  sg_vec_ns::details::sg_vec_iterator::operator+=(v20, v13);
 LABEL_37:
-  if (v58)
+  if (v57)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v58);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v57);
   }
 
-  if (v56)
+  if (v55)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v56);
-  }
-
-  if (v23)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v55);
   }
 
   if (v22)
@@ -3885,19 +4982,19 @@ LABEL_37:
     std::__shared_weak_count::__release_shared[abi:ne200100](v22);
   }
 
-  if (v28)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v25)
+  if (v27)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v27);
   }
 
-  if (v32)
+  if (v24)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
   }
 
   if (v31)
@@ -3905,9 +5002,9 @@ LABEL_37:
     std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
-  if (v45)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v45);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
   if (v44)
@@ -3925,34 +5022,14 @@ LABEL_37:
     std::__shared_weak_count::__release_shared[abi:ne200100](v42);
   }
 
-  if (v40)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
-  }
-
-  if (v38)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v38);
-  }
-
-  if (*(&v51 + 1))
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v51 + 1));
-  }
-
-  if (v47)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v47);
-  }
-
-LABEL_69:
-  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v36, a1);
-  sg_vec_ns::details::sg_vec_iterator::operator+=(&v36, v7);
-  sg_vec_ns::details::buffer_iterator::rtrim_written(v39);
-  v19 = *(a1 + 26);
   if (v41)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+  }
+
+  if (v39)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v39);
   }
 
   if (v37)
@@ -3960,15 +5037,39 @@ LABEL_69:
     std::__shared_weak_count::__release_shared[abi:ne200100](v37);
   }
 
+  if (*(&v50 + 1))
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v50 + 1));
+  }
+
+  if (v46)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
+  }
+
+LABEL_69:
+  sg_vec_ns::details::sg_vec_iterator::sg_vec_iterator(&v35, a1);
+  sg_vec_ns::details::sg_vec_iterator::operator+=(&v35, v7);
+  sg_vec_ns::details::buffer_iterator::rtrim_written(v38);
+  if (v40)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
+  }
+
+  if (v36)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v36);
+  }
+
   return v7;
 }
 
-void sub_248F13F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_248F13F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x738]);
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a10);
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a38);
-  sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a66);
+  sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&a65);
   sg_vec_ref::~sg_vec_ref(&STACK[0x388]);
   sg_vec_ns::details::sg_vec_iterator::~sg_vec_iterator(&STACK[0x658]);
   _Unwind_Resume(a1);
@@ -4056,14 +5157,14 @@ uint64_t boost::algorithm::detail::decode_one<std::__wrap_iter<char const*>,std:
   return a3;
 }
 
-void sub_248F1423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F1423C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   boost::algorithm::not_enough_input::~not_enough_input(va);
   _Unwind_Resume(a1);
 }
 
-void boost::throw_exception<boost::algorithm::not_enough_input>(void *a1)
+void boost::throw_exception<boost::algorithm::not_enough_input>(const boost::algorithm::not_enough_input *a1)
 {
   exception = __cxa_allocate_exception(0x30uLL);
   boost::algorithm::not_enough_input::not_enough_input(exception, a1);
@@ -4093,7 +5194,14 @@ uint64_t boost::algorithm::detail::hex_char_to_int<char>(int a1)
     {
       if ((a1 - 97) > 5)
       {
-        boost::exception_detail::set_info_rv<boost::error_info<boost::algorithm::bad_char_,char>>::set<boost::algorithm::non_hex_input>();
+        v6 = 0u;
+        v7 = 0u;
+        DWORD2(v7) = -1;
+        v5[0] = &unk_285BF4F60;
+        v5[1] = &unk_285BF4F90;
+        v3 = &unk_285BF4FD8;
+        v4 = a1;
+        boost::exception_detail::set_info_rv<boost::error_info<boost::algorithm::bad_char_,char>>::set<boost::algorithm::non_hex_input>(v5, &v3);
       }
 
       return (a1 - 87);
@@ -4108,9 +5216,9 @@ uint64_t boost::algorithm::detail::hex_char_to_int<char>(int a1)
   return v1;
 }
 
-void sub_248F1440C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_248F1440C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   boost::algorithm::non_hex_input::~non_hex_input(va);
   _Unwind_Resume(a1);
 }
@@ -4536,20 +5644,20 @@ uint64_t boost::exception_detail::error_info_container_impl::diagnostic_informat
   return result;
 }
 
-void *boost::exception_detail::error_info_container_impl::get@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+void *boost::exception_detail::error_info_container_impl::get@<X0>(uint64_t a1@<X0>, void *a2@<X8>, uint64_t *a3@<X1>)
 {
-  result = std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::find<boost::exception_detail::type_info_>(a1 + 8, a2);
+  result = std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::find<boost::exception_detail::type_info_>(a1 + 8, a3);
   if ((a1 + 16) == result)
   {
-    *a3 = 0;
-    a3[1] = 0;
+    *a2 = 0;
+    a2[1] = 0;
   }
 
   else
   {
     v6 = result[6];
-    *a3 = result[5];
-    a3[1] = v6;
+    *a2 = result[5];
+    a2[1] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -4559,9 +5667,10 @@ void *boost::exception_detail::error_info_container_impl::get@<X0>(uint64_t a1@<
   return result;
 }
 
-void boost::exception_detail::error_info_container_impl::set(uint64_t a1, uint64_t *a2, uint64_t *a3)
+void boost::exception_detail::error_info_container_impl::set(uint64_t a1, uint64_t *a2, void *a3)
 {
-  v5 = std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::piecewise_construct_t const&,std::tuple<boost::exception_detail::type_info_ const&>,std::tuple<>>(a1 + 8, a3);
+  v9 = a3;
+  v5 = std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::piecewise_construct_t const&,std::tuple<boost::exception_detail::type_info_ const&>,std::tuple<>>((a1 + 8), a3, &std::piecewise_construct, &v9);
   v7 = *a2;
   v6 = a2[1];
   if (v6)
@@ -4569,9 +5678,9 @@ void boost::exception_detail::error_info_container_impl::set(uint64_t a1, uint64
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v8 = *(v5 + 48);
-  *(v5 + 40) = v7;
-  *(v5 + 48) = v6;
+  v8 = v5[6];
+  v5[5] = v7;
+  v5[6] = v6;
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -4656,15 +5765,15 @@ void *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::sha
   return a4;
 }
 
-uint64_t std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::piecewise_construct_t const&,std::tuple<boost::exception_detail::type_info_ const&>,std::tuple<>>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::piecewise_construct_t const&,std::tuple<boost::exception_detail::type_info_ const&>,std::tuple<>>(uint64_t **a1, uint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__find_equal<boost::exception_detail::type_info_>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__find_equal<boost::exception_detail::type_info_>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__find_equal<boost::exception_detail::type_info_>(uint64_t a1, void *a2, uint64_t *a3)
@@ -4773,15 +5882,15 @@ uint64_t std::__shared_ptr_pointer<boost::exception_detail::error_info_base *,st
   }
 }
 
-uint64_t std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::pair<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>(uint64_t a1, uint64_t *a2)
+uint64_t std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__emplace_unique_key_args<boost::exception_detail::type_info_,std::pair<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>(uint64_t **a1, uint64_t *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__find_equal<boost::exception_detail::type_info_>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::__map_value_compare<boost::exception_detail::type_info_,std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>,std::less<boost::exception_detail::type_info_>,true>,std::allocator<std::__value_type<boost::exception_detail::type_info_,std::shared_ptr<boost::exception_detail::error_info_base>>>>::__find_equal<boost::exception_detail::type_info_>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void sub_248F15B64(_Unwind_Exception *exception_object)
@@ -4826,39 +5935,38 @@ uint64_t std::__shared_ptr_pointer<char *,std::shared_ptr<char>::__shared_ptr_de
 
 uint64_t diskimage_uio::crypto::details::auth_table_impl_t::get_entry(diskimage_uio::crypto::details::auth_table_impl_t *this, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = *this;
-  v12[0] = 0;
-  v13 = 0;
-  v11[0] = this;
-  v11[1] = v3 + 20 * a2;
-  v4 = crypto::auth_table::const_iterator::operator*(v11);
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v9, v4);
-  v7 = this;
-  if (v10 == -1)
+  v11[0] = 0;
+  v12 = 0;
+  v10[0] = this;
+  v10[1] = v3 + 20 * a2;
+  v4 = crypto::auth_table::const_iterator::operator*(v10);
+  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v8, v4);
+  v6 = this;
+  if (v9 == -1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
   }
 
-  v8 = &v7;
-  (off_285BF51C8[v10])(&v8, v9);
-  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v9);
-  if (v13 == 1)
+  v7 = &v6;
+  (off_285BF51C8[v9])(&v7, v8);
+  result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v8);
+  if (v12 == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v12);
+    return std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v11);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_248F15D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_248F15D14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   if (LOBYTE(STACK[0x520]) == 1)
   {
-    std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v3 + 16);
+    std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v5 + 16);
   }
 
   _Unwind_Resume(a1);
@@ -4993,9 +6101,9 @@ void diskimage_uio::crypto::auth_table_entry::passphrase::~passphrase(diskimage_
   }
 }
 
-void diskimage_uio::crypto::details::auth_table_entry_passphrase_impl_t::unlock(diskimage_uio::crypto::details::auth_table_entry_passphrase_impl_t *this@<X0>, crypto::auth_entry_ns::passphrase *a2@<X1>, _BYTE *a3@<X8>)
+void diskimage_uio::crypto::details::auth_table_entry_passphrase_impl_t::unlock(diskimage_uio::crypto::details::auth_table_entry_passphrase_impl_t *this@<X0>, crypto::auth_entry_ns::passphrase *a2@<X1>, __n128 *a3@<X8>)
 {
-  crypto::auth_entry_ns::passphrase::unlock((this + 16), a2, v5);
+  crypto::auth_entry_ns::passphrase::unlock(v5, (this + 16), a2);
   diskimage_uio::crypto::details::auth_table_entry_base_impl_t::unlock_open_params(this, v5, a3);
   if (v6 == 1)
   {
@@ -5106,9 +6214,9 @@ void diskimage_uio::crypto::auth_table_entry::symmetric_key::~symmetric_key(disk
   }
 }
 
-void diskimage_uio::crypto::details::auth_table_entry_symmetric_key_impl_t::unlock(diskimage_uio::crypto::details::auth_table_entry_symmetric_key_impl_t *this@<X0>, const __CFData *a2@<X1>, _BYTE *a3@<X8>)
+void diskimage_uio::crypto::details::auth_table_entry_symmetric_key_impl_t::unlock(diskimage_uio::crypto::details::auth_table_entry_symmetric_key_impl_t *this@<X0>, const __CFData *a2@<X1>, __n128 *a3@<X8>)
 {
-  crypto::auth_entry_ns::symmetric_key::unlock((this + 16), a2, v5);
+  crypto::auth_entry_ns::symmetric_key::unlock(v5, (this + 16), a2);
   diskimage_uio::crypto::details::auth_table_entry_base_impl_t::unlock_open_params(this, v5, a3);
   if (v6 == 1)
   {
@@ -5295,12 +6403,12 @@ uint64_t diskimage_uio::crypto::auth_table::const_iterator::operator++(uint64_t 
   return a1;
 }
 
-uint64_t diskimage_uio::crypto::auth_table::const_iterator::operator++@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t diskimage_uio::crypto::auth_table::const_iterator::operator++@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   *a2 = *a1;
-  result = std::__optional_copy_base<diskimage_uio::crypto::auth_table_entry,false>::__optional_copy_base[abi:ne200100]((a2 + 8), a1 + 8);
+  result = std::__optional_copy_base<diskimage_uio::crypto::auth_table_entry,false>::__optional_copy_base[abi:ne200100](a2 + 8, a1 + 8);
   v5 = *(a1 + 40);
-  *(a2 + 40) = v5;
+  a2[5] = v5;
   *(a1 + 40) = v5 + 1;
   if (*(a1 + 32) == 1)
   {
@@ -5323,9 +6431,9 @@ uint64_t diskimage_uio::crypto::auth_table::const_iterator::operator*(uint64_t a
   return a1 + 8;
 }
 
-void sub_248F166F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F166F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5395,47 +6503,46 @@ uint64_t diskimage_uio::crypto::auth_table::begin@<X0>(uint64_t this@<X0>, uint6
 
 uint64_t diskimage_uio::crypto::auth_table::cend@<X0>(diskimage_uio::crypto::auth_table *this@<X0>, uint64_t a2@<X8>)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = **this;
-  *&v12 = *this;
-  *(&v12 + 1) = v4;
-  v13[0] = 0;
-  v14 = 0;
-  *&v9 = v12;
-  *(&v9 + 1) = *(v12 + 8);
-  v10[0] = 0;
-  v11 = 0;
-  v17 = v12;
-  std::__optional_copy_base<std::variant<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,false>::__optional_copy_base[abi:ne200100](v18, v13);
-  v15 = v9;
-  result = std::__optional_copy_base<std::variant<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,false>::__optional_copy_base[abi:ne200100](v16, v10);
-  v6 = *(&v15 + 1);
-  v7 = *(&v17 + 1);
-  if (v16[640] == 1)
+  *&v11 = *this;
+  *(&v11 + 1) = v4;
+  v12[0] = 0;
+  v13 = 0;
+  *&v8 = v11;
+  *(&v8 + 1) = *(v11 + 8);
+  v9[0] = 0;
+  v10 = 0;
+  v16 = v11;
+  std::__optional_copy_base<std::variant<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,false>::__optional_copy_base[abi:ne200100](v17, v12);
+  v14 = v8;
+  result = std::__optional_copy_base<std::variant<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,false>::__optional_copy_base[abi:ne200100](v15, v9);
+  v6 = *(&v14 + 1);
+  v7 = *(&v16 + 1);
+  if (v15[640] == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v16);
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v15);
   }
 
-  if (v18[640] == 1)
+  if (v17[640] == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v18);
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v17);
   }
 
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v10);
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v9);
   }
 
-  if (v14 == 1)
+  if (v13 == 1)
   {
-    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v13);
+    result = std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v12);
   }
 
   *a2 = this;
   *(a2 + 8) = 0;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0xCCCCCCCCCCCCCCCDLL * ((v6 - v7) >> 2);
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5585,7 +6692,7 @@ void diskimage_uio::crypto::registered_cryptos::register_crypto(uint64_t a1@<X0>
     v12 = (*v11 + 16 * v10);
   }
 
-  std::__find_segment_if[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const&,diskimage_uio::crypto::encryption_props const* const*,long,256l>,std::__find_segment<diskimage_uio::crypto::encryption_props>,std::__identity>(v8, v9, v11, v12, &v20);
+  std::__find_segment_if[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const&,diskimage_uio::crypto::encryption_props const* const*,long,256l>,std::__find_segment<diskimage_uio::crypto::encryption_props>,std::__identity>(v8, v9, v11, v12, &v20, &v21);
   v15 = v14;
   v16 = *(a1 + 32) + *(a1 + 40);
   v17 = *(a1 + 8);
@@ -5610,7 +6717,7 @@ LABEL_10:
   std::mutex::unlock((a1 + 48));
 }
 
-uint64_t *std::deque<diskimage_uio::crypto::encryption_props>::emplace<diskimage_uio::crypto::encryption_props>(int64x2_t *a1, char *a2, uint64_t a3, _OWORD *a4)
+void *std::deque<diskimage_uio::crypto::encryption_props>::emplace<diskimage_uio::crypto::encryption_props>(int64x2_t *a1, char *a2, uint64_t a3, _OWORD *a4)
 {
   v6 = a1[2].u64[0];
   v7 = a1->i64[1];
@@ -5689,14 +6796,14 @@ uint64_t *std::deque<diskimage_uio::crypto::encryption_props>::emplace<diskimage
         if (v35 < 1)
         {
           v41 = 255 - v35;
-          v36 = &v21[-(v41 >> 8)];
-          v37 = &(*v36)[16 * ~v41];
+          v36 = &v21[-8 * (v41 >> 8)];
+          v37 = (*v36 + 16 * ~v41);
         }
 
         else
         {
-          v36 = &v21[v35 >> 8];
-          v37 = &(*v36)[16 * v35];
+          v36 = &v21[8 * (v35 >> 8)];
+          v37 = (*v36 + 16 * v35);
         }
 
         std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,0>(v36, v37, v32, v34, v21, v22, &v49);
@@ -5746,14 +6853,14 @@ LABEL_10:
           {
             v38 = 254 - v28;
             v30 = &v16[-(v38 >> 8)];
-            v31 = &(*v30)[16 * ~v38];
+            v31 = (*v30 + 16 * ~v38);
           }
 
           else
           {
             v29 = v28 + 1;
             v30 = &v16[v29 >> 8];
-            v31 = &(*v30)[16 * v29];
+            v31 = (*v30 + 16 * v29);
           }
 
           v39 = std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>::operator+[abi:ne200100](&v47, v11);
@@ -5839,7 +6946,7 @@ LABEL_5:
   result = v8;
   while (1)
   {
-    v16 = v6 == v5 ? 0 : *(v5 + 8 * v10) + 16 * v9;
+    v16 = v6 == v5 ? 0 : (*(v5 + 8 * v10) + 16 * v9);
     if (result == v16 || LODWORD(result->__vftable) == v11 && HIDWORD(result->__vftable) == v12 && LODWORD(result[1].__vftable) == v13 && HIDWORD(result[1].__vftable) == v14)
     {
       break;
@@ -5863,7 +6970,7 @@ LABEL_5:
 
   else
   {
-    v18 = *(v5 + 8 * v10) + 16 * v9;
+    v18 = (*(v5 + 8 * v10) + 16 * v9);
   }
 
   if (result == v18)
@@ -5955,8 +7062,9 @@ LABEL_3:
   return result;
 }
 
-__n128 diskimage_uio::crypto::registered_cryptos::to_sg_per_io_crypto@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, sg_per_io_crypto *a4@<X8>)
+__n128 diskimage_uio::crypto::registered_cryptos::to_sg_per_io_crypto@<Q0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, sg_per_io_crypto *a4@<X8>)
 {
+  v4 = a3;
   diskimage_uio::crypto::registered_cryptos::find(a1, *a2, v18);
   if ((v19 & 1) == 0)
   {
@@ -6001,7 +7109,7 @@ LABEL_12:
 
   v13.n128_u64[0] = a2 + 8 + v9;
   v13.n128_u64[1] = v10;
-  sg_per_io_crypto::sg_per_io_crypto(v15, v16[0], &v14, &v13, a3, *(a2 + 72) * a3);
+  sg_per_io_crypto::sg_per_io_crypto(v15, v16[0], &v14, &v13, v4, *(a2 + 72) * v4);
   sg_per_io_crypto::sg_per_io_crypto(a4, v15);
   *(a4 + 56) = 1;
   return result;
@@ -6014,39 +7122,39 @@ void diskimage_uio::diskimage_open_params::query_general_encryption(uint64_t a1@
   *(a1 + 16) = 1;
 }
 
-void sub_248F175E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F175E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  (*(*v2 + 24))(v2);
+  (*(*v3 + 24))(v3);
   _Unwind_Resume(a1);
 }
 
-void sub_248F176FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F176FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_248F1786C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
-  (*(*v2 + 24))(v2);
-  _Unwind_Resume(a1);
-}
-
-void sub_248F17978(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_248F17A3C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F1786C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  (*(*v3 + 24))(v3);
+  _Unwind_Resume(a1);
+}
+
+void sub_248F17978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_248F17A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
   std::__variant_detail::__dtor<std::__variant_detail::__traits<diskimage_uio::crypto::auth_table_entry::passphrase,diskimage_uio::crypto::auth_table_entry::public_key,diskimage_uio::crypto::auth_table_entry::symmetric_key,diskimage_uio::crypto::auth_table_entry::unknown,diskimage_uio::crypto::auth_table_entry::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6179,26 +7287,26 @@ void diskimage_uio::crypto::details::auth_table_entry_unknown_impl_t::~auth_tabl
   JUMPOUT(0x24C1ED730);
 }
 
-__n128 diskimage_uio::crypto::details::auth_table_entry_base_impl_t::unlock_open_params@<Q0>(uint64_t a1@<X0>, char ***a2@<X1>, _BYTE *a3@<X8>)
+__n128 diskimage_uio::crypto::details::auth_table_entry_base_impl_t::unlock_open_params@<Q0>(uint64_t a1@<X0>, unsigned int *a2@<X1>, __n128 *a3@<X8>)
 {
-  if (a2[3])
+  if (a2[6])
   {
     diskimage_uio::crypto::details::auth_table_impl_t::unlock_open_params(*(a1 + 8), a2);
   }
 
   v6 = 35;
   v7 = std::generic_category();
-  if ((*(*a2[1] + 4))(a2[1], *a2, &v6) || (v7->equivalent_0)(v7, a2, v6))
+  if ((*(**(a2 + 1) + 32))(*(a2 + 1), *a2, &v6) || (v7->equivalent_0)(v7, a2, v6))
   {
-    *a3 = 0;
-    a3[16] = 1;
+    a3->n128_u8[0] = 0;
+    a3[1].n128_u8[0] = 1;
   }
 
   else
   {
     result = *a2;
     *a3 = *a2;
-    a3[16] = 0;
+    a3[1].n128_u8[0] = 0;
   }
 
   return result;
@@ -6519,69 +7627,63 @@ crypto::auth_table *std::unique_ptr<diskimage_uio::crypto::details::auth_table_i
   return result;
 }
 
-void *std::__find_segment_if[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const&,diskimage_uio::crypto::encryption_props const* const*,long,256l>,std::__find_segment<diskimage_uio::crypto::encryption_props>,std::__identity>(void *a1, _DWORD *a2, void *a3, _DWORD *a4, _DWORD *a5)
+uint64_t *std::__find_segment_if[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const&,diskimage_uio::crypto::encryption_props const* const*,long,256l>,std::__find_segment<diskimage_uio::crypto::encryption_props>,std::__identity>(uint64_t *a1, _DWORD *a2, uint64_t *a3, _DWORD *a4, _DWORD *a5, uint64_t a6)
 {
-  v7 = a1;
+  v8 = a1;
   if (a1 == a3)
   {
-    v8 = std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(a2, a4, a5);
-    if (!v7)
+    v9 = std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(a2, a4, a5);
+    if (!v8)
     {
-      return v7;
+      return v8;
     }
 
     goto LABEL_6;
   }
 
-  v10 = (*a1 + 4096);
-  v11 = std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(a2, v10, a5);
-  if (v11 != v10)
+  v11 = (*a1 + 4096);
+  v12 = std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(a2, v11, a5);
+  if (v12 != v11)
   {
-    v8 = v11;
+    v9 = v12;
 LABEL_6:
-    if ((*v7 + 4096) == v8)
+    if ((*v8 + 4096) == v9)
     {
-      v12 = v7[1];
-      ++v7;
+      ++v8;
     }
 
-    return v7;
+    return v8;
   }
 
-  v13 = v7 + 1;
-  v7 += 2;
-  do
+  v13 = v8 + 1;
+  for (v8 += 2; ; ++v8)
   {
     v14 = *v13;
     if (v13 == a3)
     {
-      if ((*v13 + 4096) != std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(v14, a4, a5))
-      {
-        return a3;
-      }
-
-      v17 = v13[1];
-      return v7;
+      break;
     }
 
     v15 = v14 + 1024;
     v16 = std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(v14, v14 + 1024, a5);
-    ++v7;
     ++v13;
+    if (v16 != v15)
+    {
+      if ((*(v13 - 1) + 4096) != v16)
+      {
+        --v13;
+      }
+
+      return v13;
+    }
   }
 
-  while (v16 == v15);
-  if ((*(v13 - 1) + 4096) == v16)
+  if ((*v13 + 4096) != std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(v14, a4, a5))
   {
-    v18 = *v13;
+    return a3;
   }
 
-  else
-  {
-    --v13;
-  }
-
-  return v13;
+  return v8;
 }
 
 _DWORD *std::__find[abi:ne200100]<diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props const*,diskimage_uio::crypto::encryption_props,std::__identity>(_DWORD *result, _DWORD *a2, _DWORD *a3)
@@ -6627,10 +7729,10 @@ void std::allocator<diskimage_uio::crypto::encryption_props>::allocate_at_least[
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-const void **std::deque<diskimage_uio::crypto::encryption_props>::__add_front_capacity(uint64_t a1)
+void std::deque<diskimage_uio::crypto::encryption_props>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -6642,15 +7744,15 @@ const void **std::deque<diskimage_uio::crypto::encryption_props>::__add_front_ca
     v4 = 32 * (v2 - v1) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x100)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x100)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -6658,24 +7760,24 @@ const void **std::deque<diskimage_uio::crypto::encryption_props>::__add_front_ca
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::allocator<std::atomic<DiskImage::Context *> *>::allocate_at_least[abi:ne200100](a1, v10);
+    v10[4] = a1;
+    std::allocator<std::atomic<DiskImage::Context *> *>::allocate_at_least[abi:ne200100](a1, v9);
   }
 
-  *(a1 + 32) = v5 + 256;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::atomic<DiskImage::Context *> *,std::allocator<std::atomic<DiskImage::Context *> *>>::emplace_front<std::atomic<DiskImage::Context *> *>(a1, v11);
+  a1[4] = (v5 + 256);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::atomic<DiskImage::Context *> *,std::allocator<std::atomic<DiskImage::Context *> *>>::emplace_front<std::atomic<DiskImage::Context *> *>(a1, v10);
 }
 
 void sub_248F1922C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -6689,25 +7791,21 @@ void sub_248F1922C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::prev[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,0>(void *a1, uint64_t a2)
+void *std::prev[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,0>(void *a1, uint64_t a2)
 {
   v2 = (a2 - *a1) >> 4;
   if (v2 < 2)
   {
-    result = &a1[-((256 - v2) >> 8)];
-    v5 = *result;
+    return &a1[-((256 - v2) >> 8)];
   }
 
   else
   {
-    result = &a1[(v2 - 1) >> 8];
-    v4 = *result;
+    return &a1[(v2 - 1) >> 8];
   }
-
-  return result;
 }
 
-uint64_t *std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -6716,32 +7814,30 @@ uint64_t *std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimag
     if (v4 < 1)
     {
       result -= (255 - v4) >> 8;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 8;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-void *std::deque<diskimage_uio::crypto::encryption_props>::__add_back_capacity(void *a1)
+void std::deque<diskimage_uio::crypto::encryption_props>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x100;
   v3 = v1 - 256;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -6749,25 +7845,25 @@ void *std::deque<diskimage_uio::crypto::encryption_props>::__add_back_capacity(v
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::allocator<std::atomic<DiskImage::Context *> *>::allocate_at_least[abi:ne200100](a1, v9);
+    v10 = a1;
+    std::allocator<std::atomic<DiskImage::Context *> *>::allocate_at_least[abi:ne200100](a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::atomic<DiskImage::Context *> *,std::allocator<std::atomic<DiskImage::Context *> *>>::emplace_back<std::atomic<DiskImage::Context *> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::atomic<DiskImage::Context *> *,std::allocator<std::atomic<DiskImage::Context *> *>>::emplace_back<std::atomic<DiskImage::Context *> *&>(a1, &v9);
 }
 
 void sub_248F194A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -6781,19 +7877,19 @@ void sub_248F194A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>>>(char **a1, char *__src, char **a3, char *a4, uint64_t a5)
+double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>>>(void **a1, uint64_t *__src, void **a3, uint64_t *a4, void ***a5)
 {
   if (a1 == a3)
   {
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
     v9 = __src;
   }
 
   else
   {
     v11 = a1 + 1;
-    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(__src, *(a5 + 8), *a1 + 4096, *a5, &v15);
+    std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(&v15, __src, a5[1], *a1 + 512, *a5);
     for (i = v16; ; i = v16)
     {
       *a5 = i;
@@ -6803,39 +7899,39 @@ double std::__for_each_segment[abi:ne200100]<std::__deque_iterator<diskimage_uio
       }
 
       v13 = *v11++;
-      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(v13, *(a5 + 8), v13 + 4096, *a5, &v15);
+      std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(&v15, v13, a5[1], v13 + 512, *a5);
     }
 
     v9 = *v11;
     v7 = *a5;
-    v8 = *(a5 + 8);
+    v8 = a5[1];
   }
 
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(v9, v8, a4, v7, &v15);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>(&v15, v9, v8, a4, v7);
   result = *&v16;
   *a5 = v16;
   return result;
 }
 
-char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>@<X0>(char *__src@<X0>, char *__dst@<X3>, char *a3@<X1>, void **a4@<X2>, char **a5@<X8>)
+uint64_t *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_ClassicAlgPolicy>,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>@<X0>(uint64_t **__return_ptr a1@<X8>, uint64_t *__src@<X0>, char *__dst@<X3>, uint64_t *a4@<X1>, void **a5@<X2>)
 {
-  v6 = a4;
-  if (__src != a3)
+  v6 = a5;
+  if (__src != a4)
   {
     v9 = __src;
-    v6 = a4 + 1;
-    v10 = *a4;
+    v6 = a5 + 1;
+    v10 = *a5;
     while (1)
     {
       v11 = v10 - __dst + 4096;
-      v12 = (a3 - v9) >> 4 >= v11 >> 4 ? v11 >> 4 : (a3 - v9) >> 4;
+      v12 = (a4 - v9) >> 4 >= v11 >> 4 ? v11 >> 4 : (a4 - v9) >> 4;
       if (v12)
       {
         __src = memmove(__dst, v9, 16 * v12);
       }
 
-      v9 += 16 * v12;
-      if (v9 == a3)
+      v9 += 2 * v12;
+      if (v9 == a4)
       {
         break;
       }
@@ -6857,13 +7953,13 @@ char *std::__copy_move_unwrap_iters[abi:ne200100]<std::__move_impl<std::_Classic
     }
   }
 
-  *a5 = a3;
-  a5[1] = v6;
-  a5[2] = __dst;
+  *a1 = a4;
+  a1[1] = v6;
+  a1[2] = __dst;
   return __src;
 }
 
-__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,0>@<Q0>(char **a1@<X1>, char *a2@<X2>, char **a3@<X3>, char *a4@<X4>, void *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
+__n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props*,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props**,long,256l>,0>@<Q0>(uint64_t *a1@<X1>, char *a2@<X2>, char **a3@<X3>, unint64_t a4@<X4>, char *a5@<X5>, char *a6@<X6>, __n128 *a7@<X8>)
 {
   if (a1 == a3)
   {
@@ -6875,7 +7971,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
   else
   {
-    v17 = a3 - 1;
+    v17 = (a3 - 1);
     v16 = *a3;
     v18 = a4;
     v13 = a5;
@@ -6892,10 +7988,10 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
 
       v19 = *v17--;
       v16 = v19;
-      v18 = v19 + 4096;
+      v18 = (v19 + 4096);
     }
 
-    v12 = *v17 + 4096;
+    v12 = (*v17 + 4096);
     v11 = a2;
   }
 
@@ -6907,7 +8003,7 @@ __n128 std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne20010
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, void *a3@<X3>, char *a4@<X4>, void *a5@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<diskimage_uio::crypto::encryption_props *,std::__deque_iterator<diskimage_uio::crypto::encryption_props,diskimage_uio::crypto::encryption_props *,diskimage_uio::crypto::encryption_props&,diskimage_uio::crypto::encryption_props **,long,256l>,0>@<X0>(char *a1@<X1>, char *a2@<X2>, char *a3@<X3>, char *a4@<X4>, char **a5@<X8>)
 {
   v6 = a3;
   if (a1 == a2)
@@ -6945,15 +8041,16 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         break;
       }
 
-      v15 = *--v6;
+      v15 = *(v6 - 1);
+      v6 -= 8;
       v10 = v15;
       a4 = (v15 + 4096);
     }
 
     if ((*v6 + 4096) == a4)
     {
-      v16 = v6[1];
-      ++v6;
+      v16 = *(v6 + 1);
+      v6 += 8;
       a4 = v16;
     }
   }
@@ -7124,7 +8221,7 @@ unint64_t lock_free::first_pair_mismatch(unint64_t a1, uint64_t a2, uint64_t a3,
   }
 }
 
-unint64_t lock_free::bitmap_t::update_bits(lock_free::bitmap_t *this, unint64_t a2, unint64_t a3, int a4)
+uint64_t lock_free::bitmap_t::update_bits(lock_free::bitmap_t *this, unint64_t a2, unint64_t a3, int a4)
 {
   if (a2 > a3 || *(this + 2) <= a3)
   {
@@ -7226,9 +8323,9 @@ unint64_t lock_free::bitmap_t::update_bits(lock_free::bitmap_t *this, unint64_t 
   return v5 & 1;
 }
 
-void sub_248F19BD8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F19BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7298,9 +8395,9 @@ BOOL lock_free::bitmap_t::update_pair_bits(uint64_t a1, unint64_t a2, unint64_t 
   }
 }
 
-void sub_248F19DFC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F19DFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7397,9 +8494,9 @@ LABEL_18:
   return v4;
 }
 
-void sub_248F1A038(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F1A038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7500,9 +8597,9 @@ LABEL_18:
   return v4;
 }
 
-void sub_248F1A27C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F1A27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7559,7 +8656,7 @@ uint64_t lock_free::bitmap_t::get_num_set(lock_free::bitmap_t *this)
   return v2;
 }
 
-unint64_t lock_free::bitmap_t::get_bit(lock_free::bitmap_t *this, unint64_t a2)
+uint64_t lock_free::bitmap_t::get_bit(lock_free::bitmap_t *this, unint64_t a2)
 {
   if (*(this + 2) <= a2)
   {
@@ -7577,9 +8674,9 @@ unint64_t lock_free::bitmap_t::get_bit(lock_free::bitmap_t *this, unint64_t a2)
   return (v2 >> a2) & 1;
 }
 
-void sub_248F1A490(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F1A490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7613,9 +8710,9 @@ BOOL lock_free::bitmap_t::set_bit(lock_free::bitmap_t *this, unint64_t a2, int a
   return (v5 & v3) == 0;
 }
 
-void sub_248F1A5D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_248F1A5D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7751,7 +8848,7 @@ void crypto::header::header(crypto::header *this, Backend *a2)
       std::__shared_weak_count::__release_shared[abi:ne200100](v12);
     }
 
-    if ((v6 & 0x80000000) == 0 && v19[0] == 0x1000000 && *&v19[1] == 0x72636E6561736463)
+    if ((v6 & 0x80000000) == 0 && v19[0] == 0x1000000 && v19[1] == 1634952291 && v19[2] == 1919118949)
     {
       exception = __cxa_allocate_exception(0x40uLL);
       DiskImagesRuntimeException::DiskImagesRuntimeException(exception, "The image is encrypted with obsolete encoding version 1", 0x2Du);
@@ -7831,7 +8928,7 @@ void sub_248F1B514(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
     std::__shared_weak_count::__release_shared[abi:ne200100](a10);
   }
 
-  MEMORY[0x24C1ED710](v11, v10);
+  MEMORY[0x24C1ED710](v11, v10, a3, a4, a5, a6, a7, a8);
   JUMPOUT(0x248F1B55CLL);
 }
 
@@ -7940,7 +9037,7 @@ void sub_248F1B788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t *crypto::format::format(uint64_t *a1, uint64_t *a2, uint64_t *a3)
+void *crypto::format::format(void *a1, uint64_t *a2, void *a3)
 {
   v4 = a3[1];
   *a1 = *a3;
@@ -7988,7 +9085,7 @@ void sub_248F1B874(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t *crypto::format::format(uint64_t *a1, uint64_t *a2)
+crypto **crypto::format::format(crypto **a1, crypto **a2)
 {
   v3 = *a2;
   v4 = a2[1];
@@ -8000,19 +9097,19 @@ uint64_t *crypto::format::format(uint64_t *a1, uint64_t *a2)
     v3 = *a1;
   }
 
-  crypto::generate_random_key(*(v3 + 24), (a1 + 2));
+  crypto::generate_random_key(*(v3 + 6), a1 + 2);
   v5 = *a1;
-  if (*(*a1 + 16) == 5)
+  if (*(*a1 + 4) == 5)
   {
-    v6 = *(v5 + 32);
+    v6 = *(v5 + 8);
   }
 
   else
   {
-    v6 = 8 * *(v5 + 12);
+    v6 = 8 * *(v5 + 3);
   }
 
-  crypto::generate_random_key(v6, (a1 + 5));
+  crypto::generate_random_key(v6, a1 + 5);
   v8[0] = a1;
   v8[1] = a1;
   crypto::header::exec_with_enc_mode<di_utils::overloaded<crypto::format::create_crypto_mode_data(void)::{lambda(crypto::header::aes_cbc_iv8,crypto::header const&)#1},crypto::format::create_crypto_mode_data(void)::{lambda(crypto::header::aes_xts,crypto::header const&)#1}>>(v8, *a1, (a1 + 8));
@@ -8045,16 +9142,16 @@ void sub_248F1B948(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t crypto::generate_random_key@<X0>(unint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t crypto::generate_random_key@<X0>(unint64_t this@<X0>, crypto **a2@<X8>)
 {
   *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  a2[1] = 0;
+  a2[2] = 0;
   if (this >= 8)
   {
     std::vector<std::byte>::__append(a2, this >> 3);
     v4 = *a2;
-    v3 = *(a2 + 8);
+    v3 = a2[1];
   }
 
   else
@@ -8078,7 +9175,7 @@ void sub_248F1B9E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void **crypto::format::make_key_blob@<X0>(crypto::format *this@<X0>, void *a2@<X8>)
+void **crypto::format::make_key_blob@<X0>(crypto::format *this@<X0>, uint64_t *a2@<X8>)
 {
   result = std::vector<std::byte>::vector[abi:ne200100](a2, *(this + 3) + *(this + 6) - (*(this + 2) + *(this + 5)) + 5);
   v4 = *result;
@@ -8154,25 +9251,25 @@ void crypto::auth_table::create(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   crypto::auth_table::~auth_table(&v8);
 }
 
-void sub_248F1BC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_248F1BC28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   crypto::auth_table::~auth_table(va);
   _Unwind_Resume(a1);
 }
 
 void crypto::crypto_serializer_t::create_serializer(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t a4@<X8>)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v16 = &unk_285BF5440;
-  v17 = &v18;
+  v15 = &unk_285BF5440;
+  v16 = &v17;
   v7 = *a2;
   v6 = a2[1];
-  *&v20 = a1;
-  *(&v20 + 1) = v7;
-  v21 = v6;
+  *&v19 = a1;
+  *(&v19 + 1) = v7;
+  v20 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -8180,45 +9277,45 @@ void crypto::crypto_serializer_t::create_serializer(uint64_t a1@<X0>, uint64_t *
 
   v8 = *a3;
   v9 = a3[1];
-  v24 = a3;
-  v25 = v8;
-  v26[0] = 0;
-  v27 = 0;
+  v23 = a3;
+  v24 = v8;
+  v25[0] = 0;
+  v26 = 0;
   if (v8 != v9)
   {
     do
     {
-      crypto::crypto_serializer_t::occupy_space(&v16, *(v8 + 4), *(v8 + 12));
-      crypto::auth_table::const_iterator::operator++(&v24, v22);
-      if (v23[640] == 1)
+      crypto::crypto_serializer_t::occupy_space(&v15, *(v8 + 4), *(v8 + 12));
+      crypto::auth_table::const_iterator::operator++(&v23, &v21);
+      if (v22[640] == 1)
       {
-        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v23);
+        std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v22);
       }
 
-      v8 = v25;
+      v8 = v24;
     }
 
-    while (v24 != a3 || v25 != a3[1]);
-    if (v27)
+    while (v23 != a3 || v24 != a3[1]);
+    if (v26)
     {
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v26);
+      std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::auth_entry_ns::passphrase,crypto::auth_entry_ns::public_key,crypto::auth_entry_ns::symmetric_key,crypto::auth_entry_ns::unknown,crypto::auth_entry_ns::error>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v25);
     }
   }
 
-  v12 = v17;
-  v11 = v18;
+  v12 = v16;
+  v11 = v17;
   *a4 = &unk_285BF5440;
   *(a4 + 8) = v12;
   *(a4 + 16) = v11;
   v13 = a4 + 16;
-  v14 = v19;
-  *(a4 + 24) = v19;
+  v14 = v18;
+  *(a4 + 24) = v18;
   if (v14)
   {
     v11[2] = v13;
-    v17 = &v18;
+    v16 = &v17;
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
     v11 = 0;
   }
 
@@ -8227,14 +9324,13 @@ void crypto::crypto_serializer_t::create_serializer(uint64_t a1@<X0>, uint64_t *
     *(a4 + 8) = v13;
   }
 
-  *(a4 + 32) = v20;
-  *(a4 + 48) = v21;
-  *(&v20 + 1) = 0;
-  v21 = 0;
+  *(a4 + 32) = v19;
+  *(a4 + 48) = v20;
+  *(&v19 + 1) = 0;
+  v20 = 0;
   *(a4 + 56) = 1;
-  v16 = &unk_285BF5440;
-  std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>>>::destroy(&v17, v11);
-  v15 = *MEMORY[0x277D85DE8];
+  v15 = &unk_285BF5440;
+  std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>>>::destroy(&v16, v11);
 }
 
 void sub_248F1BDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -8256,17 +9352,17 @@ uint64_t **crypto::crypto_serializer_t::occupy_space(uint64_t **this, unint64_t 
   if (a3 + a2 > a2)
   {
     v3 = this;
-    v4 = std::__tree<boost::icl::discrete_interval<unsigned long long,std::less>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,std::allocator<boost::icl::discrete_interval<unsigned long long,std::less>>>::__emplace_unique_key_args<boost::icl::discrete_interval<unsigned long long,std::less>,boost::icl::discrete_interval<unsigned long long,std::less> const&>((this + 1), v10);
+    v4 = std::__tree<boost::icl::discrete_interval<unsigned long long,std::less>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,std::allocator<boost::icl::discrete_interval<unsigned long long,std::less>>>::__emplace_unique_key_args<boost::icl::discrete_interval<unsigned long long,std::less>,boost::icl::discrete_interval<unsigned long long,std::less> const&>(this + 1, v10, v10);
     if (v5)
     {
       v12 = v4;
-      boost::icl::segmental::join_left<boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>>((v3 + 8), &v12);
-      return boost::icl::segmental::join_right<boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>>((v3 + 8), &v12);
+      boost::icl::segmental::join_left<boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>>(v3 + 1, &v12);
+      return boost::icl::segmental::join_right<boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>>(v3 + 1, &v12);
     }
 
     else
     {
-      v6 = std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>>>::upper_bound[abi:ne200100]<boost::icl::discrete_interval<unsigned long long,std::less>>(v3 + 8, v10);
+      v6 = std::__tree<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,std::__map_value_compare<boost::icl::discrete_interval<unsigned long long,std::less>,std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>,boost::icl::exclusive_less_than<boost::icl::discrete_interval<unsigned long long,std::less>>,true>,std::allocator<std::__value_type<boost::icl::discrete_interval<unsigned long long,std::less>,udif::details::run_info>>>::upper_bound[abi:ne200100]<boost::icl::discrete_interval<unsigned long long,std::less>>((v3 + 1), v10);
       v7 = *v6;
       if (*v6)
       {
@@ -8291,7 +9387,7 @@ uint64_t **crypto::crypto_serializer_t::occupy_space(uint64_t **this, unint64_t 
         while (v9);
       }
 
-      return boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>::add_over((v3 + 8), v10, v8);
+      return boost::icl::interval_set<unsigned long long,std::less,boost::icl::discrete_interval<unsigned long long,std::less>,std::allocator>::add_over(v3 + 1, v10, v8);
     }
   }
 
@@ -8310,36 +9406,36 @@ double crypto::crypto_serializer_t::create_key_blob@<D0>(crypto::format **this@<
 
 uint64_t crypto::crypto_serializer_t::write_header@<X0>(crypto::header ***this@<X0>, uint64_t a2@<X8>)
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v4 = malloc_type_valloc(0x4CuLL, 0x8B7C732DuLL);
   if (!v4)
   {
     exception = __cxa_allocate_exception(8uLL);
-    v14 = std::bad_alloc::bad_alloc(exception);
-    __cxa_throw(v14, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
+    v13 = std::bad_alloc::bad_alloc(exception);
+    __cxa_throw(v13, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
   }
 
-  v15 = &unk_285BF55F0;
-  *(&v17 + 1) = &v15;
-  v22 = v4;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v23, &v15);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v15);
-  crypto::header::write(*this[4], v22);
-  v5 = v22;
+  v14 = &unk_285BF55F0;
+  *(&v16 + 1) = &v14;
+  v21 = v4;
+  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v22, &v14);
+  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v14);
+  crypto::header::write(*this[4], v21);
+  v5 = v21;
   v6 = *(details::get_dummy_shared_ptr() + 1);
-  v15 = v5;
-  v16 = v6;
+  v14 = v5;
+  v15 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v17 = xmmword_248FA7FB0;
-  v18 = 76;
+  v16 = xmmword_248FA7FB0;
+  v17 = 76;
+  v18 = 0;
   v19 = 0;
   v20 = 0;
-  v21 = 0;
-  v7 = (*(*this[5] + 15))(this[5], &v15);
+  v7 = (*(*this[5] + 15))(this[5], &v14);
   if (v7 == 76)
   {
     v8 = 1;
@@ -8364,15 +9460,13 @@ uint64_t crypto::crypto_serializer_t::write_header@<X0>(crypto::header ***this@<
   }
 
   *(a2 + 16) = v8;
-  if (v16)
+  if (v15)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
   }
 
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v22, 0);
-  result = std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v23);
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v21, 0);
+  return std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v22);
 }
 
 void sub_248F1C0C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8511,9 +9605,9 @@ LABEL_22:
   crypto::descriptor_handle_t::~descriptor_handle_t(v20);
 }
 
-void sub_248F1C354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_248F1C354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   di_log::logger<di_log::log_printer<437ul>>::~logger(va);
   _Unwind_Resume(a1);
 }
@@ -8726,1106 +9820,4 @@ void sub_248F1C908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   }
 
   _Unwind_Resume(exception_object);
-}
-
-void crypto::crypto_serializer_t::serialize(crypto::crypto_serializer_t *this@<X0>, const crypto::symmetric_key_header *a2@<X1>, uint64_t a3@<X8>)
-{
-  std::vector<char>::vector[abi:ne200100](__p, 556);
-  crypto::symmetric_key_header::write(a2, __p[0]);
-  crypto::crypto_serializer_t::serialize(this, __p, 4, a3);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-}
-
-void sub_248F1C998(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t crypto::crypto_serializer_t::serialize@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v32[4] = *MEMORY[0x277D85DE8];
-  v5 = *a2;
-  v6 = a2[1];
-  if (*a2 == v6)
-  {
-    v19 = *a2;
-    goto LABEL_18;
-  }
-
-  v8 = v6 - v5;
-  v9 = malloc_type_valloc(v6 - v5, 0x8B7C732DuLL);
-  if (!v9)
-  {
-    exception = __cxa_allocate_exception(8uLL);
-    v22 = std::bad_alloc::bad_alloc(exception);
-    __cxa_throw(v22, MEMORY[0x277D82788], MEMORY[0x277D826E0]);
-  }
-
-  v23 = &unk_285BF55F0;
-  v26 = &v23;
-  v31 = v9;
-  std::__function::__value_func<void ()(char *)>::__value_func[abi:ne200100](v32, &v23);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](&v23);
-  v10 = *a2;
-  if (*a2 != a2[1])
-  {
-    v11 = 0;
-    do
-    {
-      crypto::auth_entry_descriptor::write((v10 + v11), &v31[v11]);
-      v11 += 20;
-    }
-
-    while (v10 + v11 != a2[1]);
-  }
-
-  v12 = v31;
-  v13 = *(details::get_dummy_shared_ptr() + 1);
-  v23 = v12;
-  v24 = v13;
-  if (v13)
-  {
-    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  v25 = v8;
-  v26 = 76;
-  v27 = v8;
-  v28 = 0;
-  v29 = 0;
-  v30 = 0;
-  v14 = (*(**(a1 + 40) + 120))(*(a1 + 40), &v23);
-  v15 = v14;
-  if (v8 != v14)
-  {
-    if (v14 <= 0)
-    {
-      v16 = -v14;
-    }
-
-    else
-    {
-      v16 = 5;
-    }
-
-    v17 = std::generic_category();
-    *a3 = v16;
-    *(a3 + 8) = v17;
-    *(a3 + 16) = 0;
-  }
-
-  if (v24)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
-  }
-
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](&v31, 0);
-  result = std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v32);
-  if (v8 == v15)
-  {
-    v5 = *a2;
-    v19 = a2[1];
-LABEL_18:
-    *(**(a1 + 32) + 72) = -858993459 * ((v19 - v5) >> 2);
-    result = crypto::crypto_serializer_t::write_header(a1, a3);
-  }
-
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_248F1CBD4(_Unwind_Exception *a1, uint64_t a2, std::__shared_weak_count *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
-  if (a3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a3);
-  }
-
-  std::unique_ptr<char,std::function<void ()(char *)>>::reset[abi:ne200100](va, 0);
-  std::__function::__value_func<void ()(char *)>::~__value_func[abi:ne200100](v15 + 8);
-  _Unwind_Resume(a1);
-}
-
-crypto *crypto_format_backend::read_aligned(uint64_t a1, crypto::context::aes *a2, char *a3, unint64_t a4, const sg_per_io_crypto *a5)
-{
-  v31[19] = *MEMORY[0x277D85DE8];
-  if (a3)
-  {
-    v10 = **(a1 + 48);
-    v11 = *(v10 + 52);
-    if (*(a1 + 392))
-    {
-      v12 = 0;
-    }
-
-    else
-    {
-      v12 = *(v10 + 64);
-    }
-
-    v13 = v12 + a4;
-    v14 = *(a1 + 24);
-    v15 = *(details::get_dummy_shared_ptr() + 1);
-    v21 = a2;
-    v22 = v15;
-    if (v15)
-    {
-      atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v23 = v11 * a3;
-    v24 = v13;
-    v25 = v11 * a3;
-    v26 = 0;
-    v27[0] = 0;
-    v28 = 0;
-    if (*(a5 + 56))
-    {
-      sg_per_io_crypto::sg_per_io_crypto(v27, a5);
-      v28 = 1;
-    }
-
-    v16 = (*(*v14 + 128))(v14, &v21);
-    if (v22)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
-    }
-
-    if ((v16 & 0x80000000) != 0)
-    {
-      *&v19 = "crypto_format_backend::read_aligned(char *, ssize_t, uint64_t, const std::optional<sg_per_io_crypto> &)";
-      *(&v19 + 1) = 35;
-      v20 = 16;
-      di_log::logger<di_log::log_printer<525ul>>::logger(&v21, &v19);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, "Crypto couldn't read from inner backend @ ", 42);
-      MEMORY[0x24C1ED3E0](&v30, v13);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v30, "/", 1);
-      MEMORY[0x24C1ED3B0](&v30, v11 * a3);
-      std::ostream::~ostream();
-      di_log::logger_buf<di_log::log_printer<525ul>>::~logger_buf(&v21);
-      MEMORY[0x24C1ED6A0](v31);
-    }
-
-    else
-    {
-      std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v21, a1 + 216);
-      v29 = v11;
-      v16 = crypto::crypt_op::crypt(&v21, a2, a3, a4);
-      std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v21);
-    }
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
-}
-
-void sub_248F1CE24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  di_log::logger<di_log::log_printer<525ul>>::~logger(va);
-  _Unwind_Resume(a1);
-}
-
-void *di_log::logger<di_log::log_printer<525ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<525ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF5AB8;
-  a1[45] = &unk_285BF5BB8;
-  a1[46] = &unk_285BF5BE0;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF5AB8;
-  a1[45] = &unk_285BF5B40;
-  a1[46] = &unk_285BF5B68;
-  return a1;
-}
-
-void sub_248F1CF6C(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<525ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<525ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<525ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-uint64_t crypto_format_backend::read(uint64_t a1, char **a2)
-{
-  v4 = *a2;
-  v6 = a2[2];
-  v5 = a2[3];
-  v7 = *(**(a1 + 48) + 52);
-  v8 = v5 / v7 * v7;
-  v9 = v5 % v7;
-  if (v5 % v7)
-  {
-    if (*(a2 + 104) == 1 && *(a2 + 12))
-    {
-      return 4294967194;
-    }
-
-    v13 = *(a1 + 384);
-    v18[0] = 0;
-    v19 = 0;
-    result = crypto_format_backend::read_aligned(a1, v13, 1, v8, v18);
-    if (result)
-    {
-      return result;
-    }
-
-    v14 = v9;
-    if (v6 >= (v7 - v9))
-    {
-      v15 = v7 - v9;
-    }
-
-    else
-    {
-      v15 = v6;
-    }
-
-    memcpy(v4, (*(a1 + 384) + v14), v15);
-    v6 -= v15;
-    v4 += v15;
-    v8 += v7;
-  }
-
-  if (*(a2 + 104) == 1 && *(a2 + 12))
-  {
-    sg_per_io_crypto::sg_per_io_crypto(v18, (a2 + 6));
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = 0;
-    v18[0] = 0;
-  }
-
-  v19 = v10;
-  result = crypto_format_backend::read_aligned(a1, v4, (v6 / v7), v8, v18);
-  if (!result)
-  {
-    v12 = v6 % v7;
-    if (!(v6 % v7))
-    {
-      return *(a2 + 4);
-    }
-
-    if (*(a2 + 104) == 1 && *(a2 + 12))
-    {
-      return 4294967194;
-    }
-
-    v16 = v6 - v12;
-    v17 = *(a1 + 384);
-    v18[0] = 0;
-    v19 = 0;
-    result = crypto_format_backend::read_aligned(a1, v17, 1, v16 + v8, v18);
-    if (!result)
-    {
-      memcpy(&v4[v16], *(a1 + 384), v12);
-      return *(a2 + 4);
-    }
-  }
-
-  return result;
-}
-
-crypto *crypto_format_backend::write_aligned(uint64_t a1, crypto::context::aes *a2, char *a3, unint64_t a4, const sg_per_io_crypto *a5)
-{
-  v32[19] = *MEMORY[0x277D85DE8];
-  v10 = **(a1 + 48);
-  if (*(a1 + 392))
-  {
-    v11 = 0;
-  }
-
-  else
-  {
-    v11 = *(v10 + 64);
-  }
-
-  v12 = *(v10 + 52);
-  std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](&v22, a1 + 64);
-  v30 = v12;
-  v13 = crypto::crypt_op::crypt(&v22, a2, a3, a4);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&v22);
-  if (!v13)
-  {
-    v14 = *(a1 + 24);
-    v15 = v11 + a4;
-    v16 = *(details::get_dummy_shared_ptr() + 1);
-    v17 = v12 * a3;
-    v22 = a2;
-    v23 = v16;
-    if (v16)
-    {
-      atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v24 = v17;
-    v25 = v15;
-    v26 = v17;
-    v27 = 0;
-    v28[0] = 0;
-    v29 = 0;
-    if (*(a5 + 56))
-    {
-      sg_per_io_crypto::sg_per_io_crypto(v28, a5);
-      v29 = 1;
-    }
-
-    v13 = (*(*v14 + 120))(v14, &v22);
-    if (v23)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
-    }
-
-    if ((v13 & 0x80000000) != 0)
-    {
-      *&v20 = "crypto_format_backend::write_aligned(char *, ssize_t, uint64_t, const std::optional<sg_per_io_crypto> &)";
-      *(&v20 + 1) = 36;
-      v21 = 16;
-      di_log::logger<di_log::log_printer<602ul>>::logger(&v22, &v20);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "Crypto couldn't write to inner backend @ ", 41);
-      MEMORY[0x24C1ED3E0](&v31, v15);
-      std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v31, "/", 1);
-      MEMORY[0x24C1ED3B0](&v31, v17);
-      std::ostream::~ostream();
-      di_log::logger_buf<di_log::log_printer<602ul>>::~logger_buf(&v22);
-      MEMORY[0x24C1ED6A0](v32);
-    }
-
-    else
-    {
-      v13 = 0;
-    }
-  }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return v13;
-}
-
-void sub_248F1D36C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  di_log::logger<di_log::log_printer<602ul>>::~logger(va);
-  _Unwind_Resume(a1);
-}
-
-void *di_log::logger<di_log::log_printer<602ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<602ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF5CD8;
-  a1[45] = &unk_285BF5DD8;
-  a1[46] = &unk_285BF5E00;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF5CD8;
-  a1[45] = &unk_285BF5D60;
-  a1[46] = &unk_285BF5D88;
-  return a1;
-}
-
-void sub_248F1D4B4(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<602ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<602ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<602ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-uint64_t crypto_format_backend::write(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 24);
-  v7 = *(**(a1 + 48) + 52);
-  v8 = v5 / v7 * v7;
-  v9 = v5 % v7;
-  if (v5 % v7)
-  {
-    if (*(a2 + 104) == 1 && *(a2 + 48))
-    {
-      return 4294967194;
-    }
-
-    v13 = *(a1 + 384);
-    v22[0] = 0;
-    v23 = 0;
-    result = crypto_format_backend::read_aligned(a1, v13, 1, v8, v22);
-    if (result)
-    {
-      return result;
-    }
-
-    v14 = v6 >= (v7 - v9) ? v7 - v9 : v6;
-    memcpy(*(a1 + 384), v4 + v9, v14);
-    v15 = *(a1 + 384);
-    v22[0] = 0;
-    v23 = 0;
-    result = crypto_format_backend::write_aligned(a1, v15, 1, v8, v22);
-    if (result)
-    {
-      return result;
-    }
-
-    v6 -= v14;
-    v4 = (v4 + v14);
-    v8 += v14;
-  }
-
-  if (*(a2 + 40))
-  {
-    if (v6 >= v7)
-    {
-      v16 = 0;
-      while (1)
-      {
-        memcpy(*(a1 + 384), v4 + v16, v7);
-        v17 = *(a1 + 384);
-        if ((*(a2 + 104) & 1) != 0 && *(a2 + 48))
-        {
-          sg_per_io_crypto::clone_with_offset((a2 + 48), *(a2 + 24), v16, v21);
-          sg_per_io_crypto::sg_per_io_crypto(v22, v21);
-          v18 = 1;
-        }
-
-        else
-        {
-          v18 = 0;
-          v22[0] = 0;
-        }
-
-        v23 = v18;
-        result = crypto_format_backend::write_aligned(a1, v17, 1, v8 + v16, v22);
-        if (result)
-        {
-          return result;
-        }
-
-        v6 -= v7;
-        v16 += v7;
-        if (v6 < v7)
-        {
-          v4 = (v4 + v16);
-          v8 += v16;
-          break;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v10 = v6 / v7;
-    if (*(a2 + 104) == 1 && *(a2 + 48))
-    {
-      sg_per_io_crypto::sg_per_io_crypto(v22, (a2 + 48));
-      v11 = 1;
-    }
-
-    else
-    {
-      v11 = 0;
-      v22[0] = 0;
-    }
-
-    v23 = v11;
-    result = crypto_format_backend::write_aligned(a1, v4, (v6 / v7), v8, v22);
-    if (result)
-    {
-      return result;
-    }
-
-    v4 = (v4 + v10 * v7);
-    v8 += v10 * v7;
-    v6 %= v7;
-  }
-
-  if (!v6)
-  {
-    return *(a2 + 16);
-  }
-
-  if (*(a2 + 104) == 1 && *(a2 + 48))
-  {
-    return 4294967194;
-  }
-
-  v19 = *(a1 + 384);
-  v22[0] = 0;
-  v23 = 0;
-  result = crypto_format_backend::read_aligned(a1, v19, 1, v8, v22);
-  if (!result)
-  {
-    memcpy(*(a1 + 384), v4, v6);
-    v20 = *(a1 + 384);
-    v22[0] = 0;
-    v23 = 0;
-    result = crypto_format_backend::write_aligned(a1, v20, 1, v8, v22);
-    if (!result)
-    {
-      return *(a2 + 16);
-    }
-  }
-
-  return result;
-}
-
-void crypto_format_backend::run_futures(crypto_format_backend *this)
-{
-  v68 = *MEMORY[0x277D85DE8];
-  v1 = *(this + 51);
-  v2 = *(this + 52);
-  if (v2 == v1)
-  {
-    goto LABEL_70;
-  }
-
-  v4 = *(this + 54);
-  v5 = &v1[v4 >> 5];
-  v6 = *v5 + 128 * (v4 & 0x1F);
-  if (v6 == *(v1 + (((*(this + 55) + v4) >> 2) & 0x3FFFFFFFFFFFFFF8)) + 128 * ((*(this + 55) + v4) & 0x1F))
-  {
-    goto LABEL_70;
-  }
-
-  v7 = *(**(this + 6) + 52);
-  v8 = *v5 + 128 * (*(this + 54) & 0x1FLL);
-  v9 = &v1[v4 >> 5];
-  if (v2 != v1)
-  {
-    v10 = *(v1 + (((v4 + *(this + 55)) >> 2) & 0x3FFFFFFFFFFFFFF8)) + 128 * ((v4 + *(this + 55)) & 0x1F);
-    if (v6 == v10)
-    {
-      v36 = &v1[v4 >> 5];
-      v37 = *v36 + 128 * (*(this + 54) & 0x1FLL);
-      if (v37 != v8)
-      {
-        do
-        {
-          v38 = *(v37 + 112);
-          if (v38)
-          {
-            *(v38 + 16) = 0;
-          }
-
-          v39 = *(v37 + 8);
-          if (v39)
-          {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v39);
-          }
-
-          v37 += 128;
-          if (v37 - *v36 == 4096)
-          {
-            v40 = v36[1];
-            ++v36;
-            v37 = v40;
-          }
-        }
-
-        while (v37 != v8);
-        v1 = *(this + 51);
-        v2 = *(this + 52);
-      }
-
-      goto LABEL_63;
-    }
-
-    goto LABEL_8;
-  }
-
-  if (v6)
-  {
-    v10 = 0;
-LABEL_8:
-    v11 = &v1[v4 >> 5];
-    if (v10 != v6)
-    {
-      *v5;
-      v12 = ((v4 & 0x1F) << 7) >> 7;
-      if (v12 < 0)
-      {
-        v14 = 30 - v12;
-        v13 = ~v14;
-        v11 = &v5[-(v14 >> 5)];
-      }
-
-      else
-      {
-        v13 = v12 + 1;
-        v11 = &v5[(v12 + 1) >> 5];
-      }
-
-      v15 = *v11;
-      v6 = *v11 + 128 * (v13 & 0x1F);
-      if (v6 == v10)
-      {
-LABEL_19:
-        v6 = v10;
-      }
-
-      else
-      {
-        v16 = *(v8 + 24);
-        v17 = *v5 + 128 * (v4 & 0x1F);
-        while (1)
-        {
-          v16 += *(v17 + 16);
-          if (v16 != *(v6 + 24) || *(v17 + 120) != *(v6 + 120))
-          {
-            break;
-          }
-
-          v18 = v6 + 128;
-          if (v6 + 128 - v15 == 4096)
-          {
-            v19 = v11[1];
-            ++v11;
-            v15 = v19;
-            v18 = v19;
-          }
-
-          v17 = v6;
-          v6 = v18;
-          if (v18 == v10)
-          {
-            goto LABEL_19;
-          }
-        }
-      }
-    }
-
-    v20 = (v8 + 120);
-    v21 = 64;
-    if (!*(v8 + 120))
-    {
-      v21 = 216;
-    }
-
-    std::__variant_detail::__copy_constructor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__copy_constructor[abi:ne200100](v60, this + v21);
-    v61 = v7;
-    v45 = *(this + 3);
-    v52 = v9;
-    v53 = v8;
-    v50 = v11;
-    v51 = v6;
-    if (*(this + 392))
-    {
-      v46 = 0;
-    }
-
-    else
-    {
-      v46 = *(**(this + 6) + 64);
-    }
-
-    v22 = *v20;
-    v23 = *MEMORY[0x277D85FA0];
-    crypto::details::buffer_aligner::backend_op_to_different_buffer_fn(*v20, v62);
-    if (v8 == v6)
-    {
-      v24 = 0;
-      goto LABEL_50;
-    }
-
-    sg_entry::sg_entry(v47, v8);
-    v24 = 0;
-    v25 = v49 / v23 * v23;
-    v26 = v8;
-    v27 = v9;
-    while (1)
-    {
-      sg_entry::sg_entry(&v64, v26);
-      if (!v63)
-      {
-        std::__throw_bad_function_call[abi:ne200100]();
-      }
-
-      if ((*(*v63 + 48))(v63, &v64))
-      {
-        v28 = v66 + v67 - v25;
-        if (v28 % v23)
-        {
-          v29 = v23 - v28 % v23;
-        }
-
-        else
-        {
-          v29 = 0;
-        }
-
-        v30 = v29 + v28;
-        v24 += v30;
-        v25 += v30;
-      }
-
-      else
-      {
-        v31 = v23;
-        if (v67 % v7)
-        {
-          goto LABEL_36;
-        }
-
-        if (v66 % v7)
-        {
-          v31 = 0;
-LABEL_36:
-          v32 = v31 + v24;
-          if ((v66 + v67) % v7)
-          {
-            v33 = v23;
-          }
-
-          else
-          {
-            v33 = 0;
-          }
-
-          v24 = v32 + v33;
-          v25 = (v7 - 1 + v66 + v67) / v7 * v7;
-          goto LABEL_40;
-        }
-
-        v25 = v66 + v67;
-      }
-
-LABEL_40:
-      if (v65)
-      {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v65);
-      }
-
-      v26 += 128;
-      if (v26 - *v27 == 4096)
-      {
-        v34 = v27[1];
-        ++v27;
-        v26 = v34;
-      }
-
-      if (v26 == v6)
-      {
-        if (v48)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v48);
-        }
-
-LABEL_50:
-        crypto::details::sg_allocator::sg_allocator(v54, v24, *MEMORY[0x277D85FA0]);
-        std::__function::__value_func<BOOL ()(sg_entry const&)>::~__value_func[abi:ne200100](v62);
-        v55 = v60;
-        v56 = v45;
-        v57 = v22;
-        v58 = v46;
-        if (v53 == v51)
-        {
-          v35 = 0;
-        }
-
-        else
-        {
-          v35 = 4 * (v50 - v52) - ((v53 - *v52) >> 7) + ((v51 - *v50) >> 7);
-        }
-
-        v59 = v35;
-        is_mul_ok(3 * v35, 0x18uLL);
-        operator new[]();
-      }
-    }
-  }
-
-LABEL_63:
-  *(this + 55) = 0;
-  v41 = v2 - v1;
-  if (v41 >= 3)
-  {
-    do
-    {
-      operator delete(*v1);
-      v42 = *(this + 52);
-      v1 = (*(this + 51) + 8);
-      *(this + 51) = v1;
-      v41 = (v42 - v1) >> 3;
-    }
-
-    while (v41 > 2);
-  }
-
-  if (v41 == 1)
-  {
-    v43 = 16;
-    goto LABEL_69;
-  }
-
-  if (v41 == 2)
-  {
-    v43 = 32;
-LABEL_69:
-    *(this + 54) = v43;
-  }
-
-LABEL_70:
-  v44 = *MEMORY[0x277D85DE8];
-}
-
-void sub_248F1E33C(_Unwind_Exception *a1, const void *a2)
-{
-  crypto::crypt_op::crypt_consecutive_vector_with_futures<boost::iterators::transform_iterator<crypto_format_backend::run_futures(void)::$_0,std::__deque_iterator<crypto_format_backend::promise_io_t,crypto_format_backend::promise_io_t*,crypto_format_backend::promise_io_t&,crypto_format_backend::promise_io_t**,long,32l>,boost::use_default,boost::use_default>>::~crypt_consecutive_vector_with_futures(&STACK[0x278], a2);
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](&STACK[0x3B0]);
-  _Unwind_Resume(a1);
-}
-
-void crypto::crypt_op::crypt_consecutive_vector_with_futures<boost::iterators::transform_iterator<crypto_format_backend::run_futures(void)::$_0,std::__deque_iterator<crypto_format_backend::promise_io_t,crypto_format_backend::promise_io_t*,crypto_format_backend::promise_io_t&,crypto_format_backend::promise_io_t**,long,32l>,boost::use_default,boost::use_default>>::operator()(uint64_t a1)
-{
-  v2 = crypto::crypt_op::crypt_consecutive_vector::operator()(a1);
-  if ((v2 & 0x80000000) != 0)
-  {
-
-    crypto::details::unset_futures_errors_reporter<boost::iterators::transform_iterator<crypto_format_backend::run_futures(void)::$_0,std::__deque_iterator<crypto_format_backend::promise_io_t,crypto_format_backend::promise_io_t*,crypto_format_backend::promise_io_t&,crypto_format_backend::promise_io_t**,long,32l>,boost::use_default,boost::use_default>>::report_errors(a1 + 224, v2);
-  }
-}
-
-void *di_log::logger<di_log::log_printer<758ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<758ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF5EF8;
-  a1[45] = &unk_285BF5FF8;
-  a1[46] = &unk_285BF6020;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF5EF8;
-  a1[45] = &unk_285BF5F80;
-  a1[46] = &unk_285BF5FA8;
-  return a1;
-}
-
-void sub_248F1E654(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<758ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<758ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<758ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void *di_log::logger<di_log::log_printer<776ul>>::logger(void *a1, __int128 *a2)
-{
-  v3 = (a1 + 46);
-  a1[52] = 0;
-  a1[46] = MEMORY[0x277D828C0] + 16;
-  di_log::logger_buf<di_log::log_printer<776ul>>::logger_buf(a1, a2);
-  *a1 = &unk_285BF6118;
-  a1[45] = &unk_285BF6218;
-  a1[46] = &unk_285BF6240;
-  std::ios_base::init(v3, a1);
-  a1[63] = 0;
-  *(a1 + 128) = -1;
-  *a1 = &unk_285BF6118;
-  a1[45] = &unk_285BF61A0;
-  a1[46] = &unk_285BF61C8;
-  return a1;
-}
-
-void sub_248F1E7C0(_Unwind_Exception *a1)
-{
-  di_log::logger_buf<di_log::log_printer<776ul>>::~logger_buf(v1);
-  MEMORY[0x24C1ED6A0](v2);
-  _Unwind_Resume(a1);
-}
-
-uint64_t di_log::logger<di_log::log_printer<776ul>>::~logger(uint64_t a1)
-{
-  std::ostream::~ostream();
-  di_log::logger_buf<di_log::log_printer<776ul>>::~logger_buf(a1);
-  MEMORY[0x24C1ED6A0](a1 + 368);
-  return a1;
-}
-
-void crypto::crypt_op::crypt_consecutive_vector_with_futures<boost::iterators::transform_iterator<crypto_format_backend::run_futures(void)::$_0,std::__deque_iterator<crypto_format_backend::promise_io_t,crypto_format_backend::promise_io_t*,crypto_format_backend::promise_io_t&,crypto_format_backend::promise_io_t**,long,32l>,boost::use_default,boost::use_default>>::~crypt_consecutive_vector_with_futures(uint64_t a1, const void *a2)
-{
-  crypto::crypt_op::crypt_consecutive_vector::reset(a1, a2);
-  (*(**(a1 + 224) + 152))(*(a1 + 224));
-  crypto::details::unset_futures_errors_reporter<boost::iterators::transform_iterator<crypto_format_backend::run_futures(void)::$_0,std::__deque_iterator<crypto_format_backend::promise_io_t,crypto_format_backend::promise_io_t*,crypto_format_backend::promise_io_t&,crypto_format_backend::promise_io_t**,long,32l>,boost::use_default,boost::use_default>>::report_errors(a1 + 224, *(a1 + 304));
-
-  crypto::crypt_op::crypt_consecutive_vector::~crypt_consecutive_vector(a1);
-}
-
-uint64_t crypto_format_backend::unmap_range(crypto_format_backend *this, uint64_t a2)
-{
-  v3 = *(this + 3);
-  if (*(this + 392))
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = *(**(this + 6) + 64);
-  }
-
-  return (*(*v3 + 24))(v3, v4 + a2);
-}
-
-uint64_t crypto_format_backend::truncate(crypto_format_backend *this, uint64_t a2)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v3 = *(this + 98);
-  v4 = **(this + 6);
-  if ((v3 & 2) == 0)
-  {
-    *(v4 + 56) = a2;
-  }
-
-  v5 = *(this + 3);
-  if (v3)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = *(v4 + 64);
-  }
-
-  v7 = (*(*v5 + 56))(v5, (a2 + *(v4 + 52) - 1) / *(v4 + 52) * *(v4 + 52) + v6);
-  if (!v7)
-  {
-    crypto::header::write(**(this + 6), v19);
-    v8 = *(details::get_dummy_shared_ptr() + 1);
-    v12 = v19;
-    v13 = v8;
-    if (v8)
-    {
-      atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v14 = xmmword_248FA7FB0;
-    v15 = 76;
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
-    v9 = (*(**(this + 3) + 120))(*(this + 3), &v12);
-    if (v14 == v9)
-    {
-      v7 = 0;
-    }
-
-    else
-    {
-      v7 = v9;
-    }
-
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
-  return v7;
-}
-
-void sub_248F1EA44(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11)
-{
-  if (a11)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void crypto_format_backend::crypto_format_backend(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  (*(**a2 + 80))(&v8);
-  BackendInternalBackend::BackendInternalBackend(a1, &v8);
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
-  v5 = *a3;
-  v6 = a3[1];
-  *(a1 + 40) = &unk_285BF6330;
-  *(a1 + 48) = v5;
-  *(a1 + 56) = v6;
-  if (v6)
-  {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-    v5 = *a3;
-  }
-
-  *a1 = &unk_285BF5498;
-  *(a1 + 40) = &unk_285BF5570;
-  crypto::format::create_aes_context(v5, 0);
-  crypto::format::create_aes_context(*a3, 1);
-  *(a1 + 368) = crypto::context::get_cryptos_base(a1 + 64);
-  *(a1 + 376) = crypto::context::get_cryptos_base(a1 + 216);
-  v7 = *(**a3 + 52);
-  operator new[]();
-}
-
-void sub_248F1EBD4(_Unwind_Exception *a1)
-{
-  std::__variant_detail::__dtor<std::__variant_detail::__traits<crypto::context::aes_cbc,crypto::context::aes_xts,crypto::context::aes_xts_ans_kdf2>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](v1 + 64);
-  *(v1 + 5) = v2;
-  v4 = *(v1 + 7);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  BackendInternalBackend::~BackendInternalBackend(v1);
-  _Unwind_Resume(a1);
 }

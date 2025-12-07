@@ -18,7 +18,7 @@
 
 - (id)entityContainersForUserActivity:(id)activity
 {
-  v132 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   v4 = +[PPHarvestingUtils appBlocklist];
   bundleId = [activityCopy bundleId];
@@ -31,7 +31,7 @@
     {
       bundleId2 = [activityCopy bundleId];
       *buf = 138412290;
-      v129 = bundleId2;
+      v128 = bundleId2;
       _os_log_impl(&dword_23224A000, searchableItem, OS_LOG_TYPE_INFO, "PPNamedEntityExtractionPlugin: entityContainersForUserActivity: blocking NSUA from %@", buf, 0xCu);
     }
 
@@ -40,25 +40,25 @@
   }
 
   searchableItem = [activityCopy searchableItem];
-  v115 = [MEMORY[0x277D41E30] searchableItemIsOutgoing:searchableItem];
-  v116 = objc_opt_new();
-  v123 = objc_opt_new();
-  v122 = [PPHarvestingUtils contactHandlesForSearchableItem:searchableItem];
+  v114 = [MEMORY[0x277D41E30] searchableItemIsOutgoing:searchableItem];
+  v115 = objc_opt_new();
+  v122 = objc_opt_new();
+  v121 = [PPHarvestingUtils contactHandlesForSearchableItem:searchableItem];
   currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
   localeIdentifier = [currentLocale localeIdentifier];
 
-  v124 = objc_opt_new();
+  v123 = objc_opt_new();
   attributeSet = [searchableItem attributeSet];
   thoroughfare = [attributeSet thoroughfare];
   v14 = isNontrivialString(thoroughfare);
 
   v15 = 0x27896F000uLL;
-  v126 = localeIdentifier;
+  v125 = localeIdentifier;
   if (v14)
   {
     attributeSet2 = [searchableItem attributeSet];
     thoroughfare2 = [attributeSet2 thoroughfare];
-    v118 = _PASCollapseWhitespaceAndStrip();
+    v117 = _PASCollapseWhitespaceAndStrip();
 
     attributeSet3 = [searchableItem attributeSet];
     subThoroughfare = [attributeSet3 subThoroughfare];
@@ -68,7 +68,7 @@
       subThoroughfare2 = [attributeSet4 subThoroughfare];
       v22 = _PASCollapseWhitespaceAndStrip();
 
-      localeIdentifier = v126;
+      localeIdentifier = v125;
     }
 
     else
@@ -76,13 +76,13 @@
       v22 = 0;
     }
 
-    v113 = v22;
-    v23 = [PPNamedEntitySupport streetAddressFromThoroughfare:v118 subThoroughfare:v22];
+    v112 = v22;
+    v23 = [PPNamedEntitySupport streetAddressFromThoroughfare:v117 subThoroughfare:v22];
     if (v23)
     {
       v24 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v23 category:8 language:localeIdentifier];
       v25 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v24 score:1.0];
-      [v124 addObject:v25];
+      [v123 addObject:v25];
 
       v26 = v23;
     }
@@ -90,8 +90,8 @@
 
   else
   {
-    v113 = 0;
-    v118 = 0;
+    v112 = 0;
+    v117 = 0;
     v23 = 0;
   }
 
@@ -105,15 +105,15 @@
     city2 = [attributeSet6 city];
     v32 = _PASCollapseWhitespaceAndStrip();
 
-    v121 = v32;
+    v120 = v32;
     v33 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v32 category:9 language:localeIdentifier];
     v34 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v33 score:1.0];
-    [v124 addObject:v34];
+    [v123 addObject:v34];
   }
 
   else
   {
-    v121 = 0;
+    v120 = 0;
   }
 
   attributeSet7 = [searchableItem attributeSet];
@@ -124,12 +124,12 @@
   {
     attributeSet8 = [searchableItem attributeSet];
     stateOrProvince2 = [attributeSet8 stateOrProvince];
-    v120 = _PASCollapseWhitespaceAndStrip();
+    v119 = _PASCollapseWhitespaceAndStrip();
   }
 
   else
   {
-    v120 = 0;
+    v119 = 0;
   }
 
   attributeSet9 = [searchableItem attributeSet];
@@ -140,12 +140,12 @@
   {
     attributeSet10 = [searchableItem attributeSet];
     postalCode2 = [attributeSet10 postalCode];
-    v119 = _PASCollapseWhitespaceAndStrip();
+    v118 = _PASCollapseWhitespaceAndStrip();
   }
 
   else
   {
-    v119 = 0;
+    v118 = 0;
   }
 
   attributeSet11 = [searchableItem attributeSet];
@@ -160,8 +160,8 @@
 
     v51 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v50 category:11 language:localeIdentifier];
     v52 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v51 score:1.0];
-    v53 = v124;
-    [v124 addObject:v52];
+    v53 = v123;
+    [v123 addObject:v52];
 
     v54 = v50;
     v15 = 0x27896F000;
@@ -170,11 +170,11 @@
   else
   {
     v54 = 0;
-    v53 = v124;
+    v53 = v123;
   }
 
-  v114 = v54;
-  v55 = [*(v15 + 2960) fullAddressForStreetAddress:v23 city:v121 state:v120 postalCode:v119 country:?];
+  v113 = v54;
+  v55 = [*(v15 + 2960) fullAddressForStreetAddress:v23 city:v120 state:v119 postalCode:v118 country:?];
   if (v55)
   {
     v56 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v55 category:12 language:localeIdentifier];
@@ -184,24 +184,24 @@
 
   v58 = objc_opt_new();
   [v58 setEntities:v53];
-  v111 = v55;
-  v59 = [objc_alloc(MEMORY[0x277D3A4E0]) initWithDwellTimeSeconds:0 lengthSeconds:0 lengthCharacters:objc_msgSend(v55 donationCount:"length") contactHandleCount:0 flags:{objc_msgSend(v122, "count"), v115}];
+  v110 = v55;
+  v59 = [objc_alloc(MEMORY[0x277D3A4E0]) initWithDwellTimeSeconds:0 lengthSeconds:0 lengthCharacters:objc_msgSend(v55 donationCount:"length") contactHandleCount:0 flags:{objc_msgSend(v121, "count"), v114}];
   v60 = objc_alloc(MEMORY[0x277D3A4D8]);
   bundleId3 = [activityCopy bundleId];
   domainId = [activityCopy domainId];
   uniqueId = [activityCopy uniqueId];
-  v110 = v59;
-  v64 = [v60 initWithBundleId:bundleId3 groupId:domainId documentId:uniqueId date:v123 relevanceDate:0 contactHandles:v122 language:v126 metadata:v59];
+  v109 = v59;
+  v64 = [v60 initWithBundleId:bundleId3 groupId:domainId documentId:uniqueId date:v122 relevanceDate:0 contactHandles:v121 language:v125 metadata:v59];
   [v58 setSource:v64];
 
-  currentLocale2 = v126;
+  currentLocale2 = v125;
   [v58 setEntityAlgorithm:5];
   [v58 setCloudSync:0];
   [v58 setDecayRate:*MEMORY[0x277D3A758]];
   userActivity = [activityCopy userActivity];
-  v127 = 0;
-  [(PPNamedEntityExtractionPlugin *)self _processUserActivity:userActivity extractionContainer:v58 rawTextOut:&v127 language:v126];
-  v67 = v127;
+  v126 = 0;
+  [(PPNamedEntityExtractionPlugin *)self _processUserActivity:userActivity extractionContainer:v58 rawTextOut:&v126 language:v125];
+  v67 = v126;
 
   attributeSet13 = [searchableItem attributeSet];
   title = [attributeSet13 title];
@@ -220,14 +220,14 @@
     [v72 addObject:title];
   }
 
-  v112 = v23;
+  v111 = v23;
   if ([namedLocation length])
   {
     [v72 addObject:namedLocation];
   }
 
-  v108 = v72;
-  v109 = namedLocation;
+  v107 = v72;
+  v108 = namedLocation;
   v73 = [v72 _pas_componentsJoinedByString:@"\n\n"];
   v74 = pp_default_log_handle();
   if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
@@ -235,16 +235,16 @@
     uniqueIdentifier = [searchableItem uniqueIdentifier];
     v76 = [v73 length];
     *buf = 138412546;
-    v129 = uniqueIdentifier;
-    v130 = 2048;
-    v131 = v76;
+    v128 = uniqueIdentifier;
+    v129 = 2048;
+    v130 = v76;
     _os_log_impl(&dword_23224A000, v74, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: entityContainersForUserActivity: %@: text content length: %tu", buf, 0x16u);
   }
 
-  v117 = activityCopy;
+  v116 = activityCopy;
   if ([v73 length])
   {
-    v107 = v67;
+    v106 = v67;
     v77 = +[PPConfiguration sharedInstance];
     isMultilingual = [v77 isMultilingual];
 
@@ -260,7 +260,7 @@
         v83 = 0;
         languageCode = v81;
 LABEL_41:
-        v106 = title;
+        v105 = title;
         v85 = [v82 componentsFromLocaleIdentifier:languageCode];
         v86 = [v85 objectForKeyedSubscript:*MEMORY[0x277CBE6C8]];
 
@@ -268,12 +268,12 @@ LABEL_41:
         {
         }
 
-        v87 = [objc_alloc(MEMORY[0x277D3A4E0]) initWithDwellTimeSeconds:0 lengthSeconds:0 lengthCharacters:objc_msgSend(v73 donationCount:"length") contactHandleCount:0 flags:{objc_msgSend(v122, "count"), v115}];
+        v87 = [objc_alloc(MEMORY[0x277D3A4E0]) initWithDwellTimeSeconds:0 lengthSeconds:0 lengthCharacters:objc_msgSend(v73 donationCount:"length") contactHandleCount:0 flags:{objc_msgSend(v121, "count"), v114}];
         v88 = objc_alloc(MEMORY[0x277D3A4D8]);
-        bundleId4 = [v117 bundleId];
-        domainId2 = [v117 domainId];
-        uniqueId2 = [v117 uniqueId];
-        v92 = [v88 initWithBundleId:bundleId4 groupId:domainId2 documentId:uniqueId2 date:v123 relevanceDate:0 contactHandles:v122 language:v86 metadata:v87];
+        bundleId4 = [v116 bundleId];
+        domainId2 = [v116 domainId];
+        uniqueId2 = [v116 uniqueId];
+        v92 = [v88 initWithBundleId:bundleId4 groupId:domainId2 documentId:uniqueId2 date:v122 relevanceDate:0 contactHandles:v121 language:v86 metadata:v87];
 
         v93 = +[PPConfiguration sharedInstance];
         bundleID = [searchableItem bundleID];
@@ -284,15 +284,15 @@ LABEL_41:
         if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v129 = v96;
+          v128 = v96;
           _os_log_impl(&dword_23224A000, v97, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: entityContainersForUserActivity: text extractions: %@ ", buf, 0xCu);
         }
 
-        [v116 addObjectsFromArray:v96];
-        activityCopy = v117;
-        currentLocale2 = v126;
-        title = v106;
-        v67 = v107;
+        [v115 addObjectsFromArray:v96];
+        activityCopy = v116;
+        currentLocale2 = v125;
+        title = v105;
+        v67 = v106;
         goto LABEL_46;
       }
     }
@@ -319,24 +319,23 @@ LABEL_46:
     latitude = [attributeSet16 latitude];
     attributeSet17 = [searchableItem attributeSet];
     longitude = [attributeSet17 longitude];
-    [(PPNamedEntityExtractionPlugin *)self _processCSSearchableItemLocationWithName:namedLocation2 thoroughfare:v118 city:v121 state:v120 country:v114 postalCode:v119 latitude:latitude longitude:longitude extractionContainer:v58];
+    [(PPNamedEntityExtractionPlugin *)self _processCSSearchableItemLocationWithName:namedLocation2 thoroughfare:v117 city:v120 state:v119 country:v113 postalCode:v118 latitude:latitude longitude:longitude extractionContainer:v58];
 
-    activityCopy = v117;
-    currentLocale2 = v126;
+    activityCopy = v116;
+    currentLocale2 = v125;
   }
 
-  v9 = v116;
-  [v116 addObject:v58];
+  v9 = v115;
+  [v115 addObject:v58];
 
 LABEL_49:
-  v104 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_entityContainersForUserAction:(id)action searchableItem:(id)item
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   itemCopy = item;
   v8 = pp_default_log_handle();
@@ -399,21 +398,21 @@ LABEL_49:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v35 = __Block_byref_object_copy__8071;
-    v36 = __Block_byref_object_dispose__8072;
-    v37 = 0;
+    v34 = __Block_byref_object_copy__8071;
+    v35 = __Block_byref_object_dispose__8072;
+    v36 = 0;
     v21 = MEMORY[0x277CC1EF0];
     uaIdentifier = [actionCopy uaIdentifier];
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchableItem___block_invoke;
-    v31 = &unk_278973D38;
-    v33 = buf;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchableItem___block_invoke;
+    v30 = &unk_278973D38;
+    v32 = buf;
     v18 = v20;
-    v32 = v18;
-    v23 = [v21 _fetchUserActivityWithUUID:uaIdentifier intervalToWaitForDocumentSynchronizationToComplete:&v28 completionHandler:5.0];
+    v31 = v18;
+    v23 = [v21 _fetchUserActivityWithUUID:uaIdentifier intervalToWaitForDocumentSynchronizationToComplete:&v27 completionHandler:5.0];
 
-    [MEMORY[0x277D425A0] waitForSemaphore:{v18, v28, v29, v30, v31}];
+    [MEMORY[0x277D425A0] waitForSemaphore:{v18, v27, v28, v29, v30}];
     v24 = objc_alloc(MEMORY[0x277D41E38]);
     v25 = [v24 initWithUserActivity:*(*&buf[8] + 40) searchableItem:itemCopy];
     v19 = [(PPNamedEntityExtractionPlugin *)self entityContainersForUserActivity:v25];
@@ -421,14 +420,12 @@ LABEL_49:
     _Block_object_dispose(buf, 8);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
 void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchableItem___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -436,9 +433,9 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
     v8 = pp_default_log_handle();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v7;
-      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "PPNamedEntityExtractionPlugin failed to fetch user activity: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_error_impl(&dword_23224A000, v8, OS_LOG_TYPE_ERROR, "PPNamedEntityExtractionPlugin failed to fetch user activity: %@", &v9, 0xCu);
     }
   }
 
@@ -448,8 +445,6 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processCSSearchableItemLocationWithName:(id)name thoroughfare:(id)thoroughfare city:(id)city state:(id)state country:(id)country postalCode:(id)code latitude:(id)latitude longitude:(id)self0 extractionContainer:(id)self1
@@ -464,7 +459,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
 
 - (BOOL)_processUserActivity:(id)activity extractionContainer:(id)container rawTextOut:(id *)out language:(id)language
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   containerCopy = container;
   languageCopy = language;
@@ -473,13 +468,13 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
     v12 = [activityCopy _payloadForIdentifier:@"UAMKMapItemPayload"];
     if (v12)
     {
-      v65 = 0;
-      v13 = [MEMORY[0x277CCAC58] propertyListWithData:v12 options:0 format:0 error:&v65];
-      v14 = v65;
+      v64 = 0;
+      v13 = [MEMORY[0x277CCAC58] propertyListWithData:v12 options:0 format:0 error:&v64];
+      v14 = v64;
       v15 = v13 != 0;
       if (v13)
       {
-        v60 = v13;
+        v59 = v13;
         v16 = [PPLocalLocationStore locationFromMapItemDictionary:v13];
         if (v16)
         {
@@ -487,9 +482,9 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
           [containerCopy addLocation:v17 algorithm:5];
         }
 
-        v62 = v14;
-        v63 = v12;
-        v64 = activityCopy;
+        v61 = v14;
+        v62 = v12;
+        v63 = activityCopy;
         placemark = [v16 placemark];
         name = [placemark name];
 
@@ -499,7 +494,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138739971;
-            v67 = name;
+            v66 = name;
             _os_log_debug_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEBUG, "PPNamedEntityExtractionPlugin found location name from MapItem data in NSUA: %{sensitive}@", buf, 0xCu);
           }
 
@@ -523,8 +518,8 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
           v16 = v21;
         }
 
-        v57 = name;
-        v61 = v15;
+        v56 = name;
+        v60 = v15;
         placemark2 = [v16 placemark];
         thoroughfare = [placemark2 thoroughfare];
         placemark3 = [v16 placemark];
@@ -536,10 +531,10 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
         placemark5 = [v16 placemark];
         administrativeArea = [placemark5 administrativeArea];
         [v16 placemark];
-        v59 = languageCopy;
+        v58 = languageCopy;
         v37 = v36 = containerCopy;
         postalCode = [v37 postalCode];
-        v58 = v16;
+        v57 = v16;
         v39 = v16;
         v40 = v32;
         placemark6 = [v39 placemark];
@@ -547,7 +542,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
         v43 = [PPNamedEntitySupport fullAddressForStreetAddress:v40 city:locality state:administrativeArea postalCode:postalCode country:country];
 
         containerCopy = v36;
-        languageCopy = v59;
+        languageCopy = v58;
 
         if ([v43 length])
         {
@@ -556,11 +551,11 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
           if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138739971;
-            v67 = v43;
+            v66 = v43;
             _os_log_debug_impl(&dword_23224A000, v45, OS_LOG_TYPE_DEBUG, "PPNamedEntityExtractionPlugin found street address in NSUA: %{sensitive}@", buf, 0xCu);
           }
 
-          v46 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v43 category:12 language:v59];
+          v46 = [objc_alloc(MEMORY[0x277D3A420]) initWithName:v43 category:12 language:v58];
           entities2 = [containerCopy entities];
           v48 = [objc_alloc(MEMORY[0x277D3A498]) initWithItem:v46 score:1.0];
           v49 = [entities2 arrayByAddingObject:v48];
@@ -569,12 +564,12 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
           objc_autoreleasePoolPop(v44);
         }
 
-        v12 = v63;
-        activityCopy = v64;
-        v14 = v62;
-        v15 = v61;
-        v13 = v60;
-        v50 = v58;
+        v12 = v62;
+        activityCopy = v63;
+        v14 = v61;
+        v15 = v60;
+        v13 = v59;
+        v50 = v57;
       }
 
       else
@@ -583,7 +578,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
         if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v67 = v14;
+          v66 = v14;
           _os_log_impl(&dword_23224A000, v50, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin failed to deserialize MKMapItem dict: %@", buf, 0xCu);
         }
       }
@@ -598,7 +593,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
         [_uniqueIdentifier UUIDString];
         v53 = v52 = containerCopy;
         *buf = 138412290;
-        v67 = v53;
+        v66 = v53;
         _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin found no MKMapItem in NSUA %@.", buf, 0xCu);
 
         containerCopy = v52;
@@ -613,36 +608,35 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
     v15 = 0;
   }
 
-  v54 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (id)_extractionsFromEntityContainers:(id)containers
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   containersCopy = containers;
   v4 = objc_opt_new();
   v5 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = containersCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         entities = [v11 entities];
 
         if (entities)
@@ -664,7 +658,7 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
@@ -693,15 +687,13 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
 
   v23 = [v20 initWithNamedEntityRecords:v21 topicRecords:v22];
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)_entityContainersForContent:(id)content contentDataSource:(id)source isOutgoing:(BOOL)outgoing contactHandles:(id)handles uniqueIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier bundleIdentifier:(id)bundleIdentifier
 {
   outgoingCopy = outgoing;
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   contentCopy = content;
   sourceCopy = source;
   bundleIdentifierCopy = bundleIdentifier;
@@ -723,14 +715,14 @@ void __79__PPNamedEntityExtractionPlugin__entityContainersForUserAction_searchab
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v49 = v18;
+    v48 = v18;
     _os_log_impl(&dword_23224A000, v19, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin processing text content of length: %tu", buf, 0xCu);
   }
 
   v20 = +[PPConfiguration sharedInstance];
   isMultilingual = [v20 isMultilingual];
 
-  v47 = contentCopy;
+  v46 = contentCopy;
   if (isMultilingual)
   {
     v22 = MEMORY[0x277D3A248];
@@ -781,9 +773,7 @@ LABEL_11:
 
   dissector = self->_dissector;
   v39 = [objc_alloc(MEMORY[0x277CCAA78]) initWithIndexesInRange:{0, v30}];
-  v40 = [(PPNamedEntityDissector *)dissector entitiesInPlainText:v47 eligibleRegions:v39 source:v34 cloudSync:1 algorithms:v37];
-
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = [(PPNamedEntityDissector *)dissector entitiesInPlainText:v46 eligibleRegions:v39 source:v34 cloudSync:1 algorithms:v37];
 
   return v40;
 }
@@ -815,83 +805,81 @@ id __63__PPNamedEntityExtractionPlugin__extractionCountForContainers___block_inv
 
 - (void)_writeAndFlushContainers:(id)containers
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   containersCopy = containers;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v4 = [containersCopy countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v4 = [containersCopy countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(containersCopy);
         }
 
-        [*(*(&v18 + 1) + 8 * v7++) writeSynchronous];
+        [*(*(&v17 + 1) + 8 * v7++) writeSynchronous];
       }
 
       while (v5 != v7);
-      v5 = [containersCopy countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v5 = [containersCopy countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = containersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) flushWrites];
+        [*(*(&v13 + 1) + 8 * v12++) flushWrites];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)consumeSearchableUserActivityWithContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = pp_default_log_handle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     content = [contextCopy content];
-    v17 = 138412546;
-    v18 = contextCopy;
-    v19 = 2112;
-    v20 = content;
-    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeSearchableUserActivityWithContext: %@: %@", &v17, 0x16u);
+    v16 = 138412546;
+    v17 = contextCopy;
+    v18 = 2112;
+    v19 = content;
+    _os_log_impl(&dword_23224A000, v5, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeSearchableUserActivityWithContext: %@: %@", &v16, 0x16u);
   }
 
   content2 = [contextCopy content];
@@ -901,11 +889,11 @@ id __63__PPNamedEntityExtractionPlugin__extractionCountForContainers___block_inv
   {
     v10 = [v8 count];
     uniqueId = [content2 uniqueId];
-    v17 = 134218242;
-    v18 = v10;
-    v19 = 2112;
-    v20 = uniqueId;
-    _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeSearchableUserActivityWithContext: got %tu containers from %@", &v17, 0x16u);
+    v16 = 134218242;
+    v17 = v10;
+    v18 = 2112;
+    v19 = uniqueId;
+    _os_log_impl(&dword_23224A000, v9, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeSearchableUserActivityWithContext: got %tu containers from %@", &v16, 0x16u);
   }
 
   if (v8)
@@ -917,29 +905,25 @@ id __63__PPNamedEntityExtractionPlugin__extractionCountForContainers___block_inv
   v13 = [(PPNamedEntityExtractionPlugin *)self _extractionCountForContainers:v8];
   v14 = [v12 successWithNumberOfExtractions:v13];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)consumeUserActivityMetadataWithContext:(id)context
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     content = [contextCopy content];
-    v9 = 138412546;
-    v10 = contextCopy;
-    v11 = 2112;
-    v12 = content;
-    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeUserActivityMetadataWithContext: %@: %@ - ignoring until 74452163.", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = contextCopy;
+    v10 = 2112;
+    v11 = content;
+    _os_log_impl(&dword_23224A000, v4, OS_LOG_TYPE_DEFAULT, "PPNamedEntityExtractionPlugin: consumeUserActivityMetadataWithContext: %@: %@ - ignoring until 74452163.", &v8, 0x16u);
   }
 
   v6 = [MEMORY[0x277D41DF0] successWithNumberOfExtractions:&unk_284783C78];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

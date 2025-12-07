@@ -57,12 +57,10 @@
 
 uint64_t __42__CBAnalytics_sendInt_withField_andValue___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(a1 + 32)];
-  v5[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(a1 + 32)];
+  v4[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 40)];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 + (void)sendBool:(id)bool withField:(const char *)field andValue:(BOOL)value
@@ -86,12 +84,10 @@ uint64_t __42__CBAnalytics_sendInt_withField_andValue___block_invoke(uint64_t a1
 
 uint64_t __43__CBAnalytics_sendBool_withField_andValue___block_invoke(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(a1 + 32)];
-  v5[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40) & 1];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:*(a1 + 32)];
+  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 40) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 + (void)sendSparseBins:(const double *)bins count:(int64_t)count withName:(id)name
@@ -110,14 +106,12 @@ uint64_t __43__CBAnalytics_sendBool_withField_andValue___block_invoke(uint64_t a
 
 uint64_t __45__CBAnalytics_sendSparseBins_count_withName___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"bin";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v4[1] = @"time";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 40) + 8 * *(a1 + 32)) * 1000.0];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"bin";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
+  v3[1] = @"time";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 40) + 8 * *(a1 + 32)) * 1000.0];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)alsSelectionSwaps:(unint64_t)swaps
@@ -151,14 +145,12 @@ uint64_t __45__CBAnalytics_sendSparseBins_count_withName___block_invoke(uint64_t
 
 uint64_t __39__CBAnalytics_alsSelectionTimes_count___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"index";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
-  v4[1] = @"time";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 40) + 8 * *(a1 + 32)) * 1000.0];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"index";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 32)];
+  v3[1] = @"time";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 40) + 8 * *(a1 + 32)) * 1000.0];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)alsSelectionDeltas:(const double *)deltas count:(unint64_t)count
@@ -203,7 +195,7 @@ uint64_t __39__CBAnalytics_alsSelectionTimes_count___block_invoke(uint64_t a1)
   objc_autoreleasePoolPop(context);
 }
 
-uint64_t __56__CBAnalytics_alsSelectionLuxTimeHistogram_forALSIndex___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__56__CBAnalytics_alsSelectionLuxTimeHistogram_forALSIndex___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v21 = a1;
   v20 = a2;
@@ -231,20 +223,18 @@ uint64_t __56__CBAnalytics_alsSelectionLuxTimeHistogram_forALSIndex___block_invo
 
 uint64_t __56__CBAnalytics_alsSelectionLuxTimeHistogram_forALSIndex___block_invoke_2(uint64_t a1)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v6[0] = @"alsIndex";
-  v7[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
-  v6[1] = @"luxBin";
-  v7[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
-  v6[2] = @"luxEdge";
-  v7[2] = *(a1 + 32);
-  v6[3] = @"time";
+  v6[4] = *MEMORY[0x1E69E9840];
+  v5[0] = @"alsIndex";
+  v6[0] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
+  v5[1] = @"luxBin";
+  v6[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
+  v5[2] = @"luxEdge";
+  v6[2] = *(a1 + 32);
+  v5[3] = @"time";
   v4 = MEMORY[0x1E696AD98];
   [*(a1 + 40) doubleValue];
-  v7[3] = [v4 numberWithDouble:v1 * 1000.0];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:4];
-  *MEMORY[0x1E69E9840];
-  return v5;
+  v6[3] = [v4 numberWithDouble:v1 * 1000.0];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
 }
 
 + (void)autoBrightnessEnabled:(BOOL)enabled byUser:(BOOL)user
@@ -267,14 +257,12 @@ uint64_t __56__CBAnalytics_alsSelectionLuxTimeHistogram_forALSIndex___block_invo
 
 uint64_t __44__CBAnalytics_autoBrightnessEnabled_byUser___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"enabled";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
-  v4[1] = @"userChange";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"enabled";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
+  v3[1] = @"userChange";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)hdrSession:(BOOL)session
@@ -295,12 +283,10 @@ uint64_t __44__CBAnalytics_autoBrightnessEnabled_byUser___block_invoke(uint64_t 
 
 uint64_t __26__CBAnalytics_hdrSession___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"constrained";
-  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  *MEMORY[0x1E69E9840];
-  return v2;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"constrained";
+  v3[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 }
 
 + (void)autoBrightnessUserChange:(BOOL)change lowPower:(BOOL)power
@@ -323,14 +309,12 @@ uint64_t __26__CBAnalytics_hdrSession___block_invoke(uint64_t a1)
 
 uint64_t __49__CBAnalytics_autoBrightnessUserChange_lowPower___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"isBrighter";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
-  v4[1] = @"lowPowerModeEnabled";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"isBrighter";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
+  v3[1] = @"lowPowerModeEnabled";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)nightShiftEnabled:(BOOL)enabled withOption:(int)option
@@ -353,14 +337,12 @@ uint64_t __49__CBAnalytics_autoBrightnessUserChange_lowPower___block_invoke(uint
 
 uint64_t __44__CBAnalytics_nightShiftEnabled_withOption___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"enabled";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 36) & 1];
-  v4[1] = @"option";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"enabled";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 36) & 1];
+  v3[1] = @"option";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 32)];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)harmonyColor:(const ColorReport *)color
@@ -395,14 +377,12 @@ uint64_t __44__CBAnalytics_nightShiftEnabled_withOption___block_invoke(uint64_t 
 
 uint64_t __37__CBAnalytics_harmonyEnabled_byUser___block_invoke(uint64_t a1)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v4[0] = @"enabled";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
-  v4[1] = @"userChange";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:2];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[2] = *MEMORY[0x1E69E9840];
+  v3[0] = @"enabled";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32) & 1];
+  v3[1] = @"userChange";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 33) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:2];
 }
 
 + (void)autoDimLeave:(double)leave
@@ -423,12 +403,10 @@ uint64_t __37__CBAnalytics_harmonyEnabled_byUser___block_invoke(uint64_t a1)
 
 uint64_t __28__CBAnalytics_autoDimLeave___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"duration";
-  v4[0] = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 32)];
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
-  *MEMORY[0x1E69E9840];
-  return v2;
+  v3[1] = *MEMORY[0x1E69E9840];
+  v2 = @"duration";
+  v3[0] = [MEMORY[0x1E696AD98] numberWithDouble:*(a1 + 32)];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
 }
 
 + (void)sbimMitigationTriggeredWithBrightness:(float)brightness
@@ -449,13 +427,11 @@ uint64_t __28__CBAnalytics_autoDimLeave___block_invoke(uint64_t a1)
 
 uint64_t __53__CBAnalytics_sbimMitigationTriggeredWithBrightness___block_invoke(uint64_t a1, double a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"sdrBrightness";
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"sdrBrightness";
   LODWORD(a2) = *(a1 + 32);
-  v5[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 + (void)cltmBudgetUpdated:(float)updated currentSDRBrightness:(float)brightness
@@ -478,16 +454,14 @@ uint64_t __53__CBAnalytics_sbimMitigationTriggeredWithBrightness___block_invoke(
 
 uint64_t __54__CBAnalytics_cltmBudgetUpdated_currentSDRBrightness___block_invoke(uint64_t a1, double a2)
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"brightnessDrop";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"brightnessDrop";
   *&a2 = *(a1 + 32) - *(a1 + 36);
-  v7[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v6[1] = @"nitsBeforeCap";
+  v6[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
+  v5[1] = @"nitsBeforeCap";
   LODWORD(v2) = *(a1 + 32);
-  v7[1] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  *MEMORY[0x1E69E9840];
-  return v5;
+  v6[1] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 }
 
 + (void)illuminanceHistogram:(id)histogram
@@ -506,7 +480,7 @@ uint64_t __54__CBAnalytics_cltmBudgetUpdated_currentSDRBrightness___block_invoke
   objc_autoreleasePoolPop(context);
 }
 
-uint64_t __36__CBAnalytics_illuminanceHistogram___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__36__CBAnalytics_illuminanceHistogram___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v20 = a1;
   v19 = a2;
@@ -533,18 +507,16 @@ uint64_t __36__CBAnalytics_illuminanceHistogram___block_invoke(uint64_t a1, uint
 
 uint64_t __36__CBAnalytics_illuminanceHistogram___block_invoke_2(uint64_t a1)
 {
-  v7[3] = *MEMORY[0x1E69E9840];
-  v6[0] = @"index";
-  v7[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
-  v6[1] = @"edge";
-  v7[1] = *(a1 + 32);
-  v6[2] = @"value";
+  v6[3] = *MEMORY[0x1E69E9840];
+  v5[0] = @"index";
+  v6[0] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+  v5[1] = @"edge";
+  v6[1] = *(a1 + 32);
+  v5[2] = @"value";
   v4 = MEMORY[0x1E696AD98];
   [*(a1 + 40) doubleValue];
-  v7[2] = [v4 numberWithDouble:v1 * 1000.0];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
-  *MEMORY[0x1E69E9840];
-  return v5;
+  v6[2] = [v4 numberWithDouble:v1 * 1000.0];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:3];
 }
 
 + (void)rtplcTriggeredWithLength:(unint64_t)length maxAPCE:(float)e durationInSeconds:(float)seconds sdrBrightness:(float)brightness referenceModeEnabled:(BOOL)enabled
@@ -556,23 +528,21 @@ uint64_t __36__CBAnalytics_illuminanceHistogram___block_invoke_2(uint64_t a1)
 
 uint64_t __101__CBAnalytics_rtplcTriggeredWithLength_maxAPCE_durationInSeconds_sdrBrightness_referenceModeEnabled___block_invoke(uint64_t a1)
 {
-  v8[5] = *MEMORY[0x1E69E9840];
-  v7[0] = @"frameCount";
-  v8[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(a1 + 32)];
-  v7[1] = @"maxApce";
+  v7[5] = *MEMORY[0x1E69E9840];
+  v6[0] = @"frameCount";
+  v7[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:*(a1 + 32)];
+  v6[1] = @"maxApce";
   LODWORD(v1) = *(a1 + 40);
-  v8[1] = [MEMORY[0x1E696AD98] numberWithFloat:v1];
-  v7[2] = @"durationInSeconds";
+  v7[1] = [MEMORY[0x1E696AD98] numberWithFloat:v1];
+  v6[2] = @"durationInSeconds";
   LODWORD(v2) = *(a1 + 44);
-  v8[2] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
-  v7[3] = @"brightness";
+  v7[2] = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  v6[3] = @"brightness";
   LODWORD(v3) = *(a1 + 48);
-  v8[3] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
-  v7[4] = @"referenceModeEnabled";
-  v8[4] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 52) & 1];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:5];
-  *MEMORY[0x1E69E9840];
-  return v6;
+  v7[3] = [MEMORY[0x1E696AD98] numberWithFloat:v3];
+  v6[4] = @"referenceModeEnabled";
+  v7[4] = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 52) & 1];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:5];
 }
 
 + (void)luminanceHistogram:(id)histogram withName:(id)name
@@ -593,7 +563,7 @@ uint64_t __101__CBAnalytics_rtplcTriggeredWithLength_maxAPCE_durationInSeconds_s
   objc_autoreleasePoolPop(context);
 }
 
-uint64_t __43__CBAnalytics_luminanceHistogram_withName___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
+void *__43__CBAnalytics_luminanceHistogram_withName___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v21 = a1;
   v20 = a2;
@@ -621,20 +591,18 @@ uint64_t __43__CBAnalytics_luminanceHistogram_withName___block_invoke(uint64_t a
 
 uint64_t __43__CBAnalytics_luminanceHistogram_withName___block_invoke_2(uint64_t a1)
 {
-  v7[4] = *MEMORY[0x1E69E9840];
-  v6[0] = @"name";
-  v7[0] = *(a1 + 32);
-  v6[1] = @"index";
-  v7[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
-  v6[2] = @"edge";
-  v7[2] = *(a1 + 40);
-  v6[3] = @"value";
+  v6[4] = *MEMORY[0x1E69E9840];
+  v5[0] = @"name";
+  v6[0] = *(a1 + 32);
+  v5[1] = @"index";
+  v6[1] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 56)];
+  v5[2] = @"edge";
+  v6[2] = *(a1 + 40);
+  v5[3] = @"value";
   v4 = MEMORY[0x1E696AD98];
   [*(a1 + 48) doubleValue];
-  v7[3] = [v4 numberWithDouble:v1 * 1000.0];
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:4];
-  *MEMORY[0x1E69E9840];
-  return v5;
+  v6[3] = [v4 numberWithDouble:v1 * 1000.0];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:4];
 }
 
 + (void)userSliderCommit:(const CBSliderCommitInfo *)commit
@@ -789,7 +757,6 @@ void *__32__CBAnalytics_userSliderCommit___block_invoke(uint64_t a1)
     [v36 setObject:*(*(a1 + 32) + 224) forKey:@"trialTreatmentId"];
   }
 
-  *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -817,18 +784,16 @@ void *__32__CBAnalytics_userSliderCommit___block_invoke(uint64_t a1)
 
 uint64_t __61__CBAnalytics_alsOcclusionsByProx_andByTouch_touchProx_none___block_invoke(void *a1)
 {
-  v5[4] = *MEMORY[0x1E69E9840];
-  v4[0] = @"prox";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithInteger:a1[4]];
-  v4[1] = @"touch";
-  v5[1] = [MEMORY[0x1E696AD98] numberWithInteger:a1[5]];
-  v4[2] = @"touchProx";
-  v5[2] = [MEMORY[0x1E696AD98] numberWithInteger:a1[6]];
-  v4[3] = @"none";
-  v5[3] = [MEMORY[0x1E696AD98] numberWithInteger:a1[7]];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:4];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[4] = *MEMORY[0x1E69E9840];
+  v3[0] = @"prox";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithInteger:a1[4]];
+  v3[1] = @"touch";
+  v4[1] = [MEMORY[0x1E696AD98] numberWithInteger:a1[5]];
+  v3[2] = @"touchProx";
+  v4[2] = [MEMORY[0x1E696AD98] numberWithInteger:a1[6]];
+  v3[3] = @"none";
+  v4[3] = [MEMORY[0x1E696AD98] numberWithInteger:a1[7]];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:4];
 }
 
 + (void)touchOcclusionElapsedDelay:(float)delay
@@ -849,13 +814,11 @@ uint64_t __61__CBAnalytics_alsOcclusionsByProx_andByTouch_touchProx_none___block
 
 uint64_t __42__CBAnalytics_touchOcclusionElapsedDelay___block_invoke(uint64_t a1, double a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"time";
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"time";
   LODWORD(a2) = *(a1 + 32);
-  v5[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 + (void)aliasingMitigationsCount:(unint64_t)count
@@ -891,13 +854,11 @@ uint64_t __42__CBAnalytics_touchOcclusionElapsedDelay___block_invoke(uint64_t a1
 
 uint64_t __49__CBAnalytics_userBrightnessChangeAfterSnapping___block_invoke(uint64_t a1, double a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"nits";
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"nits";
   LODWORD(a2) = *(a1 + 32);
-  v5[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  *MEMORY[0x1E69E9840];
-  return v3;
+  v4[0] = [MEMORY[0x1E696AD98] numberWithFloat:a2];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 @end

@@ -329,32 +329,32 @@
   }
 
   p_highres = &self->_highres;
-  [Synthesis_Ext calculateSynthesisRenderResolutionFromInputWidth:"calculateSynthesisRenderResolutionFromInputWidth:InputHeight:" InputHeight:?];
-  v8 = v19;
-  *&p_highres->render_width = v18;
-  *&p_highres->tilemap_width = v8;
-  v9 = v21;
-  *&p_highres->tile_size = v20;
-  *&p_highres->intermediateTileMap_height = v9;
-  *&v10 = OUTLINED_FUNCTION_8_4().n128_u64[0];
-  result = [(Synthesis_Ext *)self allocateSynthesisResources:self + v11 Resolution:&v18 lowresRender:0, v10];
+  objc_msgSend_calculateSynthesisRenderResolutionFromInputWidth_InputHeight_(self, a2);
+  v6 = v17;
+  *&p_highres->render_width = v16;
+  *&p_highres->tilemap_width = v6;
+  v7 = v19;
+  *&p_highres->tile_size = v18;
+  *&p_highres->intermediateTileMap_height = v7;
+  *&v8 = OUTLINED_FUNCTION_8_4().n128_u64[0];
+  result = [(Synthesis_Ext *)self allocateSynthesisResources:self + v9 Resolution:&v16 lowresRender:0, v8];
   if (!result)
   {
-    [(Synthesis_Ext *)self calculateSynthesisRenderResolutionFromInputWidth:width >> 2 InputHeight:height >> 2];
-    v13 = v19;
-    *&self->_lowres.render_width = v18;
-    *&self->_lowres.tilemap_width = v13;
-    v14 = v21;
-    *&self->_lowres.tile_size = v20;
-    *&self->_lowres.intermediateTileMap_height = v14;
+    objc_msgSend_calculateSynthesisRenderResolutionFromInputWidth_InputHeight_(self);
+    v11 = v17;
+    *&self->_lowres.render_width = v16;
+    *&self->_lowres.tilemap_width = v11;
+    v12 = v19;
+    *&self->_lowres.tile_size = v18;
+    *&self->_lowres.intermediateTileMap_height = v12;
     OUTLINED_FUNCTION_8_4();
-    v15 = *&self->_lowres.tilemap_width;
-    v17[0] = *&self->_lowres.render_width;
-    v17[1] = v15;
-    v16 = *&self->_lowres.intermediateTileMap_height;
-    v17[2] = *&self->_lowres.tile_size;
-    v17[3] = v16;
-    result = [(Synthesis_Ext *)self allocateAdditionalBuffersForHybridFromFullresResolution:&v18 LowresResolution:v17];
+    v13 = *&self->_lowres.tilemap_width;
+    v15[0] = *&self->_lowres.render_width;
+    v15[1] = v13;
+    v14 = *&self->_lowres.intermediateTileMap_height;
+    v15[2] = *&self->_lowres.tile_size;
+    v15[3] = v14;
+    result = [(Synthesis_Ext *)self allocateAdditionalBuffersForHybridFromFullresResolution:&v16 LowresResolution:v15];
     if (!result)
     {
       self->_resourcesPreAllocated = 1;

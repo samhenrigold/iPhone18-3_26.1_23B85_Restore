@@ -1,7 +1,6 @@
 @interface OrgApacheLuceneStoreMergeInfo
 - (BOOL)isEqual:(id)equal;
 - (OrgApacheLuceneStoreMergeInfo)initWithInt:(int)int withLong:(int64_t)long withBoolean:(BOOL)boolean withInt:(int)withInt;
-- (id)description;
 - (unint64_t)hash;
 @end
 
@@ -59,15 +58,6 @@
   }
 
   return 0;
-}
-
-- (id)description
-{
-  mergeMaxNumSegments = self->mergeMaxNumSegments_;
-  isExternal = self->isExternal_;
-  estimatedMergeBytes = self->estimatedMergeBytes_;
-  totalMaxDoc = self->totalMaxDoc_;
-  return JreStrcat("$I$J$Z$IC", a2, v2, v3, v4, v5, v6, v7, @"MergeInfo [totalMaxDoc=");
 }
 
 @end

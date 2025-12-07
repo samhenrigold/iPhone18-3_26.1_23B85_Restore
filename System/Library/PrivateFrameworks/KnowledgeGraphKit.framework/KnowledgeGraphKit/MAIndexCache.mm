@@ -52,11 +52,11 @@
 
 - (MAIndexCache)initWithLabels:(id)labels
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
-  v25.receiver = self;
-  v25.super_class = MAIndexCache;
-  v5 = [(MAIndexCache *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = MAIndexCache;
+  v5 = [(MAIndexCache *)&v24 init];
   if (v5)
   {
     v6 = [labelsCopy copy];
@@ -64,29 +64,29 @@
     v5->_labels = v6;
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v20 = labelsCopy;
+    v19 = labelsCopy;
     v9 = labelsCopy;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * v14);
+          v15 = *(*(&v20 + 1) + 8 * v14);
           v16 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
           [(NSDictionary *)v8 setObject:v16 forKeyedSubscript:v15];
 
@@ -95,7 +95,7 @@
         }
 
         while (v11 != v14);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v11);
@@ -104,10 +104,9 @@
     cache = v5->_cache;
     v5->_cache = v8;
 
-    labelsCopy = v20;
+    labelsCopy = v19;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

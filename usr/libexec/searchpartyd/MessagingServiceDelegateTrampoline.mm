@@ -59,20 +59,19 @@ LABEL_6:
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context
 {
   v15 = sub_1000BC4D4(&unk_101696AC0, &qword_101390A60);
-  v16 = *(*(v15 - 8) + 64);
   __chkstk_darwin(v15 - 8);
-  v18 = &v27 - v17;
+  v17 = &v26 - v16;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = type metadata accessor for URL();
-    (*(*(v19 - 8) + 56))(v18, 0, 1, v19);
+    v18 = type metadata accessor for URL();
+    (*(*(v18 - 8) + 56))(v17, 0, 1, v18);
   }
 
   else
   {
-    v20 = type metadata accessor for URL();
-    (*(*(v20 - 8) + 56))(v18, 1, 1, v20);
+    v19 = type metadata accessor for URL();
+    (*(*(v19 - 8) + 56))(v17, 1, 1, v19);
   }
 
   if (metadata)
@@ -82,22 +81,22 @@ LABEL_6:
 
   if (d)
   {
-    v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    d = v22;
+    v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    d = v21;
   }
 
   else
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   serviceCopy = service;
   accountCopy = account;
   contextCopy = context;
   selfCopy = self;
-  sub_100473444(serviceCopy, accountCopy, v18, metadata, v21, d, contextCopy);
+  sub_100473444(serviceCopy, accountCopy, v17, metadata, v20, d, contextCopy);
 
-  sub_10000B3A8(v18, &unk_101696AC0, &qword_101390A60);
+  sub_10000B3A8(v17, &unk_101696AC0, &qword_101390A60);
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error

@@ -10,11 +10,11 @@
 
 - (IDSCloudTelemetryMetricReporter)init
 {
-  v3 = sub_100706B30(&qword_100CB3410);
+  v3 = sub_100706B30(&qword_100CB3410, &qword_1009B3440);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   sub_1007C9A6C(14);
-  v6 = type metadata accessor for CloudTelemetryMetricReporter();
+  v6 = type metadata accessor for CloudTelemetryMetricReporter(0);
   v12.receiver = self;
   v12.super_class = v6;
   v7 = [(IDSCloudTelemetryMetricReporter *)&v12 init];
@@ -32,7 +32,7 @@
 
 - (void)wouldSampleOutgoingMetricWithSamplingID:(NSString *)d completionHandler:(id)handler
 {
-  v7 = sub_100706B30(&qword_100CB3410);
+  v7 = sub_100706B30(&qword_100CB3410, &qword_1009B3440);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

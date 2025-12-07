@@ -16,7 +16,7 @@
   {
     v6 = &type metadata for CRLFeatureFlags;
     v7 = sub_10007BB00();
-    v5[0] = 22;
+    LOBYTE(v5[0]) = 22;
     v3 = sub_10008A708();
     sub_10002E85C(v5);
   }
@@ -31,9 +31,9 @@
 
 + (BOOL)isGenerativePlaygroundEnabled
 {
-  v5 = &type metadata for CRLFeatureFlags;
-  v6 = sub_10007BB00();
-  v4[0] = 14;
+  v4[3] = &type metadata for CRLFeatureFlags;
+  v4[4] = sub_10007BB00();
+  LOBYTE(v4[0]) = 14;
   v2 = sub_10008A708();
   sub_10002E85C(v4);
   if (v2)

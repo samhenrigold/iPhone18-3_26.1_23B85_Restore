@@ -14,11 +14,11 @@
 
 - (void)controller:(id)controller didChangeObject:(id)object atIndexPath:(id)path forChangeType:(unint64_t)type newIndexPath:(id)indexPath
 {
-  v12 = sub_1000C773C(&qword_1002D11F8);
-  v14 = __chkstk_darwin(v12 - 8, v13);
-  v16 = &v28[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v14, v17);
-  v19 = &v28[-v18];
+  v12 = sub_1000C773C(&qword_1002D11F8, &qword_100245408);
+  __chkstk_darwin(v12 - 8);
+  v14 = v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v15);
+  v17 = v26 - v16;
   controllerCopy = controller;
   swift_unknownObjectRetain();
   selfCopy = self;
@@ -30,35 +30,35 @@
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v24 = type metadata accessor for IndexPath();
-    (*(*(v24 - 8) + 56))(v19, 0, 1, v24);
+    v22 = type metadata accessor for IndexPath();
+    (*(*(v22 - 8) + 56))(v17, 0, 1, v22);
   }
 
   else
   {
-    v25 = type metadata accessor for IndexPath();
-    (*(*(v25 - 8) + 56))(v19, 1, 1, v25);
+    v23 = type metadata accessor for IndexPath();
+    (*(*(v23 - 8) + 56))(v17, 1, 1, v23);
   }
 
   if (indexPathCopy)
   {
     static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
 
-    v26 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v26 = 1;
+    v24 = 1;
   }
 
-  v27 = type metadata accessor for IndexPath();
-  (*(*(v27 - 8) + 56))(v16, v26, 1, v27);
-  sub_10011A5DC(controllerCopy, v28, v19, type, v16);
+  v25 = type metadata accessor for IndexPath();
+  (*(*(v25 - 8) + 56))(v14, v24, 1, v25);
+  sub_10011A5DC(controllerCopy, v26, v17, type, v14);
 
-  sub_10011AA08(v16);
-  sub_10011AA08(v19);
-  sub_100014B64(v28);
+  sub_10011AA08(v14);
+  sub_10011AA08(v17);
+  sub_100014B64(v26);
 }
 
 @end

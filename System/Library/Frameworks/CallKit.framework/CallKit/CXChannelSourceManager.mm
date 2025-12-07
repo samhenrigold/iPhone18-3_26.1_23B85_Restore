@@ -87,13 +87,13 @@
 
 - (void)addChannelSource:(id)source
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(sourceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = sourceCopy;
+    v10 = sourceCopy;
     _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asked to add channel source %@", buf, 0xCu);
   }
 
@@ -102,15 +102,13 @@
   identifier = [sourceCopy identifier];
   [identifierToChannelSource setObject:sourceCopy forKeyedSubscript:identifier];
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __43__CXChannelSourceManager_addChannelSource___block_invoke;
-  v9[3] = &unk_1E7C06CA8;
-  v9[4] = self;
-  [(CXChannelSourceManager *)self performDelegateCallback:v9];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __43__CXChannelSourceManager_addChannelSource___block_invoke;
+  v8[3] = &unk_1E7C06CA8;
+  v8[4] = self;
+  [(CXChannelSourceManager *)self performDelegateCallback:v8];
   os_unfair_lock_unlock(&self->_accessorLock);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __43__CXChannelSourceManager_addChannelSource___block_invoke(uint64_t a1)
@@ -144,13 +142,13 @@ void __43__CXChannelSourceManager_addChannelSource___block_invoke(uint64_t a1)
 
 - (void)removeChannelSource:(id)source
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
-  v5 = CXDefaultLog();
+  v5 = CXDefaultLog(sourceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = sourceCopy;
+    v13 = sourceCopy;
     _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Asked to remove channel source %@", buf, 0xCu);
   }
 
@@ -165,16 +163,15 @@ void __43__CXChannelSourceManager_addChannelSource___block_invoke(uint64_t a1)
     identifierToChannelSource2 = [(CXChannelSourceManager *)self identifierToChannelSource];
     [identifierToChannelSource2 setObject:0 forKeyedSubscript:identifier];
 
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__CXChannelSourceManager_removeChannelSource___block_invoke;
-    v12[3] = &unk_1E7C06CA8;
-    v12[4] = self;
-    [(CXChannelSourceManager *)self performDelegateCallback:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46__CXChannelSourceManager_removeChannelSource___block_invoke;
+    v11[3] = &unk_1E7C06CA8;
+    v11[4] = self;
+    [(CXChannelSourceManager *)self performDelegateCallback:v11];
   }
 
   os_unfair_lock_unlock(&self->_accessorLock);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CXChannelSourceManager_removeChannelSource___block_invoke(uint64_t a1)
@@ -214,51 +211,47 @@ void __46__CXChannelSourceManager_removeChannelSource___block_invoke(uint64_t a1
 
 void __77__CXChannelSourceManager_addAction_toUncommittedTransactionForChannelSource___block_invoke(id *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1[4] UUID];
     *buf = 138412290;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to add action UUID=%@", buf, 0xCu);
   }
 
   v4 = [a1[4] debugDescription];
   v5 = [a1[5] debugDescription];
-  v6 = CXOversizedLogQueue();
-  v11 = MEMORY[0x1E69E9820];
-  v12 = 3221225472;
-  v13 = __77__CXChannelSourceManager_addAction_toUncommittedTransactionForChannelSource___block_invoke_6;
-  v14 = &unk_1E7C06BE0;
-  v15 = v4;
-  v16 = v5;
+  v6 = CXOversizedLogQueue(v5);
+  v10 = MEMORY[0x1E69E9820];
+  v11 = 3221225472;
+  v12 = __77__CXChannelSourceManager_addAction_toUncommittedTransactionForChannelSource___block_invoke_6;
+  v13 = &unk_1E7C06BE0;
+  v14 = v4;
+  v15 = v5;
   v7 = v5;
   v8 = v4;
-  dispatch_async(v6, &v11);
+  dispatch_async(v6, &v10);
 
   v9 = [a1[6] uncommittedTransactionGroup];
   [v9 addAction:a1[4] forProviderSource:a1[5]];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __77__CXChannelSourceManager_addAction_toUncommittedTransactionForChannelSource___block_invoke_6(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = CXOversizedLog();
+  v9 = *MEMORY[0x1E69E9840];
+  v2 = CXOversizedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to add action %@ to uncommitted transaction for channel source %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to add action %@ to uncommitted transaction for channel source %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)failOutstandingActionsForChannelWithUUID:(id)d
@@ -294,13 +287,13 @@ void __67__CXChannelSourceManager_failOutstandingActionsForChannelWithUUID___blo
 
 void __55__CXChannelSourceManager_commitUncommittedTransactions__block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v23 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) uncommittedTransactionGroup];
     *buf = 138412290;
-    v23 = v3;
+    v22 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Asked to commit uncommitted transactions: %@", buf, 0xCu);
   }
 
@@ -308,29 +301,29 @@ void __55__CXChannelSourceManager_commitUncommittedTransactions__block_invoke(ui
   v5 = [*(a1 + 32) uncommittedTransactionGroup];
   [v4 addOutstandingTransactionGroup:v5];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = [*(a1 + 32) uncommittedTransactionGroup];
   v7 = [v6 providerSources];
 
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         v13 = [*(a1 + 32) uncommittedTransactionGroup];
         v14 = [v13 transactionForProviderSource:v12];
 
@@ -339,7 +332,7 @@ void __55__CXChannelSourceManager_commitUncommittedTransactions__block_invoke(ui
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -347,8 +340,6 @@ void __55__CXChannelSourceManager_commitUncommittedTransactions__block_invoke(ui
 
   v15 = objc_alloc_init(CXTransactionGroup);
   [*(a1 + 32) setUncommittedTransactionGroup:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serviceServer:(id)server client:(id)client actionCompleted:(id)completed
@@ -386,30 +377,30 @@ void __63__CXChannelSourceManager_serviceServer_client_actionCompleted___block_i
   v5 = [v2 channelSource:v3 shouldProcessAction:v4 error:&v14];
   v6 = v14;
 
-  if ((v5 & 1) != 0 || v6 && ([v6 code] == 5 || objc_msgSend(v6, "code") == 7))
+  if ((v5 & 1) != 0 || v6 && ((v7 = [v6 code], v7 == 5) || (v7 = objc_msgSend(v6, "code"), v7 == 7)))
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = CXDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
+      v9 = *(a1 + 40);
+      v10 = *(a1 + 48);
       *buf = 138412802;
-      v16 = v8;
+      v16 = v9;
       v17 = 2112;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
       v20 = v6;
-      _os_log_impl(&dword_1B47F3000, v7, OS_LOG_TYPE_DEFAULT, "Determined that channelSource: %@, should process action: %@, error: %@", buf, 0x20u);
+      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "Determined that channelSource: %@, should process action: %@, error: %@", buf, 0x20u);
     }
 
-    v10 = [*(a1 + 32) transactionManager];
-    [v10 updateWithCompletedAction:*(a1 + 48)];
+    v11 = [*(a1 + 32) transactionManager];
+    [v11 updateWithCompletedAction:*(a1 + 48)];
   }
 
   else
   {
-    v10 = CXDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = CXDefaultLog(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = *(a1 + 40);
       v13 = *(a1 + 48);
@@ -419,11 +410,9 @@ void __63__CXChannelSourceManager_serviceServer_client_actionCompleted___block_i
       v18 = v13;
       v19 = 2112;
       v20 = v6;
-      _os_log_error_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_ERROR, "Determined that channelSource: %@, should not process action: %@, error: %@", buf, 0x20u);
+      _os_log_error_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_ERROR, "Determined that channelSource: %@, should not process action: %@, error: %@", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)serviceServer:(id)server didAddClient:(id)client
@@ -746,45 +735,42 @@ void __86__CXChannelSourceManager_serviceServer_client_requestedTransaction_comp
 
 - (void)transactionManager:(id)manager actionTimedOut:(id)out forCallSource:(id)source
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   outCopy = out;
   sourceCopy = source;
-  v8 = CXDefaultLog();
+  v8 = CXDefaultLog(sourceCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = outCopy;
-    v12 = 2112;
-    v13 = sourceCopy;
-    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Action %@ timed out for call source %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = outCopy;
+    v11 = 2112;
+    v12 = sourceCopy;
+    _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Action %@ timed out for call source %@", &v9, 0x16u);
   }
 
   [sourceCopy handleActionTimeout:outCopy];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transactionManager:(id)manager transactionGroupCompleted:(id)completed
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
-  v6 = CXDefaultLog();
+  v6 = CXDefaultLog(completedCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = completedCopy;
+    v11 = completedCopy;
     _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Notifying delegate of completed transaction group: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __71__CXChannelSourceManager_transactionManager_transactionGroupCompleted___block_invoke;
-  v9[3] = &unk_1E7C06BE0;
-  v9[4] = self;
-  v10 = completedCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __71__CXChannelSourceManager_transactionManager_transactionGroupCompleted___block_invoke;
+  v8[3] = &unk_1E7C06BE0;
+  v8[4] = self;
+  v9 = completedCopy;
   v7 = completedCopy;
-  [(CXChannelSourceManager *)self performDelegateCallback:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [(CXChannelSourceManager *)self performDelegateCallback:v8];
 }
 
 void __71__CXChannelSourceManager_transactionManager_transactionGroupCompleted___block_invoke(uint64_t a1)

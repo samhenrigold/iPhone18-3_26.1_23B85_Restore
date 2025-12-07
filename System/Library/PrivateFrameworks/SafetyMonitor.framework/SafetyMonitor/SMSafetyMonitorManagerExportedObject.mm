@@ -5,6 +5,7 @@
 - (void)onLocalSessionStateChanged:(id)changed withError:(id)error;
 - (void)onReceiverSafetyCacheChangeForSessionID:(id)d phoneCache:(id)cache watchCache:(id)watchCache;
 - (void)onReceiverSessionStatusChangeForSessionID:(id)d sessionStatus:(id)status;
+- (void)onSessionStateChanged:(id)changed forActiveDevice:(BOOL)device withError:(id)error;
 @end
 
 @implementation SMSafetyMonitorManagerExportedObject
@@ -22,6 +23,15 @@
   }
 
   return v6;
+}
+
+- (void)onSessionStateChanged:(id)changed forActiveDevice:(BOOL)device withError:(id)error
+{
+  deviceCopy = device;
+  errorCopy = error;
+  changedCopy = changed;
+  safetyMonitorManager = [(SMSafetyMonitorManagerExportedObject *)self safetyMonitorManager];
+  [safetyMonitorManager onSessionStateChanged:changedCopy forActiveDevice:deviceCopy withError:errorCopy];
 }
 
 - (void)onLocalSessionStateChanged:(id)changed withError:(id)error

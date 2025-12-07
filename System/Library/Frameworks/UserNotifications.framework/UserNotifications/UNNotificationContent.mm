@@ -17,6 +17,7 @@
 - (UNNotificationContent)initWithCoder:(id)coder;
 - (UNNotificationIcon)icon;
 - (_UNNotificationCommunicationContext)communicationContext;
+- (id)_descriptionForDebug:(BOOL)debug;
 - (id)_initWithContentType:(id)type communicationContext:(id)context accessoryImageName:(id)name attachments:(id)attachments badge:(id)badge body:(id)body attributedBody:(id)attributedBody categoryIdentifier:(id)self0 date:(id)self1 icon:(id)self2 defaultActionTitle:(id)self3 defaultActionURL:(id)self4 defaultActionBundleIdentifier:(id)self5 expirationDate:(id)self6 header:(id)self7 footer:(id)self8 launchImageName:(id)self9 peopleIdentifiers:(id)identifiers shouldHideDate:(BOOL)hideDate shouldHideTime:(BOOL)time shouldIgnoreDoNotDisturb:(BOOL)disturb shouldIgnoreDowntime:(BOOL)downtime shouldSuppressScreenLightUp:(BOOL)up shouldAuthenticateDefaultAction:(BOOL)action shouldBackgroundDefaultAction:(BOOL)defaultAction shouldPreventNotificationDismissalAfterDefaultAction:(BOOL)afterDefaultAction shouldShowSubordinateIcon:(BOOL)subordinateIcon shouldSuppressDefaultAction:(BOOL)type0 shouldSuppressSyncDismissalWhenRemoved:(BOOL)type1 shouldUseRequestIdentifierForDismissalSync:(BOOL)type2 shouldPreemptPresentedNotification:(BOOL)type3 shouldDisplayActionsInline:(BOOL)type4 sound:(id)type5 subtitle:(id)type6 threadIdentifier:(id)type7 title:(id)type8 topicIdentifiers:(id)type9 realertCount:(unint64_t)context0 summaryArgument:(id)context1 summaryArgumentCount:(unint64_t)context2 targetContentIdentifier:(id)context3 interruptionLevel:(unint64_t)context4 relevanceScore:(double)context5 filterCriteria:(id)context6 screenCaptureProhibited:(BOOL)context7 speechLanguage:(id)context8 userInfo:(id)context9;
 - (id)_safeAttributedStringForAttributedString:(id)string debug:(BOOL)debug;
 - (id)_safeStringForString:(id)string debug:(BOOL)debug;
@@ -147,7 +148,7 @@
 
 - (id)contentByUpdatingWithSendMessageIntent:(id)intent error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   v6 = [_UNMutableNotificationCommunicationContext mutableContextFromINIntent:intentCopy];
   sender = [intentCopy sender];
@@ -185,10 +186,10 @@
     UNLogToDeveloper(@"[UNNotificationContent contentByUpdatingWithProvider:(id<UNNotificationContentProviding>)]", @"Warning: [INSendMessageIntent sender] is nil. Some notification features associated with INSendMessageIntent will not work.");
   }
 
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = 0;
   recipients = [intentCopy recipients];
   v14 = [recipients count];
 
@@ -196,15 +197,15 @@
   {
     v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
     recipients2 = [intentCopy recipients];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __109__UNNotificationContent_UserNotifications_INSendMessageIntent__contentByUpdatingWithSendMessageIntent_error___block_invoke;
-    v36[3] = &unk_1E7CFF750;
-    v37 = intentCopy;
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __109__UNNotificationContent_UserNotifications_INSendMessageIntent__contentByUpdatingWithSendMessageIntent_error___block_invoke;
+    v35[3] = &unk_1E7CFF750;
+    v36 = intentCopy;
     v17 = v15;
-    v38 = v17;
-    v39 = &v40;
-    [recipients2 enumerateObjectsUsingBlock:v36];
+    v37 = v17;
+    v38 = &v39;
+    [recipients2 enumerateObjectsUsingBlock:v35];
 
     [v6 setRecipients:v17];
   }
@@ -224,7 +225,7 @@
     if (v23)
     {
       *buf = 136446210;
-      v45 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
+      v44 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
       _os_log_impl(&dword_1B85E3000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: Intent has INSendMessageIntentDonationMetadata", buf, 0xCu);
     }
 
@@ -235,7 +236,7 @@
     recipientCount = [donationMetadata recipientCount];
     if (recipientCount)
     {
-      v25 = recipientCount - *(v41 + 24);
+      v25 = recipientCount - *(v40 + 24);
       goto LABEL_20;
     }
   }
@@ -243,7 +244,7 @@
   else if (v23)
   {
     *buf = 136446210;
-    v45 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
+    v44 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
     _os_log_impl(&dword_1B85E3000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s: Intent does not have INSendMessageIntentDonationMetadata", buf, 0xCu);
   }
 
@@ -278,14 +279,13 @@ LABEL_20:
   {
     contentType = [v29 contentType];
     *buf = 136446466;
-    v45 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
-    v46 = 2114;
-    v47 = contentType;
+    v44 = "[UNNotificationContent(UserNotifications_INSendMessageIntent) contentByUpdatingWithSendMessageIntent:error:]";
+    v45 = 2114;
+    v46 = contentType;
     _os_log_impl(&dword_1B85E3000, v32, OS_LOG_TYPE_DEFAULT, "%{public}s: Created communication context for INSendMessageIntent. Set [UNNotificationContent contentType] to '%{public}@'", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v40, 8);
-  v34 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v39, 8);
 
   return v29;
 }
@@ -343,7 +343,7 @@ void __109__UNNotificationContent_UserNotifications_INSendMessageIntent__content
 
 - (id)contentByUpdatingWithStartCallIntent:(id)intent error:(id *)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   v6 = [_UNMutableNotificationCommunicationContext mutableContextFromINIntent:intentCopy];
   contacts = [intentCopy contacts];
@@ -353,16 +353,16 @@ void __109__UNNotificationContent_UserNotifications_INSendMessageIntent__content
   {
     v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
     contacts2 = [intentCopy contacts];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __111__UNNotificationContent_UserNotifications_INStartCallIntentIntent__contentByUpdatingWithStartCallIntent_error___block_invoke;
-    v24[3] = &unk_1E7CFF800;
-    v25 = intentCopy;
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __111__UNNotificationContent_UserNotifications_INStartCallIntentIntent__contentByUpdatingWithStartCallIntent_error___block_invoke;
+    v23[3] = &unk_1E7CFF800;
+    v24 = intentCopy;
     v11 = v6;
-    v26 = v11;
-    v27 = v9;
+    v25 = v11;
+    v26 = v9;
     v12 = v9;
-    [contacts2 enumerateObjectsUsingBlock:v24];
+    [contacts2 enumerateObjectsUsingBlock:v23];
 
     [v11 setRecipients:v12];
     [v11 setRecipientCount:{objc_msgSend(v12, "count")}];
@@ -408,13 +408,11 @@ void __109__UNNotificationContent_UserNotifications_INSendMessageIntent__content
     v20 = v19;
     contentType = [v13 contentType];
     *buf = 136446466;
-    v29 = "[UNNotificationContent(UserNotifications_INStartCallIntentIntent) contentByUpdatingWithStartCallIntent:error:]";
-    v30 = 2114;
-    v31 = contentType;
+    v28 = "[UNNotificationContent(UserNotifications_INStartCallIntentIntent) contentByUpdatingWithStartCallIntent:error:]";
+    v29 = 2114;
+    v30 = contentType;
     _os_log_impl(&dword_1B85E3000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s: Created communication context for INStartCallIntent. Set [UNNotificationContent contentType] to '%{public}@'", buf, 0x16u);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -444,46 +442,45 @@ void __111__UNNotificationContent_UserNotifications_INStartCallIntentIntent__con
 
 - (id)contentByUpdatingWithReadAnnouncementIntent:(id)intent error:(id *)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [(UNNotificationContent *)self mutableCopy:intent];
   v5 = UNLogCommunicationNotifications;
   if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[UNNotificationContent(UserNotifications_INStartCallIntentIntent) contentByUpdatingWithReadAnnouncementIntent:error:]";
-    v10 = 2114;
-    v11 = @"UNNotificationContentTypeIntercom";
-    _os_log_impl(&dword_1B85E3000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting content type to '%{public}@'", &v8, 0x16u);
+    v7 = 136446466;
+    v8 = "[UNNotificationContent(UserNotifications_INStartCallIntentIntent) contentByUpdatingWithReadAnnouncementIntent:error:]";
+    v9 = 2114;
+    v10 = @"UNNotificationContentTypeIntercom";
+    _os_log_impl(&dword_1B85E3000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting content type to '%{public}@'", &v7, 0x16u);
   }
 
   [v4 setContentType:@"UNNotificationContentTypeIntercom"];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (UNNotificationContent)contentByUpdatingWithProvider:(id)provider error:(NSError *)outError
 {
-  v29[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   v6 = provider;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
   v7 = getINSendMessageIntentClass_softClass_0;
-  v26 = getINSendMessageIntentClass_softClass_0;
+  v25 = getINSendMessageIntentClass_softClass_0;
   if (!getINSendMessageIntentClass_softClass_0)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getINSendMessageIntentClass_block_invoke_0;
-    v28 = &unk_1E7CFF990;
-    v29[0] = &v23;
+    v27 = &unk_1E7CFF990;
+    v28[0] = &v22;
     __getINSendMessageIntentClass_block_invoke_0(buf);
-    v7 = v24[3];
+    v7 = v23[3];
   }
 
   v8 = v7;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   if (objc_opt_isKindOfClass())
   {
     v9 = [(UNNotificationContent *)self contentByUpdatingWithSendMessageIntent:v6 error:outError];
@@ -492,48 +489,48 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
   v10 = getINStartCallIntentClass_softClass_0;
-  v26 = getINStartCallIntentClass_softClass_0;
+  v25 = getINStartCallIntentClass_softClass_0;
   if (!getINStartCallIntentClass_softClass_0)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getINStartCallIntentClass_block_invoke_0;
-    v28 = &unk_1E7CFF990;
-    v29[0] = &v23;
+    v27 = &unk_1E7CFF990;
+    v28[0] = &v22;
     __getINStartCallIntentClass_block_invoke_0(buf);
-    v10 = v24[3];
+    v10 = v23[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   if (objc_opt_isKindOfClass())
   {
     v9 = [(UNNotificationContent *)self contentByUpdatingWithStartCallIntent:v6 error:outError];
     goto LABEL_15;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2050000000;
   v12 = getINReadAnnouncementIntentClass_softClass;
-  v26 = getINReadAnnouncementIntentClass_softClass;
+  v25 = getINReadAnnouncementIntentClass_softClass;
   if (!getINReadAnnouncementIntentClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getINReadAnnouncementIntentClass_block_invoke;
-    v28 = &unk_1E7CFF990;
-    v29[0] = &v23;
+    v27 = &unk_1E7CFF990;
+    v28[0] = &v22;
     __getINReadAnnouncementIntentClass_block_invoke(buf);
-    v12 = v24[3];
+    v12 = v23[3];
   }
 
   v13 = v12;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   if (objc_opt_isKindOfClass())
   {
     v9 = [(UNNotificationContent *)self contentByUpdatingWithReadAnnouncementIntent:v6 error:outError];
@@ -569,13 +566,11 @@ LABEL_16:
     *&buf[12] = 2114;
     *&buf[14] = v18;
     *&buf[22] = 2114;
-    v28 = contentType;
-    LOWORD(v29[0]) = 2114;
-    *(v29 + 2) = communicationContext;
+    v27 = contentType;
+    LOWORD(v28[0]) = 2114;
+    *(v28 + 2) = communicationContext;
     _os_log_impl(&dword_1B85E3000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: Provided object of type '%{public}@'. Assigned content type: '%{public}@' Created communication context: '%{public}@'", buf, 0x2Au);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -825,366 +820,53 @@ LABEL_16:
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_49;
-  }
-
-  contentType = [(UNNotificationContent *)self contentType];
-  contentType2 = [equalCopy contentType];
-  v7 = UNEqualStrings(contentType, contentType2);
-
-  if (!v7)
-  {
-    goto LABEL_49;
-  }
-
-  communicationContext = [(UNNotificationContent *)self communicationContext];
-  communicationContext2 = [equalCopy communicationContext];
-  v10 = UNEqualObjects(communicationContext, communicationContext2);
-
-  if (!v10)
-  {
-    goto LABEL_49;
-  }
-
-  accessoryImageName = [(UNNotificationContent *)self accessoryImageName];
-  accessoryImageName2 = [equalCopy accessoryImageName];
-  v13 = UNEqualObjects(accessoryImageName, accessoryImageName2);
-
-  if (!v13)
-  {
-    goto LABEL_49;
-  }
-
-  attachments = [(UNNotificationContent *)self attachments];
-  attachments2 = [equalCopy attachments];
-  v16 = UNEqualObjects(attachments, attachments2);
-
-  if (!v16)
-  {
-    goto LABEL_49;
-  }
-
-  badge = [(UNNotificationContent *)self badge];
-  badge2 = [equalCopy badge];
-  v19 = UNEqualObjects(badge, badge2);
-
-  if (!v19)
-  {
-    goto LABEL_49;
-  }
-
-  body = [(UNNotificationContent *)self body];
-  body2 = [equalCopy body];
-  v22 = UNEqualObjects(body, body2);
-
-  if (!v22)
-  {
-    goto LABEL_49;
-  }
-
-  attributedBody = [(UNNotificationContent *)self attributedBody];
-  attributedBody2 = [equalCopy attributedBody];
-  v25 = UNEqualObjects(attributedBody, attributedBody2);
-
-  if (!v25)
-  {
-    goto LABEL_49;
-  }
-
-  categoryIdentifier = [(UNNotificationContent *)self categoryIdentifier];
-  categoryIdentifier2 = [equalCopy categoryIdentifier];
-  v28 = UNEqualStrings(categoryIdentifier, categoryIdentifier2);
-
-  if (!v28)
-  {
-    goto LABEL_49;
-  }
-
-  date = [(UNNotificationContent *)self date];
-  date2 = [equalCopy date];
-  v31 = UNEqualObjects(date, date2);
-
-  if (!v31)
-  {
-    goto LABEL_49;
-  }
-
-  expirationDate = [(UNNotificationContent *)self expirationDate];
-  expirationDate2 = [equalCopy expirationDate];
-  v34 = UNEqualObjects(expirationDate, expirationDate2);
-
-  if (!v34)
-  {
-    goto LABEL_49;
-  }
-
-  defaultActionTitle = [(UNNotificationContent *)self defaultActionTitle];
-  defaultActionTitle2 = [equalCopy defaultActionTitle];
-  v37 = UNEqualStrings(defaultActionTitle, defaultActionTitle2);
-
-  if (!v37)
-  {
-    goto LABEL_49;
-  }
-
-  defaultActionURL = [(UNNotificationContent *)self defaultActionURL];
-  defaultActionURL2 = [equalCopy defaultActionURL];
-  v40 = UNEqualObjects(defaultActionURL, defaultActionURL2);
-
-  if (!v40)
-  {
-    goto LABEL_49;
-  }
-
-  defaultActionBundleIdentifier = [(UNNotificationContent *)self defaultActionBundleIdentifier];
-  defaultActionBundleIdentifier2 = [equalCopy defaultActionBundleIdentifier];
-  v43 = UNEqualStrings(defaultActionBundleIdentifier, defaultActionBundleIdentifier2);
-
-  if (!v43)
-  {
-    goto LABEL_49;
-  }
-
-  icon = [(UNNotificationContent *)self icon];
-  icon2 = [equalCopy icon];
-  v46 = UNEqualObjects(icon, icon2);
-
-  if (!v46)
-  {
-    goto LABEL_49;
-  }
-
-  header = [(UNNotificationContent *)self header];
-  header2 = [equalCopy header];
-  v49 = UNEqualStrings(header, header2);
-
-  if (!v49)
-  {
-    goto LABEL_49;
-  }
-
-  footer = [(UNNotificationContent *)self footer];
-  footer2 = [equalCopy footer];
-  v52 = UNEqualStrings(footer, footer2);
-
-  if (!v52)
-  {
-    goto LABEL_49;
-  }
-
-  launchImageName = [(UNNotificationContent *)self launchImageName];
-  launchImageName2 = [equalCopy launchImageName];
-  v55 = UNEqualObjects(launchImageName, launchImageName2);
-
-  if (!v55)
-  {
-    goto LABEL_49;
-  }
-
-  peopleIdentifiers = [(UNNotificationContent *)self peopleIdentifiers];
-  peopleIdentifiers2 = [equalCopy peopleIdentifiers];
-  v58 = UNEqualObjects(peopleIdentifiers, peopleIdentifiers2);
-
-  if (!v58)
-  {
-    goto LABEL_49;
-  }
-
-  shouldHideDate = [(UNNotificationContent *)self shouldHideDate];
-  if (shouldHideDate != [equalCopy shouldHideDate])
-  {
-    goto LABEL_49;
-  }
-
-  shouldHideTime = [(UNNotificationContent *)self shouldHideTime];
-  if (shouldHideTime != [equalCopy shouldHideTime])
-  {
-    goto LABEL_49;
-  }
-
-  shouldIgnoreDoNotDisturb = [(UNNotificationContent *)self shouldIgnoreDoNotDisturb];
-  if (shouldIgnoreDoNotDisturb != [equalCopy shouldIgnoreDoNotDisturb])
-  {
-    goto LABEL_49;
-  }
-
-  shouldIgnoreDowntime = [(UNNotificationContent *)self shouldIgnoreDowntime];
-  if (shouldIgnoreDowntime != [equalCopy shouldIgnoreDowntime])
-  {
-    goto LABEL_49;
-  }
-
-  shouldAuthenticateDefaultAction = [(UNNotificationContent *)self shouldAuthenticateDefaultAction];
-  if (shouldAuthenticateDefaultAction != [equalCopy shouldAuthenticateDefaultAction])
-  {
-    goto LABEL_49;
-  }
-
-  shouldBackgroundDefaultAction = [(UNNotificationContent *)self shouldBackgroundDefaultAction];
-  if (shouldBackgroundDefaultAction != [equalCopy shouldBackgroundDefaultAction])
-  {
-    goto LABEL_49;
-  }
-
-  shouldShowSubordinateIcon = [(UNNotificationContent *)self shouldShowSubordinateIcon];
-  if (shouldShowSubordinateIcon != [equalCopy shouldShowSubordinateIcon])
-  {
-    goto LABEL_49;
-  }
-
-  shouldPreventNotificationDismissalAfterDefaultAction = [(UNNotificationContent *)self shouldPreventNotificationDismissalAfterDefaultAction];
-  if (shouldPreventNotificationDismissalAfterDefaultAction != [equalCopy shouldPreventNotificationDismissalAfterDefaultAction])
-  {
-    goto LABEL_49;
-  }
-
-  shouldSuppressDefaultAction = [(UNNotificationContent *)self shouldSuppressDefaultAction];
-  if (shouldSuppressDefaultAction != [equalCopy shouldSuppressDefaultAction])
-  {
-    goto LABEL_49;
-  }
-
-  shouldSuppressScreenLightUp = [(UNNotificationContent *)self shouldSuppressScreenLightUp];
-  if (shouldSuppressScreenLightUp != [equalCopy shouldSuppressScreenLightUp])
-  {
-    goto LABEL_49;
-  }
-
-  shouldSuppressSyncDismissalWhenRemoved = [(UNNotificationContent *)self shouldSuppressSyncDismissalWhenRemoved];
-  if (shouldSuppressSyncDismissalWhenRemoved != [equalCopy shouldSuppressSyncDismissalWhenRemoved])
-  {
-    goto LABEL_49;
-  }
-
-  shouldUseRequestIdentifierForDismissalSync = [(UNNotificationContent *)self shouldUseRequestIdentifierForDismissalSync];
-  if (shouldUseRequestIdentifierForDismissalSync != [equalCopy shouldUseRequestIdentifierForDismissalSync])
-  {
-    goto LABEL_49;
-  }
-
-  shouldPreemptPresentedNotification = [(UNNotificationContent *)self shouldPreemptPresentedNotification];
-  if (shouldPreemptPresentedNotification != [equalCopy shouldPreemptPresentedNotification])
-  {
-    goto LABEL_49;
-  }
-
-  shouldDisplayActionsInline = [(UNNotificationContent *)self shouldDisplayActionsInline];
-  if (shouldDisplayActionsInline != [equalCopy shouldDisplayActionsInline])
-  {
-    goto LABEL_49;
-  }
-
-  sound = [(UNNotificationContent *)self sound];
-  sound2 = [equalCopy sound];
-  v75 = UNEqualObjects(sound, sound2);
-
-  if (!v75)
-  {
-    goto LABEL_49;
-  }
-
-  subtitle = [(UNNotificationContent *)self subtitle];
-  subtitle2 = [equalCopy subtitle];
-  v78 = UNEqualObjects(subtitle, subtitle2);
-
-  if (!v78)
-  {
-    goto LABEL_49;
-  }
-
-  threadIdentifier = [(UNNotificationContent *)self threadIdentifier];
-  threadIdentifier2 = [equalCopy threadIdentifier];
-  v81 = UNEqualStrings(threadIdentifier, threadIdentifier2);
-
-  if (!v81)
-  {
-    goto LABEL_49;
-  }
-
-  title = [(UNNotificationContent *)self title];
-  title2 = [equalCopy title];
-  v84 = UNEqualObjects(title, title2);
-
-  if (!v84)
-  {
-    goto LABEL_49;
-  }
-
-  topicIdentifiers = [(UNNotificationContent *)self topicIdentifiers];
-  topicIdentifiers2 = [equalCopy topicIdentifiers];
-  v87 = UNEqualObjects(topicIdentifiers, topicIdentifiers2);
-
-  if (!v87)
-  {
-    goto LABEL_49;
-  }
-
-  realertCount = [(UNNotificationContent *)self realertCount];
-  if (realertCount != [equalCopy realertCount])
-  {
-    goto LABEL_49;
-  }
-
-  summaryArgument = [(UNNotificationContent *)self summaryArgument];
-  summaryArgument2 = [equalCopy summaryArgument];
-  v91 = UNEqualStrings(summaryArgument, summaryArgument2);
-
-  if (!v91)
-  {
-    goto LABEL_49;
-  }
-
-  summaryArgumentCount = [(UNNotificationContent *)self summaryArgumentCount];
-  if (summaryArgumentCount != [equalCopy summaryArgumentCount])
-  {
-    goto LABEL_49;
-  }
-
-  targetContentIdentifier = [(UNNotificationContent *)self targetContentIdentifier];
-  targetContentIdentifier2 = [equalCopy targetContentIdentifier];
-  v95 = UNEqualStrings(targetContentIdentifier, targetContentIdentifier2);
-
-  if (!v95)
-  {
-    goto LABEL_49;
-  }
-
-  interruptionLevel = [(UNNotificationContent *)self interruptionLevel];
-  if (interruptionLevel != [equalCopy interruptionLevel])
-  {
-    goto LABEL_49;
-  }
-
-  [(UNNotificationContent *)self relevanceScore];
-  v98 = v97;
-  [equalCopy relevanceScore];
-  if (v98 != v99)
-  {
-    goto LABEL_49;
-  }
-
-  filterCriteria = [(UNNotificationContent *)self filterCriteria];
-  filterCriteria2 = [equalCopy filterCriteria];
-  v102 = UNEqualStrings(filterCriteria, filterCriteria2);
-
-  if (!v102)
-  {
-    goto LABEL_49;
-  }
-
-  screenCaptureProhibited = [(UNNotificationContent *)self screenCaptureProhibited];
-  if (screenCaptureProhibited != [equalCopy screenCaptureProhibited])
-  {
-    goto LABEL_49;
-  }
-
-  userInfo = [(UNNotificationContent *)self userInfo];
-  userInfo2 = [equalCopy userInfo];
-  v106 = UNEqualObjects(userInfo, userInfo2);
-
-  if (v106)
+  if ((objc_opt_isKindOfClass() & 1) != 0
+    && (-[UNNotificationContent contentType](self, "contentType"), v5 = objc_claimAutoreleasedReturnValue(), [equalCopy contentType], v6 = objc_claimAutoreleasedReturnValue(), v7 = UNEqualStrings(v5, v6), v6, v5, v7)
+    && (-[UNNotificationContent communicationContext](self, "communicationContext"), v8 = objc_claimAutoreleasedReturnValue(), [equalCopy communicationContext], v9 = objc_claimAutoreleasedReturnValue(), v10 = UNEqualObjects(v8, v9), v9, v8, v10)
+    && (-[UNNotificationContent accessoryImageName](self, "accessoryImageName"), v11 = objc_claimAutoreleasedReturnValue(), [equalCopy accessoryImageName], v12 = objc_claimAutoreleasedReturnValue(), v13 = UNEqualObjects(v11, v12), v12, v11, v13)
+    && (-[UNNotificationContent attachments](self, "attachments"), v14 = objc_claimAutoreleasedReturnValue(), [equalCopy attachments], v15 = objc_claimAutoreleasedReturnValue(), v16 = UNEqualObjects(v14, v15), v15, v14, v16)
+    && (-[UNNotificationContent badge](self, "badge"), v17 = objc_claimAutoreleasedReturnValue(), [equalCopy badge], v18 = objc_claimAutoreleasedReturnValue(), v19 = UNEqualObjects(v17, v18), v18, v17, v19)
+    && (-[UNNotificationContent body](self, "body"), v20 = objc_claimAutoreleasedReturnValue(), [equalCopy body], v21 = objc_claimAutoreleasedReturnValue(), v22 = UNEqualObjects(v20, v21), v21, v20, v22)
+    && (-[UNNotificationContent attributedBody](self, "attributedBody"), v23 = objc_claimAutoreleasedReturnValue(), [equalCopy attributedBody], v24 = objc_claimAutoreleasedReturnValue(), v25 = UNEqualObjects(v23, v24), v24, v23, v25)
+    && (-[UNNotificationContent categoryIdentifier](self, "categoryIdentifier"), v26 = objc_claimAutoreleasedReturnValue(), [equalCopy categoryIdentifier], v27 = objc_claimAutoreleasedReturnValue(), v28 = UNEqualStrings(v26, v27), v27, v26, v28)
+    && (-[UNNotificationContent date](self, "date"), v29 = objc_claimAutoreleasedReturnValue(), [equalCopy date], v30 = objc_claimAutoreleasedReturnValue(), v31 = UNEqualObjects(v29, v30), v30, v29, v31)
+    && (-[UNNotificationContent expirationDate](self, "expirationDate"), v32 = objc_claimAutoreleasedReturnValue(), [equalCopy expirationDate], v33 = objc_claimAutoreleasedReturnValue(), v34 = UNEqualObjects(v32, v33), v33, v32, v34)
+    && (-[UNNotificationContent defaultActionTitle](self, "defaultActionTitle"), v35 = objc_claimAutoreleasedReturnValue(), [equalCopy defaultActionTitle], v36 = objc_claimAutoreleasedReturnValue(), v37 = UNEqualStrings(v35, v36), v36, v35, v37)
+    && (-[UNNotificationContent defaultActionURL](self, "defaultActionURL"), v38 = objc_claimAutoreleasedReturnValue(), [equalCopy defaultActionURL], v39 = objc_claimAutoreleasedReturnValue(), v40 = UNEqualObjects(v38, v39), v39, v38, v40)
+    && (-[UNNotificationContent defaultActionBundleIdentifier](self, "defaultActionBundleIdentifier"), v41 = objc_claimAutoreleasedReturnValue(), [equalCopy defaultActionBundleIdentifier], v42 = objc_claimAutoreleasedReturnValue(), v43 = UNEqualStrings(v41, v42), v42, v41, v43)
+    && (-[UNNotificationContent icon](self, "icon"), v44 = objc_claimAutoreleasedReturnValue(), [equalCopy icon], v45 = objc_claimAutoreleasedReturnValue(), v46 = UNEqualObjects(v44, v45), v45, v44, v46)
+    && (-[UNNotificationContent header](self, "header"), v47 = objc_claimAutoreleasedReturnValue(), [equalCopy header], v48 = objc_claimAutoreleasedReturnValue(), v49 = UNEqualStrings(v47, v48), v48, v47, v49)
+    && (-[UNNotificationContent footer](self, "footer"), v50 = objc_claimAutoreleasedReturnValue(), [equalCopy footer], v51 = objc_claimAutoreleasedReturnValue(), v52 = UNEqualStrings(v50, v51), v51, v50, v52)
+    && (-[UNNotificationContent launchImageName](self, "launchImageName"), v53 = objc_claimAutoreleasedReturnValue(), [equalCopy launchImageName], v54 = objc_claimAutoreleasedReturnValue(), v55 = UNEqualObjects(v53, v54), v54, v53, v55)
+    && (-[UNNotificationContent peopleIdentifiers](self, "peopleIdentifiers"), v56 = objc_claimAutoreleasedReturnValue(), [equalCopy peopleIdentifiers], v57 = objc_claimAutoreleasedReturnValue(), v58 = UNEqualObjects(v56, v57), v57, v56, v58)
+    && (v59 = -[UNNotificationContent shouldHideDate](self, "shouldHideDate"), v59 == [equalCopy shouldHideDate])
+    && (v60 = -[UNNotificationContent shouldHideTime](self, "shouldHideTime"), v60 == [equalCopy shouldHideTime])
+    && (v61 = -[UNNotificationContent shouldIgnoreDoNotDisturb](self, "shouldIgnoreDoNotDisturb"), v61 == [equalCopy shouldIgnoreDoNotDisturb])
+    && (v62 = -[UNNotificationContent shouldIgnoreDowntime](self, "shouldIgnoreDowntime"), v62 == [equalCopy shouldIgnoreDowntime])
+    && (v63 = -[UNNotificationContent shouldAuthenticateDefaultAction](self, "shouldAuthenticateDefaultAction"), v63 == [equalCopy shouldAuthenticateDefaultAction])
+    && (v64 = -[UNNotificationContent shouldBackgroundDefaultAction](self, "shouldBackgroundDefaultAction"), v64 == [equalCopy shouldBackgroundDefaultAction])
+    && (v65 = -[UNNotificationContent shouldShowSubordinateIcon](self, "shouldShowSubordinateIcon"), v65 == [equalCopy shouldShowSubordinateIcon])
+    && (v66 = -[UNNotificationContent shouldPreventNotificationDismissalAfterDefaultAction](self, "shouldPreventNotificationDismissalAfterDefaultAction"), v66 == [equalCopy shouldPreventNotificationDismissalAfterDefaultAction])
+    && (v67 = -[UNNotificationContent shouldSuppressDefaultAction](self, "shouldSuppressDefaultAction"), v67 == [equalCopy shouldSuppressDefaultAction])
+    && (v68 = -[UNNotificationContent shouldSuppressScreenLightUp](self, "shouldSuppressScreenLightUp"), v68 == [equalCopy shouldSuppressScreenLightUp])
+    && (v69 = -[UNNotificationContent shouldSuppressSyncDismissalWhenRemoved](self, "shouldSuppressSyncDismissalWhenRemoved"), v69 == [equalCopy shouldSuppressSyncDismissalWhenRemoved])
+    && (v70 = -[UNNotificationContent shouldUseRequestIdentifierForDismissalSync](self, "shouldUseRequestIdentifierForDismissalSync"), v70 == [equalCopy shouldUseRequestIdentifierForDismissalSync])
+    && (v71 = -[UNNotificationContent shouldPreemptPresentedNotification](self, "shouldPreemptPresentedNotification"), v71 == [equalCopy shouldPreemptPresentedNotification])
+    && (v72 = -[UNNotificationContent shouldDisplayActionsInline](self, "shouldDisplayActionsInline"), v72 == [equalCopy shouldDisplayActionsInline])
+    && (-[UNNotificationContent sound](self, "sound"), v73 = objc_claimAutoreleasedReturnValue(), [equalCopy sound], v74 = objc_claimAutoreleasedReturnValue(), v75 = UNEqualObjects(v73, v74), v74, v73, v75)
+    && (-[UNNotificationContent subtitle](self, "subtitle"), v76 = objc_claimAutoreleasedReturnValue(), [equalCopy subtitle], v77 = objc_claimAutoreleasedReturnValue(), v78 = UNEqualObjects(v76, v77), v77, v76, v78)
+    && (-[UNNotificationContent threadIdentifier](self, "threadIdentifier"), v79 = objc_claimAutoreleasedReturnValue(), [equalCopy threadIdentifier], v80 = objc_claimAutoreleasedReturnValue(), v81 = UNEqualStrings(v79, v80), v80, v79, v81)
+    && (-[UNNotificationContent title](self, "title"), v82 = objc_claimAutoreleasedReturnValue(), [equalCopy title], v83 = objc_claimAutoreleasedReturnValue(), v84 = UNEqualObjects(v82, v83), v83, v82, v84)
+    && (-[UNNotificationContent topicIdentifiers](self, "topicIdentifiers"), v85 = objc_claimAutoreleasedReturnValue(), [equalCopy topicIdentifiers], v86 = objc_claimAutoreleasedReturnValue(), v87 = UNEqualObjects(v85, v86), v86, v85, v87)
+    && (v88 = -[UNNotificationContent realertCount](self, "realertCount"), v88 == [equalCopy realertCount])
+    && (-[UNNotificationContent summaryArgument](self, "summaryArgument"), v89 = objc_claimAutoreleasedReturnValue(), [equalCopy summaryArgument], v90 = objc_claimAutoreleasedReturnValue(), v91 = UNEqualStrings(v89, v90), v90, v89, v91)
+    && (v92 = -[UNNotificationContent summaryArgumentCount](self, "summaryArgumentCount"), v92 == [equalCopy summaryArgumentCount])
+    && (-[UNNotificationContent targetContentIdentifier](self, "targetContentIdentifier"), v93 = objc_claimAutoreleasedReturnValue(), [equalCopy targetContentIdentifier], v94 = objc_claimAutoreleasedReturnValue(), v95 = UNEqualStrings(v93, v94), v94, v93, v95)
+    && (v96 = -[UNNotificationContent interruptionLevel](self, "interruptionLevel"), v96 == [equalCopy interruptionLevel])
+    && (-[UNNotificationContent relevanceScore](self, "relevanceScore"), v98 = v97, [equalCopy relevanceScore], v98 == v99)
+    && (-[UNNotificationContent filterCriteria](self, "filterCriteria"), v100 = objc_claimAutoreleasedReturnValue(), [equalCopy filterCriteria], v101 = objc_claimAutoreleasedReturnValue(), v102 = UNEqualStrings(v100, v101), v101, v100, v102)
+    && (v103 = -[UNNotificationContent screenCaptureProhibited](self, "screenCaptureProhibited"), v103 == [equalCopy screenCaptureProhibited])
+    && (-[UNNotificationContent userInfo](self, "userInfo"), v104 = objc_claimAutoreleasedReturnValue(), [equalCopy userInfo], v105 = objc_claimAutoreleasedReturnValue(), v106 = UNEqualObjects(v104, v105), v105, v104, v106))
   {
     speechLanguage = [(UNNotificationContent *)self speechLanguage];
     speechLanguage2 = [equalCopy speechLanguage];
@@ -1193,11 +875,43 @@ LABEL_16:
 
   else
   {
-LABEL_49:
     v109 = 0;
   }
 
   return v109;
+}
+
+- (id)_descriptionForDebug:(BOOL)debug
+{
+  debugCopy = debug;
+  speechLanguage = [(UNNotificationContent *)self speechLanguage];
+  v25 = MEMORY[0x1E696AEC0];
+  v23 = objc_opt_class();
+  title = [(UNNotificationContent *)self title];
+  v30 = [(UNNotificationContent *)self _safeStringForString:title debug:debugCopy];
+  subtitle = [(UNNotificationContent *)self subtitle];
+  v21 = [(UNNotificationContent *)self _safeStringForString:subtitle debug:debugCopy];
+  body = [(UNNotificationContent *)self body];
+  v20 = [(UNNotificationContent *)self _safeStringForString:body debug:debugCopy];
+  attributedBody = [(UNNotificationContent *)self attributedBody];
+  v29 = [(UNNotificationContent *)self _safeAttributedStringForAttributedString:attributedBody debug:debugCopy];
+  summaryArgument = [(UNNotificationContent *)self summaryArgument];
+  v17 = [(UNNotificationContent *)self _safeStringForString:summaryArgument debug:debugCopy];
+  summaryArgumentCount = [(UNNotificationContent *)self summaryArgumentCount];
+  categoryIdentifier = [(UNNotificationContent *)self categoryIdentifier];
+  launchImageName = [(UNNotificationContent *)self launchImageName];
+  threadIdentifier = [(UNNotificationContent *)self threadIdentifier];
+  attachments = [(UNNotificationContent *)self attachments];
+  badge = [(UNNotificationContent *)self badge];
+  sound = [(UNNotificationContent *)self sound];
+  realertCount = [(UNNotificationContent *)self realertCount];
+  interruptionLevel = [(UNNotificationContent *)self interruptionLevel];
+  [(UNNotificationContent *)self relevanceScore];
+  v13 = v12;
+  filterCriteria = [(UNNotificationContent *)self filterCriteria];
+  v15 = [v25 stringWithFormat:@"<%@: %p title: %@, subtitle: %@, body: %@, attributedBody: %@, summaryArgument: %@, summaryArgumentCount: %u, categoryIdentifier: %@, launchImageName: %@, threadIdentifier: %@, attachments: %@, badge: %@, sound: %@, realert: %u, interruptionLevel: %lu, relevanceScore: %.2f, filterCriteria: %@, screenCaptureProhibited: %d, speechLanguage: %@", v23, self, v30, v21, v20, v29, v17, summaryArgumentCount, categoryIdentifier, launchImageName, threadIdentifier, attachments, badge, sound, realertCount, interruptionLevel, v13, filterCriteria, -[UNNotificationContent screenCaptureProhibited](self, "screenCaptureProhibited"), speechLanguage];;
+
+  return v15;
 }
 
 - (id)_safeStringForString:(id)string debug:(BOOL)debug

@@ -97,7 +97,7 @@ LABEL_7:
 - (void)postHasAdviceNotification:(BOOL)notification
 {
   notificationCopy = notification;
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __46__LiveLinkObserver_postHasAdviceNotification___block_invoke;
@@ -112,27 +112,26 @@ LABEL_7:
   if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v9 = notificationCopy;
+    v8 = notificationCopy;
     _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "Posting Darwin Notification with LiveLink advice = %llu", buf, 0xCu);
   }
 
   notify_set_state(self->notifyToken, notificationCopy);
   notify_post(kDarwinNotificationLiveLinkHasAdvice);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)attemptStartProgressProbe
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self->_tcpProgressProbe)
   {
     v3 = liveLinkLogHandle;
     if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       interfaceName = self->_interfaceName;
-      v15 = 138412290;
-      v16 = interfaceName;
-      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Redundant call to attemptStartProgressProbe for interface %@", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = interfaceName;
+      _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_DEFAULT, "Redundant call to attemptStartProgressProbe for interface %@", &v14, 0xCu);
     }
 
     v5 = 0;
@@ -141,19 +140,19 @@ LABEL_7:
 
   else
   {
-    v8 = [TCPProgressProbe probeForInterface:self->_interfaceName];
+    v7 = [TCPProgressProbe probeForInterface:self->_interfaceName];
     tcpProgressProbe = self->_tcpProgressProbe;
-    self->_tcpProgressProbe = v8;
+    self->_tcpProgressProbe = v7;
 
-    v10 = liveLinkLogHandle;
+    v9 = liveLinkLogHandle;
     if (self->_tcpProgressProbe)
     {
       if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = self->_interfaceName;
-        v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "Allocated progress probe for interface %@", &v15, 0xCu);
+        v10 = self->_interfaceName;
+        v14 = 138412290;
+        v15 = v10;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Allocated progress probe for interface %@", &v14, 0xCu);
       }
 
       date = [MEMORY[0x277CBEAA8] date];
@@ -177,17 +176,16 @@ LABEL_7:
     {
       if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v14 = self->_interfaceName;
-        v15 = 138412290;
-        v16 = v14;
-        _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v15, 0xCu);
+        v13 = self->_interfaceName;
+        v14 = 138412290;
+        v15 = v13;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v14, 0xCu);
       }
 
-      v5 = 0;
+      return 0;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -200,40 +198,36 @@ LABEL_7:
 
 - (BOOL)stopTracking
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [(LiveLinkObserver *)self stopProgressProbeTimer];
   tcpProgressProbe = self->_tcpProgressProbe;
-  if (tcpProgressProbe)
+  if (!tcpProgressProbe)
   {
-    v4 = [(TCPProgressProbe *)tcpProgressProbe manage:0 outValue:0];
-    if (!v4)
+    return 0;
+  }
+
+  v4 = [(TCPProgressProbe *)tcpProgressProbe manage:0 outValue:0];
+  if (!v4)
+  {
+    v5 = liveLinkLogHandle;
+    if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v5 = liveLinkLogHandle;
-      if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
-      {
-        interfaceName = self->_interfaceName;
-        v10 = 138412290;
-        v11 = interfaceName;
-        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Failed to reset probe mode on interface %@", &v10, 0xCu);
-      }
+      interfaceName = self->_interfaceName;
+      v9 = 138412290;
+      v10 = interfaceName;
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Failed to reset probe mode on interface %@", &v9, 0xCu);
     }
-
-    v7 = self->_tcpProgressProbe;
-    self->_tcpProgressProbe = 0;
   }
 
-  else
-  {
-    v4 = 0;
-  }
+  v7 = self->_tcpProgressProbe;
+  self->_tcpProgressProbe = 0;
 
-  v8 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
 - (BOOL)enableLocalFlowsTracking
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [TCPProgressProbe probeForInterface:self->_interfaceName];
   tcpProgressProbe = self->_tcpProgressProbe;
   self->_tcpProgressProbe = v3;
@@ -247,9 +241,9 @@ LABEL_7:
       if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         interfaceName = self->_interfaceName;
-        v13 = 138412290;
-        v14 = interfaceName;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Already tracking local flows on interface %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = interfaceName;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "Already tracking local flows on interface %@", &v12, 0xCu);
       }
 
       LOBYTE(v8) = 1;
@@ -269,21 +263,20 @@ LABEL_7:
     if (v8)
     {
       v10 = self->_interfaceName;
-      v13 = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v12, 0xCu);
       LOBYTE(v8) = 0;
     }
   }
 
   *&self->_localFlowsDisabled = 256;
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)disableLocalFlowsTracking
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [TCPProgressProbe probeForInterface:self->_interfaceName];
   tcpProgressProbe = self->_tcpProgressProbe;
   self->_tcpProgressProbe = v3;
@@ -303,9 +296,9 @@ LABEL_7:
       if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
       {
         interfaceName = self->_interfaceName;
-        v13 = 138412290;
-        v14 = interfaceName;
-        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Not currently tracking local flows on interface %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = interfaceName;
+        _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEFAULT, "Not currently tracking local flows on interface %@", &v12, 0xCu);
       }
 
       LOBYTE(v6) = 1;
@@ -319,21 +312,20 @@ LABEL_7:
     if (v6)
     {
       v8 = self->_interfaceName;
-      v13 = 138412290;
-      v14 = v8;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v8;
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Failed to get probe for interface %@", &v12, 0xCu);
       LOBYTE(v6) = 0;
     }
   }
 
   *&self->_localFlowsDisabled = 1;
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)enablePremiumMode
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!self->_premiumModeEnabled)
   {
     v3 = [TCPProgressProbe probeForInterface:self->_interfaceName];
@@ -348,38 +340,42 @@ LABEL_7:
       v7 = liveLinkLogHandle;
       if (v6)
       {
-        if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          interfaceName = self->_interfaceName;
-          v14 = 138412290;
-          v15 = interfaceName;
-          v9 = "Premium mode enabled for interface %@";
-          v10 = v7;
-          v11 = OS_LOG_TYPE_DEFAULT;
-LABEL_8:
-          _os_log_impl(&dword_23255B000, v10, v11, v9, &v14, 0xCu);
+          return;
         }
+
+        interfaceName = self->_interfaceName;
+        v13 = 138412290;
+        v14 = interfaceName;
+        v9 = "Premium mode enabled for interface %@";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_DEFAULT;
       }
 
-      else if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
+      else
       {
+        if (!os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          return;
+        }
+
         v12 = self->_interfaceName;
-        v14 = 138412290;
-        v15 = v12;
+        v13 = 138412290;
+        v14 = v12;
         v9 = "Premium mode not enabled for interface %@";
         v10 = v7;
         v11 = OS_LOG_TYPE_ERROR;
-        goto LABEL_8;
       }
+
+      _os_log_impl(&dword_23255B000, v10, v11, v9, &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disablePremiumMode
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (self->_premiumModeEnabled)
   {
     v3 = [TCPProgressProbe probeForInterface:self->_interfaceName];
@@ -394,33 +390,37 @@ LABEL_8:
       v7 = liveLinkLogHandle;
       if (v6)
       {
-        if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          interfaceName = self->_interfaceName;
-          v14 = 138412290;
-          v15 = interfaceName;
-          v9 = "Premium mode disabled for interface %@";
-          v10 = v7;
-          v11 = OS_LOG_TYPE_DEFAULT;
-LABEL_8:
-          _os_log_impl(&dword_23255B000, v10, v11, v9, &v14, 0xCu);
+          return;
         }
+
+        interfaceName = self->_interfaceName;
+        v13 = 138412290;
+        v14 = interfaceName;
+        v9 = "Premium mode disabled for interface %@";
+        v10 = v7;
+        v11 = OS_LOG_TYPE_DEFAULT;
       }
 
-      else if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
+      else
       {
+        if (!os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
+        {
+          return;
+        }
+
         v12 = self->_interfaceName;
-        v14 = 138412290;
-        v15 = v12;
+        v13 = 138412290;
+        v14 = v12;
         v9 = "Premium mode not disabled for interface %@";
         v10 = v7;
         v11 = OS_LOG_TYPE_ERROR;
-        goto LABEL_8;
       }
+
+      _os_log_impl(&dword_23255B000, v10, v11, v9, &v13, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startProgressProbeTimerWithInterval:(unint64_t)interval capWindowTo:(unint64_t)to
@@ -445,7 +445,7 @@ LABEL_8:
   dispatch_resume(self->progressProbeTimer);
 }
 
-uint64_t __68__LiveLinkObserver_startProgressProbeTimerWithInterval_capWindowTo___block_invoke(uint64_t a1)
+void *__68__LiveLinkObserver_startProgressProbeTimerWithInterval_capWindowTo___block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 16);
   if (v2 && ([v2 interfaceMappingIsCurrent] & 1) == 0)
@@ -534,7 +534,7 @@ LABEL_10:
 
 void __61__LiveLinkObserver__captureProgressWithInterval_capWindowTo___block_invoke(uint64_t a1, int a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = liveLinkLogHandle;
   if (a2)
   {
@@ -544,15 +544,15 @@ void __61__LiveLinkObserver__captureProgressWithInterval_capWindowTo___block_inv
       v7 = *(*(a1 + 32) + 40);
       v8 = v3;
       v9 = [TCPProgressProbe progressPrettyPrintUtility:a3];
-      v21 = 134218754;
-      v22 = v7;
-      v23 = 2048;
-      v24 = v6;
-      v25 = 1024;
-      v26 = 1;
-      v27 = 2112;
-      v28 = v9;
-      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "TCP metrics iteration:%lu since %.2f secs, ret=%d: %@", &v21, 0x26u);
+      v20 = 134218754;
+      v21 = v7;
+      v22 = 2048;
+      v23 = v6;
+      v24 = 1024;
+      v25 = 1;
+      v26 = 2112;
+      v27 = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_DEFAULT, "TCP metrics iteration:%lu since %.2f secs, ret=%d: %@", &v20, 0x26u);
     }
 
     v10 = *(a1 + 32);
@@ -579,11 +579,11 @@ void __61__LiveLinkObserver__captureProgressWithInterval_capWindowTo___block_inv
     if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       v17 = *(*(a1 + 32) + 56);
-      v21 = 138412546;
-      v22 = v17;
-      v23 = 2048;
-      v24 = v14;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Current TCP progress score on %@ = %lu", &v21, 0x16u);
+      v20 = 138412546;
+      v21 = v17;
+      v22 = 2048;
+      v23 = v14;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "Current TCP progress score on %@ = %lu", &v20, 0x16u);
     }
 
     if (v14 > v11 && v14 >= 0x14)
@@ -601,16 +601,14 @@ void __61__LiveLinkObserver__captureProgressWithInterval_capWindowTo___block_inv
 
   else if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch TCP metrics for flows", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_log_impl(&dword_23255B000, v3, OS_LOG_TYPE_ERROR, "Failed to fetch TCP metrics for flows", &v20, 2u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_assessProgressFromBaseline:(nstat_progress_indicators *)baseline toMetrics:(nstat_progress_indicators *)metrics
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (*&metrics->var1 || metrics->var3)
   {
     v5 = 20;
@@ -622,9 +620,9 @@ LABEL_4:
       {
         v7 = v6;
         v8 = [TCPProgressProbe progressPrettyPrintUtility:baseline];
-        v21 = 138412290;
-        v22 = v8;
-        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "TCP establish new baseline: %@", &v21, 0xCu);
+        v20 = 138412290;
+        v21 = v8;
+        _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "TCP establish new baseline: %@", &v20, 0xCu);
       }
 
       v9 = *&baseline->var4;
@@ -637,7 +635,7 @@ LABEL_4:
       unk_2814D46A0 = v12;
       xmmword_2814D4670 = v10;
       unk_2814D4680 = v11;
-      goto LABEL_27;
+      return v5;
     }
   }
 
@@ -683,17 +681,15 @@ LABEL_4:
   v18 = liveLinkLogHandle;
   if (os_log_type_enabled(liveLinkLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134218496;
-    v22 = v5;
-    v23 = 2048;
-    v24 = v14;
-    v25 = 2048;
-    v26 = v13;
-    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "TCP progress metrics score: %lu, problem ratio: %.2f (baseline: %.2f)", &v21, 0x20u);
+    v20 = 134218496;
+    v21 = v5;
+    v22 = 2048;
+    v23 = v14;
+    v24 = 2048;
+    v25 = v13;
+    _os_log_impl(&dword_23255B000, v18, OS_LOG_TYPE_DEFAULT, "TCP progress metrics score: %lu, problem ratio: %.2f (baseline: %.2f)", &v20, 0x20u);
   }
 
-LABEL_27:
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -23,11 +23,10 @@
 
 - (void)preferredContentSizeDidChangeForChildContentContainer:(id)container
 {
-  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC21WritingToolsUIService25PromptEntryViewController_preferredContentSizeHandler);
-  v5 = *&self->preferredContentSizeHandler[OBJC_IVAR____TtC21WritingToolsUIService25PromptEntryViewController_preferredContentSizeHandler];
+  v5 = *(&self->super.super.super.isa + OBJC_IVAR____TtC21WritingToolsUIService25PromptEntryViewController_preferredContentSizeHandler);
   swift_unknownObjectRetain();
   selfCopy = self;
-  v6([container preferredContentSize]);
+  v5([container preferredContentSize]);
 
   swift_unknownObjectRelease();
 }

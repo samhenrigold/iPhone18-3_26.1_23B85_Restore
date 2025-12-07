@@ -104,39 +104,37 @@ LABEL_11:
 
 - (void)embedTextAsynchronously:(id)asynchronously version:(unint64_t)version completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   asynchronouslyCopy = asynchronously;
   handlerCopy = handler;
-  v19 = 0;
-  v10 = [SCMLMADTextEncoder newRequestWithError:&v19 withVersion:version];
-  v11 = v19;
+  v18 = 0;
+  v10 = [SCMLMADTextEncoder newRequestWithError:&v18 withVersion:version];
+  v11 = v18;
   if (v10)
   {
-    v21[0] = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     service = self->_service;
-    v20 = asynchronouslyCopy;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __72__SCMLMADTextEncoder_embedTextAsynchronously_version_completionHandler___block_invoke;
-    v16[3] = &unk_1E7EB3BD0;
-    v17 = v10;
-    v18 = handlerCopy;
-    [(MADService *)service performRequests:v12 text:v14 identifier:0 completionHandler:v16];
+    v19 = asynchronouslyCopy;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __72__SCMLMADTextEncoder_embedTextAsynchronously_version_completionHandler___block_invoke;
+    v15[3] = &unk_1E7EB3BD0;
+    v16 = v10;
+    v17 = handlerCopy;
+    [(MADService *)service performRequests:v12 text:v14 identifier:0 completionHandler:v15];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0, v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SCMLMADTextEncoder_embedTextAsynchronously_version_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [*(a1 + 32) embeddingResults];
   v6 = [v5 objectAtIndexedSubscript:0];
@@ -147,17 +145,17 @@ void __72__SCMLMADTextEncoder_embedTextAsynchronously_version_completionHandler_
     v8 = +[SCMLLog textAnalyzer];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v20 = [v7 type];
-      v21 = [v7 count];
-      v22 = [v7 shape];
-      v23 = [v22 componentsJoinedByString:{@", "}];
-      v24[0] = 67109634;
-      v24[1] = v20;
-      v25 = 1024;
-      v26 = v21;
-      v27 = 2112;
-      v28 = v23;
-      _os_log_debug_impl(&dword_1B8A3C000, v8, OS_LOG_TYPE_DEBUG, "Unified text embedding type=%d count=%d shape=[%@]", v24, 0x18u);
+      v19 = [v7 type];
+      v20 = [v7 count];
+      v21 = [v7 shape];
+      v22 = [v21 componentsJoinedByString:{@", "}];
+      v23[0] = 67109634;
+      v23[1] = v19;
+      v24 = 1024;
+      v25 = v20;
+      v26 = 2112;
+      v27 = v22;
+      _os_log_debug_impl(&dword_1B8A3C000, v8, OS_LOG_TYPE_DEBUG, "Unified text embedding type=%d count=%d shape=[%@]", v23, 0x18u);
     }
 
     v9 = toSCMLMADEmbeddingType([v7 type]);
@@ -193,8 +191,6 @@ void __72__SCMLMADTextEncoder_embedTextAsynchronously_version_completionHandler_
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -43,9 +43,11 @@
 
 uint64_t __61__HLPURLSessionACAuthHandler_canAuthenticateWithURLResponse___block_invoke()
 {
-  canAuthenticateWithURLResponse__supportedStatusCodes = [MEMORY[0x277CBEB98] setWithArray:&unk_28647D188];
+  v0 = [MEMORY[0x277CBEB98] setWithArray:&unk_28647D188];
+  v1 = canAuthenticateWithURLResponse__supportedStatusCodes;
+  canAuthenticateWithURLResponse__supportedStatusCodes = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HLPURLSessionACAuthHandler)initWithAuthenticationContext:(id)context
@@ -105,65 +107,65 @@ void __57__HLPURLSessionACAuthHandler_authenticateWithCompletion___block_invoke(
   {
   }
 
-  else if (PingPongClientLibraryCore())
+  else if (PingPongClientLibraryCore(0))
   {
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2050000000;
-    v3 = getPPCExtensibleSSOAuthenticatorClass_softClass;
-    v19 = getPPCExtensibleSSOAuthenticatorClass_softClass;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2050000000;
+    v6 = getPPCExtensibleSSOAuthenticatorClass_softClass;
+    v22 = getPPCExtensibleSSOAuthenticatorClass_softClass;
     if (!getPPCExtensibleSSOAuthenticatorClass_softClass)
     {
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __getPPCExtensibleSSOAuthenticatorClass_block_invoke;
-      v15[3] = &unk_279706B98;
-      v15[4] = &v16;
-      __getPPCExtensibleSSOAuthenticatorClass_block_invoke(v15);
-      v3 = v17[3];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __getPPCExtensibleSSOAuthenticatorClass_block_invoke;
+      v18[3] = &unk_279706B98;
+      v18[4] = &v19;
+      __getPPCExtensibleSSOAuthenticatorClass_block_invoke(v18, v3, v4, v5);
+      v6 = v20[3];
     }
 
-    v4 = v3;
-    _Block_object_dispose(&v16, 8);
-    v5 = objc_alloc_init(v3);
-    [*(a1 + 32) setSsoAuthenticator:v5];
+    v7 = v6;
+    _Block_object_dispose(&v19, 8);
+    v8 = objc_alloc_init(v6);
+    [*(a1 + 32) setSsoAuthenticator:v8];
   }
 
-  v6 = [*(a1 + 32) authContext];
-  v7 = [v6 appIdentifier];
-  v8 = [*(a1 + 32) ssoAuthenticator];
-  [v8 setAppIdentifier:v7];
-
   v9 = [*(a1 + 32) authContext];
-  v10 = [v9 enviromentIdentifier];
+  v10 = [v9 appIdentifier];
   v11 = [*(a1 + 32) ssoAuthenticator];
-  [v11 setEnvIdentifier:v10];
+  [v11 setAppIdentifier:v10];
 
   v12 = [*(a1 + 32) authContext];
-  v13 = [v12 interactivityMode];
+  v13 = [v12 enviromentIdentifier];
   v14 = [*(a1 + 32) ssoAuthenticator];
-  [v14 setInteractivity:v13];
+  [v14 setEnvIdentifier:v13];
+
+  v15 = [*(a1 + 32) authContext];
+  v16 = [v15 interactivityMode];
+  v17 = [*(a1 + 32) ssoAuthenticator];
+  [v17 setInteractivity:v16];
 }
 
 void __57__HLPURLSessionACAuthHandler_authenticateWithCompletion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26[3] = *MEMORY[0x277D85DE8];
+  v25[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v7 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
-  v22 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
+  v21 = getkExtensibleSSOUsernameKeySymbolLoc_ptr;
   if (!getkExtensibleSSOUsernameKeySymbolLoc_ptr)
   {
     v8 = PingPongClientLibrary();
-    v20[3] = dlsym(v8, "kExtensibleSSOUsernameKey");
-    getkExtensibleSSOUsernameKeySymbolLoc_ptr = v20[3];
-    v7 = v20[3];
+    v19[3] = dlsym(v8, "kExtensibleSSOUsernameKey");
+    getkExtensibleSSOUsernameKeySymbolLoc_ptr = v19[3];
+    v7 = v19[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v7)
   {
     goto LABEL_15;
@@ -172,20 +174,20 @@ void __57__HLPURLSessionACAuthHandler_authenticateWithCompletion___block_invoke_
   v9 = *v7;
   v10 = [v5 objectForKeyedSubscript:v9];
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
   v11 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
-  v22 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
+  v21 = getkExtensibleSSOTokenKeySymbolLoc_ptr;
   if (!getkExtensibleSSOTokenKeySymbolLoc_ptr)
   {
     v12 = PingPongClientLibrary();
-    v20[3] = dlsym(v12, "kExtensibleSSOTokenKey");
-    getkExtensibleSSOTokenKeySymbolLoc_ptr = v20[3];
-    v11 = v20[3];
+    v19[3] = dlsym(v12, "kExtensibleSSOTokenKey");
+    getkExtensibleSSOTokenKeySymbolLoc_ptr = v19[3];
+    v11 = v19[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
   if (!v11)
   {
 LABEL_15:
@@ -203,22 +205,22 @@ LABEL_15:
   {
     if ([v16 length])
     {
-      v25[0] = @"X-AppleConnect-User";
-      v25[1] = @"X-AppleConnect-Token";
-      v26[0] = v10;
-      v26[1] = v14;
-      v25[2] = @"X-Client-Id";
-      v26[2] = v16;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:3];
+      v24[0] = @"X-AppleConnect-User";
+      v24[1] = @"X-AppleConnect-Token";
+      v25[0] = v10;
+      v25[1] = v14;
+      v24[2] = @"X-Client-Id";
+      v25[2] = v16;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:3];
     }
 
     else
     {
-      v23[0] = @"X-AppleConnect-User";
-      v23[1] = @"X-AppleConnect-Token";
-      v24[0] = v10;
-      v24[1] = v14;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[0] = @"X-AppleConnect-User";
+      v22[1] = @"X-AppleConnect-Token";
+      v23[0] = v10;
+      v23[1] = v14;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
     }
     v17 = ;
   }
@@ -229,21 +231,19 @@ LABEL_15:
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), v10, v14, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)customHeaderFields
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   authContext = [(HLPURLSessionACAuthHandler *)self authContext];
   clientIdentifier = [authContext clientIdentifier];
 
   if ([clientIdentifier length])
   {
-    v7 = @"X-Client-Id";
-    v8[0] = clientIdentifier;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"X-Client-Id";
+    v7[0] = clientIdentifier;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   }
 
   else
@@ -251,15 +251,13 @@ LABEL_15:
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 uint64_t __57__HLPURLSessionACAuthHandler_authenticateWithCompletion___block_invoke_2_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getPPCExtensibleSSOAuthenticatorClass_block_invoke_cold_1();
 }
 

@@ -121,7 +121,7 @@ CGImageRef __29__WFPurgeableImage_copyImage__block_invoke(CGImageRef result, CGC
   {
     v2 = result;
     result = CGBitmapContextCreateImage(context);
-    *(*(*(v2 + 32) + 8) + 24) = result;
+    *(*(*(v2 + 4) + 8) + 24) = result;
   }
 
   return result;

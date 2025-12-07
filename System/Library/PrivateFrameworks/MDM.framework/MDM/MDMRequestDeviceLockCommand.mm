@@ -69,20 +69,19 @@
 
 - (void)processRequest:(id)request completionHandler:(id)handler
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   commandMessage = [(MDMRequestDeviceLockCommand *)self commandMessage];
   commandPhoneNumber = [(MDMRequestDeviceLockCommand *)self commandPhoneNumber];
   v8 = [MDMFindMyUtilities lockDeviceWithMessage:commandMessage phoneNumber:commandPhoneNumber];
 
   v9 = [(MDMAbstractTunnelParser *)MDMParser responseWithStatus:@"Acknowledged"];
-  v12 = @"MessageResult";
-  v13[0] = v8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"MessageResult";
+  v12[0] = v8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [v9 addEntriesFromDictionary:v10];
 
   handlerCopy[2](handlerCopy, v9);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

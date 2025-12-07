@@ -3,10 +3,10 @@
 
 @implementation MAPreferencesSync
 
-BOOL ___MAPreferencesSync_block_invoke(uint64_t a1)
+BOOL ___MAPreferencesSync_block_invoke(void *a1)
 {
-  result = syncPreferences(*(a1 + 32), *(a1 + 40));
-  *(*(*(a1 + 48) + 8) + 24) = result;
+  result = syncPreferences(a1[4], a1[5]);
+  *(*(a1[6] + 8) + 24) = result;
   return result;
 }
 

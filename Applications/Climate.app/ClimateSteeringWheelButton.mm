@@ -19,13 +19,13 @@
 - (void)steeringWheelHeatingCoolingService:(id)service didUpdateHeatingCoolingLevel:(int)level
 {
   selfCopy = self;
-  sub_10005C4F0();
+  sub_10005C4F0(selfCopy);
 }
 
 - (void)steeringWheelHeatingCoolingService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   selfCopy = self;
-  sub_10005C4F0();
+  sub_10005C4F0(selfCopy);
 }
 
 @end

@@ -10,8 +10,7 @@
 + (id)attachmentsMIOTimedMetadataGroupForSampleBuffer:()MIOExtensions pts:error:
 {
   v13[1] = *MEMORY[0x277D85DE8];
-  *&v12.start.value = *&a4->value;
-  v12.start.epoch = a4->epoch;
+  v12.start = *a4;
   v5 = [MEMORY[0x277CE6520] attachmentsMIOTimedMetadataItemForSampleBuffer:a3 pts:&v12 error:?];
   v6 = objc_alloc(MEMORY[0x277CE6648]);
   v13[0] = v5;
@@ -27,8 +26,7 @@
 + (id)attachmentsMIOTimedMetadataGroupForPixelBuffer:()MIOExtensions pts:error:
 {
   v13[1] = *MEMORY[0x277D85DE8];
-  *&v12.start.value = *&a4->value;
-  v12.start.epoch = a4->epoch;
+  v12.start = *a4;
   v5 = [MEMORY[0x277CE6520] attachmentsMIOMetadataItemForPixelBuffer:a3 pts:&v12 error:?];
   if (v5)
   {
@@ -52,8 +50,7 @@
 + (id)attachmentsMIOTimedMetadataGroupForDictionary:()MIOExtensions pts:error:
 {
   v13[1] = *MEMORY[0x277D85DE8];
-  *&v12.start.value = *&a4->value;
-  v12.start.epoch = a4->epoch;
+  v12.start = *a4;
   v5 = [MEMORY[0x277CE6520] attachmentsMIOMetadataItemForDictionary:a3 pts:&v12 error:?];
   if (v5)
   {

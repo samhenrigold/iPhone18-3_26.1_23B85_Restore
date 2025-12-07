@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for MessagesSearchViewController();
+  v5.super_class = type metadata accessor for MessagesSearchViewController(0);
   v2 = v5.receiver;
   [(SearchViewController *)&v5 viewDidLoad];
   [*&v2[OBJC_IVAR____TtC22SubscribePageExtension20SearchViewController_searchController] setObscuresBackgroundDuringPresentation:{0, v5.receiver, v5.super_class}];
@@ -22,7 +22,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_10038B934();
+  sub_10038B934(selfCopy, v2);
 }
 
 @end

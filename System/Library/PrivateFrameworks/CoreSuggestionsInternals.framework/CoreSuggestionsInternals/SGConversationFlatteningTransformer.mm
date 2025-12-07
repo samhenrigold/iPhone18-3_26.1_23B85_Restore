@@ -71,45 +71,43 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D41F60];
   chunksCopy = chunks;
   v6 = [v4 alloc];
   v7 = [v6 initWithClassNameKey:*MEMORY[0x277D41F98]];
-  v12 = @"PER_MESSAGE_TRANSFORMER";
+  v11 = @"PER_MESSAGE_TRANSFORMER";
   v8 = [v7 writeToPlistWithObject:self->_perMessageTranformer andChunks:chunksCopy];
 
-  v13[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
 
   return v9;
 }
 
 - (id)transform:(id)transform
 {
-  v56[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   transformCopy = transform;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"SGConversationFlatteningTransformer.m" lineNumber:47 description:{@"Unexpected input type for %@: %@, ", transformCopy, v41}];
+    v39 = objc_opt_class();
+    v40 = NSStringFromClass(v39);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"SGConversationFlatteningTransformer.m" lineNumber:47 description:{@"Unexpected input type for %@: %@, ", transformCopy, v40}];
   }
 
   v5 = [transformCopy objectForKeyedSubscript:@"INPUT_CONVERSATION"];
-  v42 = transformCopy;
+  v41 = transformCopy;
   v6 = [transformCopy objectForKeyedSubscript:@"SG_MODEL_INPUT_TARGET_MESSAGE_INDEX"];
   v7 = objc_opt_new();
-  v46 = v6;
+  v45 = v6;
   v8 = [v5 objectAtIndexedSubscript:{objc_msgSend(v6, "integerValue")}];
   message = [v8 message];
   senderIsAccountOwner = [message senderIsAccountOwner];
 
-  v10 = [v5 count];
+  v10 = objc_msgSend_count(v5);
   if (v10 <= 3)
   {
     v11 = 3;
@@ -121,9 +119,9 @@
   }
 
   v12 = (v11 - 3);
-  if ([v5 count] > v12)
+  if (objc_msgSend_count(v5) > v12)
   {
-    v44 = v5;
+    v43 = v5;
     do
     {
       v13 = objc_autoreleasePoolPush();
@@ -135,23 +133,23 @@
       senderIsAccountOwner2 = [message2 senderIsAccountOwner];
 
       v19 = objc_alloc(MEMORY[0x277CBEB38]);
-      v55 = @"INPUT_TEXT";
-      v56[0] = text;
-      v47 = text;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+      v54 = @"INPUT_TEXT";
+      v55[0] = text;
+      v46 = text;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:&v54 count:1];
       v21 = [v19 initWithDictionary:v20];
 
       context = v13;
-      v49 = v21;
-      if (v12 == [v46 intValue])
+      v48 = v21;
+      if (v12 == [v45 intValue])
       {
-        v22 = [v42 objectForKeyedSubscript:@"DD_MATCHES"];
+        v22 = [v41 objectForKeyedSubscript:@"DD_MATCHES"];
         [v21 setObject:v22 forKeyedSubscript:@"DD_MATCHES"];
 
-        v23 = [v42 objectForKeyedSubscript:@"TARGET_MATCH"];
+        v23 = [v41 objectForKeyedSubscript:@"TARGET_MATCH"];
         [v21 setObject:v23 forKeyedSubscript:@"TARGET_MATCH"];
 
-        v24 = [v42 objectForKeyedSubscript:@"SG_MODEL_INPUT_TARGET_RANGE"];
+        v24 = [v41 objectForKeyedSubscript:@"SG_MODEL_INPUT_TARGET_RANGE"];
         [v21 setObject:v24 forKeyedSubscript:@"SG_MODEL_INPUT_TARGET_RANGE"];
       }
 
@@ -165,27 +163,27 @@
       }
 
       v27 = [(PMLTransformerProtocol *)self->_perMessageTranformer transform:v21];
+      v49 = 0u;
       v50 = 0u;
       v51 = 0u;
       v52 = 0u;
-      v53 = 0u;
       v28 = v27;
-      v29 = [v28 countByEnumeratingWithState:&v50 objects:v54 count:16];
+      v29 = [v28 countByEnumeratingWithState:&v49 objects:v53 count:16];
       if (v29)
       {
         v30 = v29;
         v31 = senderIsAccountOwner ^ senderIsAccountOwner2;
-        v32 = *v51;
+        v32 = *v50;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v51 != v32)
+            if (*v50 != v32)
             {
               objc_enumerationMutation(v28);
             }
 
-            v34 = *(*(&v50 + 1) + 8 * i);
+            v34 = *(*(&v49 + 1) + 8 * i);
             v35 = objc_autoreleasePoolPush();
             if (v31)
             {
@@ -201,7 +199,7 @@
             objc_autoreleasePoolPop(v35);
           }
 
-          v30 = [v28 countByEnumeratingWithState:&v50 objects:v54 count:16];
+          v30 = [v28 countByEnumeratingWithState:&v49 objects:v53 count:16];
         }
 
         while (v30);
@@ -210,13 +208,11 @@
       [v7 addObject:@"SG_FEATURE_END_OF_MESSAGE"];
       objc_autoreleasePoolPop(context);
       ++v12;
-      v5 = v44;
+      v5 = v43;
     }
 
-    while ([v44 count] > v12);
+    while (objc_msgSend_count(v43) > v12);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

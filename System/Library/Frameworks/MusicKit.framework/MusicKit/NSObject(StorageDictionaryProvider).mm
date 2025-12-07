@@ -149,14 +149,14 @@
 
 + (id)_musicKit_modelObjectStorageDictionaryForPin:()StorageDictionaryProvider
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = MusicKit_Logging_Library();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v3;
-    _os_log_impl(&dword_2171EE000, v4, OS_LOG_TYPE_DEFAULT, "Creating storage dictionary for pin=%{public}@.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v3;
+    _os_log_impl(&dword_2171EE000, v4, OS_LOG_TYPE_DEFAULT, "Creating storage dictionary for pin=%{public}@.", &v10, 0xCu);
   }
 
   pinnedEntityType = [v3 pinnedEntityType];
@@ -164,8 +164,6 @@
   v7 = [_musicKit_modelObjectRawStorageDictionary mutableCopy];
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:pinnedEntityType];
   [v7 setObject:v8 forKey:@"MusicKit_LegacyModelLibraryPinnedEntityType"];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

@@ -3,7 +3,7 @@
 
 @implementation WFTypeSpecificAnnotationsForType
 
-void *___WFTypeSpecificAnnotationsForType_block_invoke(uint64_t a1, uint64_t a2)
+void *___WFTypeSpecificAnnotationsForType_block_invoke(uint64_t a1, void *a2)
 {
   v2 = _WFTypeSpecificAnnotationsForType(*(a1 + 32), a2, *(a1 + 40));
   v3 = v2;

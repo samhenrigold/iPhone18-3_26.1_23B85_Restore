@@ -9,27 +9,25 @@
 
 - (id)gradientForConditionCode:(int64_t)code isDay:(BOOL)day
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v4 = -90.0;
   if (day)
   {
     v4 = 90.0;
   }
 
-  [(WAGradientProvider *)self mixedGradientForSunheight:code hourAngle:v4 condition:0.0 latitude:0.0, 0, 0];
+  objc_msgSend_mixedGradientForSunheight_hourAngle_condition_latitude_(self, a2, code, v4, 0.0, 0.0, 0, 0);
   array = [MEMORY[0x277CBEB18] array];
-  v6 = [MEMORY[0x277D75348] colorWithRed:v13 green:v14 blue:v15 alpha:1.0];
+  v6 = [MEMORY[0x277D75348] colorWithRed:v12 green:v13 blue:v14 alpha:1.0];
   v7 = [MEMORY[0x277D75348] colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
   v8 = [MEMORY[0x277D75348] colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
-  v16[0] = v6;
-  v16[1] = v7;
-  v16[2] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = v6;
+  v15[1] = v7;
+  v15[2] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   [array addObjectsFromArray:v9];
 
   v10 = [MEMORY[0x277CBEA60] arrayWithArray:array];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -47,12 +45,12 @@
     v14 = -90.0;
   }
 
-  conditionCode = [cityCopy conditionCode];
+  [cityCopy conditionCode];
 
-  [(WAGradientProvider *)self mixedGradientForSunheight:conditionCode hourAngle:v14 condition:0.0 latitude:0.0];
+  objc_msgSend_mixedGradientForSunheight_hourAngle_condition_latitude_(self, v14, 0.0, 0.0);
   if (color)
   {
-    *color = [MEMORY[0x277D75348] colorWithRed:*&v16 green:*(&v16 + 1) blue:v17 alpha:1.0];
+    *color = [MEMORY[0x277D75348] colorWithRed:*&v15 green:*(&v15 + 1) blue:v16 alpha:1.0];
   }
 
   if (middleColor)

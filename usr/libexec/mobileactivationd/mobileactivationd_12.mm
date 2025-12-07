@@ -96,7 +96,7 @@ void collection_activity_handler(void *a1, int a2)
       block[3] = &__block_descriptor_40_e8_32s_e5_v8__0l;
       v12 = v3;
       v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, block);
-      v6 = copyMobileActivationSerialQueue();
+      v6 = copyMobileActivationSerialQueue(v5);
       dispatch_async(v6, v5);
 
       v7 = v12;
@@ -110,7 +110,7 @@ void collection_activity_handler(void *a1, int a2)
       v9[3] = &__block_descriptor_40_e8_32s_e5_v8__0l;
       v10 = v3;
       v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v9);
-      v8 = copyMobileActivationSerialQueue();
+      v8 = copyMobileActivationSerialQueue(v5);
       dispatch_async(v8, v5);
 
       v7 = v10;
@@ -134,39 +134,39 @@ void __collection_activity_handler_block_invoke(uint64_t a1)
 
 void __collection_activity_handler_block_invoke_3(uint64_t a1)
 {
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x3032000000;
+  v53 = __Block_byref_object_copy__5;
+  v54 = __Block_byref_object_dispose__5;
+  v55 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy__5;
+  v48 = __Block_byref_object_dispose__5;
   v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__5;
-  v53 = __Block_byref_object_dispose__5;
-  v54 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
   v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__5;
-  v47 = __Block_byref_object_dispose__5;
-  v48 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__5;
+  v38 = __Block_byref_object_dispose__5;
   v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__5;
-  v37 = __Block_byref_object_dispose__5;
-  v38 = 0;
-  if (collectionAlreadyPerformed(*(a1 + 32)) || (v2 = data_ark_copy(*(a1 + 32), 0, @"ActivationState"), v3 = isNSString(v2), v4 = v50[5], v50[5] = v3, v4, v2, use_hactivation()) || is_virtual_machine() || ![v50[5] isEqualToString:@"Activated"])
+  if (collectionAlreadyPerformed(*(a1 + 32)) || (v2 = data_ark_copy(*(a1 + 32), 0, @"ActivationState"), v3 = isNSString(v2), v4 = v51[5], v51[5] = v3, v4, v2, use_hactivation()) || is_virtual_machine() || ![v51[5] isEqualToString:@"Activated"])
   {
     v12 = 0;
     goto LABEL_9;
   }
 
   v5 = data_ark_copy(*(a1 + 32), 0, @"CollectionRetryAttempt");
-  v6 = v44[5];
-  v44[5] = v5;
+  v6 = v45[5];
+  v45[5] = v5;
 
-  v7 = isNSNumber(v44[5]);
+  v7 = isNSNumber(v45[5]);
   v8 = v7 == 0;
 
   if (v8)
@@ -175,22 +175,22 @@ void __collection_activity_handler_block_invoke_3(uint64_t a1)
     goto LABEL_11;
   }
 
-  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v44[5] unsignedLongLongValue] + 1);
-  v10 = v44[5];
-  v44[5] = v9;
+  v9 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v45[5] unsignedLongLongValue] + 1);
+  v10 = v45[5];
+  v45[5] = v9;
 
-  if ([v44[5] unsignedLongLongValue] > 6)
+  if ([v45[5] unsignedLongLongValue] > 6)
   {
     v11 = [NSNumber numberWithUnsignedInt:?];
 LABEL_11:
-    v13 = v44[5];
-    v44[5] = v11;
+    v13 = v45[5];
+    v45[5] = v11;
   }
 
-  data_ark_set(*(a1 + 32), 0, @"CollectionRetryAttempt", v44[5], 1);
-  [v44[5] doubleValue];
+  data_ark_set(*(a1 + 32), 0, @"CollectionRetryAttempt", v45[5], 1);
+  [v45[5] doubleValue];
   v15 = exp2(v14);
-  *(v40 + 6) = (v15 * 60.0);
+  *(v41 + 6) = (v15 * 60.0);
   v12 = data_ark_copy(*(a1 + 32), 0, @"InFieldCollectionInFlight");
   v16 = isNSNumber(v12);
   v17 = v16 == 0;
@@ -201,65 +201,67 @@ LABEL_11:
     v12 = &__kCFBooleanFalse;
   }
 
-  if ([v12 BOOLValue])
+  v18 = [v12 BOOLValue];
+  if (v18)
   {
-    v18 = copyLoggingHandle();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = copyLoggingHandle(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = *(v40 + 6);
+      v20 = *(v41 + 6);
       *buf = 67109120;
-      v56 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Collection request is in flight, rescheduling collection for %d seconds.", buf, 8u);
+      v57 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Collection request is in flight, rescheduling collection for %d seconds.", buf, 8u);
     }
 
-    v20 = *(a1 + 32);
-    v21 = [@"com.apple.mobileactivationd.collection" UTF8String];
-    scheduleXPCActivity(v20, v21, *(v40 + 6), 1, 0x5000u, 0x1000u, &__block_literal_global_539);
+    v21 = *(a1 + 32);
+    v22 = [@"com.apple.mobileactivationd.collection" UTF8String];
+    scheduleXPCActivity(v21, v22, *(v41 + 6), 1, 0x5000u, 0x1000u, &__block_literal_global_539);
   }
 
   else
   {
-    v22 = copyLoggingHandle();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = copyLoggingHandle(v18);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Performing collection.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Performing collection.", buf, 2u);
     }
 
     [@"com.apple.mobileactivationd.collection" UTF8String];
-    v23 = os_transaction_create();
-    v24 = v34[5];
-    v34[5] = v23;
+    v24 = os_transaction_create();
+    v25 = v35[5];
+    v35[5] = v24;
 
-    v25 = *(a1 + 32);
-    v26 = copy_current_process_name();
-    v27[0] = _NSConcreteStackBlock;
-    v27[1] = 3254779904;
-    v27[2] = __collection_activity_handler_block_invoke_540;
-    v27[3] = &__block_descriptor_72_e8_32s40r48r56r64r_e48_v40__0__NSData_8__NSDictionary_16q24__NSError_32l;
-    v28 = *(a1 + 32);
-    v29 = &v49;
-    v30 = &v39;
-    v31 = &v43;
-    v32 = &v33;
-    performInFieldCollection(v25, 0, v26, v27);
+    v26 = *(a1 + 32);
+    v27 = copy_current_process_name();
+    v28[0] = _NSConcreteStackBlock;
+    v28[1] = 3254779904;
+    v28[2] = __collection_activity_handler_block_invoke_540;
+    v28[3] = &__block_descriptor_72_e8_32s40r48r56r64r_e48_v40__0__NSData_8__NSDictionary_16q24__NSError_32l;
+    v29 = *(a1 + 32);
+    v30 = &v50;
+    v31 = &v40;
+    v32 = &v44;
+    v33 = &v34;
+    performInFieldCollection(v26, 0, v27, v28);
   }
 
 LABEL_9:
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
-void sub_10030D0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10030D0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
-  _Block_object_dispose((v29 - 112), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v28 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -285,7 +287,7 @@ void __collection_activity_handler_block_invoke_540(uint64_t a1, id a2, void *a3
   v15 = v10;
   v16 = v11;
   v17 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, block);
-  v18 = copyMobileActivationSerialQueue();
+  v18 = copyMobileActivationSerialQueue(v17);
   dispatch_async(v18, v17);
 }
 
@@ -293,7 +295,6 @@ void __collection_activity_handler_block_invoke_2_541(uint64_t a1)
 {
   if (collectionAlreadyPerformed(*(a1 + 32)) || (v2 = data_ark_copy(*(a1 + 32), 0, @"ActivationState"), v3 = isNSString(v2), v4 = *(*(a1 + 64) + 8), v5 = *(v4 + 40), *(v4 + 40) = v3, v5, v2, ![*(*(*(a1 + 64) + 8) + 40) isEqualToString:@"Activated"]))
   {
-    v7 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
@@ -301,6 +302,7 @@ void __collection_activity_handler_block_invoke_2_541(uint64_t a1)
     v12 = 0;
     v13 = 0;
     v14 = 0;
+    v15 = 0;
     v6 = 0;
     goto LABEL_8;
   }
@@ -309,40 +311,40 @@ void __collection_activity_handler_block_invoke_2_541(uint64_t a1)
   if (v6 == 200)
   {
     v6 = [*(a1 + 48) objectForKeyedSubscript:@"X-Apple-Invalid-Reason"];
-    v18 = [*(a1 + 48) objectForKeyedSubscript:@"X-Apple-Retry-After"];
-    v19 = isNSString(v6);
-    v60 = v18;
-    if (v19)
+    v19 = [*(a1 + 48) objectForKeyedSubscript:@"X-Apple-Retry-After"];
+    v20 = isNSString(v6);
+    v63 = v19;
+    if (v20)
     {
 
       goto LABEL_17;
     }
 
-    v25 = isNSNumber(v18);
+    v26 = isNSNumber(v19);
 
-    if (v25)
+    if (v26)
     {
 LABEL_17:
-      v26 = *(a1 + 96);
-      v27 = *(a1 + 40);
-      v28 = [NSHTTPURLResponse localizedStringForStatusCode:v26];
-      v29 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5054, @"com.apple.MobileActivation.ServerErrorDomain", v26, v27, @"Server error: %ld (%@) / %@ / %@", v26, v28, v6, v60);
+      v27 = *(a1 + 96);
+      v28 = *(a1 + 40);
+      v29 = [NSHTTPURLResponse localizedStringForStatusCode:v27];
+      v30 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5054, @"com.apple.MobileActivation.ServerErrorDomain", v27, v28, @"Server error: %ld (%@) / %@ / %@", v27, v29, v6, v63);
 
-      v30 = *(a1 + 96);
-      v31 = [NSHTTPURLResponse localizedStringForStatusCode:v30];
-      v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5054, @"com.apple.MobileActivation.ErrorDomain", -6, v29, @"Server error: %ld (%@) / %@ / %@", v30, v31, v6, v60);
+      v31 = *(a1 + 96);
+      v32 = [NSHTTPURLResponse localizedStringForStatusCode:v31];
+      v8 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5054, @"com.apple.MobileActivation.ErrorDomain", -6, v30, @"Server error: %ld (%@) / %@ / %@", v31, v32, v6, v63);
 
-      v32 = v29;
-      v14 = v60;
+      v33 = v30;
+      v15 = v63;
 
-      v17 = 0;
-      v8 = 0;
+      v18 = 0;
       v9 = 0;
       v10 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
-      if (!v7)
+      v14 = 0;
+      if (!v8)
       {
         goto LABEL_25;
       }
@@ -352,99 +354,99 @@ LABEL_17:
 
     if (*(a1 + 56))
     {
-      v48 = +[GestaltHlpr getSharedInstance];
-      v8 = [v48 copyAnswer:@"BuildVersion"];
+      v50 = +[GestaltHlpr getSharedInstance];
+      v9 = [v50 copyAnswer:@"BuildVersion"];
 
-      v49 = isNSString(v8);
-      if (v49)
+      v51 = isNSString(v9);
+      if (v51)
       {
-        v12 = [[MACollectionInterface alloc] initWithContext:*(a1 + 32)];
-        if (v12)
+        v13 = [[MACollectionInterface alloc] initWithContext:*(a1 + 32)];
+        if (v13)
         {
-          v50 = *(a1 + 56);
-          v63 = 0;
-          v13 = [NSJSONSerialization JSONObjectWithData:v50 options:0 error:&v63];
-          v51 = v63;
-          v52 = v51;
-          if (v13)
+          v52 = *(a1 + 56);
+          v66 = 0;
+          v14 = [NSJSONSerialization JSONObjectWithData:v52 options:0 error:&v66];
+          v53 = v66;
+          v54 = v53;
+          if (v14)
           {
-            v11 = [v13 objectForKeyedSubscript:@"suinfo"];
-            v53 = isNSString(v11);
+            v12 = [v14 objectForKeyedSubscript:@"suinfo"];
+            v55 = isNSString(v12);
 
-            if (v53)
+            if (v55)
             {
-              v10 = [[NSData alloc] initWithBase64EncodedString:v11 options:1];
-              if (v10)
+              v11 = [[NSData alloc] initWithBase64EncodedString:v12 options:1];
+              if (v11)
               {
-                v62 = v52;
-                v54 = [(MACollectionInterface *)v12 processSUInfo:v10 withError:&v62];
-                v7 = v62;
+                v65 = v54;
+                v56 = [(MACollectionInterface *)v13 processSUInfo:v11 withError:&v65];
+                v8 = v65;
 
-                if (v54)
+                if (v56)
                 {
                   data_ark_remove(*(a1 + 32), 0, @"PCRTToken");
-                  v9 = [*(a1 + 48) objectForKeyedSubscript:@"x-iservice-token"];
-                  v55 = isNSString(v9);
+                  v10 = [*(a1 + 48) objectForKeyedSubscript:@"x-iservice-token"];
+                  v57 = isNSString(v10);
 
-                  if (v55)
+                  if (v57)
                   {
-                    data_ark_set(*(a1 + 32), 0, @"PCRTToken", v9, 1);
+                    data_ark_set(*(a1 + 32), 0, @"PCRTToken", v10, 1);
                   }
 
-                  data_ark_set(*(a1 + 32), 0, @"CollectionLastPerformed", v8, 1);
+                  data_ark_set(*(a1 + 32), 0, @"CollectionLastPerformed", v9, 1);
                   data_ark_remove(*(a1 + 32), 0, @"CollectionRetryAttempt");
-                  v56 = copyLoggingHandle();
-                  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+                  v59 = copyLoggingHandle(v58);
+                  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 0;
-                    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Successfully performed collection.", buf, 2u);
+                    _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "Successfully performed collection.", buf, 2u);
                   }
 
-                  v17 = 1;
+                  v18 = 1;
                 }
 
                 else
                 {
-                  v57 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5094, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to process SUInfo: %@", v7);
+                  v60 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5094, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to process SUInfo: %@", v8);
 
-                  v17 = 0;
-                  v9 = 0;
-                  v7 = v57;
+                  v18 = 0;
+                  v10 = 0;
+                  v8 = v60;
                 }
               }
 
               else
               {
-                v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5089, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to decode SUInfo.");
+                v8 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5089, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to decode SUInfo.");
 
-                v17 = 0;
-                v9 = 0;
+                v18 = 0;
+                v10 = 0;
               }
             }
 
             else
             {
-              v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5083, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid SUInfo: %@", v11);
+              v8 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5083, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid SUInfo: %@", v12);
 
-              v17 = 0;
-              v9 = 0;
+              v18 = 0;
               v10 = 0;
+              v11 = 0;
             }
           }
 
           else
           {
-            v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5077, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to deserialize JSON data: %@", v51);
+            v8 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5077, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to deserialize JSON data: %@", v53);
 
-            v17 = 0;
-            v9 = 0;
+            v18 = 0;
             v10 = 0;
             v11 = 0;
+            v12 = 0;
           }
 
 LABEL_49:
-          v14 = v60;
-          if (!v7)
+          v15 = v63;
+          if (!v8)
           {
             goto LABEL_25;
           }
@@ -453,30 +455,33 @@ LABEL_49:
         }
 
         v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5071, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create collection interface.");
-        v17 = 0;
-        v9 = 0;
+        v8 = v7;
+        v18 = 0;
         v10 = 0;
         v11 = 0;
+        v12 = 0;
 LABEL_48:
-        v13 = 0;
+        v14 = 0;
         goto LABEL_49;
       }
 
       v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5065, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve OS build.");
-      v17 = 0;
+      v8 = v7;
+      v18 = 0;
     }
 
     else
     {
       v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5059, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Invalid server response.");
-      v17 = 0;
-      v8 = 0;
+      v8 = v7;
+      v18 = 0;
+      v9 = 0;
     }
 
-    v9 = 0;
     v10 = 0;
     v11 = 0;
     v12 = 0;
+    v13 = 0;
     goto LABEL_48;
   }
 
@@ -485,29 +490,30 @@ LABEL_48:
     if (v6 == -1)
     {
       v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5040, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Internal error.");
+      v8 = v7;
     }
 
     else
     {
-      v20 = *(a1 + 40);
-      v21 = [NSHTTPURLResponse localizedStringForStatusCode:*(a1 + 96)];
-      v22 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5046, @"com.apple.MobileActivation.ServerErrorDomain", v6, v20, @"Server error: %ld (%@)", v6, v21);
+      v21 = *(a1 + 40);
+      v22 = [NSHTTPURLResponse localizedStringForStatusCode:*(a1 + 96)];
+      v23 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5046, @"com.apple.MobileActivation.ServerErrorDomain", v6, v21, @"Server error: %ld (%@)", v6, v22);
 
-      v23 = *(a1 + 96);
-      v24 = [NSHTTPURLResponse localizedStringForStatusCode:v23];
-      v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5046, @"com.apple.MobileActivation.ErrorDomain", -6, v22, @"Server error: %ld (%@)", v23, v24);
+      v24 = *(a1 + 96);
+      v25 = [NSHTTPURLResponse localizedStringForStatusCode:v24];
+      v8 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5046, @"com.apple.MobileActivation.ErrorDomain", -6, v23, @"Server error: %ld (%@)", v24, v25);
     }
 
-    v17 = 0;
-    v8 = 0;
+    v18 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
     v14 = 0;
+    v15 = 0;
     v6 = 0;
-    if (!v7)
+    if (!v8)
     {
       goto LABEL_25;
     }
@@ -516,14 +522,15 @@ LABEL_48:
   else
   {
     v7 = createMobileActivationError("collection_activity_handler_block_invoke_2", 5043, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Network communication error.");
-    v17 = 0;
-    v8 = 0;
+    v8 = v7;
+    v18 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
     v14 = 0;
+    v15 = 0;
     if (!v7)
     {
       goto LABEL_25;
@@ -531,40 +538,40 @@ LABEL_48:
   }
 
 LABEL_18:
-  v58 = v17;
-  v59 = v13;
-  v33 = v12;
-  v34 = v8;
-  v35 = v6;
-  v36 = v14;
-  v37 = copyLoggingHandle();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v61 = v18;
+  v62 = v14;
+  v34 = v13;
+  v35 = v9;
+  v36 = v6;
+  v37 = v15;
+  v38 = copyLoggingHandle(v7);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v65 = v7;
-    _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Failed to perform collection: %{public}@", buf, 0xCu);
+    v68 = v8;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Failed to perform collection: %{public}@", buf, 0xCu);
   }
 
   if (*(a1 + 96))
   {
-    v14 = v36;
-    if ((mobileactivationErrorHasDomainAndErrorCode(v7, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFEALL) & 1) == 0)
+    v15 = v37;
+    if ((mobileactivationErrorHasDomainAndErrorCode(v8, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFEALL) & 1) == 0)
     {
-      writeSplunkLog(*(a1 + 32), 16, *(a1 + 96), "collection_activity_handler_block_invoke", 5120, 0, @"%@", v38, v7);
+      writeSplunkLog(*(a1 + 32), 16, *(a1 + 96), "collection_activity_handler_block_invoke", 5120, 0, @"%@", v39, v8);
     }
 
-    v6 = v35;
-    v8 = v34;
-    v12 = v33;
-    v13 = v59;
-    v17 = v58;
+    v6 = v36;
+    v9 = v35;
+    v13 = v34;
+    v14 = v62;
+    v18 = v61;
     if (*(a1 + 96) == 403)
     {
       *(*(*(a1 + 72) + 8) + 24) = 86400;
     }
 
 LABEL_25:
-    if (v17)
+    if (v18)
     {
       goto LABEL_8;
     }
@@ -572,48 +579,48 @@ LABEL_25:
     goto LABEL_28;
   }
 
-  v14 = v36;
-  v6 = v35;
-  v8 = v34;
-  v12 = v33;
-  v13 = v59;
-  if (v58)
+  v15 = v37;
+  v6 = v36;
+  v9 = v35;
+  v13 = v34;
+  v14 = v62;
+  if (v61)
   {
     goto LABEL_8;
   }
 
 LABEL_28:
-  v61 = v14;
-  v39 = data_ark_copy(*(a1 + 32), 0, @"CollectionRetryAttempt");
-  v40 = *(*(a1 + 80) + 8);
-  v41 = *(v40 + 40);
-  *(v40 + 40) = v39;
+  v64 = v15;
+  v40 = data_ark_copy(*(a1 + 32), 0, @"CollectionRetryAttempt");
+  v41 = *(*(a1 + 80) + 8);
+  v42 = *(v41 + 40);
+  *(v41 + 40) = v40;
 
-  v42 = isNSNumber(*(*(*(a1 + 80) + 8) + 40));
-  if (!v42)
+  v43 = isNSNumber(*(*(*(a1 + 80) + 8) + 40));
+  if (!v43)
   {
-    v43 = *(*(a1 + 80) + 8);
-    v44 = *(v43 + 40);
-    *(v43 + 40) = &off_1003FBD20;
+    v44 = *(*(a1 + 80) + 8);
+    v45 = *(v44 + 40);
+    *(v44 + 40) = &off_1003FBD20;
   }
 
   [*(*(*(a1 + 80) + 8) + 40) doubleValue];
-  *(*(*(a1 + 72) + 8) + 24) = (exp2(v45) * 60.0);
-  v46 = copyLoggingHandle();
-  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+  *(*(*(a1 + 72) + 8) + 24) = (exp2(v46) * 60.0);
+  v48 = copyLoggingHandle(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
-    v47 = *(*(*(a1 + 72) + 8) + 24);
+    v49 = *(*(*(a1 + 72) + 8) + 24);
     *buf = 67109120;
-    LODWORD(v65) = v47;
-    _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Rescheduling collection for %d seconds.", buf, 8u);
+    LODWORD(v68) = v49;
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Rescheduling collection for %d seconds.", buf, 8u);
   }
 
   scheduleXPCActivity(*(a1 + 32), [@"com.apple.mobileactivationd.collection" UTF8String], *(*(*(a1 + 72) + 8) + 24), 1, 0x5000u, 0x1000u, &__block_literal_global_545);
-  v14 = v61;
+  v15 = v64;
 LABEL_8:
-  v15 = *(*(a1 + 88) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = 0;
+  v16 = *(*(a1 + 88) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = 0;
 }
 
 void __copy_helper_block_e8_32s40s48s56s64r72r80r88r(uint64_t a1, uint64_t a2)
@@ -671,89 +678,90 @@ void __ucrt_oob_activity_handler_block_invoke(uint64_t a1)
 
 void __ucrt_oob_activity_handler_block_invoke_3(uint64_t a1)
 {
-  v114 = 0;
-  v115 = &v114;
-  v116 = 0x3032000000;
-  v117 = __Block_byref_object_copy__5;
-  v118 = __Block_byref_object_dispose__5;
-  v119 = 0;
+  v118 = 0;
+  v119 = &v118;
+  v120 = 0x3032000000;
+  v121 = __Block_byref_object_copy__5;
+  v122 = __Block_byref_object_dispose__5;
+  v123 = 0;
+  v112 = 0;
+  v113 = &v112;
+  v114 = 0x3032000000;
+  v115 = __Block_byref_object_copy__5;
+  v116 = __Block_byref_object_dispose__5;
+  v117 = 0;
   v108 = 0;
   v109 = &v108;
-  v110 = 0x3032000000;
-  v111 = __Block_byref_object_copy__5;
-  v112 = __Block_byref_object_dispose__5;
-  v113 = 0;
-  v104 = 0;
-  v105 = &v104;
-  v106 = 0x2020000000;
+  v110 = 0x2020000000;
+  v111 = 0;
+  v102 = 0;
+  v103 = &v102;
+  v104 = 0x3032000000;
+  v105 = __Block_byref_object_copy__5;
+  v106 = __Block_byref_object_dispose__5;
   v107 = 0;
-  v98 = 0;
-  v99 = &v98;
-  v100 = 0x3032000000;
-  v101 = __Block_byref_object_copy__5;
-  v102 = __Block_byref_object_dispose__5;
-  v103 = 0;
-  v92 = 0;
-  v93 = &v92;
-  v94 = 0x3032000000;
-  v95 = __Block_byref_object_copy__5;
-  v96 = __Block_byref_object_dispose__5;
-  v97 = 0;
-  v86 = 0;
-  v87 = &v86;
-  v88 = 0x3032000000;
-  v89 = __Block_byref_object_copy__5;
-  v90 = __Block_byref_object_dispose__5;
-  v91 = &__kCFBooleanFalse;
-  v80 = 0;
-  v81 = &v80;
-  v82 = 0x3032000000;
-  v83 = __Block_byref_object_copy__5;
-  v84 = __Block_byref_object_dispose__5;
-  v85 = &__kCFBooleanFalse;
+  v96 = 0;
+  v97 = &v96;
+  v98 = 0x3032000000;
+  v99 = __Block_byref_object_copy__5;
+  v100 = __Block_byref_object_dispose__5;
+  v101 = 0;
+  v90 = 0;
+  v91 = &v90;
+  v92 = 0x3032000000;
+  v93 = __Block_byref_object_copy__5;
+  v94 = __Block_byref_object_dispose__5;
+  v95 = &__kCFBooleanFalse;
+  v84 = 0;
+  v85 = &v84;
+  v86 = 0x3032000000;
+  v87 = __Block_byref_object_copy__5;
+  v88 = __Block_byref_object_dispose__5;
+  v89 = &__kCFBooleanFalse;
+  v83 = 0;
   v79 = 0;
-  v75 = 0;
-  v76 = &v75;
-  v77 = 0x2020000000;
-  v78 = 0;
+  v80 = &v79;
+  v81 = 0x2020000000;
+  v82 = 0;
   v2 = data_ark_copy(*(a1 + 32), 0, @"UIKUpgradeRequired");
-  v3 = v81[5];
-  v81[5] = v2;
+  v3 = v85[5];
+  v85[5] = v2;
 
-  v4 = isNSNumber(v81[5]);
+  v4 = isNSNumber(v85[5]);
   v5 = v4 == 0;
 
   if (v5)
   {
-    v6 = v81[5];
-    v81[5] = &__kCFBooleanFalse;
+    v6 = v85[5];
+    v85[5] = &__kCFBooleanFalse;
   }
 
-  if ([v81[5] BOOLValue])
+  if ([v85[5] BOOLValue])
   {
     v7 = copyUCRT(*(a1 + 32), 0);
     v8 = v7;
     if (v7)
     {
-      v74 = 0;
-      v9 = deleteLegacyUIKIfMismatched(v7, &v79, &v74);
-      v10 = v74;
+      v78 = 0;
+      v9 = deleteLegacyUIKIfMismatched(v7, &v83, &v78);
+      v10 = v78;
+      v11 = v10;
       if ((v9 & 1) == 0)
       {
-        v11 = copyLoggingHandle();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+        v12 = copyLoggingHandle(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
         {
           __ucrt_oob_activity_handler_block_invoke_3_cold_1();
         }
       }
 
-      if (v79 == 1)
+      if (v83 == 1)
       {
         maLog("ucrt_oob_activity_handler_block_invoke", 0, @"Legacy UIK purged.");
         if (certificatePublicKeyMatchesSystemPublicKey(2, 2, v8, 0))
         {
-          v12 = v81[5];
-          v81[5] = &__kCFBooleanFalse;
+          v13 = v85[5];
+          v85[5] = &__kCFBooleanFalse;
 
           data_ark_remove(*(a1 + 32), 0, @"UIKUpgradeRequired");
         }
@@ -766,197 +774,200 @@ void __ucrt_oob_activity_handler_block_invoke_3(uint64_t a1)
     v8 = 0;
   }
 
-  v13 = data_ark_copy(*(a1 + 32), 0, @"UCRTUpgradeRequired");
-  v14 = v93[5];
-  v93[5] = v13;
+  v14 = data_ark_copy(*(a1 + 32), 0, @"UCRTUpgradeRequired");
+  v15 = v97[5];
+  v97[5] = v14;
 
-  v15 = isNSNumber(v93[5]);
-  v16 = v15 == 0;
+  v16 = isNSNumber(v97[5]);
+  v17 = v16 == 0;
 
-  if (v16)
+  if (v17)
   {
-    v17 = v93[5];
-    v93[5] = &__kCFBooleanFalse;
+    v18 = v97[5];
+    v97[5] = &__kCFBooleanFalse;
   }
 
-  v18 = data_ark_copy(*(a1 + 32), 0, @"UCRTHealingRequired");
-  v19 = v87[5];
-  v87[5] = v18;
+  v19 = data_ark_copy(*(a1 + 32), 0, @"UCRTHealingRequired");
+  v20 = v91[5];
+  v91[5] = v19;
 
-  v20 = isNSNumber(v87[5]);
-  v21 = v20 == 0;
+  v21 = isNSNumber(v91[5]);
+  v22 = v21 == 0;
 
-  if (v21)
+  if (v22)
   {
-    v22 = v87[5];
-    v87[5] = &__kCFBooleanFalse;
+    v23 = v91[5];
+    v91[5] = &__kCFBooleanFalse;
   }
 
-  if (ucrtOOBAlreadyPerformed(*(a1 + 32)) && ([v93[5] BOOLValue] & 1) == 0 && (objc_msgSend(v87[5], "BOOLValue") & 1) == 0 && !objc_msgSend(v81[5], "BOOLValue"))
+  if (ucrtOOBAlreadyPerformed(*(a1 + 32)) && ([v97[5] BOOLValue] & 1) == 0 && (objc_msgSend(v91[5], "BOOLValue") & 1) == 0 && !objc_msgSend(v85[5], "BOOLValue"))
   {
     goto LABEL_28;
   }
 
-  v23 = data_ark_copy(*(a1 + 32), 0, @"ActivationState");
-  v24 = isNSString(v23);
-  v25 = v115[5];
-  v115[5] = v24;
+  v24 = data_ark_copy(*(a1 + 32), 0, @"ActivationState");
+  v25 = isNSString(v24);
+  v26 = v119[5];
+  v119[5] = v25;
 
-  if (use_hactivation() || is_virtual_machine() || ([v115[5] isEqualToString:@"Activated"] & 1) == 0)
+  if (use_hactivation() || is_virtual_machine() || ([v119[5] isEqualToString:@"Activated"] & 1) == 0)
   {
     data_ark_remove(*(a1 + 32), 0, @"UCRTUpgradeRequired");
     data_ark_remove(*(a1 + 32), 0, @"UCRTHealingRequired");
     data_ark_remove(*(a1 + 32), 0, @"UIKUpgradeRequired");
 LABEL_28:
-    v33 = 0;
     v34 = 0;
-LABEL_29:
     v35 = 0;
+LABEL_29:
+    v36 = 0;
     goto LABEL_30;
   }
 
-  v26 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBRetryAttempt");
-  v27 = v109[5];
-  v109[5] = v26;
+  v27 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBRetryAttempt");
+  v28 = v113[5];
+  v113[5] = v27;
 
-  v28 = isNSNumber(v109[5]);
-  v29 = v28 == 0;
+  v29 = isNSNumber(v113[5]);
+  v30 = v29 == 0;
 
-  if (v29)
+  if (v30)
   {
-    v32 = &off_1003FBD20;
+    v33 = &off_1003FBD20;
   }
 
   else
   {
-    v30 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v109[5] unsignedLongLongValue] + 1);
-    v31 = v109[5];
-    v109[5] = v30;
+    v31 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v113[5] unsignedLongLongValue] + 1);
+    v32 = v113[5];
+    v113[5] = v31;
 
-    if ([v109[5] unsignedLongLongValue] <= 6)
+    if ([v113[5] unsignedLongLongValue] <= 6)
     {
       goto LABEL_35;
     }
 
-    v32 = [NSNumber numberWithUnsignedInt:?];
+    v33 = [NSNumber numberWithUnsignedInt:?];
   }
 
-  v36 = v109[5];
-  v109[5] = v32;
+  v37 = v113[5];
+  v113[5] = v33;
 
 LABEL_35:
-  data_ark_set(*(a1 + 32), 0, @"UCRTOOBRetryAttempt", v109[5], 1);
-  [v109[5] doubleValue];
-  v38 = exp2(v37);
-  *(v105 + 6) = (v38 * 60.0);
-  v34 = data_ark_copy(*(a1 + 32), 0, @"UCRTIssuanceInFlight");
-  v39 = isNSNumber(v34);
-  v40 = v39 == 0;
+  data_ark_set(*(a1 + 32), 0, @"UCRTOOBRetryAttempt", v113[5], 1);
+  [v113[5] doubleValue];
+  v39 = exp2(v38);
+  *(v109 + 6) = (v39 * 60.0);
+  v35 = data_ark_copy(*(a1 + 32), 0, @"UCRTIssuanceInFlight");
+  v40 = isNSNumber(v35);
+  v41 = v40 == 0;
 
-  if (v40)
+  if (v41)
   {
 
-    v34 = &__kCFBooleanFalse;
+    v35 = &__kCFBooleanFalse;
   }
 
-  if ([v34 BOOLValue])
+  v42 = [v35 BOOLValue];
+  if (v42)
   {
-    v41 = copyLoggingHandle();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v43 = copyLoggingHandle(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
-      v42 = *(v105 + 6);
+      v44 = *(v109 + 6);
       *buf = 67109120;
-      v123 = v42;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "UCRT request is in flight, rescheduling UCRT OOB for %d seconds.", buf, 8u);
+      v127 = v44;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "UCRT request is in flight, rescheduling UCRT OOB for %d seconds.", buf, 8u);
     }
 
-    v43 = *(a1 + 32);
-    v44 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
-    v45 = &__block_literal_global_550;
+    v45 = *(a1 + 32);
+    v46 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
+    v47 = &__block_literal_global_550;
 LABEL_49:
-    scheduleXPCActivity(v43, v44, *(v105 + 6), 1, 0x3000u, 0x1000u, v45);
-    v33 = 0;
+    scheduleXPCActivity(v45, v46, *(v109 + 6), 1, 0x3000u, 0x1000u, v47);
+    v34 = 0;
     goto LABEL_29;
   }
 
-  if (!collectionAlreadyPerformed(*(a1 + 32)))
+  v48 = collectionAlreadyPerformed(*(a1 + 32));
+  if (!v48)
   {
-    v51 = copyLoggingHandle();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+    v54 = copyLoggingHandle(v48);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = *(v105 + 6);
+      v55 = *(v109 + 6);
       *buf = 67109120;
-      v123 = v52;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Collection not performed yet. Rescheduling UCRT OOB for %d seconds.", buf, 8u);
+      v127 = v55;
+      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Collection not performed yet. Rescheduling UCRT OOB for %d seconds.", buf, 8u);
     }
 
-    v43 = *(a1 + 32);
-    v44 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
-    v45 = &__block_literal_global_553;
+    v45 = *(a1 + 32);
+    v46 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
+    v47 = &__block_literal_global_553;
     goto LABEL_49;
   }
 
-  v73 = 0;
-  v46 = ucrtHealingSupported(&v73);
-  v47 = v73;
-  if (v47)
+  v77 = 0;
+  v49 = ucrtHealingSupported(&v77);
+  v50 = v77;
+  if (v50)
   {
-    v35 = v47;
-    v48 = copyLoggingHandle();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_FAULT))
+    v36 = v50;
+    v51 = copyLoggingHandle(v50);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
     {
       __ucrt_oob_activity_handler_block_invoke_3_cold_2();
     }
 
-    v49 = *(a1 + 32);
-    v50 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
-    scheduleXPCActivity(v49, v50, *(v105 + 6), 1, 0x3000u, 0x1000u, &__block_literal_global_556);
-    v33 = 0;
+    v52 = *(a1 + 32);
+    v53 = [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
+    scheduleXPCActivity(v52, v53, *(v109 + 6), 1, 0x3000u, 0x1000u, &__block_literal_global_556);
+    v34 = 0;
     goto LABEL_30;
   }
 
-  if ([v87[5] BOOLValue])
+  v56 = [v91[5] BOOLValue];
+  if (v56)
   {
-    if (v46)
+    if (v49)
     {
-      v53 = 1;
+      v57 = 1;
 LABEL_54:
-      v54 = copyLoggingHandle();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+      v58 = copyLoggingHandle(v56);
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Performing UCRT OOB.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Performing UCRT OOB.", buf, 2u);
       }
 
       [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String];
-      v55 = os_transaction_create();
-      v56 = v99[5];
-      v99[5] = v55;
+      v59 = os_transaction_create();
+      v60 = v103[5];
+      v103[5] = v59;
 
       data_ark_set(*(a1 + 32), 0, @"UCRTIssuanceInFlight", &__kCFBooleanTrue, 0);
-      v120 = @"UseCommittedUIK";
-      v57 = [NSNumber numberWithInt:v53 ^ 1u];
-      v121 = v57;
-      v33 = [NSDictionary dictionaryWithObjects:&v121 forKeys:&v120 count:1];
+      v124 = @"UseCommittedUIK";
+      v61 = [NSNumber numberWithInt:v57 ^ 1u];
+      v125 = v61;
+      v34 = [NSDictionary dictionaryWithObjects:&v125 forKeys:&v124 count:1];
 
-      v58 = *(a1 + 32);
-      v59 = copy_current_process_name();
-      v61[0] = _NSConcreteStackBlock;
-      v61[1] = 3254779904;
-      v61[2] = __ucrt_oob_activity_handler_block_invoke_557;
-      v61[3] = &__block_descriptor_106_e8_32s40r48r56r64r72r80r88r96r_e48_v40__0__NSData_8__NSDictionary_16q24__NSError_32l;
-      v63 = &v80;
       v62 = *(a1 + 32);
-      v64 = &v92;
-      v65 = &v86;
-      v66 = &v114;
-      v71 = v53;
-      v72 = v46;
-      v67 = &v75;
-      v68 = &v108;
-      v69 = &v104;
-      v70 = &v98;
-      performUCRTOOB(v58, v53, v59, v33, v61);
+      v63 = copy_current_process_name();
+      v65[0] = _NSConcreteStackBlock;
+      v65[1] = 3254779904;
+      v65[2] = __ucrt_oob_activity_handler_block_invoke_557;
+      v65[3] = &__block_descriptor_106_e8_32s40r48r56r64r72r80r88r96r_e48_v40__0__NSData_8__NSDictionary_16q24__NSError_32l;
+      v67 = &v84;
+      v66 = *(a1 + 32);
+      v68 = &v96;
+      v69 = &v90;
+      v70 = &v118;
+      v75 = v57;
+      v76 = v49;
+      v71 = &v79;
+      v72 = &v112;
+      v73 = &v108;
+      v74 = &v102;
+      performUCRTOOB(v62, v57, v63, v34, v65);
 
       goto LABEL_29;
     }
@@ -964,54 +975,56 @@ LABEL_54:
 
   else
   {
-    v53 = [v81[5] BOOLValue];
-    if ((v46 | v53 ^ 1))
+    v56 = [v85[5] BOOLValue];
+    v57 = v56;
+    if ((v49 | v56 ^ 1))
     {
       goto LABEL_54;
     }
   }
 
-  v60 = copyLoggingHandle();
-  if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+  v64 = copyLoggingHandle(v56);
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "UCRT healing not supported.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "UCRT healing not supported.", buf, 2u);
   }
 
   data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbidden", &__kCFBooleanTrue, 1);
-  v33 = 0;
-  v35 = 0;
-  *(v76 + 24) = 1;
+  v34 = 0;
+  v36 = 0;
+  *(v80 + 24) = 1;
 LABEL_30:
   if (v8)
   {
     CFRelease(v8);
   }
 
-  _Block_object_dispose(&v75, 8);
+  _Block_object_dispose(&v79, 8);
 
-  _Block_object_dispose(&v80, 8);
-  _Block_object_dispose(&v86, 8);
+  _Block_object_dispose(&v84, 8);
+  _Block_object_dispose(&v90, 8);
 
-  _Block_object_dispose(&v92, 8);
-  _Block_object_dispose(&v98, 8);
+  _Block_object_dispose(&v96, 8);
+  _Block_object_dispose(&v102, 8);
 
-  _Block_object_dispose(&v104, 8);
   _Block_object_dispose(&v108, 8);
+  _Block_object_dispose(&v112, 8);
 
-  _Block_object_dispose(&v114, 8);
+  _Block_object_dispose(&v118, 8);
 }
 
-void sub_10030EC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49)
+void sub_10030EC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, ...)
 {
+  va_start(va, a48);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a31, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a43, 8);
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose((v49 - 240), 8);
-  _Block_object_dispose((v49 - 208), 8);
-  _Block_object_dispose((v49 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v48 - 240), 8);
+  _Block_object_dispose((v48 - 208), 8);
+  _Block_object_dispose((v48 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1042,7 +1055,7 @@ void __ucrt_oob_activity_handler_block_invoke_557(uint64_t a1, id a2, void *a3, 
   v16 = v9;
   v17 = v11;
   v18 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v20);
-  v19 = copyMobileActivationSerialQueue();
+  v19 = copyMobileActivationSerialQueue(v18);
   dispatch_async(v19, v18);
 }
 
@@ -1104,7 +1117,8 @@ void __ucrt_oob_activity_handler_block_invoke_2_558(uint64_t a1)
   {
     if (!v24)
     {
-      v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5398, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Network communication error.");
+      v32 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5398, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Network communication error.");
+      v31 = v32;
 LABEL_39:
       v26 = 0;
       v27 = 0;
@@ -1112,7 +1126,7 @@ LABEL_40:
       v28 = 0;
       v29 = 0;
 LABEL_41:
-      v40 = 0;
+      v42 = 0;
       v30 = 0;
       goto LABEL_42;
     }
@@ -1121,42 +1135,43 @@ LABEL_41:
     {
       MobileActivationError = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5395, @"com.apple.MobileActivation.ErrorDomain", -6, *(a1 + 40), @"Internal error.");
 LABEL_37:
-      v31 = MobileActivationError;
+      v32 = MobileActivationError;
+      v31 = v32;
       goto LABEL_38;
     }
 
-    v41 = *(a1 + 40);
-    v42 = [NSHTTPURLResponse localizedStringForStatusCode:v24];
-    v43 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5401, @"com.apple.MobileActivation.ServerErrorDomain", v24, v41, @"Server error: %ld (%@)", v24, v42);
+    v43 = *(a1 + 40);
+    v44 = [NSHTTPURLResponse localizedStringForStatusCode:v24];
+    v45 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5401, @"com.apple.MobileActivation.ServerErrorDomain", v24, v43, @"Server error: %ld (%@)", v24, v44);
 
-    v44 = *(a1 + 128);
-    if (v44 == 403)
+    v46 = *(a1 + 128);
+    if (v46 == 403)
     {
-      v45 = -5;
+      v47 = -5;
     }
 
     else
     {
-      v45 = -6;
+      v47 = -6;
     }
 
-    v46 = [NSHTTPURLResponse localizedStringForStatusCode:*(a1 + 128)];
-    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5401, @"com.apple.MobileActivation.ErrorDomain", v45, v43, @"Server error: %ld (%@)", v44, v46);
+    v48 = [NSHTTPURLResponse localizedStringForStatusCode:*(a1 + 128)];
+    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5401, @"com.apple.MobileActivation.ErrorDomain", v47, v45, @"Server error: %ld (%@)", v46, v48);
 
-    v47 = *(a1 + 128);
-    if (v47 == 500)
+    v49 = *(a1 + 128);
+    if (v49 == 500)
     {
       if (*(a1 + 136) != 1)
       {
         goto LABEL_38;
       }
 
-      v62 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBForbiddenCount");
-      v63 = isNSNumber(v62);
+      v65 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBForbiddenCount");
+      v66 = isNSNumber(v65);
 
-      if (v63)
+      if (v66)
       {
-        v24 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v62 unsignedLongLongValue] + 1);
+        v24 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v65 unsignedLongLongValue] + 1);
       }
 
       else
@@ -1164,19 +1179,20 @@ LABEL_37:
         v24 = &off_1003FBD20;
       }
 
-      v40 = 1;
+      v42 = 1;
       data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbiddenCount", v24, 1);
-      if ([(NSNumber *)v24 unsignedLongLongValue]< 0xB)
+      v32 = [(NSNumber *)v24 unsignedLongLongValue];
+      if (v32 < 0xB)
       {
         goto LABEL_39;
       }
 
-      data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbidden", &__kCFBooleanTrue, 1);
+      v32 = data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbidden", &__kCFBooleanTrue, 1);
     }
 
     else
     {
-      if (v47 != 403)
+      if (v49 != 403)
       {
 LABEL_38:
         v24 = 0;
@@ -1185,12 +1201,12 @@ LABEL_38:
 
       if ((*(a1 + 136) & 1) == 0 && *(a1 + 137) == 1)
       {
-        data_ark_set(*(a1 + 32), 0, @"UCRTHealingRequired", &__kCFBooleanTrue, 1);
+        v32 = data_ark_set(*(a1 + 32), 0, @"UCRTHealingRequired", &__kCFBooleanTrue, 1);
         goto LABEL_38;
       }
 
-      v40 = 1;
-      data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbidden", &__kCFBooleanTrue, 1);
+      v42 = 1;
+      v32 = data_ark_set(*(a1 + 32), 0, @"UCRTOOBForbidden", &__kCFBooleanTrue, 1);
       v24 = 0;
     }
 
@@ -1212,47 +1228,49 @@ LABEL_38:
   v27 = [*(a1 + 56) objectForKeyedSubscript:@"Date"];
   if (!v27)
   {
-    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5446, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve server response date.");
+    v32 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5446, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve server response date.");
+    v31 = v32;
     v24 = 0;
     v26 = 0;
     goto LABEL_40;
   }
 
-  v32 = objc_alloc_init(NSDateFormatter);
-  v29 = v32;
-  if (!v32)
+  v33 = objc_alloc_init(NSDateFormatter);
+  v29 = v33;
+  if (!v33)
   {
-    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5452, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate date formatter.");
+    v32 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5452, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate date formatter.");
+    v31 = v32;
     v24 = 0;
     v26 = 0;
     v28 = 0;
     goto LABEL_41;
   }
 
-  v66 = 0;
-  v28 = [v32 dateFromServerString:v27 withError:&v66];
-  v33 = v66;
+  v69 = 0;
+  v28 = [v33 dateFromServerString:v27 withError:&v69];
+  v34 = v69;
   if (!v28)
   {
-    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5458, @"com.apple.MobileActivation.ErrorDomain", -1, v33, @"Failed to convert date string.");
+    v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5458, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to convert date string.");
 
     v24 = 0;
     v26 = 0;
     goto LABEL_41;
   }
 
-  v34 = +[GestaltHlpr getSharedInstance];
-  v30 = [v34 copyAnswer:@"BuildVersion"];
+  v35 = +[GestaltHlpr getSharedInstance];
+  v30 = [v35 copyAnswer:@"BuildVersion"];
 
-  v35 = isNSString(v30);
-  if (!v35)
+  v36 = isNSString(v30);
+  if (!v36)
   {
     v31 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5464, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve OS build.");
 
     v24 = 0;
     v26 = 0;
 LABEL_73:
-    v40 = 0;
+    v42 = 0;
     goto LABEL_42;
   }
 
@@ -1265,39 +1283,39 @@ LABEL_73:
     goto LABEL_73;
   }
 
-  v36 = [NSNumber numberWithInt:*(a1 + 136) ^ 1u];
-  [v26 setObject:v36 forKeyedSubscript:@"UseCommittedUIK"];
+  v37 = [NSNumber numberWithInt:*(a1 + 136) ^ 1u];
+  [v26 setObject:v37 forKeyedSubscript:@"UseCommittedUIK"];
 
   [v26 setObject:v28 forKeyedSubscript:@"ServerResponseDate"];
-  v37 = *(a1 + 32);
-  v38 = *(a1 + 48);
-  v65 = v33;
-  LOBYTE(v36) = storeUCRT(v37, v38, v26, &v65);
-  v31 = v65;
+  v38 = *(a1 + 32);
+  v39 = *(a1 + 48);
+  v68 = v34;
+  LOBYTE(v37) = storeUCRT(v38, v39, v26, &v68);
+  v31 = v68;
 
-  if (v36)
+  if (v37)
   {
     data_ark_set(*(a1 + 32), 0, @"UCRTOOBLastPerformed", v30, 1);
     data_ark_remove(*(a1 + 32), 0, @"UCRTOOBForbiddenCount");
     data_ark_remove(*(a1 + 32), 0, @"UCRTOOBRetryAttempt");
-    v39 = copyLoggingHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v41 = copyLoggingHandle(v40);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Successfully performed UCRT OOB.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Successfully performed UCRT OOB.", buf, 2u);
     }
 
     v24 = 0;
-    v40 = 1;
+    v42 = 1;
   }
 
   else
   {
-    v64 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5480, @"com.apple.MobileActivation.ErrorDomain", -1, v31, @"Failed to store UCRT.");
+    v67 = createMobileActivationError("ucrt_oob_activity_handler_block_invoke_2", 5480, @"com.apple.MobileActivation.ErrorDomain", -1, v31, @"Failed to store UCRT.");
 
     v24 = 0;
-    v40 = 0;
-    v31 = v64;
+    v42 = 0;
+    v31 = v67;
   }
 
   if (!v31)
@@ -1306,28 +1324,28 @@ LABEL_73:
   }
 
 LABEL_42:
-  v48 = copyLoggingHandle();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v50 = copyLoggingHandle(v32);
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v68 = v31;
-    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Failed to perform UCRT OOB: %{public}@", buf, 0xCu);
+    v71 = v31;
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Failed to perform UCRT OOB: %{public}@", buf, 0xCu);
   }
 
   if (*(a1 + 128) && (mobileactivationErrorHasDomainAndErrorCode(v31, @"com.apple.MobileActivation.ErrorDomain", 0xFFFFFFFFFFFFFFEALL) & 1) == 0)
   {
     if (*(a1 + 136))
     {
-      v50 = 31;
+      v52 = 31;
     }
 
     else
     {
-      v50 = 15;
+      v52 = 15;
     }
 
-    writeSplunkLog(*(a1 + 32), v50, *(a1 + 128), "ucrt_oob_activity_handler_block_invoke", 5500, 0, @"%@", v49, v31);
-    if (v40)
+    writeSplunkLog(*(a1 + 32), v52, *(a1 + 128), "ucrt_oob_activity_handler_block_invoke", 5500, 0, @"%@", v51, v31);
+    if (v42)
     {
       goto LABEL_48;
     }
@@ -1336,7 +1354,7 @@ LABEL_42:
   else
   {
 LABEL_47:
-    if (v40)
+    if (v42)
     {
 LABEL_48:
       if ((*(*(*(a1 + 96) + 8) + 24) & 1) == 0)
@@ -1350,36 +1368,36 @@ LABEL_48:
     }
   }
 
-  v51 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBRetryAttempt");
-  v52 = *(*(a1 + 104) + 8);
-  v53 = *(v52 + 40);
-  *(v52 + 40) = v51;
+  v53 = data_ark_copy(*(a1 + 32), 0, @"UCRTOOBRetryAttempt");
+  v54 = *(*(a1 + 104) + 8);
+  v55 = *(v54 + 40);
+  *(v54 + 40) = v53;
 
-  v54 = isNSNumber(*(*(*(a1 + 104) + 8) + 40));
-  if (!v54)
+  v56 = isNSNumber(*(*(*(a1 + 104) + 8) + 40));
+  if (!v56)
   {
-    v55 = *(*(a1 + 104) + 8);
-    v56 = *(v55 + 40);
-    *(v55 + 40) = &off_1003FBD20;
+    v57 = *(*(a1 + 104) + 8);
+    v58 = *(v57 + 40);
+    *(v57 + 40) = &off_1003FBD20;
   }
 
   [*(*(*(a1 + 104) + 8) + 40) doubleValue];
-  *(*(*(a1 + 112) + 8) + 24) = (exp2(v57) * 60.0);
-  v58 = copyLoggingHandle();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  *(*(*(a1 + 112) + 8) + 24) = (exp2(v59) * 60.0);
+  v61 = copyLoggingHandle(v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = *(*(*(a1 + 112) + 8) + 24);
+    v62 = *(*(*(a1 + 112) + 8) + 24);
     *buf = 67109120;
-    LODWORD(v68) = v59;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Rescheduling UCRT OOB for %d seconds.", buf, 8u);
+    LODWORD(v71) = v62;
+    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Rescheduling UCRT OOB for %d seconds.", buf, 8u);
   }
 
   scheduleXPCActivity(*(a1 + 32), [@"com.apple.mobileactivationd.UCRT.OOB" UTF8String], *(*(*(a1 + 112) + 8) + 24), 1, 0x3000u, 0x1000u, &__block_literal_global_561);
 LABEL_59:
   data_ark_set(*(a1 + 32), 0, @"UCRTIssuanceInFlight", &__kCFBooleanFalse, 0);
-  v60 = *(*(a1 + 120) + 8);
-  v61 = *(v60 + 40);
-  *(v60 + 40) = 0;
+  v63 = *(*(a1 + 120) + 8);
+  v64 = *(v63 + 40);
+  *(v63 + 40) = 0;
 }
 
 void __copy_helper_block_e8_32s40s48s56s64r72r80r88r96r104r112r120r(uint64_t a1, uint64_t a2)
@@ -1444,8 +1462,8 @@ void __destroy_helper_block_e8_32s40r48r56r64r72r80r88r96r(uint64_t a1)
 
 id copy_splunk_log_array(uint64_t a1, NSError **a2)
 {
-  v26 = objc_alloc_init(NSMutableArray);
-  if (!v26)
+  v28 = objc_alloc_init(NSMutableArray);
+  if (!v28)
   {
     MobileActivationError = createMobileActivationError("copy_splunk_log_array", 6104, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate array.");
     goto LABEL_22;
@@ -1457,8 +1475,8 @@ id copy_splunk_log_array(uint64_t a1, NSError **a2)
     MobileActivationError = createMobileActivationError("copy_splunk_log_array", 6110, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to query splunk file list.");
 LABEL_22:
     v6 = MobileActivationError;
-    v18 = 0;
-    v19 = 0;
+    v20 = 0;
+    v21 = 0;
     if (!a2)
     {
       goto LABEL_28;
@@ -1467,72 +1485,72 @@ LABEL_22:
     goto LABEL_26;
   }
 
-  v23 = v3;
-  v24 = a2;
+  v25 = v3;
+  v26 = a2;
+  v33 = 0u;
+  v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
   obj = [v3 reverseObjectEnumerator];
-  v4 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v4 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v30;
+    v7 = *v32;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v30 != v7)
+        if (*v32 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v29 + 1) + 8 * i);
+        v9 = *(*(&v31 + 1) + 8 * i);
         v10 = [NSData alloc];
-        v28 = v6;
-        v11 = [v10 initWithContentsOfFile:v9 options:0 error:&v28];
-        v12 = v28;
+        v30 = v6;
+        v11 = [v10 initWithContentsOfFile:v9 options:0 error:&v30];
+        v12 = v30;
 
         if (v11)
         {
-          [v26 addObject:v11];
+          [v28 addObject:v11];
         }
 
         else
         {
-          v13 = copyLoggingHandle();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+          v14 = copyLoggingHandle(v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412546;
-            v34 = v9;
-            v35 = 2112;
-            v36 = v12;
-            _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
+            v36 = v9;
+            v37 = 2112;
+            v38 = v12;
+            _os_log_fault_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
           }
         }
 
-        v14 = +[NSFileManager defaultManager];
-        v27 = v12;
-        v15 = [(NSFileManager *)v14 removeItemAtPath:v9 error:&v27];
-        v6 = v27;
+        v15 = +[NSFileManager defaultManager];
+        v29 = v12;
+        v16 = [(NSFileManager *)v15 removeItemAtPath:v9 error:&v29];
+        v6 = v29;
 
-        if ((v15 & 1) == 0)
+        if ((v16 & 1) == 0)
         {
-          v16 = copyLoggingHandle();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+          v18 = copyLoggingHandle(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412546;
-            v34 = v9;
-            v35 = 2112;
-            v36 = v6;
-            _os_log_fault_impl(&_mh_execute_header, v16, OS_LOG_TYPE_FAULT, "Failed to delete %@: %@", buf, 0x16u);
+            v36 = v9;
+            v37 = 2112;
+            v38 = v6;
+            _os_log_fault_impl(&_mh_execute_header, v18, OS_LOG_TYPE_FAULT, "Failed to delete %@: %@", buf, 0x16u);
           }
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v5 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v5);
@@ -1543,1284 +1561,1286 @@ LABEL_22:
     v6 = 0;
   }
 
-  v19 = v26;
-  v18 = v23;
-  a2 = v24;
-  if (v24)
+  v21 = v28;
+  v20 = v25;
+  a2 = v26;
+  if (v26)
   {
 LABEL_26:
-    if (!v19)
+    if (!v21)
     {
-      v20 = v6;
+      v22 = v6;
       *a2 = v6;
     }
   }
 
 LABEL_28:
-  v21 = v19;
+  v23 = v21;
 
-  return v19;
+  return v21;
 }
 
 uint64_t perform_sydro_data_migration_tasks(void *a1, NSError **a2)
 {
-  v238 = a1;
+  v244 = a1;
   certificate = 0;
-  v294 = 0;
-  v293 = -1;
-  if (preSydroDataMigrationCompleted(v238))
+  v300 = 0;
+  v299 = -1;
+  v3 = preSydroDataMigrationCompleted(v244);
+  if (v3)
   {
-    v248 = 0;
-    v230 = 0;
-    v233 = 0;
+    v254 = 0;
+    v236 = 0;
+    v239 = 0;
     cf = 0;
-    v256 = 0;
-    v3 = 0;
-    v218 = 0;
-    v219 = 0;
+    v262 = 0;
+    v4 = 0;
+    v224 = 0;
+    v225 = 0;
+    v232 = 0;
+    v233 = 0;
+    v229 = 0;
+    v230 = 0;
+    v5 = 0;
     v226 = 0;
     v227 = 0;
-    v223 = 0;
-    v224 = 0;
-    v4 = 0;
-    v220 = 0;
-    v221 = 0;
-    v225 = 0;
-    v241 = 0;
-    v243 = 0;
-    v228 = 0;
-    v229 = 0;
-    v214 = 0;
-    v215 = 0;
+    v231 = 0;
+    v247 = 0;
+    v249 = 0;
     v234 = 0;
     v235 = 0;
-    v245 = 0;
-    v239 = 0;
+    v220 = 0;
+    v221 = 0;
     v240 = 0;
-    v222 = 0;
-    v5 = 0;
-    v213 = 0;
-    v216 = 0;
-    v217 = 0;
-    v236 = 0;
-    v237 = 0;
+    v241 = 0;
+    v251 = 0;
+    v245 = 0;
+    v246 = 0;
+    v228 = 0;
     v6 = 0;
+    v219 = 0;
+    v222 = 0;
+    v223 = 0;
+    v242 = 0;
+    v243 = 0;
     v7 = 0;
     v8 = 0;
     v9 = 0;
     v10 = 0;
     v11 = 0;
+    v12 = 0;
     obj = 0;
-    v12 = 1;
+    v13 = 1;
     goto LABEL_35;
   }
 
-  v209 = a2;
-  v13 = copy_ucrt_path();
-  v219 = v13;
-  if (!v13)
+  v215 = a2;
+  v14 = copy_ucrt_path(v3);
+  v225 = v14;
+  if (!v14)
   {
-    v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1078, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy UCRT path.");
+    v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1078, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy UCRT path.");
 LABEL_28:
-    v236 = 0;
+    v242 = 0;
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
     goto LABEL_29;
   }
 
-  v14 = &_CTServerConnectionCopyPostponementStatus_ptr;
-  v15 = +[NSFileManager defaultManager];
-  v315 = NSFilePosixPermissions;
-  v316 = &off_1003FBD38;
-  v16 = [NSDictionary dictionaryWithObjects:&v316 forKeys:&v315 count:1];
-  v292 = 0;
-  v17 = [(NSFileManager *)v15 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:v16 error:&v292];
-  v18 = v292;
+  v15 = &_CTServerConnectionCopyPostponementStatus_ptr;
+  v16 = +[NSFileManager defaultManager];
+  v321 = NSFilePosixPermissions;
+  v322 = &off_1003FBD38;
+  v17 = [NSDictionary dictionaryWithObjects:&v322 forKeys:&v321 count:1];
+  v298 = 0;
+  v18 = [(NSFileManager *)v16 createDirectoryAtPath:v14 withIntermediateDirectories:1 attributes:v17 error:&v298];
+  v19 = v298;
 
-  if ((v17 & 1) == 0)
+  if ((v18 & 1) == 0)
   {
-    MobileActivationError = createMobileActivationError("perform_sydro_data_migration_tasks", 1083, @"com.apple.MobileActivation.ErrorDomain", -1, v18, @"Failed to create %@.", v13);
+    MobileActivationError = createMobileActivationError("perform_sydro_data_migration_tasks", 1083, @"com.apple.MobileActivation.ErrorDomain", -1, v19, @"Failed to create %@.", v14);
 LABEL_17:
-    v28 = MobileActivationError;
+    v29 = MobileActivationError;
 
-    v236 = 0;
+    v242 = 0;
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
-    v13 = 0;
+    v14 = 0;
 LABEL_29:
-    v212 = 0;
+    v218 = 0;
     goto LABEL_30;
   }
 
-  v19 = [v13 stringByAppendingPathComponent:@"ucrt.pem"];
-  if (!v19)
+  v20 = [v14 stringByAppendingPathComponent:@"ucrt.pem"];
+  if (!v20)
   {
     MobileActivationError = createMobileActivationError("perform_sydro_data_migration_tasks", 1089, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create UCRT file path.");
     goto LABEL_17;
   }
 
-  v13 = v19;
-  v291 = v18;
-  load_certificate(&certificate, @"lockdown-identities", @"com.apple.mobileactivation.ucrt", &v293, &v291);
-  v20 = v291;
+  v14 = v20;
+  v297 = v19;
+  load_certificate(&certificate, @"lockdown-identities", @"com.apple.mobileactivation.ucrt", &v299, &v297);
+  v21 = v297;
 
-  if (v293 != -25300 && v293)
+  if (v299 != -25300 && v299)
   {
-    v30 = createMobileActivationError("perform_sydro_data_migration_tasks", 1095, @"com.apple.MobileActivation.ErrorDomain", -1, v20, @"Failed to query keychain.");
+    v31 = createMobileActivationError("perform_sydro_data_migration_tasks", 1095, @"com.apple.MobileActivation.ErrorDomain", -1, v21, @"Failed to query keychain.");
     goto LABEL_26;
   }
 
   if (certificate)
   {
     maLog("perform_sydro_data_migration_tasks", 0, @"Migrating UCRT from the keychain.");
-    v21 = SecCertificateCopyData(certificate);
-    if (v21)
+    v22 = SecCertificateCopyData(certificate);
+    if (v22)
     {
-      v22 = v21;
-      v290 = v20;
-      v23 = lockcrypto_create_pem(v21, "CERTIFICATE", &v290);
-      v24 = v290;
+      v23 = v22;
+      v296 = v21;
+      v24 = lockcrypto_create_pem(v22, "CERTIFICATE", &v296);
+      v25 = v296;
 
-      if (v23)
+      if (v24)
       {
-        v289 = v24;
-        v212 = v23;
-        v25 = store_data(v13, v23, &v289);
-        v26 = v289;
+        v295 = v25;
+        v218 = v24;
+        v26 = store_data(v14, v24, &v295);
+        v27 = v295;
 
-        if ((v25 & 1) == 0)
+        if ((v26 & 1) == 0)
         {
-          v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1115, @"com.apple.MobileActivation.ErrorDomain", -1, v26, @"Failed to store UCRT at %@.", v13);
+          v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1115, @"com.apple.MobileActivation.ErrorDomain", -1, v27, @"Failed to store UCRT at %@.", v14);
 
-          v236 = 0;
-          v237 = 0;
-          v11 = 0;
-          v7 = 0;
-          v216 = 0;
-          v217 = 0;
-          v215 = 0;
-          v4 = 0;
-          v41 = 0;
-          v227 = 0;
-          v218 = 0;
-          v211 = 0;
+          v242 = 0;
+          v243 = 0;
+          v12 = 0;
+          v8 = 0;
+          v222 = 0;
+          v223 = 0;
+          v221 = 0;
+          v5 = 0;
           v42 = 0;
+          v233 = 0;
+          v224 = 0;
+          v217 = 0;
           v43 = 0;
           v44 = 0;
-          v10 = 0;
+          v45 = 0;
+          v11 = 0;
           goto LABEL_31;
         }
 
-        v288 = v26;
-        v27 = delete_certificate(@"lockdown-identities", @"com.apple.mobileactivation.ucrt", &v288);
-        v20 = v288;
+        v294 = v27;
+        v28 = delete_certificate(@"lockdown-identities", @"com.apple.mobileactivation.ucrt", &v294);
+        v21 = v294;
 
-        if (v27)
+        if (v28)
         {
           maLog("perform_sydro_data_migration_tasks", 0, @"Successfully migrated UCRT from the keychain.");
           goto LABEL_20;
         }
 
-        v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1120, @"com.apple.MobileActivation.ErrorDomain", -1, v20, @"Failed to delete UCRT.");
+        v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1120, @"com.apple.MobileActivation.ErrorDomain", -1, v21, @"Failed to delete UCRT.");
 
-        v236 = 0;
+        v242 = 0;
+        v12 = 0;
         v11 = 0;
-        v10 = 0;
 LABEL_30:
-        v7 = 0;
-        v237 = 0;
-        v216 = 0;
-        v217 = 0;
-        v215 = 0;
-        v4 = 0;
-        v41 = 0;
-        v227 = 0;
-        v218 = 0;
-        v211 = 0;
+        v8 = 0;
+        v243 = 0;
+        v222 = 0;
+        v223 = 0;
+        v221 = 0;
+        v5 = 0;
         v42 = 0;
+        v233 = 0;
+        v224 = 0;
+        v217 = 0;
         v43 = 0;
         v44 = 0;
+        v45 = 0;
 LABEL_31:
-        v248 = v44;
-        obj = v28;
-        cf = v41;
-        v256 = v42;
-        v230 = v43;
-        v239 = v13;
-        if (v209)
+        v254 = v45;
+        obj = v29;
+        cf = v42;
+        v262 = v43;
+        v236 = v44;
+        v245 = v14;
+        if (v215)
         {
-          v45 = v11;
-          v46 = v4;
-          v47 = v28;
-          v4 = v46;
-          v11 = v45;
-          v12 = 0;
-          v223 = 0;
-          v224 = 0;
-          v225 = 0;
-          v226 = 0;
-          v220 = 0;
-          v221 = 0;
-          v241 = 0;
-          v243 = 0;
-          v228 = 0;
+          v46 = v12;
+          v47 = v5;
+          v48 = v29;
+          v5 = v47;
+          v12 = v46;
+          v13 = 0;
           v229 = 0;
-          v213 = 0;
-          v214 = 0;
-          v233 = 0;
+          v230 = 0;
+          v231 = 0;
+          v232 = 0;
+          v226 = 0;
+          v227 = 0;
+          v247 = 0;
+          v249 = 0;
           v234 = 0;
-          v245 = 0;
-          v240 = 0;
           v235 = 0;
-          v222 = 0;
-          v5 = 0;
+          v219 = 0;
+          v220 = 0;
+          v239 = 0;
+          v240 = 0;
+          v251 = 0;
+          v246 = 0;
+          v241 = 0;
+          v228 = 0;
           v6 = 0;
-          v48 = v28;
-          v9 = 0;
-          *v209 = v48;
+          v7 = 0;
+          v49 = v29;
+          v10 = 0;
+          *v215 = v49;
         }
 
         else
         {
-          v12 = 0;
-          v223 = 0;
-          v224 = 0;
-          v225 = 0;
-          v226 = 0;
-          v220 = 0;
-          v221 = 0;
-          v241 = 0;
-          v243 = 0;
-          v228 = 0;
+          v13 = 0;
           v229 = 0;
-          v213 = 0;
-          v214 = 0;
-          v233 = 0;
+          v230 = 0;
+          v231 = 0;
+          v232 = 0;
+          v226 = 0;
+          v227 = 0;
+          v247 = 0;
+          v249 = 0;
           v234 = 0;
-          v245 = 0;
-          v240 = 0;
           v235 = 0;
-          v222 = 0;
-          v5 = 0;
+          v219 = 0;
+          v220 = 0;
+          v239 = 0;
+          v240 = 0;
+          v251 = 0;
+          v246 = 0;
+          v241 = 0;
+          v228 = 0;
           v6 = 0;
-          v9 = 0;
+          v7 = 0;
+          v10 = 0;
         }
 
-        v3 = v211;
-        v8 = v212;
+        v4 = v217;
+        v9 = v218;
         goto LABEL_35;
       }
 
-      v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1110, @"com.apple.MobileActivation.ErrorDomain", -1, v24, @"Failed to create UCRT PEM data.");
-      v40 = v24;
+      v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1110, @"com.apple.MobileActivation.ErrorDomain", -1, v25, @"Failed to create UCRT PEM data.");
+      v41 = v25;
       goto LABEL_27;
     }
 
-    v30 = createMobileActivationError("perform_sydro_data_migration_tasks", 1104, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy UCRT certificate data.");
+    v31 = createMobileActivationError("perform_sydro_data_migration_tasks", 1104, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy UCRT certificate data.");
 LABEL_26:
-    v28 = v30;
-    v40 = v20;
+    v29 = v31;
+    v41 = v21;
 LABEL_27:
 
     goto LABEL_28;
   }
 
-  v212 = 0;
+  v218 = 0;
 LABEL_20:
-  v31 = v13;
-  v32 = [NSData alloc];
-  v298 = 0;
-  v239 = v31;
-  v33 = [v32 initWithContentsOfFile:v31 options:0 error:&v298];
-  v34 = v298;
-  if (!v33)
+  v32 = v14;
+  v33 = [NSData alloc];
+  v304 = 0;
+  v245 = v32;
+  v34 = [v33 initWithContentsOfFile:v32 options:0 error:&v304];
+  v35 = v304;
+  if (!v34)
   {
-    v37 = 0;
+    v38 = 0;
     goto LABEL_57;
   }
 
-  v35 = SecCertificateCreateWithData(kCFAllocatorDefault, v33);
-  if (v35)
+  v36 = SecCertificateCreateWithData(kCFAllocatorDefault, v34);
+  if (v36)
   {
-    v36 = v35;
-    v297 = v34;
-    v37 = lockcrypto_create_pem(v33, "CERTIFICATE", &v297);
-    v38 = v297;
+    v37 = v36;
+    v303 = v35;
+    v38 = lockcrypto_create_pem(v34, "CERTIFICATE", &v303);
+    v39 = v303;
 
-    if (v37)
+    if (v38)
     {
-      v296 = v38;
-      v39 = store_data(v239, v37, &v296);
-      v34 = v296;
+      v302 = v39;
+      v40 = store_data(v245, v38, &v302);
+      v35 = v302;
 
-      if (v39)
+      if (v40)
       {
-        CFRelease(v36);
+        CFRelease(v37);
 LABEL_57:
-        v55 = 1;
-        v56 = v20;
+        v56 = 1;
+        v57 = v21;
         goto LABEL_65;
       }
 
-      v56 = createMobileActivationError("convert_ucrt_from_der_to_pem", 218, @"com.apple.MobileActivation.ErrorDomain", -1, v34, @"Failed to store UCRT at %@.", v239);
-      v38 = v34;
+      v57 = createMobileActivationError("convert_ucrt_from_der_to_pem", 218, @"com.apple.MobileActivation.ErrorDomain", -1, v35, @"Failed to store UCRT at %@.", v245);
+      v39 = v35;
     }
 
     else
     {
-      v56 = createMobileActivationError("convert_ucrt_from_der_to_pem", 213, @"com.apple.MobileActivation.ErrorDomain", -1, v38, @"Failed to create UCRT PEM data.");
+      v57 = createMobileActivationError("convert_ucrt_from_der_to_pem", 213, @"com.apple.MobileActivation.ErrorDomain", -1, v39, @"Failed to create UCRT PEM data.");
     }
 
-    CFRelease(v36);
-    v57 = v56;
-    v55 = 0;
-    v34 = v56;
+    CFRelease(v37);
+    v58 = v57;
+    v56 = 0;
+    v35 = v57;
   }
 
   else
   {
-    v55 = 1;
-    v56 = v20;
-    v37 = v33;
+    v56 = 1;
+    v57 = v21;
+    v38 = v34;
   }
 
 LABEL_65:
 
-  v58 = v56;
-  if ((v55 & 1) == 0)
+  v59 = v57;
+  if ((v56 & 1) == 0)
   {
-    v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1130, @"com.apple.MobileActivation.ErrorDomain", -1, v58, @"Failed to migrate UCRT from DER to PEM.");
+    v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1130, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to migrate UCRT from DER to PEM.");
 
-    v236 = 0;
-    v237 = 0;
+    v242 = 0;
+    v243 = 0;
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
-    v7 = 0;
-    v216 = 0;
-    v217 = 0;
-    v215 = 0;
-    v4 = 0;
-    v41 = 0;
-    v227 = 0;
-    v218 = 0;
-    v211 = 0;
+    v8 = 0;
+    v222 = 0;
+    v223 = 0;
+    v221 = 0;
+    v5 = 0;
     v42 = 0;
+    v233 = 0;
+    v224 = 0;
+    v217 = 0;
     v43 = 0;
     v44 = 0;
-    v13 = v239;
+    v45 = 0;
+    v14 = v245;
     goto LABEL_31;
   }
 
-  v287 = v58;
-  v208 = copy_keychain_data(@"lockdown-identities", @"com.apple.mobileactivationd.dcrt", &v293, &v287);
-  v59 = v287;
+  v293 = v59;
+  v214 = copy_keychain_data(@"lockdown-identities", @"com.apple.mobileactivationd.dcrt", &v299, &v293);
+  v60 = v293;
 
-  if (v293 != -25300 && v293)
+  if (v299 != -25300 && v299)
   {
-    v63 = createMobileActivationError("perform_sydro_data_migration_tasks", 1138, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to query keychain.");
+    v64 = createMobileActivationError("perform_sydro_data_migration_tasks", 1138, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"Failed to query keychain.");
 
-    v236 = 0;
-    v237 = 0;
+    v242 = 0;
+    v243 = 0;
     goto LABEL_123;
   }
 
-  if (v208)
+  if (v214)
   {
     maLog("perform_sydro_data_migration_tasks", 0, @"Migrating DCRT from the keychain.");
-    v313[0] = @"UseCommittedDAK";
-    v313[1] = @"SkipCertificateValidation";
-    v314[0] = &__kCFBooleanTrue;
-    v314[1] = &__kCFBooleanTrue;
-    v286 = v59;
-    v237 = [NSDictionary dictionaryWithObjects:v314 forKeys:v313 count:2];
-    v60 = storeDCRT(v238, v208, v237, &v286);
-    v61 = v286;
+    v319[0] = @"UseCommittedDAK";
+    v319[1] = @"SkipCertificateValidation";
+    v320[0] = &__kCFBooleanTrue;
+    v320[1] = &__kCFBooleanTrue;
+    v292 = v60;
+    v243 = [NSDictionary dictionaryWithObjects:v320 forKeys:v319 count:2];
+    v61 = storeDCRT(v244, v214, v243, &v292);
+    v62 = v292;
 
-    if ((v60 & 1) == 0)
+    if ((v61 & 1) == 0)
     {
-      v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1156, @"com.apple.MobileActivation.ErrorDomain", -1, v61, @"Failed to store DCRT.");
+      v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1156, @"com.apple.MobileActivation.ErrorDomain", -1, v62, @"Failed to store DCRT.");
 
-      v236 = 0;
+      v242 = 0;
+      v12 = 0;
       v11 = 0;
-      v10 = 0;
-      v216 = 0;
-      v217 = 0;
-      v215 = 0;
-      v4 = 0;
-      v41 = 0;
-      v227 = 0;
-      v218 = 0;
-      v211 = 0;
+      v222 = 0;
+      v223 = 0;
+      v221 = 0;
+      v5 = 0;
       v42 = 0;
+      v233 = 0;
+      v224 = 0;
+      v217 = 0;
       v43 = 0;
       v44 = 0;
+      v45 = 0;
 LABEL_124:
-      v13 = v239;
+      v14 = v245;
 LABEL_125:
-      v7 = v208;
+      v8 = v214;
       goto LABEL_31;
     }
 
-    v285 = v61;
-    v62 = delete_keychain_data(@"lockdown-identities", @"com.apple.mobileactivationd.dcrt", &v285);
-    v59 = v285;
+    v291 = v62;
+    v63 = delete_keychain_data(@"lockdown-identities", @"com.apple.mobileactivationd.dcrt", &v291);
+    v60 = v291;
 
-    if (v62)
+    if (v63)
     {
       maLog("perform_sydro_data_migration_tasks", 0, @"Successfully migrated DCRT from the keychain.");
       goto LABEL_75;
     }
 
-    v63 = createMobileActivationError("perform_sydro_data_migration_tasks", 1161, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to delete DCRT.");
+    v64 = createMobileActivationError("perform_sydro_data_migration_tasks", 1161, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"Failed to delete DCRT.");
 
-    v236 = 0;
+    v242 = 0;
 LABEL_123:
-    v10 = 0;
-    v216 = 0;
-    v217 = 0;
-    v215 = 0;
-    v4 = 0;
-    v41 = 0;
-    v227 = 0;
-    v218 = 0;
-    v211 = 0;
+    v11 = 0;
+    v222 = 0;
+    v223 = 0;
+    v221 = 0;
+    v5 = 0;
     v42 = 0;
+    v233 = 0;
+    v224 = 0;
+    v217 = 0;
     v43 = 0;
     v44 = 0;
-    v28 = v63;
-    v11 = 0;
+    v45 = 0;
+    v29 = v64;
+    v12 = 0;
     goto LABEL_124;
   }
 
-  v237 = 0;
+  v243 = 0;
 LABEL_75:
-  v283 = 0u;
-  v284 = 0u;
-  v281 = 0u;
-  v282 = 0u;
-  v244 = [&off_1003FC320 countByEnumeratingWithState:&v281 objects:v312 count:16];
-  v64 = 0;
-  if (v244)
+  v289 = 0u;
+  v290 = 0u;
+  v287 = 0u;
+  v288 = 0u;
+  v250 = [&off_1003FC320 countByEnumeratingWithState:&v287 objects:v318 count:16];
+  v65 = 0;
+  if (v250)
   {
-    v256 = 0;
-    v43 = 0;
+    v262 = 0;
     v44 = 0;
-    v242 = *v282;
+    v45 = 0;
+    v248 = *v288;
     do
     {
-      v65 = 0;
-      v66 = v44;
+      v66 = 0;
+      v67 = v45;
       do
       {
-        if (*v282 != v242)
+        if (*v288 != v248)
         {
           objc_enumerationMutation(&off_1003FC320);
         }
 
-        v67 = *(*(&v281 + 1) + 8 * v65);
-        v68 = [v14[326] defaultManager];
-        cfa = v67;
-        v44 = [v68 contentsOfDirectoryAtPath:v67 error:0];
+        v68 = *(*(&v287 + 1) + 8 * v66);
+        v69 = [v15[326] defaultManager];
+        cfa = v68;
+        v45 = [v69 contentsOfDirectoryAtPath:v68 error:0];
 
-        if ([v44 count])
+        v70 = [v45 count];
+        if (v70)
         {
-          v246 = v65;
-          v69 = copy_activation_records_directory_path();
+          v252 = v66;
+          v71 = copy_activation_records_directory_path(v70);
 
-          v70 = v14;
-          v71 = [v14[326] defaultManager];
-          v310 = NSFilePosixPermissions;
-          v311 = &off_1003FBD50;
-          v72 = [NSDictionary dictionaryWithObjects:&v311 forKeys:&v310 count:1];
-          v280 = v59;
-          v73 = [v71 createDirectoryAtPath:v69 withIntermediateDirectories:1 attributes:v72 error:&v280];
-          v74 = v280;
+          v72 = v15;
+          v73 = [v15[326] defaultManager];
+          v316 = NSFilePosixPermissions;
+          v317 = &off_1003FBD50;
+          v74 = [NSDictionary dictionaryWithObjects:&v317 forKeys:&v316 count:1];
+          v286 = v60;
+          v75 = [v73 createDirectoryAtPath:v71 withIntermediateDirectories:1 attributes:v74 error:&v286];
+          v76 = v286;
 
-          if ((v73 & 1) == 0)
+          if ((v75 & 1) == 0)
           {
-            maLog("perform_sydro_data_migration_tasks", 0, @"Could not create path %@: %@", v69, v74);
+            maLog("perform_sydro_data_migration_tasks", 0, @"Could not create path %@: %@", v71, v76);
           }
 
-          v278 = 0u;
-          v279 = 0u;
-          v276 = 0u;
-          v277 = 0u;
-          v249 = v44;
-          obja = v44;
-          v75 = [obja countByEnumeratingWithState:&v276 objects:v309 count:16];
-          if (v75)
+          v284 = 0u;
+          v285 = 0u;
+          v282 = 0u;
+          v283 = 0u;
+          v255 = v45;
+          obja = v45;
+          v77 = [obja countByEnumeratingWithState:&v282 objects:v315 count:16];
+          if (v77)
           {
-            v76 = v75;
-            v77 = *v277;
+            v78 = v77;
+            v79 = *v283;
             do
             {
-              v78 = 0;
-              v79 = v256;
-              v80 = v43;
+              v80 = 0;
+              v81 = v262;
+              v82 = v44;
               do
               {
-                if (*v277 != v77)
+                if (*v283 != v79)
                 {
                   objc_enumerationMutation(obja);
                 }
 
-                v81 = *(*(&v276 + 1) + 8 * v78);
-                v82 = [cfa stringByAppendingPathComponent:v81];
+                v83 = *(*(&v282 + 1) + 8 * v80);
+                v84 = [cfa stringByAppendingPathComponent:v83];
 
-                v83 = [v69 stringByAppendingPathComponent:v81];
-                maLog("perform_sydro_data_migration_tasks", 0, @"Migrating %@ to %@", v82, v83);
-                v84 = [v70[326] defaultManager];
-                v275 = v74;
-                v256 = v83;
-                LOBYTE(v83) = [v84 copyItemAtPath:v82 toPath:v83 error:&v275];
-                v85 = v275;
+                v85 = [v71 stringByAppendingPathComponent:v83];
+                maLog("perform_sydro_data_migration_tasks", 0, @"Migrating %@ to %@", v84, v85);
+                v86 = [v72[326] defaultManager];
+                v281 = v76;
+                v262 = v85;
+                LOBYTE(v85) = [v86 copyItemAtPath:v84 toPath:v85 error:&v281];
+                v87 = v281;
 
-                if ((v83 & 1) == 0)
+                if ((v85 & 1) == 0)
                 {
-                  maLog("perform_sydro_data_migration_tasks", 0, @"Failed to copy %@: %@", v82, v85);
+                  maLog("perform_sydro_data_migration_tasks", 0, @"Failed to copy %@: %@", v84, v87);
                 }
 
-                v86 = [v70[326] defaultManager];
-                v274 = v85;
-                v87 = [v86 removeItemAtPath:v82 error:&v274];
-                v74 = v274;
+                v88 = [v72[326] defaultManager];
+                v280 = v87;
+                v89 = [v88 removeItemAtPath:v84 error:&v280];
+                v76 = v280;
 
-                if ((v87 & 1) == 0)
+                if ((v89 & 1) == 0)
                 {
-                  maLog("perform_sydro_data_migration_tasks", 0, @"Failed to delete %@: %@", v82, v74);
+                  maLog("perform_sydro_data_migration_tasks", 0, @"Failed to delete %@: %@", v84, v76);
                 }
 
-                v78 = v78 + 1;
-                v79 = v256;
-                v80 = v82;
+                v80 = v80 + 1;
+                v81 = v262;
+                v82 = v84;
               }
 
-              while (v76 != v78);
-              v43 = v82;
-              v76 = [obja countByEnumeratingWithState:&v276 objects:v309 count:16];
+              while (v78 != v80);
+              v44 = v84;
+              v78 = [obja countByEnumeratingWithState:&v282 objects:v315 count:16];
             }
 
-            while (v76);
+            while (v78);
           }
 
-          v59 = v74;
-          v64 = v69;
-          v14 = v70;
-          v65 = v246;
-          v44 = v249;
+          v60 = v76;
+          v65 = v71;
+          v15 = v72;
+          v66 = v252;
+          v45 = v255;
         }
 
-        v65 = v65 + 1;
-        v66 = v44;
+        v66 = v66 + 1;
+        v67 = v45;
       }
 
-      while (v65 != v244);
-      v244 = [&off_1003FC320 countByEnumeratingWithState:&v281 objects:v312 count:16];
+      while (v66 != v250);
+      v250 = [&off_1003FC320 countByEnumeratingWithState:&v287 objects:v318 count:16];
     }
 
-    while (v244);
+    while (v250);
   }
 
   else
   {
-    v256 = 0;
-    v43 = 0;
+    v262 = 0;
     v44 = 0;
+    v45 = 0;
   }
 
-  v88 = [v14[326] defaultManager];
-  v89 = [v88 fileExistsAtPath:@"/private/var/mobile/Library/mad/data_ark.plist"];
+  v90 = [v15[326] defaultManager];
+  v91 = [v90 fileExistsAtPath:@"/private/var/mobile/Library/mad/data_ark.plist"];
 
-  if (v89)
+  if (v91)
   {
-    v218 = [NSDictionary dictionaryWithContentsOfFile:@"/private/var/mobile/Library/mad/data_ark.plist"];
-    v227 = [(NSDictionary *)v218 objectForKeyedSubscript:@"-LastActivated"];
-    v90 = isNSString(v227);
-    if (v90)
+    v224 = [NSDictionary dictionaryWithContentsOfFile:@"/private/var/mobile/Library/mad/data_ark.plist"];
+    v233 = [(NSDictionary *)v224 objectForKeyedSubscript:@"-LastActivated"];
+    v92 = isNSString(v233);
+    if (v92)
     {
-      v91 = v90;
-      v92 = data_ark_exists(v238, 0, @"LastActivated");
+      v93 = v92;
+      v94 = data_ark_exists(v244, 0, @"LastActivated");
 
-      if ((v92 & 1) == 0)
+      if ((v94 & 1) == 0)
       {
-        data_ark_set(v238, 0, @"LastActivated", v227, 1);
+        data_ark_set(v244, 0, @"LastActivated", v233, 1);
       }
     }
 
-    v93 = [v14[326] defaultManager];
-    v273 = v59;
-    v94 = [v93 removeItemAtPath:@"/private/var/mobile/Library/mad/data_ark.plist" error:&v273];
-    v95 = v273;
+    v95 = [v15[326] defaultManager];
+    v279 = v60;
+    v96 = [v95 removeItemAtPath:@"/private/var/mobile/Library/mad/data_ark.plist" error:&v279];
+    v97 = v279;
 
-    if ((v94 & 1) == 0)
+    if ((v96 & 1) == 0)
     {
-      maLog("perform_sydro_data_migration_tasks", 0, @"Failed to delete %@: %@", @"/private/var/mobile/Library/mad/data_ark.plist", v95);
+      maLog("perform_sydro_data_migration_tasks", 0, @"Failed to delete %@: %@", @"/private/var/mobile/Library/mad/data_ark.plist", v97);
     }
 
-    v59 = v95;
+    v60 = v97;
   }
 
   else
   {
-    v227 = 0;
-    v218 = 0;
+    v233 = 0;
+    v224 = 0;
   }
 
-  v96 = data_ark_copy(v238, 0, @"UIKLegacyMigrationCompleted");
-  v97 = isNSNumber(v96);
-  v211 = v64;
-  v217 = v96;
-  if (!v97 || (v98 = v97, v99 = [v96 BOOLValue], v98, (v99 & 1) == 0))
+  v98 = data_ark_copy(v244, 0, @"UIKLegacyMigrationCompleted");
+  v99 = isNSNumber(v98);
+  v217 = v65;
+  v223 = v98;
+  if (!v99 || (v100 = v99, v101 = [v98 BOOLValue], v100, (v101 & 1) == 0))
   {
-    v272 = v59;
-    v108 = copy_keychain_data(@"lockdown-identities", @"com.apple.mobileactivation.uik", &v293, &v272);
-    v109 = v272;
+    v278 = v60;
+    v110 = copy_keychain_data(@"lockdown-identities", @"com.apple.mobileactivation.uik", &v299, &v278);
+    v111 = v278;
 
-    v236 = v108;
-    if (v293 != -25300 && v293)
+    v242 = v110;
+    if (v299 != -25300 && v299)
     {
-      v158 = createMobileActivationError("perform_sydro_data_migration_tasks", 1224, @"com.apple.MobileActivation.ErrorDomain", -1, v109, @"Failed to copy UIK from keychain.");
+      v161 = createMobileActivationError("perform_sydro_data_migration_tasks", 1224, @"com.apple.MobileActivation.ErrorDomain", -1, v111, @"Failed to copy UIK from keychain.");
     }
 
     else
     {
-      if (!v108)
+      if (!v110)
       {
         cf = 0;
-        v207 = 0;
+        v213 = 0;
 LABEL_151:
-        v269 = v109;
-        v206 = copy_keychain_item(@"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", 0, &v293, &v269);
-        v59 = v269;
+        v275 = v111;
+        v212 = copy_keychain_item(@"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", 0, &v299, &v275);
+        v60 = v275;
 
-        if (v293 != -25300 && v293)
+        if (v299 != -25300 && v299)
         {
-          v169 = createMobileActivationError("perform_sydro_data_migration_tasks", 1266, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to copy UIK from keychain.");
+          v173 = createMobileActivationError("perform_sydro_data_migration_tasks", 1266, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"Failed to copy UIK from keychain.");
 
-          v10 = 0;
-          v215 = 0;
-          v216 = 0;
+          v11 = 0;
+          v221 = 0;
+          v222 = 0;
 LABEL_166:
-          v28 = v169;
+          v29 = v173;
 LABEL_175:
-          v13 = v239;
+          v14 = v245;
 LABEL_176:
-          v41 = cf;
-          v42 = v256;
-          v11 = v207;
-          v7 = v208;
-          v4 = v206;
+          v42 = cf;
+          v43 = v262;
+          v12 = v213;
+          v8 = v214;
+          v5 = v212;
           goto LABEL_31;
         }
 
-        if (!v206)
+        if (!v212)
         {
-          v165 = 0;
+          v169 = 0;
           goto LABEL_169;
         }
 
-        v268 = v59;
-        v159 = security_create_external_representation(v206, 0, &v268);
-        v160 = v268;
+        v274 = v60;
+        v162 = security_create_external_representation(v212, 0, &v274);
+        v163 = v274;
 
-        if (v159)
+        if (v162)
         {
-          v10 = copy_uik_path();
-          if (!v10)
+          v11 = copy_uik_path(v164);
+          if (!v11)
           {
-            v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1279, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve UIK path.");
+            v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1279, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve UIK path.");
 
-            v215 = 0;
-            v216 = 0;
-            v236 = v159;
+            v221 = 0;
+            v222 = 0;
+            v242 = v162;
             goto LABEL_175;
           }
 
-          v232 = v43;
-          v161 = [v14[326] defaultManager];
-          v305 = NSFilePosixPermissions;
-          v306 = &off_1003FBD50;
-          v162 = [NSDictionary dictionaryWithObjects:&v306 forKeys:&v305 count:1];
-          v267 = v160;
-          v163 = [v161 createDirectoryAtPath:v10 withIntermediateDirectories:1 attributes:v162 error:&v267];
-          v164 = v267;
+          v238 = v44;
+          v165 = [v15[326] defaultManager];
+          v311 = NSFilePosixPermissions;
+          v312 = &off_1003FBD50;
+          v166 = [NSDictionary dictionaryWithObjects:&v312 forKeys:&v311 count:1];
+          v273 = v163;
+          v167 = [v165 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:v166 error:&v273];
+          v168 = v273;
 
-          if (v163)
+          if (v167)
           {
-            v165 = [v10 stringByAppendingPathComponent:@"uik.pem"];
+            v169 = [v11 stringByAppendingPathComponent:@"uik.pem"];
 
-            v266 = v164;
-            v166 = store_data(v165, v159, &v266);
-            v167 = v266;
+            v272 = v168;
+            v170 = store_data(v169, v162, &v272);
+            v171 = v272;
 
-            if (v166)
+            if (v170)
             {
-              v265 = v167;
-              v168 = delete_keychain_item(@"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", &v265);
-              v59 = v265;
+              v271 = v171;
+              v172 = delete_keychain_item(@"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", &v271);
+              v60 = v271;
 
-              if (v168)
+              if (v172)
               {
-                v236 = v159;
-                v43 = v232;
-                v14 = &_CTServerConnectionCopyPostponementStatus_ptr;
+                v242 = v162;
+                v44 = v238;
+                v15 = &_CTServerConnectionCopyPostponementStatus_ptr;
 LABEL_169:
-                v101 = v238;
-                data_ark_set(v238, 0, @"UIKLegacyMigrationCompleted", &__kCFBooleanTrue, 1);
-                v205 = v165;
-                v100 = v236;
+                v103 = v244;
+                data_ark_set(v244, 0, @"UIKLegacyMigrationCompleted", &__kCFBooleanTrue, 1);
+                v211 = v169;
+                v102 = v242;
                 goto LABEL_111;
               }
 
-              v174 = createMobileActivationError("perform_sydro_data_migration_tasks", 1296, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to delete UIK from keychain.");
+              v178 = createMobileActivationError("perform_sydro_data_migration_tasks", 1296, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"Failed to delete UIK from keychain.");
 
-              v215 = 0;
-              v216 = 0;
-              v28 = v174;
+              v221 = 0;
+              v222 = 0;
+              v29 = v178;
             }
 
             else
             {
-              v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1291, @"com.apple.MobileActivation.ErrorDomain", -1, v167, @"Failed to store UIK.");
+              v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1291, @"com.apple.MobileActivation.ErrorDomain", -1, v171, @"Failed to store UIK.");
 
-              v215 = 0;
-              v216 = 0;
+              v221 = 0;
+              v222 = 0;
             }
 
-            v236 = v159;
-            v10 = v165;
+            v242 = v162;
+            v11 = v169;
           }
 
           else
           {
-            v172 = createMobileActivationError("perform_sydro_data_migration_tasks", 1284, @"com.apple.MobileActivation.ErrorDomain", -1, v164, @"Failed to create %@.", v10);
-            v173 = v164;
-            v28 = v172;
+            v176 = createMobileActivationError("perform_sydro_data_migration_tasks", 1284, @"com.apple.MobileActivation.ErrorDomain", -1, v168, @"Failed to create %@.", v11);
+            v177 = v168;
+            v29 = v176;
 
-            v215 = 0;
-            v216 = 0;
-            v236 = v159;
+            v221 = 0;
+            v222 = 0;
+            v242 = v162;
           }
 
-          v13 = v239;
-          v43 = v232;
+          v14 = v245;
+          v44 = v238;
           goto LABEL_176;
         }
 
-        v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1273, @"com.apple.MobileActivation.ErrorDomain", -1, v160, @"Failed to encode UIK as data.");
+        v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1273, @"com.apple.MobileActivation.ErrorDomain", -1, v163, @"Failed to encode UIK as data.");
 
-        v236 = 0;
+        v242 = 0;
 LABEL_174:
-        v10 = 0;
-        v215 = 0;
-        v216 = 0;
+        v11 = 0;
+        v221 = 0;
+        v222 = 0;
         goto LABEL_175;
       }
 
       maLog("perform_sydro_data_migration_tasks", 0, @"Converting legacy UIK.");
-      v110 = SecAccessControlCreateWithFlags(0, kSecAttrAccessibleAlwaysThisDeviceOnlyPrivate, 0x40000000uLL, &v294);
-      if (v110)
+      v112 = SecAccessControlCreateWithFlags(0, kSecAttrAccessibleAlwaysThisDeviceOnlyPrivate, 0x40000000uLL, &v300);
+      if (v112)
       {
-        v307[0] = kSecAttrIsPermanent;
-        v307[1] = kSecAttrTokenID;
-        v308[0] = &__kCFBooleanFalse;
-        v308[1] = kSecAttrTokenIDAppleKeyStore;
-        v307[2] = kSecAttrTokenOID;
-        v307[3] = kSecAttrAccessControl;
-        v308[2] = v108;
-        cf = v110;
-        v308[3] = v110;
-        v207 = [NSDictionary dictionaryWithObjects:v308 forKeys:v307 count:4];
-        v111 = SecKeyCreateWithData(+[NSData data], v207, &v294);
-        if (!v111)
+        v313[0] = kSecAttrIsPermanent;
+        v313[1] = kSecAttrTokenID;
+        v314[0] = &__kCFBooleanFalse;
+        v314[1] = kSecAttrTokenIDAppleKeyStore;
+        v313[2] = kSecAttrTokenOID;
+        v313[3] = kSecAttrAccessControl;
+        v314[2] = v110;
+        cf = v112;
+        v314[3] = v112;
+        v213 = [NSDictionary dictionaryWithObjects:v314 forKeys:v313 count:4];
+        v113 = SecKeyCreateWithData(+[NSData data], v213, &v300);
+        if (!v113)
         {
-          v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1244, @"com.apple.MobileActivation.ErrorDomain", -1, v294, @"Failed to convert legacy UIK.");
+          v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1244, @"com.apple.MobileActivation.ErrorDomain", -1, v300, @"Failed to convert legacy UIK.");
 
-          v10 = 0;
-          v215 = 0;
-          v216 = 0;
-          v4 = 0;
-          v13 = v239;
-          v41 = cf;
-          v42 = v256;
-          v11 = v207;
-          v7 = v208;
+          v11 = 0;
+          v221 = 0;
+          v222 = 0;
+          v5 = 0;
+          v14 = v245;
+          v42 = cf;
+          v43 = v262;
+          v12 = v213;
+          v8 = v214;
           goto LABEL_31;
         }
 
-        v271 = v109;
-        v206 = v111;
-        v112 = store_keychain_item(v111, @"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", 0, &v271);
-        v113 = v271;
+        v277 = v111;
+        v212 = v113;
+        v114 = store_keychain_item(v113, @"lockdown-identities", @"com.apple.mobileactivationd.uik.v2", 0, &v277);
+        v115 = v277;
 
-        if (v112)
+        if (v114)
         {
-          v270 = v113;
-          v114 = delete_keychain_data(@"lockdown-identities", @"com.apple.mobileactivation.uik", &v270);
-          v109 = v270;
+          v276 = v115;
+          v116 = delete_keychain_data(@"lockdown-identities", @"com.apple.mobileactivation.uik", &v276);
+          v111 = v276;
 
-          if (v114)
+          if (v116)
           {
             maLog("perform_sydro_data_migration_tasks", 0, @"Successfully converted legacy UIK.");
-            CFRelease(v206);
+            CFRelease(v212);
             goto LABEL_151;
           }
 
-          v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1254, @"com.apple.MobileActivation.ErrorDomain", -1, v109, @"Failed to delete UIK from keychain.");
-          v171 = v109;
+          v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1254, @"com.apple.MobileActivation.ErrorDomain", -1, v111, @"Failed to delete UIK from keychain.");
+          v175 = v111;
         }
 
         else
         {
-          v170 = createMobileActivationError("perform_sydro_data_migration_tasks", 1249, @"com.apple.MobileActivation.ErrorDomain", -1, v113, @"Failed to store UIK.");
-          v171 = v113;
-          v28 = v170;
+          v174 = createMobileActivationError("perform_sydro_data_migration_tasks", 1249, @"com.apple.MobileActivation.ErrorDomain", -1, v115, @"Failed to store UIK.");
+          v175 = v115;
+          v29 = v174;
         }
 
         goto LABEL_174;
       }
 
-      v158 = createMobileActivationError("perform_sydro_data_migration_tasks", 1233, @"com.apple.MobileActivation.ErrorDomain", -1, v294, @"Failed to create access control.");
+      v161 = createMobileActivationError("perform_sydro_data_migration_tasks", 1233, @"com.apple.MobileActivation.ErrorDomain", -1, v300, @"Failed to create access control.");
     }
 
-    v28 = v158;
+    v29 = v161;
 
+    v12 = 0;
     v11 = 0;
-    v10 = 0;
-    v215 = 0;
-    v216 = 0;
-    v4 = 0;
-    v41 = 0;
-    v13 = v239;
-    v42 = v256;
+    v221 = 0;
+    v222 = 0;
+    v5 = 0;
+    v42 = 0;
+    v14 = v245;
+    v43 = v262;
     goto LABEL_125;
   }
 
-  v100 = 0;
-  v206 = 0;
-  v207 = 0;
-  v205 = 0;
+  v102 = 0;
+  v212 = 0;
+  v213 = 0;
+  v211 = 0;
   cf = 0;
-  v101 = v238;
+  v103 = v244;
 LABEL_111:
-  v102 = data_ark_copy(v101, 0, @"MFIFactoryCertificatesMigrationCompleted");
-  v103 = isNSNumber(v102);
-  v236 = v100;
-  v216 = v102;
-  if (v103)
+  v104 = data_ark_copy(v103, 0, @"MFIFactoryCertificatesMigrationCompleted");
+  v105 = isNSNumber(v104);
+  v242 = v102;
+  v222 = v104;
+  if (v105)
   {
-    v104 = v103;
-    v105 = [v102 BOOLValue];
+    v106 = v105;
+    v107 = [v104 BOOLValue];
 
-    if (v105)
+    if (v107)
     {
-      v221 = 0;
-      v222 = 0;
-      v234 = 0;
-      v235 = 0;
+      v227 = 0;
+      v228 = 0;
       v240 = 0;
       v241 = 0;
-      v106 = 0;
-      v214 = 0;
-      v215 = 0;
-      v228 = 0;
-      v229 = 0;
-      v233 = 0;
-      v243 = 0;
-      v225 = 0;
-      v226 = 0;
+      v246 = 0;
+      v247 = 0;
+      v108 = 0;
       v220 = 0;
-      v223 = 0;
-      v224 = 0;
-      v107 = v238;
+      v221 = 0;
+      v234 = 0;
+      v235 = 0;
+      v239 = 0;
+      v249 = 0;
+      v231 = 0;
+      v232 = 0;
+      v226 = 0;
+      v229 = 0;
+      v230 = 0;
+      v109 = v244;
       goto LABEL_216;
     }
   }
 
-  v264 = 0;
-  v115 = copyRootCertificate(3, 0, &v264);
-  v116 = v264;
-  v117 = v116;
-  if (!v115)
+  v270 = 0;
+  v117 = copyRootCertificate(3, 0, &v270);
+  v118 = v270;
+  v119 = v118;
+  if (!v117)
   {
-    v28 = createMobileActivationError("perform_sydro_data_migration_tasks", 1315, @"com.apple.MobileActivation.ErrorDomain", -1, v116, @"Failed to load BAA root CA certificate.");
+    v29 = createMobileActivationError("perform_sydro_data_migration_tasks", 1315, @"com.apple.MobileActivation.ErrorDomain", -1, v118, @"Failed to load BAA root CA certificate.");
 
-    v215 = 0;
-    v13 = v239;
-    v41 = cf;
-    v42 = v256;
-    v11 = v207;
-    v7 = v208;
-    v10 = v205;
-    v4 = v206;
+    v221 = 0;
+    v14 = v245;
+    v42 = cf;
+    v43 = v262;
+    v12 = v213;
+    v8 = v214;
+    v11 = v211;
+    v5 = v212;
     goto LABEL_31;
   }
 
-  v263 = v116;
-  v215 = v115;
-  v118 = lockcrypto_cert_from_pem_data(v115, &v263);
-  v59 = v263;
+  v269 = v118;
+  v221 = v117;
+  v120 = lockcrypto_cert_from_pem_data(v117, &v269);
+  v60 = v269;
 
-  v10 = v205;
-  if (!v118)
+  v11 = v211;
+  if (!v120)
   {
-    v169 = createMobileActivationError("perform_sydro_data_migration_tasks", 1321, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to create certificate from pem data.");
+    v173 = createMobileActivationError("perform_sydro_data_migration_tasks", 1321, @"com.apple.MobileActivation.ErrorDomain", -1, v60, @"Failed to create certificate from pem data.");
 
     goto LABEL_166;
   }
 
-  v220 = v118;
-  v119 = [v14[326] defaultManager];
-  v120 = [v119 fileExistsAtPath:@"/private/var/hardware/factory/mfi"];
+  v226 = v120;
+  v121 = [v15[326] defaultManager];
+  v122 = [v121 fileExistsAtPath:@"/private/var/hardware/factory/mfi"];
 
-  if (!v120)
+  if (!v122)
   {
-    v221 = 0;
-    v222 = 0;
-    v234 = 0;
-    v235 = 0;
+    v227 = 0;
+    v228 = 0;
     v240 = 0;
     v241 = 0;
-    v243 = 0;
+    v246 = 0;
     v247 = 0;
-    v228 = 0;
+    v249 = 0;
+    v253 = 0;
+    v234 = 0;
+    v235 = 0;
+    v239 = 0;
+    v220 = 0;
+    v231 = 0;
+    v232 = 0;
     v229 = 0;
-    v233 = 0;
-    v214 = 0;
-    v225 = 0;
-    v226 = 0;
-    v223 = 0;
-    v224 = 0;
-    v107 = v238;
+    v230 = 0;
+    v109 = v244;
     goto LABEL_215;
   }
 
-  v250 = v44;
-  objb = v59;
-  v231 = v43;
-  v121 = 0;
-  v122 = 0;
-  v214 = 0;
-  v203 = 0;
-  v204 = 0;
-  v210 = 0;
-  v241 = 0;
-  v247 = 0;
+  v256 = v45;
+  objb = v60;
+  v237 = v44;
   v123 = 0;
   v124 = 0;
+  v220 = 0;
+  v209 = 0;
+  v210 = 0;
+  v216 = 0;
+  v247 = 0;
+  v253 = 0;
   v125 = 0;
-  v126 = 1;
+  v126 = 0;
+  v127 = 0;
+  v128 = 1;
   protection = kSecAttrAccessibleAlwaysThisDeviceOnlyPrivate;
-  v201 = kSecAttrTokenIDAppleKeyStore;
-  v200 = kSecAttrTokenOID;
+  v207 = kSecAttrTokenIDAppleKeyStore;
+  v206 = kSecAttrTokenOID;
   while (1)
   {
-    v127 = v122;
-    v235 = @"com.apple.mfiaccessory";
+    v129 = v124;
+    v241 = @"com.apple.mfiaccessory";
 
-    v128 = [NSString stringWithFormat:@"%@%u", @"mfi-baa", v126];
-    v240 = [NSString stringWithFormat:@"%@-rk-scrt", v128];
-
-    v222 = v128;
-    v129 = [NSString stringWithFormat:@"%@-combined-scrt", v128];
-
-    v130 = [NSString stringWithFormat:@"/private/var/hardware/factory/mfi/mfi%u-cert.der", v126];
-    v131 = [NSString stringWithFormat:@"/private/var/hardware/factory/mfi/mfi%u-key.der", v126];
+    v130 = [NSString stringWithFormat:@"%@%u", @"mfi-baa", v128];
+    v246 = [NSString stringWithFormat:@"%@-rk-scrt", v130];
 
     v228 = v130;
-    v132 = [[NSData alloc] initWithContentsOfFile:v130];
+    v131 = [NSString stringWithFormat:@"%@-combined-scrt", v130];
 
-    v221 = v131;
-    v241 = v132;
-    v247 = v129;
-    if (!v132)
+    v132 = [NSString stringWithFormat:@"/private/var/hardware/factory/mfi/mfi%u-cert.der", v128];
+    v133 = [NSString stringWithFormat:@"/private/var/hardware/factory/mfi/mfi%u-key.der", v128];
+
+    v234 = v132;
+    v134 = [[NSData alloc] initWithContentsOfFile:v132];
+
+    v227 = v133;
+    v247 = v134;
+    v253 = v131;
+    if (!v134)
     {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1338, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to load %@.", v130);
-      v243 = 0;
-      v225 = 0;
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1338, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to load %@.", v132);
+      v249 = 0;
+      v231 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
 LABEL_191:
-      v43 = v231;
-      v144 = v207;
+      v44 = v237;
+      v146 = v213;
       goto LABEL_197;
     }
 
-    v262 = objb;
-    v133 = parseDERCertificatesFromChain(v132, &v262);
-    v134 = v262;
+    v268 = objb;
+    v135 = parseDERCertificatesFromChain(v134, &v268);
+    v136 = v268;
 
-    v123 = v240;
-    if (!v133)
+    v125 = v246;
+    if (!v135)
     {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1344, @"com.apple.MobileActivation.ErrorDomain", -1, v134, @"Failed to parse certificate chain from data.");
-      v214 = 0;
-      v243 = 0;
-      v225 = 0;
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
-      objb = v134;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1344, @"com.apple.MobileActivation.ErrorDomain", -1, v136, @"Failed to parse certificate chain from data.");
+      v220 = 0;
+      v249 = 0;
+      v231 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
+      objb = v136;
       goto LABEL_191;
     }
 
-    v135 = [(NSError *)v133 objectAtIndexedSubscript:0];
-    v136 = SecCertificateCreateWithData(0, v135);
-
-    v243 = v136;
-    if (!v136)
-    {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1350, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create leaf certificate from data.");
-      v243 = 0;
-      v225 = 0;
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
-      objb = v134;
-      v214 = v133;
-      goto LABEL_191;
-    }
-
-    v137 = [(NSError *)v133 objectAtIndexedSubscript:1];
+    v137 = [(NSError *)v135 objectAtIndexedSubscript:0];
     v138 = SecCertificateCreateWithData(0, v137);
 
-    v139 = v138;
-    v140 = v133;
-    if (!v139)
+    v249 = v138;
+    if (!v138)
     {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1356, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create intermediate certificate from data.");
-      v225 = 0;
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
-      objb = v134;
-LABEL_190:
-      v214 = v140;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1350, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create leaf certificate from data.");
+      v249 = 0;
+      v231 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
+      objb = v136;
+      v220 = v135;
       goto LABEL_191;
     }
 
-    v261 = v134;
-    v225 = v139;
-    v141 = evaluateAccessoryTrustWithCerts(v243, v139, v220, 0, 0, 0, &v261);
-    v142 = v261;
+    v139 = [(NSError *)v135 objectAtIndexedSubscript:1];
+    v140 = SecCertificateCreateWithData(0, v139);
 
-    if ((v141 & 1) == 0)
+    v141 = v140;
+    v142 = v135;
+    if (!v141)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1361, @"com.apple.MobileActivation.ErrorDomain", -1, v142, @"Failed to verify BAA certificate chain.");
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1356, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create intermediate certificate from data.");
+      v231 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
+      objb = v136;
+LABEL_190:
+      v220 = v142;
+      goto LABEL_191;
+    }
+
+    v267 = v136;
+    v231 = v141;
+    v143 = evaluateAccessoryTrustWithCerts(v249, v141, v226, 0, 0, 0, &v267);
+    v144 = v267;
+
+    if ((v143 & 1) == 0)
+    {
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1361, @"com.apple.MobileActivation.ErrorDomain", -1, v144, @"Failed to verify BAA certificate chain.");
 LABEL_189:
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
       goto LABEL_190;
     }
 
-    v143 = [[NSData alloc] initWithContentsOfFile:v131];
+    v145 = [[NSData alloc] initWithContentsOfFile:v133];
 
-    v124 = v235;
-    if (!v143)
+    v126 = v241;
+    if (!v145)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1369, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to load %@.", v131);
-      v210 = 0;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1369, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to load %@.", v133);
+      v216 = 0;
       goto LABEL_189;
     }
 
-    v144 = v207;
+    v146 = v213;
     if (cf)
     {
       CFRelease(cf);
     }
 
-    v145 = SecAccessControlCreateWithFlags(0, protection, 0x40000000uLL, &v294);
-    if (!v145)
+    v147 = SecAccessControlCreateWithFlags(0, protection, 0x40000000uLL, &v300);
+    if (!v147)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1376, @"com.apple.MobileActivation.ErrorDomain", -1, v294, @"Failed to create access control.");
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1376, @"com.apple.MobileActivation.ErrorDomain", -1, v300, @"Failed to create access control.");
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
       cf = 0;
       goto LABEL_196;
     }
 
-    v303[0] = kSecAttrIsPermanent;
-    v303[1] = kSecAttrTokenID;
-    v304[0] = &__kCFBooleanFalse;
-    v304[1] = v201;
-    v303[2] = v200;
-    v303[3] = kSecAttrAccessControl;
-    v304[2] = v143;
-    cf = v145;
-    v304[3] = v145;
-    v146 = [NSDictionary dictionaryWithObjects:v304 forKeys:v303 count:4];
+    v309[0] = kSecAttrIsPermanent;
+    v309[1] = kSecAttrTokenID;
+    v310[0] = &__kCFBooleanFalse;
+    v310[1] = v207;
+    v309[2] = v206;
+    v309[3] = kSecAttrAccessControl;
+    v310[2] = v145;
+    cf = v147;
+    v310[3] = v147;
+    v148 = [NSDictionary dictionaryWithObjects:v310 forKeys:v309 count:4];
 
-    v147 = SecKeyCreateWithData(+[NSData data], v146, &v294);
-    if (!v147)
+    v149 = SecKeyCreateWithData(+[NSData data], v148, &v300);
+    if (!v149)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1388, @"com.apple.MobileActivation.ErrorDomain", -2, v294, @"Failed to convert RK data blob.");
-      v226 = 0;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1388, @"com.apple.MobileActivation.ErrorDomain", -2, v300, @"Failed to convert RK data blob.");
+      v232 = 0;
 LABEL_195:
-      v223 = 0;
-      v224 = 0;
-      v144 = v146;
+      v229 = 0;
+      v230 = 0;
+      v146 = v148;
 LABEL_196:
-      v210 = v143;
-      v214 = v140;
-      v43 = v231;
+      v216 = v145;
+      v220 = v142;
+      v44 = v237;
 LABEL_197:
-      v176 = v203;
-      v175 = v204;
+      v180 = v209;
+      v179 = v210;
       goto LABEL_208;
     }
 
-    v226 = v147;
-    v148 = SecKeyCopyPublicKey(v147);
-    if (!v148)
+    v232 = v149;
+    v150 = SecKeyCopyPublicKey(v149);
+    if (!v150)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1394, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy RK public key.");
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1394, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy RK public key.");
       goto LABEL_195;
     }
 
-    v224 = v148;
-    v149 = SecKeyCopyExternalRepresentation(v148, &v294);
+    v230 = v150;
+    v151 = SecKeyCopyExternalRepresentation(v150, &v300);
 
-    if (!v149)
+    if (!v151)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1400, @"com.apple.MobileActivation.ErrorDomain", -1, v294, @"Failed to copy RK public key buffer.");
-      v223 = 0;
-      v144 = v146;
-      v176 = 0;
-      v210 = v143;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1400, @"com.apple.MobileActivation.ErrorDomain", -1, v300, @"Failed to copy RK public key buffer.");
+      v229 = 0;
+      v146 = v148;
+      v180 = 0;
+      v216 = v145;
       goto LABEL_200;
     }
 
-    v150 = SecCertificateCopyKey(v243);
-    if (!v150)
+    v152 = SecCertificateCopyKey(v249);
+    if (!v152)
     {
       break;
     }
 
-    v223 = v150;
-    v151 = SecKeyCopyExternalRepresentation(v150, &v294);
+    v229 = v152;
+    v153 = SecKeyCopyExternalRepresentation(v152, &v300);
 
-    if (!v151)
+    if (!v153)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1412, @"com.apple.MobileActivation.ErrorDomain", -1, v294, @"Failed to encode certificate public key as data.");
-      v175 = 0;
-      v178 = v149;
-      v144 = v146;
-      v210 = v143;
-      v176 = v178;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1412, @"com.apple.MobileActivation.ErrorDomain", -1, v300, @"Failed to encode certificate public key as data.");
+      v179 = 0;
+      v182 = v151;
+      v146 = v148;
+      v216 = v145;
+      v180 = v182;
 LABEL_207:
-      v214 = v140;
-      v43 = v231;
+      v220 = v142;
+      v44 = v237;
       goto LABEL_208;
     }
 
-    v233 = v151;
-    v234 = v149;
-    if (([(__CFData *)v149 isEqualToData:v151]& 1) == 0)
+    v239 = v153;
+    v240 = v151;
+    if (([(__CFData *)v151 isEqualToData:v153]& 1) == 0)
     {
-      objb = v142;
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1419, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Certificate public key does not match RK public key.");
-      v144 = v146;
-      v210 = v143;
+      objb = v144;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1419, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Certificate public key does not match RK public key.");
+      v146 = v148;
+      v216 = v145;
 LABEL_206:
-      v175 = v233;
-      v176 = v234;
+      v179 = v239;
+      v180 = v240;
       goto LABEL_207;
     }
 
-    v229 = v143;
-    v260 = v142;
-    v152 = store_keychain_data(v241, v235, v247, &v260);
-    v153 = v260;
+    v235 = v145;
+    v266 = v144;
+    v154 = store_keychain_data(v247, v241, v253, &v266);
+    v155 = v266;
 
-    if ((v152 & 1) == 0)
+    if ((v154 & 1) == 0)
     {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1426, @"com.apple.MobileActivation.ErrorDomain", -1, v153, @"Failed to store leaf/intermediate certificates.");
-      objb = v153;
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1426, @"com.apple.MobileActivation.ErrorDomain", -1, v155, @"Failed to store leaf/intermediate certificates.");
+      objb = v155;
 LABEL_205:
-      v144 = v146;
-      v210 = v143;
+      v146 = v148;
+      v216 = v145;
       goto LABEL_206;
     }
 
-    v259 = v153;
-    v154 = store_keychain_item(v226, v235, v240, 0, &v259);
-    objb = v259;
+    v265 = v155;
+    v156 = store_keychain_item(v232, v241, v246, 0, &v265);
+    objb = v265;
 
-    v122 = v228;
-    if ((v154 & 1) == 0)
+    v124 = v234;
+    if ((v156 & 1) == 0)
     {
-      v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1431, @"com.apple.MobileActivation.ErrorDomain", -1, objb, @"Failed to store reference key.");
+      v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1431, @"com.apple.MobileActivation.ErrorDomain", -1, objb, @"Failed to store reference key.");
       goto LABEL_205;
     }
 
-    v155 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v155 removeItemAtPath:v228 error:0];
+    v157 = +[NSFileManager defaultManager];
+    [(NSFileManager *)v157 removeItemAtPath:v234 error:0];
 
-    v156 = +[NSFileManager defaultManager];
-    v121 = v221;
-    [(NSFileManager *)v156 removeItemAtPath:v221 error:0];
+    v158 = +[NSFileManager defaultManager];
+    v123 = v227;
+    [(NSFileManager *)v158 removeItemAtPath:v227 error:0];
 
-    CFRelease(v243);
-    CFRelease(v225);
-    CFRelease(v226);
-    CFRelease(v224);
-    CFRelease(v223);
-    v126 = (v126 + 1);
-    v214 = v140;
-    v203 = v234;
-    v204 = v233;
-    v210 = v143;
-    v207 = v146;
-    v125 = v222;
-    if (v126 == 5)
+    CFRelease(v249);
+    CFRelease(v231);
+    CFRelease(v232);
+    CFRelease(v230);
+    CFRelease(v229);
+    v128 = (v128 + 1);
+    v220 = v142;
+    v209 = v240;
+    v210 = v239;
+    v216 = v145;
+    v213 = v148;
+    v127 = v228;
+    if (v128 == 5)
     {
-      v214 = v140;
-      v243 = 0;
-      v225 = 0;
-      v226 = 0;
-      v223 = 0;
-      v224 = 0;
-      v144 = v146;
-      v43 = v231;
-      v44 = v250;
-      v157 = objb;
+      v220 = v142;
+      v249 = 0;
+      v231 = 0;
+      v232 = 0;
+      v229 = 0;
+      v230 = 0;
+      v146 = v148;
+      v44 = v237;
+      v45 = v256;
+      v160 = objb;
       goto LABEL_209;
     }
   }
 
-  objb = v142;
-  v157 = createMobileActivationError("perform_sydro_data_migration_tasks", 1406, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve certificate public key.");
-  v223 = 0;
-  v177 = v149;
-  v144 = v146;
-  v210 = v143;
-  v176 = v177;
+  objb = v144;
+  v160 = createMobileActivationError("perform_sydro_data_migration_tasks", 1406, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve certificate public key.");
+  v229 = 0;
+  v181 = v151;
+  v146 = v148;
+  v216 = v145;
+  v180 = v181;
 LABEL_200:
-  v214 = v140;
-  v43 = v231;
-  v175 = v204;
+  v220 = v142;
+  v44 = v237;
+  v179 = v210;
 LABEL_208:
 
-  v229 = v210;
-  v233 = v175;
-  v234 = v176;
-  v44 = v250;
+  v235 = v216;
+  v239 = v179;
+  v240 = v180;
+  v45 = v256;
 LABEL_209:
-  v207 = v144;
-  if (v157)
+  v213 = v146;
+  if (v160)
   {
-    v179 = copyLoggingHandle();
-    if (os_log_type_enabled(v179, OS_LOG_TYPE_FAULT))
+    v183 = copyLoggingHandle(v159);
+    if (os_log_type_enabled(v183, OS_LOG_TYPE_FAULT))
     {
       perform_sydro_data_migration_tasks_cold_1();
     }
@@ -2831,43 +2851,43 @@ LABEL_209:
     maLog("perform_sydro_data_migration_tasks", 0, @"Successfully migrated factory MFi certs/key.");
   }
 
-  v59 = 0;
-  v107 = v238;
+  v60 = 0;
+  v109 = v244;
 LABEL_215:
-  data_ark_set(v107, 0, @"MFIFactoryCertificatesMigrationCompleted", &__kCFBooleanTrue, 1);
-  v106 = v247;
+  data_ark_set(v109, 0, @"MFIFactoryCertificatesMigrationCompleted", &__kCFBooleanTrue, 1);
+  v108 = v253;
 LABEL_216:
-  v180 = data_ark_copy(v107, 0, @"FactoryDCRTMigrationCompleted");
-  v181 = isNSNumber(v180);
-  v230 = v43;
-  v245 = v106;
-  v213 = v180;
-  if (!v181 || (v182 = v181, v183 = [v180 BOOLValue], v182, (v183 & 1) == 0))
+  v184 = data_ark_copy(v109, 0, @"FactoryDCRTMigrationCompleted");
+  v185 = isNSNumber(v184);
+  v236 = v44;
+  v251 = v108;
+  v219 = v184;
+  if (!v185 || (v186 = v185, v187 = [v184 BOOLValue], v186, (v187 & 1) == 0))
   {
-    v7 = [[NSData alloc] initWithContentsOfFile:@"/private/var/hardware/dcrt/dcrt.der"];
+    v8 = [[NSData alloc] initWithContentsOfFile:@"/private/var/hardware/dcrt/dcrt.der"];
 
-    v11 = v207;
-    if (v7)
+    v12 = v213;
+    if (v8)
     {
-      v301 = @"UseCommittedDAK";
-      v302 = &__kCFBooleanTrue;
-      v185 = v59;
-      v186 = [NSDictionary dictionaryWithObjects:&v302 forKeys:&v301 count:1];
+      v307 = @"UseCommittedDAK";
+      v308 = &__kCFBooleanTrue;
+      v189 = v60;
+      v190 = [NSDictionary dictionaryWithObjects:&v308 forKeys:&v307 count:1];
 
-      v258 = v185;
-      v187 = storeDCRT(v238, v7, v186, &v258);
-      v188 = v258;
+      v264 = v189;
+      v191 = storeDCRT(v244, v8, v190, &v264);
+      v192 = v264;
 
-      if ((v187 & 1) == 0)
+      if ((v191 & 1) == 0)
       {
-        v189 = copyLoggingHandle();
-        v10 = v205;
-        if (os_log_type_enabled(v189, OS_LOG_TYPE_FAULT))
+        v194 = copyLoggingHandle(v193);
+        v11 = v211;
+        if (os_log_type_enabled(v194, OS_LOG_TYPE_FAULT))
         {
           perform_sydro_data_migration_tasks_cold_2();
         }
 
-        v188 = 0;
+        v192 = 0;
         goto LABEL_227;
       }
 
@@ -2876,125 +2896,125 @@ LABEL_216:
 
     else
     {
-      v188 = v59;
-      v186 = v237;
+      v192 = v60;
+      v190 = v243;
     }
 
-    v10 = v205;
+    v11 = v211;
 LABEL_227:
-    v190 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v190 removeItemAtPath:@"/private/var/hardware/dcrt/dcrt.der" error:0];
+    v195 = +[NSFileManager defaultManager];
+    [(NSFileManager *)v195 removeItemAtPath:@"/private/var/hardware/dcrt/dcrt.der" error:0];
 
-    v184 = v238;
-    data_ark_set(v238, 0, @"FactoryDCRTMigrationCompleted", &__kCFBooleanTrue, 1);
-    obj = v188;
-    v237 = v186;
+    v188 = v244;
+    data_ark_set(v244, 0, @"FactoryDCRTMigrationCompleted", &__kCFBooleanTrue, 1);
+    obj = v192;
+    v243 = v190;
     goto LABEL_228;
   }
 
-  obj = v59;
-  v11 = v207;
-  v7 = v208;
-  v184 = v238;
-  v10 = v205;
+  obj = v60;
+  v12 = v213;
+  v8 = v214;
+  v188 = v244;
+  v11 = v211;
 LABEL_228:
-  v248 = v44;
-  v5 = data_ark_copy(v184, 0, @"FactorySDCRTMigrationCompleted");
-  v191 = isNSNumber(v5);
-  if (v191 && (v192 = v191, v193 = [v5 BOOLValue], v192, (v193 & 1) != 0))
+  v254 = v45;
+  v6 = data_ark_copy(v188, 0, @"FactorySDCRTMigrationCompleted");
+  v196 = isNSNumber(v6);
+  if (v196 && (v197 = v196, v198 = [v6 BOOLValue], v197, (v198 & 1) != 0))
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = [[NSData alloc] initWithContentsOfFile:@"/private/var/hardware/sdcrt/sdcrt.der"];
-    if (v6)
+    v7 = [[NSData alloc] initWithContentsOfFile:@"/private/var/hardware/sdcrt/sdcrt.der"];
+    if (v7)
     {
-      v299[0] = @"UseCommittedDAK";
-      v299[1] = @"sdcrtAttestation";
-      v300[0] = &__kCFBooleanTrue;
-      v300[1] = &__kCFBooleanTrue;
-      v194 = [NSDictionary dictionaryWithObjects:v300 forKeys:v299 count:2];
+      v305[0] = @"UseCommittedDAK";
+      v305[1] = @"sdcrtAttestation";
+      v306[0] = &__kCFBooleanTrue;
+      v306[1] = &__kCFBooleanTrue;
+      v199 = [NSDictionary dictionaryWithObjects:v306 forKeys:v305 count:2];
 
-      v257 = obj;
-      v195 = storeDCRT(v238, v6, v194, &v257);
-      v196 = v257;
+      v263 = obj;
+      v200 = storeDCRT(v244, v7, v199, &v263);
+      v201 = v263;
 
-      if (v195)
+      if (v200)
       {
         maLog("perform_sydro_data_migration_tasks", 0, @"Successfully migrated factory SDCRT certs/key.");
       }
 
       else
       {
-        v197 = copyLoggingHandle();
-        if (os_log_type_enabled(v197, OS_LOG_TYPE_FAULT))
+        v203 = copyLoggingHandle(v202);
+        if (os_log_type_enabled(v203, OS_LOG_TYPE_FAULT))
         {
           perform_sydro_data_migration_tasks_cold_3();
         }
 
-        v196 = 0;
+        v201 = 0;
       }
     }
 
     else
     {
-      v196 = obj;
-      v194 = v237;
+      v201 = obj;
+      v199 = v243;
     }
 
-    v198 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v198 removeItemAtPath:@"/private/var/hardware/sdcrt/sdcrt.der" error:0];
+    v204 = +[NSFileManager defaultManager];
+    [(NSFileManager *)v204 removeItemAtPath:@"/private/var/hardware/sdcrt/sdcrt.der" error:0];
 
-    data_ark_set(v238, 0, @"FactorySDCRTMigrationCompleted", &__kCFBooleanTrue, 1);
-    obj = v196;
-    v237 = v194;
+    data_ark_set(v244, 0, @"FactorySDCRTMigrationCompleted", &__kCFBooleanTrue, 1);
+    obj = v201;
+    v243 = v199;
   }
 
-  v199 = certificate;
-  v3 = v211;
-  v8 = v212;
-  if (certificate || (v199 = copyUCRT(v238, 0), (certificate = v199) != 0))
+  v205 = certificate;
+  v4 = v217;
+  v9 = v218;
+  if (certificate || (v205 = copyUCRT(v244, 0), (certificate = v205) != 0))
   {
-    v9 = lockcrypto_query_certificate_properties(v199, @"1.2.840.113635.100.8.7", 0);
-    if (!v9)
+    v10 = lockcrypto_query_certificate_properties(v205, @"1.2.840.113635.100.8.7", 0);
+    if (!v10)
     {
       maLog("perform_sydro_data_migration_tasks", 0, @"Existing UCRT does not contain the OID %@.", @"1.2.840.113635.100.8.7");
-      v12 = 1;
-      data_ark_set(v238, 0, @"UCRTUpgradeRequired", &__kCFBooleanTrue, 1);
+      v13 = 1;
+      data_ark_set(v244, 0, @"UCRTUpgradeRequired", &__kCFBooleanTrue, 1);
       goto LABEL_245;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_245:
-  v4 = v206;
+  v5 = v212;
 LABEL_35:
   if (certificate)
   {
-    v49 = v5;
-    v50 = v7;
-    v51 = v10;
+    v50 = v6;
+    v51 = v8;
     v52 = v11;
-    v53 = v4;
+    v53 = v12;
+    v54 = v5;
     CFRelease(certificate);
-    v4 = v53;
+    v5 = v54;
+    v12 = v53;
     v11 = v52;
-    v10 = v51;
-    v7 = v50;
-    v5 = v49;
+    v8 = v51;
+    v6 = v50;
   }
 
   certificate = 0;
-  if (v4)
+  if (v5)
   {
-    CFRelease(v4);
+    CFRelease(v5);
   }
 
   if (cf)
@@ -3002,25 +3022,20 @@ LABEL_35:
     CFRelease(cf);
   }
 
-  if (v294)
+  if (v300)
   {
-    CFRelease(v294);
+    CFRelease(v300);
   }
 
-  v294 = 0;
-  if (v243)
+  v300 = 0;
+  if (v249)
   {
-    CFRelease(v243);
+    CFRelease(v249);
   }
 
-  if (v225)
+  if (v231)
   {
-    CFRelease(v225);
-  }
-
-  if (v220)
-  {
-    CFRelease(v220);
+    CFRelease(v231);
   }
 
   if (v226)
@@ -3028,17 +3043,22 @@ LABEL_35:
     CFRelease(v226);
   }
 
-  if (v224)
+  if (v232)
   {
-    CFRelease(v224);
+    CFRelease(v232);
   }
 
-  if (v223)
+  if (v230)
   {
-    CFRelease(v223);
+    CFRelease(v230);
   }
 
-  return v12;
+  if (v229)
+  {
+    CFRelease(v229);
+  }
+
+  return v13;
 }
 
 void __register_xpc_activities_block_invoke(uint64_t a1, id a2)
@@ -3046,13 +3066,14 @@ void __register_xpc_activities_block_invoke(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_9;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_cold_1();
     }
@@ -3071,22 +3092,23 @@ void __register_xpc_activities_block_invoke_771(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_11;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_771_cold_1();
     }
   }
 
-  v5 = xpc_activity_copy_criteria(v3);
-  if (!v5 || xpc_activity_get_state(v3) == 2)
+  v6 = xpc_activity_copy_criteria(v3);
+  if (!v6 || xpc_activity_get_state(v3) == 2)
   {
-    collection_activity_handler(*(a1 + 32), v5 == 0);
+    collection_activity_handler(*(a1 + 32), v6 == 0);
   }
 
 LABEL_11:
@@ -3097,22 +3119,23 @@ void __register_xpc_activities_block_invoke_772(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_11;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_772_cold_1();
     }
   }
 
-  v5 = xpc_activity_copy_criteria(v3);
-  if (!v5 || xpc_activity_get_state(v3) == 2)
+  v6 = xpc_activity_copy_criteria(v3);
+  if (!v6 || xpc_activity_get_state(v3) == 2)
   {
-    ucrt_oob_activity_handler(*(a1 + 32), v5 == 0);
+    ucrt_oob_activity_handler(*(a1 + 32), v6 == 0);
   }
 
 LABEL_11:
@@ -3123,13 +3146,14 @@ void __register_xpc_activities_block_invoke_773(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_13;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_773_cold_1();
     }
@@ -3137,11 +3161,11 @@ void __register_xpc_activities_block_invoke_773(uint64_t a1, id a2)
 
   if (device_supports_dcrt_oob())
   {
-    v5 = xpc_activity_copy_criteria(v3);
-    v6 = v5;
-    if (!v5 || xpc_dictionary_get_BOOL(v5, XPC_ACTIVITY_REPEATING) || xpc_activity_get_state(v3) == 2)
+    v6 = xpc_activity_copy_criteria(v3);
+    v7 = v6;
+    if (!v6 || xpc_dictionary_get_BOOL(v6, XPC_ACTIVITY_REPEATING) || xpc_activity_get_state(v3) == 2)
     {
-      dcrt_oob_activity_handler(*(a1 + 32), 0, v6 == 0);
+      dcrt_oob_activity_handler(*(a1 + 32), 0, v7 == 0);
     }
   }
 
@@ -3153,13 +3177,14 @@ void __register_xpc_activities_block_invoke_774(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_13;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_774_cold_1();
     }
@@ -3167,11 +3192,11 @@ void __register_xpc_activities_block_invoke_774(uint64_t a1, id a2)
 
   if (device_supports_dcrt_oob())
   {
-    v5 = xpc_activity_copy_criteria(v3);
-    v6 = v5;
-    if (!v5 || xpc_dictionary_get_BOOL(v5, XPC_ACTIVITY_REPEATING) || xpc_activity_get_state(v3) == 2)
+    v6 = xpc_activity_copy_criteria(v3);
+    v7 = v6;
+    if (!v6 || xpc_dictionary_get_BOOL(v6, XPC_ACTIVITY_REPEATING) || xpc_activity_get_state(v3) == 2)
     {
-      dcrt_oob_activity_handler(*(a1 + 32), 1, v6 == 0);
+      dcrt_oob_activity_handler(*(a1 + 32), 1, v7 == 0);
     }
   }
 
@@ -3183,13 +3208,14 @@ void __register_xpc_activities_block_invoke_775(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_10;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_775_cold_1();
     }
@@ -3208,13 +3234,14 @@ void __register_xpc_activities_block_invoke_776(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_10;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_776_cold_1();
     }
@@ -3233,22 +3260,23 @@ void __register_xpc_activities_block_invoke_777(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_11;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_777_cold_1();
     }
   }
 
-  v5 = xpc_activity_copy_criteria(v3);
-  if (!v5 || xpc_activity_get_state(v3) == 2)
+  v6 = xpc_activity_copy_criteria(v3);
+  if (!v6 || xpc_activity_get_state(v3) == 2)
   {
-    splunk_activity_handler(*(a1 + 32), v5 == 0);
+    splunk_activity_handler(*(a1 + 32), v6 == 0);
   }
 
 LABEL_11:
@@ -3259,13 +3287,14 @@ void __register_xpc_activities_block_invoke_778(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_9;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_778_cold_1();
     }
@@ -3284,13 +3313,14 @@ void __register_xpc_activities_block_invoke_779(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_9;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __register_xpc_activities_block_invoke_779_cold_1();
     }
@@ -3542,7 +3572,7 @@ LABEL_40:
                       }
 
                       v49 = formatURLRequest(v9);
-                      v50 = copy_log_directory_path();
+                      v50 = copy_log_directory_path(v49);
                       v51 = [v50 stringByAppendingPathComponent:@"collection_oob_request.txt"];
                       [(NSMutableString *)v49 writeToFile:v51 atomically:0 encoding:4 error:0];
 
@@ -3553,7 +3583,7 @@ LABEL_40:
                       v6 = v62;
 
                       v56 = formatURLResponse(v11, v69, v10);
-                      v54 = copy_log_directory_path();
+                      v54 = copy_log_directory_path(v56);
                       v52 = [v54 stringByAppendingPathComponent:@"collection_oob_response.txt"];
                       [(NSMutableString *)v56 writeToFile:v52 atomically:0 encoding:4 error:0];
                     }
@@ -3969,14 +3999,15 @@ LABEL_20:
   _Block_object_dispose(&v107, 8);
 }
 
-void sub_100314C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54)
+void sub_100314C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, ...)
 {
+  va_start(va, a53);
   _Block_object_dispose(&a34, 8);
   _Block_object_dispose(&a38, 8);
   _Block_object_dispose(&a42, 8);
   _Block_object_dispose(&a48, 8);
-  _Block_object_dispose(&a54, 8);
-  _Block_object_dispose((v54 - 216), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v53 - 216), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4236,7 +4267,7 @@ LABEL_26:
             locationa = copyReverseProxyDictionary(0, 0, 0);
 LABEL_50:
             v83 = formatURLRequest(*(*(*(a1 + 112) + 8) + 40));
-            v75 = copy_log_directory_path();
+            v75 = copy_log_directory_path(v83);
             v70 = [v75 stringByAppendingPathComponent:@"ucrt_oob_request.txt"];
             [(NSMutableString *)v83 writeToFile:v70 atomically:0 encoding:4 error:0];
 
@@ -4256,7 +4287,7 @@ LABEL_50:
             *(v67 + 40) = v71;
 
             v85 = formatURLResponse(*(*(*(a1 + 120) + 8) + 40), *(*(*(a1 + 136) + 8) + 24), *(*(*(a1 + 128) + 8) + 40));
-            v77 = copy_log_directory_path();
+            v77 = copy_log_directory_path(v85);
             v72 = [v77 stringByAppendingPathComponent:@"ucrt_oob_response.txt"];
             [(NSMutableString *)v85 writeToFile:v72 atomically:0 encoding:4 error:0];
 
@@ -4532,7 +4563,7 @@ LABEL_32:
             v10 = copyReverseProxyDictionary(0, 0, 0);
 LABEL_39:
             v37 = formatURLRequest(v6);
-            v38 = copy_log_directory_path();
+            v38 = copy_log_directory_path(v37);
             v39 = [v38 stringByAppendingPathComponent:@"ucrt_oob_request.txt"];
             [(NSMutableString *)v37 writeToFile:v39 atomically:0 encoding:4 error:0];
 
@@ -4543,7 +4574,7 @@ LABEL_39:
             v5 = v46;
 
             v42 = formatURLResponse(v8, v52, v7);
-            v43 = copy_log_directory_path();
+            v43 = copy_log_directory_path(v42);
             v40 = [v43 stringByAppendingPathComponent:@"ucrt_oob_response.txt"];
             [NSMutableString writeToFile:v42 atomically:"writeToFile:atomically:encoding:error:" encoding:? error:?];
 
@@ -4627,7 +4658,7 @@ Class __getMSDKManagedDeviceClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __MobileStoreDemoKitLibraryCore_block_invoke()
+uint64_t __MobileStoreDemoKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MobileStoreDemoKitLibraryCore_frameworkLibrary = result;
@@ -4878,9 +4909,9 @@ LABEL_36:
   _Block_object_dispose(&v42, 8);
 }
 
-void sub_100316E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_100316E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4914,10 +4945,11 @@ void __copy_helper_block_e8_32b40r(uint64_t a1, uint64_t a2)
   _Block_object_assign((a1 + 40), v4, 8);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 id copySplunkDeviceIdentifiers(void *a1, NSError **a2)
@@ -4929,7 +4961,7 @@ id copySplunkDeviceIdentifiers(void *a1, NSError **a2)
   v75 = __Block_byref_object_copy__6;
   v76 = __Block_byref_object_dispose__6;
   v77 = 0;
-  v3 = copySplunkUUIDQueue();
+  v3 = copySplunkUUIDQueue(v2);
   if (v3)
   {
     block = _NSConcreteStackBlock;
@@ -4945,7 +4977,7 @@ id copySplunkDeviceIdentifiers(void *a1, NSError **a2)
 
   else
   {
-    v4 = copyLoggingHandle();
+    v4 = copyLoggingHandle(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       copySplunkDeviceIdentifiers_cold_1();
@@ -5213,31 +5245,38 @@ LABEL_32:
   return v51;
 }
 
+void sub_100317A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 id copySplunkDailyStatistics(void *a1, NSError **a2)
 {
   v2 = a1;
-  v101 = data_ark_copy(v2, 0, @"ActivationState");
-  v3 = copy_ucrt_path();
+  v104 = data_ark_copy(v2, 0, @"ActivationState");
+  v3 = copy_ucrt_path(v104);
   v4 = [v3 stringByAppendingPathComponent:@"ucrt.pem"];
 
   if (!v4)
   {
     MobileActivationError = createMobileActivationError("copy_splunk_daily_statistics_info", 392, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create UCRT file path.");
 LABEL_31:
-    v24 = MobileActivationError;
-    v25 = 0;
-    v99 = 0;
-    v100 = 0;
-    v97 = 0;
-    v98 = 0;
-    v95 = 0;
-    v96 = 0;
-    v93 = 0;
-    v94 = 0;
-    v26 = 0;
-    v27 = 0;
+    v27 = MobileActivationError;
     v28 = 0;
-    v9 = 0;
+    v102 = 0;
+    v103 = 0;
+    v100 = 0;
+    v101 = 0;
+    v98 = 0;
+    v99 = 0;
+    v96 = 0;
+    v97 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
+    v10 = 0;
     goto LABEL_32;
   }
 
@@ -5246,123 +5285,109 @@ LABEL_31:
 
   if (v6)
   {
-    v7 = &__kCFBooleanTrue;
+    v8 = &__kCFBooleanTrue;
   }
 
   else
   {
-    v7 = &__kCFBooleanFalse;
+    v8 = &__kCFBooleanFalse;
   }
 
-  v8 = copy_dcrt_path();
-  v9 = [v8 stringByAppendingPathComponent:@"dcrt.der"];
+  v9 = copy_dcrt_path(v7);
+  v10 = [v9 stringByAppendingPathComponent:@"dcrt.der"];
 
-  if (!v9)
+  if (!v10)
   {
-    v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 406, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create DCRT file path.");
-    v25 = 0;
-    v99 = 0;
-    v100 = 0;
-    v97 = 0;
-    v98 = 0;
-    v95 = 0;
-    v96 = 0;
-    v93 = 0;
-    v94 = 0;
-    v26 = 0;
-    v27 = 0;
+    v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 406, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create DCRT file path.");
     v28 = 0;
+    v102 = 0;
+    v103 = 0;
+    v100 = 0;
+    v101 = 0;
+    v98 = 0;
+    v99 = 0;
+    v96 = 0;
+    v97 = 0;
+    v29 = 0;
+    v30 = 0;
+    v31 = 0;
 LABEL_32:
-    v92 = 0;
+    v95 = 0;
 LABEL_33:
-    v53 = v24;
-    v54 = 0;
-    v55 = v24;
+    v56 = v27;
+    v57 = 0;
+    v58 = v27;
     goto LABEL_34;
   }
 
-  v10 = +[NSFileManager defaultManager];
-  v11 = [(NSFileManager *)v10 fileExistsAtPath:v9];
+  v11 = +[NSFileManager defaultManager];
+  v12 = [(NSFileManager *)v11 fileExistsAtPath:v10];
 
-  if (v11)
+  if (v12)
   {
-    v12 = &__kCFBooleanTrue;
+    v14 = &__kCFBooleanTrue;
   }
 
   else
   {
-    v12 = &__kCFBooleanFalse;
+    v14 = &__kCFBooleanFalse;
   }
 
-  v13 = copy_dcrt_path();
-  v14 = [v13 stringByAppendingPathComponent:@"sdcrt.der"];
+  v15 = copy_dcrt_path(v13);
+  v16 = [v15 stringByAppendingPathComponent:@"sdcrt.der"];
 
-  if (!v14)
+  if (!v16)
   {
     MobileActivationError = createMobileActivationError("copy_splunk_daily_statistics_info", 420, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create SDCRT file path.");
     goto LABEL_31;
   }
 
-  v90 = v7;
-  v15 = +[NSFileManager defaultManager];
-  v16 = [(NSFileManager *)v15 fileExistsAtPath:v14];
+  v93 = v8;
+  v17 = +[NSFileManager defaultManager];
+  v18 = [(NSFileManager *)v17 fileExistsAtPath:v16];
 
-  if (v16)
+  if (v18)
   {
-    v17 = &__kCFBooleanTrue;
+    v20 = &__kCFBooleanTrue;
   }
 
   else
   {
-    v17 = &__kCFBooleanFalse;
+    v20 = &__kCFBooleanFalse;
   }
 
-  v88 = v17;
-  v18 = copy_suinfo_directory_path();
-  v19 = [v18 stringByAppendingPathComponent:@"psc.sui"];
+  v91 = v20;
+  v21 = copy_suinfo_directory_path(v19);
+  v22 = [v21 stringByAppendingPathComponent:@"psc.sui"];
 
-  v92 = v19;
-  v93 = v14;
-  v89 = v12;
-  if (v19 && (v20 = +[NSFileManager defaultManager], v21 = [(NSFileManager *)v20 fileExistsAtPath:v19 isDirectory:0], v20, (v21 & 1) != 0))
+  v95 = v22;
+  v96 = v16;
+  v92 = v14;
+  if (v22 && (v23 = +[NSFileManager defaultManager], v24 = [(NSFileManager *)v23 fileExistsAtPath:v22 isDirectory:0], v23, (v24 & 1) != 0))
   {
-    v22 = &__kCFBooleanTrue;
+    v25 = &__kCFBooleanTrue;
   }
 
   else
   {
-    v22 = &__kCFBooleanFalse;
+    v25 = &__kCFBooleanFalse;
   }
 
-  v87 = v22;
-  v100 = data_ark_copy(v2, 0, @"CollectionLastPerformed");
-  v29 = data_ark_copy(v2, 0, @"UCRTOOBLastPerformed");
-  v99 = isNSString(v29);
+  v90 = v25;
+  v103 = data_ark_copy(v2, 0, @"CollectionLastPerformed");
+  v32 = data_ark_copy(v2, 0, @"UCRTOOBLastPerformed");
+  v102 = isNSString(v32);
 
-  v30 = data_ark_copy(v2, 0, @"DCRTOOBLastPerformed");
-  v98 = isNSString(v30);
+  v33 = data_ark_copy(v2, 0, @"DCRTOOBLastPerformed");
+  v101 = isNSString(v33);
 
-  v31 = data_ark_copy(v2, 0, @"SDCRTOOBLastPerformed");
-  v97 = isNSString(v31);
+  v34 = data_ark_copy(v2, 0, @"SDCRTOOBLastPerformed");
+  v100 = isNSString(v34);
 
-  v32 = data_ark_copy(v2, 0, @"LastActivated");
-  v96 = isNSString(v32);
+  v35 = data_ark_copy(v2, 0, @"LastActivated");
+  v99 = isNSString(v35);
 
-  v33 = data_ark_copy(v2, 0, @"UCRTHealingRequired");
-  v34 = isNSNumber(v33);
-
-  if (v34)
-  {
-    v35 = v34;
-  }
-
-  else
-  {
-    v35 = &__kCFBooleanFalse;
-  }
-
-  v95 = v35;
-  v36 = data_ark_copy(v2, 0, @"UIKUpgradeRequired");
+  v36 = data_ark_copy(v2, 0, @"UCRTHealingRequired");
   v37 = isNSNumber(v36);
 
   if (v37)
@@ -5375,328 +5400,343 @@ LABEL_33:
     v38 = &__kCFBooleanFalse;
   }
 
-  v94 = v38;
+  v98 = v38;
+  v39 = data_ark_copy(v2, 0, @"UIKUpgradeRequired");
+  v40 = isNSNumber(v39);
+
+  if (v40)
+  {
+    v41 = v40;
+  }
+
+  else
+  {
+    v41 = &__kCFBooleanFalse;
+  }
+
+  v97 = v41;
   [@"com.apple.mobileactivationd" UTF8String];
-  v26 = 0;
-  v27 = 0;
-  v28 = 0;
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
   if ((os_variant_is_darwinos() & 1) == 0)
   {
-    v104 = 0;
-    v64 = hasPrimaryICloudAccount(&v104);
-    v65 = v104;
-    v66 = [NSNumber numberWithBool:v64];
-    v26 = v66;
-    if (v65)
+    v107 = 0;
+    v67 = hasPrimaryICloudAccount(&v107);
+    v68 = v107;
+    v69 = [NSNumber numberWithBool:v67];
+    v29 = v69;
+    if (v68)
     {
-      v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 554, @"com.apple.MobileActivation.ErrorDomain", -1, v65, @"Failed to query primary iCloud account state.");
+      v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 554, @"com.apple.MobileActivation.ErrorDomain", -1, v68, @"Failed to query primary iCloud account state.");
 
-      v25 = 0;
-      v27 = 0;
-LABEL_48:
       v28 = 0;
+      v30 = 0;
+LABEL_48:
+      v31 = 0;
 LABEL_49:
-      v9 = 0;
+      v10 = 0;
       goto LABEL_33;
     }
 
-    if ([(NSNumber *)v66 BOOLValue])
+    if ([(NSNumber *)v69 BOOLValue])
     {
-      v103 = 0;
-      IsHSA2 = primaryICloudAccountIsHSA2(&v103);
-      v69 = v103;
-      v27 = [NSNumber numberWithBool:IsHSA2];
-      if (v69)
+      v106 = 0;
+      IsHSA2 = primaryICloudAccountIsHSA2(&v106);
+      v72 = v106;
+      v30 = [NSNumber numberWithBool:IsHSA2];
+      if (v72)
       {
-        v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 563, @"com.apple.MobileActivation.ErrorDomain", -1, v69, @"Failed to query primary iCloud account security state.");
+        v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 563, @"com.apple.MobileActivation.ErrorDomain", -1, v72, @"Failed to query primary iCloud account security state.");
 
-        v25 = 0;
+        v28 = 0;
         goto LABEL_48;
       }
     }
 
     else
     {
-      v27 = 0;
+      v30 = 0;
     }
 
-    v102 = 0;
-    IsEnabled = FindMyDeviceIsEnabled(&v102);
-    v74 = v102;
-    v28 = [NSNumber numberWithBool:IsEnabled];
-    if (!v74)
+    v105 = 0;
+    IsEnabled = FindMyDeviceIsEnabled(&v105);
+    v77 = v105;
+    v31 = [NSNumber numberWithBool:IsEnabled];
+    if (!v77)
     {
       goto LABEL_26;
     }
 
-    v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 572, @"com.apple.MobileActivation.ErrorDomain", -1, v74, @"Failed to query FindMy state.");
+    v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 572, @"com.apple.MobileActivation.ErrorDomain", -1, v77, @"Failed to query FindMy state.");
 
-    v25 = 0;
+    v28 = 0;
     goto LABEL_49;
   }
 
 LABEL_26:
-  v9 = [NSNumber numberWithBool:is_dsp_device()];
-  v39 = v2;
-  v40 = copy_activation_record(v39);
-  v85 = v40;
-  v86 = v39;
-  v84 = v26;
-  if (!v40)
+  v10 = [NSNumber numberWithBool:is_dsp_device()];
+  v42 = v2;
+  v43 = copy_activation_record(v42);
+  v88 = v43;
+  v89 = v42;
+  v87 = v29;
+  if (!v43)
   {
-    v83 = 0;
-    v67 = 0;
+    v86 = 0;
+    v70 = 0;
 LABEL_55:
-    v50 = 0;
+    v53 = 0;
 LABEL_56:
-    v70 = v67;
-    v25 = 0;
-    v71 = 1;
-    v72 = v67;
+    v73 = v70;
+    v28 = 0;
+    v74 = 1;
+    v75 = v70;
     goto LABEL_63;
   }
 
-  v105 = 0;
-  v41 = v40;
-  v42 = extract_account_token(v40, &v105);
-  v43 = v105;
+  v108 = 0;
   v44 = v43;
-  v82 = v42;
-  if (!v42)
+  v45 = extract_account_token(v43, &v108);
+  v46 = v108;
+  v47 = v46;
+  v85 = v45;
+  if (!v45)
   {
-    v67 = createMobileActivationError("copy_splunk_activation_validation_info", 301, @"com.apple.MobileActivation.ErrorDomain", -1, v43, @"Failed to extract account token.");
+    v70 = createMobileActivationError("copy_splunk_activation_validation_info", 301, @"com.apple.MobileActivation.ErrorDomain", -1, v46, @"Failed to extract account token.");
 
-    v83 = 0;
+    v86 = 0;
     goto LABEL_55;
   }
 
-  v81 = v43;
-  v108[0] = @"UseEnhancedValidation";
-  v108[1] = @"SkipUCRTValidation";
-  v109[0] = &__kCFBooleanTrue;
-  v109[1] = &__kCFBooleanTrue;
-  v108[2] = @"SkipActivationRandomnessCheck";
-  v109[2] = &__kCFBooleanTrue;
-  v45 = [NSDictionary dictionaryWithObjects:v109 forKeys:v108 count:3];
-  v106[0] = @"activationRecordValid";
-  v83 = v45;
-  v80 = [NSNumber numberWithBool:verify_activation_record(v39, v41, v45, 0)];
-  v107[0] = v80;
-  v106[1] = @"activationRecordContainsUCRT";
-  v46 = [v41 objectForKey:@"UniqueDeviceCertificate"];
-  v47 = v46 != 0;
+  v84 = v46;
+  v111[0] = @"UseEnhancedValidation";
+  v111[1] = @"SkipUCRTValidation";
+  v112[0] = &__kCFBooleanTrue;
+  v112[1] = &__kCFBooleanTrue;
+  v111[2] = @"SkipActivationRandomnessCheck";
+  v112[2] = &__kCFBooleanTrue;
+  v48 = [NSDictionary dictionaryWithObjects:v112 forKeys:v111 count:3];
+  v109[0] = @"activationRecordValid";
+  v86 = v48;
+  v83 = [NSNumber numberWithBool:verify_activation_record(v42, v44, v48, 0)];
+  v110[0] = v83;
+  v109[1] = @"activationRecordContainsUCRT";
+  v49 = [v44 objectForKey:@"UniqueDeviceCertificate"];
+  v50 = v49 != 0;
 
-  v79 = [NSNumber numberWithBool:v47];
-  v107[1] = v79;
-  v106[2] = @"activationRecordProductTypeValid";
-  v78 = NSNumber;
-  v48 = v82;
-  v49 = is_product_cellular();
-  v50 = v48;
-  v51 = [v50 objectForKey:@"ActivationTicket"];
-  if (v51)
+  v82 = [NSNumber numberWithBool:v50];
+  v110[1] = v82;
+  v109[2] = @"activationRecordProductTypeValid";
+  v81 = NSNumber;
+  v51 = v85;
+  v52 = is_product_cellular();
+  v53 = v51;
+  v54 = [v53 objectForKey:@"ActivationTicket"];
+  if (v54)
   {
-    v52 = 1;
+    v55 = 1;
   }
 
   else
   {
-    v75 = [v50 objectForKey:@"WildcardTicket"];
-    v52 = v75 != 0;
+    v78 = [v53 objectForKey:@"WildcardTicket"];
+    v55 = v78 != 0;
   }
 
-  v76 = [NSNumber numberWithBool:v49 ^ v52 ^ 1u];
-  v107[2] = v76;
-  v25 = [NSDictionary dictionaryWithObjects:v107 forKeys:v106 count:3];
+  v79 = [NSNumber numberWithBool:v52 ^ v55 ^ 1u];
+  v110[2] = v79;
+  v28 = [NSDictionary dictionaryWithObjects:v110 forKeys:v109 count:3];
 
-  if (!v25)
+  if (!v28)
   {
-    v67 = v81;
+    v70 = v84;
     goto LABEL_56;
   }
 
-  v71 = 0;
-  v72 = 0;
-  v67 = v81;
+  v74 = 0;
+  v75 = 0;
+  v70 = v84;
 LABEL_63:
 
-  v55 = v72;
-  if (v71)
+  v58 = v75;
+  if (v74)
   {
-    v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 584, @"com.apple.MobileActivation.ErrorDomain", -1, v55, @"Failed to create activation validation info.");
+    v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 584, @"com.apple.MobileActivation.ErrorDomain", -1, v58, @"Failed to create activation validation info.");
 
-    v25 = 0;
-    v26 = v84;
+    v28 = 0;
+    v29 = v87;
     goto LABEL_33;
   }
 
-  v77 = objc_alloc_init(NSMutableDictionary);
-  v26 = v84;
-  if (!v77)
+  v80 = objc_alloc_init(NSMutableDictionary);
+  v29 = v87;
+  if (!v80)
   {
-    v24 = createMobileActivationError("copy_splunk_daily_statistics_info", 591, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate dictionary.");
+    v27 = createMobileActivationError("copy_splunk_daily_statistics_info", 591, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate dictionary.");
 
     goto LABEL_33;
   }
 
-  v54 = v77;
+  v57 = v80;
+  if (v104)
+  {
+    [v80 setObject:v104 forKeyedSubscript:@"activationState"];
+  }
+
+  [v57 setObject:v93 forKeyedSubscript:{@"ucrtAvailable", v81}];
+  [v57 setObject:v90 forKeyedSubscript:@"pcrtAvailable"];
+  [v57 setObject:v92 forKeyedSubscript:@"dcrtAvailable"];
+  [v57 setObject:v91 forKeyedSubscript:@"sdcrtAvailable"];
+  if (v103)
+  {
+    [v57 setObject:v103 forKeyedSubscript:@"collectionLastPerformedBuild"];
+  }
+
+  if (v102)
+  {
+    [v57 setObject:v102 forKeyedSubscript:@"ucrtOOBLastPerformedBuild"];
+  }
+
   if (v101)
   {
-    [v77 setObject:v101 forKeyedSubscript:@"activationState"];
+    [v57 setObject:v101 forKeyedSubscript:@"dcrtOOBLastPerformedBuild"];
   }
 
-  [v54 setObject:v90 forKeyedSubscript:{@"ucrtAvailable", v78}];
-  [v54 setObject:v87 forKeyedSubscript:@"pcrtAvailable"];
-  [v54 setObject:v89 forKeyedSubscript:@"dcrtAvailable"];
-  [v54 setObject:v88 forKeyedSubscript:@"sdcrtAvailable"];
   if (v100)
   {
-    [v54 setObject:v100 forKeyedSubscript:@"collectionLastPerformedBuild"];
+    [v57 setObject:v100 forKeyedSubscript:@"sdcrtOOBLastPerformedBuild"];
   }
 
   if (v99)
   {
-    [v54 setObject:v99 forKeyedSubscript:@"ucrtOOBLastPerformedBuild"];
+    [v57 setObject:v99 forKeyedSubscript:@"activationLastPerformedBuild"];
   }
 
-  if (v98)
+  [v57 setObject:v98 forKeyedSubscript:@"ucrtHealingRequired"];
+  [v57 setObject:v97 forKeyedSubscript:@"uikUpgradeRequired"];
+  if (v87)
   {
-    [v54 setObject:v98 forKeyedSubscript:@"dcrtOOBLastPerformedBuild"];
+    [v57 setObject:v87 forKeyedSubscript:@"iCloudEnabled"];
   }
 
-  if (v97)
+  if (v30)
   {
-    [v54 setObject:v97 forKeyedSubscript:@"sdcrtOOBLastPerformedBuild"];
+    [v57 setObject:v30 forKeyedSubscript:@"iCloudHSA2Enabled"];
   }
 
-  if (v96)
+  if (v31)
   {
-    [v54 setObject:v96 forKeyedSubscript:@"activationLastPerformedBuild"];
+    [v57 setObject:v31 forKeyedSubscript:@"findMyEnabled"];
   }
 
-  [v54 setObject:v95 forKeyedSubscript:@"ucrtHealingRequired"];
-  [v54 setObject:v94 forKeyedSubscript:@"uikUpgradeRequired"];
-  if (v84)
+  if (v10)
   {
-    [v54 setObject:v84 forKeyedSubscript:@"iCloudEnabled"];
+    [v57 setObject:v10 forKeyedSubscript:@"DSPDevice"];
   }
 
-  if (v27)
-  {
-    [v54 setObject:v27 forKeyedSubscript:@"iCloudHSA2Enabled"];
-  }
-
-  if (v28)
-  {
-    [v54 setObject:v28 forKeyedSubscript:@"findMyEnabled"];
-  }
-
-  if (v9)
-  {
-    [v54 setObject:v9 forKeyedSubscript:@"DSPDevice"];
-  }
-
-  [v54 addEntriesFromDictionary:v25];
-  v24 = 0;
+  [v57 addEntriesFromDictionary:v28];
+  v27 = 0;
 LABEL_34:
 
-  v56 = v24;
-  if (!v54)
+  v59 = v27;
+  if (!v57)
   {
-    v60 = createAndLogError("copySplunkDailyStatistics", 979, @"com.apple.MobileActivation.ErrorDomain", -1, v56, @"Failed to query daily splunk info.", v78);
+    v63 = createAndLogError("copySplunkDailyStatistics", 979, @"com.apple.MobileActivation.ErrorDomain", -1, v59, @"Failed to query daily splunk info.", v81);
 LABEL_39:
-    v61 = v60;
+    v64 = v63;
 
     if (a2)
     {
-      v62 = v61;
-      v59 = 0;
-      *a2 = v61;
+      v65 = v64;
+      v62 = 0;
+      *a2 = v64;
     }
 
     else
     {
-      v59 = 0;
+      v62 = 0;
     }
 
-    v56 = v61;
+    v59 = v64;
     goto LABEL_43;
   }
 
-  v57 = objc_alloc_init(NSMutableDictionary);
-  if (!v57)
+  v60 = objc_alloc_init(NSMutableDictionary);
+  if (!v60)
   {
-    v60 = createAndLogError("copySplunkDailyStatistics", 1008, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate dictionary.", v78);
+    v63 = createAndLogError("copySplunkDailyStatistics", 1008, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate dictionary.", v81);
     goto LABEL_39;
   }
 
-  v58 = v57;
-  [v57 addEntriesFromDictionary:v54];
-  v59 = v58;
+  v61 = v60;
+  [v60 addEntriesFromDictionary:v57];
+  v62 = v61;
 LABEL_43:
 
-  return v59;
+  return v62;
 }
 
 id copySortedSplunkFileList()
 {
   v0 = objc_alloc_init(NSMutableArray);
+  v1 = v0;
   if (v0)
   {
-    v1 = copy_splunk_directory_path();
-    v2 = copy_sorted_file_list(v1);
+    v2 = copy_splunk_directory_path(v0);
+    v3 = copy_sorted_file_list(v2);
 
-    if (v2)
+    if (v3)
     {
-      v19 = 0u;
       v20 = 0u;
-      v17 = 0u;
+      v21 = 0u;
       v18 = 0u;
-      v16 = v2;
-      v3 = v2;
-      v4 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
-      if (v4)
+      v19 = 0u;
+      v17 = v3;
+      v4 = v3;
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      if (v5)
       {
-        v5 = v4;
-        v6 = *v18;
+        v6 = v5;
+        v7 = *v19;
         do
         {
-          for (i = 0; i != v5; i = i + 1)
+          for (i = 0; i != v6; i = i + 1)
           {
-            if (*v18 != v6)
+            if (*v19 != v7)
             {
-              objc_enumerationMutation(v3);
+              objc_enumerationMutation(v4);
             }
 
-            v8 = *(*(&v17 + 1) + 8 * i);
-            v9 = isNSURL(v8);
-            if (v9)
+            v9 = *(*(&v18 + 1) + 8 * i);
+            v10 = isNSURL(v9);
+            if (v10)
             {
-              v10 = v9;
-              v11 = [v8 pathExtension];
-              v12 = [v11 isEqualToString:@"splunklog"];
+              v11 = v10;
+              v12 = [v9 pathExtension];
+              v13 = [v12 isEqualToString:@"splunklog"];
 
-              if (v12)
+              if (v13)
               {
-                v13 = [v8 path];
-                [v0 addObject:v13];
+                v14 = [v9 path];
+                [v1 addObject:v14];
               }
             }
           }
 
-          v5 = [(NSArray *)v3 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v6 = [(NSArray *)v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
         }
 
-        while (v5);
+        while (v6);
       }
 
-      v2 = v16;
+      v3 = v17;
     }
 
-    v14 = v0;
+    v15 = v1;
   }
 
-  return v0;
+  return v1;
 }
 
 void writeSplunkLog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, void *a6, void *a7, uint64_t a8, uint64_t a9)
@@ -5704,43 +5744,44 @@ void writeSplunkLog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, voi
   v15 = a1;
   v16 = a6;
   v17 = a7;
-  v30 = 0;
-  if (DiagnosticLogSubmissionEnabled())
+  v31 = 0;
+  v18 = DiagnosticLogSubmissionEnabled();
+  if (v18)
   {
-    v18 = copySplunkQueue();
-    if (v18)
+    v19 = copySplunkQueue(v18);
+    if (v19)
     {
-      v19 = v18;
+      v20 = v19;
       if (v17)
       {
-        v30 = &a9;
-        v20 = [[NSMutableString alloc] initWithFormat:v17 arguments:&a9];
+        v31 = &a9;
+        v21 = [[NSMutableString alloc] initWithFormat:v17 arguments:&a9];
       }
 
       else
       {
-        v20 = 0;
+        v21 = 0;
       }
 
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3254779904;
-      v22[2] = __writeSplunkLog_block_invoke;
-      v22[3] = &__block_descriptor_84_e8_32s40s48s_e5_v8__0l;
-      v23 = v15;
-      v26 = a2;
-      v27 = a3;
-      v29 = a5;
-      v24 = v16;
-      v25 = v20;
-      v28 = a4;
-      v21 = v20;
-      dispatch_async(v19, v22);
+      v23[0] = _NSConcreteStackBlock;
+      v23[1] = 3254779904;
+      v23[2] = __writeSplunkLog_block_invoke;
+      v23[3] = &__block_descriptor_84_e8_32s40s48s_e5_v8__0l;
+      v24 = v15;
+      v27 = a2;
+      v28 = a3;
+      v30 = a5;
+      v25 = v16;
+      v26 = v21;
+      v29 = a4;
+      v22 = v21;
+      dispatch_async(v20, v23);
     }
 
     else
     {
-      v19 = copyLoggingHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v20 = copyLoggingHandle(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         copySplunkDeviceIdentifiers_cold_1();
       }
@@ -5748,24 +5789,24 @@ void writeSplunkLog(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, voi
   }
 }
 
-id copySplunkQueue()
+id copySplunkQueue(uint64_t a1)
 {
   if (copySplunkQueue_onceToken != -1)
   {
     copySplunkQueue_cold_1();
   }
 
-  v1 = copySplunkQueue_splunkQueue;
+  v2 = copySplunkQueue_splunkQueue;
 
-  return v1;
+  return v2;
 }
 
-void __writeSplunkLog_block_invoke(uint64_t a1)
+void __writeSplunkLog_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!*(a1 + 32))
   {
-    v3 = copyLoggingHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = copyLoggingHandle(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_14();
     }
@@ -5773,11 +5814,11 @@ void __writeSplunkLog_block_invoke(uint64_t a1)
     goto LABEL_59;
   }
 
-  v2 = copy_splunk_directory_path();
-  if (!v2)
+  v3 = copy_splunk_directory_path(a1);
+  if (!v3)
   {
-    v3 = copyLoggingHandle();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = copyLoggingHandle(0);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_13();
     }
@@ -5785,127 +5826,129 @@ void __writeSplunkLog_block_invoke(uint64_t a1)
     goto LABEL_59;
   }
 
-  v3 = v2;
-  v4 = +[NSFileManager defaultManager];
-  v130 = NSFilePosixPermissions;
-  v131 = &off_1003FBD80;
-  v5 = [NSDictionary dictionaryWithObjects:&v131 forKeys:&v130 count:1];
-  v122 = 0;
-  v6 = [(NSFileManager *)v4 createDirectoryAtPath:v3 withIntermediateDirectories:1 attributes:v5 error:&v122];
-  v7 = v122;
+  v4 = v3;
+  v5 = +[NSFileManager defaultManager];
+  v144 = NSFilePosixPermissions;
+  v145 = &off_1003FBD80;
+  v6 = [NSDictionary dictionaryWithObjects:&v145 forKeys:&v144 count:1];
+  v136 = 0;
+  v7 = [(NSFileManager *)v5 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:v6 error:&v136];
+  v8 = v136;
 
-  if ((v6 & 1) == 0)
+  if ((v7 & 1) == 0)
   {
-    v28 = copyLoggingHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
+    v33 = copyLoggingHandle(v9);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_1();
     }
 
-    v29 = v28;
+    v34 = v33;
     goto LABEL_57;
   }
 
-  v8 = +[NSDate date];
-  [(NSDate *)v8 timeIntervalSince1970];
-  v10 = [NSNumber numberWithLong:1000 * v9];
+  v10 = +[NSDate date];
+  [(NSDate *)v10 timeIntervalSince1970];
+  v12 = [NSNumber numberWithLong:1000 * v11];
 
-  v11 = objc_alloc_init(NSMutableDictionary);
-  if (!v11)
+  v13 = objc_alloc_init(NSMutableDictionary);
+  if (!v13)
   {
-    v30 = copyLoggingHandle();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
+    v35 = copyLoggingHandle(0);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_12();
     }
 
-    v29 = v10;
+    v34 = v12;
     goto LABEL_57;
   }
 
-  v12 = v11;
-  v13 = *(a1 + 32);
-  v121 = v7;
-  v14 = copySplunkDeviceIdentifiers(v13, &v121);
-  v15 = v121;
+  v14 = v13;
+  v15 = *(a1 + 32);
+  v135 = v8;
+  v16 = copySplunkDeviceIdentifiers(v15, &v135);
+  v17 = v135;
 
-  if (!v14)
+  if (!v16)
   {
-    v31 = copyLoggingHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    v36 = copyLoggingHandle(v18);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_11();
     }
 
-    v32 = v15;
+    v37 = v17;
     goto LABEL_58;
   }
 
   if (*(a1 + 40))
   {
-    [v12 addEntriesFromDictionary:?];
+    [v14 addEntriesFromDictionary:?];
   }
 
   [@"com.apple.mobileactivationd" UTF8String];
   if (os_variant_is_darwinos())
   {
-    v16 = 0;
-    v17 = 0;
-    v18 = 0;
+    v19 = 0;
+    v20 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v120 = v15;
-    v33 = hasPrimaryICloudAccount(&v120);
-    v7 = v120;
+    v134 = v17;
+    v38 = hasPrimaryICloudAccount(&v134);
+    v8 = v134;
 
-    v34 = [NSNumber numberWithBool:v33];
-    v18 = v34;
-    if (v7)
+    v39 = [NSNumber numberWithBool:v38];
+    v21 = v39;
+    if (v8)
     {
-      v35 = copyLoggingHandle();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_FAULT))
+      v40 = copyLoggingHandle(v39);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_FAULT))
       {
         __writeSplunkLog_block_invoke_cold_2();
       }
 
-      v36 = v35;
+      v41 = v40;
       goto LABEL_56;
     }
 
-    if ([(NSNumber *)v34 BOOLValue])
+    if ([(NSNumber *)v39 BOOLValue])
     {
-      v119 = 0;
-      IsHSA2 = primaryICloudAccountIsHSA2(&v119);
-      v7 = v119;
-      v103 = [NSNumber numberWithBool:IsHSA2];
-      if (v7)
+      v133 = 0;
+      IsHSA2 = primaryICloudAccountIsHSA2(&v133);
+      v8 = v133;
+      v44 = [NSNumber numberWithBool:IsHSA2];
+      v117 = v44;
+      if (v8)
       {
-        v39 = copyLoggingHandle();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_FAULT))
+        v45 = copyLoggingHandle(v44);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
         {
           __writeSplunkLog_block_invoke_cold_3();
         }
 
-        v40 = v39;
+        p_super = v45;
         goto LABEL_55;
       }
     }
 
     else
     {
-      v103 = 0;
+      v117 = 0;
     }
 
-    v118 = 0;
-    IsEnabled = FindMyDeviceIsEnabled(&v118);
-    v7 = v118;
-    v16 = [NSNumber numberWithBool:IsEnabled];
-    if (v7)
+    v132 = 0;
+    IsEnabled = FindMyDeviceIsEnabled(&v132);
+    v8 = v132;
+    v54 = [NSNumber numberWithBool:IsEnabled];
+    v19 = v54;
+    if (v8)
     {
-      v37 = copyLoggingHandle();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+      v42 = copyLoggingHandle(v54);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
       {
         __writeSplunkLog_block_invoke_cold_4();
       }
@@ -5913,184 +5956,187 @@ void __writeSplunkLog_block_invoke(uint64_t a1)
       goto LABEL_53;
     }
 
-    v15 = 0;
-    v17 = v103;
+    v17 = 0;
+    v20 = v117;
   }
 
-  [v12 setObject:v18 forKeyedSubscript:@"iCloudEnabled"];
-  v103 = v17;
-  [v12 setObject:v17 forKeyedSubscript:@"iCloudHSA2Enabled"];
-  [v12 setObject:v16 forKeyedSubscript:@"findMyEnabled"];
-  [v12 addEntriesFromDictionary:v14];
-  v19 = [(NSNumber *)v10 stringValue];
-  [v12 setObject:v19 forKeyedSubscript:@"eventTime"];
+  [v14 setObject:v21 forKeyedSubscript:@"iCloudEnabled"];
+  v117 = v20;
+  [v14 setObject:v20 forKeyedSubscript:@"iCloudHSA2Enabled"];
+  [v14 setObject:v19 forKeyedSubscript:@"findMyEnabled"];
+  [v14 addEntriesFromDictionary:v16];
+  v22 = [(NSNumber *)v12 stringValue];
+  [v14 setObject:v22 forKeyedSubscript:@"eventTime"];
 
-  v20 = [NSNumber numberWithInteger:*(a1 + 56)];
-  [v12 setObject:v20 forKeyedSubscript:@"splunkErrorCategory"];
+  v23 = [NSNumber numberWithInteger:*(a1 + 56)];
+  [v14 setObject:v23 forKeyedSubscript:@"splunkErrorCategory"];
 
-  v21 = [NSNumber numberWithInteger:*(a1 + 64)];
-  [v12 setObject:v21 forKeyedSubscript:@"spiErrorCode"];
+  v24 = [NSNumber numberWithInteger:*(a1 + 64)];
+  [v14 setObject:v24 forKeyedSubscript:@"spiErrorCode"];
 
-  [v12 setObject:@"1068.42.2" forKeyedSubscript:@"projectVersion"];
-  v22 = [NSNumber numberWithInt:*(a1 + 80)];
-  [v12 setObject:v22 forKeyedSubscript:@"lineNumber"];
+  [v14 setObject:@"1068.42.2" forKeyedSubscript:@"projectVersion"];
+  v25 = [NSNumber numberWithInt:*(a1 + 80)];
+  [v14 setObject:v25 forKeyedSubscript:@"lineNumber"];
 
-  v102 = a1;
-  v23 = *(a1 + 48);
-  if (v23)
+  v116 = a1;
+  v26 = *(a1 + 48);
+  if (v26)
   {
-    [v12 setObject:v23 forKeyedSubscript:@"errorString"];
+    [v14 setObject:v26 forKeyedSubscript:@"errorString"];
   }
 
   if (*(a1 + 72))
   {
-    v24 = [NSString stringWithUTF8String:?];
-    [v12 setObject:v24 forKeyedSubscript:@"functionName"];
+    v27 = [NSString stringWithUTF8String:?];
+    [v14 setObject:v27 forKeyedSubscript:@"functionName"];
   }
 
-  v117 = 0;
-  v25 = [NSPropertyListSerialization dataWithPropertyList:v12 format:200 options:0 error:&v117];
-  v7 = v117;
+  v131 = 0;
+  v28 = [NSPropertyListSerialization dataWithPropertyList:v14 format:200 options:0 error:&v131];
+  v8 = v131;
 
-  if (!v25)
+  if (!v28)
   {
-    v37 = copyLoggingHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+    v42 = copyLoggingHandle(v29);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_10();
     }
 
 LABEL_53:
-    v27 = v37;
+    v32 = v42;
 LABEL_54:
 
-    v40 = v16;
+    p_super = &v19->super.super;
 LABEL_55:
 
-    v36 = v103;
+    v41 = &v117->super.super;
 LABEL_56:
 
-    v29 = v14;
+    v34 = v16;
 LABEL_57:
 
-    v32 = v7;
+    v37 = v8;
 LABEL_58:
 
     goto LABEL_59;
   }
 
-  if ([(NSData *)v25 length]> 0x100000)
+  v30 = [(NSData *)v28 length];
+  if (v30 > 0x100000)
   {
-    v26 = copyLoggingHandle();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+    v31 = copyLoggingHandle(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
     {
-      __writeSplunkLog_block_invoke_cold_9(v25, v26);
+      __writeSplunkLog_block_invoke_cold_9(v28, v31);
     }
 
-    v27 = v25;
+    v32 = v28;
     goto LABEL_54;
   }
 
-  v99 = v25;
-  v41 = copySortedSplunkFileList();
-  v100 = v16;
-  v94 = v41;
-  v95 = v18;
-  if (v41)
+  v113 = v28;
+  v47 = copySortedSplunkFileList();
+  v114 = v19;
+  v108 = v47;
+  v109 = v21;
+  if (v47)
   {
-    v42 = [[NSMutableArray alloc] initWithArray:v41];
-    if ([v42 count] >= 0x15)
+    v48 = [[NSMutableArray alloc] initWithArray:v47];
+    v49 = [v48 count];
+    if (v49 >= 0x15)
     {
       do
       {
-        v43 = copyLoggingHandle();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+        v50 = copyLoggingHandle(v49);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
         {
-          __writeSplunkLog_block_invoke_cold_5(v128, v42, &v129, v43);
+          __writeSplunkLog_block_invoke_cold_5(v142, v48, &v143, v50);
         }
 
-        v44 = +[NSFileManager defaultManager];
-        v45 = [v42 lastObject];
-        [(NSFileManager *)v44 removeItemAtPath:v45 error:0];
+        v51 = +[NSFileManager defaultManager];
+        v52 = [v48 lastObject];
+        [(NSFileManager *)v51 removeItemAtPath:v52 error:0];
 
-        [v42 removeLastObject];
+        [v48 removeLastObject];
+        v49 = [v48 count];
       }
 
-      while ([v42 count] > 0x14);
+      while (v49 > 0x14);
     }
   }
 
   else
   {
-    v42 = 0;
+    v48 = 0;
   }
 
-  v96 = v10;
-  v97 = v14;
-  v101 = v12;
-  v98 = v3;
-  v116 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  v113 = 0u;
-  obj = v42;
-  v47 = [obj countByEnumeratingWithState:&v113 objects:v127 count:16];
-  if (v47)
+  v110 = v12;
+  v111 = v16;
+  v115 = v14;
+  v112 = v4;
+  v130 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v127 = 0u;
+  obj = v48;
+  v55 = [obj countByEnumeratingWithState:&v127 objects:v141 count:16];
+  if (v55)
   {
-    v48 = v47;
-    v49 = 0;
-    v50 = *v114;
+    v56 = v55;
+    v57 = 0;
+    v58 = *v128;
 LABEL_63:
-    v51 = 0;
+    v59 = 0;
     while (1)
     {
-      v52 = v49;
-      if (*v114 != v50)
+      v60 = v57;
+      if (*v128 != v58)
       {
         objc_enumerationMutation(obj);
       }
 
-      v53 = *(*(&v113 + 1) + 8 * v51);
-      v54 = +[NSFileManager defaultManager];
-      v112 = v7;
-      v49 = [(NSFileManager *)v54 attributesOfItemAtPath:v53 error:&v112];
-      v55 = v112;
+      v61 = *(*(&v127 + 1) + 8 * v59);
+      v62 = +[NSFileManager defaultManager];
+      v126 = v8;
+      v57 = [(NSFileManager *)v62 attributesOfItemAtPath:v61 error:&v126];
+      v63 = v126;
 
-      if (v49)
+      if (v57)
       {
-        v56 = [(NSDictionary *)v49 objectForKeyedSubscript:NSFileSize];
-        v57 = isNSNumber(v56);
+        v65 = [(NSDictionary *)v57 objectForKeyedSubscript:NSFileSize];
+        v66 = isNSNumber(v65);
 
-        if (v57)
+        if (v66)
         {
-          v58 = [NSData alloc];
-          v111 = v55;
-          v59 = [v58 initWithContentsOfFile:v53 options:0 error:&v111];
-          v60 = v111;
+          v68 = [NSData alloc];
+          v125 = v63;
+          v69 = [v68 initWithContentsOfFile:v61 options:0 error:&v125];
+          v70 = v125;
 
-          if (v59)
+          if (v69)
           {
-            v109 = 0;
-            v61 = [NSPropertyListSerialization propertyListWithData:v59 options:0 format:0 error:&v109];
-            v7 = v109;
+            v123 = 0;
+            v72 = [NSPropertyListSerialization propertyListWithData:v69 options:0 format:0 error:&v123];
+            v8 = v123;
 
-            v62 = isNSArray(v61);
-            if (v62)
+            v73 = isNSArray(v72);
+            if (v73)
             {
-              v63 = v62;
-              v64 = [v61 count];
+              v74 = v73;
+              v75 = [v72 count];
 
-              if (v64 < 0x3E9)
+              if (v75 < 0x3E9)
               {
-                v74 = [(NSDictionary *)v49 objectForKeyedSubscript:NSFileSize];
-                v75 = [v74 integerValue];
+                v85 = [(NSDictionary *)v57 objectForKeyedSubscript:NSFileSize];
+                v86 = [v85 integerValue];
 
-                v76 = [NSMutableArray arrayWithArray:v61];
-                v77 = v53;
+                v87 = [NSMutableArray arrayWithArray:v72];
+                v88 = v61;
 
-                if (v76 && [(NSMutableArray *)v76 count]!= 1000 && [(NSData *)v99 length]+ v75 <= 0x100000)
+                if (v87 && [(NSMutableArray *)v87 count]!= 1000 && [(NSData *)v113 length]+ v86 <= 0x100000)
                 {
-                  [(NSMutableArray *)v76 addObject:v101];
+                  [(NSMutableArray *)v87 addObject:v115];
                   goto LABEL_96;
                 }
 
@@ -6098,83 +6144,83 @@ LABEL_63:
               }
             }
 
-            v65 = copyLoggingHandle();
-            if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+            v76 = copyLoggingHandle(v73);
+            if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v124 = v53;
-              v125 = 2112;
-              v126 = v7;
-              _os_log_fault_impl(&_mh_execute_header, v65, OS_LOG_TYPE_FAULT, "Invalid splunk file (%@): %@", buf, 0x16u);
+              v138 = v61;
+              v139 = 2112;
+              v140 = v8;
+              _os_log_fault_impl(&_mh_execute_header, v76, OS_LOG_TYPE_FAULT, "Invalid splunk file (%@): %@", buf, 0x16u);
             }
 
-            v66 = +[NSFileManager defaultManager];
-            [(NSFileManager *)v66 removeItemAtPath:0 error:0];
+            v77 = +[NSFileManager defaultManager];
+            [(NSFileManager *)v77 removeItemAtPath:0 error:0];
 
-            v67 = v61;
+            v78 = v72;
           }
 
           else
           {
-            v72 = copyLoggingHandle();
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
+            v83 = copyLoggingHandle(v71);
+            if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412546;
-              v124 = v53;
-              v125 = 2112;
-              v126 = v60;
-              _os_log_fault_impl(&_mh_execute_header, v72, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
+              v138 = v61;
+              v139 = 2112;
+              v140 = v70;
+              _os_log_fault_impl(&_mh_execute_header, v83, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
             }
 
-            v59 = +[NSFileManager defaultManager];
-            v110 = v60;
-            [(NSFileManager *)v59 removeItemAtPath:v53 error:&v110];
-            v7 = v110;
-            v67 = v60;
+            v69 = +[NSFileManager defaultManager];
+            v124 = v70;
+            [(NSFileManager *)v69 removeItemAtPath:v61 error:&v124];
+            v8 = v124;
+            v78 = v70;
           }
 
           goto LABEL_83;
         }
 
-        v68 = copyLoggingHandle();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+        v79 = copyLoggingHandle(v67);
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v124 = v53;
-          v69 = v68;
-          v70 = "Failed to retrieve size of %@.";
-          v71 = 12;
+          v138 = v61;
+          v80 = v79;
+          v81 = "Failed to retrieve size of %@.";
+          v82 = 12;
           goto LABEL_86;
         }
       }
 
       else
       {
-        v68 = copyLoggingHandle();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+        v79 = copyLoggingHandle(v64);
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412546;
-          v124 = v53;
-          v125 = 2112;
-          v126 = v55;
-          v69 = v68;
-          v70 = "Failed to retrieve attributes for %@: (%@)";
-          v71 = 22;
+          v138 = v61;
+          v139 = 2112;
+          v140 = v63;
+          v80 = v79;
+          v81 = "Failed to retrieve attributes for %@: (%@)";
+          v82 = 22;
 LABEL_86:
-          _os_log_fault_impl(&_mh_execute_header, v69, OS_LOG_TYPE_FAULT, v70, buf, v71);
+          _os_log_fault_impl(&_mh_execute_header, v80, OS_LOG_TYPE_FAULT, v81, buf, v82);
         }
       }
 
-      v59 = +[NSFileManager defaultManager];
-      [(NSFileManager *)v59 removeItemAtPath:v53 error:0];
-      v7 = v55;
+      v69 = +[NSFileManager defaultManager];
+      [(NSFileManager *)v69 removeItemAtPath:v61 error:0];
+      v8 = v63;
 LABEL_83:
 
-      if (v48 == ++v51)
+      if (v56 == ++v59)
       {
-        v73 = [obj countByEnumeratingWithState:&v113 objects:v127 count:16];
-        v48 = v73;
-        if (v73)
+        v84 = [obj countByEnumeratingWithState:&v127 objects:v141 count:16];
+        v56 = v84;
+        if (v84)
         {
           goto LABEL_63;
         }
@@ -6184,85 +6230,85 @@ LABEL_83:
     }
   }
 
-  v49 = 0;
+  v57 = 0;
 LABEL_94:
 
-  v76 = 0;
-  v77 = 0;
+  v87 = 0;
+  v88 = 0;
 LABEL_95:
-  v78 = v77;
-  v79 = v76;
-  v80 = [NSString alloc];
-  v81 = copy_splunk_directory_path();
-  v82 = +[NSUUID UUID];
-  v83 = [(NSUUID *)v82 UUIDString];
-  v77 = [v80 initWithFormat:@"%@/%@.splunklog", v81, v83];
+  v89 = v88;
+  v90 = v87;
+  v91 = [NSString alloc];
+  v92 = copy_splunk_directory_path(v91);
+  v93 = +[NSUUID UUID];
+  v94 = [(NSUUID *)v93 UUIDString];
+  v88 = [v91 initWithFormat:@"%@/%@.splunklog", v92, v94];
 
-  v76 = [[NSMutableArray alloc] initWithObjects:{v101, 0}];
-  if (v76)
+  v87 = [[NSMutableArray alloc] initWithObjects:{v115, 0}];
+  if (v87)
   {
 LABEL_96:
-    v108 = 0;
-    v84 = [NSPropertyListSerialization dataWithPropertyList:v76 format:200 options:0 error:&v108];
-    v85 = v108;
+    v122 = 0;
+    v96 = [NSPropertyListSerialization dataWithPropertyList:v87 format:200 options:0 error:&v122];
+    v97 = v122;
 
-    if (v84)
+    if (v96)
     {
-      v107 = v85;
-      v86 = store_data(v77, v84, &v107);
-      v87 = v107;
+      v121 = v97;
+      v99 = store_data(v88, v96, &v121);
+      v100 = v121;
 
-      if (v86)
+      if (v99)
       {
-        v88 = [@"com.apple.mobileactivationd.splunklogging" UTF8String];
+        v102 = [@"com.apple.mobileactivationd.splunklogging" UTF8String];
         handler[0] = _NSConcreteStackBlock;
         handler[1] = 3254779904;
         handler[2] = __writeSplunkLog_block_invoke_45;
         handler[3] = &__block_descriptor_40_e8_32s_e33_v16__0__NSObject_OS_xpc_object__8l;
-        v106 = *(v102 + 32);
-        xpc_activity_register(v88, XPC_ACTIVITY_CHECK_IN, handler);
+        v120 = *(v116 + 32);
+        xpc_activity_register(v102, XPC_ACTIVITY_CHECK_IN, handler);
 
-        v89 = v99;
+        v103 = v113;
       }
 
       else
       {
-        v93 = copyLoggingHandle();
-        if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
+        v107 = copyLoggingHandle(v101);
+        if (os_log_type_enabled(v107, OS_LOG_TYPE_FAULT))
         {
           __writeSplunkLog_block_invoke_cold_6();
         }
 
-        v89 = v99;
+        v103 = v113;
       }
 
-      v91 = v87;
+      v105 = v100;
     }
 
     else
     {
-      v92 = copyLoggingHandle();
-      if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
+      v106 = copyLoggingHandle(v98);
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_FAULT))
       {
         __writeSplunkLog_block_invoke_cold_7();
       }
 
-      v91 = v85;
+      v105 = v97;
     }
   }
 
   else
   {
-    v90 = copyLoggingHandle();
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
+    v104 = copyLoggingHandle(v95);
+    if (os_log_type_enabled(v104, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_cold_8();
     }
 
-    v91 = v7;
+    v105 = v8;
   }
 
-  v3 = v98;
+  v4 = v112;
 LABEL_59:
 }
 
@@ -6271,22 +6317,23 @@ void __writeSplunkLog_block_invoke_45(uint64_t a1, id a2)
   v3 = a2;
   if (xpc_activity_get_state(v3) == 2 && xpc_activity_should_defer(v3))
   {
-    if (xpc_activity_set_state(v3, 3))
+    v4 = xpc_activity_set_state(v3, 3);
+    if (v4)
     {
       goto LABEL_11;
     }
 
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       __writeSplunkLog_block_invoke_45_cold_1();
     }
   }
 
-  v5 = xpc_activity_copy_criteria(v3);
-  if (!v5 || xpc_activity_get_state(v3) == 2)
+  v6 = xpc_activity_copy_criteria(v3);
+  if (!v6 || xpc_activity_get_state(v3) == 2)
   {
-    splunk_activity_handler(*(a1 + 32), v5 == 0);
+    splunk_activity_handler(*(a1 + 32), v6 == 0);
   }
 
 LABEL_11:
@@ -6295,7 +6342,7 @@ LABEL_11:
 void splunk_activity_handler(void *a1, int a2)
 {
   v3 = a1;
-  v4 = copySplunkQueue();
+  v4 = copySplunkQueue(v3);
   if (v4)
   {
     if (a2)
@@ -6328,7 +6375,7 @@ void splunk_activity_handler(void *a1, int a2)
 
   else
   {
-    v5 = copyLoggingHandle();
+    v5 = copyLoggingHandle(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       copySplunkDeviceIdentifiers_cold_1();
@@ -6347,104 +6394,105 @@ void __splunk_activity_handler_block_invoke(uint64_t a1)
 
 void __splunk_activity_handler_block_invoke_51(uint64_t a1)
 {
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__6;
-  v43 = __Block_byref_object_dispose__6;
-  v44 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__6;
+  v45 = __Block_byref_object_dispose__6;
+  v46 = 0;
   v2 = copySortedSplunkFileList();
-  v25 = v2;
+  v27 = v2;
   if (!v2)
   {
-    v20 = 0;
+    v22 = 0;
     v4 = 0;
     goto LABEL_24;
   }
 
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v3 = [v2 reverseObjectEnumerator];
-  v4 = [v3 countByEnumeratingWithState:&v35 objects:v49 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v37 objects:v51 count:16];
   if (!v4)
   {
 LABEL_18:
-    v20 = 0;
-    v21 = 0;
+    v22 = 0;
+    v23 = 0;
 LABEL_22:
 
     goto LABEL_25;
   }
 
-  v5 = *v36;
+  v5 = *v38;
 LABEL_4:
   v6 = 0;
   while (1)
   {
-    if (*v36 != v5)
+    if (*v38 != v5)
     {
       objc_enumerationMutation(v3);
     }
 
-    v7 = *(*(&v35 + 1) + 8 * v6);
+    v7 = *(*(&v37 + 1) + 8 * v6);
     v8 = [NSData alloc];
-    v9 = v40 + 5;
-    obj = v40[5];
+    v9 = v42 + 5;
+    obj = v42[5];
     v10 = [v8 initWithContentsOfFile:v7 options:0 error:&obj];
     objc_storeStrong(v9, obj);
     if (!v10)
     {
-      v17 = copyLoggingHandle();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v19 = copyLoggingHandle(v11);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
       {
-        v19 = v40[5];
+        v21 = v42[5];
         *buf = 138412546;
-        v46 = v7;
-        v47 = 2112;
-        v48 = v19;
-        _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
+        v48 = v7;
+        v49 = 2112;
+        v50 = v21;
+        _os_log_fault_impl(&_mh_execute_header, v19, OS_LOG_TYPE_FAULT, "Failed to load %@: %@", buf, 0x16u);
       }
 
-      v12 = +[NSFileManager defaultManager];
-      [(NSFileManager *)v12 removeItemAtPath:v7 error:0];
+      v13 = +[NSFileManager defaultManager];
+      [(NSFileManager *)v13 removeItemAtPath:v7 error:0];
       goto LABEL_16;
     }
 
-    v11 = v40;
-    v33 = 0;
-    v12 = [NSPropertyListSerialization propertyListWithData:v10 options:0 format:0 error:&v33];
-    objc_storeStrong(v11 + 5, v33);
-    v13 = isNSArray(v12);
-    if (v13)
+    v12 = v42;
+    v35 = 0;
+    v13 = [NSPropertyListSerialization propertyListWithData:v10 options:0 format:0 error:&v35];
+    objc_storeStrong(v12 + 5, v35);
+    v14 = isNSArray(v13);
+    v15 = v14;
+    if (v14)
     {
-      v14 = [(NSFileManager *)v12 count]> 0x3E8;
+      v16 = [(NSFileManager *)v13 count]> 0x3E8;
 
-      if (!v14)
+      if (!v16)
       {
         break;
       }
     }
 
-    v15 = copyLoggingHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = copyLoggingHandle(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v18 = v40[5];
+      v20 = v42[5];
       *buf = 138412546;
-      v46 = v7;
-      v47 = 2112;
-      v48 = v18;
-      _os_log_fault_impl(&_mh_execute_header, v15, OS_LOG_TYPE_FAULT, "Invalid splunk file (%@): %@", buf, 0x16u);
+      v48 = v7;
+      v49 = 2112;
+      v50 = v20;
+      _os_log_fault_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, "Invalid splunk file (%@): %@", buf, 0x16u);
     }
 
-    v16 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v16 removeItemAtPath:v7 error:0];
+    v18 = +[NSFileManager defaultManager];
+    [(NSFileManager *)v18 removeItemAtPath:v7 error:0];
 
 LABEL_16:
     if (v4 == ++v6)
     {
-      v4 = [v3 countByEnumeratingWithState:&v35 objects:v49 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v37 objects:v51 count:16];
       if (v4)
       {
         goto LABEL_4;
@@ -6456,37 +6504,44 @@ LABEL_16:
 
   v4 = v7;
 
-  if (v12)
+  if (v13)
   {
-    v22 = [v4 stringByAppendingString:@".inflight"];
-    v23 = +[NSFileManager defaultManager];
-    [(NSFileManager *)v23 moveItemAtPath:v4 toPath:v22 error:0];
+    v24 = [v4 stringByAppendingString:@".inflight"];
+    v25 = +[NSFileManager defaultManager];
+    [(NSFileManager *)v25 moveItemAtPath:v4 toPath:v24 error:0];
 
-    v24 = dispatch_get_global_queue(0, 0);
+    v26 = dispatch_get_global_queue(0, 0);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3254779904;
     block[2] = __splunk_activity_handler_block_invoke_55;
     block[3] = &__block_descriptor_80_e8_32s40s48s56s64s72r_e5_v8__0l;
-    v20 = v22;
-    v27 = v20;
-    v21 = v12;
-    v28 = v21;
+    v22 = v24;
+    v29 = v22;
+    v23 = v13;
+    v30 = v23;
     v4 = v4;
-    v29 = v4;
-    v32 = &v39;
-    v30 = *(a1 + 32);
-    v31 = *(a1 + 40);
-    dispatch_async(v24, block);
+    v31 = v4;
+    v34 = &v41;
+    v32 = *(a1 + 32);
+    v33 = *(a1 + 40);
+    dispatch_async(v26, block);
 
-    v3 = v27;
+    v3 = v29;
     goto LABEL_22;
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_24:
-  v21 = 0;
+  v23 = 0;
 LABEL_25:
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v41, 8);
+}
+
+void sub_10031A4F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
@@ -6504,7 +6559,7 @@ void __splunk_activity_handler_block_invoke_55(uint64_t a1)
   v76 = __Block_byref_object_copy__6;
   v77 = __Block_byref_object_dispose__6;
   v78 = 0;
-  v2 = copyLoggingHandle();
+  v2 = copyLoggingHandle(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -6798,6 +6853,13 @@ LABEL_45:
   _Block_object_dispose(&v73, 8);
 }
 
+void sub_10031B0EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void __splunk_activity_handler_block_invoke_56(uint64_t a1, int a2, int a3, uint64_t a4, id a5)
 {
   v7 = a5;
@@ -6837,21 +6899,21 @@ void __splunk_activity_handler_block_invoke_2_57(uint64_t a1)
   {
     if ((v3 - 300) >= 0xC8)
     {
-      v14 = +[NSFileManager defaultManager];
-      [(NSFileManager *)v14 moveItemAtPath:*(a1 + 32) toPath:*(a1 + 40) error:0];
+      v15 = +[NSFileManager defaultManager];
+      [(NSFileManager *)v15 moveItemAtPath:*(a1 + 32) toPath:*(a1 + 40) error:0];
 
-      v15 = *(a1 + 80);
-      v16 = *(a1 + 48);
-      v17 = [NSHTTPURLResponse localizedStringForStatusCode:v15];
-      v18 = createMobileActivationError("splunk_activity_handler_block_invoke_2", 1484, @"com.apple.MobileActivation.ServerErrorDomain", v15, v16, @"Server error: %ld (%@)", v15, v17);
+      v16 = *(a1 + 80);
+      v17 = *(a1 + 48);
+      v18 = [NSHTTPURLResponse localizedStringForStatusCode:v16];
+      v19 = createMobileActivationError("splunk_activity_handler_block_invoke_2", 1484, @"com.apple.MobileActivation.ServerErrorDomain", v16, v17, @"Server error: %ld (%@)", v16, v18);
 
-      v19 = *(a1 + 80);
-      v20 = [NSHTTPURLResponse localizedStringForStatusCode:v19];
-      v21 = createMobileActivationError("splunk_activity_handler_block_invoke_2", 1484, @"com.apple.MobileActivation.ErrorDomain", -6, v18, @"Server error: %ld (%@)", v19, v20);
+      v20 = *(a1 + 80);
+      v21 = [NSHTTPURLResponse localizedStringForStatusCode:v20];
+      v22 = createMobileActivationError("splunk_activity_handler_block_invoke_2", 1484, @"com.apple.MobileActivation.ErrorDomain", -6, v19, @"Server error: %ld (%@)", v20, v21);
 
-      v22 = *(*(a1 + 64) + 8);
-      v23 = *(v22 + 40);
-      *(v22 + 40) = v21;
+      v23 = *(*(a1 + 64) + 8);
+      v24 = *(v23 + 40);
+      *(v23 + 40) = v22;
 
       goto LABEL_11;
     }
@@ -6868,78 +6930,84 @@ void __splunk_activity_handler_block_invoke_2_57(uint64_t a1)
     v11 = *(v10 + 40);
     *(v10 + 40) = v9;
 
-    v12 = copyLoggingHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = copyLoggingHandle(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      __splunk_activity_handler_block_invoke_2_57_cold_1(a1, a1 + 64, v12);
+      __splunk_activity_handler_block_invoke_2_57_cold_1(a1, a1 + 64, v13);
     }
   }
 
-  v13 = +[NSFileManager defaultManager];
-  [(NSFileManager *)v13 removeItemAtPath:*(a1 + 32) error:0];
+  v14 = +[NSFileManager defaultManager];
+  [(NSFileManager *)v14 removeItemAtPath:*(a1 + 32) error:0];
 
   data_ark_remove(*(a1 + 56), 0, @"SplunkRetryAttempt");
 LABEL_11:
-  v24 = copySortedSplunkFileList();
-  v25 = v24;
-  if (!v24 || ![v24 count])
+  v25 = copySortedSplunkFileList();
+  v26 = v25;
+  if (!v25)
+  {
+    goto LABEL_24;
+  }
+
+  v25 = [v25 count];
+  if (!v25)
   {
     goto LABEL_24;
   }
 
   if (*(*(*(a1 + 64) + 8) + 40))
   {
-    v26 = data_ark_copy(*(a1 + 56), 0, @"SplunkRetryAttempt");
-    v27 = isNSNumber(v26);
+    v27 = data_ark_copy(*(a1 + 56), 0, @"SplunkRetryAttempt");
+    v28 = isNSNumber(v27);
 
-    if (v27)
+    if (v28)
     {
-      v28 = [NSNumber numberWithLongLong:[(NSNumber *)v26 longLongValue]+ 1];
+      v29 = [NSNumber numberWithLongLong:[(NSNumber *)v27 longLongValue]+ 1];
 
-      if ([(NSNumber *)v28 unsignedLongLongValue]<= v2)
+      if ([(NSNumber *)v29 unsignedLongLongValue]<= v2)
       {
 LABEL_20:
-        data_ark_set(*(a1 + 56), 0, @"SplunkRetryAttempt", v28, 1);
-        [(NSNumber *)v28 doubleValue];
-        v29 = (exp2(v30) * 60.0);
+        data_ark_set(*(a1 + 56), 0, @"SplunkRetryAttempt", v29, 1);
+        [(NSNumber *)v29 doubleValue];
+        v30 = (exp2(v31) * 60.0);
 
         goto LABEL_21;
       }
 
-      v26 = v28;
-      v28 = [NSNumber numberWithUnsignedInt:v2];
+      v27 = v29;
+      v29 = [NSNumber numberWithUnsignedInt:v2];
     }
 
     else
     {
-      v28 = &off_1003FBD98;
+      v29 = &off_1003FBD98;
     }
 
     goto LABEL_20;
   }
 
-  v29 = 5;
+  v30 = 5;
 LABEL_21:
-  v31 = copyLoggingHandle();
-  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 67109120;
-    v36 = v29;
-    _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Rescheduling splunk logging for %d seconds.", buf, 8u);
-  }
-
-  scheduleXPCActivity(*(a1 + 56), [@"com.apple.mobileactivationd.splunklogging" UTF8String], v29, 1, 0x400u, 0x400u, &__block_literal_global_66);
-LABEL_24:
-  v32 = copyLoggingHandle();
+  v32 = copyLoggingHandle(v25);
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Successfully performed splunk logging.", buf, 2u);
+    *buf = 67109120;
+    v37 = v30;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Rescheduling splunk logging for %d seconds.", buf, 8u);
   }
 
-  v33 = *(*(a1 + 72) + 8);
-  v34 = *(v33 + 40);
-  *(v33 + 40) = 0;
+  scheduleXPCActivity(*(a1 + 56), [@"com.apple.mobileactivationd.splunklogging" UTF8String], v30, 1, 0x400u, 0x400u, &__block_literal_global_66);
+LABEL_24:
+  v33 = copyLoggingHandle(v25);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Successfully performed splunk logging.", buf, 2u);
+  }
+
+  v34 = *(*(a1 + 72) + 8);
+  v35 = *(v34 + 40);
+  *(v34 + 40) = 0;
 }
 
 void __copy_helper_block_e8_32s40s48s56s64r72r(uint64_t a1, uint64_t a2)
@@ -6976,26 +7044,27 @@ void __destroy_helper_block_e8_32s40s48s56s64s72r(uint64_t a1)
 void splunk_daily_stats_activity_handler(void *a1)
 {
   v1 = a1;
+  v2 = v1;
   if (v1)
   {
-    v2 = copySplunkQueue();
-    if (v2)
+    v3 = copySplunkQueue(v1);
+    if (v3)
     {
-      v3 = v2;
+      v4 = v3;
       block[0] = _NSConcreteStackBlock;
       block[1] = 3254779904;
       block[2] = __splunk_daily_stats_activity_handler_block_invoke;
       block[3] = &__block_descriptor_40_e8_32s_e5_v8__0l;
-      v6 = v1;
-      v4 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, block);
+      v7 = v2;
+      v5 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, block);
 
-      dispatch_async(v3, v4);
+      dispatch_async(v4, v5);
     }
 
     else
     {
-      v4 = copyLoggingHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+      v5 = copyLoggingHandle(0);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         copySplunkDeviceIdentifiers_cold_1();
       }
@@ -7004,11 +7073,11 @@ void splunk_daily_stats_activity_handler(void *a1)
 
   else
   {
-    v4 = copyLoggingHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = copyLoggingHandle(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Invalid input.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalid input.", buf, 2u);
     }
   }
 }
@@ -7016,56 +7085,58 @@ void splunk_daily_stats_activity_handler(void *a1)
 void __splunk_daily_stats_activity_handler_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v8 = 0;
-  v3 = copySplunkDailyStatistics(v2, &v8);
-  v5 = v8;
+  v9 = 0;
+  v3 = copySplunkDailyStatistics(v2, &v9);
+  v4 = v9;
+  v6 = v4;
   if (!v3)
   {
-    v6 = copyLoggingHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = copyLoggingHandle(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __splunk_daily_stats_activity_handler_block_invoke_cold_1();
     }
   }
 
-  writeSplunkLog(*(a1 + 32), 25, -1, "splunk_daily_stats_activity_handler_block_invoke", 1571, v3, 0, v4, v7);
+  writeSplunkLog(*(a1 + 32), 25, -1, "splunk_daily_stats_activity_handler_block_invoke", 1571, v3, 0, v5, v8);
 }
 
 void splunk_roll_uuid_activity_handler(void *a1)
 {
   v1 = a1;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3032000000;
-  v14 = __Block_byref_object_copy__6;
-  v15 = __Block_byref_object_dispose__6;
-  v16 = 0;
+  v2 = v1;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__6;
+  v16 = __Block_byref_object_dispose__6;
+  v17 = 0;
   if (v1)
   {
-    v2 = copySplunkQueue();
-    if (v2)
+    v3 = copySplunkQueue(v1);
+    if (v3)
     {
-      v3 = v2;
+      v4 = v3;
       [@"com.apple.mobileactivationd.splunklogging.rollidentifier" UTF8String];
-      v4 = os_transaction_create();
-      v5 = v12[5];
-      v12[5] = v4;
+      v5 = os_transaction_create();
+      v6 = v13[5];
+      v13[5] = v5;
 
-      v7[0] = _NSConcreteStackBlock;
-      v7[1] = 3254779904;
-      v7[2] = __splunk_roll_uuid_activity_handler_block_invoke;
-      v7[3] = &__block_descriptor_48_e8_32s40r_e5_v8__0l;
-      v8 = v1;
-      v9 = &v11;
-      v6 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v7);
+      v8[0] = _NSConcreteStackBlock;
+      v8[1] = 3254779904;
+      v8[2] = __splunk_roll_uuid_activity_handler_block_invoke;
+      v8[3] = &__block_descriptor_48_e8_32s40r_e5_v8__0l;
+      v9 = v2;
+      v10 = &v12;
+      v7 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_DEFAULT, 0, v8);
 
-      dispatch_async(v3, v6);
+      dispatch_async(v4, v7);
     }
 
     else
     {
-      v6 = copyLoggingHandle();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+      v7 = copyLoggingHandle(0);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         copySplunkDeviceIdentifiers_cold_1();
       }
@@ -7074,20 +7145,20 @@ void splunk_roll_uuid_activity_handler(void *a1)
 
   else
   {
-    v6 = copyLoggingHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = copyLoggingHandle(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalid input.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Invalid input.", buf, 2u);
     }
   }
 
-  _Block_object_dispose(&v11, 8);
+  _Block_object_dispose(&v12, 8);
 }
 
-void sub_10031BCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10031BCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7095,22 +7166,22 @@ void sub_10031BCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void __splunk_roll_uuid_activity_handler_block_invoke(uint64_t a1)
 {
   rollSplunkLogUUID(*(a1 + 32));
-  v2 = copyLoggingHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = copyLoggingHandle(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Successfully rolled splunk logging UUID.", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Successfully rolled splunk logging UUID.", v6, 2u);
   }
 
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = 0;
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = 0;
 }
 
 void rollSplunkLogUUID(void *a1)
 {
   v1 = a1;
-  v2 = copySplunkUUIDQueue();
+  v2 = copySplunkUUIDQueue(v1);
   if (v2)
   {
     block[0] = _NSConcreteStackBlock;
@@ -7124,7 +7195,7 @@ void rollSplunkLogUUID(void *a1)
 
   else
   {
-    v3 = copyLoggingHandle();
+    v3 = copyLoggingHandle(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       copySplunkDeviceIdentifiers_cold_1();
@@ -7132,16 +7203,16 @@ void rollSplunkLogUUID(void *a1)
   }
 }
 
-id copySplunkUUIDQueue()
+id copySplunkUUIDQueue(uint64_t a1)
 {
   if (copySplunkUUIDQueue_onceToken != -1)
   {
     copySplunkUUIDQueue_cold_1();
   }
 
-  v1 = copySplunkUUIDQueue_splunkQueue;
+  v2 = copySplunkUUIDQueue_splunkQueue;
 
-  return v1;
+  return v2;
 }
 
 void __rollSplunkLogUUID_block_invoke(uint64_t a1)
@@ -7552,16 +7623,16 @@ LABEL_54:
   }
 }
 
-id copy_system_container_path()
+id copy_system_container_path(uint64_t a1)
 {
   if (copy_system_container_path_onceToken != -1)
   {
     copy_system_container_path_cold_1();
   }
 
-  v1 = copy_system_container_path_retval;
+  v2 = copy_system_container_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_system_container_path_block_invoke(id a1)
@@ -7595,16 +7666,16 @@ NSString *copy_group_container_path(uint64_t a1)
   return v3;
 }
 
-id copy_regulatory_images_directory_path()
+id copy_regulatory_images_directory_path(uint64_t a1)
 {
   if (copy_regulatory_images_directory_path_onceToken != -1)
   {
     copy_regulatory_images_directory_path_cold_1();
   }
 
-  v1 = copy_regulatory_images_directory_path_retval;
+  v2 = copy_regulatory_images_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_regulatory_images_directory_path_block_invoke(id a1)
@@ -7619,16 +7690,16 @@ void __copy_regulatory_images_directory_path_block_invoke(id a1)
   }
 }
 
-id copy_suinfo_directory_path()
+id copy_suinfo_directory_path(uint64_t a1)
 {
   if (copy_suinfo_directory_path_onceToken != -1)
   {
     copy_suinfo_directory_path_cold_1();
   }
 
-  v1 = copy_suinfo_directory_path_retval;
+  v2 = copy_suinfo_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_suinfo_directory_path_block_invoke(id a1)
@@ -7643,16 +7714,16 @@ void __copy_suinfo_directory_path_block_invoke(id a1)
   }
 }
 
-id copy_software_update_log_directory_path()
+id copy_software_update_log_directory_path(uint64_t a1)
 {
   if (copy_software_update_log_directory_path_onceToken != -1)
   {
     copy_software_update_log_directory_path_cold_1();
   }
 
-  v1 = copy_software_update_log_directory_path_retval;
+  v2 = copy_software_update_log_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_software_update_log_directory_path_block_invoke(id a1)
@@ -7662,16 +7733,16 @@ void __copy_software_update_log_directory_path_block_invoke(id a1)
   copy_software_update_log_directory_path_retval = v1;
 }
 
-id copy_software_update_splunk_directory_path()
+id copy_software_update_splunk_directory_path(uint64_t a1)
 {
   if (copy_software_update_splunk_directory_path_onceToken != -1)
   {
     copy_software_update_splunk_directory_path_cold_1();
   }
 
-  v1 = copy_software_update_splunk_directory_path_retval;
+  v2 = copy_software_update_splunk_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_software_update_splunk_directory_path_block_invoke(id a1)
@@ -7681,16 +7752,16 @@ void __copy_software_update_splunk_directory_path_block_invoke(id a1)
   copy_software_update_splunk_directory_path_retval = v1;
 }
 
-id copy_uik_path()
+id copy_uik_path(uint64_t a1)
 {
   if (copy_uik_path_onceToken != -1)
   {
     copy_uik_path_cold_1();
   }
 
-  v1 = copy_uik_path_retval;
+  v2 = copy_uik_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_uik_path_block_invoke(id a1)
@@ -7705,16 +7776,16 @@ void __copy_uik_path_block_invoke(id a1)
   }
 }
 
-id copy_software_update_ucrt_directory_path()
+id copy_software_update_ucrt_directory_path(uint64_t a1)
 {
   if (copy_software_update_ucrt_directory_path_onceToken != -1)
   {
     copy_software_update_ucrt_directory_path_cold_1();
   }
 
-  v1 = copy_software_update_ucrt_directory_path_retval;
+  v2 = copy_software_update_ucrt_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_software_update_ucrt_directory_path_block_invoke(id a1)
@@ -7729,21 +7800,21 @@ void __copy_software_update_ucrt_directory_path_block_invoke(id a1)
   }
 }
 
-id copy_activation_records_directory_path()
+id copy_activation_records_directory_path(uint64_t a1)
 {
   if (copy_activation_records_directory_path_onceToken != -1)
   {
     copy_activation_records_directory_path_cold_1();
   }
 
-  v1 = copy_activation_records_directory_path_retval;
+  v2 = copy_activation_records_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_activation_records_directory_path_block_invoke(id a1)
 {
-  v1 = copy_system_container_path();
+  v1 = copy_system_container_path(a1);
   v2 = v1;
   if (v1)
   {
@@ -7753,16 +7824,16 @@ void __copy_activation_records_directory_path_block_invoke(id a1)
   }
 }
 
-id copy_ucrt_path()
+id copy_ucrt_path(uint64_t a1)
 {
   if (copy_ucrt_path_onceToken != -1)
   {
     copy_ucrt_path_cold_1();
   }
 
-  v1 = copy_ucrt_path_retval;
+  v2 = copy_ucrt_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_ucrt_path_block_invoke(id a1)
@@ -7777,16 +7848,16 @@ void __copy_ucrt_path_block_invoke(id a1)
   }
 }
 
-id copy_dcrt_path()
+id copy_dcrt_path(uint64_t a1)
 {
   if (copy_dcrt_path_onceToken != -1)
   {
     copy_dcrt_path_cold_1();
   }
 
-  v1 = copy_dcrt_path_retval;
+  v2 = copy_dcrt_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_dcrt_path_block_invoke(id a1)
@@ -7796,21 +7867,21 @@ void __copy_dcrt_path_block_invoke(id a1)
   copy_dcrt_path_retval = v1;
 }
 
-id copy_legacy_dcrt_path()
+id copy_legacy_dcrt_path(uint64_t a1)
 {
   if (copy_legacy_dcrt_path_onceToken != -1)
   {
     copy_legacy_dcrt_path_cold_1();
   }
 
-  v1 = copy_legacy_dcrt_path_retval;
+  v2 = copy_legacy_dcrt_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_legacy_dcrt_path_block_invoke(id a1)
 {
-  v1 = copy_system_container_path();
+  v1 = copy_system_container_path(a1);
   v2 = v1;
   if (v1)
   {
@@ -7820,21 +7891,21 @@ void __copy_legacy_dcrt_path_block_invoke(id a1)
   }
 }
 
-id copy_data_ark_directory_path()
+id copy_data_ark_directory_path(uint64_t a1)
 {
   if (copy_data_ark_directory_path_onceToken != -1)
   {
     copy_data_ark_directory_path_cold_1();
   }
 
-  v1 = copy_data_ark_directory_path_retval;
+  v2 = copy_data_ark_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_data_ark_directory_path_block_invoke(id a1)
 {
-  v1 = copy_system_container_path();
+  v1 = copy_system_container_path(a1);
   v2 = v1;
   if (v1)
   {
@@ -7844,16 +7915,16 @@ void __copy_data_ark_directory_path_block_invoke(id a1)
   }
 }
 
-id copy_log_directory_path()
+id copy_log_directory_path(uint64_t a1)
 {
   if (copy_log_directory_path_onceToken != -1)
   {
     copy_log_directory_path_cold_1();
   }
 
-  v1 = copy_log_directory_path_retval;
+  v2 = copy_log_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_log_directory_path_block_invoke(id a1)
@@ -7862,21 +7933,21 @@ void __copy_log_directory_path_block_invoke(id a1)
   copy_log_directory_path_retval = @"/private/var/mobile/Library/Logs/mobileactivationd";
 }
 
-id copy_splunk_directory_path()
+id copy_splunk_directory_path(uint64_t a1)
 {
   if (copy_splunk_directory_path_onceToken != -1)
   {
     copy_splunk_directory_path_cold_1();
   }
 
-  v1 = copy_splunk_directory_path_retval;
+  v2 = copy_splunk_directory_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_splunk_directory_path_block_invoke(id a1)
 {
-  v1 = copy_system_container_path();
+  v1 = copy_system_container_path(a1);
   v2 = v1;
   if (v1)
   {
@@ -7927,7 +7998,7 @@ LABEL_9:
   return v8;
 }
 
-uint64_t load_identity(CFTypeRef *a1, id a2, void *a3, void *a4, int *a5, NSError **a6)
+uint64_t load_identity(CFTypeRef *a1, id a2, void *a3, void *a4, OSStatus *a5, NSError **a6)
 {
   v11 = a2;
   v12 = a3;
@@ -8604,7 +8675,7 @@ LABEL_12:
   return v20;
 }
 
-CFTypeRef copy_keychain_item(void *a1, void *a2, void *a3, int *a4, NSError **a5)
+CFTypeRef copy_keychain_item(void *a1, void *a2, void *a3, OSStatus *a4, NSError **a5)
 {
   v9 = a1;
   v10 = a2;
@@ -8754,9 +8825,9 @@ id getLAContextClass()
   return v1;
 }
 
-void sub_10031E988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10031E988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8991,7 +9062,7 @@ LABEL_11:
   return v15;
 }
 
-id copy_keychain_data(void *a1, void *a2, int *a3, NSError **a4)
+id copy_keychain_data(void *a1, void *a2, OSStatus *a3, NSError **a4)
 {
   v7 = a1;
   v8 = a2;
@@ -9069,7 +9140,7 @@ LABEL_9:
   return v17;
 }
 
-id copy_keychain_data_attributes(void *a1, void *a2, int *a3, NSError **a4)
+id copy_keychain_data_attributes(void *a1, void *a2, OSStatus *a3, NSError **a4)
 {
   v7 = a1;
   v8 = a2;
@@ -9378,7 +9449,7 @@ Class __getLAContextClass_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __LocalAuthenticationLibraryCore_block_invoke()
+uint64_t __LocalAuthenticationLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   LocalAuthenticationLibraryCore_frameworkLibrary = result;
@@ -9460,9 +9531,9 @@ CFTypeRef createReferenceKeyBlob(const void *a1, char a2, id a3, NSError **a4)
       v12 = createMobileActivationError("createReferenceKeyBlob", 73, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unsupported size (%@)", @"KeySizeInBits", v11);
       v13 = 0;
 LABEL_20:
-      v21 = 0;
-      v22 = 0;
       v23 = 0;
+      v24 = 0;
+      v25 = 0;
       v18 = 0;
       goto LABEL_31;
     }
@@ -9500,7 +9571,8 @@ LABEL_20:
     }
   }
 
-  if ((isRunningInRecovery() & 1) != 0 || isRunningInDiagnosticsMode())
+  v19 = isRunningInRecovery();
+  if ((v19 & 1) != 0 || isRunningInDiagnosticsMode(v19, v20))
   {
     v18 = SecAccessControlCreate();
     if (!v18)
@@ -9509,13 +9581,13 @@ LABEL_20:
       goto LABEL_29;
     }
 
-    v19 = kSecAttrAccessibleUntilReboot;
+    v21 = kSecAttrAccessibleUntilReboot;
     if ((SecAccessControlSetProtection() & 1) == 0)
     {
-      MobileActivationError = createMobileActivationError("createReferenceKeyBlob", 109, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to set ACL protection to %@.", v19);
+      MobileActivationError = createMobileActivationError("createReferenceKeyBlob", 109, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to set ACL protection to %@.", v21);
 LABEL_29:
       v12 = MobileActivationError;
-      v21 = 0;
+      v23 = 0;
       goto LABEL_30;
     }
   }
@@ -9531,46 +9603,46 @@ LABEL_29:
   }
 
 LABEL_23:
-  v24 = objc_alloc_init(NSMutableDictionary);
-  v21 = v24;
-  if (!v24)
+  v26 = objc_alloc_init(NSMutableDictionary);
+  v23 = v26;
+  if (!v26)
   {
     v12 = createMobileActivationError("createReferenceKeyBlob", 123, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to alloc dictionary.");
 LABEL_30:
-    v22 = 0;
-    v23 = 0;
+    v24 = 0;
+    v25 = 0;
     goto LABEL_31;
   }
 
-  [v24 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPermanent];
-  [v21 setObject:kSecAttrTokenIDAppleKeyStore forKeyedSubscript:kSecAttrTokenID];
-  [v21 setObject:v8 forKeyedSubscript:kSecAttrKeyType];
-  [v21 setObject:v18 forKeyedSubscript:kSecAttrAccessControl];
-  [v21 setObject:v11 forKeyedSubscript:kSecAttrKeySizeInBits];
-  v25 = SecKeyCreateRandomKey(v21, &error);
-  v23 = v25;
-  if (v25)
+  [v26 setObject:&__kCFBooleanFalse forKeyedSubscript:kSecAttrIsPermanent];
+  [v23 setObject:kSecAttrTokenIDAppleKeyStore forKeyedSubscript:kSecAttrTokenID];
+  [v23 setObject:v8 forKeyedSubscript:kSecAttrKeyType];
+  [v23 setObject:v18 forKeyedSubscript:kSecAttrAccessControl];
+  [v23 setObject:v11 forKeyedSubscript:kSecAttrKeySizeInBits];
+  v27 = SecKeyCreateRandomKey(v23, &error);
+  v25 = v27;
+  if (v27)
   {
-    v22 = CFRetain(v25);
+    v24 = CFRetain(v27);
     v12 = 0;
   }
 
   else
   {
     v12 = createMobileActivationError("createReferenceKeyBlob", 141, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to create ref key.");
-    v22 = 0;
+    v24 = 0;
   }
 
 LABEL_31:
-  if (a4 && !v22)
+  if (a4 && !v24)
   {
-    v26 = v12;
+    v28 = v12;
     *a4 = v12;
   }
 
-  if (v23)
+  if (v25)
   {
-    CFRelease(v23);
+    CFRelease(v25);
   }
 
   if (v18)
@@ -9583,7 +9655,7 @@ LABEL_31:
     CFRelease(error);
   }
 
-  return v22;
+  return v24;
 }
 
 id create_baa_info(__SecKey *a1, id a2, NSError **a3)
@@ -9591,97 +9663,97 @@ id create_baa_info(__SecKey *a1, id a2, NSError **a3)
   v4 = a2;
   error = 0;
   v5 = [NSMutableArray alloc];
-  v241[0] = @"1.2.840.113635.100.8.4";
-  v241[1] = @"1.2.840.113635.100.8.5";
-  v241[2] = @"1.2.840.113635.100.8.7";
-  v6 = [NSArray arrayWithObjects:v241 count:3];
+  v243[0] = @"1.2.840.113635.100.8.4";
+  v243[1] = @"1.2.840.113635.100.8.5";
+  v243[2] = @"1.2.840.113635.100.8.7";
+  v6 = [NSArray arrayWithObjects:v243 count:3];
   v7 = [v5 initWithArray:v6];
 
   v8 = [NSNumber numberWithUnsignedInt:0];
-  v219 = v4;
+  v221 = v4;
   if (!v4)
   {
-    v191 = 0;
-    v187 = 0;
+    v193 = 0;
     v189 = 0;
+    v191 = 0;
     v25 = 0;
-    v210 = 0;
+    v212 = 0;
     v26 = 0;
     v27 = 0;
-    v198 = 0;
-    v199 = 0;
     v200 = 0;
     v201 = 0;
-    v195 = 0;
-    v196 = 0;
+    v202 = 0;
+    v203 = 0;
     v197 = 0;
+    v198 = 0;
+    v199 = 0;
     v28 = 0;
     v29 = 1;
-    v205 = &off_1003FBDF8;
-    v215 = 0;
-    v216 = &off_1003FBDF8;
-    v206 = &off_1003FBDE0;
+    v207 = &off_1003FBDF8;
+    v217 = 0;
+    v218 = &off_1003FBDF8;
+    v208 = &off_1003FBDE0;
     goto LABEL_25;
   }
 
   v9 = [v4 objectForKeyedSubscript:@"OIDSToInclude"];
   v10 = isNSArray(v9);
 
-  v182 = v8;
+  v184 = v8;
   if (v10)
   {
     key = a1;
-    v217 = v7;
+    v219 = v7;
+    v237 = 0u;
+    v238 = 0u;
     v235 = 0u;
     v236 = 0u;
-    v233 = 0u;
-    v234 = 0u;
     v11 = [v4 objectForKeyedSubscript:@"OIDSToInclude"];
-    v12 = [v11 countByEnumeratingWithState:&v233 objects:v240 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v235 objects:v242 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v234;
+      v14 = *v236;
       while (2)
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v234 != v14)
+          if (*v236 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = isNSString(*(*(&v233 + 1) + 8 * i));
+          v16 = isNSString(*(*(&v235 + 1) + 8 * i));
 
           if (!v16)
           {
-            v40 = [v219 objectForKeyedSubscript:@"OIDSToInclude"];
+            v40 = [v221 objectForKeyedSubscript:@"OIDSToInclude"];
             v35 = createMobileActivationError("create_baa_info", 244, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid options (%@): %@", @"OIDSToInclude", v40);
 
-            v193 = 0;
-            v37 = 0;
-            v196 = 0;
-            v197 = 0;
-            v199 = 0;
-            v200 = 0;
-            v213 = 0;
-            v214 = 0;
             v195 = 0;
+            v37 = 0;
+            v198 = 0;
+            v199 = 0;
             v201 = 0;
             v202 = 0;
-            v198 = 0;
-            v212 = 0;
-            v208 = 0;
-            v209 = 0;
+            v215 = 0;
+            v216 = 0;
+            v197 = 0;
             v203 = 0;
             v204 = 0;
+            v200 = 0;
+            v214 = 0;
+            v210 = 0;
+            v211 = 0;
+            v205 = 0;
+            v206 = 0;
             v38 = 0;
             v25 = 0;
             goto LABEL_31;
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v233 objects:v240 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v235 objects:v242 count:16];
         if (v13)
         {
           continue;
@@ -9692,7 +9764,7 @@ id create_baa_info(__SecKey *a1, id a2, NSError **a3)
     }
 
     v17 = [NSMutableArray alloc];
-    v18 = [v219 objectForKeyedSubscript:@"OIDSToInclude"];
+    v18 = [v221 objectForKeyedSubscript:@"OIDSToInclude"];
     v7 = [v17 initWithArray:v18];
 
     if (is_virtual_machine())
@@ -9702,7 +9774,7 @@ id create_baa_info(__SecKey *a1, id a2, NSError **a3)
       [v7 removeObjectsInArray:v20];
     }
 
-    v8 = v182;
+    v8 = v184;
     a1 = key;
   }
 
@@ -9718,13 +9790,13 @@ id create_baa_info(__SecKey *a1, id a2, NSError **a3)
     v21 = 0;
   }
 
-  v217 = v7;
-  v189 = [v7 containsObject:@"1.2.840.113635.100.8.7"];
-  v187 = v21;
-  v191 = v22;
+  v219 = v7;
+  v191 = [v7 containsObject:@"1.2.840.113635.100.8.7"];
+  v189 = v21;
+  v193 = v22;
   if (([v7 containsObject:@"1.2.840.113635.100.8.2"] & 1) != 0 || objc_msgSend(v7, "containsObject:", @"1.2.840.113635.100.8.11.1"))
   {
-    v23 = [v219 objectForKeyedSubscript:@"nonce"];
+    v23 = [v221 objectForKeyedSubscript:@"nonce"];
     v24 = isNSData(v23);
     if (v24)
     {
@@ -9732,141 +9804,141 @@ id create_baa_info(__SecKey *a1, id a2, NSError **a3)
 
     else
     {
-      v52 = [v219 objectForKeyedSubscript:@"AppSpecificData"];
+      v52 = [v221 objectForKeyedSubscript:@"AppSpecificData"];
       v25 = isNSData(v52);
 
       if (!v25)
       {
         v35 = createMobileActivationError("create_baa_info", 281, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Missing one of the required options: %@ / %@", @"nonce", @"AppSpecificData");
-        v193 = 0;
-        v37 = 0;
-        v196 = 0;
-        v197 = 0;
-        v199 = 0;
-        v200 = 0;
-        v213 = 0;
-        v214 = 0;
         v195 = 0;
+        v37 = 0;
+        v198 = 0;
+        v199 = 0;
         v201 = 0;
         v202 = 0;
-        v198 = 0;
-        v212 = 0;
-        v208 = 0;
-        v209 = 0;
+        v215 = 0;
+        v216 = 0;
+        v197 = 0;
         v203 = 0;
         v204 = 0;
+        v200 = 0;
+        v214 = 0;
+        v210 = 0;
+        v211 = 0;
+        v205 = 0;
+        v206 = 0;
         v38 = 0;
         v16 = 0;
 LABEL_31:
         v39 = 0;
-        v210 = 0;
-        v211 = 0;
-        v215 = 0;
+        v212 = 0;
+        v213 = 0;
+        v217 = 0;
         keya = 0;
-        v188 = 0;
-        v194 = 0;
-        v207 = 0;
+        v190 = 0;
+        v196 = 0;
+        v209 = 0;
         v41 = 0;
         v42 = 0;
-        v190 = 0;
         v192 = 0;
-        v34 = v182;
+        v194 = 0;
+        v34 = v184;
         goto LABEL_118;
       }
     }
 
-    v53 = [v219 objectForKeyedSubscript:@"nonce"];
-    v54 = [v219 objectForKeyedSubscript:@"AppSpecificData"];
+    v53 = [v221 objectForKeyedSubscript:@"nonce"];
+    v54 = [v221 objectForKeyedSubscript:@"AppSpecificData"];
     v55 = v54;
-    v213 = v53;
+    v215 = v53;
     if (v54)
     {
       v39 = isNSData(v54);
 
-      v8 = v182;
+      v8 = v184;
       if (!v39)
       {
-        v212 = v55;
-        v34 = v182;
+        v214 = v55;
+        v34 = v184;
         v35 = createMobileActivationError("create_baa_info", 290, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@).", @"AppSpecificData");
-        v193 = 0;
-        v37 = 0;
-        v196 = 0;
-        v197 = 0;
-        v199 = 0;
-        v200 = 0;
-        v214 = 0;
         v195 = 0;
-        v201 = 0;
-LABEL_65:
+        v37 = 0;
         v198 = 0;
+        v199 = 0;
+        v201 = 0;
         v202 = 0;
+        v216 = 0;
+        v197 = 0;
         v203 = 0;
-        v208 = 0;
-        v209 = 0;
+LABEL_65:
+        v200 = 0;
         v204 = 0;
+        v205 = 0;
+        v210 = 0;
+        v211 = 0;
+        v206 = 0;
         v38 = 0;
         v16 = 0;
         v25 = 0;
 LABEL_117:
-        v210 = 0;
-        v211 = 0;
-        v215 = 0;
+        v212 = 0;
+        v213 = 0;
+        v217 = 0;
         keya = 0;
-        v188 = 0;
-        v194 = 0;
-        v207 = 0;
+        v190 = 0;
+        v196 = 0;
+        v209 = 0;
         v41 = 0;
         v42 = 0;
-        v190 = 0;
         v192 = 0;
+        v194 = 0;
 LABEL_118:
-        v216 = &off_1003FBDF8;
-        v205 = &off_1003FBDF8;
-        v206 = &off_1003FBDE0;
+        v218 = &off_1003FBDF8;
+        v207 = &off_1003FBDF8;
+        v208 = &off_1003FBDE0;
         goto LABEL_119;
       }
 
       if ([v55 length] >= 0x41)
       {
-        v212 = v55;
+        v214 = v55;
         v56 = createMobileActivationError("create_baa_info", 295, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"AppSpecificData", [v55 length]);
-        v34 = v182;
+        v34 = v184;
 LABEL_113:
         v35 = v56;
 LABEL_114:
-        v193 = 0;
-        v37 = 0;
-        v196 = 0;
-        v197 = 0;
-        v199 = 0;
-        v200 = 0;
-        v214 = 0;
         v195 = 0;
+        v37 = 0;
+        v198 = 0;
+        v199 = 0;
         v201 = 0;
+        v202 = 0;
+        v216 = 0;
+        v197 = 0;
+        v203 = 0;
         goto LABEL_115;
       }
     }
 
     else
     {
-      v8 = v182;
+      v8 = v184;
     }
   }
 
   else
   {
-    v213 = 0;
+    v215 = 0;
     v55 = 0;
   }
 
-  v59 = [v219 objectForKeyedSubscript:@"CertType"];
+  v59 = [v221 objectForKeyedSubscript:@"CertType"];
   v60 = isNSNumber(v59);
 
-  v212 = v55;
+  v214 = v55;
   if (v60)
   {
-    v61 = [v219 objectForKeyedSubscript:@"CertType"];
+    v61 = [v221 objectForKeyedSubscript:@"CertType"];
     v62 = v8;
     v8 = v61;
 
@@ -9926,174 +9998,174 @@ LABEL_112:
     goto LABEL_112;
   }
 
-  if ([v7 containsObject:@"1.2.840.113635.100.6.71.1"] && (v72 = objc_msgSend(v219, "objectForKeyedSubscript:", @"MFiProperties"), v73 = isNSData(v72), v73, v72, v73))
+  if ([v7 containsObject:@"1.2.840.113635.100.6.71.1"] && (v72 = objc_msgSend(v221, "objectForKeyedSubscript:", @"MFiProperties"), v73 = isNSData(v72), v73, v72, v73))
   {
-    v74 = [v219 objectForKeyedSubscript:@"MFiProperties"];
+    v74 = [v221 objectForKeyedSubscript:@"MFiProperties"];
     v75 = [v74 length];
 
     if (v75 != 32)
     {
       v34 = v8;
-      v120 = [v219 objectForKeyedSubscript:@"MFiProperties"];
-      v35 = createMobileActivationError("create_baa_info", 332, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiProperties", [v120 length]);
+      v122 = [v221 objectForKeyedSubscript:@"MFiProperties"];
+      v35 = createMobileActivationError("create_baa_info", 332, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiProperties", [v122 length]);
 
       goto LABEL_114;
     }
 
-    v201 = [v219 objectForKeyedSubscript:@"MFiProperties"];
+    v203 = [v221 objectForKeyedSubscript:@"MFiProperties"];
   }
 
   else
   {
-    v201 = 0;
+    v203 = 0;
   }
 
   if (![v7 containsObject:@"1.2.840.113635.100.6.71.2"])
   {
     v38 = 0;
-    v113 = 0;
+    v115 = 0;
     goto LABEL_130;
   }
 
-  v99 = [v219 objectForKeyedSubscript:@"MFiPPUID"];
-  v39 = isNSString(v99);
+  v101 = [v221 objectForKeyedSubscript:@"MFiPPUID"];
+  v39 = isNSString(v101);
 
   if (!v39)
   {
     v34 = v8;
     v35 = createMobileActivationError("create_baa_info", 342, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Missing required option: %@", @"MFiPPUID");
-    v193 = 0;
-    v37 = 0;
-    v196 = 0;
-    v197 = 0;
-    v199 = 0;
-    v200 = 0;
-    v214 = 0;
     v195 = 0;
+    v37 = 0;
+    v198 = 0;
+    v199 = 0;
+    v201 = 0;
+    v202 = 0;
+    v216 = 0;
+    v197 = 0;
     goto LABEL_65;
   }
 
-  v100 = [v219 objectForKeyedSubscript:@"MFiPPUID"];
-  v101 = [v100 length];
+  v102 = [v221 objectForKeyedSubscript:@"MFiPPUID"];
+  v103 = [v102 length];
 
-  if (v101 >= 0x25)
+  if (v103 >= 0x25)
   {
     v34 = v8;
-    v102 = [v219 objectForKeyedSubscript:@"MFiPPUID"];
-    v35 = createMobileActivationError("create_baa_info", 347, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiPPUID", [v102 length]);
+    v104 = [v221 objectForKeyedSubscript:@"MFiPPUID"];
+    v35 = createMobileActivationError("create_baa_info", 347, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiPPUID", [v104 length]);
 
-    v193 = 0;
-    v37 = 0;
-    v196 = 0;
-    v197 = 0;
-    v199 = 0;
-    v200 = 0;
-    v214 = 0;
     v195 = 0;
-LABEL_115:
+    v37 = 0;
     v198 = 0;
+    v199 = 0;
+    v201 = 0;
     v202 = 0;
-    v203 = 0;
-    v208 = 0;
+    v216 = 0;
+    v197 = 0;
+LABEL_115:
+    v200 = 0;
     v204 = 0;
+    v205 = 0;
+    v210 = 0;
+    v206 = 0;
     v38 = 0;
 LABEL_116:
     v16 = 0;
-    v209 = 0;
+    v211 = 0;
     v25 = 0;
     v39 = 0;
     goto LABEL_117;
   }
 
-  v121 = [v219 objectForKeyedSubscript:@"MFiPPUID"];
-  v38 = [v121 stringByPaddingToLength:36 withString:&stru_1003F4CD8 startingAtIndex:0];
+  v123 = [v221 objectForKeyedSubscript:@"MFiPPUID"];
+  v38 = [v123 stringByPaddingToLength:36 withString:&stru_1003F4CD8 startingAtIndex:0];
 
   if (!v38)
   {
     v34 = v8;
     v35 = createMobileActivationError("create_baa_info", 356, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Failed to pad string.");
-    v193 = 0;
-    v37 = 0;
-    v196 = 0;
-    v197 = 0;
-    v199 = 0;
-    v200 = 0;
-    v214 = 0;
     v195 = 0;
+    v37 = 0;
     v198 = 0;
+    v199 = 0;
+    v201 = 0;
     v202 = 0;
-    v203 = 0;
-    v208 = 0;
+    v216 = 0;
+    v197 = 0;
+    v200 = 0;
     v204 = 0;
+    v205 = 0;
+    v210 = 0;
+    v206 = 0;
     goto LABEL_116;
   }
 
-  v113 = [v38 dataUsingEncoding:4];
-  if (!v113)
+  v115 = [v38 dataUsingEncoding:4];
+  if (!v115)
   {
     v34 = v8;
-    v195 = v38;
+    v197 = v38;
     v35 = createMobileActivationError("create_baa_info", 362, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Failed to convert string to data.");
-    v193 = 0;
+    v195 = 0;
     v37 = 0;
-    v196 = 0;
-    v197 = 0;
+    v198 = 0;
+    v199 = 0;
     goto LABEL_150;
   }
 
 LABEL_130:
-  v196 = v113;
-  v195 = v38;
+  v198 = v115;
+  v197 = v38;
   if (![v7 containsObject:@"1.2.840.113635.100.6.71.3"])
   {
-    v200 = 0;
+    v202 = 0;
     goto LABEL_154;
   }
 
-  v114 = [v219 objectForKeyedSubscript:@"MFiData"];
-  v39 = isNSData(v114);
+  v116 = [v221 objectForKeyedSubscript:@"MFiData"];
+  v39 = isNSData(v116);
 
   if (!v39)
   {
     v34 = v8;
     v35 = createMobileActivationError("create_baa_info", 369, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Missing required option: %@", @"MFiData");
-    v193 = 0;
+    v195 = 0;
     v37 = 0;
-    v197 = 0;
     v199 = 0;
-    v200 = 0;
-    v214 = 0;
+    v201 = 0;
+    v202 = 0;
+    v216 = 0;
     goto LABEL_65;
   }
 
-  v115 = [v219 objectForKeyedSubscript:@"MFiData"];
-  v116 = [v115 length];
+  v117 = [v221 objectForKeyedSubscript:@"MFiData"];
+  v118 = [v117 length];
 
-  if (v116 >= 0x4B0)
+  if (v118 >= 0x4B0)
   {
     v34 = v8;
-    v117 = [v219 objectForKeyedSubscript:@"MFiData"];
-    v35 = createMobileActivationError("create_baa_info", 374, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiData", [v117 length]);
+    v119 = [v221 objectForKeyedSubscript:@"MFiData"];
+    v35 = createMobileActivationError("create_baa_info", 374, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid value for option (%@): unexpected size (%lu)", @"MFiData", [v119 length]);
 
-    v193 = 0;
+    v195 = 0;
     v37 = 0;
-    v197 = 0;
-LABEL_150:
     v199 = 0;
-    v200 = 0;
-    v214 = 0;
+LABEL_150:
+    v201 = 0;
+    v202 = 0;
+    v216 = 0;
     goto LABEL_115;
   }
 
-  v200 = [v219 objectForKeyedSubscript:@"MFiData"];
+  v202 = [v221 objectForKeyedSubscript:@"MFiData"];
 LABEL_154:
-  v122 = [v219 objectForKeyedSubscript:@"UseRKSigningInterface"];
-  v123 = isNSNumber(v122);
+  v124 = [v221 objectForKeyedSubscript:@"UseRKSigningInterface"];
+  v125 = isNSNumber(v124);
 
-  if (v123)
+  if (v125)
   {
-    v124 = [v219 objectForKeyedSubscript:@"UseRKSigningInterface"];
-    v28 = [v124 BOOLValue];
+    v126 = [v221 objectForKeyedSubscript:@"UseRKSigningInterface"];
+    v28 = [v126 BOOLValue];
   }
 
   else
@@ -10101,13 +10173,13 @@ LABEL_154:
     v28 = 0;
   }
 
-  v125 = [v219 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
-  v126 = isNSNumber(v125);
+  v127 = [v221 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
+  v128 = isNSNumber(v127);
 
-  if (v126)
+  if (v128)
   {
-    v127 = [v219 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
-    v29 = [v127 BOOLValue];
+    v129 = [v221 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
+    v29 = [v129 BOOLValue];
   }
 
   else
@@ -10115,117 +10187,130 @@ LABEL_154:
     v29 = 1;
   }
 
-  v128 = [v219 objectForKeyedSubscript:@"Validity"];
-  v129 = isNSNumber(v128);
+  v130 = [v221 objectForKeyedSubscript:@"Validity"];
+  v131 = isNSNumber(v130);
 
-  if (v129)
+  if (v131)
   {
-    v130 = [v219 objectForKeyedSubscript:@"Validity"];
-    v206 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v130 unsignedIntegerValue]);
+    v132 = [v221 objectForKeyedSubscript:@"Validity"];
+    v208 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v132 unsignedIntegerValue]);
   }
 
   else
   {
-    v206 = &off_1003FBDE0;
+    v208 = &off_1003FBDE0;
   }
 
-  v131 = [v219 objectForKeyedSubscript:@"CACert"];
-  v132 = isNSNumber(v131);
+  v133 = [v221 objectForKeyedSubscript:@"CACert"];
+  v134 = isNSNumber(v133);
 
-  if (v132)
+  if (v134)
   {
-    v133 = [v219 objectForKeyedSubscript:@"CACert"];
-    v205 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v133 unsignedIntegerValue]);
+    v135 = [v221 objectForKeyedSubscript:@"CACert"];
+    v207 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v135 unsignedIntegerValue]);
   }
 
   else
   {
-    v205 = &off_1003FBDF8;
+    v207 = &off_1003FBDF8;
   }
 
-  v134 = [v219 objectForKeyedSubscript:@"scrtAttestation"];
-  v135 = isNSNumber(v134);
+  v136 = [v221 objectForKeyedSubscript:@"scrtAttestation"];
+  v137 = isNSNumber(v136);
 
-  if (v135)
+  if (v137)
   {
-    v136 = [v219 objectForKeyedSubscript:@"scrtAttestation"];
-    v216 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v136 unsignedIntegerValue]);
+    v138 = [v221 objectForKeyedSubscript:@"scrtAttestation"];
+    v218 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v138 unsignedIntegerValue]);
   }
 
   else
   {
-    v216 = &off_1003FBDF8;
+    v218 = &off_1003FBDF8;
   }
 
-  v137 = [v219 objectForKeyedSubscript:@"ClientAttestationData"];
-  v138 = isNSData(v137);
+  v139 = [v221 objectForKeyedSubscript:@"ClientAttestationData"];
+  v140 = isNSData(v139);
 
-  if (!v138)
+  if (!v140)
   {
     v25 = 0;
-    v215 = 0;
+    v217 = 0;
 LABEL_174:
-    v210 = 0;
+    v212 = 0;
     goto LABEL_175;
   }
 
-  v139 = [v219 objectForKeyedSubscript:@"ClientAttestationPublicKey"];
-  v25 = isNSData(v139);
+  v141 = [v221 objectForKeyedSubscript:@"ClientAttestationPublicKey"];
+  v25 = isNSData(v141);
 
   if (!v25)
   {
     v34 = v8;
     v35 = createMobileActivationError("create_baa_info", 411, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Missing required option for %@.", @"ClientAttestationPublicKey");
-    v193 = 0;
+    v195 = 0;
     v37 = 0;
-    v197 = 0;
-    v198 = 0;
     v199 = 0;
-    v214 = 0;
-    v215 = 0;
-    v202 = 0;
-    v203 = 0;
-    v208 = 0;
-    v209 = 0;
+    v200 = 0;
+    v201 = 0;
+    v216 = 0;
+    v217 = 0;
     v204 = 0;
+    v205 = 0;
+    v210 = 0;
+    v211 = 0;
+    v206 = 0;
     v38 = 0;
     v16 = 0;
     v39 = 0;
-    v210 = 0;
+    v212 = 0;
     goto LABEL_83;
   }
 
-  v25 = [v219 objectForKeyedSubscript:@"ClientAttestationData"];
-  v215 = [v219 objectForKeyedSubscript:@"ClientAttestationPublicKey"];
-  v140 = [v219 objectForKeyedSubscript:@"ClientDirectAttestationCertificate"];
-  v141 = isNSData(v140);
+  v25 = [v221 objectForKeyedSubscript:@"ClientAttestationData"];
+  v217 = [v221 objectForKeyedSubscript:@"ClientAttestationPublicKey"];
+  v142 = [v221 objectForKeyedSubscript:@"ClientDirectAttestationCertificate"];
+  v143 = isNSData(v142);
 
-  if (!v141)
+  if (!v143)
   {
     goto LABEL_174;
   }
 
-  v210 = [v219 objectForKeyedSubscript:@"ClientDirectAttestationCertificate"];
+  v212 = [v221 objectForKeyedSubscript:@"ClientDirectAttestationCertificate"];
 LABEL_175:
-  v142 = [v219 objectForKeyedSubscript:@"AppID"];
-  v143 = isNSString(v142);
+  v144 = [v221 objectForKeyedSubscript:@"AppID"];
+  v145 = isNSString(v144);
 
-  if (v143)
+  if (v145)
   {
-    v198 = [v219 objectForKeyedSubscript:@"AppID"];
+    v200 = [v221 objectForKeyedSubscript:@"AppID"];
   }
 
   else
   {
-    v198 = 0;
+    v200 = 0;
   }
 
-  v144 = [v219 objectForKeyedSubscript:@"LiveImage4Manifest"];
-  v145 = isNSData(v144);
+  v146 = [v221 objectForKeyedSubscript:@"LiveImage4Manifest"];
+  v147 = isNSData(v146);
 
-  if (v145)
+  if (v147)
   {
-    v199 = [v219 objectForKeyedSubscript:@"LiveImage4Manifest"];
+    v201 = [v221 objectForKeyedSubscript:@"LiveImage4Manifest"];
+  }
+
+  else
+  {
+    v201 = 0;
+  }
+
+  v148 = [v221 objectForKeyedSubscript:@"RepairImage4Manifest"];
+  v149 = isNSData(v148);
+
+  if (v149)
+  {
+    v199 = [v221 objectForKeyedSubscript:@"RepairImage4Manifest"];
   }
 
   else
@@ -10233,58 +10318,45 @@ LABEL_175:
     v199 = 0;
   }
 
-  v146 = [v219 objectForKeyedSubscript:@"RepairImage4Manifest"];
-  v147 = isNSData(v146);
-
-  if (v147)
-  {
-    v197 = [v219 objectForKeyedSubscript:@"RepairImage4Manifest"];
-  }
-
-  else
-  {
-    v197 = 0;
-  }
-
-  v27 = v212;
-  v26 = v213;
+  v27 = v214;
+  v26 = v215;
 LABEL_25:
-  v217 = v7;
-  v212 = v27;
-  v213 = v26;
+  v219 = v7;
+  v214 = v27;
+  v215 = v26;
   if (is_virtual_machine())
   {
     v30 = v8;
     v31 = a1;
-    v232 = 0;
-    v32 = vm_copy_host_certificate(0, &v232);
-    v33 = v232;
-    v214 = v32;
+    v234 = 0;
+    v32 = vm_copy_host_certificate(0, &v234);
+    v33 = v234;
+    v216 = v32;
     if (!v32)
     {
-      v211 = v25;
+      v213 = v25;
       v35 = createMobileActivationError("create_baa_info", 440, @"com.apple.MobileActivation.ErrorDomain", -1, v33, @"Failed to copy VM host certificate.");
 
-      v193 = 0;
-      v194 = 0;
+      v195 = 0;
+      v196 = 0;
       v37 = 0;
-      v214 = 0;
-      v202 = 0;
-      v203 = 0;
-      v208 = 0;
-      v209 = 0;
+      v216 = 0;
       v204 = 0;
+      v205 = 0;
+      v210 = 0;
+      v211 = 0;
+      v206 = 0;
       v38 = 0;
       v16 = 0;
       v25 = 0;
       v39 = 0;
       keya = 0;
-      v188 = 0;
-      v207 = 0;
+      v190 = 0;
+      v209 = 0;
       v41 = 0;
       v42 = 0;
-      v190 = 0;
       v192 = 0;
+      v194 = 0;
       v34 = v30;
       goto LABEL_119;
     }
@@ -10299,37 +10371,37 @@ LABEL_25:
 
   else
   {
-    v214 = 0;
+    v216 = 0;
     v33 = 0;
     if (!a1)
     {
 LABEL_28:
-      v211 = v25;
+      v213 = v25;
       v34 = v8;
       v35 = createMobileActivationError("create_baa_info", 472, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.");
       v36 = v33;
 LABEL_29:
 
-      v193 = 0;
+      v195 = 0;
       v37 = 0;
-      v202 = 0;
-      v203 = 0;
-      v208 = 0;
-      v209 = 0;
       v204 = 0;
+      v205 = 0;
+      v210 = 0;
+      v211 = 0;
+      v206 = 0;
       v38 = 0;
       v16 = 0;
       v25 = 0;
       v39 = 0;
 LABEL_84:
       keya = 0;
-      v188 = 0;
-      v194 = 0;
-      v207 = 0;
+      v190 = 0;
+      v196 = 0;
+      v209 = 0;
       v41 = 0;
       v42 = 0;
-      v190 = 0;
       v192 = 0;
+      v194 = 0;
       goto LABEL_119;
     }
   }
@@ -10346,86 +10418,86 @@ LABEL_84:
 
   if (v43 != 1)
   {
-    v181 = 0;
-    v183 = v8;
-    v178 = 0;
+    v183 = 0;
+    v185 = v8;
     v180 = 0;
+    v182 = 0;
 LABEL_53:
-    v211 = v25;
-    v228 = v33;
-    v229 = 0;
-    v57 = security_copy_system_key(0, &v229, &v228);
-    v179 = v229;
-    v58 = v228;
+    v213 = v25;
+    v230 = v33;
+    v231 = 0;
+    v57 = security_copy_system_key(0, &v231, &v230);
+    v181 = v231;
+    v58 = v230;
 
     if (!v57)
     {
       v35 = createMobileActivationError("create_baa_info", 524, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to copy SIK attestation key.");
 
-      v190 = 0;
       v192 = 0;
+      v194 = 0;
       v42 = 0;
       v41 = 0;
-      v207 = 0;
-      v208 = 0;
-      keya = 0;
-      v188 = 0;
-      v193 = 0;
-      v194 = 0;
-      v25 = 0;
       v209 = 0;
+      v210 = 0;
+      keya = 0;
+      v190 = 0;
+      v195 = 0;
+      v196 = 0;
+      v25 = 0;
+      v211 = 0;
       v16 = 0;
       v38 = 0;
-      v203 = 0;
+      v205 = 0;
+      v206 = 0;
       v204 = 0;
-      v202 = 0;
       v65 = 0;
-      v66 = v178;
-      v39 = v179;
+      v66 = v180;
+      v39 = v181;
       goto LABEL_197;
     }
 
-    v39 = v179;
-    if ([(NSNumber *)v216 BOOLValue])
+    v39 = v181;
+    if ([(NSNumber *)v218 BOOLValue])
     {
       v25 = 0;
-      v177 = 0;
+      v179 = 0;
     }
 
     else
     {
-      v226 = v58;
-      v227 = 0;
+      v228 = v58;
+      v229 = 0;
       v76 = v58;
-      v77 = security_copy_system_key(2, &v227, &v226);
-      v25 = v227;
-      v78 = v226;
+      v77 = security_copy_system_key(2, &v229, &v228);
+      v25 = v229;
+      v78 = v228;
 
-      v177 = v77;
+      v179 = v77;
       if (!v77)
       {
-        v119 = v57;
+        v121 = v57;
         v35 = createMobileActivationError("create_baa_info", 533, @"com.apple.MobileActivation.ErrorDomain", -1, v78, @"Failed to copy UIK attestation key.");
 
-        CFRelease(v119);
-        v190 = 0;
+        CFRelease(v121);
         v192 = 0;
+        v194 = 0;
         v42 = 0;
         v41 = 0;
-        v207 = 0;
-        v208 = 0;
-        keya = 0;
-        v188 = 0;
-        v193 = 0;
-        v194 = 0;
         v209 = 0;
+        v210 = 0;
+        keya = 0;
+        v190 = 0;
+        v195 = 0;
+        v196 = 0;
+        v211 = 0;
         v16 = 0;
         v38 = 0;
-        v203 = 0;
+        v205 = 0;
+        v206 = 0;
         v204 = 0;
-        v202 = 0;
         v65 = 0;
-        v66 = v178;
+        v66 = v180;
         goto LABEL_197;
       }
 
@@ -10433,10 +10505,10 @@ LABEL_53:
     }
 
     cf = v57;
-    v176 = objc_alloc_init(NSMutableDictionary);
-    if (v176)
+    v178 = objc_alloc_init(NSMutableDictionary);
+    if (v178)
     {
-      if (-[NSNumber BOOLValue](v216, "BOOLValue") || (v79 = +[NSFileManager defaultManager](NSFileManager, "defaultManager"), v80 = copy_ucrt_path(), v81 = [v80 stringByAppendingPathComponent:@"ucrt.pem"], v82 = -[NSFileManager fileExistsAtPath:](v79, "fileExistsAtPath:", v81), v81, v80, v79, (v82 & 1) != 0))
+      if (-[NSNumber BOOLValue](v218, "BOOLValue") || (v79 = +[NSFileManager defaultManager](NSFileManager, "defaultManager"), v80 = copy_ucrt_path(v79), v81 = [v80 stringByAppendingPathComponent:@"ucrt.pem"], v82 = -[NSFileManager fileExistsAtPath:](v79, "fileExistsAtPath:", v81), v81, v80, v79, (v82 & 1) != 0))
       {
         v83 = +[GestaltHlpr getSharedInstance];
         v16 = [v83 copyAnswer:@"UniqueChipID"];
@@ -10448,37 +10520,37 @@ LABEL_53:
           v84 = +[GestaltHlpr getSharedInstance];
           v85 = [v84 copyAnswer:@"ChipID"];
 
-          v174 = v85;
+          v176 = v85;
           v41 = isNSNumber(v85);
 
           if (!v41)
           {
             v35 = createMobileActivationError("create_baa_info", 562, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve %@.", @"ChipID");
 
-            v190 = 0;
             v192 = 0;
-            v207 = 0;
-            v208 = 0;
-            keya = 0;
-            v188 = 0;
-            v193 = 0;
             v194 = 0;
             v209 = 0;
-            v203 = 0;
+            v210 = 0;
+            keya = 0;
+            v190 = 0;
+            v195 = 0;
+            v196 = 0;
+            v211 = 0;
+            v205 = 0;
+            v206 = 0;
             v204 = 0;
-            v202 = 0;
             v65 = 0;
-            v39 = v179;
+            v39 = v181;
 LABEL_193:
-            v42 = v176;
+            v42 = v178;
 LABEL_194:
-            v38 = v174;
+            v38 = v176;
 LABEL_195:
-            v66 = v178;
+            v66 = v180;
             CFRelease(cf);
-            if (v177)
+            if (v179)
             {
-              CFRelease(v177);
+              CFRelease(v179);
             }
 
 LABEL_197:
@@ -10487,8 +10559,8 @@ LABEL_197:
               CFRelease(v66);
             }
 
-            v148 = v180;
-            if (!v180)
+            v150 = v182;
+            if (!v182)
             {
               goto LABEL_201;
             }
@@ -10496,11 +10568,11 @@ LABEL_197:
             goto LABEL_200;
           }
 
-          v173 = v16;
+          v175 = v16;
           v86 = +[GestaltHlpr getSharedInstance];
           v87 = [v86 copyAnswer:@"BoardId"];
 
-          v204 = v87;
+          v206 = v87;
           v41 = isNSNumber(v87);
 
           if (v41)
@@ -10508,7 +10580,7 @@ LABEL_197:
             v88 = +[GestaltHlpr getSharedInstance];
             v89 = [v88 copyAnswer:@"SecurityDomain"];
 
-            v203 = v89;
+            v205 = v89;
             v41 = isNSNumber(v89);
 
             if (v41)
@@ -10517,339 +10589,346 @@ LABEL_197:
               v91 = [v90 copyAnswer:@"SerialNumber"];
 
               v65 = isNSString(v91);
-              v208 = v91;
+              v210 = v91;
               if (v65)
               {
-                if (![v91 length] && -[NSNumber BOOLValue](v216, "BOOLValue") && isRunningInDiagnosticsMode())
+                if (![v91 length])
                 {
+                  v92 = [(NSNumber *)v218 BOOLValue];
+                  if (v92)
+                  {
+                    if (isRunningInDiagnosticsMode(v92, v93))
+                    {
 
-                  v208 = 0;
+                      v210 = 0;
+                    }
+                  }
                 }
 
-                v92 = +[GestaltHlpr getSharedInstance];
-                v93 = [v92 copyAnswer:@"BuildVersion"];
+                v94 = +[GestaltHlpr getSharedInstance];
+                v95 = [v94 copyAnswer:@"BuildVersion"];
 
-                v65 = isNSString(v93);
-                v202 = v93;
+                v65 = isNSString(v95);
+                v204 = v95;
                 if (v65)
                 {
-                  v94 = SecKeyCopyPublicKey(keyb);
-                  if (v94)
+                  v96 = SecKeyCopyPublicKey(keyb);
+                  if (v96)
                   {
-                    v65 = v94;
-                    v209 = SecKeyCopyExternalRepresentation(v94, &error);
-                    if (v209)
+                    v65 = v96;
+                    v211 = SecKeyCopyExternalRepresentation(v96, &error);
+                    if (v211)
                     {
-                      if (v210)
+                      if (v212)
                       {
-                        v225 = v58;
-                        v95 = &v225;
-                        v96 = &v225;
-                        v97 = keyb;
-                        v98 = 7;
+                        v227 = v58;
+                        v97 = &v227;
+                        v98 = &v227;
+                        v99 = keyb;
+                        v100 = 7;
                       }
 
                       else
                       {
-                        if ([(NSNumber *)v216 BOOLValue])
+                        if ([(NSNumber *)v218 BOOLValue])
                         {
-                          v98 = 0;
+                          v100 = 0;
                         }
 
                         else
                         {
-                          v98 = 2;
+                          v100 = 2;
                         }
 
-                        v224 = v58;
-                        v95 = &v224;
-                        v96 = &v224;
-                        v97 = keyb;
+                        v226 = v58;
+                        v97 = &v226;
+                        v98 = &v226;
+                        v99 = keyb;
                       }
 
-                      v149 = security_create_system_key_attestation(v97, v98, v213, v96);
-                      v150 = *v95;
+                      v151 = security_create_system_key_attestation(v99, v100, v215, v98);
+                      v152 = *v97;
 
-                      if (v149)
+                      if (v151)
                       {
-                        v151 = @"RKCertification";
-                        if (v211)
+                        v153 = @"RKCertification";
+                        if (v213)
                         {
-                          [v176 setObject:v211 forKeyedSubscript:@"RKCertification"];
-                          [v176 setObject:v149 forKeyedSubscript:@"RKSigning"];
-                          v151 = @"RKSigningPub";
-                          v152 = v176;
-                          v153 = v209;
+                          [v178 setObject:v213 forKeyedSubscript:@"RKCertification"];
+                          [v178 setObject:v151 forKeyedSubscript:@"RKSigning"];
+                          v153 = @"RKSigningPub";
+                          v154 = v178;
+                          v155 = v211;
                         }
 
                         else
                         {
-                          v152 = v176;
-                          v153 = v149;
+                          v154 = v178;
+                          v155 = v151;
                         }
 
-                        [v152 setObject:v153 forKeyedSubscript:v151];
-                        v154 = [NSMutableDictionary alloc];
-                        v238[0] = @"UniqueChipID";
-                        v238[1] = @"ChipID";
-                        v239[0] = v173;
-                        v239[1] = v174;
-                        v238[2] = @"BoardId";
-                        v238[3] = @"SecurityDomain";
-                        v239[2] = v204;
-                        v239[3] = v203;
-                        v238[4] = @"OsBuildVersion";
-                        v238[5] = @"scrtAttestation";
-                        v239[4] = v202;
-                        v239[5] = v216;
-                        v238[6] = @"CertType";
-                        v238[7] = @"Validity";
-                        v239[6] = v183;
-                        v239[7] = v206;
-                        v238[8] = @"CACert";
-                        v238[9] = @"OIDSToInclude";
-                        v239[8] = v205;
-                        v239[9] = v7;
-                        v238[10] = @"SIKPub";
-                        v39 = v179;
-                        v239[10] = v179;
-                        v155 = [NSDictionary dictionaryWithObjects:v239 forKeys:v238 count:11];
-                        v156 = [v154 initWithDictionary:v155];
-                        v157 = v155;
-                        v158 = v156;
+                        [v154 setObject:v155 forKeyedSubscript:v153];
+                        v156 = [NSMutableDictionary alloc];
+                        v240[0] = @"UniqueChipID";
+                        v240[1] = @"ChipID";
+                        v241[0] = v175;
+                        v241[1] = v176;
+                        v240[2] = @"BoardId";
+                        v240[3] = @"SecurityDomain";
+                        v241[2] = v206;
+                        v241[3] = v205;
+                        v240[4] = @"OsBuildVersion";
+                        v240[5] = @"scrtAttestation";
+                        v241[4] = v204;
+                        v241[5] = v218;
+                        v240[6] = @"CertType";
+                        v240[7] = @"Validity";
+                        v241[6] = v185;
+                        v241[7] = v208;
+                        v240[8] = @"CACert";
+                        v240[9] = @"OIDSToInclude";
+                        v241[8] = v207;
+                        v241[9] = v7;
+                        v240[10] = @"SIKPub";
+                        v39 = v181;
+                        v241[10] = v181;
+                        v157 = [NSDictionary dictionaryWithObjects:v241 forKeys:v240 count:11];
+                        v158 = [v156 initWithDictionary:v157];
+                        v159 = v157;
+                        v160 = v158;
 
-                        if (v208)
+                        if (v210)
                         {
-                          [v158 setObject:v208 forKeyedSubscript:@"SerialNumber"];
+                          [v160 setObject:v210 forKeyedSubscript:@"SerialNumber"];
                         }
 
-                        if (v211)
+                        if (v213)
                         {
-                          [v158 setObject:v215 forKeyedSubscript:@"RKCertificationPub"];
-                          [v158 setObject:v209 forKeyedSubscript:@"RKSigningPub"];
-                          if (v210)
+                          [v160 setObject:v217 forKeyedSubscript:@"RKCertificationPub"];
+                          [v160 setObject:v211 forKeyedSubscript:@"RKSigningPub"];
+                          if (v212)
                           {
-                            [v158 setObject:v210 forKeyedSubscript:@"DirectAttestationCertificate"];
+                            [v160 setObject:v212 forKeyedSubscript:@"DirectAttestationCertificate"];
                           }
                         }
 
                         else
                         {
-                          [v158 setObject:v209 forKeyedSubscript:@"RKCertificationPub"];
+                          [v160 setObject:v211 forKeyedSubscript:@"RKCertificationPub"];
                         }
 
-                        if (v214)
+                        if (v216)
                         {
-                          [v158 setObject:v214 forKeyedSubscript:@"VMHostIdentityCertificate"];
+                          [v160 setObject:v216 forKeyedSubscript:@"VMHostIdentityCertificate"];
                         }
 
                         if (v25)
                         {
-                          [v158 setObject:v25 forKeyedSubscript:@"UIKPub"];
+                          [v160 setObject:v25 forKeyedSubscript:@"UIKPub"];
                         }
 
-                        if (v212)
+                        if (v214)
                         {
-                          [v158 setObject:v212 forKeyedSubscript:@"AppSpecificData"];
+                          [v160 setObject:v214 forKeyedSubscript:@"AppSpecificData"];
                         }
 
-                        v159 = copy_trusted_local_policy_hash();
+                        v161 = copy_trusted_local_policy_hash();
 
-                        v207 = v158;
-                        v194 = v149;
-                        if (v159)
+                        v209 = v160;
+                        v196 = v151;
+                        if (v161)
                         {
-                          v223 = v150;
-                          v160 = copyPersonalizedFirmwareData(9, &v223);
-                          v161 = v223;
+                          v225 = v152;
+                          v162 = copyPersonalizedFirmwareData(9, &v225);
+                          v163 = v225;
 
-                          if (!v160)
+                          if (!v162)
                           {
-                            v35 = createMobileActivationError("create_baa_info", 710, @"com.apple.MobileActivation.ErrorDomain", -1, v161, @"Failed to load cryptex1 local policy.");
+                            v35 = createMobileActivationError("create_baa_info", 710, @"com.apple.MobileActivation.ErrorDomain", -1, v163, @"Failed to load cryptex1 local policy.");
 
-                            v190 = 0;
                             v192 = 0;
+                            v194 = 0;
                             v41 = 0;
                             keya = 0;
-                            v188 = 0;
-                            v193 = 0;
+                            v190 = 0;
+                            v195 = 0;
                             goto LABEL_192;
                           }
 
-                          [v207 setObject:v160 forKeyedSubscript:@"LocalPolicy"];
-                          v150 = v161;
+                          [v209 setObject:v162 forKeyedSubscript:@"LocalPolicy"];
+                          v152 = v163;
                         }
 
                         else
                         {
-                          v160 = 0;
+                          v162 = 0;
                         }
 
-                        v193 = v160;
-                        if (!v191)
+                        v195 = v162;
+                        if (!v193)
                         {
-                          v192 = 0;
+                          v194 = 0;
                           goto LABEL_239;
                         }
 
-                        v222 = v150;
-                        v162 = copyPersonalizedFirmwareData(2, &v222);
-                        v163 = v222;
+                        v224 = v152;
+                        v164 = copyPersonalizedFirmwareData(2, &v224);
+                        v165 = v224;
 
-                        if (v162)
+                        if (v164)
                         {
-                          v192 = v162;
-                          [v207 setObject:? forKeyedSubscript:?];
-                          v164 = copy_sfr_manifest();
-                          [v207 setObject:v164 forKeyedSubscript:@"FWImage4Manifest"];
+                          v194 = v164;
+                          [v209 setObject:? forKeyedSubscript:?];
+                          v166 = copy_sfr_manifest();
+                          [v209 setObject:v166 forKeyedSubscript:@"FWImage4Manifest"];
 
-                          v150 = v163;
+                          v152 = v165;
 LABEL_239:
-                          v165 = v189;
-                          if (!v159)
+                          v167 = v191;
+                          if (!v161)
                           {
-                            v165 = 0;
+                            v167 = 0;
                           }
 
-                          if (v165 != 1)
+                          if (v167 != 1)
                           {
-                            v190 = 0;
-                            v42 = v176;
-                            v168 = v207;
+                            v192 = 0;
+                            v42 = v178;
+                            v170 = v209;
 LABEL_245:
+                            if (v200)
+                            {
+                              [v170 setObject:v200 forKeyedSubscript:@"AppID"];
+                            }
+
+                            if (v203)
+                            {
+                              [v170 setObject:v203 forKeyedSubscript:@"MFiProperties"];
+                            }
+
                             if (v198)
                             {
-                              [v168 setObject:v198 forKeyedSubscript:@"AppID"];
+                              [v170 setObject:v198 forKeyedSubscript:@"MFiPPUID"];
+                            }
+
+                            if (v202)
+                            {
+                              [v170 setObject:v202 forKeyedSubscript:@"MFiData"];
                             }
 
                             if (v201)
                             {
-                              [v168 setObject:v201 forKeyedSubscript:@"MFiProperties"];
-                            }
-
-                            if (v196)
-                            {
-                              [v168 setObject:v196 forKeyedSubscript:@"MFiPPUID"];
-                            }
-
-                            if (v200)
-                            {
-                              [v168 setObject:v200 forKeyedSubscript:@"MFiData"];
+                              [v170 setObject:v201 forKeyedSubscript:@"LiveImage4Manifest"];
                             }
 
                             if (v199)
                             {
-                              [v168 setObject:v199 forKeyedSubscript:@"LiveImage4Manifest"];
+                              [v170 setObject:v199 forKeyedSubscript:@"RepairImage4Manifest"];
                             }
 
-                            if (v197)
-                            {
-                              [v168 setObject:v197 forKeyedSubscript:@"RepairImage4Manifest"];
-                            }
+                            v222 = 0;
+                            v171 = [NSPropertyListSerialization dataWithPropertyList:v170 format:100 options:0 error:&v222];
+                            v35 = v222;
 
-                            v220 = 0;
-                            v169 = [NSPropertyListSerialization dataWithPropertyList:v168 format:100 options:0 error:&v220];
-                            v35 = v220;
-
-                            if (v169)
+                            if (v171)
                             {
-                              [v42 setObject:v169 forKeyedSubscript:@"RKProperties"];
-                              v188 = v169;
-                              v170 = SecKeyCreateSignature(keyb, kSecKeyAlgorithmECDSASignatureMessageX962SHA256, v169, &error);
-                              if (v170)
+                              [v42 setObject:v171 forKeyedSubscript:@"RKProperties"];
+                              v190 = v171;
+                              v172 = SecKeyCreateSignature(keyb, kSecKeyAlgorithmECDSASignatureMessageX962SHA256, v171, &error);
+                              if (v172)
                               {
-                                keya = v170;
-                                [v42 setObject:v170 forKeyedSubscript:@"RKPropertiesSignature"];
+                                keya = v172;
+                                [v42 setObject:v172 forKeyedSubscript:@"RKPropertiesSignature"];
                                 v41 = v42;
 LABEL_266:
-                                v16 = v173;
+                                v16 = v175;
                                 goto LABEL_194;
                               }
 
-                              v171 = createMobileActivationError("create_baa_info", 841, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to sign data with ref key.");
+                              v173 = createMobileActivationError("create_baa_info", 841, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to sign data with ref key.");
 
                               v41 = 0;
                             }
 
                             else
                             {
-                              v171 = createMobileActivationError("create_baa_info", 830, @"com.apple.MobileActivation.ErrorDomain", -1, v35, @"Could not convert dictionary to xml data.");
+                              v173 = createMobileActivationError("create_baa_info", 830, @"com.apple.MobileActivation.ErrorDomain", -1, v35, @"Could not convert dictionary to xml data.");
 
                               v41 = 0;
-                              v188 = 0;
+                              v190 = 0;
                             }
 
                             keya = 0;
-                            v35 = v171;
+                            v35 = v173;
                             goto LABEL_266;
                           }
 
-                          v221 = v150;
-                          v166 = copyPersonalizedFirmwareData(10, &v221);
-                          v167 = v221;
+                          v223 = v152;
+                          v168 = copyPersonalizedFirmwareData(10, &v223);
+                          v169 = v223;
 
-                          if (v166)
+                          if (v168)
                           {
-                            v168 = v207;
-                            v190 = v166;
-                            [v207 setObject:v166 forKeyedSubscript:@"Cryptex1Image4Manifest"];
-                            v150 = v167;
-                            v42 = v176;
+                            v170 = v209;
+                            v192 = v168;
+                            [v209 setObject:v168 forKeyedSubscript:@"Cryptex1Image4Manifest"];
+                            v152 = v169;
+                            v42 = v178;
                             goto LABEL_245;
                           }
 
-                          v35 = createMobileActivationError("create_baa_info", 791, @"com.apple.MobileActivation.ErrorDomain", -1, v167, @"Failed to load cryptex1 manifest.");
+                          v35 = createMobileActivationError("create_baa_info", 791, @"com.apple.MobileActivation.ErrorDomain", -1, v169, @"Failed to load cryptex1 manifest.");
 
-                          v188 = 0;
                           v190 = 0;
+                          v192 = 0;
                           v41 = 0;
                           keya = 0;
                           goto LABEL_192;
                         }
 
-                        if (v187)
+                        if (v189)
                         {
-                          v172 = createMobileActivationError("create_baa_info", 725, @"com.apple.MobileActivation.ErrorDomain", -1, v163, @"Failed to load boot manifest.");
+                          v174 = createMobileActivationError("create_baa_info", 725, @"com.apple.MobileActivation.ErrorDomain", -1, v165, @"Failed to load boot manifest.");
                         }
 
                         else
                         {
-                          v172 = createMobileActivationError("create_baa_info", 745, @"com.apple.MobileActivation.ErrorDomain", -1, v163, @"Failed to load boot manifest.");
+                          v174 = createMobileActivationError("create_baa_info", 745, @"com.apple.MobileActivation.ErrorDomain", -1, v165, @"Failed to load boot manifest.");
                         }
 
-                        v35 = v172;
+                        v35 = v174;
 
-                        v190 = 0;
                         v192 = 0;
+                        v194 = 0;
                         v41 = 0;
                         keya = 0;
-                        v188 = 0;
+                        v190 = 0;
                         goto LABEL_191;
                       }
 
-                      v35 = createMobileActivationError("create_baa_info", 622, @"com.apple.MobileActivation.ErrorDomain", -1, v150, @"Failed to create reference key attestation (nonce: %@).", v213);
+                      v35 = createMobileActivationError("create_baa_info", 622, @"com.apple.MobileActivation.ErrorDomain", -1, v152, @"Failed to create reference key attestation (nonce: %@).", v215);
 
-                      v190 = 0;
                       v192 = 0;
-                      v41 = 0;
-                      v207 = 0;
-                      keya = 0;
-                      v188 = 0;
                       v194 = 0;
+                      v41 = 0;
+                      v209 = 0;
+                      keya = 0;
+                      v190 = 0;
+                      v196 = 0;
                     }
 
                     else
                     {
                       v35 = createMobileActivationError("create_baa_info", 609, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to encode RK public key as data.");
 
-                      v190 = 0;
                       v192 = 0;
-                      v41 = 0;
-                      v207 = 0;
-                      keya = 0;
-                      v188 = 0;
                       v194 = 0;
+                      v41 = 0;
                       v209 = 0;
+                      keya = 0;
+                      v190 = 0;
+                      v196 = 0;
+                      v211 = 0;
                     }
                   }
 
@@ -10857,129 +10936,129 @@ LABEL_266:
                   {
                     v35 = createMobileActivationError("create_baa_info", 603, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to copy RK public key.");
 
-                    v190 = 0;
                     v192 = 0;
-                    v41 = 0;
-                    v207 = 0;
-                    keya = 0;
-                    v188 = 0;
                     v194 = 0;
+                    v41 = 0;
                     v209 = 0;
+                    keya = 0;
+                    v190 = 0;
+                    v196 = 0;
+                    v211 = 0;
                     v65 = 0;
                   }
 
-                  v193 = 0;
-                  v39 = v179;
+                  v195 = 0;
+                  v39 = v181;
                   goto LABEL_192;
                 }
 
                 v35 = createMobileActivationError("create_baa_info", 594, @"com.apple.MobileActivation.ErrorDomain", -1, v58, @"Failed to retrieve %@.", @"BuildVersion");
 
-                v190 = 0;
                 v192 = 0;
-                v41 = 0;
-                v207 = 0;
-                keya = 0;
-                v188 = 0;
                 v194 = 0;
+                v41 = 0;
                 v209 = 0;
+                keya = 0;
+                v190 = 0;
+                v196 = 0;
+                v211 = 0;
               }
 
               else
               {
                 v35 = createMobileActivationError("create_baa_info", 580, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve %@.", @"SerialNumber");
 
-                v190 = 0;
                 v192 = 0;
-                v41 = 0;
-                v207 = 0;
-                keya = 0;
-                v188 = 0;
                 v194 = 0;
+                v41 = 0;
                 v209 = 0;
-                v202 = 0;
+                keya = 0;
+                v190 = 0;
+                v196 = 0;
+                v211 = 0;
+                v204 = 0;
               }
 
 LABEL_190:
-              v193 = 0;
+              v195 = 0;
 LABEL_191:
-              v39 = v179;
+              v39 = v181;
 LABEL_192:
-              v16 = v173;
+              v16 = v175;
               goto LABEL_193;
             }
 
             v35 = createMobileActivationError("create_baa_info", 574, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve %@.", @"SecurityDomain");
 
-            v190 = 0;
             v192 = 0;
-            v207 = 0;
-            keya = 0;
-            v188 = 0;
             v194 = 0;
             v209 = 0;
+            keya = 0;
+            v190 = 0;
+            v196 = 0;
+            v211 = 0;
           }
 
           else
           {
             v35 = createMobileActivationError("create_baa_info", 568, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve %@.", @"BoardId");
 
-            v190 = 0;
             v192 = 0;
-            v207 = 0;
-            keya = 0;
-            v188 = 0;
             v194 = 0;
             v209 = 0;
-            v203 = 0;
+            keya = 0;
+            v190 = 0;
+            v196 = 0;
+            v211 = 0;
+            v205 = 0;
           }
 
-          v208 = 0;
-          v202 = 0;
+          v210 = 0;
+          v204 = 0;
           v65 = 0;
           goto LABEL_190;
         }
 
         v35 = createMobileActivationError("create_baa_info", 556, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to retrieve %@.", @"UniqueChipID");
 
-        v190 = 0;
         v192 = 0;
-        v207 = 0;
-        v208 = 0;
-        keya = 0;
-        v188 = 0;
-        v193 = 0;
         v194 = 0;
         v209 = 0;
+        v210 = 0;
+        keya = 0;
+        v190 = 0;
+        v195 = 0;
+        v196 = 0;
+        v211 = 0;
         v38 = 0;
-        v203 = 0;
+        v205 = 0;
+        v206 = 0;
         v204 = 0;
-        v202 = 0;
         v65 = 0;
-        v39 = v179;
+        v39 = v181;
       }
 
       else
       {
         v35 = createMobileActivationError("create_baa_info", 548, @"com.apple.MobileActivation.ErrorDomain", -4, 0, @"UCRT is unavailable.");
 
-        v190 = 0;
         v192 = 0;
-        v41 = 0;
-        v207 = 0;
-        v208 = 0;
-        keya = 0;
-        v188 = 0;
-        v193 = 0;
         v194 = 0;
+        v41 = 0;
         v209 = 0;
+        v210 = 0;
+        keya = 0;
+        v190 = 0;
+        v195 = 0;
+        v196 = 0;
+        v211 = 0;
         v16 = 0;
         v38 = 0;
-        v203 = 0;
+        v205 = 0;
+        v206 = 0;
         v204 = 0;
-        v202 = 0;
         v65 = 0;
-        v39 = v179;
+        v39 = v181;
       }
     }
 
@@ -10987,29 +11066,29 @@ LABEL_192:
     {
       v35 = createMobileActivationError("create_baa_info", 541, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to allocate dictionary.");
 
-      v190 = 0;
       v192 = 0;
-      v41 = 0;
-      v207 = 0;
-      v208 = 0;
-      keya = 0;
-      v188 = 0;
-      v193 = 0;
       v194 = 0;
+      v41 = 0;
       v209 = 0;
+      v210 = 0;
+      keya = 0;
+      v190 = 0;
+      v195 = 0;
+      v196 = 0;
+      v211 = 0;
       v16 = 0;
       v38 = 0;
-      v203 = 0;
+      v205 = 0;
+      v206 = 0;
       v204 = 0;
-      v202 = 0;
       v65 = 0;
     }
 
-    v42 = v176;
+    v42 = v178;
     goto LABEL_195;
   }
 
-  if ([(NSNumber *)v216 BOOLValue])
+  if ([(NSNumber *)v218 BOOLValue])
   {
     v44 = 0;
   }
@@ -11019,32 +11098,32 @@ LABEL_192:
     v44 = 2;
   }
 
-  v231 = v33;
-  v25 = security_create_system_key_attestation(a1, v44, v26, &v231);
-  v45 = v231;
+  v233 = v33;
+  v25 = security_create_system_key_attestation(a1, v44, v26, &v233);
+  v45 = v233;
 
   if (!v25)
   {
     v34 = v8;
     v35 = createMobileActivationError("create_baa_info", 482, @"com.apple.MobileActivation.ErrorDomain", -1, v45, @"Failed to create reference key attestation.");
 
-    v193 = 0;
+    v195 = 0;
     v37 = 0;
-    v202 = 0;
-    v203 = 0;
-    v208 = 0;
-    v209 = 0;
     v204 = 0;
+    v205 = 0;
+    v210 = 0;
+    v211 = 0;
+    v206 = 0;
     v38 = 0;
     v16 = 0;
     v39 = 0;
 LABEL_83:
-    v211 = 0;
+    v213 = 0;
     goto LABEL_84;
   }
 
   v46 = SecKeyCopyPublicKey(a1);
-  v211 = v25;
+  v213 = v25;
   if (!v46)
   {
     v34 = v8;
@@ -11053,39 +11132,39 @@ LABEL_83:
     goto LABEL_29;
   }
 
-  v180 = v46;
+  v182 = v46;
   v47 = SecKeyCopyExternalRepresentation(v46, &error);
 
-  v183 = v8;
+  v185 = v8;
   if (!v47)
   {
-    v118 = createMobileActivationError("create_baa_info", 494, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to encode RK public key as data.");
+    v120 = createMobileActivationError("create_baa_info", 494, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to encode RK public key as data.");
 LABEL_140:
-    v35 = v118;
-    v181 = 0;
+    v35 = v120;
+    v183 = 0;
     goto LABEL_187;
   }
 
   v48 = SecAccessControlCreate();
   if (!v48)
   {
-    v118 = createMobileActivationError("create_baa_info", 502, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to create access control.");
+    v120 = createMobileActivationError("create_baa_info", 502, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to create access control.");
     goto LABEL_140;
   }
 
   v49 = kSecAttrAccessibleUntilReboot;
   v50 = v48;
-  v181 = v48;
+  v183 = v48;
   if (SecAccessControlSetProtection())
   {
-    v230 = v45;
-    ReferenceKeyBlob = createReferenceKeyBlob(v50, v29, v219, &v230);
-    v33 = v230;
+    v232 = v45;
+    ReferenceKeyBlob = createReferenceKeyBlob(v50, v29, v221, &v232);
+    v33 = v232;
 
     if (ReferenceKeyBlob)
     {
-      v215 = v47;
-      v178 = ReferenceKeyBlob;
+      v217 = v47;
+      v180 = ReferenceKeyBlob;
       a1 = ReferenceKeyBlob;
       goto LABEL_53;
     }
@@ -11101,55 +11180,55 @@ LABEL_140:
 
 LABEL_187:
 
-  v190 = 0;
   v192 = 0;
+  v194 = 0;
   v42 = 0;
   v41 = 0;
-  v207 = 0;
-  v208 = 0;
+  v209 = 0;
+  v210 = 0;
   keya = 0;
-  v188 = 0;
-  v193 = 0;
-  v194 = 0;
+  v190 = 0;
+  v195 = 0;
+  v196 = 0;
   v39 = 0;
   v25 = 0;
-  v209 = 0;
+  v211 = 0;
   v16 = 0;
   v38 = 0;
-  v203 = 0;
+  v205 = 0;
+  v206 = 0;
   v204 = 0;
-  v202 = 0;
-  v215 = v47;
+  v217 = v47;
   v65 = 0;
-  v148 = v180;
+  v150 = v182;
 LABEL_200:
-  CFRelease(v148);
+  CFRelease(v150);
 LABEL_201:
   if (v65)
   {
     CFRelease(v65);
   }
 
-  v37 = v181;
-  v34 = v183;
+  v37 = v183;
+  v34 = v185;
 LABEL_119:
   if (error)
   {
-    v103 = v38;
-    v104 = v42;
-    v105 = v16;
-    v106 = v35;
-    v107 = v25;
-    v108 = v39;
-    v109 = v37;
+    v105 = v38;
+    v106 = v42;
+    v107 = v16;
+    v108 = v35;
+    v109 = v25;
+    v110 = v39;
+    v111 = v37;
     CFRelease(error);
-    v37 = v109;
-    v39 = v108;
-    v25 = v107;
-    v35 = v106;
-    v16 = v105;
-    v42 = v104;
-    v38 = v103;
+    v37 = v111;
+    v39 = v110;
+    v25 = v109;
+    v35 = v108;
+    v16 = v107;
+    v42 = v106;
+    v38 = v105;
   }
 
   error = 0;
@@ -11160,11 +11239,11 @@ LABEL_119:
 
   if (a3 && !v41)
   {
-    v110 = v35;
+    v112 = v35;
     *a3 = v35;
   }
 
-  v111 = v41;
+  v113 = v41;
 
-  return v111;
+  return v113;
 }

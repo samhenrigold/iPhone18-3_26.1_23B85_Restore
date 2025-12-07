@@ -80,7 +80,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
   return result;
 }
 
-void std::vector<unsigned long>::push_back[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<unsigned long>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
 {
   v5 = *(a1 + 8);
   v4 = *(a1 + 16);
@@ -251,7 +251,7 @@ uint64_t __VisionCoreANESubtype_block_invoke()
   return result;
 }
 
-void Geometry2D_mallocCart2D(void *a1, int a2)
+void Geometry2D_mallocCart2D(void *a1, unsigned int a2)
 {
   *a1 = 0;
   a1[1] = 0;
@@ -407,7 +407,7 @@ void sub_1DECDE9D4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<float>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -419,6 +419,7 @@ void std::vector<float>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
 
 void VisionCoreHomography::VisionCoreHomography(VisionCoreHomography *this)
 {
+  v4 = *MEMORY[0x1E69E9840];
   this->var0.var0 = 0;
   this->var0.var1 = 0;
   this->var0.var2 = 0;
@@ -426,9 +427,12 @@ void VisionCoreHomography::VisionCoreHomography(VisionCoreHomography *this)
   this->var1.var1 = 0;
   this->var2.var0 = 0;
   this->var1.var2 = 0;
+  v1[0] = xmmword_1DED0D428;
+  v1[1] = unk_1DED0D438;
+  v2 = 1065353216;
   this->var2.var1 = 0;
   this->var2.var2 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>();
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&this->var2.var0, v1, &v3);
 }
 
 void sub_1DECDEB5C(_Unwind_Exception *exception_object)
@@ -448,7 +452,7 @@ void sub_1DECDEB5C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *VisionCoreHomography::copyHomography(VisionCoreHomography *this, const VisionCoreHomography *a2, VisionCoreHomography *a3)
+uint64_t *VisionCoreHomography::copyHomography(VisionCoreHomography *this, const VisionCoreHomography *a2, VisionCoreHomography *a3)
 {
   Geometry2D_mallocCart2D(&v11, this->var0.var2);
   a2->var0 = v11;
@@ -489,13 +493,13 @@ void *VisionCoreHomography::copyHomography(VisionCoreHomography *this, const Vis
     v9 = this->var2.var0;
     v10 = this->var2.var1;
 
-    return std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&a2->var2.var0, v9, v10, v10 - v9);
+    return std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(&a2->var2, v9, v10, v10 - v9);
   }
 
   return result;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -570,7 +574,7 @@ void *std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(void
   return result;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -590,8 +594,9 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-void VisionCoreHomography::VisionCoreHomography(VisionCoreHomography *this, const VisionCoreHomography *a2)
+void VisionCoreHomography::VisionCoreHomography(VisionCoreHomography *this, VisionCoreHomography *a2)
 {
+  v5 = *MEMORY[0x1E69E9840];
   this->var0.var0 = 0;
   this->var0.var1 = 0;
   this->var0.var2 = 0;
@@ -599,9 +604,12 @@ void VisionCoreHomography::VisionCoreHomography(VisionCoreHomography *this, cons
   this->var1.var1 = 0;
   this->var2.var0 = 0;
   this->var1.var2 = 0;
+  v2[0] = xmmword_1DED0D428;
+  v2[1] = unk_1DED0D438;
+  v3 = 1065353216;
   this->var2.var1 = 0;
   this->var2.var2 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>();
+  std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(&this->var2.var0, v2, &v4);
 }
 
 void sub_1DECDEF20(_Unwind_Exception *exception_object)
@@ -726,9 +734,9 @@ void sub_1DECDF134(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(uint64_t *a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -739,8 +747,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1DECDF28C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p)
@@ -753,11 +759,10 @@ void sub_1DECDF28C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t *a1, _BYTE *a2)
 {
-  v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = a1[1];
+  v5 = a1[2];
   if (v4 == v5 << 6)
   {
     if ((v4 + 1) < 0)
@@ -781,12 +786,12 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v7 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
-    result = std::vector<BOOL>::reserve(result, v7);
-    v4 = v3[1];
+    std::vector<BOOL>::reserve(a1, v7);
+    v4 = a1[1];
   }
 
-  v3[1] = v4 + 1;
-  v8 = *v3;
+  a1[1] = v4 + 1;
+  v8 = *a1;
   v9 = v4 >> 6;
   v10 = 1 << v4;
   if (*a2 == 1)
@@ -800,7 +805,6 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
   }
 
   *(v8 + 8 * v9) = v11;
-  return result;
 }
 
 void sub_1DECDF740(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
@@ -827,7 +831,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<half>>(uint64_t a1)
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -841,33 +845,33 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
+  v3 = MEMORY[0x1E69E5528] + 64;
   a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
+  v4 = *(MEMORY[0x1E69E54C8] + 16);
+  v5 = *(MEMORY[0x1E69E54C8] + 8);
+  *a1 = v5;
+  *(a1 + *(v5 - 24)) = v4;
   a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
+  v6 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v6, a1 + 2);
+  v7 = MEMORY[0x1E69E5528] + 24;
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
+  *a1 = v7;
+  a1[53] = v3;
   MEMORY[0x1E12C7F30](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -1324,6 +1328,13 @@ id _repeatedCharacterString(unsigned int a1, unint64_t a2)
   return i;
 }
 
+void sub_1DECE6B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
+{
+  va_start(va, a54);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *__getANSTObjectCategoryHandSymbolLoc_block_invoke(uint64_t a1)
 {
   v2 = ANSTKitLibrary();
@@ -1359,7 +1370,7 @@ uint64_t ANSTKitLibrary()
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -1378,7 +1389,7 @@ void *__getANSTObjectCategoryFullBodySymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __ANSTKitLibraryCore_block_invoke()
+uint64_t __ANSTKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ANSTKitLibraryCore_frameworkLibrary = result;
@@ -1409,9 +1420,9 @@ id getANSTISPInferenceDescriptorClass()
   return v1;
 }
 
-void sub_1DECE71F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECE71F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1428,16 +1439,16 @@ Class __getANSTISPInferenceDescriptorClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTISPInferenceDescriptor");
     return [(VisionCoreISPInferenceNetworkDescriptor *)v3 descriptorForIdentifier:v4 version:v5 error:v6, v7];
   }
 
   return result;
 }
 
-void sub_1DECE744C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECE744C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1453,7 +1464,7 @@ void __getANSTISPInferenceConfigurationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v2 = abort_report_np();
+    v2 = abort_report_np("Unable to find class %s", "ANSTISPInferenceConfiguration");
     [(VisionCoreE5RTModelSource *)v2 .cxx_destruct];
   }
 }
@@ -1557,7 +1568,7 @@ LABEL_23:
     goto LABEL_21;
   }
 
-  v11 = Geometry2D_estimateWorkBufferSize();
+  v11 = Geometry2D_estimateWorkBufferSize(*(a1 + 16));
   if ((v11 & 0x80000000) != 0)
   {
     v6 = 0;
@@ -1618,7 +1629,7 @@ LABEL_21:
   return v4;
 }
 
-uint64_t Geometry2D_estimateHomographyMSS(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Geometry2D_estimateHomographyMSS(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
   v12 = *MEMORY[0x1E69E9840];
   if (!a1 || !*a1 || !*(a1 + 8))
@@ -1668,7 +1679,7 @@ uint64_t Geometry2D_estimateHomographyMSS(uint64_t a1, uint64_t a2, uint64_t a3,
   return result;
 }
 
-uint64_t Geometry2D_estimateHomographyOD(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Geometry2D_estimateHomographyOD(uint64_t a1, uint64_t a2, uint64_t a3, int a4, uint64_t a5)
 {
   v17[41] = *MEMORY[0x1E69E9840];
   if (!a1 || !*a1 || !*(a1 + 8))
@@ -1891,7 +1902,7 @@ LABEL_12:
   return v10;
 }
 
-uint64_t Geometry2D_reprojectionErrorHomography(float **a1, float *a2, const float **a3, float *a4)
+uint64_t Geometry2D_reprojectionErrorHomography(float **a1, const float *a2, const float **a3, float *a4)
 {
   __C = 0;
   __A = 0;
@@ -2014,7 +2025,7 @@ LABEL_31:
   return v10;
 }
 
-void *std::vector<half>::__assign_with_size[abi:ne200100]<half *,half *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<half>::__assign_with_size[abi:ne200100]<half *,half *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2093,7 +2104,7 @@ void *std::vector<half>::__assign_with_size[abi:ne200100]<half *,half *>(void *r
   return result;
 }
 
-void std::vector<half>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<half>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -2103,7 +2114,7 @@ void std::vector<half>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned long>::__assign_with_size[abi:ne200100]<unsigned long *,unsigned long *>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2385,7 +2396,8 @@ void std::vector<half>::__insert_with_size[abi:ne200100]<std::__wrap_iter<half *
     v35 = (2 * v16);
     do
     {
-      v36 = *v6++;
+      v36 = *v6;
+      v6 += 2;
       *v35++ = v36;
       v34 -= 2;
     }
@@ -2482,12 +2494,12 @@ LABEL_30:
   }
 }
 
-void sub_1DECEA31C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1DECEA31C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = VisionCoreSparseOpticalFlowSession;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2505,24 +2517,24 @@ void sub_1DECEB48C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   std::vector<VisionCoreHomography>::__destroy_vector::operator()[abi:ne200100](&STACK[0x228]);
   if (__pa)
   {
-    a67 = __pa;
+    a66 = __pa;
     operator delete(__pa);
   }
 
   _Unwind_Resume(a1);
 }
 
-void *std::vector<int>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DECEB6F8(_Unwind_Exception *exception_object)
@@ -2562,7 +2574,7 @@ void std::vector<VisionCoreHomography>::__destroy_vector::operator()[abi:ne20010
   }
 }
 
-void std::vector<int>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<int>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 62))
   {
@@ -2595,11 +2607,11 @@ void sub_1DECEC740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<VisionCoreHomography>::vector[abi:ne200100](void *result, unint64_t a2)
+VisionCoreHomography **std::vector<VisionCoreHomography>::vector[abi:ne200100](VisionCoreHomography **a1, unint64_t a2, VisionCoreHomography *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (a2 < 0x1E1E1E1E1E1E1E2)
@@ -2610,10 +2622,10 @@ void *std::vector<VisionCoreHomography>::vector[abi:ne200100](void *result, unin
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2754,11 +2766,11 @@ void sub_1DECEDF40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
+void *std::vector<CGPoint>::vector[abi:ne200100](void *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if (!(a2 >> 60))
@@ -2769,7 +2781,7 @@ void *std::vector<CGPoint>::vector[abi:ne200100](void *result, unint64_t a2)
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DECEE108(_Unwind_Exception *exception_object)
@@ -2784,17 +2796,17 @@ void sub_1DECEE108(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<half>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<half>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<half>::__vallocate[abi:ne200100](result, a2);
+    std::vector<half>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DECEE180(_Unwind_Exception *exception_object)
@@ -3045,14 +3057,14 @@ __CFString *VisionCoreANEArchitectureName()
   return v3;
 }
 
-void sub_1DECEF2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECEF2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t __AppleNeuralEngineLibraryCore_block_invoke()
+uint64_t __AppleNeuralEngineLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppleNeuralEngineLibraryCore_frameworkLibrary = result;
@@ -3161,9 +3173,9 @@ id VisionCoreTensorDescriptorsFromANSTDescriptors(void *a1)
   return v2;
 }
 
-void sub_1DECEF850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1DECEF850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3180,7 +3192,7 @@ Class __getANSTTensorDescriptorClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTTensorDescriptor");
     return __getANSTPixelBufferDescriptorClass_block_invoke(v3);
   }
 
@@ -3198,7 +3210,7 @@ void __getANSTPixelBufferDescriptorClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ANSTPixelBufferDescriptor");
     ANSTKitLibrary_1095();
   }
 }
@@ -3228,23 +3240,23 @@ void ANSTKitLibrary_1095()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __ANSTKitLibraryCore_block_invoke_1099()
+uint64_t __ANSTKitLibraryCore_block_invoke_1099(uint64_t a1)
 {
   result = _sl_dlopen();
   ANSTKitLibraryCore_frameworkLibrary_1098 = result;
   return result;
 }
 
-void sub_1DECF18C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECF18C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3261,8 +3273,8 @@ Class __getANSTViSegHQInitialFrameInferenceDescriptorClass_block_invoke(uint64_t
 
   else
   {
-    v3 = abort_report_np();
-    return getANSTViSegHQRegularFrameInferenceDescriptorClass(v3);
+    abort_report_np("Unable to find class %s", "ANSTViSegHQInitialFrameInferenceDescriptor");
+    return getANSTViSegHQRegularFrameInferenceDescriptorClass();
   }
 
   return result;
@@ -3292,9 +3304,9 @@ id getANSTViSegHQRegularFrameInferenceDescriptorClass()
   return v1;
 }
 
-void sub_1DECF1A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECF1A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3323,9 +3335,9 @@ id getANSTViSegHQUpdateFrameInferenceDescriptorClass()
   return v1;
 }
 
-void sub_1DECF1AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECF1AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3341,7 +3353,7 @@ void __getANSTViSegHQUpdateFrameInferenceDescriptorClass_block_invoke(uint64_t a
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ANSTViSegHQUpdateFrameInferenceDescriptor");
     ANSTKitLibrary_1263();
   }
 }
@@ -3371,14 +3383,14 @@ void ANSTKitLibrary_1263()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __ANSTKitLibraryCore_block_invoke_1267()
+uint64_t __ANSTKitLibraryCore_block_invoke_1267(uint64_t a1)
 {
   result = _sl_dlopen();
   ANSTKitLibraryCore_frameworkLibrary_1266 = result;
@@ -3397,7 +3409,7 @@ Class __getANSTViSegHQRegularFrameInferenceDescriptorClass_block_invoke(uint64_t
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQRegularFrameInferenceDescriptor");
     return [(VisionCoreVideoSegmentationInferenceNetworkDescriptor *)v3 _configurationForIdentifier:v4 version:v5, v6];
   }
 
@@ -3428,9 +3440,9 @@ id getANSTViSegHQInferenceConfigurationClass()
   return v1;
 }
 
-void sub_1DECF20C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECF20C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3447,16 +3459,16 @@ Class __getANSTViSegHQInferenceConfigurationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQInferenceConfiguration");
     return [(VisionCoreValueConfidenceCurve *)v3 .cxx_construct];
   }
 
   return result;
 }
 
-void *std::vector<VisionCoreValueConfidencePoint>::reserve(void *result, unint64_t a2)
+void std::vector<VisionCoreValueConfidencePoint>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
@@ -3465,8 +3477,6 @@ void *std::vector<VisionCoreValueConfidencePoint>::reserve(void *result, unint64
 
     std::vector<unsigned long>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::vector<VisionCoreValueConfidencePoint>::push_back[abi:ne200100](uint64_t a1, void *a2)
@@ -3677,23 +3687,23 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *>(float *a1, uint64_t *a2)
 {
   v2 = (a2 - a1) >> 3;
   if (v2 > 2)
   {
     if (v2 == 3)
     {
-      v4 = *(a1 + 8);
-      v5 = *(a2 - 8);
+      v4 = a1[2];
+      v5 = *(a2 - 2);
       if (v4 >= *a1)
       {
         if (v5 < v4)
         {
-          v16 = *(a1 + 8);
-          *(a1 + 8) = *(a2 - 8);
-          *(a2 - 8) = v16;
-          if (*(a1 + 8) < *a1)
+          v16 = *(a1 + 1);
+          *(a1 + 1) = *(a2 - 1);
+          *(a2 - 1) = v16;
+          if (a1[2] < *a1)
           {
             *a1 = vextq_s8(*a1, *a1, 8uLL);
           }
@@ -3705,21 +3715,21 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[Vis
       v3 = *a1;
       if (v5 >= v4)
       {
-        *a1 = *(a1 + 8);
-        *(a1 + 8) = v3;
-        if (*(a2 - 8) >= *&v3)
+        *a1 = *(a1 + 1);
+        *(a1 + 1) = v3;
+        if (*(a2 - 2) >= *&v3)
         {
           return 1;
         }
 
-        *(a1 + 8) = *(a2 - 8);
+        *(a1 + 1) = *(a2 - 1);
         goto LABEL_13;
       }
 
 LABEL_12:
-      *a1 = *(a2 - 8);
+      *a1 = *(a2 - 1);
 LABEL_13:
-      *(a2 - 8) = v3;
+      *(a2 - 1) = v3;
       return 1;
     }
 
@@ -3727,30 +3737,30 @@ LABEL_13:
     {
       if (v2 == 5)
       {
-        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *,0>(a1, (a1 + 8), (a1 + 16), (a1 + 24), (a2 - 8));
+        std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[VisionCoreValueConfidenceCurve _finalizeInitialization]::$_0 &,VisionCoreValueConfidencePoint *,0>(a1, a1 + 2, a1 + 4, a1 + 3, a2 - 1);
         return 1;
       }
 
       goto LABEL_14;
     }
 
-    v11 = *(a1 + 8);
+    v11 = a1[2];
     v12 = *a1;
-    v13 = *(a1 + 16);
+    v13 = a1[4];
     if (v11 >= *a1)
     {
       if (v13 < v11)
       {
-        v21 = *(a1 + 8);
-        v20 = *(a1 + 16);
-        *(a1 + 8) = v20;
-        *(a1 + 16) = v21;
+        v21 = *(a1 + 1);
+        v20 = *(a1 + 2);
+        *(a1 + 1) = v20;
+        *(a1 + 2) = v21;
         v13 = *&v21;
         if (v12 > *&v20)
         {
           v22 = *a1;
           *a1 = v20;
-          *(a1 + 8) = v22;
+          *(a1 + 1) = v22;
         }
       }
 
@@ -3761,27 +3771,27 @@ LABEL_13:
     LODWORD(v15) = *a1;
     if (v13 >= v11)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v14;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v14;
       if (v13 >= v15)
       {
 LABEL_48:
-        if (*(a2 - 8) < v13)
+        if (*(a2 - 2) < v13)
         {
-          v31 = *(a1 + 16);
-          *(a1 + 16) = *(a2 - 8);
-          *(a2 - 8) = v31;
-          if (*(a1 + 16) < *(a1 + 8))
+          v31 = *(a1 + 2);
+          *(a1 + 2) = *(a2 - 1);
+          *(a2 - 1) = v31;
+          if (a1[4] < a1[2])
           {
-            v33 = *(a1 + 8);
-            v32 = *(a1 + 16);
-            *(a1 + 8) = v32;
-            *(a1 + 16) = v33;
+            v33 = *(a1 + 1);
+            v32 = *(a1 + 2);
+            *(a1 + 1) = v32;
+            *(a1 + 2) = v33;
             if (*a1 > *&v32)
             {
               v34 = *a1;
               *a1 = v32;
-              *(a1 + 8) = v34;
+              *(a1 + 1) = v34;
             }
           }
         }
@@ -3789,15 +3799,15 @@ LABEL_48:
         return 1;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v14;
+    *(a1 + 2) = v14;
     v13 = v15;
     goto LABEL_48;
   }
@@ -3809,7 +3819,7 @@ LABEL_48:
 
   if (v2 == 2)
   {
-    if (*(a2 - 8) < *a1)
+    if (*(a2 - 2) < *a1)
     {
       v3 = *a1;
       goto LABEL_12;
@@ -3819,23 +3829,23 @@ LABEL_48:
   }
 
 LABEL_14:
-  v6 = (a1 + 16);
-  v7 = *(a1 + 16);
-  v8 = *(a1 + 8);
+  v6 = a1 + 4;
+  v7 = a1[4];
+  v8 = a1[2];
   v9 = *a1;
   if (v8 >= *a1)
   {
     if (v7 < v8)
     {
-      v18 = *(a1 + 8);
-      v17 = *(a1 + 16);
-      *(a1 + 8) = v17;
-      *(a1 + 16) = v18;
+      v18 = *(a1 + 1);
+      v17 = *(a1 + 2);
+      *(a1 + 1) = v17;
+      *(a1 + 2) = v18;
       if (v9 > *&v17)
       {
         v19 = *a1;
         *a1 = v17;
-        *(a1 + 8) = v19;
+        *(a1 + 1) = v19;
       }
     }
   }
@@ -3845,27 +3855,27 @@ LABEL_14:
     v10 = *a1;
     if (v7 >= v8)
     {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v10;
+      *a1 = *(a1 + 1);
+      *(a1 + 1) = v10;
       if (v7 >= *&v10)
       {
         goto LABEL_34;
       }
 
-      *(a1 + 8) = *(a1 + 16);
+      *(a1 + 1) = *(a1 + 2);
     }
 
     else
     {
-      *a1 = *(a1 + 16);
+      *a1 = *(a1 + 2);
     }
 
-    *(a1 + 16) = v10;
+    *(a1 + 2) = v10;
   }
 
 LABEL_34:
-  v23 = a1 + 24;
-  if (a1 + 24 == a2)
+  v23 = (a1 + 6);
+  if (a1 + 6 == a2)
   {
     return 1;
   }
@@ -3877,7 +3887,7 @@ LABEL_34:
     v26 = *v23;
     if (*v23 < *v6)
     {
-      v27 = *(v23 + 4);
+      v27 = *(v23 + 1);
       v28 = v24;
       while (1)
       {
@@ -3902,14 +3912,13 @@ LABEL_42:
       *(v30 + 4) = v27;
       if (++v25 == 8)
       {
-        return v23 + 8 == a2;
+        return v23 + 1 == a2;
       }
     }
 
     v6 = v23;
     v24 += 8;
-    v23 += 8;
-    if (v23 == a2)
+    if (++v23 == a2)
     {
       return 1;
     }
@@ -4067,10 +4076,10 @@ void sub_1DECFD5A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1DECFDC1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1DECFDC1C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = VisionCoreE5RTProgramLibrary;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4088,9 +4097,9 @@ void sub_1DECFDF44(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1DECFEEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECFEEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4106,7 +4115,7 @@ void __getANSTPixelBufferClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ANSTPixelBuffer");
     ANSTKitLibrary_2528();
   }
 }
@@ -4136,23 +4145,23 @@ void ANSTKitLibrary_2528()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __ANSTKitLibraryCore_block_invoke_2532()
+uint64_t __ANSTKitLibraryCore_block_invoke_2532(uint64_t a1)
 {
   result = _sl_dlopen();
   ANSTKitLibraryCore_frameworkLibrary_2531 = result;
   return result;
 }
 
-void sub_1DECFF1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DECFF1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4169,7 +4178,7 @@ Class __getANSTTensorDataClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTTensorData");
     return [(VisionCoreANSTInferenceNetworkDescriptor *)v3 _outputDescriptorWithName:v4 postProcessor:v5, v6];
   }
 
@@ -4205,12 +4214,12 @@ CFTypeRef CreatePixelBuffer(int a1, int a2, OSType a3)
   return v8;
 }
 
-void sub_1DED02554(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1DED02554(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   objc_begin_catch(a1);
-  free(v14);
+  free(v21);
   objc_exception_rethrow();
 }
 
@@ -4295,9 +4304,9 @@ id getANSTViSegHQInitialFrameInferenceDescriptorClass()
   return v1;
 }
 
-void sub_1DED02D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DED02D40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4326,9 +4335,9 @@ id getANSTViSegHQRegularFrameInferenceDescriptorClass_2821()
   return v1;
 }
 
-void sub_1DED02E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DED02E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4357,9 +4366,9 @@ id getANSTViSegHQUpdateFrameInferenceDescriptorClass_2822()
   return v1;
 }
 
-void sub_1DED02F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DED02F00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4375,7 +4384,7 @@ void __getANSTViSegHQUpdateFrameInferenceDescriptorClass_block_invoke_2828(uint6
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "ANSTViSegHQUpdateFrameInferenceDescriptor");
     ANSTKitLibrary_2829();
   }
 }
@@ -4405,14 +4414,14 @@ void ANSTKitLibrary_2829()
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
 }
 
-uint64_t __ANSTKitLibraryCore_block_invoke_2833()
+uint64_t __ANSTKitLibraryCore_block_invoke_2833(uint64_t a1)
 {
   result = _sl_dlopen();
   ANSTKitLibraryCore_frameworkLibrary_2832 = result;
@@ -4431,7 +4440,7 @@ Class __getANSTViSegHQRegularFrameInferenceDescriptorClass_block_invoke_2838(uin
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQRegularFrameInferenceDescriptor");
     return __getANSTViSegHQInitialFrameInferenceDescriptorClass_block_invoke_2841(v3);
   }
 
@@ -4450,16 +4459,16 @@ Class __getANSTViSegHQInitialFrameInferenceDescriptorClass_block_invoke_2841(uin
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQInitialFrameInferenceDescriptor");
     return [(VisionCoreVideoSegmentationE5NetworkDescriptor *)v3 postProcessingOutputDescriptorsForFunction:v4, v5];
   }
 
   return result;
 }
 
-void sub_1DED036F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DED036F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4476,16 +4485,16 @@ VisionCoreVideoSegmentationE5NetworkDescriptor *__getANSTViSegHQUpdateFramePostP
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQUpdateFramePostProcessor");
     return [(VisionCoreVideoSegmentationE5NetworkDescriptor *)v3 initWithSpecifier:v4 url:v5, v6];
   }
 
   return result;
 }
 
-void sub_1DED03AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1DED03AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4502,7 +4511,7 @@ Class __getANSTViSegHQInferenceConfigurationClass_block_invoke_2870(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "ANSTViSegHQInferenceConfiguration");
     return [(VisionCoreVideoSegmentationE5NetworkDescriptor *)v3 descriptorForIdentifier:v4 version:v5 error:v6, v7];
   }
 
@@ -4624,7 +4633,7 @@ void VisionCoreValidatedLog(int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     v13[2] = __VisionCoreValidatedLog_block_invoke;
     v13[3] = &__block_descriptor_36_e24_v24__0____CFString__8_16l;
     v14 = a1;
-    v11 = MEMORY[0x1E12C8870](v13);
+    v11 = MEMORY[0x1E12C8870](v13, a2, a3, a4, a5, a6, a7, a8);
     v12 = v11;
     if ((v10 & 6) != 0)
     {

@@ -7,23 +7,22 @@
 
 + (id)_popUIDsTableSchema
 {
-  v12[5] = *MEMORY[0x1E69E9840];
+  v11[5] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"mailbox" nullable:1];
   v4 = [MEMORY[0x1E699B8D0] textColumnWithName:@"uid" collation:1 nullable:{1, v3}];
-  v12[1] = v4;
+  v11[1] = v4;
   v5 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"date_added" nullable:1];
-  v12[2] = v5;
+  v11[2] = v5;
   v6 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"flags" nullable:1];
-  v12[3] = v6;
+  v11[3] = v6;
   v7 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"del" nullable:1];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:5];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:5];
   v9 = [v2 initWithName:@"pop_uids" rowIDType:1 columns:v8];
 
   [v9 addUniquenessConstraintForColumns:&unk_1F27751F0 conflictResolution:1];
   [v9 addIndexForColumns:&unk_1F2775208];
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

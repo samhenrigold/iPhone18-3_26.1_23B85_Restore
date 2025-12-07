@@ -230,7 +230,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    arfcn = self->_arfcn;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -250,7 +249,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  pMax = self->_pMax;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -265,7 +263,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  qRxlevMin = self->_qRxlevMin;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -280,7 +277,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  threshXHighP = self->_threshXHighP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -295,7 +291,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  threshXLowP = self->_threshXLowP;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -310,12 +305,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  priority = self->_priority;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_8:
-    nccPermitted = self->_nccPermitted;
     PBDataWriterWriteUint32Field();
   }
 

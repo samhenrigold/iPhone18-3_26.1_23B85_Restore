@@ -183,15 +183,15 @@ LABEL_18:
 
 - (id)copyApplyingToDisplayList:(id)list
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v15[39] = *MEMORY[0x1E69E9840];
   v13 = 0;
   v14 = 0;
   _rb_contents = [list _rb_contents];
   if (_rb_contents)
   {
     RB::DisplayList::Builder::Builder(v15);
-    RB::DisplayList::Builder::draw(v15, _rb_contents, v16, 1.0, 0, 0);
-    RB::DisplayList::Builder::move_contents(v15, v6, &v12);
+    RB::DisplayList::Builder::draw(v15, _rb_contents, *&v15[35], 1.0, 0, 0);
+    RB::DisplayList::Builder::move_contents(&v12, v15, v6);
     v14 = v12;
     RB::DisplayList::Contents::apply_transform(v12, &self->_transform);
     RB::DisplayList::Builder::~Builder(v15);

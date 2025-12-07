@@ -9,7 +9,7 @@
 
 - (BOOL)isRePromptableWithAssistantId:(id)id
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC38];
   idCopy = id;
   processInfo = [v4 processInfo];
@@ -27,24 +27,23 @@
   v15 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315394;
-    v19 = "[VoiceTriggerRePromptUtil isRePromptableWithAssistantId:]";
-    v20 = 2050;
-    v21 = (v14 - v8) * 1000.0;
-    _os_log_impl(&dword_225E12000, v15, OS_LOG_TYPE_DEFAULT, "%s Bloom filter inference to check if ID exists took %{public}.3fms", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[VoiceTriggerRePromptUtil isRePromptableWithAssistantId:]";
+    v19 = 2050;
+    v20 = (v14 - v8) * 1000.0;
+    _os_log_impl(&dword_225E12000, v15, OS_LOG_TYPE_DEFAULT, "%s Bloom filter inference to check if ID exists took %{public}.3fms", &v17, 0x16u);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)initAndLoadImpactedAssistantIdsForRePromptWithAsset:(id)asset
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v25.receiver = self;
-  v25.super_class = VoiceTriggerRePromptUtil;
-  v5 = [(VoiceTriggerRePromptUtil *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = VoiceTriggerRePromptUtil;
+  v5 = [(VoiceTriggerRePromptUtil *)&v24 init];
   if (!v5)
   {
     goto LABEL_15;
@@ -58,9 +57,9 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
-      v28 = 2112;
-      v29 = blobVersion;
+      v26 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
+      v27 = 2112;
+      v28 = blobVersion;
       _os_log_error_impl(&dword_225E12000, v19, OS_LOG_TYPE_ERROR, "%s Unsupported blob version %@", buf, 0x16u);
     }
 
@@ -80,9 +79,9 @@
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
-      v28 = 2114;
-      v29 = v9;
+      v26 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
+      v27 = 2114;
+      v28 = v9;
       _os_log_error_impl(&dword_225E12000, v20, OS_LOG_TYPE_ERROR, "%s Blob file not found at path : %{public}@", buf, 0x16u);
     }
 
@@ -92,9 +91,9 @@
   v12 = MEMORY[0x277CCAAC8];
   v13 = objc_opt_class();
   v14 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v9];
-  v24 = 0;
-  v15 = [v12 unarchivedObjectOfClass:v13 fromData:v14 error:&v24];
-  v16 = v24;
+  v23 = 0;
+  v15 = [v12 unarchivedObjectOfClass:v13 fromData:v14 error:&v23];
+  v16 = v23;
   bloomFilter = v5->_bloomFilter;
   v5->_bloomFilter = v15;
 
@@ -110,9 +109,9 @@ LABEL_15:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v27 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
-    v28 = 2114;
-    v29 = v16;
+    v26 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePromptWithAsset:]";
+    v27 = 2114;
+    v28 = v16;
     _os_log_error_impl(&dword_225E12000, v18, OS_LOG_TYPE_ERROR, "%s Failed to unarchive blob with err: %{public}@", buf, 0x16u);
   }
 
@@ -122,13 +121,12 @@ LABEL_13:
   v21 = 0;
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
 - (id)initAndLoadImpactedAssistantIdsForRePrompt
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(SSRMobileAssetProvider);
   v4 = [(SSRMobileAssetProvider *)v3 installedAssetOfType:8 forLanguageCode:0];
   if (v4)
@@ -142,15 +140,14 @@ LABEL_16:
     v6 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315138;
-      v10 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePrompt]";
-      _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s No asset found, nothing to do", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[VoiceTriggerRePromptUtil initAndLoadImpactedAssistantIdsForRePrompt]";
+      _os_log_error_impl(&dword_225E12000, v6, OS_LOG_TYPE_ERROR, "%s No asset found, nothing to do", &v8, 0xCu);
     }
 
     selfCopy = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

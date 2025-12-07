@@ -212,7 +212,7 @@ LABEL_5:
   layoutCopy = layout;
   visibleAppLayouts = [(SBDosidoSwitcherModifier *)self visibleAppLayouts];
   v10 = 1.0;
-  if (([visibleAppLayouts containsObject:layoutCopy] & 1) == 0)
+  if ((objc_msgSend_containsObject_(visibleAppLayouts) & 1) == 0)
   {
     v13.receiver = self;
     v13.super_class = SBDosidoSwitcherModifier;

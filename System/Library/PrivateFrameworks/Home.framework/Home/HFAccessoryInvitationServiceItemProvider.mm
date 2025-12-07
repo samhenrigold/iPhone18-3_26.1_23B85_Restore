@@ -35,9 +35,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFServiceItemProvider *)self home];
+  v5 = objc_msgSend_home(self);
   user = [(HFAccessoryInvitationServiceItemProvider *)self user];
-  v7 = [v4 initWithHome:home user:user];
+  v7 = [v4 initWithHome:v5 user:user];
 
   return v7;
 }

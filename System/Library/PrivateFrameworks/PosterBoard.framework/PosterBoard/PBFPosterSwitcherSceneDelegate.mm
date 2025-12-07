@@ -34,7 +34,7 @@
 
   selfCopy = self;
   rootViewController = [v2 rootViewController];
-  if (!rootViewController || (v5 = rootViewController, type metadata accessor for PosterRackCollectionViewController(), v6 = swift_dynamicCastClass(), selfCopy, v7 = v6, selfCopy = v5, !v6))
+  if (!rootViewController || (v5 = rootViewController, type metadata accessor for PosterRackCollectionViewController(0), v6 = swift_dynamicCastClass(), selfCopy, v7 = v6, selfCopy = v5, !v6))
   {
 
 LABEL_5:
@@ -103,8 +103,8 @@ LABEL_5:
 
 - (id)_respondToActions:(id)actions forFBSScene:(id)scene inUIScene:(id)iScene fromTransitionContext:(id)context
 {
-  sub_21B61785C(0, &qword_28120B150);
-  sub_21B61E3A8(&qword_28120B148, &qword_28120B150);
+  sub_21B61785C(0, &qword_28120B150, 0x277CF0B58);
+  sub_21B61E3A8(&qword_28120B148, &qword_28120B150, 0x277CF0B58);
   v10 = sub_21B6C8F94();
   sceneCopy = scene;
   iSceneCopy = iScene;

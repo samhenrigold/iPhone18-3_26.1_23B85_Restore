@@ -73,24 +73,11 @@
     [(ATXPBProactiveSuggestionGroupedUIFeedbackResult *)self->_proto setStartDateOfFirstSessionInSeconds:?];
   }
 
-  if (![(ATXPBProactiveSuggestionGroupedUIFeedbackResult *)self->_proto hasEndDateOfLastSessionInSeconds])
+  if (!-[ATXPBProactiveSuggestionGroupedUIFeedbackResult hasEndDateOfLastSessionInSeconds](self->_proto, "hasEndDateOfLastSessionInSeconds") || (-[ATXPBProactiveSuggestionGroupedUIFeedbackResult endDateOfLastSessionInSeconds](self->_proto, "endDateOfLastSessionInSeconds"), v18 = v17, [resultsCopy session], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "sessionEndDate"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "timeIntervalSinceReferenceDate"), v22 = v21, v20, v19, v18 < v22))
   {
-    goto LABEL_11;
-  }
-
-  [(ATXPBProactiveSuggestionGroupedUIFeedbackResult *)self->_proto endDateOfLastSessionInSeconds];
-  v18 = v17;
-  session2 = [resultsCopy session];
-  sessionEndDate = [session2 sessionEndDate];
-  [sessionEndDate timeIntervalSinceReferenceDate];
-  v22 = v21;
-
-  if (v18 < v22)
-  {
-LABEL_11:
-    session3 = [resultsCopy session];
-    sessionEndDate2 = [session3 sessionEndDate];
-    [sessionEndDate2 timeIntervalSinceReferenceDate];
+    session2 = [resultsCopy session];
+    sessionEndDate = [session2 sessionEndDate];
+    [sessionEndDate timeIntervalSinceReferenceDate];
     [(ATXPBProactiveSuggestionGroupedUIFeedbackResult *)self->_proto setEndDateOfLastSessionInSeconds:?];
   }
 }
@@ -140,27 +127,28 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v9 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_blending(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(ATXProactiveSuggestionGroupedUIFeedbackResult *)self initWithProto:protoCopy, v9];
+      [(ATXProactiveSuggestionGroupedUIFeedbackResult *)self initWithProto:protoCopy, v10];
     }
 
     goto LABEL_9;
   }
 
-  v11.receiver = self;
-  v11.super_class = ATXProactiveSuggestionGroupedUIFeedbackResult;
-  v6 = [(ATXProactiveSuggestionGroupedUIFeedbackResult *)&v11 init];
-  v7 = v6;
-  if (v6)
+  v12.receiver = self;
+  v12.super_class = ATXProactiveSuggestionGroupedUIFeedbackResult;
+  v7 = [(ATXProactiveSuggestionGroupedUIFeedbackResult *)&v12 init];
+  v8 = v7;
+  if (v7)
   {
-    objc_storeStrong(&v6->_proto, proto);
+    objc_storeStrong(&v7->_proto, proto);
   }
 
-  self = v7;
+  self = v8;
   selfCopy = self;
 LABEL_10:
 
@@ -221,18 +209,16 @@ LABEL_10:
 
 - (void)initWithProto:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = objc_opt_class();
   v7 = NSStringFromClass(v6);
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object Protobuf object was of class: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_fault_impl(&dword_1DEFC4000, a3, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object Protobuf object was of class: %@", &v8, 0x16u);
 }
 
 @end

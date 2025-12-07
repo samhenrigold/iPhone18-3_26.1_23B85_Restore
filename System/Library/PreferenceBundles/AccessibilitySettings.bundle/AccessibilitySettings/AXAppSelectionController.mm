@@ -267,22 +267,22 @@ void __44__AXAppSelectionController__showHiddenApps___block_invoke(uint64_t a1, 
   dispatch_async(&_dispatch_main_q, v2);
 }
 
-void __44__AXAppSelectionController__showHiddenApps___block_invoke_2(uint64_t a1)
+void __44__AXAppSelectionController__showHiddenApps___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40) == 1)
   {
     [*(a1 + 32) setShowsHiddenApps:1];
-    v2 = *(a1 + 32);
+    v3 = *(a1 + 32);
 
-    [v2 reloadSpecifiers];
+    [v3 reloadSpecifiers];
   }
 
   else
   {
-    v3 = AXLogSettings();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = AXLogSettings();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __53__AXAppsViewController_showHiddenAppsWithCompletion___block_invoke_2_cold_1(v3);
+      __53__AXAppsViewController_showHiddenAppsWithCompletion___block_invoke_2_cold_1(v4);
     }
   }
 }

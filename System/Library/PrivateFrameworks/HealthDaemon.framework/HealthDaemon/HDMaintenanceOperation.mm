@@ -35,7 +35,7 @@
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
-    v7 = [nameCopy copy];
+    v7 = objc_msgSend_copy(nameCopy);
     name = v6->_name;
     v6->_name = v7;
 
@@ -87,7 +87,7 @@
 
 - (void)startWithCompletionDelegate:(id)delegate fromImmediateRequest:(BOOL)request
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   os_unfair_lock_lock(&self->_lock);
   if (self->_hasStarted)
@@ -121,11 +121,11 @@
         v13 = @" Immediately";
       }
 
-      v20 = 138543618;
+      v19 = 138543618;
       selfCopy = self;
-      v22 = 2114;
-      v23 = v13;
-      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Started%{public}@.", &v20, 0x16u);
+      v21 = 2114;
+      v22 = v13;
+      _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Started%{public}@.", &v19, 0x16u);
     }
 
     _HKInitializeLogging();
@@ -139,16 +139,14 @@
       if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
         name = [(HDMaintenanceOperation *)self name];
-        v20 = 138543362;
+        v19 = 138543362;
         selfCopy = name;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v11, "maintenance work operation", "name=%{public}@", &v20, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v11, "maintenance work operation", "name=%{public}@", &v19, 0xCu);
       }
     }
 
     [(HDMaintenanceOperation *)self main];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -158,7 +156,6 @@
     self->_wasCanceled = 1;
   }
 
-  canceledBlock = self->_canceledBlock;
   (*(self->_canceledBlock + 2))();
 
   [(HDMaintenanceOperation *)self finish];
@@ -166,7 +163,7 @@
 
 - (void)finish
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v2 = _HKLogPersistedSignposts();
@@ -177,11 +174,11 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = CFAbsoluteTimeGetCurrent() - *(self + 88);
-      v13 = 138543618;
+      v12 = 138543618;
       selfCopy = self;
-      v15 = 2048;
-      v16 = v5;
-      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopped after %0.3lfs.", &v13, 0x16u);
+      v14 = 2048;
+      v15 = v5;
+      _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: Stopped after %0.3lfs.", &v12, 0x16u);
     }
 
     _HKInitializeLogging();
@@ -195,9 +192,9 @@
       if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
       {
         name = [self name];
-        v13 = 138543362;
+        v12 = 138543362;
         selfCopy = name;
-        _os_signpost_emit_with_name_impl(&dword_228986000, v9, OS_SIGNPOST_INTERVAL_END, v3, "maintenance work operation", "name=%{public}@", &v13, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_228986000, v9, OS_SIGNPOST_INTERVAL_END, v3, "maintenance work operation", "name=%{public}@", &v12, 0xCu);
       }
     }
 
@@ -208,8 +205,6 @@
     os_unfair_lock_unlock((self + 8));
     [WeakRetained operationDidFinish:self];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (double)timeoutTime
@@ -258,49 +253,48 @@
 - (id)description
 {
   os_unfair_lock_lock(&self->_lock);
-  name = self->_name;
   if (self->_isImmediateRequest)
   {
-    v4 = @" (Immediate)";
+    v3 = @" (Immediate)";
   }
 
   else
   {
-    v4 = &stru_283BF39C8;
+    v3 = &stru_283BF39C8;
   }
 
-  v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", self->_name, v4];
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", self->_name, v3];
   if (self->_hasFinished)
   {
-    [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p %@ finished>", objc_opt_class(), self, v5, v13, v14];
+    [MEMORY[0x277CCACA8] stringWithFormat:@"<%@:%p %@ finished>", objc_opt_class(), self, v4, v12, v13];
   }
 
   else if (self->_hasStarted)
   {
-    v6 = MEMORY[0x277CCACA8];
-    v7 = objc_opt_class();
-    [v6 stringWithFormat:@"<%@:%p %@ running for %0.3lfs/%0.3lfs>", v7, self, v5, CFAbsoluteTimeGetCurrent() - self->_startedTime, *&self->_timeout];
+    v5 = MEMORY[0x277CCACA8];
+    v6 = objc_opt_class();
+    [v5 stringWithFormat:@"<%@:%p %@ running for %0.3lfs/%0.3lfs>", v6, self, v4, CFAbsoluteTimeGetCurrent() - self->_startedTime, *&self->_timeout];
   }
 
   else
   {
     enqueuedTime = self->_enqueuedTime;
-    v9 = MEMORY[0x277CCACA8];
-    v10 = objc_opt_class();
+    v8 = MEMORY[0x277CCACA8];
+    v9 = objc_opt_class();
     if (enqueuedTime <= 0.0)
     {
-      [v9 stringWithFormat:@"<%@:%p %@ not enqueued>", v10, self, v5, v13, v14];
+      [v8 stringWithFormat:@"<%@:%p %@ not enqueued>", v9, self, v4, v12, v13];
     }
 
     else
     {
-      [v9 stringWithFormat:@"<%@:%p %@ pending for %0.3lfs>", v10, self, v5, CFAbsoluteTimeGetCurrent() - self->_enqueuedTime, v14];
+      [v8 stringWithFormat:@"<%@:%p %@ pending for %0.3lfs>", v9, self, v4, CFAbsoluteTimeGetCurrent() - self->_enqueuedTime, v13];
     }
   }
-  v11 = ;
+  v10 = ;
   os_unfair_lock_unlock(&self->_lock);
 
-  return v11;
+  return v10;
 }
 
 @end

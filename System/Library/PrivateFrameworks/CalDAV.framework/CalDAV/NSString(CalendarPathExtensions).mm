@@ -6,7 +6,7 @@
 
 + (id)stringWithContentsOfFile:()CalendarPathExtensions usingEncoding:
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v5];
   if (v6)
@@ -21,15 +21,13 @@
     v10 = v9;
     if (v9 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_242742000, v10, OS_LOG_TYPE_ERROR, "unable to read data at path : %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&dword_242742000, v10, OS_LOG_TYPE_ERROR, "unable to read data at path : %@", &v12, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

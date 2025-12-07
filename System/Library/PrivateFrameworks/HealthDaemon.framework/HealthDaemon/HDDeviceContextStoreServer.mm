@@ -46,7 +46,7 @@ id __64__HDDeviceContextStoreServer_remote_fetchEntriesWithCompletion___block_in
   v11 = [v3 currentOSName];
   if (v3)
   {
-    [v3 currentOSVersion];
+    objc_msgSend_currentOSVersion(v3);
   }
 
   else

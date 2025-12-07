@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int)type;
 - (unint64_t)hash;
@@ -44,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100206360[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -278,14 +294,12 @@ LABEL_18:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    encryptionScheme = self->_encryptionScheme;
     PBDataWriterWriteInt32Field();
   }
 
@@ -294,33 +308,32 @@ LABEL_18:
     PBDataWriterWriteStringField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = self->_stringListValues;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_stringListValues;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v19;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v11)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
   if (self->_dateValue)
@@ -328,8 +341,8 @@ LABEL_18:
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = self->_has;
-  if ((v14 & 2) == 0)
+  v11 = self->_has;
+  if ((v11 & 2) == 0)
   {
     if ((*&self->_has & 1) == 0)
     {
@@ -337,7 +350,6 @@ LABEL_18:
     }
 
 LABEL_22:
-    doubleValue = self->_doubleValue;
     PBDataWriterWriteDoubleField();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -347,19 +359,17 @@ LABEL_22:
     goto LABEL_19;
   }
 
-  int64Value = self->_int64Value;
   PBDataWriterWriteInt64Field();
-  v14 = self->_has;
-  if (v14)
+  v11 = self->_has;
+  if (v11)
   {
     goto LABEL_22;
   }
 
 LABEL_18:
-  if ((v14 & 0x10) != 0)
+  if ((v11 & 0x10) != 0)
   {
 LABEL_19:
-    BOOLValue = self->_BOOLValue;
     PBDataWriterWriteBOOLField();
   }
 
@@ -545,7 +555,6 @@ LABEL_15:
     goto LABEL_30;
   }
 
-  v5 = *(equalCopy + 64);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 64) & 8) == 0 || self->_type != *(equalCopy + 14))
@@ -622,13 +631,13 @@ LABEL_15:
     goto LABEL_30;
   }
 
-  v9 = (*(equalCopy + 64) & 0x10) == 0;
+  v8 = (*(equalCopy + 64) & 0x10) == 0;
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 64) & 0x10) == 0)
     {
 LABEL_30:
-      v9 = 0;
+      v8 = 0;
       goto LABEL_31;
     }
 
@@ -645,12 +654,12 @@ LABEL_30:
       goto LABEL_30;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_31:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -411,21 +411,8 @@ LABEL_17:
 
   else
   {
-    if (!v5)
+    if (!v5 || (+[NSNotificationCenter defaultCenter](NSNotificationCenter, "defaultCenter"), v14 = objc_claimAutoreleasedReturnValue(), [v14 addObserver:self selector:"handleXPCClientInvalidation:" name:@"MRDMediaRemoteServerClientInvalidatedNotification" object:v5], v14, +[MRDMediaRemoteServer server](MRDMediaRemoteServer, "server"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "allClients"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "containsObject:", v5), v16, v15, (v17 & 1) != 0))
     {
-      goto LABEL_11;
-    }
-
-    v14 = +[NSNotificationCenter defaultCenter];
-    [v14 addObserver:self selector:"handleXPCClientInvalidation:" name:@"MRDMediaRemoteServerClientInvalidatedNotification" object:v5];
-
-    v15 = +[MRDMediaRemoteServer server];
-    allClients = [v15 allClients];
-    v17 = [allClients containsObject:v5];
-
-    if (v17)
-    {
-LABEL_11:
       v12 = 0;
       goto LABEL_15;
     }

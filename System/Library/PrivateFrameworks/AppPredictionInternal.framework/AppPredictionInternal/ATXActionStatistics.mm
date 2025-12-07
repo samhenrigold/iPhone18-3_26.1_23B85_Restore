@@ -70,28 +70,28 @@
 
 - (void)updateActionStatisticsForSlotResolutionStatistics:(id)statistics candidateActionPredictions:(id)predictions
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   predictionsCopy = predictions;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v8 = [predictionsCopy countByEnumeratingWithState:&v51 objects:v55 count:16];
+  v8 = [predictionsCopy countByEnumeratingWithState:&v50 objects:v54 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v52;
+    v10 = *v51;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v52 != v10)
+        if (*v51 != v10)
         {
           objc_enumerationMutation(predictionsCopy);
         }
 
-        v12 = *(*(&v51 + 1) + 8 * i);
+        v12 = *(*(&v50 + 1) + 8 * i);
         scoredAction = [v12 scoredAction];
         predictedItem = [scoredAction predictedItem];
 
@@ -106,7 +106,7 @@
         }
       }
 
-      v9 = [predictionsCopy countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v9 = [predictionsCopy countByEnumeratingWithState:&v50 objects:v54 count:16];
     }
 
     while (v9);
@@ -228,8 +228,6 @@
   self->_homeScreenActionRejectsAtCoarseTimePOWLocationInContext = *(statisticsCopy + 88) + self->_homeScreenActionRejectsAtCoarseTimePOWLocationInContext;
   self->_homeScreenActionConfirmsAtSpecificTimeDOWLocationInContext = *(statisticsCopy + 89) + self->_homeScreenActionConfirmsAtSpecificTimeDOWLocationInContext;
   self->_homeScreenActionRejectsAtSpecificTimeDOWLocationInContext = *(statisticsCopy + 90) + self->_homeScreenActionRejectsAtSpecificTimeDOWLocationInContext;
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -51,7 +51,7 @@
           if ((isRestricted & 1) == 0)
           {
             appTags = [v12 appTags];
-            v18 = [appTags containsObject:@"hidden"];
+            v18 = objc_msgSend_containsObject_(appTags);
 
             if ((v18 & 1) == 0)
             {

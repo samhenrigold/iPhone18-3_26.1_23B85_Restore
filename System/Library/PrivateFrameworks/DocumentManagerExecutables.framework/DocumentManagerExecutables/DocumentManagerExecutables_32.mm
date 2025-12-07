@@ -1,2781 +1,16 @@
-void closure #1 in DOCItemCollectionViewController.showLoadingViewIfNeeded()()
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v1 = Strong;
-    if ((*(Strong + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_preventLoadingView) & 1) == 0)
-    {
-      v2 = *(Strong + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-      if (!v2)
-      {
-        __break(1u);
-        return;
-      }
-
-      if ([v2 isGathering])
-      {
-        DOCItemCollectionViewController.showLoadingView()();
-      }
-
-      else
-      {
-        v3 = (*((*MEMORY[0x277D85000] & *v1) + 0xA68))();
-        v4 = [v3 identifier];
-
-        v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v7 = v6;
-        if (v5 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v7 == v8)
-        {
-
-          return;
-        }
-
-        v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v10 & 1) == 0)
-        {
-          v11 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView);
-          if (v11)
-          {
-            v12 = v11;
-            [v12 setHidden_];
-          }
-        }
-      }
-    }
-  }
-}
-
-Swift::Void __swiftcall DOCItemCollectionViewController.viewWillAppear(_:)(Swift::Bool a1)
-{
-  v39.receiver = v1;
-  v39.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  v3 = objc_msgSendSuper2(&v39, sel_viewWillAppear_, a1);
-  v4 = MEMORY[0x277D85000];
-  v5 = (*((*MEMORY[0x277D85000] & *v1) + 0x1010))(v3);
-  v6 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
-  v7 = DOCFocusGroupIdentifierBrowserFromConfiguration();
-  if (!v7)
-  {
-    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v7 = MEMORY[0x24C1FAD20](v8);
-  }
-
-  [v5 setFocusGroupIdentifier_];
-
-  v9 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-  if (!v9)
-  {
-    __break(1u);
-    return;
-  }
-
-  if ([v9 isGathering])
-  {
-    v10 = DOCItemCollectionViewController.showLoadingViewIfNeeded()();
-  }
-
-  else
-  {
-    v11._rawValue = (*((*v4 & *v1) + 0xCB8))();
-    DOCItemCollectionViewController.donateVisibleItemsToSiriVocabulary(_:)(v11);
-  }
-
-  if ((*((*v4 & *v1) + 0x9C8))(v10))
-  {
-  }
-
-  else
-  {
-    specialized DOCItemCollectionViewController.reloadNodeTitleMenuConfigurations(canFetchURLIfNecessary:)();
-  }
-
-  v12 = DOCItemCollectionViewController.updateFilenameExtensionVisibilityIfNeeded()();
-  v13 = (*((*v4 & *v1) + 0xC40))(v12);
-  if ((v13 & 1) == 0)
-  {
-    goto LABEL_13;
-  }
-
-  v14 = objc_opt_self();
-  v15 = swift_allocObject();
-  *(v15 + 16) = v1;
-  v16 = swift_allocObject();
-  v17 = partial apply for closure #1 in DOCItemCollectionViewController.viewWillAppear(_:);
-  *(v16 + 16) = partial apply for closure #1 in DOCItemCollectionViewController.viewWillAppear(_:);
-  *(v16 + 24) = v15;
-  aBlock[4] = closure #1 in static UIView.doc_performBlock(allowingAnimations:block:)partial apply;
-  aBlock[5] = v16;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
-  aBlock[3] = &block_descriptor_144;
-  v18 = _Block_copy(aBlock);
-  v19 = v1;
-
-  [v14 performWithoutAnimation_];
-  _Block_release(v18);
-  LOBYTE(v14) = swift_isEscapingClosureAtFileLocation();
-
-  if (v14)
-  {
-    __break(1u);
-LABEL_13:
-    v17 = 0;
-  }
-
-  v37 = v17;
-  v20 = *((*v4 & *v1) + 0x148);
-  if ((v20(v13) & 1) == 0)
-  {
-    v21 = (*((*v4 & *v1) + 0xBD8))() == 3;
-    (*((*v4 & *v1) + 0x1300))(v21, MEMORY[0x277D84F90]);
-  }
-
-  v22 = (*((*v4 & *v1) + 0x1378))(MEMORY[0x277D84F90], 0, 0);
-  (*((*v4 & *v1) + 0x12E0))(v22);
-  v23 = objc_opt_self();
-  v24 = [v23 defaultCenter];
-  v25 = objc_opt_self();
-  v26 = [v25 willShowMenuNotification];
-  [v24 addObserver:v1 selector:sel_menuControllerWillShow name:v26 object:0];
-
-  v27 = [v23 defaultCenter];
-  v28 = [v25 willHideMenuNotification];
-  [v27 addObserver:v1 selector:sel_menuControllerWillHide name:v28 object:0];
-
-  DOCItemCollectionViewController.startObservingAppProtectionNotifications()();
-  DOCItemCollectionViewController.updateShieldUIVisibilityForCurrentProtectedState()();
-  v29 = [v6 forPickingDocuments];
-  if (v29)
-  {
-    v29 = DOCItemCollectionViewController.multiSelectionOpenAction.getter();
-    if (v29)
-    {
-
-      v29 = 1;
-    }
-  }
-
-  v30 = MEMORY[0x277D85000];
-  v31 = (*((*MEMORY[0x277D85000] & *v1) + 0x150))(v29);
-  v32 = v20(v31);
-  if (v32)
-  {
-    v33 = (*((*v30 & *v1) + 0xD60))();
-    LOWORD(aBlock[0]) = 0;
-    DOCItemCollectionViewController.updateSnapshot(for:using:maintainSelection:)(v33, aBlock, 0);
-  }
-
-  v34 = (*((*v30 & *v1) + 0xBD8))(v32);
-  if (v34 == 2)
-  {
-    DOCItemCollectionViewController.resetColumnsIfNeeded()();
-    v35 = (*((*v30 & *v1) + 0xB08))();
-    swift_beginAccess();
-    *(v35 + 120) = 1;
-  }
-
-  v36 = (*((*v30 & *v1) + 0xFC8))(v34);
-  specialized DOCItemCollectionViewController.configureSupplementaryItems(for:footerContentInsets:)(v36);
-
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v37);
-}
-
-uint64_t closure #1 in DOCItemCollectionViewController.viewWillAppear(_:)(void *a1)
-{
-  v1 = (*((*MEMORY[0x277D85000] & *a1) + 0xD60))();
-  v3 = 2;
-  DOCItemCollectionViewController.updateSnapshot(for:using:maintainSelection:)(v1, &v3, 0);
-}
-
-Swift::Void __swiftcall DOCItemCollectionViewController.viewIsAppearing(_:)(Swift::Bool a1)
-{
-  v8.receiver = v1;
-  v8.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  v3 = objc_msgSendSuper2(&v8, sel_viewIsAppearing_, a1);
-  *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_automaticApplyRestorableSettingsAllowed) = 1;
-  *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_automaticSaveRestorableSettingsAllowed) = 1;
-  v4 = (*((*MEMORY[0x277D85000] & *v1) + 0x1010))(v3);
-  v5 = [v4 indexPathsForVisibleItems];
-
-  type metadata accessor for IndexPath();
-  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v7 = *(v6 + 16);
-
-  if (v7)
-  {
-    DOCItemCollectionViewController.applyRestorableSettingsIfStillEnqueued(force:)(0);
-  }
-}
-
-Swift::Void __swiftcall DOCItemCollectionViewController.viewDidAppear(_:)(Swift::Bool a1)
-{
-  v2 = v1;
-  v15.receiver = v2;
-  v15.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  v4 = objc_msgSendSuper2(&v15, sel_viewDidAppear_, a1);
-  v5 = MEMORY[0x277D85000];
-  v6 = *((*MEMORY[0x277D85000] & *v2) + 0x1010);
-  v7 = (v6)(v4);
-  v8 = DOCFocusGroupIdentifierBrowserFromConfiguration();
-  if (!v8)
-  {
-    v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = MEMORY[0x24C1FAD20](v9);
-  }
-
-  [v7 setFocusGroupIdentifier_];
-
-  v10 = (*((*v5 & *v2) + 0x1448))();
-  if (v10)
-  {
-    v10 = (*((*v5 & *v2) + 0x1498))();
-    if (v10)
-    {
-      (*(*v10 + 448))(v10);
-    }
-  }
-
-  if ((*((*v5 & *v2) + 0x148))(v10))
-  {
-    DOCItemCollectionViewController.updateToolBarItems()();
-  }
-
-  v11 = (*((*v5 & *v2) + 0xAE8))();
-  if (v11)
-  {
-    v12 = v11;
-    v13 = [v11 effectiveFullBrowser];
-
-    [v13 establishFirstResponderIfNeeded];
-  }
-
-  v14 = v6();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DOCItemCollectionViewController and conformance DOCItemCollectionViewController, type metadata accessor for DOCItemCollectionViewController);
-  swift_unknownObjectRetain();
-  UICollectionView.appIntentsDataSource.setter();
-
-  DOCItemCollectionViewController.addChangeViewOptionsInteractions()();
-}
-
-Swift::Void __swiftcall DOCItemCollectionViewController.viewWillDisappear(_:)(Swift::Bool a1)
-{
-  v2 = v1;
-  v24.receiver = v2;
-  v24.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  objc_msgSendSuper2(&v24, sel_viewWillDisappear_, a1);
-  v4 = objc_opt_self();
-  v5 = [v4 defaultCenter];
-  v6 = objc_opt_self();
-  v7 = [v6 willShowMenuNotification];
-  [v5 removeObserver:v2 name:v7 object:0];
-
-  v8 = [v4 defaultCenter];
-  v9 = [v6 willHideMenuNotification];
-  [v8 removeObserver:v2 name:v9 object:0];
-
-  DOCItemCollectionViewController.stopObservingAppProtectionNotifications()();
-  [v2 resignFirstResponder];
-  v10 = [objc_opt_self() sharedManager];
-  [v10 unregisterKeyboardFocusable_];
-
-  DOCItemCollectionViewController.removeChangeViewOptionsInteractions()();
-  v11 = [objc_opt_self() defaultPermission];
-  [v11 cleanAppContainerBundleIDCache];
-
-  v12 = MEMORY[0x277D85000];
-  v13 = (*((*MEMORY[0x277D85000] & *v2) + 0x1990))();
-  [v13 invalidate];
-
-  v14 = (*((*v12 & *v2) + 0x19A8))();
-  [v14 invalidate];
-
-  (*((*v12 & *v2) + 0x7C8))(0, 0);
-  v15 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_syncStateHeaderView;
-  v16 = *(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_syncStateHeaderView);
-  if (v16)
-  {
-    v17 = *((*v12 & *v16) + 0xE0);
-    v18 = v16;
-    v17();
-
-    v19 = *(v2 + v15);
-    if (v19)
-    {
-      v20 = *((*v12 & *v19) + 0xA8);
-      v21 = v19;
-      v20(0, 0);
-    }
-  }
-
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v23 = Strong;
-    [Strong dismissViewControllerAnimated:1 completion:0];
-  }
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.resolvedItemHandler.getter()
-{
-  v1 = *(v0 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_resolvedItemHandler);
-
-  return v1;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.requestID.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID;
-  v4 = type metadata accessor for UUID();
-  v5 = *(*(v4 - 8) + 16);
-
-  return v5(a1, v1 + v3, v4);
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.hasCalledHandler.getter()
-{
-  v1 = OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_hasCalledHandler;
-  swift_beginAccess();
-  return *(v0 + v1);
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.hasCalledHandler.setter(char a1)
-{
-  v3 = OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_hasCalledHandler;
-  result = swift_beginAccess();
-  *(v1 + v3) = a1;
-  return result;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.invokeItemHandler(withNode:)(uint64_t a1)
-{
-  result = (*(*v1 + 120))();
-  if ((result & 1) == 0)
-  {
-    (*(*v1 + 128))(1);
-    return (*(v1 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_resolvedItemHandler))(a1);
-  }
-
-  return result;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.__allocating_init(node:url:resolvedItemHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v8 = swift_allocObject();
-  *(v8 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_hasCalledHandler) = 0;
-  *(v8 + 16) = a1;
-  outlined init with copy of DOCGridLayout.Spec?(a2, v8 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, &_s10Foundation3URLVSgMd);
-  v9 = (v8 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_resolvedItemHandler);
-  *v9 = a3;
-  v9[1] = a4;
-  UUID.init()();
-  outlined destroy of CharacterSet?(a2, &_s10Foundation3URLVSgMd);
-  return v8;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.init(node:url:resolvedItemHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v9 = type metadata accessor for UUID();
-  v10 = *(v9 - 8);
-  MEMORY[0x28223BE20](v9, v11);
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *(v4 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_hasCalledHandler) = 0;
-  *(v4 + 16) = a1;
-  outlined init with copy of DOCGridLayout.Spec?(a2, v4 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, &_s10Foundation3URLVSgMd);
-  v14 = (v4 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_resolvedItemHandler);
-  *v14 = a3;
-  v14[1] = a4;
-  UUID.init()();
-  outlined destroy of CharacterSet?(a2, &_s10Foundation3URLVSgMd);
-  (*(v10 + 32))(v4 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID, v13, v9);
-  return v4;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.description.getter()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
-  MEMORY[0x28223BE20](v1, v2);
-  v4 = v14 - v3;
-  v15 = 0;
-  v16 = 0xE000000000000000;
-  _StringGuts.grow(_:)(56);
-  MEMORY[0x24C1FAEA0](0x7473657571657228, 0xEC000000203A4449);
-  type metadata accessor for UUID();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-  v5 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x24C1FAEA0](v5);
-
-  v6 = MEMORY[0x24C1FAEA0](0xD000000000000014, 0x8000000249BDEBA0);
-  v7 = (*(*v0 + 120))(v6);
-  v8 = (v7 & 1) == 0;
-  if (v7)
-  {
-    v9 = 1702195828;
-  }
-
-  else
-  {
-    v9 = 0x65736C6166;
-  }
-
-  if (v8)
-  {
-    v10 = 0xE500000000000000;
-  }
-
-  else
-  {
-    v10 = 0xE400000000000000;
-  }
-
-  MEMORY[0x24C1FAEA0](v9, v10);
-
-  MEMORY[0x24C1FAEA0](0x203A6C7275203BLL, 0xE700000000000000);
-  outlined init with copy of DOCGridLayout.Spec?(v0 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, v4, &_s10Foundation3URLVSgMd);
-  v11 = String.init<A>(describing:)();
-  MEMORY[0x24C1FAEA0](v11);
-
-  MEMORY[0x24C1FAEA0](0x203A65646F6E203BLL, 0xE800000000000000);
-  v14[1] = v0[2];
-  swift_unknownObjectRetain();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
-  v12 = String.init<A>(describing:)();
-  MEMORY[0x24C1FAEA0](v12);
-
-  MEMORY[0x24C1FAEA0](41, 0xE100000000000000);
-  return v15;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.deinit()
-{
-  swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v0 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, &_s10Foundation3URLVSgMd);
-
-  v1 = OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID;
-  v2 = type metadata accessor for UUID();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-  return v0;
-}
-
-uint64_t DOCItemCollectionViewController.PendingNodeContext.__deallocating_deinit()
-{
-  swift_unknownObjectRelease();
-  outlined destroy of CharacterSet?(v0 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, &_s10Foundation3URLVSgMd);
-
-  v1 = OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID;
-  v2 = type metadata accessor for UUID();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t DOCItemCollectionViewController.waitForPending(node:url:resolutionHandler:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v57 = a3;
-  v7 = type metadata accessor for DispatchWorkItemFlags();
-  v65 = *(v7 - 8);
-  v66 = v7;
-  MEMORY[0x28223BE20](v7, v8);
-  v63 = &v57 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v64 = type metadata accessor for DispatchQoS();
-  v62 = *(v64 - 8);
-  MEMORY[0x28223BE20](v64, v10);
-  v61 = &v57 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v68 = type metadata accessor for DispatchTime();
-  v60 = *(v68 - 8);
-  MEMORY[0x28223BE20](v68, v12);
-  v58 = &v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v15);
-  v59 = &v57 - v16;
-  v17 = type metadata accessor for UUID();
-  v18 = *(v17 - 8);
-  MEMORY[0x28223BE20](v17, v19);
-  v21 = &v57 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
-  MEMORY[0x28223BE20](v22 - 8, v23);
-  v25 = &v57 - v24;
-  outlined init with copy of DOCGridLayout.Spec?(a2, &v57 - v24, &_s10Foundation3URLVSgMd);
-  type metadata accessor for DOCItemCollectionViewController.PendingNodeContext(0);
-  v26 = swift_allocObject();
-  *(v26 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_hasCalledHandler) = 0;
-  *(v26 + 16) = a1;
-  outlined init with copy of DOCGridLayout.Spec?(v25, v26 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, &_s10Foundation3URLVSgMd);
-  v27 = (v26 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_resolvedItemHandler);
-  *v27 = v57;
-  v27[1] = a4;
-  swift_unknownObjectRetain();
-
-  UUID.init()();
-  outlined destroy of CharacterSet?(v25, &_s10Foundation3URLVSgMd);
-  (*(v18 + 32))(v26 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID, v21, v17);
-  if (one-time initialization token for UI != -1)
-  {
-    swift_once();
-  }
-
-  v28 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v28, static Logger.UI);
-  swift_unknownObjectRetain();
-  v29 = v67;
-  v30 = Logger.logObject.getter();
-  v31 = static os_log_type_t.default.getter();
-
-  swift_unknownObjectRelease();
-  if (os_log_type_enabled(v30, v31))
-  {
-    v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    aBlock[0] = v33;
-    *v32 = 136315650;
-    *(v32 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, 0x8000000249BE12C0, aBlock);
-    *(v32 + 12) = 2080;
-    v34 = [a1 displayName];
-    v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v37 = v36;
-
-    v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, aBlock);
-
-    *(v32 + 14) = v38;
-    *(v32 + 22) = 2080;
-    v40 = (*((*MEMORY[0x277D85000] & *v29) + 0xA68))(v39);
-    v41 = [v40 identifier];
-
-    v69 = v41;
-    type metadata accessor for DOCDocumentSourceIdentifier(0);
-    v42 = String.init<A>(describing:)();
-    v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v43, aBlock);
-
-    *(v32 + 24) = v44;
-    _os_log_impl(&dword_2493AC000, v30, v31, "%s - adding node to be resolved: %s in source: %s", v32, 0x20u);
-    swift_arrayDestroy();
-    MEMORY[0x24C1FE850](v33, -1, -1);
-    MEMORY[0x24C1FE850](v32, -1, -1);
-  }
-
-  v45 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_pendingNodeContexts;
-  swift_beginAccess();
-
-  MEMORY[0x24C1FB090](v46);
-  if (*((*(v29 + v45) & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*(v29 + v45) & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-  {
-    specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-  }
-
-  specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-  swift_endAccess();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v57 = static OS_dispatch_queue.main.getter();
-  v47 = v58;
-  static DispatchTime.now()();
-  v48 = v59;
-  + infix(_:_:)();
-  v67 = *(v60 + 8);
-  (v67)(v47, v68);
-  v49 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  v50 = swift_allocObject();
-  *(v50 + 16) = v49;
-  *(v50 + 24) = v26;
-  aBlock[4] = partial apply for closure #1 in DOCItemCollectionViewController.waitForPending(node:url:resolutionHandler:);
-  aBlock[5] = v50;
-  aBlock[0] = MEMORY[0x277D85DD0];
-  aBlock[1] = 1107296256;
-  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  aBlock[3] = &block_descriptor_1387;
-  v51 = _Block_copy(aBlock);
-
-  v52 = v61;
-  static DispatchQoS.unspecified.getter();
-  aBlock[0] = MEMORY[0x277D84F90];
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  v53 = v63;
-  v54 = v66;
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v55 = v57;
-  MEMORY[0x24C1FB940](v48, v52, v53, v51);
-  _Block_release(v51);
-
-  (*(v65 + 8))(v53, v54);
-  (*(v62 + 8))(v52, v64);
-  return (v67)(v48, v68);
-}
-
-uint64_t closure #1 in DOCItemCollectionViewController.waitForPending(node:url:resolutionHandler:)(uint64_t a1, uint64_t a2)
-{
-  v3 = type metadata accessor for UUID();
-  v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = &v48[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v8, v9);
-  v11 = &v48[-v10];
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (!Strong)
-  {
-    return (*(*a2 + 144))();
-  }
-
-  v13 = Strong;
-  v14 = *(v4 + 16);
-  v51 = v3;
-  v14(v11, a2 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_requestID, v3);
-  v15 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_pendingNodeContexts;
-  v16 = swift_beginAccess();
-  v17 = *&v13[v15];
-  MEMORY[0x28223BE20](v16, v18);
-  v52 = v11;
-  *&v48[-16] = v11;
-
-  v19 = specialized Collection.firstIndex(where:)(partial apply for closure #1 in closure #1 in DOCItemCollectionViewController.waitForPending(node:url:resolutionHandler:), &v48[-32], v17);
-  v21 = v20;
-
-  if (v21)
-  {
-    if (one-time initialization token for UI != -1)
-    {
-      swift_once();
-    }
-
-    v23 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v23, static Logger.UI);
-    v24 = v51;
-    v25 = v52;
-    v14(v7, v52, v51);
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v26, v27))
-    {
-      v28 = swift_slowAlloc();
-      v50 = swift_slowAlloc();
-      v53[0] = v50;
-      *v28 = 136315394;
-      *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, 0x8000000249BE12C0, v53);
-      *(v28 + 12) = 2080;
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0]);
-      v29 = dispatch thunk of CustomStringConvertible.description.getter();
-      v31 = v30;
-      v32 = *(v4 + 8);
-      v49 = v27;
-      v32(v7, v24);
-      v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, v53);
-
-      *(v28 + 14) = v33;
-      _os_log_impl(&dword_2493AC000, v26, v49, "%s - TIMEOUT did not find pendingNodeContext for requestID: %s", v28, 0x16u);
-      v34 = v50;
-      swift_arrayDestroy();
-      MEMORY[0x24C1FE850](v34, -1, -1);
-      v35 = v28;
-      v25 = v52;
-      MEMORY[0x24C1FE850](v35, -1, -1);
-    }
-
-    else
-    {
-
-      v32 = *(v4 + 8);
-      v32(v7, v24);
-    }
-
-    return (v32)(v25, v24);
-  }
-
-  v36 = *&v13[v15];
-  if ((v36 & 0xC000000000000001) != 0)
-  {
-
-    v21 = MEMORY[0x24C1FC540](v19, v36);
-
-LABEL_12:
-    swift_beginAccess();
-    specialized Array.remove(at:)(v19);
-    swift_endAccess();
-
-    if (one-time initialization token for UI == -1)
-    {
-LABEL_13:
-      v37 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v37, static Logger.UI);
-
-      v38 = Logger.logObject.getter();
-      v39 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v38, v39))
-      {
-        v40 = swift_slowAlloc();
-        v50 = swift_slowAlloc();
-        v53[0] = v50;
-        *v40 = 136315394;
-        *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, 0x8000000249BE12C0, v53);
-        *(v40 + 12) = 2080;
-        v41 = *(*v21 + 160);
-
-        v43 = v41(v42);
-        v45 = v44;
-
-        v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v45, v53);
-
-        *(v40 + 14) = v46;
-        _os_log_impl(&dword_2493AC000, v38, v39, "%s - TIMEOUT calling resolvedItemHandler with 'nil' item for pending node context: %s", v40, 0x16u);
-        v47 = v50;
-        swift_arrayDestroy();
-        MEMORY[0x24C1FE850](v47, -1, -1);
-        MEMORY[0x24C1FE850](v40, -1, -1);
-      }
-
-      v24 = v51;
-      v25 = v52;
-      (*(*v21 + 144))(0);
-
-      v32 = *(v4 + 8);
-      return (v32)(v25, v24);
-    }
-
-LABEL_20:
-    swift_once();
-    goto LABEL_13;
-  }
-
-  if ((v19 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-    goto LABEL_20;
-  }
-
-  if (v19 < *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10))
-  {
-    v21 = *(v36 + 8 * v19 + 32);
-
-    goto LABEL_12;
-  }
-
-  __break(1u);
-  return result;
-}
-
-void DOCItemCollectionViewController.resolvePendingNodeContexts()()
-{
-  if (one-time initialization token for UI != -1)
-  {
-LABEL_26:
-    swift_once();
-  }
-
-  v1 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v1, static Logger.UI);
-  v2 = v0;
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.default.getter();
-
-  if (os_log_type_enabled(v3, v4))
-  {
-    v5 = swift_slowAlloc();
-    v6 = swift_slowAlloc();
-    v38[0] = v6;
-    *v5 = 136315394;
-    *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0BA0, v38);
-    *(v5 + 12) = 2080;
-    v7 = (*((*MEMORY[0x277D85000] & *v2) + 0xA68))();
-    v8 = [v7 identifier];
-
-    v37 = v8;
-    type metadata accessor for DOCDocumentSourceIdentifier(0);
-    v9 = String.init<A>(describing:)();
-    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, v38);
-
-    *(v5 + 14) = v11;
-    _os_log_impl(&dword_2493AC000, v3, v4, "%s - BEGIN source: %s", v5, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x24C1FE850](v6, -1, -1);
-    MEMORY[0x24C1FE850](v5, -1, -1);
-  }
-
-  v12 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_pendingNodeContexts;
-  swift_beginAccess();
-  v13 = *(v2 + v12);
-  if (v13 >> 62)
-  {
-    if (__CocoaSet.count.getter() >= 1)
-    {
-LABEL_6:
-      v14 = v2;
-      v15 = Logger.logObject.getter();
-      v16 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v15, v16))
-      {
-        v17 = swift_slowAlloc();
-        v18 = swift_slowAlloc();
-        v37 = v18;
-        *v17 = 136315394;
-        *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0BA0, &v37);
-        *(v17 + 12) = 2048;
-        v19 = *(v2 + v12);
-        if (v19 >> 62)
-        {
-          v20 = __CocoaSet.count.getter();
-        }
-
-        else
-        {
-          v20 = *((v19 & 0xFFFFFFFFFFFFFF8) + 0x10);
-        }
-
-        *(v17 + 14) = v20;
-
-        _os_log_impl(&dword_2493AC000, v15, v16, "%s - pendingNodeContexts == %ld, keep going", v17, 0x16u);
-        __swift_destroy_boxed_opaque_existential_0(v18);
-        MEMORY[0x24C1FE850](v18, -1, -1);
-        MEMORY[0x24C1FE850](v17, -1, -1);
-      }
-
-      else
-      {
-      }
-
-      v0 = *(v2 + v12);
-      if (v0 >> 62)
-      {
-        v21 = __CocoaSet.count.getter();
-      }
-
-      else
-      {
-        v21 = *((v0 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      }
-
-      if (v21)
-      {
-        v22 = 0;
-        do
-        {
-          if ((v0 & 0xC000000000000001) != 0)
-          {
-            v23 = MEMORY[0x24C1FC540](v22, v0);
-            v24 = v22 + 1;
-            if (__OFADD__(v22, 1))
-            {
-LABEL_22:
-              __break(1u);
-              break;
-            }
-          }
-
-          else
-          {
-            if (v22 >= *((v0 & 0xFFFFFFFFFFFFFF8) + 0x10))
-            {
-              __break(1u);
-              goto LABEL_26;
-            }
-
-            v23 = *(v0 + 8 * v22 + 32);
-
-            v24 = v22 + 1;
-            if (__OFADD__(v22, 1))
-            {
-              goto LABEL_22;
-            }
-          }
-
-          resolvePendingNodeContext #1 (_:) in DOCItemCollectionViewController.resolvePendingNodeContexts()(v23, v14);
-
-          ++v22;
-        }
-
-        while (v24 != v21);
-      }
-
-      v25 = v14;
-      v26 = Logger.logObject.getter();
-      v27 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v26, v27))
-      {
-        v28 = swift_slowAlloc();
-        v29 = swift_slowAlloc();
-        v37 = v29;
-        *v28 = 136315394;
-        *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0BA0, &v37);
-        *(v28 + 12) = 2080;
-        v30 = (*((*MEMORY[0x277D85000] & *v25) + 0xA68))();
-        [v30 identifier];
-
-        type metadata accessor for DOCDocumentSourceIdentifier(0);
-        v31 = String.init<A>(describing:)();
-        v33 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v31, v32, &v37);
-
-        *(v28 + 14) = v33;
-        _os_log_impl(&dword_2493AC000, v26, v27, "%s - END source: %s", v28, 0x16u);
-        swift_arrayDestroy();
-        v34 = v29;
-LABEL_30:
-        MEMORY[0x24C1FE850](v34, -1, -1);
-        MEMORY[0x24C1FE850](v28, -1, -1);
-        goto LABEL_31;
-      }
-
-      goto LABEL_31;
-    }
-  }
-
-  else if (*((v13 & 0xFFFFFFFFFFFFFF8) + 0x10) >= 1)
-  {
-    goto LABEL_6;
-  }
-
-  v26 = Logger.logObject.getter();
-  v35 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v26, v35))
-  {
-    v28 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v37 = v36;
-    *v28 = 136315138;
-    *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0BA0, &v37);
-    _os_log_impl(&dword_2493AC000, v26, v35, "%s - pendingNodeContexts == 0, returning ", v28, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v36);
-    v34 = v36;
-    goto LABEL_30;
-  }
-
-LABEL_31:
-}
-
-void resolvePendingNodeContext #1 (_:) in DOCItemCollectionViewController.resolvePendingNodeContexts()(void *a1, void *a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
-  MEMORY[0x28223BE20](v4 - 8, v5);
-  v7 = &v62 - v6;
-  if (one-time initialization token for UI != -1)
-  {
-LABEL_37:
-    swift_once();
-  }
-
-  v8 = type metadata accessor for Logger();
-  v9 = __swift_project_value_buffer(v8, static Logger.UI);
-
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
-
-  v12 = os_log_type_enabled(v10, v11);
-  v64 = a2;
-  v65 = v9;
-  if (v12)
-  {
-    v13 = swift_slowAlloc();
-    v14 = swift_slowAlloc();
-    v67[0] = v14;
-    *v13 = 136315650;
-    *(v13 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v67);
-    *(v13 + 12) = 2080;
-    swift_getObjectType();
-    v15 = DOCNode.nodeDescription.getter();
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, v67);
-
-    *(v13 + 14) = v17;
-    *(v13 + 22) = 2080;
-    outlined init with copy of DOCGridLayout.Spec?(a1 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url, v7, &_s10Foundation3URLVSgMd);
-    v18 = type metadata accessor for URL();
-    v19 = *(v18 - 8);
-    if ((*(v19 + 48))(v7, 1, v18) == 1)
-    {
-      outlined destroy of CharacterSet?(v7, &_s10Foundation3URLVSgMd);
-      v20 = 0xE300000000000000;
-      v21 = 4271950;
-    }
-
-    else
-    {
-      v21 = URL.absoluteString.getter();
-      v20 = v22;
-      (*(v19 + 8))(v7, v18);
-    }
-
-    a2 = v64;
-    v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v20, v67);
-
-    *(v13 + 24) = v23;
-    _os_log_impl(&dword_2493AC000, v10, v11, "%s - Resolving context for : node %s - URL: %s", v13, 0x20u);
-    swift_arrayDestroy();
-    MEMORY[0x24C1FE850](v14, -1, -1);
-    MEMORY[0x24C1FE850](v13, -1, -1);
-  }
-
-  else
-  {
-  }
-
-  v24 = (*((*MEMORY[0x277D85000] & *a2) + 0xDA0))(a1[2], a1 + OBJC_IVAR____TtCC26DocumentManagerExecutables31DOCItemCollectionViewController18PendingNodeContext_url);
-  if (v24)
-  {
-    v25 = v24;
-    swift_unknownObjectRetain_n();
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.default.getter();
-    swift_unknownObjectRelease();
-    if (os_log_type_enabled(v26, v27))
-    {
-      v28 = swift_slowAlloc();
-      v29 = swift_slowAlloc();
-      v67[0] = v29;
-      *v28 = 136315394;
-      *(v28 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v67);
-      *(v28 + 12) = 2080;
-      swift_getObjectType();
-      v30 = DOCNode.nodeDescription.getter();
-      v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, v67);
-
-      *(v28 + 14) = v32;
-      _os_log_impl(&dword_2493AC000, v26, v27, "%s - Found matching node: %s", v28, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x24C1FE850](v29, -1, -1);
-      MEMORY[0x24C1FE850](v28, -1, -1);
-    }
-
-    v63 = v25;
-    v33 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_pendingNodeContexts;
-    swift_beginAccess();
-    v34 = *(a2 + v33);
-    v62 = v33;
-    if (v34 >> 62)
-    {
-      v35 = __CocoaSet.count.getter();
-    }
-
-    else
-    {
-      v35 = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    }
-
-    a2 = &unk_27EF18000;
-
-    v7 = 0;
-    while (v35 != v7)
-    {
-      if ((v34 & 0xC000000000000001) != 0)
-      {
-        MEMORY[0x24C1FC540](v7, v34);
-      }
-
-      else
-      {
-        if (v7 >= *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10))
-        {
-          __break(1u);
-LABEL_36:
-          __break(1u);
-          goto LABEL_37;
-        }
-      }
-
-      v36 = static UUID.== infix(_:_:)();
-
-      if (v36)
-      {
-
-        v47 = Logger.logObject.getter();
-        v48 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v47, v48))
-        {
-          v49 = swift_slowAlloc();
-          v50 = swift_slowAlloc();
-          v66[0] = v50;
-          *v49 = 136315138;
-          *(v49 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v66);
-          _os_log_impl(&dword_2493AC000, v47, v48, "%s - Removing pending node context", v49, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v50);
-          MEMORY[0x24C1FE850](v50, -1, -1);
-          MEMORY[0x24C1FE850](v49, -1, -1);
-        }
-
-        v46 = v63;
-        swift_beginAccess();
-        specialized Array.remove(at:)(v7);
-        swift_endAccess();
-
-        goto LABEL_32;
-      }
-
-      if (__OFADD__(v7++, 1))
-      {
-        goto LABEL_36;
-      }
-    }
-
-    v42 = Logger.logObject.getter();
-    v43 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v42, v43))
-    {
-      v44 = swift_slowAlloc();
-      v45 = swift_slowAlloc();
-      v66[0] = v45;
-      *v44 = 136315138;
-      *(v44 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v66);
-      _os_log_impl(&dword_2493AC000, v42, v43, "%s - Not Removing pending node context (context is gone already)", v44, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v45);
-      MEMORY[0x24C1FE850](v45, -1, -1);
-      MEMORY[0x24C1FE850](v44, -1, -1);
-    }
-
-    v46 = v63;
-LABEL_32:
-    swift_unknownObjectRetain();
-    v51 = Logger.logObject.getter();
-    v52 = static os_log_type_t.default.getter();
-    swift_unknownObjectRelease();
-    if (os_log_type_enabled(v51, v52))
-    {
-      v53 = swift_slowAlloc();
-      v54 = swift_slowAlloc();
-      v66[0] = v54;
-      *v53 = 136315394;
-      *(v53 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v66);
-      *(v53 + 12) = 2080;
-      v55 = [v46 displayName];
-      v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v58 = v57;
-
-      v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v58, v66);
-
-      *(v53 + 14) = v59;
-      _os_log_impl(&dword_2493AC000, v51, v52, "%s - Calling resolved block for node %s", v53, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x24C1FE850](v54, -1, -1);
-      MEMORY[0x24C1FE850](v53, -1, -1);
-    }
-
-    v60 = *(*a1 + 144);
-    v61 = swift_unknownObjectRetain();
-    v60(v61);
-    swift_unknownObjectRelease_n();
-  }
-
-  else
-  {
-    v38 = Logger.logObject.getter();
-    v39 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v38, v39))
-    {
-      v40 = swift_slowAlloc();
-      v41 = swift_slowAlloc();
-      v67[0] = v41;
-      *v40 = 136315138;
-      *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001DLL, 0x8000000249BE0BC0, v67);
-      _os_log_impl(&dword_2493AC000, v38, v39, "%s - Could Not Find existing node", v40, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v41);
-      MEMORY[0x24C1FE850](v41, -1, -1);
-      MEMORY[0x24C1FE850](v40, -1, -1);
-    }
-  }
-}
-
-Swift::Void __swiftcall DOCItemCollectionViewController.clearAllEnqueuedScrollAndSelectionNodes()()
-{
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v1 - 8, v2);
-  v4 = &v8 - v3;
-  *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodesToReveal) = MEMORY[0x277D84F90];
-
-  v5 = v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeToSelectAndScroll;
-  *v5 = 0;
-  *(v5 + 8) = 0;
-  swift_unknownObjectRelease();
-  v6 = type metadata accessor for ScrollPositionInfo(0);
-  (*(*(v6 - 8) + 56))(v4, 1, 1, v6);
-  v7 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeScrollPositionInfo;
-  swift_beginAccess();
-  outlined assign with take of IndexPath?(v4, v0 + v7, &_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  swift_endAccess();
-}
-
-void DOCItemCollectionViewController.applyRestorableSettingsIfStillEnqueued(force:)(char a1)
-{
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v3 - 8, v4);
-  v6 = &v30[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v7, v8);
-  v10 = &v30[-v9];
-  v11 = type metadata accessor for ScrollPositionInfo(0);
-  v12 = *(v11 - 8);
-  MEMORY[0x28223BE20](v11, v13);
-  v15 = &v30[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  if (*(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_automaticApplyRestorableSettingsAllowed) & 1) != 0 || (a1)
-  {
-    v16 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodesToReveal;
-    v17 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodesToReveal);
-    if (v17 >> 62)
-    {
-      v18 = __CocoaSet.count.getter();
-    }
-
-    else
-    {
-      v18 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    }
-
-    v19 = MEMORY[0x277D85000];
-    if (v18 >= 1)
-    {
-      v20 = *((*MEMORY[0x277D85000] & *v1) + 0x16C8);
-
-      v22 = v20(v21, 0, 0);
-      v19 = MEMORY[0x277D85000];
-      LOBYTE(v20) = v22;
-
-      if (v20)
-      {
-        *(v1 + v16) = MEMORY[0x277D84F90];
-      }
-    }
-
-    v23 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeScrollPositionInfo;
-    swift_beginAccess();
-    outlined init with copy of DOCGridLayout.Spec?(v1 + v23, v10, &_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-    if ((*(v12 + 48))(v10, 1, v11) == 1)
-    {
-      outlined destroy of CharacterSet?(v10, &_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-    }
-
-    else
-    {
-      outlined init with take of ScrollPositionInfo.ItemOffset(v10, v15, type metadata accessor for ScrollPositionInfo);
-      v24 = DOCItemCollectionViewController.scroll(using:shouldEnqueue:shouldClear:)(v15, 0, 1);
-      outlined destroy of RestorableSettings(v15, type metadata accessor for ScrollPositionInfo);
-      if (v24)
-      {
-        (*(v12 + 56))(v6, 1, 1, v11);
-        swift_beginAccess();
-        outlined assign with take of IndexPath?(v6, v1 + v23, &_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-        swift_endAccess();
-      }
-    }
-
-    v25 = v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeToSelectAndScroll;
-    if (*(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeToSelectAndScroll))
-    {
-      v26 = *((*v19 & *v1) + 0x16D8);
-      v27 = v25[8];
-      v28 = swift_unknownObjectRetain();
-      v29 = v26(v28, v27 & 1, 0);
-      swift_unknownObjectRelease();
-      if (v29)
-      {
-        *v25 = 0;
-        v25[8] = 0;
-        swift_unknownObjectRelease();
-      }
-    }
-  }
-}
-
-uint64_t DOCItemCollectionViewController.needsForcedUnderNavBarAppearanceOnAppear.getter()
-{
-  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_needsForcedUnderNavBarAppearanceOnAppear;
-  swift_beginAccess();
-  return *(v0 + v1);
-}
-
-uint64_t DOCItemCollectionViewController.needsForcedUnderNavBarAppearanceOnAppear.setter(char a1)
-{
-  v3 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_needsForcedUnderNavBarAppearanceOnAppear;
-  result = swift_beginAccess();
-  *(v1 + v3) = a1;
-  return result;
-}
-
-id DOCItemCollectionViewController.scroll(using:shouldEnqueue:shouldClear:)(uint64_t a1, char a2, int a3)
-{
-  v4 = v3;
-  LODWORD(v157) = a3;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v7 - 8, v8);
-  v10 = &v139 - v9;
-  v161 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables20DOCCollectionSectionV3key_AA18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLV10ItemOffsetV5valuetMd);
-  MEMORY[0x28223BE20](v161, v11);
-  v13 = &v139 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14, v15);
-  v158 = (&v139 - v16);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18RestorableSettings33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v17 - 8, v18);
-  ObjCClassFromMetadata = (&v139 - v19);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
-  MEMORY[0x28223BE20](v21 - 8, v22);
-  v24 = &v139 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25, v26);
-  v156 = &v139 - v27;
-  MEMORY[0x28223BE20](v28, v29);
-  v31 = &v139 - v30;
-  v166 = type metadata accessor for IndexPath();
-  v163 = *(v166 - 8);
-  MEMORY[0x28223BE20](v166, v32);
-  v159 = &v139 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v34, v35);
-  v154 = &v139 - v36;
-  MEMORY[0x28223BE20](v37, v38);
-  v162 = &v139 - v39;
-  v155 = type metadata accessor for ScrollPositionInfo.ItemOffset(0);
-  v160 = *(v155 - 8);
-  MEMORY[0x28223BE20](v155, v40);
-  v42 = (&v139 - ((v41 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of ScrollPositionInfo.ItemOffset(a1, v42, type metadata accessor for ScrollPositionInfo.ItemOffset);
-  v164 = type metadata accessor for ScrollPositionInfo(0);
-  v165 = a1;
-  v43 = MEMORY[0x277D85000];
-  v44 = (*((*MEMORY[0x277D85000] & *v4) + 0x16B0))(*(a1 + *(v164 + 20)));
-  if (*(v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_automaticApplyRestorableSettingsAllowed) != 1 || (v45 = (*((*v43 & *v4) + 0x1018))(v44)) == 0)
-  {
-LABEL_5:
-    if ((a2 & 1) == 0)
-    {
-LABEL_10:
-      v58 = 0;
-LABEL_11:
-      outlined destroy of RestorableSettings(v42, type metadata accessor for ScrollPositionInfo.ItemOffset);
-      return v58;
-    }
-
-    v51 = (*((*v43 & *v4) + 0xBF0))();
-    v53 = v165;
-    if (v52 == -1)
-    {
-LABEL_9:
-      (*((*v43 & *v4) + 0x1648))(v51);
-      outlined init with copy of ScrollPositionInfo.ItemOffset(v53, v10, type metadata accessor for ScrollPositionInfo);
-      (*(*(v164 - 8) + 56))(v10, 0, 1);
-      v57 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeScrollPositionInfo;
-      swift_beginAccess();
-      outlined assign with take of IndexPath?(v10, v4 + v57, &_s26DocumentManagerExecutables18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-      swift_endAccess();
-      goto LABEL_10;
-    }
-
-    v54 = v51;
-    LOBYTE(v55) = v52;
-    v24 = v43;
-    if (one-time initialization token for restorableSettingsCache == -1)
-    {
-LABEL_8:
-      v56 = type metadata accessor for RestorableSettings(0);
-      (*(*(v56 - 8) + 56))(ObjCClassFromMetadata, 1, 1, v56);
-      swift_beginAccess();
-      specialized Dictionary.subscript.setter(ObjCClassFromMetadata, v54, v55 & 1);
-      v51 = swift_endAccess();
-      v43 = v24;
-      goto LABEL_9;
-    }
-
-LABEL_78:
-    swift_once();
-    goto LABEL_8;
-  }
-
-  v149 = v45;
-  v46 = *v42;
-  v47 = (*v43 & *v4) + 3480;
-  v153 = *((*v43 & *v4) + 0xD98);
-  v152 = v47;
-  v153(v46);
-  v48 = v163;
-  v49 = *(v163 + 6);
-  v50 = v166;
-  v151 = v163 + 48;
-  v150 = v49;
-  if (v49(v31, 1, v166) == 1)
-  {
-
-    outlined destroy of CharacterSet?(v31, &_s10Foundation9IndexPathVSgMd);
-    v43 = MEMORY[0x277D85000];
-    goto LABEL_5;
-  }
-
-  v60 = *(v48 + 4);
-  v146 = v48 + 32;
-  v145 = v60;
-  v61 = (v60)(v162, v31, v50);
-  v62 = MEMORY[0x277D85000];
-  if (v157)
-  {
-    v63 = (*((*MEMORY[0x277D85000] & *v4) + 0xBF0))(v61);
-    if (v64 != -1)
-    {
-      v65 = v63;
-      v66 = v64;
-      if (one-time initialization token for restorableSettingsCache != -1)
-      {
-        swift_once();
-      }
-
-      v67 = type metadata accessor for RestorableSettings(0);
-      (*(*(v67 - 8) + 56))(ObjCClassFromMetadata, 1, 1, v67);
-      swift_beginAccess();
-      specialized Dictionary.subscript.setter(ObjCClassFromMetadata, v65, v66 & 1);
-      v63 = swift_endAccess();
-      v62 = MEMORY[0x277D85000];
-    }
-
-    (*((*v62 & *v4) + 0x1648))(v63);
-  }
-
-  v10 = v149;
-  [v10 contentSize];
-  v55 = &selRef_setNavigationTitleForTagListInInfoPanel_;
-  ObjCClassFromMetadata = &_OBJC_LABEL_PROTOCOL___DOCUIPTraitObserving;
-  if (v68 == 0.0)
-  {
-    result = [v4 view];
-    if (!result)
-    {
-      __break(1u);
-      goto LABEL_80;
-    }
-
-    v69 = result;
-    [result layoutBelowIfNeeded];
-  }
-
-  isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  [v10 scrollToItemAtIndexPath:isa atScrollPosition:1 animated:0];
-
-  v71 = (*((*v62 & *v4) + 0xF10))();
-  v157 = v13;
-  v147 = v24;
-  if (v71)
-  {
-    v72 = (*((*v62 & *v4) + 0xBD8))();
-    v53 = v165;
-    if (!v72)
-    {
-      v74 = *(v165 + *(v164 + 24));
-      v54 = (v74 + 64);
-      v75 = 1 << *(v74 + 32);
-      v76 = -1;
-      if (v75 < 64)
-      {
-        v76 = ~(-1 << v75);
-      }
-
-      v53 = v76 & *(v74 + 64);
-      v77 = (v75 + 63) >> 6;
-      v140 = (v163 + 8);
-      v143 = v74;
-
-      v24 = 0;
-      v142 = v54;
-      v141 = v77;
-      v144 = v42;
-      v148 = v10;
-      v78 = v158;
-      while (v53)
-      {
-LABEL_35:
-        v80 = __clz(__rbit64(v53)) | (v24 << 6);
-        v81 = (*(v143 + 48) + 40 * v80);
-        v83 = *v81;
-        v82 = v81[1];
-        v84 = v81[2];
-        v85 = v81[3];
-        v86 = v81[4];
-        v87 = *(v161 + 48);
-        outlined init with copy of ScrollPositionInfo.ItemOffset(*(v143 + 56) + *(v160 + 72) * v80, v78 + v87, type metadata accessor for ScrollPositionInfo.ItemOffset);
-        *v78 = v83;
-        v78[1] = v82;
-        v78[2] = v84;
-        v78[3] = v85;
-        v78[4] = v86;
-        v88 = *(v78 + v87);
-
-        v89 = v156;
-        v153(v88);
-        v90 = v166;
-        if (v150(v89, 1, v166) == 1)
-        {
-          outlined destroy of CharacterSet?(v89, &_s10Foundation9IndexPathVSgMd);
-          v42 = v144;
-          v10 = v148;
-        }
-
-        else
-        {
-          v91 = v154;
-          v145(v154, v89, v90);
-          v92 = IndexPath._bridgeToObjectiveC()().super.isa;
-          v10 = v148;
-          [v148 scrollToItemAtIndexPath:v92 atScrollPosition:8 animated:0];
-
-          (*v140)(v91, v90);
-          v42 = v144;
-        }
-
-        ObjCClassFromMetadata = &_OBJC_LABEL_PROTOCOL___DOCUIPTraitObserving;
-        v54 = v142;
-        v77 = v141;
-        v53 &= v53 - 1;
-        outlined destroy of CharacterSet?(v158, &_s26DocumentManagerExecutables20DOCCollectionSectionV3key_AA18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLV10ItemOffsetV5valuetMd);
-        v55 = &selRef_setNavigationTitleForTagListInInfoPanel_;
-      }
-
-      while (1)
-      {
-        v79 = v24 + 1;
-        if (__OFADD__(v24, 1))
-        {
-          break;
-        }
-
-        if (v79 >= v77)
-        {
-
-          v73 = 1;
-          goto LABEL_38;
-        }
-
-        v53 = *&v54[8 * v79];
-        ++v24;
-        if (v53)
-        {
-          v24 = v79;
-          goto LABEL_35;
-        }
-      }
-
-LABEL_77:
-      __break(1u);
-      goto LABEL_78;
-    }
-
-    v73 = 0;
-  }
-
-  else
-  {
-    v73 = 0;
-LABEL_38:
-    v53 = v165;
-  }
-
-  [v10 layoutBelowIfNeeded];
-  v93 = (*((*MEMORY[0x277D85000] & *v4) + 0x18D0))(*v53);
-  v94 = v10;
-  if (!v93)
-  {
-LABEL_50:
-
-    if (!v73)
-    {
-      (*(v163 + 1))(v162, v166);
-
-      v58 = 1;
-      goto LABEL_11;
-    }
-
-    v148 = v10;
-    v144 = v42;
-    v118 = *(v53 + *(v164 + 24));
-    v55 = (v118 + 64);
-    v119 = 1 << *(v118 + 32);
-    v120 = -1;
-    if (v119 < 64)
-    {
-      v120 = ~(-1 << v119);
-    }
-
-    v121 = v120 & *(v118 + 64);
-    v54 = ((v119 + 63) >> 6);
-    v156 = v163 + 8;
-    v165 = v118;
-
-    v10 = 0;
-    v42 = v166;
-    v163 = v54;
-    v164 = v55;
-    while (v121)
-    {
-LABEL_61:
-      v123 = __clz(__rbit64(v121)) | (v10 << 6);
-      v124 = (*(v165 + 48) + 40 * v123);
-      v126 = *v124;
-      v125 = v124[1];
-      v128 = v124[2];
-      v127 = v124[3];
-      v24 = v124[4];
-      v53 = v157;
-      v129 = (v157 + *(v161 + 48));
-      outlined init with copy of ScrollPositionInfo.ItemOffset(*(v165 + 56) + *(v160 + 72) * v123, v129, type metadata accessor for ScrollPositionInfo.ItemOffset);
-      *v53 = v126;
-      *(v53 + 8) = v125;
-      *(v53 + 16) = v128;
-      *(v53 + 24) = v127;
-      *(v53 + 32) = v24;
-      v158 = v129;
-      v130 = *v129;
-
-      ObjCClassFromMetadata = v147;
-      v153(v130);
-      v42 = v166;
-      if (v150(ObjCClassFromMetadata, 1, v166) == 1)
-      {
-        outlined destroy of CharacterSet?(ObjCClassFromMetadata, &_s10Foundation9IndexPathVSgMd);
-        v54 = v163;
-        v55 = v164;
-      }
-
-      else
-      {
-        v131 = v159;
-        v145(v159, ObjCClassFromMetadata, v42);
-        v132 = IndexPath._bridgeToObjectiveC()().super.isa;
-        v24 = [v148 cellForItemAtIndexPath_];
-
-        v55 = v164;
-        if (v24)
-        {
-          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIScrollView);
-          v133 = [v24 superview];
-          if (v133)
-          {
-            v134 = v133;
-            ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-            while (([v134 isKindOfClass_] & 1) == 0)
-            {
-              v135 = [v134 superview];
-
-              v134 = v135;
-              if (!v135)
-              {
-                goto LABEL_67;
-              }
-            }
-
-            objc_opt_self();
-            ObjCClassFromMetadata = swift_dynamicCastObjCClassUnconditional();
-            if (static NSObject.== infix(_:_:)())
-            {
-              (*v156)(v159, v42);
-            }
-
-            else
-            {
-              v136 = *(v158 + *(v155 + 24));
-              [ObjCClassFromMetadata contentOffset];
-              [ObjCClassFromMetadata setContentOffset:0 animated:{v136 + v137, v138 + 0.0}];
-
-              (*v156)(v159, v42);
-            }
-          }
-
-          else
-          {
-LABEL_67:
-            (*v156)(v159, v42);
-          }
-
-          v53 = v157;
-        }
-
-        else
-        {
-          (*v156)(v131, v42);
-        }
-
-        v54 = v163;
-      }
-
-      v121 &= v121 - 1;
-      outlined destroy of CharacterSet?(v53, &_s26DocumentManagerExecutables20DOCCollectionSectionV3key_AA18ScrollPositionInfo33_45098A9DF3FF02797EF1E06F74668D65LLV10ItemOffsetV5valuetMd);
-    }
-
-    while (1)
-    {
-      v122 = v10 + 1;
-      if (__OFADD__(v10, 1))
-      {
-        break;
-      }
-
-      if (v122 >= v54)
-      {
-
-        (*v156)(v162, v42);
-        v58 = 1;
-        v42 = v144;
-        goto LABEL_11;
-      }
-
-      v121 = v55[v122];
-      ++v10;
-      if (v121)
-      {
-        v10 = v122;
-        goto LABEL_61;
-      }
-    }
-
-    __break(1u);
-    goto LABEL_77;
-  }
-
-  ObjCClassFromMetadata = v93;
-  v95 = DOCItemCollectionViewController.promptView.getter();
-  if (!v95)
-  {
-    v103 = 0.0;
-    goto LABEL_44;
-  }
-
-  v96 = v95;
-  result = [v4 view];
-  if (result)
-  {
-    v97 = result;
-    [result bounds];
-    v99 = v98;
-    v101 = v100;
-
-    [v96 systemLayoutSizeFittingSize_];
-    v103 = v102;
-
-LABEL_44:
-    v104 = DOCItemCollectionViewController.offsetToTop(ofCell:)(ObjCClassFromMetadata);
-    v24 = v149;
-    v105 = v104 - v103 - *(v53 + *(v155 + 24));
-    v106 = MEMORY[0x277D85000];
-    v107 = (*((*MEMORY[0x277D85000] & *v10) + 0x138))();
-    v109 = v108;
-    v110 = (*((*v106 & *v10) + 0x140))();
-    v112 = v111;
-    [v10 contentOffset];
-    if (v105 + v113 >= v109)
-    {
-      [v10 contentOffset];
-      v115 = v114;
-
-      if (v112 >= v105 + v115)
-      {
-        [v10 contentOffset];
-        v107 = v116 + 0.0;
-        v109 = v105 + v117;
-      }
-
-      else
-      {
-        v107 = v110;
-        v109 = v112;
-      }
-    }
-
-    else
-    {
-    }
-
-    [v10 setContentOffset:0 animated:{v107, v109}];
-    v94 = ObjCClassFromMetadata;
-    goto LABEL_50;
-  }
-
-LABEL_80:
-  __break(1u);
-  return result;
-}
-
-Swift::Bool __swiftcall DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:)(Swift::OpaquePointer nodes, Swift::Bool shouldEnqueue, Swift::Bool selectEvenIfVisible)
-{
-  v156 = selectEvenIfVisible;
-  LODWORD(v166) = shouldEnqueue;
-  v3 = type metadata accessor for DispatchWorkItemFlags();
-  v4 = *(v3 - 8);
-  MEMORY[0x28223BE20](v3, v5);
-  v7 = &v142 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DispatchQoS();
-  v9 = *(v8 - 1);
-  MEMORY[0x28223BE20](v8, v10);
-  v12 = &v142 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for DispatchTime();
-  v154 = *(v13 - 8);
-  MEMORY[0x28223BE20](v13, v14);
-  v152 = &v142 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16, v17);
-  v153 = &v142 - v18;
-  v161 = type metadata accessor for IndexPath();
-  v155 = *(v161 - 8);
-  MEMORY[0x28223BE20](v161, v19);
-  v150 = &v142 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v21, v22);
-  v151 = &v142 - v23;
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tSgMd);
-  MEMORY[0x28223BE20](v24 - 8, v25);
-  v27 = (&v142 - v26);
-  v167 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-  v162 = *(v167 - 8);
-  MEMORY[0x28223BE20](v167, v28);
-  v157 = &v142 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v30, v31);
-  v149 = &v142 - v32;
-  MEMORY[0x28223BE20](v33, v34);
-  v169 = &v142 - v35;
-  MEMORY[0x28223BE20](v36, v37);
-  v160 = &v142 - v38;
-  MEMORY[0x28223BE20](v39, v40);
-  v164 = &v142 - v41;
-  MEMORY[0x28223BE20](v42, v43);
-  v159 = &v142 - v44;
-  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18RestorableSettings33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v45 - 8, v46);
-  v49 = &v142 - v48;
-  v50 = (v47 >> 62);
-  v165 = v47;
-  if (v47 >> 62)
-  {
-    goto LABEL_57;
-  }
-
-  if (*((v47 & 0xFFFFFFFFFFFFFF8) + 0x10) < 1)
-  {
-    return 0;
-  }
-
-LABEL_3:
-  v148 = v13;
-  v144 = v12;
-  v145 = v9;
-  if (one-time initialization token for UI != -1)
-  {
-    swift_once();
-  }
-
-  v51 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v51, static Logger.UI);
-  v52 = Logger.logObject.getter();
-  v53 = static os_log_type_t.default.getter();
-  v54 = os_log_type_enabled(v52, v53);
-  v147 = v8;
-  v146 = v7;
-  if (v54)
-  {
-    v55 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    aBlock = v7;
-    *v55 = 136315138;
-    *(v55 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000030, 0x8000000249BDEBC0, &aBlock);
-    _os_log_impl(&dword_2493AC000, v52, v53, "%s Revealing node", v55, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v7);
-    MEMORY[0x24C1FE850](v7, -1, -1);
-    MEMORY[0x24C1FE850](v55, -1, -1);
-  }
-
-  v56 = v163;
-  v8 = MEMORY[0x277D85000];
-  v57 = (*((*MEMORY[0x277D85000] & *v163) + 0x1018))();
-  if (!v57)
-  {
-    if (v166)
-    {
-      v65 = v8;
-      v66 = Logger.logObject.getter();
-      v67 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v66, v67))
-      {
-        v68 = swift_slowAlloc();
-        v69 = swift_slowAlloc();
-        aBlock = v69;
-        *v68 = 136315138;
-        *(v68 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000030, 0x8000000249BDEBC0, &aBlock);
-        _os_log_impl(&dword_2493AC000, v66, v67, "%s Enqueueing node to reveal", v68, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v69);
-        MEMORY[0x24C1FE850](v69, -1, -1);
-        MEMORY[0x24C1FE850](v68, -1, -1);
-      }
-
-      v70 = v163;
-      v71 = (*((*v65 & *v163) + 0xBF0))();
-      if (v72 != -1)
-      {
-        v73 = v71;
-        v74 = v72;
-        if (one-time initialization token for restorableSettingsCache != -1)
-        {
-          swift_once();
-        }
-
-        v75 = type metadata accessor for RestorableSettings(0);
-        (*(*(v75 - 8) + 56))(v49, 1, 1, v75);
-        swift_beginAccess();
-        specialized Dictionary.subscript.setter(v49, v73, v74 & 1);
-        v71 = swift_endAccess();
-      }
-
-      (*((*v65 & *v70) + 0x1648))(v71);
-      *(v70 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodesToReveal) = v165;
-    }
-
-    return 0;
-  }
-
-  v58 = v57;
-  v59 = (*((*v8 & *v56) + 0xBF0))();
-  if (v60 != -1)
-  {
-    v61 = v59;
-    v62 = v60;
-    if (one-time initialization token for restorableSettingsCache != -1)
-    {
-      swift_once();
-    }
-
-    v63 = type metadata accessor for RestorableSettings(0);
-    (*(*(v63 - 8) + 56))(v49, 1, 1, v63);
-    v8 = &static DOCItemCollectionViewController.restorableSettingsCache;
-    swift_beginAccess();
-    specialized Dictionary.subscript.setter(v49, v61, v62 & 1);
-    v59 = swift_endAccess();
-  }
-
-  (*((*MEMORY[0x277D85000] & *v163) + 0x1648))(v59);
-  if (v50)
-  {
-    v76 = v165;
-    v77 = __CocoaSet.count.getter();
-    v64 = v76;
-    v9 = v77;
-  }
-
-  else
-  {
-    v64 = v165;
-    v9 = *((v165 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  }
-
-  v168 = v58;
-  v142 = v4;
-  v143 = v3;
-  v50 = v163;
-  if (v9)
-  {
-    v13 = 0;
-    v49 = 0;
-    v4 = v64 & 0xC000000000000001;
-    v3 = v64 & 0xFFFFFFFFFFFFFF8;
-    v12 = (v162 + 48);
-    v166 = MEMORY[0x277D84F90];
-    v158 = v64 & 0xFFFFFFFFFFFFFF8;
-    while (1)
-    {
-      if (v4)
-      {
-        v8 = MEMORY[0x24C1FC540](v13);
-        v7 = (v13 + 1);
-        if (__OFADD__(v13, 1))
-        {
-          goto LABEL_55;
-        }
-      }
-
-      else
-      {
-        if (v13 >= *(v3 + 16))
-        {
-          goto LABEL_56;
-        }
-
-        v8 = *(v64 + 8 * v13 + 32);
-        swift_unknownObjectRetain();
-        v7 = (v13 + 1);
-        if (__OFADD__(v13, 1))
-        {
-LABEL_55:
-          __break(1u);
-LABEL_56:
-          __break(1u);
-LABEL_57:
-          if (__CocoaSet.count.getter() < 1)
-          {
-            return 0;
-          }
-
-          goto LABEL_3;
-        }
-      }
-
-      aBlock = v8;
-      closure #1 in DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:)(&aBlock, v50, v168, v27);
-      swift_unknownObjectRelease();
-      if ((*v12)(v27, 1, v167) == 1)
-      {
-        outlined destroy of CharacterSet?(v27, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tSgMd);
-      }
-
-      else
-      {
-        v78 = v159;
-        outlined init with take of (key: URL, value: FPItem)(v27, v159, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        outlined init with take of (key: URL, value: FPItem)(v78, v164, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        if (swift_isUniquelyReferenced_nonNull_native())
-        {
-          v79 = v166;
-        }
-
-        else
-        {
-          v79 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v166[2] + 1, 1, v166);
-        }
-
-        v81 = v79[2];
-        v80 = v79[3];
-        v8 = (v81 + 1);
-        if (v81 >= v80 >> 1)
-        {
-          v79 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v80 > 1, v81 + 1, 1, v79);
-        }
-
-        v79[2] = v8;
-        v82 = (*(v162 + 80) + 32) & ~*(v162 + 80);
-        v166 = v79;
-        outlined init with take of (key: URL, value: FPItem)(v164, v79 + v82 + *(v162 + 72) * v81, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        v50 = v163;
-        v3 = v158;
-      }
-
-      ++v13;
-      v64 = v165;
-      if (v7 == v9)
-      {
-        goto LABEL_41;
-      }
-    }
-  }
-
-  v166 = MEMORY[0x277D84F90];
-LABEL_41:
-  v83 = v166[2];
-  if (!v83)
-  {
-
-    return 0;
-  }
-
-  v84 = v168;
-  if (v156)
-  {
-    v85 = 1;
-    v86 = v161;
-    v87 = MEMORY[0x277D85000];
-    goto LABEL_61;
-  }
-
-  aBlock = MEMORY[0x277D84F90];
-  v89 = v166 + ((*(v162 + 80) + 32) & ~*(v162 + 80));
-  v90 = *(v162 + 72);
-  v91 = (v155 + 8);
-  v165 = MEMORY[0x277D84F90];
-  v92 = v167;
-  v93 = v169;
-  do
-  {
-    v94 = v160;
-    outlined init with copy of DOCGridLayout.Spec?(v89, v160, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-    outlined init with copy of DOCGridLayout.Spec?(v94, v93, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-    swift_unknownObjectRelease();
-    v95 = *(v92 + 48);
-    isa = IndexPath._bridgeToObjectiveC()().super.isa;
-    v97 = &v169[v95];
-    v93 = v169;
-    (*v91)(v97, v161);
-    v98 = [v84 cellForItemAtIndexPath_];
-
-    v99 = outlined destroy of CharacterSet?(v94, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-    if (v98)
-    {
-      MEMORY[0x24C1FB090](v99);
-      if (*((aBlock & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((aBlock & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
-      {
-        specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
-      }
-
-      specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v165 = aBlock;
-    }
-
-    v89 += v90;
-    --v83;
-    v92 = v167;
-    v84 = v168;
-  }
-
-  while (v83);
-  v100 = v165;
-  v87 = MEMORY[0x277D85000];
-  if (v165 >> 62)
-  {
-    v105 = __CocoaSet.count.getter();
-    v50 = v163;
-    v86 = v161;
-    if (!v105)
-    {
-      goto LABEL_60;
-    }
-
-LABEL_54:
-    v101 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo20UICollectionViewCellC_SayAEGTt0g5Tf4g_n(v100);
-
-    v103 = (*((*v87 & *v50) + 0x12F0))(v102);
-    v104 = specialized Set.isSubset<A>(of:)(v103, v101);
-
-    v85 = v104 ^ 1;
-  }
-
-  else
-  {
-    v50 = v163;
-    v86 = v161;
-    if (*((v165 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      goto LABEL_54;
-    }
-
-LABEL_60:
-
-    v85 = 1;
-  }
-
-LABEL_61:
-  v106 = *(v50 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_documentManager);
-  if (v106 && (v107 = [v106 activeDocumentCreationSession]) != 0 && (v108 = v107, v109 = (*((*v87 & *v107) + 0x110))(), v108, (v109 & 1) != 0))
-  {
-    if (v166[2])
-    {
-      v110 = v149;
-      outlined init with copy of DOCGridLayout.Spec?(v166 + ((*(v162 + 80) + 32) & ~*(v162 + 80)), v149, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-
-      swift_unknownObjectRelease();
-      v111 = v155;
-      v112 = *(v155 + 32);
-      v113 = v110 + *(v167 + 48);
-      v114 = v150;
-      v112(v150, v113, v86);
-      v115 = v151;
-      v112(v151, v114, v86);
-      v116 = IndexPath._bridgeToObjectiveC()().super.isa;
-      [v84 scrollToItemAtIndexPath:v116 atScrollPosition:2 animated:0];
-
-      *(v50 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_automaticSaveRestorableSettingsAllowed) = 0;
-      v117 = objc_opt_self();
-      v118 = swift_allocObject();
-      *(v118 + 16) = v50;
-      v174 = partial apply for closure #3 in DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:);
-      v175 = v118;
-      aBlock = MEMORY[0x277D85DD0];
-      v171 = 1107296256;
-      v172 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-      v173 = &block_descriptor_158_1;
-      v119 = _Block_copy(&aBlock);
-      v120 = v50;
-
-      [v117 performAfterCATransactionCommits_];
-      _Block_release(v119);
-
-      (*(v111 + 8))(v115, v86);
-    }
-
-    else
-    {
-    }
-
-    return 1;
-  }
-
-  else if (v85)
-  {
-    (*((*v87 & *v50) + 0x1308))();
-    v121 = v167;
-    v122 = v166[2];
-    v123 = v157;
-    v124 = v169;
-    if (v122)
-    {
-      v125 = v166 + ((*(v162 + 80) + 32) & ~*(v162 + 80));
-      v126 = *(v162 + 72);
-      v127 = (v155 + 8);
-      do
-      {
-        outlined init with copy of DOCGridLayout.Spec?(v125, v123, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        outlined init with copy of DOCGridLayout.Spec?(v123, v124, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        swift_unknownObjectRelease();
-        v128 = *(v121 + 48);
-        v129 = IndexPath._bridgeToObjectiveC()().super.isa;
-        v130 = &v169[v128];
-        v124 = v169;
-        (*v127)(v130, v86);
-        [v168 selectItemAtIndexPath:v129 animated:1 scrollPosition:2];
-
-        v123 = v157;
-        outlined destroy of CharacterSet?(v157, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        v125 += v126;
-        --v122;
-      }
-
-      while (v122);
-    }
-
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-    v169 = static OS_dispatch_queue.main.getter();
-    v131 = v152;
-    static DispatchTime.now()();
-    v132 = v153;
-    + infix(_:_:)();
-    v133 = *(v154 + 8);
-    v133(v131, v148);
-    v134 = swift_allocObject();
-    swift_unknownObjectWeakInit();
-    v135 = swift_allocObject();
-    v136 = v166;
-    *(v135 + 16) = v134;
-    *(v135 + 24) = v136;
-    v174 = partial apply for closure #5 in DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:);
-    v175 = v135;
-    aBlock = MEMORY[0x277D85DD0];
-    v171 = 1107296256;
-    v172 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-    v173 = &block_descriptor_152_0;
-    v137 = _Block_copy(&aBlock);
-
-    v138 = v144;
-    static DispatchQoS.unspecified.getter();
-    aBlock = MEMORY[0x277D84F90];
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-    lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-    v139 = v146;
-    v140 = v143;
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    v141 = v169;
-    MEMORY[0x24C1FB940](v132, v138, v139, v137);
-    _Block_release(v137);
-
-    (*(v142 + 8))(v139, v140);
-    (*(v145 + 1))(v138, v147);
-    v133(v132, v148);
-    return 1;
-  }
-
-  else
-  {
-
-    return 1;
-  }
-}
-
-uint64_t closure #1 in DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:)@<X0>(uint64_t *a1@<X0>, void *a2@<X1>, void *a3@<X2>, void *a4@<X8>)
-{
-  v51 = a3;
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
-  MEMORY[0x28223BE20](v8 - 8, v9);
-  v11 = &v47[-v10];
-  v12 = type metadata accessor for IndexPath();
-  v13 = *(v12 - 8);
-  MEMORY[0x28223BE20](v12, v14);
-  v16 = &v47[-((v15 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v19.n128_f64[0] = MEMORY[0x28223BE20](v17, v18);
-  v21 = &v47[-v20];
-  v22 = *a1;
-  (*((*MEMORY[0x277D85000] & *a2) + 0xD98))(v22, v19);
-  if ((*(v13 + 48))(v11, 1, v12) == 1)
-  {
-    outlined destroy of CharacterSet?(v11, &_s10Foundation9IndexPathVSgMd);
-    v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-    return (*(*(v23 - 8) + 56))(a4, 1, 1, v23);
-  }
-
-  else
-  {
-    v49 = a4;
-    v50 = v4;
-    v25 = *(v13 + 32);
-    v25(v21, v11, v12);
-    v26 = IndexPath.section.getter();
-    if (v26 >= [v51 numberOfSections] || (v27 = IndexPath.item.getter(), v27 >= objc_msgSend(v51, sel_numberOfItemsInSection_, IndexPath.section.getter())))
-    {
-      if (one-time initialization token for UI != -1)
-      {
-        swift_once();
-      }
-
-      v31 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v31, static Logger.UI);
-      (*(v13 + 16))(v16, v21, v12);
-      swift_unknownObjectRetain();
-      v32 = Logger.logObject.getter();
-      v33 = static os_log_type_t.error.getter();
-      swift_unknownObjectRelease();
-      if (os_log_type_enabled(v32, v33))
-      {
-        v34 = swift_slowAlloc();
-        v51 = swift_slowAlloc();
-        v53 = v51;
-        *v34 = 136315650;
-        *(v34 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000030, 0x8000000249BDEBC0, &v53);
-        *(v34 + 12) = 2080;
-        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type IndexPath and conformance IndexPath, MEMORY[0x277CC9AF8]);
-        v48 = v33;
-        v35 = dispatch thunk of CustomStringConvertible.description.getter();
-        v37 = v36;
-        v38 = *(v13 + 8);
-        v38(v16, v12);
-        v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, &v53);
-
-        *(v34 + 14) = v39;
-        *(v34 + 22) = 2080;
-        v52 = v22;
-        swift_unknownObjectRetain();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
-        v40 = String.init<A>(describing:)();
-        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v41, &v53);
-
-        *(v34 + 24) = v42;
-        _os_log_impl(&dword_2493AC000, v32, v48, "%s Invalid index path %s for item %s", v34, 0x20u);
-        v43 = v51;
-        swift_arrayDestroy();
-        MEMORY[0x24C1FE850](v43, -1, -1);
-        MEMORY[0x24C1FE850](v34, -1, -1);
-
-        v38(v21, v12);
-      }
-
-      else
-      {
-
-        v44 = *(v13 + 8);
-        v44(v16, v12);
-        v44(v21, v12);
-      }
-
-      v45 = v49;
-      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-      return (*(*(v46 - 8) + 56))(v45, 1, 1, v46);
-    }
-
-    else
-    {
-      v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-      v29 = *(v28 + 48);
-      v30 = v49;
-      *v49 = v22;
-      v25(v30 + v29, v21, v12);
-      (*(*(v28 - 8) + 56))(v30, 0, 1, v28);
-      return swift_unknownObjectRetain();
-    }
-  }
-}
-
-void *specialized Set.isSubset<A>(of:)(unint64_t a1, uint64_t a2)
-{
-  v2 = a2;
-  if ((a2 & 0xC000000000000001) == 0)
-  {
-    v6 = *(a2 + 16);
-
-    if (v6)
-    {
-      if (v6 != 1)
-      {
-        goto LABEL_13;
-      }
-
-      goto LABEL_10;
-    }
-
-LABEL_12:
-
-    v9 = 1;
-    return (v9 & 1);
-  }
-
-  if (a2 < 0)
-  {
-    v4 = a2;
-  }
-
-  else
-  {
-    v4 = a2 & 0xFFFFFFFFFFFFFF8;
-  }
-
-  if (!__CocoaSet.count.getter())
-  {
-    goto LABEL_12;
-  }
-
-  if (__CocoaSet.count.getter() != 1)
-  {
-    v5 = __CocoaSet.count.getter();
-    v2 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo20UICollectionViewCellC_Tt1g5(v4, v5);
-LABEL_13:
-    v9 = specialized _NativeSet.isSubset<A>(of:)(a1, v2);
-
-    return (v9 & 1);
-  }
-
-LABEL_10:
-
-  result = specialized Collection.first.getter(v2);
-  v11 = result;
-  if (result)
-  {
-    MEMORY[0x28223BE20](result, v8);
-    v10[2] = &v11;
-    v9 = specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, v10, a1);
-
-    return (v9 & 1);
-  }
-
-  __break(1u);
-  return result;
-}
-
-void closure #5 in DOCItemCollectionViewController.reveal(nodes:shouldEnqueue:selectEvenIfVisible:)(uint64_t a1, uint64_t a2)
-{
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-  v3 = *(v30 - 8);
-  MEMORY[0x28223BE20](v30, v4);
-  v25 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6, v7);
-  v9 = &v25 - v8;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v10 = *(a2 + 16);
-    if (v10)
-    {
-      v29 = *(v30 + 48);
-      v11 = *((*MEMORY[0x277D85000] & *Strong) + 0xD88);
-      v27 = (*MEMORY[0x277D85000] & *Strong) + 3464;
-      v28 = v11;
-      v12 = a2 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-      v26 = *(v3 + 72);
-      do
-      {
-        outlined init with copy of DOCGridLayout.Spec?(v12, v9, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        v13 = v28(&v9[v29], 0);
-        if (v13)
-        {
-          v14 = v13;
-          v15 = v25;
-          outlined init with copy of DOCGridLayout.Spec?(v9, v25, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-          v16 = *v15;
-          v17 = *(v30 + 48);
-          v18 = type metadata accessor for IndexPath();
-          v19 = *(*(v18 - 8) + 8);
-          v19(&v15[v17], v18);
-          LODWORD(v17) = [v14 isEqual_];
-          swift_unknownObjectRelease();
-          v20 = swift_unknownObjectRelease();
-          if (v17)
-          {
-            v21 = (*((*MEMORY[0x277D85000] & *Strong) + 0x1010))(v20);
-            v22 = v25;
-            outlined init with copy of DOCGridLayout.Spec?(v9, v25, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-            swift_unknownObjectRelease();
-            v23 = *(v30 + 48);
-            isa = IndexPath._bridgeToObjectiveC()().super.isa;
-            v19((v22 + v23), v18);
-            [v21 deselectItemAtIndexPath:isa animated:1];
-          }
-        }
-
-        outlined destroy of CharacterSet?(v9, &_sSo7DOCNode_p4node_10Foundation9IndexPathV05indexE0tMd);
-        v12 += v26;
-        --v10;
-      }
-
-      while (v10);
-    }
-  }
-}
-
-uint64_t DOCItemCollectionViewController.selectAndScroll(to:animated:shouldEnqueue:)(uint64_t a1, int a2, int a3)
-{
-  v4 = v3;
-  v101 = a2;
-  LODWORD(v102) = a3;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s26DocumentManagerExecutables18RestorableSettings33_45098A9DF3FF02797EF1E06F74668D65LLVSgMd);
-  MEMORY[0x28223BE20](v6 - 8, v7);
-  v9 = &v99 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
-  MEMORY[0x28223BE20](v10 - 8, v11);
-  v13 = &v99 - v12;
-  v14 = type metadata accessor for IndexPath();
-  v15 = *(v14 - 8);
-  MEMORY[0x28223BE20](v14, v16);
-  v18 = &v99 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if (one-time initialization token for UI != -1)
-  {
-    swift_once();
-  }
-
-  v19 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v19, static Logger.UI);
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v20, v21))
-  {
-    v22 = swift_slowAlloc();
-    v100 = a1;
-    v23 = v9;
-    v24 = v18;
-    v25 = v15;
-    v26 = v14;
-    v27 = v22;
-    v28 = swift_slowAlloc();
-    v103[0] = v28;
-    *v27 = 136315138;
-    *(v27 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000002BLL, 0x8000000249BDEC00, v103);
-    _os_log_impl(&dword_2493AC000, v20, v21, "%s Scrolling to node", v27, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v28);
-    MEMORY[0x24C1FE850](v28, -1, -1);
-    v29 = v27;
-    v14 = v26;
-    v15 = v25;
-    v18 = v24;
-    v9 = v23;
-    a1 = v100;
-    MEMORY[0x24C1FE850](v29, -1, -1);
-  }
-
-  v30 = MEMORY[0x277D85000];
-  v31 = (*((*MEMORY[0x277D85000] & *v4) + 0x1018))();
-  if (!v31)
-  {
-    goto LABEL_8;
-  }
-
-  v32 = v31;
-  (*((*v30 & *v4) + 0xD98))(a1);
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
-  {
-
-    v31 = outlined destroy of CharacterSet?(v13, &_s10Foundation9IndexPathVSgMd);
-LABEL_8:
-    if (v102)
-    {
-      v33 = a1;
-      v34 = (*((*v30 & *v4) + 0xBF0))(v31);
-      if (v35 != -1)
-      {
-        v36 = v34;
-        v37 = v35;
-        if (one-time initialization token for restorableSettingsCache != -1)
-        {
-          swift_once();
-        }
-
-        v38 = type metadata accessor for RestorableSettings(0);
-        (*(*(v38 - 8) + 56))(v9, 1, 1, v38);
-        swift_beginAccess();
-        specialized Dictionary.subscript.setter(v9, v36, v37 & 1);
-        v34 = swift_endAccess();
-      }
-
-      (*((*v30 & *v4) + 0x1648))(v34);
-      v39 = v101 & 1;
-      v40 = v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_enqueuedNodeToSelectAndScroll;
-      *v40 = v33;
-      v40[8] = v39;
-      swift_unknownObjectRetain();
-      swift_unknownObjectRelease();
-    }
-
-    return 0;
-  }
-
-  v42 = *(v15 + 32);
-  v102 = v14;
-  v42(v18, v13, v14);
-  isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v44 = [v32 cellForItemAtIndexPath_];
-
-  if (v44)
-  {
-    v100 = a1;
-    v45 = (*((*v30 & *v4) + 0x12F0))();
-    v103[0] = v44;
-    MEMORY[0x28223BE20](v45, v46);
-    *(&v99 - 2) = v103;
-    v47 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), (&v99 - 4), v45);
-
-    if (v47)
-    {
-      v49 = MEMORY[0x277D85000];
-      v50 = (*((*MEMORY[0x277D85000] & *v4) + 0xBF0))(v48);
-      if (v51 != -1)
-      {
-        v52 = v50;
-        v53 = v51;
-        if (one-time initialization token for restorableSettingsCache != -1)
-        {
-          swift_once();
-        }
-
-        v54 = type metadata accessor for RestorableSettings(0);
-        (*(*(v54 - 8) + 56))(v9, 1, 1, v54);
-        swift_beginAccess();
-        specialized Dictionary.subscript.setter(v9, v52, v53 & 1);
-        v50 = swift_endAccess();
-      }
-
-      v55 = (*((*v49 & *v4) + 0x1648))(v50);
-      v56 = (*((*v49 & *v4) + 0x1338))(v55);
-      if (v56 >> 62)
-      {
-        v98 = v56;
-        v57 = __CocoaSet.count.getter();
-        v56 = v98;
-      }
-
-      else
-      {
-        v57 = *((v56 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      }
-
-      v58 = v100;
-      if (v57 == 1)
-      {
-        v59 = v56;
-        swift_getObjectType();
-        v60 = specialized Array<A>.contains(node:)(v58, v59);
-
-        if (v60)
-        {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation9IndexPathVGMd);
-          v62 = (*(v15 + 80) + 32) & ~*(v15 + 80);
-          v63 = swift_allocObject();
-          *(v63 + 16) = xmmword_249B9A480;
-          (*(v15 + 16))(v63 + v62, v18, v102);
-          (*((*v49 & *v4) + 0x1300))(0, v63);
-
-          v64.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
-          v65 = v44;
-          v44 = v64.super.isa;
-LABEL_41:
-          [v32 selectItemAtIndexPath:v64.super.isa animated:v101 & 1 scrollPosition:0];
-
-          (*(v15 + 8))(v18, v102);
-          return 1;
-        }
-      }
-
-      else
-      {
-      }
-
-      (*((*v49 & *v4) + 0x1308))(v61);
-      v64.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
-      v65 = v64.super.isa;
-      goto LABEL_41;
-    }
-
-    v30 = MEMORY[0x277D85000];
-  }
-
-  v66 = IndexPath._bridgeToObjectiveC()().super.isa;
-  v67 = [v32 layoutAttributesForItemAtIndexPath_];
-
-  if (!v67)
-  {
-    (*(v15 + 8))(v18, v102);
-
-    return 0;
-  }
-
-  [v67 frame];
-  v69 = v68;
-  v71 = v70;
-  v73 = v72;
-  v75 = v74;
-
-  v76 = (*((*v30 & *v4) + 0xBF0))();
-  if (v77 != -1)
-  {
-    v78 = v76;
-    v79 = v77;
-    if (one-time initialization token for restorableSettingsCache != -1)
-    {
-      swift_once();
-    }
-
-    v80 = type metadata accessor for RestorableSettings(0);
-    (*(*(v80 - 8) + 56))(v9, 1, 1, v80);
-    swift_beginAccess();
-    specialized Dictionary.subscript.setter(v9, v78, v79 & 1);
-    v76 = swift_endAccess();
-  }
-
-  (*((*v30 & *v4) + 0x1648))(v76);
-  v81.super.isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v82 = *((*v30 & *v4) + 0x1010);
-  v83 = v82();
-  v84 = [v83 _isRectFullyVisible_];
-
-  if (v84)
-  {
-    v85 = 0;
-  }
-
-  else
-  {
-    v104.origin.x = v69;
-    v104.origin.y = v71;
-    v104.size.width = v73;
-    v104.size.height = v75;
-    MinY = CGRectGetMinY(v104);
-    v87 = v82();
-    v88 = [v87 safeAreaLayoutGuide];
-
-    [v88 layoutFrame];
-    v90 = v89;
-    v92 = v91;
-    v94 = v93;
-    v96 = v95;
-
-    v105.origin.x = v90;
-    v105.origin.y = v92;
-    v105.size.width = v94;
-    v105.size.height = v96;
-    if (MinY <= CGRectGetMinY(v105))
-    {
-      v85 = 1;
-    }
-
-    else
-    {
-      v85 = 4;
-    }
-  }
-
-  v97 = v102;
-  [v32 selectItemAtIndexPath:v81.super.isa animated:v101 & 1 scrollPosition:v85];
-
-  (*(v15 + 8))(v18, v97);
-  return 1;
-}
-
 Swift::Void __swiftcall DOCItemCollectionViewController.setEditing(_:animated:)(Swift::Bool _, Swift::Bool animated)
 {
   v3 = v2;
-  v55 = animated;
+  v57 = animated;
   v4 = _;
   v5 = type metadata accessor for DispatchWorkItemFlags();
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5, v7);
-  v9 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for DispatchQoS();
   v11 = *(v10 - 8);
   v13.n128_f64[0] = MEMORY[0x28223BE20](v10, v12);
-  v54 = &v46 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v56 = &v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = (*MEMORY[0x277D85000] & *v2) + 328;
   v16 = *((*MEMORY[0x277D85000] & *v2) + 0x148);
   if ((v16(v13) & 1) != 0 && !v4)
@@ -2787,7 +22,7 @@ Swift::Void __swiftcall DOCItemCollectionViewController.setEditing(_:animated:)(
   {
     v17 = (*((*MEMORY[0x277D85000] & *v2) + 0x1010))();
     v18 = [v17 isEditing];
-    v52 = v16;
+    v54 = v16;
     v19 = v5;
     v20 = v15;
     v21 = v6;
@@ -2797,18 +32,18 @@ Swift::Void __swiftcall DOCItemCollectionViewController.setEditing(_:animated:)(
     v6 = v21;
     v15 = v20;
     v5 = v19;
-    v16 = v52;
+    v16 = v54;
     if (v23)
     {
       return;
     }
   }
 
-  v53 = v11;
+  v55 = v11;
   v24 = type metadata accessor for DOCItemCollectionViewController(0);
-  v60.receiver = v3;
-  v60.super_class = v24;
-  v52 = v24;
+  v62.receiver = v3;
+  v62.super_class = v24;
+  v54 = v24;
   if (v4)
   {
     v25 = 2;
@@ -2819,7 +54,7 @@ Swift::Void __swiftcall DOCItemCollectionViewController.setEditing(_:animated:)(
     v25 = 0;
   }
 
-  objc_msgSendSuper2(&v60, sel_setEditing_animated_, v4, v55);
+  objc_msgSendSuper2(&v62, sel_setEditing_animated_, v4, v57);
   v26 = MEMORY[0x277D85000];
   v27 = (*((*MEMORY[0x277D85000] & *v3) + 0x6E0))(v25);
   if ((*((*v26 & *v3) + 0x6D8))(v27))
@@ -2831,9 +66,9 @@ Swift::Void __swiftcall DOCItemCollectionViewController.setEditing(_:animated:)(
 
 LABEL_12:
     v28 = (*((*MEMORY[0x277D85000] & *v3) + 0xBD8))();
-    v50 = v15;
-    v51 = v6;
-    v49 = v9;
+    v52 = v15;
+    v53 = v6;
+    v51 = v9;
     if (v28 == 3 && (v29 = (*((*MEMORY[0x277D85000] & *v3) + 0xE8))()) != 0)
     {
       v30 = [v29 infoPanelPreviewingMultipleItems];
@@ -2845,35 +80,35 @@ LABEL_12:
       v30 = 0;
     }
 
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-    v48 = static OS_dispatch_queue.main.getter();
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+    v50 = static OS_dispatch_queue.main.getter();
     v31 = swift_allocObject();
     *(v31 + 16) = v3;
     *(v31 + 24) = v30;
-    v58 = partial apply for closure #1 in DOCItemCollectionViewController.setEditing(_:animated:);
-    v59 = v31;
+    v60 = partial apply for closure #1 in DOCItemCollectionViewController.setEditing(_:animated:);
+    v61 = v31;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-    v57 = &block_descriptor_164_1;
-    v47 = _Block_copy(aBlock);
+    v59 = &block_descriptor_164_1;
+    v49 = _Block_copy(aBlock);
     v32 = v3;
 
-    v33 = v54;
+    v33 = v56;
     static DispatchQoS.unspecified.getter();
     aBlock[0] = MEMORY[0x277D84F90];
-    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-    lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-    v34 = v49;
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+    lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+    v34 = v51;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v36 = v47;
-    v35 = v48;
-    MEMORY[0x24C1FB9A0](0, v33, v34, v47);
+    v36 = v49;
+    v35 = v50;
+    MEMORY[0x24C1FB9A0](0, v33, v34, v49);
     _Block_release(v36);
 
-    (*(v51 + 8))(v34, v5);
-    (*(v53 + 8))(v33, v10);
+    (*(v53 + 8))(v34, v5);
+    (*(v55 + 8))(v33, v10);
     goto LABEL_17;
   }
 
@@ -2893,10 +128,10 @@ LABEL_17:
     {
       v39 = v38;
       ObjectType = swift_getObjectType();
-      v57 = v52;
+      v59 = v54;
       aBlock[0] = v3;
       v41 = [v3 isEditing];
-      (*(v39 + 8))(aBlock, v41, 3, v55, ObjectType, v39);
+      (*(v39 + 8))(aBlock, v41, 3, v57, ObjectType, v39);
       swift_unknownObjectRelease();
       __swift_destroy_boxed_opaque_existential_0(aBlock);
     }
@@ -2910,17 +145,17 @@ LABEL_17:
     [v42 postNotificationName:static NSNotificationName.DOCItemCollectionViewDidChangeEditMode object:v3];
   }
 
-  v43 = v55;
-  (*((*MEMORY[0x277D85000] & *v3) + 0x16E8))(v4, v55);
-  specialized DOCItemCollectionViewController.reloadNodeTitleMenuConfigurations(canFetchURLIfNecessary:)();
+  v43 = v57;
+  (*((*MEMORY[0x277D85000] & *v3) + 0x16E8))(v4, v57);
+  v44 = specialized DOCItemCollectionViewController.reloadNodeTitleMenuConfigurations(canFetchURLIfNecessary:)();
   *(v3 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_needsOverlayUpdateWithAnimation) = v43;
-  v44 = [v3 viewIfLoaded];
-  v45 = [v44 window];
+  v45 = [v3 viewIfLoaded];
+  v46 = [v45 window];
 
-  if (v45)
+  if (v46)
   {
 
-    DOCBrowserContainedViewController.updateOverlayIfNeeded()();
+    DOCBrowserContainedViewController.updateOverlayIfNeeded()(v47);
   }
 
   else
@@ -3088,159 +323,163 @@ Swift::Void __swiftcall DOCItemCollectionViewController.updateEditingInCollectio
   }
 }
 
-uint64_t closure #1 in DOCItemCollectionViewController.updateEditingInCollectionViewIfNeeded(_:animated:)(void *a1, void *a2, int a3)
+void closure #1 in DOCItemCollectionViewController.updateEditingInCollectionViewIfNeeded(_:animated:)(void *a1, void *a2, int a3)
 {
-  v51 = a3;
-  v48 = type metadata accessor for UTType();
-  v5 = *(v48 - 8);
-  MEMORY[0x28223BE20](v48, v6);
-  v47 = &v43 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v52 = a3;
+  v49 = type metadata accessor for UTType();
+  v5 = *(v49 - 8);
+  MEMORY[0x28223BE20](v49, v6);
+  v48 = &v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v8, v9);
-  v46 = &v43 - v11;
-  result = [a1 preparedCells];
-  if (!result)
+  v47 = &v44 - v11;
+  v12 = [a1 preparedCells];
+  if (!v12)
   {
     goto LABEL_33;
   }
 
-  v13 = result;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell);
+  v13 = v12;
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v14 >> 62)
   {
-    result = __CocoaSet.count.getter();
-    if (result)
+    v15 = __CocoaSet.count.getter();
+    if (v15)
     {
       goto LABEL_4;
     }
 
 LABEL_29:
+
+    goto LABEL_31;
   }
 
-  result = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (!result)
+  v15 = *((v14 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (!v15)
   {
     goto LABEL_29;
   }
 
 LABEL_4:
-  v50 = result;
-  if (result >= 1)
+  v51 = v15;
+  if (v15 >= 1)
   {
-    v15 = 0;
-    v54 = v14 & 0xC000000000000001;
-    v44 = (v5 + 8);
-    v45 = v14;
-    v16 = v50;
-    v52 = a2;
+    v16 = 0;
+    v55 = v14 & 0xC000000000000001;
+    v45 = (v5 + 8);
+    v46 = v14;
+    v17 = v51;
+    v53 = a2;
     do
     {
-      if (v54)
+      if (v55)
       {
-        v17 = MEMORY[0x24C1FC540](v15, v14);
+        v18 = MEMORY[0x24C1FC540](v16, v14);
       }
 
       else
       {
-        v17 = *(v14 + 8 * v15 + 32);
+        v18 = *(v14 + 8 * v16 + 32);
       }
 
-      v18 = v17;
+      v19 = v18;
       type metadata accessor for DOCItemCollectionCell();
-      v19 = swift_dynamicCastClass();
-      if (v19)
+      v20 = swift_dynamicCastClass();
+      if (v20)
       {
-        v20 = *((*MEMORY[0x277D85000] & *v19) + 0x208);
-        v21 = v20();
-        if (v21)
+        v21 = *((*MEMORY[0x277D85000] & *v20) + 0x208);
+        v22 = v21();
+        if (v22)
         {
-          v22 = v21;
-          v23 = (*((*MEMORY[0x277D85000] & *v21) + 0x3D0))();
+          v23 = v22;
+          v24 = (*((*MEMORY[0x277D85000] & *v22) + 0x3D0))();
 
-          v53 = v23;
-          if (v23)
+          v54 = v24;
+          if (v24)
           {
-            v24 = *(a2 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
-            if ([v24 forPickingDocuments])
+            v25 = *(a2 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
+            if ([v25 forPickingDocuments])
             {
-              v49 = v24;
-              v25 = [v53 contentType];
-              v26 = v46;
+              v50 = v25;
+              v26 = [v54 contentType];
+              v27 = v47;
               static UTType._unconditionallyBridgeFromObjectiveC(_:)();
 
-              v27 = v47;
+              v28 = v48;
               static UTType.folder.getter();
-              LOBYTE(v25) = static UTType.== infix(_:_:)();
-              v28 = *v44;
-              v29 = v27;
-              v30 = v48;
-              (*v44)(v29, v48);
-              v28(v26, v30);
-              if (v25)
+              LOBYTE(v26) = static UTType.== infix(_:_:)();
+              v29 = *v45;
+              v30 = v28;
+              v31 = v49;
+              (*v45)(v30, v49);
+              v29(v27, v31);
+              if (v26)
               {
-                v31 = [v49 forPickingDocuments];
-                v14 = v45;
-                v16 = v50;
-                if (v31 && (v32 = v52, [v52 isEditing]))
+                v32 = [v50 forPickingDocuments];
+                v14 = v46;
+                v17 = v51;
+                if (v32 && (v33 = v53, [v53 isEditing]))
                 {
-                  v33 = (*((*MEMORY[0x277D85000] & *v32) + 0x148))();
+                  v34 = (*((*MEMORY[0x277D85000] & *v33) + 0x148))();
                 }
 
                 else
                 {
-                  v33 = 1;
+                  v34 = 1;
                 }
               }
 
               else
               {
-                v33 = 1;
-                v14 = v45;
-                v16 = v50;
+                v34 = 1;
+                v14 = v46;
+                v17 = v51;
               }
 
-              v34 = v20();
-              if (v34)
+              v35 = v21();
+              if (v35)
               {
-                v35 = v34;
-                v36 = (*((*MEMORY[0x277D85000] & *v52) + 0x18C0))(v53) & v33;
-                (*((*MEMORY[0x277D85000] & *v35) + 0x4F8))(v36 & 1);
+                v36 = v35;
+                v37 = (*((*MEMORY[0x277D85000] & *v53) + 0x18C0))(v54) & v34;
+                (*((*MEMORY[0x277D85000] & *v36) + 0x4F8))(v37 & 1);
               }
 
-              v37 = v20();
-              if (v37)
+              v38 = v21();
+              if (v38)
               {
-                v38 = v37;
-                v39 = MEMORY[0x277D85000];
-                v40 = (*((*MEMORY[0x277D85000] & *v52) + 0x1790))(v53);
-                (*((*v39 & *v38) + 0x510))(v40 & 1);
+                v39 = v38;
+                v40 = MEMORY[0x277D85000];
+                v41 = (*((*MEMORY[0x277D85000] & *v53) + 0x1790))(v54);
+                (*((*v40 & *v39) + 0x510))(v41 & 1);
               }
             }
 
             swift_unknownObjectRelease();
-            a2 = v52;
+            a2 = v53;
           }
         }
 
-        v41 = v20();
-        if (v41)
+        v42 = v21();
+        if (v42)
         {
-          v42 = v41;
-          (*((*MEMORY[0x277D85000] & *v41) + 0x498))(v51 & 1);
+          v43 = v42;
+          (*((*MEMORY[0x277D85000] & *v42) + 0x498))(v52 & 1);
         }
       }
 
-      ++v15;
+      ++v16;
     }
 
-    while (v16 != v15);
+    while (v17 != v16);
+LABEL_31:
+
+    return;
   }
 
   __break(1u);
 LABEL_33:
   __break(1u);
-  return result;
 }
 
 void DOCItemCollectionViewController.willTransition(to:with:)(void *a1, void *a2)
@@ -3348,7 +587,7 @@ void closure #2 in DOCItemCollectionViewController.willTransition(to:with:)(int 
   if (v3)
   {
 
-    DOCBrowserContainedViewController.updateOverlayIfNeeded()();
+    DOCBrowserContainedViewController.updateOverlayIfNeeded()(v4);
   }
 
   else
@@ -3360,7 +599,7 @@ void closure #2 in DOCItemCollectionViewController.willTransition(to:with:)(int 
 uint64_t closure #3 in DOCItemCollectionViewController.willTransition(to:with:)(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = MEMORY[0x277D85000];
-  result = (*((*MEMORY[0x277D85000] & *a2) + 0xBD8))();
+  result = (*((*MEMORY[0x277D85000] & *a2) + 0xBD8))(a1);
   if (result == 3)
   {
     return (*((*v5 & *a2) + 0x13F8))(a3, 0, 0, 1, 1);
@@ -3369,7 +608,7 @@ uint64_t closure #3 in DOCItemCollectionViewController.willTransition(to:with:)(
   return result;
 }
 
-uint64_t DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:)(void *a1, void *a2)
+void DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:)(void *a1, void *a2)
 {
   v3 = v2;
   v6 = swift_allocObject();
@@ -3394,38 +633,38 @@ uint64_t DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(fo
   v11 = swift_allocObject();
   *(v11 + 16) = partial apply for closure #1 in DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:);
   *(v11 + 24) = v10;
-  v21 = partial apply for thunk for @callee_guaranteed () -> ();
-  v22 = v11;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 1107296256;
-  v19 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
-  v20 = &block_descriptor_1187;
-  v12 = _Block_copy(&v17);
+  v20 = partial apply for thunk for @callee_guaranteed () -> ();
+  v21 = v11;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 1107296256;
+  v18 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+  v19 = &block_descriptor_1187;
+  v12 = _Block_copy(&v16);
   v13 = a1;
 
   v14 = swift_allocObject();
   *(v14 + 16) = partial apply for closure #1 in DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:);
   *(v14 + 24) = v10;
-  v21 = thunk for @callee_guaranteed () -> ()partial apply;
-  v22 = v14;
-  v17 = MEMORY[0x277D85DD0];
-  v18 = 1107296256;
-  v19 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
-  v20 = &block_descriptor_1193;
-  v15 = _Block_copy(&v17);
+  v20 = thunk for @callee_guaranteed () -> ()partial apply;
+  v21 = v14;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 1107296256;
+  v18 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+  v19 = &block_descriptor_1193;
+  v15 = _Block_copy(&v16);
 
   [a2 animateAlongsideTransition:v12 completion:v15];
   _Block_release(v15);
   _Block_release(v12);
 }
 
-uint64_t closure #1 in DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:)(void *a1, uint64_t a2, uint64_t a3)
+double closure #1 in DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:)(void *a1, uint64_t a2, uint64_t a3)
 {
   v5 = [a1 splitViewController];
   v6 = v5;
   if (!v5)
   {
-    result = swift_beginAccess();
+    swift_beginAccess();
     if (*(a2 + 24))
     {
       return result;
@@ -3438,7 +677,7 @@ uint64_t closure #1 in DOCItemCollectionViewController.SplitModeChangeTracker.st
 
   v7 = [v5 displayMode];
 
-  result = swift_beginAccess();
+  swift_beginAccess();
   v9 = (a2 + 24);
   if ((*(a2 + 24) & 1) != 0 || v7 != *(a2 + 16))
   {
@@ -3460,12 +699,12 @@ uint64_t DOCItemCollectionViewController.SplitModeChangeTracker.__deallocating_d
   return swift_deallocClassInstance();
 }
 
-uint64_t DOCItemCollectionViewController.viewWillTransition(to:with:)(void *a1, double a2, double a3)
+void DOCItemCollectionViewController.viewWillTransition(to:with:)(void *a1, double a2, double a3)
 {
   v4 = v3;
-  v29.receiver = v3;
-  v29.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  objc_msgSendSuper2(&v29, sel_viewWillTransitionToSize_withTransitionCoordinator_, a1, a2, a3);
+  v28.receiver = v3;
+  v28.super_class = type metadata accessor for DOCItemCollectionViewController(0);
+  objc_msgSendSuper2(&v28, sel_viewWillTransitionToSize_withTransitionCoordinator_, a1, a2, a3);
   v8 = swift_allocObject();
   *(v8 + 16) = v4;
   type metadata accessor for DOCItemCollectionViewController.SplitModeChangeTracker();
@@ -3482,12 +721,12 @@ uint64_t DOCItemCollectionViewController.viewWillTransition(to:with:)(void *a1, 
   }
 
   DOCItemCollectionViewController.SplitModeChangeTracker.startTracking(for:alongside:)(v12, a1);
-  v21 = 0;
-  v22 = 0xE000000000000000;
+  v20 = 0;
+  v21 = 0xE000000000000000;
   _StringGuts.grow(_:)(39);
   MEMORY[0x24C1FAEA0](0xD000000000000024, 0x8000000249BDEC30);
-  v27 = a2;
-  v28 = a3;
+  v26 = a2;
+  v27 = a3;
   type metadata accessor for CGSize(0);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x24C1FAEA0](41, 0xE100000000000000);
@@ -3497,24 +736,24 @@ uint64_t DOCItemCollectionViewController.viewWillTransition(to:with:)(void *a1, 
   *(v14 + 16) = v12;
   *(v14 + 24) = a2;
   *(v14 + 32) = a3;
-  v25 = partial apply for closure #2 in DOCItemCollectionViewController.viewWillTransition(to:with:);
-  v26 = v14;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 1107296256;
-  v23 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
-  v24 = &block_descriptor_201_0;
-  v15 = _Block_copy(&v21);
+  v24 = partial apply for closure #2 in DOCItemCollectionViewController.viewWillTransition(to:with:);
+  v25 = v14;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 1107296256;
+  v22 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+  v23 = &block_descriptor_201_0;
+  v15 = _Block_copy(&v20);
   v16 = v12;
 
   v17 = swift_allocObject();
   *(v17 + 16) = v16;
-  v25 = partial apply for closure #3 in DOCItemCollectionViewController.viewWillTransition(to:with:);
-  v26 = v17;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 1107296256;
-  v23 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
-  v24 = &block_descriptor_207;
-  v18 = _Block_copy(&v21);
+  v24 = partial apply for closure #3 in DOCItemCollectionViewController.viewWillTransition(to:with:);
+  v25 = v17;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 1107296256;
+  v22 = thunk for @escaping @callee_guaranteed (@guaranteed UIViewControllerTransitionCoordinatorContext) -> ();
+  v23 = &block_descriptor_207;
+  v18 = _Block_copy(&v20);
   v19 = v16;
 
   [a1 animateAlongsideTransition:v15 completion:v18];
@@ -3528,12 +767,12 @@ void closure #2 in DOCItemCollectionViewController.viewWillTransition(to:with:)(
   (*((*MEMORY[0x277D85000] & *a2) + 0x1528))(a3, a4);
 }
 
-uint64_t closure #3 in DOCItemCollectionViewController.viewWillTransition(to:with:)(uint64_t a1, void *a2)
+double closure #3 in DOCItemCollectionViewController.viewWillTransition(to:with:)(uint64_t a1, void *a2)
 {
-  result = (*((*MEMORY[0x277D85000] & *a2) + 0x1498))();
-  if (result)
+  v2 = (*((*MEMORY[0x277D85000] & *a2) + 0x1498))(a1);
+  if (v2)
   {
-    (*(*result + 448))(result);
+    (*(*v2 + 448))(v2);
   }
 
   return result;
@@ -3542,9 +781,9 @@ uint64_t closure #3 in DOCItemCollectionViewController.viewWillTransition(to:wit
 Swift::Void __swiftcall DOCItemCollectionViewController.viewDidLayoutSubviews()()
 {
   v1 = v0;
-  v81.receiver = v0;
-  v81.super_class = type metadata accessor for DOCItemCollectionViewController(0);
-  v2 = objc_msgSendSuper2(&v81, sel_viewDidLayoutSubviews);
+  v87.receiver = v0;
+  v87.super_class = type metadata accessor for DOCItemCollectionViewController(0);
+  v2 = objc_msgSendSuper2(&v87, sel_viewDidLayoutSubviews);
   v3 = MEMORY[0x277D85000];
   (*((*MEMORY[0x277D85000] & *v0) + 0xF60))(v2);
   v4 = [v0 presentedViewController];
@@ -3559,14 +798,15 @@ Swift::Void __swiftcall DOCItemCollectionViewController.viewDidLayoutSubviews()(
 
     v6 = _s26DocumentManagerExecutables26DOCAssociatedObjectStorageC10attachedTo_10storageKeyACyxGx_AA0defJ0VtFZSo31UIPopoverPresentationControllerC_Tt1B5(v5, static UIPopoverPresentationController.associatedObjectStorageKey);
     swift_getKeyPath();
-    (*((*v3 & *v6) + 0x78))(v80);
+    (*((*v3 & *v6) + 0x78))(&v81);
 
-    v7 = v80[0];
-    if (v80[0])
+    v7 = v81;
+    if (v81)
     {
-      (v80[0])();
+      v8 = v82;
+      v81();
 
-      outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v7);
+      outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v7, v8);
     }
 
     else
@@ -3574,168 +814,168 @@ Swift::Void __swiftcall DOCItemCollectionViewController.viewDidLayoutSubviews()(
     }
   }
 
-  v8 = DOCItemCollectionViewController.traitCollectionForBarLayout.getter();
-  [v8 enclosingUIPHorizontalInset];
-  v10 = v9;
+  v9 = DOCItemCollectionViewController.traitCollectionForBarLayout.getter();
+  [v9 enclosingUIPHorizontalInset];
+  v11 = v10;
 
-  v11 = -v10;
-  v12 = DOCItemCollectionViewController.traitCollectionForBarLayout.getter();
-  v13 = 0.0;
-  if ([v12 contextPrefersVariableBlurBottomTabBar])
+  v12 = -v11;
+  v13 = DOCItemCollectionViewController.traitCollectionForBarLayout.getter();
+  v14 = 0.0;
+  if ([v13 contextPrefersVariableBlurBottomTabBar])
   {
     lazy protocol witness table accessor for type UITraitCollection.DOCTabBarBlurAvoidanceTrait and conformance UITraitCollection.DOCTabBarBlurAvoidanceTrait();
     UITraitCollection.subscript.getter();
-    v13 = v14;
+    v14 = v15;
   }
 
-  v15 = *((*v3 & *v1) + 0x1010);
-  v16 = v15();
-  [v16 setVerticalScrollIndicatorInsets_];
+  v16 = *((*v3 & *v1) + 0x1010);
+  v17 = v16();
+  [v17 setVerticalScrollIndicatorInsets_];
 
   (*((*v3 & *v1) + 0x1730))();
-  v17 = [v1 view];
-  if (!v17)
+  v18 = [v1 view];
+  if (!v18)
   {
     __break(1u);
     goto LABEL_37;
   }
 
-  v18 = v17;
-  [v17 bounds];
-  v20 = v19;
-  v22 = v21;
+  v19 = v18;
+  [v18 bounds];
+  v21 = v20;
+  v23 = v22;
 
-  v23 = (*((*v3 & *v1) + 0xB08))();
+  v24 = (*((*v3 & *v1) + 0xB08))();
   swift_beginAccess();
-  v24 = *(v23 + 168);
+  v25 = *(v24 + 168);
 
-  v26 = (v15)(v25);
-  [v26 safeAreaInsets];
-  v28 = v27;
+  v27 = (v16)(v26);
+  [v27 safeAreaInsets];
+  v29 = v28;
 
-  v29 = v15();
-  [v29 safeAreaInsets];
-  v31 = v30;
+  v30 = v16();
+  [v30 safeAreaInsets];
+  v32 = v31;
 
-  if ((*((*v3 & *v1) + 0xBD8))() != 2 || (v32 = [v1 traitCollection], v33 = objc_msgSend(v32, sel_horizontalSizeClass), v32, v33 == 1) || (v34 = v24 + v28 + v31, v20 >= v34))
+  if ((*((*v3 & *v1) + 0xBD8))() != 2 || (v33 = [v1 traitCollection], v34 = objc_msgSend(v33, sel_horizontalSizeClass), v33, v34 == 1) || (v35 = v25 + v29 + v32, v21 >= v35))
   {
-    v40 = *((*v3 & *v1) + 0xB20);
-    v41 = v40();
-    if (v41)
+    v41 = *((*v3 & *v1) + 0xB20);
+    v42 = v41();
+    if (v42)
     {
-      v42 = v41;
-      [v41 setScrollEnabled_];
+      v43 = v42;
+      [v42 setScrollEnabled_];
     }
 
-    v38 = v40();
-    if (!v38)
+    v39 = v41();
+    if (!v39)
     {
       goto LABEL_24;
     }
 
-    v39 = 0;
+    v40 = 0;
   }
 
   else
   {
-    v35 = *((*v3 & *v1) + 0xB20);
-    v36 = v35();
-    if (v36)
+    v36 = *((*v3 & *v1) + 0xB20);
+    v37 = v36();
+    if (v37)
     {
-      v37 = v36;
-      [v36 setScrollEnabled_];
+      v38 = v37;
+      [v37 setScrollEnabled_];
     }
 
-    v38 = v35();
-    if (!v38)
+    v39 = v36();
+    if (!v39)
     {
-      v20 = v34;
+      v21 = v35;
       goto LABEL_24;
     }
 
-    v39 = 1;
-    v20 = v34;
+    v40 = 1;
+    v21 = v35;
   }
 
-  v43 = v38;
-  [v38 setAlwaysBounceHorizontal_];
+  v44 = v39;
+  [v39 setAlwaysBounceHorizontal_];
 
 LABEL_24:
-  v44 = *((*v3 & *v1) + 0xB20);
-  v45 = v44();
-  if (v45)
+  v45 = *((*v3 & *v1) + 0xB20);
+  v46 = v45();
+  if (v46)
   {
-    v46 = v45;
-    [v45 setContentSize_];
+    v47 = v46;
+    [v46 setContentSize_];
   }
 
-  v47 = v44();
-  if (v47)
+  v48 = v45();
+  if (v48)
   {
-    v48 = v47;
-    [v47 frame];
-    v50 = v49;
-    v52 = v51;
+    v49 = v48;
+    [v48 frame];
+    v51 = v50;
+    v53 = v52;
   }
 
   else
   {
-    v50 = 0.0;
-    v52 = 0.0;
+    v51 = 0.0;
+    v53 = 0.0;
   }
 
-  v53 = v15();
-  [v53 setFrame_];
+  v54 = v16();
+  [v54 setFrame_];
 
-  v54 = DOCItemCollectionViewController.headerRowView()();
-  if (!v54)
+  v55 = DOCItemCollectionViewController.headerRowView()();
+  if (!v55)
   {
     goto LABEL_35;
   }
 
-  v55 = v54;
-  v56 = [v1 &selRef_variant];
-  if (v56)
+  v56 = v55;
+  v57 = [v1 &selRef_variant];
+  if (v57)
   {
-    v57 = v56;
-    [v56 bounds];
-    v59 = v58;
-    v61 = v60;
-    v63 = v62;
-    v65 = v64;
+    v58 = v57;
+    [v57 bounds];
+    v60 = v59;
+    v62 = v61;
+    v64 = v63;
+    v66 = v65;
 
-    v82.origin.x = v59;
-    v82.origin.y = v61;
-    v82.size.width = v63;
-    v82.size.height = v65;
-    Width = CGRectGetWidth(v82);
-    v67 = v44();
-    if (v67)
+    v88.origin.x = v60;
+    v88.origin.y = v62;
+    v88.size.width = v64;
+    v88.size.height = v66;
+    Width = CGRectGetWidth(v88);
+    v68 = v45();
+    if (v68)
     {
-      v68 = v67;
-      [v67 contentOffset];
-      v70 = v69;
+      v69 = v68;
+      [v68 contentOffset];
+      v71 = v70;
     }
 
     else
     {
-      v70 = 0;
+      v71 = 0;
     }
 
-    v71 = v15();
-    [v71 safeAreaInsets];
-    v73 = v72;
-    v75 = v74;
-    v77 = v76;
-    v79 = v78;
+    v72 = v16();
+    [v72 safeAreaInsets];
+    v74 = v73;
+    v76 = v75;
+    v78 = v77;
+    v80 = v79;
 
-    *v80 = Width;
-    v80[1] = v70;
-    v80[2] = v73;
-    v80[3] = v75;
-    v80[4] = v77;
-    v80[5] = v79;
-    (*((*v3 & *v55) + 0x2B8))(v80);
+    v81 = *&Width;
+    v82 = v71;
+    v83 = v74;
+    v84 = v76;
+    v85 = v78;
+    v86 = v80;
+    (*((*v3 & *v56) + 0x2B8))(&v81);
 
 LABEL_35:
     (*((*v3 & *v1) + 0xC60))(0);
@@ -3753,12 +993,11 @@ uint64_t DOCItemCollectionViewController.hasDeferredRepositionInlineEditingCell.
   return *(v0 + v1);
 }
 
-uint64_t DOCItemCollectionViewController.hasDeferredRepositionInlineEditingCell.setter(char a1)
+void DOCItemCollectionViewController.hasDeferredRepositionInlineEditingCell.setter(char a1)
 {
   v3 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_hasDeferredRepositionInlineEditingCell;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + v3) = a1;
-  return result;
 }
 
 uint64_t DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.getter()
@@ -3768,24 +1007,18 @@ uint64_t DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.
   return *(v0 + v1);
 }
 
-uint64_t DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.setter(char a1)
+void DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.setter(char a1)
 {
   v3 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_shouldDeferRepositionInlineEditingCell;
-  result = swift_beginAccess();
+  v4 = swift_beginAccess();
   *(v1 + v3) = a1;
-  if ((a1 & 1) == 0)
+  if (a1 & 1) == 0 && ((*((*MEMORY[0x277D85000] & *v1) + 0x16F8))(v4))
   {
-    result = (*((*MEMORY[0x277D85000] & *v1) + 0x16F8))(result);
-    if (result)
-    {
-      return DOCItemCollectionViewController._repositionRenamingCell()();
-    }
+    DOCItemCollectionViewController._repositionRenamingCell()();
   }
-
-  return result;
 }
 
-void (*DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.modify(uint64_t *a1))(void **a1, char a2)
+uint64_t (*DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3805,7 +1038,7 @@ void (*DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.mo
   return DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.modify;
 }
 
-void DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.modify(void **a1, char a2)
+void DOCItemCollectionViewController.shouldDeferRepositionInlineEditingCell.modify(void *a1, char a2)
 {
   v3 = *a1;
   v4 = swift_endAccess();
@@ -3877,7 +1110,7 @@ Swift::Void __swiftcall DOCItemCollectionViewController.invalidateSupplementaryE
   ObjCClassFromObject = swift_getObjCClassFromObject();
   [ObjCClassFromObject invalidationContextClass];
   swift_getObjCClassMetadata();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewLayoutInvalidationContext);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewLayoutInvalidationContext, 0x277D75310);
   swift_dynamicCastMetatypeUnconditional();
   v6 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v7 = *(ofKinds._rawValue + 2);
@@ -3967,7 +1200,7 @@ void DOCItemCollectionViewController.updateItemCollectionFilteringPredicate()()
       }
 
       v19 = *MEMORY[0x277D05D70];
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
       v20 = static OS_dispatch_queue.main.getter();
       v21 = swift_allocObject();
       swift_unknownObjectWeakInit();
@@ -4012,19 +1245,19 @@ LABEL_14:
   }
 }
 
-void closure #1 in DOCItemCollectionViewController.updateItemCollectionFilteringPredicate()()
+void closure #1 in DOCItemCollectionViewController.updateItemCollectionFilteringPredicate()(uint64_t a1, uint64_t a2)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-    if (v2)
+    v3 = Strong;
+    v4 = *(Strong + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
+    if (v4)
     {
-      v3 = *((*MEMORY[0x277D85000] & *v2) + 0x1D8);
-      v4 = v2;
-      v3();
+      v5 = *((*MEMORY[0x277D85000] & *v4) + 0x1D8);
+      v6 = v4;
+      v5();
     }
 
     else
@@ -4034,11 +1267,13 @@ void closure #1 in DOCItemCollectionViewController.updateItemCollectionFiltering
   }
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@unowned Int32) -> ()(uint64_t a1, uint64_t a2)
+double thunk for @escaping @callee_guaranteed (@unowned Int32) -> ()(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 32);
 
   v3(a2);
+
+  return result;
 }
 
 BOOL closure #2 in DOCItemCollectionViewController.updateItemCollectionFilteringPredicate()(uint64_t a1, Class isa, void *a3)
@@ -4049,7 +1284,7 @@ BOOL closure #2 in DOCItemCollectionViewController.updateItemCollectionFiltering
   }
 
   v5 = a1;
-  outlined init with copy of DOCGridLayout.Spec?(a1, v35, &_sypSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(a1, v35, &_sypSgMd, &_sypSgMR);
   v6 = v36;
   if (v36)
   {
@@ -4087,14 +1322,14 @@ LABEL_5:
   }
 
 LABEL_6:
-  outlined init with copy of DOCGridLayout.Spec?(a1, v35, &_sypSgMd);
+  outlined init with copy of DOCGridLayout.Spec?(a1, v35, &_sypSgMd, &_sypSgMR);
   if (!v36)
   {
-    outlined destroy of CharacterSet?(v35, &_sypSgMd);
+    outlined destroy of CharacterSet?(v35, &_sypSgMd, &_sypSgMR);
     return 0;
   }
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
   if ((swift_dynamicCast() & 1) == 0)
   {
     return 0;
@@ -4189,7 +1424,7 @@ LABEL_32:
   }
 
   v6 = v5;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
   v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (v7 >> 62)
@@ -4313,7 +1548,7 @@ LABEL_27:
 
 uint64_t DOCItemCollectionViewController.cellIsFocusable(at:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v16 - v5;
   v7 = type metadata accessor for IndexPath();
@@ -4329,7 +1564,7 @@ uint64_t DOCItemCollectionViewController.cellIsFocusable(at:)(uint64_t a1)
   (*((*v13 & *v1) + 0x18A0))(a1);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 LABEL_7:
     v14 = 0;
     return v14 & 1;
@@ -4366,7 +1601,7 @@ uint64_t DOCItemCollectionViewController.isNodeFocusable(_:)(void *a1)
 
 uint64_t DOCItemCollectionViewController.cellIsSelectable(at:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v18 - v5;
   v7 = type metadata accessor for IndexPath();
@@ -4377,7 +1612,7 @@ uint64_t DOCItemCollectionViewController.cellIsSelectable(at:)(uint64_t a1)
   (*((*MEMORY[0x277D85000] & *v1) + 0x18A0))(a1, v10);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
     v14 = 0;
   }
 
@@ -4422,7 +1657,7 @@ uint64_t DOCItemCollectionViewController.cellIsSelectable(at:)(uint64_t a1)
 
 uint64_t DOCItemCollectionViewController.cellIsActionable(at:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v3 - 8, v4);
   v6 = &v19 - v5;
   v7 = type metadata accessor for IndexPath();
@@ -4433,7 +1668,7 @@ uint64_t DOCItemCollectionViewController.cellIsActionable(at:)(uint64_t a1)
   (*((*MEMORY[0x277D85000] & *v1) + 0x18A0))(a1, v10);
   if ((*(v8 + 48))(v6, 1, v7) == 1)
   {
-    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v6, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   }
 
   else
@@ -4487,7 +1722,7 @@ LABEL_12:
 uint64_t DOCItemCollectionViewController.shouldSpringLoadItem(at:with:)(uint64_t a1, void *a2)
 {
   v3 = v2;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
   MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v60 - v8;
   v10 = type metadata accessor for IndexPath();
@@ -4498,7 +1733,7 @@ uint64_t DOCItemCollectionViewController.shouldSpringLoadItem(at:with:)(uint64_t
   (*((*MEMORY[0x277D85000] & *v3) + 0x18A0))(a1, v13);
   if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    outlined destroy of CharacterSet?(v9, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v9, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
     return 0;
   }
 
@@ -4531,7 +1766,7 @@ LABEL_110:
 
   v21 = [v20 items];
   swift_unknownObjectRelease();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDragItem, 0x277D75470);
   v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v64 = v3;
@@ -4609,14 +1844,14 @@ LABEL_103:
 
     v76 = v74;
     v77 = v75;
-    outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd, &_sypSgMR);
     if (*(&v75 + 1))
     {
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode, 0x277D04700);
       if (swift_dynamicCast())
       {
         v31 = v73;
-        outlined destroy of CharacterSet?(&v76, &_sypSgMd);
+        outlined destroy of CharacterSet?(&v76, &_sypSgMd, &_sypSgMR);
 
         goto LABEL_31;
       }
@@ -4624,7 +1859,7 @@ LABEL_103:
 
     else
     {
-      outlined destroy of CharacterSet?(&v74, &_sypSgMd);
+      outlined destroy of CharacterSet?(&v74, &_sypSgMd, &_sypSgMR);
     }
 
     v74 = v76;
@@ -4634,7 +1869,7 @@ LABEL_103:
       break;
     }
 
-    outlined destroy of CharacterSet?(&v74, &_sypSgMd);
+    outlined destroy of CharacterSet?(&v74, &_sypSgMd, &_sypSgMR);
 LABEL_11:
 
     v27 = __OFADD__(v22++, 1);
@@ -4644,7 +1879,7 @@ LABEL_11:
     }
   }
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_11;
@@ -4715,7 +1950,7 @@ LABEL_32:
 
     *(&v77 + 1) = swift_getObjectType();
     *&v76 = v36;
-    outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd);
+    outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd, &_sypSgMR);
     v19 = *(&v75 + 1);
     if (*(&v75 + 1))
     {
@@ -4740,7 +1975,7 @@ LABEL_32:
 
     v43 = [v70 isEqual_];
     swift_unknownObjectRelease();
-    outlined destroy of CharacterSet?(&v76, &_sypSgMd);
+    outlined destroy of CharacterSet?(&v76, &_sypSgMd, &_sypSgMR);
     swift_unknownObjectRelease();
     if (v43)
     {
@@ -4821,14 +2056,14 @@ LABEL_97:
 
       v76 = v74;
       v77 = v75;
-      outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd);
+      outlined init with copy of DOCGridLayout.Spec?(&v76, &v74, &_sypSgMd, &_sypSgMR);
       if (*(&v75 + 1))
       {
-        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode);
+        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FINode, 0x277D04700);
         if (swift_dynamicCast())
         {
           v47 = v73;
-          outlined destroy of CharacterSet?(&v76, &_sypSgMd);
+          outlined destroy of CharacterSet?(&v76, &_sypSgMd, &_sypSgMR);
 
           v23 = v68;
           goto LABEL_75;
@@ -4837,14 +2072,14 @@ LABEL_97:
 
       else
       {
-        outlined destroy of CharacterSet?(&v74, &_sypSgMd);
+        outlined destroy of CharacterSet?(&v74, &_sypSgMd, &_sypSgMR);
       }
 
       v74 = v76;
       v75 = v77;
       if (!*(&v77 + 1))
       {
-        outlined destroy of CharacterSet?(&v74, &_sypSgMd);
+        outlined destroy of CharacterSet?(&v74, &_sypSgMd, &_sypSgMR);
 LABEL_57:
 
         continue;
@@ -4853,7 +2088,7 @@ LABEL_57:
       break;
     }
 
-    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem);
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPItem, 0x277CC63E8);
     if ((swift_dynamicCast() & 1) == 0)
     {
       goto LABEL_57;
@@ -4973,16 +2208,11 @@ LABEL_28:
   return v17;
 }
 
-uint64_t DOCItemCollectionViewController.StringWidthCalculationContext.longestStringsList.setter(uint64_t a1)
+double DOCItemCollectionViewController.StringWidthCalculationContext.longestStringsList.setter(uint64_t a1)
 {
   swift_beginAccess();
   *(v1 + 16) = a1;
-}
 
-uint64_t DOCItemCollectionViewController.StringWidthCalculationContext.smallestLengthInList.setter(uint64_t a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 24) = a1;
   return result;
 }
 
@@ -5016,10 +2246,10 @@ Swift::Void __swiftcall DOCItemCollectionViewController.StringWidthCalculationCo
   {
     v8 = *(*v2 + 128);
 
-    v9 = v8(v33);
-    v10 = specialized Set._Variant.insert(_:)(&v34, countAndFlagsBits, object);
+    v9 = v8(v34);
+    v10 = specialized Set._Variant.insert(_:)(&v35, countAndFlagsBits, object);
 
-    v11 = v9(v33, 0);
+    v11 = v9(v34, 0);
     if (v10)
     {
       v12 = *((v5)(v11) + 16);
@@ -5034,63 +2264,64 @@ Swift::Void __swiftcall DOCItemCollectionViewController.StringWidthCalculationCo
       }
 
       v16 = (v5)(v13);
-      v17 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShySSG_Sis5NeverOTg5125_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC29StringWidthCalculationContextC6update5usingySS_tFSiSSXEfU0_Tf1cn_n(v16);
+      _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShySSG_Sis5NeverOTg5125_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC29StringWidthCalculationContextC6update5usingySS_tFSiSSXEfU0_Tf1cn_n(v16);
+      v18 = v17;
 
-      v18 = *(v17 + 16);
-      if (!v18)
+      v19 = *(v18 + 16);
+      if (!v19)
       {
 
-        v19 = (*(*v2 + 136))(v22);
+        v20 = (*(*v2 + 136))(v23);
 LABEL_19:
-        (*(*v2 + 144))(v19);
+        (*(*v2 + 144))(v20);
         return;
       }
 
-      v19 = *(v17 + 32);
-      v20 = v18 - 1;
-      if (v18 != 1)
+      v20 = *(v18 + 32);
+      v21 = v19 - 1;
+      if (v19 != 1)
       {
-        if (v18 <= 4)
+        if (v19 <= 4)
         {
-          v21 = 1;
+          v22 = 1;
           goto LABEL_14;
         }
 
-        v21 = v20 & 0xFFFFFFFFFFFFFFFCLL | 1;
-        v23 = vdupq_n_s64(v19);
-        v24 = (v17 + 56);
-        v25 = v20 & 0xFFFFFFFFFFFFFFFCLL;
-        v26 = v23;
+        v22 = v21 & 0xFFFFFFFFFFFFFFFCLL | 1;
+        v24 = vdupq_n_s64(v20);
+        v25 = (v18 + 56);
+        v26 = v21 & 0xFFFFFFFFFFFFFFFCLL;
+        v27 = v24;
         do
         {
-          v23 = vbslq_s8(vcgtq_s64(v23, v24[-1]), v24[-1], v23);
-          v26 = vbslq_s8(vcgtq_s64(v26, *v24), *v24, v26);
-          v24 += 2;
-          v25 -= 4;
+          v24 = vbslq_s8(vcgtq_s64(v24, v25[-1]), v25[-1], v24);
+          v27 = vbslq_s8(vcgtq_s64(v27, *v25), *v25, v27);
+          v25 += 2;
+          v26 -= 4;
         }
 
-        while (v25);
-        v27 = vbslq_s8(vcgtq_s64(v26, v23), v23, v26);
-        v28 = vextq_s8(v27, v27, 8uLL).u64[0];
-        v19 = vbsl_s8(vcgtd_s64(v28, v27.i64[0]), *v27.i8, v28);
-        if (v20 != (v20 & 0xFFFFFFFFFFFFFFFCLL))
+        while (v26);
+        v28 = vbslq_s8(vcgtq_s64(v27, v24), v24, v27);
+        v29 = vextq_s8(v28, v28, 8uLL).u64[0];
+        v20 = vbsl_s8(vcgtd_s64(v29, v28.i64[0]), *v28.i8, v29);
+        if (v21 != (v21 & 0xFFFFFFFFFFFFFFFCLL))
         {
 LABEL_14:
-          v29 = v18 - v21;
-          v30 = (v17 + 8 * v21 + 32);
+          v30 = v19 - v22;
+          v31 = (v18 + 8 * v22 + 32);
           do
           {
-            v32 = *v30++;
-            v31 = v32;
-            if (v32 < v19)
+            v33 = *v31++;
+            v32 = v33;
+            if (v33 < v20)
             {
-              v19 = v31;
+              v20 = v32;
             }
 
-            --v29;
+            --v30;
           }
 
-          while (v29);
+          while (v30);
         }
       }
 
@@ -5139,21 +2370,21 @@ LABEL_8:
     {
       v26 = MEMORY[0x24C1FAD20](v16, v15);
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_249B9A480;
       *(inited + 32) = v10;
       v19 = v10;
       v20 = *(v1 + 40);
-      *(inited + 64) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIFont);
+      *(inited + 64) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIFont, 0x277D74300);
       *(inited + 40) = v20;
       v21 = v19;
       v22 = v20;
       _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(inited);
       swift_setDeallocating();
-      outlined destroy of CharacterSet?(inited + 32, &_sSo21NSAttributedStringKeya_yptMd);
+      outlined destroy of CharacterSet?(inited + 32, &_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
       type metadata accessor for NSAttributedStringKey(0);
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
       isa = Dictionary._bridgeToObjectiveC()().super.isa;
       v10 = v19;
 
@@ -5211,47 +2442,47 @@ uint64_t DOCItemCollectionViewController.StringWidthCalculationContext.__dealloc
 void DOCItemCollectionViewController.computeStackViewMetricsIfNeeded()()
 {
   v4 = v0;
-  v152 = type metadata accessor for UTType();
-  v5 = *(v152 - 8);
-  MEMORY[0x28223BE20](v152, v6);
-  v8 = v136 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v153 = type metadata accessor for UTType();
+  v5 = *(v153 - 8);
+  MEMORY[0x28223BE20](v153, v6);
+  v8 = v137 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v9, v10);
-  v12 = v136 - v11;
+  v12 = v137 - v11;
   v15 = MEMORY[0x28223BE20](v13, v14);
-  v17 = v136 - v16;
+  v17 = v137 - v16;
   v18 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
   v19 = [v18 isPickerUI];
   v20 = [v4 traitCollection];
   if (v19)
   {
-    v153 = v20;
+    v154 = v20;
     v21 = UITraitCollection.modifyingTraits(_:)();
 
     v20 = v21;
   }
 
-  v153 = v20;
+  v154 = v20;
   if (one-time initialization token for hSizeClass != -1)
   {
     swift_once();
   }
 
-  v163 = static UITraitCollection.Traits.hSizeClass;
-  *&v164 = qword_27EEE9C60;
-  if ((UITraitCollection.doc_hasSpecified(_:)(&v163) & 1) == 0)
+  v164 = static UITraitCollection.Traits.hSizeClass;
+  *&v165 = qword_27EEE9C60;
+  if ((UITraitCollection.doc_hasSpecified(_:)(&v164) & 1) == 0)
   {
     v34 = [objc_opt_self() standardUserDefaults];
-    v152 = MEMORY[0x24C1FAD20](0xD000000000000029, 0x8000000249BDA260);
+    v153 = MEMORY[0x24C1FAD20](0xD000000000000029, 0x8000000249BDA260);
     [v34 BOOLForKey_];
 
-    v35 = v152;
+    v35 = v153;
 LABEL_20:
 
     return;
   }
 
-  v150 = v8;
-  v151 = v5;
+  v151 = v8;
+  v152 = v5;
   v22 = MEMORY[0x277D85000];
   v23 = *((*MEMORY[0x277D85000] & *v4) + 0xCB8);
   v24 = (v23)();
@@ -5290,25 +2521,25 @@ LABEL_8:
   {
 
 LABEL_19:
-    v35 = v153;
+    v35 = v154;
     goto LABEL_20;
   }
 
-  v137 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetricsSourceTraits;
-  v138 = v28;
+  v138 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetricsSourceTraits;
+  v139 = v28;
   v30 = *(v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetricsSourceTraits);
   if (v30)
   {
-    *&v149 = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITraitCollection);
-    v31 = v153;
-    v148 = v30;
+    *&v150 = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UITraitCollection, 0x277D75C80);
+    v31 = v154;
+    v149 = v30;
     v32 = static NSObject.== infix(_:_:)();
-    *&v149 = v31;
+    *&v150 = v31;
 
     if ((v32 & 1) != 0 && [v4 doc:sel__doc_performLiveResizeSkippedWork scheduleHandlerIfInLiveResize:?])
     {
 
-      v33 = v149;
+      v33 = v150;
 
       *(v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_liveResizeDidSkip_computeStackMetrics) = 1;
       return;
@@ -5317,11 +2548,11 @@ LABEL_19:
 
   else
   {
-    v36 = v153;
+    v36 = v154;
   }
 
   *(v4 + v29) = 0;
-  if ([v153 horizontalSizeClass] == 2)
+  if ([v154 horizontalSizeClass] == 2)
   {
     v37 = 15.0;
   }
@@ -5332,11 +2563,11 @@ LABEL_19:
   }
 
   v38 = [objc_opt_self() defaultMetrics];
-  [v38 scaledValueForValue:v153 compatibleWithTraitCollection:v37];
+  [v38 scaledValueForValue:v154 compatibleWithTraitCollection:v37];
   v40 = v39;
 
-  v41 = [v153 horizontalSizeClass];
-  v144 = v23;
+  v41 = [v154 horizontalSizeClass];
+  v145 = v23;
   if (v41 == 1)
   {
     v42 = DOCItemCollectionViewController.modelPreloadingAppearance.getter();
@@ -5372,76 +2603,76 @@ LABEL_19:
   v48 = v43;
 LABEL_36:
 
-  LODWORD(v141) = [v18 preferLastUsedDate];
-  v49 = (*v138 + 256);
-  v139 = *v49;
-  v139(&v163);
-  v161[4] = v167;
-  v161[5] = v168;
-  v161[6] = v169;
-  v161[7] = v170;
-  v161[0] = v163;
-  v161[1] = v164;
-  v161[2] = v165;
-  v161[3] = v166;
-  v50 = v163;
-  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v161);
-  v147 = type metadata accessor for DOCItemCollectionViewController.StringWidthCalculationContext();
+  LODWORD(v142) = [v18 preferLastUsedDate];
+  v49 = (*v139 + 256);
+  v140 = *v49;
+  v140(&v164);
+  v162[4] = v168;
+  v162[5] = v169;
+  v162[6] = v170;
+  v162[7] = v171;
+  v162[0] = v164;
+  v162[1] = v165;
+  v162[2] = v166;
+  v162[3] = v167;
+  v50 = v164;
+  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v162);
+  v148 = type metadata accessor for DOCItemCollectionViewController.StringWidthCalculationContext();
   v51 = swift_allocObject();
   *(v51 + 16) = MEMORY[0x277D84FA0];
-  v149 = xmmword_249BAA8C0;
+  v150 = xmmword_249BAA8C0;
   *(v51 + 24) = xmmword_249BAA8C0;
-  v146 = v51;
+  v147 = v51;
   *(v51 + 40) = v50;
-  v139(&v163);
-  v162[4] = v167;
-  v162[5] = v168;
-  v162[6] = v169;
-  v162[7] = v170;
-  v162[0] = v163;
-  v162[1] = v164;
-  v162[2] = v165;
-  v162[3] = v166;
-  v52 = v163;
-  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v162);
+  v140(&v164);
+  v163[4] = v168;
+  v163[5] = v169;
+  v163[6] = v170;
+  v163[7] = v171;
+  v163[0] = v164;
+  v163[1] = v165;
+  v163[2] = v166;
+  v163[3] = v167;
+  v52 = v164;
+  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v163);
   v53 = swift_allocObject();
   v23 = MEMORY[0x277D84FA0];
   *(v53 + 16) = MEMORY[0x277D84FA0];
-  *(v53 + 24) = v149;
-  v148 = v53;
+  *(v53 + 24) = v150;
+  v149 = v53;
   *(v53 + 40) = v52;
-  v136[1] = v49;
-  v139(v160);
-  v167 = v160[4];
-  v168 = v160[5];
-  v169 = v160[6];
-  v170 = v160[7];
-  v163 = v160[0];
-  v164 = v160[1];
-  v165 = v160[2];
-  v166 = v160[3];
-  v54 = *&v160[0];
-  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(&v163);
+  v137[1] = v49;
+  v140(v161);
+  v168 = v161[4];
+  v169 = v161[5];
+  v170 = v161[6];
+  v171 = v161[7];
+  v164 = v161[0];
+  v165 = v161[1];
+  v166 = v161[2];
+  v167 = v161[3];
+  v54 = *&v161[0];
+  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(&v164);
   v55 = swift_allocObject();
   *(v55 + 16) = v23;
-  v143 = (v55 + 16);
-  *(v55 + 24) = v149;
-  v147 = (v55 + 24);
-  v145 = v55;
+  v144 = (v55 + 16);
+  *(v55 + 24) = v150;
+  v148 = (v55 + 24);
+  v146 = v55;
   *(v55 + 40) = v54;
-  v159 = v23;
-  v56 = v144();
-  _s26DocumentManagerExecutables31DOCItemCollectionViewControllerC012computeStackF15MetricsIfNeeded33_45098A9DF3FF02797EF1E06F74668D65LLyyF16SamplingSequenceL_V_15sampleThresholdAGyxGSayxG_SitcfCSo7DOCNode_p_Tt1g5(v56, 500, v157);
+  v160 = v23;
+  v56 = v145();
+  _s26DocumentManagerExecutables31DOCItemCollectionViewControllerC012computeStackF15MetricsIfNeeded33_45098A9DF3FF02797EF1E06F74668D65LLyyF16SamplingSequenceL_V_15sampleThresholdAGyxGSayxG_SitcfCSo7DOCNode_p_Tt1g5(v56, 500, v158);
   specialized next() in SamplingSequence #1 in DOCItemCollectionViewController.computeStackViewMetricsIfNeeded()();
   if (v57)
   {
     v58 = v57;
-    v59 = (v151 + 8);
-    v60 = v141;
+    v59 = (v152 + 8);
+    v60 = v142;
     while (1)
     {
       swift_getObjectType();
-      v66 = DOCNode.localizedDate(horizontalSizeClass:preferLastUsedDate:)([v153 horizontalSizeClass], v60);
+      v66 = DOCNode.localizedDate(horizontalSizeClass:preferLastUsedDate:)([v154 horizontalSizeClass], v60);
       if (v67)
       {
         DOCItemCollectionViewController.StringWidthCalculationContext.update(using:)(*&v66);
@@ -5471,23 +2702,23 @@ LABEL_40:
 
       specialized Set._Variant.insert(_:)(v17, v12);
       swift_unknownObjectRelease();
-      (*v59)(v17, v152);
+      (*v59)(v17, v153);
       specialized next() in SamplingSequence #1 in DOCItemCollectionViewController.computeStackViewMetricsIfNeeded()();
       v58 = v65;
       if (!v65)
       {
-        v23 = v159;
+        v23 = v160;
         break;
       }
     }
   }
 
-  v155[2] = v157[2];
-  v155[3] = v157[3];
-  v156 = v158;
-  v155[0] = v157[0];
-  v155[1] = v157[1];
-  outlined destroy of CharacterSet?(v155, &_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC012computeStackF15MetricsIfNeeded33_45098A9DF3FF02797EF1E06F74668D65LLyyF16SamplingSequenceL_VySo7DOCNode_pGMd);
+  v156[2] = v158[2];
+  v156[3] = v158[3];
+  v157 = v159;
+  v156[0] = v158[0];
+  v156[1] = v158[1];
+  outlined destroy of CharacterSet?(v156, &_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC012computeStackF15MetricsIfNeeded33_45098A9DF3FF02797EF1E06F74668D65LLyyF16SamplingSequenceL_VySo7DOCNode_pGMd, &_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC012computeStackF15MetricsIfNeeded33_45098A9DF3FF02797EF1E06F74668D65LLyyF16SamplingSequenceL_VySo7DOCNode_pGMR);
   v68 = v23 + 56;
   v69 = 1 << *(v23 + 32);
   v70 = -1;
@@ -5498,56 +2729,56 @@ LABEL_40:
 
   v22 = v70 & *(v23 + 56);
   v71 = (v69 + 63) >> 6;
-  v140 = v151 + 8;
-  v141 = v151 + 16;
-  v144 = v23;
+  v141 = v152 + 8;
+  v142 = v152 + 16;
+  v145 = v23;
 
   v18 = 0;
-  *&v149 = MEMORY[0x277D84F90];
-  v12 = v143;
-  v142 = v4;
+  *&v150 = MEMORY[0x277D84F90];
+  v12 = v144;
+  v143 = v4;
   while (v22)
   {
-    v72 = v144;
+    v72 = v145;
 LABEL_57:
     v74 = __clz(__rbit64(v22));
     v22 &= v22 - 1;
-    v75 = v150;
-    v76 = v151;
-    v77 = v152;
-    (*(v151 + 16))(v150, *(v72 + 6) + *(v151 + 72) * (v74 | (v18 << 6)), v152);
+    v75 = v151;
+    v76 = v152;
+    v77 = v153;
+    (*(v152 + 16))(v151, *(v72 + 6) + *(v152 + 72) * (v74 | (v18 << 6)), v153);
     v17 = UTType.localizedDescription.getter();
     v23 = v78;
     (*(v76 + 8))(v75, v77);
-    v4 = v142;
-    v12 = v143;
+    v4 = v143;
+    v12 = v144;
     if (v23)
     {
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        *&v149 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v149 + 16) + 1, 1, v149);
+        *&v150 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v150 + 16) + 1, 1, v150);
       }
 
-      v80 = *(v149 + 16);
-      v79 = *(v149 + 24);
+      v80 = *(v150 + 16);
+      v79 = *(v150 + 24);
       v81 = v80 + 1;
       if (v80 >= v79 >> 1)
       {
-        v136[0] = v80 + 1;
-        v84 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v79 > 1), v80 + 1, 1, v149);
-        v81 = v136[0];
-        *&v149 = v84;
+        v137[0] = v80 + 1;
+        v84 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v79 > 1), v80 + 1, 1, v150);
+        v81 = v137[0];
+        *&v150 = v84;
       }
 
-      v82 = v149;
-      *(v149 + 16) = v81;
+      v82 = v150;
+      *(v150 + 16) = v81;
       v83 = v82 + 16 * v80;
       *(v83 + 32) = v17;
       *(v83 + 40) = v23;
     }
   }
 
-  v72 = v144;
+  v72 = v145;
   while (1)
   {
     v73 = v18 + 1;
@@ -5573,17 +2804,17 @@ LABEL_102:
     }
   }
 
-  v85 = *(v149 + 16);
+  v85 = *(v150 + 16);
 
   swift_beginAccess();
   swift_beginAccess();
   if (v85)
   {
     v86 = 0;
-    v87 = v149 + 32;
+    v87 = v150 + 32;
     while (1)
     {
-      if (v86 >= *(v149 + 16))
+      if (v86 >= *(v150 + 16))
       {
         __break(1u);
         goto LABEL_104;
@@ -5594,12 +2825,12 @@ LABEL_102:
       v91 = v89[1];
       v18 = *(*v12 + 16);
 
-      if (v18 < 0xA || *v147 < String.count.getter())
+      if (v18 < 0xA || *v148 < String.count.getter())
       {
         swift_beginAccess();
 
-        v92 = specialized Set._Variant.insert(_:)(v154, v90, v91);
-        v18 = v154[1];
+        v92 = specialized Set._Variant.insert(_:)(v155, v90, v91);
+        v18 = v155[1];
         swift_endAccess();
 
         if (v92)
@@ -5619,42 +2850,43 @@ LABEL_67:
 
     if (*(*v12 + 16) >= 0xBuLL)
     {
-      v93 = v145;
+      v93 = v146;
 
       v95 = specialized _NativeSet.filter(_:)(v94, v93);
 
       *(v93 + 16) = v95;
     }
 
-    v18 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShySSG_Sis5NeverOTg5125_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC29StringWidthCalculationContextC6update5usingySS_tFSiSSXEfU0_Tf1cn_n(v96);
+    _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFShySSG_Sis5NeverOTg5125_s26DocumentManagerExecutables31DOCItemCollectionViewControllerC29StringWidthCalculationContextC6update5usingySS_tFSiSSXEfU0_Tf1cn_n(v96);
+    v18 = v97;
 
-    v97 = *(v18 + 16);
-    if (v97)
+    v98 = *(v18 + 16);
+    if (v98)
     {
-      v98 = *(v18 + 32);
-      v99 = v97 - 1;
-      if (v97 != 1)
+      v99 = *(v18 + 32);
+      v100 = v98 - 1;
+      if (v98 != 1)
       {
-        if (v97 > 4)
+        if (v98 > 4)
         {
-          v100 = v99 & 0xFFFFFFFFFFFFFFFCLL | 1;
-          v101 = vdupq_n_s64(v98);
-          v102 = (v18 + 56);
-          v103 = v99 & 0xFFFFFFFFFFFFFFFCLL;
-          v104 = v101;
+          v101 = v100 & 0xFFFFFFFFFFFFFFFCLL | 1;
+          v102 = vdupq_n_s64(v99);
+          v103 = (v18 + 56);
+          v104 = v100 & 0xFFFFFFFFFFFFFFFCLL;
+          v105 = v102;
           do
           {
-            v101 = vbslq_s8(vcgtq_s64(v101, v102[-1]), v102[-1], v101);
-            v104 = vbslq_s8(vcgtq_s64(v104, *v102), *v102, v104);
-            v102 += 2;
-            v103 -= 4;
+            v102 = vbslq_s8(vcgtq_s64(v102, v103[-1]), v103[-1], v102);
+            v105 = vbslq_s8(vcgtq_s64(v105, *v103), *v103, v105);
+            v103 += 2;
+            v104 -= 4;
           }
 
-          while (v103);
-          v105 = vbslq_s8(vcgtq_s64(v104, v101), v101, v104);
-          v106 = vextq_s8(v105, v105, 8uLL).u64[0];
-          v98 = vbsl_s8(vcgtd_s64(v106, v105.i64[0]), *v105.i8, v106);
-          if (v99 != (v99 & 0xFFFFFFFFFFFFFFFCLL))
+          while (v104);
+          v106 = vbslq_s8(vcgtq_s64(v105, v102), v102, v105);
+          v107 = vextq_s8(v106, v106, 8uLL).u64[0];
+          v99 = vbsl_s8(vcgtd_s64(v107, v106.i64[0]), *v106.i8, v107);
+          if (v100 != (v100 & 0xFFFFFFFFFFFFFFFCLL))
           {
             goto LABEL_82;
           }
@@ -5662,99 +2894,99 @@ LABEL_67:
 
         else
         {
-          v100 = 1;
+          v101 = 1;
 LABEL_82:
-          v107 = v97 - v100;
-          v108 = (v18 + 8 * v100 + 32);
+          v108 = v98 - v101;
+          v109 = (v18 + 8 * v101 + 32);
           do
           {
-            v110 = *v108++;
-            v109 = v110;
-            if (v110 < v98)
+            v111 = *v109++;
+            v110 = v111;
+            if (v111 < v99)
             {
-              v98 = v109;
+              v99 = v110;
             }
 
-            --v107;
+            --v108;
           }
 
-          while (v107);
+          while (v108);
         }
       }
 
-      v88 = v147;
+      v88 = v148;
     }
 
     else
     {
 
-      v88 = v147;
-      v98 = *v147;
+      v88 = v148;
+      v99 = *v148;
     }
 
-    *v88 = v98;
+    *v88 = v99;
     goto LABEL_67;
   }
 
 LABEL_87:
 
   DOCItemCollectionViewController.StringWidthCalculationContext.getLongestStringWithAttributesUsingCache()();
-  v1 = v111;
+  v1 = v112;
   DOCItemCollectionViewController.StringWidthCalculationContext.getLongestStringWithAttributesUsingCache()();
-  v2 = v112;
+  v2 = v113;
   DOCItemCollectionViewController.StringWidthCalculationContext.getLongestStringWithAttributesUsingCache()();
-  v3 = v113;
-  v114 = MEMORY[0x24C1FAD20](2121248, 0xE300000000000000);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd);
-  v115 = swift_allocObject();
-  *(v115 + 16) = xmmword_249B9A480;
-  v116 = *MEMORY[0x277D740A8];
-  *(v115 + 32) = *MEMORY[0x277D740A8];
-  v117 = v116;
-  (v139)(v160, v117);
-  v118 = *&v160[0];
-  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v160);
-  *(v115 + 64) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIFont);
-  *(v115 + 40) = v118;
-  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(v115);
+  v3 = v114;
+  v115 = MEMORY[0x24C1FAD20](2121248, 0xE300000000000000);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMd, &_ss23_ContiguousArrayStorageCySo21NSAttributedStringKeya_yptGMR);
+  v116 = swift_allocObject();
+  *(v116 + 16) = xmmword_249B9A480;
+  v117 = *MEMORY[0x277D740A8];
+  *(v116 + 32) = *MEMORY[0x277D740A8];
+  v118 = v117;
+  (v140)(v161, v118);
+  v119 = *&v161[0];
+  outlined destroy of DOCItemCollectionLayoutTraits.ListItemTraits(v161);
+  *(v116 + 64) = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIFont, 0x277D74300);
+  *(v116 + 40) = v119;
+  _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSo21NSAttributedStringKeya_ypTt0g5Tf4g_n(v116);
   swift_setDeallocating();
-  outlined destroy of CharacterSet?(v115 + 32, &_sSo21NSAttributedStringKeya_yptMd);
+  outlined destroy of CharacterSet?(v116 + 32, &_sSo21NSAttributedStringKeya_yptMd, &_sSo21NSAttributedStringKeya_yptMR);
   swift_deallocClassInstance();
   type metadata accessor for NSAttributedStringKey(0);
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  [v114 sizeWithAttributes_];
-  v121 = v120;
+  [v115 sizeWithAttributes_];
+  v122 = v121;
 
   if (v1 > 0.0)
   {
-    LOBYTE(v154[0]) = 0;
-    v122 = v121 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v154);
-    if (v1 < v122)
+    LOBYTE(v155[0]) = 0;
+    v123 = v122 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v155);
+    if (v1 < v123)
     {
-      v1 = v122;
+      v1 = v123;
     }
   }
 
   v18 = MEMORY[0x277D85000];
   if (v2 > 0.0)
   {
-    LOBYTE(v154[0]) = 4;
-    v123 = v121 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v154);
-    if (v2 < v123)
+    LOBYTE(v155[0]) = 4;
+    v124 = v122 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v155);
+    if (v2 < v124)
     {
-      v2 = v123;
+      v2 = v124;
     }
   }
 
   if (v3 > 0.0)
   {
-    LOBYTE(v154[0]) = 5;
-    v124 = v121 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v154);
-    if (v3 < v124)
+    LOBYTE(v155[0]) = 5;
+    v125 = v122 + specialized static DOCItemCollectionViewSectionHeader.sortHeaderItemWidthIncludingTrailingImage(for:)(v155);
+    if (v3 < v125)
     {
-      v3 = v124;
+      v3 = v125;
     }
   }
 
@@ -5764,46 +2996,46 @@ LABEL_104:
     swift_once();
   }
 
-  v125 = ceil(v1);
-  v126 = ceil(v2);
-  v127 = ceil(v3);
-  v128 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v128, static Logger.UI);
-  v129 = v153;
-  v130 = Logger.logObject.getter();
-  v131 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v130, v131))
+  v126 = ceil(v1);
+  v127 = ceil(v2);
+  v128 = ceil(v3);
+  v129 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v129, static Logger.UI);
+  v130 = v154;
+  v131 = Logger.logObject.getter();
+  v132 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v131, v132))
   {
-    v132 = swift_slowAlloc();
-    *v132 = 134218752;
-    *(v132 + 4) = [v129 horizontalSizeClass];
+    v133 = swift_slowAlloc();
+    *v133 = 134218752;
+    *(v133 + 4) = [v130 horizontalSizeClass];
 
-    *(v132 + 12) = 2048;
-    *(v132 + 14) = v125;
-    *(v132 + 22) = 2048;
-    *(v132 + 24) = v126;
-    *(v132 + 32) = 2048;
-    *(v132 + 34) = v127;
-    _os_log_impl(&dword_2493AC000, v130, v131, "Updating the stackMetrics for horizontal class %ld. New dateWidth: %f sizeWidth: %f kindWidth: %f", v132, 0x2Au);
-    MEMORY[0x24C1FE850](v132, -1, -1);
+    *(v133 + 12) = 2048;
+    *(v133 + 14) = v126;
+    *(v133 + 22) = 2048;
+    *(v133 + 24) = v127;
+    *(v133 + 32) = 2048;
+    *(v133 + 34) = v128;
+    _os_log_impl(&dword_2493AC000, v131, v132, "Updating the stackMetrics for horizontal class %ld. New dateWidth: %f sizeWidth: %f kindWidth: %f", v133, 0x2Au);
+    MEMORY[0x24C1FE850](v133, -1, -1);
   }
 
   else
   {
 
-    v130 = v129;
+    v131 = v130;
   }
 
-  v133 = v137;
+  v134 = v138;
 
-  v134 = (v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetrics);
-  *v134 = v125;
-  v134[1] = v126;
-  v134[2] = v127;
-  *(v134 + 3) = v40;
-  *(v134 + 4) = v48;
-  v135 = *(v4 + v133);
-  *(v4 + v133) = v153;
+  v135 = (v4 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetrics);
+  *v135 = v126;
+  v135[1] = v127;
+  v135[2] = v128;
+  *(v135 + 3) = v40;
+  *(v135 + 4) = v48;
+  v136 = *(v4 + v134);
+  *(v4 + v134) = v154;
 
   (*((*v18 & *v4) + 0x1778))();
 }
@@ -6410,7 +3642,7 @@ id convertedCellFrame #1 (_:cell:topView:) in DOCItemCollectionViewController.ge
       *v17 = v13;
       v18 = v13;
       _os_log_impl(&dword_2493AC000, v14, v15, "converting cell geometry from: %@ to screen space", v16, 0xCu);
-      outlined destroy of CharacterSet?(v17, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v17, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       v19 = 0;
       v20 = &selRef_convertRect_toView_;
 LABEL_10:
@@ -6450,7 +3682,7 @@ LABEL_10:
       v25 = v23;
       v19 = v19;
       _os_log_impl(&dword_2493AC000, v14, v24, "converting cell geometry from: %@ to view: %@", v16, 0x16u);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       swift_arrayDestroy();
       v20 = &selRef_convertRect_toCoordinateSpace_;
       goto LABEL_10;
@@ -6466,110 +3698,112 @@ LABEL_13:
   return [a1 v26];
 }
 
-uint64_t gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, void *a2, void *a3, uint64_t a4, void (*a5)(void, void, void, void, double, double, double, double), uint64_t a6, int a7, int a8)
+double gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, void *a2, uint64_t a3, uint64_t a4, void (*a5)(void, void, void, void, double, double, double, double), uint64_t a6, int a7, int a8)
 {
-  v194 = a8;
-  v196 = a7;
-  v205 = a5;
-  v197 = a4;
-  v206 = a3;
-  v193 = type metadata accessor for DispatchTimeInterval();
-  v192 = *(v193 - 8);
-  MEMORY[0x28223BE20](v193, v12);
-  v191 = (&v176 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v196 = a8;
+  v198 = a7;
+  v207 = a5;
+  v199 = a4;
+  v208 = a3;
+  v195 = type metadata accessor for DispatchTimeInterval();
+  v194 = *(v195 - 8);
+  MEMORY[0x28223BE20](v195, v12);
+  v193 = (&v178 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v14, v15);
-  v190 = (&v176 - v16);
-  v195 = type metadata accessor for DispatchTime();
-  v189 = *(v195 - 8);
-  MEMORY[0x28223BE20](v195, v17);
-  v187 = &v176 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v192 = (&v178 - v16);
+  v197 = type metadata accessor for DispatchTime();
+  v191 = *(v197 - 8);
+  MEMORY[0x28223BE20](v197, v17);
+  v189 = &v178 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v19, v20);
-  v188 = &v176 - v21;
-  v186 = type metadata accessor for DispatchWorkItemFlags();
-  v185 = *(v186 - 8);
-  MEMORY[0x28223BE20](v186, v22);
-  v183 = &v176 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v184 = type metadata accessor for DispatchQoS();
-  v182 = *(v184 - 8);
-  MEMORY[0x28223BE20](v184, v24);
-  v181 = &v176 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v180 = type metadata accessor for OS_dispatch_source.TimerFlags();
-  v179 = *(v180 - 8);
-  MEMORY[0x28223BE20](v180, v26);
-  v178 = &v176 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v190 = &v178 - v21;
+  v188 = type metadata accessor for DispatchWorkItemFlags();
+  v187 = *(v188 - 8);
+  MEMORY[0x28223BE20](v188, v22);
+  v185 = &v178 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v186 = type metadata accessor for DispatchQoS();
+  v184 = *(v186 - 8);
+  MEMORY[0x28223BE20](v186, v24);
+  v183 = &v178 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v182 = type metadata accessor for OS_dispatch_source.TimerFlags();
+  v181 = *(v182 - 8);
+  MEMORY[0x28223BE20](v182, v26);
+  v180 = &v178 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   v28 = type metadata accessor for IndexPath();
   v29 = *(v28 - 8);
   MEMORY[0x28223BE20](v28, v30);
-  v203 = &v176 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v205 = &v178 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v32, v33);
-  v210 = &v176 - v34;
+  v212 = &v178 - v34;
   MEMORY[0x28223BE20](v35, v36);
-  v38 = &v176 - v37;
-  v202 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd);
-  MEMORY[0x28223BE20](v202, v39);
-  v201 = &v176 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = &v178 - v37;
+  v204 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+  MEMORY[0x28223BE20](v204, v39);
+  v203 = &v178 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v41, v42);
-  v204 = &v176 - v43;
+  v206 = &v178 - v43;
   MEMORY[0x28223BE20](v44, v45);
-  v47 = &v176 - v46;
+  v47 = &v178 - v46;
   v50 = MEMORY[0x28223BE20](v48, v49);
-  v52 = &v176 - v51;
-  v200 = a1;
+  v52 = &v178 - v51;
+  v202 = a1;
   v53 = [a1 indexPathsForVisibleItems];
   v54 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v216 = *(v54 + 16);
-  v217 = a2;
-  if (v216)
+  v218 = *(v54 + 16);
+  v219 = a2;
+  if (v218)
   {
-    v198 = a6;
-    v199 = v52;
+    v200 = a6;
+    v201 = v52;
     v55 = 0;
     v56 = *((*MEMORY[0x277D85000] & *a2) + 0x18A0);
-    v214 = (*MEMORY[0x277D85000] & *a2) + 6304;
-    v215 = v56;
-    v213 = (v54 + ((*(v29 + 80) + 32) & ~*(v29 + 80)));
-    v211 = v29 + 48;
-    v212 = v29 + 16;
-    v208 = v29;
-    v209 = (v29 + 32);
+    v216 = (*MEMORY[0x277D85000] & *a2) + 6304;
+    v217 = v56;
+    v215 = (v54 + ((*(v29 + 80) + 32) & ~*(v29 + 80)));
+    v213 = v29 + 48;
+    v214 = v29 + 16;
+    v210 = v29;
+    v211 = (v29 + 32);
     v52 = v29 + 8;
-    v207 = v54;
+    v209 = v54;
     while (v55 < *(v54 + 16))
     {
-      (*(v29 + 16))(v38, &v213[*(v29 + 72) * v55], v28);
-      v215(v38);
+      (*(v29 + 16))(v38, &v215[*(v29 + 72) * v55], v28);
+      v217(v38);
       v8 = v52 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
       if ((*(v29 + 48))(v47, 1, v28) == 1)
       {
-        outlined destroy of CharacterSet?(v47, &_s10Foundation9IndexPathVSgMd);
+        outlined destroy of CharacterSet?(v47, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
         v57 = *v52;
       }
 
       else
       {
         v58 = v28;
-        v59 = v210;
-        v60 = *v209;
-        (*v209)(v210, v47, v58);
-        if ((*((*MEMORY[0x277D85000] & *a2) + 0xD88))(v59, 0))
+        v59 = v212;
+        v60 = *v211;
+        (*v211)(v212, v47, v58);
+        v61 = (*((*MEMORY[0x277D85000] & *a2) + 0xD88))(v59, 0);
+        if (v61)
         {
+          v62 = v61;
           swift_getObjectType();
-          v61 = DOCNode.isEqualTo(node:)();
+          v63 = DOCNode.isEqualTo(node:)(v62);
           swift_unknownObjectRelease();
           v57 = *v52;
-          v62 = v59;
+          v64 = v59;
           v28 = v58;
-          (*v52)(v62, v58);
-          if (v61)
+          (*v52)(v64, v58);
+          if (v63)
           {
 
-            v52 = v199;
-            v60(v199, v38, v58);
-            v63 = 0;
-            a6 = v198;
-            v29 = v208;
-            a2 = v217;
+            v52 = v201;
+            v60(v201, v38, v58);
+            v65 = 0;
+            a6 = v200;
+            v29 = v210;
+            a2 = v219;
             goto LABEL_14;
           }
         }
@@ -6581,19 +3815,19 @@ uint64_t gatherAnimationInformation #1 () in DOCItemCollectionViewController.get
           v28 = v58;
         }
 
-        v54 = v207;
-        v29 = v208;
+        v54 = v209;
+        v29 = v210;
       }
 
       ++v55;
       v57(v38, v28);
-      a2 = v217;
-      if (v216 == v55)
+      a2 = v219;
+      if (v218 == v55)
       {
 
-        v63 = 1;
-        v52 = v199;
-        a6 = v198;
+        v65 = 1;
+        v52 = v201;
+        a6 = v200;
         goto LABEL_14;
       }
     }
@@ -6602,95 +3836,97 @@ uint64_t gatherAnimationInformation #1 () in DOCItemCollectionViewController.get
     goto LABEL_56;
   }
 
-  v63 = 1;
+  v65 = 1;
 LABEL_14:
-  (*(v29 + 56))(v52, v63, 1, v28);
-  v64 = v204;
-  outlined init with copy of DOCGridLayout.Spec?(v52, v204, &_s10Foundation9IndexPathVSgMd);
-  if ((*(v29 + 48))(v64, 1, v28) == 1)
+  (*(v29 + 56))(v52, v65, 1, v28);
+  v66 = v206;
+  outlined init with copy of DOCGridLayout.Spec?(v52, v206, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+  if ((*(v29 + 48))(v66, 1, v28) == 1)
   {
-    outlined destroy of CharacterSet?(v64, &_s10Foundation9IndexPathVSgMd);
+    outlined destroy of CharacterSet?(v66, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
     goto LABEL_26;
   }
 
-  (*(v29 + 32))(v203, v64, v28);
+  (*(v29 + 32))(v205, v66, v28);
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
-  v66 = [v200 cellForItemAtIndexPath_];
+  v68 = [v202 cellForItemAtIndexPath_];
 
-  if (!v66)
+  if (!v68)
   {
 LABEL_25:
-    (*(v29 + 8))(v203, v28);
+    (*(v29 + 8))(v205, v28);
 LABEL_26:
     aBlock = 0;
-    v219 = 0xE000000000000000;
+    v221 = 0xE000000000000000;
     _StringGuts.grow(_:)(102);
     MEMORY[0x24C1FAEA0](0xD00000000000001CLL, 0x8000000249BE0DF0);
     MEMORY[0x24C1FAEA0](0xD000000000000019, 0x8000000249BE0E10);
-    outlined init with copy of DOCGridLayout.Spec?(v52, v201, &_s10Foundation9IndexPathVSgMd);
-    v81 = String.init<A>(describing:)();
-    MEMORY[0x24C1FAEA0](v81);
+    outlined init with copy of DOCGridLayout.Spec?(v52, v203, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+    v83 = String.init<A>(describing:)();
+    MEMORY[0x24C1FAEA0](v83);
 
-    v82 = MEMORY[0x24C1FAEA0](0xD00000000000002DLL, 0x8000000249BE0E30);
-    v83 = (*((*MEMORY[0x277D85000] & *a2) + 0x1010))(v82);
-    v84 = [v83 indexPathsForVisibleItems];
+    v84 = MEMORY[0x24C1FAEA0](0xD00000000000002DLL, 0x8000000249BE0E30);
+    v85 = (*((*MEMORY[0x277D85000] & *a2) + 0x1010))(v84);
+    v86 = [v85 indexPathsForVisibleItems];
 
-    v85 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    v86 = *(v85 + 16);
+    v87 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v88 = *(v87 + 16);
 
-    v224 = v86;
-    v87 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x24C1FAEA0](v87);
+    v226 = v88;
+    v89 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x24C1FAEA0](v89);
 
     MEMORY[0x24C1FAEA0](0xD00000000000001ALL, 0x8000000249BE0E60);
     v8 = aBlock;
-    v54 = v219;
+    v54 = v221;
     if (one-time initialization token for UI == -1)
     {
 LABEL_27:
-      v88 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v88, static Logger.UI);
+      v90 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v90, static Logger.UI);
 
-      v89 = Logger.logObject.getter();
-      v90 = static os_log_type_t.fault.getter();
+      v91 = Logger.logObject.getter();
+      v92 = static os_log_type_t.fault.getter();
 
-      if (os_log_type_enabled(v89, v90))
+      if (os_log_type_enabled(v91, v92))
       {
-        v91 = swift_slowAlloc();
-        v92 = swift_slowAlloc();
-        aBlock = v92;
-        *v91 = 136315138;
-        *(v91 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v54, &aBlock);
-        _os_log_impl(&dword_2493AC000, v89, v90, "[Presentation Error] %s", v91, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v92);
-        MEMORY[0x24C1FE850](v92, -1, -1);
-        MEMORY[0x24C1FE850](v91, -1, -1);
+        v93 = swift_slowAlloc();
+        v94 = swift_slowAlloc();
+        aBlock = v94;
+        *v93 = 136315138;
+        *(v93 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v54, &aBlock);
+        _os_log_impl(&dword_2493AC000, v91, v92, "[Presentation Error] %s", v93, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v94);
+        MEMORY[0x24C1FE850](v94, -1, -1);
+        MEMORY[0x24C1FE850](v93, -1, -1);
       }
 
-      v93 = Logger.logObject.getter();
-      v94 = static os_log_type_t.error.getter();
+      v95 = Logger.logObject.getter();
+      v96 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v93, v94))
+      if (os_log_type_enabled(v95, v96))
       {
-        v95 = swift_slowAlloc();
-        v96 = swift_slowAlloc();
-        aBlock = v96;
-        *v95 = 136315138;
-        v97 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v54, &aBlock);
+        v97 = swift_slowAlloc();
+        v98 = swift_slowAlloc();
+        aBlock = v98;
+        *v97 = 136315138;
+        v99 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v54, &aBlock);
 
-        *(v95 + 4) = v97;
-        _os_log_impl(&dword_2493AC000, v93, v94, "%s", v95, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v96);
-        MEMORY[0x24C1FE850](v96, -1, -1);
-        MEMORY[0x24C1FE850](v95, -1, -1);
+        *(v97 + 4) = v99;
+        _os_log_impl(&dword_2493AC000, v95, v96, "%s", v97, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v98);
+        MEMORY[0x24C1FE850](v98, -1, -1);
+        MEMORY[0x24C1FE850](v97, -1, -1);
       }
 
       else
       {
       }
 
-      v205(0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0);
-      return outlined destroy of CharacterSet?(v52, &_s10Foundation9IndexPathVSgMd);
+      v207(0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0);
+LABEL_33:
+      outlined destroy of CharacterSet?(v52, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+      return result;
     }
 
 LABEL_56:
@@ -6699,34 +3935,34 @@ LABEL_56:
   }
 
   type metadata accessor for DOCItemCollectionCell();
-  v67 = swift_dynamicCastClass();
-  if (!v67)
+  v69 = swift_dynamicCastClass();
+  if (!v69)
   {
 
     goto LABEL_25;
   }
 
-  v68 = v67;
-  v69 = v197;
-  if (v197)
+  v70 = v69;
+  v71 = v199;
+  if (v199)
   {
-    if (v197 != 1)
+    if (v199 != 1)
     {
       type metadata accessor for DOCServicePopoverTrackerRegion(0);
-      v221 = v175;
-      aBlock = v69;
+      v223 = v177;
+      aBlock = v71;
       doc_fatalErrorUnrecognizedEnumValueEncountered(_:)(&aBlock);
     }
 
-    v99 = (*((*MEMORY[0x277D85000] & *a2) + 0x18A8))(v200);
-    v100 = [v99 window];
-    if (v100)
+    v101 = (*((*MEMORY[0x277D85000] & *a2) + 0x18A8))(v202);
+    v102 = [v101 window];
+    if (v102)
     {
 
-      v101 = v66;
-      [v68 bounds];
-      convertedCellFrame #1 (_:cell:topView:) in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(v68, v99, v196 & 1, v102, v103, v104, v105);
-      (v205)(0, 0, v68, 0);
+      v103 = v68;
+      [v70 bounds];
+      convertedCellFrame #1 (_:cell:topView:) in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(v70, v101, v198 & 1, v104, v105, v106, v107);
+      (v207)(0, 0, v70, 0);
     }
 
     else
@@ -6736,50 +3972,50 @@ LABEL_56:
         swift_once();
       }
 
-      v106 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v106, static Logger.UI);
-      v107 = v66;
-      v108 = v99;
-      v109 = Logger.logObject.getter();
-      v110 = static os_log_type_t.error.getter();
+      v108 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v108, static Logger.UI);
+      v109 = v68;
+      v110 = v101;
+      v111 = Logger.logObject.getter();
+      v112 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v109, v110))
+      if (os_log_type_enabled(v111, v112))
       {
-        v111 = swift_slowAlloc();
-        v112 = swift_slowAlloc();
-        v177 = v28;
-        v113 = v112;
+        v113 = swift_slowAlloc();
         v114 = swift_slowAlloc();
-        v208 = v29;
+        v179 = v28;
         v115 = v114;
-        aBlock = v114;
-        *v111 = 136315650;
-        *(v111 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0DF0, &aBlock);
-        *(v111 + 12) = 2112;
-        *(v111 + 14) = v68;
-        *(v111 + 22) = 2112;
-        *(v111 + 24) = v108;
-        *v113 = v68;
-        v113[1] = v108;
-        v116 = v107;
-        v117 = v108;
-        _os_log_impl(&dword_2493AC000, v109, v110, "%s. Can not compute a frame for cell because cell does not have a window. Returning nil thumbnail and empty rect. Cell: %@ top-most view: %@", v111, 0x20u);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+        v116 = swift_slowAlloc();
+        v210 = v29;
+        v117 = v116;
+        aBlock = v116;
+        *v113 = 136315650;
+        *(v113 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD00000000000001CLL, 0x8000000249BE0DF0, &aBlock);
+        *(v113 + 12) = 2112;
+        *(v113 + 14) = v70;
+        *(v113 + 22) = 2112;
+        *(v113 + 24) = v110;
+        *v115 = v70;
+        v115[1] = v110;
+        v118 = v109;
+        v119 = v110;
+        _os_log_impl(&dword_2493AC000, v111, v112, "%s. Can not compute a frame for cell because cell does not have a window. Returning nil thumbnail and empty rect. Cell: %@ top-most view: %@", v113, 0x20u);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
-        v118 = v113;
-        v28 = v177;
-        MEMORY[0x24C1FE850](v118, -1, -1);
-        __swift_destroy_boxed_opaque_existential_0(v115);
-        v29 = v208;
-        MEMORY[0x24C1FE850](v115, -1, -1);
-        MEMORY[0x24C1FE850](v111, -1, -1);
+        v120 = v115;
+        v28 = v179;
+        MEMORY[0x24C1FE850](v120, -1, -1);
+        __swift_destroy_boxed_opaque_existential_0(v117);
+        v29 = v210;
+        MEMORY[0x24C1FE850](v117, -1, -1);
+        MEMORY[0x24C1FE850](v113, -1, -1);
       }
 
-      v205(0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0);
+      v207(0, 0, 0, 0, 0.0, 0.0, 0.0, 0.0);
     }
 
-    (*(v29 + 8))(v203, v28);
-    return outlined destroy of CharacterSet?(v52, &_s10Foundation9IndexPathVSgMd);
+    (*(v29 + 8))(v205, v28);
+    goto LABEL_33;
   }
 
   if (one-time initialization token for UI != -1)
@@ -6787,234 +4023,238 @@ LABEL_56:
     swift_once();
   }
 
-  v70 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v70, static Logger.UI);
-  v71 = v66;
-  v72 = Logger.logObject.getter();
-  v73 = static os_log_type_t.debug.getter();
+  v72 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v72, static Logger.UI);
+  v73 = v68;
+  v74 = Logger.logObject.getter();
+  v75 = static os_log_type_t.debug.getter();
 
-  v74 = os_log_type_enabled(v72, v73);
-  v177 = v28;
-  v215 = v68;
-  v213 = v71;
-  if (v74)
+  v76 = os_log_type_enabled(v74, v75);
+  v179 = v28;
+  v217 = v70;
+  v215 = v73;
+  if (v76)
   {
-    v75 = swift_slowAlloc();
-    v76 = swift_slowAlloc();
-    aBlock = v76;
-    *v75 = 136315138;
-    v77 = MEMORY[0x277D85000];
-    v78 = (*((*MEMORY[0x277D85000] & *v68) + 0x208))();
-    if (v78)
+    v77 = swift_slowAlloc();
+    v78 = swift_slowAlloc();
+    aBlock = v78;
+    *v77 = 136315138;
+    v79 = MEMORY[0x277D85000];
+    v80 = (*((*MEMORY[0x277D85000] & *v70) + 0x208))();
+    if (v80)
     {
-      v79 = v78;
-      v80 = (*((*v77 & *v78) + 0x3D0))();
+      v81 = v80;
+      v82 = (*((*v79 & *v80) + 0x3D0))();
     }
 
     else
     {
-      v80 = 0;
+      v82 = 0;
     }
 
-    v224 = v80;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd);
-    v119 = String.init<A>(describing:)();
-    v121 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v119, v120, &aBlock);
+    v226 = v82;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd, &_sSo7DOCNode_pSgMR);
+    v121 = String.init<A>(describing:)();
+    v123 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v121, v122, &aBlock);
 
-    *(v75 + 4) = v121;
-    _os_log_impl(&dword_2493AC000, v72, v73, "waiting for up-to-date thumbnail for %s before returning display information to the transition...", v75, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v76);
-    MEMORY[0x24C1FE850](v76, -1, -1);
-    MEMORY[0x24C1FE850](v75, -1, -1);
+    *(v77 + 4) = v123;
+    _os_log_impl(&dword_2493AC000, v74, v75, "waiting for up-to-date thumbnail for %s before returning display information to the transition...", v77, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v78);
+    MEMORY[0x24C1FE850](v78, -1, -1);
+    MEMORY[0x24C1FE850](v77, -1, -1);
 
-    v28 = v177;
+    v28 = v179;
   }
 
   else
   {
   }
 
-  v122 = swift_allocObject();
-  *(v122 + 16) = 0;
-  v123 = swift_allocObject();
-  *(v123 + 16) = 0;
   v124 = swift_allocObject();
-  v125 = v123;
-  swift_unknownObjectWeakInit();
+  *(v124 + 16) = 0;
+  v125 = swift_allocObject();
+  *(v125 + 16) = 0;
   v126 = swift_allocObject();
-  *(v126 + 16) = v124;
-  *(v126 + 24) = v123;
-  v127 = v205;
-  *(v126 + 32) = v205;
-  *(v126 + 40) = a6;
-  v216 = v122;
-  *(v126 + 48) = v122;
-  v128 = v196 & 1;
-  *(v126 + 56) = v196 & 1;
-  v129 = v206;
-  v214 = v126;
-  *(v126 + 64) = v206;
-  if ((v194 & 1) == 0)
+  v127 = v125;
+  swift_unknownObjectWeakInit();
+  v128 = swift_allocObject();
+  *(v128 + 16) = v126;
+  *(v128 + 24) = v125;
+  v129 = v207;
+  *(v128 + 32) = v207;
+  *(v128 + 40) = a6;
+  v218 = v124;
+  *(v128 + 48) = v124;
+  v130 = v198 & 1;
+  *(v128 + 56) = v198 & 1;
+  v131 = v208;
+  v216 = v128;
+  *(v128 + 64) = v208;
+  if ((v196 & 1) == 0)
   {
 
     swift_unknownObjectRetain();
-    v169 = v216;
+    v171 = v218;
 
-    closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(v215, v124, v125, v127, a6, v169, v128, v129);
+    closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(v217, v126, v127, v129, a6, v171, v130, v131);
 
-    (*(v29 + 8))(v203, v28);
-    outlined destroy of CharacterSet?(v52, &_s10Foundation9IndexPathVSgMd);
+    (*(v29 + 8))(v205, v28);
+    outlined destroy of CharacterSet?(v52, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 LABEL_52:
+
+    return result;
   }
 
-  v208 = v29;
-  v199 = v52;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_source);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  v210 = v29;
+  v201 = v52;
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_source, 0x277D85CA0);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
 
   swift_unknownObjectRetain();
-  v130 = v216;
+  v132 = v218;
 
-  v131 = static OS_dispatch_queue.main.getter();
-  v212 = v125;
-  v132 = v131;
+  v133 = static OS_dispatch_queue.main.getter();
+  v214 = v127;
+  v134 = v133;
   aBlock = MEMORY[0x277D84F90];
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type OS_dispatch_source.TimerFlags and conformance OS_dispatch_source.TimerFlags, MEMORY[0x277D85278]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd);
-  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_source.TimerFlags] and conformance [A], &_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd);
-  v133 = v178;
-  v134 = v180;
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type OS_dispatch_source.TimerFlags and conformance OS_dispatch_source.TimerFlags, MEMORY[0x277D85278], MEMORY[0x277D85280]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd, &_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMR);
+  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_source.TimerFlags] and conformance [A], &_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMd, &_sSaySo18OS_dispatch_sourceC8DispatchE10TimerFlagsVGMR, MEMORY[0x277D83970]);
+  v135 = v180;
+  v136 = v182;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v135 = static OS_dispatch_source.makeTimerSource(flags:queue:)();
+  v137 = static OS_dispatch_source.makeTimerSource(flags:queue:)();
 
-  (*(v179 + 8))(v133, v134);
-  v210 = v135;
+  (*(v181 + 8))(v135, v136);
+  v212 = v137;
   ObjectType = swift_getObjectType();
-  v137 = swift_allocObject();
-  v137[2] = v130;
-  v137[3] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
-  v138 = v215;
-  v137[4] = v214;
-  v137[5] = v138;
-  v222 = partial apply for closure #3 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
-  v223 = v137;
+  v139 = swift_allocObject();
+  v139[2] = v132;
+  v139[3] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
+  v140 = v217;
+  v139[4] = v216;
+  v139[5] = v140;
+  v224 = partial apply for closure #3 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
+  v225 = v139;
   aBlock = MEMORY[0x277D85DD0];
-  v219 = 1107296256;
-  v220 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  v221 = &block_descriptor_1125;
-  v139 = _Block_copy(&aBlock);
-  v213 = v213;
+  v221 = 1107296256;
+  v222 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  v223 = &block_descriptor_1125;
+  v141 = _Block_copy(&aBlock);
+  v215 = v215;
 
-  v140 = v181;
+  v142 = v183;
   static DispatchQoS.unspecified.getter();
-  v141 = v183;
+  v143 = v185;
   default argument 1 of OS_dispatch_source.setEventHandler(qos:flags:handler:)();
-  v211 = ObjectType;
+  v213 = ObjectType;
   OS_dispatch_source.setEventHandler(qos:flags:handler:)();
-  _Block_release(v139);
-  (*(v185 + 8))(v141, v186);
-  (*(v182 + 8))(v140, v184);
+  _Block_release(v141);
+  (*(v187 + 8))(v143, v188);
+  (*(v184 + 8))(v142, v186);
 
   OS_dispatch_source.resume()();
-  v142 = v187;
+  v144 = v189;
   static DispatchTime.now()();
-  v143 = v190;
-  *v190 = 250;
-  v144 = v192;
-  v145 = *(v192 + 104);
-  v146 = v193;
-  v145(v143, *MEMORY[0x277D85178], v193);
-  v147 = v188;
-  MEMORY[0x24C1FAA90](v142, v143);
-  v148 = *(v144 + 8);
-  v148(v143, v146);
-  v149 = *(v189 + 8);
-  v149(v142, v195);
-  v145(v143, *MEMORY[0x277D85180], v146);
-  v150 = v191;
-  *v191 = 0;
-  v145(v150, *MEMORY[0x277D85168], v146);
-  v151 = v210;
-  MEMORY[0x24C1FBBC0](v147, v143, v150, v211);
-  v148(v150, v146);
-  v152 = v206;
-  v148(v143, v146);
-  v149(v147, v195);
+  v145 = v192;
+  *v192 = 250;
+  v146 = v194;
+  v147 = *(v194 + 104);
+  v148 = v195;
+  v147(v145, *MEMORY[0x277D85178], v195);
+  v149 = v190;
+  MEMORY[0x24C1FAA90](v144, v145);
+  v150 = *(v146 + 8);
+  v150(v145, v148);
+  v151 = *(v191 + 8);
+  v151(v144, v197);
+  v147(v145, *MEMORY[0x277D85180], v148);
+  v152 = v193;
+  *v193 = 0;
+  v147(v152, *MEMORY[0x277D85168], v148);
+  v153 = v212;
+  MEMORY[0x24C1FBBC0](v149, v145, v152, v213);
+  v150(v152, v148);
+  v154 = v208;
+  v150(v145, v148);
+  v151(v149, v197);
   swift_getObjectType();
   if (!DOCNode.isFINode.getter())
   {
-    v170 = swift_allocObject();
+    v172 = swift_allocObject();
     swift_unknownObjectWeakInit();
-    v171 = swift_allocObject();
-    v171[2] = v151;
-    v171[3] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
-    v172 = v215;
-    v171[4] = v214;
-    v171[5] = v170;
-    v171[6] = v172;
-    v171[7] = v152;
-    v173 = v213;
-    v171[8] = v212;
-    v174 = v173;
+    v173 = swift_allocObject();
+    v173[2] = v153;
+    v173[3] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
+    v174 = v217;
+    v173[4] = v216;
+    v173[5] = v172;
+    v173[6] = v174;
+    v173[7] = v154;
+    v175 = v215;
+    v173[8] = v214;
+    v176 = v175;
     swift_unknownObjectRetain();
 
     swift_unknownObjectRetain();
 
-    DOCNode.fpfs_fetchFPItem(completion:)(partial apply for closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:), v171);
+    DOCNode.fpfs_fetchFPItem(completion:)(partial apply for closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:), v173);
 
     swift_unknownObjectRelease();
 
-    (*(v208 + 8))(v203, v177);
-    outlined destroy of CharacterSet?(v199, &_s10Foundation9IndexPathVSgMd);
+    (*(v210 + 8))(v205, v179);
+    outlined destroy of CharacterSet?(v201, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
 
     goto LABEL_52;
   }
 
-  v154 = v213;
-  v153 = v214;
-  v155 = v151;
-  v156 = v212;
-  v157 = v215;
-  v158 = MEMORY[0x277D85000];
-  v159 = (*((*MEMORY[0x277D85000] & *v215) + 0x208))();
-  v160 = v199;
-  if (v159)
+  v156 = v215;
+  v155 = v216;
+  v157 = v153;
+  v158 = v214;
+  v159 = v217;
+  v160 = MEMORY[0x277D85000];
+  v161 = (*((*MEMORY[0x277D85000] & *v217) + 0x208))();
+  v162 = v201;
+  if (v161)
   {
-    v161 = v159;
-    v162 = swift_allocObject();
-    v162[2] = v155;
-    v162[3] = v156;
-    v163 = v217;
-    v164 = v206;
-    v162[4] = v217;
-    v162[5] = v164;
-    v162[6] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
-    v162[7] = v153;
-    v162[8] = v157;
-    v215 = ((*v158 & *v161) + 1520);
-    v165 = *v215;
-    v166 = v154;
+    v163 = v161;
+    v164 = swift_allocObject();
+    v164[2] = v157;
+    v164[3] = v158;
+    v165 = v219;
+    v166 = v208;
+    v164[4] = v219;
+    v164[5] = v166;
+    v164[6] = partial apply for closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:);
+    v164[7] = v155;
+    v164[8] = v159;
+    v217 = ((*v160 & *v163) + 1520);
+    v167 = *v217;
+    v168 = v156;
     swift_unknownObjectRetain();
 
     swift_unknownObjectRetain();
-    v167 = v163;
-    v165(partial apply for closure #4 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:), v162);
+    v169 = v165;
+    v167(partial apply for closure #4 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:), v164);
 
     swift_unknownObjectRelease();
 
-    (*(v208 + 8))(v203, v177);
-    v168 = v199;
+    (*(v210 + 8))(v205, v179);
+    v170 = v201;
   }
 
   else
   {
 
     swift_unknownObjectRelease();
-    (*(v208 + 8))(v203, v177);
-    v168 = v160;
+    (*(v210 + 8))(v205, v179);
+    v170 = v162;
   }
 
-  outlined destroy of CharacterSet?(v168, &_s10Foundation9IndexPathVSgMd);
+  outlined destroy of CharacterSet?(v170, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+
+  return result;
 }
 
 void closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, uint64_t a2, uint64_t a3, void (*a4)(void, void, void, void, double, double, double, double), uint64_t a5, uint64_t a6, char a7, void *a8)
@@ -7070,7 +4310,7 @@ void closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewCont
         v38 = v31;
         v39 = v32;
         _os_log_impl(&dword_2493AC000, v33, v34, "%s. Can not compute a frame for cell because cell does not have a window. Returning nil thumbnail and empty rect. Cell: %@ top-most view: %@", v35, 0x20u);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
         swift_arrayDestroy();
         MEMORY[0x24C1FE850](v36, -1, -1);
         __swift_destroy_boxed_opaque_existential_0(v37);
@@ -7112,7 +4352,7 @@ void closure #2 in gatherAnimationInformation #1 () in DOCItemCollectionViewCont
           (*((*v27 & *v28) + 0x3D0))();
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd, &_sSo7DOCNode_pSgMR);
         v45 = String.init<A>(describing:)();
         v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, &v100);
 
@@ -7191,7 +4431,7 @@ LABEL_24:
           *v91 = a1;
           v92 = v87;
           _os_log_impl(&dword_2493AC000, v88, v89, "calling completion block with cell %@", v90, 0xCu);
-          outlined destroy of CharacterSet?(v91, &_sSo8NSObjectCSgMd);
+          outlined destroy of CharacterSet?(v91, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
           MEMORY[0x24C1FE850](v91, -1, -1);
           MEMORY[0x24C1FE850](v90, -1, -1);
         }
@@ -7233,7 +4473,7 @@ LABEL_35:
           (*((*v42 & *v43) + 0x3D0))();
         }
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd, &_sSo7DOCNode_pSgMR);
         v49 = String.init<A>(describing:)();
         v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v100);
 
@@ -7250,9 +4490,9 @@ LABEL_35:
 uint64_t default argument 1 of OS_dispatch_source.setEventHandler(qos:flags:handler:)()
 {
   type metadata accessor for DispatchWorkItemFlags();
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   return dispatch thunk of SetAlgebra.init<A>(_:)();
 }
 
@@ -7320,7 +4560,7 @@ void closure #4 in gatherAnimationInformation #1 () in DOCItemCollectionViewCont
   }
 }
 
-void closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8)
+double closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -7331,7 +4571,7 @@ void closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewCont
     {
       v17 = objc_opt_self();
       v18 = a1;
-      v28 = [v17 defaultManager];
+      v29 = [v17 defaultManager];
       v19 = swift_allocObject();
       swift_unknownObjectWeakInit();
       v20 = swift_allocObject();
@@ -7362,25 +4602,27 @@ void closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewCont
       v24 = _Block_copy(aBlock);
       v25 = v18;
 
-      [v28 fetchItemForItemID:v22 completionHandler:v24];
+      [v29 fetchItemForItemID:v22 completionHandler:v24];
       _Block_release(v24);
 
-      return;
+      return result;
     }
   }
 
   swift_getObjectType();
   OS_dispatch_source.cancel()();
-  v26 = swift_allocObject();
-  v26[2] = a3;
-  v26[3] = a4;
-  v26[4] = a6;
+  v27 = swift_allocObject();
+  v27[2] = a3;
+  v27[3] = a4;
+  v27[4] = a6;
 
-  v27 = a6;
+  v28 = a6;
   DOCRunInMainThread(_:)();
+
+  return result;
 }
 
-uint64_t closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9)
+double closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(void *a1, void *a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -7408,6 +4650,8 @@ uint64_t closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItem
 
       swift_unknownObjectRetain();
       DOCRunInMainThread(_:)();
+
+      goto LABEL_10;
     }
   }
 
@@ -7442,7 +4686,7 @@ uint64_t closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItem
     *(v26 + 4) = v32;
     *(v26 + 12) = 2082;
     v33 = v23;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7NSErrorCSgMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7NSErrorCSgMd, &_sSo7NSErrorCSgMR);
     v34 = String.init<A>(describing:)();
     v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v35, &v44);
     a8 = v43;
@@ -7466,9 +4710,12 @@ uint64_t closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItem
 
   v39 = a8;
   DOCRunInMainThread(_:)();
+LABEL_10:
+
+  return result;
 }
 
-uint64_t closure #1 in closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, uint64_t a7, uint64_t a8)
+double closure #1 in closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, uint64_t a7, uint64_t a8)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
@@ -7611,6 +4858,8 @@ uint64_t closure #1 in closure #1 in closure #5 in gatherAnimationInformation #1
     v28 = a5;
     DOCRunInMainThread(_:)();
   }
+
+  return result;
 }
 
 void closure #1 in closure #1 in closure #1 in closure #5 in gatherAnimationInformation #1 () in DOCItemCollectionViewController.getDisplayInformation(for:region:waitForNewThumbnail:targetCoordinateSpace:completionBlock:)(uint64_t a1, uint64_t a2, void (*a3)(void *), uint64_t a4, void *a5, uint64_t a6, uint64_t a7, void *a8)
@@ -7721,7 +4970,7 @@ Swift::Void __swiftcall DOCItemCollectionViewController.reloadCollection()()
   v2 = type metadata accessor for OSSignpostID();
   v3 = *(v2 - 8);
   v5.n128_f64[0] = MEMORY[0x28223BE20](v2, v4);
-  v7 = &v45 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v64 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = MEMORY[0x277D85000];
   v9 = *((*MEMORY[0x277D85000] & *v0) + 0x1178);
   if ((v9)(v5))
@@ -7783,77 +5032,83 @@ Swift::Void __swiftcall DOCItemCollectionViewController.reloadCollection()()
       *v21 = v1;
       v22 = v16;
       _os_log_impl(&dword_2493AC000, v17, v18, "Reload collection in %@", v19, 0xCu);
-      outlined destroy of CharacterSet?(v21, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       v23 = v21;
       v3 = v20;
       MEMORY[0x24C1FE850](v23, -1, -1);
       MEMORY[0x24C1FE850](v19, -1, -1);
     }
 
-    static os_signpost_type_t.begin.getter();
+    v24 = static os_signpost_type_t.begin.getter();
     if (one-time initialization token for updatePointsOfInterestHandler != -1)
     {
       swift_once();
     }
 
+    v25 = updatePointsOfInterestHandler;
     static OSSignpostID.exclusive.getter();
-    os_signpost(_:dso:log:name:signpostID:_:_:)();
-    v26 = *(v3 + 8);
-    v24 = v3 + 8;
-    v25 = v26;
-    v27 = (v26)(v7, v2);
-    v28 = *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-    if (v28)
+    v26 = MEMORY[0x277D84F90];
+    os_signpost(_:dso:log:name:signpostID:_:_:)(v24, &dword_2493AC000, v25, "Files-Reload-reloadCollection", 29, 2, v7, "reloadCollection", 16, 2, MEMORY[0x277D84F90]);
+    v29 = *(v3 + 8);
+    v27 = v3 + 8;
+    v28 = v29;
+    v30 = (v29)(v7, v2);
+    v31 = *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
+    if (v31)
     {
-      v29 = v24;
-      v30 = MEMORY[0x277D85000];
-      v31 = (*((*MEMORY[0x277D85000] & *v28) + 0x258))(v27);
-      (*((*v30 & *v16) + 0xCC0))(v31);
-      static os_signpost_type_t.event.getter();
+      v32 = v27;
+      v33 = MEMORY[0x277D85000];
+      v34 = (*((*MEMORY[0x277D85000] & *v31) + 0x258))(v30);
+      (*((*v33 & *v16) + 0xCC0))(v34);
+      v35 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v25(v7, v2);
+      LOBYTE(v57) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v35, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "updatedItemGrouping", 19, v57, v26);
+      v28(v7, v2);
       *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_needsCollectionReload) = 0;
       *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_updateStackViewMetrics) = 1;
       DOCItemCollectionViewController.computeStackViewMetricsIfNeeded()();
-      static os_signpost_type_t.event.getter();
+      v36 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v32 = (v25)(v7, v2);
-      (*(**(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_cellContentPool) + 208))(v32);
-      static os_signpost_type_t.event.getter();
+      LOBYTE(v58) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v36, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "invalidateStackViewMetrics", 26, v58, v26);
+      v37 = (v28)(v7, v2);
+      (*(**(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_cellContentPool) + 208))(v37);
+      v38 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v33 = (v25)(v7, v2);
-      v34 = (*((*MEMORY[0x277D85000] & *v16) + 0xD60))(v33);
-      v46 = 2;
-      DOCItemCollectionViewController.updateSnapshot(for:using:maintainSelection:)(v34, &v46, 0);
-      v35 = MEMORY[0x277D84F90];
+      LOBYTE(v59) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v38, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "removeAllContent", 16, v59, MEMORY[0x277D84F90]);
+      v39 = (v28)(v7, v2);
+      v40 = (*((*MEMORY[0x277D85000] & *v16) + 0xD60))(v39);
+      v65 = 2;
+      DOCItemCollectionViewController.updateSnapshot(for:using:maintainSelection:)(v40, &v65, 0);
+      v41 = MEMORY[0x277D84F90];
 
-      static os_signpost_type_t.event.getter();
+      v42 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v45 = v29;
-      v25(v7, v2);
-      v36 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation3URLV_So7DOCNode_pTt0g5Tf4g_n(v35);
-      v37 = MEMORY[0x277D85000];
-      v38 = (*((*MEMORY[0x277D85000] & *v16) + 0xA88))(v36);
-      v39 = (*((*v37 & *v16) + 0xA68))(v38);
-      v40 = *&v39[OBJC_IVAR____TtC26DocumentManagerExecutables21DOCFileProviderSource_type];
-      LODWORD(v37) = v39[OBJC_IVAR____TtC26DocumentManagerExecutables21DOCFileProviderSource_type + 8];
-      outlined copy of DOCFileProviderSourceType(v40);
+      LOBYTE(v60) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v42, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "updateSnapshot", 14, v60, v41);
+      v64 = v32;
+      v28(v7, v2);
+      v43 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10Foundation3URLV_So7DOCNode_pTt0g5Tf4g_n(v41);
+      v44 = MEMORY[0x277D85000];
+      v45 = (*((*MEMORY[0x277D85000] & *v16) + 0xA88))(v43);
+      v46 = (*((*v44 & *v16) + 0xA68))(v45);
+      v47 = *&v46[OBJC_IVAR____TtC26DocumentManagerExecutables21DOCFileProviderSource_type];
+      LODWORD(v44) = v46[OBJC_IVAR____TtC26DocumentManagerExecutables21DOCFileProviderSource_type + 8];
+      outlined copy of DOCFileProviderSourceType(v47);
 
-      if (v37 == 1)
+      if (v44 == 1)
       {
-        outlined consume of DOCFileProviderSourceType(v40);
+        outlined consume of DOCFileProviderSourceType(v47);
         *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_needsOverlayUpdateWithAnimation) = 0;
-        v41 = [v16 viewIfLoaded];
-        v42 = [v41 window];
+        v48 = [v16 viewIfLoaded];
+        v49 = [v48 window];
 
-        if (v42)
+        if (v49)
         {
 
-          DOCBrowserContainedViewController.updateOverlayIfNeeded()();
+          DOCBrowserContainedViewController.updateOverlayIfNeeded()(v50);
         }
 
         else
@@ -7864,29 +5119,32 @@ Swift::Void __swiftcall DOCItemCollectionViewController.reloadCollection()()
 
       else
       {
-        outlined consume of DOCFileProviderSourceType(v40);
+        outlined consume of DOCFileProviderSourceType(v47);
       }
 
-      static os_signpost_type_t.event.getter();
+      v51 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v25(v7, v2);
+      LOBYTE(v61) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v51, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "didUpdateContent", 16, v61, v41);
+      v28(v7, v2);
       specialized DOCItemCollectionViewController.updateOverlay(animated:)();
-      static os_signpost_type_t.event.getter();
+      v52 = static os_signpost_type_t.event.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v25(v7, v2);
-      v43 = *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController__footerView);
-      if (v43)
+      LOBYTE(v62) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v52, &dword_2493AC000, v25, "Files-Reload", 12, 2, v7, "updateOverlay", 13, v62, MEMORY[0x277D84F90]);
+      v28(v7, v2);
+      v53 = *(v16 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController__footerView);
+      if (v53)
       {
-        v44 = v43;
-        DOCStatusFooterView.updateQuotaLabel()();
+        v54 = v53;
+        DOCStatusFooterView.updateQuotaLabel()(v55);
       }
 
-      static os_signpost_type_t.end.getter();
+      v56 = static os_signpost_type_t.end.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
-      v25(v7, v2);
+      LOBYTE(v63) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v56, &dword_2493AC000, v25, "Files-Reload-reloadCollection", 29, 2, v7, "reloadCollection", 16, v63, MEMORY[0x277D84F90]);
+      v28(v7, v2);
     }
 
     else
@@ -8244,7 +5502,7 @@ void *DOCItemCollectionViewController.modelPreloadingAppearance.getter()
             v17 = "falling back on document browser's appearance (item collection: %@)";
 LABEL_21:
             _os_log_impl(&dword_2493AC000, v11, v12, v17, v13, 0xCu);
-            outlined destroy of CharacterSet?(v15, &_sSo8NSObjectCSgMd);
+            outlined destroy of CharacterSet?(v15, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
             MEMORY[0x24C1FE850](v15, -1, -1);
             MEMORY[0x24C1FE850](v13, -1, -1);
 LABEL_22:
@@ -8342,7 +5600,7 @@ LABEL_35:
       *(v29 + 4) = v32;
       *v31 = v32;
       _os_log_impl(&dword_2493AC000, v27, v28, "falling back on default appearance (item collection: %@)", v29, 0xCu);
-      outlined destroy of CharacterSet?(v31, &_sSo8NSObjectCSgMd);
+      outlined destroy of CharacterSet?(v31, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
       MEMORY[0x24C1FE850](v31, -1, -1);
       MEMORY[0x24C1FE850](v29, -1, -1);
     }
@@ -8357,10 +5615,10 @@ LABEL_35:
 
 void DOCItemCollectionViewController.preloadContent(for:)(uint64_t a1)
 {
-  v55 = type metadata accessor for OSSignpostID();
-  v54 = *(v55 - 8);
-  MEMORY[0x28223BE20](v55, v3);
-  v5 = &v53 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = type metadata accessor for OSSignpostID();
+  v56 = *(v57 - 8);
+  MEMORY[0x28223BE20](v57, v4);
+  v6 = &v55 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for UI != -1)
   {
     goto LABEL_52;
@@ -8368,39 +5626,39 @@ void DOCItemCollectionViewController.preloadContent(for:)(uint64_t a1)
 
   while (1)
   {
-    v6 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v6, static Logger.UI);
-    v7 = v1;
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.default.getter();
+    v7 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v7, static Logger.UI);
+    v8 = v1;
+    v9 = Logger.logObject.getter();
+    v10 = static os_log_type_t.default.getter();
 
-    if (!os_log_type_enabled(v8, v9))
+    if (!os_log_type_enabled(v9, v10))
     {
       goto LABEL_7;
     }
 
-    v10 = swift_slowAlloc();
     v11 = swift_slowAlloc();
-    *v10 = 138412290;
-    v12 = *(v7 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-    if (!v12)
+    v12 = swift_slowAlloc();
+    *v11 = 138412290;
+    v13 = *(v8 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
+    if (!v13)
     {
       break;
     }
 
-    v13 = v11;
-    v14 = (*((*MEMORY[0x277D85000] & *v12) + 0x1A8))(v11);
+    v2 = v12;
+    v14 = (*((*MEMORY[0x277D85000] & *v13) + 0x1A8))(v12);
     if (!v14)
     {
-      v14 = v12;
+      v14 = v13;
     }
 
-    *(v10 + 4) = v14;
-    *v13 = v14;
-    _os_log_impl(&dword_2493AC000, v8, v9, "Preloading content for item collection %@", v10, 0xCu);
-    outlined destroy of CharacterSet?(v13, &_sSo8NSObjectCSgMd);
-    MEMORY[0x24C1FE850](v13, -1, -1);
-    MEMORY[0x24C1FE850](v10, -1, -1);
+    *(v11 + 4) = v14;
+    *v2 = v14;
+    _os_log_impl(&dword_2493AC000, v9, v10, "Preloading content for item collection %@", v11, 0xCu);
+    outlined destroy of CharacterSet?(v2, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x24C1FE850](v2, -1, -1);
+    MEMORY[0x24C1FE850](v11, -1, -1);
 LABEL_7:
 
     DOCItemCollectionViewController.modelPreloadingCollectionViewSize.getter();
@@ -8417,7 +5675,7 @@ LABEL_7:
 
     v19 = v16;
     v20 = MEMORY[0x277D85000];
-    v21 = (*((*MEMORY[0x277D85000] & *v7) + 0x11C0))(v15);
+    v21 = (*((*MEMORY[0x277D85000] & *v8) + 0x11C0))(v15);
     if (v21)
     {
       v22 = v21;
@@ -8425,54 +5683,54 @@ LABEL_7:
 
     else
     {
-      v8 = v7;
+      v9 = v8;
       v23 = Logger.logObject.getter();
-      v24 = static os_log_type_t.error.getter();
+      v2 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v23, v24))
+      if (os_log_type_enabled(v23, v2))
       {
+        v24 = swift_slowAlloc();
         v25 = swift_slowAlloc();
-        v26 = swift_slowAlloc();
-        *v25 = 138412290;
-        v27 = *(&v8->isa + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
-        if (!v27)
+        *v24 = 138412290;
+        v26 = *(&v9->isa + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
+        if (!v26)
         {
-          goto LABEL_66;
+          goto LABEL_69;
         }
 
-        v28 = v26;
-        v29 = (*((*MEMORY[0x277D85000] & *v27) + 0x1A8))(v26);
-        if (!v29)
+        v27 = v25;
+        v28 = (*((*MEMORY[0x277D85000] & *v26) + 0x1A8))(v25);
+        if (!v28)
         {
-          v29 = v27;
+          v28 = v26;
         }
 
-        *(v25 + 4) = v29;
-        *v28 = v29;
-        _os_log_impl(&dword_2493AC000, v23, v24, "No collection view layout traits found, creating one (item collection: %@)", v25, 0xCu);
-        outlined destroy of CharacterSet?(v28, &_sSo8NSObjectCSgMd);
-        MEMORY[0x24C1FE850](v28, -1, -1);
-        MEMORY[0x24C1FE850](v25, -1, -1);
+        *(v24 + 4) = v28;
+        *v27 = v28;
+        _os_log_impl(&dword_2493AC000, v23, v2, "No collection view layout traits found, creating one (item collection: %@)", v24, 0xCu);
+        outlined destroy of CharacterSet?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        MEMORY[0x24C1FE850](v27, -1, -1);
+        MEMORY[0x24C1FE850](v24, -1, -1);
         v20 = MEMORY[0x277D85000];
       }
 
-      (*((*v20 & v8->isa) + 0xA50))(v57);
-      v61 = v57[3];
-      v62 = v57[4];
-      v59 = v57[1];
-      v60 = v57[2];
-      v58 = v57[0];
-      outlined destroy of DOCItemCollectionConfiguration(&v58);
-      v56 = v59;
-      v30 = [v8 traitCollection];
+      (*((*v20 & v9->isa) + 0xA50))(v59);
+      v63 = v59[3];
+      v64 = v59[4];
+      v61 = v59[1];
+      v62 = v59[2];
+      v60 = v59[0];
+      outlined destroy of DOCItemCollectionConfiguration(&v60);
+      v58 = v61;
+      v29 = [v9 traitCollection];
       type metadata accessor for DOCItemCollectionLayoutTraits();
       swift_allocObject();
-      v22 = DOCItemCollectionLayoutTraits.init(context:traitCollection:containerViewSize:)(&v56, v30, v19, v18);
+      v22 = DOCItemCollectionLayoutTraits.init(context:traitCollection:containerViewSize:)(&v58, v29, v19, v18);
     }
 
-    v1 = v7;
-    DOCItemCollectionViewController.estimatedVisibleCellCount(itemLayoutTraits:viewportSize:)(v22, v31, v18);
-    v33 = v32;
+    v1 = v8;
+    DOCItemCollectionViewController.estimatedVisibleCellCount(itemLayoutTraits:viewportSize:)(v22, v30, v18);
+    v32 = v31;
 
     if (a1 >> 62)
     {
@@ -8481,12 +5739,13 @@ LABEL_7:
 
     else
     {
+      v33 = a1 & 0xFFFFFFFFFFFFFF8;
       v34 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    if (v34 >= v33)
+    if (v34 >= v32)
     {
-      a1 = v33;
+      a1 = v32;
     }
 
     else
@@ -8501,34 +5760,45 @@ LABEL_7:
 
     else
     {
-      v35 = (*((*v20 & *v7) + 0xCB8))(v34);
+      v35 = (*((*v20 & *v8) + 0xCB8))(v34);
       v1 = v35;
-      v8 = (v35 >> 62);
+      v33 = v35 & 0xFFFFFFFFFFFFFF8;
+      v9 = (v35 >> 62);
       if (!(v35 >> 62))
       {
         if (*((v35 & 0xFFFFFFFFFFFFFF8) + 0x10) < a1)
         {
-          goto LABEL_57;
+          goto LABEL_60;
         }
 
         goto LABEL_25;
       }
     }
 
+    if (v1 < 0)
+    {
+      v32 = v1;
+    }
+
+    else
+    {
+      v32 = v33;
+    }
+
     if (__CocoaSet.count.getter() < 0)
     {
-      goto LABEL_65;
+      goto LABEL_68;
     }
 
     if (__CocoaSet.count.getter() < a1)
     {
-LABEL_57:
+LABEL_60:
       __break(1u);
-      goto LABEL_58;
+      goto LABEL_61;
     }
 
 LABEL_25:
-    v53 = v22;
+    v55 = v22;
     if ((v1 & 0xC000000000000001) != 0)
     {
 
@@ -8537,7 +5807,7 @@ LABEL_25:
         v36 = 0;
         do
         {
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
           _ArrayBuffer._typeCheckSlowPath(_:)(v36++);
         }
 
@@ -8549,82 +5819,85 @@ LABEL_25:
     {
     }
 
-    if (v8)
+    if (v9)
     {
       _CocoaArrayWrapper.subscript.getter();
-      v38 = v39;
-      v37 = v40;
-      v42 = v41;
+      v2 = v38;
+      v37 = v39;
+      v41 = v40;
 
-      a1 = v42 >> 1;
+      a1 = v41 >> 1;
     }
 
     else
     {
       v37 = 0;
-      v38 = (v1 & 0xFFFFFFFFFFFFFF8) + 32;
+      v2 = ((v1 & 0xFFFFFFFFFFFFFF8) + 32);
     }
 
-    *&v58 = MEMORY[0x277D84F90];
+    *&v60 = MEMORY[0x277D84F90];
     swift_unknownObjectRetain();
     if (v37 == a1)
     {
 LABEL_35:
       swift_unknownObjectRelease_n();
-      a1 = v58;
+      a1 = v60;
 
-      v43 = Logger.logObject.getter();
-      v44 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v43, v44))
+      v42 = Logger.logObject.getter();
+      v43 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v42, v43))
       {
-        v45 = swift_slowAlloc();
-        *v45 = 134217984;
-        v22 = v55;
-        v20 = v54;
+        v44 = swift_slowAlloc();
+        *v44 = 134217984;
+        v22 = v57;
+        v20 = v56;
+        v2 = MEMORY[0x277D84F90];
         if (a1 < 0 || (a1 & 0x4000000000000000) != 0)
         {
-          v46 = __CocoaSet.count.getter();
+          v45 = __CocoaSet.count.getter();
         }
 
         else
         {
-          v46 = *(a1 + 16);
+          v45 = *(a1 + 16);
         }
 
-        *(v45 + 4) = v46;
+        *(v44 + 4) = v45;
 
-        _os_log_impl(&dword_2493AC000, v43, v44, "Preloading model for %ld nodes", v45, 0xCu);
-        MEMORY[0x24C1FE850](v45, -1, -1);
+        _os_log_impl(&dword_2493AC000, v42, v43, "Preloading model for %ld nodes", v44, 0xCu);
+        MEMORY[0x24C1FE850](v44, -1, -1);
       }
 
       else
       {
 
-        v22 = v55;
-        v20 = v54;
+        v22 = v57;
+        v20 = v56;
+        v2 = MEMORY[0x277D84F90];
       }
 
-      static os_signpost_type_t.begin.getter();
+      v32 = static os_signpost_type_t.begin.getter();
       if (one-time initialization token for updatePointsOfInterestHandler != -1)
       {
-LABEL_58:
+LABEL_61:
         swift_once();
       }
 
+      v47 = updatePointsOfInterestHandler;
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v32, &dword_2493AC000, v47, "Files-Preload", 13, 2, v6, "prefetchCellContent", 19, 2, v2);
       v48 = v20[1];
-      v48(v5, v22);
+      v48(v6, v22);
       if (a1 < 0 || (a1 & 0x4000000000000000) != 0)
       {
         v50 = __CocoaSet.count.getter();
         if (!v50)
         {
-          goto LABEL_60;
+          goto LABEL_63;
         }
 
 LABEL_50:
-        v51 = *(v7 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_cellContentPool);
+        v51 = *(v8 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_cellContentPool);
         v52 = MEMORY[0x28223BE20](v50, v49);
         (*(*v51 + 184))(a1, closure #1 in DOCItemCollectionViewController.prefetchCellContent(for:)partial apply, v52);
       }
@@ -8637,23 +5910,24 @@ LABEL_50:
           goto LABEL_50;
         }
 
-LABEL_60:
+LABEL_63:
       }
 
-      static os_signpost_type_t.end.getter();
+      v53 = static os_signpost_type_t.end.getter();
       static OSSignpostID.exclusive.getter();
-      os_signpost(_:dso:log:name:signpostID:_:_:)();
+      LOBYTE(v54) = 2;
+      os_signpost(_:dso:log:name:signpostID:_:_:)(v53, &dword_2493AC000, v47, "Files-Preload", 13, 2, v6, "prefetchCellContent", 19, v54, v2);
 
-      v48(v5, v22);
+      v48(v6, v22);
       return;
     }
 
     while (v37 < a1)
     {
-      v47 = *(v38 + 8 * v37);
+      v46 = v2[v37];
       swift_getObjectType();
       swift_unknownObjectRetain();
-      v1 = v47;
+      v1 = v46;
       if (DOCNode.isCreateDocumentSentinel()())
       {
         swift_unknownObjectRelease();
@@ -8661,7 +5935,7 @@ LABEL_60:
 
       else
       {
-        v1 = &v58;
+        v1 = &v60;
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
@@ -8680,9 +5954,9 @@ LABEL_52:
   }
 
   __break(1u);
-LABEL_65:
+LABEL_68:
   __break(1u);
-LABEL_66:
+LABEL_69:
   __break(1u);
 }
 
@@ -8691,30 +5965,30 @@ void DOCItemCollectionViewController.notifyContentDidLoad()()
   v1 = type metadata accessor for DispatchWorkItemFlags();
   v2 = *(v1 - 8);
   MEMORY[0x28223BE20](v1, v3);
-  v5 = v146 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = v147 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for DispatchQoS();
   v7 = *(v6 - 8);
   MEMORY[0x28223BE20](v6, v8);
-  v10 = v146 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = v147 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = type metadata accessor for OSSignpostID();
-  v159 = *(v11 - 8);
-  v160 = v11;
+  v160 = *(v11 - 8);
+  v161 = v11;
   MEMORY[0x28223BE20](v11, v12);
-  v158 = v146 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21DocumentManagerUICore12ImageOptionsV0dE21FolderColorComponentsVSgMd);
+  v159 = v147 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21DocumentManagerUICore12ImageOptionsV0dE21FolderColorComponentsVSgMd, &_s21DocumentManagerUICore12ImageOptionsV0dE21FolderColorComponentsVSgMR);
   MEMORY[0x28223BE20](v14 - 8, v15);
-  v161 = v146 - v16;
-  v165 = type metadata accessor for ImageOptions();
-  v163 = *(v165 - 8);
-  MEMORY[0x28223BE20](v165, v17);
-  v156 = v146 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v162 = v147 - v16;
+  v166 = type metadata accessor for ImageOptions();
+  v164 = *(v166 - 8);
+  MEMORY[0x28223BE20](v166, v17);
+  v157 = v147 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v19, v20);
-  v157 = v146 - v21;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21DocumentManagerUICore12ImageOptionsVSgMd);
+  v158 = v147 - v21;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s21DocumentManagerUICore12ImageOptionsVSgMd, &_s21DocumentManagerUICore12ImageOptionsVSgMR);
   MEMORY[0x28223BE20](v22 - 8, v23);
-  v155 = v146 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v156 = v147 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   v27 = MEMORY[0x28223BE20](v25, v26);
-  v166 = v146 - v28;
+  v167 = v147 - v28;
   v29 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_nodeCollection);
   if (!v29)
   {
@@ -8751,16 +6025,16 @@ void DOCItemCollectionViewController.notifyContentDidLoad()()
     return;
   }
 
-  v148 = v10;
-  v149 = v7;
-  v150 = v5;
-  v151 = v6;
-  v152 = v2;
-  v153 = v1;
+  v149 = v10;
+  v150 = v7;
+  v151 = v5;
+  v152 = v6;
+  v153 = v2;
+  v154 = v1;
   *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_didKickstartNotifyContentDidLoad) = 1;
   v38 = MEMORY[0x277D85000];
   v39 = *((*MEMORY[0x277D85000] & *v0) + 0xA68);
-  v164 = v0;
+  v165 = v0;
   v40 = v39();
   v41 = [v40 identifier];
 
@@ -8769,17 +6043,17 @@ void DOCItemCollectionViewController.notifyContentDidLoad()()
   if (v42 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v44 == v45)
   {
 
-    v47 = v164;
+    v47 = v165;
   }
 
   else
   {
     v48 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    v47 = v164;
+    v47 = v165;
     if ((v48 & 1) == 0)
     {
-      v46 = *(v164 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView);
+      v46 = *(v165 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView);
       if (v46)
       {
         v46 = [v46 setHidden_];
@@ -8790,7 +6064,7 @@ void DOCItemCollectionViewController.notifyContentDidLoad()()
   v49 = *((*v38 & *v47) + 0x1018);
   v50 = (*v38 & *v47) + 4120;
   v51 = v49(v46);
-  v154 = 0;
+  v155 = 0;
   if (!v51)
   {
 LABEL_63:
@@ -8842,22 +6116,22 @@ LABEL_63:
       v47 = (v83 & 0xFFFFFFFFFFFFFF8);
     }
 
-    v144 = __CocoaSet.count.getter();
+    v145 = __CocoaSet.count.getter();
     if ((__CocoaSet.count.getter() & 0x8000000000000000) == 0)
     {
-      if (v144 >= v82)
+      if (v145 >= v82)
       {
-        v145 = v82;
+        v146 = v82;
       }
 
       else
       {
-        v145 = v144;
+        v146 = v145;
       }
 
-      if (v144 >= 0)
+      if (v145 >= 0)
       {
-        v88 = v145;
+        v88 = v146;
       }
 
       else
@@ -8875,7 +6149,7 @@ LABEL_71:
           {
             for (i = 0; i != v88; ++i)
             {
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+              __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
               _ArrayBuffer._typeCheckSlowPath(_:)(i);
             }
           }
@@ -8892,7 +6166,7 @@ LABEL_71:
           v90 = v96;
           v93 = v97;
 
-          v94 = v166;
+          v94 = v167;
           if ((v93 & 1) == 0)
           {
             goto LABEL_81;
@@ -8905,7 +6179,7 @@ LABEL_71:
           v91 = v84 & 0xFFFFFFFFFFFFFF8;
           v92 = (v84 & 0xFFFFFFFFFFFFFF8) + 32;
           v93 = (2 * v88) | 1;
-          v94 = v166;
+          v94 = v167;
           if ((v93 & 1) == 0)
           {
             goto LABEL_81;
@@ -8932,52 +6206,52 @@ LABEL_71:
         {
           v99 = swift_dynamicCastClass();
           swift_unknownObjectRelease_n();
-          v100 = v165;
-          v101 = v163;
+          v100 = v166;
+          v101 = v164;
           if (v99)
           {
 LABEL_89:
-            v163 = v99;
-            v104 = v164;
+            v164 = v99;
+            v104 = v165;
             DOCItemCollectionViewController.preloadContent(for:)(v99);
-            v162 = *(v101 + 56);
-            v105 = v162(v94, 1, 1, v100);
+            v163 = *(v101 + 56);
+            v105 = v163(v94, 1, 1, v100);
             v106 = MEMORY[0x277D85000];
             v107 = (*((*MEMORY[0x277D85000] & *v104) + 0x11C0))(v105);
             if (v107)
             {
-              (*(*v107 + 184))(&v167);
+              (*(*v107 + 184))(&v168);
 
-              v186 = v175;
               v187 = v176;
-              v188[0] = v177[0];
-              *(v188 + 9) = *(v177 + 9);
-              v182 = v171;
+              v188 = v177;
+              v189[0] = v178[0];
+              *(v189 + 9) = *(v178 + 9);
               v183 = v172;
               v184 = v173;
               v185 = v174;
-              v178 = v167;
+              v186 = v175;
               v179 = v168;
               v180 = v169;
               v181 = v170;
+              v182 = v171;
               v108 = [v104 traitCollection];
               [v108 displayScale];
               UITraitCollection._ifColorForIconFolderTintComponents.getter();
-              v109 = v156;
+              v109 = v157;
               ImageOptions.init(size:scale:isFolded:folderTintComponents:)();
 
-              outlined destroy of DOCItemCollectionLayoutTraits.GridItemTraits(&v178);
+              outlined destroy of DOCItemCollectionLayoutTraits.GridItemTraits(&v179);
               v110 = *(v101 + 32);
-              v111 = v157;
-              v110(v157, v109, v100);
-              outlined destroy of CharacterSet?(v94, &_s21DocumentManagerUICore12ImageOptionsVSgMd);
+              v111 = v158;
+              v110(v158, v109, v100);
+              outlined destroy of CharacterSet?(v94, &_s21DocumentManagerUICore12ImageOptionsVSgMd, &_s21DocumentManagerUICore12ImageOptionsVSgMR);
               v110(v94, v111, v100);
-              v162(v94, 0, 1, v100);
+              v163(v94, 0, 1, v100);
             }
 
             else
             {
-              v112 = v162;
+              v112 = v163;
               v113 = [v104 traitCollection];
               v114 = (*((*v106 & *v104) + 0x13F0))();
 
@@ -8985,48 +6259,48 @@ LABEL_89:
               {
                 v115 = *(*v114 + 184);
 
-                v115(&v167, v116);
+                v115(&v168, v116);
 
-                v186 = v175;
                 v187 = v176;
-                v188[0] = v177[0];
-                *(v188 + 9) = *(v177 + 9);
-                v182 = v171;
+                v188 = v177;
+                v189[0] = v178[0];
+                *(v189 + 9) = *(v178 + 9);
                 v183 = v172;
                 v184 = v173;
                 v185 = v174;
-                v178 = v167;
+                v186 = v175;
                 v179 = v168;
                 v180 = v169;
                 v181 = v170;
+                v182 = v171;
                 v117 = [v104 traitCollection];
                 [v117 displayScale];
                 UITraitCollection._ifColorForIconFolderTintComponents.getter();
-                v118 = v155;
+                v118 = v156;
                 ImageOptions.init(size:scale:isFolded:folderTintComponents:)();
 
-                outlined destroy of DOCItemCollectionLayoutTraits.GridItemTraits(&v178);
+                outlined destroy of DOCItemCollectionLayoutTraits.GridItemTraits(&v179);
                 v119 = v118;
                 v120 = 0;
               }
 
               else
               {
-                v118 = v155;
-                v119 = v155;
+                v118 = v156;
+                v119 = v156;
                 v120 = 1;
               }
 
-              v112(v119, v120, 1, v165);
-              v94 = v166;
-              outlined assign with take of IndexPath?(v118, v166, &_s21DocumentManagerUICore12ImageOptionsVSgMd);
-              v104 = v164;
+              v112(v119, v120, 1, v166);
+              v94 = v167;
+              outlined assign with take of IndexPath?(v118, v167, &_s21DocumentManagerUICore12ImageOptionsVSgMd, &_s21DocumentManagerUICore12ImageOptionsVSgMR);
+              v104 = v165;
             }
 
             v121 = v104;
-            v67 = specialized Sequence.compactMap<A>(_:)(v163, v94, v121);
+            v67 = specialized Sequence.compactMap<A>(_:)(v164, v94, v121);
 
-            outlined destroy of CharacterSet?(v94, &_s21DocumentManagerUICore12ImageOptionsVSgMd);
+            outlined destroy of CharacterSet?(v94, &_s21DocumentManagerUICore12ImageOptionsVSgMd, &_s21DocumentManagerUICore12ImageOptionsVSgMR);
             goto LABEL_96;
           }
 
@@ -9040,8 +6314,8 @@ LABEL_88:
 LABEL_81:
         specialized _copyCollectionToContiguousArray<A>(_:)(v91, v92, v90, v93);
         v99 = v98;
-        v100 = v165;
-        v101 = v163;
+        v100 = v166;
+        v101 = v164;
         goto LABEL_88;
       }
 
@@ -9060,11 +6334,11 @@ LABEL_147:
   v52 = v51;
   v53 = [v51 visibleCells];
 
-  v146[1] = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell);
+  v147[1] = type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
   v54 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v146[2] = v50;
-  v147 = v49;
+  v147[2] = v50;
+  v148 = v49;
   if (v54 >> 62)
   {
 LABEL_61:
@@ -9082,7 +6356,7 @@ LABEL_61:
   {
 LABEL_62:
 
-    v47 = v164;
+    v47 = v165;
     v38 = MEMORY[0x277D85000];
     goto LABEL_63;
   }
@@ -9140,7 +6414,7 @@ LABEL_25:
   }
 
   v63 = v62;
-  v162 = v60;
+  v163 = v60;
   v64 = (*((*MEMORY[0x277D85000] & *v62) + 0xB70))();
 
   if ((v64 & 1) == 0)
@@ -9148,7 +6422,7 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v66 = v147(v65);
+  v66 = v148(v65);
   v67 = MEMORY[0x277D84F90];
   if (v66)
   {
@@ -9156,7 +6430,7 @@ LABEL_25:
     v69 = [v66 visibleCells];
 
     v70 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-    *&v178 = v67;
+    *&v179 = v67;
     if (!(v70 >> 62))
     {
       v71 = v70 & 0xFFFFFFFFFFFFFF8;
@@ -9167,7 +6441,7 @@ LABEL_25:
       }
 
 LABEL_144:
-      v163 = MEMORY[0x277D84F90];
+      v164 = MEMORY[0x277D84F90];
       goto LABEL_145;
     }
 
@@ -9180,7 +6454,7 @@ LABEL_144:
 
 LABEL_38:
     v72 = 0;
-    v163 = MEMORY[0x277D84F90];
+    v164 = MEMORY[0x277D84F90];
 LABEL_39:
     v73 = v72;
     while (1)
@@ -9222,18 +6496,18 @@ LABEL_39:
           if (swift_dynamicCastClass())
           {
             MEMORY[0x24C1FB090]();
-            if (*((v178 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v178 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+            if (*((v179 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v179 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
             {
               specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
             }
 
             specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-            v163 = v178;
+            v164 = v179;
             if (v72 == v54)
             {
 LABEL_145:
 
-              v67 = v163;
+              v67 = v164;
               break;
             }
 
@@ -9284,7 +6558,7 @@ LABEL_98:
     v123 = 0;
     v124 = 0;
 LABEL_100:
-    LODWORD(v166) = v123;
+    LODWORD(v167) = v123;
     v125 = v124;
     do
     {
@@ -9320,7 +6594,7 @@ LABEL_100:
 
     while (v124 != v122);
 
-    if (v166)
+    if (v167)
     {
       goto LABEL_119;
     }
@@ -9330,15 +6604,15 @@ LABEL_100:
   {
     v128 = 0;
     v129 = 0;
-    v166 = v67 & 0xFFFFFFFFFFFFFF8;
-    v163 = v67;
+    v167 = v67 & 0xFFFFFFFFFFFFFF8;
+    v164 = v67;
     v67 += 32;
-    v162 = (v122 - 1);
+    v163 = (v122 - 1);
 LABEL_110:
-    LODWORD(v165) = v128;
+    LODWORD(v166) = v128;
     do
     {
-      if (v129 >= *(v166 + 16))
+      if (v129 >= *(v167 + 16))
       {
 LABEL_121:
         __break(1u);
@@ -9356,7 +6630,7 @@ LABEL_121:
       {
 
         v128 = 1;
-        if (v162 != v129++)
+        if (v163 != v129++)
         {
           goto LABEL_110;
         }
@@ -9373,82 +6647,84 @@ LABEL_117:
 
     while (v122 != v130);
 
-    if (v165)
+    if (v166)
     {
 LABEL_119:
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-      v166 = static OS_dispatch_queue.main.getter();
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+      v167 = static OS_dispatch_queue.main.getter();
       v135 = swift_allocObject();
       swift_unknownObjectWeakInit();
-      *&v180 = partial apply for closure #5 in DOCItemCollectionViewController.notifyContentDidLoad();
-      *(&v180 + 1) = v135;
-      *&v178 = MEMORY[0x277D85DD0];
-      *(&v178 + 1) = 1107296256;
-      *&v179 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-      *(&v179 + 1) = &block_descriptor_875;
-      v136 = _Block_copy(&v178);
+      *&v181 = partial apply for closure #5 in DOCItemCollectionViewController.notifyContentDidLoad();
+      *(&v181 + 1) = v135;
+      *&v179 = MEMORY[0x277D85DD0];
+      *(&v179 + 1) = 1107296256;
+      *&v180 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+      *(&v180 + 1) = &block_descriptor_875;
+      v136 = _Block_copy(&v179);
 
-      v137 = v148;
+      v137 = v149;
       static DispatchQoS.unspecified.getter();
-      *&v167 = MEMORY[0x277D84F90];
-      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-      lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
-      v138 = v150;
-      v139 = v153;
+      *&v168 = MEMORY[0x277D84F90];
+      _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+      lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+      v138 = v151;
+      v139 = v154;
       dispatch thunk of SetAlgebra.init<A>(_:)();
-      v140 = v166;
+      v140 = v167;
       OS_dispatch_group.notify(qos:flags:queue:execute:)();
-      v47 = v164;
+      v47 = v165;
       _Block_release(v136);
 
-      (*(v152 + 8))(v138, v139);
-      (*(v149 + 8))(v137, v151);
+      (*(v153 + 8))(v138, v139);
+      (*(v150 + 8))(v137, v152);
 
       goto LABEL_126;
     }
   }
 
 LABEL_124:
-  static os_signpost_type_t.event.getter();
-  v47 = v164;
+  v38 = static os_signpost_type_t.event.getter();
+  v47 = v165;
   if (one-time initialization token for updatePointsOfInterestHandler != -1)
   {
     goto LABEL_140;
   }
 
 LABEL_125:
-  v141 = v158;
+  v141 = updatePointsOfInterestHandler;
+  v142 = v159;
   static OSSignpostID.exclusive.getter();
-  os_signpost(_:dso:log:name:signpostID:_:_:)();
-  (*(v159 + 8))(v141, v160);
+  os_signpost(_:dso:log:name:signpostID:_:_:)(v38, &dword_2493AC000, v141, "Files-PPT", 9, 2, v142, "notify report did Load with visible cells but no handler", 56, 2, MEMORY[0x277D84F90]);
+  (*(v160 + 8))(v142, v161);
   DOCItemCollectionViewController.reportDidLoadContent(_:)(1);
 LABEL_126:
-  v142 = MEMORY[0x277D85000];
-  v143 = DOCItemCollectionViewController.reportDidLoadContent(_:)(0);
-  (*((*v142 & *v47) + 0x1860))(v143, 0.5);
+  v143 = MEMORY[0x277D85000];
+  v144 = DOCItemCollectionViewController.reportDidLoadContent(_:)(0);
+  (*((*v143 & *v47) + 0x1860))(v144, 0.5);
 }
 
-void closure #5 in DOCItemCollectionViewController.notifyContentDidLoad()()
+void closure #5 in DOCItemCollectionViewController.notifyContentDidLoad()(uint64_t a1)
 {
-  v0 = type metadata accessor for OSSignpostID();
-  v1 = *(v0 - 8);
-  MEMORY[0x28223BE20](v0, v2);
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for OSSignpostID();
+  v2 = *(v1 - 8);
+  MEMORY[0x28223BE20](v1, v3);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v6 = Strong;
-    static os_signpost_type_t.event.getter();
+    v7 = Strong;
+    v8 = static os_signpost_type_t.event.getter();
     if (one-time initialization token for updatePointsOfInterestHandler != -1)
     {
       swift_once();
     }
 
+    v9 = updatePointsOfInterestHandler;
     static OSSignpostID.exclusive.getter();
-    os_signpost(_:dso:log:name:signpostID:_:_:)();
-    (*(v1 + 8))(v4, v0);
+    os_signpost(_:dso:log:name:signpostID:_:_:)(v8, &dword_2493AC000, v9, "Files-PPT", 9, 2, v5, "notify report did Load with visible cells", 41, 2, MEMORY[0x277D84F90]);
+    (*(v2 + 8))(v5, v1);
     DOCItemCollectionViewController.reportDidLoadContent(_:)(1);
   }
 }
@@ -9515,7 +6791,7 @@ Swift::Void __swiftcall DOCItemCollectionViewController.makeCollectionViewVisibl
   v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v15, v16);
   v18 = &v23 - v17;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   v23 = static OS_dispatch_queue.main.getter();
   static DispatchTime.now()();
   + infix(_:_:)();
@@ -9534,9 +6810,9 @@ Swift::Void __swiftcall DOCItemCollectionViewController.makeCollectionViewVisibl
 
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd);
-  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v22 = v23;
   MEMORY[0x24C1FB940](v18, v9, v5, v20);
@@ -9647,7 +6923,7 @@ void DOCItemCollectionViewController.createLoadingViewIfNeeded()()
       isa = DOCConstraintsToResizeWithSuperview();
       if (!isa)
       {
-        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSLayoutConstraint);
+        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for NSLayoutConstraint, 0x277CCAAD0);
         static Array._unconditionallyBridgeFromObjectiveC(_:)();
         isa = Array._bridgeToObjectiveC()().super.isa;
       }
@@ -9667,7 +6943,7 @@ LABEL_13:
 LABEL_8:
 }
 
-void DOCItemCollectionViewController.showLoadingView()(char a1)
+double DOCItemCollectionViewController.showLoadingView()(char a1)
 {
   v3 = (*((*MEMORY[0x277D85000] & *v1) + 0xA68))();
   v4 = [v3 identifier];
@@ -9685,20 +6961,22 @@ void DOCItemCollectionViewController.showLoadingView()(char a1)
     if ((v10 & 1) == 0)
     {
       DOCItemCollectionViewController.createLoadingViewIfNeeded()();
-      v11 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView;
-      v12 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView);
-      if (v12)
+      v12 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView;
+      v13 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_loadingView);
+      if (v13)
       {
-        [*(v12 + OBJC_IVAR____TtC26DocumentManagerExecutables28DOCItemCollectionLoadingView_stackView) setHidden_];
-        v13 = *(v1 + v11);
-        if (v13)
+        [*(v13 + OBJC_IVAR____TtC26DocumentManagerExecutables28DOCItemCollectionLoadingView_stackView) setHidden_];
+        v14 = *(v1 + v12);
+        if (v14)
         {
 
-          [v13 setHidden_];
+          [v14 setHidden_];
         }
       }
     }
   }
+
+  return result;
 }
 
 void DOCItemCollectionViewController.itemsOriginDidChange(_:)(uint64_t a1)
@@ -9731,7 +7009,7 @@ void DOCItemCollectionViewController.itemsOriginDidChange(_:)(uint64_t a1)
 
     if (v11)
     {
-      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell);
+      type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
       v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       if (v12 >> 62)
@@ -9797,4 +7075,2705 @@ LABEL_12:
   }
 
 LABEL_21:
+}
+
+uint64_t DOCItemCollectionViewController.resolvedIndexPathForProvider(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if (MEMORY[0x24C1F8130]() != 2)
+  {
+    v12 = type metadata accessor for IndexPath();
+    v9 = *(*(v12 - 8) + 56);
+    v13 = v12;
+    v10 = a2;
+    v11 = 1;
+    goto LABEL_10;
+  }
+
+  v5 = MEMORY[0x277D85000];
+  if (((*((*MEMORY[0x277D85000] & *v2) + 0x11B8))() & 1) == 0)
+  {
+    v7 = type metadata accessor for IndexPath();
+    v15 = *(v7 - 8);
+    (*(v15 + 16))(a2, a1, v7);
+LABEL_8:
+    v9 = *(v15 + 56);
+    v10 = a2;
+    v11 = 0;
+    goto LABEL_9;
+  }
+
+  v6 = (*((*v5 & *v2) + 0x1898))(a1);
+  v7 = type metadata accessor for IndexPath();
+  v8 = *(v7 - 8);
+  if ((v6 & 1) == 0)
+  {
+    v15 = *(v7 - 8);
+    (*(v8 + 16))(a2, a1, v7);
+    goto LABEL_8;
+  }
+
+  v9 = *(v8 + 56);
+  v10 = a2;
+  v11 = 1;
+LABEL_9:
+  v13 = v7;
+LABEL_10:
+
+  return v9(v10, v11, 1, v13);
+}
+
+void __swiftcall DOCItemCollectionViewController.topSuperView(from:)(UIView *__return_ptr retstr, UIView *from)
+{
+  v3 = [(UIView *)from superview];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = (*((*MEMORY[0x277D85000] & *v2) + 0x18A8))();
+
+    type metadata accessor for DOCServiceView();
+    if (!swift_dynamicCastClass())
+    {
+      objc_opt_self();
+      if (!swift_dynamicCastObjCClass())
+      {
+        from;
+      }
+    }
+  }
+
+  else
+  {
+
+    v6 = from;
+  }
+}
+
+Swift::Void __swiftcall DOCItemCollectionViewController.updateCollectionLayoutConfiguration()()
+{
+  v1 = [v0 traitCollection];
+  (*((*MEMORY[0x277D85000] & *v0) + 0x18B8))();
+}
+
+Swift::Void __swiftcall DOCItemCollectionViewController.updateCollectionLayoutConfiguration(for:)(UITraitCollection a1)
+{
+  v2 = MEMORY[0x277D85000];
+  v3 = (*((*MEMORY[0x277D85000] & *v1) + 0x1018))(a1.super.isa);
+  if (!v3)
+  {
+    return;
+  }
+
+  v4 = v3;
+  v5 = [v3 preparedCells];
+  if (!v5)
+  {
+    goto LABEL_24;
+  }
+
+  v6 = v5;
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
+  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  v22 = v4;
+  if (v7 >> 62)
+  {
+    v8 = __CocoaSet.count.getter();
+    if (v8)
+    {
+      goto LABEL_5;
+    }
+  }
+
+  else
+  {
+    v8 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v8)
+    {
+LABEL_5:
+      if (v8 >= 1)
+      {
+        v9 = 0;
+        v10 = &v23[OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_stackViewMetrics];
+        do
+        {
+          if ((v7 & 0xC000000000000001) != 0)
+          {
+            v11 = MEMORY[0x24C1FC540](v9, v7);
+          }
+
+          else
+          {
+            v11 = *(v7 + 8 * v9 + 32);
+          }
+
+          v12 = v11;
+          type metadata accessor for DOCItemCollectionCell();
+          v13 = swift_dynamicCastClass();
+          if (v13)
+          {
+            v14 = v2;
+            v15 = *((*v2 & *v13) + 0x208);
+            v16 = v15();
+            if (v16)
+            {
+              v17 = v16;
+              (*((*v14 & *v16) + 0x328))([v23 effectiveAppearance]);
+            }
+
+            v18 = v15();
+            if (v18)
+            {
+              v19 = v18;
+              v20 = *(v10 + 4);
+              v21 = *(v10 + 1);
+              v24[0] = *v10;
+              v24[1] = v21;
+              v25 = v20;
+              v26 = 0;
+              v2 = v14;
+              (*((*v14 & *v18) + 0x528))(v24);
+            }
+
+            else
+            {
+
+              v2 = v14;
+            }
+          }
+
+          else
+          {
+          }
+
+          ++v9;
+        }
+
+        while (v8 != v9);
+        goto LABEL_20;
+      }
+
+      __break(1u);
+LABEL_24:
+      __break(1u);
+      return;
+    }
+  }
+
+LABEL_20:
+}
+
+uint64_t DOCItemCollectionViewController.isNodePickable(_:)(void *a1)
+{
+  v3 = type metadata accessor for UTType();
+  v4 = *(v3 - 8);
+  v6 = MEMORY[0x28223BE20](v3, v5);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = [a1 isActionable];
+  if (result)
+  {
+    result = [a1 isReadable];
+    if (result)
+    {
+      if ([a1 isCopying])
+      {
+        return 0;
+      }
+
+      else
+      {
+        result = [a1 isFullyFormed];
+        if (result)
+        {
+          if ((v10 = *(v1 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration), ([v10 forMovingDocuments] & 1) == 0) && (objc_msgSend(v10, sel_forSavingDocuments) & 1) == 0 && !objc_msgSend(v10, sel_forPickingFoldersOnly) || (result = objc_msgSend(a1, sel_isFolder), result))
+          {
+            if ([a1 isFolder])
+            {
+              return 1;
+            }
+
+            else
+            {
+              v11 = [a1 contentType];
+              static UTType._unconditionallyBridgeFromObjectiveC(_:)();
+
+              isa = [v10 documentContentTypes];
+              if (!isa)
+              {
+                static Array._unconditionallyBridgeFromObjectiveC(_:)();
+                isa = Array._bridgeToObjectiveC()().super.isa;
+              }
+
+              v13 = UTType._bridgeToObjectiveC()().super.isa;
+              v14 = [(objc_class *)v13 doc_conformsToAnyInContentTypes:isa];
+
+              (*(v4 + 8))(v8, v3);
+              return v14;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t DOCItemCollectionViewController.fpfs_cell(for:with:)(uint64_t a1, uint64_t a2)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = &v15 - v7;
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  (*(v10 + 16))(v8, a2, v9);
+  (*(v10 + 56))(v8, 0, 1, v9);
+  v11 = MEMORY[0x277D85000];
+  v12 = (*((*MEMORY[0x277D85000] & *v2) + 0xDA0))(a1, v8);
+  outlined destroy of CharacterSet?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if (!v12)
+  {
+    return 0;
+  }
+
+  v13 = (*((*v11 & *v2) + 0x18D0))(v12);
+  swift_unknownObjectRelease();
+  return v13;
+}
+
+id DOCItemCollectionViewController.cell(for:)(uint64_t a1)
+{
+  v44 = a1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+  MEMORY[0x28223BE20](v2 - 8, v3);
+  v5 = &v44 - v4;
+  v6 = type metadata accessor for IndexPath();
+  v7 = *(v6 - 1);
+  MEMORY[0x28223BE20](v6, v8);
+  v10 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v11, v12);
+  v14 = &v44 - v13;
+  v17.n128_f64[0] = MEMORY[0x28223BE20](v15, v16);
+  v19 = &v44 - v18;
+  v20 = (*((*MEMORY[0x277D85000] & *v1) + 0x1018))(v17);
+  if (v20)
+  {
+    v53 = v14;
+    v56 = v20;
+    result = [v20 preparedCells];
+    if (!result)
+    {
+      __break(1u);
+      return result;
+    }
+
+    v22 = result;
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UICollectionViewCell, 0x277D752A8);
+    v23 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+    v55 = v23;
+    if (v23 >> 62)
+    {
+      goto LABEL_26;
+    }
+
+    for (i = *((v23 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
+    {
+      v51 = v1;
+      v52 = v5;
+      v57 = v19;
+      v24 = 0;
+      v1 = v55;
+      v19 = (v55 & 0xC000000000000001);
+      v45 = v10;
+      v46 = v55 & 0xFFFFFFFFFFFFFF8;
+      v25 = (v7 + 32);
+      v47 = (v7 + 8);
+      v48 = (v7 + 48);
+      v5 = v6;
+      v6 = v56;
+      v10 = i;
+      v49 = v7 + 32;
+      v50 = v55 & 0xC000000000000001;
+      while (1)
+      {
+        if (v19)
+        {
+          v26 = MEMORY[0x24C1FC540](v24, v1);
+        }
+
+        else
+        {
+          if (v24 >= *(v46 + 16))
+          {
+            goto LABEL_25;
+          }
+
+          v26 = v1[v24 + 4];
+        }
+
+        v7 = v26;
+        v27 = (v24 + 1);
+        if (__OFADD__(v24, 1))
+        {
+          break;
+        }
+
+        type metadata accessor for DOCItemCollectionCell();
+        v28 = swift_dynamicCastClass();
+        if (v28 && (v29 = v28, (v30 = [v6 indexPathForCell_]) != 0))
+        {
+          v31 = v53;
+          v32 = v30;
+          static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
+
+          v33 = *v25;
+          v34 = v57;
+          (*v25)(v57, v31, v5);
+          v35 = v51;
+          v36 = v5;
+          v37 = v52;
+          (*((*MEMORY[0x277D85000] & *v51) + 0x18A0))(v34);
+          if ((*v48)(v37, 1, v36) == 1)
+          {
+            (*v47)(v34, v36);
+
+            outlined destroy of CharacterSet?(v37, &_s10Foundation9IndexPathVSgMd, &_s10Foundation9IndexPathVSgMR);
+            v5 = v36;
+LABEL_21:
+            v1 = v55;
+            v6 = v56;
+            v10 = i;
+            v19 = v50;
+            goto LABEL_7;
+          }
+
+          v38 = v45;
+          v33(v45, v37, v36);
+          v39 = (*((*MEMORY[0x277D85000] & *v35) + 0xD88))(v38, 0);
+          v5 = v36;
+          if (!v39)
+          {
+
+            v43 = *v47;
+            (*v47)(v38, v36);
+            v43(v57, v36);
+            goto LABEL_21;
+          }
+
+          v40 = v39;
+          swift_getObjectType();
+          v41 = DOCNode.isEqualTo(node:)(v40);
+          swift_unknownObjectRelease();
+          v42 = *v47;
+          (*v47)(v38, v36);
+          v42(v57, v36);
+          v19 = v50;
+          if (v41)
+          {
+
+            return v29;
+          }
+
+          v1 = v55;
+          v6 = v56;
+          v10 = i;
+        }
+
+        else
+        {
+        }
+
+LABEL_7:
+        ++v24;
+        if (v27 == v10)
+        {
+
+          goto LABEL_28;
+        }
+      }
+
+      __break(1u);
+LABEL_25:
+      __break(1u);
+LABEL_26:
+      ;
+    }
+
+LABEL_28:
+  }
+
+  return 0;
+}
+
+void DOCItemCollectionViewController.scrollToIndexPathIfNeeded(_:completionBlock:)(uint64_t a1, void (*a2)(void), uint64_t a3)
+{
+  v4 = v3;
+  v40 = type metadata accessor for DispatchWorkItemFlags();
+  v7 = *(v40 - 8);
+  MEMORY[0x28223BE20](v40, v8);
+  v39 = &v36 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for DispatchQoS();
+  v42 = *(v10 - 8);
+  v43 = v10;
+  MEMORY[0x28223BE20](v10, v11);
+  v13 = &v36 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = type metadata accessor for DispatchTime();
+  v41 = *(v44 - 8);
+  MEMORY[0x28223BE20](v44, v14);
+  v16 = &v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19.n128_f64[0] = MEMORY[0x28223BE20](v17, v18);
+  v21 = &v36 - v20;
+  v22 = MEMORY[0x277D85000];
+  v23 = (*((*MEMORY[0x277D85000] & *v3) + 0x1018))(v19);
+  if (!v23)
+  {
+    a2();
+    return;
+  }
+
+  v37 = v7;
+  v38 = a3;
+  v45 = v23;
+  isa = IndexPath._bridgeToObjectiveC()().super.isa;
+  v25 = [v45 cellForItemAtIndexPath_];
+
+  if (v25)
+  {
+    [v25 frame];
+    if ([v45 _isRectFullyVisible_])
+    {
+
+      a2();
+      goto LABEL_11;
+    }
+  }
+
+  v26 = [v45 numberOfSections];
+
+  if (v26 >= 1)
+  {
+    v27 = (*((*v22 & *v4) + 0x1010))();
+    v28 = IndexPath._bridgeToObjectiveC()().super.isa;
+    [v27 scrollToItemAtIndexPath:v28 atScrollPosition:0 animated:1];
+
+    type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+    v36 = static OS_dispatch_queue.main.getter();
+    static DispatchTime.now()();
+    + infix(_:_:)();
+    v41 = *(v41 + 8);
+    (v41)(v16, v44);
+    v29 = swift_allocObject();
+    v30 = v38;
+    *(v29 + 16) = a2;
+    *(v29 + 24) = v30;
+    aBlock[4] = thunk for @callee_guaranteed () -> ()partial apply;
+    aBlock[5] = v29;
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 1107296256;
+    aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+    aBlock[3] = &block_descriptor_227;
+    v31 = _Block_copy(aBlock);
+
+    static DispatchQoS.unspecified.getter();
+    aBlock[0] = MEMORY[0x277D84F90];
+    _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+    lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+    v33 = v39;
+    v32 = v40;
+    dispatch thunk of SetAlgebra.init<A>(_:)();
+    v34 = v36;
+    MEMORY[0x24C1FB940](v21, v13, v33, v31);
+    _Block_release(v31);
+
+    (*(v37 + 8))(v33, v32);
+    (*(v42 + 8))(v13, v43);
+    (v41)(v21, v44);
+    return;
+  }
+
+  a2();
+LABEL_11:
+  v35 = v45;
+}
+
+double DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(void *a1, int a2, void (*a3)(void), uint64_t a4)
+{
+  v312 = a4;
+  v311 = a3;
+  LODWORD(v310) = a2;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v299 = v291 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8, v9);
+  v302 = v291 - v10;
+  v11 = type metadata accessor for URL();
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11, v13);
+  v294 = v291 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15, v16);
+  v298 = v291 - v17;
+  v293 = v18;
+  MEMORY[0x28223BE20](v19, v20);
+  v309 = v291 - v21;
+  v22 = type metadata accessor for Date();
+  v296 = *(v22 - 8);
+  v297 = v22;
+  MEMORY[0x28223BE20](v22, v23);
+  v295 = v291 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for DispatchWorkItemFlags();
+  v307 = *(v25 - 1);
+  v308 = v25;
+  MEMORY[0x28223BE20](v25, v26);
+  v305 = v291 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v306 = type metadata accessor for DispatchQoS();
+  v304 = *(v306 - 8);
+  MEMORY[0x28223BE20](v306, v28);
+  v303 = v291 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (one-time initialization token for UI != -1)
+  {
+    swift_once();
+  }
+
+  v301 = v11;
+  v30 = type metadata accessor for Logger();
+  v31 = __swift_project_value_buffer(v30, static Logger.UI);
+  swift_unknownObjectRetain();
+  v32 = Logger.logObject.getter();
+  v33 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  v34 = os_log_type_enabled(v32, v33);
+  v300 = v12;
+  if (v34)
+  {
+    v35 = swift_slowAlloc();
+    v36 = swift_slowAlloc();
+    *&aBlock = v36;
+    *v35 = 136315394;
+    *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000051, 0x8000000249BDEDC0, &aBlock);
+    *(v35 + 12) = 2080;
+    v37 = a1;
+    v38 = v31;
+    v39 = [a1 displayName];
+    v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v42 = v41;
+
+    v31 = v38;
+    v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &aBlock);
+
+    *(v35 + 14) = v43;
+    _os_log_impl(&dword_2493AC000, v32, v33, "%s [TAP] [Interaction] Validating selection of item %s", v35, 0x16u);
+    swift_arrayDestroy();
+    MEMORY[0x24C1FE850](v36, -1, -1);
+    MEMORY[0x24C1FE850](v35, -1, -1);
+  }
+
+  else
+  {
+    v37 = a1;
+  }
+
+  v44 = v313;
+  v45 = *&v313[OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration];
+  v46 = [v45 sceneIdentifier];
+  v314 = specialized static DOCInteractionManager.sharedManager(for:)(v46);
+
+  v47 = MEMORY[0x277D85000];
+  v48 = (*((*MEMORY[0x277D85000] & *v44) + 0xAE8))();
+  if (v48)
+  {
+    v49 = v48;
+    v50 = [v48 activeDocumentCreationIntent];
+
+    if (v50)
+    {
+      v51 = [v37 displayName];
+      v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v54 = v53;
+
+      v55 = Logger.logObject.getter();
+      v56 = static os_log_type_t.info.getter();
+
+      if (os_log_type_enabled(v55, v56))
+      {
+        v57 = swift_slowAlloc();
+        v58 = swift_slowAlloc();
+        *&aBlock = v58;
+        *v57 = 136315138;
+        v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v54, &aBlock);
+
+        *(v57 + 4) = v59;
+        _os_log_impl(&dword_2493AC000, v55, v56, "[TAP] [Interaction] An item, '%s', was selected while there is UIP document creation in progress. Bailing out.", v57, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v58);
+        MEMORY[0x24C1FE850](v58, -1, -1);
+        MEMORY[0x24C1FE850](v57, -1, -1);
+      }
+
+      else
+      {
+      }
+
+      v311();
+      v101 = v314;
+
+      return result;
+    }
+  }
+
+  v60 = *((*v47 & *v314) + 0x60);
+  v61 = v37;
+  if (v60())
+  {
+    swift_unknownObjectRelease();
+    v62 = [v37 displayName];
+    v63 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v65 = v64;
+
+    v66 = v60();
+    swift_unknownObjectRetain();
+
+    v67 = Logger.logObject.getter();
+    v68 = static os_log_type_t.info.getter();
+    swift_unknownObjectRelease();
+
+    if (os_log_type_enabled(v67, v68))
+    {
+      v69 = swift_slowAlloc();
+      v70 = swift_slowAlloc();
+      *&aBlock = v70;
+      *v69 = 136315394;
+      v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v63, v65, &aBlock);
+
+      *(v69 + 4) = v71;
+      *(v69 + 12) = 2080;
+      *&v321 = v66;
+      swift_unknownObjectRetain();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pSgMd, &_sSo7DOCNode_pSgMR);
+      v72 = String.init<A>(describing:)();
+      v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v73, &aBlock);
+
+      *(v69 + 14) = v74;
+      _os_log_impl(&dword_2493AC000, v67, v68, "[TAP] [Interaction] An item, '%s', was selected while another is trying to be opened: '%s'. Bailing out.", v69, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x24C1FE850](v70, -1, -1);
+      MEMORY[0x24C1FE850](v69, -1, -1);
+
+      v75 = swift_unknownObjectRelease();
+    }
+
+    else
+    {
+      swift_unknownObjectRelease();
+    }
+
+    goto LABEL_70;
+  }
+
+  v292 = v45;
+  ObjectType = swift_getObjectType();
+  if (([v61 isTrashed] & 1) != 0 || ((*((*MEMORY[0x277D85000] & *v44) + 0xA50))(&v321), v328 = v323, v329 = v324, v330 = v325, aBlock = v321, v327 = v322, outlined destroy of DOCItemCollectionConfiguration(&aBlock), BYTE1(v328) == 1))
+  {
+    if (([v61 isFolder] & 1) == 0)
+    {
+      v117 = *((*MEMORY[0x277D85000] & *v44) + 0xBD8);
+      if (v117() != 3 || v117() == 3 && ((*((*MEMORY[0x277D85000] & *v44) + 0x1280))() & 1) != 0)
+      {
+        swift_unknownObjectRetain();
+        v118 = Logger.logObject.getter();
+        v119 = static os_log_type_t.default.getter();
+        swift_unknownObjectRelease();
+        if (os_log_type_enabled(v118, v119))
+        {
+          v120 = swift_slowAlloc();
+          v121 = swift_slowAlloc();
+          *&aBlock = v121;
+          *v120 = 136315138;
+          v122 = [v61 displayName];
+          v123 = v61;
+          v124 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v126 = v125;
+
+          v127 = v124;
+          v61 = v123;
+          v128 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v127, v126, &aBlock);
+
+          *(v120 + 4) = v128;
+          _os_log_impl(&dword_2493AC000, v118, v119, "[TAP] [Interaction] A trashed item, '%s', was selected, alerting the user it can't be opened. Bailing out.", v120, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v121);
+          MEMORY[0x24C1FE850](v121, -1, -1);
+          v129 = v120;
+          v44 = v313;
+          MEMORY[0x24C1FE850](v129, -1, -1);
+        }
+
+        type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+        v130 = static OS_dispatch_queue.main.getter();
+        v131 = swift_allocObject();
+        *(v131 + 16) = v61;
+        *(v131 + 24) = v44;
+        *&v328 = partial apply for closure #1 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+        *(&v328 + 1) = v131;
+        *&aBlock = MEMORY[0x277D85DD0];
+        *(&aBlock + 1) = 1107296256;
+        *&v327 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+        *(&v327 + 1) = &block_descriptor_249_0;
+        v132 = v44;
+        v133 = _Block_copy(&aBlock);
+        swift_unknownObjectRetain();
+        v134 = v132;
+
+        v135 = v303;
+        static DispatchQoS.unspecified.getter();
+        *&aBlock = MEMORY[0x277D84F90];
+        _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+        lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+        v136 = v305;
+        v137 = v308;
+        dispatch thunk of SetAlgebra.init<A>(_:)();
+        MEMORY[0x24C1FB9A0](0, v135, v136, v133);
+        _Block_release(v133);
+
+        (v307)[1](v136, v137);
+        v75 = (v304)[1](v135, v306);
+        goto LABEL_70;
+      }
+    }
+  }
+
+  v307 = ObjectType;
+  v77 = DOCNode.fpfs_syncFetchFPItem()();
+  v78 = MEMORY[0x277D85000];
+  if (!v77)
+  {
+    swift_unknownObjectRetain();
+    v79 = Logger.logObject.getter();
+    v80 = static os_log_type_t.error.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v79, v80))
+    {
+      v81 = swift_slowAlloc();
+      v82 = swift_slowAlloc();
+      *&aBlock = v82;
+      *v81 = 136315138;
+      *&v321 = v61;
+      swift_unknownObjectRetain();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
+      v83 = String.init<A>(describing:)();
+      v85 = v31;
+      v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v84, &aBlock);
+
+      *(v81 + 4) = v86;
+      v31 = v85;
+      _os_log_impl(&dword_2493AC000, v79, v80, "[TAP] [Interaction] Couldn't get FPItem from node for '%s. Continuing", v81, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v82);
+      v87 = v82;
+      v44 = v313;
+      MEMORY[0x24C1FE850](v87, -1, -1);
+      v88 = v81;
+      v78 = MEMORY[0x277D85000];
+      MEMORY[0x24C1FE850](v88, -1, -1);
+    }
+  }
+
+  v291[1] = v31;
+  v89 = *((*v78 & *v44) + 0xBD8);
+  if (v89() != 3 || ((*((*v78 & *v44) + 0x1280))() & 1) != 0)
+  {
+    if ((specialized DOCInteractionManager.alertIfNodeCanNotBeDownloaded(_:configuration:alertPresenting:)(v61, v292, v44) & 1) == 0)
+    {
+      swift_unknownObjectRetain();
+      v91 = Logger.logObject.getter();
+      v92 = static os_log_type_t.error.getter();
+      swift_unknownObjectRelease();
+      if (os_log_type_enabled(v91, v92))
+      {
+        v93 = swift_slowAlloc();
+        v94 = swift_slowAlloc();
+        *&aBlock = v94;
+        *v93 = 136315138;
+        v146 = [v61 displayName];
+        v147 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v149 = v148;
+
+        v150 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v147, v149, &aBlock);
+
+        *(v93 + 4) = v150;
+        v100 = "[TAP] [Interaction] An non-downloaded item, '%s', was selected, but cannot be downloaded.";
+        goto LABEL_52;
+      }
+
+LABEL_53:
+
+LABEL_70:
+      (v311)(v75);
+
+      return result;
+    }
+
+    if (v77 && [v77 doc_isCollaborationInvitation])
+    {
+      v90 = FPItem.openInvitationIfPossible()();
+      swift_unknownObjectRetain();
+      v91 = Logger.logObject.getter();
+      if (!v90)
+      {
+        v92 = static os_log_type_t.error.getter();
+        swift_unknownObjectRelease();
+        if (!os_log_type_enabled(v91, v92))
+        {
+          goto LABEL_53;
+        }
+
+        v93 = swift_slowAlloc();
+        v94 = swift_slowAlloc();
+        *&aBlock = v94;
+        *v93 = 136315138;
+        v196 = [v61 displayName];
+        v197 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v199 = v198;
+
+        v200 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v197, v199, &aBlock);
+
+        *(v93 + 4) = v200;
+        v100 = "TAP] [Interaction] Could not open invitation for %s";
+        goto LABEL_52;
+      }
+
+      v92 = static os_log_type_t.default.getter();
+      swift_unknownObjectRelease();
+      if (os_log_type_enabled(v91, v92))
+      {
+        v93 = swift_slowAlloc();
+        v94 = swift_slowAlloc();
+        *&aBlock = v94;
+        *v93 = 136315138;
+        v95 = [v61 displayName];
+        v96 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v98 = v97;
+
+        v99 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v98, &aBlock);
+
+        *(v93 + 4) = v99;
+        v100 = "[TAP] [Interaction] Opened invitation link for %s";
+LABEL_52:
+        _os_log_impl(&dword_2493AC000, v91, v92, v100, v93, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v94);
+        MEMORY[0x24C1FE850](v94, -1, -1);
+        MEMORY[0x24C1FE850](v93, -1, -1);
+        goto LABEL_53;
+      }
+
+      goto LABEL_53;
+    }
+  }
+
+  v304 = v77;
+  v308 = v61;
+  v103 = Logger.logObject.getter();
+  v104 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v103, v104))
+  {
+    v105 = swift_slowAlloc();
+    *v105 = 0;
+    _os_log_impl(&dword_2493AC000, v103, v104, "[TAP] [Interaction] Clearing the last selected Item", v105, 2u);
+    v106 = v105;
+    v78 = MEMORY[0x277D85000];
+    MEMORY[0x24C1FE850](v106, -1, -1);
+  }
+
+  (*((*v78 & *v314) + 0x80))(0);
+  v305 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v306 = swift_allocObject();
+  v107 = swift_unknownObjectWeakInit();
+  v108 = v44;
+  v291[0] = (*((*v78 & *v44) + 0xE8))(v107);
+  v109 = v292;
+  LODWORD(v303) = [v292 useSharedQuickLook];
+  v110 = v89();
+  (*((*v78 & *v108) + 0xA50))(&v321);
+  v328 = v323;
+  v329 = v324;
+  v330 = v325;
+  aBlock = v321;
+  v327 = v322;
+  v111 = *(&v322 + 1);
+  v112 = *(&v322 + 1);
+  v113 = outlined destroy of DOCItemCollectionConfiguration(&aBlock);
+  v114 = *((*v78 & *v108) + 0x1280);
+  v115 = (v114)(v113);
+  if (v310 & 1) != 0 && ([v109 useSharedQuickLook])
+  {
+    v116 = 1;
+  }
+
+  else
+  {
+    v116 = [v109 skipDownload];
+  }
+
+  *&v316 = v291[0];
+  *(&v316 + 1) = partial apply for closure #2 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+  *&v317 = v305;
+  *(&v317 + 1) = partial apply for closure #3 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+  *&v318 = v306;
+  LODWORD(v310) = v310 & 1;
+  BYTE8(v318) = v310;
+  BYTE9(v318) = v303;
+  BYTE10(v318) = v110 == 3;
+  *&v319 = v111;
+  BYTE8(v319) = v115 & 1;
+  BYTE9(v319) = v116;
+  v320 = v313;
+  v335 = v313;
+  v331 = v316;
+  v332 = v317;
+  v333 = v318;
+  v334 = v319;
+  v138 = v313;
+
+  v140 = (v89)(v139);
+  v313 = v138;
+  if (v140 == 3 && (v114() & 1) == 0)
+  {
+    v145 = 0;
+    v142 = v308;
+    v144 = v304;
+  }
+
+  else
+  {
+    v141 = [v292 shouldOpenInApp];
+    v142 = v308;
+    if (v141)
+    {
+      v143 = [v308 isFolder];
+      v144 = v304;
+      if (v143)
+      {
+        v145 = 0;
+      }
+
+      else
+      {
+        v145 = [v142 isExternalDownloadPlaceholder] ^ 1;
+      }
+    }
+
+    else
+    {
+      v145 = 0;
+      v144 = v304;
+    }
+  }
+
+  swift_unknownObjectRetain();
+  v151 = Logger.logObject.getter();
+  v152 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  if (os_log_type_enabled(v151, v152))
+  {
+    v153 = swift_slowAlloc();
+    v154 = swift_slowAlloc();
+    v155 = v142;
+    v156 = v154;
+    v315[0] = v154;
+    *v153 = 136315394;
+    v157 = [v155 displayName];
+    v158 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v160 = v159;
+
+    v161 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v158, v160, v315);
+
+    *(v153 + 4) = v161;
+    *(v153 + 12) = 1024;
+    *(v153 + 14) = v145;
+    _os_log_impl(&dword_2493AC000, v151, v152, "[TAP] [Interaction] An item, '%s', was selected. Attempting to open it? %{BOOL}d", v153, 0x12u);
+    __swift_destroy_boxed_opaque_existential_0(v156);
+    MEMORY[0x24C1FE850](v156, -1, -1);
+    MEMORY[0x24C1FE850](v153, -1, -1);
+  }
+
+  if (!v145)
+  {
+
+    v186 = v308;
+    swift_unknownObjectRetain();
+    v187 = Logger.logObject.getter();
+    v188 = static os_log_type_t.debug.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v187, v188))
+    {
+      v189 = swift_slowAlloc();
+      v190 = swift_slowAlloc();
+      v315[0] = v190;
+      *v189 = 136315138;
+      v191 = [v186 displayName];
+      v192 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v194 = v193;
+
+      v195 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v192, v194, v315);
+
+      *(v189 + 4) = v195;
+      v186 = v308;
+      _os_log_impl(&dword_2493AC000, v187, v188, "[TAP] [Interaction] Not trying to open: %s with LaunchUtils", v189, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v190);
+      MEMORY[0x24C1FE850](v190, -1, -1);
+      MEMORY[0x24C1FE850](v189, -1, -1);
+    }
+
+    specialized DOCInteractionManager.prepareNodeAndOpenIfNeeded(_:context:)(v186, &v331, v314, v307);
+    v75 = outlined destroy of DOCInteractionManagerContext(&v316);
+    goto LABEL_70;
+  }
+
+  v162 = v308;
+  swift_unknownObjectRetain();
+  v163 = Logger.logObject.getter();
+  v164 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  if (os_log_type_enabled(v163, v164))
+  {
+    v165 = swift_slowAlloc();
+    v166 = swift_slowAlloc();
+    v315[0] = v166;
+    *v165 = 136315138;
+    v167 = [v308 displayName];
+    v168 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v170 = v169;
+
+    v171 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v168, v170, v315);
+
+    *(v165 + 4) = v171;
+    _os_log_impl(&dword_2493AC000, v163, v164, "[TAP] [Interaction] Should Try to Open with LaunchUtils: %s", v165, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v166);
+    v162 = v308;
+    MEMORY[0x24C1FE850](v166, -1, -1);
+    MEMORY[0x24C1FE850](v165, -1, -1);
+  }
+
+  v172 = *((*MEMORY[0x277D85000] & *v314) + 0x68);
+  v173 = (*MEMORY[0x277D85000] & *v314) + 104;
+  v307 = v144;
+  v303 = v172;
+  v291[0] = v173;
+  (v172)(v144);
+  swift_unknownObjectRetain();
+  v174 = Logger.logObject.getter();
+  v175 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  if (os_log_type_enabled(v174, v175))
+  {
+    v176 = swift_slowAlloc();
+    v177 = swift_slowAlloc();
+    v315[0] = v177;
+    *v176 = 136315138;
+    v178 = [v162 displayName];
+    v179 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v181 = v180;
+
+    v182 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v179, v181, v315);
+
+    *(v176 + 4) = v182;
+    _os_log_impl(&dword_2493AC000, v174, v175, "[TAP] [Interaction] Keeping track of last opened item in 'validateItemSelectionAndPerformDidPickIfNeeded()': %s", v176, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v177);
+    MEMORY[0x24C1FE850](v177, -1, -1);
+    MEMORY[0x24C1FE850](v176, -1, -1);
+  }
+
+  v183 = v309;
+  if ([v292 forPickingDocuments])
+  {
+    if (v144)
+    {
+      v184 = v307;
+      v185 = v295;
+      Date.init()();
+      FPItem.setLastOpenDate(_:delay:)(v185, 3.0);
+
+      (*(v296 + 8))(v185, v297);
+    }
+
+    else
+    {
+      v201 = v308;
+      swift_unknownObjectRetain();
+      v202 = Logger.logObject.getter();
+      v203 = static os_log_type_t.error.getter();
+      swift_unknownObjectRelease();
+      if (os_log_type_enabled(v202, v203))
+      {
+        v204 = swift_slowAlloc();
+        v205 = swift_slowAlloc();
+        v315[0] = v205;
+        *v204 = 136315138;
+        v206 = [v201 displayName];
+        v207 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v209 = v208;
+
+        v210 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v207, v209, v315);
+        v183 = v309;
+
+        *(v204 + 4) = v210;
+        _os_log_impl(&dword_2493AC000, v202, v203, "[TAP] [Interaction] Could not bump last opened date because node: %s does not have an assocaited FPItem", v204, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v205);
+        MEMORY[0x24C1FE850](v205, -1, -1);
+        MEMORY[0x24C1FE850](v204, -1, -1);
+      }
+    }
+  }
+
+  v211 = swift_allocObject();
+  swift_unknownObjectWeakInit();
+  v212 = swift_allocObject();
+  v213 = v331;
+  *(v212 + 72) = v332;
+  v214 = v334;
+  *(v212 + 88) = v333;
+  *(v212 + 104) = v214;
+  v215 = v308;
+  *(v212 + 16) = v211;
+  *(v212 + 24) = v215;
+  v216 = v311;
+  v217 = v312;
+  *(v212 + 32) = v314;
+  *(v212 + 40) = v216;
+  *(v212 + 48) = v217;
+  *(v212 + 120) = v335;
+  *(v212 + 56) = v213;
+  *(v212 + 128) = v310;
+  swift_unknownObjectRetain();
+
+  v218 = v314;
+  outlined init with copy of DOCInteractionManagerContext(&v316, v315);
+  v219 = [v215 nodeURL];
+  if (v219)
+  {
+    v313 = v218;
+    v314 = v211;
+    v220 = v219;
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+
+    swift_unknownObjectRetain();
+    v221 = Logger.logObject.getter();
+    v222 = static os_log_type_t.debug.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v221, v222))
+    {
+      v223 = swift_slowAlloc();
+      v224 = swift_slowAlloc();
+      v315[0] = v224;
+      *v223 = 136315138;
+      v225 = [v215 displayName];
+      v226 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v228 = v227;
+
+      v229 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v226, v228, v315);
+
+      *(v223 + 4) = v229;
+      v183 = v309;
+      __swift_destroy_boxed_opaque_existential_0(v224);
+      MEMORY[0x24C1FE850](v224, -1, -1);
+      MEMORY[0x24C1FE850](v223, -1, -1);
+    }
+
+    v230 = v300;
+    v231 = v301;
+    v232 = v302;
+    v233 = *(v300 + 16);
+    v233(v302, v183, v301);
+    (*(v230 + 56))(v232, 0, 1, v231);
+    swift_beginAccess();
+    Strong = swift_unknownObjectWeakLoadStrong();
+    v235 = v299;
+    v304 = Strong;
+    if (Strong)
+    {
+      outlined init with copy of DOCGridLayout.Spec?(v232, v299, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      if ((*(v230 + 48))(v235, 1, v231) != 1)
+      {
+        v264 = v230;
+        v303 = *(v230 + 32);
+        v265 = v298;
+        (v303)(v298, v235, v231);
+        v266 = swift_allocObject();
+        v299 = v266;
+        swift_unknownObjectWeakInit();
+        v267 = v294;
+        v233(v294, v265, v231);
+        v268 = (*(v264 + 80) + 56) & ~*(v264 + 80);
+        v269 = (v293 + v268 + 7) & 0xFFFFFFFFFFFFFFF8;
+        v270 = swift_allocObject();
+        v271 = v231;
+        v272 = v308;
+        v270[2] = v266;
+        v270[3] = v272;
+        v274 = v312;
+        v273 = v313;
+        v275 = v311;
+        v270[4] = v313;
+        v270[5] = v275;
+        v270[6] = v274;
+        (v303)(v270 + v268, v267, v271);
+        v276 = v270 + v269;
+        v277 = v334;
+        *(v276 + 2) = v333;
+        *(v276 + 3) = v277;
+        *(v276 + 8) = v335;
+        v278 = v332;
+        *v276 = v331;
+        *(v276 + 1) = v278;
+        v276[72] = v310;
+        swift_unknownObjectRetain();
+
+        v279 = v273;
+        outlined init with copy of DOCInteractionManagerContext(&v316, v315);
+
+        DOCRunInMainThread(_:)();
+
+        outlined destroy of DOCInteractionManagerContext(&v316);
+
+        v280 = v301;
+        v281 = *(v300 + 8);
+        v281(v298, v301);
+        outlined destroy of CharacterSet?(v302, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v281(v309, v280);
+
+        return result;
+      }
+
+      outlined destroy of CharacterSet?(v235, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v236 = v308;
+      swift_unknownObjectRetain();
+      v237 = Logger.logObject.getter();
+      v238 = static os_log_type_t.error.getter();
+      swift_unknownObjectRelease();
+      if (os_log_type_enabled(v237, v238))
+      {
+        v239 = swift_slowAlloc();
+        v310 = swift_slowAlloc();
+        v315[0] = v310;
+        *v239 = 136315138;
+        v240 = [v236 displayName];
+        v241 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v243 = v242;
+
+        v244 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v241, v243, v315);
+        v183 = v309;
+
+        *(v239 + 4) = v244;
+        _os_log_impl(&dword_2493AC000, v237, v238, "[TAP] [Interaction] Clearing lastOpenedNode Got a nil url from fetchURL for item: %s but no error.", v239, 0xCu);
+        v245 = v310;
+        __swift_destroy_boxed_opaque_existential_0(v310);
+        MEMORY[0x24C1FE850](v245, -1, -1);
+        v246 = v239;
+        v232 = v302;
+        MEMORY[0x24C1FE850](v246, -1, -1);
+      }
+
+      v247 = v313;
+      v248 = (v303)(0);
+      (v311)(v248);
+    }
+
+    else
+    {
+    }
+
+    outlined destroy of DOCInteractionManagerContext(&v316);
+
+    outlined destroy of CharacterSet?(v232, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    (*(v230 + 8))(v183, v231);
+
+    return result;
+  }
+
+  swift_unknownObjectRetain();
+  v249 = Logger.logObject.getter();
+  if (v304)
+  {
+    v250 = static os_log_type_t.debug.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v249, v250))
+    {
+      v251 = swift_slowAlloc();
+      v313 = v218;
+      v252 = v251;
+      v253 = swift_slowAlloc();
+      v315[0] = v253;
+      *v252 = 136315138;
+      v254 = [v215 displayName];
+      v255 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v257 = v256;
+
+      v258 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v255, v257, v315);
+
+      *(v252 + 4) = v258;
+      __swift_destroy_boxed_opaque_existential_0(v253);
+      MEMORY[0x24C1FE850](v253, -1, -1);
+      v259 = v252;
+      v218 = v313;
+      MEMORY[0x24C1FE850](v259, -1, -1);
+    }
+
+    v260 = [objc_opt_self() defaultManager];
+    v261 = swift_allocObject();
+    v261[2] = v215;
+    v261[3] = partial apply for closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+    v261[4] = v212;
+    v315[4] = partial apply for closure #5 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+    v315[5] = v261;
+    v315[0] = MEMORY[0x277D85DD0];
+    v315[1] = 1107296256;
+    v315[2] = thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed URL?, @guaranteed Error?) -> ();
+    v315[3] = &block_descriptor_239;
+    v262 = _Block_copy(v315);
+    swift_unknownObjectRetain();
+
+    v263 = v307;
+    [v260 fetchURLForItem:v307 completionHandler:v262];
+
+    outlined destroy of DOCInteractionManagerContext(&v316);
+
+    _Block_release(v262);
+  }
+
+  else
+  {
+    v282 = static os_log_type_t.fault.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v249, v282))
+    {
+      v283 = swift_slowAlloc();
+      v313 = v218;
+      v284 = v283;
+      v285 = swift_slowAlloc();
+      v315[0] = v285;
+      *v284 = 136315138;
+      v286 = [v215 displayName];
+      v287 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v289 = v288;
+
+      v290 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v287, v289, v315);
+
+      *(v284 + 4) = v290;
+      __swift_destroy_boxed_opaque_existential_0(v285);
+      MEMORY[0x24C1FE850](v285, -1, -1);
+      MEMORY[0x24C1FE850](v284, -1, -1);
+    }
+
+    else
+    {
+    }
+
+    outlined destroy of DOCInteractionManagerContext(&v316);
+  }
+
+  return result;
+}
+
+void closure #1 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(void *a1, uint64_t a2)
+{
+  v2 = [a1 displayName];
+  if (!v2)
+  {
+    v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v4 = MEMORY[0x24C1FAD20](v3);
+
+    v2 = v4;
+  }
+
+  v5 = v2;
+  DOCAlertUserTrashedFileCanNotBeOpened();
+}
+
+void closure #2 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(void *a1, uint64_t a2)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (!Strong)
+  {
+    return;
+  }
+
+  v4 = Strong;
+  if (!a1)
+  {
+
+    return;
+  }
+
+  v5 = MEMORY[0x277D85000];
+  v6 = *((*MEMORY[0x277D85000] & *Strong) + 0xCB8);
+  v7 = a1;
+  v8 = v6();
+  Available = specialized Array<A>.fpfs_syncFetchAvailableFPItems()(v8);
+
+  v36 = Available;
+
+  v10 = specialized Collection<>.firstIndex(of:)(v7, Available);
+  v12 = v11;
+
+  if (v12)
+  {
+    v14 = v7;
+    MEMORY[0x24C1FB090]();
+    if (*((v36 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v36 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    {
+      specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
+    }
+
+    specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
+LABEL_12:
+    v17 = OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration;
+    v18 = *&v4[OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration];
+    v10 = v4;
+    if (![v18 useSharedQuickLook] || (objc_msgSend(v7, sel_isFolder) & 1) != 0)
+    {
+
+LABEL_15:
+
+      return;
+    }
+
+    v19 = *&v4[v17];
+
+    v20 = [v19 sceneIdentifier];
+    if (!v20)
+    {
+      if (one-time initialization token for Source != -1)
+      {
+        swift_once();
+      }
+
+      v30 = static DOCLog.Source;
+      v31 = static os_log_type_t.debug.getter();
+      os_log(_:dso:log:type:_:)("Scene Identifier was nil. This may not be not be a problem. Reproduce and investigate if it is ok.", 98, 2, &dword_2493AC000, v30, v31, MEMORY[0x277D84F90]);
+
+      goto LABEL_15;
+    }
+
+    v21 = one-time initialization token for mapTable;
+    v15 = v20;
+    if (v21 == -1)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (!(v36 >> 62))
+  {
+    v15 = *((v36 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v15 >= v10)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_28:
+    __break(1u);
+    goto LABEL_29;
+  }
+
+  v15 = __CocoaSet.count.getter();
+  if (v15 < v10)
+  {
+    goto LABEL_28;
+  }
+
+LABEL_10:
+  if ((v10 & 0x8000000000000000) == 0)
+  {
+    v16 = v7;
+    specialized Array.replaceSubrange<A>(_:with:)(v10, v10, v16);
+
+    goto LABEL_12;
+  }
+
+LABEL_29:
+  __break(1u);
+LABEL_30:
+  v32 = v15;
+  swift_once();
+  v15 = v32;
+LABEL_19:
+  v22 = static DOCPreviewController.mapTable;
+  v23 = v15;
+  v24 = [v22 objectForKey_];
+  if (!v24)
+  {
+    v25 = objc_allocWithZone(type metadata accessor for DOCPreviewController(0));
+    v24 = DOCPreviewController.init()();
+    [v22 setObject:v24 forKey:v23];
+  }
+
+  if (v36 >> 62)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
+    v26 = _bridgeCocoaArray<A>(_:)();
+  }
+
+  else
+  {
+    dispatch thunk of __ContiguousArrayStorageBase.staticElementType.getter();
+    v26 = v36;
+  }
+
+  v33 = v26;
+  v34 = 0;
+  v35 = 0;
+  v27 = specialized Collection<>.firstIndex(of:)(v7, v36);
+  v29 = v28;
+
+  (*((*v5 & *v24) + 0x1C8))(&v33, v27, v29 & 1);
+
+  outlined consume of DOCPreviewSource?(v33, v34, v35);
+}
+
+void closure #3 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v5 - 8, v6);
+  v8 = &v23[-v7 - 8];
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  MEMORY[0x28223BE20](v9, v11);
+  v13 = &v23[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v15 = Strong;
+    outlined init with copy of DOCGridLayout.Spec?(a2, v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    if ((*(v10 + 48))(v8, 1, v9) == 1)
+    {
+
+      outlined destroy of CharacterSet?(v8, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    }
+
+    else
+    {
+      (*(v10 + 32))(v13, v8, v9);
+      if (a1)
+      {
+        v16 = *((*MEMORY[0x277D85000] & *v15) + 0xA90);
+        v17 = a1;
+        v18 = v16(v23);
+        v20 = v19;
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        v22 = *v20;
+        *v20 = 0x8000000000000000;
+        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v17, v13, isUniquelyReferenced_nonNull_native, &v22);
+        *v20 = v22;
+        v18(v23, 0);
+
+        (*(v10 + 8))(v13, v9);
+      }
+
+      else
+      {
+        (*(v10 + 8))(v13, v9);
+      }
+    }
+  }
+}
+
+double closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, void (*a6)(uint64_t), uint64_t a7, uint64_t a8, unsigned __int8 a9)
+{
+  v71 = a5;
+  v72 = a7;
+  v68 = a4;
+  v69 = a6;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v12 - 8, v13);
+  v15 = &v65 - v14;
+  v16 = type metadata accessor for URL();
+  v17 = *(v16 - 8);
+  v18 = *(v17 + 64);
+  MEMORY[0x28223BE20](v16, v19);
+  v20 = &v65 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21, v22);
+  v24 = &v65 - v23;
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    if (a2)
+    {
+      v26 = a2;
+      if (one-time initialization token for UI != -1)
+      {
+        swift_once();
+      }
+
+      v27 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v27, static Logger.UI);
+      v28 = a2;
+      v29 = v68;
+      swift_unknownObjectRetain();
+      v30 = Logger.logObject.getter();
+      v31 = static os_log_type_t.error.getter();
+      swift_unknownObjectRelease();
+
+      if (os_log_type_enabled(v30, v31))
+      {
+        v32 = swift_slowAlloc();
+        v33 = swift_slowAlloc();
+        v74[0] = v33;
+        *v32 = 136315394;
+        v34 = [v29 displayName];
+        v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v37 = v36;
+
+        v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, v74);
+
+        *(v32 + 4) = v38;
+        *(v32 + 12) = 2080;
+        v73 = a2;
+        v39 = a2;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+        v40 = String.init<A>(describing:)();
+        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v41, v74);
+
+        *(v32 + 14) = v42;
+        _os_log_impl(&dword_2493AC000, v30, v31, "[TAP] [Interaction] Clearing lastOpenedNode: Got a nil url from fetchURL for item %s. error %s. Bailing out.", v32, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x24C1FE850](v33, -1, -1);
+        MEMORY[0x24C1FE850](v32, -1, -1);
+      }
+
+      v43 = (*((*MEMORY[0x277D85000] & *v71) + 0x68))(0);
+      v69(v43);
+    }
+
+    else
+    {
+      outlined init with copy of DOCGridLayout.Spec?(a1, v15, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      if ((*(v17 + 48))(v15, 1, v16) == 1)
+      {
+        outlined destroy of CharacterSet?(v15, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        if (one-time initialization token for UI != -1)
+        {
+          swift_once();
+        }
+
+        v44 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v44, static Logger.UI);
+        v45 = v68;
+        swift_unknownObjectRetain();
+        v46 = Logger.logObject.getter();
+        v47 = static os_log_type_t.error.getter();
+        swift_unknownObjectRelease();
+        if (os_log_type_enabled(v46, v47))
+        {
+          v48 = swift_slowAlloc();
+          v49 = swift_slowAlloc();
+          v74[0] = v49;
+          *v48 = 136315138;
+          v50 = [v45 displayName];
+          v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v53 = v52;
+
+          v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v74);
+
+          *(v48 + 4) = v54;
+          _os_log_impl(&dword_2493AC000, v46, v47, "[TAP] [Interaction] Clearing lastOpenedNode Got a nil url from fetchURL for item: %s but no error.", v48, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v49);
+          MEMORY[0x24C1FE850](v49, -1, -1);
+          MEMORY[0x24C1FE850](v48, -1, -1);
+        }
+
+        v55 = (*((*MEMORY[0x277D85000] & *v71) + 0x68))(0);
+        v69(v55);
+      }
+
+      else
+      {
+        v67 = a9;
+        v66 = *(v17 + 32);
+        v66(v24, v15, v16);
+        v56 = swift_allocObject();
+        v65 = v56;
+        swift_unknownObjectWeakInit();
+        (*(v17 + 16))(v20, v24, v16);
+        v57 = (*(v17 + 80) + 56) & ~*(v17 + 80);
+        v58 = swift_allocObject();
+        *(v58 + 2) = v56;
+        v59 = v71;
+        *(v58 + 3) = v68;
+        *(v58 + 4) = v59;
+        v60 = v72;
+        *(v58 + 5) = v69;
+        *(v58 + 6) = v60;
+        v66(&v58[v57], v20, v16);
+        v61 = &v58[(v18 + v57 + 7) & 0xFFFFFFFFFFFFFFF8];
+        v62 = *(a8 + 48);
+        *(v61 + 2) = *(a8 + 32);
+        *(v61 + 3) = v62;
+        *(v61 + 8) = *(a8 + 64);
+        v63 = *(a8 + 16);
+        *v61 = *a8;
+        *(v61 + 1) = v63;
+        v61[72] = v67 & 1;
+        swift_unknownObjectRetain();
+
+        v64 = v71;
+
+        outlined init with copy of DOCInteractionManagerContext(a8, v74);
+        DOCRunInMainThread(_:)();
+
+        (*(v17 + 8))(v24, v16);
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(uint64_t a1, void *a2, void *a3, uint64_t (*a4)(void), uint64_t a5, uint64_t a6, __int128 *a7, char a8)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v16 = Strong;
+    v62 = a8;
+    if (one-time initialization token for UI != -1)
+    {
+      swift_once();
+    }
+
+    v17 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v17, static Logger.UI);
+    swift_unknownObjectRetain();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.default.getter();
+    swift_unknownObjectRelease();
+    v64 = a6;
+    if (os_log_type_enabled(v18, v19))
+    {
+      v60 = a3;
+      v20 = swift_slowAlloc();
+      v58 = swift_slowAlloc();
+      v65[0] = v58;
+      *v20 = 136315138;
+      v21 = a5;
+      v22 = [a2 displayName];
+      v59 = a4;
+      v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v24 = v16;
+      v26 = v25;
+
+      a5 = v21;
+      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v26, v65);
+      v16 = v24;
+
+      *(v20 + 4) = v27;
+      a4 = v59;
+      _os_log_impl(&dword_2493AC000, v18, v19, "[TAP] [Interaction] tryOpeningInDefaultApp for: %s", v20, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v58);
+      MEMORY[0x24C1FE850](v58, -1, -1);
+      v28 = v20;
+      a3 = v60;
+      MEMORY[0x24C1FE850](v28, -1, -1);
+    }
+
+    v61 = [objc_opt_self() supportsQuickLookInsteadOfOpen_];
+    v29 = swift_allocObject();
+    swift_unknownObjectWeakInit();
+    v30 = swift_allocObject();
+    v31 = *a7;
+    *(v30 + 56) = a7[1];
+    v32 = a7[3];
+    *(v30 + 72) = a7[2];
+    *(v30 + 88) = v32;
+    *(v30 + 16) = v29;
+    *(v30 + 24) = a3;
+    *(v30 + 32) = a2;
+    *(v30 + 104) = *(a7 + 8);
+    *(v30 + 40) = v31;
+    *(v30 + 112) = v62 & 1;
+    *(v30 + 120) = a4;
+    *(v30 + 128) = a5;
+    swift_unknownObjectRetain_n();
+
+    v33 = a3;
+    outlined init with copy of DOCInteractionManagerContext(a7, v65);
+
+    v34 = Logger.logObject.getter();
+    v35 = static os_log_type_t.debug.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v34, v35))
+    {
+      v36 = swift_slowAlloc();
+      v63 = swift_slowAlloc();
+      v65[0] = v63;
+      *v36 = 136315394;
+      *(v36 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000062, 0x8000000249BDBBD0, v65);
+      *(v36 + 12) = 2080;
+      v37 = v16;
+      v38 = [a2 description];
+      v39 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v41 = v40;
+
+      v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v41, v65);
+
+      *(v36 + 14) = v42;
+      v16 = v37;
+      _os_log_impl(&dword_2493AC000, v34, v35, "%s node is non-nil trying to open with node first: %s", v36, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x24C1FE850](v63, -1, -1);
+      MEMORY[0x24C1FE850](v36, -1, -1);
+    }
+
+    ObjectType = swift_getObjectType();
+    swift_unknownObjectRetain();
+    specialized _tryOpeningInDefaultApp #1 (_:node:preferQuickLook:) in static LaunchUtils.tryOpeningInDefaultApp(_:node:requireOpenInPlace:preferQuickLook:alertPresenting:completionBlock:)(v64, a2, v61, 1, v16, partial apply for closure #1 in closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:), v30, ObjectType);
+
+    return swift_unknownObjectRelease_n();
+  }
+
+  else
+  {
+    if (one-time initialization token for UI != -1)
+    {
+      swift_once();
+    }
+
+    v45 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v45, static Logger.UI);
+    swift_unknownObjectRetain();
+    v46 = Logger.logObject.getter();
+    v47 = static os_log_type_t.error.getter();
+    swift_unknownObjectRelease();
+    if (os_log_type_enabled(v46, v47))
+    {
+      v48 = swift_slowAlloc();
+      v49 = swift_slowAlloc();
+      v65[0] = v49;
+      *v48 = 136315138;
+      v50 = [a2 displayName];
+      v51 = a4;
+      v52 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v54 = v53;
+
+      v55 = v52;
+      a4 = v51;
+      v56 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v54, v65);
+
+      *(v48 + 4) = v56;
+      _os_log_impl(&dword_2493AC000, v46, v47, "[TAP] [Interaction] Clearing lastOpenedNode: self is nil. item: %s. Bailing out.", v48, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v49);
+      MEMORY[0x24C1FE850](v49, -1, -1);
+      MEMORY[0x24C1FE850](v48, -1, -1);
+    }
+
+    v57 = (*((*MEMORY[0x277D85000] & *a3) + 0x68))(0);
+    return a4(v57);
+  }
+}
+
+double closure #1 in closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(char a1, uint64_t a2, void *a3, uint64_t a4, __int128 *a5, char a6, uint64_t a7, uint64_t a8)
+{
+  v15 = swift_allocObject();
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  swift_unknownObjectWeakInit();
+
+  v17 = swift_allocObject();
+  v18 = *a5;
+  *(v17 + 56) = a5[1];
+  v19 = a5[3];
+  *(v17 + 72) = a5[2];
+  *(v17 + 88) = v19;
+  *(v17 + 16) = a3;
+  *(v17 + 24) = a4;
+  *(v17 + 32) = a1;
+  v20 = *(a5 + 8);
+  *(v17 + 40) = v18;
+  *(v17 + 104) = v20;
+  *(v17 + 112) = v15;
+  *(v17 + 120) = a6;
+  *(v17 + 128) = a7;
+  *(v17 + 136) = a8;
+  v21 = a3;
+  swift_unknownObjectRetain();
+  outlined init with copy of DOCInteractionManagerContext(a5, &v23);
+
+  DOCRunInMainThread(_:)();
+
+  return result;
+}
+
+uint64_t closure #1 in closure #1 in closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(void *a1, void *a2, char a3, __int128 *a4, void *a5, int a6, uint64_t (*a7)(void), uint64_t a8)
+{
+  v160 = a8;
+  LODWORD(v158) = a6;
+  v157 = a4;
+  v13 = type metadata accessor for DispatchWorkItemFlags();
+  v148 = *(v13 - 8);
+  v149 = v13;
+  MEMORY[0x28223BE20](v13, v14);
+  v146 = &v140 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v147 = type metadata accessor for DispatchQoS();
+  v145 = *(v147 - 8);
+  MEMORY[0x28223BE20](v147, v16);
+  v144 = &v140 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = type metadata accessor for DispatchTime();
+  v19 = *(v18 - 8);
+  v154 = v18;
+  v155 = v19;
+  MEMORY[0x28223BE20](v18, v20);
+  v143 = &v140 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22, v23);
+  v153 = &v140 - v24;
+  v25 = type metadata accessor for Date();
+  v151 = *(v25 - 8);
+  v152 = v25;
+  v27 = MEMORY[0x28223BE20](v25, v26);
+  v150 = &v140 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = *((*MEMORY[0x277D85000] & *a1) + 0x68);
+  v156 = a1;
+  v29(0, v27);
+  if (one-time initialization token for UI != -1)
+  {
+    swift_once();
+  }
+
+  v30 = type metadata accessor for Logger();
+  v31 = __swift_project_value_buffer(v30, static Logger.UI);
+  swift_unknownObjectRetain();
+  v32 = Logger.logObject.getter();
+  v33 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  if (os_log_type_enabled(v32, v33))
+  {
+    v34 = swift_slowAlloc();
+    v159 = a5;
+    v35 = v34;
+    v141 = swift_slowAlloc();
+    *&aBlock = v141;
+    *v35 = 136315138;
+    v36 = [a2 displayName];
+    v142 = v31;
+    v37 = v36;
+    v38 = a3;
+    v39 = a2;
+    v40 = a7;
+    v41 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v43 = v42;
+
+    v44 = v41;
+    a7 = v40;
+    a2 = v39;
+    a3 = v38;
+    v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v43, &aBlock);
+
+    *(v35 + 4) = v45;
+    v46 = v141;
+    __swift_destroy_boxed_opaque_existential_0(v141);
+    MEMORY[0x24C1FE850](v46, -1, -1);
+    a5 = v159;
+    MEMORY[0x24C1FE850](v35, -1, -1);
+  }
+
+  swift_unknownObjectRetain();
+  v47 = Logger.logObject.getter();
+  v48 = static os_log_type_t.default.getter();
+  swift_unknownObjectRelease();
+  v49 = os_log_type_enabled(v47, v48);
+  if ((a3 & 1) == 0)
+  {
+    if (v49)
+    {
+      v78 = swift_slowAlloc();
+      v79 = swift_slowAlloc();
+      *&aBlock = v79;
+      *v78 = 136315138;
+      v80 = [a2 displayName];
+      v81 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v83 = v82;
+
+      v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, &aBlock);
+
+      *(v78 + 4) = v84;
+      __swift_destroy_boxed_opaque_existential_0(v79);
+      MEMORY[0x24C1FE850](v79, -1, -1);
+      MEMORY[0x24C1FE850](v78, -1, -1);
+    }
+
+    ObjectType = swift_getObjectType();
+    v87.n128_f64[0] = specialized DOCInteractionManager.prepareNodeAndOpenIfNeeded(_:context:)(a2, v157, v156, ObjectType);
+    return (a7)(v86, v87);
+  }
+
+  if (v49)
+  {
+    v50 = swift_slowAlloc();
+    v159 = swift_slowAlloc();
+    *&aBlock = v159;
+    *v50 = 136315138;
+    v51 = [a2 displayName];
+    v52 = a5;
+    v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v54 = a7;
+    v55 = a2;
+    v57 = v56;
+
+    v58 = v53;
+    a5 = v52;
+    v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v58, v57, &aBlock);
+    a2 = v55;
+    a7 = v54;
+
+    *(v50 + 4) = v59;
+    v60 = v159;
+    __swift_destroy_boxed_opaque_existential_0(v159);
+    MEMORY[0x24C1FE850](v60, -1, -1);
+    MEMORY[0x24C1FE850](v50, -1, -1);
+  }
+
+  v61 = MEMORY[0x277D85000];
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v63 = Strong;
+    (*((*v61 & *Strong) + 0xA50))(&v162);
+
+    v169 = v164;
+    v170 = v165;
+    v171 = v166;
+    aBlock = v162;
+    v168 = v163;
+    v64 = *(&v163 + 1);
+    v65 = *(&v163 + 1);
+    outlined destroy of DOCItemCollectionConfiguration(&aBlock);
+    if (v64)
+    {
+      v66 = [v65 fileProviderItem];
+
+      if (v66)
+      {
+        swift_beginAccess();
+        v67 = swift_unknownObjectWeakLoadStrong();
+        if (v67)
+        {
+          v68 = v67;
+          v69 = *(v67 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
+
+          v70 = [v69 hostIdentifier];
+          if (!v70)
+          {
+            v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v70 = MEMORY[0x24C1FAD20](v71);
+          }
+
+          if (one-time initialization token for sharedManager != -1)
+          {
+            swift_once();
+          }
+
+          v159 = static DOCSmartFolderManager.sharedManager;
+          v72 = v66;
+          v73 = v150;
+          Date.init()();
+          v74 = objc_allocWithZone(MEMORY[0x277D05ED0]);
+          isa = Date._bridgeToObjectiveC()().super.isa;
+          v76 = [v74 initWithAppBundleIdentifier:v70 folderItem:v72 type:0 lastUsedDate:isa frecency:1.0];
+
+          v77 = (*(v151 + 8))(v73, v152);
+          DOCSmartFolderManager.register(event:)(v76, v77);
+        }
+
+        else
+        {
+        }
+      }
+    }
+  }
+
+  swift_beginAccess();
+  v86 = swift_unknownObjectWeakLoadStrong();
+  if (!v86)
+  {
+LABEL_29:
+    if (v158)
+    {
+      swift_beginAccess();
+      v116 = swift_unknownObjectWeakLoadStrong();
+      if (v116 && (v117 = v116, v118 = *(v116 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration), v117, v119 = [v118 sceneIdentifier], v118, v119))
+      {
+        v120 = one-time initialization token for mapTable;
+        v121 = v119;
+        if (v120 != -1)
+        {
+          v139 = v121;
+          swift_once();
+          v121 = v139;
+        }
+
+        v122 = static DOCPreviewController.mapTable;
+        v123 = v121;
+        v124 = [v122 objectForKey_];
+        if (!v124)
+        {
+          v125 = objc_allocWithZone(type metadata accessor for DOCPreviewController(0));
+          v124 = DOCPreviewController.init()();
+          [v122 setObject:v124 forKey:v123];
+        }
+
+        v126 = [v124 presentingViewController];
+        if (v126)
+        {
+
+          type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+          v158 = static OS_dispatch_queue.main.getter();
+          v127 = v143;
+          static DispatchTime.now()();
+          + infix(_:_:)();
+          v128 = *(v155 + 8);
+          v155 += 8;
+          v159 = v128;
+          (v128)(v127, v154);
+          v129 = swift_allocObject();
+          swift_unknownObjectWeakInit();
+          *&v169 = partial apply for closure #1 in closure #1 in closure #1 in closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:);
+          *(&v169 + 1) = v129;
+          *&aBlock = MEMORY[0x277D85DD0];
+          *(&aBlock + 1) = 1107296256;
+          *&v168 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+          *(&v168 + 1) = &block_descriptor_1106;
+          v130 = _Block_copy(&aBlock);
+
+          v131 = v144;
+          static DispatchQoS.unspecified.getter();
+          *&aBlock = MEMORY[0x277D84F90];
+          _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_6(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
+          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+          lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
+          v132 = v146;
+          v133 = v149;
+          dispatch thunk of SetAlgebra.init<A>(_:)();
+          v134 = v153;
+          v135 = v158;
+          MEMORY[0x24C1FB940](v153, v131, v132, v130);
+          _Block_release(v130);
+
+          (*(v148 + 8))(v132, v133);
+          (*(v145 + 8))(v131, v147);
+          v86 = (v159)(v134, v154);
+        }
+
+        else
+        {
+        }
+      }
+
+      else
+      {
+        if (one-time initialization token for Source != -1)
+        {
+          swift_once();
+        }
+
+        v136 = static DOCLog.Source;
+        v137 = static os_log_type_t.debug.getter();
+        v86 = os_log(_:dso:log:type:_:)("Scene Identifier was nil. This may not be not be a problem. Reproduce and investigate if it is ok.", 98, 2, &dword_2493AC000, v136, v137, MEMORY[0x277D84F90]);
+      }
+    }
+
+    return (a7)(v86, v87);
+  }
+
+  v88 = v86;
+  v159 = a5;
+  v157 = a7;
+  v89 = *(v86 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_configuration);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_249BA0290;
+  *(inited + 32) = a2;
+  swift_unknownObjectRetain();
+  v91 = v89;
+  DOCAnalyticsActionEvent.FileProvider.init(nodes:)(inited);
+  v92 = v161[42];
+  v93 = objc_opt_self();
+  v94 = [v93 mainBundle];
+
+  v95 = (*((*v61 & *v88) + 0xA68))();
+  v96 = [v95 identifier];
+
+  v97 = DOCAnalyticsActionEvent.Source.init(sourceIdentifier:)(v96);
+  v98 = v161[1];
+  v99 = (*((*v61 & *v88) + 0xBD8))(v97);
+  if (v99 < 4)
+  {
+    LODWORD(v156) = v98;
+    LODWORD(v152) = 0x3020201u >> (8 * v99);
+    v100 = [v93 mainBundle];
+    v101 = [v100 bundleIdentifier];
+
+    v102 = v92;
+    if (v101)
+    {
+      v103 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v105 = v104;
+    }
+
+    else
+    {
+      v103 = 0;
+      v105 = 0;
+    }
+
+    v106 = v91;
+    DOCAnalyticsActionEvent.Client.init(configuration:bundleIdentifier:)(v106, v103, v105, &aBlock);
+    v107 = aBlock;
+    v108 = v106;
+    DOCAnalyticsActionEvent.SortMode.init(configuration:)(v108, &v162);
+    v109 = v162;
+    v110 = v108;
+    DOCAnalyticsActionEvent.SortOrder.init(configuration:)(v110, v161);
+    v111 = v161[0];
+    v112 = [v110 hostIdentifier];
+    v113 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v115 = v114;
+
+    *&v162 = 0xD000000000000032;
+    *(&v162 + 1) = 0x8000000249BCDC20;
+    *&v163 = v113;
+    *(&v163 + 1) = v115;
+    LOBYTE(v164) = 2;
+    BYTE1(v164) = v107;
+    BYTE2(v164) = v102;
+    BYTE3(v164) = v156;
+    BYTE4(v164) = v152;
+    BYTE5(v164) = v109;
+    BYTE6(v164) = v111;
+    if (one-time initialization token for shared != -1)
+    {
+      swift_once();
+    }
+
+    specialized DOCAnalyticsManager.sendEvent(_:)(&v162, static DOCAnalyticsManager.shared);
+
+    v86 = outlined destroy of DOCAnalyticsActionEvent(&v162);
+    a7 = v157;
+    goto LABEL_29;
+  }
+
+  *&aBlock = v99;
+  result = _diagnoseUnexpectedEnumCaseValue<A, B>(type:rawValue:)();
+  __break(1u);
+  return result;
+}
+
+void closure #1 in closure #1 in closure #1 in closure #1 in closure #4 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(uint64_t a1)
+{
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v2 = Strong;
+    [Strong dismissViewControllerAnimated:0 completion:0];
+  }
+}
+
+uint64_t closure #5 in DOCItemCollectionViewController.validateNodeSelectionAndPerformDidPickIfNeeded(_:isCommittingPreview:completion:)(uint64_t a1, uint64_t a2, void *a3, uint64_t (*a4)(void, void))
+{
+  if (one-time initialization token for UI != -1)
+  {
+    swift_once();
+  }
+
+  v8 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v8, static Logger.UI);
+  swift_unknownObjectRetain();
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.debug.getter();
+  swift_unknownObjectRelease();
+  if (os_log_type_enabled(v9, v10))
+  {
+    v11 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
+    v20 = v19;
+    *v11 = 136315138;
+    v12 = [a3 displayName];
+    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v14 = a4;
+    v16 = v15;
+
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v16, &v20);
+    a4 = v14;
+
+    *(v11 + 4) = v17;
+    __swift_destroy_boxed_opaque_existential_0(v19);
+    MEMORY[0x24C1FE850](v19, -1, -1);
+    MEMORY[0x24C1FE850](v11, -1, -1);
+  }
+
+  return a4(a1, a2);
+}
+
+Swift::Void __swiftcall DOCItemCollectionViewController.wantsToCreateNewFile()()
+{
+  v1 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_documentManager);
+  if (v1)
+  {
+    DOCItemCollectionViewController.getCurrentLocation()(OBJC_IVAR____TtC26DocumentManagerExecutables33DOCBrowserContainedViewController_documentManager);
+    v3 = v2;
+    (*((*MEMORY[0x277D85000] & *v1) + 0x110))();
+  }
+}
+
+Swift::Void __swiftcall DOCItemCollectionViewController.wantsToCreateNewFolder()()
+{
+  v1 = v0;
+  if (one-time initialization token for UI != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v2, static Logger.UI);
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v3, v4))
+  {
+    v5 = swift_slowAlloc();
+    *v5 = 0;
+    _os_log_impl(&dword_2493AC000, v3, v4, "received request to create new folder", v5, 2u);
+    MEMORY[0x24C1FE850](v5, -1, -1);
+  }
+
+  v6 = *((*MEMORY[0x277D85000] & *v1) + 0x1550);
+
+  v6(0, 1);
+}
+
+Swift::String *DOCItemCollectionViewController.viewOptionsViewModel.getter()
+{
+  v1 = OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController____lazy_storage___viewOptionsViewModel;
+  if (*(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController____lazy_storage___viewOptionsViewModel))
+  {
+    v2 = *(v0 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController____lazy_storage___viewOptionsViewModel);
+  }
+
+  else
+  {
+    v2 = DOCItemCollectionViewController.loadViewOptionsModel(isInPopover:)(2);
+    *(v0 + v1) = v2;
+  }
+
+  return v2;
+}
+
+Swift::String *DOCItemCollectionViewController.loadViewOptionsModel(isInPopover:)(int a1)
+{
+  v2 = v1;
+  v83 = a1;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySb_GMd, &_s7Combine9PublishedV9PublisherVySb_GMR);
+  v86 = *(v3 - 8);
+  v87 = v3;
+  MEMORY[0x28223BE20](v3, v4);
+  v84 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v6, v7);
+  v85 = &v74 - v9;
+  v10 = [v1 traitCollection];
+  lazy protocol witness table accessor for type DOCBrowserLayoutConfiguration.Trait and conformance DOCBrowserLayoutConfiguration.Trait();
+  UITraitCollection.subscript.getter();
+
+  v82 = v91;
+  v11 = [v2 traitCollection];
+  UITraitCollection.subscript.getter();
+
+  v81 = v92;
+  v12 = objc_opt_self();
+  v13 = [v12 viewOptionsSizeSetting];
+  v14 = [v13 isEnabled];
+
+  if (v14)
+  {
+    v15 = &outlined read-only object #0 of DOCItemCollectionViewController.loadViewOptionsModel(isInPopover:);
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277D84F90];
+  }
+
+  v16 = [v2 traitCollection];
+  UITraitCollection.subscript.getter();
+
+  v17 = v90;
+  v18 = [v12 viewOptionsResizableIcon];
+  v19 = [v18 isEnabled];
+
+  if (v19 && !v17 || (v20 = [v12 viewOptionsResizableList], v21 = objc_msgSend(v20, sel_isEnabled), v20, v21) && (v17 - 1) <= 1)
+  {
+    if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+    {
+      v36 = MEMORY[0x277D84F90];
+      if (v14)
+      {
+        v36 = &outlined read-only object #0 of DOCItemCollectionViewController.loadViewOptionsModel(isInPopover:);
+      }
+
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v36[2] + 1, 1, v15);
+    }
+
+    v23 = *(v15 + 2);
+    v22 = *(v15 + 3);
+    if (v23 >= v22 >> 1)
+    {
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v15);
+    }
+
+    *(v15 + 2) = v23 + 1;
+    v15[v23 + 32] = 2;
+  }
+
+  DOCItemCollectionViewController.updateFilenameExtensionVisibilityIfNeeded()();
+  v24 = MEMORY[0x277D85000];
+  v25 = *((*MEMORY[0x277D85000] & *v2) + 0x1160);
+  v25(&v90);
+  v26 = v90;
+  v27 = v91;
+  v28 = outlined consume of DOCItemSortDescriptor?(v90, v91, v92);
+  (v25)(&v90, v28);
+  v29 = v90;
+  v30 = v91;
+  v31 = v92;
+  if (!v91)
+  {
+    goto LABEL_23;
+  }
+
+  v32.n128_f64[0] = outlined consume of DOCItemSortDescriptor?(v29, v30, v31);
+  if (v30 >> 62)
+  {
+    result = __CocoaSet.count.getter();
+    if (result)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_23:
+    v79 = 0;
+    goto LABEL_24;
+  }
+
+  result = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (!result)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_15:
+  if ((v30 & 0xC000000000000001) != 0)
+  {
+    v34 = MEMORY[0x24C1FC540](0, v30, v32);
+  }
+
+  else
+  {
+    if (!*((v30 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    {
+      __break(1u);
+      goto LABEL_35;
+    }
+
+    v34 = *(v30 + 32);
+  }
+
+  v35 = v34;
+  v79 = [v34 ascending];
+
+LABEL_24:
+  v78 = v26;
+  outlined consume of DOCItemSortDescriptor?(v29, v30, v31);
+  v75 = DOCItemCollectionViewController.getAvailableGroupingBehaviors(shouldInsertNoneOption:)(1);
+  v37 = (*((*v24 & *v2) + 0xCE8))(&v89);
+  v76 = v89;
+  v38 = (*((*v24 & *v2) + 0xA68))(v37);
+  v74 = (*((*v24 & *v38) + 0x1D0))();
+
+  v77 = *(v2 + OBJC_IVAR____TtC26DocumentManagerExecutables31DOCItemCollectionViewController_isShowingAllFilenameExtensions);
+  v80 = (*((*v24 & *v2) + 0xD18))();
+  type metadata accessor for DOCViewOptionsViewModel(0);
+  v39 = swift_allocObject();
+  result = _DocumentManagerBundle();
+  if (!result)
+  {
+LABEL_35:
+    __break(1u);
+    goto LABEL_36;
+  }
+
+  v40 = result;
+  v93._object = 0x8000000249BE0C60;
+  v41._countAndFlagsBits = 0x74704F2077656956;
+  v41._object = 0xEC000000736E6F69;
+  v93._countAndFlagsBits = 0xD000000000000025;
+  v42.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v42.value._object = 0xEB00000000656C62;
+  v43._countAndFlagsBits = 0x74704F2077656956;
+  v43._object = 0xEC000000736E6F69;
+  v44 = NSLocalizedString(_:tableName:bundle:value:comment:)(v41, v42, v40, v43, v93);
+
+  v39[1] = v44;
+  result = _DocumentManagerBundle();
+  if (!result)
+  {
+LABEL_36:
+    __break(1u);
+    goto LABEL_37;
+  }
+
+  v45 = result;
+  v94._object = 0x8000000249BE0C90;
+  v46._countAndFlagsBits = 0x79422070756F7247;
+  v94._countAndFlagsBits = 0xD00000000000003CLL;
+  v46._object = 0xE800000000000000;
+  v47.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v47.value._object = 0xEB00000000656C62;
+  v48._countAndFlagsBits = 0x79422070756F7247;
+  v48._object = 0xE800000000000000;
+  v49 = NSLocalizedString(_:tableName:bundle:value:comment:)(v46, v47, v45, v48, v94);
+
+  v39[2] = v49;
+  result = _DocumentManagerBundle();
+  if (!result)
+  {
+LABEL_37:
+    __break(1u);
+    goto LABEL_38;
+  }
+
+  v50 = result;
+  v95._object = 0x8000000249BE0CD0;
+  v51._countAndFlagsBits = 0x79422074726F53;
+  v95._countAndFlagsBits = 0xD00000000000003BLL;
+  v51._object = 0xE700000000000000;
+  v52.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v52.value._object = 0xEB00000000656C62;
+  v53._countAndFlagsBits = 0x79422074726F53;
+  v53._object = 0xE700000000000000;
+  v54 = NSLocalizedString(_:tableName:bundle:value:comment:)(v51, v52, v50, v53, v95);
+
+  v39[3] = v54;
+  result = _DocumentManagerBundle();
+  if (!result)
+  {
+LABEL_38:
+    __break(1u);
+    goto LABEL_39;
+  }
+
+  v55 = result;
+  v96._object = 0x8000000249BE0D30;
+  v56._object = 0x8000000249BE0D10;
+  v57._object = 0x8000000249BE0D10;
+  v96._countAndFlagsBits = 0xD000000000000042;
+  v56._countAndFlagsBits = 0xD000000000000012;
+  v58.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v58.value._object = 0xEB00000000656C62;
+  v57._countAndFlagsBits = 0xD000000000000012;
+  v59 = NSLocalizedString(_:tableName:bundle:value:comment:)(v56, v58, v55, v57, v96);
+
+  v39[4] = v59;
+  result = _DocumentManagerBundle();
+  if (!result)
+  {
+LABEL_39:
+    __break(1u);
+    return result;
+  }
+
+  v60 = result;
+  if (v27)
+  {
+    v61 = v78;
+  }
+
+  else
+  {
+    v61 = 5;
+  }
+
+  v97._object = 0x8000000249BE0DA0;
+  v62._countAndFlagsBits = 0xD00000000000001CLL;
+  v62._object = 0x8000000249BE0D80;
+  v63._countAndFlagsBits = 0xD00000000000001CLL;
+  v63._object = 0x8000000249BE0D80;
+  v97._countAndFlagsBits = 0xD00000000000004ELL;
+  v64.value._countAndFlagsBits = 0x617A696C61636F4CLL;
+  v64.value._object = 0xEB00000000656C62;
+  v65 = NSLocalizedString(_:tableName:bundle:value:comment:)(v62, v64, v60, v63, v97);
+
+  v39[5] = v65;
+  v66 = OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel__isInPopover;
+  LOBYTE(v90) = 2;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSbSgMd, &_sSbSgMR);
+  Published.init(initialValue:)();
+  *(&v39->_object + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_forwardingDelegate) = 0;
+  swift_unknownObjectWeakInit();
+  v67 = v74;
+  *(&v39->_countAndFlagsBits + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_groupingBehaviors) = v75;
+  *(&v39->_countAndFlagsBits + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_sortModes) = v67;
+  *(&v39->_countAndFlagsBits + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_sizeSettings) = v15;
+  swift_beginAccess();
+  LOBYTE(v88) = v76;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  swift_beginAccess();
+  LOBYTE(v88) = v61;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  *(&v39->_countAndFlagsBits + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_selectedSortOrderAscending) = v79;
+  swift_beginAccess();
+  LOBYTE(v88) = v82;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  *&v68 = v81;
+  swift_beginAccess();
+  v88 = v68;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  swift_beginAccess();
+  LOBYTE(v88) = v77;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  swift_beginAccess();
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbSgGMd, &_s7Combine9PublishedVySbSgGMR);
+  (*(*(v69 - 8) + 8))(v39 + v66, v69);
+  LOBYTE(v88) = v83;
+  Published.init(initialValue:)();
+  swift_endAccess();
+  *(&v39->_countAndFlagsBits + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_availableSections) = &outlined read-only object #1 of DOCItemCollectionViewController.loadViewOptionsModel(isInPopover:);
+  v88 = v80;
+  swift_beginAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySbGMd, &_s7Combine9PublishedVySbGMR);
+  v70 = v85;
+  Published.projectedValue.getter();
+  swift_endAccess();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySbs5NeverOGMd, &_s7Combine12AnyPublisherVySbs5NeverOGMR);
+  lazy protocol witness table accessor for type [DOCDragAndDropErrorCode] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<Bool, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySbs5NeverOGMd, &_s7Combine12AnyPublisherVySbs5NeverOGMR, MEMORY[0x277CBCD90]);
+  Publisher<>.assign(to:)();
+  v72 = v86;
+  v71 = v87;
+  (*(v86 + 16))(v84, v70, v87);
+  swift_beginAccess();
+  Published.projectedValue.setter();
+  swift_endAccess();
+  (*(v72 + 8))(v70, v71);
+
+  v73 = v39 + OBJC_IVAR____TtC26DocumentManagerExecutables23DOCViewOptionsViewModel_forwardingDelegate;
+  swift_beginAccess();
+  *(v73 + 1) = &protocol witness table for DOCItemCollectionViewController;
+  swift_unknownObjectWeakAssign();
+  return v39;
 }

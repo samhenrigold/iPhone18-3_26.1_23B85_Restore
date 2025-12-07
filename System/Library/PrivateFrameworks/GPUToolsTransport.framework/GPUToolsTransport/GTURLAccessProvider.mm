@@ -48,28 +48,28 @@
 
 - (id)urlForPath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   pathCopy = path;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = self->_registeredURLs;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
 LABEL_3:
     v9 = 0;
     while (1)
     {
-      if (*v16 != v8)
+      if (*v15 != v8)
       {
         objc_enumerationMutation(v5);
       }
 
-      v10 = [(NSMutableDictionary *)self->_registeredURLs objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v9), v15];
+      v10 = [(NSMutableDictionary *)self->_registeredURLs objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v9), v14];
       path = [v10 path];
       v12 = [path isEqualToString:pathCopy];
 
@@ -80,7 +80,7 @@ LABEL_3:
 
       if (v7 == ++v9)
       {
-        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -96,8 +96,6 @@ LABEL_3:
 LABEL_9:
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -137,21 +135,7 @@ LABEL_9:
   dCopy = d;
   handlerCopy = handler;
   v8 = dCopy;
-  if (!v8)
-  {
-    goto LABEL_10;
-  }
-
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  scheme = [v8 scheme];
-  v10 = [scheme isEqualToString:@"gtsandboxid"];
-
-  if (v10 && ([v8 host], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+  if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v8 scheme], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @"gtsandboxid"), v9, v10) && (objc_msgSend(v8, "host"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
     path = [v8 path];
 
@@ -337,7 +321,6 @@ LABEL_51:
 
   else
   {
-LABEL_10:
   }
 
   if (GTCoreLogUseOsLog())
@@ -480,7 +463,7 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
 - (void)copyIdentifier:(id)identifier toDevice:(id)device allowLocalURL:(BOOL)l directory:(id)directory completionHandler:(id)handler
 {
   lCopy = l;
-  v188 = *MEMORY[0x277D85DE8];
+  v187 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   deviceCopy = device;
   directoryCopy = directory;
@@ -502,7 +485,7 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
   }
 
   v19 = [(NSMutableDictionary *)self->_registeredURLs objectForKeyedSubscript:identifierCopy];
-  v134 = lCopy;
+  v133 = lCopy;
   if (GTCoreLogUseOsLog())
   {
     v20 = gt_tagged_log(0x10u);
@@ -540,10 +523,10 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
     }
 
     v31 = MEMORY[0x277CCA9B8];
-    v177 = *MEMORY[0x277CCA450];
+    v176 = *MEMORY[0x277CCA450];
     deviceCopy3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing connection for device: %@", deviceCopy];
-    v178 = deviceCopy3;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v178 forKeys:&v177 count:1];
+    v177 = deviceCopy3;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v177 forKeys:&v176 count:1];
     v24 = [v31 errorWithDomain:@"com.apple.gputools.urlaccessprovider" code:0 userInfo:v33];
 
     handlerCopy[2](handlerCopy, 0, v24);
@@ -571,10 +554,10 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
     }
 
     v35 = MEMORY[0x277CCA9B8];
-    v175 = *MEMORY[0x277CCA450];
+    v174 = *MEMORY[0x277CCA450];
     deviceCopy5 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing file writer service for device: %@", deviceCopy];
-    v176 = deviceCopy5;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
+    v175 = deviceCopy5;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v175 forKeys:&v174 count:1];
     v38 = [v35 errorWithDomain:@"com.apple.gputools.urlaccessprovider" code:1 userInfo:v37];
 
     handlerCopy[2](handlerCopy, 0, v38);
@@ -583,7 +566,7 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
 
   v25 = [GTFileWriterServiceXPCProxy alloc];
   serviceProperties = [v24 serviceProperties];
-  v133 = [(GTFileWriterServiceXPCProxy *)v25 initWithConnection:v23 remoteProperties:serviceProperties];
+  v132 = [(GTFileWriterServiceXPCProxy *)v25 initWithConnection:v23 remoteProperties:serviceProperties];
 
   if (([v19 startAccessingSecurityScopedResource] & 1) == 0)
   {
@@ -604,95 +587,95 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
     }
   }
 
-  v128 = identifierCopy;
+  v127 = identifierCopy;
   v40 = directoryCopy;
-  v149 = 0;
+  v148 = 0;
   v41 = v19;
-  v172 = 0;
-  v135 = *MEMORY[0x277CBE7A0];
-  v42 = [v41 getResourceValue:&v172 forKey:? error:?];
-  v43 = v172;
+  v171 = 0;
+  v134 = *MEMORY[0x277CBE7A0];
+  v42 = [v41 getResourceValue:&v171 forKey:? error:?];
+  v43 = v171;
   v44 = 0;
-  v130 = v24;
+  v129 = v24;
   if (!v42)
   {
     goto LABEL_75;
   }
 
-  v121 = v23;
-  v117 = v43;
+  v120 = v23;
+  v116 = v43;
   pathComponents = [v43 pathComponents];
-  v168 = 0;
-  v169 = &v168;
-  v170 = 0x2020000000;
-  v171 = 0;
-  v162 = 0;
-  v163 = &v162;
-  v164 = 0x3032000000;
-  v165 = __Block_byref_object_copy__4;
-  v166 = __Block_byref_object_dispose__4;
   v167 = 0;
+  v168 = &v167;
+  v169 = 0x2020000000;
+  v170 = 0;
+  v161 = 0;
+  v162 = &v161;
+  v163 = 0x3032000000;
+  v164 = __Block_byref_object_copy__4;
+  v165 = __Block_byref_object_dispose__4;
+  v166 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v46 = *MEMORY[0x277CBE838];
-  v140 = *MEMORY[0x277CBE868];
-  v180[0] = *MEMORY[0x277CBE868];
-  v123 = v46;
-  v180[1] = v46;
-  v132 = *MEMORY[0x277CBE8B0];
-  v180[2] = *MEMORY[0x277CBE8B0];
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:3];
-  v161[0] = MEMORY[0x277D85DD0];
-  v161[1] = 3221225472;
-  v161[2] = __NewFileEntriesForURL_block_invoke;
-  v161[3] = &unk_279661960;
-  v161[4] = &v168;
-  v161[5] = &v162;
-  v118 = v41;
-  v48 = [defaultManager enumeratorAtURL:v41 includingPropertiesForKeys:v47 options:0 errorHandler:v161];
+  v139 = *MEMORY[0x277CBE868];
+  v179[0] = *MEMORY[0x277CBE868];
+  v122 = v46;
+  v179[1] = v46;
+  v131 = *MEMORY[0x277CBE8B0];
+  v179[2] = *MEMORY[0x277CBE8B0];
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:3];
+  v160[0] = MEMORY[0x277D85DD0];
+  v160[1] = 3221225472;
+  v160[2] = __NewFileEntriesForURL_block_invoke;
+  v160[3] = &unk_279661960;
+  v160[4] = &v167;
+  v160[5] = &v161;
+  v117 = v41;
+  v48 = [defaultManager enumeratorAtURL:v41 includingPropertiesForKeys:v47 options:0 errorHandler:v160];
 
   v49 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v156 = 0u;
   v157 = 0u;
   v158 = 0u;
   v159 = 0u;
-  v160 = 0u;
   obj = v48;
-  v50 = [obj countByEnumeratingWithState:&v157 objects:v179 count:16];
+  v50 = [obj countByEnumeratingWithState:&v156 objects:v178 count:16];
   if (!v50)
   {
     goto LABEL_71;
   }
 
   v51 = v50;
-  v138 = *v158;
-  v115 = *MEMORY[0x277CCA450];
-  v116 = *MEMORY[0x277CCA5B8];
-  v127 = v49;
-  v113 = handlerCopy;
-  v114 = deviceCopy;
-  v124 = v40;
-  v119 = v19;
+  v137 = *v157;
+  v114 = *MEMORY[0x277CCA450];
+  v115 = *MEMORY[0x277CCA5B8];
+  v126 = v49;
+  v112 = handlerCopy;
+  v113 = deviceCopy;
+  v123 = v40;
+  v118 = v19;
   while (2)
   {
     v52 = 0;
-    v131 = v51;
+    v130 = v51;
     do
     {
-      if (*v158 != v138)
+      if (*v157 != v137)
       {
         objc_enumerationMutation(obj);
       }
 
-      v53 = *(*(&v157 + 1) + 8 * v52);
+      v53 = *(*(&v156 + 1) + 8 * v52);
       v54 = objc_autoreleasePoolPush();
+      v154 = 0;
       v155 = 0;
-      v156 = 0;
-      v55 = v163;
-      v56 = [v53 getResourceValue:&v156 forKey:v140 error:&v155];
-      v57 = v156;
-      objc_storeStrong(v55 + 5, v155);
+      v55 = v162;
+      v56 = [v53 getResourceValue:&v155 forKey:v139 error:&v154];
+      v57 = v155;
+      objc_storeStrong(v55 + 5, v154);
       if ((v56 & 1) == 0)
       {
-        *(v169 + 24) = 1;
+        *(v168 + 24) = 1;
         goto LABEL_70;
       }
 
@@ -701,49 +684,49 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
         goto LABEL_60;
       }
 
+      v152 = 0;
       v153 = 0;
-      v154 = 0;
-      v58 = v163;
-      v59 = [v53 getResourceValue:&v154 forKey:v132 error:&v153];
-      v60 = v154;
-      objc_storeStrong(v58 + 5, v153);
+      v58 = v162;
+      v59 = [v53 getResourceValue:&v153 forKey:v131 error:&v152];
+      v60 = v153;
+      objc_storeStrong(v58 + 5, v152);
       if ((v59 & 1) == 0)
       {
-        *(v169 + 24) = 1;
+        *(v168 + 24) = 1;
         goto LABEL_69;
       }
 
-      v61 = v163 + 5;
-      v152 = v163[5];
+      v61 = v162 + 5;
+      v151 = v162[5];
       v62 = pathComponents;
-      *v187 = 0;
+      *v186 = 0;
       v63 = 0;
-      if ([v53 getResourceValue:v187 forKey:v135 error:&v152])
+      if ([v53 getResourceValue:v186 forKey:v134 error:&v151])
       {
-        [*v187 pathComponents];
+        [*v186 pathComponents];
         v65 = v64 = v60;
         v66 = [v65 subarrayWithRange:{objc_msgSend(v62, "count"), objc_msgSend(v65, "count") - objc_msgSend(v62, "count")}];
 
         v60 = v64;
         v63 = [MEMORY[0x277CCACA8] pathWithComponents:v66];
 
-        v49 = v127;
+        v49 = v126;
       }
 
-      objc_storeStrong(v61, v152);
+      objc_storeStrong(v61, v151);
       if (!v63)
       {
-        *(v169 + 24) = 1;
+        *(v168 + 24) = 1;
         goto LABEL_68;
       }
 
       if ([v60 BOOLValue])
       {
-        v126 = v60;
-        v68 = v163 + 5;
-        v67 = v163[5];
+        v125 = v60;
+        v68 = v162 + 5;
+        v67 = v162[5];
         v69 = v53;
-        v70 = readlink([v69 fileSystemRepresentation], v187, 0x400uLL);
+        v70 = readlink([v69 fileSystemRepresentation], v186, 0x400uLL);
         if ((v70 & 0x8000000000000000) != 0)
         {
           v78 = *__error();
@@ -755,8 +738,8 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
             {
               *buf = 138412546;
               *&buf[4] = v69;
-              v182 = 1024;
-              LODWORD(v183) = v78;
+              v181 = 1024;
+              LODWORD(v182) = v78;
               _os_log_error_impl(&dword_24DBC9000, v79, OS_LOG_TYPE_ERROR, "Failed to read symlink for %@ (%d)", buf, 0x12u);
             }
           }
@@ -772,15 +755,15 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
           v82 = v78;
 
           v83 = MEMORY[0x277CCA9B8];
-          v186 = v115;
+          v185 = v114;
           v84 = [*(v80 + 3240) stringWithFormat:@"Failed to read symlink for %@", v69];
           *buf = v84;
-          v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v186 count:1];
-          v67 = [v83 errorWithDomain:v116 code:v82 userInfo:v85];
+          v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v185 count:1];
+          v67 = [v83 errorWithDomain:v115 code:v82 userInfo:v85];
           v86 = v67;
 
           v76 = 0;
-          v49 = v127;
+          v49 = v126;
         }
 
         else
@@ -788,13 +771,13 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
           v71 = v70;
           if (v70 < 0x400)
           {
-            v187[v70] = 0;
-            v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:v187];
+            v186[v70] = 0;
+            v76 = [MEMORY[0x277CCACA8] stringWithUTF8String:v186];
           }
 
           else
           {
-            v112 = v68;
+            v111 = v68;
             if (GTCoreLogUseOsLog())
             {
               1024 = gt_tagged_log(0x10u);
@@ -803,10 +786,10 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
               {
                 *buf = 138412802;
                 *&buf[4] = v69;
-                v182 = 2048;
-                v183 = v71;
-                v184 = 2048;
-                v185 = 1024;
+                v181 = 2048;
+                v182 = v71;
+                v183 = 2048;
+                v184 = 1024;
                 _os_log_error_impl(&dword_24DBC9000, 1024, OS_LOG_TYPE_ERROR, "Target path for symlink %@ is too long (%zd bytes >= %lu bytes [PATH_MAX])", buf, 0x20u);
               }
             }
@@ -820,53 +803,53 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
             }
 
             v88 = MEMORY[0x277CCA9B8];
-            v186 = v115;
+            v185 = v114;
             10242 = [*(v73 + 3240) stringWithFormat:@"Target path for symlink %@ is too long (%zd bytes >= %lu bytes [PATH_MAX])", v69, v71, 1024];
             *buf = 10242;
-            v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v186 count:1];
-            v67 = [v88 errorWithDomain:v116 code:55 userInfo:v90];
+            v90 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:buf forKeys:&v185 count:1];
+            v67 = [v88 errorWithDomain:v115 code:55 userInfo:v90];
             v91 = v67;
 
             v76 = 0;
-            v49 = v127;
-            v68 = v112;
+            v49 = v126;
+            v68 = v111;
           }
         }
 
         objc_storeStrong(v68, v67);
         if (!v76)
         {
-          *(v169 + 24) = 1;
-          v60 = v126;
+          *(v168 + 24) = 1;
+          v60 = v125;
           goto LABEL_68;
         }
 
         v77 = [[GTFileEntry alloc] initWithLink:v63 destination:v76];
-        v60 = v126;
+        v60 = v125;
         goto LABEL_59;
       }
 
+      v149 = 0;
       v150 = 0;
-      v151 = 0;
-      v74 = v163;
-      v75 = [v53 getResourceValue:&v151 forKey:v123 error:&v150];
-      v76 = v151;
-      objc_storeStrong(v74 + 5, v150);
+      v74 = v162;
+      v75 = [v53 getResourceValue:&v150 forKey:v122 error:&v149];
+      v76 = v150;
+      objc_storeStrong(v74 + 5, v149);
       if (!v75)
       {
-        *(v169 + 24) = 1;
+        *(v168 + 24) = 1;
 
 LABEL_68:
 LABEL_69:
 
 LABEL_70:
-        v19 = v119;
+        v19 = v118;
 
         objc_autoreleasePoolPop(v54);
-        handlerCopy = v113;
-        deviceCopy = v114;
-        v40 = v124;
-        v24 = v130;
+        handlerCopy = v112;
+        deviceCopy = v113;
+        v40 = v123;
+        v24 = v129;
         goto LABEL_71;
       }
 
@@ -874,7 +857,7 @@ LABEL_70:
 LABEL_59:
       [v49 addObject:v77];
 
-      v51 = v131;
+      v51 = v130;
 LABEL_60:
 
       objc_autoreleasePoolPop(v54);
@@ -882,12 +865,12 @@ LABEL_60:
     }
 
     while (v51 != v52);
-    v51 = [obj countByEnumeratingWithState:&v157 objects:v179 count:16];
-    handlerCopy = v113;
-    deviceCopy = v114;
-    v40 = v124;
-    v19 = v119;
-    v24 = v130;
+    v51 = [obj countByEnumeratingWithState:&v156 objects:v178 count:16];
+    handlerCopy = v112;
+    deviceCopy = v113;
+    v40 = v123;
+    v19 = v118;
+    v24 = v129;
     if (v51)
     {
       continue;
@@ -898,10 +881,10 @@ LABEL_60:
 
 LABEL_71:
 
-  if (*(v169 + 24) == 1)
+  if (*(v168 + 24) == 1)
   {
     v44 = 0;
-    v149 = v163[5];
+    v148 = v162[5];
   }
 
   else
@@ -909,57 +892,57 @@ LABEL_71:
     v44 = [v49 copy];
   }
 
-  v23 = v121;
+  v23 = v120;
 
-  _Block_object_dispose(&v162, 8);
-  _Block_object_dispose(&v168, 8);
+  _Block_object_dispose(&v161, 8);
+  _Block_object_dispose(&v167, 8);
 
-  v43 = v117;
-  v41 = v118;
+  v43 = v116;
+  v41 = v117;
 LABEL_75:
 
-  v92 = v149;
+  v92 = v148;
   [v41 stopAccessingSecurityScopedResource];
   if (v44)
   {
-    v141 = v92;
+    v140 = v92;
     v93 = v41;
-    v139 = objc_opt_new();
+    v138 = objc_opt_new();
     directoryCopy = v40;
     if (v40)
     {
-      v125 = v40;
-      identifierCopy = v128;
+      v124 = v40;
+      identifierCopy = v127;
       if (objc_opt_respondsToSelector())
       {
         v94 = objc_opt_new();
         path = [v93 path];
-        v122 = v23;
+        v121 = v23;
         v96 = v19;
         deviceUDID = selfCopy->_deviceUDID;
-        v147[0] = MEMORY[0x277D85DD0];
-        v147[1] = 3221225472;
-        v147[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke;
-        v147[3] = &unk_2796618E8;
-        v148 = handlerCopy;
+        v146[0] = MEMORY[0x277D85DD0];
+        v146[1] = 3221225472;
+        v146[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke;
+        v146[3] = &unk_2796618E8;
+        v147 = handlerCopy;
         v98 = deviceUDID;
         v19 = v96;
-        v23 = v122;
-        directoryCopy = v125;
-        [(GTFileWriterServiceXPCProxy *)v133 startTransfer:v44 basePath:path fromDevice:v98 toDirectory:v125 options:v94 completionHandler:v147];
+        v23 = v121;
+        directoryCopy = v124;
+        [(GTFileWriterServiceXPCProxy *)v132 startTransfer:v44 basePath:path fromDevice:v98 toDirectory:v124 options:v94 completionHandler:v146];
 
-        v99 = v139;
-        v92 = v141;
+        v99 = v138;
+        v92 = v140;
       }
 
       else
       {
-        v120 = v19;
+        v119 = v19;
         if (GTCoreLogUseOsLog())
         {
           v103 = gt_tagged_log(0x10u);
-          directoryCopy = v125;
-          v104 = v141;
+          directoryCopy = v124;
+          v104 = v140;
           if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
           {
             [GTURLAccessProvider copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:];
@@ -971,100 +954,81 @@ LABEL_75:
           v107 = *MEMORY[0x277D85DF8];
           v103 = [MEMORY[0x277CCACA8] stringWithFormat:@"The gputrace file transfer service is too old to support remote macOS debugging. Try updating your device's DDI by installing a newer Xcode."];
           fprintf(v107, "%s\n", [v103 UTF8String]);
-          directoryCopy = v125;
-          v104 = v141;
+          directoryCopy = v124;
+          v104 = v140;
         }
 
         v108 = MEMORY[0x277CCA9B8];
-        v173 = *MEMORY[0x277CCA450];
+        v172 = *MEMORY[0x277CCA450];
         v109 = [MEMORY[0x277CCACA8] stringWithFormat:@"File writer service is too old. Missing selector %@", @"startTransfer:basePath:fromDevice:toDirectory:options:completionHandler:"];
-        v174 = v109;
-        v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v174 forKeys:&v173 count:1];
+        v173 = v109;
+        v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v173 forKeys:&v172 count:1];
         v92 = [v108 errorWithDomain:@"com.apple.gputools.urlaccessprovider" code:2 userInfo:v110];
 
         handlerCopy[2](handlerCopy, 0, v92);
-        v19 = v120;
-        v99 = v139;
+        v19 = v119;
+        v99 = v138;
       }
     }
 
     else
     {
-      identifierCopy = v128;
-      if (v134 && (objc_opt_respondsToSelector() & 1) != 0)
+      identifierCopy = v127;
+      if (v133 && (objc_opt_respondsToSelector() & 1) != 0)
       {
         path2 = [v93 path];
         v101 = selfCopy->_deviceUDID;
-        v145[0] = MEMORY[0x277D85DD0];
-        v145[1] = 3221225472;
-        v145[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke_115;
-        v145[3] = &unk_2796618E8;
-        v146 = handlerCopy;
-        v99 = v139;
-        [(GTFileWriterServiceXPCProxy *)v133 startTransfer:v44 basePath:path2 fromDevice:v101 options:v139 completionHandler:v145];
+        v144[0] = MEMORY[0x277D85DD0];
+        v144[1] = 3221225472;
+        v144[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke_115;
+        v144[3] = &unk_2796618E8;
+        v145 = handlerCopy;
+        v99 = v138;
+        [(GTFileWriterServiceXPCProxy *)v132 startTransfer:v44 basePath:path2 fromDevice:v101 options:v138 completionHandler:v144];
 
-        v102 = v146;
+        v102 = v145;
       }
 
       else
       {
         path3 = [v93 path];
         v106 = selfCopy->_deviceUDID;
-        v142[0] = MEMORY[0x277D85DD0];
-        v142[1] = 3221225472;
-        v142[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke_2;
-        v142[3] = &unk_279661910;
-        v144 = handlerCopy;
-        v143 = v93;
-        v99 = v139;
-        [(GTFileWriterServiceXPCProxy *)v133 initiateTransfer:v44 basePath:path3 fromDevice:v106 options:v139 completionHandler:v142];
+        v141[0] = MEMORY[0x277D85DD0];
+        v141[1] = 3221225472;
+        v141[2] = __89__GTURLAccessProvider_copyIdentifier_toDevice_allowLocalURL_directory_completionHandler___block_invoke_2;
+        v141[3] = &unk_279661910;
+        v143 = handlerCopy;
+        v142 = v93;
+        v99 = v138;
+        [(GTFileWriterServiceXPCProxy *)v132 initiateTransfer:v44 basePath:path3 fromDevice:v106 options:v138 completionHandler:v141];
 
-        v102 = v144;
+        v102 = v143;
       }
 
-      v92 = v141;
+      v92 = v140;
     }
 
-    v24 = v130;
+    v24 = v129;
   }
 
   else
   {
     handlerCopy[2](handlerCopy, 0, v92);
     directoryCopy = v40;
-    identifierCopy = v128;
+    identifierCopy = v127;
   }
 
-  v38 = v133;
+  v38 = v132;
 LABEL_92:
 
 LABEL_93:
-  v111 = *MEMORY[0x277D85DE8];
-}
-
-- (void)securityScopedURLFromSandboxID:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_24DBC9000, v0, v1, "securityScopedURLFromSandboxID %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)securityScopedURLFromSandboxID:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)securityScopedURLFromSandboxID:completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_24DBC9000, v0, v1, "File found locally %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)securityScopedURLFromSandboxID:completionHandler:.cold.4()
@@ -1076,30 +1040,24 @@ LABEL_93:
 
 - (void)securityScopedURLFromSandboxID:completionHandler:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)securityScopedURLFromSandboxID:completionHandler:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_ERROR, "Failed to transfer archive, %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24DBC9000, a2, OS_LOG_TYPE_ERROR, "Failed to transfer archive, %@", v4, 0xCu);
 }
 
 void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler___block_invoke_70_cold_1()
@@ -1111,28 +1069,11 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
 
 - (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_24DBC9000, v1, OS_LOG_TYPE_DEBUG, "copyIdentifier %@ to device %@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_24DBC9000, v0, v1, "currentURL %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_3_0(&dword_24DBC9000, v0, v1, "Failed to consume sandbox extension for URL %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_24DBC9000, v1, OS_LOG_TYPE_DEBUG, "copyIdentifier %@ to device %@", v2, 0x16u);
 }
 
 - (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.4()
@@ -1144,20 +1085,16 @@ void __72__GTURLAccessProvider_securityScopedURLFromSandboxID_completionHandler_
 
 - (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyIdentifier:toDevice:allowLocalURL:directory:completionHandler:.cold.6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

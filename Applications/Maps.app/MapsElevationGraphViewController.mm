@@ -8,11 +8,11 @@
 
 + (id)makeHostingControllerFor:(id)for width:(double)width isMetric:(BOOL)metric traitCollection:(id)collection shouldHighlight:(BOOL)highlight chartStyle:(id)style currentPosition:(id)position
 {
-  v15 = sub_1000CE6B8(&qword_10191B3A0);
+  v15 = sub_1000CE6B8(&qword_10191B3A0, &qword_1011F0040);
   v16 = *(v15 - 8);
   __chkstk_darwin(v15);
   v18 = &v24 - v17;
-  sub_100014C84(0, &qword_10191B3B0);
+  sub_100014C84(0, &qword_10191B3B0, NSUnitLength_ptr);
   static Measurement._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getObjCClassMetadata();
   forCopy = for;

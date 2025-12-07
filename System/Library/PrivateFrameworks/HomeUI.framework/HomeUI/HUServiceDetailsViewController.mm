@@ -160,19 +160,19 @@
   return v3;
 }
 
-void __55__HUServiceDetailsViewController_acceptableItemClasses__block_invoke_2()
+void __55__HUServiceDetailsViewController_acceptableItemClasses__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v8 = [v0 setWithObjects:{v1, v2, v3, v4, v5, v6, v7, objc_opt_class(), 0}];
-  v9 = qword_27C837F50;
-  qword_27C837F50 = v8;
+  v8 = objc_opt_class();
+  v9 = objc_opt_class();
+  v10 = [v2 setWithObjects:{v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v11 = qword_27C837F50;
+  qword_27C837F50 = v10;
 }
 
 - (HUServiceDetailsViewController)initWithItemManager:(id)manager tableViewStyle:(int64_t)style
@@ -6378,7 +6378,7 @@ void __79__HUServiceDetailsViewController__presentEcosystemAccessoryRemoveConfir
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v8 = [HUMatterAccessoryRemovalHelper alloc];
   v9 = [WeakRetained item];
-  v10 = [v5 allKeys];
+  v10 = objc_msgSend_allKeys(v5);
   v11 = [(HUMatterAccessoryRemovalHelper *)v8 initWithItem:v9 connectedEcosystems:v10];
 
   if ([(HUMatterAccessoryRemovalHelper *)v11 shouldUseEcosystemRemovalConfirmation])

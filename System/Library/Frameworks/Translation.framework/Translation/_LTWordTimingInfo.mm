@@ -11,40 +11,40 @@
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy encodeObject:self->_word forKey:@"word"];
+  v5 = [coderCopy encodeObject:self->_word forKey:@"word"];
   sampleIndex = self->_sampleIndex;
   if ((sampleIndex & 0x80000000) != 0)
   {
-    v6 = _LTOSLogXPC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v8 = _LTOSLogXPC(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(_LTWordTimingInfo *)v6 encodeWithCoder:v7, v8, v9, v10, v11, v12, v13];
+      [(_LTWordTimingInfo *)v8 encodeWithCoder:v9, v10, v11, v12, v13, v14, v15];
     }
 
     sampleIndex = self->_sampleIndex;
   }
 
-  [coderCopy encodeInt32:sampleIndex forKey:@"sampleIndex"];
+  v16 = [coderCopy encodeInt32:sampleIndex forKey:@"sampleIndex"];
   offset = self->_offset;
   if ((offset & 0x80000000) != 0)
   {
-    v15 = _LTOSLogXPC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v19 = _LTOSLogXPC(v16, v17);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [(_LTWordTimingInfo *)v15 encodeWithCoder:v16, v17, v18, v19, v20, v21, v22];
+      [(_LTWordTimingInfo *)v19 encodeWithCoder:v20, v21, v22, v23, v24, v25, v26];
     }
 
     offset = self->_offset;
   }
 
-  [coderCopy encodeInt32:offset forKey:@"offset"];
+  v27 = [coderCopy encodeInt32:offset forKey:@"offset"];
   length = self->_length;
   if ((length & 0x80000000) != 0)
   {
-    v24 = _LTOSLogXPC();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v30 = _LTOSLogXPC(v27, v28);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
-      [(_LTWordTimingInfo *)v24 encodeWithCoder:v25, v26, v27, v28, v29, v30, v31];
+      [(_LTWordTimingInfo *)v30 encodeWithCoder:v31, v32, v33, v34, v35, v36, v37];
     }
 
     length = self->_length;
@@ -52,8 +52,8 @@
 
   [coderCopy encodeInt32:length forKey:@"length"];
   [coderCopy encodeDouble:@"startTime" forKey:self->_startTime];
-  v32 = [MEMORY[0x277CCAE60] valueWithRange:{self->_textRange.location, self->_textRange.length}];
-  [coderCopy encodeObject:v32 forKey:@"textRange"];
+  v38 = [MEMORY[0x277CCAE60] valueWithRange:{self->_textRange.location, self->_textRange.length}];
+  [coderCopy encodeObject:v38 forKey:@"textRange"];
 }
 
 - (_LTWordTimingInfo)initWithCoder:(id)coder

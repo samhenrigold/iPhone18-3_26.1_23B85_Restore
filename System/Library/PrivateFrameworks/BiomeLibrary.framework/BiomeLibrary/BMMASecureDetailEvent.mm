@@ -284,7 +284,7 @@ LABEL_58:
 
 - (id)jsonDictionary
 {
-  v48[14] = *MEMORY[0x1E69E9840];
+  v47[14] = *MEMORY[0x1E69E9840];
   assetMetaData = [(BMMASecureDetailEvent *)self assetMetaData];
   jsonDictionary = [assetMetaData jsonDictionary];
 
@@ -322,26 +322,26 @@ LABEL_58:
   mapExclaveFailureReason = [(BMMASecureDetailEvent *)self mapExclaveFailureReason];
   if ([(BMMASecureDetailEvent *)self hasMapExclaveFailureResult])
   {
-    v45 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMASecureDetailEvent mapExclaveFailureResult](self, "mapExclaveFailureResult")}];
+    v44 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMASecureDetailEvent mapExclaveFailureResult](self, "mapExclaveFailureResult")}];
   }
 
   else
   {
-    v45 = 0;
+    v44 = 0;
   }
 
   mountingFailureReason = [(BMMASecureDetailEvent *)self mountingFailureReason];
   if ([(BMMASecureDetailEvent *)self hasMountingFailureResult])
   {
-    v43 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMASecureDetailEvent mountingFailureResult](self, "mountingFailureResult")}];
+    v42 = [MEMORY[0x1E696AD98] numberWithBool:{-[BMMASecureDetailEvent mountingFailureResult](self, "mountingFailureResult")}];
   }
 
   else
   {
-    v43 = 0;
+    v42 = 0;
   }
 
-  v42 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMASecureDetailEvent maSecureOperationType](self, "maSecureOperationType")}];
+  v41 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMMASecureDetailEvent maSecureOperationType](self, "maSecureOperationType")}];
   personalizeFailureReason = [(BMMASecureDetailEvent *)self personalizeFailureReason];
   if ([(BMMASecureDetailEvent *)self hasPersonalizeFailureResult])
   {
@@ -355,131 +355,131 @@ LABEL_58:
 
   secureReason = [(BMMASecureDetailEvent *)self secureReason];
   result = [(BMMASecureDetailEvent *)self result];
-  v47[0] = @"assetMetaData";
+  v46[0] = @"assetMetaData";
   null = jsonDictionary;
   if (!jsonDictionary)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = null;
-  v48[0] = null;
-  v47[1] = @"clientName";
+  v33 = null;
+  v47[0] = null;
+  v46[1] = @"clientName";
   null2 = v5;
   if (!v5)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v33 = null2;
-  v48[1] = null2;
-  v47[2] = @"fromLocation";
+  v32 = null2;
+  v47[1] = null2;
+  v46[2] = @"fromLocation";
   null3 = v6;
   if (!v6)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v32 = null3;
-  v48[2] = null3;
-  v47[3] = @"graftingFailureReason";
+  v31 = null3;
+  v47[2] = null3;
+  v46[3] = @"graftingFailureReason";
   null4 = graftingFailureReason;
   if (!graftingFailureReason)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v31 = null4;
-  v48[3] = null4;
-  v47[4] = @"graftingResult";
+  v30 = null4;
+  v47[3] = null4;
+  v46[4] = @"graftingResult";
   null5 = v8;
   if (!v8)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = null5;
-  v48[4] = null5;
-  v47[5] = @"mapExclaveFailureReason";
+  v29 = null5;
+  v47[4] = null5;
+  v46[5] = @"mapExclaveFailureReason";
   null6 = mapExclaveFailureReason;
   if (!mapExclaveFailureReason)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v38 = v6;
-  v39 = v5;
-  v48[5] = null6;
-  v47[6] = @"mapExclaveFailureResult";
-  null7 = v45;
-  if (!v45)
+  v37 = v6;
+  v38 = v5;
+  v47[5] = null6;
+  v46[6] = @"mapExclaveFailureResult";
+  null7 = v44;
+  if (!v44)
   {
     null7 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37 = graftingFailureReason;
-  v48[6] = null7;
-  v47[7] = @"mountingFailureReason";
+  v36 = graftingFailureReason;
+  v47[6] = null7;
+  v46[7] = @"mountingFailureReason";
   null8 = mountingFailureReason;
   if (!mountingFailureReason)
   {
     null8 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v36 = v8;
-  v48[7] = null8;
-  v47[8] = @"mountingFailureResult";
-  null9 = v43;
-  if (!v43)
+  v35 = v8;
+  v47[7] = null8;
+  v46[8] = @"mountingFailureResult";
+  null9 = v42;
+  if (!v42)
   {
     null9 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = null6;
-  v48[8] = null9;
-  v47[9] = @"maSecureOperationType";
-  null10 = v42;
-  if (!v42)
+  v28 = null6;
+  v47[8] = null9;
+  v46[9] = @"maSecureOperationType";
+  null10 = v41;
+  if (!v41)
   {
     null10 = [MEMORY[0x1E695DFB0] null];
   }
 
   v21 = jsonDictionary;
-  v48[9] = null10;
-  v47[10] = @"personalizeFailureReason";
+  v47[9] = null10;
+  v46[10] = @"personalizeFailureReason";
   null11 = personalizeFailureReason;
   if (!personalizeFailureReason)
   {
     null11 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[10] = null11;
-  v47[11] = @"personalizeFailureResult";
+  v47[10] = null11;
+  v46[11] = @"personalizeFailureResult";
   null12 = v9;
   if (!v9)
   {
     null12 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = null7;
-  v48[11] = null12;
-  v47[12] = @"secureReason";
+  v27 = null7;
+  v47[11] = null12;
+  v46[12] = @"secureReason";
   null13 = secureReason;
   if (!secureReason)
   {
     null13 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[12] = null13;
-  v47[13] = @"result";
+  v47[12] = null13;
+  v46[13] = @"result";
   null14 = result;
   if (!result)
   {
     null14 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v48[13] = null14;
-  v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:14];
+  v47[13] = null14;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:14];
   if (!result)
   {
   }
@@ -506,11 +506,11 @@ LABEL_51:
   {
   }
 
-  if (!v42)
+  if (!v41)
   {
   }
 
-  if (!v43)
+  if (!v42)
   {
   }
 
@@ -518,13 +518,13 @@ LABEL_51:
   {
   }
 
-  if (!v45)
+  if (!v44)
   {
   }
 
   if (mapExclaveFailureReason)
   {
-    if (v36)
+    if (v35)
     {
       goto LABEL_63;
     }
@@ -533,10 +533,10 @@ LABEL_51:
   else
   {
 
-    if (v36)
+    if (v35)
     {
 LABEL_63:
-      if (v37)
+      if (v36)
       {
         goto LABEL_64;
       }
@@ -545,10 +545,10 @@ LABEL_63:
     }
   }
 
-  if (v37)
+  if (v36)
   {
 LABEL_64:
-    if (v38)
+    if (v37)
     {
       goto LABEL_65;
     }
@@ -558,10 +558,10 @@ LABEL_64:
 
 LABEL_74:
 
-  if (v38)
+  if (v37)
   {
 LABEL_65:
-    if (v39)
+    if (v38)
     {
       goto LABEL_66;
     }
@@ -578,7 +578,7 @@ LABEL_76:
 
 LABEL_75:
 
-  if (!v39)
+  if (!v38)
   {
     goto LABEL_76;
   }
@@ -592,14 +592,13 @@ LABEL_66:
 LABEL_77:
 
 LABEL_67:
-  v26 = *MEMORY[0x1E69E9840];
 
-  return v35;
+  return v34;
 }
 
 - (BMMASecureDetailEvent)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v147[1] = *MEMORY[0x1E69E9840];
+  v146[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v6 = [dictionaryCopy objectForKeyedSubscript:@"assetMetaData"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -612,9 +611,9 @@ LABEL_67:
   if (objc_opt_isKindOfClass())
   {
     v9 = v6;
-    v119 = 0;
-    v7 = [[BMMAAssetMetadata alloc] initWithJSONDictionary:v9 error:&v119];
-    v16 = v119;
+    v118 = 0;
+    v7 = [[BMMAAssetMetadata alloc] initWithJSONDictionary:v9 error:&v118];
+    v16 = v118;
     if (v16)
     {
       if (error)
@@ -646,10 +645,10 @@ LABEL_127:
         errorCopy = error;
         v38 = objc_alloc(MEMORY[0x1E696ABC0]);
         v39 = *MEMORY[0x1E698F240];
-        v144 = *MEMORY[0x1E696A578];
+        v143 = *MEMORY[0x1E696A578];
         v40 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"clientName"];
-        v145 = v40;
-        v117 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v145 forKeys:&v144 count:1];
+        v144 = v40;
+        v116 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
         v41 = [v38 initWithDomain:v39 code:2 userInfo:?];
         v9 = 0;
         v17 = 0;
@@ -666,12 +665,12 @@ LABEL_127:
     }
 
     v10 = [dictionaryCopy objectForKeyedSubscript:@"fromLocation"];
-    v116 = v7;
-    v117 = v10;
+    v115 = v7;
+    v116 = v10;
     if (!v10 || (v11 = v10, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
       errorCopy3 = error;
-      v114 = 0;
+      v113 = 0;
       goto LABEL_10;
     }
 
@@ -679,20 +678,20 @@ LABEL_127:
     if (objc_opt_isKindOfClass())
     {
       errorCopy3 = error;
-      v114 = v11;
+      v113 = v11;
 LABEL_10:
       v12 = [dictionaryCopy objectForKeyedSubscript:@"graftingFailureReason"];
-      v115 = v12;
+      v114 = v12;
       if (!v12 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
         v13 = 0;
 LABEL_13:
         v14 = [dictionaryCopy objectForKeyedSubscript:@"graftingResult"];
-        v111 = v13;
+        v110 = v13;
         if (!v14)
         {
           v15 = v6;
-          v106 = 0;
+          v105 = 0;
           goto LABEL_32;
         }
 
@@ -700,11 +699,11 @@ LABEL_13:
         if (objc_opt_isKindOfClass())
         {
           v15 = v6;
-          v106 = v14;
+          v105 = v14;
           v14 = 0;
 LABEL_32:
           v21 = [dictionaryCopy objectForKeyedSubscript:@"mapExclaveFailureReason"];
-          v108 = v21;
+          v107 = v21;
           if (v21 && (v22 = v21, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
@@ -712,54 +711,54 @@ LABEL_32:
             {
               if (!errorCopy3)
               {
-                v109 = 0;
+                v108 = 0;
                 v17 = 0;
-                v40 = v114;
-                v52 = v106;
+                v40 = v113;
+                v52 = v105;
                 v6 = v15;
-                v13 = v111;
+                v13 = v110;
 LABEL_123:
 
                 goto LABEL_124;
               }
 
-              v110 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v109 = objc_alloc(MEMORY[0x1E696ABC0]);
               v61 = *MEMORY[0x1E698F240];
-              v136 = *MEMORY[0x1E696A578];
-              v107 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"mapExclaveFailureReason"];
-              v137 = v107;
-              v113 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v137 forKeys:&v136 count:1];
-              v62 = [v110 initWithDomain:v61 code:2 userInfo:v113];
-              v109 = 0;
+              v135 = *MEMORY[0x1E696A578];
+              v106 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"mapExclaveFailureReason"];
+              v136 = v106;
+              v112 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v136 forKeys:&v135 count:1];
+              v62 = [v109 initWithDomain:v61 code:2 userInfo:v112];
+              v108 = 0;
               v17 = 0;
               *errorCopy3 = v62;
-              v40 = v114;
-              v52 = v106;
+              v40 = v113;
+              v52 = v105;
               v6 = v15;
               goto LABEL_121;
             }
 
-            v109 = v22;
+            v108 = v22;
           }
 
           else
           {
-            v109 = 0;
+            v108 = 0;
           }
 
           [dictionaryCopy objectForKeyedSubscript:@"mapExclaveFailureResult"];
-          v113 = v6 = v15;
-          if (v113 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+          v112 = v6 = v15;
+          if (v112 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               if (!errorCopy3)
               {
-                v107 = 0;
+                v106 = 0;
                 v17 = 0;
-                v40 = v114;
-                v52 = v106;
+                v40 = v113;
+                v52 = v105;
 LABEL_121:
 
                 goto LABEL_122;
@@ -767,34 +766,34 @@ LABEL_121:
 
               v63 = objc_alloc(MEMORY[0x1E696ABC0]);
               v64 = *MEMORY[0x1E698F240];
-              v134 = *MEMORY[0x1E696A578];
-              v104 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mapExclaveFailureResult"];
-              v135 = v104;
-              v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v135 forKeys:&v134 count:1];
+              v133 = *MEMORY[0x1E696A578];
+              v103 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mapExclaveFailureResult"];
+              v134 = v103;
+              v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v134 forKeys:&v133 count:1];
               v66 = v63;
-              v12 = v115;
-              v103 = v65;
+              v12 = v114;
+              v102 = v65;
               v67 = [v66 initWithDomain:v64 code:2 userInfo:?];
-              v107 = 0;
+              v106 = 0;
               v17 = 0;
               *errorCopy3 = v67;
-              v40 = v114;
-              v52 = v106;
+              v40 = v113;
+              v52 = v105;
 LABEL_120:
 
               goto LABEL_121;
             }
 
-            v107 = v113;
+            v106 = v112;
           }
 
           else
           {
-            v107 = 0;
+            v106 = 0;
           }
 
           v23 = [dictionaryCopy objectForKeyedSubscript:@"mountingFailureReason"];
-          v103 = v23;
+          v102 = v23;
           if (v23 && (v24 = v23, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
@@ -802,38 +801,38 @@ LABEL_120:
             {
               if (!errorCopy3)
               {
-                v104 = 0;
+                v103 = 0;
                 v17 = 0;
-                v40 = v114;
-                v52 = v106;
+                v40 = v113;
+                v52 = v105;
                 goto LABEL_120;
               }
 
-              v105 = objc_alloc(MEMORY[0x1E696ABC0]);
+              v104 = objc_alloc(MEMORY[0x1E696ABC0]);
               v68 = *MEMORY[0x1E698F240];
-              v132 = *MEMORY[0x1E696A578];
-              v102 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"mountingFailureReason"];
-              v133 = v102;
-              v101 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v133 forKeys:&v132 count:1];
-              v69 = [v105 initWithDomain:v68 code:2 userInfo:?];
-              v104 = 0;
+              v131 = *MEMORY[0x1E696A578];
+              v101 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"mountingFailureReason"];
+              v132 = v101;
+              v100 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v132 forKeys:&v131 count:1];
+              v69 = [v104 initWithDomain:v68 code:2 userInfo:?];
+              v103 = 0;
               v17 = 0;
               *errorCopy3 = v69;
-              v40 = v114;
-              v52 = v106;
+              v40 = v113;
+              v52 = v105;
               goto LABEL_119;
             }
 
-            v104 = v24;
+            v103 = v24;
           }
 
           else
           {
-            v104 = 0;
+            v103 = 0;
           }
 
           v25 = [dictionaryCopy objectForKeyedSubscript:@"mountingFailureResult"];
-          v101 = v25;
+          v100 = v25;
           if (v25 && (v26 = v25, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
@@ -841,50 +840,50 @@ LABEL_120:
             {
               if (!errorCopy3)
               {
-                v102 = 0;
+                v101 = 0;
                 v17 = 0;
-                v40 = v114;
-                v52 = v106;
+                v40 = v113;
+                v52 = v105;
                 goto LABEL_119;
               }
 
               v70 = objc_alloc(MEMORY[0x1E696ABC0]);
               v71 = *MEMORY[0x1E698F240];
-              v130 = *MEMORY[0x1E696A578];
-              v100 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mountingFailureResult"];
-              v131 = v100;
-              v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
+              v129 = *MEMORY[0x1E696A578];
+              v99 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"mountingFailureResult"];
+              v130 = v99;
+              v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v130 forKeys:&v129 count:1];
               v73 = v70;
-              v12 = v115;
-              v97 = v72;
+              v12 = v114;
+              v96 = v72;
               v74 = [v73 initWithDomain:v71 code:2 userInfo:?];
-              v102 = 0;
+              v101 = 0;
               v17 = 0;
               *errorCopy3 = v74;
-              v40 = v114;
-              v52 = v106;
+              v40 = v113;
+              v52 = v105;
 LABEL_118:
 
 LABEL_119:
               goto LABEL_120;
             }
 
-            v102 = v26;
+            v101 = v26;
           }
 
           else
           {
-            v102 = 0;
+            v101 = 0;
           }
 
           v27 = [dictionaryCopy objectForKeyedSubscript:@"maSecureOperationType"];
-          v97 = v27;
+          v96 = v27;
           if (v27 && (v28 = v27, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v100 = v28;
+              v99 = v28;
             }
 
             else
@@ -894,43 +893,43 @@ LABEL_119:
               {
                 if (!errorCopy3)
                 {
-                  v100 = 0;
+                  v99 = 0;
                   v17 = 0;
-                  v40 = v114;
-                  v52 = v106;
+                  v40 = v113;
+                  v52 = v105;
                   goto LABEL_118;
                 }
 
-                v86 = objc_alloc(MEMORY[0x1E696ABC0]);
-                v87 = *MEMORY[0x1E698F240];
-                v128 = *MEMORY[0x1E696A578];
-                v98 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"maSecureOperationType"];
-                v129 = v98;
-                v94 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v129 forKeys:&v128 count:1];
-                v88 = [v86 initWithDomain:v87 code:2 userInfo:?];
-                v100 = 0;
+                v85 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v86 = *MEMORY[0x1E698F240];
+                v127 = *MEMORY[0x1E696A578];
+                v97 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"maSecureOperationType"];
+                v128 = v97;
+                v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v128 forKeys:&v127 count:1];
+                v87 = [v85 initWithDomain:v86 code:2 userInfo:?];
+                v99 = 0;
                 v17 = 0;
-                *errorCopy3 = v88;
+                *errorCopy3 = v87;
                 goto LABEL_135;
               }
 
-              v100 = [MEMORY[0x1E696AD98] numberWithInt:BMMASecureOperationTypeFromString(v28)];
+              v99 = [MEMORY[0x1E696AD98] numberWithInt:BMMASecureOperationTypeFromString(v28)];
             }
           }
 
           else
           {
-            v100 = 0;
+            v99 = 0;
           }
 
           v29 = [dictionaryCopy objectForKeyedSubscript:@"personalizeFailureReason"];
-          v94 = v29;
+          v93 = v29;
           if (!v29 || (v30 = v29, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
           {
-            v98 = 0;
+            v97 = 0;
 LABEL_50:
             v31 = [dictionaryCopy objectForKeyedSubscript:@"personalizeFailureResult"];
-            v93 = v31;
+            v92 = v31;
             if (v31 && (v32 = v31, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
               objc_opt_class();
@@ -938,37 +937,37 @@ LABEL_50:
               {
                 if (!errorCopy3)
                 {
-                  v95 = 0;
+                  v94 = 0;
                   v17 = 0;
-                  v40 = v114;
+                  v40 = v113;
                   goto LABEL_115;
                 }
 
-                v96 = objc_alloc(MEMORY[0x1E696ABC0]);
+                v95 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v77 = *MEMORY[0x1E698F240];
-                v124 = *MEMORY[0x1E696A578];
+                v123 = *MEMORY[0x1E696A578];
                 v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"personalizeFailureResult"];
-                v125 = v34;
-                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
-                v78 = [v96 initWithDomain:v77 code:2 userInfo:v33];
-                v95 = 0;
+                v124 = v34;
+                v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+                v78 = [v95 initWithDomain:v77 code:2 userInfo:v33];
+                v94 = 0;
                 v17 = 0;
                 *errorCopy3 = v78;
 LABEL_114:
 
-                v40 = v114;
-                v12 = v115;
+                v40 = v113;
+                v12 = v114;
 LABEL_115:
-                v52 = v106;
+                v52 = v105;
                 goto LABEL_116;
               }
 
-              v95 = v32;
+              v94 = v32;
             }
 
             else
             {
-              v95 = 0;
+              v94 = 0;
             }
 
             v33 = [dictionaryCopy objectForKeyedSubscript:@"secureReason"];
@@ -986,10 +985,10 @@ LABEL_115:
 
                 v79 = objc_alloc(MEMORY[0x1E696ABC0]);
                 v80 = *MEMORY[0x1E698F240];
-                v122 = *MEMORY[0x1E696A578];
+                v121 = *MEMORY[0x1E696A578];
                 v36 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"secureReason"];
-                v123 = v36;
-                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v123 forKeys:&v122 count:1];
+                v122 = v36;
+                v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v122 forKeys:&v121 count:1];
                 v81 = [v79 initWithDomain:v80 code:2 userInfo:v35];
                 v34 = 0;
                 v17 = 0;
@@ -1013,13 +1012,13 @@ LABEL_115:
               {
                 if (errorCopy3)
                 {
-                  v92 = objc_alloc(MEMORY[0x1E696ABC0]);
-                  v91 = *MEMORY[0x1E698F240];
-                  v120 = *MEMORY[0x1E696A578];
+                  v91 = objc_alloc(MEMORY[0x1E696ABC0]);
+                  v90 = *MEMORY[0x1E698F240];
+                  v119 = *MEMORY[0x1E696A578];
                   v82 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"result"];
-                  v121 = v82;
-                  v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v121 forKeys:&v120 count:1];
-                  *errorCopy3 = [v92 initWithDomain:v91 code:2 userInfo:v83];
+                  v120 = v82;
+                  v83 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
+                  *errorCopy3 = [v91 initWithDomain:v90 code:2 userInfo:v83];
                 }
 
                 v36 = 0;
@@ -1035,8 +1034,8 @@ LABEL_115:
               v36 = 0;
             }
 
-            LODWORD(v90) = [v100 intValue];
-            v17 = [(BMMASecureDetailEvent *)self initWithAssetMetaData:v116 clientName:v9 fromLocation:v114 graftingFailureReason:v111 graftingResult:v14 mapExclaveFailureReason:v109 mapExclaveFailureResult:v107 mountingFailureReason:v104 mountingFailureResult:v102 maSecureOperationType:v90 personalizeFailureReason:v98 personalizeFailureResult:v95 secureReason:v34 result:v36];
+            LODWORD(v89) = [v99 intValue];
+            v17 = [(BMMASecureDetailEvent *)self initWithAssetMetaData:v115 clientName:v9 fromLocation:v113 graftingFailureReason:v110 graftingResult:v14 mapExclaveFailureReason:v108 mapExclaveFailureResult:v106 mountingFailureReason:v103 mountingFailureResult:v101 maSecureOperationType:v89 personalizeFailureReason:v97 personalizeFailureResult:v94 secureReason:v34 result:v36];
             self = v17;
 LABEL_113:
 
@@ -1046,36 +1045,36 @@ LABEL_113:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v98 = v30;
+            v97 = v30;
             goto LABEL_50;
           }
 
           if (errorCopy3)
           {
-            v99 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v98 = objc_alloc(MEMORY[0x1E696ABC0]);
             v75 = *MEMORY[0x1E698F240];
-            v126 = *MEMORY[0x1E696A578];
-            v95 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"personalizeFailureReason"];
-            v127 = v95;
-            v93 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v127 forKeys:&v126 count:1];
-            v76 = [v99 initWithDomain:v75 code:2 userInfo:?];
-            v98 = 0;
+            v125 = *MEMORY[0x1E696A578];
+            v94 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"personalizeFailureReason"];
+            v126 = v94;
+            v92 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+            v76 = [v98 initWithDomain:v75 code:2 userInfo:?];
+            v97 = 0;
             v17 = 0;
             *errorCopy3 = v76;
-            v40 = v114;
-            v52 = v106;
+            v40 = v113;
+            v52 = v105;
 LABEL_116:
 
 LABEL_117:
             goto LABEL_118;
           }
 
-          v98 = 0;
+          v97 = 0;
           v17 = 0;
 LABEL_135:
-          v40 = v114;
-          v12 = v115;
-          v52 = v106;
+          v40 = v113;
+          v12 = v114;
+          v52 = v105;
           goto LABEL_117;
         }
 
@@ -1083,7 +1082,7 @@ LABEL_135:
         if (objc_opt_isKindOfClass())
         {
           v15 = v6;
-          v106 = v14;
+          v105 = v14;
           v14 = v14;
           goto LABEL_32;
         }
@@ -1092,29 +1091,29 @@ LABEL_135:
         {
           v54 = objc_alloc(MEMORY[0x1E696ABC0]);
           v55 = *MEMORY[0x1E698F240];
-          v138 = *MEMORY[0x1E696A578];
+          v137 = *MEMORY[0x1E696A578];
           v56 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v89 = objc_opt_class();
+          v88 = objc_opt_class();
           v57 = v56;
           v52 = v14;
-          v109 = [v57 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v89, @"graftingResult"];
-          v139 = v109;
-          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v139 forKeys:&v138 count:1];
+          v108 = [v57 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v88, @"graftingResult"];
+          v138 = v108;
+          v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v138 forKeys:&v137 count:1];
           v59 = v54;
-          v12 = v115;
-          v108 = v58;
+          v12 = v114;
+          v107 = v58;
           v60 = [v59 initWithDomain:v55 code:2 userInfo:?];
           v14 = 0;
           v17 = 0;
           *errorCopy3 = v60;
-          v40 = v114;
+          v40 = v113;
 LABEL_122:
-          v13 = v111;
+          v13 = v110;
           goto LABEL_123;
         }
 
         v17 = 0;
-        v40 = v114;
+        v40 = v113;
         v52 = v14;
         v14 = 0;
 LABEL_124:
@@ -1133,25 +1132,25 @@ LABEL_124:
       {
         v49 = objc_alloc(MEMORY[0x1E696ABC0]);
         v50 = *MEMORY[0x1E698F240];
-        v140 = *MEMORY[0x1E696A578];
+        v139 = *MEMORY[0x1E696A578];
         v51 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"graftingFailureReason"];
-        v141 = v51;
-        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v141 forKeys:&v140 count:1];
+        v140 = v51;
+        v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v140 forKeys:&v139 count:1];
         v53 = [v49 initWithDomain:v50 code:2 userInfo:v52];
         v17 = 0;
         *errorCopy3 = v53;
         v14 = v51;
         v13 = 0;
-        v40 = v114;
+        v40 = v113;
         goto LABEL_124;
       }
 
       v13 = 0;
       v17 = 0;
-      v40 = v114;
+      v40 = v113;
 LABEL_125:
 
-      v7 = v116;
+      v7 = v115;
       goto LABEL_126;
     }
 
@@ -1160,10 +1159,10 @@ LABEL_125:
       errorCopy4 = error;
       v43 = objc_alloc(MEMORY[0x1E696ABC0]);
       v44 = *MEMORY[0x1E698F240];
-      v142 = *MEMORY[0x1E696A578];
+      v141 = *MEMORY[0x1E696A578];
       v45 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"fromLocation"];
-      v143 = v45;
-      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
+      v142 = v45;
+      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v142 forKeys:&v141 count:1];
       v47 = v43;
       v12 = v46;
       v48 = [v47 initWithDomain:v44 code:2 userInfo:v46];
@@ -1186,10 +1185,10 @@ LABEL_126:
     errorCopy5 = error;
     v19 = objc_alloc(MEMORY[0x1E696ABC0]);
     v20 = *MEMORY[0x1E698F240];
-    v146 = *MEMORY[0x1E696A578];
+    v145 = *MEMORY[0x1E696A578];
     v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"assetMetaData"];
-    v147[0] = v7;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:&v146 count:1];
+    v146[0] = v7;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:&v145 count:1];
     v17 = 0;
     *errorCopy5 = [v19 initWithDomain:v20 code:2 userInfo:v9];
 LABEL_128:
@@ -1200,7 +1199,6 @@ LABEL_128:
   v17 = 0;
 LABEL_129:
 
-  v84 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1225,13 +1223,11 @@ LABEL_129:
 
   if (self->_hasClientName)
   {
-    clientName = self->_clientName;
     PBDataWriterWriteBOOLField();
   }
 
   if (self->_hasFromLocation)
   {
-    fromLocation = self->_fromLocation;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1242,7 +1238,6 @@ LABEL_129:
 
   if (self->_hasGraftingResult)
   {
-    graftingResult = self->_graftingResult;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1253,7 +1248,6 @@ LABEL_129:
 
   if (self->_hasMapExclaveFailureResult)
   {
-    mapExclaveFailureResult = self->_mapExclaveFailureResult;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1264,11 +1258,9 @@ LABEL_129:
 
   if (self->_hasMountingFailureResult)
   {
-    mountingFailureResult = self->_mountingFailureResult;
     PBDataWriterWriteBOOLField();
   }
 
-  maSecureOperationType = self->_maSecureOperationType;
   PBDataWriterWriteUint32Field();
   if (self->_personalizeFailureReason)
   {
@@ -1277,7 +1269,6 @@ LABEL_129:
 
   if (self->_hasPersonalizeFailureResult)
   {
-    personalizeFailureResult = self->_personalizeFailureResult;
     PBDataWriterWriteBOOLField();
   }
 
@@ -1857,88 +1848,84 @@ LABEL_114:
 
 + (id)protoFields
 {
-  v19[14] = *MEMORY[0x1E69E9840];
-  v18 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetMetaData" number:1 type:14 subMessageClass:objc_opt_class()];
-  v19[0] = v18;
-  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientName" number:2 type:12 subMessageClass:0];
-  v19[1] = v17;
-  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fromLocation" number:3 type:12 subMessageClass:0];
-  v19[2] = v16;
-  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"graftingFailureReason" number:4 type:13 subMessageClass:0];
-  v19[3] = v15;
-  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"graftingResult" number:5 type:12 subMessageClass:0];
-  v19[4] = v14;
+  v18[14] = *MEMORY[0x1E69E9840];
+  v17 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"assetMetaData" number:1 type:14 subMessageClass:objc_opt_class()];
+  v18[0] = v17;
+  v16 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientName" number:2 type:12 subMessageClass:0];
+  v18[1] = v16;
+  v15 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fromLocation" number:3 type:12 subMessageClass:0];
+  v18[2] = v15;
+  v14 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"graftingFailureReason" number:4 type:13 subMessageClass:0];
+  v18[3] = v14;
+  v13 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"graftingResult" number:5 type:12 subMessageClass:0];
+  v18[4] = v13;
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mapExclaveFailureReason" number:6 type:13 subMessageClass:0];
-  v19[5] = v2;
+  v18[5] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mapExclaveFailureResult" number:7 type:12 subMessageClass:0];
-  v19[6] = v3;
+  v18[6] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mountingFailureReason" number:8 type:13 subMessageClass:0];
-  v19[7] = v4;
+  v18[7] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"mountingFailureResult" number:9 type:12 subMessageClass:0];
-  v19[8] = v5;
+  v18[8] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"maSecureOperationType" number:10 type:4 subMessageClass:0];
-  v19[9] = v6;
+  v18[9] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"personalizeFailureReason" number:11 type:13 subMessageClass:0];
-  v19[10] = v7;
+  v18[10] = v7;
   v8 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"personalizeFailureResult" number:12 type:12 subMessageClass:0];
-  v19[11] = v8;
+  v18[11] = v8;
   v9 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"secureReason" number:13 type:13 subMessageClass:0];
-  v19[12] = v9;
+  v18[12] = v9;
   v10 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"result" number:14 type:13 subMessageClass:0];
-  v19[13] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:14];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v18[13] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:14];
 
   return v11;
 }
 
 + (id)columns
 {
-  v19[14] = *MEMORY[0x1E69E9840];
-  v18 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"assetMetaData_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_367];
-  v17 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientName" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
-  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fromLocation" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
-  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"graftingFailureReason" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
+  v18[14] = *MEMORY[0x1E69E9840];
+  v17 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"assetMetaData_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_367];
+  v16 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientName" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:12 convertedType:0];
+  v15 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fromLocation" dataType:0 requestOnly:0 fieldNumber:3 protoDataType:12 convertedType:0];
+  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"graftingFailureReason" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"graftingResult" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:12 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mapExclaveFailureReason" dataType:2 requestOnly:0 fieldNumber:6 protoDataType:13 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mapExclaveFailureResult" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:12 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mountingFailureReason" dataType:2 requestOnly:0 fieldNumber:8 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"mountingFailureResult" dataType:0 requestOnly:0 fieldNumber:9 protoDataType:12 convertedType:0];
-  v14 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"maSecureOperationType" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:4 convertedType:0];
+  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"maSecureOperationType" dataType:0 requestOnly:0 fieldNumber:10 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"personalizeFailureReason" dataType:2 requestOnly:0 fieldNumber:11 protoDataType:13 convertedType:0];
-  v13 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"personalizeFailureResult" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:12 convertedType:0];
+  v12 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"personalizeFailureResult" dataType:0 requestOnly:0 fieldNumber:12 protoDataType:12 convertedType:0];
   v8 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"secureReason" dataType:2 requestOnly:0 fieldNumber:13 protoDataType:13 convertedType:0];
   v9 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"result" dataType:2 requestOnly:0 fieldNumber:14 protoDataType:13 convertedType:0];
-  v19[0] = v18;
-  v19[1] = v17;
-  v19[2] = v16;
-  v19[3] = v15;
-  v19[4] = v2;
-  v19[5] = v3;
-  v19[6] = v4;
-  v19[7] = v5;
-  v19[8] = v6;
-  v19[9] = v14;
-  v19[10] = v7;
-  v19[11] = v13;
-  v19[12] = v8;
-  v19[13] = v9;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:14];
+  v18[0] = v17;
+  v18[1] = v16;
+  v18[2] = v15;
+  v18[3] = v14;
+  v18[4] = v2;
+  v18[5] = v3;
+  v18[6] = v4;
+  v18[7] = v5;
+  v18[8] = v6;
+  v18[9] = v13;
+  v18[10] = v7;
+  v18[11] = v12;
+  v18[12] = v8;
+  v18[13] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:14];
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
-id __32__BMMASecureDetailEvent_columns__block_invoke(uint64_t a1, void *a2)
+id __32__BMMASecureDetailEvent_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 assetMetaData];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 assetMetaData];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (BMMASecureDetailEvent)eventWithData:(id)data dataVersion:(unsigned int)version

@@ -109,55 +109,54 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v7 = objc_msgSend_allocWithZone_(TSCH3DVector, a2, v3, v4, v5, zone);
-  objc_msgSend_value(self, v8, v9, v10, v11);
-  return objc_msgSend_initWithVec4_(v7, v12, v13, v14, v15, &v17);
+  objc_msgSend_value(self, v8, v9, v10);
+  return objc_msgSend_initWithVec4_(v7, v11, v12, v13, v14, &v16);
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
   v7 = objc_msgSend_allocWithZone_(TSCH3DMutableVector, a2, v3, v4, v5, zone);
-  objc_msgSend_value(self, v8, v9, v10, v11);
-  return objc_msgSend_initWithVec4_(v7, v12, v13, v14, v15, &v17);
+  objc_msgSend_value(self, v8, v9, v10);
+  return objc_msgSend_initWithVec4_(v7, v11, v12, v13, v14, &v16);
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   objc_opt_class();
-  v6 = TSUDynamicCast();
-  v14 = v6 && (objc_msgSend_value(self, v5, v7, v8, v9), objc_msgSend_value(v6, v10, v11, v12, v13), v20 == v16) && v21 == v17 && v22 == v18 && v23 == v19;
+  v5 = TSUDynamicCast();
+  v12 = v5 && (objc_msgSend_value(self, v6, v7, v8), objc_msgSend_value(v5, v9, v10, v11), v18 == v14) && v19 == v15 && v20 == v16 && v21 == v17;
 
-  return v14;
+  return v12;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v32.receiver = self;
-  v32.super_class = TSCH3DVector;
-  v4 = [(TSCH3DVector *)&v32 description];
-  objc_msgSend_value(self, v5, v6, v7, v8);
-  v9 = MEMORY[0x277CCACA8];
-  v28 = v29;
-  sub_276152FD4("vec4(%f, %f, %f, %f)", v10, v11, v12, v13, v14, v15, v16, SLOBYTE(v28));
-  if (v34 >= 0)
+  v24.receiver = self;
+  v24.super_class = TSCH3DVector;
+  v4 = [(TSCH3DVector *)&v24 description];
+  objc_msgSend_value(self, v5, v6, v7);
+  v8 = MEMORY[0x277CCACA8];
+  sub_276152FD4(v25, "vec4(%f, %f, %f, %f)", v20, v21, v22, v23);
+  if (v26 >= 0)
   {
-    objc_msgSend_stringWithUTF8String_(v9, v17, v18, v19, v20, &v33);
+    objc_msgSend_stringWithUTF8String_(v8, v9, v10, v11, v12, v25);
   }
 
   else
   {
-    objc_msgSend_stringWithUTF8String_(v9, v17, v18, v19, v20, v33);
+    objc_msgSend_stringWithUTF8String_(v8, v9, v10, v11, v12, v25[0]);
   }
-  v22 = ;
-  if (v34 < 0)
+  v14 = ;
+  if (v26 < 0)
   {
-    operator delete(v33);
+    operator delete(v25[0]);
   }
 
-  v26 = objc_msgSend_stringWithFormat_(v3, v21, v23, v24, v25, @"%@%@", v4, v22, v30, v31);
+  v18 = objc_msgSend_stringWithFormat_(v3, v13, v15, v16, v17, @"%@%@", v4, v14);
 
-  return v26;
+  return v18;
 }
 
 - (tvec4<float>)value

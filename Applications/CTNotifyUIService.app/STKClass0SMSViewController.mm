@@ -15,6 +15,7 @@
 - (void)setMessageString:(id)string;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation STKClass0SMSViewController
@@ -50,6 +51,17 @@
   [(STKClass0SMSViewController *)&v4 viewDidLoad];
   _remoteViewControllerProxy = [(STKClass0SMSViewController *)self _remoteViewControllerProxy];
   [_remoteViewControllerProxy setAllowsAlertStacking:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = STKClass0SMSViewController;
+  [(STKClass0SMSViewController *)&v7 viewWillAppear:appear];
+  sessionAction = [(STKClass0SMSViewController *)self sessionAction];
+  sessionData = [sessionAction sessionData];
+  body = [sessionData body];
+  [(STKClass0SMSViewController *)self setMessageString:body];
 }
 
 - (void)viewDidLayoutSubviews

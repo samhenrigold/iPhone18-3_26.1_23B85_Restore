@@ -26,77 +26,77 @@
 {
   v3 = +[NSFileManager defaultManager];
   loggingDirectoryPath = self->_loggingDirectoryPath;
-  v27 = NSFileProtectionKey;
-  v28 = NSFileProtectionCompleteUnlessOpen;
-  v5 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
-  v18 = 0;
-  v6 = [v3 createDirectoryAtPath:loggingDirectoryPath withIntermediateDirectories:1 attributes:v5 error:&v18];
-  v7 = v18;
+  v28 = NSFileProtectionKey;
+  v29 = NSFileProtectionCompleteUnlessOpen;
+  v5 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v19 = 0;
+  v6 = [v3 createDirectoryAtPath:loggingDirectoryPath withIntermediateDirectories:1 attributes:v5 error:&v19];
+  v7 = v19;
 
   if (v6)
   {
     extractDiagnosticContent = [(ABDiagnosticManager *)self extractDiagnosticContent];
-    v9 = ab_get_framework_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = ab_get_framework_log(extractDiagnosticContent);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
     if (extractDiagnosticContent)
     {
-      if (v10)
+      if (v11)
       {
         *buf = 138543362;
         selfCopy4 = self;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Writing to file", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Writing to file", buf, 0xCu);
       }
 
-      v9 = [NSString stringWithFormat:@"%@/%@.txt", self->_loggingDirectoryPath, self->_diagnosticName];
-      v17 = 0;
-      [extractDiagnosticContent writeToFile:v9 atomically:1 encoding:4 error:&v17];
-      v11 = v17;
-      v12 = ab_get_framework_log();
-      v13 = v12;
-      if (v11)
+      v10 = [NSString stringWithFormat:@"%@/%@.txt", self->_loggingDirectoryPath, self->_diagnosticName];
+      v18 = 0;
+      [extractDiagnosticContent writeToFile:v10 atomically:1 encoding:4 error:&v18];
+      v12 = v18;
+      v13 = ab_get_framework_log(v12);
+      v14 = v13;
+      if (v12)
       {
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           diagnosticName = self->_diagnosticName;
           *buf = 138544130;
           selfCopy4 = self;
-          v21 = 2114;
-          v22 = diagnosticName;
-          v23 = 2112;
-          v24 = v9;
-          v25 = 2114;
-          v26 = v11;
-          _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@]: Error while writing to file (%@): %{public}@", buf, 0x2Au);
+          v22 = 2114;
+          v23 = diagnosticName;
+          v24 = 2112;
+          v25 = v10;
+          v26 = 2114;
+          v27 = v12;
+          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "[%{public}@:%{public}@]: Error while writing to file (%@): %{public}@", buf, 0x2Au);
         }
       }
 
-      else if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      else if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = self->_diagnosticName;
+        v17 = self->_diagnosticName;
         *buf = 138543874;
         selfCopy4 = self;
-        v21 = 2114;
-        v22 = v16;
-        v23 = 2112;
-        v24 = v9;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@]: Wrote diagnostics to file %@", buf, 0x20u);
+        v22 = 2114;
+        v23 = v17;
+        v24 = 2112;
+        v25 = v10;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@]: Wrote diagnostics to file %@", buf, 0x20u);
       }
     }
 
-    else if (v10)
+    else if (v11)
     {
-      v15 = self->_diagnosticName;
+      v16 = self->_diagnosticName;
       *buf = 138543618;
       selfCopy4 = self;
-      v21 = 2114;
-      v22 = v15;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@]: No diagnostic content", buf, 0x16u);
+      v22 = 2114;
+      v23 = v16;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@]: No diagnostic content", buf, 0x16u);
     }
   }
 
   else
   {
-    extractDiagnosticContent = ab_get_framework_log();
+    extractDiagnosticContent = ab_get_framework_log(v8);
     if (os_log_type_enabled(extractDiagnosticContent, OS_LOG_TYPE_ERROR))
     {
       sub_100002C24(self, v7, extractDiagnosticContent);

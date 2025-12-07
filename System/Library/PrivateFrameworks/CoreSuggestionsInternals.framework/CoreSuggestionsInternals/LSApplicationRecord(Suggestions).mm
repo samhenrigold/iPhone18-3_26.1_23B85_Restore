@@ -49,7 +49,7 @@ LABEL_7:
   v11 = 0;
   v4 = [MEMORY[0x277CC1E48] appLinksWithURL:v3 limit:1 includeLinksForCurrentApplication:1 error:&v11];
   v5 = v11;
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     firstObject = [v4 firstObject];
     targetApplicationRecord = [firstObject targetApplicationRecord];
@@ -82,7 +82,7 @@ LABEL_8:
 
 + (id)sg_preferredApplicationRecordForUserActivityType:()Suggestions withTeamIdentifier:preferredBundleIdentifier:
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -93,81 +93,80 @@ LABEL_8:
 
   else if (v8)
   {
-    v11 = *MEMORY[0x277CBECE8];
-    v12 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
-    if (v12)
+    v11 = _LSCopyAdvertisementStringForTeamIdentifierAndActivityType();
+    if (v11)
     {
-      v57 = 0;
-      v13 = [MEMORY[0x277CC1E70] applicationRecordsForUserActivityType:v12 limit:5 error:&v57];
-      v14 = v57;
-      v55[0] = MEMORY[0x277D85DD0];
-      v55[1] = 3221225472;
-      v55[2] = __130__LSApplicationRecord_Suggestions__sg_preferredApplicationRecordForUserActivityType_withTeamIdentifier_preferredBundleIdentifier___block_invoke;
-      v55[3] = &unk_27894D5D0;
-      v15 = v8;
-      v56 = v15;
-      v16 = [v13 _pas_filteredArrayWithTest:v55];
-      v17 = sgEventsLogHandle();
-      v46 = v14;
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v55 = 0;
+      v12 = [MEMORY[0x277CC1E70] applicationRecordsForUserActivityType:v11 limit:5 error:&v55];
+      v13 = v55;
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __130__LSApplicationRecord_Suggestions__sg_preferredApplicationRecordForUserActivityType_withTeamIdentifier_preferredBundleIdentifier___block_invoke;
+      v53[3] = &unk_27894D5D0;
+      v14 = v8;
+      v54 = v14;
+      v15 = [v12 _pas_filteredArrayWithTest:v53];
+      v16 = sgEventsLogHandle();
+      v44 = v13;
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = [v13 count];
-        v19 = [v16 count];
+        v17 = objc_msgSend_count(v12);
+        v18 = objc_msgSend_count(v15);
         *buf = 134219010;
+        v59 = v17;
+        v60 = 2048;
         v61 = v18;
-        v62 = 2048;
-        v63 = v19;
+        v62 = 2112;
+        v63 = v14;
         v64 = 2112;
-        v65 = v15;
+        v65 = v12;
         v66 = 2112;
-        v67 = v13;
-        v68 = 2112;
-        v69 = v16;
-        _os_log_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEFAULT, "Filtered event records from %tu to %tu filtering for teamIdentifier %@: %@ -> %@", buf, 0x34u);
+        v67 = v15;
+        _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "Filtered event records from %tu to %tu filtering for teamIdentifier %@: %@ -> %@", buf, 0x34u);
       }
 
-      if ([v16 count] == 1 && (objc_msgSend(v16, "firstObject"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "applicationState"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isInstalled"), v21, v20, v22))
+      if (objc_msgSend_count(v15) == 1 && ([v15 firstObject], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "applicationState"), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isInstalled"), v20, v19, v21))
       {
-        firstObject = [v16 firstObject];
+        firstObject = [v15 firstObject];
       }
 
-      else if ([v16 count])
+      else if (objc_msgSend_count(v15))
       {
-        v45 = v16;
+        v43 = v15;
         if (v9)
         {
-          v43 = v13;
-          v44 = v12;
-          v42 = v7;
-          v53 = 0u;
-          v54 = 0u;
+          v41 = v12;
+          v42 = v11;
+          v40 = v7;
           v51 = 0u;
           v52 = 0u;
-          v23 = v16;
-          v24 = [v23 countByEnumeratingWithState:&v51 objects:v59 count:16];
-          if (v24)
+          v49 = 0u;
+          v50 = 0u;
+          v22 = v15;
+          v23 = [v22 countByEnumeratingWithState:&v49 objects:v57 count:16];
+          if (v23)
           {
-            v25 = v24;
-            v26 = *v52;
+            v24 = v23;
+            v25 = *v50;
             do
             {
-              for (i = 0; i != v25; ++i)
+              for (i = 0; i != v24; ++i)
               {
-                if (*v52 != v26)
+                if (*v50 != v25)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v22);
                 }
 
-                v28 = *(*(&v51 + 1) + 8 * i);
-                applicationState = [v28 applicationState];
+                v27 = *(*(&v49 + 1) + 8 * i);
+                applicationState = [v27 applicationState];
                 if ([applicationState isInstalled])
                 {
-                  bundleIdentifier = [v28 bundleIdentifier];
-                  v31 = [bundleIdentifier isEqualToString:v9];
+                  bundleIdentifier = [v27 bundleIdentifier];
+                  v30 = [bundleIdentifier isEqualToString:v9];
 
-                  if (v31)
+                  if (v30)
                   {
-                    firstObject = v28;
+                    firstObject = v27;
 
                     goto LABEL_36;
                   }
@@ -178,61 +177,61 @@ LABEL_8:
                 }
               }
 
-              v25 = [v23 countByEnumeratingWithState:&v51 objects:v59 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v49 objects:v57 count:16];
             }
 
-            while (v25);
+            while (v24);
           }
 
           firstObject = 0;
 LABEL_36:
-          v7 = v42;
+          v7 = v40;
 LABEL_38:
-          v13 = v43;
-          v12 = v44;
-          v14 = v46;
+          v12 = v41;
+          v11 = v42;
+          v13 = v44;
         }
 
         else
         {
-          v49 = 0u;
-          v50 = 0u;
           v47 = 0u;
           v48 = 0u;
-          v32 = v16;
-          v33 = [v32 countByEnumeratingWithState:&v47 objects:v58 count:16];
-          if (v33)
+          v45 = 0u;
+          v46 = 0u;
+          v31 = v15;
+          v32 = [v31 countByEnumeratingWithState:&v45 objects:v56 count:16];
+          if (v32)
           {
-            v34 = v33;
-            v35 = *v48;
-            v43 = v13;
-            v44 = v12;
+            v33 = v32;
+            v34 = *v46;
+            v41 = v12;
+            v42 = v11;
             while (2)
             {
-              for (j = 0; j != v34; ++j)
+              for (j = 0; j != v33; ++j)
               {
-                if (*v48 != v35)
+                if (*v46 != v34)
                 {
-                  objc_enumerationMutation(v32);
+                  objc_enumerationMutation(v31);
                 }
 
-                v37 = *(*(&v47 + 1) + 8 * j);
-                applicationState2 = [v37 applicationState];
+                v36 = *(*(&v45 + 1) + 8 * j);
+                applicationState2 = [v36 applicationState];
                 isInstalled = [applicationState2 isInstalled];
 
                 if (isInstalled)
                 {
-                  firstObject = v37;
+                  firstObject = v36;
 
                   goto LABEL_38;
                 }
               }
 
-              v34 = [v32 countByEnumeratingWithState:&v47 objects:v58 count:16];
-              v13 = v43;
-              v12 = v44;
-              v14 = v46;
-              if (v34)
+              v33 = [v31 countByEnumeratingWithState:&v45 objects:v56 count:16];
+              v12 = v41;
+              v11 = v42;
+              v13 = v44;
+              if (v33)
               {
                 continue;
               }
@@ -244,7 +243,7 @@ LABEL_38:
           firstObject = 0;
         }
 
-        v16 = v45;
+        v15 = v43;
       }
 
       else
@@ -263,8 +262,6 @@ LABEL_38:
   {
     firstObject = 0;
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

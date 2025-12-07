@@ -13,7 +13,7 @@
 
 - (uint64_t)triSafeCopyItemAtPath:()TRI toPath:error:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   if ([v8 length] && objc_msgSend(v9, "length"))
@@ -37,23 +37,22 @@
     v12 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138412546;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "attempted to copy with invalid paths src:%@ dst:%@", &v15, 0x16u);
+      v14 = 138412546;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "attempted to copy with invalid paths src:%@ dst:%@", &v14, 0x16u);
     }
 
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (__CFString)triPath:()TRI relativeToParentPath:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a4;
   stringByStandardizingPath = [a3 stringByStandardizingPath];
   stringByStandardizingPath2 = [v5 stringByStandardizingPath];
@@ -90,24 +89,22 @@
     v14 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v18 = 138412546;
-      v19 = stringByStandardizingPath;
-      v20 = 2112;
-      v21 = stringByStandardizingPath2;
-      _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "expected path to be a prefix of parent path: path=%@, parent=%@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = stringByStandardizingPath;
+      v19 = 2112;
+      v20 = stringByStandardizingPath2;
+      _os_log_error_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_ERROR, "expected path to be a prefix of parent path: path=%@, parent=%@", &v17, 0x16u);
     }
 
     v13 = stringByStandardizingPath;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (id)triCreateDirectoryForPath:()TRI isDirectory:error:
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = v8;
   if (a4)
@@ -121,12 +118,12 @@
   }
 
   v11 = stringByDeletingLastPathComponent;
-  v22 = 0;
-  if (([self fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v22] & 1) == 0)
+  v21 = 0;
+  if (([self fileExistsAtPath:stringByDeletingLastPathComponent isDirectory:&v21] & 1) == 0)
   {
-    v21 = 0;
-    v13 = [self createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v21];
-    v14 = v21;
+    v20 = 0;
+    v13 = [self createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v20];
+    v14 = v20;
     v15 = v14;
     if ((v13 & 1) == 0)
     {
@@ -134,11 +131,11 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v24 = v11;
-        v25 = 2112;
-        v26 = v9;
-        v27 = 2112;
-        v28 = v15;
+        v23 = v11;
+        v24 = 2112;
+        v25 = v9;
+        v26 = 2112;
+        v27 = v15;
         _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "could not create directory %@ for path %@ -- %@", buf, 0x20u);
       }
 
@@ -156,7 +153,7 @@ LABEL_11:
     goto LABEL_18;
   }
 
-  if (v22)
+  if (v21)
   {
     goto LABEL_11;
   }
@@ -165,9 +162,9 @@ LABEL_11:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v24 = v11;
-    v25 = 2112;
-    v26 = v9;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v9;
     _os_log_error_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_ERROR, "could not create directory %@ for path %@ -- file exists", buf, 0x16u);
   }
 
@@ -175,14 +172,12 @@ LABEL_17:
   v16 = 0;
 LABEL_18:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (uint64_t)triRemoveItemAtPath:()TRI error:
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   if (!v7)
   {
@@ -190,24 +185,24 @@ LABEL_18:
     [currentHandler handleFailureInMethod:a2 object:self file:@"NSFileManager+TRI.m" lineNumber:80 description:{@"Invalid parameter not satisfying: %@", @"path"}];
   }
 
-  v32 = 0;
-  if (![self fileExistsAtPath:v7 isDirectory:&v32])
+  v31 = 0;
+  if (![self fileExistsAtPath:v7 isDirectory:&v31])
   {
     v15 = 1;
     goto LABEL_19;
   }
 
-  if (v32 != 1)
+  if (v31 != 1)
   {
 LABEL_18:
     v15 = [self removeItemAtPath:v7 error:a4];
     goto LABEL_19;
   }
 
-  memset(&v31, 0, sizeof(v31));
-  if (!stat([v7 fileSystemRepresentation], &v31))
+  memset(&v30, 0, sizeof(v30));
+  if (!stat([v7 fileSystemRepresentation], &v30))
   {
-    chmod([v7 fileSystemRepresentation], v31.st_mode & 0x16F | 0x90);
+    chmod([v7 fileSystemRepresentation], v30.st_mode & 0x16F | 0x90);
     v16 = [self enumeratorAtPath:v7];
     v17 = objc_autoreleasePoolPush();
     nextObject = [v16 nextObject];
@@ -216,7 +211,7 @@ LABEL_18:
       nextObject2 = nextObject;
       v20 = *MEMORY[0x277CCA1E0];
       v21 = *MEMORY[0x277CCA1E8];
-      v30 = *MEMORY[0x277CCA180];
+      v29 = *MEMORY[0x277CCA180];
       do
       {
         fileAttributes = [v16 fileAttributes];
@@ -225,7 +220,7 @@ LABEL_18:
         if (v23 == v21)
         {
           fileAttributes2 = [v16 fileAttributes];
-          v25 = [fileAttributes2 objectForKeyedSubscript:v30];
+          v25 = [fileAttributes2 objectForKeyedSubscript:v29];
 
           if (v25)
           {
@@ -252,25 +247,24 @@ LABEL_18:
     v8 = objc_alloc(MEMORY[0x277CCA9B8]);
     v9 = *MEMORY[0x277CCA5B8];
     v10 = *__error();
-    v33 = *MEMORY[0x277CCA450];
+    v32 = *MEMORY[0x277CCA450];
     v11 = objc_alloc(MEMORY[0x277CCACA8]);
     v12 = __error();
     v13 = [v11 initWithFormat:@"Could not stat %@: %s", v7, strerror(*v12)];
-    v34[0] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *a4 = [v8 initWithDomain:v9 code:v10 userInfo:v14];
   }
 
   v15 = 0;
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 + (uint64_t)triHasFileProtection:()TRI
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = open([v3 fileSystemRepresentation], 0);
   if (v4 < 0)
@@ -281,12 +275,12 @@ LABEL_19:
       v11 = __error();
       v12 = strerror(*v11);
       v13 = *__error();
-      v17 = 138543874;
-      v18 = v3;
-      v19 = 2080;
-      v20 = v12;
-      v21 = 1024;
-      v22 = v13;
+      v16 = 138543874;
+      v17 = v3;
+      v18 = 2080;
+      v19 = v12;
+      v20 = 1024;
+      v21 = v13;
       v10 = "Unable to open %{public}@ to get file protection: %s (%d)";
       goto LABEL_8;
     }
@@ -306,9 +300,9 @@ LABEL_11:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v17 = 138543362;
-      v18 = v3;
-      _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_INFO, "File %{public}@ has no file protection already", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v3;
+      _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_INFO, "File %{public}@ has no file protection already", &v16, 0xCu);
     }
 
     goto LABEL_11;
@@ -318,15 +312,15 @@ LABEL_11:
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138543874;
-      v18 = v3;
-      v19 = 2080;
-      v20 = strerror(v7);
-      v21 = 1024;
-      v22 = v7;
+      v16 = 138543874;
+      v17 = v3;
+      v18 = 2080;
+      v19 = strerror(v7);
+      v20 = 1024;
+      v21 = v7;
       v10 = "Failed to get protection class for file %{public}@: %s (%d)";
 LABEL_8:
-      _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, v10, &v17, 0x1Cu);
+      _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, v10, &v16, 0x1Cu);
       goto LABEL_11;
     }
 
@@ -336,22 +330,21 @@ LABEL_8:
   v14 = 1;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v17 = 138543618;
-    v18 = v3;
-    v19 = 1024;
-    LODWORD(v20) = v6;
-    _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_INFO, "File %{public}@ has file protection class %d", &v17, 0x12u);
+    v16 = 138543618;
+    v17 = v3;
+    v18 = 1024;
+    LODWORD(v19) = v6;
+    _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_INFO, "File %{public}@ has file protection class %d", &v16, 0x12u);
   }
 
 LABEL_12:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (uint64_t)triRemoveFileProtectionIfPresentForPath:()TRI
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([self triHasFileProtection:v4])
   {
@@ -367,11 +360,11 @@ LABEL_12:
           v12 = strerror(*v11);
           v13 = *__error();
           *buf = 138543874;
-          v18 = v4;
-          v19 = 2080;
-          v20 = v12;
-          v21 = 1024;
-          v22 = v13;
+          v17 = v4;
+          v18 = 2080;
+          v19 = v12;
+          v20 = 1024;
+          v21 = v13;
           v14 = "Unable to open %{public}@ to set file protection: %s (%d)";
 LABEL_13:
           _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, v14, buf, 0x1Cu);
@@ -392,11 +385,11 @@ LABEL_13:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v18 = v4;
-        v19 = 2080;
-        v20 = strerror(v8);
-        v21 = 1024;
-        v22 = v8;
+        v17 = v4;
+        v18 = 2080;
+        v19 = strerror(v8);
+        v20 = 1024;
+        v21 = v8;
         v14 = "Unable to disable file protection on %{public}@: %s (%d)";
         goto LABEL_13;
       }
@@ -411,32 +404,30 @@ LABEL_10:
   v9 = 1;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 + (uint64_t)triIdempotentCreateDirectoryOrFaultWithPath:()TRI
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAA00];
   v4 = a3;
   defaultManager = [v3 defaultManager];
-  v11 = 0;
-  v6 = [defaultManager createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v11];
+  v10 = 0;
+  v6 = [defaultManager createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v10];
 
-  v7 = v11;
+  v7 = v10;
   if ((v6 & 1) == 0)
   {
     v8 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_ERROR, "Failed to create directory: %@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

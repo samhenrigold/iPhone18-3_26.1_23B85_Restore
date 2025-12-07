@@ -111,41 +111,39 @@ void __39__EDInteractionEventLogPersistence_log__block_invoke(uint64_t a1)
 
 - (void)persistEvent:(id)event date:(id)date message:(id)message mailbox:(id)mailbox
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dateCopy = date;
   mailboxCopy = mailbox;
   v13 = [(EDInteractionEventLogPersistence *)self _partialEventForMessage:message];
   [v13 setName:eventCopy];
   [v13 setDate:dateCopy];
-  v19 = @"mailbox_id";
+  v18 = @"mailbox_id";
   v14 = MEMORY[0x1E696AD98];
   persistentID = [mailboxCopy persistentID];
   v16 = [v14 numberWithLongLong:{objc_msgSend(persistentID, "longLongValue")}];
-  v20[0] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v19[0] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
   [v13 setData:v17];
 
   [(EDInteractionEventLogPersistence *)self _asyncPersistEvent:v13];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)persistEvent:(id)event date:(id)date message:(id)message mailboxType:(int64_t)type
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   eventCopy = event;
   dateCopy = date;
   v12 = [(EDInteractionEventLogPersistence *)self _partialEventForMessage:message];
   [v12 setName:eventCopy];
   [v12 setDate:dateCopy];
-  v16 = @"mailbox_type";
+  v15 = @"mailbox_type";
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-  v17[0] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   [v12 setData:v14];
 
   [(EDInteractionEventLogPersistence *)self _asyncPersistEvent:v12];
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_partialEventForMessage:(id)message
@@ -355,44 +353,44 @@ id __49__EDInteractionEventLogPersistence_persistEvent___block_invoke_3(uint64_t
 
 - (id)recentRecipients
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__15;
-  v43 = __Block_byref_object_dispose__15;
-  v44 = 0;
+  v45 = *MEMORY[0x1E69E9840];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__15;
+  v42 = __Block_byref_object_dispose__15;
+  v43 = 0;
   database = [(EDInteractionEventLogPersistence *)self database];
   schema = [database schema];
-  v29 = [schema tableForName:@"recipients"];
+  v28 = [schema tableForName:@"recipients"];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  columns = [v29 columns];
-  v5 = [columns countByEnumeratingWithState:&v35 objects:v45 count:16];
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  columns = [v28 columns];
+  v5 = [columns countByEnumeratingWithState:&v34 objects:v44 count:16];
   if (!v5)
   {
 
     v6 = 0;
-    v30 = 0;
+    v29 = 0;
     goto LABEL_17;
   }
 
-  v30 = 0;
+  v29 = 0;
   v6 = 0;
-  v7 = *v36;
+  v7 = *v35;
   do
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v36 != v7)
+      if (*v35 != v7)
       {
         objc_enumerationMutation(columns);
       }
 
-      v9 = *(*(&v35 + 1) + 8 * i);
+      v9 = *(*(&v34 + 1) + 8 * i);
       name = [v9 name];
       v11 = [name hasPrefix:@"address"];
 
@@ -414,17 +412,17 @@ id __49__EDInteractionEventLogPersistence_persistEvent___block_invoke_3(uint64_t
         }
 
         name4 = [v9 name];
-        v13 = v30;
-        v30 = name4;
+        v13 = v29;
+        v29 = name4;
       }
     }
 
-    v5 = [columns countByEnumeratingWithState:&v35 objects:v45 count:16];
+    v5 = [columns countByEnumeratingWithState:&v34 objects:v44 count:16];
   }
 
   while (v5);
 
-  if (!v30 || !v6)
+  if (!v29 || !v6)
   {
 LABEL_17:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -433,18 +431,18 @@ LABEL_17:
 
   database2 = [(EDInteractionEventLogPersistence *)self database];
   v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[EDInteractionEventLogPersistence recentRecipients]"];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke;
-  v31[3] = &unk_1E8250288;
-  v20 = v30;
-  v32 = v20;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke;
+  v30[3] = &unk_1E8250288;
+  v20 = v29;
+  v31 = v20;
   v21 = v6;
-  v33 = v21;
-  v34 = &v39;
-  [database2 __performReadWithCaller:v19 usingBlock:v31];
+  v32 = v21;
+  v33 = &v38;
+  [database2 __performReadWithCaller:v19 usingBlock:v30];
 
-  v22 = v40[5];
+  v22 = v39[5];
   if (v22)
   {
     v23 = v22;
@@ -457,29 +455,28 @@ LABEL_17:
 
   v24 = v23;
 
-  _Block_object_dispose(&v39, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v38, 8);
 
   return v24;
 }
 
 uint64_t __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke(void *a1, void *a2)
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"select distinct AD.address from interaction_log LOG join mailboxes MB on MB.rowid = LOG.mailbox join messages MSG on MSG.message_id = LOG.message_id_hash join recipients RE on RE.%@ = MSG.rowID join addresses AD on AD.rowid = RE.%@ where MB.url like '%%/Sent%%' and LOG.name = 'message_fetched' and MSG.date_received >= ?", a1[4], a1[5]];
   v5 = [v3 preparedStatementForQueryString:v4];
   v6 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-1209600.0];
   v7 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-  v18[0] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke_2;
-  v16[3] = &unk_1E8250300;
+  v17[0] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke_2;
+  v15[3] = &unk_1E8250300;
   v9 = v7;
-  v17 = v9;
-  v10 = [v5 executeWithIndexedBindings:v8 usingBlock:v16 error:0];
+  v16 = v9;
+  v10 = [v5 executeWithIndexedBindings:v8 usingBlock:v15 error:0];
 
   if ([v9 count])
   {
@@ -489,7 +486,6 @@ uint64_t __52__EDInteractionEventLogPersistence_recentRecipients__block_invoke(v
     *(v12 + 40) = v11;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

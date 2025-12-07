@@ -2,9 +2,11 @@
 + (BOOL)isSupported;
 + (BOOL)supportsHaptics;
 - (AVHapticPlayer)initWithOptions:(id)options error:(id *)error;
+- (AVHapticPlayer)initWithSessionID:(unsigned int)d error:(id *)error;
 - (BOOL)copyCustomAudioEvent:(unint64_t)event options:(id)options reply:(id)reply;
 - (BOOL)createCustomAudioEvent:(id)event format:(id)format frames:(unint64_t)frames options:(id)options reply:(id)reply;
 - (BOOL)doInitWithOptions:(id)options error:(id *)error;
+- (BOOL)enableSequenceLooping:(unint64_t)looping enable:(BOOL)enable error:(id *)error;
 - (BOOL)finishWithCompletionHandler:(id)handler;
 - (BOOL)loadAndPrepareHapticSequenceFromData:(id)data reply:(id)reply;
 - (BOOL)loadAndPrepareHapticSequenceFromEvents:(id)events reply:(id)reply;
@@ -21,6 +23,7 @@
 - (NSArray)channels;
 - (id)addChannel:(id *)channel;
 - (id)connectionErrorHandler;
+- (id)createOptionsFromAudioSessionID:(unsigned int)d shared:(BOOL)shared bypassAudioSession:(BOOL)session;
 - (void)allocateRenderResourcesWithCompletionHandler:(id)handler;
 - (void)dealloc;
 - (void)deallocateRenderResources;
@@ -56,7 +59,7 @@ uint64_t __33__AVHapticPlayer_supportsHaptics__block_invoke(PlatformUtilities_iO
 
 - (void)stopPrewarm
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -79,12 +82,12 @@ uint64_t __33__AVHapticPlayer_supportsHaptics__block_invoke(PlatformUtilities_iO
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136315906;
-    v12 = "AVHapticPlayer.mm";
-    v13 = 1024;
-    v14 = 665;
-    v15 = 2080;
-    v16 = "[AVHapticPlayer stopPrewarm]";
-    v17 = 2048;
+    v11 = "AVHapticPlayer.mm";
+    v12 = 1024;
+    v13 = 665;
+    v14 = 2080;
+    v15 = "[AVHapticPlayer stopPrewarm]";
+    v16 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: stop prewarm: clientID: 0x%lx", buf, 0x26u);
   }
@@ -95,8 +98,8 @@ LABEL_8:
 
   if (v8)
   {
-    v10 = 0;
-    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 666, "[AVHapticPlayer stopPrewarm]", "self.client.clientID != kInvalidClientID", -4812, &v10);
+    v9 = 0;
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 666, "[AVHapticPlayer stopPrewarm]", "self.client.clientID != kInvalidClientID", -4812, &v9);
   }
 
   else
@@ -105,8 +108,6 @@ LABEL_8:
   }
 
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isSupported
@@ -119,9 +120,22 @@ LABEL_8:
   return +[AVHapticPlayer supportsAudio];
 }
 
+- (id)createOptionsFromAudioSessionID:(unsigned int)d shared:(BOOL)shared bypassAudioSession:(BOOL)session
+{
+  sessionCopy = session;
+  sharedCopy = shared;
+  v7 = MEMORY[0x277CBEB38];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&d];
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:sharedCopy];
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:sessionCopy];
+  v11 = [v7 dictionaryWithObjectsAndKeys:{v8, @"AudioSessionID", v9, @"AudioSessionIsShared", v10, @"BypassAudioSession", 0}];
+
+  return v11;
+}
+
 - (BOOL)doInitWithOptions:(id)options error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   stopRunningHandler = self->_stopRunningHandler;
   self->_stopRunningHandler = 0;
@@ -157,25 +171,24 @@ LABEL_8:
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 136315650;
-      v16 = "AVHapticPlayer.mm";
-      v17 = 1024;
-      v18 = 249;
-      v19 = 2080;
-      v20 = "[AVHapticPlayer doInitWithOptions:error:]";
-      _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: exited with nil", &v15, 0x1Cu);
+      v14 = 136315650;
+      v15 = "AVHapticPlayer.mm";
+      v16 = 1024;
+      v17 = 249;
+      v18 = 2080;
+      v19 = "[AVHapticPlayer doInitWithOptions:error:]";
+      _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: exited with nil", &v14, 0x1Cu);
     }
   }
 
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
 void __42__AVHapticPlayer_doInitWithOptions_error___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (kAVHCScope)
   {
@@ -194,23 +207,22 @@ void __42__AVHapticPlayer_doInitWithOptions_error___block_invoke(uint64_t a1, vo
 
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315650;
-    v7 = "AVHapticPlayer.mm";
-    v8 = 1024;
-    v9 = 253;
-    v10 = 2080;
-    v11 = "[AVHapticPlayer doInitWithOptions:error:]_block_invoke";
-    _os_log_impl(&dword_21569A000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Connection error", &v6, 0x1Cu);
+    v5 = 136315650;
+    v6 = "AVHapticPlayer.mm";
+    v7 = 1024;
+    v8 = 253;
+    v9 = 2080;
+    v10 = "[AVHapticPlayer doInitWithOptions:error:]_block_invoke";
+    _os_log_impl(&dword_21569A000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Connection error", &v5, 0x1Cu);
   }
 
 LABEL_8:
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-- (AVHapticPlayer)initWithOptions:(id)options error:(id *)error
+- (AVHapticPlayer)initWithSessionID:(unsigned int)d error:(id *)error
 {
+  v5 = *&d;
   v21 = *MEMORY[0x277D85DE8];
-  optionsCopy = options;
   if (kAVHCScope)
   {
     v7 = *kAVHCScope;
@@ -231,16 +243,94 @@ LABEL_8:
     *buf = 136315650;
     v16 = "AVHapticPlayer.mm";
     v17 = 1024;
-    v18 = 275;
+    v18 = 259;
     v19 = 2080;
-    v20 = "[AVHapticPlayer initWithOptions:error:]";
-    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: initWithOptions entered", buf, 0x1Cu);
+    v20 = "[AVHapticPlayer initWithSessionID:error:]";
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: initWithSessionID entered", buf, 0x1Cu);
   }
 
 LABEL_8:
   v14.receiver = self;
   v14.super_class = AVHapticPlayer;
   v9 = [(AVHapticPlayer *)&v14 init];
+  v10 = v9;
+  if (v9)
+  {
+    v11 = [(AVHapticPlayer *)v9 createOptionsFromAudioSessionID:v5 shared:0 bypassAudioSession:0];
+    if ([(AVHapticPlayer *)v10 doInitWithOptions:v11 error:error])
+    {
+LABEL_18:
+
+      return v10;
+    }
+
+LABEL_17:
+    v10 = 0;
+    goto LABEL_18;
+  }
+
+  if (!kAVHCScope)
+  {
+    v11 = MEMORY[0x277D86220];
+    v12 = MEMORY[0x277D86220];
+LABEL_15:
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315650;
+      v16 = "AVHapticPlayer.mm";
+      v17 = 1024;
+      v18 = 268;
+      v19 = 2080;
+      v20 = "[AVHapticPlayer initWithSessionID:error:]";
+      _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithSessionID exited", buf, 0x1Cu);
+    }
+
+    goto LABEL_17;
+  }
+
+  v11 = *kAVHCScope;
+  if (v11)
+  {
+    goto LABEL_15;
+  }
+
+  return 0;
+}
+
+- (AVHapticPlayer)initWithOptions:(id)options error:(id *)error
+{
+  v20 = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
+  if (kAVHCScope)
+  {
+    v7 = *kAVHCScope;
+    if (!v7)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v7 = MEMORY[0x277D86220];
+    v8 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315650;
+    v15 = "AVHapticPlayer.mm";
+    v16 = 1024;
+    v17 = 275;
+    v18 = 2080;
+    v19 = "[AVHapticPlayer initWithOptions:error:]";
+    _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d %s: initWithOptions entered", buf, 0x1Cu);
+  }
+
+LABEL_8:
+  v13.receiver = self;
+  v13.super_class = AVHapticPlayer;
+  v9 = [(AVHapticPlayer *)&v13 init];
   v10 = v9;
   if (v9)
   {
@@ -270,11 +360,11 @@ LABEL_8:
     if (os_log_type_enabled(&v10->super, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v16 = "AVHapticPlayer.mm";
-      v17 = 1024;
-      v18 = 283;
-      v19 = 2080;
-      v20 = "[AVHapticPlayer initWithOptions:error:]";
+      v15 = "AVHapticPlayer.mm";
+      v16 = 1024;
+      v17 = 283;
+      v18 = 2080;
+      v19 = "[AVHapticPlayer initWithOptions:error:]";
       _os_log_impl(&dword_21569A000, &v10->super, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: initWithOptions exited", buf, 0x1Cu);
     }
   }
@@ -282,13 +372,12 @@ LABEL_8:
   v10 = 0;
 LABEL_18:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v3 = *kAVHCScope;
@@ -307,12 +396,12 @@ LABEL_18:
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v17 = "AVHapticPlayer.mm";
-    v18 = 1024;
-    v19 = 290;
-    v20 = 2080;
-    v21 = "[AVHapticPlayer dealloc]";
-    v22 = 2048;
+    v16 = "AVHapticPlayer.mm";
+    v17 = 1024;
+    v18 = 290;
+    v19 = 2080;
+    v20 = "[AVHapticPlayer dealloc]";
+    v21 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_21569A000, v3, OS_LOG_TYPE_INFO, "%25s:%-5d %s: dealloc entered for player %p", buf, 0x26u);
   }
@@ -368,24 +457,23 @@ LABEL_8:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v17 = "AVHapticPlayer.mm";
-    v18 = 1024;
-    v19 = 308;
-    v20 = 2080;
-    v21 = "[AVHapticPlayer dealloc]";
+    v16 = "AVHapticPlayer.mm";
+    v17 = 1024;
+    v18 = 308;
+    v19 = 2080;
+    v20 = "[AVHapticPlayer dealloc]";
     _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_INFO, "%25s:%-5d %s: dealloc exited", buf, 0x1Cu);
   }
 
 LABEL_21:
-  v15.receiver = self;
-  v15.super_class = AVHapticPlayer;
-  [(AVHapticPlayer *)&v15 dealloc];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = AVHapticPlayer;
+  [(AVHapticPlayer *)&v14 dealloc];
 }
 
 - (void)queryServerCapabilities:(id)capabilities reply:(id)reply
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   capabilitiesCopy = capabilities;
   replyCopy = reply;
   if (kAVHCScope)
@@ -408,33 +496,31 @@ LABEL_21:
   {
     client = [(AVHapticPlayer *)self client];
     *buf = 136315906;
-    v18 = "AVHapticPlayer.mm";
-    v19 = 1024;
-    v20 = 313;
-    v21 = 2080;
-    v22 = "[AVHapticPlayer queryServerCapabilities:reply:]";
-    v23 = 2048;
+    v17 = "AVHapticPlayer.mm";
+    v18 = 1024;
+    v19 = 313;
+    v20 = 2080;
+    v21 = "[AVHapticPlayer queryServerCapabilities:reply:]";
+    v22 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: clientID: 0x%lx", buf, 0x26u);
   }
 
 LABEL_8:
   client = self->_client;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __48__AVHapticPlayer_queryServerCapabilities_reply___block_invoke;
-  v15[3] = &unk_2781C9958;
-  v15[4] = self;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __48__AVHapticPlayer_queryServerCapabilities_reply___block_invoke;
+  v14[3] = &unk_2781C9958;
+  v14[4] = self;
   v13 = replyCopy;
-  v16 = v13;
-  [(AVHapticClient *)client queryServerCapabilities:capabilitiesCopy reply:v15];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = v13;
+  [(AVHapticClient *)client queryServerCapabilities:capabilitiesCopy reply:v14];
 }
 
 void __48__AVHapticPlayer_queryServerCapabilities_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -458,27 +544,25 @@ void __48__AVHapticPlayer_queryServerCapabilities_reply___block_invoke(uint64_t 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = [*(a1 + 32) client];
-      v12 = 136315906;
-      v13 = "AVHapticPlayer.mm";
-      v14 = 1024;
-      v15 = 315;
-      v16 = 2080;
-      v17 = "[AVHapticPlayer queryServerCapabilities:reply:]_block_invoke";
-      v18 = 2048;
-      v19 = [v10 clientID];
-      _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: clientID: 0x%lx: call failed", &v12, 0x26u);
+      v11 = 136315906;
+      v12 = "AVHapticPlayer.mm";
+      v13 = 1024;
+      v14 = 315;
+      v15 = 2080;
+      v16 = "[AVHapticPlayer queryServerCapabilities:reply:]_block_invoke";
+      v17 = 2048;
+      v18 = [v10 clientID];
+      _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: clientID: 0x%lx: call failed", &v11, 0x26u);
     }
   }
 
 LABEL_9:
   (*(*(a1 + 40) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setBehavior:(unint64_t)behavior error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -501,14 +585,14 @@ LABEL_9:
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136316162;
-    v20 = "AVHapticPlayer.mm";
-    v21 = 1024;
-    v22 = 323;
-    v23 = 2080;
-    v24 = "[AVHapticPlayer setBehavior:error:]";
-    v25 = 2048;
+    v19 = "AVHapticPlayer.mm";
+    v20 = 1024;
+    v21 = 323;
+    v22 = 2080;
+    v23 = "[AVHapticPlayer setBehavior:error:]";
+    v24 = 2048;
     clientID = [client clientID];
-    v27 = 1024;
+    v26 = 1024;
     behaviorCopy = behavior;
     _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: clientID: 0x%lx behavior: %u", buf, 0x2Cu);
   }
@@ -531,9 +615,9 @@ LABEL_8:
   else
   {
     client = selfCopy->_client;
-    v18 = 0;
-    v13 = [(AVHapticClient *)client setPlayerBehavior:behavior error:&v18];
-    v15 = v18;
+    v17 = 0;
+    v13 = [(AVHapticClient *)client setPlayerBehavior:behavior error:&v17];
+    v15 = v17;
     if (v13)
     {
       selfCopy->_behavior = behavior;
@@ -548,13 +632,12 @@ LABEL_8:
 
   objc_sync_exit(selfCopy);
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)setNumberOfChannels:(unint64_t)channels error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -577,14 +660,14 @@ LABEL_8:
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136316162;
-    v37 = "AVHapticPlayer.mm";
-    v38 = 1024;
-    v39 = 382;
-    v40 = 2080;
-    v41 = "[AVHapticPlayer setNumberOfChannels:error:]";
-    v42 = 2048;
+    v36 = "AVHapticPlayer.mm";
+    v37 = 1024;
+    v38 = 382;
+    v39 = 2080;
+    v40 = "[AVHapticPlayer setNumberOfChannels:error:]";
+    v41 = 2048;
     clientID = [client clientID];
-    v44 = 1024;
+    v43 = 1024;
     channelsCopy = channels;
     _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_INFO, "%25s:%-5d %s: clientID: 0x%lx numberOfChannels: %u", buf, 0x2Cu);
   }
@@ -606,36 +689,36 @@ LABEL_8:
   {
     [(AVHapticClient *)selfCopy->_client clearAssignedChannels];
     client = selfCopy->_client;
-    v34 = 0;
-    v17 = [(AVHapticClient *)client requestAssignedChannels:channels error:&v34];
-    v15 = v34;
+    v33 = 0;
+    v17 = [(AVHapticClient *)client requestAssignedChannels:channels error:&v33];
+    v15 = v33;
     if (v17)
     {
       channelKeys = [(AVHapticClient *)selfCopy->_client channelKeys];
       v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v19 = channelKeys;
-      v20 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
       if (v20)
       {
-        v21 = *v31;
+        v21 = *v30;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v31 != v21)
+            if (*v30 != v21)
             {
               objc_enumerationMutation(v19);
             }
 
-            v23 = [[AVHapticPlayerChannel alloc] initWithChannelID:*(*(&v30 + 1) + 8 * i) client:selfCopy->_client];
+            v23 = [[AVHapticPlayerChannel alloc] initWithChannelID:*(*(&v29 + 1) + 8 * i) client:selfCopy->_client];
             [(NSMutableArray *)v18 addObject:v23];
           }
 
-          v20 = [v19 countByEnumeratingWithState:&v30 objects:v35 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
         }
 
         while (v20);
@@ -663,11 +746,11 @@ LABEL_24:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v37 = "AVHapticPlayer.mm";
-      v38 = 1024;
-      v39 = 398;
-      v40 = 2080;
-      v41 = "[AVHapticPlayer setNumberOfChannels:error:]";
+      v36 = "AVHapticPlayer.mm";
+      v37 = 1024;
+      v38 = 398;
+      v39 = 2080;
+      v40 = "[AVHapticPlayer setNumberOfChannels:error:]";
       _os_log_impl(&dword_21569A000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Can't set channel count while player is running", buf, 0x1Cu);
     }
   }
@@ -685,13 +768,12 @@ LABEL_28:
   v14 = v15 == 0;
 LABEL_31:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (id)addChannel:(id *)channel
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -714,14 +796,14 @@ LABEL_31:
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136316162;
-    v53 = "AVHapticPlayer.mm";
-    v54 = 1024;
-    v55 = 411;
-    v56 = 2080;
-    v57 = "[AVHapticPlayer addChannel:]";
-    v58 = 2048;
-    *v59 = selfCopy;
-    *&v59[8] = 2048;
+    v52 = "AVHapticPlayer.mm";
+    v53 = 1024;
+    v54 = 411;
+    v55 = 2080;
+    v56 = "[AVHapticPlayer addChannel:]";
+    v57 = 2048;
+    *v58 = selfCopy;
+    *&v58[8] = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v6, OS_LOG_TYPE_INFO, "%25s:%-5d %s: player %p, clientID: 0x%lx", buf, 0x30u);
   }
@@ -757,7 +839,7 @@ LABEL_13:
 
   v13 = v11;
   v14 = [v11 count];
-  v38 = [channelKeys count];
+  v37 = [channelKeys count];
   if (kAVHCScope)
   {
     v15 = *kAVHCScope;
@@ -776,66 +858,66 @@ LABEL_13:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v53 = "AVHapticPlayer.mm";
-    v55 = 422;
-    v56 = 2080;
-    v54 = 1024;
-    v57 = "[AVHapticPlayer addChannel:]";
-    v58 = 1024;
-    *v59 = v14;
-    *&v59[4] = 1024;
-    *&v59[6] = v38;
+    v52 = "AVHapticPlayer.mm";
+    v54 = 422;
+    v55 = 2080;
+    v53 = 1024;
+    v56 = "[AVHapticPlayer addChannel:]";
+    v57 = 1024;
+    *v58 = v14;
+    *&v58[4] = 1024;
+    *&v58[6] = v37;
     _os_log_impl(&dword_21569A000, v15, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Total channels was %u, now %u", buf, 0x28u);
   }
 
 LABEL_22:
-  if (v38 != v14 + 1)
+  if (v37 != v14 + 1)
   {
     [AVHapticPlayer addChannel:];
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = channelKeys;
-  v17 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v17)
   {
-    v18 = *v47;
+    v18 = *v46;
     while (1)
     {
       v19 = 0;
 LABEL_26:
-      if (*v47 != v18)
+      if (*v46 != v18)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v46 + 1) + 8 * v19);
+      v20 = *(*(&v45 + 1) + 8 * v19);
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       v21 = v13;
       v22 = v13;
-      v23 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v41 objects:v49 count:16];
       if (!v23)
       {
         break;
       }
 
-      v24 = *v43;
+      v24 = *v42;
 LABEL_30:
       v25 = 0;
       while (1)
       {
-        if (*v43 != v24)
+        if (*v42 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        chanID = [*(*(&v42 + 1) + 8 * v25) chanID];
+        chanID = [*(*(&v41 + 1) + 8 * v25) chanID];
         if (chanID == [v20 unsignedIntegerValue])
         {
           break;
@@ -843,7 +925,7 @@ LABEL_30:
 
         if (v23 == ++v25)
         {
-          v23 = [v22 countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v23)
           {
             goto LABEL_30;
@@ -859,7 +941,7 @@ LABEL_30:
         goto LABEL_26;
       }
 
-      v17 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v17 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       if (!v17)
       {
         goto LABEL_48;
@@ -893,14 +975,14 @@ LABEL_47:
     {
       unsignedIntegerValue = [v20 unsignedIntegerValue];
       *buf = 136316162;
-      v53 = "AVHapticPlayer.mm";
-      v54 = 1024;
-      v55 = 438;
-      v56 = 2080;
-      v57 = "[AVHapticPlayer addChannel:]";
-      v58 = 2048;
-      *v59 = v27;
-      *&v59[8] = 1024;
+      v52 = "AVHapticPlayer.mm";
+      v53 = 1024;
+      v54 = 438;
+      v55 = 2080;
+      v56 = "[AVHapticPlayer addChannel:]";
+      v57 = 2048;
+      *v58 = v27;
+      *&v58[8] = 1024;
       LODWORD(clientID) = unsignedIntegerValue;
       _os_log_impl(&dword_21569A000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Adding new AVHapticPlayerChannel %p to end of array with channel ID %u", buf, 0x2Cu);
     }
@@ -911,7 +993,7 @@ LABEL_47:
 LABEL_48:
 
   objc_storeStrong(location, v13);
-  v12 = [*location objectAtIndex:v38 - 1];
+  v12 = [*location objectAtIndex:v37 - 1];
   if (!kAVHCScope)
   {
     v32 = MEMORY[0x277D86220];
@@ -928,14 +1010,14 @@ LABEL_52:
     {
       chanID2 = [v12 chanID];
       *buf = 136316162;
-      v53 = "AVHapticPlayer.mm";
-      v54 = 1024;
-      v55 = 444;
-      v56 = 2080;
-      v57 = "[AVHapticPlayer addChannel:]";
-      v58 = 2048;
-      *v59 = v12;
-      *&v59[8] = 1024;
+      v52 = "AVHapticPlayer.mm";
+      v53 = 1024;
+      v54 = 444;
+      v55 = 2080;
+      v56 = "[AVHapticPlayer addChannel:]";
+      v57 = 2048;
+      *v58 = v12;
+      *&v58[8] = 1024;
       LODWORD(clientID) = chanID2;
       _os_log_impl(&dword_21569A000, v34, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Returning channel %p (ID %u)", buf, 0x2Cu);
     }
@@ -944,14 +1026,12 @@ LABEL_52:
 LABEL_56:
   objc_sync_exit(selfCopy);
 
-  v36 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (BOOL)removeChannel:(id)channel error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   channelCopy = channel;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -974,21 +1054,21 @@ LABEL_56:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     client = [(AVHapticPlayer *)selfCopy client];
-    v17 = 136316674;
-    v18 = "AVHapticPlayer.mm";
-    v19 = 1024;
-    v20 = 455;
-    v21 = 2080;
-    v22 = "[AVHapticPlayer removeChannel:error:]";
-    v23 = 2048;
-    v24 = selfCopy;
-    v25 = 2048;
+    v16 = 136316674;
+    v17 = "AVHapticPlayer.mm";
+    v18 = 1024;
+    v19 = 455;
+    v20 = 2080;
+    v21 = "[AVHapticPlayer removeChannel:error:]";
+    v22 = 2048;
+    v23 = selfCopy;
+    v24 = 2048;
     clientID = [client clientID];
-    v27 = 2048;
-    v28 = channelCopy;
-    v29 = 1024;
+    v26 = 2048;
+    v27 = channelCopy;
+    v28 = 1024;
     chanID = [channelCopy chanID];
-    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d %s: player %p, clientID: 0x%lx channel %p (ID %u)", &v17, 0x40u);
+    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_INFO, "%25s:%-5d %s: player %p, clientID: 0x%lx channel %p (ID %u)", &v16, 0x40u);
   }
 
 LABEL_8:
@@ -1017,13 +1097,13 @@ LABEL_8:
 LABEL_14:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v17 = 136315650;
-      v18 = "AVHapticPlayer.mm";
-      v19 = 1024;
-      v20 = 463;
-      v21 = 2080;
-      v22 = "[AVHapticPlayer removeChannel:error:]";
-      _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Channel not found on player", &v17, 0x1Cu);
+      v16 = 136315650;
+      v17 = "AVHapticPlayer.mm";
+      v18 = 1024;
+      v19 = 463;
+      v20 = 2080;
+      v21 = "[AVHapticPlayer removeChannel:error:]";
+      _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Channel not found on player", &v16, 0x1Cu);
     }
   }
 
@@ -1040,7 +1120,6 @@ LABEL_14:
 
 LABEL_20:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1102,6 +1181,43 @@ void __44__AVHapticPlayer_setConnectionErrorHandler___block_invoke(uint64_t a1, 
 
 - (void)invalidateChannels
 {
+  v12 = *MEMORY[0x277D85DE8];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  v3 = selfCopy->_channelArray;
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (v4)
+  {
+    v5 = *v8;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v8 != v5)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        [*(*(&v7 + 1) + 8 * v6++) invalidate];
+      }
+
+      while (v4 != v6);
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
+    }
+
+    while (v4);
+  }
+
+  objc_sync_exit(selfCopy);
+}
+
+- (void)releaseChannels
+{
   v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1134,54 +1250,15 @@ void __44__AVHapticPlayer_setConnectionErrorHandler___block_invoke(uint64_t a1, 
     while (v4);
   }
 
-  objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)releaseChannels
-{
-  v14 = *MEMORY[0x277D85DE8];
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
-  v10 = 0u;
-  v3 = selfCopy->_channelArray;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v4)
-  {
-    v5 = *v10;
-    do
-    {
-      v6 = 0;
-      do
-      {
-        if (*v10 != v5)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        [*(*(&v9 + 1) + 8 * v6++) invalidate];
-      }
-
-      while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
-    }
-
-    while (v4);
-  }
-
   channelArray = selfCopy->_channelArray;
   selfCopy->_channelArray = 0;
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)allocateRenderResourcesWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1205,12 +1282,12 @@ void __44__AVHapticPlayer_setConnectionErrorHandler___block_invoke(uint64_t a1, 
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136315906;
-    v21 = "AVHapticPlayer.mm";
-    v22 = 1024;
-    v23 = 521;
-    v24 = 2080;
-    v25 = "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]";
-    v26 = 2048;
+    v20 = "AVHapticPlayer.mm";
+    v21 = 1024;
+    v22 = 521;
+    v23 = 2080;
+    v24 = "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]";
+    v25 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_INFO, "%25s:%-5d %s: allocating resources: clientID: 0x%lx", buf, 0x26u);
   }
@@ -1224,13 +1301,13 @@ LABEL_8:
     if (!selfCopy->_resourcesAllocated)
     {
       client = selfCopy->_client;
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __63__AVHapticPlayer_allocateRenderResourcesWithCompletionHandler___block_invoke;
-      v17[3] = &unk_2781C9980;
-      v17[4] = selfCopy;
-      v18 = handlerCopy;
-      [(AVHapticClient *)client allocateResources:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __63__AVHapticPlayer_allocateRenderResourcesWithCompletionHandler___block_invoke;
+      v16[3] = &unk_2781C9980;
+      v16[4] = selfCopy;
+      v17 = handlerCopy;
+      [(AVHapticClient *)client allocateResources:v16];
 
       goto LABEL_23;
     }
@@ -1259,20 +1336,20 @@ LABEL_21:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v21 = "AVHapticPlayer.mm";
-      v22 = 1024;
-      v23 = 532;
-      v24 = 2080;
-      v25 = "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]";
+      v20 = "AVHapticPlayer.mm";
+      v21 = 1024;
+      v22 = 532;
+      v23 = 2080;
+      v24 = "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]";
       _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Resources already allocated -- just call completion handler", buf, 0x1Cu);
     }
 
     goto LABEL_21;
   }
 
-  v19 = 0;
-  _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 522, "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v19);
-  v13 = v19;
+  v18 = 0;
+  _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 522, "[AVHapticPlayer allocateRenderResourcesWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v18);
+  v13 = v18;
   if (handlerCopy)
   {
     (*(handlerCopy + 2))(handlerCopy, v13);
@@ -1280,8 +1357,6 @@ LABEL_21:
 
 LABEL_23:
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __63__AVHapticPlayer_allocateRenderResourcesWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1302,7 +1377,7 @@ void __63__AVHapticPlayer_allocateRenderResourcesWithCompletionHandler___block_i
 
 - (void)deallocateRenderResources
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -1324,15 +1399,15 @@ void __63__AVHapticPlayer_allocateRenderResourcesWithCompletionHandler___block_i
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     client = [(AVHapticPlayer *)selfCopy client];
-    v10 = 136315906;
-    v11 = "AVHapticPlayer.mm";
-    v12 = 1024;
-    v13 = 543;
-    v14 = 2080;
-    v15 = "[AVHapticPlayer deallocateRenderResources]";
-    v16 = 2048;
+    v9 = 136315906;
+    v10 = "AVHapticPlayer.mm";
+    v11 = 1024;
+    v12 = 543;
+    v13 = 2080;
+    v14 = "[AVHapticPlayer deallocateRenderResources]";
+    v15 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d %s: deallocating resources: clientID: 0x%lx", &v10, 0x26u);
+    _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d %s: deallocating resources: clientID: 0x%lx", &v9, 0x26u);
   }
 
 LABEL_8:
@@ -1362,25 +1437,23 @@ LABEL_8:
 
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 136315650;
-      v11 = "AVHapticPlayer.mm";
-      v12 = 1024;
-      v13 = 550;
-      v14 = 2080;
-      v15 = "[AVHapticPlayer deallocateRenderResources]";
-      _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Resources already deallocated -- noop", &v10, 0x1Cu);
+      v9 = 136315650;
+      v10 = "AVHapticPlayer.mm";
+      v11 = 1024;
+      v12 = 550;
+      v13 = 2080;
+      v14 = "[AVHapticPlayer deallocateRenderResources]";
+      _os_log_impl(&dword_21569A000, v7, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: Resources already deallocated -- noop", &v9, 0x1Cu);
     }
   }
 
 LABEL_17:
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)loadHapticEvent:(id)event reply:(id)reply
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   replyCopy = reply;
   if (kAVHCScope)
@@ -1402,27 +1475,26 @@ LABEL_17:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     client = [(AVHapticPlayer *)self client];
-    v15 = 136315906;
-    v16 = "AVHapticPlayer.mm";
-    v17 = 1024;
-    v18 = 557;
-    v19 = 2080;
-    v20 = "[AVHapticPlayer loadHapticEvent:reply:]";
-    v21 = 2048;
+    v14 = 136315906;
+    v15 = "AVHapticPlayer.mm";
+    v16 = 1024;
+    v17 = 557;
+    v18 = 2080;
+    v19 = "[AVHapticPlayer loadHapticEvent:reply:]";
+    v20 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: loading haptic event: clientID: 0x%lx", &v15, 0x26u);
+    _os_log_impl(&dword_21569A000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: loading haptic event: clientID: 0x%lx", &v14, 0x26u);
   }
 
 LABEL_8:
   v12 = [(AVHapticClient *)self->_client loadHapticEvent:eventCopy reply:replyCopy];
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (BOOL)createCustomAudioEvent:(id)event format:(id)format frames:(unint64_t)frames options:(id)options reply:(id)reply
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   formatCopy = format;
   optionsCopy = options;
@@ -1446,29 +1518,28 @@ LABEL_8:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     client = [(AVHapticPlayer *)self client];
-    v23 = 136316162;
-    v24 = "AVHapticPlayer.mm";
-    v25 = 1024;
-    v26 = 563;
-    v27 = 2080;
-    v28 = "[AVHapticPlayer createCustomAudioEvent:format:frames:options:reply:]";
-    v29 = 2048;
+    v22 = 136316162;
+    v23 = "AVHapticPlayer.mm";
+    v24 = 1024;
+    v25 = 563;
+    v26 = 2080;
+    v27 = "[AVHapticPlayer createCustomAudioEvent:format:frames:options:reply:]";
+    v28 = 2048;
     clientID = [client clientID];
-    v31 = 2048;
+    v30 = 2048;
     framesCopy = frames;
-    _os_log_impl(&dword_21569A000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: creating custom audio event: clientID: 0x%lx, frameCount: %lu", &v23, 0x30u);
+    _os_log_impl(&dword_21569A000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: creating custom audio event: clientID: 0x%lx, frameCount: %lu", &v22, 0x30u);
   }
 
 LABEL_8:
   v20 = [(AVHapticClient *)self->_client createCustomAudioEvent:eventCopy format:formatCopy frames:frames options:optionsCopy reply:replyCopy];
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)copyCustomAudioEvent:(unint64_t)event options:(id)options reply:(id)reply
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   if (kAVHCScope)
@@ -1490,29 +1561,28 @@ LABEL_8:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     client = [(AVHapticPlayer *)self client];
-    v17 = 136316162;
-    v18 = "AVHapticPlayer.mm";
-    v19 = 1024;
-    v20 = 569;
-    v21 = 2080;
-    v22 = "[AVHapticPlayer copyCustomAudioEvent:options:reply:]";
-    v23 = 2048;
+    v16 = 136316162;
+    v17 = "AVHapticPlayer.mm";
+    v18 = 1024;
+    v19 = 569;
+    v20 = 2080;
+    v21 = "[AVHapticPlayer copyCustomAudioEvent:options:reply:]";
+    v22 = 2048;
     clientID = [client clientID];
-    v25 = 1024;
+    v24 = 1024;
     eventCopy = event;
-    _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: copying custom audio event: clientID: 0x%lx, eventID: %u", &v17, 0x2Cu);
+    _os_log_impl(&dword_21569A000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: copying custom audio event: clientID: 0x%lx, eventID: %u", &v16, 0x2Cu);
   }
 
 LABEL_8:
   v14 = [(AVHapticClient *)self->_client copyCustomAudioEvent:event options:optionsCopy reply:replyCopy];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)referenceCustomAudioEvent:(unint64_t)event reply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   if (kAVHCScope)
   {
@@ -1533,27 +1603,26 @@ LABEL_8:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     client = [(AVHapticPlayer *)self client];
-    v14 = 136315906;
-    v15 = "AVHapticPlayer.mm";
-    v16 = 1024;
-    v17 = 575;
-    v18 = 2080;
-    v19 = "[AVHapticPlayer referenceCustomAudioEvent:reply:]";
-    v20 = 2048;
+    v13 = 136315906;
+    v14 = "AVHapticPlayer.mm";
+    v15 = 1024;
+    v16 = 575;
+    v17 = 2080;
+    v18 = "[AVHapticPlayer referenceCustomAudioEvent:reply:]";
+    v19 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: referencing custom audio event: clientID: 0x%lx", &v14, 0x26u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: referencing custom audio event: clientID: 0x%lx", &v13, 0x26u);
   }
 
 LABEL_8:
   v11 = [(AVHapticClient *)self->_client referenceCustomAudioEvent:event reply:replyCopy];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)releaseCustomAudioEvent:(unint64_t)event reply:(id)reply
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   if (kAVHCScope)
   {
@@ -1574,27 +1643,26 @@ LABEL_8:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     client = [(AVHapticPlayer *)self client];
-    v14 = 136315906;
-    v15 = "AVHapticPlayer.mm";
-    v16 = 1024;
-    v17 = 581;
-    v18 = 2080;
-    v19 = "[AVHapticPlayer releaseCustomAudioEvent:reply:]";
-    v20 = 2048;
+    v13 = 136315906;
+    v14 = "AVHapticPlayer.mm";
+    v15 = 1024;
+    v16 = 581;
+    v17 = 2080;
+    v18 = "[AVHapticPlayer releaseCustomAudioEvent:reply:]";
+    v19 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: releasing custom audio event: clientID: 0x%lx", &v14, 0x26u);
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: releasing custom audio event: clientID: 0x%lx", &v13, 0x26u);
   }
 
 LABEL_8:
   v11 = [(AVHapticClient *)self->_client releaseCustomAudioEvent:event reply:replyCopy];
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)loadAndPrepareHapticSequenceFromData:(id)data reply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   replyCopy = reply;
   selfCopy = self;
@@ -1618,28 +1686,27 @@ LABEL_8:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     client = [(AVHapticPlayer *)selfCopy client];
-    v16 = 136315906;
-    v17 = "AVHapticPlayer.mm";
-    v18 = 1024;
-    v19 = 589;
-    v20 = 2080;
-    v21 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromData:reply:]";
-    v22 = 2048;
+    v15 = 136315906;
+    v16 = "AVHapticPlayer.mm";
+    v17 = 1024;
+    v18 = 589;
+    v19 = 2080;
+    v20 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromData:reply:]";
+    v21 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading haptic sequence from NSData: clientID: 0x%lx", &v16, 0x26u);
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading haptic sequence from NSData: clientID: 0x%lx", &v15, 0x26u);
   }
 
 LABEL_8:
   v13 = [(AVHapticClient *)selfCopy->_client loadAndPrepareHapticSequenceFromData:dataCopy reply:replyCopy];
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)loadAndPrepareHapticSequenceFromEvents:(id)events reply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   replyCopy = reply;
   selfCopy = self;
@@ -1663,28 +1730,27 @@ LABEL_8:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     client = [(AVHapticPlayer *)selfCopy client];
-    v16 = 136315906;
-    v17 = "AVHapticPlayer.mm";
-    v18 = 1024;
-    v19 = 599;
-    v20 = 2080;
-    v21 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromEvents:reply:]";
-    v22 = 2048;
+    v15 = 136315906;
+    v16 = "AVHapticPlayer.mm";
+    v17 = 1024;
+    v18 = 599;
+    v19 = 2080;
+    v20 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromEvents:reply:]";
+    v21 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading and preparing haptic sequence from NSArray: clientID: 0x%lx", &v16, 0x26u);
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading and preparing haptic sequence from NSArray: clientID: 0x%lx", &v15, 0x26u);
   }
 
 LABEL_8:
   v13 = [(AVHapticClient *)selfCopy->_client loadAndPrepareHapticSequenceFromEvents:eventsCopy reply:replyCopy];
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)loadAndPrepareHapticSequenceFromVibePattern:(id)pattern reply:(id)reply
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   patternCopy = pattern;
   replyCopy = reply;
   selfCopy = self;
@@ -1708,35 +1774,34 @@ LABEL_8:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     client = [(AVHapticPlayer *)selfCopy client];
-    v16 = 136315906;
-    v17 = "AVHapticPlayer.mm";
-    v18 = 1024;
-    v19 = 609;
-    v20 = 2080;
-    v21 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromVibePattern:reply:]";
-    v22 = 2048;
+    v15 = 136315906;
+    v16 = "AVHapticPlayer.mm";
+    v17 = 1024;
+    v18 = 609;
+    v19 = 2080;
+    v20 = "[AVHapticPlayer loadAndPrepareHapticSequenceFromVibePattern:reply:]";
+    v21 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading and preparing haptic pattern: clientID: 0x%lx", &v16, 0x26u);
+    _os_log_impl(&dword_21569A000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: loading and preparing haptic pattern: clientID: 0x%lx", &v15, 0x26u);
   }
 
 LABEL_8:
   v13 = [(AVHapticClient *)selfCopy->_client loadAndPrepareHapticSequenceFromVibePattern:patternCopy reply:replyCopy];
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)prepareHapticSequence:(unint64_t)sequence error:(id *)error
 {
   sequenceCopy = sequence;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v6 = *kAVHCScope;
     if (!v6)
     {
-      goto LABEL_8;
+      return 1;
     }
   }
 
@@ -1750,27 +1815,58 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     client = [(AVHapticPlayer *)self client];
-    v12 = 136316162;
-    v13 = "AVHapticPlayer.mm";
-    v14 = 1024;
-    v15 = 618;
-    v16 = 2080;
-    v17 = "[AVHapticPlayer prepareHapticSequence:error:]";
-    v18 = 1024;
-    v19 = sequenceCopy;
-    v20 = 2048;
+    v11 = 136316162;
+    v12 = "AVHapticPlayer.mm";
+    v13 = 1024;
+    v14 = 618;
+    v15 = 2080;
+    v16 = "[AVHapticPlayer prepareHapticSequence:error:]";
+    v17 = 1024;
+    v18 = sequenceCopy;
+    v19 = 2048;
     clientID = [client clientID];
-    _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: sequence %u already prepared for clientID: 0x%lx - NOOP", &v12, 0x2Cu);
+    _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: sequence %u already prepared for clientID: 0x%lx - NOOP", &v11, 0x2Cu);
   }
 
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
+}
+
+- (BOOL)enableSequenceLooping:(unint64_t)looping enable:(BOOL)enable error:(id *)error
+{
+  enableCopy = enable;
+  v18 = *MEMORY[0x277D85DE8];
+  if (kAVHCScope)
+  {
+    v9 = *kAVHCScope;
+    if (!v9)
+    {
+      return [(AVHapticClient *)self->_client enableSequenceLooping:looping enable:enableCopy error:error];
+    }
+  }
+
+  else
+  {
+    v9 = MEMORY[0x277D86220];
+    v10 = MEMORY[0x277D86220];
+  }
+
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    v12 = 136315650;
+    v13 = "AVHapticPlayer.mm";
+    v14 = 1024;
+    v15 = 632;
+    v16 = 2080;
+    v17 = "[AVHapticPlayer enableSequenceLooping:enable:error:]";
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: enable sequence looping: entered", &v12, 0x1Cu);
+  }
+
+  return [(AVHapticClient *)self->_client enableSequenceLooping:looping enable:enableCopy error:error];
 }
 
 - (BOOL)setSequenceLoopLength:(unint64_t)length length:(float)a4 error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v9 = *kAVHCScope;
@@ -1788,25 +1884,23 @@ LABEL_8:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315650;
-    v15 = "AVHapticPlayer.mm";
-    v16 = 1024;
-    v17 = 638;
-    v18 = 2080;
-    v19 = "[AVHapticPlayer setSequenceLoopLength:length:error:]";
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: set sequence loop length: entered", &v14, 0x1Cu);
+    v13 = 136315650;
+    v14 = "AVHapticPlayer.mm";
+    v15 = 1024;
+    v16 = 638;
+    v17 = 2080;
+    v18 = "[AVHapticPlayer setSequenceLoopLength:length:error:]";
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: set sequence loop length: entered", &v13, 0x1Cu);
   }
 
 LABEL_8:
   *&v10 = a4;
-  result = [(AVHapticClient *)self->_client setSequenceLoopLength:length length:error error:v10];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(AVHapticClient *)self->_client setSequenceLoopLength:length length:error error:v10];
 }
 
 - (BOOL)setSequencePlaybackRate:(unint64_t)rate rate:(float)a4 error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v9 = *kAVHCScope;
@@ -1824,25 +1918,23 @@ LABEL_8:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315650;
-    v15 = "AVHapticPlayer.mm";
-    v16 = 1024;
-    v17 = 644;
-    v18 = 2080;
-    v19 = "[AVHapticPlayer setSequencePlaybackRate:rate:error:]";
-    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: set sequence playback rate: entered", &v14, 0x1Cu);
+    v13 = 136315650;
+    v14 = "AVHapticPlayer.mm";
+    v15 = 1024;
+    v16 = 644;
+    v17 = 2080;
+    v18 = "[AVHapticPlayer setSequencePlaybackRate:rate:error:]";
+    _os_log_impl(&dword_21569A000, v9, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: set sequence playback rate: entered", &v13, 0x1Cu);
   }
 
 LABEL_8:
   *&v10 = a4;
-  result = [(AVHapticClient *)self->_client setSequencePlaybackRate:rate rate:error error:v10];
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(AVHapticClient *)self->_client setSequencePlaybackRate:rate rate:error error:v10];
 }
 
 - (void)prewarmWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1866,12 +1958,12 @@ LABEL_8:
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136315906;
-    v19 = "AVHapticPlayer.mm";
-    v20 = 1024;
-    v21 = 651;
-    v22 = 2080;
-    v23 = "[AVHapticPlayer prewarmWithCompletionHandler:]";
-    v24 = 2048;
+    v18 = "AVHapticPlayer.mm";
+    v19 = 1024;
+    v20 = 651;
+    v21 = 2080;
+    v22 = "[AVHapticPlayer prewarmWithCompletionHandler:]";
+    v23 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: prewarm: clientID: 0x%lx", buf, 0x26u);
   }
@@ -1882,9 +1974,9 @@ LABEL_8:
 
   if (v11)
   {
-    v17 = 0;
-    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 652, "[AVHapticPlayer prewarmWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v17);
-    v13 = v17;
+    v16 = 0;
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 652, "[AVHapticPlayer prewarmWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v16);
+    v13 = v16;
     if (handlerCopy)
     {
       handlerCopy[2](handlerCopy, v13);
@@ -1894,22 +1986,21 @@ LABEL_8:
   else
   {
     client = selfCopy->_client;
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke;
-    v15[3] = &unk_2781C9330;
-    v16 = handlerCopy;
-    [(AVHapticClient *)client prewarm:v15];
-    v13 = v16;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke;
+    v14[3] = &unk_2781C9330;
+    v15 = handlerCopy;
+    [(AVHapticClient *)client prewarm:v14];
+    v13 = v15;
   }
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (kAVHCScope)
   {
@@ -1921,15 +2012,15 @@ void __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke(uint64_t a
         v5 = v4;
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          v8 = 136315906;
-          v9 = "AVHapticPlayer.mm";
-          v10 = 1024;
-          v11 = 654;
-          v12 = 2080;
-          v13 = "[AVHapticPlayer prewarmWithCompletionHandler:]_block_invoke";
-          v14 = 2112;
-          v15 = v3;
-          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client prewarm: replyError: %@", &v8, 0x26u);
+          v7 = 136315906;
+          v8 = "AVHapticPlayer.mm";
+          v9 = 1024;
+          v10 = 654;
+          v11 = 2080;
+          v12 = "[AVHapticPlayer prewarmWithCompletionHandler:]_block_invoke";
+          v13 = 2112;
+          v14 = v3;
+          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client prewarm: replyError: %@", &v7, 0x26u);
         }
       }
     }
@@ -1940,13 +2031,11 @@ void __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke(uint64_t a
   {
     (*(v6 + 16))(v6, v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startRunningWithCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1971,13 +2060,13 @@ void __47__AVHapticPlayer_prewarmWithCompletionHandler___block_invoke(uint64_t a
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v24 = "AVHapticPlayer.mm";
-    v25 = 1024;
-    v26 = 675;
-    v27 = 2080;
-    v28 = "[AVHapticPlayer startRunningWithCompletionHandler:]";
-    v29 = 2048;
-    v30 = clientID;
+    v23 = "AVHapticPlayer.mm";
+    v24 = 1024;
+    v25 = 675;
+    v26 = 2080;
+    v27 = "[AVHapticPlayer startRunningWithCompletionHandler:]";
+    v28 = 2048;
+    v29 = clientID;
     _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: start running: clientID: 0x%lx", buf, 0x26u);
   }
 
@@ -1990,22 +2079,22 @@ LABEL_8:
     if (selfCopy->_resourcesAllocated)
     {
       objc_initWeak(buf, selfCopy);
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke;
-      v20[3] = &unk_2781C99A8;
-      v21[1] = clientID;
-      objc_copyWeak(v21, buf);
-      [(AVHapticClient *)selfCopy->_client setAsyncStopCallback:v20];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke;
+      v19[3] = &unk_2781C99A8;
+      v20[1] = clientID;
+      objc_copyWeak(v20, buf);
+      [(AVHapticClient *)selfCopy->_client setAsyncStopCallback:v19];
       client = selfCopy->_client;
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77;
-      v18[3] = &unk_2781C9330;
-      v19 = handlerCopy;
-      [(AVHapticClient *)client startRunning:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77;
+      v17[3] = &unk_2781C9330;
+      v18 = handlerCopy;
+      [(AVHapticClient *)client startRunning:v17];
 
-      objc_destroyWeak(v21);
+      objc_destroyWeak(v20);
       objc_destroyWeak(buf);
       goto LABEL_24;
     }
@@ -2035,20 +2124,20 @@ LABEL_21:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v24 = "AVHapticPlayer.mm";
-      v25 = 1024;
-      v26 = 715;
-      v27 = 2080;
-      v28 = "[AVHapticPlayer startRunningWithCompletionHandler:]";
+      v23 = "AVHapticPlayer.mm";
+      v24 = 1024;
+      v25 = 715;
+      v26 = 2080;
+      v27 = "[AVHapticPlayer startRunningWithCompletionHandler:]";
       _os_log_impl(&dword_21569A000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: Cannot start without allocating resources", buf, 0x1Cu);
     }
 
     goto LABEL_21;
   }
 
-  v22 = 0;
-  _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 676, "[AVHapticPlayer startRunningWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v22);
-  v13 = v22;
+  v21 = 0;
+  _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 676, "[AVHapticPlayer startRunningWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v21);
+  v13 = v21;
   if (handlerCopy)
   {
     (*(handlerCopy + 2))(handlerCopy, v13);
@@ -2056,13 +2145,11 @@ LABEL_21:
 
 LABEL_24:
   objc_sync_exit(selfCopy);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (kAVHCScope)
   {
     v4 = *kAVHCScope;
@@ -2081,17 +2168,17 @@ void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke(uint6
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
-    v11 = 136316162;
-    v12 = "AVHapticPlayer.mm";
-    v13 = 1024;
-    v14 = 681;
-    v15 = 2080;
-    v16 = "[AVHapticPlayer startRunningWithCompletionHandler:]_block_invoke";
-    v17 = 2048;
-    v18 = v6;
-    v19 = 1024;
-    v20 = a2;
-    _os_log_impl(&dword_21569A000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Client 0x%lx asynchronously stopped for reason %d", &v11, 0x2Cu);
+    v10 = 136316162;
+    v11 = "AVHapticPlayer.mm";
+    v12 = 1024;
+    v13 = 681;
+    v14 = 2080;
+    v15 = "[AVHapticPlayer startRunningWithCompletionHandler:]_block_invoke";
+    v16 = 2048;
+    v17 = v6;
+    v18 = 1024;
+    v19 = a2;
+    _os_log_impl(&dword_21569A000, v4, OS_LOG_TYPE_INFO, "%25s:%-5d %s: Client 0x%lx asynchronously stopped for reason %d", &v10, 0x2Cu);
   }
 
 LABEL_8:
@@ -2112,13 +2199,11 @@ LABEL_8:
 
     v8[2](v8, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (kAVHCScope)
   {
@@ -2130,15 +2215,15 @@ void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77(ui
         v5 = v4;
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          v8 = 136315906;
-          v9 = "AVHapticPlayer.mm";
-          v10 = 1024;
-          v11 = 707;
-          v12 = 2080;
-          v13 = "[AVHapticPlayer startRunningWithCompletionHandler:]_block_invoke";
-          v14 = 2112;
-          v15 = v3;
-          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client startRunning: replyError: %@", &v8, 0x26u);
+          v7 = 136315906;
+          v8 = "AVHapticPlayer.mm";
+          v9 = 1024;
+          v10 = 707;
+          v11 = 2080;
+          v12 = "[AVHapticPlayer startRunningWithCompletionHandler:]_block_invoke";
+          v13 = 2112;
+          v14 = v3;
+          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client startRunning: replyError: %@", &v7, 0x26u);
         }
       }
     }
@@ -2149,13 +2234,11 @@ void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77(ui
   {
     (*(v6 + 16))(v6, v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRunning
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (kAVHCScope)
@@ -2178,12 +2261,12 @@ void __52__AVHapticPlayer_startRunningWithCompletionHandler___block_invoke_77(ui
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136315906;
-    v12 = "AVHapticPlayer.mm";
-    v13 = 1024;
-    v14 = 727;
-    v15 = 2080;
-    v16 = "[AVHapticPlayer stopRunning]";
-    v17 = 2048;
+    v11 = "AVHapticPlayer.mm";
+    v12 = 1024;
+    v13 = 727;
+    v14 = 2080;
+    v15 = "[AVHapticPlayer stopRunning]";
+    v16 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: stop running: clientID: 0x%lx", buf, 0x26u);
   }
@@ -2194,8 +2277,8 @@ LABEL_8:
 
   if (v8)
   {
-    v10 = 0;
-    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 728, "[AVHapticPlayer stopRunning]", "self.client.clientID != kInvalidClientID", -4812, &v10);
+    v9 = 0;
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 728, "[AVHapticPlayer stopRunning]", "self.client.clientID != kInvalidClientID", -4812, &v9);
   }
 
   else if (selfCopy->_resourcesAllocated)
@@ -2204,13 +2287,11 @@ LABEL_8:
   }
 
   objc_sync_exit(selfCopy);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRunningWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2235,13 +2316,13 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
-    v21 = "AVHapticPlayer.mm";
-    v22 = 1024;
-    v23 = 739;
-    v24 = 2080;
-    v25 = "[AVHapticPlayer stopRunningWithCompletionHandler:]";
-    v26 = 2048;
-    v27 = clientID;
+    v20 = "AVHapticPlayer.mm";
+    v21 = 1024;
+    v22 = 739;
+    v23 = 2080;
+    v24 = "[AVHapticPlayer stopRunningWithCompletionHandler:]";
+    v25 = 2048;
+    v26 = clientID;
     _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: stop running: clientID: 0x%lx", buf, 0x26u);
   }
 
@@ -2251,9 +2332,9 @@ LABEL_8:
 
   if (v11)
   {
-    v19 = 0;
-    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 740, "[AVHapticPlayer stopRunningWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v19);
-    v13 = v19;
+    v18 = 0;
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 740, "[AVHapticPlayer stopRunningWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v18);
+    v13 = v18;
     if (handlerCopy)
     {
       handlerCopy[2](handlerCopy, v13);
@@ -2265,13 +2346,13 @@ LABEL_8:
   if ([(AVHapticClient *)selfCopy->_client running])
   {
     client = selfCopy->_client;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke;
-    v17[3] = &unk_2781C9330;
-    v18 = handlerCopy;
-    [(AVHapticClient *)client stopRunning:v17];
-    v13 = v18;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke;
+    v16[3] = &unk_2781C9330;
+    v17 = handlerCopy;
+    [(AVHapticClient *)client stopRunning:v16];
+    v13 = v17;
 LABEL_13:
 
     goto LABEL_23;
@@ -2291,11 +2372,11 @@ LABEL_18:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v21 = "AVHapticPlayer.mm";
-      v22 = 1024;
-      v23 = 750;
-      v24 = 2080;
-      v25 = "[AVHapticPlayer stopRunningWithCompletionHandler:]";
+      v20 = "AVHapticPlayer.mm";
+      v21 = 1024;
+      v22 = 750;
+      v23 = 2080;
+      v24 = "[AVHapticPlayer stopRunningWithCompletionHandler:]";
       _os_log_impl(&dword_21569A000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: Client was not running - calling completion handler immediately", buf, 0x1Cu);
     }
   }
@@ -2307,13 +2388,11 @@ LABEL_18:
 
 LABEL_23:
   objc_sync_exit(selfCopy);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (kAVHCScope)
   {
@@ -2325,15 +2404,15 @@ void __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke(uint64
         v5 = v4;
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
         {
-          v8 = 136315906;
-          v9 = "AVHapticPlayer.mm";
-          v10 = 1024;
-          v11 = 743;
-          v12 = 2080;
-          v13 = "[AVHapticPlayer stopRunningWithCompletionHandler:]_block_invoke";
-          v14 = 2112;
-          v15 = v3;
-          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client stopRunning: replyError: %@", &v8, 0x26u);
+          v7 = 136315906;
+          v8 = "AVHapticPlayer.mm";
+          v9 = 1024;
+          v10 = 743;
+          v11 = 2080;
+          v12 = "[AVHapticPlayer stopRunningWithCompletionHandler:]_block_invoke";
+          v13 = 2112;
+          v14 = v3;
+          _os_log_impl(&dword_21569A000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d %s: reply block for _client stopRunning: replyError: %@", &v7, 0x26u);
         }
       }
     }
@@ -2344,13 +2423,11 @@ void __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke(uint64
   {
     (*(v6 + 16))(v6, v3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)finishWithCompletionHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2374,12 +2451,12 @@ void __51__AVHapticPlayer_stopRunningWithCompletionHandler___block_invoke(uint64
   {
     client = [(AVHapticPlayer *)selfCopy client];
     *buf = 136315906;
-    v18 = "AVHapticPlayer.mm";
-    v19 = 1024;
-    v20 = 762;
-    v21 = 2080;
-    v22 = "[AVHapticPlayer finishWithCompletionHandler:]";
-    v23 = 2048;
+    v17 = "AVHapticPlayer.mm";
+    v18 = 1024;
+    v19 = 762;
+    v20 = 2080;
+    v21 = "[AVHapticPlayer finishWithCompletionHandler:]";
+    v22 = 2048;
     clientID = [client clientID];
     _os_log_impl(&dword_21569A000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d %s: finish with comp handler: clientID: 0x%lx", buf, 0x26u);
   }
@@ -2390,9 +2467,9 @@ LABEL_8:
 
   if (clientID2 == -1)
   {
-    v16 = 0;
-    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 763, "[AVHapticPlayer finishWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v16);
-    v13 = v16;
+    v15 = 0;
+    _Haptic_Check("/Library/Caches/com.apple.xbs/Sources/CoreHaptics/Source/AVHapticPlayer.mm", 763, "[AVHapticPlayer finishWithCompletionHandler:]", "self.client.clientID != kInvalidClientID", -4812, &v15);
+    v13 = v15;
     if (handlerCopy)
     {
       handlerCopy[2](handlerCopy, v13);
@@ -2408,7 +2485,6 @@ LABEL_8:
 
   objc_sync_exit(selfCopy);
 
-  v14 = *MEMORY[0x277D85DE8];
   return clientID2 != -1 && v12;
 }
 

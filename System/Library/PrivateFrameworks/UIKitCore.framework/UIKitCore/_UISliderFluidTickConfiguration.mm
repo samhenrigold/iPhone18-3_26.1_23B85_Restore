@@ -12,7 +12,7 @@
 
 - (NSArray)ticks
 {
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
 
   v2 = sub_18A4A7518();
 
@@ -21,14 +21,14 @@
 
 - (_UISliderFluidTickConfiguration)initWithTicks:(id)ticks behavior:(int64_t)behavior
 {
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v5 = sub_18A4A7548();
   return _UISliderFluidTickConfiguration.init(ticks:behavior:)(v5, behavior);
 }
 
 - (_UISliderFluidTickConfiguration)init
 {
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v3 = sub_18A4A7518();
   v4 = [(_UISliderFluidTickConfiguration *)self initWithTicks:v3 behavior:0];
 
@@ -38,7 +38,7 @@
 - (_UISliderFluidTickConfiguration)initWithNumberOfTicks:(int64_t)ticks behavior:(int64_t)behavior
 {
   sub_189017030(ticks);
-  sub_188A34624(0, &unk_1EA92FD90);
+  sub_188A34624(0, &unk_1EA92FD90, off_1E70EC298);
   v6 = sub_18A4A7518();
 
   v7 = [(_UISliderFluidTickConfiguration *)self initWithTicks:v6 behavior:behavior];
@@ -83,31 +83,31 @@
 - (BOOL)adjustPositionForTargetPosition:(float)position adjustedPosition:(float *)adjustedPosition startPosition:(float *)startPosition endPosition:(float *)endPosition
 {
   selfCopy = self;
-  v11 = sub_1891CD000(position);
-  if ((v12 & 0x100000000) == 0)
+  v10 = sub_1891CD000();
+  if ((v11 & 0x100000000) == 0)
   {
     if (!adjustedPosition)
     {
       __break(1u);
-      return v11;
+      return v10;
     }
 
-    *adjustedPosition = v11;
+    *adjustedPosition = v10;
     if (startPosition)
     {
-      *startPosition = *(&v11 + 1);
+      *startPosition = *(&v10 + 1);
     }
 
     if (endPosition)
     {
-      *endPosition = v12;
+      *endPosition = v11;
     }
   }
 
-  v13 = (v12 & 0x100000000) == 0;
+  v12 = (v11 & 0x100000000) == 0;
 
-  LOBYTE(v11) = v13;
-  return v11;
+  LOBYTE(v10) = v12;
+  return v10;
 }
 
 @end

@@ -26,44 +26,44 @@
   v28 = [(HDNotificationInstruction *)&v52 init];
   if (v28)
   {
-    v29 = [identifierCopy copy];
+    v29 = objc_msgSend_copy(identifierCopy);
     messageIdentifier = v28->_messageIdentifier;
     v28->_messageIdentifier = v29;
 
-    v31 = [nameCopy copy];
+    v31 = objc_msgSend_copy(nameCopy);
     sendingDeviceName = v28->_sendingDeviceName;
     v28->_sendingDeviceName = v31;
 
-    v33 = [infoCopy copy];
+    v33 = objc_msgSend_copy(infoCopy);
     sendingDeviceInfo = v28->_sendingDeviceInfo;
     v28->_sendingDeviceInfo = v33;
 
     v28->_action = action;
-    v35 = [clientIdentifierCopy copy];
+    v35 = objc_msgSend_copy(clientIdentifierCopy);
     clientIdentifier = v28->_clientIdentifier;
     v28->_clientIdentifier = v35;
 
-    v37 = [categoryIdentifierCopy copy];
+    v37 = objc_msgSend_copy(categoryIdentifierCopy);
     categoryIdentifier = v28->_categoryIdentifier;
     v28->_categoryIdentifier = v37;
 
-    v39 = [dateCopy copy];
+    v39 = objc_msgSend_copy(dateCopy);
     creationDate = v28->_creationDate;
     v28->_creationDate = v39;
 
-    v41 = [receivedDateCopy copy];
+    v41 = objc_msgSend_copy(receivedDateCopy);
     receivedDate = v28->_receivedDate;
     v28->_receivedDate = v41;
 
-    v43 = [expirationDateCopy copy];
+    v43 = objc_msgSend_copy(expirationDateCopy);
     expirationDate = v28->_expirationDate;
     v28->_expirationDate = v43;
 
-    v45 = [modificationDateCopy copy];
+    v45 = objc_msgSend_copy(modificationDateCopy);
     modificationDate = v28->_modificationDate;
     v28->_modificationDate = v45;
 
-    v47 = [criteriaCopy copy];
+    v47 = objc_msgSend_copy(criteriaCopy);
     criteria = v28->_criteria;
     v28->_criteria = v47;
 
@@ -87,70 +87,7 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      if (self->_action != v5->_action)
-      {
-        goto LABEL_37;
-      }
-
-      categoryIdentifier = self->_categoryIdentifier;
-      v7 = v5->_categoryIdentifier;
-      if (categoryIdentifier != v7 && (!v7 || ![(NSString *)categoryIdentifier isEqualToString:?]))
-      {
-        goto LABEL_37;
-      }
-
-      clientIdentifier = self->_clientIdentifier;
-      v9 = v5->_clientIdentifier;
-      if (clientIdentifier != v9 && (!v9 || ![(NSString *)clientIdentifier isEqualToString:?]))
-      {
-        goto LABEL_37;
-      }
-
-      creationDate = self->_creationDate;
-      v11 = v5->_creationDate;
-      if (creationDate != v11 && (!v11 || ![(NSDate *)creationDate isEqualToDate:?]))
-      {
-        goto LABEL_37;
-      }
-
-      receivedDate = self->_receivedDate;
-      v13 = v5->_receivedDate;
-      if (receivedDate != v13 && (!v13 || ![(NSDate *)receivedDate isEqualToDate:?]))
-      {
-        goto LABEL_37;
-      }
-
-      expirationDate = self->_expirationDate;
-      v15 = v5->_expirationDate;
-      if (expirationDate != v15 && (!v15 || ![(NSDate *)expirationDate isEqualToDate:?]))
-      {
-        goto LABEL_37;
-      }
-
-      modificationDate = self->_modificationDate;
-      v17 = v5->_modificationDate;
-      if (modificationDate != v17 && (!v17 || ![(NSDate *)modificationDate isEqualToDate:?]))
-      {
-        goto LABEL_37;
-      }
-
-      messageIdentifier = self->_messageIdentifier;
-      v19 = v5->_messageIdentifier;
-      if (messageIdentifier != v19 && (!v19 || ![(NSString *)messageIdentifier isEqualToString:?]))
-      {
-        goto LABEL_37;
-      }
-
-      if (((sendingDeviceName = self->_sendingDeviceName, v21 = v5->_sendingDeviceName, sendingDeviceName == v21) || v21 && [(NSString *)sendingDeviceName isEqualToString:?]) && ((sendingDeviceInfo = self->_sendingDeviceInfo, v23 = v5->_sendingDeviceInfo, sendingDeviceInfo == v23) || v23 && [(NSString *)sendingDeviceInfo isEqualToString:?]) && ((criteria = self->_criteria, v25 = v5->_criteria, criteria == v25) || v25 && [(HDNotificationInstructionCriteria *)criteria isEqual:?]))
-      {
-        v26 = self->_isInvalid == v5->_isInvalid;
-      }
-
-      else
-      {
-LABEL_37:
-        v26 = 0;
-      }
+      v26 = self->_action == v5->_action && ((categoryIdentifier = self->_categoryIdentifier, v7 = v5->_categoryIdentifier, categoryIdentifier == v7) || v7 && [(NSString *)categoryIdentifier isEqualToString:?]) && ((clientIdentifier = self->_clientIdentifier, v9 = v5->_clientIdentifier, clientIdentifier == v9) || v9 && [(NSString *)clientIdentifier isEqualToString:?]) && ((creationDate = self->_creationDate, v11 = v5->_creationDate, creationDate == v11) || v11 && [(NSDate *)creationDate isEqualToDate:?]) && ((receivedDate = self->_receivedDate, v13 = v5->_receivedDate, receivedDate == v13) || v13 && [(NSDate *)receivedDate isEqualToDate:?]) && ((expirationDate = self->_expirationDate, v15 = v5->_expirationDate, expirationDate == v15) || v15 && [(NSDate *)expirationDate isEqualToDate:?]) && ((modificationDate = self->_modificationDate, v17 = v5->_modificationDate, modificationDate == v17) || v17 && [(NSDate *)modificationDate isEqualToDate:?]) && ((messageIdentifier = self->_messageIdentifier, v19 = v5->_messageIdentifier, messageIdentifier == v19) || v19 && [(NSString *)messageIdentifier isEqualToString:?]) && ((sendingDeviceName = self->_sendingDeviceName, v21 = v5->_sendingDeviceName, sendingDeviceName == v21) || v21 && [(NSString *)sendingDeviceName isEqualToString:?]) && ((sendingDeviceInfo = self->_sendingDeviceInfo, v23 = v5->_sendingDeviceInfo, sendingDeviceInfo == v23) || v23 && [(NSString *)sendingDeviceInfo isEqualToString:?]) && ((criteria = self->_criteria, v25 = v5->_criteria, criteria == v25) || v25 && [(HDNotificationInstructionCriteria *)criteria isEqual:?]) && self->_isInvalid == v5->_isInvalid;
     }
 
     else
@@ -181,18 +118,17 @@ LABEL_37:
 {
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
-  action = self->_action;
-  v6 = NSStringFromHKNotificationInstructionAction();
-  v14 = *&self->_receivedDate;
-  v15 = *&self->_messageIdentifier;
-  v13 = *&self->_clientIdentifier;
-  v12 = *&self->_expirationDate;
+  v5 = NSStringFromHKNotificationInstructionAction();
+  v13 = *&self->_receivedDate;
+  v14 = *&self->_messageIdentifier;
+  v12 = *&self->_clientIdentifier;
+  v11 = *&self->_expirationDate;
   sendingDeviceName = self->_sendingDeviceName;
   sendingDeviceInfo = self->_sendingDeviceInfo;
-  v9 = [MEMORY[0x277CCABB0] numberWithBool:self->_isInvalid];
-  v10 = [v3 stringWithFormat:@"<%@:%@ mID:%@ ctime:%@ rtime:%@ mtime:%@ %@:%@ expires:%@ criteria:%@ device:%@%@ invalid:%@>", v4, v6, v15, v14, v13, v12, sendingDeviceName, sendingDeviceInfo, v9];;
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:self->_isInvalid];
+  v9 = [v3 stringWithFormat:@"<%@:%@ mID:%@ ctime:%@ rtime:%@ mtime:%@ %@:%@ expires:%@ criteria:%@ device:%@%@ invalid:%@>", v4, v5, v14, v13, v12, v11, sendingDeviceName, sendingDeviceInfo, v8];;
 
-  return v10;
+  return v9;
 }
 
 - (HDNotificationInstruction)initWithMessageIdentifier:(id)identifier receivedDate:(id)date sendingDeviceName:(id)name message:(id)message

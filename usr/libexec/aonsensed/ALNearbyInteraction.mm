@@ -32,7 +32,7 @@
   sessionCopy = session;
   errorCopy = error;
   selfCopy = self;
-  sub_100339C38();
+  sub_100339C38(errorCopy);
 }
 
 - (_TtC8ALDaemon19ALNearbyInteraction)init

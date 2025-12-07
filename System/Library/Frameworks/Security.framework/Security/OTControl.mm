@@ -1,4 +1,5 @@
 @interface OTControl
++ (id)controlObject:(BOOL)object error:(id *)error;
 - (OTControl)initWithConnection:(id)connection sync:(BOOL)sync;
 - (id)getAsyncConnection:(id)connection;
 - (id)getConnection:(id)connection;
@@ -7,13 +8,16 @@
 - (void)areRecoveryKeysDistrusted:(id)distrusted reply:(id)reply;
 - (void)checkCustodianRecoveryKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)checkInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
+- (void)clearCliqueFromAccount:(id)account resetReason:(int64_t)reason isGuitarfish:(BOOL)guitarfish reply:(id)reply;
 - (void)createCustodianRecoveryKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)createInheritanceKey:(id)key uuid:(id)uuid claimTokenData:(id)data wrappingKeyData:(id)keyData reply:(id)reply;
 - (void)createInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)createRecoveryKey:(id)key recoveryKey:(id)recoveryKey reply:(id)reply;
 - (void)dealloc;
+- (void)escrowCheck:(id)check isBackgroundCheck:(BOOL)backgroundCheck reply:(id)reply;
 - (void)establish:(id)establish reply:(id)reply;
 - (void)fetchAccountSettings:(id)settings reply:(id)reply;
+- (void)fetchAccountWideSettingsWithForceFetch:(BOOL)fetch arguments:(id)arguments reply:(id)reply;
 - (void)fetchAllViableBottles:(id)bottles source:(int64_t)source reply:(id)reply;
 - (void)fetchCliqueStatus:(id)status configuration:(id)configuration reply:(id)reply;
 - (void)fetchEgoPeerID:(id)d reply:(id)reply;
@@ -26,6 +30,7 @@
 - (void)generateInheritanceKey:(id)key uuid:(id)uuid reply:(id)reply;
 - (void)getAccountMetadata:(id)metadata reply:(id)reply;
 - (void)getCDPStatus:(id)status reply:(id)reply;
+- (void)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply;
 - (void)icscRepairReset:(id)reset reply:(id)reply;
 - (void)invalidateEscrowCache:(id)cache reply:(id)reply;
 - (void)isRecoveryKeySet:(id)set reply:(id)reply;
@@ -39,6 +44,8 @@
 - (void)octagonEncryptionPublicKey:(id)key;
 - (void)octagonSigningPublicKey:(id)key;
 - (void)peerDeviceNamesByPeerID:(id)d reply:(id)reply;
+- (void)performCKServerUnreadableDataRemoval:(id)removal isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w altDSID:(id)d reply:(id)reply;
+- (void)postCDPFollowupResult:(id)result success:(BOOL)success type:(id)type error:(id)error reply:(id)reply;
 - (void)preflightBottledPeer:(id)peer dsid:(id)dsid reply:(id)reply;
 - (void)preflightJoinWithCustodianRecoveryKey:(id)key custodianRecoveryKey:(id)recoveryKey reply:(id)reply;
 - (void)preflightJoinWithInheritanceKey:(id)key inheritanceKey:(id)inheritanceKey reply:(id)reply;
@@ -53,6 +60,8 @@
 - (void)removeRecoveryKey:(id)key reply:(id)reply;
 - (void)reroll:(id)reroll reply:(id)reply;
 - (void)reset:(id)reset;
+- (void)resetAccountCDPContents:(id)contents idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply;
+- (void)resetAndEstablish:(id)establish resetReason:(int64_t)reason idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s accountSettings:(id)settings isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)self0 reply:(id)self1;
 - (void)restore:(id)restore dsid:(id)dsid secret:(id)secret escrowRecordID:(id)d reply:(id)reply;
 - (void)restoreFromBottle:(id)bottle entropy:(id)entropy bottleID:(id)d reply:(id)reply;
 - (void)rpcEpochWithArguments:(id)arguments configuration:(id)configuration reply:(id)reply;
@@ -64,6 +73,7 @@
 - (void)setCDPEnabled:(id)enabled reply:(id)reply;
 - (void)setLocalSecureElementIdentity:(id)identity secureElementIdentity:(id)elementIdentity reply:(id)reply;
 - (void)setMachineIDOverride:(id)override machineID:(id)d reply:(id)reply;
+- (void)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled reply:(id)reply;
 - (void)simulateReceivePush:(id)push reply:(id)reply;
 - (void)simulateReceiveTDLChangePush:(id)push reply:(id)reply;
 - (void)startOctagonStateMachine:(id)machine reply:(id)reply;
@@ -149,6 +159,38 @@
   peersCopy = peers;
   v9 = [(OTControl *)self getConnection:v10];
   [v9 totalTrustedPeers:peersCopy reply:v7];
+}
+
+- (void)performCKServerUnreadableDataRemoval:(id)removal isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)w altDSID:(id)d reply:(id)reply
+{
+  wCopy = w;
+  guitarfishCopy = guitarfish;
+  replyCopy = reply;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __88__OTControl_performCKServerUnreadableDataRemoval_isGuitarfish_accountIsW_altDSID_reply___block_invoke;
+  v17[3] = &unk_1E70DECC0;
+  v18 = replyCopy;
+  v13 = replyCopy;
+  dCopy = d;
+  removalCopy = removal;
+  v16 = [(OTControl *)self getConnection:v17];
+  [v16 performCKServerUnreadableDataRemoval:removalCopy isGuitarfish:guitarfishCopy accountIsW:wCopy altDSID:dCopy reply:v13];
+}
+
+- (void)clearCliqueFromAccount:(id)account resetReason:(int64_t)reason isGuitarfish:(BOOL)guitarfish reply:(id)reply
+{
+  guitarfishCopy = guitarfish;
+  replyCopy = reply;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __67__OTControl_clearCliqueFromAccount_resetReason_isGuitarfish_reply___block_invoke;
+  v14[3] = &unk_1E70DECC0;
+  v15 = replyCopy;
+  v11 = replyCopy;
+  accountCopy = account;
+  v13 = [(OTControl *)self getConnection:v14];
+  [v13 clearCliqueFromAccount:accountCopy resetReason:reason isGuitarfish:guitarfishCopy reply:v11];
 }
 
 - (void)getAccountMetadata:(id)metadata reply:(id)reply
@@ -267,6 +309,21 @@
   [v9 waitForPriorityViewKeychainDataRecovery:recoveryCopy reply:v7];
 }
 
+- (void)fetchAccountWideSettingsWithForceFetch:(BOOL)fetch arguments:(id)arguments reply:(id)reply
+{
+  fetchCopy = fetch;
+  replyCopy = reply;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __68__OTControl_fetchAccountWideSettingsWithForceFetch_arguments_reply___block_invoke;
+  v12[3] = &unk_1E70DECC0;
+  v13 = replyCopy;
+  v9 = replyCopy;
+  argumentsCopy = arguments;
+  v11 = [(OTControl *)self getConnection:v12];
+  [v11 fetchAccountWideSettingsWithForceFetch:fetchCopy arguments:argumentsCopy reply:v9];
+}
+
 - (void)fetchAccountSettings:(id)settings reply:(id)reply
 {
   replyCopy = reply;
@@ -340,6 +397,23 @@
   [v12 setLocalSecureElementIdentity:identityCopy secureElementIdentity:elementIdentityCopy reply:v9];
 }
 
+- (void)resetAccountCDPContents:(id)contents idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s reply:(id)reply
+{
+  sCopy = s;
+  replyCopy = reply;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __95__OTControl_resetAccountCDPContents_idmsTargetContext_idmsCuttlefishPassword_notifyIdMS_reply___block_invoke;
+  v18[3] = &unk_1E70DECC0;
+  v19 = replyCopy;
+  v13 = replyCopy;
+  passwordCopy = password;
+  contextCopy = context;
+  contentsCopy = contents;
+  v17 = [(OTControl *)self getConnection:v18];
+  [v17 resetAccountCDPContents:contentsCopy idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy reply:v13];
+}
+
 - (void)invalidateEscrowCache:(id)cache reply:(id)reply
 {
   replyCopy = reply;
@@ -380,6 +454,21 @@
   statusCopy = status;
   v9 = [(OTControl *)self getConnection:v10];
   [v9 fetchUserControllableViewsSyncStatus:statusCopy reply:v7];
+}
+
+- (void)setUserControllableViewsSyncStatus:(id)status enabled:(BOOL)enabled reply:(id)reply
+{
+  enabledCopy = enabled;
+  replyCopy = reply;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __62__OTControl_setUserControllableViewsSyncStatus_enabled_reply___block_invoke;
+  v12[3] = &unk_1E70DECC0;
+  v13 = replyCopy;
+  v9 = replyCopy;
+  statusCopy = status;
+  v11 = [(OTControl *)self getConnection:v12];
+  [v11 setUserControllableViewsSyncStatus:statusCopy enabled:enabledCopy reply:v9];
 }
 
 - (void)fetchEscrowRecords:(id)records source:(int64_t)source reply:(id)reply
@@ -454,6 +543,25 @@
   [v15 tapToRadar:radarCopy description:descriptionCopy radar:v12 reply:v11];
 }
 
+- (void)postCDPFollowupResult:(id)result success:(BOOL)success type:(id)type error:(id)error reply:(id)reply
+{
+  successCopy = success;
+  replyCopy = reply;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __60__OTControl_postCDPFollowupResult_success_type_error_reply___block_invoke;
+  v19[3] = &unk_1E70DECC0;
+  v20 = replyCopy;
+  v13 = replyCopy;
+  errorCopy = error;
+  typeCopy = type;
+  resultCopy = result;
+  v17 = [(OTControl *)self getConnection:v19];
+  v18 = [SecXPCHelper cleanseErrorForXPC:errorCopy];
+
+  [v17 postCDPFollowupResult:resultCopy success:successCopy type:typeCopy error:v18 reply:v13];
+}
+
 - (void)waitForOctagonUpgrade:(id)upgrade reply:(id)reply
 {
   replyCopy = reply;
@@ -494,6 +602,40 @@
   pushCopy = push;
   v9 = [(OTControl *)self getConnection:v10];
   [v9 simulateReceivePush:pushCopy reply:v7];
+}
+
+- (void)escrowCheck:(id)check isBackgroundCheck:(BOOL)backgroundCheck reply:(id)reply
+{
+  backgroundCheckCopy = backgroundCheck;
+  replyCopy = reply;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__OTControl_escrowCheck_isBackgroundCheck_reply___block_invoke;
+  v12[3] = &unk_1E70DECC0;
+  v13 = replyCopy;
+  v9 = replyCopy;
+  checkCopy = check;
+  v11 = [(OTControl *)self getConnection:v12];
+  [v11 escrowCheck:checkCopy isBackgroundCheck:backgroundCheckCopy reply:v9];
+}
+
+- (void)healthCheck:(id)check skipRateLimitingCheck:(BOOL)limitingCheck repair:(BOOL)repair danglingPeerCleanup:(BOOL)cleanup caesarPeerCleanup:(BOOL)peerCleanup updateIdMS:(BOOL)s reply:(id)reply
+{
+  sCopy = s;
+  peerCleanupCopy = peerCleanup;
+  cleanupCopy = cleanup;
+  repairCopy = repair;
+  limitingCheckCopy = limitingCheck;
+  replyCopy = reply;
+  v20 = MEMORY[0x1E69E9820];
+  v21 = 3221225472;
+  v22 = __109__OTControl_healthCheck_skipRateLimitingCheck_repair_danglingPeerCleanup_caesarPeerCleanup_updateIdMS_reply___block_invoke;
+  v23 = &unk_1E70DECC0;
+  v24 = replyCopy;
+  v17 = replyCopy;
+  checkCopy = check;
+  v19 = [(OTControl *)self getConnection:&v20];
+  [v19 healthCheck:checkCopy skipRateLimitingCheck:limitingCheckCopy repair:repairCopy danglingPeerCleanup:cleanupCopy caesarPeerCleanup:peerCleanupCopy updateIdMS:sCopy reply:{v17, v20, v21, v22, v23}];
 }
 
 - (void)createInheritanceKey:(id)key uuid:(id)uuid claimTokenData:(id)data wrappingKeyData:(id)keyData reply:(id)reply
@@ -838,6 +980,25 @@
   establishCopy = establish;
   v9 = [(OTControl *)self getConnection:v10];
   [v9 establish:establishCopy reply:v7];
+}
+
+- (void)resetAndEstablish:(id)establish resetReason:(int64_t)reason idmsTargetContext:(id)context idmsCuttlefishPassword:(id)password notifyIdMS:(BOOL)s accountSettings:(id)settings isGuitarfish:(BOOL)guitarfish accountIsW:(BOOL)self0 reply:(id)self1
+{
+  sCopy = s;
+  replyCopy = reply;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __141__OTControl_resetAndEstablish_resetReason_idmsTargetContext_idmsCuttlefishPassword_notifyIdMS_accountSettings_isGuitarfish_accountIsW_reply___block_invoke;
+  v26[3] = &unk_1E70DECC0;
+  v27 = replyCopy;
+  v19 = replyCopy;
+  settingsCopy = settings;
+  passwordCopy = password;
+  contextCopy = context;
+  establishCopy = establish;
+  v24 = [(OTControl *)self getConnection:v26];
+  LOWORD(v25) = __PAIR16__(w, guitarfish);
+  [v24 resetAndEstablish:establishCopy resetReason:reason idmsTargetContext:contextCopy idmsCuttlefishPassword:passwordCopy notifyIdMS:sCopy accountSettings:settingsCopy isGuitarfish:v25 accountIsW:v19 reply:?];
 }
 
 - (void)startOctagonStateMachine:(id)machine reply:(id)reply
@@ -1213,6 +1374,37 @@
   }
 
   return v9;
+}
+
++ (id)controlObject:(BOOL)object error:(id *)error
+{
+  objectCopy = object;
+  v13[1] = *MEMORY[0x1E69E9840];
+  v6 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.security.octagon" options:0];
+  if (v6)
+  {
+    v7 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1EFABB3F8];
+    OTSetupControlProtocol(v7);
+    objc_claimAutoreleasedReturnValue();
+
+    [v6 setRemoteObjectInterface:v7];
+    [v6 resume];
+    error = [[OTControl alloc] initWithConnection:v6 sync:objectCopy];
+  }
+
+  else if (error)
+  {
+    v8 = MEMORY[0x1E696ABC0];
+    v9 = *MEMORY[0x1E696A768];
+    v12 = *MEMORY[0x1E696A578];
+    v13[0] = @"Couldn't create connection (no reason given)";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    *error = [v8 errorWithDomain:v9 code:-67671 userInfo:v10];
+
+    error = 0;
+  }
+
+  return error;
 }
 
 @end

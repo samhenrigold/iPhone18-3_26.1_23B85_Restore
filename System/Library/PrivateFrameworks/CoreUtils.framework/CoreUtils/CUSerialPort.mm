@@ -14,12 +14,12 @@
 
 - (void)_writeLine:(id)line completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lineCopy = line;
   handlerCopy = handler;
-  v21 = 0;
-  [(CUSerialPort *)self _ensureSetUpAndReturnError:&v21];
-  v8 = v21;
+  v15 = 0;
+  [(CUSerialPort *)self _ensureSetUpAndReturnError:&v15];
+  v8 = v15;
   if (v8)
   {
     handlerCopy[2](handlerCopy, v8);
@@ -27,10 +27,10 @@
 
   else
   {
-    v20[0] = [lineCopy UTF8String];
-    v20[1] = strlen(v20[0]);
+    v14[0] = [lineCopy UTF8String];
+    v14[1] = strlen(v14[0]);
     v9 = _Block_copy(handlerCopy);
-    v10 = SerialStreamWrite(self->_serialStream, 1, v20, 1, _writeLineCompletion, v9);
+    v10 = SerialStreamWrite(self->_serialStream, 1, v14, 1u, _writeLineCompletion, v9);
     if (v10)
     {
       v11 = v10;
@@ -38,12 +38,12 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v23 = v11;
+        v17 = v11;
         _os_log_error_impl(&dword_191EAF000, v12, OS_LOG_TYPE_ERROR, "### write line start failed: err=%d", buf, 8u);
       }
 
-      v18 = NSErrorF_safe(*MEMORY[0x1E696A768], v11, "Write line start failed", v13, v14, v15, v16, v17, v19);
-      handlerCopy[2](handlerCopy, v18);
+      v13 = NSErrorF_safe(*MEMORY[0x1E696A768], v11, "Write line start failed");
+      handlerCopy[2](handlerCopy, v13);
     }
   }
 }
@@ -77,11 +77,11 @@
 - (void)_readLineWithFlags:(unint64_t)flags completionHandler:(id)handler
 {
   flagsCopy = flags;
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v19 = 0;
-  [(CUSerialPort *)self _ensureSetUpAndReturnError:&v19];
-  v7 = v19;
+  v13 = 0;
+  [(CUSerialPort *)self _ensureSetUpAndReturnError:&v13];
+  v7 = v13;
   if (v7)
   {
     handlerCopy[2](handlerCopy, 0, v7);
@@ -98,12 +98,12 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v21 = v10;
+        v15 = v10;
         _os_log_error_impl(&dword_191EAF000, v11, OS_LOG_TYPE_ERROR, "### read line start failed: err=%d", buf, 8u);
       }
 
-      v17 = NSErrorF_safe(*MEMORY[0x1E696A768], v10, "Read line start failed", v12, v13, v14, v15, v16, v18);
-      handlerCopy[2](handlerCopy, 0, v17);
+      v12 = NSErrorF_safe(*MEMORY[0x1E696A768], v10, "Read line start failed");
+      handlerCopy[2](handlerCopy, 0, v12);
     }
   }
 }
@@ -132,7 +132,7 @@
 
 - (BOOL)_ensureSetUpAndReturnError:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!self->_serialStream)
   {
     v6 = logger_12375();
@@ -146,8 +146,8 @@
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v35 = 0x2020000000;
-    v36 = 0;
+    v24 = 0x2020000000;
+    v25 = 0;
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __43__CUSerialPort__ensureSetUpAndReturnError___block_invoke;
@@ -159,10 +159,10 @@
     {
       if (error)
       {
-        v31 = NSErrorF_safe(*MEMORY[0x1E696A768], v9, "serial stream create failed", v10, v11, v12, v13, v14, v32);
+        v21 = NSErrorF_safe(*MEMORY[0x1E696A768], v9, "serial stream create failed");
 LABEL_17:
         v3 = 0;
-        *error = v31;
+        *error = v21;
         goto LABEL_11;
       }
     }
@@ -171,32 +171,32 @@ LABEL_17:
     {
       SerialStreamSetDispatchQueue(*(*(&buf + 1) + 24), self->_dispatchQueue);
       devicePath2 = [(CUSerialPortConfiguration *)self->_configuration devicePath];
-      v16 = devicePath2;
+      v11 = devicePath2;
       uTF8String = [devicePath2 UTF8String];
 
       baudRate = [(CUSerialPortConfiguration *)self->_configuration baudRate];
       flowControl = [(CUSerialPortConfiguration *)self->_configuration flowControl];
       if (baudRate)
       {
-        v20 = baudRate;
+        v15 = baudRate;
       }
 
       else
       {
-        v20 = 115200;
+        v15 = 115200;
       }
 
       flags = [(CUSerialPortConfiguration *)self->_configuration flags];
       if (uTF8String)
       {
-        v27 = flags;
-        v28 = *(*(&buf + 1) + 24);
+        v17 = flags;
+        v18 = *(*(&buf + 1) + 24);
         __strlcpy_chk();
-        *(v28 + 1156) = __PAIR64__(flowControl, v20);
-        *(v28 + 1164) = v27;
-        v29 = *(&buf + 1);
+        *(v18 + 1156) = __PAIR64__(flowControl, v15);
+        *(v18 + 1164) = v17;
+        v19 = *(&buf + 1);
         self->_serialStream = *(*(&buf + 1) + 24);
-        *(v29 + 24) = 0;
+        *(v19 + 24) = 0;
         v3 = 1;
 LABEL_11:
         v8[2](v8);
@@ -207,7 +207,7 @@ LABEL_11:
 
       if (error)
       {
-        v31 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "serial stream configure failed", v22, v23, v24, v25, v26, v32);
+        v21 = NSErrorF_safe(*MEMORY[0x1E696A768], 4294960592, "serial stream configure failed");
         goto LABEL_17;
       }
     }

@@ -21,6 +21,7 @@
 - (NSArray)selectedChildNodeIds;
 - (NSString)label;
 - (NSString)role;
+- (RWIProtocolDOMAccessibilityProperties)initWithExists:(BOOL)exists label:(id)label nodeId:(int)id role:(id)role;
 - (double)headingLevel;
 - (double)hierarchyLevel;
 - (int)activeDescendantNodeId;
@@ -32,30 +33,93 @@
 - (int64_t)invalid;
 - (int64_t)liveRegionStatus;
 - (int64_t)switchState;
+- (void)setActiveDescendantNodeId:(int)id;
+- (void)setBusy:(BOOL)busy;
 - (void)setChecked:(int64_t)checked;
 - (void)setChildNodeIds:(id)ids;
 - (void)setControlledNodeIds:(id)ids;
 - (void)setCurrent:(int64_t)current;
+- (void)setDisabled:(BOOL)disabled;
+- (void)setExists:(BOOL)exists;
+- (void)setExpanded:(BOOL)expanded;
 - (void)setFlowedNodeIds:(id)ids;
+- (void)setFocused:(BOOL)focused;
 - (void)setHeadingLevel:(double)level;
+- (void)setHidden:(BOOL)hidden;
 - (void)setHierarchyLevel:(double)level;
+- (void)setIgnored:(BOOL)ignored;
+- (void)setIgnoredByDefault:(BOOL)default;
 - (void)setInvalid:(int64_t)invalid;
+- (void)setIsPopUpButton:(BOOL)button;
 - (void)setLabel:(id)label;
+- (void)setLiveRegionAtomic:(BOOL)atomic;
 - (void)setLiveRegionRelevant:(id)relevant;
 - (void)setLiveRegionStatus:(int64_t)status;
+- (void)setMouseEventNodeId:(int)id;
+- (void)setNodeId:(int)id;
 - (void)setOwnedNodeIds:(id)ids;
+- (void)setParentNodeId:(int)id;
+- (void)setPressed:(BOOL)pressed;
+- (void)setReadonly:(BOOL)readonly;
+- (void)setRequired:(BOOL)required;
 - (void)setRole:(id)role;
+- (void)setSelected:(BOOL)selected;
 - (void)setSelectedChildNodeIds:(id)ids;
 - (void)setSwitchState:(int64_t)state;
 @end
 
 @implementation RWIProtocolDOMAccessibilityProperties
 
+- (RWIProtocolDOMAccessibilityProperties)initWithExists:(BOOL)exists label:(id)label nodeId:(int)id role:(id)role
+{
+  v7 = *&id;
+  existsCopy = exists;
+  labelCopy = label;
+  roleCopy = role;
+  v15.receiver = self;
+  v15.super_class = RWIProtocolDOMAccessibilityProperties;
+  v12 = [(RWIProtocolJSONObject *)&v15 init];
+  if (v12)
+  {
+    if (!labelCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"label"}];
+    }
+
+    if (!roleCopy)
+    {
+      [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"role"}];
+    }
+
+    [(RWIProtocolDOMAccessibilityProperties *)v12 setExists:existsCopy];
+    [(RWIProtocolDOMAccessibilityProperties *)v12 setLabel:labelCopy];
+    [(RWIProtocolDOMAccessibilityProperties *)v12 setNodeId:v7];
+    [(RWIProtocolDOMAccessibilityProperties *)v12 setRole:roleCopy];
+    v13 = v12;
+  }
+
+  return v12;
+}
+
+- (void)setActiveDescendantNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"activeDescendantNodeId"];
+}
+
 - (int)activeDescendantNodeId
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"activeDescendantNodeId"];
+}
+
+- (void)setBusy:(BOOL)busy
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:busy forKey:@"busy"];
 }
 
 - (BOOL)busy
@@ -265,6 +329,13 @@ LABEL_8:
   return v10;
 }
 
+- (void)setDisabled:(BOOL)disabled
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:disabled forKey:@"disabled"];
+}
+
 - (BOOL)disabled
 {
   v3.receiver = self;
@@ -302,6 +373,13 @@ LABEL_8:
   return result;
 }
 
+- (void)setIsPopUpButton:(BOOL)button
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:button forKey:@"isPopUpButton"];
+}
+
 - (BOOL)isPopUpButton
 {
   v3.receiver = self;
@@ -309,11 +387,25 @@ LABEL_8:
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"isPopUpButton"];
 }
 
+- (void)setExists:(BOOL)exists
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:exists forKey:@"exists"];
+}
+
 - (BOOL)exists
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"exists"];
+}
+
+- (void)setExpanded:(BOOL)expanded
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:expanded forKey:@"expanded"];
 }
 
 - (BOOL)expanded
@@ -355,6 +447,13 @@ LABEL_8:
   return v2;
 }
 
+- (void)setFocused:(BOOL)focused
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:focused forKey:@"focused"];
+}
+
 - (BOOL)focused
 {
   v3.receiver = self;
@@ -362,11 +461,25 @@ LABEL_8:
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"focused"];
 }
 
+- (void)setIgnored:(BOOL)ignored
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:ignored forKey:@"ignored"];
+}
+
 - (BOOL)ignored
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"ignored"];
+}
+
+- (void)setIgnoredByDefault:(BOOL)default
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:default forKey:@"ignoredByDefault"];
 }
 
 - (BOOL)ignoredByDefault
@@ -444,6 +557,13 @@ LABEL_8:
   return v10;
 }
 
+- (void)setHidden:(BOOL)hidden
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:hidden forKey:@"hidden"];
+}
+
 - (BOOL)hidden
 {
   v3.receiver = self;
@@ -465,6 +585,13 @@ LABEL_8:
   v2 = [(RWIProtocolJSONObject *)&v4 stringForKey:@"label"];
 
   return v2;
+}
+
+- (void)setLiveRegionAtomic:(BOOL)atomic
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:atomic forKey:@"liveRegionAtomic"];
 }
 
 - (BOOL)liveRegionAtomic
@@ -574,11 +701,25 @@ LABEL_8:
   return v10;
 }
 
+- (void)setMouseEventNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"mouseEventNodeId"];
+}
+
 - (int)mouseEventNodeId
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"mouseEventNodeId"];
+}
+
+- (void)setNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"nodeId"];
 }
 
 - (int)nodeId
@@ -620,11 +761,25 @@ LABEL_8:
   return v2;
 }
 
+- (void)setParentNodeId:(int)id
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setInteger:*&id forKey:@"parentNodeId"];
+}
+
 - (int)parentNodeId
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 integerForKey:@"parentNodeId"];
+}
+
+- (void)setPressed:(BOOL)pressed
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:pressed forKey:@"pressed"];
 }
 
 - (BOOL)pressed
@@ -634,11 +789,25 @@ LABEL_8:
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"pressed"];
 }
 
+- (void)setReadonly:(BOOL)readonly
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:readonly forKey:@"readonly"];
+}
+
 - (BOOL)readonly
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMAccessibilityProperties;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"readonly"];
+}
+
+- (void)setRequired:(BOOL)required
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:required forKey:@"required"];
 }
 
 - (BOOL)required
@@ -662,6 +831,13 @@ LABEL_8:
   v2 = [(RWIProtocolJSONObject *)&v4 stringForKey:@"role"];
 
   return v2;
+}
+
+- (void)setSelected:(BOOL)selected
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMAccessibilityProperties;
+  [(RWIProtocolJSONObject *)&v3 setBool:selected forKey:@"selected"];
 }
 
 - (BOOL)selected

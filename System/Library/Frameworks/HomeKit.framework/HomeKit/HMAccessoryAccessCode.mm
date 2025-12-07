@@ -13,26 +13,24 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessory = [(HMAccessoryAccessCode *)self accessory];
   v5 = [v3 initWithName:@"accessory" value:accessory];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessCodeValue = [(HMAccessoryAccessCode *)self accessCodeValue];
   v8 = [v6 initWithName:@"accessCodeValue" value:accessCodeValue];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMAccessoryAccessCode *)self uniqueIdentifier];
   v11 = [v9 initWithName:@"uniqueIdentifier" value:uniqueIdentifier];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = [MEMORY[0x1E696AD98] numberWithBool:{-[HMAccessoryAccessCode hasRestrictions](self, "hasRestrictions")}];
   v14 = [v12 initWithName:@"hasRestrictions" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -73,31 +71,11 @@
   }
 
   v6 = v5;
-  if (!v6)
+  if (v6 && (-[HMAccessoryAccessCode accessory](self, "accessory"), v7 = objc_claimAutoreleasedReturnValue(), [v7 uniqueIdentifier], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "accessory"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "uniqueIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v8, v7, v11) && (-[HMAccessoryAccessCode accessCodeValue](self, "accessCodeValue"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "accessCodeValue"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14))
   {
-    goto LABEL_9;
-  }
-
-  accessory = [(HMAccessoryAccessCode *)self accessory];
-  uniqueIdentifier = [accessory uniqueIdentifier];
-  accessory2 = [v6 accessory];
-  uniqueIdentifier2 = [accessory2 uniqueIdentifier];
-  v11 = HMFEqualObjects();
-
-  if (!v11)
-  {
-    goto LABEL_9;
-  }
-
-  accessCodeValue = [(HMAccessoryAccessCode *)self accessCodeValue];
-  accessCodeValue2 = [v6 accessCodeValue];
-  v14 = HMFEqualObjects();
-
-  if (v14)
-  {
-    uniqueIdentifier3 = [(HMAccessoryAccessCode *)self uniqueIdentifier];
-    uniqueIdentifier4 = [v6 uniqueIdentifier];
-    if (uniqueIdentifier3 == uniqueIdentifier4)
+    uniqueIdentifier = [(HMAccessoryAccessCode *)self uniqueIdentifier];
+    uniqueIdentifier2 = [v6 uniqueIdentifier];
+    if (uniqueIdentifier == uniqueIdentifier2)
     {
       hasRestrictions = [(HMAccessoryAccessCode *)self hasRestrictions];
       v17 = hasRestrictions ^ [v6 hasRestrictions] ^ 1;
@@ -111,7 +89,6 @@
 
   else
   {
-LABEL_9:
     LOBYTE(v17) = 0;
   }
 

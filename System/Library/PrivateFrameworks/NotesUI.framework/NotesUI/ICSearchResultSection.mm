@@ -68,7 +68,7 @@
   if (identifierCopy)
   {
     identifierToSearchResult = [(ICSearchResultSection *)self identifierToSearchResult];
-    v8 = [identifierToSearchResult objectForKeyedSubscript:identifierCopy];
+    v8 = objc_msgSend_objectForKeyedSubscript_(identifierToSearchResult);
 
     v9 = v8 != 0;
     if (v8)

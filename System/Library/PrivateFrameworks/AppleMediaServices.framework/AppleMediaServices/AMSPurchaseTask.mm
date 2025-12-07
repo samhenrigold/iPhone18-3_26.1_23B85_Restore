@@ -227,7 +227,7 @@ void __48__AMSPurchaseTask_FDS__generateFDSWithInfo_bag___block_invoke_3(uint64_
   [runTask addSuccessBlock:v24];
 }
 
-void __55__AMSPurchaseTask_FDS___partialFDSWithInfo_bag_action___block_invoke(uint64_t a1, void *a2)
+void __55__AMSPurchaseTask_FDS___partialFDSWithInfo_bag_action___block_invoke(void *a1, void *a2)
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -243,8 +243,8 @@ void __55__AMSPurchaseTask_FDS___partialFDSWithInfo_bag_action___block_invoke(ui
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = objc_opt_class();
-      v7 = *(a1 + 40);
-      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+      v7 = a1[5];
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
       v9 = 138544130;
       v10 = v6;
       v11 = 2114;
@@ -331,7 +331,7 @@ void __55__AMSPurchaseTask_FDS___partialFDSWithInfo_bag_action___block_invoke_10
   [runTask addSuccessBlock:v24];
 }
 
-void __58__AMSPurchaseTask_FDS___regenerateFDSWithInfo_bag_action___block_invoke(uint64_t a1, void *a2)
+void __58__AMSPurchaseTask_FDS___regenerateFDSWithInfo_bag_action___block_invoke(void *a1, void *a2)
 {
   v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -347,8 +347,8 @@ void __58__AMSPurchaseTask_FDS___regenerateFDSWithInfo_bag_action___block_invoke
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v6 = objc_opt_class();
-      v7 = *(a1 + 40);
-      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 48)];
+      v7 = a1[5];
+      v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1[6]];
       v9 = 138544130;
       v10 = v6;
       v11 = 2114;
@@ -1120,7 +1120,7 @@ LABEL_9:
   return v10;
 }
 
-id __34__AMSPurchaseTask_performPurchase__block_invoke_6(uint64_t a1, void *a2)
+AMSMutablePromise *__34__AMSPurchaseTask_performPurchase__block_invoke_6(uint64_t a1, void *a2)
 {
   v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1395,7 +1395,7 @@ void __34__AMSPurchaseTask_performPurchase__block_invoke_87(uint64_t a1)
   [(AMSAutoBugCaptureReport *)v9 captureWithDelay:v19 events:0 payload:0 actions:v20 completionHandler:0.0];
 }
 
-void __75__AMSPurchaseTask__captureBugReportForPurchaseEventEnqueueFailure_process___block_invoke(uint64_t a1, void *a2, void *a3)
+void __75__AMSPurchaseTask__captureBugReportForPurchaseEventEnqueueFailure_process___block_invoke(void *a1, void *a2, void *a3)
 {
   v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
@@ -2033,7 +2033,7 @@ void __97__AMSPurchaseTask__recordEngagementEventWithInfo_responseDictionary_fin
   }
 }
 
-void __97__AMSPurchaseTask__recordEngagementEventWithInfo_responseDictionary_finalizedBlindedItems_error___block_invoke_149(uint64_t a1, void *a2)
+void __97__AMSPurchaseTask__recordEngagementEventWithInfo_responseDictionary_finalizedBlindedItems_error___block_invoke_149(void *a1, void *a2)
 {
   v16 = *MEMORY[0x1E69E9840];
   v3 = a2;

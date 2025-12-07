@@ -2,9 +2,9 @@
 + (id)px_localizedNameFromContact:()PhotosUICore;
 - (BOOL)px_fetchCanHaveFacesRejectedWithRigor:()PhotosUICore;
 - (BOOL)px_isSameDetectionTypeAsPerson:()PhotosUICore;
+- (__CFString)px_localizedName;
 - (__CFString)px_longStyleLocalizedName;
 - (id)_px_localizedNameWithStyle:()PhotosUICore;
-- (id)px_localizedName;
 - (id)px_nameComponents;
 - (id)px_navigationURL;
 @end
@@ -114,7 +114,7 @@
   return v2;
 }
 
-- (id)px_localizedName
+- (__CFString)px_localizedName
 {
   selfCopy = self;
   objc_sync_enter(selfCopy);

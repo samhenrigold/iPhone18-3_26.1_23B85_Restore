@@ -234,7 +234,7 @@ LABEL_5:
   v7.receiver = self;
   v7.super_class = SBPinDesktopSpaceDisplayItemsSwitcherModifier;
   appLayoutsToCacheSnapshots = [(SBPinDesktopSpaceDisplayItemsSwitcherModifier *)&v7 appLayoutsToCacheSnapshots];
-  if (([appLayoutsToCacheSnapshots containsObject:appLayoutToPin] & 1) == 0)
+  if ((objc_msgSend_containsObject_(appLayoutsToCacheSnapshots) & 1) == 0)
   {
     v5 = [appLayoutsToCacheSnapshots arrayByAddingObject:appLayoutToPin];
 
@@ -250,7 +250,7 @@ LABEL_5:
   v7.receiver = self;
   v7.super_class = SBPinDesktopSpaceDisplayItemsSwitcherModifier;
   appLayoutsToCacheFullsizeSnapshots = [(SBPinDesktopSpaceDisplayItemsSwitcherModifier *)&v7 appLayoutsToCacheFullsizeSnapshots];
-  if (([appLayoutsToCacheFullsizeSnapshots containsObject:appLayoutToPin] & 1) == 0)
+  if ((objc_msgSend_containsObject_(appLayoutsToCacheFullsizeSnapshots) & 1) == 0)
   {
     v5 = [appLayoutsToCacheFullsizeSnapshots arrayByAddingObject:appLayoutToPin];
 
@@ -316,7 +316,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t __69__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
+void *__69__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadiiForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -390,7 +390,7 @@ uint64_t __69__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForIndex
   return result;
 }
 
-uint64_t __102__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForLayoutRole_inAppLayout_withCornerRadii___block_invoke(uint64_t a1)
+void *__102__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForLayoutRole_inAppLayout_withCornerRadii___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cornerRadiiForLayoutRole:*(a1 + 56) inAppLayout:*(a1 + 40) withCornerRadii:{*(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88)}];
   v3 = *(*(a1 + 48) + 8);
@@ -457,7 +457,7 @@ uint64_t __102__SBPinDesktopSpaceDisplayItemsSwitcherModifier_cornerRadiiForLayo
   return result;
 }
 
-uint64_t __63__SBPinDesktopSpaceDisplayItemsSwitcherModifier_frameForIndex___block_invoke(uint64_t a1)
+void *__63__SBPinDesktopSpaceDisplayItemsSwitcherModifier_frameForIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) frameForIndex:*(a1 + 48)];
   v3 = *(*(a1 + 40) + 8);
@@ -509,7 +509,7 @@ uint64_t __63__SBPinDesktopSpaceDisplayItemsSwitcherModifier_frameForIndex___blo
   return v13;
 }
 
-uint64_t __84__SBPinDesktopSpaceDisplayItemsSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
+void *__84__SBPinDesktopSpaceDisplayItemsSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) shadowOpacityForLayoutRole:*(a1 + 48) atIndex:*(a1 + 56)];
   *(*(*(a1 + 40) + 8) + 24) = v3;

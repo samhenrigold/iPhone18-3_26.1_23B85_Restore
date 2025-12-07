@@ -29,12 +29,12 @@
 
 - (BOOL)evaluate
 {
-  [(HKRemoteFeatureAvailabilityIOSVersionEqualsRule *)self targetVersion];
+  objc_msgSend_targetVersion(self, a2);
   dataSource = [(HKRemoteFeatureAvailabilityBaseRule *)self dataSource];
   v4 = dataSource;
   if (dataSource)
   {
-    [dataSource iOSVersion];
+    objc_msgSend_iOSVersion(dataSource);
   }
 
   else

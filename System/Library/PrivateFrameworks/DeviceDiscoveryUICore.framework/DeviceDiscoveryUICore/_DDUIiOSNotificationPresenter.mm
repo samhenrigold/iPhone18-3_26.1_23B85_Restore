@@ -52,7 +52,7 @@
 
 - (void)_setupIfNeeded
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   if (![(_DDUIiOSNotificationPresenter *)self setup])
   {
     notificationCenter = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
@@ -64,39 +64,39 @@
     notificationCenter3 = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
     [notificationCenter3 requestAuthorizationWithOptions:4 completionHandler:&__block_literal_global_2];
 
-    v31 = DDUICoreLocalizedString(@"LAUNCH_APPLICTION");
-    v29 = DDUICoreLocalizedString(@"LAUNCH_APP_STORE");
-    v27 = DDUICoreLocalizedString(@"CONTINUITYCAMERA_ACCEPT");
+    v30 = DDUICoreLocalizedString(@"LAUNCH_APPLICTION");
+    v28 = DDUICoreLocalizedString(@"LAUNCH_APP_STORE");
+    v26 = DDUICoreLocalizedString(@"CONTINUITYCAMERA_ACCEPT");
     v6 = DDUICoreLocalizedString(@"CONTINUITYCAMERA_DECLINE");
-    v30 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"OPEN_APPLICATION" title:v31 options:1];
+    v29 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"OPEN_APPLICATION" title:v30 options:1];
     v7 = MEMORY[0x277CE1F98];
-    v35[0] = v30;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+    v34[0] = v29;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
     v9 = MEMORY[0x277CBEBF8];
-    v26 = [v7 categoryWithIdentifier:@"LAUNCH_CATEGORY" actions:v8 intentIdentifiers:MEMORY[0x277CBEBF8] options:0];
+    v25 = [v7 categoryWithIdentifier:@"LAUNCH_CATEGORY" actions:v8 intentIdentifiers:MEMORY[0x277CBEBF8] options:0];
 
-    v28 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"OPEN_APP_STORE" title:v29 options:1];
+    v27 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"OPEN_APP_STORE" title:v28 options:1];
     v10 = MEMORY[0x277CE1F98];
-    v34 = v28;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+    v33 = v27;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
     v12 = [v10 categoryWithIdentifier:@"APP_STORE_CATEGORY" actions:v11 intentIdentifiers:v9 options:0];
 
-    v13 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"CONTINUITYCAPTURE_ACCEPT" title:v27 options:1];
+    v13 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"CONTINUITYCAPTURE_ACCEPT" title:v26 options:1];
     v14 = [MEMORY[0x277CE1F80] actionWithIdentifier:@"CONTINUITYCAPTURE_DECLINE" title:v6 options:1];
     v15 = MEMORY[0x277CE1F98];
-    v33[0] = v13;
-    v33[1] = v14;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[0] = v13;
+    v32[1] = v14;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v17 = [v15 categoryWithIdentifier:@"CONTINUITYCAPTURE_CATEGORY" actions:v16 intentIdentifiers:v9 options:0];
 
     v18 = MEMORY[0x277CE1F98];
-    v32[0] = v13;
-    v32[1] = v14;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = v13;
+    v31[1] = v14;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v20 = [v18 categoryWithIdentifier:@"CONTINUITYCAPTURE_MICONLY_CATEGORY" actions:v19 intentIdentifiers:v9 options:0];
 
     notificationCenter4 = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
-    v22 = [MEMORY[0x277CBEB98] setWithObjects:{v26, v12, v17, v20, 0}];
+    v22 = [MEMORY[0x277CBEB98] setWithObjects:{v25, v12, v17, v20, 0}];
     [notificationCenter4 setNotificationCategories:v22];
 
     v23 = objc_alloc_init(MEMORY[0x277D54D00]);
@@ -105,8 +105,6 @@
 
     [(_DDUIiOSNotificationPresenter *)self setSetup:1];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dismissNotificationWithIdentifier:(id)identifier
@@ -130,7 +128,7 @@
 
 - (void)showNotificationForApplication:(id)application deviceName:(id)name identifier:(id)identifier completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   nameCopy = name;
   identifierCopy = identifier;
@@ -154,7 +152,7 @@
       goto LABEL_17;
     }
 
-    v34 = nameCopy;
+    v33 = nameCopy;
     if (v17 && (-[NSObject iTunesMetadata](v17, "iTunesMetadata"), v20 = objc_claimAutoreleasedReturnValue(), v21 = [v20 storeItemIdentifier], v22 = objc_msgSend(applicationCopy, "adamID"), v20, v21 == v22))
     {
       localizedName = [v17 localizedName];
@@ -174,16 +172,16 @@
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v39 = applicationCopy;
-      v40 = 2112;
-      v41 = v17;
+      v38 = applicationCopy;
+      v39 = 2112;
+      v40 = v17;
       _os_log_impl(&dword_230EF9000, v27, OS_LOG_TYPE_DEFAULT, "Posting app launch request notification {applicationInfo: %@, applicationRecord: %@}", buf, 0x16u);
     }
   }
 
   else
   {
-    v34 = nameCopy;
+    v33 = nameCopy;
     completionCopy[2](completionCopy, 3);
     appName = [applicationCopy appName];
     v24 = [(_DDUIiOSNotificationPresenter *)self _createAppStoreNotification:appName];
@@ -192,9 +190,9 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v39 = applicationCopy;
-      v40 = 2112;
-      v41 = v16;
+      v38 = applicationCopy;
+      v39 = 2112;
+      v40 = v16;
       _os_log_impl(&dword_230EF9000, v17, OS_LOG_TYPE_DEFAULT, "Posting app not installed notification {applicationInfo: %@, bundleRecord: %@}", buf, 0x16u);
     }
 
@@ -212,29 +210,27 @@
     [(_DDUIiOSPresentedNotification *)v29 setCompletion:completionCopy];
   }
 
-  v30 = [MEMORY[0x277CE1FC0] requestWithIdentifier:uUIDString content:v24 trigger:{0, v34}];
+  v30 = [MEMORY[0x277CE1FC0] requestWithIdentifier:uUIDString content:v24 trigger:{0, v33}];
   notificationCenter = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __97___DDUIiOSNotificationPresenter_showNotificationForApplication_deviceName_identifier_completion___block_invoke;
-  v36[3] = &unk_2788F5DF8;
-  v37 = uUIDString;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __97___DDUIiOSNotificationPresenter_showNotificationForApplication_deviceName_identifier_completion___block_invoke;
+  v35[3] = &unk_2788F5DF8;
+  v36 = uUIDString;
   v32 = uUIDString;
-  [notificationCenter addNotificationRequest:v30 withCompletionHandler:v36];
+  [notificationCenter addNotificationRequest:v30 withCompletionHandler:v35];
 
   [(_DDUIiOSNotificationPresenter *)self setPresentedNotification:v29];
   [(_DDUIiOSNotificationPresenter *)self _configureNotificationTimeout];
 
-  nameCopy = v35;
+  nameCopy = v34;
 LABEL_17:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showContinuityConfirmation:(id)confirmation identifier:(id)identifier micOnly:(BOOL)only completion:(id)completion
 {
   onlyCopy = only;
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   confirmationCopy = confirmation;
   identifierCopy = identifier;
   completionCopy = completion;
@@ -242,9 +238,9 @@ LABEL_17:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v26 = identifierCopy;
-    v27 = 1024;
-    v28 = onlyCopy;
+    v25 = identifierCopy;
+    v26 = 1024;
+    v27 = onlyCopy;
     _os_log_impl(&dword_230EF9000, v13, OS_LOG_TYPE_DEFAULT, "Request to present notification for %@ micOnly: %d", buf, 0x12u);
   }
 
@@ -272,18 +268,16 @@ LABEL_17:
 
   v19 = [MEMORY[0x277CE1FC0] requestWithIdentifier:uUIDString content:v15 trigger:0];
   notificationCenter = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __91___DDUIiOSNotificationPresenter__showContinuityConfirmation_identifier_micOnly_completion___block_invoke;
-  v23[3] = &unk_2788F5DF8;
-  v24 = uUIDString;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __91___DDUIiOSNotificationPresenter__showContinuityConfirmation_identifier_micOnly_completion___block_invoke;
+  v22[3] = &unk_2788F5DF8;
+  v23 = uUIDString;
   v21 = uUIDString;
-  [notificationCenter addNotificationRequest:v19 withCompletionHandler:v23];
+  [notificationCenter addNotificationRequest:v19 withCompletionHandler:v22];
 
   [(_DDUIiOSNotificationPresenter *)self setPresentedNotification:v17];
   [(_DDUIiOSNotificationPresenter *)self _configureNotificationTimeout];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_applicationSupportsServiceIdentifier:(id)identifier serviceIdentifier:(id)serviceIdentifier
@@ -298,7 +292,7 @@ LABEL_17:
 
 - (void)_configureNotificationTimeout
 {
-  v3 = DDUICorePrimaryQueue();
+  v3 = DDUICorePrimaryQueue(self);
   v4 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, v3);
   [(_DDUIiOSNotificationPresenter *)self setClearNotificationTimer:v4];
 
@@ -333,7 +327,7 @@ LABEL_17:
 
 - (void)_clearPresentedNotificationIfNeeded
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   presentedNotification = [(_DDUIiOSNotificationPresenter *)self presentedNotification];
 
   if (presentedNotification)
@@ -342,14 +336,12 @@ LABEL_17:
     notificationCenter = [(_DDUIiOSNotificationPresenter *)self notificationCenter];
     presentedNotification2 = [(_DDUIiOSNotificationPresenter *)self presentedNotification];
     notificationID = [presentedNotification2 notificationID];
-    v9[0] = notificationID;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = notificationID;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     [notificationCenter removeDeliveredNotificationsWithIdentifiers:v7];
 
     [(_DDUIiOSNotificationPresenter *)self setPresentedNotification:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleContinuityCameraDisabledAlertResponseWithState:(int64_t)state
@@ -383,7 +375,7 @@ LABEL_17:
 
 - (void)_showContinuityCameraDisabledAlertWithState:(int64_t)state
 {
-  v5 = DDUICorePrimaryQueue();
+  v5 = DDUICorePrimaryQueue(self);
   v6[0] = MEMORY[0x277D85DD0];
   v6[1] = 3221225472;
   v6[2] = __77___DDUIiOSNotificationPresenter__showContinuityCameraDisabledAlertWithState___block_invoke;
@@ -503,7 +495,7 @@ LABEL_7:
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v82[1] = *MEMORY[0x277D85DE8];
+  v80[1] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   presentedNotification = [(_DDUIiOSNotificationPresenter *)self presentedNotification];
@@ -537,24 +529,24 @@ LABEL_7:
           applicationInfo = [presentedNotification4 applicationInfo];
           bundleID = [applicationInfo bundleID];
           *buf = 138412290;
-          v78 = bundleID;
+          v76 = bundleID;
           _os_log_impl(&dword_230EF9000, v23, OS_LOG_TYPE_DEFAULT, "Attempting to launch application %@", buf, 0xCu);
         }
 
-        v81 = *MEMORY[0x277D0AC58];
-        v82[0] = MEMORY[0x277CBEC38];
-        delegate = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+        v79 = *MEMORY[0x277D0AC58];
+        v80[0] = MEMORY[0x277CBEC38];
+        delegate = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:&v79 count:1];
         presentedNotification6 = [MEMORY[0x277D0AD60] optionsWithDictionary:delegate];
         openApplicationService = [(_DDUIiOSNotificationPresenter *)self openApplicationService];
         presentedNotification5 = [(_DDUIiOSNotificationPresenter *)self presentedNotification];
         applicationInfo2 = [presentedNotification5 applicationInfo];
         bundleID2 = [applicationInfo2 bundleID];
-        v75[0] = MEMORY[0x277D85DD0];
-        v75[1] = 3221225472;
-        v75[2] = __109___DDUIiOSNotificationPresenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
-        v75[3] = &unk_2788F5FA8;
-        v76 = completion;
-        [openApplicationService openApplication:bundleID2 withOptions:presentedNotification6 completion:v75];
+        v73[0] = MEMORY[0x277D85DD0];
+        v73[1] = 3221225472;
+        v73[2] = __109___DDUIiOSNotificationPresenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke;
+        v73[3] = &unk_2788F5FA8;
+        v74 = completion;
+        [openApplicationService openApplication:bundleID2 withOptions:presentedNotification6 completion:v73];
 
         goto LABEL_36;
       }
@@ -581,7 +573,7 @@ LABEL_36:
       request4 = [notification4 request];
       content3 = [request4 content];
       categoryIdentifier3 = [content3 categoryIdentifier];
-      v74 = completion;
+      v72 = completion;
       if ([categoryIdentifier3 isEqualToString:@"CONTINUITYCAPTURE_CATEGORY"])
       {
       }
@@ -592,11 +584,11 @@ LABEL_36:
         request5 = [notification5 request];
         content4 = [request5 content];
         [content4 categoryIdentifier];
-        v48 = v72 = notification4;
-        v71 = [v48 isEqualToString:@"CONTINUITYCAPTURE_MICONLY_CATEGORY"];
+        v48 = v70 = notification4;
+        v69 = [v48 isEqualToString:@"CONTINUITYCAPTURE_MICONLY_CATEGORY"];
 
-        completion = v74;
-        if ((v71 & 1) == 0)
+        completion = v72;
+        if ((v69 & 1) == 0)
         {
 LABEL_37:
           [(_DDUIiOSNotificationPresenter *)self _clearNotificationTimeout];
@@ -615,9 +607,9 @@ LABEL_37:
         content5 = [request6 content];
         categoryIdentifier4 = [content5 categoryIdentifier];
         *buf = 138412546;
-        v78 = responseCopy;
-        v79 = 2112;
-        v80 = categoryIdentifier4;
+        v76 = responseCopy;
+        v77 = 2112;
+        v78 = categoryIdentifier4;
         _os_log_impl(&dword_230EF9000, v49, OS_LOG_TYPE_DEFAULT, "Received Continuity confirmation response: %@ for category: %@\n", buf, 0x16u);
       }
 
@@ -633,20 +625,20 @@ LABEL_37:
       if (!v57)
       {
         actionIdentifier2 = [responseCopy actionIdentifier];
-        v66 = [actionIdentifier2 isEqualToString:@"CONTINUITYCAPTURE_DECLINE"];
+        v65 = [actionIdentifier2 isEqualToString:@"CONTINUITYCAPTURE_DECLINE"];
 
-        if (v66)
+        if (v65)
         {
-          v67 = 7;
+          v66 = 7;
         }
 
         else
         {
-          v67 = 2;
+          v66 = 2;
         }
 
-        delegate[2](delegate, v67);
-        completion = v74;
+        delegate[2](delegate, v66);
+        completion = v72;
         goto LABEL_36;
       }
 
@@ -659,39 +651,38 @@ LABEL_37:
           request7 = [notification7 request];
           content6 = [request7 content];
           categoryIdentifier5 = [content6 categoryIdentifier];
-          v73 = [categoryIdentifier5 isEqualToString:@"CONTINUITYCAPTURE_MICONLY_CATEGORY"];
+          v71 = [categoryIdentifier5 isEqualToString:@"CONTINUITYCAPTURE_MICONLY_CATEGORY"];
 
-          v62 = *MEMORY[0x277D44300];
-          if (v73)
+          if (v71)
           {
-            v63 = *MEMORY[0x277D44300];
+            v62 = *MEMORY[0x277D44300];
           }
 
           else
           {
-            v63 = @"Phone accepted confirmation notification";
+            v62 = @"Phone accepted confirmation notification";
           }
 
-          [applicationInfo3 enterSessionWithRemoteDeviceID:presentedNotification6 reason:v63];
-          v64 = 1;
+          [applicationInfo3 enterSessionWithRemoteDeviceID:presentedNotification6 reason:v62];
+          v63 = 1;
           goto LABEL_34;
         }
 
         selfCopy2 = self;
-        v69 = 1;
+        v68 = 1;
       }
 
       else
       {
         selfCopy2 = self;
-        v69 = 0;
+        v68 = 0;
       }
 
-      [(_DDUIiOSNotificationPresenter *)selfCopy2 _showContinuityCameraDisabledAlertWithState:v69];
-      v64 = 2;
+      [(_DDUIiOSNotificationPresenter *)selfCopy2 _showContinuityCameraDisabledAlertWithState:v68];
+      v63 = 2;
 LABEL_34:
-      completion = v74;
-      delegate[2](delegate, v64);
+      completion = v72;
+      delegate[2](delegate, v63);
       goto LABEL_35;
     }
 
@@ -718,8 +709,6 @@ LABEL_11:
 
   handlerCopy[2](handlerCopy);
 LABEL_38:
-
-  v70 = *MEMORY[0x277D85DE8];
 }
 
 - (_DDUINotificationPresenterDelegate)delegate

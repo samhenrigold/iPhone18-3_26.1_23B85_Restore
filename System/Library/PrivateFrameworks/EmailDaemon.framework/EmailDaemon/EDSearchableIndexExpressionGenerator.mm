@@ -38,61 +38,58 @@ void __43__EDSearchableIndexExpressionGenerator_log__block_invoke(uint64_t a1)
 
 + (id)expressionForPredicate:(id)predicate suggestion:(id)suggestion bundleID:(id)d nonSpotlightPredicates:(id *)predicates
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v32[2] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   suggestionCopy = suggestion;
   dCopy = d;
-  v31 = 0;
-  v11 = [predicateCopy ed_searchableIndexQueryStringForQueryWithSuggestion:suggestionCopy != 0 originalSearchString:&v31 nonSpotlightPredicates:predicates];
-  v12 = *MEMORY[0x1E6963EA0];
-  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ = %@", *MEMORY[0x1E6963EA0], *MEMORY[0x1E6982DA8]];
-  if (v31)
+  v29 = 0;
+  v11 = [predicateCopy ed_searchableIndexQueryStringForQueryWithSuggestion:suggestionCopy != 0 originalSearchString:&v29 nonSpotlightPredicates:predicates];
+  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ = %@", *MEMORY[0x1E6963EA0], *MEMORY[0x1E6982DA8]];
+  if (v29)
   {
-    v14 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v15 = [v14 initWithFormat:@"%@ == '*'", *MEMORY[0x1E6964A30]];
-    v16 = MEMORY[0x1E699AE78];
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == 'com.apple.spotlight.events'", *MEMORY[0x1E6963D40]];
-    v34[0] = v17;
+    v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v14 = [v13 initWithFormat:@"%@ == '*'", *MEMORY[0x1E6964A30]];
+    v15 = MEMORY[0x1E699AE78];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == 'com.apple.spotlight.events'", *MEMORY[0x1E6963D40]];
+    v32[0] = v16;
     dCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ == '%@'", *MEMORY[0x1E6964230], dCopy];
-    v34[1] = dCopy;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
-    v20 = [v16 queryStringByJoiningQueries:v19 withOperand:1];
+    v32[1] = dCopy;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+    v19 = [v15 queryStringByJoiningQueries:v18 withOperand:1];
 
-    v21 = MEMORY[0x1E699AE78];
-    v33[0] = v13;
-    v33[1] = v15;
-    v33[2] = v20;
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:3];
-    v23 = [v21 queryStringByJoiningQueries:v22 withOperand:2];
+    v20 = MEMORY[0x1E699AE78];
+    v31[0] = v12;
+    v31[1] = v14;
+    v31[2] = v19;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:3];
+    v22 = [v20 queryStringByJoiningQueries:v21 withOperand:2];
 
-    v13 = v23;
+    v12 = v22;
   }
 
   if (v11)
   {
-    v24 = MEMORY[0x1E699AE78];
-    v32[0] = v13;
-    v32[1] = v11;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
-    v26 = [v24 queryStringByJoiningQueries:v25 withOperand:1];
+    v23 = MEMORY[0x1E699AE78];
+    v30[0] = v12;
+    v30[1] = v11;
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+    v25 = [v23 queryStringByJoiningQueries:v24 withOperand:1];
   }
 
   else
   {
-    v26 = v13;
+    v25 = v12;
   }
 
-  v27 = [MEMORY[0x1E699AE80] expressionWithQueryString:v26 searchString:v31 updatedSuggestion:suggestionCopy];
+  v26 = [MEMORY[0x1E699AE80] expressionWithQueryString:v25 searchString:v29 updatedSuggestion:suggestionCopy];
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 + (id)searchableIndexQueryStringForComparisionPredicate:(id)predicate hasSuggestion:(BOOL)suggestion
 {
   suggestionCopy = suggestion;
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   if (searchableIndexQueryStringForComparisionPredicate_hasSuggestion__onceToken != -1)
   {
@@ -120,8 +117,8 @@ void __43__EDSearchableIndexExpressionGenerator_log__block_invoke(uint64_t a1)
       {
         [constantValue timeIntervalSinceReferenceDate];
         v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"$time.absolute(%f)", v13];
-        v19[0] = *MEMORY[0x1E6964D10];
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+        v18[0] = *MEMORY[0x1E6964D10];
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
         v9 = [self _queryWithAttributes:v15 matchingValue:v14 operatorType:predicateOperatorType];
       }
 
@@ -146,43 +143,39 @@ void __43__EDSearchableIndexExpressionGenerator_log__block_invoke(uint64_t a1)
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 void __104__EDSearchableIndexExpressionGenerator_searchableIndexQueryStringForComparisionPredicate_hasSuggestion___block_invoke()
 {
-  v16[5] = *MEMORY[0x1E69E9840];
-  v15[0] = *MEMORY[0x1E699A9B0];
+  v15[5] = *MEMORY[0x1E69E9840];
+  v14[0] = *MEMORY[0x1E699A9B0];
   v0 = *MEMORY[0x1E69649F0];
-  v14[0] = *MEMORY[0x1E69649F8];
-  v14[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
-  v16[0] = v1;
-  v15[1] = *MEMORY[0x1E699A980];
+  v13[0] = *MEMORY[0x1E69649F8];
+  v13[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
+  v15[0] = v1;
+  v14[1] = *MEMORY[0x1E699A980];
   v2 = *MEMORY[0x1E6963D00];
-  v13[0] = *MEMORY[0x1E6963D18];
-  v13[1] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
-  v16[1] = v3;
-  v15[2] = *MEMORY[0x1E699A970];
-  v12 = *MEMORY[0x1E6964B58];
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
-  v16[2] = v4;
-  v15[3] = *MEMORY[0x1E699A968];
-  v11 = *MEMORY[0x1E6964BB0];
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
-  v16[3] = v5;
-  v15[4] = *MEMORY[0x1E699A920];
-  v10 = *MEMORY[0x1E69645B0];
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
-  v16[4] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v12[0] = *MEMORY[0x1E6963D18];
+  v12[1] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+  v15[1] = v3;
+  v14[2] = *MEMORY[0x1E699A970];
+  v11 = *MEMORY[0x1E6964B58];
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+  v15[2] = v4;
+  v14[3] = *MEMORY[0x1E699A968];
+  v10 = *MEMORY[0x1E6964BB0];
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
+  v15[3] = v5;
+  v14[4] = *MEMORY[0x1E699A920];
+  v9 = *MEMORY[0x1E69645B0];
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
+  v15[4] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:5];
   v8 = searchableIndexQueryStringForComparisionPredicate_hasSuggestion__spotlightAttributesForKeypath;
   searchableIndexQueryStringForComparisionPredicate_hasSuggestion__spotlightAttributesForKeypath = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)queryStringByJoiningQueries:(id)queries withPredicateType:(unint64_t)type
@@ -388,10 +381,9 @@ LABEL_27:
 
 void __62__EDSearchableIndexExpressionGenerator__keyPathIsSuggestable___block_invoke()
 {
-  v0 = *MEMORY[0x1E699A9B8];
-  v1 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E699A9B0], *MEMORY[0x1E699A9B8], *MEMORY[0x1E699A858], *MEMORY[0x1E699A818], *MEMORY[0x1E699A820], *MEMORY[0x1E699A980], *MEMORY[0x1E699A988], *MEMORY[0x1E699A970], *MEMORY[0x1E699A968], *MEMORY[0x1E699A880], 0}];
-  v2 = _keyPathIsSuggestable__suggestableKeyPaths;
-  _keyPathIsSuggestable__suggestableKeyPaths = v1;
+  v0 = [MEMORY[0x1E695DFD8] setWithObjects:{*MEMORY[0x1E699A9B0], *MEMORY[0x1E699A9B8], *MEMORY[0x1E699A858], *MEMORY[0x1E699A818], *MEMORY[0x1E699A820], *MEMORY[0x1E699A980], *MEMORY[0x1E699A988], *MEMORY[0x1E699A970], *MEMORY[0x1E699A968], *MEMORY[0x1E699A880], 0}];
+  v1 = _keyPathIsSuggestable__suggestableKeyPaths;
+  _keyPathIsSuggestable__suggestableKeyPaths = v0;
 }
 
 @end

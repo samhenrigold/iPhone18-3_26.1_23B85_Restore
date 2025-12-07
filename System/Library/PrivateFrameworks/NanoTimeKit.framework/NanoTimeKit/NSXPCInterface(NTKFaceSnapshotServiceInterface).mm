@@ -11,9 +11,9 @@
     +[NSXPCInterface(NTKFaceSnapshotServiceInterface) faceSnapshotServiceInterface];
   }
 
-  v1 = faceSnapshotServiceInterface_interface;
+  v2 = faceSnapshotServiceInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 @end

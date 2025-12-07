@@ -86,7 +86,7 @@ void __40__CKAttachmentSaver__saveNextAttachment__block_invoke_2(uint64_t a1, in
 
 - (void)_saveCompletion:(id)completion
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   if (completionCopy)
   {
@@ -97,15 +97,14 @@ void __40__CKAttachmentSaver__saveNextAttachment__block_invoke_2(uint64_t a1, in
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v8 = completionCopy;
+        v13 = completionCopy;
         _os_log_impl(&dword_19020E000, v5, OS_LOG_TYPE_DEBUG, "Unexpected error saving attachment. Skipping. Error: %@", buf, 0xCu);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      v6 = completionCopy;
-      _CKLog();
+      _CKLog(0x2Eu, @"Unexpected error saving attachment. Skipping. Error: %@", v6, v7, v8, v9, v10, v11, completionCopy);
     }
   }
 

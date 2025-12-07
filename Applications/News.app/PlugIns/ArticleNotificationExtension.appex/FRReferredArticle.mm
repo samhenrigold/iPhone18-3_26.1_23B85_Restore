@@ -71,52 +71,17 @@
   }
 
   articleRecordData = [(FRReferredArticle *)self articleRecordData];
-  if (!articleRecordData)
+  if (articleRecordData && (v6 = articleRecordData, -[FRReferredArticle sourceChannelID](self, "sourceChannelID"), v7 = objc_claimAutoreleasedReturnValue(), v7, v6, v7) && (([contextCopy tagController], v8 = objc_claimAutoreleasedReturnValue(), -[FRReferredArticle sourceChannelID](self, "sourceChannelID"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "slowCachedTagForID:", v9), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "asChannel"), v11 = objc_claimAutoreleasedReturnValue(), v10, v9, v8, v11) || (-[FRReferredArticle sourceChannelRecordData](self, "sourceChannelRecordData"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) && (v17 = [FCTag alloc], -[FRReferredArticle sourceChannelRecordData](self, "sourceChannelRecordData"), v18 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v17, "initWithData:context:", v18, contextCopy), v18, v11)))
   {
-    goto LABEL_11;
-  }
-
-  v6 = articleRecordData;
-  sourceChannelID = [(FRReferredArticle *)self sourceChannelID];
-
-  if (!sourceChannelID)
-  {
-    goto LABEL_11;
-  }
-
-  tagController = [contextCopy tagController];
-  sourceChannelID2 = [(FRReferredArticle *)self sourceChannelID];
-  v10 = [tagController slowCachedTagForID:sourceChannelID2];
-  asChannel = [v10 asChannel];
-
-  if (asChannel)
-  {
-    goto LABEL_7;
-  }
-
-  sourceChannelRecordData = [(FRReferredArticle *)self sourceChannelRecordData];
-
-  if (!sourceChannelRecordData)
-  {
-    goto LABEL_11;
-  }
-
-  v17 = [FCTag alloc];
-  sourceChannelRecordData2 = [(FRReferredArticle *)self sourceChannelRecordData];
-  asChannel = [v17 initWithData:sourceChannelRecordData2 context:contextCopy];
-
-  if (asChannel)
-  {
-LABEL_7:
     parentIssueRecordData = [(FRReferredArticle *)self parentIssueRecordData];
 
-    v32 = asChannel;
+    v32 = v11;
     if (parentIssueRecordData)
     {
       v13 = [FCIssue alloc];
       parentIssueRecordData2 = [(FRReferredArticle *)self parentIssueRecordData];
       assetManager = [contextCopy assetManager];
-      v33 = [v13 initWithData:parentIssueRecordData2 sourceChannel:asChannel assetManager:assetManager];
+      v33 = [v13 initWithData:parentIssueRecordData2 sourceChannel:v11 assetManager:assetManager];
     }
 
     else
@@ -141,7 +106,6 @@ LABEL_7:
 
   else
   {
-LABEL_11:
     v19 = 0;
   }
 

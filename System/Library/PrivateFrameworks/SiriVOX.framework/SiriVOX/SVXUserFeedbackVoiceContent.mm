@@ -81,24 +81,23 @@
 - (id)_descriptionWithIndent:(unint64_t)indent
 {
   v4 = objc_alloc(MEMORY[0x277CCACA8]);
-  v11.receiver = self;
-  v11.super_class = SVXUserFeedbackVoiceContent;
-  v5 = [(SVXUserFeedbackVoiceContent *)&v11 description];
+  v10.receiver = self;
+  v10.super_class = SVXUserFeedbackVoiceContent;
+  v5 = [(SVXUserFeedbackVoiceContent *)&v10 description];
   v6 = v5;
-  text = self->_text;
   if (self->_isPhonetic)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
   else
   {
-    v8 = @"NO";
+    v7 = @"NO";
   }
 
-  v9 = [v4 initWithFormat:@"%@ {text = %@, isPhonetic = %@}", v5, self->_text, v8];
+  v8 = [v4 initWithFormat:@"%@ {text = %@, isPhonetic = %@}", v5, self->_text, v7];
 
-  return v9;
+  return v8;
 }
 
 - (SVXUserFeedbackVoiceContent)initWithText:(id)text isPhonetic:(BOOL)phonetic

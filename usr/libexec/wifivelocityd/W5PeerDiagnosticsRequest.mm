@@ -13,9 +13,9 @@
   configurationCopy = configuration;
   uuidCopy = uuid;
   replyCopy = reply;
-  v28.receiver = self;
-  v28.super_class = W5PeerDiagnosticsRequest;
-  v18 = [(W5PeerDiagnosticsRequest *)&v28 init];
+  v29.receiver = self;
+  v29.super_class = W5PeerDiagnosticsRequest;
+  v18 = [(W5PeerDiagnosticsRequest *)&v29 init];
   v19 = v18;
   if (v18 && (objc_storeStrong(&v18->_peer, peer), peerCopy) && (v20 = objc_retainBlock(replyCopy), reply = v19->_reply, v19->_reply = v20, reply, replyCopy))
   {
@@ -41,13 +41,14 @@
     v27 = sub_100098A04();
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 136315650;
-      v30 = "[W5PeerDiagnosticsRequest initWithPeer:diagnostics:configuration:uuid:reply:]";
-      v31 = 2080;
-      v32 = "W5PeerDiagnosticsRequest.m";
-      v33 = 1024;
-      v34 = 53;
-      _os_log_send_and_compose_impl();
+      v30 = 136315650;
+      v31 = "[W5PeerDiagnosticsRequest initWithPeer:diagnostics:configuration:uuid:reply:]";
+      v32 = 2080;
+      v33 = "W5PeerDiagnosticsRequest.m";
+      v34 = 1024;
+      v35 = 53;
+      LODWORD(v28) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] %s (%s:%u) init error!", &v30, v28, LODWORD(v29.receiver));
     }
 
     v19 = 0;
@@ -78,17 +79,15 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         payload2 = [responseCopy payload];
-        v17 = 136315906;
-        v18 = "[W5PeerDiagnosticsRequest handleResponse:]";
-        v19 = 2080;
-        v20 = "W5PeerDiagnosticsRequest.m";
-        v21 = 1024;
-        v22 = 66;
-        v23 = 2114;
-        v24 = payload2;
-        LODWORD(v16) = 38;
-        v15 = &v17;
-        _os_log_send_and_compose_impl();
+        v15 = 136315906;
+        v16 = "[W5PeerDiagnosticsRequest handleResponse:]";
+        v17 = 2080;
+        v18 = "W5PeerDiagnosticsRequest.m";
+        v19 = 1024;
+        v20 = 66;
+        v21 = 2114;
+        v22 = payload2;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v10, 0, "[wifivelocity] %s (%s:%u) results data is not in payload:%{public}@", &v15, 38);
       }
 
       error3 = [payload error];
@@ -96,8 +95,8 @@
       (reply2)[2](reply2, error3, 0);
     }
 
-    v14 = [(W5PeerDiagnosticsRequest *)self reply:v15];
-    (v14)[2](v14, 0, results);
+    reply3 = [(W5PeerDiagnosticsRequest *)self reply];
+    (reply3)[2](reply3, 0, results);
   }
 }
 

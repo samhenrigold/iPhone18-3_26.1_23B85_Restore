@@ -55,8 +55,8 @@ LABEL_34:
   {
     v33 = vdivq_f64(v31, vdupq_laneq_s64(v31, 1)).f64[0];
     v34 = sqrt(pixels / v33);
-    v31.f64[0] = v34 * v33;
-    v31.f64[1] = v34;
+    *v31.i64 = v34 * v33;
+    *&v31.i64[1] = v34;
   }
 
   v35 = vdupq_n_s64(0x20uLL);

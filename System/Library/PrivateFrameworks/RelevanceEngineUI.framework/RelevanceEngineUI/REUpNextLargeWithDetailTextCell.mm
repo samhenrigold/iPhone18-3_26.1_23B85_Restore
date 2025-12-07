@@ -28,21 +28,21 @@
 
 - (REUpNextLargeWithDetailTextCell)initWithFrame:(CGRect)frame
 {
-  v117[18] = *MEMORY[0x277D85DE8];
-  v116.receiver = self;
-  v116.super_class = REUpNextLargeWithDetailTextCell;
-  v3 = [(REUpNextBaseCell *)&v116 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v116[18] = *MEMORY[0x277D85DE8];
+  v115.receiver = self;
+  v115.super_class = REUpNextLargeWithDetailTextCell;
+  v3 = [(REUpNextBaseCell *)&v115 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_5];
     fontDescriptor = [v4 fontDescriptor];
-    v114 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
+    v113 = [fontDescriptor fontDescriptorWithSymbolicTraits:2];
 
     v6 = *MEMORY[0x277D74418];
     v7 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_6 weight:*MEMORY[0x277D74418]];
     cLKFontWithAlternativePunctuation = [v7 CLKFontWithAlternativePunctuation];
 
-    v113 = [MEMORY[0x277CBBB08] fontWithDescriptor:v114 size:*&kActiveLayout_0];
+    v112 = [MEMORY[0x277CBBB08] fontWithDescriptor:v113 size:*&kActiveLayout_0];
     v8 = [MEMORY[0x277CBBB08] systemFontOfSize:*&kActiveLayout_4 weight:v6];
     cLKFontWithAlternativePunctuation2 = [v8 CLKFontWithAlternativePunctuation];
     cLKFontWithMonospacedNumbers = [cLKFontWithAlternativePunctuation2 CLKFontWithMonospacedNumbers];
@@ -61,7 +61,7 @@
     v3->_headerLabel = v17;
 
     [(CLKUIColoringLabel *)v3->_headerLabel setNowProvider:&__block_literal_global_1];
-    [(CLKUIColoringLabel *)v3->_headerLabel setFont:v113];
+    [(CLKUIColoringLabel *)v3->_headerLabel setFont:v112];
     [(CLKUIColoringLabel *)v3->_headerLabel setTranslatesAutoresizingMaskIntoConstraints:0];
     [(CLKUIColoringLabel *)v3->_headerLabel setLineBreakMode:4];
     v19 = v3->_headerLabel;
@@ -156,85 +156,84 @@
     topAnchor = [(UILayoutGuide *)v3->_contentLayoutGuide topAnchor];
     contentView7 = [(REUpNextLargeWithDetailTextCell *)v3 contentView];
     topAnchor2 = [contentView7 topAnchor];
-    v108 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
-    v117[0] = v108;
+    v107 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:0.0];
+    v116[0] = v107;
     bottomAnchor = [(UILayoutGuide *)v3->_contentLayoutGuide bottomAnchor];
     contentView8 = [(REUpNextLargeWithDetailTextCell *)v3 contentView];
     bottomAnchor2 = [contentView8 bottomAnchor];
-    v104 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-0.0];
-    v117[1] = v104;
+    v103 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2 constant:-0.0];
+    v116[1] = v103;
     leadingAnchor = [(UILayoutGuide *)v3->_contentLayoutGuide leadingAnchor];
     contentView9 = [(REUpNextLargeWithDetailTextCell *)v3 contentView];
     leadingAnchor2 = [contentView9 leadingAnchor];
-    v100 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_10];
-    v117[2] = v100;
+    v99 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_10];
+    v116[2] = v99;
     trailingAnchor = [(UILayoutGuide *)v3->_contentLayoutGuide trailingAnchor];
     contentView10 = [(REUpNextLargeWithDetailTextCell *)v3 contentView];
     trailingAnchor2 = [contentView10 trailingAnchor];
-    v96 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-*&kActiveLayout_12];
-    v117[3] = v96;
+    v95 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-*&kActiveLayout_12];
+    v116[3] = v95;
     firstBaselineAnchor = [(CLKUIColoringLabel *)v3->_headerLabel firstBaselineAnchor];
     topAnchor3 = [(UILayoutGuide *)v3->_contentLayoutGuide topAnchor];
-    v93 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor3 constant:*&kActiveLayout_0];
-    v117[4] = v93;
+    v92 = [firstBaselineAnchor constraintEqualToAnchor:topAnchor3 constant:*&kActiveLayout_0];
+    v116[4] = v92;
     leadingAnchor3 = [(CLKUIColoringLabel *)v3->_headerLabel leadingAnchor];
     leadingAnchor4 = [(UILayoutGuide *)v3->_contentLayoutGuide leadingAnchor];
-    v90 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v117[5] = v90;
+    v89 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v116[5] = v89;
     trailingAnchor3 = [(CLKUIColoringLabel *)v3->_headerLabel trailingAnchor];
     trailingAnchor4 = [(UILayoutGuide *)v3->_contentLayoutGuide trailingAnchor];
-    v87 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v117[6] = v87;
+    v86 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+    v116[6] = v86;
     firstBaselineAnchor2 = [(CLKUIColoringLabel *)v3->_bodyLabel firstBaselineAnchor];
     firstBaselineAnchor3 = [(CLKUIColoringLabel *)v3->_headerLabel firstBaselineAnchor];
-    v84 = [firstBaselineAnchor2 constraintEqualToAnchor:firstBaselineAnchor3 constant:*&kActiveLayout_1];
-    v117[7] = v84;
+    v83 = [firstBaselineAnchor2 constraintEqualToAnchor:firstBaselineAnchor3 constant:*&kActiveLayout_1];
+    v116[7] = v83;
     lastBaselineAnchor = [(CLKUIColoringLabel *)v3->_bodyLabel lastBaselineAnchor];
     bottomAnchor3 = [(UILayoutGuide *)v3->_contentLayoutGuide bottomAnchor];
-    v81 = [lastBaselineAnchor constraintEqualToAnchor:bottomAnchor3 constant:-*&kActiveLayout_7];
-    v117[8] = v81;
+    v80 = [lastBaselineAnchor constraintEqualToAnchor:bottomAnchor3 constant:-*&kActiveLayout_7];
+    v116[8] = v80;
     bottomAnchor4 = [(REUpNextImageView *)v3->_bodyImage bottomAnchor];
     firstBaselineAnchor4 = [(CLKUIColoringLabel *)v3->_bodyLabel firstBaselineAnchor];
-    v78 = [bottomAnchor4 constraintEqualToAnchor:firstBaselineAnchor4];
-    v117[9] = v78;
+    v77 = [bottomAnchor4 constraintEqualToAnchor:firstBaselineAnchor4];
+    v116[9] = v77;
     firstBaselineAnchor5 = [(CLKUIColoringLabel *)v3->_detail2Label firstBaselineAnchor];
     bottomAnchor5 = [(UILayoutGuide *)v3->_contentLayoutGuide bottomAnchor];
-    v75 = [firstBaselineAnchor5 constraintEqualToAnchor:bottomAnchor5 constant:-*&kActiveLayout_7];
-    v117[10] = v75;
+    v74 = [firstBaselineAnchor5 constraintEqualToAnchor:bottomAnchor5 constant:-*&kActiveLayout_7];
+    v116[10] = v74;
     firstBaselineAnchor6 = [(CLKUIColoringLabel *)v3->_detail1Label firstBaselineAnchor];
     firstBaselineAnchor7 = [(CLKUIColoringLabel *)v3->_detail2Label firstBaselineAnchor];
-    v71 = [firstBaselineAnchor6 constraintEqualToAnchor:firstBaselineAnchor7 constant:-*&kActiveLayout_8];
-    v117[11] = v71;
+    v70 = [firstBaselineAnchor6 constraintEqualToAnchor:firstBaselineAnchor7 constant:-*&kActiveLayout_8];
+    v116[11] = v70;
     leadingAnchor5 = [(CLKUIColoringLabel *)v3->_detail2Label leadingAnchor];
     leadingAnchor6 = [(CLKUIColoringLabel *)v3->_detail1Label leadingAnchor];
-    v68 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
-    v117[12] = v68;
+    v67 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
+    v116[12] = v67;
     trailingAnchor5 = [(CLKUIColoringLabel *)v3->_detail2Label trailingAnchor];
     trailingAnchor6 = [(UILayoutGuide *)v3->_contentLayoutGuide trailingAnchor];
-    v65 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
-    v117[13] = v65;
+    v64 = [trailingAnchor5 constraintEqualToAnchor:trailingAnchor6];
+    v116[13] = v64;
     leadingAnchor7 = [(CLKUIColoringLabel *)v3->_bodyLabel leadingAnchor];
     leadingAnchor8 = [(UILayoutGuide *)v3->_contentLayoutGuide leadingAnchor];
-    v62 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
-    v117[14] = v62;
+    v61 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
+    v116[14] = v61;
     leadingAnchor9 = [(REUpNextImageView *)v3->_bodyImage leadingAnchor];
     trailingAnchor7 = [(CLKUIColoringLabel *)v3->_bodyLabel trailingAnchor];
     v53 = [leadingAnchor9 constraintEqualToAnchor:trailingAnchor7 constant:*&kActiveLayout_2];
-    v117[15] = v53;
+    v116[15] = v53;
     leadingAnchor10 = [(CLKUIColoringLabel *)v3->_detail1Label leadingAnchor];
     trailingAnchor8 = [(REUpNextImageView *)v3->_bodyImage trailingAnchor];
     v56 = [leadingAnchor10 constraintEqualToAnchor:trailingAnchor8 constant:*&kActiveLayout_3];
-    v117[16] = v56;
+    v116[16] = v56;
     trailingAnchor9 = [(CLKUIColoringLabel *)v3->_detail1Label trailingAnchor];
     trailingAnchor10 = [(UILayoutGuide *)v3->_contentLayoutGuide trailingAnchor];
     v59 = [trailingAnchor9 constraintEqualToAnchor:trailingAnchor10];
-    v117[17] = v59;
-    v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:18];
+    v116[17] = v59;
+    v73 = [MEMORY[0x277CBEA60] arrayWithObjects:v116 count:18];
 
-    [MEMORY[0x277CCAAD0] activateConstraints:v74];
+    [MEMORY[0x277CCAAD0] activateConstraints:v73];
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

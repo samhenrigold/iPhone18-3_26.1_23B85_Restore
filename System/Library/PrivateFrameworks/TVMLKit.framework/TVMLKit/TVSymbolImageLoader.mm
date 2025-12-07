@@ -5,9 +5,11 @@
 
 uint64_t __38___TVSymbolImageLoader_sharedInstance__block_invoke()
 {
-  sharedInstance_loader = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_loader;
+  sharedInstance_loader = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __112___TVSymbolImageLoader_loadImageForObject_scaleToSize_cropToFit_imageDirection_requestLoader_completionHandler___block_invoke(void *a1)

@@ -1,5 +1,6 @@
 @interface ATXScoreNormalizationModel
 - (ATXScoreNormalizationModel)initWithCoder:(id)coder;
+- (ATXScoreNormalizationModel)initWithParameters:(id)parameters circularBuffer:(id)buffer bufferHead:(int)head isBufferSorted:(BOOL)sorted;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)normalizeScore:(id)score;
 - (void)addScore:(id)score;
@@ -9,6 +10,35 @@
 @end
 
 @implementation ATXScoreNormalizationModel
+
+- (ATXScoreNormalizationModel)initWithParameters:(id)parameters circularBuffer:(id)buffer bufferHead:(int)head isBufferSorted:(BOOL)sorted
+{
+  v7 = *&head;
+  parametersCopy = parameters;
+  bufferCopy = buffer;
+  v17.receiver = self;
+  v17.super_class = ATXScoreNormalizationModel;
+  v12 = [(ATXScoreNormalizationModel *)&v17 init];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_isBufferSorted = sorted;
+    bufferSize = [parametersCopy bufferSize];
+    -[ATXScoreNormalizationModel setBufferSize:](v13, "setBufferSize:", [bufferSize intValue]);
+
+    [(ATXScoreNormalizationModel *)v13 setCircularBuffer:bufferCopy];
+    [(ATXScoreNormalizationModel *)v13 setBufferHead:v7];
+    [(ATXScoreNormalizationModel *)v13 setParameters:parametersCopy];
+    circularBuffer = [(ATXScoreNormalizationModel *)v13 circularBuffer];
+
+    if (!circularBuffer)
+    {
+      [(ATXScoreNormalizationModel *)v13 resetBuffer];
+    }
+  }
+
+  return v13;
+}
 
 - (void)addScore:(id)score
 {

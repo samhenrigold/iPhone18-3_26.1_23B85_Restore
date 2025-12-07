@@ -10,8 +10,10 @@
 - (__SCNetworkInterface)createInterface;
 - (id)copyLegacyIPSecDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 - (void)migratePasswordsFromPreferences:(__SCPreferences *)preferences;
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity;
 - (void)setIPSecSettingsFromLegacyDictionary:(id)dictionary;
 - (void)setMachineIdentityReference:(id)reference;
 - (void)setSharedSecretReference:(id)reference;
@@ -43,10 +45,10 @@
 
 - (BOOL)setServiceProtocolsInService:(__SCNetworkService *)service
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = NEVPNProtocolL2TP;
-  v5 = [(NEVPNProtocolPPP *)&v18 setServiceProtocolsInService:?];
+  v20 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = NEVPNProtocolL2TP;
+  v5 = [(NEVPNProtocolPPP *)&v17 setServiceProtocolsInService:?];
   if (v5)
   {
     Interface = SCNetworkServiceGetInterface(service);
@@ -60,7 +62,7 @@
       if (v7)
       {
         LOBYTE(v5) = 1;
-        goto LABEL_9;
+        return v5;
       }
 
       v10 = ne_log_obj();
@@ -69,13 +71,13 @@
 LABEL_8:
 
         LOBYTE(v5) = 0;
-        goto LABEL_9;
+        return v5;
       }
 
-      v15 = SCError();
-      v16 = SCErrorString(v15);
+      v14 = SCError();
+      v15 = SCErrorString(v14);
       *buf = 136315138;
-      v20 = v16;
+      v19 = v15;
       v11 = "SCNetworkInterfaceSetExtendedConfiguration failed: %s";
       v12 = v10;
       v13 = 12;
@@ -99,8 +101,6 @@ LABEL_8:
     goto LABEL_8;
   }
 
-LABEL_9:
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -185,14 +185,14 @@ LABEL_8:
   if (v26)
   {
     v27 = [v29 objectForKeyedSubscript:v24];
-    if ([v27 isEqualToString:*MEMORY[0x1E6982870]])
+    if (objc_msgSend_isEqualToString_(v27))
     {
       v28 = 1;
     }
 
     else
     {
-      if (![v27 isEqualToString:*MEMORY[0x1E6982868]])
+      if (!objc_msgSend_isEqualToString_(v27))
       {
 LABEL_16:
 
@@ -295,6 +295,26 @@ LABEL_13:
   [(NEVPNProtocol *)&v6 migratePasswordsFromPreferences:?];
   sharedSecretKeychainItem = [(NEVPNProtocolL2TP *)self sharedSecretKeychainItem];
   [sharedSecretKeychainItem migrateFromPreferences:preferences];
+}
+
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity
+{
+  v11.receiver = self;
+  v11.super_class = NEVPNProtocolL2TP;
+  [(NEVPNProtocol *)&v11 removeKeychainItemsInDomain:domain keepIdentity:identity];
+  sharedSecretKeychainItem = [(NEVPNProtocolL2TP *)self sharedSecretKeychainItem];
+  if (sharedSecretKeychainItem)
+  {
+    v7 = sharedSecretKeychainItem;
+    sharedSecretKeychainItem2 = [(NEVPNProtocolL2TP *)self sharedSecretKeychainItem];
+    domain = [sharedSecretKeychainItem2 domain];
+
+    if (domain == domain)
+    {
+      sharedSecretKeychainItem3 = [(NEVPNProtocolL2TP *)self sharedSecretKeychainItem];
+      [sharedSecretKeychainItem3 setIdentifier:0];
+    }
+  }
 }
 
 - (BOOL)needToUpdateKeychain
@@ -529,13 +549,47 @@ LABEL_13:
   objc_sync_exit(selfCopy);
 }
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v16.receiver = self;
+  v16.super_class = NEVPNProtocolL2TP;
+  v8 = [(NEVPNProtocolPPP *)&v16 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  [v9 appendPrettyInt:-[NEVPNProtocolL2TP machineAuthenticationMethod](self withName:"machineAuthenticationMethod") andIndent:@"machineAuthenticationMethod" options:{v5, options}];
+  sharedSecretKeychainItem = [(NEVPNProtocolL2TP *)self sharedSecretKeychainItem];
+  [v9 appendPrettyObject:sharedSecretKeychainItem withName:@"sharedSecretReference" andIndent:v5 options:options];
+
+  if (self)
+  {
+    [v9 appendPrettyObject:objc_getProperty(self withName:v11 andIndent:248 options:{1), @"machineIdentity", v5, options}];
+    [v9 appendPrettyObject:objc_getProperty(self withName:v12 andIndent:256 options:{1), @"machineIdentityDataInternal", v5, options}];
+    machineIdentityDataImported = self->_machineIdentityDataImported;
+  }
+
+  else
+  {
+    [v9 appendPrettyObject:0 withName:@"machineIdentity" andIndent:v5 options:options];
+    [v9 appendPrettyObject:0 withName:@"machineIdentityDataInternal" andIndent:v5 options:options];
+    machineIdentityDataImported = 0;
+  }
+
+  [v9 appendPrettyBOOL:machineIdentityDataImported withName:@"machineIdentityDataImported" andIndent:v5 options:options];
+  localIdentifier = [(NEVPNProtocolL2TP *)self localIdentifier];
+  [v9 appendPrettyObject:localIdentifier withName:@"localIdentifier" andIndent:v5 options:options | 1];
+
+  return v9;
+}
+
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
-  v20.receiver = self;
-  v20.super_class = NEVPNProtocolL2TP;
-  v6 = [(NEVPNProtocolPPP *)&v20 checkValidityAndCollectErrors:errorsCopy];
+  v19.receiver = self;
+  v19.super_class = NEVPNProtocolL2TP;
+  v6 = [(NEVPNProtocolPPP *)&v19 checkValidityAndCollectErrors:errorsCopy];
   if (self && ((v7 = objc_getProperty(self, v5, 248, 1)) != 0 || (v7 = objc_getProperty(self, v8, 256, 1)) != 0))
   {
   }
@@ -546,35 +600,34 @@ LABEL_13:
     v6 = 0;
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   userPreferences = [(NEVPNProtocolL2TP *)self userPreferences];
-  v10 = [userPreferences countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v10 = [userPreferences countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(userPreferences);
         }
 
-        v6 &= [*(*(&v16 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
+        v6 &= [*(*(&v15 + 1) + 8 * i) checkValidityAndCollectErrors:errorsCopy];
       }
 
-      v11 = [userPreferences countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v11 = [userPreferences countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v11);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

@@ -410,7 +410,7 @@ LABEL_21:
 
   if (right && (-[PXPhotosViewInteraction viewModel](self, "viewModel"), v17 = objc_claimAutoreleasedReturnValue(), [v17 currentDataSource], v18 = objc_claimAutoreleasedReturnValue(), v17, objc_msgSend(v18, "assetReferenceForAssetReference:", right), v20 = objc_claimAutoreleasedReturnValue(), right, v18, v20))
   {
-    [v20 indexPath];
+    objc_msgSend_indexPath(v20);
   }
 
   else
@@ -1073,7 +1073,7 @@ LABEL_13:
       v28 = currentDataSource;
       if (currentDataSource)
       {
-        [currentDataSource indexPathForAssetReference:userData];
+        objc_msgSend_indexPathForAssetReference_(currentDataSource);
       }
 
       else
@@ -1333,7 +1333,7 @@ LABEL_15:
 
 - (BOOL)_handleTapWithHitTestResult:(id)result keyModifierFlags:(int64_t)flags
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   viewModel = [(PXPhotosViewInteraction *)self viewModel];
   if (flags & 0x100000) != 0 && ([MEMORY[0x277D75658] isInHardwareKeyboardMode])
@@ -1473,10 +1473,10 @@ LABEL_49:
             *&buf[8] = 1024;
             *&buf[10] = [viewModel allowsMacStyleSelection];
             *&buf[14] = 1024;
-            LODWORD(v57) = [viewModel isInSelectMode];
-            WORD2(v57) = 2048;
-            *(&v57 + 6) = flags;
-            HIWORD(v57) = 1024;
+            LODWORD(v58) = [viewModel isInSelectMode];
+            WORD2(v58) = 2048;
+            *(&v58 + 6) = flags;
+            HIWORD(v58) = 1024;
             isInHardwareKeyboardMode2 = [MEMORY[0x277D75658] isInHardwareKeyboardMode];
             _os_log_impl(&dword_21ABF3000, v34, OS_LOG_TYPE_DEFAULT, "[PXPhotosViewUIInteraction] Handling tap wants toggle selection: %i. Allows mac style selection: %i. Select mode enabled: %i. Key modifier flags: %lu. Connected to hardware keyboard: %i.", buf, 0x24u);
           }
@@ -1505,32 +1505,32 @@ LABEL_48:
         *&buf[8] = 1024;
         *&buf[10] = [viewModel isInSelectMode];
         *&buf[14] = 2048;
-        *&v57 = flags;
-        WORD4(v57) = 1024;
-        *(&v57 + 10) = [MEMORY[0x277D75658] isInHardwareKeyboardMode];
+        *&v58 = flags;
+        WORD4(v58) = 1024;
+        *(&v58 + 10) = [MEMORY[0x277D75658] isInHardwareKeyboardMode];
         _os_log_impl(&dword_21ABF3000, v30, OS_LOG_TYPE_DEFAULT, "[PXPhotosViewUIInteraction] Handling tap wants range selection: %i. Select mode enabled: %i. Key modifier flags: %lu. Connected to hardware keyboard: %i.", buf, 0x1Eu);
       }
 
       *buf = 0u;
-      v57 = 0u;
+      v58 = 0u;
       currentDataSource = [viewModel currentDataSource];
       v32 = currentDataSource;
       if (currentDataSource)
       {
-        [currentDataSource indexPathForAssetReference:userData];
+        objc_msgSend_indexPathForAssetReference_(currentDataSource);
       }
 
       else
       {
         *buf = 0u;
-        v57 = 0u;
+        v58 = 0u;
       }
 
       layout = [viewModel selectionManager];
       contentController = [(PXPhotosViewInteraction *)self contentController];
-      v55[0] = *buf;
-      v55[1] = v57;
-      [layout extendSelectionToItemIndexPath:v55 withDelegate:contentController];
+      v55 = *buf;
+      v56 = v58;
+      objc_msgSend_extendSelectionToItemIndexPath_withDelegate_(layout);
     }
 
     goto LABEL_48;
@@ -1696,7 +1696,7 @@ LABEL_12:
   v12 = currentDataSource;
   if (currentDataSource)
   {
-    [currentDataSource indexPathForAssetReference:userData];
+    objc_msgSend_indexPathForAssetReference_(currentDataSource);
   }
 
   else
@@ -1894,7 +1894,7 @@ uint64_t __73__PXPhotosViewUIInteraction__handleHoverWithHitTestResults_hoverGes
     selectionSnapshot = [selectionManager2 selectionSnapshot];
 
     selectedIndexPaths = [selectionSnapshot selectedIndexPaths];
-    [navigatedAssetReference indexPath];
+    objc_msgSend_indexPath(navigatedAssetReference);
     v13 = [selectedIndexPaths containsIndexPath:v19];
 
     if (!v13 || (allowsMultiSelectMenu & 1) == 0)

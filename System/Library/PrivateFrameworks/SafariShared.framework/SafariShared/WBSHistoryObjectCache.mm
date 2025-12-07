@@ -66,9 +66,9 @@
 - (void)setItem:(id)item forID:(int64_t)d
 {
   itemCopy = item;
-  v9[0] = d;
-  v9[2] = v9;
-  v7 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_itemsByDatabaseID.__table_.__bucket_list_.__ptr_, v9);
+  dCopy = d;
+  v10 = &dCopy;
+  v7 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_itemsByDatabaseID.__table_.__bucket_list_.__ptr_, &dCopy, &std::piecewise_construct, &v10);
   if (v7)
   {
     v8 = v7[3];
@@ -96,7 +96,7 @@
       v10 = *(&v12 + 1);
       v9 = v8;
       v11 = v9;
-      std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryItem * {__strong}>>(&self->_itemsByDatabaseID.__table_.__bucket_list_.__ptr_, &v10);
+      std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryItem * {__strong}>>(&self->_itemsByDatabaseID.__table_.__bucket_list_.__ptr_, &v10, &v10);
 
       std::__hash_table<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryItem * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryItem * {__strong}>>>::erase(&self->_itemsByDatabaseID.__table_.__bucket_list_.__ptr_, v7);
     }
@@ -118,9 +118,9 @@
 - (void)setVisit:(id)visit forID:(int64_t)d
 {
   visitCopy = visit;
-  v8[0] = d;
-  v8[2] = v8;
-  v7 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_weakVisitsByDatabaseID.__table_.__bucket_list_.__ptr_, v8);
+  dCopy = d;
+  v9 = &dCopy;
+  v7 = std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(&self->_weakVisitsByDatabaseID.__table_.__bucket_list_.__ptr_, &dCopy, &std::piecewise_construct, &v9);
   if (v7)
   {
     objc_storeWeak(v7 + 3, visitCopy);
@@ -175,7 +175,7 @@
       v10 = i[3];
       v9 = WeakRetained;
       v11 = v9;
-      std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryVisit * {__strong}>>(&self->_weakVisitsByDatabaseID.__table_.__bucket_list_.__ptr_, &v10);
+      std::__hash_table<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,WBSHistoryVisit * {__weak}>>>::__emplace_unique_key_args<long long,std::pair<long long,WBSHistoryVisit * {__strong}>>(&self->_weakVisitsByDatabaseID.__table_.__bucket_list_.__ptr_, &v10, &v10);
     }
   }
 }

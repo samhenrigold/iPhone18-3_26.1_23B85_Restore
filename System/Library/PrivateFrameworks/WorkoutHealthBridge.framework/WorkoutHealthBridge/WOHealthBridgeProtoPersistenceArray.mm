@@ -96,7 +96,6 @@
 
   v3 = MEMORY[0x277D82BE0](v15[0]);
   objc_storeStrong(v15, 0);
-  *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -152,7 +151,6 @@
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -220,7 +218,6 @@
   MEMORY[0x277D82BD8](obj);
   v4 = MEMORY[0x277D82BE0](v14);
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -288,7 +285,6 @@
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

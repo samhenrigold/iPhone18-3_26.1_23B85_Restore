@@ -109,18 +109,16 @@ void __47__PGGraphSocialGroupMemberNodeCollection_names__block_invoke(uint64_t a
 
 + (id)memberNodesForLocalIdentifier:(id)identifier inGraph:(id)graph
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEB98];
   identifierCopy = identifier;
   v7 = MEMORY[0x277CBEA60];
   graphCopy = graph;
   identifierCopy2 = identifier;
   v10 = [v7 arrayWithObjects:&identifierCopy count:1];
-  v11 = [v6 setWithArray:{v10, identifierCopy, v16}];
+  v11 = [v6 setWithArray:{v10, identifierCopy, v15}];
 
   v12 = [self memberNodesForLocalIdentifiers:v11 inGraph:graphCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

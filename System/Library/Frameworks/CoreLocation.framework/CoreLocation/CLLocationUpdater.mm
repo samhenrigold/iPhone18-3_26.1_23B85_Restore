@@ -2,6 +2,8 @@
 + (id)_historicalUpdaterWithCenter:(CLLocationCoordinate2D)center radius:(double)radius dateInterval:(id)interval sampleCount:(int)count queue:(id)queue handler:(id)handler;
 + (id)_historicalUpdaterWithDateInterval:(id)interval sampleCount:(int)count queue:(id)queue handler:(id)handler;
 + (id)_liveUpdaterWithConfiguration:(int64_t)configuration queue:(id)queue handler:(id)handler;
++ (id)historicalUpdaterWithCenter:(CLLocationCoordinate2D)center radius:(double)radius dateInterval:(id)interval sampleCount:(int)count locationManager:(id)manager queue:(id)queue handler:(id)handler;
++ (id)historicalUpdaterWithDateInterval:(id)interval sampleCount:(int)count locationManager:(id)manager queue:(id)queue handler:(id)handler;
 + (id)liveUpdaterWithConfiguration:(int64_t)configuration locationManager:(id)manager queue:(id)queue handler:(id)handler;
 - (CLLocationUpdater)initWithRegistrationMessageName:(const char *)name messagePayload:(id)payload locationManager:(id)manager queue:(id)queue handler:(id)handler;
 - (void)dealloc;
@@ -22,31 +24,33 @@
 
 + (id)_liveUpdaterWithConfiguration:(int64_t)configuration queue:(id)queue handler:(id)handler
 {
-  +[CLLocationManager weakSharedInstance];
+  v6 = objc_msgSend_weakSharedInstance(CLLocationManager, a2, configuration, queue);
 
-  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_liveUpdaterWithConfiguration_locationManager_queue_handler_);
+  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_liveUpdaterWithConfiguration_locationManager_queue_handler_, configuration, v6);
 }
 
 + (id)_historicalUpdaterWithDateInterval:(id)interval sampleCount:(int)count queue:(id)queue handler:(id)handler
 {
-  +[CLLocationManager weakSharedInstance];
+  v6 = *&count;
+  objc_msgSend_weakSharedInstance(CLLocationManager, a2, interval, *&count);
 
-  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_historicalUpdaterWithDateInterval_sampleCount_locationManager_queue_handler_);
+  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_historicalUpdaterWithDateInterval_sampleCount_locationManager_queue_handler_, interval, v6);
 }
 
 + (id)_historicalUpdaterWithCenter:(CLLocationCoordinate2D)center radius:(double)radius dateInterval:(id)interval sampleCount:(int)count queue:(id)queue handler:(id)handler
 {
-  +[CLLocationManager weakSharedInstance];
+  v8 = *&count;
+  objc_msgSend_weakSharedInstance(CLLocationManager, a2, interval, *&count);
 
-  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_historicalUpdaterWithCenter_radius_dateInterval_sampleCount_locationManager_queue_handler_);
+  return MEMORY[0x1EEE66B58](CLLocationUpdater, sel_historicalUpdaterWithCenter_radius_dateInterval_sampleCount_locationManager_queue_handler_, interval, v8);
 }
 
 - (CLLocationUpdater)initWithRegistrationMessageName:(const char *)name messagePayload:(id)payload locationManager:(id)manager queue:(id)queue handler:(id)handler
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = CLLocationUpdater;
-  v13 = [(CLLocationUpdater *)&v27 init];
+  v53 = *MEMORY[0x1E69E9840];
+  v37.receiver = self;
+  v37.super_class = CLLocationUpdater;
+  v13 = [(CLLocationUpdater *)&v37 init];
   if (v13)
   {
     v14 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
@@ -62,19 +66,19 @@
     {
       v16 = NSStringFromSelector(a2);
       buf = 68290563;
-      v29 = 2082;
-      v30 = "";
-      v31 = 2082;
-      v32 = "activity";
-      v33 = 2114;
-      v34 = v16;
-      v35 = 2050;
-      v36 = v13;
-      v37 = 2082;
+      v39 = 2082;
+      v40 = "";
+      v41 = 2082;
+      v42 = "activity";
+      v43 = 2114;
+      v44 = v16;
+      v45 = 2050;
+      v46 = v13;
+      v47 = 2082;
       nameCopy = name;
-      v39 = 2113;
+      v49 = 2113;
       payloadCopy = payload;
-      v41 = 2050;
+      v51 = 2050;
       managerCopy = manager;
       _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, name:%{public, location:escape_only}s, messagePayload:%{private, location:escape_only}@, manager:%{public}p}", &buf, 0x4Eu);
     }
@@ -90,95 +94,327 @@
       if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
       {
         buf = 68289282;
-        v29 = 2082;
-        v30 = "";
-        v31 = 2050;
-        v32 = v13;
+        v39 = 2082;
+        v40 = "";
+        v41 = 2050;
+        v42 = v13;
         _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater has nil callback queue; Creating locally, self:%{public}p}", &buf, 0x1Cu);
       }
 
-      queue = +[CLLocationManager sharedQueue];
+      queue = objc_msgSend_sharedQueue(CLLocationManager, v18, v19, v20);
     }
 
-    v13->_silo = [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:queue bePermissive:0];
-    v13->_messageName = [MEMORY[0x1E696AEC0] stringWithUTF8String:name];
-    v13->_mutableMsgDictionary = [payload mutableCopy];
+    v21 = objc_alloc(MEMORY[0x1E69AD360]);
+    v13->_silo = objc_msgSend_initWithUnderlyingQueue_bePermissive_(v21, v22, queue, 0);
+    v13->_messageName = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v23, name, v24);
+    v13->_mutableMsgDictionary = objc_msgSend_mutableCopy(payload, v25, v26, v27);
     if (handler)
     {
       v13->_clientCallback = _Block_copy(handler);
     }
 
     objc_initWeak(&buf, v13);
-    v18 = [CLIdentifiableClientConnectionManager alloc];
+    v28 = [CLIdentifiableClientConnectionManager alloc];
     silo = v13->_silo;
     messageName = v13->_messageName;
     mutableMsgDictionary = v13->_mutableMsgDictionary;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = sub_19B8DD4AC;
-    v24[3] = &unk_1E753D5B8;
-    objc_copyWeak(&v25, &buf);
-    v13->_connectionManager = [(CLIdentifiableClientConnectionManager *)v18 initWithSilo:silo locationManager:manager startMessageName:messageName startMessagePayload:mutableMsgDictionary responseHandler:v24];
-    objc_destroyWeak(&v25);
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = sub_19B8DD4AC;
+    v34[3] = &unk_1E753D5B8;
+    objc_copyWeak(&v35, &buf);
+    v13->_connectionManager = objc_msgSend_initWithSilo_locationManager_startMessageName_startMessagePayload_responseHandler_(v28, v32, silo, manager, messageName, mutableMsgDictionary, v34);
+    objc_destroyWeak(&v35);
     objc_destroyWeak(&buf);
     os_activity_scope_leave(&state);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (id)liveUpdaterWithConfiguration:(int64_t)configuration locationManager:(id)manager queue:(id)queue handler:(id)handler
 {
-  v22[1] = *MEMORY[0x1E69E9840];
-  if (([manager isMasquerading] & 1) == 0 && (sub_19B8B8818() & 1) == 0)
+  v27[1] = *MEMORY[0x1E69E9840];
+  if ((objc_msgSend_isMasquerading(manager, a2, configuration, manager) & 1) == 0 && (sub_19B8B8818() & 1) == 0)
   {
     NSLog(&cfstr_ErrorCllocatio.isa);
   }
 
-  v21 = @"config";
-  v22[0] = [MEMORY[0x1E696AD98] numberWithInteger:configuration];
-  v10 = -[CLLocationUpdater initWithRegistrationMessageName:messagePayload:locationManager:queue:handler:]([CLLocationUpdater alloc], "initWithRegistrationMessageName:messagePayload:locationManager:queue:handler:", "LocationUpdaterLive/kCLConnectionMessage", [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1], manager, queue, handler);
+  v26 = @"config";
+  v27[0] = objc_msgSend_numberWithInteger_(MEMORY[0x1E696AD98], v10, configuration, v11);
+  v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v12, v27, &v26, 1);
+  v14 = [CLLocationUpdater alloc];
+  v16 = objc_msgSend_initWithRegistrationMessageName_messagePayload_locationManager_queue_handler_(v14, v15, "LocationUpdaterLive/kCLConnectionMessage", v13, manager, queue, handler);
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
   }
 
-  v11 = qword_1ED519090;
+  v17 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 68289282;
-    v16 = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2050;
-    v20 = v10;
-    _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater liveUpdaterWithConfiguration:queue:handler: created, updater:%{public}p}", &v15, 0x1Cu);
+    v20 = 68289282;
+    v21 = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2050;
+    v25 = v16;
+    _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater liveUpdaterWithConfiguration:queue:handler: created, updater:%{public}p}", &v20, 0x1Cu);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     }
   }
 
-  v12 = qword_1ED519090;
+  v18 = qword_1ED519090;
   if (os_signpost_enabled(qword_1ED519090))
   {
-    v15 = 68289282;
-    v16 = 0;
-    v17 = 2082;
-    v18 = "";
-    v19 = 2050;
-    v20 = v10;
-    _os_signpost_emit_with_name_impl(&dword_19B873000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater liveUpdaterWithConfiguration:queue:handler: created", "{msg%{public}.0s:#locationUpdater liveUpdaterWithConfiguration:queue:handler: created, updater:%{public}p}", &v15, 0x1Cu);
+    v20 = 68289282;
+    v21 = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2050;
+    v25 = v16;
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater liveUpdaterWithConfiguration:queue:handler: created", "{msg%{public}.0s:#locationUpdater liveUpdaterWithConfiguration:queue:handler: created, updater:%{public}p}", &v20, 0x1Cu);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v16;
+}
+
++ (id)historicalUpdaterWithDateInterval:(id)interval sampleCount:(int)count locationManager:(id)manager queue:(id)queue handler:(id)handler
+{
+  v38 = *MEMORY[0x1E69E9840];
+  if (!interval)
+  {
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v25 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v34 = 2082;
+      v35 = "";
+      v36 = 2050;
+      selfCopy4 = self;
+      _os_log_impl(&dword_19B873000, v25, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#locationUpdater, interestInterval must be valid, self:%{public}p}", buf, 0x1Cu);
+      if (qword_1ED519088 != -1)
+      {
+        dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+      }
+    }
+
+    v26 = qword_1ED519090;
+    if (!os_signpost_enabled(qword_1ED519090))
+    {
+      return 0;
+    }
+
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v34 = 2082;
+    v35 = "";
+    v36 = 2050;
+    selfCopy4 = self;
+    v27 = "#locationUpdater, interestInterval must be valid";
+    v28 = "{msg%{public}.0s:#locationUpdater, interestInterval must be valid, self:%{public}p}";
+    goto LABEL_24;
+  }
+
+  v8 = *&count;
+  if (count <= 0)
+  {
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v29 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 68289282;
+      *&buf[4] = 0;
+      v34 = 2082;
+      v35 = "";
+      v36 = 2050;
+      selfCopy4 = self;
+      _os_log_impl(&dword_19B873000, v29, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#locationUpdater, sampleCount must be greater than 0, self:%{public}p}", buf, 0x1Cu);
+      if (qword_1ED519088 != -1)
+      {
+        dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+      }
+    }
+
+    v26 = qword_1ED519090;
+    if (!os_signpost_enabled(qword_1ED519090))
+    {
+      return 0;
+    }
+
+    *buf = 68289282;
+    *&buf[4] = 0;
+    v34 = 2082;
+    v35 = "";
+    v36 = 2050;
+    selfCopy4 = self;
+    v27 = "#locationUpdater, sampleCount must be greater than 0";
+    v28 = "{msg%{public}.0s:#locationUpdater, sampleCount must be greater than 0, self:%{public}p}";
+LABEL_24:
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v27, v28, buf, 0x1Cu);
+    return 0;
+  }
+
+  v32[0] = &unk_1F0E8CCE8;
+  v32[1] = objc_msgSend_startDate(interval, a2, interval, *&count, @"kCLConnectionMessageTranscriptFetchRadiusKey", @"kCLConnectionMessageHistoricalLocationStartDateKey");
+  v31[2] = @"kCLConnectionMessagehistoricalLocationEndDateKey";
+  v32[2] = objc_msgSend_endDate(interval, v13, v14, v15);
+  v31[3] = @"kCLConnectionMessageTranscriptFetchSampleCountKey";
+  v32[3] = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v16, v8, v17);
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v32, v31, 4);
+  v20 = [CLLocationUpdater alloc];
+  v22 = objc_msgSend_initWithRegistrationMessageName_messagePayload_locationManager_queue_handler_(v20, v21, "LocationUpdaterHistorical/kCLConnectionMessage", v19, manager, queue, handler);
+  if (qword_1ED519088 != -1)
+  {
+    dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+  }
+
+  v23 = qword_1ED519090;
+  if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289282;
+    v34 = 2082;
+    v35 = "";
+    v36 = 2050;
+    selfCopy4 = v22;
+    _os_log_impl(&dword_19B873000, v23, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historicalUpdaterWithDateInterval:sampleCount:sampleCount:queue:handler: created, updater:%{public}p}", buf, 0x1Cu);
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+  }
+
+  v24 = qword_1ED519090;
+  if (os_signpost_enabled(qword_1ED519090))
+  {
+    *buf = 68289282;
+    v34 = 2082;
+    v35 = "";
+    v36 = 2050;
+    selfCopy4 = v22;
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historicalUpdaterWithDateInterval:sampleCount:sampleCount:queue:handler: created", "{msg%{public}.0s:#locationUpdater historicalUpdaterWithDateInterval:sampleCount:sampleCount:queue:handler: created, updater:%{public}p}", buf, 0x1Cu);
+  }
+
+  return v22;
+}
+
++ (id)historicalUpdaterWithCenter:(CLLocationCoordinate2D)center radius:(double)radius dateInterval:(id)interval sampleCount:(int)count locationManager:(id)manager queue:(id)queue handler:(id)handler
+{
+  v12 = *&count;
+  intervalCopy = interval;
+  longitude = center.longitude;
+  latitude = center.latitude;
+  v59 = *MEMORY[0x1E69E9840];
+  if (!interval)
+  {
+    v18 = objc_alloc(MEMORY[0x1E696AB80]);
+    v22 = objc_msgSend_distantPast(MEMORY[0x1E695DF00], v19, v20, v21);
+    v26 = objc_msgSend_now(MEMORY[0x1E695DF00], v23, v24, v25);
+    intervalCopy = objc_msgSend_initWithStartDate_endDate_(v18, v27, v22, v26);
+  }
+
+  if (v12 <= 0)
+  {
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v49 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 68289282;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2050;
+      selfCopy2 = self;
+      _os_log_impl(&dword_19B873000, v49, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#locationUpdater, sampleCount must be greater than 0, self:%{public}p}", buf, 0x1Cu);
+      if (qword_1ED519088 != -1)
+      {
+        dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+      }
+    }
+
+    v50 = qword_1ED519090;
+    if (os_signpost_enabled(qword_1ED519090))
+    {
+      *buf = 68289282;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2050;
+      selfCopy2 = self;
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v50, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater, sampleCount must be greater than 0", "{msg%{public}.0s:#locationUpdater, sampleCount must be greater than 0, self:%{public}p}", buf, 0x1Cu);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v53[0] = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], a2, interval, *&count, latitude, @"kCLConnectionMessageTranscriptFetchCenterLatitudeKey");
+    v52[1] = @"kCLConnectionMessageTranscriptFetchCenterLongitudeKey";
+    v53[1] = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v28, v29, v30, longitude);
+    v52[2] = @"kCLConnectionMessageTranscriptFetchRadiusKey";
+    v53[2] = objc_msgSend_numberWithDouble_(MEMORY[0x1E696AD98], v31, v32, v33, radius);
+    v52[3] = @"kCLConnectionMessageHistoricalLocationStartDateKey";
+    v53[3] = objc_msgSend_startDate(intervalCopy, v34, v35, v36);
+    v52[4] = @"kCLConnectionMessagehistoricalLocationEndDateKey";
+    v53[4] = objc_msgSend_endDate(intervalCopy, v37, v38, v39);
+    v52[5] = @"kCLConnectionMessageTranscriptFetchSampleCountKey";
+    v53[5] = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v40, v12, v41);
+    v43 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v42, v53, v52, 6);
+    v44 = [CLLocationUpdater alloc];
+    v46 = objc_msgSend_initWithRegistrationMessageName_messagePayload_locationManager_queue_handler_(v44, v45, "LocationUpdaterHistorical/kCLConnectionMessage", v43, manager, queue, handler);
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v47 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289282;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2050;
+      selfCopy2 = v46;
+      _os_log_impl(&dword_19B873000, v47, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historicalUpdaterWithCenter:radius:dateInterval:sampleCount:queue:handler: created, updater:%{public}p}", buf, 0x1Cu);
+      if (qword_1ED519088 != -1)
+      {
+        dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+      }
+    }
+
+    v48 = qword_1ED519090;
+    if (os_signpost_enabled(qword_1ED519090))
+    {
+      *buf = 68289282;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2050;
+      selfCopy2 = v46;
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v48, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historicalUpdaterWithCenter:radius:dateInterval:sampleCount:queue:handler: created", "{msg%{public}.0s:#locationUpdater historicalUpdaterWithCenter:radius:dateInterval:sampleCount:queue:handler: created, updater:%{public}p}", buf, 0x1Cu);
+    }
+  }
+
+  return v46;
 }
 
 - (void)pause
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -190,34 +426,33 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v8 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "activity";
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2050;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = "activity";
+    v18 = 2114;
+    v19 = v8;
+    v20 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
   silo = self->_silo;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_19B8DE1A4;
-  v9[3] = &unk_1E753CC90;
-  v9[4] = self;
-  [(CLDispatchSilo *)silo async:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_19B8DE1A4;
+  v10[3] = &unk_1E753CC90;
+  v10[4] = self;
+  objc_msgSend_async_(silo, v6, v10, v7);
   os_activity_scope_leave(&state);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resume
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -229,29 +464,28 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v8 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "activity";
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2050;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = "activity";
+    v18 = 2114;
+    v19 = v8;
+    v20 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
   silo = self->_silo;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_19B8DE36C;
-  v9[3] = &unk_1E753CC90;
-  v9[4] = self;
-  [(CLDispatchSilo *)silo async:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_19B8DE36C;
+  v10[3] = &unk_1E753CC90;
+  v10[4] = self;
+  objc_msgSend_async_(silo, v6, v10, v7);
   os_activity_scope_leave(&state);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)tearDown
@@ -272,7 +506,7 @@
 
 - (void)invalidate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -284,34 +518,33 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v8 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 2082;
-    v16 = "activity";
-    v17 = 2114;
-    v18 = v6;
-    v19 = 2050;
+    v13 = 0;
+    v14 = 2082;
+    v15 = "";
+    v16 = 2082;
+    v17 = "activity";
+    v18 = 2114;
+    v19 = v8;
+    v20 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
   silo = self->_silo;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = sub_19B8DE760;
-  v9[3] = &unk_1E753CC90;
-  v9[4] = self;
-  [(CLDispatchSilo *)silo async:v9];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = sub_19B8DE760;
+  v10[3] = &unk_1E753CC90;
+  v10[4] = self;
+  objc_msgSend_async_(silo, v6, v10, v7);
   os_activity_scope_leave(&state);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   os_activity_scope_enter(v4, &state);
 
@@ -323,155 +556,91 @@
   v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = NSStringFromSelector(a2);
+    v9 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
+    v13 = 0;
     v14 = 2082;
-    v15 = "activity";
-    v16 = 2114;
-    v17 = v6;
-    v18 = 2050;
+    v15 = "";
+    v16 = 2082;
+    v17 = "activity";
+    v18 = 2114;
+    v19 = v9;
+    v20 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
 
-  [(CLLocationUpdater *)self tearDown];
-  v8.receiver = self;
-  v8.super_class = CLLocationUpdater;
-  [(CLLocationUpdater *)&v8 dealloc];
+  objc_msgSend_tearDown(self, v6, v7, v8);
+  v10.receiver = self;
+  v10.super_class = CLLocationUpdater;
+  [(CLLocationUpdater *)&v10 dealloc];
   os_activity_scope_leave(&state);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessageLocation:(id)location
 {
-  [(CLDispatchSilo *)self->_silo assertInside];
+  objc_msgSend_assertInside(self->_silo, a2, location, v3);
   if (self->_clientCallback)
   {
-    v7 = copyLocationsFromLocationMessagePayload();
-    if ([v7 count])
+    v20 = copyLocationsFromLocationMessagePayload();
+    if (objc_msgSend_count(v20, v6, v7, v8))
     {
-      v5 = [v7 objectAtIndexedSubscript:0];
+      v11 = objc_msgSend_objectAtIndexedSubscript_(v20, v9, 0, v10);
     }
 
     else
     {
-      v5 = 0;
+      v11 = 0;
     }
 
-    v6 = -[CLUpdate initWithLocation:diagnostics:]([CLUpdate alloc], "initWithLocation:diagnostics:", v5, [objc_msgSend(location objectForKeyedSubscript:{@"kCLConnectionMessageDiagnosticsKey", "unsignedLongValue"}]);
+    v12 = objc_msgSend_objectForKeyedSubscript_(location, v9, @"kCLConnectionMessageDiagnosticsKey", v10);
+    v16 = objc_msgSend_unsignedLongValue(v12, v13, v14, v15);
+    v17 = [CLUpdate alloc];
+    v19 = objc_msgSend_initWithLocation_diagnostics_(v17, v18, v11, v16);
     (*(self->_clientCallback + 2))();
   }
 }
 
 - (void)handleMessageLocationUnavailable:(id)unavailable
 {
-  v25 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v34 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, unavailable, v3);
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
   }
 
-  v6 = qword_1ED519090;
+  v7 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289282;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2050;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2050;
     selfCopy2 = self;
-    _os_log_impl(&dword_19B873000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater location unavailable, self:%{public}p}", buf, 0x1Cu);
+    _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater location unavailable, self:%{public}p}", buf, 0x1Cu);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     }
   }
 
-  v7 = qword_1ED519090;
+  v8 = qword_1ED519090;
   if (os_signpost_enabled(qword_1ED519090))
   {
     *buf = 68289282;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2050;
+    v24 = 2082;
+    v25 = "";
+    v26 = 2050;
     selfCopy2 = self;
-    _os_signpost_emit_with_name_impl(&dword_19B873000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater location unavailable", "{msg%{public}.0s:#locationUpdater location unavailable, self:%{public}p}", buf, 0x1Cu);
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater location unavailable", "{msg%{public}.0s:#locationUpdater location unavailable, self:%{public}p}", buf, 0x1Cu);
   }
 
   if (self->_clientCallback)
   {
-    v8 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v8, &v13);
+    v9 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v9, &v22);
 
-    if (qword_1ED519088 != -1)
-    {
-      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
-    }
-
-    v9 = qword_1ED519090;
-    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = NSStringFromSelector(a2);
-      *buf = 68290051;
-      *&buf[4] = 0;
-      v15 = 2082;
-      v16 = "";
-      v17 = 2082;
-      selfCopy2 = "activity";
-      v19 = 2114;
-      v20 = v10;
-      v21 = 2050;
-      selfCopy3 = self;
-      v23 = 2113;
-      unavailableCopy = unavailable;
-      _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
-    }
-
-    v11 = -[CLUpdate initWithLocation:diagnostics:]([CLUpdate alloc], "initWithLocation:diagnostics:", 0, [objc_msgSend(unavailable objectForKeyedSubscript:{@"kCLConnectionMessageDiagnosticsKey", "unsignedLongValue"}]);
-    (*(self->_clientCallback + 2))();
-
-    os_activity_scope_leave(&v13);
-  }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-- (void)handleMessageHistoricalLocations:(id)locations
-{
-  v38 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
-  if (self->_clientCallback)
-  {
-    v6 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v6, &state);
-
-    if (qword_1ED519088 != -1)
-    {
-      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
-    }
-
-    v7 = qword_1ED519090;
-    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = NSStringFromSelector(a2);
-      *buf = 68290051;
-      v30 = 2082;
-      v31 = "";
-      v32 = 2082;
-      *v33 = "activity";
-      *&v33[8] = 2114;
-      *&v33[10] = v8;
-      v34 = 2050;
-      selfCopy = self;
-      v36 = 2113;
-      locationsCopy = locations;
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
-    }
-
-    v9 = [locations objectForKeyedSubscript:@"Locations"];
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
@@ -480,111 +649,180 @@
     v10 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v9 count];
+      v13 = NSStringFromSelector(a2);
+      *buf = 68290051;
+      *&buf[4] = 0;
+      v24 = 2082;
+      v25 = "";
+      v26 = 2082;
+      selfCopy2 = "activity";
+      v28 = 2114;
+      v29 = v13;
+      v30 = 2050;
+      selfCopy3 = self;
+      v32 = 2113;
+      unavailableCopy = unavailable;
+      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
+    }
+
+    v14 = objc_msgSend_objectForKeyedSubscript_(unavailable, v11, @"kCLConnectionMessageDiagnosticsKey", v12);
+    v18 = objc_msgSend_unsignedLongValue(v14, v15, v16, v17);
+    v19 = [CLUpdate alloc];
+    v21 = objc_msgSend_initWithLocation_diagnostics_(v19, v20, 0, v18);
+    (*(self->_clientCallback + 2))();
+
+    os_activity_scope_leave(&v22);
+  }
+}
+
+- (void)handleMessageHistoricalLocations:(id)locations
+{
+  v66 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, locations, v3);
+  if (self->_clientCallback)
+  {
+    v7 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v7, &state);
+
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v8 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = NSStringFromSelector(a2);
+      *buf = 68290051;
+      v58 = 2082;
+      v59 = "";
+      v60 = 2082;
+      *v61 = "activity";
+      *&v61[8] = 2114;
+      *&v61[10] = v11;
+      v62 = 2050;
+      selfCopy = self;
+      v64 = 2113;
+      locationsCopy = locations;
+      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
+    }
+
+    v12 = objc_msgSend_objectForKeyedSubscript_(locations, v9, @"Locations", v10);
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v13 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    {
+      v17 = objc_msgSend_count(v12, v14, v15, v16);
       *buf = 68289538;
-      v30 = 2082;
-      v31 = "";
-      v32 = 1026;
-      *v33 = v11;
-      *&v33[4] = 2050;
-      *&v33[6] = self;
-      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historical received historicalLocations, Count:%{public}d, self:%{public}p}", buf, 0x22u);
+      v58 = 2082;
+      v59 = "";
+      v60 = 1026;
+      *v61 = v17;
+      *&v61[4] = 2050;
+      *&v61[6] = self;
+      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historical received historicalLocations, Count:%{public}d, self:%{public}p}", buf, 0x22u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
       }
     }
 
-    v12 = qword_1ED519090;
+    v18 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
-      v13 = [v9 count];
+      v22 = objc_msgSend_count(v12, v19, v20, v21);
       *buf = 68289538;
-      v30 = 2082;
-      v31 = "";
-      v32 = 1026;
-      *v33 = v13;
-      *&v33[4] = 2050;
-      *&v33[6] = self;
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historical received historicalLocations", "{msg%{public}.0s:#locationUpdater historical received historicalLocations, Count:%{public}d, self:%{public}p}", buf, 0x22u);
+      v58 = 2082;
+      v59 = "";
+      v60 = 1026;
+      *v61 = v22;
+      *&v61[4] = 2050;
+      *&v61[6] = self;
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historical received historicalLocations", "{msg%{public}.0s:#locationUpdater historical received historicalLocations, Count:%{public}d, self:%{public}p}", buf, 0x22u);
     }
 
-    v14 = [objc_msgSend(locations objectForKeyedSubscript:{@"kCLConnectionMessageDiagnosticsKey", "unsignedLongValue"}];
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v15 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v15)
+    v23 = objc_msgSend_objectForKeyedSubscript_(locations, v19, @"kCLConnectionMessageDiagnosticsKey", v21);
+    v27 = objc_msgSend_unsignedLongValue(v23, v24, v25, v26);
+    v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
+    v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v28, &v51, v56, 16);
+    if (v29)
     {
-      v16 = *v24;
+      v30 = *v52;
       do
       {
-        for (i = 0; i != v15; ++i)
+        for (i = 0; i != v29; ++i)
         {
-          if (*v24 != v16)
+          if (*v52 != v30)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
-          v19 = objc_autoreleasePoolPush();
-          v20 = [[CLUpdate alloc] initWithLocation:v18 diagnostics:v14];
+          v32 = *(*(&v51 + 1) + 8 * i);
+          v33 = objc_autoreleasePoolPush();
+          v34 = [CLUpdate alloc];
+          v36 = objc_msgSend_initWithLocation_diagnostics_(v34, v35, v32, v27);
           (*(self->_clientCallback + 2))();
 
-          [objc_msgSend(v18 "timestamp")];
-          [(CLIdentifiableClientConnectionManager *)self->_connectionManager updateLastHistoricalLocationTimestamp:?];
-          objc_autoreleasePoolPop(v19);
+          v40 = objc_msgSend_timestamp(v32, v37, v38, v39);
+          objc_msgSend_timeIntervalSinceReferenceDate(v40, v41, v42, v43);
+          objc_msgSend_updateLastHistoricalLocationTimestamp_(self->_connectionManager, v44, v45, v46);
+          objc_autoreleasePoolPop(v33);
         }
 
-        v15 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v47, &v51, v56, 16);
       }
 
-      while (v15);
+      while (v29);
     }
 
-    v21 = [[CLUpdate alloc] initWithLocation:0 diagnostics:v14];
+    v48 = [CLUpdate alloc];
+    v50 = objc_msgSend_initWithLocation_diagnostics_(v48, v49, 0, v27);
     (*(self->_clientCallback + 2))();
 
     os_activity_scope_leave(&state);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessageHistoricalLocationsFinished:(id)finished
 {
-  v13 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v16 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, finished, v3);
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
   }
 
-  v4 = qword_1ED519090;
+  v5 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 68289282;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2050;
+    v11 = 68289282;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2050;
     selfCopy2 = self;
-    _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historical delivery completed, self:%{public}p}", &v8, 0x1Cu);
+    _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#locationUpdater historical delivery completed, self:%{public}p}", &v11, 0x1Cu);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     }
   }
 
-  v5 = qword_1ED519090;
+  v6 = qword_1ED519090;
   if (os_signpost_enabled(qword_1ED519090))
   {
-    v8 = 68289282;
-    v9 = 2082;
-    v10 = "";
-    v11 = 2050;
+    v11 = 68289282;
+    v12 = 2082;
+    v13 = "";
+    v14 = 2050;
     selfCopy2 = self;
-    _os_signpost_emit_with_name_impl(&dword_19B873000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historical delivery completed", "{msg%{public}.0s:#locationUpdater historical delivery completed, self:%{public}p}", &v8, 0x1Cu);
+    _os_signpost_emit_with_name_impl(&dword_19B873000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater historical delivery completed", "{msg%{public}.0s:#locationUpdater historical delivery completed, self:%{public}p}", &v11, 0x1Cu);
   }
 
   clientCallback = self->_clientCallback;
@@ -593,92 +831,92 @@
     clientCallback[2](clientCallback, 0);
   }
 
-  [(CLLocationUpdater *)self invalidate];
-  v7 = *MEMORY[0x1E69E9840];
+  objc_msgSend_invalidate(self, v7, v8, v9);
 }
 
 - (void)handleMessageDiagnostics:(id)diagnostics
 {
-  v23 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self->_silo assertInside];
+  v32 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self->_silo, a2, diagnostics, v3);
   if (self->_clientCallback)
   {
-    v6 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    os_activity_scope_enter(v6, &v11);
+    v7 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    os_activity_scope_enter(v7, &v20);
 
-    if (qword_1ED519088 != -1)
-    {
-      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
-    }
-
-    v7 = qword_1ED519090;
-    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
-    {
-      v8 = NSStringFromSelector(a2);
-      *buf = 68290051;
-      v13 = 2082;
-      v14 = "";
-      v15 = 2082;
-      v16 = "activity";
-      v17 = 2114;
-      v18 = v8;
-      v19 = 2050;
-      selfCopy = self;
-      v21 = 2113;
-      diagnosticsCopy = diagnostics;
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
-    }
-
-    v9 = -[CLUpdate initWithLocation:diagnostics:]([CLUpdate alloc], "initWithLocation:diagnostics:", 0, [objc_msgSend(diagnostics objectForKeyedSubscript:{@"kCLConnectionMessageDiagnosticsKey", "unsignedLongValue"}]);
-    (*(self->_clientCallback + 2))();
-
-    os_activity_scope_leave(&v11);
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setHandler:(id)handler
-{
-  v17 = *MEMORY[0x1E69E9840];
-  if (self->_clientCallback)
-  {
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     }
 
     v8 = qword_1ED519090;
+    if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = NSStringFromSelector(a2);
+      *buf = 68290051;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2082;
+      v25 = "activity";
+      v26 = 2114;
+      v27 = v11;
+      v28 = 2050;
+      selfCopy = self;
+      v30 = 2113;
+      diagnosticsCopy = diagnostics;
+      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, payload:%{private, location:escape_only}@}", buf, 0x3Au);
+    }
+
+    v12 = objc_msgSend_objectForKeyedSubscript_(diagnostics, v9, @"kCLConnectionMessageDiagnosticsKey", v10);
+    v16 = objc_msgSend_unsignedLongValue(v12, v13, v14, v15);
+    v17 = [CLUpdate alloc];
+    v19 = objc_msgSend_initWithLocation_diagnostics_(v17, v18, 0, v16);
+    (*(self->_clientCallback + 2))();
+
+    os_activity_scope_leave(&v20);
+  }
+}
+
+- (void)setHandler:(id)handler
+{
+  v16 = *MEMORY[0x1E69E9840];
+  if (self->_clientCallback)
+  {
+    if (qword_1ED519088 != -1)
+    {
+      dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
+    }
+
+    v7 = qword_1ED519090;
     p_info = "assert";
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "_clientCallback == nullptr";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#locationUpdater should initially be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "_clientCallback == nullptr";
+      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#locationUpdater should initially be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
       }
     }
 
-    v9 = qword_1ED519090;
+    v8 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "_clientCallback == nullptr";
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater should initially be nil", "{msg%{public}.0s:#locationUpdater should initially be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "_clientCallback == nullptr";
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater should initially be nil", "{msg%{public}.0s:#locationUpdater should initially be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
@@ -690,16 +928,16 @@
     {
       *buf = 68289539;
       *&buf[4] = 0;
-      v11 = 2082;
-      v12 = "";
-      v13 = 2082;
-      v14 = "assert";
-      v15 = 2081;
-      v16 = "_clientCallback == nullptr";
+      v10 = 2082;
+      v11 = "";
+      v12 = 2082;
+      v13 = "assert";
+      v14 = 2081;
+      v15 = "_clientCallback == nullptr";
       _os_log_impl(&dword_19B873000, &selfCopy->super, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#locationUpdater should initially be nil, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Framework/CoreLocation/CLLocationUpdater.mm", 391, "[CLLocationUpdater setHandler:]");
 LABEL_22:
     dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     goto LABEL_5;
@@ -709,7 +947,7 @@ LABEL_22:
   if (handler)
   {
     self->_clientCallback = _Block_copy(handler);
-    goto LABEL_10;
+    return;
   }
 
   p_info = CLLocationManagerInternal.info;
@@ -723,10 +961,10 @@ LABEL_5:
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_ERROR))
   {
     *buf = 68289282;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2050;
-    v14 = selfCopy;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2050;
+    v13 = selfCopy;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#locationUpdater can't set a nil handler, self:%{public}p}", buf, 0x1Cu);
     if (p_info[17] != -1)
     {
@@ -738,22 +976,19 @@ LABEL_5:
   if (os_signpost_enabled(qword_1ED519090))
   {
     *buf = 68289282;
-    v11 = 2082;
-    v12 = "";
-    v13 = 2050;
-    v14 = selfCopy;
+    v10 = 2082;
+    v11 = "";
+    v12 = 2050;
+    v13 = selfCopy;
     _os_signpost_emit_with_name_impl(&dword_19B873000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater can't set a nil handler", "{msg%{public}.0s:#locationUpdater can't set a nil handler, self:%{public}p}", buf, 0x1Cu);
   }
-
-LABEL_10:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleMessageWithName:(id)name payload:(id)payload
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v8 = _os_activity_create(&dword_19B873000, "CL: CLLocationUpdater #locationUpdater", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-  os_activity_scope_enter(v8, &v17);
+  os_activity_scope_enter(v8, &v37);
 
   if (qword_1ED519088 != -1)
   {
@@ -763,46 +998,46 @@ LABEL_10:
   v9 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = NSStringFromSelector(a2);
-    uTF8String = [name UTF8String];
+    v12 = NSStringFromSelector(a2);
+    v16 = objc_msgSend_UTF8String(name, v13, v14, v15);
     *buf = 68290050;
-    v19 = 0;
-    v20 = 2082;
-    v21 = "";
-    v22 = 2082;
-    v23 = "activity";
-    v24 = 2114;
-    selfCopy3 = v10;
-    v26 = 2050;
+    v39 = 0;
+    v40 = 2082;
+    v41 = "";
+    v42 = 2082;
+    v43 = "activity";
+    v44 = 2114;
+    selfCopy3 = v12;
+    v46 = 2050;
     selfCopy = self;
-    v28 = 2082;
-    v29 = uTF8String;
+    v48 = 2082;
+    v49 = v16;
     _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLLocationUpdater #locationUpdater, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, message:%{public, location:escape_only}s}", buf, 0x3Au);
   }
 
-  if (([name isEqualToString:@"kCLConnectionMessageLocation"] & 1) != 0 || objc_msgSend(name, "isEqualToString:", @"kCLConnectionMessageCompensatedLocation"))
+  if ((objc_msgSend_isEqualToString_(name, v10, @"kCLConnectionMessageLocation", v11) & 1) != 0 || objc_msgSend_isEqualToString_(name, v17, @"kCLConnectionMessageCompensatedLocation", v18))
   {
-    [(CLLocationUpdater *)self handleMessageLocation:payload];
+    objc_msgSend_handleMessageLocation_(self, v17, payload, v18);
   }
 
-  else if ([name isEqualToString:@"kCLConnectionMessageHistoricalLocations"])
+  else if (objc_msgSend_isEqualToString_(name, v17, @"kCLConnectionMessageHistoricalLocations", v18))
   {
-    [(CLLocationUpdater *)self handleMessageHistoricalLocations:payload];
+    objc_msgSend_handleMessageHistoricalLocations_(self, v19, payload, v20);
   }
 
-  else if ([name isEqualToString:@"kCLConnectionMessageHistoricalLocationsFinished"])
+  else if (objc_msgSend_isEqualToString_(name, v19, @"kCLConnectionMessageHistoricalLocationsFinished", v20))
   {
-    [(CLLocationUpdater *)self handleMessageHistoricalLocationsFinished:payload];
+    objc_msgSend_handleMessageHistoricalLocationsFinished_(self, v21, payload, v22);
   }
 
-  else if ([name isEqualToString:@"kCLConnectionMessageLocationUnavailable"])
+  else if (objc_msgSend_isEqualToString_(name, v21, @"kCLConnectionMessageLocationUnavailable", v22))
   {
-    [(CLLocationUpdater *)self handleMessageLocationUnavailable:payload];
+    objc_msgSend_handleMessageLocationUnavailable_(self, v23, payload, v24);
   }
 
-  else if ([name isEqualToString:@"kCLConnectionMessageDiagnostics"])
+  else if (objc_msgSend_isEqualToString_(name, v23, @"kCLConnectionMessageDiagnostics", v24))
   {
-    [(CLLocationUpdater *)self handleMessageDiagnostics:payload];
+    objc_msgSend_handleMessageDiagnostics_(self, v25, payload, v26);
   }
 
   else
@@ -812,43 +1047,42 @@ LABEL_10:
       dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
     }
 
-    v13 = qword_1ED519090;
+    v27 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_FAULT))
     {
-      uTF8String2 = [name UTF8String];
+      v31 = objc_msgSend_UTF8String(name, v28, v29, v30);
       *buf = 68289538;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
-      v22 = 2082;
-      v23 = uTF8String2;
-      v24 = 2050;
+      v39 = 0;
+      v40 = 2082;
+      v41 = "";
+      v42 = 2082;
+      v43 = v31;
+      v44 = 2050;
       selfCopy3 = self;
-      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#locationUpdater received unhandled message, Message:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+      _os_log_impl(&dword_19B873000, v27, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#locationUpdater received unhandled message, Message:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
       if (qword_1ED519088 != -1)
       {
         dispatch_once(&qword_1ED519088, &unk_1F0E6B900);
       }
     }
 
-    v15 = qword_1ED519090;
+    v32 = qword_1ED519090;
     if (os_signpost_enabled(qword_1ED519090))
     {
-      uTF8String3 = [name UTF8String];
+      v36 = objc_msgSend_UTF8String(name, v33, v34, v35);
       *buf = 68289538;
-      v19 = 0;
-      v20 = 2082;
-      v21 = "";
-      v22 = 2082;
-      v23 = uTF8String3;
-      v24 = 2050;
+      v39 = 0;
+      v40 = 2082;
+      v41 = "";
+      v42 = 2082;
+      v43 = v36;
+      v44 = 2050;
       selfCopy3 = self;
-      _os_signpost_emit_with_name_impl(&dword_19B873000, v15, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater received unhandled message", "{msg%{public}.0s:#locationUpdater received unhandled message, Message:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_19B873000, v32, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#locationUpdater received unhandled message", "{msg%{public}.0s:#locationUpdater received unhandled message, Message:%{public, location:escape_only}s, self:%{public}p}", buf, 0x26u);
     }
   }
 
-  os_activity_scope_leave(&v17);
-  v12 = *MEMORY[0x1E69E9840];
+  os_activity_scope_leave(&v37);
 }
 
 @end

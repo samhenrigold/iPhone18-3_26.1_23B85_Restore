@@ -5,7 +5,7 @@
 
 void *__figMobileAsset_Initialize_block_invoke()
 {
-  fig_note_initialize_category_with_default_work_cf(&gFigMobileAssetTrace[1], @"mobileasset_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", 0, 0, gFigMobileAssetTrace);
+  fig_note_initialize_category_with_default_work_cf(&unk_1EAF1CCB8, @"mobileasset_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", 0, 0, &gFigMobileAssetTrace);
   fig_note_initialize_category_with_default_work_cf(&dword_1EAF1CCC8, @"mobileasset_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", 0, 0, &qword_1EAF1CCC0);
   result = dlopen("/System/Library/PrivateFrameworks/MobileAsset.framework/MobileAsset", 4);
   sMobileAssetLib = result;

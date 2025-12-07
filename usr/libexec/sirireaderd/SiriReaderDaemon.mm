@@ -138,7 +138,7 @@ LABEL_3:
 
 LABEL_4:
   type metadata accessor for NSKeyValueChangeKey(0);
-  sub_10000FE5C(&qword_10001D088, type metadata accessor for NSKeyValueChangeKey);
+  sub_10000FE5C(&qword_10001D088, type metadata accessor for NSKeyValueChangeKey, &unk_1000130AC);
   v14 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
 LABEL_8:
@@ -151,14 +151,13 @@ LABEL_8:
 {
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1000099EC();
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

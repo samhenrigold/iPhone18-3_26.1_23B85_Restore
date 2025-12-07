@@ -121,7 +121,7 @@
     v14 = [ARNonSynchronousData alloc];
     contextCopy = v19;
     imageData = [v19 imageData];
-    [imageData timestamp];
+    objc_msgSend_timestamp(imageData);
     v16 = [(ARNonSynchronousData *)v14 initWithGatheredData:array timestamp:?];
 
     delegate = [(ARTechnique *)self delegate];
@@ -189,13 +189,13 @@
   {
     v17 = MEMORY[0x1E696AD98];
     imageData2 = [contextCopy imageData];
-    [imageData2 timestamp];
+    objc_msgSend_timestamp(imageData2);
     v19 = [v17 numberWithDouble:?];
 
     contextsWaitingForSynchronizationData = self->_contextsWaitingForSynchronizationData;
     v21 = MEMORY[0x1E696AD98];
     imageData3 = [contextCopy imageData];
-    [imageData3 timestamp];
+    objc_msgSend_timestamp(imageData3);
     v23 = [v21 numberWithDouble:?];
     v24 = [(ARCircularArray *)contextsWaitingForSynchronizationData addObject:v23];
 
@@ -304,58 +304,59 @@
 
 - (void)technique:(id)technique didFailWithError:(id)error
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   techniqueCopy = technique;
   errorCopy = error;
+  v8 = errorCopy;
   if (ARShouldUseLogTypeError_onceToken_18 != -1)
   {
     [ARSplitTechniqueSynchronizerTechnique technique:didFailWithError:];
   }
 
-  v8 = ARShouldUseLogTypeError_internalOSVersion_18;
-  v9 = _ARLogTechnique_14();
-  v10 = v9;
-  if (v8 == 1)
+  v9 = ARShouldUseLogTypeError_internalOSVersion_18;
+  v10 = _ARLogTechnique_14(errorCopy);
+  v11 = v10;
+  if (v9 == 1)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      code = [errorCopy code];
-      localizedDescription = [errorCopy localizedDescription];
-      v20 = 138544130;
-      v21 = v12;
-      v22 = 2048;
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      code = [v8 code];
+      localizedDescription = [v8 localizedDescription];
+      v21 = 138544130;
+      v22 = v13;
+      v23 = 2048;
       selfCopy2 = self;
-      v24 = 2048;
-      v25 = code;
-      v26 = 2112;
-      v27 = localizedDescription;
-      v15 = "%{public}@ <%p>: Split technique pipeline failed with error: %ld - %@";
-      v16 = v10;
-      v17 = OS_LOG_TYPE_ERROR;
+      v25 = 2048;
+      v26 = code;
+      v27 = 2112;
+      v28 = localizedDescription;
+      v16 = "%{public}@ <%p>: Split technique pipeline failed with error: %ld - %@";
+      v17 = v11;
+      v18 = OS_LOG_TYPE_ERROR;
 LABEL_8:
-      _os_log_impl(&dword_1C241C000, v16, v17, v15, &v20, 0x2Au);
+      _os_log_impl(&dword_1C241C000, v17, v18, v16, &v21, 0x2Au);
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v18 = objc_opt_class();
-    v12 = NSStringFromClass(v18);
-    code2 = [errorCopy code];
-    localizedDescription = [errorCopy localizedDescription];
-    v20 = 138544130;
-    v21 = v12;
-    v22 = 2048;
+    v19 = objc_opt_class();
+    v13 = NSStringFromClass(v19);
+    code2 = [v8 code];
+    localizedDescription = [v8 localizedDescription];
+    v21 = 138544130;
+    v22 = v13;
+    v23 = 2048;
     selfCopy2 = self;
-    v24 = 2048;
-    v25 = code2;
-    v26 = 2112;
-    v27 = localizedDescription;
-    v15 = "Error: %{public}@ <%p>: Split technique pipeline failed with error: %ld - %@";
-    v16 = v10;
-    v17 = OS_LOG_TYPE_INFO;
+    v25 = 2048;
+    v26 = code2;
+    v27 = 2112;
+    v28 = localizedDescription;
+    v16 = "Error: %{public}@ <%p>: Split technique pipeline failed with error: %ld - %@";
+    v17 = v11;
+    v18 = OS_LOG_TYPE_INFO;
     goto LABEL_8;
   }
 }

@@ -16,9 +16,9 @@
 
 - (MPSCNNNeuronGradient)initWithDevice:(id)device neuronDescriptor:(MPSNNNeuronDescriptor *)neuronDescriptor
 {
-  v33.receiver = self;
-  v33.super_class = MPSCNNNeuronGradient;
-  v5 = [(MPSCNNGradientKernel *)&v33 initWithDevice:device];
+  v40.receiver = self;
+  v40.super_class = MPSCNNNeuronGradient;
+  v5 = [(MPSCNNGradientKernel *)&v40 initWithDevice:device];
   v16 = v5;
   if (!v5)
   {
@@ -30,7 +30,10 @@
   {
     if (MTLReportFailureTypeEnabled())
     {
-      goto LABEL_15;
+      v36 = @"invalid neuron type (%lu)";
+      v37 = 1036;
+LABEL_15:
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", v37, v36, v32, v33, v34, v35);
     }
   }
 
@@ -62,16 +65,20 @@
         goto LABEL_16;
       }
 
-      goto LABEL_14;
+      v39 = objc_opt_class();
+      NSStringFromClass(v39);
+      v36 = @"[%@ initWithDevice:neuronDescriptor:...] data length (%lu) is invalid";
+      v37 = 1047;
+      goto LABEL_15;
     }
 
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_14:
-      v32 = objc_opt_class();
-      NSStringFromClass(v32);
-LABEL_15:
-      MTLReportFailure();
+      v38 = objc_opt_class();
+      NSStringFromClass(v38);
+      v36 = @"[%@ initWithDevice:neuronDescriptor:...] data in neuron descriptor must be valid";
+      v37 = 1044;
+      goto LABEL_15;
     }
   }
 
@@ -83,9 +90,9 @@ LABEL_16:
 - (id)privateInitWithDevice:(id)device a:(float)a b:(float)b c:(float)c type:(int)type
 {
   v7 = *&type;
-  v23.receiver = self;
-  v23.super_class = MPSCNNNeuronGradient;
-  result = [(MPSCNNGradientKernel *)&v23 initWithDevice:device];
+  v27.receiver = self;
+  v27.super_class = MPSCNNNeuronGradient;
+  result = [(MPSCNNGradientKernel *)&v27 initWithDevice:device];
   if (result)
   {
     if (v7 >= 16)
@@ -93,7 +100,7 @@ LABEL_16:
       v22 = result;
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x42D, @"invalid neuron type (%lu)", v23, v24, v25, v26);
       }
 
       return 0;
@@ -116,9 +123,9 @@ LABEL_16:
 - (id)privateInitWithDevice:(id)device a:(const float *)a count:(unint64_t)count type:(int)type
 {
   v6 = *&type;
-  v16.receiver = self;
-  v16.super_class = MPSCNNNeuronGradient;
-  result = [(MPSCNNGradientKernel *)&v16 initWithDevice:device];
+  v20.receiver = self;
+  v20.super_class = MPSCNNNeuronGradient;
+  result = [(MPSCNNGradientKernel *)&v20 initWithDevice:device];
   if (result)
   {
     if (v6 >= 16)
@@ -126,7 +133,7 @@ LABEL_16:
       v15 = result;
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x43D, @"invalid neuron type (%lu)", v16, v17, v18, v19);
       }
 
       return 0;
@@ -147,7 +154,7 @@ LABEL_16:
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x44A, @"Cannot directly initialize MPSCNNNeuron. Use initWithDevice:neuronDescriptor: or one of the sub-classes of MPSCNNNeuron\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -172,7 +179,7 @@ LABEL_16:
 
 - (void)initializeWithNeuronType:(int)type neuronParameterA:(const float *)a count:(unint64_t)count
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   self->_neuronType = type;
   self->_a = 0.0;
   self->_b = 0.0;
@@ -192,13 +199,13 @@ LABEL_16:
   {
     if (((a + *MEMORY[0x277D85FA0] - 1) & -*MEMORY[0x277D85FA0]) != a && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x485, @"noCopy flag is set to YES, but the memory allocation does not meet the requirements for no-copy allocation. See the requirements listed for the newBufferWithBytesNoCopy:length:options:deallocator Metal API.\n", v17, v18, v19, v20);
     }
 
     v22 = 4 * count;
     if (((objc_msgSend_minBufferNoCopyAlignmentBytes((*(&self->super.super.super.super.isa + v11))[2], v14, v15, v16, v17, v18, v19, v20) - 1) & v22) != 0 && MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x48D, @"noCopy flag is set to YES, but the memory allocation does not meet the requirements for no-copy allocation\n", v61, v62, v63, v64);
     }
 
     size = 0;
@@ -207,7 +214,7 @@ LABEL_16:
     infoCnt = 9;
     if (vm_region_64(*MEMORY[0x277D85F48], &address, &size, 10, info, &infoCnt, &object_name) || (info[0] & 1) == 0 || address != a || size != v22) && (MTLReportFailureTypeEnabled())
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", 0x4AD, @"noCopy flag is set to YES, but the memory allocation does not meet the requirements for no-copy allocation\n", v26, v27, v28, v29);
     }
 
     v48 = (*(&self->super.super.super.super.isa + v11))[2];
@@ -255,9 +262,9 @@ LABEL_16:
 
 - (MPSCNNNeuronGradient)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v88.receiver = self;
-  v88.super_class = MPSCNNNeuronGradient;
-  v5 = [(MPSCNNGradientKernel *)&v88 initWithCoder:aDecoder device:device];
+  v95.receiver = self;
+  v95.super_class = MPSCNNNeuronGradient;
+  v5 = [(MPSCNNGradientKernel *)&v95 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -276,8 +283,11 @@ LABEL_9:
 
     v61 = objc_opt_class();
     NSStringFromClass(v61);
+    v66 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+    v67 = 1;
+    v68 = 1267;
 LABEL_8:
-    MTLReportFailure();
+    MTLReportFailure(v67, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNNeuron.mm", v68, v66, v62, v63, v64, v65);
     goto LABEL_9;
   }
 
@@ -289,6 +299,9 @@ LABEL_8:
       goto LABEL_9;
     }
 
+    v66 = @"invalid neuron type (%lu)";
+    v67 = 0;
+    v68 = 1273;
     goto LABEL_8;
   }
 
@@ -312,26 +325,26 @@ LABEL_8:
   else
   {
     address = 0;
-    v62 = (*MEMORY[0x277D85FA0] + 4 * v51 - 1) & -*MEMORY[0x277D85FA0];
-    mach_vm_allocate(*MEMORY[0x277D85F48], &address, v62, 1);
-    v89 = 0;
-    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v63, @"MPSCNNNeuronGradientAArray", &v89, v64, v65, v66, v67))
+    v69 = (*MEMORY[0x277D85FA0] + 4 * v51 - 1) & -*MEMORY[0x277D85FA0];
+    mach_vm_allocate(*MEMORY[0x277D85F48], &address, v69, 1);
+    v96 = 0;
+    if (objc_msgSend_decodeBytesForKey_returnedLength_(aDecoder, v70, @"MPSCNNNeuronGradientAArray", &v96, v71, v72, v73, v74))
     {
       MPSCopyToFromNetworkByteOrder32();
     }
 
     v12->_noCopy = 1;
-    v86[0] = MEMORY[0x277D85DD0];
-    v86[1] = 3221225472;
-    v86[2] = sub_239D1D61C;
-    v86[3] = &unk_278B30B68;
-    v86[4] = address;
-    v86[5] = v62;
-    v68 = objc_alloc(MEMORY[0x277CBEA90]);
-    v12->_data = objc_msgSend_initWithBytesNoCopy_length_deallocator_(v68, v69, address, v62, v86, v70, v71, v72);
-    v12->_count = v62 >> 2;
-    v80 = objc_msgSend_bytes(v12->_data, v73, v74, v75, v76, v77, v78, v79);
-    objc_msgSend_initializeWithNeuronType_neuronParameterA_count_(v12, v81, v19, v80, v62 >> 2, v82, v83, v84);
+    v93[0] = MEMORY[0x277D85DD0];
+    v93[1] = 3221225472;
+    v93[2] = sub_239D1D61C;
+    v93[3] = &unk_278B30B68;
+    v93[4] = address;
+    v93[5] = v69;
+    v75 = objc_alloc(MEMORY[0x277CBEA90]);
+    v12->_data = objc_msgSend_initWithBytesNoCopy_length_deallocator_(v75, v76, address, v69, v93, v77, v78, v79);
+    v12->_count = v69 >> 2;
+    v87 = objc_msgSend_bytes(v12->_data, v80, v81, v82, v83, v84, v85, v86);
+    objc_msgSend_initializeWithNeuronType_neuronParameterA_count_(v12, v88, v19, v87, v69 >> 2, v89, v90, v91);
   }
 
   return v12;

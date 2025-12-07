@@ -155,13 +155,11 @@ id __65__FCJSONRecordSource_fetchRecordsWithIDs_cachePolicy_completion___block_i
 
 - (id)recordIDPrefixes
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   schema = [(FCJSONRecordSource *)self schema];
   recordIDPrefix = [schema recordIDPrefix];
-  v7[0] = recordIDPrefix;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = recordIDPrefix;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
 
   return v4;
 }
@@ -193,11 +191,11 @@ id __65__FCJSONRecordSource_fetchRecordsWithIDs_cachePolicy_completion___block_i
 
 - (id)recordFromCKRecord:(id)record base:(id)base
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   baseCopy = base;
-  v50 = objc_alloc_init(MEMORY[0x1E69B6E68]);
-  [v50 setBase:baseCopy];
+  v49 = objc_alloc_init(MEMORY[0x1E69B6E68]);
+  [v49 setBase:baseCopy];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   recordID = [recordCopy recordID];
   recordName = [recordID recordName];
@@ -213,34 +211,34 @@ id __65__FCJSONRecordSource_fetchRecordsWithIDs_cachePolicy_completion___block_i
   value2 = [dateFormatter2 value];
   modificationDate = [recordCopy modificationDate];
   v17 = [value2 stringFromDate:modificationDate];
-  v53 = dictionary;
+  v52 = dictionary;
   [dictionary setObject:v17 forKeyedSubscript:@"_recordModificationDate"];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   selfCopy = self;
   schema = [(FCJSONRecordSource *)self schema];
   allKeys = [schema allKeys];
 
   obj = allKeys;
-  v21 = [allKeys countByEnumeratingWithState:&v56 objects:v67 count:16];
+  v21 = [allKeys countByEnumeratingWithState:&v55 objects:v66 count:16];
   if (v21)
   {
     v22 = v21;
-    v54 = *v57;
+    v53 = *v56;
     do
     {
       v23 = 0;
       do
       {
-        if (*v57 != v54)
+        if (*v56 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v24 = *(*(&v56 + 1) + 8 * v23);
+        v24 = *(*(&v55 + 1) + 8 * v23);
         localizedKeysByOriginalKey = [(FCRecordSource *)selfCopy localizedKeysByOriginalKey];
         v26 = [localizedKeysByOriginalKey objectForKeyedSubscript:v24];
 
@@ -271,8 +269,8 @@ id __65__FCJSONRecordSource_fetchRecordsWithIDs_cachePolicy_completion___block_i
           }
 
           v34 = MEMORY[0x1E696ACB0];
-          v66 = v29;
-          v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+          v65 = v29;
+          v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v65 count:1];
           LODWORD(v34) = [v34 isValidJSONObject:v35];
 
           if (v34)
@@ -286,7 +284,7 @@ id __65__FCJSONRecordSource_fetchRecordsWithIDs_cachePolicy_completion___block_i
           if (v32)
           {
 LABEL_16:
-            [v53 setObject:v32 forKeyedSubscript:v27];
+            [v52 setObject:v32 forKeyedSubscript:v27];
           }
 
           else
@@ -300,11 +298,11 @@ LABEL_16:
               v40 = objc_opt_class();
               v41 = NSStringFromClass(v40);
               *buf = 138412802;
-              v61 = recordType;
-              v62 = 2112;
-              v63 = v27;
-              v64 = 2112;
-              v65[0] = v41;
+              v60 = recordType;
+              v61 = 2112;
+              v62 = v27;
+              v63 = 2112;
+              v64[0] = v41;
               _os_log_error_impl(&dword_1B63EF000, v38, OS_LOG_TYPE_ERROR, "dropping record value that can't be encoded as JSON: %@.%@ = %@", buf, 0x20u);
             }
           }
@@ -314,41 +312,39 @@ LABEL_16:
       }
 
       while (v22 != v23);
-      v42 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+      v42 = [obj countByEnumeratingWithState:&v55 objects:v66 count:16];
       v22 = v42;
     }
 
     while (v42);
   }
 
-  v55 = 0;
-  v43 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v53 options:0 error:&v55];
-  v44 = v55;
+  v54 = 0;
+  v43 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v52 options:0 error:&v54];
+  v44 = v54;
   if (v43)
   {
-    v45 = v50;
-    [v50 setJson:v43];
+    v45 = v49;
+    [v49 setJson:v43];
   }
 
   else
   {
-    v45 = v50;
+    v45 = v49;
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to encode record as JSON with error: %@", v44];
+      v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"failed to encode record as JSON with error: %@", v44];
       *buf = 136315906;
-      v61 = "[FCJSONRecordSource recordFromCKRecord:base:]";
-      v62 = 2080;
-      v63 = "FCJSONRecordSource.m";
-      v64 = 1024;
-      LODWORD(v65[0]) = 221;
-      WORD2(v65[0]) = 2114;
-      *(v65 + 6) = v48;
+      v60 = "[FCJSONRecordSource recordFromCKRecord:base:]";
+      v61 = 2080;
+      v62 = "FCJSONRecordSource.m";
+      v63 = 1024;
+      LODWORD(v64[0]) = 221;
+      WORD2(v64[0]) = 2114;
+      *(v64 + 6) = v47;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v45;
 }

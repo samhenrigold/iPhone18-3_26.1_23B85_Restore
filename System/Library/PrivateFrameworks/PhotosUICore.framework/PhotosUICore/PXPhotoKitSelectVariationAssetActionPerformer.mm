@@ -165,28 +165,28 @@ void __70__PXPhotoKitSelectVariationAssetActionPerformer_performBackgroundTask__
   dispatch_group_leave(*(a1 + 40));
 }
 
-void __70__PXPhotoKitSelectVariationAssetActionPerformer_performBackgroundTask__block_invoke_4(uint64_t a1)
+void __70__PXPhotoKitSelectVariationAssetActionPerformer_performBackgroundTask__block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = PLUIGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v13 = *MEMORY[0x1E69E9840];
+  v3 = PLUIGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = *(a1 + 32);
-    v4 = *(*(*(a1 + 48) + 8) + 40);
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_ERROR, "Error performEditOperationWithType for asset:%@ error:%@", &v8, 0x16u);
+    v4 = *(a1 + 32);
+    v5 = *(*(*(a1 + 48) + 8) + 40);
+    v9 = 138412546;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_ERROR, "Error performEditOperationWithType for asset:%@ error:%@", &v9, 0x16u);
   }
 
   *(*(*(a1 + 56) + 8) + 24) = 0;
-  v5 = *(*(a1 + 48) + 8);
-  v7 = *(v5 + 40);
-  v6 = (v5 + 40);
-  if (!v7)
+  v6 = *(*(a1 + 48) + 8);
+  v8 = *(v6 + 40);
+  v7 = (v6 + 40);
+  if (!v8)
   {
-    objc_storeStrong(v6, *(a1 + 40));
+    objc_storeStrong(v7, *(a1 + 40));
   }
 }
 

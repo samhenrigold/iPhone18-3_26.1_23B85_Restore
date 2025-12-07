@@ -1,11 +1,11 @@
 @interface UINavigationBar(DCI)
 + (BOOL)mf_shouldUseDesktopClassNavigationBarForTraitCollection:()DCI;
-+ (uint64_t)mf_canUseDesktopClassNavigationBar;
++ (void)mf_canUseDesktopClassNavigationBar;
 @end
 
 @implementation UINavigationBar(DCI)
 
-+ (uint64_t)mf_canUseDesktopClassNavigationBar
++ (void)mf_canUseDesktopClassNavigationBar
 {
   result = _UIBarsDesktopNavigationBarEnabled();
   if (result)

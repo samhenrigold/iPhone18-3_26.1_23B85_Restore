@@ -1,6 +1,7 @@
 @interface AMSUIPasswordSettingsPurchasesCell
 - (AMSUIPasswordSettingsPurchasesCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier;
 - (void)layoutSubviews;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated;
 @end
 
 @implementation AMSUIPasswordSettingsPurchasesCell
@@ -22,6 +23,21 @@
   }
 
   return v4;
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+  if (selected)
+  {
+    v4 = 3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  [(AMSUIPasswordSettingsPurchasesCell *)self setAccessoryType:v4, animated];
 }
 
 - (void)layoutSubviews

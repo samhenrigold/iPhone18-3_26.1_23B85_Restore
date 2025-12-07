@@ -19,15 +19,14 @@
 
 void __49__HMDPendingInvitedUserMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_161189;
-  logCategory__hmf_once_v4_161189 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_161189;
+  logCategory__hmf_once_v4_161189 = v0;
 }
 
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   policiesCopy = policies;
   v10 = [self policyOfClass:objc_opt_class() fromPolicies:policiesCopy];
@@ -65,11 +64,11 @@ LABEL_11:
     {
       v20 = HMFGetLogIdentifier();
       shortDescription = [messageCopy shortDescription];
-      v24 = 138543618;
-      v25 = v20;
-      v26 = 2112;
-      v27 = shortDescription;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@There is no actionable pending home invite on this device for sender of message: %@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v20;
+      v25 = 2112;
+      v26 = shortDescription;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@There is no actionable pending home invite on this device for sender of message: %@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -88,7 +87,6 @@ LABEL_4:
   v13 = 1;
 LABEL_13:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

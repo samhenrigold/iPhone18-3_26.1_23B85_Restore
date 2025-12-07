@@ -236,7 +236,7 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  if (![v9 count])
+  if (!objc_msgSend_count(v9))
   {
     v13 = PLMomentsGetLog();
     if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -257,7 +257,7 @@ LABEL_23:
   v11 = PLBackendGetLog();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v12 = [v9 count];
+    v12 = objc_msgSend_count(v9);
     *buf = 134217984;
     v122 = v12;
     _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_ERROR, "[MomentsGeneration.Validation] Detected %lu invalid assets", buf, 0xCu);
@@ -367,7 +367,7 @@ LABEL_50:
     goto LABEL_51;
   }
 
-  if (![v35 count])
+  if (!objc_msgSend_count(v35))
   {
     v39 = PLMomentsGetLog();
     if (!os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
@@ -387,7 +387,7 @@ LABEL_50:
   v37 = PLBackendGetLog();
   if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
   {
-    v38 = [v35 count];
+    v38 = objc_msgSend_count(v35);
     *buf = 134217984;
     v122 = v38;
     _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_ERROR, "[MomentsGeneration.Validation] Detected %lu invalid moments", buf, 0xCu);
@@ -500,7 +500,7 @@ LABEL_78:
     goto LABEL_79;
   }
 
-  if (![v60 count])
+  if (!objc_msgSend_count(v60))
   {
     v64 = PLMomentsGetLog();
     if (!os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
@@ -521,7 +521,7 @@ LABEL_78:
   v62 = PLBackendGetLog();
   if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
   {
-    v63 = [v60 count];
+    v63 = objc_msgSend_count(v60);
     *buf = 134217984;
     v122 = v63;
     _os_log_impl(&dword_19BF1F000, v62, OS_LOG_TYPE_ERROR, "[MomentsGeneration.Validation] Detected %lu invalid highlights", buf, 0xCu);
@@ -600,127 +600,127 @@ LABEL_79:
   }
 }
 
-uint64_t __57__PLMomentGeneration_validateLibraryWithCompletionBlock___block_invoke_272(uint64_t a1)
+uint64_t __57__PLMomentGeneration_validateLibraryWithCompletionBlock___block_invoke_272(uint64_t a1, const char *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0 && *(a1 + 88) == 1)
   {
-    v2 = [*(*(*(a1 + 56) + 8) + 40) count];
-    v3 = [*(*(*(a1 + 64) + 8) + 40) count];
-    v4 = [*(*(*(a1 + 72) + 8) + 40) count];
-    v5 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@\n\n", @"Photos has detected some inconsistencies in the curation."];
-    if ([*(*(*(a1 + 56) + 8) + 40) count])
+    v3 = objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40), a2);
+    v4 = objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40));
+    v5 = objc_msgSend_count(*(*(*(a1 + 72) + 8) + 40));
+    v6 = [MEMORY[0x1E696AD60] stringWithFormat:@"%@\n\n", @"Photos has detected some inconsistencies in the curation."];
+    if (objc_msgSend_count(*(*(*(a1 + 56) + 8) + 40)))
     {
-      [v5 appendFormat:@"%lu asset identifiers:\n", v2];
-      v34 = 0u;
+      [v6 appendFormat:@"%lu asset identifiers:\n", v3];
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v6 = *(*(*(a1 + 56) + 8) + 40);
-      v7 = [v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
-      if (v7)
+      v34 = 0u;
+      v7 = *(*(*(a1 + 56) + 8) + 40);
+      v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      if (v8)
       {
-        v8 = v7;
-        v9 = *v33;
+        v9 = v8;
+        v10 = *v34;
         do
         {
-          v10 = 0;
+          v11 = 0;
           do
           {
-            if (*v33 != v9)
+            if (*v34 != v10)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v7);
             }
 
-            [v5 appendFormat:@"%@\n", *(*(&v32 + 1) + 8 * v10++)];
+            [v6 appendFormat:@"%@\n", *(*(&v33 + 1) + 8 * v11++)];
           }
 
-          while (v8 != v10);
-          v8 = [v6 countByEnumeratingWithState:&v32 objects:v38 count:16];
+          while (v9 != v11);
+          v9 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
         }
 
-        while (v8);
+        while (v9);
       }
 
-      [v5 appendString:@"\n"];
+      [v6 appendString:@"\n"];
     }
 
-    if ([*(*(*(a1 + 64) + 8) + 40) count])
+    if (objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40)))
     {
-      [v5 appendFormat:@"%lu moment identifiers:\n", v3];
-      [v5 appendString:@"Moment identifiers:\n"];
-      v30 = 0u;
+      [v6 appendFormat:@"%lu moment identifiers:\n", v4];
+      [v6 appendString:@"Moment identifiers:\n"];
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v11 = *(*(*(a1 + 64) + 8) + 40);
-      v12 = [v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-      if (v12)
+      v30 = 0u;
+      v12 = *(*(*(a1 + 64) + 8) + 40);
+      v13 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      if (v13)
       {
-        v13 = v12;
-        v14 = *v29;
+        v14 = v13;
+        v15 = *v30;
         do
         {
-          v15 = 0;
+          v16 = 0;
           do
           {
-            if (*v29 != v14)
+            if (*v30 != v15)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v12);
             }
 
-            [v5 appendFormat:@"%@\n", *(*(&v28 + 1) + 8 * v15++)];
+            [v6 appendFormat:@"%@\n", *(*(&v29 + 1) + 8 * v16++)];
           }
 
-          while (v13 != v15);
-          v13 = [v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
+          while (v14 != v16);
+          v14 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
         }
 
-        while (v13);
+        while (v14);
       }
 
-      [v5 appendString:@"\n"];
+      [v6 appendString:@"\n"];
     }
 
-    if ([*(*(*(a1 + 72) + 8) + 40) count])
+    if (objc_msgSend_count(*(*(*(a1 + 72) + 8) + 40)))
     {
-      [v5 appendFormat:@"%lu highlight identifiers:\n", v4];
-      v26 = 0u;
+      [v6 appendFormat:@"%lu highlight identifiers:\n", v5];
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v16 = *(*(*(a1 + 72) + 8) + 40);
-      v17 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
-      if (v17)
+      v26 = 0u;
+      v17 = *(*(*(a1 + 72) + 8) + 40);
+      v18 = [v17 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v25;
+        v19 = v18;
+        v20 = *v26;
         do
         {
-          v20 = 0;
+          v21 = 0;
           do
           {
-            if (*v25 != v19)
+            if (*v26 != v20)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v17);
             }
 
-            [v5 appendFormat:@"%@\n", *(*(&v24 + 1) + 8 * v20++)];
+            [v6 appendFormat:@"%@\n", *(*(&v25 + 1) + 8 * v21++)];
           }
 
-          while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v24 objects:v36 count:16];
+          while (v19 != v21);
+          v19 = [v17 countByEnumeratingWithState:&v25 objects:v37 count:16];
         }
 
-        while (v18);
+        while (v19);
       }
 
-      [v5 appendString:@"\n"];
+      [v6 appendString:@"\n"];
     }
 
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ Please file a radar to help diagnose the problem.", @"Photos has detected some inconsistencies in the curation."];
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos Clustering Error (%lu, %lu, %lu)", v2, v3, v4];
-    [PLDiagnostics fileRadarUserNotificationWithHeader:@"Photos Curation Inconsistencies" message:v21 radarTitle:v22 radarDescription:v5];
+    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ Please file a radar to help diagnose the problem.", @"Photos has detected some inconsistencies in the curation."];
+    v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Photos Clustering Error (%lu, %lu, %lu)", v3, v4, v5];
+    [PLDiagnostics fileRadarUserNotificationWithHeader:@"Photos Curation Inconsistencies" message:v22 radarTitle:v23 radarDescription:v6];
   }
 
   [*(a1 + 32) setPreviousValidatedModelVersion:*(a1 + 80)];
@@ -792,7 +792,7 @@ void __52__PLMomentGeneration_allMomentsMetadataWriteToFile___block_invoke(uint6
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "count")}];
+  v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40))];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -869,7 +869,7 @@ void __52__PLMomentGeneration_allMomentsMetadataWriteToFile___block_invoke(uint6
 
     [v14 setValue:approximateLocation forKey:@"MomentApproximateLocation"];
     assets = [v5 assets];
-    v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(assets, "count")}];
+    v19 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(assets)];
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
@@ -964,7 +964,7 @@ void __50__PLMomentGeneration_allAssetMetadataWriteToFile___block_invoke(uint64_
   v9 = [MEMORY[0x1E695DEC8] array];
   [v8 setObject:v9 forKey:@"AllMomentLists"];
 
-  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v2, "count")}];
+  v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v2)];
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
@@ -1019,7 +1019,7 @@ void __50__PLMomentGeneration_allAssetMetadataWriteToFile___block_invoke(uint64_
   v8 = [MEMORY[0x1E696AD98] numberWithBool:updateCopy];
   [v7 setObject:v8 forKey:@"EntryIsBatchUpdate"];
 
-  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(assetsCopy, "count")}];
+  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(assetsCopy)];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -1099,13 +1099,13 @@ LABEL_10:
   v15 = [dictionary objectForKey:@"ReplayLogAssetCount"];
   integerValue = [v15 integerValue];
 
-  if (([logCopy count] + integerValue) < 0x2711)
+  if ((objc_msgSend_count(logCopy) + integerValue) < 0x2711)
   {
     v38 = replayLogPath;
-    v18 = [logCopy count];
+    v18 = objc_msgSend_count(logCopy);
     v17 = [dictionary objectForKey:@"ReplayStream"];
     v19 = [MEMORY[0x1E695DF70] arrayWithArray:v17];
-    if ([logCopy count])
+    if (objc_msgSend_count(logCopy))
     {
       v20 = [(PLMomentGeneration *)self _logEntryForAssets:logCopy isBatchUpdate:updateCopy];
       [v19 addObject:v20];
@@ -1284,7 +1284,7 @@ LABEL_31:
       [v6 setValue:modificationDate forKey:@"AssetModificationDate"];
 
       v21 = MEMORY[0x1E696AD98];
-      [assetCopy duration];
+      objc_msgSend_duration(assetCopy);
       v22 = [v21 numberWithDouble:?];
       [v6 setValue:v22 forKey:@"AssetDuration"];
 
@@ -1408,12 +1408,12 @@ LABEL_7:
   return v4;
 }
 
-uint64_t __44__PLMomentGeneration_momentGenerationStatus__block_invoke(void *a1)
+void *__44__PLMomentGeneration_momentGenerationStatus__block_invoke(void *a1)
 {
   *(*(a1[5] + 8) + 24) = [*(a1[4] + 88) isIdle] ^ 1;
   *(*(a1[6] + 8) + 24) = *(a1[4] + 8);
-  *(*(a1[7] + 8) + 24) = [*(a1[4] + 16) count];
-  result = [*(a1[4] + 24) count];
+  *(*(a1[7] + 8) + 24) = objc_msgSend_count(*(a1[4] + 16));
+  result = objc_msgSend_count(*(a1[4] + 24));
   *(*(a1[8] + 8) + 24) = result;
   return result;
 }
@@ -1513,7 +1513,7 @@ void __116__PLMomentGeneration_invalidateHighlightSubtitlesAndRegenerateHighligh
 
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = [v12 count];
+    v21 = objc_msgSend_count(v12);
     *buf = 134217984;
     v68 = v21;
     _os_log_impl(&dword_19BF1F000, v15, OS_LOG_TYPE_DEFAULT, "Generating highlight titles/subtitles for %zu month highlights.", buf, 0xCu);
@@ -1568,7 +1568,7 @@ LABEL_27:
   v56 = v8;
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = [v12 count];
+    v26 = objc_msgSend_count(v12);
     *buf = 134217984;
     v68 = v26;
     _os_log_impl(&dword_19BF1F000, v24, OS_LOG_TYPE_DEFAULT, "Generating highlight titles/subtitles for %zu year highlights.", buf, 0xCu);
@@ -1623,7 +1623,7 @@ LABEL_27:
     v55 = v9;
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = [v30 count];
+      v39 = objc_msgSend_count(v30);
       *buf = 134217984;
       v68 = v39;
       _os_log_impl(&dword_19BF1F000, v33, OS_LOG_TYPE_DEFAULT, "Generating highlight titles/subtitles for %zu day/dayGroup highlights.", buf, 0xCu);
@@ -2102,7 +2102,7 @@ uint64_t __65__PLMomentGeneration_processRecentHighlightsWithCompletionBlock___b
   }
 }
 
-void __72__PLMomentGeneration_rebuildAllHighlightsWithOptions_completionHandler___block_invoke(uint64_t a1)
+void __72__PLMomentGeneration_rebuildAllHighlightsWithOptions_completionHandler___block_invoke(void *a1)
 {
   v17 = *MEMORY[0x1E69E9840];
   if (*(a1 + 56) == 1)
@@ -2114,11 +2114,11 @@ void __72__PLMomentGeneration_rebuildAllHighlightsWithOptions_completionHandler_
       _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "Deleting existing highlights...", buf, 2u);
     }
 
-    v3 = *(a1 + 32);
+    v3 = a1[4];
     v14 = 0;
     v4 = [v3 deleteAllHighlightsWithError:&v14];
     v5 = v14;
-    *(*(*(a1 + 40) + 8) + 24) = v4;
+    *(*(a1[5] + 8) + 24) = v4;
   }
 
   else
@@ -2126,7 +2126,7 @@ void __72__PLMomentGeneration_rebuildAllHighlightsWithOptions_completionHandler_
     v5 = 0;
   }
 
-  if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
+  if ((*(*(a1[5] + 8) + 24) & 1) == 0)
   {
     v6 = PLMomentsGetLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -2137,12 +2137,12 @@ void __72__PLMomentGeneration_rebuildAllHighlightsWithOptions_completionHandler_
     }
   }
 
-  v7 = *(a1 + 32);
+  v7 = a1[4];
   v13 = v5;
   v8 = [v7 allMomentIDsWithError:&v13];
   v9 = v13;
 
-  v10 = *(*(a1 + 48) + 8);
+  v10 = *(a1[6] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v8;
 
@@ -2314,7 +2314,7 @@ void __69__PLMomentGeneration_rebuildAllMomentsWithOptions_completionHandler___b
   v13 = *(v12 + 40);
   *(v12 + 40) = v11;
 
-  v14 = [*(*(*(a1 + 48) + 8) + 40) count];
+  v14 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
   if (v14)
   {
     v15 = v14;
@@ -2341,7 +2341,7 @@ void __69__PLMomentGeneration_rebuildAllMomentsWithOptions_completionHandler___b
     v16 = PLMomentsGetLog();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = [*(*(*(a1 + 48) + 8) + 40) count];
+      v22 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40));
       *buf = 134217984;
       v27 = v22;
       _os_log_impl(&dword_19BF1F000, v16, OS_LOG_TYPE_DEFAULT, "[MomentsGeneration] Rebuilding for all moments with %tu assests", buf, 0xCu);
@@ -2585,7 +2585,7 @@ uint64_t __69__PLMomentGeneration_rebuildAllMomentsWithOptions_completionHandler
     }
 
     frequentLocationManager = v77;
-    if ([v40 count] || objc_msgSend(v41, "count"))
+    if (objc_msgSend_count(v40) || objc_msgSend_count(v41))
     {
       [v77 invalidateCurrentFrequentLocations];
     }
@@ -2644,7 +2644,7 @@ void __245__PLMomentGeneration__runMomentAndHighlightGenerationForAssets_hiddenA
   v5 = a3;
   v45 = a1;
   v6 = [*(a1 + 32) assetWithUniqueID:a2 error:0];
-  if (![v5 hasSharingOrSuggestionChanges] || objc_msgSend(v5, "collectionChangeType") || (objc_msgSend(v5, "highlightContainerChanges"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v8))
+  if (![v5 hasSharingOrSuggestionChanges] || objc_msgSend(v5, "collectionChangeType") || (objc_msgSend(v5, "highlightContainerChanges"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend_count(v7), v7, v8))
   {
     v42 = v6;
     v9 = [MEMORY[0x1E695DFA8] set];
@@ -2668,37 +2668,37 @@ void __245__PLMomentGeneration__runMomentAndHighlightGenerationForAssets_hiddenA
 
           v11 = *(*(&v47 + 1) + 8 * i);
           v12 = [v11 relationshipKey];
-          v13 = [v12 isEqualToString:@"highlightBeingAssets"];
+          isEqualToString = objc_msgSend_isEqualToString_(v12);
 
           v14 = @"assetsCount";
-          if ((v13 & 1) == 0)
+          if ((isEqualToString & 1) == 0)
           {
             v15 = [v11 relationshipKey];
-            v16 = [v15 isEqualToString:@"highlightBeingExtendedAssets"];
+            v16 = objc_msgSend_isEqualToString_(v15);
 
             v14 = @"extendedCount";
             if ((v16 & 1) == 0)
             {
               v17 = [v11 relationshipKey];
-              v18 = [v17 isEqualToString:@"highlightBeingSummaryAssets"];
+              v18 = objc_msgSend_isEqualToString_(v17);
 
               v14 = @"summaryCount";
               if ((v18 & 1) == 0)
               {
                 v19 = [v11 relationshipKey];
-                v20 = [v19 isEqualToString:@"dayGroupHighlightBeingAssets"];
+                v20 = objc_msgSend_isEqualToString_(v19);
 
                 v14 = @"dayGroupAssetsCount";
                 if ((v20 & 1) == 0)
                 {
                   v21 = [v11 relationshipKey];
-                  v22 = [v21 isEqualToString:@"dayGroupHighlightBeingExtendedAssets"];
+                  v22 = objc_msgSend_isEqualToString_(v21);
 
                   v14 = @"dayGroupExtendedAssetsCount";
                   if ((v22 & 1) == 0)
                   {
                     v23 = [v11 relationshipKey];
-                    v24 = [v23 isEqualToString:@"dayGroupHighlightBeingSummaryAssets"];
+                    v24 = objc_msgSend_isEqualToString_(v23);
 
                     v14 = @"dayGroupSummaryAssetsCount";
                     if ((v24 & 1) == 0)
@@ -2965,14 +2965,14 @@ LABEL_39:
 
 void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v256 = *MEMORY[0x1E69E9840];
+  v262 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = os_signpost_id_generate(v2);
   info = 0;
   mach_timebase_info(&info);
   v4 = v2;
   v5 = v4;
-  v152 = v3 - 1;
+  v158 = v3 - 1;
   if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -2980,40 +2980,40 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
   }
 
   spid = v3;
-  v156 = v5;
+  v162 = v5;
 
-  v150 = mach_absolute_time();
+  v156 = mach_absolute_time();
   v6 = [MEMORY[0x1E695DF70] array];
   v7 = [MEMORY[0x1E695DF70] array];
   v8 = [MEMORY[0x1E695DF70] array];
   v9 = [MEMORY[0x1E695DF90] dictionary];
   v10 = [MEMORY[0x1E695DF90] dictionary];
   v11 = *(a1 + 40);
-  v234[1] = MEMORY[0x1E69E9820];
-  v234[2] = 3221225472;
-  v234[3] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_49;
-  v234[4] = &unk_1E7576968;
-  v234[5] = v11;
-  v160 = v7;
-  v235 = v160;
+  v240[1] = MEMORY[0x1E69E9820];
+  v240[2] = 3221225472;
+  v240[3] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_49;
+  v240[4] = &unk_1E7576968;
+  v240[5] = v11;
+  v166 = v7;
+  v241 = v166;
   v12 = v8;
   v13 = *(a1 + 56);
-  v159 = v12;
-  v236 = v12;
-  v240 = v13;
+  v165 = v12;
+  v242 = v12;
+  v246 = v13;
   v14 = v6;
-  v237 = v14;
-  v157 = v9;
-  v238 = v157;
-  v158 = v10;
-  v239 = v158;
+  v243 = v14;
+  v163 = v9;
+  v244 = v163;
+  v164 = v10;
+  v245 = v164;
   pl_dispatch_sync();
   if ([*(a1 + 48) hasChanges])
   {
     v15 = *(a1 + 48);
-    v234[0] = 0;
-    v16 = [v15 save:v234];
-    v17 = v234[0];
+    v240[0] = 0;
+    v16 = [v15 save:v240];
+    v17 = v240[0];
     if ((v16 & 1) == 0)
     {
       v18 = PLMomentsGetLog();
@@ -3021,9 +3021,9 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
       {
         v19 = [v17 userInfo];
         *buf = 138412546;
-        v251 = v17;
-        v252 = 2112;
-        *v253 = v19;
+        v257 = v17;
+        v258 = 2112;
+        *v259 = v19;
         _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_ERROR, "[MomentsGeneration] Error saving changes, error: %@, userInfo: %@", buf, 0x16u);
       }
     }
@@ -3032,25 +3032,25 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
   v20 = [MEMORY[0x1E695DF70] array];
   v21 = [MEMORY[0x1E695DF70] array];
   [*(a1 + 48) assetsWithUniqueIDs:v14 error:0];
-  v230 = 0u;
-  v231 = 0u;
-  v232 = 0u;
-  v22 = v233 = 0u;
-  v23 = [v22 countByEnumeratingWithState:&v230 objects:v255 count:16];
+  v236 = 0u;
+  v237 = 0u;
+  v238 = 0u;
+  v22 = v239 = 0u;
+  v23 = [v22 countByEnumeratingWithState:&v236 objects:v261 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v231;
+    v25 = *v237;
     do
     {
       for (i = 0; i != v24; ++i)
       {
-        if (*v231 != v25)
+        if (*v237 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v230 + 1) + 8 * i);
+        v27 = *(*(&v236 + 1) + 8 * i);
         v28 = objc_autoreleasePoolPush();
         if (v27 && ([v27 isDeleted] & 1) == 0)
         {
@@ -3070,58 +3070,58 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
         objc_autoreleasePoolPop(v28);
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v230 objects:v255 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v236 objects:v261 count:16];
     }
 
     while (v24);
   }
 
-  v153 = v22;
-  v154 = v14;
+  v159 = v22;
+  v160 = v14;
 
   if ([*(a1 + 48) wantsMomentReplayLogging])
   {
     [*(a1 + 40) _appendAssetsToReplayLog:v20 forBatchUpdate:1];
   }
 
-  v162 = v20;
-  v179 = a1;
+  v168 = v20;
+  v185 = a1;
   v30 = [MEMORY[0x1E695DFA8] set];
   v31 = [MEMORY[0x1E695DFA8] set];
-  v171 = [MEMORY[0x1E695DFA8] set];
-  v166 = [MEMORY[0x1E695DFA8] set];
-  v226 = 0u;
-  v227 = 0u;
-  v228 = 0u;
-  v229 = 0u;
+  v177 = [MEMORY[0x1E695DFA8] set];
+  v172 = [MEMORY[0x1E695DFA8] set];
+  v232 = 0u;
+  v233 = 0u;
+  v234 = 0u;
+  v235 = 0u;
   v32 = v21;
-  v33 = [v32 countByEnumeratingWithState:&v226 objects:v254 count:16];
+  v33 = [v32 countByEnumeratingWithState:&v232 objects:v260 count:16];
   v34 = "PLBackgroundJobAssetResourceUploadJobWorkerError";
-  v164 = v32;
+  v170 = v32;
   if (!v33)
   {
-    v165 = 0;
-    v161 = 0;
-    v60 = v32;
+    v171 = 0;
+    v167 = 0;
+    v61 = v32;
     goto LABEL_57;
   }
 
   v35 = v33;
-  v165 = 0;
-  v161 = 0;
-  v163 = 0;
-  v36 = *v227;
-  v186 = *v227;
+  v171 = 0;
+  v167 = 0;
+  v169 = 0;
+  v36 = *v233;
+  v192 = *v233;
   do
   {
     for (j = 0; j != v35; ++j)
     {
-      if (*v227 != v36)
+      if (*v233 != v36)
       {
         objc_enumerationMutation(v32);
       }
 
-      v38 = *(*(&v226 + 1) + 8 * j);
+      v38 = *(*(&v232 + 1) + 8 * j);
       v39 = objc_autoreleasePoolPush();
       v40 = [v38 moment];
       v41 = v40;
@@ -3133,70 +3133,70 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
           if (v42)
           {
             v43 = v42;
-            v44 = v165;
-            if (!v165)
+            v44 = v171;
+            if (!v171)
             {
-              v44 = [*(v179 + 40) _newPublicGlobalUUIDsToAssetsMappingWithAssets:v162];
+              v44 = [*(v185 + 40) _newPublicGlobalUUIDsToAssetsMappingWithAssets:v168];
             }
 
-            v165 = v44;
+            v171 = v44;
             context = [v44 objectForKey:v43];
             if (context)
             {
               v45 = [v41 assets];
               v46 = [v45 containsObject:v38];
 
-              v36 = v186;
+              v36 = v192;
               if (v46)
               {
-                if ([*(v179 + 40) _isAsset:v38 identicalToAssetForMoments:context])
+                if ([*(v185 + 40) _isAsset:v38 identicalToAssetForMoments:context])
                 {
                   v47 = PLMomentsGetLog();
                   if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
                   {
-                    v182 = [v38 uniqueObjectID];
+                    v188 = [v38 uniqueObjectID];
                     objb = [context uniqueObjectID];
                     v48 = [v41 uniqueObjectID];
                     *buf = 138412802;
-                    v251 = v182;
-                    v252 = 2112;
-                    *v253 = objb;
-                    *&v253[8] = 2112;
-                    *&v253[10] = v48;
+                    v257 = v188;
+                    v258 = 2112;
+                    *v259 = objb;
+                    *&v259[8] = 2112;
+                    *&v259[10] = v48;
                     v49 = v48;
-                    v173 = v48;
+                    v179 = v48;
                     _os_log_impl(&dword_19BF1F000, v47, OS_LOG_TYPE_DEBUG, "Asset %@ was replaced by %@ in moment %@", buf, 0x20u);
                   }
 
-                  v183 = [v38 reverseLocationDataIsValid];
+                  v189 = [v38 reverseLocationDataIsValid];
                   v50 = [v38 reverseLocationData];
-                  [context setReverseLocationDataIsValid:v183];
-                  v184 = v50;
+                  [context setReverseLocationDataIsValid:v189];
+                  v190 = v50;
                   [context setReverseLocationData:v50];
                   [v41 removeAssetData:v38];
                   [v41 insertAssetData:context];
                   [context setMoment:v41];
-                  [v165 removeObjectForKey:v43];
-                  v51 = v163;
-                  if (!v163)
+                  [v171 removeObjectForKey:v43];
+                  v51 = v169;
+                  if (!v169)
                   {
                     v51 = objc_alloc_init(MEMORY[0x1E695DFA8]);
                   }
 
-                  v163 = v51;
-                  v52 = v161;
-                  if (!v161)
+                  v169 = v51;
+                  v52 = v167;
+                  if (!v167)
                   {
                     v52 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   }
 
                   v53 = [v38 uniqueObjectID];
-                  v161 = v52;
+                  v167 = v52;
                   [v52 addObject:v53];
 
-                  [v163 addObject:context];
-                  v32 = v164;
-                  v36 = v186;
+                  [v169 addObject:context];
+                  v32 = v170;
+                  v36 = v192;
 LABEL_49:
 
                   [v38 setMoment:0];
@@ -3205,15 +3205,15 @@ LABEL_49:
               }
             }
 
-            v32 = v164;
+            v32 = v170;
           }
         }
 
         [v30 addObject:v41];
-        [v166 addObject:v41];
+        [v172 addObject:v41];
         [v41 removeAssetData:v38];
         v43 = [v41 assets];
-        if (![v43 count])
+        if (!objc_msgSend_count(v43))
         {
           [v31 addObject:v41];
         }
@@ -3226,118 +3226,123 @@ LABEL_50:
       objc_autoreleasePoolPop(v39);
     }
 
-    v35 = [v32 countByEnumeratingWithState:&v226 objects:v254 count:16];
+    v35 = [v32 countByEnumeratingWithState:&v232 objects:v260 count:16];
   }
 
   while (v35);
 
-  if (!v163)
+  if (!v169)
   {
-    if (!v161)
+    if (!v167)
     {
-      v161 = 0;
+      v167 = 0;
       v34 = "PLBackgroundJobAssetResourceUploadJobWorkerError";
       goto LABEL_60;
     }
 
-    v60 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v60 handleFailureInMethod:*(v179 + 104) object:*(v179 + 40) file:@"PLMomentGeneration.m" lineNumber:587 description:@"Should not have switched deleted assets without switching some inserted asset"];
+    v61 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v61 handleFailureInMethod:*(v185 + 104) object:*(v185 + 40) file:@"PLMomentGeneration.m" lineNumber:587 description:@"Should not have switched deleted assets without switching some inserted asset"];
     v34 = "PLBackgroundJobAssetResourceUploadJobWorkerError";
 LABEL_57:
 
 LABEL_60:
-    v56 = v162;
-    v59 = v157;
-    v163 = 0;
+    v56 = v168;
+    v59 = v163;
+    v169 = 0;
+    v60 = objc_msgSend_count(v59);
     goto LABEL_61;
   }
 
-  v54 = [v161 count];
-  if (v54 != [v163 count])
+  v54 = objc_msgSend_count(v167);
+  if (v54 != objc_msgSend_count(v169))
   {
-    v148 = [MEMORY[0x1E696AAA8] currentHandler];
-    v32 = v164;
-    [v148 handleFailureInMethod:*(v179 + 104) object:*(v179 + 40) file:@"PLMomentGeneration.m" lineNumber:574 description:{@"Number of switched deleted assets (%lu) does not match the number of switched inserted assets (%lu)", objc_msgSend(v161, "count"), objc_msgSend(v163, "count"), spid}];
+    v151 = [MEMORY[0x1E696AAA8] currentHandler];
+    v152 = *(v185 + 104);
+    v153 = *(v185 + 40);
+    v154 = objc_msgSend_count(v167);
+    v32 = v170;
+    [v151 handleFailureInMethod:v152 object:v153 file:@"PLMomentGeneration.m" lineNumber:574 description:{@"Number of switched deleted assets (%lu) does not match the number of switched inserted assets (%lu)", v154, objc_msgSend_count(v169), spid}];
   }
 
-  v55 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:v162];
-  [v55 minusSet:v163];
+  v55 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithArray:v168];
+  [v55 minusSet:v169];
   v56 = [v55 allObjects];
-  v57 = [v157 mutableCopy];
-  [v57 removeObjectsForKeys:v161];
+  v57 = [v163 mutableCopy];
+  [v57 removeObjectsForKeys:v167];
   v58 = v57;
 
   v59 = v58;
   v34 = "PLBackgroundJobAssetResourceUploadJobWorkerError";
+  v60 = objc_msgSend_count(v59);
 LABEL_61:
-  if (![v59 count] && !objc_msgSend(v56, "count") && !objc_msgSend(v31, "count") && !objc_msgSend(v30, "count") && !objc_msgSend(v160, "count") && !objc_msgSend(v159, "count") && !objc_msgSend(v158, "count"))
+  if (!v60 && !objc_msgSend_count(v56) && !objc_msgSend_count(v31) && !objc_msgSend_count(v30) && !objc_msgSend_count(v166) && !objc_msgSend_count(v165) && !objc_msgSend_count(v164))
   {
     goto LABEL_167;
   }
 
-  v155 = v59;
-  v61 = [MEMORY[0x1E695DFA8] set];
-  v172 = [MEMORY[0x1E695DF70] array];
-  v222 = 0u;
-  v223 = 0u;
-  v224 = 0u;
-  v225 = 0u;
-  v151 = v56;
+  v161 = v59;
+  v62 = [MEMORY[0x1E695DFA8] set];
+  v178 = [MEMORY[0x1E695DF70] array];
+  v228 = 0u;
+  v229 = 0u;
+  v230 = 0u;
+  v231 = 0u;
+  v157 = v56;
   obj = v56;
-  v62 = [obj countByEnumeratingWithState:&v222 objects:v249 count:16];
-  if (!v62)
+  v63 = [obj countByEnumeratingWithState:&v228 objects:v255 count:16];
+  if (!v63)
   {
     goto LABEL_97;
   }
 
-  v63 = v62;
-  v64 = *v223;
-  v169 = *(v34 + 84);
-  v174 = *v223;
+  v64 = v63;
+  v65 = *v229;
+  v175 = *(v34 + 84);
+  v180 = *v229;
   while (2)
   {
-    v65 = 0;
+    v66 = 0;
     while (2)
     {
-      if (*v223 != v64)
+      if (*v229 != v65)
       {
         objc_enumerationMutation(obj);
       }
 
-      v66 = *(*(&v222 + 1) + 8 * v65);
-      v67 = objc_autoreleasePoolPush();
-      v68 = [v66 dateCreated];
-      if ([v66 isDeleted])
+      v67 = *(*(&v228 + 1) + 8 * v66);
+      v68 = objc_autoreleasePoolPush();
+      v69 = [v67 dateCreated];
+      if ([v67 isDeleted])
       {
-        if (v68)
+        if (v69)
         {
-          v187 = v67;
-          v69 = [v66 moment];
-          if (v69)
+          v193 = v68;
+          v70 = [v67 moment];
+          if (v70)
           {
-            [v30 addObject:v69];
-            [v166 addObject:v69];
-            [v69 removeAssetData:v66];
-            [v66 setMoment:0];
+            [v30 addObject:v70];
+            [v172 addObject:v70];
+            [v70 removeAssetData:v67];
+            [v67 setMoment:0];
           }
 
 LABEL_79:
-          contexta = v68;
-          [v172 addObject:v68];
-          v70 = [v66 highlightBeingAssets];
-          v71 = v70;
-          if (v70)
+          contexta = v69;
+          [v178 addObject:v69];
+          v71 = [v67 highlightBeingAssets];
+          v72 = v71;
+          if (v71)
           {
-            v72 = [v70 startDate];
-            v73 = [v71 endDate];
-            if (v72)
-            {
-              [v172 addObject:v72];
-            }
-
+            v73 = [v71 startDate];
+            v74 = [v72 endDate];
             if (v73)
             {
-              [v172 addObject:v73];
+              [v178 addObject:v73];
+            }
+
+            if (v74)
+            {
+              [v178 addObject:v74];
             }
           }
 
@@ -3347,63 +3352,63 @@ LABEL_79:
 
       else
       {
-        v187 = v67;
-        if (v68)
+        v193 = v68;
+        if (v69)
         {
           goto LABEL_79;
         }
 
         contexta = 0;
-        v71 = PLMomentsGetLog();
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        v72 = PLMomentsGetLog();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
-          v81 = [v66 isDeleted];
-          v82 = *(v179 + 48);
-          *buf = v169;
-          v251 = v66;
-          v252 = 1024;
-          *v253 = v81;
-          *&v253[4] = 2048;
-          *&v253[6] = v82;
-          _os_log_impl(&dword_19BF1F000, v71, OS_LOG_TYPE_ERROR, "Missing dateCreated?! %@ isDeleted %d manager %p", buf, 0x1Cu);
+          v82 = [v67 isDeleted];
+          v83 = *(v185 + 48);
+          *buf = v175;
+          v257 = v67;
+          v258 = 1024;
+          *v259 = v82;
+          *&v259[4] = 2048;
+          *&v259[6] = v83;
+          _os_log_impl(&dword_19BF1F000, v72, OS_LOG_TYPE_ERROR, "Missing dateCreated?! %@ isDeleted %d manager %p", buf, 0x1Cu);
         }
 
 LABEL_85:
 
-        v74 = [v66 moment];
-        v75 = [v66 highlightBeingAssets];
-        v76 = v75;
-        if (v74 && v75)
+        v75 = [v67 moment];
+        v76 = [v67 highlightBeingAssets];
+        v77 = v76;
+        if (v75 && v76)
         {
-          v77 = [v74 startDate];
-          v180 = [contexta compare:v77];
+          v78 = [v75 startDate];
+          v186 = [contexta compare:v78];
 
-          [v74 endDate];
-          v79 = v78 = v63;
-          v80 = [contexta compare:v79];
+          [v75 endDate];
+          v80 = v79 = v64;
+          v81 = [contexta compare:v80];
 
-          v63 = v78;
-          v64 = v174;
-          if (v180 == -1 || v80 == 1)
+          v64 = v79;
+          v65 = v180;
+          if (v186 == -1 || v81 == 1)
           {
-            [v61 addObject:v66];
-            [v30 addObject:v74];
-            [v74 removeAssetData:v66];
-            [v66 setMoment:0];
+            [v62 addObject:v67];
+            [v30 addObject:v75];
+            [v75 removeAssetData:v67];
+            [v67 setMoment:0];
           }
         }
 
         else
         {
-          [v61 addObject:v66];
+          [v62 addObject:v67];
         }
 
-        v67 = v187;
-        v68 = contexta;
+        v68 = v193;
+        v69 = contexta;
       }
 
-      objc_autoreleasePoolPop(v67);
-      if (v63 != ++v65)
+      objc_autoreleasePoolPop(v68);
+      if (v64 != ++v66)
       {
         continue;
       }
@@ -3411,9 +3416,9 @@ LABEL_85:
       break;
     }
 
-    v83 = [obj countByEnumeratingWithState:&v222 objects:v249 count:16];
-    v63 = v83;
-    if (v83)
+    v84 = [obj countByEnumeratingWithState:&v228 objects:v255 count:16];
+    v64 = v84;
+    if (v84)
     {
       continue;
     }
@@ -3423,372 +3428,374 @@ LABEL_85:
 
 LABEL_97:
 
-  v220 = 0u;
-  v221 = 0u;
-  v218 = 0u;
-  v219 = 0u;
-  v84 = v155;
-  v85 = [v84 countByEnumeratingWithState:&v218 objects:v248 count:16];
-  if (v85)
+  v226 = 0u;
+  v227 = 0u;
+  v224 = 0u;
+  v225 = 0u;
+  v85 = v161;
+  v86 = [v85 countByEnumeratingWithState:&v224 objects:v254 count:16];
+  if (v86)
   {
-    v86 = v85;
-    v87 = *v219;
+    v87 = v86;
+    v88 = *v225;
     do
     {
-      for (k = 0; k != v86; ++k)
+      for (k = 0; k != v87; ++k)
       {
-        if (*v219 != v87)
+        if (*v225 != v88)
         {
-          objc_enumerationMutation(v84);
+          objc_enumerationMutation(v85);
         }
 
-        v89 = [v84 objectForKeyedSubscript:*(*(&v218 + 1) + 8 * k)];
-        v90 = [v89 objectForKeyedSubscript:@"dateCreated"];
-        if (v90)
+        v90 = [v85 objectForKeyedSubscript:*(*(&v224 + 1) + 8 * k)];
+        v91 = [v90 objectForKeyedSubscript:@"dateCreated"];
+        if (v91)
         {
-          [v172 addObject:v90];
+          [v178 addObject:v91];
         }
       }
 
-      v86 = [v84 countByEnumeratingWithState:&v218 objects:v248 count:16];
+      v87 = [v85 countByEnumeratingWithState:&v224 objects:v254 count:16];
     }
 
-    while (v86);
+    while (v87);
   }
 
-  [v172 sortUsingSelector:sel_compare_];
-  [objc_opt_class() dateIntervalsAroundSortedDates:v172 minimumIntervalDuration:115200.0];
-  v214 = 0u;
-  v215 = 0u;
-  v216 = 0u;
-  v167 = v217 = 0u;
-  v170 = [v167 countByEnumeratingWithState:&v214 objects:v247 count:16];
-  if (v170)
+  [v178 sortUsingSelector:sel_compare_];
+  [objc_opt_class() dateIntervalsAroundSortedDates:v178 minimumIntervalDuration:115200.0];
+  v220 = 0u;
+  v221 = 0u;
+  v222 = 0u;
+  v173 = v223 = 0u;
+  v176 = [v173 countByEnumeratingWithState:&v220 objects:v253 count:16];
+  if (v176)
   {
-    v168 = *v215;
+    v174 = *v221;
     do
     {
-      v91 = 0;
+      v92 = 0;
       do
       {
-        if (*v215 != v168)
+        if (*v221 != v174)
         {
-          objc_enumerationMutation(v167);
+          objc_enumerationMutation(v173);
         }
 
-        v175 = *(*(&v214 + 1) + 8 * v91);
-        obja = v91;
-        v92 = [*(v179 + 48) highlightsIntersectingDateInterval:? ofKind:?];
-        v210 = 0u;
-        v211 = 0u;
-        v212 = 0u;
-        v213 = 0u;
-        v181 = v92;
-        v188 = [v181 countByEnumeratingWithState:&v210 objects:v246 count:16];
-        if (v188)
+        v181 = *(*(&v220 + 1) + 8 * v92);
+        obja = v92;
+        v93 = [*(v185 + 48) highlightsIntersectingDateInterval:? ofKind:?];
+        v216 = 0u;
+        v217 = 0u;
+        v218 = 0u;
+        v219 = 0u;
+        v187 = v93;
+        v194 = [v187 countByEnumeratingWithState:&v216 objects:v252 count:16];
+        if (v194)
         {
-          v185 = *v211;
+          v191 = *v217;
           do
           {
-            for (m = 0; m != v188; ++m)
+            for (m = 0; m != v194; ++m)
             {
-              if (*v211 != v185)
+              if (*v217 != v191)
               {
-                objc_enumerationMutation(v181);
+                objc_enumerationMutation(v187);
               }
 
-              v94 = *(*(&v210 + 1) + 8 * m);
+              v95 = *(*(&v216 + 1) + 8 * m);
               contextb = objc_autoreleasePoolPush();
-              v95 = [v94 moments];
-              v206 = 0u;
-              v207 = 0u;
-              v208 = 0u;
-              v209 = 0u;
-              v96 = v95;
-              v97 = [v96 countByEnumeratingWithState:&v206 objects:v245 count:16];
-              if (v97)
+              v96 = [v95 moments];
+              v212 = 0u;
+              v213 = 0u;
+              v214 = 0u;
+              v215 = 0u;
+              v97 = v96;
+              v98 = [v97 countByEnumeratingWithState:&v212 objects:v251 count:16];
+              if (v98)
               {
-                v98 = v97;
-                v99 = *v207;
+                v99 = v98;
+                v100 = *v213;
                 do
                 {
-                  for (n = 0; n != v98; ++n)
+                  for (n = 0; n != v99; ++n)
                   {
-                    if (*v207 != v99)
+                    if (*v213 != v100)
                     {
-                      objc_enumerationMutation(v96);
+                      objc_enumerationMutation(v97);
                     }
 
-                    v101 = *(*(&v206 + 1) + 8 * n);
-                    [v30 addObject:v101];
-                    v102 = [v101 assets];
-                    if ([v102 count])
+                    v102 = *(*(&v212 + 1) + 8 * n);
+                    [v30 addObject:v102];
+                    v103 = [v102 assets];
+                    if (objc_msgSend_count(v103))
                     {
-                      [v61 unionSet:v102];
+                      [v62 unionSet:v103];
                     }
 
                     else
                     {
-                      [v31 addObject:v101];
+                      [v31 addObject:v102];
                     }
                   }
 
-                  v98 = [v96 countByEnumeratingWithState:&v206 objects:v245 count:16];
+                  v99 = [v97 countByEnumeratingWithState:&v212 objects:v251 count:16];
                 }
 
-                while (v98);
+                while (v99);
               }
 
               objc_autoreleasePoolPop(contextb);
             }
 
-            v188 = [v181 countByEnumeratingWithState:&v210 objects:v246 count:16];
+            v194 = [v187 countByEnumeratingWithState:&v216 objects:v252 count:16];
           }
 
-          while (v188);
+          while (v194);
         }
 
-        v103 = [*(v179 + 48) momentsIntersectingDateInterval:v175];
-        v202 = 0u;
-        v203 = 0u;
-        v204 = 0u;
-        v205 = 0u;
-        v104 = v103;
-        v105 = [v104 countByEnumeratingWithState:&v202 objects:v244 count:16];
-        if (v105)
+        v104 = [*(v185 + 48) momentsIntersectingDateInterval:v181];
+        v208 = 0u;
+        v209 = 0u;
+        v210 = 0u;
+        v211 = 0u;
+        v105 = v104;
+        v106 = [v105 countByEnumeratingWithState:&v208 objects:v250 count:16];
+        if (v106)
         {
-          v106 = v105;
-          v107 = *v203;
+          v107 = v106;
+          v108 = *v209;
           do
           {
-            for (ii = 0; ii != v106; ++ii)
+            for (ii = 0; ii != v107; ++ii)
             {
-              if (*v203 != v107)
+              if (*v209 != v108)
               {
-                objc_enumerationMutation(v104);
+                objc_enumerationMutation(v105);
               }
 
-              v109 = *(*(&v202 + 1) + 8 * ii);
-              v110 = objc_autoreleasePoolPush();
-              [v30 addObject:v109];
-              v111 = [v109 assets];
-              if ([v111 count])
+              v110 = *(*(&v208 + 1) + 8 * ii);
+              v111 = objc_autoreleasePoolPush();
+              [v30 addObject:v110];
+              v112 = [v110 assets];
+              if (objc_msgSend_count(v112))
               {
-                [v61 unionSet:v111];
+                [v62 unionSet:v112];
               }
 
               else
               {
-                [v31 addObject:v109];
+                [v31 addObject:v110];
               }
 
-              objc_autoreleasePoolPop(v110);
+              objc_autoreleasePoolPop(v111);
             }
 
-            v106 = [v104 countByEnumeratingWithState:&v202 objects:v244 count:16];
+            v107 = [v105 countByEnumeratingWithState:&v208 objects:v250 count:16];
           }
 
-          while (v106);
+          while (v107);
         }
 
-        v91 = obja + 1;
+        v92 = obja + 1;
       }
 
-      while (obja + 1 != v170);
-      v170 = [v167 countByEnumeratingWithState:&v214 objects:v247 count:16];
+      while (obja + 1 != v176);
+      v176 = [v173 countByEnumeratingWithState:&v220 objects:v253 count:16];
     }
 
-    while (v170);
+    while (v176);
   }
 
-  v200 = 0u;
-  v201 = 0u;
-  v198 = 0u;
-  v199 = 0u;
-  v112 = v31;
-  v113 = [v112 countByEnumeratingWithState:&v198 objects:v243 count:16];
-  if (v113)
+  v206 = 0u;
+  v207 = 0u;
+  v204 = 0u;
+  v205 = 0u;
+  v113 = v31;
+  v114 = [v113 countByEnumeratingWithState:&v204 objects:v249 count:16];
+  if (v114)
   {
-    v114 = v113;
-    v115 = *v199;
+    v115 = v114;
+    v116 = *v205;
     do
     {
-      for (jj = 0; jj != v114; ++jj)
+      for (jj = 0; jj != v115; ++jj)
       {
-        if (*v199 != v115)
+        if (*v205 != v116)
         {
-          objc_enumerationMutation(v112);
+          objc_enumerationMutation(v113);
         }
 
-        v117 = *(*(&v198 + 1) + 8 * jj);
-        v118 = [v117 highlight];
-        v119 = [v118 parentDayGroupPhotosHighlight];
-        if (v118)
-        {
-          [v171 addObject:v118];
-        }
-
+        v118 = *(*(&v204 + 1) + 8 * jj);
+        v119 = [v118 highlight];
+        v120 = [v119 parentDayGroupPhotosHighlight];
         if (v119)
         {
-          [v171 addObject:v119];
+          [v177 addObject:v119];
         }
 
-        [v117 delete];
+        if (v120)
+        {
+          [v177 addObject:v120];
+        }
+
+        [v118 delete];
       }
 
-      v114 = [v112 countByEnumeratingWithState:&v198 objects:v243 count:16];
+      v115 = [v113 countByEnumeratingWithState:&v204 objects:v249 count:16];
     }
 
-    while (v114);
+    while (v115);
   }
 
-  v196 = 0u;
-  v197 = 0u;
-  v194 = 0u;
-  v195 = 0u;
-  v120 = v166;
-  v121 = [v120 countByEnumeratingWithState:&v194 objects:v242 count:16];
-  if (v121)
+  v202 = 0u;
+  v203 = 0u;
+  v200 = 0u;
+  v201 = 0u;
+  v121 = v172;
+  v122 = [v121 countByEnumeratingWithState:&v200 objects:v248 count:16];
+  if (v122)
   {
-    v122 = v121;
-    v123 = *v195;
+    v123 = v122;
+    v124 = *v201;
     do
     {
-      for (kk = 0; kk != v122; ++kk)
+      for (kk = 0; kk != v123; ++kk)
       {
-        if (*v195 != v123)
+        if (*v201 != v124)
         {
-          objc_enumerationMutation(v120);
+          objc_enumerationMutation(v121);
         }
 
-        v125 = [*(*(&v194 + 1) + 8 * kk) assets];
-        [v61 unionSet:v125];
+        v126 = [*(*(&v200 + 1) + 8 * kk) assets];
+        [v62 unionSet:v126];
       }
 
-      v122 = [v120 countByEnumeratingWithState:&v194 objects:v242 count:16];
+      v123 = [v121 countByEnumeratingWithState:&v200 objects:v248 count:16];
     }
 
-    while (v122);
+    while (v123);
   }
 
-  v126 = mach_absolute_time();
+  v127 = mach_absolute_time();
   numer = info.numer;
   denom = info.denom;
-  v129 = v156;
-  v130 = v129;
-  if (v152 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v129))
+  v130 = v162;
+  v131 = v130;
+  if (v158 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v130))
   {
-    v131 = [v61 count];
-    v132 = [v30 count];
+    v132 = objc_msgSend_count(v62);
+    v133 = objc_msgSend_count(v30);
     *buf = 134218240;
-    v251 = v131;
-    v252 = 2048;
-    *v253 = v132;
-    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v130, OS_SIGNPOST_INTERVAL_END, spid, "CollectAffectedAssetsAndMoments", "affectedAssets: %lu, affectedMoments %lu", buf, 0x16u);
+    v257 = v132;
+    v258 = 2048;
+    *v259 = v133;
+    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v131, OS_SIGNPOST_INTERVAL_END, spid, "CollectAffectedAssetsAndMoments", "affectedAssets: %lu, affectedMoments %lu", buf, 0x16u);
   }
 
-  v133 = v130;
-  if (os_log_type_enabled(v133, OS_LOG_TYPE_INFO))
+  v134 = v131;
+  if (os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
   {
-    v134 = (((v126 - v150) * numer) / denom) / 1000000.0;
-    v135 = [MEMORY[0x1E696AEC0] stringWithFormat:@"affectedAssets: %lu, affectedMoments %lu", objc_msgSend(v61, "count"), objc_msgSend(v30, "count")];
+    v135 = (((v127 - v156) * numer) / denom) / 1000000.0;
+    v136 = MEMORY[0x1E696AEC0];
+    v137 = objc_msgSend_count(v62);
+    v138 = [v136 stringWithFormat:@"affectedAssets: %lu, affectedMoments %lu", v137, objc_msgSend_count(v30)];
     *buf = 136315650;
-    v251 = "CollectAffectedAssetsAndMoments";
-    v252 = 2112;
-    *v253 = v135;
-    *&v253[8] = 2048;
-    *&v253[10] = v134;
-    _os_log_impl(&dword_19BF1F000, v133, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
+    v257 = "CollectAffectedAssetsAndMoments";
+    v258 = 2112;
+    *v259 = v138;
+    *&v259[8] = 2048;
+    *&v259[10] = v135;
+    _os_log_impl(&dword_19BF1F000, v134, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
-  v136 = [v61 _pl_map:&__block_literal_global_109315];
-  v137 = *(v179 + 48);
-  v138 = [v136 allObjects];
-  v193 = 0;
-  v139 = [v137 prefetchedAssetsWithUniqueIDs:v138 error:&v193];
-  v140 = v193;
+  v139 = [v62 _pl_map:&__block_literal_global_109315];
+  v140 = *(v185 + 48);
+  v141 = [v139 allObjects];
+  v199 = 0;
+  v142 = [v140 prefetchedAssetsWithUniqueIDs:v141 error:&v199];
+  v143 = v199;
 
-  v141 = *(v179 + 40);
-  v142 = [MEMORY[0x1E695DFD8] setWithArray:v139];
-  v192 = 0;
-  [v141 _runMomentAndHighlightGenerationForAssets:v142 hiddenAssets:v164 updatedAssetIDsForHighlights:v160 updatedMomentIDsForHighlights:v159 affectedMoments:v30 highlightsWithDeletedMoments:v171 sharedAssetContainerIncrementalChanges:v158 insertedOrUpdatedMoments:&v192];
-  v143 = v192;
-  v144 = v192;
+  v144 = *(v185 + 40);
+  v145 = [MEMORY[0x1E695DFD8] setWithArray:v142];
+  v198 = 0;
+  [v144 _runMomentAndHighlightGenerationForAssets:v145 hiddenAssets:v170 updatedAssetIDsForHighlights:v166 updatedMomentIDsForHighlights:v165 affectedMoments:v30 highlightsWithDeletedMoments:v177 sharedAssetContainerIncrementalChanges:v164 insertedOrUpdatedMoments:&v198];
+  v146 = v198;
+  v147 = v198;
 
-  objc_storeStrong((*(*(v179 + 64) + 8) + 40), v143);
-  mach_timebase_info((*(*(v179 + 72) + 8) + 32));
-  v145 = *(*(*(v179 + 80) + 8) + 40);
-  v146 = v145;
-  v147 = *(*(*(v179 + 88) + 8) + 24);
-  if (v147 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v145))
+  objc_storeStrong((*(*(v185 + 64) + 8) + 40), v146);
+  mach_timebase_info((*(*(v185 + 72) + 8) + 32));
+  v148 = *(*(*(v185 + 80) + 8) + 40);
+  v149 = v148;
+  v150 = *(*(*(v185 + 88) + 8) + 24);
+  if (v150 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v148))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v146, OS_SIGNPOST_INTERVAL_BEGIN, v147, "ExecuteLibraryBatchTransaction", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v149, OS_SIGNPOST_INTERVAL_BEGIN, v150, "ExecuteLibraryBatchTransaction", "", buf, 2u);
   }
 
-  *(*(*(v179 + 96) + 8) + 24) = mach_absolute_time();
-  v32 = v164;
-  v56 = v151;
-  v59 = v155;
+  *(*(*(v185 + 96) + 8) + 24) = mach_absolute_time();
+  v32 = v170;
+  v56 = v157;
+  v59 = v161;
 LABEL_167:
 }
 
-uint64_t __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_77(uint64_t a1)
+uint64_t __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_77(uint64_t a1, const char *a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v2 = [*(*(*(a1 + 48) + 8) + 40) count];
-  v3 = mach_absolute_time();
-  v4 = *(*(*(a1 + 56) + 8) + 24);
-  v5 = *(*(a1 + 64) + 8);
-  v7 = *(v5 + 32);
-  v6 = *(v5 + 36);
-  v8 = *(*(*(a1 + 72) + 8) + 40);
-  v9 = v8;
-  v10 = *(*(*(a1 + 80) + 8) + 24);
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v32 = *MEMORY[0x1E69E9840];
+  v3 = objc_msgSend_count(*(*(*(a1 + 48) + 8) + 40), a2);
+  v4 = mach_absolute_time();
+  v5 = *(*(*(a1 + 56) + 8) + 24);
+  v6 = *(*(a1 + 64) + 8);
+  v8 = *(v6 + 32);
+  v7 = *(v6 + 36);
+  v9 = *(*(*(a1 + 72) + 8) + 40);
+  v10 = v9;
+  v11 = *(*(*(a1 + 80) + 8) + 24);
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v9, OS_SIGNPOST_INTERVAL_END, v10, "ExecuteLibraryBatchTransaction", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v10, OS_SIGNPOST_INTERVAL_END, v11, "ExecuteLibraryBatchTransaction", "", buf, 2u);
   }
 
-  v11 = *(*(*(a1 + 72) + 8) + 40);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = *(*(*(a1 + 72) + 8) + 40);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v26 = "ExecuteLibraryBatchTransaction";
-    v27 = 2048;
-    v28 = ((((v3 - v4) * v7) / v6) / 1000000.0);
-    _os_log_impl(&dword_19BF1F000, v11, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
+    v27 = "ExecuteLibraryBatchTransaction";
+    v28 = 2048;
+    v29 = ((((v4 - v5) * v8) / v7) / 1000000.0);
+    _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
 
-  v12 = mach_absolute_time();
-  v13 = *(a1 + 88);
-  v15 = *(a1 + 104);
-  v14 = *(a1 + 108);
-  v16 = *(a1 + 32);
-  v17 = v16;
-  v18 = *(a1 + 96);
-  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v13 = mach_absolute_time();
+  v14 = *(a1 + 88);
+  v16 = *(a1 + 104);
+  v15 = *(a1 + 108);
+  v17 = *(a1 + 32);
+  v18 = v17;
+  v19 = *(a1 + 96);
+  if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 134217984;
-    v26 = v2;
-    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v17, OS_SIGNPOST_INTERVAL_END, v18, "IncrementalMomentGeneration", "updatedMoments: %lu", buf, 0xCu);
+    v27 = v3;
+    _os_signpost_emit_with_name_impl(&dword_19BF1F000, v18, OS_SIGNPOST_INTERVAL_END, v19, "IncrementalMomentGeneration", "updatedMoments: %lu", buf, 0xCu);
   }
 
-  v19 = *(a1 + 32);
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  v20 = *(a1 + 32);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v20 = (((v12 - v13) * v15) / v14) / 1000000.0;
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = v19;
-    v23 = [v21 stringWithFormat:@"updatedMoments: %lu", v2];
+    v21 = (((v13 - v14) * v16) / v15) / 1000000.0;
+    v22 = MEMORY[0x1E696AEC0];
+    v23 = v20;
+    v24 = [v22 stringWithFormat:@"updatedMoments: %lu", v3];
     *buf = 136315650;
-    v26 = "IncrementalMomentGeneration";
-    v27 = 2112;
-    v28 = *&v23;
-    v29 = 2048;
-    v30 = v20;
-    _os_log_impl(&dword_19BF1F000, v22, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
+    v27 = "IncrementalMomentGeneration";
+    v28 = 2112;
+    v29 = *&v24;
+    v30 = 2048;
+    v31 = v21;
+    _os_log_impl(&dword_19BF1F000, v23, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", buf, 0x20u);
   }
 
   result = *(a1 + 40);
@@ -3800,83 +3807,83 @@ uint64_t __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHan
   return result;
 }
 
-void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_49(uint64_t a1)
+void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_49(uint64_t a1, const char *a2)
 {
-  v63 = *MEMORY[0x1E69E9840];
-  if ([*(*(a1 + 32) + 32) count])
+  v64 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend_count(*(*(a1 + 32) + 32), a2))
   {
-    v2 = objc_autoreleasePoolPush();
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 32);
-    v5 = MEMORY[0x1E695DFD8];
-    v6 = [*(v3 + 16) set];
-    v7 = [v5 setWithSet:v6];
-    [v4 minusSet:v7];
+    v3 = objc_autoreleasePoolPush();
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 32);
+    v6 = MEMORY[0x1E695DFD8];
+    v7 = [*(v4 + 16) set];
+    v8 = [v6 setWithSet:v7];
+    [v5 minusSet:v8];
 
-    v8 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(*(*(a1 + 32) + 24), "count")}];
-    v9 = *(*(a1 + 32) + 24);
-    v58[0] = MEMORY[0x1E69E9820];
-    v58[1] = 3221225472;
-    v58[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_2;
-    v58[3] = &unk_1E75768F0;
-    v59 = v8;
-    v10 = v8;
-    [v9 enumerateKeysAndObjectsUsingBlock:v58];
-    [*(*(a1 + 32) + 32) minusSet:v10];
+    v9 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(*(*(a1 + 32) + 24))];
+    v10 = *(*(a1 + 32) + 24);
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_2;
+    v59[3] = &unk_1E75768F0;
+    v60 = v9;
+    v11 = v9;
+    [v10 enumerateKeysAndObjectsUsingBlock:v59];
+    [*(*(a1 + 32) + 32) minusSet:v11];
 
-    objc_autoreleasePoolPop(v2);
+    objc_autoreleasePoolPop(v3);
   }
 
-  v11 = *(a1 + 40);
-  v12 = [*(*(a1 + 32) + 32) array];
-  [v11 addObjectsFromArray:v12];
+  v12 = *(a1 + 40);
+  v13 = [*(*(a1 + 32) + 32) array];
+  [v12 addObjectsFromArray:v13];
 
   [*(*(a1 + 32) + 32) removeAllObjects];
-  v13 = *(a1 + 48);
-  v14 = [*(*(a1 + 32) + 40) array];
-  [v13 addObjectsFromArray:v14];
+  v14 = *(a1 + 48);
+  v15 = [*(*(a1 + 32) + 40) array];
+  [v14 addObjectsFromArray:v15];
 
   [*(*(a1 + 32) + 40) removeAllObjects];
-  if (*(*(*(a1 + 80) + 8) + 24) && [*(*(a1 + 32) + 16) count] > *(*(*(a1 + 80) + 8) + 24))
+  if (*(*(*(a1 + 80) + 8) + 24) && objc_msgSend_count(*(*(a1 + 32) + 16)) > *(*(*(a1 + 80) + 8) + 24))
   {
-    v15 = [*(*(a1 + 32) + 16) count];
-    v16 = *(*(*(a1 + 80) + 8) + 24);
-    v17 = v15 - v16;
-    v18 = [MEMORY[0x1E695DFB8] orderedSetWithOrderedSet:*(*(a1 + 32) + 16) range:v15 - v16 copyItems:{v16, 0}];
-    [*(*(a1 + 32) + 16) removeObjectsInRange:{v17, v16}];
-    v19 = *(a1 + 56);
-    v20 = [v18 array];
-    [v19 addObjectsFromArray:v20];
+    v16 = objc_msgSend_count(*(*(a1 + 32) + 16));
+    v17 = *(*(*(a1 + 80) + 8) + 24);
+    v18 = v16 - v17;
+    v19 = [MEMORY[0x1E695DFB8] orderedSetWithOrderedSet:*(*(a1 + 32) + 16) range:v16 - v17 copyItems:{v17, 0}];
+    [*(*(a1 + 32) + 16) removeObjectsInRange:{v18, v17}];
+    v20 = *(a1 + 56);
+    v21 = [v19 array];
+    [v20 addObjectsFromArray:v21];
   }
 
   else
   {
-    v21 = *(a1 + 56);
-    v22 = [*(*(a1 + 32) + 16) array];
-    [v21 addObjectsFromArray:v22];
+    v22 = *(a1 + 56);
+    v23 = [*(*(a1 + 32) + 16) array];
+    [v22 addObjectsFromArray:v23];
 
     [*(*(a1 + 32) + 16) removeAllObjects];
   }
 
-  if (*(*(*(a1 + 80) + 8) + 24) && [*(*(a1 + 32) + 24) count] > *(*(*(a1 + 80) + 8) + 24))
+  if (*(*(*(a1 + 80) + 8) + 24) && objc_msgSend_count(*(*(a1 + 32) + 24)) > *(*(*(a1 + 80) + 8) + 24))
   {
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v62 = 0;
-    v23 = [MEMORY[0x1E695DF70] arrayWithCapacity:?];
-    v24 = *(*(a1 + 32) + 24);
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_3;
-    v53[3] = &unk_1E7576918;
-    v54 = *(a1 + 64);
-    v25 = v23;
-    v55 = v25;
-    v56 = buf;
-    v57 = *(a1 + 80);
-    [v24 enumerateKeysAndObjectsUsingBlock:v53];
-    [*(*(a1 + 32) + 24) removeObjectsForKeys:v25];
+    v63 = 0;
+    v24 = [MEMORY[0x1E695DF70] arrayWithCapacity:?];
+    v25 = *(*(a1 + 32) + 24);
+    v54[0] = MEMORY[0x1E69E9820];
+    v54[1] = 3221225472;
+    v54[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_3;
+    v54[3] = &unk_1E7576918;
+    v55 = *(a1 + 64);
+    v26 = v24;
+    v56 = v26;
+    v57 = buf;
+    v58 = *(a1 + 80);
+    [v25 enumerateKeysAndObjectsUsingBlock:v54];
+    [*(*(a1 + 32) + 24) removeObjectsForKeys:v26];
 
     _Block_object_dispose(buf, 8);
   }
@@ -3887,91 +3894,91 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
     [*(*(a1 + 32) + 24) removeAllObjects];
   }
 
-  v26 = [*(a1 + 56) count];
-  *(*(a1 + 32) + 8) = [*(a1 + 64) count] + v26;
-  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 56), "count")}];
-  v51 = 0u;
+  v27 = objc_msgSend_count(*(a1 + 56));
+  *(*(a1 + 32) + 8) = objc_msgSend_count(*(a1 + 64)) + v27;
+  v28 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(*(a1 + 56))];
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v28 = *(a1 + 56);
-  v29 = [v28 countByEnumeratingWithState:&v49 objects:v60 count:16];
-  if (v29)
+  v51 = 0u;
+  v29 = *(a1 + 56);
+  v30 = [v29 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  if (v30)
   {
-    v30 = *v50;
+    v31 = *v51;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v50 != v30)
+        if (*v51 != v31)
         {
-          objc_enumerationMutation(v28);
+          objc_enumerationMutation(v29);
         }
 
-        v32 = *(*(&v49 + 1) + 8 * i);
-        v33 = [*(*(a1 + 32) + 48) objectForKeyedSubscript:v32];
-        v34 = v33;
-        if (v33)
+        v33 = *(*(&v50 + 1) + 8 * i);
+        v34 = [*(*(a1 + 32) + 48) objectForKeyedSubscript:v33];
+        v35 = v34;
+        if (v34)
         {
-          if (([v33 hasChangesAffectingSharingComposition] & 1) == 0 && objc_msgSend(v34, "hasNoOtherAssetChangesRequiringMomentGeneration"))
+          if (([v34 hasChangesAffectingSharingComposition] & 1) == 0 && objc_msgSend(v35, "hasNoOtherAssetChangesRequiringMomentGeneration"))
           {
-            [v27 addObject:v32];
+            [v28 addObject:v33];
           }
 
-          [*(a1 + 72) setObject:v34 forKeyedSubscript:v32];
-          [*(*(a1 + 32) + 48) removeObjectForKey:v32];
+          [*(a1 + 72) setObject:v35 forKeyedSubscript:v33];
+          [*(*(a1 + 32) + 48) removeObjectForKey:v33];
         }
       }
 
-      v29 = [v28 countByEnumeratingWithState:&v49 objects:v60 count:16];
+      v30 = [v29 countByEnumeratingWithState:&v50 objects:v61 count:16];
     }
 
-    while (v29);
+    while (v30);
   }
 
-  [*(a1 + 56) removeObjectsInArray:v27];
-  if (![*(a1 + 72) count] && objc_msgSend(*(*(a1 + 32) + 48), "count"))
+  [*(a1 + 56) removeObjectsInArray:v28];
+  if (!objc_msgSend_count(*(a1 + 72)) && objc_msgSend_count(*(*(a1 + 32) + 48)))
   {
-    v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v36 = *(*(a1 + 32) + 48);
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_4;
-    v45[3] = &unk_1E7576940;
-    v46 = *(a1 + 72);
-    v47 = v35;
-    v48 = *(a1 + 80);
-    v37 = v35;
-    [v36 enumerateKeysAndObjectsUsingBlock:v45];
-    [*(*(a1 + 32) + 48) removeObjectsForKeys:v37];
+    v36 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v37 = *(*(a1 + 32) + 48);
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_4;
+    v46[3] = &unk_1E7576940;
+    v47 = *(a1 + 72);
+    v48 = v36;
+    v49 = *(a1 + 80);
+    v38 = v36;
+    [v37 enumerateKeysAndObjectsUsingBlock:v46];
+    [*(*(a1 + 32) + 48) removeObjectsForKeys:v38];
   }
 
-  if ([*(*(a1 + 32) + 48) count] || objc_msgSend(*(a1 + 72), "count"))
+  if (objc_msgSend_count(*(*(a1 + 32) + 48)) || objc_msgSend_count(*(a1 + 72)))
   {
-    v38 = PLMomentsGetLog();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    v39 = PLMomentsGetLog();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v39 = [*(a1 + 72) count];
-      v40 = [*(*(a1 + 32) + 48) count];
+      v40 = objc_msgSend_count(*(a1 + 72));
+      v41 = objc_msgSend_count(*(*(a1 + 32) + 48));
       *buf = 134218240;
-      *&buf[4] = v39;
+      *&buf[4] = v40;
       *&buf[12] = 2048;
-      *&buf[14] = v40;
-      _os_log_impl(&dword_19BF1F000, v38, OS_LOG_TYPE_DEFAULT, "[MomentsGeneration] Identified %lu shared asset container changes for current batch. %lu remain", buf, 0x16u);
+      *&buf[14] = v41;
+      _os_log_impl(&dword_19BF1F000, v39, OS_LOG_TYPE_DEFAULT, "[MomentsGeneration] Identified %lu shared asset container changes for current batch. %lu remain", buf, 0x16u);
     }
   }
 
-  v41 = PLMomentsGetLog();
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v42 = PLMomentsGetLog();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
   {
-    v42 = *(a1 + 32);
-    v43 = *(v42 + 8);
-    v44 = [*(v42 + 16) count];
+    v43 = *(a1 + 32);
+    v44 = *(v43 + 8);
+    v45 = objc_msgSend_count(*(v43 + 16));
     *buf = 134218240;
-    *&buf[4] = v43;
+    *&buf[4] = v44;
     *&buf[12] = 2048;
-    *&buf[14] = v44;
-    _os_log_impl(&dword_19BF1F000, v41, OS_LOG_TYPE_DEFAULT, "[MomentsGeneration] Beginning moment generation pass with %lu changes. %lu remain", buf, 0x16u);
+    *&buf[14] = v45;
+    _os_log_impl(&dword_19BF1F000, v42, OS_LOG_TYPE_DEFAULT, "[MomentsGeneration] Beginning moment generation pass with %lu changes. %lu remain", buf, 0x16u);
   }
 }
 
@@ -3988,14 +3995,14 @@ void __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler
   }
 }
 
-unint64_t __73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__73__PLMomentGeneration__runIncrementalGenerationPassWithCompletionHandler___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v7 = *(a1 + 32);
   v8 = a2;
   [v7 setObject:a3 forKeyedSubscript:v8];
   [*(a1 + 40) addObject:v8];
 
-  result = [*(a1 + 32) count];
+  result = objc_msgSend_count(*(a1 + 32));
   if (result >= *(*(*(a1 + 48) + 8) + 24))
   {
     *a4 = 1;
@@ -4046,7 +4053,7 @@ void __67__PLMomentGeneration_generateWithIncrementalDataCompletionHandler___blo
   highlightsCopy = highlights;
   forHighlightsCopy = forHighlights;
   handlerCopy = handler;
-  if (PLPlatformMomentsSupported() && ([updatesCopy count] || objc_msgSend(deletesCopy, "count") || objc_msgSend(highlightsCopy, "count") || objc_msgSend(forHighlightsCopy, "count")))
+  if (PLPlatformMomentsSupported() && (objc_msgSend_count(updatesCopy) || objc_msgSend_count(deletesCopy) || objc_msgSend_count(highlightsCopy) || objc_msgSend_count(forHighlightsCopy)))
   {
     [(PLMomentGeneration *)self saveChangesForAssetInsertsAndUpdates:updatesCopy assetDeletes:deletesCopy assetUpdatesForHighlights:highlightsCopy momentUpdatesForHighlights:forHighlightsCopy sharedAssetContainerIncrementalChangesByAssetID:0];
     [(PLMomentGeneration *)self generateWithIncrementalDataCompletionHandler:handlerCopy];
@@ -4067,7 +4074,7 @@ void __67__PLMomentGeneration_generateWithIncrementalDataCompletionHandler___blo
   highlightsCopy = highlights;
   forHighlightsCopy = forHighlights;
   dCopy = d;
-  if (PLPlatformMomentsSupported() && ([updatesCopy count] || objc_msgSend(deletesCopy, "count") || objc_msgSend(highlightsCopy, "count") || objc_msgSend(forHighlightsCopy, "count")))
+  if (PLPlatformMomentsSupported() && (objc_msgSend_count(updatesCopy) || objc_msgSend_count(deletesCopy) || objc_msgSend_count(highlightsCopy) || objc_msgSend_count(forHighlightsCopy)))
   {
     v16 = updatesCopy;
     v17 = deletesCopy;
@@ -4374,25 +4381,25 @@ void __85__PLMomentGeneration__runIncrementalMomentGenerationIfItemsArePendingWi
   return v4;
 }
 
-uint64_t __64__PLMomentGeneration__hasWorkWorkRemainingWithCompletionBlocks___block_invoke(void *a1)
+uint64_t __64__PLMomentGeneration__hasWorkWorkRemainingWithCompletionBlocks___block_invoke(void *a1, const char *a2)
 {
-  v2 = [*(a1[4] + 16) count];
-  v3 = [*(a1[4] + 24) count];
-  v4 = [*(a1[4] + 32) count];
-  v5 = [*(a1[4] + 40) count];
-  result = [*(a1[4] + 48) count];
-  *(*(a1[5] + 8) + 24) = (v2 | v3 | v4 | v5 | result) != 0;
+  v3 = objc_msgSend_count(*(a1[4] + 16), a2);
+  v4 = objc_msgSend_count(*(a1[4] + 24));
+  v5 = objc_msgSend_count(*(a1[4] + 32));
+  v6 = objc_msgSend_count(*(a1[4] + 40));
+  result = objc_msgSend_count(*(a1[4] + 48));
+  *(*(a1[5] + 8) + 24) = (v3 | v4 | v5 | v6 | result) != 0;
   if ((*(*(a1[5] + 8) + 24) & 1) == 0)
   {
-    v7 = [MEMORY[0x1E695DEC8] arrayWithArray:*(a1[4] + 56)];
-    v8 = *(a1[6] + 8);
-    v9 = *(v8 + 40);
-    *(v8 + 40) = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithArray:*(a1[4] + 56)];
+    v9 = *(a1[6] + 8);
+    v10 = *(v9 + 40);
+    *(v9 + 40) = v8;
 
     [*(a1[4] + 56) removeAllObjects];
-    v10 = a1[4];
+    v11 = a1[4];
 
-    return [v10 releaseMemoryIntensiveObjects];
+    return [v11 releaseMemoryIntensiveObjects];
   }
 
   return result;
@@ -4586,7 +4593,7 @@ void __72__PLMomentGeneration_initWithMomentGenerationDataManager_bundle_locale_
 {
   v33 = *MEMORY[0x1E69E9840];
   datesCopy = dates;
-  if ([datesCopy count])
+  if (objc_msgSend_count(datesCopy))
   {
     firstObject = [datesCopy firstObject];
     v7 = duration * 0.5;

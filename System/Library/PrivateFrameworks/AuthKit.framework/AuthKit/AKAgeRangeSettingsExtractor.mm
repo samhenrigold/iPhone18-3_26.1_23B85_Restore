@@ -66,7 +66,6 @@
   objc_storeStrong(&v17, 0);
   objc_storeStrong(v18, 0);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
   v2 = v19;
 
   return v2;

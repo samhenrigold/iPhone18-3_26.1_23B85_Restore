@@ -6,7 +6,7 @@
 
 - (void)applyToAssertionIntransientState:()RBProcessState attributePath:context:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a5;
   if ([v7 runningReason] && (v9 = objc_msgSend(v7, "runningReason"), v9 != objc_msgSend(self, "runningReason")))
@@ -17,13 +17,13 @@
       runningReason = [v7 runningReason];
       runningReason2 = [self runningReason];
       assertion = [v8 assertion];
-      v15 = 134218498;
-      v16 = runningReason;
-      v17 = 2048;
-      v18 = runningReason2;
-      v19 = 2114;
-      v20 = assertion;
-      _os_log_error_impl(&dword_262485000, v10, OS_LOG_TYPE_ERROR, "Multiple RBSRunningReasonAttribute provided: %lu vs %lu. First one wins, but client should be fixed for assertion %{public}@", &v15, 0x20u);
+      v14 = 134218498;
+      v15 = runningReason;
+      v16 = 2048;
+      v17 = runningReason2;
+      v18 = 2114;
+      v19 = assertion;
+      _os_log_error_impl(&dword_262485000, v10, OS_LOG_TYPE_ERROR, "Multiple RBSRunningReasonAttribute provided: %lu vs %lu. First one wins, but client should be fixed for assertion %{public}@", &v14, 0x20u);
     }
   }
 
@@ -31,8 +31,6 @@
   {
     [v7 setRunningReason:{objc_msgSend(self, "runningReason")}];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,15 +8,13 @@
 
 + (id)displayGlyphHierarchicalColors
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E69E09E0]) initWithSystemColor:4];
-  v8[0] = v2;
+  v7[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E69E09E0]) initWithSystemColor:4];
   v4 = [v3 colorWithAlphaComponent:0.5];
-  v8[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }

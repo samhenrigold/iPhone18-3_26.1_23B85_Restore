@@ -29,14 +29,14 @@
 
 - (void)_notifyTransport:(id)transport ofFetchedObjects:(id)objects forClientUUID:(id)d responseHandler:(id)handler
 {
-  v19[1] = *MEMORY[0x1E69E9840];
-  v18 = @"HMCOFC.mk.fo";
+  v18[1] = *MEMORY[0x1E69E9840];
+  v17 = @"HMCOFC.mk.fo";
   handlerCopy = handler;
   dCopy = d;
   transportCopy = transport;
   v12 = encodeRootObject(objects);
-  v19[0] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   v14 = objc_alloc(MEMORY[0x1E69A2A10]);
   v15 = [objc_alloc(MEMORY[0x1E69A2A00]) initWithTarget:dCopy];
@@ -46,12 +46,11 @@
   [v16 setResponseHandler:handlerCopy];
 
   [transportCopy sendMessage:v16 completionHandler:0];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendCurrentlyBatchedFetchedObjectsWithCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   workQueue = [(HMCameraObjectFetchServer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -61,12 +60,12 @@
   {
     currentlyBatchedFetchedObjects = [(HMCameraObjectFetchServer *)self currentlyBatchedFetchedObjects];
     clientUUID = [(HMCameraObjectFetchServer *)self clientUUID];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __78__HMCameraObjectFetchServer_sendCurrentlyBatchedFetchedObjectsWithCompletion___block_invoke;
-    v15[3] = &unk_1E754C0F0;
-    v16 = completionCopy;
-    [(HMCameraObjectFetchServer *)self _notifyTransport:transport ofFetchedObjects:currentlyBatchedFetchedObjects forClientUUID:clientUUID responseHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __78__HMCameraObjectFetchServer_sendCurrentlyBatchedFetchedObjectsWithCompletion___block_invoke;
+    v14[3] = &unk_1E754C0F0;
+    v15 = completionCopy;
+    [(HMCameraObjectFetchServer *)self _notifyTransport:transport ofFetchedObjects:currentlyBatchedFetchedObjects forClientUUID:clientUUID responseHandler:v14];
 
     currentlyBatchedFetchedObjects2 = [(HMCameraObjectFetchServer *)self currentlyBatchedFetchedObjects];
     [currentlyBatchedFetchedObjects2 removeAllObjects];
@@ -81,20 +80,18 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v13;
+      v17 = v13;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot send currently batched fetched objects because transport no longer exists", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     completionCopy[2](completionCopy);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFetchedObject:(id)object
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   workQueue = [(HMCameraObjectFetchServer *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -108,11 +105,11 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v20;
+      v23 = 138543362;
+      v24 = v20;
       v21 = "%{public}@Cannot handle fetched object because transport no longer exists";
 LABEL_12:
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, v21, &v24, 0xCu);
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, v21, &v23, 0xCu);
     }
 
 LABEL_13:
@@ -129,8 +126,8 @@ LABEL_13:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v20 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v20;
+      v23 = 138543362;
+      v24 = v20;
       v21 = "%{public}@Asked to handle fetched object while unable to handle more fetched objects";
       goto LABEL_12;
     }
@@ -165,19 +162,17 @@ LABEL_13:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v18;
-      v26 = 2048;
+      v23 = 138543618;
+      v24 = v18;
+      v25 = 2048;
       totalFetchedObjectsLimit = [(HMCameraObjectFetchServer *)selfCopy3 totalFetchedObjectsLimit];
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Reached limit of %lu fetched objects", &v24, 0x16u);
+      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Reached limit of %lu fetched objects", &v23, 0x16u);
     }
 
     goto LABEL_13;
   }
 
 LABEL_14:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canHandleMoreFetchedObjects
@@ -229,7 +224,7 @@ LABEL_14:
 
 - (HMCameraObjectFetchServer)initWithFetchMessage:(id)message workQueue:(id)queue
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   queueCopy = queue;
   v8 = [messageCopy uuidForKey:@"HMCOFC.mk.u"];
@@ -250,11 +245,11 @@ LABEL_14:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v18;
-        v23 = 2112;
-        v24 = messageCopy;
-        _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find transport on message: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v18;
+        v22 = 2112;
+        v23 = messageCopy;
+        _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not find transport on message: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
@@ -271,18 +266,17 @@ LABEL_14:
     {
       v14 = HMFGetLogIdentifier();
       messagePayload = [messageCopy messagePayload];
-      v21 = 138543618;
-      v22 = v14;
-      v23 = 2112;
-      v24 = messagePayload;
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find client UUID in message payload: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v14;
+      v22 = 2112;
+      v23 = messagePayload;
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not find client UUID in message payload: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -300,12 +294,11 @@ LABEL_14:
 
 uint64_t __40__HMCameraObjectFetchServer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_38192;
-  logCategory__hmf_once_v7_38192 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_38192;
+  logCategory__hmf_once_v7_38192 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

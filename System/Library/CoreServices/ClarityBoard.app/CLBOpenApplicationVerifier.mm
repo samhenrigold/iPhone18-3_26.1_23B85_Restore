@@ -46,7 +46,7 @@
 
 - (void)verifyRequest:(FBSystemServiceOpenApplicationRequest *)request completionHandler:(id)handler
 {
-  v7 = sub_10002B6CC(&qword_10032D050);
+  v7 = sub_10002B6CC(&qword_10032D050, &qword_100298FF0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -75,7 +75,7 @@
 {
   selfCopy = self;
   v5 = *(&self->super.isa + OBJC_IVAR___CLBOpenApplicationVerifier_implementation);
-  v10[3] = sub_10002C9FC(0, &qword_10032EF80);
+  v10[3] = sub_10002C9FC(0, &qword_10032EF80, FBSystemServiceOpenApplicationRequest_ptr);
   v10[4] = &protocol witness table for FBSystemServiceOpenApplicationRequest;
   v10[0] = request;
   v6 = *(*v5 + 120);

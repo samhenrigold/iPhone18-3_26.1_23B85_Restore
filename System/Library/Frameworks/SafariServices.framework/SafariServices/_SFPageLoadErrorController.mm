@@ -83,12 +83,13 @@
 
 - (void)dealloc
 {
-  if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v5 = WBS_LOG_CHANNEL_PREFIXPageLoading(isMainThread, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [(_SFPageLoadErrorController *)v3 dealloc];
+      [(_SFPageLoadErrorController *)v5 dealloc];
     }
   }
 
@@ -102,9 +103,9 @@
     CFRelease(certificateTrust);
   }
 
-  v6.receiver = self;
-  v6.super_class = _SFPageLoadErrorController;
-  [(_SFPageLoadErrorController *)&v6 dealloc];
+  v8.receiver = self;
+  v8.super_class = _SFPageLoadErrorController;
+  [(_SFPageLoadErrorController *)&v8 dealloc];
 }
 
 - (_SFPageLoadErrorController)initWithWebView:(id)view secIdentitiesCache:(id)cache
@@ -151,8 +152,8 @@
   if (!failingURL)
   {
     failingURL = lCopy;
-    v12 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXPageLoading(failingURL, v12);
+    if (!os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       if (failingURL)
       {
@@ -164,7 +165,7 @@ LABEL_18:
       goto LABEL_11;
     }
 
-    [_SFPageLoadErrorController _fetchSpecializedMessageForError:v12 URL:errorCopy completionHandler:?];
+    [_SFPageLoadErrorController _fetchSpecializedMessageForError:v13 URL:errorCopy completionHandler:?];
     if (!failingURL)
     {
       goto LABEL_18;
@@ -183,7 +184,7 @@ LABEL_4:
 
     if ([errorCopy _web_errorIsInDomain:*MEMORY[0x1E696A978]])
     {
-      v13 = [(_SFPageLoadErrorController *)self _errorMessageForNSURLErrorDomain:errorCopy url:failingURL];
+      v14 = [(_SFPageLoadErrorController *)self _errorMessageForNSURLErrorDomain:errorCopy url:failingURL];
       goto LABEL_6;
     }
 
@@ -194,10 +195,10 @@ LABEL_4:
     }
   }
 
-  v13 = _WBSLocalizedString();
+  v14 = _WBSLocalizedString();
 LABEL_6:
-  host = v13;
-  handlerCopy[2](handlerCopy, v13);
+  host = v14;
+  handlerCopy[2](handlerCopy, v14);
 LABEL_9:
 
 LABEL_10:
@@ -421,7 +422,7 @@ LABEL_24:
 
 - (void)performAction:(int)action forAlert:(id)alert
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   type = [alertCopy type];
   if (type == 4)
@@ -435,36 +436,37 @@ LABEL_24:
 
       context = [alertCopy context];
       selectedIdentity = [alertCopy selectedIdentity];
+      v14 = selectedIdentity;
       if (selectedIdentity)
       {
-        v12 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v15 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(selectedIdentity, v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = v12;
+          v16 = v15;
           identities = [alertCopy identities];
-          v26 = 134217984;
-          v27 = [identities count];
-          _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "User has selected an identity out of %lu", &v26, 0xCu);
+          v29 = 134217984;
+          v30 = [identities count];
+          _os_log_impl(&dword_1D4644000, v16, OS_LOG_TYPE_DEFAULT, "User has selected an identity out of %lu", &v29, 0xCu);
         }
 
-        v15 = [context objectForKey:@"authenticationChallenge"];
-        protectionSpace = [v15 protectionSpace];
+        v18 = [context objectForKey:@"authenticationChallenge"];
+        protectionSpace = [v18 protectionSpace];
         safari_identityPreferenceDomain = [protectionSpace safari_identityPreferenceDomain];
-        [(_SFPageLoadErrorController *)self _cacheSecIdentityIfNeeded:selectedIdentity forIdentityDomain:safari_identityPreferenceDomain];
+        [(_SFPageLoadErrorController *)self _cacheSecIdentityIfNeeded:v14 forIdentityDomain:safari_identityPreferenceDomain];
 
-        proceedWithClientCertificateIdentity(selectedIdentity, context);
+        proceedWithClientCertificateIdentity(v14, context);
         identities2 = [alertCopy identities];
-        v19 = [identities2 count];
+        v22 = [identities2 count];
 
-        if (v19 == 1)
+        if (v22 == 1)
         {
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          v21 = [WeakRetained pageLoadErrorControllerGetSecIdentityPreferencesController:self];
+          v24 = [WeakRetained pageLoadErrorControllerGetSecIdentityPreferencesController:self];
 
-          v22 = [context objectForKeyedSubscript:@"authenticationChallenge"];
-          protectionSpace2 = [v22 protectionSpace];
+          v25 = [context objectForKeyedSubscript:@"authenticationChallenge"];
+          protectionSpace2 = [v25 protectionSpace];
           _sf_highLevelDomainAndPort = [protectionSpace2 _sf_highLevelDomainAndPort];
-          [v21 saveShouldUseOnlyAvailableIdentityWithoutPrompting:1 forDomainAndPort:_sf_highLevelDomainAndPort];
+          [v24 saveShouldUseOnlyAvailableIdentityWithoutPrompting:1 forDomainAndPort:_sf_highLevelDomainAndPort];
         }
       }
 
@@ -472,11 +474,11 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v25 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(type, v8);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_1D4644000, v25, OS_LOG_TYPE_DEFAULT, "User has cancelled identities picker", &v26, 2u);
+      LOWORD(v29) = 0;
+      _os_log_impl(&dword_1D4644000, v28, OS_LOG_TYPE_DEFAULT, "User has cancelled identities picker", &v29, 2u);
     }
 
 LABEL_17:
@@ -498,9 +500,9 @@ LABEL_17:
   if (action == 5)
   {
     context2 = [alertCopy context];
-    v9 = newAlertToListPossibleClientSideCertificatesWithContext(context2);
+    v10 = newAlertToListPossibleClientSideCertificatesWithContext(context2);
 
-    [(_SFPageLoadErrorController *)self addAlert:v9];
+    [(_SFPageLoadErrorController *)self addAlert:v10];
   }
 
 LABEL_19:
@@ -703,7 +705,7 @@ LABEL_19:
       host = [failingURL host];
 
       code = [errorCopy code];
-      v26 = code;
+      v27 = code;
       if ((code & 0xFFFFFFFFFFFFFFFCLL) != 0xFFFFFFFFFFFFFB4CLL && (code & 0xFFFFFFFFFFFFFFFELL) != 0xFFFFFFFFFFFFFB4ALL)
       {
         if (handlerCopy)
@@ -714,20 +716,20 @@ LABEL_19:
         goto LABEL_35;
       }
 
-      v27 = WBS_LOG_CHANNEL_PREFIXCertificates();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = WBS_LOG_CHANNEL_PREFIXCertificates(code, v26);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [_SFPageLoadErrorController _handleCertificateError:v27 forURL:errorCopy isMainFrame:? recoveryAttempter:? completionHandler:?];
+        [_SFPageLoadErrorController _handleCertificateError:v28 forURL:errorCopy isMainFrame:? recoveryAttempter:? completionHandler:?];
       }
 
-      if ((v26 & 0xFFFFFFFFFFFFFB4ELL) == 0xFFFFFFFFFFFFFB4ALL)
+      if ((v27 & 0xFFFFFFFFFFFFFB4ELL) == 0xFFFFFFFFFFFFFB4ALL)
       {
-        v28 = newAlertToHandleClientSideCertificateErrorCode(v26, 0);
-        v29 = v28;
-        if (v28)
+        v29 = newAlertToHandleClientSideCertificateErrorCode(v27, 0);
+        v30 = v29;
+        if (v29)
         {
-          [v28 setHideAction:4];
-          [(_SFPageLoadErrorController *)self addAlert:v29];
+          [v29 setHideAction:4];
+          [(_SFPageLoadErrorController *)self addAlert:v30];
         }
 
         if (handlerCopy)
@@ -740,26 +742,26 @@ LABEL_19:
 
       hostname = host;
       userInfo = [errorCopy userInfo];
-      v30 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
+      v31 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
       userInfo2 = [errorCopy userInfo];
-      v32 = [userInfo2 objectForKeyedSubscript:@"NSErrorPeerCertificateChainKey"];
+      v33 = [userInfo2 objectForKeyedSubscript:@"NSErrorPeerCertificateChainKey"];
 
-      v44 = v30;
-      userInfo3 = [v30 userInfo];
-      v34 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x1E695AE78]];
+      v45 = v31;
+      userInfo3 = [v31 userInfo];
+      v35 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x1E695AE78]];
 
-      trust = v34;
-      certificates = v32;
-      if (!v34 && v32)
+      trust = v35;
+      certificates = v33;
+      if (!v35 && v33)
       {
         SSL = SecPolicyCreateSSL(1u, hostname);
-        SecTrustCreateWithCertificates(v32, SSL, &trust);
+        SecTrustCreateWithCertificates(v33, SSL, &trust);
         CFRelease(SSL);
         CFAutorelease(trust);
-        v34 = trust;
+        v35 = trust;
       }
 
-      if (!v34)
+      if (!v35)
       {
         if (handlerCopy)
         {
@@ -769,34 +771,34 @@ LABEL_19:
         goto LABEL_34;
       }
 
-      v36 = objc_loadWeakRetained(&self->_delegate);
+      v37 = objc_loadWeakRetained(&self->_delegate);
       mEMORY[0x1E69C8EE0] = [MEMORY[0x1E69C8EE0] sharedManager];
-      v43 = v36;
-      v38 = [mEMORY[0x1E69C8EE0] didInvalidCertificateExceptionsApplySuccessfullyForProtectionSpace:self->_protectionSpaceForInvalidCertificateBypass inPrivateBrowsing:{objc_msgSend(v36, "pageLoadErrorControllerShouldPermanentlyAcceptCertificate:", self)}];
+      v44 = v37;
+      v39 = [mEMORY[0x1E69C8EE0] didInvalidCertificateExceptionsApplySuccessfullyForProtectionSpace:self->_protectionSpaceForInvalidCertificateBypass inPrivateBrowsing:{objc_msgSend(v37, "pageLoadErrorControllerShouldPermanentlyAcceptCertificate:", self)}];
 
       self->_certificateTrust = CFRetain(trust);
-      v39 = _Block_copy(attempterCopy);
+      v40 = _Block_copy(attempterCopy);
       certificateRecoveryAttempter = self->_certificateRecoveryAttempter;
-      self->_certificateRecoveryAttempter = v39;
+      self->_certificateRecoveryAttempter = v40;
 
       objc_storeStrong(&self->_certificateFailingURL, l);
       if (frameCopy)
       {
-        if (!v38)
+        if (!v39)
         {
-          v41 = MEMORY[0x1E695DF00];
-          v42 = *MEMORY[0x1E69C93C0];
-          v48[0] = MEMORY[0x1E69E9820];
-          v48[1] = 3221225472;
-          v48[2] = __109___SFPageLoadErrorController__handleCertificateError_forURL_isMainFrame_recoveryAttempter_completionHandler___block_invoke;
-          v48[3] = &unk_1E848FAA0;
-          v48[4] = self;
-          v52 = handlerCopy;
-          v49 = errorCopy;
-          v32 = certificates;
-          v50 = certificates;
-          v51 = lCopy;
-          [v41 safari_dateFromNTPServerWithTimeout:v48 completionHandler:v42];
+          v42 = MEMORY[0x1E695DF00];
+          v43 = *MEMORY[0x1E69C93C0];
+          v49[0] = MEMORY[0x1E69E9820];
+          v49[1] = 3221225472;
+          v49[2] = __109___SFPageLoadErrorController__handleCertificateError_forURL_isMainFrame_recoveryAttempter_completionHandler___block_invoke;
+          v49[3] = &unk_1E848FAA0;
+          v49[4] = self;
+          v53 = handlerCopy;
+          v50 = errorCopy;
+          v33 = certificates;
+          v51 = certificates;
+          v52 = lCopy;
+          [v42 safari_dateFromNTPServerWithTimeout:v49 completionHandler:v43];
 
 LABEL_33:
 LABEL_34:
@@ -810,7 +812,7 @@ LABEL_35:
         [(_SFPageLoadErrorController *)self _continueAfterCertificateAlertWithURL:lCopy trust:self->_certificateTrust recoveryAttempter:attempterCopy];
       }
 
-      v32 = certificates;
+      v33 = certificates;
       if (handlerCopy)
       {
         handlerCopy[2](handlerCopy, 1);
@@ -992,7 +994,7 @@ LABEL_36:
 
 - (void)handleClientCertificateAuthenticationChallenge:(id)challenge completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   challengeCopy = challenge;
   handlerCopy = handler;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1002,59 +1004,59 @@ LABEL_36:
   _sf_highLevelDomainAndPort = [protectionSpace _sf_highLevelDomainAndPort];
 
   v12 = [v9 shouldUseOnlyAvailableIdentityWithoutPromptingForDomainAndPort:_sf_highLevelDomainAndPort];
-  v13 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138740227;
-    v28 = _sf_highLevelDomainAndPort;
-    v29 = 1024;
-    v30 = v12;
-    _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "Received challenge for domain: %{sensitive}@, use only available identity without prompt: %d", buf, 0x12u);
+    v31 = _sf_highLevelDomainAndPort;
+    v32 = 1024;
+    v33 = v12;
+    _os_log_impl(&dword_1D4644000, v14, OS_LOG_TYPE_DEFAULT, "Received challenge for domain: %{sensitive}@, use only available identity without prompt: %d", buf, 0x12u);
   }
 
-  v26[0] = challengeCopy;
-  v26[1] = @"reasonAuthenticationChallenge";
-  v14 = [handlerCopy copy];
+  v29[0] = challengeCopy;
+  v29[1] = @"reasonAuthenticationChallenge";
+  v15 = [handlerCopy copy];
 
-  v26[2] = v14;
-  v25[3] = @"useOnlyAvailableIdentityWithoutPrompting";
-  v15 = [MEMORY[0x1E696AD98] numberWithBool:v12];
-  v26[3] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v29[2] = v15;
+  v28[3] = @"useOnlyAvailableIdentityWithoutPrompting";
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:v12];
+  v29[3] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:4];
 
   secIdentitiesCache = self->_secIdentitiesCache;
   protectionSpace2 = [challengeCopy protectionSpace];
   safari_identityPreferenceDomain = [protectionSpace2 safari_identityPreferenceDomain];
-  v20 = [(WBSSecIdentitiesCache *)secIdentitiesCache secIdentityForDomain:safari_identityPreferenceDomain];
+  v21 = [(WBSSecIdentitiesCache *)secIdentitiesCache secIdentityForDomain:safari_identityPreferenceDomain];
 
-  v21 = WBS_LOG_CHANNEL_PREFIXClientAuthentication();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-  if (v20)
+  v24 = WBS_LOG_CHANNEL_PREFIXClientAuthentication(v22, v23);
+  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
+  if (v21)
   {
-    if (v22)
+    if (v25)
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEFAULT, "Found a preferred identity to skip prompting", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v24, OS_LOG_TYPE_DEFAULT, "Found a preferred identity to skip prompting", buf, 2u);
     }
 
-    proceedWithClientCertificateIdentity(v20, v16);
+    proceedWithClientCertificateIdentity(v21, v17);
   }
 
   else
   {
-    if (v22)
+    if (v25)
     {
       *buf = 0;
-      _os_log_impl(&dword_1D4644000, v21, OS_LOG_TYPE_DEFAULT, "Could not find a preferred identity to skip prompting", buf, 2u);
+      _os_log_impl(&dword_1D4644000, v24, OS_LOG_TYPE_DEFAULT, "Could not find a preferred identity to skip prompting", buf, 2u);
     }
 
-    v23 = newAlertToHandleClientSideCertificateErrorCode(-1206, v16);
-    v24 = v23;
-    if (v23)
+    v26 = newAlertToHandleClientSideCertificateErrorCode(-1206, v17);
+    v27 = v26;
+    if (v26)
     {
-      [v23 setHideAction:4];
-      [v24 setContext:v16];
-      [(_SFPageLoadErrorController *)self addAlert:v24];
+      [v26 setHideAction:4];
+      [v27 setContext:v17];
+      [(_SFPageLoadErrorController *)self addAlert:v27];
     }
   }
 }
@@ -1106,7 +1108,7 @@ LABEL_36:
 - (void)_resetCrashCountSoon
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXPageLoading();
+  v3 = WBS_LOG_CHANNEL_PREFIXPageLoading(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 134217984;
@@ -1122,7 +1124,7 @@ LABEL_36:
 
 - (BOOL)updateCrashesAndShowCrashError:(id)error URLString:(id)string
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   stringCopy = string;
   currentProcess = [MEMORY[0x1E69C75D0] currentProcess];
@@ -1133,33 +1135,33 @@ LABEL_36:
 
   if (v11 != v12)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = WBS_LOG_CHANNEL_PREFIXPageLoading(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 134218243;
+      v20 = 134218243;
       selfCopy2 = self;
-      v20 = 2117;
-      v21 = stringCopy;
-      _os_log_impl(&dword_1D4644000, v13, OS_LOG_TYPE_DEFAULT, "%p: ignoring WebContent crash for %{sensitive}@ since app is about to suspend", &v18, 0x16u);
+      v22 = 2117;
+      v23 = stringCopy;
+      _os_log_impl(&dword_1D4644000, v15, OS_LOG_TYPE_DEFAULT, "%p: ignoring WebContent crash for %{sensitive}@ since app is about to suspend", &v20, 0x16u);
     }
 
 LABEL_8:
-    v15 = 0;
+    v17 = 0;
     goto LABEL_9;
   }
 
   ++self->_crashesSinceLastSuccessfulLoad;
-  v14 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = WBS_LOG_CHANNEL_PREFIXPageLoading(v13, v14);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     crashesSinceLastSuccessfulLoad = self->_crashesSinceLastSuccessfulLoad;
-    v18 = 134218499;
+    v20 = 134218499;
     selfCopy2 = self;
-    v20 = 2117;
-    v21 = stringCopy;
-    v22 = 2048;
-    v23 = crashesSinceLastSuccessfulLoad;
-    _os_log_error_impl(&dword_1D4644000, v14, OS_LOG_TYPE_ERROR, "%p: WebContent for %{sensitive}@ crashed, crash count: %zu", &v18, 0x20u);
+    v22 = 2117;
+    v23 = stringCopy;
+    v24 = 2048;
+    v25 = crashesSinceLastSuccessfulLoad;
+    _os_log_error_impl(&dword_1D4644000, v16, OS_LOG_TYPE_ERROR, "%p: WebContent for %{sensitive}@ crashed, crash count: %zu", &v20, 0x20u);
   }
 
   if (self->_crashesSinceLastSuccessfulLoad < 2)
@@ -1169,10 +1171,10 @@ LABEL_8:
 
   self->_crashesSinceLastSuccessfulLoad = 0;
   [(_SFPageLoadErrorController *)self _showRepeatedWebProcessCrashError:errorCopy URLString:stringCopy];
-  v15 = 1;
+  v17 = 1;
 LABEL_9:
 
-  return v15;
+  return v17;
 }
 
 - (void)scheduleResetCrashCount
@@ -1428,15 +1430,15 @@ LABEL_13:
 
 - (void)_resetCrashCountNow
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXPageLoading();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = WBS_LOG_CHANNEL_PREFIXPageLoading(self, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = 134217984;
+      v4 = 134217984;
       selfCopy = self;
-      _os_log_impl(&dword_1D4644000, v2, OS_LOG_TYPE_DEFAULT, "%p: reset WebContent crash count", &v3, 0xCu);
+      _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_DEFAULT, "%p: reset WebContent crash count", &v4, 0xCu);
     }
 
     *(self + 136) = 0;

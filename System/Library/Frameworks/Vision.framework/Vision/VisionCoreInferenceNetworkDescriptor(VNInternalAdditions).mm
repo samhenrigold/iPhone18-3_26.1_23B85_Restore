@@ -96,7 +96,7 @@ LABEL_6:
       v34 = a4;
       v35 = a5;
       src.data = 0;
-      std::vector<unsigned long>::vector[abi:ne200100](__p, rank);
+      std::vector<unsigned long>::vector[abi:ne200100](__p, rank, &src);
       bytes = [v38 bytes];
       if (elementCount)
       {

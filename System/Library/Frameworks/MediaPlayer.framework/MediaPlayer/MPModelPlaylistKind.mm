@@ -257,32 +257,35 @@ void __66__MPModelPlaylistKind_kindWithVariants_playlistEntryKind_options___bloc
 
 - (shared_ptr<mlcore::Predicate>)predicateWithBaseProperty:(void *)property
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
+  memset(&v13[2], 0, 24);
   variants = [(MPModelPlaylistKind *)self variants];
   if ((variants & 0x82) == 2)
   {
     v6 = MEMORY[0x1E69B13D8];
-    v11 = @"playlistKind";
+    v14 = @"playlistKind";
     v7 = [(MPModelKind *)self description];
-    v12 = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-    v13[0] = v8;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v15 = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+    v16[0] = v8;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     [v6 snapshotWithDomain:*MEMORY[0x1E69B1340] type:@"Bug" subType:@"MPModelLibraryRequestWithSmartPlaylistAndNoFavoriteSongs" context:@"-[MPModelLibraryRequest] Requesting playlist from an MPModelLibraryRequest with smart playlists but not the favorite songs playlist" triggerThresholdValues:0 events:v9 completion:0];
   }
 
   IsSmart = mlcore::PlaylistPropertyIsSmart(variants);
   if (property)
   {
-    MPMediaLibraryGetProperty(property, IsSmart);
+    IsSmart = MPMediaLibraryGetProperty(property, IsSmart);
   }
 
-  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
+  v12 = IsSmart;
+  LODWORD(v11) = 1;
+  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(v13, &v12, &v11);
 }
 
 - (shared_ptr<mlcore::Predicate>)representedSearchScopePredicate
 {
-  v2 = [(MPModelPlaylistKind *)self predicateWithBaseProperty:0];
+  v2 = objc_msgSend_predicateWithBaseProperty_(self, a2, 0);
   result.var1 = v3;
   result.var0 = v2;
   return result;

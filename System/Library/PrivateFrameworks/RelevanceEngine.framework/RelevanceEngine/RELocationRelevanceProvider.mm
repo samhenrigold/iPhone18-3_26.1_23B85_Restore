@@ -282,9 +282,9 @@ LABEL_23:
 
 - (id)description
 {
-  v10.receiver = self;
-  v10.super_class = RELocationRelevanceProvider;
-  v3 = [(RELocationRelevanceProvider *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = RELocationRelevanceProvider;
+  v3 = [(RELocationRelevanceProvider *)&v9 description];
   type = self->_type;
   if (type > 4)
   {
@@ -297,10 +297,9 @@ LABEL_23:
   }
 
   v6 = [(CLLocation *)self->_location description];
-  radius = self->_radius;
-  v8 = [v3 stringByAppendingFormat:@" type=%@, location=%@, radius=%f, accuracy=%f, bundleIdentifier=%@", v5, v6, *&radius, *&self->_accuracy, self->_bundleIdentifier];
+  v7 = [v3 stringByAppendingFormat:@" type=%@, location=%@, radius=%f, accuracy=%f, bundleIdentifier=%@", v5, v6, *&self->_radius, *&self->_accuracy, self->_bundleIdentifier];
 
-  return v8;
+  return v7;
 }
 
 @end

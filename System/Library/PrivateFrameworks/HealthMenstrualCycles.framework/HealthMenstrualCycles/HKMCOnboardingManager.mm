@@ -91,25 +91,23 @@
 
 - (id)_featureAvailabilityStoreForFeatureWithIdentifier:(id)identifier
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   deviationsFeatureAvailabilityStore = self->_deviationsFeatureAvailabilityStore;
   heartRateInputFeatureAvailabilityStore = self->_heartRateInputFeatureAvailabilityStore;
   wristTemperatureInputFeatureAvailabilityStore = self->_wristTemperatureInputFeatureAvailabilityStore;
-  v15[0] = self->_featureAvailabilityStore;
-  v15[1] = heartRateInputFeatureAvailabilityStore;
-  v15[2] = deviationsFeatureAvailabilityStore;
-  v15[3] = wristTemperatureInputFeatureAvailabilityStore;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:4];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __75__HKMCOnboardingManager__featureAvailabilityStoreForFeatureWithIdentifier___block_invoke;
-  v13[3] = &unk_2796D5428;
-  v14 = identifierCopy;
+  v14[0] = self->_featureAvailabilityStore;
+  v14[1] = heartRateInputFeatureAvailabilityStore;
+  v14[2] = deviationsFeatureAvailabilityStore;
+  v14[3] = wristTemperatureInputFeatureAvailabilityStore;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __75__HKMCOnboardingManager__featureAvailabilityStoreForFeatureWithIdentifier___block_invoke;
+  v12[3] = &unk_2796D5428;
+  v13 = identifierCopy;
   v9 = identifierCopy;
-  v10 = [v8 hk_firstObjectPassingTest:v13];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [v8 hk_firstObjectPassingTest:v12];
 
   return v10;
 }
@@ -266,7 +264,7 @@ void __71__HKMCOnboardingManager_isAnyOnboardingVersionCompletedWithCompletion__
 
 - (BOOL)_setLegacyOnboardingCompletedVersion:(int64_t)version error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v6 = MEMORY[0x277CCC2E8];
   v7 = *MEMORY[0x277CCC2E8];
@@ -278,24 +276,24 @@ void __71__HKMCOnboardingManager_isAnyOnboardingVersionCompletedWithCompletion__
     v11 = v9;
     v12 = [v10 numberWithInteger:version];
     *buf = 138543618;
-    v29 = v9;
-    v30 = 2114;
-    v31 = v12;
+    v28 = v9;
+    v29 = 2114;
+    v30 = v12;
     _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Setting onboarding version %{public}@ and completion date in key value store", buf, 0x16u);
   }
 
   legacyOnboardingKeyValueDomain = self->_legacyOnboardingKeyValueDomain;
   v14 = [MEMORY[0x277CCABB0] numberWithInteger:version];
-  v27 = 0;
-  LOBYTE(legacyOnboardingKeyValueDomain) = [(HKKeyValueDomain *)legacyOnboardingKeyValueDomain setNumber:v14 forKey:@"OnboardingCompleted" error:&v27];
-  v15 = v27;
+  v26 = 0;
+  LOBYTE(legacyOnboardingKeyValueDomain) = [(HKKeyValueDomain *)legacyOnboardingKeyValueDomain setNumber:v14 forKey:@"OnboardingCompleted" error:&v26];
+  v15 = v26;
 
   if (legacyOnboardingKeyValueDomain)
   {
     v16 = self->_legacyOnboardingKeyValueDomain;
-    v26 = v15;
-    v17 = [(HKKeyValueDomain *)v16 dateForKey:@"OnboardingFirstCompletedDate" error:&v26];
-    v18 = v26;
+    v25 = v15;
+    v17 = [(HKKeyValueDomain *)v16 dateForKey:@"OnboardingFirstCompletedDate" error:&v25];
+    v18 = v25;
 
     if (v17)
     {
@@ -317,13 +315,13 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    v22 = self->_legacyOnboardingKeyValueDomain;
+    v21 = self->_legacyOnboardingKeyValueDomain;
     date = [MEMORY[0x277CBEAA8] date];
-    v25 = 0;
-    v24 = [(HKKeyValueDomain *)v22 setDate:date forKey:@"OnboardingFirstCompletedDate" error:&v25];
-    v15 = v25;
+    v24 = 0;
+    v23 = [(HKKeyValueDomain *)v21 setDate:date forKey:@"OnboardingFirstCompletedDate" error:&v24];
+    v15 = v24;
 
-    if (v24)
+    if (v23)
     {
       v19 = 1;
       goto LABEL_14;
@@ -348,7 +346,6 @@ LABEL_13:
   v19 = 0;
 LABEL_14:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -540,7 +537,7 @@ void __156__HKMCOnboardingManager__saveUserEnteredCycleLength_userEnteredPeriodL
 
 void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -549,12 +546,11 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current onboarding version completed in the feature availability store", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current onboarding version completed in the feature availability store", &v10, 0xCu);
     }
   }
 
@@ -564,13 +560,11 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), a2);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOnboardingCompletedWithInfo:(id)info completion:(id)completion
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   completionCopy = completion;
   _HKInitializeLogging();
@@ -580,40 +574,40 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
     log = v8;
     v9 = objc_opt_class();
     v10 = MEMORY[0x277CCABB0];
-    v58 = v9;
+    v57 = v9;
     v11 = [v10 numberWithInteger:2];
     userEnteredCycleLength = [infoCopy userEnteredCycleLength];
     v13 = HKSensitiveLogItem();
     [infoCopy userEnteredPeriodLength];
-    v14 = v59 = self;
+    v14 = v58 = self;
     v15 = HKSensitiveLogItem();
     userEnteredLastPeriodStartDay = [infoCopy userEnteredLastPeriodStartDay];
     v17 = HKSensitiveLogItem();
     *buf = 138544386;
-    v73 = v9;
-    v74 = 2114;
-    v75 = v11;
-    v76 = 2112;
-    v77 = v13;
-    v78 = 2112;
-    v79 = v15;
-    v80 = 2112;
-    v81 = v17;
+    v72 = v9;
+    v73 = 2114;
+    v74 = v11;
+    v75 = 2112;
+    v76 = v13;
+    v77 = 2112;
+    v78 = v15;
+    v79 = 2112;
+    v80 = v17;
     _os_log_impl(&dword_2518FC000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set onboarding completed (version: %{public}@), cycle length: %@, period length: %@, last period start: %@", buf, 0x34u);
 
-    self = v59;
+    self = v58;
   }
 
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v68[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke;
-  v68[3] = &unk_2796D54C8;
-  v68[4] = self;
+  v67[0] = MEMORY[0x277D85DD0];
+  v67[1] = 3221225472;
+  v67[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke;
+  v67[3] = &unk_2796D54C8;
+  v67[4] = self;
   v18 = completionCopy;
-  v70 = v18;
+  v69 = v18;
   v19 = infoCopy;
-  v69 = v19;
-  [(HKMCOnboardingManager *)self _setCurrentOnboardingVersionCompletedWithInfo:v19 completion:v68];
+  v68 = v19;
+  [(HKMCOnboardingManager *)self _setCurrentOnboardingVersionCompletedWithInfo:v19 completion:v67];
   heartRateInputSupportedCountryCode = [v19 heartRateInputSupportedCountryCode];
 
   v21 = MEMORY[0x277CCC120];
@@ -629,48 +623,48 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
     iSOCode = [heartRateInputSupportedCountryCode2 ISOCode];
     heartRateInputSupportedCountryCode3 = [v19 heartRateInputSupportedCountryCode];
     provenance = [heartRateInputSupportedCountryCode3 provenance];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_3;
-    v67[3] = &unk_2796D54F0;
-    v67[4] = self;
+    v66[0] = MEMORY[0x277D85DD0];
+    v66[1] = 3221225472;
+    v66[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_3;
+    v66[3] = &unk_2796D54F0;
+    v66[4] = self;
     v30 = heartRateInputFeatureAvailabilityStore;
     v21 = MEMORY[0x277CCC120];
-    [(HKFeatureAvailabilityStore *)v30 setCurrentOnboardingVersionCompletedForCountryCode:iSOCode countryCodeProvenance:provenance date:0 settings:v24 completion:v67];
+    [(HKFeatureAvailabilityStore *)v30 setCurrentOnboardingVersionCompletedForCountryCode:iSOCode countryCodeProvenance:provenance date:0 settings:v24 completion:v66];
   }
 
   deviationDetectionSupportedCountryCode = [v19 deviationDetectionSupportedCountryCode];
 
   if (deviationDetectionSupportedCountryCode)
   {
-    v60 = v18;
+    v59 = v18;
     v32 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v62 = 0u;
     v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
     v33 = HKMCAllDeviationTypes();
-    v34 = [v33 countByEnumeratingWithState:&v63 objects:v71 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v62 objects:v70 count:16];
     if (v34)
     {
       v35 = v34;
-      v36 = *v64;
+      v36 = *v63;
       do
       {
         for (i = 0; i != v35; ++i)
         {
-          if (*v64 != v36)
+          if (*v63 != v36)
           {
             objc_enumerationMutation(v33);
           }
 
-          v38 = *(*(&v63 + 1) + 8 * i);
+          v38 = *(*(&v62 + 1) + 8 * i);
           v39 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v19, "deviationDetectionEnabled")}];
           v40 = HKFeatureSettingsKeyForDeviationDetectionTypeEnabled([v38 integerValue]);
           [v32 setObject:v39 forKeyedSubscript:v40];
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v63 objects:v71 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
       while (v35);
@@ -682,14 +676,14 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
     iSOCode2 = [deviationDetectionSupportedCountryCode2 ISOCode];
     deviationDetectionSupportedCountryCode3 = [v19 deviationDetectionSupportedCountryCode];
     provenance2 = [deviationDetectionSupportedCountryCode3 provenance];
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_394;
-    v62[3] = &unk_2796D54F0;
-    v62[4] = self;
-    [(HKFeatureAvailabilityStore *)deviationsFeatureAvailabilityStore setCurrentOnboardingVersionCompletedForCountryCode:iSOCode2 countryCodeProvenance:provenance2 date:0 settings:v41 completion:v62];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_394;
+    v61[3] = &unk_2796D54F0;
+    v61[4] = self;
+    [(HKFeatureAvailabilityStore *)deviationsFeatureAvailabilityStore setCurrentOnboardingVersionCompletedForCountryCode:iSOCode2 countryCodeProvenance:provenance2 date:0 settings:v41 completion:v61];
 
-    v18 = v60;
+    v18 = v59;
     v21 = MEMORY[0x277CCC120];
   }
 
@@ -707,15 +701,13 @@ void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_c
     iSOCode3 = [wristTemperatureInputSupportedCountryCode2 ISOCode];
     wristTemperatureInputSupportedCountryCode3 = [v19 wristTemperatureInputSupportedCountryCode];
     provenance3 = [wristTemperatureInputSupportedCountryCode3 provenance];
-    v61[0] = MEMORY[0x277D85DD0];
-    v61[1] = 3221225472;
-    v61[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_395;
-    v61[3] = &unk_2796D54F0;
-    v61[4] = self;
-    [(HKFeatureAvailabilityStore *)wristTemperatureInputFeatureAvailabilityStore setCurrentOnboardingVersionCompletedForCountryCode:iSOCode3 countryCodeProvenance:provenance3 date:0 settings:v50 completion:v61];
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_395;
+    v60[3] = &unk_2796D54F0;
+    v60[4] = self;
+    [(HKFeatureAvailabilityStore *)wristTemperatureInputFeatureAvailabilityStore setCurrentOnboardingVersionCompletedForCountryCode:iSOCode3 countryCodeProvenance:provenance3 date:0 settings:v50 completion:v60];
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -723,32 +715,31 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   v5 = a3;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = HKCreateSerialDispatchQueue();
+    v6 = HKCreateSerialDispatchQueue();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_391;
     block[3] = &unk_2796D4E58;
-    v8 = *(a1 + 40);
+    v7 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v12 = v8;
-    v13 = *(a1 + 48);
-    dispatch_async(v7, block);
+    v11 = v7;
+    v12 = *(a1 + 48);
+    dispatch_async(v6, block);
   }
 
   else
   {
     _HKInitializeLogging();
-    v9 = *MEMORY[0x277CCC2E8];
+    v8 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_cold_1(a1, v9);
+      __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_cold_1(a1, v8);
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v9 = *(a1 + 48);
+    if (v9)
     {
-      (*(v10 + 16))(v10, 0, v5);
+      (*(v9 + 16))(v9, 0, v5);
     }
   }
 }
@@ -782,7 +773,7 @@ uint64_t __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion__
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_3(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -791,12 +782,11 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current heart rate input onboarding version completed", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current heart rate input onboarding version completed", &v10, 0xCu);
     }
   }
 
@@ -804,13 +794,11 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_3_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_394(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -819,12 +807,11 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current deviation detection onboarding version completed", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current deviation detection onboarding version completed", &v10, 0xCu);
     }
   }
 
@@ -832,13 +819,11 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_394_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_395(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -847,12 +832,11 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current wrist temperature input onboarding version completed", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set current wrist temperature input onboarding version completed", &v10, 0xCu);
     }
   }
 
@@ -860,8 +844,6 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
   {
     __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_395_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_resetOnboardingKeyValueDomainWithError:(id *)error
@@ -973,7 +955,7 @@ void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___blo
 
 void __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -982,12 +964,11 @@ void __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke(uint64_t a1
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v12 = 138543362;
-      v13 = objc_opt_class();
-      v10 = v13;
-      _os_log_impl(&dword_2518FC000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forced HealthKit sync", &v12, 0xCu);
+      v8 = v6;
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v9 = v11;
+      _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Forced HealthKit sync", &v10, 0xCu);
     }
   }
 
@@ -995,13 +976,11 @@ void __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke(uint64_t a1
   {
     __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke_cold_1(a1, v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetOnboarding:(id)onboarding
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   onboardingCopy = onboarding;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
@@ -1009,25 +988,23 @@ void __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke(uint64_t a1
   {
     v6 = v5;
     *buf = 138543362;
-    v18 = objc_opt_class();
-    v7 = v18;
+    v17 = objc_opt_class();
+    v7 = v17;
     _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Resetting onboarding", buf, 0xCu);
   }
 
   featureAvailabilityStore = self->_featureAvailabilityStore;
-  v11 = MEMORY[0x277D85DD0];
-  v12 = 3221225472;
-  v13 = __41__HKMCOnboardingManager_resetOnboarding___block_invoke;
-  v14 = &unk_2796D49B0;
+  v10 = MEMORY[0x277D85DD0];
+  v11 = 3221225472;
+  v12 = __41__HKMCOnboardingManager_resetOnboarding___block_invoke;
+  v13 = &unk_2796D49B0;
   selfCopy = self;
-  v16 = onboardingCopy;
+  v15 = onboardingCopy;
   v9 = onboardingCopy;
-  [(HKFeatureAvailabilityStore *)featureAvailabilityStore resetOnboardingWithCompletion:&v11];
-  [(HKFeatureAvailabilityStore *)self->_heartRateInputFeatureAvailabilityStore resetOnboardingWithCompletion:&__block_literal_global_4, v11, v12, v13, v14, selfCopy];
+  [(HKFeatureAvailabilityStore *)featureAvailabilityStore resetOnboardingWithCompletion:&v10];
+  [(HKFeatureAvailabilityStore *)self->_heartRateInputFeatureAvailabilityStore resetOnboardingWithCompletion:&__block_literal_global_4, v10, v11, v12, v13, selfCopy];
   [(HKFeatureAvailabilityStore *)self->_deviationsFeatureAvailabilityStore resetOnboardingWithCompletion:&__block_literal_global_400];
   [(HKFeatureAvailabilityStore *)self->_wristTemperatureInputFeatureAvailabilityStore resetOnboardingWithCompletion:&__block_literal_global_402];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __41__HKMCOnboardingManager_resetOnboarding___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1035,31 +1012,30 @@ void __41__HKMCOnboardingManager_resetOnboarding___block_invoke(uint64_t a1, cha
   v5 = a3;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = HKCreateSerialDispatchQueue();
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __41__HKMCOnboardingManager_resetOnboarding___block_invoke_398;
-    v11[3] = &unk_2796D4BA8;
-    v8 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v8;
-    dispatch_async(v7, v11);
+    v6 = HKCreateSerialDispatchQueue();
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __41__HKMCOnboardingManager_resetOnboarding___block_invoke_398;
+    v10[3] = &unk_2796D4BA8;
+    v7 = *(a1 + 40);
+    v10[4] = *(a1 + 32);
+    v11 = v7;
+    dispatch_async(v6, v10);
   }
 
   else
   {
     _HKInitializeLogging();
-    v9 = *MEMORY[0x277CCC2E8];
+    v8 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
     {
-      __41__HKMCOnboardingManager_resetOnboarding___block_invoke_cold_1(a1, v9);
+      __41__HKMCOnboardingManager_resetOnboarding___block_invoke_cold_1(a1, v8);
     }
 
-    v10 = *(a1 + 40);
-    if (v10)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-      (*(v10 + 16))(v10, 0, v5);
+      (*(v9 + 16))(v9, 0, v5);
     }
   }
 }
@@ -1090,7 +1066,7 @@ void __41__HKMCOnboardingManager_resetOnboarding___block_invoke_398(uint64_t a1)
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
@@ -1101,26 +1077,24 @@ void __41__HKMCOnboardingManager_resetOnboarding___block_invoke_398(uint64_t a1)
     v8 = v7;
     featureIdentifier = [completionCopy featureIdentifier];
     *buf = 138543618;
-    v14 = v7;
-    v15 = 2114;
-    v16 = featureIdentifier;
+    v13 = v7;
+    v14 = 2114;
+    v15 = featureIdentifier;
     _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notify observers that onboarding state did change for %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __83__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateOnboardingCompletion___block_invoke;
-  v12[3] = &unk_2796D5518;
-  v12[4] = self;
-  [(HKObserverSet *)observers notifyObservers:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateOnboardingCompletion___block_invoke;
+  v11[3] = &unk_2796D5518;
+  v11[4] = self;
+  [(HKObserverSet *)observers notifyObservers:v11];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateSettings:(id)settings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
@@ -1131,23 +1105,21 @@ void __41__HKMCOnboardingManager_resetOnboarding___block_invoke_398(uint64_t a1)
     v8 = v7;
     featureIdentifier = [settingsCopy featureIdentifier];
     *buf = 138543618;
-    v16 = v7;
-    v17 = 2114;
-    v18 = featureIdentifier;
+    v15 = v7;
+    v16 = 2114;
+    v17 = featureIdentifier;
     _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notify observers of feature settings change for %{public}@", buf, 0x16u);
   }
 
   observers = self->_observers;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __71__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateSettings___block_invoke;
-  v13[3] = &unk_2796D5540;
-  v13[4] = self;
-  v14 = settingsCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __71__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateSettings___block_invoke;
+  v12[3] = &unk_2796D5540;
+  v12[4] = self;
+  v13 = settingsCopy;
   v11 = settingsCopy;
-  [(HKObserverSet *)observers notifyObservers:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(HKObserverSet *)observers notifyObservers:v12];
 }
 
 void __71__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateSettings___block_invoke(uint64_t a1, void *a2)
@@ -1162,244 +1134,181 @@ void __71__HKMCOnboardingManager_featureAvailabilityProvidingDidUpdateSettings__
 - (void)_onboardingRecordForFeatureWithIdentifier:error:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving onboarding record: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving onboarding record: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)userEnteredCycleLength
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving user entered cycle length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving user entered cycle length: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)userEnteredPeriodLength
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving user entered period length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving user entered period length: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_setLegacyOnboardingCompletedVersion:error:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting onboarding completed: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting onboarding completed: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_setLegacyOnboardingCompletedVersion:error:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving first onboarding completed date: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error retrieving first onboarding completed date: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_setLegacyOnboardingCompletedVersion:error:.cold.3()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting onboarding completed date: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting onboarding completed date: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_saveUserEnteredCycleLength:userEnteredPeriodLength:userEnteredLastPeriodStartDay:addedCycleFactors:deletedCycleFactors:completion:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting user entered cycle length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting user entered cycle length: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_saveUserEnteredCycleLength:userEnteredPeriodLength:userEnteredLastPeriodStartDay:addedCycleFactors:deletedCycleFactors:completion:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting user entered period length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting user entered period length: %{public}@", v7, v8, v9, v10);
 }
 
 void __156__HKMCOnboardingManager__saveUserEnteredCycleLength_userEnteredPeriodLength_userEnteredLastPeriodStartDay_addedCycleFactors_deletedCycleFactors_completion___block_invoke_386_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error saving added and removed cycle factors: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error saving added and removed cycle factors: %{public}@", v7, v8, v9, v10);
 }
 
 void __156__HKMCOnboardingManager__saveUserEnteredCycleLength_userEnteredPeriodLength_userEnteredLastPeriodStartDay_addedCycleFactors_deletedCycleFactors_completion___block_invoke_388_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error saving user entered last period: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error saving user entered last period: %{public}@", v7, v8, v9, v10);
 }
 
 void __82__HKMCOnboardingManager__setCurrentOnboardingVersionCompletedWithInfo_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error setting saving current onboarding version completed to feature availability store: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting saving current onboarding version completed to feature availability store: %{public}@", v7, v8, v9, v10);
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error saving current onboarding version completed: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error saving current onboarding version completed: %{public}@", v7, v8, v9, v10);
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_3_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error setting current heart rate input onboarding version completed: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting current heart rate input onboarding version completed: %{public}@", v7, v8, v9, v10);
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_394_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error setting current deviation detection onboarding version completed: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting current deviation detection onboarding version completed: %{public}@", v7, v8, v9, v10);
 }
 
 void __67__HKMCOnboardingManager_setOnboardingCompletedWithInfo_completion___block_invoke_395_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error setting current wrist temperature input onboarding version completed: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error setting current wrist temperature input onboarding version completed: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_resetOnboardingKeyValueDomainWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error resetting onboarding completed: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error resetting onboarding completed: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_resetOnboardingKeyValueDomainWithError:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error resetting onboarding completed date: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error resetting onboarding completed date: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_resetOnboardingCharacteristicsWithError:.cold.1()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error clearing user entered cycle length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error clearing user entered cycle length: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)_resetOnboardingCharacteristicsWithError:.cold.2()
 {
   OUTLINED_FUNCTION_2_1();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3_2();
   v4 = OUTLINED_FUNCTION_0_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error clearing user entered period length: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error clearing user entered period length: %{public}@", v7, v8, v9, v10);
 }
 
 void __46__HKMCOnboardingManager__triggerHealthKitSync__block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error forcing HealthKit sync: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error forcing HealthKit sync: %{public}@", v7, v8, v9, v10);
 }
 
 void __41__HKMCOnboardingManager_resetOnboarding___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4_1(a1, a2);
-  v4 = OUTLINED_FUNCTION_3_2();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v6, v7, "[%{public}@] Error resetting onboarding in feature availability store: %{public}@", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v3 = OUTLINED_FUNCTION_3_2();
+  v4 = OUTLINED_FUNCTION_0_0(v3);
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Error resetting onboarding in feature availability store: %{public}@", v7, v8, v9, v10);
 }
 
 @end

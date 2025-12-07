@@ -45,29 +45,29 @@
 
 - (id)allKeys
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v4 = [defaultManager enumeratorAtPath:self->_directory];
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(NSString *)self->_directory stringByAppendingPathComponent:v9];
         v11 = [v10 stringByAppendingPathComponent:self->_fileName];
         v12 = [v11 stringByAppendingPathExtension:self->_pathExtension];
@@ -82,13 +82,11 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -197,7 +195,7 @@ LABEL_8:
 
 - (BOOL)_saveDictionary:(id)dictionary atPath:(id)path
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   pathCopy = path;
   v7 = MEMORY[0x1E6983368];
@@ -206,9 +204,9 @@ LABEL_8:
   {
     v9 = v8;
     *buf = 138543618;
-    v27 = pathCopy;
-    v28 = 2048;
-    v29 = [dictionaryCopy count];
+    v26 = pathCopy;
+    v27 = 2048;
+    v28 = [dictionaryCopy count];
     _os_log_impl(&dword_1DA7A9000, v9, OS_LOG_TYPE_DEFAULT, "Saving file at %{public}@ with %lu items", buf, 0x16u);
   }
 
@@ -216,24 +214,24 @@ LABEL_8:
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   if (([defaultManager fileExistsAtPath:stringByDeletingLastPathComponent] & 1) == 0)
   {
-    v25 = 0;
-    v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
-    v13 = v25;
+    v24 = 0;
+    v12 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
+    v13 = v24;
     if ((v12 & 1) == 0 && os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
     {
       [UNCBundleLibrarian _queue_saveDictionary:atPath:];
     }
   }
 
-  v24 = 0;
-  v14 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v24];
-  v15 = v24;
+  v23 = 0;
+  v14 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:dictionaryCopy requiringSecureCoding:1 error:&v23];
+  v15 = v23;
   v16 = v15;
   if (v14)
   {
-    v23 = v15;
-    v17 = [v14 writeToFile:pathCopy options:268435457 error:&v23];
-    v18 = v23;
+    v22 = v15;
+    v17 = [v14 writeToFile:pathCopy options:268435457 error:&v22];
+    v18 = v22;
 
     if (v17)
     {
@@ -264,7 +262,6 @@ LABEL_8:
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -286,75 +283,61 @@ LABEL_8:
 
 - (void)_dictionaryAtPath:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543618;
-    v7 = a2;
-    v8 = 2114;
-    v9 = v3;
-    _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v6, 0x16u);
+    v5 = 138543618;
+    v6 = a2;
+    v7 = 2114;
+    v8 = v3;
+    _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Exception caught data at %{public}@; exception: %{public}@", &v5, 0x16u);
   }
 
   objc_end_catch();
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dictionaryAtPath:(uint64_t)a3 .cold.2(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = a1;
   objc_opt_class();
   OUTLINED_FUNCTION_0_1();
-  v9 = a3;
+  v8 = a3;
   v6 = v5;
-  _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Unexpected class %{public}@ decocded at %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1DA7A9000, v4, OS_LOG_TYPE_ERROR, "Unexpected class %{public}@ decocded at %{public}@", v7, 0x16u);
 }
 
 - (void)_dataAtPath:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "No data found at %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "No data found at %{public}@", &v2, 0xCu);
 }
 
 - (void)_saveDictionary:(void *)a1 atPath:.cold.2(void *a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = objc_begin_catch(a1);
   v2 = *MEMORY[0x1E6983368];
   if (os_log_type_enabled(*MEMORY[0x1E6983368], OS_LOG_TYPE_ERROR))
   {
-    v4 = 138543362;
-    v5 = v1;
-    _os_log_error_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_ERROR, "Unable to archive objects: %{public}@", &v4, 0xCu);
+    v3 = 138543362;
+    v4 = v1;
+    _os_log_error_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_ERROR, "Unable to archive objects: %{public}@", &v3, 0xCu);
   }
 
   objc_end_catch();
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_saveDictionary:(uint64_t)a1 atPath:(NSObject *)a2 .cold.4(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "Could not encode object data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_removeDictionaryAtPath:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA7A9000, v0, v1, "Could not delete %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA7A9000, a2, OS_LOG_TYPE_ERROR, "Could not encode object data: %{public}@", &v2, 0xCu);
 }
 
 @end

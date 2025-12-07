@@ -333,20 +333,6 @@ double ZOTNormalizeVelocity(double a1)
   return v1 / 2175.0;
 }
 
-void ZOTDistanceForTimeAndVelocityWithMaxDistance(double a1, double a2, double a3, double a4, double a5)
-{
-  v7 = a2 * a2 * ((1.1 - a2) * 0.85) * (a2 * 0.5 * ((a1 + 0.400000006) * 9.0 * exp((a1 + 0.400000006) * -3.0)) * 0.5) * ((AXZoomMaximumZoomLevel - a5) / AXZoomMaximumZoomLevel + 0.75);
-  if (ZOTIsWildcat)
-  {
-    v7 = v7 / 1.2;
-  }
-
-  if (((fabs(a3 * v7) < 0.00800000038) & (fabs(a4 * v7) < 0.00800000038)) != 0)
-  {
-    y = CGPointZero.y;
-  }
-}
-
 float ZOTGutterDistance()
 {
   v0 = _UnitTestGutterDistance;
@@ -363,7 +349,7 @@ float ZOTGutterDistance()
   return *&v0;
 }
 
-double ZOTNotGutterFrame()
+double ZOTNotGutterFrame(uint64_t a1, uint64_t a2)
 {
   if (ZOTNotGutterFrame_onceToken != -1)
   {
@@ -373,10 +359,10 @@ double ZOTNotGutterFrame()
   return *&ZOTNotGutterFrame_nonGutterFrame_0;
 }
 
-uint64_t ZOTShouldStartAutopan(double *a1, BOOL *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
+uint64_t ZOTShouldStartAutopan(double *DistanceBetweenPoints, BOOL *a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14)
 {
-  v24 = a5 != 0.0 && a8 > 1.0;
-  if (!v24 || (v25 = 0.0, *a2))
+  v20 = a5 != 0.0 && a8 > 1.0;
+  if (!v20 || (v21 = 0.0, *a2))
   {
     SCRCMathGetDistanceBetweenPoints();
     if (ZOTIsWildcat != 1)
@@ -386,117 +372,117 @@ uint64_t ZOTShouldStartAutopan(double *a1, BOOL *a2, double a3, double a4, doubl
       return result;
     }
 
-    v25 = v26;
-    v27 = CGPointZero.x != a6;
+    v21 = v22;
+    v23 = CGPointZero.x != a6;
     if (CGPointZero.y != a7)
     {
-      v27 = 1;
+      v23 = 1;
     }
 
-    if (v26 <= 0.0700000003)
+    if (v22 <= 0.0700000003)
     {
-      v27 = 0;
+      v23 = 0;
     }
 
-    *a2 = v27;
-    if (!v27)
+    *a2 = v23;
+    if (!v23)
     {
       return 0;
     }
   }
 
-  v28 = _AXSVoiceOverTouchEnabled();
-  v29 = ZOTGutterDistance();
-  if (v28)
+  v24 = _AXSVoiceOverTouchEnabled();
+  v25 = ZOTGutterDistance();
+  if (v24)
   {
-    v29 = v29 / 3.0;
+    v25 = v25 / 3.0;
   }
 
-  v30 = v29 / ZOTMainScreenScaleFactor();
-  if (a3 >= a11 + v30)
+  v26 = v25 / ZOTMainScreenScaleFactor();
+  if (a3 >= a11 + v26)
   {
-    if (a3 <= a11 + a13 - v30)
+    if (a3 <= a11 + a13 - v26)
     {
-      v36 = 0;
-      v35 = 0.0;
+      v32 = 0;
+      v31 = 0.0;
       goto LABEL_26;
     }
 
-    v31 = a11 + a13 - a3;
+    v27 = a11 + a13 - a3;
   }
 
   else
   {
-    v31 = a3 - a11;
+    v27 = a3 - a11;
   }
 
-  v33 = ZOTGutterDistance();
+  v29 = ZOTGutterDistance();
   if (ZOTIsWildcat == 1)
   {
-    v34 = pow(v31 / v33, -1.2) * 1.5 / 10.0;
+    v30 = pow(v27 / v29, -1.2) * 1.5 / 10.0;
   }
 
   else
   {
-    v34 = (v33 - v31) / v33;
+    v30 = (v29 - v27) / v29;
   }
 
-  v35 = (v34 + 0.0) * ZOTMainScreenScaleFactor() + 0.0;
-  v36 = 1;
+  v31 = (v30 + 0.0) * ZOTMainScreenScaleFactor() + 0.0;
+  v32 = 1;
 LABEL_26:
-  if (a4 >= a12 + v30)
+  if (a4 >= a12 + v26)
   {
-    if (a4 <= a12 + a14 - v30)
+    if (a4 <= a12 + a14 - v26)
     {
       goto LABEL_34;
     }
 
-    v37 = a12 + a14 - a4;
+    v33 = a12 + a14 - a4;
   }
 
   else
   {
-    v37 = a4 - a12;
+    v33 = a4 - a12;
   }
 
-  v38 = ZOTGutterDistance();
+  v34 = ZOTGutterDistance();
   if (ZOTIsWildcat == 1)
   {
-    v39 = pow(v37 / v38, -1.2) * 1.5 / 10.0;
+    v35 = pow(v33 / v34, -1.2) * 1.5 / 10.0;
   }
 
   else
   {
-    v39 = (v38 - v37) / v38;
+    v35 = (v34 - v33) / v34;
   }
 
-  v35 = v35 + (v39 + 0.0) * ZOTMainScreenScaleFactor();
-  ++v36;
+  v31 = v31 + (v35 + 0.0) * ZOTMainScreenScaleFactor();
+  ++v32;
 LABEL_34:
   if (*a2)
   {
-    v40 = v25 + -0.0700000003;
-    if (v25 > 0.899999976)
+    v36 = v21 + -0.0700000003;
+    if (v21 > 0.899999976)
     {
-      v40 = 0.819999976;
+      v36 = 0.819999976;
     }
 
-    v41 = pow(v40, 3.0) * 1000.0;
-    v35 = v41 * ZOTMainScreenScaleFactor();
-    ++v36;
+    v37 = pow(v36, 3.0) * 1000.0;
+    v31 = v37 * ZOTMainScreenScaleFactor();
+    ++v32;
   }
 
-  else if (!v36)
+  else if (!v32)
   {
     result = 0;
-    v42 = 0.0;
+    v38 = 0.0;
     goto LABEL_40;
   }
 
-  v42 = v35 / v36;
+  v38 = v31 / v32;
   result = 1;
 LABEL_40:
-  *a1 = v42;
+  *DistanceBetweenPoints = v38;
   return result;
 }
 
@@ -543,97 +529,97 @@ uint64_t ZOTScreenRegionForPoint(int a1, double a2, double a3, double a4, double
   return result;
 }
 
-uint64_t ZOTScreenRegionForRelativePushPan(uint64_t a1)
+uint64_t ZOTScreenRegionForRelativePushPan(uint64_t a1, double a2, double a3, double a4, double a5)
 {
   SCRCMathGetVectorAndDistanceForPoints();
-  v2 = 0.0;
+  v6 = 0.0;
   switch(a1)
   {
     case 4:
-      v3 = 90.0;
+      v7 = 90.0;
       goto LABEL_8;
     case 3:
-      v3 = -90.0;
+      v7 = -90.0;
       goto LABEL_8;
     case 2:
-      v2 = 0.0 + -180.0;
+      v6 = 0.0 + -180.0;
       if (0.0 + -180.0 < 0.0)
       {
-        v3 = 360.0;
+        v7 = 360.0;
 LABEL_8:
-        v2 = v2 + v3;
+        v6 = v6 + v7;
       }
 
       break;
   }
 
-  v4 = 360.0;
-  if (v2 < 0.0)
+  v8 = 360.0;
+  if (v6 < 0.0)
   {
 LABEL_12:
-    v2 = v2 + v4;
+    v6 = v6 + v8;
     goto LABEL_13;
   }
 
-  if (v2 > 360.0)
+  if (v6 > 360.0)
   {
-    v4 = -360.0;
+    v8 = -360.0;
     goto LABEL_12;
   }
 
 LABEL_13:
-  if (v2 >= 0.0 && v2 <= 90.0)
+  if (v6 >= 0.0 && v6 <= 90.0)
   {
-    if (v2 < 35.0)
+    if (v6 < 35.0)
     {
       result = 4;
 LABEL_29:
-      v6 = 1;
+      v10 = 1;
       goto LABEL_30;
     }
 
-    v7 = v2 <= 55.0;
-    v8 = 6;
-    v9 = 2;
+    v11 = v6 <= 55.0;
+    v12 = 6;
+    v13 = 2;
 LABEL_26:
-    if (v7)
+    if (v11)
     {
-      result = v8;
+      result = v12;
     }
 
     else
     {
-      result = v9;
+      result = v13;
     }
 
     goto LABEL_29;
   }
 
-  if (v2 <= 90.0 || v2 > 180.0)
+  if (v6 <= 90.0 || v6 > 180.0)
   {
-    if (v2 <= 180.0 || v2 > 270.0)
+    if (v6 <= 180.0 || v6 > 270.0)
     {
       result = 0;
-      v6 = 1;
-      if (v2 > 270.0 && v2 <= 360.0)
+      v10 = 1;
+      if (v6 > 270.0 && v6 <= 360.0)
       {
-        if (v2 >= 305.0)
+        if (v6 >= 305.0)
         {
-          v7 = v2 <= 325.0;
-          v8 = 5;
-          v9 = 4;
+          v11 = v6 <= 325.0;
+          v12 = 5;
+          v13 = 4;
           goto LABEL_26;
         }
 
-        v6 = 1;
+        v10 = 1;
         result = 1;
       }
     }
 
-    else if (v2 >= 215.0)
+    else if (v6 >= 215.0)
     {
-      v6 = v2 > 235.0;
-      if (v2 > 235.0)
+      v10 = v6 > 235.0;
+      if (v6 > 235.0)
       {
         result = 1;
       }
@@ -646,21 +632,21 @@ LABEL_26:
 
     else
     {
-      v6 = 0;
+      v10 = 0;
       result = 8;
     }
   }
 
   else
   {
-    if (v2 < 125.0)
+    if (v6 < 125.0)
     {
       result = 2;
       goto LABEL_29;
     }
 
-    v6 = 0;
-    if (v2 <= 145.0)
+    v10 = 0;
+    if (v6 <= 145.0)
     {
       result = 10;
     }
@@ -680,32 +666,32 @@ LABEL_30:
   switch(a1)
   {
     case 4:
-      if (v6)
+      if (v10)
       {
-        v11 = ((2 * result) | (result >> 1)) & 9;
+        v15 = ((2 * result) | (result >> 1)) & 9;
       }
 
       else
       {
-        v11 = ((2 * result) | (result >> 1)) & 9 | 4;
+        v15 = ((2 * result) | (result >> 1)) & 9 | 4;
       }
 
-      return v11 & 0xFFFFFFFD | (2 * (result & 1));
+      return v15 & 0xFFFFFFFD | (2 * (result & 1));
     case 3:
       return result;
     case 2:
-      return !v6 & 0xFFFFFFF3 | (8 * ((result >> 1) & 1)) | (result >> 1) & 2 | (4 * (result & 1));
+      return !v10 & 0xFFFFFFF3 | (8 * ((result >> 1) & 1)) | (result >> 1) & 2 | (4 * (result & 1));
     default:
-      if (v6)
+      if (v10)
       {
-        v12 = ((result >> 2) | (2 * result)) & 5;
+        v16 = ((result >> 2) | (2 * result)) & 5;
       }
 
       else
       {
-        v12 = ((result >> 2) | (2 * result)) & 5 | 2;
+        v16 = ((result >> 2) | (2 * result)) & 5 | 2;
       }
 
-      return v12 & 0xFFFFFFF7 | (8 * (result & 1));
+      return v16 & 0xFFFFFFF7 | (8 * (result & 1));
   }
 }

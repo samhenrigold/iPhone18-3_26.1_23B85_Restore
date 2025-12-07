@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_251FE9D98();
+  sub_251FE9D98(selfCopy, v2);
 }
 
 - (_TtC21HearingModeSettingsUI46HMHearingProtectionPPEEnrollmentViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

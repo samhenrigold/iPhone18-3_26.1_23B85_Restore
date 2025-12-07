@@ -39,23 +39,20 @@
 
 + (void)migratePreBlacktailAccountInformation
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   accountName = [a2 accountName];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_ERROR, "TRANSFER PRE-OKEMO -- no ACAccount credential found:%@", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, selfCopy, OS_LOG_TYPE_ERROR, "TRANSFER PRE-OKEMO -- no ACAccount credential found:%@", v5, 0xCu);
 }
 
 + (void)migratePreSundanceAccountInformation
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_227904000, v1, OS_LOG_TYPE_DEBUG, "--> INCOMPLETE TRANSFER PRE-SUNDANCE playerID:%@ token:%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_227904000, v1, OS_LOG_TYPE_DEBUG, "--> INCOMPLETE TRANSFER PRE-SUNDANCE playerID:%@ token:%@", v2, 0x16u);
 }
 
 void __63__GKAuthenticationMachine_migratePreSundanceAccountInformation__block_invoke(uint64_t a1, void *a2)
@@ -77,10 +74,9 @@ void __63__GKAuthenticationMachine_migratePreSundanceAccountInformation__block_i
 
 void __63__GKAuthenticationMachine_migratePreSundanceAccountInformation__block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "TRANSFER PRE-SUNDANCE: failed to set credential: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v0, OS_LOG_TYPE_ERROR, "TRANSFER PRE-SUNDANCE: failed to set credential: %@", v1, 0xCu);
 }
 
 @end

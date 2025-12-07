@@ -63,21 +63,16 @@
 
 - (BOOL)verifyUTF8Fields
 {
-  ptr = self->_ptr;
-  v3 = &ptr[-*ptr->var0];
-  if (*v3->var0 < 7u)
+  v2 = &self->_ptr[-*self->_ptr];
+  if (*v2->var0 >= 7u && *v2[6].var0)
+  {
+    return AFBIsValidUTF8();
+  }
+
+  else
   {
     return 1;
   }
-
-  v4 = *v3[6].var0;
-  if (!v4)
-  {
-    return 1;
-  }
-
-  v5 = *ptr[v4].var0;
-  return AFBIsValidUTF8();
 }
 
 - (const)treatmentIdAsCString
@@ -391,25 +386,7 @@ LABEL_20:
     {
       v7 = objc_autoreleasePoolPush();
       container = [(TRIFBCloudKitTreatmentRecordAsset *)self container];
-      if (container != [v6 container])
-      {
-        goto LABEL_10;
-      }
-
-      treatmentId = [(TRIFBCloudKitTreatmentRecordAsset *)self treatmentId];
-      treatmentId2 = [v6 treatmentId];
-      if (treatmentId | treatmentId2)
-      {
-        v11 = [treatmentId isEqual:treatmentId2];
-
-        if (!v11)
-        {
-          goto LABEL_10;
-        }
-      }
-
-      assetIndex = [(TRIFBCloudKitTreatmentRecordAsset *)self assetIndex];
-      if (assetIndex == [v6 assetIndex])
+      if (container == [v6 container] && ((-[TRIFBCloudKitTreatmentRecordAsset treatmentId](self, "treatmentId"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "treatmentId"), v10 = objc_claimAutoreleasedReturnValue(), !(v9 | v10)) || (v11 = objc_msgSend(v9, "isEqual:", v10), v10, v9, v11)) && (v12 = -[TRIFBCloudKitTreatmentRecordAsset assetIndex](self, "assetIndex"), v12 == objc_msgSend(v6, "assetIndex")))
       {
         hasCkIndex = [(TRIFBCloudKitTreatmentRecordAsset *)self hasCkIndex];
         v14 = hasCkIndex ^ [v6 hasCkIndex] ^ 1;
@@ -417,7 +394,6 @@ LABEL_20:
 
       else
       {
-LABEL_10:
         LOBYTE(v14) = 0;
       }
 

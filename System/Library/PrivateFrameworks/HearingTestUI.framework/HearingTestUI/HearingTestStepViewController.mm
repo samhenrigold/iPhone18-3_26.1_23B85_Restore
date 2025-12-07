@@ -4,6 +4,7 @@
 - (void)cancelButtonTapped:(id)tapped;
 - (void)takeTestAgainButtonTapped:(id)tapped;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HearingTestStepViewController
@@ -73,6 +74,27 @@
 
   selfCopy = self;
   sub_20CDB86F4(appear);
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  sub_20CE13B84();
+  sub_20CE13B74();
+  sub_20CE13B24();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for HearingTestStepViewController(0);
+  selfCopy = self;
+  [(OBBaseWelcomeController *)&v9 viewWillDisappear:disappearCopy];
+  v6 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC13HearingTestUI29HearingTestStepViewController_flowManager);
+  v7 = *__swift_project_boxed_opaque_existential_1(&v6[OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_interruptionViewControllerManager], *&v6[OBJC_IVAR____TtC13HearingTestUI22HearingTestFlowManager_interruptionViewControllerManager + 24]);
+  v8 = v6;
+  sub_20CDB94AC(selfCopy, v7, type metadata accessor for HearingTestStepViewController);
 }
 
 - (_TtC13HearingTestUI29HearingTestStepViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

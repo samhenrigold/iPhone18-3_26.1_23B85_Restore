@@ -29,10 +29,7 @@ uint64_t __63__NSString_ECEmailAddressQuoting__ecemailaddress_uniquedDomain__blo
     [ecemailaddress_uniquedDomain_uniqueStrings removeAllObjects];
   }
 
-  v2 = [ecemailaddress_uniquedDomain_uniqueStrings ef_uniquedObject:*(a1 + 32)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [ecemailaddress_uniquedDomain_uniqueStrings ef_uniquedObject:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }

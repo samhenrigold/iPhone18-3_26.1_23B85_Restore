@@ -42,7 +42,7 @@
 {
   if (d)
   {
-    v5 = [(NSMutableDictionary *)self->_userActivitiesStore objectForKey:?];
+    v5 = objc_msgSend_objectForKey_(self->_userActivitiesStore, a2);
     if (!v5)
     {
       [(ADIntentsUserActivityManager *)self reset];

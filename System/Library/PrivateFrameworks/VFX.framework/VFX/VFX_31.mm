@@ -1,3 +1,918 @@
+uint64_t sub_1AF38EFCC(uint64_t a1)
+{
+  *a1 = &unk_1F24ED188;
+  (*(*(a1 + 16) + 16))();
+
+  return a1;
+}
+
+CFX::CrossFrameResourceManager *CFX::CrossFrameResourceManager::CrossFrameResourceManager(CFX::CrossFrameResourceManager *this)
+{
+  sub_1AF140928(this, 32);
+  return this;
+}
+
+{
+  sub_1AF140928(this, 32);
+  return this;
+}
+
+uint64_t CFX::CrossFrameResourceManager::get(CFX::CrossFrameResourceManager *this, uint64_t a2)
+{
+  v2 = (*(this + 7) - 1) & a2;
+  v3 = *(*(this + 2) + 2 * v2);
+  if (v3 < 2)
+  {
+    return 0;
+  }
+
+  while ((v3 & 2) == 0 || *(*this + 8 * v2) != a2)
+  {
+    ++v2;
+    v4 = v3 >= 4;
+    v3 >>= 1;
+    if (!v4)
+    {
+      return 0;
+    }
+  }
+
+  v6 = *(this + 1);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  result = *(v6 + 8 * v2);
+  *(result + 8) = 0;
+  return result;
+}
+
+uint64_t CFX::CrossFrameResourceManager::set(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = a3;
+  sub_1AF38EA2C(a1, a2, &v4);
+  result = v4;
+  v4 = 0;
+  if (result)
+  {
+    return (*(*result + 8))(result);
+  }
+
+  return result;
+}
+
+void sub_1AF38F15C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  if (a10)
+  {
+    sub_1AFDFB5A0(a10);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void CFX::CrossFrameResourceManager::nextFrame(CFX::CrossFrameResourceManager *this)
+{
+  v18 = 0x2000000000;
+  v19 = v20;
+  v1 = *(this + 7);
+  if (v1 != -15)
+  {
+    v3 = 0;
+    do
+    {
+      if (*(*(this + 2) + 2 * v3))
+      {
+        v4 = *this;
+        v5 = *(*(this + 1) + 8 * v3);
+        v6 = *(v5 + 8);
+        *(v5 + 8) = v6 + 1;
+        if (v6 >= 0xA)
+        {
+          sub_1AF1576F0(&v18, (v4 + 8 * v3));
+          v1 = *(this + 7);
+        }
+      }
+
+      ++v3;
+    }
+
+    while (v3 < (v1 + 15));
+    if (v18)
+    {
+      v7 = v19;
+      v8 = v19 + 8 * v18;
+      do
+      {
+        v9 = (*(this + 7) - 1) & *v7;
+        v10 = *(this + 2);
+        v11 = *(v10 + 2 * v9);
+        if (v11 >= 2)
+        {
+          v12 = 1;
+          v13 = *(v10 + 2 * v9);
+          while (1)
+          {
+            if ((v13 & 2) != 0)
+            {
+              v14 = v9 + v12 - 1;
+              if (*v7 == *(*this + 8 * v14))
+              {
+                break;
+              }
+            }
+
+            ++v12;
+            v15 = v13 > 3;
+            v13 >>= 1;
+            if (!v15)
+            {
+              goto LABEL_18;
+            }
+          }
+
+          *(v10 + 2 * v9) = v11 ^ (1 << v12);
+          *(v10 + 2 * v14) ^= 1u;
+          v16 = *(this + 1);
+          v17 = *(v16 + 8 * v14);
+          *(v16 + 8 * v14) = 0;
+          if (v17)
+          {
+            (*(*v17 + 8))(v17);
+          }
+
+          --*(this + 6);
+        }
+
+LABEL_18:
+        v7 += 8;
+      }
+
+      while (v7 != v8);
+    }
+  }
+
+  if (HIDWORD(v18))
+  {
+    if (v19 != v20)
+    {
+      free(v19);
+    }
+  }
+}
+
+void sub_1AF38F30C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10, void *a11)
+{
+  if (a10)
+  {
+    if (a11 != v11)
+    {
+      free(a11);
+    }
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void CFX::CrossFrameResourceManager::~CrossFrameResourceManager(CFX::CrossFrameResourceManager *this)
+{
+  v2 = *(this + 1);
+  if (v2)
+  {
+    sub_1AF2756F4(v2, *(this + 2), *(this + 7) + 15);
+    free(*(this + 1));
+  }
+
+  free(*this);
+  free(*(this + 2));
+}
+
+int *sub_1AF38F384(vm_address_t *address, uint64_t a2)
+{
+  v3 = ((*MEMORY[0x1E69E9AC8] - 1) | (a2 - 1)) + 1;
+  result = vm_allocate(*MEMORY[0x1E69E9A60], address, v3, 1);
+  if (result)
+  {
+    result = __error();
+    *result = 12;
+    *address = 0;
+  }
+
+  else
+  {
+    address[1] = v3;
+  }
+
+  return result;
+}
+
+int *sub_1AF38F3F8(int *result, mach_vm_size_t a2)
+{
+  v3 = result;
+  *(result + 2) = 0;
+  v4 = *(result + 3);
+  v5 = MEMORY[0x1E69E9A60];
+  if (v4)
+  {
+    do
+    {
+      v6 = v4[3];
+      mach_vm_deallocate(*v5, *v4, v4[1]);
+      result = MEMORY[0x1B271C6B0](v4, 0x10A0C4064A2AE3FLL);
+      v4 = v6;
+    }
+
+    while (v6);
+  }
+
+  v3[3] = 0;
+  v3[4] = v3;
+  v7 = v3[1];
+  if (v7 < a2)
+  {
+    mach_vm_deallocate(*v5, *v3, v7);
+
+    return sub_1AF38F384(v3, a2);
+  }
+
+  return result;
+}
+
+char *CScratchAllocatorAllocateAligned_0(void *a1, size_t a2, uint64_t a3, int a4)
+{
+  v4 = 0;
+  v5 = a3 - 1;
+  v6 = -a3;
+  while (1)
+  {
+    v8 = a1[1];
+    v9 = a1[2];
+    v10 = *a1 + v9;
+    v11 = ((v5 + v10) & v6) - v10 + a2;
+    if (v11 <= v8 - v9)
+    {
+      break;
+    }
+
+    v4 += v8;
+    a1 = a1[3];
+    if (!a1)
+    {
+      operator new();
+    }
+  }
+
+  a1[2] = v11 + v9;
+  return ((v5 + v10) & v6);
+}
+
+int *CScratchAllocatorReset_0(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  for (i = *(a1 + 24); i; i = *(i + 24))
+  {
+    v1 += *(i + 8);
+  }
+
+  return sub_1AF38F3F8(a1, v1);
+}
+
+mach_vm_address_t *CScratchAllocatorDestroy(mach_vm_address_t *result)
+{
+  if (result)
+  {
+    v1 = result;
+    sub_1AF38F3F8(result, 0);
+    mach_vm_deallocate(*MEMORY[0x1E69E9A60], *v1, v1[1]);
+
+    JUMPOUT(0x1B271C6B0);
+  }
+
+  return result;
+}
+
+uint64_t CScratchAllocatorCapacity(uint64_t a1)
+{
+  v1 = a1;
+  for (result = *(a1 + 8); ; result += *(v1 + 8))
+  {
+    v1 = *(v1 + 24);
+    if (!v1)
+    {
+      break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t CScratchAllocatorSize(uint64_t a1)
+{
+  v1 = a1;
+  for (result = *(a1 + 16); ; result += *(v1 + 16))
+  {
+    v1 = *(v1 + 24);
+    if (!v1)
+    {
+      break;
+    }
+  }
+
+  return result;
+}
+
+uint64_t CStackAllocatorDestroy(uint64_t a1)
+{
+  result = sub_1AF38F858(a1, 0);
+  if (a1)
+  {
+
+    JUMPOUT(0x1B271C6B0);
+  }
+
+  return result;
+}
+
+uint64_t sub_1AF38F858(uint64_t result, uint64_t a2)
+{
+  v2 = result;
+  v3 = *result;
+  if (*result == a2)
+  {
+    v7 = *result;
+  }
+
+  else
+  {
+    v5 = result + 8;
+    v6 = MEMORY[0x1E69E9A60];
+    do
+    {
+      v7 = *(v3 + 16);
+      result = mach_vm_deallocate(*v6, *v3, *(v3 + 8));
+      if (v3 != v5)
+      {
+        result = MEMORY[0x1B271C6B0](v3, 0x1030C40D5FA72FALL);
+      }
+
+      v3 = v7;
+    }
+
+    while (v7 != a2);
+  }
+
+  *v2 = v7;
+  return result;
+}
+
+void *CStackAllocatorAllocateAligned(uint64_t *a1, size_t a2, uint64_t a3, int a4)
+{
+  v4 = *a1;
+  while (1)
+  {
+    v5 = *(v4 + 12);
+    v6 = *v4 + v5;
+    v7 = ((a3 - 1 + v6) & -a3);
+    if (v7 + a2 - v6 <= (*(v4 + 8) - v5))
+    {
+      break;
+    }
+
+    v4 = *(v4 + 16);
+    if (!v4)
+    {
+      operator new();
+    }
+  }
+
+  *(v4 + 12) = a2 + v7 - *v4;
+  if (a4 == 2)
+  {
+
+    return memset(v7, 255, a2);
+  }
+
+  else
+  {
+    if (a4 == 1)
+    {
+      bzero(v7, a2);
+    }
+
+    return v7;
+  }
+}
+
+void *CStackAllocatorResizeLast(uint64_t *a1, size_t a2)
+{
+  v2 = a1[4];
+  v3 = *a1;
+  v4 = **a1;
+  v5 = v2 + a2 - v4;
+  if (*(*a1 + 8) > v5)
+  {
+    *(v3 + 3) = v5;
+    return v2;
+  }
+
+  v6 = (v4 + *(v3 + 3) - v2);
+  Aligned = CStackAllocatorAllocateAligned(a1, a2, 32, 2);
+  if (v2)
+  {
+    v8 = v6 == 0;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  if (v8)
+  {
+    return Aligned;
+  }
+
+  return memcpy(Aligned, v2, v6);
+}
+
+void *CStackAllocatorReallocate(uint64_t *a1, unint64_t a2, size_t a3, size_t a4, uint64_t a5)
+{
+  if (a1[4] == a2 && ((a5 - 1) & a2) == 0)
+  {
+
+    return CStackAllocatorResizeLast(a1, a4);
+  }
+
+  else
+  {
+    result = CStackAllocatorAllocateAligned(a1, a4, a5, 2);
+    if (a2 && a3)
+    {
+
+      return memcpy(result, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+unsigned int *CStackAllocatorPushFrame(unsigned int *result)
+{
+  v1 = result[140];
+  if (v1 != 31)
+  {
+    result[140] = v1 + 1;
+    v2 = *(*result + 12);
+    v3 = &result[4 * v1];
+    *(v3 + 6) = *result;
+    v3[14] = v2;
+  }
+
+  return result;
+}
+
+uint64_t CStackAllocatorPopFrame(uint64_t a1)
+{
+  v2 = *(a1 + 560) - 1;
+  v3 = a1 + 16 * v2;
+  v6 = *(v3 + 48);
+  v4 = v3 + 48;
+  v5 = v6;
+  *(a1 + 560) = v2;
+  v7 = *(v4 + 8);
+  *(v6 + 12) = v7;
+  v8 = a1 + 8;
+  if (v7)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v9 = v5 == v8;
+  }
+
+  if (v9)
+  {
+    v10 = v5;
+  }
+
+  else
+  {
+    v10 = *(v5 + 16);
+  }
+
+  result = sub_1AF38F858(a1, v10);
+  if (v5 == v8 && !*(v10 + 12))
+  {
+    v12 = *(v10 + 8);
+    if (*(a1 + 40) > v12)
+    {
+      v13 = MEMORY[0x1E69E9A60];
+      mach_vm_deallocate(*MEMORY[0x1E69E9A60], *v10, v12);
+      v14 = ((*MEMORY[0x1E69E9AC8] - 1) | (*(a1 + 40) - 1)) + 1;
+      *(v10 + 8) = v14;
+      result = vm_allocate(*v13, v10, v14, 1);
+    }
+  }
+
+  *v4 = 0;
+  *(v4 + 8) = 0;
+  return result;
+}
+
+uint64_t CStackAllocatorSize(uint64_t *a1)
+{
+  v1 = *a1;
+  if (!*a1)
+  {
+    return 0;
+  }
+
+  result = 0;
+  do
+  {
+    result += *(v1 + 12);
+    v1 = *(v1 + 16);
+  }
+
+  while (v1);
+  return result;
+}
+
+void CFX::GPUResourceManager::~GPUResourceManager(CFX::GPUResourceManager *this)
+{
+  v2 = *this;
+  *this = 0;
+  if (v2)
+  {
+    v3 = sub_1AF3919CC(v2);
+    MEMORY[0x1B271C6B0](v3, 0x10B0C400869E0CBLL);
+  }
+}
+
+void CFX::GPUResourceManager::clear(CFX::GPUResourceManager *this)
+{
+  sub_1AF38FE70(*this + 8);
+  sub_1AF38FEFC(*this + 104);
+  sub_1AF38FE70(*this + 40);
+  sub_1AF38FEFC(*this + 136);
+  v2 = *this;
+  memset(*(v2 + 224), 255, 8 * (*(v2 + 252) + 15));
+  bzero(*(v2 + 240), 2 * (*(v2 + 252) + 15));
+  *(v2 + 248) = 0;
+}
+
+void sub_1AF38FE70(uint64_t a1)
+{
+  v2 = *(a1 + 28);
+  v3 = (v2 + 15);
+  if (v2 == -15)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v4 = *(a1 + 8);
+    v5 = *(a1 + 16);
+    do
+    {
+      v6 = *v5++;
+      if (v6)
+      {
+      }
+
+      ++v4;
+      --v3;
+    }
+
+    while (v3);
+    v7 = 8 * (*(a1 + 28) + 15);
+  }
+
+  memset(*a1, 255, v7);
+  bzero(*(a1 + 16), 2 * (*(a1 + 28) + 15));
+  *(a1 + 24) = 0;
+}
+
+void sub_1AF38FEFC(uint64_t a1)
+{
+  v2 = *(a1 + 28);
+  v3 = (v2 + 15);
+  if (v2 == -15)
+  {
+    v7 = 0;
+  }
+
+  else
+  {
+    v4 = *(a1 + 8);
+    v5 = *(a1 + 16);
+    do
+    {
+      v6 = *v5++;
+      if (v6)
+      {
+      }
+
+      v4 += 3;
+      --v3;
+    }
+
+    while (v3);
+    v7 = 8 * (*(a1 + 28) + 15);
+  }
+
+  memset(*a1, 255, v7);
+  bzero(*(a1 + 16), 2 * (*(a1 + 28) + 15));
+  *(a1 + 24) = 0;
+}
+
+void CFX::GPUResourceManager::nextFrame(CFX::GPUResourceManager *this)
+{
+  sub_1AF38FE70(*this + 8);
+  sub_1AF38FEFC(*this + 104);
+  CFXTextureAllocatorPerFrameNextFrame(*(*this + 168));
+  CFXBufferAllocatorPerFrameNextFrame(*(*this + 184), v2);
+  CFXBufferAllocatorPerFrameNextFrame(*(*this + 176), v3);
+  v4 = *this;
+  memset(*(v4 + 224), 255, 8 * (*(v4 + 252) + 15));
+  bzero(*(v4 + 240), 2 * (*(v4 + 252) + 15));
+  *(v4 + 248) = 0;
+}
+
+void CFX::GPUResourceManager::clearResourcesMapping(CFX::GPUResourceManager *this)
+{
+  v1 = *this;
+  memset(*(*this + 192), 255, 8 * (*(*this + 220) + 15));
+  bzero(*(v1 + 208), 2 * (*(v1 + 220) + 15));
+  *(v1 + 216) = 0;
+}
+
+BOOL CFX::GPUResourceManager::isAllocated(CFX::GPUResourceManager *this, const CFX::RG::Resource *a2)
+{
+  v4 = CFX::RG::Resource::type(a2);
+  if (v4 != 3)
+  {
+    if (v4 != 2)
+    {
+      if (v4 != 1)
+      {
+        return 0;
+      }
+
+      goto LABEL_8;
+    }
+
+    v5 = CFX::RG::Resource::externalResourceDesc(a2);
+    v4 = CFX::RG::ExternalResourceDesc::kind(v5);
+    if (!v4)
+    {
+LABEL_8:
+      v8 = CFX::RG::Temporal::currentFrame(v4);
+      CFX::GPUResourceManager::getBuffer(this, a2, v8);
+      v7 = CFXBufferSliceGetMTLBuffer();
+      goto LABEL_9;
+    }
+
+    v4 = CFX::RG::ExternalResourceDesc::kind(v5);
+    if (v4 != 1)
+    {
+      return 0;
+    }
+  }
+
+  v6 = CFX::RG::Temporal::currentFrame(v4);
+  v7 = CFX::GPUResourceManager::getTexture(this, a2, v6);
+LABEL_9:
+  v9 = v7 != 0;
+
+  return v9;
+}
+
+void CFX::GPUResourceManager::getBuffer(CFX::GPUResourceManager *a1, CFX::RG::Resource *a2, unsigned __int8 a3)
+{
+  v5 = CFX::GPUResourceManager::remappedResource(a1, a2);
+  v6 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v5) ^ ((0x9DDFEA08EB382D69 * v5) >> 47));
+  v7 = 0x9DDFEA08EB382D69 * (v6 ^ (v6 >> 47));
+  v8 = CFX::RG::Resource::lifetime(v5);
+  if (v8 == 2)
+  {
+    if (CFX::RG::Resource::frameCount(v5) < 2)
+    {
+      v17 = 0;
+    }
+
+    else
+    {
+      v13 = *a1;
+      v14 = (*(*a1 + 100) - 1) & v7;
+      v15 = *(*(*a1 + 88) + 2 * v14);
+      if (v15 < 2)
+      {
+LABEL_13:
+        LODWORD(v16) = 0;
+      }
+
+      else
+      {
+        while ((v15 & 2) == 0 || v7 != *(*(v13 + 72) + 8 * v14))
+        {
+          ++v14;
+          v12 = v15 >= 4;
+          v15 >>= 1;
+          if (!v12)
+          {
+            goto LABEL_13;
+          }
+        }
+
+        v16 = *(v13 + 80);
+        if (v16)
+        {
+          LODWORD(v16) = *(v16 + v14);
+        }
+      }
+
+      v17 = (v16 + a3) % CFX::RG::Resource::frameCount(v5);
+    }
+
+    v18 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * (v17 ^ v7)) >> 47) ^ (0x9DDFEA08EB382D69 * (v17 ^ v7)));
+    v19 = 0x9DDFEA08EB382D69 * (v18 ^ (v18 >> 47));
+    v20 = *a1;
+    v21 = (*(*a1 + 164) - 1) & v19;
+    v22 = *(*(*a1 + 152) + 2 * v21);
+    if (v22 >= 2)
+    {
+      while ((v22 & 2) == 0 || v19 != *(*(v20 + 136) + 8 * v21))
+      {
+        ++v21;
+        v12 = v22 >= 4;
+        v22 >>= 1;
+        if (!v12)
+        {
+          return;
+        }
+      }
+
+      if (*(v20 + 144))
+      {
+        goto LABEL_24;
+      }
+    }
+  }
+
+  else if (v8 == 1)
+  {
+    v9 = *a1;
+    v10 = (*(*a1 + 132) - 1) & v7;
+    v11 = *(*(*a1 + 120) + 2 * v10);
+    if (v11 >= 2)
+    {
+      while ((v11 & 2) == 0 || v7 != *(*(v9 + 104) + 8 * v10))
+      {
+        ++v10;
+        v12 = v11 >= 4;
+        v11 >>= 1;
+        if (!v12)
+        {
+          return;
+        }
+      }
+
+      if (*(v9 + 112))
+      {
+LABEL_24:
+        CFXBufferSliceMake();
+      }
+    }
+  }
+}
+
+void *CFX::GPUResourceManager::getTexture(CFX::GPUResourceManager *a1, CFX::RG::Resource *a2, unsigned __int8 a3)
+{
+  v5 = CFX::GPUResourceManager::remappedResource(a1, a2);
+  v6 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v5) ^ ((0x9DDFEA08EB382D69 * v5) >> 47));
+  v7 = 0x9DDFEA08EB382D69 * (v6 ^ (v6 >> 47));
+  v8 = CFX::RG::Resource::lifetime(v5);
+  if (v8 == 2)
+  {
+    if (CFX::RG::Resource::frameCount(v5) < 2)
+    {
+      v17 = 0;
+    }
+
+    else
+    {
+      v13 = *a1;
+      v14 = (*(*a1 + 100) - 1) & v7;
+      v15 = *(*(*a1 + 88) + 2 * v14);
+      if (v15 < 2)
+      {
+LABEL_13:
+        LODWORD(v16) = 0;
+      }
+
+      else
+      {
+        while ((v15 & 2) == 0 || v7 != *(*(v13 + 72) + 8 * v14))
+        {
+          ++v14;
+          v12 = v15 >= 4;
+          v15 >>= 1;
+          if (!v12)
+          {
+            goto LABEL_13;
+          }
+        }
+
+        v16 = *(v13 + 80);
+        if (v16)
+        {
+          LODWORD(v16) = *(v16 + v14);
+        }
+      }
+
+      v17 = (v16 + a3) % CFX::RG::Resource::frameCount(v5);
+    }
+
+    v19 = 0x9DDFEA08EB382D69 * (v7 ^ ((0x9DDFEA08EB382D69 * (v17 ^ v7)) >> 47) ^ (0x9DDFEA08EB382D69 * (v17 ^ v7)));
+    v20 = 0x9DDFEA08EB382D69 * (v19 ^ (v19 >> 47));
+    v21 = *a1;
+    v22 = (*(*a1 + 68) - 1) & v20;
+    v23 = *(*(*a1 + 56) + 2 * v22);
+    if (v23 >= 2)
+    {
+      while ((v23 & 2) == 0 || v20 != *(*(v21 + 40) + 8 * v22))
+      {
+        ++v22;
+        v12 = v23 >= 4;
+        v23 >>= 1;
+        if (!v12)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      v24 = *(v21 + 48);
+      if (!v24)
+      {
+        goto LABEL_22;
+      }
+
+      v10 = v22;
+LABEL_30:
+      v24 = v24[v10];
+      goto LABEL_22;
+    }
+  }
+
+  else
+  {
+    if (v8 != 1)
+    {
+      v18 = 0;
+      goto LABEL_23;
+    }
+
+    v9 = *a1;
+    LODWORD(v10) = (*(*a1 + 36) - 1) & v7;
+    v11 = *(*(*a1 + 24) + 2 * v10);
+    if (v11 >= 2)
+    {
+      while ((v11 & 2) == 0 || v7 != *(*(v9 + 8) + 8 * v10))
+      {
+        LODWORD(v10) = v10 + 1;
+        v12 = v11 >= 4;
+        v11 >>= 1;
+        if (!v12)
+        {
+          goto LABEL_21;
+        }
+      }
+
+      v24 = *(v9 + 16);
+      if (!v24)
+      {
+        goto LABEL_22;
+      }
+
+      v10 = v10;
+      goto LABEL_30;
+    }
+  }
+
+LABEL_21:
+  v24 = 0;
+LABEL_22:
+  v18 = v24;
+LABEL_23:
+
+  return v18;
+}
+
 uint64_t CFX::GPUResourceManager::incrementLastWriteIndexForResource(CFX::GPUResourceManager *this, CFX::RG::Resource *a2)
 {
   v2 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * a2) ^ ((0x9DDFEA08EB382D69 * a2) >> 47));
@@ -38,7 +953,7 @@ LABEL_5:
   return result;
 }
 
-void CFX::GPUResourceManager::allocate(uint64_t **this, const CFX::RG::Resource *a2, const CFX::RG::RenderGraphContext *a3)
+void CFX::GPUResourceManager::allocate(uint64_t **this, const CFX::RG::Resource *a2, uint64_t **a3)
 {
   prof_beginFlame("allocate", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/GPUResourceManager.mm", 190);
   v6 = CFX::RG::Resource::lifetime(a2);
@@ -51,21 +966,21 @@ void CFX::GPUResourceManager::allocate(uint64_t **this, const CFX::RG::Resource 
     CFX::RG::Resource::setDeleter(a2, this);
     if (CFX::RG::Resource::frameCount(a2) >= 2)
     {
-      v17 = *this;
-      LOBYTE(v57) = 0;
-      sub_1AF390E08((v17 + 9), v10, &v57);
+      v16 = *this;
+      LOBYTE(v53) = 0;
+      sub_1AF390E08((v16 + 9), v10, &v53);
     }
 
-    v18 = 0;
-    v56 = a3;
+    v17 = 0;
+    v52 = a3;
     while (1)
     {
-      if (v18 >= CFX::RG::Resource::frameCount(a2))
+      if (v17 >= CFX::RG::Resource::frameCount(a2))
       {
         goto LABEL_31;
       }
 
-      v19 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ v18)))) ^ ((0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ v18)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ v18)))) >> 47));
+      v18 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ v17)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ v17)))) ^ ((0x9DDFEA08EB382D69 * (v10 ^ ((0x9DDFEA08EB382D69 * (v10 ^ v17)) >> 47) ^ (0x9DDFEA08EB382D69 * (v10 ^ v17)))) >> 47));
       if (v8 == 3)
       {
         break;
@@ -78,61 +993,61 @@ void CFX::GPUResourceManager::allocate(uint64_t **this, const CFX::RG::Resource 
           goto LABEL_24;
         }
 
-        v20 = CFX::RG::Resource::bufferDesc(a2);
-        Buffer = CFXGPUDeviceCreateBuffer(**this, *v20, *(v20 + 8));
-        v22 = *this;
-        v23 = Buffer;
-        v57 = v23;
-        v58 = objc_msgSend_length(v23, v24, v25, v26);
-        sub_1AF390B1C((v22 + 17), v19, &v57);
+        v19 = CFX::RG::Resource::bufferDesc(a2);
+        Buffer = CFXGPUDeviceCreateBuffer(**this, *v19, *(v19 + 8));
+        v21 = *this;
+        v22 = Buffer;
+        v53 = v22;
+        v54 = objc_msgSend_length(v22, v23, v24);
+        sub_1AF390B1C((v21 + 17), v18, &v53);
         goto LABEL_22;
       }
 
-      v27 = CFX::RG::Resource::externalResourceDesc(a2);
-      if (!CFX::RG::ExternalResourceDesc::kind(v27))
+      v25 = CFX::RG::Resource::externalResourceDesc(a2);
+      if (!CFX::RG::ExternalResourceDesc::kind(v25))
       {
-        v36 = CFX::RG::ExternalResourceDesc::allocate(v27);
-        v37 = v36[2](v36, v18);
+        v34 = CFX::RG::ExternalResourceDesc::allocate(v25);
+        v35 = v34[2](v34, v17);
 
-        v38 = *this;
-        v23 = v37;
-        v57 = v23;
-        v58 = objc_msgSend_length(v23, v39, v40, v41);
-        sub_1AF390B1C((v38 + 17), v19, &v57);
-        a3 = v56;
+        v36 = *this;
+        v22 = v35;
+        v53 = v22;
+        v54 = objc_msgSend_length(v22, v37, v38);
+        sub_1AF390B1C((v36 + 17), v18, &v53);
+        a3 = v52;
         goto LABEL_22;
       }
 
-      if (CFX::RG::ExternalResourceDesc::kind(v27) != 1)
+      if (CFX::RG::ExternalResourceDesc::kind(v25) != 1)
       {
         goto LABEL_24;
       }
 
-      v28 = CFX::RG::ExternalResourceDesc::allocate(v27);
-      v29 = v28[2](v28, v18);
+      v26 = CFX::RG::ExternalResourceDesc::allocate(v25);
+      v27 = v26[2](v26, v17);
 
-      v30 = *this;
-      v23 = v29;
-      *&v57 = v23;
-      sub_1AF391B00((v30 + 5), v19, &v57);
+      v28 = *this;
+      v22 = v27;
+      *&v53 = v22;
+      sub_1AF391B00((v28 + 5), v18, &v53);
 
-      a3 = v56;
+      a3 = v52;
 LABEL_23:
 
 LABEL_24:
-      ++v18;
+      ++v17;
     }
 
-    v31 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a3, a2);
-    v32 = **this;
-    v33 = *v31;
-    v58 = *(v31 + 16);
-    v57 = v33;
-    v34 = CFXGPUDeviceCreateTexture(v32, &v57);
-    v35 = *this;
-    v23 = v34;
-    *&v57 = v23;
-    sub_1AF391B00((v35 + 5), v19, &v57);
+    v29 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a3, a2);
+    v30 = **this;
+    v31 = *v29;
+    v54 = v29[2];
+    v53 = v31;
+    v32 = CFXGPUDeviceCreateTexture(v30, &v53);
+    v33 = *this;
+    v22 = v32;
+    *&v53 = v22;
+    sub_1AF391B00((v33 + 5), v18, &v53);
 LABEL_22:
 
     goto LABEL_23;
@@ -146,41 +1061,41 @@ LABEL_22:
   switch(v7)
   {
     case 3:
-      v47 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a3, a2);
-      v48 = sub_1AF390DBC(*this + 21, v47);
-      v49 = *this;
-      *&v57 = v48;
-      v46 = v48;
-      sub_1AF391B00((v49 + 1), v10, &v57);
+      v44 = CFX::RG::RenderGraphContext::resolvedTextureDescriptor(a3, a2);
+      v45 = sub_1AF390DBC(*this + 21, v44);
+      v46 = *this;
+      *&v53 = v45;
+      v43 = v45;
+      sub_1AF391B00((v46 + 1), v10, &v53);
       goto LABEL_30;
     case 2:
-      v42 = CFX::RG::Resource::externalResourceDesc(a2);
-      if (CFX::RG::ExternalResourceDesc::kind(v42))
+      v39 = CFX::RG::Resource::externalResourceDesc(a2);
+      if (CFX::RG::ExternalResourceDesc::kind(v39))
       {
-        if (CFX::RG::ExternalResourceDesc::kind(v42) != 1)
+        if (CFX::RG::ExternalResourceDesc::kind(v39) != 1)
         {
           break;
         }
 
-        v43 = CFX::RG::ExternalResourceDesc::allocate(v42);
-        v44 = v43[2](v43, 0);
+        v40 = CFX::RG::ExternalResourceDesc::allocate(v39);
+        v41 = v40[2](v40, 0);
 
-        v45 = *this;
-        *&v57 = v44;
-        v46 = v44;
-        sub_1AF391B00((v45 + 1), v10, &v57);
+        v42 = *this;
+        *&v53 = v41;
+        v43 = v41;
+        sub_1AF391B00((v42 + 1), v10, &v53);
       }
 
       else
       {
-        v50 = CFX::RG::ExternalResourceDesc::allocate(v42);
-        v51 = v50[2](v50, 0);
+        v47 = CFX::RG::ExternalResourceDesc::allocate(v39);
+        v48 = v47[2](v47, 0);
 
-        v52 = *this;
-        v46 = v51;
-        v57 = v46;
-        v58 = objc_msgSend_length(v46, v53, v54, v55);
-        sub_1AF390B1C((v52 + 13), v10, &v57);
+        v49 = *this;
+        v43 = v48;
+        v53 = v43;
+        v54 = objc_msgSend_length(v43, v50, v51);
+        sub_1AF390B1C((v49 + 13), v10, &v53);
       }
 
 LABEL_30:
@@ -197,10 +1112,10 @@ LABEL_30:
       CFXBufferAllocatorPerFrameAllocateWithLength((*this)[v12], *v11);
       v14 = v13;
       v15 = *this;
-      *&v57 = CFXBufferSliceGetMTLBuffer(v16, v13);
-      *(&v57 + 1) = v14;
-      v58 = HIDWORD(v14);
-      sub_1AF390B1C((v15 + 13), v10, &v57);
+      *&v53 = CFXBufferSliceGetMTLBuffer();
+      *(&v53 + 1) = v14;
+      v54 = HIDWORD(v14);
+      sub_1AF390B1C((v15 + 13), v10, &v53);
 
       break;
   }
@@ -859,7 +1774,7 @@ uint64_t *CFX::GPUResourceManager::transferFrom(uint64_t *this, CFX::GPUResource
 uint64_t *sub_1AF39166C(uint64_t *a1, uint64_t a2, unsigned int a3)
 {
   *a1 = a2;
-  v6 = (a1 + 5);
+  v6 = a1 + 5;
   sub_1AF140928((a1 + 1), 32);
   sub_1AF140928(v6, 32);
   sub_1AF2755B4((a1 + 9), 32);
@@ -1475,7 +2390,7 @@ void sub_1AF3920D0(uint64_t a1)
       }
 
       ++v8;
-      v7 += 8;
+      ++v7;
       --v6;
     }
 
@@ -1672,7 +2587,7 @@ void sub_1AF392398(uint64_t a1)
       }
 
       ++v8;
-      v7 += 8;
+      ++v7;
       --v6;
     }
 
@@ -1720,7 +2635,7 @@ BOOL operator==(uint64_t a1, uint64_t a2)
 
 BOOL CFX::RG::isBuildInResourceId(CFX::RG *this)
 {
-  v1 = &dword_1AFE484B0;
+  v1 = dword_1AFE484B0;
   v2 = 36;
   while (*v1 != this)
   {
@@ -1728,12 +2643,12 @@ BOOL CFX::RG::isBuildInResourceId(CFX::RG *this)
     v2 -= 4;
     if (!v2)
     {
-      v1 = &word_1AFE484D4;
-      return v1 != &word_1AFE484D4;
+      v1 = word_1AFE484D4;
+      return v1 != word_1AFE484D4;
     }
   }
 
-  return v1 != &word_1AFE484D4;
+  return v1 != word_1AFE484D4;
 }
 
 uint64_t CFX::RG::SubgraphBuildArguments::isDisabled(CFX::RG::SubgraphBuildArguments *this, uint64_t a2)
@@ -1944,12 +2859,12 @@ void sub_1AF392AB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void CFX::RG::RenderGraphContext::createPersistentRenderGraphBuilder(CFX::RG::RenderGraphContext *this@<X0>, uint64_t *a2@<X8>)
+void CFX::RG::RenderGraphContext::createPersistentRenderGraphBuilder(uint64_t *__return_ptr a1@<X8>, CFX::RG::RenderGraphContext *this@<X0>)
 {
   v4 = *(this + 18);
   if (!v4)
   {
-    CScratchAllocatorCreate();
+    CScratchAllocatorCreate(1024);
   }
 
   v9[0] = *(*(this + 10) + 8 * v4 - 8);
@@ -1960,7 +2875,7 @@ void CFX::RG::RenderGraphContext::createPersistentRenderGraphBuilder(CFX::RG::Re
   v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v6) ^ ((0x9DDFEA08EB382D69 * v6) >> 47));
   v8 = v9[0];
   sub_1AF392C5C(this + 40, 0x9DDFEA08EB382D69 * (v7 ^ (v7 >> 47)), &v8);
-  *a2 = v6;
+  *a1 = v6;
   operator new();
 }
 
@@ -1968,7 +2883,7 @@ uint64_t sub_1AF392C14(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v6[0] = a1;
   v6[1] = a2;
-  v4 = sub_1AF23498C(v6, 0x198u, 8u);
+  v4 = sub_1AF23498C(v6, 0x198u, 8u, 2);
   return CFX::RG::RenderGraphBuilder::RenderGraphBuilder(v4, *a3, a3[1]);
 }
 
@@ -2223,7 +3138,7 @@ LABEL_3:
   v14 = *(*(this + 6) + 8 * v5);
   sub_1AF3930A0(v14, 0, a2);
   CScratchAllocatorReset(v14);
-  sub_1AF1576F0(this + 72, &v14);
+  sub_1AF1576F0(this + 18, &v14);
   v7 = (*(this + 17) - 1) & v4;
   v8 = *(this + 7);
   v9 = *(v8 + 2 * v7);
@@ -2264,14 +3179,13 @@ void sub_1AF3930A0(int a1, void *a2, CFX::RG::RenderGraphBuilder *this)
   }
 }
 
-uint64_t CFX::RG::RenderGraphContext::nextFrame(CFX::CrossFrameResourceManager **this)
+void CFX::RG::RenderGraphContext::nextFrame(CFX::CrossFrameResourceManager **this)
 {
   CFX::CrossFrameResourceManager::nextFrame(this[4]);
   CFX::GPUResourceManager::nextFrame(this[3]);
   CScratchAllocatorReset(*this);
-  v2 = this[2];
 
-  return CStackAllocatorCheckIsReset(v2);
+  CStackAllocatorCheckIsReset();
 }
 
 uint64_t *CFX::RG::RenderGraphContext::transferFrom(CFX::RG::RenderGraphContext *this, CFX::RG::RenderGraphContext *a2)
@@ -2283,27 +3197,27 @@ uint64_t *CFX::RG::RenderGraphContext::transferFrom(CFX::RG::RenderGraphContext 
   return CFX::GPUResourceManager::transferFrom(v4, v5);
 }
 
-void sub_1AF3931A4(uint64_t a1, __int128 *a2)
+void sub_1AF3931A4(unsigned int *result, __int128 *a2)
 {
-  v4 = *a1;
-  if ((*a1 + 1) > *(a1 + 4))
+  v4 = *result;
+  if (*result + 1 > result[1])
   {
-    sub_1AF3A0868(a1, 1, 0);
-    v4 = *a1;
+    sub_1AF3A0868(result, 1, 0);
+    v4 = *result;
   }
 
   v5 = *a2;
-  *(*(a1 + 8) + 16 * v4) = *a2;
+  *(*(result + 1) + 16 * v4) = *a2;
   if (*(&v5 + 1))
   {
     atomic_fetch_add_explicit((*(&v5 + 1) + 8), 1uLL, memory_order_relaxed);
-    v4 = *a1;
+    v4 = *result;
   }
 
-  *a1 = v4 + 1;
+  *result = v4 + 1;
 }
 
-_BYTE *CFX::RG::RenderGraphContext::release@<X0>(CFX::RG::RenderGraphContext *this@<X0>, CFX::RG::RenderGraphBuilder *a2@<X1>, CFX::RG::RenderGraphBuilder **a3@<X8>)
+uint64_t *CFX::RG::RenderGraphContext::release@<X0>(CFX::RG::RenderGraphBuilder **__return_ptr a1@<X8>, CFX::RG::RenderGraphContext *this@<X0>, CFX::RG::RenderGraphBuilder *a3@<X1>)
 {
   v6 = *(this + 22);
   v4 = this + 88;
@@ -2313,7 +3227,7 @@ _BYTE *CFX::RG::RenderGraphContext::release@<X0>(CFX::RG::RenderGraphContext *th
   {
     v8 = 16 * v5;
     v9 = &v7[2 * v5];
-    while (*v7 != a2)
+    while (*v7 != a3)
     {
       v7 += 2;
       v8 -= 16;
@@ -2326,8 +3240,8 @@ _BYTE *CFX::RG::RenderGraphContext::release@<X0>(CFX::RG::RenderGraphContext *th
   }
 
   v10 = v7[1];
-  *a3 = *v7;
-  a3[1] = v10;
+  *a1 = *v7;
+  a1[1] = v10;
   if (v10)
   {
     atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
@@ -2410,19 +3324,19 @@ LABEL_5:
   return &v12[3 * v6];
 }
 
-void CFX::RG::RenderGraphContext::resolveResourcesDescriptorIfNeeded(uint64_t **this, const CFX::RG::Resource *a2)
+void CFX::RG::RenderGraphContext::resolveResourcesDescriptorIfNeeded(CFX::RG::RenderGraphContext *this, const CFX::RG::Resource *a2)
 {
   v18 = a2;
-  v4 = CFX::GPUResourceManager::resourceHashOrRemapped(this[3], a2);
+  v4 = CFX::GPUResourceManager::resourceHashOrRemapped(*(this + 3), a2);
   v5 = v4;
   v6 = (*(this + 33) - 1) & v4;
-  v7 = *(this[15] + v6);
+  v7 = *(*(this + 15) + 2 * v6);
   if (v7 < 2)
   {
     goto LABEL_5;
   }
 
-  while ((v7 & 2) == 0 || v4 != this[13][v6])
+  while ((v7 & 2) == 0 || v4 != *(*(this + 13) + 8 * v6))
   {
     ++v6;
     v8 = v7 >= 4;
@@ -2433,7 +3347,7 @@ void CFX::RG::RenderGraphContext::resolveResourcesDescriptorIfNeeded(uint64_t **
     }
   }
 
-  if (!this[14])
+  if (!*(this + 14))
   {
 LABEL_5:
     v9 = CFX::RG::Resource::textureDesc(a2);
@@ -2451,13 +3365,13 @@ LABEL_5:
     {
       v19 = v16;
       *&v20 = v17;
-      sub_1AF3A0980((this + 13), v5, &v19);
-      v10 = this[26];
+      sub_1AF3A0980(this + 104, v5, &v19);
+      v10 = *(this + 26);
       v11 = *(this + 50);
       if (v11)
       {
         v12 = 8 * v11;
-        for (i = this[26]; *i != a2; ++i)
+        for (i = *(this + 26); *i != a2; ++i)
         {
           v12 -= 8;
           if (!v12)
@@ -2469,14 +3383,14 @@ LABEL_5:
 
       else
       {
-        i = this[26];
+        i = *(this + 26);
       }
 
-      if (i != &v10[v11])
+      if (i != (v10 + 8 * v11))
       {
         v14 = v11 - 1;
         *(this + 50) = v14;
-        v15 = &v10[v14];
+        v15 = (v10 + 8 * v14);
         if (v15 != i)
         {
           memmove(i, i + 1, v15 - i);
@@ -2486,7 +3400,7 @@ LABEL_5:
 
     else
     {
-      sub_1AF1576F0((this + 25), &v18);
+      sub_1AF1576F0(this + 50, &v18);
     }
   }
 }
@@ -3167,9 +4081,9 @@ uint64_t sub_1AF39423C(uint64_t a1)
   return a1;
 }
 
-int *CFX::RG::RenderGraphContext::registeredIdentifiersForResource(uint64_t **this, const CFX::RG::Resource *a2)
+uint64_t *CFX::RG::RenderGraphContext::registeredIdentifiersForResource(uint64_t **this, const CFX::RG::Resource *a2)
 {
-  if ((atomic_load_explicit(&qword_1ED73AAE0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_1ED73AAE0, memory_order_acquire) & 1) == 0)
   {
     v9 = a2;
     sub_1AFDFB5D8();
@@ -3544,7 +4458,7 @@ void CFX::RG::TextureDescriptorReference::partialResolveInto(uint64_t a1, uint64
   }
 }
 
-void CFX::RG::RenderGraphContext::resolveResourcesDescriptorsIfNeeded(uint64_t **this, const CFX::RG::Resource **a2, const CFX::RG::Resource **a3)
+void CFX::RG::RenderGraphContext::resolveResourcesDescriptorsIfNeeded(CFX::RG::RenderGraphContext *this, const CFX::RG::Resource **a2, const CFX::RG::Resource **a3)
 {
   prof_beginFlame("resolveResourcesDescriptorsIfNeeded", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraph.mm", 475);
   while (a2 != a3)
@@ -3805,211 +4719,211 @@ __n128 CFX::RG::TextureDescriptorReference::withDepth@<Q0>(CFX::RG::TextureDescr
   return result;
 }
 
-__n128 CFX::RG::TextureDescriptorReference::withArraylength@<Q0>(CFX::RG::TextureDescriptorReference *this@<X0>, __int16 a2@<W1>, uint64_t a3@<X8>)
+__n128 CFX::RG::TextureDescriptorReference::withArraylength@<Q0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, __int16 a3@<W1>)
 {
   v3 = *(this + 7);
-  *(a3 + 96) = *(this + 6);
-  *(a3 + 112) = v3;
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
   v4 = *(this + 9);
-  *(a3 + 128) = *(this + 8);
-  *(a3 + 144) = v4;
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
   v5 = *(this + 3);
-  *(a3 + 32) = *(this + 2);
-  *(a3 + 48) = v5;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
   v6 = *(this + 5);
-  *(a3 + 64) = *(this + 4);
-  *(a3 + 80) = v6;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
   result = *this;
   v8 = *(this + 1);
-  *a3 = *this;
-  *(a3 + 16) = v8;
-  *(a3 + 12) = a2;
-  *(a3 + 14) = 1;
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  *(a1 + 6) = a3;
+  *(a1 + 14) = 1;
   return result;
 }
 
-__n128 CFX::RG::TextureDescriptorReference::withMipmaplevelcount@<Q0>(CFX::RG::TextureDescriptorReference *this@<X0>, __int16 a2@<W1>, _OWORD *a3@<X8>)
+__n128 CFX::RG::TextureDescriptorReference::withMipmaplevelcount@<Q0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, __int16 a3@<W1>)
 {
   v3 = *(this + 7);
-  a3[6] = *(this + 6);
-  a3[7] = v3;
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
   v4 = *(this + 9);
-  a3[8] = *(this + 8);
-  a3[9] = v4;
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
   v5 = *(this + 3);
-  a3[2] = *(this + 2);
-  a3[3] = v5;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
   v6 = *(this + 5);
-  a3[4] = *(this + 4);
-  a3[5] = v6;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
   result = *this;
   v8 = *(this + 1);
-  *a3 = *this;
-  a3[1] = v8;
-  *(a3 + 8) = a2 | 0x100;
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  *(a1 + 8) = a3 | 0x100;
   return result;
 }
 
-_OWORD *CFX::RG::TextureDescriptorReference::withSampleCount@<X0>(_OWORD *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
-{
-  v3 = this[7];
-  *(a3 + 96) = this[6];
-  *(a3 + 112) = v3;
-  v4 = this[9];
-  *(a3 + 128) = this[8];
-  *(a3 + 144) = v4;
-  v5 = this[3];
-  *(a3 + 32) = this[2];
-  *(a3 + 48) = v5;
-  v6 = this[5];
-  *(a3 + 64) = this[4];
-  *(a3 + 80) = v6;
-  v7 = this[1];
-  *a3 = *this;
-  *(a3 + 16) = v7;
-  if (a2)
-  {
-    *(a3 + 18) = a2 | 0x100;
-  }
-
-  return this;
-}
-
-__n128 CFX::RG::TextureDescriptorReference::withPixelFormat@<Q0>(CFX::RG::TextureDescriptorReference *this@<X0>, MTLPixelFormat a2@<X1>, uint64_t a3@<X8>)
+uint64_t *CFX::RG::TextureDescriptorReference::withSampleCount@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, int a3@<W1>)
 {
   v3 = *(this + 7);
-  *(a3 + 96) = *(this + 6);
-  *(a3 + 112) = v3;
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
   v4 = *(this + 9);
-  *(a3 + 128) = *(this + 8);
-  *(a3 + 144) = v4;
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
   v5 = *(this + 3);
-  *(a3 + 32) = *(this + 2);
-  *(a3 + 48) = v5;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
   v6 = *(this + 5);
-  *(a3 + 64) = *(this + 4);
-  *(a3 + 80) = v6;
-  result = *this;
-  v8 = *(this + 1);
-  *a3 = *this;
-  *(a3 + 16) = v8;
-  *(a3 + 24) = a2;
-  *(a3 + 32) = 1;
-  return result;
-}
-
-_OWORD *CFX::RG::TextureDescriptorReference::withPixelFormatIf@<X0>(_OWORD *this@<X0>, MTLPixelFormat a2@<X2>, int a3@<W1>, uint64_t a4@<X8>)
-{
-  v4 = this[7];
-  *(a4 + 96) = this[6];
-  *(a4 + 112) = v4;
-  v5 = this[9];
-  *(a4 + 128) = this[8];
-  *(a4 + 144) = v5;
-  v6 = this[3];
-  *(a4 + 32) = this[2];
-  *(a4 + 48) = v6;
-  v7 = this[5];
-  *(a4 + 64) = this[4];
-  *(a4 + 80) = v7;
-  v8 = this[1];
-  *a4 = *this;
-  *(a4 + 16) = v8;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
+  v7 = *(this + 1);
+  *a1 = *this;
+  *(a1 + 1) = v7;
   if (a3)
   {
-    *(a4 + 24) = a2;
-    *(a4 + 32) = 1;
+    *(a1 + 9) = a3 | 0x100;
   }
 
   return this;
 }
 
-__n128 CFX::RG::TextureDescriptorReference::withTextureType@<Q0>(CFX::RG::TextureDescriptorReference *this@<X0>, MTLTextureType a2@<X1>, uint64_t a3@<X8>)
+__n128 CFX::RG::TextureDescriptorReference::withPixelFormat@<Q0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, uint64_t a3@<X1>)
 {
   v3 = *(this + 7);
-  *(a3 + 96) = *(this + 6);
-  *(a3 + 112) = v3;
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
   v4 = *(this + 9);
-  *(a3 + 128) = *(this + 8);
-  *(a3 + 144) = v4;
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
   v5 = *(this + 3);
-  *(a3 + 32) = *(this + 2);
-  *(a3 + 48) = v5;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
   v6 = *(this + 5);
-  *(a3 + 64) = *(this + 4);
-  *(a3 + 80) = v6;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
   result = *this;
   v8 = *(this + 1);
-  *a3 = *this;
-  *(a3 + 16) = v8;
-  *(a3 + 40) = a2;
-  *(a3 + 48) = 1;
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  a1[3] = a3;
+  *(a1 + 32) = 1;
   return result;
 }
 
-__n128 CFX::RG::TextureDescriptorReference::withUsage@<Q0>(CFX::RG::TextureDescriptorReference *this@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t *CFX::RG::TextureDescriptorReference::withPixelFormatIf@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, uint64_t a3@<X2>, int a4@<W1>)
 {
-  v3 = *(this + 7);
-  *(a3 + 96) = *(this + 6);
-  *(a3 + 112) = v3;
-  v4 = *(this + 9);
-  *(a3 + 128) = *(this + 8);
-  *(a3 + 144) = v4;
-  v5 = *(this + 3);
-  *(a3 + 32) = *(this + 2);
-  *(a3 + 48) = v5;
-  v6 = *(this + 5);
-  *(a3 + 64) = *(this + 4);
-  *(a3 + 80) = v6;
-  result = *this;
+  v4 = *(this + 7);
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v4;
+  v5 = *(this + 9);
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v5;
+  v6 = *(this + 3);
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v6;
+  v7 = *(this + 5);
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v7;
   v8 = *(this + 1);
-  *a3 = *this;
-  *(a3 + 16) = v8;
-  *(a3 + 72) = a2;
-  *(a3 + 80) = 1;
-  return result;
-}
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  if (a4)
+  {
+    a1[3] = a3;
+    *(a1 + 32) = 1;
+  }
 
-_OWORD *CFX::RG::TextureDescriptorReference::withSizeFactor@<X0>(_OWORD *this@<X0>, float a2@<S0>, float *a3@<X8>)
-{
-  v3 = this[7];
-  *(a3 + 6) = this[6];
-  *(a3 + 7) = v3;
-  v4 = this[9];
-  *(a3 + 8) = this[8];
-  *(a3 + 9) = v4;
-  v5 = this[3];
-  *(a3 + 2) = this[2];
-  *(a3 + 3) = v5;
-  v6 = this[5];
-  *(a3 + 4) = this[4];
-  *(a3 + 5) = v6;
-  v7 = this[1];
-  *a3 = *this;
-  *(a3 + 1) = v7;
-  a3[36] = a2;
   return this;
 }
 
-float CFX::RG::TextureDescriptorReference::applyingSizeFactor@<S0>(CFX::RG::TextureDescriptorReference *this@<X0>, float a2@<S0>, float *a3@<X8>)
+__n128 CFX::RG::TextureDescriptorReference::withTextureType@<Q0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, uint64_t a3@<X1>)
 {
   v3 = *(this + 7);
-  *(a3 + 6) = *(this + 6);
-  *(a3 + 7) = v3;
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
   v4 = *(this + 9);
-  *(a3 + 8) = *(this + 8);
-  *(a3 + 9) = v4;
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
   v5 = *(this + 3);
-  *(a3 + 2) = *(this + 2);
-  *(a3 + 3) = v5;
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
   v6 = *(this + 5);
-  *(a3 + 4) = *(this + 4);
-  *(a3 + 5) = v6;
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
+  result = *this;
+  v8 = *(this + 1);
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  a1[5] = a3;
+  *(a1 + 48) = 1;
+  return result;
+}
+
+__n128 CFX::RG::TextureDescriptorReference::withUsage@<Q0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, uint64_t a3@<X1>)
+{
+  v3 = *(this + 7);
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
+  v4 = *(this + 9);
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
+  v5 = *(this + 3);
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
+  v6 = *(this + 5);
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
+  result = *this;
+  v8 = *(this + 1);
+  *a1 = *this;
+  *(a1 + 1) = v8;
+  a1[9] = a3;
+  *(a1 + 80) = 1;
+  return result;
+}
+
+uint64_t *CFX::RG::TextureDescriptorReference::withSizeFactor@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t *this@<X0>, float a3@<S0>)
+{
+  v3 = *(this + 7);
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
+  v4 = *(this + 9);
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
+  v5 = *(this + 3);
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
+  v6 = *(this + 5);
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
   v7 = *(this + 1);
-  *a3 = *this;
-  *(a3 + 1) = v7;
-  result = a3[36] * a2;
-  a3[36] = result;
+  *a1 = *this;
+  *(a1 + 1) = v7;
+  *(a1 + 36) = a3;
+  return this;
+}
+
+float CFX::RG::TextureDescriptorReference::applyingSizeFactor@<S0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::TextureDescriptorReference *this@<X0>, float a3@<S0>)
+{
+  v3 = *(this + 7);
+  *(a1 + 6) = *(this + 6);
+  *(a1 + 7) = v3;
+  v4 = *(this + 9);
+  *(a1 + 8) = *(this + 8);
+  *(a1 + 9) = v4;
+  v5 = *(this + 3);
+  *(a1 + 2) = *(this + 2);
+  *(a1 + 3) = v5;
+  v6 = *(this + 5);
+  *(a1 + 4) = *(this + 4);
+  *(a1 + 5) = v6;
+  v7 = *(this + 1);
+  *a1 = *this;
+  *(a1 + 1) = v7;
+  result = *(a1 + 36) * a3;
+  *(a1 + 36) = result;
   return result;
 }
 
@@ -4198,8 +5112,7 @@ __n128 CFX::RG::ExternalResourceDesc::ExternalResourceDesc(uint64_t a1, __int128
   *(a1 + 144) = v9;
   *(a1 + 112) = v7;
   result = *(a2 + 168);
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
+  *(a2 + 168) = 0uLL;
   *(a1 + 168) = result;
   *(a1 + 184) = *(a2 + 184);
   return result;
@@ -4226,8 +5139,7 @@ __n128 CFX::RG::ExternalResourceDesc::ExternalResourceDesc(uint64_t a1, __int128
   *(a1 + 144) = v9;
   *(a1 + 112) = v7;
   result = *(a2 + 168);
-  *(a2 + 21) = 0;
-  *(a2 + 22) = 0;
+  *(a2 + 168) = 0uLL;
   *(a1 + 168) = result;
   *(a1 + 184) = *(a2 + 184);
   return result;
@@ -4404,7 +5316,7 @@ CFX::RG::ResourceIdentifier *CFX::RG::ResourceIdentifier::ResourceIdentifier(CFX
   return this;
 }
 
-uint64_t CFX::RG::ResourceIdentifier::pathName@<X0>(CFX::RG::ResourceIdentifier *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *CFX::RG::ResourceIdentifier::pathName@<X0>(uint64_t *__return_ptr a1@<X8>, CFX::RG::ResourceIdentifier *this@<X0>)
 {
   sub_1AF273380(&v22);
   v4 = 0;
@@ -4479,7 +5391,7 @@ LABEL_12:
   v20 = strlen(*v16);
   sub_1AF17C688(&v22, v19, v20);
 LABEL_17:
-  sub_1AF2734EC(&v22, a2);
+  sub_1AF2734EC(&v22, a1);
   v22 = *MEMORY[0x1E69E54E8];
   *(&v22 + *(v22 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
   v23 = MEMORY[0x1E69E5548] + 16;
@@ -4494,9 +5406,9 @@ LABEL_17:
   return MEMORY[0x1B271C650](&v26);
 }
 
-void sub_1AF395BAC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AF395BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1AF273594(va);
   _Unwind_Resume(a1);
 }
@@ -5198,16 +6110,16 @@ void sub_1AF396930(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_OWORD *sub_1AF396954(uint64_t a1, uint64_t a2, __int128 *a3, const void *a4)
+char *sub_1AF396954(uint64_t a1, uint64_t a2, __int128 *a3, const void *a4)
 {
   v10[0] = a1;
   v10[1] = a2;
-  v6 = sub_1AF23498C(v10, 0x150u, 8u);
+  v6 = sub_1AF23498C(v10, 0x150u, 8u, 2);
   v8 = *a3;
   memcpy(__dst, a4, sizeof(__dst));
   *v6 = v8;
   sub_1AF39FC54(v6, 32);
-  memcpy(v6 + 3, __dst, 0x120uLL);
+  memcpy(v6 + 48, __dst, 0x120uLL);
   return v6;
 }
 
@@ -5256,9 +6168,9 @@ void sub_1AF396AB4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_OWORD *CFX::RG::Pass::allocInitDependentParams(_OWORD *this)
+char *CFX::RG::Pass::allocInitDependentParams(char *this)
 {
-  if (*(this + 408) == 3)
+  if (this[408] == 3)
   {
     v12 = v1;
     v13 = v2;
@@ -5356,25 +6268,25 @@ uint64_t CFX::RG::Pass::triggerInit(CFX::RG::Pass *this, CFX::RG::RenderGraphCon
   return result;
 }
 
-double CFX::RG::Pass::readFrom(uint64_t a1, unint64_t a2, unsigned __int8 a3)
+double CFX::RG::Pass::readFrom(uint64_t result, unint64_t a2, unsigned __int8 a3)
 {
   if (a2)
   {
     v4.n128_u64[0] = a2;
     v4.n128_u8[8] = a3;
-    return sub_1AF396D7C(a1 + 56, &v4);
+    return sub_1AF396D7C(result + 56, &v4);
   }
 
-  return result;
+  return v3;
 }
 
-double sub_1AF396D7C(uint64_t a1, __n128 *a2)
+double sub_1AF396D7C(uint64_t result, __n128 *a2)
 {
-  v2 = *(a1 + 16);
+  v2 = *(result + 16);
   if (v2)
   {
     v3 = 16 * v2;
-    v4 = *(a1 + 24);
+    v4 = *(result + 24);
     while (*v4 != a2->n128_u64[0] || *(v4 + 8) != a2->n128_u8[8])
     {
       v4 += 16;
@@ -5388,16 +6300,16 @@ double sub_1AF396D7C(uint64_t a1, __n128 *a2)
 
   else
   {
-    v4 = *(a1 + 24);
+    v4 = *(result + 24);
   }
 
-  if (v4 == *(a1 + 24) + 16 * v2)
+  if (v4 == *(result + 24) + 16 * v2)
   {
 LABEL_9:
-    *&result = sub_1AF3A1160(a1, a2).n128_u64[0];
+    *&v5 = sub_1AF3A1160(result, a2).n128_u64[0];
   }
 
-  return result;
+  return v5;
 }
 
 uint64_t *CFX::RG::Pass::writeTo(uint64_t *this, CFX::RG::Resource *a2)
@@ -5469,7 +6381,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t *CFX::RG::Pass::dependsOn(uint64_t *this, CFX::RG::Pass *a2)
+CFX::RG::Pass *CFX::RG::Pass::dependsOn(CFX::RG::Pass *this, CFX::RG::Pass *a2)
 {
   v2 = a2;
   if (a2)
@@ -6238,7 +7150,7 @@ LABEL_28:
 
   v15 = v14;
   v27 = *(v8 + 23);
-  CFX::RG::ResourceIdentifier::pathName(&v27, __p);
+  CFX::RG::ResourceIdentifier::pathName(__p, &v27);
   if (v29 >= 0)
   {
     v16 = __p;
@@ -6392,7 +7304,7 @@ void sub_1AF3983DC(uint64_t a1, void *a2)
 void sub_1AF398494(uint64_t a1, int a2, CFX::RG::ResourceIdentifier *this)
 {
   v3 = *(*(a1 + 32) + 8);
-  CFX::RG::ResourceIdentifier::pathName(this, __p);
+  CFX::RG::ResourceIdentifier::pathName(__p, this);
   if ((v9 & 0x80u) == 0)
   {
     v4 = __p;
@@ -6491,14 +7403,14 @@ uint64_t CFX::RG::RenderGraphBuilder::validateInitializedPasses(uint64_t a1, uin
   return 0;
 }
 
-void sub_1AF39876C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AF39876C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_1AF273594(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t CFX::RG::RenderGraphBuilder::resolveReferences(CFX::RG::RenderGraphBuilder *this, uint64_t **a2)
+uint64_t CFX::RG::RenderGraphBuilder::resolveReferences(CFX::RG::RenderGraphBuilder *this, CFX::RG::RenderGraphContext *a2)
 {
   prof_beginFlame("resolveReferences", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraph.mm", 1572);
   v4 = *(this + 32);
@@ -6794,7 +7706,7 @@ void sub_1AF398CA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t CFX::RG::RenderGraphBuilder::build(uint64_t a1, uint64_t a2, uint64_t a3)
+char *CFX::RG::RenderGraphBuilder::build(CFX::RG::RenderGraphBuilder *a1, uint64_t a2, uint64_t a3)
 {
   prof_beginFlame("build", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraph.mm", 1643);
   *(a2 + 216) = a1;
@@ -6809,10 +7721,10 @@ uint64_t CFX::RG::RenderGraphBuilder::build(uint64_t a1, uint64_t a2, uint64_t a
     sub_1AF3A146C(&v47, 32);
     CFX::RG::RenderGraphBuilder::initializeDependencies(a1, &v47);
     CFX::RG::RenderGraphBuilder::computePredecessors(a1, &v47, v6);
-    v7 = *(a1 + 192);
+    v7 = *(a1 + 48);
     if (v7)
     {
-      v8 = *(a1 + 200);
+      v8 = *(a1 + 25);
       v9 = 8 * v7;
       do
       {
@@ -6829,7 +7741,7 @@ uint64_t CFX::RG::RenderGraphBuilder::build(uint64_t a1, uint64_t a2, uint64_t a
       sub_1AF3A146C(&v43, 32);
       CFX::RG::RenderGraphBuilder::initializeDependencies(a1, &v43);
       CFX::RG::RenderGraphBuilder::computeSuccessors(a1, &v47, &v43);
-      v10 = *(a1 + 192);
+      v10 = *(a1 + 48);
       v40 = *a1;
       v41 = 0;
       v42 = &v43;
@@ -6840,103 +7752,103 @@ uint64_t CFX::RG::RenderGraphBuilder::build(uint64_t a1, uint64_t a2, uint64_t a
 
       CFX::RG::RenderGraphBuilder::computeStages(a1, a3, &v40, &v47, &v43, v6);
       v39 = *a1;
-      v11 = sub_1AF23498C(&v39, 0x138u, 8u);
-      CFX::RG::RenderGraph::RenderGraph(v11, *a1, *(a1 + 8));
+      v11 = sub_1AF23498C(&v39, 0x138u, 8u, 2);
+      CFX::RG::RenderGraph::RenderGraph(v11, *a1, *(a1 + 1));
       v38 = v11;
-      v12 = *(a1 + 32);
+      v12 = *(a1 + 8);
       if (v12)
       {
-        v13 = *(a1 + 40);
+        v13 = *(a1 + 5);
         v14 = 8 * v12;
         do
         {
-          sub_1AF235000((v11 + 16), v13++);
+          sub_1AF235000(v11 + 2, v13++);
           v14 -= 8;
         }
 
         while (v14);
       }
 
-      v15 = *(a1 + 64);
+      v15 = *(a1 + 16);
       if (v15)
       {
-        v16 = *(a1 + 72);
+        v16 = *(a1 + 9);
         v17 = 8 * v15;
         do
         {
-          sub_1AF235000((v11 + 48), v16++);
+          sub_1AF235000(v11 + 6, v16++);
           v17 -= 8;
         }
 
         while (v17);
       }
 
-      v18 = *(a1 + 96);
+      v18 = *(a1 + 24);
       if (v18)
       {
-        v19 = *(a1 + 104);
+        v19 = *(a1 + 13);
         v20 = 8 * v18;
         do
         {
-          sub_1AF235000((v11 + 80), v19++);
+          sub_1AF235000(v11 + 10, v19++);
           v20 -= 8;
         }
 
         while (v20);
       }
 
-      v21 = *(a1 + 160);
+      v21 = *(a1 + 40);
       if (v21)
       {
-        v22 = *(a1 + 168);
+        v22 = *(a1 + 21);
         v23 = 8 * v21;
         do
         {
-          sub_1AF235000((v11 + 112), v22++);
+          sub_1AF235000(v11 + 14, v22++);
           v23 -= 8;
         }
 
         while (v23);
       }
 
-      v24 = *(a1 + 192);
+      v24 = *(a1 + 48);
       if (v24)
       {
-        v25 = *(a1 + 200);
+        v25 = *(a1 + 25);
         v26 = 8 * v24;
         do
         {
-          sub_1AF235000((v11 + 144), v25++);
+          sub_1AF235000(v11 + 18, v25++);
           v26 -= 8;
         }
 
         while (v26);
       }
 
-      v27 = *(v11 + 216);
-      *(v11 + 216) = v50;
+      v27 = *(v11 + 27);
+      *(v11 + 27) = v50;
       v50 = v27;
-      v28 = *(v11 + 208);
-      *(v11 + 208) = v49;
+      v28 = *(v11 + 26);
+      *(v11 + 26) = v49;
       v49 = v28;
       v29 = v48;
-      v30 = *(v11 + 192);
-      *(v11 + 176) = v47;
-      *(v11 + 192) = v29;
+      v30 = *(v11 + 12);
+      *(v11 + 11) = v47;
+      *(v11 + 12) = v29;
       v48 = v30;
-      *&v29 = *(v11 + 264);
-      *(v11 + 264) = v46;
+      *&v29 = *(v11 + 33);
+      *(v11 + 33) = v46;
       v46 = v29;
-      v31 = *(v11 + 256);
-      *(v11 + 256) = v45;
+      v31 = *(v11 + 32);
+      *(v11 + 32) = v45;
       v45 = v31;
       v32 = v44;
-      v33 = *(v11 + 240);
-      *(v11 + 224) = v43;
-      *(v11 + 240) = v32;
+      v33 = *(v11 + 15);
+      *(v11 + 14) = v43;
+      *(v11 + 15) = v32;
       v44 = v33;
-      sub_1AF3A1640(v11 + 272, &v40);
-      sub_1AF235000((a1 + 208), &v38);
+      sub_1AF3A1640((v11 + 272), &v40);
+      sub_1AF235000(a1 + 26, &v38);
       sub_1AF3A15BC(&v40);
       sub_1AF3A1514(&v43);
     }
@@ -6966,19 +7878,19 @@ uint64_t CFX::RG::RenderGraphBuilder::build(uint64_t a1, uint64_t a2, uint64_t a
   return v35;
 }
 
-void sub_1AF39900C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AF39900C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   sub_1AF3A1514(va);
   sub_1AF3A1514(va1);
-  *(v9 + 216) = 0;
+  *(v16 + 216) = 0;
   prof_endFlame();
   _Unwind_Resume(a1);
 }
@@ -7471,7 +8383,7 @@ uint64_t CFX::RG::RenderGraphBuilder::computePredecessors(uint64_t a1, uint64_t 
 {
   CStackAllocatorPushFrame(a3);
   v44 = a3;
-  CFX::RG::RenderGraphBuilder::collectResourcesWrite(a1, a3, v49);
+  CFX::RG::RenderGraphBuilder::collectResourcesWrite(a1, a3, &v49);
   v6 = *(a1 + 192);
   if (v6)
   {
@@ -8344,7 +9256,7 @@ LABEL_126:
             v93 = 0;
           }
 
-          sub_1AF39EB1C(*v90, (*v90 + 8 * v91), v93, 1);
+          sub_1AF39EB1C(*v90, &(*v90)[v91], v93, 1);
           v90 += 4;
           v89 -= 32;
         }
@@ -8370,7 +9282,7 @@ void sub_1AF39A930(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_1AF39A9F4(uint64_t a1, void *a2)
+uint64_t sub_1AF39A9F4(uint64_t a1, _OWORD *a2)
 {
   v4 = *(a1 + 16);
   if (v4 + 1 > *(a1 + 20))
@@ -8388,7 +9300,7 @@ uint64_t sub_1AF39A9F4(uint64_t a1, void *a2)
   return result;
 }
 
-uint64_t CFX::RG::RenderGraphBuilder::cycleErrorMessage@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, _BYTE *a3@<X8>)
+uint64_t CFX::RG::RenderGraphBuilder::cycleErrorMessage@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, void *a3@<X8>)
 {
   sub_1AF273380(&v24);
   v6 = sub_1AF17C688(&v24, "Cycle detected on [", 19);
@@ -9072,877 +9984,4 @@ LABEL_90:
 
   CStackAllocatorPopFrame(v76);
   prof_endFlame();
-}
-
-void sub_1AF39B7B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  sub_1AF3A1094(va);
-  CStackAllocatorPopFrame(a9);
-  prof_endFlame();
-  _Unwind_Resume(a1);
-}
-
-uint64_t sub_1AF39B81C(uint64_t a1, uint64_t a2, void *a3)
-{
-  while (1)
-  {
-    v6 = *(a1 + 36);
-    v7 = (v6 - 1) & a2;
-    v8 = *(a1 + 24);
-    v9 = *(v8 + 2 * v7);
-    if (v9 >= 2)
-    {
-      break;
-    }
-
-LABEL_6:
-    v12 = v6 + 15;
-    if (v12 >= v7 + 496)
-    {
-      v12 = v7 + 496;
-    }
-
-    LODWORD(v13) = v7;
-    v14 = v12 - v7;
-    if (v12 > v7)
-    {
-      v13 = v7;
-      while ((*(v8 + 2 * v13) & 1) != 0)
-      {
-        ++v13;
-        if (!--v14)
-        {
-          goto LABEL_31;
-        }
-      }
-    }
-
-    if (v13 != v12)
-    {
-      *(v8 + 2 * v13) |= 1u;
-      if (v13 <= v7 + 14)
-      {
-        v28 = v13;
-        LOBYTE(v19) = v13;
-      }
-
-      else
-      {
-        while (2)
-        {
-          v15 = v13 - 14;
-          if (v13 < 0xF)
-          {
-            v15 = 0;
-          }
-
-          v16 = v15 - 1;
-          if (v15 <= v13)
-          {
-            v17 = v13;
-          }
-
-          else
-          {
-            v17 = v15;
-          }
-
-          v18 = 1;
-          while (1)
-          {
-            v19 = v16 + 1;
-            if (v15 <= v19)
-            {
-              break;
-            }
-
-LABEL_25:
-            ++v18;
-            v16 = v19;
-            if (v19 == v17)
-            {
-              goto LABEL_30;
-            }
-          }
-
-          v20 = 1 << (v16 - v15 + 2);
-          v21 = v18;
-          v22 = v15;
-          while (1)
-          {
-            v23 = v22;
-            if ((v20 & *(v8 + 2 * v22)) != 0)
-            {
-              break;
-            }
-
-            ++v22;
-            LOWORD(v20) = v20 >> 1;
-            --v21;
-            if (v23 + 1 > v19)
-            {
-              goto LABEL_25;
-            }
-          }
-
-          if (v19 >= v13)
-          {
-LABEL_30:
-            *(v8 + 2 * v13) ^= 1u;
-            goto LABEL_31;
-          }
-
-          v24 = *(a1 + 16);
-          *(*(a1 + 8) + 8 * v13) = *(*(a1 + 8) + 8 * v19);
-          v25 = (v24 + 32 * v13);
-          v26 = v24 + 32 * v19;
-          *v25 = *(v24 + 32 * v19);
-          v27 = *(v26 + 8);
-          v25[2] = 0;
-          v25[3] = v25 + 4;
-          v25[1] = v27;
-          sub_1AF3A25DC((v25 + 1), (v26 + 8));
-          v8 = *(a1 + 24);
-          *(v8 + 2 * v23) = (*(v8 + 2 * v23) | (1 << (v13 - v23 + 1))) ^ (1 << v21);
-          LODWORD(v13) = v19;
-          v28 = v19;
-          if (v19 > v7 + 14)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-      v32 = (*(a1 + 16) + 32 * v28);
-      *v32 = *a3;
-      v32[1] = a3[1];
-      v32[2] = 0;
-      ++v32;
-      v32[2] = v32 + 3;
-      result = sub_1AF3A25DC(v32, a3 + 1);
-      *(*(a1 + 8) + 8 * v28) = a2;
-      v33 = *(a1 + 24);
-      *(v33 + 2 * v28) |= 1u;
-      *(v33 + 2 * v7) |= 1 << (v19 - v7 + 1);
-      ++*(a1 + 32);
-      return result;
-    }
-
-LABEL_31:
-    sub_1AF3A265C(a1);
-  }
-
-  v10 = (v6 - 1) & a2;
-  while ((v9 & 2) == 0 || *(*(a1 + 8) + 8 * v10) != a2)
-  {
-    ++v10;
-    v11 = v9 > 3;
-    v9 >>= 1;
-    if (!v11)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  v29 = (*(a1 + 16) + 32 * v10);
-  *v29 = *a3;
-  v30 = (v29 + 1);
-
-  return sub_1AF3A25DC(v30, a3 + 1);
-}
-
-uint64_t sub_1AF39BAC0(uint64_t a1, uint64_t a2, void *a3)
-{
-  while (1)
-  {
-    v5 = *(a1 + 44);
-    v6 = (v5 - 1) & a2;
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 2 * v6);
-    if (v8 >= 2)
-    {
-      break;
-    }
-
-LABEL_6:
-    v11 = v5 + 15;
-    if (v11 >= v6 + 496)
-    {
-      v11 = v6 + 496;
-    }
-
-    LODWORD(v12) = v6;
-    v13 = v11 - v6;
-    if (v11 > v6)
-    {
-      v12 = v6;
-      while ((*(v7 + 2 * v12) & 1) != 0)
-      {
-        ++v12;
-        if (!--v13)
-        {
-          goto LABEL_31;
-        }
-      }
-    }
-
-    if (v12 != v11)
-    {
-      *(v7 + 2 * v12) |= 1u;
-      if (v12 <= v6 + 14)
-      {
-        v25 = v12;
-        LOBYTE(v18) = v12;
-      }
-
-      else
-      {
-        while (2)
-        {
-          v14 = v12 - 14;
-          if (v12 < 0xF)
-          {
-            v14 = 0;
-          }
-
-          v15 = v14 - 1;
-          if (v14 <= v12)
-          {
-            v16 = v12;
-          }
-
-          else
-          {
-            v16 = v14;
-          }
-
-          v17 = 1;
-          while (1)
-          {
-            v18 = v15 + 1;
-            if (v14 <= v18)
-            {
-              break;
-            }
-
-LABEL_25:
-            ++v17;
-            v15 = v18;
-            if (v18 == v16)
-            {
-              goto LABEL_30;
-            }
-          }
-
-          v19 = 1 << (v15 - v14 + 2);
-          v20 = v17;
-          v21 = v14;
-          while (1)
-          {
-            v22 = v21;
-            if ((v19 & *(v7 + 2 * v21)) != 0)
-            {
-              break;
-            }
-
-            ++v21;
-            LOWORD(v19) = v19 >> 1;
-            --v20;
-            if (v22 + 1 > v18)
-            {
-              goto LABEL_25;
-            }
-          }
-
-          if (v18 >= v12)
-          {
-LABEL_30:
-            *(v7 + 2 * v12) ^= 1u;
-            goto LABEL_31;
-          }
-
-          v23 = *(a1 + 24);
-          *(*(a1 + 16) + 8 * v12) = *(*(a1 + 16) + 8 * v18);
-          v24 = (v18 << 8) - 32 * v18;
-          sub_1AF3A285C(v23 + 224 * v12, (v23 + v24));
-          sub_1AF3A1094(*(a1 + 24) + v24);
-          v7 = *(a1 + 32);
-          *(v7 + 2 * v22) = (*(v7 + 2 * v22) | (1 << (v12 - v22 + 1))) ^ (1 << v20);
-          LODWORD(v12) = v18;
-          v25 = v18;
-          if (v18 > v6 + 14)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-      sub_1AF3A285C(*(a1 + 24) + 224 * v25, a3);
-      *(*(a1 + 16) + 8 * v25) = a2;
-      v27 = *(a1 + 32);
-      *(v27 + 2 * v25) |= 1u;
-      result = 1;
-      *(v27 + 2 * v6) |= 1 << (v18 - v6 + 1);
-      ++*(a1 + 40);
-      return result;
-    }
-
-LABEL_31:
-    sub_1AF3A2788(a1);
-  }
-
-  v9 = (v5 - 1) & a2;
-  while ((v8 & 2) == 0 || *(*(a1 + 16) + 8 * v9) != a2)
-  {
-    ++v9;
-    v10 = v8 > 3;
-    v8 >>= 1;
-    if (!v10)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  sub_1AF3A26D0(*(a1 + 24) + 224 * v9, a3);
-  return 0;
-}
-
-uint64_t CFX::RG::RenderGraphBuilder::tryResolveAmbiguousDependencies(__n128 *a1, uint64_t a2, unsigned int **a3, uint64_t a4)
-{
-  prof_beginFlame("tryResolveAmbiguousDependencies", "/Library/Caches/com.apple.xbs/Sources/VFX/sources/VFX/VFXRenderGraph/RenderGraph.mm", 2337);
-  v8 = a1[12].n128_u32[0];
-  if (!v8)
-  {
-    goto LABEL_112;
-  }
-
-  v9 = a1[12].n128_u64[1];
-  v104 = &v9[v8];
-  v108 = a4;
-  v106 = *(MEMORY[0x1E69E54E8] + 24);
-  v107 = *MEMORY[0x1E69E54E8];
-  v109 = a3;
-  v101 = a1;
-  v102 = a2;
-  do
-  {
-    v10 = *v9;
-    CStackAllocatorPushFrame(*a3);
-    v11 = 0;
-    v12 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v10) ^ ((0x9DDFEA08EB382D69 * v10) >> 47));
-    v13 = *a3;
-    v118 = *a3;
-    v14 = v12 ^ (v12 >> 47);
-    v119 = 0x800000000;
-    v120 = &v121;
-    do
-    {
-      v15 = &(&v118)[v11];
-      v15[3] = 0;
-      *(v15 + 32) = 0;
-      v15[5] = 0;
-      v11 += 3;
-    }
-
-    while (v11 != 24);
-    v16 = 0x9DDFEA08EB382D69 * v14;
-    v17 = (*(a2 + 44) - 1) & (-348639895 * v14);
-    v18 = *(*(a2 + 32) + 2 * v17);
-    v105 = v16;
-    if (v18 < 2)
-    {
-LABEL_9:
-      v113 = 0;
-    }
-
-    else
-    {
-      while ((v18 & 2) == 0 || v16 != *(*(a2 + 16) + 8 * v17))
-      {
-        ++v17;
-        v19 = v18 > 3;
-        v18 >>= 1;
-        if (!v19)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      v113 = *(a2 + 24) + 224 * v17;
-    }
-
-    v112 = v10;
-    v114[0] = v13;
-    sub_1AF3A28C4(v114, 32);
-    v20 = *(v113 + 16);
-    if (v20)
-    {
-      v21 = *(v113 + 24);
-      v22 = v21 + 24 * v20;
-      do
-      {
-        if (*(v21 + 8) == 1)
-        {
-          v23 = *(v21 + 16);
-          v24 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v23) ^ ((0x9DDFEA08EB382D69 * v23) >> 47));
-          v25 = 0x9DDFEA08EB382D69 * (v24 ^ (v24 >> 47));
-          v140.n128_u64[0] = *v21;
-          v140.n128_u64[1] = v23;
-          v26 = (v117 - 1) & v25;
-          v27 = *(v116 + 2 * v26);
-          if (v27 < 2)
-          {
-            goto LABEL_17;
-          }
-
-          while ((v27 & 2) == 0 || v25 != *(v114[1] + 8 * v26))
-          {
-            ++v26;
-            v28 = v27 >= 4;
-            v27 >>= 1;
-            if (!v28)
-            {
-              goto LABEL_17;
-            }
-          }
-
-          if (v115)
-          {
-            sub_1AF3995BC(v115 + 24 * v26, &v140);
-          }
-
-          else
-          {
-LABEL_17:
-            v124 = *a3;
-            v125.__locale_ = &v126;
-            sub_1AF3995BC(&v124, &v140);
-            sub_1AF39C8C8(v114, v25, &v124);
-          }
-        }
-
-        v21 += 24;
-      }
-
-      while (v21 != v22);
-    }
-
-    if (v117 == -15)
-    {
-      goto LABEL_89;
-    }
-
-    v29 = v117;
-    v103 = v9;
-    v110 = 0;
-    v30 = 0;
-    do
-    {
-      if ((*(v116 + 2 * v30) & 1) == 0)
-      {
-        goto LABEL_87;
-      }
-
-      v31 = v115 + 24 * v30;
-      v32 = *(v31 + 8);
-      if (v32 < 2)
-      {
-        goto LABEL_87;
-      }
-
-      v33 = *(v31 + 16);
-      v111 = v33[1];
-      v145 = *a3;
-      v146 = 0;
-      v147 = &v148;
-      v34 = 16 * v32;
-      do
-      {
-        sub_1AF240F04(&v145, v33);
-        v33 += 2;
-        v34 -= 16;
-      }
-
-      while (v34);
-      v140.n128_u64[0] = *a3;
-      sub_1AF3A2C74(&v140, 32);
-      v134 = *a3;
-      sub_1AF3A1EF8(&v134, 32);
-      v131 = *a3;
-      v132 = 0;
-      v133 = &v134;
-      if (!v146)
-      {
-LABEL_69:
-        sub_1AF273380(&v124);
-        a3 = v109;
-        v71 = sub_1AF17C688(&v124, "Ambiguous dependency on pass [", 30);
-        v72 = strlen(*(v112 + 24));
-        v73 = sub_1AF17C688(v71, *(v112 + 24), v72);
-        sub_1AF17C688(v73, "] reading resource written by multiple passes:\n", 47);
-        v74 = *(v31 + 8);
-        if (v74)
-        {
-          v75 = *(v31 + 16);
-          v76 = 16 * v74;
-          do
-          {
-            v77 = sub_1AF17C688(&v124, "\t<", 2);
-            v78 = strlen(*(v75[1] + 8));
-            v79 = sub_1AF17C688(v77, *(v75[1] + 8), v78);
-            v80 = sub_1AF17C688(v79, "> written by [", 14);
-            v81 = MEMORY[0x1B271C520](v80, *v75);
-            v82 = sub_1AF17C688(v81, ":", 1);
-            v83 = strlen(*(*v75 + 24));
-            v84 = sub_1AF17C688(v82, *(*v75 + 24), v83);
-            sub_1AF17C688(v84, "]\n", 2);
-            v75 += 2;
-            v76 -= 16;
-          }
-
-          while (v76);
-        }
-
-        v85 = sub_1AF17C688(&v124, "Must add explicit dependency on [", 33);
-        v86 = strlen(*(v112 + 24));
-        v87 = sub_1AF17C688(v85, *(v112 + 24), v86);
-        sub_1AF17C688(v87, "]", 1);
-        sub_1AF2734EC(&v124, &v122);
-        if (*(v108 + 23) < 0)
-        {
-          operator delete(*v108);
-        }
-
-        *v108 = v122;
-        *(v108 + 16) = v123;
-        v124.n128_u64[0] = v107;
-        *(v124.n128_u64 + *(v107 - 24)) = v106;
-        v124.n128_u64[1] = MEMORY[0x1E69E5548] + 16;
-        if (v129 < 0)
-        {
-          operator delete(__p);
-        }
-
-        v124.n128_u64[1] = MEMORY[0x1E69E5538] + 16;
-        std::locale::~locale(&v125);
-        std::ostream::~ostream();
-        MEMORY[0x1B271C650](&v130);
-        v110 = 1;
-        goto LABEL_87;
-      }
-
-      v35 = v147;
-      v36 = &v147[v146];
-      while (1)
-      {
-        v37 = *v35;
-        v38 = v144 + 15;
-        memset(v140.n128_u64[1], 255, 8 * (v144 + 15));
-        bzero(v142, 2 * v38);
-        v143 = 0;
-        LODWORD(v132) = 0;
-        memset(v135, 255, 8 * (v139 + 15));
-        bzero(v137, 2 * (v139 + 15));
-        v138 = 0;
-        if (v146)
-        {
-          v39 = v147;
-          v40 = 8 * v146;
-          do
-          {
-            v41 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * *v39) ^ ((0x9DDFEA08EB382D69 * *v39) >> 47));
-            v124.n128_u8[0] = 0;
-            sub_1AF3A2A64(&v134, 0x9DDFEA08EB382D69 * (v41 ^ (v41 >> 47)), &v124);
-            ++v39;
-            v40 -= 8;
-          }
-
-          while (v40);
-        }
-
-        v124.n128_u64[0] = v37;
-        v124.n128_u32[2] = 0;
-        sub_1AF3995BC(&v131, &v124);
-        v42 = v132;
-        if (!v132)
-        {
-          if (!v146)
-          {
-            goto LABEL_69;
-          }
-
-          goto LABEL_57;
-        }
-
-        do
-        {
-          v43 = &v133[2 * v42];
-          v44 = *(v43 - 2);
-          v46 = *(v43 - 2);
-          v45 = *(v43 - 1);
-          LODWORD(v132) = v42 - 1;
-          v47 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * v44) ^ ((0x9DDFEA08EB382D69 * v44) >> 47));
-          v48 = 0x9DDFEA08EB382D69 * (v47 ^ (v47 >> 47));
-          v49 = (v144 - 1) & v48;
-          v50 = v142[v49];
-          if (v50 < 2)
-          {
-            goto LABEL_38;
-          }
-
-          while ((v50 & 2) == 0 || v48 != *(v140.n128_u64[1] + 8 * v49))
-          {
-            ++v49;
-            v28 = v50 >= 4;
-            v50 >>= 1;
-            if (!v28)
-            {
-              goto LABEL_38;
-            }
-          }
-
-          if (!v141 || v46 > DWORD2(v141[v49]))
-          {
-LABEL_38:
-            v124.n128_u64[0] = v44;
-            v124.n128_u64[1] = __PAIR64__(v45, v46);
-            sub_1AF3A2D90(&v140, v48, &v124);
-          }
-
-          v51 = *(v44 + 328);
-          if (v51)
-          {
-            v52 = *(v44 + 336);
-            v53 = &v52[v51];
-            v54 = v46 + 1;
-            do
-            {
-              v55 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * *v52) ^ ((0x9DDFEA08EB382D69 * *v52) >> 47));
-              v56 = 0x9DDFEA08EB382D69 * (v55 ^ (v55 >> 47));
-              v57 = (v139 - 1) & v56;
-              v58 = v137[v57];
-              if (v58 >= 2)
-              {
-                while ((v58 & 2) == 0 || v56 != *(v135 + v57))
-                {
-                  ++v57;
-                  v28 = v58 >= 4;
-                  v58 >>= 1;
-                  if (!v28)
-                  {
-                    goto LABEL_48;
-                  }
-                }
-
-                if (v136)
-                {
-                  v124.n128_u64[0] = *v52;
-                  v124.n128_u32[2] = v54;
-                  sub_1AF3995BC(&v131, &v124);
-                }
-              }
-
-LABEL_48:
-              ++v52;
-            }
-
-            while (v52 != v53);
-          }
-
-          v42 = v132;
-        }
-
-        while (v132);
-        if (v143 == v146)
-        {
-          break;
-        }
-
-LABEL_57:
-        if (++v35 == v36)
-        {
-          goto LABEL_69;
-        }
-      }
-
-      if (!v143)
-      {
-        goto LABEL_69;
-      }
-
-      a3 = v109;
-      v124 = *v109;
-      v60 = v113;
-      v59 = &v126;
-      v125.__locale_ = &v126;
-      v61 = &v126;
-      if (v144 != -15)
-      {
-        v62 = 0;
-        v64 = v141;
-        v63 = v142;
-        v65 = (v144 + 15);
-        do
-        {
-          v66 = *v63++;
-          if (v66)
-          {
-            locale = v125.__locale_;
-            if (v62 + 1 > v124.n128_u32[3])
-            {
-              v68 = ((v124.n128_u32[3] + 1) * 1.5);
-              Aligned = CStackAllocatorAllocateAligned(v124.n128_u64[0], 16 * v68, 8, 2);
-              memcpy(Aligned, locale, 16 * v124.n128_u32[2]);
-              v125.__locale_ = Aligned;
-              v124.n128_u32[3] = v68;
-              locale = Aligned;
-              v62 = v124.n128_u32[2];
-            }
-
-            *(locale + v62) = *v64;
-            v62 = ++v124.n128_u32[2];
-            v60 = v113;
-          }
-
-          ++v64;
-          --v65;
-        }
-
-        while (v65);
-        v59 = v125.__locale_;
-        v61 = v125.__locale_ + 16 * v62;
-        if (v62)
-        {
-          v70 = 126 - 2 * __clz(v62);
-          a3 = v109;
-          goto LABEL_79;
-        }
-
-        a3 = v109;
-      }
-
-      v70 = 0;
-LABEL_79:
-      sub_1AF3A302C(v59, v61, v70, 1);
-      v88 = *(v60 + 16);
-      if (v88)
-      {
-        v89 = *v125.__locale_;
-        v90 = *(v60 + 24);
-        v91 = 24 * v88;
-        do
-        {
-          if (v90->n128_u8[8] == 1 && v90[1].n128_u64[0] == v111 && v90->n128_u64[0] != v89)
-          {
-            sub_1AF39AF4C(&v118, v90);
-          }
-
-          v90 = (v90 + 24);
-          v91 -= 24;
-        }
-
-        while (v91);
-      }
-
-      v29 = v117;
-LABEL_87:
-      ++v30;
-    }
-
-    while (v30 < (v29 + 15));
-    a1 = v101;
-    a2 = v102;
-    v9 = v103;
-    if (v110)
-    {
-      CStackAllocatorPopFrame(*a3);
-      v99 = 0;
-      goto LABEL_114;
-    }
-
-LABEL_89:
-    if (v119)
-    {
-      v92 = 0;
-      v124 = *a1;
-      v125.__locale_ = 0x800000000;
-      v126 = v127;
-      do
-      {
-        v93 = &v124 + v92;
-        *(v93 + 4) = 0;
-        v93[40] = 0;
-        *(v93 + 6) = 0;
-        v92 += 24;
-      }
-
-      while (v92 != 192);
-      v94 = *(v113 + 16);
-      if (v94)
-      {
-        v95 = *(v113 + 24);
-        v96 = (v95 + 24 * v94);
-        do
-        {
-          if (v119)
-          {
-            v97 = 24 * v119;
-            v98 = v120;
-            while (*v98 != v95->n128_u64[0] || *(v98 + 8) != v95->n128_u8[8] || v98[2] != v95[1].n128_u64[0])
-            {
-              v98 += 3;
-              v97 -= 24;
-              if (!v97)
-              {
-                goto LABEL_103;
-              }
-            }
-          }
-
-          else
-          {
-            v98 = v120;
-          }
-
-          if (v98 == &v120[3 * v119])
-          {
-LABEL_103:
-            sub_1AF399954(&v124, v95);
-          }
-
-          v95 = (v95 + 24);
-        }
-
-        while (v95 != v96);
-      }
-
-      sub_1AF39BAC0(a2, v105, &v124);
-      if (HIDWORD(v125.__locale_))
-      {
-        if (v126 != v127)
-        {
-          v140.n128_u64[0] = v126;
-          if (v124.n128_u64[1])
-          {
-            sub_1AF234C8C(v124.n128_u64[1], &v140);
-          }
-        }
-      }
-    }
-
-    CStackAllocatorPopFrame(*a3);
-    ++v9;
-  }
-
-  while (v9 != v104);
-LABEL_112:
-  v99 = 1;
-LABEL_114:
-  prof_endFlame();
-  return v99;
 }

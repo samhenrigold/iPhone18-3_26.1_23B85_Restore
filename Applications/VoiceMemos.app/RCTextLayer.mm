@@ -13,15 +13,16 @@
 
 - (RCTextLayer)init
 {
-  v4.receiver = self;
-  v4.super_class = RCTextLayer;
-  v2 = [(RCTextLayer *)&v4 init];
+  v6.receiver = self;
+  v6.super_class = RCTextLayer;
+  v2 = [(RCTextLayer *)&v6 init];
+  v4 = v2;
   if (v2)
   {
-    [(RCTextLayer *)v2 setContentsScale:UIMainScreenScale()];
+    [(RCTextLayer *)v2 setContentsScale:UIMainScreenScale(v2, v3)];
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)_attributes

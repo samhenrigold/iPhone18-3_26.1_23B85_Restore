@@ -182,7 +182,7 @@ void __62__PRComplicationSceneHostViewController_viewDidLayoutSubviews__block_in
 
 - (void)_updateTouchDeliveryPolicies
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   view = [(PRComplicationSceneHostViewController *)self view];
   _window = [view _window];
 
@@ -193,170 +193,171 @@ void __62__PRComplicationSceneHostViewController_viewDidLayoutSubviews__block_in
 
     v7 = objc_alloc(MEMORY[0x1E695DFA8]);
     allKeys = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions allKeys];
-    v42 = [v7 initWithArray:allKeys];
+    v44 = [v7 initWithArray:allKeys];
 
     view2 = [(PRComplicationSceneHostViewController *)self view];
     _window2 = [view2 _window];
     _contextId = [_window2 _contextId];
 
-    v11 = PRLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PRLogCommon(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       selfCopy3 = self;
-      v61 = 2114;
-      v62 = layers;
-      _os_log_impl(&dword_1A8AA7000, v11, OS_LOG_TYPE_DEFAULT, "[%p] Updating touch delivery policies for layers: %{public}@", buf, 0x16u);
+      v63 = 2114;
+      v64 = layers;
+      _os_log_impl(&dword_1A8AA7000, v12, OS_LOG_TYPE_DEFAULT, "[%p] Updating touch delivery policies for layers: %{public}@", buf, 0x16u);
     }
 
+    v58 = 0u;
+    v59 = 0u;
     v56 = 0u;
     v57 = 0u;
-    v54 = 0u;
-    v55 = 0u;
     obj = layers;
-    v12 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
-    if (v12)
+    v13 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
+    if (v13)
     {
-      v41 = *v55;
-      *&v13 = 134218498;
-      v38 = v13;
+      v43 = *v57;
+      *&v14 = 134218498;
+      v40 = v14;
       do
       {
-        for (i = 0; i != v12; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v55 != v41)
+          if (*v57 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          contextID = [*(*(&v54 + 1) + 8 * i) contextID];
-          v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-          [v42 removeObject:v16];
+          contextID = [*(*(&v56 + 1) + 8 * i) contextID];
+          v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+          [v44 removeObject:v17];
 
           touchDeliveryPolicyAssertions = self->_touchDeliveryPolicyAssertions;
-          v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-          v19 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v18];
-          LODWORD(touchDeliveryPolicyAssertions) = v19 == 0;
+          v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+          v20 = [(NSMutableDictionary *)touchDeliveryPolicyAssertions objectForKey:v19];
+          LODWORD(touchDeliveryPolicyAssertions) = v20 == 0;
 
           if (touchDeliveryPolicyAssertions)
           {
-            v20 = objc_alloc_init(MEMORY[0x1E698E440]);
-            v21 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
-            endpoint = [v20 endpoint];
-            [v21 setAssertionEndpoint:endpoint];
+            v21 = objc_alloc_init(MEMORY[0x1E698E440]);
+            v22 = [MEMORY[0x1E698E438] policyRequiringSharingOfTouchesDeliveredToChildContextId:contextID withHostContextId:_contextId];
+            endpoint = [v21 endpoint];
+            [v22 setAssertionEndpoint:endpoint];
 
             objc_initWeak(&location, self);
-            v47 = MEMORY[0x1E69E9820];
-            v48 = 3221225472;
-            v49 = __69__PRComplicationSceneHostViewController__updateTouchDeliveryPolicies__block_invoke;
-            v50 = &unk_1E78446C0;
-            objc_copyWeak(&v52, &location);
-            v23 = v21;
-            v51 = v23;
-            v24 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
-            if (v24)
+            v49 = MEMORY[0x1E69E9820];
+            v50 = 3221225472;
+            v51 = __69__PRComplicationSceneHostViewController__updateTouchDeliveryPolicies__block_invoke;
+            v52 = &unk_1E78446C0;
+            objc_copyWeak(&v54, &location);
+            v24 = v22;
+            v53 = v24;
+            v25 = BKSTouchDeliveryPolicyServerGetProxyWithErrorHandler();
+            v26 = v25;
+            if (v25)
             {
-              v25 = PRLogCommon();
-              if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+              v27 = PRLogCommon(v25);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
-                *buf = v38;
+                *buf = v40;
                 selfCopy3 = self;
-                v61 = 2114;
-                v62 = v20;
-                v63 = 1024;
-                v64 = contextID;
-                _os_log_impl(&dword_1A8AA7000, v25, OS_LOG_TYPE_DEFAULT, "[%p] Saving touch policy assertion %{public}@ for context id %u", buf, 0x1Cu);
+                v63 = 2114;
+                v64 = v21;
+                v65 = 1024;
+                v66 = contextID;
+                _os_log_impl(&dword_1A8AA7000, v27, OS_LOG_TYPE_DEFAULT, "[%p] Saving touch policy assertion %{public}@ for context id %u", buf, 0x1Cu);
               }
 
-              v26 = self->_touchDeliveryPolicyAssertions;
-              if (!v26)
+              v28 = self->_touchDeliveryPolicyAssertions;
+              if (!v28)
               {
-                v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-                v28 = self->_touchDeliveryPolicyAssertions;
-                self->_touchDeliveryPolicyAssertions = v27;
+                v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+                v30 = self->_touchDeliveryPolicyAssertions;
+                self->_touchDeliveryPolicyAssertions = v29;
 
-                v26 = self->_touchDeliveryPolicyAssertions;
+                v28 = self->_touchDeliveryPolicyAssertions;
               }
 
-              v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
-              [(NSMutableDictionary *)v26 setObject:v20 forKey:v29];
+              v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:contextID];
+              [(NSMutableDictionary *)v28 setObject:v21 forKey:v31];
 
-              [v24 ipc_addPolicy:v23];
+              [v26 ipc_addPolicy:v24];
             }
 
-            objc_destroyWeak(&v52);
+            objc_destroyWeak(&v54);
             objc_destroyWeak(&location);
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v54 objects:v65 count:16];
+        v13 = [obj countByEnumeratingWithState:&v56 objects:v67 count:16];
       }
 
-      while (v12);
+      while (v13);
     }
 
+    v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v30 = v42;
-    v31 = [v30 countByEnumeratingWithState:&v43 objects:v58 count:16];
-    if (v31)
+    v32 = v44;
+    v33 = [v32 countByEnumeratingWithState:&v45 objects:v60 count:16];
+    if (v33)
     {
-      v32 = *v44;
+      v34 = *v46;
       do
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v33; ++j)
         {
-          if (*v44 != v32)
+          if (*v46 != v34)
           {
-            objc_enumerationMutation(v30);
+            objc_enumerationMutation(v32);
           }
 
-          v34 = *(*(&v43 + 1) + 8 * j);
-          v35 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v34];
-          [v35 invalidate];
-          [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v34];
-          v36 = PRLogCommon();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v36 = *(*(&v45 + 1) + 8 * j);
+          v37 = [(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions objectForKey:v36];
+          [v37 invalidate];
+          v38 = PRLogCommon([(NSMutableDictionary *)self->_touchDeliveryPolicyAssertions removeObjectForKey:v36]);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            unsignedIntValue = [v34 unsignedIntValue];
+            unsignedIntValue = [v36 unsignedIntValue];
             *buf = 134218498;
             selfCopy3 = self;
-            v61 = 2114;
-            v62 = v35;
-            v63 = 1024;
-            v64 = unsignedIntValue;
-            _os_log_impl(&dword_1A8AA7000, v36, OS_LOG_TYPE_DEFAULT, "[%p] Invalidating assertion %{public}@ for context id %u", buf, 0x1Cu);
+            v63 = 2114;
+            v64 = v37;
+            v65 = 1024;
+            v66 = unsignedIntValue;
+            _os_log_impl(&dword_1A8AA7000, v38, OS_LOG_TYPE_DEFAULT, "[%p] Invalidating assertion %{public}@ for context id %u", buf, 0x1Cu);
           }
         }
 
-        v31 = [v30 countByEnumeratingWithState:&v43 objects:v58 count:16];
+        v33 = [v32 countByEnumeratingWithState:&v45 objects:v60 count:16];
       }
 
-      while (v31);
+      while (v33);
     }
   }
 }
 
 void __69__PRComplicationSceneHostViewController__updateTouchDeliveryPolicies__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = PRLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = PRLogCommon(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v7 = 134218498;
-      v8 = WeakRetained;
-      v9 = 2114;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v3;
-      _os_log_impl(&dword_1A8AA7000, v5, OS_LOG_TYPE_DEFAULT, "[%p] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v7, 0x20u);
+      v7 = *(a1 + 32);
+      v8 = 134218498;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v3;
+      _os_log_impl(&dword_1A8AA7000, v6, OS_LOG_TYPE_DEFAULT, "[%p] Sending touch delivery policy %{public}@ failed with error: %{public}@", &v8, 0x20u);
     }
   }
 }
@@ -364,7 +365,7 @@ void __69__PRComplicationSceneHostViewController__updateTouchDeliveryPolicies__b
 - (void)_clearTouchDeliveryPolicies
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = PRLogCommon();
+  v3 = PRLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 134217984;

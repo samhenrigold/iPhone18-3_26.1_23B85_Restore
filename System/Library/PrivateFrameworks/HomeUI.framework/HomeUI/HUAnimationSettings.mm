@@ -39,7 +39,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [[HUAnimationSettings allocWithZone:?]];
-  [(HUAnimationSettings *)self duration];
+  objc_msgSend_duration(self);
   [(HUAnimationSettings *)v4 setDuration:?];
   timingFunction = [(HUAnimationSettings *)self timingFunction];
   [(HUAnimationSettings *)v4 setTimingFunction:timingFunction];
@@ -66,7 +66,7 @@
 
 - (double)durationWithSpeed
 {
-  [(HUAnimationSettings *)self duration];
+  objc_msgSend_duration(self, a2);
   v4 = v3;
   [(HUAnimationSettings *)self speed];
   return v4 / v5;
@@ -88,7 +88,7 @@
 
 - (double)interpolatedProgressForTime:(double)time
 {
-  [(HUAnimationSettings *)self duration];
+  objc_msgSend_duration(self, a2);
   v6 = v5;
   v7 = 1.0;
   if (v6 >= 0.00000011920929)
@@ -104,7 +104,7 @@
 - (id)_basicAnimationForView:(id)view withKeyPath:(id)path
 {
   v5 = [MEMORY[0x277CD9E10] animationWithKeyPath:path];
-  [(HUAnimationSettings *)self duration];
+  objc_msgSend_duration(self);
   [v5 setDuration:?];
   [(HUAnimationSettings *)self delay];
   [v5 setBeginTime:?];

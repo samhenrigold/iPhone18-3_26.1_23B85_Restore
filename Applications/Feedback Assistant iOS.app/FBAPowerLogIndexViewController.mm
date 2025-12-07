@@ -6,6 +6,7 @@
 - (void)prepareForSegue:(id)segue sender:(id)sender;
 - (void)setPowerLogURL:(id)l;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation FBAPowerLogIndexViewController
@@ -50,6 +51,19 @@
 
   tableView = [(FBAPowerLogIndexViewController *)self tableView];
   [tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = FBAPowerLogIndexViewController;
+  [(FBAPowerLogIndexViewController *)&v4 viewWillDisappear:disappear];
+  if (![(FBAPowerLogIndexViewController *)self enteringDetail])
+  {
+    [(FBAPowerLogIndexViewController *)self setDatabaseReader:0];
+  }
+
+  [(FBAPowerLogIndexViewController *)self setEnteringDetail:0];
 }
 
 - (void)viewDidLoad

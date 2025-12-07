@@ -7,30 +7,30 @@
 
 - (id)formattedHeaderStringForAttributionItems:(id)items
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = itemsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         visibility = [v11 visibility];
         v13 = v4;
         if (visibility)
@@ -46,7 +46,7 @@
         [v13 addObject:v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
@@ -73,8 +73,6 @@
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

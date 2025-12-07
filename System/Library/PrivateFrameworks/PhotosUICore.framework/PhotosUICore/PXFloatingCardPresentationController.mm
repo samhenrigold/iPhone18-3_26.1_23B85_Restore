@@ -49,14 +49,14 @@
 
 - (void)cardViewController:(id)controller didUpdatePosition:(unint64_t)position
 {
-  layout = [(PXFloatingCardPresentationController *)self layout];
-  [layout didUpdateCardPosition:position];
+  v5 = objc_msgSend_layout(self, a2, controller);
+  [v5 didUpdateCardPosition:position];
 }
 
 - (void)cardViewController:(id)controller didUpdateHeight:(double)height
 {
-  layout = [(PXFloatingCardPresentationController *)self layout];
-  [layout didUpdateCardHeight:height];
+  v5 = objc_msgSend_layout(self, a2, controller);
+  [v5 didUpdateCardHeight:height];
 }
 
 - (void)gestureCoordinatorDidBeginInteraction:(id)interaction
@@ -251,10 +251,10 @@ void __56__PXFloatingCardPresentationController_dismissAnimated___block_invoke_2
 
 - (void)_applyLayout
 {
-  layout = [(PXFloatingCardPresentationController *)self layout];
-  [layout width];
+  v3 = objc_msgSend_layout(self, a2);
+  [v3 width];
   v5 = v4;
-  [layout initialHeight];
+  [v3 initialHeight];
   v7 = v6;
   cardViewController = [(PXFloatingCardPresentationController *)self cardViewController];
   [cardViewController setSize:{v5, v7}];
@@ -265,8 +265,8 @@ void __56__PXFloatingCardPresentationController_dismissAnimated___block_invoke_2
   v16 = __52__PXFloatingCardPresentationController__applyLayout__block_invoke;
   v17 = &unk_1E774C620;
   selfCopy = self;
-  v19 = layout;
-  v10 = layout;
+  v19 = v3;
+  v10 = v3;
   [v9 performWithoutAnimation:&v14];
   v11 = [(PXFloatingCardPresentationController *)self cardViewController:v14];
   view = [v11 view];
@@ -327,8 +327,8 @@ void __52__PXFloatingCardPresentationController__applyLayout__block_invoke(uint6
 
   v17 = [PXFloatingCardGestureCoordinator alloc];
   cardViewController3 = [(PXFloatingCardPresentationController *)self cardViewController];
-  layout = [(PXFloatingCardPresentationController *)self layout];
-  v20 = [(PXFloatingCardGestureCoordinator *)v17 initWithCardViewController:cardViewController3 layout:layout];
+  v19 = objc_msgSend_layout(self);
+  v20 = [(PXFloatingCardGestureCoordinator *)v17 initWithCardViewController:cardViewController3 layout:v19];
   [(PXFloatingCardPresentationController *)self setGestureCoordinator:v20];
 
   gestureCoordinator = [(PXFloatingCardPresentationController *)self gestureCoordinator];

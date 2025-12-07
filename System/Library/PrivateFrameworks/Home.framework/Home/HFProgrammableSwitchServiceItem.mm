@@ -11,15 +11,14 @@
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C843870, &qword_20DD93F40);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_20DD93A70;
-  v3 = *MEMORY[0x277CD0F00];
   *(inited + 32) = sub_20DD64EB4();
-  *(inited + 40) = v4;
+  *(inited + 40) = v3;
   sub_20D9EE93C(inited);
   swift_setDeallocating();
   sub_20DA057B4(inited + 32);
-  v5 = sub_20DD651C4();
+  v4 = sub_20DD651C4();
 
-  return v5;
+  return v4;
 }
 
 - (id)_subclass_updateWithOptions:(id)options

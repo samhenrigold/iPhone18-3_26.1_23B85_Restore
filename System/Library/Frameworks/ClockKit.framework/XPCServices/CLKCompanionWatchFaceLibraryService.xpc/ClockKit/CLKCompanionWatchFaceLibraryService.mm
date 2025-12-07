@@ -52,7 +52,7 @@
     v14 = v13;
     if (v13)
     {
-      [v13 auditToken];
+      objc_msgSend_auditToken(v13);
     }
 
     else

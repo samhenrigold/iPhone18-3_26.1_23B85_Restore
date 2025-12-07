@@ -66,7 +66,7 @@
 
       v18 = *(*(&v31 + 1) + 8 * i);
       type = [v18 type];
-      v20 = getFHInsightTypeCategorySpend[0]();
+      v20 = getFHInsightTypeCategorySpend();
       v21 = type;
       v22 = v20;
       v23 = v22;
@@ -98,9 +98,9 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      v25 = [(PKSpendingInsightTrend *)v21 isEqualToString:v22];
+      isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-      if (v25)
+      if (isEqualToString)
       {
         goto LABEL_18;
       }
@@ -127,25 +127,25 @@ LABEL_24:
 uint64_t __62__PKSpendingInsightTrendCollection_initWithFHFeatureInsights___block_invoke(uint64_t a1, void *a2)
 {
   v2 = [a2 type];
-  v3 = getFHInsightTypeOverallSpend[0]();
+  v3 = getFHInsightTypeOverallSpend();
   v4 = v2;
   v5 = v3;
   v6 = v5;
   if (v4 == v5)
   {
-    v7 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
     if (v4 && v5)
     {
-      v7 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 - (PKSpendingInsightTrendCollection)initWithOverallTrend:(id)trend categoryTrends:(id)trends

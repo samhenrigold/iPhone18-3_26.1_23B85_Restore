@@ -139,7 +139,7 @@ uint64_t __45__STSSuggestionView_setOverlayView_animated___block_invoke(uint64_t
   return [v2 setAlpha:0.0];
 }
 
-uint64_t __45__STSSuggestionView_setOverlayView_animated___block_invoke_2(uint64_t a1)
+void *__45__STSSuggestionView_setOverlayView_animated___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) isEqual:*(*(a1 + 40) + 424)];
   if ((result & 1) == 0)

@@ -3,15 +3,14 @@
 
 @implementation APBrowserRapportManager
 
-void __APBrowserRapportManager_ensureScanningStarted_block_invoke_5(uint64_t a1)
+void __APBrowserRapportManager_ensureScanningStarted_block_invoke_5()
 {
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  v5 = __APBrowserRapportManager_ensureScanningStarted_block_invoke_6;
-  v6 = &unk_278BC8108;
-  v7 = v2;
-  APBrowserRapportManager_runOnQueue(v3, v4);
+  v3 = __APBrowserRapportManager_ensureScanningStarted_block_invoke_6;
+  v4 = &unk_278BC8108;
+  v5 = v0;
+  APBrowserRapportManager_runOnQueue(v1, v2);
 }
 
 uint64_t __APBrowserRapportManager_runOnQueue_block_invoke(uint64_t result)
@@ -26,19 +25,20 @@ uint64_t __APBrowserRapportManager_runOnQueue_block_invoke(uint64_t result)
 
 uint64_t __APBrowserRapportManager_ensureScanningStarted_block_invoke_6(uint64_t result)
 {
-  if (*(result + 32))
+  v1 = *(result + 32);
+  if (v1)
   {
     if (gLogCategory_APBrowserRapportManager <= 90)
     {
       if (gLogCategory_APBrowserRapportManager != -1)
       {
-        return __APBrowserRapportManager_ensureScanningStarted_block_invoke_6_cold_1();
+        return __APBrowserRapportManager_ensureScanningStarted_block_invoke_6_cold_1(v1);
       }
 
       result = _LogCategory_Initialize();
       if (result)
       {
-        return __APBrowserRapportManager_ensureScanningStarted_block_invoke_6_cold_1();
+        return __APBrowserRapportManager_ensureScanningStarted_block_invoke_6_cold_1(v1);
       }
     }
   }
@@ -68,238 +68,274 @@ void __APBrowserRapportManager_ensureScanningStarted_block_invoke_2(uint64_t a1,
       v10 = [v2 serviceTypes];
       if (v10)
       {
-        v41 = [objc_msgSend(v2 "serviceTypes")];
+        v52 = [objc_msgSend(v2 "serviceTypes")];
       }
 
       else
       {
-        v41 = 1;
+        v52 = 1;
       }
 
-      v40 = a2;
-      v11 = *(a2 + 80);
+      v51 = a2;
       CFDictionaryGetTypeID();
       TypedValue = CFDictionaryGetTypedValue();
-      v13 = TypedValue;
+      v12 = TypedValue;
       if (TypedValue)
       {
         CFRetain(TypedValue);
       }
 
-      v14 = (v9 >> 19) & 1;
+      v13 = (v9 >> 19) & 1;
       if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
       {
-        [v2 name];
-        [v2 model];
-        LogPrintF();
+        v14 = v6;
+        if (v12)
+        {
+          v15 = "Updating";
+        }
+
+        else
+        {
+          v15 = "Adding";
+        }
+
+        v16 = [v2 name];
+        v17 = [v2 model];
+        v18 = "yes";
+        if (!v52)
+        {
+          v18 = "no";
+        }
+
+        if (!v10)
+        {
+          v18 = "?";
+        }
+
+        v48 = v15;
+        v6 = v14;
+        LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_addOrUpdateDevice(APBrowserRapportManagerRef, RPCompanionLinkDevice *, Boolean)", 33554472, "[%@:%@] %s device - name: %'@ model: %@ flags: %llx relationship: %d systemPairingID: %@ serviceAvailable: %s\n", v5, v14, v48, v16, v17, v9, (v9 >> 19) & 1, v8, v18);
       }
 
-      v15 = MEMORY[0x277CBED28];
-      if (v13)
+      v19 = MEMORY[0x277CBED28];
+      if (v12)
       {
         CFSetGetTypeID();
-        v16 = CFDictionaryGetTypedValue();
-        if (v16)
+        v20 = CFDictionaryGetTypedValue();
+        if (v20)
         {
-          v17 = v6;
-          v38 = v16;
-          v39 = v5;
-          CFRetain(v16);
+          v21 = v6;
+          v49 = v20;
+          v50 = v5;
+          CFRetain(v20);
           Int64 = CFDictionaryGetInt64();
-          v19 = CFDictionaryGetInt64();
-          v20 = CFDictionaryGetInt64() != 0;
+          v23 = CFDictionaryGetInt64();
+          v24 = CFDictionaryGetInt64() != 0;
           CFStringGetTypeID();
-          v21 = CFDictionaryGetTypedValue();
-          if (v14 == Int64)
+          v25 = CFDictionaryGetTypedValue();
+          if (v13 == Int64)
           {
-            v22 = 0;
+            v26 = 0;
           }
 
           else
           {
             CFDictionarySetInt64();
-            v22 = 1;
+            v26 = 1;
           }
 
-          v32 = v40;
-          if (v8 && v8 != v21 && (!v21 || !CFEqual(v8, v21)))
+          v36 = v51;
+          if (v8 && v8 != v25 && (!v25 || !CFEqual(v8, v25)))
           {
             FigCFDictionarySetValue();
-            v22 = 1;
+            v26 = 1;
           }
 
           if (v10)
           {
-            v6 = v17;
-            if (!v19)
+            v6 = v21;
+            if (!v23)
             {
-              CFDictionarySetValue(v13, @"isServiceAvailabilityKnown", *MEMORY[0x277CBED28]);
-              v22 = 1;
+              CFDictionarySetValue(v12, @"isServiceAvailabilityKnown", *MEMORY[0x277CBED28]);
+              v26 = 1;
             }
 
-            v30 = v41;
-            v25 = v38;
-            if (v41 == v20)
+            v34 = v52;
+            v29 = v49;
+            if (v52 == v24)
             {
-              v5 = v39;
+              v5 = v50;
             }
 
             else
             {
-              v34 = MEMORY[0x277CBED10];
-              if (v41)
+              v38 = MEMORY[0x277CBED10];
+              if (v52)
               {
-                v34 = MEMORY[0x277CBED28];
+                v38 = MEMORY[0x277CBED28];
               }
 
-              CFDictionarySetValue(v13, @"isServiceAvailable", *v34);
-              v5 = v39;
-              if (v41)
+              CFDictionarySetValue(v12, @"isServiceAvailable", *v38);
+              v5 = v50;
+              if (v52)
               {
-                CFSetRemoveAllValues(v38);
-                v30 = 1;
+                CFSetRemoveAllValues(v49);
+                v34 = 1;
               }
 
-              v22 = 1;
+              v26 = 1;
             }
           }
 
           else
           {
-            v30 = v20;
-            v6 = v17;
-            v25 = v38;
-            v5 = v39;
+            v34 = v24;
+            v6 = v21;
+            v29 = v49;
+            v5 = v50;
           }
 
           CFStringGetTypeID();
-          v33 = CFDictionaryGetTypedValue();
-          if (!v22)
+          v37 = CFDictionaryGetTypedValue();
+          if (!v26)
           {
-            goto LABEL_52;
+            goto LABEL_59;
           }
 
-          goto LABEL_48;
+          goto LABEL_55;
         }
 
-        goto LABEL_81;
+        goto LABEL_89;
       }
 
-      v23 = *MEMORY[0x277CBECE8];
+      v27 = *MEMORY[0x277CBECE8];
       Mutable = CFSetCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF158]);
       if (Mutable)
       {
-        v25 = Mutable;
-        v26 = CFDictionaryCreateMutable(v23, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-        if (v26)
+        v29 = Mutable;
+        v30 = CFDictionaryCreateMutable(v27, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        if (v30)
         {
-          v13 = v26;
-          CFDictionarySetValue(v26, @"rapportDeviceID", v5);
+          v12 = v30;
+          CFDictionarySetValue(v30, @"rapportDeviceID", v5);
           CFDictionarySetInt64();
-          v27 = *v15;
-          v28 = *MEMORY[0x277CBED10];
+          v31 = *v19;
+          v32 = *MEMORY[0x277CBED10];
           if (v10)
           {
-            v29 = v27;
+            v33 = v31;
           }
 
           else
           {
-            v29 = *MEMORY[0x277CBED10];
+            v33 = *MEMORY[0x277CBED10];
           }
 
-          CFDictionarySetValue(v13, @"isServiceAvailabilityKnown", v29);
-          v30 = v41;
-          if (v41)
+          CFDictionarySetValue(v12, @"isServiceAvailabilityKnown", v33);
+          v34 = v52;
+          if (v52)
           {
-            v31 = v27;
+            v35 = v31;
           }
 
           else
           {
-            v31 = v28;
+            v35 = v32;
           }
 
-          CFDictionarySetValue(v13, @"isServiceAvailable", v31);
-          CFDictionarySetValue(v13, @"effectiveIDsAttempted", v25);
+          CFDictionarySetValue(v12, @"isServiceAvailable", v35);
+          CFDictionarySetValue(v12, @"effectiveIDsAttempted", v29);
           FigCFDictionarySetValue();
-          v32 = v40;
-          CFDictionarySetValue(*(v40 + 80), v5, v13);
-          v33 = 0;
-LABEL_48:
-          if (v33 | v8)
+          v36 = v51;
+          CFDictionarySetValue(*(v51 + 80), v5, v12);
+          v37 = 0;
+LABEL_55:
+          if (v37 | v8)
           {
-            if (APBrowserRapportManager_sendDeviceEvent(v32, v13))
+            v39 = APBrowserRapportManager_sendDeviceEvent(v36, v12);
+            if (v39)
             {
+              v43 = v39;
               APSLogErrorAt();
-              if (gLogCategory_APBrowserRapportManager > 90 || gLogCategory_APBrowserRapportManager == -1 && !_LogCategory_Initialize())
+              if (gLogCategory_APBrowserRapportManager <= 90 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
               {
-                goto LABEL_58;
+                LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_addOrUpdateDevice(APBrowserRapportManagerRef, RPCompanionLinkDevice *, Boolean)", 33554522, "[%@:%@] Error sending device event: %#m\n", v5, v6, v43);
               }
 
-              goto LABEL_73;
+              goto LABEL_65;
             }
           }
 
           else
           {
-            v33 = 0;
+            v37 = 0;
           }
 
-LABEL_52:
-          if (v33 | v8)
+LABEL_59:
+          if (v37 | v8)
           {
-            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0())
+            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0(&gLogCategory_APBrowserRapportManager))
             {
-              goto LABEL_58;
+              goto LABEL_65;
             }
+
+            v45 = v5;
+            v46 = v6;
+            v42 = "[%@:%@] Bonjour correlation ID already known\n";
           }
 
-          else if (CFDictionaryGetValue(v13, @"directClient"))
+          else if (CFDictionaryGetValue(v12, @"directClient"))
           {
-            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0())
+            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0(&gLogCategory_APBrowserRapportManager))
             {
-              goto LABEL_58;
+              goto LABEL_65;
             }
+
+            v45 = v5;
+            v46 = v6;
+            v42 = "[%@:%@] Already has a pending request\n";
           }
 
           else
           {
-            if (CFSetContainsValue(v25, v6))
+            if (CFSetContainsValue(v29, v6))
             {
-              goto LABEL_58;
+              goto LABEL_65;
             }
 
-            if (v30)
+            if (v34)
             {
-              if (APBrowserRapportManager_sendGetInfo(v32, v2, v5, v6))
+              if (APBrowserRapportManager_sendGetInfo(v36, v2, v5, v6))
               {
                 APSLogErrorAt();
               }
 
-              goto LABEL_58;
+              goto LABEL_65;
             }
 
-            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0())
+            if (gLogCategory_APBrowserRapportManager > 30 || gLogCategory_APBrowserRapportManager == -1 && !OUTLINED_FUNCTION_8_0(&gLogCategory_APBrowserRapportManager))
             {
-LABEL_58:
-              CFRelease(v25);
-LABEL_59:
+LABEL_65:
+              CFRelease(v29);
+LABEL_66:
               OUTLINED_FUNCTION_5_10();
 
-              CFRelease(v35);
+              CFRelease(v40);
               return;
             }
+
+            v45 = v5;
+            v46 = v6;
+            v42 = "[%@:%@] Service not supported\n";
           }
 
-LABEL_73:
-          LogPrintF();
-          goto LABEL_58;
+          LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_addOrUpdateDevice(APBrowserRapportManagerRef, RPCompanionLinkDevice *, Boolean)", 33554462, v42, v45, v46, v47);
+          goto LABEL_65;
         }
 
-LABEL_81:
+LABEL_89:
         APSLogErrorAt();
-        goto LABEL_59;
+        goto LABEL_66;
       }
     }
   }
@@ -339,15 +375,15 @@ void __APBrowserRapportManager_ensureScanningStarted_block_invoke(uint64_t a1, u
 
 uint64_t ___APBrowserRapportManager_getActiveManagers_block_invoke()
 {
-  v0 = *MEMORY[0x277CBECE8];
   result = FigCFWeakReferenceTableCreate();
   if (result)
   {
+    v1 = result;
     if (gLogCategory_APBrowserRapportManager <= 100)
     {
       if (gLogCategory_APBrowserRapportManager != -1 || (result = _LogCategory_Initialize(), result))
       {
-        result = ___APBrowserRapportManager_getActiveManagers_block_invoke_cold_1();
+        result = ___APBrowserRapportManager_getActiveManagers_block_invoke_cold_1(v1);
       }
     }
 
@@ -364,33 +400,38 @@ void __APBrowserRapportManager_sendGetInfo_block_invoke_2(void *a1, uint64_t a2)
   v5 = a1[4];
   if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v6 = @"Success";
+    if (v5)
+    {
+      v6 = v5;
+    }
+
+    LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleDirectClientActivation(APBrowserRapportManagerRef, CFStringRef, CFStringRef, CFErrorRef)", 33554472, "[%@:%@] Direct client activation callback: %@\n", v3, v4, v6);
   }
 
   if (!v3)
   {
     __APBrowserRapportManager_sendGetInfo_block_invoke_2_cold_3();
-LABEL_25:
+LABEL_30:
 
     APBrowserRapportManager_tryNextEffectiveID(a2, v3);
     return;
   }
 
-  v6 = *(a2 + 80);
   CFDictionaryGetTypeID();
   TypedValue = CFDictionaryGetTypedValue();
   if (!TypedValue)
   {
     __APBrowserRapportManager_sendGetInfo_block_invoke_2_cold_2();
-    goto LABEL_25;
+    goto LABEL_30;
   }
 
   v8 = TypedValue;
   if (!*(a2 + 48))
   {
-LABEL_24:
+LABEL_29:
     CFDictionaryRemoveValue(v8, @"directClient");
-    goto LABEL_25;
+    goto LABEL_30;
   }
 
   if (v5)
@@ -404,35 +445,52 @@ LABEL_24:
       return;
     }
 
-    goto LABEL_24;
+    goto LABEL_29;
   }
 
   v9 = *MEMORY[0x277CBED28];
   CFDictionarySetValue(TypedValue, @"isServiceAvailabilityKnown", *MEMORY[0x277CBED28]);
   CFDictionarySetValue(v8, @"isServiceAvailable", v9);
-  if (!CFDictionaryGetValue(v8, @"directClient") || (Value = APSWrapperGetValue()) == 0 || (v11 = Value, (Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150])) == 0))
+  if (!CFDictionaryGetValue(v8, @"directClient"))
   {
-    __APBrowserRapportManager_sendGetInfo_block_invoke_2_cold_1();
-    goto LABEL_24;
+    v15 = 784;
+LABEL_28:
+    __APBrowserRapportManager_sendGetInfo_block_invoke_2_cold_1(v15);
+    goto LABEL_29;
+  }
+
+  Value = APSWrapperGetValue();
+  if (!Value)
+  {
+    v15 = 787;
+    goto LABEL_28;
+  }
+
+  v11 = Value;
+  Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  if (!Mutable)
+  {
+    v15 = 790;
+    goto LABEL_28;
   }
 
   v13 = Mutable;
   if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleDirectClientActivation(APBrowserRapportManagerRef, CFStringRef, CFStringRef, CFErrorRef)", 33554472, "[%@:%@] Sending getinfo request\n", v3, v4);
   }
 
   v14 = *(a2 + 40);
   CFRetain(v3);
   CFRetain(v4);
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __APBrowserRapportManager_handleDirectClientActivation_block_invoke;
-  v15[3] = &__block_descriptor_56_e51_v32__0__NSDictionary_8__NSDictionary_16__NSError_24l;
-  v15[4] = v14;
-  v15[5] = v3;
-  v15[6] = v4;
-  [v11 sendRequestID:@"com.apple.airplay.discovery.getinfo" request:v13 options:0 responseHandler:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __APBrowserRapportManager_handleDirectClientActivation_block_invoke;
+  v16[3] = &__block_descriptor_56_e51_v32__0__NSDictionary_8__NSDictionary_16__NSError_24l;
+  v16[4] = v14;
+  v16[5] = v3;
+  v16[6] = v4;
+  [v11 sendRequestID:@"com.apple.airplay.discovery.getinfo" request:v13 options:0 responseHandler:v16];
   CFRelease(v13);
 }
 
@@ -444,12 +502,17 @@ void __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2(void 
   v6 = a1[6];
   if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    v7 = @"Success";
+    if (v6)
+    {
+      v7 = v6;
+    }
+
+    LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleGetInfoResponse(APBrowserRapportManagerRef, CFStringRef, CFStringRef, CFDictionaryRef, CFDictionaryRef, CFErrorRef)", 33554472, "[%@:%@] Received getinfo response: %@\n", v3, v4, v7);
   }
 
   if (v3)
   {
-    v7 = *(a2 + 80);
     CFDictionaryGetTypeID();
     TypedValue = CFDictionaryGetTypedValue();
     if (TypedValue)
@@ -465,9 +528,9 @@ void __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2(void 
             CFDictionarySetValue(v9, @"isServiceAvailable", *MEMORY[0x277CBED10]);
             v10 = 0;
             v11 = 1;
-LABEL_31:
+LABEL_33:
             CFDictionaryRemoveValue(v9, @"directClient");
-            goto LABEL_32;
+            goto LABEL_34;
           }
         }
 
@@ -482,31 +545,31 @@ LABEL_31:
             {
               if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF();
+                LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleGetInfoResponse(APBrowserRapportManagerRef, CFStringRef, CFStringRef, CFDictionaryRef, CFDictionaryRef, CFErrorRef)", 33554472, "[%@:%@] Bonjour device ID already known", v3, v4);
               }
             }
 
             else
             {
-              v13 = *MEMORY[0x277CE9F28];
               CFStringGetTypeID();
-              v14 = CFDictionaryGetTypedValue();
-              if (v14)
+              v13 = CFDictionaryGetTypedValue();
+              if (v13)
               {
-                v15 = v14;
+                v14 = v13;
                 if (gLogCategory_APBrowserRapportManager <= 40 && (gLogCategory_APBrowserRapportManager != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF();
+                  LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleGetInfoResponse(APBrowserRapportManagerRef, CFStringRef, CFStringRef, CFDictionaryRef, CFDictionaryRef, CFErrorRef)", 33554472, "[%@:%@] Received bonjour device ID %@\n", v3, v4, v14);
                 }
 
-                CFDictionarySetValue(v9, @"bonjourDeviceID", v15);
-                if (APBrowserRapportManager_sendDeviceEvent(a2, v9))
+                CFDictionarySetValue(v9, @"bonjourDeviceID", v14);
+                v15 = APBrowserRapportManager_sendDeviceEvent(a2, v9);
+                if (v15)
                 {
-                  __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2_cold_1();
+                  __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2_cold_1(v15);
                 }
 
                 v11 = 0;
-                goto LABEL_30;
+                goto LABEL_32;
               }
 
               __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2_cold_2();
@@ -521,9 +584,9 @@ LABEL_31:
       }
 
       v11 = 1;
-LABEL_30:
+LABEL_32:
       v10 = 1;
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
     __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2_cold_4();
@@ -536,7 +599,7 @@ LABEL_30:
 
   v10 = 1;
   v11 = 1;
-LABEL_32:
+LABEL_34:
   if (v10 && v11)
   {
 
@@ -546,47 +609,45 @@ LABEL_32:
 
 uint64_t __APBrowserRapportManager_copyShowInfo_block_invoke(uint64_t a1, int a2, CFDictionaryRef theDict)
 {
-  CFDictionaryGetValue(theDict, @"rapportDeviceID");
-  CFDictionaryGetValue(theDict, @"bonjourDeviceID");
-  CFDictionaryGetValue(theDict, @"systemPairingID");
-  CFDictionaryGetValue(theDict, @"deviceRelationship");
-  v5 = *(a1 + 32);
-  return CFStringAppendF();
+  Value = CFDictionaryGetValue(theDict, @"rapportDeviceID");
+  v6 = CFDictionaryGetValue(theDict, @"bonjourDeviceID");
+  v7 = CFDictionaryGetValue(theDict, @"systemPairingID");
+  v8 = CFDictionaryGetValue(theDict, @"deviceRelationship");
+  return CFStringAppendF(*(a1 + 32), "    %@: discovery ID: %-17@ systemPairing ID: %-36@ relationship: %@\n", Value, v6, v7, v8);
 }
 
-void __APBrowserRapportManager_ensureScanningStarted_block_invoke_3(uint64_t a1)
+void __APBrowserRapportManager_ensureScanningStarted_block_invoke_3()
 {
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  v5 = __APBrowserRapportManager_ensureScanningStarted_block_invoke_4;
-  v6 = &unk_278BC8108;
-  v7 = v2;
-  APBrowserRapportManager_runOnQueue(v3, v4);
+  v3 = __APBrowserRapportManager_ensureScanningStarted_block_invoke_4;
+  v4 = &unk_278BC8108;
+  v5 = v0;
+  APBrowserRapportManager_runOnQueue(v1, v2);
 }
 
-uint64_t __APBrowserRapportManager_ensureScanningStarted_block_invoke_4(uint64_t a1, uint64_t a2)
+uint64_t __APBrowserRapportManager_ensureScanningStarted_block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  if (v2 && [*(a1 + 32) idsDeviceIdentifier])
+  v1 = *(a1 + 32);
+  if (v1 && (v2 = [*(a1 + 32) idsDeviceIdentifier]) != 0)
   {
-    [v2 effectiveIdentifier];
-    v4 = *(a2 + 80);
-    CFDictionaryGetTypeID();
-    result = OUTLINED_FUNCTION_6_8();
+    v3 = v2;
+    v4 = [v1 effectiveIdentifier];
+    TypeID = CFDictionaryGetTypeID();
+    result = OUTLINED_FUNCTION_6_8(TypeID);
     if (result)
     {
       if (gLogCategory_APBrowserRapportManager <= 30)
       {
         if (gLogCategory_APBrowserRapportManager != -1)
         {
-          return LogPrintF();
+          return LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleDeviceLost(APBrowserRapportManagerRef, RPCompanionLinkDevice *)", 33554462, "[%@:%@] Lost device\n", v3, v4);
         }
 
-        result = OUTLINED_FUNCTION_8_0();
+        result = OUTLINED_FUNCTION_8_0(&gLogCategory_APBrowserRapportManager);
         if (result)
         {
-          return LogPrintF();
+          return LogPrintF(&gLogCategory_APBrowserRapportManager, "OSStatus APBrowserRapportManager_handleDeviceLost(APBrowserRapportManagerRef, RPCompanionLinkDevice *)", 33554462, "[%@:%@] Lost device\n", v3, v4);
         }
       }
     }
@@ -603,30 +664,28 @@ uint64_t __APBrowserRapportManager_ensureScanningStarted_block_invoke_4(uint64_t
 
 void __APBrowserRapportManager_sendGetInfo_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  v6 = __APBrowserRapportManager_sendGetInfo_block_invoke_2;
-  v7 = &unk_278BC8198;
-  v9 = *(a1 + 40);
-  v8 = v3;
-  APBrowserRapportManager_runOnQueue(v4, v5);
+  v5 = __APBrowserRapportManager_sendGetInfo_block_invoke_2;
+  v6 = &unk_278BC8198;
+  v8 = *(a1 + 40);
+  v7 = v2;
+  APBrowserRapportManager_runOnQueue(v3, v4);
   CFRelease(*(a1 + 48));
   CFRelease(*(a1 + 40));
 }
 
 void __APBrowserRapportManager_handleDirectClientActivation_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_4_0();
-  v8 = __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2;
-  v9 = &unk_278BC81E0;
-  v13 = *(a1 + 40);
+  v7 = __APBrowserRapportManager_handleDirectClientActivation_block_invoke_2;
+  v8 = &unk_278BC81E0;
+  v12 = *(a1 + 40);
+  v9 = v2;
   v10 = v3;
   v11 = v4;
-  v12 = v5;
-  APBrowserRapportManager_runOnQueue(v6, v7);
+  APBrowserRapportManager_runOnQueue(v5, v6);
   CFRelease(*(a1 + 48));
   CFRelease(*(a1 + 40));
 }

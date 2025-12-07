@@ -771,12 +771,12 @@ void __43__AXPISystemActionHelper_turnDigitalCrown___block_invoke()
   turnDigitalCrown__digitalCrownHIDQueue = v0;
 }
 
-void __43__AXPISystemActionHelper_turnDigitalCrown___block_invoke_2()
+void __43__AXPISystemActionHelper_turnDigitalCrown___block_invoke_2(uint64_t a1)
 {
   mach_absolute_time();
   ScrollEvent = IOHIDEventCreateScrollEvent();
-  v1 = +[AXPIEventSender sharedInstance];
-  [v1 sendIOHIDEventRef:ScrollEvent];
+  v2 = +[AXPIEventSender sharedInstance];
+  [v2 sendIOHIDEventRef:ScrollEvent];
 
   if (ScrollEvent)
   {

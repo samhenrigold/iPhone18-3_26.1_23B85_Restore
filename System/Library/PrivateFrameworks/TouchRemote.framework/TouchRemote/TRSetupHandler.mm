@@ -141,7 +141,7 @@ void __66__TRSetupHandler__handleConfigurationRequest_withResponseHandler___bloc
 
 - (void)_handleNetworkRequest:(id)request withResponseHandler:(id)handler
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   delegate = [(TRSetupHandler *)self delegate];
@@ -159,22 +159,22 @@ void __66__TRSetupHandler__handleConfigurationRequest_withResponseHandler___bloc
       }
 
       v12 = [dictionary copy];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __60__TRSetupHandler__handleNetworkRequest_withResponseHandler___block_invoke;
-      v15[3] = &unk_279DCEEA0;
-      v16 = handlerCopy;
-      [delegate setupHandler:self joinNetworkWithParams:v12 completion:v15];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __60__TRSetupHandler__handleNetworkRequest_withResponseHandler___block_invoke;
+      v14[3] = &unk_279DCEEA0;
+      v15 = handlerCopy;
+      [delegate setupHandler:self joinNetworkWithParams:v12 completion:v14];
     }
 
     else
     {
       v13 = *MEMORY[0x277CCA470];
-      v17[0] = *MEMORY[0x277CCA450];
-      v17[1] = v13;
-      v18[0] = @"Invalid Message Parameters";
-      v18[1] = @"Missing SSID parameter";
-      dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+      v16[0] = *MEMORY[0x277CCA450];
+      v16[1] = v13;
+      v17[0] = @"Invalid Message Parameters";
+      v17[1] = @"Missing SSID parameter";
+      dictionary = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
       v12 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9202 userInfo:dictionary];
       (*(handlerCopy + 2))(handlerCopy, v12, 0);
     }
@@ -185,8 +185,6 @@ void __66__TRSetupHandler__handleConfigurationRequest_withResponseHandler___bloc
     networkSSID = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9001 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, networkSSID, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__TRSetupHandler__handleNetworkRequest_withResponseHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -251,7 +249,7 @@ void __63__TRSetupHandler__handleActivationRequest_withResponseHandler___block_i
 
 - (void)_handleCompanionAuthenticationRequest:(id)request withResponseHandler:(id)handler
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   delegate = [(TRSetupHandler *)self delegate];
@@ -267,48 +265,48 @@ void __63__TRSetupHandler__handleActivationRequest_withResponseHandler___block_i
       {
         if (companionDevice)
         {
-          v30[0] = @"Account";
-          v30[1] = @"TargetedAccountServices";
-          v31[0] = account;
-          v31[1] = targetedAccountServices;
-          v31[2] = companionDevice;
-          v30[2] = @"CompanionDevice";
-          v30[3] = @"UseAIDA";
+          v29[0] = @"Account";
+          v29[1] = @"TargetedAccountServices";
+          v30[0] = account;
+          v30[1] = targetedAccountServices;
+          v30[2] = companionDevice;
+          v29[2] = @"CompanionDevice";
+          v29[3] = @"UseAIDA";
           v13 = [MEMORY[0x277CCABB0] numberWithBool:shouldUseAIDA];
-          v31[3] = v13;
-          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+          v30[3] = v13;
+          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
           if (objc_opt_respondsToSelector())
           {
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke;
-            v28[3] = &unk_279DCEEF0;
-            v15 = &v29;
-            v29 = handlerCopy;
-            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completionWithErrorAuthResults:v28];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke;
+            v27[3] = &unk_279DCEEF0;
+            v15 = &v28;
+            v28 = handlerCopy;
+            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completionWithErrorAuthResults:v27];
           }
 
           else if (objc_opt_respondsToSelector())
           {
-            v26[0] = MEMORY[0x277D85DD0];
-            v26[1] = 3221225472;
-            v26[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke_2;
-            v26[3] = &unk_279DCED18;
-            v15 = &v27;
-            v27 = handlerCopy;
-            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completionWithError:v26];
+            v25[0] = MEMORY[0x277D85DD0];
+            v25[1] = 3221225472;
+            v25[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke_2;
+            v25[3] = &unk_279DCED18;
+            v15 = &v26;
+            v26 = handlerCopy;
+            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completionWithError:v25];
           }
 
           else
           {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke_3;
-            v24[3] = &unk_279DCED40;
-            v15 = &v25;
-            v25 = handlerCopy;
-            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completion:v24];
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke_3;
+            v23[3] = &unk_279DCED40;
+            v15 = &v24;
+            v24 = handlerCopy;
+            [delegate setupHandler:self performCompanionAuthenticationWithParams:v14 completion:v23];
           }
 
           v22 = *v15;
@@ -316,38 +314,38 @@ void __63__TRSetupHandler__handleActivationRequest_withResponseHandler___block_i
         }
 
         v21 = *MEMORY[0x277CCA470];
-        v32[0] = *MEMORY[0x277CCA450];
-        v32[1] = v21;
-        v33[0] = @"Invalid Message Parameters";
-        v33[1] = @"Missing companionDevice parameter";
+        v31[0] = *MEMORY[0x277CCA450];
+        v31[1] = v21;
+        v32[0] = @"Invalid Message Parameters";
+        v32[1] = @"Missing companionDevice parameter";
         v17 = MEMORY[0x277CBEAC0];
-        v18 = v33;
-        v19 = v32;
+        v18 = v32;
+        v19 = v31;
       }
 
       else
       {
         v20 = *MEMORY[0x277CCA470];
-        v34[0] = *MEMORY[0x277CCA450];
-        v34[1] = v20;
-        v35[0] = @"Invalid Message Parameters";
-        v35[1] = @"Missing targetedAccountServices parameter";
+        v33[0] = *MEMORY[0x277CCA450];
+        v33[1] = v20;
+        v34[0] = @"Invalid Message Parameters";
+        v34[1] = @"Missing targetedAccountServices parameter";
         v17 = MEMORY[0x277CBEAC0];
-        v18 = v35;
-        v19 = v34;
+        v18 = v34;
+        v19 = v33;
       }
     }
 
     else
     {
       v16 = *MEMORY[0x277CCA470];
-      v36[0] = *MEMORY[0x277CCA450];
-      v36[1] = v16;
-      v37[0] = @"Invalid Message Parameters";
-      v37[1] = @"Missing account parameter";
+      v35[0] = *MEMORY[0x277CCA450];
+      v35[1] = v16;
+      v36[0] = @"Invalid Message Parameters";
+      v36[1] = @"Missing account parameter";
       v17 = MEMORY[0x277CBEAC0];
-      v18 = v37;
-      v19 = v36;
+      v18 = v36;
+      v19 = v35;
     }
 
     v14 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:2];
@@ -361,8 +359,6 @@ LABEL_17:
   account = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9001 userInfo:0];
   (*(handlerCopy + 2))(handlerCopy, account, 0);
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -412,7 +408,7 @@ void __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHand
 
 - (void)_handleProxyAuthenticationRequest:(id)request withResponseHandler:(id)handler
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   delegate = [(TRSetupHandler *)self delegate];
@@ -428,48 +424,48 @@ void __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHand
       {
         if (targetedAccountServices)
         {
-          v30[0] = @"Account";
-          v30[1] = @"TargetedAccountServices";
-          v31[0] = account;
-          v31[1] = targetedAccountServices;
-          v31[2] = rawPassword;
-          v30[2] = @"AccountRawPassword";
-          v30[3] = @"UseAIDA";
+          v29[0] = @"Account";
+          v29[1] = @"TargetedAccountServices";
+          v30[0] = account;
+          v30[1] = targetedAccountServices;
+          v30[2] = rawPassword;
+          v29[2] = @"AccountRawPassword";
+          v29[3] = @"UseAIDA";
           v13 = [MEMORY[0x277CCABB0] numberWithBool:shouldUseAIDA];
-          v31[3] = v13;
-          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+          v30[3] = v13;
+          v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
           if (objc_opt_respondsToSelector())
           {
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke;
-            v28[3] = &unk_279DCEEF0;
-            v15 = &v29;
-            v29 = handlerCopy;
-            [delegate setupHandler:self performProxyAuthenticationWithParamsAuthResult:v14 completionWithErrorAuthResults:v28];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke;
+            v27[3] = &unk_279DCEEF0;
+            v15 = &v28;
+            v28 = handlerCopy;
+            [delegate setupHandler:self performProxyAuthenticationWithParamsAuthResult:v14 completionWithErrorAuthResults:v27];
           }
 
           else if (objc_opt_respondsToSelector())
           {
-            v26[0] = MEMORY[0x277D85DD0];
-            v26[1] = 3221225472;
-            v26[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_2;
-            v26[3] = &unk_279DCED18;
-            v15 = &v27;
-            v27 = handlerCopy;
-            [delegate setupHandler:self performProxyAuthenticationWithParams:v14 completionWithError:v26];
+            v25[0] = MEMORY[0x277D85DD0];
+            v25[1] = 3221225472;
+            v25[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_2;
+            v25[3] = &unk_279DCED18;
+            v15 = &v26;
+            v26 = handlerCopy;
+            [delegate setupHandler:self performProxyAuthenticationWithParams:v14 completionWithError:v25];
           }
 
           else
           {
-            v24[0] = MEMORY[0x277D85DD0];
-            v24[1] = 3221225472;
-            v24[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_3;
-            v24[3] = &unk_279DCED40;
-            v15 = &v25;
-            v25 = handlerCopy;
-            [delegate setupHandler:self performProxyAuthenticationWithParams:v14 completion:v24];
+            v23[0] = MEMORY[0x277D85DD0];
+            v23[1] = 3221225472;
+            v23[2] = __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke_3;
+            v23[3] = &unk_279DCED40;
+            v15 = &v24;
+            v24 = handlerCopy;
+            [delegate setupHandler:self performProxyAuthenticationWithParams:v14 completion:v23];
           }
 
           v22 = *v15;
@@ -477,38 +473,38 @@ void __76__TRSetupHandler__handleCompanionAuthenticationRequest_withResponseHand
         }
 
         v21 = *MEMORY[0x277CCA470];
-        v32[0] = *MEMORY[0x277CCA450];
-        v32[1] = v21;
-        v33[0] = @"Invalid Message Parameters";
-        v33[1] = @"Missing targetedAccountServices parameter";
+        v31[0] = *MEMORY[0x277CCA450];
+        v31[1] = v21;
+        v32[0] = @"Invalid Message Parameters";
+        v32[1] = @"Missing targetedAccountServices parameter";
         v17 = MEMORY[0x277CBEAC0];
-        v18 = v33;
-        v19 = v32;
+        v18 = v32;
+        v19 = v31;
       }
 
       else
       {
         v20 = *MEMORY[0x277CCA470];
-        v34[0] = *MEMORY[0x277CCA450];
-        v34[1] = v20;
-        v35[0] = @"Invalid Message Parameters";
-        v35[1] = @"Missing accountRawPassword parameter";
+        v33[0] = *MEMORY[0x277CCA450];
+        v33[1] = v20;
+        v34[0] = @"Invalid Message Parameters";
+        v34[1] = @"Missing accountRawPassword parameter";
         v17 = MEMORY[0x277CBEAC0];
-        v18 = v35;
-        v19 = v34;
+        v18 = v34;
+        v19 = v33;
       }
     }
 
     else
     {
       v16 = *MEMORY[0x277CCA470];
-      v36[0] = *MEMORY[0x277CCA450];
-      v36[1] = v16;
-      v37[0] = @"Invalid Message Parameters";
-      v37[1] = @"Missing account parameter";
+      v35[0] = *MEMORY[0x277CCA450];
+      v35[1] = v16;
+      v36[0] = @"Invalid Message Parameters";
+      v36[1] = @"Missing account parameter";
       v17 = MEMORY[0x277CBEAC0];
-      v18 = v37;
-      v19 = v36;
+      v18 = v36;
+      v19 = v35;
     }
 
     v14 = [v17 dictionaryWithObjects:v18 forKeys:v19 count:2];
@@ -522,8 +518,6 @@ LABEL_17:
   account = [MEMORY[0x277CCA9B8] errorWithDomain:@"TRNearbyDeviceErrorDomain" code:-9001 userInfo:0];
   (*(handlerCopy + 2))(handlerCopy, account, 0);
 LABEL_18:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __72__TRSetupHandler__handleProxyAuthenticationRequest_withResponseHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)

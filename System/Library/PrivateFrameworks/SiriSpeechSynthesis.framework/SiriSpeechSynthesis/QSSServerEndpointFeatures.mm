@@ -45,56 +45,56 @@ flatbuffers::DetachedBuffer *__41__QSSServerEndpointFeatures_flatbuffData__block
 
 - (Offset<siri::speech::schema_fb::ServerEndpointFeatures>)addObjectToBuffer:(void *)buffer
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   processed_audio_duration_ms = [(QSSServerEndpointFeatures *)self processed_audio_duration_ms];
   num_of_words = [(QSSServerEndpointFeatures *)self num_of_words];
   trailing_silence_duration = [(QSSServerEndpointFeatures *)self trailing_silence_duration];
   [(QSSServerEndpointFeatures *)self eos_likelihood];
   v9 = v8;
-  memset(&v40, 0, sizeof(v40));
+  memset(&v39, 0, sizeof(v39));
   pause_counts = [(QSSServerEndpointFeatures *)self pause_counts];
-  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v40, [pause_counts count]);
+  std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v39, [pause_counts count]);
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   pause_counts2 = [(QSSServerEndpointFeatures *)self pause_counts];
-  v12 = [pause_counts2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v12 = [pause_counts2 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v12)
   {
-    v13 = *v37;
+    v13 = *v36;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v37 != v13)
+        if (*v36 != v13)
         {
           objc_enumerationMutation(pause_counts2);
         }
 
-        intValue = [*(*(&v36 + 1) + 8 * i) intValue];
-        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v40, &intValue);
+        intValue = [*(*(&v35 + 1) + 8 * i) intValue];
+        std::vector<flatbuffers::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v39, &intValue);
       }
 
-      v12 = [pause_counts2 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v12 = [pause_counts2 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v12);
   }
 
-  begin = v40.__begin_;
-  if (v40.__end_ == v40.__begin_)
+  begin = v39.__begin_;
+  if (v39.__end_ == v39.__begin_)
   {
     v16 = &flatbuffers::data<int,std::allocator<int>>(std::vector<int> const&)::t;
   }
 
   else
   {
-    v16 = v40.__begin_;
+    v16 = v39.__begin_;
   }
 
-  v17 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v16, v40.__end_ - v40.__begin_);
+  v17 = flatbuffers::FlatBufferBuilder::CreateVector<int>(buffer, v16, v39.__end_ - v39.__begin_);
   [(QSSServerEndpointFeatures *)self silence_posterior];
   v19 = v18;
   task_name = [(QSSServerEndpointFeatures *)self task_name];
@@ -117,7 +117,7 @@ flatbuffers::DetachedBuffer *__41__QSSServerEndpointFeatures_flatbuffData__block
 
   uTF8String2 = [(__CFString *)speech_id UTF8String];
   v28 = strlen(uTF8String2);
-  v34 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v28);
+  v33 = flatbuffers::FlatBufferBuilder::CreateString(buffer, uTF8String2, v28);
 
   flatbuffers::FlatBufferBuilder::NotNested(buffer);
   *(buffer + 70) = 1;
@@ -131,14 +131,13 @@ flatbuffers::DetachedBuffer *__41__QSSServerEndpointFeatures_flatbuffData__block
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 12, v17);
   flatbuffers::FlatBufferBuilder::AddElement<double>(buffer, 14, v19);
   flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 16, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v34);
+  flatbuffers::FlatBufferBuilder::AddOffset<flatbuffers::Vector<unsigned char>>(buffer, 18, v33);
   v31.var0 = flatbuffers::FlatBufferBuilder::EndTable(buffer, uTF8String2 - v29 + v30);
   if (begin)
   {
     operator delete(begin);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 

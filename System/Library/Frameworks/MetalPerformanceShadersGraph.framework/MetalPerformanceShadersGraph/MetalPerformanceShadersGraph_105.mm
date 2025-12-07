@@ -45,7 +45,7 @@ uint64_t mlir::anonymous namespace::getANECTransposeAttrFromPermutes(uint64_t a1
     v11 = 0;
   }
 
-  result = mlir::DenseElementsAttr::getFromRawBuffer(v9, v11, v16, 8 * v17, 8, 1, 0);
+  result = mlir::DenseElementsAttr::getFromRawBuffer(v9, v11, v16, 8 * v17);
   if (v16 != v18)
   {
     v13 = result;
@@ -56,7 +56,7 @@ uint64_t mlir::anonymous namespace::getANECTransposeAttrFromPermutes(uint64_t a1
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::GatherND,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
+char *mlir::OpBuilder::create<mlir::anec::GatherND,mlir::Value &,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5)
 {
   v19[38] = *MEMORY[0x1E69E9840];
   v16 = a2;
@@ -70,7 +70,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GatherND,mlir::Value &,mlir::Value 
   mlir::OperationState::OperationState(v19, a2, v11);
   mlir::anec::GatherND::build(a1, v19, *a3, *a4, *a5);
   v13 = mlir::OpBuilder::create(a1, v19);
-  if (*(*(v13 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GatherND,void>::id)
+  if (*(*(v13 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::GatherND,void>::id)
   {
     v14 = v13;
   }
@@ -84,95 +84,95 @@ uint64_t mlir::OpBuilder::create<mlir::anec::GatherND,mlir::Value &,mlir::Value 
   return v14;
 }
 
-void mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
+void mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>(mlir::UnknownLoc **a1, _DWORD *a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
-  v31[38] = *MEMORY[0x1E69E9840];
-  v28 = a3;
-  Context = mlir::Attribute::getContext(&v28);
+  v30[38] = *MEMORY[0x1E69E9840];
+  v27 = a3;
+  Context = mlir::Attribute::getContext(&v27);
   v11 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::mps::CastOp,void>::id, Context);
   if ((v12 & 1) == 0)
   {
-    mlir::OpBuilder::create<mlir::mps::CastOp,mlir::Value &,mlir::Type>(v31, v30, v29);
+    mlir::OpBuilder::create<mlir::mps::CastOp,mlir::Value &,mlir::Type>(v30, v29, v28);
   }
 
-  mlir::OperationState::OperationState(v31, a3, v11);
-  mlir::mps::CastOp::build(a1, v31, *a4, *a5);
-  v14 = mlir::Operation::create(v31, v13);
-  v15 = *(a1 + 16);
+  mlir::OperationState::OperationState(v30, a3, v11);
+  mlir::mps::CastOp::build(a1, v30, *a4, *a5);
+  v14 = mlir::Operation::create(v30, v13);
+  v15 = a1[2];
   if (v15)
   {
-    v16 = *(a1 + 24);
+    v16 = a1[3];
     llvm::ilist_traits<mlir::Operation>::addNodeToList(v15 + 32, v14);
-    v18 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v14, v17);
-    v19 = *v16;
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+    v17 = *v16;
     *v18 = *v16;
     v18[1] = v16;
-    *(v19 + 8) = v18;
+    *(v17 + 8) = v18;
     *v16 = v18;
-    MPSGraphDelegateCompiler.precompilationDescriptor.modify(v14, v20);
+    MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   }
 
-  if ((mlir::OpBuilder::tryFold(a1, v14, a2) & 1) != 0 && *(a2 + 8))
+  if ((mlir::OpBuilder::tryFold(a1, v14, a2) & 1) != 0 && a2[2])
   {
-    mlir::Operation::erase(v14);
+    mlir::Operation::erase(v14, v19);
     goto LABEL_20;
   }
 
-  v21 = v14[9];
-  if (v21)
+  v20 = v14[9];
+  if (v20)
   {
-    v22 = (v14 - 4);
+    v21 = (v14 - 4);
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
   }
 
-  *(a2 + 8) = 0;
-  if (v21 <= *(a2 + 12))
+  a2[2] = 0;
+  if (v20 <= a2[3])
   {
-    if (!v21)
+    if (!v20)
     {
-      v26 = 0;
+      v25 = 0;
       goto LABEL_17;
     }
 
-    v23 = 0;
+    v22 = 0;
   }
 
   else
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 16, v21, 8);
-    v23 = *(a2 + 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a2, a2 + 4, v20, 8);
+    v22 = a2[2];
   }
 
-  v24 = 0;
-  v25 = *a2 + 8 * v23;
+  v23 = 0;
+  v24 = *a2 + 8 * v22;
   do
   {
-    *(v25 + 8 * v24) = mlir::detail::OpResultImpl::getNextResultAtOffset(v22, v24);
-    ++v24;
+    *(v24 + 8 * v23) = mlir::detail::OpResultImpl::getNextResultAtOffset(v21, v23);
+    ++v23;
   }
 
-  while (v21 != v24);
-  v26 = *(a2 + 8);
+  while (v20 != v23);
+  v25 = a2[2];
 LABEL_17:
-  *(a2 + 8) = v26 + v21;
-  if (*(a1 + 16))
+  a2[2] = v25 + v20;
+  if (a1[2])
   {
-    v27 = *(a1 + 8);
-    if (v27)
+    v26 = a1[1];
+    if (v26)
     {
-      (*(*v27 + 16))(v27, v14, 0, 0);
+      (*(*v26 + 16))(v26, v14, 0, 0);
     }
   }
 
 LABEL_20:
-  mlir::OperationState::~OperationState(v31);
+  mlir::OperationState::~OperationState(v30);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::ShapedType,mlir::anec::GatherND &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::Reshape,mlir::ShapedType,mlir::anec::GatherND &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -186,7 +186,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Reshape,mlir::ShapedType,mlir::anec
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::arith::BitcastOp::build(a1, v17, *a3, *a4 - 16);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Reshape,void>::id)
   {
     v12 = v11;
   }
@@ -466,7 +466,7 @@ uint64_t mlir::anonymous namespace::ConvertGather::matchAndRewriteWithStaticShap
   ElementTypeOrSelf = mlir::getElementTypeOrSelf(v81);
   if (mlir::mps::getElementBitWidth(ElementTypeOrSelf) >= 9 && !mlir::Type::isF16(&ElementTypeOrSelf))
   {
-    v17 = (*(v81 + 8) & 0xFFFFFFFFFFFFFFF8);
+    v17 = (*(v81 + 1) & 0xFFFFFFFFFFFFFFF8);
     if (v17)
     {
       v18 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v17 + 8);
@@ -487,7 +487,7 @@ uint64_t mlir::anonymous namespace::ConvertGather::matchAndRewriteWithStaticShap
     v91 = mlir::Builder::getF16Type(a4 + 1, v21);
     __p = v87 + 8;
     *&v87[0] = 0x100000000;
-    mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>((a4 + 1), &__p, v20, &v81, &v91);
+    mlir::OpBuilder::createOrFold<mlir::mps::CastOp,mlir::Value &,mlir::FloatType>(a4 + 1, &__p, v20, &v81, &v91);
     v22 = *__p;
     if (__p != v87 + 8)
     {
@@ -667,7 +667,7 @@ uint64_t mlir::anonymous namespace::ConvertGather::matchAndRewriteWithStaticShap
         }
 
         v85 = ((5 - v73) & ~((5 - v73) >> 63)) + v74;
-        v78 = mlir::DenseElementsAttr::getFromRawBuffer(v53, v55, &v85, 8, 8, 1, 0);
+        v78 = mlir::DenseElementsAttr::getFromRawBuffer(v53, v55, &v85, 8);
         v56 = v91;
         v57 = v92;
         isSplat = mlir::ElementsAttr::isSplat(v84);
@@ -973,7 +973,7 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertSampleGrid::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t **a4)
+uint64_t mlir::anonymous namespace::ConvertSampleGrid::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t a2, void **a3, uint64_t **a4)
 {
   v121 = *MEMORY[0x1E69E9840];
   v88 = a2;
@@ -1029,7 +1029,7 @@ uint64_t mlir::anonymous namespace::ConvertSampleGrid::matchAndRewriteWithStatic
 
   v85[0] = v14;
   v85[1] = v15;
-  v111 = *(a3 + 96);
+  v111 = *(a3 + 6);
   v16 = (*(mlir::ValueRange::dereference_iterator(&v111, 0) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v16)
   {
@@ -1122,15 +1122,15 @@ LABEL_19:
 
   mlir::getRankPromotionTypeForANE(v29, v30);
   v31 = mlir::ValueRange::dereference_iterator(&v111, 0);
-  v32 = *(a3 + 80);
-  v118 = *(a3 + 64);
+  v32 = *(a3 + 5);
+  v118 = *(a3 + 4);
   v119 = v32;
-  v120 = *(a3 + 96);
-  v33 = *(a3 + 16);
+  v120 = *(a3 + 6);
+  v33 = *(a3 + 1);
   *__p = *a3;
   *&__p[16] = v33;
-  v34 = *(a3 + 48);
-  v116 = *(a3 + 32);
+  v34 = *(a3 + 3);
+  v116 = *(a3 + 2);
   v117 = v34;
   v35 = v88;
   LODWORD(v109) = 0;
@@ -1232,7 +1232,7 @@ LABEL_47:
     v44 = 0;
   }
 
-  v45 = mlir::DenseElementsAttr::getFromRawBuffer(v42, v44, v103, 8 * v104, 8, 1, 0);
+  v45 = mlir::DenseElementsAttr::getFromRawBuffer(v42, v44, v103, 8 * v104);
   v100 = v102;
   v102[0] = v40;
   v102[1] = v40;
@@ -1252,9 +1252,9 @@ LABEL_47:
     v49 = 0;
   }
 
-  v50 = mlir::DenseElementsAttr::getFromRawBuffer(v47, v49, v100, 8 * v101, 8, 1, 0);
-  mlir::NamedAttrList::set(__src, "normalized_range", 16, v45);
-  mlir::NamedAttrList::set(__src, "coordinate_mode", 15, v50);
+  v50 = mlir::DenseElementsAttr::getFromRawBuffer(v47, v49, v100, 8 * v101);
+  mlir::NamedAttrList::set(__src, "normalized_range", 0x10uLL, v45);
+  mlir::NamedAttrList::set(__src, "coordinate_mode", 0xFuLL, v50);
   Training = mlir::mps::GRUOp::getTraining(&v88);
   v97 = v99;
   v99[0] = !Training;
@@ -1275,8 +1275,8 @@ LABEL_47:
     v55 = 0;
   }
 
-  v56 = mlir::DenseElementsAttr::getFromRawBuffer(v53, v55, v97, 8 * v98, 8, 1, 0);
-  mlir::NamedAttrList::set(__src, "coordinate_type", 15, v56);
+  v56 = mlir::DenseElementsAttr::getFromRawBuffer(v53, v55, v97, 8 * v98);
+  mlir::NamedAttrList::set(__src, "coordinate_type", 0xFuLL, v56);
   v94 = &v96;
   v95 = 0x100000001;
   v96 = 0;
@@ -1295,8 +1295,8 @@ LABEL_47:
     v60 = 0;
   }
 
-  v61 = mlir::DenseElementsAttr::getFromRawBuffer(v58, v60, v94, 8 * v95, 8, 1, 0);
-  mlir::NamedAttrList::set(__src, "warp_coordinate_mode", 20, v61);
+  v61 = mlir::DenseElementsAttr::getFromRawBuffer(v58, v60, v94, 8 * v95);
+  mlir::NamedAttrList::set(__src, "warp_coordinate_mode", 0x14uLL, v61);
   SamplingMode = mlir::mps::detail::SampleGridOpGenericAdaptorBase::getSamplingMode(a3);
   if (SamplingMode == 1)
   {
@@ -1331,8 +1331,8 @@ LABEL_47:
     v67 = 0;
   }
 
-  v68 = mlir::DenseElementsAttr::getFromRawBuffer(v65, v67, *__p, 8 * *&__p[8], 8, 1, 0);
-  mlir::NamedAttrList::set(__src, "sampling_method", 15, v68);
+  v68 = mlir::DenseElementsAttr::getFromRawBuffer(v65, v67, *__p, 8 * *&__p[8]);
+  mlir::NamedAttrList::set(__src, "sampling_method", 0xFuLL, v68);
   PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v88);
   if (PaddingStyle > 3)
   {
@@ -1363,11 +1363,11 @@ LABEL_47:
     v74 = 0;
   }
 
-  v75 = mlir::DenseElementsAttr::getFromRawBuffer(v72, v74, v112, 8 * v113, 8, 1, 0);
-  mlir::NamedAttrList::set(__src, "padding_modes", 13, v75);
+  v75 = mlir::DenseElementsAttr::getFromRawBuffer(v72, v74, v112, 8 * v113);
+  mlir::NamedAttrList::set(__src, "padding_modes", 0xDuLL, v75);
   v92[0] = &v93;
   v92[1] = 0x100000000;
-  v90 = *(a3 + 96);
+  v90 = a3[12];
   *&v91 = 2;
   v90 = mlir::ValueRange::offset_base(&v90, 2);
   *&v91 = 0;
@@ -1375,7 +1375,7 @@ LABEL_47:
   if (mlir::matchConstantWithFloatVector<float>(v76, v92))
   {
     F16FloatAttr = mlir::Builder::getF16FloatAttr(a4 + 1, *v92[0], v77);
-    mlir::NamedAttrList::set(__src, "background_value", 16, F16FloatAttr);
+    mlir::NamedAttrList::set(__src, "background_value", 0x10uLL, F16FloatAttr);
     v79 = v88;
     v89[0] = v83;
     v89[1] = Transpose;
@@ -1445,7 +1445,7 @@ LABEL_47:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Resample,mlir::ValueRange,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
+char *mlir::OpBuilder::create<mlir::anec::Resample,mlir::ValueRange,mlir::NamedAttrList &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, mlir::NamedAttrList *a4)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -1462,7 +1462,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Resample,mlir::ValueRange,mlir::Nam
   Attrs = mlir::NamedAttrList::getAttrs(a4);
   mlir::anec::Resample::build(a1, v21, v12, v11, Attrs, v14);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Resample,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Resample,void>::id)
   {
     v16 = v15;
   }
@@ -1848,7 +1848,7 @@ LABEL_21:
   return 1;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ScaledDotProductAttention,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &>(uint64_t *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+char *mlir::OpBuilder::create<mlir::anec::ScaledDotProductAttention,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
   v23[38] = *MEMORY[0x1E69E9840];
   v20 = a2;
@@ -1862,7 +1862,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ScaledDotProductAttention,mlir::Val
   mlir::OperationState::OperationState(v23, a2, v15);
   mlir::anec::ScaledDotProductAttention::build(a1, v23, *a3, *a4, *a5, *a6, *a7);
   v17 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v17 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ScaledDotProductAttention,void>::id)
+  if (*(*(v17 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ScaledDotProductAttention,void>::id)
   {
     v18 = v17;
   }
@@ -2130,7 +2130,7 @@ uint64_t mlir::anonymous namespace::ConvertDepthToSpace2D<mlir::anec::PixelShuff
     v13 = v30;
   }
 
-  v26 = mlir::DenseElementsAttr::getFromRawBuffer(v9, v12, v13, v14, 8, 1, 0);
+  v26 = mlir::DenseElementsAttr::getFromRawBuffer(v9, v12, v13, v14);
   v15 = v27;
   v16 = mlir::ValueRange::dereference_iterator(&v31, 0);
   v17 = *(*(v27 + 9) + 24);
@@ -2157,9 +2157,9 @@ uint64_t mlir::anonymous namespace::ConvertDepthToSpace2D<mlir::anec::PixelShuff
   return result;
 }
 
-uint64_t mlir::anonymous namespace::convertDepthSpaceCommon<mlir::mps::DepthToSpace2DOp>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, void *a7)
+uint64_t mlir::anonymous namespace::convertDepthSpaceCommon<mlir::mps::DepthToSpace2DOp>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v13 = (*(a3 + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v13)
   {
@@ -2171,15 +2171,15 @@ uint64_t mlir::anonymous namespace::convertDepthSpaceCommon<mlir::mps::DepthToSp
     v14 = 0;
   }
 
-  v50[0] = v13;
-  v50[1] = v14;
-  if ((mlir::CallOpInterface::getArgOperands(v50) & 1) == 0)
+  v53[0] = v13;
+  v53[1] = v14;
+  if ((mlir::CallOpInterface::getArgOperands(v53) & 1) == 0)
   {
     __p = operator new(0x20uLL);
-    v52 = xmmword_1E09827F0;
+    v55 = xmmword_1E09827F0;
 LABEL_10:
     result = mlir::logMatchFailure(&__p, *(a1 + 24), a2);
-    if ((SHIBYTE(v52) & 0x80000000) == 0)
+    if ((SHIBYTE(v55) & 0x80000000) == 0)
     {
       return result;
     }
@@ -2189,14 +2189,14 @@ LABEL_10:
     return v20;
   }
 
-  mlir::CallableOpInterface::getArgAttrsAttr(v50);
+  mlir::CallableOpInterface::getArgAttrsAttr(v53);
   if (v15 != 4)
   {
-    mlir::CallableOpInterface::getArgAttrsAttr(v50);
+    mlir::CallableOpInterface::getArgAttrsAttr(v53);
     if (v16 != 5)
     {
       __p = operator new(0x20uLL);
-      v52 = xmmword_1E09828D0;
+      v55 = xmmword_1E09828D0;
       strcpy(__p, "only handling rank 4 or 5 input");
       goto LABEL_10;
     }
@@ -2213,25 +2213,25 @@ LABEL_10:
     v18 = 0;
   }
 
-  v49[0] = v17;
-  v49[1] = v18;
-  mlir::CallableOpInterface::getArgAttrsAttr(v50);
+  v52[0] = v17;
+  v52[1] = v18;
+  mlir::CallableOpInterface::getArgAttrsAttr(v53);
   IndexFromDim = mlir::anec::getIndexFromDim(1, v21);
   if ((v23 & 1) == 0)
   {
-    v42 = std::__throw_bad_optional_access[abi:nn200100]();
-    return mlir::OpBuilder::create<mlir::anec::PixelShuffle,mlir::Value,mlir::DenseIntElementsAttr &>(v42);
+    std::__throw_bad_optional_access[abi:nn200100]();
+    return mlir::OpBuilder::create<mlir::anec::PixelShuffle,mlir::Value,mlir::DenseIntElementsAttr &>(v42, v43, v44, v45);
   }
 
   v24 = IndexFromDim;
-  __p = &v52 + 8;
-  *(&v52 + 1) = a7;
-  v53 = a6;
-  v54 = a5;
-  *&v52 = 0x300000003;
-  mlir::CallableOpInterface::getArgAttrsAttr(v49);
+  __p = &v55 + 8;
+  *(&v55 + 1) = a7;
+  v56 = a6;
+  v57 = a5;
+  *&v55 = 0x300000003;
+  mlir::CallableOpInterface::getArgAttrsAttr(v52);
   SortedUniquePromotedPositiveAxesAttr = mlir::getSortedUniquePromotedPositiveAxesAttr(a7, v25, *(a1 + 24), 1);
-  v48 = v26;
+  v51 = v26;
   if (v26)
   {
     if (mlir::DenseElementsAttr::getNumElements(&SortedUniquePromotedPositiveAxesAttr) != 1)
@@ -2239,12 +2239,12 @@ LABEL_10:
       goto LABEL_42;
     }
 
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v43, SortedUniquePromotedPositiveAxesAttr, 0);
-    mlir::DenseElementsAttr::IntElementIterator::operator*(&v43, &v45);
-    if (v46 > 0x40)
+    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v46, SortedUniquePromotedPositiveAxesAttr, 0);
+    mlir::DenseElementsAttr::IntElementIterator::operator*(&v46, &v48);
+    if (v49 > 0x40)
     {
-      v28 = *v45;
-      operator delete[](v45);
+      v28 = *v48;
+      operator delete[](v48);
       if (v24 != v28)
       {
         goto LABEL_40;
@@ -2253,9 +2253,9 @@ LABEL_10:
 
     else
     {
-      if (v46)
+      if (v49)
       {
-        v27 = (v45 << -v46) >> -v46;
+        v27 = (v48 << -v49) >> -v49;
       }
 
       else
@@ -2269,10 +2269,10 @@ LABEL_10:
       }
     }
 
-    v29 = v53;
-    mlir::CallableOpInterface::getArgAttrsAttr(v49);
+    v29 = v56;
+    mlir::CallableOpInterface::getArgAttrsAttr(v52);
     SortedUniquePromotedPositiveAxesAttr = mlir::getSortedUniquePromotedPositiveAxesAttr(v29, v30, *(a1 + 24), 1);
-    v48 = v31;
+    v51 = v31;
     if (v31)
     {
       if (mlir::DenseElementsAttr::getNumElements(&SortedUniquePromotedPositiveAxesAttr) != 1)
@@ -2281,12 +2281,12 @@ LABEL_10:
       }
 
       v32 = v24 + 1;
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v43, SortedUniquePromotedPositiveAxesAttr, 0);
-      mlir::DenseElementsAttr::IntElementIterator::operator*(&v43, &v45);
-      if (v46 >= 0x41)
+      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v46, SortedUniquePromotedPositiveAxesAttr, 0);
+      mlir::DenseElementsAttr::IntElementIterator::operator*(&v46, &v48);
+      if (v49 >= 0x41)
       {
-        v34 = *v45;
-        operator delete[](v45);
+        v34 = *v48;
+        operator delete[](v48);
         if (v32 != v34)
         {
           goto LABEL_40;
@@ -2295,9 +2295,9 @@ LABEL_10:
 
       else
       {
-        if (v46)
+        if (v49)
         {
-          v33 = (v45 << -v46) >> -v46;
+          v33 = (v48 << -v49) >> -v49;
         }
 
         else
@@ -2311,22 +2311,22 @@ LABEL_10:
         }
       }
 
-      v35 = v54;
-      mlir::CallableOpInterface::getArgAttrsAttr(v49);
+      v35 = v57;
+      mlir::CallableOpInterface::getArgAttrsAttr(v52);
       SortedUniquePromotedPositiveAxesAttr = mlir::getSortedUniquePromotedPositiveAxesAttr(v35, v36, *(a1 + 24), 1);
-      v48 = v37;
+      v51 = v37;
       if (v37)
       {
         if (mlir::DenseElementsAttr::getNumElements(&SortedUniquePromotedPositiveAxesAttr) == 1)
         {
           v38 = v24 + 2;
-          mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v43, SortedUniquePromotedPositiveAxesAttr, 0);
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v43, &v45);
-          if (v46 < 0x41)
+          mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v46, SortedUniquePromotedPositiveAxesAttr, 0);
+          mlir::DenseElementsAttr::IntElementIterator::operator*(&v46, &v48);
+          if (v49 < 0x41)
           {
-            if (v46)
+            if (v49)
             {
-              v39 = (v45 << -v46) >> -v46;
+              v39 = (v48 << -v49) >> -v49;
             }
 
             else
@@ -2342,8 +2342,8 @@ LABEL_10:
             goto LABEL_50;
           }
 
-          v41 = *v45;
-          operator delete[](v45);
+          v41 = *v48;
+          operator delete[](v48);
           if (v38 == v41)
           {
 LABEL_50:
@@ -2352,22 +2352,22 @@ LABEL_50:
           }
 
 LABEL_40:
-          v43 = operator new(0x40uLL);
-          v44 = xmmword_1E09827C0;
-          strcpy(v43, "only supporting NCHW in Depth <-> Space -> Channel <-> Space");
+          v46 = operator new(0x40uLL);
+          v47 = xmmword_1E09827C0;
+          strcpy(v46, "only supporting NCHW in Depth <-> Space -> Channel <-> Space");
           goto LABEL_43;
         }
 
 LABEL_42:
-        v43 = operator new(0x28uLL);
-        v44 = xmmword_1E09828E0;
-        strcpy(v43, "Channel <-> Space supports only 1 axis");
+        v46 = operator new(0x28uLL);
+        v47 = xmmword_1E09828E0;
+        strcpy(v46, "Channel <-> Space supports only 1 axis");
 LABEL_43:
-        result = mlir::logMatchFailure(&v43, *(a1 + 24), a2);
-        if (SHIBYTE(v44) < 0)
+        result = mlir::logMatchFailure(&v46, *(a1 + 24), a2);
+        if (SHIBYTE(v47) < 0)
         {
           v40 = result;
-          operator delete(v43);
+          operator delete(v46);
           result = v40;
         }
 
@@ -2378,7 +2378,7 @@ LABEL_43:
 
   result = 0;
 LABEL_45:
-  if (__p == &v52 + 8)
+  if (__p == &v55 + 8)
   {
     return result;
   }
@@ -2388,7 +2388,7 @@ LABEL_45:
   return v20;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::PixelShuffle,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::PixelShuffle,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2402,7 +2402,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::PixelShuffle,mlir::Value,mlir::Dens
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::PixelShuffle::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::PixelShuffle,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::PixelShuffle,void>::id)
   {
     v12 = v11;
   }
@@ -2497,7 +2497,7 @@ uint64_t mlir::anonymous namespace::ConvertDepthToSpace2D<mlir::anec::ChannelToS
     v14 = v31;
   }
 
-  v27 = mlir::DenseElementsAttr::getFromRawBuffer(v10, v13, v14, v15, 8, 1, 0);
+  v27 = mlir::DenseElementsAttr::getFromRawBuffer(v10, v13, v14, v15);
   v16 = v28;
   v17 = mlir::ValueRange::dereference_iterator(&v32, 0);
   v18 = *(*(v28 + 9) + 24);
@@ -2524,7 +2524,7 @@ uint64_t mlir::anonymous namespace::ConvertDepthToSpace2D<mlir::anec::ChannelToS
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ChannelToSpace,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::ChannelToSpace,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2538,7 +2538,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ChannelToSpace,mlir::Value,mlir::De
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::ChannelToSpace::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ChannelToSpace,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ChannelToSpace,void>::id)
   {
     v12 = v11;
   }
@@ -2898,7 +2898,7 @@ LABEL_4:
     v13 = v40;
   }
 
-  v37.__r_.__value_.__r.__words[0] = mlir::DenseElementsAttr::getFromRawBuffer(v9, v12, v13, v14, 8, 1, 0);
+  v37.__r_.__value_.__r.__words[0] = mlir::DenseElementsAttr::getFromRawBuffer(v9, v12, v13, v14);
   v20 = v38;
   v21 = mlir::ValueRange::dereference_iterator(&v41, 0);
   v22 = *(*(v38 + 9) + 24);
@@ -2923,7 +2923,7 @@ LABEL_4:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::PixelUnshuffle,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::PixelUnshuffle,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -2937,7 +2937,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::PixelUnshuffle,mlir::Value,mlir::De
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::PixelUnshuffle::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::PixelUnshuffle,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::PixelUnshuffle,void>::id)
   {
     v12 = v11;
   }
@@ -3125,7 +3125,7 @@ LABEL_30:
     v18 = v40;
   }
 
-  v37.__r_.__value_.__r.__words[0] = mlir::DenseElementsAttr::getFromRawBuffer(v14, v17, v18, v19, 8, 1, 0);
+  v37.__r_.__value_.__r.__words[0] = mlir::DenseElementsAttr::getFromRawBuffer(v14, v17, v18, v19);
   v20 = v38;
   v21 = mlir::ValueRange::dereference_iterator(&v41, 0);
   v22 = *(*(v38 + 9) + 24);
@@ -3150,7 +3150,7 @@ LABEL_30:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::SpaceToChannel,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::SpaceToChannel,mlir::Value,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -3164,7 +3164,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::SpaceToChannel,mlir::Value,mlir::De
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::SpaceToChannel::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::SpaceToChannel,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::SpaceToChannel,void>::id)
   {
     v12 = v11;
   }
@@ -3640,7 +3640,7 @@ LABEL_46:
     }
 
     v4 = 1;
-    *&v56 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, __p, 8 * *v60, 8, 1, 0);
+    *&v56 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, __p, 8 * *v60);
     v48 = mlir::OpBuilder::create<mlir::anec::BatchToSpace,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, *(a2 + 24), &v54, &v56);
     ((*a4)[1])(a4, a2, v48);
 LABEL_58:
@@ -3676,7 +3676,7 @@ LABEL_58:
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::BatchToSpace,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::BatchToSpace,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -3690,7 +3690,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::BatchToSpace,mlir::Value &,mlir::De
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::BatchToSpace::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::BatchToSpace,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::BatchToSpace,void>::id)
   {
     v12 = v11;
   }
@@ -4166,7 +4166,7 @@ LABEL_46:
     }
 
     v4 = 1;
-    *&v56 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, __p, 8 * *v60, 8, 1, 0);
+    *&v56 = mlir::DenseElementsAttr::getFromRawBuffer(v44, v46, __p, 8 * *v60);
     v48 = mlir::OpBuilder::create<mlir::anec::SpaceToBatch,mlir::Value &,mlir::DenseIntElementsAttr &>(a4 + 1, *(a2 + 24), &v54, &v56);
     ((*a4)[1])(a4, a2, v48);
 LABEL_58:
@@ -4202,7 +4202,7 @@ LABEL_58:
   return result;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::SpaceToBatch,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::anec::SpaceToBatch,mlir::Value &,mlir::DenseIntElementsAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -4216,7 +4216,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::SpaceToBatch,mlir::Value &,mlir::De
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::SpaceToBatch::build(a1, v17, *a3, *a4);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::SpaceToBatch,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::SpaceToBatch,void>::id)
   {
     v12 = v11;
   }
@@ -6409,7 +6409,7 @@ LABEL_33:
   return matched;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::Value &,mlir::mps::ConstantOp &,decltype(nullptr)>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, void *a4)
+char *mlir::OpBuilder::create<mlir::anec::MatMul,mlir::Value &,mlir::mps::ConstantOp &,decltype(nullptr)>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   v17[38] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -6423,7 +6423,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::Value &,mlir::mps::Con
   mlir::OperationState::OperationState(v17, a2, v9);
   mlir::anec::MatMul::build(a1, v17, *a3, *a4 - 16, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::MatMul,void>::id)
   {
     v12 = v11;
   }
@@ -6437,7 +6437,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::MatMul,mlir::Value &,mlir::mps::Con
   return v12;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::ValueRange>(uint64_t *a1, uint64_t a2, uint64_t a3)
+char *mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::ValueRange>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3)
 {
   v15[38] = *MEMORY[0x1E69E9840];
   v12 = a2;
@@ -6449,9 +6449,9 @@ uint64_t mlir::OpBuilder::create<mlir::anec::ElementwiseAdd,mlir::ValueRange>(ui
   }
 
   mlir::OperationState::OperationState(v15, a2, v7);
-  mlir::anec::Ceil::build(a1, v15, *a3, *(a3 + 8), 0, 0);
+  mlir::anec::Ceil::build(a1, v15, *a3, a3[1], 0, 0);
   v9 = mlir::OpBuilder::create(a1, v15);
-  if (*(*(v9 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::ElementwiseAdd,void>::id)
   {
     v10 = v9;
   }
@@ -7493,7 +7493,7 @@ void mlir::anonymous namespace::ConvertPadding<(mlir::anec::Family)0>::matchAndR
   }
 }
 
-uint64_t mlir::anonymous namespace::ConvertPadding<(mlir::anec::Family)0>::createPadding(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t *a6, uint64_t a7)
+char *mlir::anonymous namespace::ConvertPadding<(mlir::anec::Family)0>::createPadding(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t *a6, uint64_t a7)
 {
   v40 = *MEMORY[0x1E69E9840];
   v37 = v39;
@@ -7548,7 +7548,7 @@ uint64_t mlir::anonymous namespace::ConvertPadding<(mlir::anec::Family)0>::creat
     v23 = 0;
   }
 
-  v31 = mlir::DenseElementsAttr::getFromRawBuffer(v21, v23, v37, 8 * v38, 8, 1, 0);
+  v31 = mlir::DenseElementsAttr::getFromRawBuffer(v21, v23, v37, 8 * v38);
   v32 = 5;
   v24 = mlir::Builder::getIntegerType((a7 + 8), 64, 0);
   v25 = mlir::RankedTensorType::get(&v32, 1, v24, 0);
@@ -7564,7 +7564,7 @@ uint64_t mlir::anonymous namespace::ConvertPadding<(mlir::anec::Family)0>::creat
     v27 = 0;
   }
 
-  *&v33 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, v34, 8 * v35, 8, 1, 0);
+  *&v33 = mlir::DenseElementsAttr::getFromRawBuffer(v25, v27, v34, 8 * v35);
   v28 = mlir::OpBuilder::create<mlir::anec::Padding,mlir::Value const&,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::FloatAttr &>((a7 + 8), a1, a2, &v33, &v31, a6);
   if (v34 != v36)
   {
@@ -7623,13 +7623,13 @@ void mlir::getListOfPairs<unsigned long long>(uint64_t a1, uint64_t a2, uint64_t
   }
 }
 
-char *llvm::SmallVectorImpl<std::pair<unsigned long long,unsigned long long>>::insert<std::pair<unsigned long long,unsigned long long>*,void>(uint64_t a1, uint64_t a2, char *__src, char *a4)
+char *llvm::SmallVectorImpl<std::pair<unsigned long long,unsigned long long>>::insert<std::pair<unsigned long long,unsigned long long>*,void>(uint64_t *a1, uint64_t a2, char *__src, char *a4)
 {
   v7 = *a1;
   v8 = *a1;
   v9 = a2 - *a1;
-  v11 = *(a1 + 8);
-  v10 = *(a1 + 12);
+  v11 = *(a1 + 2);
+  v10 = *(a1 + 3);
   v12 = a4 - __src;
   v13 = (a4 - __src) >> 4;
   v14 = v13 + v11;
@@ -7637,19 +7637,19 @@ char *llvm::SmallVectorImpl<std::pair<unsigned long long,unsigned long long>>::i
   {
     if (v14 > v10)
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v14, 16);
-      LODWORD(v11) = *(a1 + 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v14, 16);
+      LODWORD(v11) = *(a1 + 2);
       v8 = *a1;
     }
 
     if (__src != a4)
     {
       memcpy((v8 + 16 * v11), __src, v12);
-      LODWORD(v11) = *(a1 + 8);
+      LODWORD(v11) = *(a1 + 2);
       v8 = *a1;
     }
 
-    *(a1 + 8) = v11 + (v12 >> 4);
+    *(a1 + 2) = v11 + (v12 >> 4);
     return (v8 + v9);
   }
 
@@ -7658,9 +7658,9 @@ char *llvm::SmallVectorImpl<std::pair<unsigned long long,unsigned long long>>::i
     v103 = __src;
     if (v14 > v10)
     {
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v14, 16);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v14, 16);
       v8 = *a1;
-      v11 = *(a1 + 8);
+      v11 = *(a1 + 2);
     }
 
     v15 = (v8 + v9);
@@ -7672,7 +7672,7 @@ char *llvm::SmallVectorImpl<std::pair<unsigned long long,unsigned long long>>::i
     if (v19 >> 4 < v13)
     {
       v21 = v11 + (v12 >> 4);
-      *(a1 + 8) = v21;
+      *(a1 + 2) = v21;
       if (v17 == v16)
       {
         v22 = v103;
@@ -7741,12 +7741,12 @@ LABEL_21:
 
     v23 = v16;
     v24 = 16 * v13;
-    if (v13 + v11 > *(a1 + 12))
+    if (v13 + v11 > *(a1 + 3))
     {
       v25 = v8;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v13 + v11, 16);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 2, v13 + v11, 16);
       v8 = v25;
-      LODWORD(v11) = *(a1 + 8);
+      LODWORD(v11) = *(a1 + 2);
     }
 
     v26 = &v18[-v24];
@@ -7767,10 +7767,10 @@ LABEL_21:
       }
 
       while (v28);
-      LODWORD(v11) = *(a1 + 8);
+      LODWORD(v11) = *(a1 + 2);
     }
 
-    *(a1 + 8) = v11 + v13;
+    *(a1 + 2) = v11 + v13;
     if (v26 != v15)
     {
       v35 = v17 + v7 - (v24 + v29) - 16;
@@ -7938,7 +7938,7 @@ LABEL_26:
   return v15;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::Padding,mlir::Value const&,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::FloatAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
+char *mlir::OpBuilder::create<mlir::anec::Padding,mlir::Value const&,mlir::DenseIntElementsAttr &,mlir::DenseIntElementsAttr &,mlir::FloatAttr &>(mlir::UnknownLoc **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6)
 {
   v21[38] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -7952,7 +7952,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::Padding,mlir::Value const&,mlir::De
   mlir::OperationState::OperationState(v21, a2, v13);
   mlir::anec::Padding::build(a1, v21, *a3, *a4, *a5, *a6);
   v15 = mlir::OpBuilder::create(a1, v21);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Padding,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::Padding,void>::id)
   {
     v16 = v15;
   }
@@ -8692,16 +8692,16 @@ LABEL_34:
   return result;
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -8726,7 +8726,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -8741,7 +8741,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -8755,7 +8755,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -8801,7 +8801,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)0>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -8816,7 +8816,7 @@ LABEL_14:
   return matched;
 }
 
-uint64_t mlir::anonymous namespace::makeInputViewOp<(mlir::anec::Family)0>(uint64_t a1, uint64_t a2, uint64_t a3, mlir::anec *a4, unint64_t a5, uint64_t a6, uint64_t a7)
+char *mlir::anonymous namespace::makeInputViewOp<(mlir::anec::Family)0>(uint64_t a1, uint64_t a2, uint64_t a3, mlir::anec *a4, mlir::anec *a5, uint64_t a6, uint64_t a7)
 {
   v44 = a7;
   NextResultAtOffset = a3;
@@ -8874,16 +8874,16 @@ LABEL_29:
       v27 = v23 - v26;
       if (v23 != v26)
       {
-        v28 = *(ArgAttrsAttr + 8 * v21) - v15;
+        v28 = (*(ArgAttrsAttr + 8 * v21) - v15);
         do
         {
           v41 = a4;
           isSplat = v28;
           v40 = v15;
           v29 = mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value,long long const&,unsigned long long &,long long &>((a1 + 8), a2, &NextResultAtOffset, &v41, &v40, &isSplat);
-          if (*(v29 + 36))
+          if (*(v29 + 9))
           {
-            v30 = v29 - 16;
+            v30 = (v29 - 16);
           }
 
           else
@@ -8892,7 +8892,7 @@ LABEL_29:
           }
 
           NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v30, 0);
-          v28 -= v15;
+          v28 = (v28 - v15);
           --v27;
         }
 
@@ -8915,11 +8915,11 @@ LABEL_29:
     }
   }
 
-  v33 = std::__throw_bad_optional_access[abi:nn200100]();
+  std::__throw_bad_optional_access[abi:nn200100]();
   return mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long,unsigned long long,unsigned long long,long long &>(v33, v34, v35, v36, v37, v38, v39);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long,unsigned long long,unsigned long long,long long &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
+char *mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned long long,unsigned long long,unsigned long long,long long &>(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7)
 {
   v23[38] = *MEMORY[0x1E69E9840];
   v20 = a2;
@@ -8933,7 +8933,7 @@ uint64_t mlir::OpBuilder::create<mlir::anec::InputView,mlir::Value &,unsigned lo
   mlir::OperationState::OperationState(v23, a2, v15);
   mlir::anec::InputView::build(a1, v23, *a3, *a4, *a5, *a6, *a7);
   v17 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v17 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
+  if (*(*(v17 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::anec::InputView,void>::id)
   {
     v18 = v17;
   }
@@ -8981,16 +8981,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9015,7 +9015,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9030,7 +9030,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9044,7 +9044,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9090,7 +9090,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)1>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -9139,16 +9139,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9173,7 +9173,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9188,7 +9188,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9202,7 +9202,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9248,7 +9248,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)2>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -9263,7 +9263,7 @@ LABEL_14:
   return matched;
 }
 
-uint64_t mlir::anonymous namespace::makeInputViewOp<(mlir::anec::Family)2>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+char *mlir::anonymous namespace::makeInputViewOp<(mlir::anec::Family)2>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v20 = a7;
   v21 = a3;
@@ -9327,16 +9327,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9361,7 +9361,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9376,7 +9376,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9390,7 +9390,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9436,7 +9436,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)3>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -9485,16 +9485,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9519,7 +9519,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9534,7 +9534,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9548,7 +9548,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9594,7 +9594,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)4>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -9643,16 +9643,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9677,7 +9677,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9692,7 +9692,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9706,7 +9706,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9752,7 +9752,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)5>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);
@@ -9801,16 +9801,16 @@ void mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::~ConvertSli
   operator delete(__p);
 }
 
-uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAndRewriteWithStaticShapes(uint64_t a1, uint64_t *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
+uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAndRewriteWithStaticShapes(uint64_t a1, mlir::Operation *a2, uint64_t a3, mlir::ConversionPatternRewriter *a4)
 {
   v44 = *MEMORY[0x1E69E9840];
   v43 = *(a3 + 40);
-  v6 = a2[9];
+  v6 = *(a2 + 9);
   v7 = (*(*(v6 + 24) + 8) & 0xFFFFFFFFFFFFFFF8);
   if (v7)
   {
     v8 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v7 + 8);
-    v6 = a2[9];
+    v6 = *(a2 + 9);
   }
 
   else
@@ -9835,7 +9835,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAn
     {
       v33[0] = mlir::getRankPromotionTypeForANE(v37, v38);
       v33[1] = v13;
-      v14 = *(a2[9] + 88);
+      v14 = *(*(a2 + 9) + 88);
       __p = 0;
       *&v35 = 0;
       p_p = &__p;
@@ -9850,7 +9850,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAn
         if (v23)
         {
           v24 = PositiveAxis;
-          v25 = *(a2[9] + 120);
+          v25 = *(*(a2 + 9) + 120);
           __p = 0;
           *&v35 = 0;
           p_p = &__p;
@@ -9864,7 +9864,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAn
               if ((SingleInt & 0x100000000) != 0)
               {
                 v28 = SingleInt;
-                v29 = a2[3];
+                v29 = *(a2 + 3);
                 v30 = mlir::ValueRange::dereference_iterator(&v43, 0);
                 v31 = v28;
                 matched = 1;
@@ -9910,7 +9910,7 @@ uint64_t mlir::anonymous namespace::ConvertSlice<(mlir::anec::Family)6>::matchAn
     strcpy(__p, "failed: cannot handle a non-constant axis on ANEs.");
   }
 
-  matched = mlir::logMatchFailure(&__p, a2[3], a4);
+  matched = mlir::logMatchFailure(&__p, *(a2 + 3), a4);
   if (SHIBYTE(v35) < 0)
   {
     operator delete(__p);

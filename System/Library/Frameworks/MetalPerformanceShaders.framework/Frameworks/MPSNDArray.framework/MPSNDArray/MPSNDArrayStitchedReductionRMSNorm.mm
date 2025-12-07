@@ -17,7 +17,7 @@
   return [(MPSNDArrayStitchedReduction *)&v6 initWithDevice:device axis:axis descriptor:[[MPSNDArrayStitchedReductionDescriptor alloc] initWithStateSize:4 invariantValueFn:&__block_literal_global_52 mapFn:&__block_literal_global_54 reduceFn:&__block_literal_global_56 writeFn:v7]];
 }
 
-uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke(int a1, MPSKernelUserDAG *this)
+uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke(int a1, MPSKernelUserDAG *this, uint64_t a3)
 {
   MPSKernelUserDAG::constantOp(this, 0.0, 268435488);
   MPSKernelUserDAG::constantOp(this, 0, 536870944);
@@ -25,7 +25,7 @@ uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___
   return MPSKernelUserDAG::assignStateFromValueCoord();
 }
 
-uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_2(int a1, MPSKernelUserDAG *this)
+uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_2(int a1, MPSKernelUserDAG *this, uint64_t a3, uint64_t a4)
 {
   MPSKernelUserDAG::constantOp(this, 0, 536870944);
   MPSKernelUserDAG::toValueCoord();
@@ -34,7 +34,7 @@ uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___
   return MPSKernelUserDAG::assignStateFromValueCoord();
 }
 
-uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_3(int a1, MPSKernelUserDAG *this)
+uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_3(int a1, MPSKernelUserDAG *this, uint64_t a3, uint64_t a4)
 {
   MPSKernelUserDAG::constantOp(this, 0, 536870944);
   MPSKernelUserDAG::readStateFromReference();
@@ -44,7 +44,7 @@ uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___
   return MPSKernelUserDAG::assignStateFromValueCoord();
 }
 
-uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_4(uint64_t a1, MPSKernelUserDAG *this)
+uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___block_invoke_4(uint64_t a1, MPSKernelUserDAG *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   MPSKernelUserDAG::constantOp(this, 0, 536870944);
   MPSKernelUserDAG::readState();
@@ -54,9 +54,9 @@ uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___
   MPSKernelUserDAG::addition();
   MPSKernelUserDAG::reverseSquareRoot();
   MPSKernelUserDAG::toValueCoord();
-  v4 = MPSKernelUserDAG::multiplication();
+  v7 = MPSKernelUserDAG::multiplication();
 
-  return MEMORY[0x282124178](this, v4, 268435488);
+  return MEMORY[0x282124178](this, v7, 268435488);
 }
 
 - (void)setEpsilon:(float)epsilon
@@ -75,7 +75,7 @@ uint64_t __66__MPSNDArrayStitchedReductionRMSNorm_initWithDevice_axis_epsilon___
   }
 }
 
-uint64_t __49__MPSNDArrayStitchedReductionRMSNorm_setEpsilon___block_invoke(uint64_t a1, MPSKernelUserDAG *this)
+uint64_t __49__MPSNDArrayStitchedReductionRMSNorm_setEpsilon___block_invoke(uint64_t a1, MPSKernelUserDAG *this, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   MPSKernelUserDAG::constantOp(this, 0, 536870944);
   MPSKernelUserDAG::readState();
@@ -85,9 +85,9 @@ uint64_t __49__MPSNDArrayStitchedReductionRMSNorm_setEpsilon___block_invoke(uint
   MPSKernelUserDAG::addition();
   MPSKernelUserDAG::reverseSquareRoot();
   MPSKernelUserDAG::toValueCoord();
-  v4 = MPSKernelUserDAG::multiplication();
+  v7 = MPSKernelUserDAG::multiplication();
 
-  return MEMORY[0x282124178](this, v4, 268435488);
+  return MEMORY[0x282124178](this, v7, 268435488);
 }
 
 @end

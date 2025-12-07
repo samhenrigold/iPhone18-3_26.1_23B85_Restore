@@ -482,13 +482,12 @@ LABEL_47:
 
       v32 = objc_opt_class();
       NSStringFromClass(v32);
-      v41 = dataCopy;
+      v39 = dataCopy;
       v34 = v33 = error;
-      v35 = *&v7[*v10];
       v11 = CCSkipFieldErrorForMessage();
 
       error = v33;
-      dataCopy = v41;
+      dataCopy = v39;
 LABEL_48:
       if (*&v7[*v8] < *&v7[*v9])
       {
@@ -508,22 +507,21 @@ LABEL_48:
 LABEL_56:
   if (!*&v7[*v10])
   {
-    v39 = 1;
+    v37 = 1;
     goto LABEL_60;
   }
 
 LABEL_57:
-  v36 = objc_opt_class();
-  v11 = NSStringFromClass(v36);
-  v37 = *&v7[*v10];
-  v38 = CCInvalidBufferErrorForMessage();
+  v35 = objc_opt_class();
+  v11 = NSStringFromClass(v35);
+  v36 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_58:
-  v39 = 0;
+  v37 = 0;
 LABEL_60:
 
-  return v39;
+  return v37;
 }
 
 - (CCWalletPaymentsCommerceOrderEmailEmailMetadata)initWithMessageID:(id)d dateSent:(id)sent subject:(id)subject senderDomain:(id)domain fromEmailAddress:(id)address fromDisplayName:(id)name toEmailAddress:(id)emailAddress toDisplayName:(id)self0 replyToEmailAddress:(id)self1 replyToDisplayName:(id)self2 error:(id *)self3

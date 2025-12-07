@@ -60,7 +60,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([(WFExternalDisplayTrigger *)self onConnect]&& [(WFExternalDisplayTrigger *)self onDisconnect])
   {
     v3 = @"Display connected or disconnected";
@@ -81,26 +81,25 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFExternalDisplayTrigger localizedPastTenseDescription]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFExternalDisplayTrigger localizedPastTenseDescription]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if ([(WFExternalDisplayTrigger *)self onConnect]&& [(WFExternalDisplayTrigger *)self onDisconnect])
   {
     v3 = @"When my display is connected or disconnected";
@@ -121,19 +120,18 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v7 = getWFTriggersLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  v6 = getWFTriggersLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFExternalDisplayTrigger localizedDescriptionWithConfigurationSummary]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFExternalDisplayTrigger localizedDescriptionWithConfigurationSummary]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", &v7, 0x16u);
   }
 
   v4 = &stru_1F4A1C408;
 LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -221,16 +219,14 @@ LABEL_9:
 
 + (id)onIcon
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69E0B58];
   tintColor = [self tintColor];
-  v10[0] = tintColor;
+  v9[0] = tintColor;
   tintColor2 = [self tintColor];
-  v10[1] = tintColor2;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[1] = tintColor2;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = [v3 triggerConfigurationSymbolNamed:@"cable.connector" hierarchicalColors:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
